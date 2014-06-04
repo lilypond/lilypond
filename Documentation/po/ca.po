@@ -4,12 +4,15 @@
 # This file is distributed under the same license as the lilypond package.
 #
 # Walter Garcia-Fontes <walter.garcia@upf.edu>, 2014.
+# Algunes decisions de traducció:
+# engraver:	  Gravador
+# grob:		  Objecte gràfic de tipografia
 msgid ""
 msgstr ""
 "Project-Id-Version: ca\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-04-25 19:39+0200\n"
-"PO-Revision-Date: 2014-05-14 07:35+0200\n"
+"PO-Revision-Date: 2014-06-01 20:38+0200\n"
 "Last-Translator: Walter Garcia-Fontes <walter.garcia@upf.edu>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "Language: ca\n"
@@ -7212,11 +7215,11 @@ msgstr ""
 
 #. @subheading in Documentation/cs/learning/tweaks.itely
 msgid "Noten zwischen unterschiedlichen Stimmen überbinden"
-msgstr ""
+msgstr "Lligar notes entre veus diferents"
 
 #. @subheading in Documentation/cs/learning/tweaks.itely
 msgid "Eine Fermate in MIDI simulieren"
-msgstr ""
+msgstr "Simular una fermata al MIDI"
 
 #. @node in Documentation/cs/learning/tweaks.itely
 #. @subsection in Documentation/cs/learning/tweaks.itely
@@ -7358,79 +7361,79 @@ msgstr "discanto"
 #. Documentation/snippets/accordion-discant-symbols.ly:45 (variable)
 #. Documentation/snippets/anglican-psalm-template.ly:89 (variable)
 msgid "dot"
-msgstr "punto"
+msgstr "punt"
 
 #. Documentation/snippets/accordion-discant-symbols.ly:51 (comment)
 msgid "16 voets register"
-msgstr "registro de 16 pies"
+msgstr "registre de 16 peus"
 
 #. Documentation/snippets/accordion-discant-symbols.ly:52 (variable)
 msgid "accBasson"
-msgstr "acordFagot"
+msgstr "accBasson"
 
 #. Documentation/snippets/accordion-discant-symbols.ly:58 (comment)
 msgid "een korig 8 en 16 voets register"
-msgstr "registro de een korig 8 en 16 pies"
+msgstr "registre d'een korig 8 en 16 peus"
 
 #. Documentation/snippets/accordion-discant-symbols.ly:59 (variable)
 msgid "accBandon"
-msgstr "acordBandon"
+msgstr "accBandon"
 
 #. Documentation/snippets/accordion-discant-symbols.ly:67 (variable)
 msgid "accVCello"
-msgstr "acordVCello"
+msgstr "accVCello"
 
 #. Documentation/snippets/accordion-discant-symbols.ly:77 (comment)
 msgid "4-8-16 voets register"
-msgstr "registro de 4-8-16 pies"
+msgstr "registre de 4-8-16 pies"
 
 #. Documentation/snippets/accordion-discant-symbols.ly:78 (variable)
 msgid "accHarmon"
-msgstr "acordArmon"
+msgstr "accHarmon"
 
 #. Documentation/snippets/accordion-discant-symbols.ly:88 (variable)
 msgid "accTrombon"
-msgstr "acordTrombon"
+msgstr "accTrombon"
 
 #. Documentation/snippets/accordion-discant-symbols.ly:100 (comment)
 msgid "eenkorig 4 en 16 voets register"
-msgstr "registro de eenkorig 4 y 16 pies"
+msgstr "registre d'eenkorig 4 i 16 peus"
 
 #. Documentation/snippets/accordion-discant-symbols.ly:101 (variable)
 msgid "accOrgan"
-msgstr "acordOrgano"
+msgstr "accOrgan"
 
 #. Documentation/snippets/accordion-discant-symbols.ly:109 (variable)
 msgid "accMaster"
-msgstr "acordMaestro"
+msgstr "accMaster"
 
 #. Documentation/snippets/accordion-discant-symbols.ly:123 (variable)
 msgid "accAccord"
-msgstr "acordAcordeon"
+msgstr "accAccord"
 
 #. Documentation/snippets/accordion-discant-symbols.ly:135 (variable)
 msgid "accMusette"
-msgstr "accordMusette"
+msgstr "accMusette"
 
 #. Documentation/snippets/accordion-discant-symbols.ly:145 (variable)
 msgid "accCeleste"
-msgstr "acordCeleste"
+msgstr "accCeleste"
 
 #. Documentation/snippets/accordion-discant-symbols.ly:153 (variable)
 msgid "accOboe"
-msgstr "acordOboe"
+msgstr "accOboe"
 
 #. Documentation/snippets/accordion-discant-symbols.ly:161 (variable)
 msgid "accClarin"
-msgstr "acordClarin"
+msgstr "accClarin"
 
 #. Documentation/snippets/accordion-discant-symbols.ly:167 (variable)
 msgid "accPiccolo"
-msgstr "acordPiccolo"
+msgstr "accPiccolo"
 
 #. Documentation/snippets/accordion-discant-symbols.ly:173 (variable)
 msgid "accViolin"
-msgstr "acordViolin"
+msgstr "accViolin"
 
 #. Documentation/snippets/adding-a-figured-bass-above-or-below-the-notes.ly:54 (variable)
 msgid "continuo"
@@ -7447,7 +7450,7 @@ msgstr "\\bassFigureStaffAlignmentDown"
 #. Documentation/snippets/adding-a-figured-bass-above-or-below-the-notes.ly:66 (context id)
 #. Documentation/snippets/adding-a-figured-bass-above-or-below-the-notes.ly:67 (context id)
 msgid "bassStaff"
-msgstr "pentagramaBajo"
+msgstr "bassStaff"
 
 #. Documentation/snippets/adding-drum-parts.ly:53 (variable)
 msgid "drh"
@@ -7463,7 +7466,7 @@ msgstr "timb"
 
 #. Documentation/snippets/adding-extra-fingering-with-scheme.ly:44 (variable)
 msgid "addScript"
-msgstr "ponerScript"
+msgstr "addScript"
 
 #. Documentation/snippets/adding-fingerings-to-tablatures.ly:40 (variable)
 #. Documentation/snippets/jazz-combo-template.ly:237 (context id)
@@ -7473,19 +7476,19 @@ msgstr "dos"
 
 #. Documentation/snippets/adding-fingerings-to-tablatures.ly:41 (variable)
 msgid "threeTwo"
-msgstr "tresDos"
+msgstr "threeTwo"
 
 #. Documentation/snippets/adding-fingerings-to-tablatures.ly:48 (variable)
 msgid "threeFour"
-msgstr "tresCuatro"
+msgstr "threeFour"
 
 #. Documentation/snippets/adding-indicators-to-staves-which-get-split-after-a-break.ly:39 (variable)
 msgid "splitStaffBarLineMarkup"
-msgstr "marcadoDivisoriaPentagramaDividido"
+msgstr "splitStaffBarLineMarkup"
 
 #. Documentation/snippets/adding-indicators-to-staves-which-get-split-after-a-break.ly:45 (variable)
 msgid "splitStaffBarLine"
-msgstr "divisoriaPentagramaDividido"
+msgstr "splitStaffBarLine"
 
 #. Documentation/snippets/adding-orchestral-cues-to-a-vocal-score.ly:91 (variable)
 msgid "cueWhile"
@@ -7497,23 +7500,23 @@ msgstr "flauta"
 
 #. Documentation/snippets/adding-orchestral-cues-to-a-vocal-score.ly:110 (variable)
 msgid "clarinet"
-msgstr "clarinete"
+msgstr "clarinet"
 
 #. Documentation/snippets/adding-orchestral-cues-to-a-vocal-score.ly:119 (variable)
 msgid "pianoRH"
-msgstr "pianoMD"
+msgstr "pianoRH"
 
 #. Documentation/snippets/adding-orchestral-cues-to-a-vocal-score.ly:124 (variable)
 msgid "pianoLH"
-msgstr "pianoMI"
+msgstr "pianoLH"
 
 #. Documentation/snippets/adding-the-current-date-to-a-score.ly:36 (comment)
 msgid "first, define a variable to hold the formatted date:"
-msgstr "primero definimos una variable para almacenar la fecha con formato:"
+msgstr "primer definim una variable per desar la data amb format:"
 
 #. Documentation/snippets/adding-the-current-date-to-a-score.ly:37 (variable)
 msgid "date"
-msgstr "fecha"
+msgstr "data"
 
 #. Documentation/snippets/adding-the-current-date-to-a-score.ly:37 (comment)
 msgid "d-%m-%Y\\\" (localtime (current-time)))"
@@ -7521,75 +7524,75 @@ msgstr "d-%m-%Y\\\" (localtime (current-time)))"
 
 #. Documentation/snippets/adding-the-current-date-to-a-score.ly:39 (comment)
 msgid "use it in the title block:"
-msgstr "usarla en el bloque de título:"
+msgstr "usa-la al bloc petit:"
 
 #. Documentation/snippets/adding-the-current-date-to-a-score.ly:50 (comment)
 msgid "and use it in a \\markup block:"
-msgstr "y usarla en un bloque \\markup:"
+msgstr "i usa-la a un bloc \\markup:"
 
 #. Documentation/snippets/additional-voices-to-avoid-collisions.ly:55 (variable)
 msgid "voiceFive"
-msgstr "vozCinco"
+msgstr "voiceFive"
 
 #. Documentation/snippets/adjusting-grace-note-spacing.ly:30 (variable)
 msgid "graceNotes"
-msgstr "notasDeAdorno"
+msgstr "graceNotes"
 
 #. Documentation/snippets/adjusting-lyrics-vertical-spacing.ly:37 (comment)
 msgid "Default layout:"
-msgstr "Diseño predeterminado:"
+msgstr "Format predeterminat"
 
 #. Documentation/snippets/adjusting-lyrics-vertical-spacing.ly:53 (comment)
 msgid "Reducing the minimum space below the staff and above the lyrics:"
-msgstr "Reducir el espacio mínimo bajo el pentagrama y sobre la letra:"
+msgstr "Reducció de l'espai mínim a sota del pentegrama i a sobre de la lletra:\n"
 
 #. Documentation/snippets/aligning-bar-numbers.ly:65 (comment)
 #. Documentation/snippets/printing-bar-numbers-inside-boxes-or-circles.ly:51 (comment)
 msgid "Increase the size of the bar number by 2"
-msgstr "Aumentar en 2 el tamaño del número de compás"
+msgstr "Augmenta en 2 la mida del número del compàs"
 
 #. Documentation/snippets/aligning-bar-numbers.ly:67 (comment)
 #. Documentation/snippets/printing-bar-numbers-at-regular-intervals.ly:63 (comment)
 msgid "Print a bar number every second measure"
-msgstr "Imprimir el número de compás cada dos compases"
+msgstr "Imprimeix el número de compàs cada dos compassos"
 
 #. Documentation/snippets/aligning-bar-numbers.ly:70 (comment)
 msgid "Center-align bar numbers"
-msgstr "Alinear números de compás al centro"
+msgstr "Alinea els números de compás al centre"
 
 #. Documentation/snippets/aligning-bar-numbers.ly:73 (comment)
 msgid "Left-align bar numbers"
-msgstr "Alinear números de compás a la izquierda"
+msgstr "Alinea els números de compàs a l'esquerra"
 
 #. Documentation/snippets/aligning-marks-with-various-notation-objects.ly:90 (comment)
 msgid "the RehearsalMark will be centered above the Clef"
-msgstr "la RehearsalMark se centra sobre la clave"
+msgstr "la RehearsalMark se centrarà sobre la clau"
 
 #. Documentation/snippets/aligning-marks-with-various-notation-objects.ly:97 (comment)
 msgid "the RehearsalMark will be centered above the TimeSignature"
-msgstr "la RehearsalMark se centra sobre el compás"
+msgstr "la RehearsalMark se centrarà sobre el compàs"
 
 #. Documentation/snippets/aligning-marks-with-various-notation-objects.ly:105 (comment)
 msgid "the RehearsalMark will be centered above the KeySignature"
-msgstr "la RehearsalMark se centra sobre la armadura"
+msgstr "la RehearsalMark se centrarà sobre l'armadura"
 
 #. Documentation/snippets/aligning-marks-with-various-notation-objects.ly:116 (comment)
 #. Documentation/snippets/aligning-marks-with-various-notation-objects.ly:128 (comment)
 msgid "the RehearsalMark will be aligned with the left edge of the KeySignature"
-msgstr "la RehearsalMark se alinea por la izquierda con la armadura"
+msgstr "la RehearsalMark s'alinearà per l'esquerra amb la armadura"
 
 #. Documentation/snippets/aligning-marks-with-various-notation-objects.ly:122 (comment)
 msgid "the RehearsalMark will be aligned with the right edge of the KeySignature"
-msgstr "la RehearsalMark se alinea por la derecha con la armadura"
+msgstr "la RehearsalMark se alinearà por la derecha con la armadura"
 
 #. Documentation/snippets/aligning-marks-with-various-notation-objects.ly:129 (comment)
 msgid "and then shifted right by one unit."
-msgstr "y se desplaza una unidad a la derecha."
+msgstr "i es desplaçarà una unitat cap a la dreta."
 
 #. Documentation/snippets/ancient-fonts.ly:40 (variable)
 #. Documentation/snippets/ancient-fonts.ly:40 (context id)
 msgid "upperStaff"
-msgstr "pentagramaSuperior"
+msgstr "upperStaff"
 
 #. Documentation/snippets/ancient-fonts.ly:52 (comment)
 msgid "\\break % 1 (8*1)"
@@ -7633,7 +7636,7 @@ msgstr "\\break % 12 (32*1)"
 #. Documentation/snippets/ancient-fonts.ly:137 (variable)
 #. Documentation/snippets/ancient-fonts.ly:137 (context id)
 msgid "lowerStaff"
-msgstr "pentagramaInferior"
+msgstr "lowerStaff"
 
 #. Documentation/snippets/ancient-fonts.ly:147 (comment)
 msgid "\\break % 2 (16*1)"
@@ -7665,11 +7668,11 @@ msgstr "cantus"
 
 #. Documentation/snippets/ancient-headword.ly:40 (comment)
 msgid "Verse 1 — Salve, Regína"
-msgstr "Verso 1 — Salve, Regína"
+msgstr "Vers 1 — Salve, Regína"
 
 #. Documentation/snippets/ancient-headword.ly:51 (comment)
 msgid "Verse 2 — Vita, dulcédo"
-msgstr "Verso 2 — Vita, dulcédo"
+msgstr "Vers 2 — Vita, dulcédo"
 
 #. Documentation/snippets/ancient-headword.ly:52 (comment)
 msgid "a\\melisma \\[ a \\flexa g \\pes a\\melismaEnd \\] d"
@@ -7709,15 +7712,15 @@ msgstr "\\finalis"
 
 #. Documentation/snippets/ancient-headword.ly:61 (comment)
 msgid "Verse 3 — Ad te clamámus"
-msgstr "Verso 3 — Ad te clamámus"
+msgstr "Vers 3 — Ad te clamámus"
 
 #. Documentation/snippets/ancient-headword.ly:70 (comment)
 msgid "Verse 4 — Ad te suspirámus"
-msgstr "Verso 4 — Ad te suspirámus"
+msgstr "Vers 4 — Ad te suspirámus"
 
 #. Documentation/snippets/ancient-headword.ly:83 (comment)
 msgid "Verse 5 — Eia ergo, Advocáta nostra"
-msgstr "Verso 5 — Eia ergo, Advocáta nostra"
+msgstr "Vers 5 — Eia ergo, Advocáta nostra"
 
 #. Documentation/snippets/ancient-headword.ly:99 (comment)
 msgid "Verse 6 — Et Jesum"
@@ -7725,7 +7728,7 @@ msgstr "Verso 6 — Et Jesum"
 
 #. Documentation/snippets/ancient-headword.ly:113 (comment)
 msgid "Verse 7 ad finem — O clemens: O pia: O dulcis Virgo María"
-msgstr "Verso 7 ad finem — O clemens: O pia: O dulcis Virgo María"
+msgstr "Vers 7 ad finem — O clemens: O pia: O dulcis Virgo María"
 
 #. Documentation/snippets/ancient-headword.ly:131 (comment)
 msgid "Vi- ta, dul- cé- do, et spes no- stra, sal- ve."
@@ -7733,7 +7736,7 @@ msgstr "Vi- ta, dul- cé- do, et spes no- stra, sal- ve."
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly:68 (variable)
 msgid "chant"
-msgstr "canto"
+msgstr "cant"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly:75 (variable)
 msgid "verba"
@@ -7756,54 +7759,54 @@ msgstr "incipit"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:88 (comment)
 msgid "Set tight spacing"
-msgstr "Establecer espaciado apretado"
+msgstr "Estableix l'espaiat atapeït"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:96 (comment)
 msgid "turn off bar lines"
-msgstr "oculter líneas divisorias"
+msgstr "deshabilita les línies de compàs"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:100 (comment)
 msgid "need this extra \\skip such that clef change comes"
-msgstr "se necesita este \\skip adicional tal que el cambio de clave aparezca"
+msgstr "cal aquest \\skip addicional perquè apareguin els canvis de clau"
 
 # También Líneas divisorias. FVD
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:101 (comment)
 msgid "after bar line"
-msgstr "después de la barra de compás"
+msgstr "després de la barra de compàs"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:105 (comment)
 msgid "turn bar lines on again"
-msgstr "activar de nuevo las barras de compás"
+msgstr "activa les línies de compàs un altre cop"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:113 (comment)
 msgid "Setting printKeyCancellation back to #t must not"
-msgstr "Establecer de nuevo printKeyCancellation a #t no debe"
+msgstr "L'establiment de printKeyCancellation a #t no ha d'"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:114 (comment)
 msgid "occur in the first bar after the incipit.  Dto. for forceClef."
-msgstr "ocurrir en el primer compás después del incipit. Lo mismo para forceClef."
+msgstr "ocórrer al primer compàs després de l'incipit. El mateix per a forceClef."
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:115 (comment)
 msgid "Therefore, we need an extra \\skip."
-msgstr "Por tanto, necesitamos un \\skip adicional."
+msgstr "Per tant, cal un \\skip addicional."
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:120 (comment)
 #. Documentation/snippets/incipit.ly:78 (comment)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:42 (comment)
 msgid "the actual music"
-msgstr "la música en sí"
+msgstr "la música real"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:122 (comment)
 #. Documentation/snippets/incipit.ly:81 (comment)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:43 (comment)
 msgid "let finis bar go through all staves"
-msgstr "hacer que la línea de finis cruce todas las pautas"
+msgstr "fes que la barra de finalització travessi totes les pautes"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:125 (comment)
 #. Documentation/snippets/incipit.ly:84 (comment)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:45 (comment)
 msgid "finis bar"
-msgstr "línea de finis"
+msgstr "linia de barra de finalització"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:129 (variable)
 #. Documentation/snippets/incipit.ly:101 (variable)
@@ -7811,7 +7814,7 @@ msgstr "línea de finis"
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:49 (variable)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:238 (context id)
 msgid "discantusNotes"
-msgstr "notasDiscanto"
+msgstr "discantusNotes"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:135 (comment)
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:172 (comment)
@@ -7832,14 +7835,14 @@ msgstr "notasDiscanto"
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:194 (comment)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:221 (comment)
 msgid "two bars"
-msgstr "dos compases"
+msgstr "dos compassos"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:136 (comment)
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:239 (comment)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:141 (comment)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:220 (comment)
 msgid "eight bars"
-msgstr "ocho compases"
+msgstr "vuit compassos"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:137 (comment)
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:171 (comment)
@@ -7852,13 +7855,13 @@ msgstr "ocho compases"
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:193 (comment)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:195 (comment)
 msgid "one bar"
-msgstr "un compás"
+msgstr "un compàs"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:151 (variable)
 #. Documentation/snippets/incipit.ly:115 (variable)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:62 (variable)
 msgid "discantusLyrics"
-msgstr "letraDiscanto"
+msgstr "discantusLyrics"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:165 (variable)
 #. Documentation/snippets/incipit.ly:138 (variable)
@@ -7866,18 +7869,18 @@ msgstr "letraDiscanto"
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:72 (variable)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:245 (context id)
 msgid "altusNotes"
-msgstr "notasAlto"
+msgstr "altusNotes"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:173 (comment)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:167 (comment)
 msgid "seven bars"
-msgstr "siete compases"
+msgstr "set compassos"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:187 (variable)
 #. Documentation/snippets/incipit.ly:152 (variable)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:84 (variable)
 msgid "altusLyrics"
-msgstr "letraAltus"
+msgstr "altusLyrics"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:199 (variable)
 #. Documentation/snippets/incipit.ly:176 (variable)
@@ -7885,19 +7888,19 @@ msgstr "letraAltus"
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:92 (variable)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:252 (context id)
 msgid "tenorNotes"
-msgstr "notasTenor"
+msgstr "tenorNotes"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:205 (comment)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:191 (comment)
 msgid "four bars"
-msgstr "cuatro compases"
+msgstr "quatre compassos"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:223 (variable)
 #. Documentation/snippets/incipit.ly:190 (variable)
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:95 (variable)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:104 (variable)
 msgid "tenorLyrics"
-msgstr "letraTenor"
+msgstr "tenorLyrics"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:233 (variable)
 #. Documentation/snippets/incipit.ly:212 (variable)
@@ -7905,108 +7908,108 @@ msgstr "letraTenor"
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:110 (variable)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:259 (context id)
 msgid "bassusNotes"
-msgstr "notasBajo"
+msgstr "bassusNotes"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:255 (variable)
 #. Documentation/snippets/incipit.ly:226 (variable)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:123 (variable)
 msgid "bassusLyrics"
-msgstr "letraBajo"
+msgstr "bassusLyrics"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:266 (context id)
 #. Documentation/snippets/incipit.ly:234 (context id)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:237 (context id)
 msgid "choirStaff"
-msgstr "pautaCoro"
+msgstr "choirStaff"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:288 (comment)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:273 (comment)
 msgid "no bars in staves"
-msgstr "no poner barras dentro de los pentagramas"
+msgstr "no posis barres als pentagrames"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:291 (comment)
 msgid "incipit should not start with a start delimiter"
-msgstr "el incipit no empieza con un delimitador de comienzo"
+msgstr "l'incipit no hauria de començar amb un delimitador d'inici"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:297 (comment)
 #. Documentation/snippets/incipit.ly:279 (comment)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:288 (comment)
 msgid "no slurs"
-msgstr "sin ligaduras de expresión"
+msgstr "sense lligadures d'expressió"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:300 (comment)
 msgid "The command below can be commented out in"
-msgstr "La instrucción siguiente se puede eliminar en"
+msgstr "L'ordre d'abaix es pot eliminar amb un comentari a"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:301 (comment)
 msgid "short scores, but especially for large scores you"
-msgstr "partituras cortas, pero especialmente para partituras extensas,"
+msgstr "partitures cortes, però especialment a partitures llarges"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:302 (comment)
 msgid "will typically yield better line breaking and improve"
-msgstr "probablemente consiga unos saltos de línea mejores y mejore"
+msgstr "obtindreu en general un millor salt de línies i millorareu"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:303 (comment)
 msgid "overall spacing if you do not comment the command out."
-msgstr "el espaciado general si no elimina la instrucción."
+msgstr "l'espaiat general si no elimineu l'ordre."
 
 #. Documentation/snippets/anglican-psalm-template.ly:93 (variable)
 msgid "tick"
-msgstr "pulso"
+msgstr "puls"
 
 #. Documentation/snippets/anglican-psalm-template.ly:97 (comment)
 msgid "Use markup to center the chant on the page"
-msgstr "Usar marcado para centrar el canto sobre la página"
+msgstr "Useu etiquetatge per centrar el cant a la pàgina"
 
 #. Documentation/snippets/anglican-psalm-template.ly:100 (comment)
 msgid "centered"
-msgstr "centrado"
+msgstr "centrat"
 
 #. Documentation/snippets/anglican-psalm-template.ly:140 (comment)
 #. Documentation/snippets/hymn-template.ly:127 (comment)
 msgid "End score"
-msgstr "Fin de la partitura"
+msgstr "Fi de la partitura"
 
 #. Documentation/snippets/anglican-psalm-template.ly:142 (comment)
 msgid "End markup"
-msgstr "Fin del marcado"
+msgstr "Fi de l'etiquetatge"
 
 #. Documentation/snippets/applying-note-head-styles-depending-on-the-step-of-the-scale.ly:123 (variable)
 #. Documentation/snippets/clusters.ly:29 (variable)
 msgid "fragment"
-msgstr "fragmento"
+msgstr "fragment"
 
 #. Documentation/snippets/asymmetric-slurs.ly:31 (variable)
 msgid "slurNotes"
-msgstr "notasLigadura"
+msgstr "slurNotes"
 
 #. Documentation/snippets/avoiding-collisions-with-chord-fingerings.ly:44 (comment)
 msgid "Default behavior"
-msgstr "Comportamiento predeterminado"
+msgstr "Comportamient predeterminat"
 
 #. Documentation/snippets/avoiding-collisions-with-chord-fingerings.ly:50 (comment)
 msgid "Corrected to avoid collisions"
-msgstr "Corregido para evitar colisiones"
+msgstr "Corregit per evitar col·lisions"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:35 (comment)
 msgid "%%%%%%%  Cut here ----- Start 'bbarred.ly'"
-msgstr "%%%%%%%  Cortar por aquí ----- Inicio de 'bbarred.ly'"
+msgstr "%%%%%%%  Talla aquí ----- Inici de 'bbarred.ly'"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:37 (comment)
 msgid "C with slash -------------------------------"
-msgstr "Do tachado -------------------------------"
+msgstr "Do amb barra inclinada -------------------------------"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:38 (variable)
 msgid "cWithSlash"
-msgstr "doTachado"
+msgstr "cWithSlash"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:41 (comment)
 msgid "Span -----------------------------------"
-msgstr "Extensión -----------------------------------"
+msgstr "Extensió -----------------------------------"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:42 (comment)
 msgid "Syntax: \\bbarre #\\\"text\\\" { notes } - text = any number of box"
-msgstr "Sintaxis: \\bbarre #\\\"text\\\" { notas } - texto = cualquier número de caja"
+msgstr "Sintaxi: \\bbarre #\\\"text\\\" { notes } - text = qualsevol número de caixa"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:43 (variable)
 msgid "bbarre"
@@ -8014,7 +8017,7 @@ msgstr "bbarre"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:72 (comment)
 msgid "uncomment this line for make full barred"
-msgstr "quite el comentario de esta línea para hacer cejilla completa"
+msgstr "traeiu el comentari a aquesta linía per habilitar la barra completa"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:73 (comment)
 msgid ""
@@ -8026,79 +8029,77 @@ msgstr ""
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:77 (comment)
 msgid "%%%%%%%  Cut here ----- End 'bbarred.ly'"
-msgstr "%%%%%%%  Cortar por aquí ----- Final de 'bbarred.ly'"
+msgstr "%%%%%%%  Talla per aquí ----- Fi de 'bbarred.ly'"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:78 (comment)
 msgid "Copy and change the last line for full barred. Rename in 'fbarred.ly'"
-msgstr ""
-"Copie y cambie la última línea para cejilla completa. Cambie el nombre a "
-"'fbarred.ly'"
+msgstr "Copia i canvia l'última línia per barra completa. Canvieu el nom a 'fbarred.ly'"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:81 (comment)
 msgid "Syntaxe: \\bbarre #\\\"text\\\" { notes } - text = any number of box"
-msgstr "Sintaxis: \\bbarre #\\\"text\\\" { notas } - texto = cualquier número de caja"
+msgstr "Sintaxi: \\bbarre #\\\"text\\\" { notes } - text = qualsevol número de caixa"
 
 #. Documentation/snippets/beam-endings-in-score-context.ly:55 (comment)
 msgid "Set default beaming for all staves"
-msgstr "Establecer el barrado predeterminado para todos los pentagramas"
+msgstr "Estableix les línies d'unió de notes per a tots els pentagrames"
 
 #. Documentation/snippets/beam-endings-in-score-context.ly:63 (comment)
 msgid "Modify beaming for just this staff"
-msgstr "Modificar el barrado sólo para este pentagrama"
+msgstr "Modifica les línies d'unió de notes sols per a aquest pentagrama"
 
 #. Documentation/snippets/beam-endings-in-score-context.ly:68 (comment)
 msgid "Inherit beaming from Score context"
-msgstr "Heredar el barrado del contexto Score"
+msgstr "Hereda les línies d'unió de notes del context Score"
 
 #. Documentation/snippets/beam-endings-in-score-context.ly:74 (comment)
 msgid "Modify beaming for this voice only"
-msgstr "Modificar el barrado sólo para esta voz"
+msgstr "Modifica les línies d'unió de notes per a aquesta veu"
 
 #. Documentation/snippets/beam-grouping-in-7-8-time.ly:57 (comment)
 msgid "rhythm 2-3-2"
-msgstr "ritmo 2-3-2"
+msgstr "ritme 2-3-2"
 
 #. Documentation/snippets/book-parts.ly:26 (comment)
 msgid "book paper, which is inherited by all children bookparts"
-msgstr "bloque paper del book, que se hereda por todas las bookparts"
+msgstr "bloc paper del book, que s'hereda por a totes les bookparts"
 
 #. Documentation/snippets/book-parts.ly:29 (comment)
 msgid "Page footer: add a different part-tagline at part last page"
 msgstr ""
-"Pie de la página: añadir una línea de pie diferente para la parte en la "
-"última página de la parte"
+"Peu de pàgina: afegeix una part-tagline diferent per a la part de\n"
+"l'última pàgina"
 
 #. Documentation/snippets/book-parts.ly:33 (comment)
 msgid "Copyright header field only on book first page."
-msgstr "Campo de cabecera Copyright sólo en la primera página del libro"
+msgstr "Camp de capçalera de copyright sols a la primera pàgina del llibre."
 
 #. Documentation/snippets/book-parts.ly:37 (comment)
 msgid "Part tagline header field only on each part last page."
-msgstr "Cebecera de lína de pie de la parte sólo en la última página de cada parte"
+msgstr "Camp de capçalera d'etiqueta de part sols a l'ultima pàgina de cada part."
 
 #. Documentation/snippets/book-parts.ly:41 (comment)
 msgid "Tagline header field only on book last page."
-msgstr "Campo de cabecera Tagline sólo en la última página del libro"
+msgstr "Camp de capçalera d'etiqueta sols a l'última pàgina del book."
 
 #. Documentation/snippets/book-parts.ly:48 (comment)
 msgid "book header, which is inherited by the first bookpart"
-msgstr "Cabecera del libro, que se hereda por la primera bookpart"
+msgstr "Capçalera de book, que s'herda per la primera bookpart"
 
 #. Documentation/snippets/book-parts.ly:57 (comment)
 msgid "a different page breaking function may be used on each part"
-msgstr "Se puede usar una función de salto de página diferente en cada parte"
+msgstr "es pot fer serfir un funció diferent de salt de pàgina a cada part"
 
 #. Documentation/snippets/breathing-signs.ly:24 (comment)
 msgid "this bar contains no \\breathe"
-msgstr "este compás no tiene ningún \\breathe"
+msgstr "aquest compàs no conté cap \\breathe"
 
 #. Documentation/snippets/breathing-signs.ly:26 (comment)
 msgid "Modern notation:"
-msgstr "Notación moderna:"
+msgstr "Notació moderna:"
 
 #. Documentation/snippets/breathing-signs.ly:27 (comment)
 msgid "by default, \\breathe uses the rcomma, just as if saying:"
-msgstr "de forma predeterminada, \\breathe usa la rcomma, como si dijésemos:"
+msgstr "de forma predeterminada, \\breathe usa la rcomma, com si diguéssim:"
 
 #. Documentation/snippets/breathing-signs.ly:28 (comment)
 msgid ""
@@ -8110,13 +8111,11 @@ msgstr ""
 
 #. Documentation/snippets/breathing-signs.ly:31 (comment)
 msgid "rvarcomma and lvarcomma are variations of the default rcomma and lcomma"
-msgstr "rvarcomma y lvarcomma son variantes de las rcomma y lcomma predeterminadas"
+msgstr "rvarcomma i lvarcomma són variacions de les rcomma i lcomma predeterminades"
 
 #. Documentation/snippets/breathing-signs.ly:32 (comment)
 msgid "N.B.: must use Staff context here, since we start a Voice below"
-msgstr ""
-"Nota: aquí hay que usar el contexto de Staff pues iniciamos una Voice más "
-"abajo"
+msgstr "Nota: aquí cal usar el context de Staff ja que iniciem una Veu més abaix"
 
 #. Documentation/snippets/breathing-signs.ly:36 (comment)
 msgid "vee"
@@ -8124,40 +8123,40 @@ msgstr "uve"
 
 #. Documentation/snippets/caesura-railtracks-with-fermata.ly:34 (comment)
 msgid "construct the symbol"
-msgstr "construir el símbolo"
+msgstr "construeix el símbol"
 
 #. Documentation/snippets/caesura-railtracks-with-fermata.ly:43 (comment)
 msgid "set the breathe mark back to normal"
-msgstr "volver a poner la respiración normal"
+msgstr "torna a posar la respiració normal"
 
 #. Documentation/snippets/center-text-below-hairpin-dynamics.ly:33 (variable)
 msgid "hairpinWithCenteredText"
-msgstr "reguladorConTextoCentrado"
+msgstr "hairpinWithCenteredText"
 
 #. Documentation/snippets/center-text-below-hairpin-dynamics.ly:45 (variable)
 msgid "hairpinMolto"
-msgstr "reguladorMolto"
+msgstr "hairpinMolto"
 
 #. Documentation/snippets/center-text-below-hairpin-dynamics.ly:46 (variable)
 msgid "hairpinMore"
-msgstr "reguladorMas"
+msgstr "hairpinMore"
 
 #. Documentation/snippets/changing--flageolet-mark-size.ly:47 (variable)
 #. Documentation/snippets/showing-the-same-articulation-above-and-below-a-note-or-chord.ly:33 (variable)
 msgid "smallFlageolet"
-msgstr "flageoletPequeño"
+msgstr "smallFlageolet"
 
 #. Documentation/snippets/changing-the-ambitus-gap.ly:53 (comment)
 msgid "Default setting"
-msgstr "Ajuste predeterminado"
+msgstr "Configuració predeterminada"
 
 #. Documentation/snippets/changing-the-chord-names-to-german-or-semi-german-notation.ly:40 (comment)
 msgid "The following is only here to print the names of the"
-msgstr "Lo que sigue está solamente para poder imprimir los nombres de los"
+msgstr "El que segueix és aquí únicament per imprimir els noms dels"
 
 #. Documentation/snippets/changing-the-chord-names-to-german-or-semi-german-notation.ly:41 (comment)
 msgid "chords styles; it can be removed if you do not need to"
-msgstr "estilos de acorde; quítelos si no los quiere"
+msgstr "estils d'acord; traieu-los si no els voleu"
 
 #. Documentation/snippets/changing-the-chord-names-to-german-or-semi-german-notation.ly:42 (comment)
 msgid "print them."
@@ -8165,7 +8164,7 @@ msgstr "imprimir."
 
 #. Documentation/snippets/changing-the-default-text-font-family.ly:22 (comment)
 msgid "change for other default global staff size."
-msgstr "cambiar para otro tamaño de pentagrama global predeterminado."
+msgstr "commuta a una altra mida predeterminada global de pentagrama."
 
 #. Documentation/snippets/changing-the-default-text-font-family.ly:24 (comment)
 #. Documentation/snippets/engravers-one-by-one.ly:186 (comment)
@@ -8189,52 +8188,52 @@ msgstr "}"
 
 #. Documentation/snippets/changing-the-text-for-sustain-markings.ly:36 (variable)
 msgid "sustainNotes"
-msgstr "notasSostenuto"
+msgstr "sustainNotes"
 
 #. Documentation/snippets/chant-or-psalms-notation.ly:49 (variable)
 msgid "stemOn"
-msgstr "plicaSi"
+msgstr "stemOn"
 
 #. Documentation/snippets/chant-or-psalms-notation.ly:50 (variable)
 msgid "stemOff"
-msgstr "plicaNo"
+msgstr "stemOff"
 
 #. Documentation/snippets/chord-glissando-in-tablature.ly:55 (variable)
 msgid "myMusic"
-msgstr "miMusica"
+msgstr "myMusic"
 
 #. Documentation/snippets/chord-name-exceptions.ly:47 (comment)
 msgid "modify maj9 and 6(add9)"
-msgstr "cambiar maj9 y 6(add9)"
+msgstr "commuta a maj9 i 6(add9)"
 
 #. Documentation/snippets/chord-name-exceptions.ly:48 (comment)
 msgid "Exception music is chords with markups"
-msgstr "la Música de Excepciones son acordes con marcados"
+msgstr "La música Exception són acords amb etiquetatge"
 
 #. Documentation/snippets/chord-name-exceptions.ly:49 (variable)
 msgid "chExceptionMusic"
-msgstr "cambiaMusicaExcepciones"
+msgstr "chExceptionMusic"
 
 #. Documentation/snippets/chord-name-exceptions.ly:54 (comment)
 msgid "Convert music to list and prepend to existing exceptions."
-msgstr "Convertir la música en una lista y añadirla a las excepciones existentes."
+msgstr "Converteix la música a una llista i adjunta-la davant d'excepcions existents."
 
 #. Documentation/snippets/chord-name-exceptions.ly:55 (variable)
 msgid "chExceptions"
-msgstr "cambiaExcepciones"
+msgstr "chExceptions"
 
 #. Documentation/snippets/chord-name-exceptions.ly:59 (variable)
 msgid "theMusic"
-msgstr "laMusica"
+msgstr "theMusic"
 
 #. Documentation/snippets/chordchanges-for-fretboards.ly:50 (variable)
 msgid "myChords"
-msgstr "misAcordes"
+msgstr "myChords"
 
 #. Documentation/snippets/chords-headword.ly:24 (variable)
 #. Documentation/snippets/single-staff-template-with-notes,-lyrics,-chords-and-frets.ly:40 (variable)
 msgid "theChords"
-msgstr "losAcordes"
+msgstr "theChords"
 
 #. Documentation/snippets/chords-headword.ly:26 (comment)
 #. Documentation/snippets/pitches-headword.ly:130 (comment)
@@ -8243,11 +8242,11 @@ msgstr "\\break"
 
 #. Documentation/snippets/chords-headword.ly:30 (variable)
 msgid "verseOne"
-msgstr "estrofaUno"
+msgstr "verseOne"
 
 #. Documentation/snippets/chords-headword.ly:37 (variable)
 msgid "verseTwo"
-msgstr "estrofaDos"
+msgstr "verseTwo"
 
 #. Documentation/snippets/chords-headword.ly:76 (context id)
 msgid "sop"
@@ -8255,31 +8254,31 @@ msgstr "sop"
 
 #. Documentation/snippets/clip-systems.ly:67 (variable)
 msgid "origScore"
-msgstr "partituraOriginal"
+msgstr "origScore"
 
 #. Documentation/snippets/clip-systems.ly:85 (comment)
 msgid "Each clip-region is a (START . END) pair"
-msgstr "cada zona clip-region es un par (INICIO . FIN)"
+msgstr "Cada clip-region és una parella (START . END)"
 
 #. Documentation/snippets/clip-systems.ly:86 (comment)
 msgid "where both are rhythmic-locations."
-msgstr "donde ambas son rhythmic-locations."
+msgstr "on ambdues són rhythmic-locations."
 
 #. Documentation/snippets/clip-systems.ly:88 (comment)
 msgid "(make-rhythmic-locations BAR-NUMBER NUM DEN)"
-msgstr "(make-rhythmic-locations NUM-COMPAS NUMERADOR DENOMINADOR)"
+msgstr "(make-rhythmic-locations NUM-COMPÀS NUMERADOR DENOMINADOR)"
 
 #. Documentation/snippets/clip-systems.ly:89 (comment)
 msgid "means NUM/DEN whole-notes into bar numbered BAR-NUMBER"
-msgstr "significa NUMERADOR/DENOMINADOR redondas en el compás número NUM-COMPAS"
+msgstr "vol dir NUMERADOR/DENOMINADOR rodones al compàs número NUM-COMPAS"
 
 #. Documentation/snippets/coloring-notes-depending-on-their-pitch.ly:21 (comment)
 msgid "Association list of pitches to colors."
-msgstr "Lista asociativa de alturas a colores."
+msgstr "Llista associativa d'alturas a colors."
 
 #. Documentation/snippets/coloring-notes-depending-on-their-pitch.ly:41 (comment)
 msgid "Compare pitch and alteration (not octave)."
-msgstr "Comparar la altura y la alteración (no la octava)."
+msgstr "Compara l'altura y l'alteració (no l'octava)."
 
 #. Documentation/snippets/combining-dynamics-with-markup-texts.ly:31 (variable)
 msgid "piuF"
@@ -8287,23 +8286,23 @@ msgstr "piuF"
 
 #. Documentation/snippets/combining-two-parts-on-the-same-staff.ly:98 (variable)
 msgid "musicUp"
-msgstr "musicaArriba"
+msgstr "musicUp"
 
 #. Documentation/snippets/combining-two-parts-on-the-same-staff.ly:105 (variable)
 msgid "musicDown"
-msgstr "musicaAbajo"
+msgstr "musicDown"
 
 #. Documentation/snippets/controlling-spanner-visibility-after-a-line-break.ly:55 (comment)
 msgid "show hairpin"
-msgstr "mostrar regulador"
+msgstr "mostra el regulador"
 
 #. Documentation/snippets/controlling-spanner-visibility-after-a-line-break.ly:57 (comment)
 msgid "hide text span"
-msgstr "ocultar extensión de texto"
+msgstr "amaga l'extensió de text"
 
 #. Documentation/snippets/controlling-spanner-visibility-after-a-line-break.ly:61 (comment)
 msgid "show glissando"
-msgstr "mostrar glissando"
+msgstr "mostra el glissando"
 
 #. Documentation/snippets/creating-double-digit-fingerings.ly:23 (variable)
 msgid "ten"
@@ -8311,87 +8310,85 @@ msgstr "ten"
 
 #. Documentation/snippets/creating-double-digit-fingerings.ly:27 (variable)
 msgid "fifty"
-msgstr "cincuenta"
+msgstr "fifty"
 
 #. Documentation/snippets/creating-double-digit-fingerings.ly:31 (variable)
 msgid "finger"
-msgstr "dedo"
+msgstr "finger"
 
 #. Documentation/snippets/creating-double-digit-fingerings.ly:42 (comment)
 msgid "optional override to remove warnings for fingerings larger than 5"
-msgstr ""
-"sobreescritura opcional para suprimir advertencas para digitaciones mayores "
-"de 5"
+msgstr "override opcional per suprimir els advertiments per a digitacions més grans que 5"
 
 #. Documentation/snippets/creating-real-parenthesized-dynamics.ly:49 (variable)
 msgid "parenF"
-msgstr "forteParen"
+msgstr "parenF"
 
 #. Documentation/snippets/creating-simultaneous-rehearsal-marks.ly:47 (comment)
 msgid "the hidden measure and bar line"
-msgstr "el compás y barra ocultos"
+msgstr "el compàs i la barra de compàs amagats"
 
 #. Documentation/snippets/creating-simultaneous-rehearsal-marks.ly:48 (comment)
 msgid "\\cadenzaOn turns off automatic calculation of bar numbers"
-msgstr "\\cadenzaOn desactiva el cálculo automático de números de compás"
+msgstr "\\cadenzaOn desactiva el càlcul automàtic de números de compàs"
 
 #. Documentation/snippets/cross-staff-chords---beaming-problems-workaround.ly:32 (comment)
 msgid "this is in half-spaces,"
-msgstr "esto está en semi-espacios,"
+msgstr "això està a semi-espais,"
 
 #. Documentation/snippets/cross-staff-chords---beaming-problems-workaround.ly:33 (comment)
 msgid "so it makes stems 9.5 staffspaces long"
-msgstr "de forma que las plicas tengan 9.5 espacios de longitud"
+msgstr "de manera que les vírgules tinguin 9,5 espais de longitud"
 
 #. Documentation/snippets/cross-staff-chords---beaming-problems-workaround.ly:34 (comment)
 msgid "stems are normally lengthened"
-msgstr "Las plicas normalmente se alargan"
+msgstr "les vírgules normalment s'allarguen"
 
 #. Documentation/snippets/cross-staff-chords---beaming-problems-workaround.ly:35 (comment)
 msgid "upwards, so here we must lower the stem by the amount"
-msgstr "hacia arriba, por tanto debemos bajar la plica en una cantidad"
+msgstr "cap amunt, per això hem de escurçar la vírgula per una magnitud"
 
 #. Documentation/snippets/cross-staff-chords---beaming-problems-workaround.ly:36 (comment)
 msgid "equal to the lengthening - in this case (19 - 7) / 2"
-msgstr "igual al alargamiento: en este caso (19 - 7) / 2"
+msgstr "igual al allargament: en aquest cas (19 - 7) / 2"
 
 #. Documentation/snippets/cross-staff-chords---beaming-problems-workaround.ly:37 (comment)
 msgid "(7 is default stem length)"
-msgstr "(7 es la longitud de plica predeterminada)"
+msgstr "(7 és la longitud de vírgula predeterminada)"
 
 #. Documentation/snippets/cross-staff-tremolos.ly:48 (context id)
 #. Documentation/snippets/jazz-combo-template.ly:273 (variable)
 #. Documentation/snippets/screech-and-boink.ly:21 (context id)
 msgid "up"
-msgstr "arriba"
+msgstr "amunt"
 
 #. Documentation/snippets/cross-staff-tremolos.ly:53 (context id)
 #. Documentation/snippets/jazz-combo-template.ly:279 (variable)
 #. Documentation/snippets/screech-and-boink.ly:51 (context id)
 msgid "down"
-msgstr "abajo"
+msgstr "abaix"
 
 #. Documentation/snippets/customizing-fretboard-fret-diagrams.ly:72 (comment)
 #. Documentation/snippets/customizing-markup-fret-diagrams.ly:61 (comment)
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:31 (comment)
 msgid "Set global properties of fret diagram"
-msgstr "Fijar propiedades globales del diagrama de posición"
+msgstr "Estableix les propietats globals del diagrama de trastos"
 
 #. Documentation/snippets/customizing-markup-fret-diagrams.ly:59 (context id)
 #. Documentation/snippets/formatting-lyrics-syllables.ly:40 (variable)
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:29 (context id)
 #. Documentation/snippets/piano-template-with-melody-and-lyrics.ly:90 (context id)
 msgid "mel"
-msgstr "melo"
+msgstr "mel"
 
 #. Documentation/snippets/customizing-markup-fret-diagrams.ly:68 (comment)
 msgid "C major for guitar, no barre, using defaults"
-msgstr "Do mayor para guitarra, sin cejilla, usar predeterminados"
+msgstr "Do major per a la guitarra, sense celleta, usa el paràmetres predeterminats"
 
 #. Documentation/snippets/customizing-markup-fret-diagrams.ly:69 (comment)
 #. Documentation/snippets/customizing-markup-fret-diagrams.ly:119 (comment)
 msgid "terse style"
-msgstr "estilo escueto"
+msgstr "estil concís"
 
 #. Documentation/snippets/customizing-markup-fret-diagrams.ly:72 (comment)
 #. Documentation/snippets/customizing-markup-fret-diagrams.ly:94 (comment)
@@ -8402,7 +8399,7 @@ msgstr "estilo escueto"
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:259 (comment)
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:280 (comment)
 msgid "C major for guitar, barred on third fret"
-msgstr "Do mayor para guitarra, cejilla en el tercer traste"
+msgstr "C major per a la guitarra, amb celleta al tercer trast"
 
 #. Documentation/snippets/customizing-markup-fret-diagrams.ly:73 (comment)
 #. Documentation/snippets/customizing-markup-fret-diagrams.ly:95 (comment)
@@ -8416,231 +8413,227 @@ msgstr "Do mayor para guitarra, cejilla en el tercer traste"
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:282 (comment)
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:309 (comment)
 msgid "verbose style"
-msgstr "estilo prolijo"
+msgstr "estil amb emissió de missatges"
 
 #. Documentation/snippets/customizing-markup-fret-diagrams.ly:74 (comment)
 msgid "size 1.0"
-msgstr "tamaño 1.0"
+msgstr "mida 1,0"
 
 #. Documentation/snippets/customizing-markup-fret-diagrams.ly:75 (comment)
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:62 (comment)
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:162 (comment)
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:261 (comment)
 msgid "roman fret label, finger labels below string, straight barre"
-msgstr ""
-"leyenda de posición en romana, leyendas de dedos debajo de las cuerdas, "
-"cejilla recta"
+msgstr "etiqueta de trast en números romans, les etiquetes de digitació a sota de la corda, celleta recta"
 
 #. Documentation/snippets/customizing-markup-fret-diagrams.ly:77 (comment)
 msgid "standard size"
-msgstr "tamaño estándar"
+msgstr "mida estàndard"
 
 #. Documentation/snippets/customizing-markup-fret-diagrams.ly:96 (comment)
 msgid "landscape orientation, arabic numbers, M for mute string"
-msgstr "orientación apaisada, números arábigos, M para cuerda muda"
+msgstr "orientació apaïsada, números aràbigs, M per a corda muda"
 
 #. Documentation/snippets/customizing-markup-fret-diagrams.ly:97 (comment)
 msgid "no barre, fret label down or left, small mute label font"
-msgstr ""
-"sin cejilla, leyenda de posición abajo o izquierda, fuente pequeña de "
-"indicación de cuerda muda"
+msgstr "sense celleta, l'etiqueta de trast a sota o a l'esquerra, tipus de lletra petita d'etiqueta de corda muda"
 
 #. Documentation/snippets/customizing-markup-fret-diagrams.ly:118 (comment)
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:132 (comment)
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:232 (comment)
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:331 (comment)
 msgid "simple D chord"
-msgstr "acorde de Re sencillo"
+msgstr "acord de Re senzill"
 
 #. Documentation/snippets/customizing-markup-fret-diagrams.ly:120 (comment)
 msgid "larger dots, centered dots, fewer frets"
-msgstr "puntos mayores, centrados, menos trastes"
+msgstr "punts més grans, punts centrats, menys trastos"
 
 #. Documentation/snippets/customizing-markup-fret-diagrams.ly:121 (comment)
 msgid "label below string"
-msgstr "leyenda debajo de la cuerda"
+msgstr "l'etiqueta a sota de la corda"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:29 (comment)
 msgid "Grob utilities"
-msgstr "Utilidades de Grob"
+msgstr "Utilitats d'objectes tipogràfics gràfics"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:31 (comment)
 msgid "These are literal rewrites of some C++ methods used by the ambitus engraver."
-msgstr ""
-"Esto son reescrituras literales de algunos métodos en C++ utilizados por el "
-"grabador de tesitura."
+msgstr "Aquests són noves versions d'alguns mètodes C++ usats pel gravador de tessitures"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:62 (comment)
 msgid "Ambitus data structure"
-msgstr "Estructura de datos de la tesitura"
+msgstr "Estructura de dades de tessitura"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:65 (comment)
 msgid "The <ambitus> class holds the various grobs that are created"
-msgstr "La clase <ambitus> guarda los distintos grobs que se crean"
+msgstr "La classe <ambitus> emmagatzama els diferents objectes gràfics de tipografia que es creen"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:66 (comment)
 msgid "to print an ambitus:"
-msgstr "para imprimir una tesitura:"
+msgstr "per imprimir una tessitura:"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:67 (comment)
 msgid "- ambitus-group: the grob that groups all the components of an ambitus"
-msgstr "- ambitus-group: el grob que agrupa todos los componentes de una tesitura"
+msgstr "- ambitus-group: l'objecte gràfic de tipografia que agrupa tots els components d'una tessitura"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:68 (comment)
 msgid "(Ambitus grob);"
-msgstr "(grob de la tesitura);"
+msgstr "(Ambitus grob);"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:69 (comment)
 msgid "- ambitus-line: the vertical line between the upper and lower ambitus"
-msgstr "- ambitus-line: la línea vertical entre las notas alta y baja de la tesitura"
+msgstr "- ambitus-line: la línia vertical entre les notes alta i baixa de la tessitura"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:70 (comment)
 msgid "notes (AmbitusLine grob);"
-msgstr "notas (grob AmbitusLine);"
+msgstr "notes (AmbitusLine grob);"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:71 (comment)
 msgid "- ambitus-up-note and ambitus-down-note: the note head and accidental"
-msgstr "- ambitus-up-note y ambitus-down-note: la cabeza y su alteración"
+msgstr "- ambitus-up-note i ambitus-down-note: el cap i la seva alteració"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:72 (comment)
 msgid "for the lower and upper note of the ambitus (see <ambitus-note> class"
-msgstr ""
-"para las notas inferior y superior de la tesitura (véase la clase <ambitus-"
-"note>"
+msgstr "per a les notes inferior i superior de la tessitura (vegeu la classe <ambitus-notes>"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:73 (comment)
 msgid "below)."
-msgstr "más abajo)."
+msgstr "més abaix)."
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:74 (comment)
 msgid "The other slots define the key and clef context of the engraver:"
-msgstr "Las otras ranuras definen los contextos de tonalidad y clave del grabador:"
+msgstr ""
+"Els altres espais defineixen els contexdtos de tonalitat i de clau per\n"
+"al gravador:"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:75 (comment)
 msgid "- start-c0: position of middle c at the beginning of the piece.  It"
-msgstr "- start-c0: posición del Do central al principio de la pieza."
+msgstr "- start-c0: posició del Do central al principi de la peça."
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:76 (comment)
 msgid "is used to place the ambitus notes according to their pitch;"
-msgstr "Se usa para colocar las notas de tesitura de acuerdo con su altura;"
+msgstr "S'usa per col·locar les notes de tessitura d'acord amb la seva altura;"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:77 (comment)
 msgid "- start-key-sig: the key signature at the beginning of the piece.  It"
-msgstr "- start-key-sig: armadura al principio de la pieza."
+msgstr "- start-key-sig: armadura al principi de la peça."
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:78 (comment)
 msgid "is used to determine if accidentals shall be printed next to ambitus"
-msgstr "Se usa para determinar si se deben imprimir alteraciones junto a las "
+msgstr "S'usa per determinar si s'han d'imprimir alteracoins junt a les"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:79 (comment)
 msgid "notes."
-msgstr "notas de tesitura."
+msgstr "notes de la tessitura."
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:93 (comment)
 msgid "Accessor for the lower and upper note data of an ambitus"
-msgstr "Accesor para los datos de notas inferior y superior de la tesitura"
+msgstr "Mecanisme d'accés per a les dades de nota inferior i superior d'una tessitura"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:101 (comment)
 msgid "The <ambitus-note> class holds the grobs that are specific to ambitus"
-msgstr "La clase <ambitus-note> guarda los grobs que son específicos de las"
+msgstr ""
+"La classe <ambitus-note> emmagatzema els objectes gràfics de\n"
+"tipografia de les"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:102 (comment)
 msgid "(lower and upper) notes:"
-msgstr "notas (inferior y superior):"
+msgstr "notes (inferior i superior):"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:103 (comment)
 msgid "- head: an AmbitusNoteHead grob;"
-msgstr "- head: un grob AmbitusNoteHead;"
+msgstr "- head: un objecte gràfic de tipografia AmbitusNoteHead;"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:104 (comment)
 msgid "- accidental: an AmbitusAccidental grob, to be possibly printed next"
-msgstr "- accidental: un grob AmbitusAccidental a imprimir posiblemente junto a"
+msgstr "- accidental: un objecte gràfic de tipografia AmbitusAccidental a imprimir possiblemente junt amb"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:105 (comment)
 msgid "to the ambitus note head."
-msgstr "la cabeza de la nota de tesitura."
+msgstr "el cap de la nota de tessitura."
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:106 (comment)
 msgid "Moreover:"
-msgstr "Además:"
+msgstr "A més a més:"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:107 (comment)
 msgid "- pitch is the absolute pitch of the note"
-msgstr "- pitch es la altura absoluta de la nota"
+msgstr "- pitch és l'altura absoluta de la nota"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:108 (comment)
 msgid "- cause is the note event that causes this ambitus note, i.e. the lower"
 msgstr ""
-"- cause es el evento de nota que produce esta nota de tesitura, es decir, la "
-"nota"
+"- cause és l'esdeveniment que produeix aquesta nota de tessitura, és a\n"
+"dir, la nota"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:109 (comment)
 msgid "or upper note of the considered music sequence."
-msgstr "inferior o superior de la secuencia musical considerada."
+msgstr "inferior o superior de la seqüència musical considerada."
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:122 (comment)
 msgid "Ambitus engraving logics"
-msgstr "Lógica del grabado de la tesitura"
+msgstr "Lògica del gravat de la tessitura"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:124 (comment)
 msgid "Rewrite of the code from @file{lily/ambitus-engraver.cc}."
-msgstr "Reescritura del código de @file{lily/ambitus-engraver.cc}."
+msgstr "Reescriptura del codi de @file{lily/ambitus-engraver.cc}."
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:293 (comment)
 msgid "Ambitus engraver definition"
-msgstr "Definición del grabador de tesitura"
+msgstr "Definició del gravador de tessitura"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:319 (comment)
 msgid "Example"
-msgstr "Ejemplo"
+msgstr "Exemple"
 
 #. Documentation/snippets/defining-predefined-fretboards-for-other-instruments.ly:88 (comment)
 msgid "add FretBoards for the Cuatro"
-msgstr "añadir FretBoards para el cuatro venezolano"
+msgstr "afegeix FretBoards per al Cuatro"
 
 #. Documentation/snippets/defining-predefined-fretboards-for-other-instruments.ly:89 (comment)
 msgid "Note: This section could be put into a separate file"
-msgstr "Nota: esta sección se puede poner en un archivo aparte"
+msgstr "Nota: aquesta secció es pot posar en un fitxer apart"
 
 #. Documentation/snippets/defining-predefined-fretboards-for-other-instruments.ly:90 (comment)
 msgid "predefined-cuatro-fretboards.ly"
-msgstr "posiciones-predefinidas-del-cuatro.ly"
+msgstr "predefined-cuatro-fretboards.ly"
 
 #. Documentation/snippets/defining-predefined-fretboards-for-other-instruments.ly:91 (comment)
 msgid "and \\included into each of your compositions"
-msgstr "e incluirse en todas sus composiciones con \\include"
+msgstr "i \\\\included a cadascuna de les vostres composicions"
 
 #. Documentation/snippets/defining-predefined-fretboards-for-other-instruments.ly:93 (variable)
 msgid "cuatroTuning"
-msgstr "afinacionCuatro"
+msgstr "cuatroTuning"
 
 #. Documentation/snippets/defining-predefined-fretboards-for-other-instruments.ly:98 (variable)
 msgid "dSix"
-msgstr "sextaRe"
+msgstr "dSix"
 
 #. Documentation/snippets/defining-predefined-fretboards-for-other-instruments.ly:99 (variable)
 msgid "dMajor"
-msgstr "reMayor"
+msgstr "dMajor"
 
 #. Documentation/snippets/defining-predefined-fretboards-for-other-instruments.ly:100 (variable)
 msgid "aMajSeven"
-msgstr "laSeptMayor"
+msgstr "aMajSeven"
 
 #. Documentation/snippets/defining-predefined-fretboards-for-other-instruments.ly:101 (variable)
 msgid "dMajSeven"
-msgstr "reSeptMayor"
+msgstr "dMajSeven"
 
 #. Documentation/snippets/defining-predefined-fretboards-for-other-instruments.ly:102 (variable)
 msgid "gMajor"
-msgstr "solMayor"
+msgstr "gMajor"
 
 #. Documentation/snippets/defining-predefined-fretboards-for-other-instruments.ly:120 (comment)
 msgid "end of potential include file /predefined-cuatro-fretboards.ly"
-msgstr "fin del potencial archivo de inclusión /posiciones-predefinidas-del-cuatro.ly"
+msgstr "fi del fitxer d'incusió /predefined-cuatro-freboards.ly potencialment incloïble"
 
 #. Documentation/snippets/defining-predefined-fretboards-for-other-instruments.ly:125 (variable)
 msgid "primerosNames"
-msgstr "nombresPrimeros"
+msgstr "primerosNames"
 
 #. Documentation/snippets/defining-predefined-fretboards-for-other-instruments.ly:129 (variable)
 msgid "primeros"
@@ -8656,11 +8649,11 @@ msgstr "#'(fret-diagram-details string-count) = #'4"
 
 #. Documentation/snippets/demo-midiinstruments.ly:28 (variable)
 msgid "baseMelody"
-msgstr "melodiaBase"
+msgstr "baseMelody"
 
 #. Documentation/snippets/display-bracket-with-only-one-staff-in-a-system.ly:77 (comment)
 msgid "Must be lower than the actual number of staff lines"
-msgstr "debe ser menor que el número real de líneas de la pauta"
+msgstr "Ha de ser inferior al nombre real de línies de pentagrama"
 
 #. Documentation/snippets/displaying-complex-chords.ly:29 (variable)
 msgid "fixA"
@@ -8680,7 +8673,7 @@ msgstr "new voice ( = \\voiceOne), oculta"
 
 #. Documentation/snippets/double-glissando.ly:27 (comment)
 msgid "attach glissando to note heads"
-msgstr "aplicar glissando a la cabeza de las notas"
+msgstr "aplica glissando al cap de les notes"
 
 #. Documentation/snippets/double-glissando.ly:32 (comment)
 msgid "original voice with chords rearranged so that"
@@ -8688,31 +8681,31 @@ msgstr "voz original con acordes rehecha de forma que"
 
 #. Documentation/snippets/double-glissando.ly:33 (comment)
 msgid "glissando is attached to a & c"
-msgstr "el glissando se aplica al La y al Do"
+msgstr "el glissando s'adjnta al La i al Do"
 
 #. Documentation/snippets/drawing-circles-around-note-heads.ly:19 (variable)
 msgid "circle"
-msgstr "círculo"
+msgstr "cercle"
 
 #. Documentation/snippets/dynamics-custom-text-spanner-postfix.ly:58 (comment)
 msgid "Two functions for (de)crescendo spanners where you can explicitly give the"
-msgstr "Dos funciones para extensores de (de)crescendo donde podemos dar el"
+msgstr "Dues funcions per a extensors de (de)crescendo on podem donar el"
 
 #. Documentation/snippets/dynamics-custom-text-spanner-postfix.ly:59 (comment)
 msgid "spanner text."
-msgstr "texto de la extensión explícitamente."
+msgstr "text d'extensió explícitament"
 
 #. Documentation/snippets/dynamics-custom-text-spanner-postfix.ly:60 (variable)
 msgid "mycresc"
-msgstr "miCresc"
+msgstr "mycresc"
 
 #. Documentation/snippets/dynamics-custom-text-spanner-postfix.ly:66 (variable)
 msgid "mydecresc"
-msgstr "miDecresc"
+msgstr "mydecresc"
 
 #. Documentation/snippets/dynamics-text-spanner-postfix.ly:62 (comment)
 msgid "Some sample text dynamic spanners, to be used as postfix operators"
-msgstr "Algunos extensores de texto de muestra, para usar como operadores posfijos"
+msgstr "Alguns extensors dinàmics de text de mostra, a usar com a operadors sufix"
 
 #. Documentation/snippets/dynamics-text-spanner-postfix.ly:63 (variable)
 msgid "crpoco"
@@ -8720,7 +8713,7 @@ msgstr "crpoco"
 
 #. Documentation/snippets/editorial-headword.ly:38 (comment)
 msgid "NR 1.7 Editorial annotations"
-msgstr "NR 1.7 Anotaciones editoriales"
+msgstr "NR 1.7 anotacions editorials"
 
 #. Documentation/snippets/editorial-headword.ly:40 (comment)
 msgid "Beethoven, Op. 31, No. 3"
@@ -8728,11 +8721,11 @@ msgstr "Beethoven, Op. 31, No. 3"
 
 #. Documentation/snippets/editorial-headword.ly:41 (comment)
 msgid "Piano sonata 18, Movt II, Scherzo"
-msgstr "Sonata para piano núm. 18, Mov. II, Scherzo"
+msgstr "Sonata per a piano núm. 18, Mov. II, Scherzo"
 
 #. Documentation/snippets/editorial-headword.ly:42 (comment)
 msgid "Measures 9 - 14"
-msgstr "Compases 9 a 14"
+msgstr "Compassos 9 a 14"
 
 #. Documentation/snippets/editorial-headword.ly:46 (comment)
 #. Documentation/snippets/expressive-headword.ly:42 (comment)
@@ -8750,31 +8743,31 @@ msgstr "Pentagrama MI"
 
 #. Documentation/snippets/embedding-native-postscript-in-a--markup-block.ly:29 (comment)
 msgid "PostScript is a registered trademark of Adobe Systems Inc."
-msgstr "PostScript is a registered trademark of Adobe Systems Inc."
+msgstr "PostScript és una marca registrada d'Adobe Systems Inc."
 
 #. Documentation/snippets/engravers-one-by-one.ly:74 (comment)
 msgid "sample music"
-msgstr "música de ejemplo"
+msgstr "música d'exemple"
 
 #. Documentation/snippets/engravers-one-by-one.ly:75 (variable)
 msgid "topVoice"
-msgstr "vozSuperior"
+msgstr "topVoice"
 
 #. Documentation/snippets/engravers-one-by-one.ly:83 (variable)
 msgid "botVoice"
-msgstr "vozInferior"
+msgstr "botVoice"
 
 #. Documentation/snippets/engravers-one-by-one.ly:91 (variable)
 msgid "hoom"
-msgstr "hum"
+msgstr "hoom"
 
 #. Documentation/snippets/engravers-one-by-one.ly:102 (variable)
 msgid "pah"
-msgstr "pa"
+msgstr "pah"
 
 #. Documentation/snippets/engravers-one-by-one.ly:112 (comment)
 msgid "setup for Request->Element conversion. Guru-only"
-msgstr "Sólo para gurús: tinglado para la conversión Request->Element"
+msgstr "Sols per a gurús: configuració per a Request->Element"
 
 #. Documentation/snippets/engravers-one-by-one.ly:115 (variable)
 #. Documentation/snippets/engravers-one-by-one.ly:213 (variable)
@@ -8782,30 +8775,30 @@ msgstr "Sólo para gurús: tinglado para la conversión Request->Element"
 #. Documentation/snippets/engravers-one-by-one.ly:282 (variable)
 #. Documentation/snippets/engravers-one-by-one.ly:296 (variable)
 msgid "MyStaff"
-msgstr "miPentagrama"
+msgstr "MyStaff"
 
 #. Documentation/snippets/engravers-one-by-one.ly:143 (comment)
 msgid "explicitly set instrumentName, so we don't get"
-msgstr "fijar instrumentName específicamente, para no obtener"
+msgstr "establir instrumentName específicament, per no obtenir"
 
 #. Documentation/snippets/engravers-one-by-one.ly:144 (comment)
 msgid "weird effects when doing instrument names for"
-msgstr "efectos extraños al hacer nombres de instrumento para"
+msgstr "efectes estranys en fer noms d'instruments per a"
 
 #. Documentation/snippets/engravers-one-by-one.ly:145 (comment)
 msgid "piano staves"
-msgstr "sistemas de piano"
+msgstr "sistemes de piano"
 
 #. Documentation/snippets/engravers-one-by-one.ly:154 (variable)
 #. Documentation/snippets/engravers-one-by-one.ly:240 (variable)
 #. Documentation/snippets/engravers-one-by-one.ly:253 (variable)
 #. Documentation/snippets/engravers-one-by-one.ly:266 (variable)
 msgid "MyVoice"
-msgstr "miVoz"
+msgstr "MyVoice"
 
 #. Documentation/snippets/engravers-one-by-one.ly:169 (comment)
 msgid "must come before all"
-msgstr "ha de ir antes de todo"
+msgstr "ha d'anar abans de tot"
 
 #. Documentation/snippets/engravers-one-by-one.ly:179 (comment)
 msgid "\\consists \\\"Rest_engraver\\\""
@@ -8813,7 +8806,7 @@ msgstr "\\consists \\\"Rest_engraver\\\""
 
 #. Documentation/snippets/expressive-headword.ly:26 (comment)
 msgid "NR 1.3 Expressive marks"
-msgstr "Referencia de la notación 1.3 Marcas expresivas"
+msgstr "Referència de la notació 1.3 Marques expressives"
 
 #. Documentation/snippets/expressive-headword.ly:28 (comment)
 msgid "L. v. Beethoven, Op. 49 no. 1"
@@ -8821,11 +8814,11 @@ msgstr "L. v. Beethoven, Op. 49 no. 1"
 
 #. Documentation/snippets/expressive-headword.ly:29 (comment)
 msgid "Piano sonata 19 - \\\"Leichte Sonate\\\""
-msgstr "Sonata para piano núm. 19 - \\\"Leichte Sonate\\\""
+msgstr "Sonata per a piano núm. 19 - \\\"Leichte Sonate\\\""
 
 #. Documentation/snippets/expressive-headword.ly:30 (comment)
 msgid "measures 1 - 12"
-msgstr "Compases 1 a 12"
+msgstr "Compassos 1 a 12"
 
 #. Documentation/snippets/expressive-headword.ly:32 (comment)
 msgid "\\layout {"
@@ -8849,7 +8842,7 @@ msgstr "#(ly:make-moment 1 20)"
 
 #. Documentation/snippets/figured-bass-headword.ly:26 (comment)
 msgid "NR 2.7.3 Figured bass"
-msgstr "Referencia de la notación 2.7.3 bajo cifrado"
+msgstr "Referència de la notació 2.7.3 sota xifrat"
 
 #. Documentation/snippets/figured-bass-headword.ly:28 (comment)
 msgid "Arcangelo Corelli, 12 Sonate da Camera, Op. 2"
@@ -8861,11 +8854,11 @@ msgstr "Sonata II, Allemanda"
 
 #. Documentation/snippets/figured-bass-headword.ly:30 (comment)
 msgid "measures 1 - 88"
-msgstr "compases 1 a 88"
+msgstr "compassos 1 a 88"
 
 #. Documentation/snippets/figured-bass-headword.ly:31 (comment)
 msgid "Coded by Neil Puttock; modified by Carl Sorensen"
-msgstr "Codificado por Neil Puttock; modificado por Carl Sorensen"
+msgstr "Codificat per Neil Puttock; modificat per Carl Sorensen"
 
 #. Documentation/snippets/figured-bass-headword.ly:33 (variable)
 msgid "extendOn"
@@ -8890,23 +8883,23 @@ msgstr "violone"
 #. Documentation/snippets/fingering-symbols-for-wind-instruments.ly:37 (variable)
 #. Documentation/snippets/recorder-fingering-chart.ly:41 (variable)
 msgid "centermarkup"
-msgstr "marcadoCentro"
+msgstr "centermarkup"
 
 #. Documentation/snippets/flamenco-notation.ly:79 (comment)
 msgid "Cut here ----- Start 'flamenco.ly'"
-msgstr "Cortar por aquí ----- Inicio 'flamenco.ly'"
+msgstr "Talla per aquí ----- Inici 'flamenco.ly'"
 
 #. Documentation/snippets/flamenco-notation.ly:81 (comment)
 msgid "Text indicators"
-msgstr "Indicadores de texto"
+msgstr "Indicadors de text"
 
 #. Documentation/snippets/flamenco-notation.ly:82 (variable)
 msgid "abanico"
-msgstr "abanico"
+msgstr "ventall"
 
 #. Documentation/snippets/flamenco-notation.ly:83 (variable)
 msgid "rasgueaso"
-msgstr "rasgueo"
+msgstr "rasgueao"
 
 #. Documentation/snippets/flamenco-notation.ly:84 (variable)
 msgid "alzapua"
@@ -8914,19 +8907,19 @@ msgstr "alzapua"
 
 #. Documentation/snippets/flamenco-notation.ly:86 (comment)
 msgid "Finger stroke symbols"
-msgstr "Símbolos de golpes de dedo"
+msgstr "Símbols de cops de dit"
 
 #. Documentation/snippets/flamenco-notation.ly:87 (variable)
 msgid "strokeUp"
-msgstr "golpeArriba"
+msgstr "strokeUp"
 
 #. Documentation/snippets/flamenco-notation.ly:97 (variable)
 msgid "strokeDown"
-msgstr "golpeAbajo"
+msgstr "strokeDown"
 
 #. Documentation/snippets/flamenco-notation.ly:107 (comment)
 msgid "Golpe symbol"
-msgstr "Símbolo de golpe"
+msgstr "Símbol de golpe"
 
 #. Documentation/snippets/flamenco-notation.ly:108 (variable)
 msgid "golpe"
@@ -8934,91 +8927,91 @@ msgstr "golpe"
 
 #. Documentation/snippets/flamenco-notation.ly:122 (variable)
 msgid "strokeUpGolpe"
-msgstr "golpearArriba"
+msgstr "strokeUpGolpe"
 
 #. Documentation/snippets/flamenco-notation.ly:123 (variable)
 msgid "iUpGolpe"
-msgstr "iGolpeArriba"
+msgstr "iUpGolpe"
 
 #. Documentation/snippets/flamenco-notation.ly:125 (comment)
 msgid "Strokes for all fingers"
-msgstr "Golpes para todos los dedos"
+msgstr "Cops per a tots els dits"
 
 #. Documentation/snippets/flamenco-notation.ly:126 (variable)
 msgid "pUp"
-msgstr "pArriba"
+msgstr "pUp"
 
 #. Documentation/snippets/flamenco-notation.ly:127 (variable)
 msgid "pDown"
-msgstr "pAbajo"
+msgstr "pDown"
 
 #. Documentation/snippets/flamenco-notation.ly:128 (variable)
 msgid "iUp"
-msgstr "iArriba"
+msgstr "iUp"
 
 #. Documentation/snippets/flamenco-notation.ly:129 (variable)
 msgid "iDown"
-msgstr "iAbajo"
+msgstr "iDown"
 
 #. Documentation/snippets/flamenco-notation.ly:130 (variable)
 msgid "mUp"
-msgstr "mArriba"
+msgstr "mUp"
 
 #. Documentation/snippets/flamenco-notation.ly:131 (variable)
 msgid "mDown"
-msgstr "mAbajo"
+msgstr "mDown"
 
 #. Documentation/snippets/flamenco-notation.ly:132 (variable)
 msgid "aUp"
-msgstr "aArriba"
+msgstr "aUp"
 
 #. Documentation/snippets/flamenco-notation.ly:133 (variable)
 msgid "aDown"
-msgstr "aAbajo"
+msgstr "aDown"
 
 #. Documentation/snippets/flamenco-notation.ly:134 (variable)
 msgid "xUp"
-msgstr "xArriba"
+msgstr "xUp"
 
 #. Documentation/snippets/flamenco-notation.ly:135 (variable)
 msgid "xDown"
-msgstr "xAbajo"
+msgstr "xDown"
 
 #. Documentation/snippets/flamenco-notation.ly:138 (comment)
 msgid "Just handy :)"
-msgstr "Muy cómodo :)"
+msgstr "Simplement còmode :)"
 
 #. Documentation/snippets/flamenco-notation.ly:139 (variable)
 msgid "tupletOff"
-msgstr "grupoNo"
+msgstr "tupletOff"
 
 #. Documentation/snippets/flamenco-notation.ly:144 (variable)
 msgid "tupletsOff"
-msgstr "gruposNo"
+msgstr "tupletsOff"
 
 #. Documentation/snippets/flamenco-notation.ly:149 (variable)
 msgid "tupletsOn"
-msgstr "gruposSi"
+msgstr "tupletsOn"
 
 #. Documentation/snippets/flamenco-notation.ly:154 (variable)
 msgid "headsOff"
-msgstr "cabezasNo"
+msgstr "headsOff"
 
 #. Documentation/snippets/flamenco-notation.ly:160 (variable)
 msgid "headsOn"
-msgstr "cabezasSi"
+msgstr "headsOn"
 
 #. Documentation/snippets/flamenco-notation.ly:166 (comment)
 msgid "Cut here ----- End 'flamenco.ly'"
-msgstr "Cortar por aquí ----- Final 'flamenco.ly'"
+msgstr "Talla per aquí ----- Fi 'flamenco.ly'"
 
 #. Documentation/snippets/flat-flags-and-beam-nibs.ly:160 (comment)
 msgid "Example 1"
-msgstr "Ejemplo 1"
+msgstr "Exemple 1"
 
 #. Documentation/snippets/flat-flags-and-beam-nibs.ly:166 (comment)
 msgid "Example 2"
-msgstr "Ejemplo 2"
+msgstr "Exemple 2"
 
 #. Documentation/snippets/flat-flags-and-beam-nibs.ly:172 (comment)
 msgid "Example 3"
@@ -9026,7 +9019,7 @@ msgstr "Ejemplo 3"
 
 #. Documentation/snippets/flat-flags-and-beam-nibs.ly:180 (comment)
 msgid "Example 4"
-msgstr "Ejemplo 4"
+msgstr "Exemple 4"
 
 #. Documentation/snippets/flute-slap-notation.ly:22 (variable)
 msgid "slap"
@@ -9034,33 +9027,31 @@ msgstr "slap"
 
 #. Documentation/snippets/forcing-measure-width-to-adapt-to-metronomemarks-width.ly:24 (variable)
 msgid "example"
-msgstr "ejemplo"
+msgstr "exemple"
 
 #. Documentation/snippets/formatting-lyrics-syllables.ly:41 (variable)
 msgid "lyr"
-msgstr "letra"
+msgstr "lyr"
 
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:37 (comment)
 msgid "A chord for ukulele"
-msgstr "Un acorde de ukelele"
+msgstr "Un acord d'ukelele"
 
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:47 (comment)
 msgid "A chord for ukulele, with formatting defined in definition string"
-msgstr "Acorde para el ukelele, con el formato definido en la cadena de definición"
+msgstr "Acord per a l'ukelele, amb el format definit a la cadena de  de definició"
 
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:48 (comment)
 msgid "1.2 * size, 4 strings, 4 frets, fingerings below string"
-msgstr "1.2 * tamaño, 4 cuerdas, 4 trastes, digitación debajo de las cuerdas"
+msgstr "1.2 * mida, 4 cordes, 4 trastos, digitació a sota de les cordes"
 
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:49 (comment)
 msgid "dot radius .35 of fret spacing, dot position 0.55 of fret spacing"
-msgstr ""
-"redio del punto .35 del espacio de traste, posición del punto 0.55 del "
-"espacio de traste"
+msgstr "radi del punt 0.35 de l'espaiat del trast, posició del punt 0.55 de l'espaiat del trast"
 
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:58 (comment)
 msgid "These chords will be in normal orientation"
-msgstr "Estos acordes estarán en la orientación normal"
+msgstr "Aquests acords estaran a l'orientació normal"
 
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:64 (comment)
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:85 (comment)
@@ -9073,57 +9064,57 @@ msgstr "Estos acordes estarán en la orientación normal"
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:311 (comment)
 #, python-format
 msgid "110% of default size"
-msgstr "110% del tamaño predeterminado"
+msgstr "110% de la mida predeterminada"
 
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:82 (comment)
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:182 (comment)
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:281 (comment)
 msgid "Double barre used to test barre function"
-msgstr "Doble barra utilizada para probar la función de barra"
+msgstr "Doble barra utilitzada per a provar la funció de barra"
 
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:109 (comment)
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:209 (comment)
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:308 (comment)
 msgid "C major for guitar, with capo on third fret"
-msgstr "Do mayor para guitarra, cejilla en el tercer traste"
+msgstr "Do major per a la guitarra, amb celleta el tercer trast"
 
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:144 (comment)
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:243 (comment)
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:342 (comment)
 msgid "simple D chord, large top fret thickness"
-msgstr "acorde sencillo de Re, grosor del traste grande superior"
+msgstr "acord senzill de Re, gruix del trast gran superior"
 
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:156 (comment)
 msgid "These chords will be in landscape orientation"
-msgstr "Eestos acordes estarán en orientación horizontal"
+msgstr "Aquests acords estaran en orientació apaïsada"
 
 #. Documentation/snippets/fret-diagrams-explained-and-developed.ly:255 (comment)
 msgid "These chords will be in opposing-landscape orientation"
-msgstr "Estos acordes estarán en orientación horizontal opuesta"
+msgstr "Aquests acords estaran en orientació apaïsada oposada"
 
 #. Documentation/snippets/fretboards-alternate-tables.ly:90 (comment)
 msgid "Make a blank new fretboard table"
-msgstr "Hacer una tabla de trastes en blanco"
+msgstr "Fes una nova taula de diapasó buida"
 
 #. Documentation/snippets/fretboards-alternate-tables.ly:93 (comment)
 msgid "Make a new fretboard table as a copy of default-fret-table"
-msgstr "Hacer una tabla de trastes nueva como copia de default-fret-table"
+msgstr "Fes una nova taula de diapasó com a còpia de default-fret-table"
 
 #. Documentation/snippets/fretboards-alternate-tables.ly:96 (comment)
 msgid "Add a chord to custom-fretboard-table-one"
-msgstr "Añadir un acorde a custom-fretboard-table-one"
+msgstr "Afegeix un acord a custom-fretboard-table-one"
 
 #. Documentation/snippets/fretboards-alternate-tables.ly:102 (comment)
 msgid "Add a chord to custom-fretboard-table-two"
-msgstr "Añadir un acorde a custom-fretboard-table-two"
+msgstr "Afegeix un acord a custom-fretboard-table-two"
 
 #. Documentation/snippets/fretted-headword.ly:36 (comment)
 msgid "shortcuts"
-msgstr "atajos"
+msgstr "dreceres"
 
 #. Documentation/snippets/fretted-headword.ly:37 (comment)
 msgid "fingering orientations"
-msgstr "orientaciones de digitación"
+msgstr "orientacions de digitació"
 
 #. Documentation/snippets/fretted-headword.ly:38 (variable)
 msgid "sfol"
@@ -9143,7 +9134,7 @@ msgstr "sfou"
 
 #. Documentation/snippets/fretted-headword.ly:43 (comment)
 msgid "string number orientations"
-msgstr "orientaciones de los números de cuerda"
+msgstr "orientacions dels números de corda"
 
 #. Documentation/snippets/fretted-headword.ly:44 (variable)
 msgid "ssnol"
@@ -9151,15 +9142,15 @@ msgstr "ssnol"
 
 #. Documentation/snippets/fretted-headword.ly:44 (comment)
 msgid "(down right up)"
-msgstr "(abajo derecha arriba)"
+msgstr "(abaix dreta amunt)"
 
 #. Documentation/snippets/fretted-headword.ly:45 (variable)
 msgid "ssnou"
-msgstr "ssnoarriba"
+msgstr "ssnou"
 
 #. Documentation/snippets/fretted-headword.ly:46 (variable)
 msgid "ssnod"
-msgstr "ssnoabajo"
+msgstr "ssnod"
 
 #. Documentation/snippets/fretted-headword.ly:47 (variable)
 msgid "ssnor"
@@ -9167,7 +9158,7 @@ msgstr "ssnor"
 
 #. Documentation/snippets/fretted-headword.ly:49 (comment)
 msgid "define fingering offset"
-msgstr "definir desplazamiento de la digitación"
+msgstr "defineix el desplaçament de la digitació"
 
 #. Documentation/snippets/fretted-headword.ly:50 (variable)
 msgid "FO"
@@ -9175,7 +9166,7 @@ msgstr "FO"
 
 #. Documentation/snippets/fretted-headword.ly:55 (comment)
 msgid "markups"
-msgstr "marcados"
+msgstr "etiquetatges"
 
 #. Documentation/snippets/fretted-headword.ly:56 (variable)
 msgid "rit"
@@ -9204,96 +9195,96 @@ msgstr "LA MÚSICA %%%"
 #. Documentation/snippets/fretted-headword.ly:74 (comment)
 #. Documentation/snippets/fretted-headword.ly:113 (comment)
 msgid "m. 1"
-msgstr "c. 1"
+msgstr "m. 1"
 
 #. Documentation/snippets/fretted-headword.ly:80 (comment)
 msgid "m. 2"
-msgstr "c. 2"
+msgstr "m. 2"
 
 #. Documentation/snippets/fretted-headword.ly:82 (comment)
 #. Documentation/snippets/fretted-headword.ly:118 (comment)
 msgid "m. 3"
-msgstr "c. 3"
+msgstr "m. 3"
 
 #. Documentation/snippets/fretted-headword.ly:83 (comment)
 #. Documentation/snippets/fretted-headword.ly:120 (comment)
 msgid "m. 4"
-msgstr "c. 4"
+msgstr "m. 4"
 
 #. Documentation/snippets/fretted-headword.ly:87 (comment)
 #. Documentation/snippets/fretted-headword.ly:125 (comment)
 msgid "m. 5"
-msgstr "c. 5"
+msgstr "m. 5"
 
 #. Documentation/snippets/fretted-headword.ly:90 (comment)
 msgid "end of m. 6"
-msgstr "fin del c. 6"
+msgstr "fi de m. 6"
 
 #. Documentation/snippets/fretted-headword.ly:93 (comment)
 #. Documentation/snippets/fretted-headword.ly:130 (comment)
 msgid "m. 7"
-msgstr "c. 7"
+msgstr "m. 7"
 
 #. Documentation/snippets/fretted-headword.ly:96 (comment)
 msgid "beg of m. 8"
-msgstr "comienzo del c. 8"
+msgstr "inici de m. 8"
 
 #. Documentation/snippets/fretted-headword.ly:97 (comment)
 msgid "end of m. 8"
-msgstr "fin del c. 8"
+msgstr "fi de m. 8"
 
 #. Documentation/snippets/fretted-headword.ly:99 (comment)
 msgid "end of m. 9"
-msgstr "fin del c. 9"
+msgstr "fi de m. 9"
 
 #. Documentation/snippets/fretted-headword.ly:101 (comment)
 #. Documentation/snippets/fretted-headword.ly:137 (comment)
 msgid "m. 10"
-msgstr "c. 10"
+msgstr "m. 10"
 
 #. Documentation/snippets/fretted-headword.ly:103 (comment)
 msgid "beg of m. 11"
-msgstr "comienzo del c. 11"
+msgstr "inici de m. 11"
 
 #. Documentation/snippets/fretted-headword.ly:105 (comment)
 msgid "end of m. 11"
-msgstr "final del c. 11"
+msgstr "fi de m. 11"
 
 #. Documentation/snippets/fretted-headword.ly:115 (comment)
 msgid "beg m. 2"
-msgstr "comienzo del c. 2"
+msgstr "inici de m. 2"
 
 #. Documentation/snippets/fretted-headword.ly:116 (comment)
 msgid "end m. 2"
-msgstr "final del c. 2"
+msgstr "fi de m. 2"
 
 #. Documentation/snippets/fretted-headword.ly:122 (comment)
 msgid "new section starts here in A minor"
-msgstr "la nueva sección comienza aquí en La menor"
+msgstr "la nova secció comença aquí en La menor"
 
 #. Documentation/snippets/fretted-headword.ly:127 (comment)
 msgid "beg m. 6"
-msgstr "comienzo del c. 6"
+msgstr "inici de m. 6"
 
 #. Documentation/snippets/fretted-headword.ly:128 (comment)
 msgid "end m. 6"
-msgstr "final del c. 6"
+msgstr "fi de m. 6"
 
 #. Documentation/snippets/fretted-headword.ly:132 (comment)
 msgid "m. 8"
-msgstr "c. 8"
+msgstr "m. 8"
 
 #. Documentation/snippets/fretted-headword.ly:134 (comment)
 msgid "beg m. 9"
-msgstr "comienzo del c. 9"
+msgstr "inici de m. 9"
 
 #. Documentation/snippets/fretted-headword.ly:135 (comment)
 msgid "end m. 9"
-msgstr "final del c. 9"
+msgstr "fi de m. 9"
 
 #. Documentation/snippets/fretted-headword.ly:139 (comment)
 msgid "m. 11"
-msgstr "c. 11"
+msgstr "m. 11"
 
 #. Documentation/snippets/fretted-headword.ly:143 (context id)
 #. Documentation/snippets/jazz-combo-template.ly:199 (variable)
@@ -9305,129 +9296,127 @@ msgstr "guitarra"
 
 #. Documentation/snippets/fretted-string-harmonics-in-tablature.ly:40 (variable)
 msgid "pinchedHarmonics"
-msgstr "armonicosPinchados"
+msgstr "pinchedHarmonics"
 
 #. Documentation/snippets/fretted-string-harmonics-in-tablature.ly:54 (comment)
 #. Documentation/snippets/fretted-string-harmonics-in-tablature.ly:73 (comment)
 msgid "artificial harmonics (AH)"
-msgstr "armónicos artificiales (AH)"
+msgstr "harmònics artificials (AH)"
 
 #. Documentation/snippets/fretted-string-harmonics-in-tablature.ly:59 (comment)
 #. Documentation/snippets/fretted-string-harmonics-in-tablature.ly:77 (comment)
 msgid "pinched harmonics (PH)"
-msgstr "armónicos pinchados (PH)"
+msgstr "harmònics pizzicato (PH)"
 
 #. Documentation/snippets/fretted-string-harmonics-in-tablature.ly:64 (comment)
 #. Documentation/snippets/fretted-string-harmonics-in-tablature.ly:81 (comment)
 msgid "tapped harmonics (TH)"
-msgstr "armónicos golpeados (TH)"
+msgstr "armònics copejats (TH)"
 
 #. Documentation/snippets/fretted-string-harmonics-in-tablature.ly:68 (comment)
 #. Documentation/snippets/fretted-string-harmonics-in-tablature.ly:85 (comment)
 msgid "touch harmonics (TCH)"
-msgstr "armónicos tocados (TCH)"
+msgstr "harmònics tocats (TCH)"
 
 #. Documentation/snippets/fretted-string-harmonics-in-tablature.ly:72 (variable)
 msgid "frettedStrings"
-msgstr "cuerdaTraste"
+msgstr "frettedStrings"
 
 #. Documentation/snippets/generating-custom-flags.ly:35 (comment)
 msgid "Create a flag stencil by looking up the glyph from the font"
-msgstr "Crear un sello de corchete buscando el glifo en la fuente tipográfica"
+msgstr "Crea un segell d'etiqueta buscant el glif del tipus de lletra"
 
 #. Documentation/snippets/generating-custom-flags.ly:50 (variable)
 msgid "snippetexamplenotes"
-msgstr "notasdeejemplo"
+msgstr "snippetexamplenotes"
 
 #. Documentation/snippets/generating-whole-scores-also-book-parts-in-scheme-without-using-the-parser.ly:74 (comment)
 msgid "Just some example score to show how to use these functions:"
-msgstr "Una simple partitura de ejemplo para mostrar la forma de uso de estas funciones:"
+msgstr "Una partitur simple d'exemple per mostrar la forma d'ús d'aquestes funcions:"
 
 #. Documentation/snippets/generating-whole-scores-also-book-parts-in-scheme-without-using-the-parser.ly:100 (variable)
 msgid "oneNoteScore"
-msgstr "partituraDeUnaSolaNota"
+msgstr "oneNoteScore"
 
 #. Documentation/snippets/generating-whole-scores-also-book-parts-in-scheme-without-using-the-parser.ly:117 (comment)
 msgid "Top-level scores are also handled correctly"
-msgstr "Las partituras del nivel superior también se manejan correctamente"
+msgstr "També es gestionen correctament les partitures de nivell superior"
 
 #. Documentation/snippets/grid-lines--changing-their-appearance.ly:57 (comment)
 msgid "this moves them up one staff space from the default position"
-msgstr "moverlas hacia arriba un espacio de pentagrama desde la posición de"
+msgstr "això les mou un espai de pauta amunt respecte la posició predeterminada"
 
 #. Documentation/snippets/grid-lines--changing-their-appearance.ly:75 (comment)
 msgid "set up grids"
-msgstr "establecer rejillas"
+msgstr "estableix quadrícules"
 
 #. Documentation/snippets/grid-lines--changing-their-appearance.ly:77 (comment)
 msgid "set the grid interval to one quarter note"
-msgstr "establecer intervalo de rejilla a una negra"
+msgstr "estableix l'interval de quadrícula a un quart de nota"
 
 #. Documentation/snippets/grid-lines--changing-their-appearance.ly:83 (comment)
 msgid "this moves them to the right half a staff space"
-msgstr "moverlas a la derecha medio espacio de pentagrama"
+msgstr "això les mou cap a la dreta mig espai de pauta"
 
 #. Documentation/snippets/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:42 (comment)
 msgid "hides staff and notes so that only the grid lines are visible"
-msgstr "ocultar pentagrama y notas para que sólo se vea la rejilla"
+msgstr "amaga les pautes i les notes de manera que sols es vegin les línies de quadrícula"
 
 #. Documentation/snippets/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:49 (comment)
 msgid "dummy notes to force regular note spacing"
-msgstr "notas falsas para forzar el espaciado regular de las notas"
+msgstr "notes fictícies per forçar l'espaiat regular de les notes"
 
 #. Documentation/snippets/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:65 (comment)
 msgid "center grid lines horizontally below note heads"
-msgstr "centrar las líneas de rejilla horizontalmente bajo las cabezas"
+msgstr "centra les línies de quadrícula horizontalment a sota del cap de les notes"
 
 #. Documentation/snippets/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:72 (comment)
 msgid "set line length and positioning:"
-msgstr "fijar la longitud y la posición de la línea:"
+msgstr "estableix la longitud de les línies i la seva posició:"
 
 #. Documentation/snippets/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:73 (comment)
 msgid "two staff spaces above center line on hidden staff"
-msgstr "dos espacios por encima de la línea central sobre el pentagrama oculto"
+msgstr "dos espais de pauta a sobre de la línea central a la pauta oculta"
 
 #. Documentation/snippets/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:74 (comment)
 msgid "to four spaces below center line on visible staff"
-msgstr ""
-"hasta cuatro espacios por debajo de la línea central sobre el pentagrama "
-"visible"
+msgstr "fins a quatre espais a sota de la línia central a la pauta visible"
 
 #. Documentation/snippets/guitar-slides.ly:36 (comment)
 msgid "Hide fret number: useful to draw slide into/from a casual point of"
-msgstr "Ocultar el número de traste: útil para trazar un slide dentro de"
+msgstr "Amaga el número de trast: útil per a trazar un desplaçament a/cap a un punt casual"
 
 #. Documentation/snippets/guitar-slides.ly:37 (comment)
 msgid "the fretboard."
-msgstr "o a partir de un punto casual del mástil."
+msgstr "del màstil."
 
 #. Documentation/snippets/guitar-slides.ly:38 (variable)
 msgid "hideFretNumber"
-msgstr "ocultarTraste"
+msgstr "hideFretNumber"
 
 #. Documentation/snippets/heavily-customized-polymetric-time-signatures.ly:52 (variable)
 msgid "drum"
-msgstr "percusion"
+msgstr "percussió"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:60 (comment)
 msgid "Solution 1: Using a simple markup with a particular halign value"
-msgstr "Solución 1: usar un marcado sencillo con un valor concreto de halign"
+msgstr "Solució 1: Usar un etiquetatge simple amb un valor particuluar d'halign"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:61 (comment)
 msgid "Drawback: It's a markup, not a dynamic command, so \\dynamicDown"
-msgstr "Inconveniente: es un marcado, no una instrucción de matiz dinámico,"
+msgstr "Inconvenient: és un etiquetatge, no una ordre de matís dinàmic,"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:62 (comment)
 msgid "etc. will have no effect"
-msgstr "por lo que \\dynamicDown etc. no funcionan"
+msgstr "per la qual cosa \\dynamicDown, etc., no funcionaran"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:63 (variable)
 msgid "semppMarkup"
-msgstr "semppMarcado"
+msgstr "semppMarkup"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:65 (comment)
 msgid "Solution 2: Using a dynamic script & shifting with"
-msgstr "Solución 2: usar una indicación de dinámica y desplazarla con"
+msgstr "Solució 2: usar una indicació de dinàmica i desplaçar-la amb"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:66 (comment)
 msgid "\\once \\override ... #'X-offset = .."
@@ -9435,7 +9424,7 @@ msgstr "\\once \\override ... #'X-offset = .."
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:67 (comment)
 msgid "Drawback: \\once \\override needed for every invocation"
-msgstr "Inconveniente: se necesita \\once\\override para cada invocación"
+msgstr "Inconvenient: es necessita \\once \\override per a cada invocació"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:68 (variable)
 msgid "semppK"
@@ -9443,19 +9432,15 @@ msgstr "semppK"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:75 (comment)
 msgid "Solution 3: Padding the dynamic script so the center-alignment"
-msgstr ""
-"Solución 3: aplicar relleno a la indicación dinámica para que el center-"
-"alignment"
+msgstr "Solució 3: S'està omplint l'script dinàmic de manera que center-alignment"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:76 (comment)
 msgid "puts it at the correct position"
-msgstr "lo ponga en la posición correcta"
+msgstr "el posa a la posició correcta"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:77 (comment)
 msgid "Drawback: the padding really reserves the space, nothing else can be there"
-msgstr ""
-"Inconveniente: el relleno reserva el espacio realmente, no puede haber nada "
-"más aquí"
+msgstr "Inconvenient: el farcit en realitat reserva l'espai, no pot haver-hi res més"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:78 (variable)
 msgid "semppT"
@@ -9463,25 +9448,23 @@ msgstr "semppT"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:86 (comment)
 msgid "Solution 4: Dynamic, setting the dimensions of the additional text to 0"
-msgstr ""
-"Solución 4: indicación dinámica, fijando a 0 las dimensiones del texto "
-"adicional"
+msgstr "Solució 4: indicació dinàmica, establir les dimensions del text addicional a 0"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:87 (comment)
 msgid "Drawback: To lilypond \\\"sempre\\\" has no extent, so it might put"
-msgstr "Inconveniente: para lilypond \\\"sempre\\\" no tiene dimensiones,"
+msgstr "Inconvenient: al LilyPond \\\"sempre\\\" no té dimensions, així que pot posar "
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:88 (comment)
 msgid "other stuff there => collisions"
-msgstr "lo que podría dar lugar a colisiones"
+msgstr "aquí altres elments => col·lisions"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:89 (comment)
 msgid "Drawback: Also, there seems to be some spacing, so it's not exactly the"
-msgstr "Inconveniente: asimismo, parece haber algo de espacio, por lo que"
+msgstr "Inconvenient: tanmateix, sembla haver-hi una mica d'espaiat, així que no és exactament"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:90 (comment)
 msgid "same alignment as without the additional text"
-msgstr "no es exactamente la misma alnieación que sin el texto adicional"
+msgstr "la mateixa alineació que sense el text addicional"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:91 (variable)
 msgid "semppM"
@@ -9489,9 +9472,7 @@ msgstr "semppM"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:100 (comment)
 msgid "Solution 5: Dynamic with explicit shifting inside the scheme function"
-msgstr ""
-"Solución 5: indicación dinámica con desplazamiento explícito dentro de la "
-"función de Scheme"
+msgstr "Solució 5: indicació dinàmica amb desplaçament explícit dins de la funció del Scheme"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:101 (variable)
 msgid "semppG"
@@ -9499,23 +9480,23 @@ msgstr "semppG"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:109 (comment)
 msgid "Solution 6: Dynamic with explicit alignment. This has only effect"
-msgstr "Solución 6: indicación dinámica con alineación explícita. ¡Sólo tiene efecto "
+msgstr "Soluci 6: indicació dinàmica amb alineació explícita. Sols té efecte"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:110 (comment)
 msgid "if one sets X-offset!"
-msgstr "si se fija X-offset!"
+msgstr "si d'estableix X-offset!"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:111 (comment)
 msgid "Drawback: One needs to set DynamicText #'X-offset!"
-msgstr "Inconveniente: ¡Hay que fijar DynamicText #'X-offset!"
+msgstr "Inconvenient: Cal fixar DynamicText #'X-offset!"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:112 (comment)
 msgid "Drawback: Aligned at the right edge of the additional text,"
-msgstr "Inconveniente: alineado con el borde derecho del texto adicional,"
+msgstr "Inconovenient: alineat amb el cantó dret del text addicional,"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:113 (comment)
 msgid "not at the center of pp"
-msgstr "no con el centro del pp"
+msgstr "no al centre del pp"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:114 (variable)
 msgid "semppMII"
@@ -9551,7 +9532,7 @@ msgstr "sMII"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:172 (comment)
 msgid "Setting to ##f (false) gives the same result"
-msgstr "Al fijarlo a ##f (falso) obtenemos el mismo resultado"
+msgstr "Establint-lo a  ##f (fals) dóna el mateix resultat"
 
 #. Documentation/snippets/how-to-change-fret-diagram-position.ly:33 (variable)
 #. Documentation/snippets/score-for-diatonic-accordion.ly:67 (variable)
@@ -9559,103 +9540,103 @@ msgstr "Al fijarlo a ##f (falso) obtenemos el mismo resultado"
 #. Documentation/snippets/single-staff-template-with-notes,-lyrics,-and-chords.ly:73 (variable)
 #. Documentation/snippets/single-staff-template-with-notes-and-chords.ly:70 (variable)
 msgid "harmonies"
-msgstr "armonias"
+msgstr "harmonies"
 
 #. Documentation/snippets/how-to-change-fret-diagram-position.ly:36 (comment)
 msgid "THE FOLLOWING IS THE COMMAND TO MOVE THE CHORD NAME"
-msgstr "a continuación la instrucción para mover el nombre del acorde"
+msgstr "LA SEGÜENT ÉS L'ORDRE PER MOURE EL NOM DE L'ACORD"
 
 #. Documentation/snippets/how-to-change-fret-diagram-position.ly:39 (comment)
 msgid "THIS LINE IS THE SECOND METHOD"
-msgstr "esta línea es el segundo método"
+msgstr "AQUESTA LÍNIA ÉS EL SEGON MÊTODE"
 
 #. Documentation/snippets/how-to-change-fret-diagram-position.ly:49 (comment)
 msgid "THE FOLLOWING IS THE COMMAND TO MOVE THE FRET DIAGRAM"
-msgstr "a continuación la instrucción para mover el diagrama de posición"
+msgstr "LA SEGÜENT ÉS L'ORDRE PER MOURE EL DIAGRAMA DE POSICIONS"
 
 #. Documentation/snippets/how-to-change-fret-diagram-position.ly:52 (comment)
 msgid "HERE IS THE SECOND METHOD"
-msgstr "aquí el segundo método"
+msgstr "AQUÍ ESTÀ EL SEGON MÈTODE"
 
 #. Documentation/snippets/hymn-template.ly:62 (variable)
 msgid "Timeline"
-msgstr "LineaDeTiempo"
+msgstr "Timeline"
 
 #. Documentation/snippets/hymn-template.ly:94 (comment)
 msgid "Start score"
-msgstr "Inicio de la partitura"
+msgstr "Inici de la partitura"
 
 #. Documentation/snippets/hymn-template.ly:96 (comment)
 msgid "Start pianostaff"
-msgstr "Iniciar sistema de piano"
+msgstr "Inicia pianostaff"
 
 #. Documentation/snippets/hymn-template.ly:97 (comment)
 msgid "Start Staff = RH"
-msgstr "inicio de pentagrama MD"
+msgstr "Inicia el pentagrama = RH"
 
 #. Documentation/snippets/hymn-template.ly:100 (comment)
 msgid "Start Voice = \\\"Soprano\\\""
-msgstr "Inicio de voz = \\\"Soprano\\\""
+msgstr "Inicia la veu = \\\"Soprano\\\""
 
 #. Documentation/snippets/hymn-template.ly:104 (comment)
 msgid "End Voice = \\\"Soprano\\\""
-msgstr "Final de voz = \\\"Soprano\\\""
+msgstr "Finalitza la veu = \\\"Soprano\\\""
 
 #. Documentation/snippets/hymn-template.ly:105 (comment)
 msgid "Start Voice = \\\"Alto\\\""
-msgstr "Inicio de voz = \\\"Alto\\\""
+msgstr "Inicia la veu = \\\"Alto\\\""
 
 #. Documentation/snippets/hymn-template.ly:109 (comment)
 msgid "End Voice = \\\"Alto\\\""
-msgstr "Final de voz = \\\"Alto\\\""
+msgstr "Finalitza la veu = \\\"Alto\\\""
 
 #. Documentation/snippets/hymn-template.ly:110 (comment)
 msgid "End Staff = RH"
-msgstr "Final de pentagrama MD"
+msgstr "Fi del pentagrama = RH"
 
 #. Documentation/snippets/hymn-template.ly:111 (comment)
 msgid "Start Staff = LH"
-msgstr "Inicio de pentagrama MI"
+msgstr "Inicia el pentagrama = LH"
 
 #. Documentation/snippets/hymn-template.ly:114 (comment)
 msgid "Start Voice = \\\"Tenor\\\""
-msgstr "Inicio de voz = \\\"Tenor\\\""
+msgstr "Inicia la veu = \\\"Tenor\\\""
 
 #. Documentation/snippets/hymn-template.ly:118 (comment)
 msgid "End Voice = \\\"Tenor\\\""
-msgstr "Final de voz = \\\"Tenor\\\""
+msgstr "Finalitza la veu = \\\"Tenor\\\""
 
 #. Documentation/snippets/hymn-template.ly:119 (comment)
 msgid "Start Voice = \\\"Bass\\\""
-msgstr "Inicio de voz = \\\"Bass\\\""
+msgstr "Inicia la veu = \\\"Bass\\\""
 
 #. Documentation/snippets/hymn-template.ly:123 (comment)
 msgid "End Voice = \\\"Bass\\\""
-msgstr "Final de voz = \\\"Bass\\\""
+msgstr "Finalitza la veu = \\\"Bass\\\""
 
 #. Documentation/snippets/hymn-template.ly:124 (comment)
 msgid "End Staff = LH"
-msgstr "Final de pentagrama MI"
+msgstr "Fi del pentagrama = LH"
 
 #. Documentation/snippets/hymn-template.ly:125 (comment)
 msgid "End pianostaff"
-msgstr "Final del sistema de piano"
+msgstr "FI pianostaff"
 
 #. Documentation/snippets/hymn-template.ly:146 (comment)
 msgid "Start paper block"
-msgstr "Inicio del bloque paper"
+msgstr "Inicia el bloc de paper"
 
 #. Documentation/snippets/hymn-template.ly:147 (comment)
 msgid "don't indent first system"
-msgstr "no sangrar el primer sistema"
+msgstr "no facis sagnat a la primera pauta"
 
 #. Documentation/snippets/hymn-template.ly:148 (comment)
 msgid "shorten line length to suit music"
-msgstr "acortar la longitur de la línea para adecuarse a la música"
+msgstr "redueix la longitud de la línia per adequar-se a la música"
 
 #. Documentation/snippets/hymn-template.ly:149 (comment)
 msgid "End paper block"
-msgstr "Final del boque paper"
+msgstr "Fi del bloc de paper"
 
 #. Documentation/snippets/incipit.ly:88 (variable)
 #. Documentation/snippets/incipit.ly:89 (context id)
@@ -9672,7 +9653,7 @@ msgstr "altusIncipit"
 #. Documentation/snippets/incipit.ly:182 (comment)
 #. Documentation/snippets/incipit.ly:191 (comment)
 msgid "two measures"
-msgstr "dos compases"
+msgstr "dos compassos"
 
 #. Documentation/snippets/incipit.ly:161 (variable)
 #. Documentation/snippets/incipit.ly:162 (context id)
@@ -9686,41 +9667,39 @@ msgstr "bassusIncipit"
 
 #. Documentation/snippets/incipit.ly:268 (comment)
 msgid "no bar lines in staves or lyrics"
-msgstr "sin líneas divisorias en los pentagramas ni en la letra"
+msgstr "sense línies divisòries als pentagrames o a la lletra"
 
 #. Documentation/snippets/incipit.ly:271 (comment)
 msgid "the next two instructions keep the lyrics between the bar lines"
-msgstr ""
-"las dos instrucciones siguientes mantienen la letra entre las barras de "
-"compás"
+msgstr "les dues instruccions següents mantenen la lletra entre les barres de compàs"
 
 #. Documentation/snippets/incipit.ly:281 (comment)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:290 (comment)
 msgid "Comment in the below \\\"\\remove\\\" command to allow line"
-msgstr "Quite el comentario de la instrucción \\\"\\remove\\\" de abajo para permitir"
+msgstr "Suprimeixi el comentaria a l'ordre \\\"\\remove\\\" de sota per permetre"
 
 #. Documentation/snippets/incipit.ly:282 (comment)
 msgid "breaking also at those bar lines where a note overlaps"
-msgstr "saltar también en las barras en que se superpone una nota"
+msgstr "el salt de línia també a aquelles línies de barra on se superposa una nota"
 
 #. Documentation/snippets/incipit.ly:283 (comment)
 msgid "into the next measure.  The command is commented out in this"
-msgstr "sobre el siguiente compás.  La instrucción es un comentario en este"
+msgstr "al compàs següent.  L'ordre està cancel·lada amb un comentari a aquesta"
 
 #. Documentation/snippets/incipit.ly:284 (comment)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:293 (comment)
 msgid "short example score, but especially for large scores, you"
-msgstr "partitura corta de ejemplo, pero especialmente para partituras extensas,"
+msgstr "partitura corta de exemple, però especialment per a partitures extenses,"
 
 #. Documentation/snippets/incipit.ly:285 (comment)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:294 (comment)
 msgid "will typically yield better line breaking and thus improve"
-msgstr "probablemente consiga unos saltos de línea mejores y así mejorar"
+msgstr "generalment obtindreu salts de pàgina millors i això millorareu"
 
 #. Documentation/snippets/incipit.ly:286 (comment)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:295 (comment)
 msgid "overall spacing if you comment in the following command."
-msgstr "el espaciado general si elimina el comentario de la instrucción siguiente."
+msgstr "l'espaiat general si elimineu el comentari de l'ordre següent."
 
 #. Documentation/snippets/incipit.ly:287 (comment)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:296 (comment)
@@ -9729,11 +9708,11 @@ msgstr "\\remove \\\"Forbid_line_break_engraver\\\""
 
 #. Documentation/snippets/inserting-score-fragments-above-a-staff,-as-markups.ly:21 (variable)
 msgid "tuning"
-msgstr "afinacion"
+msgstr "afinació"
 
 #. Documentation/snippets/isolated-percent-repeats.ly:46 (variable)
 msgid "makePercent"
-msgstr "hacerPorcentaje"
+msgstr "makePercent"
 
 #. Documentation/snippets/jazz-combo-template.ly:82 (comment)
 msgid "#(set-global-staff-size 16)"
@@ -9741,7 +9720,7 @@ msgstr "#(set-global-staff-size 16)"
 
 #. Documentation/snippets/jazz-combo-template.ly:85 (comment)
 msgid "Some macros %%%%%%%%%%%%%%%%%%%"
-msgstr "Algunos macros %%%%%%%%%%%%%%%%%%%"
+msgstr "Alguns macros %%%%%%%%%%%%%%%%%%%"
 
 #. Documentation/snippets/jazz-combo-template.ly:87 (variable)
 msgid "sl"
@@ -9753,19 +9732,19 @@ msgstr "nsl"
 
 #. Documentation/snippets/jazz-combo-template.ly:97 (variable)
 msgid "crOn"
-msgstr "crSi"
+msgstr "crOn"
 
 #. Documentation/snippets/jazz-combo-template.ly:98 (variable)
 msgid "crOff"
-msgstr "crNo"
+msgstr "crOff"
 
 #. Documentation/snippets/jazz-combo-template.ly:100 (comment)
 msgid "insert chord name style stuff here."
-msgstr "insertar aquí el código para el estilo de nombres de acorde"
+msgstr "insereix aquí el codi per a l'estil de noms de l'acord"
 
 #. Documentation/snippets/jazz-combo-template.ly:102 (variable)
 msgid "jazzChords"
-msgstr "acordesJazz"
+msgstr "jazzChords"
 
 #. Documentation/snippets/jazz-combo-template.ly:104 (comment)
 msgid "Keys'n'thangs %%%%%%%%%%%%%%%%%"
@@ -9773,11 +9752,11 @@ msgstr "Keys'n'thangs %%%%%%%%%%%%%%%%%"
 
 #. Documentation/snippets/jazz-combo-template.ly:108 (variable)
 msgid "Key"
-msgstr "Tono"
+msgstr "To"
 
 #. Documentation/snippets/jazz-combo-template.ly:110 (comment)
 msgid "############ Horns ############"
-msgstr "############ Trompas ############"
+msgstr "############ Trompes ############"
 
 #. Documentation/snippets/jazz-combo-template.ly:112 (comment)
 msgid "------ Trumpet ------"
@@ -9789,7 +9768,7 @@ msgstr "trpt"
 
 #. Documentation/snippets/jazz-combo-template.ly:117 (variable)
 msgid "trpHarmony"
-msgstr "acordesTrp"
+msgstr "trpHarmony"
 
 #. Documentation/snippets/jazz-combo-template.ly:120 (variable)
 #. Documentation/snippets/jazz-combo-template.ly:300 (context id)
@@ -9800,19 +9779,19 @@ msgstr "trompeta"
 
 #. Documentation/snippets/jazz-combo-template.ly:129 (comment)
 msgid "------ Alto Saxophone ------"
-msgstr "------ Saxofón alto ------"
+msgstr "------ Saxofó alt ------"
 
 #. Documentation/snippets/jazz-combo-template.ly:134 (variable)
 msgid "altoHarmony"
-msgstr "acordesAlto"
+msgstr "altoHarmony"
 
 #. Documentation/snippets/jazz-combo-template.ly:137 (variable)
 msgid "altoSax"
-msgstr "saxoAlto"
+msgstr "altoSax"
 
 #. Documentation/snippets/jazz-combo-template.ly:146 (comment)
 msgid "------ Baritone Saxophone ------"
-msgstr "------ Saxofón barítono ------"
+msgstr "------ Saxofó baríton ------"
 
 #. Documentation/snippets/jazz-combo-template.ly:147 (variable)
 msgid "bari"
@@ -9820,32 +9799,32 @@ msgstr "bari"
 
 #. Documentation/snippets/jazz-combo-template.ly:155 (variable)
 msgid "bariHarmony"
-msgstr "acordesBari"
+msgstr "bariHarmony"
 
 #. Documentation/snippets/jazz-combo-template.ly:158 (variable)
 msgid "bariSax"
-msgstr "saxoBari"
+msgstr "bariSax"
 
 #. Documentation/snippets/jazz-combo-template.ly:167 (comment)
 msgid "------ Trombone ------"
-msgstr "------ Trombón ------"
+msgstr "------ Trombó ------"
 
 #. Documentation/snippets/jazz-combo-template.ly:168 (variable)
 msgid "tbone"
-msgstr "tbon"
+msgstr "tbone"
 
 #. Documentation/snippets/jazz-combo-template.ly:172 (variable)
 msgid "tboneHarmony"
-msgstr "acordesTbon"
+msgstr "tboneHarmony"
 
 #. Documentation/snippets/jazz-combo-template.ly:175 (variable)
 #. Documentation/snippets/jazz-combo-template.ly:304 (context id)
 msgid "trombone"
-msgstr "trombon"
+msgstr "trombó"
 
 #. Documentation/snippets/jazz-combo-template.ly:184 (comment)
 msgid "############ Rhythm Section #############"
-msgstr "############ Sección rítmica #############"
+msgstr "############ Secció rítmica #############"
 
 #. Documentation/snippets/jazz-combo-template.ly:186 (comment)
 msgid "------ Guitar ------"
@@ -9853,11 +9832,11 @@ msgstr "------ Guitarra ------"
 
 #. Documentation/snippets/jazz-combo-template.ly:187 (variable)
 msgid "gtr"
-msgstr "guit"
+msgstr "gtr"
 
 #. Documentation/snippets/jazz-combo-template.ly:195 (variable)
 msgid "gtrHarmony"
-msgstr "acordesGuit"
+msgstr "gtrHarmony"
 
 #. Documentation/snippets/jazz-combo-template.ly:208 (comment)
 msgid "------ Piano ------"
@@ -9865,60 +9844,60 @@ msgstr "------ Piano ------"
 
 #. Documentation/snippets/jazz-combo-template.ly:209 (variable)
 msgid "rhUpper"
-msgstr "mdArriba"
+msgstr "rhUpper"
 
 #. Documentation/snippets/jazz-combo-template.ly:214 (variable)
 msgid "rhLower"
-msgstr "mdAbajo"
+msgstr "rhLower"
 
 #. Documentation/snippets/jazz-combo-template.ly:220 (variable)
 msgid "lhUpper"
-msgstr "miArriba"
+msgstr "lhUpper"
 
 #. Documentation/snippets/jazz-combo-template.ly:225 (variable)
 msgid "lhLower"
-msgstr "miAbajo"
+msgstr "lhLower"
 
 #. Documentation/snippets/jazz-combo-template.ly:231 (variable)
 msgid "PianoRH"
-msgstr "PianoMD"
+msgstr "PianoRH"
 
 #. Documentation/snippets/jazz-combo-template.ly:240 (variable)
 msgid "PianoLH"
-msgstr "PianoMI"
+msgstr "PianoLH"
 
 #. Documentation/snippets/jazz-combo-template.ly:258 (comment)
 msgid "------ Bass Guitar ------"
-msgstr "------ Guitarra bajo ------"
+msgstr "------ Guitarra baix ------"
 
 #. Documentation/snippets/jazz-combo-template.ly:272 (comment)
 msgid "------ Drums ------"
-msgstr "------ Percusión ------"
+msgstr "------ Percussió ------"
 
 #. Documentation/snippets/jazz-combo-template.ly:286 (variable)
 msgid "drumContents"
-msgstr "contenidoPercusion"
+msgstr "drumContents"
 
 #. Documentation/snippets/jazz-combo-template.ly:295 (comment)
 #, python-format
 msgid "It All Goes Together Here %%%%%%%%%%%%%%%%%%%%%%"
-msgstr "Aquí va todo junto %%%%%%%%%%%%%%%%%%%%%%"
+msgstr "Aquí va tot plegat %%%%%%%%%%%%%%%%%%%%%%"
 
 #. Documentation/snippets/jazz-combo-template.ly:299 (context id)
 msgid "horns"
-msgstr "trompas"
+msgstr "trompes"
 
 #. Documentation/snippets/jazz-combo-template.ly:301 (context id)
 msgid "altosax"
-msgstr "saxoalto"
+msgstr "altosax"
 
 #. Documentation/snippets/jazz-combo-template.ly:302 (context id)
 msgid "barichords"
-msgstr "acordesbari"
+msgstr "barichords"
 
 #. Documentation/snippets/jazz-combo-template.ly:303 (context id)
 msgid "barisax"
-msgstr "saxobari"
+msgstr "barisax"
 
 #. Documentation/snippets/jazz-combo-template.ly:308 (context id)
 msgid "chords"
@@ -9930,35 +9909,35 @@ msgstr "M. Ravel, Sonatine (1905)"
 
 #. Documentation/snippets/keyboard-headword.ly:20 (comment)
 msgid "First movement"
-msgstr "Primer movimiento"
+msgstr "Primer moviment"
 
 #. Documentation/snippets/keyboard-headword.ly:30 (variable)
 msgid "fermataLong"
-msgstr "calderonLargo"
+msgstr "fermataLong"
 
 #. Documentation/snippets/makam-example.ly:58 (comment)
 msgid "Initialize makam settings"
-msgstr "Iniciar ajustes de makam"
+msgstr "Inicia els paràmetres de configuració de makam"
 
 #. Documentation/snippets/manually-break-figured-bass-extenders-for-only-some-numbers.ly:24 (variable)
 msgid "bassfigures"
-msgstr "cifrasbajo"
+msgstr "bassfigures"
 
 #. Documentation/snippets/manually-controlling-beam-positions.ly:26 (comment)
 msgid "from upper staff-line (position 2) to center (position 0)"
-msgstr "desde la quinta línea (posición 2) hasta la tercera (posición 0)"
+msgstr "des de la línia de pauta superior (posició 2) al centre (posició 0)"
 
 #. Documentation/snippets/manually-controlling-beam-positions.ly:29 (comment)
 msgid "from center to one above center (position 1)"
-msgstr "desde tercera línea hasta la cuarta (posición 1)"
+msgstr "des del centre a una sobre el centre (posició 1)"
 
 #. Documentation/snippets/marking-notes-of-spoken-parts-with-a-cross-on-the-stem.ly:22 (variable)
 msgid "speakOn"
-msgstr "hablarSi"
+msgstr "speakOn"
 
 #. Documentation/snippets/marking-notes-of-spoken-parts-with-a-cross-on-the-stem.ly:39 (variable)
 msgid "speakOff"
-msgstr "hablarNo"
+msgstr "speakOff"
 
 #. Documentation/snippets/markup-lines.ly:27 (comment)
 msgid "Candide, Voltaire"
@@ -9966,11 +9945,11 @@ msgstr "Candide, Voltaire"
 
 #. Documentation/snippets/mensurstriche-layout-bar-lines-between-the-staves.ly:60 (comment)
 msgid "the final bar line is not interrupted"
-msgstr "la barra final no se interrumpe"
+msgstr "la línia de barra final no s'intorrompeix"
 
 #. Documentation/snippets/merging-multi-measure-rests-in-a-polyphonic-part.ly:22 (variable)
 msgid "normalPos"
-msgstr "posNormal"
+msgstr "normalPos"
 
 #. Documentation/snippets/modifying-default-values-for-articulation-shorthand-notation.ly:75 (variable)
 msgid "dashPlus"
@@ -9978,53 +9957,53 @@ msgstr "dashPlus"
 
 #. Documentation/snippets/modifying-tuplet-bracket-length.ly:28 (comment)
 msgid "Set tuplets to be extendable..."
-msgstr "Hacer los grupos especiales extensibles..."
+msgstr "Fer els grups especials extensibles..."
 
 #. Documentation/snippets/modifying-tuplet-bracket-length.ly:30 (comment)
 msgid "...to cover all items up to the next note"
-msgstr "... para que cubran todos los elementos hasta la nota siguiente"
+msgstr "... per a què cobreixin tots els elements fins la nota següent"
 
 #. Documentation/snippets/modifying-tuplet-bracket-length.ly:34 (comment)
 msgid "...or to cover just whitespace"
-msgstr "... o para cubrir sólo el espacio vacio"
+msgstr "... o per cobrir sols l'espai buit"
 
 #. Documentation/snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly:27 (variable)
 #. Documentation/snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly:91 (variable)
 #. Documentation/snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:72 (variable)
 #. Documentation/snippets/vocal-ensemble-template.ly:89 (variable)
 msgid "sopMusic"
-msgstr "musicaSoprano"
+msgstr "sopMusic"
 
 #. Documentation/snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly:28 (comment)
 #. Documentation/snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly:34 (comment)
 msgid "VERSE ONE"
-msgstr "ESTROFA UNO"
+msgstr "ESTROFA U"
 
 #. Documentation/snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly:56 (context id)
 #. Documentation/snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly:126 (context id)
 #. Documentation/snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:102 (context id)
 #. Documentation/snippets/vocal-ensemble-template.ly:123 (context id)
 msgid "women"
-msgstr "mujeres"
+msgstr "dones"
 
 #. Documentation/snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly:68 (context id)
 #. Documentation/snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly:136 (context id)
 #. Documentation/snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:114 (context id)
 #. Documentation/snippets/vocal-ensemble-template.ly:138 (context id)
 msgid "men"
-msgstr "hombres"
+msgstr "homes"
 
 #. Documentation/snippets/open-string-harmonics-in-tablature.ly:41 (variable)
 msgid "openStringHarmonics"
-msgstr "armonicoAlAire"
+msgstr "openStringHarmonics"
 
 #. Documentation/snippets/open-string-harmonics-in-tablature.ly:42 (comment)
 msgid "first harmonic"
-msgstr "primer armónico"
+msgstr "primer harmònic"
 
 #. Documentation/snippets/open-string-harmonics-in-tablature.ly:45 (comment)
 msgid "second harmonic"
-msgstr "segundo armónico"
+msgstr "segon harmònic"
 
 #. Documentation/snippets/open-string-harmonics-in-tablature.ly:50 (comment)
 msgid "\\harmonicByFret #19 < e,\\6 a,\\5 d\\4 >"
@@ -10036,39 +10015,39 @@ msgstr "\\harmonicByRatio #2/3 < e,\\6 a,\\5 d\\4 >"
 
 #. Documentation/snippets/open-string-harmonics-in-tablature.ly:52 (comment)
 msgid "third harmonic"
-msgstr "tercer armónico"
+msgstr "tercer harmònic"
 
 #. Documentation/snippets/open-string-harmonics-in-tablature.ly:58 (comment)
 msgid "fourth harmonic"
-msgstr "cuarto armónico"
+msgstr "quart harmònic"
 
 #. Documentation/snippets/open-string-harmonics-in-tablature.ly:65 (comment)
 msgid "fifth harmonic"
-msgstr "quinto armónico"
+msgstr "cinquè harmònic"
 
 #. Documentation/snippets/open-string-harmonics-in-tablature.ly:69 (comment)
 msgid "sixth harmonic"
-msgstr "sexto armónico"
+msgstr "sisè harmònic"
 
 #. Documentation/snippets/open-string-harmonics-in-tablature.ly:72 (comment)
 msgid "seventh harmonic"
-msgstr "séptimo armónico"
+msgstr "setè harmònic"
 
 #. Documentation/snippets/open-string-harmonics-in-tablature.ly:75 (comment)
 msgid "eighth harmonic"
-msgstr "octavo armónico"
+msgstr "vuitè harmònic"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:74 (comment)
 msgid "space for instrumentName"
-msgstr "espacio para instrumentName"
+msgstr "espai per a instrumentName"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:75 (comment)
 msgid "space for shortInstrumentName"
-msgstr "espacio para shortInstrumentName"
+msgstr "espai per a shortInstrumentName"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:78 (variable)
 msgid "fluteMusic"
-msgstr "musicaFlauta"
+msgstr "fluteMusic"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:79 (comment)
 msgid "Pitches as written on a manuscript for Clarinet in A"
