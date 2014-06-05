@@ -214,11 +214,12 @@ a flag always touches a staff line."
 
 
 
-(define-public ((glyph-flag flag-style) grob)
+(define ((glyph-flag flag-style) grob)
   "Simulatesthe default way of generating flags: Look up glyphs
 @code{flags.style[ud][1234]} from the feta font and use it for the flag
 stencil."
   (create-glyph-flag flag-style "" grob))
+(export glyph-flag)
 
 
 

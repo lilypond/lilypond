@@ -224,9 +224,10 @@
 
 
 ;; a callback for custom fret labels
-(define-public ((tab-note-head::print-custom-fret-label fret) grob)
+(define ((tab-note-head::print-custom-fret-label fret) grob)
   (ly:grob-set-property! grob 'text fret)
   (tab-note-head::print grob))
+(export tab-note-head::print-custom-fret-label)
 
 (define-public (tab-note-head::print grob)
   (define (is-harmonic? grob)

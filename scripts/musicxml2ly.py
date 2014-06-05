@@ -41,7 +41,7 @@ additional_definitions = {
   "tuplet-note-wrapper": """      % a formatter function, which is simply a wrapper around an existing
       % tuplet formatter function. It takes the value returned by the given
       % function and appends a note of given length.
-  #(define-public ((tuplet-number::append-note-wrapper function note) grob)
+  #(define ((tuplet-number::append-note-wrapper function note) grob)
     (let* ((txt (if function (function grob) #f)))
       (if txt
         (markup txt #:fontsize -5 #:note note UP)

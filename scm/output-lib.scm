@@ -562,34 +562,37 @@ and duration-log @var{log}."
 ;; a formatter function, which is simply a wrapper around an existing
 ;; tuplet formatter function. It takes the value returned by the given
 ;; function and appends a note of given length.
-(define-public ((tuplet-number::append-note-wrapper function note) grob)
+(define ((tuplet-number::append-note-wrapper function note) grob)
   (let ((txt (if function (function grob) #f)))
 
     (if txt
         (markup txt #:fontsize -5 #:note note UP)
         (markup #:fontsize -5 #:note note UP))))
+(export tuplet-number::append-note-wrapper)
 
 ;; Print a tuplet denominator with a different number than the one derived from
 ;; the actual tuplet fraction
-(define-public ((tuplet-number::non-default-tuplet-denominator-text denominator)
+(define ((tuplet-number::non-default-tuplet-denominator-text denominator)
                 grob)
   (number->string (if denominator
                       denominator
                       (ly:event-property (event-cause grob) 'denominator))))
+(export tuplet-number::non-default-tuplet-denominator-text)
 
 ;; Print a tuplet fraction with different numbers than the ones derived from
 ;; the actual tuplet fraction
-(define-public ((tuplet-number::non-default-tuplet-fraction-text
+(define ((tuplet-number::non-default-tuplet-fraction-text
                  denominator numerator) grob)
   (let* ((ev (event-cause grob))
          (den (if denominator denominator (ly:event-property ev 'denominator)))
          (num (if numerator numerator (ly:event-property ev 'numerator))))
 
     (format #f "~a:~a" den num)))
+(export tuplet-number::non-default-tuplet-fraction-text)
 
 ;; Print a tuplet fraction with note durations appended to the numerator and the
 ;; denominator
-(define-public ((tuplet-number::fraction-with-notes
+(define ((tuplet-number::fraction-with-notes
                  denominatornote numeratornote) grob)
   (let* ((ev (event-cause grob))
          (denominator (ly:event-property ev 'denominator))
@@ -597,10 +600,11 @@ and duration-log @var{log}."
 
     ((tuplet-number::non-default-fraction-with-notes
       denominator denominatornote numerator numeratornote) grob)))
+(export tuplet-number::fraction-with-notes)
 
 ;; Print a tuplet fraction with note durations appended to the numerator and the
 ;; denominator
-(define-public ((tuplet-number::non-default-fraction-with-notes
+(define ((tuplet-number::non-default-fraction-with-notes
                  denominator denominatornote numerator numeratornote) grob)
   (let* ((ev (event-cause grob))
          (den (if denominator denominator (ly:event-property ev 'denominator)))
@@ -612,6 +616,7 @@ and duration-log @var{log}."
                          (make-simple-markup " : ")
                          (make-simple-markup (format #f "~a" num))
                          (markup #:fontsize -5 #:note numeratornote UP)))))
+(export tuplet-number::non-default-fraction-with-notes)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1021,7 +1026,7 @@ between the two text elements."
                                              '(bound-details left padding)
                                              (+ my-padding script-padding)))))))
 
-(define-public ((elbowed-hairpin coords mirrored?) grob)
+(define ((elbowed-hairpin coords mirrored?) grob)
   "Create hairpin based on a list of @var{coords} in @code{(cons x y)}
 form.  @code{x} is the portion of the width consumed for a given line
 and @code{y} is the portion of the height.  For example,
@@ -1080,6 +1085,7 @@ and draws the stencil based on its coordinates.
             (if mirrored? (my-c-p-s downlist thick decresc?) empty-stencil))
            (cons xtrans ytrans)))
         '())))
+(export elbowed-hairpin)
 
 (define-public flared-hairpin
   (elbowed-hairpin '((0.95 . 0.4) (1.0 . 1.0)) #t))
@@ -1099,13 +1105,14 @@ and draws the stencil based on its coordinates.
                                     (make-tied-lyric-markup text)
                                     text))))
 
-(define-public ((grob::calc-property-by-copy prop) grob)
+(define ((grob::calc-property-by-copy prop) grob)
   (ly:event-property (event-cause grob) prop))
+(export grob::calc-property-by-copy)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; general inheritance
 
-(define-public ((grob::inherit-parent-property axis property . default) grob)
+(define ((grob::inherit-parent-property axis property . default) grob)
   "@var{grob} callback generator for inheriting a @var{property} from
 an @var{axis} parent, defaulting to @var{default} if there is no
 parent or the parent has no setting."
@@ -1115,6 +1122,7 @@ parent or the parent has no setting."
       (apply ly:grob-property parent property default))
      ((pair? default) (car default))
      (else '()))))
+(export grob::inherit-parent-property)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; fret boards
