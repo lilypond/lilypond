@@ -48,8 +48,9 @@ LilyPond safe mode.  The syntax is the same as `define*-public'."
 
   (let ((safe-symbol (get-symbol arglist)))
     `(begin
-       (define*-public ,arglist
+       (define* ,arglist
          ,@body)
        (set! safe-objects (cons (cons ',safe-symbol ,safe-symbol)
                                 safe-objects))
+       (export ,safe-symbol)
        ,safe-symbol)))
