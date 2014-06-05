@@ -725,6 +725,7 @@ messages into errors.")
     (,ly:stream-event? . "stream event")
     (,ly:translator? . "translator")
     (,ly:translator-group? . "translator group")
+    (,ly:undead? . "undead container")
     (,ly:unpure-pure-container? . "unpure/pure container")
     ))
 
