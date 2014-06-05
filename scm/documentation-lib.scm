@@ -58,16 +58,15 @@
 (define (processing name)
   (ly:basic-progress (_ "Processing ~S...") name))
 
-(define (self-evaluating? x)
-  (or (number? x) (string? x) (procedure? x) (boolean? x)))
-
-(define (texify x)
-  x)
-
-(define (scm->texi x)
-  (string-append "@code{" (texify (scm->string x)) "}"))
-
-
+(define (scm->texi val)
+  (let* (; always start on a new line
+         (open-texi (if (pretty-printable? val)
+                      "\n@verbatim\n"
+                      "\n@code{"))
+         (close-texi (if (pretty-printable? val)
+                       "@end verbatim"
+                       "}")))
+    (string-append open-texi (scm->string val) close-texi)))
 
 (define (texi-section-command level)
   (assoc-get level '(
@@ -91,7 +90,7 @@
   "Document one (LABEL . DESC); return empty string if LABEL is empty string."
   (if (eq? (car label-desc-pair) "")
       ""
-      (string-append "\n@item " (car label-desc-pair) "\n" (cdr label-desc-pair))))
+      (string-append "\n\n@item " (car label-desc-pair) "\n" (cdr label-desc-pair))))
 
 
 (define (description-list->texi items-alist quote?)
@@ -100,9 +99,9 @@ string-to-use).  If QUOTE? is #t, embed table in a @quotation environment."
   (string-append
    "\n"
    (if quote? "@quotation\n" "")
-   "@table @asis\n"
+   "@table @asis"
    (string-concatenate (map one-item->texi items-alist))
-   "\n"
+   "\n\n"
    "@end table\n"
    (if quote? "@end quotation\n" "")))
 
@@ -209,12 +208,8 @@ with init values from ALIST (1st optional argument)
         (ly:error (_ "cannot find description for property ~S (~S)") sym where))
 
     (cons
-     (string-append "@code{" name "} "
-                    "(" typename ")"
+     (string-append "@code{" name "} (" typename ")"
                     (if init-value
-                        (string-append
-                         ":\n\n"
-                         (scm->texi init-value)
-                         "\n\n")
-                        ""))
+                      (string-append ":" (scm->texi init-value) "\n")
+                      ""))
      desc)))

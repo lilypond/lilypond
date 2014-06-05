@@ -22,6 +22,8 @@
 ;; for define-safe-public when byte-compiling using Guile V2
 (use-modules (scm safe-utility-defs))
 
+(use-modules (ice-9 pretty-print))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; constants.
 
@@ -942,23 +944,46 @@ print a warning and set an optional @var{default}."
            (object->string def))
           def))))
 
-;;
-;; don't confuse users with #<procedure .. > syntax.
-;;
+(define (self-evaluating? x)
+  (or (number? x) (string? x) (procedure? x) (boolean? x)))
+
+(define (ly-type? x)
+  (any (lambda (p) ((car p) x)) lilypond-exported-predicates))
+
+(define-public (pretty-printable? val)
+  (and (not (self-evaluating? val))
+       (not (symbol? val))
+       (not (hash-table? val))
+       (not (ly-type? val))))
+
 (define-public (scm->string val)
-  (if (and (procedure? val)
-           (symbol? (procedure-name val)))
-      (symbol->string (procedure-name val))
-      (string-append
-       (if (self-evaluating? val)
-           (if (string? val)
-               "\""
-               "")
-           "'")
-       (call-with-output-string (lambda (port) (display val port)))
-       (if (string? val)
-           "\""
-           ""))))
+  (let* ((quote-style (if (string? val)
+                        'double
+                        (if (or (null? val) ; (ly-type? '()) => #t
+                                (and (not (self-evaluating? val))
+                                     (not (vector? val))
+                                     (not (hash-table? val))
+                                     (not (ly-type? val))))
+                          'single
+                          'none)))
+         ; don't confuse users with #<procedure ...> syntax
+         (str (if (and (procedure? val)
+                       (symbol? (procedure-name val)))
+                (symbol->string (procedure-name val))
+                (call-with-output-string
+                  (if (pretty-printable? val)
+                    ; property values in PDF hit margin after 64 columns
+                    (lambda (port)
+                      (pretty-print val port #:width (case quote-style
+                                                       ((single) 63)
+                                                       (else 64))))
+                    (lambda (port) (display val port)))))))
+    (case quote-style
+      ((single) (string-append
+                  "'"
+                  (string-regexp-substitute "\n " "\n  " str)))
+      ((double) (string-append "\"" str "\""))
+      (else str))))
 
 (define-public (!= lst r)
   (not (= lst r)))
