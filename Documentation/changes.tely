@@ -61,6 +61,27 @@ which scares away people.
 
 @end ignore
 @item
+A new command @code{\magnifyMusic} has been added, which allows
+the notation size to be changed without changing the staff size,
+while automatically scaling stems, beams, and horizontal spacing.
+
+@lilypond[verbatim,quote]
+\new Staff <<
+  \new Voice \relative {
+    \voiceOne
+    <e' e'>4 <f f'>8. <g g'>16 <f f'>8 <e e'>4 r8
+  }
+  \new Voice \relative {
+    \voiceTwo
+    \magnifyMusic 0.63 {
+      r32 c'' a c a c a c r c a c a c a c
+      r c a c a c a c a c a c a c a c
+    }
+  }
+>>
+@end lilypond
+
+@item
 A new flexible template suitable for a range of choral music, is now
 provided.  This may be used to create simple choral music, with or
 without piano accompaniment, in two or four staves. Unlike other

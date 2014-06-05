@@ -49,61 +49,206 @@ inside the staff.
 
 @funindex fontSize
 @funindex font-size
+@funindex magnification->font-size
 @funindex magstep
-@funindex \huge
-@funindex \large
+@funindex magnifyMusic
+@funindex teeny
+@funindex tiny
+@funindex small
+@funindex normalsize
+@funindex large
+@funindex huge
+@funindex \magnifyMusic
+@funindex \teeny
+@funindex \tiny
 @funindex \normalsize
 @funindex \small
-@funindex \tiny
-@funindex \teeny
-@funindex huge
-@funindex large
-@funindex normalsize
-@funindex small
-@funindex tiny
-@funindex teeny
+@funindex \large
+@funindex \huge
 
-The font size of notation elements may be altered.  It does not
-change the size of variable symbols, such as beams or slurs.
+@warning{@*
+For font sizes of text, see @ref{Selecting font and font size}.@*
+For staff size, see @ref{Setting the staff size}.@*
+For cue notes, see @ref{Formatting cue notes}.@*
+For ossia staves, see @ref{Ossia staves}.}
 
-@warning{For font sizes of text, see
-@ref{Selecting font and font size}.}
+To change the size of the notation without changing the staff
+size, specify a magnification factor with the @code{\magnifyMusic}
+command:
+
+@c Grieg Piano Concerto (mvt.1 cadenza)
+@lilypond[verbatim,quote]
+\new Staff <<
+  \new Voice \relative {
+    \voiceOne
+    <e' e'>4 <f f'>8. <g g'>16 <f f'>8 <e e'>4 r8
+  }
+  \new Voice \relative {
+    \voiceTwo
+    \magnifyMusic 0.63 {
+      r32 c'' a c a c a c r c a c a c a c
+      r c a c a c a c a c a c a c a c
+    }
+  }
+>>
+@end lilypond
+
+If a normal sized note head is merged with a smaller one, the size
+of the smaller note may need to be reset (with
+@w{@samp{\once@tie{}\normalsize}}) so that the stems and
+accidentals align properly:
+
+@c Chopin Prelude op.28 no.8
+@lilypond[verbatim,quote]
+\new Staff <<
+  \key fis \minor
+  \mergeDifferentlyDottedOn
+  \new Voice \relative {
+    \voiceOne
+    \magnifyMusic 0.63 {
+      \once \normalsize cis'32( cis' gis b a fis \once \normalsize d d'
+      \once \normalsize cis, cis' gis b a gis \once \normalsize fis fis'
+      \once \normalsize fis, fis' ais, cis b gis \once \normalsize eis eis'
+      \once \normalsize a, a' bis, d cis b \once \normalsize gis gis')
+    }
+  }
+  \new Voice \relative {
+    \voiceTwo
+    cis'8. d16 cis8. fis16 fis8. eis16 a8. gis16
+  }
+>>
+@end lilypond
+
+The @code{\magnifyMusic} command is not intended for cue notes,
+grace notes, or ossia staves---there are more appropriate methods
+of entering each of those constructs.  Instead, it is useful when
+the notation size changes in a single instrumental part on one
+staff, and where grace notes are not appropriate, such as in
+cadenza-like passages or in cases such as the above examples.
+Setting the @code{\magnifyMusic} value to 0.63 duplicates the
+dimensions of the @code{CueVoice} context.
+
+@warning{The @code{@bs{}magnifyMusic} command should @i{not} be
+used when also resizing the staff.  See @ref{Setting the staff
+size}.}
+
+
+@subsubsubheading Resizing individual layout objects
+
+An individual layout object can be resized by using the
+@code{\tweak} or @code{\override} commands to adjust its
+@code{font-size} property:
+
+@lilypond[quote,verbatim,relative=1]
+% resize a note head
+<f \tweak font-size -4 b e>-5
+% resize a fingering
+bes-\tweak font-size 0 -3
+% resize an accidental
+\once \override Accidental.font-size = -4 bes!-^
+% resize an articulation
+\once \override Script.font-size = 4 bes!-^
+@end lilypond
+
+The default @code{font-size} value for each layout object is
+listed in the Internals Reference.  The @code{font-size} property
+can only be set for layout objects that support the
+@code{font-interface} layout interface.  If @code{font-size} is
+not specified in the object's @q{Standard@tie{}settings} list, its
+value is 0.  See @rinternals{All layout objects}.
+
+
+@subsubsubheading Understanding the @code{fontSize} property
+
+The @code{fontSize} context property adjusts the relative size of
+all glyph-based notational elements in a context:
 
 @lilypond[verbatim,quote,relative=2]
-\huge
-c4.-> d8---3
-\large
-c4.-> d8---3
-\normalsize
-c4.-> d8---3
-\small
+\time 3/4
+d4---5 c8( b a g) |
+\set fontSize = -6
+e'4-- c!8-4( b a g) |
+\set fontSize = 0
+fis4---3 e8( d) fis4 |
+g2.
+@end lilypond
+
+The @code{fontSize} value is a number indicating the size relative
+to the standard size for the current staff height.  The default
+@code{fontSize} is 0; adding 6 to any @code{fontSize} value
+doubles the printed size of the glyphs, and subtracting 6 halves
+the size.  Each step increases the size by approximately 12%.
+
+The scheme function @code{magnification->font-size} is provided
+for convenience since the logarithmic units of the
+@code{font-size} property are not entirely intuitive.  For
+example, to adjust the musical notation to 75% of the default
+size, use:
+
+@example
+\set fontSize = #(magnification->font-size 0.75)
+@end example
+
+The scheme function @code{magstep} does the opposite: it converts
+a @code{font-size} value into a magnification factor.
+
+The @code{fontSize} property will only affect notational elements
+that are drawn with glyphs, such as noteheads, accidentals,
+scripts, etc.  It will not affect the size of the staff itself,
+nor will it scale stems, beams, or horizontal spacing.  To scale
+stems, beams, and horizontal spacing along with the notation size
+(without changing the staff size), use the @code{\magnifyMusic}
+command discussed above.  To scale everything, including the staff
+size, see @ref{Setting the staff size}.
+
+Whenever the @code{fontSize} @i{context property} is set, its
+value is added to the value of the @code{font-size} @i{grob
+property} for individual layout objects, before any glyphs are
+printed.  This can cause confusion when setting individual
+@code{font-size} properties while @code{fontSize} is already set:
+
+@lilypond[verbatim,quote,relative=2]
+% the default font-size for NoteHead is 0
+% the default font-size for Fingering is -5
+c4-3
+
+\set fontSize = -3
+% the effective font size for NoteHead is now -3
+% the effective font size for Fingering is now -8
+c4-3
+
+\override Fingering.font-size = 0
+% the effective font size for Fingering is now -3
+c4-3
+@end lilypond
+
+The following shorthand commands are also available:
+
+@multitable @columnfractions .2 .4 .4
+@item @b{Command} @tab @b{Equivalent to} @tab @b{Relative size}
+@item @code{\teeny}      @tab @code{\set fontSize = -3} @tab 71%
+@item @code{\tiny}       @tab @code{\set fontSize = -2} @tab 79%
+@item @code{\small}      @tab @code{\set fontSize = -1} @tab 89%
+@item @code{\normalsize} @tab @code{\set fontSize = 0} @tab 100%
+@item @code{\large}      @tab @code{\set fontSize = 1} @tab 112%
+@item @code{\huge}       @tab @code{\set fontSize = 2} @tab 126%
+@end multitable
+
+@lilypond[verbatim,quote,relative=2]
+\teeny
 c4.-> d8---3
 \tiny
 c4.-> d8---3
-\teeny
+\small
+c4.-> d8---3
+\normalsize
+c4.-> d8---3
+\large
+c4.-> d8---3
+\huge
 c4.-> d8---3
 @end lilypond
 
-Internally, this sets the @code{fontSize} property.  This in turn
-causes the @code{font-size} property to be set in all layout
-objects.  The value of @code{font-size} is a number indicating the
-size relative to the standard size for the current staff height.
-Each step up is an increase of approximately 12% of the font size.
-Six steps is exactly a factor of two.  The Scheme function
-@code{magstep} converts a @code{font-size} number to a scaling
-factor.  The @code{font-size} property can also be set directly,
-so that only certain layout objects are affected.
-
-@lilypond[verbatim,quote,relative=2]
-\set fontSize = #3
-c4.-> d8---3
-\override NoteHead.font-size = #-4
-c4.-> d8---3
-\override Script.font-size = #2
-c4.-> d8---3
-\override Stem.font-size = #-5
-c4.-> d8---3
-@end lilypond
 
 @cindex standard font size (notation)
 @cindex font size (notation), standard
@@ -113,15 +258,12 @@ c4.-> d8---3
 
 Font size changes are achieved by scaling the design size that is
 closest to the desired size.  The standard font size (for
-@w{@code{font-size = #0}}) depends on the standard staff height.
+@w{@code{font-size = 0}}) depends on the standard staff height.
 For a 20pt staff, a 10pt font is selected.
-
-The @code{font-size} property can only be set on layout objects
-that use fonts.  These are the ones supporting the
-@code{font-interface} layout interface.
 
 
 @predefined
+@code{\magnifyMusic},
 @code{\teeny},
 @code{\tiny},
 @code{\small},
@@ -131,6 +273,16 @@ that use fonts.  These are the ones supporting the
 @endpredefined
 
 @seealso
+Notation Reference:
+@ref{Selecting font and font size},
+@ref{Setting the staff size},
+@ref{Formatting cue notes},
+@ref{Ossia staves}.
+
+Installed Files:
+@file{ly/music-functions-init.ly},
+@file{ly/property-init.ly}.
+
 Snippets:
 @rlsr{Editorial annotations}.
 

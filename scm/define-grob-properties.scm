@@ -312,7 +312,9 @@ include @code{upright}, @code{italic}, @code{caps}.")
 @q{normal}@tie{}size.  @code{0}@tie{}is style-sheet's normal size,
 @w{@code{-1}} is smaller, @code{+1} is bigger.  Each step of@tie{}1 is
 approximately 12% larger; 6@tie{}steps are exactly a factor@tie{}2
-larger.  Fractional values are allowed.")
+larger.  If the context property @code{fontSize} is set, its value is
+added to this before the glyph is printed.  Fractional values are
+allowed.")
      (footnote ,boolean? "Should this be a footnote or in-note?")
      (footnote-music ,ly:music? "Music creating a footnote.")
      (footnote-text ,markup? "A footnote for the grob.")

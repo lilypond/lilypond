@@ -632,6 +632,29 @@ languageRestore =
       (ly:input-warning location (_ "No other language was defined previously. Ignoring."))))
 
 
+magnifyMusic =
+#(define-music-function (parser location mag mus) (number? ly:music?)
+   (_i "Magnify the notation of @var{mus} without changing the
+staff-size, using @var{mag} as a size factor.  Stems, beams, and
+horizontal spacing are adjusted automatically.")
+   #{
+     \set fontSize = #(magnification->font-size mag)
+     % gives beam-thickness=0.48 when mag=1 (like default),
+     % gives beam-thickness=0.35 when mag=0.63 (like CueVoice)
+     \temporary \override Beam.beam-thickness = #(+ 119/925 (* mag 13/37))
+     \temporary \override Beam.length-fraction = #mag
+     \temporary \override Stem.length-fraction = #mag
+     \temporary \override Stem.thickness = #(* 1.3 (max 1 mag))
+     \temporary \override Score.SpacingSpanner.spacing-increment = #(* 1.2 mag)
+     #mus
+     \set fontSize = 0
+     \revert Beam.beam-thickness
+     \revert Beam.length-fraction
+     \revert Stem.length-fraction
+     \revert Stem.thickness
+     \revert Score.SpacingSpanner.spacing-increment
+   #})
+
 makeClusters =
 #(define-music-function (parser location arg) (ly:music?)
    (_i "Display chords in @var{arg} as clusters.")
@@ -754,7 +777,7 @@ appropriate tweak applied.")
               \override #prop-path = #(offsetter (third prop-path) offsets)
             #}
             (make-music 'Music)))))
- 
+
 omit =
 #(define-music-function (parser location item) (symbol-list-or-music?)
    (_i "Set @var{item}'s @samp{stencil} property to @code{#f},
