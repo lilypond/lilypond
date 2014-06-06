@@ -446,8 +446,6 @@ messages into errors.")
 (if (ly:get-option 'trace-scheme-coverage)
     (coverage:enable))
 
-(define-public parser #f)
-
 (define music-string-to-path-backends
   '(svg))
 
