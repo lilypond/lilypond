@@ -103,7 +103,7 @@ Per a més informació sobre la forma en la qual aquest manual es
 relaciona amb la resta de la documentació, o per llegir aquest
 manual en altres formats, consulteu @rweb{Manuals}.
 
-Si us falta algun manual, trobarà tota la documentació a 
+Si us falta algun manual, trobareu tota la documentació a 
 @w{@uref{http://@/www@/.lilypond@/.org/}}.
 @end cartouche
 @end macro
@@ -150,7 +150,7 @@ Free Documentation License''.
 
 @ifclear FDL
 @copying
-Aquest document s'ha posat sote el domini públic.
+Aquest document s'ha posat sota el domini públic.
 @end copying
 @end ifclear
 
@@ -205,7 +205,7 @@ Per a la versió del LilyPond @version{}
 
 @macro predefined
 @noindent
-@subsubheading Instrucciones predefinidas
+@subsubheading Instruccions predefinides
 @end macro
 
 @c Due to a bug in texi2html (texi2html.pl CVS versions <= 1.245)
@@ -271,42 +271,42 @@ Per a la versió del LilyPond @version{}
 
 @macro rglos{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,music-glossary-big-page,Glossari Musical}
+@ref{\TEXT\,,,music-glossary-big-page,Glossari musical}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,music-glossary-big-page,Glossari Musical}
+@ref{\TEXT\,,\DISPLAY\,music-glossary-big-page,Glossari musical}
 @end macro
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,learning-big-page,Manual d'Aprenentatge}
+@ref{\TEXT\,,,learning-big-page,Manual d'aprenentatge}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,learning-big-page,Manual d'Aprenentatge}
+@ref{\TEXT\,,\DISPLAY\,learning-big-page,Manual d'aprenentatge}
 @end macro
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,notation-big-page,Referència de la Notació}
+@ref{\TEXT\,,,notation-big-page,Referència de la notació}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,notation-big-page,Referència de la Notació}
+@ref{\TEXT\,,\DISPLAY\,notation-big-page,Referència de la notació}
 @end macro
 
 @macro rextend{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,extending-big-page,Extendre}
+@ref{\TEXT\,,,extending-big-page,Extensions}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,extending-big-page,Extendre}
+@ref{\TEXT\,,\DISPLAY\,extending-big-page,Extensions}
 @end macro
 
 @macro rchanges{TEXT}
@@ -341,22 +341,22 @@ Per a la versió del LilyPond @version{}
 
 @macro ressay{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,essay-big-page,Assaig}
+@ref{\TEXT\,,,essay-big-page,Monografia}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,essay-big-page,Assaig}
+@ref{\TEXT\,,\DISPLAY\,essay-big-page,Monografia}
 @end macro
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,usage-big-page,Utilització del Programa}
+@ref{\TEXT\,,,usage-big-page,Utilització del programa}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,usage-big-page,Utilització del Programa}
+@ref{\TEXT\,,\DISPLAY\,usage-big-page,Utilització del programa}
 @end macro
 
 @macro rlsr{TEXT}
@@ -369,12 +369,12 @@ Per a la versió del LilyPond @version{}
 
 @macro rinternals{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,internals-big-page,Referència de Funcionamient Intern}
+@ref{\TEXT\,,,internals-big-page,Referència de funcionamient intern}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,internals-big-page,Referència de Funcionamient Intern}
+@ref{\TEXT\,,\DISPLAY\,internals-big-page,Referència de funcionamient intern}
 @end macro
 
 @end ifset
@@ -388,32 +388,32 @@ Per a la versió del LilyPond @version{}
 
 @macro rglos{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,music-glossary,Glossari Musical}
+@ref{\TEXT\,,,music-glossary,Glossari musical}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,music-glossary,Glossari Musical}
+@ref{\TEXT\,,\DISPLAY\,music-glossary,Glossari musical}
 @end macro
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,learning,Manual d'Aprenentatge}
+@ref{\TEXT\,,,learning,Manual d'aprenentatge}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,learning,Manual d'Aprenentatge}
+@ref{\TEXT\,,\DISPLAY\,learning,Manual d'aprenentatge}
 @end macro
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,notation,Referència de la Notació}
+@ref{\TEXT\,,,notation,Referència de la notació}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,notation,Referència de la Notació}
+@ref{\TEXT\,,\DISPLAY\,notation,Referència de la notació}
 @end macro
 
 @macro rchanges{TEXT}
@@ -428,12 +428,12 @@ Per a la versió del LilyPond @version{}
 
 @macro rextend{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,extending,Extendre}
+@ref{\TEXT\,,,extending,Extensions}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,extending,Extendre}
+@ref{\TEXT\,,\DISPLAY\,extending,Extensions}
 @end macro
 
 @macro rcontrib{TEXT}
@@ -458,22 +458,22 @@ Per a la versió del LilyPond @version{}
 
 @macro ressay{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,essay,Assaig}
+@ref{\TEXT\,,,essay,Monografia}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,essay,Assaig}
+@ref{\TEXT\,,\DISPLAY\,essay,Monografia}
 @end macro
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,usage,Utilització del Programa}
+@ref{\TEXT\,,,usage,Utilització del programa}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,usage,Utilització del Programa}
+@ref{\TEXT\,,\DISPLAY\,usage,Utilització del programa}
 @end macro
 
 @macro rlsr{TEXT}
@@ -481,17 +481,17 @@ Per a la versió del LilyPond @version{}
 @end macro
 
 @macro rlsrnamed{TEXT,DISPLAY}
-@ref{\TEXT\,,\DISPLAY\,snippets,Fragments de codin}
+@ref{\TEXT\,,\DISPLAY\,snippets,Fragments de codi}
 @end macro
 
 @macro rinternals{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,internals,Referència de Funcionamient Intern}
+@ref{\TEXT\,,,internals,Referència de funcionament intern}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,internals,Referència de Funcionamient Intern}
+@ref{\TEXT\,,\DISPLAY\,internals,Referència de funcionament intern}
 @end macro
 
 @end ifnotinfo
@@ -540,12 +540,12 @@ Per a la versió del LilyPond @version{}
 
 @macro rextend{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-extending,Extendre}
+@ref{\TEXT\,,,lilypond-extending,Extensions}
 @end macro
 
 @macro rextendnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-extending,Extendre}
+@ref{\TEXT\,,\DISPLAY\,lilypond-extending,Extensions}
 @end macro
 
 @macro rcontrib{TEXT}
@@ -570,12 +570,12 @@ Per a la versió del LilyPond @version{}
 
 @macro ressay{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-essay,Assaig}
+@ref{\TEXT\,,,lilypond-essay,Monografia}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-essay,Assaig}
+@ref{\TEXT\,,\DISPLAY\,lilypond-essay,Monografia}
 @end macro
 
 @macro rprogram{TEXT}
@@ -598,12 +598,12 @@ Per a la versió del LilyPond @version{}
 
 @macro rinternals{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals,Referència de funcionamient intern}
+@ref{\TEXT\,,,lilypond-internals,Referència de funcionament intern}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-internals,Referència de funcionamient interno}
+@ref{\TEXT\,,\DISPLAY\,lilypond-internals,Referència de funcionament intern}
 @end macro
 
 @end ifinfo
@@ -629,32 +629,32 @@ Per a la versió del LilyPond @version{}
 
 @macro rglos{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,music-glossary,Glossari Musical}
+@ref{\TEXT\,,,music-glossary,Glossari musical}
 @end macro
 
 @macro rglosnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,music-glossary,Glossari Musical}
+@ref{\TEXT\,,\DISPLAY\,music-glossary,Glossari musical}
 @end macro
 
 @macro rlearning{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,learning.es,Manual d'Aprenentatge}
+@ref{\TEXT\,,,learning.es,Manual d'aprenentatge}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,learning.es,Manual d'Aprenentatge}
+@ref{\TEXT\,,\DISPLAY\,learning.es,Manual d'aprenentatge}
 @end macro
 
 @macro ruser{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,notation.es,Referència de la Notació}
+@ref{\TEXT\,,,notation.es,Referència de la notació}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,notation.es,Referència de la Notació}
+@ref{\TEXT\,,\DISPLAY\,notation.es,Referència de la notació}
 @end macro
 
 @macro rchanges{TEXT}
@@ -674,7 +674,7 @@ Per a la versió del LilyPond @version{}
 
 @macro rextendnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,extending,Extendre}
+@ref{\TEXT\,,\DISPLAY\,extending,Extensions}
 @end macro
 
 @macro rcontrib{TEXT}
@@ -699,22 +699,22 @@ Per a la versió del LilyPond @version{}
 
 @macro ressay{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,essay,Assaig}
+@ref{\TEXT\,,,essay,Monografia}
 @end macro
 
 @macro ressaynamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,essay,Assaig}
+@ref{\TEXT\,,\DISPLAY\,essay,Monografia}
 @end macro
 
 @macro rprogram{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,usage.es,Utilització del Programa}
+@ref{\TEXT\,,,usage.es,Utilització del programa}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,usage.es,Utilització del Programa}
+@ref{\TEXT\,,\DISPLAY\,usage.es,Utilització del programa}
 @end macro
 
 @macro rlsr{TEXT}
@@ -729,12 +729,12 @@ Per a la versió del LilyPond @version{}
 
 @macro rinternals{TEXT}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,,internals,Referència de Funcionamient Intern}
+@ref{\TEXT\,,,internals,Referència de funcionament intern}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @lilyvindex{\TEXT\}
-@ref{\TEXT\,,\DISPLAY\,internals,Referència de Funcionamient Intern}
+@ref{\TEXT\,,\DISPLAY\,internals,Referència de funcionament intern}
 @end macro
 
 @end iftex
@@ -804,7 +804,7 @@ aquesta pàgina de la Wikimedia Commons}.
 La @qq{imatge dels quatre rectangles de colors} no és una marca
 registrada.  És obra de
 @uref{http://en.wikipedia.org/wiki/User:Rohitbd, Rohitbd} i està
-posaeda sota la llicència de Documentació Lliure del GNU, versió 1.2.
+posada sota la llicència de Documentació Lliure del GNU, versió 1.2.
 Trobem aquesta imatge a
 @uref{http://commons.wikimedia.org/wiki/Category:Microsoft_Windows_logos,
 aquesta pàgina de la Wikimedia Commons}.
