@@ -20,7 +20,7 @@ search for a while and have a redirection from "v2.15" to "v2.17".
 		   + search.brute_query.value"
       onKeyUp="search.q.value='site:lilypond.org/doc/v2.19 '
 	       + search.brute_query.value">
-  <input type="hidden" name="btnG" value="Búsqueda en Google">
+  <input type="hidden" name="btnG" value="Cerca a Google">
   <input type="text" name="brute_query" onfocus="this.value=''" value="Buscar">
   <input type="hidden" name="q" value="">
 </form>
