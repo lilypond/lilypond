@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: ca\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-04-25 19:39+0200\n"
-"PO-Revision-Date: 2014-06-01 20:38+0200\n"
+"PO-Revision-Date: 2014-06-07 11:26+0200\n"
 "Last-Translator: Walter Garcia-Fontes <walter.garcia@upf.edu>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "Language: ca\n"
@@ -97,7 +97,7 @@ msgstr "parcialment (%(p)d %%)"
 #: translations-status.py:83
 #, python-format
 msgid "partially translated (%(p)d %%)"
-msgstr "paracialment. traduït (%(p)d %%)"
+msgstr "parcialment. traduït (%(p)d %%)"
 
 #: translations-status.py:84 translations-status.py:86
 msgid "yes"
@@ -141,7 +141,7 @@ msgstr "tònica"
 #. Documentation/changes.tely:240 (variable)
 #. Documentation/extending/programming-interface.itely:495 (variable)
 msgid "dyn"
-msgstr "matissos"
+msgstr "matisos"
 
 #. @node in Documentation/changes.tely
 #. @node in Documentation/macros.itexi
@@ -274,7 +274,7 @@ msgstr "Posar al LilyPond a treballar"
 #. @node in Documentation/essay/engraving.itely
 #. @section in Documentation/essay/engraving.itely
 msgid "Engraved examples (BWV 861)"
-msgstr "Exemples tipografiats (BWV 861)"
+msgstr "Exemples gravats (BWV 861)"
 
 #. @node in Documentation/essay/literature.itely
 #. @chapter in Documentation/essay/literature.itely
@@ -641,7 +641,7 @@ msgstr "Un exemple complet"
 #. @node in Documentation/extending/programming-interface.itely
 #. @unnumberedsubsubsec in Documentation/extending/programming-interface.itely
 msgid "Adapting builtin commands"
-msgstr "Adaptació d'instrucción predefinides"
+msgstr "Adaptació d'ordres predefinides"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @subsection in Documentation/extending/programming-interface.itely
@@ -656,7 +656,7 @@ msgstr "Contextos per a programadors"
 #. @node in Documentation/extending/programming-interface.itely
 #. @subsection in Documentation/extending/programming-interface.itely
 msgid "Context evaluation"
-msgstr "Evaluació de contextos"
+msgstr "Avaluació de contextos"
 
 #. @node in Documentation/extending/programming-interface.itely
 #. @subsection in Documentation/extending/programming-interface.itely
@@ -710,7 +710,7 @@ msgstr "el La està 6 amunt o 1 a sota, això com també el La a sota"
 
 #. Documentation/learning/tutorial.itely:261 (comment)
 msgid "g is 5 up or 2 down, so is the g below"
-msgstr "el Sol està 5 a dalta o 2 a sota, això comm tame el Sol a sota"
+msgstr "el Sol està 5 a dalt o 2 a sota, això com també el Sol a sota"
 
 #. Documentation/learning/tutorial.itely:262 (comment)
 msgid "f is 4 up or 3 down, so is the f below"
@@ -757,7 +757,7 @@ msgstr "Línia d'ordres"
 #. @node in Documentation/learning/tutorial.itely
 #. @section in Documentation/learning/tutorial.itely
 msgid "How to write input files"
-msgstr "Com esciure fitxers d'entrada"
+msgstr "Com escriure fitxers d'entrada"
 
 #. @node in Documentation/learning/tutorial.itely
 #. @subsection in Documentation/learning/tutorial.itely
@@ -840,7 +840,7 @@ msgstr "duració"
 #. @section in Documentation/music-glossary.tely
 #. @rglos in Documentation/cs/learning/tutorial.itely
 msgid "whole note"
-msgstr "redonda"
+msgstr "rodona"
 
 #. @rglos in Documentation/learning/tutorial.itely
 #. @node in Documentation/music-glossary.tely
@@ -935,7 +935,7 @@ msgstr "Consells generals per a la resolució de problemes"
 #. @node in Documentation/learning/tutorial.itely
 #. @subsection in Documentation/learning/tutorial.itely
 msgid "Some common errors"
-msgstr "ALguns errors comuns"
+msgstr "Alguns errors comuns"
 
 #. @node in Documentation/learning/tutorial.itely
 #. @section in Documentation/learning/tutorial.itely
@@ -950,7 +950,7 @@ msgstr "Material omès"
 #. @node in Documentation/learning/tutorial.itely
 #. @subsection in Documentation/learning/tutorial.itely
 msgid "Clickable examples"
-msgstr "Exemples clicables"
+msgstr "Exemples que es poden clicar"
 
 #. @node in Documentation/learning/tutorial.itely
 #. @subsection in Documentation/learning/tutorial.itely
@@ -1074,7 +1074,7 @@ msgstr "Advertiment: armadures i tons"
 #. @section in Documentation/music-glossary.tely
 #. @rglos in Documentation/cs/learning/common-notation.itely
 msgid "natural"
-msgstr "bequadre"
+msgstr "becaire"
 
 #. @rglos in Documentation/learning/common-notation.itely
 #. @node in Documentation/music-glossary.tely
@@ -1130,7 +1130,7 @@ msgstr "fraseig"
 
 #. @subheading in Documentation/learning/common-notation.itely
 msgid "Warnings: slurs vs. ties"
-msgstr "Advertiments: lligadures d'expresssió contra lligadures d'unió"
+msgstr "Advertiments: lligadures d'expressió contra lligadures d'unió"
 
 #. @rglos in Documentation/learning/common-notation.itely
 #. @node in Documentation/music-glossary.tely
@@ -1162,14 +1162,14 @@ msgstr "digitacions"
 #. @subheading in Documentation/learning/common-notation.itely
 #. @subheading in Documentation/learning/tweaks.itely
 msgid "Dynamics"
-msgstr "Matissos dinàmics"
+msgstr "Matisos dinàmics"
 
 #. @rglos in Documentation/learning/common-notation.itely
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 #. @rglos in Documentation/cs/learning/common-notation.itely
 msgid "dynamics"
-msgstr "matissos dinàmics"
+msgstr "matisos dinàmics"
 
 #. @rglos in Documentation/learning/common-notation.itely
 #. @node in Documentation/music-glossary.tely
@@ -1266,7 +1266,7 @@ msgstr "Explicació de les expressions musicals"
 
 #. @subheading in Documentation/learning/common-notation.itely
 msgid "Analogy: mathematical expressions"
-msgstr "Analogia: expresssions matemàtiques"
+msgstr "Analogia: expressions matemàtiques"
 
 #. @subheading in Documentation/learning/common-notation.itely
 msgid "Simultaneous music expressions: multiple staves"
@@ -1281,7 +1281,7 @@ msgstr "polifonia"
 
 #. @subheading in Documentation/learning/common-notation.itely
 msgid "Simultaneous music expressions: single staff"
-msgstr "Expresiones musicales simultáneas: un solo pentagrama"
+msgstr "Expressions musicals simultànies: un sol pentagrama"
 
 #. @node in Documentation/learning/common-notation.itely
 #. @subsection in Documentation/learning/common-notation.itely
@@ -1298,7 +1298,7 @@ msgstr "Grups de pentagrames"
 #. @section in Documentation/music-glossary.tely
 #. @rglos in Documentation/cs/learning/common-notation.itely
 msgid "brace"
-msgstr "claudator"
+msgstr "claudàtor"
 
 #. @rglos in Documentation/learning/common-notation.itely
 #. @node in Documentation/music-glossary.tely
@@ -1877,7 +1877,7 @@ msgstr "fi del pentagrama de la mà dreta"
 #. Documentation/learning/fundamental.itely:1493 (comment)
 #. Documentation/cs/learning/fundamental.itely:1626 (comment)
 msgid "create LH staff; needs two simultaneous voices"
-msgstr "crea un pentagrama de la mà essquerra; calen dues veus simultànies"
+msgstr "crea un pentagrama de la mà esquerra; calen dues veus simultànies"
 
 #. Documentation/learning/fundamental.itely:1496 (comment)
 #. Documentation/cs/learning/fundamental.itely:1629 (comment)
@@ -2047,7 +2047,7 @@ msgstr "bassWords"
 #. Documentation/learning/fundamental.itely:2618 (comment)
 #. Documentation/cs/learning/fundamental.itely:2838 (comment)
 msgid "combine ChoirStaff and PianoStaff in parallel"
-msgstr "combina ChoirStaff i PianoStaff en pararl·lel"
+msgstr "combina ChoirStaff i PianoStaff en paral·lel"
 
 #. Documentation/learning/fundamental.itely:2620 (context id)
 #. Documentation/learning/fundamental.itely:2622 (context id)
@@ -2058,7 +2058,7 @@ msgstr "combina ChoirStaff i PianoStaff en pararl·lel"
 #. Documentation/snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:103 (context id)
 #. Documentation/snippets/vocal-ensemble-template.ly:124 (context id)
 msgid "sopranos"
-msgstr "soprans"
+msgstr "sopranos"
 
 #. Documentation/learning/fundamental.itely:2630 (context id)
 #. Documentation/learning/fundamental.itely:2632 (context id)
@@ -2215,7 +2215,7 @@ msgstr "La partitura és una (única) expressió musical composta"
 #. @node in Documentation/learning/fundamental.itely
 #. @subsection in Documentation/learning/fundamental.itely
 msgid "Nesting music expressions"
-msgstr "Anidament d'expressions musicals"
+msgstr "Niuat d'expressions musicals"
 
 #. @rglos in Documentation/learning/fundamental.itely
 #. @rglos in Documentation/learning/tweaks.itely
@@ -2228,7 +2228,7 @@ msgstr "ossia"
 #. @node in Documentation/learning/fundamental.itely
 #. @subsection in Documentation/learning/fundamental.itely
 msgid "On the un-nestedness of brackets and ties"
-msgstr "Quant al no anidament de claudators i lligadures d'unió"
+msgstr "Quant al no niuat de claudàtors i lligadures d'unió"
 
 #. @node in Documentation/learning/fundamental.itely
 #. @section in Documentation/learning/fundamental.itely
@@ -2453,7 +2453,7 @@ msgstr "Fes que les notes estiguin més espaiades per acomodar el text"
 #. Documentation/learning/tweaks.itely:2179 (comment)
 #. Documentation/cs/learning/tweaks.itely:2406 (comment)
 msgid "This markup is short enough to fit without collision"
-msgstr "Aquesta disposició de text és suficienment curt per ajustar-se sense provocar col·lisions"
+msgstr "Aquesta disposició de text és suficientment curt per ajustar-se sense provocar col·lisions"
 
 #. Documentation/learning/tweaks.itely:2183 (comment)
 #. Documentation/cs/learning/tweaks.itely:2410 (comment)
@@ -2480,7 +2480,7 @@ msgstr "Es respecten els espais al final"
 #. Documentation/learning/tweaks.itely:2302 (comment)
 #. Documentation/cs/learning/tweaks.itely:2537 (comment)
 msgid "Extend width by 1 staff space"
-msgstr "Estèn l'amplada en un espai de pentagrama"
+msgstr "Estén l'amplada en un espai de pentagrama"
 
 #. Documentation/learning/tweaks.itely:2582 (comment)
 #. Documentation/cs/learning/tweaks.itely:2863 (comment)
@@ -2741,7 +2741,7 @@ msgstr "Mètodes per fer apanyos"
 #. @node in Documentation/learning/tweaks.itely
 #. @section in Documentation/learning/tweaks.itely
 msgid "The Internals Reference manual"
-msgstr "Manual de referència del funcionamient intern"
+msgstr "Manual de referència del funcionament intern"
 
 #. @node in Documentation/learning/tweaks.itely
 #. @subsection in Documentation/learning/tweaks.itely
@@ -2857,7 +2857,7 @@ msgstr "Trasllat d'objectes"
 #. @node in Documentation/learning/tweaks.itely
 #. @subsection in Documentation/learning/tweaks.itely
 msgid "Fixing overlapping notation"
-msgstr "Correció de notació sol·lapada"
+msgstr "Correcció de notació solapada"
 
 #. @subheading in Documentation/learning/tweaks.itely
 msgid "padding property"
@@ -3083,7 +3083,7 @@ msgstr "accent"
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "accessory"
-msgstr "accesori"
+msgstr "accessori"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3140,7 +3140,7 @@ msgstr "arpegio"
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "ascending interval"
-msgstr "intervalo ascendent"
+msgstr "interval ascendent"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3224,7 +3224,7 @@ msgstr "lligadura d'unió"
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "bracket"
-msgstr "claudator"
+msgstr "claudàtor"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3507,7 +3507,7 @@ msgstr "appoggiatura doble"
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "double bar line"
-msgstr "doble línia divissòria"
+msgstr "doble línia divisòria"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3538,11 +3538,6 @@ msgstr "doset"
 #. @section in Documentation/music-glossary.tely
 msgid "E"
 msgstr "Mi"
-
-#. @node in Documentation/music-glossary.tely
-#. @section in Documentation/music-glossary.tely
-msgid "ecclesiastical mode"
-msgstr "mode eclesiàstico"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3627,7 +3622,7 @@ msgstr "etiqueta"
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "flageolet"
-msgstr "armònic"
+msgstr "harmònic"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3763,7 +3758,7 @@ msgstr "interval invertit"
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "just intonation"
-msgstr "entonacío justa"
+msgstr "entonació justa"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -3814,7 +3809,7 @@ msgstr "lligadura"
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "lilypond"
-msgstr "lilypond"
+msgstr "LilyPond"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4037,7 +4032,7 @@ msgstr "banderí"
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "percent repeat"
-msgstr "repetició d'estilo percentatge"
+msgstr "repetició d'estil percentatge"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4077,7 +4072,7 @@ msgstr "polimètrica"
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "polymetric time signature"
-msgstr "compàs polimètrico"
+msgstr "compàs polimètric"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4406,7 +4401,7 @@ msgstr "tonalitat"
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "transposing instrument"
-msgstr "instrument que es trasposa"
+msgstr "instrument que es transposa"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4416,7 +4411,7 @@ msgstr "clau de sol"
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "tremolo"
-msgstr "trémolo"
+msgstr "trèmol"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4476,7 +4471,7 @@ msgstr "primera i segona vegada"
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
 msgid "weak beat"
-msgstr "pulsació febla"
+msgstr "pulsació feble"
 
 #. @node in Documentation/music-glossary.tely
 #. @section in Documentation/music-glossary.tely
@@ -4601,7 +4596,7 @@ msgstr "Els camps següents estan alineats a la dreta a la part dreta"
 
 #. Documentation/notation/input.itely:664 (comment)
 msgid "The following fields are placed at opposite ends of the same line"
-msgstr "Els camps següents estan posats als extrems de la mateixa linia"
+msgstr "Els camps següents estan posats als extrems de la mateixa línia"
 
 #. Documentation/notation/input.itely:939 (comment)
 #. Documentation/notation/input.itely:953 (comment)
@@ -4710,7 +4705,7 @@ msgstr "Format personalitzat de text per a blocs de títol"
 #. @node in Documentation/notation/input.itely
 #. @unnumberedsubsubsec in Documentation/notation/input.itely
 msgid "Custom layout for title blocks"
-msgstr "Format personaolitzat per a blocs de títol"
+msgstr "Format personalitzat per a blocs de títol"
 
 #. @node in Documentation/notation/input.itely
 #. @unnumberedsubsubsec in Documentation/notation/input.itely
@@ -4801,7 +4796,7 @@ msgstr "Àlias d'ASCII"
 #. @node in Documentation/notation/input.itely
 #. @section in Documentation/notation/input.itely
 msgid "Controlling output"
-msgstr "Contol de la sortida"
+msgstr "Control de la sortida"
 
 #. @node in Documentation/notation/input.itely
 #. @subsection in Documentation/notation/input.itely
@@ -4996,12 +4991,12 @@ msgstr "El bloc @code{\\\\override}"
 #. @node in Documentation/notation/spacing.itely
 #. @subsection in Documentation/notation/spacing.itely
 msgid "Paper size and automatic scaling"
-msgstr "Tamany del paper i escalat automàtic"
+msgstr "Mida del paper i escalat automàtic"
 
 #. @node in Documentation/notation/spacing.itely
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
 msgid "Setting the paper size"
-msgstr "Establing la mida del paper"
+msgstr "S'està establint la mida del paper"
 
 #. @node in Documentation/notation/spacing.itely
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
@@ -5039,7 +5034,7 @@ msgstr "Llista de variables de @code{\\\\paper} d'espaiat vertical flexible"
 
 #. @node in Documentation/notation/spacing.itely
 msgid "Horizontal spacing \\\\paper variables"
-msgstr "Variables de \\\\paper d'espaiat horzontal"
+msgstr "Variables de \\\\paper d'espaiat horitzontal"
 
 #. @subsection in Documentation/notation/spacing.itely
 msgid "Horizontal spacing @code{\\\\paper} variables"
@@ -5145,12 +5140,12 @@ msgstr "Salts de pàgina"
 #. @node in Documentation/notation/spacing.itely
 #. @subsection in Documentation/notation/spacing.itely
 msgid "Optimal page breaking"
-msgstr "Salts de pàgina óptims"
+msgstr "Salts de pàgina òptims"
 
 #. @node in Documentation/notation/spacing.itely
 #. @subsection in Documentation/notation/spacing.itely
 msgid "Optimal page turning"
-msgstr "Pas de pàgina óptim"
+msgstr "Pas de pàgina òptim"
 
 #. @node in Documentation/notation/spacing.itely
 #. @subsection in Documentation/notation/spacing.itely
@@ -5175,7 +5170,7 @@ msgstr "Espaiat vertical"
 #. @node in Documentation/notation/spacing.itely
 #. @subsection in Documentation/notation/spacing.itely
 msgid "Flexible vertical spacing within systems"
-msgstr "Espaciat vertical flexible entre sistemes"
+msgstr "Espaiat vertical flexible entre sistemes"
 
 #. @node in Documentation/notation/spacing.itely
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
@@ -5193,7 +5188,7 @@ msgstr "Propietats del grob @code{StaffGrouper}"
 #. @node in Documentation/notation/spacing.itely
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
 msgid "Spacing of ungrouped staves"
-msgstr "Espaiat de pentagrames no agrupatss"
+msgstr "Espaiat de pentagrames no agrupats"
 
 #. @node in Documentation/notation/spacing.itely
 #. @unnumberedsubsubsec in Documentation/notation/spacing.itely
@@ -5223,7 +5218,7 @@ msgstr "Espaiat horitzontal"
 #. @node in Documentation/notation/spacing.itely
 #. @subsection in Documentation/notation/spacing.itely
 msgid "Horizontal spacing overview"
-msgstr "Panormica de l'espaiat horitzontal"
+msgstr "Panoràmica de l'espaiat horitzontal"
 
 #. @node in Documentation/notation/spacing.itely
 #. @subsection in Documentation/notation/spacing.itely
@@ -5405,7 +5400,7 @@ msgstr "La RehearsalMark s'alinearà amb el cantó esquerre de l'armadura"
 
 #. Documentation/notation/changing-defaults.itely:3507 (comment)
 msgid "The RehearsalMark will be aligned with the right edge of the Key Signature"
-msgstr "La RehearsalMark s'alinerà amb el cantó dret de l'armadura"
+msgstr "La RehearsalMark s'alinearà amb el cantó dret de l'armadura"
 
 #. Documentation/notation/changing-defaults.itely:3519 (comment)
 msgid "and then shifted right by 3.5 staff-spaces"
@@ -5459,7 +5454,7 @@ msgstr "Contextos de nivell intermedi: pentagrames"
 #. @node in Documentation/notation/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/notation/changing-defaults.itely
 msgid "Bottom-level contexts - voices"
-msgstr "Contextos de nivel inferior: veus"
+msgstr "Contextos de nivell inferior: veus"
 
 #. @node in Documentation/notation/changing-defaults.itely
 #. @subsection in Documentation/notation/changing-defaults.itely
@@ -5489,7 +5484,7 @@ msgstr "Ordre de formats de contextos"
 #. @node in Documentation/notation/changing-defaults.itely
 #. @section in Documentation/notation/changing-defaults.itely
 msgid "Explaining the Internals Reference"
-msgstr "Esplicació del manual de referències internes"
+msgstr "Explicació del manual de referències internes"
 
 #. @node in Documentation/notation/changing-defaults.itely
 #. @subsection in Documentation/notation/changing-defaults.itely
@@ -5515,7 +5510,7 @@ msgstr "Convencions dels noms"
 #. @node in Documentation/notation/changing-defaults.itely
 #. @section in Documentation/notation/changing-defaults.itely
 msgid "Modifying properties"
-msgstr "Modifivació de les propiestats"
+msgstr "Modificació de les propietats"
 
 #. @node in Documentation/notation/changing-defaults.itely
 #. @subsection in Documentation/notation/changing-defaults.itely
@@ -5557,7 +5552,7 @@ msgstr "@code{\\\\set} contra @code{\\\\override}"
 #. @node in Documentation/notation/changing-defaults.itely
 #. @subsection in Documentation/notation/changing-defaults.itely
 msgid "Modifying alists"
-msgstr "Modificacío d'alists"
+msgstr "Modificació d'alists"
 
 #. @node in Documentation/notation/changing-defaults.itely
 #. @section in Documentation/notation/changing-defaults.itely
@@ -5646,7 +5641,7 @@ msgstr "Rotació d'objectes de presentació"
 #. @node in Documentation/notation/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/notation/changing-defaults.itely
 msgid "Rotating markup"
-msgstr "Rotación de l'etiquetatge"
+msgstr "Rotació de l'etiquetatge"
 
 #. @node in Documentation/notation/changing-defaults.itely
 #. @section in Documentation/notation/changing-defaults.itely
@@ -5831,7 +5826,7 @@ msgstr "Glifs predeterminats per al cap de les notes"
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Special Notehead glyphs"
-msgstr "Glifs especials per al cap de le notes"
+msgstr "Glifs especials per al cap de les notes"
 
 # Fuzzy.FVD
 #. @node in Documentation/notation/notation-appendices.itely
@@ -5882,7 +5877,7 @@ msgstr "Glifos de pedal"
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "Accordion glyphs"
-msgstr "Glifos de acordeó"
+msgstr "Glifos de acordió"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
@@ -6052,7 +6047,7 @@ msgstr "analitzador"
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
 msgid "parser variable"
-msgstr "variable de l'analizador"
+msgstr "variable de l'analitzador"
 
 #. @node in Documentation/notation/notation-appendices.itely
 #. @unnumberedsubsec in Documentation/notation/notation-appendices.itely
@@ -6207,7 +6202,7 @@ msgstr "Missatge d'error FT_Get_Glyph_Name"
 #. @node in Documentation/usage/running.itely
 #. @unnumberedsubsec in Documentation/usage/running.itely
 msgid "Warning staff affinities should only decrease"
-msgstr "Advertiment les afinitats de pentagram sols han de disminuir"
+msgstr "Advertiment les afinitats de pentagrama sols han de disminuir"
 
 #. @node in Documentation/usage/updating.itely
 msgid "Updating files with convert-ly"
@@ -6236,7 +6231,7 @@ msgstr "Opcions de la línia d'ordres per convert-ly"
 
 #. @section in Documentation/usage/updating.itely
 msgid "Command line options for @command{convert-ly}"
-msgstr "Opciones de la línea de órdenes para @command{convert-ly}"
+msgstr "Opcions de la línia de ordres para @command{convert-ly}"
 
 #. @node in Documentation/usage/updating.itely
 msgid "Problems running convert-ly"
@@ -6314,7 +6309,7 @@ msgstr "Convencions habituals"
 
 #. @subheading in Documentation/usage/lilypond-book.itely
 msgid "Including a LilyPond file"
-msgstr "Incluir un archivo de LilyPond"
+msgstr "Incloure un fitxer del LilyPond"
 
 #. @subheading in Documentation/usage/lilypond-book.itely
 msgid "Including LilyPond code"
@@ -7544,7 +7539,7 @@ msgstr "Format predeterminat"
 
 #. Documentation/snippets/adjusting-lyrics-vertical-spacing.ly:53 (comment)
 msgid "Reducing the minimum space below the staff and above the lyrics:"
-msgstr "Reducció de l'espai mínim a sota del pentegrama i a sobre de la lletra:\n"
+msgstr "Reducció de l'espai mínim a sota del pentagrama i a sobre de la lletra:\n"
 
 #. Documentation/snippets/aligning-bar-numbers.ly:65 (comment)
 #. Documentation/snippets/printing-bar-numbers-inside-boxes-or-circles.ly:51 (comment)
@@ -7558,7 +7553,7 @@ msgstr "Imprimeix el número de compàs cada dos compassos"
 
 #. Documentation/snippets/aligning-bar-numbers.ly:70 (comment)
 msgid "Center-align bar numbers"
-msgstr "Alinea els números de compás al centre"
+msgstr "Alinea els números de compàs al centre"
 
 #. Documentation/snippets/aligning-bar-numbers.ly:73 (comment)
 msgid "Left-align bar numbers"
@@ -7579,11 +7574,11 @@ msgstr "la RehearsalMark se centrarà sobre l'armadura"
 #. Documentation/snippets/aligning-marks-with-various-notation-objects.ly:116 (comment)
 #. Documentation/snippets/aligning-marks-with-various-notation-objects.ly:128 (comment)
 msgid "the RehearsalMark will be aligned with the left edge of the KeySignature"
-msgstr "la RehearsalMark s'alinearà per l'esquerra amb la armadura"
+msgstr "la RehearsalMark s'alinearà per l'esquerra amb l'armadura"
 
 #. Documentation/snippets/aligning-marks-with-various-notation-objects.ly:122 (comment)
 msgid "the RehearsalMark will be aligned with the right edge of the KeySignature"
-msgstr "la RehearsalMark se alinearà por la derecha con la armadura"
+msgstr "la RehearsalMark se alinearà per la dreta amb l'armadura"
 
 #. Documentation/snippets/aligning-marks-with-various-notation-objects.ly:129 (comment)
 msgid "and then shifted right by one unit."
@@ -7939,11 +7934,11 @@ msgstr "sense lligadures d'expressió"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:300 (comment)
 msgid "The command below can be commented out in"
-msgstr "L'ordre d'abaix es pot eliminar amb un comentari a"
+msgstr "L'ordre de baix es pot eliminar amb un comentari a"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:301 (comment)
 msgid "short scores, but especially for large scores you"
-msgstr "partitures cortes, però especialment a partitures llarges"
+msgstr "partitures curtes, però especialment a partitures llargues"
 
 #. Documentation/snippets/ancient-notation-template----modern-transcription-of-mensural-music.ly:302 (comment)
 msgid "will typically yield better line breaking and improve"
@@ -7985,7 +7980,7 @@ msgstr "slurNotes"
 
 #. Documentation/snippets/avoiding-collisions-with-chord-fingerings.ly:44 (comment)
 msgid "Default behavior"
-msgstr "Comportamient predeterminat"
+msgstr "Comportament predeterminat"
 
 #. Documentation/snippets/avoiding-collisions-with-chord-fingerings.ly:50 (comment)
 msgid "Corrected to avoid collisions"
@@ -8017,7 +8012,7 @@ msgstr "bbarre"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:72 (comment)
 msgid "uncomment this line for make full barred"
-msgstr "traeiu el comentari a aquesta linía per habilitar la barra completa"
+msgstr "traieu el comentari a aquesta línia per habilitar la barra completa"
 
 #. Documentation/snippets/bar-chords-notation-for-guitar--with-text-spanner.ly:73 (comment)
 msgid ""
@@ -8049,7 +8044,7 @@ msgstr "Modifica les línies d'unió de notes sols per a aquest pentagrama"
 
 #. Documentation/snippets/beam-endings-in-score-context.ly:68 (comment)
 msgid "Inherit beaming from Score context"
-msgstr "Hereda les línies d'unió de notes del context Score"
+msgstr "Hereta les línies d'unió de notes del context Score"
 
 #. Documentation/snippets/beam-endings-in-score-context.ly:74 (comment)
 msgid "Modify beaming for this voice only"
@@ -8061,7 +8056,7 @@ msgstr "ritme 2-3-2"
 
 #. Documentation/snippets/book-parts.ly:26 (comment)
 msgid "book paper, which is inherited by all children bookparts"
-msgstr "bloc paper del book, que s'hereda por a totes les bookparts"
+msgstr "bloc paper del book, que s'hereta por a totes les bookparts"
 
 #. Documentation/snippets/book-parts.ly:29 (comment)
 msgid "Page footer: add a different part-tagline at part last page"
@@ -8119,7 +8114,7 @@ msgstr "Nota: aquí cal usar el context de Staff ja que iniciem una Veu més aba
 
 #. Documentation/snippets/breathing-signs.ly:36 (comment)
 msgid "vee"
-msgstr "uve"
+msgstr "vee"
 
 #. Documentation/snippets/caesura-railtracks-with-fermata.ly:34 (comment)
 msgid "construct the symbol"
@@ -8432,7 +8427,7 @@ msgstr "mida estàndard"
 
 #. Documentation/snippets/customizing-markup-fret-diagrams.ly:96 (comment)
 msgid "landscape orientation, arabic numbers, M for mute string"
-msgstr "orientació apaïsada, números aràbigs, M per a corda muda"
+msgstr "orientació apaïsada, números aràbics, M per a corda muda"
 
 #. Documentation/snippets/customizing-markup-fret-diagrams.ly:97 (comment)
 msgid "no barre, fret label down or left, small mute label font"
@@ -8504,7 +8499,7 @@ msgstr "més abaix)."
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:74 (comment)
 msgid "The other slots define the key and clef context of the engraver:"
 msgstr ""
-"Els altres espais defineixen els contexdtos de tonalitat i de clau per\n"
+"Els altres espais defineixen els contextos de tonalitat i de clau per\n"
 "al gravador:"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:75 (comment)
@@ -8547,7 +8542,7 @@ msgstr "- head: un objecte gràfic de tipografia AmbitusNoteHead;"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:104 (comment)
 msgid "- accidental: an AmbitusAccidental grob, to be possibly printed next"
-msgstr "- accidental: un objecte gràfic de tipografia AmbitusAccidental a imprimir possiblemente junt amb"
+msgstr "- accidental: un objecte gràfic de tipografia AmbitusAccidental a imprimir possiblement junt amb"
 
 #. Documentation/snippets/defining-an-engraver-in-scheme--ambitus-engraver.ly:105 (comment)
 msgid "to the ambitus note head."
@@ -8629,7 +8624,7 @@ msgstr "gMajor"
 
 #. Documentation/snippets/defining-predefined-fretboards-for-other-instruments.ly:120 (comment)
 msgid "end of potential include file /predefined-cuatro-fretboards.ly"
-msgstr "fi del fitxer d'incusió /predefined-cuatro-freboards.ly potencialment incloïble"
+msgstr "fi del fitxer potencial d'inclusió /predefined-cuatro-freboards.ly"
 
 #. Documentation/snippets/defining-predefined-fretboards-for-other-instruments.ly:125 (variable)
 msgid "primerosNames"
@@ -8681,7 +8676,7 @@ msgstr "voz original con acordes rehecha de forma que"
 
 #. Documentation/snippets/double-glissando.ly:33 (comment)
 msgid "glissando is attached to a & c"
-msgstr "el glissando s'adjnta al La i al Do"
+msgstr "el glissando s'adjunta al La i al Do"
 
 #. Documentation/snippets/drawing-circles-around-note-heads.ly:19 (variable)
 msgid "circle"
@@ -9015,7 +9010,7 @@ msgstr "Exemple 2"
 
 #. Documentation/snippets/flat-flags-and-beam-nibs.ly:172 (comment)
 msgid "Example 3"
-msgstr "Ejemplo 3"
+msgstr "Exemple 3"
 
 #. Documentation/snippets/flat-flags-and-beam-nibs.ly:180 (comment)
 msgid "Example 4"
@@ -9311,7 +9306,7 @@ msgstr "harmònics pizzicato (PH)"
 #. Documentation/snippets/fretted-string-harmonics-in-tablature.ly:64 (comment)
 #. Documentation/snippets/fretted-string-harmonics-in-tablature.ly:81 (comment)
 msgid "tapped harmonics (TH)"
-msgstr "armònics copejats (TH)"
+msgstr "harmònics copejats (TH)"
 
 #. Documentation/snippets/fretted-string-harmonics-in-tablature.ly:68 (comment)
 #. Documentation/snippets/fretted-string-harmonics-in-tablature.ly:85 (comment)
@@ -9332,7 +9327,7 @@ msgstr "snippetexamplenotes"
 
 #. Documentation/snippets/generating-whole-scores-also-book-parts-in-scheme-without-using-the-parser.ly:74 (comment)
 msgid "Just some example score to show how to use these functions:"
-msgstr "Una partitur simple d'exemple per mostrar la forma d'ús d'aquestes funcions:"
+msgstr "Una partitura simple d'exemple per mostrar la forma d'ús d'aquestes funcions:"
 
 #. Documentation/snippets/generating-whole-scores-also-book-parts-in-scheme-without-using-the-parser.ly:100 (variable)
 msgid "oneNoteScore"
@@ -9368,7 +9363,7 @@ msgstr "notes fictícies per forçar l'espaiat regular de les notes"
 
 #. Documentation/snippets/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:65 (comment)
 msgid "center grid lines horizontally below note heads"
-msgstr "centra les línies de quadrícula horizontalment a sota del cap de les notes"
+msgstr "centra les línies de quadrícula horitzontalment a sota del cap de les notes"
 
 #. Documentation/snippets/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:72 (comment)
 msgid "set line length and positioning:"
@@ -9484,7 +9479,7 @@ msgstr "Soluci 6: indicació dinàmica amb alineació explícita. Sols té efect
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:110 (comment)
 msgid "if one sets X-offset!"
-msgstr "si d'estableix X-offset!"
+msgstr "si s'estableix X-offset!"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:111 (comment)
 msgid "Drawback: One needs to set DynamicText #'X-offset!"
@@ -9492,7 +9487,7 @@ msgstr "Inconvenient: Cal fixar DynamicText #'X-offset!"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:112 (comment)
 msgid "Drawback: Aligned at the right edge of the additional text,"
-msgstr "Inconovenient: alineat amb el cantó dret del text addicional,"
+msgstr "Inconvenient: alineat amb el cantó dret del text addicional,"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:113 (comment)
 msgid "not at the center of pp"
@@ -9548,7 +9543,7 @@ msgstr "LA SEGÜENT ÉS L'ORDRE PER MOURE EL NOM DE L'ACORD"
 
 #. Documentation/snippets/how-to-change-fret-diagram-position.ly:39 (comment)
 msgid "THIS LINE IS THE SECOND METHOD"
-msgstr "AQUESTA LÍNIA ÉS EL SEGON MÊTODE"
+msgstr "AQUESTA LÍNIA ÉS EL SEGON MÈTODE"
 
 #. Documentation/snippets/how-to-change-fret-diagram-position.ly:49 (comment)
 msgid "THE FOLLOWING IS THE COMMAND TO MOVE THE FRET DIAGRAM"
@@ -9689,7 +9684,7 @@ msgstr "al compàs següent.  L'ordre està cancel·lada amb un comentari a aque
 #. Documentation/snippets/incipit.ly:284 (comment)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:293 (comment)
 msgid "short example score, but especially for large scores, you"
-msgstr "partitura corta de exemple, però especialment per a partitures extenses,"
+msgstr "partitura curta de exemple, però especialment per a partitures extenses,"
 
 #. Documentation/snippets/incipit.ly:285 (comment)
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:294 (comment)
@@ -9945,7 +9940,7 @@ msgstr "Candide, Voltaire"
 
 #. Documentation/snippets/mensurstriche-layout-bar-lines-between-the-staves.ly:60 (comment)
 msgid "the final bar line is not interrupted"
-msgstr "la línia de barra final no s'intorrompeix"
+msgstr "la línia de barra final no s'interromp"
 
 #. Documentation/snippets/merging-multi-measure-rests-in-a-polyphonic-part.ly:22 (variable)
 msgid "normalPos"
@@ -10051,67 +10046,67 @@ msgstr "fluteMusic"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:79 (comment)
 msgid "Pitches as written on a manuscript for Clarinet in A"
-msgstr "Las notas tal como están escritas en un manuscrito para clarinete en La"
+msgstr "Les tonalitats tal com s'escriuen a un manuscrit per a clarinet en La"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:80 (comment)
 msgid "are transposed to concert pitch."
-msgstr "se transcriben al tono de concierto."
+msgstr "es transcriuen al to de concert."
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:81 (variable)
 msgid "clarinetMusic"
-msgstr "musicaClarinete"
+msgstr "clarinetMusic"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:83 (variable)
 msgid "trumpetMusic"
-msgstr "musicaTrompeta"
+msgstr "trumpetMusic"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:84 (comment)
 msgid "Key signature is often omitted for horns"
-msgstr "La armadura se suele omitir para las trompas"
+msgstr "Se sol ometre l'armadura per a les trompes"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:85 (variable)
 msgid "hornMusic"
-msgstr "musicaTrompa"
+msgstr "hornMusic"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:87 (variable)
 msgid "percussionMusic"
-msgstr "musicaPercusion"
+msgstr "percussionMusic"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:90 (variable)
 msgid "altoIMusic"
-msgstr "musicaContraltoI"
+msgstr "altoIMusic"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:91 (variable)
 msgid "altoIIMusic"
-msgstr "musicaContraltoII"
+msgstr "altoIIMusic"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:92 (variable)
 msgid "altoILyrics"
-msgstr "letraContraltoI"
+msgstr "altoILyrics"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:93 (variable)
 msgid "altoIILyrics"
-msgstr "letraContraltoII"
+msgstr "altoIILyrics"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:96 (variable)
 msgid "pianoRHMusic"
-msgstr "musicaPianoMD"
+msgstr "pianoRHMusic"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:97 (variable)
 msgid "pianoLHMusic"
-msgstr "musicaPianoMI"
+msgstr "pianoLHMusic"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:98 (variable)
 msgid "violinIMusic"
-msgstr "musicaViolinI"
+msgstr "violinIMusic"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:99 (variable)
 msgid "violinIIMusic"
-msgstr "musicaViolinII"
+msgstr "violinIIMusic"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:100 (variable)
 msgid "violaMusic"
-msgstr "musicaViola"
+msgstr "violaMusic"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:109 (comment)
 msgid "shortInstrumentName, midiInstrument, etc."
@@ -10119,39 +10114,39 @@ msgstr "shortInstrumentName, midiInstrument, etc."
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:110 (comment)
 msgid "may be set here as well"
-msgstr "se pueden fijar aquí también"
+msgstr "es pot establir també aquí"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:116 (comment)
 msgid "Declare that written Middle C in the music"
-msgstr "Declarar que el Do central escrito en la música"
+msgstr "Declara que el Do central escrit a la música"
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:117 (comment)
 msgid "to follow sounds a concert B flat, for"
-msgstr "que sigue suena un Si bemol de concierto, para"
+msgstr "següent sona com si fos un Si bemoll de concert, per "
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:118 (comment)
 msgid "output using sounded pitches such as MIDI."
-msgstr "la salida que utiliza alturas sonoras como el MIDI."
+msgstr "a la sortida que usa tonalitats sonores tal com el MIDI."
 
 #. Documentation/snippets/orchestra,-choir-and-piano-template.ly:120 (comment)
 msgid "Print music for a B-flat clarinet"
-msgstr "Imprimir la música para un clarinete en Si bemol"
+msgstr "Imprimeix música per al clarinet en Si bemoll"
 
 #. Documentation/snippets/partcombine-and-autobeamoff.ly:150 (comment)
 msgid "\\set Staff.autoBeaming = ##f % turns off all autobeaming"
-msgstr "\\set Staff.autoBeaming = ##f % desactiva todo el barrado automático"
+msgstr "\\set Staff.autoBeaming = ##f % desactiva tot el barrat automàtic"
 
 #. Documentation/snippets/partcombine-and-autobeamoff.ly:153 (comment)
 msgid "applies to split up stems"
-msgstr "se aplica a las plicas divididas hacia arriba"
+msgstr "és rellevant per a dividir les vírgules"
 
 #. Documentation/snippets/partcombine-and-autobeamoff.ly:155 (comment)
 msgid "\\autoBeamOff % applies to combined up stems"
-msgstr "\\autoBeamOff % se aplica a las plicas hacia arriba combinadas"
+msgstr "\\autoBeamOff % s'aplica a les vírgules cap amunt combinades"
 
 #. Documentation/snippets/partcombine-and-autobeamoff.ly:160 (comment)
 msgid "applies to down stems"
-msgstr "se aplica a las plicas hacia abajo"
+msgstr "s'aplica a les vírgules cap abaix"
 
 #. Documentation/snippets/percussion-beaters.ly:23 (variable)
 msgid "stick"
@@ -10159,15 +10154,15 @@ msgstr "baqueta"
 
 #. Documentation/snippets/permitting-line-breaks-within-beamed-tuplets.ly:57 (comment)
 msgid "Permit line breaks within tuplets"
-msgstr "Permitir saltos de línea dentro de grupos especiales"
+msgstr "Permetre saltes de línia dins de grups especials"
 
 #. Documentation/snippets/permitting-line-breaks-within-beamed-tuplets.ly:59 (comment)
 msgid "Allow beams to be broken at line breaks"
-msgstr "Permitir romper barras en saltos de línea"
+msgstr "Permet que les vírgules es divideixin als salts de línia"
 
 #. Documentation/snippets/permitting-line-breaks-within-beamed-tuplets.ly:66 (comment)
 msgid "Insert a manual line break within a tuplet"
-msgstr "Insertar salto de línea manual dentro de un grupo especial"
+msgstr "Insereix un salt de línia manual dins d'un grup especial"
 
 #. Documentation/snippets/pitches-headword.ly:19 (comment)
 msgid "L. v. Beethoven"
@@ -10175,15 +10170,15 @@ msgstr "L. van Beethoven"
 
 #. Documentation/snippets/pitches-headword.ly:20 (comment)
 msgid "Piano sonata 21 - Dem Grafen von Waldstein Gewidmet"
-msgstr "Sonata para piano núm. 21 - Dem Grafen von Waldstein Gewidmet"
+msgstr "Sonata per a piano núm. 21 - Dem Grafen von Waldstein Gewidmet"
 
 #. Documentation/snippets/pitches-headword.ly:21 (comment)
 msgid "chorale at measures 34 - 40+"
-msgstr "coral de los compases 34 a 40 y siguientes"
+msgstr "coral als compassoss 34 a 40 i següents"
 
 #. Documentation/snippets/pitches-headword.ly:30 (comment)
 msgid "RH Voice 1"
-msgstr "Voz 1 de la MD"
+msgstr "Veu 1 de la mà dreta"
 
 #. Documentation/snippets/pitches-headword.ly:58 (comment)
 msgid "("
@@ -10195,7 +10190,7 @@ msgstr ")"
 
 #. Documentation/snippets/pitches-headword.ly:67 (comment)
 msgid "RH Voice 2"
-msgstr "Voz 2 de la MD"
+msgstr "Veu 2 de la mà dreta"
 
 #. Documentation/snippets/polyphony-in-tablature.ly:62 (context id)
 msgid "tab"
@@ -10203,46 +10198,44 @@ msgstr "tab"
 
 #. Documentation/snippets/positioning-multi-measure-rests.ly:66 (comment)
 msgid "Multi-measure rests by default are set under the fourth line"
-msgstr "Los silencios multicompás se establecen por omisión debajo de la cuarta línea"
+msgstr "Els silencis de compassos múltiples s'estableixen de forma predeterminada a la quarta línia"
 
 #. Documentation/snippets/positioning-multi-measure-rests.ly:68 (comment)
 msgid "They can be moved using an override"
-msgstr "Se pueden mover con un override"
+msgstr "Es poden moure usant un override"
 
 #. Documentation/snippets/positioning-multi-measure-rests.ly:82 (comment)
 msgid "In two Voices, odd-numbered voices are under the top line"
-msgstr "En dos voces, las voces impares van debajo de la línea superior"
+msgstr "En dos veus. les veus senars van a sota de la línia superior"
 
 #. Documentation/snippets/positioning-multi-measure-rests.ly:84 (comment)
 msgid "Even-numbered voices are under the bottom line"
-msgstr "Las voces pares van debajo de la línea inferior"
+msgstr "Les veus parells van a sota de la línia inferior"
 
 #. Documentation/snippets/positioning-multi-measure-rests.ly:86 (comment)
 msgid "Multi-measure rests in both voices remain separate"
-msgstr "Los silencios multicompás en ambas voces permanecen separados"
+msgstr "Els silencis de compassos múltiples a ambdues veus romanen separades"
 
 #. Documentation/snippets/positioning-multi-measure-rests.ly:89 (comment)
 msgid "Separating multi-measure rests in more than two voices"
-msgstr "Separar los silencios multicompás en más de dos voces"
+msgstr "Per separar els silencis de compassos múltiples a més de dues veus"
 
 #. Documentation/snippets/positioning-multi-measure-rests.ly:90 (comment)
 msgid "requires an override"
-msgstr "requiere una instrucción override"
+msgstr "es requereix una ordre override"
 
 #. Documentation/snippets/positioning-multi-measure-rests.ly:96 (comment)
 msgid "Using compressed bars in multiple voices requires another override"
-msgstr ""
-"El uso de compases comprimidos en varias voces requiere otra instrucción "
-"override"
+msgstr "Per usar barres comprimides a múltiples veus es requereix un altre override"
 
 #. Documentation/snippets/positioning-multi-measure-rests.ly:97 (comment)
 msgid "in all voices to avoid multiple instances being printed"
-msgstr "en todas las voces para evitar que se imprima más de una instancia"
+msgstr "a totes les veus per evitar que s'imprimeixi més d'una instància"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:33 (comment)
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:54 (comment)
 msgid "Set segno sign as rehearsal mark and adjust size if needed"
-msgstr "Fijar llamada como letra de ensayo y ajustar su tamaño si es necesario"
+msgstr "Estableix una marca de segno com a marca de pràctica i ajusta la mida si és necessari"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:34 (comment)
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:56 (comment)
@@ -10251,19 +10244,19 @@ msgstr "\\once \\override Score.RehearsalMark #'font-size = #3"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:40 (comment)
 msgid "Set coda sign as rehearsal mark and adjust size if needed"
-msgstr "Fijar llamada de coda como letra de ensayo y ajustar tamaño si es necesario"
+msgstr "Estableix el símbol coda com a marca de pràctica i ajusta la mida si fa falta"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:47 (comment)
 msgid "Should Coda be on anew line?"
-msgstr "¿Debe ir la Coda sobre una línea nueva?"
+msgstr "Ha d'anar la Coda a una nova línia?"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:48 (comment)
 msgid "Coda NOT on new line: use \\nobreak"
-msgstr "Coda NO en línea nueva: usar \\nobreak"
+msgstr "La coda NO està a una línia nova: useu \\nobreak"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:49 (comment)
 msgid "Coda on new line: DON'T use \\nobreak"
-msgstr "Coda en línea nueva: NO USAR \\nobreak"
+msgstr "La coda a una línia nova: NO useu \\nobreak"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:50 (comment)
 msgid "\\noBreak"
@@ -10271,22 +10264,22 @@ msgstr "\\noBreak"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:59 (comment)
 msgid "Here begins the trickery!"
-msgstr "¡Aquí comienzan los trucos!"
+msgstr "Ací comencen les enganyifes!"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:60 (comment)
 msgid ""
 "\\cadenzaOn will suppress the bar count and \\stopStaff removes the staff "
 "lines."
-msgstr "\\cadenzaOn suprime la cuenta de compases y \\stopStaff quita el pentagrama"
+msgstr "\\cadenzaOn suprimeix el recompte de compassos i \\stopStaff els pentagrames"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:63 (comment)
 msgid "Some examples of possible text-displays"
-msgstr "Algunos ejemplos de text-displays posibles"
+msgstr "Alguns exemples de text-displays possibles"
 
 # fuzzy. FVD
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:65 (comment)
 msgid "text line-aligned"
-msgstr "texto line-aligned"
+msgstr "text line-aligned"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:66 (comment)
 msgid "=================="
@@ -10295,7 +10288,7 @@ msgstr "=================="
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:67 (comment)
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:73 (comment)
 msgid "Move text to the desired position"
-msgstr "Mover el texto a la posición deseada"
+msgstr "Mou el text a la posició desitjada"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:68 (comment)
 msgid "\\once \\override TextScript #'extra-offset = #'( 2 . -3.5 )"
@@ -10307,7 +10300,7 @@ msgstr "| s1*0^\\markup { D.S. al Coda } }"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:71 (comment)
 msgid "text center-aligned"
-msgstr "texto center-aligned"
+msgstr "text center-aligned"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:72 (comment)
 msgid "===================="
@@ -10323,7 +10316,7 @@ msgstr "| s1*0^\\markup { \\center-column { D.S. \\\"al Coda\\\" } }"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:77 (comment)
 msgid "text and symbols center-aligned"
-msgstr "texto y símbolos center-aligned"
+msgstr "el text i els símbols center-aligned"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:78 (comment)
 msgid "==============================="
@@ -10333,9 +10326,7 @@ msgstr "==============================="
 msgid ""
 "Move text to the desired position and tweak spacing for optimum text "
 "alignment"
-msgstr ""
-"Mover el texto a la posición deseada y ajustar el espacio para una "
-"alineación óptima"
+msgstr "Mou el text a la posició desitjada i ajusta l'espaiat per un alineament òptim del text"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:80 (comment)
 msgid "\\once \\override TextScript #'extra-offset = #'( 8 . -5.5 )"
@@ -10343,43 +10334,41 @@ msgstr "\\once \\override TextScript #'extra-offset = #'( 8 . -5.5 )"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:86 (comment)
 msgid "Increasing the unfold counter will expand the staff-free space"
-msgstr "El aumento del contador de despliegue expande el espacio de staff-free"
+msgstr "L'increment del comptador de desplegament expandirà l'espai sense pentagrama"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:91 (comment)
 msgid "Resume bar count and show staff lines again"
-msgstr "Reanudar la cuenta de compases y mostrar el pentagrama de nuevo"
+msgstr "Continua amb el recompte de compassos i mostra les línies de compàs un altre cop"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:95 (comment)
 msgid "Should Coda be on new line?"
-msgstr "¿La Coda va en una línea nueva?"
+msgstr "Voleu que la coda aparegui en una nova línia?"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:96 (comment)
 msgid "Coda NOT on new line: DON'T use \\break"
-msgstr "Coda NO en nueva línea: NO USAR \\break"
+msgstr "La coda NO hi és a una línia nova: NO useu \\break"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:97 (comment)
 msgid "Coda on new line: use \\break"
-msgstr "Coda en nueva línea: usar \\break"
+msgstr "Coda a línia nova. useu \\break"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:100 (comment)
 msgid "Show up, you clef and key!"
-msgstr "¡Mostraos, clave y armadura!"
+msgstr "Mostreu-vos, clau i armadura!"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:104 (comment)
 msgid "Set coda sign as rehearsal mark and adjust size and position"
-msgstr "Fijar el signo de coda como letra de enzayo y ajustar el tamaño y posición"
+msgstr "Estableix el símbol de coda com a marca de pràctica i ajusta la mida i la posició"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:106 (comment)
 msgid ""
 "Put the coda sign ontop of the (treble-)clef dependend on coda's line-"
 "position"
-msgstr ""
-"Poner el signo de coda encima de la clave dependiendo de la line-position de "
-"la coda"
+msgstr "Posa el símbol de coda de la clau (de sol) depenent de la posició de línia de la coda"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:108 (comment)
 msgid "Coda NOT on new line, use this:"
-msgstr "Coda NO en nueva línea, hacer esto:"
+msgstr "La coda NO hi és a una nova línia, useu això:"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:109 (comment)
 msgid "\\once \\override Score.RehearsalMark #'extra-offset = #'( -2 . 1.75 )"
@@ -10387,7 +10376,7 @@ msgstr "\\once \\override Score.RehearsalMark #'extra-offset = #'( -2 . 1.75 )"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:111 (comment)
 msgid "Coda on new line, use this:"
-msgstr "Coda en nueva línea, hacer esto:"
+msgstr "La coda és a una nova linia, feu això:"
 
 #. Documentation/snippets/positioning-segno-and-coda-with-line-break.ly:117 (comment)
 msgid "The coda"
@@ -10396,49 +10385,49 @@ msgstr "La coda"
 #. Documentation/snippets/preventing-final-mark-from-removing-final-tuplet.ly:31 (comment)
 #. Documentation/snippets/preventing-final-mark-from-removing-final-tuplet.ly:49 (comment)
 msgid "due to issue 2362 the following line is commented"
-msgstr "a causa del bug número 2362, la línea siguiente está comentada"
+msgstr "a causa de l'error número 2362, la línia següent està comentada"
 
 #. Documentation/snippets/preventing-final-mark-from-removing-final-tuplet.ly:32 (comment)
 #. Documentation/snippets/preventing-final-mark-from-removing-final-tuplet.ly:50 (comment)
 msgid "\\mark \\\"Composed Feb 2007 - Feb 2008\\\""
-msgstr "\\mark \\\"Compuesto entre feb. de 2007 y feb. de 2008\\\""
+msgstr "\\mark \\\"Composat entre feb. de 2007 i feb. de 2008\\\""
 
 #. Documentation/snippets/preventing-final-mark-from-removing-final-tuplet.ly:33 (comment)
 #. Documentation/snippets/preventing-final-mark-from-removing-final-tuplet.ly:51 (comment)
 msgid "and a shorter mark is used."
-msgstr "y se usa una marca más corta."
+msgstr "i s'usa una marca més curta."
 
 #. Documentation/snippets/printing-bar-numbers-at-regular-intervals.ly:61 (comment)
 msgid "Permit first bar number to be printed"
-msgstr "Habilitar la impresión del número del primer compás"
+msgstr "Permet que el número del primer compàs s'imprimeixi"
 
 #. Documentation/snippets/printing-bar-numbers-inside-boxes-or-circles.ly:47 (comment)
 msgid "Prevent bar numbers at the end of a line and permit them elsewhere"
-msgstr "No poner números de compás al final de la línea, pero sí en otros lugares"
+msgstr "No posis número de compàs al final d'una línia però posal's a tot els altres llocs"
 
 #. Documentation/snippets/printing-bar-numbers-inside-boxes-or-circles.ly:54 (comment)
 msgid "Draw a box round the following bar number(s)"
-msgstr "Pintar una caja rodeando al siguiente(s) número de compás"
+msgstr "Dibuixa una caixa al voltant del(s) següent(s) número(s) de compàs"
 
 #. Documentation/snippets/printing-bar-numbers-inside-boxes-or-circles.ly:59 (comment)
 msgid "Draw a circle round the following bar number(s)"
-msgstr "Rodear con un círculo el siguiente(s) número de compás"
+msgstr "Dibuixa un cercle al voltant del(s) següent(s) número(s) de compàs"
 
 #. Documentation/snippets/printing-metronome-and-rehearsal-marks-below-the-staff.ly:59 (comment)
 msgid "Metronome marks below the staff"
-msgstr "Las marcas de metrónomo debajo del pentagrama"
+msgstr "Marques de metrònom a sota del pentagrama"
 
 #. Documentation/snippets/printing-metronome-and-rehearsal-marks-below-the-staff.ly:64 (comment)
 msgid "Rehearsal marks below the staff"
-msgstr "Letras de ensayo debajo del pentagrama"
+msgstr "Marques de pràctica a sota del pentagrama"
 
 #. Documentation/snippets/printing-music-with-different-time-signatures.ly:60 (variable)
 msgid "Bassklarinette"
-msgstr "ClarineteBajo"
+msgstr "Bassklarinette"
 
 #. Documentation/snippets/printing-music-with-different-time-signatures.ly:104 (variable)
 msgid "Perkussion"
-msgstr "Percusion"
+msgstr "Percussió"
 
 #. Documentation/snippets/putting-lyrics-inside-the-staff.ly:24 (context id)
 msgid "voc"
@@ -10446,7 +10435,7 @@ msgstr "voc"
 
 #. Documentation/snippets/quoting-another-voice-with-transposition.ly:73 (variable)
 msgid "quoteTest"
-msgstr "pruebaDeCita"
+msgstr "quoteTest"
 
 #. Documentation/snippets/quoting-another-voice-with-transposition.ly:74 (comment)
 msgid "french horn"
@@ -10454,7 +10443,7 @@ msgstr "trompa"
 
 #. Documentation/snippets/quoting-another-voice.ly:80 (variable)
 msgid "quoteMe"
-msgstr "citaMe"
+msgstr "quoteMe"
 
 #. Documentation/snippets/quoting-another-voice.ly:85 (variable)
 msgid "original"
@@ -10462,21 +10451,19 @@ msgstr "original"
 
 #. Documentation/snippets/recorder-fingering-chart.ly:39 (comment)
 msgid "range chart for paetzold contrabass recorder"
-msgstr "cuadro de rangos para la flauta dulce contabaja paetzold"
+msgstr "quadre de rangs per a la flauta dolça contrabaix paetzold"
 
 #. Documentation/snippets/redefining-grace-note-global-defaults.ly:69 (variable)
 msgid "startAcciaccaturaMusic"
-msgstr "inicioMusicaAcciaccatura"
+msgstr "startAcciaccaturaMusic"
 
 #. Documentation/snippets/redefining-grace-note-global-defaults.ly:75 (variable)
 msgid "stopAcciaccaturaMusic"
-msgstr "finMusicaAcciaccatura"
+msgstr "stopAcciaccaturaMusic"
 
 #. Documentation/snippets/removing-the-first-empty-line.ly:85 (comment)
 msgid "To use the setting globally, uncomment the following line:"
-msgstr ""
-"Para usar el ajuste de forma global, quite el comentario de la líne "
-"siguiente:"
+msgstr "Per usar aquest paràmetre de configuració globalment traieu el comentari de la següent línia:"
 
 #. Documentation/snippets/removing-the-first-empty-line.ly:86 (comment)
 msgid "\\override VerticalAxisGroup #'remove-first = ##t"
@@ -10484,11 +10471,11 @@ msgstr "\\override VerticalAxisGroup #'remove-first = ##t"
 
 #. Documentation/snippets/removing-the-first-empty-line.ly:95 (comment)
 msgid "To use the setting globally, comment this line,"
-msgstr "Para usar el ajuste globalmente, haga un comentario de la línea siguiente:"
+msgstr "Per usar aquest paràmetre d'ajust globalment, comenteu la línia següent:"
 
 #. Documentation/snippets/removing-the-first-empty-line.ly:96 (comment)
 msgid "uncomment the line in the \\layout block above"
-msgstr "quite el comentario de la línea del bloque \\layout de arriba"
+msgstr "traieu el comentari de la línia del bloc \\layout de dalt"
 
 #. Documentation/snippets/repeats-headword.ly:19 (comment)
 msgid "Beethoven, Op. 57"
@@ -10496,7 +10483,7 @@ msgstr "Beethoven, Op. 57"
 
 #. Documentation/snippets/repeats-headword.ly:20 (comment)
 msgid "Piano sonata 23 - Dem Grafen Franz von Brunswick Gewidmet"
-msgstr "Sonata para piano núm. 23; dedicada a Franz von Brunswick"
+msgstr "Sonata per a piano núm. 23; dedicada a Franz von Brunswick"
 
 #. Documentation/snippets/repeats-headword.ly:21 (comment)
 msgid "Movt II, Andante con moto"
@@ -10504,19 +10491,19 @@ msgstr "Mov. II, Andante con moto"
 
 #. Documentation/snippets/repeats-headword.ly:22 (comment)
 msgid "Measures 9 - 16"
-msgstr "Compases 9 a 16"
+msgstr "Compassos 9 a 16"
 
 #. Documentation/snippets/reverting-default-beam-endings.ly:55 (comment)
 msgid "Default beaming"
-msgstr "Barrado predeterminado"
+msgstr "Barrat predeterminat"
 
 #. Documentation/snippets/reverting-default-beam-endings.ly:58 (comment)
 msgid "Set new values for beam endings"
-msgstr "establecer valores nuevos para finales de barra"
+msgstr "Estableix valors nous per als finals de barra"
 
 #. Documentation/snippets/rhythmic-slashes.ly:30 (comment)
 msgid "Macro to print single slash"
-msgstr "Macro para imprimir una barra inclinada única"
+msgstr "Macro per imprimir una barra inclinada única"
 
 #. Documentation/snippets/rhythmic-slashes.ly:31 (variable)
 msgid "rs"
@@ -10524,7 +10511,7 @@ msgstr "rs"
 
 #. Documentation/snippets/rhythmic-slashes.ly:38 (comment)
 msgid "Function to print a specified number of slashes"
-msgstr "Función para imprimir un número especificado de barras inclinadas"
+msgstr "Funció per imprimir un nombre especificat de barres inclinades"
 
 #. Documentation/snippets/rhythmic-slashes.ly:39 (variable)
 msgid "comp"
@@ -10536,7 +10523,7 @@ msgstr "Beethoven, Op. 81a"
 
 #. Documentation/snippets/rhythms-headword.ly:20 (comment)
 msgid "Piano sonata 26 - Das Lebewohl"
-msgstr "Sonata para piano núm. 26 - Das Lebewohl"
+msgstr "Sonata per a piano núm. 26 - Das Lebewohl"
 
 #. Documentation/snippets/rhythms-headword.ly:21 (comment)
 msgid "Movt II - Abwesenheit"
@@ -10544,7 +10531,7 @@ msgstr "Mov. II - Abwesenheit"
 
 #. Documentation/snippets/rhythms-headword.ly:22 (comment)
 msgid "Measures 31 - 34"
-msgstr "Compases 31 a 34"
+msgstr "Compassos 31 a 34"
 
 #. Documentation/snippets/rhythms-headword.ly:31 (comment)
 msgid "\\override SpacingSpanner #'strict-grace-spacing = ##t"
@@ -10552,35 +10539,35 @@ msgstr "\\override SpacingSpanner #'strict-grace-spacing = ##t"
 
 #. Documentation/snippets/satb-choir-template---four-staves.ly:58 (variable)
 msgid "sopranonotes"
-msgstr "notasSoprano"
+msgstr "sopranonotes"
 
 #. Documentation/snippets/satb-choir-template---four-staves.ly:61 (variable)
 msgid "sopranowords"
-msgstr "letraSoprano"
+msgstr "sopranowords"
 
 #. Documentation/snippets/satb-choir-template---four-staves.ly:62 (variable)
 msgid "altonotes"
-msgstr "notasAlto"
+msgstr "altonotes"
 
 #. Documentation/snippets/satb-choir-template---four-staves.ly:65 (variable)
 msgid "altowords"
-msgstr "letraContralto"
+msgstr "altowords"
 
 #. Documentation/snippets/satb-choir-template---four-staves.ly:66 (variable)
 msgid "tenornotes"
-msgstr "notasTenor"
+msgstr "tenornotes"
 
 #. Documentation/snippets/satb-choir-template---four-staves.ly:70 (variable)
 msgid "tenorwords"
-msgstr "letraTenor"
+msgstr "tenorwords"
 
 #. Documentation/snippets/satb-choir-template---four-staves.ly:71 (variable)
 msgid "bassnotes"
-msgstr "notasBajo"
+msgstr "bassnotes"
 
 #. Documentation/snippets/satb-choir-template---four-staves.ly:75 (variable)
 msgid "basswords"
-msgstr "letraBajo"
+msgstr "basswords"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:65 (variable)
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:73 (comment)
@@ -10592,155 +10579,142 @@ msgstr "estrofa"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:75 (variable)
 msgid "NoStem"
-msgstr "sinPlica"
+msgstr "NoStem"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:76 (variable)
 msgid "NoNoteHead"
-msgstr "sinCabezas"
+msgstr "NoNoteHead"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:77 (variable)
 msgid "ZeroBeam"
-msgstr "sinBarras"
+msgstr "ZeroBeam"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:79 (variable)
 msgid "staffTabLine"
-msgstr "lineaTablatura"
+msgstr "staffTabLine"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:84 (comment)
 msgid ""
 "Shows one horizontal line. The vertical line (simulating a bar-line) is "
 "simulated with a gridline"
-msgstr ""
-"Muestra una línea horizontal. La línea horizontal (que simula una divisoria) "
-"se simula con una línea de rejilla"
+msgstr "Mostra una línia horitzontal. La línia vertical (simulant una línia divisòria) se simula amb una línia d'entramat"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:89 (comment)
 msgid "disable the following line to see the the noteheads while writing the song"
-msgstr ""
-"Deshabilite la línea siguiente para ver las cabezas mientras escribe la "
-"canción"
+msgstr "deshabiliteu la línia següent per veure els caps de les notes  escriu la cancó"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:93 (comment)
 msgid "The beam between 8th-notes is used to draw the push-line"
-msgstr "La barra entre las corcheas se usa para trazar la línea de cerrar"
+msgstr "La barra entre les corxeres s'usa per traçar la línia de tancar"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:94 (comment)
 msgid "How to fast write the push-lines:"
-msgstr "Cuán rápido escribir las líneas de cerrar:"
+msgstr "Com escriure de forma ràpida les push-lines:"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:95 (comment)
 msgid "1. write repeatedly 'c c c c c c c c |' for the whole length of the song"
-msgstr "1. escriba repetidamente 'c c c c c c c c |' en toda la canción"
+msgstr "1. escriviu repetidament 'c c c c c c c c |' a tota la cançó"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:96 (comment)
 msgid "2. uncomment the line \\NoNoteHead"
-msgstr "2. quite el comentario de la línea \\NoNoteHead"
+msgstr "2. traieu el comentari de la línia \\NoNoteHead"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:97 (comment)
 msgid "3. compile"
-msgstr "3. compile"
+msgstr "3. compileu"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:98 (comment)
 msgid "4. Mark the positions on which push/pull changes."
-msgstr "4. Marque las posiciones en las que cambia el abrir o cerrar"
+msgstr "4. Marqueu les posicions a les quals canvia pujar/baixar."
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:99 (comment)
 msgid "In the score-picture click on the position the push- or pull-part starts"
-msgstr ""
-"En la imagen de la partitura pulse sobre la posición en que inician las "
-"partes de abrir o cerrar"
+msgstr "A la imatge de la partitura polsi sobre la posició on s'inicien les parts de pujar i baixar"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:100 (comment)
 msgid "(on the noteHead, the cursor will change to a hand-icon)."
-msgstr "(sobre la cabeza, el cursor cambia a una mano)."
+msgstr "(sobre el cap de la nota, el cursor canviarà a una icona que és una mà)"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:101 (comment)
 msgid "The cursor in the source code will jump just at this position."
-msgstr "El cursor sobre la fuente salta a esta posición."
+msgstr "El cursor al codi font saltarà just a aquesta posició."
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:102 (comment)
 msgid "a) If a push-part starts there, replace the 'c' by an 'e['"
-msgstr "a) Si en ese lugar empieza una parte de cerrar, cambie la 'c' por 'e['"
+msgstr "a) Si en aquest lloc comença una part de pujar, canvieu la 'c' per una 'e['"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:103 (comment)
 msgid "b) If a pull-part starts there, replace the 'c' by an 's'"
-msgstr "b) Si en ese lugar empieza una parte de abrir, cambie la 'c' por una 's'"
+msgstr "b) Si en aquest lloc comença una part de baixar, substituïu la 'c' per uns 's'"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:104 (comment)
 msgid "5. Switch into 'overwrite-mode' by pressing the 'ins' key."
-msgstr "5. Cambie al modo de sobreescritura de texto pulsando la tecla 'ins'."
+msgstr "5. Canvia mode de sobreescriure prement la tecla 'ins'."
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:105 (comment)
 msgid "6. For the pull-parts overwrite the 'c' with 's'"
-msgstr "6. Para las partes de abrir sobreescriba la 'c' con 's' "
+msgstr "6. Per a les parts de baixar sobreescriviu la 'c' amb 's'"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:106 (comment)
 msgid "7. For every push-part replace the last 'c' with 'e]'"
-msgstr "7. Para cada parte de cerrar cambie la última 'c' por una 'e]' "
+msgstr "7. Per a cada part de pujar substituïu l'última 'c' amb 'e]'"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:107 (comment)
 msgid "8. Switch into 'insert-mode' again"
-msgstr "8. Pase de nuevo al modo de inserción"
+msgstr "8. Canvia a mode d'inserció un altre cop"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:108 (comment)
 msgid ""
 "9. At last it should look lik e.g. (s s e[ c | c c c c c c c c | c c c c c c "
 "e] s s)"
-msgstr ""
-"9. Al final se verá como p.ej. (s s e[ c | c c c c c c c c | c c c c c c e] "
-"s s)"
+msgstr "9. Al final es veurà como per exemple. (s s e[ c | c c c c c c c c | c c c c c c e] s s)"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:109 (comment)
 msgid "10. re-enable the line \\NoNoteHead"
-msgstr "10. rehabilite la línea \\NoNoteHead"
+msgstr "10. reactiva la línia \\NoNoteHead"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:119 (comment)
 msgid "Accordion melody in tabulator score"
-msgstr "Melodía de acordeón en partitura de tablatura"
+msgstr "Melodia de acordió en partitura de tablatura"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:120 (comment)
 msgid "1. Place a copy of the piano melody below"
-msgstr "1. Ponga debajo una copia de la melodía de piano"
+msgstr "1. Posa una còpia de la melodia del piano a sota"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:121 (comment)
 #. Documentation/snippets/score-for-diatonic-accordion.ly:140 (comment)
 msgid ""
 "2. Separate piano melody into pull- and push-parts according to the "
 "staffTabLine you've already made"
-msgstr ""
-"2. Separe la melodía de piano en partes de abrir y de cerrar de acuerdo con "
-"la staffTabLine que ha preparado"
+msgstr "2. Separa la melodia de piano en parts de baixar i pujar d'acord amb la staffTabLine que ja heu fet"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:122 (comment)
 msgid ""
 "3. For each line: Double the line. Remark the 1st one (Keeps unchanged as "
 "reference) and then change the second line using the transformation paper"
-msgstr ""
-"3. Para cada línea; duplique la línea. Marque la primera como comentario (la "
-"conserva intacta como referencia) y luego cambie la segunda línea usando el "
-"papel de transformación"
+msgstr "3. Per a cada línia: duplica la línia. Remarca la primera (es manté sense canvi com a referència) i després canvia la segona línia usant el paper de transformació"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:123 (comment)
 msgid "or the macros 'conv2diaton push.bsh' and 'conv2diaton pull.bsh'"
-msgstr "o los macros 'conv2diaton push.bsh' y 'conv2diaton pull.bsh' "
+msgstr "o els macros 'conv2diaton push.bsh' i 'conv2diaton pull.bsh' "
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:124 (comment)
 #. Documentation/snippets/score-for-diatonic-accordion.ly:143 (comment)
 msgid "Tips:"
-msgstr "Consejos:"
+msgstr "Consells:"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:125 (comment)
 #. Documentation/snippets/score-for-diatonic-accordion.ly:144 (comment)
 msgid "- In jEdit Search & Replace mark the Option 'Keep Dialog'"
-msgstr "- En la búsqueda y sustitución de jEdit marque la opción 'Keep Dialog'"
+msgstr "- En la cerca y substitució de jEdit marca l'opció 'Keep Dialog'"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:127 (variable)
 msgid "AccordionTabTwoCBesDur"
-msgstr "AcordeonTabDosCSibM"
+msgstr "AccordionTabTwoCBesDur"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:128 (comment)
 msgid "pull 1"
-msgstr "abrir 1"
+msgstr "puja 1"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:129 (comment)
 msgid "<f' bes'>8 <f' a'>8 <d' bes'>8 |"
@@ -10748,7 +10722,7 @@ msgstr "<f' bes'>8 <f' a'>8 <d' bes'>8 |"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:131 (comment)
 msgid "push 2"
-msgstr "cerrar 2"
+msgstr "baixa 2"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:132 (comment)
 msgid "<g' c''>4 <f' d''> <g' ees''> <f' a'> |"
@@ -10756,7 +10730,7 @@ msgstr "<g' c''>4 <f' d''> <g' ees''> <f' a'> |"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:134 (comment)
 msgid "pull 3"
-msgstr "abrir 3"
+msgstr "baixa 3"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:135 (comment)
 msgid "<f' bes'>2 r8 }"
@@ -10764,23 +10738,21 @@ msgstr "<f' bes'>2 r8 }"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:138 (variable)
 msgid "AccordionTab"
-msgstr "TablaturaAcordeón"
+msgstr "AccordionTab"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:139 (comment)
 msgid "1. Place a copy of the piano melody above"
-msgstr "1. Haga una copia de la melodía de piano de arriba"
+msgstr "1. Posa una còpia del la melodia del piano a sobre"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:141 (comment)
 msgid ""
 "3. For each line: Double the line. Remark the 1st one (Keeps unchanged as "
 "reference) and then"
-msgstr ""
-"3. Para cada línea: duplique la línea. marque la primera como comentario (la "
-"conserva intacta como referencia) y después"
+msgstr "3 Per a cada línia: Duplica la línia. Remarca la primera (Es manté sense canvi com a referència) i després"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:142 (comment)
 msgid "change the second line using the transformation paper"
-msgstr "cambie la segunda línea usando el papel de transformación"
+msgstr "canvia la segona línia usant el paper de transformació"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:145 (comment)
 msgid "-"
@@ -10788,59 +10760,59 @@ msgstr "-"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:154 (comment)
 msgid "The vertical line (simulating a bar-line) in"
-msgstr "La línea vertical (que simula una divisoria) en"
+msgstr "La línia vertical (que simula una barra) a "
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:155 (comment)
 msgid "the staffBassRhytm is a gridline"
-msgstr "el duracionesPentagramaBajo es una línea de rejilla"
+msgstr "la staffBassRhytm és un entramat"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:161 (comment)
 msgid "4/4 - tact. How many beats per bar"
-msgstr "4/4 - tact. Cuántos pulsos por compás"
+msgstr "4/4 - tact. Quants polsos per compàs"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:162 (comment)
 msgid "The following line has to be adjusted O-F-T-E-N."
-msgstr "La línea siguiente se tiene que ajustar A M-E-N-U-D-O."
+msgstr "La línia següent s'ha de ajustar S-O-V-I-N-T."
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:171 (variable)
 msgid "staffVoice"
-msgstr "vozPentagrama"
+msgstr "staffVoice"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:171 (context id)
 msgid "astaffvoice"
-msgstr "vozPentagrama"
+msgstr "astaffvoice"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:185 (variable)
 msgid "staffAccordionMel"
-msgstr "pentagramaAcordMelodia"
+msgstr "staffAccordionMel"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:187 (comment)
 msgid "Set the accidentals (Vorzeichen) for each note,"
-msgstr "Fijar las alteraciones (Vorzeichen) para cada nota,"
+msgstr "Estableix les alteracions (Vorzeichen) per a cada nota,"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:188 (comment)
 msgid "do not remember them for the rest of the measure."
-msgstr "no recordarlas para el resto del compás."
+msgstr "no les recordis per a la resta del compàs."
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:208 (variable)
 msgid "BassRhytm"
-msgstr "DuracionesBajo"
+msgstr "BassRhytm"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:209 (variable)
 msgid "LyricBassRhythmI"
-msgstr "DuracionesLetraBajoI"
+msgstr "LyricBassRhythmI"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:211 (variable)
 msgid "staffBassRhytm"
-msgstr "duracionesPentagramaBajo"
+msgstr "staffBassRhytm"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:212 (context id)
 msgid "staffbass"
-msgstr "bajoPentagrama"
+msgstr "staffbass"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:213 (comment)
 msgid "This is not a RhythmicStaff  because it must be possible to append lyrics."
-msgstr "Esto no es un RhythmicStaff porque se debe poder aplicar letra."
+msgstr "Això no és un RhytmicStaff perquè ha de ser possible adjuntar la lletra."
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:215 (comment)
 msgid "x.y"
@@ -10850,31 +10822,27 @@ msgstr "x.y"
 msgid ""
 "Shows one horizontal line. The vertical line (simulating a bar-line) is "
 "simulated by a grid"
-msgstr ""
-"Muestra una línea horizontal. La línea vertical (que simula una divisoria) "
-"está simulada por una rejilla"
+msgstr "Mostra una línia horitzontal. La línia vertical (que simula una divisòria) està simulada per un entramat"
 
 #. Documentation/snippets/score-for-diatonic-accordion.ly:218 (comment)
 msgid "Search for 'grid' in this page to find all related functions"
-msgstr ""
-"Busque por el término 'grid' en esta página para hallar todas las funciones "
-"relacionadas"
+msgstr "Busqueu per 'grid' a aquesta pàgina per trobar totes les funcions relacionades"
 
 #. Documentation/snippets/setting-system-separators.ly:38 (variable)
 msgid "notes"
-msgstr "notas"
+msgstr "notes"
 
 #. Documentation/snippets/showing-the-same-articulation-above-and-below-a-note-or-chord.ly:32 (comment)
 msgid "The same as \\flageolet, just a little smaller"
-msgstr "Igual que \\flageolet, pero más pequeño"
+msgstr "Igual que \\flageolet, sols una mica més petit"
 
 #. Documentation/snippets/showing-the-same-articulation-above-and-below-a-note-or-chord.ly:42 (comment)
 msgid "The second fermata is ignored!"
-msgstr "¡El segundo calderón se ignora!"
+msgstr "S'ignorarà el segon calderó!"
 
 #. Documentation/snippets/simultaneous-headword.ly:21 (comment)
 msgid "NR 1.5 Simultaneous notes"
-msgstr "NR 1.5 Notas simultáneas"
+msgstr "NR 1.5 Notes simultànies"
 
 #. Documentation/snippets/simultaneous-headword.ly:23 (comment)
 msgid "L. v. Beethoven, Op. 111"
@@ -10882,59 +10850,59 @@ msgstr "L. v. Beethoven, Op. 111"
 
 #. Documentation/snippets/simultaneous-headword.ly:24 (comment)
 msgid "Piano sonata 32"
-msgstr "Sonata para piano núm. 32"
+msgstr "Sonata per a piano núm. 32"
 
 #. Documentation/snippets/simultaneous-headword.ly:25 (comment)
 msgid "Movt II - Arietta - Adagio molto semplice e cantabile"
-msgstr "Movto. II - Arietta - Adagio molto semplice e cantabile"
+msgstr "Movt. II - Arietta - Adagio molto semplice e cantabile"
 
 #. Documentation/snippets/simultaneous-headword.ly:26 (comment)
 msgid "measures 108 - 118"
-msgstr "compases 108 a 118"
+msgstr "compassos 108 a 118"
 
 #. Documentation/snippets/simultaneous-headword.ly:38 (variable)
 msgid "trillFlat"
-msgstr "trinoBemol"
+msgstr "trillFlat"
 
 #. Documentation/snippets/simultaneous-headword.ly:58 (comment)
 msgid "RH voice 1"
-msgstr "Voz MD 1"
+msgstr "Veu MD 1"
 
 #. Documentation/snippets/simultaneous-headword.ly:135 (comment)
 msgid "RH voice 2"
-msgstr "Voz MD 2"
+msgstr "Veu MD 2"
 
 #. Documentation/snippets/simultaneous-headword.ly:210 (comment)
 msgid "LH staff"
-msgstr "pentragrama MI"
+msgstr "pentagrama ME"
 
 #. Documentation/snippets/single-staff-template-with-notes,-lyrics,-chords-and-frets.ly:30 (variable)
 msgid "verseI"
-msgstr "estrofaI"
+msgstr "verseI"
 
 #. Documentation/snippets/single-staff-template-with-notes,-lyrics,-chords-and-frets.ly:35 (variable)
 msgid "verseII"
-msgstr "estrofaII"
+msgstr "verseII"
 
 #. Documentation/snippets/single-staff-template-with-notes,-lyrics,-chords-and-frets.ly:41 (comment)
 msgid "insert chords for chordnames and fretboards here"
-msgstr "inserte aquí los acordes para chordnames y fretboards"
+msgstr "insereix els acords per als noms d'acord i el màstil aquí"
 
 #. Documentation/snippets/single-staff-template-with-notes,-lyrics,-chords-and-frets.ly:45 (variable)
 msgid "staffMelody"
-msgstr "melodiaPentagrama"
+msgstr "staffMelody"
 
 #. Documentation/snippets/single-staff-template-with-notes,-lyrics,-chords-and-frets.ly:48 (comment)
 msgid "Type notes for melody here"
-msgstr "Teclee aquí las notas de la melodía"
+msgstr "Escrigui les notes per a la melodia aquí"
 
 #. Documentation/snippets/single-staff-template-with-notes,-lyrics,-chords-and-frets.ly:58 (context id)
 msgid "voiceMelody"
-msgstr "melodiaVoz"
+msgstr "voiceMelody"
 
 #. Documentation/snippets/slides-in-tablature.ly:45 (variable)
 msgid "slides"
-msgstr "deslizamientos"
+msgstr "lliscaments"
 
 #. Documentation/snippets/staff-headword.ly:34 (comment)
 msgid "title = \\\"Le Lac des Cygnes\\\""
@@ -10976,111 +10944,111 @@ msgstr "prima"
 
 #. Documentation/snippets/staff-headword.ly:107 (context id)
 msgid "uppera"
-msgstr "superiorA"
+msgstr "uppera"
 
 #. Documentation/snippets/staff-headword.ly:108 (context id)
 msgid "lowera"
-msgstr "inferiorA"
+msgstr "lowera"
 
 #. Documentation/snippets/stem-cross-staff-engraver.ly:30 (comment)
 msgid "Values are close enough to ignore the difference"
-msgstr "Los valores son lo bastante parecidos como para ignorar la diferencia"
+msgstr "Els valors són suficientment propers com per ignorar la diferència"
 
 #. Documentation/snippets/stem-cross-staff-engraver.ly:34 (comment)
 msgid "Combine a list of extents"
-msgstr "Combinar una lista de dimensiones"
+msgstr "Combina una llista d'extensions"
 
 #. Documentation/snippets/stem-cross-staff-engraver.ly:40 (comment)
 msgid "Check if the stem is connectable to the root"
-msgstr "Comprobar si la plica conecta con la raíz"
+msgstr "Comprova si la vírgula es pot connectar amb l'arrel"
 
 #. Documentation/snippets/stem-cross-staff-engraver.ly:53 (comment)
 msgid "Connect stems if we have at least one stems connectable to the root"
-msgstr "Conectar las plicas si tenemos al menos una plica que se puede conectar con la raíz"
+msgstr "Connecta les vírgules si tenim al menys una vírgula que es pugui connectar amb l'arrel"
 
 #. Documentation/snippets/stem-cross-staff-engraver.ly:74 (comment)
 msgid "Create a stem span as a child of the cross-staff stem (the root)"
-msgstr "Crear una plica extensa como hija de la plica de pauta cruzada (la raíz)"
+msgstr "Crea una extensió de vírgula com a filla d'una vírgula de pauta creuada (l'arrel)"
 
 #. Documentation/snippets/stem-cross-staff-engraver.ly:83 (comment)
 msgid "Set cross-staff property of the stem to this function to connect it to"
-msgstr "Establecer la propiedad cross-staff de la plica a esta función para conectarla a"
+msgstr "Estableix la propietat cross-staff de la vírgula a aquesta funció per connectar a "
 
 #. Documentation/snippets/stem-cross-staff-engraver.ly:84 (comment)
 msgid "other stems automatically"
-msgstr "otras plicas automáticamente"
+msgstr "altres vírgules automàticament"
 
 #. Documentation/snippets/stem-cross-staff-engraver.ly:88 (comment)
 msgid "Check if automatic connecting of the stem was requested.  Stems connected"
-msgstr "Comprobar si se ha solicitado la conexión automática de la plica.  Las plicas conectadas"
+msgstr "Comprova si es va demanar que la vírgula es connectés automàticament. Les vírgules connectades"
 
 #. Documentation/snippets/stem-cross-staff-engraver.ly:89 (comment)
 msgid "to cross-staff beams are cross-staff, but they should not be connected to"
-msgstr "a las barras de pauta cruzada son de pauta cruzada, pero no deben estar conectadas a"
+msgstr "a barres de pauta creuada són de pauta creuada, però no han d'estar connectades a"
 
 #. Documentation/snippets/stem-cross-staff-engraver.ly:90 (comment)
 msgid "other stems just because of that."
-msgstr "otras plicas sólo por este motivo."
+msgstr "alters vírgules per això."
 
 #. Documentation/snippets/stem-cross-staff-engraver.ly:94 (comment)
 msgid "Create stem spans for cross-staff stems"
-msgstr "Crear plicas extensas para las plicas de pauta cruzada"
+msgstr "Crea extensions de vírgula per a vírgules de pauta creuada"
 
 #. Documentation/snippets/stem-cross-staff-engraver.ly:102 (comment)
 msgid "Connect cross-staff stems to the stems above in the system"
-msgstr "Conectar las plicas de pauta cruzada a las plicas del sistema que están por encima"
+msgstr "Connecta les vírgules de pauta creuada a les vírgules sobre el sistema"
 
 #. Documentation/snippets/stem-cross-staff-engraver.ly:115 (variable)
 msgid "crossStaff"
-msgstr "pautaCruzada"
+msgstr "crossStaff"
 
 #. Documentation/snippets/stem-cross-staff-engraver.ly:130 (comment)
 msgid "Bar 1 - durations, beams, flags"
-msgstr "Compás 1: duraciones, barras, corchetes"
+msgstr "Compàs 1: duracions, barres, etiquetes"
 
 #. Documentation/snippets/stem-cross-staff-engraver.ly:135 (comment)
 msgid "Bar 2 - direction"
-msgstr "Compás 2: dirección"
+msgstr "Compàs 2: direcció"
 
 #. Documentation/snippets/stem-cross-staff-engraver.ly:140 (comment)
 msgid "Bar 3 - multiple voice styles"
-msgstr "Compás 3: estilos de voz diversos"
+msgstr "Compàs 3: estils de veu diversos"
 
 #. Documentation/snippets/stem-cross-staff-engraver.ly:145 (comment)
 msgid "Bar 4 - grace notes"
-msgstr "Compás 4: notas de adorno"
+msgstr "Compàs 4: notes de adorn"
 
 #. Documentation/snippets/stem-cross-staff-engraver.ly:150 (comment)
 msgid "Bar 5 - cross-staff beams"
-msgstr "Compás 5: barras de pauta cruzada"
+msgstr "Compàs 5: barres de pauta creuda"
 
 #. Documentation/snippets/stem-cross-staff-engraver.ly:159 (context id)
 msgid "staffone"
-msgstr "pautaUno"
+msgstr "staffone"
 
 #. Documentation/snippets/stem-cross-staff-engraver.ly:164 (context id)
 msgid "stafftwo"
-msgstr "pautaDos"
+msgstr "stafftwo"
 
 #. Documentation/snippets/stem-cross-staff-engraver.ly:169 (context id)
 msgid "staffthree"
-msgstr "pautaTres"
+msgstr "staffthree"
 
 #. Documentation/snippets/stemlets.ly:40 (comment)
 msgid "N.B. use Score.Stem to set for the whole score."
-msgstr "Nota: use Score.Stem para establecerlo para la partitura entera."
+msgstr "Nota: useu Score.Stem per establir-lo per a tota la partitura."
 
 #. Documentation/snippets/string-number-extender-lines.ly:22 (variable)
 msgid "stringNumberSpanner"
-msgstr "extensorNumeroCuerda"
+msgstr "stringNumberSpanner"
 
 #. Documentation/snippets/string-quartet-template-simple.ly:67 (variable)
 msgid "violinOne"
-msgstr "violinUno"
+msgstr "violinOne"
 
 #. Documentation/snippets/string-quartet-template-simple.ly:76 (variable)
 msgid "violinTwo"
-msgstr "violinDos"
+msgstr "violinTwo"
 
 #. Documentation/snippets/string-quartet-template-simple.ly:85 (variable)
 msgid "viola"
@@ -11092,11 +11060,11 @@ msgstr "pieza.ly"
 
 #. Documentation/snippets/string-quartet-template-with-separate-parts.ly:130 (comment)
 msgid "(This is the global definitions file)"
-msgstr "(Este es el archivo de definiciones globales)"
+msgstr "(Aquest és el fitxer de definicions globals)"
 
 #. Documentation/snippets/string-quartet-template-with-separate-parts.ly:137 (variable)
 msgid "Violinone"
-msgstr "violinuno"
+msgstr "Violinone"
 
 #. Documentation/snippets/string-quartet-template-with-separate-parts.ly:142 (comment)
 #. Documentation/snippets/string-quartet-template-with-separate-parts.ly:148 (comment)
@@ -11106,7 +11074,7 @@ msgstr "*********************************"
 
 #. Documentation/snippets/string-quartet-template-with-separate-parts.ly:143 (variable)
 msgid "Violintwo"
-msgstr "ViolinDos"
+msgstr "Violintwo"
 
 #. Documentation/snippets/string-quartet-template-with-separate-parts.ly:149 (variable)
 msgid "Viola"
@@ -11122,19 +11090,19 @@ msgstr "**********************************"
 
 #. Documentation/snippets/string-quartet-template-with-separate-parts.ly:173 (comment)
 msgid "These are the other files you need to save on your computer"
-msgstr "Estos son los tros archivos que debe guardar en su sistema"
+msgstr "Aquests on els altres fitxers que heu de desar al vostre ordinador"
 
 #. Documentation/snippets/string-quartet-template-with-separate-parts.ly:175 (comment)
 msgid "score.ly"
-msgstr "partitura.ly"
+msgstr "score.ly"
 
 #. Documentation/snippets/string-quartet-template-with-separate-parts.ly:176 (comment)
 msgid "(This is the main file)"
-msgstr "(Este es el archivo principal)"
+msgstr "(Aquest és el fitxer principal)"
 
 #. Documentation/snippets/string-quartet-template-with-separate-parts.ly:178 (comment)
 msgid "uncomment the line below when using a separate file"
-msgstr "Quite la marca de comentario de este bloque si está usando archivos aparte"
+msgstr "traieu el comentari de la línia a sota quan s'estigui usant un fitxer separat"
 
 #. Documentation/snippets/string-quartet-template-with-separate-parts.ly:179 (comment)
 msgid "\\include \\\"piece.ly\\\""
@@ -11142,7 +11110,7 @@ msgstr "\\include \\\"pieza.ly\\\""
 
 #. Documentation/snippets/string-quartet-template-with-separate-parts.ly:188 (comment)
 msgid "{ Uncomment this block when using separate files"
-msgstr "{ Quite la marca de comentario de este bloque si está usando archivos aparte"
+msgstr "{ Traieu el comentari a aquest bloc quan s'estigui usant un altre fitxer"
 
 #. Documentation/snippets/string-quartet-template-with-separate-parts.ly:190 (comment)
 msgid "vn1.ly"
@@ -11150,7 +11118,7 @@ msgstr "vn1.ly"
 
 #. Documentation/snippets/string-quartet-template-with-separate-parts.ly:191 (comment)
 msgid "(This is the Violin 1 part file)"
-msgstr "(Este es el archivo de particella del violín 1)"
+msgstr "(Aquest el fitxer de la part del violí 1)"
 
 #. Documentation/snippets/string-quartet-template-with-separate-parts.ly:200 (comment)
 msgid "vn2.ly"
@@ -11158,7 +11126,7 @@ msgstr "vn2.ly"
 
 #. Documentation/snippets/string-quartet-template-with-separate-parts.ly:201 (comment)
 msgid "(This is the Violin 2 part file)"
-msgstr "(Este es el archivo de particella del violín 2)"
+msgstr "(Aquest és el fitxer de particella del violí 2)"
 
 #. Documentation/snippets/string-quartet-template-with-separate-parts.ly:210 (comment)
 msgid "vla.ly"
@@ -11166,7 +11134,7 @@ msgstr "vla.ly"
 
 #. Documentation/snippets/string-quartet-template-with-separate-parts.ly:211 (comment)
 msgid "(This is the Viola part file)"
-msgstr "(Este es el archivo de particella de la viola)"
+msgstr "(Aquest és el fitxer de la part de la viola)"
 
 #. Documentation/snippets/string-quartet-template-with-separate-parts.ly:220 (comment)
 msgid "vlc.ly"
@@ -11174,24 +11142,24 @@ msgstr "vlc.ly"
 
 #. Documentation/snippets/string-quartet-template-with-separate-parts.ly:221 (comment)
 msgid "(This is the Cello part file)"
-msgstr "(Este es el archivo de particella del cello)"
+msgstr "(Aquest és el fitxer de particella del violoncel)"
 
 #. Documentation/snippets/subdividing-beams.ly:79 (comment)
 msgid "Set beam sub-group length to an eighth note"
-msgstr "Fijar la longitud del subgrupo de barras a una corchea"
+msgstr "Estableix la longitud del subgrup de barres a una corxera"
 
 #. Documentation/snippets/subdividing-beams.ly:84 (comment)
 msgid "Set beam sub-group length to a sixteenth note"
-msgstr "Fijar la longitud del subgrupo de barras a una semicorchea"
+msgstr "Estableix la longitud del subgrup de barres a una semicorxera"
 
 #. Documentation/snippets/suppressing-warnings-for-clashing-note-columns.ly:28 (variable)
 #. Documentation/snippets/unfretted-headword.ly:59 (variable)
 msgid "ignore"
-msgstr "ignorar"
+msgstr "ignora"
 
 #. Documentation/snippets/text-headword.ly:21 (comment)
 msgid "NR 1.8 Text"
-msgstr "NR 1.8 Texto"
+msgstr "NR 1.8 Text"
 
 #. Documentation/snippets/text-headword.ly:23 (comment)
 msgid "L. v. Beethoven, Op. 110"
@@ -11199,11 +11167,11 @@ msgstr "L. v. Beethoven, Op. 110"
 
 #. Documentation/snippets/text-headword.ly:24 (comment)
 msgid "Piano sonata 31"
-msgstr "Sonata para piano núm. 31"
+msgstr "Sonata per a piano núm. 31"
 
 #. Documentation/snippets/text-headword.ly:25 (comment)
 msgid "measures 1 - 7"
-msgstr "compases 1 a 7"
+msgstr "compassos 1 a 7"
 
 #. Documentation/snippets/text-headword.ly:37 (comment)
 msgid "RH staff"
@@ -11211,47 +11179,43 @@ msgstr "pentagrama MD"
 
 #. Documentation/snippets/three-sided-box.ly:21 (comment)
 msgid "New command to add a three sided box, with sides north, west and south"
-msgstr ""
-"Instrucción nueva para añadir una caja con tres lados apuntando al norte, "
-"oeste y sur"
+msgstr "Nova ordre per afegir una caixa amb tres costats, amb el costat nord, oest i sud"
 
 #. Documentation/snippets/three-sided-box.ly:22 (comment)
 msgid "Based on the box-stencil command defined in scm/stencil.scm"
-msgstr "Basado en la instrucción box-stencil definida en scm/stencil.scm"
+msgstr "Basat en la instrucció box-stencil definida a scm/stencil.scm"
 
 #. Documentation/snippets/three-sided-box.ly:23 (comment)
 msgid "Note that \\\";;\\\" is used to comment a line in Scheme"
-msgstr "Observe que utilizamos \\\";\\\" para comentar una línea en Scheme"
+msgstr "Observeu que utilitzem \\\";\\\" per comentar una línia a l'Scheme"
 
 #. Documentation/snippets/three-sided-box.ly:37 (comment)
 msgid "The corresponding markup command, based on the \\box command defined"
-msgstr ""
-"La instrucción de marcado correspondiente, basada en la instrucción \\box "
-"definida"
+msgstr "La instrucció de marcat corresponent, basada en la instrucció \\box definida"
 
 #. Documentation/snippets/three-sided-box.ly:38 (comment)
 msgid "in scm/define-markup-commands.scm"
-msgstr "en scm/define-markup-commands.scm"
+msgstr "a scm/define-markup-commands.scm"
 
 #. Documentation/snippets/three-sided-box.ly:50 (comment)
 msgid "Test it:"
-msgstr "Probarla:"
+msgstr "Prova-la:"
 
 #. Documentation/snippets/time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly:60 (comment)
 msgid "Change the style permanently"
-msgstr "Cambiar el estilo permanentemente"
+msgstr "Canvia l'estil permanentment"
 
 #. Documentation/snippets/time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly:66 (comment)
 msgid "Revert to default style:"
-msgstr "Retornar al estilo predeterminado:"
+msgstr "Retorna a l'estil predeterminat:"
 
 #. Documentation/snippets/time-signature-printing-only-the-numerator-as-a-number-instead-of-the-fraction.ly:70 (comment)
 msgid "single-digit style only for the next time signature"
-msgstr "estilo de un solo dígito para el siguiente compás únicamente"
+msgstr "l'estil d'un sol dígit sols per a la propera indicació de temps"
 
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:40 (comment)
 msgid "make the staff lines invisible on staves"
-msgstr "hacer invisibles las líneas de los pentagramas"
+msgstr "fes que les línies de les pautes siguin invisibles al pentagrama"
 
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:129 (variable)
 msgid "incipitDiscantus"
@@ -11271,71 +11235,63 @@ msgstr "incipitBassus"
 
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:234 (comment)
 msgid "StaffGroup is used instead of ChoirStaff to get bar lines between systems"
-msgstr ""
-"StaffGroup se usa en lugar de ChoirStaff para tener líneas divisorias entre "
-"los sistemas"
+msgstr "Es fa servir StaffGroup en comptes de ChoirStaff per tenir barres entre els sistemes"
 
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:266 (comment)
 msgid "Keep the bass lyrics outside of the staff group to avoid bar lines"
-msgstr ""
-"Mantener la letra del bajo fuera del grupo de pentagrama para evitar las "
-"barras de compás"
+msgstr "Manté la lletra del baix fora del grup de pentagrama per evitar les barres de compàs"
 
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:267 (comment)
 msgid "between the lyrics."
-msgstr "entre las sílabas del texto"
+msgstr "en mid de la lletra."
 
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:276 (comment)
 msgid "the next three instructions keep the lyrics between the bar lines"
-msgstr ""
-"las tres instrucciones siguientes hacen que la letra no choque con las "
-"divisorias"
+msgstr "les tres ordres següents mantenen la lletra entre las barres de compàs"
 
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:291 (comment)
 msgid "breaking also at those barlines where a note overlaps"
-msgstr "los saltos de línea también en aquellas barras donde"
+msgstr "fent un salt a les línies de barra on se sol·lapi una nota"
 
 #. Documentation/snippets/transcription-of-ancient-music-with-incipit.ly:292 (comment)
 msgid "into the next bar.  The command is commented out in this"
-msgstr ""
-"se superpone una nota con el siguiente compás. La instrucción es un "
-"comentario en esta"
+msgstr "a la pròxima barra. L'ordre està cancel·lada amb un comentari a aquesta"
 
 #. Documentation/snippets/transposing-pitches-with-minimum-accidentals-smart-transpose.ly:194 (variable)
 msgid "naturalizeMusic"
-msgstr "naturalizarMusica"
+msgstr "naturalizeMusic"
 
 #. Documentation/snippets/tweaking-clef-properties.ly:191 (comment)
 msgid "The default treble clef"
-msgstr "Clave de sol predeterminada"
+msgstr "La clau de sol predeterminada"
 
 #. Documentation/snippets/tweaking-clef-properties.ly:193 (comment)
 msgid "The standard bass clef"
-msgstr "Clave de Fa estándar"
+msgstr "La clau de Fa estàndard"
 
 #. Documentation/snippets/tweaking-clef-properties.ly:198 (comment)
 msgid "The baritone clef"
-msgstr "Clave de barítono (do en quinta)"
+msgstr "Clau de baríton (do en quinta)"
 
 #. Documentation/snippets/tweaking-clef-properties.ly:203 (comment)
 msgid "The standard choral tenor clef"
-msgstr "Clave estándar de tenor coral"
+msgstr "Clau estàndard de tenor coral"
 
 #. Documentation/snippets/tweaking-clef-properties.ly:209 (comment)
 msgid "A non-standard clef"
-msgstr "Clave no estándar"
+msgstr "Clau no estàndard"
 
 #. Documentation/snippets/tweaking-clef-properties.ly:215 (comment)
 msgid "The following clef changes do not preserve"
-msgstr "Los siguientes cambios de clave no preservan"
+msgstr "Els següents canvis de clau no preserven"
 
 #. Documentation/snippets/tweaking-clef-properties.ly:216 (comment)
 msgid "the normal relationship between notes and clefs:"
-msgstr "la relación normal entre notas y claves:"
+msgstr "la relació normal entre notes i claus:"
 
 #. Documentation/snippets/tweaking-clef-properties.ly:231 (comment)
 msgid "Return to the normal clef:"
-msgstr "Volver a la clave normal:"
+msgstr "Tornar a la clau normal:"
 
 #. Documentation/snippets/unfretted-headword.ly:19 (comment)
 msgid "#!lilypond lcp-extract.ly -*- coding: utf-8; -*-"
@@ -11347,11 +11303,11 @@ msgstr "les-cinq-pieds:"
 
 #. Documentation/snippets/unfretted-headword.ly:23 (comment)
 msgid "extract for the lilypond documentaton project"
-msgstr "extracto para el Proyecto de Documentación de LilyPond"
+msgstr "extracte per al Projecte de Documentació del LilyPond"
 
 #. Documentation/snippets/unfretted-headword.ly:26 (comment)
 msgid "Title:\tLes cinq pieds"
-msgstr "Título:\tLes cinq pieds"
+msgstr "Títol:\tLes cinq pieds"
 
 #. Documentation/snippets/unfretted-headword.ly:27 (comment)
 msgid "Composer: \tDavid Séverin"
@@ -11359,43 +11315,43 @@ msgstr "Autor: \tDavid Séverin"
 
 #. Documentation/snippets/unfretted-headword.ly:28 (comment)
 msgid "Date:\tJuillet 2007"
-msgstr "Fecha:\tJulio 2007"
+msgstr "Data:\tJuliol 2007"
 
 #. Documentation/snippets/unfretted-headword.ly:29 (comment)
 msgid "Instrument:\tViolon Solo"
-msgstr "Instrumento:\tViolín Solo"
+msgstr "Instrument:\tViolon Solo"
 
 #. Documentation/snippets/unfretted-headword.ly:30 (comment)
 msgid "Dedication:\tA mon épouse Lívia De Souza Vidal"
-msgstr "Dedicatoria:\tA mon épouse Lívia De Souza Vidal"
+msgstr "Dedicatòria:\tA mon épouse Lívia De Souza Vidal"
 
 #. Documentation/snippets/unfretted-headword.ly:31 (comment)
 msgid "Additional:\tavec l'aide de Krzysztof Wagenaar"
-msgstr "Adicional:\tavec l'aide de Krzysztof Wagenaar"
+msgstr "Addicional:\tavec l'aide de Krzysztof Wagenaar"
 
 #. Documentation/snippets/unfretted-headword.ly:33 (comment)
 msgid "Statement:"
-msgstr "Declaración:"
+msgstr "Declaració:"
 
 #. Documentation/snippets/unfretted-headword.ly:35 (comment)
 msgid "Here by, I, the composer, agree that this extract of my composition"
-msgstr "Por la presente, yo, el autor, autorizo a que este extracto de mi obra"
+msgstr "Per la present, jo, l'autor, autoritzo que aquest extracte de la meva obra"
 
 #. Documentation/snippets/unfretted-headword.ly:36 (comment)
 msgid "be in the public domain and can be part of, used and presented in"
-msgstr "esté en el Dominio Público y pueda formar parte, usarse y presentarse dentro del"
+msgstr "estigui al domini públic i pugui formar part, usar-se i presentar-se dins del"
 
 #. Documentation/snippets/unfretted-headword.ly:37 (comment)
 msgid "the LilyPond Documention Project."
-msgstr "Proyecto de Documentación de LilyPond."
+msgstr "Projecte de Documentació del Lilypond."
 
 #. Documentation/snippets/unfretted-headword.ly:39 (comment)
 msgid "Statement Date: Octber the 9th, 2008"
-msgstr "Fecha de la declaración: 9 de octubre de 2008"
+msgstr "Data de la declaració: 9 d'octubre de 2008"
 
 #. Documentation/snippets/unfretted-headword.ly:43 (comment)
 msgid "Abbreviations"
-msgstr "Abreviaturas"
+msgstr "Abreviatures"
 
 #. Documentation/snippets/unfretted-headword.ly:46 (variable)
 msgid "db"
@@ -11435,7 +11391,7 @@ msgstr "ritar"
 
 #. Documentation/snippets/unfretted-headword.ly:63 (comment)
 msgid "Strings"
-msgstr "Cuerdas"
+msgstr "Cordes"
 
 #. Documentation/snippets/unfretted-headword.ly:66 (variable)
 msgid "svib"
@@ -11463,7 +11419,7 @@ msgstr "quatre"
 
 #. Documentation/snippets/unfretted-headword.ly:76 (comment)
 msgid "Shifting Notes"
-msgstr "Saltar notas"
+msgstr "Desplaçar les notes"
 
 #. Documentation/snippets/unfretted-headword.ly:79 (variable)
 msgid "shift"
@@ -11495,47 +11451,47 @@ msgstr "tupletbp"
 
 #. Documentation/snippets/unfretted-headword.ly:100 (comment)
 msgid "Flag [Note Head - Stem]"
-msgstr "Corchete [Cabeza - Plica]"
+msgstr "Etiqueta [Cap - Vírgula]"
 
 #. Documentation/snippets/unfretted-headword.ly:103 (variable)
 msgid "noflag"
-msgstr "sinCorchete"
+msgstr "noflag"
 
 #. Documentation/snippets/unfretted-headword.ly:106 (comment)
 msgid "Functions"
-msgstr "Funciones"
+msgstr "Funcions"
 
 #. Documentation/snippets/unfretted-headword.ly:121 (comment)
 msgid "Instruments"
-msgstr "Instrumentos"
+msgstr "Instruments"
 
 #. Documentation/snippets/unfretted-headword.ly:124 (variable)
 msgid "ViolinSolo"
-msgstr "SoloViolin"
+msgstr "ViolinSolo"
 
 #. Documentation/snippets/unfretted-headword.ly:134 (comment)
 msgid "Measure 1"
-msgstr "Compás 1"
+msgstr "Compàs 1"
 
 #. Documentation/snippets/unfretted-headword.ly:144 (comment)
 msgid "Measure 2"
-msgstr "Compás 2"
+msgstr "Compàs 2"
 
 #. Documentation/snippets/unfretted-headword.ly:154 (comment)
 msgid "Measure 3"
-msgstr "Compás 3"
+msgstr "Compàs 3"
 
 #. Documentation/snippets/unfretted-headword.ly:162 (comment)
 msgid "Measure 4"
-msgstr "Compás 4"
+msgstr "Compàs 4"
 
 #. Documentation/snippets/unfretted-headword.ly:171 (comment)
 msgid "Measure 5"
-msgstr "Compás 5"
+msgstr "Compàs 5"
 
 #. Documentation/snippets/unfretted-headword.ly:179 (comment)
 msgid "Measure 6"
-msgstr "Compás 6"
+msgstr "Compàs 6"
 
 #. Documentation/snippets/unfretted-headword.ly:181 (comment)
 msgid "\\featherDurations #(ly:make-moment 2 3)"
@@ -11543,15 +11499,15 @@ msgstr "\\featherDurations #(ly:make-moment 2 3)"
 
 #. Documentation/snippets/unfretted-headword.ly:188 (comment)
 msgid "Measure 7"
-msgstr "Compás 7"
+msgstr "Compàs 7"
 
 #. Documentation/snippets/unfretted-headword.ly:197 (comment)
 msgid "Measure 8"
-msgstr "Compás 8"
+msgstr "Compàs 8"
 
 #. Documentation/snippets/unfretted-headword.ly:202 (comment)
 msgid "Measure 9"
-msgstr "Compás 9"
+msgstr "Compàs 9"
 
 #. Documentation/snippets/unfretted-headword.ly:213 (comment)
 msgid "Score"
@@ -11559,11 +11515,11 @@ msgstr "Partitura"
 
 #. Documentation/snippets/using-alternative-flag-styles.ly:36 (variable)
 msgid "testnotes"
-msgstr "notasPrueba"
+msgstr "testnotes"
 
 #. Documentation/snippets/using-ly-grob-object-to-access-grobs-with--tweak.ly:110 (comment)
 msgid "display grobs for each note head:"
-msgstr "imprimir grobs para todas las cabezas:"
+msgstr "mostra els objectes gràfics per a tots els caps:"
 
 #. Documentation/snippets/using-ly-grob-object-to-access-grobs-with--tweak.ly:111 (comment)
 msgid "\\override NoteHead #'before-line-breaking = #display-grobs"
@@ -11571,96 +11527,92 @@ msgstr "\\override NoteHead #'before-line-breaking = #display-grobs"
 
 #. Documentation/snippets/using-ly-grob-object-to-access-grobs-with--tweak.ly:113 (comment)
 msgid "or just for one:"
-msgstr "o sólo para una:"
+msgstr "o soles per a una:"
 
 #. Documentation/snippets/using-postscript-to-generate-special-note-head-shapes.ly:32 (variable)
 msgid "parallelogram"
-msgstr "paralelogramo"
+msgstr "paralelograma"
 
 #. Documentation/snippets/using-postscript-to-generate-special-note-head-shapes.ly:47 (variable)
 msgid "myNoteHeads"
-msgstr "misCabezas"
+msgstr "myNoteHeads"
 
 #. Documentation/snippets/using-postscript-to-generate-special-note-head-shapes.ly:48 (variable)
 msgid "normalNoteHeads"
-msgstr "cabezasNormales"
+msgstr "normalNoteHeads"
 
 #. Documentation/snippets/utf-8.ly:22 (comment)
 msgid "end verbatim - this comment is a hack to prevent texinfo.tex"
-msgstr ""
-"final del bloque literal. Este comentario es un truco para evitar que "
-"texinfo.tex"
+msgstr "fi del bloc literal. Aquest comentari és un enginy per prevenir que texinfo.tex"
 
 #. Documentation/snippets/utf-8.ly:23 (comment)
 msgid "from choking on non-European UTF-8 subsets"
-msgstr "proteste respecto a los subconjuntos de UTF-8 no europeos"
+msgstr "tingui problemes amb subconjunts UTF-8 no europeus"
 
 #. Documentation/snippets/utf-8.ly:25 (comment)
 msgid "Edit this file using a Unicode aware editor, such as GVIM, GEDIT, Emacs"
-msgstr ""
-"Edite este archivo con un editor preparado para Unicode, como GVIM, GEDIT o "
-"Emacs"
+msgstr "Editeu aquest fitxer amb un editor preparat per a Unicode, com ara GVIM, GEDIT o Emacs"
 
 #. Documentation/snippets/utf-8.ly:43 (comment)
 msgid "Cyrillic font"
-msgstr "Fuente cirílica"
+msgstr "Tipus de lletra ciríl·lica"
 
 #. Documentation/snippets/utf-8.ly:44 (variable)
 msgid "bulgarian"
-msgstr "bulgaro"
+msgstr "búlgar"
 
 #. Documentation/snippets/utf-8.ly:48 (variable)
 msgid "hebrew"
-msgstr "hebreo"
+msgstr "hebreu"
 
 # fuzzy. FVD
 #. Documentation/snippets/utf-8.ly:52 (variable)
 msgid "japanese"
-msgstr "japones"
+msgstr "japonès"
 
 #. Documentation/snippets/utf-8.ly:59 (comment)
 msgid "\\\"a legal song to you\\\""
-msgstr "\\\"una canción legal para ti\\\""
+msgstr "\\\"una cancó legal per a vos\\\""
 
 #. Documentation/snippets/utf-8.ly:60 (variable)
 msgid "portuguese"
-msgstr "portugues"
+msgstr "portuguès"
 
 #. Documentation/snippets/vertical-line-as-a-baroque-articulation-mark.ly:23 (variable)
 msgid "upline"
-msgstr "lineaArriba"
+msgstr "upline"
 
 #. Documentation/snippets/vertically-centered-common-lyrics.ly:23 (variable)
 msgid "leftbrace"
-msgstr "llaveizquierda"
+msgstr "leftbrace"
 
 #. Documentation/snippets/vertically-centered-common-lyrics.ly:24 (variable)
 msgid "rightbrace"
-msgstr "llavederecha"
+msgstr "rightbrace"
 
 #. Documentation/snippets/vertically-centered-common-lyrics.ly:26 (variable)
 msgid "dropLyrics"
-msgstr "bajarLetra"
+msgstr "dropLyrics"
 
 #. Documentation/snippets/vertically-centered-common-lyrics.ly:33 (variable)
 msgid "raiseLyrics"
-msgstr "elevarLetra"
+msgstr "raiseLyrics"
 
 #. Documentation/snippets/vertically-centered-common-lyrics.ly:40 (variable)
 msgid "skipFour"
-msgstr "saltoCuatro"
+msgstr "skipFour"
 
 #. Documentation/snippets/vertically-centered-common-lyrics.ly:42 (variable)
 msgid "lyricsA"
-msgstr "letraA"
+msgstr "lyricsA"
 
 #. Documentation/snippets/vertically-centered-common-lyrics.ly:44 (variable)
 msgid "lyricsB"
-msgstr "letraB"
+msgstr "lyricsB"
 
 #. Documentation/snippets/vertically-centered-common-lyrics.ly:45 (variable)
 msgid "lyricsC"
-msgstr "letraC"
+msgstr "lyricsC"
 
 #. Documentation/snippets/vertically-centered-common-lyrics.ly:46 (variable)
 msgid "lyricsD"
@@ -11674,24 +11626,20 @@ msgstr "m"
 #. Documentation/snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:75 (variable)
 #. Documentation/snippets/vocal-ensemble-template.ly:92 (variable)
 msgid "sopWords"
-msgstr "letraSoprano"
+msgstr "sopWords"
 
 #. Documentation/snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly:123 (comment)
 #. Documentation/snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly:132 (comment)
 msgid "This is needed for lyrics above a staff"
-msgstr "Necesario para la letra por encima del pentagrama"
+msgstr "Això és necessari per a la lletra a sobre del pentagrama"
 
 #. Documentation/snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:110 (comment)
 msgid "we could remove the line about this with the line below, since"
-msgstr ""
-"podríamos quitar la línea anterior y sustituirla por la siguiente, pues "
-"queremos"
+msgstr "podríem treure la línia anterior i substituir-la per la següent, ja que volem"
 
 #. Documentation/snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:111 (comment)
 msgid "we want the alto lyrics to be below the alto Voice anyway."
-msgstr ""
-"que la letra de la contralto esté debajo de la voz de contralto de todas "
-"formas."
+msgstr "que la lletra de la contralto estigui a sota de la veu de contralto de totes maneres."
 
 #. Documentation/snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:112 (comment)
 msgid "\\new Lyrics \\lyricsto \\\"altos\\\" \\altoWords"
@@ -11699,7 +11647,7 @@ msgstr "\\new Lyrics \\lyricsto \\\"altos\\\" \\altoWords"
 
 #. Documentation/snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:123 (comment)
 msgid "again, we could replace the line above this with the line below."
-msgstr "de nuevo podríamos sustituir la línea anterior con la línea siguiente."
+msgstr "un altre cop, podríem substituir la línia a sobre d'aquesta amb la línia a sota."
 
 #. Documentation/snippets/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:124 (comment)
 msgid "\\new Lyrics \\lyricsto \\\"basses\\\" \\bassWords"
@@ -11710,68 +11658,68 @@ msgstr "\\new Lyrics \\lyricsto \\\"basses\\\" \\bassWords"
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:106 (comment)
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:122 (comment)
 msgid "refrain"
-msgstr "estribillo"
+msgstr "tornada"
 
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:84 (variable)
 msgid "SoloNotes"
-msgstr "notasSolista"
+msgstr "SoloNotes"
 
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:95 (variable)
 msgid "SoloLyrics"
-msgstr "letraSolista"
+msgstr "SoloLyrics"
 
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:100 (variable)
 msgid "SopranoNotes"
-msgstr "notasSoprano"
+msgstr "SopranoNotes"
 
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:111 (variable)
 msgid "SopranoLyrics"
-msgstr "letraSoprano"
+msgstr "SopranoLyrics"
 
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:116 (variable)
 msgid "BassNotes"
-msgstr "notasBajo"
+msgstr "BassNotes"
 
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:127 (variable)
 msgid "BassLyrics"
-msgstr "letraBajo"
+msgstr "BassLyrics"
 
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:134 (context id)
 msgid "SoloVoice"
-msgstr "vozSolista"
+msgstr "SoloVoice"
 
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:138 (context id)
 msgid "SopranoVoice"
-msgstr "vozSoprano"
+msgstr "SopranoVoice"
 
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:141 (context id)
 msgid "BassVoice"
-msgstr "vozBajo"
+msgstr "BassVoice"
 
 #. Documentation/snippets/vocal-ensemble-template-with-verse-and-refrain.ly:148 (comment)
 msgid "these lines prevent empty staves from being printed"
-msgstr "estas líneas evitan que se impriman los pentagramas vacíos"
+msgstr "aquestes línies eviten que s'imprimeixin els pentagrames buits"
 
 #. Documentation/snippets/vocal-ensemble-template.ly:120 (comment)
 #. Documentation/snippets/vocal-ensemble-template.ly:135 (comment)
 msgid "this is needed for lyrics above a staff"
-msgstr "es necesario para la letra por encima del pentagrama"
+msgstr "això és necessita per a la lletra a sobre del pentagrama"
 
 #. Documentation/snippets/vocal-headword.ly:27 (comment)
 msgid "L. van Beethoven. Symphony No. 9 in D minor, op.125; Finale"
-msgstr "L. van Beethoven. Sinfonía Núm. 9 en Re menor, op.125; Finale"
+msgstr "L. van Beethoven. Simfonia Núm. 9 en Re menor, op.125; Finale"
 
 #. Documentation/snippets/vocal-headword.ly:28 (comment)
 msgid "mm. 216 -- 236"
-msgstr "cc. 216 a 236"
+msgstr "mm. 216 -- 236"
 
 #. Documentation/snippets/vocal-headword.ly:29 (comment)
 msgid "Text: F. von Schiller"
-msgstr "Texto: F. von Schiller"
+msgstr "Text: F. von Schiller"
 
 #. Documentation/snippets/vocal-headword.ly:34 (comment)
 msgid "make first bar number be shown"
-msgstr "habilitar la impresión del número del primer compás"
+msgstr "fes que el número del primer compàs es mostri"
 
 #. Documentation/snippets/vocal-headword.ly:36 (comment)
 msgid "\\tempo \\\"Presto\\\""
@@ -11783,7 +11731,7 @@ msgstr "\\compressFullBarRests  R2.*8"
 
 #. Documentation/snippets/vocal-headword.ly:59 (comment)
 msgid "put fermata closer to staff"
-msgstr "poner calderón más cerca del pentagrama"
+msgstr "posa el calderó més a prop del pentagrama"
 
 #. Documentation/snippets/vocal-headword.ly:63 (comment)
 msgid "\\time 4/4 \\tempo \\\"Allegro assai\\\""
@@ -11808,7 +11756,7 @@ msgstr "Freu -- de, Freu -- de,__"
 
 #. Documentation/snippets/volta-multi-staff.ly:21 (variable)
 msgid "voltaMusic"
-msgstr "musicaRepeticion"
+msgstr "voltaMusic"
 
 #. Documentation/snippets/volta-text-markup-using-repeatcommands.ly:29 (variable)
 msgid "voltaAdLib"
@@ -11816,7 +11764,7 @@ msgstr "voltaAdLib"
 
 #. Documentation/snippets/wind-headword.ly:19 (comment)
 msgid "NR 2.whatever  Wind"
-msgstr "Núm. 2. viento"
+msgstr "Núm. 2.escaig vent"
 
 #. Documentation/snippets/wind-headword.ly:20 (comment)
 msgid "Tchaikovsky"
@@ -11824,24 +11772,24 @@ msgstr "Tchaikovsky"
 
 #. Documentation/snippets/wind-headword.ly:21 (comment)
 msgid "Nutcracker Suite, VII Dance of the Merlitons"
-msgstr "Nutcracker Suite, VII Dance of the Merlitons"
+msgstr "Suite El Trencanous, VII Dansa dels Mirlitons"
 
 msgid "Up:"
-msgstr "Arriba:"
+msgstr "Amunt:"
 
 msgid "Next:"
-msgstr "Siguiente:"
+msgstr "Següent:"
 
 msgid "Previous:"
 msgstr "Anterior:"
 
 msgid "Appendix "
-msgstr "Apéndice "
+msgstr "Annex "
 
 msgid "Footnotes"
-msgstr "Notas al pie"
+msgstr "Notes al peu"
 
 # this is the same translation that babel LaTex package uses . FVD
 msgid "Table of Contents"
-msgstr "Índice general"
+msgstr "Índex general"
 
