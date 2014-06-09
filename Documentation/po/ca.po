@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: ca\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-04-25 19:39+0200\n"
-"PO-Revision-Date: 2014-06-07 11:26+0200\n"
+"PO-Revision-Date: 2014-06-09 09:09+0200\n"
 "Last-Translator: Walter Garcia-Fontes <walter.garcia@upf.edu>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "Language: ca\n"
@@ -505,7 +505,7 @@ msgstr "Doblar una nota amb lligadures d'unió (exemple)"
 #. @node in Documentation/extending/scheme-tutorial.itely
 #. @subsection in Documentation/extending/scheme-tutorial.itely
 msgid "Adding articulation to notes (example)"
-msgstr "Afegir una articulació a les notes (exemple)\n"
+msgstr "Addició d'una articulació a les notes (exemple)"
 
 #. Documentation/extending/programming-interface.itely:376 (variable)
 msgid "manualBeam"
@@ -1653,7 +1653,7 @@ msgstr "Poser les vírgules, etc., cap amunt"
 #. Documentation/learning/fundamental.itely:1108 (comment)
 #. Documentation/cs/learning/fundamental.itely:1197 (comment)
 msgid "Initiate first voice"
-msgstr "Iniciar la primera veu\n"
+msgstr "Inicia la primera veu"
 
 #. Documentation/learning/fundamental.itely:1115 (comment)
 #. Documentation/cs/learning/fundamental.itely:1204 (comment)
@@ -7539,7 +7539,7 @@ msgstr "Format predeterminat"
 
 #. Documentation/snippets/adjusting-lyrics-vertical-spacing.ly:53 (comment)
 msgid "Reducing the minimum space below the staff and above the lyrics:"
-msgstr "Reducció de l'espai mínim a sota del pentagrama i a sobre de la lletra:\n"
+msgstr "Reducció de l'espai mínim a sota del pentagrama i a sobre de la lletra:"
 
 #. Documentation/snippets/aligning-bar-numbers.ly:65 (comment)
 #. Documentation/snippets/printing-bar-numbers-inside-boxes-or-circles.ly:51 (comment)
