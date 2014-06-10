@@ -8,8 +8,8 @@
 @end ignore
 
 
-@node Introduccció
-@unnumbered Introducciió
+@node Introducció
+@unnumbered Introducció
 @translationof Introduction
 
 @divClass{column-center-top}
@@ -557,7 +557,7 @@ piano i percussió.  S'interpretarà el 2014, de nou per part de
 Una edició crítica de la sèrie d'òperes @emph{Enea nel Lazio (1760)},
 del Tommaso Traetta, amb llibret del Vittorio Amedeo Cigna-Santi,
 en quatre parts: 
-@uref{http://www.academia.edu/1987651/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_1_4_, Primer part}
+@uref{http://www.academia.edu/1987651/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_1_4_, Primera part}
 @uref{http://www.academia.edu/1994533/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_2_4_, Segona part}
 @uref{http://www.academia.edu/1994558/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_3_4_, Tercera part}
 @uref{http://www.academia.edu/1996242/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_4_4_, Quarta part}
@@ -697,7 +697,7 @@ Abril de 2011
 article titulat
 @uref{http://www.linux-magazine.com/w3/issue/126/088-090_projects.pdf,
 Projects on the Move}.  És un article introductori sobre el
-MuseScore, el LilyPonde i el Chordii. L'autora Carla Schroeder diu
+MuseScore, el LilyPond i el Chordii. L'autora Carla Schroeder diu
 que @qq{LilyPond es treballa des de la línia d'ordres, però que
 la manca d'una interfície gràfica no ha d'atemorir l'usuari; el
 LilyPond és amigable i fàcil d'aprendre}, i aporta un exemple
@@ -906,7 +906,7 @@ bloquejat sobre com dir-li al Lily que imprimeixi alguna cosa, sols
 per adonar-me que fins i tot si fes exactament el que el
 compositor volia, la música seria confusa de llegir. El LilyPond
 m'ho posa molt més fàcil en treballar en el meu doble paper
-d'editor i copista.
+d'editor i copista.}
 
 @qq{Porto utilitzant exclusivament el LilyPond per al meu negoci
 de publicació acabat d'inaugurar. Pràcticament sense excepció,
@@ -1020,8 +1020,8 @@ Llegiu el que tenim que dir-vos sobre la nostra @ref{Entrada de text}.
 
 @subheading @qq{Compilar} la música
 
-@imageClickable{nereid-shot-small,png, (cliqui per veure  imatge més gran
-nereid-shot,png, right}
+@imageClickable{nereid-shot-small,png, (cliqueu per veure  imatge més gran
+ereid-shot,png), right}
 
 El LilyPond és un sistema @emph{compilat}: s'executa sobre un
 arxiu de text que descriu la música. El resultat es pot veure a la
@@ -1054,7 +1054,7 @@ instruccions especials s'introdueixen mitjançant barres invertides.
 @imageFloat{text-input-1-output,png,center}
 
 Les alteracions es fan amb noms diferents: afegiu @w{@code{-is}}
-per obtenir un sostingut, i @w{@code{-es} per a un bemoll (són els
+per obtenir un sostingut, i @w{@code{-es}} per a un bemoll (són els
 noms de les notes en holandès, però estan disponibles en altres
 idiomes). El LilyPond esbrina on s'han d'imprimir les alteracions.
 
@@ -1205,7 +1205,7 @@ possibilitat d'apuntar i clicar amb reflex al codi.
 @subheading Frescobaldi
 
 @imageClickable{frescobaldi-lilypond-editor-small,png, (cliqueu
-per veure una imatge més gran,frescobaldi-lilypond-editor,png,right}
+per veure una imatge més gran),frescobaldi-lilypond-editor,png,right}
 
 @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}
@@ -1410,7 +1410,7 @@ LilyKDE3 per a  KDE 3.5 i com a lilypond-KDE4 per a KDE 4.1 solament.
 @uref{http://noteedit.berlios.de,NoteEdit}, que importava
 @uref{http://www.makemusic.com/musicxml,MusicXML}, s'ha escindit a
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
-y @uref{http://canorus.org,Canorus}.
+i @uref{http://canorus.org,Canorus}.
 
 
 @item

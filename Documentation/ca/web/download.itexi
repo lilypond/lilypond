@@ -391,7 +391,7 @@ Aquest fitxer ha d'acabar amb una línia buida.
 @subsubheading Invocar els guions individuals
 
 Els guions (com @command{lilypond-book}, @command{convert-ly},
-@command{abc2ly} o fins i tot el propi @command{lilypond} estan
+@command{abc2ly} o fins i tot el propi @command{lilypond}) estan
 inclosos dins del fitxer @cod{.app} per a MacOS@tie{}X.
 
 Els guions també es poden llençar des de la línia d'ordres

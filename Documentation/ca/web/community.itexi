@@ -480,7 +480,7 @@ amb la
 interfície web de gmane per a lilypond.bugs}.
 
 No obstant, hi ha una comprovació molt estricta que no hi ha
-@@{top-posting} (contestar per sobre} a la interfície de gmane,
+@qq{top-posting} (contestar per sobre} a la interfície de gmane,
 que es dispara incorrectament amb freqüència a causa dels fitxers
 del LilyPond. 
 Per evitar-lo, escriviu:
@@ -727,7 +727,7 @@ col·laboradors.
 @itemize
 @item
 @item @uref{../../input/regression/collated-files.html, Proves de regressió}:
-Proes del llançament actual.
+Proves del llançament actual.
 (@uref{../../input/regression/collated-files.pdf, versió PDF})
 
 @item
