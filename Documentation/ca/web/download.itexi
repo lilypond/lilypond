@@ -392,7 +392,7 @@ Aquest fitxer ha d'acabar amb una línia buida.
 
 Els guions (com @command{lilypond-book}, @command{convert-ly},
 @command{abc2ly} o fins i tot el propi @command{lilypond}) estan
-inclosos dins del fitxer @cod{.app} per a MacOS@tie{}X.
+inclosos dins del fitxer @code{.app} per a MacOS@tie{}X.
 
 Els guions també es poden llençar des de la línia d'ordres
 mitjançant la seva invocació directa:
@@ -486,8 +486,7 @@ programa de desintal·lació.
 @divClass{column-right-top}
 @subheading Execució des de la línia d'ordres
 
-@warning{Si us satisfan les instruccions sobre 
-la interfície gràfica, ignoreu aquestes instruccions.}
+@warning{Si us satisfan les instruccions sobre la interfície gràfica, ignoreu aquestes instruccions.}
 
 @subsubheading Windows sobre la línia d'ordres
 
@@ -497,13 +496,13 @@ variable d'entorn @qq{Path}.
 
 @enumerate
 @item
-Obriu l'apartat @@qq{Sistema} al Panell de Control, escolliu la
+Obriu l'apartat @qq{Sistema} al Panell de Control, escolliu la
 pestanya Avançat i cliqueu sobre el botó Variables d'entorn.
 
 @item
 Escolliu la variable @qq{Path} de la llista de variables d'entorn
 i cliqueu el botó Edita.  S'obrirà una finestra amb el títol
-@aq{Edita una variable del sistema}: afegiu al final del @qq{Valor
+@qq{Edita una variable del sistema}: afegiu al final del @qq{Valor
 de la variable} el nom de la carpeta que conté els fitxers
 executables del LilyPond de la manera següent:
 

@@ -139,7 +139,7 @@ han escrit els altres, i afegiu les vostres pròpies!
 @end example
 
 Els exemples del LSR que són especialment instructius s'inclouen a
-la nostra documentació oficial, a @ref{Fragments}.
+la nostra documentació oficial, a @ref{Snippets}.
 
 @subsubheading IRC
 
@@ -201,7 +201,7 @@ fòrum d'holandès}
 @divClass{column-right-top}
 @subheading Esteu sempre informat
 
-@subsubheading LilyPond Report (l'Informe Lilypond}
+@subsubheading LilyPond Report (l'Informe Lilypond)
 
 La manera més fàcil d'estar en contacte és llegir el butlletí de
 la nostra comunitat, l'Informe LilyPond:
@@ -480,7 +480,7 @@ amb la
 interfície web de gmane per a lilypond.bugs}.
 
 No obstant, hi ha una comprovació molt estricta que no hi ha
-@qq{top-posting} (contestar per sobre} a la interfície de gmane,
+@qq{top-posting} (contestar per sobre) a la interfície de gmane,
 que es dispara incorrectament amb freqüència a causa dels fitxers
 del LilyPond. 
 Per evitar-lo, escriviu:
@@ -817,11 +817,11 @@ manuals més recents estan a @url{http://lilypond.org}}
 @docLinkPdf{Glossari,music-glossary,@manualDevelGlossaryPdf}
 
 @item
-@docLinkSplit{Assaig,essay,@manualDevelEssaySplit-ca}
+@docLinkSplit{Monografia,essay,@manualDevelEssaySplit-ca}
 @tab
-@docLinkBig{Assaig,essay,@manualDevelEssayBig-ca}
+@docLinkBig{Monografia,essay,@manualDevelEssayBig-ca}
 @tab
-@docLinkPdf{Assaig,essay,@manualDevelEssayPdf-ca}
+@docLinkPdf{Monografia,essay,@manualDevelEssayPdf-ca}
 @end multitable
 
 @multitable @columnfractions .3 .3 .3

@@ -119,7 +119,7 @@ bella. Tots els ajustos d'estil del LilyPond, el disseny dels
 tipus de lletra i els algoritmes s'han inspirat en la millor
 música gravada a mà. La sortida del Lilypond té el mateix aspecte
 robust, equilibrat i elegant que les partitures clàssiques millor
-gravades. Tot això s'explica amb detall al nostre @ref{Assaig}.
+gravades. Tot això s'explica amb detall al nostre @ref{Essay}.
 
 
 @subsubheading Opcions d'aspecte efectives
@@ -150,7 +150,7 @@ com a referència futura.
 @subsubheading Combinar música i text
 
 Col·loqueu fragments de música dins de textos sense retallar i
-enganxeu imatges. Integreu música dins del @Latex{} i HTML de forma
+enganxeu imatges. Integreu música dins del @LaTeX{} i HTML de forma
 senzilla, o afegiu música a documents de l'OpenOffice o del
 LibreOffice mitjançant OOoLilyPond. També hi ha connectors o
 complements disponibles per permetre codi del LilyPond dins de
@@ -368,7 +368,7 @@ ha estat aportat per Hu Haipeng, un compositor cec).
 Encara no us convenç el LilyPond? El LilyPond és programari
 lliure, us concedeix, com a usuari, la @ref{Llibertat}. Si ja voleu
 provar el LilyPond, llegiu primer el que tenim a dir-vos sobre la
-@ref{Entrada de texto}.
+@ref{Entrada de text}.
 @divEnd
 
 
@@ -486,7 +486,7 @@ trobar feina a empreses o a universitats.
 Encara no us convenç el LilyPond? Llegiu el nostre estens assaig
 sobre la nostra filosofia del gravar a @ref{Rerefons}. Si ja voleu
 provar el LilyPond, en primer lloca llegiu el que hem escrit sobre
-la @ref{Entrada de texto}.
+la @ref{Entrada de text}.
 @divEnd
 
 
@@ -495,14 +495,14 @@ la @ref{Entrada de texto}.
 @translationof Background
 
 @divClass{column-center-top}
-@subheading Assaig sobre el rerefons
+@subheading Monografia sobre el rerefons
 
-Tenim un ampli assaig que descriu l'estètica computacional: l'art
+Tenim una àmplia monografia que descriu l'estètica computacional: l'art
 de crear bellesa amb un ordinador.
 
 Si tan sols voleu una introducció ràpida al LilyPond, llegir tot
-el material que constitueix l'assaig podria ser massa. Si voleu
-llegir-lo ara, continueu cap a @ref{Ensayo}.
+el material que constitueix la monografia podria ser massa. Si voleu
+llegir-lo ara, continueu cap a @ref{Essay}.
 @divEnd
 
 @divClass{column-center-bottom}
@@ -511,7 +511,7 @@ llegir-lo ara, continueu cap a @ref{Ensayo}.
 Encara no us convenç el LilyPond? Llegiu quelcom sobre les
 @ref{Produccions} i partitures d'alguns dels nostres usuaris. Si
 ja voleu provar el LilyPond, en primer lloc llegiu alguna cosa
-sobre la nostra @ref{Entrada de texto}.
+sobre la nostra @ref{Entrada de text}.
 @divEnd
 
 
@@ -879,7 +879,7 @@ increïble treball. Mai no he vist quelcom que s'apropi al resultat
 que obtinc amb el LilyPond; confio plenament en què les meves
 necessitats de publicació musical seran satisfetes més enllà de
 tota expectativa usant aquesta genial aplicació. (@dots{})
-bàsicament, la impressió del LilyPond sense retocar (@dost{}) es
+bàsicament, la impressió del LilyPond sense retocar (@dots{}) es
 veu millor que la majoria de les publicacions "professionals" més
 recents amb les quals l'he comparat (per exemple pràcticament
 qualsevol partitura de Warner Bros, i fins i tot moltes de les més
@@ -956,8 +956,7 @@ donar-nos el Lilypond, és realment bo.}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://www.troff.org/whoswho.html#werner,
-Werner Lemberg}, director d'orquestra al Teatre de Koblenz,
+@subsubheading @uref{http://www.troff.org/whoswho.html#werner,Werner Lemberg}, director d'orquestra al Teatre de Koblenz,
 Alemanya, i destacat hacker del GNU
 
 @qq{De qualsevol manera, el LilyPond fa un treball sensacional!}
@@ -975,10 +974,7 @@ amics meus parlant-los del seu potencial.}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://webusers.siba.fi/~mkuuskan/, El Drl
-Mika Kuuskankare}, investigador de la @uref{http://siba.fi,
-Sibelius Academy de Finlàndia}, compositor i autor de l'Expressive
-Notation Package (ENP)
+@subsubheading @uref{http://webusers.siba.fi/~mkuuskan/, El DrlMika Kuuskankare}, investigador de la @uref{http://siba.fi,Sibelius Academy de Finlàndia}, compositor i autor de l'Expressive Notation Package (ENP)
 
 @qq{Sento el més profund respecte cap al LilyPond i els seus
 creadors i mantenidors degut a què sé per la meva experiència
@@ -987,9 +983,7 @@ personal el difícil que pot ser aquest tipus de programari.}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://camerondh.blogspot.com, David
-Cameron}, Músic, tipògraf musical professional i usuari
-experimentat de SCORE
+@subsubheading @uref{http://camerondh.blogspot.com, DavidCameron}, Músic, tipògraf musical professional i usuari experimentat de SCORE
 
 @qq{EL meu agraïment de tot cor a tot aquell que contribueix a
 aquest projecte. Jo vaig ser usuari intensiu del SCORE per a cases
@@ -1101,7 +1095,7 @@ de concert):
 Ens adonem que molts usuaris veuen una mica estranya aquesta forma
 d'introduir la música.  Per aquest motiu, hem escrit una àmplia
 documentació d'ajuda als nous usuaris, començant amb
-@ref{Aprenentatge}.  El manual d'aprenentatge és el millor per
+@ref{Learning}.  El manual d'aprenentatge és el millor per
 començar, perquè allí es responen moltes preguntes abans que es
 formulin.
 
@@ -1284,7 +1278,7 @@ l'Emacs o el Vim, probablement preferireu utilitzar un editor
 diferent per escriure fitxers d'entrada del LilyPond.
 
 Hi ha més informació sobre la configuració de l'Emacs i del Vim a 
-@rprogram{Suport respecte dels editors de text}.
+@rprogram{Text editor support}.
 
 @sourceimage{logo-macosx,,,}
 @uref{http://www.uoregon.edu/~koch/texshop}
@@ -1437,7 +1431,7 @@ donar una ullada a les @ref{Possibilitats}, @ref{Exemples} o a la
 @ref{Llibertat} i @ref{Ressenyes} dels nostres usuaris. A més a
 més, el nostre enfoc de l'estètica computacional del gravat
 musical clàssic ve explicat en el nostre tractat sobre el
-@ref{Transfons}. 
+@ref{Rerefons}. 
 
 @subheading Formalitats legals
 
