@@ -27,7 +27,19 @@
 #include "staff-symbol-referencer.hh"
 
 ADD_INTERFACE (Semi_tie,
-               "A tie which is only on one side connected to a note head.",
+               "A tie which is only connected to a note head on one side."
+               "\n"
+               "The following properties may be set in the @code{details}"
+               " list:\n"
+               "\n"
+               "@table @code\n"
+               "@item height-limit\n"
+               "Maximum tie height: The longer the tie, the closer it is"
+               " to this height.\n"
+               "@item ratio\n"
+               "Parameter for tie shape.  The higher this number, the"
+               " quicker the tie attains its @code{height-limit}.\n"
+               "@end table\n",
 
                /* properties */
                "control-points "
