@@ -3060,9 +3060,6 @@ violin = \relative c'' @{
 @}
 @end example
 
-@c TODO Replace the following with a better example  -td
-@c Skylining handles this correctly without padText
-
 So far we've seen static substitution -- when LilyPond
 sees @code{\padText}, it replaces it with the stuff that
 we've defined it to be (ie the stuff to the right of
@@ -3080,12 +3077,12 @@ padText =
      \once \override TextScript.padding = #padding
    #})
 
-\relative c''' {
-  c4^"piu mosso" b a b |
+\relative c'' {
+  c4^"piu mosso" b a b
   \padText #1.8
-  c4^"piu mosso" d e f |
+  c4^"piu mosso" b a b
   \padText #2.6
-  c4^"piu mosso" fis a g |
+  c4^"piu mosso" b a b
 }
 @end lilypond
 
