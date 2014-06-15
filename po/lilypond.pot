@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.7\n"
+"Project-Id-Version: lilypond 2.19.8\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2014-05-25 15:41+0100\n"
+"POT-Creation-Date: 2014-06-15 16:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2754,7 +2754,7 @@ msgstr ""
 msgid "no such internal option: %s"
 msgstr ""
 
-#: property-iterator.cc:100
+#: property-iterator.cc:119
 #, c-format
 msgid "not a grob name, `%s'"
 msgstr ""
@@ -3458,17 +3458,17 @@ msgstr ""
 msgid "Could not find language `~a'.  Ignoring."
 msgstr ""
 
-#: document-backend.scm:132
+#: document-backend.scm:135
 #, scheme-format
 msgid "pair expected in doc ~s"
 msgstr ""
 
-#: document-backend.scm:189
+#: document-backend.scm:192
 #, scheme-format
 msgid "cannot find interface for property: ~S"
 msgstr ""
 
-#: document-backend.scm:199
+#: document-backend.scm:202
 #, scheme-format
 msgid "unknown Grob interface: ~S"
 msgstr ""
@@ -3478,17 +3478,17 @@ msgstr ""
 msgid "Processing ~S..."
 msgstr ""
 
-#: documentation-lib.scm:176
+#: documentation-lib.scm:175
 #, scheme-format
 msgid "Writing ~S..."
 msgstr ""
 
-#: documentation-lib.scm:188
+#: documentation-lib.scm:187
 #, scheme-format
 msgid "cannot find description for property `~S' (~S)"
 msgstr ""
 
-#: documentation-lib.scm:209
+#: documentation-lib.scm:208
 #, scheme-format
 msgid "cannot find description for property ~S (~S)"
 msgstr ""
@@ -3559,32 +3559,32 @@ msgstr ""
 msgid "Error in beam quanting.  Expected ~S 0, found ~S."
 msgstr ""
 
-#: lily-library.scm:348
+#: lily-library.scm:350
 msgid "Music unsuitable for context-mod"
 msgstr ""
 
-#: lily-library.scm:403
+#: lily-library.scm:405
 #, scheme-format
 msgid "Cannot find context-def \\~a"
 msgstr ""
 
-#: lily-library.scm:419
+#: lily-library.scm:421
 msgid "Music unsuitable for output-def"
 msgstr ""
 
-#: lily-library.scm:899
+#: lily-library.scm:901
 msgid ""
 "Find the index between @var{start} and @var{end} (an integer)\n"
 "which produces the closest match to @var{target-val} if\n"
 "applied to function @var{getter}."
 msgstr ""
 
-#: lily-library.scm:970
+#: lily-library.scm:995
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr ""
 
-#: lily-library.scm:995
+#: lily-library.scm:1020
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
@@ -3605,42 +3605,42 @@ msgstr ""
 msgid "Guile 1.8\n"
 msgstr ""
 
-#: lily.scm:461
+#: lily.scm:459
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:885
+#: lily.scm:884
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:886
+#: lily.scm:885
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:947
+#: lily.scm:946
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:950
+#: lily.scm:949
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:972 lily.scm:1061
+#: lily.scm:971 lily.scm:1060
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:1052
+#: lily.scm:1051
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
 
-#: lily.scm:1071 ps-to-png.scm:66
+#: lily.scm:1070 ps-to-png.scm:66
 #, scheme-format
 msgid "Invoking `~a'...\n"
 msgstr ""
