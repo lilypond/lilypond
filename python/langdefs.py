@@ -59,6 +59,7 @@ def french_html_filter (page):
         body = body.replace (r[0], r[1])
     return page[:body_begin] + body + page[body_end:]
 
+ca = LanguageDef ('ca', 'català')
 cs = LanguageDef ('cs', 'česky', enable_ly_identifier_l10n=False)
 de = LanguageDef ('de', 'deutsch')
 es = LanguageDef ('es', 'español')
@@ -73,8 +74,8 @@ zh = LanguageDef ('zh', '中文', enable_ly_identifier_l10n=False)
 # (please run 'make doc-clean' before doing that):
 #fr.enabled = False
 
-LANGUAGES = (site, cs, de, es, fr, hu, it, ja, nl, zh)
-WEB_LANGUAGES = (site, cs, de, es, fr, hu, it, ja, nl, zh)
+LANGUAGES = (site, ca, cs, de, es, fr, hu, it, ja, nl, zh)
+WEB_LANGUAGES = (site, ca, cs, de, es, fr, hu, it, ja, nl, zh)
 
 if os.getenv("MAKEWEB") == '1':
     LANGUAGES=WEB_LANGUAGES

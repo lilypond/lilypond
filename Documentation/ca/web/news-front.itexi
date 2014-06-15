@@ -1,0 +1,21 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+@c This file is part of web.texi
+@ignore
+    Translation of GIT committish: feeca25b207bd510705974896d640ea292cd7fc4
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@subsubheading Lilypond 2.18.2 released!  @emph{March 23, 2014}
+@subsubheading LilyPond production named BEST EDITION 2014  @emph{March 11, 2014}
+@subsubheading LilyPond 2.19.3 released  @emph{March 2, 2014}
+@subsubheading Lilypond 2.18.0 released!  @emph{December 29, 2013}
+@subsubheading LilyPond blog.  @emph{June 2, 2013}
+@subsubheading LilyPond 2.16.2 released!  @emph{January 4, 2013}
+@subsubheading The LilyPond Report #28.  @emph{November 12, 2012}
+@subsubheading LilyPond 2.16.1 released!  @emph{November 9, 2012}
+@subsubheading Lilypond 2.16.0 released!  @emph{August 24, 2012}
+
+@c -- SKELETON FILE --
