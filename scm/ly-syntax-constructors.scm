@@ -64,7 +64,8 @@
           (if good
               (ly:parser-error parser
                                (format #f (_ "~a function cannot return ~a")
-                                       (type-name pred) m)
+                                       (type-name pred)
+                                       (value->lily-string m parser))
                                loc))
           (and (pair? (car sig)) (cdar sig))))))
 
