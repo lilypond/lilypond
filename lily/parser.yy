@@ -510,6 +510,7 @@ embedded_scm_bare_arg:
 		$$ = parser->lexer_->eval_scm_token ($1, @1);
 	}
 	| FRACTION
+	| partial_markup
 	| full_markup_list
 	| context_modification
 	| score_block
@@ -692,6 +693,7 @@ identifier_init_nonumber:
 	| FRACTION
 	| string
         | embedded_scm
+	| partial_markup
 	| full_markup_list
         | context_modification
 	| partial_function ETC
@@ -3612,11 +3614,24 @@ full_markup_list:
 	}
 	;
 
-full_markup:
+markup_mode:
 	MARKUP
-		{ parser->lexer_->push_markup_state (); }
-	markup_top {
-		$$ = $3;
+	{
+		parser->lexer_->push_markup_state ();
+	}
+	;
+
+full_markup:
+	markup_mode markup_top {
+		$$ = $2;
+		parser->lexer_->pop_state ();
+	}
+	;
+
+partial_markup:
+	markup_mode markup_head_1_list ETC
+	{
+		$$ = MAKE_SYNTAX (partial_markup, @2, $2);
 		parser->lexer_->pop_state ();
 	}
 	;

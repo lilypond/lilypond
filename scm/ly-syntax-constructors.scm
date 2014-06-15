@@ -198,6 +198,19 @@ into a @code{MultiMeasureTextEvent}."
                       (make-map-markup-commands-markup-list
                        compose complex) completed))))))))
 
+(define-public (partial-markup commands)
+  ;; Like composed-markup-list, except that the result is a single
+  ;; markup command that can be applied to one markup
+  (define (compose arg)
+    (fold
+     (lambda (cmd prev) (append cmd (list prev)))
+     arg
+     commands))
+  (let ((chain (lambda (layout props arg)
+                 (interpret-markup layout props (compose arg)))))
+    (set-object-property! chain 'markup-signature (list markup?))
+    chain))
+
 (define-public (property-operation ctx music-type symbol . args)
   (let* ((props (case music-type
                   ((PropertySet) (list 'value (car args)))
