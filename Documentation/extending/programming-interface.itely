@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.19.2"
 
 @node Interfaces for programmers
 @chapter Interfaces for programmers
@@ -25,7 +25,6 @@ not familiar with Scheme, you may wish to read our
 * Markup functions::
 * Contexts for programmers::
 * Callback functions::
-* Inline Scheme code::
 * Difficult tweaks::
 @end menu
 
@@ -179,13 +178,7 @@ strings (with or without quotes), numbers, full markups and markup
 lists, score, book, bookpart, context definition and output definition
 blocks.
 
-For some kinds of expression (like most music not enclosed in braces)
-LilyPond needs to look further than the expression itself in order to
-determine its end.  If such an expression were considered for an
-optional argument by evaluating its predicate, LilyPond would not be
-able to @q{backup} when it decides the expression does not fit the
-parameter.  So some forms of music might need to be enclosed in braces
-to make them acceptable in some circumstances.  Some other
+Some
 ambiguities LilyPond sorts out by checking with predicate
 functions: is @samp{-3} a fingering postevent or a negative number?  Is
 @code{"a" 4} in lyric mode a string followed by a number, or a lyric
@@ -196,8 +189,8 @@ lookahead.
 
 For example, a predicate accepting both music expressions and
 pitches will consider @code{c''} to be a pitch rather than a music
-expression.  Immediately following durations or postevents might
-not work with that interpretation.  So it's best to avoid overly
+expression.  Immediately following durations or postevents will
+change that interpretation.  It's best to avoid overly
 permissive predicates like @code{scheme?} when the application
 rather calls for more specific argument types.
 
@@ -1310,8 +1303,10 @@ my-callback = #(lambda (grob)
                  (grob-interpret-markup grob (markup "foo")))
 @end example
 
-@node Inline Scheme code
-@section Inline Scheme code
+@ignore
+
+@n ode Inline Scheme code
+@s ection Inline Scheme code
 
 TODO: after this section had been written, LilyPond has improved
 to the point that finding a @emph{simple} example where one would
@@ -1358,6 +1353,7 @@ font size is prepended to the property list with the
 written back with @code{set!}.  The last element of the
 @code{let} block is the return value, @code{m} itself.
 
+@end ignore
 
 
 @node Difficult tweaks
@@ -1422,7 +1418,7 @@ of the broken tie is repositioned.
   \override Tie.after-line-breaking =
   #my-callback
   c1 ~ \break
-  c2 ~ c
+  c2 ~ 2
 }
 @end lilypond
 

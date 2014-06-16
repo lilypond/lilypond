@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.2"
 \header {
   texidoc="Festival song synthesis output supports
 melismas.
@@ -18,7 +18,7 @@ melismas.
     \melismaEnd
     e2
   }
-  \lyricsto "lala" \new Lyrics {
+  \new Lyrics \lyricsto "lala" {
     la di __ daah
   }
 >>

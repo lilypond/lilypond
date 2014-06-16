@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -207,8 +207,11 @@ Music_iterator::mark_smob (SCM smob)
     Careful with GC, although we intend the following as pointers
     only, we _must_ mark them.
   */
-  if (mus->get_outlet ())
-    scm_gc_mark (mus->get_outlet ()->self_scm ());
+  /* Use handle_ directly as get_outlet is a virtual function and we
+     need to protect the context until Music_iterator::quit is being
+     run. */
+  if (mus->handle_.get_context ())
+    scm_gc_mark (mus->handle_.get_context ()->self_scm ());
   if (mus->music_)
     scm_gc_mark (mus->music_->self_scm ());
 

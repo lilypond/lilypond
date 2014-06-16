@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2000--2012 Jan Nieuwenhuizen <janneke@gnu.org>
+  Copyright (C) 2000--2014 Jan Nieuwenhuizen <janneke@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -163,7 +163,7 @@ Arpeggio::print (SCM smob)
   if (dir)
     {
       Font_metric *fm = Font_interface::get_default_font (me);
-      arrow = fm->find_by_name ("scripts.arpeggio.arrow." + to_string (dir));
+      arrow = fm->find_by_name ("scripts.arpeggio.arrow." + ::to_string (dir));
       heads[dir] -= dir * arrow.extent (Y_AXIS).length ();
     }
 

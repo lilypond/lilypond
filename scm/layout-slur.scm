@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2000--2012 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; Copyright (C) 2000--2014 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -28,6 +28,8 @@
     (max-slope-factor . 10)
     (free-head-distance . 0.3)
     (free-slur-distance . 0.8)
+    (gap-to-staffline-inside . 0.2)
+    (gap-to-staffline-outside . 0.1)
     (extra-object-collision-penalty . 50)
     (accidental-collision . 3)
     (extra-encompass-free-distance . 0.3)

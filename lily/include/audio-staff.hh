@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1996--2012 Jan Nieuwenhuizen <janneke@gnu.org>
+  Copyright (C) 1996--2014 Jan Nieuwenhuizen <janneke@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@
 struct Audio_staff : public Audio_element
 {
   void add_audio_item (Audio_item *ai);
-  void output (Midi_stream &midi_stream_r, int track, bool port);
+  void output (Midi_stream &midi_stream_r, int track, bool port, int start_tick);
 
   Audio_staff ();
 

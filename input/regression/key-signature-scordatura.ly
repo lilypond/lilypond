@@ -1,7 +1,7 @@
 
-\version "2.16.0"
+\version "2.19.7"
 
-\header { texidoc = "By setting @code{Staff.keySignature} directly,
+\header { texidoc = "By setting @code{Staff.keyAlterations} directly,
 key signatures can be set invidually per pitch.
 "
 
@@ -11,9 +11,9 @@ key signatures can be set invidually per pitch.
 }
 \relative c'
 \new Staff {
-    \set Staff.keySignature = #`(((0 . 3) . ,FLAT) ((1 .  2) . ,SHARP))
+    \set Staff.keyAlterations = #`(((0 . 3) . ,FLAT) ((1 .  2) . ,SHARP))
     f8 a c e
-    \set Staff.keySignature = #`(((0 . 4) . ,DOUBLE-SHARP) ((1 .  2) . ,FLAT))
+    \set Staff.keyAlterations = #`(((0 . 4) . ,DOUBLE-SHARP) ((1 .  2) . ,FLAT))
     e a, g a
 }
 

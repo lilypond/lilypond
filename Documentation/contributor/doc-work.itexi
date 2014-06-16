@@ -14,6 +14,7 @@ Version Control System (VCS) called git, previously discussed in
 
 @menu
 * Introduction to documentation work::
+* version in documentation files::
 * Documentation suggestions::
 * Texinfo introduction and usage policy::
 * Documentation policy::
@@ -64,6 +65,41 @@ limited documentation help.
 
 Before undertaking any large documentation work, contributors are
 encouraged to contact the @ref{Meisters, Documentation Meister}.
+
+
+@node version in documentation files
+@section @code{\version} in documentation files
+
+Every documentation file which includes LilyPond code must begin
+with a @code{\version} statement, since the build procedure
+explicitly tests for its presence and will not continue otherwise.
+The @code{\version} statement should reference a version of LilyPond
+consistent with the syntax of the contained code.
+
+Since the @code{\version} statement is not valid Texinfo input it
+must be commented out like this:
+
+@example
+@@c \version "2.19.1"
+@end example
+
+So, if you are adding LilyPond code which is not consistent with the
+current version header, you should
+
+@enumerate
+
+@item
+run convert-ly on the file using the latest version of LilyPond
+(which should, if everybody has done proper maintenance, not change
+anything);
+
+@item
+add the new code;
+
+@item
+modify the version number to match the new code.
+
+@end enumerate
 
 
 @node Documentation suggestions
@@ -464,7 +500,7 @@ to get users accustomed to this scheme construct, i.e. @code{\set
 Staff.instrumentName = #"cello"}
 
 @item
-Try to avoid using @code{#'} or @code{#`} within when describing
+Try to avoid using @code{#'} or @code{#`} when describing
 context or layout properties outside of an @code{@@example} or @code{@@lilypond}, unless
 the description explicitly requires it.
 
@@ -482,8 +518,8 @@ checks.
 @item
 Tweaks should, if possible, also occur on their own line.
 @example
-not:          \override TextScript #'padding = #3 c1^"hi"
-but instead:  \override TextScript #'padding = #3
+not:          \override TextScript.padding = #3 c1^"hi"
+but instead:  \override TextScript.padding = #3
               c1^"hi"
 @end example
 
@@ -1445,7 +1481,7 @@ good example of this.
 On the other side of this,
 
 @example
-\override Score.Hairpin #'after-line-breaking = ##t
+\override Score.Hairpin.after-line-breaking = ##t
 @end example
 
 clearly belongs in LSR.

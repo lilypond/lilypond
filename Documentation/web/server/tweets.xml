@@ -4,10 +4,10 @@
     href="http://www.lilypondblog.org"&gt;here&lt;/a&gt;! Anyone can
     follow and leave comments on the blog. To contribute,
     contact &lt;a
-    href="mailto:janek.lilypond@gmail.com"&gt;Janek Warcho&#322;&lt;/a&gt;.
+    href="mailto:ul@openlilylib.org"&gt;Urs Liska&lt;/a&gt;.
   </tweet>
   <tweet>
-    Adam Spiers has build a web site which uses LilyPond to dynamically
+    Adam Spiers has built a web site which uses LilyPond to dynamically
     generate images of chords and scales called &lt;a
     href="http://scalematcher.adamspiers.org/"&gt;Scale matcher&lt;/a&gt;.
   </tweet>
@@ -22,11 +22,11 @@
     Turkish Ebook &lt;a href="http://acim.name.tr/lilypond/my_EBook_Promotion/index.php"&gt;
     "GNU/LilyPond, &#214;zg&#252;r Bir Nota Yazma Program&#305;"&lt;/a&gt;.
   </tweet>
-    <tweet>
-    Aur&#233;lien Bello, has re-orchestrated a 100-minute version of "Der
-    Ring des Nibelungen" for children, being performed in Berlin on the
-    5th and 6th of April 2014.  Click
-    &lt;a href="http://www.rsb-online.de/content/konzerte/wagnerzyklus-10-13/wagner-fuer-kinder/index_ger.html"&gt;
-    here &lt;/a&gt; for more details.
-   </tweet>
+  <tweet>
+    Aur&#233;lien Bello's 100-minute version of "Der Ring des Nibelungen"
+    for children will be broadcast by Deutschlandradio Kultur on 21st
+    of June 2014.  Click
+    &lt;a href="http://www.deutschlandradiokultur.de/der-ring-in-111-minuten.1091.de.html?dram:article_id=282592"&gt;
+    here &lt;/a&gt; for more details.  Also available as live stream.
+  </tweet>
 </tweets>

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.2"
 
 \header {
   texidoc = "
@@ -8,9 +8,9 @@ corresponding fret number is displayed in parentheses.
 }
 
 music = {
-  c'4 ~ c'4 ( d'2 ) |
-  c'4 ~ c'4 \glissando d'2 |
-  c'4 ~ c'4 d'2 |
+  c'4 ~ 4 ( d'2 ) |
+  c'4 ~ 4 \glissando d'2 |
+  c'4 ~ 4 d'2 |
   c'4 \glissando d'2. |
 }
 

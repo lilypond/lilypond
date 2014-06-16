@@ -12,7 +12,7 @@
 @c Translation checker:
 @c Translation checker committish:
 
-@c \version "2.17.29"
+@c \version "2.19.2"
 
 @node Fundamentele concepten
 @translationof Fundamental concepts
@@ -709,7 +709,7 @@ of slurs, stems, ties, dynamics etc., is set appropriately.
   c16 d e f
   %    Voice "1"     Voice "2"                Voice "3"
   << { g4 f e } \\ { r8 e4 d c8~ } >> |
-  << { d2 e }   \\ { c8 b16 a b8 g~ g2 } \\ { s4 b c2 } >> |
+  << { d2 e }   \\ { c8 b16 a b8 g~ 2 } \\ { s4 b c2 } >> |
 }
 @end lilypond
 
@@ -747,7 +747,7 @@ blue triangle voice.
     { d2 e }
   \\
      % Voice 2 continues
-    { c8 b16 a b8 g~ g2 }
+    { c8 b16 a b8 g~ 2 }
   \\
     {
       \voiceThreeStyle
@@ -1030,25 +1030,25 @@ markup, ties, slurs, and dynamics:
 @lilypond[quote,ragged-right,verbatim]
 \relative c' {
   % Default behavior or behavior after \oneVoice
-  c4 d8~ d e4( f | g4 a) b-> c |
+  c4 d8~ 8 e4( f | g4 a) b-> c |
 }
 @end lilypond
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c' {
   \voiceOne
-  c4 d8~ d e4( f | g4 a) b-> c |
+  c4 d8~ 8 e4( f | g4 a) b-> c |
   \oneVoice
-  c,4 d8~ d e4( f | g4 a) b-> c |
+  c,4 d8~ 8 e4( f | g4 a) b-> c |
 }
 @end lilypond
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c' {
   \voiceTwo
-  c4 d8~ d e4( f | g4 a) b-> c |
+  c4 d8~ 8 e4( f | g4 a) b-> c |
   \oneVoice
-  c,4 d8~ d e4( f | g4 a) b-> c |
+  c,4 d8~ 8 e4( f | g4 a) b-> c |
 }
 @end lilypond
 
@@ -1076,7 +1076,7 @@ permitting a phrasing slur to be drawn over them.
     \new Voice {
       % Set stems, etc., down
       \voiceTwo
-      r8 e4 d c8~ | c8 b16 a b8 g~ g2 |
+      r8 e4 d c8~ | 8 b16 a b8 g~ 2 |
     }
     % Initiate third voice
     \new Voice {
@@ -1107,7 +1107,7 @@ typeset the music:
       \voiceTwo
       r8 e4 d c8~ |
       <<
-        { c8 b16 a b8 g~ g2 | }
+        { c8 b16 a b8 g~ 2 | }
         \new Voice {
           \voiceThree
           s4 b c2 |
@@ -1138,7 +1138,7 @@ as here:
   \new Voice {
     % Set stems, etc, down
     \voiceTwo
-    s4 r8 e4 d c8~ | c8 b16 a b8 g~ g2 |
+    s4 r8 e4 d c8~ | 8 b16 a b8 g~ 2 |
   }
   % Initiate third voice
   \new Voice {
@@ -1271,7 +1271,7 @@ rather than music.
 global = { \key f \major \time 6/8 \partial 8 }
 
 SopOneMusic = \relative c'' {
-  c8 | c8([ bes)] a a([ g)] f | f'4. b, | c4.~ c4
+  c8 | c8([ bes)] a a([ g)] f | f'4. b, | c4.~ 4
 }
 SopOneLyrics = \lyricmode {
   Let | flee -- cy flocks the | hills a -- dorn, __
@@ -2936,15 +2936,15 @@ ManualOneVoiceOneMusic = \relative g' {
   d2 c |
 }
 ManualOneVoiceTwoMusic = \relative c' {
-  ees16 d ees8~ ees16 f ees d c8 d~ d c~ |
-  c8 c4 b8 c8. g16 c b c d |
+  ees16 d ees8~ 16 f ees d c8 d~ d c~ |
+  8 c4 b8 c8. g16 c b c d |
 }
 ManualTwoMusic = \relative c' {
-  c16 b c8~ c16 b c g a8 g~ g16 g aes ees |
-  f16 ees f d g aes g f ees d ees8~ ees16 f ees d |
+  c16 b c8~ 16 b c g a8 g~ 16 g aes ees |
+  f16 ees f d g aes g f ees d ees8~ 16 f ees d |
 }
 PedalOrganMusic = \relative c {
-  r8 c16 d ees d ees8~ ees16 a, b g c b c8 |
+  r8 c16 d ees d ees8~ 16 a, b g c b c8 |
   r16 g ees f g f g8 c,2 |
 }
 

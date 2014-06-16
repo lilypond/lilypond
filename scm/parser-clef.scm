@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2004--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 2004--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -25,18 +25,26 @@
     ("violin" . ("clefs.G" -2 0))
     ("G" . ("clefs.G" -2 0))
     ("G2" . ("clefs.G" -2 0))
+    ("GG" . ("clefs.GG" -2 0))
+    ("tenorG" . ("clefs.tenorG" -2 0))
     ("french" . ("clefs.G" -4 0))
     ("soprano" . ("clefs.C" -4 0))
     ("mezzosoprano" . ("clefs.C" -2 0))
     ("alto" . ("clefs.C" 0 0))
     ("C" . ("clefs.C" 0 0))
+    ("varC" . ("clefs.varC" 0 0))
+    ("altovarC" . ("clefs.varC" 0 0))
     ("tenor" . ("clefs.C" 2 0))
+    ("tenorvarC" . ("clefs.varC" 2 0))
     ("baritone" . ("clefs.C" 4 0))
+    ("baritonevarC" . ("clefs.varC" 4 0))
     ("varbaritone" . ("clefs.F" 0 0))
+    ("baritonevarF" . ("clefs.F" 0 0))
     ("bass" . ("clefs.F" 2 0))
     ("F" . ("clefs.F" 2 0))
     ("subbass" . ("clefs.F" 4 0))
     ("percussion" . ("clefs.percussion" 0 0))
+    ("varpercussion" . ("clefs.varpercussion" 0 0))
     ("tab" . ("clefs.tab" 0 0))
 
     ;; should move mensural stuff to separate file?
@@ -90,9 +98,13 @@
 ;; that symbol"
 (define c0-pitch-alist
   '(("clefs.G" . -4)
+    ("clefs.GG" . 3)
+    ("clefs.tenorG" . 3)
     ("clefs.C" . 0)
+    ("clefs.varC" . 0)
     ("clefs.F" . 4)
     ("clefs.percussion" . 0)
+    ("clefs.varpercussion" . 0)
     ("clefs.tab" . 0 )
     ("clefs.vaticana.do" . 0)
     ("clefs.vaticana.fa" . 4)

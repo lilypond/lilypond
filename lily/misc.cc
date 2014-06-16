@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -30,7 +30,8 @@
 int
 intlog2 (int d)
 {
-  assert (d);
+  if (d <= 0)
+    error ("intlog2 with negative argument: " + ::to_string (d));
   int i = 0;
   while ((d != 1))
     {

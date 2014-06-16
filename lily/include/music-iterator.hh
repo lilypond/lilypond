@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -73,8 +73,8 @@ public:
   Moment music_start_mom () const;
   Music_iterator ();
   void report_event (Music *);
-  Context *get_outlet () const;
-  void set_context (Context *);
+  virtual Context *get_outlet () const;
+  virtual void set_context (Context *);
   static SCM get_static_get_iterator (Music *mus);
   void init_context (Music *, Context *);
   void quit ();

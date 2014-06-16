@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.28"
+@c \version "2.19.2"
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
@@ -256,7 +256,7 @@ aes4 c b c
 付加することによって作成されます。
 
 @lilypond[verbatim,quote,relative=2]
-g4~ g c2~ | c4~ c8 a~ a2 |
+g4~ 4 c2~ | 4~ 8 a~ 2 |
 @end lilypond
 
 
@@ -301,7 +301,7 @@ g4\( g8( a) b( c) b4\)
 スラーとタイはネストさせることができます。
 
 @lilypond[verbatim,quote,relative=2]
-c4~( c8 d~ d4 e)
+c4~( c8 d~ 4 e)
 @end lilypond
 
 @seealso
@@ -941,7 +941,7 @@ LilyPond での多声音楽はまだ説明していないコンセプトを用�
 
 @lilypond[verbatim,quote,relative=2]
 <<
-  { a4 g2 f4~ f4 } \\
+  { a4 g2 f4~ 4 } \\
   { r4 g4 f2 f4 }
 >>
 @end lilypond
@@ -954,7 +954,7 @@ LilyPond での多声音楽はまだ説明していないコンセプトを用�
 
 @lilypond[verbatim,quote,relative=2]
 <<
-  { a4 g2 f4~ f4 } \\
+  { a4 g2 f4~ 4 } \\
   { s4 g4 f2 f4 }
 >>
 @end lilypond
@@ -965,13 +965,13 @@ LilyPond での多声音楽はまだ説明していないコンセプトを用�
 @lilypond[verbatim,quote,relative=2]
 <<
   \new Staff <<
-    { a4 g2 f4~ f4 } \\
+    { a4 g2 f4~ 4 } \\
     { s4 g4 f2 f4 }
   >>
   \new Staff <<
     \clef bass
     { <c g>1 ~ <c g>4 } \\
-    { e,,4 d e2 ~ e4}
+    { e,,4 d e2 ~ 4}
   >>
 >>
 @end lilypond
@@ -1215,7 +1215,7 @@ song.ly:12:46: warning: barcheck failed at: 3/8
     \clef "bass"
     \key c \major
     \time 6/8
-    c4.~ c8 d b | c8([ d]) b c d b | c8
+    c4.~ 8 d b | c8([ d]) b c d b | c8
   }
   \addlyrics {
     Lar -- go_al fac -- | to -- tum del -- la cit -- | tÃ
@@ -1246,7 +1246,7 @@ song.ly:12:46: warning: barcheck failed at: 3/8
     \key f \major
     \time 6/8
     \partial 8
-    c8 | c8([ bes]) a a([ g]) f | f'4. b, | c4.~ c4
+    c8 | c8([ bes]) a a([ g]) f | f'4. b, | c4.~ 4
   }
   \addlyrics {
     Let | flee -- cy flocks the | hills a -- | dorn, __

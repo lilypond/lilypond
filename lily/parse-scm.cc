@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2004--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2004--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -36,16 +36,17 @@ using namespace std;
 SCM
 internal_ly_parse_scm (Parse_start *ps)
 {
-  Source_file *sf = ps->start_location_.get_source_file ();
+  Input &hi = ps->location_;
+  Source_file *sf = hi.get_source_file ();
   SCM port = sf->get_port ();
 
-  long off = ps->start_location_.start () - sf->c_str ();
+  long off = hi.start () - sf->c_str ();
 
   scm_seek (port, scm_from_long (off), scm_from_long (SEEK_SET));
   SCM from = scm_ftell (port);
 
-  scm_set_port_line_x (port, scm_from_int (ps->start_location_.line_number () - 1));
-  scm_set_port_column_x (port, scm_from_int (ps->start_location_.column_number () - 1));
+  scm_set_port_line_x (port, scm_from_int (hi.line_number () - 1));
+  scm_set_port_column_x (port, scm_from_int (hi.column_number () - 1));
 
   bool multiple = ly_is_equal (scm_peek_char (port), SCM_MAKE_CHAR ('@'));
 
@@ -55,7 +56,9 @@ internal_ly_parse_scm (Parse_start *ps)
   SCM form = scm_read (port);
   SCM to = scm_ftell (port);
 
-  ps->nchars = scm_to_int (to) - scm_to_int (from);
+  hi.set (hi.get_source_file (),
+          hi.start (),
+          hi.start () + scm_to_int (scm_difference (to, from)));
 
   if (!SCM_EOF_OBJECT_P (form))
     {
@@ -71,7 +74,7 @@ internal_ly_parse_scm (Parse_start *ps)
         form = scm_list_3 (ly_symbol2scm ("apply"),
                            ly_symbol2scm ("values"),
                            form);
-      return scm_cons (form, make_input (ps->start_location_));
+      return form;
     }
 
   /* Don't close the port here; if we re-enter this function via a
@@ -108,23 +111,24 @@ internal_ly_eval_scm (Parse_start *ps)
 SCM
 catch_protected_parse_body (void *p)
 {
-  Parse_start *ps = (Parse_start *) p;
-
-  return (*ps->func_) (ps);
+  return internal_ly_parse_scm (static_cast<Parse_start *> (p));
 }
 
 SCM
-parse_handler (void *data, SCM tag, SCM args)
+catch_protected_eval_body (void *p)
+{
+  return internal_ly_eval_scm (static_cast<Parse_start *> (p));
+}
+
+SCM
+parse_handler (void *data, SCM /*tag*/, SCM args)
 {
   Parse_start *ps = (Parse_start *) data;
 
-  ps->start_location_.error (_ ("GUILE signaled an error for the expression beginning here"));
+  ps->location_.error (_ ("GUILE signaled an error for the expression beginning here"));
 
   if (scm_ilength (args) > 2)
     scm_display_error_message (scm_cadr (args), scm_caddr (args), scm_current_error_port ());
-
-  if (tag == ly_symbol2scm ("read-error"))
-    ps->nchars = 1;
 
   return SCM_UNDEFINED;
 }
@@ -136,7 +140,19 @@ protected_ly_parse_scm (Parse_start *ps)
     Catch #t : catch all Scheme level errors.
    */
   return scm_internal_catch (SCM_BOOL_T,
-                             &catch_protected_parse_body,
+                             catch_protected_parse_body,
+                             (void *) ps,
+                             &parse_handler, (void *) ps);
+}
+
+SCM
+protected_ly_eval_scm (Parse_start *ps)
+{
+  /*
+    Catch #t : catch all Scheme level errors.
+   */
+  return scm_internal_catch (SCM_BOOL_T,
+                             catch_protected_eval_body,
                              (void *) ps,
                              &parse_handler, (void *) ps);
 }
@@ -147,19 +163,12 @@ bool parsed_objects_should_be_dead = false;
 /* Try parsing.  Upon failure return SCM_UNDEFINED. */
 
 SCM
-ly_parse_scm (char const *s, int *n, Input i, bool safe, Lily_parser *parser)
+ly_parse_scm (Input &i, bool safe, Lily_parser *parser)
 {
-  Parse_start ps;
-  ps.str = s;
-  ps.start_location_ = i;
-  ps.safe_ = safe;
-  ps.form_ = SCM_UNDEFINED;
-  ps.parser_ = parser;
-  ps.func_ = internal_ly_parse_scm;
+  Parse_start ps (SCM_UNDEFINED, i, safe, parser);
 
   SCM ans = parse_protect_global ? protected_ly_parse_scm (&ps)
             : internal_ly_parse_scm (&ps);
-  *n = ps.nchars;
 
   return ans;
 }
@@ -167,15 +176,9 @@ ly_parse_scm (char const *s, int *n, Input i, bool safe, Lily_parser *parser)
 SCM
 ly_eval_scm (SCM form, Input i, bool safe, Lily_parser *parser)
 {
-  Parse_start ps;
-  ps.str = 0;
-  ps.start_location_ = i;
-  ps.safe_ = safe;
-  ps.form_ = form;
-  ps.parser_ = parser;
-  ps.func_ = internal_ly_eval_scm;
+  Parse_start ps (form, i, safe, parser);
 
-  SCM ans = parse_protect_global ? protected_ly_parse_scm (&ps)
+  SCM ans = parse_protect_global ? protected_ly_eval_scm (&ps)
             : internal_ly_eval_scm (&ps);
   scm_remember_upto_here_1 (form);
   return ans;

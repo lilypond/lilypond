@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2012 Jan Nieuwenhuizen <janneke@gnu.org>
+  Copyright (C) 1997--2014 Jan Nieuwenhuizen <janneke@gnu.org>
   Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -523,7 +523,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
   Real x1 = robust_relative_extent (rgr, commonx, X_AXIS)[RIGHT];
   bool follow_beam = par_beam
                      && get_grob_direction (par_beam) == dir
-                     && !to_boolean (par_beam->get_property ("knee"));
+                     && !Beam::is_knee (par_beam);
 
   vector<Offset> points;
   if (columns.size ()

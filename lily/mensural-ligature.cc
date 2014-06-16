@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2002--2012 Juergen Reuter <reuter@ipd.uka.de>,
+  Copyright (C) 2002--2014 Juergen Reuter <reuter@ipd.uka.de>,
   Pal Benko <benkop@freestart.hu>
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -168,7 +168,7 @@ internal_brew_primitive (Grob *me)
       duration_log--;
     case MLP_BREVIS:
       duration_log--;
-      suffix = to_string (duration_log) + color
+      suffix = ::to_string (duration_log) + color
                + (duration_log < -1 ? "lig" : "") + "mensural";
       index = prefix + "s";
       out = fm->find_by_name (index + "r" + suffix);

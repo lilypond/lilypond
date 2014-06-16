@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.30"
+@c \version "2.19.2"
 
 @node Rhythms
 @section Rhythms
@@ -91,6 +91,15 @@ note.
 
 @lilypond[quote,verbatim,relative=2]
 a a a2 a a4 a a1 a
+@end lilypond
+
+Durations occuring on their own within a music sequence will take
+their pitches from the preceding note or chord.
+
+@lilypond[quote,verbatim,relative=2]
+\time 8/1
+c \longa \breve 1 2
+4 8 16 32 64 128 128
 @end lilypond
 
 @cindex notes, dotted
@@ -204,7 +213,7 @@ tuplets are triplets: 3@tie{}notes sound within the duration
 normally allowed for@tie{}2:
 
 @lilypond[quote,verbatim,relative=2]
-a2 \tuplet 3/2 { b4 b b }
+a2 \tuplet 3/2 { b4 4 4 }
 c4 c \tuplet 3/2 { b4 a g }
 @end lilypond
 
@@ -422,7 +431,14 @@ of each pair of notes being tied.  This indicates that the note
 should be tied to the following note, which must be at the same pitch.
 
 @lilypond[quote,verbatim,relative=2]
-a2~ a4~ a16 r r8
+a2~ 4~ 16 r r8
+@end lilypond
+
+Ties can make use of the @q{last explicit pitch} interpretation of
+isolated durations:
+
+@lilypond[quote,verbatim,relative=2]
+a2~ 4~ 16 r r8
 @end lilypond
 
 Ties are used either when the note crosses a bar line, or when
@@ -431,8 +447,8 @@ used when note values cross larger subdivisions of the measure:
 
 @lilypond[verbatim,quote]
 \relative c' {
-  r8 c~ c2 r4 |
-  r8^"not" c2~ c8 r4
+  r8 c~ 2 r4 |
+  r8^"not" c2~ 8 r4
 }
 @end lilypond
 
@@ -450,7 +466,8 @@ created.  Chords may be partially tied by placing the ties inside
 the chord.
 
 @lilypond[quote,verbatim,relative=1]
-<c e g>~ <c e g c>
+<c e g>2 ~ 2
+<c e g>4~ <c e g c>
 <c~ e g~ b> <c e g b>
 @end lilypond
 
@@ -519,26 +536,26 @@ dashed.
 
 @lilypond[quote, verbatim, relative=1]
 \tieDotted
-c2~ c
+c2~ 2
 \tieDashed
-c2~ c
+c2~ 2
 \tieHalfDashed
-c2~ c
+c2~ 2
 \tieHalfSolid
-c2~ c
+c2~ 2
 \tieSolid
-c2~ c
+c2~ 2
 @end lilypond
 
 Custom dash patterns can be specified:
 
 @lilypond[quote, verbatim, relative=1]
 \tieDashPattern #0.3 #0.75
-c2~ c
+c2~ 2
 \tieDashPattern #0.7 #1.5
-c2~ c
+c2~ 2
 \tieSolid
-c2~ c
+c2~ 2
 @end lilypond
 
 Dash pattern definitions for ties have the same structure as dash
@@ -1412,12 +1429,29 @@ So the first example above could be written:
 e8 | a4 c8 b c4 |
 @end lilypond
 
-The property @code{measurePosition} contains a rational number, which
-is usually positive and indicates how much of the measure has passed
-at this point.  The @code{\partial @var{duration}} command sets it to
-a negative number, when it has a different meaning: it then says that
-the current (first) bar will be @emph{preceded} by a bar 0 (the partial
-bar) with a duration given by @var{duration}.
+The property @code{measurePosition} contains a rational number,
+which is usually positive and indicates how much of the measure
+has passed at this point.  @code{\partial @var{duration}} is
+defined such that no numbered bar gets created: when used at the
+beginning of a score, @code{measurePosition} is set to a
+negative number, implying that the current bar will be
+@emph{preceded} by additional material.  When used elsewhere, it
+moves the requested distance before the @emph{end} of the bar.
+
+@lilypond[quote,verbatim,relative=1]
+\set Score.barNumberVisibility = #all-bar-numbers-visible
+\override Score.BarNumber.break-visibility =
+          #end-of-line-invisible
+\time 6/8
+\partial 8
+e8 | a4 c8 b[ c b] |
+\partial 4
+r8 e,8 | a4 \bar "||"
+\partial 4
+r8 e8 | a4
+c8 b[ c b] |
+@end lilypond
+
 
 @seealso
 Music Glossary:
@@ -1431,19 +1465,6 @@ Snippets:
 
 Internal Reference:
 @rinternals{Timing_translator}.
-
-@knownissues
-The @code{\partial} command should be used only at the beginning of a
-piece.  If you use it after the beginning, warnings or problems may
-occur, so use @code{\set Timing.measurePosition} instead.
-
-@lilypond[quote,verbatim,relative=1]
-\time 6/8
-\partial 8
-e8 | a4 c8 b[ c b] |
-\set Timing.measurePosition = #(ly:make-moment -1/4)
-r8 e,8 | a4 c8 b[ c b] |
-@end lilypond
 
 
 @node Unmetered music
@@ -1788,6 +1809,37 @@ inserts ties for notes.  One of its uses is to debug complex scores: if
 the measures are not entirely filled, then the ties show exactly how
 much each measure is off.
 
+The property @code{completionUnit} sets a preferred duration for
+the split notes.
+
+@lilypond[quote,verbatim,relative=2]
+\new Voice \with {
+  \remove "Note_heads_engraver"
+  \consists "Completion_heads_engraver"
+} {
+  \time 9/8 g\breve. d4. \bar "||"
+  \set completionUnit = #(ly:make-moment 3 8)
+  g\breve. d4.
+}
+@end lilypond
+
+These engravers split notes with scaled duration, such as those in tuplets,
+into notes with the same scale-factor as in the input note.
+
+@lilypond[quote,verbatim,relative=2]
+\new Voice \with {
+  \remove "Note_heads_engraver"
+  \consists "Completion_heads_engraver"
+} {
+  \time 2/4 r4
+  \tuplet 3/2 {g4 a b}
+  \scaleDurations 2/3 {g a b}
+  g4*2/3 a b
+  \tuplet 3/2 {g4 a b}
+  r4
+}
+@end lilypond
+
 @seealso
 Music Glossary:
 @rglos{tie}
@@ -1807,12 +1859,12 @@ Internals Reference:
 @rinternals{Forbid_line_break_engraver}.
 
 @knownissues
-Not all durations (especially those containing tuplets) can be
-represented exactly with normal notes and dots, but the
-@code{Completion_heads_engraver} will not insert tuplets.
-
-The @code{Completion_heads_engraver} only affects notes; it does not
-split rests.
+For consistency with previous behavior, notes and rests with
+duration longer than a measure, such as @code{c1*2}, are split into
+notes without any scale factor, @code{@{ c1 c1 @}}.  The property
+@code{completionFactor} controls this behavior, and setting it to
+@code{#f} cause split notes and rest to have the scale factor
+of the input durations.
 
 
 @node Showing melody rhythms
@@ -2015,6 +2067,7 @@ new beam starts.
 @funindex autoBeaming
 @funindex baseMoment
 @funindex beamExceptions
+@funindex \beamExceptions
 @funindex beatStructure
 @funindex measureLength
 @funindex \time
@@ -2156,42 +2209,24 @@ the time signature. Any exceptions to this default can be found in
 Special autobeaming rules (other than ending a beam on a beat)
 are defined in the @code{beamExceptions} property.
 
+The value for @code{beamExceptions}, a somewhat complex Scheme
+data structure, is easiest generated with the
+@code{\beamExceptions} function.  This function is given one or
+more manually beamed measure-length rhythmic patterns (measures
+have to be separated by a bar check@tie{}@code{|} since the
+function has no other way to discern the measure length).  Here is
+a simple example:
+
 @lilypond[quote,relative=2,verbatim]
 \time 3/16
 \set Timing.beatStructure = #'(2 1)
 \set Timing.beamExceptions =
-  #'(                         ;start of alist
-     (end .                   ;entry for end of beams
-      (                       ;start of alist of end points
-       ((1 . 32) . (2 2 2))   ;rule for 1/32 beams -- end each 1/16
-      )))                     %close all entries
+  \beamExceptions { 32[ 32] 32[ 32] 32[ 32] }
 c16 c c |
 \repeat unfold 6 { c32 } |
 @end lilypond
 
-@code{beamExceptions} is an alist with a key of rule-type and a value
-of beaming-rules.
-
-At this time the only available value of rule-type is
-@code{'end} for beam ending.
-
-Beaming-rules is a scheme alist (or list of pairs) that indicates the
-beam type and the grouping to be applied to beams containing notes with
-a shortest duration of that beam type.
-
-@example
-#'((beam-type1 . grouping-1)
-   (beam-type2 . grouping-2)
-   (beam-type3 . grouping-3))
-@end example
-
-Beam type is a scheme pair indicating the duration of the beam,
-e.g., @code{(1 . 16)}.
-
-Grouping is a scheme list indicating the grouping to be applied to
-the beam.  The grouping is in units of the beam type.
-
-@warning{ A @code{beamExceptions} value must be @emph{complete}
+@warning{A @code{beamExceptions} value must be @emph{complete}
 exceptions list.  That is, every exception that should be applied
 must be included in the setting.  It is not possible to add, remove,
 or change only one of the exceptions. While this may seem cumbersome,
@@ -3475,6 +3510,12 @@ durations in the other staves.  For the above example
   \new Staff { c4 \bar ".|:" \grace s16 d2. }
 >>
 @end lilypond
+
+Please make sure that you use the @code{\grace} command for the
+spacer part, even if the visual part uses @code{\acciaccatura} or
+@code{\appoggiatura} because otherwise an ugly slur fragment will
+be printed, connecting the invisible grace note with the following
+note.
 
 The use of grace notes within voice contexts confuses the way the voice
 is typeset. This can be overcome by inserting a rest or note between the

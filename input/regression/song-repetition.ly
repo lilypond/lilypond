@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.2"
 \header {
   texidoc="Festival song synthesis output supports
 repeat signs.
@@ -13,12 +13,12 @@ repeat signs.
     c2 e4 r4 | g2 e | c1 |
     \context Voice = verse \repeat volta 2 {c4 d e f | g1 | }
     a2 b | c1}
-  \lyricsto melody  \context Lyrics = mainlyrics \lyricmode {
+  \context Lyrics = mainlyrics \lyricsto melody  {
     do mi sol mi do
     la si do }
-  \lyricsto verse \context Lyrics = mainlyrics \lyricmode {
+  \context Lyrics = mainlyrics \lyricsto verse {
    do re mi fa sol }
-  \lyricsto verse \context Lyrics = repeatlyrics \lyricmode {
+  \context Lyrics = repeatlyrics \lyricsto verse {
    dodo rere mimi fafa solsol }
 >>
 }

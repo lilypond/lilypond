@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.20"
+@c \version "2.19.2"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -3100,12 +3100,12 @@ a8 \( ( a'16 ) a \)
 {
   \time 4/2
   <<
-    { c'1 ~ c'2. e'8 f' }
+    { c'1 ~ 2. e'8 f' }
     \\
     { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
   >>
   <<
-    { c'1 ~ c'2. e'8 f' }
+    { c'1 ~ 2. e'8 f' }
     \\
     { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
  >>
@@ -3123,7 +3123,7 @@ a8 \( ( a'16 ) a \)
 {
   \time 4/2
   <<
-    { c'1 ~ c'2. e'8 f' }
+    { c'1 ~ 2. e'8 f' }
     \\
     {
       \override Beam.positions = #'(-1 . -1)
@@ -3131,7 +3131,7 @@ a8 \( ( a'16 ) a \)
     }
   >>
   <<
-    { c'1 ~ c'2. e'8 f' }
+    { c'1 ~ 2. e'8 f' }
     \\
     { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
   >>
@@ -3327,7 +3327,7 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % メイン ボイスの続き
       \new Voice {
         \voiceTwo
-        c,8~ c2
+        c,8~ 2
       }
       \new Voice {
         \voiceThree
@@ -3388,7 +3388,7 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % メイン ボイスの続き
       \new Voice {
         \voiceTwo
-        c,8~ c2
+        c,8~ 2
       }
       \new Voice {
         \voiceThree
@@ -3466,7 +3466,7 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % メイン ボイスの続き
       \new Voice {
         \voiceTwo
-        c,8~ c2
+        c,8~ 2
       }
       \new Voice {
         \voiceThree
@@ -3550,7 +3550,7 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % メイン ボイスの続き
       \new Voice {
         \voiceTwo
-        c,8~ c2
+        c,8~ 2
       }
       \new Voice {
         \voiceThree
@@ -3794,7 +3794,7 @@ lhMusic = \relative c' {
 2 つのボイスを使い、そのうちの 1 つにタイで結んだ音符を置きます:
 
 @lilypond[quote,fragment,relative=2]
-<< { b8~ b\noBeam } \\ { b8[ g] } >>
+<< { b8~ 8\noBeam } \\ { b8[ g] } >>
 @end lilypond
 
 @noindent
@@ -3808,7 +3808,7 @@ lhMusic = \relative c' {
 <<
   {
     \tweak Stem.transparent ##t
-    b8~ b\noBeam
+    b8~ 8\noBeam
   }
 \\
   { b8[ g] }
@@ -3823,7 +3823,7 @@ lhMusic = \relative c' {
   {
     \tweak Stem.transparent ##t
     \tweak Stem.length #8
-    b8~ b\noBeam
+    b8~ 8\noBeam
   }
 \\
   { b8[ g] }
@@ -3846,7 +3846,7 @@ lhMusic = \relative c' {
     \single \hide Stem
     \single \hide Flag
     \tweak Stem.length #8
-    b8~ b\noBeam
+    b8~ 8\noBeam
   }
 \\
   { b8[ g] }

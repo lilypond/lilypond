@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2004--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 2004--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -84,7 +84,9 @@
    "/output-scale "
    (number->string (ly:output-def-lookup layout 'output-scale)) " def\n"
    (output-entry "page-height" 'paper-height)
-   (output-entry "page-width" 'paper-width)))
+   (output-entry "page-width" 'paper-width)
+   (if (ly:get-option 'strokeadjust) "true setstrokeadjust\n" "")
+   ))
 
 (define (dump-page outputter page page-number page-count landscape?)
   (ly:outputter-dump-string
@@ -97,7 +99,6 @@
         "")
     "%%EndPageSetup\n"
     "\n"
-    "true setstrokeadjust\n"
     "gsave 0 paper-height translate set-ps-scale-to-lily-scale\n"))
   (ly:outputter-dump-stencil outputter page)
   (ly:outputter-dump-string outputter "stroke grestore\nshowpage\n"))

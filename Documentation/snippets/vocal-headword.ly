@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.6"
+\version "2.19.2"
 
 \header {
   lsrtags = "headword"
@@ -39,7 +39,7 @@ Vocal headword
     \autoBeamOff
     r4^\markup { \small Baritono } r a
     \appoggiatura a8 e'2. ~
-    e4 d8[ cis d e]
+    4 d8[ cis d e]
     e4 g, r8 g
     bes2 a8 e
     g4 f r

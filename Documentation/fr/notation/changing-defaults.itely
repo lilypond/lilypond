@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.30"
+@c \version "2.19.7"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Gilles Thibault
@@ -2099,7 +2099,7 @@ doit être précédée du caractère @code{#}.
 
 Les propriétés des contextes se libellent sous la forme
 @code{minusculeMajuscule}.  Leur rôle consiste principalement à traduire
-la musique en notation : par exemple, @code{localKeySignature}
+la musique en notation : par exemple, @code{localAlterations}
 déterminera quand imprimer une altération accidentelle, et
 @code{measurePosition} quand imprimer une barre de mesure.  La valeur
 des propriétés des contextes peuvent évoluer au fur et à mesure que l'on
@@ -2773,7 +2773,7 @@ valeur des clés individuellement par des déclarations imbriquées.
 
 @warning{Les déclarations imbriquées ne sont pas fonctionnelles dans le
 cas des listes associatives des propriétés de contexte -- telles
-@code{beamExceptions}, @code{keySignature},
+@code{beamExceptions}, @code{keyAlterations},
 @code{timeSignatureSettings}, etc.  Ces propriétés ne sont modifiables
 qu'au travers d'une complète redéfinition de leur liste associative.}
 
@@ -4465,7 +4465,7 @@ des plus heureuses, même en optant pour un @code{\tieDown}.
 
 @lilypond[verbatim,quote,relative=1]
 <<
-  { e1~ e }
+  { e1~ 1 }
 \\
   { r4 <g c,> <g c,> <g c,> }
 >>
@@ -4513,7 +4513,7 @@ de portée :
 <<
   {
     \shape #'((0 . 0.5) (0 . 0.5) (0 . 0.5) (0 . 0.5)) Tie
-    e1~ e
+    e1~ 1
   }
 \\
   { r4 <g c,> <g c,> <g c,> }

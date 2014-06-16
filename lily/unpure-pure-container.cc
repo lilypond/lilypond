@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2011--2012 Mike Solomon <mike@mikesolomon.org>
+  Copyright (C) 2011--2014 Mike Solomon <mike@mikesolomon.org>
 
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -30,6 +30,17 @@ bool
 is_unpure_pure_container (SCM s)
 {
   return (SCM_NIMP (s) && SCM_CELL_TYPE (s) == unpure_pure_container_tag);
+}
+
+bool
+is_unchanging_unpure_pure_container (SCM s)
+// A container that has the same callback for both 'pure' and 'unpure' lookups
+// and which ignores the 'start' and 'end' columnns.
+// Such a callback will give the same answer for tentative or final layouts.
+{
+  LY_ASSERT_TYPE (is_unpure_pure_container, s, 1);
+  SCM pure_part = SCM_SMOB_OBJECT_2 (s);
+  return (SCM_UNBNDP (pure_part));
 }
 
 SCM

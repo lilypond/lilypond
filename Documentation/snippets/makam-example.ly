@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.19.7"
 
 \header {
   lsrtags = "pitches, version-specific, world-music"
@@ -23,7 +23,7 @@ details of pitch names and alterations.
 \include "makam.ly"
 
 \relative c' {
-  \set Staff.keySignature = #`((6 . ,(- KOMA)) (3 . ,BAKIYE))
+  \set Staff.keyAlterations = #`((6 . ,(- KOMA)) (3 . ,BAKIYE))
   c4 cc db fk
   gbm4 gfc gfb efk
   fk4 db cc c

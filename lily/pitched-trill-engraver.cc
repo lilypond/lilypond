@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2005--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2005--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -98,7 +98,7 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
   SCM scm_pitch = ev->get_property ("pitch");
   Pitch *p = unsmob_pitch (scm_pitch);
 
-  SCM keysig = get_property ("localKeySignature");
+  SCM keysig = get_property ("localAlterations");
 
   SCM key = scm_cons (scm_from_int (p->get_octave ()),
                       scm_from_int (p->get_notename ()));

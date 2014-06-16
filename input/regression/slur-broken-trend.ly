@@ -1,5 +1,5 @@
 
-\version "2.17.28"
+\version "2.19.2"
 
 \header{
 texidoc="
@@ -38,12 +38,12 @@ in unbroken state.
     \new Voice \relative c' {
 	c'8[( c c c] g2 ~ | \break
 	g1) | \break
-	\slurDown c8[( c] g4 ~ g2 ~ | \break
-	g2 ~ g2)
+	\slurDown c8[( c] g4 ~ 2 ~ | \break
+	g2 ~ 2)
     }
     \relative c'' {
 	a4( c b4 e, ~ | \break
-	e1 ~ | e1)
+	e1 ~ | 1)
     }
     
 }

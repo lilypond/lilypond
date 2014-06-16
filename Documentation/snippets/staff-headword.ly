@@ -43,22 +43,13 @@ trompette = \relative do'' {
   do8-. r8 sib4-> |
 }
 
-tambourin = \relative do' {
+tambourin = \drummode {
   \time 2/4
-  r8 do16 do do8 do |
-  r8 do16 do do8 do |
-  r8 do r do |
-  r8 do16 do do8 do |
-  r8 do r do |
-}
-
-tambourinMidi = \drummode {
-  \time 2/4
-  r8 tamb16 tamb tamb8 tamb |
-  r8 tamb16 tamb tamb8 tamb |
-  r8 tamb r tamb |
-  r8 tamb16 tamb tamb8 tamb |
-  r8 tamb r tamb |
+  r8 tamb16 16 8 8 |
+  r8 16 16 8 8 |
+  r8 8 r8 8 |
+  r8 16 16 8 8 |
+  r8 8 r8 8 |
 }
 
 upper = \relative do' {
@@ -110,7 +101,7 @@ lower = \relative do {
       \trompette
     }
     \context DrumStaff = "tambourin" {
-      \tambourinMidi
+      \tambourin
     }
     \context Staff = "piano" <<
       \upper

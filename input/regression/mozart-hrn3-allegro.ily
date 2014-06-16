@@ -1,4 +1,4 @@
-\version "2.17.11"
+\version "2.19.2"
 \include "mozart-hrn3-defs.ily"
 
 allegro = \relative c' {
@@ -26,7 +26,7 @@ allegro = \relative c' {
   d8.[ c16 d8. e16]
   c4 r r2
   R1*3
-  c,2 ~  c8[ e g c]
+  c,2 ~  8[ e g c]
   c[ b ] b4 r2
   c,8[ ( e) g c] e[( g) e c]
   c[( b)] b4 r2
@@ -34,7 +34,7 @@ allegro = \relative c' {
   g'[( d) ] d4 r4 d
   d8[ ( c)] c4.(  d16[ e] d8[  c)]
   c8[(\trill  b)] b4 r2 |
-  d2( ~  d8[ e16 d] c8[  b)] |
+  d2( ~  8[ e16 d] c8[  b)] |
   b[( a)] a4 r8  a[ a a]
   a4( cis e g)
   \appoggiatura g16
@@ -47,7 +47,7 @@ allegro = \relative c' {
   a[( \< b c cis\!\> ]  d4  c\!)
   ais8[( b)] r8 b\cresc b[( c)] r c
   cis[ ( d)] r4 r2
-  g,1\!\f ~ g2 ~  g8[ a16 b] c[( d) e c]
+  g,1\!\f ~ g2 ~  8[ a16 b] c[( d) e c]
   %% 64
   f4-. d-. b-. g-.
   R1
@@ -59,7 +59,7 @@ allegro = \relative c' {
   R1*15
   \mark "D"
   bes2\mf d4 f
-  g,2~  g8[ g' es c]|
+  g,2~  8[ g' es c]|
   bes4(  a4.)  c8[( d es)]
   cis4( d) r8  bes[ (c d)]
   es2 ( d4) r
@@ -67,7 +67,7 @@ allegro = \relative c' {
   c8[( g' es  c)] bes4( c)
   c4.( cis8  d4) r
   R1*2
-  es1~es1|
+  es1~1|
   e!
   d
   c
@@ -98,12 +98,12 @@ allegro = \relative c' {
   c4 r r2
   \mark "F"
   R1*3
-  c,2~ c8[ e g c]
+  c,2~ 8[ e g c]
   c8[( b)] b4 r2
   c,8[ e g c ]  e[ ( g) e c]
   c[( b)] b4 r2
   c2 (bes  a) a8[(b c cis)]
-  d2( ~  d8[ e16 d] \appoggiatura d16
+  d2( ~  8[ e16 d] \appoggiatura d16
   c8[ b16  c)]
   \appoggiatura c16
   b8[( a16  g)] g4 r2 |
@@ -112,16 +112,16 @@ allegro = \relative c' {
   \mark "G"
   d[( c) g'( e)] d[( c) a'( f)]
   e[( d)] d4 r  d8[ d]
-  d4(~  d16[ e d e)] g8[( f) e d] |
+  d4(~  16[ e d e)] g8[( f) e d] |
   c4 r r2
   R1
   c1 ~
-  c |
+  1 |
   c8[-. c-.] r c-. cis[( d)] r d-.\cresc |
   dis[( e)] r e-. e[( f)] r f-. |
   g4-.\f e-. c-. bes-. |
   g-.\ff e-. c-. r |
-  a'2 ~  a8[_\markup { \bold \italic "sempre " \dynamic "f" }  b16 c] d[( e d e)]
+  a'2 ~  8[_\markup { \bold \italic "sempre " \dynamic "f" }  b16 c] d[( e d e)]
 
   f4. ( d8)  f8[ ( d) f d]
   c[ (e] g2) \appoggiatura f16

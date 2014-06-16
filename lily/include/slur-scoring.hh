@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2004--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2004--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -100,6 +100,7 @@ struct Slur_score_state
   Drul_array<Offset> base_attachments_;
   vector<Slur_configuration *> configurations_;
   Real staff_space_;
+  Real line_thickness_;
   Real thickness_;
 
   Slur_score_state ();

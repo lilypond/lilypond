@@ -9,17 +9,140 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
-@subsubheading LilyPond 2.17.95 released!  @emph{November 3, 2013}
+@subsubheading LilyPond 2.19.8 released  @emph{June 15, 2014}
 
-We are excited to announce the release of LilyPond@tie{}2.17.95 as
-beta release for the upcoming stable release@tie{}2.18.  The
-developers are still busy finding solutions for some last-minute
-problems, but the release is supposed to be feature-complete, the
-documentation to be accurate, and no important issues to be
-overlooked.  For upgrading the syntax of your input files to the
-latest version, see @rprogram{Updating files with convert-ly}.
-Please test this release and report back any problems, see
-@rweb{Bug reports}.
+We are happy to announce the release of LilyPond 2.19.8.  This
+release includes a number of enhancements, and contains some work
+in progress.  You will have access to the very latest features, but
+some may be incomplete, and you may encounter bugs and crashes.  If you
+require a stable version of Lilypond, we recommend using the 2.18
+version.
+
+@newsEnd
+
+@newsItem
+@subsubheading Lilypond 2.18.2 released!  @emph{March 23, 2014}
+
+We are proud to announce the release of GNU LilyPond 2.18.2.
+LilyPond is a music engraving program devoted to producing the
+highest-quality sheet music possible.  It brings the aesthetics of
+traditionally engraved music to computer printouts.
+
+This version provides a number of updates to 2.18.0, including
+updated manuals.  We recommend all users to upgrade to this version.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading LilyPond production named BEST EDITION 2014  @emph{March 11, 2014}
+
+We are thrilled to announce that the new edition of the songs of Oskar
+Fried (1871-1941), published recently by our fellow contributors Urs Liska
+and Janek Warchoł [1], will receive the "Musikeditionspreis BEST EDITION
+2014" of the German Music Publishers' Association [2]!  The ceremony will
+take place in a few days at the Frankfurt Musikmesse [3].
+
+We congratulate Janek and Urs for gaining such public recognition of
+typographical and editorial excellence of their work. We are also delighted
+to inform you that they intend to make their work available under a Free
+license as soon as the publisher expenses are covered.  Please support this
+initiative by buying the printed volume through the publisher [4] or by
+pledging a contribution at the Indiegogo campaign [5]!
+
+[1] @uref{http://lilypondblog.org/category/fried-songs}@*
+[2] @uref{http://www.best-edition.de}@*
+[3] @uref{https://musik.messefrankfurt.com/frankfurt/en/besucher/events/awards/best_edition.html}@*
+[4] @uref{http://www.sound-rel.de}@*
+[5] @uref{http://igg.me/at/free-fried}
+
+@newsEnd
+
+
+@newsItem
+@subsubheading Lilypond 2.18.0 released!  @emph{December 29, 2013}
+
+We are proud to announce the release of GNU LilyPond 2.18.0.
+LilyPond is a music engraving program devoted to producing the
+highest-quality sheet music possible.  It brings the aesthetics of
+traditionally engraved music to computer printouts.
+
+Among the numerous improvements and changes, the following might
+be most visible:
+
+@itemize @bullet
+@item
+Many items are now positioned using their actual outline rather
+than a@tie{}rectangular bounding box.  This greatly reduces
+the occurrence of unsightly large gaps.
+
+@item
+Sets and overrides can now use the syntax
+@example
+\override Voice.TextSpanner.bound-details.left.text = "rit."
+@end example
+instead of the previous
+@example
+\override Voice.TextSpanner #'(bound-details left text) = "rit."
+@end example
+
+@item
+Triplets with a given group length can now be written as
+@example
+\tuplet 3/2 4 @{ c8 c c  c c c @}
+@end example
+instead of
+@example
+\times 2/3 @{ c8 c c @}  \times 2/3 @{ c8 c c @}
+@end example
+@end itemize
+
+A full list of noteworthy new features is given in:
+
+@example
+@uref{http://lilypond.org/doc/v2.18/Documentation/changes/index.html}
+@end example
+
+Great thanks go to the large number of LilyPond enthusiasts whose
+financial backing enabled one core developer, David Kastrup, to
+focus exclusively on LilyPond during the entire development cycle.
+
+LilyPond 2.18 has been brought to you by
+
+@table @asis
+@item Main Developers:
+Bertrand Bordage, Trevor Daniels, Colin Hall, Phil Holmes, Ian
+Hulin, Reinhold Kainhofer, David Kastrup, Jonathan Kulp, Werner
+Lemberg, John Mandereau, Patrick McCarty, Joe Neeman, Han-Wen
+Nienhuys, Jan Nieuwenhuizen, Graham Percival, Mark Polesky, Neil
+Puttock, Mike Solomon, Carl Sorensen, Francisco Vila, Valentin
+Villenave, Janek Warchoł
+
+@item Core Contributors:
+Aleksandr Andreev, Frédéric Bron, Torsten Hämmerle, Marc Hohl,
+James Lowe, Andrew Main, Thomas Morley, David Nalesnik, Keith
+OHara, Benkő Pál, Anders Pilegaard, Julien Rioux, Johannes Rohrer,
+Adam Spiers, Heikki Tauriainen
+
+@item Documentation Writers:
+Frédéric Bron, Federico Bruni, Colin Campbell, Urs Liska, James
+Lowe, Thomas Morley, Jean-Charles Malahieude, Guy Stalnaker,
+Martin Tarenskeen, Arnold Theresius, Rodolfo Zitellini
+
+@item Bug Squad:
+Colin Campbell, Eluze, Marc Hohl, Phil Holmes, Marek Klein, Ralph
+Palmer
+
+@item Support Team:
+Colin Campbell, Eluze, Marc Hohl, Marek Klein, Kieren MacMillan,
+Urs Liska, Ralph Palmer
+
+@item Translators:
+Federico Bruni, Luca Rossetto Casel, Felipe Castro, Pavel Fric,
+Jean-Charles Malahieude, Till Paala, Yoshiki Sawada
+
+@end table
+and numerous other contributors.
 
 @newsEnd
 

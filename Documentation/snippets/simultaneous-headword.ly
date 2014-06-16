@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.17.11"
+\version "2.19.2"
 
 \header {
   lsrtags = "headword"
@@ -67,10 +67,10 @@ trillFlat =
       \trillFlat
       af''4.~ \startTrillSpan
       af''8.~ |
-      af''4.~ af''8.~ |
+      4.~ 8.~ |
       \oneVoice
       <af'' d''>8.[ a''8. \p \< bf''8.]~ |
-      bf''8.[ b''8. c'''8.]~
+      8.[ b''8. c'''8.]~
       \bar "||"
       \key ef \major
       c'''8.[ cs'''8.] \f \stopTrillSpan
@@ -83,17 +83,17 @@ trillFlat =
       \override Voice.TrillSpanner.direction = #DOWN
       d''4.~ \f \startTrillSpan
       d''8.~ |
-      d''4.~ d''8.~ |
-      d''8. \stopTrillSpan
+      4.~ 8.~ |
+      8. \stopTrillSpan
       \trillFlat
       d''4.~ \startTrillSpan |
-      d''4.~ d''8.~ |
-      d''4.~ d''8.~ |
-      d''4.~ d''8.~ \stopTrillSpan |
+      d''4.~ 8.~ |
+      4.~ 8.~ |
+      4.~ 8.~ \stopTrillSpan |
       \trillFlat
       d''4.~ \startTrillSpan
       d''8. ~ |
-      d''4.~ d''8.~ |
+      4.~ 8.~ |
       \once \override NoteColumn.ignore-collision = ##t
       \hideNotes
       d''8. \stopTrillSpan
@@ -126,8 +126,8 @@ trillFlat =
         \override Voice.TrillSpanner.direction = #UP
         f'4.~ \startTrillSpan
         f'8.~ |
-        f'4.~ f'8.~ |
-        f'8. \stopTrillSpan
+        4.~ 8.~ |
+        8. \stopTrillSpan
       }
       \new Voice {
         \voiceTwo

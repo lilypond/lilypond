@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -63,7 +63,7 @@ Simultaneous_music_iterator::construct_children ()
 
       SCM name = ly_symbol2scm (get_outlet ()->context_name ().c_str ());
       Context *c = (j && create_separate_contexts_)
-                   ? get_outlet ()->find_create_context (name, to_string (j), SCM_EOL)
+                   ? get_outlet ()->find_create_context (name, ::to_string (j), SCM_EOL)
                    : get_outlet ();
 
       if (!c)

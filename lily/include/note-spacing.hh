@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2001--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2001--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -29,9 +29,9 @@ class Note_spacing
 public:
   DECLARE_GROB_INTERFACE ();
 
-  static Spring get_spacing (Grob *me, Item *, Real, Real);
+  static Spring get_spacing (Grob *me, Item *, Spring, Real);
   static void stem_dir_correction (Grob *me, Item *next_col, Real incr,
-                                   Real *, Real *);
+                                   Real *space);
 };
 
 #endif /* NOTE_SPACING_HH */

@@ -47,13 +47,13 @@ RedirectMatch ^/stable    /doc/stable
 #RedirectMatch ^/development    /doc/development
 
 #old# default doc dir
-RedirectMatch ^/doc/*$ /doc/v2.16
+RedirectMatch ^/doc/*$ /doc/v2.18
 # make attempt at `latest' symlink avoid ^v catch-all doc fix rule below
-RedirectMatch ^/doc//*latest/*(.*)$ /doc/v2.17/$1
-RedirectMatch ^/doc//*development/*(.*)$ /doc/v2.17/$1
-RedirectMatch ^/doc//*stable/*(.*)$ /doc/v2.16/$1
-RedirectMatch ^/doc//*([^v].*)$ /doc/v2.16/$1
-RedirectMatch ^(/Documentation.*)$ /doc/v2.16$1
+RedirectMatch ^/doc//*latest/*(.*)$ /doc/v2.19/$1
+RedirectMatch ^/doc//*development/*(.*)$ /doc/v2.19/$1
+RedirectMatch ^/doc//*stable/*(.*)$ /doc/v2.18/$1
+RedirectMatch ^/doc//*([^v].*)$ /doc/v2.18/$1
+RedirectMatch ^(/Documentation.*)$ /doc/v2.18$1
 RedirectMatch ^/index$ /
 
 # fix root calculation: no double slashes
@@ -61,7 +61,7 @@ RedirectMatch ^/index$ /
 
 ###########################################
 
-## Rewrite all non-existing files at toplevel to the /web/ dir, so our
+## Rewrite all non-existing files at toplevel to the /website/ dir, so our
 ## internal structure for rsync doesn't have to be changed.
 ## This works for the current/old site as well as the new one.
 
@@ -70,7 +70,7 @@ RewriteBase /
 
 SetEnvIf REQUEST_URI .* WEB=/website
 
-# Rewrite empty to /web
+# Rewrite empty to /website
 RewriteCond %{REQUEST_URI} ^/*$
 RewriteRule ^(/*)$ %{ENV:WEB}/ [QSA,L]
 
@@ -80,12 +80,12 @@ RewriteCond %{REQUEST_URI} ^/?[^/]+[.]css$
 RewriteCond %{REQUEST_FILENAME} !-f
 # ...and does not match an existing directory
 RewriteCond %{REQUEST_FILENAME} !-d
-# ...prefix with web
+# ...prefix with website
 RewriteRule ^(.+)$ %{ENV:WEB}/$1 [QSA,L]
 
 # Request without trailing slash
 RewriteCond %{REQUEST_URI} !.*/$
-# ...that would access a directory in /web
+# ...that would access a directory in /website
 RewriteCond %{DOCUMENT_ROOT}%{ENV:WEB}%{REQUEST_URI} -d
 # ...and does not start with /web
 RewriteCond %{REQUEST_URI} !^%{ENV:WEB}
@@ -95,7 +95,7 @@ RewriteCond %{REQUEST_URI} !^/doc$
 # ...add trailing slash for [menu] and to avoid /web/ in browser url
 RewriteRule ^(.+)$ http://%{HTTP_HOST}/$1/ [R,QSA,L]
 
-# Request that does not start with /web
+# Request that does not start with /website
 RewriteCond %{REQUEST_URI} !^/website
 RewriteCond %{REQUEST_URI} !^%{ENV:WEB}
 # ...and does not start with /doc/
@@ -108,6 +108,9 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 # ..prefix with /web
 RewriteRule ^(.+)$ %{ENV:WEB}/$1 [QSA,L]
+
+## Redirect the old web/ to the homepage
+RedirectMatch 301 ^/web/.* /
 
 ###########################################
 

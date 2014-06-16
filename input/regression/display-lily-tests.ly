@@ -107,7 +107,7 @@ stderr of this run."
 \test ##[ c4 ~ #]			 		% TieEvent
 \test ##[ c\noBeam #] 					% BeamForbidEvent
 \test ##[ c\1 #] 					% StringNumberEvent
-\test ##[ { c: c:1 } #]					% TremoloEvent
+\test ##[ { c:8 c:1 } #]				% TremoloEvent
 \test ##[ { c-^ c^^ c_^ } #]				% ArticulationEvent
 \test ##[ { c-+ c^+ c_+ } #]
 \test ##[ { c-- c^- c_- } #]
@@ -182,6 +182,9 @@ stderr of this run."
 \test ##[ \tuplet 6/4 { c16 d e f g a } #]
 \test ##[ \tuplet 3/2 { c4 d e \tuplet 5/2 { f4 e d2 d4 } c4 } #]
 \test ##[ \tuplet 3/2 2 { c4 d e \tuplet 5/2 2 { f4 e d2 d4 } c4 } #]
+
+%% pure rhythm
+\test ##[ { 4 4 8 \tuplet 3/2 { 8[ 16] } 16 } #]
 
 %% \relative and \tranpose
 \test #"NOT A BUG" ##[ \relative c' { c b } #]	% RelativeOctaveMusic

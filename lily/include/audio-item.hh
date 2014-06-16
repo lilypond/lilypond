@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1996--2012 Jan Nieuwenhuizen <janneke@gnu.org>
+  Copyright (C) 1996--2014 Jan Nieuwenhuizen <janneke@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -82,7 +82,7 @@ public:
 class Audio_note : public Audio_item
 {
 public:
-  Audio_note (Pitch p, Moment m, bool tie_event, Pitch transposition);
+  Audio_note (Pitch p, Moment m, bool tie_event, Pitch transposition, int velocity);
 
   // with tieWaitForNote, there might be a skip between the tied notes!
   void tie_to (Audio_note *, Moment skip = 0);
@@ -93,6 +93,7 @@ public:
   Moment length_mom_;
   Pitch transposing_;
   Audio_dynamic *dynamic_;
+  int extra_velocity_;
 
   Audio_note *tied_;
   bool tie_event_;

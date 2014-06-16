@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1998--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1998--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -77,6 +77,22 @@ Music_wrapper_iterator::pending_moment () const
     return child_iter_->pending_moment ();
   else
     return Music_iterator::pending_moment ();
+}
+
+Context *
+Music_wrapper_iterator::get_outlet () const
+{
+  if (child_iter_)
+    return child_iter_->get_outlet ();
+  return Music_iterator::get_outlet ();
+}
+
+void
+Music_wrapper_iterator::set_context (Context *trans)
+{
+  if (child_iter_)
+    child_iter_->set_context (trans);
+  Music_iterator::set_context (trans);
 }
 
 IMPLEMENT_CTOR_CALLBACK (Music_wrapper_iterator);

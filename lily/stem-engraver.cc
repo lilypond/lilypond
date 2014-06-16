@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -84,17 +84,7 @@ Stem_engraver::make_stem (Grob_info gi, bool tuplet_start)
 
          the first and last (quarter) note both get one tremolo flag.  */
       int requested_type
-        = robust_scm2int (tremolo_ev_->get_property ("tremolo-type"), 0);
-      SCM f = get_property ("tremoloFlags");
-      if (!requested_type)
-        {
-          if (scm_is_number (f))
-            requested_type = scm_to_int (f);
-          else
-            requested_type = 8;
-        }
-      else
-        context ()->set_property ("tremoloFlags", scm_from_int (requested_type));
+        = robust_scm2int (tremolo_ev_->get_property ("tremolo-type"), 8);
 
       /*
         we take the duration log from the Event, since the duration-log
@@ -254,7 +244,6 @@ ADD_TRANSLATOR (Stem_engraver,
                 "StemTremolo ",
 
                 /* read */
-                "tremoloFlags "
                 "stemLeftBeamCount "
                 "stemRightBeamCount "
                 "whichBar ",

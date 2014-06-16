@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.20"
+@c \version "2.19.2"
 
 @node Tweaking output
 @chapter Tweaking output
@@ -2922,12 +2922,12 @@ collide with the ties:
 {
   \time 4/2
   <<
-    { c'1 ~ c'2. e'8 f' }
+    { c'1 ~ 2. e'8 f' }
     \\
     { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
   >>
   <<
-    { c'1 ~ c'2. e'8 f' }
+    { c'1 ~ 2. e'8 f' }
     \\
     { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
   >>
@@ -2946,7 +2946,7 @@ say, 1:
 {
   \time 4/2
   <<
-    { c'1 ~ c'2. e'8 f' }
+    { c'1 ~ 2. e'8 f' }
     \\
     {
       \override Beam.positions = #'(-1 . -1)
@@ -2954,7 +2954,7 @@ say, 1:
     }
   >>
   <<
-    { c'1 ~ c'2. e'8 f' }
+    { c'1 ~ 2. e'8 f' }
     \\
     { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
   >>
@@ -3143,7 +3143,7 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % continuation of main voice
       \new Voice {
         \voiceTwo
-        c,8~ c2
+        c,8~ 2
       }
       \new Voice {
         \voiceThree
@@ -3200,7 +3200,7 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % continuation of main voice
       \new Voice {
         \voiceTwo
-        c,8~ c2
+        c,8~ 2
       }
       \new Voice {
         \voiceThree
@@ -3272,7 +3272,7 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % continuation of main voice
       \new Voice {
         \voiceTwo
-        c,8~ c2
+        c,8~ 2
       }
       \new Voice {
         \voiceThree
@@ -3353,7 +3353,7 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % continuation of main voice
       \new Voice {
         \voiceTwo
-        c,8~ c2
+        c,8~ 2
       }
       \new Voice {
         \voiceThree
@@ -3587,7 +3587,7 @@ same voice can be connected with ties.  By using two voices,
 with the tied notes in one of them
 
 @lilypond[quote,fragment,relative=2]
-<< { b8~ b\noBeam } \\ { b8[ g] } >>
+<< { b8~ 8\noBeam } \\ { b8[ g] } >>
 @end lilypond
 
 @noindent
@@ -3601,7 +3601,7 @@ cross voices:
 <<
   {
     \tweak Stem.transparent ##t
-    b8~ b\noBeam
+    b8~ 8\noBeam
   }
 \\
   { b8[ g] }
@@ -3617,7 +3617,7 @@ too much, we can lengthen the stem by setting the
   {
     \tweak Stem.transparent ##t
     \tweak Stem.length #8
-    b8~ b\noBeam
+    b8~ 8\noBeam
   }
 \\
   { b8[ g] }
@@ -3639,7 +3639,7 @@ possible to rewrite the above example as
     \single \hide Stem
     \single \hide Flag
     \tweak Stem.length #8
-    b8~ b\noBeam
+    b8~ 8\noBeam
   }
 \\
   { b8[ g] }

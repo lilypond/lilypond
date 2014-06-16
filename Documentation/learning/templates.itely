@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.19.2"
 
 @node Templates
 @appendix Templates
@@ -18,6 +18,7 @@ already set up for you.  Just add notes, run LilyPond, and enjoy
 beautiful printed scores!
 
 @menu
+* Built-in templates::
 * Single staff templates::
 * Piano templates::
 * String quartet templates::
@@ -26,6 +27,177 @@ beautiful printed scores!
 * Ancient notation templates::
 * Other templates::
 @end menu
+
+
+@node Built-in templates
+@appendixsec Built-in templates
+
+A template, suitable for a range of choral music, is built into
+LilyPond.  This may be used to create simple choral music, with or
+without piano accompaniment, in two or four staves.  Unlike other
+templates, this template is @q{built-in}, which means it does not
+need to be copied and edited:  instead it is simply 
+@code{\include}'d in the input file.
+
+@warning {Unlike most included files, this built-in template must be
+@code{\include}'d at the @emph{end} of the input file.}
+
+The required music expressions are entered by defining values for
+specific variables.  These definition must come before the
+@code{\include}'d file.
+
+The music may be set out with one or two voices per staff by setting
+@code{TwoVoicesPerStaff} to @code{##f} or @code{##t} respectively.
+
+Here's the complete input file for producing a full four-part SATB
+arrangement with individual lyrics and piano accompaniment:
+
+@lilypond[verbatim, quote]
+  SopranoMusic = \relative { a'4\f a8 a a4 a }
+  SopranoLyrics = \lyricmode { Sop -- ra -- no ly -- rics }
+  AltoMusic = \relative { d'4\f d d d }
+  AltoLyrics = \lyricmode { Al -- to ly -- rics }
+  TenorMusic = \relative { a4\p a a a }
+  TenorLyrics = \lyricmode { Te -- nor ly -- rics }
+  BassMusic = \relative { c2\p c4 c }
+  BassLyrics = \lyricmode { Bass ly -- rics }
+  PianoRHMusic = \relative { c' e g c }
+  PianoDynamics = { s2\mp s4 s4 }
+  PianoLHMusic = \relative { c e g c }
+  \include "satb.ly"
+@end lilypond
+
+The same input can be used to produce a score with two voices
+per staff just by setting @code{TwoVoicesPerStaff} to @code{##t}.
+Again, each voice has individual lyrics.
+
+
+@lilypond[verbatim, quote]
+  SopranoMusic = \relative { a'4\f a8 a a4 a }
+  SopranoLyrics = \lyricmode { Sop -- ra -- no ly -- rics }
+  AltoMusic = \relative { d'4\f d d d }
+  AltoLyrics = \lyricmode { Al -- to ly -- rics }
+  TenorMusic = \relative { a4\p a a a }
+  TenorLyrics = \lyricmode { Te -- nor ly -- rics }
+  BassMusic = \relative { c2\p c4 c }
+  BassLyrics = \lyricmode { Bass ly -- rics }
+  PianoRHMusic = \relative { c' e g c }
+  PianoDynamics = { s2\mp s4 s4 }
+  PianoLHMusic = \relative { c e g c }
+  TwoVoicesPerStaff = ##t
+  \include "satb.ly"
+@end lilypond
+
+When @code{TwoVoicesPerStaff} is set to false or allowed to default,
+any of the music variables may be omitted to produce arrangements
+with fewer voices.  Here, for example, is how the input file for a
+Soprano/Bass duet might be written:
+
+@lilypond[verbatim,quote]
+  SopranoMusic = \relative { c'' c c c }
+  SopranoLyrics = \lyricmode { High voice ly -- rics }
+  BassMusic = \relative { a a a a }
+  BassLyrics = \lyricmode { Low voice ly -- rics }
+  \include "satb.ly"
+@end lilypond
+
+A second verse or alternative lyrics may be added to each of the
+parts:
+
+@lilypond[verbatim, quote]
+  SopranoMusic = \relative { a'4 a a a }
+  SopranoLyricsOne = \lyricsto "Soprano" {
+    \set stanza = "1."
+    Words to verse one
+  }
+  SopranoLyricsTwo = \lyricsto "Soprano" {
+    \set stanza = "2."
+    Words to verse two
+  }
+  \include "satb.ly"
+@end lilypond
+
+When the lyrics and rhythms are the same for every part, the vocal
+music is best arranged on two staves with two voices in each.  Up to
+nine verses may be provided.  Here's an unaccompanied example with
+just three verses.
+
+@lilypond[verbatim, quote]
+  SopranoMusic = \relative { a' a a a }
+  AltoMusic = \relative { f' f f f }
+  VerseOne = \lyricmode {
+    \set stanza = "1."
+    Words to verse one
+  }
+  VerseTwo = \lyricmode {
+    \set stanza = "2."
+    Words to verse two
+  }
+  VerseThree = \lyricmode {
+    \set stanza = "3."
+    Words to verse three
+  }
+  TenorMusic = \relative { a a a a }
+  BassMusic = \relative { f f f f }
+  TwoVoicesPerStaff = ##t
+  \include "satb.ly"
+@end lilypond
+
+Other variables may be given values.  The key signature and
+the time signature may be changed from the default:
+
+@lilypond[verbatim, quote]
+  Key = \key a \major
+  Time = {
+    \time 5/4
+    \tempo "Allegro" 4 = 144
+  }
+  SopranoMusic = \relative { gis' gis gis gis gis }
+  AltoMusic = \relative { cis' cis cis cis cis }
+  VerseOne = \lyricmode { Words to this du -- et }
+  TwoVoicesPerStaff = ##t
+  \include "satb.ly"
+@end lilypond
+
+The instrument names and/or the short instrument names may be
+changed:
+
+@lilypond[verbatim,quote]
+  SopranoMusic = \relative { c'' c c c }
+  SopranoLyrics = \lyricmode { High voice ly -- rics }
+  SopranoInstrumentName = "Soprano 1"
+  SopranoShortInstrumentName = "S1"
+  AltoMusic = \relative { a' a a a }
+  AltoLyrics = \lyricmode { Low voice ly -- rics }
+  AltoInstrumentName = "Soprano 2"
+  AltoShortInstrumentName = "S2"
+  \include "satb.ly"
+@end lilypond
+
+A descant may be added by defining values for the variable
+@code{DescantMusic} and descant lyrics may be provided by
+defining values for @code{DescantLyrics}.
+
+@code{\header} and @code{\paper} blocks may be added as normal.
+A @code{\layout} block may be provided as the value of the
+@code{Layout} variable:
+
+@example
+Layout = \layout @{ ... @}
+@end example
+
+The complete set of variables which may be changed can be seen by
+examining the file @file{ly/satb.ly}.
+
+@seealso
+Learning Manual:
+@ref{Organizing pieces with variables},
+@ref{Vocal ensembles templates},
+@ref{Extending the templates}.
+
+@knownissues
+More complex arrangements of SATB choral music are not possible with
+these simple built-in templates.
 
 
 @node Single staff templates
@@ -114,6 +286,11 @@ beautiful printed scores!
 
 @node Vocal ensembles templates
 @appendixsec Vocal ensembles templates
+
+The templates shown below should be copied into your score and edited
+there.  If you have a relatively simple SATB layout you may prefer to
+use the built-in templates, which can simply be @code{\include}'d, see
+@ref{Built-in templates}.
 
 @menu
 * SATB vocal score::
@@ -240,7 +417,7 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 
 @ The `line-width' is for \header.
 @li lypond[quote,verbatim,ragged-right,line-width]
-\version "2.16.0"
+\version "2.19.2"
 \header {
   dedication = "dedication"
   title = "Title"

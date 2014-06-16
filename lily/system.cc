@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1996--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1996--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -223,7 +223,7 @@ System::get_paper_systems ()
       scm_vector_set_x (lines, scm_from_int (i),
                         system->get_paper_system ());
 
-      debug_output (to_string (i) + "]", false);
+      debug_output (::to_string (i) + "]", false);
     }
   return lines;
 }

@@ -4,7 +4,7 @@
 
 # This file is part of LilyPond, the GNU music typesetter.
 #
-# Copyright (C) 1997--2012 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+# Copyright (C) 1997--2014 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 #
 # LilyPond is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -264,6 +264,6 @@ for filenm in files:
     open (global_lisp_nm, 'w').write (global_lisp_table (g))
     if depfile_nm:
         open (depfile_nm, 'wb').write (get_deps (deps,
-                                                 [base + '.log', base + '.dvi', base + '.pfa',
+                                                 [base + '.log', base + '.dvi',
                                                   depfile_nm,
                                                   base + '.pfb']))

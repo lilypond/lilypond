@@ -1,0 +1,14 @@
+
+% Used for example to print glyphs with stafflines
+test := 0;
+
+if test = -1:
+        % TODO: what's this?  Seems to be broken...
+        mode := smoke;
+fi;
+
+% change this to 0.5 to have glyphs positioned on
+% staff spaces instead of stafflines in testing mode
+% (useful e.g. to check how accidentals visually interact
+% with stafflines in different configurations).
+stafflines_y_offset := 0;

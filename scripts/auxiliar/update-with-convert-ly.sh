@@ -13,10 +13,8 @@ if [ -z $BUILD_DIR ]; then
 fi
 
 ### make sure convert-ly is up-to-date
-touch python/convertrules.py
-touch scripts/convert-ly.py
 cd $BUILD_DIR
-make
+make pythonmodules
 cd $TOP_SRC_DIR
 
 ### update manuals

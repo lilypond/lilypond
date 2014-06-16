@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2005--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2005--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -45,7 +45,7 @@ private:
   static bool fills_measure (Grob *, Item *, Item *);
 public:
   static vector<Grob *> get_columns (Grob *me);
-  static Real note_spacing (Grob *, Grob *, Grob *, Spacing_options const *);
+  static Spring note_spacing (Grob *, Grob *, Grob *, Spacing_options const *);
   static Spring standard_breakable_column_spacing (Grob *me, Item *l, Item *r, Spacing_options const *);
 
   DECLARE_SCHEME_CALLBACK (set_springs, (SCM));

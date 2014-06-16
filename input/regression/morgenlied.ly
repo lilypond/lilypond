@@ -27,7 +27,7 @@ been lowered
 
 }
 
-\version "2.17.6"
+\version "2.19.2"
 manuscriptBreak = { \break }
 
 
@@ -64,7 +64,7 @@ melody =    \relative c'' \repeat volta 2 \new Voice = "singer" {
   d4 f8 a16[ g fis g] f[ d] |
   g4. r8 gis gis |
   a4 a16.[ b32] c4 fis,8 |
-  g4.~ g8-\fermata g8 g |
+  g4.~ 8-\fermata g8 g |
   as4 as8 g4 g8 |
   fis4 fis8 r8 g g  |
   a!4 a8 g4 g8 |
@@ -157,8 +157,8 @@ pianoLH =  \relative c'' \repeat volta 2 {
 	   \new Staff <<
 	       \context Staff \accidentalStyle modern
 	       \melody >>
-	   \lyricsto "singer" \new Lyrics \firstVerse
-	   \lyricsto "singer" \new Lyrics \secondVerse
+	   \new Lyrics \lyricsto "singer" \firstVerse
+	   \new Lyrics \lyricsto "singer" \secondVerse
 	   \new PianoStaff << 
 	       \set PianoStaff.instrumentName = \markup {
 		   \bold

@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1996--2012 Jan Nieuwenhuizen <janneke@gnu.org>
+  Copyright (C) 1996--2014 Jan Nieuwenhuizen <janneke@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -62,9 +62,9 @@ Drum_note_performer::process_music ()
         {
           SCM articulations = n->get_property ("articulations");
           Stream_event *tie_event = 0;
-          for (SCM s = articulations;
-               !tie_event && scm_is_pair (s);
-               s = scm_cdr (s))
+          Moment len = get_event_length (n, now_mom ());
+          int velocity = 0;
+          for (SCM s = articulations; scm_is_pair (s); s = scm_cdr (s))
             {
               Stream_event *ev = unsmob_stream_event (scm_car (s));
               if (!ev)
@@ -72,12 +72,16 @@ Drum_note_performer::process_music ()
 
               if (ev->in_event_class ("tie-event"))
                 tie_event = ev;
+              SCM f = ev->get_property ("midi-length");
+              if (ly_is_procedure (f))
+                len = robust_scm2moment (scm_call_2 (f, len.smobbed_copy (),
+                                                     context ()->self_scm ()),
+                                         len);
+              velocity += robust_scm2int (ev->get_property ("midi-extra-velocity"), 0);
             }
 
-          Moment len = get_event_length (n, now_mom ());
-
           Audio_note *p = new Audio_note (*pit, len,
-                                          tie_event, Pitch (0, 0, 0));
+                                          tie_event, Pitch (0, 0, 0), velocity);
           Audio_element_info info (p, n);
           announce_element (info);
         }

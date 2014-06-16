@@ -8,7 +8,7 @@ heavily mutilated Edition Peters Morgenlied by Schubert"
 
 }
 
-\version "2.17.6"
+\version "2.19.2"
 #(ly:expect-warning (_ "(De)crescendo with unspecified starting volume in MIDI."))
 
 ignoreMelisma =	\set ignoreMelismata = ##t
@@ -47,7 +47,7 @@ melody =    \relative c'' \repeat volta 2 \context Voice = "singer" {
   \transpose a' e' \relative c'' { a16[ g fis! g] f![ d]  } |
   g4. r8 gis gis |
   a4 a16.[ b32] c8[( a]) fis8 |
-  g4.~ g8-\fermata
+  g4.~ 8-\fermata
 }
 
 
@@ -127,8 +127,8 @@ pianoLH =  \relative c'' \repeat volta 2\new Voice {
 	 } <<
 	   \context Staff \accidentalStyle modern
 	   \melody >>
-	 \lyricsto "singer" \new Lyrics \firstVerse
-	 \lyricsto "singer" \new Lyrics \secondVerse
+	 \new Lyrics \lyricsto "singer" \firstVerse
+	 \new Lyrics \lyricsto "singer" \secondVerse
 	 \new PianoStaff << 
 	   \set PianoStaff.instrumentName = \markup {
 	     \bold

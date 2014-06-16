@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2006--2012 Joe Neeman <joeneeman@gmail.com>
+  Copyright (C) 2006--2014 Joe Neeman <joeneeman@gmail.com>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -75,7 +75,9 @@ Optimal_page_breaking::solve ()
           if (page_count > 1 && best.systems_per_page_[page_count - 2] > 1)
             min_sys_count -= best.systems_per_page_[page_count - 2];
 
-          min_sys_count = max (min_sys_count, (vsize)1);
+          if (min_sys_count > ideal_sys_count  // subtraction wrapped around
+              || min_sys_count <= 0)
+            min_sys_count = 1;
         }
     }
   else

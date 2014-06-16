@@ -20,10 +20,14 @@ soulless look of computer-printed sheet music.  Musicians prefer
 reading beautiful music, so why couldn't programmers write
 software to produce elegant printed parts?
 
-The result is a system which frees musicians from the details of
-layout, allowing them to focus on making music.  LilyPond works
-with them to create publication-quality parts, crafted in the best
-traditions of classical music engraving.
+The result is a program that creates beautiful sheet music
+following the best traditions of classical music engraving.
+It takes care of the details of layout programmatically,
+allowing composers, transcribers and publishers to focus
+on the @emph{music} instead of improving their software's
+default output.  Performers will get parts that let them
+concentrate on @emph{playing} music instead of @emph{reading} it.
+
 
 @divEnd
 
@@ -100,8 +104,7 @@ traditions of classical music engraving.
 @divClass{column-center-top}
 
 
-@subheading Elegance
-@subsubheading Excellent classical engraving
+@subheading Excellent classical engraving
 
 @imageFloat{flat-design,png,right}
 
@@ -115,6 +118,52 @@ best-engraved classical scores.  This is further explained in our
 @ref{Essay}.
 
 
+@divEnd
+
+@divClass{column-center-top}
+@subheading Text input
+
+@subsubheading Everything is explicit
+
+LilyPond processes text input, which contains all information
+about the @emph{content} of your score and can easily be read
+by any human or another program. There are no obscure
+settings hidden behind menu items and binary file storage.
+
+Read more about this concept on @ref{Text input}.
+
+
+@subsubheading Tweaks are robust and traceable
+
+If you have to change anything in the layout this tweak will
+also be explicitly visible in the input file in human-readable
+form, so you will always be able to retrace what you've done.
+If you should accidentally break anything you can easily revert
+or modify any decision without being at the mercy of an
+@emph{Undo} function.
+
+
+@subsubheading Text files are failure- and future-proof
+
+Text files are very robust against file corruption. And as they are
+human-readable, you will always be able to interpret them even if
+you don't have access to the programs that created them.
+
+
+@subsubheading Manage your scores with version control
+
+Text files are applicable to be managed by version control. Go
+for it and experience infinite and selective undo/redo mechanisms
+and the full development history of your scores. Version control
+may also open up new (collaborative) workflows for you.
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Usability
+
+@imageFloat{lilypond-book,png,right}
+
 
 @subsubheading Effective layout choices
 
@@ -125,25 +174,11 @@ layout.  Clashes between lyrics, notes, and chords are resolved
 and slurs and beams are sloped, automatically!
 
 
-@divEnd
-
-@divClass{color2}
-@subheading Ease of use
-
-@imageFloat{lilypond-book,png,right}
-
-@subsubheading Text-based input
-
-LilyPond takes ASCII input, which you can produce in your favorite
-text editor, quickly and comfortably.  The input contains all the
-information, so there is no need to remember complex command sequences:
-simply save a file for later reference.
-
 @subsubheading Mix music and text
 
 Put fragments of music into texts without cutting and pasting
-pictures.  Integrate music into @LaTeX{} and HTML seamlessly, or add
-music to OpenOffice.org or LibreOffice with OOoLilyPond.  Plugins are
+pictures.  Integrate music into @LaTeX{} or HTML seamlessly, or add
+music to OpenOffice.org/LibreOffice with OOoLilyPond.  Plugins are
 also available to allow LilyPond code in various blogs and wikis, making
 online collaboration possible.
 
@@ -157,22 +192,88 @@ speech-recognition software to edit LilyPond files.  Even users
 who are totally blind can use screen-reading software to write
 LilyPond files -- an impossible task in graphical-based
 score-writing programs.
+You can see a spectacular score on @ref{Examples}.
 
-@subsubheading Extensible design
+@subsubheading Editor diversity
 
-All settings can be changed to suit your personal typographical
-taste.  If that still is not enough, there is always the built-in
-scripting language Scheme, a dialect of the powerful language
-LISP.  Settings, variables and functions are all documented in the
-comprehensive program reference manual.
+Several developers, themselves active LilyPond users,
+have written tools specifically aimed at making the process of editing
+LilyPond files faster and more effective; you are not tied to
+a single user interface but can use different tools for different tasks.
+You can even use a full-fledged LilyPond editor at home and use your
+mobile phone's notepad app to edit the files on the go. For some examples,
+see @ref{Easier editing}.
+@c TODO: Change this when the new pages have been written and pushed
+
 
 @divEnd
 
-@divClass{color3}
+@divClass{column-center-top}
+
+@subheading Extensible design
+
+@subsubheading Easy management of style sheets
+
+All layout settings can be changed to suit your personal typographical
+taste. So you can easily write style sheets that change every aspect of
+LilyPond scores' default appearance. As these are also written as text
+and can be stored in separate files you can simply switch between two
+stylesheets to produce scores with a completely different appearance or
+layout.
+You want to print a score on A4 paper and project it with a beamer,
+one system per page? LilyPond's layout engine will effortlessly produce
+both from the same input.
+
+@subsubheading Add your own functions
+
+If that still is not enough, there is always the built-in
+scripting language Scheme, which can access LilyPond's layout
+engine at the same level as LilyPond itself does, making it
+a @emph{very} powerful tool.
+Settings, variables and functions are all documented in the
+comprehensive program reference manual.
+
+@subsubheading Process scores programmatically
+
+LilyPond input files can fully be edited or even generated by programs
+and scripts. This can for example be used for algorithmical composition.
+But you can also access the musical content for analysis, or manage
+input fragments in a database. There are no limitations except your
+imagination.
+
+
+@subsubheading Create new tools using LilyPond
+
+As LilyPond isn't a monolithic GUI program but a command line tool it
+can be used from within other applications too. This way it is possible
+to equip tools like e.g. web applications with LilyPond's engraving
+power. There already exist several online tools using LilyPond.
+
+@c (TBD: Add a link to the new @ref{Applications} page.
+
+
+@divEnd
+
+@divClass{column-center-top}
 
 @subheading Environment
 
 @imageFloat{frescobaldi-lilypond-editor-small,png,right}
+
+
+
+@subsubheading Excellent support
+
+LilyPond runs on all popular platforms: GNU/Linux, MacOS X, and
+Windows.  LilyPond comes with extensive documentation and hundreds
+of example files.  There is an active user community answering
+questions on the lilypond-user mailing list, offering you friendly
+help. The response time is usually very short, and often brillant
+solutions to reported problems are developed. Thanks to the close
+interaction with the development team such solutions are regularly
+included in LilyPond itself.
+Read more in @ref{Community}.
+
 
 @subsubheading Free software
 
@@ -183,24 +284,7 @@ It's also free (as in @qq{speech}) software.  It comes with source
 code, and permission to change and copy it.  So, are you irritated
 by a bug, or yearning for a feature? Simply add it yourself, or
 pay someone else to do it.
-
-
-@subsubheading Excellent support
-
-LilyPond runs on all popular platforms: GNU/Linux, MacOS X, and
-Windows.  LilyPond comes with extensive documentation and hundreds
-of example files.  There is an active user community answering
-questions on the lilypond-user mailing list, while the development
-team makes sure that problems are solved quickly.
-
-
-@subsubheading Enhanced editors
-
-
-Several developers, themselves active LilyPond users, have also
-written tools specifically aimed at making the process of editing
-LilyPond files faster and more effective.  For some examples, see
-@ref{Easier editing}.
+Read more on @ref{Freedom}.
 
 @divEnd
 @divClass{column-center-bottom}
@@ -215,6 +299,10 @@ already decided to try LilyPond, first read about our
 
 @node Examples
 @unnumberedsec Examples
+
+@divClass{column-center-top}
+
+@subheading Beautiful examples
 
 LilyPond is a powerful and flexible tool for engraving tasks of
 all kinds.  Please browse our gallery of examples and be inspired!
@@ -298,6 +386,15 @@ The colors have been added for better visibility.
 @newsEnd
 
 @newsItem
+@subsubheading Customized Output
+
+A short excerpt from Stockhausen's Klavierstück II to demonstrate
+Lilypond's ability to provide customised output.
+
+@exampleImage{Stockhausen_Klavierstueck2}
+@newsEnd
+
+@newsItem
 @subsubheading Vocal Music
 
 LilyPond is excellent for vocal music of all kinds, from sacred
@@ -342,6 +439,7 @@ contributed by Hu Haipeng, a blind composer.
 @exampleImage{orchestra}
 @newsEnd
 
+@divEnd
 
 @divClass{column-center-bottom}
 @subheading Where now?
@@ -471,9 +569,11 @@ LilyPond, first read about our @ref{Text input}.
 We have an extensive essay describing computational aesthetics:
 the art of creating beauty with a computer.
 
-If you just want a quick introduction to LilyPond, the essay might
-be too much material to read.  If you would like to read it now,
-please progress to @ref{Essay}.
+This is interesting reading if you are interested in an in-depth
+discussion of our fundamental ideas.  Due to its volume the
+essay is available as a "manual".  If you would like to read
+it now, please progress to @ref{Essay}.  However, if you just
+want a quick introduction to LilyPond, you might skip it for now.
 @divEnd
 
 @divClass{column-center-bottom}
@@ -487,6 +587,16 @@ try LilyPond, first read about our @ref{Text input}.
 
 @node Productions
 @unnumberedsec Productions
+
+@divClass{column-center-top}
+
+@subheading Productions using LilyPond
+
+Here you can read about people who actually use LilyPond
+in their productions, be it for performances of their
+music or as published scores.
+
+@divEnd
 
 @divClass{column-left-top}
 @subheading Concerts
@@ -644,6 +754,12 @@ If you've already decided to try LilyPond, first read about our
 
 @node Reviews
 @unnumberedsec Reviews
+
+@divClass{column-center-top}
+@subheading What do people say about LilyPond?
+
+@divEnd
+
 
 @divClass{column-left-top}
 @subheading Published articles
@@ -1039,9 +1155,9 @@ help new users, beginning with @ref{Learning}.  The Learning
 Manual is the best place to start, as many questions are answered
 before they come up!
 
-Please read the Learning Manual before complaining about bugs!
-New users occasionally believe that LilyPond is not working
-correctly, when in fact it is working precisely as designed.
+Occasionally new users are unnecessarily confused by some aspects
+of LilyPond's behaviour.  Please read this manual before doubting
+whether LilyPond is working correctly.
 
 More in-depth information is available in @ref{Manuals}.
 

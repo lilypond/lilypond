@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2001--2012  Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2001--2014  Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -36,13 +36,12 @@
 #include "warn.hh"
 
 /*
-  TODO: detect hshifts due to collisions, and account for them in
-  spacing?
+  Adjust the ideal and minimum distance between note columns,
+  based on the notehead size, skylines, and optical illusions.
 */
-
 Spring
 Note_spacing::get_spacing (Grob *me, Item *right_col,
-                           Real base_space, Real increment)
+                           Spring base, Real increment)
 {
   vector<Item *> note_columns = Spacing_interface::left_note_columns (me);
   Real left_head_end = 0;
@@ -73,16 +72,12 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
     The main factor that determines the amount of space is the width of the
     note head (or the rest). For example, a quarter rest gets almost 0.5 ss
     less horizontal space than a note.
-
-    The other parts of a note column (eg. flags, accidentals, etc.) don't get
-    the full amount of space. We give them half the amount of space, but then
-    adjust things so there are no collisions.
   */
+  Real ideal = base.distance () - increment + left_head_end;
   Drul_array<Skyline> skys = Spacing_interface::skylines (me, right_col);
   Real distance = skys[LEFT].distance (skys[RIGHT], robust_scm2double (right_col->get_property ("skyline-vertical-padding"), 0.0));
   Real min_dist = max (0.0, distance);
-  Real min_desired_space = left_head_end + (min_dist - left_head_end + base_space - increment) / 2;
-  Real ideal = base_space - increment + left_head_end;
+  base.set_min_distance (min_dist);
 
   /* If we have a NonMusical column on the right, we measure the ideal distance
      to the bar-line (if present), not the start of the column. */
@@ -95,24 +90,21 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
                                                       Bar_line::non_empty_barline);
 
       if (bar)
-        {
-          Real shift = bar->extent (right_col, X_AXIS)[LEFT];
-          ideal -= shift;
-          min_desired_space -= max (shift, 0.0);
-        }
+        ideal -= bar->extent (right_col, X_AXIS)[LEFT];
       else
-        ideal -= right_col->extent (right_col, X_AXIS)[RIGHT];
+        {
+          /* Measure ideal distance to the right side of the NonMusical column
+             but keep at least half the gap we would have had to a note */
+          Real min_desired_space = (ideal + min_dist) / 2.0;
+          ideal -= right_col->extent (right_col, X_AXIS)[RIGHT];
+          ideal = max (ideal, min_desired_space);
+        }
     }
 
-  ideal = max (ideal, min_desired_space);
-  stem_dir_correction (me, right_col, increment, &ideal, &min_desired_space);
+  stem_dir_correction (me, right_col, increment, &ideal);
 
-  /* TODO: grace notes look bad when things are stretched. Should we increase
-     their stretch strength? */
-  Spring ret (max (0.0, ideal), min_dist);
-  ret.set_inverse_compress_strength (max (0.0, ideal - min_desired_space));
-  ret.set_inverse_stretch_strength (max (0.1, base_space - increment));
-  return ret;
+  base.set_distance (max (0.0, ideal));
+  return base;
 }
 
 static Real
@@ -206,7 +198,7 @@ same_direction_correction (Grob *note_spacing, Drul_array<Interval> head_posns)
 void
 Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
                                    Real increment,
-                                   Real *space, Real *fixed)
+                                   Real *space)
 {
   Drul_array<Direction> stem_dirs (CENTER, CENTER);
   Drul_array<Interval> stem_posns;
@@ -310,7 +302,6 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
            && !acc_right)
     correction = same_direction_correction (me, head_posns);
 
-  *fixed += correction;
   *space += correction;
 
   /* there used to be a correction for bar_xextent () here, but

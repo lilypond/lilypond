@@ -1,5 +1,5 @@
 
-\version "2.17.15"
+\version "2.19.7"
 \header{
 texidoc="
 Key signatures may appear on key changes, even without a barline.  
@@ -25,7 +25,7 @@ are created also on a clef change.
     \break
     \key bes \major % \major
     c2 \clef alto c2   \key d \major \clef treble c2
-    \set Staff.keySignature = #`((4 . ,FLAT) (6 . ,THREE-Q-SHARP) (2 . ,SEMI-FLAT))
+    \set Staff.keyAlterations = #`((4 . ,FLAT) (6 . ,THREE-Q-SHARP) (2 . ,SEMI-FLAT))
     e2
 }
 

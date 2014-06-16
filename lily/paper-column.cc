@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -237,7 +237,7 @@ Paper_column::print (SCM p)
 {
   Paper_column *me = dynamic_cast<Paper_column *> (unsmob_grob (p));
 
-  string r = to_string (Paper_column::get_rank (me));
+  string r = ::to_string (Paper_column::get_rank (me));
 
   Moment *mom = unsmob_moment (me->get_property ("when"));
   string when = mom ? mom->to_string () : "?/?";

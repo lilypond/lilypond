@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.17.30"
+@c \version "2.19.2"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -408,7 +408,7 @@ b16*4 c4
 タイはチルド記号 @code{~} を使って入力します:
 
 @lilypond[quote,verbatim,relative=2]
-a2 ~ a
+a2 ~ 2
 @end lilypond
 
 タイは、音符が小節線をまたがる場合か、リズムを表すためにドットを@c
@@ -421,8 +421,8 @@ a2 ~ a
 @c KEEP LY
 @lilypond[verbatim,quote]
 \relative c' {
-  r8 c8 ~ c2 r4 |
-  r8^"こうすべきではありません" c2 ~ c8 r4
+  r8 c8 ~ 2 r4 |
+  r8^"こうすべきではありません" c2 ~ 8 r4
 }
 @end lilypond
 
@@ -508,26 +508,26 @@ L.v. タイは以下のように入力します:
 
 @lilypond[quote, verbatim, relative=1]
 \tieDotted
-c2 ~ c
+c2 ~ 2
 \tieDashed
-c2 ~ c
+c2 ~ 2
 \tieHalfDashed
-c2 ~ c
+c2 ~ 2
 \tieHalfSolid
-c2 ~ c
+c2 ~ 2
 \tieSolid
-c2 ~ c
+c2 ~ 2
 @end lilypond
 
 破線パターンのカスタマイズを指定することができます:
 
 @lilypond[quote, verbatim, relative=1]
 \tieDashPattern #0.3 #0.75
-c2 ~ c
+c2 ~ 2
 \tieDashPattern #0.7 #1.5
-c2 ~ c
+c2 ~ 2
 \tieSolid
-c2 ~ c
+c2 ~ 2
 @end lilypond
 
 タイの破線パターン定義の構造は、スラーの破線パターン定義と同じです。@c

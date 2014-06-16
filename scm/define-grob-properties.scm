@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 1998--2012  Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 1998--2014  Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -170,19 +170,17 @@ when a spanner is broken at a line break.")
 ;;;
 ;;; c
 ;;;
+     (chord-dots-limit ,integer? "Limits the column of dots
+on each chord to the height of the chord plus
+@code{chord-dots-limit} staff-positions.")
      (circled-tip ,boolean? "Put a circle at start/@/end of
 hairpins (al/@/del niente).")
      (clip-edges ,boolean? "Allow outward pointing beamlets at the
 edges of beams?")
      (collapse-height ,ly:dimension? "Minimum height of system start
 delimiter.  If equal or smaller, the bracket/@/brace/@/line is removed.")
-     (collision-bias ,number? "Number determining how much to favor the
-left (negative) or right (positive).  Larger absolute values in either
-direction will push a collision in this direction.")
      (collision-interfaces ,list? "A list of interfaces for which
 automatic beam-collision resolution is run.")
-     (collision-padding ,number? "Amount of padding to apply after
-a collision is detected via the self-alignment-interface.")
      (collision-voice-only ,boolean? "Does automatic beam collsion apply
 only to the voice in which the beam was created?")
      (color ,color? "The color of this grob.")
@@ -314,7 +312,9 @@ include @code{upright}, @code{italic}, @code{caps}.")
 @q{normal}@tie{}size.  @code{0}@tie{}is style-sheet's normal size,
 @w{@code{-1}} is smaller, @code{+1} is bigger.  Each step of@tie{}1 is
 approximately 12% larger; 6@tie{}steps are exactly a factor@tie{}2
-larger.  Fractional values are allowed.")
+larger.  If the context property @code{fontSize} is set, its value is
+added to this before the glyph is printed.  Fractional values are
+allowed.")
      (footnote ,boolean? "Should this be a footnote or in-note?")
      (footnote-music ,ly:music? "Music creating a footnote.")
      (footnote-text ,markup? "A footnote for the grob.")
@@ -530,6 +530,8 @@ bar lines, this is the amount of space after a thick line.")
      (knee-spacing-correction ,number? "Factor for the optical
 correction amount for kneed beams.  Set between @code{0} for no
 correction and @code{1} for full correction.")
+     (knee-to-beam ,boolean? "Determines whether a tuplet number
+will be positioned next to a kneed beam.")
 
 
 ;;;
@@ -799,9 +801,8 @@ ending at that staff-position.")
      (shorten-pair ,number-pair? "The lengths to shorten a
 text-spanner on both sides, for example a pedal bracket.  Positive
 values shorten the text-spanner, while negative values lengthen it.")
-     (shortest-duration-space ,ly:dimension? "Start with this much
-space for the shortest duration.  This is expressed in
-@code{spacing-increment} as unit.  See also
+     (shortest-duration-space ,number? "Start with this multiple of
+@code{spacing-increment} space for the shortest duration.  See also
 @rinternals{spacing-spanner-interface}.")
      (shortest-playing-duration ,ly:moment? "The duration of the
 shortest note playing here.")
@@ -846,8 +847,8 @@ instead of to the beginning of the non-musical column.  If there is a
 clef change followed by a bar line, for example, this means that we
 will try to space the non-musical column as though the clef is not
 there.")
-     (spacing-increment ,number? "Add this much space for a doubled
-duration.  Typically, the width of a note head.  See also
+     (spacing-increment ,ly:dimension? "The unit of length for
+note-spacing.  Typically, the width of a note head.  See also
 @rinternals{spacing-spanner-interface}.")
      (spacing-pair ,pair? "A pair of alignment symbols which set an object's
 spacing relative to its left and right @code{BreakAlignment}s.
@@ -983,8 +984,8 @@ possible.")
 ;;; u
 ;;;
      (uniform-stretching ,boolean? "If set, items stretch
-proportionally to their durations.  This looks better in complex
-polyphonic patterns.")
+proportionally to their natural separation based on durations.
+This looks better in complex polyphonic patterns.")
      (used ,boolean? "If set, this spacing column is kept in the
 spacing problem.")
      (usable-duration-logs ,list? "List of @code{duration-log}s that
@@ -1015,7 +1016,8 @@ texts.")
 ;;;
 ;;; x
 ;;;
-     (X-extent ,number-pair? "Hard coded extent in X@tie{}direction.")
+     (X-extent ,number-pair? "Extent (size) in the X@tie{}direction,
+measured in staff-space units, relative to object's reference point.")
      (X-offset ,number? "The horizontal amount that this object is
 moved relative to its X-parent.")
      (X-positions ,number-pair? "Pair of X staff coordinates of a spanner
@@ -1026,7 +1028,8 @@ in the form @code{(@var{left} . @var{right})}, where both @var{left} and
 ;;;
 ;;; y
 ;;;
-     (Y-extent ,number-pair? "Hard coded extent in Y@tie{}direction.")
+     (Y-extent ,number-pair? "Extent (size) in the Y@tie{}direction,
+measured in staff-space units, relative to object's reference point.")
      (Y-offset ,number? "The vertical amount that this object is moved
 relative to its Y-parent.")
 
@@ -1144,8 +1147,6 @@ pure-from-neighbor-interface to determine various grob heights.")
      (note-heads ,ly:grob-array? "An array of note head grobs.")
      (pedal-text ,ly:grob? "A pointer to the text of a mixed-style piano
 pedal.")
-     (potential-X-colliding-grobs ,ly:grob-array? "Grobs that can potentially
-collide with a self-aligned grob on the X-axis.")
      (pure-relevant-grobs ,ly:grob-array? "All the grobs (items and spanners)
 that are relevant for finding the @code{pure-Y-extent}")
      (pure-relevant-items ,ly:grob-array? "A subset of elements that are
@@ -1192,10 +1193,6 @@ results, use @code{LEFT} and @code{RIGHT}.")
      (vertical-skyline-elements ,ly:grob-array? "An array of grobs
 used to create vertical skylines.")
 
-     (X-colliding-grobs ,ly:grob-array? "Grobs that can collide
-with a self-aligned grob on the X-axis.")
-     (Y-colliding-grobs ,ly:grob-array? "Grobs that can collide
-with a self-aligned grob on the Y-axis.")
      (X-common ,ly:grob? "Common reference point for axis group.")
      (Y-common ,ly:grob? "See @code{X-common}.")
 

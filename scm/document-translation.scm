@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2000--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 2000--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -143,18 +143,19 @@
            (path (cdr args)))
 
         (string-append
-         "@item Set "
-         (format #f "grob-property @code{~a} "
+         (format #f "@item Set grob-property @code{~a} "
                  (string-join (map symbol->string path) " "))
-         (format #f "in @ref{~a} to ~a."
-                 context-sym (scm->texi value))
-         "\n")))
+         (format #f "in @ref{~a} to" context-sym)
+         (if (pretty-printable? value)
+           (format #f ":~a\n" (scm->texi value))
+           (format #f " ~a.\n" (scm->texi value))))))
      ((equal? (object-property context-sym 'is-grob?) #t) "")
      ((equal? tag 'assign)
-      (format #f "@item Set translator property @code{~a} to ~a.\n"
-              context-sym
-              (scm->texi (car args))))
-     )))
+      (string-append
+        (format #f "@item Set translator property @code{~a} to" context-sym)
+        (if (pretty-printable? (car args))
+          (format #f ":~a\n" (scm->texi (car args)))
+          (format #f " ~a.\n" (scm->texi (car args)))))))))
 
 
 (define (context-doc context-desc)

@@ -2,7 +2,7 @@
 
 %%%% This file is part of LilyPond, the GNU music typesetter.
 %%%%
-%%%% Copyright (C) 2003--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+%%%% Copyright (C) 2003--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 %%%%                          Jan Nieuwenhuizen <janneke@gnu.org>
 %%%%
 %%%% LilyPond is free software: you can redistribute it and/or modify
@@ -221,6 +221,14 @@ barNumberCheck =
 					 "Barcheck failed got ~a expect ~a"
 					 cbn n))))))
 
+beamExceptions =
+#(define-scheme-function (parser location music) (ly:music?)
+   (_i "Extract a value suitable for setting
+@code{Timing.beamExceptions} from the given pattern with explicit
+beams in @var{music}.  A bar check @code{|} has to be used between
+bars of patterns in order to reset the timing.")
+   (extract-beam-exceptions music))
+
 bendAfter =
 #(define-event-function (parser location delta) (real?)
    (_i "Create a fall or doit of pitch interval @var{delta}.")
@@ -245,7 +253,15 @@ bookOutputSuffix =
 breathe =
 #(define-music-function (parser location) ()
    (_i "Insert a breath mark.")
-   (make-music 'BreathingEvent))
+   (make-music 'BreathingEvent
+     'midi-length
+     (lambda (len context)
+       ;;Shorten by half, or by up to a second, but always by a power of 2
+       (let* ((desired (min (ly:moment-main (seconds->moment 1 context))
+                            (* (ly:moment-main len) 1/2)))
+              (scale (inexact->exact (ceiling (/ (log desired) (log 1/2)))))
+              (breath (ly:make-moment (expt 1/2 scale))))
+         (ly:moment-sub (ly:make-moment (ly:moment-main len)) breath)))))
 
 clef =
 #(define-music-function (parser location type) (string?)
@@ -270,7 +286,7 @@ as @code{\\compoundMeter #'((3 2 8))} or shorter
          (timesig (cons (ly:moment-main-numerator mlen)
                         (ly:moment-main-denominator mlen))))
   #{
-    \once \override Staff.TimeSignature.stencil = #(lambda (grob)
+    \once \override Timing.TimeSignature.stencil = #(lambda (grob)
       (grob-interpret-markup grob (format-compound-time args)))
     \set Timing.timeSignatureFraction = #timesig
     \set Timing.baseMoment = #beat
@@ -328,25 +344,30 @@ in a CueVoice oriented by @var{dir}.")
 
 
 displayLilyMusic =
-#(define-music-function (parser location music) (ly:music?)
+#(define-music-function (parser location port music) ((output-port?) ly:music?)
    (_i "Display the LilyPond input representation of @var{music}
-to the console.")
-   (newline)
-   (display-lily-music music parser)
+to @var{port}, defaulting to the console.")
+   (let ((port (or port (current-output-port))))
+     (newline port)
+     (display-lily-music music parser port))
    music)
 
 displayMusic =
-#(define-music-function (parser location music) (ly:music?)
-   (_i "Display the internal representation of @var{music} to the console.")
-   (newline)
-   (display-scheme-music music)
+#(define-music-function (parser location port music) ((output-port?) ly:music?)
+   (_i "Display the internal representation of @var{music} to
+@var{port}, default to the console.")
+   (let ((port (or port (current-output-port))))
+     (newline port)
+     (display-scheme-music music port))
    music)
 
 displayScheme =
-#(define-scheme-function (parser location expr) (scheme?)
-   (_i "Display the internal representation of @var{expr} to the console.")
-   (newline)
-   (display-scheme-music expr)
+#(define-scheme-function (parser location port expr) ((output-port?) scheme?)
+   (_i "Display the internal representation of @var{expr} to
+@var{port}, default to the console.")
+   (let ((port (or port (current-output-port))))
+     (newline port)
+     (display-scheme-music expr port))
    expr)
 
 
@@ -611,6 +632,29 @@ languageRestore =
       (ly:input-warning location (_ "No other language was defined previously. Ignoring."))))
 
 
+magnifyMusic =
+#(define-music-function (parser location mag mus) (number? ly:music?)
+   (_i "Magnify the notation of @var{mus} without changing the
+staff-size, using @var{mag} as a size factor.  Stems, beams, and
+horizontal spacing are adjusted automatically.")
+   #{
+     \set fontSize = #(magnification->font-size mag)
+     % gives beam-thickness=0.48 when mag=1 (like default),
+     % gives beam-thickness=0.35 when mag=0.63 (like CueVoice)
+     \temporary \override Beam.beam-thickness = #(+ 119/925 (* mag 13/37))
+     \temporary \override Beam.length-fraction = #mag
+     \temporary \override Stem.length-fraction = #mag
+     \temporary \override Stem.thickness = #(* 1.3 (max 1 mag))
+     \temporary \override Score.SpacingSpanner.spacing-increment = #(* 1.2 mag)
+     #mus
+     \set fontSize = 0
+     \revert Beam.beam-thickness
+     \revert Beam.length-fraction
+     \revert Stem.length-fraction
+     \revert Stem.thickness
+     \revert Score.SpacingSpanner.spacing-increment
+   #})
+
 makeClusters =
 #(define-music-function (parser location arg) (ly:music?)
    (_i "Display chords in @var{arg} as clusters.")
@@ -733,7 +777,7 @@ appropriate tweak applied.")
               \override #prop-path = #(offsetter (third prop-path) offsets)
             #}
             (make-music 'Music)))))
- 
+
 omit =
 #(define-music-function (parser location item) (symbol-list-or-music?)
    (_i "Set @var{item}'s @samp{stencil} property to @code{#f},
@@ -1260,9 +1304,7 @@ shiftDurations =
    (_i "Change the duration of @var{arg} by adding @var{dur} to the
 @code{durlog} of @var{arg} and @var{dots} to the @code{dots} of @var{arg}.")
 
-   (music-map
-    (lambda (x)
-      (shift-one-duration-log x dur dots)) arg))
+   (shift-duration-log arg dur dots))
 
 single =
 #(define-music-function (parser location overrides music)

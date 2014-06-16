@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2006--2012 Joe Neeman <joeneeman@gmail.com>
+  Copyright (C) 2006--2014 Joe Neeman <joeneeman@gmail.com>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -195,7 +195,6 @@ compress_lines (const vector<Line_details> &orig)
       else
         {
           ret.push_back (orig[i]);
-          ret.back ().force_ = 0;
         }
     }
   return ret;
@@ -632,7 +631,11 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
       else
         config = layout.solution (rag);
 
-      last_page_force = layout.force ();
+      if ((ragged () && layout.force () < 0.0)
+          || isinf (layout.force ()))
+        warning (_f ("page %d has been compressed", page_num));
+      else
+        last_page_force = layout.force ();
 
       systems_configs_fncounts = scm_cons (scm_cons (lines, config), systems_configs_fncounts);
       footnote_count += fn_lines;
@@ -1169,9 +1172,8 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
       cur_page_height -= min_whitespace_at_top_of_page (cached_line_details_[page_starter]);
       cur_page_height -= min_whitespace_at_bottom_of_page (cached_line_details_.back ());
 
-      Real cur_height = cur_rod_height + ((ragged_last () || ragged ()) ? cur_spring_height : 0);
       if (!too_few_lines (line_count - cached_line_details_.back ().compressed_nontitle_lines_count_)
-          && cur_height > cur_page_height
+          && cur_rod_height > cur_page_height
           /* don't increase the page count if the last page had only one system */
           && cur_rod_height > cached_line_details_.back ().full_height ())
         ret++;
@@ -1437,7 +1439,9 @@ Page_breaking::finalize_spacing_result (vsize configuration, Page_spacing_result
       line_penalty += uncompressed_line_details_[i].break_penalty_;
     }
 
-  for (vsize i = 0; i < res.force_.size (); i++)
+  for (vsize i = ragged () ? res.force_.size () - 1 : 0;
+       i < res.force_.size () - ragged_last ();
+       i++)
     {
       Real f = res.force_[i];
 
@@ -1545,9 +1549,11 @@ Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_n
       page1_penalty[i] = line_count_penalty (page1_line_count);
       page1_status[i] = line_count_status (page1_line_count);
 
-      if (ragged2)
+      if (ragged1)
         page2_force[page2_force.size () - 1 - i]
           = (page2.force_ < 0 && i + 1 < page1_force.size ()) ? infinity_f : 0;
+      else if (ragged2 && page2.force_ > 0)
+        page2_force[page2_force.size () - 1 - i] = 0.0;
       else
         page2_force[page2_force.size () - 1 - i] = page2.force_;
       page2_penalty[page2_penalty.size () - 1 - i] = line_count_penalty (page2_line_count);

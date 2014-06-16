@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2002--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2002--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -418,7 +418,7 @@ position_apes (Grob *me,
         {
           Real mh = ape->horizontal_skylines_[d].max_height ();
           if (!isinf (mh))
-            width.add_point (mh);
+            width.add_point (mh + offset);
         }
 
       last_offset = offset;

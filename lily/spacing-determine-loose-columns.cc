@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2005--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2005--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -155,7 +155,7 @@ Spacing_spanner::set_distances_for_loose_col (Grob *me, Grob *c,
                 The note spacing should be taken from the musical
                 columns.
               */
-              Real base = note_spacing (me, lc, rc, options);
+              Spring base = note_spacing (me, lc, rc, options);
               Spring spring = Note_spacing::get_spacing (sp, rc, base, options->increment_);
 
               dists[d] = max (dists[d], spring.min_distance ());

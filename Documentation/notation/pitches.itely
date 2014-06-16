@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.18"
+@c \version "2.19.2"
 
 
 @node Pitches
@@ -405,7 +405,7 @@ Accidentals on tied notes are only printed at the beginning of a
 new system:
 
 @lilypond[verbatim,quote,relative=2,ragged-right]
-cis1~ cis~
+cis1~ 1~
 \break
 cis
 @end lilypond
@@ -1225,10 +1225,10 @@ any @code{\override} done to the @var{Clef} will also need to be
 applied, as a separate @code{\override}, to the @var{ClefModifier}
 grob.
 
-@lilypond[fragment,quote,relative=1]
+@lilypond[fragment,quote,verbatim,relative=1]
 \new Staff \with {
-  \override ClefModifier.color = #red
   \override Clef.color = #blue
+  \override ClefModifier.color = #red
 }
 
 \clef "treble_8" c4
@@ -2443,6 +2443,124 @@ musicB = {
 }
 @end lilypond
 
+@item dodecaphonic-no-repeat
+
+@cindex dodecaphonic accidental style
+@cindex dodecaphonic style, neo-modern
+
+@funindex dodecaphonic-no-repeat
+
+Like with the dodecaphonic accidental style @emph{every} note
+gets an accidental sign by default, but accidentals are
+suppressed for pitches immediately repeated within one voice.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle dodecaphonic-no-repeat
+      \musicA
+    }
+    \context Staff = "down" {
+      \accidentalStyle dodecaphonic-no-repeat
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+
+@item dodecaphonic-first
+
+@cindex dodecaphonic accidental style
+@cindex dodecaphonic style, neo-modern
+
+@funindex dodecaphonic-first
+
+Similar to the dodecaphonic accidental style @emph{every} pitch
+gets an accidental sign, but only the first time it is encountered
+in a measure.  Accidentals are only remembered for the actual octave
+but throughout voices.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle dodecaphonic-first
+      \musicA
+    }
+    \context Staff = "down" {
+      \accidentalStyle dodecaphonic-first
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
 
 @item teaching
 
@@ -3072,8 +3190,8 @@ rhythm.  Such note heads can be created:
   e8 e g a a16( bes) a8 g
   \improvisationOn
   e8 ~
-  e2 ~ e8 f4 f8 ~
-  f2
+  2 ~ 8 f4 f8 ~
+  2
   \improvisationOff
   a16( bes) a8 g e
 }

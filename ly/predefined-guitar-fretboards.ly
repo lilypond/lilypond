@@ -1,6 +1,6 @@
 %%%% This file is part of LilyPond, the GNU music typesetter.
 %%%%
-%%%% Copyright (C) 2008--2012 Carl D. Sorensen <c_sorensen@byu.edu>
+%%%% Copyright (C) 2008--2014 Carl D. Sorensen <c_sorensen@byu.edu>
 %%%%
 %%%% LilyPond is free software: you can redistribute it and/or modify
 %%%% it under the terms of the GNU General Public License as published by
@@ -495,7 +495,7 @@
                         #"x;x;o;1-1;o;1-2;"
 \storePredefinedDiagram #default-fret-table \chordmode {b:7}
                         #guitar-tuning
-                        #(offset-fret 1 (chord-shape 'bes:7 guitar-tuning))
+                        #"x;2-2;1-1;2-3;o;2-4;"
 \storePredefinedDiagram #default-fret-table \chordmode {b:maj7}
                         #guitar-tuning
                         #"x;2-1;4-3;3-2;4-4;x;"

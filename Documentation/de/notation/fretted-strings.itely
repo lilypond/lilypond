@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.17.30"
+@c \version "2.19.2"
 
 @c Translators: Till Paala
 
@@ -191,7 +191,7 @@ symbols = {
   c4-.^"Allegro" d( e)
   f4-.\f g a^\fermata
   \mark \default
-  c8_.\<\( c16 c~ c2\!
+  c8_.\<\( c16 c~ 2\!
   c'2.\prall\)
 }
 
@@ -218,7 +218,7 @@ symbols = {
   c4-.^"Allegro" d( e)
   f4-.\f g a^\fermata
   \mark \default
-  c8_.\<\( c16 c~ c2\!
+  c8_.\<\( c16 c~ 2\!
   c'2.\prall\)
 }
 
@@ -288,7 +288,7 @@ dass er durch @code{\tabChordRepeats} zur Verfügung gestellt wird.
 
 @lilypond[quote,verbatim]
 guitar = \relative c' {
-  r8 <gis-2 cis-3 b-0>~ q4 q8~ q q4
+  r8 <gis-2 cis-3 b-0>~ q4 q8~ 8 q4
 }
 
 \new StaffGroup <<
@@ -309,7 +309,7 @@ gesetzt.  Das gilt auch für die zweite Klammer einer Wiederholung.
 ties = \relative c' {
   \repeat volta 2 {
     e2. f4~
-    f2 g2~
+    2 g2~
   }
   \alternative {
      { g4 f2. }
@@ -349,7 +349,7 @@ Bundnummern in Klammern gesetzt werden:
 ties = \relative c' {
   \repeat volta 2 {
     e2. f4~
-    f2 g2~ }
+    2 g2~ }
   \alternative {
     { g4 f2. }
     { g4\repeatTie c,2. }

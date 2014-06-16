@@ -27,6 +27,153 @@ NOTE:
 @end ignore
 
 @newsItem
+@subsubheading LilyPond 2.19.7 released  @emph{May 25, 2014}
+
+We are happy to announce the release of LilyPond 2.19.7.  This
+release includes a number of enhancements, and contains some work
+in progress.  You will have access to the very latest features, but
+some may be incomplete, and you may encounter bugs and crashes.  If you
+require a stable version of Lilypond, we recommend using the 2.18
+version.
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.19.6 released  @emph{May 11, 2014}
+
+We are happy to announce the release of LilyPond 2.19.6.  This
+release includes a number of enhancements, and contains some work
+in progress.  You will have access to the very latest features, but
+some may be incomplete, and you may encounter bugs and crashes.  If you
+require a stable version of Lilypond, we recommend using the 2.18
+version.
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.19.5 released  @emph{April 20, 2014}
+
+We are happy to announce the release of LilyPond 2.19.5.  This
+release includes a number of enhancements, and contains
+some work in progress.  You will have access to the very latest features, but
+some may be incomplete, and you may encounter bugs and crashes.  If you require
+a stable version of Lilypond, we recommend using the 2.18 version.
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.19.4 released  @emph{April 6, 2014}
+
+We are happy to announce the release of LilyPond 2.19.4.  This
+release includes a number of enhancements, and contains
+some work in progress.  You will have access to the very latest features, but
+some may be incomplete, and you may encounter bugs and crashes.  If you require
+a stable version of Lilypond, we recommend using the 2.18 version.
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.19.3 released  @emph{March 2, 2014}
+
+We are happy to announce the release of LilyPond 2.19.3.  This
+release includes a number of enhancements, and contains
+some work in progress.  You will have access to the very latest features, but
+some may be incomplete, and you may encounter bugs and crashes.  If you require
+a stable version of Lilypond, we recommend using the 2.18 version.
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.18.1  @emph{February 16, 2014}
+
+We have released updated manuals for LilyPond's stable version, 2.18.
+The manuals are now for 2.18.1 and have a number of updates and improvements
+over 2.18.0.  There will be a further release of 2.18 in the future (2.18.2),
+and this will include the updates to the manuals as well as some minor
+enhancements to the LilyPond core functionality.
+
+To summarise the current situation: stable LilyPond application: 2.18.0;
+stable LilyPond manuals: 2.18.1; development for both: 2.19.2.
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.19.2 released  @emph{February 2, 2014}
+
+We are happy to announce the release of LilyPond 2.19.2.  This
+release includes a number of enhancements, and contains
+some work in progress.  You will have access to the very latest features, but
+some may be incomplete, and you may encounter bugs and crashes.  If you require
+a stable version of Lilypond, we recommend using the 2.18 version.
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.19.1 released  @emph{January 19, 2014}
+
+We are happy to announce the release of LilyPond 2.19.1.  This
+release includes a number of enhancements, and contains
+some work in progress.  You will have access to the very latest features, but
+some may be incomplete, and you may encounter bugs and crashes.  If you require
+a stable version of Lilypond, we recommend using the 2.18 version.
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.19.0 released  @emph{January 5, 2014}
+
+We are happy to announce the release of LilyPond 2.19.0.  This
+release includes a number of enhancements, and contains
+some work in progress.  You will have access to the very latest features, but
+some may be incomplete, and you may encounter bugs and crashes.  If you require
+a stable version of Lilypond, we recommend using the 2.18 version.
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.17.97 released!  @emph{December 8, 2013}
+
+We are excited to announce the release of LilyPond@tie{}2.17.97 as
+a potential final beta release for the upcoming stable release@tie{}2.18.  The
+developers believe this to be feature-complete, the
+documentation to be accurate, and no important issues to be
+overlooked.  For upgrading the syntax of your input files to the
+latest version, see @uref{http://www.lilypond.org/doc/v2.17/Documentation/usage/updating-files-with-convert_002dly, Updating files with convert-ly}.
+Please test this release and report back any problems, see
+@uref{http://www.lilypond.org/website/bug-reports.html, Bug reports}.
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.17.96 released!  @emph{November 24, 2013}
+
+We are excited to announce the release of LilyPond@tie{}2.17.96 as
+a further beta release for the upcoming stable release@tie{}2.18.  The
+developers believe the release to be feature-complete, the
+documentation to be accurate, and no important issues to be
+overlooked.  For upgrading the syntax of your input files to the
+latest version, see @uref{http://www.lilypond.org/doc/v2.17/Documentation/usage/updating-files-with-convert_002dly, Updating files with convert-ly}.
+Please test this release and report back any problems, see
+@uref{http://www.lilypond.org/website/bug-reports.html, Bug reports}.
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.17.95 released!  @emph{November 3, 2013}
+
+We are excited to announce the release of LilyPond@tie{}2.17.95 as
+beta release for the upcoming stable release@tie{}2.18.  The
+developers are still busy finding solutions for some last-minute
+problems, but the release is supposed to be feature-complete, the
+documentation to be accurate, and no important issues to be
+overlooked.  For upgrading the syntax of your input files to the
+latest version, see @rprogram{Updating files with convert-ly}.
+Please test this release and report back any problems, see
+@rweb{Bug reports}.
+
+@newsEnd
+
+@newsItem
 @subsubheading LilyPond 2.17.29 released!  @emph{October 20, 2013}
 
 We are happy to announce the release of LilyPond 2.17.29.  This

@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1998--2012 Jan Nieuwenhuizen <janneke@gnu.org>
+  Copyright (C) 1998--2014 Jan Nieuwenhuizen <janneke@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -39,14 +39,12 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
   virtual void finalize ();
-  virtual void derived_mark () const;
   DECLARE_TRANSLATOR_LISTENER (note);
   DECLARE_TRANSLATOR_LISTENER (rest);
 private:
   Item *chord_name_;
   vector<Stream_event *> notes_;
 
-  SCM last_chord_;
   Stream_event *rest_event_;
 };
 
@@ -55,16 +53,9 @@ Chord_name_engraver::finalize ()
 {
 }
 
-void
-Chord_name_engraver::derived_mark () const
-{
-  scm_gc_mark (last_chord_);
-}
-
 Chord_name_engraver::Chord_name_engraver ()
 {
   chord_name_ = 0;
-  last_chord_ = SCM_EOL;
   rest_event_ = 0;
 }
 
@@ -148,11 +139,12 @@ Chord_name_engraver::process_music ()
     markup = maybe_markup;
 
   SCM chord_changes = get_property ("chordChanges");
-  if (to_boolean (chord_changes) && scm_is_pair (last_chord_)
-      && ly_is_equal (markup, last_chord_))
+  SCM last_chord = get_property ("lastChord");
+  if (to_boolean (chord_changes) && scm_is_pair (last_chord)
+      && ly_is_equal (markup, last_chord))
     chord_name_->set_property ("begin-of-line-visible", SCM_BOOL_T);
 
-  last_chord_ = markup;
+  context ()->set_property ("lastChord", markup);
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Chord_name_engraver, note);
@@ -195,9 +187,10 @@ ADD_TRANSLATOR (Chord_name_engraver,
                 "chordNoteNamer "
                 "chordRootNamer "
                 "chordNameExceptions "
+                "lastChord "
                 "majorSevenSymbol "
                 "noChordSymbol ",
 
                 /* write */
-                ""
+                "lastChord "
                );

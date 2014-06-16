@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.20"
+@c \version "2.19.2"
 
 @node Modifica dell'output
 @chapter Modifica dell'output
@@ -3254,12 +3254,12 @@ con le legature di valore:
 {
   \time 4/2
   <<
-    { c'1 ~ c'2. e'8 f' }
+    { c'1 ~ 2. e'8 f' }
     \\
     { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
   >>
   <<
-    { c'1 ~ c'2. e'8 f' }
+    { c'1 ~ 2. e'8 f' }
     \\
     { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
   >>
@@ -3279,7 +3279,7 @@ centrale a, per esempio, 1:
 {
   \time 4/2
   <<
-    { c'1 ~ c'2. e'8 f' }
+    { c'1 ~ 2. e'8 f' }
     \\
     {
       \override Beam.positions = #'(-1 . -1)
@@ -3287,7 +3287,7 @@ centrale a, per esempio, 1:
     }
   >>
   <<
-    { c'1 ~ c'2. e'8 f' }
+    { c'1 ~ 2. e'8 f' }
     \\
     { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
   >>
@@ -3478,7 +3478,7 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % continuazione della voce principale
       \new Voice {
         \voiceTwo
-        c,8~ c2
+        c,8~ 2
       }
       \new Voice {
         \voiceThree
@@ -3536,7 +3536,7 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % continuazione della voce principale
       \new Voice {
         \voiceTwo
-        c,8~ c2
+        c,8~ 2
       }
       \new Voice {
         \voiceThree
@@ -3608,7 +3608,7 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % continuazione della voce principale
       \new Voice {
         \voiceTwo
-        c,8~ c2
+        c,8~ 2
       }
       \new Voice {
         \voiceThree
@@ -3690,7 +3690,7 @@ rhMusic = \relative c'' {
       { c,8 d fis bes a }  % continuazione della voce principale
       \new Voice {
         \voiceTwo
-        c,8~ c2
+        c,8~ 2
       }
       \new Voice {
         \voiceThree
@@ -3929,7 +3929,7 @@ stessa voce possono essere unite da una legatura di valore.
 Se si usano due voci con le note legate in una voce
 
 @lilypond[quote,fragment,relative=2]
-<< { b8~ b\noBeam } \\ { b8[ g] } >>
+<< { b8~ 8\noBeam } \\ { b8[ g] } >>
 @end lilypond
 
 @noindent
@@ -3944,7 +3944,7 @@ attraversare le voci:
 <<
   {
     \tweak Stem.transparent ##t
-    b8~ b\noBeam
+    b8~ 8\noBeam
   }
 \\
   { b8[ g] }
@@ -3960,7 +3960,7 @@ possiamo allungarlo impostando la proprietà
   {
     \tweak Stem.transparent ##t
     \tweak Stem.length #8
-    b8~ b\noBeam
+    b8~ 8\noBeam
   }
 \\
   { b8[ g] }
@@ -3984,7 +3984,7 @@ in questo modo
     \single \hide Stem
     \single \hide Flag
     \tweak Stem.length #8
-    b8~ b\noBeam
+    b8~ 8\noBeam
   }
 \\
   { b8[ g] }

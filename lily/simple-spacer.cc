@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1999--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1999--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   TODO:
   - add support for different stretch/shrink constants?
@@ -193,7 +193,7 @@ Simple_spacer::expand_line ()
     inv_hooke += springs_[i].inverse_stretch_strength ();
 
   if (inv_hooke == 0.0) /* avoid division by zero. If springs are infinitely stiff */
-    return 0.0;         /* anyway, then it makes no difference what the force is */
+    inv_hooke = 1e-6;   /* then report a very large stretching force */
 
   assert (cur_len <= line_len_);
   return (line_len_ - cur_len) / inv_hooke + force_;

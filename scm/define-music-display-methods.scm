@@ -1,7 +1,7 @@
 ;;; define-music-display-methods.scm -- data for displaying music
 ;;; expressions using LilyPond notation.
 ;;;
-;;; Copyright (C) 2005--2012 Nicolas Sceaux  <nicolas.sceaux@free.fr>
+;;; Copyright (C) 2005--2014 Nicolas Sceaux  <nicolas.sceaux@free.fr>
 ;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -167,10 +167,8 @@ expression."
 
 
 (define-display-method TremoloEvent (event parser)
-  (let ((tremolo-type (ly:music-property event 'tremolo-type)))
-    (format #f ":~a" (if (= 0 tremolo-type)
-                         ""
-                         tremolo-type))))
+  (let ((tremolo-type (ly:music-property event 'tremolo-type 8)))
+    (format #f ":~a" tremolo-type)))
 
 (define-display-method ArticulationEvent (event parser) #t
   (let* ((articulation  (ly:music-property event 'articulation-type))
@@ -526,8 +524,17 @@ Otherwise, return #f."
                  (map-in-order (lambda (event)
                                  (music->lily-string event parser))
                                (ly:music-property note 'articulations))))
-        (else ;; unknown?
-         "")))
+        (else
+         ;; pure duration
+         ;; FIXME: { c4 c4 4 4 } must not be output as { c4 c 4 4 }
+         ;; quite tricky to do.  Do it when outputting sequences?
+         (format #f "~a~{~a~}"
+                 (duration->lily-string (ly:music-property note 'duration)
+                                        #:force-duration #t
+                                        #:remember #t)
+                 (map-in-order (lambda (event)
+                                 (music->lily-string event parser))
+                               (ly:music-property note 'articulations))))))
 
 (define-display-method ClusterNoteEvent (note parser)
   (simple-note->lily-string note parser))
@@ -715,29 +722,7 @@ Otherwise, return #f."
   (repeat->lily-string expr "percent" parser))
 
 (define-display-method TremoloRepeatedMusic (expr parser)
-  (let* ((main (ly:music-property expr 'element))
-         (children (if (music-is-of-type? main 'sequential-music)
-                       ;; \repeat tremolo n { ... }
-                       (length (extract-named-music main '(EventChord
-                                                           NoteEvent)))
-                       ;; \repeat tremolo n c4
-                       1))
-         (times (ly:music-property expr 'repeat-count))
-
-         ;; # of dots is equal to the 1 in bitwise representation (minus 1)!
-         (dots (1- (logcount (* times children))))
-         ;; The remaining missing multiplicator to scale the notes by
-         ;; times * children
-         (mult (/ (* times children (ash 1 dots)) (1- (ash 2 dots))))
-         (shift (- (ly:intlog2 (floor mult)))))
-    (set! main (ly:music-deep-copy main))
-    ;; Adjust the time of the notes
-    (ly:music-compress main (ly:make-moment children 1))
-    ;; Adjust the displayed note durations
-    (shift-duration-log main (- shift) (- dots))
-    (format #f "\\repeat tremolo ~a ~a"
-            times
-            (music->lily-string main parser))))
+  (repeat->lily-string expr "tremolo" parser))
 
 ;;;
 ;;; Contexts
@@ -808,13 +793,19 @@ Otherwise, return #f."
                       (music->lily-string element parser))
         #f)))
 
-(define (property-value->lily-string arg parser)
+(define-public (value->lily-string arg parser)
   (cond ((ly:music? arg)
          (music->lily-string arg parser))
         ((string? arg)
          (format #f "#~s" arg))
         ((markup? arg)
          (markup->lily-string arg))
+        ((ly:duration? arg)
+         (format #f "##{ ~a #}" (duration->lily-string arg #:force-duration #t)))
+        ((ly:pitch? arg)
+         (format #f "~a~a"
+                 (note-name->lily-string arg parser)
+                 (octave->lily-string arg)))
         (else
          (format #f "#~a" (scheme-expr->lily-string arg)))))
 
@@ -830,7 +821,7 @@ Otherwise, return #f."
                 ""
                 (format #f "~a . " (*current-context*)))
             property
-            (property-value->lily-string value parser)
+            (value->lily-string value parser)
             (new-line->lily-string))))
 
 (define-display-method PropertyUnset (expr parser)
@@ -858,7 +849,7 @@ Otherwise, return #f."
             (if (eqv? (*current-context*) 'Bottom)
                 (cons symbol properties)
                 (cons* (*current-context*) symbol properties))
-            (property-value->lily-string value parser)
+            (value->lily-string value parser)
             (new-line->lily-string))))
 
 (define-display-method RevertProperty (expr parser)

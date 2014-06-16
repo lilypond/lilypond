@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2008--2012 Han-Wen Nienhuys <hanwen@lilypond.org>
+  Copyright (C) 2008--2014 Han-Wen Nienhuys <hanwen@lilypond.org>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -260,7 +260,6 @@ Dynamic_engraver::acknowledge_note_column (Grob_info info)
   if (script_ && !script_->get_parent (X_AXIS))
     {
       extract_grob_set (info.grob (), "note-heads", heads);
-      Grob *stem = unsmob_grob (info.grob ()->get_object ("stem"));
       /*
         Spacing constraints may require dynamics to be aligned on rests,
         so check for a rest if this note column has no note heads.
@@ -273,8 +272,6 @@ Dynamic_engraver::acknowledge_note_column (Grob_info info)
           script_->set_parent (x_parent, X_AXIS);
           Self_alignment_interface::set_center_parent (script_, X_AXIS);
         }
-      if (stem)
-        Pointer_group_interface::add_grob (script_, ly_symbol2scm ("potential-X-colliding-grobs"), stem);
     }
 
   if (current_spanner_ && !current_spanner_->get_bound (LEFT))

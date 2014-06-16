@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 1998--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 1998--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -53,9 +53,9 @@
          (sig-type-names (map type-name sig))
          (signature-str
           (string-join
-           (map (lambda (x) (string-append
-                             "@var{" (car x) "} ("  (cadr x) ")" ))
-                (zip arg-names  sig-type-names))
+           (map (lambda (x y) (string-append
+                             "@var{" x "} (" y ")" ))
+                arg-names  sig-type-names)
            " " )))
 
     (string-append

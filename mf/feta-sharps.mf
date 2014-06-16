@@ -1,0 +1,339 @@
+
+%
+% The beams of most sharps have horizontal endings (as if drawn with
+% a square pen).  [Wanske] does not mention this, so we'll just ignore
+% this fact.
+%
+
+save default_width, default_height, onestemmed_height;
+save default_interbeam_dist, triples_interbeam_dist;
+save default_beam_thickness, stem_thickness;
+
+default_width# := 1.1 staff_space#;
+default_height# := 3 staff_space#;
+onestemmed_height# := 2.66 staff_space#;
+define_pixels (default_width);
+
+default_interbeam_dist := 1.05 staff_space_rounded;
+triples_interbeam_dist := 1.2 staff_space_rounded;
+
+default_beam_thickness# := 0.3 staff_space# + stafflinethickness#;
+stem_thickness# := stafflinethickness# + .05 staff_space#;
+define_whole_blacker_pixels (stem_thickness);
+
+
+def draw_sharp_beam (expr length, y_offset) =
+        save beam_length;
+        save ne_beam_dir, nw_dist;
+        pair ne_beam_dir, nw_dist;
+
+        beam_length := length;
+
+        define_whole_vertical_blacker_pixels (default_beam_thickness);
+
+        clearxy;
+
+        pickup pencircle scaled 2 blot_diameter;
+
+        rt x2 - lft x1 = beam_length;
+        z2 = z1 + whatever * (beam_length, default_beam_thickness);
+        .5 [z1, z3] = (.5 w, y_offset);
+        x3 = x2;
+        top y2 - bot y3 = default_beam_thickness;
+        x4 = x1;
+        top y1 - bot y4 = default_beam_thickness;
+
+        ne_beam_dir = unitvector (z2 - z1);
+        nw_dist = (ne_beam_dir rotated 90) * blot_diameter;
+
+        fill lft z1{up}
+             ... (z1 + nw_dist){ne_beam_dir}
+             -- (z2 + nw_dist){ne_beam_dir}
+             ... rt z2{down}
+             -- rt z3{down}
+             ... (z3 - nw_dist){-ne_beam_dir}
+             -- (z4 - nw_dist){-ne_beam_dir}
+             ... lft z4{up}
+             -- cycle;
+
+	labels (1, 2, 3, 4);
+enddef;
+
+
+def draw_sharp (expr arrowup, arrowdown) =
+        save dist_between_stems;
+        save outer_space;
+        save half_height, interbeam_dist;
+
+        half_height# := 0.5 default_height#;
+        define_pixels (half_height);
+        interbeam_dist := default_interbeam_dist;
+
+        set_char_box (0, default_width#, half_height#, half_height#);
+        d := d - feta_space_shift;
+
+        dist_between_stems := hround (7 / 16 * default_width);
+        outer_space := hround ((w - dist_between_stems - stem_thickness) / 2);
+
+        w := 2 outer_space + dist_between_stems + stem_thickness;
+
+        draw_sharp_beam (w, -.5 interbeam_dist);
+        draw_sharp_beam (w, -.5 interbeam_dist + vround interbeam_dist);
+
+        % expand the charbox so that it encloses the whole arrow;
+        % this must not happen earlier because some commands above
+        % still rely on the old width
+        if arrowup:
+                w := w + 1.5 stafflinethickness;
+                h := h + 1.2 staff_space;
+        fi;
+        if arrowdown:
+                b := b + 1.5 stafflinethickness;
+                d := d + 1.2 staff_space;
+        fi;
+
+        pickup pencircle scaled stem_thickness;
+
+        lft x5 = lft x6 = outer_space;
+        lft x7 = lft x8 = outer_space + dist_between_stems;
+        bot y5 = -half_height;
+        top y8 = half_height;
+        z6 = z8 + whatever * ne_beam_dir;
+        bot y7 = -top y6 + feta_space_shift;
+
+        draw_gridline (z5, z6, stem_thickness);
+        draw_gridline (z7, z8, stem_thickness);
+
+        if arrowup:
+                draw_arrow (z8, stem_thickness, up,
+                            stafflinethickness / 2 + stem_thickness / 2, false);
+        fi;
+        if arrowdown:
+                draw_arrow (z5, stem_thickness, up,
+                            stafflinethickness / 2 + stem_thickness / 2, true);
+        fi;
+
+        labels (5, 6, 7, 8);
+        draw_staff_if_debugging (-2, 2);
+enddef;
+
+
+fet_beginchar ("Sharp", "sharp");
+	draw_sharp (false, false);
+fet_endchar;
+
+
+fet_beginchar ("Arrowed Sharp (arrow up)", "sharp.arrowup");
+	draw_sharp (true, false);
+fet_endchar;
+
+
+fet_beginchar ("Arrowed Sharp (arrow down)", "sharp.arrowdown");
+	draw_sharp (false, true);
+fet_endchar;
+
+
+fet_beginchar ("Arrowed Sharp (arrows up and down)", "sharp.arrowboth");
+	draw_sharp (true, true);
+fet_endchar;
+
+
+fet_beginchar ("1/2 Sharp", "sharp.slashslash.stem");
+        save outer_space;
+        save half_height, interbeam_dist;
+
+        half_height# := 0.5 onestemmed_height#;
+        define_pixels (half_height);
+        interbeam_dist := default_interbeam_dist;
+
+        set_char_box (0, 0.7 staff_space#, half_height#, half_height#);
+        d := d - feta_space_shift;
+
+        outer_space := hround ((w - stem_thickness) / 2);
+
+        w := 2 outer_space + stem_thickness;
+
+        draw_sharp_beam (w, -.5 interbeam_dist);
+        draw_sharp_beam (w, -.5 interbeam_dist + vround interbeam_dist);
+
+        pickup pencircle scaled stem_thickness;
+
+        lft x5 = lft x6 = outer_space;
+        top y6 = half_height;
+        bot y5 = -top y6 + feta_space_shift;
+
+        draw_gridline (z5, z6, stem_thickness);
+
+        labels (5, 6);
+        draw_staff_if_debugging (-2, 2);
+fet_endchar;
+
+
+fet_beginchar ("Sharp (3 beams)", "sharp.slashslashslash.stemstem");
+        save dist_between_stems;
+        save outer_space;
+        save half_height, interbeam_dist;
+        save default_beam_thickness;
+
+        half_height# := 0.5 default_height#;
+        define_pixels (half_height);
+        interbeam_dist := triples_interbeam_dist;
+
+        default_beam_thickness# := 0.22 staff_space# + stafflinethickness#;
+
+        set_char_box (0, default_width#, half_height#, half_height#);
+
+        dist_between_stems := hround (7 / 16 * default_width);
+        outer_space := hround ((w - dist_between_stems - stem_thickness) / 2);
+
+        w := 2 outer_space + dist_between_stems + stem_thickness;
+        d := d - feta_space_shift;
+
+        draw_sharp_beam (.88 w, -.5 interbeam_dist);
+        draw_sharp_beam (.88 w, -.5 interbeam_dist + vround interbeam_dist);
+        default_beam_thickness# := 1/.88 default_beam_thickness#;
+        draw_sharp_beam (w, 0);
+
+        pickup pencircle scaled stem_thickness;
+
+        lft x5 = lft x6 = outer_space;
+        lft x7 = lft x8 = outer_space + dist_between_stems;
+        bot y5 = -half_height;
+        top y8 = half_height;
+        z6 = z8 + whatever * ne_beam_dir;
+        bot y7 = -top y6 + feta_space_shift;
+
+        draw_gridline (z5, z6, stem_thickness);
+        draw_gridline (z7, z8, stem_thickness);
+
+        labels (5, 6, 7, 8);
+        draw_staff_if_debugging (-2, 2);
+fet_endchar;
+
+
+fet_beginchar ("1/2 Sharp (3 beams)", "sharp.slashslashslash.stem");
+        save outer_space;
+        save half_height, interbeam_dist;
+        save default_beam_thickness;
+
+        half_height# := 0.5 onestemmed_height#;
+        define_pixels (half_height);
+        interbeam_dist := triples_interbeam_dist;
+
+        default_beam_thickness# := 0.22 staff_space# + stafflinethickness#;
+
+        set_char_box (0, 0.95 staff_space#, half_height#, half_height#);
+
+        outer_space := hround ((w - stem_thickness) / 2);
+
+        w := 2 outer_space + stem_thickness;
+        d := d - feta_space_shift;
+
+        draw_sharp_beam (.8 w, -.5 interbeam_dist);
+        draw_sharp_beam (.8 w, -.5 interbeam_dist + vround interbeam_dist);
+        default_beam_thickness# := 1/.8 default_beam_thickness#;
+        draw_sharp_beam (w, 0);
+
+        pickup pencircle scaled stem_thickness;
+
+        lft x5 = lft x6 = outer_space;
+        top y6 = half_height;
+        bot y5 = -top y6 + feta_space_shift;
+
+        draw_gridline (z5, z6, stem_thickness);
+
+        labels (5, 6);
+        draw_staff_if_debugging (-2, 2);
+fet_endchar;
+
+
+fet_beginchar ("3/4 Sharp", "sharp.slashslash.stemstemstem");
+        save dist_between_stems;
+        save outer_space;
+        save half_height, interbeam_dist;
+
+        half_height# := 0.5 default_height#;
+        define_pixels (half_height);
+        interbeam_dist := default_interbeam_dist;
+
+        set_char_box (0, 1.6 staff_space#, half_height#, half_height#);
+        d := d - feta_space_shift;
+
+        dist_between_stems := hround (9 / 32 * w);
+        outer_space := hround ((w - 2 dist_between_stems - stem_thickness) / 2);
+
+        w := 2 outer_space + 2 dist_between_stems + stem_thickness;
+
+        draw_sharp_beam (w, -.5 interbeam_dist);
+        draw_sharp_beam (w, -.5 interbeam_dist + vround interbeam_dist);
+
+        pickup pencircle scaled stem_thickness;
+
+        lft x5 = lft x6 = outer_space;
+        lft x9 = lft x10 = outer_space + dist_between_stems;
+        lft x7 = lft x8 = outer_space + 2 dist_between_stems;
+        bot y5 = -half_height;
+        top y8 = half_height;
+        z6 = z8 + whatever * ne_beam_dir;
+        bot y7 = -top y6 + feta_space_shift;
+        y9 = .5 [y5, y7];
+        y10 = .5 [y6, y8];
+
+        draw_gridline (z5, z6, stem_thickness);
+        draw_gridline (z7, z8, stem_thickness);
+        draw_gridline (z9, z10, stem_thickness);
+
+        labels (5, 6, 7, 8, 9, 10);
+        draw_staff_if_debugging (-2, 2);
+fet_endchar;
+
+
+fet_beginchar ("Double Sharp", "doublesharp");
+        save klaverblad, klaversteel;
+        save pat;
+        path pat;
+
+        klaversteel = 1/15 staff_space;
+        klaverblad = .4 staff_space - .5 stafflinethickness;
+
+        set_char_box (0, staff_space#, .5 staff_space#, .5 staff_space#);
+
+        z1 = (klaversteel, 0);
+        z2 = (w / 2 - klaverblad / 10, h - klaverblad);
+        z3 = (w / 2, h);
+        z4 = z2 reflectedabout ((0, 0), (1, 1));
+        z5 = z1 reflectedabout ((0, 0), (1, 1));
+
+        pickup pencircle scaled blot_diameter;
+
+        x2 := hfloor (rt x2) - blot_diameter / 2;
+        x3 := hfloor (rt x3) - blot_diameter / 2;
+        y3 := vfloor (top y3) - blot_diameter / 2;
+        y4 := vfloor (top y4) - blot_diameter / 2;
+
+        pat = (rt z1){dir45}
+              .. {right}(bot z2)
+              .. rt z2
+              -- rt z3{z3 - z2}
+              .. top z3{z4 - z3}
+              -- top z4{z4 - z3}
+              .. (lft z4){down}
+              .. {dir 225}(top z5);
+        pat := pat
+               -- reverse pat xscaled -1 shifted (-feta_eps, 0);
+
+        % assure symmetry -- it's more important to center the glyph on the
+        % staff line than centering it between staff lines, so we use
+        % feta_shift, not feta_space_shift.
+        h := h + feta_shift;
+
+        fill pat shifted (0, feta_shift)
+             -- reverse pat yscaled -1 shifted (0, -feta_eps)
+             -- cycle;
+
+	% ugh
+	currentpicture := currentpicture shifted (hround (w / 2), 0);
+
+        labels (1, 2, 3, 4, 5);
+        draw_staff_if_debugging (-2, 2);
+fet_endchar;

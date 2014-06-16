@@ -2,7 +2,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1996--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1996--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
                  Jan Nieuwenhuizen <janneke@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -123,7 +123,6 @@ SCM (* scm_parse_error_handler) (void *);
 %option never-interactive 
 %option warn
 
-%x extratoken
 %x chords
 %x figures
 %x incl
@@ -184,36 +183,6 @@ BOM_UTF8	\357\273\277
 
 <*>\r		{
 	// swallow and ignore carriage returns
-}
-
-<extratoken>{ANY_CHAR}	{
-  /* Generate a token without swallowing anything */
-
-  /* First unswallow the eaten character */
-  add_lexed_char (-YYLeng ());
-  yyless (0);
-
-  /* produce requested token */
-  int type = scm_to_int (scm_caar (extra_tokens_));
-  yylval = scm_cdar (extra_tokens_);
-  extra_tokens_ = scm_cdr (extra_tokens_);
-  if (scm_is_null (extra_tokens_))
-    yy_pop_state ();
-
-  return type;
-}
-
-<extratoken><<EOF>>	{
-  /* Generate a token without swallowing anything */
-
-  /* produce requested token */
-  int type = scm_to_int (scm_caar (extra_tokens_));
-  yylval = scm_cdar (extra_tokens_);
-  extra_tokens_ = scm_cdr (extra_tokens_);
-  if (scm_is_null (extra_tokens_))
-    yy_pop_state ();
-
-  return type;
 }
 
    /* Use the trailing context feature. Otherwise, the BOM will not be
@@ -361,12 +330,11 @@ BOM_UTF8	\357\273\277
 	  }
 }
 <incl>(\$|#) { // scm for the filename
-	int n = 0;
 	Input hi = here_input();
 	hi.step_forward ();
-	SCM sval = ly_parse_scm (hi.start (), &n, hi,
-		be_safe_global && is_main_input_, parser_);
-	sval = eval_scm (sval);
+	SCM sval = ly_parse_scm (hi, be_safe_global && is_main_input_, parser_);
+	sval = eval_scm (sval, hi);
+	int n = hi.end () - hi.start ();
 
 	for (int i = 0; i < n; i++)
 	{
@@ -416,15 +384,14 @@ BOM_UTF8	\357\273\277
 	return MULTI_MEASURE_REST;
 }
 <INITIAL,chords,figures,lyrics,markup,notes>#	{ //embedded scm
-	int n = 0;
 	Input hi = here_input();
 	hi.step_forward ();
-	SCM sval = ly_parse_scm (hi.start (), &n, hi,
-		be_safe_global && is_main_input_, parser_);
+	SCM sval = ly_parse_scm (hi, be_safe_global && is_main_input_, parser_);
 
 	if (sval == SCM_UNDEFINED)
 		error_level_ = 1;
 
+	int n = hi.end () - hi.start ();
 	for (int i = 0; i < n; i++)
 	{
 		yyinput ();
@@ -436,11 +403,11 @@ BOM_UTF8	\357\273\277
 }
 
 <INITIAL,chords,figures,lyrics,markup,notes>\$	{ //immediate scm
-	int n = 0;
 	Input hi = here_input();
 	hi.step_forward ();
-	SCM sval = ly_parse_scm (hi.start (), &n, hi,
-		be_safe_global && is_main_input_, parser_);
+	SCM sval = ly_parse_scm (hi, be_safe_global && is_main_input_, parser_);
+
+	int n = hi.end () - hi.start ();
 
 	for (int i = 0; i < n; i++)
 	{
@@ -448,7 +415,7 @@ BOM_UTF8	\357\273\277
 	}
 	char_count_stack_.back () += n;
 
-	sval = eval_scm (sval, '$');
+	sval = eval_scm (sval, hi, '$');
 
 	int token = scan_scm_id (sval);
 	if (!scm_is_eq (yylval, SCM_UNSPECIFIED))
@@ -673,6 +640,10 @@ BOM_UTF8	\357\273\277
                 yylval = SCM_UNSPECIFIED;
 		return SCORE;
 	}
+	\\score-lines {
+		yylval = SCM_UNSPECIFIED;
+		return SCORELINES;
+	}
 	\\\"	{
 		start_command_quote ();
 	}
@@ -713,17 +684,17 @@ BOM_UTF8	\357\273\277
 		// value (for token type MARKUP_FUNCTION or
 		// MARKUP_LIST_FUNCTION).
 
-		push_extra_token(EXPECT_NO_MORE_ARGS);
+		push_extra_token (here_input (), EXPECT_NO_MORE_ARGS);
 		s = scm_cdr(s);
 		for (; scm_is_pair(s); s = scm_cdr(s)) {
 		  SCM predicate = scm_car(s);
 
 		  if (predicate == ly_lily_module_constant ("markup-list?"))
-		    push_extra_token(EXPECT_MARKUP_LIST);
+		    push_extra_token (here_input (), EXPECT_MARKUP_LIST);
 		  else if (predicate == ly_lily_module_constant ("markup?"))
-		    push_extra_token(EXPECT_MARKUP);
+		    push_extra_token (here_input (), EXPECT_MARKUP);
 		  else
-		    push_extra_token(EXPECT_SCM, predicate);
+		    push_extra_token (here_input (), EXPECT_SCM, predicate);
 		}
 		return token_type;
 	}
@@ -842,15 +813,25 @@ BOM_UTF8	\357\273\277
 /* Make the lexer generate a token of the given type as the next token. 
  TODO: make it possible to define a value for the token as well */
 void
-Lily_lexer::push_extra_token (int token_type, SCM scm)
+Lily_lexer::push_extra_token (Input const &where, int token_type, SCM scm)
+{
+	extra_tokens_ = scm_cons (scm_cons2 (make_input (where),
+					     scm_from_int (token_type),
+					     scm), extra_tokens_);
+}
+
+int
+Lily_lexer::pop_extra_token ()
 {
 	if (scm_is_null (extra_tokens_))
-	{
-		if (YY_START != extratoken)
-			hidden_state_ = YY_START;
-		yy_push_state (extratoken);
-	}
-	extra_tokens_ = scm_acons (scm_from_int (token_type), scm, extra_tokens_);
+		return -1;
+
+  /* produce requested token */
+	yylloc = *unsmob_input (scm_caar (extra_tokens_));
+	int type = scm_to_int (scm_cadar (extra_tokens_));
+	yylval = scm_cddar (extra_tokens_);
+	extra_tokens_ = scm_cdr (extra_tokens_);
+	return type;
 }
 
 void
@@ -891,32 +872,17 @@ Lily_lexer::push_markup_state ()
 void
 Lily_lexer::push_note_state (SCM alist)
 {
-	bool extra = (YYSTATE == extratoken);
-
 	SCM p = scm_assq (alist, pitchname_tab_stack_);
-
-	if (extra)
-		yy_pop_state ();
 
 	if (scm_is_false (p))
 		p = scm_cons (alist, alist_to_hashq (alist));
 	pitchname_tab_stack_ = scm_cons (p, pitchname_tab_stack_);
 	yy_push_state (notes);
-
-	if (extra) {
-		hidden_state_ = YYSTATE;
-		yy_push_state (extratoken);
-	}
 }
 
 void
 Lily_lexer::pop_state ()
 {
-	bool extra = (YYSTATE == extratoken);
-
-	if (extra)
-		yy_pop_state ();
-
 	if (YYSTATE == notes || YYSTATE == chords)
 		pitchname_tab_stack_ = scm_cdr (pitchname_tab_stack_);
 
@@ -924,10 +890,6 @@ Lily_lexer::pop_state ()
 	if (YYSTATE != maininput)
 		yy_pop_state ();
 
-	if (extra) {
-		hidden_state_ = YYSTATE;
-		yy_push_state (extratoken);
-	}
 }
 
 int
@@ -954,7 +916,7 @@ Lily_lexer::scan_escaped_word (const string &str)
 	SCM sid = lookup_identifier (str);
 	if (Music *m = unsmob_music (sid))
 	{
-		m->set_spot (override_input (last_input_));
+		m->set_spot (override_input (here_input ()));
 	}
 
 	if (sid != SCM_UNDEFINED)
@@ -974,7 +936,7 @@ Lily_lexer::scan_shorthand (const string &str)
 	SCM sid = lookup_identifier (str);
 	if (Music *m = unsmob_music (sid))
 	{
-		m->set_spot (override_input (last_input_));
+		m->set_spot (override_input (here_input ()));
 	}
 
 	if (sid != SCM_UNDEFINED)
@@ -1013,7 +975,7 @@ Lily_lexer::scan_scm_id (SCM sid)
 			funtype = SCM_FUNCTION;
 		else programming_error ("Bad syntax function predicate");
 
-		push_extra_token (EXPECT_NO_MORE_ARGS);
+		push_extra_token (here_input (), EXPECT_NO_MORE_ARGS);
 		for (s = scm_cdr (s); scm_is_pair (s); s = scm_cdr (s))
 		{
 			SCM optional = SCM_UNDEFINED;
@@ -1026,14 +988,14 @@ Lily_lexer::scan_scm_id (SCM sid)
 			}
 			
 			if (ly_is_procedure (cs))
-				push_extra_token (EXPECT_SCM, cs);
+				push_extra_token (here_input (), EXPECT_SCM, cs);
 			else
 			{
 				programming_error ("Function parameter without type-checking predicate");
 				continue;
 			}
 			if (!scm_is_eq (optional, SCM_UNDEFINED))
-				push_extra_token (EXPECT_OPTIONAL, optional);
+				push_extra_token (here_input (), EXPECT_OPTIONAL, optional);
 		}
 		return funtype;
 	}
@@ -1071,10 +1033,7 @@ Lily_lexer::scan_bare_word (const string &str)
 int
 Lily_lexer::get_state () const
 {
-	if (YY_START == extratoken)
-		return hidden_state_;
-	else
-		return YY_START;
+	return YY_START;
 }
 
 bool
@@ -1109,14 +1068,14 @@ Lily_lexer::is_figure_state () const
 // this function is private.
 
 SCM
-Lily_lexer::eval_scm (SCM readerdata, char extra_token)
+Lily_lexer::eval_scm (SCM readerdata, Input hi, char extra_token)
 {
 	SCM sval = SCM_UNDEFINED;
 
 	if (!SCM_UNBNDP (readerdata))
 	{
-		sval = ly_eval_scm (scm_car (readerdata),
-				    *unsmob_input (scm_cdr (readerdata)),
+		sval = ly_eval_scm (readerdata,
+				    hi,
 				    be_safe_global && is_main_input_,
 				    parser_);
 	}
@@ -1140,7 +1099,7 @@ Lily_lexer::eval_scm (SCM readerdata, char extra_token)
 				if (Music *m = unsmob_music (v))
 				{
 					if (!unsmob_input (m->get_property ("origin")))
-						m->set_spot (override_input (last_input_));
+						m->set_spot (override_input (here_input ()));
 				}
 					
 				int token;
@@ -1148,10 +1107,12 @@ Lily_lexer::eval_scm (SCM readerdata, char extra_token)
 				case '$':
 					token = scan_scm_id (v);
 					if (!scm_is_eq (yylval, SCM_UNSPECIFIED))
-						push_extra_token (token, yylval);
+						push_extra_token (here_input (),
+								  token, yylval);
 					break;
 				case '#':
-					push_extra_token (SCM_IDENTIFIER, v);
+					push_extra_token (here_input (),
+							  SCM_IDENTIFIER, v);
 					break;
 				}
 			}
@@ -1163,7 +1124,7 @@ Lily_lexer::eval_scm (SCM readerdata, char extra_token)
 	if (Music *m = unsmob_music (sval))
 	{
 		if (!unsmob_input (m->get_property ("origin")))
-			m->set_spot (override_input (last_input_));
+			m->set_spot (override_input (here_input ()));
 	}
 
 	return sval;

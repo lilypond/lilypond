@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.19.2"
 
 @c Translators: Jean-Charles Malahieude, Valentin Villenave
 
@@ -2546,7 +2546,7 @@ dans des paroles et dans du texte indépendant.
   }
   \addlyrics { O \markup { \concat { Ph \char ##x0153 be! } } }
 }
-\markup { "Copyright 2008--2012" \char ##x00A9 }
+\markup { "Copyright 2008--2014" \char ##x00A9 }
 @end lilypond
 
 @cindex copyright
@@ -3227,8 +3227,8 @@ entre 0,2 et 0,5 :
       \set Staff.midiInstrument = #"flute"
       \new Voice \relative c''' {
         r2 g\mp g fis~
-        fis4 g8 fis e2~
-        e4 d8 cis d2
+        4 g8 fis e2~
+        4 d8 cis d2
       }
     }
     \new Staff {
@@ -3279,8 +3279,8 @@ indication de nuance.
       \set Staff.midiMaximumVolume = #0.9
       \new Voice \relative c''' {
         r2 g\mp g fis~
-        fis4 g8 fis e2~
-        e4 d8 cis d2
+        4 g8 fis e2~
+        4 d8 cis d2
       }
     }
     \new Staff {
@@ -3351,8 +3351,8 @@ flûte et de la clarinette -- au même niveau que dans le précédent.
       \set Staff.midiInstrument = #"flute"
       \new Voice \relative c''' {
         r2 g\mp g fis~
-        fis4 g8 fis e2~
-        e4 d8 cis d2
+        4 g8 fis e2~
+        4 d8 cis d2
       }
     }
     \new Staff {

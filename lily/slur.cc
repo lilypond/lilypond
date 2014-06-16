@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1996--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1996--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -542,6 +542,12 @@ ADD_INTERFACE (Slur,
                "@item head-slur-distance-max-ratio\n"
                "The maximum value for the ratio of distance between a"
                " note head and slur.\n"
+               "@item gap-to-staffline-inside\n"
+               "Minimum gap inside the curve of the slur"
+               " where the slur is parallel to a staffline.\n"
+               "@item gap-to-staffline-outside\n"
+               "Minimum gap outside the curve of the slur"
+               " where the slur is parallel to a staffline.\n"
                "@item free-slur-distance\n"
                "The amount of vertical free space that must exist"
                " between adjacent slurs.  This subproperty only works"

@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2004--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2004--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -43,27 +43,41 @@ avoid_staff_line (Slur_score_state const &state,
       && (state.extremes_[LEFT].staff_ == state.extremes_[RIGHT].staff_)
       && state.extremes_[LEFT].staff_ && state.extremes_[RIGHT].staff_)
     {
-      Real y = bez.curve_point (ts[0])[Y_AXIS];
+      Real t = ts[0]; //the first (usually only) point where slur is horizontal
+      Real y = bez.curve_point (t)[Y_AXIS];
+      // A Bezier curve at t moves 3t-3t² as far as the middle control points
+      Real factor = 3.0 * t * (1.0 - t);
 
       Grob *staff = state.extremes_[LEFT].staff_;
 
       Real p = 2 * (y - staff->relative_coordinate (state.common_[Y_AXIS], Y_AXIS))
                / state.staff_space_;
 
-      Real const round = my_round (p);
-      Real const frac = p - round;
-      if (fabs (frac) < 4 * state.thickness_
-          && Staff_symbol_referencer::on_staff_line (staff, int (round)))
+      int round_p = (int) my_round (p);
+      if (!Staff_symbol_referencer::on_staff_line (staff, round_p))
+        round_p += (p > round_p) ? 1 : -1;
+      if (!Staff_symbol_referencer::on_staff_line (staff, round_p))
+        return bez;
+
+      Real const distance = (p - round_p) * state.staff_space_ / 2.0;
+      // Allow half the thickness of the slur at the point t, plus one basic
+      // blot-diameter (half for the slur outline, half for the staff line)
+      Real const min_distance = 0.5 * state.thickness_ * factor
+        + state.line_thickness_
+        + ((state.dir_ * distance > 0.0)
+           ? state.parameters_.gap_to_staffline_inside_
+           : state.parameters_.gap_to_staffline_outside_);
+      if (fabs (distance) < min_distance)
         {
-          Direction resolution_dir = frac ? state.dir_ : CENTER;
+          Direction resolution_dir = (distance > 0.0) ? UP : DOWN;
 
-          // TODO: parameter
-          Real newp = round + resolution_dir * 5 * state.thickness_;
+          Real dy = resolution_dir * (min_distance - fabs (distance));
 
-          Real dy = (newp - p) * state.staff_space_ / 2.0;
-
+          // Shape the curve, moving the horizontal point by factor * dy
           bez.control_[1][Y_AXIS] += dy;
           bez.control_[2][Y_AXIS] += dy;
+          // Move the entire curve by the remaining amount
+          bez.translate (Offset (0.0, dy - factor * dy));
         }
     }
   return bez;

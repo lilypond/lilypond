@@ -1,7 +1,7 @@
 % Feta (not the Font-En-Tja) music font -- auxiliary macros for both feta and parmesan fonts
 % This file is part of LilyPond, the GNU music typesetter.
 %
-% Copyright (C) 1997--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+% Copyright (C) 1997--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 %
 % The LilyPond font is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -20,6 +20,7 @@
 %
 % debugging
 %
+
 
 def print_penpos (suffix $) =
 	message
@@ -50,15 +51,15 @@ def treq =
 enddef;
 
 
-def draw_staff (expr first, last, offset) =
+def draw_staff_if_debugging (expr first, last) =
 	if test <> 0:
 		pickup pencircle scaled stafflinethickness;
 
 		for i := first step 1 until last:
 			draw (-staff_space,
-			      (i + offset) * staff_space_rounded)
+			      (i + stafflines_y_offset) * staff_space_rounded)
 			     -- (4 staff_space,
-				 (i + offset) * staff_space_rounded);
+				 (i + stafflines_y_offset) * staff_space_rounded);
 		endfor;
 	fi;
 enddef;

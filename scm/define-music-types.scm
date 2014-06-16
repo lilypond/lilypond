@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 1998--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 1998--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -685,8 +685,7 @@ Syntax: @code{\\times @var{fraction} @var{music}}, e.g.,
      . ((description . "Repeated notes denoted by tremolo beams.")
         (iterator-ctor . ,ly:chord-tremolo-iterator::constructor)
         (start-callback .  ,ly:repeated-music::first-start)
-        ;; the length of the repeat is handled by shifting the note logs
-        (length-callback . ,ly:repeated-music::folded-music-length)
+        (length-callback . ,ly:repeated-music::unfolded-music-length)
         (types . (general-music repeated-music tremolo-repeated-music))
         ))
 
@@ -815,16 +814,3 @@ override earlier ones."
                      (ly:error (_ "bad make-music argument: ~S") e))))))
       (set-props music-properties)
       m)))
-
-(define-public (make-repeated-music name)
-  (let* ((repeated-music (assoc-get name '(("volta" . VoltaRepeatedMusic)
-                                           ("unfold" . UnfoldedRepeatedMusic)
-                                           ("percent" . PercentRepeatedMusic)
-                                           ("tremolo" . TremoloRepeatedMusic))))
-         (repeated-music-name (if repeated-music
-                                  repeated-music
-                                  (begin
-                                    (ly:warning (_ "unknown repeat type `~S'") name)
-                                    (ly:warning (_ "See define-music-types.scm for supported repeats"))
-                                    'VoltaRepeatedMusic))))
-    (make-music repeated-music-name)))

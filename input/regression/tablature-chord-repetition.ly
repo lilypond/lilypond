@@ -1,4 +1,4 @@
-\version "2.17.30"
+\version "2.19.2"
 
 \header {
   texidoc = "In a TabStaff, the chord repetition function needs
@@ -11,7 +11,7 @@ music in the tabstaff, not affecting other contexts."
 \tabChordRepetition
 
 Guitar = \relative c' {
-  r8 < gis\4 cis\3 b\2 > ~ q4 q8 ~ q q4
+  r8 < gis\4 cis\3 b\2 > ~ q4 q8 ~ 8 q4
 }
 
 \score {

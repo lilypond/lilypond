@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2004--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2004--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -19,10 +19,7 @@
 
 #include "self-alignment-interface.hh"
 
-#include "directional-element-interface.hh"
 #include "grob.hh"
-#include "grob-array.hh"
-#include "interval-minefield.hh"
 #include "note-column.hh"
 #include "paper-column.hh"
 #include "pointer-group-interface.hh"
@@ -199,11 +196,6 @@ ADD_INTERFACE (Self_alignment_interface,
                "@end table\n",
 
                /* properties */
-               "collision-bias "
-               "collision-padding "
-               "potential-X-colliding-grobs "
                "self-alignment-X "
                "self-alignment-Y "
-               "X-colliding-grobs "
-               "Y-colliding-grobs "
               );

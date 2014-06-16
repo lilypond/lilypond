@@ -3683,6 +3683,41 @@ def conv(str):
     str = re.sub ("New_dynamic_engraver", "Dynamic_engraver", str)
     return str
 
+@rule ((2, 17, 97), r'''(make-relative (a b) b ...) -> make-relative (a b) #{ a b #}...''')
+def conv (str):
+    str = re.sub (r"(\(make-relative\s+\(\s*(([A-Za-z][-_A-Za-z0-9]*)" +
+                  r"(?:\s+[A-Za-z][-_A-Za-z0-9]*)*)\s*\)\s*)\3(?=\s)",
+                  r"\1(make-event-chord (list \2))", str)
+    str = re.sub (r"(\(make-relative\s+\(\s*([A-Za-z][-_A-Za-z0-9]*" +
+                  r"(?:\s+([A-Za-z][-_A-Za-z0-9]*))+)\s*\)\s*)\3(?=\s)",
+                  r"\1(make-sequential-music (list \2))", str)
+    return str
+
+@rule ((2, 18, 0),
+       _ ("bump version for release"))
+def conv (str):
+    return str
+
+@rule ((2, 19, 2), r"\lyricsto \new/\context/... -> \new/\context/... \lyricsto")
+def conv (str):
+    word=r'(?:#?"[^"]*"|\b' + wordsyntax + r'\b)'
+    str = re.sub (r"(\\lyricsto\s*" + word + r"\s*)(\\(?:new|context)\s*" + word
+                  + r"(?:\s*=\s*" + word + r")?\s*)",
+                  r"\2\1", str)
+    str = re.sub (r"(\\lyricsto\s*" + word + r"\s*)\\lyricmode\b\s*",
+                  r"\1", str)
+    str = re.sub (r"(\\lyricsto\s*" + word + r"\s*)\\lyrics\b\s*",
+                  r"\\new Lyrics \1", str)
+    str = re.sub (r'\\lyricmode\s*(\\lyricsto\b)', r"\1", str)
+    return str
+
+@rule ((2, 19, 7), "keySignature -> keyAlterations")
+def conv(str):
+    str = re.sub (r'\bkeySignature\b', 'keyAlterations', str)
+    str = re.sub (r'\blastKeySignature\b', 'lastKeyAlterations', str)
+    str = re.sub (r'\blocalKeySignature\b', 'localAlterations', str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

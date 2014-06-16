@@ -60,6 +60,7 @@ in scheme."
              (interfaces . (font-interface
                             line-interface
                             line-spanner-interface
+                            outside-staff-interface
                             side-position-interface))))))
 
 #(define scheme-event-spanner-types

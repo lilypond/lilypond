@@ -1,4 +1,4 @@
-\version "2.17.2"
+\version "2.19.2"
 
 \header {
   texidoc = "Scripts avoid ties.
@@ -14,9 +14,9 @@
   r2. c4~-> | c-> r2. |
   r2. c4-> | c-> r2. |
   r2. c4~-> | c r2. |
-  r2. c4~ | c-> r2. | \break
+  r2. c4~ | 4-> r2. | \break
   r2. <g-- c-> >4--~ | <g-- c>-> ~ <g c---_>-> r2 |
-  r2. c4~ | c-> ~ c-> r2 |
+  r2. c4~ | 4-> ~ c-> r2 |
   r2. c4~-> | c ~ c-> r2 |
   r2. c4~-> | c-> ~ c r2 |
   r2. c4-> |

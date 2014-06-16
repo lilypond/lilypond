@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1998--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1998--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -34,6 +34,8 @@ public:
   Music_wrapper_iterator ();
   DECLARE_CLASSNAME (Music_wrapper_iterator);
 
+  virtual Context *get_outlet () const;
+  virtual void set_context (Context *trans);
   virtual void derived_substitute (Context *f, Context *t);
   virtual void derived_mark () const;
   virtual void construct_children ();

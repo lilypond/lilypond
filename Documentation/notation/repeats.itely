@@ -94,6 +94,16 @@ c2 d
 \repeat volta 2 { d4 e f g }
 @end lilypond
 
+An @q{opening} repeat mark is not, by default, printed in the first full
+measure.  However it is possible to add one by using @code{\bar ".|:"}
+before the first note.
+
+@lilypond[verbatim,fragment,quote,relative=2]
+\repeat volta 2 { \bar ".|:" c4 d e f }
+c2 d
+\repeat volta 2 { d4 e f g }
+@end lilypond
+
 Alternative endings can be produced using @code{\alternative}.  Each
 group of alternatives must be themselves, enclosed in a set of braces.
 
@@ -203,41 +213,6 @@ g4 |
 a2 a |
 g1 |
 @end lilypond
-
-When alternate endings are added to a repeat that begins with an
-incomplete measure, it becomes necessary to set the
-@code{Timing.measureLength} context property manually, in the
-following specific places:
-
-@itemize
-@item
-at the start of any incomplete measures in the @code{\alternative}
-block, which normally occur at the end of each alternative, except
-(in most cases) the last.
-
-@item
-at the start of each alternative, except the first.
-@end itemize
-
-@lilypond[verbatim,quote,relative=1]
-\partial 4
-\repeat volta 2 { e4 | c2 e | }
-\alternative {
-  {
-    f2 d |
-    \set Timing.measureLength = #(ly:make-moment 3/4)
-    g4 g g  % optional bar check is allowed here
-  }
-  {
-    \set Timing.measureLength = #(ly:make-moment 4/4)
-    a2 a |
-  }
-}
-g1 |
-@end lilypond
-
-The @code{measureLength} property is described in @ref{Time
-administration}.
 
 @cindex repeats, with ties
 @cindex alternative endings, with ties
@@ -359,6 +334,9 @@ Notation Reference:
 @ref{Modifying context plug-ins},
 @ref{Modifying ties and slurs},
 @ref{Time administration}.
+
+Installed Files:
+@file{ly/engraver-init.ly}.
 
 Snippets:
 @rlsr{Repeats}.
@@ -518,12 +496,6 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
   \set Score.repeatCommands = #'((volta #f))
 }
 @end lilypond
-
-
-@snippets
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{printing-a-repeat-sign-at-the-beginning-of-a-piece.ly}
 
 @seealso
 Notation Reference:
@@ -801,14 +773,13 @@ the note should not be surrounded by braces:
 @end lilypond
 
 @cindex tremolo marks
-@funindex tremoloFlags
 @funindex :
 
 The same output can be obtained by adding @code{:@var{N}} after
 the note, where @code{@var{N}} indicates the duration of the
 subdivision (it must be at least 8).  If @code{@var{N}} is 8, one
 beam is added to the note's stem.  If @code{@var{N}} is omitted,
-the last value (stored in @code{tremoloFlags}) is used:
+the last value is used:
 
 @lilypond[quote,verbatim,relative=2]
 c2:8 c:32

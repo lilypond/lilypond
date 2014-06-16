@@ -1,0 +1,26 @@
+% This file is part of LilyPond, the GNU music typesetter.
+%
+% Copyright (C) 2002--2014 Juergen Reuter <reuter@ipd.uka.de>
+%
+% The LilyPond font is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version, or under the SIL Open Font License.
+
+
+
+input common-modules-and-initialization;
+input parmesan-macros;
+
+font_x_height staff_space#;
+
+fet_beginfont ("parmesan", design_size, "parmesanMusic");
+	input parmesan-rests;
+	input parmesan-clefs;
+	input parmesan-custodes
+	input parmesan-accidentals;
+	input parmesan-flags;
+	input parmesan-timesignatures;
+	input parmesan-scripts;
+	input parmesan-dots;
+fet_endfont;

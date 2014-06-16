@@ -142,13 +142,12 @@ acknowledged.
 @divClass{column-center-top}
 @subheading Generic Packages or Distribution-Specific Packages?
 
-Many distributions already include LilyPond within their normal
-package repositories and these are often much easier to install than the
-generic packages found here.  However the version of LilyPond in those
-repositories may be @emph{significantly} older than the current stable
-version.  If you wish to use our generic packages, please check that
-your LilyPond editor is using the correct version of lilypond.  See
-@ref{Easier editing}.
+Many distributions include LilyPond within their normal package
+repositories that are often @emph{significantly} older than the current
+stable version.  While these older packages may be easier to install, we
+@emph{strongly} recommend that you use our generic packages.  In this
+case, check that your LilyPond editor is using the correct version.
+See @ref{Easier editing}.
 
 @divEnd
 
@@ -168,12 +167,12 @@ your LilyPond editor is using the correct version of lilypond.  See
 @ifset web_version
   @downloadStableLinuxNormal
 @end ifset
-
-(if in doubt, use this)
+32bit Systems.
 
 @item
 @sourceimage{logo-linux,,,}
 @downloadStableLinuxBig
+64bit Systems.
 
 @item
 @sourceimage{logo-linux,,,}
@@ -182,10 +181,12 @@ your LilyPond editor is using the correct version of lilypond.  See
 @item
 @sourceimage{logo-freebsd,,,}
 @downloadStableFreeBSDNormal
+32bit Systems.
 
 @item
 @sourceimage{logo-freebsd,,,}
 @downloadStableFreeBSDBig
+64bit Systems
 
 @end itemize
 
@@ -220,44 +221,6 @@ sh lilypond-@versionStable{}-OS-TYPE.sh --help
 
 
 @divClass{column-right-top}
-@subheading Distribution-specific Packages
-
-Please use your distribution's package manager to install or
-upgrade to these versions.
-
-@itemize
-
-@item
-@sourceimage{logo-fedora,,,}
-@uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447,
-Fedora: LilyPond 2.14.2}
-
-@item
-@sourceimage{logo-ubuntu,,,}
-@uref{http://packages.ubuntu.com/search?keywords=lilypond,
-Ubuntu: LilyPond 2.14.2}
-
-@item
-@sourceimage{logo-slackware,,,}
-@uref{http://www.johannes-schoepfer.de/lilypond/,
-Slackware: LilyPond 2.14.2}
-
-@item
-@sourceimage{logo-debian,,,}
-@uref{http://packages.debian.org/search?keywords=lilypond,
-Debian: LilyPond 2.12.3}
-
-@item
-@sourceimage{logo-suse,,,}
-@uref{http://software.opensuse.org/search?baseproject=openSUSE%3A11.2&p=1&q=lilypond,
-openSUSE: LilyPond 2.12.3}
-
-@end itemize
-
-@divEnd
-
-
-@divClass{column-center-top}
 @subheading Compiling a file
 
 @lilypadCommandLine

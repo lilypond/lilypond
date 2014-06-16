@@ -1,4 +1,4 @@
-\version "2.17.30"
+\version "2.19.2"
 \include "example-header.ily"
 
 \paper {
@@ -188,7 +188,7 @@ triplumNotes = \relative c' {
 	% the \scaleDurations command below makes 5 notes last the
 	% duration of a dotted quarter
 	e8 c4 \scaleDurations 3/2 {	\tuplet 5/4{e16[ d e d e]} } e8 f4 | % 2
-  g2. ~ g4. | % 3
+  g2. ~ 4. | % 3
 	f8 d4 f4. \scaleDurations 3/2 { \tuplet 6/4{ g16[ f e f e f]}} % 4
 	g8 g4 g4. e4. | % 5
 	fis8 d4 e8\startGroup g4\stopGroup f8[ e d] | % 6
@@ -205,7 +205,7 @@ motetusNotes = \relative c' {
   c2. c8\startGroup b8 \slash c\stopGroup | % 1
 	a2. c4. | d2. e4. | % 2-3
   f2. f8 e d | % 4
-	c2. ~ c4. | r2. r4. | % 5-6
+	c2. ~ 4. | r2. r4. | % 5-6
 	g'4. g g8 f e | % 7
 }
 

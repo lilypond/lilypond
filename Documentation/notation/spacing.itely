@@ -21,30 +21,6 @@ Negative numbers are allowed:
 > and prints page number -1 on the second page, for example.
 
 
-In 5.2.1 the @refbugs (line 495 in spacing.itely on master) it
-states:
-
-"@code{layout-set-staff-size} does not change the distance between
-the
-staff lines."
-
-Could we add a sentence:
-"Use instead the pair               fontSize = #@var{N}
-            \override StaffSymbol.staff-space = #(magstep
-@var{N})
-inside the Staff context to change the size of the font and the
-distance between
-staff lines accordingly."
-
-Actually I found, that the @internalsref{StaffSymbol} at line 481
-sends to an incomplete
-documentation.  The property staff-space is not explained here.  I
-thought Y-extent might be of
-help, but it is in turn explained by x-space which again is
-missing from the list.  Who has the
-knowledge to fix this?
-
-
 Clarify
 http://code.google.com/p/lilypond/issues/detail?id=68
 
@@ -394,18 +370,16 @@ default value is scaled accordingly.
 @item ragged-bottom
 @funindex ragged-bottom
 
-If set to true, systems will not spread vertically down the page.
-This does not affect the last page.  This should be set to true
-for pieces that have only two or three systems per page, for
-example orchestral scores.
+If this is set to true,
+systems will be set at their natural spacing, neither compressed
+nor stretched vertically to fit the page.
 
 @item ragged-last-bottom
 @funindex ragged-last-bottom
 
-If set to false, systems will spread vertically down the last
-page.  Pieces that amply fill two pages or more should have this
-set to false.  It also affects the last page of book parts, i.e.
-parts of a book created with @code{\bookpart} blocks.
+If this is set to false, then the last page,
+and the last page in each section created with a @code{\bookpart} block,
+will be vertically justified in the same way as the earlier pages.
 
 @end table
 
@@ -1269,92 +1243,109 @@ Snippets:
 @cindex font size, setting
 @cindex staff size, setting
 @funindex layout file
+@funindex magnification->font-size
+@funindex magstep
+@funindex set-global-staff-size
+@funindex layout-set-staff-size
 
-The default @strong{staff size} is set to 20 points.
-This may be changed in two ways:
+The default @strong{staff size} is 20 points, which corresponds to
+a staff height of 7.03mm (one point is equal to 100/7227 of an
+inch, or 2540/7227 mm).  The staff size may be changed in three
+ways:
 
-To set the staff size globally for all scores in a file (or
-in a @code{book} block, to be precise), use @code{set-global-staff-size}.
+@enumerate
+
+@item
+To set the staff size globally for all scores in a file (or in a
+@code{\book} block, to be precise), use
+@code{set-global-staff-size}:
 
 @example
 #(set-global-staff-size 14)
 @end example
 
 @noindent
-This sets the global default size to 14pt staff height and scales all
-fonts accordingly.
+The above example sets the global default staff size to 14pt
+(4.92mm) and scales all fonts accordingly.
 
-To set the staff size individually for each score, use
+@item
+To set the staff size for a single score within a book, use
+@code{layout-set-staff-size} inside that score's @code{\layout}
+block:
+
 @example
-\score@{
+\score @{
   @dots{}
   \layout @{
-    #(layout-set-staff-size 15)
+    #(layout-set-staff-size 14)
   @}
 @}
 @end example
+
+@item
+To set the staff size for a single staff within a system, set the
+staff's font-size and staff-space using units relative to the
+score's default staff size.  Using relative units prevents the
+proportion of staff sizes from being altered if the default staff
+size is modified with @code{set-global-staff-size} or
+@code{layout-set-staff-size}.
+
+For example, traditionally engraved chamber music scores with
+piano often used 7mm piano staves while the other staves were up
+to 5/7 as large (if space allowed), or down to 3/5 as large (if
+space was cramped).  To achieve the 5/7 proportion, use:
+
+@example
+\score @{
+  <<
+    \new Staff \with @{
+      fontSize = #(magnification->font-size 5/7)
+      \override StaffSymbol.staff-space = #5/7
+    @} @{ @dots{} @}
+    \new PianoStaff @{ @dots{} @}
+  >>
+@}
+@end example
+
+If you happen to know which @code{fontSize} you wish to use, you
+could use the following form:
+
+@example
+\score @{
+  <<
+    \new Staff \with @{
+      fontSize = -3
+      \override StaffSymbol.staff-space = #(magstep -3)
+    @} @{ @dots{} @}
+    \new PianoStaff @{ @dots{} @}
+  >>
+@}
+@end example
+
+To emulate the look of traditional engraving, it is best to avoid
+reducing the thickness of the staff lines.
+
+@end enumerate
+
+
+@subheading Automatic font weight at different sizes
 
 The Feta font provides musical symbols at eight different
 sizes.  Each font is tuned for a different staff size: at a smaller size
 the font becomes heavier, to match the relatively heavier staff lines.
 The recommended font sizes are listed in the following table:
 
-@quotation
 @multitable @columnfractions .15 .2 .22 .2
-
-@item @b{font name}
-@tab @b{staff height (pt)}
-@tab @b{staff height (mm)}
-@tab @b{use}
-
-@item feta11
-@tab 11.22
-@tab 3.9
-@tab pocket scores
-
-@item feta13
-@tab 12.60
-@tab 4.4
-@tab
-
-@item feta14
-@tab 14.14
-@tab 5.0
-@tab
-
-@item feta16
-@tab 15.87
-@tab 5.6
-@tab
-
-@item feta18
-@tab 17.82
-@tab 6.3
-@tab song books
-
-@item feta20
-@tab 20
-@tab 7.0
-@tab standard parts
-
-@item feta23
-@tab 22.45
-@tab 7.9
-@tab
-
-@item feta26
-@tab 25.2
-@tab 8.9
-@tab
-@c modern rental material?
-
+@item @b{font name} @tab @b{staff height (pt)} @tab @b{staff height (mm)} @tab @b{use}
+@item feta11 @tab 11.22 @tab 3.9 @tab pocket scores
+@item feta13 @tab 12.60 @tab 4.4 @tab
+@item feta14 @tab 14.14 @tab 5.0 @tab
+@item feta16 @tab 15.87 @tab 5.6 @tab
+@item feta18 @tab 17.82 @tab 6.3 @tab song books
+@item feta20 @tab 20 @tab 7.0 @tab standard parts
+@item feta23 @tab 22.45 @tab 7.9 @tab
+@item feta26 @tab 25.2 @tab 8.9 @tab @c modern rental material?
 @end multitable
-@end quotation
-
-These fonts are available in any sizes.  The context property
-@code{fontSize} and the layout property @code{staff-space} (in
-@rinternals{StaffSymbol}) can be used to tune the size for individual
-staves.  The sizes of individual staves are relative to the global size.
 
 @seealso
 Notation Reference:
@@ -1521,10 +1512,12 @@ The @code{\pageBreak} and @code{\noPageBreak} commands may also be
 inserted at top-level, between scores and top-level markups.
 
 There are also analogous settings to @code{ragged-right} and
-@code{ragged-last} which have the same effect on vertical spacing:
-@code{ragged-bottom} and @code{ragged-last-bottom}.  If set to
-@code{#t} the systems on all pages or just the last page
-respectively will not be justified vertically.  See
+@code{ragged-last} which have the same effect on vertical spacing.
+If @code{ragged-bottom} is set to @code{#t} the systems will not
+be justified vertically.  When @code{ragged-last-bottom} is set
+to @code{#t}, as it is by default, empty space is allowed at the
+bottom of the final page (or the final page in each
+@code{\bookpart}).  See
 @ref{Fixed vertical spacing paper variables,,Fixed vertical spacing @code{@bs{}paper} variables}.
 
 Page breaks are computed by the @code{page-breaking} function.  LilyPond
@@ -2768,8 +2761,7 @@ more space, shorter durations get less.  The shortest durations get a
 fixed amount of space (which is controlled by
 @code{shortest-duration-space} in the @rinternals{SpacingSpanner}
 object).  The longer the duration, the more space it gets: doubling a
-duration adds a fixed amount (this amount is controlled by
-@code{spacing-increment}) of space to the note.
+duration adds @code{spacing-increment} of space to the note.
 
 For example, the following piece contains lots of half, quarter, and
 8th notes; the eighth note is followed by 1 note head width (NHW).
@@ -3089,11 +3081,14 @@ proportional notation settings and examine how these settings interact.
 We start with the following one-measure example, which uses classical
 spacing with ragged-right turned on.
 
+@c The initial pitch is not necessary as long as RhythmicStaff is
+@c not preceded by other material in the score, but we don't want
+@c to explain that.
 @lilypond[quote,verbatim,ragged-right]
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
   >>
 }
@@ -3118,7 +3113,7 @@ setting.
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
   >>
  \layout {
@@ -3162,7 +3157,7 @@ larger reference durations space music tightly.
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
   >>
   \layout {
@@ -3176,7 +3171,7 @@ larger reference durations space music tightly.
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
   >>
   \layout {
@@ -3190,7 +3185,7 @@ larger reference durations space music tightly.
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
   >>
   \layout {
@@ -3218,10 +3213,10 @@ tuplet.
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
     \new RhythmicStaff {
-      \tuplet 9/8 { c'8 c' c' c' c' c' c' c' c' }
+      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
     }
   >>
 }
@@ -3236,10 +3231,10 @@ result.  Setting @code{proportionalNotationDuration} fixes this.
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
     \new RhythmicStaff {
-      \tuplet 9/8 { c'8 c' c' c' c' c' c' c' c' }
+      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
     }
   >>
   \layout {
@@ -3261,10 +3256,10 @@ turn on @code{uniform-stretching}, which is a property of
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
     \new RhythmicStaff {
-      \tuplet 9/8 { c'8 c' c' c' c' c' c' c' c' }
+      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
     }
   >>
   \layout {
@@ -3360,13 +3355,13 @@ property of @code{SpacingSpanner}.  Compare the two scores below:
 @lilypond[quote,verbatim,ragged-right]
 \new Staff {
   \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
-  c''8 c'' c'' \clef alto d' d'2
+  c''8 8 8 \clef alto d'2 2
 }
 
 \new Staff {
   \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
   \override Score.SpacingSpanner.strict-note-spacing = ##t
-  c''8 c'' c'' \clef alto d' d'2
+  c''8 8 8 \clef alto d'2 2
 }
 @end lilypond
 

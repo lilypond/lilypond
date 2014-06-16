@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2005--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2005--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -101,7 +101,8 @@ get_measure_length (Grob *column)
   return 0;
 }
 
-Real
+/* Basic spring based on duration alone */
+Spring
 Spacing_spanner::note_spacing (Grob * /* me */,
                                Grob *lc,
                                Grob *rc,
@@ -144,30 +145,39 @@ Spacing_spanner::note_spacing (Grob * /* me */,
       shortest_playing_len = min (shortest_playing_len, *measure_len);
     }
 
-  Real dist = 0.0;
+  Spring ret;
   if (delta_t.main_part_ && !lwhen.grace_part_)
     {
-      dist = options->get_duration_space (shortest_playing_len.main_part_);
-      dist *= double (delta_t.main_part_ / shortest_playing_len.main_part_);
+      // A spring of length and stiffness based on the controlling duration
+      Real len = options->get_duration_space (shortest_playing_len.main_part_);
+      Real min = options->increment_;  // canonical notehead width
+
+      // The portion of that spring proportional to the time between lc and rc
+      Real fraction = (delta_t.main_part_ / shortest_playing_len.main_part_);
+      ret = Spring (fraction * len, fraction * min);
+
+      // Stretch proportional to the space between canonical bare noteheads
+      ret.set_inverse_stretch_strength (fraction * max (0.1, (len - min)));
     }
   else if (delta_t.grace_part_)
     {
-      /*
-        Crude hack for spacing graces: we take the shortest space
-        available (namely the space for the global shortest note), and
-        multiply that by grace-space-factor
-      */
-      dist = options->get_duration_space (options->global_shortest_) / 2.0;
       Grob *grace_spacing = unsmob_grob (lc->get_object ("grace-spacing"));
       if (grace_spacing)
         {
           Spacing_options grace_opts;
           grace_opts.init_from_grob (grace_spacing);
-          dist = grace_opts.get_duration_space (delta_t.grace_part_);
+          Real len = grace_opts.get_duration_space (delta_t.grace_part_);
+          Real min = grace_opts.increment_;
+          ret = Spring (len, min);
+          // Grace notes should not stretch very much
+          ret.set_inverse_stretch_strength (grace_opts.increment_ / 2.0);
         }
-
+      else // Fallback to the old grace spacing: half that of the shortest note
+        ret = Spring (options->
+                      get_duration_space (options->global_shortest_) / 2.0,
+                      options->increment_ / 2.0);
     }
 
-  return dist;
+  return ret;
 }
 

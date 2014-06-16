@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.0"
 
 \header {
   tagline = ##f
@@ -271,49 +271,49 @@ R2. |
     ees r r r4 r8 r4 r8 |
   }
 
-  trian = \relative c' {
+  trian = {
     \clef percussion \time 6/8
     R2.*4 |
     \time 9/8
     R1*9/8 |
   }
 
-  cym = \relative c' {
+  cym = {
     \clef percussion \time 6/8
     R2.*4 |
     \time 9/8
     R1*9/8 |
   }
 
-  tamt = \relative c' {
+  tamt = {
     \clef percussion \time 6/8
 R2. |
     r4 r8 r c4\mf\<^"*" ~ |
-    c8\!\ff r r r4 r8 | R2. |
+    8\!\ff r r r4 r8 | R2. |
     \time 9/8
     R1*9/8 |
   }
 
-  tamb = \relative c' {
+  tamb = {
     \clef percussion \time 6/8
     R2.*4 |
     \time 9/8
     R1*9/8 |
   }
 
-  snare = \relative c' {
+  snare = {
     \clef percussion \time 6/8
     R2.*4 |
     \time 9/8
-    c8\pp c c c c c c c c |
+    c8\pp 8 8 8 8 8 8 8 8 |
   }
 
-  bsdrum = \relative c' {
+  bsdrum = {
     \clef percussion \time 6/8
-    c2.:32\pp\< ~ | c: ~ |
-    c8\!\ff \offCr r r r4 r8 | R2. |
+    c2.:32\pp\< ~ | 2.: ~ |
+    8\!\ff \offCr r r r4 r8 | R2. |
     \time 9/8
-    c2.:32\pp ~ c4.: |
+    2.:32\pp ~ 4.: |
   }
 
   harprh = \relative c'' {

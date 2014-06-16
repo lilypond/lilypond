@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.2"
 \header {
   texidoc = "With the @code{\\lyricsto} mechanism, individual lyric
     lines can be associated with one melody line. Each lyric line
@@ -11,8 +11,8 @@ can be tuned to either follow or ignore melismata."
     \autoBeamOff
     c2( d4) e8[ c b c] f4
   }
-  \lyricsto "bla"  \new Lyrics  { bla ab blob blob }
-  \lyricsto "bla"  \new Lyrics  {
+  \new Lyrics  \lyricsto "bla"  { bla ab blob blob }
+  \new Lyrics  \lyricsto "bla"  {
     bla 
 
     \set ignoreMelismata = ##t
@@ -26,7 +26,7 @@ can be tuned to either follow or ignore melismata."
     blob
   }
   
-  \lyricsto "bla"  \new Lyrics  {
+  \new Lyrics  \lyricsto "bla"  {
     nes ted lyrics voice with more words than no tes
   }
 >>

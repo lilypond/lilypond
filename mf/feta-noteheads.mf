@@ -1,7 +1,7 @@
 % Feta (not the Font-En-Tja) music font -- implement noteheads
 % This file is part of LilyPond, the GNU music typesetter.
 %
-% Copyright (C) 1997--2012 Jan Nieuwenhuizen <janneke@gnu.org>
+% Copyright (C) 1997--2014 Jan Nieuwenhuizen <janneke@gnu.org>
 % & Han-Wen Nienhuys <hanwen@xs4all.nl>
 % & Juergen Reuter <reuter@ipd.uka.de>
 %
@@ -21,14 +21,9 @@
 test_outlines := 0;
 
 
-save remember_pic;
-picture remember_pic;
-
-
 % Most beautiful noteheads are pronounced, not circular,
 % and not even symmetric.
 % These examples are inspired by [Wanske]; see literature list.
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -159,31 +154,15 @@ enddef;
 fet_beginchar ("Longa notehead", "uM2");
 	draw_longa (true);
 
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
 fet_beginchar ("Longa notehead", "dM2");
 	draw_longa (false);
 
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-if test > 0:
-	fet_beginchar ("Longa notehead", "uM2");
-		draw_longa (true);
-
-		draw_staff (-2, 2, 0.5);
-	fet_endchar;
-
-
-	fet_beginchar ("Longa notehead", "dM2");
-		draw_longa (false);
-
-		draw_staff (-2, 2, 0.5);
-	fet_endchar;
-fi;
 
 
 def draw_brevis (expr linecount, line_thickness_multiplier) =
@@ -253,33 +232,15 @@ enddef;
 fet_beginchar ("Brevis notehead", "sM1");
 	draw_brevis (1, 1);
 
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-if test > 0:
-	fet_beginchar ("Brevis notehead", "sM1");
-		draw_brevis(1, 1);
-
-		draw_staff (-2, 2, 0.5);
-	fet_endchar;
-fi;
 
 
 fet_beginchar ("Double-lined brevis notehead", "sM1double");
 	draw_brevis (2, 0.8);
 
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-if test > 0:
-	fet_beginchar ("Double-lined brevis notehead", "sM1double");
-		draw_brevis (2, 0.8);
-
-		draw_staff (-2, 2, 0.5);
-	fet_endchar;
-fi;
 
 
 fet_beginchar ("Whole notehead", "s0");
@@ -289,20 +250,8 @@ fet_beginchar ("Whole notehead", "s0");
 
 	whole_notehead_width# := charwd;
 
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-if test > 0:
-	fet_beginchar ("Whole notehead", "s0");
-		draw_outside_ellipse (1.80 - puff_up_factor / 3.0, 0,
-				      0.707, 0);
-		undraw_inside_ellipse (1.30, 125 - puff_up_factor * 10,
-				       0.68, 2 stafflinethickness#);
-
-		draw_staff (-2, 2, 0.5);
-	fet_endchar;
-fi;
 
 
 fet_beginchar ("Half notehead", "s1");
@@ -311,36 +260,14 @@ fet_beginchar ("Half notehead", "s1");
 
 	half_notehead_width# := charwd;
 
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-if test > 0:
-	fet_beginchar ("Half notehead", "s1");
-		draw_outside_ellipse (1.53 - puff_up_factor / 3.0, 34,
-				      0.66, 0.17);
-		undraw_inside_ellipse (3.25, 33, 0.81,
-				       2.5 stafflinethickness#);
-
-		draw_staff (-2, 2, 0.5);
-	fet_endchar;
-fi;
 
 
 fet_beginchar ("Quarter notehead", "s2");
 	draw_quarter_path;
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-if test > 0:
-	fet_beginchar ("Quarter notehead", "s2");
-		draw_outside_ellipse (1.49 - puff_up_factor / 3.0, 31,
-				      0.707, 0);
-
-		draw_staff (-2, 2, 0.5);
-	fet_endchar;
-fi;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -351,19 +278,8 @@ fet_beginchar ("Whole diamondhead", "s0diamond");
 	undraw_inside_ellipse (1.30, 125, 0.6,
 			       .4 staff_space# + stafflinethickness#);
 
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-if test > 0:
-	fet_beginchar ("Whole diamondhead", "s0diamond");
-		draw_outside_ellipse (1.80, 0, 0.495, 0);
-		undraw_inside_ellipse (1.30, 125, 0.6,
-				       .4 staff_space# + stafflinethickness#);
-
-		draw_staff (-2, 2, 0.5);
-	fet_endchar;
-fi;
 
 
 fet_beginchar ("Half diamondhead", "s1diamond");
@@ -371,36 +287,15 @@ fet_beginchar ("Half diamondhead", "s1diamond");
 	undraw_inside_ellipse (3.5, 33, 0.80,
 			       .3 staff_space# + 1.5 stafflinethickness#);
 
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-if test > 0:
-	fet_beginchar ("Half diamondhead", "s1diamond");
-		draw_outside_ellipse (1.50, 34, 0.49, 0.17);
-		undraw_inside_ellipse (3.5, 33, 0.80,
-				       .3 staff_space#
-				       + 1.5 stafflinethickness#);
-
-		draw_staff (-2, 2, 0.5);
-	fet_endchar;
-fi;
 
 
 fet_beginchar ("Quarter diamondhead", "s2diamond");
 	draw_outside_ellipse (1.80, 35, 0.495, -0.25);
 
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-if test > 0:
-	fet_beginchar ("Quarter diamondhead", "s2diamond");
-		draw_outside_ellipse (1.80, 35, 0.495, -0.25);
-
-		draw_staff (-2, 2, 0.5);
-	fet_endchar;
-fi;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -561,17 +456,8 @@ enddef;
 fet_beginchar ("Whole trianglehead", "s0triangle");
 	draw_whole_triangle_head;
 
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-if test > 0:
-	fet_beginchar ("Whole trianglehead", "s0triangle");
-		draw_whole_triangle_head;
-
-		draw_staff (-2, 2, 0.5);
-	fet_endchar;
-fi;
 
 
 def draw_small_triangle_head (expr dir) =
@@ -595,14 +481,14 @@ enddef;
 fet_beginchar ("Half trianglehead (downstem)", "d1triangle");
 	draw_small_triangle_head (-1);
 
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
 fet_beginchar ("Half trianglehead (upstem)", "u1triangle");
 	draw_small_triangle_head (1);
 
-	draw_staff (-2, 2, 0.5);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
@@ -623,14 +509,14 @@ enddef;
 fet_beginchar ("Quarter trianglehead (upstem)", "u2triangle");
 	draw_closed_triangle_head (1);
 
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
 fet_beginchar ("Quarter trianglehead (downstem)", "d2triangle");
 	draw_closed_triangle_head (-1);
 
-	draw_staff (-2, 2, 0.5);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
@@ -707,21 +593,21 @@ enddef;
 fet_beginchar ("Whole slashhead", "s0slash");
 	draw_slash (4 slash_thick# + 0.5 staff_space#);
 
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
 fet_beginchar ("Half slashhead", "s1slash");
 	draw_slash (3.0 slash_thick# + 0.15 staff_space#);
 
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
 fet_beginchar ("Quarter slashhead", "s2slash");
 	draw_slash (1.5 slash_thick#);
 
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
@@ -835,26 +721,8 @@ fet_beginchar ("Whole Crossed notehead", "s0cross");
 
 	draw_cross (3.75);
 
-	remember_pic := currentpicture;
-
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-if test > 0:
-	fet_beginchar ("Whole Crossed notehead", "s0cross");
-		save wid, hei;
-
-		wid# := black_notehead_width# + 4 stafflinethickness#;
-		hei# := noteheight# + stafflinethickness#;
-
-		set_char_box (0, wid#, hei# / 2, hei# / 2);
-
-		currentpicture := remember_pic;
-
-		draw_staff (-2, 2, 0.5);
-	fet_endchar;
-fi;
 
 
 fet_beginchar ("Half Crossed notehead", "s1cross");
@@ -867,26 +735,8 @@ fet_beginchar ("Half Crossed notehead", "s1cross");
 
 	draw_cross (3.0);
 
-	remember_pic := currentpicture;
-
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-if test > 0:
-	fet_beginchar ("Half Crossed notehead", "s1cross");
-		save wid, hei;
-
-		wid# := black_notehead_width# + 2 stafflinethickness#;
-		hei# := noteheight# + stafflinethickness# / 2;
-
-		set_char_box (0, wid#, hei# / 2, hei# / 2);
-
-		currentpicture := remember_pic;
-
-		draw_staff (-2, 2, 0.5);
-	fet_endchar;
-fi;
 
 
 fet_beginchar ("Crossed notehead", "s2cross");
@@ -896,23 +746,8 @@ fet_beginchar ("Crossed notehead", "s2cross");
 
 	draw_cross (1.0);
 
-	remember_pic := currentpicture;
-
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-if test > 0:
-	fet_beginchar ("Crossed notehead", "s2cross");
-		wid# := black_notehead_width#;
-		hei# := noteheight#;
-		set_char_box (0, wid#, hei# / 2, hei# / 2);
-
-		currentpicture := remember_pic;
-
-		draw_staff (-2, 2, 0.5);
-	fet_endchar;
-fi;
 
 
 fet_beginchar ("X-Circled notehead", "s2xcircle");
@@ -960,27 +795,8 @@ fet_beginchar ("X-Circled notehead", "s2xcircle");
 	z12 = (charwx * hppp, charwy * vppp);
 	labels (12);
 
-	remember_pic := currentpicture;
-
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 fet_endchar;
-
-
-if test > 0:
-	fet_beginchar ("X-Circled notehead", "s2xcircle");
-		save wid, hei;
-		save cthick, cxr, cyr;
-
-		wid# := black_notehead_width# * sqrt (sqrt2);
-		hei# := noteheight# * sqrt (sqrt2);
-
-		set_char_box (0, wid#, hei# / 2, hei# / 2);
-
-		currentpicture := remember_pic;
-
-		draw_staff (-2, 2, 0.5);
-	fet_endchar;
-fi;
 
 
 %%%%%%%%
@@ -1406,66 +1222,65 @@ def draw_mi_head (expr width_factor, thickness_factor, mirror) =
 enddef;
 
 
-save mi_weight, mi_width;
+save mi_weight;
 mi_weight := 2;
-mi_width := 1.2;
 
 fet_beginchar ("Whole mihead", "s0mi");
-	draw_mi_head (mi_width * solfa_whole_width, mi_weight, false);
+	draw_mi_head (solfa_whole_width, mi_weight, false);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
 
 
 fet_beginchar ("Half mihead", "s1mi");
-	draw_mi_head (mi_width * solfa_quarter_width, mi_weight, false);
+	draw_mi_head (solfa_quarter_width, mi_weight, false);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
 
 
 fet_beginchar ("Quarter mihead", "s2mi");
-	draw_mi_head (mi_width * solfa_quarter_width, mi_weight, false);
+	draw_mi_head (solfa_quarter_width, mi_weight, false);
 	fill path_out;
 fet_endchar;
 
 
 fet_beginchar ("Whole mirror mihead", "s0miMirror");
-	draw_mi_head (mi_width * solfa_whole_width, mi_weight, true);
+	draw_mi_head (solfa_whole_width, mi_weight, true);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
 
 
 fet_beginchar ("Half  mirror mihead", "s1miMirror");
-	draw_mi_head (mi_width * solfa_quarter_width, mi_weight, true);
+	draw_mi_head (solfa_quarter_width, mi_weight, true);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
 
 
 fet_beginchar ("Quarter mirror mihead", "s2miMirror");
-	draw_mi_head (mi_width * solfa_quarter_width, mi_weight, true);
+	draw_mi_head (solfa_quarter_width, mi_weight, true);
 	fill path_out;
 fet_endchar;
 
 
 fet_beginchar ("Whole thin mihead", "s0miThin");
-	draw_mi_head (mi_width * solfa_whole_width, 1, false);
+	draw_mi_head (solfa_whole_width, 1, false);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
 
 
 fet_beginchar ("Half thin mihead", "s1miThin");
-	draw_mi_head (mi_width * solfa_quarter_width, 1, false);
+	draw_mi_head (solfa_quarter_width, 1, false);
 	fill path_out;
 	unfill path_in;
 fet_endchar;
 
 
 fet_beginchar ("Quarter thin mihead", "s2miThin");
-	draw_mi_head (mi_width * solfa_quarter_width, 1, false);
+	draw_mi_head (solfa_quarter_width, 1, false);
 	fill path_out;
 fet_endchar;
 
@@ -1630,11 +1445,12 @@ fet_endchar;
 %       so we can't just use the standard note font.
 %
 def draw_sol_head (expr filled) =
-	draw_outside_ellipse (1.53 - puff_up_factor / 3.0, 34, 0.66, 0.17);
+	draw_outside_ellipse (1.49 - puff_up_factor / 3.0, 31, 0.707, 0);
 	if not filled:
-	  undraw_inside_ellipse (3.25, 33, 0.81, 2.5 stafflinethickness#);
+	  undraw_inside_ellipse (2.5 - puff_up_factor / 3.0, 31, 0.707,
+                                 3.5 stafflinethickness#);
 	fi
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 enddef;
 
 fet_beginchar ("Whole solhead", "s0sol");
@@ -2150,12 +1966,11 @@ fet_endchar;
 %       Diamond shape
 %       Has up and down shapes for all hollow notes
 %
-save funk_mi_width, funk_mi_weight;
-funk_mi_width := 1.2;
+save funk_mi_weight;
 funk_mi_weight := 1.9;
 
 fet_beginchar ("Whole up Funk mihead", "u0miFunk");
-	draw_mi_head (funk_mi_width * funk_notehead_width,
+	draw_mi_head (funk_notehead_width,
 		      funk_mi_weight, false);
 	fill path_out;
 	unfill path_in;
@@ -2163,7 +1978,7 @@ fet_endchar;
 
 
 fet_beginchar ("Whole down Funk mihead", "d0miFunk");
-	draw_mi_head (funk_mi_width * funk_notehead_width,
+	draw_mi_head (funk_notehead_width,
 		      funk_mi_weight, true);
 	fill path_out;
 	unfill path_in;
@@ -2171,7 +1986,7 @@ fet_endchar;
 
 
 fet_beginchar ("Half up Funk mihead", "u1miFunk");
-	draw_mi_head (funk_mi_width * funk_notehead_width,
+	draw_mi_head (funk_notehead_width,
 		      funk_mi_weight, false);
 	fill path_out;
 	unfill path_in;
@@ -2179,7 +1994,7 @@ fet_endchar;
 
 
 fet_beginchar ("Half down Funk mihead", "d1miFunk");
-	draw_mi_head (funk_mi_width * funk_notehead_width,
+	draw_mi_head (funk_notehead_width,
 		      funk_mi_weight, true);
 	fill path_out;
 	unfill path_in;
@@ -2187,7 +2002,7 @@ fet_endchar;
 
 
 fet_beginchar ("Quarter Funk mihead", "s2miFunk");
-	draw_mi_head (funk_mi_width * funk_notehead_width,
+	draw_mi_head (funk_notehead_width,
 		      funk_mi_weight, false);
 	fill path_out;
 fet_endchar;
@@ -2253,7 +2068,7 @@ begingroup
 	if not filled:
 	  undraw_inside_ellipse (1.9, 33, 0.74, 5.5 stafflinethickness#);
 	fi
-	draw_staff (-2, 2, 0);
+	draw_staff_if_debugging (-2, 2);
 endgroup
 enddef;
 
@@ -2695,7 +2510,7 @@ fet_endchar;
 %       Symmetric for all hollow notes
 %
 save walker_mi_width, walker_mi_weight;
-walker_mi_width := 1.2;
+walker_mi_width := 1;
 walker_mi_weight := 1.5;
 
 fet_beginchar ("Whole Walker mihead", "s0miWalker");

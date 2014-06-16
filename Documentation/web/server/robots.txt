@@ -21,3 +21,7 @@ Disallow: /doc/v2.12/
 Disallow: /doc/v2.13/
 Disallow: /doc/v2.14/
 Disallow: /doc/v2.15/
+Disallow: /doc/v2.16/
+Disallow: /doc/v2.17/
+
+Disallow: /web/

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.19.2"
 
 \header {
   lsrtags = "expressive-marks, vocal-music"
@@ -39,9 +39,9 @@ often seen in choral music.
       \new Voice = "lower"
       { \voiceTwo
         a1 ~
-        a
+        1
         a ~
-        a4 \bar "|."
+        4 \bar "|."
       }
     >>
   }

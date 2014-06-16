@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2012 Jan Nieuwenhuizen <janneke@gnu.org>
+  Copyright (C) 1997--2014 Jan Nieuwenhuizen <janneke@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -44,11 +44,13 @@ Audio_item::Audio_item ()
 {
 }
 
-Audio_note::Audio_note (Pitch p, Moment m, bool tie_event, Pitch transposing)
+Audio_note::Audio_note (Pitch p, Moment m, bool tie_event, Pitch transposing,
+                        int velocity)
   : pitch_ (p),
     length_mom_ (m),
     transposing_ (transposing),
     dynamic_ (0),
+    extra_velocity_ (velocity),
     tied_ (0),
     tie_event_ (tie_event)
 {

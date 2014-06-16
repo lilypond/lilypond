@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2006--2012 Han-Wen Nienhuys <hanwen@lilypond.org>
+  Copyright (C) 2006--2014 Han-Wen Nienhuys <hanwen@lilypond.org>
 
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -66,9 +66,9 @@ Spacing_options::Spacing_options ()
 Real
 Spacing_options::get_duration_space (Rational d) const
 {
-  Real k = shortest_duration_space_;
+  Real ratio = d / global_shortest_;
 
-  if (d < global_shortest_)
+  if (ratio < 1.0)
     {
       /*
         We don't space really short notes using the log of the
@@ -86,9 +86,8 @@ Spacing_options::get_duration_space (Rational d) const
 
 
       */
-      Rational ratio = d / global_shortest_;
 
-      return ((k - 1) + double (ratio)) * increment_;
+      return (shortest_duration_space_ + ratio - 1) * increment_;
     }
   else
     {
@@ -97,10 +96,8 @@ Spacing_options::get_duration_space (Rational d) const
         Report OSU-CISRC-10/87-TR35, Department of Computer and
         Information Science, The Ohio State University, 1987.
       */
-      Real log = log_2 (global_shortest_);
-      k -= log;
 
-      return (log_2 (d) + k) * increment_;
+      return (shortest_duration_space_ + log_2 (ratio)) * increment_;
     }
 }
 

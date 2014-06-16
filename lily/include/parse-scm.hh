@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2004--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2004--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -26,30 +26,23 @@
 extern bool parse_protect_global;
 extern bool parsed_objects_should_be_dead;
 
-struct Parse_start
+class Parse_start
 {
-  char const *str;
-  int nchars;
-  Input start_location_;
-  bool safe_;
-  SCM (*func_) (Parse_start *ps);
+public:
   SCM form_;
+  Input &location_;
+  bool safe_;
   Lily_parser *parser_;
 
-  Parse_start ()
+  Parse_start (SCM form, Input &location, bool safe, Lily_parser *parser) :
+    form_ (form), location_ (location), safe_ (safe), parser_ (parser)
   {
-    str = 0;
-    nchars = 0;
-    safe_ = false;
-    parser_ = 0;
-    form_ = SCM_UNDEFINED;
-    func_ = 0;
   }
 };
 
 SCM catch_protected_parse_body (void *);
 SCM protected_ly_parse_scm (Parse_start *, bool);
-SCM ly_parse_scm (char const *, int *, Input, bool, Lily_parser *);
+SCM ly_parse_scm (Input&, bool, Lily_parser *);
 SCM ly_eval_scm (SCM, Input, bool, Lily_parser *);
 
 #endif /* PARSE_SCM_HH */

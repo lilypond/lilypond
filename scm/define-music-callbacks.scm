@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 1998--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 1998--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;                 Neil Puttock <n.puttock@gmail.com>
 ;;;;                 Carl Sorensen <c_sorensen@byu.edu>
@@ -102,7 +102,19 @@ to be used by the sequential-iterator"
                            structure))
                       (beaming-exception
                        (beam-exceptions fraction time-signature-settings))
-                      (new-measure-length (ly:make-moment num den)))
+                      (new-measure-length (ly:make-moment num den))
+                      (pos (ly:context-property context 'measurePosition)))
+                 ;;\time is OK at a negative measurePosition (after \partial),
+                 ;;but at a positive position it's probably a mistake, so warn
+                 ;;(like a barcheck) and reset it to 0 to prevent errors.
+                 (if (> (ly:moment-main pos) 0)
+                     (begin
+                       (if (not (ly:context-property context 'ignoreBarChecks #f))
+                           (ly:music-warning music
+                                             (_ "\\time in mid-measure at ~A")
+                                             (ly:moment-main pos)))
+                       (ly:context-set-property!
+                        context 'measurePosition (ly:make-moment 0))))
                  (ly:context-set-property!
                   context 'timeSignatureFraction fraction)
                  (ly:context-set-property!

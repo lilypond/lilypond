@@ -1,0 +1,29 @@
+% This file is part of LilyPond, the GNU music typesetter.
+%
+% Copyright (C) 1997--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+%
+% The LilyPond font is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version, or under the SIL Open Font License.
+
+
+input common-modules-and-initialization;
+
+font_x_height staff_space#;
+
+fet_beginfont ("feta", design_size, "fetaMusic");
+	input feta-rests;
+	input feta-accidentals;
+	input feta-arrowheads;
+	input feta-dots;
+	input feta-scripts;
+	input feta-clefs;
+	input feta-timesignatures;
+	input feta-pedals;
+	input feta-brackettips;
+	input feta-accordion;
+	input feta-ties;
+
+	input declare-autometric-parameters;
+fet_endfont;

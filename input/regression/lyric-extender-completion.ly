@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.2"
 
 \header {
 
@@ -16,6 +16,6 @@
     d |
   }
 }
-\new Lyrics \lyricsto "upper" \lyricmode { Ah __ }
+\new Lyrics \lyricsto "upper" { Ah __ }
 
 >>

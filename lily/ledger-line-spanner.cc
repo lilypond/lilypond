@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2004--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2004--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -100,7 +100,7 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
       Item *h = heads[i];
 
       int pos = Staff_symbol_referencer::get_rounded_position (h);
-      if (staff_extent.contains (pos))
+      if  (Staff_symbol::ledger_positions (staff, pos).empty ())
         continue;
 
       /* Ambitus heads can appear out-of-order in heads[],

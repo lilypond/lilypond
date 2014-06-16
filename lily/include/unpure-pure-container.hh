@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2005--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2005--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@
 #include "lily-guile.hh"
 
 bool is_unpure_pure_container (SCM s);
+bool is_unchanging_unpure_pure_container (SCM s);
 SCM unpure_pure_container_unpure_part (SCM smob);
 SCM unpure_pure_container_pure_part (SCM smob);
 SCM ly_make_unpure_pure_container (SCM, SCM);

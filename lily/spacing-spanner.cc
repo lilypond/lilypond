@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1999--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1999--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -315,11 +315,13 @@ Spacing_spanner::musical_column_spacing (Grob *me,
                                          Item *right_col,
                                          Spacing_options const *options)
 {
-  Real base_note_space = note_spacing (me, left_col, right_col, options);
-  Spring spring;
+  Spring spring = note_spacing (me, left_col, right_col, options);
 
   if (options->stretch_uniformly_)
-    spring = Spring (base_note_space, 0.0);
+    {
+      spring.set_min_distance (0.0);
+      spring.set_default_strength ();
+    }
   else
     {
       vector<Spring> springs;
@@ -359,32 +361,20 @@ Spacing_spanner::musical_column_spacing (Grob *me,
                   grace_opts.init_from_grob (gsp);
                   inc = grace_opts.increment_;
                 }
-              springs.push_back (Note_spacing::get_spacing (wish, right_col, base_note_space, inc));
+              springs.push_back (Note_spacing::get_spacing (wish, right_col, spring, inc));
             }
         }
 
       if (springs.empty ())
         {
-
-          if (!Paper_column::is_musical (right_col))
-            {
-              /*
-                There used to be code that examined left_col->extent
-                (X_AXIS), but this is resulted in unexpected wide
-                spacing, because the width of s^"text" output is also
-                taken into account here.
-               */
-              spring = Spring (max (base_note_space, options->increment_),
-                               options->increment_);
-            }
-          else
+          if (Paper_column::is_musical (right_col))
             {
               /*
                 Min distance should be 0.0. If there are no spacing
                 wishes, we're probably dealing with polyphonic spacing
                 of hemiolas.
               */
-              spring = Spring (base_note_space, 0.0);
+              spring.set_min_distance (0.0);
             }
         }
       else

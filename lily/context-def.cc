@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2000--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2000--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -396,9 +396,12 @@ Context_def::is_alias (SCM sym) const
 
 LY_DEFINE (ly_context_def_lookup, "ly:context-def-lookup",
            2, 1, 0, (SCM def, SCM sym, SCM val),
-           "Return the value of @var{sym} in output definition @var{def}"
-           " (e.g., @code{\\paper}).  If no value is found, return"
-           " @var{val} or @code{'()} if @var{val} is undefined.")
+           "Return the value of @var{sym} in context definition @var{def}"
+           " (e.g., @code{\\Voice}).  If no value is found, return"
+           " @var{val} or @code{'()} if @var{val} is undefined."
+           " @var{sym} can be any of @samp{default-child}, @samp{consists},"
+           " @samp{description}, @samp{aliases}, @samp{accepts},"
+           " @samp{property-ops}, @samp{context-name}, @samp{group-type}.")
 {
   LY_ASSERT_SMOB (Context_def, def, 1);
   Context_def *cd = unsmob_context_def (def);

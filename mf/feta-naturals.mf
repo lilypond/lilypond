@@ -1,0 +1,163 @@
+
+%
+% The stems of the natural are brushed (at least, in Barenreiter SCS)
+%
+
+% general parameters:
+save full_width, full_height;
+save stem_thickness, stem_end_thickness_multiplier;
+save beam_thickness, beam_slant, hole_highest_point;
+
+full_height# := 3 staff_space#;
+full_width# := 2/3 staff_space#;
+stem_thickness# := 0.09 staff_space# + 0.5 stafflinethickness#;
+stem_end_thickness_multiplier := 10/7;
+beam_slant := 1.266 stafflinethickness;
+beam_thickness := 0.485 staff_space -  stafflinethickness;
+hole_highest_point := 0.5 (staff_space - stafflinethickness);
+
+
+def draw_natural (expr arrowup, arrowdown) =
+        save upstem_factor, downstem_factor;
+        save upstem_end_thickness, downstem_end_thickness;
+        save half_height, half_box_height;
+        save beam_direction, r_stem_top_path, l_stem_bottom_path;
+        pair beam_direction;
+        path r_stem_top_path, l_stem_bottom_path;
+
+        upstem_factor = downstem_factor = stem_end_thickness_multiplier;
+
+        half_height# := 0.5 full_height#;
+        define_pixels (half_height);
+        define_pixels (full_width);
+
+        set_char_box (0, full_width#, half_height#, half_height#);
+        d := d - feta_space_shift;
+
+        if arrowup:
+                b := b + 3 stafflinethickness;
+                h := h + 1.2 staff_space;
+                % to look nice, arrowed stems must be less brushed
+                upstem_factor := 0.5 (1 + upstem_factor);
+        fi;
+        if arrowdown:
+                w := w + 3 stafflinethickness;
+                d := d + 1.2 staff_space;
+                % to look nice, arrowed stems must be less brushed
+                downstem_factor := 0.5 (1 + downstem_factor);
+        fi;
+
+        upstem_end_thickness# = upstem_factor * stem_thickness#;
+        downstem_end_thickness# = downstem_factor * stem_thickness#;
+        define_whole_blacker_pixels (upstem_end_thickness, downstem_end_thickness);
+        define_whole_blacker_pixels (stem_thickness);
+
+        half_box_height := hole_highest_point + beam_thickness
+                           %% correction for the fact that x11 != x12.
+                           %% ideally y2 should be calculated from y11
+                           %% and beam_thickness, but the brushed stems
+                           %% would cause a cyclic dependency:
+                           %% y2 -> x11 -> y14 -> y13 -> y12 -> y2
+                           + 0.5 stem_thickness * beam_slant / full_width;
+
+        %% stems:
+
+        pickup pencircle scaled stem_thickness;
+
+        penpos1 (upstem_end_thickness, 0);
+        penpos3 (downstem_end_thickness, 0);
+        penpos2 (stem_thickness, 0);
+        penpos4 (stem_thickness, 0);
+
+        x2r = full_width;
+        x4l = 0;
+        x3 = x2;
+        x1 = x4;
+
+        y1 = half_height;
+        y3 = -half_height;
+        top y2 = vround (half_box_height);
+        y4 = -y2 + feta_space_shift;
+
+        l_stem_bottom_path := z4r{z4r - z1r}
+                              .. bot z4
+                              .. z4l{z1l - z4l};
+
+        r_stem_top_path := z2r{z2r - z3r}
+                           .. top z2
+                           .. z2l{z3l - z2l};
+
+        fill simple_serif (z1l, z1r, -30)
+             -- l_stem_bottom_path
+             -- cycle;
+
+        fill simple_serif (z3l, z3r, 30)
+             -- r_stem_top_path
+             -- cycle;
+
+        %% beams:
+
+        beam_direction = (full_width, beam_slant);
+
+        z11 = z3l + whatever * (z2l - z3l);
+        y11 = vround (hole_highest_point);
+        z12 = directionpoint -beam_direction of r_stem_top_path;
+        z13 = z12 + whatever * beam_direction;
+        x13 = x1;
+        z14 = z11 + whatever * beam_direction;
+        x14 = x1;
+
+        z21 = z4r + whatever * (z1r - z4r);
+        y21 = -y11 + feta_space_shift;
+        z22 = directionpoint -beam_direction of l_stem_bottom_path;
+        z23 = z22 + whatever * beam_direction;
+        x23 = x3;
+        z24 = z21 + whatever * beam_direction;
+        x24 = x3;
+
+        fill z11
+             -- z12
+             -- z13
+             -- z14
+             -- cycle;
+
+        fill z21
+             -- z22
+             -- z23
+             -- z24
+             -- cycle;
+
+        if arrowup:
+                draw_arrow (z1, upstem_end_thickness,
+                            z1l - z4l, stafflinethickness / 2, false);
+        fi;
+        if arrowdown:
+                draw_arrow (z3, downstem_end_thickness,
+                            z2r - z3r, stafflinethickness / 2, true);
+        fi;
+
+        %% debugging:
+        penlabels (1, 2, 3, 4);
+        labels (11, 12, 13, 14, 21, 22, 23, 24);
+        draw_staff_if_debugging (-2, 2);
+enddef;
+
+
+fet_beginchar ("Natural", "natural");
+	draw_natural (false, false);
+fet_endchar;
+
+
+fet_beginchar ("Arrowed Natural (arrow up)", "natural.arrowup");
+	draw_natural (true, false);
+fet_endchar;
+
+
+fet_beginchar ("Arrowed Natural (arrow down)", "natural.arrowdown");
+	draw_natural (false, true);
+fet_endchar;
+
+
+fet_beginchar ("Arrowed Natural (arrows up and down)", "natural.arrowboth");
+	draw_natural (true, true);
+fet_endchar;

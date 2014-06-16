@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.28"
+@c \version "2.19.2"
 
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
@@ -403,7 +403,7 @@ solo rigo è illustrata nell'esempio seguente:
   \new Voice = "prima"
     { \voiceOne r8 r16 g e8. f16 g8[ c,] f e16 d }
   \new Voice= "seconda"
-    { \voiceTwo d16 c d8~ d16 b c8~ c16 b c8~ c16 b8. }
+    { \voiceTwo d16 c d8~ 16 b c8~ 16 b c8~ 16 b8. }
 >>
 @end lilypond
 
@@ -479,7 +479,7 @@ Il primo esempio potrebbe essere riscritto nel modo seguente:
 <<
   { r8 r16 g e8. f16 g8[ c,] f e16 d }
   \\
-  { d16 c d8~ d16 b c8~ c16 b c8~ c16 b8. }
+  { d16 c d8~ 16 b c8~ 16 b c8~ 16 b8. }
 >>
 @end lilypond
 
@@ -1128,12 +1128,12 @@ devono avere la stessa durata.}
 \parallelMusic #'(voiceA voiceB voiceC) {
   % Battuta 1
   r8 g'16 c'' e'' g' c'' e'' r8 g'16 c'' e'' g' c'' e'' |
-  r16 e'8.~   e'4            r16 e'8.~   e'4            |
+  r16 e'8.~   4              r16 e'8.~   4              |
   c'2                        c'2                        |
 
   % Battuta 2
   r8 a'16 d'' f'' a' d'' f'' r8 a'16 d'' f'' a' d'' f'' |
-  r16 d'8.~   d'4            r16 d'8.~   d'4            |
+  r16 d'8.~   4              r16 d'8.~   4              |
   c'2                        c'2                        |
 
 }
@@ -1152,12 +1152,12 @@ parole, le note relative di @code{voiceA} ignorano le note in @code{voiceB}.
 \parallelMusic #'(voiceA voiceB voiceC) {
   % Battuta 1
   r8 g16 c e g, c e r8 g,16 c e g, c e  |
-  r16 e8.~ e4       r16 e8.~  e4        |
+  r16 e8.~ 4        r16 e8.~  4         |
   c2                c                   |
 
   % Battuta 2
   r8 a,16 d f a, d f r8 a,16 d f a, d f |
-  r16 d8.~  d4       r16 d8.~  d4       |
+  r16 d8.~  4        r16 d8.~  4        |
   c2                 c                  |
 
  }

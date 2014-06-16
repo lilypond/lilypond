@@ -1,0 +1,44 @@
+
+
+def draw_paren =
+	save leftindent;
+
+	leftindent := .2 staff_space;
+
+	set_char_box (0, .5 staff_space# + stafflinethickness#,
+		      staff_space#, staff_space#);
+
+	d := d - feta_shift;
+
+	z1 = (leftindent, h);
+	z2 = (w - stafflinethickness, .5 (h - d));
+	z3 = (leftindent, -d);
+
+	penpos1 (stafflinethickness, 35);
+	penpos2 (.1 staff_space + stafflinethickness, 0);
+	penpos3 (stafflinethickness, -35);
+
+	fill z2l{down}
+	     .. simple_serif (z3l, z3r, 90)
+	     .. z2r{up}
+	     .. simple_serif (z1r, z1l, 90)
+	     .. z2l{down}
+	     -- cycle;
+enddef;
+
+
+fet_beginchar ("Right Parenthesis", "rightparen");
+	draw_paren;
+	penlabels (1, 2, 3);
+
+        draw_staff_if_debugging (-2, 2);
+fet_endchar;
+
+
+fet_beginchar ("Left Parenthesis", "leftparen");
+	draw_paren;
+
+	currentpicture := currentpicture xscaled -1;
+
+	set_char_box (charwd, charbp, chardp, charht);
+fet_endchar;

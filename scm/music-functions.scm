@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 1998--2012 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; Copyright (C) 1998--2014 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;                 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -20,6 +20,7 @@
 (use-modules (scm safe-utility-defs))
 
 (use-modules (ice-9 optargs))
+(use-modules (srfi srfi-11))
 
 ;;; ly:music-property with setter
 ;;; (ly:music-property my-music 'elements)
@@ -157,6 +158,8 @@ For instance,
   "Generate an expression that, once evaluated, may return an object
 equivalent to @var{obj}, that is, for a music expression, a
 @code{(make-music ...)} form."
+  (define (if-nonzero num)
+    (if (zero? num) '() (list num)))
   (cond (;; markup expression
          (markup? obj)
          (markup-expression->make-markup obj))
@@ -172,20 +175,28 @@ equivalent to @var{obj}, that is, for a music expression, a
                                  (ly:music-mutable-properties obj)))))
         (;; moment
          (ly:moment? obj)
-         `(ly:make-moment ,(ly:moment-main-numerator obj)
-                          ,(ly:moment-main-denominator obj)
-                          ,(ly:moment-grace-numerator obj)
-                          ,(ly:moment-grace-denominator obj)))
+         `(ly:make-moment
+           ,@(let ((main (ly:moment-main obj))
+                   (grace (ly:moment-grace obj)))
+               (cond ((zero? grace) (list main))
+                     ((negative? grace) (list main grace))
+                     (else ;;positive grace requires 4-arg form
+                      (list (numerator main)
+                            (denominator main)
+                            (numerator grace)
+                            (denominator grace)))))))
         (;; note duration
          (ly:duration? obj)
          `(ly:make-duration ,(ly:duration-log obj)
-                            ,(ly:duration-dot-count obj)
-                            ,(ly:duration-scale obj)))
+                            ,@(if (= (ly:duration-scale obj) 1)
+                                  (if-nonzero (ly:duration-dot-count obj))
+                                  (list (ly:duration-dot-count obj)
+                                        (ly:duration-scale obj)))))
         (;; note pitch
          (ly:pitch? obj)
          `(ly:make-pitch ,(ly:pitch-octave obj)
                          ,(ly:pitch-notename obj)
-                         ,(ly:pitch-alteration obj)))
+                         ,@(if-nonzero (ly:pitch-alteration obj))))
         (;; scheme procedure
          (procedure? obj)
          (or (procedure-name obj) obj))
@@ -242,18 +253,23 @@ The number of dots in the shifted music may not be less than zero."
                     (max 0 (+ dot (ly:duration-dot-count d)))
                     cp)))
           (set! (ly:music-property music 'duration) nd)))
+    ;clear cached length, since it's no longer valid
+    (set! (ly:music-property music 'length) '())
     music))
 
 (define-public (shift-duration-log music shift dot)
   (music-map (lambda (x) (shift-one-duration-log x shift dot))
              music))
 
-(define-public (make-repeat name times main alts)
-  "Create a repeat music expression, with all properties initialized
-properly."
+(define-public (tremolo::get-music-list tremolo)
+  "Given a tremolo repeat, return a list of music to engrave for it.
+This will be a stretched copy of its body, plus a TremoloEvent or
+TremoloSpanEvent.
+
+This is called only by Chord_tremolo_iterator."
   (define (first-note-duration music)
-    "Finds the duration of the first NoteEvent by searching depth-first
-through MUSIC."
+    "Finds the duration of the first NoteEvent by searching
+depth-first through MUSIC."
     ;; NoteEvent or a non-expanded chord-repetition
     ;; We just take anything that actually sports an announced duration.
     (if (ly:duration? (ly:music-property music 'duration))
@@ -266,46 +282,72 @@ through MUSIC."
                  (if (ly:duration? dur)
                      dur
                      (loop (cdr elts))))))))
+  (let* ((times (ly:music-property tremolo 'repeat-count))
+         (body (ly:music-property tremolo 'element))
+         (children (if (music-is-of-type? body 'sequential-music)
+                       ;; \repeat tremolo n { ... }
+                       (length (extract-named-music body '(EventChord
+                                                           NoteEvent)))
+                       ;; \repeat tremolo n c4
+                       1))
+         (tremolo-type (if (positive? children)
+                           (let* ((note-duration (first-note-duration body))
+                                  (duration-log (if (ly:duration? note-duration)
+                                                    (ly:duration-log note-duration)
+                                                    1)))
+                             (ash 1 duration-log))
+                           '()))
+         (stretched (ly:music-deep-copy body)))
+    (if (positive? children)
+        ;; # of dots is equal to the 1 in bitwise representation (minus 1)!
+        (let* ((dots (1- (logcount (* times children))))
+               ;; The remaining missing multiplier to scale the notes by
+               ;; times * children
+               (mult (/ (* times children (ash 1 dots)) (1- (ash 2 dots))))
+               (shift (- (ly:intlog2 (floor mult)))))
+          (if (not (and (integer? mult) (= (logcount mult) 1)))
+              (ly:music-warning
+               body
+               (ly:format (_ "invalid tremolo repeat count: ~a") times)))
+          ;; Make each note take the full duration
+          (ly:music-compress stretched (ly:make-moment 1 children))
+          ;; Adjust the displayed note durations
+          (shift-duration-log stretched shift dots)))
+    ;; Return the stretched body plus a tremolo event
+    (if (= children 1)
+        (list (make-music 'TremoloEvent
+                          'repeat-count times
+                          'tremolo-type tremolo-type
+                          'origin (ly:music-property tremolo 'origin))
+              stretched)
+        (list (make-music 'TremoloSpanEvent
+                          'span-direction START
+                          'repeat-count times
+                          'tremolo-type tremolo-type
+                          'origin (ly:music-property tremolo 'origin))
+              stretched
+              (make-music 'TremoloSpanEvent
+                          'span-direction STOP
+                          'origin (ly:music-property tremolo 'origin))))))
 
-  (let ((talts (if (< times (length alts))
+(define-public (make-repeat name times main alts)
+  "Create a repeat music expression, with all properties initialized
+properly."
+  (let ((type (or (assoc-get name '(("volta" . VoltaRepeatedMusic)
+                                    ("unfold" . UnfoldedRepeatedMusic)
+                                    ("percent" . PercentRepeatedMusic)
+                                    ("tremolo" . TremoloRepeatedMusic)))
+                  (begin (ly:warning (_ "unknown repeat type `~S': must be volta, unfold, percent, or tremolo") name)
+                         'VoltaRepeatedMusic)))
+        (talts (if (< times (length alts))
                    (begin
                      (ly:warning (_ "More alternatives than repeats.  Junking excess alternatives"))
                      (take alts times))
-                   alts))
-        (r (make-repeated-music name)))
-    (set! (ly:music-property r 'element) main)
-    (set! (ly:music-property r 'repeat-count) (max times 1))
-    (set! (ly:music-property r 'elements) talts)
-    (if (and (equal? name "tremolo")
-             (pair? (extract-named-music main '(EventChord NoteEvent))))
-        ;; This works for single-note and multi-note tremolos!
-        (let* ((children (if (music-is-of-type? main 'sequential-music)
-                             ;; \repeat tremolo n { ... }
-                             (length (extract-named-music main '(EventChord
-                                                                 NoteEvent)))
-                             ;; \repeat tremolo n c4
-                             1))
-               ;; # of dots is equal to the 1 in bitwise representation (minus 1)!
-               (dots (1- (logcount (* times children))))
-               ;; The remaining missing multiplicator to scale the notes by
-               ;; times * children
-               (mult (/ (* times children (ash 1 dots)) (1- (ash 2 dots))))
-               (shift (- (ly:intlog2 (floor mult))))
-               (note-duration (first-note-duration r))
-               (duration-log (if (ly:duration? note-duration)
-                                 (ly:duration-log note-duration)
-                                 1))
-               (tremolo-type (ash 1 duration-log)))
-          (set! (ly:music-property r 'tremolo-type) tremolo-type)
-          (if (not (and (integer? mult) (= (logcount mult) 1)))
-              (ly:music-warning
-               main
-               (ly:format (_ "invalid tremolo repeat count: ~a") times)))
-          ;; Adjust the time of the notes
-          (ly:music-compress r (ly:make-moment 1 children))
-          ;; Adjust the displayed note durations
-          (shift-duration-log r shift dots))
-        r)))
+                   alts)))
+    (make-music type
+                'element main
+                'repeat-count (max times 1)
+                'elements talts)))
 
 (define (calc-repeat-slash-count music)
   "Given the child-list @var{music} in @code{PercentRepeatMusic},
@@ -340,40 +382,10 @@ beats to be distinguished."
 
 (define-public (unfold-repeats music)
   "Replace all repeats with unfolded repeats."
-
   (let ((es (ly:music-property music 'elements))
         (e (ly:music-property music 'element)))
-
     (if (music-is-of-type? music 'repeated-music)
-        (let* ((props (ly:music-mutable-properties music))
-               (old-name (ly:music-property music 'name))
-               (flattened (flatten-alist props)))
-          (set! music (apply make-music (cons 'UnfoldedRepeatedMusic
-                                              flattened)))
-
-          (if (and (equal? old-name 'TremoloRepeatedMusic)
-                   (pair? (extract-named-music e '(EventChord NoteEvent))))
-              ;; This works for single-note and multi-note tremolos!
-              (let* ((children (if (music-is-of-type? e 'sequential-music)
-                                   ;; \repeat tremolo n { ... }
-                                   (length (extract-named-music e '(EventChord
-                                                                    NoteEvent)))
-                                   ;; \repeat tremolo n c4
-                                   1))
-                     (times (ly:music-property music 'repeat-count))
-
-                     ;; # of dots is equal to the 1 in bitwise representation (minus 1)!
-                     (dots (1- (logcount (* times children))))
-                     ;; The remaining missing multiplicator to scale the notes by
-                     ;; times * children
-                     (mult (/ (* times children (ash 1 dots)) (1- (ash 2 dots))))
-                     (shift (- (ly:intlog2 (floor mult)))))
-
-                ;; Adjust the time of the notes
-                (ly:music-compress music (ly:make-moment children 1))
-                ;; Adjust the displayed note durations
-                (shift-duration-log music (- shift) (- dots))))))
-
+        (set! music (make-music 'UnfoldedRepeatedMusic music)))
     (if (pair? es)
         (set! (ly:music-property music 'elements)
               (map unfold-repeats es)))
@@ -381,6 +393,26 @@ beats to be distinguished."
         (set! (ly:music-property music 'element)
               (unfold-repeats e)))
     music))
+
+(define-public (unfold-repeats-fully music)
+  "Unfolds repeats and expands the resulting @code{unfolded-repeated-music}."
+  (map-some-music
+   (lambda (m)
+     (and (music-is-of-type? m 'unfolded-repeated-music)
+          (make-sequential-music
+           (ly:music-deep-copy
+            (let ((n (ly:music-property m 'repeat-count))
+                  (alts (ly:music-property m 'elements))
+                  (body (ly:music-property m 'element)))
+              (cond ((<= n 0) '())
+                    ((null? alts) (make-list n body))
+                    (else
+                     (concatenate
+                      (zip (make-list n body)
+                           (append! (make-list (max 0 (- n (length alts)))
+                                               (car alts))
+                                    alts))))))))))
+   (unfold-repeats music)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; property setting music objs.
@@ -614,9 +646,10 @@ in @var{grob}."
   (make-music 'PropertyUnset
               'symbol sym))
 
-(define-safe-public (make-articulation name)
-  (make-music 'ArticulationEvent
-              'articulation-type name))
+(define-safe-public (make-articulation name . properties)
+  (apply make-music 'ArticulationEvent
+         'articulation-type name
+         properties))
 
 (define-public (make-lyric-event string duration)
   (make-music 'LyricEvent
@@ -728,7 +761,8 @@ duration is replaced with the specified @var{duration}."
         (set! (ly:music-property repeat-chord 'articulations)
               (append!
                (set-origin! (ly:music-deep-copy arts))
-               (ly:music-property repeat-chord 'articulations))))))
+               (ly:music-property repeat-chord 'articulations)))))
+  repeat-chord)
 
 
 (define-public (expand-repeat-chords! event-types music)
@@ -747,8 +781,7 @@ respective predecessor chord."
                 last-chord))
            (last-chord
             (set! (ly:music-property music 'duration) '())
-            (copy-repeat-chord last-chord music chord-repeat event-types)
-            music)
+            (copy-repeat-chord last-chord music chord-repeat event-types))
            (else
             (ly:music-warning music (_ "Bad chord repetition"))
             #f)))
@@ -756,6 +789,73 @@ respective predecessor chord."
           (fold loop (if (ly:music? elt) (loop elt last-chord) last-chord)
                 (ly:music-property music 'elements)))))
   music)
+
+;;; This does _not_ copy any articulations.  Rationale: one main
+;;; incentive for pitch-repeating durations is after ties, such that
+;;; 4~2~8. can stand in for a 15/16 note in \partial 4 position.  In
+;;; this use case, any repeated articulations will be a nuisance.
+;;;
+;;; String assignments in TabStaff might seem like a worthwhile
+;;; exception, but they would be better tackled by the respective
+;;; engravers themselves (see issue 3662).
+;;;
+;;; Repeating chords as well seems problematic for things like
+;;; \score {
+;;;   <<
+;;;     \new Staff { c4 c c <c e> }
+;;;     \new RhythmicStaff { 4 4 4 4 }
+;;;   >>
+;;; }
+;;;
+;;; However, because of MIDI it is not advisable to use RhythmicStaff
+;;; without any initial pitch/drum-type.  For music functions taking
+;;; pure rhythms as an argument, the running of expand-repeat-notes!
+;;; at scorification time is irrelevant: at that point of time, the
+;;; music function has already run.
+
+(define-public (expand-repeat-notes! music)
+  "Walks through @var{music} and gives pitchless notes (not having a
+pitch in code{pitch} or a drum type in @code{drum-type}) the pitch(es)
+from the predecessor note/chord if available."
+  (let ((last-pitch #f))
+    (map-some-music
+     (lambda (m)
+       (define (set-and-ret last)
+         (set! last-pitch last)
+         m)
+       (cond
+        ((music-is-of-type? m 'event-chord)
+         (set-and-ret m))
+        ((music-is-of-type? m 'note-event)
+         (cond
+          ((or (ly:music-property m 'pitch #f)
+               (ly:music-property m 'drum-type #f))
+           => set-and-ret)
+          ;; ok, naked rhythm.  Go through the various cases of
+          ;; last-pitch
+          ;; nothing available: just keep as-is
+          ((not last-pitch) m)
+          ((ly:pitch? last-pitch)
+           (set! (ly:music-property m 'pitch) last-pitch)
+           m)
+          ((symbol? last-pitch)
+           (set! (ly:music-property m 'drum-type) last-pitch)
+           m)
+          ;; Ok, this is the big bad one: the reference is a chord.
+          ;; For now, we use the repeat chord logic.  That's not
+          ;; really efficient as cleaning out all articulations is
+          ;; quite simpler than what copy-repeat-chord does.
+          (else
+           (copy-repeat-chord last-pitch
+                              (make-music 'EventChord
+                                          'elements
+                                          (ly:music-property m 'articulations)
+                                          'origin
+                                          (ly:music-property m 'origin))
+                              (ly:music-property m 'duration)
+                              '(rhythmic-event)))))
+        (else #f)))
+     music)))
 
 ;;; splitting chords into voices.
 (define (voicify-list lst number)
@@ -1255,12 +1355,13 @@ then revert skipTypesetting."
      (else music))))
 
 
-(define-public toplevel-music-functions
+(define-session-public toplevel-music-functions
   (list
    (lambda (music parser) (expand-repeat-chords!
                            (cons 'rhythmic-event
                                  (ly:parser-lookup parser '$chord-repeat-events))
                            music))
+   (lambda (music parser) (expand-repeat-notes! music))
    (lambda (music parser) (voicify-music music))
    (lambda (x parser) (music-map music-check-error x))
    (lambda (x parser) (music-map precompute-music-length x))
@@ -1328,22 +1429,25 @@ Returns @code{#f} or the reason for the invalidation, a symbol."
          (car alteration-def))
         (else 0)))
 
-(define (check-pitch-against-signature context pitch barnum laziness octaveness)
+(define (check-pitch-against-signature context pitch barnum laziness octaveness all-naturals)
   "Checks the need for an accidental and a @q{restore} accidental against
-@code{localKeySignature}.  The @var{laziness} is the number of measures
+@code{localAlterations} and @code{keyAlterations}.
+The @var{laziness} is the number of measures
 for which reminder accidentals are used (i.e., if @var{laziness} is zero,
 only cancel accidentals in the same measure; if @var{laziness} is three,
 we cancel accidentals up to three measures after they first appear.
 @var{octaveness} is either @code{'same-octave} or @code{'any-octave} and
-specifies whether accidentals should be canceled in different octaves."
+specifies whether accidentals should be canceled in different octaves.
+If @var{all-naturals} is ##t, notes that do not occur in @code{keyAlterations}
+also get an accidental."
   (let* ((ignore-octave (cond ((equal? octaveness 'any-octave) #t)
                               ((equal? octaveness 'same-octave) #f)
                               (else
                                (ly:warning (_ "Unknown octaveness type: ~S ") octaveness)
                                (ly:warning (_ "Defaulting to 'any-octave."))
                                #t)))
-         (key-sig (ly:context-property context 'keySignature))
-         (local-key-sig (ly:context-property context 'localKeySignature))
+         (key (ly:context-property context 'keyAlterations))
+         (local (ly:context-property context 'localAlterations))
          (notename (ly:pitch-notename pitch))
          (octave (ly:pitch-octave pitch))
          (pitch-handle (cons octave notename))
@@ -1351,17 +1455,17 @@ specifies whether accidentals should be canceled in different octaves."
          (need-accidental #f)
          (previous-alteration #f)
          (from-other-octaves #f)
-         (from-same-octave (assoc-get pitch-handle local-key-sig))
-         (from-key-sig (or (assoc-get notename local-key-sig)
+         (from-same-octave (assoc-get pitch-handle local))
+         (from-key-sig (or (assoc-get notename local)
 
-                           ;; If no key signature match is found from localKeySignature, we may have a custom
+                           ;; If no notename match is found from localAlterations, we may have a custom
                            ;; type with octave-specific entries of the form ((octave . pitch) alteration)
                            ;; instead of (pitch . alteration).  Since this type cannot coexist with entries in
-                           ;; localKeySignature, try extracting from keySignature instead.
-                           (assoc-get pitch-handle key-sig))))
+                           ;; localAlterations, try extracting from keyAlterations instead.
+                           (assoc-get pitch-handle key))))
 
-    ;; loop through localKeySignature to search for a notename match from other octaves
-    (let loop ((l local-key-sig))
+    ;; loop through localAlterations to search for a notename match from other octaves
+    (let loop ((l local))
       (if (pair? l)
           (let ((entry (car l)))
             (if (and (pair? (car entry))
@@ -1393,7 +1497,7 @@ specifies whether accidentals should be canceled in different octaves."
         (let* ((prev-alt (extract-alteration previous-alteration))
                (this-alt (ly:pitch-alteration pitch)))
 
-          (if (not (= this-alt prev-alt))
+          (if (or (and all-naturals (eq? #f previous-alteration)) (not (= this-alt prev-alt)))
               (begin
                 (set! need-accidental #t)
                 (if (and (not (= this-alt 0))
@@ -1420,10 +1524,16 @@ is, to the end of current measure.  A positive integer means that the
 accidental lasts over that many bar lines.  @w{@code{-1}} is `forget
 immediately', that is, only look at key signature.  @code{#t} is `forever'."
 
-  (check-pitch-against-signature context pitch barnum laziness octaveness))
+  (check-pitch-against-signature context pitch barnum laziness octaveness #f))
+
+(define-public ((make-accidental-dodecaphonic-rule octaveness laziness) context pitch barnum measurepos)
+  "Variation on function make-accidental-rule that creates an dodecaphonic
+accidental rule."
+
+  (check-pitch-against-signature context pitch barnum laziness octaveness #t))
 
 (define (key-entry-notename entry)
-  "Return the pitch of an @var{entry} in @code{localKeySignature}.
+  "Return the pitch of an @var{entry} in @code{localAlterations}.
 The @samp{car} of the entry is either of the form @code{notename} or
 of the form @code{(octave . notename)}.  The latter form is used for special
 key signatures or to indicate an explicit accidental.
@@ -1437,25 +1547,25 @@ an accidental in music."
       (car entry)))
 
 (define (key-entry-octave entry)
-  "Return the octave of an entry in @code{localKeySignature}
+  "Return the octave of an entry in @code{localAlterations}
 or @code{#f} if the entry does not have an octave.
 See @code{key-entry-notename} for details."
   (and (pair? (car entry)) (caar entry)))
 
 (define (key-entry-bar-number entry)
-  "Return the bar number of an entry in @code{localKeySignature}
+  "Return the bar number of an entry in @code{localAlterations}
 or @code {#f} if the entry does not have a bar number.
 See @code{key-entry-notename} for details."
   (and (pair? (cdr entry)) (caddr entry)))
 
 (define (key-entry-measure-position entry)
-  "Return the measure position of an entry in @code{localKeySignature}
+  "Return the measure position of an entry in @code{localAlterations}
 or @code {#f} if the entry does not have a measure position.
 See @code{key-entry-notename} for details."
   (and (pair? (cdr entry)) (cdddr entry)))
 
 (define (key-entry-alteration entry)
-  "Return the alteration of an entry in localKeySignature.
+  "Return the alteration of an entry in localAlterations
 
 For convenience, returns @code{0} if entry is @code{#f}."
   (if entry
@@ -1488,7 +1598,7 @@ If no matching entry is found, @var{#f} is returned."
 key signature @emph{and} does not directly follow a note on the same
 staff line.  This rule should not be used alone because it does neither
 look at bar lines nor different accidentals at the same note name."
-  (let* ((keysig (ly:context-property context 'localKeySignature))
+  (let* ((keysig (ly:context-property context 'localAlterations))
          (entry (find-pitch-entry keysig pitch #t #t)))
     (if (not entry)
         (cons #f #f)
@@ -1500,17 +1610,36 @@ look at bar lines nor different accidentals at the same note name."
           (cons #f (not (or (equal? acc key-acc)
                             (and (equal? entrybn barnum) (equal? entrymp measurepos)))))))))
 
+(define-public (dodecaphonic-no-repeat-rule context pitch barnum measurepos)
+  "An accidental rule that typesets an accidental before every
+note (just as in the dodecaphonic accidental style) @emph{except} if
+the note is immediately preceded by a note with the same pitch. This
+is a common accidental style in contemporary notation."
+   (let* ((keysig (ly:context-property context 'localKeySignature))
+          (entry (find-pitch-entry keysig pitch #t #t)))
+     (if (not entry)
+          (cons #f #t)
+         (let* ((entrymp (key-entry-measure-position entry))
+                (entrybn (key-entry-bar-number entry)))
+           (cons #f
+             (not
+              (and (equal? entrybn barnum) (equal? entrymp measurepos))))))))
+
 (define-public (teaching-accidental-rule context pitch barnum measurepos)
   "An accidental rule that typesets a cautionary accidental if it is
 included in the key signature @emph{and} does not directly follow a note
 on the same staff line."
-  (let* ((keysig (ly:context-property context 'localKeySignature))
+  (let* ((keysig (ly:context-property context 'localAlterations))
          (entry (find-pitch-entry keysig pitch #t #t)))
     (if (not entry)
         (cons #f #f)
-        (let* ((entrymp (key-entry-measure-position entry))
+        (let* ((global-entry (find-pitch-entry keysig pitch #f #f))
+               (key-acc (key-entry-alteration global-entry))
+               (acc (ly:pitch-alteration pitch))
+               (entrymp (key-entry-measure-position entry))
                (entrybn (key-entry-bar-number entry)))
-          (cons #f (not (and (equal? entrybn barnum) (equal? entrymp measurepos))))))))
+          (cons #f (not (or (equal? acc key-acc)
+                            (and (equal? entrybn barnum) (equal? entrymp measurepos)))))))))
 
 (define-public (set-accidentals-properties extra-natural
                                            auto-accs auto-cauts
@@ -1610,6 +1739,22 @@ as a context."
                                   `(Staff ,(lambda (c p bn mp) '(#f . #t)))
                                   '()
                                   context))
+     ;; As in dodecaphonic style with the exception that immediately
+     ;; repeated notes (in the same voice) don't get an accidental
+     ((equal? style 'dodecaphonic-no-repeat)
+      (set-accidentals-properties #f
+                                  `(Staff ,(make-accidental-rule 'same-octave 0)
+                                          ,dodecaphonic-no-repeat-rule)
+                                          '()
+                                          context))
+     ;; Variety of the dodecaphonic style. Each note gets an accidental,
+     ;; except notes that were already handled in the same measure.
+     ((equal? style 'dodecaphonic-first)
+      (set-accidentals-properties #f
+                                  `(Staff ,(make-accidental-dodecaphonic-rule 'same-octave 0))
+                                  '()
+                                  context))
+
      ;; Multivoice accidentals to be read both by musicians playing one voice
      ;; and musicians playing all voices.
      ;; Accidentals are typeset for each voice, but they ARE canceled across voices.
@@ -1665,8 +1810,8 @@ as a context."
                                           ,teaching-accidental-rule)
                                   context))
 
-     ;; do not set localKeySignature when a note alterated differently from
-     ;; localKeySignature is found.
+     ;; do not set localAlterations when a note alterated differently from
+     ;; localAlterations is found.
      ;; Causes accidentals to be printed at every note instead of
      ;; remembered for the duration of a measure.
      ;; accidentals not being remembered, causing accidentals always to
@@ -1691,15 +1836,15 @@ as a context."
 (define-public (invalidate-alterations context)
   "Invalidate alterations in @var{context}.
 
-Elements of @code{'localKeySignature} corresponding to local
+Elements of @code{'localAlterations} corresponding to local
 alterations of the key signature have the form
 @code{'((octave . notename) . (alter barnum . measurepos))}.
 Replace them with a version where @code{alter} is set to @code{'clef}
 to force a repetition of accidentals.
 
 Entries that conform with the current key signature are not invalidated."
-  (let* ((keysig (ly:context-property context 'keySignature)))
-    (set! (ly:context-property context 'localKeySignature)
+  (let* ((keysig (ly:context-property context 'keyAlterations)))
+    (set! (ly:context-property context 'localAlterations)
           (map-in-order
            (lambda (entry)
              (let* ((localalt (key-entry-alteration entry)))
@@ -1715,7 +1860,7 @@ Entries that conform with the current key signature are not invalidated."
                             #t #t))))
                    entry
                    (cons (car entry) (cons 'clef (cddr entry))))))
-           (ly:context-property context 'localKeySignature)))))
+           (ly:context-property context 'localAlterations)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1879,38 +2024,111 @@ yourself."
   (map (lambda (x) (ly:music-property x 'pitch))
        (event-chord-notes event-chord)))
 
-(defmacro-public make-relative (pitches last-pitch music)
-  "The list of pitch-carrying variables in @var{pitches} is used as a
-sequence for creating relativable music from @var{music}.
-The variables in @var{pitches} are, when considered inside of
-@code{\\relative}, all considered to be specifications to the preceding
-variable.  The first variable is relative to the preceding musical
-context, and @var{last-pitch} specifies the pitch passed as relative
-base onto the following musical context."
+(define-public (event-chord-reduce music)
+  "Reduces event chords in @var{music} to their first note event,
+retaining only the chord articulations.  Returns the modified music."
+  (map-some-music
+   (lambda (m)
+     (and (music-is-of-type? m 'event-chord)
+          (let*-values (((notes arts) (partition
+                                       (lambda (mus)
+                                         (music-is-of-type? mus 'rhythmic-event))
+                                       (ly:music-property m 'elements)))
+                        ((dur) (ly:music-property m 'duration))
+                        ((full-arts) (append arts
+                                             (ly:music-property m 'articulations)))
+                        ((first-note) (and (pair? notes) (car notes))))
+            (cond (first-note
+                   (set! (ly:music-property first-note 'articulations)
+                         full-arts)
+                   first-note)
+                  ((ly:duration? dur)
+                   ;; A repeat chord. Produce an unpitched note.
+                   (make-music 'NoteEvent
+                               'duration dur
+                               'articulations full-arts))
+                  (else
+                   (ly:music-error m (_ "Missing duration"))
+                   (make-music 'NoteEvent
+                               'duration (ly:make-duration 2 0 0)
+                               'articulations full-arts))))))
+   music))
+
+
+(defmacro-public make-relative (variables reference music)
+  "The list of pitch or music variables in @var{variables} is used as
+a sequence for creating relativable music from @var{music}.
+
+When the constructed music is used outside of @code{\\relative}, it
+just reflects plugging in the @var{variables} into @var{music}.
+
+The action inside of @code{\\relative}, however, is determined by
+first relativizing the surrogate @var{reference} with the variables
+plugged in and then using the variables relativized as a side effect
+of relativizing @var{reference} for evaluating @var{music}.
+
+Since pitches don't have the object identity required for tracing the
+effect of the reference call, they are replaced @emph{only} for the
+purpose of evaluating @var{reference} with simple pitched note events.
+
+The surrogate @var{reference} expression has to be written with that
+in mind.  In addition, it must @emph{not} contain @emph{copies} of
+music that is supposed to be relativized but rather the
+@emph{originals}.  This @emph{includes} the pitch expressions.  As a
+rule, inside of @code{#@{@dots{}#@}} variables must @emph{only} be
+introduced using @code{#}, never via the copying construct @code{$}.
+The reference expression will usually just be a sequential or chord
+expression naming all variables in sequence, implying that following
+music will be relativized according to the resulting pitch of the last
+or first variable, respectively.
+
+Since the usual purpose is to create more complex music from general
+arguments and since music expression parts must not occur more than
+once, one @emph{does} generally need to use copying operators in the
+@emph{replacement} expression @var{music} when using an argument more
+than once there.  Using an argument more than once in @var{reference},
+in contrast, does not make sense.
+
+There is another fine point to mind: @var{music} must @emph{only}
+contain freshly constructed elements or copied constructs.  This will
+be the case anyway for regular LilyPond code inside of
+@code{#@{@dots{}#@}}, but any other elements (apart from the
+@var{variables} themselves which are already copied) must be created
+or copied as well.
+
+The reason is that it is usually permitted to change music in-place as
+long as one does a @var{ly:music-deep-copy} on it, and such a copy of
+the whole resulting expression will @emph{not} be able to copy
+variables/values inside of closures where the information for
+relativization is being stored.
+"
 
   ;; pitch and music generator might be stored instead in music
   ;; properties, and it might make sense to create a music type of its
   ;; own for this kind of construct rather than using
   ;; RelativeOctaveMusic
-  (define ((make-relative::to-relative-callback pitches p->m p->p) music pitch)
-    (let* ((chord (make-event-chord
-                   (map
-                    (lambda (p)
-                      (make-music 'NoteEvent
-                                  'pitch p))
-                    pitches)))
-           (pitchout (begin
-                       (ly:make-music-relative! chord pitch)
-                       (event-chord-pitches chord))))
-      (set! (ly:music-property music 'element)
-            (apply p->m pitchout))
-      (apply p->p pitchout)))
+  (define ((make-relative::to-relative-callback variables music-call ref-call)
+           music pitch)
+    (let* ((ref-vars (map (lambda (v)
+                            (if (ly:pitch? v)
+                                (make-music 'NoteEvent 'pitch v)
+                                (ly:music-deep-copy v)))
+                          variables))
+           (after-pitch (ly:make-music-relative! (apply ref-call ref-vars) pitch))
+           (actual-vars (map (lambda (v r)
+                               (if (ly:pitch? v)
+                                   (ly:music-property r 'pitch)
+                                   r))
+                             variables ref-vars))
+           (rel-music (apply music-call actual-vars)))
+      (set! (ly:music-property music 'element) rel-music)
+      after-pitch))
   `(make-music 'RelativeOctaveMusic
                'to-relative-callback
                (,make-relative::to-relative-callback
-                (list ,@pitches)
-                (lambda ,pitches ,music)
-                (lambda ,pitches ,last-pitch))
+                (list ,@variables)
+                (lambda ,variables ,music)
+                (lambda ,variables ,reference))
                'element ,music))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

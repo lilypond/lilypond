@@ -4,7 +4,7 @@
 %%%
 %%% Nicolas Sceaux <nicolas.sceaux@free.fr>
 
-\version "2.16.0"
+\version "2.19.2"
 \header {
   title = "Giulio Cesare in Egitto"
   subtitle = "Sesto: Svegliatevi nel core, furie d'un alma offesa (excerpt)"
@@ -19,7 +19,7 @@
 sesto = {
   R1*6 |
   r4 r8 g' c''  ees''16[ d''] c''8 c'' |
-  c'' g' ees''4 ~ ees''8 d''16 ees'' f''8 aes' |
+  c'' g' ees''4 ~ 8 d''16 ees'' f''8 aes' |
   aes' g' r c'' c''  b'16[ c''] d''8 g' |
 
 %{
@@ -39,12 +39,12 @@ sesto = {
   c'' c'' r c'' f'  f''16[ ees''] d''8 c'' |
   b'16[ a'] g'8 r4 ees''8 ees''16 d'' c''8 bes' |
   aes' g' r g' aes' f' d'' b' |
-  f''2 ~ f''8 d'' b' g' |
+  f''2 ~ 8 d'' b' g' |
   ees'4 r8 d'' ees''  d''16[ c''] b'4 |
   %%25
   c'' r8 g' c'' g' ees' g' |
   c'4 r8 g' aes' f' d'' b' |
-  f''2 ~ f''8 d'' b' g' |
+  f''2 ~ 8 d'' b' g' |
   ees'4 r8 g'' ees''  d''16[ c''] b'4 |
   c''2 r |
   %%30
@@ -77,14 +77,14 @@ sestoLyrics = \lyricmode {
 
 violinoI = {
   r4 r8 g' c'' ees''16 d'' c''8 c'' |
-  c'' c' ees''4 ~ ees''8 d''16 ees'' f''8 aes' |
+  c'' c' ees''4 ~ 8 d''16 ees'' f''8 aes' |
   aes' g' r c'' c''8.^\trill b'32 c'' d''8 g' |
   f'4. d''8 ees'' d''16 c'' b'4 |
   %%5
   c''16 g'' f'' g'' ees'' g'' f'' g'' ees'' g'' f'' g'' ees'' g'' f'' g'' |
   c'' g'' f'' g'' ees'' g'' f'' g'' aes''8 g''16 f'' f''4^\trill |
   ees'' r8 g'_\p c'' ees''16 d'' c''8 c'' |
-  c'' g' ees''4 ~ ees''8 d''16 ees'' f''8 aes' |
+  c'' g' ees''4 ~ 8 d''16 ees'' f''8 aes' |
   aes' g' r c'' c'' b'16 c'' d''8 g' |
 %{
   %%10
@@ -103,18 +103,18 @@ violinoI = {
   c'' ees'' ees'' f'' g'' ees'' f'' g'' aes'' f'' g'' ees'' f'' d'' ees'' c'' |
   \tag #'violin { g'' g' g'' g'' } \tag #'reduction { g'' d'' g'' g'' } g'' b' g'' g'' g'' f'' ees'' d'' c''8 bes' |
   aes' g' r g' aes' f' d'' b' |
-  f''2 ~ f''8 d'' b' g' |
+  f''2 ~ 8 d'' b' g' |
   ees'16 c' g' ees' c'' g' g'' d'' g'4 r |
   %%25
   c'''16 ees''' d''' ees''' c''' ees''' d''' ees''' g'' c''' b'' c''' g'' c''' b'' c''' |
   ees'' g'' f'' g'' ees'' g'' f'' g'' \tag #'violin { aes'8 f' } \tag #'reduction { c''8 aes' } d'' b' |
-  f''2 ~ f''8 d'' b' g' |
+  f''2 ~ 8 d'' b' g' |
   ees'4^\fermata r r2 |
   r4 r8 c'_\f c'' ees''16 d'' c''8 c'' |
   %%30
-  c'' c' ees''4 ~ ees''8 d''16 ees'' f''8 aes' |
+  c'' c' ees''4 ~ 8 d''16 ees'' f''8 aes' |
   aes' g' r g' aes' f' d'' b' |
-  f''2 ~ f''8 d'' b' g' |
+  f''2 ~ 8 d'' b' g' |
   c''16 g'' f'' g'' ees'' g'' f'' g'' c'' g'' f'' g'' ees'' g'' f'' g'' |
   b'8 c''16 d'' ees''8 d'' c''4^\fermata r
 %}
@@ -122,14 +122,14 @@ violinoI = {
 
 violinoII = {
   r4 r8 g' c'' ees''16 d'' c''8 c'' |
-  c'' c' ees''4 ~ ees''8 d''16 ees'' f''8 aes' |
+  c'' c' ees''4 ~ 8 d''16 ees'' f''8 aes' |
   aes' g' r c'' c''8.^\trill b'32 c'' d''8 g' |
   f'4. d''8 ees'' d''16 c'' b'4 |
   %%5
   c''16 ees'' d'' ees'' c'' ees'' d'' ees'' c'' ees'' d'' ees'' c'' ees'' d'' ees'' |
   c'' ees'' d'' ees'' c'' ees'' d'' ees'' d''8[ ees''] ees'' d'' |
   ees''4 r8 g' c'' ees''16 d'' c''8 c'' |
-  c'' g' ees''4 ~ ees''8 d''16 ees'' f''8 aes' |
+  c'' g' ees''4 ~ 8 d''16 ees'' f''8 aes' |
   aes' g' r c'' c'' b'16 c'' d''8 g' |
 %{
   %%10
@@ -148,18 +148,18 @@ violinoII = {
   aes' c'' c'' d'' ees'' c'' d'' ees'' f'' d'' ees'' c'' d'' b' c'' a' |
   \tag #'violin { b' d' d' b' } \tag #'reduction { b' g' d'' b' } b' g' b' d'' g'' f'' ees'' d'' c''8 bes' |
   d' ees' r g' aes' f' d'' b' |
-  f''2 ~ f''8 d'' b' g' |
+  f''2 ~ 8 d'' b' g' |
   ees'16 c' g' ees' c'' g' g'' d'' g'4 r |
   %%25
   ees''16 g'' f'' g'' ees'' g'' f'' g'' ees'' ees'' d'' ees'' c'' ees'' d'' ees'' |
   g' ees'' d'' ees'' c'' ees'' d'' ees'' \tag #'violin { c''8 aes' } \tag #'reduction { aes'8 f' } f' d' |
-  f''2 ~ f''8 d'' b' g' |
+  f''2 ~ 8 d'' b' g' |
   ees'4^\fermata r r2 |
   r4 r8 c' c'' ees''16 d'' c''8 c'' |
   %%30
-  c'' c' ees''4 ~ ees''8 d''16 ees'' f''8 aes' |
+  c'' c' ees''4 ~ 8 d''16 ees'' f''8 aes' |
   aes' g' r g' aes' f' d'' b' |
-  f''2 ~ f''8 d'' b' g' |
+  f''2 ~ 8 d'' b' g' |
   c''16 ees'' d'' ees'' c'' ees'' d'' ees'' c'' ees'' d'' ees'' c'' ees'' d'' ees'' |
   d'8 ees'16 f' g'8 b' c''4^\fermata r
 %}

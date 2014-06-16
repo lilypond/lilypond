@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.0"
 
 \header {
   texidoc="
@@ -25,11 +25,11 @@ dimensions.
 pattern = <<
   \new Voice {
     \override Stem.direction = #UP
-    e'4 e'2. e'1 e'\breve*1/2 e'\longa*1/4 \bar "||"
+    e'4 2. 1 \breve*1/2 \longa*1/4 \bar "||"
   }
   \new Voice {
     \override Stem.direction = #DOWN
-    a4 a2. a1 a\breve*1/2 a\longa*1/4 \bar "||"
+    a4  2. 1 \breve*1/2 \longa*1/4 \bar "||"
   }
 >>
 

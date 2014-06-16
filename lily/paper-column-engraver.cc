@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2005--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2005--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -50,7 +50,7 @@ void
 Paper_column_engraver::finalize ()
 {
   if (! (breaks_ % 8))
-    progress_indication ("[" + to_string (breaks_) + "]");
+    progress_indication ("[" + ::to_string (breaks_) + "]");
 
   if (!made_columns_)
     {
@@ -269,7 +269,7 @@ Paper_column_engraver::stop_translation_timestep ()
       breaks_++;
 
       if (! (breaks_ % 8))
-        progress_indication ("[" + to_string (breaks_) + "]");
+        progress_indication ("[" + ::to_string (breaks_) + "]");
     }
 
   context ()->get_score_context ()->unset_property (ly_symbol2scm ("forbidBreak"));

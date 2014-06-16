@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2011--2012 Neil Puttock <n.puttock@gmail.com>
+;;;; Copyright (C) 2011--2014 Neil Puttock <n.puttock@gmail.com>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -29,25 +29,24 @@
        (let ((value (car args))
              (path (cdr args)))
          (string-append
-          "@item Sets "
-          (format "grob property @code{~a} "
+          (format "@item Sets grob property @code{~a} "
                   (grob-property-path path))
-          (format "in @code{@rinternals{~a}} to ~a."
-                  name-sym
-                  (scm->texi value))
-          "\n")))
+          (format "in @code{@rinternals{~a}} to" name-sym)
+          (if (pretty-printable? value)
+            (format ":~a\n" (scm->texi value))
+            (format " ~a.\n" (scm->texi value))))))
       ((pop)
        (string-append
-        "@item Reverts "
-        (format "grob property @code{~a} "
+        (format "@item Reverts grob property @code{~a} "
                 (grob-property-path (car args)))
-        (format "in @code{@rinternals{~a}}."
-                name-sym)
-        "\n"))
+        (format "in @code{@rinternals{~a}}.\n"
+                name-sym)))
       ((assign)
-       (format "@item Sets translator property @code{~a} to ~a.\n"
-               name-sym
-               (scm->texi (car args))))
+       (string-append
+         (format "@item Sets translator property @code{~a} to" name-sym)
+         (if (pretty-printable? value)
+           (format ":~a\n" (scm->texi (car args)))
+           (format " ~a.\n" (scm->texi (car args))))))
       ((unset)
        (format "@item Unsets translator property @code{~a}.\n"
                name-sym))

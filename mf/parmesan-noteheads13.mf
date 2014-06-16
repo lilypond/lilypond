@@ -1,13 +1,5 @@
-% feta-noteheads13.mf
-% part of LilyPond's pretty-but-neat music font
-
-input feta-autometric;
+% Produce font files at specified size.
 
 design_size := 12.60;
-test := 0;
-
-
 input parmesan-noteheads-generic;
-
 end.
-

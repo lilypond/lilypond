@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2006--2012 Erik Sandberg <mandolaerik@gmail.com>
+;;;; Copyright (C) 2006--2014 Erik Sandberg <mandolaerik@gmail.com>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -73,7 +73,7 @@
    parser
    (format #f
            (_ "wrong type for argument ~a.  Expecting ~a, found ~s")
-           n (type-name pred) arg)
+           n (type-name pred) (music->make-music arg))
    location))
 
 (define-ly-syntax-simple (void-music)

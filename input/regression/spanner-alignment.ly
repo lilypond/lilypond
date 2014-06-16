@@ -16,7 +16,7 @@ ignoring things like pedal marks.
       }
       \new Dynamics = "dynamics" {
         \repeat unfold 2 {
-          s1\cresc s1\f s1\dim s1\p
+          s1\cresc s1\f s1\dim s1\p \break
         }
       }
       \new Staff = "down" {

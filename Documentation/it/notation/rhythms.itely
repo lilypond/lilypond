@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.30"
+@c \version "2.19.2"
 
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
@@ -433,7 +433,7 @@ alla prima di ogni coppia di note legate.  Esso indica che la nota deve
 essere legata alla nota successiva, che deve essere della stessa altezza.
 
 @lilypond[quote,verbatim,relative=2]
-a2~ a4~ a16 r r8
+a2~ 4~ 16 r r8
 @end lilypond
 
 Le legature di valore si usano per unire due note a cavallo di una
@@ -443,8 +443,8 @@ unire note dalle durate superiori all'unità di suddivisione della misura:
 
 @lilypond[verbatim,quote]
 \relative c' {
-  r8 c~ c2 r4 |
-  r8^"non" c2~ c8 r4
+  r8 c~ 2 r4 |
+  r8^"non" c2~ 8 r4
 }
 @end lilypond
 
@@ -529,26 +529,26 @@ successione di tratti continui e tratti interrotti.
 
 @lilypond[quote, verbatim, relative=1]
 \tieDotted
-c2~ c
+c2~ 2
 \tieDashed
-c2~ c
+c2~ 2
 \tieHalfDashed
-c2~ c
+c2~ 2
 \tieHalfSolid
-c2~ c
+c2~ 2
 \tieSolid
-c2~ c
+c2~ 2
 @end lilypond
 
 Si possono specificare modelli di tratteggiatura personalizzati:
 
 @lilypond[quote, verbatim, relative=1]
 \tieDashPattern #0.3 #0.75
-c2~ c
+c2~ 2
 \tieDashPattern #0.7 #1.5
-c2~ c
+c2~ 2
 \tieSolid
-c2~ c
+c2~ 2
 @end lilypond
 
 Le definizioni dei modelli di tratteggiatura delle legature di valore hanno la

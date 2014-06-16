@@ -1,4 +1,4 @@
-\version "2.17.11"
+\version "2.19.2"
 \header {
 
   texidoc = "@code{make-relative} is a Scheme utility macro mainly
@@ -16,7 +16,7 @@ The fragment should appear identical in both cases."
 ph =
 #(define-music-function (parser location p1 p2 p3 p4 p5)
   (ly:pitch? ly:pitch? ly:pitch? ly:pitch? ly:pitch?)
-  (make-relative (p1 p2 p3 p4 p5) p1
+  (make-relative (p1 p2 p3 p4 p5) (make-event-chord (list p1 p2 p3 p4 p5))
    #{
      \repeat unfold 2 { $p1 2 } |
      \repeat unfold 2 { r16 $p2 8. ~ $p2 4 } |
@@ -32,9 +32,9 @@ ph =
   \ph d a d' fis' c''
   \oneVoice R1*21 \voiceTwo | \skip 1*21 | R1*21 |
   \ph c, c g bes e'
-  c,2~ c, | r16 c8. ~ c4 ~ c2
+  c,2~ 2 | r16 c8. ~ 4 ~ 2
   | r8 f16 a c' f' c' a c' a f a f d f d |
-  c,2~ c, | r16 b,8. ~ b,4 ~ b,2
+  c,2~ 2 | r16 b,8. ~ 4 ~ 2
   | r8 g'16 b' d'' f'' d'' b' d'' b' g' b' d' f' e' d' |
   c,1\fermata | c1 | <e' g' c''>1\fermata \bar "|." |
 }
@@ -61,9 +61,9 @@ ph =
   \ph d, a' d fis c'
   \oneVoice R1*21 \voiceTwo | \skip 1*21 | R1*21 |
   \ph c, c' g' bes e
-  c2~ c | r16 c'8. ~ c4 ~ c2
+  c2~ 2 | r16 c'8. ~ 4 ~ 2
   | r8 f16 a c f c' a c a f a f d f d |
-  c,,2~ c | r16 b'8. ~ b4 ~ b2
+  c,,2~ 2 | r16 b'8. ~ 4 ~ 2
   | r8 g'16 b d f d b d b g b d f e d |
   c,,1\fermata | c'1 | <e' g c>1\fermata \bar "|." |
 }

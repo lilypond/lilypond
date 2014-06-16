@@ -14,9 +14,9 @@ The shorthands are defined in @samp{ly/script-init.ly}, where the
 variables @code{dashHat}, @code{dashPlus}, @code{dashDash},
 @code{dashBang}, @code{dashLarger}, @code{dashDot}, and
 @code{dashUnderscore} are assigned default values.  The default values
-for the shorthands can be modified. For example, to associate the
-@code{-+} (@code{dashPlus}) shorthand with the trill symbol instead of
-the default + symbol, assign the value @code{trill} to the variable
+for the shorthands can be modified. For example, to make the @code{-+}
+(@code{dashPlus}) shorthand create a trill instead of the default +
+(@code{stopped}), assign the value of @code{trill} to the variable
 @code{dashPlus}:
 
 "
@@ -26,6 +26,6 @@ the default + symbol, assign the value @code{trill} to the variable
 
 \relative c'' { c1-+ }
 
-dashPlus = "trill"
+dashPlus = \trill
 
 \relative c'' { c1-+ }

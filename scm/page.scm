@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2006--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 2006--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -82,16 +82,12 @@
 (define (page-translate-systems page)
   (for-each
 
-   (lambda (sys-off)
-     (let*
-         ((sys (car sys-off))
-          (off (cadr sys-off)))
+   (lambda (sys off)
+     (if (not (number? (ly:prob-property sys 'Y-offset)))
+         (ly:prob-set-property! sys 'Y-offset off)))
 
-       (if (not (number? (ly:prob-property sys 'Y-offset)))
-           (ly:prob-set-property! sys 'Y-offset off))))
-
-   (zip (page-property page 'lines)
-        (page-property page 'configuration))))
+   (page-property page 'lines)
+   (page-property page 'configuration)))
 
 (define (annotate-top-space first-system layout header-stencil stencil)
   (let* ((top-margin (ly:output-def-lookup layout 'top-margin))

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.28"
+@c \version "2.19.2"
 
 
 @node Simultaneous notes
@@ -152,8 +152,9 @@ enharmonic transcription of one or more pitches,
 @node Chord repetition
 @unnumberedsubsubsec Chord repetition
 
-@cindex Chord, repetition
+@cindex chord, repetition
 @cindex repetition, using @code{q}
+@cindex @code{q}, chord repetition
 
 In order to save typing, a shortcut can be used to repeat the preceding
 chord.  The chord repetition symbol is @code{q}:
@@ -394,7 +395,7 @@ voices in a single staff is illustrated in the following example:
   \new Voice = "first"
     { \voiceOne r8 r16 g e8. f16 g8[ c,] f e16 d }
   \new Voice= "second"
-    { \voiceTwo d16 c d8~ d16 b c8~ c16 b c8~ c16 b8. }
+    { \voiceTwo d16 c d8~ 16 b c8~ 16 b c8~ 16 b8. }
 >>
 @end lilypond
 
@@ -471,7 +472,7 @@ The first example could be typeset as follows:
 <<
   { r8 r16 g e8. f16 g8[ c,] f e16 d }
   \\
-  { d16 c d8~ d16 b c8~ c16 b c8~ c16 b8. }
+  { d16 c d8~ 16 b c8~ 16 b c8~ 16 b8. }
 >>
 @end lilypond
 
@@ -1111,12 +1112,12 @@ be of the same length.}
 \parallelMusic #'(voiceA voiceB voiceC) {
   % Bar 1
   r8 g'16 c'' e'' g' c'' e'' r8 g'16 c'' e'' g' c'' e'' |
-  r16 e'8.~   e'4            r16 e'8.~   e'4            |
+  r16 e'8.~   4              r16 e'8.~   4              |
   c'2                        c'2                        |
 
   % Bar 2
   r8 a'16 d'' f'' a' d'' f'' r8 a'16 d'' f'' a' d'' f'' |
-  r16 d'8.~   d'4            r16 d'8.~   d'4            |
+  r16 d'8.~   4              r16 d'8.~   4              |
   c'2                        c'2                        |
 
 }
@@ -1136,12 +1137,12 @@ note in the input -- in other words, relative notes for
 \parallelMusic #'(voiceA voiceB voiceC) {
   % Bar 1
   r8 g16 c e g, c e r8 g,16 c e g, c e  |
-  r16 e8.~ e4       r16 e8.~  e4        |
+  r16 e8.~ 4        r16 e8.~  4         |
   c2                c                   |
 
   % Bar 2
   r8 a,16 d f a, d f r8 a,16 d f a, d f |
-  r16 d8.~  d4       r16 d8.~  d4       |
+  r16 d8.~  4        r16 d8.~  4        |
   c2                 c                  |
 
  }

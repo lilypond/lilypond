@@ -11,7 +11,7 @@ voices.
   
 "
 	}
-\version "2.16.0"
+\version "2.19.2"
 
 vone =
 
@@ -25,7 +25,7 @@ vone =
 vtwo =
 \relative c' {
   \time 2/4
-  f8[ f]~ f8[ f] |
+  f8[ f]~ 8[ f] |
   f8[ f]  f8[ f]
 }
 

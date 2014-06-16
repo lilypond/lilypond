@@ -1,4 +1,4 @@
-%!PS-Adobe-1.0: music-drawing-routines.ps
+%!PS-Adobe-2.0
 %
 % Functions for direct and embedded PostScript
 
@@ -63,12 +63,7 @@ bind def
     0 setgray 0 setlinecap % Prepare graphics state
     1 setlinewidth 0 setlinejoin
     10 setmiterlimit [ ] 0 setdash newpath
-    /languagelevel where % If level not equal to 1 then
-    {pop languagelevel % set strokeadjust and
-    1 ne % overprint to their defaults.
-      {false setstrokeadjust false setoverprint
-      } if
-    } if
+    false setoverprint
 } bind def
 
 /EndEPSF { %def
@@ -77,11 +72,18 @@ bind def
   b4_Inc_state restore
 } bind def
 
-/stroke_and_fill {
+/stroke_and_fill? {
+    {
 	gsave
-		stroke
+	    false setstrokeadjust
+	    stroke
 	grestore
 	fill
+    }
+    {
+	stroke
+    }
+    ifelse
 } bind def
 
 /vector_add { % x1 y1 x2 y2 vector_add x1+x2 y1+y2
@@ -95,30 +97,104 @@ bind def
 
 /draw_round_box % width height x y blot
 {
-        dup
-	0.0 gt {
-		setlinewidth % w h x y
-		rmoveto % w h
-		2 copy 0 ne exch 0 ne and
+    0 max setlinewidth
+    matrix currentmatrix 5 1 roll
+    currentpoint translate newpath translate
+    2 copy 0 min exch 0 min exch translate
+    abs exch abs exch
+    currentlinewidth 0 eq
+    { % straight corners
+	2 copy 2 mul gt
+	{ % horizontal
+	    0 1 index 2 div moveto
+	    setlinewidth
+	    0 rlineto
+	    0 setlinecap
+	    stroke
+	}
+	{
+	    2 copy exch 2 mul gt
+	    { % vertical
+		1 index 2 div 0 moveto
+		exch setlinewidth
+		0 exch rlineto
+		0 setlinecap
+		stroke
+	    }
+	    {
+		0 0 4 2 roll rectfill
+	    }
+	    ifelse
+	}
+	ifelse
+    }
+    { % rounded corners
+	2 copy 0 eq exch 0 eq or
+	{ % line shape
+	    0 0 moveto
+	    rlineto
+	    1 setlinecap
+	    stroke
+	    0 setlinecap
+	}
+	{ % full shape
+	    currentstrokeadjust {
+		currentlinewidth 2 div
+		0 0 2 index 180 270 arc
+		2 index 0 2 index 270 360 arc
+		3 copy 0 90 arc
+		0 2 index 3 -1 roll 90 180 arc
+		closepath
+		2 copy 2 mul gt
+		{ % horizontal
+		    2 copy add currentlinewidth add 10 add % large enough
+		    0 1 index neg moveto
+		    2 index 1 index neg lineto
+		    2 index 1 index lineto
+		    0 exch lineto closepath
+		    gsave clip newpath
+		    0 1 index 2 div moveto
+		    currentlinewidth add setlinewidth
+		    0 rlineto
+		    2 setlinecap
+		    stroke
+		    grestore
+		}
 		{
-		    0 setlinecap
-		    1 setlinejoin
-		    currentpoint % w h x1 y1
-		    4 2 roll % x1 y1 w h
-		    4 copy
-		    rectfill
-		    rectstroke
-		} {
-		    1 setlinecap
-		    rlineto stroke
-		} ifelse
-	} {
-		pop % w h x y
-		rmoveto % w h
-		currentpoint % w h x1 y1
-		4 2 roll % x1 y1 w h
-		rectfill
-	} ifelse
+		    2 copy exch 2 mul gt
+		    { % vertical
+			2 copy add currentlinewidth add 10 add % large enough
+			dup neg 0 moveto
+			dup 0 lineto
+			dup 2 index lineto
+			neg 1 index lineto closepath
+			gsave clip newpath
+			1 index 2 div 0 moveto
+			exch currentlinewidth add setlinewidth
+			0 exch rlineto
+			2 setlinecap
+			stroke
+			grestore
+		    }
+		    {
+			pop pop
+			fill
+		    }
+		    ifelse
+		}
+		ifelse
+		newpath
+	    }
+	    {
+		1 setlinejoin
+		0 0 4 2 roll 4 copy rectstroke rectfill
+	    }
+	    ifelse
+	}
+	ifelse
+    }
+    ifelse
+    setmatrix
 } bind def
 
 /draw_polygon % fill? x(n) y(n) x(n-1) y(n-1) ... x(0) y(0) n blot
@@ -136,11 +212,7 @@ bind def
 	rmoveto % x(0) y(0)
 	{ polygon_x polygon_y vector_add lineto } repeat % n times
 	closepath
-	{ %fill?
-		stroke_and_fill
-	}{
-		stroke
-	} ifelse
+	stroke_and_fill?
 } bind def
 
 /draw_circle % filled? radius thickness draw_circle
@@ -150,9 +222,7 @@ bind def
 	3 2 roll	% f? x0 y0 r
 	dup 0 rmoveto
 	0 360 arc closepath
-		{ stroke_and_fill }
-		{ stroke }
-	ifelse
+	stroke_and_fill?
 } bind def
 
 /draw_ellipse % filled? x-radius y-radius thickness draw_ellipse
@@ -164,9 +234,7 @@ bind def
   1 0 rmoveto
   1 0 360  arc closepath
   savematrix setmatrix
-             { stroke_and_fill}
-             { stroke }
-  ifelse
+  stroke_and_fill?
 } bind def
 
 /draw_partial_ellipse % filled connect x-radius y-radius startangle endangle thickness draw_partial_ellipse
@@ -205,7 +273,7 @@ bind def
   connect {
     startangle cos startangle sin moveto endangle cos endangle sin lineto }
     if
-  savematrix setmatrix filled { stroke_and_fill } { stroke } ifelse
+  savematrix setmatrix filled stroke_and_fill?
   grestore
 } bind def
 
@@ -213,7 +281,6 @@ bind def
 {
 	setlinewidth % dx dy x1 y1
 	1 setlinecap
-	1 setlinejoin
 	rmoveto % dx dy
 	rlineto
 	stroke
@@ -222,7 +289,6 @@ bind def
 /draw_dashed_line % dx dy thickness dashpattern offset draw_dashed_line
 {
 	1 setlinecap
-	1 setlinejoin
 	setdash % dx dy thickness
 	setlinewidth %dx dy
 	rlineto

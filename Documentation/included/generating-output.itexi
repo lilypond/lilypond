@@ -9,8 +9,8 @@
 @macro lilypadOSX
 @warning{These instructions assume that you are using the LilyPond
 application.  If you are using any of the programs described in
-@rweb{Easier editing}, please consult the documentation for
-those programs if you have any problems.}
+@rweb{Easier editing}, consult the documentation for those
+programs should you have any problems.}
 
 
 @subsubheading Step 1. Create your @file{.ly} file
@@ -80,8 +80,8 @@ may fail to generate an update PDF until you close the original.
 @macro lilypadWindows
 @warning{These instructions assume that you are using the built-in
 LilyPad editor.  If you are using any of the programs described in
-@rweb{Easier editing}, please consult the documentation for
-those programs if you have any problems compiling a file.}
+@rweb{Easier editing}, consult the documentation for those programs
+should you have any problems.}
 
 
 @subsubheading Step 1. Create your @file{.ly} file
@@ -163,10 +163,9 @@ while it is still being viewed.
 @c not lilypad at all, but I ran out of names.  :(
 @macro lilypadCommandLine
 @warning{These instructions assume that you are familiar with
-command-line programs.  If you are using any of the programs
-described in @rweb{Easier editing}, please consult the
-documentation for those programs if you have any problems
-compiling a file.}
+command-line programs.  If you are using any of the programs described
+in @rweb{Easier editing}, consult the documentation for those programs
+should you have any problems.}
 
 
 @subsubheading Step 1. Create your @file{.ly} file

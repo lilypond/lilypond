@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2005--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2005--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -153,19 +153,14 @@ set_loose_columns (System *which, Column_x_positions const *posns)
           if (Paper_column::is_musical (next_col)
               && Paper_column::is_musical (loose_col))
             {
-              Real base = Spacing_spanner::note_spacing (spacing, loose_col, next_col,
-                                                         &options);
+              Spring spring = Spacing_spanner::note_spacing (spacing, loose_col,
+                                                             next_col, &options);
               if (Note_spacing::has_interface (spacing))
-                {
-                  Spring spring = Note_spacing::get_spacing (spacing, next_col, base, options.increment_);;
-                  base_note_space = spring.distance ();
-                  tight_note_space = spring.min_distance ();
-                }
-              else
-                {
-                  base_note_space = base;
-                  tight_note_space = base;
-                }
+                spring = Note_spacing::get_spacing (spacing, next_col,
+                                                    spring, options.increment_);
+
+              base_note_space = spring.distance ();
+              tight_note_space = spring.min_distance ();
             }
           else
             {

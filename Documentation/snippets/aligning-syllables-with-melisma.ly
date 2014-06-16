@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.19.2"
 
 \header {
   lsrtags = "text, vocal-music"
@@ -29,7 +29,7 @@ their note.  The alignment can be altered using the
         c d~^\markup "reset to default" d e
       }
     }
-    \new Lyrics \lyricsto "vocal" \lyricmode {
+    \new Lyrics \lyricsto "vocal" {
       word word word
       \set lyricMelismaAlignment = #RIGHT
       word word word

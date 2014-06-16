@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.16.0"
+\version "2.19.2"
 
 \header {
   lsrtags = "template, vocal-music"
@@ -48,28 +48,28 @@ basswords = \lyricmode { mi mi mi mi }
         \global
         \sopranonotes
       >>
-      \lyricsto "soprano" \new Lyrics \sopranowords
+      \new Lyrics \lyricsto "soprano" \sopranowords
     >>
     \new Staff <<
       \new Voice = "alto" <<
         \global
         \altonotes
       >>
-      \lyricsto "alto" \new Lyrics \altowords
+      \new Lyrics \lyricsto "alto" \altowords
     >>
     \new Staff <<
       \new Voice = "tenor" <<
         \global
         \tenornotes
       >>
-      \lyricsto "tenor" \new Lyrics \tenorwords
+      \new Lyrics \lyricsto "tenor" \tenorwords
     >>
     \new Staff <<
       \new Voice = "bass" <<
         \global
         \bassnotes
       >>
-      \lyricsto "bass" \new Lyrics \basswords
+      \new Lyrics \lyricsto "bass" \basswords
     >>
   >>
 }

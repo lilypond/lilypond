@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 1998--2012  Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 1998--2014  Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -119,6 +119,12 @@ This property can only be defined as initializer in
 whether to allow, forbid or force a line break.")
 
      (metronome-count ,number-or-pair? "How many beats in a minute?")
+     (midi-extra-velocity ,integer? "How much louder or softer should
+this note be in MIDI output? The default is 0.")
+     (midi-length ,procedure? "Function to determine how long to play
+a note in MIDI. It should take a moment (the written length of the
+note) and a context, and return a moment (the length to play the
+note).")
      (moment ,ly:moment? "The moment at which an event happens.")
      (music-cause ,ly:music? "The music object that is the cause of
 an event.")

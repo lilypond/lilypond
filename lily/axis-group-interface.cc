@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2000--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2000--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -1046,7 +1046,6 @@ ADD_INTERFACE (Axis_group_interface,
                "nonstaff-nonstaff-spacing "
                "nonstaff-relatedstaff-spacing "
                "nonstaff-unrelatedstaff-spacing "
-               "outside-staff-placement-directive "
                "pure-relevant-grobs "
                "pure-relevant-items "
                "pure-relevant-spanners "
@@ -1055,7 +1054,6 @@ ADD_INTERFACE (Axis_group_interface,
                "staff-grouper "
                "staff-staff-spacing "
                "system-Y-offset "
-               "vertical-skyline-elements "
                "X-common "
                "Y-common "
               );

@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2000--2012 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; Copyright (C) 2000--2014 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -38,83 +38,126 @@
     (let ((value (ly:context-property context name)))
       (if (not (null? value)) value default)))
 
-  (define (beaming<? a b)
-    (ly:moment<? (fraction->moment (car a))
-                 (fraction->moment (car b))))
-
-  (define (ending-moments group-list start-beat base-moment)
+  (define (ending-moments group-list start-beat base-length)
     (if (null? group-list)
         '()
         (let ((new-start (+ start-beat (car group-list))))
-          (cons (ly:moment-mul (ly:make-moment new-start 1) base-moment)
-                (ending-moments (cdr group-list) new-start base-moment)))))
+          (cons (* new-start base-length)
+                (ending-moments (cdr group-list) new-start base-length)))))
 
-  (define (larger-setting test-beam sorted-alist)
-    (if (null? sorted-alist)
-        '()
-        (let* ((first-key (caar sorted-alist))
-               (first-moment (fraction->moment first-key)))
-          (if (moment<=? test-beam first-moment)
-              (car sorted-alist)
-              (larger-setting test-beam (cdr sorted-alist))))))
+  (define (larger-setting type sorted-alist)
+    (assoc type sorted-alist <=))
 
-  (define (beat-end? moment beat-structure)
-    (pair? (member moment beat-structure)))  ;; member returns a list if found, not #t
+  (define (beat-end? moment beat-endings)
+    (pair? (memv moment beat-endings)))  ;; member returns a list if found, not #t
 
   ;; Start of actual auto-beam test routine
   ;;
   ;;
   ;; Don't start auto beams on grace notes
-  (if (and (!= (ly:moment-grace-numerator (ly:context-now context)) 0)
-           (= dir START))
-      #f
-      (let* ((base-moment (get 'baseMoment (ly:make-moment 1 4)))
-             (measure-length (get 'measureLength (ly:make-moment 1 1)))
+  (and (or (zero? (ly:moment-grace (ly:context-now context)))
+           (!= dir START))
+      (let* ((base-length (cond ((get 'baseMoment #f) => ly:moment-main)
+                                (else 1/4)))
+             (measure-length (cond ((get 'measureLength #f) => ly:moment-main)
+                                   (else 1)))
              (time-signature-fraction
               (get 'timeSignatureFraction '(4 . 4)))
              (beat-structure (get 'beatStructure '(1 1 1 1)))
-             (beat-endings (ending-moments beat-structure 0 base-moment))
-             (exceptions (sort (assoc-get 'end
-                                          (get 'beamExceptions '())
-                                          '())
-                               beaming<?))
+             (beat-endings (ending-moments beat-structure 0 base-length))
+             (exceptions (sort (map
+                                (lambda (a)
+                                  (if (pair? (car a))
+                                      (cons (/ (caar a) (cdar a))
+                                            (cdr a))
+                                      a))
+                                (assoc-get 'end
+                                           (get 'beamExceptions '())
+                                           '()))
+                               car<))
              (function (if (= dir START) 'begin 'end))
              (beam-half-measure (get 'beamHalfMeasure #t))
-             (type (moment->fraction test-beam))
-             (non-grace (ly:make-moment
-                         (ly:moment-main-numerator measure-pos)
-                         (ly:moment-main-denominator measure-pos)))
-             (pos (if (ly:moment<? non-grace ZERO-MOMENT)
-                      (ly:moment-add measure-length non-grace)
+             (type (ly:moment-main test-beam))
+             (non-grace (ly:moment-main measure-pos))
+             (pos (if (negative? non-grace)
+                      (+ measure-length non-grace)
                       non-grace))
              (type-grouping (assoc-get type exceptions '()))
-             (default-rule (if (null? type-grouping)
-                               (larger-setting test-beam exceptions)
-                               '()))
-             (default-grouping (if (pair? default-rule)
-                                   (cdr default-rule)
-                                   '()))
-             (default-beat-length (if (pair? default-rule)
-                                      (car default-rule)
-                                      '()))
+             (default-rule (and (null? type-grouping)
+                                (larger-setting type exceptions)))
+             (default-grouping (and default-rule (cdr default-rule)))
+             (default-beat-length (and default-rule (car default-rule)))
              (exception-grouping (if (null? type-grouping)
                                      default-grouping
                                      type-grouping))
              (grouping-moment (if (null? type-grouping)
-                                  (fraction->moment default-beat-length)
-                                  test-beam))
-             (exception-moments (ending-moments
-                                 exception-grouping 0 grouping-moment)))
+                                  default-beat-length
+                                  type))
+             (exception-moments (and exception-grouping
+                                     (ending-moments
+                                      exception-grouping 0 grouping-moment))))
 
         (if (= dir START)
             ;; Start rules -- #t if beam is allowed to start
             (or beam-half-measure ;; Start anywhere, but option for mid-measure
-                (not (equal? (ly:moment-add pos pos) measure-length))
+                (not (= (+ pos pos) measure-length))
                 (not (= 3 (car time-signature-fraction))) ;; in triple meter
-                (not (= (cdr type) ;; when the beamed note is 1/6 of a measure
+                (not (= (denominator type) ;; when the beamed note is 1/6 of a measure
                         (* 2 (cdr time-signature-fraction)))))
             ;; End rules -- #t if beam is required to end
-            (or (= (ly:moment-main-numerator pos) 0) ;; end at measure beginning
-                (if (null? exception-grouping)
-                    (beat-end? pos beat-endings) ;; no exception, so check beat ending
-                    (member pos exception-moments))))))) ;; check exception rule
+            (or (zero? pos) ;; end at measure beginning
+                (if exception-grouping
+                    (beat-end? pos exception-moments) ;; check exception rule
+                    (beat-end? pos beat-endings))))))) ;; no exception, so check beat ending
+
+
+(define-public (extract-beam-exceptions music)
+  "Creates a value useful for setting @code{beamExceptions} from @var{music}."
+  (define (car> a b) (> (car a) (car b)))
+  (define (beatify! lst)
+    ;; takes a collection of end points, sorts them, and returns the
+    ;; non-zero differences as beaming pattern
+    (let ((s (sort-list! lst <)))
+      (remove! zero?
+               (map - s (cons 0 s)))))
+  (let ((res '()))
+    (let analyze ((m (unfold-repeats-fully (event-chord-reduce music)))
+                  (pos 0))
+      ;; enter beam ends from m starting at pos into res, return new pos
+      (cond ((music-is-of-type? m 'bar-check) 0)
+            ((music-is-of-type? m 'simultaneous-music)
+             (fold (lambda (m prev) (max (analyze m pos) prev))
+                   pos
+                   (ly:music-property m 'elements)))
+            ((not (music-is-of-type? m 'rhythmic-event))
+             (let ((elt (ly:music-property m 'element)))
+               (fold analyze
+                     (if (ly:music? elt) (analyze elt pos) pos)
+                     (ly:music-property m 'elements))))
+            ;; Have rhythmic event.
+            ((any
+              (lambda (art)
+                (and (music-is-of-type? art 'beam-event)
+                     (= (ly:music-property art 'span-direction START) STOP)))
+              (ly:music-property m 'articulations))
+             (let* ((len (duration-length (ly:music-property m 'duration)))
+                    (pos (+ pos len))
+                    (ass (assv len res)))
+               (cond ((or (zero? len) (not (integer? (/ pos len))))
+                      (ly:warning m (_ "Beam end fits no pattern")))
+                     (ass
+                      (set-cdr! ass (cons (/ pos len) (cdr ass))))
+                     (else
+                      (set! res (cons (list len (/ pos len)) res))))
+               pos))
+            (else
+             (+ pos (duration-length (ly:music-property m 'duration))))))
+
+    ;; takes the output from the loop, generates actual beam exceptions
+    (list
+     (cons 'end
+           (map!
+            (lambda (l)
+              (cons (car l)
+                    (beatify! (cdr l))))
+            (sort-list! res car>))))))

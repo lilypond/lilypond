@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1993--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1993--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@
 #ifndef POLY_H
 #define POLY_H
 
+#include <sys/types.h>
 #include "std-vector.hh"
 #include "arithmetic-operator.hh"
 #include "real.hh"

@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2009--2012 Carl Sorensen <c_sorensen@byu.edu>
+;;;; Copyright (C) 2009--2014 Carl Sorensen <c_sorensen@byu.edu>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
 ;;; time signature.  Each default-properties set can contain the
 ;;; following entries:
 ;;;
-;;;   (baseMoment . (numerator . denominator))
+;;;   (baseMoment . (/ numerator denominator))
 ;;;   (beatStructure . structure-list)
 ;;;   (beamExceptions . (alist of beam exceptions that don't follow beats))
 ;;;
@@ -37,7 +37,7 @@
 ;;;
 ;;;   grouping-rules is an alist containing (beam-type . grouping-list) entries
 ;;;
-;;;     beam-type is (numerator . denominator)
+;;;     beam-type is the length as a rational number
 ;;;     grouping-list is a list that specifies the
 ;;;     number of stems of the given duration that are grouped in a beamed unit.
 ;;;     For an exception, the duration used is beam-type.  For measureBeats,
@@ -45,33 +45,32 @@
 ;;;
 ;;;     If an exception is specified for a given beam-type, it will apply to all
 ;;;     beams of shorter durations that don't have an individual exception, so
-;;;     ((1 . 8) . (3 3 2))
+;;;     (1/8 . (3 3 2))
 ;;;     will cause all primary beams to be broken at 3/8, 6/8, and 8/8.
 ;;;
-;;;     ((1 . 32) . (16 8 4 4))
+;;;     (1/32 . (16 8 4 4))
 ;;;     will cause all 1/32, 1/64, and 1/128 beams to be broken at 1/2, 3/4,
 ;;;     7/8, and 8/8.
 ;;;
+;;;     Tuplets are referenced using their actual (scaled) length, so
+;;;     a 3/2 tuplet of the 1/8 kind would get exceptions looked up
+;;;     under 1/12.
+;;;
 ;;; If no values are given for baseMoment and measureBeats, default values
 ;;;   will be assigned:
-;;;   baseMoment gets the value (ly:make-moment 1  time-signature-denominator)
+;;;   baseMoment gets the value (/ time-signature-denominator)
 ;;;   beatStructure gets a list of (3 3 3 ...), where the number of entries is the
 ;;;     number of beats, each containing 3 base-moments, if the time
 ;;;     signature numerator is greater than 3 and divisible by 3, and
 ;;;     a list of (1 1 1 ...), where the number of entries is the
 ;;;     number of base moments in a measure otherwise.
-;;;
-;;;       NOTE: numerator is kept in beam-type because of
-;;;             tuplets, e.g. (2 . 24) = (2 . 3) * (1 . 8)
-;;;             for eighth-note triplets.
-;;;
 
 (define-public default-time-signature-settings
   '(
     ;; in 2/2 time:
     ;;   use defaults, but end beams with 32nd notes each 1 4 beat
     ((2 . 2) .
-     ((beamExceptions . ((end . (((1 . 32) . (8 8 8 8))))))))
+     ((beamExceptions . ((end . ((1/32 . (8 8 8 8))))))))
 
     ;; in 2/4, 2/8 and 2/16 time:
     ;;   use defaults, so no entries are necessary
@@ -80,7 +79,7 @@
     ;;   use defaults, but end beams with 32nd notes and higher each 1 4 beat
 
     ((3 . 2) .
-     ((beamExceptions . ((end .  (((1 . 32) . (8 8 8 8 8 8))))))))
+     ((beamExceptions . ((end .  ((1/32 . (8 8 8 8 8 8))))))))
 
     ;; in 3 4 time:
     ;;   use defaults, but combine all beats into a unit if possible
@@ -89,12 +88,12 @@
     ;;   in order to avoid beaming every beam type for the entire measure, we set
     ;;   triplets back to every beat.
     ((3 . 4) .
-     ((beamExceptions . ((end . (((1 . 8) . (6))            ;1/8 note whole measure
-                                 ((1 . 12) . (3 3 3)))))))) ;Anything shorter by beat
+     ((beamExceptions . ((end . ((1/8 . (6))            ;1/8 note whole measure
+                                 (1/12 . (3 3 3)))))))) ;Anything shorter by beat
 
     ;; in 3 8  time:
     ;;   beam entire measure together
-    ((3 . 8) . ((beamExceptions . ((end . (((1 . 8) . (3))))))))
+    ((3 . 8) . ((beamExceptions . ((end . ((1/8 . (3))))))))
 
     ;; in 3 16 time:
     ;;   use defaults -- no entries necessary
@@ -102,7 +101,7 @@
     ;; in 4 2 time:
     ;;   use defaults, but end beams with 16th notes or finer each 1 4 beat
     ((4 . 2) .
-     ((beamExceptions . ((end . (((1 . 16) . (4 4 4 4 4 4 4 4))))))))
+     ((beamExceptions . ((end . ((1/16 . (4 4 4 4 4 4 4 4))))))))
 
     ;; in 4 4 (common) time:
     ;;   use defaults, but combine beats 1,2 and 3,4 if only 8th notes
@@ -110,8 +109,8 @@
     ;;         ly/engraver-init.ly where the default time signature is set
     ;;         are set
     ((4 . 4) .
-     ((beamExceptions . ((end . (((1 . 8) . (4 4))  ; 1/8 notes half measure
-                                 ((1 . 12) . (3 3 3 3)))))))) ;Anything shorter by beat
+     ((beamExceptions . ((end . ((1/8 . (4 4))  ; 1/8 notes half measure
+                                 (1/12 . (3 3 3 3)))))))) ;Anything shorter by beat
 
     ;; in 4/8 time:
     ;;   combine beats 1 and 2, so beam in 2
@@ -123,7 +122,7 @@
     ;; in 6 4 time:
     ;;   use defaults, but end beams with 32nd or finer each 1/4 beat
     ((6 . 4) .
-     ((beamExceptions . ((end .  (((1 . 16) . (4 4 4 4 4 4))))))))
+     ((beamExceptions . ((end .  ((1/16 . (4 4 4 4 4 4))))))))
 
     ;; in 6 8 time:
     ;;   use defaults, so no entries necessary
@@ -134,7 +133,7 @@
     ;; in 9 4 time:
     ;;   use defaults, but end beams with 32nd or finer each 1 4 beat
     ((9 . 4) .
-     ((beamExceptions . ((end . (((1 . 32) . (8 8 8 8 8 8 8 8))))))))
+     ((beamExceptions . ((end . ((1/32 . (8 8 8 8 8 8 8 8))))))))
 
     ;; in 9 8 time
     ;;   use defaults, so no entries necessary
@@ -145,7 +144,7 @@
     ;; in 12 4 time:
     ;;   use defaults, but end beams with 32nd or finer notes each 1 4 beat
     ((12 . 4) .
-     ((beamExceptions . ((end . (((1 . 32) . (8 8 8 8 8 8 8 8 8 8 8 8))))))))
+     ((beamExceptions . ((end . ((1/32 . (8 8 8 8 8 8 8 8 8 8 8 8))))))))
 
     ;; in 12 8 time:
     ;;   use defaults, so no entries necessary

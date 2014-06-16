@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2006--2012 Joe Neeman <joeneeman@gmail.com>
+  Copyright (C) 2006--2014 Joe Neeman <joeneeman@gmail.com>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -232,7 +232,7 @@ Page_turn_page_breaking::solve ()
   for (vsize i = 0; i < last_break_position (); i++)
     {
       calc_subproblem (i);
-      progress_indication (string ("[") + to_string (i + 1) + "]");
+      progress_indication (string ("[") + ::to_string (i + 1) + "]");
     }
   progress_indication ("\n");
 

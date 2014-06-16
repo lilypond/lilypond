@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1996--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1996--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -226,8 +226,8 @@ Slur_score_state::fill (Grob *me)
 
   Slur::replace_breakable_encompass_objects (me);
   staff_space_ = Staff_symbol_referencer::staff_space (me);
-  Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
-  thickness_ = robust_scm2double (me->get_property ("thickness"), 1.0) * lt;
+  line_thickness_ = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
+  thickness_ = robust_scm2double (me->get_property ("thickness"), 1.0) * line_thickness_;
 
   dir_ = slur_direction ();
   parameters_.fill (me);

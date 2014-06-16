@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2012 Jan Nieuwenhuizen <janneke@gnu.org>
+  Copyright (C) 1997--2014 Jan Nieuwenhuizen <janneke@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -35,11 +35,11 @@ Audio_staff::Audio_staff ()
 }
 
 void
-Audio_staff::output (Midi_stream &midi_stream, int track, bool port)
+Audio_staff::output (Midi_stream &midi_stream, int track, bool port, int start_tick)
 {
   Midi_track midi_track (track, port);
 
-  Midi_walker i (this, &midi_track);
+  Midi_walker i (this, &midi_track, start_tick);
   for (; i.ok (); i++)
     i.process ();
 

@@ -9,7 +9,7 @@
 @end ignore
 
 
-@c \version "2.17.28"
+@c \version "2.19.2"
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
@@ -286,7 +286,7 @@ Una @notation{legatura di valore} si ottiene apponendo una tilde @code{~} alla
 prima nota della legatura.
 
 @lilypond[verbatim,quote,relative=2]
-g4~ g c2~ | c4~ c8 a~ a2 |
+g4~ 4 c2~ | 4~ 8 a~ 2 |
 @end lilypond
 
 @node Legature di portamento
@@ -339,7 +339,7 @@ con ampi gruppi di note.  Legature di valore e legature di portamento
 possono essere annidate le une dentro le altre.
 
 @lilypond[verbatim,quote,relative=2]
-c4~( c8 d~ d4 e)
+c4~( c8 d~ 4 e)
 @end lilypond
 
 
@@ -1219,7 +1219,7 @@ Ecco un esempio tratto dal @notation{Figaro} di Rossini, dove
     \clef "bass"
     \key c \major
     \time 6/8
-    c4.~ c8 d b | c8([ d]) b c d b | c8
+    c4.~ 8 d b | c8([ d]) b c d b | c8
   }
   \addlyrics {
     Lar -- go_al fac -- | to -- tum del -- la cit -- | tà
@@ -1250,7 +1250,7 @@ più semplice, ovvero @code{\addlyrics}.  Ecco un esempio tratto dal
     \key f \major
     \time 6/8
     \partial 8
-    c8 | c8([ bes]) a a([ g]) f | f'4. b, | c4.~ c4
+    c8 | c8([ bes]) a a([ g]) f | f'4. b, | c4.~ 4
   }
   \addlyrics {
     Let | flee -- cy flocks the | hills a -- | dorn, __

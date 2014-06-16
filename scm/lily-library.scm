@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 1998--2012 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; Copyright (C) 1998--2014 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -21,6 +21,8 @@
 
 ;; for define-safe-public when byte-compiling using Guile V2
 (use-modules (scm safe-utility-defs))
+
+(use-modules (ice-9 pretty-print))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; constants.
@@ -80,6 +82,11 @@
   (cons (ly:moment-main-numerator moment)
         (ly:moment-main-denominator moment)))
 
+(define-public (seconds->moment s context)
+  "Return a moment equivalent to s seconds at the current tempo."
+  (ly:moment-mul (ly:context-property context 'tempoWholesPerMinute)
+                 (ly:make-moment (/ s 60))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; durations
 
@@ -115,6 +122,16 @@ non-visual scale factor 1."
   "Given a duration object, return the length of the visual part of the
 duration (base note length and dot count), as a number of whole notes."
   (duration-length (duration-visual dur)))
+
+(define-public (unity-if-multimeasure context dur)
+  "Given a context and a duration, return @code{1} if the duration is
+longer than the @code{measureLength} in that context, and @code{#f} otherwise.
+This supports historic use of @code{Completion_heads_engraver} to split
+@code{c1*3} into three whole notes."
+  (if (ly:moment<? (ly:context-property context 'measureLength)
+                   (ly:duration-length dur))
+    1
+    #f))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; arithmetic
@@ -825,12 +842,12 @@ Handy for debugging, possibly turned off."
 ;;  x)
 
 (define-public (stderr string . rest)
-  (apply format (cons (current-error-port) (cons string rest)))
+  (apply format (current-error-port) string rest)
   (force-output (current-error-port)))
 
 (define-public (debugf string . rest)
   (if #f
-      (apply stderr (cons string rest))))
+      (apply stderr string rest)))
 
 (define (index-cell cell dir)
   (if (equal? dir 1)
@@ -927,23 +944,46 @@ print a warning and set an optional @var{default}."
            (object->string def))
           def))))
 
-;;
-;; don't confuse users with #<procedure .. > syntax.
-;;
+(define (self-evaluating? x)
+  (or (number? x) (string? x) (procedure? x) (boolean? x)))
+
+(define (ly-type? x)
+  (any (lambda (p) ((car p) x)) lilypond-exported-predicates))
+
+(define-public (pretty-printable? val)
+  (and (not (self-evaluating? val))
+       (not (symbol? val))
+       (not (hash-table? val))
+       (not (ly-type? val))))
+
 (define-public (scm->string val)
-  (if (and (procedure? val)
-           (symbol? (procedure-name val)))
-      (symbol->string (procedure-name val))
-      (string-append
-       (if (self-evaluating? val)
-           (if (string? val)
-               "\""
-               "")
-           "'")
-       (call-with-output-string (lambda (port) (display val port)))
-       (if (string? val)
-           "\""
-           ""))))
+  (let* ((quote-style (if (string? val)
+                        'double
+                        (if (or (null? val) ; (ly-type? '()) => #t
+                                (and (not (self-evaluating? val))
+                                     (not (vector? val))
+                                     (not (hash-table? val))
+                                     (not (ly-type? val))))
+                          'single
+                          'none)))
+         ; don't confuse users with #<procedure ...> syntax
+         (str (if (and (procedure? val)
+                       (symbol? (procedure-name val)))
+                (symbol->string (procedure-name val))
+                (call-with-output-string
+                  (if (pretty-printable? val)
+                    ; property values in PDF hit margin after 64 columns
+                    (lambda (port)
+                      (pretty-print val port #:width (case quote-style
+                                                       ((single) 63)
+                                                       (else 64))))
+                    (lambda (port) (display val port)))))))
+    (case quote-style
+      ((single) (string-append
+                  "'"
+                  (string-regexp-substitute "\n " "\n  " str)))
+      ((double) (string-append "\"" str "\""))
+      (else str))))
 
 (define-public (!= lst r)
   (not (= lst r)))

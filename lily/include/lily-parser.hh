@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -25,8 +25,7 @@
 #include "pitch.hh"
 
 /**
-   State for the parser.  Do not ever add any variables to parse
-   musical content here.  We still have to remove default_duration_.
+   State for the parser.
 
    TODO: interface is too complicated
 */
@@ -34,18 +33,11 @@ class Lily_parser
 {
   DECLARE_SMOBS (Lily_parser);
 
-  char const *here_str0 () const;
-  Simultaneous_music *get_chord (Pitch tonic,
-                                 vector<Pitch> *adds, vector<Pitch> *subs,
-                                 Pitch *inversion, Pitch *bass, Duration d);
-  void set_chord_tremolo (int type);
-  void set_last_duration (Duration const *);
-  void set_last_pitch (Pitch const *);
-
 public:
   Lily_lexer *lexer_;
   Sources *sources_;
   Duration default_duration_;
+  int default_tremolo_type_;
   string output_basename_;
   SCM closures_;
 

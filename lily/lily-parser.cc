@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -44,6 +44,7 @@ Lily_parser::Lily_parser (Sources *sources)
   lexer_ = 0;
   sources_ = sources;
   default_duration_ = Duration (2, 0);
+  default_tremolo_type_ = 8;
   error_level_ = 0;
   closures_ = SCM_EOL;
 
@@ -58,6 +59,7 @@ Lily_parser::Lily_parser (Lily_parser const &src, SCM closures, SCM location)
   lexer_ = 0;
   sources_ = src.sources_;
   default_duration_ = src.default_duration_;
+  default_tremolo_type_ = src.default_tremolo_type_;
   error_level_ = 0;
   output_basename_ = src.output_basename_;
   closures_ = closures;
@@ -167,7 +169,7 @@ Lily_parser::parse_string_expression (const string &ly_code, const string &filen
   SCM mod = lexer_->set_current_scope ();
   SCM parser = lexer_->lookup_identifier_symbol (ly_symbol2scm ("parser"));
   lexer_->set_identifier (ly_symbol2scm ("parser"), self_scm ());
-  lexer_->push_extra_token (EMBEDDED_LILY);
+  lexer_->push_extra_token (Input (), EMBEDDED_LILY);
   SCM result = do_yyparse ();
 
   lexer_->set_identifier (ly_symbol2scm ("parser"), parser);
@@ -193,12 +195,6 @@ Lily_parser::clear ()
     }
 
   lexer_ = 0;
-}
-
-char const *
-Lily_parser::here_str0 () const
-{
-  return lexer_->here_str0 ();
 }
 
 void

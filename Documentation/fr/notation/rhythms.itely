@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.30"
+@c \version "2.19.2"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, François Martin, Xavier Scheuer
@@ -443,7 +443,7 @@ notes à lier.  Ceci indique que la note en question sera liée à la
 suivante, qui doit être de la même hauteur.
 
 @lilypond[quote,verbatim,relative=2]
-a2~ a4~ a16 r r8
+a2~ 4~ 16 r r8
 @end lilypond
 
 Les liaisons de tenue sont utilisées soit lorsque la note dépasse de la
@@ -454,8 +454,8 @@ longues doivent s'aligner sur les subdivisions de la mesure, comme ici :
 @c KEEP LY
 @lilypond[verbatim,quote]
 \relative c' {
-  r8^"oui" c8~ c2 r4 |
-  r8^"non" c2~ c8 r4
+  r8^"oui" c8~ 2 r4 |
+  r8^"non" c2~ 8 r4
 }
 @end lilypond
 
@@ -543,26 +543,26 @@ continue, discontinue ou pointillée.
 
 @lilypond[quote, verbatim, relative=1]
 \tieDotted
-c2~ c
+c2~ 2
 \tieDashed
-c2~ c
+c2~ 2
 \tieHalfDashed
-c2~ c
+c2~ 2
 \tieHalfSolid
-c2~ c
+c2~ 2
 \tieSolid
-c2~ c
+c2~ 2
 @end lilypond
 
 Il est même possible d'en personnaliser l'allure :
 
 @lilypond[quote, verbatim, relative=1]
 \tieDashPattern #0.3 #0.75
-c2~ c
+c2~ 2
 \tieDashPattern #0.7 #1.5
-c2~ c
+c2~ 2
 \tieSolid
-c2~ c
+c2~ 2
 @end lilypond
 
 Que ce soit pour une tenue ou un phrasé, le motif d'une ligne

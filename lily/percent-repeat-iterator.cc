@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2001--2012  Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2001--2014  Han-Wen Nienhuys <hanwen@xs4all.nl>
                   Erik Sandberg <mandolaerik@gmail.com>
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -43,6 +43,7 @@ SCM
 Percent_repeat_iterator::get_music_list () const
 {
   Music *mus = get_music ();
+
   Music *child = Repeated_music::body (mus);
   SCM length = child->get_length ().smobbed_copy ();
   SCM child_list = SCM_EOL;

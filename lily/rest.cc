@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2012 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -217,7 +217,7 @@ Rest::glyph_name (Grob *me, int durlog, const string &style, bool try_ledgers,
       actual_style = "";
     }
 
-  return ("rests." + to_string (durlog) + (is_ledgered ? "o" : "")
+  return ("rests." + ::to_string (durlog) + (is_ledgered ? "o" : "")
           + actual_style);
 }
 

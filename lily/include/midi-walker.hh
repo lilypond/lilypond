@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1996--2012 Han-Wen Nienhuys  <hanwen@xs4all.nl>
+  Copyright (C) 1996--2014 Han-Wen Nienhuys  <hanwen@xs4all.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -39,7 +39,7 @@ int compare (Midi_note_event const &left, Midi_note_event const &right);
 class Midi_walker
 {
 public:
-  Midi_walker (Audio_staff *audio_staff, Midi_track *midi_track);
+  Midi_walker (Audio_staff *audio_staff, Midi_track *midi_track, int start_tick);
   ~Midi_walker ();
 
   void process ();
