@@ -343,7 +343,7 @@ gairebé tots els problemes es poden reproduir mitjançant un sols
 compàs o menys.
 
 @item
-Quan intenti crear un exemple, provi a convertir en comentaris 
+Quan intenti crear un exemple, provi a convertir en comentaris
 @w{(@code{%} o @code{%@{ @dots{} %@}})} diferents seccions del
 fitxer.  Si podeu convertir un bloc en un comentari i encara mostrar
 la idea principal, aleshores elimineu aquest bloc.
@@ -351,7 +351,7 @@ la idea principal, aleshores elimineu aquest bloc.
 @item
 Eviteu la utilització de notes, tonalitats o compassos molt
 complicats, a no ser que la fallada estigui relacionada amb el
-comportament d'aquests elements. 
+comportament d'aquests elements.
 
 @item
 No utilitzeu instruccions @code{\override} ni @code{\set} a no ser
@@ -436,7 +436,7 @@ aquest informe.}
 @subheading Pas 2: creació d'un informe de fallada
 
 Si heu descobert una fallada que no estigui a la llista,
-ajudeu-nos elaborant un informe de fallada. 
+ajudeu-nos elaborant un informe de fallada.
 
 @warning{Sols acceptem informes en forma de @ref{Exemples mínims}.
 Disposem de recursos molt limitats, per la qual cosa qualsevol
@@ -469,7 +469,7 @@ creat l'informe, podeu enviar-nos-el!
 @itemize
 
 @item
-Si esteu subscrit a la llista de correu 
+Si esteu subscrit a la llista de correu
 @uref{mailto:bug-lilypond@@gnu.org,bug-lilypond@@gnu.org},
 envieu un missatge de la forma habitual.
 
@@ -482,7 +482,7 @@ interfície web de gmane per a lilypond.bugs}.
 No obstant, hi ha una comprovació molt estricta que no hi ha
 @qq{top-posting} (contestar per sobre) a la interfície de gmane,
 que es dispara incorrectament amb freqüència a causa dels fitxers
-del LilyPond. 
+del LilyPond.
 Per evitar-lo, escriviu:
 
 @example
@@ -491,7 +491,7 @@ Per evitar-lo, escriviu:
 
 @noindent
 (@emph{heu de} escriure l'angle @code{>} ) al principi del vostre
-informe. 
+informe.
 
 @end itemize
 @divEnd
@@ -706,7 +706,7 @@ El desenvolupament del LilyPond és un assumpte força complicat.
 El LilyPond és un projecte gran i (més o menys) estable.  Per
 poder ajudar als nous col·laboradors, i per mantenir tot el
 sistema (més o menys) estable, hem escrit un manual per als
-col·laboradors. 
+col·laboradors.
 
 @docLinksBare{Guia del col·laborador, contribuïdor,
   @rcontribnamed{Top,Guía del col·laborador},
@@ -912,7 +912,7 @@ L'equip del LilyPond va decidir que aquesta era una oportunitat
 excel·lent per trobar col·laboradors nous i animar els estudiants
 que ja participen en el desenvolupament del LilyPond a què
 s'impliquin encara més. Un dels nostre col·laboradors ha estat
-seleccionat per a l'edició del program com a part del 
+seleccionat per a l'edició del program com a part del
 @uref{http://www.gnu.org/, project GNU}; esperem poder participar
 també a edicions futures.
 
@@ -936,7 +936,7 @@ entre elles algunes de molt petites.  Hi ha una llista completa
 @subheading Notes de adorn
 
 Arreglar problemes amb la sincronització de les notes d'adorn,
-junt a tota l'arquitectura subjacent (vegeu 
+junt a tota l'arquitectura subjacent (vegeu
 @uref{http://code.google.com/p/lilypond/issues/detail?id=34, el
 problema número 34 del nostre sistema de seguiment}).
 Les notes d'adorn confonen el sistema de comptabilització de temps

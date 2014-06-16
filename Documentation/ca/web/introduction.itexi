@@ -165,7 +165,7 @@ d'ordinador poden usar programari de reconeixement de veu per
 editar els fitxers del LilyPond. Fins i tot les persones totalment
 cegues poden usar lectors de pantalla per escriure els fitxers del
 Lilypond (una tasca impossible als programes d'edició de
-partitures basats en gràfics). 
+partitures basats en gràfics).
 
 @subsubheading Disseny ampliable
 
@@ -187,7 +187,7 @@ al complet manual de referència del programa.
 @subsubheading Programari lliure
 
 El LilyPond es pot descarregar sense cost! Sí: és
-gratis. Obteniu-lo a la pàgina de descàrrega. 
+gratis. Obteniu-lo a la pàgina de descàrrega.
 
 També és programari lliure, com la llibertat
 d'expressió. S'ofereix amb el codi font amb el permís de
@@ -275,7 +275,7 @@ l'obra @emph{Čáry}, del Trevor Bača, per a flauta baixa sola.
 @subsubheading Creació flexible i eficient de material d'interpretació
 
 Es poden crear diferents materials de lectura a partir del mateix
-codi font. Heus aquí un extracte de la realització del 
+codi font. Heus aquí un extracte de la realització del
 @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux} de @emph{Giulio
 Cesare} del Haendel, en partitura completa, reducció per a piano y
 veu, i una particella de violí.
@@ -295,7 +295,7 @@ El LilyPond contempla la notació de xifra per a guitarra, que es
 pot personalitzar per adaptar-la a qualsevol instrument que
 llegeixi de tabulatura. La pauta de tabulatura es genera
 automàticament a partir de les notes que s'escriuen al pentagrama
-normal. 
+normal.
 
 @exampleImage{tab-example}
 @newsEnd
@@ -333,7 +333,7 @@ lligadura per sobre de certs grups de notes.
 
 El LilyPond està molt indicat també per a aplicacions
 educatives. Heus aquí un exemple d'un senzill exercici de
-contrapunt. 
+contrapunt.
 
 @exampleImage{theory}
 @newsEnd
@@ -356,7 +356,7 @@ profundament per complir amb gairebé qualsevol situació.
 El LilyPond és excel·lent per a projectes grans com ara òperes o
 també obres per a orquestra simfònica. A més a més, l'entrada
 basada en text proporciona una major accessibilitat (aquest exemple
-ha estat aportat per Hu Haipeng, un compositor cec). 
+ha estat aportat per Hu Haipeng, un compositor cec).
 
 @exampleImage{orchestra}
 @newsEnd
@@ -380,7 +380,7 @@ provar el LilyPond, llegiu primer el que tenim a dir-vos sobre la
 @subheading Software lliure
 
 @uref{http://www.gnu.org/, GNU} El LilyPond està escrit i
-mantingut per una comunitat d'entusiastes. Està publicat sota la 
+mantingut per una comunitat d'entusiastes. Està publicat sota la
 @ref{GPL, Llicència General Pública de GNU} i la @ref{FDL,
 Llicència de Documentació Lliure de GNU}, donant a tothom la
 llibertat d'arreglar, modificar i ampliar el programa. La creació
@@ -459,13 +459,13 @@ fracció de l'esforç individual.
 
 @item
 La @qq{cultura del regal}: el moviment del programari lliure ha
-creat molts projectes genials de programari, com ara 
+creat molts projectes genials de programari, com ara
 @uref{http://kernel.org/, GNU/Linux},
 @uref{http://www.getfirefox.com/, Mozilla Firefox} i el joc
 @uref{http://www.wesnoth.org/, Battle for Wesnoth}.  Després
 d'haver-se vist beneficiats per aquests projectes, alguns
 desenvolupadores desitgen @qq{retornar} alguna cosa a la
-comunitat. 
+comunitat.
 
 @item
 Experiència laboral: les contribucions a projectes de programari
@@ -531,10 +531,10 @@ interpretacions i actuacions per tot el mon. Alguns titulars:
 @item
 @uref{http://www.aurelienbello.com/,Aurélien Bello} ha
 reorquestrat @emph{Der Ring des Nibelungen} del Richard Wagner a una
-@uref{http://www.rsb-online.de/content/konzerte/wagnerzyklus-10-13/wagner-fuer-kinder/index_ger.html, per a nens} de 100 minuts de 
+@uref{http://www.rsb-online.de/content/konzerte/wagnerzyklus-10-13/wagner-fuer-kinder/index_ger.html, per a nens} de 100 minuts de
 durada. Està escrita per a orquestra simfònica estàndard però amb
-una plantilla reduïda de cantants, i s'interpretarà per la 
-@emph{Radio-Sinfonieorchester Berlin} els dies 5 i 6 d'abril de 
+una plantilla reduïda de cantants, i s'interpretarà per la
+@emph{Radio-Sinfonieorchester Berlin} els dies 5 i 6 d'abril de
 2014 a l'Atze Musiktheater de Berlín.  El director és el Heiko
 Matthias Förster.
 
@@ -548,7 +548,7 @@ per a la traducció holandesa del @emph{Saint Nicolas} del Benjamin
 Britten realitzat per @emph{Muziektheater Hollands Diep} el 2011,
 @uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft,
 www.muziektheaterhollandsdiep.nl}; i està treballant actualment en
-la partitura general i particelles d'un arranjament del 
+la partitura general i particelles d'un arranjament del
 @emph{Boris Godounov} del Moussurgsky per a quartet de vent,
 piano i percussió.  S'interpretarà el 2014, de nou per part de
 @emph{Muziektheater Hollands Diep}.
@@ -556,7 +556,7 @@ piano i percussió.  S'interpretarà el 2014, de nou per part de
 @item
 Una edició crítica de la sèrie d'òperes @emph{Enea nel Lazio (1760)},
 del Tommaso Traetta, amb llibret del Vittorio Amedeo Cigna-Santi,
-en quatre parts: 
+en quatre parts:
 @uref{http://www.academia.edu/1987651/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_1_4_, Primera part}
 @uref{http://www.academia.edu/1994533/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_2_4_, Segona part}
 @uref{http://www.academia.edu/1994558/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_3_4_, Tercera part}
@@ -569,7 +569,7 @@ per a la seva tesi de doctorat.
 Els @emph{Quadres d'una exposició} del Mussorgsky, reorquestrats i
 dirigits per l'@uref{http://www.aurelienbello.com/,Aurélien Bello}
 amb la orquestra
-@uref{http://www.junge-philharmonie-brandenburg.de/, Junge  
+@uref{http://www.junge-philharmonie-brandenburg.de/, Junge
 Philharmonie Brandenburg} el 10 d'octubre de 2011 i una altra
 vegada els dies 15 i 16 d'abril de 2012.
 
@@ -610,10 +610,10 @@ La interpretació de
 
 @item
 Extractes instrumentals de @emph{Hippolyte et Aricie} del Rameau a
-l'església de St. James a Manhattan, el 8 de maig de 2009, pel 
+l'església de St. James a Manhattan, el 8 de maig de 2009, pel
 Frederick Renz i el seu conjunt
 @uref{http://www.earlymusicny.org/, Early Music New York}
-(realització tipogràfica de 
+(realització tipogràfica de
 @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}).
 
 @item
@@ -640,7 +640,7 @@ Montpellier}, a França.
 El @uref{http://www.mutopiaproject.org/index.html, Projecte Mutopia}
 inclou més de 1500 partitures de música clàssica per a la seva
 descàrrega lliure, i és el principal aparador de partitures del
-Lilypond. 
+Lilypond.
 
 @c don't make this "Mutopia" a link, since that looks silly.
 @item
@@ -726,7 +726,7 @@ Ann Drinan, a la pàgina
 @uref{http://www.polyphonic.org/article.php?id=188, Polyphonic.org},
 presenta alguns comentaris de dos arxivers d'orquestra que xerren
 sobre l'ús de programari per al manteniment de les seves
-biblioteques. 
+biblioteques.
 
 @item
 Juny de 2009
@@ -786,7 +786,7 @@ Juny de 2005
 
 Un article en francès sobre el llançament del LilyPond 2.6 va
 aparèixer en @uref{http://linuxfr.org/2005/06/27/19210.html,
-linuxfr.org}. 
+linuxfr.org}.
 
 @item
 Octubre de 2004
@@ -812,7 +812,7 @@ Març de 2004
 
 Chris Cannam va entrevistar a Han-Wen Nienhuys i a Jan
 Nieuwenhuizen a linuxmusician.com (una pàgina ara
-desapareguda). Aquesta entrevistat es va ressenyar també a una 
+desapareguda). Aquesta entrevistat es va ressenyar també a una
 @uref{http://slashdot.org/article.pl?sid=04/03/13/2054227&tid=,
 història de slashdot}.
 
@@ -989,7 +989,7 @@ personal el difícil que pot ser aquest tipus de programari.}
 aquest projecte. Jo vaig ser usuari intensiu del SCORE per a cases
 grans d'edició musical, allà pels anys 90, però ara sento que el
 LilyPond, per fi, em permet aconseguir exactament el que vull fer
-sobre la pàgina, especialment quan no es tracta de la pràctica 
+sobre la pàgina, especialment quan no es tracta de la pràctica
 "estàndard".}
 @divEnd
 
@@ -1135,7 +1135,7 @@ directa d'una partitura gràfica.  Per veure més informació, consulteu
 
 Ja està preparat per @ref{Descàrrega, Descarregar el LilyPond}.
 Encara no esteu convençut? Llegiu quelcom sobre els entorns
-d'edició a 
+d'edició a
 @ref{Entorns millorats}.
 
 @divEnd
@@ -1184,7 +1184,7 @@ per veure una imatge més gran),lilypondtool-2.12-screenshot,png,right}
 
 @uref{http://lilypondtool.organum.hu}
 
-Creat com un @q{connector} o complement per a l'editor de text 
+Creat com un @q{connector} o complement per a l'editor de text
 @uref{http://www.jedit.org,jEdit}, el LilyPondTool és una de les
 eines basades en text més riques en funcionament per a l'edició de
 partitures del LilyPond.  Entre les seves possibilitats es troben:
@@ -1210,7 +1210,7 @@ per veure una imatge més gran),frescobaldi-lilypond-editor,png,right}
 El Frescobaldi és un editor lleuger i potent de text i música per
 al LilyPond amb un visor de PDF incorporat.  És molt fàcil
 d'utilitzar i funciona en tots els principals sistemes operatius
-(GNU/Linux, Mac OS X i Windows). 
+(GNU/Linux, Mac OS X i Windows).
 
 @divEnd
 
@@ -1265,7 +1265,7 @@ desenvolupament.  Hi ha un @q{mode del LilyPond} que ofereix les
 definicions del llenguatge per treballar amb fitxers font del
 LilyPond. Un desenvolupador ha escrit
 @uref{https://github.com/nsceaux/lyqi,lyqi}, un mode principal de
-l'Emacs. 
+l'Emacs.
 
 @uref{http://www.vim.org}
 
@@ -1277,7 +1277,7 @@ Per regla general, si no esteu familiaritzat prèviament amb
 l'Emacs o el Vim, probablement preferireu utilitzar un editor
 diferent per escriure fitxers d'entrada del LilyPond.
 
-Hi ha més informació sobre la configuració de l'Emacs i del Vim a 
+Hi ha més informació sobre la configuració de l'Emacs i del Vim a
 @rprogram{Text editor support}.
 
 @sourceimage{logo-macosx,,,}
@@ -1305,7 +1305,7 @@ dins de l'editor, utilitzant les extensions que estan disponibles a:
 convertir un fixer @code{.bww} o @code{.bmw} al LilyPond.  Tot i
 que no tots els ornaments es converteixen adequadament (el que és
 cert especialment amb piobaireachd), el programa imprimeix una
-llista d'ells. 
+llista d'ells.
 
 @item
 @uref{http://www.canorus.org,Canorus}, un editor de partitures,
@@ -1319,7 +1319,7 @@ a GNU/Linux que converteix una partitura musical de
 
 @item
 @uref{https://github.com/hanwen/go-enc2ly,go-enc2ly} és una eina
-de GO que converteix fitxers de 
+de GO que converteix fitxers de
 @uref{http://www.gvox.com/,Encore} al LilyPond. Es va crear
 utilitzant la recerca i la enginyeria inversa per mitjà de la
 modificació puntual de fitxers .enc i carregant-los a la versió de
@@ -1368,7 +1368,7 @@ capaç d'exportar cap al LilyPond.
 @itemize
 
 @item
-@uref{http://www.projectabjad.org/,Abjad}, una API de 
+@uref{http://www.projectabjad.org/,Abjad}, una API de
 @uref{http://www.python.org/,Python} per al control formalitzat de
 partitures, dissenyat per ajudar als compositors a construir
 fragments complexos de notació del LilyPond d'una forma iterativa i incremental.
@@ -1420,7 +1420,7 @@ teclat numèrica que produeix notes del LilyPond.
 @divClass{column-center-bottom}
 @subheading I ara què?
 
-Ja esteu preparat per a @ref{Descàrrega, Descarregar el LilyPond}. 
+Ja esteu preparat per a @ref{Descàrrega, Descarregar el LilyPond}.
 
 Encara no esteu convençut? Molts compositors, músics i director
 d'orquestra han après a escriure música en el nostra format
@@ -1431,7 +1431,7 @@ donar una ullada a les @ref{Possibilitats}, @ref{Exemples} o a la
 @ref{Llibertat} i @ref{Ressenyes} dels nostres usuaris. A més a
 més, el nostre enfoc de l'estètica computacional del gravat
 musical clàssic ve explicat en el nostre tractat sobre el
-@ref{Rerefons}. 
+@ref{Rerefons}.
 
 @subheading Formalitats legals
 
