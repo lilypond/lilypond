@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
+    Translation of GIT committish: 856ae980b25d1d99c1e847985bed8b61c061e02f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1076,7 +1076,7 @@ Ajoutez des accords et des paroles pour obtenir une chanson :
 @imageFloat{text-input-pop-output,png,center}
 
 
-@subsubheading Matériel d'orcheste
+@subsubheading Matériel d'orchestre
 
 Le fichier source contient les notes de la pièce.  Le conducteur et les
 parties séparées peuvent être réalisés à partir de la même source ;
