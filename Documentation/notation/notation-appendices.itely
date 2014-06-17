@@ -23,6 +23,7 @@
 * List of colors::
 * The Feta font::
 * Note head styles::
+* Clef styles::
 * Text markup commands::
 * Text markup list commands::
 * List of special characters::
@@ -1227,6 +1228,7 @@ see @ref{Formatting text}.
 	     \doc-chars #kievan
 @end lilypond
 
+
 @node Note head styles
 @appendixsec Note head styles
 
@@ -1234,6 +1236,256 @@ see @ref{Formatting text}.
 The following styles may be used for note heads.
 
 @lilypondfile[noindent]{note-head-style.ly}
+
+
+@node Clef styles
+@appendixsec Clef styles
+
+The following table shows all the different clef styles possible
+(including where @emph{middle C} sits relative to the clef).
+
+@multitable @columnfractions .30 .2 .30 .2
+
+@item
+@b{Example}
+@tab
+@b{Output}
+@tab
+@b{Example}
+@tab
+@b{Output}
+
+
+@item
+@code{\clef G}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+{
+  \clef G
+  { c1 }
+}
+@end lilypond
+@tab
+@code{\clef treble}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+{
+  \clef treble
+  { c1 }
+}
+@end lilypond
+
+@item
+@code{\clef violin}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+{
+  \clef violin
+  { c1 }
+}
+@end lilypond
+@tab
+@code{\clef french}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+{
+  \clef french
+  { c1 }
+}
+@end lilypond
+
+@item
+@code{\clef GG}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+{
+  \clef GG
+  { c1 }
+}
+@end lilypond
+
+@tab
+@code{\clef tenorG}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+{
+  \clef tenorG
+  { c1 }
+}
+@end lilypond
+
+@item
+@code{\clef soprano}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+{
+  \clef soprano
+  { c1 }
+}
+@end lilypond
+
+@tab
+@code{\clef mezzosoprano}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+{
+  \clef mezzosoprano
+  { c1 }
+}
+@end lilypond
+
+@item
+@code{\clef C}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+{
+  \clef C
+  { c1 }
+}
+@end lilypond
+
+@tab
+@code{\clef alto}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+{
+  \clef alto
+  { c1 }
+}
+@end lilypond
+
+@item
+@code{\clef tenor}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+{
+  \clef tenor
+  { c1 }
+}
+@end lilypond
+
+@tab
+@code{\clef baritone}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+{
+  \clef baritone
+  { c1 }
+}
+@end lilypond
+
+@item
+@code{\clef varC}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+{
+  \clef varC
+  { c1 }
+}
+@end lilypond
+
+@tab
+@code{\clef altovarC}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+{
+  \clef altovarC
+  { c1 }
+}
+@end lilypond
+
+@item
+@code{\clef tenorvarC}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+{
+  \clef tenorvarC
+  { c1 }
+}
+@end lilypond
+
+@tab
+@code{\clef baritonevarC}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+{
+  \clef baritonevarC
+  { c1 }
+}
+@end lilypond
+
+@item
+@code{\clef varbaritone}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+{
+  \clef varbaritone
+  { c1 }
+}
+@end lilypond
+
+@tab
+@code{\clef baritonevarF}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+{
+  \clef baritonevarF
+  { c1 }
+}
+@end lilypond
+
+@item
+@code{\clef F}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+{
+  \clef F
+  { c1 }
+}
+@end lilypond
+
+@tab
+@code{\clef bass}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+{
+  \clef bass
+  { c1 }
+}
+@end lilypond
+
+@item
+@code{\clef subbass}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+{
+  \clef subbass
+  { c1 }
+}
+@end lilypond
+
+@tab
+@code{\clef percussion}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+{
+  \clef percussion
+  { c1 }
+}
+@end lilypond
+
+@item
+@code{\clef tab}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+{
+  \clef tab
+  { c1 }
+}
+@end lilypond
+
+
+@end multitable
 
 
 @node Text markup commands

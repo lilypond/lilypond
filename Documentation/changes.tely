@@ -235,14 +235,17 @@ A new note head style for Tabulature has been added;
 @code{TabNoteHead.style = #'slash}.
 
 @item
-Four new Clefs have been added.  @emph{Double G}, @emph{Tenor G},
-@emph{Varpercussion} and @emph{varC}.
+Four new Clef glyphs have been added @emph{Double G}, @emph{Tenor G},
+@emph{Varpercussion} and @emph{varC} and their related tessitura.
 @lilypond[verbatim,quote,fragment]
   \override Staff.Clef.full-size-change = ##t
 
   \clef "GG" c c c c
   \clef "tenorG" c c c c
   \clef "varC" c c c c
+  \clef "altovarC" c c c c
+  \clef "tenorvarC" c c c c
+  \clef "baritonevarC" c c c c
   \clef "varpercussion" c c c c
 
   \break
@@ -251,6 +254,9 @@ Four new Clefs have been added.  @emph{Double G}, @emph{Tenor G},
   \clef "GG" c c c c
   \clef "tenorG" c c c c
   \clef "varC" c c c c
+  \clef "altovarC" c c c c
+  \clef "tenorvarC" c c c c
+  \clef "baritonevarC" c c c
   \clef "varpercussion" c c c c
 @end lilypond
 

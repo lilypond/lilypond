@@ -1104,8 +1104,16 @@ This section discusses how to alter the output of pitches.
 @funindex \clef
 @funindex clef
 
-The clef may be altered.  Middle C is shown in every example.  The
-following clef names can (but do not need to) be enclosed in quotes.
+Without any explicit command, the default clef for LilyPond is the
+treble (or @emph{G}) clef.
+
+@lilypond[verbatim,quote,relative=1,ragged-right]
+c2 c
+@end lilypond
+
+However, the clef can be changed by using the @code{\clef} command and
+an appropriate clef name.  @emph{Middle C} is shown in each of the
+following examples.
 
 @lilypond[verbatim,quote,relative=1]
 \clef treble
@@ -1118,36 +1126,17 @@ c2 c
 c2 c
 @end lilypond
 
-Other clefs include:
+For the full range of possible clef names see @ref{Clef styles}.
 
-@lilypond[verbatim,quote,relative=1]
-\clef french
-c2 c
-\clef soprano
-c2 c
-\clef mezzosoprano
-c2 c
-\clef baritone
-c2 c
+Specialized clefs, such as those used in @emph{Ancient} music, are
+described in @ref{Mensural clefs} and @ref{Gregorian clefs}.  Music that
+requires tablature clefs is discussed in @ref{Default tablatures} and
+@ref{Custom tablatures}.
 
-\break
-
-\clef varbaritone
-c2 c
-\clef subbass
-c2 c
-\clef percussion
-c2 c
-
-\break
-
-\clef G   % synonym for treble
-c2 c
-\clef F   % synonym for bass
-c2 c
-\clef C   % synonym for alto
-c2 c
-@end lilypond
+@cindex Cue clefs
+@cindex Clefs with cue notes
+For mixing clefs when using cue notes, see the @code{\cueClef} and
+@code{\cueDuringWithClef} commands in @ref{Formatting cue notes}.
 
 @cindex transposing clef
 @cindex clef, transposing
@@ -1191,13 +1180,12 @@ c2 c
 The pitches are displayed as if the numeric argument were
 given without parentheses/brackets.
 
-Some special purpose clefs are described in @ref{Mensural clefs},
-@ref{Gregorian clefs}, @ref{Default tablatures}, and @ref{Custom
-tablatures}.  For mixing different clefs when using cue notes within a
-score, see the @code{\cueClef} and @code{\cueDuringWithClef} functions
-in @ref{Formatting cue notes}.
-
 @snippets
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{forcing-a-clef-symbol-to-be-displayed.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{keep-change-clefs-full-sized.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {tweaking-clef-properties.ly}
@@ -1209,6 +1197,9 @@ Notation Reference:
 @ref{Default tablatures},
 @ref{Custom tablatures},
 @ref{Formatting cue notes}.
+
+Installed Files:
+@file{../scm/parser-clef.scm}.
 
 Snippets:
 @rlsr{Pitches}.
