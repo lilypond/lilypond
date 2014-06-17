@@ -123,7 +123,7 @@ LilyPond は @strong{テキスト ベース} の楽譜作成プログラムで�
 非英語圏の読者のための翻訳状況。
 
 @item
-@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}:
+@uref{http://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}:
 ユーザが作成した例、ヒント、それに TIPS。
 
 @item @ref{Development}:
@@ -305,7 +305,7 @@ LilyPond 記譜法を他のプログラムと統合する方法について説�
 @divClass{column-left-top}
 @subheading コード断片集
 
-これは @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond コード断片リポジトリ}
+これは @uref{http://lsr@/.di@/.unimi@/.it,LilyPond コード断片リポジトリ}
 (LSR) から選び出した LilyPond のコード断片集です。@c
 LSR にあるすべてのコード断片はパブリック ドメインにあります
 (公開されています)。

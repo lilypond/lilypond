@@ -131,7 +131,7 @@ LilyPond コード断片リポジトリ (LSR) はユーザが投稿した例の@
 他の人が書いた楽譜を見て、あなた自身も投稿してください！
 
 @example
-@uref{http://lsr.dsi.unimi.it}
+@uref{http://lsr.di.unimi.it}
 @end example
 
 LSR から、@c

@@ -1315,7 +1315,7 @@ def musicxml_words_to_lily_event (words):
 # convert accordion-registration to lilypond.
 # Since lilypond does not have any built-in commands, we need to create
 # the markup commands manually and define our own variables.
-# Idea was taken from: http://lsr.dsi.unimi.it/LSR/Item?id=194
+# Idea was taken from: http://lsr.di.unimi.it/LSR/Item?id=194
 def musicxml_accordion_to_markup (mxl_event):
     commandname = "accReg"
     command = ""

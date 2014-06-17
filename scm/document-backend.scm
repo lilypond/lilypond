@@ -176,16 +176,6 @@ node."
      (cons (cons key val)  prior))
    '() (ly:all-grob-interfaces)))
 
-;; sort user-settable and internal props within each grob-interface
-(set! interface-description-alist
-  (map! (lambda (iface-desc)
-          (let* ((key-name-docstr (list-head iface-desc 3))
-                 (props           (list-tail iface-desc 3))
-                 (sorted-props    (list (sort (car props) ly:symbol-ci<?))))
-            (append key-name-docstr sorted-props)))
-        interface-description-alist))
-
-;; sort list of grob interfaces
 (set! interface-description-alist
       (sort interface-description-alist ly:alist-ci<?))
 
