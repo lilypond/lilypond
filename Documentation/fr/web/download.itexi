@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
+    Translation of GIT committish: febe2e4ff91dda9227e85274ae045e23c6b4ec28
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -150,12 +150,12 @@ protégés par le droit d’auteur.
 @subheading Paquetage générique ou paquetage spécifique à la distribution
 
 De nombreuses distributions incluent LilyPond dans le choix de
-paquetages de leurs dépôts.  Ces versions sont plus faciles à installer
-ou désinstaller que le paquetage générique que vous trouverez ici.  La
-version de LilyPond disponible sur ces dépôts peut être notablement plus
-ancienne que la version stable en cours.  Si vous avez l'intention
-d'utiliser notre paquetage générique, veillez à ce que votre éditeur de
-fichiers LilyPond fait appel à la version correcte de lilypond -- voir
+paquetages de leurs dépôts, à des niveaux de version bien antérieurs à
+celui de la version stable en cours.  Bien que ces versions sont plus
+faciles à installer ou désinstaller, nous ne saurions que trop vous
+engager à utiliser le paquetage générique que vous trouverez ici.
+Veillez toutefois à ce que votre éditeur de fichiers LilyPond fasse
+appel à la version correcte de lilypond -- voir
 @ref{Facilités d'édition}.
 
 @divEnd
@@ -176,12 +176,12 @@ fichiers LilyPond fait appel à la version correcte de lilypond -- voir
 @ifset web_version
 @downloadStableLinuxNormal
 @end ifset
-
-(dans le doute, prenez celui-ci)
+pour système 32 bits.
 
 @item
 @sourceimage{logo-linux,,,}
 @downloadStableLinuxBig
+pour système 64 bits.
 
 @item
 @sourceimage{logo-linux,,,}
@@ -190,10 +190,12 @@ fichiers LilyPond fait appel à la version correcte de lilypond -- voir
 @item
 @sourceimage{logo-freebsd,,,}
 @downloadStableFreeBSDNormal
+pour système 32 bits.
 
 @item
 @sourceimage{logo-freebsd,,,}
 @downloadStableFreeBSDBig
+pour système 64 bits.
 
 @end itemize
 
@@ -227,44 +229,6 @@ sh lilypond-@versionStable{}-OS-TYPE.sh --help
 
 
 @divClass{column-right-top}
-@subheading Paquetage des distributions
-
-Veuillez utiliser votre gestionnaire de paquet favori pour installer et
-mettre à jour ces versions.
-
-@itemize
-
-@item
-@sourceimage{logo-fedora,,,}
-@uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447,
-Fedora: LilyPond 2.14.2}
-
-@item
-@sourceimage{logo-ubuntu,,,}
-@uref{http://packages.ubuntu.com/search?keywords=lilypond,
-Ubuntu: LilyPond 2.14.2}
-
-@item
-@sourceimage{logo-slackware,,,}
-@uref{http://www.johannes-schoepfer.de/lilypond/,
-Slackware: LilyPond 2.14.2}
-
-@item
-@sourceimage{logo-debian,,,}
-@uref{http://packages.debian.org/search?keywords=lilypond,
-Debian: LilyPond 2.12.3}
-
-@item
-@sourceimage{logo-suse,,,}
-@uref{http://software.opensuse.org/search?baseproject=openSUSE%3A11.2&p=1&q=lilypond,
-openSUSE: LilyPond 2.12.3}
-
-@end itemize
-
-@divEnd
-
-
-@divClass{column-center-top}
 @subheading Compilation d'un fichier
 
 @lilypadCommandLine
@@ -638,5 +602,3 @@ cette licence, et les raisons qui nous ont fait l'adopter, lisez
 @include gpl.itexi
 
 @divEnd
-
-

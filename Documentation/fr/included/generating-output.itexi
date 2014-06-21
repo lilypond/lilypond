@@ -2,7 +2,7 @@
 @c This file is part of web/download.itexi and
 @c learning/tutorial.itely
 @ignore
-    Translation of GIT committish: 29d5e0a64d0eee69e4ebee1e76e4df26ae58190b
+    Translation of GIT committish: febe2e4ff91dda9227e85274ae045e23c6b4ec28
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -87,8 +87,8 @@ ne fermez pas le fichier ouvert.
 @macro lilypadWindows
 @warning{Les instructions qui suivent partent du principe que vous
 utilisez l'éditeur LilyPad fourni.  Si vous utilisez l'un des programmes
-répertoriés dans @rweb{Facilités d'édition}, consultez sa documentation
-en cas de compilation infructueuse.}
+répertoriés dans @rweb{Facilités d'édition}, référez-vous à leur
+documentation respective en cas de problème.}
 
 
 @subsubheading Étape 1. Création d'un fichier @file{.ly}
@@ -178,8 +178,8 @@ terme.
 @macro lilypadCommandLine
 @warning{Les instructions qui suivent supposent que vous êtes familier
 de la ligne de commande.  Si vous utilisez l'un des programmes
-répertoriés dans @rweb{Facilités d'édition}, consultez sa documentation
-en cas de compilation infructueuse.}
+répertoriés dans @rweb{Facilités d'édition}, référez-vous à leur
+documentation respective en cas de problème.}
 
 
 @subsubheading Étape 1. Création d'un fichier @file{.ly}
@@ -232,5 +232,3 @@ non.
 Vous pouvez à présent visualiser ou imprimer @file{test.pdf}.
 
 @end macro
-
-
