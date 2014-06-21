@@ -1365,12 +1365,7 @@ staff lines.
 @menu
 * Line breaking::
 * Page breaking::
-* Optimal page breaking::
-* Optimal page turning::
-* Minimal page breaking::
-* One-line page breaking::
 * Explicit breaks::
-* Using an extra voice for breaks::
 @end menu
 
 
@@ -1380,9 +1375,9 @@ staff lines.
 @cindex line breaks
 @cindex breaking lines
 
-Line breaks are normally determined automatically.  They are chosen
-so that lines look neither cramped nor loose, and consecutive
-lines have similar density.
+Line breaks are normally determined automatically.  They are
+chosen so that lines look neither cramped nor loose, and
+consecutive lines have similar density.
 
 To manually force a line break at a bar line, use the
 @code{\break} command:
@@ -1459,15 +1454,13 @@ but affects only the last line of the piece.
 @}
 @end example
 
-
-
 @cindex regular line breaks
 @cindex four bar music.
 
-For line breaks at regular intervals use @code{\break} separated by
-skips and repeated with @code{\repeat}.  For example, this would
-cause the following 28 measures (assuming 4/4 time) to be broken
-every 4 measures, and only there:
+For line breaks at regular intervals use @code{\break} separated
+by skips and repeated with @code{\repeat}.  For example, this
+would cause the following 28 measures (assuming 4/4 time) to be
+broken every 4 measures, and only there:
 
 @example
 <<
@@ -1489,7 +1482,8 @@ every 4 measures, and only there:
 
 @seealso
 Notation Reference:
-@ref{paper variables for line breaking,,@code{@bs{}paper} variables for line breaking}.
+@ref{paper variables for line breaking}
+@ref{The layout block}.
 
 Snippets:
 @rlsr{Spacing}.
@@ -1501,12 +1495,27 @@ Internals Reference:
 @node Page breaking
 @subsection Page breaking
 
+This section describes the different page breaking methods, and
+how to modify them.
+
+@menu
+* Manual page breaking::
+* Optimal page breaking::
+* Optimal page turning::
+* Minimal page breaking::
+* One-line page breaking::
+@end menu
+
+
+@node Manual page breaking
+@unnumberedsubsubsec Manual page breaking
+
 The default page breaking may be overridden by inserting
-@code{\pageBreak} or @code{\noPageBreak} commands.  These commands are
-analogous to @code{\break} and @code{\noBreak}.  They should be
-inserted at a bar line.  These commands force and forbid a page-break
-from happening.  Of course, the @code{\pageBreak} command also forces
-a line break.
+@code{\pageBreak} or @code{\noPageBreak} commands.  These commands
+are analogous to @code{\break} and @code{\noBreak}.  They should
+be inserted at a bar line.  These commands force and forbid a
+page-break from happening.  Of course, the @code{\pageBreak}
+command also forces a line break.
 
 The @code{\pageBreak} and @code{\noPageBreak} commands may also be
 inserted at top-level, between scores and top-level markups.
@@ -1520,11 +1529,12 @@ bottom of the final page (or the final page in each
 @code{\bookpart}).  See
 @ref{Fixed vertical spacing paper variables,,Fixed vertical spacing @code{@bs{}paper} variables}.
 
-Page breaks are computed by the @code{page-breaking} function.  LilyPond
-provides three algorithms for computing page breaks,
+Page breaks are computed by the @code{page-breaking} function.
+LilyPond provides three algorithms for computing page breaks,
 @code{ly:optimal-breaking}, @code{ly:page-turn-breaking} and
-@code{ly:minimal-breaking}.  The default is @code{ly:optimal-breaking},
-but the value can be changed in the @code{\paper} block:
+@code{ly:minimal-breaking}.  The default is
+@code{ly:optimal-breaking}, but the value can be changed in the
+@code{\paper} block:
 
 @example
 \paper @{
@@ -1534,12 +1544,12 @@ but the value can be changed in the @code{\paper} block:
 
 @funindex \bookpart
 
-When a book has many scores and pages, the page breaking problem may be
-difficult to solve, requiring large processing time and memory.  To ease
-the page breaking process, @code{\bookpart} blocks are used to divide
-the book into several parts: the page breaking occurs separately on each
-part.  Different page breaking functions may also be used in different
-book parts.
+When a book has many scores and pages, the page breaking problem
+may be difficult to solve, requiring large processing time and
+memory.  To ease the page breaking process, @code{\bookpart}
+blocks are used to divide the book into several parts: the page
+breaking occurs separately on each part.  Different page breaking
+functions may also be used in different book parts.
 
 @example
 \bookpart @{
@@ -1575,65 +1585,111 @@ book parts.
 
 @seealso
 Notation Reference:
-@ref{paper variables for page breaking,,@code{@bs{}paper} variables for page breaking}.
+@ref{paper variables for page breaking}.
 
 Snippets:
 @rlsr{Spacing}.
 
 
 @node Optimal page breaking
-@subsection Optimal page breaking
+@unnumberedsubsubsec Optimal page breaking
 
 @funindex ly:optimal-breaking
 
-The @code{ly:optimal-breaking} function is LilyPond's default method of
-determining page breaks.  It attempts to find a page breaking that minimizes
-cramping and stretching, both horizontally and vertically.  Unlike
-@code{ly:page-turn-breaking}, it has no concept of page turns.
+The @code{ly:optimal-breaking} function is LilyPond's default
+method of determining page breaks.  It attempts to find a page
+breaking that minimizes cramping and stretching, both horizontally
+and vertically.  Unlike @code{ly:page-turn-breaking}, it has no
+concept of page turns.
 
 @seealso
 Snippets:
 @rlsr{Spacing}.
 
 
+@node Minimal page breaking
+@unnumberedsubsubsec Minimal page breaking
+
+@funindex ly:minimal-breaking
+
+The @code{ly:minimal-breaking} function performs minimal
+computations to calculate the page breaking: it fills a page with
+as many systems as possible before moving to the next one.  Thus,
+it may be preferred for scores with many pages, where the other
+page breaking functions could be too slow or memory demanding, or
+a lot of texts.  It is enabled using:
+
+@example
+\paper @{
+  page-breaking = #ly:minimal-breaking
+@}
+@end example
+
+@seealso
+Snippets:
+@rlsr{Spacing}.
+
+
+@node One-line page breaking
+@unnumberedsubsubsec One-line page breaking
+
+@funindex ly:one-line-breaking
+
+The @code{ly:one-line-breaking} function is a special-purpose
+page breaking algorithm that puts each score on its own page, and
+on a single line.  This page breaking function does not typeset
+titles or margins; only the score will be displayed.
+
+The page width will be adjusted so that the longest score fits on
+one line.  In particular, @code{paper-width}, @code{line-width}
+and @code{indent} variables in the @code{\paper} block will be
+ignored, although @code{left-margin} and @code{right-margin} will
+still be honored.  The height of the page will be left unmodified.
+
+
 @node Optimal page turning
-@subsection Optimal page turning
+@unnumberedsubsubsec Optimal page turning
 
 @funindex ly:page-turn-breaking
 
-Often it is necessary to find a page breaking configuration so that there is
-a rest at the end of every second page.  This way, the musician can turn the
-page without having to miss notes.  The @code{ly:page-turn-breaking} function
-attempts to find a page breaking minimizing cramping and stretching, but with
-the additional restriction that it is only allowed to introduce page turns
-in specified places.
+Often it is necessary to find a page breaking configuration so
+that there is a rest at the end of every second page.  This way,
+the musician can turn the page without having to miss notes.  The
+@code{ly:page-turn-breaking} function attempts to find a page
+breaking minimizing cramping and stretching, but with the
+additional restriction that it is only allowed to introduce page
+turns in specified places.
 
-There are two steps to using this page breaking function.  First, you
-must enable it in the @code{\paper} block, as explained in @ref{Page
-breaking}.  Then you must tell the function where you would like to allow
-page breaks.
+There are two steps to using this page breaking function.  First,
+you must enable it in the @code{\paper} block, as explained in
+@ref{Page breaking}.  Then you must tell the function where you
+would like to allow page breaks.
 
-There are two ways to achieve the second step.  First, you can specify each
-potential page turn manually, by inserting @code{\allowPageTurn} into your
-input file at the appropriate places.
+There are two ways to achieve the second step.  First, you can
+specify each potential page turn manually, by inserting
+@code{\allowPageTurn} into your input file at the appropriate
+places.
 
-If this is too tedious, you can add a @code{Page_turn_engraver} to a Staff or
-Voice context.  The @code{Page_turn_engraver} will scan the context for
-sections without notes (note that it does not scan for rests; it scans for
-the absence of notes.  This is so that single-staff polyphony with rests in one
-of the parts does not throw off the @code{Page_turn_engraver}).  When it finds
-a sufficiently long section without notes, the @code{Page_turn_engraver} will
-insert an @code{\allowPageTurn} at the final bar line in that section, unless
-there is a @q{special} bar line (such as a double bar), in which case the
-@code{\allowPageTurn} will be inserted at the final @q{special} bar line in
-the section.
+If this is too tedious, you can add a @code{Page_turn_engraver} to
+a Staff or Voice context.  The @code{Page_turn_engraver} will scan
+the context for sections without notes (note that it does not scan
+for rests; it scans for the absence of notes.  This is so that
+single-staff polyphony with rests in one of the parts does not
+throw off the @code{Page_turn_engraver}).  When it finds a
+sufficiently long section without notes, the
+@code{Page_turn_engraver} will insert an @code{\allowPageTurn} at
+the final bar line in that section, unless there is a @q{special}
+bar line (such as a double bar), in which case the
+@code{\allowPageTurn} will be inserted at the final @q{special}
+bar line in the section.
 
 @funindex minimumPageTurnLength
 The @code{Page_turn_engraver} reads the context property
-@code{minimumPageTurnLength} to determine how long a note-free section must
-be before a page turn is considered.  The default value for
-@code{minimumPageTurnLength} is @code{(ly:make-moment 1/1)}.  If you want
-to disable page turns, you can set it to something very large.
+@code{minimumPageTurnLength} to determine how long a note-free
+section must be before a page turn is considered.  The default
+value for @code{minimumPageTurnLength} is
+@code{(ly:make-moment 1/1)}.  If you want to disable page turns,
+set it to something @q{very large}.
 
 @example
 \new Staff \with @{ \consists "Page_turn_engraver" @}
@@ -1650,16 +1706,18 @@ to disable page turns, you can set it to something very large.
 @end example
 
 @funindex minimumRepeatLengthForPageTurn
-The @code{Page_turn_engraver} detects volta repeats.  It will only allow a page
-turn during the repeat if there is enough time at the beginning and end of the
-repeat to turn the page back.  The @code{Page_turn_engraver} can also disable
-page turns if the repeat is very short.  If you set the context property
-@code{minimumRepeatLengthForPageTurn} then the @code{Page_turn_engraver} will
-only allow turns in repeats whose duration is longer than this value.
+With volta repeats, the @code{Page_turn_engraver} will only
+allow a page turn during the repeat if there is enough time at the
+beginning and end of the repeat to turn the page back.  If the
+repeat is very short, the @code{Page_turn_engraver} can also be
+used to disable page turns by setting a value for the context
+property @code{minimumRepeatLengthForPageTurn} where as
+@code{Page_turn_engraver} only allows turns in repeats whose
+duration is longer than this value.
 
-The page turning commands, @code{\pageTurn}, @code{\noPageTurn} and
-@code{\allowPageTurn}, may also be used at top-level, between scores and
-top-level markups.
+The page turning commands, @code{\pageTurn}, @code{\noPageTurn}
+and @code{\allowPageTurn}, may also be used at top-level, in
+top-level markups and between scores.
 
 @predefined
 @funindex \pageTurn
@@ -1672,70 +1730,33 @@ top-level markups.
 
 @seealso
 Notation Reference:
-@ref{paper variables for line breaking,,@code{@bs{}paper} variables for line breaking}.
+@ref{paper variables for line breaking}.
 
 Snippets:
 @rlsr{Spacing}.
 
 @knownissues
-There should only be one @code{Page_turn_engraver} in a score.  If there is more
-than one, they will interfere with each other.
+Use only one @code{Page_turn_engraver} per score.  If there are
+more, they will interfere with each other.
 
-
-@node Minimal page breaking
-@subsection Minimal page breaking
-
-@funindex ly:minimal-breaking
-
-The @code{ly:minimal-breaking} function performs minimal computations to
-calculate the page breaking: it fills a page with as many systems as
-possible before moving to the next one.  Thus, it may be preferred for
-scores with many pages, where the other page breaking functions could be
-too slow or memory demanding, or a lot of texts.  It is enabled using:
-
-@example
-\paper @{
-  page-breaking = #ly:minimal-breaking
-@}
-@end example
-
-@seealso
-Snippets:
-@rlsr{Spacing}.
-
-@node One-line page breaking
-@subsection One-line page breaking
-
-@funindex ly:one-line-breaking
-
-The @code{ly:one-line-breaking} function is a special-purpose
-page breaking algorithm that puts each score on its own page,
-and on a single line.  This page breaking function does not
-typeset titles or margins; only the score will be displayed.
-
-The page width will be adjusted so that
-the longest score fits on one line.  In particular,
-@code{paper-width}, @code{line-width} and @code{indent}
-variables in the @code{\paper} block will be ignored, although
-@code{left-margin} and @code{right-margin} will
-still be honored.  The height of the page will
-be left unmodified.
 
 @node Explicit breaks
 @subsection Explicit breaks
 
-Lily sometimes rejects explicit @code{\break} and @code{\pageBreak}
-commands.  There are two commands to override this behavior:
+There are cases when manual @code{\break} or @code{\pageBreak}
+commands are ignored by LilyPond.  There are two commands to
+override this behavior:
 
 @example
 \override NonMusicalPaperColumn.line-break-permission = ##f
 \override NonMusicalPaperColumn.page-break-permission = ##f
 @end example
 
-When @code{line-break-permission} is overridden to false, Lily will insert
-line breaks at explicit @code{\break} commands and nowhere else.  When
-@code{page-break-permission} is overridden to false, Lily will insert
-page breaks at explicit @code{\pageBreak} commands and nowhere else.
+If @code{line-break-permission} is set to @code{##f}, all line
+breaks must be explicitly inserted with a @code{\break} command.
+Likewise, if @code{page-break-permission} is set to @code{##f},
+all page breaks must be explicitly inserted with a
+@code{\pageBreak} command.
 
 @lilypond[quote,verbatim]
 \paper {
@@ -1767,99 +1788,10 @@ music = \relative c'' { c8 c c c }
 }
 @end lilypond
 
-@seealso
-Snippets:
-@rlsr{Spacing}.
+@snippets
 
-
-@node Using an extra voice for breaks
-@subsection Using an extra voice for breaks
-
-Line- and page-breaking information usually appears within note entry directly.
-
-@example
-music = \relative c'' @{ c4 c c c @}
-
-\score @{
-  \new Staff @{
-    \repeat unfold 2 @{ \music @} \break
-    \repeat unfold 3 @{ \music @}
-  @}
-@}
-@end example
-
-This makes @code{\break} and @code{\pageBreak} commands easy to enter but mixes
-music entry with information that specifies how music should lay out
-on the page.  You can keep music entry and line- and page-breaking
-information in two separate places by introducing an extra voice to
-contain the  breaks.  This extra voice
-contains only skips together with @code{\break}, @code{pageBreak} and other
-breaking layout information.
-
-@lilypond[quote,verbatim]
-music = \relative c'' { c4 c c c }
-
-\header { tagline = ##f }
-\paper { left-margin = 0\mm }
-\book {
-  \score {
-    \new Staff <<
-      \new Voice {
-        s1 * 2 \break
-        s1 * 3 \break
-        s1 * 6 \break
-        s1 * 5 \break
-      }
-      \new Voice {
-        \repeat unfold 2 { \music }
-        \repeat unfold 3 { \music }
-        \repeat unfold 6 { \music }
-        \repeat unfold 5 { \music }
-      }
-    >>
-  }
-}
-@end lilypond
-
-This pattern becomes especially helpful when overriding
-@code{line-break-system-details} and the other useful but long properties of
-@code{NonMusicalPaperColumnGrob}, as explained in @ref{Vertical spacing}.
-
-@lilypond[quote,verbatim]
-music = \relative c'' { c4 c c c }
-
-\header { tagline = ##f }
-\paper { left-margin = 0\mm }
-\book {
-  \score {
-    \new Staff <<
-      \new Voice {
-        \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-          #'((Y-offset . 0))
-        s1 * 2 \break
-
-        \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-          #'((Y-offset . 5))
-        s1 * 3 \break
-
-        \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-          #'((Y-offset . 15))
-        s1 * 6 \break
-
-        \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-          #'((Y-offset . 30))
-        s1 * 5 \break
-      }
-      \new Voice {
-        \repeat unfold 2 { \music }
-        \repeat unfold 3 { \music }
-        \repeat unfold 6 { \music }
-        \repeat unfold 5 { \music }
-      }
-    >>
-  }
-}
-@end lilypond
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{using-an-extra-voice-for-breaks.ly}
 
 @seealso
 Notation Reference:
@@ -1877,8 +1809,8 @@ Snippets:
 
 Vertical spacing is controlled by three things: the amount of
 space available (i.e., paper size and margins), the amount of
-space between systems, and the amount of space between
-staves inside a system.
+space between systems, and the amount of space between staves
+inside a system.
 
 @menu
 * Flexible vertical spacing within systems::
@@ -2517,7 +2449,7 @@ by looking at an example that includes no overrides at all.
 This score isolates line- and page-breaking information in a dedicated
 voice.  This technique of creating a breaks voice will help keep layout
 separate from music entry as our example becomes more complicated.
-See @ref{Using an extra voice for breaks}.
+See @ref{Explicit breaks}.
 
 Explicit @code{\breaks} evenly divide the music into six measures per
 line.  Vertical spacing results from LilyPond's defaults.  To set
