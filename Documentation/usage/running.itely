@@ -915,6 +915,13 @@ when something unexpected happens.  If you can't see an error in the
 indicated line of your input file, try checking one or two lines
 above the indicated position.
 
+Please note that diagnostics can be triggered at any point during the
+many stages of processing.  For example if there are parts of the input
+that are processed multiple times (i.e. in midi and layout output), or
+if the same music variable is used in multiple contexts the same message
+may appear several times.  Diagnostics produced at a @q{late} stage (i.e
+bar checks) might also be issued multiple times.
+
 More information about errors is given in @ref{Common errors}.
 
 
