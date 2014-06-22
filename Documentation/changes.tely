@@ -61,6 +61,100 @@ which scares away people.
 
 @end ignore
 @item
+@code{KeyCancellation} grobs now ignore cue clefs (like
+@code{KeySignature} grobs do).
+
+@item
+Add support for @code{\once@tie{}\unset}
+
+@item
+It is now possible to individually color both the dots and parentheses
+in fret diagrams when using the @code{\fret-diagram-verbose} markup
+command.
+
+@lilypond[verbatim,quote,relative=1]
+\new Voice {
+  c1^\markup {
+    \override #'(fret-diagram-details . (
+                 (finger-code . in-dot))) {
+      \fret-diagram-verbose #'((mute 6)
+                               (place-fret 5 3 1 red)
+                               (place-fret 4 5 2 inverted)
+                               (place-fret 3 5 3 green)
+                               (place-fret 2 5 4 blue inverted)
+                               (place-fret 1 3 1 violet)
+                               (barre 5 1 3 ))
+    }
+  }
+  c1^\markup {
+    \override #'(fret-diagram-details . (
+                 (finger-code . below-string))) {
+      \fret-diagram-verbose #'((mute 6)
+                             (place-fret 5 3 1 red parenthesized)
+                             (place-fret 4 5 2 yellow
+                                               default-paren-color
+                                               parenthesized)
+                             (place-fret 3 5 3 green)
+                             (place-fret 2 5 4 blue )
+                             (place-fret 1 3 1)
+                             (barre 5 1 3))
+    }
+  }
+}
+@end lilypond
+
+@item
+Two new properties have been added for use in
+@code{fret-diagram-details} when using the @code{\fret-diagram-verbose}
+markup command; @code{fret-label-horizontal-offset} which affects the
+@code{fret-label-indication} and @code{paren-padding} which controls the
+space between the dot and the parentheses surrounding it.
+
+@lilypond[verbatim,quote,relative=1]
+\new Voice {
+  c1^\markup {
+    \fret-diagram-verbose #'((mute 6)
+                             (place-fret 5 3 1)
+                             (place-fret 4 5 2)
+                             (place-fret 3 5 3)
+                             (place-fret 1 6 4 parenthesized)
+                             (place-fret 2 3 1)
+                             (barre 5 2 3))
+  }
+  c1^\markup {
+    \override #'(fret-diagram-details . (
+                 (fret-label-horizontal-offset . 2)
+                 (paren-padding . 0.25))) {
+      \fret-diagram-verbose #'((mute 6)
+                               (place-fret 5 3 1)
+                               (place-fret 4 5 2)
+                               (place-fret 3 5 3)
+                               (place-fret 1 6 4 parenthesized)
+                               (place-fret 2 3 1)
+                               (barre 5 2 3))
+    }
+  }
+}
+@end lilypond
+
+@item
+A new markup command @code{\justify-line} has been added.  Similar to
+the @code{\fill-line} markup command except that instead of setting
+@emph{words} in columns, the @code{\justify-line} command balances the
+whitespace between them ensuring that when there are three or more
+words in a markup, the whitespace is always consistent.
+
+@lilypond[quote,verbatim,papersize=a6]
+\markup \fill-line {oooooo oooooo oooooo oooooo}
+\markup \fill-line {ooooooooo oooooooo oo ooo}
+@end lilypond
+
+@lilypond[quote,verbatim,papersize=a6]
+\markup \justify-line {oooooo oooooo oooooo oooooo}
+\markup \justify-line {ooooooooo oooooooo oo ooo}
+@end lilypond
+
+@item
 A new command @code{\magnifyMusic} has been added, which allows
 the notation size to be changed without changing the staff size,
 while automatically scaling stems, beams, and horizontal spacing.
