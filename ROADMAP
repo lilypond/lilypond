@@ -14,17 +14,20 @@ LilyPond's source files.
 |                          build bootstrapping, patches
 |                          for third party programs
 |
-|-- Documentation/       Top sources for manuals
+|-- Documentation/       Top sources for most of the manuals
 |   |
 |   |
 |   |   INDIVIDUAL CHAPTERS FOR EACH MANUAL:
+|   |     Note: "Snippets" and "Internals Reference" are
+|   |     auto-generated during the Documentation Build process.
+|   |
 |   |
 |   |-- contributor/     Contributor's Guide
 |   |-- essay/           Essay on automated music engraving
-|   |-- extending/       Extending
+|   |-- extending/       Extending the functionality of LilyPond
 |   |-- learning/        Learning Manual
 |   |-- notation/        Notation Reference
-|   |-- usage/           Usage
+|   |-- usage/           Runnning the programs that come with LilyPond
 |   |-- web/             The website
 |   |
 |   |
@@ -35,6 +38,7 @@ LilyPond's source files.
 |   |          * individual chapters for each manual
 |   |       2) a texidocs/ directory for snippet translations
 |   |
+|   |-- ca/              Catalan
 |   |-- cs/              Czech
 |   |-- de/              German
 |   |-- es/              Spanish
@@ -56,7 +60,7 @@ LilyPond's source files.
 |   |-- pictures/        Images used (eps/jpg/png/svg)
 |   |   `-- pdf/         (pdf)
 |   |-- po/              Translated build/maintenance scripts
-|   |-- snippets/        Auto-generated .ly snippets (from the LSR)
+|   |-- snippets/        Auto-generated from the LSR and from ./new/
 |   |   `-- new/         Snippets too new for the LSR
 |   `-- topdocs/         AUTHORS, INSTALL, README
 |
