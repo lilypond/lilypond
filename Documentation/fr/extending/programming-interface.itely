@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
+    Translation of GIT committish: e2f786e15c2f1c7e71518c5e2d134bc31fd587f8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -29,7 +29,6 @@ connaissez rien de Scheme, vous en aurez un aperçu au travers de notre
 * Fonctions pour markups::
 * Contextes pour programmeurs::
 * Fonctions de rappel::
-* Code Scheme intégré::
 * Retouches complexes::
 @end menu
 
@@ -204,31 +203,22 @@ guillemets), des nombres, des @emph{markups} et listes de
 @emph{markups}, ainsi que des blocs @emph{score}, @emph{book},
 @emph{bookpart}, ou qui définissent un contexte ou un format de sortie.
 
-Il existe certaines formes d'expression, comme la plupart du temps où la
-musique n'est pas bornée par des accolades, où LilyPond doit lire
-au-delà de cette même expression afin d'en déterminer la fin.  Si une
-telle expression devait, après évaluation du prédicat, faire l'objet
-d'un argument optionnel, LilyPond n'aurait aucun moyen, à partir du
-moment où il aura décidé que l'expression ne correspond pas au
-paramètre, de « revenir en arrière ».  C'est la raison pour laquelle
-certaines formes musicales devraient être bornées par des accolades pour
-que LilyPond puisse les reconnaître efficacement.  Il existe d'autres
-situations pour lesquelles LilyPond lèvera toute ambiguïté grâce aux
-fonctions de prédicat : un @samp{-3} est-il un @emph{postévénement}
-de type doigté ou un nombre négatif@tie{}?  Un @code{"a" 4} en mode
-paroles est-il une chaîne suivie d'un nombre ou bien un événement
-syllabe de durée @code{4} ?  LilyPond répondra à ces questions
-par des interprétations successives du prédicat de l'argument, dans un
-ordre défini de sorte à minimiser les interprétations erronées et le
-besoin de lecture en avance.
+Il existe certaines situations pour lesquelles LilyPond lèvera toute
+ambiguïté grâce aux fonctions de prédicat : un @samp{-3} est-il un
+@emph{postévénement} de type doigté ou un nombre négatif@tie{}?  Un
+@code{"a" 4} en mode paroles est-il une chaîne suivie d'un nombre ou
+bien un événement syllabe de durée @code{4} ?  LilyPond répondra à ces
+questions par des interprétations successives du prédicat de l'argument,
+dans un ordre défini de sorte à minimiser les interprétations erronées
+et le besoin de lecture en avance.
 
 Un prédicat qui accepte par exemple aussi bien une expression musicale
 qu'une hauteur considèrera @code{c''} comme étant une hauteur plutôt
 qu'une expression musicale.  Les durées ou @emph{postévénements} qui
-viennent juste après pourraient ne pas être cohérents avec cette
-interprétation.  C'est la raison pour laquelle il vaut mieux éviter des
-prédicats par trop permissifs tel que @code{Scheme?} lorsque
-l'application fait plutôt appel à des type d'argument plus spécifiques.
+viennent juste après viendront modifier cette interprétation.  C'est la
+raison pour laquelle il vaut mieux éviter des prédicats par trop
+permissifs tel que @code{Scheme?} lorsque l'application fait plutôt
+appel à des type d'argument plus spécifiques.
 
 Les différents types des prédicat propres à LilyPond sont recensés à
 l'annexe @ruser{Types de prédicats prédéfinis}.
@@ -757,7 +747,7 @@ macro @code{markup}.  Vous pouvez ainsi appeler des fonctions à partir
 de @code{markup} pour manipuler des chaînes de caractères, ce qui est
 particulièrement pratique lorsque vous créez votre propre commande de
 @emph{markup} -- voir
-@ref{Définition d'une nouvelle commande de markup}. 
+@ref{Définition d'une nouvelle commande de markup}.
 
 @knownissues
 L'argument @var{markup-list} des commandes @code{#:line},
@@ -907,7 +897,7 @@ composants assemblés en expressions @emph{markup}.  L'évaluation et le
 contrôle du type des arguments à une commande de @emph{markup}
 n'interviennent qu'au moment de l'interprétation de @code{\markup} ou
 @code{markup}.
- 
+
 Seule l'application de @code{interpret-markup} sur une expression
 @emph{markup} réalisera effectivement la conversion des expressions
 @emph{markup} en stencil, au travers de l'exécution du corps des
@@ -1446,9 +1436,10 @@ my-callback = #(lambda (grob)
 @end example
 
 
-@node Code Scheme intégré
-@section Code Scheme intégré
-@translationof Inline Scheme code
+@ignore
+@n ode Code Scheme intégré
+@s ection Code Scheme intégré
+@t ranslationof Inline Scheme code
 
 À REVOIR : depuis la rédaction de cette section, LilyPond en est
 arrivé à un point tel que trouver un exemple @emph{simple} où l'on se
@@ -1497,6 +1488,8 @@ est ajoutée à la liste de ses propriétés (grâce à la fonction Scheme
 @code{acons}), et le résultat de cette opération est renvoyé par
 @code{set!}.  Le dernier élément, dans ce bloc @code{let}, est la valeur
 finale de @samp{m} lui-même.
+
+@end ignore
 
 
 @node Retouches complexes
