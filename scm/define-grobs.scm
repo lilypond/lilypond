@@ -626,16 +626,17 @@
         (outside-staff-priority . 450)
         (padding . 0.5)
         (script-priority . 200)
+        (self-alignment-X . #f)
         (side-axis . ,Y)
         (staff-padding . 0.5)
-        ;; todo: add X self alignment?
         (stencil . ,ly:text-interface::print)
-        (X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
                  (interfaces . (font-interface
                                 outside-staff-interface
+                                self-alignment-interface
                                 side-position-interface
                                 text-interface
                                 text-script-interface))))))
@@ -2358,14 +2359,15 @@
         (padding . 0.3)
 
         (script-priority . 200)
+        ;; self-alignment cannot be LEFT because of fingering diagrams.
+        (self-alignment-X . #f)
         (side-axis . ,Y)
         (slur-padding . 0.5)
         (staff-padding . 0.5)
         (stencil . ,ly:text-interface::print)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
-        ;; todo: add X self alignment?
         (Y-extent . ,grob::always-Y-extent-from-stencil)
-        (X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Item)
                  (interfaces . (font-interface
