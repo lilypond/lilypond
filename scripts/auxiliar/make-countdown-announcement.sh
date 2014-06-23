@@ -173,7 +173,7 @@ KNOWN_EMAILS=`
 IFS=$'\n'
 for i in $MAILMAP; do
   echo "$i" | sed 's/^"\(.*\)",".*/\1/'
-done`
+done | sort --unique`
 UNKNOWN_EMAILS=`comm -23 <(echo "$EMAILS_USED") <(echo "$KNOWN_EMAILS")`
 
 
