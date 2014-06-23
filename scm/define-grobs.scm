@@ -85,12 +85,7 @@
         (staff-padding . 0.25)
         (stencil . ,ly:accidental-interface::print)
         (X-extent . ,ly:accidental-interface::width)
-        (X-offset . ,(ly:make-simple-closure
-                      `(,+
-                        ,(ly:make-simple-closure
-                          (list ly:self-alignment-interface::centered-on-x-parent))
-                        ,(ly:make-simple-closure
-                          (list ly:self-alignment-interface::x-aligned-on-self)))))
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-extent . ,accidental-interface::height)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Item)
@@ -591,12 +586,7 @@
         (self-alignment-X . ,CENTER)
         (staff-padding . 0.7)
         (stencil . ,ly:text-interface::print)
-        (X-offset . ,(ly:make-simple-closure
-                      `(,+
-                        ,(ly:make-simple-closure
-                          (list ly:self-alignment-interface::x-aligned-on-self))
-                        ,(ly:make-simple-closure
-                          (list ly:self-alignment-interface::centered-on-x-parent)))))
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
@@ -784,12 +774,7 @@
         (side-axis . ,Y)
         (staff-padding . 0.25)
         (stencil . ,ly:text-interface::print)
-        (X-offset . ,(ly:make-simple-closure
-                      `(,+
-                        ,(ly:make-simple-closure
-                          (list ly:self-alignment-interface::centered-on-x-parent))
-                        ,(ly:make-simple-closure
-                          (list ly:self-alignment-interface::x-aligned-on-self)))))
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
@@ -1107,13 +1092,8 @@
         (layer . 0)
         (self-alignment-X . ,CENTER)
         (stencil . ,ly:grid-line-interface::print)
-        (X-extent  . ,ly:grid-line-interface::width)
-        (X-offset . ,(ly:make-simple-closure
-                      `(,+
-                        ,(ly:make-simple-closure
-                          (list ly:self-alignment-interface::centered-on-x-parent))
-                        ,(ly:make-simple-closure
-                          (list ly:self-alignment-interface::x-aligned-on-self)))))
+        (X-extent . ,ly:grid-line-interface::width)
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (meta . ((class . Item)
                  (interfaces . (grid-line-interface
                                 self-alignment-interface))))))
@@ -1541,12 +1521,7 @@
         (springs-and-rods . ,ly:multi-measure-rest::set-text-rods)
         (staff-padding . 0.4)
         (stencil . ,ly:text-interface::print)
-        (X-offset . ,(ly:make-simple-closure
-                      `(,+
-                        ,(ly:make-simple-closure
-                          (list ly:self-alignment-interface::x-aligned-on-self))
-                        ,(ly:make-simple-closure
-                          (list ly:self-alignment-interface::centered-on-x-parent)))))
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
@@ -1567,12 +1542,7 @@
         (skyline-horizontal-padding . 0.2)
         (staff-padding . 0.25)
         (stencil . ,ly:text-interface::print)
-        (X-offset . ,(ly:make-simple-closure
-                      `(,+
-                        ,(ly:make-simple-closure
-                          (list ly:self-alignment-interface::centered-on-x-parent))
-                        ,(ly:make-simple-closure
-                          (list ly:self-alignment-interface::x-aligned-on-self)))))
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
@@ -1774,12 +1744,7 @@
         (self-alignment-X . ,CENTER)
         (staff-padding . 0.25)
         (stencil . ,ly:text-interface::print)
-        (X-offset . ,(ly:make-simple-closure
-                      `(,+
-                        ,(ly:make-simple-closure
-                          (list ly:self-alignment-interface::centered-on-x-parent))
-                        ,(ly:make-simple-closure
-                          (list ly:self-alignment-interface::x-aligned-on-self)))))
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Spanner)
@@ -2179,12 +2144,7 @@
         (style . ,ly:stem-tremolo::calc-style)
         (X-extent . ,ly:stem-tremolo::width)
         (Y-extent . ,(grob::unpure-Y-extent-from-stencil ly:stem-tremolo::pure-height))
-        (X-offset . ,(ly:make-simple-closure
-                      `(,+
-                        ,(ly:make-simple-closure
-                          (list ly:self-alignment-interface::centered-on-x-parent))
-                        ,(ly:make-simple-closure
-                          (list ly:self-alignment-interface::x-aligned-on-self)))))
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-offset . ,(ly:make-unpure-pure-container ly:stem-tremolo::calc-y-offset ly:stem-tremolo::pure-calc-y-offset))
         (meta . ((class . Item)
                  (interfaces . (self-alignment-interface

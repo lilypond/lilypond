@@ -145,18 +145,10 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
 }
 
 void
-Self_alignment_interface::set_center_parent (Grob *me, Axis a)
+Self_alignment_interface::set_aligned_on_parent (Grob *me, Axis a)
 {
   add_offset_callback (me,
-                       (a == X_AXIS) ? centered_on_x_parent_proc : centered_on_y_parent_proc,
-                       a);
-}
-
-void
-Self_alignment_interface::set_align_self (Grob *me, Axis a)
-{
-  add_offset_callback (me,
-                       (a == X_AXIS) ? x_aligned_on_self_proc : y_aligned_on_self_proc,
+                       (a == X_AXIS) ? aligned_on_x_parent_proc : aligned_on_y_parent_proc,
                        a);
 }
 

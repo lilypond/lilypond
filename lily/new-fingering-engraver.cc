@@ -288,8 +288,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
         Side_position_interface::add_support (f,
                                               unsmob_grob (ft.head_->get_object ("dot")));
 
-      Self_alignment_interface::set_align_self (f, Y_AXIS);
-      Self_alignment_interface::set_center_parent (f, Y_AXIS);
+      Self_alignment_interface::set_aligned_on_parent (f, Y_AXIS);
       Side_position_interface::set_axis (f, X_AXIS);
 
       f->set_property ("direction", scm_from_int (hordir));
@@ -307,8 +306,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
           f->set_property ("script-priority",
                            scm_from_int (finger_prio + d * ft.position_));
 
-          Self_alignment_interface::set_align_self (f, X_AXIS);
-          Self_alignment_interface::set_center_parent (f, X_AXIS);
+          Self_alignment_interface::set_aligned_on_parent (f, X_AXIS);
           Side_position_interface::set_axis (f, Y_AXIS);
 
           f->set_property ("direction", scm_from_int (d));
