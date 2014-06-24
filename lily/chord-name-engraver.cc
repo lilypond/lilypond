@@ -62,21 +62,12 @@ Chord_name_engraver::Chord_name_engraver ()
 void
 Chord_name_engraver::process_music ()
 {
-  if (!rest_event_ && !notes_.size ())
-   return;
-
-  chord_name_ = make_item ("ChordName",
-                           rest_event_ ? rest_event_->self_scm () : notes_[0]->self_scm ());
-
-  SCM maybe_markup = chord_name_->get_property_data ("text");
-
-  bool make_markup = !(Text_interface::is_markup (maybe_markup)
-                       || ly_is_procedure (maybe_markup));
-
   SCM markup;
+  SCM bass = SCM_EOL;
+  SCM inversion = SCM_EOL;
+  SCM pitches = SCM_EOL;
 
-  if (rest_event_ && !make_markup) { }
-  else if (rest_event_)
+  if (rest_event_)
     {
       SCM no_chord_markup = get_property ("noChordSymbol");
       if (!Text_interface::is_markup (no_chord_markup))
@@ -85,9 +76,8 @@ Chord_name_engraver::process_music ()
     }
   else
     {
-      SCM bass = SCM_EOL;
-      SCM inversion = SCM_EOL;
-      SCM pitches = SCM_EOL;
+      if (!notes_.size ())
+        return;
 
       Stream_event *inversion_event = 0;
       for (vsize i = 0; i < notes_.size (); i++)
@@ -126,25 +116,25 @@ Chord_name_engraver::process_music ()
       pitches = scm_sort_list (pitches, Pitch::less_p_proc);
 
       SCM name_proc = get_property ("chordNameFunction");
-      if (make_markup)
-        markup = scm_call_4 (name_proc, pitches, bass, inversion,
-                             context ()->self_scm ());
+      markup = scm_call_4 (name_proc, pitches, bass, inversion,
+                           context ()->self_scm ());
     }
   /*
     Ugh.
   */
-  if (make_markup)
-    chord_name_->set_property ("text", markup);
-  else if (Text_interface::is_markup (maybe_markup))
-    markup = maybe_markup;
+  SCM chord_as_scm = scm_cons (pitches, scm_cons (bass, inversion));
+
+  chord_name_ = make_item ("ChordName",
+                           rest_event_ ? rest_event_->self_scm () : notes_[0]->self_scm ());
+  chord_name_->set_property ("text", markup);
 
   SCM chord_changes = get_property ("chordChanges");
   SCM last_chord = get_property ("lastChord");
   if (to_boolean (chord_changes) && scm_is_pair (last_chord)
-      && ly_is_equal (markup, last_chord))
+      && ly_is_equal (chord_as_scm, last_chord))
     chord_name_->set_property ("begin-of-line-visible", SCM_BOOL_T);
 
-  context ()->set_property ("lastChord", markup);
+  context ()->set_property ("lastChord", chord_as_scm);
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Chord_name_engraver, note);

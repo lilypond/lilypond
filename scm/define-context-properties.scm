@@ -709,7 +709,7 @@ in an axis group.")
 @code{CommandColumn} contains items that will affect spacing.")
 
 
-     (lastChord ,markup? "Last chord, used for detecting chord changes.")
+     (lastChord ,list? "Last chord, used for detecting chord changes.")
      (lastKeyAlterations ,list? "Last key signature before a key
 signature change.")
      (localAlterations ,list? "The key signature at this point in the
