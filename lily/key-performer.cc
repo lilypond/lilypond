@@ -65,7 +65,7 @@ Key_performer::process_music ()
                     scm_to_int (scm_caar (pitchlist)),
                     ly_scm2rational (scm_cdar (pitchlist)));
 
-      Pitch c_do (0, 0, 0);
+      Pitch c_do;
 
       SCM c_pitchlist
         = ly_transpose_key_alist (pitchlist,

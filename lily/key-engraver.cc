@@ -209,7 +209,7 @@ Key_engraver::initialize ()
   context ()->set_property ("keyAlterations", SCM_EOL);
   context ()->set_property ("lastKeyAlterations", SCM_EOL);
 
-  Pitch p (0, 0, 0);
+  Pitch p;
   context ()->set_property ("tonic", p.smobbed_copy ());
 }
 

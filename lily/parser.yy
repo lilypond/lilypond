@@ -2886,7 +2886,7 @@ steno_pitch:
                 if (!scm_is_eq (SCM_INUM0, $2))
                 {
                         Pitch p = *unsmob_pitch ($1);
-                        p = p.transposed (Pitch (scm_to_int ($2),0,0));
+                        p = p.transposed (Pitch (scm_to_int ($2), 0));
                         $$ = p.smobbed_copy ();
                 }
 	}
@@ -2901,7 +2901,7 @@ steno_tonic_pitch:
                 if (!scm_is_eq (SCM_INUM0, $2))
                 {
                         Pitch p = *unsmob_pitch ($1);
-                        p = p.transposed (Pitch (scm_to_int ($2),0,0));
+                        p = p.transposed (Pitch (scm_to_int ($2), 0));
                         $$ = p.smobbed_copy ();
                 }
 	}
@@ -2913,7 +2913,7 @@ pitch:
                 if (!scm_is_eq (SCM_INUM0, $2))
                 {
                         Pitch p = *unsmob_pitch ($1);
-                        p = p.transposed (Pitch (scm_to_int ($2),0,0));
+                        p = p.transposed (Pitch (scm_to_int ($2), 0));
                         $$ = p.smobbed_copy ();
                 }
 	}

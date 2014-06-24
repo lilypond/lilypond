@@ -106,7 +106,7 @@ Chord_name_engraver::process_music ()
                   SCM oct = n->get_property ("octavation");
                   if (scm_is_number (oct))
                     {
-                      Pitch orig = unsmob_pitch (p)->transposed (Pitch (-scm_to_int (oct), 0, 0));
+                      Pitch orig = unsmob_pitch (p)->transposed (Pitch (-scm_to_int (oct), 0));
                       pitches = scm_cons (orig.smobbed_copy (), pitches);
                     }
                   else
