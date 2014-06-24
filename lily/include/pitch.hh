@@ -52,8 +52,7 @@ public:
   int get_notename () const;
   Rational get_alteration () const;
 
-  Pitch (int octave, int notename, Rational accidental);
-  Pitch (int octave, int notename);
+  Pitch (int octave, int notename, Rational accidental = 0);
   Pitch ();
 
   Pitch transposed (Pitch) const;
