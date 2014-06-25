@@ -271,7 +271,12 @@ LY_DEFINE (ly_protects, "ly:protects",
            0, 0, 0, (),
            "Return hash of protected objects.")
 {
+  //scm_protects is available only in Guile versions before 2.1.
+#if SCM_MAJOR_VERSION < 2 || SCM_MAJOR_VERSION == 2 && SCM_MINOR_VERSION < 1
   return scm_protects;
+#else
+  return programming_error ("ly:protects is not supported in Guile 2.1");
+#endif
 }
 
 LY_DEFINE (ly_gettext, "ly:gettext",
