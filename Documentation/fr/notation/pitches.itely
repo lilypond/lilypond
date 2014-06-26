@@ -1164,12 +1164,6 @@ n'avait pas été encadré de parenthèses ou crochets.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{forcing-a-clef-symbol-to-be-displayed.ly}
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{keep-change-clefs-full-sized.ly}
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
 {tweaking-clef-properties.ly}
 
 @seealso
