@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 45f95ed2dabb3aef3c9a6995701dc255ba88d68a
+   Translation of GIT committish: ab336761427b7214e133ff06b3592afa75eda1cf
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -326,8 +326,8 @@ g4~ 4 c2~ | 4 ~ 8 a8 ~ 2 |
 @cindex legato
 
 @c Le terme de "slur" a deux sens en français : articulation et phrasé.
-@c Je garde ici le terme "legato", tel qu'il apparaît dans le texte original,
-@c car c'est celui qui me semble le plus couramment employé.
+@c Je garde ici le terme "legato", tel qu'il apparaît dans le texte
+@c original, car c'est celui qui me semble le plus couramment employé.
 @c slur = "il zon" (articulation). jcm
 @c phrasing slur = "ils ont des chapeaux ronds" (phrase). jcm
 
@@ -1495,7 +1495,7 @@ en début de fichier, après le numéro de version.
 
 Quand LilyPond traite le fichier, le titre et le compositeur sont
 imprimés au début de la partition.  Vous trouverez plus d'informations
-sur les titres à la section 
+sur les titres à la section
 @ruser{Création de titres et entête ou pied de page}.
 
 
@@ -1586,7 +1586,7 @@ absolues permet d'en préserver les octaves.
 La musiqeu peut être agencée de manière plutôt complexe.  Dans le cas
 d'une imbrication de commandes @code{\relative}, chacune des sections
 est indépendante de l'autre :
- 
+
 @lilypond[verbatim,quote]
 \relative c { c'4 \relative c'' { f g } c }
 @end lilypond

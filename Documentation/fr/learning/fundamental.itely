@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
+    Translation of GIT committish: ab336761427b7214e133ff06b3592afa75eda1cf
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -293,8 +293,8 @@ tout simplement qu'@strong{il n'y a pas} de mystère.  Allez,
 expliquons-le en une ligne :
 
 @quotation
-@emph{Un bloc @code{\score} doit commencer par une et une seule
-expression musicale.}
+@emph{Un bloc @code{\score} doit contenir une et une seule expression
+musicale.}
 @end quotation
 
 @noindent
@@ -2516,8 +2516,15 @@ lower = \relative c, {
 }
 @end lilypond
 
-Aucun des modèles ne permet d'arriver exactement à cette mise en forme.
-Celui qui s'en rapprocherait le plus est 
+@warning{Cette présentation s'obtient facilement à l'aide du gabarit
+préprogrammé @code{satb.ly} -- voir @ref{Gabarits préprogrammés}.  Il
+masque, dans un but de simplification, totalement la structure des
+contextes nécessaires et les génère automatiquement.  Pour les besoins
+de la démonstration et à titre didactique nous procèderons ici pas à
+pas, ce gabarit préprogrammé ne correspondant pas forcément à vos
+attentes.}
+
+Le gabarit qui se rapprocherait le plus de cette mise en forme est
 @ref{Partition pour chœur SATB avec réduction pour piano} -- voir
 @ref{Modèles pour ensemble vocal} -- mais encore faudrait-il en
 modifier la mise en forme et refaire la partie de piano qui n'est
@@ -2809,7 +2816,7 @@ première partie du manuel requiert deux voix et la seconde une seule.
 \new PianoStaff <<
   \new Staff = "ManuelUn" <<
     \new Voice @{
-      \ManuelUnVoixUnMusique 
+      \ManuelUnVoixUnMusique
     @}
     \new Voice @{
       \ManuelUnVoixDeuxMusique
@@ -2937,7 +2944,7 @@ sous-propriété @code{stretchability}.  Les impatients trouveront les
 valeurs par défaut de la propriété @code{staff-staff-spacing} dans le
 fichier @file{scm/define-grobs.scm}, en examinant la définition du
 @emph{grob} @code{VerticalAxisGroup}.  La valeur que nous affecterons à
-@code{stretchability} est celle que contient la définition du contexte 
+@code{stretchability} est celle que contient la définition du contexte
 @code{PianoStaff} telle qu'elle apparaît dans le fichier
 @file{ly/engraver-init.ly}).
 
@@ -3292,4 +3299,3 @@ ce qui équivaut à
   }
 >>
 @end lilypond
-
