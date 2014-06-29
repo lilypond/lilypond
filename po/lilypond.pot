@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.8\n"
+"Project-Id-Version: lilypond 2.19.9\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2014-06-15 16:22+0100\n"
+"POT-Creation-Date: 2014-06-29 17:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2171,8 +2171,10 @@ msgstr ""
 msgid "cannot find Voice `%s'"
 msgstr ""
 
-#: lyric-engraver.cc:186
-msgid "Lyric syllable does not have note.  Use \\lyricsto or associatedVoice."
+#: lyric-engraver.cc:185
+msgid ""
+"Aligning lyric syllables to notes was requested, but there are no notes in "
+"the specified context. Syllable will be attached to a PaperColumn instead."
 msgstr ""
 
 #: main.cc:104
@@ -2720,7 +2722,7 @@ msgstr ""
 msgid "Conversion of string `%s' to UTF-16be failed: %s"
 msgstr ""
 
-#: percent-repeat-engraver.cc:147
+#: percent-repeat-engraver.cc:148
 msgid "unterminated percent repeat"
 msgstr ""
 
@@ -3650,12 +3652,12 @@ msgstr ""
 msgid "~a function cannot return ~a"
 msgstr ""
 
-#: ly-syntax-constructors.scm:75
+#: ly-syntax-constructors.scm:76
 #, scheme-format
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr ""
 
-#: ly-syntax-constructors.scm:199
+#: ly-syntax-constructors.scm:200
 #, scheme-format
 msgid "Invalid property operation ~a"
 msgstr ""
