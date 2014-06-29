@@ -2353,7 +2353,7 @@
     (TextScript
      . (
         (avoid-slur . around)
-        (cross-staff . ,script-or-side-position-cross-staff)
+        (cross-staff . #f)
         (direction . ,DOWN)
         (extra-spacing-width . (+inf.0 . -inf.0))
         (outside-staff-horizontal-padding . 0.2)
@@ -2371,6 +2371,7 @@
         (stencil . ,ly:text-interface::print)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
+        (X-align-on-main-noteheads . #t)
         (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Item)
