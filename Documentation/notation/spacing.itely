@@ -2679,7 +2679,7 @@ Snippets:
 * Horizontal spacing overview::
 * New spacing area::
 * Changing horizontal spacing::
-* Line length::
+* Line width::
 * Proportional notation::
 @end menu
 
@@ -2932,8 +2932,8 @@ Snippets:
 @rlsr{Spacing}.
 
 
-@node Line length
-@subsection Line length
+@node Line width
+@subsection Line width
 
 @cindex page breaks
 @cindex breaking pages
