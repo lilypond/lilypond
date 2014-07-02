@@ -988,100 +988,101 @@ Example:
   C = { e e | f f | }
 @end verbatim
 ")
+   (define voice-count (length voice-ids))
    (define (bar-check? m)
      "Checks whether m is a bar check."
      (eq? (ly:music-property m 'name) 'BarCheck))
+   (define (recurse-and-split-list lst)
+     "Return either a list of music lists split along barchecks, or @code{#f}."
+     (if (any bar-check? lst)
+         (let* ((voices (apply circular-list (make-list voice-count '())))
+                (current-voices voices)
+                (current-sequence '()))
+           ;;
+           ;; utilities
+           (define (push-music m)
+             "Push the music expression into the current sequence"
+             (set! current-sequence (cons m current-sequence)))
+           (define (change-voice)
+             "Store the previously built sequence into the current voice and
+change to the following voice."
+             (set-car! current-voices
+                       (cons (reverse! current-sequence)
+                             (car current-voices)))
+             (set! current-sequence '())
+             (set! current-voices (cdr current-voices)))
+           (for-each (lambda (m)
+                       (let ((split? (recurse-and-split m)))
+                         (if split?
+                             (for-each
+                              (lambda (m)
+                                (push-music m)
+                                (change-voice))
+                              split?)
+                             (begin
+                               (push-music m)
+                               (if (bar-check? m) (change-voice))))))
+                     lst)
+           (if (pair? current-sequence) (change-voice))
+           ;; un-circularize `voices' and reorder the voices
+           (set! voices (map reverse!
+                             (list-head voices voice-count)))
+           ;; check sequence length
+           (apply for-each (lambda seqs
+                             (define (seq-len seq)
+                               (reduce ly:moment-add
+                                       (ly:make-moment 0)
+                                       (map ly:music-length seq)))
+                             (let ((moment-reference (seq-len (car seqs))))
+                               (for-each (lambda (seq)
+                                           (if (not (equal? (seq-len seq)
+                                                            moment-reference))
+                                               (ly:music-warning
+                                                (if (pair? seq)
+                                                    (last seq)
+                                                    (caar seqs))
+                                                (_ "Bars in parallel music don't have the same length"))))
+                                         seqs)))
+                  voices)
+           (map concatenate! voices))
+         (let ((deeper (map recurse-and-split lst)))
+           (and (any pair? deeper)
+                (apply zip (map
+                            (lambda (m split)
+                              (or split
+                                  (ly:music-deep-copy (make-list voice-count m))))
+                            lst deeper))))))
    (define (recurse-and-split music)
      "This returns either a list of music split along barchecks, or
 @code{#f}."
-     (let ((elt (ly:music-property music 'element))
-           (elts (ly:music-property music 'elements)))
-       (cond ((ly:music? elt)
-              (let ((lst (recurse-and-split elt)))
-                (and lst
-                     (map
-                      (lambda (x)
-                        (let ((res (music-clone music 'element x)))
-                          (if (ly:input-location?
-                               (ly:music-property x 'origin))
-                              (set! (ly:music-property res 'origin)
-                                    (ly:music-property x 'origin)))
-                          res))
-                      lst))))
-             ((any bar-check? elts)
-              (let* ((voices (apply circular-list
-                                    (make-list (length voice-ids)
-                                               '())))
-                     (current-voices voices)
-                     (current-sequence '()))
-                ;;
-                ;; utilities
-                (define (push-music m)
-                  "Push the music expression into the current sequence"
-                  (set! current-sequence (cons m current-sequence)))
-                (define (change-voice)
-                  "Stores the previously built sequence into the current voice and
-       change to the following voice."
-                  (set-car! current-voices
-                            (cons (reverse! current-sequence)
-                                  (car current-voices)))
-                  (set! current-sequence '())
-                  (set! current-voices (cdr current-voices)))
-                (for-each (lambda (m)
-                            (let ((split? (recurse-and-split m)))
-                              (if split?
-                                  (for-each
-                                   (lambda (m)
-                                     (push-music m)
-                                     (change-voice))
-                                   split?)
-                                  (begin
-                                    (push-music m)
-                                    (if (bar-check? m) (change-voice))))))
-                          elts)
-                (if (pair? current-sequence) (change-voice))
-                ;; un-circularize `voices' and reorder the voices
-
-                (set! voices (map reverse!
-                                  (list-head voices (length voice-ids))))
-
-                ;; check sequence length
-                (apply for-each (lambda seqs
-                                  (define (seq-len seq)
-                                    (reduce ly:moment-add
-                                            (ly:make-moment 0)
-                                            (map ly:music-length seq)))
-                                  (let ((moment-reference (seq-len (car seqs))))
-                                    (for-each (lambda (seq)
-                                                (if (not (equal? (seq-len seq)
-                                                                 moment-reference))
-                                                    (ly:music-warning
-                                                     (if (pair? seq)
-                                                         (last seq)
-                                                         (caar seqs))
-                                                     (_ "Bars in parallel music don't have the same length"))))
-                                              seqs)))
-                       voices)
-                (map
-                 (lambda (lst)
-                   (set! lst (concatenate! lst))
-                   (let ((res (music-clone music 'elements lst)))
-                     (if (and (pair? lst)
-                              (ly:input-location? (ly:music-property
-                                                   (car lst)
-                                                   'origin)))
-                         (set! (ly:music-property res 'origin)
-                               (ly:music-property (car lst) 'origin)))
-                     res))
-                 voices)))
-             (else #f))))
+     (let* ((elt (ly:music-property music 'element))
+            (elts (ly:music-property music 'elements))
+            (split-elt (and (ly:music? elt) (recurse-and-split elt)))
+            (split-elts (and (pair? elts) (recurse-and-split-list elts))))
+       (and (or split-elt split-elts)
+            (map
+             (lambda (e es)
+               (apply music-clone music
+                      (append
+                       ;; reassigning the origin of the parent only
+                       ;; makes sense if the first expression in the
+                       ;; result is from a distributed origin
+                       (let ((origin
+                              (if (ly:music? elt)
+                                  (and (ly:music? e) (ly:music-property e 'origin #f))
+                                  (and (pair? es) (ly:music-property (car es) 'origin #f)))))
+                         (if origin (list 'origin origin) '()))
+                       (if (ly:music? e) (list 'element e) '())
+                       (if (pair? es) (list 'elements es) '()))))
+             (or split-elt (circular-list #f))
+             (or split-elts (circular-list #f))))))
    (let ((voices (recurse-and-split music)))
      (if voices
          ;;
          ;; bind voice identifiers to the voices
          (for-each (lambda (voice-id voice)
                      (ly:parser-define! parser voice-id voice))
-	  voice-ids voices)
+                   voice-ids voices)
          (ly:music-warning music
                            (_ "ignoring parallel music without barchecks")))))
 
