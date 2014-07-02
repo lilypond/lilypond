@@ -2699,13 +2699,6 @@ the @code{Stem_engraver} from the Voice context:
 @}
 @end example
 
-However, in some transcription styles, stems are used
-occasionally, for example to indicate the transition from a
-single-tone recitative to a fixed melodic gesture.  In these cases,
-one can use either @code{\hide Stem} or
-@code{\override Stem.length = #0} instead, and restore the stem
-when needed with the corresponding @code{\once \override Stem.transparent = ##f} (see example below).
-
 @b{Timing.} For unmetered chant, there are several alternatives.
 
 The Time_signature_engraver can be removed from the Staff context
@@ -2751,7 +2744,10 @@ verba = \lyricmode {
       \Staff
       \remove "Time_signature_engraver"
       \remove "Bar_engraver"
-      \hide Stem
+    }
+    \context {
+      \Voice
+      \remove "Stem_engraver"
     }
   }
 }
@@ -2759,17 +2755,25 @@ verba = \lyricmode {
 
 This works fine, as long as the text doesn't span a line break.  If
 that is the case, an alternative is to add hidden notes to the
-score, here in combination with changing stem visibility:
+score, as below.
 
+In some transcription styles, stems are used
+occasionally, for example to indicate the transition from a
+single-tone recitative to a fixed melodic gesture.  In these cases,
+one can use either @code{\hide Stem} or
+@code{\override Stem.length = #0} instead of @code{\remove}-ing
+the @code{Stem_engraver} and restore the stem
+when needed with the corresponding @code{\undo \hide Stem}.
 
 @lilypond[verbatim,ragged-right]
 \include "gregorian.ly"
 chant = \relative c' {
   \clef "G_8"
   \set Score.timing = ##f
+  \hide Stem
   c\breve \hide NoteHead  c c c c c
   \undo \hide NoteHead
-  \override Stem.transparent = ##f \stemUp c4 b4 a
+  \undo \hide Stem \stemUp c4 b4 a
   \hide Stem c2 c4  \divisioMaior
   c\breve \hide NoteHead c c c c c c c
   \undo \hide NoteHead c4 c f, f \finalis
@@ -2790,7 +2794,6 @@ verba = \lyricmode {
       \Staff
       \remove "Time_signature_engraver"
       \hide BarLine
-      \hide Stem
     }
   }
 }
