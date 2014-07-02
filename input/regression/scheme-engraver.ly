@@ -7,49 +7,46 @@
 
 \version "2.16.0"
 
+#(define (t->m t)
+   "Return the current moment of translator object @var{t}."
+   (ly:context-current-moment (ly:translator-context t)))
+
+engraver_demo =
+#(make-engraver
+   ((initialize translator)
+    (format 1 "\n\n~16a: (initialize)\n" (t->m translator)))
+   ((start-translation-timestep translator)
+    (format 1 "~16a: (start-translation-timestep)\n" (t->m translator)))
+   (listeners
+     ((rest-event engraver event)
+      (let ((grob (ly:engraver-make-grob engraver 'TextScript event)))
+        (ly:grob-set-property! grob 'text "hi")
+        (format 1 "~16a: detected this rest event: ~a\n~16a: created this grob: ~a\n"
+                (t->m engraver) event (t->m engraver) grob))))
+   (acknowledgers
+     ((note-head-interface engraver grob source-engraver)
+      (format 1 "~16a: saw ~a coming from ~a\n"
+              (t->m engraver) grob source-engraver)))
+   (end-acknowledgers
+     ((beam-interface engraver grob source-engraver)
+      (format 1 "~16a: saw end of ~a coming from ~a\n"
+              (t->m engraver) grob source-engraver)))
+   ((process-music translator)
+    (format 1 "~16a: (process-music)\n" (t->m translator)))
+   ((process-acknowledged translator)
+    (format 1 "~16a: (process-acknowledged)\n" (t->m translator)))
+   ((stop-translation-timestep translator)
+    (format 1 "~16a: (stop-translation-timestep)\n" (t->m translator)))
+   ((finalize translator)
+    (format 1 "~16a: (finalize)\n" (t->m translator))))
+
 \layout {
   \context {
     \Voice
     \consists
-    #(make-engraver
-      ((initialize trans)
-       (display (list "initialize"
-		      (ly:context-current-moment
-		       (ly:translator-context trans)) "\n") (current-error-port)))
-      ((start-translation-timestep trans)
-       (display (list "start-trans"
-		      (ly:context-current-moment
-		       (ly:translator-context trans)) "\n") (current-error-port)))
-      (listeners
-       ((rest-event engraver event)
-	(let*
-	    ((x (ly:engraver-make-grob engraver 'TextScript event)))
-	  (display (list "caught event" event "\ncreate:\n" x "\n") (current-error-port))
-	  (ly:grob-set-property! x 'text "hi"))))
-      (acknowledgers
-       ((note-head-interface engraver grob source-engraver)
-	(display (list "saw head: " grob " coming from " source-engraver) (current-error-port))))
-      (end-acknowledgers
-       ((beam-interface engraver grob source-engraver)
-	(display (list "saw end of beam: " grob " coming from " source-engraver) (current-error-port))))
-      ((process-music trans)
-       (display (list "process-music"
-		      (ly:context-current-moment
-		       (ly:translator-context trans)) "\n") (current-error-port)))
-      ((process-acknowledged trans)
-       (display (list "process-acknowledged"
-		      (ly:context-current-moment
-		       (ly:translator-context trans)) "\n") (current-error-port)))
-      ((stop-translation-timestep trans)
-       (display (list "stop-trans"
-		      (ly:context-current-moment
-		       (ly:translator-context trans)) "\n") (current-error-port)))
-      ((finalize trans)
-       (display (list "finalize"
-		      (ly:context-current-moment
-		       (ly:translator-context trans)) "\n") (current-error-port))))
-		}}
-
+    \engraver_demo
+  }
+}
 
 \relative c' {
   c8[ r c]
