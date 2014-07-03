@@ -336,32 +336,32 @@ Installed Files:
 
 @node Music function usage
 @subsection Music function usage
-Music functions may currently be used in several places.  Depending on
-where they are used, restrictions apply in order to be able to parse
-them unambiguously.  The result a music function returns must be
-compatible with the context in which it is called.
+A @q{music function} has to return an expression matching the predicate
+@code{ly:music?}.  This makes music function calls suitable as arguments
+of type @code{ly:music?} for another music function call.
+
+When using a music function call in other contexts, the context may
+cause further semantic restrictions.
 
 @itemize
 @item
-At top level in a music expression.  No restriction apply here.
+At the top level in a music expression a post-event is not accepted.
 
 @item
-As a post-event, explicitly started with a direction indicator (one of
-@code{-}, @code{^}, @w{and @code{_}}).
-
-In this case, you can't use an @emph{open} music expression as the last
-argument, one that would end with a music expression able to accept
-additional postevents.
+When a music function (as opposed to an event function) returns an
+expression of type post-event, LilyPond requires one of the named
+direction indicators (@code{-}, @code{^}, @w{and @code{_}})) in order to
+properly integrate the post-event produced by the music function call
+into the surrounding expression.
 
 @item
-As a chord constituent.  The returned expression must be of
+As a chord constituent.  The returned expression must be of a
 @code{rhythmic-event} type, most likely a @code{NoteEvent}.
 @end itemize
 
 @noindent
-The special rules for trailing arguments make it possible to write
-polymorphic functions like @code{\tweak} that can be applied to
-different constructs.
+@q{Polymorphic} functions, like @code{\tweak}, can be applied to
+post-events, chord constituent and top level music expressions.
 
 @node Simple substitution functions
 @subsection Simple substitution functions
