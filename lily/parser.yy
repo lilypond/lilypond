@@ -1744,7 +1744,7 @@ function_arglist_backup:
 			$$ = scm_cons ($4, $3);
 		else {
 			$$ = scm_cons (loc_on_music (@3, $1), $3);
-			MYBACKUP (LYRIC_ELEMENT, $4, @4);
+			MYBACKUP (SCM_IDENTIFIER, $4, @4);
 		}
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup UNSIGNED
