@@ -577,19 +577,19 @@
      . (
         (break-visibility . ,(grob::inherit-parent-property
                               X 'break-visibility))
-        (font-shape . italic)
-        (font-size . -4)
-        (transparent . ,(grob::inherit-parent-property
-                         X 'transparent))
         (color . ,(grob::inherit-parent-property
                    X 'color))
+        (font-shape . italic)
+        (font-size . -4)
         (self-alignment-X . ,CENTER)
         (staff-padding . 0.7)
         (stencil . ,ly:text-interface::print)
-        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
-        (Y-offset . ,side-position-interface::y-aligned-side)
+        (transparent . ,(grob::inherit-parent-property
+                         X 'transparent))
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
+        (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Item)
                  (interfaces . (clef-modifier-interface
                                 font-interface
@@ -776,8 +776,8 @@
         (staff-padding . 0.25)
         (stencil . ,ly:text-interface::print)
         (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
-        (Y-offset . ,side-position-interface::y-aligned-side)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
+        (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Item)
                  (interfaces . (font-interface
                                 outside-staff-interface
@@ -1522,10 +1522,10 @@
         (springs-and-rods . ,ly:multi-measure-rest::set-text-rods)
         (staff-padding . 0.4)
         (stencil . ,ly:text-interface::print)
-        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
-        (Y-offset . ,side-position-interface::y-aligned-side)
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
+        (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 multi-measure-interface
@@ -1543,10 +1543,10 @@
         (skyline-horizontal-padding . 0.2)
         (staff-padding . 0.25)
         (stencil . ,ly:text-interface::print)
-        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
-        (Y-offset . ,side-position-interface::y-aligned-side)
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
+        (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 multi-measure-interface
@@ -1746,8 +1746,8 @@
         (staff-padding . 0.25)
         (stencil . ,ly:text-interface::print)
         (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
-        (Y-offset . ,side-position-interface::y-aligned-side)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
+        (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Spanner)
                  (interfaces . (font-interface
                                 percent-repeat-interface
@@ -2144,8 +2144,8 @@
         (stencil . ,ly:stem-tremolo::print)
         (style . ,ly:stem-tremolo::calc-style)
         (X-extent . ,ly:stem-tremolo::width)
-        (Y-extent . ,(grob::unpure-Y-extent-from-stencil ly:stem-tremolo::pure-height))
         (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
+        (Y-extent . ,(grob::unpure-Y-extent-from-stencil ly:stem-tremolo::pure-height))
         (Y-offset . ,(ly:make-unpure-pure-container ly:stem-tremolo::calc-y-offset ly:stem-tremolo::pure-calc-y-offset))
         (meta . ((class . Item)
                  (interfaces . (self-alignment-interface
