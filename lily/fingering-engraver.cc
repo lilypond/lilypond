@@ -109,8 +109,7 @@ Fingering_engraver::make_script (Direction d, Stream_event *r, int i)
     fingerings for chords need different settings.
   */
   Side_position_interface::set_axis (fingering, Y_AXIS);
-  Self_alignment_interface::set_align_self (fingering, X_AXIS);
-  Self_alignment_interface::set_center_parent (fingering, X_AXIS);
+  Self_alignment_interface::set_aligned_on_parent (fingering, X_AXIS);
 
   // Hmm
   int priority = 200;

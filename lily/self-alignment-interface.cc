@@ -79,27 +79,6 @@ Self_alignment_interface::centered_on_x_parent (SCM smob)
   return centered_on_object (unsmob_grob (smob)->get_parent (X_AXIS), X_AXIS);
 }
 
-MAKE_SCHEME_CALLBACK (Self_alignment_interface, centered_on_note_columns, 1);
-SCM
-Self_alignment_interface::centered_on_note_columns (SCM smob)
-{
-  Item *it = unsmob_item (smob)->get_column ();
-  if (!it)
-    return scm_from_double (0.0);
-
-  extract_grob_set (it, "elements", elts);
-  vector<Grob *> ncs;
-  Interval centers;
-  for (vsize i = 0; i < elts.size (); i++)
-    if (Note_column::has_interface (elts[i]))
-      centers.add_point (scm_to_double (centered_on_object (elts[i], X_AXIS)));
-
-  if (centers.is_empty ())
-    return scm_from_double (0.0);
-
-  return scm_from_double (centers.center ());
-}
-
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, centered_on_y_parent, 1);
 SCM
 Self_alignment_interface::centered_on_y_parent (SCM smob)
@@ -166,18 +145,10 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
 }
 
 void
-Self_alignment_interface::set_center_parent (Grob *me, Axis a)
+Self_alignment_interface::set_aligned_on_parent (Grob *me, Axis a)
 {
   add_offset_callback (me,
-                       (a == X_AXIS) ? centered_on_x_parent_proc : centered_on_y_parent_proc,
-                       a);
-}
-
-void
-Self_alignment_interface::set_align_self (Grob *me, Axis a)
-{
-  add_offset_callback (me,
-                       (a == X_AXIS) ? x_aligned_on_self_proc : y_aligned_on_self_proc,
+                       (a == X_AXIS) ? aligned_on_x_parent_proc : aligned_on_y_parent_proc,
                        a);
 }
 

@@ -268,10 +268,7 @@ Dynamic_engraver::acknowledge_note_column (Grob_info info)
                         ? heads[0]
                         : unsmob_grob (info.grob ()->get_object ("rest")));
       if (x_parent)
-        {
-          script_->set_parent (x_parent, X_AXIS);
-          Self_alignment_interface::set_center_parent (script_, X_AXIS);
-        }
+        script_->set_parent (x_parent, X_AXIS);
     }
 
   if (current_spanner_ && !current_spanner_->get_bound (LEFT))
