@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
+    Translation of GIT committish: a59d022ee65e8310ea16954da7b637c07ca00ae2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -104,6 +104,16 @@ est la noire (@code{4}).
 a a a2 a a4 a a1 a
 @end lilypond
 
+Lorsque une note ou un accord est suivi d'une succession de durées
+individuelles, celles-ci adopteront la ou les dernières hauteurs
+mentionnées.
+
+@lilypond[quote,verbatim,relative=2]
+\time 8/1
+c \longa \breve 1 2
+4 8 16 32 64 128 128
+@end lilypond
+
 @cindex notes pointées
 @cindex pointée, note
 @cindex doublement pointée, note
@@ -203,28 +213,28 @@ soupir à la maxime (valant huit pauses).
 @funindex times
 
 Les nolets -- triolets, quintolets, etc. -- sont obtenus en
-multipliant toutes les durées d'une expression musicale par une
+divisant toutes les durées d'une expression musicale par une
 fraction.
 
 @example
-\times @var{fraction} @{ @var{expression_musicale} @}
+\tuplet @var{fraction} @{ @var{expression_musicale} @}
 @end example
 
 @noindent
-La durée de l'@code{@var{expression_musicale}} sera multipliée par la
+La durée de l'@code{@var{expression_musicale}} sera divisée par la
 fraction.  Le numérateur de cette fraction sera imprimé au-dessus ou
 au-dessous des notes, parfois avec un crochet.  Le nolet le plus courant
 est le triolet, dans lequel trois notes occupent la durée de deux.
 
 @lilypond[quote,verbatim,relative=2]
-a2 \tuplet 3/2 { b4 b b }
+a2 \tuplet 3/2 { b4 4 4 }
 c4 c \tuplet 3/2 { b4 a g }
 @end lilypond
 
 @cindex regroupement de nolets
 @noindent
 Dans le cas d'une succession de nolets, saisir la commande
-@code{\tuplet} popur chacun des nolets devient vite fastidieux.
+@code{\tuplet} pour chacun des nolets devient vite fastidieux.
 LilyPond vous permet de stipuler la durée de base d'un nolet juste
 avant l'expression musicale, de telle sorte que les nolets seront
 formés automatiquement :
@@ -446,6 +456,13 @@ suivante, qui doit être de la même hauteur.
 a2~ 4~ 16 r r8
 @end lilypond
 
+Les liaisons de tenue peuvent interpréter la « dernière hauteur
+explicite » d'une succession de durées :
+
+@lilypond[quote,verbatim,relative=2]
+a2~ 4~ 16 r r8
+@end lilypond
+
 Les liaisons de tenue sont utilisées soit lorsque la note dépasse de la
 mesure, soit quand les points ne suffisent pas à donner la bonne durée.
 Lorsque l'on utilise ces liaisons, les valeurs rythmiques les plus
@@ -475,7 +492,8 @@ partiellement deux accords, en mettant les liaisons à l'intérieur des
 accords.
 
 @lilypond[quote,verbatim,relative=1]
-<c e g>~ <c e g>
+<c e g>~ 2
+<c e g>4~ <c e g c>
 <c~ e g~ b> <c e g b>
 @end lilypond
 
@@ -1141,7 +1159,7 @@ en même temps.  Ces valeurs peuvent se régler indépendamment pour
 différentes métriques.  Les valeurs adaptées ne seront effectives qu'à
 partir du moment où interviendra une commande @code{\time} de la valeur
 de métrique correspondante :
- 
+
 @lilypond[quote,verbatim]
 \score {
   \relative c' {
@@ -1455,10 +1473,27 @@ e8 | a4 c8 b c4 |
 
 La propriété @code{measurePosition} contient un nombre rationnel
 généralement positif et qui indique, à ce point précis, où l'on en
-est de la mesure.  La commande @code{\partial @var{durée}} le
-transforme en nombre négatif pour lui attribuer un autre sens : la
-mesure courante (la première) est précédée d'une mesure 0
-(l'anacrouse) dont la longueur est donnée par @var{durée}.
+est de la mesure.  L'instruction @code{\partial @var{durée}} est définie
+telle qu'aucune mesure numérotée ne sera créée.  Son apparition en
+début de pièce transforme @var{durée} en nombre négatif, ce qui signifie
+que  la mesure en cours sera @strong{précédée} de matériau additionnel
+(l'anacrouse).  Dans tous les autres cas, un @code{\partial @var{durée}}
+aura pour effet de se décaler d'autat par rapport à la @b{fin} de la
+mesure.
+
+@lilypond[quote,verbatim,relative=1]
+\set Score.barNumberVisibility = #all-bar-numbers-visible
+\override Score.BarNumber.break-visibility =
+          #end-of-line-invisible
+\time 6/8
+\partial 8
+e8 | a4 c8 b[ c b] |
+\partial 4
+r8 e,8 | a4 \bar "||"
+\partial 4
+r8 e8 | a4
+c8 b[ c b] |
+@end lilypond
 
 @seealso
 Glossaire musicologique :
@@ -1472,21 +1507,6 @@ Morceaux choisis :
 
 Références des propriétés internes :
 @rinternals{Timing_translator}.
-
-
-@knownissues
-@code{\partial} n'est destiné à être utilisé qu'en début de pièce.
-Si on l'utilise ailleurs qu'au début, des messages d'erreur peuvent
-s'afficher, voire des problèmes inopinés surgir.  Utilisez plutôt
-@code{\set Timing.measurePosition} en pareil cas.
-
-@lilypond[quote,verbatim,relative=1]
-\time 6/8
-\partial 8
-e8 | a4 c8 b[ c b] |
-\set Timing.measurePosition = #(ly:make-moment -1/4)
-r8 e,8 | a4 c8 b[ c b] |
-@end lilypond
 
 
 @node Musique sans métrique
@@ -1841,6 +1861,37 @@ cette fonctionnalité permet de déboguer des partitions complexes :
 si les mesures ne sont pas entièrement remplies, alors les liaisons de
 prolongation montrent exactement la durée des décalages de mesure.
 
+La propriété @code{completionUnit} détermine la durée de référence pour
+diviser les notes.
+
+@lilypond[quote,verbatim,relative=2]
+\new Voice \with {
+  \remove "Note_heads_engraver"
+  \consists "Completion_heads_engraver"
+} {
+  \time 9/8 g\breve. d4. \bar "||"
+  \set completionUnit = #(ly:make-moment 3 8)
+  g\breve. d4.
+}
+@end lilypond
+
+Ces graveurs découperont les notes de durée altérée, telles celles d'un
+triolet, en notes ayant le même facteur d'échelle que les otes saisies.
+
+@lilypond[quote,verbatim,relative=2]
+\new Voice \with {
+  \remove "Note_heads_engraver"
+  \consists "Completion_heads_engraver"
+} {
+  \time 2/4 r4
+  \tuplet 3/2 {g4 a b}
+  \scaleDurations 2/3 {g a b}
+  g4*2/3 a b
+  \tuplet 3/2 {g4 a b}
+  r4
+}
+@end lilypond
+
 @seealso
 Glossaire musicologique :
 @rglosnamed{tie,liaison de tenue}.
@@ -1860,14 +1911,13 @@ Références des propriétés internes :
 @rinternals{Forbid_line_break_engraver}.
 
 @knownissues
-Bien que toutes les durées -- particulièrement celles contenant des
-nolets -- ne puissent être exactement représentées avec des notes
-normales et des points, le graveur @code{Completion_heads_engraver}
-n'insérera pas de nolet.
-
-Le @code{Completion_heads_engraver} affecte seulement les notes, il ne
-divise pas les silences.
-
+Pour rester cohérent avec le comportement précédent, les notes ou
+silences d'une durée supérieure à la mesure, comme un @code{c1*2},
+seront divisés sans être mis à l'échelle -- on aura donc
+@code{@{ c1 c1 @}}.  La propriété @code{completionFactor}, qui contrôle
+ce comportement, peut être désactivée (valorisée à @code{#f}) pour
+autoriser les notes ou silences divisés à adopter le facteur d'échelle
+des durées saisies.
 
 @node Gravure de lignes rythmiques
 @unnumberedsubsubsec Gravure de lignes rythmiques
@@ -2231,41 +2281,14 @@ fichier @file{scm/time-signature-settings.scm}.
 Les règles spécifiques autres que celles concernant la terminaison des
 ligatures sont gérées par la propriété  @code{beamExceptions}.
 
-@c KEEP LY
 @lilypond[quote,relative=2,verbatim]
 \time 3/16
 \set Timing.beatStructure = #'(2 1)
 \set Timing.beamExceptions =
-  #'(                       ;ouvre de la liste associative
-     (end .                 ;ceci concerne la terminaison des ligatures
-      (                     ;ouvre la liste des points de terminaison
-       ((1 . 32) . (2 2 2)) ;règle pour les triples -- groupées à la double
-      )))                   %referme la liste
+  \beamExceptions { 32[ 32] 32[ 32] 32[ 32] }
 c16 c c |
 \repeat unfold 6 { c32 } |
 @end lilypond
-
-@code{beamExceptions} contient la liste des règles de ligature selon
-leur type.
-
-Le seul type de règle pris en charge à ce jour est @code{'end}, qui
-concerne les terminaisons.
-
-Chaque règle est constituée d'une liste de doublets associatifs en
-langage Scheme (un @emph{alist} pour les puristes), qui indique la durée
-de base et sa règle de regroupement.
-
-@example
-#'((durée-type1 . groupement-1)
-   (durée-type2 . groupement-2)
-   (durée-type3 . groupement-3))
-@end example
-
-@var{durée-type} est constitué d'une paire indiquant la durée de base --
-par exemple @code{(1 . 16)} pour une double croche.
-
-@var{groupement} est constitué d'une liste Scheme qui indique le
-regroupement à effectuer, en unité de type de ligature.
 
 @warning{La propriété @code{beamExceptions} doit répertorier absolument
 @strong{toutes} les exceptions.  Il n'est en effet pas possible d'en
@@ -3556,6 +3579,12 @@ correspondant à la durée des petites notes :
   \new Staff { c4 \bar ".|:" \grace s16 d2. }
 >>
 @end lilypond
+
+Bien que la partie visible contient un @code{\acciaccatura} ou un
+@code{\appoggiatura}, veillez bien à utiliser l'instruction
+@code{\grace} dans la partie invisible, au risque de voir apparaître un
+tronçon de liaison connectant la petite note invisible à la note qui la
+suit.
 
 Lorsque des petites notes font l'objet d'un contexte de voix, cela
 perturbe la présentation des voix normales.  Vous pourrez y remédier en

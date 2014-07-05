@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 34f7824737173f1b485c8989dd0de6b45c8b7c2a
+    Translation of GIT committish: a59d022ee65e8310ea16954da7b637c07ca00ae2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1467,7 +1467,7 @@ déterminées par l'installation de Pango.
 un fichier source, le résultat peut varier d'un ordinateur à l'autre.
 Le résultat sera homogène quelque soit la plateforme dès lors que ces
 polices auront été spécifiées par leur nom et qu'elles sont disponibles
-pour tout système amené à traiter le fichier.  Voir 
+pour tout système amené à traiter le fichier.  Voir
 @ref{Attribution d'une fonte en particulier} et
 @ref{Choix des fontes par défaut}.}
 
@@ -1553,8 +1553,8 @@ a1_\markup {
 
 @funindex show-available-fonts
 
-Pour obtenir la liste de toutes les polices disponibles sur votre
-machine, lancez
+LilyPond, lancé avec l'option suivante, affiche la liste de toutes
+les polices disponibles sur votre machine :
 
 @example
 lilypond -dshow-available-fonts toto

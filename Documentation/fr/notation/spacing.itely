@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
+    Translation of GIT committish: a59d022ee65e8310ea16954da7b637c07ca00ae2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -21,25 +21,6 @@ Negative numbers are allowed:
 >   first-page-number = -2
 > }
 > and prints page number -1 on the second page, for example.
-
-
-In 5.2.1 the @refbugs (line 495 in spacing.itely on master) it
-states:
-
-"@code{layout-set-staff-size} does not change the distance between
-the staff lines."
-
-Could we add a sentence:
-"Use instead the pair fontSize = #@var{N}
-        \override StaffSymbol.staff-space = #(magstep @var{N})
-inside the Staff context to change the size of the font and the
-distance between staff lines accordingly."
-
-Actually I found, that the @internalsref{StaffSymbol} at line 481
-sends to an incomplete documentation.  The property staff-space is not
-explained here.  I thought Y-extent might be of help, but it is in turn
-explained by x-space which again is missing from the list.  Who has the
-knowledge to fix this?
 
 
 Clarify
@@ -305,7 +286,7 @@ appel à l'aide des fonctions @code{set-default-paper-size} et
   #(set-paper-size "mon format")
 @}
 @end example
- 
+
 Les unités peuvent s'exprimer aussi bien en @code{in} (pouces), qu'en
 @code{cm} (centimètres) ou @code{mm} (millimètres).
 
@@ -365,7 +346,7 @@ c'est une autre histoire dont nous parlerons plus tard et qui n'a rien à
 voir avec la mise à l'échelle.
 
 L'adaptation automatique affecte les dimensionnements verticaux
-@code{top-margin} et @code{bottom-margin} -- voir 
+@code{top-margin} et @code{bottom-margin} -- voir
 @ref{Variables d'espacement vertical fixe} --, ainsi que les
 dimensionnements horizontaux @code{left-margin}, @code{right-margin},
 @code{inner-margin}, @code{outer-margin}, @code{binding-offset},
@@ -742,7 +723,7 @@ La marge entre le bord droit de la page et la fin des systèmes en pleine
 largeur (non @emph{ragged}).  La valeur par défaut est de @code{10\mm}
 et s'ajustera selon le format du papier.   Lorsque vous définissez
 @code{line-width} et @code{left-margin}, sans modifier la valeur de
-@code{right-margin},  cette dernière sera alors égale à 
+@code{right-margin},  cette dernière sera alors égale à
 @code{(paper-width @minus{} line-width @minus{} left-margin)}.
 Lorsque seule @code{line-width} est définie, les deux marges
 correspondent à
@@ -1019,7 +1000,7 @@ autres choix.
 Pénalité pour apparition d'une page blanche en cours de partition.
 L'attribution d'une valeur élevée à @code{blank-page-penalty}
 alors qu'a été activé @code{ly:page-turn-breaking} forcera
-LilyPond à éviter de placer une page blanche au mileu de la 
+LilyPond à éviter de placer une page blanche au mileu de la
 partition, quitte à espacer d'autant plus la musique pour remplir
 cette page blanche et la suivante. La valeur par défaut est
 de @code{5}.
@@ -1369,10 +1350,19 @@ Morceaux choisis :
 @cindex fonte, définition de la taille
 @cindex portée, définition de la taille
 @funindex layout file
+@funindex magnification->font-size
+@funindex magstep
+@funindex set-global-staff-size
+@funindex layout-set-staff-size
 
 La @strong{taille de portée} @emph{(staff size)} est fixée par défaut à
-20 points.  Il existe deux manières de la modifier :
+20 points, ce qui correspond à 7,03 cm -- 1 point équivaut à
+100/7227 pouce, soit 2 540/7 227 mm.  Il existe trois manières de la
+modifier :
 
+@enumerate
+
+@item
 La taille des portées peut se définir globalement pour toutes les
 partitions d'un même fichier, ou plus précisément d'un bloc
 @code{\book}, à l'aide de @code{set-global-staff-size}.
@@ -1382,20 +1372,75 @@ partitions d'un même fichier, ou plus précisément d'un bloc
 @end example
 
 @noindent
-Ceci définit donc la hauteur des portées à 14 points par
+Ceci définit donc la hauteur des portées à 14 points (4,92 mm) par
 défaut ; toutes les fontes seront ajustées en conséquence.
 
-Vous pouvez aussi spécifier une taille à une partition en particulier en
-procédant comme ci-dessous :
+@item
+La taille d'une partition particulière au sein d'un ouvrage se définit à
+l'aide d'un @code{layout-set-staff-size} placé dans le bloc
+@code{\layout} approprié :
 
 @example
 \score@{
   @dots{}
   \layout@{
-    #(layout-set-staff-size 15)
+    #(layout-set-staff-size 14)
   @}
 @}
 @end example
+
+@item
+L'affectation d'une taille particulière à l'une des portées d'un
+système requiert d'ajuster la taille de police @emph{(font-size)} et
+l'espace de portée @emph{(staff-space)} en unités proportionnelles à la
+taille de portée par défaut de la partition.  L'utilisation d'une
+relation entre unités évite le changement de proportionnalité entre
+portées lorsque la taille par défaut est modifiée par
+@code{set-global-staff-size} ou @code{layout-set-staff-size}.
+
+Par exemple, les partitions traditionnelles de musique de chambre avec
+piano présentent souvent des portées de piano de 7 mm alors que les
+autres portées étaient gravées à une hauteur de cinq septièmes (s'il y
+avait assez de place) ou trois cinquièmes (en cas de présentation
+resserrée) de cette hauteur.  Une proportion de 5/7 s'obtient se
+libelle ainsi :
+
+@example
+\score @{
+  <<
+    \new Staff \with @{
+      fontSize = #(magnification->font-size 5/7)
+      \override StaffSymbol.staff-space = #5/7
+    @} @{ @dots{} @}
+    \new PianoStaff @{ @dots{} @}
+  >>
+@}
+@end example
+
+Si la valeur de @code{fontSize} à utiliser est connue, la forme suivante
+peut s'employer :
+
+@example
+\score @{
+  <<
+    \new Staff \with @{
+      fontSize = -3
+      \override StaffSymbol.staff-space = #(magstep -3)
+    @} @{ @dots{} @}
+    \new PianoStaff @{ @dots{} @}
+  >>
+@}
+@end example
+
+Mieux vaut éviter de réduire l'épaisseur des lignes si l'on veut que la
+partition s'approche au plus près des canons de la gravure
+traditionnelle.
+
+@end enumerate
+
+
+@subheading Relation automatique entre fonte et taille
+@c VO Automatic font weight at different sizes
 
 La fonte Feta fournit les symboles musicaux dans huit tailles
 différentes.  Chaque fonte correspond à une hauteur particulière de
@@ -1404,63 +1449,19 @@ pour être cohérent avec l'épaisseur relativement plus importante des
 lignes de la portée.  Le tableau suivant répertorie les différentes
 tailles de police.
 
-@quotation
 @multitable @columnfractions .15 .2 .22 .2
 
-@item @b{nom de la fonte}
-@tab @b{hauteur de portée (pt)}
-@tab @b{hauteur de portée (mm)}
-@tab @b{utilisation}
+@item @b{nom de la fonte} @tab @b{hauteur de portée (pt)} @tab @b{hauteur de portée (mm)} @tab @b{utilisation}
 
-@item feta11
-@tab 11,22
-@tab 3,9
-@tab format de poche
-
-@item feta13
-@tab 12,60
-@tab 4,4
-@tab
-
-@item feta14
-@tab 14,14
-@tab 5,0
-@tab
-
-@item feta16
-@tab 15,87
-@tab 5,6
-@tab
-
-@item feta18
-@tab 17,82
-@tab 6,3
-@tab carnet de chant
-
-@item feta20
-@tab 20
-@tab 7,0
-@tab partition standard
-
-@item feta23
-@tab 22,45
-@tab 7,9
-@tab
-
-@item feta26
-@tab 25,2
-@tab 8,9
-@tab
-@c matériel de location moderne ?
-
+@item feta11 @tab 11,22 @tab 3,9 @tab format de poche
+@item feta13 @tab 12,60 @tab 4,4 @tab
+@item feta14 @tab 14,14 @tab 5,0 @tab
+@item feta16 @tab 15,87 @tab 5,6 @tab
+@item feta18 @tab 17,82 @tab 6,3 @tab carnet de chant
+@item feta20 @tab 20 @tab 7,0 @tab partition standard
+@item feta23 @tab 22,45 @tab 7,9 @tab
+@item feta26 @tab 25,2 @tab 8,9 @tab @c matériel de location moderne ?
 @end multitable
-@end quotation
-
-Ces fontes sont disponibles dans toutes les tailles.  La propriété de
-contexte @code{fontSize} ainsi que la propriété de mise en forme
-@code{staff-space} (voir @rinternals{StaffSymbol}) permettent d'ajuster
-individuellement la taille de chaque portée.  La taille de chacune des
-portées est relative à la taille globale.
 
 @seealso
 Manuel de notation :
@@ -1634,11 +1635,12 @@ trouver à des niveaux supérieurs, entre deux partitions ou
 
 Tout comme @code{ragged-right} et @code{ragged-last} qui permettent de
 gérer la répartition horizontale, LilyPond dispose de commutateurs
-équivalents au niveau de la verticalité : @code{ragged-bottom} et
-@code{ragged-last-bottom}.  Lorsqu'ils sont tous deux activés --
-affectés de @code{#t} -- les systèmes ne seront pas répartis sur les
-pages y compris la dernière.  Pour de plus amples détails, reportez-vous
-à @ref{Variables d'espacement vertical fixe}.
+équivalents au niveau de la verticalité. @code{ragged-bottom}, une fois
+activé, empèchera les systmèes de se répartir sur la page.  Quant à
+@code{ragged-last-bottom} (valorisé à @code{#t} par défaut), il laissera
+un espace vide en dernière page, y compris pour cahque @code{\bookpart}.
+Pour de plus amples détails, reportez-vous à
+@ref{Variables d'espacement vertical fixe}.
 
 Les sauts de page sont générés par la fonction @code{page-breaking}.
 LilyPond dispose de trois différents algorithmes en la matière :
@@ -1858,7 +1860,7 @@ longue tienne sur une seule ligne.  En particulier, les variables
 @code{\paper} seront ignorées ; les @code{left-margin} et
 @code{right-margin} seront honorées.  La hauteur de page ne sera pas
 modifiée.
- 
+
 
 @node Sauts explicites
 @subsection Sauts explicites
@@ -2468,14 +2470,14 @@ Référence des propriétés internes :
 Dans les partitions orchestrales ou de grande ampleur, il arrive
 souvent que des portées soient regroupées.  L'espacement est alors plus
 important entre deux regroupements qu'entre les portées d'un même
-groupe.  
+groupe.
 
 Les @i{regroupements de portées} tels le @code{StaffGroup} ou le
 @code{ChoirStaff} sont des contextes qui peuvent contenir simultanément
 une ou plusieurs portées.
 
 L'espacement entre les portées d'un même regroupement est géré par les
-propriétés suivantes : 
+propriétés suivantes :
 
 @itemize
 @item Propriétés du @code{VerticalAxisGroup} :
@@ -3015,7 +3017,7 @@ c2 c4. c8 | c4. c16[ c] c4. c8 | c8 c c4 c c
 @end lilypond
 
 Dans notre @emph{Essai sur la gravure musicale automatisée}, nous avons
-vu comment la direction des hampes peut influencer l'espacement -- voir 
+vu comment la direction des hampes peut influencer l'espacement -- voir
 @ressay{Espacement}.  Ceci est contrôlé par la propriété
 @code{stem-spacing-correction} de l'objet @rinternals{NoteSpacing}, créé
 pour chaque contexte @rinternals{Voice}.  L'objet
@@ -3035,7 +3037,7 @@ les réglages par défaut, puis avec des corrections forcées.
 }
 @end lilypond
 
-L'espacement spécifique à la notation proportionnelle fait l'objet d'une 
+L'espacement spécifique à la notation proportionnelle fait l'objet d'une
 @rusernamed{Notation proportionnelle,rubrique dédiée}.
 
 @seealso
@@ -3295,11 +3297,14 @@ effets de ces réglages et comment ils interagissent.
 Commençons par cette mesure toute simple qui utilise l'espacement
 classique et justifiée à gauche.
 
+@c The initial pitch is not necessary as long as RhythmicStaff is
+@c not preceded by other material in the score, but we don't want
+@c to explain that.
 @lilypond[quote,verbatim,ragged-right]
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
   >>
 }
@@ -3324,7 +3329,7 @@ définissant la propriété @code{proportionalNotationDuration}.
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c' c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
   >>
  \layout {
@@ -3371,7 +3376,7 @@ une durée de référence élevée produira une musique resserrée.
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
   >>
   \layout {
@@ -3385,7 +3390,7 @@ une durée de référence élevée produira une musique resserrée.
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
   >>
   \layout {
@@ -3399,7 +3404,7 @@ une durée de référence élevée produira une musique resserrée.
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
   >>
   \layout {
@@ -3429,10 +3434,10 @@ ajoutons lui une portée incluant un autre type de nolet.
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
     \new RhythmicStaff {
-      \tuplet 9/8 { c'8 c' c' c' c' c' c' c' c' }
+      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
     }
   >>
 }
@@ -3449,10 +3454,10 @@ les règles qu'elle applique peuvent amener à ce résultat.  Le recours à
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
     \new RhythmicStaff {
-      \tuplet 9/8 { c'8 c' c' c' c' c' c' c' c' }
+      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
     }
   >>
   \layout {
@@ -3474,10 +3479,10 @@ allons activer le @code{uniform-stretching}, propriété attachée au
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
     \new RhythmicStaff {
-      \tuplet 9/8 { c'8 c' c' c' c' c' c' c' c' }
+      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
     }
   >>
   \layout {
@@ -3578,13 +3583,13 @@ les deux portées suivantes :
 @lilypond[quote,verbatim,ragged-right]
 \new Staff {
   \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
-  c''8 c'' c'' \clef alto d' d'2
+  c''8 8 8 \clef alto d' 2
 }
 
 \new Staff {
   \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
   \override Score.SpacingSpanner.strict-note-spacing = ##t
-  c''8 c'' c'' \clef alto d' d'2
+  c''8 8 8 \clef alto d' 2
 }
 @end lilypond
 

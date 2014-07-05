@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d0b51cc48c2d66efbd1cbdc682dd622e7a2a93f9
+    Translation of GIT committish: a59d022ee65e8310ea16954da7b637c07ca00ae2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.25"
+@c \version "2.18.0"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
@@ -377,7 +377,7 @@ f8\decresc e d c e\> d c b |
 a1\dim ~ |
 a2. r4\! |
 @end lilypond
- 
+
 @funindex \crescTextCresc
 @funindex crescTextCresc
 @funindex \dimTextDecresc
@@ -449,7 +449,7 @@ avec ou sans extenseur, ainsi que les indications de pédale.
   }
 >>
 @end lilypond
- 
+
 @predefined
 @code{\dynamicUp},
 @code{\dynamicDown},
@@ -985,6 +985,13 @@ Les indications de respiration sont indiquées par la commande
 c2. \breathe d4
 @end lilypond
 
+Contrairement aux autres signes d'interprétation, une respiration n'est
+pas associée à la note qui la précède ; il s'agit d'un événement musical
+à part entière.  Par voie de conséquence, toute autre marque attachée à
+la note précédente, telle un crochet indiquant une ligature manuelle ou
+une parenthèse indiquant une liaison, doit impérativement se placer
+avant l'instruction @code{\breathe}.
+
 Un signe de respiration interrompt obligatoirement les ligatures, même
 automatiques.  Pour passer outre ce fonctionnement, voir
 @ref{Barres de ligature manuelles}.
@@ -1151,10 +1158,10 @@ vaguelettes -- voir @ref{Styles de ligne}.
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-timing-marks-to-long-glissandi.ly}
- 
+
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-glissandi-breakable.ly}
- 
+
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {extending-glissandi-across-repeats.ly}
 

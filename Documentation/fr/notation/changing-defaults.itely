@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 89414291ba9ff99d3d5600580f0cd2b6e937b74b
+    Translation of GIT committish: a59d022ee65e8310ea16954da7b637c07ca00ae2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2434,7 +2434,7 @@ Dans l'accord suivant, les notes sont modifiées une par une :
   \tweak color #red
   d
   g
-  \tweak duration-log #1 
+  \tweak duration-log #1
    a
 >4
 -\tweak padding #8
@@ -3266,7 +3266,7 @@ e8 e e e
 
 @strong{@i{La propriété @code{to-barline}}}
 
-La seconde propriété fournie par la @code{spanner-interface} est 
+La seconde propriété fournie par la @code{spanner-interface} est
 @code{to-barline}.  Elle est activée par défaut, raison pour laquelle
 les soufflets et autres extenseurs finissant sur la première note d'une
 mesure s'arrêtent visuellement au niveau de la barre de mesure qui la
@@ -3817,7 +3817,7 @@ Manuel d'initiation :
 @subsection Styles de ligne
 @translationof Line styles
 
-Certaines indications portées à l'attention de l'exécutant -- tels 
+Certaines indications portées à l'attention de l'exécutant -- tels
 @i{rallentando}, @i{accelerando} et @i{trilles} -- apparaissent sous la
 forme d'un texte qui peut s'étendre sur plusieurs mesures à l'aide d'une
 ligne parfois pointillée ou ondulée.
@@ -5027,4 +5027,3 @@ tempoPadded =
 @end lilypond
 
 @c TODO: add appropriate @@ref's here.
-

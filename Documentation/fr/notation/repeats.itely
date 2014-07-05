@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
+    Translation of GIT committish: a59d022ee65e8310ea16954da7b637c07ca00ae2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -106,6 +106,16 @@ c2 d
 \repeat volta 2 { d4 e f g }
 @end lilypond
 
+Aucun « début » de reprise n'est indiqué par défaut pour la première
+mesure d'un morceau.  Vous pouvez cependant ajouter une barre de reprise
+avec un @code{\bar ".|:"} avant la première note.
+
+@lilypond[verbatim,fragment,quote,relative=2]
+\repeat volta 2 { \bar ".|:" c4 d e f }
+c2 d
+\repeat volta 2 { d4 e f g }
+@end lilypond
+
 On peut ajouter une fin alternative à l'aide de la commande
 @code{\alternative}.  Chaque @code{@var{alternative}} est une expression
 musicale en elle-même ; il faudra donc les regrouper par des accolades.
@@ -202,40 +212,6 @@ g4 |
 a2 a |
 g1 |
 @end lilypond
-
-Lorsqu'une reprise débute par une mesure incomplète et a des fins
-alternatives, il est indispensable d'ajuster manuellement la propriété
-@code{Timing.measureLength} selon les préceptes suivants :
-
-@itemize
-@item
-au début de chacune des mesures incomplètes du bloc @code{\alternative},
-ce qui est le cas en principe pour chaque fin d'alternative sauf --
-la plupart du temps -- pour la dernière.
-
-@item
-au début de chaque alternative à l'exception de la première.
-@end itemize
-
-@lilypond[verbatim,quote,relative=1]
-\partial 4
-\repeat volta 2 { e4 | c2 e | }
-\alternative {
-  {
-    f2 d |
-    \set Timing.measureLength = #(ly:make-moment 3/4)
-    g4 g g  % optional bar check is allowed here
-  }
-  {
-    \set Timing.measureLength = #(ly:make-moment 4/4)
-    a2 a |
-  }
-}
-g1 |
-@end lilypond
-
-La propriété @code{measureLength} est abordée plus en détail au chapitre
-@ref{Gestion du temps}.
 
 @cindex reprise et liaison de prolongation
 @cindex alternative et liaison de prolongation
@@ -359,6 +335,9 @@ Manuel de notation :
 @ref{Modification des greffons de contexte},
 @ref{Modification des liaisons},
 @ref{Gestion du temps}.
+
+Fichiers d'initialisation :
+@file{ly/engraver-init.ly}.
 
 Morceaux choisis :
 @rlsrnamed{Repeats,Répétitions}.
@@ -806,8 +785,8 @@ Le même résultat s'obtient en faisant suivre la note considérée
 de deux points et d'un nombre (@w{@code{note:@var{nombre}}}).
 Le nombre en question correspond à la valeur de la subdivision ;
 il doit être au moins de 8, auquel cas la hampe sera barrée par un
-seul trait de ligature.  Si ce nombre est omis, la dernière valeur --
-telle que mémorisée dans @code{tremoloFlags} -- sera utilisée.
+seul trait de ligature.  Si ce nombre est omis, la dernière valeur sera
+utilisée.
 
 @lilypond[quote,verbatim,relative=2]
 c2:8 c:32

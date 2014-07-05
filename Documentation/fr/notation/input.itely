@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
+    Translation of GIT committish: a59d022ee65e8310ea16954da7b637c07ca00ae2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1350,7 +1350,7 @@ s'exprime en espace de portée.
 Le contexte auquel appartient l'objet à annoter.  Cet argument
 peut être omis dès lors qu'il s'agit d'un contexte de bas niveau
 tel que @code{Voice}.
- 
+
 @item nom-grob
 Le type d'objet à annoter -- @samp{Flag} par exemple.  Lorsque cet
 élément est spécifié, c'est l'objet en question qui servira de point de
@@ -1854,7 +1854,7 @@ la définition de @code{tocItemMarkup}.
 N'hésitez pas à définir vous-même d'autres commandes et @emph{markups}
 afin de construire une table plus élaborée :
 @itemize
-@item 
+@item
 commencez par définir une nouvelle variable de type @code{markup} au
 sein du bloc @code{\paper},
 
@@ -2226,7 +2226,7 @@ Musique balisée précédée de @code{\removeWithTag #'@var{nom}} ou
        @code{\removeWithTag #'(@var{nom1} @var{nom2}@dots{})}
 @tab Musique non balisée et fragments appelés autrement que par
        l'un des noms fournis seront inclus ; la musique balisée
-       par autre chose que les noms mentionnés est exclue. 
+       par autre chose que les noms mentionnés est exclue.
 
 @item
 Musique balisée non précédée de @code{\keepWithTag} ou
@@ -2371,7 +2371,7 @@ raccorder à chaque instance de la balise, et l'expression balisée.
 Ces instructions prennent soin de recopier tout ce qui doit être
 modifié, de telle sorte que l'expression @code{\test} originale conserve
 tout son sens.
- 
+
 @seealso
 Manuel d'initiation :
 @rlearning{Organisation du code source avec des variables}.
@@ -2459,7 +2459,7 @@ la bibliothèque Pango pour assurer le rendu des textes multilingues.
 
 LilyPond n'effectue aucune conversion d'encodage que ce soit.  Ceci
 implique donc que tout texte -- un titre, des paroles ou même une
-instruction musicale -- comportant des caractères non ASCII soit 
+instruction musicale -- comportant des caractères non ASCII soit
 codé en UTF-8.  Le plus sûr moyen de saisir du texte de la sorte
 consiste à utiliser un éditeur supportant l'unicode et à enregistrer vos
 fichier en UTF-8.  C'est le cas pour la plupart des éditeurs actuels,
@@ -2785,8 +2785,8 @@ qu'à propos des conditions d'utilisation.
 MIDI (Musical Instrument Digital Interface) constitue un standard en
 matière de connexion et de contrôle des instruments électroniques.  Un
 fichier MIDI contient une série de notes réparties dans différentes
-pistes.  Il ne s'agit en rien d'un fichier sonore ; il vous faudra
-un logiciel capable de traduire ces séries de notes en sons réels.
+pistes.  Il ne s'agit en rien d'un fichier sonore ; il vous faudra un
+logiciel capable de traduire ces séries de notes en sons réels.
 
 Vous pouvez convertir vos partition en fichier MIDI de manière à
 entendre ce que vous avez saisi.  Ceci vous permet de contrôler aisément
@@ -2797,7 +2797,7 @@ Le fichier MIDI généré par LilyPond est relativement brut.  Vous pouvez
 cependant obtenir un meilleur rendu avec @ref{Le script Articulate}.
 
 Dans une sortie MIDI, LilyPond alloue un canal à chaque portée, tout en
-réservant le canal 10 aux percussions. Dans la mesure ou un
+réservant le canal 10 aux percussions.  Dans la mesure ou un
 périphérique MIDI ne comprend que 16 canaux, un fichier MIDI qui
 comportera plus de quinze portées verra le même canal réutilisé.
 
@@ -2894,10 +2894,26 @@ supprimera les effets de nuance dans la sortie MIDI.  Les modules
 chargés de traduire la musique en son s'appellent des « interprètes » --
 @emph{performers} en anglais.
 
-
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {changing-midi-output-to-one-channel-per-voice.ly}
+
+@seealso
+Manuel d'initiation :
+@rlearning{Autres sources de documentation}.
+
+Manuel de notation :
+@ref{Signes d'interprétation},
+@ref{Mise en forme de la partition}.
+
+Fichiers d'initialisation :
+@file{ly/performer-init.ly}.
+
+Morceaux choisis :
+@rlsr{MIDI}.
+
+Référence des propriétés internes :
+@rinternals{Dynamic_performer}.
 
 @knownissues
 Certains systèmes d'exploitation requièrent que les fichiers MIDI
@@ -2925,13 +2941,8 @@ d'un diminuendo ne peut se produire sur une même note.
 Certains lecteurs MIDI ne rendent pas correctement les changements de
 tempo.
 
-
-@seealso
-Fichiers d'initialisation :
-@file{../ly/performer-init.ly}.
-
-Manuel d'initiation :
-@rlearning{Autres sources de documentation}.
+Les modifications de @code{midiInstrument} ou autres options MIDI en
+début de portée peuent se retrouver dédoublées dans la sortie MIDI.
 
 
 @node Instrument MIDI
@@ -2962,6 +2973,13 @@ instruments répertoriés à l'annexe @ref{Instruments MIDI}.
 Lorsque l'instrument choisi ne correspond pas exactement à l'une des
 dénominations consacrées, LilyPond le replacera par un piano de concert
 (@code{"acoustic grand"}).
+
+@seealso
+Manuel de notation :
+@ref{Instruments MIDI}.
+
+Référence des propriétés internes :
+@rinternals{Dynamic_performer}.
 
 
 @node Contenu de la sortie MIDI
@@ -3030,17 +3048,33 @@ les crescendos et decrescendos s'étalant sur plusieurs notes ;
 les changements de tempo indiqués par un @code{\tempo} ;
 
 @item
-les paroles.
+les paroles,
+
+@item
+les articulations simples : staccato, staccatissimo, accent, marcato,
+portato,
+
+@item
+les respirations.
 @end itemize
 
 Si vous utilisez @ref{Le script Articulate}, d'autres éléments seront
 alors inclus :
 
 @itemize
-@item articulations (lié, staccato, etc.),
-@item trilles et groupettos,
-@item rallentando et accelerando.
+@item liaisons d'articulation ou de phrasé,
+@item ornements (mordants, trilles et groupettos, etc.),
+@item rallentando, accelerando, ritard. et a tempo.
 @end itemize
+
+@seealso
+Manuel de notation :
+@ref{Altérations},
+@ref{Signes de respiration},
+@ref{Signes d'interprétation}.
+
+Fichiers d'initialisation :
+@file{ly/articulate.ly}.
 
 
 @node Éléments non pris en compte dans le MIDI
@@ -3049,8 +3083,8 @@ alors inclus :
 
 @c TODO index as above
 
-LilyPond ne peut générer d'événement MIDI pour les éléments
-suivant, sauf à utiliser @ref{Le script Articulate} :
+LilyPond ne peut générer d'événement MIDI pour les éléments suivant,
+même avec @ref{Le script Articulate} :
 
 @itemize
 @item
@@ -3061,7 +3095,10 @@ les changements de tempo indiqués sous forme d'annotation (sans
 @code{\tempo}) ;
 
 @item
-les staccatos et autres articulations ou ornementations ;
+les points d'orgue ;
+
+@item
+les autres articulations ;
 
 @item
 les liaisons d'articulation et de phrasé ;
@@ -3077,7 +3114,14 @@ la basse chiffrée ;
 
 @item
 les accords en microtonalité.
+
+@item
+les glissandos, chutes et sauts.
 @end itemize
+
+@seealso
+Fichiers d'initialisation :
+@file{ly/articulate.ly}.
 
 
 @node Répétitions et MIDI
@@ -3113,10 +3157,10 @@ reprises ne sera effectif en MIDI qu'à la condition que ces reprises
 soient mentionnée correctement dans @strong{toutes} les voix.
 
 Lorsque l'on veut utiliser @code{\unfoldRepeats} seulement pour le rendu
-MIDI, il faut établir deux blocs @code{\score} : un pour le MIDI,
-avec des reprises explicites, et l'autre pour la partition, avec des
-reprises notées sous forme de barres de reprise, de trémolo ou de
-symboles de pourcentage.  Par exemple
+MIDI, il faut établir deux blocs @code{\score} : un pour le MIDI, avec
+des reprises explicites, et l'autre pour la partition, avec des reprises
+notées sous forme de barres de reprise, de trémolo ou de symboles de
+pourcentage. Par exemple
 
 @example
 \score @{
@@ -3128,6 +3172,13 @@ symboles de pourcentage.  Par exemple
   \midi @{ @dots{} @}
 @}
 @end example
+
+@seealso
+Manuel de notation :
+@ref{Mise en forme de la partition}.
+
+Fichiers d'initialisation :
+@file{ly/articulate.ly}.
 
 
 @node Gestion des nuances en MIDI
@@ -3198,6 +3249,17 @@ correspondances, nous vous conseillons d'utiliser la procédure
 @file{../scm/midi.scm} ainsi que la table d'association comme base.
 Le dernier exemple de cette partie illustre la manière de procéder.
 
+@seealso
+Manuel de notation :
+@ref{Signes d'interprétation},
+@ref{Mise en forme de la partition}.
+
+Fichiers d'initialisation :
+@file{scm/midi.scm}.
+
+Référence des propriétés internes :
+@rinternals{Dynamic_performer}.
+
 
 @node Amplitude du volume en MIDI
 @unnumberedsubsubsec Amplitude du volume en MIDI
@@ -3253,6 +3315,13 @@ entre 0,2 et 0,5 :
 }
 @end lilypond
 
+@seealso
+Manuel de notation :
+@ref{Mise en forme de la partition}.
+
+Référence des propriétés internes :
+@rinternals{Dynamic_performer}.
+
 
 @node Égalisation de plusieurs instruments (i)
 @unnumberedsubsubsec Égalisation de plusieurs instruments (i)
@@ -3301,6 +3370,10 @@ indication de nuance.
   }
 }
 @end lilypond
+
+@seealso
+Manuel de notation :
+@ref{Mise en forme de la partition}.
 
 
 @node Égalisation de plusieurs instruments (ii)
@@ -3372,6 +3445,13 @@ flûte et de la clarinette -- au même niveau que dans le précédent.
 }
 @end lilypond
 
+@seealso
+Fichiers d'initialisation :
+@file{scm/midi.scm}.
+
+Référence des propriétés internes :
+@rinternals{Dynamic_performer}.
+
 @ignore
 @c Delete when satisfied this is adequately covered elsewhere -td
 
@@ -3412,16 +3492,15 @@ particulier -- le @code{DrumStaff} -- qui permet d'affecter directement
 les instruments concernés au canal 10 qui leur est réservé.
 
 Certains instruments, tels le xylophone, le marimba, le vibraphone ou
-les timbales, se traitent cependant comme des instruments
-@qq{classiques} puisqu'ils sont capables d'émettre des hauteurs
-différentes ; leurs notation relève donc d'un contexte @code{Staff}
-standard, et non d'un @code{DrumStaff} pour pouvoir être rendus
-correctement en MIDI.
+les timbales, se traitent cependant comme des instruments « classiques »
+puisqu'ils sont capables d'émettre des hauteurs différentes ; leurs
+notation relève donc d'un contexte @code{Staff} standard, et non d'un
+@code{DrumStaff} pour pouvoir être rendus correctement en MIDI.
 
 D'autres percussions, bien que n'émettant qu'un seul son et inclus dans
 le standard @emph{general MIDI}, comme le tom mélodique ou le tambour
-taiko, ne sont pas attachés au canal 10.  Ces instruments doivent
-donc être saisi dans un contexte @code{Staff}, en utilisant la hauteur
+taiko, ne sont pas attachés au canal 10.  Ces instruments doivent donc
+être saisi dans un contexte @code{Staff}, en utilisant la hauteur
 appropriée.
 
 De nombreux instruments de la famille des percussions, les castagnettes
@@ -3430,6 +3509,14 @@ L'alternative, bien que peu satisfaisante, consiste à leur attribuer le
 son le plus proche dans la banque standard.
 
 @c TODO Expand with examples, and any other issues
+
+@seealso
+Manuel de notation :
+@ref{Percussions},
+@ref{Mise en forme de la partition}.
+
+Référence des propriétés internes :
+@rinternals{Dynamic_performer}.
 
 @knownissues
 Le standard @emph{general MIDI} ne dispose pas du @emph{rim shot} ;
@@ -3460,7 +3547,7 @@ seront développées et appliquer la commande à votre musique :
 
 @example
 \unfoldRepeats \articulate <<
-	tout le reste du bloc contenant la partition@dots{}
+  tout le reste du bloc contenant la partition@dots{}
 >>
 @end example
 
@@ -3473,6 +3560,16 @@ Bien que cela ne gène en rien le fonctionnement du script
 @code{articulate}, lui adjoindre la commande @code{\unfoldRepeats} comme
 illustré ci-dessus permettra le rendu d'un certain nombre
 d'articulations tels les trilles.
+
+@seealso
+Manuel de notation :
+@ref{Mise en forme de la partition}.
+
+Fichiers d'initialisation :
+@file{ly/articulate.ly}.
+
+Référence des propriétés internes :
+@rinternals{UnfoldedRepeatedMusic}.
 
 @knownissues
 Dans la mesure où le script @code{articulate} tend à raccourcir les

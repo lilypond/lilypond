@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 11ed968a1245413a224674d833c32b9765a5b28f
+    Translation of GIT committish: a59d022ee65e8310ea16954da7b637c07ca00ae2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -56,7 +56,7 @@ Copyright @copyright{} 1999--2014 par les auteurs.
 * Notation musicale générale::                notation générale.
 * Notation spécialisée::                      notation à usage spécifique.
 * Généralités en matière d'entrée et sortie:: généralités sur les
-  fichiers sources et les sorties. 
+  fichiers sources et les sorties.
 * Gestion de l'espace::                       mise en page de la musique
   sur le papier.
 * Modification des réglages prédéfinis::      ajustement de la gravure.
