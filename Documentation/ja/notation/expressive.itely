@@ -1229,9 +1229,9 @@ c1\glissando |
 <c e g c>2\arpeggio
 @end lilypond
 
-括弧スタイルのアルペジオの破線プロパティは @code{'dash-details} プロパティで@c
+括弧スタイルのアルペジオの破線プロパティは @code{'dash-definition} プロパティで@c
 制御します。@c
-@code{'dash-details} プロパティについては @ref{スラー} で説明しています。
+@code{'dash-definition} プロパティについては @ref{スラー} で説明しています。
 
 アルペジオをタイを用いて明示的に描き出すことができます。@c
 詳細は @ref{タイ} を参照してください。

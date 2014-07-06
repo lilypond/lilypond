@@ -2846,7 +2846,7 @@ def conv(str):
     if re.search("(Slur|Tie)\w+#\'dash-fraction", str) \
         or re.search("(Slur|Tie)\w+#\'dash-period", str):
         stderr_write (NOT_SMART % "dash-fraction, dash-period")
-        stderr_write (_ ("Dash parameters for slurs and ties are now in \'dash-details.\n"))
+        stderr_write (_ ("Dash parameters for slurs and ties are now in \'dash-definition.\n"))
         stderr_write (UPDATE_MANUALLY)
     return str
 

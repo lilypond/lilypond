@@ -622,8 +622,8 @@ msgid "\\bar \".\" now produces a thick barline.\n"
 msgstr "\\bar \".\" ora crea una stanghetta spessa.\n"
 
 #: convertrules.py:2849
-msgid "Dash parameters for slurs and ties are now in 'dash-details.\n"
-msgstr "I parametri del tratteggiato per le legature di portamento e di valore si trovano ora in 'dash-details.\n"
+msgid "Dash parameters for slurs and ties are now in 'dash-definition.\n"
+msgstr "I parametri del tratteggiato per le legature di portamento e di valore si trovano ora in 'dash-definition.\n"
 
 #: convertrules.py:2854
 msgid ""

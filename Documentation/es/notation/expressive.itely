@@ -491,7 +491,7 @@ texto e indicaciones de pedal de piano.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {printing-hairpins-using-al-niente-notation.ly}
 
-@cindex Ferneyhough, reguladores de 
+@cindex Ferneyhough, reguladores de
 @cindex reguladores de Ferneyhough
 @cindex reguladores acampanados
 @cindex acampanados, reguladores
@@ -1260,8 +1260,8 @@ Se pueden crear símbolos especiales de arpegio @emph{con corchete}:
 @end lilypond
 
 Las propiedades de discontinuidad del paréntesis del arpegio se
-controlan mediante la propiedad @code{'dash-details}, que se describe
-en @ref{Ligaduras de expresión}.
+controlan mediante la propiedad @code{'dash-definition}, que se
+describe en @ref{Ligaduras de expresión}.
 
 Los acordes arpegiados se pueden desarrollar explícitamente utilizando
 @notation{ligaduras de unión}.  Véase @ref{Ligaduras de unión}.

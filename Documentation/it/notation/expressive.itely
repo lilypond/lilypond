@@ -1212,7 +1212,7 @@ Si possono creare simboli di arpeggio speciali @emph{in forma di parentesi}:
 @end lilypond
 
 Le proprietà del tratteggio della parentesi dell'arpeggio sono regolate
-dalla proprietà @code{'dash-details}, descritta in @ref{Slurs}.
+dalla proprietà @code{'dash-definition}, descritta in @ref{Slurs}.
 
 Gli arpeggi possono essere scritti in modo esplicito con le legature di
 valore.  Per maggiori dettagli si veda @ref{Ties}.

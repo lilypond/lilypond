@@ -377,7 +377,7 @@ f8\decresc e d c e\> d c b |
 a1\dim ~ |
 a2. r4\! |
 @end lilypond
- 
+
 @funindex \crescTextCresc
 @funindex crescTextCresc
 @funindex \dimTextDecresc
@@ -449,7 +449,7 @@ avec ou sans extenseur, ainsi que les indications de pédale.
   }
 >>
 @end lilypond
- 
+
 @predefined
 @code{\dynamicUp},
 @code{\dynamicDown},
@@ -1151,10 +1151,10 @@ vaguelettes -- voir @ref{Styles de ligne}.
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-timing-marks-to-long-glissandi.ly}
- 
+
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {making-glissandi-breakable.ly}
- 
+
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {extending-glissandi-across-repeats.ly}
 
@@ -1244,8 +1244,8 @@ arpégé :
 @end lilypond
 
 Les indications d'arpeggio peuvent se présenter sous la forme de ligne
-discontinue à l'aide de la propriété  @code{'dash-details}.  Pour plus
-de détails à ce propos, consultez @ref{Liaisons d'articulation}.
+discontinue à l'aide de la propriété  @code{'dash-definition}.  Pour
+plus de détails à ce propos, consultez @ref{Liaisons d'articulation}.
 
 Un arpège peut parfois s'écrire de manière explicite, à l'aide de
 liaisons de tenue.  Pour plus d'information, voir
