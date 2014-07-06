@@ -1,10 +1,9 @@
 \version "2.19.8"
 
 \header {
-  texidoc = "Stem length/thickness, beam spacing/thickness, and
-horizontal spacing should be scaled along with notation size when
-using the @code{\magnifyMusic} command.  Stems can get thicker
-than the default, but not thinner."
+  texidoc = "Phrasing slurs should be scaled along with notation
+size when using the @code{\magnifyMusic} command.  They can get
+thicker than the default, but not thinner."
 }
 
 \score {
@@ -12,7 +11,7 @@ than the default, but not thinner."
     \omit Staff.TimeSignature
     \time 7/8
     <<
-      { \repeat unfold 7 \relative { g'32[ a b c] } }
+      { \repeat unfold 7 \relative { g'32[\( a b c\)] } }
       {
         \magnifyMusic 0.50 s8
         \magnifyMusic 0.63 s

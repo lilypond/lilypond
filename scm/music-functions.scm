@@ -2392,3 +2392,128 @@ Offsets are restricted to immutable properties and values of type @code{number},
                 vals))))
     ; return the closure named `self'
     self)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; The following are used by \magnifyMusic
+
+(define-public (scale-fontSize mag)
+  "Used by @code{\\magnifyMusic}.  Look up the current fontSize and
+scale it by the magnification factor @var{mag}."
+  (make-apply-context
+    (lambda (context)
+      (let* ((fontSize (ly:context-property context 'fontSize 0))
+             (new-fontSize (+ fontSize (magnification->font-size mag))))
+        (ly:context-set-property! context 'fontSize new-fontSize)))))
+
+(define-public (revert-fontSize mag)
+  "Used by @code{\\magnifyMusic}.  Calculate the previous fontSize value
+(before scaling) by factoring out the magnification factor @var{mag}."
+  (make-apply-context
+    (lambda (context)
+      (let* ((fontSize (ly:context-property context 'fontSize 0))
+             (old-fontSize (- fontSize (magnification->font-size mag))))
+        (ly:context-set-property! context 'fontSize old-fontSize)))))
+
+(define-public (scale-props props mag allowed-to-shrink?)
+  "Used by @code{\\magnifyMusic}.  For each prop in @var{props}, find
+the current value of the requested prop, scale it by the magnification
+factor @var{mag}, and do the equivalent of a
+@code{\\temporary@tie{}\\override} with the new value.  If
+@code{allowed-to-shrink?} is @code{#f}, don't let the new value be less
+than the current value.  Props are formatted like:
+
+@example
+Slur.height-limit
+Slur.details.region-size
+@end example"
+  (make-apply-context
+    (lambda (context)
+      (define (scale-prop grob.prop)
+        (let* ((grob-prop-list (map string->symbol
+                                    (string-split
+                                      (symbol->string grob.prop) #\.)))
+               (prop-is-alist? (eq? 3 (length grob-prop-list)))
+               (grob (car grob-prop-list))
+               (prop (cadr grob-prop-list))
+               (where (if (eq? grob 'SpacingSpanner)
+                        (ly:context-find context 'Score)
+                        context))
+               (grob-def (ly:context-grob-definition where grob)))
+          (if prop-is-alist?
+            (let* ((subprop (caddr grob-prop-list))
+                   (old-alist (ly:assoc-get prop grob-def))
+                   (val (ly:assoc-get subprop old-alist 1))
+                   (round-if-needed
+                     (lambda (x)
+                       ;; these props require exact integers
+                       (if (or (eq? subprop 'multi-tie-region-size)
+                               (eq? subprop 'single-tie-region-size))
+                         (inexact->exact (round x))
+                         x)))
+                   (new-val (if allowed-to-shrink?
+                              (round-if-needed (* val mag))
+                              (round-if-needed (* val (max 1 mag)))))
+                   (new-alist (cons (cons subprop new-val) old-alist)))
+              (ly:context-pushpop-property where grob prop new-alist))
+            (let* ((val (ly:assoc-get prop grob-def 1))
+                   (proc (lambda (x)
+                           (if allowed-to-shrink?
+                             (* x mag)
+                             (* x (max 1 mag)))))
+                   (new-val (if (number-pair? val)
+                              (cons (proc (car val))
+                                    (proc (cdr val)))
+                              (proc val))))
+              (ly:context-pushpop-property where grob prop new-val)))))
+      (for-each scale-prop props))))
+
+(define-public (scale-beam-thickness mag)
+  "Used by @code{\\magnifyMusic}.  Scaling @code{Beam.beam-thickness}
+exactly to the @var{mag} value won't work.  This uses two reference
+values for @code{beam-thickness} to determine an acceptable value when
+scaling, then does the equivalent of a
+@code{\\temporary@tie{}\\override} with the new value."
+  (make-apply-context
+    (lambda (context)
+      (let* ((grob-def (ly:context-grob-definition context 'Beam))
+             (val (ly:assoc-get 'beam-thickness grob-def 0.48))
+             (ratio-to-default (/ val 0.48))
+             ;; gives beam-thickness=0.48 when mag=1 (like default),
+             ;; gives beam-thickness=0.35 when mag=0.63 (like CueVoice)
+             (scaled-default (+ 119/925 (* mag 13/37)))
+             (new-val (* scaled-default ratio-to-default)))
+        (ly:context-pushpop-property context 'Beam 'beam-thickness new-val)))))
+
+(define-public (revert-props props)
+  "Used by @code{\\magnifyMusic}.  Revert each prop in @var{props}.
+Props are formatted like:
+
+@example
+Slur.height-limit
+Slur.details.region-size
+@end example
+
+Nested properties are reverted by reverting the parent property only.
+For example, @code{Slur.details.region-size} gets reverted like this:
+
+@example
+\revert Slur.details
+@end example
+
+This is safe as long as the number of reverts matches the number of
+overrides.  Any user overrides within a @code{\\magnifyMusic} block
+should be reverted before closing the block."
+  (make-apply-context
+    (lambda (context)
+      (define (revert-prop grob.prop)
+        (let* ((grob-prop-list (map string->symbol
+                                    (string-split
+                                      (symbol->string grob.prop) #\.)))
+               (grob (car grob-prop-list))
+               (prop (cadr grob-prop-list))
+               (where (if (eq? grob 'SpacingSpanner)
+                        (ly:context-find context 'Score)
+                        context)))
+            (ly:context-pushpop-property where grob prop)))
+      (for-each revert-prop props))))
