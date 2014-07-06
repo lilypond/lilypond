@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 4d1502a7f3c7929e30da8f35a1d177b19eb34f89
+%% Translation of GIT committish: 77fbc43a8e9b5e0a9b897c8278eaeac02d62d3dc
   texidocfr = "
 Cet exemple démontre comment définir son propre graveur de tessiture à
 base de code Scheme.

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 4d1502a7f3c7929e30da8f35a1d177b19eb34f89
+%% Translation of GIT committish: 77fbc43a8e9b5e0a9b897c8278eaeac02d62d3dc
   texidocfr = "
 Les raccourcis sont répertoriés dans le fichier
 @samp{ly/script-init.ly}, dans lequel on retrouve les variables
@@ -12,4 +12,3 @@ besoins.  Il suffit par exemple, pour affecter au raccourci @w{@code{-+}}
 
 "
   doctitlefr = "Modification de la signification des raccourcis pour les signes d'articulation"
-
