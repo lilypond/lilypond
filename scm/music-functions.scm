@@ -1580,7 +1580,8 @@ For convenience, returns @code{0} if entry is @code{#f}."
       0))
 
 (define-public (find-pitch-entry keysig pitch accept-global accept-local)
-  "Return the first entry in @var{keysig} that matches @var{pitch}.
+  "Return the first entry in @var{keysig} that matches @var{pitch}
+by notename and octave.  Alteration is not considered.
 @var{accept-global} states whether key signature entries should be included.
 @var{accept-local} states whether local accidentals should be included.
 If no matching entry is found, @var{#f} is returned."
@@ -1620,15 +1621,19 @@ look at bar lines nor different accidentals at the same note name."
 note (just as in the dodecaphonic accidental style) @emph{except} if
 the note is immediately preceded by a note with the same pitch. This
 is a common accidental style in contemporary notation."
-   (let* ((keysig (ly:context-property context 'localKeySignature))
-          (entry (find-pitch-entry keysig pitch #t #t)))
+   (let* ((keysig (ly:context-property context 'localAlterations))
+          (entry (find-pitch-entry keysig pitch #f #t)))
      (if (not entry)
-          (cons #f #t)
-         (let* ((entrymp (key-entry-measure-position entry))
-                (entrybn (key-entry-bar-number entry)))
-           (cons #f
-             (not
-              (and (equal? entrybn barnum) (equal? entrymp measurepos))))))))
+         (cons #f #t)
+         (let ((entrymp (key-entry-measure-position entry))
+               (entrybn (key-entry-bar-number entry))
+               (entryalt (key-entry-alteration entry))
+               (alt (ly:pitch-alteration pitch)))
+           (cons #t
+                 (not (and (equal? entrybn barnum)
+                           (or (equal? measurepos entrymp)
+                               (ly:moment<? measurepos entrymp))
+                           (equal? entryalt alt))))))))
 
 (define-public (teaching-accidental-rule context pitch barnum measurepos)
   "An accidental rule that typesets a cautionary accidental if it is
@@ -1748,10 +1753,9 @@ as a context."
      ;; repeated notes (in the same voice) don't get an accidental
      ((equal? style 'dodecaphonic-no-repeat)
       (set-accidentals-properties #f
-                                  `(Staff ,(make-accidental-rule 'same-octave 0)
-                                          ,dodecaphonic-no-repeat-rule)
-                                          '()
-                                          context))
+                                  `(Staff ,dodecaphonic-no-repeat-rule)
+                                  '()
+                                  context))
      ;; Variety of the dodecaphonic style. Each note gets an accidental,
      ;; except notes that were already handled in the same measure.
      ((equal? style 'dodecaphonic-first)
