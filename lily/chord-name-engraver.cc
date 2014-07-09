@@ -92,7 +92,6 @@ Chord_name_engraver::process_music ()
       markup = chord_name->get_property ("text");
       if (!Text_interface::is_markup (markup))
         {
-          Stream_event *inversion_event = 0;
           for (vsize i = 0; i < notes_.size (); i++)
             {
               Stream_event *n = notes_[i];
@@ -100,30 +99,25 @@ Chord_name_engraver::process_music ()
               if (!unsmob_pitch (p))
                 continue;
 
-              if (n->get_property ("inversion") == SCM_BOOL_T)
-                {
-                  inversion_event = n;
-                  inversion = p;
-                }
-              else if (n->get_property ("bass") == SCM_BOOL_T)
+              if (n->get_property ("bass") == SCM_BOOL_T)
                 bass = p;
               else
-                pitches = scm_cons (p, pitches);
-            }
-
-          if (inversion_event)
-            {
-              SCM oct = inversion_event->get_property ("octavation");
-              if (scm_is_number (oct))
                 {
-                  Pitch *p = unsmob_pitch (inversion_event->get_property ("pitch"));
-                  int octavation = scm_to_int (oct);
-                  Pitch orig = p->transposed (Pitch (-octavation, 0, 0));
-
-                  pitches = scm_cons (orig.smobbed_copy (), pitches);
+                  SCM oct = n->get_property ("octavation");
+                  if (scm_is_number (oct))
+                    {
+                      Pitch orig = unsmob_pitch (p)->transposed (Pitch (-scm_to_int (oct), 0, 0));
+                      pitches = scm_cons (orig.smobbed_copy (), pitches);
+                    }
+                  else
+                    pitches = scm_cons (p, pitches);
+                  if (n->get_property ("inversion") == SCM_BOOL_T)
+                    {
+                      inversion = p;
+                      if (!scm_is_number (oct))
+                        programming_error ("inversion does not have original pitch");
+                    }
                 }
-              else
-                programming_error ("inversion does not have original pitch");
             }
 
           pitches = scm_sort_list (pitches, Pitch::less_p_proc);
