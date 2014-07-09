@@ -2114,6 +2114,7 @@
         ;; and the extreme minima as abolute minimum length.
 
         (direction . ,ly:stem::calc-direction)
+        (double-stem-separation . 0.5)
         (duration-log . ,stem::calc-duration-log)
         (length . ,(ly:make-unpure-pure-container ly:stem::calc-length ly:stem::pure-calc-length))
         (neutral-direction . ,DOWN)

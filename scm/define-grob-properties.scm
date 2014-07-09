@@ -239,6 +239,11 @@ elements closer together.")
      (dot-placement-list ,list? "List consisting of
 @code{(@var{description} @var{string-number} @var{fret-number}
 @var{finger-number})} entries used to define fret diagrams.")
+     (double-stem-separation ,number? "The distance between the two
+stems of a half note in tablature when using @code{\\tabFullNotation},
+not counting the width of the stems themselves, expressed as a multiple
+of the default height of a staff-space in the traditional five-line
+staff.")
      (duration-log ,integer? "The 2-log of the note head duration,
 i.e., @code{0} = whole note, @code{1} = half note, etc.")
 

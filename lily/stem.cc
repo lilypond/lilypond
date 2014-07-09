@@ -1152,6 +1152,7 @@ ADD_INTERFACE (Stem,
                "default-direction "
                "details "
                "direction "
+               "double-stem-separation "
                "duration-log "
                "flag "
                "french-beaming "
