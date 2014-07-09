@@ -2404,6 +2404,7 @@ in only one staff.
     \time 3/4
     \set Timing.baseMoment = #(ly:make-moment 1/8)
     \set Timing.beatStructure = #'(1 5)
+    \set Timing.beamExceptions = #'()
     \repeat unfold 6 { a8 }
   }
   \new Staff {
