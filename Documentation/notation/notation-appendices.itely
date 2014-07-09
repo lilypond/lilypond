@@ -1571,7 +1571,7 @@ for more readability.
 @cindex verylongfermata
 
 The following scripts are available in the Feta font and may be
-attached to notes (eg. @samp{c\accent}).
+attached to notes (eg. @samp{f\accent}).
 
 @c Articulations and ornamentations
 @c Fingering instructions (for "thumb")
@@ -1596,18 +1596,172 @@ attached to notes (eg. @samp{c\accent}).
 @node Articulation scripts
 @unnumberedsubsec Articulation scripts
 
-@lilypond[quote]
-\include "script-chart.ly"
-\new RhythmicStaff { \scriptStaff #articulations }
+@multitable @columnfractions .25 .25 .25 .25
+
+@headitem
+Example
+@tab
+Output
+@tab
+Example
+@tab
+Output
+
+@item
+@code{\accent}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\accent e,_\accent
 @end lilypond
+@tab
+@code{\espressivo}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\espressivo e,_\espressivo
+@end lilypond
+
+@item
+@code{\marcato}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\marcato e,_\marcato
+@end lilypond
+@tab
+@code{\portato}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\portato e,_\portato
+@end lilypond
+
+@item
+@code{\staccatissimo}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\staccatissimo e,_\staccatissimo
+@end lilypond
+@tab
+@code{\staccato}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\staccato e,_\staccato
+@end lilypond
+
+@item
+@code{\tenuto}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\tenuto e,_\tenuto
+@end lilypond
+
+@end multitable
+
 
 @node Ornament scripts
 @unnumberedsubsec Ornament scripts
 
-@lilypond[quote]
-\include "script-chart.ly"
-\new RhythmicStaff { \scriptStaff #ornaments }
+@multitable @columnfractions .25 .25 .25 .25
+
+@headitem
+Example
+@tab
+Output
+@tab
+Example
+@tab
+Output
+
+@item
+@code{\prall}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\prall e,_\prall
 @end lilypond
+@tab
+@code{\mordent}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\mordent e,_\mordent
+@end lilypond
+
+@item
+@code{\prallmordent}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\prallmordent e,_\prallmordent
+@end lilypond
+@tab
+@code{\turn}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\turn e,_\turn
+@end lilypond
+
+@item
+@code{\upprall}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\upprall e,_\upprall
+@end lilypond
+@tab
+@code{\downprall}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\downprall e,_\downprall
+@end lilypond
+
+@item
+@code{\upmordent}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\upmordent e,_\upmordent
+@end lilypond
+@tab
+@code{\downmordent}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\downmordent e,_\downmordent
+@end lilypond
+
+@item
+@code{\lineprall}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\lineprall e,_\lineprall
+@end lilypond
+@tab
+@code{\prallprall}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\prallprall e,_\prallprall
+@end lilypond
+
+@item
+@code{\pralldown}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\pralldown e,_\pralldown
+@end lilypond
+@tab
+@code{\prallup}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\prallup e,_\prallup
+@end lilypond
+
+@item
+@code{\reverseturn}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\reverseturn e,_\reverseturn
+@end lilypond
+@tab
+@code{\trill}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\trill e,_\trill
+@end lilypond
+
+@end multitable
 
 @node Fermata scripts
 @unnumberedsubsec Fermata scripts
