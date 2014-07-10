@@ -1265,21 +1265,21 @@ can by found in the Internals Reference or the file 'define-grobs.scm':
 
 If routines with multiple arguments must be called, the current grob
 can be inserted with a grob closure.  Here is a setting from
-@code{AccidentalSuggestion},
+@code{RehearsalMark},
 
 @example
 `(X-offset .
-  ,(ly:make-simple-closure
-    `(,+
+   ,(ly:make-simple-closure
+     `(,+
         ,(ly:make-simple-closure
-           (list ly:self-alignment-interface::centered-on-x-parent))
-      ,(ly:make-simple-closure
-           (list ly:self-alignment-interface::x-aligned-on-self)))))
+          (list ly:break-alignable-interface::self-align-callback))
+        ,(ly:make-simple-closure
+          (list ly:self-alignment-interface::x-aligned-on-self)))))
 @end example
 
 @noindent
-In this example, both @code{ly:self-alignment-interface::x-aligned-on-self} and
-@code{ly:self-alignment-interface::centered-on-x-parent} are called
+In this example, both @code{ly:break-alignable-interface::self-align-callback} and
+@code{ly:self-alignment-interface::x-aligned-on-self} are called
 with the grob as argument.  The results are added with the @code{+}
 function.  To ensure that this addition is properly executed, the whole
 thing is enclosed in @code{ly:make-simple-closure}.
