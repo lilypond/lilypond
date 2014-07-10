@@ -90,25 +90,6 @@ Snippets:
 Predefined shorthands for articulations and ornaments cannot be used
 on notes in chord mode, see @ref{Articulations and ornamentations}.
 
-When chord mode and note mode are mixed in sequential music, and
-chord mode comes first, the note mode will create a new @code{Staff}
-context:
-
-@lilypond[verbatim,quote,ragged-right,relative=1]
-\chordmode { c2 f }
-<c e g>2 <g' b d>
-@end lilypond
-
-@noindent
-To avoid this behavior, explicitly create the @code{Staff} context:
-
-@lilypond[verbatim,quote,ragged-right,relative=1]
-\new Staff {
-  \chordmode { c2 f }
-  <c e g>2  <g' b d>
-}
-@end lilypond
-
 
 @node Common chords
 @unnumberedsubsubsec Common chords
