@@ -315,20 +315,6 @@ Internals Reference:
 @rinternals{TupletNumber},
 @rinternals{TimeScaledMusic}.
 
-@cindex grace notes within tuplet brackets
-
-@knownissues
-Grace notes may be placed within tuplet brackets, @emph{except} when a
-staff begins with a grace note followed by a tuplet.  In this
-particular case, the grace note must be placed before the @code{\tuplet}
-command to avoid errors.
-
-@cindex tempo marks within tuplet brackets
-
-When using a tuplet at the beginning of a piece with a @code{\tempo}
-mark, the music must be explicitly entered in a @code{\new Voice} block,
-as discussed in @rlearning{Voices contain music}.
-
 
 @node Scaling durations
 @unnumberedsubsubsec Scaling durations

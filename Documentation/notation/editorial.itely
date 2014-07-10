@@ -562,8 +562,10 @@ a web browser might not display a difference between @code{LimeGreen}
 and @code{ForestGreen}.  For web use normal colors are recommended
 (i.e., @code{blue}, @code{green}, @code{red}).
 
-Notes in a chord cannot be colored with @code{\override}; use
-@code{\tweak} instead, see @ref{The tweak command}.
+Notes in a chord cannot be separately colored with
+@code{\override}; use @code{\tweak} or the equivalent
+@code{\single\override} before the respective note instead, see
+@ref{The tweak command}.
 
 
 @node Parentheses
