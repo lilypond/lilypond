@@ -660,8 +660,9 @@ slurs, ties, and horizontal spacing are adjusted automatically.")
    ;; these props ARE allowed to shrink below default size
    (define shrinkable-props
      '(
+       ;; TODO: uncomment spacing-increment here once Issue 3987 is fixed
        ;; override at the 'Score level
-       SpacingSpanner.spacing-increment
+       ;SpacingSpanner.spacing-increment
 
        ;; Beam.beam-thickness is dealt with separately below
 
@@ -716,7 +717,8 @@ slurs, ties, and horizontal spacing are adjusted automatically.")
        ))
    #{
      \context Voice {
-       \newSpacingSection
+       %% TODO: uncomment \newSpacingSection once Issue 3990 is fixed
+       %\newSpacingSection
        #(scale-fontSize mag)
        #(scale-props unshrinkable-props mag #f)
        #(scale-props shrinkable-props   mag #t)
@@ -724,7 +726,8 @@ slurs, ties, and horizontal spacing are adjusted automatically.")
 
        #music
 
-       \newSpacingSection
+       %% TODO: uncomment \newSpacingSection once Issue 3990 is fixed
+       %\newSpacingSection
        %% reverse engineer the former fontSize value instead of using \unset
        #(revert-fontSize mag)
        #(revert-props (append unshrinkable-props

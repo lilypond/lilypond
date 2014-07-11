@@ -74,6 +74,7 @@ while automatically scaling stems, beams, and horizontal spacing.
   \new Voice \relative {
     \voiceTwo
     \magnifyMusic 0.63 {
+      \override Score.SpacingSpanner.spacing-increment = #(* 1.2 0.63)
       r32 c'' a c a c a c r c a c a c a c
       r c a c a c a c a c a c a c a c
     }

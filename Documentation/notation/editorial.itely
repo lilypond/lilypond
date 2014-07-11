@@ -86,12 +86,16 @@ command:
   \new Voice \relative {
     \voiceTwo
     \magnifyMusic 0.63 {
+      \override Score.SpacingSpanner.spacing-increment = #(* 1.2 0.63)
       r32 c'' a c a c a c r c a c a c a c
       r c a c a c a c a c a c a c a c
     }
   }
 >>
 @end lilypond
+
+The @code{\override} in the example above is a bug workaround.
+See the @qq{Known issues and warnings} at the end of this section.
 
 If a normal sized note head is merged with a smaller one, the size
 of the smaller note may need to be reset (with
@@ -106,6 +110,7 @@ accidentals align properly:
   \new Voice \relative {
     \voiceOne
     \magnifyMusic 0.63 {
+      \override Score.SpacingSpanner.spacing-increment = #(* 1.2 0.63)
       \once \normalsize cis'32( cis' gis b a fis \once \normalsize d d'
       \once \normalsize cis, cis' gis b a gis \once \normalsize fis fis'
       \once \normalsize fis, fis' ais, cis b gis \once \normalsize eis eis'
@@ -288,6 +293,28 @@ Snippets:
 
 Internals Reference:
 @rinternals{font-interface}.
+
+@c The two issues mentioned below:
+@c http://code.google.com/p/lilypond/issues/detail?id=3987
+@c http://code.google.com/p/lilypond/issues/detail?id=3990
+@knownissues
+There are currently two bugs that are preventing proper horizontal
+spacing when using @code{\magnifyMusic}.  There is only one
+available workaround, and it is not guaranteed to work in every
+case.  In the example below, replace the @var{mag} variable with
+your own value.  You may also try removing one or both of the
+@code{\newSpacingSection} commands, and/or the @code{\override}
+and @code{\revert} commands:
+
+@example
+\magnifyMusic @var{mag} @{
+  \newSpacingSection
+  \override Score.SpacingSpanner.spacing-increment = #(* 1.2 @var{mag})
+  @var{[music]}
+  \newSpacingSection
+  \revert Score.SpacingSpanner.spacing-increment
+@}
+@end example
 
 
 @node Fingering instructions
