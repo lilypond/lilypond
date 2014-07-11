@@ -533,10 +533,11 @@ slur quants to this position, and print the respective scores.")
 ;;;
      (keep-inside-line ,boolean? "If set, this column cannot have
 objects sticking into the margin.")
-     (kern ,ly:dimension? "The space between bar lines in any type
-of double bar, expressed as a multiple of the default staff-line
-thickness (i.e. the visual output is @emph{not} influenced by
-changes to @code{@var{Staff}.StaffSymbol.thickness}).")
+     (kern ,ly:dimension? "The space between individual elements
+in any compound bar line, expressed as a multiple of the default
+staff-line thickness (i.e. the visual output is @emph{not}
+influenced by changes to
+@code{@var{Staff}.StaffSymbol.thickness}).")
      (knee ,boolean? "Is this beam kneed?")
      (knee-spacing-correction ,number? "Factor for the optical
 correction amount for kneed beams.  Set between @code{0} for no
@@ -799,6 +800,11 @@ stem distance.")
 scripts in a stack, by being added to the position of the script in
 the user input, the sum being the overall priority.  Smaller means
 closer to the head.")
+     (segno-kern ,number? "The space between the two thin lines
+of the segno bar line symbol, expressed as a multiple of the
+default staff-line thickness (i.e. the visual output is @emph{not}
+influenced by changes to
+@code{@var{Staff}.StaffSymbol.thickness}).")
      (self-alignment-X ,number? "Specify alignment of an object.  The
 value @w{@code{-1}} means left aligned, @code{0}@tie{}centered, and
 @code{1}@tie{}right-aligned in X@tie{}direction.  Other numerical
@@ -984,7 +990,6 @@ not counting the diameter of the virtual @qq{pen} that draws the
 arcs.  This property is expressed as a multiple of the current
 staff-line thickness (i.e. the visual output is influenced by
 changes to @code{@var{Staff}.StaffSymbol.thickness}).")
-     (thin-kern ,number? "The space after a hair-line in a bar line.")
      (tie-configuration ,list? "List of @code{(@var{position} .
 @var{dir})} pairs, indicating the desired tie configuration, where
 @var{position} is the offset from the center of the staff in staff

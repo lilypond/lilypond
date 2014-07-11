@@ -61,6 +61,10 @@ which scares away people.
 
 @end ignore
 @item
+The @code{thin-kern} property of the @code{BarLine} grob has been
+renamed to @code{segno-kern}.
+
+@item
 @code{KeyCancellation} grobs now ignore cue clefs (like
 @code{KeySignature} grobs do).
 

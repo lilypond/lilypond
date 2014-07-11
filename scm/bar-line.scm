@@ -440,14 +440,14 @@ is not used within the routine."
 the segno sign is drawn over the double bar line; otherwise, it
 draws the span bar variant, i.e. without the segno sign."
   (let* ((line-thickness (layout-line-thickness grob))
-         (thinkern (* (ly:grob-property grob 'thin-kern 1) line-thickness))
+         (segno-kern (* (ly:grob-property grob 'segno-kern 1) line-thickness))
          (thin-stil (make-simple-bar-line grob extent))
          (double-line-stil (ly:stencil-combine-at-edge
                             thin-stil
                             X
                             LEFT
                             thin-stil
-                            thinkern))
+                            segno-kern))
          (segno (ly:font-get-glyph (ly:grob-default-font grob)
                                    "scripts.varsegno"))
          (stencil (ly:stencil-add
@@ -459,7 +459,7 @@ draws the span bar variant, i.e. without the segno sign."
                         (cons 0 0)))
                    (ly:stencil-translate-axis
                     double-line-stil
-                    (* 1/2 thinkern)
+                    (* 1/2 segno-kern)
                     X))))
 
     stencil))

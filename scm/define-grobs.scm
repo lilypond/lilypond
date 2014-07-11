@@ -216,7 +216,7 @@
         ;; TODO:
         ;; kern should scale with line-thickness too.
         (kern . 3.0)
-        (thin-kern . 3.0)
+        (segno-kern . 3.0)
         (hair-thickness . 1.9)
         (thick-thickness . 6.0)
 
