@@ -2430,48 +2430,27 @@ factor @var{mag}, and do the equivalent of a
 than the current value.  Props are formatted like:
 
 @example
-Slur.height-limit
-Slur.details.region-size
+'(Slur height-limit)
 @end example"
   (make-apply-context
     (lambda (context)
-      (define (scale-prop grob.prop)
-        (let* ((grob-prop-list (map string->symbol
-                                    (string-split
-                                      (symbol->string grob.prop) #\.)))
-               (prop-is-alist? (eq? 3 (length grob-prop-list)))
-               (grob (car grob-prop-list))
+      (define (scale-prop grob-prop-list)
+        (let* ((grob (car grob-prop-list))
                (prop (cadr grob-prop-list))
                (where (if (eq? grob 'SpacingSpanner)
                         (ly:context-find context 'Score)
                         context))
-               (grob-def (ly:context-grob-definition where grob)))
-          (if prop-is-alist?
-            (let* ((subprop (caddr grob-prop-list))
-                   (old-alist (ly:assoc-get prop grob-def))
-                   (val (ly:assoc-get subprop old-alist 1))
-                   (round-if-needed
-                     (lambda (x)
-                       ;; these props require exact integers
-                       (if (or (eq? subprop 'multi-tie-region-size)
-                               (eq? subprop 'single-tie-region-size))
-                         (inexact->exact (round x))
-                         x)))
-                   (new-val (if allowed-to-shrink?
-                              (round-if-needed (* val mag))
-                              (round-if-needed (* val (max 1 mag)))))
-                   (new-alist (cons (cons subprop new-val) old-alist)))
-              (ly:context-pushpop-property where grob prop new-alist))
-            (let* ((val (ly:assoc-get prop grob-def 1))
-                   (proc (lambda (x)
-                           (if allowed-to-shrink?
-                             (* x mag)
-                             (* x (max 1 mag)))))
-                   (new-val (if (number-pair? val)
-                              (cons (proc (car val))
-                                    (proc (cdr val)))
-                              (proc val))))
-              (ly:context-pushpop-property where grob prop new-val)))))
+               (grob-def (ly:context-grob-definition where grob))
+               (val (ly:assoc-get prop grob-def 1))
+               (proc (lambda (x)
+                       (if allowed-to-shrink?
+                         (* x mag)
+                         (* x (max 1 mag)))))
+               (new-val (if (number-pair? val)
+                          (cons (proc (car val))
+                                (proc (cdr val)))
+                          (proc val))))
+          (ly:context-pushpop-property where grob prop new-val)))
       (for-each scale-prop props))))
 
 (define-public (scale-beam-thickness mag)
@@ -2496,27 +2475,12 @@ scaling, then does the equivalent of a
 Props are formatted like:
 
 @example
-Slur.height-limit
-Slur.details.region-size
-@end example
-
-Nested properties are reverted by reverting the parent property only.
-For example, @code{Slur.details.region-size} gets reverted like this:
-
-@example
-\revert Slur.details
-@end example
-
-This is safe as long as the number of reverts matches the number of
-overrides.  Any user overrides within a @code{\\magnifyMusic} block
-should be reverted before closing the block."
+'(Slur height-limit)
+@end example"
   (make-apply-context
     (lambda (context)
-      (define (revert-prop grob.prop)
-        (let* ((grob-prop-list (map string->symbol
-                                    (string-split
-                                      (symbol->string grob.prop) #\.)))
-               (grob (car grob-prop-list))
+      (define (revert-prop grob-prop-list)
+        (let* ((grob (car grob-prop-list))
                (prop (cadr grob-prop-list))
                (where (if (eq? grob 'SpacingSpanner)
                         (ly:context-find context 'Score)

@@ -642,19 +642,21 @@ slurs, ties, and horizontal spacing are adjusted automatically.")
    (define unshrinkable-props
      '(
        ;; stems
-       Stem.thickness
+       (Stem thickness)
+
        ;; slurs
-       Slur.line-thickness
-       Slur.thickness
-       PhrasingSlur.line-thickness
-       PhrasingSlur.thickness
+       (Slur line-thickness)
+       (Slur thickness)
+       (PhrasingSlur line-thickness)
+       (PhrasingSlur thickness)
+
        ;; ties
-       Tie.line-thickness
-       Tie.thickness
-       LaissezVibrerTie.line-thickness
-       LaissezVibrerTie.thickness
-       RepeatTie.line-thickness
-       RepeatTie.thickness
+       (Tie line-thickness)
+       (Tie thickness)
+       (LaissezVibrerTie line-thickness)
+       (LaissezVibrerTie thickness)
+       (RepeatTie line-thickness)
+       (RepeatTie thickness)
        ))
 
    ;; these props ARE allowed to shrink below default size
@@ -662,61 +664,21 @@ slurs, ties, and horizontal spacing are adjusted automatically.")
      '(
        ;; TODO: uncomment spacing-increment here once Issue 3987 is fixed
        ;; override at the 'Score level
-       ;SpacingSpanner.spacing-increment
-
-       ;; Beam.beam-thickness is dealt with separately below
+       ;(SpacingSpanner spacing-increment)
 
        ;; lengths and heights
-       Beam.length-fraction
-       Stem.length-fraction
-       Stem.beamlet-default-length
-       Slur.height-limit
-       Slur.minimum-length
-       PhrasingSlur.height-limit
-       PhrasingSlur.minimum-length
+       (Beam length-fraction)
+       (Stem length-fraction)
+       (Stem beamlet-default-length)
+       (Slur height-limit)
+       (Slur minimum-length)
+       (PhrasingSlur height-limit)
+       (PhrasingSlur minimum-length)
 
-       ;; every Slur.details prop that's
-       ;; not a factor, penalty, ratio, or slope
-       Slur.details.region-size
-       Slur.details.free-head-distance
-       Slur.details.free-slur-distance
-       Slur.details.gap-to-staffline-inside
-       Slur.details.gap-to-staffline-outside
-       Slur.details.extra-encompass-free-distance
-       Slur.details.extra-encompass-collision-distance
-       Slur.details.close-to-edge-length
-       Slur.details.encompass-object-range-overshoot
-       Slur.details.slur-tie-extrema-min-distance
-
-       ;; every PhrasingSlur.details prop that's
-       ;; not a factor, penalty, ratio, or slope
-       PhrasingSlur.details.region-size
-       PhrasingSlur.details.free-head-distance
-       PhrasingSlur.details.free-slur-distance
-       PhrasingSlur.details.gap-to-staffline-inside
-       PhrasingSlur.details.gap-to-staffline-outside
-       PhrasingSlur.details.extra-encompass-free-distance
-       PhrasingSlur.details.extra-encompass-collision-distance
-       PhrasingSlur.details.close-to-edge-length
-       PhrasingSlur.details.encompass-object-range-overshoot
-       PhrasingSlur.details.slur-tie-extrema-min-distance
-
-       ;; every Tie.details prop that's
-       ;; not a factor, penalty, ratio, or slope
-       Tie.details.center-staff-line-clearance
-       Tie.details.tip-staff-line-clearance
-       Tie.details.note-head-gap
-       Tie.details.stem-gap
-       Tie.details.height-limit
-       Tie.details.tie-tie-collision-distance
-       Tie.details.intra-space-threshold
-       Tie.details.outer-tie-vertical-gap
-       Tie.details.multi-tie-region-size
-       Tie.details.single-tie-region-size
-       Tie.details.between-length-limit
+       ;; Beam.beam-thickness is dealt with separately below
        ))
    #{
-     \context Voice {
+     \context Bottom {
        %% TODO: uncomment \newSpacingSection once Issue 3990 is fixed
        %\newSpacingSection
        #(scale-fontSize mag)
@@ -732,7 +694,7 @@ slurs, ties, and horizontal spacing are adjusted automatically.")
        #(revert-fontSize mag)
        #(revert-props (append unshrinkable-props
                               shrinkable-props
-                              (list 'Beam.beam-thickness)))
+                              '((Beam beam-thickness))))
      }
    #})
 
