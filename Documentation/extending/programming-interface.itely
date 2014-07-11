@@ -1135,25 +1135,137 @@ This new markup list command can be used as follows:
 
 @cindex calling code during interpreting
 @funindex \applyContext
+@funindex make-apply-context
+@funindex ly:context-property
+@funindex ly:context-set-property!
+@funindex ly:context-grob-definition
+@funindex ly:assoc-get
+@funindex ly:context-pushpop-property
 
-Contexts can be modified during interpretation with Scheme code.  The
-syntax for this is
+Contexts can be modified during interpretation with Scheme code.
+In a LilyPond code block, the syntax for this is:
+
 @example
 \applyContext @var{function}
 @end example
 
-@code{@var{function}} should be a Scheme function that takes a
-single argument: the context in which the @code{\applyContext}
-command is being called.  The following code will print the
-current bar number on the standard output during the compile:
+In Scheme code, the syntax is:
 
 @example
-\applyContext
-  #(lambda (x)
-    (format #t "\nWe were called in barnumber ~a.\n"
-     (ly:context-property x 'currentBarNumber)))
+(make-apply-context @var{function})
 @end example
 
+@code{@var{function}} should be a Scheme function that takes a
+single argument: the context in which the @code{\applyContext}
+command is being called.  The function can access as well as
+override/set grob properties and context properties.  Any actions
+taken by the function that depend on the state of the context are
+limited to the state of the context @emph{when the function is
+called}.  Also, changes effected by a call to @code{\applyContext}
+remain in effect until they are directly modified again, or
+reverted, even if the initial conditions that they depended on
+have changed.
+
+The following scheme functions are useful when using
+@code{\applyContext}:
+
+@table @code
+@item ly:context-property
+look up a context property value
+
+@item ly:context-set-property!
+set a context property
+
+@item ly:context-grob-definition
+@itemx ly:assoc-get
+look up a grob property value
+
+@item ly:context-pushpop-property
+do a @code{\temporary@tie{}\override}
+or a @code{\revert} on a grob property
+@end table
+
+
+The following example looks up the current @code{fontSize} value, and
+then doubles it:
+
+@lilypond[quote,verbatim]
+doubleFontSize =
+\applyContext
+  #(lambda (context)
+     (let ((fontSize (ly:context-property context 'fontSize)))
+       (ly:context-set-property! context 'fontSize (+ fontSize 6))))
+
+{
+  \set fontSize = -3
+  b'4
+  \doubleFontSize
+  b'
+}
+@end lilypond
+
+
+The following example looks up the current colors of the
+@code{NoteHead}, @code{Stem}, and @code{Beam} grobs, and then changes
+each to a less saturated shade.
+
+@lilypond[quote,verbatim]
+desaturate =
+\applyContext
+  #(lambda (context)
+     (define (desaturate-grob grob)
+       (let* ((grob-def (ly:context-grob-definition context grob))
+              (color (ly:assoc-get 'color grob-def black))
+              (new-color (map (lambda (x) (min 1 (/ (1+ x) 2))) color)))
+         (ly:context-pushpop-property context grob 'color new-color)))
+     (for-each desaturate-grob '(NoteHead Stem Beam)))
+
+\relative g' {
+  \time 3/4
+  g8[ g] \desaturate g[ g] \desaturate g[ g]
+  \override NoteHead.color = #darkred
+  \override Stem.color = #darkred
+  \override Beam.color = #darkred
+  g[ g] \desaturate g[ g] \desaturate g[ g]
+}
+@end lilypond
+
+
+This also could be implemented as a music function, in order to
+restrict the modifications to a single music block.  Notice how
+@code{ly:context-pushpop-property} is used both as a
+@code{\temporary@tie{}\override} and as a @code{\revert}:
+
+@lilypond[quote,verbatim]
+desaturate =
+#(define-music-function
+   (parser location music) (ly:music?)
+   #{
+     \applyContext
+     #(lambda (context)
+        (define (desaturate-grob grob)
+          (let* ((grob-def (ly:context-grob-definition context grob))
+                 (color (ly:assoc-get 'color grob-def black))
+                 (new-color (map (lambda (x) (min 1 (/ (1+ x) 2))) color)))
+            (ly:context-pushpop-property context grob 'color new-color)))
+        (for-each desaturate-grob '(NoteHead Stem Beam)))
+     #music
+     \applyContext
+     #(lambda (context)
+        (define (revert-color grob)
+          (ly:context-pushpop-property context grob 'color))
+        (for-each revert-color '(NoteHead Stem Beam)))
+   #})
+
+\relative g' {
+  \override NoteHead.color = #darkblue
+  \override Stem.color = #darkblue
+  \override Beam.color = #darkblue
+  g8 a b c
+  \desaturate { d c b a }
+  g b d b g2
+}
+@end lilypond
 
 
 @node Running a function on all layout objects
