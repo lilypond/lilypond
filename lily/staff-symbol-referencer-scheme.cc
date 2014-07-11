@@ -52,8 +52,9 @@ LY_DEFINE (ly_position_on_line_p, "ly:position-on-line?",
 
 LY_DEFINE (ly_staff_symbol_line_thickness, "ly:staff-symbol-line-thickness",
            1, 0, 0, (SCM grob),
-           "Returns the @code{line-thickness} of the staff associated"
-           " with @var{grob}.")
+           "Returns the current staff-line thickness in the staff"
+           " associated with @var{grob}, expressed as a multiple of the"
+           " current staff-space height.")
 {
   LY_ASSERT_SMOB (Grob, grob, 1);
   Grob *g = unsmob_grob (grob);
@@ -63,8 +64,10 @@ LY_DEFINE (ly_staff_symbol_line_thickness, "ly:staff-symbol-line-thickness",
 
 LY_DEFINE (ly_staff_symbol_staff_space, "ly:staff-symbol-staff-space",
            1, 0, 0, (SCM grob),
-           "Returns the @code{staff-space} of the staff associated"
-           " with @var{grob}.")
+           "Returns the current staff-space height in the staff"
+           " associated with @var{grob}, expressed as a multiple of the"
+           " default height of a staff-space in the traditional"
+           " five-line staff.")
 {
   LY_ASSERT_SMOB (Grob, grob, 1);
   Grob *g = unsmob_grob (grob);
