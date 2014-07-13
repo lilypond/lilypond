@@ -367,7 +367,7 @@ Align_interface::set_ordered (Grob *me)
 ADD_INTERFACE (Align_interface,
                "Order grobs from top to bottom, left to right, right to left"
                " or bottom to top.  For vertical alignments of staves, the"
-               " @code{break-system-details} of the left"
+               " @code{line-break-system-details} of the left"
                " @rinternals{NonMusicalPaperColumn} may be set to tune"
                " vertical spacing.",
 
