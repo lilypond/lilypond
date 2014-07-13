@@ -130,9 +130,8 @@ LilyPond scheme pitches, e.g. @code{(ly:make-pitch 0 2 0)}
   "Recurse through @var{music}, extracting pitches.
 Returns a list of pitch objects, e.g
 @code{'((ly:make-pitch 0 2 0) (ly:make-pitch 0 4 0) ... )}
-Typically used to construct a scale for input to transposer-factory
-(see).
-"
+Typically used to construct a scale for input to
+@code{transposer-factory}."
 
   (let ((elements (ly:music-property music 'elements))
         (element (ly:music-property music 'element))
@@ -192,11 +191,14 @@ Typically used to construct a scale for input to transposer-factory
   ;; inversion and retrograding.
 
   (let* ((elements (ly:music-property music 'elements))
+         (arts (ly:music-property music 'articulations))
          (reversed (reverse elements))
          (element (ly:music-property music 'element))
          (span-dir (ly:music-property music 'span-direction)))
 
     (ly:music-set-property! music 'elements reversed)
+
+    (for-each retrograde-music arts)
 
     (if (ly:music? element)
         (ly:music-set-property!
