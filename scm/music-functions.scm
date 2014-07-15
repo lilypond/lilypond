@@ -2404,37 +2404,108 @@ Offsets are restricted to immutable properties and values of type @code{number},
     self)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; The following are used by \magnifyMusic
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; \magnifyMusic and \magnifyStaff
 
-(define-public (scale-fontSize mag)
-  "Used by @code{\\magnifyMusic}.  Look up the current fontSize and
-scale it by the magnification factor @var{mag}."
-  (make-apply-context
-    (lambda (context)
-      (let* ((fontSize (ly:context-property context 'fontSize 0))
-             (new-fontSize (+ fontSize (magnification->font-size mag))))
-        (ly:context-set-property! context 'fontSize new-fontSize)))))
-
-(define-public (revert-fontSize mag)
-  "Used by @code{\\magnifyMusic}.  Calculate the previous fontSize value
-(before scaling) by factoring out the magnification factor @var{mag}."
-  (make-apply-context
-    (lambda (context)
-      (let* ((fontSize (ly:context-property context 'fontSize 0))
-             (old-fontSize (- fontSize (magnification->font-size mag))))
-        (ly:context-set-property! context 'fontSize old-fontSize)))))
-
-(define-public (scale-props props mag allowed-to-shrink?)
-  "Used by @code{\\magnifyMusic}.  For each prop in @var{props}, find
-the current value of the requested prop, scale it by the magnification
-factor @var{mag}, and do the equivalent of a
-@code{\\temporary@tie{}\\override} with the new value.  If
-@code{allowed-to-shrink?} is @code{#f}, don't let the new value be less
-than the current value.  Props are formatted like:
-
+;; defined as a function instead of a list because the
+;; all-grob-descriptions alist is not available yet
+(define-public (find-all-space-alist-props grob-descriptions)
+  "Used by @code{\\magnifyStaff}.  When @var{grob-descriptions} is equal
+to the @code{all-grob-descriptions} alist (defined in
+@file{scm/define-grobs.scm}), this will find all grobs that have an
+initialized value for the @code{space-alist} property, and return them
+as a list in the following format:
 @example
-'(Slur height-limit)
+'((Ambitus space-alist)
+  (BarLine space-alist)
+  ...)
+@end example"
+  (define (has-space-alist? grob-desc)
+    (ly:assoc-get 'space-alist (cdr grob-desc)))
+  (let* ((grob-descriptions-with-space-alist
+           (filter has-space-alist? grob-descriptions))
+         (grob-names-with-space-alist
+           (map car grob-descriptions-with-space-alist)))
+    (map (lambda (grob-name) (list grob-name 'space-alist))
+         grob-names-with-space-alist)))
+
+(define (magnifyStaff-is-set? context mag)
+  (let* ((Staff (ly:context-find context 'Staff))
+         (old-mag (ly:context-property Staff 'magnifyStaffValue)))
+    (not (null? old-mag))))
+
+(define (staff-magnification-is-changing? context mag)
+  (let* ((Staff (ly:context-find context 'Staff))
+         (old-mag (ly:context-property Staff 'magnifyStaffValue 1)))
+    (not (= old-mag mag))))
+
+(define-public (scale-fontSize func-name mag)
+  "Used by @code{\\magnifyMusic} and @code{\\magnifyStaff}.  Look up the
+current @code{fontSize} in the appropriate context and scale it by the
+magnification factor @var{mag}.  @var{func-name} is either
+@code{'magnifyMusic} or @code{'magnifyStaff}."
+  (make-apply-context
+    (lambda (context)
+      (if (or (eq? func-name 'magnifyMusic)
+              ;; for \magnifyStaff, only scale the fontSize
+              ;; if staff magnification is changing
+              (staff-magnification-is-changing? context mag))
+        (let* ((where (case func-name
+                        ((magnifyMusic) context)
+                        ((magnifyStaff) (ly:context-find context 'Staff))))
+               (fontSize (ly:context-property where 'fontSize 0))
+               (new-fontSize (+ fontSize (magnification->font-size mag))))
+          (ly:context-set-property! where 'fontSize new-fontSize))))))
+
+(define-public (revert-fontSize func-name mag)
+  "Used by @code{\\magnifyMusic} and @code{\\magnifyStaff}.  Calculate
+the previous @code{fontSize} value (before scaling) by factoring out the
+magnification factor @var{mag} (if @var{func-name} is
+@code{'magnifyMusic}), or by factoring out the context property
+@code{magnifyStaffValue} (if @var{func-name} is @code{'magnifyStaff}).
+Revert the @code{fontSize} in the appropriate context accordingly.
+
+With @code{\\magnifyMusic}, the scaling is reverted after the music
+block it operates on.  @code{\\magnifyStaff} does not operate on a music
+block, so the scaling from a previous call (if there is one) is reverted
+before the new scaling takes effect."
+  (make-apply-context
+    (lambda (context)
+      (if (or (eq? func-name 'magnifyMusic)
+              ;; for \magnifyStaff...
+              (and
+                ;; don't revert the user's fontSize choice
+                ;; the first time \magnifyStaff is called
+                (magnifyStaff-is-set? context mag)
+                ;; only revert the previous fontSize
+                ;; if staff magnification is changing
+                (staff-magnification-is-changing? context mag)))
+        (let* ((where
+                 (case func-name
+                   ((magnifyMusic) context)
+                   ((magnifyStaff) (ly:context-find context 'Staff))))
+               (old-mag
+                 (case func-name
+                   ((magnifyMusic) mag)
+                   ((magnifyStaff)
+                    (ly:context-property where 'magnifyStaffValue 1))))
+               (fontSize (ly:context-property where 'fontSize 0))
+               (old-fontSize (- fontSize (magnification->font-size old-mag))))
+          (ly:context-set-property! where 'fontSize old-fontSize))))))
+
+(define-public (scale-props func-name mag allowed-to-shrink? props)
+  "Used by @code{\\magnifyMusic} and @code{\\magnifyStaff}.  For each
+prop in @var{props}, find the current value of the requested prop, scale
+it by the magnification factor @var{mag}, and do the equivalent of a
+@code{\\temporary@tie{}\\override} with the new value in the appropriate
+context.  If @var{allowed-to-shrink?} is @code{#f}, don't let the new
+value be less than the current value.  @var{func-name} is either
+@code{'magnifyMusic} or @code{'magnifyStaff}.  The @var{props} list is
+formatted like:
+@example
+'((Stem thickness)
+  (Slur line-thickness)
+  ...)
 @end example"
   (make-apply-context
     (lambda (context)
@@ -2443,23 +2514,71 @@ than the current value.  Props are formatted like:
                (prop (cadr grob-prop-list))
                (where (if (eq? grob 'SpacingSpanner)
                         (ly:context-find context 'Score)
-                        context))
-               (grob-def (ly:context-grob-definition where grob))
-               (val (ly:assoc-get prop grob-def 1))
-               (proc (lambda (x)
-                       (if allowed-to-shrink?
-                         (* x mag)
-                         (* x (max 1 mag)))))
-               (new-val (if (number-pair? val)
-                          (cons (proc (car val))
-                                (proc (cdr val)))
-                          (proc val))))
-          (ly:context-pushpop-property where grob prop new-val)))
-      (for-each scale-prop props))))
+                        (case func-name
+                          ((magnifyMusic) context)
+                          ((magnifyStaff) (ly:context-find context 'Staff)))))
+               (grob-def (ly:context-grob-definition where grob)))
+          (if (eq? prop 'space-alist)
+            (let* ((space-alist (ly:assoc-get prop grob-def))
+                   (scale-spacing-tuple (lambda (x)
+                                          (cons (car x)
+                                                (cons (cadr x)
+                                                      (* mag (cddr x))))))
+                   (scaled-tuples (map scale-spacing-tuple space-alist))
+                   (new-alist (append scaled-tuples space-alist)))
+              (ly:context-pushpop-property where grob prop new-alist))
+            (let* ((val (ly:assoc-get prop grob-def 1))
+                   (proc (lambda (x)
+                           (if allowed-to-shrink?
+                             (* x mag)
+                             (* x (max 1 mag)))))
+                   (new-val (if (number-pair? val)
+                              (cons (proc (car val))
+                                    (proc (cdr val)))
+                              (proc val))))
+              (ly:context-pushpop-property where grob prop new-val)))))
+      (if (or (eq? func-name 'magnifyMusic)
+              ;; for \magnifyStaff, only scale the properties
+              ;; if staff magnification is changing
+              (staff-magnification-is-changing? context mag))
+        (for-each scale-prop props)))))
 
+(define-public (revert-props func-name mag props)
+  "Used by @code{\\magnifyMusic} and @code{\\magnifyStaff}.  Revert each
+prop in @var{props} in the appropriate context.  @var{func-name} is
+either @code{'magnifyMusic} or @code{'magnifyStaff}.  The @var{props}
+list is formatted like:
+@example
+'((Stem thickness)
+  (Slur line-thickness)
+  ...)
+@end example"
+  (make-apply-context
+    (lambda (context)
+      (define (revert-prop grob-prop-list)
+        (let* ((grob (car grob-prop-list))
+               (prop (cadr grob-prop-list))
+               (where (if (eq? grob 'SpacingSpanner)
+                        (ly:context-find context 'Score)
+                        (case func-name
+                          ((magnifyMusic) context)
+                          ((magnifyStaff) (ly:context-find context 'Staff))))))
+          (ly:context-pushpop-property where grob prop)))
+      (if (or (eq? func-name 'magnifyMusic)
+              ;; for \magnifyStaff...
+              (and
+                ;; don't revert the user's property overrides
+                ;; the first time \magnifyStaff is called
+                (magnifyStaff-is-set? context mag)
+                ;; revert the overrides from the previous \magnifyStaff,
+                ;; but only if staff magnification is changing
+                (staff-magnification-is-changing? context mag)))
+        (for-each revert-prop props)))))
+
+;; \magnifyMusic only
 (define-public (scale-beam-thickness mag)
   "Used by @code{\\magnifyMusic}.  Scaling @code{Beam.beam-thickness}
-exactly to the @var{mag} value won't work.  This uses two reference
+exactly to the @var{mag} value will not work.  This uses two reference
 values for @code{beam-thickness} to determine an acceptable value when
 scaling, then does the equivalent of a
 @code{\\temporary@tie{}\\override} with the new value."
@@ -2473,21 +2592,3 @@ scaling, then does the equivalent of a
              (scaled-default (+ 119/925 (* mag 13/37)))
              (new-val (* scaled-default ratio-to-default)))
         (ly:context-pushpop-property context 'Beam 'beam-thickness new-val)))))
-
-(define-public (revert-props props)
-  "Used by @code{\\magnifyMusic}.  Revert each prop in @var{props}.
-Props are formatted like:
-
-@example
-'(Slur height-limit)
-@end example"
-  (make-apply-context
-    (lambda (context)
-      (define (revert-prop grob-prop-list)
-        (let* ((grob (car grob-prop-list))
-               (prop (cadr grob-prop-list))
-               (where (if (eq? grob 'SpacingSpanner)
-                        (ly:context-find context 'Score)
-                        context)))
-            (ly:context-pushpop-property where grob prop)))
-      (for-each revert-prop props))))

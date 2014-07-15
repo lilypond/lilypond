@@ -681,9 +681,9 @@ slurs, ties, and horizontal spacing are adjusted automatically.")
      \context Bottom {
        %% TODO: uncomment \newSpacingSection once Issue 3990 is fixed
        %\newSpacingSection
-       #(scale-fontSize mag)
-       #(scale-props unshrinkable-props mag #f)
-       #(scale-props shrinkable-props   mag #t)
+       #(scale-fontSize 'magnifyMusic mag)
+       #(scale-props    'magnifyMusic mag #f unshrinkable-props)
+       #(scale-props    'magnifyMusic mag #t shrinkable-props)
        #(scale-beam-thickness mag)
 
        #music
@@ -691,11 +691,61 @@ slurs, ties, and horizontal spacing are adjusted automatically.")
        %% TODO: uncomment \newSpacingSection once Issue 3990 is fixed
        %\newSpacingSection
        %% reverse engineer the former fontSize value instead of using \unset
-       #(revert-fontSize mag)
-       #(revert-props (append unshrinkable-props
-                              shrinkable-props
-                              '((Beam beam-thickness))))
+       #(revert-fontSize 'magnifyMusic mag)
+       #(revert-props    'magnifyMusic mag (append unshrinkable-props
+                                                   shrinkable-props
+                                                   '((Beam beam-thickness))))
      }
+   #})
+
+magnifyStaff =
+#(define-music-function (parser location mag) (positive?)
+   (_i "Change the size of the staff, adjusting notation size and
+horizontal spacing automatically, using @var{mag} as a size factor.")
+
+   ;; these props are NOT allowed to shrink below default size
+   (define unshrinkable-props
+     '((StaffSymbol thickness)))
+
+   ;; these props ARE allowed to shrink below default size
+   (define shrinkable-props
+     (let ((space-alist-props
+            (find-all-space-alist-props all-grob-descriptions)))
+       (append
+         space-alist-props
+         '(
+           ;; override at the 'Score level
+           (SpacingSpanner spacing-increment)
+
+           (StaffSymbol staff-space)
+           (BarLine kern)
+           (BarLine segno-kern)
+           (BarLine hair-thickness)
+           (BarLine thick-thickness)
+           (Stem beamlet-default-length)
+           ))))
+
+   #{
+     \stopStaff
+
+     %% revert settings from last time
+     %% (but only if \magnifyStaff has already been used
+     %% and the staff magnification is changing)
+     #(revert-fontSize 'magnifyStaff mag)
+     #(revert-props    'magnifyStaff mag (append unshrinkable-props
+                                                 shrinkable-props))
+
+     %% scale settings
+     %% (but only if staff magnification is changing)
+     #(scale-fontSize 'magnifyStaff mag)
+     #(scale-props    'magnifyStaff mag #f unshrinkable-props)
+     #(scale-props    'magnifyStaff mag #t shrinkable-props)
+
+     %% this might cause problems until Issue 3990 is fixed
+     \newSpacingSection
+
+     \startStaff
+     \set Staff.magnifyStaffValue = #mag
    #})
 
 makeClusters =

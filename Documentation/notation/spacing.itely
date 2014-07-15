@@ -1283,24 +1283,17 @@ block:
 @end example
 
 @item
-To set the staff size for a single staff within a system, set the
-staff's font-size and staff-space using units relative to the
-score's default staff size.  Using relative units prevents the
-proportion of staff sizes from being altered if the default staff
-size is modified with @code{set-global-staff-size} or
-@code{layout-set-staff-size}.
-
-For example, traditionally engraved chamber music scores with
-piano often used 7mm piano staves while the other staves were up
-to 5/7 as large (if space allowed), or down to 3/5 as large (if
-space was cramped).  To achieve the 5/7 proportion, use:
+To set the staff size for a single staff within a system, use the
+@code{\magnifyStaff} command.  For example, traditionally engraved
+chamber music scores with piano often used 7mm piano staves while
+the other staves were typically between 3/5 and 5/7 as large
+(between 60% and 71%).  To achieve the 5/7 proportion, use:
 
 @example
 \score @{
   <<
     \new Staff \with @{
-      fontSize = #(magnification->font-size 5/7)
-      \override StaffSymbol.staff-space = #5/7
+      \magnifyStaff #5/7
     @} @{ @dots{} @}
     \new PianoStaff @{ @dots{} @}
   >>
@@ -1314,8 +1307,7 @@ could use the following form:
 \score @{
   <<
     \new Staff \with @{
-      fontSize = -3
-      \override StaffSymbol.staff-space = #(magstep -3)
+      \magnifyStaff #(magstep -3)
     @} @{ @dots{} @}
     \new PianoStaff @{ @dots{} @}
   >>

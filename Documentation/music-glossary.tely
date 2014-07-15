@@ -3618,8 +3618,7 @@ played above the bass notes.
 @lilypond[quote,line-width=13.0\cm]
 \new GrandStaff <<
   \new Staff = "rh" \with {
-    fontSize = #-3
-    \override StaffSymbol #'staff-space = #(magstep -3)
+    \magnifyStaff #2/3
   } \relative c'' {
     \clef treble
     \key es \major
