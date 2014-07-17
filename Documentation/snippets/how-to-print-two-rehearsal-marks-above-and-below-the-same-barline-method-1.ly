@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.17.24
-\version "2.17.24"
+\version "2.18.0"
 
 \header {
   lsrtags = "editorial-annotations, expressive-marks, staff-notation, tweaks-and-overrides"

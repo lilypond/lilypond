@@ -10,7 +10,7 @@
 % on melodies from Bellini's "Norma"                              %
 %*****************************************************************%
 
-\version "2.17.30"
+\version "2.18.0"
 
 \header {
   lsrtags = "headword"

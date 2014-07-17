@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.17.13
-\version "2.17.13"
+\version "2.18.0"
 
 \header {
   lsrtags = "pitches, staff-notation"
