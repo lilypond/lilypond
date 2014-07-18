@@ -125,43 +125,47 @@ visibility of the tuplet bracket.  Setting it to false prevents
 printing of the bracket.  Setting the property to @code{if-no-beam}
 makes it print only if there is no beam associated with this tuplet
 bracket.")
-     (break-align-anchor ,number? "Grobs aligned to this break-align
-grob will have their X-offsets shifted by this number.  In bar lines,
+     (break-align-anchor ,number? "Grobs aligned to this breakable
+item will have their X-offsets shifted by this number.  In bar lines,
 for example, this is used to position grobs relative to the (visual)
 center of the bar line.")
      (break-align-anchor-alignment ,number? "Read by
 @code{ly:break-aligned-interface::calc-extent-aligned-anchor} for
 aligning an anchor to a grob's extent.")
-     (break-align-orders ,vector? "Defines the order in which
-prefatory matter (clefs, key signatures) appears.  The format is a
-vector of length@tie{}3, where each element is one order for
-end-of-line, middle of line, and start-of-line, respectively.  An
-order is a list of symbols.
+     (break-align-orders ,vector? "This is a vector of 3@tie{}lists:
+@w{@code{#(@var{end-of-line} @var{unbroken} @var{start-of-line}}}).
+Each list contains @w{@emph{break-align symbols}} that specify an
+order of breakable items (see @rinternals{break-alignment-interface}).
 
-For example, clefs are put after key signatures by setting
+For example, this places time signatures before clefs:
 
 @example
-\\override Score.BreakAlignment #'break-align-orders =
-  #(make-vector 3 '(span-bar
+\\override Score.BreakAlignment.break-align-orders =
+  #(make-vector 3 '(left-edge
+                    cue-end-clef
+                    ambitus
                     breathing-sign
-                    staff-bar
-                    key
+                    time-signature
                     clef
-                    time-signature))
+                    cue-clef
+                    staff-bar
+                    key-cancellation
+                    key-signature
+                    custos))
 @end example")
-     (break-align-symbol ,symbol? "This key is used for aligning and
-spacing breakable items.")
-     (break-align-symbols ,list? "A list of symbols that determine
-which break-aligned grobs to align this to.  If the grob selected by
-the first symbol in the list is invisible due to break-visibility, we
-will align to the next grob (and so on).  Choices are @code{left-edge},
-@code{ambitus}, @code{breathing-sign}, @code{clef}, @code{staff-bar},
-@code{key-cancellation}, @code{key-signature}, @code{time-signature},
-and @code{custos}.")
+     (break-align-symbol ,symbol? "This key is used for aligning,
+ordering, and spacing breakable items.  See
+@rinternals{break-alignment-interface}.")
+     (break-align-symbols ,list? "A list of
+@w{@emph{break-align symbols}} that determines which breakable
+items to align this to.  If the grob selected by the first symbol
+in the list is invisible due to @w{@code{break-visibility}}, we
+will align to the next grob (and so on).  Choices are listed in
+@rinternals{break-alignment-interface}.")
      (break-overshoot ,number-pair? "How much does a broken spanner
 stick out of its bounds?")
      (break-visibility ,vector? "A vector of 3@tie{}booleans,
-@code{#(@var{end-of-line} @var{unbroken} @var{begin-of-line})}.
+@w{@code{#(@var{end-of-line} @var{unbroken} @var{begin-of-line})}}.
 @code{#t} means visible, @code{#f} means killed.")
      (breakable ,boolean? "Allow breaks here.")
      (broken-bound-padding ,number? "The amount of padding to insert
@@ -862,11 +866,69 @@ elements closer together.")
      (slur-padding ,number? "Extra distance between slur and script.")
      (snap-radius ,number? "The maximum distance between two objects that
 will cause them to snap to alignment along an axis.")
-     (space-alist ,list? "A table that specifies distances between
-prefatory items, like clef and time-signature.  The format is an alist
-of spacing tuples: @code{(@var{break-align-symbol} @var{type}
-. @var{distance})}, where @var{type} can be the symbols
-@code{minimum-space} or @code{extra-space}.")
+     (space-alist ,list? "An alist that specifies distances from this
+grob to other breakable items, using the format:
+
+@example
+'((@var{break-align-symbol} . (@var{spacing-style} . @var{space}))
+  (@var{break-align-symbol} . (@var{spacing-style} . @var{space}))
+  ...)
+@end example
+
+Standard choices for @w{@code{@var{break-align-symbol}}} are listed in
+@rinternals{break-alignment-interface}.  Additionally, three special
+@w{break-align} symbols available to @w{@code{space-alist}} are:
+
+@quotation
+@table @code
+@item first-note
+used when the grob is just left of the first note on a line
+
+@item next-note
+used when the grob is just left of any other note
+
+@item right-edge
+used when the grob is the last item on the line (only compatible with
+the @w{@code{extra-space}} spacing style)
+@end table
+@end quotation
+
+Choices for @code{@var{spacing-style}} are:
+
+@quotation
+@table @code
+@item extra-space
+Put this much space between the two grobs.  The space is stretchable
+when paired with @w{@code{first-note}} or @w{@code{next-note}};
+otherwise it is fixed.
+
+@item minimum-space
+Put at least this much space between the left sides of both grobs,
+without allowing them to collide.  The space is stretchable when paired
+with @w{@code{first-note}} or @w{@code{next-note}}; otherwise it
+is fixed.  Not compatible with @w{@code{right-edge}}.
+
+@item fixed-space
+Only compatible with @w{@code{first-note}} and
+@w{@code{next-note}}.  Put this much fixed space between the grob
+and the note.
+
+@item minimum-fixed-space
+Only compatible with @w{@code{first-note}} and
+@w{@code{next-note}}.  Put at least this much fixed space between
+the left side of the grob and the left side of the note, without
+allowing them to collide.
+
+@item semi-fixed-space
+Only compatible with @w{@code{first-note}} and
+@w{@code{next-note}}.  Put this much space between the grob and
+the note, such that half of the space is fixed and half is
+stretchable.
+@end table
+@end quotation
+
+Rules for this spacing are much more complicated than this.
+See [Wanske] page 126--134, [Ross] page 143--147.")
      (space-to-barline ,boolean? "If set, the distance between a note
 and the following non-musical column will be measured to the bar line
 instead of to the beginning of the non-musical column.  If there is a

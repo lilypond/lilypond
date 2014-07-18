@@ -363,6 +363,42 @@ Break_aligned_interface::calc_break_visibility (SCM smob)
   return ret;
 }
 
+ADD_INTERFACE (Break_alignment_interface,
+               "The object that performs break alignment.\n"
+               "\n"
+               "Three interfaces deal specifically with break alignment:\n"
+               "@enumerate\n"
+               "@item break-alignment-interface (this one),\n"
+               "@item @ref{break-alignable-interface}, and\n"
+               "@item @ref{break-aligned-interface}.\n"
+               "@end enumerate\n"
+               "\n"
+               " Each of these interfaces supports grob properties that use"
+               " @w{@emph{break-align symbols}}, which are Scheme symbols that"
+               " are used to specify the alignment, ordering, and spacing of"
+               " certain notational elements (@q{breakable}@tie{}items)."
+               "\n"
+               "@subsubheading Available break-align symbols:\n"
+               "\n"
+               "@example\n"
+               "ambitus\n"
+               "breathing-sign\n"
+               "clef\n"
+               "cue-clef\n"
+               "cue-end-clef\n"
+               "custos\n"
+               "key-cancellation\n"
+               "key-signature\n"
+               "left-edge\n"
+               "staff-bar\n"
+               "time-signature\n"
+               "@end example",
+
+               /* properties */
+               "positioning-done "
+               "break-align-orders "
+              );
+
 ADD_INTERFACE (Break_alignable_interface,
                "Object that is aligned on a break alignment.",
 
@@ -372,44 +408,11 @@ ADD_INTERFACE (Break_alignable_interface,
               );
 
 ADD_INTERFACE (Break_aligned_interface,
-               "Items that are aligned in prefatory matter.\n"
-               "\n"
-               "The spacing of these items is controlled by the"
-               " @code{space-alist} property.  It contains a list"
-               " @code{break-align-symbol}s with a specification of the"
-               " associated space.  The space specification can be\n"
-               "\n"
-               "@table @code\n"
-               "@item (minimum-space . @var{spc}))\n"
-               "Pad space until the distance is @var{spc}.\n"
-               "@item (fixed-space . @var{spc})\n"
-               "Set a fixed space.\n"
-               "@item (semi-fixed-space . @var{spc})\n"
-               "Set a space.  Half of it is fixed and half is stretchable."
-               " (does not work at start of line. fixme)\n"
-               "@item (extra-space . @var{spc})\n"
-               "Add @var{spc} amount of space.\n"
-               "@end table\n"
-               "\n"
-               "Special keys for the alist are @code{first-note} and"
-               " @code{next-note}, signifying the first note on a line, and"
-               " the next note halfway a line.\n"
-               "\n"
-               "Rules for this spacing are much more complicated than this."
-               "  See [Wanske] page 126--134, [Ross] page 143--147.",
+               "Breakable items.",
 
                /* properties */
                "break-align-anchor "
                "break-align-anchor-alignment "
                "break-align-symbol "
                "space-alist "
-              );
-
-ADD_INTERFACE (Break_alignment_interface,
-               "The object that performs break alignment.  See"
-               " @ref{break-aligned-interface}.",
-
-               /* properties */
-               "positioning-done "
-               "break-align-orders "
               );
