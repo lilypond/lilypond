@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.17.27
-\version "2.18.0"
+\version "2.17.27"
 
 \header {
   lsrtags = "headword"

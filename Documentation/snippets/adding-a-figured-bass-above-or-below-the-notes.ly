@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.17.6
-\version "2.18.0"
+\version "2.17.6"
 
 \header {
   lsrtags = "ancient-notation, chords, contexts-and-engravers"
