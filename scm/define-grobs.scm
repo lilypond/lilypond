@@ -1389,6 +1389,7 @@
         (extra-spacing-height . (0.2 . -0.2))
         (font-series . medium)
         (font-size . 1.0)
+        (parent-alignment-X . ())
         (self-alignment-X . ,CENTER)
         (stencil . ,lyric-text::print)
         (text . ,(grob::calc-property-by-copy 'text))

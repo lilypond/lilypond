@@ -122,30 +122,38 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
         he = him->extent (him, a);
     }
 
-  SCM sym = (a == X_AXIS) ? ly_symbol2scm ("self-alignment-X")
-            : ly_symbol2scm ("self-alignment-Y");
-  SCM align_prop (me->internal_get_property (sym));
+  SCM self_align = (a == X_AXIS)
+          ? me->internal_get_property (ly_symbol2scm ("self-alignment-X"))
+          : me->internal_get_property (ly_symbol2scm ("self-alignment-Y"));
 
-  if (!scm_is_number (align_prop))
-    return scm_from_int (0);
+  SCM par_align = (a == X_AXIS)
+          ? me->internal_get_property (ly_symbol2scm ("parent-alignment-X"))
+          : me->internal_get_property (ly_symbol2scm ("parent-alignment-Y"));
+
+  if (par_align == SCM_EOL)
+      par_align = self_align;
 
   Real x = 0.0;
-  Real align = scm_to_double (align_prop);
-
   Interval ext (me->extent (me, a));
 
-  // Empty extent doesn't mean an error - we simply don't align such grobs.
-  // However, empty extent and non-empty stencil would be suspicious.
-  if (!ext.is_empty ())
-    x -= ext.linear_combination (align);
-  else if (me->get_stencil ())
-    warning (me->name () + " has empty extent and non-empty stencil.");
+  if (scm_is_number (self_align))
+    {
+      // Empty extent doesn't mean an error - we simply don't align such grobs.
+      // However, empty extent and non-empty stencil would be suspicious.
+      if (!ext.is_empty ())
+        x -= ext.linear_combination (scm_to_double (self_align));
+      else if (me->get_stencil ())
+        warning (me->name () + " has empty extent and non-empty stencil.");
+    }
 
-  // See comment above.
-  if (!he.is_empty ())
-    x += he.linear_combination (align);
-  else if (him->get_stencil ())
-    warning (him->name () + " has empty extent and non-empty stencil.");
+  if (scm_is_number (par_align))
+    {
+      // See comment above.
+      if (!he.is_empty ())
+        x += he.linear_combination (scm_to_double (par_align));
+      else if (him->get_stencil ())
+        warning (him->name () + " has empty extent and non-empty stencil.");
+    }
 
   return scm_from_double (x);
 }
@@ -173,6 +181,8 @@ ADD_INTERFACE (Self_alignment_interface,
                "@end table\n",
 
                /* properties */
+               "parent-alignment-X "
+               "parent-alignment-Y "
                "self-alignment-X "
                "self-alignment-Y "
                "X-align-on-main-noteheads "

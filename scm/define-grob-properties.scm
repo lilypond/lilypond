@@ -756,6 +756,15 @@ at a column with a negative penalty.")
      (page-turn-permission ,symbol? "Instructs the page breaker on
 whether to put a page turn at this column.  Can be @code{force} or
 @code{allow}.")
+     (parent-alignment-X ,number? "Specify on which point
+of the parent the object is aligned. The value @w{@code{-1}} means
+aligned on parent's left edge, @code{0}@tie{}on@tie{}center, and
+@code{1}@tie{}right edge, in X@tie{}direction.  Other numerical
+values may also be specified - the unit is half the parent's width.
+If unset, the value from @code{self-alignment-X} property will be
+used.")
+     (parent-alignment-Y ,number? "Like @code{parent-alignment-X}
+but for the Y@tie{}axis.")
      (parenthesized ,boolean? "Parenthesize this grob.")
      (positions ,number-pair? "Pair of staff coordinates
 @code{(@var{left} . @var{right})}, where both @var{left} and
@@ -817,7 +826,7 @@ influenced by changes to
      (self-alignment-X ,number? "Specify alignment of an object.  The
 value @w{@code{-1}} means left aligned, @code{0}@tie{}centered, and
 @code{1}@tie{}right-aligned in X@tie{}direction.  Other numerical
-values may also be specified.")
+values may also be specified - the unit is half the object width.")
      (self-alignment-Y ,number? "Like @code{self-alignment-X} but for
 the Y@tie{}axis.")
      (sharp-positions ,list? "Sharps in key signatures are placed
