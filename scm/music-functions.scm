@@ -1067,10 +1067,6 @@ value (evaluated at definition time).  An optional parameter can be
 omitted in a call only when it can't get confused with a following
 parameter of different type.
 
-Predicates with syntactical significance are @code{ly:pitch?},
-@code{ly:duration?}, @code{ly:music?}, @code{markup?}.  Other
-predicates require the parameter to be entered as Scheme expression.
-
 @code{result-type?} can specify a default in the same manner as
 predicates, to be used in case of a type error in arguments or
 result."
@@ -1121,10 +1117,6 @@ value (evaluated at definition time).  An optional parameter can be
 omitted in a call only when it can't get confused with a following
 parameter of different type.
 
-Predicates with syntactical significance are @code{ly:pitch?},
-@code{ly:duration?}, @code{ly:music?}, @code{markup?}.  Other
-predicates require the parameter to be entered as Scheme expression.
-
 Must return a music expression.  The @code{origin} is automatically
 set to the @code{location} parameter."
 
@@ -1144,10 +1136,6 @@ value)}} for optional parameters with a specified default
 value (evaluated at definition time).  An optional parameter can be
 omitted in a call only when it can't get confused with a following
 parameter of different type.
-
-Predicates with syntactical significance are @code{ly:pitch?},
-@code{ly:duration?}, @code{ly:music?}, @code{markup?}.  Other
-predicates require the parameter to be entered as Scheme expression.
 
 Can return arbitrary expressions.  If a music expression is returned,
 its @code{origin} is automatically set to the @code{location}
@@ -1176,10 +1164,6 @@ value)}} for optional parameters with a specified default
 value (evaluated at definition time).  An optional parameter can be
 omitted in a call only when it can't get confused with a following
 parameter of different type.
-
-Predicates with syntactical significance are @code{ly:pitch?},
-@code{ly:duration?}, @code{ly:music?}, @code{markup?}.  Other
-predicates require the parameter to be entered as Scheme expression.
 
 Must return an event expression.  The @code{origin} is automatically
 set to the @code{location} parameter."
