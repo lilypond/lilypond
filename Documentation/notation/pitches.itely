@@ -2443,7 +2443,7 @@ musicB = {
 
 Like with the dodecaphonic accidental style @emph{every} note
 gets an accidental sign by default, but accidentals are
-suppressed for pitches immediately repeated within one voice.
+suppressed for pitches immediately repeated within the same staff.
 
 @lilypond[quote]
 musicA = {
