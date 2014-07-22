@@ -2285,8 +2285,8 @@ Internals Reference:
 @emph{Non-staff lines} (such as @code{Lyrics}, @code{ChordNames},
 etc.) are contexts whose layout objects are engraved like staves
 (i.e. in horizontal lines within systems).  Specifically,
-non-staff lines are non-staff contexts that create the
-@code{VerticalAxisGroup} layout object.
+non-staff lines are non-staff contexts that contain the
+@rinternals{Axis_group_engraver}.
 
 The following properties affect the spacing of non-staff lines:
 
