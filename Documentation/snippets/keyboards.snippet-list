@@ -1,5 +1,5 @@
 accordion-discant-symbols.ly
-accordion-registers.ly
+accordion-register-symbols.ly
 changing-the-text-for-sustain-markings.ly
 clusters.ly
 controlling-the-placement-of-chord-fingerings.ly
@@ -13,5 +13,6 @@ laissez-vibrer-ties.ly
 piano-template-simple.ly
 piano-template-with-centered-lyrics.ly
 piano-template-with-melody-and-lyrics.ly
+removing-brace-on-first-line-of-piano-score.ly
 using-autochange-with-more-than-one-voice.ly
 vocal-ensemble-template-with-automatic-piano-reduction.ly

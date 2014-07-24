@@ -12,6 +12,7 @@ creating-blank-staves.ly
 creating-double-digit-fingerings.ly
 cross-staff-stems.ly
 display-bracket-with-only-one-staff-in-a-system.ly
+extending-a-trillspanner.ly
 extending-glissandi-across-repeats.ly
 forcing-measure-width-to-adapt-to-metronomemarks-width.ly
 glissandi-can-skip-grobs.ly
@@ -31,6 +32,7 @@ orchestra,-choir-and-piano-template.ly
 putting-lyrics-inside-the-staff.ly
 quoting-another-voice-with-transposition.ly
 quoting-another-voice.ly
+removing-brace-on-first-line-of-piano-score.ly
 removing-the-first-empty-line.ly
 setting-system-separators.ly
 tick-bar-lines.ly
