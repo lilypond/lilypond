@@ -167,8 +167,6 @@
     return CL::unsmob (s);                      \
   }
 
-#define DECLARE_TYPE_P(CL) extern SCM CL ## _type_p_proc
-
 void protect_smob (SCM smob, SCM *prot_cons);
 void unprotect_smob (SCM smob, SCM *prot_cons);
 
