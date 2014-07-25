@@ -125,7 +125,7 @@ MAKE_SCHEME_CALLBACK (Cluster, calc_cross_staff, 1);
 SCM
 Cluster::calc_cross_staff (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   extract_grob_set (me, "columns", cols);
   Grob *commony = common_refpoint_of_array (cols, me, Y_AXIS);
@@ -137,7 +137,7 @@ MAKE_SCHEME_CALLBACK (Cluster, print, 1);
 SCM
 Cluster::print (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   Spanner *spanner = dynamic_cast<Spanner *> (me);
   if (!spanner)
@@ -235,7 +235,7 @@ MAKE_SCHEME_CALLBACK (Cluster_beacon, height, 1);
 SCM
 Cluster_beacon::height (SCM g)
 {
-  Grob *me = unsmob_grob (g);
+  Grob *me = Grob::unsmob (g);
   Interval v = robust_scm2interval (me->get_property ("positions"),
                                     Interval (0, 0));
   return ly_interval2scm (Staff_symbol_referencer::staff_space (me) * 0.5 * v);

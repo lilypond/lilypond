@@ -1014,7 +1014,7 @@ Lily_lexer::scan_bare_word (const string &str)
 		
 		if (scm_is_pair (handle)) {
 			yylval = scm_cdr (handle);
-			if (unsmob_pitch (yylval))
+			if (Pitch::unsmob (yylval))
 	                    return (YYSTATE == notes) ? NOTENAME_PITCH : TONICNAME_PITCH;
 			else if (scm_is_symbol (yylval))
 			    return DRUM_PITCH;

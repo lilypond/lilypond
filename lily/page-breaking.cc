@@ -554,7 +554,7 @@ Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, bool las
   for (SCM s = systems; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM paper_system = scm_car (s);
-      if (Grob *g = unsmob_grob (scm_car (s)))
+      if (Grob *g = Grob::unsmob (scm_car (s)))
         {
           System *sys = dynamic_cast<System *> (g);
           paper_system = sys->get_paper_system ();
@@ -567,11 +567,11 @@ Page_breaking::draw_page (SCM systems, SCM configuration, int page_num, bool las
   // Create the page and draw it.
   SCM page = make_page (page_num, last);
 
-  Prob *p = unsmob_prob (page);
+  Prob *p = Prob::unsmob (page);
   p->set_property ("lines", paper_systems);
   p->set_property ("configuration", configuration);
 
-  Stencil *foot_p = unsmob_stencil (p->get_property ("foot-stencil"));
+  Stencil *foot_p = Stencil::unsmob (p->get_property ("foot-stencil"));
   Stencil foot = foot_p ? *foot_p : Stencil ();
 
   SCM footnotes = Page_layout_problem::get_footnotes_from_lines (systems);
@@ -658,12 +658,12 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
       for (SCM l = lines; scm_is_pair (l); l = scm_cdr (l))
         {
           SCM labels = SCM_EOL;
-          if (Grob *line = unsmob_grob (scm_car (l)))
+          if (Grob *line = Grob::unsmob (scm_car (l)))
             {
               System *system = dynamic_cast<System *> (line);
               labels = system->get_property ("labels");
             }
-          else if (Prob *prob = unsmob_prob (scm_car (l)))
+          else if (Prob *prob = Prob::unsmob (scm_car (l)))
             labels = prob->get_property ("labels");
 
           for (SCM lbls = labels; scm_is_pair (lbls); lbls = scm_cdr (lbls))
@@ -689,13 +689,13 @@ Page_breaking::create_system_list ()
   SCM specs = book_->get_system_specs ();
   for (SCM s = specs; scm_is_pair (s); s = scm_cdr (s))
     {
-      if (Paper_score *ps = dynamic_cast<Paper_score *> (unsmob_music_output (scm_car (s))))
+      if (Paper_score *ps = dynamic_cast<Paper_score *> (Music_output::unsmob (scm_car (s))))
         {
           system_specs_.push_back (System_spec (ps));
         }
       else
         {
-          Prob *pb = unsmob_prob (scm_car (s));
+          Prob *pb = Prob::unsmob (scm_car (s));
           assert (pb);
 
           pb->protect ();

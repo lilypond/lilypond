@@ -27,7 +27,7 @@ LY_DEFINE (ly_grob_staff_position, "ly:grob-staff-position",
            "Return the Y-position of @var{sg} relative to the staff.")
 {
   LY_ASSERT_SMOB (Grob, sg, 1);
-  Grob *g = unsmob_grob (sg);
+  Grob *g = Grob::unsmob (sg);
   Real pos = Staff_symbol_referencer::get_position (g);
 
   if (fabs (rint (pos) - pos) < 1e-6) // ugh.
@@ -43,7 +43,7 @@ LY_DEFINE (ly_position_on_line_p, "ly:position-on-line?",
 {
   LY_ASSERT_SMOB (Grob, sg, 1);
   LY_ASSERT_TYPE (scm_is_number, spos, 2);
-  Grob *g = unsmob_grob (sg);
+  Grob *g = Grob::unsmob (sg);
   Grob *st = Staff_symbol_referencer::get_staff_symbol (g);
   int pos = scm_to_int (spos);
   bool on_line = st ? Staff_symbol::on_line (g, pos) : false;
@@ -57,7 +57,7 @@ LY_DEFINE (ly_staff_symbol_line_thickness, "ly:staff-symbol-line-thickness",
            " current staff-space height.")
 {
   LY_ASSERT_SMOB (Grob, grob, 1);
-  Grob *g = unsmob_grob (grob);
+  Grob *g = Grob::unsmob (grob);
   Real thickness = Staff_symbol_referencer::line_thickness (g);
   return scm_from_double (thickness);
 }
@@ -70,7 +70,7 @@ LY_DEFINE (ly_staff_symbol_staff_space, "ly:staff-symbol-staff-space",
            " five-line staff.")
 {
   LY_ASSERT_SMOB (Grob, grob, 1);
-  Grob *g = unsmob_grob (grob);
+  Grob *g = Grob::unsmob (grob);
   Real staff_space = Staff_symbol_referencer::staff_space (g);
   return scm_from_double (staff_space);
 }
@@ -81,7 +81,7 @@ LY_DEFINE (ly_staff_symbol_staff_radius, "ly:staff-symbol-staff-radius",
            " @var{grob}.")
 {
   LY_ASSERT_SMOB (Grob, grob, 1);
-  Grob *g = unsmob_grob (grob);
+  Grob *g = Grob::unsmob (grob);
   Real staff_radius = Staff_symbol_referencer::staff_radius (g);
   return scm_from_double (staff_radius);
 }

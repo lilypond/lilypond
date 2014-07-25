@@ -67,7 +67,6 @@ public:
   SCM make_scope () const;
 };
 
-DECLARE_UNSMOB (Lily_parser, lily_parser);
 
 Output_def *get_layout (Lily_parser *parser);
 Output_def *get_midi (Lily_parser *parser);

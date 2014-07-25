@@ -188,7 +188,7 @@ void
 Lyric_combine_music_iterator::construct_children ()
 {
   Music *m = unsmob_music (get_music ()->get_property ("element"));
-  lyric_iter_ = unsmob_iterator (get_iterator (m));
+  lyric_iter_ = Music_iterator::unsmob (get_iterator (m));
   if (!lyric_iter_)
     return;
   lyrics_context_ = find_context_below (lyric_iter_->get_outlet (),

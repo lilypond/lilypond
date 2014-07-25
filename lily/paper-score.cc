@@ -169,5 +169,5 @@ Paper_score::get_paper_systems ()
 Paper_score *
 unsmob_paper_score (SCM x)
 {
-  return dynamic_cast<Paper_score *> (unsmob_music_output (x));
+  return dynamic_cast<Paper_score *> (Music_output::unsmob (x));
 }

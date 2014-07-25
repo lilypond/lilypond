@@ -58,7 +58,7 @@ Drum_note_performer::process_music ()
           && (scm_hash_table_p (tab) == SCM_BOOL_T))
         defn = scm_hashq_ref (tab, sym, SCM_EOL);
 
-      if (Pitch *pit = unsmob_pitch (defn))
+      if (Pitch *pit = Pitch::unsmob (defn))
         {
           SCM articulations = n->get_property ("articulations");
           Stream_event *tie_event = 0;

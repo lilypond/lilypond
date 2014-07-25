@@ -62,10 +62,10 @@ MAKE_SCHEME_CALLBACK (Tie_column, before_line_breaking, 1);
 SCM
 Tie_column::before_line_breaking (SCM smob)
 {
-  Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
+  Spanner *me = dynamic_cast<Spanner *> (Grob::unsmob (smob));
   for (SCM s = me->get_property ("ties"); scm_is_pair (s); s = scm_cdr (s))
     {
-      Spanner *tie = dynamic_cast<Spanner *> (unsmob_grob (scm_car (s)));
+      Spanner *tie = dynamic_cast<Spanner *> (Grob::unsmob (scm_car (s)));
       for (LEFT_and_RIGHT (dir))
         {
           if (dir * tie->get_bound (dir)->get_column ()->get_rank ()
@@ -81,7 +81,7 @@ MAKE_SCHEME_CALLBACK (Tie_column, calc_positioning_done, 1)
 SCM
 Tie_column::calc_positioning_done (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   extract_grob_set (me, "ties", ro_ties);
   vector<Grob *> ties (ro_ties);
   if (!ties.size ())

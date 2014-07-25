@@ -36,7 +36,7 @@ LY_DEFINE (ly_font_get_glyph, "ly:font-get-glyph",
            " to the font encodings @code{fetaMusic} and @code{fetaBraces},"
            " respectively.")
 {
-  Font_metric *fm = unsmob_metrics (font);
+  Font_metric *fm = Font_metric::unsmob (font);
   LY_ASSERT_SMOB (Font_metric, font, 1);
   LY_ASSERT_TYPE (scm_is_string, name, 2);
 
@@ -57,7 +57,7 @@ LY_DEFINE (ly_font_glyph_name_to_index, "ly:font-glyph-name-to-index",
            " to the font encodings @code{fetaMusic} and @code{fetaBraces},"
            " respectively.")
 {
-  Font_metric *fm = unsmob_metrics (font);
+  Font_metric *fm = Font_metric::unsmob (font);
   LY_ASSERT_SMOB (Font_metric, font, 1);
   LY_ASSERT_TYPE (scm_is_string, name, 2);
 
@@ -75,7 +75,7 @@ LY_DEFINE (ly_font_index_to_charcode, "ly:font-index-to-charcode",
            " to the font encodings @code{fetaMusic} and @code{fetaBraces},"
            " respectively.")
 {
-  Font_metric *fm = unsmob_metrics (font);
+  Font_metric *fm = Font_metric::unsmob (font);
   LY_ASSERT_SMOB (Font_metric, font, 1);
   LY_ASSERT_TYPE (scm_is_integer, index, 2);
 
@@ -93,7 +93,7 @@ LY_DEFINE (ly_font_glyph_name_to_charcode, "ly:font-glyph-name-to-charcode",
            " to the font encodings @code{fetaMusic} and @code{fetaBraces},"
            " respectively.")
 {
-  Font_metric *fm = unsmob_metrics (font);
+  Font_metric *fm = Font_metric::unsmob (font);
   LY_ASSERT_SMOB (Font_metric, font, 1);
   LY_ASSERT_TYPE (scm_is_string, name, 2);
 
@@ -111,7 +111,7 @@ LY_DEFINE (ly_font_file_name, "ly:font-file-name",
 {
   LY_ASSERT_SMOB (Font_metric, font, 1);
 
-  Font_metric *fm = unsmob_metrics (font);
+  Font_metric *fm = Font_metric::unsmob (font);
   SCM name = fm->font_file_name ();
 
   return name;
@@ -124,7 +124,7 @@ LY_DEFINE (ly_font_name, "ly:font-name",
            " return the corresponding name.")
 {
   LY_ASSERT_SMOB (Font_metric, font, 1);
-  Font_metric *fm = unsmob_metrics (font);
+  Font_metric *fm = Font_metric::unsmob (font);
 
   return ly_string2scm (fm->font_name ());
 }
@@ -136,7 +136,7 @@ LY_DEFINE (ly_font_magnification, "ly:font-magnification", 1, 0, 0,
 {
   LY_ASSERT_SMOB (Font_metric, font, 1);
 
-  Font_metric *fm = unsmob_metrics (font);
+  Font_metric *fm = Font_metric::unsmob (font);
   return scm_cdr (fm->description_);
 }
 
@@ -147,7 +147,7 @@ LY_DEFINE (ly_font_design_size, "ly:font-design-size", 1, 0, 0,
 {
   LY_ASSERT_SMOB (Font_metric, font, 1);
 
-  Font_metric *fm = unsmob_metrics (font);
+  Font_metric *fm = Font_metric::unsmob (font);
   return scm_from_double (fm->design_size ());
 }
 

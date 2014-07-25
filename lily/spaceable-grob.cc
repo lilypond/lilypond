@@ -85,9 +85,9 @@ Spaceable_grob::get_spring (Grob *this_col, Grob *next_col)
        s = scm_cdr (s))
     {
       if (scm_is_pair (scm_car (s))
-          && unsmob_grob (scm_cdar (s)) == next_col
-          && unsmob_spring (scm_caar (s)))
-        spring = unsmob_spring (scm_caar (s));
+          && Grob::unsmob (scm_cdar (s)) == next_col
+          && Spring::unsmob (scm_caar (s)))
+        spring = Spring::unsmob (scm_caar (s));
     }
 
   if (!spring)

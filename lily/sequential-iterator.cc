@@ -135,7 +135,7 @@ Sequential_iterator::construct_children ()
   if (scm_is_pair (cursor_))
     {
       Music *m = unsmob_music (scm_car (cursor_));
-      iter_ = unsmob_iterator (get_iterator (m));
+      iter_ = Music_iterator::unsmob (get_iterator (m));
     }
 
   while (iter_ && !iter_->ok ())
@@ -195,7 +195,7 @@ Sequential_iterator::next_element (bool)
 
   iter_->quit ();
   if (scm_is_pair (cursor_))
-    iter_ = unsmob_iterator (get_iterator (unsmob_music (scm_car (cursor_))));
+    iter_ = Music_iterator::unsmob (get_iterator (unsmob_music (scm_car (cursor_))));
   else
     iter_ = 0;
 }

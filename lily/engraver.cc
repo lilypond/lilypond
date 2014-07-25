@@ -56,7 +56,7 @@ Engraver::make_grob_info (Grob *e, SCM cause)
       cause = m->to_event ()->unprotect ();
     }
   if (e->get_property ("cause") == SCM_EOL
-      && (unsmob_stream_event (cause) || unsmob_grob (cause)))
+      && (unsmob_stream_event (cause) || Grob::unsmob (cause)))
     e->set_property ("cause", cause);
 
   return Grob_info (this, e);
@@ -173,13 +173,13 @@ Engraver::internal_make_spanner (SCM x, SCM cause, char const *name,
 Engraver *
 unsmob_engraver (SCM eng)
 {
-  return dynamic_cast<Engraver *> (unsmob_translator (eng));
+  return dynamic_cast<Engraver *> (Translator::unsmob (eng));
 }
 
 bool
 ly_is_grob_cause (SCM obj)
 {
-  return unsmob_grob (obj) || unsmob_stream_event (obj) || (obj == SCM_EOL);
+  return Grob::unsmob (obj) || unsmob_stream_event (obj) || (obj == SCM_EOL);
 }
 
 #include "translator.icc"

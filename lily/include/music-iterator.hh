@@ -113,6 +113,5 @@ bool is_child_context (Context *me, Context *child);
     return c->unprotect ();                                             \
   }
 
-DECLARE_UNSMOB (Music_iterator, iterator);
 
 #endif // MUSIC_ITERATOR_HH

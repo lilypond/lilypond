@@ -87,7 +87,7 @@ Stream_event::make_transposable ()
       SCM prop = scm_car (entry);
       SCM val = scm_cdr (entry);
 
-      if ((unsmob_pitch (val)
+      if ((Pitch::unsmob (val)
            || (prop == ly_symbol2scm ("element") && unsmob_music (val))
            || (prop == ly_symbol2scm ("elements") && scm_is_pair (val))
            || (prop == ly_symbol2scm ("pitch-alist") && scm_is_pair (val)))
@@ -118,5 +118,5 @@ Stream_event::undump (SCM data)
 Stream_event *
 unsmob_stream_event (SCM m)
 {
-  return dynamic_cast<Stream_event *> (unsmob_prob (m));
+  return dynamic_cast<Stream_event *> (Prob::unsmob (m));
 }

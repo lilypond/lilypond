@@ -53,7 +53,7 @@ Bend_engraver::finalize ()
   // We shouldn't end a spanner on the last musical column of a piece because then
   // it would extend past the last breakable column of the piece.
   if (last_fall_)
-    last_fall_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
+    last_fall_->set_bound (RIGHT, Grob::unsmob (get_property ("currentCommandColumn")));
 }
 
 void
@@ -61,7 +61,7 @@ Bend_engraver::stop_fall ()
 {
   bool bar = scm_is_string (get_property ("whichBar"));
 
-  fall_->set_bound (RIGHT, unsmob_grob (bar
+  fall_->set_bound (RIGHT, Grob::unsmob (bar
                                         ? get_property ("currentCommandColumn")
                                         : get_property ("currentMusicalColumn")));
   last_fall_ = fall_;

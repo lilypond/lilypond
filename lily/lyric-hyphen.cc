@@ -115,7 +115,7 @@ MAKE_SCHEME_CALLBACK (Lyric_hyphen, set_spacing_rods, 1);
 SCM
 Lyric_hyphen::set_spacing_rods (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   Rod r;
   Spanner *sp = dynamic_cast<Spanner *> (me);

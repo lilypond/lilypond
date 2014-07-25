@@ -49,7 +49,7 @@ MAKE_SCHEME_CALLBACK (Fingering_column, calc_positioning_done, 1);
 SCM
 Fingering_column::calc_positioning_done (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   if (!me->is_live ())
     return SCM_BOOL_T;
 

@@ -74,6 +74,5 @@ protected:
                    long *first_performance_number);
 };
 
-DECLARE_UNSMOB (Paper_book, paper_book)
 
 #endif /* PAPER_BOOK_HH */

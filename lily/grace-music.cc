@@ -30,7 +30,7 @@ MAKE_SCHEME_CALLBACK (Grace_music, start_callback, 1);
 SCM
 Grace_music::start_callback (SCM m)
 {
-  Moment *l = unsmob_moment (Music_wrapper::length_callback (m));
+  Moment *l = Moment::unsmob (Music_wrapper::length_callback (m));
   Moment gl;
   gl.grace_part_ = -(l->main_part_ + l->grace_part_);
   return gl.smobbed_copy ();

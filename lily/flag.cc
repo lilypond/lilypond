@@ -47,8 +47,8 @@ MAKE_SCHEME_CALLBACK (Flag, width, 1);
 SCM
 Flag::width (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
-  Stencil *sten = unsmob_stencil (me->get_property ("stencil"));
+  Grob *me = Grob::unsmob (smob);
+  Stencil *sten = Stencil::unsmob (me->get_property ("stencil"));
   if (!sten)
     return ly_interval2scm (Interval (0.0, 0.0));
 
@@ -67,7 +67,7 @@ MAKE_SCHEME_CALLBACK (Flag, glyph_name, 1);
 SCM
 Flag::glyph_name (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Grob *stem = me->get_parent (X_AXIS);
 
   Direction d = get_grob_direction (stem);
@@ -113,7 +113,7 @@ MAKE_SCHEME_CALLBACK (Flag, print, 1);
 SCM
 Flag::print (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Grob *stem = me->get_parent (X_AXIS);
 
   Direction d = get_grob_direction (stem);
@@ -179,7 +179,7 @@ Flag::calc_y_offset (SCM smob)
 SCM
 Flag::internal_calc_y_offset (SCM smob, bool pure)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Grob *stem = me->get_parent (X_AXIS);
   Direction d = get_grob_direction (stem);
 
@@ -199,7 +199,7 @@ MAKE_SCHEME_CALLBACK (Flag, calc_x_offset, 1);
 SCM
 Flag::calc_x_offset (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Grob *stem = me->get_parent (X_AXIS);
   return scm_from_double (stem->extent (stem, X_AXIS)[RIGHT]);
 }

@@ -53,7 +53,7 @@ Music_wrapper_iterator::construct_children ()
   Music *my_music = get_music ();
   Music *child = unsmob_music (my_music->get_property ("element"));
   child_iter_ = (child)
-                ? unsmob_iterator (get_iterator (child))
+                ? Music_iterator::unsmob (get_iterator (child))
                 : 0;
 }
 

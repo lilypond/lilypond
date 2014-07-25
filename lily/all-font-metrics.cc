@@ -103,7 +103,7 @@ All_font_metrics::find_pango_font (PangoFontDescription const *description,
                                    scm_from_double (1.0));
     }
   g_free (pango_fn);
-  return dynamic_cast<Pango_font *> (unsmob_metrics (val));
+  return dynamic_cast<Pango_font *> (Font_metric::unsmob (val));
 }
 
 #endif
@@ -128,15 +128,15 @@ All_font_metrics::find_otf (const string &name)
 
       debug_output ("]", false);
 
-      unsmob_metrics (val)->file_name_ = file_name;
+      Font_metric::unsmob (val)->file_name_ = file_name;
       SCM name_string = ly_string2scm (name);
-      unsmob_metrics (val)->description_ = scm_cons (name_string,
+      Font_metric::unsmob (val)->description_ = scm_cons (name_string,
                                                      scm_from_double (1.0));
       otf_dict_->set (sname, val);
-      unsmob_metrics (val)->unprotect ();
+      Font_metric::unsmob (val)->unprotect ();
     }
 
-  return dynamic_cast<Open_type_font *> (unsmob_metrics (val));
+  return dynamic_cast<Open_type_font *> (Font_metric::unsmob (val));
 }
 
 Font_metric *

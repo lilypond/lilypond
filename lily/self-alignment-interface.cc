@@ -29,21 +29,21 @@ MAKE_SCHEME_CALLBACK (Self_alignment_interface, y_aligned_on_self, 1);
 SCM
 Self_alignment_interface::y_aligned_on_self (SCM element)
 {
-  return aligned_on_self (unsmob_grob (element), Y_AXIS, false, 0, 0);
+  return aligned_on_self (Grob::unsmob (element), Y_AXIS, false, 0, 0);
 }
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, x_aligned_on_self, 1);
 SCM
 Self_alignment_interface::x_aligned_on_self (SCM element)
 {
-  return aligned_on_self (unsmob_grob (element), X_AXIS, false, 0, 0);
+  return aligned_on_self (Grob::unsmob (element), X_AXIS, false, 0, 0);
 }
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, pure_y_aligned_on_self, 3);
 SCM
 Self_alignment_interface::pure_y_aligned_on_self (SCM smob, SCM start, SCM end)
 {
-  return aligned_on_self (unsmob_grob (smob), Y_AXIS, true, robust_scm2int (start, 0), robust_scm2int (end, INT_MAX));
+  return aligned_on_self (Grob::unsmob (smob), Y_AXIS, true, robust_scm2int (start, 0), robust_scm2int (end, INT_MAX));
 }
 
 SCM
@@ -76,28 +76,28 @@ MAKE_SCHEME_CALLBACK (Self_alignment_interface, centered_on_x_parent, 1);
 SCM
 Self_alignment_interface::centered_on_x_parent (SCM smob)
 {
-  return centered_on_object (unsmob_grob (smob)->get_parent (X_AXIS), X_AXIS);
+  return centered_on_object (Grob::unsmob (smob)->get_parent (X_AXIS), X_AXIS);
 }
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, centered_on_y_parent, 1);
 SCM
 Self_alignment_interface::centered_on_y_parent (SCM smob)
 {
-  return centered_on_object (unsmob_grob (smob)->get_parent (Y_AXIS), Y_AXIS);
+  return centered_on_object (Grob::unsmob (smob)->get_parent (Y_AXIS), Y_AXIS);
 }
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, aligned_on_x_parent, 1);
 SCM
 Self_alignment_interface::aligned_on_x_parent (SCM smob)
 {
-  return aligned_on_parent (unsmob_grob (smob), X_AXIS);
+  return aligned_on_parent (Grob::unsmob (smob), X_AXIS);
 }
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, aligned_on_y_parent, 1);
 SCM
 Self_alignment_interface::aligned_on_y_parent (SCM smob)
 {
-  return aligned_on_parent (unsmob_grob (smob), Y_AXIS);
+  return aligned_on_parent (Grob::unsmob (smob), Y_AXIS);
 }
 
 SCM

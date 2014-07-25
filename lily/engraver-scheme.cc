@@ -50,7 +50,7 @@ LY_DEFINE (ly_engraver_announce_end_grob, "ly:engraver-announce-end-grob",
   LY_ASSERT_TYPE (ly_is_grob_cause, cause, 3);
 
   unsmob_engraver (engraver)->
-  announce_end_grob (unsmob_grob (grob), cause);
+  announce_end_grob (Grob::unsmob (grob), cause);
 
   return SCM_UNSPECIFIED;
 }

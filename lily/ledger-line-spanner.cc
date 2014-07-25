@@ -66,7 +66,7 @@ MAKE_SCHEME_CALLBACK (Ledger_line_spanner, set_spacing_rods, 1);
 SCM
 Ledger_line_spanner::set_spacing_rods (SCM smob)
 {
-  Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
+  Spanner *me = dynamic_cast<Spanner *> (Grob::unsmob (smob));
 
   // find size of note heads.
   Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
@@ -164,7 +164,7 @@ MAKE_SCHEME_CALLBACK (Ledger_line_spanner, print, 1);
 SCM
 Ledger_line_spanner::print (SCM smob)
 {
-  Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
+  Spanner *me = dynamic_cast<Spanner *> (Grob::unsmob (smob));
 
   extract_grob_set (me, "note-heads", heads);
 
@@ -193,7 +193,7 @@ Ledger_line_spanner::print (SCM smob)
       Axis a = Axis (i);
       common[a] = common_refpoint_of_array (heads, me, a);
       for (vsize i = heads.size (); i--;)
-        if (Grob *g = unsmob_grob (me->get_object ("accidental-grob")))
+        if (Grob *g = Grob::unsmob (me->get_object ("accidental-grob")))
           common[a] = common[a]->common_refpoint (g, a);
     }
 
@@ -287,7 +287,7 @@ Ledger_line_spanner::print (SCM smob)
               Interval x_extent = ledger_size;
 
               if (i == 0)
-                if (Grob *g = unsmob_grob (h->get_object ("accidental-grob")))
+                if (Grob *g = Grob::unsmob (h->get_object ("accidental-grob")))
                   {
                     Interval accidental_size = g->extent (common[X_AXIS], X_AXIS);
                     Real d

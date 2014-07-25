@@ -63,8 +63,8 @@ Listener::print_smob (SCM, SCM p, scm_print_state *)
 SCM
 Listener::equal_p (SCM a, SCM b)
 {
-  Listener *l1 = unsmob_listener (a);
-  Listener *l2 = unsmob_listener (b);
+  Listener *l1 = Listener::unsmob (a);
+  Listener *l2 = Listener::unsmob (b);
 
   return (*l1 == *l2) ? SCM_BOOL_T : SCM_BOOL_F;
 }

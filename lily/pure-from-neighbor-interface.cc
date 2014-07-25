@@ -31,7 +31,7 @@ MAKE_SCHEME_CALLBACK (Pure_from_neighbor_interface, calc_pure_relevant_grobs, 1)
 SCM
 Pure_from_neighbor_interface::calc_pure_relevant_grobs (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   extract_grob_set ((me->original () && me->original ()->is_live ()
                      ? me->original ()
                      : me),
@@ -45,7 +45,7 @@ Pure_from_neighbor_interface::calc_pure_relevant_grobs (SCM smob)
   if (Grob_array::unsmob (neighbors_scm))
     {
       vector<Grob *> &arr
-        = unsmob_grob_array (neighbors_scm)->array_reference ();
+        = Grob_array::unsmob (neighbors_scm)->array_reference ();
       arr = new_elts;
     }
 

@@ -66,7 +66,7 @@ Rest_engraver::process_music ()
   if (rest_event_ && !rest_)
     {
       rest_ = make_item ("Rest", rest_event_->self_scm ());
-      Pitch *p = unsmob_pitch (rest_event_->get_property ("pitch"));
+      Pitch *p = Pitch::unsmob (rest_event_->get_property ("pitch"));
 
       if (p)
         {

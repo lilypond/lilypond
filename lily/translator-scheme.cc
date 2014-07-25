@@ -28,7 +28,7 @@ LY_DEFINE (ly_translator_name, "ly:translator-name",
            "  The name is a symbol.")
 {
   LY_ASSERT_SMOB (Translator, trans, 1);
-  Translator *tr = unsmob_translator (trans);
+  Translator *tr = Translator::unsmob (trans);
   char const *nm = tr->class_name ();
   return ly_symbol2scm (nm);
 }
@@ -38,7 +38,7 @@ LY_DEFINE (ly_translator_description, "ly:translator-description",
            "Return an alist of properties of translator @var{me}.")
 {
   LY_ASSERT_SMOB (Translator, me, 1);
-  Translator *tr = unsmob_translator (me);
+  Translator *tr = Translator::unsmob (me);
   return tr->translator_description ();
 }
 
@@ -47,7 +47,7 @@ LY_DEFINE (ly_translator_context, "ly:translator-context",
            "Return the context of the translator object @var{trans}.")
 {
   LY_ASSERT_SMOB (Translator, trans, 1);
-  Translator *tr = unsmob_translator (trans);
+  Translator *tr = Translator::unsmob (trans);
 
   Context *c = tr->context ();
   return c ? c->self_scm () : SCM_BOOL_F;

@@ -49,6 +49,5 @@ protected:
   DECLARE_SMOBS (Dispatcher);
 };
 
-DECLARE_UNSMOB (Dispatcher, dispatcher);
 
 #endif // DISPATCHER_HH

@@ -121,11 +121,11 @@ Beam_collision_engraver::finalize ()
             {
               // Do not consider note heads attached to the beam.
               if (Stem::has_interface (covered_grob))
-                if (unsmob_grob (covered_grob->get_object ("beam")))
+                if (Grob::unsmob (covered_grob->get_object ("beam")))
                   continue;
 
-              if (Grob *stem = unsmob_grob (covered_grob->get_object ("stem")))
-                if (Grob *beam = unsmob_grob (stem->get_object ("beam")))
+              if (Grob *stem = Grob::unsmob (covered_grob->get_object ("stem")))
+                if (Grob *beam = Grob::unsmob (stem->get_object ("beam")))
                   if (beam == beam_grob)
                     continue;
 

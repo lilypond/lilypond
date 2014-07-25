@@ -98,7 +98,6 @@ extern Rational DOUBLE_SHARP_ALTERATION;
 
 SCM ly_pitch_diff (SCM pitch, SCM root);
 SCM ly_pitch_transpose (SCM p, SCM delta);
-DECLARE_UNSMOB (Pitch, pitch);
 
 INSTANTIATE_COMPARE (Pitch, Pitch::compare);
 

@@ -41,7 +41,7 @@ MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Rest_collision, force_shift_callback_rest, 2,
 SCM
 Rest_collision::force_shift_callback_rest (SCM rest, SCM offset)
 {
-  Grob *rest_grob = unsmob_grob (rest);
+  Grob *rest_grob = Grob::unsmob (rest);
   Grob *parent = rest_grob->get_parent (X_AXIS);
 
   /*
@@ -53,7 +53,7 @@ Rest_collision::force_shift_callback_rest (SCM rest, SCM offset)
 
   if (Note_column::has_interface (parent) && Note_column::has_rests (parent))
     {
-      Grob *collision = unsmob_grob (parent->get_object ("rest-collision"));
+      Grob *collision = Grob::unsmob (parent->get_object ("rest-collision"));
 
       if (collision)
         (void) collision->get_property ("positioning-done");
@@ -69,7 +69,7 @@ Rest_collision::add_column (Grob *me, Grob *p)
 
   p->set_object ("rest-collision", me->self_scm ());
 
-  Grob *rest = unsmob_grob (p->get_object ("rest"));
+  Grob *rest = Grob::unsmob (p->get_object ("rest"));
   if (rest)
     {
       chain_offset_callback (rest,
@@ -96,7 +96,7 @@ MAKE_SCHEME_CALLBACK (Rest_collision, calc_positioning_done, 1);
 SCM
 Rest_collision::calc_positioning_done (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   me->set_property ("positioning-done", SCM_BOOL_T);
 
@@ -108,7 +108,7 @@ Rest_collision::calc_positioning_done (SCM smob)
   for (vsize i = 0; i < elts.size (); i++)
     {
       Grob *e = elts[i];
-      if (unsmob_grob (e->get_object ("rest")))
+      if (Grob::unsmob (e->get_object ("rest")))
         rests.push_back (e);
       else
         notes.push_back (e);

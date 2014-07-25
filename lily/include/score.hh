@@ -53,7 +53,6 @@ public:
   void set_header (SCM module);
 };
 
-DECLARE_UNSMOB (Score, score);
 
 SCM ly_run_translator (SCM, SCM);
 

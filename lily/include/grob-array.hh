@@ -49,7 +49,6 @@ public:
   static SCM make_array ();
 };
 
-DECLARE_UNSMOB (Grob_array, grob_array);
 
 vector<Grob *> const &ly_scm2link_array (SCM x);
 SCM grob_list_to_grob_array (SCM lst);

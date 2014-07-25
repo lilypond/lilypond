@@ -26,7 +26,7 @@ LY_DEFINE (ly_get_context_mods, "ly:get-context-mods",
            "Returns the list of context modifications stored in"
            " @var{contextmod}.")
 {
-  Context_mod *tr = unsmob_context_mod (contextmod);
+  Context_mod *tr = Context_mod::unsmob (contextmod);
   LY_ASSERT_SMOB (Context_mod, contextmod, 1);
   return tr->get_mods ();
 }
@@ -36,7 +36,7 @@ LY_DEFINE (ly_add_context_mod, "ly:add-context-mod",
            "Adds the given context @var{modification} to the list"
            " @var{contextmods} of context modifications.")
 {
-  Context_mod *ctxmod = unsmob_context_mod (contextmods);
+  Context_mod *ctxmod = Context_mod::unsmob (contextmods);
   LY_ASSERT_SMOB (Context_mod, contextmods, 1);
   ctxmod->add_context_mod (modification);
   return SCM_UNSPECIFIED;
@@ -63,8 +63,8 @@ LY_DEFINE (ly_context_mod_apply_x, "ly:context-mod-apply!",
   LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_SMOB (Context_mod, mod, 2);
 
-  apply_property_operations (unsmob_context (context),
-                             unsmob_context_mod (mod)->get_mods ());
+  apply_property_operations (Context::unsmob (context),
+                             Context_mod::unsmob (mod)->get_mods ());
   scm_remember_upto_here_1 (context);
   return SCM_UNSPECIFIED;
 }

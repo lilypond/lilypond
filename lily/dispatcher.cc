@@ -149,7 +149,7 @@ Dispatcher::dispatch (SCM sev)
           assert (lists[0].prio > last_priority);
           last_priority = lists[0].prio;
 
-          Listener *l = unsmob_listener (scm_cdar (lists[0].list));
+          Listener *l = Listener::unsmob (scm_cdar (lists[0].list));
           l->listen (ev->self_scm ());
 #if 0
           sent = true;
@@ -235,7 +235,7 @@ Dispatcher::internal_add_listener (Listener l, SCM ev_class, int priority)
       for (SCM disp = dispatchers_; scm_is_pair (disp); disp = scm_cdr (disp))
         {
           int priority = scm_to_int (scm_cdar (disp));
-          Dispatcher *d = unsmob_dispatcher (scm_caar (disp));
+          Dispatcher *d = Dispatcher::unsmob (scm_caar (disp));
           d->internal_add_listener (GET_LISTENER (dispatch), ev_class, priority);
         }
       listen_classes_ = scm_cons (ev_class, listen_classes_);
@@ -262,7 +262,7 @@ Dispatcher::remove_listener (Listener l, SCM ev_class)
   SCM dummy = scm_cons (SCM_EOL, list);
   SCM e = dummy;
   while (scm_is_pair (scm_cdr (e)))
-    if (*unsmob_listener (scm_cdadr (e)) == l && first)
+    if (*Listener::unsmob (scm_cdadr (e)) == l && first)
       {
         scm_set_cdr_x (e, scm_cddr (e));
         first = false;
@@ -280,7 +280,7 @@ Dispatcher::remove_listener (Listener l, SCM ev_class)
       /* Unregister with all dispatchers. */
       for (SCM disp = dispatchers_; scm_is_pair (disp); disp = scm_cdr (disp))
         {
-          Dispatcher *d = unsmob_dispatcher (scm_caar (disp));
+          Dispatcher *d = Dispatcher::unsmob (scm_caar (disp));
           d->remove_listener (GET_LISTENER (dispatch), ev_class);
         }
       listen_classes_ = scm_delq_x (ev_class, listen_classes_);

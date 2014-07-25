@@ -95,7 +95,7 @@ get_voice_to_lyrics (Context *lyrics)
   bool searchForVoice = to_boolean (lyrics->get_property ("searchForVoice"));
 
   SCM avc = lyrics->get_property ("associatedVoiceContext");
-  if (Context *c = unsmob_context (avc))
+  if (Context *c = Context::unsmob (avc))
     return c;
 
   SCM voice_name = lyrics->get_property ("associatedVoice");
@@ -141,8 +141,8 @@ get_current_note_head (Context *voice, bool include_grace_notes)
   for (SCM s = voice->get_property ("busyGrobs");
        scm_is_pair (s); s = scm_cdr (s))
     {
-      Grob *g = unsmob_grob (scm_cdar (s));;
-      Moment *end_mom = unsmob_moment (scm_caar (s));
+      Grob *g = Grob::unsmob (scm_cdar (s));;
+      Moment *end_mom = Moment::unsmob (scm_caar (s));
       if (!end_mom || !g)
         {
           programming_error ("busyGrobs invalid");

@@ -61,10 +61,10 @@ void
 Tempo_performer::process_music ()
 {
   SCM w = get_property ("tempoWholesPerMinute");
-  if (unsmob_moment (w)
+  if (Moment::unsmob (w)
       && !ly_is_equal (w, last_tempo_))
     {
-      Rational r = unsmob_moment (w)->main_part_;
+      Rational r = Moment::unsmob (w)->main_part_;
       r *= Rational (4, 1);
 
       audio_ = new Audio_tempo (r.to_int ());

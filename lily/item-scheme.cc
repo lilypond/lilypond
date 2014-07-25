@@ -24,7 +24,7 @@ LY_DEFINE (ly_item_p, "ly:item?",
            1, 0, 0, (SCM g),
            "Is @var{g} an @code{Item} object?")
 {
-  Grob *me = unsmob_grob (g);
+  Grob *me = Grob::unsmob (g);
   bool b = dynamic_cast<Item *> (me);
   return ly_bool2scm (b);
 }

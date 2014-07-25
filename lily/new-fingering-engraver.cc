@@ -132,7 +132,7 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
       else if (ev->in_event_class ("harmonic-event"))
         {
           inf.grob ()->set_property ("style", ly_symbol2scm ("harmonic"));
-          Grob *d = unsmob_grob (inf.grob ()->get_object ("dot"));
+          Grob *d = Grob::unsmob (inf.grob ()->get_object ("dot"));
           if (d && !to_boolean (get_property ("harmonicDots")))
             d->suicide ();
         }
@@ -197,7 +197,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
     if (stem_)
       {
         Side_position_interface::add_support (scripts->at (i).script_, stem_);
-        if (Grob *flag = unsmob_grob (stem_->get_object ("flag")))
+        if (Grob *flag = Grob::unsmob (stem_->get_object ("flag")))
           Side_position_interface::add_support (scripts->at (i).script_, flag);
       }
 
@@ -281,12 +281,12 @@ New_fingering_engraver::position_scripts (SCM orientations,
       f->set_parent (ft.head_, Y_AXIS);
       f->set_property ("avoid-slur", ly_symbol2scm ("inside"));
       if (hordir == LEFT
-          && unsmob_grob (ft.head_->get_object ("accidental-grob")))
+          && Grob::unsmob (ft.head_->get_object ("accidental-grob")))
         Side_position_interface::add_support (f,
-                                              unsmob_grob (ft.head_->get_object ("accidental-grob")));
-      else if (unsmob_grob (ft.head_->get_object ("dot")))
+                                              Grob::unsmob (ft.head_->get_object ("accidental-grob")));
+      else if (Grob::unsmob (ft.head_->get_object ("dot")))
         Side_position_interface::add_support (f,
-                                              unsmob_grob (ft.head_->get_object ("dot")));
+                                              Grob::unsmob (ft.head_->get_object ("dot")));
 
       Self_alignment_interface::set_aligned_on_parent (f, Y_AXIS);
       Side_position_interface::set_axis (f, X_AXIS);

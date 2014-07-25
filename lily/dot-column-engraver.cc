@@ -51,7 +51,7 @@ Dot_column_engraver::stop_translation_timestep ()
 void
 Dot_column_engraver::acknowledge_rhythmic_head (Grob_info info)
 {
-  Grob *d = unsmob_grob (info.grob ()->get_object ("dot"));
+  Grob *d = Grob::unsmob (info.grob ()->get_object ("dot"));
   if (d)
     {
       if (!dotcol_)

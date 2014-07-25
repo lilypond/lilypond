@@ -45,13 +45,13 @@ MAKE_SCHEME_CALLBACK (Dot_column, calc_positioning_done, 1);
 SCM
 Dot_column::calc_positioning_done (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   /*
     Trigger note collision resolution first, since that may kill off
     dots when merging.
   */
-  if (Grob *collision = unsmob_grob (me->get_object ("note-collision")))
+  if (Grob *collision = Grob::unsmob (me->get_object ("note-collision")))
     (void) collision->get_property ("positioning-done");
 
   me->set_property ("positioning-done", SCM_BOOL_T);
@@ -68,7 +68,7 @@ Dot_column::calc_positioning_done (SCM smob)
       Grob *n = dots[i]->get_parent (Y_AXIS);
       commonx = n->common_refpoint (commonx, X_AXIS);
 
-      if (Grob *stem = unsmob_grob (n->get_object ("stem")))
+      if (Grob *stem = Grob::unsmob (n->get_object ("stem")))
         {
           commonx = stem->common_refpoint (commonx, X_AXIS);
 
@@ -125,7 +125,7 @@ Dot_column::calc_positioning_done (SCM smob)
       Box b (s->extent (commonx, X_AXIS), y);
       boxes.push_back (b);
 
-      if (Grob *stem = unsmob_grob (s->get_object ("stem")))
+      if (Grob *stem = Grob::unsmob (s->get_object ("stem")))
         stems.insert (stem);
     }
 
@@ -159,7 +159,7 @@ Dot_column::calc_positioning_done (SCM smob)
       // Sort dots by stem, then check for dots above the limit for each stem
       vector <vector <Grob *> > dots_each_stem (parent_stems.size ());
       for (vsize i = 0; i < dots.size (); i++)
-        if (Grob *stem = unsmob_grob (dots[i]->get_parent (Y_AXIS)
+        if (Grob *stem = Grob::unsmob (dots[i]->get_parent (Y_AXIS)
                                       -> get_object ("stem")))
           for (vsize j = 0; j < parent_stems.size (); j++)
             if (stem == parent_stems[j])
@@ -241,7 +241,7 @@ Dot_column::calc_positioning_done (SCM smob)
 void
 Dot_column::add_head (Grob *me, Grob *head)
 {
-  Grob *d = unsmob_grob (head->get_object ("dot"));
+  Grob *d = Grob::unsmob (head->get_object ("dot"));
   if (d)
     {
       Side_position_interface::add_support (me, head);

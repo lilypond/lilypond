@@ -58,7 +58,7 @@ Performer_group::acknowledge_audio_elements ()
 
       for (SCM p = get_simple_trans_list (); scm_is_pair (p); p = scm_cdr (p))
         {
-          Translator *t = unsmob_translator (scm_car (p));
+          Translator *t = Translator::unsmob (scm_car (p));
           Performer *eng = dynamic_cast<Performer *> (t);
           if (eng && eng != info.origin_trans_)
             eng->acknowledge_audio_element (info);
@@ -71,7 +71,7 @@ performer_each (SCM list, Performer_method method)
 {
   for (SCM p = list; scm_is_pair (p); p = scm_cdr (p))
     {
-      Performer *e = dynamic_cast<Performer *> (unsmob_translator (scm_car (p)));
+      Performer *e = dynamic_cast<Performer *> (Translator::unsmob (scm_car (p)));
       if (e)
         (e->*method) ();
     }
@@ -83,7 +83,7 @@ Performer_group::do_announces ()
   for (SCM s = context ()->children_contexts ();
        scm_is_pair (s); s = scm_cdr (s))
     {
-      Context *c = unsmob_context (scm_car (s));
+      Context *c = Context::unsmob (scm_car (s));
       Performer_group *group
         = dynamic_cast<Performer_group *> (c->implementation ());
       if (group)

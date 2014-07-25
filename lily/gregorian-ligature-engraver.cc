@@ -215,7 +215,7 @@ provide_context_info (vector<Grob_info> const &primitives)
       Grob *primitive = primitives[i].grob ();
       Stream_event *event_cause = primitives[i].event_cause ();
       int context_info = 0;
-      int pitch = unsmob_pitch (event_cause->get_property ("pitch"))->steps ();
+      int pitch = Pitch::unsmob (event_cause->get_property ("pitch"))->steps ();
       int prefix_set = scm_to_int (primitive->get_property ("prefix-set"));
 
       if (prefix_set & PES_OR_FLEXA)

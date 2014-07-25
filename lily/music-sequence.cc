@@ -86,7 +86,7 @@ SCM
 Music_sequence::event_chord_length_callback (SCM m)
 {
   Music *me = unsmob_music (m);
-  Duration *d = unsmob_duration (me->get_property ("duration"));
+  Duration *d = Duration::unsmob (me->get_property ("duration"));
   // Preset duration is used in chord repetitions.
   if (d)
     {
@@ -176,7 +176,7 @@ SCM
 Music_sequence::simultaneous_relative_callback (SCM music, SCM pitch)
 {
   Music *me = unsmob_music (music);
-  Pitch p = *unsmob_pitch (pitch);
+  Pitch p = *Pitch::unsmob (pitch);
   return music_list_to_relative (me->get_property ("elements"),
                                  p, false).smobbed_copy ();
 }
@@ -186,7 +186,7 @@ SCM
 Music_sequence::event_chord_relative_callback (SCM music, SCM pitch)
 {
   Music *me = unsmob_music (music);
-  Pitch p = *unsmob_pitch (pitch);
+  Pitch p = *Pitch::unsmob (pitch);
   return music_list_to_relative (me->get_property ("elements"),
                                  p, true).smobbed_copy ();
 }

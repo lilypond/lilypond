@@ -141,7 +141,7 @@ Paper_book::output_aux (SCM output_channel,
   if (scm_is_pair (bookparts_))
     {
       for (SCM p = bookparts_; scm_is_pair (p); p = scm_cdr (p))
-        if (Paper_book *pbookpart = unsmob_paper_book (scm_car (p)))
+        if (Paper_book *pbookpart = Paper_book::unsmob (scm_car (p)))
           {
             bool is_last_part = (is_last && !scm_is_pair (scm_cdr (p)));
             page_nb += pbookpart->output_aux (output_channel,
@@ -298,8 +298,8 @@ Paper_book::book_title ()
                       paper_->self_scm (),
                       scopes);
 
-  if (unsmob_stencil (tit))
-    title = *unsmob_stencil (tit);
+  if (Stencil::unsmob (tit))
+    title = *Stencil::unsmob (tit);
 
   if (!title.is_empty ())
     title.align_to (Y_AXIS, UP);
@@ -327,8 +327,8 @@ Paper_book::score_title (SCM header)
                       paper_->self_scm (),
                       scopes);
 
-  if (unsmob_stencil (tit))
-    title = *unsmob_stencil (tit);
+  if (Stencil::unsmob (tit))
+    title = *Stencil::unsmob (tit);
 
   if (!title.is_empty ())
     title.align_to (Y_AXIS, UP);
@@ -339,7 +339,7 @@ Paper_book::score_title (SCM header)
 void
 set_page_permission (SCM sys, SCM symbol, SCM permission)
 {
-  if (Paper_score *ps = dynamic_cast<Paper_score *> (unsmob_music_output (sys)))
+  if (Paper_score *ps = dynamic_cast<Paper_score *> (Music_output::unsmob (sys)))
     {
       vector<Grob *> cols = ps->get_columns ();
       if (cols.size ())
@@ -349,7 +349,7 @@ set_page_permission (SCM sys, SCM symbol, SCM permission)
           col->find_prebroken_piece (LEFT)->set_property (symbol, permission);
         }
     }
-  else if (Prob *pb = unsmob_prob (sys))
+  else if (Prob *pb = Prob::unsmob (sys))
     pb->set_property (symbol, permission);
 }
 
@@ -383,7 +383,7 @@ set_system_penalty (SCM sys, SCM header)
 void
 set_labels (SCM sys, SCM labels)
 {
-  if (Paper_score *ps = dynamic_cast<Paper_score *> (unsmob_music_output (sys)))
+  if (Paper_score *ps = dynamic_cast<Paper_score *> (Music_output::unsmob (sys)))
     {
       vector<Grob *> cols = ps->get_columns ();
       if (cols.size ())
@@ -399,7 +399,7 @@ set_labels (SCM sys, SCM labels)
                                                              labels)));
         }
     }
-  else if (Prob *pb = unsmob_prob (sys))
+  else if (Prob *pb = Prob::unsmob (sys))
     pb->set_property ("labels",
                       scm_append_x (scm_list_2 (pb->get_property ("labels"),
                                                 labels)));
@@ -460,7 +460,7 @@ Paper_book::get_system_specs ()
           if (header_0_ == SCM_EOL)
             header_0_ = header;
         }
-      else if (Page_marker *page_marker = unsmob_page_marker (scm_car (s)))
+      else if (Page_marker *page_marker = Page_marker::unsmob (scm_car (s)))
         {
           /* page markers are used to set page breaking/turning permission,
              or to place bookmarking labels */
@@ -478,7 +478,7 @@ Paper_book::get_system_specs ()
               labels = scm_cons (page_marker->label (), labels);
             }
         }
-      else if (Music_output *mop = unsmob_music_output (scm_car (s)))
+      else if (Music_output *mop = Music_output::unsmob (scm_car (s)))
         {
           if (Paper_score *pscore = dynamic_cast<Paper_score *> (mop))
             {
@@ -487,10 +487,10 @@ Paper_book::get_system_specs ()
               if (scm_is_pair (system_specs))
                 set_system_penalty (scm_car (system_specs), header);
 
-              if (unsmob_prob (title))
+              if (Prob::unsmob (title))
                 {
                   system_specs = scm_cons (title, system_specs);
-                  unsmob_prob (title)->unprotect ();
+                  Prob::unsmob (title)->unprotect ();
                 }
 
               header = SCM_EOL;
@@ -528,9 +528,9 @@ Paper_book::get_system_specs ()
               ps->set_property ("last-markup-line", SCM_BOOL_F);
               ps->set_property ("first-markup-line", SCM_BOOL_F);
 
-              paper_system_set_stencil (ps, *unsmob_stencil (t));
+              paper_system_set_stencil (ps, *Stencil::unsmob (t));
 
-              SCM footnotes = get_footnotes (unsmob_stencil (t)->expr ());
+              SCM footnotes = get_footnotes (Stencil::unsmob (t)->expr ());
               ps->set_property ("footnotes", footnotes);
               ps->set_property ("is-title", SCM_BOOL_T);
               if (list == texts)
@@ -581,7 +581,7 @@ Paper_book::systems ()
     {
       SCM system_list = SCM_EOL;
       for (SCM p = bookparts_; scm_is_pair (p); p = scm_cdr (p))
-        if (Paper_book *pbookpart = unsmob_paper_book (scm_car (p)))
+        if (Paper_book *pbookpart = Paper_book::unsmob (scm_car (p)))
           system_list = scm_cons (pbookpart->systems (), system_list);
       systems_ = scm_append (scm_reverse_x (system_list, SCM_EOL));
     }
@@ -591,7 +591,7 @@ Paper_book::systems ()
       for (SCM s = specs; scm_is_pair (s); s = scm_cdr (s))
         {
           if (Paper_score * pscore
-              = dynamic_cast<Paper_score *> (unsmob_music_output (scm_car (s))))
+              = dynamic_cast<Paper_score *> (Music_output::unsmob (scm_car (s))))
             {
               SCM system_list
                 = scm_vector_to_list (pscore->get_paper_systems ());
@@ -610,7 +610,7 @@ Paper_book::systems ()
       Prob *last = 0;
       for (SCM s = systems_; scm_is_pair (s); s = scm_cdr (s))
         {
-          Prob *ps = unsmob_prob (scm_car (s));
+          Prob *ps = Prob::unsmob (scm_car (s));
           ps->set_property ("number", scm_from_int (++i));
 
           if (last
@@ -622,7 +622,7 @@ Paper_book::systems ()
           if (scm_is_pair (scm_cdr (s)))
             {
               SCM perm = ps->get_property ("page-break-permission");
-              Prob *next = unsmob_prob (scm_cadr (s));
+              Prob *next = Prob::unsmob (scm_cadr (s));
               if (perm == SCM_EOL)
                 next->set_property ("penalty", scm_from_int (10001));
               else if (perm == ly_symbol2scm ("force"))
@@ -644,7 +644,7 @@ Paper_book::pages ()
   if (scm_is_pair (bookparts_))
     {
       for (SCM p = bookparts_; scm_is_pair (p); p = scm_cdr (p))
-        if (Paper_book *pbookpart = unsmob_paper_book (scm_car (p)))
+        if (Paper_book *pbookpart = Paper_book::unsmob (scm_car (p)))
           pages_ = scm_cons (pbookpart->pages (), pages_);
       pages_ = scm_append (scm_reverse_x (pages_, SCM_EOL));
     }
@@ -671,7 +671,7 @@ Paper_book::pages ()
           systems_ = SCM_EOL;
           for (SCM p = pages_; scm_is_pair (p); p = scm_cdr (p))
             {
-              Prob *page = unsmob_prob (scm_car (p));
+              Prob *page = Prob::unsmob (scm_car (p));
               SCM systems = page->get_property ("lines");
               systems_ = scm_cons (systems, systems_);
             }

@@ -129,7 +129,7 @@ Grob::get_stencil () const
     return 0;
 
   SCM stil = get_property ("stencil");
-  return unsmob_stencil (stil);
+  return Stencil::unsmob (stil);
 }
 
 Stencil
@@ -138,7 +138,7 @@ Grob::get_print_stencil () const
   SCM stil = get_property ("stencil");
 
   Stencil retval;
-  if (Stencil *m = unsmob_stencil (stil))
+  if (Stencil *m = Stencil::unsmob (stil))
     {
       retval = *m;
       bool transparent = to_boolean (get_property ("transparent"));
@@ -182,7 +182,7 @@ Grob::get_print_stencil () const
           /* Call the scheme procedure stencil-whiteout in scm/stencils.scm */
           /* to add a round-filled-box stencil to the stencil list */
           retval
-            = *unsmob_stencil (scm_call_1 (ly_lily_module_constant ("stencil-whiteout"),
+            = *Stencil::unsmob (scm_call_1 (ly_lily_module_constant ("stencil-whiteout"),
                                            retval.smobbed_copy ()));
         }
 
@@ -727,7 +727,7 @@ void
 Grob::programming_error (const string &s) const
 {
   SCM cause = self_scm ();
-  while (Grob *g = unsmob_grob (cause))
+  while (Grob *g = Grob::unsmob (cause))
     cause = g->get_property ("cause");
 
   /* ES TODO: cause can't be Music*/
@@ -743,7 +743,7 @@ void
 Grob::warning (const string &s) const
 {
   SCM cause = self_scm ();
-  while (Grob *g = unsmob_grob (cause))
+  while (Grob *g = Grob::unsmob (cause))
     cause = g->get_property ("cause");
 
   /* ES TODO: cause can't be Music*/
@@ -854,7 +854,7 @@ MAKE_SCHEME_CALLBACK (Grob, stencil_height, 1);
 SCM
 Grob::stencil_height (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   return grob_stencil_extent (me, Y_AXIS);
 }
 
@@ -862,8 +862,8 @@ MAKE_SCHEME_CALLBACK (Grob, pure_stencil_height, 3);
 SCM
 Grob::pure_stencil_height (SCM smob, SCM /* beg */, SCM /* end */)
 {
-  Grob *me = unsmob_grob (smob);
-  if (unsmob_stencil (me->get_property_data ("stencil")))
+  Grob *me = Grob::unsmob (smob);
+  if (Stencil::unsmob (me->get_property_data ("stencil")))
     return grob_stencil_extent (me, Y_AXIS);
 
   return ly_interval2scm (Interval ());
@@ -874,7 +874,7 @@ MAKE_SCHEME_CALLBACK (Grob, y_parent_positioning, 1);
 SCM
 Grob::y_parent_positioning (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Grob *par = me->get_parent (Y_AXIS);
   if (par)
     (void) par->get_property ("positioning-done");
@@ -886,7 +886,7 @@ MAKE_SCHEME_CALLBACK (Grob, x_parent_positioning, 1);
 SCM
 Grob::x_parent_positioning (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   Grob *par = me->get_parent (X_AXIS);
   if (par)
@@ -899,7 +899,7 @@ MAKE_SCHEME_CALLBACK (Grob, stencil_width, 1);
 SCM
 Grob::stencil_width (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   return grob_stencil_extent (me, X_AXIS);
 }
 
@@ -907,7 +907,7 @@ Grob *
 common_refpoint_of_list (SCM elist, Grob *common, Axis a)
 {
   for (; scm_is_pair (elist); elist = scm_cdr (elist))
-    if (Grob *s = unsmob_grob (scm_car (elist)))
+    if (Grob *s = Grob::unsmob (scm_car (elist)))
       {
         if (common)
           common = common->common_refpoint (s, a);

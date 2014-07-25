@@ -66,7 +66,6 @@ protected:
   Font_metric ();
 };
 
-DECLARE_UNSMOB (Font_metric, metrics);
 
 char *pfb2pfa (Byte const *pfb, int length);
 

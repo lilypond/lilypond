@@ -194,7 +194,7 @@ Moment
 Quote_iterator::vector_moment (int idx) const
 {
   SCM entry = scm_c_vector_ref (event_vector_, idx);
-  return *unsmob_moment (scm_caar (entry));
+  return *Moment::unsmob (scm_caar (entry));
 }
 
 void
@@ -235,15 +235,15 @@ Quote_iterator::process (Moment m)
   if (quote_ok ())
     {
       SCM entry = scm_c_vector_ref (event_vector_, event_idx_);
-      Pitch *quote_pitch = unsmob_pitch (scm_cdar (entry));
+      Pitch *quote_pitch = Pitch::unsmob (scm_cdar (entry));
 
       /*
         The pitch that sounds when written central C is played.
       */
       Pitch temp_pitch;
-      Pitch *me_pitch = unsmob_pitch (get_music ()->get_property ("quoted-transposition"));
+      Pitch *me_pitch = Pitch::unsmob (get_music ()->get_property ("quoted-transposition"));
       if (!me_pitch)
-        me_pitch = unsmob_pitch (get_outlet ()->get_property ("instrumentTransposition"));
+        me_pitch = Pitch::unsmob (get_outlet ()->get_property ("instrumentTransposition"));
       else
         {
           // We are not going to win a beauty contest with this one,

@@ -60,7 +60,7 @@ Tie::head (Grob *me, Direction d)
       Direction hd = to_dir (me->get_property ("head-direction"));
 
       return (hd == d)
-             ? unsmob_grob (me->get_object ("note-head"))
+             ? Grob::unsmob (me->get_object ("note-head"))
              : 0;
     }
 
@@ -157,12 +157,12 @@ MAKE_SCHEME_CALLBACK (Tie, calc_direction, 1);
 SCM
 Tie::calc_direction (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Grob *yparent = me->get_parent (Y_AXIS);
   if ((Tie_column::has_interface (yparent)
        || Semi_tie_column::has_interface (yparent))
-      && unsmob_grob_array (yparent->get_object ("ties"))
-      //      && unsmob_grob_array (yparent->get_object ("ties"))->size () > 1
+      && Grob_array::unsmob (yparent->get_object ("ties"))
+      //      && Grob_array::unsmob (yparent->get_object ("ties"))->size () > 1
      )
     {
       /* trigger positioning. */
@@ -218,12 +218,12 @@ MAKE_SCHEME_CALLBACK (Tie, calc_control_points, 1);
 SCM
 Tie::calc_control_points (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   Grob *yparent = me->get_parent (Y_AXIS);
   if ((Tie_column::has_interface (yparent)
        || Semi_tie_column::has_interface (yparent))
-      && unsmob_grob_array (yparent->get_object ("ties")))
+      && Grob_array::unsmob (yparent->get_object ("ties")))
     {
       extract_grob_set (yparent, "ties", ties);
       if (me->original () && ties.size () == 1
@@ -250,7 +250,7 @@ MAKE_SCHEME_CALLBACK (Tie, print, 1);
 SCM
 Tie::print (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   SCM cp = me->get_property ("control-points");
 
@@ -281,7 +281,7 @@ Tie::print (SCM smob)
       string str;
       SCM properties = Font_interface::text_font_alist_chain (me);
 
-      Stencil tm = *unsmob_stencil (Text_interface::interpret_markup
+      Stencil tm = *Stencil::unsmob (Text_interface::interpret_markup
                                     (me->layout ()->self_scm (), properties,
                                      annotation));
       tm.translate (Offset (b.control_[3][X_AXIS] + 0.5,

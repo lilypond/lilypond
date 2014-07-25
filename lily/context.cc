@@ -44,7 +44,7 @@ Context::check_removal ()
 {
   for (SCM p = context_list_; scm_is_pair (p); p = scm_cdr (p))
     {
-      Context *ctx = unsmob_context (scm_car (p));
+      Context *ctx = Context::unsmob (scm_car (p));
 
       ctx->check_removal ();
       if (ctx->is_removable ())
@@ -176,7 +176,7 @@ Context::find_create_context (SCM n, const string &id, SCM operations)
       SCM score_name = default_child_context_name ();
       SCM score_def = find_context_def (get_output_def (), score_name);
 
-      if (Context_def *cd = unsmob_context_def (score_def))
+      if (Context_def *cd = Context_def::unsmob (score_def))
         {
           if (cd->is_alias (n))
             return create_context (cd, id, operations);
@@ -328,7 +328,7 @@ Context::create_context_from_event (SCM sev)
 
   new_context->unprotect ();
 
-  Context_def *td = unsmob_context_def (new_context->definition_);
+  Context_def *td = Context_def::unsmob (new_context->definition_);
 
   /* This cannot move before add_context (), because \override
      operations require that we are in the hierarchy.  */
@@ -353,7 +353,7 @@ Context::path_to_acceptable_context (SCM name) const
         accepts = scm_cons (elt, accepts);
       }
 
-  return unsmob_context_def (definition_)->path_to_acceptable_context (name,
+  return Context_def::unsmob (definition_)->path_to_acceptable_context (name,
          get_output_def (),
          scm_reverse_x (accepts, SCM_EOL));
 
@@ -383,7 +383,7 @@ Context::create_context (Context_def *cdef,
 
   assert (infant_event_);
   SCM infant_scm = infant_event_->get_property ("context");
-  Context *infant = unsmob_context (infant_scm);
+  Context *infant = Context::unsmob (infant_scm);
 
   if (!infant || infant->get_parent_context () != this)
     {
@@ -419,11 +419,11 @@ Context::get_default_interpreter (const string &context_id)
       SCM st = find_context_def (get_output_def (), nm);
 
       string name = ly_symbol2string (nm);
-      Context_def *t = unsmob_context_def (st);
+      Context_def *t = Context_def::unsmob (st);
       if (!t)
         {
           warning (_f ("cannot find or create: `%s'", name.c_str ()));
-          t = unsmob_context_def (this->definition_);
+          t = Context_def::unsmob (this->definition_);
         }
       if (scm_is_symbol (t->get_default_child (SCM_EOL)))
         {
@@ -549,7 +549,7 @@ void
 Context::change_parent (SCM sev)
 {
   Stream_event *ev = unsmob_stream_event (sev);
-  Context *to = unsmob_context (ev->get_property ("context"));
+  Context *to = Context::unsmob (ev->get_property ("context"));
 
   disconnect_from_parent ();
   to->add_context (this);
@@ -594,7 +594,7 @@ find_context_below (Context *where,
   for (SCM s = where->children_contexts ();
        !found && scm_is_pair (s); s = scm_cdr (s))
     {
-      Context *tr = unsmob_context (scm_car (s));
+      Context *tr = Context::unsmob (scm_car (s));
 
       found = find_context_below (tr, type, id);
     }
@@ -611,7 +611,7 @@ Context::properties_as_alist () const
 SCM
 Context::context_name_symbol () const
 {
-  Context_def *td = unsmob_context_def (definition_);
+  Context_def *td = Context_def::unsmob (definition_);
   return td->get_context_name ();
 }
 
@@ -657,7 +657,7 @@ Context::print_smob (SCM s, SCM port, scm_print_state *)
 
   scm_puts ("#<", port);
   scm_puts (sc->class_name (), port);
-  if (Context_def *d = unsmob_context_def (sc->definition_))
+  if (Context_def *d = Context_def::unsmob (sc->definition_))
     {
       scm_puts (" ", port);
       scm_display (d->get_context_name (), port);
@@ -733,8 +733,8 @@ measure_length (Context const *context)
 {
   SCM l = context->get_property ("measureLength");
   Rational length (1);
-  if (unsmob_moment (l))
-    length = unsmob_moment (l)->main_part_;
+  if (Moment::unsmob (l))
+    length = Moment::unsmob (l)->main_part_;
   return length;
 }
 
@@ -744,9 +744,9 @@ measure_position (Context const *context)
   SCM sm = context->get_property ("measurePosition");
 
   Moment m = 0;
-  if (unsmob_moment (sm))
+  if (Moment::unsmob (sm))
     {
-      m = *unsmob_moment (sm);
+      m = *Moment::unsmob (sm);
 
       if (m.main_part_ < Rational (0))
         {
@@ -794,7 +794,7 @@ set_context_property_on_children (Context *trans, SCM sym, SCM val)
   trans->set_property (sym, ly_deep_copy (val));
   for (SCM p = trans->children_contexts (); scm_is_pair (p); p = scm_cdr (p))
     {
-      Context *trg = unsmob_context (scm_car (p));
+      Context *trg = Context::unsmob (scm_car (p));
       set_context_property_on_children (trg, sym, ly_deep_copy (val));
     }
 }

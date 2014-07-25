@@ -364,7 +364,7 @@ MAKE_SCHEME_CALLBACK (Spanner, set_spacing_rods, 1);
 SCM
 Spanner::set_spacing_rods (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   SCM num_length = me->get_property ("minimum-length");
   if (scm_is_number (num_length))
     {
@@ -468,7 +468,7 @@ Spanner::calc_normalized_endpoints (SCM smob)
 Spanner *
 unsmob_spanner (SCM s)
 {
-  return dynamic_cast<Spanner *> (unsmob_grob (s));
+  return dynamic_cast<Spanner *> (Grob::unsmob (s));
 }
 
 MAKE_SCHEME_CALLBACK (Spanner, bounds_width, 1);

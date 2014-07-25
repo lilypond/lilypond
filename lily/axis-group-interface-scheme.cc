@@ -27,7 +27,7 @@ LY_DEFINE (ly_relative_group_extent, "ly:relative-group-extent",
            "Determine the extent of @var{elements} relative to @var{common} in the"
            " @var{axis} direction.")
 {
-  Grob_array *ga = unsmob_grob_array (elements);
+  Grob_array *ga = Grob_array::unsmob (elements);
 
   SCM_ASSERT_TYPE (ga || scm_is_pair (elements), elements, SCM_ARG1, __FUNCTION__, "list or Grob_array");
   LY_ASSERT_SMOB (Grob, common, 2);
@@ -37,11 +37,11 @@ LY_DEFINE (ly_relative_group_extent, "ly:relative-group-extent",
   if (!ga)
     {
       for (SCM s = elements; scm_is_pair (s); s = scm_cdr (s))
-        elts.push_back (unsmob_grob (scm_car (s)));
+        elts.push_back (Grob::unsmob (scm_car (s)));
     }
 
   Interval ext = Axis_group_interface::relative_group_extent (ga ? ga->array () : elts,
-                                                              unsmob_grob (common),
+                                                              Grob::unsmob (common),
                                                               (Axis) scm_to_int (axis));
   return ly_interval2scm (ext);
 }
@@ -56,7 +56,7 @@ LY_DEFINE (ly_generic_bound_extent, "ly:generic-bound-extent",
   LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_SMOB (Grob, common, 2);
 
-  Interval ext = Axis_group_interface::generic_bound_extent (unsmob_grob (grob), unsmob_grob (common), X_AXIS);
+  Interval ext = Axis_group_interface::generic_bound_extent (Grob::unsmob (grob), Grob::unsmob (common), X_AXIS);
   return ly_interval2scm (ext);
 }
 
@@ -67,6 +67,6 @@ LY_DEFINE (ly_axis_group_interface__add_element, "ly:axis-group-interface::add-e
 {
   LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_SMOB (Grob, grob_element, 2);
-  Axis_group_interface::add_element (unsmob_grob (grob), unsmob_grob (grob_element));
+  Axis_group_interface::add_element (Grob::unsmob (grob), Grob::unsmob (grob_element));
   return SCM_UNSPECIFIED;
 }

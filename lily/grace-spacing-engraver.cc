@@ -54,7 +54,7 @@ Grace_spacing_engraver::process_music ()
 
   if (grace_spacing_ && (now.grace_part_ || last_moment_.grace_part_))
     {
-      Grob *column = unsmob_grob (get_property ("currentMusicalColumn"));
+      Grob *column = Grob::unsmob (get_property ("currentMusicalColumn"));
       Pointer_group_interface::add_grob (grace_spacing_,
                                          ly_symbol2scm ("columns"),
                                          column);

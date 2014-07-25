@@ -73,7 +73,7 @@ Percent_repeat_engraver::start_translation_timestep ()
   if (now_mom ().main_part_ != command_moment_.main_part_)
     {
       first_command_column_
-        = unsmob_grob (get_property ("currentCommandColumn"));
+        = Grob::unsmob (get_property ("currentCommandColumn"));
       command_moment_ = now_mom ();
     }
 

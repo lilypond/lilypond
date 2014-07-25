@@ -89,7 +89,6 @@ public:
 
   DECLARE_SIMPLE_SMOBS (Listener);
 };
-DECLARE_UNSMOB (Listener, listener);
 
 #define IMPLEMENT_LISTENER(cl, method)                  \
 void                                                    \

@@ -62,6 +62,5 @@ protected:
                           Output_def *layout);
 };
 
-DECLARE_UNSMOB (Book, book);
 
 #endif /* BOOK_HH */

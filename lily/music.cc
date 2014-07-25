@@ -91,13 +91,13 @@ Moment
 Music::get_length () const
 {
   SCM lst = get_property ("length");
-  if (unsmob_moment (lst))
-    return *unsmob_moment (lst);
+  if (Moment::unsmob (lst))
+    return *Moment::unsmob (lst);
 
   if (ly_is_procedure (length_callback_))
     {
       SCM res = scm_call_1 (length_callback_, self_scm ());
-      return *unsmob_moment (res);
+      return *Moment::unsmob (res);
     }
 
   return Moment (0);
@@ -110,7 +110,7 @@ Music::start_mom () const
   if (ly_is_procedure (lst))
     {
       SCM res = scm_call_1 (lst, self_scm ());
-      return *unsmob_moment (res);
+      return *Moment::unsmob (res);
     }
 
   Moment m;
@@ -134,7 +134,7 @@ Pitch
 Music::generic_to_relative_octave (Pitch last)
 {
   SCM elt = get_property ("element");
-  Pitch *old_pit = unsmob_pitch (get_property ("pitch"));
+  Pitch *old_pit = Pitch::unsmob (get_property ("pitch"));
   if (old_pit)
     {
       Pitch new_pit = *old_pit;
@@ -172,7 +172,7 @@ Music::to_relative_octave (Pitch last)
   SCM callback = get_property ("to-relative-callback");
   if (ly_is_procedure (callback))
     {
-      Pitch *p = unsmob_pitch (scm_call_2 (callback, self_scm (),
+      Pitch *p = Pitch::unsmob (scm_call_2 (callback, self_scm (),
                                            last.smobbed_copy ()));
       return *p;
     }
@@ -189,7 +189,7 @@ Music::compress (Moment factor)
     m->compress (factor);
 
   compress_music_list (get_property ("elements"), factor);
-  Duration *d = unsmob_duration (get_property ("duration"));
+  Duration *d = Duration::unsmob (get_property ("duration"));
   if (d)
     set_property ("duration",
                   d->compressed (factor.main_part_).smobbed_copy ());
@@ -208,7 +208,7 @@ transpose_mutable (SCM alist, Pitch delta)
       SCM val = scm_cdr (entry);
       SCM new_val = val;
 
-      if (Pitch *p = unsmob_pitch (val))
+      if (Pitch *p = Pitch::unsmob (val))
         {
           Pitch transposed = p->transposed (delta);
 
@@ -323,7 +323,7 @@ SCM
 Music::duration_length_callback (SCM m)
 {
   Music *me = unsmob_music (m);
-  Duration *d = unsmob_duration (me->get_property ("duration"));
+  Duration *d = Duration::unsmob (me->get_property ("duration"));
 
   Moment mom;
   if (d)
@@ -334,5 +334,5 @@ Music::duration_length_callback (SCM m)
 Music *
 unsmob_music (SCM m)
 {
-  return dynamic_cast<Music *> (unsmob_prob (m));
+  return dynamic_cast<Music *> (Prob::unsmob (m));
 }

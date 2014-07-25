@@ -91,7 +91,7 @@ Music_iterator::get_static_get_iterator (Music *m)
   if (ly_is_procedure (ctor))
     {
       iter = scm_call_0 (ctor);
-      p = unsmob_iterator (iter);
+      p = Music_iterator::unsmob (iter);
     }
   else
     {
@@ -152,7 +152,7 @@ SCM
 Music_iterator::get_iterator (Music *m) const
 {
   SCM ip = get_static_get_iterator (m);
-  Music_iterator *p = unsmob_iterator (ip);
+  Music_iterator *p = Music_iterator::unsmob (ip);
 
   p->init_context (m, get_outlet ());
 
@@ -223,7 +223,7 @@ Music_iterator::print_smob (SCM sm, SCM port, scm_print_state *)
 {
   char s[1000];
 
-  Music_iterator *iter = unsmob_iterator (sm);
+  Music_iterator *iter = Music_iterator::unsmob (sm);
   sprintf (s, "#<%s>", iter->class_name ());
   scm_puts (s, port);
   return 1;

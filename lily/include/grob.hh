@@ -172,7 +172,6 @@ public:
 };
 
 /* smob utilities */
-DECLARE_UNSMOB (Grob, grob);
 Spanner *unsmob_spanner (SCM);
 Item *unsmob_item (SCM);
 

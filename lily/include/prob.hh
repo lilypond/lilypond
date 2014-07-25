@@ -57,7 +57,6 @@ public:
   void internal_set_property (SCM sym, SCM val);
 };
 
-DECLARE_UNSMOB (Prob, prob);
 
 SCM ly_prob_set_property_x (SCM system, SCM sym, SCM value);
 SCM ly_prob_property (SCM prob, SCM sym, SCM val);

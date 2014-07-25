@@ -52,7 +52,7 @@ LY_DEFINE (ly_spanner_broken_into, "ly:spanner-broken-into",
            "Return broken-into list for @var{spanner}.")
 {
   LY_ASSERT_TYPE (unsmob_spanner, spanner, 1);
-  Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (spanner));
+  Spanner *me = dynamic_cast<Spanner *> (Grob::unsmob (spanner));
 
   SCM s = SCM_EOL;
   for (vsize i = me->broken_intos_.size (); i--;)
@@ -64,7 +64,7 @@ LY_DEFINE (ly_spanner_p, "ly:spanner?",
            1, 0, 0, (SCM g),
            "Is @var{g} a spanner object?")
 {
-  Grob *me = unsmob_grob (g);
+  Grob *me = Grob::unsmob (g);
   bool b = dynamic_cast<Spanner *> (me);
 
   return ly_bool2scm (b);

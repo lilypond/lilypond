@@ -151,7 +151,7 @@ LY_DEFINE (ly_music_transpose, "ly:music-transpose",
   LY_ASSERT_SMOB (Pitch, p, 2);
 
   Music *sc = unsmob_music (m);
-  Pitch *sp = unsmob_pitch (p);
+  Pitch *sp = Pitch::unsmob (p);
 
   sc->transpose (*sp);
   // SCM_UNDEFINED ?
@@ -166,10 +166,10 @@ LY_DEFINE (ly_music_compress, "ly:music-compress",
            "Compress music object@tie{}@var{m} by moment @var{factor}.")
 {
   LY_ASSERT_TYPE (unsmob_music, m, 1);
-  LY_ASSERT_TYPE (unsmob_moment, factor, 2);
+  LY_ASSERT_TYPE (Moment::unsmob, factor, 2);
 
   Music *sc = unsmob_music (m);
-  sc->compress (*unsmob_moment (factor));
+  sc->compress (*Moment::unsmob (factor));
   return sc->self_scm ();
 }
 
@@ -179,9 +179,9 @@ LY_DEFINE (ly_make_music_relative_x, "ly:make-music-relative!",
            " return final pitch.")
 {
   LY_ASSERT_TYPE (unsmob_music, music, 1);
-  LY_ASSERT_TYPE (unsmob_pitch, pitch, 2);
+  LY_ASSERT_TYPE (Pitch::unsmob, pitch, 2);
 
-  Pitch start = *unsmob_pitch (pitch);
+  Pitch start = *Pitch::unsmob (pitch);
   Music *m = unsmob_music (music);
   Pitch last = m->to_relative_octave (start);
 
@@ -196,7 +196,7 @@ LY_DEFINE (ly_music_duration_length, "ly:music-duration-length", 1, 0, 0,
   LY_ASSERT_TYPE (unsmob_music, mus, 1);
   Music *m = unsmob_music (mus);
 
-  Duration *d = unsmob_duration (m->get_property ("duration"));
+  Duration *d = Duration::unsmob (m->get_property ("duration"));
   Moment len;
 
   if (d)
@@ -215,9 +215,9 @@ LY_DEFINE (ly_music_duration_compress, "ly:music-duration-compress", 2, 0, 0,
   LY_ASSERT_SMOB (Moment, fact, 2);
 
   Music *m = unsmob_music (mus);
-  Moment *f = unsmob_moment (fact);
+  Moment *f = Moment::unsmob (fact);
 
-  Duration *d = unsmob_duration (m->get_property ("duration"));
+  Duration *d = Duration::unsmob (m->get_property ("duration"));
   if (d)
     m->set_property ("duration", d->compressed (f->main_part_).smobbed_copy ());
   return SCM_UNSPECIFIED;
@@ -236,7 +236,7 @@ LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
            " pitch @var{pit}.")
 {
   SCM newlist = SCM_EOL;
-  Pitch *p = unsmob_pitch (pit);
+  Pitch *p = Pitch::unsmob (pit);
 
   for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
     {

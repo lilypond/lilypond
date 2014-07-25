@@ -35,8 +35,8 @@ MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_slope, 1)
 SCM
 Stem_tremolo::calc_slope (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
-  Grob *stem = unsmob_grob (me->get_object ("stem"));
+  Grob *me = Grob::unsmob (smob);
+  Grob *stem = Grob::unsmob (me->get_object ("stem"));
   Spanner *beam = Stem::get_beam (stem);
 
   if (beam)
@@ -66,8 +66,8 @@ MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_width, 1)
 SCM
 Stem_tremolo::calc_width (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
-  Grob *stem = unsmob_grob (me->get_object ("stem"));
+  Grob *me = Grob::unsmob (smob);
+  Grob *stem = Grob::unsmob (me->get_object ("stem"));
   Direction dir = get_grob_direction (me);
   bool beam = Stem::get_beam (stem);
   bool flag = Stem::duration_log (stem) >= 3 && !beam;
@@ -80,8 +80,8 @@ MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_style, 1)
 SCM
 Stem_tremolo::calc_style (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
-  Grob *stem = unsmob_grob (me->get_object ("stem"));
+  Grob *me = Grob::unsmob (smob);
+  Grob *stem = Grob::unsmob (me->get_object ("stem"));
   Direction dir = get_grob_direction (me);
   bool beam = Stem::get_beam (stem);
   bool flag = Stem::duration_log (stem) >= 3 && !beam;
@@ -92,7 +92,7 @@ Stem_tremolo::calc_style (SCM smob)
 Real
 Stem_tremolo::get_beam_translation (Grob *me)
 {
-  Grob *stem = unsmob_grob (me->get_object ("stem"));
+  Grob *stem = Grob::unsmob (me->get_object ("stem"));
   Spanner *beam = Stem::get_beam (stem);
 
   return (beam && beam->is_live ())
@@ -182,7 +182,7 @@ MAKE_SCHEME_CALLBACK (Stem_tremolo, width, 1);
 SCM
 Stem_tremolo::width (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   /*
     Cannot use the real slope, since it looks at the Beam.
@@ -201,7 +201,7 @@ Stem_tremolo::vertical_length (Grob *me)
 Stencil
 Stem_tremolo::untranslated_stencil (Grob *me, Real slope)
 {
-  Grob *stem = unsmob_grob (me->get_object ("stem"));
+  Grob *stem = Grob::unsmob (me->get_object ("stem"));
   if (!stem)
     {
       programming_error ("no stem for stem-tremolo");
@@ -222,7 +222,7 @@ MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_y_offset, 1);
 SCM
 Stem_tremolo::calc_y_offset (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   return scm_from_double (y_offset (me, false));
 }
 
@@ -232,7 +232,7 @@ Stem_tremolo::pure_calc_y_offset (SCM smob,
                                   SCM, /* start */
                                   SCM /* end */)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   return scm_from_double (y_offset (me, true));
 }
 
@@ -331,7 +331,7 @@ MAKE_SCHEME_CALLBACK (Stem_tremolo, print, 1);
 SCM
 Stem_tremolo::print (SCM grob)
 {
-  Grob *me = unsmob_grob (grob);
+  Grob *me = Grob::unsmob (grob);
 
   Stencil s = untranslated_stencil (me, robust_scm2double (me->get_property ("slope"), 0.25));
   return s.smobbed_copy ();

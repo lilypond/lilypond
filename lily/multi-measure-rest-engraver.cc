@@ -166,7 +166,7 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
      -- jneem */
   if (bar_seen_)
     {
-      Grob *cmc = unsmob_grob (get_property ("currentCommandColumn"));
+      Grob *cmc = Grob::unsmob (get_property ("currentCommandColumn"));
 
       /* Ugh, this is a kludge - need this for multi-measure-rest-grace.ly  */
       last_command_item_ = dynamic_cast<Item *> (cmc);

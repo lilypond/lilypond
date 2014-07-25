@@ -151,7 +151,7 @@ compute_delta_pitches (vector<Grob_info> const &primitives)
       primitive = dynamic_cast<Item *> (primitives[i].grob ());
       Stream_event *cause = primitives[i].event_cause ();
       int pitch
-        = unsmob_pitch (cause->get_property ("pitch"))->steps ();
+        = Pitch::unsmob (cause->get_property ("pitch"))->steps ();
       if (prev_primitive)
         {
           delta_pitch = pitch - prev_pitch;
