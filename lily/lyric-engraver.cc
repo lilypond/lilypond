@@ -181,10 +181,6 @@ Lyric_engraver::stop_translation_timestep ()
                 text_->set_property ("self-alignment-X",
                                      get_property ("lyricMelismaAlignment"));
             }
-          else
-            text_->warning (_ ("Aligning lyric syllables to notes was requested,"
-                               " but there are no notes in the specified context."
-                               " Syllable will be attached to a PaperColumn instead."));
         }
 
       last_text_ = text_;
