@@ -18,7 +18,8 @@ OUT_TELY_FILES += ${TELY_FILES:%.tely=$(outdir)/%.pdf}
 
 XML_FILES = $(filter-out include%,$(call src-wildcard,*.xml))
 
-local-test: $(OUT_FILES)
+local-test:
+	make LYS_OUTPUT_DIR=$(top-build-dir)/out/lybook-testdb $(OUT_FILES)
 
 $(outdir)/collated-files.list: $(OUT_FILES)
 	echo $(sort $(filter-out %.xml,$(OUT_FILES))) > $@
