@@ -160,13 +160,6 @@
   SCM self_scm () const { return self_scm_; }   \
   private:
 
-#define DECLARE_UNSMOB(CL, name)                \
-  inline CL *                                   \
-  unsmob_ ## name (SCM s)                       \
-  {                                             \
-    return CL::unsmob (s);                      \
-  }
-
 void protect_smob (SCM smob, SCM *prot_cons);
 void unprotect_smob (SCM smob, SCM *prot_cons);
 
