@@ -99,7 +99,6 @@
   \defaultchild "Voice"
   \accepts "Voice"
   \accepts "CueVoice"
-  \accepts "NullVoice"
 
   \description "Handles clefs, bar lines, keys, accidentals.  It can contain
 @code{Voice} contexts."
@@ -578,6 +577,7 @@ automatically when an output definition (a @code{\\score} or
   \accepts "ChoirStaff"
   \accepts "PianoStaff"
   \accepts "Devnull"
+  \accepts "NullVoice"
   \accepts "NoteNames"
   \accepts "FiguredBass"
 
@@ -783,15 +783,6 @@ context."
   \omit NoteHead
   \override NoteHead.X-extent = #(lambda (g)
     (ly:stencil-extent (ly:note-head::print g) X))
-  % rhythmic-head-interface needs Rhythmic_column_engraver, which we don't want
-  \override NoteHead.meta.interfaces = #(delete 'rhythmic-head-interface
-           (assoc-get 'interfaces
-                      (assoc-get 'meta
-                                 (assoc-get 'NoteHead
-                                            all-grob-descriptions))))
-  %% keep noteheads inside the staff
-  \consists "Pitch_squash_engraver"
-  squashedPosition = 0
 
   \omit Accidental
   \omit AccidentalCautionary

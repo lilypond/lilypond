@@ -66,10 +66,7 @@ Rest_collision_engraver::process_acknowledged ()
         {
           Grob *column = g->get_parent (X_AXIS);
           if (!column)
-            {
-              g->warning (_ ("rhythmic head is not part of a rhythmic column"));
               continue;
-            }
 
           // Only include rests that start now. Include notes that started any time.
           Paper_column *paper_column = dynamic_cast<Item *> (column)->get_column ();

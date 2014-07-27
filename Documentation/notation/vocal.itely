@@ -1682,13 +1682,6 @@ words = \lyricmode { la __ la __ }
 >>
 @end lilypond
 
-The @code{NullVoice} context must be placed within a @code{Staff}
-context and contain notes that are already being displayed in that staff and that are also in the same octave.  Otherwise the
-@code{NullVoice} may interact with the printed voices in
-unexpected ways.  For example, arbitrary notes in the
-@code{NullVoice} may cause accidentals to appear (or disappear) on
-the staff.
-
 This method also can be used with the @code{\partcombine}
 function, which does not allow lyrics on its own:
 
@@ -1724,22 +1717,12 @@ aligner = \relative { b'8( c d c) d( d d d) }
 words = \lyricmode { la __ la __ }
 
 \new ChoirStaff <<
-  \new Staff <<
-    \soprano
-    \new NullVoice = "aligner" \aligner
-  >>
+  \new Staff \soprano
+  \new NullVoice = "aligner" \aligner
   \new Lyrics \lyricsto "aligner" \words
   \new Staff \partcombine \altoOne \altoTwo
 >>
 @end lilypond
-
-However, note that in the second half of the measure above, the
-notes in the @code{NullVoice} context reflect the rhythm of the
-lower staff, but they do not deviate from the single pitch being
-displayed in the staff to which the @code{NullVoice} belongs.
-While not actually required in this particular example, it is a
-good idea in general to enter the notes in this way.
-
 
 @node Stanzas
 @subsection Stanzas

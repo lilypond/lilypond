@@ -26,7 +26,6 @@
   \name Staff
   \accepts Voice
   \accepts CueVoice
-  \accepts NullVoice
   \defaultchild Voice
 
   \consists "Staff_performer"
@@ -188,9 +187,6 @@
   \alias Staff
   \alias Voice
   %% needed for melismata
-  %% TODO: at least the tie performer likely does not work without the
-  %% Note_performer, but I don't know how to shut note output off in
-  %% MIDI.
   \consists "Tie_performer"
   \consists "Beam_performer"
   \consists "Slur_performer"
@@ -225,6 +221,7 @@
   \accepts TabStaff
   \accepts StaffGroup
   \accepts Devnull
+  \accepts NullVoice
   \accepts ChoirStaff
   \accepts RhythmicStaff
   \accepts ChordNames
