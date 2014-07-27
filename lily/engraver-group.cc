@@ -29,7 +29,7 @@ IMPLEMENT_LISTENER (Engraver_group, override);
 void
 Engraver_group::override (SCM sev)
 {
-  Stream_event *ev = unsmob_stream_event (sev);
+  Stream_event *ev = Stream_event::unsmob (sev);
 
   sloppy_general_pushpop_property (context (),
                                    ev->get_property ("symbol"),
@@ -41,7 +41,7 @@ IMPLEMENT_LISTENER (Engraver_group, revert);
 void
 Engraver_group::revert (SCM sev)
 {
-  Stream_event *ev = unsmob_stream_event (sev);
+  Stream_event *ev = Stream_event::unsmob (sev);
 
   sloppy_general_pushpop_property (context (),
                                    ev->get_property ("symbol"),

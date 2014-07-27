@@ -32,9 +32,9 @@ MAKE_SCHEME_CALLBACK (Lyric_extender, print, 1);
 SCM
 Lyric_extender::print (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
   Item *left_edge = me->get_bound (LEFT);
-  Item *right_text = unsmob_item (me->get_object ("next"));
+  Item *right_text = Item::unsmob (me->get_object ("next"));
 
   Grob *common = left_edge;
 

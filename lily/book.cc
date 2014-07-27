@@ -98,7 +98,7 @@ Book::Book (Book const &s)
 Input *
 Book::origin () const
 {
-  return unsmob_input (input_location_);
+  return Input::unsmob (input_location_);
 }
 
 Book::~Book ()

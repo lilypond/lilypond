@@ -94,7 +94,7 @@ IMPLEMENT_LISTENER (Lyric_combine_music_iterator, set_busy)
 void
 Lyric_combine_music_iterator::set_busy (SCM se)
 {
-  Stream_event *e = unsmob_stream_event (se);
+  Stream_event *e = Stream_event::unsmob (se);
 
   if ((e->in_event_class ("note-event") || e->in_event_class ("cluster-note-event"))
       && music_context_)
@@ -187,7 +187,7 @@ Lyric_combine_music_iterator::derived_substitute (Context *f, Context *t)
 void
 Lyric_combine_music_iterator::construct_children ()
 {
-  Music *m = unsmob_music (get_music ()->get_property ("element"));
+  Music *m = Music::unsmob (get_music ()->get_property ("element"));
   lyric_iter_ = Music_iterator::unsmob (get_iterator (m));
   if (!lyric_iter_)
     return;

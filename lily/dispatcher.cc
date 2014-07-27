@@ -82,7 +82,7 @@ IMPLEMENT_LISTENER (Dispatcher, dispatch);
 void
 Dispatcher::dispatch (SCM sev)
 {
-  Stream_event *ev = unsmob_stream_event (sev);
+  Stream_event *ev = Stream_event::unsmob (sev);
   SCM class_list = ev->get_property ("class");
   if (!scm_is_pair (class_list))
     {

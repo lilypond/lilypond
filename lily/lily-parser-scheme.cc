@@ -299,7 +299,7 @@ LY_DEFINE (ly_parser_error, "ly:parser-error",
   LY_ASSERT_TYPE (scm_is_string, msg, 2);
   string s = ly_scm2string (msg);
 
-  Input *i = unsmob_input (input);
+  Input *i = Input::unsmob (input);
   if (i)
     p->parser_error (*i, s);
   else

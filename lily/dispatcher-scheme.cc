@@ -97,7 +97,7 @@ LY_DEFINE (ly_broadcast, "ly:broadcast",
            "Send the stream event @var{ev} to the dispatcher @var{disp}.")
 {
   Dispatcher *d = Dispatcher::unsmob (disp);
-  Stream_event *e = unsmob_stream_event (ev);
+  Stream_event *e = Stream_event::unsmob (ev);
 
   LY_ASSERT_SMOB (Dispatcher, disp, 1);
 

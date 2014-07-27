@@ -101,7 +101,7 @@ filter_performers (SCM ell)
   SCM *tail = &ell;
   for (SCM p = ell; scm_is_pair (p); p = scm_cdr (p))
     {
-      if (unsmob_performer (scm_car (*tail)))
+      if (Performer::unsmob (scm_car (*tail)))
         *tail = scm_cdr (*tail);
       else
         tail = SCM_CDRLOC (*tail);
@@ -115,7 +115,7 @@ filter_engravers (SCM ell)
   SCM *tail = &ell;
   for (SCM p = ell; scm_is_pair (p); p = scm_cdr (p))
     {
-      if (unsmob_engraver (scm_car (*tail)))
+      if (Engraver::unsmob (scm_car (*tail)))
         *tail = scm_cdr (*tail);
       else
         tail = SCM_CDRLOC (*tail);
@@ -149,7 +149,7 @@ IMPLEMENT_LISTENER (Translator_group, create_child_translator);
 void
 Translator_group::create_child_translator (SCM sev)
 {
-  Stream_event *ev = unsmob_stream_event (sev);
+  Stream_event *ev = Stream_event::unsmob (sev);
   // get from AnnounceNewContext
   SCM cs = ev->get_property ("context");
   Context *new_context = Context::unsmob (cs);

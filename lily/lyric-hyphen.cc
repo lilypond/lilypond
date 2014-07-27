@@ -35,7 +35,7 @@ MAKE_SCHEME_CALLBACK (Lyric_hyphen, print, 1);
 SCM
 Lyric_hyphen::print (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
   Drul_array<Item *> bounds (me->get_bound (LEFT),
                              me->get_bound (RIGHT));
 

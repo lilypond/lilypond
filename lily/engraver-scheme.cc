@@ -27,11 +27,11 @@ LY_DEFINE (ly_engraver_make_grob, "ly:engraver-make-grob",
            "  @var{cause} should either be another grob"
            " or a music event.")
 {
-  LY_ASSERT_TYPE (unsmob_engraver, engraver, 1);
+  LY_ASSERT_TYPE (Engraver::unsmob, engraver, 1);
   LY_ASSERT_TYPE (ly_is_symbol, grob_name, 2);
   LY_ASSERT_TYPE (ly_is_grob_cause, cause, 3);
 
-  Grob *g = unsmob_engraver (engraver)->
+  Grob *g = Engraver::unsmob (engraver)->
             internal_make_grob (grob_name, cause,
                                 ly_symbol2string (grob_name).c_str (),
                                 "scheme", 0, "scheme");
@@ -45,11 +45,11 @@ LY_DEFINE (ly_engraver_announce_end_grob, "ly:engraver-announce-end-grob",
            " @var{grob} being a grob.  @var{cause} should either"
            " be another grob or a music event.")
 {
-  LY_ASSERT_TYPE (unsmob_engraver, engraver, 1);
+  LY_ASSERT_TYPE (Engraver::unsmob, engraver, 1);
   LY_ASSERT_SMOB (Grob, grob, 2);
   LY_ASSERT_TYPE (ly_is_grob_cause, cause, 3);
 
-  unsmob_engraver (engraver)->
+  Engraver::unsmob (engraver)->
   announce_end_grob (Grob::unsmob (grob), cause);
 
   return SCM_UNSPECIFIED;

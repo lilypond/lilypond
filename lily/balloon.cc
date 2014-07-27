@@ -60,7 +60,7 @@ MAKE_SCHEME_CALLBACK (Balloon_interface, print_spanner, 1);
 SCM
 Balloon_interface::print_spanner (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
   Spanner *orig = dynamic_cast<Spanner *> (me->original ());
 
   if (orig)

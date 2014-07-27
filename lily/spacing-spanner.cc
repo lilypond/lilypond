@@ -58,7 +58,7 @@ MAKE_SCHEME_CALLBACK (Spacing_spanner, set_springs, 1);
 SCM
 Spacing_spanner::set_springs (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
 
   /*
     can't use get_system () ? --hwn.
@@ -89,7 +89,7 @@ MAKE_SCHEME_CALLBACK (Spacing_spanner, calc_common_shortest_duration, 1);
 SCM
 Spacing_spanner::calc_common_shortest_duration (SCM grob)
 {
-  Spanner *me = unsmob_spanner (grob);
+  Spanner *me = Spanner::unsmob (grob);
 
   vector<Grob *> cols (get_columns (me));
 

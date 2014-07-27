@@ -172,8 +172,8 @@ public:
 };
 
 /* smob utilities */
-Spanner *unsmob_spanner (SCM);
-Item *unsmob_item (SCM);
+Spanner *Spanner::unsmob (SCM);
+Item *Item::unsmob (SCM);
 
 /* unification */
 void uniquify (vector <Grob *> &);

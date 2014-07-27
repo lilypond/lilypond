@@ -69,7 +69,7 @@ protected:
   friend SCM ly_extended_make_music (SCM, SCM);
 };
 
-Music *unsmob_music (SCM);
+Music *Music::unsmob (SCM);
 Music *make_music_by_name (SCM sym);
 SCM ly_music_deep_copy (SCM);
 SCM ly_camel_case_2_lisp_identifier (SCM name_sym);

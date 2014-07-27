@@ -85,7 +85,7 @@ Tab_tie_follow_engraver::stop_translation_timestep ()
           if (left_item)
             {
               SCM left_cause = left_item->get_property ("cause");
-              Item *slur_cause = unsmob_item (left_cause);
+              Item *slur_cause = Item::unsmob (left_cause);
               if (slur_cause == note_heads_[k])
                 {
                   note_heads_[k]->set_property ("span-start", SCM_BOOL_T);

@@ -66,7 +66,7 @@ Drum_note_performer::process_music ()
           int velocity = 0;
           for (SCM s = articulations; scm_is_pair (s); s = scm_cdr (s))
             {
-              Stream_event *ev = unsmob_stream_event (scm_car (s));
+              Stream_event *ev = Stream_event::unsmob (scm_car (s));
               if (!ev)
                 continue;
 

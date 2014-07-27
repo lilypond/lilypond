@@ -424,7 +424,7 @@ Piano_pedal_engraver::finalize ()
       if (p->bracket_)
         {
           SCM cc = get_property ("currentCommandColumn");
-          Item *c = unsmob_item (cc);
+          Item *c = Item::unsmob (cc);
           p->bracket_->set_bound (RIGHT, c);
 
           p->finished_bracket_ = p->bracket_;

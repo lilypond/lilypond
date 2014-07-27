@@ -731,9 +731,9 @@ Grob::programming_error (const string &s) const
     cause = g->get_property ("cause");
 
   /* ES TODO: cause can't be Music*/
-  if (Music *m = unsmob_music (cause))
+  if (Music *m = Music::unsmob (cause))
     m->origin ()->programming_error (s);
-  else if (Stream_event *ev = unsmob_stream_event (cause))
+  else if (Stream_event *ev = Stream_event::unsmob (cause))
     ev->origin ()->programming_error (s);
   else
     ::programming_error (s);
@@ -747,9 +747,9 @@ Grob::warning (const string &s) const
     cause = g->get_property ("cause");
 
   /* ES TODO: cause can't be Music*/
-  if (Music *m = unsmob_music (cause))
+  if (Music *m = Music::unsmob (cause))
     m->origin ()->warning (s);
-  else if (Stream_event *ev = unsmob_stream_event (cause))
+  else if (Stream_event *ev = Stream_event::unsmob (cause))
     ev->origin ()->warning (s);
   else
     ::warning (s);

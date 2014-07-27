@@ -158,7 +158,7 @@ Music::generic_to_relative_octave (Pitch last)
       last = new_pit;
     }
 
-  if (Music *m = unsmob_music (elt))
+  if (Music *m = Music::unsmob (elt))
     last = m->to_relative_octave (last);
 
   (void) music_list_to_relative (get_property ("articulations"), last, true);
@@ -185,7 +185,7 @@ Music::compress (Moment factor)
 {
   SCM elt = get_property ("element");
 
-  if (Music *m = unsmob_music (elt))
+  if (Music *m = Music::unsmob (elt))
     m->compress (factor);
 
   compress_music_list (get_property ("elements"), factor);
@@ -220,7 +220,7 @@ transpose_mutable (SCM alist, Pitch delta)
         }
       else if (prop == ly_symbol2scm ("element"))
         {
-          if (Music *m = unsmob_music (val))
+          if (Music *m = Music::unsmob (val))
             m->transpose (delta);
         }
       else if (prop == ly_symbol2scm ("elements")
@@ -253,7 +253,7 @@ Music::set_spot (Input ip)
 Input *
 Music::origin () const
 {
-  Input *ip = unsmob_input (get_property ("origin"));
+  Input *ip = Input::unsmob (get_property ("origin"));
   return ip ? ip : &dummy_input_global;
 }
 
@@ -283,7 +283,7 @@ Music::to_event () const
       SCM art_ev = SCM_EOL;
       for (; scm_is_pair (art_mus); art_mus = scm_cdr (art_mus))
         {
-          Music *m = unsmob_music (scm_car (art_mus));
+          Music *m = Music::unsmob (scm_car (art_mus));
           art_ev = scm_cons (m->to_event ()->unprotect (), art_ev);
         }
       e->set_property ("articulations", scm_reverse_x (art_ev, SCM_EOL));
@@ -313,7 +313,7 @@ make_music_by_name (SCM sym)
   SCM rv = scm_call_1 (make_music_proc, sym);
 
   /* UGH. */
-  Music *m = unsmob_music (rv);
+  Music *m = Music::unsmob (rv);
   m->protect ();
   return m;
 }
@@ -322,7 +322,7 @@ MAKE_SCHEME_CALLBACK (Music, duration_length_callback, 1);
 SCM
 Music::duration_length_callback (SCM m)
 {
-  Music *me = unsmob_music (m);
+  Music *me = Music::unsmob (m);
   Duration *d = Duration::unsmob (me->get_property ("duration"));
 
   Moment mom;
@@ -332,7 +332,7 @@ Music::duration_length_callback (SCM m)
 }
 
 Music *
-unsmob_music (SCM m)
+Music::unsmob (SCM m)
 {
   return dynamic_cast<Music *> (Prob::unsmob (m));
 }

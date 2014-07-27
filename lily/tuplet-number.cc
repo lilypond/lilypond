@@ -109,7 +109,7 @@ Drul_array<Grob *>
 Tuplet_number::adjacent_note_columns (Grob *me_grob, Grob *ref_stem)
 {
   Spanner *me = dynamic_cast<Spanner *> (me_grob);
-  Spanner *tuplet = unsmob_spanner (me->get_object ("bracket"));
+  Spanner *tuplet = Spanner::unsmob (me->get_object ("bracket"));
 
   extract_grob_set (tuplet, "note-columns", columns);
   Grob *ref_col = ref_stem->get_parent (X_AXIS); // X-parent of Stem = NoteColumn
@@ -156,7 +156,7 @@ bool
 Tuplet_number::knee_position_against_beam (Grob *me_grob, Grob *ref_stem)
 {
   Spanner *me = dynamic_cast<Spanner *> (me_grob);
-  Spanner *tuplet = unsmob_spanner (me->get_object ("bracket"));
+  Spanner *tuplet = Spanner::unsmob (me->get_object ("bracket"));
 
   bool bracket_visible = to_boolean (me->get_property ("bracket-visibility"))
                          || !tuplet->extent (tuplet, Y_AXIS).is_empty ();
@@ -213,8 +213,8 @@ MAKE_SCHEME_CALLBACK (Tuplet_number, print, 1);
 SCM
 Tuplet_number::print (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
-  Spanner *tuplet = unsmob_spanner (me->get_object ("bracket"));
+  Spanner *me = Spanner::unsmob (smob);
+  Spanner *tuplet = Spanner::unsmob (me->get_object ("bracket"));
 
   if (!tuplet || !tuplet->is_live ())
     {
@@ -257,13 +257,13 @@ MAKE_SCHEME_CALLBACK (Tuplet_number, calc_x_offset, 1);
 SCM
 Tuplet_number::calc_x_offset (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
 
   Item *left_bound = me->get_bound (LEFT);
   Item *right_bound = me->get_bound (RIGHT);
   Drul_array<Item *> bounds (left_bound, right_bound);
 
-  Spanner *tuplet = unsmob_spanner (me->get_object ("bracket"));
+  Spanner *tuplet = Spanner::unsmob (me->get_object ("bracket"));
 
   Grob *commonx = Tuplet_bracket::get_common_x (tuplet);
   commonx = commonx->common_refpoint (me, X_AXIS);
@@ -347,8 +347,8 @@ MAKE_SCHEME_CALLBACK (Tuplet_number, calc_y_offset, 1);
 SCM
 Tuplet_number::calc_y_offset (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
-  Spanner *tuplet = unsmob_spanner (me->get_object ("bracket"));
+  Spanner *me = Spanner::unsmob (smob);
+  Spanner *tuplet = Spanner::unsmob (me->get_object ("bracket"));
   Drul_array<Real> positions = robust_scm2drul (tuplet->get_property ("positions"),
                                                 Drul_array<Real> (0.0, 0.0));
   SCM to_bracket = scm_from_double ((positions[LEFT] + positions[RIGHT]) / 2.0);

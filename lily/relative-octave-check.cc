@@ -32,7 +32,7 @@ SCM
 Relative_octave_check::relative_callback (SCM music, SCM last_pitch)
 {
   Pitch p = *Pitch::unsmob (last_pitch);
-  Music *m = unsmob_music (music);
+  Music *m = Music::unsmob (music);
   Pitch *check_p = Pitch::unsmob (m->get_property ("pitch"));
 
   int delta_oct = 0;

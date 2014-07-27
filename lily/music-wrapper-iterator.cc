@@ -51,7 +51,7 @@ void
 Music_wrapper_iterator::construct_children ()
 {
   Music *my_music = get_music ();
-  Music *child = unsmob_music (my_music->get_property ("element"));
+  Music *child = Music::unsmob (my_music->get_property ("element"));
   child_iter_ = (child)
                 ? Music_iterator::unsmob (get_iterator (child))
                 : 0;

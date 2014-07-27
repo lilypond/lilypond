@@ -80,7 +80,7 @@ SCM
 Percent_repeat_item_interface::beat_slash (SCM grob)
 {
   Grob *me = Grob::unsmob (grob);
-  Stream_event *cause = unsmob_stream_event (me->get_property ("cause"));
+  Stream_event *cause = Stream_event::unsmob (me->get_property ("cause"));
   int count = robust_scm2int (cause->get_property ("slash-count"), 1);
 
   Stencil m;

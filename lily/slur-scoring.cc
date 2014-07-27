@@ -331,7 +331,7 @@ MAKE_SCHEME_CALLBACK (Slur, calc_control_points, 1)
 SCM
 Slur::calc_control_points (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
 
   Slur_score_state state;
   state.fill (me);

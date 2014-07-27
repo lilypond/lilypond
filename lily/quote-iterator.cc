@@ -260,7 +260,7 @@ Quote_iterator::process (Moment m)
         {
           SCM ev_acc = scm_car (s);
 
-          Stream_event *ev = unsmob_stream_event (scm_car (ev_acc));
+          Stream_event *ev = Stream_event::unsmob (scm_car (ev_acc));
           if (!ev)
             programming_error ("no music found in quote");
           else if (accept_music_type (ev, is_cue))

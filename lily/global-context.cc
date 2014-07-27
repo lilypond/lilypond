@@ -92,7 +92,7 @@ IMPLEMENT_LISTENER (Global_context, prepare);
 void
 Global_context::prepare (SCM sev)
 {
-  Stream_event *ev = unsmob_stream_event (sev);
+  Stream_event *ev = Stream_event::unsmob (sev);
   Moment *mom = Moment::unsmob (ev->get_property ("moment"));
 
   assert (mom);
@@ -209,7 +209,7 @@ Global_context::get_default_interpreter (const string &/* context_id */)
 }
 
 Global_context *
-unsmob_global_context (SCM x)
+Global_context::unsmob (SCM x)
 {
   return dynamic_cast<Global_context *> (Context::unsmob (x));
 }

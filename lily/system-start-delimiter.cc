@@ -93,7 +93,7 @@ MAKE_SCHEME_CALLBACK (System_start_delimiter, print, 1);
 SCM
 System_start_delimiter::print (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
   extract_grob_set (me, "elements", elts);
   Grob *common = common_refpoint_of_array (elts, me, Y_AXIS);
 

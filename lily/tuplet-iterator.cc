@@ -68,7 +68,7 @@ Tuplet_iterator::create_event (Direction d)
 
   Music *mus = get_music ();
 
-  Music *ev = unsmob_music (ev_scm);
+  Music *ev = Music::unsmob (ev_scm);
   ev->set_spot (*mus->origin ());
   if (d == START)
     {

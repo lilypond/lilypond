@@ -380,7 +380,7 @@ Tie_formatting_problem::from_semi_ties (vector<Grob *> const &semi_ties, Directi
   for (vsize i = 0; i < semi_ties.size (); i++)
     {
       Tie_specification spec;
-      Item *head = unsmob_item (semi_ties[i]->get_object ("note-head"));
+      Item *head = Item::unsmob (semi_ties[i]->get_object ("note-head"));
 
       if (!head)
         programming_error ("LV tie without head?!");

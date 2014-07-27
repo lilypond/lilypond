@@ -46,7 +46,7 @@ MAKE_SCHEME_CALLBACK (Volta_bracket_interface, print, 1);
 SCM
 Volta_bracket_interface::print (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
   Spanner *orig_span = dynamic_cast<Spanner *> (me->original ());
   bool broken_first_bracket = orig_span && (orig_span->broken_intos_[0]
                                             == (Spanner *)me);

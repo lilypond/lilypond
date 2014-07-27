@@ -40,7 +40,7 @@ protected:
   virtual void create_audio_elements ();
 };
 
-Performer *unsmob_performer (SCM perf);
+Performer *Performer::unsmob (SCM perf);
 
 #endif /* PERFORMER_HH */
 

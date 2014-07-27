@@ -26,7 +26,7 @@
 Music *
 Repeated_music::body (Music *me)
 {
-  return unsmob_music (me->get_property ("element"));
+  return Music::unsmob (me->get_property ("element"));
 }
 
 SCM
@@ -53,7 +53,7 @@ Repeated_music::alternatives_get_length (Music *me, bool fold)
   SCM p = alternative_list;
   while (scm_is_pair (p) && done < count)
     {
-      m = m + unsmob_music (scm_car (p))->get_length ();
+      m = m + Music::unsmob (scm_car (p))->get_length ();
       done++;
       if (count - done < len)
         p = scm_cdr (p);
@@ -78,7 +78,7 @@ Moment
 Repeated_music::body_get_length (Music *me)
 {
   Moment m = 0;
-  if (Music *body = unsmob_music (me->get_property ("element")))
+  if (Music *body = Music::unsmob (me->get_property ("element")))
     m = body->get_length ();
   return m;
 }
@@ -88,7 +88,7 @@ MAKE_SCHEME_CALLBACK (Repeated_music, unfolded_music_length, 1);
 SCM
 Repeated_music::unfolded_music_length (SCM m)
 {
-  Music *me = unsmob_music (m);
+  Music *me = Music::unsmob (m);
 
   Moment l = Moment (repeat_count (me)) * body_get_length (me) + alternatives_get_length (me, false);
   return l.smobbed_copy ();
@@ -98,7 +98,7 @@ MAKE_SCHEME_CALLBACK (Repeated_music, folded_music_length, 1);
 SCM
 Repeated_music::folded_music_length (SCM m)
 {
-  Music *me = unsmob_music (m);
+  Music *me = Music::unsmob (m);
 
   Moment l = body_get_length (me) + alternatives_get_length (me, true);
   return l.smobbed_copy ();
@@ -114,7 +114,7 @@ MAKE_SCHEME_CALLBACK (Repeated_music, volta_music_length, 1);
 SCM
 Repeated_music::volta_music_length (SCM m)
 {
-  Music *me = unsmob_music (m);
+  Music *me = Music::unsmob (m);
   Moment l = body_get_length (me) + alternatives_volta_get_length (me);
   return l.smobbed_copy ();
 }
@@ -123,8 +123,8 @@ MAKE_SCHEME_CALLBACK (Repeated_music, minimum_start, 1);
 SCM
 Repeated_music::minimum_start (SCM m)
 {
-  Music *me = unsmob_music (m);
-  Music *body = unsmob_music (me->get_property ("element"));
+  Music *me = Music::unsmob (m);
+  Music *body = Music::unsmob (me->get_property ("element"));
 
   if (body)
     return body->start_mom ().smobbed_copy ();
@@ -136,8 +136,8 @@ MAKE_SCHEME_CALLBACK (Repeated_music, first_start, 1);
 SCM
 Repeated_music::first_start (SCM m)
 {
-  Music *me = unsmob_music (m);
-  Music *body = unsmob_music (me->get_property ("element"));
+  Music *me = Music::unsmob (m);
+  Music *body = Music::unsmob (me->get_property ("element"));
 
   Moment rv = (body) ? body->start_mom ()
               : Music_sequence::first_start (me->get_property ("elements"));

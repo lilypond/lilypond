@@ -394,7 +394,7 @@ MAKE_SCHEME_CALLBACK (System, footnotes_after_line_breaking, 1);
 SCM
 System::footnotes_after_line_breaking (SCM smob)
 {
-  Spanner *sys_span = unsmob_spanner (smob);
+  Spanner *sys_span = Spanner::unsmob (smob);
   System *sys = dynamic_cast<System *> (sys_span);
   Interval_t<int> sri = sys->spanned_rank_interval ();
   vector<Grob *> footnote_grobs = sys->get_footnote_grobs_in_range (sri[LEFT], sri[RIGHT]);

@@ -176,7 +176,7 @@ Slur_proto_engraver::can_create_slur (const string &id, vsize old_slurs, vsize *
           if (!updown)
             return false;
 
-          Stream_event *c = unsmob_stream_event (slur->get_property ("cause"));
+          Stream_event *c = Stream_event::unsmob (slur->get_property ("cause"));
 
           if (!c)
             {

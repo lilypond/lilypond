@@ -78,7 +78,7 @@ Footnote_engraver::footnotify (Grob *g, SCM cause)
 void
 Footnote_engraver::acknowledge_grob (Grob_info info)
 {
-  Music *mus = unsmob_music (info.grob ()->get_property ("footnote-music"));
+  Music *mus = Music::unsmob (info.grob ()->get_property ("footnote-music"));
 
   if (mus)
     {

@@ -53,7 +53,7 @@ MAKE_SCHEME_CALLBACK (Hairpin, broken_bound_padding, 1);
 SCM
 Hairpin::broken_bound_padding (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
   Item *r_bound = me->get_bound (RIGHT);
   if (r_bound->break_status_dir () != -1)
     {
@@ -107,7 +107,7 @@ MAKE_SCHEME_CALLBACK (Hairpin, print, 1);
 SCM
 Hairpin::print (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
 
   SCM s = me->get_property ("grow-direction");
   if (!is_direction (s))

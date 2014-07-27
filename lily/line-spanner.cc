@@ -56,7 +56,7 @@ Spanner *parent_spanner (Grob *g)
 SCM
 Line_spanner::calc_bound_info (SCM smob, Direction dir)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
 
   Grob *commonx = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
   commonx = me->common_refpoint (commonx, X_AXIS);
@@ -206,7 +206,7 @@ MAKE_SCHEME_CALLBACK (Line_spanner, calc_cross_staff, 1);
 SCM
 Line_spanner::calc_cross_staff (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
   if (!me)
     return SCM_BOOL_F;
 
@@ -237,7 +237,7 @@ SCM
 Line_spanner::calc_left_bound_info_and_text (SCM smob)
 {
   SCM alist = Line_spanner::calc_bound_info (smob, LEFT);
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
 
   SCM text = me->get_property ("text");
   if (Text_interface::is_markup (text)

@@ -570,7 +570,7 @@ MAKE_SCHEME_CALLBACK (Beam, calc_x_positions, 1);
 SCM
 Beam::calc_x_positions (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
   SCM segments = me->get_property ("beam-segments");
   Interval x_positions;
   x_positions.set_empty ();
@@ -611,7 +611,7 @@ MAKE_SCHEME_CALLBACK (Beam, print, 1);
 SCM
 Beam::print (SCM grob)
 {
-  Spanner *me = unsmob_spanner (grob);
+  Spanner *me = Spanner::unsmob (grob);
   /*
     TODO - mild code dup for all the commonx calls.
     Some use just common_refpoint_of_array, some (in print and

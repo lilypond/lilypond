@@ -87,7 +87,7 @@ MAKE_SCHEME_CALLBACK (Separation_item, calc_skylines, 1);
 SCM
 Separation_item::calc_skylines (SCM smob)
 {
-  Item *me = unsmob_item (smob);
+  Item *me = Item::unsmob (smob);
   vector<Box> bs = boxes (me, 0);
   Skyline_pair sp (bs, Y_AXIS);
   /*

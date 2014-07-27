@@ -69,7 +69,7 @@ protected:
 #include "smobs.hh"
 
 SCM make_input (Input spot);
-Input *unsmob_input (SCM);
+Input *Input::unsmob (SCM);
 
 extern Input dummy_input_global;
 

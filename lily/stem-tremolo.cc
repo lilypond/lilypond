@@ -149,13 +149,13 @@ MAKE_SCHEME_CALLBACK (Stem_tremolo, pure_height, 3);
 SCM
 Stem_tremolo::pure_height (SCM smob, SCM, SCM)
 {
-  Item *me = unsmob_item (smob);
+  Item *me = Item::unsmob (smob);
 
   /*
     Cannot use the real slope, since it looks at the Beam.
    */
   Stencil s1 (untranslated_stencil (me, 0.35));
-  Item *stem = unsmob_item (me->get_object ("stem"));
+  Item *stem = Item::unsmob (me->get_object ("stem"));
   if (!stem)
     return ly_interval2scm (s1.extent (Y_AXIS));
 
@@ -240,9 +240,9 @@ MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_direction, 1);
 SCM
 Stem_tremolo::calc_direction (SCM smob)
 {
-  Item *me = unsmob_item (smob);
+  Item *me = Item::unsmob (smob);
 
-  Item *stem = unsmob_item (me->get_object ("stem"));
+  Item *stem = Item::unsmob (me->get_object ("stem"));
   if (!stem)
     return scm_from_int (CENTER);
 
@@ -279,7 +279,7 @@ Stem_tremolo::calc_direction (SCM smob)
 Real
 Stem_tremolo::y_offset (Grob *me, bool pure)
 {
-  Item *stem = unsmob_item (me->get_object ("stem"));
+  Item *stem = Item::unsmob (me->get_object ("stem"));
   if (!stem)
     return 0.0;
 

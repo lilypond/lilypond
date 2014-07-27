@@ -827,7 +827,7 @@ Lily_lexer::pop_extra_token ()
 		return -1;
 
   /* produce requested token */
-	yylloc = *unsmob_input (scm_caar (extra_tokens_));
+	yylloc = *Input::unsmob (scm_caar (extra_tokens_));
 	int type = scm_to_int (scm_cadar (extra_tokens_));
 	yylval = scm_cddar (extra_tokens_);
 	extra_tokens_ = scm_cdr (extra_tokens_);
@@ -914,7 +914,7 @@ Lily_lexer::scan_escaped_word (const string &str)
 		return i;
 
 	SCM sid = lookup_identifier (str);
-	if (Music *m = unsmob_music (sid))
+	if (Music *m = Music::unsmob (sid))
 	{
 		m->set_spot (override_input (here_input ()));
 	}
@@ -934,7 +934,7 @@ int
 Lily_lexer::scan_shorthand (const string &str)
 {
 	SCM sid = lookup_identifier (str);
-	if (Music *m = unsmob_music (sid))
+	if (Music *m = Music::unsmob (sid))
 	{
 		m->set_spot (override_input (here_input ()));
 	}
@@ -1096,9 +1096,9 @@ Lily_lexer::eval_scm (SCM readerdata, Input hi, char extra_token)
 			     p = scm_cdr (p))
 			{
 				SCM v = scm_car (p);
-				if (Music *m = unsmob_music (v))
+				if (Music *m = Music::unsmob (v))
 				{
-					if (!unsmob_input (m->get_property ("origin")))
+					if (!Input::unsmob (m->get_property ("origin")))
 						m->set_spot (override_input (here_input ()));
 				}
 					
@@ -1121,9 +1121,9 @@ Lily_lexer::eval_scm (SCM readerdata, Input hi, char extra_token)
 			sval = SCM_UNSPECIFIED;
 	}
 
-	if (Music *m = unsmob_music (sval))
+	if (Music *m = Music::unsmob (sval))
 	{
-		if (!unsmob_input (m->get_property ("origin")))
+		if (!Input::unsmob (m->get_property ("origin")))
 			m->set_spot (override_input (here_input ()));
 	}
 

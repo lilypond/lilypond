@@ -36,7 +36,7 @@ accidental_pitch (Grob *acc)
 {
   SCM cause = acc->get_parent (Y_AXIS)->get_property ("cause");
 
-  Stream_event *mcause = unsmob_stream_event (cause);
+  Stream_event *mcause = Stream_event::unsmob (cause);
   if (!mcause)
     {
       programming_error ("note head has no event cause");

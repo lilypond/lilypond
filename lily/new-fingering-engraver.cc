@@ -99,7 +99,7 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
 
   for (SCM s = arts; scm_is_pair (s); s = scm_cdr (s))
     {
-      Stream_event *ev = unsmob_stream_event (scm_car (s));
+      Stream_event *ev = Stream_event::unsmob (scm_car (s));
 
       if (!ev)
         continue;

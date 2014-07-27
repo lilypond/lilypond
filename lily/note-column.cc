@@ -61,7 +61,7 @@ Item *
 Note_column::get_stem (Grob *me)
 {
   SCM s = me->get_object ("stem");
-  return unsmob_item (s);
+  return Item::unsmob (s);
 }
 
 Item *
@@ -71,7 +71,7 @@ Note_column::get_flag (Grob *me)
   if (stem)
     {
       SCM s = stem->get_object ("flag");
-      return unsmob_item (s);
+      return Item::unsmob (s);
     }
   return 0;
 }

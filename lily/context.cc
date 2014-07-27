@@ -236,14 +236,14 @@ IMPLEMENT_LISTENER (Context, acknowledge_infant);
 void
 Context::acknowledge_infant (SCM sev)
 {
-  infant_event_ = unsmob_stream_event (sev);
+  infant_event_ = Stream_event::unsmob (sev);
 }
 
 IMPLEMENT_LISTENER (Context, set_property_from_event);
 void
 Context::set_property_from_event (SCM sev)
 {
-  Stream_event *ev = unsmob_stream_event (sev);
+  Stream_event *ev = Stream_event::unsmob (sev);
 
   SCM sym = ev->get_property ("symbol");
   if (scm_is_symbol (sym))
@@ -267,7 +267,7 @@ IMPLEMENT_LISTENER (Context, unset_property_from_event);
 void
 Context::unset_property_from_event (SCM sev)
 {
-  Stream_event *ev = unsmob_stream_event (sev);
+  Stream_event *ev = Stream_event::unsmob (sev);
 
   SCM sym = ev->get_property ("symbol");
   type_check_assignment (sym, SCM_EOL, ly_symbol2scm ("translation-type?"));
@@ -282,7 +282,7 @@ IMPLEMENT_LISTENER (Context, create_context_from_event);
 void
 Context::create_context_from_event (SCM sev)
 {
-  Stream_event *ev = unsmob_stream_event (sev);
+  Stream_event *ev = Stream_event::unsmob (sev);
 
   string id = ly_scm2string (ev->get_property ("id"));
   SCM ops = ev->get_property ("ops");
@@ -548,7 +548,7 @@ IMPLEMENT_LISTENER (Context, change_parent);
 void
 Context::change_parent (SCM sev)
 {
-  Stream_event *ev = unsmob_stream_event (sev);
+  Stream_event *ev = Stream_event::unsmob (sev);
   Context *to = Context::unsmob (ev->get_property ("context"));
 
   disconnect_from_parent ();

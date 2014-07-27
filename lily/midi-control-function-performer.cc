@@ -75,7 +75,7 @@ IMPLEMENT_LISTENER (Midi_control_function_performer,
 void
 Midi_control_function_performer::announce_function_value_change (SCM sev)
 {
-  Stream_event *ev = unsmob_stream_event (sev);
+  Stream_event *ev = Stream_event::unsmob (sev);
   SCM sym = ev->get_property ("symbol");
   if (!scm_is_symbol (sym))
     return;

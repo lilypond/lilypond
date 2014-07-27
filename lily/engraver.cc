@@ -51,12 +51,12 @@ Grob_info
 Engraver::make_grob_info (Grob *e, SCM cause)
 {
   /* TODO: Remove Music code when it's no longer needed */
-  if (Music *m = unsmob_music (cause))
+  if (Music *m = Music::unsmob (cause))
     {
       cause = m->to_event ()->unprotect ();
     }
   if (e->get_property ("cause") == SCM_EOL
-      && (unsmob_stream_event (cause) || Grob::unsmob (cause)))
+      && (Stream_event::unsmob (cause) || Grob::unsmob (cause)))
     e->set_property ("cause", cause);
 
   return Grob_info (this, e);
@@ -171,7 +171,7 @@ Engraver::internal_make_spanner (SCM x, SCM cause, char const *name,
 }
 
 Engraver *
-unsmob_engraver (SCM eng)
+Engraver::unsmob (SCM eng)
 {
   return dynamic_cast<Engraver *> (Translator::unsmob (eng));
 }
@@ -179,7 +179,7 @@ unsmob_engraver (SCM eng)
 bool
 ly_is_grob_cause (SCM obj)
 {
-  return Grob::unsmob (obj) || unsmob_stream_event (obj) || (obj == SCM_EOL);
+  return Grob::unsmob (obj) || Stream_event::unsmob (obj) || (obj == SCM_EOL);
 }
 
 #include "translator.icc"

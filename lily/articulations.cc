@@ -56,7 +56,7 @@ articulation_list (vector<Stream_event *> note_events,
       for (SCM s = event->get_property ("articulations");
            !articulation_event && scm_is_pair (s); s = scm_cdr (s))
         {
-          Stream_event *art = unsmob_stream_event (scm_car (s));
+          Stream_event *art = Stream_event::unsmob (scm_car (s));
 
           if (art->in_event_class (articulation_name))
             articulation_event = art;

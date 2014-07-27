@@ -80,8 +80,8 @@ is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
 
   */
 
-  Item *r_neighbor = unsmob_item (col->get_object ("right-neighbor"));
-  Item *l_neighbor = unsmob_item (col->get_object ("left-neighbor"));
+  Item *r_neighbor = Item::unsmob (col->get_object ("right-neighbor"));
+  Item *l_neighbor = Item::unsmob (col->get_object ("left-neighbor"));
 
   if (!l_neighbor || !r_neighbor)
     return false;

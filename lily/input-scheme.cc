@@ -26,7 +26,7 @@ LY_DEFINE (ly_input_location_p, "ly:input-location?", 1, 0, 0,
            (SCM x),
            "Is @var{x} an @code{input-location}?")
 {
-  return unsmob_input (x) ? SCM_BOOL_T : SCM_BOOL_F;
+  return Input::unsmob (x) ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
 LY_DEFINE (ly_input_warning, "ly:input-warning", 2, 0, 1, (SCM sip, SCM msg, SCM rest),
@@ -34,9 +34,9 @@ LY_DEFINE (ly_input_warning, "ly:input-warning", 2, 0, 1, (SCM sip, SCM msg, SCM
            " to the location in @var{sip}.  @var{msg} is interpreted"
            " similar to @code{format}'s argument, using @var{rest}.")
 {
-  Input *ip = unsmob_input (sip);
+  Input *ip = Input::unsmob (sip);
 
-  LY_ASSERT_TYPE (unsmob_input, sip, 1);
+  LY_ASSERT_TYPE (Input::unsmob, sip, 1);
   LY_ASSERT_TYPE (scm_is_string, msg, 2);
 
   msg = scm_simple_format (SCM_BOOL_F, msg, rest);
@@ -52,9 +52,9 @@ LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 1, (SCM sip, SCM msg, SCM
            " to the location in @var{sip}.  @var{msg} is interpreted"
            " similar to @code{format}'s argument, using @var{rest}.")
 {
-  Input *ip = unsmob_input (sip);
+  Input *ip = Input::unsmob (sip);
 
-  LY_ASSERT_TYPE (unsmob_input, sip, 1);
+  LY_ASSERT_TYPE (Input::unsmob, sip, 1);
   LY_ASSERT_TYPE (scm_is_string, msg, 2);
 
   msg = scm_simple_format (SCM_BOOL_F, msg, rest);
@@ -71,8 +71,8 @@ LY_DEFINE (ly_input_file_line_char_column,
            "Return input location in @var{sip} as"
            " @code{(file-name line char column)}.")
 {
-  LY_ASSERT_TYPE (unsmob_input, sip, 1);
-  Input *ip = unsmob_input (sip);
+  LY_ASSERT_TYPE (Input::unsmob, sip, 1);
+  Input *ip = Input::unsmob (sip);
 
   int l, ch, col, offset = 0;
   ip->get_counts (&l, &ch, &col, &offset);
@@ -89,8 +89,8 @@ LY_DEFINE (ly_input_both_locations,
            " @code{(file-name first-line first-column last-line last-column)}.")
 {
 
-  LY_ASSERT_TYPE (unsmob_input, sip, 1);
-  Input *ip = unsmob_input (sip);
+  LY_ASSERT_TYPE (Input::unsmob, sip, 1);
+  Input *ip = Input::unsmob (sip);
 
   return scm_list_5 (ly_string2scm (ip->file_string ()),
                      scm_from_int (ip->line_number ()),

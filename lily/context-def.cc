@@ -50,7 +50,7 @@ Context_def::Context_def ()
 Input *
 Context_def::origin () const
 {
-  return unsmob_input (input_location_);
+  return Input::unsmob (input_location_);
 }
 
 Context_def::Context_def (Context_def const &s)

@@ -53,7 +53,7 @@ Simultaneous_music_iterator::construct_children ()
   SCM *tail = &children_list_;
   for (; scm_is_pair (i); i = scm_cdr (i), j++)
     {
-      Music *mus = unsmob_music (scm_car (i));
+      Music *mus = Music::unsmob (scm_car (i));
 
       SCM scm_iter = get_static_get_iterator (mus);
       Music_iterator *mi = Music_iterator::unsmob (scm_iter);

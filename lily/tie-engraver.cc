@@ -154,8 +154,8 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
   for (vsize i = heads_to_tie_.size (); i--;)
     {
       Grob *th = heads_to_tie_[i].head_;
-      Stream_event *right_ev = unsmob_stream_event (h->get_property ("cause"));
-      Stream_event *left_ev = unsmob_stream_event (th->get_property ("cause"));
+      Stream_event *right_ev = Stream_event::unsmob (h->get_property ("cause"));
+      Stream_event *left_ev = Stream_event::unsmob (th->get_property ("cause"));
 
       /*
         maybe should check positions too.
@@ -261,7 +261,7 @@ Tie_engraver::process_acknowledged ()
     {
       Grob *head = now_heads_[i];
       Stream_event *left_ev
-        = unsmob_stream_event (head->get_property ("cause"));
+        = Stream_event::unsmob (head->get_property ("cause"));
 
       if (!left_ev)
         {
@@ -281,7 +281,7 @@ Tie_engraver::process_acknowledged ()
            !tie_event && !tie_stream_event && scm_is_pair (s);
            s = scm_cdr (s))
         {
-          Stream_event *ev = unsmob_stream_event (scm_car (s));
+          Stream_event *ev = Stream_event::unsmob (scm_car (s));
           if (!ev)
             continue;
 
