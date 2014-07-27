@@ -946,21 +946,26 @@ Otherwise, return @code{#f}."
                                                           (music 'PropertySet
                                                                  value ?clef-transposition
                                                                  symbol 'clefTransposition)
+                                                          (music 'PropertySet
+                                                                 value ?clef-transposition-style
+                                                                 symbol 'clefTranspositionStyle)
                                                           (music 'ApplyContext
                                                                  procedure ly:set-middle-C!)))))
                     (let ((clef-name (assoc-get (list ?clef-glyph ?clef-position 0)
                                                 clef-name-alist)))
-                      (if clef-name
-                          (format #f "\\clef \"~a~{~a~a~}\"~a"
-                                  clef-name
-                                  (cond ((= 0 ?clef-transposition)
-                                         (list "" ""))
-                                        ((> ?clef-transposition 0)
-                                         (list "^" (1+ ?clef-transposition)))
-                                        (else
-                                         (list "_" (- 1 ?clef-transposition))))
-                                  (new-line->lily-string))
-                          #f))))
+                      (and clef-name
+                           (format #f "\\clef \"~a~?\"~a"
+                                   clef-name
+                                   (case ?clef-transposition-style
+                                     ((parenthesized) "~a(~a)")
+                                     ((bracketed) "~a[~a]")
+                                     (else "~a~a"))
+                                   (cond ((zero? ?clef-transposition)
+                                          (list "" ""))
+                                         ((positive? ?clef-transposition)
+                                          (list "^" (1+ ?clef-transposition)))
+                                         (else (list "_" (- 1 ?clef-transposition))))
+                                   (new-line->lily-string))))))
 
 ;;; \bar
 (define-extra-display-method ContextSpeccedMusic (expr parser)
