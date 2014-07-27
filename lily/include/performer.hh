@@ -33,14 +33,13 @@ public:
   VIRTUAL_COPY_CONSTRUCTOR (Translator, Performer);
   friend class Performer_group;
   Performer_group *get_daddy_performer () const;
+  static Performer *unsmob (SCM perf);
 
 protected:
   virtual void announce_element (Audio_element_info);
   virtual void acknowledge_audio_element (Audio_element_info);
   virtual void create_audio_elements ();
 };
-
-Performer *Performer::unsmob (SCM perf);
 
 #endif /* PERFORMER_HH */
 

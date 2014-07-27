@@ -30,6 +30,8 @@ public:
   Stream_event ();
   VIRTUAL_COPY_CONSTRUCTOR (Stream_event, Stream_event);
 
+  static Stream_event *unsmob (SCM);
+
   Stream_event (SCM event_class, SCM immutable_props = SCM_EOL);
   Stream_event (SCM class_name, Input *);
 
@@ -46,7 +48,6 @@ public:
 
 #define in_event_class(class_name) internal_in_event_class (ly_symbol2scm (class_name))
 
-Stream_event *Stream_event::unsmob (SCM);
 SCM ly_event_deep_copy (SCM);
 
 #endif /* STREAM_EVENT_HH */

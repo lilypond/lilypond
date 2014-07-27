@@ -21,6 +21,7 @@
 #define INPUT_HH
 
 #include "lily-proto.hh"
+#include "smobs.hh"
 
 /**
    Base class for anything that records its poisition in the parse file.
@@ -34,6 +35,8 @@ public:
   Source_file *get_source_file () const;
   char const *start () const;
   char const *end () const;
+
+  static Input *unsmob (SCM);
 
   void set (Source_file *, char const *, char const *);
   void error (const string&) const;
@@ -66,10 +69,7 @@ protected:
   string message_string (const string &msg) const;
 };
 
-#include "smobs.hh"
-
 SCM make_input (Input spot);
-Input *Input::unsmob (SCM);
 
 extern Input dummy_input_global;
 

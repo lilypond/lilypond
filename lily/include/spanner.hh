@@ -52,6 +52,8 @@ public:
   DECLARE_SCHEME_CALLBACK (bounds_width, (SCM));
   DECLARE_SCHEME_CALLBACK (kill_zero_spanned_time, (SCM));
 
+  static Spanner *unsmob (SCM);
+
   vector<Spanner *> broken_intos_;
 
   vsize get_break_index () const;

@@ -38,6 +38,4 @@ public:
   virtual void process ();
 };
 
-Paper_score *Paper_score::unsmob (SCM);
-Performance *Performance::unsmob (SCM);
 #endif /* MUSIC_OUTPUT_HH */
