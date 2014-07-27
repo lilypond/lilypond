@@ -19,7 +19,12 @@ LilyPond version @version{}.  In addition, it suggests some
 @qq{best practices} for efficient usage.
 @end macro
 
-@c `Usage' was born 1999-10-10 with git commit c82c30c...
+@c `Usage' was born 1999-10-11 with this commit:
+@c release: 1.2.13
+@c author: Han-Wen Nienhuys
+@c commit: 0cf97b5cdceecbba937f43ac827f4065aad5001e
+@c   file: Documentation/user/invoking.itexi
+
 @macro copyrightDeclare
 Copyright @copyright{} 1999--2014 by the authors.
 @end macro

@@ -125,7 +125,11 @@
 @titlefont{Internals Reference}
 @author The LilyPond development team
 
-@c `Internals Reference' was born 2000-10-21 with git commit 01e371f...
+@c `Internals Reference' was born 2000-10-21 with this commit:
+@c patch::: 1.3.96.jcn9
+@c author: Jan Nieuwenhuizen
+@c commit: 8ecd09ad7514d57630fb611d38c161f3c3c708db
+@c   file: scm/generate-documentation.scm
 Copyright @copyright{} 2000--2014 by the authors
 
 @vskip 20pt
