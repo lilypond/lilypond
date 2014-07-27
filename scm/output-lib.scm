@@ -249,6 +249,14 @@
    ly:self-alignment-interface::y-aligned-on-self
    ly:self-alignment-interface::pure-y-aligned-on-self))
 
+(define-public (self-alignment-interface::self-aligned-on-breakable grob)
+  "Return the @code{X-offset} that places @var{grob} according to its
+   @code{self-alignment-X} over the reference point defined by the
+   @code{break-align-anchor-alignment} of a @code{break-aligned} item
+   such as a @code{Clef}."
+  (+ (ly:break-alignable-interface::self-align-callback grob)
+     (ly:self-alignment-interface::x-aligned-on-self grob)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; staff symbol
 

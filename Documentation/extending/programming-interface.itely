@@ -1375,38 +1375,6 @@ can by found in the Internals Reference or the file 'define-grobs.scm':
 @}
 @end example
 
-If routines with multiple arguments must be called, the current grob
-can be inserted with a grob closure.  Here is a setting from
-@code{RehearsalMark},
-
-@example
-`(X-offset .
-   ,(ly:make-simple-closure
-     `(,+
-        ,(ly:make-simple-closure
-          (list ly:break-alignable-interface::self-align-callback))
-        ,(ly:make-simple-closure
-          (list ly:self-alignment-interface::x-aligned-on-self)))))
-@end example
-
-@noindent
-In this example, both @code{ly:break-alignable-interface::self-align-callback} and
-@code{ly:self-alignment-interface::x-aligned-on-self} are called
-with the grob as argument.  The results are added with the @code{+}
-function.  To ensure that this addition is properly executed, the whole
-thing is enclosed in @code{ly:make-simple-closure}.
-
-In fact, using a single procedure as property value is equivalent to
-
-@example
-(ly:make-simple-closure (ly:make-simple-closure (list @var{proc})))
-@end example
-
-@noindent
-The inner @code{ly:make-simple-closure} supplies the grob as argument
-to @var{proc}, the outer ensures that result of the function is
-returned, rather than the @code{simple-closure} object.
-
 From within a callback, the easiest method for evaluating a markup is
 to use grob-interpret-markup.  For example:
 
