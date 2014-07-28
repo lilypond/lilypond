@@ -273,7 +273,7 @@ To modify the duration of notes without printing a tuplet bracket, see
 @funindex tupletSpannerDuration
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{entering-several-tuplets-using-only-one--times-command.ly}
+{entering-several-tuplets-using-only-one--tuplet-command.ly}
 
 @cindex Tuplet number changes
 

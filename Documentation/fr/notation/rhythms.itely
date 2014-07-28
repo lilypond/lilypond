@@ -285,7 +285,7 @@ comme indiqué au chapitre @ref{Changement d'échelle des durées}.
 @funindex tupletSpannerDuration
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{entering-several-tuplets-using-only-one--times-command.ly}
+{entering-several-tuplets-using-only-one--tuplet-command.ly}
 
 @cindex nolet, modification du chiffre
 

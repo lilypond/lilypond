@@ -23,7 +23,7 @@ controlling-tuplet-bracket-visibility.ly
 creating-metronome-marks-in-markup-mode.ly
 engraving-ties-manually.ly
 engraving-tremolos-with-floating-beams.ly
-entering-several-tuplets-using-only-one--times-command.ly
+entering-several-tuplets-using-only-one--tuplet-command.ly
 flat-flags-and-beam-nibs.ly
 forcing-rehearsal-marks-to-start-from-a-given-letter-or-number.ly
 generating-custom-flags.ly

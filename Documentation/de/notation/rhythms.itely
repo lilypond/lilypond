@@ -268,7 +268,7 @@ zu setzen, siehe @ref{Tondauern skalieren}.
 @funindex tupletSpannerDuration
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{entering-several-tuplets-using-only-one--times-command.ly}
+{entering-several-tuplets-using-only-one--tuplet-command.ly}
 
 @cindex Triolennummer, Änderung
 
