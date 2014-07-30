@@ -9,8 +9,8 @@ cOctatonicScale = {
   ges' aes' a' b'
 }
 motif = {
-  c'8. ees'16 ges'8. a'16
-  b'8. aes'16 f'8. d'16
+  c'8. ees'16( ges'8. a'16
+  b'8.) aes'16 f'8. d'16
 }
 
 \score {

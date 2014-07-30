@@ -309,11 +309,6 @@ see @ref{Manual syllable durations}.  This technique is also useful
 when setting dialogue over music; for examples showing this, see
 @ref{Dialogue over music}.
 
-When entered in this way the words are left-aligned to the notes
-by default, but may be center-aligned to the notes of a melody by
-specifying an associated voice, if one exists.  For details, see
-@ref{Manual syllable durations}.
-
 @end itemize
 
 @seealso
@@ -509,8 +504,7 @@ completely independently of notes.  In this case do not use
 but with pitches replaced by text -- and the duration of each
 syllable is entered explicitly after the syllable.
 
-By default, syllables will be left-aligned to the corresponding
-musical moment.  Hyphenated lines may be drawn between syllables
+Hyphenated lines may be drawn between syllables
 as usual, but extender lines cannot be drawn when there is no
 associated voice.
 
@@ -519,11 +513,10 @@ Here are two examples:
 @lilypond[relative=1,verbatim,quote]
 <<
   \new Voice = "melody" {
-    \time 3/4
-    c2 e4 g2 f
+    c'2 a f f e e
   }
   \new Lyrics \lyricmode {
-    play1 the4 game4
+    c4. -- a -- f -- f -- e2. -- e
   }
 >>
 @end lilypond
@@ -554,26 +547,21 @@ Here are two examples:
 This technique is useful when writing dialogue over music, see
 @ref{Dialogue over music}.
 
-To center-align syllables on the notes at the corresponding musical
-moments, set @code{associatedVoice} to the name of the Voice context
-containing those notes.  When @code{associatedVoice} is set, both
-double hyphens and double underscores can be used to draw
-hyphenated lines and extenders under melismata correctly.
+To change syllable alignment, simply override the @code{self-alignment-X}
+property:
 
 @lilypond[relative=1,verbatim,quote]
 <<
   \new Voice = "melody" {
     \time 3/4
-    c2 e4 g f g
+    c2 e4 g2 f
   }
   \new Lyrics \lyricmode {
-    \set associatedVoice = #"melody"
-    play2 the4 game2. __
+    \override LyricText.self-alignment-X = #LEFT
+    play1 a4 game4
   }
 >>
 @end lilypond
-
-@c TODO see also feature request 707 - show how to do this with manual durations
 
 @seealso
 Notation Reference:
@@ -2418,7 +2406,7 @@ Notation Reference:
 @ref{Score layout},
 @ref{Separating systems},
 @ref{Setting the staff size},
-@ref{Using an extra voice for breaks},
+@ref{Explicit breaks},
 @ref{Vertical spacing}.
 
 Internals Reference:

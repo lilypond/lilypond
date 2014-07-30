@@ -622,8 +622,8 @@ msgid "\\bar \".\" now produces a thick barline.\n"
 msgstr "\\bar  \".\" erstellt jetzt einen dicken Taktstrich.\n"
 
 #: convertrules.py:2849
-msgid "Dash parameters for slurs and ties are now in 'dash-details.\n"
-msgstr "Strichelunsparameter für Binde- und Legatobögen sind jetzt in 'dash-details.\n"
+msgid "Dash parameters for slurs and ties are now in 'dash-definition.\n"
+msgstr "Strichelunsparameter für Binde- und Legatobögen sind jetzt in 'dash-definition.\n"
 
 #: convertrules.py:2854
 msgid ""

@@ -112,7 +112,7 @@ as shown in @rlearning{Other uses for tweaks}.
 @c @snippets
 @c @lilypondfile[verbatim,quote,texidoc,doctitle]
 @c {forcing-visibility-of-systems-with-multi-bar-rests-when-using-\RemoveEmptyStaffContext.ly}
-@c http://lsr.dsi.unimi.it/LSR/Item?u=1&id=312
+@c http://lsr.di.unimi.it/LSR/Item?u=1&id=312
 
 @seealso
 Learning Manual:
@@ -580,7 +580,7 @@ come into use to simplify the performance instructions.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{accordion-registers.ly}
+{accordion-register-symbols.ly}
 
 @seealso
 Snippets:

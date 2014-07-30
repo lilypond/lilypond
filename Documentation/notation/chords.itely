@@ -90,25 +90,6 @@ Snippets:
 Predefined shorthands for articulations and ornaments cannot be used
 on notes in chord mode, see @ref{Articulations and ornamentations}.
 
-When chord mode and note mode are mixed in sequential music, and
-chord mode comes first, the note mode will create a new @code{Staff}
-context:
-
-@lilypond[verbatim,quote,ragged-right,relative=1]
-\chordmode { c2 f }
-<c e g>2 <g' b d>
-@end lilypond
-
-@noindent
-To avoid this behavior, explicitly create the @code{Staff} context:
-
-@lilypond[verbatim,quote,ragged-right,relative=1]
-\new Staff {
-  \chordmode { c2 f }
-  <c e g>2  <g' b d>
-}
-@end lilypond
-
 
 @node Common chords
 @unnumberedsubsubsec Common chords
@@ -360,7 +341,7 @@ chord) and added bass notes can be specified by appending
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
-  c1 c/g c/f
+  c'1 c'/e c'/f
 }
 @end lilypond
 
@@ -371,7 +352,7 @@ moved as part of an inversion, by using @code{/+}@var{pitch}.
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
-  c1 c/g c/+g
+  c'1 c'/g c'/+e
 }
 @end lilypond
 
@@ -393,16 +374,6 @@ interpreted last.
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode { c1:5.5-.5+ }
-@end lilypond
-
-Only the second inversion can be created by adding a bass
-note.  The first inversion requires changing the root of
-the chord.
-
-@lilypond[quote,ragged-right,verbatim]
-\chordmode {
-  c'1: c':/g e:6-3-^5 e:m6-^5
-}
 @end lilypond
 
 

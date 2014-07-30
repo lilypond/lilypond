@@ -30,18 +30,15 @@ struct Self_alignment_interface
   static SCM aligned_on_self (Grob *me, Axis a, bool pure, int start, int end);
   static SCM centered_on_object (Grob *me, Axis a);
   static SCM aligned_on_parent (Grob *me, Axis a);
-  static void set_center_parent (Grob *me, Axis a);
-  static void set_align_self (Grob *me, Axis a);
+  static void set_aligned_on_parent (Grob *me, Axis a);
 
   DECLARE_SCHEME_CALLBACK (x_aligned_on_self, (SCM element));
   DECLARE_SCHEME_CALLBACK (y_aligned_on_self, (SCM element));
 
   DECLARE_SCHEME_CALLBACK (pure_y_aligned_on_self, (SCM element, SCM start, SCM end));
 
-  DECLARE_SCHEME_CALLBACK (centered_on_note_columns, (SCM element));
   DECLARE_SCHEME_CALLBACK (centered_on_x_parent, (SCM element));
   DECLARE_SCHEME_CALLBACK (centered_on_y_parent, (SCM element));
-  DECLARE_SCHEME_CALLBACK (x_centered_on_y_parent, (SCM element));
   DECLARE_SCHEME_CALLBACK (aligned_on_x_parent, (SCM element));
   DECLARE_SCHEME_CALLBACK (aligned_on_y_parent, (SCM element));
 };

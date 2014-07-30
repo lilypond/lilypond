@@ -23,6 +23,7 @@
 * List of colors::
 * The Feta font::
 * Note head styles::
+* Clef styles::
 * Text markup commands::
 * Text markup list commands::
 * List of special characters::
@@ -1227,6 +1228,7 @@ see @ref{Formatting text}.
 	     \doc-chars #kievan
 @end lilypond
 
+
 @node Note head styles
 @appendixsec Note head styles
 
@@ -1234,6 +1236,241 @@ see @ref{Formatting text}.
 The following styles may be used for note heads.
 
 @lilypondfile[noindent]{note-head-style.ly}
+
+
+@node Clef styles
+@appendixsec Clef styles
+
+The following table shows all the different clef styles possible
+(including where @emph{middle C} sits relative to the clef).
+
+@multitable @columnfractions .30 .2 .30 .2
+
+@headitem
+Example
+@tab
+Output
+@tab
+Example
+@tab
+Output
+
+
+@item
+@code{\clef G}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef G c1
+@end lilypond
+
+@tab
+@code{\clef "G2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef "G2"
+c1
+@end lilypond
+
+@item
+@code{\clef treble}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef treble
+c1
+@end lilypond
+
+@tab
+@code{\clef violin}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef violin
+c1
+@end lilypond
+
+@item
+@code{\clef french}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef french
+c1
+@end lilypond
+
+@tab
+@code{\clef GG}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef GG
+c1
+@end lilypond
+
+@item
+@code{\clef tenorG}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef tenorG
+c1
+@end lilypond
+
+@tab
+@code{\clef soprano}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef soprano
+c1
+@end lilypond
+
+@item
+@code{\clef mezzosoprano}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef mezzosoprano
+c1
+@end lilypond
+
+@tab
+@code{\clef C}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef C
+c1
+@end lilypond
+
+@item
+@code{\clef alto}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef alto
+c1
+@end lilypond
+
+@tab
+@code{\clef tenor}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef tenor
+c1
+@end lilypond
+
+@item
+@code{\clef baritone}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef baritone
+c1
+@end lilypond
+
+@tab
+@code{\clef varC}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef varC
+c1
+@end lilypond
+
+@item
+@code{\clef altovarC}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef altovarC
+c1
+@end lilypond
+
+@tab
+@code{\clef tenorvarC}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef tenorvarC
+c1
+@end lilypond
+
+@item
+@code{\clef baritonevarC}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef baritonevarC
+c1
+@end lilypond
+
+@tab
+@code{\clef varbaritone}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef varbaritone
+c1
+@end lilypond
+
+@item
+@code{\clef baritonevarF}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef baritonevarF
+c1
+@end lilypond
+
+@tab
+@code{\clef F}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef F
+c1
+@end lilypond
+
+@item
+@code{\clef bass}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef bass
+c1
+@end lilypond
+
+@tab
+@code{\clef subbass}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef subbass
+c1
+@end lilypond
+
+@item
+@code{\clef percussion}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef percussion
+c1
+@end lilypond
+
+@tab
+@c @example does not work as expected within multitables
+@code{
+\new TabStaff @{ @*
+@ @ \clef tab @*
+@}
+}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\new TabStaff {
+  \clef tab
+  c1
+}
+@end lilypond
+
+@item
+@c @example does not work as expected within multitables
+@code{
+\new TabStaff @{ @*
+@ @ \clef moderntab @*
+@}
+}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\new TabStaff {
+  \clef moderntab
+  c1
+}
+@end lilypond
+
+
+@end multitable
 
 
 @node Text markup commands
@@ -1319,7 +1556,7 @@ for more readability.
 @cindex verylongfermata
 
 The following scripts are available in the Feta font and may be
-attached to notes (eg. @samp{c\accent}).
+attached to notes (eg. @samp{f\accent}).
 
 @c Articulations and ornamentations
 @c Fingering instructions (for "thumb")
@@ -1344,18 +1581,172 @@ attached to notes (eg. @samp{c\accent}).
 @node Articulation scripts
 @unnumberedsubsec Articulation scripts
 
-@lilypond[quote]
-\include "script-chart.ly"
-\new RhythmicStaff { \scriptStaff #articulations }
+@multitable @columnfractions .25 .25 .25 .25
+
+@headitem
+Example
+@tab
+Output
+@tab
+Example
+@tab
+Output
+
+@item
+@code{\accent}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\accent e,_\accent
 @end lilypond
+@tab
+@code{\espressivo}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\espressivo e,_\espressivo
+@end lilypond
+
+@item
+@code{\marcato}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\marcato e,_\marcato
+@end lilypond
+@tab
+@code{\portato}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\portato e,_\portato
+@end lilypond
+
+@item
+@code{\staccatissimo}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\staccatissimo e,_\staccatissimo
+@end lilypond
+@tab
+@code{\staccato}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\staccato e,_\staccato
+@end lilypond
+
+@item
+@code{\tenuto}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\tenuto e,_\tenuto
+@end lilypond
+
+@end multitable
+
 
 @node Ornament scripts
 @unnumberedsubsec Ornament scripts
 
-@lilypond[quote]
-\include "script-chart.ly"
-\new RhythmicStaff { \scriptStaff #ornaments }
+@multitable @columnfractions .25 .25 .25 .25
+
+@headitem
+Example
+@tab
+Output
+@tab
+Example
+@tab
+Output
+
+@item
+@code{\prall}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\prall e,_\prall
 @end lilypond
+@tab
+@code{\mordent}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\mordent e,_\mordent
+@end lilypond
+
+@item
+@code{\prallmordent}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\prallmordent e,_\prallmordent
+@end lilypond
+@tab
+@code{\turn}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\turn e,_\turn
+@end lilypond
+
+@item
+@code{\upprall}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\upprall e,_\upprall
+@end lilypond
+@tab
+@code{\downprall}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\downprall e,_\downprall
+@end lilypond
+
+@item
+@code{\upmordent}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\upmordent e,_\upmordent
+@end lilypond
+@tab
+@code{\downmordent}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\downmordent e,_\downmordent
+@end lilypond
+
+@item
+@code{\lineprall}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\lineprall e,_\lineprall
+@end lilypond
+@tab
+@code{\prallprall}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\prallprall e,_\prallprall
+@end lilypond
+
+@item
+@code{\pralldown}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\pralldown e,_\pralldown
+@end lilypond
+@tab
+@code{\prallup}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\prallup e,_\prallup
+@end lilypond
+
+@item
+@code{\reverseturn}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\reverseturn e,_\reverseturn
+@end lilypond
+@tab
+@code{\trill}
+@tab
+@lilypond[notime,ragged-right,relative=2]
+f\trill e,_\trill
+@end lilypond
+
+@end multitable
 
 @node Fermata scripts
 @unnumberedsubsec Fermata scripts

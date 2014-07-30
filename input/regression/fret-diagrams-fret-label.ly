@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.8"
 
 \header {
   texidoc="
@@ -32,8 +32,8 @@ size, and number type.
                                      (barre 5 1 3))}
 
      %% C major for guitar, verbose style
-    \override TextScript.fret-diagram-details.label-dir = #LEFT 
-    \override TextScript.fret-diagram-details.number-type = #'roman-upper 
+    \override TextScript.fret-diagram-details.label-dir = #LEFT
+    \override TextScript.fret-diagram-details.number-type = #'roman-upper
     c' ^\markup {
             \fret-diagram-verbose #'((mute 6)
                                      (place-fret 5 3 1)
@@ -45,8 +45,8 @@ size, and number type.
 
      %% C major for guitar, verbose style
     \revert TextScript.fret-diagram-details.label-dir
-    \override TextScript.fret-diagram-details.fret-label-font-mag = #0.4 
-    \override TextScript.fret-diagram-details.number-type = #'arabic 
+    \override TextScript.fret-diagram-details.fret-label-font-mag = #0.4
+    \override TextScript.fret-diagram-details.number-type = #'arabic
     \once \override TextScript.fret-diagram-details.fret-label-vertical-offset = #0.25
     c' ^\markup {
             \fret-diagram-verbose #'((mute 6)
@@ -60,6 +60,7 @@ size, and number type.
      %% C major for guitar, verbose style
     \revert TextScript.fret-diagram-details.label-dir
     \once \override TextScript.fret-diagram-details.number-type = #'custom
+    \once \override TextScript.fret-diagram-details.fret-label-horizontal-offset = #0.5
     \once \override TextScript.fret-diagram-details.fret-label-custom-format = #"~d°"
     c' ^\markup {
             \fret-diagram-verbose #'((mute 6)
@@ -72,5 +73,3 @@ size, and number type.
 
  }
 >>
-
-

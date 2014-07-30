@@ -194,7 +194,7 @@ have the @qq{docs} tag can then be easily added as a
 @emph{selected snippet} in the documentation.  It will also appear
 automatically in the Snippets lists.  See @ref{Introduction to LSR}.
 
-Snippets that @emph{don't} have the @qq{docs} tage will still be
+Snippets that @emph{don't} have the @qq{docs} tag will still be
 searchable and viewable within the LSR, but will be not be included in
 the Snippets list or be able to be included as part of the main
 documentation.
@@ -944,6 +944,18 @@ the same format as @code{@@enumerate}.  Do not use
 
 @node Special characters
 @unnumberedsubsubsec Special characters
+
+@warning{In Texinfo, the backslash is an ordinary character, and
+is entered without escaping (e.g.
+@samp{The@tie{}@@code@{@bs{}foo@}@tie{}command}).  However, within
+double-quoted Scheme and/or LilyPond strings, backslashes
+(including those ending up in Texinfo markup) need to be escaped
+by doubling them:
+@example
+(define (foo x)
+  "The @@code@{@bs{}@bs{}foo@} command..."
+  ...)
+@end example}
 
 @itemize
 @item

@@ -81,7 +81,7 @@ Drum_note_performer::process_music ()
             }
 
           Audio_note *p = new Audio_note (*pit, len,
-                                          tie_event, Pitch (0, 0, 0), velocity);
+                                          tie_event, Pitch (0, 0), velocity);
           Audio_element_info info (p, n);
           announce_element (info);
         }

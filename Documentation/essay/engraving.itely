@@ -447,12 +447,8 @@ magnified by 236% to print at the same size as the previous example:
 At smaller sizes, LilyPond uses proportionally heavier lines so the
 music will still read well.
 
-@ignore
 This also allows staves of different sizes to coexist peacefully when
 used together on the same page:
-
-@c TODO: are the stems in this example the right thickness? How should
-@c line weights be scaled for small staves?
 
 @c Grieg's Violin Sonata Op. 45
 @lilypond[indent=1.5cm]
@@ -464,9 +460,7 @@ global = {
 \score {
   <<
     \new Staff \with {
-      fontSize = #-4
-      \override StaffSymbol.staff-space = #(magstep -4)
-      \override StaffSymbol.thickness = #(magstep -3)
+      \magnifyStaff #2/3
     }
     \relative c' {
       \global
@@ -503,7 +497,7 @@ global = {
   >>
 }
 @end lilypond
-@end ignore
+
 
 @node Why work so hard?
 @unnumberedsubsec Why work so hard?

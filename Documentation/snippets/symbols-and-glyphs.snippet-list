@@ -1,5 +1,5 @@
 accordion-discant-symbols.ly
-accordion-registers.ly
+accordion-register-symbols.ly
 adding-indicators-to-staves-which-get-split-after-a-break.ly
 ancient-fonts.ly
 breathing-signs.ly
@@ -7,6 +7,7 @@ broken-crescendo-hairpin.ly
 caesura-railtracks-with-fermata.ly
 changing--flageolet-mark-size.ly
 custodes.ly
+customizing-the-position-and-number-of-dots-in-repeat-sign-bar-lines.ly
 fingering-symbols-for-wind-instruments.ly
 how-to-put-ties-between-syllables-in-lyrics.ly
 positioning-segno-and-coda-with-line-break.ly

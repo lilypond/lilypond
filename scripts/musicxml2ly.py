@@ -41,7 +41,7 @@ additional_definitions = {
   "tuplet-note-wrapper": """      % a formatter function, which is simply a wrapper around an existing
       % tuplet formatter function. It takes the value returned by the given
       % function and appends a note of given length.
-  #(define-public ((tuplet-number::append-note-wrapper function note) grob)
+  #(define ((tuplet-number::append-note-wrapper function note) grob)
     (let* ((txt (if function (function grob) #f)))
       (if txt
         (markup txt #:fontsize -5 #:note note UP)
@@ -1315,7 +1315,7 @@ def musicxml_words_to_lily_event (words):
 # convert accordion-registration to lilypond.
 # Since lilypond does not have any built-in commands, we need to create
 # the markup commands manually and define our own variables.
-# Idea was taken from: http://lsr.dsi.unimi.it/LSR/Item?id=194
+# Idea was taken from: http://lsr.di.unimi.it/LSR/Item?id=194
 def musicxml_accordion_to_markup (mxl_event):
     commandname = "accReg"
     command = ""

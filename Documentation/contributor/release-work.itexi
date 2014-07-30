@@ -76,9 +76,40 @@ A @qq{minor release} means an update of @code{y} in @code{2.x.y}.
 
 @item
 Using any system with git pull access (not necessarily the GUB
-build machine), use the commands below to switch to the release
-branch, get changes and prepare the release
-announcement.  This requires a system which has the release/unstable
+build machine), use the commands below to do the following:
+
+@itemize
+@item
+switch to the release branch
+
+@item
+update the release branch from origin/master
+
+@item
+update the translation files
+
+@item
+create the release announcement
+
+@item
+update the build versions.
+
+@itemize
+@item
+VERSION_DEVEL = the current development version (previous VERSION_DEVEL + 0.01)
+
+@item
+VERSION_STABLE = the current stable version (probably no change here)
+
+@end itemize
+
+@item
+update the @qq{Welcome to Lilypond} version numbers to the version about to be
+released
+
+@end itemize
+
+This requires a system which has the release/unstable
 branch.  If you get a warning saying you are in @code{detached HEAD}
 state, then you should create a release/unstable branch with
 @code{git checkout release/unstable}.
@@ -98,21 +129,8 @@ make -C $LILYPOND_BUILD_DIR po-replace
 mv $LILYPOND_BUILD_DIR/po/lilypond.pot po/
 gedit Documentation/web/news-front.itexi Documentation/web/news.itexi
 gedit VERSION
+gedit ly/Wel*.ly
 @end example
-
-@itemize
-@item
-VERSION_DEVEL = the current development version (previous VERSION_DEVEL + 0.01)
-
-@item
-VERSION_STABLE = the current stable version (probably no change here)
-
-@end itemize
-
-@item
-Manually edit the two files @file{../ly/Welcome_to_LilyPond.ly} and
-@file{../ly/Welcome-to-LilyPond-MacOS.ly} such that the hard coded
-@code{\version} number reflects the version number about to be released.
 
 @item
 Commit, push, switch back to master (or wherever else):
@@ -123,6 +141,7 @@ git commit -m "Release: bump VERSION_DEVEL." ly/Welcome_to_LilyPond.ly
 git commit -m "Release: bump VERSION_DEVEL." ly/Welcome-to-LilyPond-MacOS.ly
 git commit -m "PO: update template." po/lilypond.pot
 git commit -m "Release: update news." Documentation/web/
+git commit -m "Release: bump Welcome versions." ly/Wel*.ly
 git push origin HEAD:release/unstable
 git checkout master
 @end example

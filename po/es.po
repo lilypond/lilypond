@@ -627,10 +627,10 @@ msgid "\\bar \".\" now produces a thick barline.\n"
 msgstr "\\bar \".\" ahora produce una línea divisoria gruesa.\n"
 
 #: convertrules.py:2849
-msgid "Dash parameters for slurs and ties are now in 'dash-details.\n"
+msgid "Dash parameters for slurs and ties are now in 'dash-definition.\n"
 msgstr ""
 "Los parámetros de discontinuidad para las ligaduras\n"
-"de expresión y de unión ahora están en 'dash-details.\n"
+"de expresión y de unión ahora están en 'dash-definition.\n"
 
 #: convertrules.py:2854
 msgid ""

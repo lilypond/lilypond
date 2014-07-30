@@ -36,6 +36,7 @@ public:
   static Grob *accidentals (Grob *me);
   static Slice head_positions_interval (Grob *me);
   static Grob *first_head (Grob *me);
+  static Interval calc_main_heads_extent (Grob *me);
   static Grob *get_rest (Grob *me);
   static void set_stem (Grob *me, Grob *);
   static void add_head (Grob *me, Grob *);

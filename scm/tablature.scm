@@ -81,23 +81,33 @@
 ;; (dotted) half notes to distinguish them from quarter notes:
 (define-public (tabvoice::make-double-stem-width-for-half-notes grob)
   (let ((X-extent (ly:stem::width grob)))
+    ;; does the stem exist and is it on a (dotted) half note?
+    (if (and (not (equal? X-extent empty-interval))
+             (= 1 (ly:grob-property grob 'duration-log)))
 
-    ;; is the note a (dotted) half note?
-    (if (= 1 (ly:grob-property grob 'duration-log))
-        ;; yes -> return double stem width
-        (cons (car X-extent) (+ 0.5 (* 2 (cdr X-extent))))
-        ;; no -> return simple stem width
-        X-extent)))
+      ;; yes -> return double stem X-extent
+      (let* ((single-stem-width (- (cdr X-extent) (car X-extent)))
+             (separation (ly:grob-property grob 'double-stem-separation 0.5))
+             (total-width (+ single-stem-width separation))
+             (half-width (/ total-width 2)))
+        (cons (- half-width) half-width))
+      ;; no -> return simple stem X-extent
+      X-extent)))
 
 (define-public (tabvoice::draw-double-stem-for-half-notes grob)
-  (let ((stem (ly:stem::print grob)))
+  (let ((stem-stencil (ly:stem::print grob)))
+    ;; does the stem exist and is it on a (dotted) half note?
+    (if (and (ly:stencil? stem-stencil)
+             (= 1 (ly:grob-property grob 'duration-log)))
 
-    ;; is the note a (dotted) half note?
-    (if (= 1 (ly:grob-property grob 'duration-log))
-        ;; yes -> draw double stem
-        (ly:stencil-combine-at-edge stem X RIGHT stem 0.5)
-        ;; no -> draw simple stem
-        stem)))
+      ;; yes -> draw double stem
+      (let* ((separation (ly:grob-property grob 'double-stem-separation 0.5))
+             (half-separation (/ separation 2)))
+        (ly:stencil-add
+          (ly:stencil-translate-axis stem-stencil (- half-separation) X)
+          (ly:stencil-translate-axis stem-stencil half-separation X)))
+      ;; no -> draw simple stem (or none at all)
+      stem-stencil)))
 
 ;; as default, the glissando line between fret numbers goes
 ;; upwards, here we have a function to correct this behavior:
@@ -224,9 +234,10 @@
 
 
 ;; a callback for custom fret labels
-(define-public ((tab-note-head::print-custom-fret-label fret) grob)
+(define ((tab-note-head::print-custom-fret-label fret) grob)
   (ly:grob-set-property! grob 'text fret)
   (tab-note-head::print grob))
+(export tab-note-head::print-custom-fret-label)
 
 (define-public (tab-note-head::print grob)
   (define (is-harmonic? grob)

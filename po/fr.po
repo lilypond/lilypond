@@ -629,8 +629,8 @@ msgid "\\bar \".\" now produces a thick barline.\n"
 msgstr "\\bar \".\" produit désormais une barre épaisse.\n"
 
 #: convertrules.py:2849
-msgid "Dash parameters for slurs and ties are now in 'dash-details.\n"
-msgstr "Les paramètres du pointillé des liaisons sont gérés par `dash-details.\n"
+msgid "Dash parameters for slurs and ties are now in 'dash-definition.\n"
+msgstr "Les paramètres du pointillé des liaisons sont gérés par `dash-definition.\n"
 
 #: convertrules.py:2854
 msgid ""

@@ -1166,7 +1166,7 @@ Besondere Arpeggios mit Klammern können erstellt werden:
 @end lilypond
 
 Die @code{dash}-Eigenschaft der Arpeggioklammern werden von
-der @code{'dash-details}-Eigenschaft kontrolliert, die
+der @code{'dash-definition}-Eigenschaft kontrolliert, die
 beschrieben ist in @ref{Legatobögen}.
 
 Ein Arpeggio kann auch explizit ausgeschrieben werden, indem

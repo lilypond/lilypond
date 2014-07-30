@@ -59,7 +59,7 @@ found in @file{scm/bar-line.scm}.
    has-span-bar
    kern
    rounded
-   thin-kern
+   segno-kern
    thick-thickness))
 
 (ly:add-interface

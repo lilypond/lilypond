@@ -42,7 +42,7 @@ way the transposition number is displayed."
 ;; prepare using other fonts than 'fetaMusic.
 ;; Currently it ensures that the default-fonts are used by the
 ;; markup-command 'note-by-number' in 'metronome-markup' (see below).
-(define*-public
+(define*
   ((styled-metronome-markup #:optional (glyph-font 'default))
                             event context)
    (let ((hide-note (ly:context-property context 'tempoHideNote #f))
@@ -51,6 +51,7 @@ way the transposition number is displayed."
          (count (ly:event-property event 'metronome-count)))
 
    (metronome-markup glyph-font text dur count hide-note)))
+(export styled-metronome-markup)
 
 (define-public format-metronome-markup
   (styled-metronome-markup))
@@ -634,16 +635,19 @@ only ~a fret labels provided")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; bar numbers
 
-(define-public ((every-nth-bar-number-visible n) barnum mp)
+(define ((every-nth-bar-number-visible n) barnum mp)
   (= 0 (modulo barnum n)))
+(export every-nth-bar-number-visible)
 
-(define-public ((modulo-bar-number-visible n m) barnum mp)
+(define ((modulo-bar-number-visible n m) barnum mp)
   (and (> barnum 1) (= m (modulo barnum n))))
+(export modulo-bar-number-visible)
 
-(define-public ((set-bar-number-visibility n) tr)
+(define ((set-bar-number-visibility n) tr)
   (let ((bn (ly:context-property tr 'currentBarNumber)))
     (ly:context-set-property! tr 'barNumberVisibility
                               (modulo-bar-number-visible n (modulo bn n)))))
+(export set-bar-number-visibility)
 
 (define-public (first-bar-number-invisible barnum mp)
   (> barnum 1))
@@ -688,8 +692,9 @@ only ~a fret labels provided")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; percent repeat counters
 
-(define-public ((every-nth-repeat-count-visible n) count context)
+(define ((every-nth-repeat-count-visible n) count context)
   (= 0 (modulo count n)))
+(export every-nth-repeat-count-visible)
 
 (define-public (all-repeat-counts-visible count context) #t)
 

@@ -99,7 +99,7 @@ Note_heads_engraver::process_music ()
       if (scm_is_vector (shape_vector))
         {
           SCM scm_tonic = get_property ("tonic");
-          Pitch tonic (0, 0, 0);
+          Pitch tonic;
           if (unsmob_pitch (scm_tonic))
             tonic = *unsmob_pitch (scm_tonic);
 

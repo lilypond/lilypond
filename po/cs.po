@@ -583,8 +583,8 @@ msgid "\\bar \".\" now produces a thick barline.\n"
 msgstr "\\bar \".\" nyní vytváří silnou taktovou čáru.\n"
 
 #: convertrules.py:2848
-msgid "Dash parameters for slurs and ties are now in 'dash-details.\n"
-msgstr "Parametry čárky pro legatové obloučky a ligatury jsou nyní v 'dash-details.\n"
+msgid "Dash parameters for slurs and ties are now in 'dash-definition.\n"
+msgstr "Parametry čárky pro legatové obloučky a ligatury jsou nyní v 'dash-definition.\n"
 
 #: convertrules.py:2853
 msgid ""

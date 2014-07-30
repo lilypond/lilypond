@@ -183,6 +183,10 @@ Spanner::get_bound (Direction d) const
 /*
   Set the items that this spanner spans. If D == LEFT, we also set the
   X-axis parent of THIS to S.
+
+  For example, when a slur crosses a line break, it's broken into two
+  pieces.  The second piece shouldn't be positioned relative to the
+  original NoteColumn, but rather to the PaperColumn after the break.
 */
 void
 Spanner::set_bound (Direction d, Grob *s)
@@ -200,7 +204,14 @@ Spanner::set_bound (Direction d, Grob *s)
      We check for System to prevent the column -> line_of_score
      -> column -> line_of_score -> etc situation */
   if (d == LEFT && !dynamic_cast<System *> (this))
-    set_parent (i, X_AXIS);
+    /*
+      If the X-parent is a spanner, it will be split across linebreaks, too,
+      so we shouldn't have to overwrite it with the bound. Also, we need
+      original parent for alignment.
+      This happens e.g. for MultiMeasureRestNumbers and PercentRepeatCounters.
+    */
+    if (!dynamic_cast <Spanner *> (this->get_parent (X_AXIS)))
+      set_parent (i, X_AXIS);
 
   /*
     Signal that this column needs to be kept alive. They need to be

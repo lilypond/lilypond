@@ -16,7 +16,7 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 ;; for define-safe-public when byte-compiling using Guile V2
-(use-modules (scm safe-utility-defs))
+(use-modules (scm safe-utility-defs) (ice-9 receive))
 
 (define-public (construct-chord-elements root duration modifications)
   "Build a chord on root using modifiers in @var{modifications}.
@@ -174,26 +174,42 @@ the bass specified.
 
 (define (make-chord-elements pitches bass duration inversion original-inv-pitch)
   "Make EventChord with notes corresponding to PITCHES, BASS and
-DURATION, and INVERSION."
-  (define (make-note-ev pitch)
-    (make-music 'NoteEvent
-                'duration duration
-                'pitch pitch))
-  (let ((nots (map make-note-ev pitches))
-        (bass-note (if bass (make-note-ev bass) #f))
-        (inv-note (if inversion (make-note-ev inversion) #f)))
-    (if bass-note
-        (begin
-          (set! (ly:music-property bass-note 'bass) #t)
-          (set! nots (cons bass-note nots))))
-    (if inv-note
-        (begin
-          (set! (ly:music-property inv-note 'inversion) #t)
-          (set! (ly:music-property inv-note 'octavation)
-                (- (ly:pitch-octave inversion)
-                   (ly:pitch-octave original-inv-pitch)))
-          (set! nots (cons inv-note nots))))
-    nots))
+DURATION, and INVERSION.  Notes above INVERSION are transposed downward
+along with the inversion as long as they end up below at least one
+non-inverted note."
+  (define (make-note-ev pitch . rest)
+    (apply make-music 'NoteEvent
+           'duration duration
+           'pitch pitch
+           rest))
+  (cond (inversion
+         (let* ((octavation (- (ly:pitch-octave inversion)
+                               (ly:pitch-octave original-inv-pitch)))
+                (down (ly:make-pitch octavation 0 0)))
+           (define (invert p) (ly:pitch-transpose down p))
+           (define (make-inverted p . rest)
+             (apply make-note-ev (invert p) 'octavation octavation rest))
+           (receive (uninverted high)
+                    (span (lambda (p) (ly:pitch<? p original-inv-pitch))
+                          pitches)
+                    (receive (invertible rest)
+                             (if (null? uninverted)
+                                 ;; The following line caters for
+                                 ;; inversions "on the root", turning
+                                 ;; f/f into <f a' c''> rather than <f a c'>
+                                 ;; or <f' a' c''>
+                                 (values '() high)
+                                 (span (lambda (p)
+                                         (ly:pitch<? (invert p) (car uninverted)))
+                                       high))
+                             (cons (make-inverted original-inv-pitch 'inversion #t)
+                                   (append (if bass (list (make-note-ev bass 'bass #t)) '())
+                                           (map make-inverted invertible)
+                                           (map make-note-ev uninverted)
+                                           (map make-note-ev rest)))))))
+        (bass (cons (make-note-ev bass 'bass #t)
+                    (map make-note-ev pitches)))
+        (else (map make-note-ev pitches))))
 
 ;;;;;;;;;;;;;;;;
 ;; chord modifiers change the pitch list.

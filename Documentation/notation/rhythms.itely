@@ -199,18 +199,16 @@ rests from 128th to maxima (8 x whole) may be printed.
 @funindex tuplet
 
 Tuplets are made from a music expression with the @code{\tuplet}
-command, multiplying the speed of the music expression by a
-fraction:
+command, multiplying the speed of the music expression by a fraction:
 
 @example
 \tuplet @var{fraction} @{ @var{music} @}
 @end example
 
 @noindent
-The fraction's numerator will be printed over or
-under the notes, optionally with a bracket.  The most common
-tuplets are triplets: 3@tie{}notes sound within the duration
-normally allowed for@tie{}2:
+The fraction's numerator will be printed over or under the notes,
+optionally with a bracket.  The most common tuplets are triplets
+(3@tie{}notes sound within the duration normally allowed for@tie{}2).
 
 @lilypond[quote,verbatim,relative=2]
 a2 \tuplet 3/2 { b4 4 4 }
@@ -220,10 +218,9 @@ c4 c \tuplet 3/2 { b4 a g }
 @cindex tuplet grouping
 @noindent
 When entering long passages of tuplets, having to write a separate
-@code{\tuplet} command for each group is inconvenient.  It is
-possible to specify the duration of one tuplet group directly
-before the music in order to have the tuplets grouped
-automatically:
+@code{\tuplet} command for each group is inconvenient.  It is possible
+to specify the duration of one tuplet group directly before the music
+in order to have the tuplets grouped automatically:
 
 @lilypond[quote,verbatim,relative=2]
 g2 r8 \tuplet 3/2 8 { cis16 d e e f g g f e }
@@ -238,8 +235,14 @@ g2 r8 \tuplet 3/2 8 { cis16 d e e f g g f e }
 @funindex \tupletNeutral
 @funindex tupletNeutral
 
-Tuplet brackets may be manually placed above or below the staff;
-see @ref{Direction and placement}.
+Tuplet brackets may be manually placed above or below the staff:
+
+@lilypond[quote,verbatim,relative=2]
+\tupletUp \tuplet 3/2 { c8 d e }
+\tupletNeutral \tuplet 3/2 { c8 d e }
+\tupletDown \tuplet 3/2 { f,8 g a }
+\tupletNeutral \tuplet 3/2 { f8 g a }
+@end lilypond
 
 Tuplets may be nested:
 
@@ -248,12 +251,11 @@ Tuplets may be nested:
 c4 \tuplet 5/4 { f8 e f \tuplet 3/2 { e[ f g] } } f4
 @end lilypond
 
-Modifying nested tuplets which begin at the same musical moment
-must be done with @code{\tweak}.
+Modifying nested tuplets which begin at the same musical moment must be
+done with @code{\tweak}.
 
-To modify the duration of notes without printing a tuplet bracket,
-see @ref{Scaling durations}.
-
+To modify the duration of notes without printing a tuplet bracket, see
+@ref{Scaling durations}.
 
 @predefined
 @code{\tupletUp},
@@ -299,6 +301,7 @@ Learning Manual:
 @rlearning{Tweaking methods}.
 
 Notation Reference:
+@ref{Direction and placement},
 @ref{Time administration},
 @ref{Scaling durations},
 @ref{The tweak command},
@@ -311,20 +314,6 @@ Internals Reference:
 @rinternals{TupletBracket},
 @rinternals{TupletNumber},
 @rinternals{TimeScaledMusic}.
-
-@cindex grace notes within tuplet brackets
-
-@knownissues
-Grace notes may be placed within tuplet brackets, @emph{except}
-when a staff begins with a grace note followed by a tuplet.  In this
-particular case, the grace note must be placed before the @code{\tuplet}
-command to avoid errors.
-
-@cindex tempo marks within tuplet brackets
-
-When using a tuplet at the beginning of a piece with a @code{\tempo}
-mark, the music must be explicitly entered in a @code{\new Voice}
-block, as discussed in @rlearning{Voices contain music}.
 
 
 @node Scaling durations
@@ -2401,6 +2390,7 @@ in only one staff.
     \time 3/4
     \set Timing.baseMoment = #(ly:make-moment 1/8)
     \set Timing.beatStructure = #'(1 5)
+    \set Timing.beamExceptions = #'()
     \repeat unfold 6 { a8 }
   }
   \new Staff {

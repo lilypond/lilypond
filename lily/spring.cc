@@ -189,7 +189,6 @@ Spring::set_blocking_force (Real f)
 
   blocking_force_ = -infinity_f;
   min_distance_ = length (f);
-  distance_ = max (distance_, min_distance_);
   update_blocking_force ();
 }
 

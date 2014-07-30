@@ -1251,8 +1251,8 @@ arpégé :
 @end lilypond
 
 Les indications d'arpeggio peuvent se présenter sous la forme de ligne
-discontinue à l'aide de la propriété  @code{'dash-details}.  Pour plus
-de détails à ce propos, consultez @ref{Liaisons d'articulation}.
+discontinue à l'aide de la propriété  @code{'dash-definition}.  Pour
+plus de détails à ce propos, consultez @ref{Liaisons d'articulation}.
 
 Un arpège peut parfois s'écrire de manière explicite, à l'aide de
 liaisons de tenue.  Pour plus d'information, voir

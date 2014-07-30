@@ -274,9 +274,6 @@ Internals Reference:
 @rinternals{SystemStartBracket},
 @rinternals{SystemStartSquare}.
 
-@knownissues
-@code{PianoStaff} does not, by default, accept @code{ChordNames}.
-
 
 @node Nested staff groups
 @unnumberedsubsubsec Nested staff groups
@@ -611,9 +608,7 @@ only a few ossia staves are needed.
     \new Staff \with {
       \remove "Time_signature_engraver"
       alignAboveContext = #"main"
-      fontSize = #-3
-      \override StaffSymbol.staff-space = #(magstep -3)
-      \override StaffSymbol.thickness = #(magstep -3)
+      \magnifyStaff #2/3
       firstClef = ##f
     }
     { e4 d f e }
@@ -635,9 +630,7 @@ example.
   \new Staff = "ossia" \with {
     \remove "Time_signature_engraver"
     \hide Clef
-    fontSize = #-3
-    \override StaffSymbol.staff-space = #(magstep -3)
-    \override StaffSymbol.thickness = #(magstep -3)
+    \magnifyStaff #2/3
   }
   { \stopStaff s1*6 }
 
@@ -674,9 +667,7 @@ break.  For more information about
   \new Staff = "ossia" \with {
     \remove "Time_signature_engraver"
     \hide Clef
-    fontSize = #-3
-    \override StaffSymbol.staff-space = #(magstep -3)
-    \override StaffSymbol.thickness = #(magstep -3)
+    \magnifyStaff #2/3
   } \relative c'' {
     R1*3
     c4 e8 d c2

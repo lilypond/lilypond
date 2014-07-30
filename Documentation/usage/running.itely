@@ -915,6 +915,13 @@ when something unexpected happens.  If you can't see an error in the
 indicated line of your input file, try checking one or two lines
 above the indicated position.
 
+Please note that diagnostics can be triggered at any point during the
+many stages of processing.  For example if there are parts of the input
+that are processed multiple times (i.e. in midi and layout output), or
+if the same music variable is used in multiple contexts the same message
+may appear several times.  Diagnostics produced at a @q{late} stage (i.e
+bar checks) might also be issued multiple times.
+
 More information about errors is given in @ref{Common errors}.
 
 
@@ -993,30 +1000,6 @@ correct code to color all note heads red is
   a
 }
 @end lilypond
-
-As a second example, if a @code{\relative} command is placed inside
-a @code{\repeat} command, two staves result, the second offset from
-the first, because the @code{\repeat} command generates two
-@code{\relative} blocks, which each implicitly create @code{Staff}
-and @code{Voice} blocks.
-
-@lilypond[quote,verbatim]
-\repeat unfold 2 {
-  \relative c' { c4 d e f }
-}
-@end lilypond
-
-Explicitly instantiating the @code{Voice} context fixes the
-problem:
-
-@lilypond[quote,verbatim]
-\new Voice {
-  \repeat unfold 2 {
-    \relative c' { c4 d e f }
-  }
-}
-@end lilypond
-
 
 @node Error message Unbound variable %
 @unnumberedsubsec Error message Unbound variable %

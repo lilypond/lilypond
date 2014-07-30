@@ -906,17 +906,19 @@ NUMBER is 0-base, i.e., Voice=1 (upstems) has number 0.
   (lambda (elt)
     (grob::has-interface elt symbol)))
 
-(define-public ((outputproperty-compatibility func sym val) grob g-context ao-context)
+(define ((outputproperty-compatibility func sym val) grob g-context ao-context)
   (if (func grob)
       (set! (ly:grob-property grob sym) val)))
+(export outputproperty-compatibility)
 
 
-(define-public ((set-output-property grob-name symbol val)  grob grob-c context)
+(define ((set-output-property grob-name symbol val)  grob grob-c context)
   "Usage example:
 @code{\\applyoutput #(set-output-property 'Clef 'extra-offset '(0 . 1))}"
   (let ((meta (ly:grob-property grob 'meta)))
     (if (equal? (assoc-get 'name meta) grob-name)
         (set! (ly:grob-property grob symbol) val))))
+(export set-output-property)
 
 
 (define-public (skip->rest mus)
@@ -1065,10 +1067,6 @@ value (evaluated at definition time).  An optional parameter can be
 omitted in a call only when it can't get confused with a following
 parameter of different type.
 
-Predicates with syntactical significance are @code{ly:pitch?},
-@code{ly:duration?}, @code{ly:music?}, @code{markup?}.  Other
-predicates require the parameter to be entered as Scheme expression.
-
 @code{result-type?} can specify a default in the same manner as
 predicates, to be used in case of a type error in arguments or
 result."
@@ -1119,10 +1117,6 @@ value (evaluated at definition time).  An optional parameter can be
 omitted in a call only when it can't get confused with a following
 parameter of different type.
 
-Predicates with syntactical significance are @code{ly:pitch?},
-@code{ly:duration?}, @code{ly:music?}, @code{markup?}.  Other
-predicates require the parameter to be entered as Scheme expression.
-
 Must return a music expression.  The @code{origin} is automatically
 set to the @code{location} parameter."
 
@@ -1142,10 +1136,6 @@ value)}} for optional parameters with a specified default
 value (evaluated at definition time).  An optional parameter can be
 omitted in a call only when it can't get confused with a following
 parameter of different type.
-
-Predicates with syntactical significance are @code{ly:pitch?},
-@code{ly:duration?}, @code{ly:music?}, @code{markup?}.  Other
-predicates require the parameter to be entered as Scheme expression.
 
 Can return arbitrary expressions.  If a music expression is returned,
 its @code{origin} is automatically set to the @code{location}
@@ -1174,10 +1164,6 @@ value)}} for optional parameters with a specified default
 value (evaluated at definition time).  An optional parameter can be
 omitted in a call only when it can't get confused with a following
 parameter of different type.
-
-Predicates with syntactical significance are @code{ly:pitch?},
-@code{ly:duration?}, @code{ly:music?}, @code{markup?}.  Other
-predicates require the parameter to be entered as Scheme expression.
 
 Must return an event expression.  The @code{origin} is automatically
 set to the @code{location} parameter."
@@ -1229,7 +1215,7 @@ set to the @code{location} parameter."
                  (and clef (make-cue-clef-unset))))))
       quote-music))
 
-(define-public ((quote-substitute quote-tab) music)
+(define ((quote-substitute quote-tab) music)
   (let* ((quoted-name (ly:music-property music 'quoted-music-name))
          (quoted-vector (and (string? quoted-name)
                              (hash-ref quote-tab quoted-name #f))))
@@ -1243,6 +1229,7 @@ set to the @code{location} parameter."
                     ly:quote-iterator::constructor))
             (ly:music-warning music (ly:format (_ "cannot find quoted music: `~S'") quoted-name))))
     music))
+(export quote-substitute)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1507,7 +1494,7 @@ also get an accidental."
 
     (cons need-restore need-accidental)))
 
-(define-public ((make-accidental-rule octaveness laziness) context pitch barnum measurepos)
+(define ((make-accidental-rule octaveness laziness) context pitch barnum measurepos)
   "Create an accidental rule that makes its decision based on the octave of
 the note and a laziness value.
 
@@ -1525,12 +1512,14 @@ accidental lasts over that many bar lines.  @w{@code{-1}} is `forget
 immediately', that is, only look at key signature.  @code{#t} is `forever'."
 
   (check-pitch-against-signature context pitch barnum laziness octaveness #f))
+(export make-accidental-rule)
 
-(define-public ((make-accidental-dodecaphonic-rule octaveness laziness) context pitch barnum measurepos)
+(define ((make-accidental-dodecaphonic-rule octaveness laziness) context pitch barnum measurepos)
   "Variation on function make-accidental-rule that creates an dodecaphonic
 accidental rule."
 
   (check-pitch-against-signature context pitch barnum laziness octaveness #t))
+(export make-accidental-dodecaphonic-rule)
 
 (define (key-entry-notename entry)
   "Return the pitch of an @var{entry} in @code{localAlterations}.
@@ -1575,7 +1564,8 @@ For convenience, returns @code{0} if entry is @code{#f}."
       0))
 
 (define-public (find-pitch-entry keysig pitch accept-global accept-local)
-  "Return the first entry in @var{keysig} that matches @var{pitch}.
+  "Return the first entry in @var{keysig} that matches @var{pitch}
+by notename and octave.  Alteration is not considered.
 @var{accept-global} states whether key signature entries should be included.
 @var{accept-local} states whether local accidentals should be included.
 If no matching entry is found, @var{#f} is returned."
@@ -1615,15 +1605,19 @@ look at bar lines nor different accidentals at the same note name."
 note (just as in the dodecaphonic accidental style) @emph{except} if
 the note is immediately preceded by a note with the same pitch. This
 is a common accidental style in contemporary notation."
-   (let* ((keysig (ly:context-property context 'localKeySignature))
-          (entry (find-pitch-entry keysig pitch #t #t)))
+   (let* ((keysig (ly:context-property context 'localAlterations))
+          (entry (find-pitch-entry keysig pitch #f #t)))
      (if (not entry)
-          (cons #f #t)
-         (let* ((entrymp (key-entry-measure-position entry))
-                (entrybn (key-entry-bar-number entry)))
-           (cons #f
-             (not
-              (and (equal? entrybn barnum) (equal? entrymp measurepos))))))))
+         (cons #f #t)
+         (let ((entrymp (key-entry-measure-position entry))
+               (entrybn (key-entry-bar-number entry))
+               (entryalt (key-entry-alteration entry))
+               (alt (ly:pitch-alteration pitch)))
+           (cons #t
+                 (not (and (equal? entrybn barnum)
+                           (or (equal? measurepos entrymp)
+                               (ly:moment<? measurepos entrymp))
+                           (equal? entryalt alt))))))))
 
 (define-public (teaching-accidental-rule context pitch barnum measurepos)
   "An accidental rule that typesets a cautionary accidental if it is
@@ -1743,10 +1737,9 @@ as a context."
      ;; repeated notes (in the same voice) don't get an accidental
      ((equal? style 'dodecaphonic-no-repeat)
       (set-accidentals-properties #f
-                                  `(Staff ,(make-accidental-rule 'same-octave 0)
-                                          ,dodecaphonic-no-repeat-rule)
-                                          '()
-                                          context))
+                                  `(Staff ,dodecaphonic-no-repeat-rule)
+                                  '()
+                                  context))
      ;; Variety of the dodecaphonic style. Each note gets an accidental,
      ;; except notes that were already handled in the same measure.
      ((equal? style 'dodecaphonic-first)
@@ -2223,7 +2216,7 @@ other stems just because of that."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; The following is used by the alterBroken function.
 
-(define-public ((value-for-spanner-piece arg) grob)
+(define ((value-for-spanner-piece arg) grob)
   "Associate a piece of broken spanner @var{grob} with an element
 of list @var{arg}."
   (let* ((orig (ly:grob-original grob))
@@ -2239,6 +2232,7 @@ of list @var{arg}."
     (if (>= (length siblings) 2)
         (helper siblings arg)
         (car arg))))
+(export value-for-spanner-piece)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; measure counter
@@ -2392,3 +2386,193 @@ Offsets are restricted to immutable properties and values of type @code{number},
                 vals))))
     ; return the closure named `self'
     self)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; \magnifyMusic and \magnifyStaff
+
+;; defined as a function instead of a list because the
+;; all-grob-descriptions alist is not available yet
+(define-public (find-all-space-alist-props grob-descriptions)
+  "Used by @code{\\magnifyStaff}.  When @var{grob-descriptions} is equal
+to the @code{all-grob-descriptions} alist (defined in
+@file{scm/define-grobs.scm}), this will find all grobs that have an
+initialized value for the @code{space-alist} property, and return them
+as a list in the following format:
+@example
+'((Ambitus space-alist)
+  (BarLine space-alist)
+  ...)
+@end example"
+  (define (has-space-alist? grob-desc)
+    (ly:assoc-get 'space-alist (cdr grob-desc)))
+  (let* ((grob-descriptions-with-space-alist
+           (filter has-space-alist? grob-descriptions))
+         (grob-names-with-space-alist
+           (map car grob-descriptions-with-space-alist)))
+    (map (lambda (grob-name) (list grob-name 'space-alist))
+         grob-names-with-space-alist)))
+
+(define (magnifyStaff-is-set? context mag)
+  (let* ((Staff (ly:context-find context 'Staff))
+         (old-mag (ly:context-property Staff 'magnifyStaffValue)))
+    (not (null? old-mag))))
+
+(define (staff-magnification-is-changing? context mag)
+  (let* ((Staff (ly:context-find context 'Staff))
+         (old-mag (ly:context-property Staff 'magnifyStaffValue 1)))
+    (not (= old-mag mag))))
+
+(define-public (scale-fontSize func-name mag)
+  "Used by @code{\\magnifyMusic} and @code{\\magnifyStaff}.  Look up the
+current @code{fontSize} in the appropriate context and scale it by the
+magnification factor @var{mag}.  @var{func-name} is either
+@code{'magnifyMusic} or @code{'magnifyStaff}."
+  (make-apply-context
+    (lambda (context)
+      (if (or (eq? func-name 'magnifyMusic)
+              ;; for \magnifyStaff, only scale the fontSize
+              ;; if staff magnification is changing
+              (staff-magnification-is-changing? context mag))
+        (let* ((where (case func-name
+                        ((magnifyMusic) context)
+                        ((magnifyStaff) (ly:context-find context 'Staff))))
+               (fontSize (ly:context-property where 'fontSize 0))
+               (new-fontSize (+ fontSize (magnification->font-size mag))))
+          (ly:context-set-property! where 'fontSize new-fontSize))))))
+
+(define-public (revert-fontSize func-name mag)
+  "Used by @code{\\magnifyMusic} and @code{\\magnifyStaff}.  Calculate
+the previous @code{fontSize} value (before scaling) by factoring out the
+magnification factor @var{mag} (if @var{func-name} is
+@code{'magnifyMusic}), or by factoring out the context property
+@code{magnifyStaffValue} (if @var{func-name} is @code{'magnifyStaff}).
+Revert the @code{fontSize} in the appropriate context accordingly.
+
+With @code{\\magnifyMusic}, the scaling is reverted after the music
+block it operates on.  @code{\\magnifyStaff} does not operate on a music
+block, so the scaling from a previous call (if there is one) is reverted
+before the new scaling takes effect."
+  (make-apply-context
+    (lambda (context)
+      (if (or (eq? func-name 'magnifyMusic)
+              ;; for \magnifyStaff...
+              (and
+                ;; don't revert the user's fontSize choice
+                ;; the first time \magnifyStaff is called
+                (magnifyStaff-is-set? context mag)
+                ;; only revert the previous fontSize
+                ;; if staff magnification is changing
+                (staff-magnification-is-changing? context mag)))
+        (let* ((where
+                 (case func-name
+                   ((magnifyMusic) context)
+                   ((magnifyStaff) (ly:context-find context 'Staff))))
+               (old-mag
+                 (case func-name
+                   ((magnifyMusic) mag)
+                   ((magnifyStaff)
+                    (ly:context-property where 'magnifyStaffValue 1))))
+               (fontSize (ly:context-property where 'fontSize 0))
+               (old-fontSize (- fontSize (magnification->font-size old-mag))))
+          (ly:context-set-property! where 'fontSize old-fontSize))))))
+
+(define-public (scale-props func-name mag allowed-to-shrink? props)
+  "Used by @code{\\magnifyMusic} and @code{\\magnifyStaff}.  For each
+prop in @var{props}, find the current value of the requested prop, scale
+it by the magnification factor @var{mag}, and do the equivalent of a
+@code{\\temporary@tie{}\\override} with the new value in the appropriate
+context.  If @var{allowed-to-shrink?} is @code{#f}, don't let the new
+value be less than the current value.  @var{func-name} is either
+@code{'magnifyMusic} or @code{'magnifyStaff}.  The @var{props} list is
+formatted like:
+@example
+'((Stem thickness)
+  (Slur line-thickness)
+  ...)
+@end example"
+  (make-apply-context
+    (lambda (context)
+      (define (scale-prop grob-prop-list)
+        (let* ((grob (car grob-prop-list))
+               (prop (cadr grob-prop-list))
+               (where (if (eq? grob 'SpacingSpanner)
+                        (ly:context-find context 'Score)
+                        (case func-name
+                          ((magnifyMusic) context)
+                          ((magnifyStaff) (ly:context-find context 'Staff)))))
+               (grob-def (ly:context-grob-definition where grob)))
+          (if (eq? prop 'space-alist)
+            (let* ((space-alist (ly:assoc-get prop grob-def))
+                   (scale-spacing-tuple (lambda (x)
+                                          (cons (car x)
+                                                (cons (cadr x)
+                                                      (* mag (cddr x))))))
+                   (scaled-tuples (map scale-spacing-tuple space-alist))
+                   (new-alist (append scaled-tuples space-alist)))
+              (ly:context-pushpop-property where grob prop new-alist))
+            (let* ((val (ly:assoc-get prop grob-def 1))
+                   (proc (lambda (x)
+                           (if allowed-to-shrink?
+                             (* x mag)
+                             (* x (max 1 mag)))))
+                   (new-val (if (number-pair? val)
+                              (cons (proc (car val))
+                                    (proc (cdr val)))
+                              (proc val))))
+              (ly:context-pushpop-property where grob prop new-val)))))
+      (if (or (eq? func-name 'magnifyMusic)
+              ;; for \magnifyStaff, only scale the properties
+              ;; if staff magnification is changing
+              (staff-magnification-is-changing? context mag))
+        (for-each scale-prop props)))))
+
+(define-public (revert-props func-name mag props)
+  "Used by @code{\\magnifyMusic} and @code{\\magnifyStaff}.  Revert each
+prop in @var{props} in the appropriate context.  @var{func-name} is
+either @code{'magnifyMusic} or @code{'magnifyStaff}.  The @var{props}
+list is formatted like:
+@example
+'((Stem thickness)
+  (Slur line-thickness)
+  ...)
+@end example"
+  (make-apply-context
+    (lambda (context)
+      (define (revert-prop grob-prop-list)
+        (let* ((grob (car grob-prop-list))
+               (prop (cadr grob-prop-list))
+               (where (if (eq? grob 'SpacingSpanner)
+                        (ly:context-find context 'Score)
+                        (case func-name
+                          ((magnifyMusic) context)
+                          ((magnifyStaff) (ly:context-find context 'Staff))))))
+          (ly:context-pushpop-property where grob prop)))
+      (if (or (eq? func-name 'magnifyMusic)
+              ;; for \magnifyStaff...
+              (and
+                ;; don't revert the user's property overrides
+                ;; the first time \magnifyStaff is called
+                (magnifyStaff-is-set? context mag)
+                ;; revert the overrides from the previous \magnifyStaff,
+                ;; but only if staff magnification is changing
+                (staff-magnification-is-changing? context mag)))
+        (for-each revert-prop props)))))
+
+;; \magnifyMusic only
+(define-public (scale-beam-thickness mag)
+  "Used by @code{\\magnifyMusic}.  Scaling @code{Beam.beam-thickness}
+exactly to the @var{mag} value will not work.  This uses two reference
+values for @code{beam-thickness} to determine an acceptable value when
+scaling, then does the equivalent of a
+@code{\\temporary@tie{}\\override} with the new value."
+  (make-apply-context
+    (lambda (context)
+      (let* ((grob-def (ly:context-grob-definition context 'Beam))
+             (val (ly:assoc-get 'beam-thickness grob-def 0.48))
+             (ratio-to-default (/ val 0.48))
+             ;; gives beam-thickness=0.48 when mag=1 (like default),
+             ;; gives beam-thickness=0.35 when mag=0.63 (like CueVoice)
+             (scaled-default (+ 119/925 (* mag 13/37)))
+             (new-val (* scaled-default ratio-to-default)))
+        (ly:context-pushpop-property context 'Beam 'beam-thickness new-val)))))

@@ -1218,7 +1218,8 @@ Special @emph{bracketed} arpeggio symbols can be created:
 @end lilypond
 
 The dash properties of the parenthesis arpeggio are controlled
-with the @code{'dash-details} property, which is described at @ref{Slurs}.
+with the @code{'dash-definition} property, which is described at
+@ref{Slurs}.
 
 Arpeggios can be explicitly written out with ties.  For more
 information, see @ref{Ties}.

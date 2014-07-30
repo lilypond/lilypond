@@ -119,7 +119,7 @@ se cruzan entre voces, como se explica en @rlearning{Otras aplicaciones de los t
 @c @snippets
 @c @lilypondfile[verbatim,quote,texidoc,doctitle]
 @c {forcing-visibility-of-systems-with-multi-bar-rests-when-using-\RemoveEmptyStaffContext.ly}
-@c http://lsr.dsi.unimi.it/LSR/Item?u=1&id=312
+@c http://lsr.di.unimi.it/LSR/Item?u=1&id=312
 
 @seealso
 Manual de aprendizaje:
@@ -618,7 +618,7 @@ ejecución.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{accordion-registers.ly}
+{accordion-register-symbols.ly}
 
 @seealso
 Fragmentos de código:

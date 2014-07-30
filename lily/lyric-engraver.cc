@@ -175,17 +175,11 @@ Lyric_engraver::stop_translation_timestep ()
 
           if (head)
             {
-              text_->set_parent (head, X_AXIS);
+              text_->set_parent (head->get_parent(X_AXIS), X_AXIS);
               if (melisma_busy (voice)
                   && !to_boolean (get_property ("ignoreMelismata")))
                 text_->set_property ("self-alignment-X",
                                      get_property ("lyricMelismaAlignment"));
-            }
-          else
-            {
-              text_->warning (_ ("Lyric syllable does not have note."
-                                 "  Use \\lyricsto or associatedVoice."));
-              text_->set_property ("X-offset", scm_from_int (0));
             }
         }
 

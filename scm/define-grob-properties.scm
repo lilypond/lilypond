@@ -239,6 +239,11 @@ elements closer together.")
      (dot-placement-list ,list? "List consisting of
 @code{(@var{description} @var{string-number} @var{fret-number}
 @var{finger-number})} entries used to define fret diagrams.")
+     (double-stem-separation ,number? "The distance between the two
+stems of a half note in tablature when using @code{\\tabFullNotation},
+not counting the width of the stems themselves, expressed as a multiple
+of the default height of a staff-space in the traditional five-line
+staff.")
      (duration-log ,integer? "The 2-log of the note head duration,
 i.e., @code{0} = whole note, @code{1} = half note, etc.")
 
@@ -371,6 +376,13 @@ label the lowest fret number.  Default@tie{}0.5.
 the center of the fret in direction parallel to strings.
 Default@tie{}0.
 @item
+@code{fret-label-horizontal-offset} -- The offset of the fret label from
+the center of the fret in direction orthogonal to strings.
+Default@tie{}0.
+@item
+@code{paren-padding} -- The padding for the parenthesis.
+Default@tie{}0.05.
+@item
 @code{label-dir} -- Side to which the fret label is attached.
 @w{@code{-1}}, @code{LEFT}, or @code{DOWN} for left or down; @code{1},
 @code{RIGHT}, or @code{UP} for right or up.  Default @code{RIGHT}.
@@ -451,7 +463,9 @@ etc. are already taken.")
 ;;; h
 ;;;
      (hair-thickness ,number? "Thickness of the thin line in a bar
-line.")
+line, expressed as a multiple of the default staff-line thickness
+(i.e. the visual output is @emph{not} influenced by changes to
+@code{@var{Staff}.StaffSymbol.thickness}).")
      (harp-pedal-details ,list? "An alist of detailed grob properties
 for harp pedal diagrams.  Each alist entry consists of a
 @code{(@var{property} . @var{value})} pair.  The properties which can
@@ -524,8 +538,11 @@ slur quants to this position, and print the respective scores.")
 ;;;
      (keep-inside-line ,boolean? "If set, this column cannot have
 objects sticking into the margin.")
-     (kern ,ly:dimension? "Amount of extra white space to add.  For
-bar lines, this is the amount of space after a thick line.")
+     (kern ,ly:dimension? "The space between individual elements
+in any compound bar line, expressed as a multiple of the default
+staff-line thickness (i.e. the visual output is @emph{not}
+influenced by changes to
+@code{@var{Staff}.StaffSymbol.thickness}).")
      (knee ,boolean? "Is this beam kneed?")
      (knee-spacing-correction ,number? "Factor for the optical
 correction amount for kneed beams.  Set between @code{0} for no
@@ -570,8 +587,12 @@ whether to put a line break at this column.  Can be @code{force} or
 if this column is the start of a system.")
      (line-count ,integer? "The number of staff lines.")
      (line-positions ,list? "Vertical positions of staff lines.")
-     (line-thickness ,number? "The thickness of the tie or slur
-contour.")
+     (line-thickness ,number? "For slurs and ties, this is the
+diameter of the virtual @qq{pen} that draws the two arcs of the
+curve's outline, which intersect at the endpoints.  This property
+is expressed as a multiple of the current staff-line thickness
+(i.e. the visual output is influenced by changes to
+@code{@var{Staff}.StaffSymbol.thickness}).")
      (long-text ,markup? "Text markup.  See @ruser{Formatting text}.")
 
 
@@ -784,6 +805,11 @@ stem distance.")
 scripts in a stack, by being added to the position of the script in
 the user input, the sum being the overall priority.  Smaller means
 closer to the head.")
+     (segno-kern ,number? "The space between the two thin lines
+of the segno bar line symbol, expressed as a multiple of the
+default staff-line thickness (i.e. the visual output is @emph{not}
+influenced by changes to
+@code{@var{Staff}.StaffSymbol.thickness}).")
      (self-alignment-X ,number? "Specify alignment of an object.  The
 value @w{@code{-1}} means left aligned, @code{0}@tie{}centered, and
 @code{1}@tie{}right-aligned in X@tie{}direction.  Other numerical
@@ -958,11 +984,17 @@ this property.")
      (text-direction ,ly:dir? "This controls the ordering of the
 words.  The default @code{RIGHT} is for roman text.  Arabic or Hebrew
 should use @code{LEFT}.")
-     (thick-thickness ,number? "Bar line thickness, measured in
-@code{line-thickness}.")
-     (thickness ,number? "Line thickness, generally measured in
-@code{line-thickness}.")
-     (thin-kern ,number? "The space after a hair-line in a bar line.")
+     (thick-thickness ,number? "Thickness of the thick line in a
+bar line, expressed as a multiple of the default staff-line
+thickness (i.e. the visual output is @emph{not} influenced by
+changes to @code{@var{Staff}.StaffSymbol.thickness}).")
+     (thickness ,number? "For grobs made up of lines, this is the
+thickness of the line.  For slurs and ties, this is the distance
+between the two arcs of the curve's outline at its thickest point,
+not counting the diameter of the virtual @qq{pen} that draws the
+arcs.  This property is expressed as a multiple of the current
+staff-line thickness (i.e. the visual output is influenced by
+changes to @code{@var{Staff}.StaffSymbol.thickness}).")
      (tie-configuration ,list? "List of @code{(@var{position} .
 @var{dir})} pairs, indicating the desired tie configuration, where
 @var{position} is the offset from the center of the staff in staff
@@ -1016,6 +1048,8 @@ texts.")
 ;;;
 ;;; x
 ;;;
+     (X-align-on-main-noteheads ,boolean? "If true, this grob will
+ignore suspended noteheads when aligning itself on NoteColumn.")
      (X-extent ,number-pair? "Extent (size) in the X@tie{}direction,
 measured in staff-space units, relative to object's reference point.")
      (X-offset ,number? "The horizontal amount that this object is

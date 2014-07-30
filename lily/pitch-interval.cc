@@ -29,8 +29,8 @@ Pitch_interval::Pitch_interval (Pitch p1, Pitch p2)
 
 Pitch_interval::Pitch_interval ()
 {
-  at (LEFT) = Pitch (100, 0, 0);
-  at (RIGHT) = Pitch (-100, 0, 0);
+  at (LEFT) = Pitch (100, 0);
+  at (RIGHT) = Pitch (-100, 0);
 }
 
 bool
@@ -64,8 +64,8 @@ Pitch_lexicographic_interval::Pitch_lexicographic_interval (Pitch p1, Pitch p2)
 
 Pitch_lexicographic_interval::Pitch_lexicographic_interval ()
 {
-  at (LEFT) = Pitch (100, 0, 0);
-  at (RIGHT) = Pitch (-100, 0, 0);
+  at (LEFT) = Pitch (100, 0);
+  at (RIGHT) = Pitch (-100, 0);
 }
 
 bool

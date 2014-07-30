@@ -336,32 +336,32 @@ Installed Files:
 
 @node Music function usage
 @subsection Music function usage
-Music functions may currently be used in several places.  Depending on
-where they are used, restrictions apply in order to be able to parse
-them unambiguously.  The result a music function returns must be
-compatible with the context in which it is called.
+A @q{music function} has to return an expression matching the predicate
+@code{ly:music?}.  This makes music function calls suitable as arguments
+of type @code{ly:music?} for another music function call.
+
+When using a music function call in other contexts, the context may
+cause further semantic restrictions.
 
 @itemize
 @item
-At top level in a music expression.  No restriction apply here.
+At the top level in a music expression a post-event is not accepted.
 
 @item
-As a post-event, explicitly started with a direction indicator (one of
-@code{-}, @code{^}, @w{and @code{_}}).
-
-In this case, you can't use an @emph{open} music expression as the last
-argument, one that would end with a music expression able to accept
-additional postevents.
+When a music function (as opposed to an event function) returns an
+expression of type post-event, LilyPond requires one of the named
+direction indicators (@code{-}, @code{^}, @w{and @code{_}})) in order to
+properly integrate the post-event produced by the music function call
+into the surrounding expression.
 
 @item
-As a chord constituent.  The returned expression must be of
+As a chord constituent.  The returned expression must be of a
 @code{rhythmic-event} type, most likely a @code{NoteEvent}.
 @end itemize
 
 @noindent
-The special rules for trailing arguments make it possible to write
-polymorphic functions like @code{\tweak} that can be applied to
-different constructs.
+@q{Polymorphic} functions, like @code{\tweak}, can be applied to
+post-events, chord constituent and top level music expressions.
 
 @node Simple substitution functions
 @subsection Simple substitution functions
@@ -1135,25 +1135,137 @@ This new markup list command can be used as follows:
 
 @cindex calling code during interpreting
 @funindex \applyContext
+@funindex make-apply-context
+@funindex ly:context-property
+@funindex ly:context-set-property!
+@funindex ly:context-grob-definition
+@funindex ly:assoc-get
+@funindex ly:context-pushpop-property
 
-Contexts can be modified during interpretation with Scheme code.  The
-syntax for this is
+Contexts can be modified during interpretation with Scheme code.
+In a LilyPond code block, the syntax for this is:
+
 @example
 \applyContext @var{function}
 @end example
 
-@code{@var{function}} should be a Scheme function that takes a
-single argument: the context in which the @code{\applyContext}
-command is being called.  The following code will print the
-current bar number on the standard output during the compile:
+In Scheme code, the syntax is:
 
 @example
-\applyContext
-  #(lambda (x)
-    (format #t "\nWe were called in barnumber ~a.\n"
-     (ly:context-property x 'currentBarNumber)))
+(make-apply-context @var{function})
 @end example
 
+@code{@var{function}} should be a Scheme function that takes a
+single argument: the context in which the @code{\applyContext}
+command is being called.  The function can access as well as
+override/set grob properties and context properties.  Any actions
+taken by the function that depend on the state of the context are
+limited to the state of the context @emph{when the function is
+called}.  Also, changes effected by a call to @code{\applyContext}
+remain in effect until they are directly modified again, or
+reverted, even if the initial conditions that they depended on
+have changed.
+
+The following scheme functions are useful when using
+@code{\applyContext}:
+
+@table @code
+@item ly:context-property
+look up a context property value
+
+@item ly:context-set-property!
+set a context property
+
+@item ly:context-grob-definition
+@itemx ly:assoc-get
+look up a grob property value
+
+@item ly:context-pushpop-property
+do a @code{\temporary@tie{}\override}
+or a @code{\revert} on a grob property
+@end table
+
+
+The following example looks up the current @code{fontSize} value, and
+then doubles it:
+
+@lilypond[quote,verbatim]
+doubleFontSize =
+\applyContext
+  #(lambda (context)
+     (let ((fontSize (ly:context-property context 'fontSize)))
+       (ly:context-set-property! context 'fontSize (+ fontSize 6))))
+
+{
+  \set fontSize = -3
+  b'4
+  \doubleFontSize
+  b'
+}
+@end lilypond
+
+
+The following example looks up the current colors of the
+@code{NoteHead}, @code{Stem}, and @code{Beam} grobs, and then changes
+each to a less saturated shade.
+
+@lilypond[quote,verbatim]
+desaturate =
+\applyContext
+  #(lambda (context)
+     (define (desaturate-grob grob)
+       (let* ((grob-def (ly:context-grob-definition context grob))
+              (color (ly:assoc-get 'color grob-def black))
+              (new-color (map (lambda (x) (min 1 (/ (1+ x) 2))) color)))
+         (ly:context-pushpop-property context grob 'color new-color)))
+     (for-each desaturate-grob '(NoteHead Stem Beam)))
+
+\relative g' {
+  \time 3/4
+  g8[ g] \desaturate g[ g] \desaturate g[ g]
+  \override NoteHead.color = #darkred
+  \override Stem.color = #darkred
+  \override Beam.color = #darkred
+  g[ g] \desaturate g[ g] \desaturate g[ g]
+}
+@end lilypond
+
+
+This also could be implemented as a music function, in order to
+restrict the modifications to a single music block.  Notice how
+@code{ly:context-pushpop-property} is used both as a
+@code{\temporary@tie{}\override} and as a @code{\revert}:
+
+@lilypond[quote,verbatim]
+desaturate =
+#(define-music-function
+   (parser location music) (ly:music?)
+   #{
+     \applyContext
+     #(lambda (context)
+        (define (desaturate-grob grob)
+          (let* ((grob-def (ly:context-grob-definition context grob))
+                 (color (ly:assoc-get 'color grob-def black))
+                 (new-color (map (lambda (x) (min 1 (/ (1+ x) 2))) color)))
+            (ly:context-pushpop-property context grob 'color new-color)))
+        (for-each desaturate-grob '(NoteHead Stem Beam)))
+     #music
+     \applyContext
+     #(lambda (context)
+        (define (revert-color grob)
+          (ly:context-pushpop-property context grob 'color))
+        (for-each revert-color '(NoteHead Stem Beam)))
+   #})
+
+\relative g' {
+  \override NoteHead.color = #darkblue
+  \override Stem.color = #darkblue
+  \override Beam.color = #darkblue
+  g8 a b c
+  \desaturate { d c b a }
+  g b d b g2
+}
+@end lilypond
 
 
 @node Running a function on all layout objects
@@ -1265,21 +1377,21 @@ can by found in the Internals Reference or the file 'define-grobs.scm':
 
 If routines with multiple arguments must be called, the current grob
 can be inserted with a grob closure.  Here is a setting from
-@code{AccidentalSuggestion},
+@code{RehearsalMark},
 
 @example
 `(X-offset .
-  ,(ly:make-simple-closure
-    `(,+
+   ,(ly:make-simple-closure
+     `(,+
         ,(ly:make-simple-closure
-           (list ly:self-alignment-interface::centered-on-x-parent))
-      ,(ly:make-simple-closure
-           (list ly:self-alignment-interface::x-aligned-on-self)))))
+          (list ly:break-alignable-interface::self-align-callback))
+        ,(ly:make-simple-closure
+          (list ly:self-alignment-interface::x-aligned-on-self)))))
 @end example
 
 @noindent
-In this example, both @code{ly:self-alignment-interface::x-aligned-on-self} and
-@code{ly:self-alignment-interface::centered-on-x-parent} are called
+In this example, both @code{ly:break-alignable-interface::self-align-callback} and
+@code{ly:self-alignment-interface::x-aligned-on-self} are called
 with the grob as argument.  The results are added with the @code{+}
 function.  To ensure that this addition is properly executed, the whole
 thing is enclosed in @code{ly:make-simple-closure}.

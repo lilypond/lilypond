@@ -35,7 +35,7 @@
 #include "text-interface.hh"
 
 /*
- Returns the number of footntoes associated with a given line.
+ Returns the number of footnotes associated with a given line.
 */
 
 vector<Grob *>

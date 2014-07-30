@@ -562,6 +562,8 @@ part-combining.")
 @rinternals{Pitch_squash_engraver}.")
      (staffLineLayoutFunction ,procedure? "Layout of staff lines,
 @code{traditional}, or @code{semitone}.")
+     (magnifyStaffValue ,positive? "The most recent value set with
+@code{\\magnifyStaff}.")
      (stanza ,markup? "Stanza @q{number} to print before the start of a
 verse.  Use in @code{Lyrics} context.")
      (startRepeatSegnoType ,string? "Set the default bar line for the

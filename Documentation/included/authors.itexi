@@ -83,6 +83,9 @@ Main author
 @uref{http://AvatarAcademy.nl},
 Main author
 
+@item Mark Polesky:
+Documentation, Code cleanup
+
 @item Mike Solomon:
 @email{mike@@mikesolomon.org},
 Core developer, Frog meister
@@ -139,9 +142,6 @@ SVG guru, bug squad member, bug squasher, text handling
 @uref{http://percival-music.ca},
 Bug meister, Grand Documentation Project leader
 
-@item Mark Polesky:
-Assistant documentation editor, Code cleanup
-
 @item Neil Puttock:
 Core developer
 
@@ -171,8 +171,11 @@ LSR editor and Bug squad member
 
 Aleksandr Andreev,
 Frédéric Bron,
-Torsten Hämmerle ,
+Torsten Hämmerle,
+Rutger Hofmann,
 Marc Hohl,
+Felix Janda,
+Thomas Klausner,
 James Lowe,
 Andrew Main,
 Thomas Morley,
@@ -266,6 +269,7 @@ Federico Bruni,
 Luca Rossetto Casel,
 Felipe Castro,
 Pavel Fric,
+Walter Garcia-Fontes,
 Jean-Charles Malahieude,
 Till Paala,
 Yoshiki Sawada

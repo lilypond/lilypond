@@ -121,15 +121,15 @@ inline SCM ly_bool2scm (bool x) { return scm_from_bool (x); }
 
 inline SCM ly_append2 (SCM x1, SCM x2)
 {
-  return scm_append (scm_listify (x1, x2, SCM_UNDEFINED));
+  return scm_append (scm_list_2 (x1, x2));
 }
 inline SCM ly_append3 (SCM x1, SCM x2, SCM x3)
 {
-  return scm_append (scm_listify (x1, x2, x3, SCM_UNDEFINED));
+  return scm_append (scm_list_3 (x1, x2, x3));
 }
 inline SCM ly_append4 (SCM x1, SCM x2, SCM x3, SCM x4)
 {
-  return scm_append (scm_listify (x1, x2, x3, x4, SCM_UNDEFINED));
+  return scm_append (scm_list_4 (x1, x2, x3, x4));
 }
 
 /*
