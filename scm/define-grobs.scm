@@ -1160,7 +1160,8 @@
                  (interfaces . (font-interface
                                 self-alignment-interface
                                 side-position-interface
-                                system-start-text-interface))))))
+                                system-start-text-interface
+                                text-interface))))))
 
     (InstrumentSwitch
      . (
