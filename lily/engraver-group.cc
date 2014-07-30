@@ -21,6 +21,7 @@
 #include "dispatcher.hh"
 #include "engraver-group.hh"
 #include "grob.hh"
+#include "grob-properties.hh"
 #include "paper-score.hh"
 #include "translator-dispatch-list.hh"
 #include "warn.hh"
@@ -31,10 +32,9 @@ Engraver_group::override (SCM sev)
 {
   Stream_event *ev = Stream_event::unsmob (sev);
 
-  sloppy_general_pushpop_property (context (),
-                                   ev->get_property ("symbol"),
-                                   ev->get_property ("property-path"),
-                                   ev->get_property ("value"));
+  Grob_property_info (context (), ev->get_property ("symbol"))
+    .push (ev->get_property ("property-path"),
+           ev->get_property ("value"));
 }
 
 IMPLEMENT_LISTENER (Engraver_group, revert);
@@ -43,10 +43,8 @@ Engraver_group::revert (SCM sev)
 {
   Stream_event *ev = Stream_event::unsmob (sev);
 
-  sloppy_general_pushpop_property (context (),
-                                   ev->get_property ("symbol"),
-                                   ev->get_property ("property-path"),
-                                   SCM_UNDEFINED);
+  Grob_property_info (context (), ev->get_property ("symbol"))
+    .pop (ev->get_property ("property-path"));
 }
 
 void

@@ -2816,7 +2816,7 @@
 (for-each (lambda (x)
             ;; (display (car x)) (newline)
 
-            (set-object-property! (car x) 'translation-type? list?)
+            (set-object-property! (car x) 'translation-type? ly:grob-properties?)
             (set-object-property! (car x) 'is-grob? #t))
           all-grob-descriptions)
 

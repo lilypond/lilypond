@@ -24,6 +24,7 @@
 #include "context-def.hh"
 #include "dispatcher.hh"
 #include "global-context.hh"
+#include "grob-properties.hh"
 #include "international.hh"
 #include "main.hh"
 #include "open-type-font.hh"
@@ -88,7 +89,7 @@ Score_engraver::initialize ()
   pscore_->unprotect ();
   context ()->set_property ("output", pscore_->self_scm ());
 
-  SCM props = updated_grob_properties (context (), ly_symbol2scm ("System"));
+  SCM props = Grob_property_info (context (), ly_symbol2scm ("System")).updated ();
 
   pscore_->typeset_system (new System (props));
 

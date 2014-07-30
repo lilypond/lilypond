@@ -73,6 +73,7 @@ class Grace_music;
 class Grob;
 class Grob_array;
 class Grob_info;
+class Grob_properties;
 class Includable_lexer;
 class Input;
 class Item;

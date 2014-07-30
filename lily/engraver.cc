@@ -20,6 +20,7 @@
 #include "engraver.hh"
 
 #include "context.hh"
+#include "grob-properties.hh"
 #include "international.hh"
 #include "music.hh"
 #include "paper-column.hh"
@@ -117,7 +118,7 @@ Engraver::internal_make_grob (SCM symbol,
   (void)fun;
 #endif
 
-  SCM props = updated_grob_properties (context (), symbol);
+  SCM props = Grob_property_info (context (), symbol).updated ();
 
   Grob *grob = 0;
 

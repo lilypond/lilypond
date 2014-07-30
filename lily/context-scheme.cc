@@ -21,6 +21,7 @@
 #include "context.hh"
 #include "context-def.hh"
 #include "dispatcher.hh"
+#include "grob-properties.hh"
 
 LY_DEFINE (ly_context_current_moment,
            "ly:context-current-moment",
@@ -70,7 +71,7 @@ LY_DEFINE (ly_context_grob_definition, "ly:context-grob-definition",
   LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_TYPE (ly_is_symbol, name, 2);
 
-  return updated_grob_properties (tr, name);
+  return Grob_property_info (tr, name).updated ();
 }
 
 LY_DEFINE (ly_context_pushpop_property, "ly:context-pushpop-property",
