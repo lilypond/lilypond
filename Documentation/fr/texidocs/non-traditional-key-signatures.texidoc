@@ -1,25 +1,25 @@
-%% Translation of GIT committish: 4d1502a7f3c7929e30da8f35a1d177b19eb34f89
+%% Translation of GIT committish: 77fbc43a8e9b5e0a9b897c8278eaeac02d62d3dc
   texidocfr = "
-La commande @code{\\key} détermine la propriété @code{keySignature} d'un
+La commande @code{\\key} détermine la propriété @code{keyAlterations} d'un
 contexte @code{Staff}.
 
 Des armures inhabituelles peuvent être spécifiées en modifiant
 directement cette propriété. Il s'agit en l'occurrence de définir une
 liste :
 
-@code{\\set Staff.keySignature = #`(((octave . pas) . altération) ((octave . pas) . altération) @dots{})}
+@code{\\set Staff.keyAlterations = #`(((octave . pas) . altération) ((octave . pas) . altération) @dots{})}
 
-dans laquelle, et pour chaque élément,
-@code{octave} spécifie l'octave (0 pour celle allant du do médium au si
-supérieur), @code{pas} la note dans cette octave (0 pour do et 6 pour
-si), et @code{altération} sera @code{,SHARP ,FLAT ,DOUBLE-SHARP} etc.
-(attention à la virgule en préfixe).
+dans laquelle, et pour chaque élément, @code{octave} spécifie l'octave
+(0 pour celle allant du do médium au si supérieur), @code{pas} la note
+dans cette octave (0 pour do et 6 pour si), et @code{altération} sera
+@code{,SHARP ,FLAT ,DOUBLE-SHARP} etc. (attention à la virgule en
+préfixe).
 
 Une formulation abrégée -- @code{(pas . altération)} -- signifie que
-l'altération de l'élément en question sera valide quel que soit l'octave.
+l'altération de l'élément en question sera valide quelle que soit
+l'octave.
 
 Voici, par exemple, comment générer une gamme par ton :
 
 "
   doctitlefr = "Armures inhabituelles"
-

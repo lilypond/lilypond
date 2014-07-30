@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 0a8b4e0f1b0d68659a584be48c7b96da358d501d
+    Translation of GIT committish: a59d022ee65e8310ea16954da7b637c07ca00ae2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -387,10 +387,10 @@ Les micro-intervalles sont aussi exportés dans le fichier MIDI.
 Normalement, les altérations sont imprimées automatiquement, mais il se
 peut que vous vouliez les imprimer manuellement.  On peut forcer
 l'impression d'une altération, dite « de précaution », en ajoutant un
-point d'exclamation @code{!} après la hauteur de note.  Une
-altération entre parenthèses peut être obtenue en ajoutant un point
-d'interrogation @code{?} après la hauteur de note.  Ces signes
-peuvent aussi être utilisés pour imprimer des bécarres.
+point d'exclamation @code{!} après la hauteur de note.  Une altération
+entre parenthèses peut être obtenue en ajoutant un point
+d'interrogation @code{?} après la hauteur de note.  Ces signes peuvent
+aussi être utilisés pour imprimer des bécarres.
 
 @lilypond[verbatim,quote,relative=2]
 cis cis cis! cis? c c c! c?
@@ -896,7 +896,7 @@ music = \relative c' { c8. ees16( fis8. a16 b8.) gis16 f8. d16 }
 @knownissues
 Une liaison de prolongation à l'intérieur d'un bloc @code{\retrograde}
 sera de fait rompue, ce qui générera un message d'avertissement.
-Des liaisons de prolongation seront toutefois générées automatiquement 
+Des liaisons de prolongation seront toutefois générées automatiquement
 dès lors qu'est activé le @ref{Découpage automatique des notes}.
 
 @seealso
@@ -1204,8 +1204,8 @@ l'objet @code{Clef} devra être manuellement répercuté sur l'objet
 
 @lilypond[fragment,quote,relative=1]
 \new Staff \with {
-  \override ClefModifier.color = #red
   \override Clef.color = #blue
+  \override ClefModifier.color = #red
 }
 
 \clef "treble_8" c4
@@ -1318,7 +1318,7 @@ cette position sur la portée.
 \override Staff.KeySignature.sharp-positions = #'(2)
 \bar "||" \key b \major b fis b2
 @end lilypond
- 
+
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
@@ -2406,6 +2406,125 @@ musicB = {
     }
     \context Staff = "down" {
       \accidentalStyle dodecaphonic
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+
+@item dodecaphonic-no-repeat
+
+@cindex @emph{dodecaphonic}, style d'altération
+@cindex @emph{dodecaphonic}, style néomoderne
+
+@funindex dodecaphonic-no-repeat
+
+Comme dans le cas du style @code{dodecaphonic}, chaque note est par
+défaut affublée d'une altération.  Celle-ci sera toutefois omise lorsque
+la même hauteur est immédiatement répétée dans la même voix.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle dodecaphonic-no-repeat
+      \musicA
+    }
+    \context Staff = "down" {
+      \accidentalStyle dodecaphonic-no-repeat
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+
+@item dodecaphonic-first
+
+@cindex dodecaphonic, style d'altération
+@cindex dodecaphonic, style néo-moderne
+
+@funindex dodecaphonic-first
+
+Comme dans le cas du style @code{dodecaphonic}, chaque note est par
+défaut affublée d'une altération.  Cette altération n'apparaîtra que
+pour la première occurrence dans la mesure et seront répétés en cas
+d'octave différente.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle dodecaphonic-first
+      \musicA
+    }
+    \context Staff = "down" {
+      \accidentalStyle dodecaphonic-first
       \musicB
     }
   >>

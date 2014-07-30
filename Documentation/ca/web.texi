@@ -313,7 +313,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 coneixement de qualssevol altres \topic\ que mereixin aparèixer
 relacionats aquí, us preguem quen ens ho faci saber escrivint un
 missatge a la llista de correu bug-lilypond. Tot i que esteu subscrit
-a la llista, ho podeu fer a la 
+a la llista, ho podeu fer a la
 @uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond,pàgina informativa}
 de la llista o escrivint directament mitjançant de la
 @uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,interfície web de lilypond.bugs a gmane}.
@@ -328,7 +328,7 @@ de la llista o escrivint directament mitjançant de la
 @ifnothtml
 @macro contactUsAbout{topic}
 @cartouche
-Si teniu coneixement de qualsevol altre \topic\ que podria 
+Si teniu coneixement de qualsevol altre \topic\ que podria
 aparèixer aquí, si us plau feu-no-ho saber seguint les instruccions a
 @ref{Bug reports}.
 

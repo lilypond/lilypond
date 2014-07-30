@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
+    Translation of GIT committish: ab336761427b7214e133ff06b3592afa75eda1cf
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2727,7 +2727,7 @@ sur la distance de base (@code{basic-distance}) et le décalage
   >>
 >>
 @end lilypond
- 
+
 Les portées sont vraiment rapprochées, mais c'est ce que veut l'éditeur.
 On pourra toujours les écarter au besoin en jouant sur les éléments
 @code{padding} ou @code{basic-distance}.
@@ -3466,7 +3466,7 @@ rhMusic = \relative c'' {
     \time 6/4
     \mergeDifferentlyHeadedOn
     \mergeDifferentlyDottedOn
-    bes2.^\markup { \bold "Moderato" } r8
+    bes2.\tempo "Moderato" r8
     <<
       { c,8 d fis bes a }
       \new Voice {
@@ -3531,7 +3531,7 @@ opportun.  Si vous avez oublié comment faire, reportez-vous à
 @ref{J'entends des Voix} et @ref{Instanciation explicite des voix}.
 Nous opterons ici pour une déclaration explicite des voix du passage
 polyphonique, puisque LilyPond est alors plus performant en matière
-d'évitement des collisions. 
+d'évitement des collisions.
 
 Commençons par saisir les notes comme appartenant à deux variables,
 mettons en place l'ossature des portées dans un bloc @code{\Score} et
@@ -3722,17 +3722,17 @@ lhMusic = \relative c' {
 @end lilypond
 
 Venons-en à la troisième mesure et au début de la section Moderato.
-Dans le Tutoriel, il est indiqué comment insérer du texte en gras à
-l'aide de la commande @code{\markup} ; pas de problème, du coup,
-pour ajouter @qq{Moderato} en gras.  Mais comment faire pour fusionner
-les notes de différentes voix ?  C'est là que le Manuel de notation
-peut nous venir en aide.  Une recherche sur @qq{fusionnement de notes}
-dans l'index nous renvoie au chapitre @ruser{Résolution des collisions},
-et plus précisément aux commandes permettant de fusionner des notes en
-fonction de leur type et selon qu'elles sont pointées ou non.  Dans
-notre exemple, pour la durée de la polyphonie de la troisième mesure,
-nous avons besoin de fusionner deux types de notes ; grâce aux
-informations trouvées dans le Manuel de notation, nous ajoutons
+Dans le Tutoriel, il est indiqué comment insérer une indication de tempo
+à l'aide de la commande @code{\tempo} ; pas de problème, du coup, pour
+ajouter @qq{Moderato}.  Mais comment faire pour fusionner les notes de
+différentes voix ?  C'est là que le Manuel de notation peut nous venir
+en aide.  Une recherche sur @qq{fusionnement de notes} dans l'index nous
+renvoie au chapitre @ruser{Résolution des collisions}, et plus
+précisément aux commandes permettant de fusionner des notes en fonction
+de leur type et selon qu'elles sont pointées ou non.  Dans notre exemple,
+pour la durée de la polyphonie de la troisième mesure, nous avons besoin
+de fusionner deux types de notes ; grâce aux informations trouvées dans
+le Manuel de notation, nous ajoutons
 
 @example
 \mergeDifferentlyHeadedOn
@@ -3759,7 +3759,7 @@ rhMusic = \relative c'' {
     bes1~ |
     \bar "||"
     \time 6/4
-    bes2.^\markup { \bold "Moderato" } r8
+    bes2.\tempo "Moderato" r8
     \mergeDifferentlyHeadedOn
     \mergeDifferentlyDottedOn
     % Start polyphonic section of four voices
@@ -3834,7 +3834,7 @@ rhMusic = \relative c'' {
     bes1~ |
     \bar "||"
     \time 6/4
-    bes2.^\markup { \bold "Moderato" } r8
+    bes2.\tempo "Moderato" r8
     \mergeDifferentlyHeadedOn
     \mergeDifferentlyDottedOn
     % Start polyphonic section of four voices
@@ -3905,7 +3905,7 @@ rhMusic = \relative c'' {
     bes1~ |
     \bar "||"
     \time 6/4
-    bes2.^\markup { \bold "Moderato" } r8
+    bes2.\tempo "Moderato" r8
     \mergeDifferentlyHeadedOn
     \mergeDifferentlyDottedOn
     % Start polyphonic section of four voices
@@ -4008,7 +4008,7 @@ peuvent être ainsi liées.  La solution consiste à utiliser deux voix,
 dont l'une avec les notes liées
 
 @lilypond[quote,fragment,relative=2]
-<< { b8~ 8\noBeam } \\ { b[ g8] } >>
+<< { b8~ 8\noBeam } \\ { b8[ g] } >>
 @end lilypond
 
 @noindent

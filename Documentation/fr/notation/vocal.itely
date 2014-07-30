@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
+    Translation of GIT committish: a59d022ee65e8310ea16954da7b637c07ca00ae2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -425,7 +425,7 @@ d'écrire de la musique vocale dans une structure Lilypond plus complexe.
 @end example
 
 @noindent
-revient au même que  
+revient au même que
 
 @example
 \new Voice = "blah" @{ MUSIQUE @}
@@ -644,7 +644,7 @@ traditionnellement alignée par la gauche sur la première note du mélisme.
 
 Lorsqu'un mélisme tombe sur une syllabe autre que la dernière d'un mot,
 un trait d'union étiré, indiqué par un double tiret @w{@code{--}} dans
-le fichier source, reliera cette syllabe à la suivante. 
+le fichier source, reliera cette syllabe à la suivante.
 
 Lorsqu'un mélisme tombe sur la dernière syllabe d'un mot ou que ce mot
 n'en comporte qu'une, l'usage est d'indiquer la « tenue » jusqu'à la
@@ -2359,6 +2359,9 @@ différents endroits de la documentation de LilyPond :
 La création pas à pas d'une partition pour chœur se trouve dans le
 manuel d'initiation, à la rubrique
 @rlearning{Partition pour chœur à quatre voix mixtes}.
+LilyPond dispose aussi d'un canevas automatisé qui simplifie grandement
+la saisie d'une partiotion pour chœur SATB disponible à la rubrique
+@rlearning{Gabarits préprogrammés}.
 
 @item
 Plusieurs exemples et canevas sont regroupés dans le manuel
@@ -2594,7 +2597,7 @@ anglophones la disent « à la française » -- est expliquée à la rubrique
 @ref{Masquage de portées}.
 
 @item
-La génération d'un matériel d'orchestre fait l'objet de la rubrique 
+La génération d'un matériel d'orchestre fait l'objet de la rubrique
 @ref{Écriture de parties séparées}.  D'autres parties du chapitre
 consacré à la notation spécialisée vous seront utiles selon
 l'orchestration de la pièce.  Tous les instruments ne sont pas accordés

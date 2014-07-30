@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
+    Translation of GIT committish: a59d022ee65e8310ea16954da7b637c07ca00ae2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -276,6 +276,7 @@ l'activation de @code{restrainOpenStrings}.
 
 @cindex accord, répétition
 @cindex répétition, utilisation de @code{q}
+@cindex @code{q}, répétition d'accord
 
 La répétition d'une construction en accord s'indique par un @code{q} --
 voir @ref{Répétition d'accords}.  Cette fonctionnalité, bien
@@ -479,7 +480,7 @@ ratioHarmonics = {
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {chord-glissando-in-tablature.ly}
- 
+
 @cindex hammer on
 @cindex pull off
 

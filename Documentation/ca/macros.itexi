@@ -103,7 +103,7 @@ Per a més informació sobre la forma en la qual aquest manual es
 relaciona amb la resta de la documentació, o per llegir aquest
 manual en altres formats, consulteu @rweb{Manuals}.
 
-Si us falta algun manual, trobareu tota la documentació a 
+Si us falta algun manual, trobareu tota la documentació a
 @w{@uref{http://@/www@/.lilypond@/.org/}}.
 @end cartouche
 @end macro
@@ -790,7 +790,7 @@ El logotip del FreeBSD és una marca registrada de
 @end macro
 
 @macro logoLegalMacOSX
-La @qq{imatge de la X} no és una marca registrada.   És obra de 
+La @qq{imatge de la X} no és una marca registrada.   És obra de
 @uref{http://en.wikipedia.org/wiki/User:Nihonjoe, Nihonjoe} i
 @uref{http://en.wikipedia.org/wiki/User:CyberSkull, CyberSkull}, i es
 va posar sota la llicència de Documentació Lliure del GNU versió

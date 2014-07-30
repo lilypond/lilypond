@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: d5fc7a079db0853bfb49e21821226d492f01cf8c
+    Translation of GIT committish: a59d022ee65e8310ea16954da7b637c07ca00ae2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -164,6 +164,7 @@ des @ref{Clusters}.
 
 @cindex accord, répétition
 @cindex répétition, utilisation de @code{q}
+@cindex @code{q}, répétition d'accord
 
 Dans le but de vous épargner de la saisie, LilyPond dispose d'un
 raccourci -- symbolisé par la lettre @code{q} -- qui a pour effet de
@@ -541,12 +542,12 @@ L'ordre dans lequel doivent apparaître les voix d'une construction
 simultanée suit le schéma suivant@tie{}:
 
 @example
-Voix 1: la plus haute
-Voix 2: la plus basse
-Voix 3: deuxième plus haute
-Voix 4: deuxième plus basse
-Voix 5: troisième plus haute
-Voix 6: troisième plus basse
+Voix 1 : la plus haute
+Voix 2 : la plus basse
+Voix 3 : deuxième plus haute
+Voix 4 : deuxième plus basse
+Voix 5 : troisième plus haute
+Voix 6 : troisième plus basse
 etc.
 @end example
 
@@ -819,13 +820,13 @@ l'ordre vertical des voix tel qu'il apparaîtra sur la portée.}
 \new Staff \relative c'' {
   %% saisie abrégée
   <<
-    { f2  }  % 1: extrême haute
+    { f2  }  % 1 : extrême haute
     \\
-    { g,2 }  % 2: extrême basse
+    { g,2 }  % 2 : extrême basse
     \\
-    { d'2 }  % 3: intermédiaire haute
+    { d'2 }  % 3 : intermédiaire haute
     \\
-    { b2  }  % 4: intermédiaire basse
+    { b2  }  % 4 : intermédiaire basse
   >>
   %% expansion en interne de ce qui précède
   <<

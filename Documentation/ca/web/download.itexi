@@ -476,7 +476,7 @@ Per a la desintal·lació, escolliu entre:
 @item
 Ubicar l'apartat del LilyPond al menú Inici i escollir
 @q{Desinstal·la}.  Cliqueu el botó @q{Finalitza} quan acabi el
-programa de desintal·lació. 
+programa de desintal·lació.
 
 @end enumerate
 
@@ -579,7 +579,7 @@ de descàrrega}.
 @divClass{column-right-bottom}
 @subheading Instruccions de compilació
 
-Les instruccions es troben desenvolupades dins de 
+Les instruccions es troben desenvolupades dins de
 @rcontribnamed{Compiling,Compilació del LilyPond}.
 
 @divEnd
