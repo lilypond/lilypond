@@ -417,7 +417,7 @@ def process_snippets (cmd, snippets,
     logfile = name.replace('.ly', '')
     file (name, 'wb').write (contents)
 
-    system_in_directory (' '.join ([cmd, ly.mkarg (name)]),
+    system_in_directory (' '.join ([cmd, ly.mkarg (name.replace (os.path.sep, '/'))]),
                          lily_output_dir,
                          logfile)
 
@@ -621,12 +621,25 @@ def do_file (input_filename, included=False):
         progress (_ ("Removing `%s'") % output_filename)
         raise BookSnippet.CompileError
 
+def adjust_include_path (path, outpath):
+    """Rewrite an include path relative to the dir where lilypond is launched.
+    Always use forward slashes since this is what lilypond expects."""
+    path = os.path.expanduser (path)
+    path = os.path.expandvars (path)
+    path = os.path.normpath (path)
+    if os.path.isabs (outpath):
+        return os.path.abspath (path).replace (os.path.sep, '/')
+    if os.path.isabs (path):
+        return path.replace (os.path.sep, '/')
+    return os.path.join (inverse_relpath (original_dir, outpath), path).replace (os.path.sep, '/')
+
 def inverse_relpath (path, relpath):
     """Given two paths, the second relative to the first,
-    return the first path relative to the second."""
+    return the first path relative to the second.
+    Always use forward slashes since this is what lilypond expects."""
     if os.path.isabs (relpath):
-        return os.path.abspath (path)
-    relparts = []
+        return os.path.abspath (path).replace (os.path.sep, '/')
+    relparts = ['']
     parts = os.path.normpath (path).split (os.path.sep)
     for part in os.path.normpath (relpath).split (os.path.sep):
         if part == '..':
@@ -635,7 +648,7 @@ def inverse_relpath (path, relpath):
         else:
             relparts.append ('..')
             parts.append (part)
-    return os.path.sep.join (relparts[::-1])
+    return '/'.join (relparts[::-1])
 
 def do_options ():
     global global_options
@@ -648,13 +661,17 @@ def do_options ():
 
     if global_options.lily_output_dir:
         global_options.lily_output_dir = os.path.expanduser (global_options.lily_output_dir)
+        for i, path in enumerate(global_options.include_path):
+            global_options.include_path[i] = adjust_include_path (path, global_options.lily_output_dir)
         global_options.include_path.insert (0, inverse_relpath (original_dir, global_options.lily_output_dir))
 
-    if global_options.output_dir:
+    elif global_options.output_dir:
         global_options.output_dir = os.path.expanduser (global_options.output_dir)
+        for i, path in enumerate(global_options.include_path):
+            global_options.include_path[i] = adjust_include_path (path, global_options.output_dir)
         global_options.include_path.insert (0, inverse_relpath (original_dir, global_options.output_dir))
 
-    global_options.include_path.insert (0, ".")
+    global_options.include_path.insert (0, "./")
 
     # Load the python packages (containing e.g. custom formatter classes)
     # passed on the command line
@@ -701,10 +718,6 @@ def main ():
 
     if global_options.process_cmd:
         includes = global_options.include_path
-        if global_options.lily_output_dir:
-            # This must be first, so lilypond prefers to read .ly
-            # files in the other lybookdb dir.
-            includes = [global_options.lily_output_dir] + includes
         global_options.process_cmd += ' '.join ([' -I %s' % ly.mkarg (p)
                                                  for p in includes])
 
