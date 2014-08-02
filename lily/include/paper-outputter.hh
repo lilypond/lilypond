@@ -51,6 +51,5 @@ public:
   SCM scheme_to_string (SCM);
 };
 
-DECLARE_UNSMOB (Paper_outputter, outputter);
 
 #endif /* PAPER_OUTPUTTER_HH */

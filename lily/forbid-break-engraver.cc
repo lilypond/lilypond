@@ -46,12 +46,12 @@ Forbid_line_break_engraver::start_translation_timestep ()
   SCM busy = get_property ("busyGrobs");
 
   Moment now = now_mom ();
-  while (scm_is_pair (busy) && unsmob_moment (scm_caar (busy))->main_part_ == now.main_part_)
+  while (scm_is_pair (busy) && Moment::unsmob (scm_caar (busy))->main_part_ == now.main_part_)
     busy = scm_cdr (busy);
 
   while (scm_is_pair (busy))
     {
-      Grob *g = unsmob_grob (scm_cdar (busy));
+      Grob *g = Grob::unsmob (scm_cdar (busy));
       if (g->internal_has_interface (ly_symbol2scm ("rhythmic-grob-interface")))
         context ()->get_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
       busy = scm_cdr (busy);

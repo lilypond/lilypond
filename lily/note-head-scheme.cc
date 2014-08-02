@@ -27,7 +27,7 @@ LY_DEFINE (ly_note_head__stem_attachment, "ly:note-head::stem-attachment",
            " notehead @var{glyph-name}.")
 {
   LY_ASSERT_SMOB (Font_metric, font_metric, 1);
-  Font_metric *fm = unsmob_metrics (font_metric);
+  Font_metric *fm = Font_metric::unsmob (font_metric);
   LY_ASSERT_TYPE (scm_is_string, glyph_name, 2);
 
   return ly_offset2scm (Note_head::get_stem_attachment (fm, ly_scm2string (glyph_name)));

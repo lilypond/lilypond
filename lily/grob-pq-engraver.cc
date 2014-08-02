@@ -63,8 +63,8 @@ LY_DEFINE (ly_grob_pq_less_p, "ly:grob-pq<?",
            "Compare two grob priority queue entries."
            "  This is an internal function.")
 {
-  if (Moment::compare (*unsmob_moment (scm_car (a)),
-                       *unsmob_moment (scm_car (b))) < 0)
+  if (Moment::compare (*Moment::unsmob (scm_car (a)),
+                       *Moment::unsmob (scm_car (b))) < 0)
     return SCM_BOOL_T;
   else
     return SCM_BOOL_F;
@@ -121,7 +121,7 @@ Grob_pq_engraver::stop_translation_timestep ()
   Moment now = now_mom ();
   SCM start_busy = get_property ("busyGrobs");
   SCM busy = start_busy;
-  while (scm_is_pair (busy) && *unsmob_moment (scm_caar (busy)) == now)
+  while (scm_is_pair (busy) && *Moment::unsmob (scm_caar (busy)) == now)
     busy = scm_cdr (busy);
 
 }
@@ -133,7 +133,7 @@ Grob_pq_engraver::start_translation_timestep ()
 
   SCM start_busy = get_property ("busyGrobs");
   SCM busy = start_busy;
-  while (scm_is_pair (busy) && *unsmob_moment (scm_caar (busy)) < now)
+  while (scm_is_pair (busy) && *Moment::unsmob (scm_caar (busy)) < now)
     {
       /*
         The grob-pq-engraver is not water tight, and stuff like

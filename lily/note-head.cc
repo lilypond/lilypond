@@ -51,7 +51,7 @@ internal_print (Grob *me, string *font_char)
   Stencil out = fm->find_by_name (idx_either + suffix);
   if (out.is_empty ())
     {
-      Grob *stem = unsmob_grob (me->get_object ("stem"));
+      Grob *stem = Grob::unsmob (me->get_object ("stem"));
       Direction stem_dir = stem ? get_grob_direction (stem) : CENTER;
 
       if (stem_dir == CENTER)
@@ -83,8 +83,8 @@ internal_print (Grob *me, string *font_char)
   if (style == "kievan"
       && 3 == robust_scm2int (me->get_property ("duration-log"), 2))
     {
-      Grob *stem = unsmob_grob (me->get_object ("stem"));
-      Grob *beam = unsmob_grob (stem->get_object ("beam"));
+      Grob *stem = Grob::unsmob (me->get_object ("stem"));
+      Grob *beam = Grob::unsmob (stem->get_object ("beam"));
       if (beam)
         out = fm->find_by_name (idx_either + "2kievan");
     }
@@ -109,8 +109,8 @@ MAKE_SCHEME_CALLBACK (Note_head, stem_x_shift, 1);
 SCM
 Note_head::stem_x_shift (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
-  Grob *stem = unsmob_grob (me->get_object ("stem"));
+  Grob *me = Grob::unsmob (smob);
+  Grob *stem = Grob::unsmob (me->get_object ("stem"));
   if (stem)
     (void) stem->get_property ("positioning-done");
 
@@ -121,7 +121,7 @@ MAKE_SCHEME_CALLBACK (Note_head, print, 1);
 SCM
 Note_head::print (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   string idx;
   return internal_print (me, &idx).smobbed_copy ();
@@ -131,7 +131,7 @@ MAKE_SCHEME_CALLBACK (Note_head, include_ledger_line_height, 1);
 SCM
 Note_head::include_ledger_line_height (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
 
   if (staff)
@@ -190,7 +190,7 @@ MAKE_SCHEME_CALLBACK (Note_head, calc_stem_attachment, 1);
 SCM
 Note_head::calc_stem_attachment (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Font_metric *fm = Font_interface::get_default_font (me);
   string key;
   internal_print (me, &key);

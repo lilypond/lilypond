@@ -28,7 +28,7 @@ MAKE_SCHEME_CALLBACK (Clef, calc_glyph_name, 1);
 SCM
 Clef::calc_glyph_name (SCM smob)
 {
-  Item *s = unsmob_item (smob);
+  Item *s = Item::unsmob (smob);
   SCM glyph = s->get_property ("glyph");
 
   if (scm_is_string (glyph))
@@ -53,7 +53,7 @@ MAKE_SCHEME_CALLBACK (Clef, print, 1)
 SCM
 Clef::print (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   SCM glyph_scm = me->get_property ("glyph-name");
   if (!scm_is_string (glyph_scm))
     return SCM_EOL;

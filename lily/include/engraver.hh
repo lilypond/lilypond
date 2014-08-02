@@ -65,13 +65,13 @@ public:
      override other ctor
   */
   TRANSLATOR_DECLARATIONS (Engraver);
+  static Engraver *unsmob (SCM eng);
 };
 
 #define make_item(x, cause) internal_make_item (ly_symbol2scm (x), cause, x, __FILE__, __LINE__, __FUNCTION__)
 #define make_spanner(x, cause) internal_make_spanner (ly_symbol2scm (x), cause, x, __FILE__, __LINE__, __FUNCTION__)
 #define make_paper_column(x) internal_make_column (ly_symbol2scm (x), x, __FILE__, __LINE__, __FUNCTION__)
 
-Engraver *unsmob_engraver (SCM eng);
 bool ly_is_grob_cause (SCM obj);
 
 #endif // ENGRAVER_HH

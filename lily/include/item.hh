@@ -36,6 +36,8 @@ public:
   Item (SCM);
   Item (Item const &);
 
+  static Item *unsmob (SCM);
+
   virtual Grob *clone () const;
 
   static bool is_non_musical (Grob *);

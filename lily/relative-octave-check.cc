@@ -31,9 +31,9 @@ MAKE_SCHEME_CALLBACK (Relative_octave_check, relative_callback, 2)
 SCM
 Relative_octave_check::relative_callback (SCM music, SCM last_pitch)
 {
-  Pitch p = *unsmob_pitch (last_pitch);
-  Music *m = unsmob_music (music);
-  Pitch *check_p = unsmob_pitch (m->get_property ("pitch"));
+  Pitch p = *Pitch::unsmob (last_pitch);
+  Music *m = Music::unsmob (music);
+  Pitch *check_p = Pitch::unsmob (m->get_property ("pitch"));
 
   int delta_oct = 0;
   if (check_p)

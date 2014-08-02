@@ -255,8 +255,8 @@ MAKE_SCHEME_CALLBACK (Pitch, less_p, 2);
 SCM
 Pitch::less_p (SCM p1, SCM p2)
 {
-  Pitch *a = unsmob_pitch (p1);
-  Pitch *b = unsmob_pitch (p2);
+  Pitch *a = Pitch::unsmob (p1);
+  Pitch *b = Pitch::unsmob (p2);
 
   if (compare (*a, *b) < 0)
     return SCM_BOOL_T;

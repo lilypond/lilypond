@@ -221,9 +221,9 @@ MAKE_SCHEME_CALLBACK (Axis_group_interface, adjacent_pure_heights, 1)
 SCM
 Axis_group_interface::adjacent_pure_heights (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
-  Grob *common = unsmob_grob (me->get_object ("pure-Y-common"));
+  Grob *common = Grob::unsmob (me->get_object ("pure-Y-common"));
   extract_grob_set (me, "pure-relevant-grobs", elts);
 
   Paper_score *ps = get_root_system (me)->paper_score ();
@@ -331,7 +331,7 @@ Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
   if (p && Align_interface::has_interface (p))
     return Axis_group_interface::sum_partial_pure_heights (me, start, end);
 
-  Grob *common = unsmob_grob (me->get_object ("pure-Y-common"));
+  Grob *common = Grob::unsmob (me->get_object ("pure-Y-common"));
   extract_grob_set (me, "pure-relevant-grobs", elts);
 
   Interval r;
@@ -356,7 +356,7 @@ MAKE_SCHEME_CALLBACK (Axis_group_interface, width, 1);
 SCM
 Axis_group_interface::width (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   return generic_group_extent (me, X_AXIS);
 }
 
@@ -364,7 +364,7 @@ MAKE_SCHEME_CALLBACK (Axis_group_interface, height, 1);
 SCM
 Axis_group_interface::height (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   return generic_group_extent (me, Y_AXIS);
 }
 
@@ -374,7 +374,7 @@ Axis_group_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 {
   int start = robust_scm2int (start_scm, 0);
   int end = robust_scm2int (end_scm, INT_MAX);
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   /* Maybe we are in the second pass of a two-pass spacing run. In that
      case, the Y-extent of a system is already given to us */
@@ -394,7 +394,7 @@ MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_skylines, 1);
 SCM
 Axis_group_interface::calc_skylines (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Skyline_pair skylines = skyline_spacing (me);
   return skylines.smobbed_copy ();
 }
@@ -409,7 +409,7 @@ MAKE_SCHEME_CALLBACK (Axis_group_interface, combine_skylines, 1);
 SCM
 Axis_group_interface::combine_skylines (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   extract_grob_set (me, "elements", elements);
   Grob *y_common = common_refpoint_of_array (elements, me, Y_AXIS);
   Grob *x_common = common_refpoint_of_array (elements, me, X_AXIS);
@@ -473,7 +473,7 @@ MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_relevant_grobs, 1);
 SCM
 Axis_group_interface::calc_pure_relevant_grobs (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   /* TODO: Filter out elements that belong to a different Axis_group,
      such as the tie in
      << \new Staff=A { c'1~ \change Staff=B c'}
@@ -520,7 +520,7 @@ Axis_group_interface::internal_calc_pure_relevant_grobs (Grob *me, const string 
 
   vector_sort (relevant_grobs, pure_staff_priority_less);
   SCM grobs_scm = Grob_array::make_array ();
-  unsmob_grob_array (grobs_scm)->set_array (relevant_grobs);
+  Grob_array::unsmob (grobs_scm)->set_array (relevant_grobs);
 
   return grobs_scm;
 }
@@ -529,7 +529,7 @@ MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_y_common, 1);
 SCM
 Axis_group_interface::calc_pure_y_common (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   extract_grob_set (me, "pure-relevant-grobs", elts);
   Grob *common = common_refpoint_of_array (elts, me, Y_AXIS);
@@ -566,20 +566,20 @@ MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_x_common, 1);
 SCM
 Axis_group_interface::calc_x_common (SCM grob)
 {
-  return calc_common (unsmob_grob (grob), X_AXIS);
+  return calc_common (Grob::unsmob (grob), X_AXIS);
 }
 
 MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_y_common, 1);
 SCM
 Axis_group_interface::calc_y_common (SCM grob)
 {
-  return calc_common (unsmob_grob (grob), Y_AXIS);
+  return calc_common (Grob::unsmob (grob), Y_AXIS);
 }
 
 Interval
 Axis_group_interface::pure_group_height (Grob *me, int start, int end)
 {
-  Grob *common = unsmob_grob (me->get_object ("pure-Y-common"));
+  Grob *common = Grob::unsmob (me->get_object ("pure-Y-common"));
 
   if (!common)
     {
@@ -644,7 +644,7 @@ pure_staff_priority_less (Grob *const &g1, Grob *const &g2)
 static void
 add_interior_skylines (Grob *me, Grob *x_common, Grob *y_common, vector<Skyline_pair> *skylines)
 {
-  if (Grob_array *elements = unsmob_grob_array (me->get_object ("elements")))
+  if (Grob_array *elements = Grob_array::unsmob (me->get_object ("elements")))
     {
       for (vsize i = 0; i < elements->size (); i++)
         add_interior_skylines (elements->grob (i), x_common, y_common, skylines);
@@ -981,7 +981,7 @@ Axis_group_interface::print (SCM smob)
   if (!debug_skylines)
     return SCM_BOOL_F;
 
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Stencil ret;
   if (Skyline_pair *s = Skyline_pair::unsmob (me->get_property ("vertical-skylines")))
     {
@@ -997,7 +997,7 @@ MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_staff_staff_spacing, 3)
 SCM
 Axis_group_interface::calc_pure_staff_staff_spacing (SCM smob, SCM start, SCM end)
 {
-  return calc_maybe_pure_staff_staff_spacing (unsmob_grob (smob),
+  return calc_maybe_pure_staff_staff_spacing (Grob::unsmob (smob),
                                               true,
                                               scm_to_int (start),
                                               scm_to_int (end));
@@ -1007,7 +1007,7 @@ MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_staff_staff_spacing, 1)
 SCM
 Axis_group_interface::calc_staff_staff_spacing (SCM smob)
 {
-  return calc_maybe_pure_staff_staff_spacing (unsmob_grob (smob),
+  return calc_maybe_pure_staff_staff_spacing (Grob::unsmob (smob),
                                               false,
                                               0,
                                               INT_MAX);
@@ -1016,7 +1016,7 @@ Axis_group_interface::calc_staff_staff_spacing (SCM smob)
 SCM
 Axis_group_interface::calc_maybe_pure_staff_staff_spacing (Grob *me, bool pure, int start, int end)
 {
-  Grob *grouper = unsmob_grob (me->get_object ("staff-grouper"));
+  Grob *grouper = Grob::unsmob (me->get_object ("staff-grouper"));
 
   if (grouper)
     {

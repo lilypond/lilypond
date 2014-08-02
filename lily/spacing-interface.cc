@@ -108,7 +108,7 @@ Spacing_interface::right_column (Grob *me)
   if (!me->is_live ())
     return 0;
 
-  Grob_array *a = unsmob_grob_array (me->get_object ("right-items"));
+  Grob_array *a = Grob_array::unsmob (me->get_object ("right-items"));
   Item *mincol = 0;
   int min_rank = INT_MAX;
   for (vsize i = 0; a && i < a->size (); i++)

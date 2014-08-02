@@ -390,10 +390,10 @@ Part_combine_iterator::construct_children ()
   SCM lst = get_music ()->get_property ("elements");
   Context *one = handles_[CONTEXT_ONE].get_context ();
   set_context (one);
-  first_iter_ = unsmob_iterator (get_iterator (unsmob_music (scm_car (lst))));
+  first_iter_ = Music_iterator::unsmob (get_iterator (Music::unsmob (scm_car (lst))));
   Context *two = handles_[CONTEXT_TWO].get_context ();
   set_context (two);
-  second_iter_ = unsmob_iterator (get_iterator (unsmob_music (scm_cadr (lst))));
+  second_iter_ = Music_iterator::unsmob (get_iterator (Music::unsmob (scm_cadr (lst))));
   Context *shared = handles_[CONTEXT_SHARED].get_context ();
   set_context (shared);
 
@@ -443,7 +443,7 @@ Part_combine_iterator::set_busy (SCM se)
   if (!notice_busy_)
     return;
 
-  Stream_event *e = unsmob_stream_event (se);
+  Stream_event *e = Stream_event::unsmob (se);
 
   if (e->in_event_class ("note-event") || e->in_event_class ("cluster-note-event"))
     busy_ = true;
@@ -478,7 +478,7 @@ Part_combine_iterator::process (Moment m)
 
   for (; scm_is_pair (split_list_); split_list_ = scm_cdr (split_list_))
     {
-      splitm = unsmob_moment (scm_caar (split_list_));
+      splitm = Moment::unsmob (scm_caar (split_list_));
       if (splitm && *splitm + start_moment_ > now)
         break;
 

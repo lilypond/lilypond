@@ -29,8 +29,8 @@ LY_DEFINE (ly_get_spacing_spec, "ly:get-spacing-spec", 2, 0, 0,
   LY_ASSERT_SMOB (Grob, from_scm, 1);
   LY_ASSERT_SMOB (Grob, to_scm, 2);
 
-  Grob *from = unsmob_grob (from_scm);
-  Grob *to = unsmob_grob (to_scm);
+  Grob *from = Grob::unsmob (from_scm);
+  Grob *to = Grob::unsmob (to_scm);
 
   return Page_layout_problem::get_spacing_spec (from, to, false, 0, 0);
 }

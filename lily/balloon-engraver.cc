@@ -71,7 +71,7 @@ Balloon_engraver::acknowledge_grob (Grob_info info)
   SCM arts = cause ? cause->get_property ("articulations") : SCM_EOL;
   for (SCM s = arts; scm_is_pair (s); s = scm_cdr (s))
     {
-      Stream_event *e = unsmob_stream_event (scm_car (s));
+      Stream_event *e = Stream_event::unsmob (scm_car (s));
       if (e->in_event_class ("annotate-output-event"))
         {
           balloonify (info.grob (), e);

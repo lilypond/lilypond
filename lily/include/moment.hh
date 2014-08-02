@@ -68,7 +68,6 @@ IMPLEMENT_ARITHMETIC_OPERATOR (Moment, / );
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, *);
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, % );
 
-DECLARE_UNSMOB (Moment, moment);
 int compare (Moment const &, Moment const &);
 INSTANTIATE_COMPARE (Moment const &, Moment::compare);
 

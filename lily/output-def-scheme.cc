@@ -32,7 +32,7 @@ LY_DEFINE (ly_output_def_lookup, "ly:output-def-lookup",
 	   " @var{val} or @code{'()} if @var{val} is undefined.")
 {
   LY_ASSERT_SMOB (Output_def, def, 1);
-  Output_def *op = unsmob_output_def (def);
+  Output_def *op = Output_def::unsmob (def);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
   SCM answer = op->lookup_variable (sym);
@@ -52,7 +52,7 @@ LY_DEFINE (ly_output_def_scope, "ly:output-def-scope",
 	   "Return the variable scope inside @var{def}.")
 {
   LY_ASSERT_SMOB (Output_def, def, 1);
-  Output_def *op = unsmob_output_def (def);
+  Output_def *op = Output_def::unsmob (def);
   return op->scope_;
 }
 
@@ -61,7 +61,7 @@ LY_DEFINE (ly_output_def_parent, "ly:output-def-parent",
 	   "Return the parent output definition of @var{def}.")
 {
   LY_ASSERT_SMOB (Output_def, def, 1);
-  Output_def *op = unsmob_output_def (def);
+  Output_def *op = Output_def::unsmob (def);
   return op->parent_ ? op->parent_->self_scm () : SCM_EOL;
 }
 
@@ -70,7 +70,7 @@ LY_DEFINE (ly_output_def_set_variable_x, "ly:output-def-set-variable!",
            "Set an output definition @var{def} variable @var{sym} to @var{val}.")
 {
   LY_ASSERT_SMOB (Output_def, def, 1);
-  Output_def *output_def = unsmob_output_def (def);
+  Output_def *output_def = Output_def::unsmob (def);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
   output_def->set_variable (sym, val);
   return SCM_UNSPECIFIED;
@@ -81,7 +81,7 @@ LY_DEFINE (ly_output_def_clone, "ly:output-def-clone",
 	   "Clone output definition @var{def}.")
 {
   LY_ASSERT_SMOB (Output_def, def, 1);
-  Output_def *op = unsmob_output_def (def);
+  Output_def *op = Output_def::unsmob (def);
 
   Output_def *clone = op->clone ();
   return clone->unprotect ();
@@ -93,13 +93,13 @@ LY_DEFINE (ly_output_description, "ly:output-description",
 {
   LY_ASSERT_SMOB (Output_def, output_def, 1);
 
-  Output_def *id = unsmob_output_def (output_def);
+  Output_def *id = Output_def::unsmob (output_def);
 
   SCM al = ly_module_2_alist (id->scope_);
   SCM ell = SCM_EOL;
   for (SCM s = al; scm_is_pair (s); s = scm_cdr (s))
     {
-      Context_def *td = unsmob_context_def (scm_cdar (s));
+      Context_def *td = Context_def::unsmob (scm_cdar (s));
       SCM key = scm_caar (s);
       if (td && key == td->get_context_name ())
 	ell = scm_cons (scm_cons (key, td->to_alist ()), ell);
@@ -116,14 +116,14 @@ LY_DEFINE (ly_output_find_context_def, "ly:output-find-context-def",
   if (!SCM_UNBNDP (context_name))
     LY_ASSERT_TYPE (ly_is_symbol, context_name, 2);
 
-  Output_def *id = unsmob_output_def (output_def);
+  Output_def *id = Output_def::unsmob (output_def);
 
   SCM al = ly_module_2_alist (id->scope_);
   SCM ell = SCM_EOL;
   for (SCM s = al; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM p = scm_car (s);
-      Context_def *td = unsmob_context_def (scm_cdr (p));
+      Context_def *td = Context_def::unsmob (scm_cdr (p));
       if (td && scm_is_eq (scm_car (p), td->get_context_name ())
 	  && (SCM_UNBNDP (context_name) || td->is_alias (context_name)))
 	ell = scm_cons (p, ell);
@@ -136,7 +136,7 @@ LY_DEFINE (ly_output_def_p, "ly:output-def?",
 	   1, 0, 0, (SCM def),
 	   "Is @var{def} an output definition?")
 {
-  return ly_bool2scm (unsmob_output_def (def));
+  return ly_bool2scm (Output_def::unsmob (def));
 }
 
 LY_DEFINE (ly_paper_outputscale, "ly:paper-outputscale",
@@ -144,7 +144,7 @@ LY_DEFINE (ly_paper_outputscale, "ly:paper-outputscale",
 	   "Return the output-scale for output definition @var{def}.")
 {
   LY_ASSERT_SMOB (Output_def, def, 1);
-  Output_def *b = unsmob_output_def (def);
+  Output_def *b = Output_def::unsmob (def);
   return scm_from_double (output_scale (b));
 }
 
@@ -165,7 +165,7 @@ LY_DEFINE (ly_paper_get_font, "ly:paper-get-font",
 {
   LY_ASSERT_SMOB (Output_def, def, 1);
 
-  Output_def *paper = unsmob_output_def (def);
+  Output_def *paper = Output_def::unsmob (def);
   Font_metric *fm = select_font (paper, chain);
   return fm->self_scm ();
 }
@@ -176,7 +176,7 @@ LY_DEFINE (ly_paper_get_number, "ly:paper-get-number",
 	   " @var{def} as a double.")
 {
   LY_ASSERT_SMOB (Output_def, def, 1);
-  Output_def *layout = unsmob_output_def (def);
+  Output_def *layout = Output_def::unsmob (def);
   return scm_from_double (layout->get_dimension (sym));
 }
 
@@ -186,7 +186,7 @@ LY_DEFINE (ly_paper_fonts, "ly:paper-fonts",
 	   " @var{def} (e.g., @code{\\paper}).")
 {
   LY_ASSERT_SMOB (Output_def, def, 1);
-  Output_def *b = unsmob_output_def (def);
+  Output_def *b = Output_def::unsmob (def);
 
   SCM tab1 = b->lookup_variable (ly_symbol2scm ("scaled-fonts"));
   SCM tab2 = b->lookup_variable (ly_symbol2scm ("pango-fonts"));
@@ -215,7 +215,7 @@ LY_DEFINE (ly_paper_fonts, "ly:paper-fonts",
     {
       SCM entry = scm_car (s);
 
-      Font_metric *fm = unsmob_metrics (entry);
+      Font_metric *fm = Font_metric::unsmob (entry);
 
       if (dynamic_cast<Modified_font_metric *> (fm)
 	  || dynamic_cast<Pango_font *> (fm))

@@ -31,7 +31,7 @@ LY_DEFINE (ly_stencil_translate_axis, "ly:stencil-translate-axis",
            "Return a copy of @var{stil} but translated by @var{amount}"
            " in @var{axis} direction.")
 {
-  Stencil *s = unsmob_stencil (stil);
+  Stencil *s = Stencil::unsmob (stil);
   LY_ASSERT_SMOB (Stencil, stil, 1);
   LY_ASSERT_TYPE (scm_is_number, amount, 2);
 
@@ -42,7 +42,7 @@ LY_DEFINE (ly_stencil_translate_axis, "ly:stencil-translate-axis",
   SCM new_s = s->smobbed_copy ();
   scm_remember_upto_here_1 (stil);
 
-  Stencil *q = unsmob_stencil (new_s);
+  Stencil *q = Stencil::unsmob (new_s);
   q->translate_axis (real_amount, Axis (scm_to_int (axis)));
   return new_s;
 }
@@ -52,7 +52,7 @@ LY_DEFINE (ly_stencil_translate, "ly:stencil-translate",
            "Return a @var{stil}, but translated by @var{offset}"
            " (a pair of numbers).")
 {
-  Stencil *s = unsmob_stencil (stil);
+  Stencil *s = Stencil::unsmob (stil);
   LY_ASSERT_SMOB (Stencil, stil, 1);
   LY_ASSERT_TYPE (is_number_pair, offset, 2);
   Offset o = ly_scm2offset (offset);
@@ -60,7 +60,7 @@ LY_DEFINE (ly_stencil_translate, "ly:stencil-translate",
   SCM new_s = s->smobbed_copy ();
   scm_remember_upto_here_1 (stil);
 
-  Stencil *q = unsmob_stencil (new_s);
+  Stencil *q = Stencil::unsmob (new_s);
   q->translate (o);
   return new_s;
 }
@@ -69,7 +69,7 @@ LY_DEFINE (ly_stencil_expr, "ly:stencil-expr",
            1, 0, 0, (SCM stil),
            "Return the expression of @var{stil}.")
 {
-  Stencil *s = unsmob_stencil (stil);
+  Stencil *s = Stencil::unsmob (stil);
   LY_ASSERT_SMOB (Stencil, stil, 1);
   return s->expr ();
 }
@@ -80,7 +80,7 @@ LY_DEFINE (ly_stencil_extent, "ly:stencil-extent",
            " @var{axis} direction (@code{0} or @code{1} for x and"
            " y@tie{}axis, respectively).")
 {
-  Stencil *s = unsmob_stencil (stil);
+  Stencil *s = Stencil::unsmob (stil);
   LY_ASSERT_SMOB (Stencil, stil, 1);
   LY_ASSERT_TYPE (is_axis, axis, 2);
 
@@ -93,7 +93,7 @@ LY_DEFINE (ly_stencil_empty_p, "ly:stencil-empty?",
            " @var{axis} is supplied, the emptiness check is"
            " restricted to that axis.")
 {
-  Stencil *s = unsmob_stencil (stil);
+  Stencil *s = Stencil::unsmob (stil);
   LY_ASSERT_SMOB (Stencil, stil, 1);
   if (SCM_UNBNDP (axis))
     return scm_from_bool (s->is_empty ());
@@ -112,8 +112,8 @@ LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
            " space.  @var{first} and @var{second} may also be @code{'()} or"
            " @code{#f}.")
 {
-  Stencil *s1 = unsmob_stencil (first);
-  Stencil *s2 = unsmob_stencil (second);
+  Stencil *s1 = Stencil::unsmob (first);
+  Stencil *s2 = Stencil::unsmob (second);
   Stencil result;
 
   SCM_ASSERT_TYPE (s1 || first == SCM_BOOL_F || first == SCM_EOL,
@@ -159,8 +159,8 @@ LY_DEFINE (ly_stencil_stack, "ly:stencil-stack",
            " apart at least by this distance.  If either of the stencils"
            " is spacing, @var{padding} and @var{mindist} do not apply.")
 {
-  Stencil *s1 = unsmob_stencil (first);
-  Stencil *s2 = unsmob_stencil (second);
+  Stencil *s1 = Stencil::unsmob (first);
+  Stencil *s2 = Stencil::unsmob (second);
   Stencil result;
 
   SCM_ASSERT_TYPE (s1 || first == SCM_BOOL_F || first == SCM_EOL,
@@ -210,7 +210,7 @@ LY_DEFINE (ly_stencil_add, "ly:stencil-add",
 
   while (!SCM_NULLP (args))
     {
-      Stencil *s = unsmob_stencil (scm_car (args));
+      Stencil *s = Stencil::unsmob (scm_car (args));
       if (!s)
         SCM_ASSERT_TYPE (s, scm_car (args), SCM_ARGn, __FUNCTION__, "Stencil");
 
@@ -280,7 +280,7 @@ LY_DEFINE (ly_stencil_aligned_to, "ly:stencil-aligned-to",
   LY_ASSERT_TYPE (is_axis, axis, 2);
   LY_ASSERT_TYPE (scm_is_number, dir, 3);
 
-  Stencil target = *unsmob_stencil (stil);
+  Stencil target = *Stencil::unsmob (stil);
 
   target.align_to ((Axis)scm_to_int (axis),
                    scm_to_double (dir));
@@ -293,7 +293,7 @@ LY_DEFINE (ly_stencil_fonts, "ly:stencil-fonts",
            " in@tie{}@var{s}.")
 {
   LY_ASSERT_SMOB (Stencil, s, 1);
-  Stencil *stil = unsmob_stencil (s);
+  Stencil *stil = Stencil::unsmob (s);
   return find_expression_fonts (stil->expr ());
 }
 
@@ -302,7 +302,7 @@ LY_DEFINE (ly_stencil_in_color, "ly:stencil-in-color",
            "Put @var{stc} in a different color.")
 {
   LY_ASSERT_SMOB (Stencil, stc, 1);
-  Stencil *stil = unsmob_stencil (stc);
+  Stencil *stil = Stencil::unsmob (stc);
   return Stencil (stil->extent_box (),
                   scm_list_3 (ly_symbol2scm ("color"),
                               scm_list_3 (r, g, b),
@@ -363,7 +363,7 @@ LY_DEFINE (ly_stencil_rotate, "ly:stencil-rotate",
            " the relative offset (@var{x}, @var{y}).  E.g., an offset of"
            " (-1, 1) will rotate the stencil around the left upper corner.")
 {
-  Stencil *s = unsmob_stencil (stil);
+  Stencil *s = Stencil::unsmob (stil);
   LY_ASSERT_SMOB (Stencil, stil, 1);
   LY_ASSERT_TYPE (scm_is_number, angle, 2);
   LY_ASSERT_TYPE (scm_is_number, x, 3);
@@ -373,7 +373,7 @@ LY_DEFINE (ly_stencil_rotate, "ly:stencil-rotate",
   Real y_off = scm_to_double (y);
 
   SCM new_s = s->smobbed_copy ();
-  Stencil *q = unsmob_stencil (new_s);
+  Stencil *q = Stencil::unsmob (new_s);
   q->rotate_degrees (a, Offset (x_off, y_off));
   return new_s;
 }
@@ -383,7 +383,7 @@ LY_DEFINE (ly_stencil_rotate_absolute, "ly:stencil-rotate-absolute",
            "Return a stencil @var{stil} rotated @var{angle} degrees around"
            " point (@var{x}, @var{y}), given in absolute coordinates.")
 {
-  Stencil *s = unsmob_stencil (stil);
+  Stencil *s = Stencil::unsmob (stil);
   LY_ASSERT_SMOB (Stencil, stil, 1);
   LY_ASSERT_TYPE (scm_is_number, angle, 2);
   LY_ASSERT_TYPE (scm_is_number, x, 3);
@@ -393,7 +393,7 @@ LY_DEFINE (ly_stencil_rotate_absolute, "ly:stencil-rotate-absolute",
   Real y_off = scm_to_double (y);
 
   SCM new_s = s->smobbed_copy ();
-  Stencil *q = unsmob_stencil (new_s);
+  Stencil *q = Stencil::unsmob (new_s);
   q->rotate_degrees_absolute (a, Offset (x_off, y_off));
   return new_s;
 }
@@ -460,13 +460,13 @@ LY_DEFINE (ly_stencil_scale, "ly:stencil-scale",
            "Scale @var{stil} using the horizontal and vertical scaling"
            " factors @var{x} and @var{y}.")
 {
-  Stencil *s = unsmob_stencil (stil);
+  Stencil *s = Stencil::unsmob (stil);
   LY_ASSERT_SMOB (Stencil, stil, 1);
   LY_ASSERT_TYPE (scm_is_number, x, 2);
   LY_ASSERT_TYPE (scm_is_number, y, 3);
 
   SCM new_s = s->smobbed_copy ();
-  Stencil *q = unsmob_stencil (new_s);
+  Stencil *q = Stencil::unsmob (new_s);
 
   q->scale (scm_to_double (x), scm_to_double (y));
   return new_s;

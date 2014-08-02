@@ -54,7 +54,7 @@ MAKE_SCHEME_CALLBACK (Script_interface, calc_positioning_done, 1);
 SCM
 Script_interface::calc_positioning_done (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   if (Grob *par = me->get_parent (X_AXIS))
     {
       Grob *stem = Note_column::get_stem (par);
@@ -73,7 +73,7 @@ Script_interface::get_direction (Grob *me)
     relative_dir = to_dir (reldir);
 
   SCM other_elt = me->get_object ("direction-source");
-  Grob *e = unsmob_grob (other_elt);
+  Grob *e = Grob::unsmob (other_elt);
   if (e)
     return (Direction) (relative_dir * get_grob_direction (e));
 
@@ -84,7 +84,7 @@ MAKE_SCHEME_CALLBACK (Script_interface, calc_direction, 1);
 SCM
 Script_interface::calc_direction (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Direction d = Script_interface::get_direction (me);
 
   if (!d)
@@ -101,13 +101,13 @@ MAKE_SCHEME_CALLBACK (Script_interface, calc_cross_staff, 1);
 SCM
 Script_interface::calc_cross_staff (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Grob *stem = Note_column::get_stem (me->get_parent (X_AXIS));
 
   if (stem && to_boolean (stem->get_property ("cross-staff")))
     return SCM_BOOL_T;
 
-  Grob *slur = unsmob_grob (me->get_object ("slur"));
+  Grob *slur = Grob::unsmob (me->get_object ("slur"));
   SCM avoid_slur = me->get_property ("avoid-slur");
   if (slur && to_boolean (slur->get_property ("cross-staff"))
       && (avoid_slur == ly_symbol2scm ("outside")
@@ -122,7 +122,7 @@ MAKE_SCHEME_CALLBACK (Script_interface, print, 1);
 SCM
 Script_interface::print (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   Direction dir = get_grob_direction (me);
 

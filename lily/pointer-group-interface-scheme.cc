@@ -24,13 +24,13 @@ LY_DEFINE (ly_pointer_group_interface__add_grob, "ly:pointer-group-interface::ad
            3, 0, 0, (SCM grob, SCM sym, SCM grob_element),
            "Add @var{grob-element} to @var{grob}'s @var{sym} grob array.")
 {
-  LY_ASSERT_TYPE (unsmob_grob, grob, 1);
+  LY_ASSERT_TYPE (Grob::unsmob, grob, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
-  LY_ASSERT_TYPE (unsmob_grob, grob_element, 3);
+  LY_ASSERT_TYPE (Grob::unsmob, grob_element, 3);
 
-  Pointer_group_interface::add_grob (unsmob_grob (grob),
+  Pointer_group_interface::add_grob (Grob::unsmob (grob),
                                      sym,
-                                     unsmob_grob (grob_element));
+                                     Grob::unsmob (grob_element));
   return SCM_UNSPECIFIED;
 }
 

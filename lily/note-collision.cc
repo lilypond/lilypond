@@ -272,7 +272,7 @@ check_meshing_chords (Grob *me,
 
       if (dot_wipe_head)
         {
-          if (Grob *d = unsmob_grob (dot_wipe_head->get_object ("dot")))
+          if (Grob *d = Grob::unsmob (dot_wipe_head->get_object ("dot")))
             d->suicide ();
         }
 
@@ -313,18 +313,18 @@ check_meshing_chords (Grob *me,
   if (shift_amount < -1e-6
       && Rhythmic_head::dot_count (head_up))
     {
-      Grob *d = unsmob_grob (head_up->get_object ("dot"));
+      Grob *d = Grob::unsmob (head_up->get_object ("dot"));
       Grob *parent = d->get_parent (X_AXIS);
       if (Dot_column::has_interface (parent))
         Side_position_interface::add_support (parent, head_down);
     }
   else if (Rhythmic_head::dot_count (head_down))
     {
-      Grob *d = unsmob_grob (head_down->get_object ("dot"));
+      Grob *d = Grob::unsmob (head_down->get_object ("dot"));
       Grob *parent = d->get_parent (X_AXIS);
       if (Dot_column::has_interface (parent))
         {
-          Grob *stem = unsmob_grob (head_up->get_object ("stem"));
+          Grob *stem = Grob::unsmob (head_up->get_object ("stem"));
           // Loop over all heads on an up-pointing-stem to see if dots
           // need to clear any heads suspended on its right side.
           extract_grob_set (stem, "note-heads", heads);
@@ -337,12 +337,12 @@ check_meshing_chords (Grob *me,
   if (shift_amount > 1e-6
       && Rhythmic_head::dot_count (head_down))
     {
-      Grob *dot_down = unsmob_grob (head_down->get_object ("dot"));
+      Grob *dot_down = Grob::unsmob (head_down->get_object ("dot"));
       Grob *col_down = dot_down->get_parent (X_AXIS);
       Direction dir = UP;
       if (Rhythmic_head::dot_count (head_up))
         {
-          Grob *dot_up = unsmob_grob (head_up->get_object ("dot"));
+          Grob *dot_up = Grob::unsmob (head_up->get_object ("dot"));
           Grob *col_up = dot_up->get_parent (X_AXIS);
           if (col_up == col_down) // let the common DotColumn arrange dots
             dir = CENTER;
@@ -351,10 +351,10 @@ check_meshing_chords (Grob *me,
         }
       if (dir != CENTER)
         {
-          Grob *stem = unsmob_grob (head_down->get_object ("stem"));
+          Grob *stem = Grob::unsmob (head_down->get_object ("stem"));
           extract_grob_set (stem, "note-heads", heads);
           for (vsize i = 0; i < heads.size (); i++)
-            if (Grob *dot = unsmob_grob (heads[i]->get_object ("dot")))
+            if (Grob *dot = Grob::unsmob (heads[i]->get_object ("dot")))
               dot->set_property ("direction", scm_from_int (dir));
         }
     }
@@ -370,7 +370,7 @@ MAKE_SCHEME_CALLBACK (Note_collision_interface, calc_positioning_done, 1)
 SCM
 Note_collision_interface::calc_positioning_done (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   me->set_property ("positioning-done", SCM_BOOL_T);
 
   Drul_array<vector<Grob *> > clash_groups = get_clash_groups (me);
@@ -407,7 +407,7 @@ Note_collision_interface::calc_positioning_done (SCM smob)
   vector<Real> amounts;
   for (; scm_is_pair (hand); hand = scm_cdr (hand))
     {
-      Grob *s = unsmob_grob (scm_caar (hand));
+      Grob *s = Grob::unsmob (scm_caar (hand));
       Real amount = scm_to_double (scm_cdar (hand)) * wid;
 
       done.push_back (s);
@@ -417,7 +417,7 @@ Note_collision_interface::calc_positioning_done (SCM smob)
     }
   for (; scm_is_pair (autos); autos = scm_cdr (autos))
     {
-      Grob *s = unsmob_grob (scm_caar (autos));
+      Grob *s = Grob::unsmob (scm_caar (autos));
       Real amount = scm_to_double (scm_cdar (autos)) * wid;
 
       vsize x = find (done, s) - done.begin ();
@@ -600,7 +600,7 @@ Note_collision_interface::note_head_positions (Grob *me)
   vector<int> out;
   extract_grob_set (me, "elements", elts);
   for (vsize i = 0; i < elts.size (); i++)
-    if (Grob *stem = unsmob_grob (elts[i]->get_object ("stem")))
+    if (Grob *stem = Grob::unsmob (elts[i]->get_object ("stem")))
       {
         vector<int> nhp = Stem::note_head_positions (stem);
         out.insert (out.end (), nhp.begin (), nhp.end ());

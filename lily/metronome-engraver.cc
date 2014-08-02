@@ -139,9 +139,9 @@ Metronome_mark_engraver::stop_translation_timestep ()
             first notational element of the measure if no time
             signature is present in that measure).
           */
-          if (Grob *mc = unsmob_grob (get_property ("currentMusicalColumn")))
+          if (Grob *mc = Grob::unsmob (get_property ("currentMusicalColumn")))
             text_->set_parent (mc, X_AXIS);
-          else if (Grob *cc = unsmob_grob (get_property ("currentCommandColumn")))
+          else if (Grob *cc = Grob::unsmob (get_property ("currentCommandColumn")))
             text_->set_parent (cc, X_AXIS);
         }
       text_->set_object ("side-support-elements",

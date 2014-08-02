@@ -48,7 +48,7 @@ parenthesize (Grob *me, Stencil m)
 static SCM
 get_extent (Grob *me, Axis a)
 {
-  Stencil *s = unsmob_stencil (Accidental_interface::get_stencil (me));
+  Stencil *s = Stencil::unsmob (Accidental_interface::get_stencil (me));
 
   if (s)
     return ly_interval2scm (s->extent (a));
@@ -59,21 +59,21 @@ MAKE_SCHEME_CALLBACK (Accidental_interface, height, 1);
 SCM
 Accidental_interface::height (SCM smob)
 {
-  return get_extent (unsmob_grob (smob), Y_AXIS);
+  return get_extent (Grob::unsmob (smob), Y_AXIS);
 }
 
 MAKE_SCHEME_CALLBACK (Accidental_interface, width, 1);
 SCM
 Accidental_interface::width (SCM smob)
 {
-  return get_extent (unsmob_grob (smob), X_AXIS);
+  return get_extent (Grob::unsmob (smob), X_AXIS);
 }
 
 MAKE_SCHEME_CALLBACK (Accidental_interface, horizontal_skylines, 1);
 SCM
 Accidental_interface::horizontal_skylines (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   if (!me->is_live ())
     return Skyline_pair ().smobbed_copy ();
 
@@ -82,7 +82,7 @@ Accidental_interface::horizontal_skylines (SCM smob)
    * before line breaking. It is therefore `unpure' (c).
    * We use the more basic get_stencil.
    */
-  Stencil *my_stencil = unsmob_stencil (get_stencil (me));
+  Stencil *my_stencil = Stencil::unsmob (get_stencil (me));
   if (!my_stencil)
     return Skyline_pair ().smobbed_copy ();
 
@@ -120,16 +120,16 @@ MAKE_SCHEME_CALLBACK (Accidental_interface, pure_height, 3);
 SCM
 Accidental_interface::pure_height (SCM smob, SCM start_scm, SCM)
 {
-  Item *me = dynamic_cast<Item *> (unsmob_grob (smob));
+  Item *me = dynamic_cast<Item *> (Grob::unsmob (smob));
   int start = scm_to_int (start_scm);
   int rank = me->get_column ()->get_rank ();
 
   if (to_boolean (me->get_property ("forced"))
-      || !unsmob_grob (me->get_object ("tie"))
+      || !Grob::unsmob (me->get_object ("tie"))
       || (rank == start + 1 && /* we are at the start of a line */
           !to_boolean (me->get_property ("hide-tied-accidental-after-break"))))
     {
-      Stencil *s = unsmob_stencil (get_stencil (me));
+      Stencil *s = Stencil::unsmob (get_stencil (me));
       if (s)
         return ly_interval2scm (s->extent (Y_AXIS));
     }
@@ -141,8 +141,8 @@ MAKE_SCHEME_CALLBACK (Accidental_interface, print, 1);
 SCM
 Accidental_interface::print (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
-  Grob *tie = unsmob_grob (me->get_object ("tie"));
+  Grob *me = Grob::unsmob (smob);
+  Grob *tie = Grob::unsmob (me->get_object ("tie"));
 
   if (tie
       && (to_boolean (me->get_property ("hide-tied-accidental-after-break"))

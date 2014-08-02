@@ -56,7 +56,7 @@ Spanner *parent_spanner (Grob *g)
 SCM
 Line_spanner::calc_bound_info (SCM smob, Direction dir)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
 
   Grob *commonx = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
   commonx = me->common_refpoint (commonx, X_AXIS);
@@ -114,7 +114,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
                       ? Axis_group_interface::generic_bound_extent (bound_grob, commonx, X_AXIS)
                       : robust_relative_extent (bound_grob, commonx, X_AXIS)).linear_combination (attach);
 
-      Grob *acc = unsmob_grob (bound_grob->get_object ("accidental-grob"));
+      Grob *acc = Grob::unsmob (bound_grob->get_object ("accidental-grob"));
       if (acc && to_boolean (ly_assoc_get (ly_symbol2scm ("end-on-accidental"), details, SCM_BOOL_F)))
         x_coord = robust_relative_extent (acc, commonx, X_AXIS).linear_combination (attach);
 
@@ -206,7 +206,7 @@ MAKE_SCHEME_CALLBACK (Line_spanner, calc_cross_staff, 1);
 SCM
 Line_spanner::calc_cross_staff (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
   if (!me)
     return SCM_BOOL_F;
 
@@ -237,7 +237,7 @@ SCM
 Line_spanner::calc_left_bound_info_and_text (SCM smob)
 {
   SCM alist = Line_spanner::calc_bound_info (smob, LEFT);
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
 
   SCM text = me->get_property ("text");
   if (Text_interface::is_markup (text)
@@ -259,7 +259,7 @@ MAKE_SCHEME_CALLBACK (Line_spanner, print, 1);
 SCM
 Line_spanner::print (SCM smob)
 {
-  Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
+  Spanner *me = dynamic_cast<Spanner *> (Grob::unsmob (smob));
 
   // Triggers simple-Y calculations
   bool simple_y = to_boolean (me->get_property ("simple-Y")) && !to_boolean (me->get_property ("cross-staff"));
@@ -297,9 +297,9 @@ Line_spanner::print (SCM smob)
                                                  bounds[d], SCM_BOOL_F), 0.0);
       arrows[d] = to_boolean (ly_assoc_get (ly_symbol2scm ("arrow"),
                                             bounds[d], SCM_BOOL_F));
-      stencils[d] = unsmob_stencil (ly_assoc_get (ly_symbol2scm ("stencil"),
+      stencils[d] = Stencil::unsmob (ly_assoc_get (ly_symbol2scm ("stencil"),
                                                   bounds[d], SCM_BOOL_F));
-      common_y[d] = unsmob_grob (ly_assoc_get (ly_symbol2scm ("common-Y"),
+      common_y[d] = Grob::unsmob (ly_assoc_get (ly_symbol2scm ("common-Y"),
                                                bounds[d], SCM_BOOL_F));
       if (!common_y[d])
         common_y[d] = me;

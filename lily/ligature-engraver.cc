@@ -121,7 +121,7 @@ Ligature_engraver::process_music ()
       primitives_.clear ();
       ligature_ = 0;
     }
-  last_bound_ = unsmob_grob (get_property ("currentMusicalColumn"));
+  last_bound_ = Grob::unsmob (get_property ("currentMusicalColumn"));
 
   if (ligature_)
     {
@@ -140,7 +140,7 @@ Ligature_engraver::process_music ()
       prev_start_event_ = events_drul_[START];
       ligature_ = create_ligature_spanner ();
 
-      Grob *bound = unsmob_grob (get_property ("currentMusicalColumn"));
+      Grob *bound = Grob::unsmob (get_property ("currentMusicalColumn"));
       if (!bound)
         events_drul_[START]->origin ()->warning (_ ("no left bound"));
       else

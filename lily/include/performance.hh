@@ -31,6 +31,8 @@ public:
   ~Performance ();
   DECLARE_CLASSNAME (Performance);
 
+  static Performance *unsmob (SCM);
+
   void add_element (Audio_element *p);
   virtual void process ();
   void remap_grace_durations ();

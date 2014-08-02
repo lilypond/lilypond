@@ -102,6 +102,5 @@ Translator_group *get_translator_group (SCM sym);
 #define foobar
 #define ADD_TRANSLATOR_GROUP(classname, desc, grobs, read, write) foobar
 
-DECLARE_UNSMOB (Translator_group, translator_group);
 
 #endif // TRANSLATOR_GROUP_HH

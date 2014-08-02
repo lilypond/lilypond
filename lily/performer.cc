@@ -50,7 +50,7 @@ Performer::announce_element (Audio_element_info i)
 }
 
 Performer *
-unsmob_performer (SCM perf)
+Performer::unsmob (SCM perf)
 {
-  return dynamic_cast<Performer *> (unsmob_translator (perf));
+  return dynamic_cast<Performer *> (Translator::unsmob (perf));
 }

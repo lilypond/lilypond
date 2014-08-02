@@ -30,7 +30,7 @@ void
 transpose_music_list (SCM lst, Pitch rq)
 {
   for (SCM s = lst; scm_is_pair (s); s = scm_cdr (s))
-    unsmob_music (scm_car (s))->transpose (rq);
+    Music::unsmob (scm_car (s))->transpose (rq);
 }
 
 Moment
@@ -41,7 +41,7 @@ Music_sequence::cumulative_length (SCM l)
 
   for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
     {
-      Moment l = unsmob_music (scm_car (s))->get_length ();
+      Moment l = Music::unsmob (scm_car (s))->get_length ();
       if (last_len.grace_part_ && l.main_part_)
         last_len.grace_part_ = Rational (0);
       cumulative += last_len;
@@ -60,7 +60,7 @@ Music_sequence::maximum_length (SCM l)
   Moment dur = 0;
   for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
     {
-      Music *m = unsmob_music (scm_car (s));
+      Music *m = Music::unsmob (scm_car (s));
       if (!m)
         programming_error ("Music sequence should have music elements");
       else
@@ -77,7 +77,7 @@ MAKE_SCHEME_CALLBACK (Music_sequence, maximum_length_callback, 1);
 SCM
 Music_sequence::maximum_length_callback (SCM m)
 {
-  Music *me = unsmob_music (m);
+  Music *me = Music::unsmob (m);
   return maximum_length (me->get_property ("elements")).smobbed_copy ();
 }
 
@@ -85,8 +85,8 @@ MAKE_SCHEME_CALLBACK (Music_sequence, event_chord_length_callback, 1);
 SCM
 Music_sequence::event_chord_length_callback (SCM m)
 {
-  Music *me = unsmob_music (m);
-  Duration *d = unsmob_duration (me->get_property ("duration"));
+  Music *me = Music::unsmob (m);
+  Duration *d = Duration::unsmob (me->get_property ("duration"));
   // Preset duration is used in chord repetitions.
   if (d)
     {
@@ -100,7 +100,7 @@ MAKE_SCHEME_CALLBACK (Music_sequence, cumulative_length_callback, 1);
 SCM
 Music_sequence::cumulative_length_callback (SCM m)
 {
-  Music *me = unsmob_music (m);
+  Music *me = Music::unsmob (m);
   return cumulative_length (me->get_property ("elements")).smobbed_copy ();
 }
 
@@ -108,7 +108,7 @@ MAKE_SCHEME_CALLBACK (Music_sequence, minimum_start_callback, 1);
 SCM
 Music_sequence::minimum_start_callback (SCM m)
 {
-  Music *me = unsmob_music (m);
+  Music *me = Music::unsmob (m);
   return minimum_start (me->get_property ("elements")).smobbed_copy ();
 }
 
@@ -116,7 +116,7 @@ MAKE_SCHEME_CALLBACK (Music_sequence, first_start_callback, 1);
 SCM
 Music_sequence::first_start_callback (SCM m)
 {
-  Music *me = unsmob_music (m);
+  Music *me = Music::unsmob (m);
   return first_start (me->get_property ("elements")).smobbed_copy ();
 }
 
@@ -129,7 +129,7 @@ music_list_to_relative (SCM l, Pitch p, bool ret_first)
   Pitch last = p;
   for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
     {
-      if (Music *m = unsmob_music (scm_car (s)))
+      if (Music *m = Music::unsmob (scm_car (s)))
         {
           last = m->to_relative_octave (last);
           if (!count++)
@@ -144,7 +144,7 @@ void
 compress_music_list (SCM l, Moment m)
 {
   for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
-    unsmob_music (scm_car (s))->compress (m);
+    Music::unsmob (scm_car (s))->compress (m);
 }
 
 Moment
@@ -153,7 +153,7 @@ Music_sequence::minimum_start (SCM l)
   Moment m;
 
   for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
-    m = min (m, unsmob_music (scm_car (s))->start_mom ());
+    m = min (m, Music::unsmob (scm_car (s))->start_mom ());
   return m;
 }
 
@@ -163,7 +163,7 @@ Music_sequence::first_start (SCM l)
 
   for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
     {
-      Music *mus = unsmob_music (scm_car (s));
+      Music *mus = Music::unsmob (scm_car (s));
       Moment start = mus->start_mom ();
       if (mus->get_length ().to_bool () || start.to_bool ())
         return start;
@@ -175,8 +175,8 @@ MAKE_SCHEME_CALLBACK (Music_sequence, simultaneous_relative_callback, 2);
 SCM
 Music_sequence::simultaneous_relative_callback (SCM music, SCM pitch)
 {
-  Music *me = unsmob_music (music);
-  Pitch p = *unsmob_pitch (pitch);
+  Music *me = Music::unsmob (music);
+  Pitch p = *Pitch::unsmob (pitch);
   return music_list_to_relative (me->get_property ("elements"),
                                  p, false).smobbed_copy ();
 }
@@ -185,8 +185,8 @@ MAKE_SCHEME_CALLBACK (Music_sequence, event_chord_relative_callback, 2);
 SCM
 Music_sequence::event_chord_relative_callback (SCM music, SCM pitch)
 {
-  Music *me = unsmob_music (music);
-  Pitch p = *unsmob_pitch (pitch);
+  Music *me = Music::unsmob (music);
+  Pitch p = *Pitch::unsmob (pitch);
   return music_list_to_relative (me->get_property ("elements"),
                                  p, true).smobbed_copy ();
 }

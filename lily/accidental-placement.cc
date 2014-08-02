@@ -36,14 +36,14 @@ accidental_pitch (Grob *acc)
 {
   SCM cause = acc->get_parent (Y_AXIS)->get_property ("cause");
 
-  Stream_event *mcause = unsmob_stream_event (cause);
+  Stream_event *mcause = Stream_event::unsmob (cause);
   if (!mcause)
     {
       programming_error ("note head has no event cause");
       return 0;
     }
 
-  return unsmob_pitch (mcause->get_property ("pitch"));
+  return Pitch::unsmob (mcause->get_property ("pitch"));
 }
 
 void
@@ -85,9 +85,9 @@ Accidental_placement::split_accidentals (Grob *accs,
        acs = scm_cdr (acs))
     for (SCM s = scm_cdar (acs); scm_is_pair (s); s = scm_cdr (s))
       {
-        Grob *a = unsmob_grob (scm_car (s));
+        Grob *a = Grob::unsmob (scm_car (s));
 
-        if (unsmob_grob (a->get_object ("tie"))
+        if (Grob::unsmob (a->get_object ("tie"))
             && !to_boolean (a->get_property ("forced")))
           break_reminder->push_back (a);
         else
@@ -237,7 +237,7 @@ build_apes (SCM accs)
       Accidental_placement_entry *ape = new Accidental_placement_entry;
 
       for (SCM t = scm_cdar (s); scm_is_pair (t); t = scm_cdr (t))
-        ape->grobs_.push_back (unsmob_grob (scm_car (t)));
+        ape->grobs_.push_back (Grob::unsmob (scm_car (t)));
 
       apes.push_back (ape);
     }
@@ -470,7 +470,7 @@ MAKE_SCHEME_CALLBACK (Accidental_placement, calc_positioning_done, 1);
 SCM
 Accidental_placement::calc_positioning_done (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   if (!me->is_live ())
     return SCM_BOOL_T;
 

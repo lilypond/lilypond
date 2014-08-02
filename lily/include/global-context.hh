@@ -48,6 +48,8 @@ public:
   virtual Moment now_mom () const;
   virtual Context *get_default_interpreter (const string &context_id = "");
 
+  static Global_context *unsmob (SCM x);
+
   Moment previous_moment () const;
 protected:
   Moment prev_mom_;
@@ -55,6 +57,5 @@ protected:
 };
 
 SCM ly_format_output (SCM);
-Global_context *unsmob_global_context (SCM x);
 
 #endif // GLOBAL_CONTEXT_HH

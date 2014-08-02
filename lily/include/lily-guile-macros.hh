@@ -110,22 +110,6 @@ inline SCM ly_symbol2scm (char const *x) { return scm_from_locale_symbol ((x)); 
 #define DECLARE_SCHEME_CALLBACK(NAME, ARGS)     \
   static SCM NAME ARGS;                         \
   static SCM NAME ## _proc
-#define ADD_TYPE_PREDICATE(func, type_name) \
-  void \
-  func ## _type_adder ()                        \
-  {\
-    ly_add_type_predicate ((Type_predicate_ptr)func, type_name);        \
-  }\
-  ADD_SCM_INIT_FUNC(func ## _type_adder_ctor, \
-                    func ## _type_adder);
-#define ADD_TYPE_PREDICATE(func, type_name) \
-  void \
-  func ## _type_adder ()                        \
-  {\
-    ly_add_type_predicate ((Type_predicate_ptr)func, type_name);        \
-  }\
-  ADD_SCM_INIT_FUNC(func ## _type_adder_ctor, \
-                    func ## _type_adder);
 
 string mangle_cxx_identifier (string);
 

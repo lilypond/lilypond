@@ -58,7 +58,7 @@ MAKE_SCHEME_CALLBACK (Spacing_spanner, set_springs, 1);
 SCM
 Spacing_spanner::set_springs (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
 
   /*
     can't use get_system () ? --hwn.
@@ -89,7 +89,7 @@ MAKE_SCHEME_CALLBACK (Spacing_spanner, calc_common_shortest_duration, 1);
 SCM
 Spacing_spanner::calc_common_shortest_duration (SCM grob)
 {
-  Spanner *me = unsmob_spanner (grob);
+  Spanner *me = Spanner::unsmob (grob);
 
   vector<Grob *> cols (get_columns (me));
 
@@ -106,7 +106,7 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
     {
       if (Paper_column::is_musical (cols[i]))
         {
-          Moment *when = unsmob_moment (cols[i]->get_property ("when"));
+          Moment *when = Moment::unsmob (cols[i]->get_property ("when"));
 
           /*
             ignore grace notes for shortest notes.
@@ -115,7 +115,7 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
             continue;
 
           SCM st = cols[i]->get_property ("shortest-starter-duration");
-          Moment this_shortest = *unsmob_moment (st);
+          Moment this_shortest = *Moment::unsmob (st);
           assert (this_shortest.to_bool ());
           shortest_in_measure = min (shortest_in_measure, this_shortest.main_part_);
         }
@@ -161,7 +161,7 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
 
   SCM bsd = me->get_property ("base-shortest-duration");
   Rational d = Rational (1, 8);
-  if (Moment *m = unsmob_moment (bsd))
+  if (Moment *m = Moment::unsmob (bsd))
     d = m->main_part_;
 
   if (max_idx != VPOS)
@@ -354,7 +354,7 @@ Spacing_spanner::musical_column_spacing (Grob *me,
           if (found_matching_column && Note_spacing::has_interface (wish))
             {
               Real inc = options->increment_;
-              Grob *gsp = unsmob_grob (left_col->get_object ("grace-spacing"));
+              Grob *gsp = Grob::unsmob (left_col->get_object ("grace-spacing"));
               if (gsp && Paper_column::when_mom (left_col).grace_part_)
                 {
                   Spacing_options grace_opts;
@@ -447,7 +447,7 @@ Spacing_spanner::fills_measure (Grob *me, Item *left, Item *col)
   Moment dt
     = Paper_column::when_mom (next) - Paper_column::when_mom (col);
 
-  Moment *len = unsmob_moment (left->get_property ("measure-length"));
+  Moment *len = Moment::unsmob (left->get_property ("measure-length"));
   if (!len)
     return false;
 

@@ -63,7 +63,7 @@ MAKE_SCHEME_CALLBACK (Multi_measure_rest, percent, 1);
 SCM
 Multi_measure_rest::percent (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Spanner *sp = dynamic_cast<Spanner *> (me);
 
   Stencil r = Percent_repeat_item_interface::x_percent (me, 1);
@@ -97,7 +97,7 @@ MAKE_SCHEME_CALLBACK (Multi_measure_rest, print, 1);
 SCM
 Multi_measure_rest::print (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Spanner *sp = dynamic_cast<Spanner *> (me);
 
   Interval sp_iv = bar_width (sp);
@@ -121,7 +121,7 @@ MAKE_SCHEME_CALLBACK (Multi_measure_rest, height, 1);
 SCM
 Multi_measure_rest::height (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   Real space = 1000000; // something very large...
 
@@ -191,7 +191,7 @@ calc_measure_duration_log (Grob *me, bool paranoid)
 {
   SCM sml = dynamic_cast<Spanner *> (me)->get_bound (LEFT)
             ->get_property ("measure-length");
-  Rational ml = (unsmob_moment (sml)) ? unsmob_moment (sml)->main_part_
+  Rational ml = (Moment::unsmob (sml)) ? Moment::unsmob (sml)->main_part_
                 : Rational (1);
   double measure_duration = ml.Rational::to_double ();
   bool force_round_up = to_boolean (scm_list_p (scm_member (scm_cons (scm_from_int64 (ml.numerator ()),
@@ -329,7 +329,7 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measure_cou
 
   Stencil mol;
   for (SCM s = mols; scm_is_pair (s); s = scm_cdr (s))
-    mol.add_at_edge (X_AXIS, LEFT, *unsmob_stencil (scm_car (s)),
+    mol.add_at_edge (X_AXIS, LEFT, *Stencil::unsmob (scm_car (s)),
                      inner_padding);
   mol.align_to (X_AXIS, LEFT);
   mol.translate_axis (outer_padding_factor * inner_padding, X_AXIS);
@@ -357,9 +357,9 @@ Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
   Item *ri = sp->get_bound (RIGHT)->get_column ();
   Item *lb = li->find_prebroken_piece (RIGHT);
   Item *rb = ri->find_prebroken_piece (LEFT);
-  Grob *spacing = unsmob_grob (li->get_object ("spacing"));
+  Grob *spacing = Grob::unsmob (li->get_object ("spacing"));
   if (!spacing)
-    spacing = unsmob_grob (ri->get_object ("spacing"));
+    spacing = Grob::unsmob (ri->get_object ("spacing"));
   if (!spacing)
     me->warning (_ ("Using naive multi measure rest spacing."));
   else
@@ -404,7 +404,7 @@ MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_spacing_rods, 1);
 SCM
 Multi_measure_rest::set_spacing_rods (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Real sym_width = symbol_stencil (me, 0.0).extent (X_AXIS).length ();
   calculate_spacing_rods (me, sym_width);
 
@@ -415,7 +415,7 @@ MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_text_rods, 1);
 SCM
 Multi_measure_rest::set_text_rods (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Stencil *stil = me->get_stencil ();
 
   /* FIXME uncached */

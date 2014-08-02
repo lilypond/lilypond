@@ -106,9 +106,9 @@ IMPLEMENT_LISTENER (Score_performer, prepare);
 void
 Score_performer::prepare (SCM sev)
 {
-  Stream_event *ev = unsmob_stream_event (sev);
+  Stream_event *ev = Stream_event::unsmob (sev);
   SCM sm = ev->get_property ("moment");
-  Moment *m = unsmob_moment (sm);
+  Moment *m = Moment::unsmob (sm);
   audio_column_ = new Audio_column (*m);
   announce_element (Audio_element_info (audio_column_, 0));
   precomputed_recurse_over_translators (context (), START_TRANSLATION_TIMESTEP, UP);

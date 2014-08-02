@@ -61,7 +61,6 @@ public:
   void operator *= (Real);
   bool operator > (Spring const &) const;
 };
-DECLARE_UNSMOB (Spring, spring);
 
 Spring merge_springs (vector<Spring> const &springs);
 

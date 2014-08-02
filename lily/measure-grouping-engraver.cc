@@ -44,7 +44,7 @@ Measure_grouping_engraver::finalize ()
 {
   if (grouping_)
     {
-      grouping_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
+      grouping_->set_bound (RIGHT, Grob::unsmob (get_property ("currentCommandColumn")));
       grouping_->suicide ();
       grouping_ = 0;
     }
@@ -64,7 +64,7 @@ Measure_grouping_engraver::process_music ()
   if (grouping_ && now.main_part_ >= stop_grouping_mom_ && !now.grace_part_)
     {
       grouping_->set_bound (RIGHT,
-                            unsmob_grob (get_property ("currentMusicalColumn")));
+                            Grob::unsmob (get_property ("currentMusicalColumn")));
 
       grouping_ = 0;
     }
@@ -75,10 +75,10 @@ Measure_grouping_engraver::process_music ()
   SCM grouping = get_property ("beatStructure");
   if (scm_is_pair (grouping))
     {
-      Moment *measpos = unsmob_moment (get_property ("measurePosition"));
+      Moment *measpos = Moment::unsmob (get_property ("measurePosition"));
       Rational mp = measpos->main_part_;
 
-      Moment *base_mom = unsmob_moment (get_property ("baseMoment"));
+      Moment *base_mom = Moment::unsmob (get_property ("baseMoment"));
       Rational base_moment = base_mom->main_part_;
 
       Rational where (0);
@@ -97,7 +97,7 @@ Measure_grouping_engraver::process_music ()
               if (grouplen > 1)
                 {
                   grouping_ = make_spanner ("MeasureGrouping", SCM_EOL);
-                  grouping_->set_bound (LEFT, unsmob_grob (get_property ("currentMusicalColumn")));
+                  grouping_->set_bound (LEFT, Grob::unsmob (get_property ("currentMusicalColumn")));
 
                   stop_grouping_mom_ = now.main_part_ + Rational (grouplen - 1) * base_moment;
                   get_global_context ()->add_moment_to_process (Moment (stop_grouping_mom_));

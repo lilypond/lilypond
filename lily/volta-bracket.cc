@@ -46,7 +46,7 @@ MAKE_SCHEME_CALLBACK (Volta_bracket_interface, print, 1);
 SCM
 Volta_bracket_interface::print (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
   Spanner *orig_span = dynamic_cast<Spanner *> (me->original ());
   bool broken_first_bracket = orig_span && (orig_span->broken_intos_[0]
                                             == (Spanner *)me);
@@ -106,7 +106,7 @@ Volta_bracket_interface::print (SCM smob)
       SCM properties = me->get_property_alist_chain (SCM_EOL);
       SCM snum = Text_interface::interpret_markup (layout->self_scm (),
                                                    properties, text);
-      Stencil num = *unsmob_stencil (snum);
+      Stencil num = *Stencil::unsmob (snum);
       num.align_to (Y_AXIS, UP);
       num.translate_axis (-0.5, Y_AXIS);
       total.add_at_edge (X_AXIS, LEFT, num, - num.extent (X_AXIS).length ()

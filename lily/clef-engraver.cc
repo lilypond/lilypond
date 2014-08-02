@@ -145,7 +145,7 @@ static void apply_on_children (Context *context, SCM fun)
   scm_call_1 (fun, context->self_scm ());
   for (SCM s = context->children_contexts ();
        scm_is_pair (s); s = scm_cdr (s))
-    apply_on_children (unsmob_context (scm_car (s)), fun);
+    apply_on_children (Context::unsmob (scm_car (s)), fun);
 }
 
 void

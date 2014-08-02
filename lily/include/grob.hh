@@ -171,11 +171,6 @@ public:
   static SCM internal_skylines_from_element_stencils (SCM, Axis);
 };
 
-/* smob utilities */
-DECLARE_UNSMOB (Grob, grob);
-Spanner *unsmob_spanner (SCM);
-Item *unsmob_item (SCM);
-
 /* unification */
 void uniquify (vector <Grob *> &);
 

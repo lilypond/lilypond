@@ -81,7 +81,6 @@ private:
   Context_def (Context_def const &);
 };
 
-DECLARE_UNSMOB (Context_def, context_def);
 
 #endif /* CONTEXT_DEF_HH */
 

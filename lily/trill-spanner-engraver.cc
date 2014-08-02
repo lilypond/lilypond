@@ -121,7 +121,7 @@ Trill_spanner_engraver::typeset_all ()
     {
       if (!finished_->get_bound (RIGHT))
         {
-          Grob *e = unsmob_grob (get_property ("currentMusicalColumn"));
+          Grob *e = Grob::unsmob (get_property ("currentMusicalColumn"));
           finished_->set_bound (RIGHT, e);
         }
       finished_ = 0;
@@ -133,7 +133,7 @@ Trill_spanner_engraver::stop_translation_timestep ()
 {
   if (span_ && !span_->get_bound (LEFT))
     {
-      Grob *e = unsmob_grob (get_property ("currentMusicalColumn"));
+      Grob *e = Grob::unsmob (get_property ("currentMusicalColumn"));
       span_->set_bound (LEFT, e);
     }
 
@@ -147,7 +147,7 @@ Trill_spanner_engraver::finalize ()
   typeset_all ();
   if (span_)
     {
-      Grob *e = unsmob_grob (get_property ("currentCommandColumn"));
+      Grob *e = Grob::unsmob (get_property ("currentCommandColumn"));
       span_->set_bound (RIGHT, e);
     }
 }

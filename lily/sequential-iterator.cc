@@ -33,7 +33,7 @@
 
 
   if (scm_is_pair (cursor_))
-  iter_->music_ == unsmob_music (scm_car (cursor_))
+  iter_->music_ == Music::unsmob (scm_car (cursor_))
   else
   iter_ == 0;
 
@@ -96,7 +96,7 @@ create_grace_fixup_list (SCM cursor)
 
   for (; scm_is_pair (cursor); cursor = scm_cdr (cursor))
     {
-      Music *mus = unsmob_music (scm_car (cursor));
+      Music *mus = Music::unsmob (scm_car (cursor));
       Moment s = mus->start_mom ();
       Moment l = mus->get_length () - s;
 
@@ -134,8 +134,8 @@ Sequential_iterator::construct_children ()
   iter_ = 0;
   if (scm_is_pair (cursor_))
     {
-      Music *m = unsmob_music (scm_car (cursor_));
-      iter_ = unsmob_iterator (get_iterator (m));
+      Music *m = Music::unsmob (scm_car (cursor_));
+      iter_ = Music_iterator::unsmob (get_iterator (m));
     }
 
   while (iter_ && !iter_->ok ())
@@ -195,7 +195,7 @@ Sequential_iterator::next_element (bool)
 
   iter_->quit ();
   if (scm_is_pair (cursor_))
-    iter_ = unsmob_iterator (get_iterator (unsmob_music (scm_car (cursor_))));
+    iter_ = Music_iterator::unsmob (get_iterator (Music::unsmob (scm_car (cursor_))));
   else
     iter_ = 0;
 }

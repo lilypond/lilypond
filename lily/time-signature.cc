@@ -36,7 +36,7 @@ MAKE_SCHEME_CALLBACK (Time_signature, print, 1);
 SCM
 Time_signature::print (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   SCM st = me->get_property ("style");
   SCM frac = me->get_property ("fraction");
   int n = 4;
@@ -104,8 +104,8 @@ Time_signature::numbered_time_signature (Grob *me, int num, int den)
   SCM sd = Text_interface::interpret_markup (me->layout ()->self_scm (), chain,
                                              ly_string2scm (::to_string (den)));
 
-  Stencil n = *unsmob_stencil (sn);
-  Stencil d = *unsmob_stencil (sd);
+  Stencil n = *Stencil::unsmob (sn);
+  Stencil d = *Stencil::unsmob (sd);
 
   n.align_to (X_AXIS, CENTER);
   d.align_to (X_AXIS, CENTER);

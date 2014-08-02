@@ -54,7 +54,6 @@ private:
 };
 
 INSTANTIATE_COMPARE (Duration, Duration::compare);
-DECLARE_UNSMOB (Duration, duration);
 
 extern SCM Duration_type_p_proc;
 

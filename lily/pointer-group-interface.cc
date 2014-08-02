@@ -25,14 +25,14 @@
 int
 Pointer_group_interface::count (Grob *me, SCM sym)
 {
-  Grob_array *arr = unsmob_grob_array (me->internal_get_object (sym));
+  Grob_array *arr = Grob_array::unsmob (me->internal_get_object (sym));
   return arr ? arr->size () : 0;
 }
 
 void
 Pointer_group_interface::add_grob (Grob *me, SCM sym, SCM p)
 {
-  add_grob (me, sym, unsmob_grob (p));
+  add_grob (me, sym, Grob::unsmob (p));
 }
 
 void
@@ -46,11 +46,11 @@ Grob_array *
 Pointer_group_interface::get_grob_array (Grob *me, SCM sym)
 {
   SCM scm_arr = me->internal_get_object (sym);
-  Grob_array *arr = unsmob_grob_array (scm_arr);
+  Grob_array *arr = Grob_array::unsmob (scm_arr);
   if (!arr)
     {
       scm_arr = Grob_array::make_array ();
-      arr = unsmob_grob_array (scm_arr);
+      arr = Grob_array::unsmob (scm_arr);
       me->set_object (sym, scm_arr);
     }
   return arr;
@@ -88,7 +88,7 @@ static vector<Grob *> empty_array;
 vector<Grob *> const &
 ly_scm2link_array (SCM x)
 {
-  Grob_array *arr = unsmob_grob_array (x);
+  Grob_array *arr = Grob_array::unsmob (x);
   return arr ? arr->array () : empty_array;
 }
 
@@ -103,7 +103,7 @@ internal_extract_grob_array (Grob const *elt, SCM symbol)
 vector<Item *>
 internal_extract_item_array (Grob const *elt, SCM symbol)
 {
-  Grob_array *arr = unsmob_grob_array (elt->internal_get_object (symbol));
+  Grob_array *arr = Grob_array::unsmob (elt->internal_get_object (symbol));
   vector<Item *> items;
   for (vsize i = 0; arr && i < arr->size (); i++)
     items.push_back (arr->item (i));

@@ -58,7 +58,7 @@ Grob_array::mark_smob (SCM s)
   (void) s;
 
 #if 0  /* see System::derived_mark () const */
-  Grob_array *ga = unsmob_grob_array (s);
+  Grob_array *ga = Grob_array::unsmob (s);
   for (vsize i = 0; i < ga->grobs_.size (); i++)
     scm_gc_mark (ga->grobs_[i]->self_scm ());
 #endif
@@ -122,9 +122,9 @@ SCM
 grob_list_to_grob_array (SCM lst)
 {
   SCM arr_scm = Grob_array::make_array ();
-  Grob_array *ga = unsmob_grob_array (arr_scm);
+  Grob_array *ga = Grob_array::unsmob (arr_scm);
   for (SCM s = lst; scm_is_pair (s); s = scm_cdr (s))
-    ga->add (unsmob_grob (scm_car (s)));
+    ga->add (Grob::unsmob (scm_car (s)));
   return arr_scm;
 }
 

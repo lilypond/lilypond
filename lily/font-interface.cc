@@ -28,7 +28,7 @@
 Font_metric *
 Font_interface::get_default_font (Grob *me)
 {
-  Font_metric *fm = unsmob_metrics (me->get_property ("font"));
+  Font_metric *fm = Font_metric::unsmob (me->get_property ("font"));
   if (!fm)
     {
       SCM chain = music_font_alist_chain (me);

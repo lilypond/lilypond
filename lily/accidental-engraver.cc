@@ -233,7 +233,7 @@ Accidental_engraver::process_acknowledged ()
           Stream_event *note = accidentals_[i].melodic_;
           Context *origin = accidentals_[i].origin_;
 
-          Pitch *pitch = unsmob_pitch (note->get_property ("pitch"));
+          Pitch *pitch = Pitch::unsmob (note->get_property ("pitch"));
           if (!pitch)
             continue;
 
@@ -348,7 +348,7 @@ Accidental_engraver::make_suggested_accidental (Stream_event * /* note */,
   Grob *a = trans->make_item ("AccidentalSuggestion", note_head->self_scm ());
 
   Side_position_interface::add_support (a, note_head);
-  if (Grob *stem = unsmob_grob (a->get_object ("stem")))
+  if (Grob *stem = Grob::unsmob (a->get_object ("stem")))
     Side_position_interface::add_support (a, stem);
 
   a->set_parent (note_head, X_AXIS);
@@ -387,7 +387,7 @@ Accidental_engraver::stop_translation_timestep ()
 
       int barnum = measure_number (origin);
 
-      Pitch *pitch = unsmob_pitch (note->get_property ("pitch"));
+      Pitch *pitch = Pitch::unsmob (note->get_property ("pitch"));
       if (!pitch)
         continue;
 
@@ -397,7 +397,7 @@ Accidental_engraver::stop_translation_timestep ()
       SCM key = scm_cons (scm_from_int (o), scm_from_int (n));
 
       Moment end_mp = measure_position (context (),
-                                        unsmob_duration (note->get_property ("duration")));
+                                        Duration::unsmob (note->get_property ("duration")));
       SCM position = scm_cons (scm_from_int (barnum), end_mp.smobbed_copy ());
 
       SCM localsig = SCM_EOL;

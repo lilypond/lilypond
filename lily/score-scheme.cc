@@ -44,7 +44,7 @@ LY_DEFINE (ly_score_output_defs, "ly:score-output-defs",
            "All output definitions in a score.")
 {
   LY_ASSERT_SMOB (Score, score, 1);
-  Score *sc = unsmob_score (score);
+  Score *sc = Score::unsmob (score);
 
   SCM l = SCM_EOL;
   for (vsize i = 0; i < sc->defs_.size (); i++)
@@ -58,8 +58,8 @@ LY_DEFINE (ly_score_add_output_def_x, "ly:score-add-output-def!",
 {
   LY_ASSERT_SMOB (Score, score, 1);
   LY_ASSERT_SMOB (Output_def, def, 2);
-  Score *sc = unsmob_score (score);
-  Output_def *output_def = unsmob_output_def (def);
+  Score *sc = Score::unsmob (score);
+  Output_def *output_def = Output_def::unsmob (def);
   sc->add_output_def (output_def);
   return SCM_UNSPECIFIED;
 }
@@ -69,7 +69,7 @@ LY_DEFINE (ly_score_header, "ly:score-header",
            "Return score header.")
 {
   LY_ASSERT_SMOB (Score, score, 1);
-  Score *sc = unsmob_score (score);
+  Score *sc = Score::unsmob (score);
   return sc->get_header ();
 }
 
@@ -81,7 +81,7 @@ LY_DEFINE (ly_score_set_header_x, "ly:score-set-header!",
   SCM_ASSERT_TYPE (ly_is_module (module), module, SCM_ARG2, __FUNCTION__,
                    "module");
 
-  Score *sc = unsmob_score (score);
+  Score *sc = Score::unsmob (score);
   sc->set_header (module);
   return SCM_UNSPECIFIED;
 }
@@ -91,7 +91,7 @@ LY_DEFINE (ly_score_music, "ly:score-music",
            "Return score music.")
 {
   LY_ASSERT_SMOB (Score, score, 1);
-  Score *sc = unsmob_score (score);
+  Score *sc = Score::unsmob (score);
   return sc->get_music ();
 }
 
@@ -100,7 +100,7 @@ LY_DEFINE (ly_score_error_p, "ly:score-error?",
            "Was there an error in the score?")
 {
   LY_ASSERT_SMOB (Score, score, 1);
-  Score *sc = unsmob_score (score);
+  Score *sc = Score::unsmob (score);
   return scm_from_bool (sc->error_found_);
 }
 
@@ -113,8 +113,8 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
   LY_ASSERT_SMOB (Score, score, 1);
   LY_ASSERT_SMOB (Output_def, layout, 2);
 
-  Score *sc = unsmob_score (score);
-  Output_def *od = unsmob_output_def (layout);
+  Score *sc = Score::unsmob (score);
+  Output_def *od = Output_def::unsmob (layout);
 
   if (sc->error_found_)
     return SCM_EOL;

@@ -30,8 +30,8 @@ LY_DEFINE (ly_connect_dispatchers, "ly:connect-dispatchers",
            2, 0, 0, (SCM to, SCM from),
            "Make the dispatcher @var{to} listen to events from @var{from}.")
 {
-  Dispatcher *t = unsmob_dispatcher (to);
-  Dispatcher *f = unsmob_dispatcher (from);
+  Dispatcher *t = Dispatcher::unsmob (to);
+  Dispatcher *f = Dispatcher::unsmob (from);
 
   LY_ASSERT_SMOB (Dispatcher, to, 1);
   LY_ASSERT_SMOB (Dispatcher, from, 2);
@@ -47,8 +47,8 @@ LY_DEFINE (ly_add_listener, "ly:add-listener",
            "  Whenever @var{disp} hears an event of class @var{cl},"
            " it is forwarded to @var{list}.")
 {
-  Listener *l = unsmob_listener (list);
-  Dispatcher *d = unsmob_dispatcher (disp);
+  Listener *l = Listener::unsmob (list);
+  Dispatcher *d = Dispatcher::unsmob (disp);
 
   LY_ASSERT_SMOB (Listener, list, 1);
   LY_ASSERT_SMOB (Dispatcher, disp, 2);
@@ -70,7 +70,7 @@ LY_DEFINE (ly_listened_event_types, "ly:listened-event-types",
 {
   LY_ASSERT_SMOB (Dispatcher, disp, 1);
 
-  SCM result = unsmob_dispatcher (disp)->listened_types ();
+  SCM result = Dispatcher::unsmob (disp)->listened_types ();
 
   scm_remember_upto_here_1 (disp);
 
@@ -85,7 +85,7 @@ LY_DEFINE (ly_listened_event_class_p, "ly:listened-event-class?",
   LY_ASSERT_SMOB (Dispatcher, disp, 1);
   LY_ASSERT_TYPE (scm_is_pair, cl, 2);
 
-  bool result = unsmob_dispatcher (disp)->is_listened_class (cl);
+  bool result = Dispatcher::unsmob (disp)->is_listened_class (cl);
 
   scm_remember_upto_here_1 (disp);
 
@@ -96,8 +96,8 @@ LY_DEFINE (ly_broadcast, "ly:broadcast",
            2, 0, 0, (SCM disp, SCM ev),
            "Send the stream event @var{ev} to the dispatcher @var{disp}.")
 {
-  Dispatcher *d = unsmob_dispatcher (disp);
-  Stream_event *e = unsmob_stream_event (ev);
+  Dispatcher *d = Dispatcher::unsmob (disp);
+  Stream_event *e = Stream_event::unsmob (ev);
 
   LY_ASSERT_SMOB (Dispatcher, disp, 1);
 

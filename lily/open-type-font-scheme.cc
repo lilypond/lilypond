@@ -27,7 +27,7 @@ LY_DEFINE (ly_font_sub_fonts, "ly:font-sub-fonts", 1, 0, 0,
 {
   LY_ASSERT_SMOB (Font_metric, font, 1);
 
-  Font_metric *fm = unsmob_metrics (font);
+  Font_metric *fm = Font_metric::unsmob (font);
   return fm->sub_fonts ();
 }
 
@@ -37,10 +37,10 @@ LY_DEFINE (ly_otf_font_glyph_info, "ly:otf-font-glyph-info", 2, 0, 0,
            " information about named glyph @var{glyph} (a string).")
 {
   Modified_font_metric *fm
-    = dynamic_cast<Modified_font_metric *> (unsmob_metrics (font));
+    = dynamic_cast<Modified_font_metric *> (Font_metric::unsmob (font));
   Open_type_font *otf = fm
                         ? dynamic_cast<Open_type_font *> (fm->original_font ())
-                        : dynamic_cast<Open_type_font *> (unsmob_metrics (font));
+                        : dynamic_cast<Open_type_font *> (Font_metric::unsmob (font));
 
   SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "OpenType font");
   LY_ASSERT_TYPE (scm_is_string, glyph, 2);
@@ -55,10 +55,10 @@ LY_DEFINE (ly_otf_font_table_data, "ly:otf-font-table-data", 2, 0, 0,
            " for non-existent @var{tag}.")
 {
   Modified_font_metric *fm
-    = dynamic_cast<Modified_font_metric *> (unsmob_metrics (font));
+    = dynamic_cast<Modified_font_metric *> (Font_metric::unsmob (font));
   Open_type_font *otf = fm
                         ? dynamic_cast<Open_type_font *> (fm->original_font ())
-                        : dynamic_cast<Open_type_font *> (unsmob_metrics (font));
+                        : dynamic_cast<Open_type_font *> (Font_metric::unsmob (font));
 
   SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "OpenType font");
   LY_ASSERT_TYPE (scm_is_string, tag, 2);
@@ -78,10 +78,10 @@ LY_DEFINE (ly_otf_font_p, "ly:otf-font?", 1, 0, 0,
            "Is @var{font} an OpenType font?")
 {
   Modified_font_metric *fm
-    = dynamic_cast<Modified_font_metric *> (unsmob_metrics (font));
+    = dynamic_cast<Modified_font_metric *> (Font_metric::unsmob (font));
   Open_type_font *otf = fm
                         ? dynamic_cast<Open_type_font *> (fm->original_font ())
-                        : dynamic_cast<Open_type_font *> (unsmob_metrics (font));
+                        : dynamic_cast<Open_type_font *> (Font_metric::unsmob (font));
 
   return scm_from_bool (otf);
 }
@@ -91,10 +91,10 @@ LY_DEFINE (ly_otf_glyph_count, "ly:otf-glyph-count", 1, 0, 0,
            "Return the number of glyphs in @var{font}.")
 {
   Modified_font_metric *fm
-    = dynamic_cast<Modified_font_metric *> (unsmob_metrics (font));
+    = dynamic_cast<Modified_font_metric *> (Font_metric::unsmob (font));
   Open_type_font *otf = fm
                         ? dynamic_cast<Open_type_font *> (fm->original_font ())
-                        : dynamic_cast<Open_type_font *> (unsmob_metrics (font));
+                        : dynamic_cast<Open_type_font *> (Font_metric::unsmob (font));
 
   SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "OpenType font");
 
@@ -106,10 +106,10 @@ LY_DEFINE (ly_otf_glyph_list, "ly:otf-glyph-list", 1, 0, 0,
            "Return a list of glyph names for @var{font}.")
 {
   Modified_font_metric *fm
-    = dynamic_cast<Modified_font_metric *> (unsmob_metrics (font));
+    = dynamic_cast<Modified_font_metric *> (Font_metric::unsmob (font));
   Open_type_font *otf = fm
                         ? dynamic_cast<Open_type_font *> (fm->original_font ())
-                        : dynamic_cast<Open_type_font *> (unsmob_metrics (font));
+                        : dynamic_cast<Open_type_font *> (Font_metric::unsmob (font));
 
   SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "OpenType font");
 

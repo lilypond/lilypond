@@ -43,7 +43,7 @@ MAKE_SCHEME_CALLBACK (Breathing_sign, divisio_minima, 1);
 SCM
 Breathing_sign::divisio_minima (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
   Real thickness = Staff_symbol_referencer::line_thickness (me);
@@ -69,7 +69,7 @@ MAKE_SCHEME_CALLBACK (Breathing_sign, divisio_maior, 1);
 SCM
 Breathing_sign::divisio_maior (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Real thickness = Staff_symbol_referencer::line_thickness (me);
   thickness *= robust_scm2double (me->get_property ("thickness"), 1.0);
 
@@ -149,7 +149,7 @@ MAKE_SCHEME_CALLBACK (Breathing_sign, divisio_maxima, 1);
 SCM
 Breathing_sign::divisio_maxima (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real thickness = Staff_symbol_referencer::line_thickness (me);
   thickness *= robust_scm2double (me->get_property ("thickness"), 1.0);
@@ -172,7 +172,7 @@ MAKE_SCHEME_CALLBACK (Breathing_sign, finalis, 1);
 SCM
 Breathing_sign::finalis (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real thickness = Staff_symbol_referencer::line_thickness (me);
   thickness *= robust_scm2double (me->get_property ("thickness"), 1.0);
@@ -196,7 +196,7 @@ MAKE_SCHEME_CALLBACK (Breathing_sign, offset_callback, 1);
 SCM
 Breathing_sign::offset_callback (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   Direction d = get_grob_direction (me);
   if (!d)

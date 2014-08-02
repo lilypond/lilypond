@@ -270,7 +270,7 @@ MAKE_SCHEME_CALLBACK (Mensural_ligature, brew_ligature_primitive, 1);
 SCM
 Mensural_ligature::brew_ligature_primitive (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   return internal_brew_primitive (me).smobbed_copy ();
 }
 

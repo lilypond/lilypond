@@ -68,7 +68,7 @@ Tuplet_iterator::create_event (Direction d)
 
   Music *mus = get_music ();
 
-  Music *ev = unsmob_music (ev_scm);
+  Music *ev = Music::unsmob (ev_scm);
   ev->set_spot (*mus->origin ());
   if (d == START)
     {
@@ -126,14 +126,14 @@ Tuplet_iterator::process (Moment m)
 void
 Tuplet_iterator::construct_children ()
 {
-  if (Duration *d = unsmob_duration (get_music ()->get_property ("duration")))
+  if (Duration *d = Duration::unsmob (get_music ()->get_property ("duration")))
     spanner_duration_ = d->get_length ();
   else
     {
       spanner_duration_ = music_get_length ();
 
       Moment *mp
-        = unsmob_moment (get_outlet ()->get_property ("tupletSpannerDuration"));
+        = Moment::unsmob (get_outlet ()->get_property ("tupletSpannerDuration"));
       if (mp)
         spanner_duration_ = min (mp->main_part_, spanner_duration_);
     }
