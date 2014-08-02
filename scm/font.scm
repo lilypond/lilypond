@@ -147,7 +147,7 @@
 
 ;; Each size family is a vector of fonts, loaded with a delay.  The
 ;; vector should be sorted according to ascending design size.
-(define-public (add-music-fonts node name family design-size-alist factor)
+(define-public (add-music-fonts node family name brace design-size-alist factor)
   "Set up music fonts.
 
 Arguments:
@@ -156,12 +156,15 @@ Arguments:
 @var{node} is the font tree to modify.
 
 @item
-@var{name} is the basename for the music font.
-@file{@var{name}-<designsize>.otf} should be the music font,
-@file{@var{name}-brace.otf} should have piano braces.
+@var{family} is the family name of the music font.
 
 @item
-@var{family} is the family name of the music font.
+@var{name} is the basename for the music font.
+@file{@var{name}-<designsize>.otf} should be the music font,
+
+@item
+@var{brace} is the basename for the brace font.
+@file{@var{brace}-brace.otf} should have piano braces.
 
 @item
 @var{design-size-alist} is a list of @code{(rounded . designsize)}.
@@ -199,7 +202,7 @@ used.  This is used to select the proper design size for the text fonts.
                        )))
      (fetaBraces ,(ly:pt 20.0)
                  #(,(delay (ly:system-font-load
-                            (format #f "~a-brace" name)))))
+                            (format #f "~a-brace" brace)))))
      )))
 
 (define-public (add-pango-fonts node lily-family family factor)
@@ -229,9 +232,40 @@ used.  This is used to select the proper design size for the text fonts.
   (add-node 'italic 'normal)
   (add-node 'italic 'bold))
 
+; This function allows the user to change the specific fonts, leaving others
+; to the default values. This way, "make-pango-font-tree"'s syntax doesn't
+; have to change from the user's perspective.
+;
+; Usage:
+;   \paper {
+;     #(define fonts
+;       (set-global-fonts
+;        #:music "gonville"  ; (the main notation font)
+;        #:roman "FreeSerif" ; (the main/serif text font)
+;       ))
+;   }
+;
+; Leaving out "#:brace", "#:sans", and "#:typewriter" leave them at 
+; "emmentaler", "sans-serif", and "monospace", respectively. All fonts are
+; still accesible through the usual scheme symbols: 'feta, 'roman, 'sans, and
+; 'typewriter.
+(define*-public (set-global-fonts #:key 
+  (music "emmentaler")
+  (brace "emmentaler")
+  (roman "Century Schoolbook L")
+  (sans "sans-serif")
+  (typewriter "monospace")
+  (factor 1))
+  (let ((n (make-font-tree-node 'font-encoding 'fetaMusic)))
+    (add-music-fonts n 'feta music brace feta-design-size-mapping factor)
+    (add-pango-fonts n 'roman roman factor)
+    (add-pango-fonts n 'sans sans factor)
+    (add-pango-fonts n 'typewriter typewriter factor)
+    n))
+    
 (define-public (make-pango-font-tree roman-str sans-str typewrite-str factor)
   (let ((n (make-font-tree-node 'font-encoding 'fetaMusic)))
-    (add-music-fonts n "emmentaler" 'feta feta-design-size-mapping factor)
+    (add-music-fonts n 'feta "emmentaler" "emmentaler" feta-design-size-mapping factor)
     (add-pango-fonts n 'roman roman-str factor)
     (add-pango-fonts n 'sans sans-str factor)
     (add-pango-fonts n 'typewriter typewrite-str factor)
@@ -240,7 +274,9 @@ used.  This is used to select the proper design size for the text fonts.
 (define-public (make-century-schoolbook-tree factor)
   (make-pango-font-tree
    "Century Schoolbook L"
-   "sans-serif" "monospace" factor))
+   "sans-serif"
+   "monospace"
+   factor))
 
 (define-public all-text-font-encodings
   '(latin1))
