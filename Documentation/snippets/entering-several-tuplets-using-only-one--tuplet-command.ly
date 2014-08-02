@@ -11,9 +11,9 @@
 
   texidoc = "
 The property @code{tupletSpannerDuration} sets how long each of the
-tuplets contained within the brackets after @code{\\times} should last.
-Many consecutive tuplets can then be placed within a single
-@code{\\times} expression, thus saving typing.
+tuplets contained within the brackets after @code{\\tuplet} should
+last. Many consecutive tuplets can then be placed within a single
+@code{\\tuplet} expression, thus saving typing.
 
 There are several ways to set @code{tupletSpannerDuration}.  The
 command @code{\\tupletSpan} sets it to a given duration, and clears it

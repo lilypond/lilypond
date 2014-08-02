@@ -10,54 +10,60 @@
   lsrtags = "staff-notation, symbols-and-glyphs, vocal-music"
 
   texidoc = "
-This snippet defines the @code{\\splitStaffBarLine} command, which adds
-arrows in north-east and south-east directions at a bar line, to denote
-that several voices sharing a staff will each continue on a staff of
-their own in the next system.
+This snippet defines the @code{\\splitStaffBarLine},
+@code{convUpStaffBarLine} and @code{convDownStaffBarLine} commands.
+These add arrows at a bar line, to denote that several voices sharing a
+staff will each continue on a staff of their own in the next system, or
+that voices split in this way recombine.
 
 "
   doctitle = "Adding indicators to staves which get split after a break"
 } % begin verbatim
 
 #(define-markup-command (arrow-at-angle layout props angle-deg length fill)
-  (number? number? boolean?)
-  (let* (
-      (PI-OVER-180 (/ (atan 1 1) 34))
-      (degrees->radians (lambda (degrees) (* degrees PI-OVER-180)))
-      (angle-rad (degrees->radians angle-deg))
-      (target-x (* length (cos angle-rad)))
-      (target-y (* length (sin angle-rad))))
-    (interpret-markup layout props
-      (markup
-      #:translate (cons (/ target-x 2) (/ target-y 2))
-      #:rotate angle-deg
-      #:translate (cons (/ length -2) 0)
-      #:concat (#:draw-line (cons length 0)
-      #:arrow-head X RIGHT fill)))))
+   (number? number? boolean?)
+   (let* (
+           (PI-OVER-180 (/ (atan 1 1) 34))
+           (degrees->radians (lambda (degrees) (* degrees PI-OVER-180)))
+           (angle-rad (degrees->radians angle-deg))
+           (target-x (* length (cos angle-rad)))
+           (target-y (* length (sin angle-rad))))
+     (interpret-markup layout props
+       (markup
+        #:translate (cons (/ target-x 2) (/ target-y 2))
+        #:rotate angle-deg
+        #:translate (cons (/ length -2) 0)
+        #:concat (#:draw-line (cons length 0)
+                   #:arrow-head X RIGHT fill)))))
+
+
+splitStaffBarLineMarkup = \markup \with-dimensions #'(0 . 0) #'(0 . 0) {
+  \combine
+  \arrow-at-angle #45 #(sqrt 8) ##t
+  \arrow-at-angle #-45 #(sqrt 8) ##t
+}
 
 splitStaffBarLine = {
   \once \override Staff.BarLine.stencil =
   #(lambda (grob)
-    (ly:stencil-combine-at-edge
-    (ly:bar-line::print grob)
-    X RIGHT
-    (grob-interpret-markup grob #{
-      \markup\with-dimensions #'(0 . 0) #'(0 . 0) {
-        \translate #'(5.95 . .14)\arrow-at-angle #45 #(sqrt 8) ##t
-        \translate #'(5.35 . -.13)\arrow-at-angle #-45 #(sqrt 8) ##t }#})
-    0))
+     (ly:stencil-combine-at-edge
+      (ly:bar-line::print grob)
+      X RIGHT
+      (grob-interpret-markup grob splitStaffBarLineMarkup)
+      0))
   \break
 }
 
 convDownStaffBarLine = {
   \once \override Staff.BarLine.stencil =
   #(lambda (grob)
-    (ly:stencil-combine-at-edge
-    (ly:bar-line::print grob)
-    X RIGHT
-    (grob-interpret-markup grob #{
+     (ly:stencil-combine-at-edge
+      (ly:bar-line::print grob)
+      X RIGHT
+      (grob-interpret-markup grob #{
         \markup\with-dimensions #'(0 . 0) #'(0 . 0) {
-          \translate #'(5.3 . -.13)\arrow-at-angle #-45 #(sqrt 8) ##t }#})
+          \translate #'(0 . -.13)\arrow-at-angle #-45 #(sqrt 8) ##t
+        }#})
       0))
   \break
 }
@@ -65,99 +71,117 @@ convDownStaffBarLine = {
 convUpStaffBarLine = {
   \once \override Staff.BarLine.stencil =
   #(lambda (grob)
-    (ly:stencil-combine-at-edge
-    (ly:bar-line::print grob)
-    X RIGHT
-    (grob-interpret-markup grob #{
+     (ly:stencil-combine-at-edge
+      (ly:bar-line::print grob)
+      X RIGHT
+      (grob-interpret-markup grob #{
         \markup\with-dimensions #'(0 . 0) #'(0 . 0) {
-          \translate #'(5.28 . .14)\arrow-at-angle #45 #(sqrt 8) ##t }#})
+          \translate #'(0 . .14)\arrow-at-angle #45 #(sqrt 8) ##t
+        }#})
       0))
   \break
 }
 
 
+\paper {
+  ragged-right = ##t
+  short-indent = 10\mm
+}
+
+separateSopranos = {
+  \set Staff.instrumentName = "AI AII"
+  \set Staff.shortInstrumentName = "AI AII"
+  \splitStaffBarLine
+  \change Staff = "up"
+}
+convSopranos = {
+  \convDownStaffBarLine
+  \change Staff = "shared"
+  \set Staff.instrumentName = "S A"
+  \set Staff.shortInstrumentName = "S A"
+}
+
+sI = {
+  \voiceOne
+  \repeat unfold 4 f''2
+  \separateSopranos
+  \repeat unfold 4 g''2
+  \convSopranos
+  \repeat unfold 4 c''2
+}
+sII = {
+  s1*2
+  \voiceTwo
+  \change Staff = "up"
+  \repeat unfold 4 d''2
+}
+aI = {
+  \voiceTwo
+  \repeat unfold 4 a'2
+  \voiceOne
+  \repeat unfold 4 b'2
+  \convUpStaffBarLine
+  \voiceTwo
+  \repeat unfold 4 g'2
+}
+aII = {
+  s1*2
+  \voiceTwo
+  \repeat unfold 4 g'2
+}
+ten = {
+  \voiceOne
+  \repeat unfold 4 c'2
+  \repeat unfold 4 d'2
+  \repeat unfold 4 c'2
+}
+bas = {
+  \voiceTwo
+  \repeat unfold 4 f2
+  \repeat unfold 4 g2
+  \repeat unfold 4 c2
+}
+
 \score {
   <<
     \new ChoirStaff <<
-      \new Staff
-      \with {
-        instrumentName = #"H I + H II"
+      \new Staff = up \with {
+        instrumentName = "SI SII"
+        shortInstrumentName = "SI SII"
       } {
-        \key f\minor
-        <<
-          \repeat unfold 4 f''1
-          \\
-          \repeat unfold 4 des''1
-        >>
-        \key f\major
-        \splitStaffBarLine
-      }
-      \new Staff \with { instrumentName = #"Low" } {
-        \key f\minor
-        <<
-          \repeat unfold 4 bes'1
-          \\
-          \repeat unfold 4 g'1
-        >>
-        \key f\major
+        s1*4
       }
 
-      \new Staff \with { shortInstrumentName = #"I" } {
-        \key f \major
-        R1*4
-        \repeat unfold 2 { r4 f''2 r4 } \repeat unfold 2 e''1
-        \key f\minor
-        \convDownStaffBarLine
+      \new Staff = shared \with {
+        instrumentName = "S A"
+        shortInstrumentName = "S A"
+      } <<
+        \new Voice = sopI \sI
+        \new Voice = sopII \sII
+        \new Voice = altI \aI
+        \new Voice = altII \aII
+      >>
+      \new Lyrics \with {
+        alignBelowContext = up
       }
-      \new Staff \with { shortInstrumentName = #"II" } {
-        \key f \major
-        R1*4
-        \repeat unfold 4 bes'2 \repeat unfold 2 c''1
-        \key f\minor
-        \convUpStaffBarLine
-      }
+      \lyricsto sopII { e f g h }
+      \new Lyrics \lyricsto altI { a b c d e f g h i j k l }
 
-      \new Staff \with { shortInstrumentName = #"L" } {
-        \key f\major
-        R1*4
-        <<
-          \repeat unfold 4 g'1
-          \\
-          \repeat unfold 4 c'1
-        >>
-        \key f\minor
-      }
-
-      \new Staff
-      \with {
-        shortInstrumentName = #"I+II"
-      } {
-        \key f\minor
-        R1*8
-        <<
-          \repeat unfold 4 f''1
-          \\
-          \repeat unfold 4 des''1
-        >>
-      }
-      \new Staff \with { shortInstrumentName = #"L" } {
-        \key f\minor
-        R1*8
-        <<
-          \repeat unfold 4 bes'1
-          \\
-          \repeat unfold 4 g'1
-        >>
-      }
+      \new Staff = men \with {
+        instrumentName = "T B"
+        shortInstrumentName = "T B"
+      } <<
+        \clef F
+        \new Voice = ten \ten
+        \new Voice = bas \bas
+      >>
+      \new Lyrics \lyricsto bas { a b c d e f g h i j k l }
     >>
   >>
   \layout {
     \context {
       \Staff \RemoveEmptyStaves
-      \override VerticalAxisGroup #'remove-first = ##t
+      \override VerticalAxisGroup.remove-first = ##t
     }
   }
-}
-\paper {
-  ragged-right = ##t
 }
