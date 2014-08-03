@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: a9d95f320e4b9fe65e0655911ea7b55bf0d10b2b
+    Translation of GIT committish: 6ec0d3283b9e23f2d21658d71ac6801c3aab69b8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -163,9 +163,12 @@ Vous pouvez utiliser les options :
 @table @code
 @item -d, --diff-version-update
 actualise la valeur de @code{\version}, uniquement si le fichier a été
-effectivement modifié.  En l'absence de cette option, ou bien si une
-conversion quelle qu'elle soit a modifié le fichier, la mention de
-version est porté à la valeur de la règle appliquée la plus récente.
+effectivement modifié.  Un numéro de version instable sera « arrondi »
+au niveau de la version stable suivante à moins que celui-ci ne
+soit supérieur à la version cible.  En l'absence de cette option,
+ou bien si une conversion quelle qu'elle soit a modifié le
+fichier, la mention de version est porté à la valeur de la règle
+appliquée la plus récente.
 
 @item -e, --edit
 pour éditer directement le fichier d'origine.  Le fichier originel est
@@ -208,7 +211,7 @@ doit être supérieur à la version de départ.
 @example
 convert-ly --to=2.14.1 monfichier.ly
 @end example
- 
+
 @end table
 
 Lorsqu'il s'agit de fragments inclus dans un fichier texinfo, il
@@ -272,7 +275,7 @@ fichier donné@footnote{Ceci est réalisable tant que le fichier LilyPond
 ne contient pas de Scheme.  Dès lors qu'un fichier contient du Scheme,
 des bribes de langage évolué se retrouvent danas le fichier LilyPond, ce
 qui conduit immanquablement au « problème de l'arrêt » bien connu en
-informatique.}. 
+informatique.}.
 
 Le projet LilyPond ne dispose cependant que de ressources limitées : les
 conversions ne sont pas toutes automatisées.  Voici une liste de
@@ -325,5 +328,3 @@ converted.
  \score{} must now begin with a music expression.  Anything else
  (particularly \header{}) must come after the music.
 @end verbatim
-
-

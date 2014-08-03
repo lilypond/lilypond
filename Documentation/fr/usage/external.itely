@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
+    Translation of GIT committish: 6ec0d3283b9e23f2d21658d71ac6801c3aab69b8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -53,8 +53,8 @@ partir du fichier imprimable.
 @translationof Configuring the system for point and click
 
 Lorsque cette fonctionnalité est active, LilyPond ajoute des hyperliens
-au fichier PDF.  Ces liens sont transmis à un « URI helper » ou au
-navigateur internet, qui se charge d'ouvrir un éditeur de texte à
+au fichier PDF ou SVG.  Ces liens sont transmis à un « URI helper » ou
+au navigateur internet, qui se charge d'ouvrir un éditeur de texte à
 l'endroit même où le curseur pointe.
 
 Afin que cette chaîne de traitement soit pleinement opérationnelle, il
@@ -243,11 +243,12 @@ visionneurs.
 @cindex taille du ficher de sortie
 
 La fonctionnalité de « pointer-cliquer » est activée par défaut pour ce
-qui est des fichiers PDF.
+qui est des fichiers PDF et SVG.
 
 L'option pointer-cliquer accroît la taille des fichiers de manière
-significative.  Afin de réduire la taille des fichiers PDF et PS, il est
-toujours possible de désactiver le pointer-cliquer en ajoutant
+significative.  Afin de réduire la taille de ces fichiers (ainsi que du
+PS), il est toujours possible de désactiver le pointer-cliquer en
+ajoutant
 
 @example
 \pointAndClickOff
@@ -271,7 +272,7 @@ lilypond -dno-point-and-click file.ly
 @warning{Lorsqu'un fichier LilyPond est destiné à être redistribué,
 pensez à désactiver le pointer-cliquer, de telle sorte que les chemins
 d'accès et autres informations propres à votre système ne se retrouvent
-pas inclus dans le fichier @file{.pdf}.}
+pas inclus dans le fichier PDF.}
 
 
 @node Pointer-cliquer sélectif

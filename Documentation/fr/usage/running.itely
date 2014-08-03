@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
+    Translation of GIT committish: 6ec0d3283b9e23f2d21658d71ac6801c3aab69b8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -431,14 +431,14 @@ utilise par défaut.
 @item
 @tab @code{svg}
 @tab Génère du@emph{Scalable Vector Graphics}.  Cette option permet de
-créer un fichier @code{SVG} par page, sans incorporation des fontes.
-Nous vous recommandons d'installer les fontes Century Schoolbook
-comprises dans le paquetage LilyPond afin d'obtenir le meilleur rendu
-possible.  Sous UNIX, il suffit de les recopier, à partir du répertoire
+créer un fichier SVG par page, sans incorporation des fontes.  Nous vous
+recommandons d'installer les fontes Century Schoolbook comprises dans le
+paquetage LilyPond afin d'obtenir le meilleur rendu possible. Sous UNIX,
+il suffit de les recopier, à partir du répertoire
 @file{/usr/share/lilypond/VERSION/fonts/otf/}, dans @file{~/.fonts/}.
 Les fichiers @code{SVG} alors générés devraient être lisibles par votre
 éditeur SVG habituel.  L'option @code{svg-woff} -- voir ci-après --
-permet d'utiliser les fontes @code{woff} avec le moteur @code{SVG}.
+permet d'utiliser les fontes woff avec le moteur SVG.
 
 @item
 @tab @code{scm}
@@ -591,8 +591,8 @@ d'encadrer la valeur par des guillemets échappés (@code{\"}).
 Ghostscript.
 
 @item @code{point-and-click}
-@tab @code{#f}
-@tab Ajoute les liens @qq{point & click} à la sortie @code{PDF}.  Voir
+@tab @code{#t}
+@tab Ajoute les liens @qq{point & click} à la sortie PDF ou SVG.  Voir
 @ref{Pointer-cliquer}.
 
 @cindex format de sortie, définition
@@ -663,9 +663,9 @@ quelque chose du style
 
 @quotation
 @verbatim
-#(system "rm -rf /")
+#(s ystem "rm -rf /") % trop dangeureux à écrire sans faute
 {
-  c4^$(ly:gulp-file "/etc/passwd")
+  c4^$(ly:gulp-file "/etc/passwd") % malveillant mais pas destructeur
 }
 @end verbatim
 @end quotation
@@ -747,8 +747,8 @@ journalisation @code{DEBUG} (lecture seule).
 
 @item @code{warning-as-error}
 @tab @code{#f}
-@tab Considère tous les messages d'avertissement et @qq{erreur de
-programmation} comme étant de véritables erreurs.
+@tab Considère tous les messages d'avertissement et « erreur de
+programmation » comme étant de véritables erreurs.
 @end multitable
 
 
@@ -995,6 +995,15 @@ rencontre quelque chose d'inattendu.  Lorsque la ligne indiquée ne vous
 semble pas comporter d'élément litigieux, remontez de quelques lignes
 dans votre code.
 
+Par ailleurs, des diagnostics peuvent être déclenchés à n'importe quel
+moment au cours des différentes étapes du traitement.  Par exemple,
+lorsque certaines parties de la source sont traitées plusieurs fois --
+sortie MIDI et sortie imprimable -- ou qu'une même variable musicale est
+utilisée dans plusieurs contextes, peut apparaître le même message à
+plusieurs reprises.  Les diagnostics effectués à une étape avancée du
+traitement, tels que les contrôles de mesure, sont aussi susceptibles
+d'apparaître plusieurs fois.
+
 Vous trouverez d'autres informations sur les erreurs au chapitre
 @ref{Quelques erreurs des plus courantes}.
 
@@ -1078,29 +1087,6 @@ ces notes en rouge :
 \new Staff {
   \override Staff.NoteHead.color = #red
   a
-}
-@end lilypond
-
-Autre exemple : la présence d'une commande @code{\relative} à
-l'intérieur d'une section @code{\repeat} générera obligatoirement une
-portée intempestive.  Cela tient au fait que la commande @code{\repeat}
-va créer deux blocs @code{\relative} qui, chacun à leur tour, créeront
-implicitement un bloc @code{Staff} assorti d'un bloc @code{Voice}.
-
-@lilypond[quote,verbatim]
-\repeat unfold 2 {
-  \relative c' { c4 d e f }
-}
-@end lilypond
-
-La manière adéquate de procéder consiste à inverser les commandes
-@code{\repeat} et @code{\relative}, comme ceci :
-
-@lilypond[quote,verbatim]
-\new Voice {
-  \repeat unfold 2 {
-    \relative c' { c4 d e f }
-  }
 }
 @end lilypond
 
