@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 049bdd90b5ae67fe463bf85e926c2eabf51acf74
+    Translation of GIT committish: ece268fa66e2576c01f33a4a6e1806f44c9f8fa8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -96,7 +96,7 @@ musique contemporaine.
 
 @menu
 * Généralités sur le rythme en musique contemporaine::
-* Nolets et musique contemporaine::
+* N-olets et musique contemporaine::
 * Métriques contemporaines::
 * Notation polymétrique étendue::
 * Ligatures et musique contemporaine::
@@ -124,8 +124,8 @@ portées) sont abordées à la rubrique @ref{Regroupement de portées}.
 @end itemize
 
 
-@node Nolets et musique contemporaine
-@unnumberedsubsubsec Nolets et musique contemporaine
+@node N-olets et musique contemporaine
+@unnumberedsubsubsec N-olets et musique contemporaine
 @translationof Tuplets in contemporary music
 
 @ignore
@@ -247,4 +247,3 @@ par Kurt Stone [W. W. Norton, 1980]
         Krzysztof Penderecki (Threnody to the Victims of Hiroshima?)
         Karlheinz Stockhausen (Gruppen?)
 @end ignore
-

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 5c35684285613e8960e2dd4324559e1ee3774b9b
+    Translation of GIT committish: ece268fa66e2576c01f33a4a6e1806f44c9f8fa8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2767,14 +2767,6 @@ grâce à quelques simples artifices.
 @}
 @end example
 
-Certaines transcriptions laissent néanmoins apparaître
-occasionnellement des hampes, notamment pour indiquer la transition
-entre un récitatif monodique et une phrase mélodique.  Il suffit en
-pareil cas d'utiliser plutôt @code{\hide Stem}
-ou @code{\override Stem.length = #0} puis, en cas de besoin, recourir
-à une clause @code{\once \override Stem.transparent = ##f} comme dans
-l'exemple ci-dessous.
-
 @b{Temps}.  En matière de chant non mesuré, plusieurs alternatives
 s'offrent à vous.
 
@@ -2820,7 +2812,10 @@ verba = \lyricmode {
       \Staff
       \remove "Time_signature_engraver"
       \remove "Bar_engraver"
-      \hide Stem
+    }
+    \context {
+      \Voice
+      \remove "Stem_engraver"
     }
   }
 }
@@ -2828,16 +2823,24 @@ verba = \lyricmode {
 
 Ceci fonctionne bien tant que le texte ne risque pas de déborder de la
 ligne.  Si tel était le cas, on pourrait plutôt ajouter des notes
-masquées, ici en jouant aussi sur la visibilité des hampes :
+masquées comme ci dessous.
+
+Certaines transcriptions laissent néanmoins apparaître
+occasionnellement des hampes, notamment pour indiquer la transition
+entre un récitatif monodique et une phrase mélodique.  Il suffit en
+pareil cas d'utiliser plutôt @code{\hide Stem}
+ou @code{\override Stem.length = #0} puis, en cas de besoin, recourir
+à une clause @code{\once \override Stem.transparent = ##f}.
 
 @lilypond[verbatim,ragged-right]
 \include "gregorian.ly"
 chant = \relative c' {
   \clef "G_8"
   \set Score.timing = ##f
+  \hide Stem
   c\breve \hide NoteHead  c c c c c
   \undo \hide NoteHead
-  \override Stem.transparent = ##f \stemUp c4 b4 a
+  \undo \hide Stem \stemUp c4 b4 a
   \hide Stem c2 c4  \divisioMaior
   c\breve \hide NoteHead c c c c c c c
   \undo \hide NoteHead c4 c f, f \finalis
@@ -2858,7 +2861,6 @@ verba = \lyricmode {
       \Staff
       \remove "Time_signature_engraver"
       \hide BarLine
-      \hide Stem
     }
   }
 }
@@ -2962,4 +2964,3 @@ spirLyr = \lyricmode {
 
 @c @seealso
 @c ... and reference to other sections ...
-

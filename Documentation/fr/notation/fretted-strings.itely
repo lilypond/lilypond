@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: a59d022ee65e8310ea16954da7b637c07ca00ae2
+    Translation of GIT committish: ece268fa66e2576c01f33a4a6e1806f44c9f8fa8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1017,12 +1017,16 @@ dans le diagramme d'accord.  L'indication de capodastre est une petite
 ligne transversale aux cordes.  La case avec le capodastre est la case
 la plus basse du diagramme d'accord.
 
+Les points d'indication de doigté peuvent se colorier ou être mis
+entre parenthèses ; la couleur des parenthèses est indépendante de
+celle du point.
+
 @c \override is necessary to make fingering visible
 @lilypond[quote, verbatim]
 <<
     \new ChordNames {
       \chordmode {
-        f1 g c
+        f1 g c c
       }
     }
   \new Staff {
@@ -1056,6 +1060,17 @@ la plus basse du diagramme d'accord.
         (place-fret 4 5 1)
         (place-fret 3 5 2)
         (place-fret 2 5 3)
+      )
+    }
+    \override Voice.TextScript.size = 1.5
+    <c g c' e' g'>1^\markup {
+      \fret-diagram-verbose #'(
+        (place-fret 6 3 1 red parenthesized default-paren-color)
+        (place-fret 5 3 1 inverted)
+        (place-fret 4 5 2 blue parenthesized)
+        (place-fret 3 5 3 blue)
+        (place-fret 2 5 4 blue)
+        (place-fret 1 3 1 inverted)
       )
     }
   }

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: a59d022ee65e8310ea16954da7b637c07ca00ae2
+    Translation of GIT committish: ece268fa66e2576c01f33a4a6e1806f44c9f8fa8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -94,12 +94,17 @@ modifier la taille de la portée consiste à utiliser la commande
   \new Voice \relative {
     \voiceTwo
     \magnifyMusic 0.63 {
+      \override Score.SpacingSpanner.spacing-increment = #(* 1.2 0.63)
       r32 c'' a c a c a c r c a c a c a c
       r c a c a c a c a c a c a c a c
     }
   }
 >>
 @end lilypond
+
+La présence d'un @code{\override} dans cet exemple permet de
+contourner une bogue -- voir « Problèmes connus et avertissements » en
+fin de section.
 
 Dans le cas de fusion d'une tête de note normale avec une autre de
 taille inférieure, la taille de la petite note peut nécessiter une
@@ -114,6 +119,7 @@ de telle sorte que les hampes et altérations s'alignent correctement :
   \new Voice \relative {
     \voiceOne
     \magnifyMusic 0.63 {
+      \override Score.SpacingSpanner.spacing-increment = #(* 1.2 0.63)
       \once \normalsize cis'32( cis' gis b a fis \once \normalsize d d'
       \once \normalsize cis, cis' gis b a gis \once \normalsize fis fis'
       \once \normalsize fis, fis' ais, cis b gis \once \normalsize eis eis'
@@ -320,6 +326,28 @@ Morceaux choisis :
 
 Référence des propriétés internes :
 @rinternals{font-interface}.
+
+@c The two issues mentioned below:
+@c http://code.google.com/p/lilypond/issues/detail?id=3987
+@c http://code.google.com/p/lilypond/issues/detail?id=3990
+@knownissues
+Deux bogues actuellement répertoriés font obstacle à un espacement
+horizontal correct avec @code{\magnifyMusic}.  La seule façon de les
+contourner n'est cependant pas garantie dans toutes les situations.
+Dans l'exemple suivant, il vous faudra adapter la valeur de la variable
+@var{mag}.  Vous pourriez aussi tenter de supprimer une ou les deux
+commandes @code{\newSpacingSection}, ou les commandes @code{\override}
+et @code{\revert} :
+
+@example
+\magnifyMusic @var{mag} @{
+  \newSpacingSection
+  \override Score.SpacingSpanner.spacing-increment = #(* 1.2 @var{mag})
+  @var{[musique]}
+  \newSpacingSection
+  \revert Score.SpacingSpanner.spacing-increment
+@}
+@end example
 
 
 @node Doigtés
@@ -575,9 +603,10 @@ internet.  Aussi nous vous recommandons, dans le cadre d'une
 présentation multimédia, d'utiliser des couleurs de base @code{blue},
 @code{green}, @code{red} -- bleu, vert, rouge.
 
-Vous ne pouvez pas coloriser des notes à l'intérieur d'un accord avec
-@code{\override}.  Si besoin est, utilisez @code{\tweak}.  Pour plus de
-détails, consultez @ref{La commande d'affinage (tweak)}.
+Vous ne pouvez pas coloriser individuellement des notes à l'intérieur
+d'un accord avec @code{\override}.  Si besoin est, utilisez
+@code{\tweak} ou @code{\single\override} devant la note en question.
+Pour plus de détails, consultez @ref{La commande d'affinage (tweak)}.
 
 
 @node Parenthèses

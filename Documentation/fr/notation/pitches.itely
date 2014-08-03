@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: a59d022ee65e8310ea16954da7b637c07ca00ae2
+    Translation of GIT committish: ece268fa66e2576c01f33a4a6e1806f44c9f8fa8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1070,16 +1070,28 @@ hauteurs.
 @translationof Clef
 
 @cindex clé de sol
+@cindex sol, clef de
 @cindex clé de fa
+@cindex fa, clef de
 @cindex clé d'ut
+@cindex ut, clef d'
 @cindex clés anciennes
+@cindex anciennes, clefs
 
 @funindex \clef
 @funindex clef
 
 La clef indique quelles lignes de la portée correspondent à quelles
-hauteurs.  Elle peut changer au fil du morceau, comme dans l'exemple
-suivant qui indique le do médium dans différentes clefs :
+hauteurs.  En l'absence de commande explicite, LilyPond utilise
+par défaut la clef de sol.
+
+@lilypond[verbatim,quote,relative=1,ragged-right]
+c2 c
+@end lilypond
+
+La clef se modifie à l'aide de la commande @code{\clef} suivie d'un nom
+approprié.  Pour chacun des exemples suivants est indiquée la position
+du do médium.
 
 @lilypond[verbatim,quote,relative=1]
 \clef treble
@@ -1092,36 +1104,20 @@ c2 c
 c2 c
 @end lilypond
 
-LilyPond met à votre disposition d'autres clefs :
+Les différents noms possibles sont répertoriés à l'annexe
+@ref{Styles de clef}.
 
-@lilypond[verbatim,quote,relative=1]
-\clef french
-c2 c
-\clef soprano
-c2 c
-\clef mezzosoprano
-c2 c
-\clef baritone
-c2 c
+Des clefs spéciales, telles que celles rencontrées en musique ancienne,
+sont abordées dans @ref{Clefs anciennes} et @ref{Clefs grégoriennes}.
+La musique requérant des clefs de tablature est traitée dans
+@ref{Tablatures par défaut} et @ref{Tablatures personnalisées}.
 
-\break
+@cindex Clef de citation
+@cindex Citation et clefs
 
-\clef varbaritone
-c2 c
-\clef subbass
-c2 c
-\clef percussion
-c2 c
-
-\break
-
-\clef G   % synonym for treble
-c2 c
-\clef F   % synonym for bass
-c2 c
-\clef C   % synonym for alto
-c2 c
-@end lilypond
+Les citations peuvent demander une modification de clef à l'aide des
+commandes @code{\cueClef} et @code{\cueDuringWithClef} -- voir
+@ref{Mise en forme d'une citation}.
 
 @cindex transposition et clef
 @cindex clef et transposition
@@ -1166,15 +1162,13 @@ c2 c
 Les hauteurs seront affichées comme si l'argument numérique
 n'avait pas été encadré de parenthèses ou crochets.
 
-Il existe d'autres clefs, destinées à un usage particulier.  Voir à ce
-sujet @ref{Notations anciennes}, @ref{Clefs anciennes},
-@ref{Clefs grégoriennes}, @ref{Tablatures par défaut} et
-@ref{Tablatures personnalisées}.  La nécessité de recourir à d'autres
-clefs dans le cas où la partition comprend des petites notes est abordée
-au chapitre @ref{Mise en forme d'une citation} -- voir les fonctions
-@code{\cueClef} et @code{\cueDuringWithClef}.
-
 @snippets
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{forcing-a-clef-symbol-to-be-displayed.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{keep-change-clefs-full-sized.ly}
+
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {tweaking-clef-properties.ly}
 
@@ -1186,6 +1180,9 @@ Manuel de notation :
 @ref{Mise en forme d'une citation},
 @ref{Tablatures par défaut},
 @ref{Tablatures personnalisées}.
+
+Fichiers d'initialisation :
+@file{../scm/parser-clef.scm}.
 
 Morceaux choisis:
 @rlsrnamed{Pitches,Hauteurs}.
@@ -2422,7 +2419,7 @@ musicB = {
 
 Comme dans le cas du style @code{dodecaphonic}, chaque note est par
 défaut affublée d'une altération.  Celle-ci sera toutefois omise lorsque
-la même hauteur est immédiatement répétée dans la même voix.
+la même hauteur est immédiatement répétée dans la même portée.
 
 @lilypond[quote]
 musicA = {

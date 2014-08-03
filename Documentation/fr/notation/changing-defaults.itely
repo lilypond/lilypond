@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: a59d022ee65e8310ea16954da7b637c07ca00ae2
+    Translation of GIT committish: ece268fa66e2576c01f33a4a6e1806f44c9f8fa8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2489,7 +2489,7 @@ produire au même instant, nous citerons :
 @item les têtes de notes au sein d'un accord,
 @item les signes d'articulation,
 @item les liaisons de prolongation sur des notes d'un accord,
-@item les crochets de nolets démarrant au même instant
+@item les crochets de n-olets démarrant au même instant
 @end itemize
 
 @c TODO add examples of these
@@ -3136,7 +3136,7 @@ par ce réglage.
 
 De nombreux objets de notation musicale s'étendent sur plusieurs notes,
 voire même sur plusieurs mesures.  Il en va ainsi des liaisons,
-ligatures, crochets de nolet, crochets de reprise, crescendos, trilles
+ligatures, crochets de n-olet, crochets de reprise, crescendos, trilles
 ou glissandos.  Ces objets, que l'on englobe sous l'appellation
 @qq{d'extenseur}, sont pourvus de propriétés spécifiques destinées à
 contrôler leur apparence et leur comportement.  Un certain nombre de ces

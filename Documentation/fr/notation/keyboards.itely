@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 5c35684285613e8960e2dd4324559e1ee3774b9b
+    Translation of GIT committish: ece268fa66e2576c01f33a4a6e1806f44c9f8fa8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -91,7 +91,7 @@ nombre peut varier. Voir à ce sujet @ref{Résolution des collisions}.
 @item
 On peut écrire la musique pour claviers de façon parallèle, comme
 l'explique @ref{Saisie de musique en parallèle}.
- 
+
 @item
 Les nuances peuvent se gérer dans un contexte @code{Dynamics} qu'il
 suffira d'insérer entre les deux contextes @code{Staff} pour qu'elles
@@ -132,6 +132,13 @@ qui passent d'une voix à l'autre, comme le montre
 @rlearning{Autres utilisations des retouches}.
 
 @end itemize
+
+
+@c @snippets
+@c @lilypondfile[verbatim,quote,texidoc,doctitle]
+@c {forcing-visibility-of-systems-with-multi-bar-rests-when-using-\RemoveEmptyStaffContext.ly}
+@c http://lsr.di.unimi.it/LSR/Item?u=1&id=312
+
 
 @seealso
 Manuel d'initiation :

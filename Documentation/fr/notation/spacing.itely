@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: a59d022ee65e8310ea16954da7b637c07ca00ae2
+    Translation of GIT committish: ece268fa66e2576c01f33a4a6e1806f44c9f8fa8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1391,26 +1391,18 @@ l'aide d'un @code{layout-set-staff-size} placé dans le bloc
 
 @item
 L'affectation d'une taille particulière à l'une des portées d'un
-système requiert d'ajuster la taille de police @emph{(font-size)} et
-l'espace de portée @emph{(staff-space)} en unités proportionnelles à la
-taille de portée par défaut de la partition.  L'utilisation d'une
-relation entre unités évite le changement de proportionnalité entre
-portées lorsque la taille par défaut est modifiée par
-@code{set-global-staff-size} ou @code{layout-set-staff-size}.
-
-Par exemple, les partitions traditionnelles de musique de chambre avec
-piano présentent souvent des portées de piano de 7 mm alors que les
-autres portées étaient gravées à une hauteur de cinq septièmes (s'il y
-avait assez de place) ou trois cinquièmes (en cas de présentation
-resserrée) de cette hauteur.  Une proportion de 5/7 s'obtient se
-libelle ainsi :
+système, LilyPond dispose de la commande @code{\magnifyStaff}.  Par
+exemple, les partitions traditionnelles de musique de chambre avec piano
+présentaient souvent des portées de piano de 7 mm alors que les autres
+portées étaient gravées à une hauteur de cinq septièmes (s'il y avait
+assez de place) ou trois cinquièmes (en cas de présentation resserrée)
+de cette hauteur. Une proportion de 5/7 s'obtient se libelle ainsi :
 
 @example
 \score @{
   <<
     \new Staff \with @{
-      fontSize = #(magnification->font-size 5/7)
-      \override StaffSymbol.staff-space = #5/7
+      \magnifyStaff #5/7
     @} @{ @dots{} @}
     \new PianoStaff @{ @dots{} @}
   >>
@@ -1424,8 +1416,7 @@ peut s'employer :
 \score @{
   <<
     \new Staff \with @{
-      fontSize = -3
-      \override StaffSymbol.staff-space = #(magstep -3)
+      \magnifyStaff #(magstep -3)
     @} @{ @dots{} @}
     \new PianoStaff @{ @dots{} @}
   >>
@@ -1482,12 +1473,7 @@ lignes d'une portée.
 @menu
 * Sauts de ligne::
 * Sauts de page::
-* Optimisation des sauts de page::
-* Optimisation des tournes::
-* Minimisation des sauts de page::
-* Présentation en rouleau::
 * Sauts explicites::
-* Recours à une voix supplémentaire pour gérer les sauts::
 @end menu
 
 
@@ -1526,7 +1512,7 @@ c4 c c c |
 
 LilyPond ignorera un @code{\break} placé sur une barre à la fin d'une
 mesure dès lors que la précédente avait une note en suspend -- c'est
-typiquement le cas lorsqu'un nolet est à cheval sur deux mesures.
+typiquement le cas lorsqu'un n-olet est à cheval sur deux mesures.
 L'instruction @code{\break} sera alors opérationnelle si vous avez
 auparavant désactivé le @code{Forbid_line_break_engraver} du contexte
 @code{Voice} concerné.  Notez bien qu'en pareil cas, les sauts de ligne
@@ -1608,6 +1594,7 @@ ailleurs :
 
 @seealso
 Manuel de notation :
+@ref{Le bloc layout},
 @ref{Variables de gestion des sauts de ligne}.
 
 Référence des propriétés internes :
@@ -1621,13 +1608,29 @@ Morceaux choisis :
 @subsection Sauts de page
 @translationof Page breaking
 
+Cette section présente les différentes méthodes de gestion des sauts de
+page, ainsi que les moyens de les modifier.
+
+@menu
+* Saut de page manuel::
+* Optimisation des sauts de page::
+* Optimisation des tournes::
+* Minimisation des sauts de page::
+* Présentation en rouleau::
+@end menu
+
+
+@node Saut de page manuel
+@unnumberedsubsubsec Saut de page manuel
+@translationof Manual page breaking
+
 La gestion automatique des sauts de page se contrôle à l'aide des
 commandes @code{\pageBreak} et @code{\noPageBreak}. Ces commandes
 fonctionnent de manière analogue à @code{\break} et @code{\noBreak} pour
 les sauts de ligne et se placent donc au moment d'une barre de mesure.
 Elles permettent de forcer, ou d'interdire, un saut de page à l'endroit
-indiqué.  Comme on peut s'y attendre, @code{\pageBreak} force le saut de
-ligne.
+indiqué.  Comme on peut s'y attendre, @code{\pageBreak} force aussi le
+saut de ligne.
 
 Les commandes @code{\pageBreak} et @code{\noPageBreak} peuvent se
 trouver à des niveaux supérieurs, entre deux partitions ou
@@ -1706,7 +1709,7 @@ Morceaux choisis :
 
 
 @node Optimisation des sauts de page
-@subsection Optimisation des sauts de page
+@unnumberedsubsubsec Optimisation des sauts de page
 @translationof Optimal page breaking
 
 @funindex ly:optimal-breaking
@@ -1723,7 +1726,7 @@ Morceaux choisis :
 
 
 @node Optimisation des tournes
-@subsection Optimisation des tournes
+@unnumberedsubsubsec Optimisation des tournes
 @translationof Optimal page turning
 
 @funindex ly:page-turn-breaking
@@ -1817,7 +1820,7 @@ Une partition ne devrait contenir qu'une seule instance du
 
 
 @node Minimisation des sauts de page
-@subsection Minimisation des sauts de page
+@unnumberedsubsubsec Minimisation des sauts de page
 @translationof Minimal page breaking
 
 @funindex ly:minimal-breaking
@@ -1843,7 +1846,7 @@ Morceaux choisis :
 
 
 @node Présentation en rouleau
-@subsection Présentation en rouleau
+@unnumberedsubsubsec Présentation en rouleau
 @translationof One-line page breaking
 
 @funindex ly:one-line-breaking
@@ -1912,109 +1915,11 @@ music = \relative c'' { c8 c c c }
 }
 @end lilypond
 
-@seealso
-Morceaux choisis :
-@rlsrnamed{Spacing,Espacements}.
-
-
-@node Recours à une voix supplémentaire pour gérer les sauts
-@subsection Recours à une voix supplémentaire pour gérer les sauts
-@translationof Using an extra voice for breaks
-
-La plupart du temps, les informations concernant les sauts de ligne ou
-de page se retrouvent directement au milieu des notes.
-
-@example
-musique = \relative c'' @{ c4 c c c @}
-
-\score @{
-  \new Staff @{
-    \repeat unfold 2 @{ \musique @} \break
-    \repeat unfold 3 @{ \musique @}
-  @}
-@}
-@end example
-
-Bien que cela constitue un moyen aisé de saisir les commandes
-@code{\break} et @code{\pageBreak}, les données musicales se retrouvent
-mélangées à des informations qui concernent plutôt l'agencement de la
-musique sur le papier.  Vous pouvez tout à fait séparer ce qui est
-purement musical et les informations concernant les sauts de ligne ou de
-page en créant une voix supplémentaire dédiée.  Cette voix spécifique
-ne contiendra que des blancs -- des silences invisibles @code{\skip} --,
-des @code{\break}, des @code{\pageBreak} et autres informations
-concernant les ruptures.
-
-@lilypond[quote,verbatim]
-music = \relative c'' { c4 c c c }
-
-\header { tagline = ##f }
-\paper { left-margin = 0\mm }
-\book {
-  \score {
-    \new Staff <<
-      \new Voice {
-        s1 * 2 \break
-        s1 * 3 \break
-        s1 * 6 \break
-        s1 * 5 \break
-      }
-      \new Voice {
-        \repeat unfold 2 { \music }
-        \repeat unfold 3 { \music }
-        \repeat unfold 6 { \music }
-        \repeat unfold 5 { \music }
-      }
-    >>
-  }
-}
-@end lilypond
-
-Cette manière de procéder est tout à fait indiquée lorsque vous ajustez
-les @code{line-break-system-details} et autres propriétés fort
-intéressantes de @code{NonMusicalPaperColumnGrob}, comme vous pouvez
-le voir au chapitre @ref{Espacement vertical}.
-
-@lilypond[quote,verbatim]
-music = \relative c'' { c4 c c c }
-
-\header { tagline = ##f }
-\paper { left-margin = 0\mm }
-\book {
-  \score {
-    \new Staff <<
-      \new Voice {
-        \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-          #'((Y-offset . 0))
-        s1 * 2 \break
-
-        \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-          #'((Y-offset . 5))
-        s1 * 3 \break
-
-        \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-          #'((Y-offset . 15))
-        s1 * 6 \break
-
-        \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-          #'((Y-offset . 30))
-        s1 * 5 \break
-      }
-      \new Voice {
-        \repeat unfold 2 { \music }
-        \repeat unfold 3 { \music }
-        \repeat unfold 6 { \music }
-        \repeat unfold 5 { \music }
-      }
-    >>
-  }
-}
-@end lilypond
+@snippets
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{using-an-extra-voice-for-breaks.ly}
 
 @seealso
-Manuel de notation :
-@ref{Espacement vertical}.
-
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
@@ -2543,7 +2448,8 @@ Les @i{lignes de non-portée}, comme les @code{Lyrics} ou les
 @code{ChordNames} sont des contextes dont les objets de rendu sont
 gravés à l'instar des portées -- une ligne horizontale dans un système.
 En fait, les lignes de non-portée sont des contextes qui vont créer un
-objet de rendu @code{VerticalAxisGroup}.
+objet de rendu @code{VerticalAxisGroup} auxquel est attaché le
+@rinternals{Axis_group_engraver}.
 
 L'espacement des lignes de non-portée est géré par les propriétés
 suivantes :
@@ -2702,7 +2608,7 @@ Cette partition isole les informations de saut de ligne ou de page dans
 une voix spécifique.  La mise en forme est ainsi séparée des événements
 musicaux ; ceci nous permettra d'y voir plus clair au fur et à
 mesure que nous avancerons.  Pour plus de précisions, relisez
-@ref{Recours à une voix supplémentaire pour gérer les sauts}.
+@ref{Sauts explicites}.
 
 Les @code{\break} explicites répartissent la musique en lignes de six
 mesures chacune.  L'espacement vertical est celui que LilyPond attribue
@@ -2942,7 +2848,7 @@ Morceaux choisis :
 * Généralités sur l'espacement horizontal::
 * Changement d'espacement en cours de partition::
 * Modification de l'espacement horizontal::
-* Longueur de ligne::
+* Largeur de ligne::
 * Notation proportionnelle::
 @end menu
 
@@ -3162,7 +3068,7 @@ resserrée.  En effet, @code{ly:make-moment} construit une durée :
 @end lilypond
 
 @snippets
-L'espacement au sein d'un nolet dépend par défaut d'un certain nombre de
+L'espacement au sein d'un n-olet dépend par défaut d'un certain nombre de
 facteurs qui ne sont pas liés à la durée (altération, changement de
 clef, etc.).  @code{Score.SpacingSpanner.uniform-stretching}
 permet d'ignorer ces symboles et, par voie de conséquence, de forcer
@@ -3203,9 +3109,9 @@ Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
 
-@node Longueur de ligne
-@subsection Longueur de ligne
-@translationof Line length
+@node Largeur de ligne
+@subsection Largeur de ligne
+@translationof Line width
 
 @cindex saut de page
 @cindex pages, saut
@@ -3424,11 +3330,11 @@ beaucoup plus d'espace horizontal que l'espacement traditionnel.  La
 notation proportionnelle met en évidence le rythme au détriment de
 l'espacement horizontal.
 
-Examinons à présent le moyen d'optimiser l'espacement de nolets en
+Examinons à présent le moyen d'optimiser l'espacement de n-olets en
 tuilage.
 
 Reprenons notre exemple de départ, avec son espacement traditionnel, et
-ajoutons lui une portée incluant un autre type de nolet.
+ajoutons lui une portée incluant un autre type de n-olet.
 
 @lilypond[quote,verbatim,ragged-right]
 \score {
@@ -3446,7 +3352,7 @@ ajoutons lui une portée incluant un autre type de nolet.
 L'espacement est loin d'être idéal, pour la simple raison que
 l'espacement régulier des notes de la portée inférieure ne s'étire pas
 uniformément.  Il est vrai que de telles constructions complexes en
-nolets sont assez rares en gravure traditionnelle, ce qui explique que
+n-olets sont assez rares en gravure traditionnelle, ce qui explique que
 les règles qu'elle applique peuvent amener à ce résultat.  Le recours à
 @code{proportionalNotationDuration} permet d'arranger les choses.
 
@@ -3615,7 +3521,7 @@ réglages en usage dans la notation proportionnelle comme, entre autres,
 @end itemize
 
 Ces différents réglages permettent un espacement strict des notes
-d'ornement, d'étendre les indications de nolet afin d'indiquer de façon
+d'ornement, d'étendre les indications de n-olet afin d'indiquer de façon
 évidente leurs bornes et d'autoriser le tronçonnement des extenseurs à
 l'occasion d'un saut de ligne ou de page.  Nous vous renvoyons aux
 différentes rubriques associées du manuel pour chacun de ces réglages.

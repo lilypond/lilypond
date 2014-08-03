@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: a59d022ee65e8310ea16954da7b637c07ca00ae2
+    Translation of GIT committish: ece268fa66e2576c01f33a4a6e1806f44c9f8fa8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -38,7 +38,7 @@ ligature et de mesure.
 
 @menu
 * Durées::
-* Nolets::
+* N-olets::
 * Changement d'échelle des durées::
 * Liaisons de prolongation::
 @end menu
@@ -202,49 +202,47 @@ disponibles ne couvre que les silences allant du trente-deuxième de
 soupir à la maxime (valant huit pauses).
 
 
-@node Nolets
-@unnumberedsubsubsec Nolets
+@node N-olets
+@unnumberedsubsubsec N-olets
 @translationof Tuplets
 
-@cindex nolets
+@cindex n-olets
 @cindex triolets
 
-@funindex \times
-@funindex times
+@funindex \tuplet
+@funindex tuplet
 
-Les nolets -- triolets, quintolets, etc. -- sont obtenus en
-divisant toutes les durées d'une expression musicale par une
-fraction.
+Les n-olets -- triolets, quintolets, etc. -- sont obtenus en multipliant
+la vitesse d'une expression musicale par une fraction.
 
 @example
 \tuplet @var{fraction} @{ @var{expression_musicale} @}
 @end example
 
 @noindent
-La durée de l'@code{@var{expression_musicale}} sera divisée par la
-fraction.  Le numérateur de cette fraction sera imprimé au-dessus ou
-au-dessous des notes, parfois avec un crochet.  Le nolet le plus courant
-est le triolet, dans lequel trois notes occupent la durée de deux.
+Le numérateur de cette fraction sera imprimé au-dessus ou au-dessous des
+notes, parfois avec un crochet.  Le n-olet le plus courant est le
+triolet, dans lequel trois notes occupent la durée de deux.
 
 @lilypond[quote,verbatim,relative=2]
 a2 \tuplet 3/2 { b4 4 4 }
 c4 c \tuplet 3/2 { b4 a g }
 @end lilypond
 
-@cindex regroupement de nolets
+@cindex regroupement de n-olets
 @noindent
-Dans le cas d'une succession de nolets, saisir la commande
-@code{\tuplet} pour chacun des nolets devient vite fastidieux.
-LilyPond vous permet de stipuler la durée de base d'un nolet juste
-avant l'expression musicale, de telle sorte que les nolets seront
+Dans le cas d'une succession de n-olets, saisir la commande
+@code{\tuplet} pour chacun des n-olets devient vite fastidieux.
+LilyPond vous permet de stipuler la durée de base d'un n-olet juste
+avant l'expression musicale, de telle sorte que les n-olets seront
 formés automatiquement :
 
 @lilypond[quote,verbatim,relative=2]
 g2 r8 \tuplet 3/2 8 { cis16 d e e f g g f e }
 @end lilypond
 
-@cindex crochet de nolet, positionnement
-@cindex nolet, positionnement du crochet
+@cindex crochet de n-olet, positionnement
+@cindex n-olet, positionnement du crochet
 
 @funindex \tupletUp
 @funindex tupletUp
@@ -254,17 +252,23 @@ g2 r8 \tuplet 3/2 8 { cis16 d e e f g g f e }
 @funindex tupletNeutral
 
 Des commandes prédéfinies permettent de déroger au positionnement
-automatique du crochet en surplomb ou au-dessous des notes -- voir le
-chapitre @ref{Direction et positionnement}.
+automatique du crochet en surplomb ou au-dessous des notes :
 
-Les nolets peuvent être imbriqués ; par exemple,
+@lilypond[quote,verbatim,relative=2]
+\tupletUp \tuplet 3/2 { c8 d e }
+\tupletNeutral \tuplet 3/2 { c8 d e }
+\tupletDown \tuplet 3/2 { f,8 g a }
+\tupletNeutral \tuplet 3/2 { f8 g a }
+@end lilypond
+
+Les n-olets peuvent être imbriqués ; par exemple,
 
 @lilypond[quote,verbatim,relative=2]
 \autoBeamOff
 c4 \tuplet 5/4 { f8 e f \tuplet 3/2 { e[ f g] } } f4 |
 @end lilypond
 
-Lorsque, dans une imbrication, les nolets débutent au même instant, il
+Lorsque, dans une imbrication, les n-olets débutent au même instant, il
 vous faut recourir à la commande @code{\tweak}.
 
 Vous pouvez interférer sur la durée des notes sans imprimer de crochet,
@@ -278,7 +282,7 @@ comme indiqué au chapitre @ref{Changement d'échelle des durées}.
 
 @snippets
 
-@cindex nolets, formatage
+@cindex n-olets, formatage
 @cindex triolets, formatage
 
 @funindex tupletNumberFormatFunction
@@ -287,7 +291,7 @@ comme indiqué au chapitre @ref{Changement d'échelle des durées}.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {entering-several-tuplets-using-only-one--times-command.ly}
 
-@cindex nolet, modification du chiffre
+@cindex n-olet, modification du chiffre
 
 @funindex TupletNumber
 
@@ -306,7 +310,7 @@ comme indiqué au chapitre @ref{Changement d'échelle des durées}.
 @seealso
 Glossaire musicologique :
 @rglosnamed{triplet,triolet},
-@rglosnamed{tuplet,nolet},
+@rglosnamed{tuplet,n-olet},
 @rglosnamed{polymetric,polymétrie}.
 
 Manuel d'initiation :
@@ -315,6 +319,7 @@ Manuel d'initiation :
 Manuel de notation :
 @ref{Gestion du temps},
 @ref{Changement d'échelle des durées},
+@ref{Direction et positionnement},
 @ref{La commande d'affinage (tweak)},
 @ref{Notation polymétrique}.
 
@@ -325,21 +330,6 @@ Références des propriétés internes :
 @rinternals{TupletBracket},
 @rinternals{TupletNumber},
 @rinternals{TimeScaledMusic}.
-
-@cindex notes d'ornement et crochet de nolet
-
-@knownissues
-Lorsqu'un nolet en début de portée est précédé d'une note d'ornement,
-celle-ci doit se placer avant la commande @code{\tuplet} pour éviter
-toute erreur.  Ailleurs dans la partition, les notes d'ornement peuvent
-se placer au sein de l'expression constituant le nolet.
-
-@cindex indication de tempo et nolet
-
-Lorsqu'un nolet en début de mouvement est combiné avec une indication de
-tempo -- grâce à la commande @code{\tempo} --, l'expression contenant le
-nolet doit impérativement faire partie d'un bloc @code{\new Voice}
-comme indiqué au chapitre @rlearning{Les voix contiennent la musique}.
 
 
 @node Changement d'échelle des durées
@@ -413,7 +403,7 @@ voir @ref{Notation polymétrique}.
 
 @seealso
 Manuel de notation :
-@ref{Nolets},
+@ref{N-olets},
 @ref{Silences invisibles},
 @ref{Notation polymétrique}.
 
