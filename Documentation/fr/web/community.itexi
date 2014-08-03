@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: b7cb11ea159572f2dc55b405db01a06c4dccea7d
+    Translation of GIT committish: 730d4eb3e0328e8ba0b376f8191a5bb6ae7f904c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -9,7 +9,7 @@
 @end ignore
 
 @c Translators: Jean-Charles Malahieude, John Mandereau
-@c Translation checkers: 
+@c Translation checkers:
 
 
 @include included/acknowledge.itexi
@@ -670,7 +670,7 @@ simplification, documentation et débogage.
 @c it's good to emphasize the "stable" part.  -gp
 @warning{Il s'agit des versions @emph{instables et de développement}.
 Si vous avez le moindre doute quant à l'utilisation ou l'installation de
-LilyPond, nous vous enjoignons à utiliser le 
+LilyPond, nous vous enjoignons à utiliser le
 @ref{Téléchargement, téléchargement de la version stable} et la
 lecture des @ref{Manuels, manuels pour la version stable}.}
 
@@ -853,7 +853,7 @@ dernière mouture est consultable sur @url{http://lilypond.org}}
 @tab
 @docLinkPdf{Essai,essay,@manualDevelEssayPdf-fr}
 @end multitable
- 
+
 @multitable @columnfractions .3 .3 .3
 @headitem Utilisation courante
 
@@ -878,7 +878,7 @@ dernière mouture est consultable sur @url{http://lilypond.org}}
 @tab
 @docLinkPdf{Morceaux choisis,snippets,@manualDevelSnippetsPdf}
 @end multitable
- 
+
 @multitable @columnfractions .3 .3 .3
 @headitem Utilisation ponctuelle
 

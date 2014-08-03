@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: febe2e4ff91dda9227e85274ae045e23c6b4ec28
+    Translation of GIT committish: 730d4eb3e0328e8ba0b376f8191a5bb6ae7f904c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -482,12 +482,8 @@ une taille identique à l'image précédente :
 Comme vous le constatez, LilyPond imprime des lignes un peu plus
 épaisses pour garantir une meilleure lecture à taille réduite.
 
-@ignore
-This also allows staves of different sizes to coexist peacefully when
-used together on the same page:
-
-@c TODO: are the stems in this example the right thickness? How should
-@c line weights be scaled for small staves?
+Ceci permet par ailleurs de faire coexister harmonieusement
+plusieurs portées de taille différente sur une même page :
 
 @c Grieg's Violin Sonata Op. 45
 @lilypond[indent=1.5cm]
@@ -499,9 +495,7 @@ global = {
 \score {
   <<
     \new Staff \with {
-      fontSize = #-4
-      \override StaffSymbol.staff-space = #(magstep -4)
-      \override StaffSymbol.thickness = #(magstep -3)
+      \magnifyStaff #2/3
     }
     \relative c' {
       \global
@@ -538,7 +532,6 @@ global = {
   >>
 }
 @end lilypond
-@end ignore
 
 
 @node La raison de tous ces efforts
