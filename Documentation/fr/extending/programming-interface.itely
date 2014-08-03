@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: e2f786e15c2f1c7e71518c5e2d134bc31fd587f8
+    Translation of GIT committish: 05cabe332d6518b63b5f4854d144448e1a680146
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -386,35 +386,38 @@ Fichiers d'initialisation :
 @subsection Utilisation de fonctions musicales
 @translationof Music function usage
 
-Une fonction musicale peut prendre place en différents endroits.
-Certaines restrictions s'appliqueront selon l'endroit où elle est
-utilisée, de telle sorte que l'analyse syntaxique soit sans ambiguïté.
-Le résultat renvoyé par une fonction musicale doit être compatible avec
-le contexte dans lequel elle est appelée.
+Une « fonction musicale » doit impérativement renvoyer une expression
+répondant au prédicat @code{ly:music?}.  Ceci a pour conséquence
+d'autoriser l'appel à une fonction musicale en tant qu'argument de type
+@code{ly:music?} dans le cadre de l'appel à une autre fonction musicale.
+
+Certaines restrictions s'appliqueront selon le contexte où une fonction
+musicale est utilisée, de telle sorte que l'analyse syntaxique soit sans
+ambiguïté.
 
 @itemize
 @item
-Dans une expression musicale de haut niveau@tie{}: aucune restriction.
+Dans une expression musicale de haut niveau, aucun postévénement n'est
+toléré.
 
 @item
-En tant que post-événement, explicitement introduit par un indicateur de
-positionnement -- à savoir @code{-}, @code{^}, ou@tie{}@code{_}.
-
-Dans ce cas particulier, vous ne pouvez utiliser une expression musicale
-@emph{ouverte} en tant que dernier argument -- argument qui se
-composerait d'une expression musicale susceptible d'accepter des
-postévénements additionnels.
+Lorsqu'une fonction musicale -- contrairement à une fonction
+événementielle -- renvoie une expression de type postévénement, LilyPond
+requiert son introduction par un indicateur de positionnement -- à
+savoir @code{-}, @code{^} ou @code{_} -- de telle sorte que le
+postévénement produit par l'appel à cette fonction s'intègre
+correctement dans l'expression environnante.
 
 @item
-En tant que partie d'un accord.  L'expression musicale renvoyée doit
+En tant que partie d'un accord, l'expression musicale renvoyée doit
 être du type @code{rhythmic-event}, et plus particulièrement un
 @code{NoteEvent}.
 @end itemize
 
 @noindent
-Les règles spécifiques en matière d'arguments de fin rendent possible
-l'écriture de fonctions polymorphes telles que @code{\tweak}, qui
-peuvent s'appliquer à différentes constructions.
+Des fonctions « polymorphes » telles que @code{\tweak} peuvent
+s'appliquer aux postévénements, constituants d'accord et expressions de
+haut niveau.
 
 
 @node Fonctions de substitution simple
@@ -1220,7 +1223,7 @@ est ajouté en tête, grâce à @code{\hspace} ou à la fonction
 interprétée par la fonction @code{interpret-markup-list}.
 
 Voici comment utiliser cette nouvelle commande de liste de
-@emph{markups}@tie{}:
+@emph{markups} :
 @example
 \markuplist @{
   \paragraph @{
@@ -1255,25 +1258,135 @@ Voici comment utiliser cette nouvelle commande de liste de
 
 @cindex appel de code durant l'interprétation
 @funindex \applyContext
+@funindex make-apply-context
+@funindex ly:context-property
+@funindex ly:context-set-property!
+@funindex ly:context-grob-definition
+@funindex ly:assoc-get
+@funindex ly:context-pushpop-property
 
 Un contexte peut être modifié, au moment même de son interprétation, par
-du code Scheme.  La syntaxe consacrée en pareil cas est
+du code Scheme.  La syntaxe consacrée au sein d'un bloc LilyPond est
+
 @example
 \applyContext @var{fonction}
 @end example
 
-@code{@var{fonction}} est constitué d'une fonction Scheme comportant un
-unique argument : le contexte au sein duquel la commande
-@code{\applyContext} est appelée.  Les lignes de code qui suivent auront
-pour effet d'afficher à l'écran, en cours de compilation, le numéro de
-mesure en cours.
+@noindent
+et, dans le cadre d'un code Scheme :
 
 @example
-\applyContext
-  #(lambda (x)
-    (format #t "\nNous en sommes à la mesure ~a.\n"
-     (ly:context-property x 'currentBarNumber)))
+(make-apply-context @var{fonction})
 @end example
+
+@code{@var{fonction}} est constitué d'une fonction Scheme comportant un
+unique argument : le contexte au sein duquel la commande
+@code{\applyContext} est appelée.  Cette fonction peut accéder aussi
+bien aux propriétés de @emph{grob} (y compris modifiées par
+@code{\override} ou @code{\set}) qu'aux propriétés de contexte.  Toute
+action entreprise par la fonction et qui dépendrait de l'état du
+contexte sera limitée à l'état de ce contexte @b{au moment de l'appel à
+la fonction}.  Par ailleurs, les adaptations résultant d'un appel à
+@code{\applyContext} seront effectives jusqu'à ce qu'elles soient à
+nouveau directement modifiées ou bien annulées, quand bien même les
+conditions initiales dont elles dépendent auraient changé.
+
+Voici quelques fonctions Scheme utiles avec @code{\applyContext} :
+
+@table @code
+@item ly:context-property
+recherche la valeur d'une propriété de contexte,
+
+@item ly:context-set-property!
+détermine une propriété de contexte,
+
+@item ly:context-grob-definition
+@itemx ly:assoc-get
+recherche la valeur d'une propriété de @emph{grob},
+
+@item ly:context-pushpop-property
+réalise un @code{\temporary@tie{}\override} ou un @code{\revert} sur une
+propriété de @emph{grob}.
+@end table
+
+L'exemple suivant recherche la valeur en cours de @code{fontSize} puis
+la double :
+
+@lilypond[quote,verbatim]
+doubleFontSize =
+\applyContext
+  #(lambda (context)
+     (let ((fontSize (ly:context-property context 'fontSize)))
+       (ly:context-set-property! context 'fontSize (+ fontSize 6))))
+
+{
+  \set fontSize = -3
+  b'4
+  \doubleFontSize
+  b'
+}
+@end lilypond
+
+L'exemple suivant recherche la couleur des objets @code{NoteHead},
+@code{Stem} et @code{Beam}, puis diminue pour chacun d'eux le degré de
+saturation.
+
+@lilypond[quote,verbatim]
+desaturate =
+\applyContext
+  #(lambda (context)
+     (define (desaturate-grob grob)
+       (let* ((grob-def (ly:context-grob-definition context grob))
+              (color (ly:assoc-get 'color grob-def black))
+              (new-color (map (lambda (x) (min 1 (/ (1+ x) 2))) color)))
+         (ly:context-pushpop-property context grob 'color new-color)))
+     (for-each desaturate-grob '(NoteHead Stem Beam)))
+
+\relative g' {
+  \time 3/4
+  g8[ g] \desaturate g[ g] \desaturate g[ g]
+ \override NoteHead.color = #darkred
+  \override Stem.color = #darkred
+  \override Beam.color = #darkred
+  g[ g] \desaturate g[ g] \desaturate g[ g]
+}
+@end lilypond
+
+Ceci pourrait tout à fait s'implémenter sous la forme d'une fonction
+musicale, afin d'en réduire les effets à un seul bloc de musique.  Notez
+comment @code{ly:context-pushpop-property} est utilisé à la fois pour un
+@code{\temporary@tie{}\override} et pour un @code{\revert} :
+
+@lilypond[quote,verbatim]
+desaturate =
+#(define-music-function
+   (parser location music) (ly:music?)
+   #{
+     \applyContext
+     #(lambda (context)
+        (define (desaturate-grob grob)
+          (let* ((grob-def (ly:context-grob-definition context grob))
+                 (color (ly:assoc-get 'color grob-def black))
+                 (new-color (map (lambda (x) (min 1 (/ (1+ x) 2))) color)))
+            (ly:context-pushpop-property context grob 'color new-color)))
+        (for-each desaturate-grob '(NoteHead Stem Beam)))
+     #music
+     \applyContext
+     #(lambda (context)
+        (define (revert-color grob)
+          (ly:context-pushpop-property context grob 'color))
+        (for-each revert-color '(NoteHead Stem Beam)))
+   #})
+
+\relative g' {
+  \override NoteHead.color = #darkblue
+  \override Stem.color = #darkblue
+  \override Beam.color = #darkblue
+  g8 a b c
+  \desaturate { d c b a }
+  g b d b g2
+}
+@end lilypond
 
 
 @node Application d'une fonction à tous les objets de mise en forme
@@ -1325,8 +1438,8 @@ trouvant sur la ligne médiane ou bien directement à son contact.
 @end lilypond
 
 La @var{procédure} sera interprétée au niveau @code{Score}
-(partition) ou @code{Staff} dès lors que vous utiliserez l'une des
-syntaxes
+(partition) ou @code{Staff} (portée) dès lors que vous utiliserez l'une
+des syntaxes
 
 @example
 \applyOutput #'Score #@var{procédure}
@@ -1393,26 +1506,25 @@ valeur usuelle de la propriété :
 
 Dans le cas où la routine doit faire appel à plusieurs arguments, le
 @emph{grob} en cours peut s'insérer à l'aide d'un @emph{grob} enchâssé.
-Voici, à titre d'illustration, un réglage pour
-@code{AccidentalSuggestion} :
+Voici, à titre d'illustration, un réglage pour @code{RehearsalMark} :
 
 @example
 `(X-offset .
-  ,(ly:make-simple-closure
-    `(,+
+   ,(ly:make-simple-closure
+     `(,+
         ,(ly:make-simple-closure
-           (list ly:self-alignment-interface::centered-on-x-parent))
-      ,(ly:make-simple-closure
-           (list ly:self-alignment-interface::x-aligned-on-self)))))
+          (list ly:break-alignable-interface::self-align-callback))
+        ,(ly:make-simple-closure
+          (list ly:self-alignment-interface::x-aligned-on-self)))))
 @end example
 
 @noindent
-Ici, aussi bien @code{ly:self-alignment-interface::x-aligned-on-self}
-que @code{ly:self-alignment-interface::centered-on-x-parent} font appel
+Ici, aussi bien @code{ly:break-alignable-interface::self-align-callback}
+que @code{ly:self-alignment-interface::x-aligned-on-self} font appel
 à l'argument @emph{grob}.  La fonction @code{+} a pour effet
 d'additionner les résultats.  L'ensemble est inclus dans un
 @code{ly:make-simple-closure} de telle sorte que l'addition s'exécute de
-façon correcte
+façon correcte.
 
 Dans les faits, l'utilisation d'une unique procédure en tant que valeur
 d'une propriété revient à écrire
