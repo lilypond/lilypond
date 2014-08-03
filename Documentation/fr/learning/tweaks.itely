@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ab336761427b7214e133ff06b3592afa75eda1cf
+    Translation of GIT committish: 793b6a5963a279100616dec6d6613dd10541ac39
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -490,23 +490,23 @@ Cette forme développée de la commande @code{\tweak} correspond à :
 \tweak @var{objet-de-rendu}.@var{propriété-de-rendu} @var{valeur}
 @end example
 
-@cindex nolets imbriqués
+@cindex n-olets imbriqués
 @cindex triolets imbriqués
-@cindex crochet de nolet
-@cindex nolet, crochet
+@cindex crochet de n-olet
+@cindex n-olet, crochet
 @cindex triolet, crochet
 
 @funindex TupletBracket
 
-Quand plusieurs nolets sont imbriqués et commencent au même instant
+Quand plusieurs n-olets sont imbriqués et commencent au même instant
 musical, c'est encore la commande @code{\tweak} qui est utilisée pour
 changer l'apparence de l'un d'entre eux.  Dans l'exemple suivant, le
-long crochet de nolet et le premier des trois crochets courts commencent
+long crochet de n-olet et le premier des trois crochets courts commencent
 au même instant musical ; une commande @code{\override} s'appliquerait
 donc à la fois aux deux.  En revanche, @code{\tweak} permet de les
 dissocier.  La première commande @code{\tweak} indique que le long
 crochet doit être placé au-dessus des notes, et la seconde indique que
-le coefficient de nolet doit être imprimé en rouge sur le premier
+le coefficient de n-olet doit être imprimé en rouge sur le premier
 crochet de triolet court.
 
 @cindex @code{\tweak}, exemple
@@ -523,7 +523,7 @@ crochet de triolet court.
 }
 @end lilypond
 
-Si les nolets imbriqués ne commencent pas au même moment,
+Si les n-olets imbriqués ne commencent pas au même moment,
 leur apparence peut alors être modifiée de la façon habituelle,
 avec la commande @code{\override} :
 
@@ -1977,7 +1977,7 @@ signification est précisée.
 @item @code{\tupletDown}
   @tab @code{\tupletUp}
   @tab @code{\tupletNeutral}
-  @tab Les nolets sont au-dessous/au-dessus des notes
+  @tab Les n-olets sont au-dessous/au-dessus des notes
 @end multitable
 
 Les variantes @code{\xxxNeutral} et @code{\xxxNormal} de ces
@@ -2782,7 +2782,7 @@ changée grâce aux commandes prédéfinies dont la liste a été donnée
 plus haut à propos des objets de portée (voir
 @ref{Objets inclus dans la portée}).
 Les queues de note, les liaisons de phrasé et de prolongation, les
-crochets, les nuances et les nolets peuvent facilement être
+crochets, les nuances et les n-olets peuvent facilement être
 repositionnés de cette manière.  En contrepartie, vous n'avez le choix
 qu'entre deux positions, sans personnalisation possible.
 
@@ -3004,7 +3004,7 @@ perturber quoi que ce soit.
 @cindex positions, propriété
 
 Cette propriété est très utile pour ajuster manuellement l'inclinaison
-et la hauteur des barres de ligature, des liaisons et des nolets.  Elle
+et la hauteur des barres de ligature, des liaisons et des n-olets.  Elle
 est suivie de deux nombres qui donnent la position des extrémités gauche
 et droite des barres, liaisons, etc. par rapport à la ligne médiane de
 la portée.  L'unité de référence est l'intervalle de lignes de portée.
@@ -3034,7 +3034,7 @@ trouver les propriétés à retoucher pour obtenir un déplacement.
 @item Doigté                          @tab @code{Fingering}
 @item Liaisons de phrasé              @tab @code{Slur}
 @item Liaisons de prolongation        @tab @code{Tie}
-@item Nolets                          @tab @code{TupletBracket}
+@item N-olets                         @tab @code{TupletBracket}
 @item Nuances (verticalement)         @tab @code{DynamicLineSpanner}
 @item Nuances (horizontalement)       @tab @code{DynamicText}
 @item Reprises / marques de texte     @tab @code{RehearsalMark}
@@ -3274,15 +3274,15 @@ f4-5
 @unnumberedsubsubsec La propriété @code{positions}
 @translationof The positions property
 
-@cindex contrôle des nolets, liaisons, phrasés et ligatures
-@cindex gestion manuelle des nolets, liaisons, phrasés et ligatures
-@cindex ligatures de nolet, gestion manuelle
+@cindex contrôle des n-olets, liaisons, phrasés et ligatures
+@cindex gestion manuelle des n-olets, liaisons, phrasés et ligatures
+@cindex ligatures de n-olet, gestion manuelle
 @cindex liaisons, gestion manuelle
 @cindex phrasés, gestion manuelle
 @cindex ligatures, gestion manuelle
 
 La propriété @code{positions} permet de contrôler manuellement la
-position et l'inclinaison des nolets, coulés, liaisons de phrasé et
+position et l'inclinaison des n-olets, coulés, liaisons de phrasé et
 barres de ligature.
 
 Voici un exemple où la liaison de phrasé recouvre la liaison

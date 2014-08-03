@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: ab336761427b7214e133ff06b3592afa75eda1cf
+   Translation of GIT committish: 793b6a5963a279100616dec6d6613dd10541ac39
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -600,7 +600,7 @@ Manuel de notation :
 
 @menu
 * Mesure incomplète::
-* Nolet::
+* N-olet::
 * Note d'ornement::
 @end menu
 
@@ -628,11 +628,11 @@ c2 d |
 @end lilypond
 
 
-@node Nolet
-@unnumberedsubsubsec Nolet
+@node N-olet
+@unnumberedsubsubsec N-olet
 @translationof Tuplets
 
-@cindex nolets
+@cindex n-olets
 @cindex triolets
 
 @funindex \tuplet
@@ -641,9 +641,9 @@ c2 d |
 Glossaire musicologique : @rglosnamed{note value,valeur d'une note},
 @rglosnamed{triplet,triolet}.
 
-Les @notation{nolets} sont créés avec la commande @code{\tuplet}, qui
+Les @notation{n-olets} sont créés avec la commande @code{\tuplet}, qui
 prend deux arguments : une fraction et une expression musicale. La
-fraction représente le nombre de notes du nolet à inscrire dans la durée
+fraction représente le nombre de notes du n-olet à inscrire dans la durée
 normalement attribuée à un certain nombre de notes de même valeur. Dans
 le cas de triolets, par exemple, trois notes recouvrent la même durée
 que deux ; un @notation{triolet} portera donc une fraction de 3/2.
@@ -690,7 +690,7 @@ c2 \acciaccatura b16 c2 |
 @seealso
 Manuel de notation :
 @ruser{Notes d'ornement},
-@ruser{Nolets},
+@ruser{N-olets},
 @ruser{Levées}.
 
 
