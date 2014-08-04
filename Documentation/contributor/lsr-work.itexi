@@ -394,23 +394,8 @@ convert-ly -e -t2.14.2 *.ly
 
 @item
 There might be no conversion rule for some old commands. To make
-an initial check for possible problems you can run the following
-script on a copy of the @file{all} subdirectory:
-
-@example
-#!/bin/bash
-
-for LILYFILE in *.ly
-do
-  STEM=$(basename "$LILYFILE" .ly)
-  echo "running $LILYFILE..."
-  convert-ly -e -t<version> "$LILYFILE" >& "$STEM".txt
-done
-
-grep refer *.txt
-grep smart *.txt
-TODO: better script
-@end example
+an initial check for possible problems you can run the
+script at the end of this list on a copy of the @file{all} subdirectory.
 
 @item
 Copy relevant snippets (i.e. snippets whose version is equal to
@@ -475,29 +460,54 @@ step by step.
 @end enumerate
 
 
-Below is a shell script to run all @file{.ly} files in a directory
-and redirect terminal output to text files, which are then
-searched for the word "failed" to see which snippets do not compile.
+Below is a shell script to run LilyPond on all @file{.ly} files in a directory.
+If the script is run with a -s parameter, it runs silently except for reporting
+failed files.  If run with -c it also runs @code{convert-ly} prior to running
+LilyPond.
 
 @smallexample
 #!/bin/bash
 
-for LILYFILE in *.ly
-do
-  STEM=$(basename "$LILYFILE" .ly)
-  echo "running $LILYFILE..."
-  lilypond --format=png -ddelete-intermediate-files "$LILYFILE" >& "$STEM".txt
+while getopts sc opt; do
+    case $opt in
+        s)
+            silent=true
+            ;;
+        c)
+            convert=true
+            ;;
+    esac
 done
+param=$@
+if [ $silent ]; then
+    param=$@{param:3@}
+fi
+if [ $convert ]; then
+    param=$@{param:3@}
+fi
+filter=$@{param:-"*.ly"@}
 
-grep failed *.txt
-TODO: better script
+for LILYFILE in $filter
+do
+    STEM=$(basename "$LILYFILE" .ly)
+    if [ $convert ]; then
+        if [ $silent ]; then
+            $LILYPOND_BUILD_DIR/out/bin/convert-ly -e "$LILYFILE" >& "$STEM".con.txt
+        else
+            $LILYPOND_BUILD_DIR/out/bin/convert-ly -e "$LILYFILE"
+        fi
+    fi
+    if [ ! $silent ]; then
+        echo "running $LILYFILE..."
+    fi
+    $LILYPOND_BUILD_DIR/out/bin/lilypond --format=png "$LILYFILE" >& "$STEM".txt
+    RetVal=$?
+    if [ $RetVal -gt 0 ]; then
+       echo "$LILYFILE failed"
+    fi
+done
 @end smallexample
 
-Sometimes @code{grep failed *.txt} will not discover all
-problematic files. In addition you may want to use:
+Output from LilyPond is in @file{filename.txt} and convert-ly in
+@file{filename.con.txt}.
 
-@example
-grep ERROR *.txt
-grep error *.txt
-grep warning *.txt
-@end example
