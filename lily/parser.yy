@@ -1404,8 +1404,31 @@ context_mod_list:
         }
         ;
 
+context_prefix:
+	CONTEXT symbol optional_id optional_context_mod {
+                Context_mod *ctxmod = Context_mod::unsmob ($4);
+                SCM mods = SCM_EOL;
+                if (ctxmod)
+                        mods = ctxmod->get_mods ();
+		$$ = START_MAKE_SYNTAX ("context-specification", $2, $3, mods, SCM_BOOL_F);
+	}
+	| NEWCONTEXT symbol optional_id optional_context_mod {
+                Context_mod *ctxmod = Context_mod::unsmob ($4);
+                SCM mods = SCM_EOL;
+                if (ctxmod)
+                        mods = ctxmod->get_mods ();
+		$$ = START_MAKE_SYNTAX ("context-specification", $2, $3, mods, SCM_BOOL_T);
+	}
+	;
+
 composite_music:
-	complex_music
+	music_function_call
+	| repeated_music		{ $$ = $1; }
+	| re_rhythmed_music	{ $$ = $1; }
+	| context_prefix music
+	{
+		$$ = FINISH_MAKE_SYNTAX ($1, @$, $2);
+	}
 	| music_bare
 	;
 
@@ -2136,33 +2159,6 @@ lyric_mode_music:
 		$$ = $2;
 	}
 	| MUSIC_IDENTIFIER
-	;
-
-complex_music:
-	music_function_call
-	| repeated_music		{ $$ = $1; }
-	| re_rhythmed_music	{ $$ = $1; }
-	| complex_music_prefix music
-	{
-		$$ = FINISH_MAKE_SYNTAX ($1, @$, $2);
-	}
-	;
-
-complex_music_prefix:
-	CONTEXT symbol optional_id optional_context_mod {
-                Context_mod *ctxmod = Context_mod::unsmob ($4);
-                SCM mods = SCM_EOL;
-                if (ctxmod)
-                        mods = ctxmod->get_mods ();
-		$$ = START_MAKE_SYNTAX ("context-specification", $2, $3, mods, SCM_BOOL_F);
-	}
-	| NEWCONTEXT symbol optional_id optional_context_mod {
-                Context_mod *ctxmod = Context_mod::unsmob ($4);
-                SCM mods = SCM_EOL;
-                if (ctxmod)
-                        mods = ctxmod->get_mods ();
-		$$ = START_MAKE_SYNTAX ("context-specification", $2, $3, mods, SCM_BOOL_T);
-	}
 	;
 
 mode_changed_music:
