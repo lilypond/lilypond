@@ -1421,13 +1421,27 @@ context_prefix:
 	}
 	;
 
+new_lyrics:
+	ADDLYRICS lyric_mode_music {
+		$$ = scm_list_1 ($2);
+	}
+	| new_lyrics ADDLYRICS lyric_mode_music {
+		$$ = scm_cons ($3, $1);
+	}
+	;
+
 composite_music:
 	music_function_call
 	| repeated_music		{ $$ = $1; }
-	| re_rhythmed_music	{ $$ = $1; }
 	| context_prefix music
 	{
 		$$ = FINISH_MAKE_SYNTAX ($1, @$, $2);
+	}
+	| composite_music new_lyrics {
+		$$ = MAKE_SYNTAX ("add-lyrics", @$, $1, scm_reverse_x ($2, SCM_EOL));
+	} %prec COMPOSITE
+	| LYRICSTO simple_string lyric_mode_music {
+		$$ = MAKE_SYNTAX ("lyric-combine", @$, $2, $3);
 	}
 	| music_bare
 	;
@@ -2242,24 +2256,6 @@ mode_changing_head_with_context:
 	| LYRICS
 		{ parser->lexer_->push_lyric_state ();
 		$$ = ly_symbol2scm ("Lyrics");
-	}
-	;
-
-new_lyrics:
-	ADDLYRICS lyric_mode_music {
-		$$ = scm_list_1 ($2);
-	}
-	| new_lyrics ADDLYRICS lyric_mode_music {
-		$$ = scm_cons ($3, $1);
-	}
-	;
-
-re_rhythmed_music:
-	composite_music new_lyrics {
-		$$ = MAKE_SYNTAX ("add-lyrics", @$, $1, scm_reverse_x ($2, SCM_EOL));
-	} %prec COMPOSITE
-	| LYRICSTO simple_string lyric_mode_music {
-		$$ = MAKE_SYNTAX ("lyric-combine", @$, $2, $3);
 	}
 	;
 
