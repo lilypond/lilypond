@@ -1493,9 +1493,9 @@ how to modify them.
 @menu
 * Manual page breaking::
 * Optimal page breaking::
-* Optimal page turning::
 * Minimal page breaking::
 * One-line page breaking::
+* Optimal page turning::
 @end menu
 
 
