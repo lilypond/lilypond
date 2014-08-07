@@ -1,9 +1,9 @@
-%% Translation of GIT committish: 77fbc43a8e9b5e0a9b897c8278eaeac02d62d3dc
+%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
   texidocfr = "
 Lorsque LilyPond génère un fichier MIDI, chaque portée sera par défaut
 affectée à un canal, quel que soit le nombre de voix qu'elle contient.
 Ceci permet d'éviter de se retrouver à court de canaux, sachant qu'il
-n'y en a que seize de disponibles.
+n'y en a que seize de disponibles par piste.
 
 Le fait de déplacer le @code{Staff_performer} dans le contexte
 @code{Voice} permet d'affecter à chaque voix d'une même portée un canal

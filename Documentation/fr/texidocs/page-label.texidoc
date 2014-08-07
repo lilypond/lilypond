@@ -1,7 +1,8 @@
-%% Translation of GIT committish: 64d521c30b929ac9be37823df577b8f02c8cf0ee
+%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
   texidocfr = "
 Des références de page peuvent prendre place aussi bien dans la
-musique qu'en tête de partition, puis reprises dans un @emph{markup}.
+musique qu'en tête de partition, puis être reprises dans un
+@emph{markup}.
 
 "
   doctitlefr = "Référencement de page"

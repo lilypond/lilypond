@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 64d521c30b929ac9be37823df577b8f02c8cf0ee
+%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
   texidocfr = "
 Ce canevas illustre la manière d'agencer une œuvre vocale où le couplet
 est chanté en solo et le refrain à deux voix.  Vous noterez le recours
 aux silences invisibles dans la variable @code{\\global} ; ils
 permettent de positionner les changements de métrique et autres éléments
-communs à toutes les parties, ce pour l'intégralité du morceau. 
+communs à toutes les parties, ce pour l'intégralité du morceau.
 
 "
   doctitlefr = "Ensemble vocal avec couplet et refrain"

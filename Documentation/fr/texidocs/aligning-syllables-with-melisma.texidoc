@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 77fbc43a8e9b5e0a9b897c8278eaeac02d62d3dc
+%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
   texidocfr = "
-Par défaut, une syllabe qui entame un mélisme est aligne sur la note par
-la gauche. Cet alignement peut se modifier à l'aide de la propriété
+Par défaut, une syllabe qui entame un mélisme est alignée sur la note
+par la gauche. Cet alignement peut se modifier à l'aide de la propriété
 @code{lyricMelismaAlignment}.
 
 "

@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 4d1502a7f3c7929e30da8f35a1d177b19eb34f89
+%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
   texidocfr = "
 La propriété @code{systemStartDelimiterHierarchy} permet de créer des
 regroupements imbriqués complexes.  La commande
-@code{\\set@tie{}StaffGroup.systemStartDelimiterHierarchy} prend en
+@w{@code{\\set StaffGroup.systemStartDelimiterHierarchy}} prend en
 argument la liste alphabétique des sous-groupes à hiérarchiser.  Chaque
 sous-groupe peut être affublé d'un délimiteur particulier.  Chacun des
 regroupements intermédiaires doit être borné par des parenthèses.  Bien
@@ -13,4 +13,3 @@ délimiteurs @code{SystemStartBar}, @code{SystemStartBracket},
 
 "
   doctitlefr = "Imbrications de regroupements de portées"
-

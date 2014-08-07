@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 64d521c30b929ac9be37823df577b8f02c8cf0ee
+%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
   texidocfr = "
 Les types d'événement pris en charge pour la citation sont déterminés par
 la propriété @code{quotedEventTypes}.  Par défaut, sa valeur est fixée à
 @code{(note-event rest-event tie-event beam-event tuplet-span-event)},
 ce qui signifie que seuls les notes, silences, liaisons, ligatures et
-nolets seront mentionnés par @code{\\quoteDuring}.  Dans l'exemple
+n-olets seront mentionnés par @code{\\quoteDuring}.  Dans l'exemple
 suivant, le quart de soupir n'est pas reproduit puisqu'il n'est pas
 mentionné parmi les @code{quotedEventTypes}.
 

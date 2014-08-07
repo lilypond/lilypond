@@ -1,10 +1,10 @@
-%% Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
+%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
   texidocfr = "
-L'apparence du chiffre est déterminée par la propriété @code{text} dans
-@code{TupletNumber}.  La valeur par défaut imprime seulement le
-numérateur, mais si elle est définie par la fonction
-@code{tuplet-number::calc-fraction-text}, la fraction entière
-@var{num}:@var{den} sera imprimée à la place.
+LilyPond imprime par défaut le numérateur de la fraction fournie en
+argument à la commande @code{\tuplet} du côté du crochet de n-olet.
+
+Il est toutefois possible d'imprimer la fraction entière
+@var{num}:@var{den}, voire de ne rien imprimer du tout.
 
 "
-  doctitlefr = "Modifier l'apparence du chiffre de nolet"
+  doctitlefr = "Modifier l'apparence du chiffre de n-olet"

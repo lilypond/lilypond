@@ -1,11 +1,11 @@
-%% Translation of GIT committish: 4d1502a7f3c7929e30da8f35a1d177b19eb34f89
+%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
   texidocfr = "
 Un @emph{slap}, aussi appelé @emph{pizzicato à la Bartók}, est un
 pizzicato où, au lieu de tirer la corde de côté comme à l'accoutumée,
 « on la pince en la soulevant plus fortement, et à la verticale, en la
-lâchant violemment. Celle-ci frappe alors la touche, et produit à la fois la
-note et le son percussif » (Wikipedia).  Il s'indique par un cercle
-flanqué d'un trait vertical.
+lâchant violemment.  Celle-ci frappe alors la touche, et produit à la
+fois la note et le son percussif » (Wikipedia).  Il s'indique par un
+cercle flanqué d'un trait vertical.
 
 "
   doctitlefr = "Slap ou pizzicato Bartok"

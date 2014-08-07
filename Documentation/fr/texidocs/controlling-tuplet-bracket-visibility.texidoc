@@ -1,12 +1,12 @@
-%% Translation of GIT committish: 64d521c30b929ac9be37823df577b8f02c8cf0ee
+%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
   texidocfr = "
-Selon la tradition, les crochets indicateurs de nolet sont toujours
+Selon la tradition, les crochets indicateurs de n-olet sont toujours
 imprimés, sauf dans le cas où ils seraient de la même longueur qu'une
 ligature.  LilyPond permet, au travers de la propriété
 @code{bracket-visibility}, de contôler précisément leur
 affichage : déterminée à @code{#t}, ils seront toujours imprimés ;
-@code{#f} permet de ne jamais les imprimer, et 
+@code{#f} permet de ne jamais les imprimer, et
 @code{#'if-no-beam} les imprimera en l'absence de ligature.
 
 "
-  doctitlefr = "Contrôle de l'impression des crochets de nolet"
+  doctitlefr = "Contrôle de l'impression des crochets de n-olet"

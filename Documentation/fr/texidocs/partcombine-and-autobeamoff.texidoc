@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 4d1502a7f3c7929e30da8f35a1d177b19eb34f89
+%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
   texidocfr = "
-La fonction @code{\\autoBeamOff} dans le cadre d'un
-@code{\\partcombine} agit de façon bien particulière ; c'est pourquoi il
-vaut mieux tout d'abord recourir à
+La fonction @code{\\autoBeamOff} dans le cadre d'un @code{\\partcombine}
+agit de façon bien particulière ; c'est pourquoi il vaut mieux tout
+d'abord recourir à
 
 @example
 \set Staff.autobeaming = ##f
@@ -28,4 +28,3 @@ opérationnel dans le cadre d'un @code{\\partcombine}, l'introduire aux
 
 "
   doctitlefr = "Partcombine et autoBeamOff"
-

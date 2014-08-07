@@ -1,10 +1,11 @@
-%% Translation of GIT committish: 4d1502a7f3c7929e30da8f35a1d177b19eb34f89
+%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
   texidocfr = "
 L'exemple ci-dessous illustre l'utilisation du @code{Span_stem_engraver}
 et de la commande @code{\\crossStaff} afin de connecter des hampes entre
-les portées.  Nul n'est besoin de spécifier la taille des hampes ; le
-graveur calcule automatiquement la distance relative des têtes de note
-avec les portées.
+les portées.
+
+Nul n'est besoin de spécifier la taille des hampes ; le graveur calcule
+automatiquement la distance relative des têtes de note avec les portées.
 
 "
-  doctitlefr = "Cross staff stems"
+  doctitlefr = "Hampes interportées"

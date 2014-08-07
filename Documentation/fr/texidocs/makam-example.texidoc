@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 77fbc43a8e9b5e0a9b897c8278eaeac02d62d3dc
+%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
   texidocfr = "
 Le « makam » est une forme de mélodie turque qui utilise des altérations
 d'un neuvième de ton.  Consultez le fichier d'initialisation
@@ -7,4 +7,4 @@ utilisées (voir le chapitre 4.6.3 - Autres sources d'information du
 manuel d'initiation pour le localiser).
 
 "
-  doctitlefr = "Exemple de musique « Makam »"
+  doctitlefr = "Exemple de musique « Makam »"

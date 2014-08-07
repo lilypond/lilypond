@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 64d521c30b929ac9be37823df577b8f02c8cf0ee
+%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
   texidocfr = "
 Cet exemple peu académique démontre comment il est possible d'insérer un
-saut de ligne dans un nolet portant une ligature.  Ces ligatures doivent
+saut de ligne dans un n-olet portant une ligature.  Ces ligatures doivent
 toutefois être explicites.
 
 "
-  doctitlefr = "Saut de ligne au milieu d'un nolet avec ligature"
+  doctitlefr = "Saut de ligne au milieu d'un n-olet avec ligature"

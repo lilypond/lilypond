@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 4d1502a7f3c7929e30da8f35a1d177b19eb34f89
+%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
   texidocfr = "
 Lorsque le nombre d'instruments cités dans la réduction pour piano se
 multiplie, vous pourriez avoir intérêt à créer votre propre fonction
@@ -14,4 +14,3 @@ effectuer plusieurs citations, elle ne peuvent être simultanées.
 
 "
  doctitlefr = "Indication de l'instrument cité dans l'accompagnement d'une partition pour chœur"
-

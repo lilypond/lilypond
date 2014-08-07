@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 4d1502a7f3c7929e30da8f35a1d177b19eb34f89
+%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
   texidocfr = "
 @code{shiftDurations} permet de modifier la longueur des notes d'un
-morceau.  Cette instruction prend deux arguments@tie{}: un coefficient
+morceau.  Cette instruction prend deux arguments : un coefficient
 d'échelonnement (une puissance de deux) et un nombre de points
 d'augmentation (entier positif).
 

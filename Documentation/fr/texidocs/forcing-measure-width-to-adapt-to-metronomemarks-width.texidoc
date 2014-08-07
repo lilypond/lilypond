@@ -1,11 +1,8 @@
-%% Translation of GIT committish: 64d521c30b929ac9be37823df577b8f02c8cf0ee
+%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
   texidocfr = "
 Par défaut, les indications métronomiques n'influencent en rien
-l'espacement horizontal.  Dans le cas où elles se suivent sur des silences
-multimesures, elle peuvent se retrouver trop proche l'une de l'autre, et
-donc paraître quelque peu imbriquées comme dans la première partie de
-l'exemple ci-dessous.  La solution consiste alors à appliquer une simple
-dérogation comme dans la deuxième partie.
+l'espacement horizontal.  Une simple dérogation, comme dans la deuxième
+partie de cet exemple, fournit la solution.
 
 "
   doctitlefr = "Adaptation de la largeur de mesure selon le MetronomeMark"

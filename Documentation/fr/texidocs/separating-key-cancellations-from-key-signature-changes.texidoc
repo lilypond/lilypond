@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 64d521c30b929ac9be37823df577b8f02c8cf0ee
+%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
   texidocfr = "
 Les altérations supprimées lors d'un changement de tonalité sont par
 défaut accolées à la nouvelle armure.  Ce comportement peut s'adapter
@@ -7,9 +7,9 @@ grâce à la propriété @code{break-align-orders} de l'objet
 
 La valeur de @code{break-align-orders} est constituée d'un vecteur à
 trois composantes listant l'ordre des éléments à l'occasion d'une
-rupture.  Seule la deuxième liste est ici modifiée,
-@code{key-cancellation} étant déplacé avant @code{staff-bar}.  En ne
-modifiant que la deuxième liste, cette modification dans l'ordre
+rupture. Seule la deuxième liste est ici modifiée,
+@code{key-cancellation} étant déplacé avant @code{staff-bar}.
+En ne modifiant que la deuxième liste, cette modification dans l'ordre
 d'apparition des éléments sera effective seulement en cours de système,
 et non en début ou fin de ligne.
 

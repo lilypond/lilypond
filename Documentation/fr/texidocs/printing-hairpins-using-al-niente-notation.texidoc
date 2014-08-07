@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 64d521c30b929ac9be37823df577b8f02c8cf0ee
+%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
   texidocfr = "
 Des crescendos ou decrescendos @emph{al niente} peuvent être indiqués de
 manière graphique, en assignant @emph{vrai} (@code{#t}) à la
 propriété @code{circled-tip}, ce qui affiche un cercle à leur extrémité.
 
 "
-  doctitlefr = "Impression de soufflets « al niente »"
+  doctitlefr = "Impression de soufflets « al niente »"

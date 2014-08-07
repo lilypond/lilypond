@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 4d1502a7f3c7929e30da8f35a1d177b19eb34f89
+%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
   texidocfr = "
 La propriété @code{tupletSpannerDuration} spécifie la longueur voulue de
-chaque crochet.  Avec elle, vous pouvez faire plusieurs nolets en ne
+chaque crochet.  Avec elle, vous pouvez faire plusieurs n-olets en ne
 tapant @code{\\tuplet} qu'une fois, ce qui évite une longue saisie.
 
 Il existe différents moyens de définir @code{tupletSpannerDuration}.
