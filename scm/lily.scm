@@ -750,7 +750,7 @@ messages into errors.")
 (define (dump-profile base last this)
   (let* ((outname (format #f "~a.profile" (dir-basename base ".ly")))
          (diff (map - this last)))
-    (ly:progress "\nWriting timing to ~a..." outname)
+    (ly:progress "\nWriting timing to ~a...\n" outname)
     (format (open-file outname "w")
             "time: ~a\ncells: ~a\n"
             (if (ly:get-option 'dump-cpu-profile)
