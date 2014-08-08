@@ -49,6 +49,17 @@ general_pushpop_property (Context *context,
                                    grob_property_path, new_value);
 }
 
+bool
+typecheck_grob (SCM symbol, SCM value)
+{
+  if (is_unpure_pure_container (value))
+    return typecheck_grob (symbol, unpure_pure_container_unpure_part (value))
+      && typecheck_grob (symbol, unpure_pure_container_pure_part (value));
+  return ly_is_procedure (value)
+    || is_simple_closure (value)
+    || type_check_assignment (symbol, value, ly_symbol2scm ("backend-type?"));
+}
+
 /*
   Grob descriptions (ie. alists with layout properties) are
   represented as a (ALIST . BASED-ON) pair, where BASED-ON is the
@@ -106,24 +117,13 @@ execute_override_property (Context *context,
   */
   target_alist = scm_acons (symbol, new_value, target_alist);
 
-  bool ok = true;
-  bool pc = is_unpure_pure_container (new_value);
-  SCM vals[] = {pc ? unpure_pure_container_unpure_part (new_value) : new_value,
-                pc ? unpure_pure_container_pure_part (new_value) : SCM_BOOL_F
-               };
-
-  for (int i = 0; i < 2; i++)
-    if (!ly_is_procedure (vals[i])
-        && !is_simple_closure (vals[i]))
-      ok = ok && type_check_assignment (symbol, vals[i],
-                                        ly_symbol2scm ("backend-type?"));
 
   /*
     tack onto alist.  We can use set_car, since
     updated_grob_properties () in child contexts will check
     for changes in the car.
   */
-  if (ok)
+  if (typecheck_grob (symbol, new_value))
     {
       scm_set_car_x (current_context_val, target_alist);
     }
