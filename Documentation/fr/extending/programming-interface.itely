@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 05cabe332d6518b63b5f4854d144448e1a680146
+    Translation of GIT committish: e3c6bd65c8db492728d2f1f3a791bcf6bde056e4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1503,40 +1503,6 @@ valeur usuelle de la propriété :
   c4. d8 a4. g8
 @}
 @end example
-
-Dans le cas où la routine doit faire appel à plusieurs arguments, le
-@emph{grob} en cours peut s'insérer à l'aide d'un @emph{grob} enchâssé.
-Voici, à titre d'illustration, un réglage pour @code{RehearsalMark} :
-
-@example
-`(X-offset .
-   ,(ly:make-simple-closure
-     `(,+
-        ,(ly:make-simple-closure
-          (list ly:break-alignable-interface::self-align-callback))
-        ,(ly:make-simple-closure
-          (list ly:self-alignment-interface::x-aligned-on-self)))))
-@end example
-
-@noindent
-Ici, aussi bien @code{ly:break-alignable-interface::self-align-callback}
-que @code{ly:self-alignment-interface::x-aligned-on-self} font appel
-à l'argument @emph{grob}.  La fonction @code{+} a pour effet
-d'additionner les résultats.  L'ensemble est inclus dans un
-@code{ly:make-simple-closure} de telle sorte que l'addition s'exécute de
-façon correcte.
-
-Dans les faits, l'utilisation d'une unique procédure en tant que valeur
-d'une propriété revient à écrire
-
-@example
-(ly:make-simple-closure (ly:make-simple-closure (list @var{proc})))
-@end example
-
-@noindent
-Le @code{ly:make-simple-closure} intérieur fournit le @emph{grob} en
-argument à la procédure @var{proc}, l'extérieur s'assure que le résultat
-de la fonction sera bien renvoyé, non pas l'objet @code{simple-closure}.
 
 Au sein d'un @emph{callback}, le meilleur moyen d'évaluer un
 @emph{markup} consiste à utiliser la fonction

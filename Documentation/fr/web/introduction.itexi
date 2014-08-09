@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: febe2e4ff91dda9227e85274ae045e23c6b4ec28
+    Translation of GIT committish: e3c6bd65c8db492728d2f1f3a791bcf6bde056e4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1299,44 +1299,6 @@ C'est le cas, en particulier, pour :
 @end ignore
 
 @divClass{column-center-top}
-@subheading Tunefl
-
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
-
-@uref{http://www.tunefl.com}
-
-tunefl vous permet de saisir en ligne vos partitions sans avoir
-préalablement installé LilyPond sur votre oridnateur.  Vous pouvez ainsi
-tester toutes les fonctionnalités du programme dans une interface web.
-
-@divEnd
-
-@divClass{column-center-top}
-@subheading LilyPondTool
-
-@imageClickable{lilypondtool-2.12-screenshot-400wide,png,
-  (cliquez pour agrandir),lilypondtool-2.12-screenshot,png,right}
-
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
-
-@uref{http://lilypondtool.organum.hu}
-
-Greffon de l'éditeur de texte @uref{http://www.jedit.org, jEdit},
-LilyPondTool est l'un des outils d'édition en mode texte le plus riche
-pour éditer des partitions LilyPond.  Ses fonctionnalités comprennent un
-assistant de création de partition avec prise en charge des paroles,
-pour commencer plus facilement à saisir des partitions, et une
-visonneuse de PDF intégrée avec un excellent pointer-cliquer.
-
-@divEnd
-
-@divClass{column-center-top}
 @subheading Frescobaldi
 
 @imageClickable{frescobaldi-lilypond-editor-small,png,
@@ -1348,10 +1310,12 @@ visonneuse de PDF intégrée avec un excellent pointer-cliquer.
 
 @uref{http://www.frescobaldi.org}
 
-Frescobaldi est un éditeur de texte dédié à LilyPond, avec visionneuse
-PDF intégrée, un assistant de création de partition et beaucoup de
-fonctionnalités d'édition.  Il fonctionne actuellement sur la plupart
-des systèmes d'exploitation (GNU/Linux, MacOS X et Windows).
+Frescobaldi est un éditeur de texte léger et puissant dédié à LilyPond.
+Il dispose d'une visionneuse PDF, d'un assistant de création de
+partition et beaucoup de fonctionnalités d'édition -- pointer-cliquer,
+coloration syntaxique et auto-comlplétion.  Frescobaldi est écrit en
+Python et PyQt4 ; il fonctionne actuellement sur la plupart des systèmes
+d'exploitation (GNU/Linux, MacOS X et Windows).
 
 @divEnd
 
@@ -1362,6 +1326,7 @@ des systèmes d'exploitation (GNU/Linux, MacOS X et Windows).
   (cliquez pour agrandir),screenshot-denemo,png,right}
 
 @sourceimage{logo-linux,,,}
+@sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
 @uref{http://denemo.org}
@@ -1381,7 +1346,24 @@ la vue graphique et toute erreur de syntaxe dans votre code sera mise en
 
 
 @divClass{column-center-top}
-@subheading Éditeurs de texte
+@subheading Tunefl
+
+@c do we need logos for web-based packages?
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+
+@uref{http://www.tunefl.com}
+
+tunefl vous permet de saisir en ligne vos mini-partitions sans avoir
+préalablement installé LilyPond sur votre oridnateur.  Vous pouvez ainsi
+tester toutes les fonctionnalités du programme dans une interface web.
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Elysium
 
 @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}
@@ -1394,6 +1376,17 @@ Elysium est un environnement de développement intégré pour Eclipse, qui
 dispose d'une vue en parallèle de la source et de la partition.  Il
 propose un rendu visuel et auditif sans changer de contexte et dispose
 de nombreux canevas.
+
+@divEnd
+
+
+@divClass{column-center-top}
+@subheading Éditeurs de texte
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
 
 @uref{http://www.gnu.org/software/emacs/}
 
@@ -1532,6 +1525,10 @@ est un système de composition musicale basé sur le projet
 @c VO Other programs not being actively developed
 
 @itemize
+
+@item
+@uref{https://sourceforge.net/projects/lily4jedit,LilyPondTool} a été
+créé en tant que greffon de l'éditeur @uref{http://www.jedit.org,jEdit}.
 
 @item
 @uref{http://lilykde.googlecode.com/,LilyKDE} a été remplacé par

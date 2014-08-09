@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ece268fa66e2576c01f33a4a6e1806f44c9f8fa8
+    Translation of GIT committish: e3c6bd65c8db492728d2f1f3a791bcf6bde056e4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1614,9 +1614,9 @@ page, ainsi que les moyens de les modifier.
 @menu
 * Saut de page manuel::
 * Optimisation des sauts de page::
-* Optimisation des tournes::
 * Minimisation des sauts de page::
 * Présentation en rouleau::
+* Optimisation des tournes::
 @end menu
 
 
@@ -1725,6 +1725,52 @@ Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
 
+@node Minimisation des sauts de page
+@unnumberedsubsubsec Minimisation des sauts de page
+@translationof Minimal page breaking
+
+@funindex ly:minimal-breaking
+
+La fonction @code{ly:minimal-breaking} est celle qui réalise le moins de
+calculs pour positionner les sauts de page.  Elle mettra le plus de
+systèmes possible sur une page avant de passer à la suivante.  On peut
+donc la préférer lorsque la partition s'étend sur beaucoup de pages ou
+lorsque les autres fonctions de gestion des sauts de page ralentissent
+nettement le traitement, sont trop gourmandes en mémoire ou qu'il y a
+beaucoup de texte.  Il suffit de la mentionner au sein du bloc
+@code{\paper} :
+
+@example
+\paper @{
+  page-breaking = #ly:minimal-breaking
+@}
+@end example
+
+@seealso
+Morceaux choisis :
+@rlsrnamed{Spacing,Espacements}.
+
+
+@node Présentation en rouleau
+@unnumberedsubsubsec Présentation en rouleau
+@translationof One-line page breaking
+
+@funindex ly:one-line-breaking
+
+La fonction @code{ly:one-line-breaking} constitue un algorithme de
+calcul des sauts de pages particulier en ceci que chaque partition fait
+l'objet d'une page unique, d'une seule ligne.  Cette fonctionnalité
+s'affranchit de l'impression des titres et marges ; seule la partition
+est affichée.
+
+La largeur de page est ajustée de telle sorte que la pièce la plus
+longue tienne sur une seule ligne.  En particulier, les variables
+@code{paper-width}, @code{line-width} et @code{indent} du bloc
+@code{\paper} seront ignorées ; les @code{left-margin} et
+@code{right-margin} seront honorées.  La hauteur de page ne sera pas
+modifiée.
+
+
 @node Optimisation des tournes
 @unnumberedsubsubsec Optimisation des tournes
 @translationof Optimal page turning
@@ -1817,52 +1863,6 @@ Morceaux choisis :
 @knownissues
 Une partition ne devrait contenir qu'une seule instance du
 @code{Page_turn_engraver}, au risque de les voir se contredire.
-
-
-@node Minimisation des sauts de page
-@unnumberedsubsubsec Minimisation des sauts de page
-@translationof Minimal page breaking
-
-@funindex ly:minimal-breaking
-
-La fonction @code{ly:minimal-breaking} est celle qui réalise le moins de
-calculs pour positionner les sauts de page.  Elle mettra le plus de
-systèmes possible sur une page avant de passer à la suivante.  On peut
-donc la préférer lorsque la partition s'étend sur beaucoup de pages ou
-lorsque les autres fonctions de gestion des sauts de page ralentissent
-nettement le traitement, sont trop gourmandes en mémoire ou qu'il y a
-beaucoup de texte.  Il suffit de la mentionner au sein du bloc
-@code{\paper} :
-
-@example
-\paper @{
-  page-breaking = #ly:minimal-breaking
-@}
-@end example
-
-@seealso
-Morceaux choisis :
-@rlsrnamed{Spacing,Espacements}.
-
-
-@node Présentation en rouleau
-@unnumberedsubsubsec Présentation en rouleau
-@translationof One-line page breaking
-
-@funindex ly:one-line-breaking
-
-La fonction @code{ly:one-line-breaking} constitue un algorithme de
-calcul des sauts de pages particulier en ceci que chaque partition fait
-l'objet d'une page unique, d'une seule ligne.  Cette fonctionnalité
-s'affranchit de l'impression des titres et marges ; seule la partition
-est affichée.
-
-La largeur de page est ajustée de telle sorte que la pièce la plus
-longue tienne sur une seule ligne.  En particulier, les variables
-@code{paper-width}, @code{line-width} et @code{indent} du bloc
-@code{\paper} seront ignorées ; les @code{left-margin} et
-@code{right-margin} seront honorées.  La hauteur de page ne sera pas
-modifiée.
 
 
 @node Sauts explicites
