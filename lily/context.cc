@@ -459,6 +459,19 @@ Context::where_defined (SCM sym, SCM *value) const
   return (daddy_context_) ? daddy_context_->where_defined (sym, value) : 0;
 }
 
+/* Quick variant of where_defined.  Checks only the context itself. */
+
+bool
+Context::here_defined (SCM sym, SCM *value) const
+{
+#ifndef NDEBUG
+  if (profile_property_accesses)
+    note_property_access (&context_property_lookup_table, sym);
+#endif
+
+  return properties_dict ()->try_retrieve (sym, value);
+}
+
 /*
   return SCM_EOL when not found.
 */
