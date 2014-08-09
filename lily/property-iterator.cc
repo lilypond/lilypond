@@ -38,11 +38,9 @@ Property_iterator::process (Moment mom)
   bool once = to_boolean (m->get_property ("once"));
   SCM symbol = m->get_property ("symbol");
   SCM previous_value = SCM_UNDEFINED;
-  if (once) {
-    Context *w = o->where_defined (symbol, &previous_value);
-    if (o != w)
-      previous_value = SCM_UNDEFINED;
-  }
+  if (once)
+    o->here_defined (symbol, &previous_value);
+
   send_stream_event (o, "SetProperty", m->origin (),
                      ly_symbol2scm ("symbol"), symbol,
                      ly_symbol2scm ("value"), m->get_property ("value"));
@@ -68,11 +66,9 @@ Property_unset_iterator::process (Moment mom)
   bool once = to_boolean (m->get_property ("once"));
   SCM symbol = m->get_property ("symbol");
   SCM previous_value = SCM_UNDEFINED;
-  if (once) {
-    Context *w = o->where_defined (symbol, &previous_value);
-    if (o != w)
-      previous_value = SCM_UNDEFINED;
-  }
+  if (once)
+    o->here_defined (symbol, &previous_value);
+
   send_stream_event (o, "UnsetProperty", m->origin (),
                      ly_symbol2scm ("symbol"), symbol);
 

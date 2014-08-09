@@ -19,6 +19,7 @@
 
 #include "context.hh"
 #include "engraver.hh"
+#include "global-context.hh"
 #include "international.hh"
 #include "item.hh"
 #include "main.hh"
@@ -78,18 +79,23 @@ execute_override_property (Context *context,
 {
   SCM current_context_val = SCM_EOL;
 
-  Context *where = context->where_defined (context_property,
-                                           &current_context_val);
-
-  /*
-    Don't mess with MIDI.
-  */
-  if (!where)
-    return;
-
-  if (where != context)
+  if (!context->here_defined (context_property, &current_context_val))
     {
-      SCM base = updated_grob_properties (context, context_property);
+      Context *g = context->get_global_context ();
+      if (!g)
+        return; // Context is probably dead
+
+      /*
+        Don't mess with MIDI.
+      */
+      if (g == context
+          || !g->here_defined (context_property, &current_context_val))
+        return;
+
+      /* where != context */
+
+      SCM base = updated_grob_properties (context->get_parent_context (),
+                                          context_property);
       current_context_val = scm_cons (base, base);
       context->set_property (context_property, current_context_val);
     }
@@ -156,8 +162,7 @@ execute_revert_property (Context *context,
                          SCM grob_property_path)
 {
   SCM current_context_val = SCM_EOL;
-  if (context->where_defined (context_property, &current_context_val)
-      == context)
+  if (context->here_defined (context_property, &current_context_val))
     {
       SCM current_alist = scm_car (current_context_val);
       SCM daddy = scm_cdr (current_context_val);
