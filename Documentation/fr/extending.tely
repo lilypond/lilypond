@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: e2f786e15c2f1c7e71518c5e2d134bc31fd587f8
+    Translation of GIT committish: 9bbdeb11a423017702c73e321643fa420614ce83
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -20,9 +20,14 @@ Ce document fournit les informations de base pour étendre les
 fonctionnalités de LilyPond@tie{}version @version{}.
 @end macro
 
-@c `Extending' was born 2003-04-23 with git commit c08f6e8...
+@c `Extending' was born 2004-03-07 with this commit:
+@c * Documentation/user/changing-defaults.itely (Changing defaults):
+@c author: Han-Wen Nienhuys
+@c commit: c53d0cabdf9361e448cdd02a338aa5d696f4f466
+@c   file: Documentation/user/programming-interface.itely
+
 @macro copyrightDeclare
-Copyright @copyright{} 2003--2014 by par les auteurs.
+Copyright @copyright{} 2004--2014 by par les auteurs.
 @end macro
 
 @set FDL
