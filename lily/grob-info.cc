@@ -50,7 +50,7 @@ Stream_event *
 Grob_info::event_cause () const
 {
   SCM cause = grob_->get_property ("cause");
-  return unsmob_stream_event (cause);
+  return Stream_event::unsmob (cause);
 }
 
 vector<Context *>
@@ -90,11 +90,11 @@ Stream_event *
 Grob_info::ultimate_event_cause () const
 {
   SCM cause = grob_->self_scm ();
-  while (unsmob_grob (cause))
+  while (Grob::unsmob (cause))
     {
-      cause = unsmob_grob (cause)->get_property ("cause");
+      cause = Grob::unsmob (cause)->get_property ("cause");
     }
-  return unsmob_stream_event (cause);
+  return Stream_event::unsmob (cause);
 }
 
 bool

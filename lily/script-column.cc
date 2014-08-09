@@ -45,8 +45,8 @@ LY_DEFINE (ly_grob_script_priority_less, "ly:grob-script-priority-less",
            2, 0, 0, (SCM a, SCM b),
            "Compare two grobs by script priority.  For internal use.")
 {
-  Grob *i1 = unsmob_grob (a);
-  Grob *i2 = unsmob_grob (b);
+  Grob *i1 = Grob::unsmob (a);
+  Grob *i2 = Grob::unsmob (b);
 
   SCM p1 = i1->get_property ("script-priority");
   SCM p2 = i2->get_property ("script-priority");
@@ -58,7 +58,7 @@ MAKE_SCHEME_CALLBACK (Script_column, row_before_line_breaking, 1);
 SCM
 Script_column::row_before_line_breaking (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   vector<Grob *> horizontal_grobs;
   extract_grob_set (me, "scripts", scripts);
 
@@ -101,7 +101,7 @@ MAKE_SCHEME_CALLBACK (Script_column, before_line_breaking, 1);
 SCM
 Script_column::before_line_breaking (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   vector<Grob *> staff_sided;
 
   extract_grob_set (me, "scripts", scripts);
@@ -146,7 +146,7 @@ Script_column::order_grobs (vector<Grob *> grobs)
       for (SCM s = ss; scm_is_pair (s);
            s = scm_cdr (s), last = g, last_initial_outside_staff = initial_outside_staff)
         {
-          g = unsmob_grob (scm_car (s));
+          g = Grob::unsmob (scm_car (s));
           initial_outside_staff = g->get_property ("outside-staff-priority");
           if (last)    //not the first grob in the list
             {
@@ -157,7 +157,7 @@ Script_column::order_grobs (vector<Grob *> grobs)
               */
               if (!scm_is_number (last_outside_staff))
                 for (SCM t = ss; !scm_is_eq (t, s); t = scm_cdr (t))
-                  Side_position_interface::add_support (g, unsmob_grob (scm_car (t)));
+                  Side_position_interface::add_support (g, Grob::unsmob (scm_car (t)));
               /*
                 if outside_staff_priority is missing or is equal to original
                 outside_staff_priority of previous grob, set new

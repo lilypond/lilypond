@@ -39,6 +39,8 @@ public:
 
   DECLARE_CLASSNAME (Paper_score);
 
+  static Paper_score *unsmob (SCM);
+
   Output_def *layout () const;
   System *root_system () const;
 

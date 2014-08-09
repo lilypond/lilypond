@@ -44,7 +44,7 @@ Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r, 
 
   if (Paper_column::is_breakable (l) && Paper_column::is_breakable (r))
     {
-      Moment *dt = unsmob_moment (l->get_property ("measure-length"));
+      Moment *dt = Moment::unsmob (l->get_property ("measure-length"));
       Moment mlen (1);
       if (dt)
         mlen = *dt;
@@ -91,7 +91,7 @@ get_measure_length (Grob *column)
 
   do
     {
-      if (Moment *len = unsmob_moment (cols[col_idx]->get_property ("measure-length")))
+      if (Moment *len = Moment::unsmob (cols[col_idx]->get_property ("measure-length")))
         {
           return len;
         }
@@ -111,8 +111,8 @@ Spacing_spanner::note_spacing (Grob * /* me */,
   Moment shortest_playing_len = 0;
   SCM s = lc->get_property ("shortest-playing-duration");
 
-  if (unsmob_moment (s))
-    shortest_playing_len = *unsmob_moment (s);
+  if (Moment::unsmob (s))
+    shortest_playing_len = *Moment::unsmob (s);
 
   if (! shortest_playing_len.to_bool ())
     {
@@ -161,7 +161,7 @@ Spacing_spanner::note_spacing (Grob * /* me */,
     }
   else if (delta_t.grace_part_)
     {
-      Grob *grace_spacing = unsmob_grob (lc->get_object ("grace-spacing"));
+      Grob *grace_spacing = Grob::unsmob (lc->get_object ("grace-spacing"));
       if (grace_spacing)
         {
           Spacing_options grace_opts;

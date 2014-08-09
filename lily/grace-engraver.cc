@@ -60,7 +60,7 @@ Grace_engraver::consider_change_grace_settings ()
           SCM grob = scm_cadr (entry);
           SCM sym = scm_caddr (entry);
 
-          execute_pushpop_property (unsmob_context (context),
+          execute_pushpop_property (Context::unsmob (context),
                                     grob, sym, SCM_UNDEFINED);
         }
 

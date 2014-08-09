@@ -39,7 +39,7 @@ void
 translator_each (SCM list, Translator_method method)
 {
   for (SCM p = list; scm_is_pair (p); p = scm_cdr (p))
-    (unsmob_translator (scm_car (p))->*method) ();
+    (Translator::unsmob (scm_car (p))->*method) ();
 }
 
 void
@@ -62,7 +62,7 @@ Translator_group::connect_to_context (Context *c)
                                     ly_symbol2scm ("AnnounceNewContext"));
   for (SCM tr_list = simple_trans_list_; scm_is_pair (tr_list); tr_list = scm_cdr (tr_list))
     {
-      Translator *tr = unsmob_translator (scm_car (tr_list));
+      Translator *tr = Translator::unsmob (scm_car (tr_list));
       tr->connect_to_context (c);
     }
 }
@@ -72,7 +72,7 @@ Translator_group::disconnect_from_context ()
 {
   for (SCM tr_list = simple_trans_list_; scm_is_pair (tr_list); tr_list = scm_cdr (tr_list))
     {
-      Translator *tr = unsmob_translator (scm_car (tr_list));
+      Translator *tr = Translator::unsmob (scm_car (tr_list));
       tr->disconnect_from_context (context_);
     }
   context_->event_source ()->remove_listener (GET_LISTENER (create_child_translator),
@@ -90,7 +90,7 @@ Translator_group::finalize ()
   Both filter_performers and filter_engravers used to use a direct dynamic_cast
   on the unsmobbed translator to be filtered, i.e.,
 
-  if (dynamic_cast<Performer *> (unsmob_translator (scm_car (*tail))))
+  if (dynamic_cast<Performer *> (Translator::unsmob (scm_car (*tail))))
 
   but this caused mysterious optimisation issues in several GUB builds.  See
   issue #818 for the background to this change.
@@ -101,7 +101,7 @@ filter_performers (SCM ell)
   SCM *tail = &ell;
   for (SCM p = ell; scm_is_pair (p); p = scm_cdr (p))
     {
-      if (unsmob_performer (scm_car (*tail)))
+      if (Performer::unsmob (scm_car (*tail)))
         *tail = scm_cdr (*tail);
       else
         tail = SCM_CDRLOC (*tail);
@@ -115,7 +115,7 @@ filter_engravers (SCM ell)
   SCM *tail = &ell;
   for (SCM p = ell; scm_is_pair (p); p = scm_cdr (p))
     {
-      if (unsmob_engraver (scm_car (*tail)))
+      if (Engraver::unsmob (scm_car (*tail)))
         *tail = scm_cdr (*tail);
       else
         tail = SCM_CDRLOC (*tail);
@@ -149,11 +149,11 @@ IMPLEMENT_LISTENER (Translator_group, create_child_translator);
 void
 Translator_group::create_child_translator (SCM sev)
 {
-  Stream_event *ev = unsmob_stream_event (sev);
+  Stream_event *ev = Stream_event::unsmob (sev);
   // get from AnnounceNewContext
   SCM cs = ev->get_property ("context");
-  Context *new_context = unsmob_context (cs);
-  Context_def *def = unsmob_context_def (new_context->get_definition ());
+  Context *new_context = Context::unsmob (cs);
+  Context_def *def = Context_def::unsmob (new_context->get_definition ());
   SCM ops = new_context->get_definition_mods ();
 
   SCM trans_names = def->get_translator_names (ops);
@@ -249,7 +249,7 @@ precomputed_recurse_over_translators (Context *c, Translator_precompute_index id
 
   for (SCM s = c->children_contexts (); scm_is_pair (s);
        s = scm_cdr (s))
-    precomputed_recurse_over_translators (unsmob_context (scm_car (s)), idx, dir);
+    precomputed_recurse_over_translators (Context::unsmob (scm_car (s)), idx, dir);
 
   if (tg && dir == UP)
     {
@@ -273,7 +273,7 @@ recurse_over_translators (Context *c, Translator_method ptr,
 
   for (SCM s = c->children_contexts (); scm_is_pair (s);
        s = scm_cdr (s))
-    recurse_over_translators (unsmob_context (scm_car (s)), ptr, tg_ptr, dir);
+    recurse_over_translators (Context::unsmob (scm_car (s)), ptr, tg_ptr, dir);
 
   if (tg && dir == UP)
     {
@@ -302,7 +302,7 @@ Translator_group::precompute_method_bindings ()
 {
   for (SCM s = simple_trans_list_; scm_is_pair (s); s = scm_cdr (s))
     {
-      Translator *tr = unsmob_translator (scm_car (s));
+      Translator *tr = Translator::unsmob (scm_car (s));
       Translator_void_method_ptr ptrs[TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
       tr->fetch_precomputable_methods (ptrs);
 

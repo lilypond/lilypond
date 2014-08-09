@@ -25,8 +25,8 @@ MAKE_SCHEME_CALLBACK (Duration, less_p, 2);
 SCM
 Duration::less_p (SCM p1, SCM p2)
 {
-  Duration *a = unsmob_duration (p1);
-  Duration *b = unsmob_duration (p2);
+  Duration *a = Duration::unsmob (p1);
+  Duration *b = Duration::unsmob (p2);
 
   if (compare (*a, *b) < 0)
     return SCM_BOOL_T;
@@ -41,8 +41,8 @@ LY_DEFINE (ly_duration_less_p, "ly:duration<?",
   LY_ASSERT_SMOB (Duration, p1, 1);
   LY_ASSERT_SMOB (Duration, p2, 2);
 
-  Duration *a = unsmob_duration (p1);
-  Duration *b = unsmob_duration (p2);
+  Duration *a = Duration::unsmob (p1);
+  Duration *b = Duration::unsmob (p2);
 
   if (Duration::compare (*a, *b) < 0)
     return SCM_BOOL_T;
@@ -102,7 +102,7 @@ LY_DEFINE (ly_duration_log, "ly:duration-log",
            "Extract the duration log from @var{dur}.")
 {
   LY_ASSERT_SMOB (Duration, dur, 1);
-  return scm_from_int (unsmob_duration (dur)->duration_log ());
+  return scm_from_int (Duration::unsmob (dur)->duration_log ());
 }
 
 LY_DEFINE (ly_duration_dot_count, "ly:duration-dot-count",
@@ -110,7 +110,7 @@ LY_DEFINE (ly_duration_dot_count, "ly:duration-dot-count",
            "Extract the dot count from @var{dur}.")
 {
   LY_ASSERT_SMOB (Duration, dur, 1);
-  return scm_from_int (unsmob_duration (dur)->dot_count ());
+  return scm_from_int (Duration::unsmob (dur)->dot_count ());
 }
 
 LY_DEFINE (ly_intlog2, "ly:intlog2",
@@ -127,7 +127,7 @@ LY_DEFINE (ly_duration_length, "ly:duration-length",
            "The length of the duration as a @code{moment}.")
 {
   LY_ASSERT_SMOB (Duration, dur, 1);
-  return Moment (unsmob_duration (dur)->get_length ()).smobbed_copy ();
+  return Moment (Duration::unsmob (dur)->get_length ()).smobbed_copy ();
 }
 
 LY_DEFINE (ly_duration_2_string, "ly:duration->string",
@@ -135,7 +135,7 @@ LY_DEFINE (ly_duration_2_string, "ly:duration->string",
            "Convert @var{dur} to a string.")
 {
   LY_ASSERT_SMOB (Duration, dur, 1);
-  return ly_string2scm (unsmob_duration (dur)->to_string ());
+  return ly_string2scm (Duration::unsmob (dur)->to_string ());
 }
 
 LY_DEFINE (ly_duration_factor, "ly:duration-factor",
@@ -144,7 +144,7 @@ LY_DEFINE (ly_duration_factor, "ly:duration-factor",
            "  Return it as a pair.")
 {
   LY_ASSERT_SMOB (Duration, dur, 1);
-  Rational r = unsmob_duration (dur)->factor ();
+  Rational r = Duration::unsmob (dur)->factor ();
   return scm_cons (scm_from_int64 (r.num ()), scm_from_int64 (r.den ()));
 }
 
@@ -156,7 +156,7 @@ LY_DEFINE (ly_duration_scale, "ly:duration-scale",
            "  Return it as a rational.")
 {
   LY_ASSERT_SMOB (Duration, dur, 1);
-  Rational r = unsmob_duration (dur)->factor ();
+  Rational r = Duration::unsmob (dur)->factor ();
 
   return ly_rational2scm (r);
 }

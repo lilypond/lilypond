@@ -63,7 +63,7 @@ Footnote_engraver::footnotify (Grob *g, SCM cause)
       Spanner *b = make_spanner ("FootnoteSpanner", cause);
       b->set_parent (s, Y_AXIS);
       b->set_parent (s, X_AXIS);
-      Grob *bound = unsmob_grob (get_property ("currentMusicalColumn"));
+      Grob *bound = Grob::unsmob (get_property ("currentMusicalColumn"));
       b->set_bound (LEFT, bound);
       annotated_spanners_.push_back (Drul_array<Spanner *> (s, b));
     }
@@ -78,7 +78,7 @@ Footnote_engraver::footnotify (Grob *g, SCM cause)
 void
 Footnote_engraver::acknowledge_grob (Grob_info info)
 {
-  Music *mus = unsmob_music (info.grob ()->get_property ("footnote-music"));
+  Music *mus = Music::unsmob (info.grob ()->get_property ("footnote-music"));
 
   if (mus)
     {
@@ -107,7 +107,7 @@ Footnote_engraver::acknowledge_end_grob (Grob_info info)
       {
         if (annotated_spanners_[i][LEFT] == s)
           {
-            Grob *bound = unsmob_grob (get_property ("currentMusicalColumn"));
+            Grob *bound = Grob::unsmob (get_property ("currentMusicalColumn"));
             annotated_spanners_[i][RIGHT]->set_bound (RIGHT, bound);
             break;
           }

@@ -99,8 +99,8 @@ Volta_engraver::process_music ()
       SCM l (get_property ("voltaSpannerDuration"));
       Moment now = now_mom ();
 
-      bool early_stop = unsmob_moment (l)
-                        && *unsmob_moment (l) <= now - started_mom_;
+      bool early_stop = Moment::unsmob (l)
+                        && *Moment::unsmob (l) <= now - started_mom_;
 
       end = end || early_stop;
     }
@@ -161,7 +161,7 @@ Volta_engraver::acknowledge_bar_line (Grob_info i)
 void
 Volta_engraver::stop_translation_timestep ()
 {
-  Grob *cc = unsmob_grob (get_property ("currentCommandColumn"));
+  Grob *cc = Grob::unsmob (get_property ("currentCommandColumn"));
   Item *ci = dynamic_cast<Item *> (cc);
 
   if (end_volta_bracket_ && !end_volta_bracket_->get_bound (RIGHT))
@@ -173,7 +173,7 @@ Volta_engraver::stop_translation_timestep ()
   if (end_volta_bracket_ && !volta_bracket_)
     {
       for (SCM s = get_property ("stavesFound"); scm_is_pair (s); s = scm_cdr (s))
-        Side_position_interface::add_support (volta_spanner_, unsmob_grob (scm_car (s)));
+        Side_position_interface::add_support (volta_spanner_, Grob::unsmob (scm_car (s)));
       volta_spanner_ = 0;
     }
 

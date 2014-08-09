@@ -48,7 +48,7 @@ Engraver_dispatch_list::create (SCM trans_list,
   for (SCM s = trans_list; scm_is_pair (s); s = scm_cdr (s))
     {
       Engraver *eng
-        = dynamic_cast<Engraver *> (unsmob_translator (scm_car (s)));
+        = dynamic_cast<Engraver *> (Translator::unsmob (scm_car (s)));
 
       if (!eng)
         continue;

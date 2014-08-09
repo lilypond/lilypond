@@ -80,9 +80,9 @@ Repeat_tie_engraver::acknowledge_note_head (Grob_info inf)
   semi_tie->set_parent (semi_tie_column_, Y_AXIS);
   semi_ties_.push_back (semi_tie);
 
-  if (is_direction (unsmob_stream_event (cause)->get_property ("direction")))
+  if (is_direction (Stream_event::unsmob (cause)->get_property ("direction")))
     {
-      Direction d = to_dir (unsmob_stream_event (cause)->get_property ("direction"));
+      Direction d = to_dir (Stream_event::unsmob (cause)->get_property ("direction"));
       semi_tie->set_property ("direction", scm_from_int (d));
     }
 

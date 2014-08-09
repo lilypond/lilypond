@@ -44,6 +44,5 @@ public:
   SCM label ();
 };
 
-DECLARE_UNSMOB (Page_marker, page_marker)
 
 #endif /* PAGE_MARKER_HH */

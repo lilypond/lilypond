@@ -47,7 +47,7 @@ Timing_translator::stop_translation_timestep ()
 void
 Timing_translator::initialize ()
 {
-  Context *timing = unsmob_context (scm_call_2 (ly_lily_module_constant ("ly:context-find"),
+  Context *timing = Context::unsmob (scm_call_2 (ly_lily_module_constant ("ly:context-find"),
                                                 context ()->self_scm (),
                                                 ly_symbol2scm ("Timing")));
   if (timing != context ())
@@ -78,7 +78,7 @@ Timing_translator::initialize ()
 
   SCM measureLength = timing->get_property ("measureLength");
 
-  if (!unsmob_moment (measureLength))
+  if (!Moment::unsmob (measureLength))
     {
       measureLength =
         Moment (ly_scm2rational
@@ -115,7 +115,7 @@ Timing_translator::initialize ()
   context ()->set_property ("beamExceptions", beamExceptions);
 
   SCM baseMoment = timing->get_property ("baseMoment");
-  if (!unsmob_moment (baseMoment))
+  if (!Moment::unsmob (baseMoment))
     {
       baseMoment =
         Moment (ly_scm2rational
@@ -130,7 +130,7 @@ Timing_translator::initialize ()
     {
       beatStructure =
         scm_call_3 (ly_lily_module_constant ("beat-structure"),
-                    ly_rational2scm (unsmob_moment (baseMoment)->main_part_),
+                    ly_rational2scm (Moment::unsmob (baseMoment)->main_part_),
                     timeSignatureFraction,
                     timeSignatureSettings);
     }
@@ -147,8 +147,8 @@ Rational
 Timing_translator::measure_length () const
 {
   SCM l = get_property ("measureLength");
-  if (unsmob_moment (l))
-    return unsmob_moment (l)->main_part_;
+  if (Moment::unsmob (l))
+    return Moment::unsmob (l)->main_part_;
   else
     return Rational (1);
 }
@@ -181,8 +181,8 @@ Timing_translator::start_translation_timestep ()
   Moment measposp;
 
   SCM s = get_property ("measurePosition");
-  if (unsmob_moment (s))
-    measposp = *unsmob_moment (s);
+  if (Moment::unsmob (s))
+    measposp = *Moment::unsmob (s);
   else
     {
       measposp = now;

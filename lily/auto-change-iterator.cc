@@ -108,7 +108,7 @@ Auto_change_iterator::process (Moment m)
 
   for (; scm_is_pair (split_list_); split_list_ = scm_cdr (split_list_))
     {
-      splitm = unsmob_moment (scm_caar (split_list_));
+      splitm = Moment::unsmob (scm_caar (split_list_));
       if ((*splitm + start_moment_) > now)
         break;
 

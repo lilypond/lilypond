@@ -29,14 +29,14 @@ Item *
 Rhythmic_head::get_dots (Grob *me)
 {
   SCM s = me->get_object ("dot");
-  return unsmob_item (s);
+  return Item::unsmob (s);
 }
 
 Item *
 Rhythmic_head::get_stem (Grob *me)
 {
   SCM s = me->get_object ("stem");
-  return unsmob_item (s);
+  return Item::unsmob (s);
 }
 
 int

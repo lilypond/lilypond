@@ -2393,25 +2393,39 @@ Offsets are restricted to immutable properties and values of type @code{number},
 
 ;; defined as a function instead of a list because the
 ;; all-grob-descriptions alist is not available yet
-(define-public (find-all-space-alist-props grob-descriptions)
-  "Used by @code{\\magnifyStaff}.  When @var{grob-descriptions} is equal
-to the @code{all-grob-descriptions} alist (defined in
-@file{scm/define-grobs.scm}), this will find all grobs that have an
-initialized value for the @code{space-alist} property, and return them
+(define-public (find-named-props prop-name grob-descriptions)
+  "Used by @code{\\magnifyMusic} and @code{\\magnifyStaff}.  When
+@var{grob-descriptions} is equal to the @code{all-grob-descriptions}
+alist (defined in @file{scm/define-grobs.scm}), this will find all grobs
+that can have a value for the @var{prop-name} property, and return them
 as a list in the following format:
 @example
-'((Ambitus space-alist)
-  (BarLine space-alist)
+'((grob prop-name)
+  (grob prop-name)
   ...)
 @end example"
-  (define (has-space-alist? grob-desc)
-    (ly:assoc-get 'space-alist (cdr grob-desc)))
-  (let* ((grob-descriptions-with-space-alist
-           (filter has-space-alist? grob-descriptions))
-         (grob-names-with-space-alist
-           (map car grob-descriptions-with-space-alist)))
-    (map (lambda (grob-name) (list grob-name 'space-alist))
-         grob-names-with-space-alist)))
+  (define (find-grobs-with-interface interface grob-descriptions)
+    (define (has-this-interface? grob-desc)
+      (let* ((meta (ly:assoc-get 'meta (cdr grob-desc)))
+             (interfaces (ly:assoc-get 'interfaces meta '())))
+        (memq interface interfaces)))
+    (let* ((grob-descriptions-with-this-interface
+             (filter has-this-interface? grob-descriptions))
+           (grob-names-with-this-interface
+             (map car grob-descriptions-with-this-interface)))
+      grob-names-with-this-interface))
+  (let* ((interface
+           (case prop-name
+             ((baseline-skip word-space) 'text-interface)
+             ((space-alist)              'break-aligned-interface)
+             (else (ly:programming-error
+                     "find-named-props: no interface associated with ~s"
+                     prop-name))))
+         (grobs-with-this-prop
+           (find-grobs-with-interface interface grob-descriptions)))
+    (map (lambda (x) (list x prop-name))
+         grobs-with-this-prop)))
+
 
 (define (magnifyStaff-is-set? context mag)
   (let* ((Staff (ly:context-find context 'Staff))
@@ -2433,7 +2447,9 @@ magnification factor @var{mag}.  @var{func-name} is either
       (if (or (eq? func-name 'magnifyMusic)
               ;; for \magnifyStaff, only scale the fontSize
               ;; if staff magnification is changing
-              (staff-magnification-is-changing? context mag))
+              ;; and does not equal 1
+              (and (staff-magnification-is-changing? context mag)
+                   (not (= mag 1))))
         (let* ((where (case func-name
                         ((magnifyMusic) context)
                         ((magnifyStaff) (ly:context-find context 'Staff))))
@@ -2508,10 +2524,15 @@ formatted like:
                                           (cons (car x)
                                                 (cons (cadr x)
                                                       (* mag (cddr x))))))
-                   (scaled-tuples (map scale-spacing-tuple space-alist))
+                   (scaled-tuples (if space-alist
+                                      (map scale-spacing-tuple space-alist)
+                                      '()))
                    (new-alist (append scaled-tuples space-alist)))
               (ly:context-pushpop-property where grob prop new-alist))
-            (let* ((val (ly:assoc-get prop grob-def 1))
+            (let* ((val (ly:assoc-get prop grob-def (case prop
+                                                      ((baseline-skip) 3)
+                                                      ((word-space)    0.6)
+                                                      (else            1))))
                    (proc (lambda (x)
                            (if allowed-to-shrink?
                              (* x mag)
@@ -2524,7 +2545,9 @@ formatted like:
       (if (or (eq? func-name 'magnifyMusic)
               ;; for \magnifyStaff, only scale the properties
               ;; if staff magnification is changing
-              (staff-magnification-is-changing? context mag))
+              ;; and does not equal 1
+              (and (staff-magnification-is-changing? context mag)
+                   (not (= mag 1))))
         (for-each scale-prop props)))))
 
 (define-public (revert-props func-name mag props)

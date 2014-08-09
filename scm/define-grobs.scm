@@ -262,12 +262,7 @@
         (self-alignment-X . ,RIGHT)
         (side-axis . ,Y)
         (stencil . ,ly:text-interface::print)
-        (X-offset . ,(ly:make-simple-closure
-                      `(,+
-                        ,(ly:make-simple-closure
-                          (list ly:break-alignable-interface::self-align-callback))
-                        ,(ly:make-simple-closure
-                          (list ly:self-alignment-interface::x-aligned-on-self)))))
+        (X-offset . ,self-alignment-interface::self-aligned-on-breakable)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta .
@@ -1165,7 +1160,8 @@
                  (interfaces . (font-interface
                                 self-alignment-interface
                                 side-position-interface
-                                system-start-text-interface))))))
+                                system-start-text-interface
+                                text-interface))))))
 
     (InstrumentSwitch
      . (
@@ -1473,12 +1469,7 @@
         (stencil . ,ly:text-interface::print)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
         (Y-offset . ,side-position-interface::y-aligned-side)
-        (X-offset . ,(ly:make-simple-closure
-                      `(,+
-                        ,(ly:make-simple-closure
-                          (list ly:break-alignable-interface::self-align-callback))
-                        ,(ly:make-simple-closure
-                          (list ly:self-alignment-interface::x-aligned-on-self)))))
+        (X-offset . ,self-alignment-interface::self-aligned-on-breakable)
         (self-alignment-X . ,LEFT)
         (break-align-symbols . (time-signature))
         (non-break-align-symbols . (paper-column-interface))
@@ -1812,12 +1803,7 @@
         (self-alignment-X . ,CENTER)
         (stencil . ,ly:text-interface::print)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
-        (X-offset . ,(ly:make-simple-closure
-                      `(,+
-                        ,(ly:make-simple-closure
-                          (list ly:break-alignable-interface::self-align-callback))
-                        ,(ly:make-simple-closure
-                          (list ly:self-alignment-interface::x-aligned-on-self)))))
+        (X-offset . ,self-alignment-interface::self-aligned-on-breakable)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)

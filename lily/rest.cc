@@ -35,7 +35,7 @@ MAKE_SCHEME_CALLBACK (Rest, y_offset_callback, 1);
 SCM
 Rest::y_offset_callback (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   int duration_log = scm_to_int (me->get_property ("duration-log"));
   Real ss = Staff_symbol_referencer::staff_space (me);
 
@@ -146,8 +146,8 @@ MAKE_SCHEME_CALLBACK (Rest, calc_cross_staff, 1);
 SCM
 Rest::calc_cross_staff (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
-  Grob *stem = unsmob_grob (me->get_object ("stem"));
+  Grob *me = Grob::unsmob (smob);
+  Grob *stem = Grob::unsmob (me->get_object ("stem"));
 
   if (!stem)
     return SCM_BOOL_F;
@@ -260,7 +260,7 @@ Rest::translate (Grob *me, int dy)
 SCM
 Rest::print (SCM smob)
 {
-  return brew_internal_stencil (unsmob_grob (smob), true);
+  return brew_internal_stencil (Grob::unsmob (smob), true);
 }
 
 MAKE_SCHEME_CALLBACK (Rest, width, 1);
@@ -270,14 +270,14 @@ MAKE_SCHEME_CALLBACK (Rest, width, 1);
 SCM
 Rest::width (SCM smob)
 {
-  return generic_extent_callback (unsmob_grob (smob), X_AXIS);
+  return generic_extent_callback (Grob::unsmob (smob), X_AXIS);
 }
 
 MAKE_SCHEME_CALLBACK (Rest, height, 1);
 SCM
 Rest::height (SCM smob)
 {
-  return generic_extent_callback (unsmob_grob (smob), Y_AXIS);
+  return generic_extent_callback (Grob::unsmob (smob), Y_AXIS);
 }
 
 /*
@@ -295,7 +295,7 @@ Rest::generic_extent_callback (Grob *me, Axis a)
     with ledgered rests.
   */
   SCM m = brew_internal_stencil (me, a != X_AXIS);
-  return ly_interval2scm (unsmob_stencil (m)->extent (a));
+  return ly_interval2scm (Stencil::unsmob (m)->extent (a));
 }
 
 MAKE_SCHEME_CALLBACK (Rest, pure_height, 3);
@@ -304,9 +304,9 @@ Rest::pure_height (SCM smob,
                    SCM /* start */,
                    SCM /* end */)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   SCM m = brew_internal_stencil (me, false);
-  return ly_interval2scm (unsmob_stencil (m)->extent (Y_AXIS));
+  return ly_interval2scm (Stencil::unsmob (m)->extent (Y_AXIS));
 }
 
 ADD_INTERFACE (Rest,

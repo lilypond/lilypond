@@ -258,7 +258,7 @@ c4 \tuplet 5/4 { f8 e f \tuplet 3/2 { e[ f g] } } f4
 @funindex tupletSpannerDuration
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{entering-several-tuplets-using-only-one--times-command.ly}
+{entering-several-tuplets-using-only-one--tuplet-command.ly}
 
 @cindex Tuplet number changes (連符の数の変更)
 

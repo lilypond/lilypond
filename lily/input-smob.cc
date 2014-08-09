@@ -42,7 +42,7 @@ mark_smob (SCM s)
 static int
 print_smob (SCM s, SCM port, scm_print_state *)
 {
-  string str = "#<location " + unsmob_input (s)->location_string () + ">";
+  string str = "#<location " + Input::unsmob (s)->location_string () + ">";
   scm_puts (str.c_str (), port);
   return 1;
 }
@@ -50,7 +50,7 @@ print_smob (SCM s, SCM port, scm_print_state *)
 static size_t
 free_smob (SCM s)
 {
-  delete unsmob_input (s);
+  delete Input::unsmob (s);
   return 0;
 }
 
@@ -88,7 +88,7 @@ make_input (Input ip)
 }
 
 Input *
-unsmob_input (SCM s)
+Input::unsmob (SCM s)
 {
   if (SCM_IMP (s))
     return 0;

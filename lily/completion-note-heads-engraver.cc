@@ -109,8 +109,8 @@ Completion_heads_engraver::listen_note (Stream_event *ev)
 Moment
 Completion_heads_engraver::next_moment (Rational const &note_len)
 {
-  Moment *e = unsmob_moment (get_property ("measurePosition"));
-  Moment *l = unsmob_moment (get_property ("measureLength"));
+  Moment *e = Moment::unsmob (get_property ("measurePosition"));
+  Moment *l = Moment::unsmob (get_property ("measureLength"));
   if (!e || !l || !to_boolean (get_property ("timing")))
     {
       return Moment (0, 0);
@@ -123,7 +123,7 @@ Completion_heads_engraver::next_moment (Rational const &note_len)
                          + e->to_string () + " of " + l->to_string ());
       return 0;
     }
-  Moment const *unit = unsmob_moment (get_property ("completionUnit"));
+  Moment const *unit = Moment::unsmob (get_property ("completionUnit"));
 
   if (unit)
     {
@@ -162,7 +162,7 @@ Item *
 Completion_heads_engraver::make_note_head (Stream_event *ev)
 {
   Item *note = make_item ("NoteHead", ev->self_scm ());
-  Pitch *pit = unsmob_pitch (ev->get_property ("pitch"));
+  Pitch *pit = Pitch::unsmob (ev->get_property ("pitch"));
 
   int pos = pit->steps ();
   SCM c0 = get_property ("middleCPosition");
@@ -198,7 +198,7 @@ Completion_heads_engraver::process_music ()
     }
   else
     {
-      orig = unsmob_duration (note_events_[0]->get_property ("duration"));
+      orig = Duration::unsmob (note_events_[0]->get_property ("duration"));
       note_dur = *orig;
       SCM factor = get_property ("completionFactor");
       if (ly_is_procedure (factor))

@@ -88,7 +88,7 @@ Text_engraver::acknowledge_note_column (Grob_info info)
   extract_grob_set (info.grob (), "note-heads", heads);
   Grob *x_parent = (heads.size ()
                     ? info.grob ()
-                    : unsmob_grob (info.grob ()->get_object ("rest")));
+                    : Grob::unsmob (info.grob ()->get_object ("rest")));
 
   for (vsize i = 0; i < scripts_.size (); i++)
     {

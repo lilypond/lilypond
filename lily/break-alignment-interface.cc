@@ -94,7 +94,7 @@ MAKE_SCHEME_CALLBACK (Break_alignment_interface, calc_positioning_done, 1)
 SCM
 Break_alignment_interface::calc_positioning_done (SCM smob)
 {
-  Grob *grob = unsmob_grob (smob);
+  Grob *grob = Grob::unsmob (smob);
   Item *me = dynamic_cast<Item *> (grob);
 
   me->set_property ("positioning-done", SCM_BOOL_T);
@@ -189,8 +189,8 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
             sym_string = ly_symbol2string (rsym);
 
           string orig_string;
-          if (unsmob_grob (l->get_property ("cause")))
-            orig_string = unsmob_grob (l->get_property ("cause"))->name ();
+          if (Grob::unsmob (l->get_property ("cause")))
+            orig_string = Grob::unsmob (l->get_property ("cause"))->name ();
 
           programming_error (to_string ("No spacing entry from %s to `%s'",
                                         orig_string.c_str (),
@@ -261,7 +261,7 @@ MAKE_SCHEME_CALLBACK (Break_alignable_interface, self_align_callback, 1)
 SCM
 Break_alignable_interface::self_align_callback (SCM grob)
 {
-  Grob *me = unsmob_grob (grob);
+  Grob *me = Grob::unsmob (grob);
   Item *alignment = dynamic_cast<Item *> (me->get_parent (X_AXIS));
   if (!Break_alignment_interface::has_interface (alignment))
     return scm_from_int (0);
@@ -308,7 +308,7 @@ MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_average_anchor, 1)
 SCM
 Break_aligned_interface::calc_average_anchor (SCM grob)
 {
-  Grob *me = unsmob_grob (grob);
+  Grob *me = Grob::unsmob (grob);
   Real avg = 0.0;
   int count = 0;
 
@@ -331,7 +331,7 @@ MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_extent_aligned_anchor, 1)
 SCM
 Break_aligned_interface::calc_extent_aligned_anchor (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Real alignment = robust_scm2double (me->get_property ("break-align-anchor-alignment"), 0.0);
   Interval iv = me->extent (me, X_AXIS);
 
@@ -346,7 +346,7 @@ SCM
 Break_aligned_interface::calc_break_visibility (SCM smob)
 {
   /* a BreakAlignGroup is break-visible if it has one element that is break-visible */
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   SCM ret = scm_c_make_vector (3, SCM_EOL);
   extract_grob_set (me, "elements", elts);
   for (int dir = 0; dir <= 2; dir++)
@@ -363,6 +363,42 @@ Break_aligned_interface::calc_break_visibility (SCM smob)
   return ret;
 }
 
+ADD_INTERFACE (Break_alignment_interface,
+               "The object that performs break alignment.\n"
+               "\n"
+               "Three interfaces deal specifically with break alignment:\n"
+               "@enumerate\n"
+               "@item break-alignment-interface (this one),\n"
+               "@item @ref{break-alignable-interface}, and\n"
+               "@item @ref{break-aligned-interface}.\n"
+               "@end enumerate\n"
+               "\n"
+               " Each of these interfaces supports grob properties that use"
+               " @w{@emph{break-align symbols}}, which are Scheme symbols that"
+               " are used to specify the alignment, ordering, and spacing of"
+               " certain notational elements (@q{breakable}@tie{}items)."
+               "\n"
+               "@subsubheading Available break-align symbols:\n"
+               "\n"
+               "@example\n"
+               "ambitus\n"
+               "breathing-sign\n"
+               "clef\n"
+               "cue-clef\n"
+               "cue-end-clef\n"
+               "custos\n"
+               "key-cancellation\n"
+               "key-signature\n"
+               "left-edge\n"
+               "staff-bar\n"
+               "time-signature\n"
+               "@end example",
+
+               /* properties */
+               "positioning-done "
+               "break-align-orders "
+              );
+
 ADD_INTERFACE (Break_alignable_interface,
                "Object that is aligned on a break alignment.",
 
@@ -372,44 +408,11 @@ ADD_INTERFACE (Break_alignable_interface,
               );
 
 ADD_INTERFACE (Break_aligned_interface,
-               "Items that are aligned in prefatory matter.\n"
-               "\n"
-               "The spacing of these items is controlled by the"
-               " @code{space-alist} property.  It contains a list"
-               " @code{break-align-symbol}s with a specification of the"
-               " associated space.  The space specification can be\n"
-               "\n"
-               "@table @code\n"
-               "@item (minimum-space . @var{spc}))\n"
-               "Pad space until the distance is @var{spc}.\n"
-               "@item (fixed-space . @var{spc})\n"
-               "Set a fixed space.\n"
-               "@item (semi-fixed-space . @var{spc})\n"
-               "Set a space.  Half of it is fixed and half is stretchable."
-               " (does not work at start of line. fixme)\n"
-               "@item (extra-space . @var{spc})\n"
-               "Add @var{spc} amount of space.\n"
-               "@end table\n"
-               "\n"
-               "Special keys for the alist are @code{first-note} and"
-               " @code{next-note}, signifying the first note on a line, and"
-               " the next note halfway a line.\n"
-               "\n"
-               "Rules for this spacing are much more complicated than this."
-               "  See [Wanske] page 126--134, [Ross] page 143--147.",
+               "Breakable items.",
 
                /* properties */
                "break-align-anchor "
                "break-align-anchor-alignment "
                "break-align-symbol "
                "space-alist "
-              );
-
-ADD_INTERFACE (Break_alignment_interface,
-               "The object that performs break alignment.  See"
-               " @ref{break-aligned-interface}.",
-
-               /* properties */
-               "positioning-done "
-               "break-align-orders "
               );

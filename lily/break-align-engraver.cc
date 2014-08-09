@@ -118,7 +118,7 @@ Break_align_engraver::create_alignment (Grob_info inf)
   Context *origin = inf.origin_contexts (this)[0];
 
   Translator_group *tg = origin->implementation ();
-  Engraver *random_source = dynamic_cast<Engraver *> (unsmob_translator (scm_car (tg->get_simple_trans_list ())));
+  Engraver *random_source = dynamic_cast<Engraver *> (Translator::unsmob (scm_car (tg->get_simple_trans_list ())));
   if (!random_source)
     random_source = this;
 
@@ -138,7 +138,7 @@ Break_align_engraver::add_to_group (SCM align_name, Item *item)
 
   if (s != SCM_BOOL_F)
     {
-      Grob *e = unsmob_grob (scm_cdr (s));
+      Grob *e = Grob::unsmob (scm_cdr (s));
       group = dynamic_cast<Item *> (e);
     }
   else

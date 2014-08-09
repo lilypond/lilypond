@@ -81,7 +81,7 @@ Kievan_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primitive
          first = current;
 
       // must keep track of accidentals in spacing problem
-      Grob *acc_gr = unsmob_grob (current->get_object ("accidental-grob"));
+      Grob *acc_gr = Grob::unsmob (current->get_object ("accidental-grob"));
       if (acc_gr && i > 0)
         {
            Interval acc_ext = acc_gr->extent (acc_gr, X_AXIS);
@@ -107,7 +107,7 @@ Kievan_ligature_engraver::fold_up_primitives (vector<Grob_info> const &primitive
       if (i < primitives.size () - 1)
         {
            Item *next = dynamic_cast<Item *> (primitives[i + 1].grob ());
-           Grob *acc_gr = unsmob_grob (next->get_object ("accidental-grob"));
+           Grob *acc_gr = Grob::unsmob (next->get_object ("accidental-grob"));
            if (acc_gr)
              {
                 Interval acc_ext = acc_gr->extent (acc_gr, X_AXIS);

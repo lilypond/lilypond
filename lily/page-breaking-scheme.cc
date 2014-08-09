@@ -29,7 +29,7 @@ LY_DEFINE (ly_page_turn_breaking, "ly:page-turn-breaking",
            " @var{pb} such that page turns only happen in specified places,"
            " returning its pages.")
 {
-  Page_turn_page_breaking b (unsmob_paper_book (pb));
+  Page_turn_page_breaking b (Paper_book::unsmob (pb));
   return b.solve ();
 }
 
@@ -39,7 +39,7 @@ LY_DEFINE (ly_optimal_breaking, "ly:optimal-breaking",
            " @var{pb} to minimize badness in bother vertical and horizontal"
            " spacing.")
 {
-  Optimal_page_breaking b (unsmob_paper_book (pb));
+  Optimal_page_breaking b (Paper_book::unsmob (pb));
   return b.solve ();
 }
 
@@ -49,7 +49,7 @@ LY_DEFINE (ly_minimal_breaking, "ly:minimal-breaking",
            " without looking for optimal spacing: stack as many lines on"
            " a page before moving to the next one.")
 {
-  Minimal_page_breaking b (unsmob_paper_book (pb));
+  Minimal_page_breaking b (Paper_book::unsmob (pb));
   return b.solve ();
 }
 
@@ -59,6 +59,6 @@ LY_DEFINE (ly_one_line_breaking, "ly:one-line-breaking",
            " page.  The paper-width setting will be modified so that"
            " every page will be wider than the widest line.")
 {
-  One_line_page_breaking b (unsmob_paper_book (pb));
+  One_line_page_breaking b (Paper_book::unsmob (pb));
   return b.solve ();
 }

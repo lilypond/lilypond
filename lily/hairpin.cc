@@ -38,7 +38,7 @@ MAKE_SCHEME_CALLBACK (Hairpin, pure_height, 3);
 SCM
 Hairpin::pure_height (SCM smob, SCM, SCM)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Real height = robust_scm2double (me->get_property ("height"), 0.0)
                 * Staff_symbol_referencer::staff_space (me);
 
@@ -53,7 +53,7 @@ MAKE_SCHEME_CALLBACK (Hairpin, broken_bound_padding, 1);
 SCM
 Hairpin::broken_bound_padding (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
   Item *r_bound = me->get_bound (RIGHT);
   if (r_bound->break_status_dir () != -1)
     {
@@ -88,7 +88,7 @@ Hairpin::broken_bound_padding (SCM smob)
             if (!scm_is_pair (hsb))
               break;
 
-            span_bars[d] = unsmob_grob ((d == UP ? scm_car : scm_cdr) (hsb));
+            span_bars[d] = Grob::unsmob ((d == UP ? scm_car : scm_cdr) (hsb));
             break;
           }
 
@@ -107,7 +107,7 @@ MAKE_SCHEME_CALLBACK (Hairpin, print, 1);
 SCM
 Hairpin::print (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
 
   SCM s = me->get_property ("grow-direction");
   if (!is_direction (s))

@@ -458,6 +458,9 @@ associated with the current context.  Ranges from@tie{}@w{-1} to@tie{}1,
 where the values@tie{}@w{-1} (@code{#LEFT}),@tie{}0 (@code{#CENTER})
 and@tie{}1 (@code{#RIGHT}) correspond to hard left, center, and hard
 right, respectively.")
+     (midiExpression ,number? "Expression control for the MIDI
+channel associated with the current context.  Ranges from 0
+to@tie{}1 (0=off,@tie{}1=full effect).")
      (midiReverbLevel ,number? "Reverb effect level for the MIDI
 channel associated with the current context.  Ranges from 0
 to@tie{}1 (0=off,@tie{}1=full effect).")

@@ -393,6 +393,7 @@ Midi_control_function_value_change::to_string () const
 
       {  8, 40 }, // balance
       { 10, 42 }, // pan position
+      { 11, 43 }, // expression
       { 91, -1 }, // reverb level (only coarse resolution available)
       { 93, -1 }  // chorus level (only coarse resolution available)
     };

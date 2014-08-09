@@ -69,7 +69,7 @@ MAKE_SCHEME_CALLBACK (Percent_repeat_item_interface, double_percent, 1);
 SCM
 Percent_repeat_item_interface::double_percent (SCM grob)
 {
-  Grob *me = unsmob_grob (grob);
+  Grob *me = Grob::unsmob (grob);
   Stencil m = x_percent (me, 2);
   m.translate_axis (-m.extent (X_AXIS).center (), X_AXIS);
   return m.smobbed_copy ();
@@ -79,8 +79,8 @@ MAKE_SCHEME_CALLBACK (Percent_repeat_item_interface, beat_slash, 1);
 SCM
 Percent_repeat_item_interface::beat_slash (SCM grob)
 {
-  Grob *me = unsmob_grob (grob);
-  Stream_event *cause = unsmob_stream_event (me->get_property ("cause"));
+  Grob *me = Grob::unsmob (grob);
+  Stream_event *cause = Stream_event::unsmob (me->get_property ("cause"));
   int count = robust_scm2int (cause->get_property ("slash-count"), 1);
 
   Stencil m;

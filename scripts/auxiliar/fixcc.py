@@ -489,7 +489,7 @@ i
  while (foe);
 
  squiggle. extent;
- 1 && * unsmob_moment (lf);
+ 1 && * Moment::unsmob (lf);
  line_spanner_ = make_spanner ("DynamicLineSpanner", rq ? rq->*self_scm
 (): SCM_EOL);
  case foo: k;

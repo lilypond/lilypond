@@ -408,7 +408,7 @@ toplevel_expression:
 	}
 	| BOOK_IDENTIFIER {
 		SCM proc = parser->lexer_->lookup_identifier
-			(unsmob_book($1)->paper_
+			(Book::unsmob($1)->paper_
 			 ? "toplevel-book-handler"
 			 : "toplevel-bookpart-handler");
 		scm_call_2 (proc, parser->self_scm (), $1);
@@ -444,11 +444,11 @@ toplevel_expression:
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("toplevel-text-handler");
 			scm_call_2 (proc, parser->self_scm (), out);
-		} else if (unsmob_score ($1))
+		} else if (Score::unsmob ($1))
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("toplevel-score-handler");
 			scm_call_2 (proc, parser->self_scm (), $1);
-		} else if (Output_def * od = unsmob_output_def ($1)) {
+		} else if (Output_def * od = Output_def::unsmob ($1)) {
 			SCM id = SCM_EOL;
 
 			if (od->c_variable ("is-paper") == SCM_BOOL_T)
@@ -464,7 +464,7 @@ toplevel_expression:
 	}
 	| output_def {
 		SCM id = SCM_EOL;
-		Output_def * od = unsmob_output_def ($1);
+		Output_def * od = Output_def::unsmob ($1);
 
 		if (od->c_variable ("is-paper") == SCM_BOOL_T)
 			id = ly_symbol2scm ("$defaultpaper");
@@ -561,7 +561,7 @@ embedded_lilypond:
 	| post_event post_events
 	{
 		$$ = scm_reverse_x ($2, SCM_EOL);
-		if (Music *m = unsmob_music ($1))
+		if (Music *m = Music::unsmob ($1))
 		{
 			if (m->is_mus_type ("post-event-wrapper"))
 				$$ = scm_append
@@ -583,9 +583,9 @@ embedded_lilypond:
 	| multiplied_duration
 	| music_embedded music_embedded music_list {
 		$3 = scm_reverse_x ($3, SCM_EOL);
-		if (unsmob_music ($2))
+		if (Music::unsmob ($2))
 			$3 = scm_cons ($2, $3);
-		if (unsmob_music ($1))
+		if (Music::unsmob ($1))
 			$3 = scm_cons ($1, $3);
 		$$ = MAKE_SYNTAX ("sequential-music", @$, $3);
 	}
@@ -647,7 +647,7 @@ identifier_init:
 	| post_event_nofinger post_events
 	{
 		$$ = scm_reverse_x ($2, SCM_EOL);
-		if (Music *m = unsmob_music ($1))
+		if (Music *m = Music::unsmob ($1))
 		{
 			if (m->is_mus_type ("post-event-wrapper"))
 				$$ = scm_append
@@ -687,10 +687,10 @@ context_def_spec_block:
 	CONTEXT '{' context_def_spec_body '}'
 	{
 		$$ = $3;
-		Context_def *td = unsmob_context_def ($$);
+		Context_def *td = Context_def::unsmob ($$);
 		if (!td) {
 			$$ = Context_def::make_scm ();
-			td = unsmob_context_def ($$);
+			td = Context_def::unsmob ($$);
 		}
 		td->origin ()->set_spot (@$);
 	}
@@ -717,41 +717,41 @@ context_def_spec_body:
 	}
 	| context_def_spec_body context_mod {
 		if (!SCM_UNBNDP ($2)) {
-			Context_def *td = unsmob_context_def ($$);
+			Context_def *td = Context_def::unsmob ($$);
 			if (!td) {
 				$$ = Context_def::make_scm ();
-				td = unsmob_context_def ($$);
+				td = Context_def::unsmob ($$);
 			}
-			unsmob_context_def ($$)->add_context_mod ($2);
+			Context_def::unsmob ($$)->add_context_mod ($2);
 		}
 	}
 	| context_def_spec_body context_modification {
-                Context_def *td = unsmob_context_def ($$);
+                Context_def *td = Context_def::unsmob ($$);
 		if (!td) {
 			$$ = Context_def::make_scm ();
-			td = unsmob_context_def ($$);
+			td = Context_def::unsmob ($$);
 		}
-                SCM new_mods = unsmob_context_mod ($2)->get_mods ();
+                SCM new_mods = Context_mod::unsmob ($2)->get_mods ();
                 for (SCM m = new_mods; scm_is_pair (m); m = scm_cdr (m)) {
                     td->add_context_mod (scm_car (m));
                 }
 	}
 	| context_def_spec_body context_mod_arg {
-		Context_def *td = unsmob_context_def ($1);
+		Context_def *td = Context_def::unsmob ($1);
 		if (scm_is_eq ($2, SCM_UNSPECIFIED))
 			;
-		else if (!td && unsmob_context_def ($2))
+		else if (!td && Context_def::unsmob ($2))
 			$$ = $2;
 		else {
 			if (!td) {
 				$$ = Context_def::make_scm ();
-				td = unsmob_context_def ($$);
+				td = Context_def::unsmob ($$);
 			}
-			if (unsmob_music ($2)) {
+			if (Music::unsmob ($2)) {
 				SCM proc = parser->lexer_->lookup_identifier ("context-mod-music-handler");
 				$2 = scm_call_2 (proc, parser->self_scm (), $2);
 			}
-			if (Context_mod *cm = unsmob_context_mod ($2)) {
+			if (Context_mod *cm = Context_mod::unsmob ($2)) {
 				for (SCM m = cm->get_mods (); scm_is_pair (m); m = scm_cdr (m)) {
 					td->add_context_mod (scm_car (m));
 				}
@@ -766,7 +766,7 @@ context_def_spec_body:
 book_block:
 	BOOK '{' book_body '}' 	{
 		$$ = $3;
-		unsmob_book ($$)->origin ()->set_spot (@$);
+		Book::unsmob ($$)->origin ()->set_spot (@$);
 		pop_paper (parser);
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-book"), SCM_BOOL_F);
 	}
@@ -779,7 +779,7 @@ book_body:
 	{
 		Book *book = new Book;
 		init_papers (parser);
-		book->paper_ = dynamic_cast<Output_def*> (unsmob_output_def (parser->lexer_->lookup_identifier ("$defaultpaper"))->clone ());
+		book->paper_ = dynamic_cast<Output_def*> (Output_def::unsmob (parser->lexer_->lookup_identifier ("$defaultpaper"))->clone ());
 		book->paper_->unprotect ();
 		push_paper (parser, book->paper_);
 		book->header_ = get_header (parser);
@@ -790,8 +790,8 @@ book_body:
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-book"), $1);
 	}
 	| book_body paper_block {
-		unsmob_book ($1)->paper_ = unsmob_output_def ($2);
-		set_paper (parser, unsmob_output_def ($2));
+		Book::unsmob ($1)->paper_ = Output_def::unsmob ($2);
+		set_paper (parser, Output_def::unsmob ($2));
 	}
 	| book_body bookpart_block {
 		SCM proc = parser->lexer_->lookup_identifier ("book-bookpart-handler");
@@ -828,11 +828,11 @@ book_body:
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("book-text-handler");
 			scm_call_2 (proc, $1, out);
-		} else if (unsmob_score ($2))
+		} else if (Score::unsmob ($2))
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("book-score-handler");
 			scm_call_2 (proc, $1, $2);
-		} else if (Output_def *od = unsmob_output_def ($2)) {
+		} else if (Output_def *od = Output_def::unsmob ($2)) {
 			SCM id = SCM_EOL;
 
 			if (od->c_variable ("is-paper") == SCM_BOOL_T)
@@ -848,10 +848,10 @@ book_body:
 	}
 	| book_body
 	{
-		parser->lexer_->add_scope (unsmob_book ($1)->header_);
+		parser->lexer_->add_scope (Book::unsmob ($1)->header_);
 	} lilypond_header
 	| book_body error {
-                Book *book = unsmob_book ($1);
+                Book *book = Book::unsmob ($1);
 		book->paper_ = 0;
 		book->scores_ = SCM_EOL;
 		book->bookparts_ = SCM_EOL;
@@ -861,7 +861,7 @@ book_body:
 bookpart_block:
 	BOOKPART '{' bookpart_body '}' {
 		$$ = $3;
-		unsmob_book ($$)->origin ()->set_spot (@$);
+		Book::unsmob ($$)->origin ()->set_spot (@$);
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), SCM_BOOL_F);
 	}
 	;
@@ -876,7 +876,7 @@ bookpart_body:
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), $1);
 	}
 	| bookpart_body paper_block {
-		unsmob_book ($$)->paper_ = unsmob_output_def ($2);
+		Book::unsmob ($$)->paper_ = Output_def::unsmob ($2);
 	}
 	| bookpart_body score_block {
 		SCM proc = parser->lexer_->lookup_identifier ("bookpart-score-handler");
@@ -909,11 +909,11 @@ bookpart_body:
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("bookpart-text-handler");
 			scm_call_2 (proc, $1, out);
-		} else if (unsmob_score ($2))
+		} else if (Score::unsmob ($2))
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("bookpart-score-handler");
 			scm_call_2 (proc, $1, $2);
-		} else if (Output_def *od = unsmob_output_def ($2)) {
+		} else if (Output_def *od = Output_def::unsmob ($2)) {
 			SCM id = SCM_EOL;
 
 			if (od->c_variable ("is-paper") == SCM_BOOL_T)
@@ -929,13 +929,13 @@ bookpart_body:
 	}
 	| bookpart_body
 	{
-                Book *book = unsmob_book ($1);
+                Book *book = Book::unsmob ($1);
 		if (!ly_is_module (book->header_))
 			book->header_ = ly_make_module (false);
 		parser->lexer_->add_scope (book->header_);
 	} lilypond_header
 	| bookpart_body error {
-                Book *book = unsmob_book ($1);
+                Book *book = Book::unsmob ($1);
 		book->paper_ = 0;
 		book->scores_ = SCM_EOL;
 	}
@@ -943,31 +943,31 @@ bookpart_body:
 
 score_block:
 	SCORE '{' score_body '}' 	{
-		unsmob_score ($3)->origin ()->set_spot (@$);
+		Score::unsmob ($3)->origin ()->set_spot (@$);
 		$$ = $3;
 	}
 	;
 
 score_body:
 	score_items {
-		if (!unsmob_score ($1)) {
+		if (!Score::unsmob ($1)) {
 			parser->parser_error (@1, _("Missing music in \\score"));
 			$$ = (new Score)->unprotect ();
 			if (scm_is_pair ($1) && ly_is_module (scm_car ($1)))
 			{
-				unsmob_score ($$)->set_header (scm_car ($1));
+				Score::unsmob ($$)->set_header (scm_car ($1));
 				$1 = scm_cdr ($1);
 			}
 			for (SCM p = scm_reverse_x ($1, SCM_EOL);
 			     scm_is_pair (p); p = scm_cdr (p))
 			{
-				unsmob_score ($$)->
-					add_output_def (unsmob_output_def (scm_car (p)));
+				Score::unsmob ($$)->
+					add_output_def (Output_def::unsmob (scm_car (p)));
 			}
 		}
 	}
 	| score_body error {
-		unsmob_score ($$)->error_found_ = true;
+		Score::unsmob ($$)->error_found_ = true;
 	}
 	;
 
@@ -984,7 +984,7 @@ score_items:
 	}
 	| score_items score_item
 	{
-		Output_def *od = unsmob_output_def ($2);
+		Output_def *od = Output_def::unsmob ($2);
 		if (od) {
 			if (od->lookup_variable (ly_symbol2scm ("is-paper")) == SCM_BOOL_T)
 			{
@@ -992,18 +992,18 @@ score_items:
 				od = 0;
 				$2 = SCM_UNSPECIFIED;
 			}
-		} else if (!unsmob_score ($$)) {
-			if (unsmob_music ($2)) {
+		} else if (!Score::unsmob ($$)) {
+			if (Music::unsmob ($2)) {
 				SCM scorify = ly_lily_module_constant ("scorify-music");
 				$2 = scm_call_2 (scorify, $2, parser->self_scm ());
 			}
-			if (unsmob_score ($2))
+			if (Score::unsmob ($2))
 			{
 				$$ = $2;
 				$2 = SCM_UNSPECIFIED;
 			}
 		}
-		Score *score = unsmob_score ($$);
+		Score *score = Score::unsmob ($$);
 		if (score && scm_is_pair ($1)) {
 			if (ly_is_module (scm_car ($1)))
 			{
@@ -1013,7 +1013,7 @@ score_items:
 			for (SCM p = scm_reverse_x ($1, SCM_EOL);
 			     scm_is_pair (p); p = scm_cdr (p))
 			{
-				score->add_output_def (unsmob_output_def (scm_car (p)));
+				score->add_output_def (Output_def::unsmob (scm_car (p)));
 			}
 		}
 		if (od) {
@@ -1028,7 +1028,7 @@ score_items:
 	}
 	| score_items
 	{
-		if (Score *score = unsmob_score ($1)) {
+		if (Score *score = Score::unsmob ($1)) {
 			if (!ly_is_module (score->get_header ()))
 				score->set_header (ly_make_module (false));
 			parser->lexer_->add_scope (score->get_header ());
@@ -1050,7 +1050,7 @@ score_items:
 
 paper_block:
 	output_def {
-                Output_def *od = unsmob_output_def ($1);
+                Output_def *od = Output_def::unsmob ($1);
 
 		if (od->lookup_variable (ly_symbol2scm ("is-paper")) != SCM_BOOL_T)
 		{
@@ -1110,7 +1110,7 @@ music_or_context_def:
 
 output_def_body:
 	output_def_head_with_mode_switch '{' {
-		unsmob_output_def ($1)->input_origin_.set_spot (@$);
+		Output_def::unsmob ($1)->input_origin_.set_spot (@$);
 		// This is a stupid trick to mark the beginning of the
 		// body for deciding whether to allow
 		// embedded_scm_active to have an output definition
@@ -1127,7 +1127,7 @@ output_def_body:
 		// definitions.
 		if (scm_is_pair ($1))
 		{
-			Output_def *o = unsmob_output_def ($2);
+			Output_def *o = Output_def::unsmob ($2);
 			if (o) {
 				o->input_origin_.set_spot (@$);
 				$1 = o->self_scm ();
@@ -1137,10 +1137,10 @@ output_def_body:
 			} else
 				$1 = scm_car ($1);
 		}
-		if (unsmob_context_def ($2))
-			assign_context_def (unsmob_output_def ($1), $2);
+		if (Context_def::unsmob ($2))
+			assign_context_def (Output_def::unsmob ($1), $2);
 		// Seems unlikely, but let's be complete:
-		else if (unsmob_music ($2))
+		else if (Music::unsmob ($2))
 		{
 			SCM proc = parser->lexer_->lookup_identifier
 				("output-def-music-handler");
@@ -1165,8 +1165,8 @@ output_def_body:
 	} music_or_context_def
 	{
 		parser->lexer_->pop_state ();
-		if (unsmob_context_def ($3))
-			assign_context_def (unsmob_output_def ($1), $3);
+		if (Context_def::unsmob ($3))
+			assign_context_def (Output_def::unsmob ($1), $3);
 		else {
 
 			SCM proc = parser->lexer_->lookup_identifier
@@ -1201,7 +1201,7 @@ music_list:
 		$$ = SCM_EOL;
 	}
 	| music_list music_embedded {
-		if (unsmob_music ($2))
+		if (Music::unsmob ($2))
 			$$ = scm_cons ($2, $1);
 	}
 	| music_list error {
@@ -1225,7 +1225,7 @@ music:	music_assign
 	| pitch_or_music
 	{
 	        $$ = make_music_from_simple (parser, @1, $1);
-                if (!unsmob_music ($$))
+                if (!Music::unsmob ($$))
 		{
                         parser->parser_error (@1, _ ("music expected"));
 			$$ = MAKE_SYNTAX ("void-music", @$);
@@ -1236,7 +1236,7 @@ music:	music_assign
 music_embedded:
 	music
 	{
-		if (unsmob_music ($1)->is_mus_type ("post-event")) {
+		if (Music::unsmob ($1)->is_mus_type ("post-event")) {
 			parser->parser_error (@1, _ ("unexpected post-event"));
 			$$ = SCM_UNSPECIFIED;
 		}
@@ -1253,7 +1253,7 @@ music_embedded:
 	{
 		Music *n = MY_MAKE_MUSIC ("NoteEvent", @$);
 
-		parser->default_duration_ = *unsmob_duration ($1);
+		parser->default_duration_ = *Duration::unsmob ($1);
 		n->set_property ("duration", $1);
 
 		if (scm_is_pair ($2))
@@ -1268,7 +1268,7 @@ music_embedded_backup:
 	{
 		if (scm_is_eq ($1, SCM_UNSPECIFIED))
 			$$ = $1;
-		else if (Music *m = unsmob_music ($1)) {
+		else if (Music *m = Music::unsmob ($1)) {
 			if (m->is_mus_type ("post-event")) {
 				parser->parser_error
 					(@1, _ ("unexpected post-event"));
@@ -1347,11 +1347,11 @@ context_modification:
         }
 	| WITH context_modification_arg
 	{
-		if (unsmob_music ($2)) {
+		if (Music::unsmob ($2)) {
 			SCM proc = parser->lexer_->lookup_identifier ("context-mod-music-handler");
 			$2 = scm_call_2 (proc, parser->self_scm (), $2);
 		}
-		if (unsmob_context_mod ($2))
+		if (Context_mod::unsmob ($2))
 			$$ = $2;
 		else {
 			parser->parser_error (@2, _ ("not a context mod"));
@@ -1381,23 +1381,23 @@ context_mod_list:
         }
         | context_mod_list context_mod  {
 		if (!SCM_UNBNDP ($2))
-			unsmob_context_mod ($1)->add_context_mod ($2);
+			Context_mod::unsmob ($1)->add_context_mod ($2);
         }
         | context_mod_list CONTEXT_MOD_IDENTIFIER {
-                 Context_mod *md = unsmob_context_mod ($2);
+                 Context_mod *md = Context_mod::unsmob ($2);
                  if (md)
-                     unsmob_context_mod ($1)->add_context_mods (md->get_mods ());
+                     Context_mod::unsmob ($1)->add_context_mods (md->get_mods ());
         }
 	| context_mod_list context_mod_arg {
 		if (scm_is_eq ($2, SCM_UNSPECIFIED))
 			;
-		else if (unsmob_music ($2)) {
+		else if (Music::unsmob ($2)) {
 			SCM proc = parser->lexer_->lookup_identifier ("context-mod-music-handler");
 			$2 = scm_call_2 (proc, parser->self_scm (), $2);
 		}
-		if (unsmob_context_mod ($2))
-			unsmob_context_mod ($$)->add_context_mods
-				(unsmob_context_mod ($2)->get_mods ());
+		if (Context_mod::unsmob ($2))
+			Context_mod::unsmob ($$)->add_context_mods
+				(Context_mod::unsmob ($2)->get_mods ());
 		else {
 			parser->parser_error (@2, _ ("not a context mod"));
 		}
@@ -2150,14 +2150,14 @@ complex_music:
 
 complex_music_prefix:
 	CONTEXT symbol optional_id optional_context_mod {
-                Context_mod *ctxmod = unsmob_context_mod ($4);
+                Context_mod *ctxmod = Context_mod::unsmob ($4);
                 SCM mods = SCM_EOL;
                 if (ctxmod)
                         mods = ctxmod->get_mods ();
 		$$ = START_MAKE_SYNTAX ("context-specification", $2, $3, mods, SCM_BOOL_F);
 	}
 	| NEWCONTEXT symbol optional_id optional_context_mod {
-                Context_mod *ctxmod = unsmob_context_mod ($4);
+                Context_mod *ctxmod = Context_mod::unsmob ($4);
                 SCM mods = SCM_EOL;
                 if (ctxmod)
                         mods = ctxmod->get_mods ();
@@ -2178,7 +2178,7 @@ mode_changed_music:
 		parser->lexer_->pop_state ();
 	}
 	| mode_changing_head_with_context optional_context_mod grouped_music_list {
-                Context_mod *ctxmod = unsmob_context_mod ($2);
+                Context_mod *ctxmod = Context_mod::unsmob ($2);
                 SCM mods = SCM_EOL;
                 if (ctxmod)
                         mods = ctxmod->get_mods ();
@@ -2597,7 +2597,7 @@ event_chord:
 	simple_element post_events {
 		// Let the rhythmic music iterator sort this mess out.
 		if (scm_is_pair ($2)) {
-			unsmob_music ($$)->set_property ("articulations",
+			Music::unsmob ($$)->set_property ("articulations",
 							 scm_reverse_x ($2, SCM_EOL));
 		}
 	} %prec ':'
@@ -2621,13 +2621,13 @@ event_chord:
 note_chord_element:
 	chord_body optional_notemode_duration post_events
 	{
-		Music *m = unsmob_music ($1);
-		SCM dur = unsmob_duration ($2)->smobbed_copy ();
+		Music *m = Music::unsmob ($1);
+		SCM dur = Duration::unsmob ($2)->smobbed_copy ();
 		SCM es = m->get_property ("elements");
 		SCM postevs = scm_reverse_x ($3, SCM_EOL);
 
 		for (SCM s = es; scm_is_pair (s); s = scm_cdr (s))
-		  unsmob_music (scm_car (s))->set_property ("duration", dur);
+		  Music::unsmob (scm_car (s))->set_property ("duration", dur);
 		es = ly_append2 (es, postevs);
 
 		m-> set_property ("elements", es);
@@ -2694,11 +2694,11 @@ chord_body_element:
 	}
 	| music_function_chord_body
 	{
-		Music *m = unsmob_music ($1);
+		Music *m = Music::unsmob ($1);
 
 		while (m && m->is_mus_type ("music-wrapper-music")) {
 			$$ = m->get_property ("element");
-			m = unsmob_music ($$);
+			m = Music::unsmob ($$);
 		}
 
 		if (!(m && m->is_mus_type ("rhythmic-event"))) {
@@ -2727,7 +2727,7 @@ post_events:
 	}
 	| post_events post_event {
 		$$ = $1;
-		if (Music *m = unsmob_music ($2))
+		if (Music *m = Music::unsmob ($2))
 		{
 			if (m->is_mus_type ("post-event-wrapper"))
 			{
@@ -2751,12 +2751,12 @@ post_event_nofinger:
 	}
 	| script_dir music_function_call {
 		$$ = $2;
-		if (!unsmob_music ($2)->is_mus_type ("post-event")) {
+		if (!Music::unsmob ($2)->is_mus_type ("post-event")) {
 			parser->parser_error (@2, _ ("post-event expected"));
 			$$ = SCM_UNSPECIFIED;
 		} else if (!SCM_UNBNDP ($1))
 		{
-			unsmob_music ($$)->set_property ("direction", $1);
+			Music::unsmob ($$)->set_property ("direction", $1);
 		}
 	}
 	| HYPHEN {
@@ -2772,7 +2772,7 @@ post_event_nofinger:
 	| script_dir direction_reqd_event {
 		if (!SCM_UNBNDP ($1))
 		{
-			Music *m = unsmob_music ($2);
+			Music *m = Music::unsmob ($2);
 			m->set_property ("direction", $1);
 		}
 		$$ = $2;
@@ -2780,7 +2780,7 @@ post_event_nofinger:
 	| script_dir direction_less_event {
 		if (!SCM_UNBNDP ($1))
 		{
-			Music *m = unsmob_music ($2);
+			Music *m = Music::unsmob ($2);
 			m->set_property ("direction", $1);
 		}
 		$$ = $2;
@@ -2788,12 +2788,12 @@ post_event_nofinger:
 	| '^' fingering
 	{
 		$$ = $2;
-		unsmob_music ($$)->set_property ("direction", scm_from_int (UP));
+		Music::unsmob ($$)->set_property ("direction", scm_from_int (UP));
 	}
 	| '_' fingering
 	{
 		$$ = $2;
-		unsmob_music ($$)->set_property ("direction", scm_from_int (DOWN));
+		Music::unsmob ($$)->set_property ("direction", scm_from_int (DOWN));
 	}
 	;
 
@@ -2836,7 +2836,7 @@ direction_reqd_event:
 			a->set_property ("articulation-type", s);
 			$$ = a->unprotect ();
 		} else {
-			Music *original = unsmob_music (s);
+			Music *original = Music::unsmob (s);
 			if (original && original->is_mus_type ("post-event")) {
 				Music *a = original->clone ();
 				a->set_spot (parser->lexer_->override_input (@$));
@@ -2885,7 +2885,7 @@ steno_pitch:
 	NOTENAME_PITCH quotes {
                 if (!scm_is_eq (SCM_INUM0, $2))
                 {
-                        Pitch p = *unsmob_pitch ($1);
+                        Pitch p = *Pitch::unsmob ($1);
                         p = p.transposed (Pitch (scm_to_int ($2), 0));
                         $$ = p.smobbed_copy ();
                 }
@@ -2900,7 +2900,7 @@ steno_tonic_pitch:
 	TONICNAME_PITCH	quotes {
                 if (!scm_is_eq (SCM_INUM0, $2))
                 {
-                        Pitch p = *unsmob_pitch ($1);
+                        Pitch p = *Pitch::unsmob ($1);
                         p = p.transposed (Pitch (scm_to_int ($2), 0));
                         $$ = p.smobbed_copy ();
                 }
@@ -2912,7 +2912,7 @@ pitch:
 	| PITCH_IDENTIFIER quotes {
                 if (!scm_is_eq (SCM_INUM0, $2))
                 {
-                        Pitch p = *unsmob_pitch ($1);
+                        Pitch p = *Pitch::unsmob ($1);
                         p = p.transposed (Pitch (scm_to_int ($2), 0));
                         $$ = p.smobbed_copy ();
                 }
@@ -2933,7 +2933,7 @@ gen_text_def:
 	}
 	| embedded_scm
 	{
-		Music *m = unsmob_music ($1);
+		Music *m = Music::unsmob ($1);
 		if (m && m->is_mus_type ("post-event"))
 			$$ = $1;
 		else if (Text_interface::is_markup ($1)) {
@@ -2995,7 +2995,7 @@ maybe_notemode_duration:
 	} %prec ':'
 	| multiplied_duration	{
 		$$ = $1;
-		parser->default_duration_ = *unsmob_duration ($$);
+		parser->default_duration_ = *Duration::unsmob ($$);
 	}
 ;
 
@@ -3018,7 +3018,7 @@ steno_duration:
 		}
 	}
 	| DURATION_IDENTIFIER dots	{
-		Duration *d = unsmob_duration ($1);
+		Duration *d = Duration::unsmob ($1);
 		Duration k (d->duration_log (),
                             d->dot_count () + scm_to_int ($2));
 		k = k.compressed (d->factor ());
@@ -3032,12 +3032,12 @@ multiplied_duration:
 		$$ = $1;
 	}
 	| multiplied_duration '*' UNSIGNED {
-		$$ = unsmob_duration ($$)->compressed (scm_to_int ($3)).smobbed_copy ();
+		$$ = Duration::unsmob ($$)->compressed (scm_to_int ($3)).smobbed_copy ();
 	}
 	| multiplied_duration '*' FRACTION {
 		Rational  m (scm_to_int (scm_car ($3)), scm_to_int (scm_cdr ($3)));
 
-		$$ = unsmob_duration ($$)->compressed (m).smobbed_copy ();
+		$$ = Duration::unsmob ($$)->compressed (m).smobbed_copy ();
 	}
 	;
 
@@ -3107,10 +3107,10 @@ bass_figure:
 	}
 	| bass_figure ']' {
 		$$ = $1;
-		unsmob_music ($1)->set_property ("bracket-stop", SCM_BOOL_T);
+		Music::unsmob ($1)->set_property ("bracket-stop", SCM_BOOL_T);
 	}
 	| bass_figure figured_bass_alteration {
-		Music *m = unsmob_music ($1);
+		Music *m = Music::unsmob ($1);
 		if (scm_to_double ($2)) {
 			SCM salter = m->get_property ("alteration");
 			SCM alter = scm_is_number (salter) ? salter : scm_from_int (0);
@@ -3121,7 +3121,7 @@ bass_figure:
 		}
 	}
 	| bass_figure figured_bass_modification  {
-		Music *m = unsmob_music ($1);
+		Music *m = Music::unsmob ($1);
 		m->set_property ($2, SCM_BOOL_T);
 	}
 	;
@@ -3148,7 +3148,7 @@ br_bass_figure:
 	}
 	| '[' bass_figure {
 		$$ = $2;
-		unsmob_music ($$)->set_property ("bracket-start", SCM_BOOL_T);
+		Music::unsmob ($$)->set_property ("bracket-start", SCM_BOOL_T);
 	}
 	;
 
@@ -3210,7 +3210,7 @@ pitch_or_music:
 		if (!parser->lexer_->is_chord_state ())
                         parser->parser_error (@1, _ ("have to be in Chord mode for chords"));
 		if (scm_is_pair ($2)) {
-			if (unsmob_pitch ($1))
+			if (Pitch::unsmob ($1))
 				$1 = make_chord_elements (@1,
 							  $1,
 							  parser->default_duration_.smobbed_copy (),
@@ -3219,7 +3219,7 @@ pitch_or_music:
 			SCM elts = ly_append2 ($1, scm_reverse_x ($2, SCM_EOL));
 
 			$$ = MAKE_SYNTAX ("event-chord", @1, elts);
-		} else if (!unsmob_pitch ($1))
+		} else if (!Pitch::unsmob ($1))
 			$$ = MAKE_SYNTAX ("event-chord", @1, $1);
 		// A mere pitch drops through.
 	} %prec ':'
@@ -3266,7 +3266,7 @@ lyric_element_music:
 	lyric_element optional_notemode_duration post_events {
 		$$ = MAKE_SYNTAX ("lyric-event", @$, $1, $2);
 		if (scm_is_pair ($3))
-			unsmob_music ($$)->set_property
+			Music::unsmob ($$)->set_property
 				("articulations", scm_reverse_x ($3, SCM_EOL));
 	} %prec ':'
 	;
@@ -3520,7 +3520,7 @@ markup_uncomposed_list:
 		SCM nn = parser->lexer_->lookup_identifier ("pitchnames");
 		parser->lexer_->push_note_state (nn);
 	} '{' score_body '}' {
-		Score *sc = unsmob_score ($4);
+		Score *sc = Score::unsmob ($4);
 		sc->origin ()->set_spot (@$);
 		if (sc->defs_.empty ()) {
 			Output_def *od = get_layout (parser);
@@ -3603,7 +3603,7 @@ simple_markup:
 		SCM nn = parser->lexer_->lookup_identifier ("pitchnames");
 		parser->lexer_->push_note_state (nn);
 	} '{' score_body '}' {
-		Score *sc = unsmob_score ($4);
+		Score *sc = Score::unsmob ($4);
 		sc->origin ()->set_spot (@$);
 		if (sc->defs_.empty ()) {
 			Output_def *od = get_layout (parser);
@@ -3662,8 +3662,8 @@ otherwise, we have to import music classes into the lexer.
 int
 Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 {
-	if (unsmob_book (sid)) {
-		Book *book =  unsmob_book (sid)->clone ();
+	if (Book::unsmob (sid)) {
+		Book *book =  Book::unsmob (sid)->clone ();
 		*destination = book->self_scm ();
 		book->unprotect ();
 
@@ -3671,30 +3671,30 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 	} else if (scm_is_number (sid)) {
 		*destination = sid;
 		return NUMBER_IDENTIFIER;
-	} else if (unsmob_context_def (sid))
+	} else if (Context_def::unsmob (sid))
 	{
-		*destination = unsmob_context_def (sid)->clone ()->unprotect ();
+		*destination = Context_def::unsmob (sid)->clone ()->unprotect ();
 		return SCM_IDENTIFIER;
-        } else if (unsmob_context_mod (sid)) {
-                *destination = unsmob_context_mod (sid)->smobbed_copy ();
+        } else if (Context_mod::unsmob (sid)) {
+                *destination = Context_mod::unsmob (sid)->smobbed_copy ();
                 return CONTEXT_MOD_IDENTIFIER;
-	} else if (Music *mus = unsmob_music (sid)) {
+	} else if (Music *mus = Music::unsmob (sid)) {
 		mus = mus->clone ();
 		*destination = mus->self_scm ();
 		bool is_event = mus->is_mus_type ("post-event");
 		mus->unprotect ();
 		return is_event ? EVENT_IDENTIFIER : MUSIC_IDENTIFIER;
-	} else if (unsmob_pitch (sid)) {
-		*destination = unsmob_pitch (sid)->smobbed_copy ();
+	} else if (Pitch::unsmob (sid)) {
+		*destination = Pitch::unsmob (sid)->smobbed_copy ();
 		return PITCH_IDENTIFIER;
-	} else if (unsmob_duration (sid)) {
-		*destination = unsmob_duration (sid)->smobbed_copy ();
+	} else if (Duration::unsmob (sid)) {
+		*destination = Duration::unsmob (sid)->smobbed_copy ();
 		return DURATION_IDENTIFIER;
-	} else if (unsmob_output_def (sid)) {
-		*destination = unsmob_output_def (sid)->clone ()->unprotect ();
+	} else if (Output_def::unsmob (sid)) {
+		*destination = Output_def::unsmob (sid)->clone ()->unprotect ();
 		return SCM_IDENTIFIER;
-	} else if (unsmob_score (sid)) {
-		*destination = unsmob_score (sid)->clone ()->unprotect ();
+	} else if (Score::unsmob (sid)) {
+		*destination = Score::unsmob (sid)->clone ()->unprotect ();
 		return SCM_IDENTIFIER;
 	}
 
@@ -3751,7 +3751,7 @@ SCM check_scheme_arg (Lily_parser *parser, Input loc,
 
 SCM loc_on_music (Input loc, SCM arg)
 {
-	if (Music *m = unsmob_music (arg))
+	if (Music *m = Music::unsmob (arg))
 	{
 		m = m->clone ();
 		m->set_spot (loc);
@@ -3830,7 +3830,7 @@ is_regular_identifier (SCM id, bool multiple)
 SCM
 make_music_from_simple (Lily_parser *parser, Input loc, SCM simple)
 {
-	if (unsmob_music (simple))
+	if (Music::unsmob (simple))
 		return simple;
 	if (parser->lexer_->is_note_state ()) {
 		if (scm_is_symbol (simple)) {
@@ -3839,7 +3839,7 @@ make_music_from_simple (Lily_parser *parser, Input loc, SCM simple)
 			n->set_property ("drum-type", simple);
 			return n->unprotect ();
 		}
-		if (unsmob_pitch (simple)) {
+		if (Pitch::unsmob (simple)) {
 			Music *n = MY_MAKE_MUSIC ("NoteEvent", loc);
 			n->set_property ("duration", parser->default_duration_.smobbed_copy ());
 			n->set_property ("pitch", simple);
@@ -3851,7 +3851,7 @@ make_music_from_simple (Lily_parser *parser, Input loc, SCM simple)
 			return MAKE_SYNTAX ("lyric-event", loc, simple,
 					    parser->default_duration_.smobbed_copy ());
 	} else if (parser->lexer_->is_chord_state ()) {
-		if (unsmob_pitch (simple))
+		if (Pitch::unsmob (simple))
 			return MAKE_SYNTAX
 				("event-chord",
 				 loc,
@@ -3908,7 +3908,7 @@ make_chord_elements (Input loc, SCM pitch, SCM dur, SCM modification_list)
 	SCM res = scm_call_3 (chord_ctor, pitch, dur, modification_list);
 	for (SCM s = res; scm_is_pair (s); s = scm_cdr (s))
 	{
-		unsmob_music (scm_car (s))->set_spot (loc);
+		Music::unsmob (scm_car (s))->set_spot (loc);
 	}
 	return res;
 }

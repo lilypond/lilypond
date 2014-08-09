@@ -168,6 +168,8 @@ stderr of this run."
 \test ##[ \key e \minor #]
 \test ##[ \clef "bass" #]
 \test ##[ \clef "french^2" #]
+\test ##[ \clef "treble_[8]" #]
+\test ##[ \clef "bass^(15)" #]
 \test ##[ \clef "alto_3" #]
 \test ##[ \time 2/4 #]
 \test ##[ \time #'(3 2) 5/8 #]

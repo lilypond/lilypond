@@ -223,7 +223,7 @@ Output_def *
 get_layout (Lily_parser *parser)
 {
   SCM id = parser->lexer_->lookup_identifier ("$defaultlayout");
-  Output_def *layout = unsmob_output_def (id);
+  Output_def *layout = Output_def::unsmob (id);
   layout = layout ? layout->clone () : new Output_def;
   layout->set_variable (ly_symbol2scm ("is-layout"), SCM_BOOL_T);
 
@@ -234,7 +234,7 @@ Output_def *
 get_midi (Lily_parser *parser)
 {
   SCM id = parser->lexer_->lookup_identifier ("$defaultmidi");
-  Output_def *layout = unsmob_output_def (id);
+  Output_def *layout = Output_def::unsmob (id);
   layout = layout ? layout->clone () : new Output_def;
   layout->set_variable (ly_symbol2scm ("is-midi"), SCM_BOOL_T);
   return layout;
@@ -247,9 +247,9 @@ get_paper (Lily_parser *parser)
 {
   SCM papers = parser->lexer_->lookup_identifier ("$papers");
   Output_def *layout = ((papers == SCM_UNDEFINED) || scm_is_null (papers))
-                       ? 0 : unsmob_output_def (scm_car (papers));
+                       ? 0 : Output_def::unsmob (scm_car (papers));
   SCM default_paper = parser->lexer_->lookup_identifier ("$defaultpaper");
-  layout = layout ? layout : unsmob_output_def (default_paper);
+  layout = layout ? layout : Output_def::unsmob (default_paper);
 
   layout = layout ? dynamic_cast<Output_def *> (layout->clone ()) : new Output_def;
   layout->set_variable (ly_symbol2scm ("is-paper"), SCM_BOOL_T);

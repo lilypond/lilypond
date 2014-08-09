@@ -109,7 +109,7 @@ Drul_array<Grob *>
 Tuplet_number::adjacent_note_columns (Grob *me_grob, Grob *ref_stem)
 {
   Spanner *me = dynamic_cast<Spanner *> (me_grob);
-  Spanner *tuplet = unsmob_spanner (me->get_object ("bracket"));
+  Spanner *tuplet = Spanner::unsmob (me->get_object ("bracket"));
 
   extract_grob_set (tuplet, "note-columns", columns);
   Grob *ref_col = ref_stem->get_parent (X_AXIS); // X-parent of Stem = NoteColumn
@@ -156,7 +156,7 @@ bool
 Tuplet_number::knee_position_against_beam (Grob *me_grob, Grob *ref_stem)
 {
   Spanner *me = dynamic_cast<Spanner *> (me_grob);
-  Spanner *tuplet = unsmob_spanner (me->get_object ("bracket"));
+  Spanner *tuplet = Spanner::unsmob (me->get_object ("bracket"));
 
   bool bracket_visible = to_boolean (me->get_property ("bracket-visibility"))
                          || !tuplet->extent (tuplet, Y_AXIS).is_empty ();
@@ -213,8 +213,8 @@ MAKE_SCHEME_CALLBACK (Tuplet_number, print, 1);
 SCM
 Tuplet_number::print (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
-  Spanner *tuplet = unsmob_spanner (me->get_object ("bracket"));
+  Spanner *me = Spanner::unsmob (smob);
+  Spanner *tuplet = Spanner::unsmob (me->get_object ("bracket"));
 
   if (!tuplet || !tuplet->is_live ())
     {
@@ -223,7 +223,7 @@ Tuplet_number::print (SCM smob)
     }
 
   SCM stc_scm = Text_interface::print (smob);
-  Stencil *stc = unsmob_stencil (stc_scm);
+  Stencil *stc = Stencil::unsmob (stc_scm);
 
   stc->align_to (X_AXIS, CENTER);
   stc->align_to (Y_AXIS, CENTER);
@@ -257,13 +257,13 @@ MAKE_SCHEME_CALLBACK (Tuplet_number, calc_x_offset, 1);
 SCM
 Tuplet_number::calc_x_offset (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
 
   Item *left_bound = me->get_bound (LEFT);
   Item *right_bound = me->get_bound (RIGHT);
   Drul_array<Item *> bounds (left_bound, right_bound);
 
-  Spanner *tuplet = unsmob_spanner (me->get_object ("bracket"));
+  Spanner *tuplet = Spanner::unsmob (me->get_object ("bracket"));
 
   Grob *commonx = Tuplet_bracket::get_common_x (tuplet);
   commonx = commonx->common_refpoint (me, X_AXIS);
@@ -347,8 +347,8 @@ MAKE_SCHEME_CALLBACK (Tuplet_number, calc_y_offset, 1);
 SCM
 Tuplet_number::calc_y_offset (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
-  Spanner *tuplet = unsmob_spanner (me->get_object ("bracket"));
+  Spanner *me = Spanner::unsmob (smob);
+  Spanner *tuplet = Spanner::unsmob (me->get_object ("bracket"));
   Drul_array<Real> positions = robust_scm2drul (tuplet->get_property ("positions"),
                                                 Drul_array<Real> (0.0, 0.0));
   SCM to_bracket = scm_from_double ((positions[LEFT] + positions[RIGHT]) / 2.0);
@@ -450,7 +450,7 @@ Tuplet_number::calc_y_offset (SCM smob)
   Interval colliding_acc_ext_y;
 
   for (vsize i = 0; i < heads.size (); i++)
-    if (Grob *acc = unsmob_grob (heads[i]->get_object ("accidental-grob")))
+    if (Grob *acc = Grob::unsmob (heads[i]->get_object ("accidental-grob")))
       {
         commony = commony->common_refpoint (acc, Y_AXIS);
         Interval acc_ext_y = acc->extent (commony, Y_AXIS);
@@ -484,8 +484,8 @@ MAKE_SCHEME_CALLBACK (Tuplet_number, calc_cross_staff, 1)
 SCM
 Tuplet_number::calc_cross_staff (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
-  return unsmob_grob (me->get_object ("bracket"))->get_property ("cross-staff");
+  Grob *me = Grob::unsmob (smob);
+  return Grob::unsmob (me->get_object ("bracket"))->get_property ("cross-staff");
 }
 
 ADD_INTERFACE (Tuplet_number,

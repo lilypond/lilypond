@@ -81,7 +81,6 @@ Interval line_dimensions_int (Output_def *def, int);
 Font_metric *select_encoded_font (Output_def *layout, SCM chain);
 Font_metric *select_font (Output_def *layout, SCM chain);
 
-DECLARE_UNSMOB (Output_def, output_def);
 
 
 Font_metric* find_pango_font (Output_def *layout,  SCM descr, Real factor);

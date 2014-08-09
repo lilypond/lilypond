@@ -24,7 +24,7 @@ LY_DEFINE (ly_item_p, "ly:item?",
            1, 0, 0, (SCM g),
            "Is @var{g} an @code{Item} object?")
 {
-  Grob *me = unsmob_grob (g);
+  Grob *me = Grob::unsmob (g);
   bool b = dynamic_cast<Item *> (me);
   return ly_bool2scm (b);
 }
@@ -35,7 +35,7 @@ LY_DEFINE (ly_item_break_dir, "ly:item-break-dir",
            " end of line, @code{0}@tie{}unbroken, and"
            " @code{1}@tie{}beginning of line.")
 {
-  LY_ASSERT_TYPE (unsmob_item, it, 1);
-  Item *me = unsmob_item (it);
+  LY_ASSERT_TYPE (Item::unsmob, it, 1);
+  Item *me = Item::unsmob (it);
   return scm_from_int (me->break_status_dir ());
 }

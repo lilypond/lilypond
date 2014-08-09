@@ -123,8 +123,8 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser,
   main_input_level_ = 0;
 
   extra_tokens_ = SCM_EOL;
-  if (unsmob_input (override_input))
-    override_input_ = *unsmob_input (override_input);
+  if (Input::unsmob (override_input))
+    override_input_ = *Input::unsmob (override_input);
 
   smobify_self ();
 

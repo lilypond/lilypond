@@ -11,8 +11,8 @@
 
   texidoc = "
 By default, only the numerator of the tuplet number is printed over the
-tuplet bracket, i.e., the denominator of the argument to the
-@code{\\times} command.
+tuplet bracket, i.e., the numerator of the argument to the
+@code{\\tuplet} command.
 
 Alternatively, num:den of the tuplet number may be printed, or the
 tuplet number may be suppressed altogether.

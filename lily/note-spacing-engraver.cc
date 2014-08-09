@@ -101,9 +101,9 @@ Note_spacing_engraver::finalize ()
   Grob *last_spacing = last_spacings_[parent];
 
   if (last_spacing
-      && !unsmob_grob_array (last_spacing->get_object ("right-items")))
+      && !Grob_array::unsmob (last_spacing->get_object ("right-items")))
     {
-      Grob *col = unsmob_grob (get_property ("currentCommandColumn"));
+      Grob *col = Grob::unsmob (get_property ("currentCommandColumn"));
 
       Pointer_group_interface::add_grob (last_spacing,
                                          ly_symbol2scm ("right-items"),
@@ -120,7 +120,7 @@ Note_spacing_engraver::stop_translation_timestep ()
   if (last_spacing
       && to_boolean (get_property ("hasStaffSpacing")))
     {
-      Grob *col = unsmob_grob (get_property ("currentCommandColumn"));
+      Grob *col = Grob::unsmob (get_property ("currentCommandColumn"));
       Pointer_group_interface::add_grob (last_spacing,
                                          ly_symbol2scm ("right-items"),
                                          col);

@@ -141,7 +141,7 @@ LY_DEFINE (ly_parser_lexer, "ly:parser-lexer",
            1, 0, 0, (SCM parser_smob),
            "Return the lexer for @var{parser-smob}.")
 {
-  Lily_parser *parser = unsmob_lily_parser (parser_smob);
+  Lily_parser *parser = Lily_parser::unsmob (parser_smob);
   return parser->lexer_->self_scm ();
 }
 
@@ -154,7 +154,7 @@ LY_DEFINE (ly_parser_clone, "ly:parser-clone",
            " it becomes the source of all music expressions inside.")
 {
   LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
-  Lily_parser *parser = unsmob_lily_parser (parser_smob);
+  Lily_parser *parser = Lily_parser::unsmob (parser_smob);
   if (SCM_UNBNDP (closures))
     closures = SCM_EOL;
   else
@@ -170,7 +170,7 @@ LY_DEFINE (ly_parser_define_x, "ly:parser-define!",
 {
 
   LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
-  Lily_parser *parser = unsmob_lily_parser (parser_smob);
+  Lily_parser *parser = Lily_parser::unsmob (parser_smob);
 
   LY_ASSERT_TYPE (ly_is_symbol, symbol, 2);
 
@@ -185,7 +185,7 @@ LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
 {
   LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
 
-  Lily_parser *parser = unsmob_lily_parser (parser_smob);
+  Lily_parser *parser = Lily_parser::unsmob (parser_smob);
 
   LY_ASSERT_TYPE (ly_is_symbol, symbol, 2);
 
@@ -202,7 +202,7 @@ LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
            "  Upon failure, throw @code{ly-file-failed} key.")
 {
   LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
-  Lily_parser *parser = unsmob_lily_parser (parser_smob);
+  Lily_parser *parser = Lily_parser::unsmob (parser_smob);
   LY_ASSERT_TYPE (scm_is_string, ly_code, 2);
 
   if (!parser->lexer_->is_clean ())
@@ -222,7 +222,7 @@ LY_DEFINE (ly_parse_string_expression, "ly:parse-string-expression",
            " @var{filename} and @var{line} are optional source indicators.")
 {
   LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
-  Lily_parser *parser = unsmob_lily_parser (parser_smob);
+  Lily_parser *parser = Lily_parser::unsmob (parser_smob);
   LY_ASSERT_TYPE (scm_is_string, ly_code, 2);
   string fn;
   if (SCM_UNBNDP (filename) || !scm_is_string (filename))
@@ -253,7 +253,7 @@ LY_DEFINE (ly_parser_include_string, "ly:parser-include-string",
            " Scheme expressions (@code{$} instead of @code{#}).")
 {
   LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
-  Lily_parser *parser = unsmob_lily_parser (parser_smob);
+  Lily_parser *parser = Lily_parser::unsmob (parser_smob);
   LY_ASSERT_TYPE (scm_is_string, ly_code, 2);
 
   parser->include_string (ly_scm2string (ly_code));
@@ -268,7 +268,7 @@ LY_DEFINE (ly_parser_set_note_names, "ly:parser-set-note-names",
            " if the current mode is notes.")
 {
   LY_ASSERT_SMOB (Lily_parser, parser, 1);
-  Lily_parser *p = unsmob_lily_parser (parser);
+  Lily_parser *p = Lily_parser::unsmob (parser);
 
   if (p->lexer_->is_note_state ())
     {
@@ -284,7 +284,7 @@ LY_DEFINE (ly_parser_output_name, "ly:parser-output-name",
            "Return the base name of the output file.")
 {
   LY_ASSERT_SMOB (Lily_parser, parser, 1);
-  Lily_parser *p = unsmob_lily_parser (parser);
+  Lily_parser *p = Lily_parser::unsmob (parser);
 
   return ly_string2scm (p->output_basename_);
 }
@@ -294,12 +294,12 @@ LY_DEFINE (ly_parser_error, "ly:parser-error",
            "Display an error message and make the parser fail.")
 {
   LY_ASSERT_SMOB (Lily_parser, parser, 1);
-  Lily_parser *p = unsmob_lily_parser (parser);
+  Lily_parser *p = Lily_parser::unsmob (parser);
 
   LY_ASSERT_TYPE (scm_is_string, msg, 2);
   string s = ly_scm2string (msg);
 
-  Input *i = unsmob_input (input);
+  Input *i = Input::unsmob (input);
   if (i)
     p->parser_error (*i, s);
   else
@@ -313,7 +313,7 @@ LY_DEFINE (ly_parser_clear_error, "ly:parser-clear-error",
            "Clear the error flag for the parser.")
 {
   LY_ASSERT_SMOB (Lily_parser, parser, 1);
-  Lily_parser *p = unsmob_lily_parser (parser);
+  Lily_parser *p = Lily_parser::unsmob (parser);
 
   p->error_level_ = 0;
   p->lexer_->error_level_ = 0;
@@ -326,7 +326,7 @@ LY_DEFINE (ly_parser_has_error_p, "ly:parser-has-error?",
            "Does @var{parser} have an error flag?")
 {
   LY_ASSERT_SMOB (Lily_parser, parser, 1);
-  Lily_parser *p = unsmob_lily_parser (parser);
+  Lily_parser *p = Lily_parser::unsmob (parser);
 
   return scm_from_bool (p->error_level_ || p->lexer_->error_level_);
 }

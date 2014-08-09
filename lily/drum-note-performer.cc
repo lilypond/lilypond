@@ -58,7 +58,7 @@ Drum_note_performer::process_music ()
           && (scm_hash_table_p (tab) == SCM_BOOL_T))
         defn = scm_hashq_ref (tab, sym, SCM_EOL);
 
-      if (Pitch *pit = unsmob_pitch (defn))
+      if (Pitch *pit = Pitch::unsmob (defn))
         {
           SCM articulations = n->get_property ("articulations");
           Stream_event *tie_event = 0;
@@ -66,7 +66,7 @@ Drum_note_performer::process_music ()
           int velocity = 0;
           for (SCM s = articulations; scm_is_pair (s); s = scm_cdr (s))
             {
-              Stream_event *ev = unsmob_stream_event (scm_car (s));
+              Stream_event *ev = Stream_event::unsmob (scm_car (s));
               if (!ev)
                 continue;
 

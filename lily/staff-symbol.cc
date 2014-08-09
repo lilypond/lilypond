@@ -33,7 +33,7 @@ MAKE_SCHEME_CALLBACK (Staff_symbol, print, 1);
 SCM
 Staff_symbol::print (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Spanner *sp = dynamic_cast<Spanner *> (me);
   Grob *common
     = sp->get_bound (LEFT)->common_refpoint (sp->get_bound (RIGHT), X_AXIS);
@@ -279,7 +279,7 @@ MAKE_SCHEME_CALLBACK (Staff_symbol, height, 1);
 SCM
 Staff_symbol::height (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Real t = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   t *= robust_scm2double (me->get_property ("thickness"), 1.0);
 

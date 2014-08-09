@@ -455,11 +455,11 @@ Vaticana_ligature_engraver::check_for_ambiguous_dot_pitch (Grob_info primitive)
   // bitmask based O (1) test); where n=<number of primitives in the
   // ligature> (which is typically small (n<10), though).
   Stream_event *new_cause = primitive.event_cause ();
-  int new_pitch = unsmob_pitch (new_cause->get_property ("pitch"))->steps ();
+  int new_pitch = Pitch::unsmob (new_cause->get_property ("pitch"))->steps ();
   for (vsize i = 0; i < augmented_primitives_.size (); i++)
     {
       Stream_event *cause = augmented_primitives_[i].event_cause ();
-      int pitch = unsmob_pitch (cause->get_property ("pitch"))->steps ();
+      int pitch = Pitch::unsmob (cause->get_property ("pitch"))->steps ();
       if (pitch == new_pitch)
         {
           primitive.grob ()->

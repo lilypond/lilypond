@@ -101,7 +101,7 @@ MAKE_SCHEME_CALLBACK (Horizontal_bracket, print, 1);
 SCM
 Horizontal_bracket::print (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
   extract_grob_set (me, "columns", gs);
 
   vector<Grob *> enclosed = gs;

@@ -106,7 +106,7 @@ Font_metric::mark_smob (SCM s)
 int
 Font_metric::print_smob (SCM s, SCM port, scm_print_state *)
 {
-  Font_metric *m = unsmob_metrics (s);
+  Font_metric *m = Font_metric::unsmob (s);
   scm_puts ("#<", port);
   scm_puts (m->class_name (), port);
   scm_puts (" ", port);

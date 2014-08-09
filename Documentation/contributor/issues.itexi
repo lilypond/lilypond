@@ -186,13 +186,13 @@ the currently-active Bug Squad member(s) can handle the message.
 @subsubheading Daily schedule
 
 @example
-Monday:    Eluze
-Tuesday:   Ralph Palmer
+Monday: Eluze
+Tuesday:
 Wednesday: Marek Klein
-Thursday:  Eluze
+Thursday: Eluze
 Friday:
-Saturday:  Colin Campbell
-Sunday:    Federico Bruni
+Saturday: Colin Campbell
+Sunday:
 @end example
 
 

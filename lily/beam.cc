@@ -145,11 +145,11 @@ MAKE_SCHEME_CALLBACK (Beam, calc_normal_stems, 1);
 SCM
 Beam::calc_normal_stems (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   extract_grob_set (me, "stems", stems);
   SCM val = Grob_array::make_array ();
-  Grob_array *ga = unsmob_grob_array (val);
+  Grob_array *ga = Grob_array::unsmob (val);
   for (vsize i = 0; i < stems.size (); i++)
     if (Stem::is_normal_stem (stems[i]))
       ga->add (stems[i]);
@@ -161,7 +161,7 @@ MAKE_SCHEME_CALLBACK (Beam, calc_direction, 1);
 SCM
 Beam::calc_direction (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   /* Beams with less than 2 two stems don't make much sense, but could happen
      when you do
@@ -274,7 +274,7 @@ MAKE_SCHEME_CALLBACK (Beam, calc_beaming, 1)
 SCM
 Beam::calc_beaming (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   extract_grob_set (me, "stems", stems);
 
@@ -353,7 +353,7 @@ Beam::calc_beam_segments (SCM smob)
 {
   /* ugh, this has a side-effect that we need to ensure that
      Stem #'beaming is correct */
-  Grob *me_grob = unsmob_grob (smob);
+  Grob *me_grob = Grob::unsmob (smob);
   (void) me_grob->get_property ("beaming");
 
   Spanner *me = dynamic_cast<Spanner *> (me_grob);
@@ -570,7 +570,7 @@ MAKE_SCHEME_CALLBACK (Beam, calc_x_positions, 1);
 SCM
 Beam::calc_x_positions (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
   SCM segments = me->get_property ("beam-segments");
   Interval x_positions;
   x_positions.set_empty ();
@@ -611,7 +611,7 @@ MAKE_SCHEME_CALLBACK (Beam, print, 1);
 SCM
 Beam::print (SCM grob)
 {
-  Spanner *me = unsmob_spanner (grob);
+  Spanner *me = Spanner::unsmob (grob);
   /*
     TODO - mild code dup for all the commonx calls.
     Some use just common_refpoint_of_array, some (in print and
@@ -739,7 +739,7 @@ Beam::print (SCM grob)
 
       Direction stem_dir = stems.size () ? to_dir (stems[0]->get_property ("direction")) : UP;
 
-      Stencil score = *unsmob_stencil (Text_interface::interpret_markup
+      Stencil score = *Stencil::unsmob (Text_interface::interpret_markup
                                        (me->layout ()->self_scm (), properties, annotation));
 
       if (!score.is_empty ())
@@ -947,7 +947,7 @@ MAKE_SCHEME_CALLBACK (Beam, calc_stem_shorten, 1)
 SCM
 Beam::calc_stem_shorten (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   /*
     shortening looks silly for x staff beams
@@ -982,7 +982,7 @@ MAKE_SCHEME_CALLBACK (Beam, quanting, 3);
 SCM
 Beam::quanting (SCM smob, SCM ys_scm, SCM align_broken_intos)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   Drul_array<Real> ys = robust_scm2drul (ys_scm, Drul_array<Real> (infinity_f, -infinity_f));
   bool cbs = to_boolean (align_broken_intos);
 
@@ -1064,7 +1064,7 @@ MAKE_SCHEME_CALLBACK (Beam, set_stem_lengths, 1);
 SCM
 Beam::set_stem_lengths (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   /* trigger callbacks. */
   (void) me->get_property ("direction");
@@ -1217,17 +1217,17 @@ MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Beam, rest_collision_callback, 2, 1, "");
 SCM
 Beam::rest_collision_callback (SCM smob, SCM prev_offset)
 {
-  Grob *rest = unsmob_grob (smob);
+  Grob *rest = Grob::unsmob (smob);
   if (scm_is_number (rest->get_property ("staff-position")))
     return scm_from_int (0);
 
   Real offset = robust_scm2double (prev_offset, 0.0);
 
-  Grob *st = unsmob_grob (rest->get_object ("stem"));
+  Grob *st = Grob::unsmob (rest->get_object ("stem"));
   Grob *stem = st;
   if (!stem)
     return scm_from_double (0.0);
-  Grob *beam = unsmob_grob (stem->get_object ("beam"));
+  Grob *beam = Grob::unsmob (stem->get_object ("beam"));
   if (!beam
       || !Beam::has_interface (beam)
       || !Beam::normal_stem_count (beam))
@@ -1312,11 +1312,11 @@ Beam::pure_rest_collision_callback (SCM smob,
 {
   Real previous = robust_scm2double (prev_offset, 0.0);
 
-  Grob *me = unsmob_grob (smob);
-  Grob *stem = unsmob_grob (me->get_object ("stem"));
+  Grob *me = Grob::unsmob (smob);
+  Grob *stem = Grob::unsmob (me->get_object ("stem"));
   if (!stem)
     return scm_from_double (previous);
-  Grob *beam = unsmob_grob (stem->get_object ("beam"));
+  Grob *beam = Grob::unsmob (stem->get_object ("beam"));
   if (!beam
       || !Beam::normal_stem_count (beam)
       || !is_direction (beam->get_property_data ("direction")))
@@ -1424,7 +1424,7 @@ MAKE_SCHEME_CALLBACK (Beam, calc_cross_staff, 1)
 SCM
 Beam::calc_cross_staff (SCM smob)
 {
-  return scm_from_bool (is_cross_staff (unsmob_grob (smob)));
+  return scm_from_bool (is_cross_staff (Grob::unsmob (smob)));
 }
 
 int

@@ -224,9 +224,9 @@ Item::derived_mark () const
 }
 
 Item *
-unsmob_item (SCM s)
+Item::unsmob (SCM s)
 {
-  return dynamic_cast<Item *> (unsmob_grob (s));
+  return dynamic_cast<Item *> (Grob::unsmob (s));
 }
 
 Interval

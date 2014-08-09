@@ -144,7 +144,7 @@ public:
   // Supported control functions.
   enum Control
   {
-    BALANCE = 0, PAN_POSITION, REVERB_LEVEL, CHORUS_LEVEL,
+    BALANCE = 0, PAN_POSITION, EXPRESSION, REVERB_LEVEL, CHORUS_LEVEL,
     // pseudo value for representing the size of the enum; must be kept last
     NUM_CONTROLS
   };

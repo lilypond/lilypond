@@ -33,7 +33,7 @@ MAKE_SCHEME_CALLBACK (Piano_pedal_bracket, print, 1);
 SCM
 Piano_pedal_bracket::print (SCM smob)
 {
-  Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
+  Spanner *me = dynamic_cast<Spanner *> (Grob::unsmob (smob));
   Spanner *orig = dynamic_cast<Spanner *> (me->original ());
 
   Drul_array<bool> broken (false, false);
@@ -46,7 +46,7 @@ Piano_pedal_bracket::print (SCM smob)
 
   Grob *common = me->get_bound (LEFT)
                  ->common_refpoint (me->get_bound (RIGHT), X_AXIS);
-  Grob *textbit = unsmob_grob (me->get_object ("pedal-text"));
+  Grob *textbit = Grob::unsmob (me->get_object ("pedal-text"));
 
   if (textbit)
     common = common->common_refpoint (textbit, X_AXIS);

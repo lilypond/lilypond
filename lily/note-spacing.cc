@@ -49,7 +49,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
   for (vsize i = 0; i < note_columns.size (); i++)
     {
       SCM r = note_columns[i]->get_object ("rest");
-      Grob *g = unsmob_grob (r);
+      Grob *g = Grob::unsmob (r);
       Grob *col = note_columns[i]->get_column ();
 
       if (!g)

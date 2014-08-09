@@ -41,7 +41,7 @@ Staff_grouper_interface::maybe_pure_within_group (Grob *me, Grob *child, bool pu
     if (Page_layout_problem::is_spaceable (*i)
         && ((pure && !Hara_kiri_group_spanner::request_suicide (*i, start, end))
             || (!pure && (*i)->is_live ())))
-      return me == unsmob_grob ((*i)->get_object ("staff-grouper"));
+      return me == Grob::unsmob ((*i)->get_object ("staff-grouper"));
 
   // If there was no spaceable, living child after me, I don't
   // count as within the group.

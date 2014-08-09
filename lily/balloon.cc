@@ -42,7 +42,7 @@ MAKE_SCHEME_CALLBACK (Balloon_interface, print, 1);
 SCM
 Balloon_interface::print (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   if (Item *item = dynamic_cast<Item *> (me))
     if (!Item::break_visible (item))
@@ -60,7 +60,7 @@ MAKE_SCHEME_CALLBACK (Balloon_interface, print_spanner, 1);
 SCM
 Balloon_interface::print_spanner (SCM smob)
 {
-  Spanner *me = unsmob_spanner (smob);
+  Spanner *me = Spanner::unsmob (smob);
   Spanner *orig = dynamic_cast<Spanner *> (me->original ());
 
   if (orig)
@@ -102,7 +102,7 @@ Balloon_interface::internal_balloon_print (Grob *me, Grob *p, Offset off)
   SCM chain = Font_interface::text_font_alist_chain (me);
   SCM stencil = Text_interface::interpret_markup (me->layout ()->self_scm (),
                                                   chain, bt);
-  Stencil *text_stil = unsmob_stencil (stencil);
+  Stencil *text_stil = Stencil::unsmob (stencil);
 
   Offset z1;
 

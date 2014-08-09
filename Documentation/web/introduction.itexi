@@ -1205,58 +1205,23 @@ In particular, don't link to:
 @end ignore
 
 @divClass{column-center-top}
-@subheading Tunefl
-
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
-
-@uref{http://www.tunefl.com}
-
-With tunefl you can typeset your scores directly online
-without needing to install LilyPond locally. It allows
-trying out all the program's features using a convenient
-web interface.
-
-@divEnd
-
-@divClass{column-center-top}
-@subheading LilyPondTool
-
-@imageClickable{lilypondtool-2.12-screenshot-400wide,png,
-  (click to enlarge),lilypondtool-2.12-screenshot,png,right}
-
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
-
-@uref{http://lilypondtool.organum.hu}
-
-Created as a plugin for the
-@uref{http://www.jedit.org,jEdit} text editor,
-LilyPondTool is one of the most feature-rich text-based tools for
-editing LilyPond scores.  Its features include a Document Wizard
-with lyrics support to set up documents easier, and embedded PDF
-viewer with advanced point-and-click support.
-
-@divEnd
-
-@divClass{column-center-top}
 @subheading Frescobaldi
 
 @imageClickable{frescobaldi-lilypond-editor-small,png,
   (click to enlarge),frescobaldi-lilypond-editor,png,right}
 
 @sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
 @uref{http://www.frescobaldi.org}
 
-Frescobaldi is lightweight, yet powerful LilyPond music and text editor
-with a built-in PDF viewer.  It is easy to use and will run on all major
+Frescobaldi is a lightweight, yet powerful, music and text editor
+with many features added and enhanced particularly for LilyPond. Major
+features include point-and-click links between the code and music views,
+detailed score wizards, built in LilyPond documentation browser, syntax
+highlighting and automatic completion. Frescobaldi is written in
+Python, with PyQt4 for its user interface, and will run on all major
 operating systems (GNU/Linux, Mac OS X and Windows).
 
 @divEnd
@@ -1268,6 +1233,7 @@ operating systems (GNU/Linux, Mac OS X and Windows).
   (click to enlarge),screenshot-denemo,png,right}
 
 @sourceimage{logo-linux,,,}
+@sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
 @uref{http://denemo.org}
@@ -1285,7 +1251,24 @@ the text view when printed from there.
 @divEnd
 
 @divClass{column-center-top}
-@subheading Text editors
+@subheading Tunefl
+@c do we need logos for web-based packages?
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+
+@uref{http://www.tunefl.com}
+
+With tunefl, you can typeset your mini-scores directly online
+without needing to install LilyPond locally. It allows
+trying out all the program's features using a convenient
+web interface.
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Elysium
 
 @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}
@@ -1298,6 +1281,16 @@ Elysium is a LilyPond IDE for Eclipse with an integrated, side-by-side
 view for source and score.  It includes rapid visual & auditive feedback
 without having to switch contexts, and comes with many wizard-driven
 templates.
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Text editors
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
 
 @uref{http://www.gnu.org/software/emacs/}
 
@@ -1426,6 +1419,11 @@ language.
 @subheading Other programs not being actively developed
 
 @itemize
+
+@item
+@uref{https://sourceforge.net/projects/lily4jedit,LilyPondTool} was created as a
+plugin for the
+@uref{http://www.jedit.org,jEdit} text editor.
 
 @item
 @uref{http://lilykde.googlecode.com/,LilyKDE} has been replaced by

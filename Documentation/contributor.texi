@@ -23,7 +23,12 @@ should only read the sections which are relevant to them.  For more
 information about different jobs, see @rweb{Help us}.
 @end macro
 
-@c `Contributor's Guide' was born 2007-09-15 with git commit 48f3356...
+@c `Contributor’s Guide' was born 2007-09-15 with this commit:
+@c Add developers resources page
+@c author: John Mandereau
+@c commit: 135a5beef5c4cf893d02947cdfcb5bb90c854486
+@c   file: Documentation/devel.html.in
+
 @macro copyrightDeclare
 Copyright @copyright{} 2007--2014 by the authors.
 @end macro

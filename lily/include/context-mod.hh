@@ -50,7 +50,6 @@ public:
   DECLARE_SIMPLE_SMOBS (Context_mod);
 };
 
-DECLARE_UNSMOB (Context_mod, context_mod);
 
 #endif /* CONTEXT_MOD_HH */
 

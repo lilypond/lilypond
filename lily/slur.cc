@@ -47,7 +47,7 @@ MAKE_SCHEME_CALLBACK (Slur, calc_direction, 1)
 SCM
 Slur::calc_direction (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   extract_grob_set (me, "note-columns", encompasses);
 
   if (encompasses.empty ())
@@ -81,7 +81,7 @@ Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
     -- adding extra height for scripts that avoid slurs on the inside
     -- adding extra height for the "bulge" in a slur above a note head
   */
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   int start = scm_to_int (start_scm);
   int end = scm_to_int (end_scm);
   Direction dir = get_grob_direction (me);
@@ -133,7 +133,7 @@ MAKE_SCHEME_CALLBACK (Slur, height, 1);
 SCM
 Slur::height (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   // FIXME uncached
   Stencil *m = me->get_stencil ();
@@ -145,7 +145,7 @@ MAKE_SCHEME_CALLBACK (Slur, print, 1);
 SCM
 Slur::print (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   extract_grob_set (me, "note-columns", encompasses);
   if (encompasses.empty ())
     {
@@ -179,7 +179,7 @@ Slur::print (SCM smob)
         properties = scm_cons (scm_acons (ly_symbol2scm ("font-size"), scm_from_int (-6), SCM_EOL),
                                properties);
 
-      Stencil tm = *unsmob_stencil (Text_interface::interpret_markup
+      Stencil tm = *Stencil::unsmob (Text_interface::interpret_markup
                                     (me->layout ()->self_scm (), properties,
                                      annotation));
       a.add_at_edge (Y_AXIS, get_grob_direction (me), tm, 1.0);
@@ -222,7 +222,7 @@ Slur::replace_breakable_encompass_objects (Grob *me)
   if (Grob_array::unsmob (encompass_scm))
     {
       vector<Grob *> &arr
-        = unsmob_grob_array (encompass_scm)->array_reference ();
+        = Grob_array::unsmob (encompass_scm)->array_reference ();
       arr = new_encompasses;
     }
 }
@@ -258,8 +258,8 @@ Slur::pure_outside_slur_callback (SCM grob, SCM start_scm, SCM end_scm, SCM offs
 {
   int start = robust_scm2int (start_scm, 0);
   int end = robust_scm2int (end_scm, 0);
-  Grob *script = unsmob_grob (grob);
-  Grob *slur = unsmob_grob (script->get_object ("slur"));
+  Grob *script = Grob::unsmob (grob);
+  Grob *slur = Grob::unsmob (script->get_object ("slur"));
   if (!slur)
     return offset_scm;
 
@@ -276,8 +276,8 @@ MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Slur, outside_slur_callback, 2, 1, "");
 SCM
 Slur::outside_slur_callback (SCM grob, SCM offset_scm)
 {
-  Grob *script = unsmob_grob (grob);
-  Grob *slur = unsmob_grob (script->get_object ("slur"));
+  Grob *script = Grob::unsmob (grob);
+  Grob *slur = Grob::unsmob (script->get_object ("slur"));
 
   if (!slur)
     return offset_scm;
@@ -369,7 +369,7 @@ MAKE_SCHEME_CALLBACK (Slur, vertical_skylines, 1);
 SCM
 Slur::vertical_skylines (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   vector<Box> boxes;
 
   if (!me)
@@ -448,8 +448,8 @@ Slur::outside_slur_cross_staff (SCM smob, SCM previous)
   if (previous == SCM_BOOL_T)
     return previous;
 
-  Grob *me = unsmob_grob (smob);
-  Grob *slur = unsmob_grob (me->get_object ("slur"));
+  Grob *me = Grob::unsmob (smob);
+  Grob *slur = Grob::unsmob (me->get_object ("slur"));
 
   if (!slur)
     return SCM_BOOL_F;
@@ -460,7 +460,7 @@ MAKE_SCHEME_CALLBACK (Slur, calc_cross_staff, 1)
 SCM
 Slur::calc_cross_staff (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   extract_grob_set (me, "note-columns", cols);
   extract_grob_set (me, "encompass-objects", extras);

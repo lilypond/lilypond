@@ -78,8 +78,8 @@ LY_DEFINE (ly_moment_sub, "ly:moment-sub",
   LY_ASSERT_SMOB (Moment, a, 1);
   LY_ASSERT_SMOB (Moment, b, 2);
 
-  Moment *ma = unsmob_moment (a);
-  Moment *mb = unsmob_moment (b);
+  Moment *ma = Moment::unsmob (a);
+  Moment *mb = Moment::unsmob (b);
 
   return (*ma - *mb).smobbed_copy ();
 }
@@ -91,8 +91,8 @@ LY_DEFINE (ly_moment_add, "ly:moment-add",
   LY_ASSERT_SMOB (Moment, a, 1);
   LY_ASSERT_SMOB (Moment, b, 2);
 
-  Moment *ma = unsmob_moment (a);
-  Moment *mb = unsmob_moment (b);
+  Moment *ma = Moment::unsmob (a);
+  Moment *mb = Moment::unsmob (b);
 
   return (*ma + *mb).smobbed_copy ();
 }
@@ -104,8 +104,8 @@ LY_DEFINE (ly_moment_mul, "ly:moment-mul",
   LY_ASSERT_SMOB (Moment, a, 1);
   LY_ASSERT_SMOB (Moment, b, 2);
 
-  Moment *ma = unsmob_moment (a);
-  Moment *mb = unsmob_moment (b);
+  Moment *ma = Moment::unsmob (a);
+  Moment *mb = Moment::unsmob (b);
   return (*ma * * mb).smobbed_copy ();
 }
 
@@ -116,8 +116,8 @@ LY_DEFINE (ly_moment_div, "ly:moment-div",
   LY_ASSERT_SMOB (Moment, a, 1);
   LY_ASSERT_SMOB (Moment, b, 2);
 
-  Moment *ma = unsmob_moment (a);
-  Moment *mb = unsmob_moment (b);
+  Moment *ma = Moment::unsmob (a);
+  Moment *mb = Moment::unsmob (b);
 
   return (*ma / * mb).smobbed_copy ();
 }
@@ -129,8 +129,8 @@ LY_DEFINE (ly_moment_mod, "ly:moment-mod",
   LY_ASSERT_SMOB (Moment, a, 1);
   LY_ASSERT_SMOB (Moment, b, 2);
 
-  Moment *ma = unsmob_moment (a);
-  Moment *mb = unsmob_moment (b);
+  Moment *ma = Moment::unsmob (a);
+  Moment *mb = Moment::unsmob (b);
   return (*ma % * mb).smobbed_copy ();
 }
 
@@ -140,7 +140,7 @@ LY_DEFINE (ly_moment_grace, "ly:moment-grace",
 {
   LY_ASSERT_SMOB (Moment, mom, 1);
 
-  return ly_rational2scm (unsmob_moment (mom)->grace_part_);
+  return ly_rational2scm (Moment::unsmob (mom)->grace_part_);
 }
 
 LY_DEFINE (ly_moment_grace_numerator, "ly:moment-grace-numerator",
@@ -149,7 +149,7 @@ LY_DEFINE (ly_moment_grace_numerator, "ly:moment-grace-numerator",
 {
   LY_ASSERT_SMOB (Moment, mom, 1);
 
-  Moment *ma = unsmob_moment (mom);
+  Moment *ma = Moment::unsmob (mom);
 
   return scm_from_int64 (ma->grace_part_.numerator ());
 }
@@ -159,7 +159,7 @@ LY_DEFINE (ly_moment_grace_denominator, "ly:moment-grace-denominator",
            "Extract denominator from grace timing.")
 {
   LY_ASSERT_SMOB (Moment, mom, 1);
-  Moment *ma = unsmob_moment (mom);
+  Moment *ma = Moment::unsmob (mom);
 
   return scm_from_int64 (ma->grace_part_.denominator ());
 }
@@ -170,7 +170,7 @@ LY_DEFINE (ly_moment_main, "ly:moment-main",
 {
   LY_ASSERT_SMOB (Moment, mom, 1);
 
-  return ly_rational2scm (unsmob_moment (mom)->main_part_);
+  return ly_rational2scm (Moment::unsmob (mom)->main_part_);
 }
 
 LY_DEFINE (ly_moment_main_numerator, "ly:moment-main-numerator",
@@ -178,7 +178,7 @@ LY_DEFINE (ly_moment_main_numerator, "ly:moment-main-numerator",
            "Extract numerator from main timing.")
 {
   LY_ASSERT_SMOB (Moment, mom, 1);
-  Moment *ma = unsmob_moment (mom);
+  Moment *ma = Moment::unsmob (mom);
 
   return scm_from_int64 (ma->main_part_.numerator ());
 }
@@ -188,7 +188,7 @@ LY_DEFINE (ly_moment_main_denominator, "ly:moment-main-denominator",
            "Extract denominator from main timing.")
 {
   LY_ASSERT_SMOB (Moment, mom, 1);
-  Moment *ma = unsmob_moment (mom);
+  Moment *ma = Moment::unsmob (mom);
 
   return scm_from_int64 (ma->main_part_.denominator ());
 }
@@ -200,8 +200,8 @@ LY_DEFINE (ly_moment_less_p, "ly:moment<?",
   LY_ASSERT_SMOB (Moment, a, 1);
   LY_ASSERT_SMOB (Moment, b, 2);
 
-  Moment *ma = unsmob_moment (a);
-  Moment *mb = unsmob_moment (b);
+  Moment *ma = Moment::unsmob (a);
+  Moment *mb = Moment::unsmob (b);
 
   return ly_bool2scm (*ma < *mb);
 }

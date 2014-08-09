@@ -52,7 +52,7 @@ Keep_alive_together_engraver::finalize ()
   for (vsize i = 0; i < group_spanners_.size (); ++i)
     {
       SCM grob_array_scm = Grob_array::make_array ();
-      Grob_array *ga = unsmob_grob_array (grob_array_scm);
+      Grob_array *ga = Grob_array::unsmob (grob_array_scm);
 
       // It would make Hara_kiri_group_spanner::request_suicide a _little_
       // faster if we removed each grob from its own array. It seems

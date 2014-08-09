@@ -25,8 +25,8 @@ MAKE_SCHEME_CALLBACK (Music_wrapper, start_callback, 1);
 SCM
 Music_wrapper::start_callback (SCM m)
 {
-  Music *me = unsmob_music (m);
-  Music *elt = unsmob_music (me->get_property ("element"));
+  Music *me = Music::unsmob (m);
+  Music *elt = Music::unsmob (me->get_property ("element"));
   if (elt)
     return elt->start_mom ().smobbed_copy ();
   else
@@ -37,8 +37,8 @@ MAKE_SCHEME_CALLBACK (Music_wrapper, length_callback, 1);
 SCM
 Music_wrapper::length_callback (SCM m)
 {
-  Music *me = unsmob_music (m);
-  Music *elt = unsmob_music (me->get_property ("element"));
+  Music *me = Music::unsmob (m);
+  Music *elt = Music::unsmob (me->get_property ("element"));
   if (elt)
     return elt->get_length ().smobbed_copy ();
   else

@@ -62,7 +62,7 @@ void
 System::init_elements ()
 {
   SCM scm_arr = Grob_array::make_array ();
-  all_elements_ = unsmob_grob_array (scm_arr);
+  all_elements_ = Grob_array::unsmob (scm_arr);
   all_elements_->set_ordered (false);
   set_object ("all-elements", scm_arr);
 }
@@ -333,7 +333,7 @@ System::internal_get_note_heights_in_range (vsize start, vsize end, bool foot)
       SCM footnote_stl = Text_interface::interpret_markup (pscore_->layout ()->self_scm (),
                                                            props, footnote_markup);
 
-      Stencil *footnote_stencil = unsmob_stencil (footnote_stl);
+      Stencil *footnote_stencil = Stencil::unsmob (footnote_stl);
       out.push_back (footnote_stencil->extent (Y_AXIS).length ());
     }
 
@@ -378,7 +378,7 @@ MAKE_SCHEME_CALLBACK (System, footnotes_before_line_breaking, 1);
 SCM
 System::footnotes_before_line_breaking (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   vector<Grob *> footnotes;
   SCM grobs_scm = Grob_array::make_array ();
   extract_grob_set (me, "all-elements", elts);
@@ -386,7 +386,7 @@ System::footnotes_before_line_breaking (SCM smob)
     if (elts[i]->internal_has_interface (ly_symbol2scm ("footnote-interface")))
       footnotes.push_back (elts[i]);
 
-  unsmob_grob_array (grobs_scm)->set_array (footnotes);
+  Grob_array::unsmob (grobs_scm)->set_array (footnotes);
   return grobs_scm;
 }
 
@@ -394,14 +394,14 @@ MAKE_SCHEME_CALLBACK (System, footnotes_after_line_breaking, 1);
 SCM
 System::footnotes_after_line_breaking (SCM smob)
 {
-  Spanner *sys_span = unsmob_spanner (smob);
+  Spanner *sys_span = Spanner::unsmob (smob);
   System *sys = dynamic_cast<System *> (sys_span);
   Interval_t<int> sri = sys->spanned_rank_interval ();
   vector<Grob *> footnote_grobs = sys->get_footnote_grobs_in_range (sri[LEFT], sri[RIGHT]);
   vector_sort (footnote_grobs, grob_2D_less);
 
   SCM grobs_scm = Grob_array::make_array ();
-  unsmob_grob_array (grobs_scm)->set_array (footnote_grobs);
+  Grob_array::unsmob (grobs_scm)->set_array (footnote_grobs);
   return grobs_scm;
 }
 
@@ -409,7 +409,7 @@ MAKE_SCHEME_CALLBACK (System, vertical_skyline_elements, 1);
 SCM
 System::vertical_skyline_elements (SCM smob)
 {
-  Grob *me_grob = unsmob_grob (smob);
+  Grob *me_grob = Grob::unsmob (smob);
   vector<Grob *> vertical_skyline_grobs;
   extract_grob_set (me_grob, "elements", my_elts);
   for (vsize i = 0; i < my_elts.size (); i++)
@@ -417,11 +417,11 @@ System::vertical_skyline_elements (SCM smob)
       vertical_skyline_grobs.push_back (my_elts[i]);
 
   System *me = dynamic_cast<System *> (me_grob);
-  Grob *align = unsmob_grob (me->get_object ("vertical-alignment"));
+  Grob *align = Grob::unsmob (me->get_object ("vertical-alignment"));
   if (!align)
     {
       SCM grobs_scm = Grob_array::make_array ();
-      unsmob_grob_array (grobs_scm)->set_array (vertical_skyline_grobs);
+      Grob_array::unsmob (grobs_scm)->set_array (vertical_skyline_grobs);
       return grobs_scm;
     }
 
@@ -432,7 +432,7 @@ System::vertical_skyline_elements (SCM smob)
       vertical_skyline_grobs.push_back (elts[i]);
 
   SCM grobs_scm = Grob_array::make_array ();
-  unsmob_grob_array (grobs_scm)->set_array (vertical_skyline_grobs);
+  Grob_array::unsmob (grobs_scm)->set_array (vertical_skyline_grobs);
   return grobs_scm;
 }
 
@@ -489,12 +489,12 @@ void
 System::add_column (Paper_column *p)
 {
   Grob *me = this;
-  Grob_array *ga = unsmob_grob_array (me->get_object ("columns"));
+  Grob_array *ga = Grob_array::unsmob (me->get_object ("columns"));
   if (!ga)
     {
       SCM scm_ga = Grob_array::make_array ();
       me->set_object ("columns", scm_ga);
-      ga = unsmob_grob_array (scm_ga);
+      ga = Grob_array::unsmob (scm_ga);
     }
 
   p->set_rank (ga->size ());
@@ -653,7 +653,7 @@ System::get_paper_system ()
     pl->set_property ("last-in-score", SCM_BOOL_T);
 
   Interval staff_refpoints;
-  if (Grob *align = unsmob_grob (get_object ("vertical-alignment")))
+  if (Grob *align = Grob::unsmob (get_object ("vertical-alignment")))
     {
       extract_grob_set (align, "elements", staves);
       for (vsize i = 0; i < staves.size (); i++)
@@ -758,7 +758,7 @@ MAKE_SCHEME_CALLBACK (System, get_vertical_alignment, 1);
 SCM
 System::get_vertical_alignment (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
   extract_grob_set (me, "elements", elts);
   Grob *ret = 0;
   for (vsize i = 0; i < elts.size (); i++)
@@ -782,7 +782,7 @@ System::get_vertical_alignment (SCM smob)
 Grob *
 System::get_extremal_staff (Direction dir, Interval const &iv)
 {
-  Grob *align = unsmob_grob (get_object ("vertical-alignment"));
+  Grob *align = Grob::unsmob (get_object ("vertical-alignment"));
   if (!align)
     return 0;
 
@@ -806,7 +806,7 @@ System::get_extremal_staff (Direction dir, Interval const &iv)
 Grob *
 System::get_neighboring_staff (Direction dir, Grob *vertical_axis_group, Interval_t<int> bounds)
 {
-  Grob *align = unsmob_grob (get_object ("vertical-alignment"));
+  Grob *align = Grob::unsmob (get_object ("vertical-alignment"));
   if (!align)
     return 0;
 
@@ -836,7 +836,7 @@ Interval
 System::pure_refpoint_extent (vsize start, vsize end)
 {
   Interval ret;
-  Grob *alignment = unsmob_grob (get_object ("vertical-alignment"));
+  Grob *alignment = Grob::unsmob (get_object ("vertical-alignment"));
   if (!alignment)
     return Interval ();
 
@@ -863,7 +863,7 @@ System::pure_refpoint_extent (vsize start, vsize end)
 Interval
 System::part_of_line_pure_height (vsize start, vsize end, bool begin)
 {
-  Grob *alignment = unsmob_grob (get_object ("vertical-alignment"));
+  Grob *alignment = Grob::unsmob (get_object ("vertical-alignment"));
   if (!alignment)
     return Interval ();
 
@@ -909,7 +909,7 @@ MAKE_SCHEME_CALLBACK (System, calc_pure_relevant_grobs, 1);
 SCM
 System::calc_pure_relevant_grobs (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   extract_grob_set (me, "elements", elts);
   vector<Grob *> relevant_grobs;
@@ -934,7 +934,7 @@ System::calc_pure_relevant_grobs (SCM smob)
 
   SCM grobs_scm = Grob_array::make_array ();
 
-  unsmob_grob_array (grobs_scm)->set_array (relevant_grobs);
+  Grob_array::unsmob (grobs_scm)->set_array (relevant_grobs);
   return grobs_scm;
 }
 
@@ -949,7 +949,7 @@ MAKE_SCHEME_CALLBACK (System, calc_pure_height, 3);
 SCM
 System::calc_pure_height (SCM smob, SCM start_scm, SCM end_scm)
 {
-  System *me = dynamic_cast<System *> (unsmob_grob (smob));
+  System *me = dynamic_cast<System *> (Grob::unsmob (smob));
   int start = scm_to_int (start_scm);
   int end = scm_to_int (end_scm);
 
@@ -993,8 +993,8 @@ enum
 static SCM
 get_maybe_spaceable_staves (SCM smob, int filter)
 {
-  System *me = dynamic_cast<System *> (unsmob_grob (smob));
-  Grob *align = unsmob_grob (me->get_object ("vertical_alignment"));
+  System *me = dynamic_cast<System *> (Grob::unsmob (smob));
+  Grob *align = Grob::unsmob (me->get_object ("vertical_alignment"));
   SCM ret = SCM_EOL;
 
   if (align)

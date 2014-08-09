@@ -91,7 +91,7 @@ Stem_engraver::make_stem (Grob_info gi, bool tuplet_start)
         for a note head is always <= 2.
       */
       Stream_event *ev = gi.event_cause ();
-      Duration *dur = unsmob_duration (ev->get_property ("duration"));
+      Duration *dur = Duration::unsmob (ev->get_property ("duration"));
 
       int tremolo_flags = intlog2 (requested_type) - 2
                           - (dur->duration_log () > 2 ? dur->duration_log () - 2 : 0);
@@ -124,7 +124,7 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
   Stream_event *cause = gi.event_cause ();
   if (!cause)
     return;
-  Duration *d = unsmob_duration (cause->get_property ("duration"));
+  Duration *d = Duration::unsmob (cause->get_property ("duration"));
   if (!d)
     return;
 
@@ -173,7 +173,7 @@ void
 Stem_engraver::kill_unused_flags ()
 {
   for (vsize i = 0; i < maybe_flags_.size (); i++)
-    if (unsmob_grob (maybe_flags_[i]->get_parent (X_AXIS)->get_object ("beam")))
+    if (Grob::unsmob (maybe_flags_[i]->get_parent (X_AXIS)->get_object ("beam")))
       maybe_flags_[i]->suicide ();
 }
 

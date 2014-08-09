@@ -42,7 +42,7 @@ get_font_by_design_size (Output_def *layout, Real requested,
 
       if (scm_promise_p (entry) == SCM_BOOL_T)
         {
-          Font_metric *fm = unsmob_metrics (scm_force (entry));
+          Font_metric *fm = Font_metric::unsmob (scm_force (entry));
           size = fm->design_size ();
         }
 #if HAVE_PANGO_FT2
@@ -86,7 +86,7 @@ get_font_by_design_size (Output_def *layout, Real requested,
 #endif
     }
   else
-    fm = unsmob_metrics (scm_force (scm_c_vector_ref (font_vector, i)));
+    fm = Font_metric::unsmob (scm_force (scm_c_vector_ref (font_vector, i)));
 
   return find_scaled_font (layout, fm, requested / size);
 }

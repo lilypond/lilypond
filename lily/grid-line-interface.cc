@@ -28,7 +28,7 @@ MAKE_SCHEME_CALLBACK (Grid_line_interface, print, 1);
 SCM
 Grid_line_interface::print (SCM smobbed_me)
 {
-  Grob *me = unsmob_grob (smobbed_me);
+  Grob *me = Grob::unsmob (smobbed_me);
 
   extract_grob_set (me, "elements", elts);
   /* compute common refpoint of elements */
@@ -63,7 +63,7 @@ MAKE_SCHEME_CALLBACK (Grid_line_interface, width, 1);
 SCM
 Grid_line_interface::width (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Grob *me = Grob::unsmob (smob);
 
   Real staffline = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   Real thick = robust_scm2double (me->get_property ("thickness"), 1.0)

@@ -36,7 +36,7 @@ void
 Partial_iterator::process (Moment m)
 {
   if (Duration * dur
-      = unsmob_duration (get_music ()->get_property ("duration")))
+      = Duration::unsmob (get_music ()->get_property ("duration")))
     {
       // Partial_iterator is an iterator rather than an engraver, so
       // the active context it is getting called in does not depend on
@@ -47,7 +47,7 @@ Partial_iterator::process (Moment m)
       // Timing_translator does not set measurePosition when
       // initializing.
 
-      Context *timing = unsmob_context (scm_call_2 (ly_lily_module_constant ("ly:context-find"),
+      Context *timing = Context::unsmob (scm_call_2 (ly_lily_module_constant ("ly:context-find"),
                                                     get_outlet ()->self_scm (),
                                                     ly_symbol2scm ("Timing")));
 

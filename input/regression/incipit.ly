@@ -1,41 +1,24 @@
-\version "2.17.10"
+\version "2.18.0"
 
 \header {
   texidoc = "Incipits can be printed using an @code{InstrumentName}
 grob."
 }
 
-%% to prevent warnings/programming errors:
-#(begin
-   (set-object-property! 'music 'backend-type? ly:music?)
-   (set-object-property! 'music 'backend-doc "Incipit music")
-   (ly:add-interface 'incipit-interface "An incipit." '(music))
-   (let* ((instrument-def (assoc 'InstrumentName all-grob-descriptions))
-	  (meta-def (assoc 'meta (cdr instrument-def)))
-	  (interfaces-def (assoc 'interfaces (cdr meta-def)))
-	  (interfaces (cdr interfaces-def)))
-     (set-cdr! interfaces-def (cons 'incipit-interface interfaces))))
-
 \score {
   \new Staff {
     %% All this would be shortcuted by an appropriate music function:
-    \override Staff.InstrumentName.music = ##{ \clef "petrucci-c1" c'4 d' e' f' #}
     \override Staff.InstrumentName.self-alignment-X = #RIGHT
+    \override Staff.InstrumentName.self-alignment-Y = ##f
     \override Staff.InstrumentName.padding = #0
     \override Staff.InstrumentName.stencil =
       #(lambda (grob)
          (let* ((instrument-name (ly:grob-property grob 'long-text))
                 (layout (ly:output-def-clone (ly:grob-layout grob)))
-                (music (make-sequential-music
-                        (list (context-spec-music
-                               (make-sequential-music
-                                (list (make-property-set
-                                       'instrumentName instrument-name)
-                                      (make-grob-property-set
-                                       'VerticalAxisGroup
-                                       'Y-extent '(-4 . 4))))
-                               'MensuralStaff)
-                              (ly:grob-property grob 'music))))
+                (music #{ \new MensuralStaff
+			  \with { instrumentName = #instrument-name }
+		          { \clef "petrucci-c1" c'4 d' e' f' }
+			  #})
                 (score (ly:make-score music))
                 (indent (ly:output-def-lookup layout 'indent))
                 (incipit-width (ly:output-def-lookup layout 'incipit-width

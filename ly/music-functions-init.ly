@@ -661,22 +661,30 @@ slurs, ties, and horizontal spacing are adjusted automatically.")
 
    ;; these props ARE allowed to shrink below default size
    (define shrinkable-props
-     '(
-       ;; TODO: uncomment spacing-increment here once Issue 3987 is fixed
-       ;; override at the 'Score level
-       ;(SpacingSpanner spacing-increment)
+     (let ((baseline-skip-props
+             (find-named-props 'baseline-skip all-grob-descriptions))
+           (word-space-props
+             (find-named-props 'word-space all-grob-descriptions)))
+       (append
+         baseline-skip-props
+         word-space-props
+         '(
+           ;; TODO: uncomment spacing-increment here once Issue 3987 is fixed
+           ;; override at the 'Score level
+           ;(SpacingSpanner spacing-increment)
 
-       ;; lengths and heights
-       (Beam length-fraction)
-       (Stem length-fraction)
-       (Stem beamlet-default-length)
-       (Slur height-limit)
-       (Slur minimum-length)
-       (PhrasingSlur height-limit)
-       (PhrasingSlur minimum-length)
+           ;; lengths and heights
+           (Beam length-fraction)
+           (Stem length-fraction)
+           (Stem beamlet-default-length)
+           (Stem double-stem-separation)
+           (Slur height-limit)
+           (Slur minimum-length)
+           (PhrasingSlur height-limit)
+           (PhrasingSlur minimum-length)
 
-       ;; Beam.beam-thickness is dealt with separately below
-       ))
+           ;; Beam.beam-thickness is dealt with separately below
+           ))))
    #{
      \context Bottom {
        %% TODO: uncomment \newSpacingSection once Issue 3990 is fixed
@@ -709,9 +717,15 @@ horizontal spacing automatically, using @var{mag} as a size factor.")
 
    ;; these props ARE allowed to shrink below default size
    (define shrinkable-props
-     (let ((space-alist-props
-            (find-all-space-alist-props all-grob-descriptions)))
+     (let* ((baseline-skip-props
+              (find-named-props 'baseline-skip all-grob-descriptions))
+            (word-space-props
+              (find-named-props 'word-space all-grob-descriptions))
+            (space-alist-props
+              (find-named-props 'space-alist all-grob-descriptions)))
        (append
+         baseline-skip-props
+         word-space-props
          space-alist-props
          '(
            ;; override at the 'Score level
@@ -723,6 +737,7 @@ horizontal spacing automatically, using @var{mag} as a size factor.")
            (BarLine hair-thickness)
            (BarLine thick-thickness)
            (Stem beamlet-default-length)
+           (Stem double-stem-separation)
            ))))
 
    #{
@@ -736,7 +751,8 @@ horizontal spacing automatically, using @var{mag} as a size factor.")
                                                  shrinkable-props))
 
      %% scale settings
-     %% (but only if staff magnification is changing)
+     %% (but only if staff magnification is changing
+     %% and does not equal 1)
      #(scale-fontSize 'magnifyStaff mag)
      #(scale-props    'magnifyStaff mag #f unshrinkable-props)
      #(scale-props    'magnifyStaff mag #t shrinkable-props)

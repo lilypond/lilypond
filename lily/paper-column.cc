@@ -118,7 +118,7 @@ Moment
 Paper_column::when_mom (Grob *me)
 {
   SCM m = me->get_property ("when");
-  if (Moment *when = unsmob_moment (m))
+  if (Moment *when = Moment::unsmob (m))
     return *when;
   return Moment (0);
 }
@@ -128,8 +128,8 @@ Paper_column::is_musical (Grob *me)
 {
   SCM m = me->get_property ("shortest-starter-duration");
   Moment s (0);
-  if (unsmob_moment (m))
-    s = *unsmob_moment (m);
+  if (Moment::unsmob (m))
+    s = *Moment::unsmob (m);
   return s != Moment (0);
 }
 
@@ -252,11 +252,11 @@ MAKE_SCHEME_CALLBACK (Paper_column, print, 1);
 SCM
 Paper_column::print (SCM p)
 {
-  Paper_column *me = dynamic_cast<Paper_column *> (unsmob_grob (p));
+  Paper_column *me = dynamic_cast<Paper_column *> (Grob::unsmob (p));
 
   string r = ::to_string (Paper_column::get_rank (me));
 
-  Moment *mom = unsmob_moment (me->get_property ("when"));
+  Moment *mom = Moment::unsmob (me->get_property ("when"));
   string when = mom ? mom->to_string () : "?/?";
 
   Font_metric *musfont = Font_interface::get_default_font (me);
@@ -267,9 +267,9 @@ Paper_column::print (SCM p)
   SCM when_mol = Text_interface::interpret_markup (me->layout ()->self_scm (),
                                                    properties,
                                                    ly_string2scm (when));
-  Stencil t = *unsmob_stencil (scm_mol);
+  Stencil t = *Stencil::unsmob (scm_mol);
   t.scale (1.2, 1.4);
-  t.add_at_edge (Y_AXIS, DOWN, *unsmob_stencil (when_mol), 0.1);
+  t.add_at_edge (Y_AXIS, DOWN, *Stencil::unsmob (when_mol), 0.1);
   t.align_to (X_AXIS, LEFT);
   // compensate for font serifs and half letter-distance
   t.translate (Offset (-0.1, 0));
@@ -287,9 +287,9 @@ Paper_column::print (SCM p)
   for (SCM s = me->get_object ("ideal-distances");
        scm_is_pair (s); s = scm_cdr (s))
     {
-      Spring *sp = unsmob_spring (scm_caar (s));
-      if (!unsmob_grob (scm_cdar (s))
-          || !unsmob_grob (scm_cdar (s))->get_system ())
+      Spring *sp = Spring::unsmob (scm_caar (s));
+      if (!Grob::unsmob (scm_cdar (s))
+          || !Grob::unsmob (scm_cdar (s))->get_system ())
         continue;
 
       j++;
@@ -302,7 +302,7 @@ Paper_column::print (SCM p)
       SCM stil = Text_interface::interpret_markup (me->layout ()->self_scm (),
                                                    properties,
                                                    ly_string2scm (String_convert::form_string ("%5.2lf", sp->distance ())));
-      Stencil *number_stc = unsmob_stencil (stil);
+      Stencil *number_stc = Stencil::unsmob (stil);
       number_stc->scale (1, 1.1);
       Real num_height = number_stc->extent (Y_AXIS).length ();
       Real num_len = number_stc->extent (X_AXIS).length ();
@@ -333,7 +333,7 @@ Paper_column::print (SCM p)
        scm_is_pair (s); s = scm_cdr (s))
     {
       Real dist = scm_to_double (scm_cdar (s));
-      Grob *other = unsmob_grob (scm_caar (s));
+      Grob *other = Grob::unsmob (scm_caar (s));
       if (!other || other->get_system () != me->get_system ())
         continue;
 
@@ -347,7 +347,7 @@ Paper_column::print (SCM p)
       SCM stil = Text_interface::interpret_markup (me->layout ()->self_scm (),
                                                    properties,
                                                    ly_string2scm (String_convert::form_string ("%5.2lf", dist)));
-      Stencil *number_stc = unsmob_stencil (stil);
+      Stencil *number_stc = Stencil::unsmob (stil);
       number_stc->scale (1, 1.1);
       Real num_height = number_stc->extent (Y_AXIS).length ();
       Real num_len = number_stc->extent (X_AXIS).length ();
@@ -389,10 +389,10 @@ MAKE_SCHEME_CALLBACK (Paper_column, before_line_breaking, 1);
 SCM
 Paper_column::before_line_breaking (SCM grob)
 {
-  Grob *me = unsmob_grob (grob);
+  Grob *me = Grob::unsmob (grob);
 
   SCM bbm = me->get_object ("bounded-by-me");
-  Grob_array *ga = unsmob_grob_array (bbm);
+  Grob_array *ga = Grob_array::unsmob (bbm);
   if (!ga)
     return SCM_UNSPECIFIED;
 

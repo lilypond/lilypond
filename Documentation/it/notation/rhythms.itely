@@ -270,7 +270,7 @@ irregolare, si veda @ref{Scaling durations}.
 @funindex tupletSpannerDuration
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{entering-several-tuplets-using-only-one--times-command.ly}
+{entering-several-tuplets-using-only-one--tuplet-command.ly}
 
 @cindex gruppo irregolare, modifiche del numero del
 @cindex numero del gruppo irregolare, modifiche del

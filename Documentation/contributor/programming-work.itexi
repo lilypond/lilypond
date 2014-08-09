@@ -2149,7 +2149,7 @@ Test whether the type of @var{s} is [type].
 often than not, the code checks Lilypond specific C++-implemented
 types using
 
-@subsubheading [type *] unsmob_[type] (SCM s)
+@subsubheading [Type *] Type::unsmob (SCM s)
 
 This tries converting a Scheme object to a pointer of the desired
 kind.  If the Scheme object is of the wrong type, a pointer value

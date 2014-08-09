@@ -21,12 +21,9 @@ instruments can be realized.
 
 centermarkup = {
   \once \override TextScript.self-alignment-X = #CENTER
-  \once \override TextScript.X-offset =#(ly:make-simple-closure
-  `(,+
-  ,(ly:make-simple-closure (list
-  ly:self-alignment-interface::centered-on-x-parent))
-  ,(ly:make-simple-closure (list
-  ly:self-alignment-interface::x-aligned-on-self))))
+  \once \override TextScript.X-offset =#(lambda (g)
+  (+ (ly:self-alignment-interface::centered-on-x-parent g)
+     (ly:self-alignment-interface::x-aligned-on-self g)))
 }
 
 \score {

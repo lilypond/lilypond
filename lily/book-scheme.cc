@@ -29,7 +29,7 @@ LY_DEFINE (ly_make_book, "ly:make-book",
            "Make a @code{\\book} of @var{paper} and @var{header}"
            " (which may be @code{#f} as well) containing @code{\\scores}.")
 {
-  Output_def *odef = unsmob_output_def (paper);
+  Output_def *odef = Output_def::unsmob (paper);
   LY_ASSERT_SMOB (Output_def, paper, 1);
 
   Book *book = new Book;
@@ -66,14 +66,14 @@ LY_DEFINE (ly_book_process, "ly:book-process",
            "  For example, it may be a string (for file based outputs)"
            " or a socket (for network based output).")
 {
-  Book *book = unsmob_book (book_smob);
+  Book *book = Book::unsmob (book_smob);
 
   LY_ASSERT_SMOB (Book, book_smob, 1);
   LY_ASSERT_SMOB (Output_def, default_paper, 2);
   LY_ASSERT_SMOB (Output_def, default_layout, 3);
 
-  Paper_book *pb = book->process (unsmob_output_def (default_paper),
-                                  unsmob_output_def (default_layout));
+  Paper_book *pb = book->process (Output_def::unsmob (default_paper),
+                                  Output_def::unsmob (default_layout));
   if (pb)
     {
       pb->output (output);
@@ -96,10 +96,10 @@ LY_DEFINE (ly_book_process_to_systems, "ly:book-process-to-systems",
   LY_ASSERT_SMOB (Output_def, default_paper, 2);
   LY_ASSERT_SMOB (Output_def, default_layout, 3);
 
-  Book *book = unsmob_book (book_smob);
+  Book *book = Book::unsmob (book_smob);
 
-  Paper_book *pb = book->process (unsmob_output_def (default_paper),
-                                  unsmob_output_def (default_layout));
+  Paper_book *pb = book->process (Output_def::unsmob (default_paper),
+                                  Output_def::unsmob (default_layout));
   if (pb)
     {
       pb->classic_output (output);
@@ -114,7 +114,7 @@ LY_DEFINE (ly_book_add_score_x, "ly:book-add-score!",
            "Add @var{score} to @var{book-smob} score list.")
 {
   LY_ASSERT_SMOB (Book, book_smob, 1);
-  Book *book = unsmob_book (book_smob);
+  Book *book = Book::unsmob (book_smob);
   book->add_score (score);
   return SCM_UNSPECIFIED;
 }
@@ -124,7 +124,7 @@ LY_DEFINE (ly_book_add_bookpart_x, "ly:book-add-bookpart!",
            "Add @var{book-part} to @var{book-smob} book part list.")
 {
   LY_ASSERT_SMOB (Book, book_smob, 1);
-  Book *book = unsmob_book (book_smob);
+  Book *book = Book::unsmob (book_smob);
   book->add_bookpart (book_part);
   return SCM_UNSPECIFIED;
 }
@@ -134,7 +134,7 @@ LY_DEFINE (ly_book_book_parts, "ly:book-book-parts",
            "Return book parts in @var{book}.")
 {
   LY_ASSERT_SMOB (Book, book, 1);
-  Book *b = unsmob_book (book);
+  Book *b = Book::unsmob (book);
   return b->bookparts_;
 }
 
@@ -143,7 +143,7 @@ LY_DEFINE (ly_book_paper, "ly:book-paper",
            "Return paper in @var{book}.")
 {
   LY_ASSERT_SMOB (Book, book, 1);
-  Book *b = unsmob_book (book);
+  Book *b = Book::unsmob (book);
   return b->paper_ ? b->paper_->self_scm () : SCM_BOOL_F;
 }
 
@@ -152,7 +152,7 @@ LY_DEFINE (ly_book_header, "ly:book-header",
            "Return header in @var{book}.")
 {
   LY_ASSERT_SMOB (Book, book, 1);
-  Book *b = unsmob_book (book);
+  Book *b = Book::unsmob (book);
   return b->header_ ? b->header_ : SCM_BOOL_F;
 }
 
@@ -164,7 +164,7 @@ LY_DEFINE (ly_book_set_header_x, "ly:book-set-header!",
   SCM_ASSERT_TYPE (ly_is_module (module), module, SCM_ARG2, __FUNCTION__,
                    "module");
 
-  Book *b = unsmob_book (book);
+  Book *b = Book::unsmob (book);
   b->header_ = (module);
   return SCM_UNSPECIFIED;
 }
@@ -174,7 +174,7 @@ LY_DEFINE (ly_book_scores, "ly:book-scores",
            "Return scores in @var{book}.")
 {
   LY_ASSERT_SMOB (Book, book, 1);
-  Book *b = unsmob_book (book);
+  Book *b = Book::unsmob (book);
   return b->scores_;
 }
 

@@ -29,7 +29,7 @@ IMPLEMENT_LISTENER (Engraver_group, override);
 void
 Engraver_group::override (SCM sev)
 {
-  Stream_event *ev = unsmob_stream_event (sev);
+  Stream_event *ev = Stream_event::unsmob (sev);
 
   sloppy_general_pushpop_property (context (),
                                    ev->get_property ("symbol"),
@@ -41,7 +41,7 @@ IMPLEMENT_LISTENER (Engraver_group, revert);
 void
 Engraver_group::revert (SCM sev)
 {
-  Stream_event *ev = unsmob_stream_event (sev);
+  Stream_event *ev = Stream_event::unsmob (sev);
 
   sloppy_general_pushpop_property (context (),
                                    ev->get_property ("symbol"),
@@ -141,7 +141,7 @@ Engraver_group::pending_grob_count () const
   for (SCM s = context_->children_contexts ();
        scm_is_pair (s); s = scm_cdr (s))
     {
-      Context *c = unsmob_context (scm_car (s));
+      Context *c = Context::unsmob (scm_car (s));
       Engraver_group *group
         = dynamic_cast<Engraver_group *> (c->implementation ());
 
@@ -162,7 +162,7 @@ Engraver_group::do_announces ()
       for (SCM s = context ()->children_contexts ();
            scm_is_pair (s); s = scm_cdr (s))
         {
-          Context *c = unsmob_context (scm_car (s));
+          Context *c = Context::unsmob (scm_car (s));
           Engraver_group *group
             = dynamic_cast<Engraver_group *> (c->implementation ());
           if (group)
