@@ -1,9 +1,9 @@
-%% Translation of GIT committish: 4d1502a7f3c7929e30da8f35a1d177b19eb34f89
+%% Translation of GIT committish: c5f6541667b71037c4965b482a8161628c7cc485
   texidocfr = "
 Cette méthode permet d'imprimer deux marques-repères l'une au-dessus de
 l'autre.  Le repère inférieur est décalé sous la portée, puis s'insère
 au-dessus de lui un espace pour positionner le repère supérieur
-au-dessus de la portée.
+en surplomb de la portée.
 
 L'ajustement des valeurs de @code{extra-offset} et @code{baseline-skip}
 permet d'accroître ou réduire globalement l'espace entre le repère et la

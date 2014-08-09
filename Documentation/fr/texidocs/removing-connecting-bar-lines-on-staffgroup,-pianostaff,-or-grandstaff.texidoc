@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 00z
+%% Translation of GIT committish: c5f6541667b71037c4965b482a8161628c7cc485
   texidocfr = "
 Les barres de mesure des regroupements @code{StaffGroup},
 @code{PianoStaff} et @code{GrandStaff} sont par défaut d'un seul tenant.

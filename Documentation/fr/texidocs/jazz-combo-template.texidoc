@@ -1,9 +1,9 @@
-%% Translation of GIT committish: d46572826e777ed3e9fa4656535a6e9000f2ed9e
+%% Translation of GIT committish: c5f6541667b71037c4965b482a8161628c7cc485
   texidocfr = "
 Bien que compliqué de prime abord, voici un canevas tout à fait indiqué
 pour les ensembles de jazz.  Vous noterez que tous les instruments sont
 notés en ut (@code{\key c \major}), la tonalité de concert.  Les notes
-seront automatiquement transposée dès lors qu'elles seront inscrites
+seront automatiquement transposées dès lors qu'elles seront inscrites
 dans une section @code{\\transpose}.
 
 "
