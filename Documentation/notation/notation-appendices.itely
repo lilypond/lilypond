@@ -1878,11 +1878,457 @@ f^\varcoda e,_\varcoda b'\varcoda
 
 @end multitable
 
+@cindex drums, various
+@cindex acoustic bass
+@cindex bass
+@cindex snare
+@cindex electric snare
+@cindex acoustic snare
+@cindex tom tom
+@cindex bongo
+@cindex conga
+@cindex timbale
+@cindex sidestick
+@cindex floor tom tom
+@cindex low tom tom
+@cindex high tom tom
+@cindex mid tom tom
+@cindex high hat
+@cindex pedal high hat
+@cindex open high hat
+@cindex half-open high hat
+@cindex cymbal, various
+@cindex crash cymbal
+@cindex ride cymbal
+@cindex chinese cymbal
+@cindex splash cymbal
+@cindex ride bell
+@cindex cowbell
+@cindex agogo
+@cindex high bongo
+@cindex low bongo
+@cindex mute bongo
+@cindex open bongo
+@cindex high conga
+@cindex low conga
+@cindex mute conga
+@cindex open conga
+@cindex high timbale
+@cindex low timbale
+@cindex mute timbale
+@cindex open timbale
+@cindex sidestick
+@cindex guiro
+@cindex cabasa
+@cindex maracas
+@cindex whistle
+@cindex handclap
+@cindex tambourine
+@cindex vibraslap
+@cindex tam tam
+@cindex claves
+@cindex woodblock
+@cindex cuica
+@cindex triangle
 
 @node Percussion notes
 @appendixsec Percussion notes
 
-@lilypondfile[quote]{percussion-chart.ly}
+@multitable @columnfractions .22 .25 .25 .25
+
+@item
+@code{bassdrum @* bd @*}
+@lilypond[notime,ragged-right]
+\drums { bd4 bd1 }
+@end lilypond
+@tab
+@code{acousticbassdrum @* bda @*}
+@lilypond[notime,ragged-right]
+\drums { bda4 bda1 }
+@end lilypond
+@tab
+@code{snare @* sn @*}
+@lilypond[notime,ragged-right]
+\drums { sn4 sn1 }
+@end lilypond
+@tab
+@code{acousticsnare @* sna @*}
+@lilypond[notime,ragged-right]
+\drums { sna4 sna1 }
+@end lilypond
+
+@item
+@code{electricsnare @* sne @*}
+@lilypond[notime,ragged-right]
+\drums { sne4 sne1 }
+@end lilypond
+@tab
+@code{lowfloortom @* tomfl @*}
+@lilypond[notime,ragged-right]
+\drums { tomfl4 tomfl1 }
+@end lilypond
+@tab
+@code{highfloortom @* tomfh @*}
+@lilypond[notime,ragged-right]
+\drums { tomfh4 tomfh1 }
+@end lilypond
+@tab
+@code{lowtom @* toml @*}
+@lilypond[notime,ragged-right]
+\drums { toml4 toml1 }
+@end lilypond
+
+@item
+@code{hightom @* tomh @*}
+@lilypond[notime,ragged-right]
+\drums { tomh4 tomh1 }
+@end lilypond
+@tab
+@code{lowmidtom @* tomml @*}
+@lilypond[notime,ragged-right]
+\drums { tomml4 tomml1 }
+@end lilypond
+@tab
+@code{highmidtom @* tommh @*}
+@lilypond[notime,ragged-right]
+\drums { tommh4 tommh1 }
+@end lilypond
+@tab
+@code{highhat @* hh @*}
+@lilypond[notime,ragged-right]
+\drums { hh4 hh1 }
+@end lilypond
+
+@item
+@code{closedhihat @* hhc @*}
+@lilypond[notime,ragged-right]
+\drums { hhc4 hhc1 }
+@end lilypond
+@tab
+@code{openhighhat @* hho @*}
+@lilypond[notime,ragged-right]
+\drums { hho4 hho1 }
+@end lilypond
+@tab
+@code{halfopenhihat @* hhho @*}
+@lilypond[notime,ragged-right]
+\drums { hhho4 hhho1 }
+@end lilypond
+@tab
+@code{pedalhihat @* hhp @*}
+@lilypond[notime,ragged-right]
+\drums { hhp4 hhp1 }
+@end lilypond
+
+
+@item
+@code{crashcymbal @* cymc @*}
+@lilypond[notime,ragged-right]
+\drums { cymc4 cymc1 }
+@end lilypond
+@tab
+@code{crashcymbala @* cymca @*}
+@lilypond[notime,ragged-right]
+\drums { cymca4 cymca1 }
+@end lilypond
+@tab
+@code{crashcymbalb @* cymcb @*}
+@lilypond[notime,ragged-right]
+\drums { cymcb4 cymcb1 }
+@end lilypond
+@tab
+@code{ridecymbal @* cymr @*}
+@lilypond[notime,ragged-right]
+\drums { cymr4 cymr1 }
+@end lilypond
+
+@item
+@code{ridecymbala @* cymra @*}
+@lilypond[notime,ragged-right]
+\drums { cymra4 cymra1 }
+@end lilypond
+@tab
+@code{ridecymbalb @* cymrb @*}
+@lilypond[notime,ragged-right]
+\drums { cymrb4 cymrb1 }
+@end lilypond
+@tab
+@code{chinesecymbal @* cymch @*}
+@lilypond[notime,ragged-right]
+\drums { cymch4 cymch1 }
+@end lilypond
+@tab
+@code{splashcymbal @* cyms @*}
+@lilypond[notime,ragged-right]
+\drums { cyms4 cyms1 }
+@end lilypond
+
+@item
+@code{ridebell @* rb @*}
+@lilypond[notime,ragged-right]
+\drums { rb4 rb1 }
+@end lilypond
+@tab
+@code{cowbell @* cb @*}
+@lilypond[notime,ragged-right]
+\drums { cb4 cb1 }
+@end lilypond
+@tab
+@code{hibongo @* boh @*}
+@lilypond[notime,ragged-right]
+\drums { boh4 boh1 }
+@end lilypond
+@tab
+@code{openhibongo @* boho @*}
+@lilypond[notime,ragged-right]
+\drums { boho4 boho1 }
+@end lilypond
+
+@item
+@code{mutehibongo @* bohm @*}
+@lilypond[notime,ragged-right]
+\drums { bohm4 bohm1 }
+@end lilypond
+@tab
+@code{lobongo @* bol @*}
+@lilypond[notime,ragged-right]
+\drums { bol4 bol1 }
+@end lilypond
+@tab
+@code{openlobongo @* bolo @*}
+@lilypond[notime,ragged-right]
+\drums { bolo4 bolo1 }
+@end lilypond
+@tab
+@code{mutelobongo @* bolm @*}
+@lilypond[notime,ragged-right]
+\drums { bolm4 bolm1 }
+@end lilypond
+
+
+@item
+@code{hiconga @* cgh @*}
+@lilypond[notime,ragged-right]
+\drums { cgh4 cgh1 }
+@end lilypond
+@tab
+@code{openhiconga @* cgho @*}
+@lilypond[notime,ragged-right]
+\drums { cgho4 cgho1 }
+@end lilypond
+@tab
+@code{mutehiconga @* cghm @*}
+@lilypond[notime,ragged-right]
+\drums { cghm4 cghm1 }
+@end lilypond
+@tab
+@code{loconga @* cgl @*}
+@lilypond[notime,ragged-right]
+\drums { cgl4 cgl1 }
+@end lilypond
+
+@item
+@code{openloconga @* cglo @*}
+@lilypond[notime,ragged-right]
+\drums { cglo4 cglo1 }
+@end lilypond
+@tab
+@code{muteloconga @* cglm @*}
+@lilypond[notime,ragged-right]
+\drums { cglm4 cglm1 }
+@end lilypond
+@tab
+@code{hitimbale @* timh @*}
+@lilypond[notime,ragged-right]
+\drums { timh4 timh1 }
+@end lilypond
+@tab
+@code{lotimbale @* timl @*}
+@lilypond[notime,ragged-right]
+\drums { timl4 timl1 }
+@end lilypond
+
+@item
+@code{hiagogo @* agh @*}
+@lilypond[notime,ragged-right]
+\drums { agh4 agh1 }
+@end lilypond
+@tab
+@code{loagogo @* agl @*}
+@lilypond[notime,ragged-right]
+\drums { agl4 agl1 }
+@end lilypond
+@tab
+@code{sidestick @* ss @*}
+@lilypond[notime,ragged-right]
+\drums { ss4 ss1 }
+@end lilypond
+@tab
+@code{hisidestick @* ssh @*}
+@lilypond[notime,ragged-right]
+\drums { ssh4 ssh1 }
+@end lilypond
+
+@item
+@code{losidestick @* ssl @*}
+@lilypond[notime,ragged-right]
+\drums { ssl4 ssl1 }
+@end lilypond
+@tab
+@code{guiro @* gui @*}
+@lilypond[notime,ragged-right]
+\drums { gui4 gui1 }
+@end lilypond
+@tab
+@code{shortguiro @* guis @*}
+@lilypond[notime,ragged-right]
+\drums { guis4 guis1 }
+@end lilypond
+@tab
+@code{longguiro @* guil @*}
+@lilypond[notime,ragged-right]
+\drums { guil4 guil1 }
+@end lilypond
+
+@item
+@code{cabasa @* cab @*}
+@lilypond[notime,ragged-right]
+\drums { cab4 cab1 }
+@end lilypond
+@tab
+@code{maracas @* mar @*}
+@lilypond[notime,ragged-right]
+\drums { mar4 mar1 }
+@end lilypond
+@tab
+@code{shortwhistle @* whs @*}
+@lilypond[notime,ragged-right]
+\drums { whs4 whs1 }
+@end lilypond
+@tab
+@code{longwhistle @* whl @*}
+@lilypond[notime,ragged-right]
+\drums { whl4 whl1 }
+@end lilypond
+
+@item
+@code{handclap @* hc @*}
+@lilypond[notime,ragged-right]
+\drums { hc4 hc1 }
+@end lilypond
+@tab
+@code{tambourine @* tamb @*}
+@lilypond[notime,ragged-right]
+\drums { tamb4 tamb1 }
+@end lilypond
+@tab
+@code{vibraslap @* vibs @*}
+@lilypond[notime,ragged-right]
+\drums { vibs4 vibs1 }
+@end lilypond
+@tab
+@code{tamtam @* tt @*}
+@lilypond[notime,ragged-right]
+\drums { tt4 tt1 }
+@end lilypond
+
+@item
+@code{claves @* cl @*}
+@lilypond[notime,ragged-right]
+\drums { cl4 cl1 }
+@end lilypond
+@tab
+@code{hiwoodblock @* wbh @*}
+@lilypond[notime,ragged-right]
+\drums { wbh4 wbh1 }
+@end lilypond
+@tab
+@code{lowoodblock @* wbl @*}
+@lilypond[notime,ragged-right]
+\drums { wbl4 wbl1 }
+@end lilypond
+@tab
+@code{opencuica @* cuio @*}
+@lilypond[notime,ragged-right]
+\drums { cuio4 cuio1 }
+@end lilypond
+
+@item
+@code{mutecuica @* cuim @*}
+@lilypond[notime,ragged-right]
+\drums { cuim4 cuim1 }
+@end lilypond
+@tab
+@code{triangle @* tri @*}
+@lilypond[notime,ragged-right]
+\drums { tri4 tri1 }
+@end lilypond
+@tab
+@code{opentriangle @* trio @*}
+@lilypond[notime,ragged-right]
+\drums { trio4 trio1 }
+@end lilypond
+@tab
+@code{mutetriangle @* trim}
+@lilypond[notime,ragged-right]
+\drums { trim4 trim1 }
+@end lilypond
+
+@item
+@code{oneup @* ua @*}
+@lilypond[notime,ragged-right]
+\drums { ua4 ua1 }
+@end lilypond
+@tab
+@code{twoup @* ub @*}
+@lilypond[notime,ragged-right]
+\drums { ub4 ub1 }
+@end lilypond
+@tab
+@code{threeup @* uc @*}
+@lilypond[notime,ragged-right]
+\drums { uc4 uc1 }
+@end lilypond
+@tab
+@code{fourup @* ud @*}
+@lilypond[notime,ragged-right]
+\drums { ud4 ud1 }
+@end lilypond
+
+@item
+@code{fiveup @* ue @*}
+@lilypond[notime,ragged-right]
+\drums { ue4 ue1 }
+@end lilypond
+@tab
+@code{onedown @* da @*}
+@lilypond[notime,ragged-right]
+\drums { da4 da1 }
+@end lilypond
+@tab
+@code{twodown @* db @*}
+@lilypond[notime,ragged-right]
+\drums { db4 db1 }
+@end lilypond
+@tab
+@code{threedown @* dc @*}
+@lilypond[notime,ragged-right]
+\drums { dc4 dc1 }
+@end lilypond
+
+@item
+@code{fourdown @* dd @*}
+@lilypond[notime,ragged-right]
+\drums { dd4 dd1 }
+@end lilypond
+@tab
+@code{fivedown @* de @*}
+@lilypond[notime,ragged-right]
+\drums { de4 de1 }
+@end lilypond
+
+
+@end multitable
 
 
 @node Technical glossary
