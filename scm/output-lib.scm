@@ -1157,7 +1157,7 @@ parent or the parent has no setting."
   (ly:grob-property grob 'positioning-done)
   (let* ((shift (ly:grob-property grob 'toward-stem-shift 0.0))
          (note-head-location
-          (ly:self-alignment-interface::centered-on-x-parent grob))
+          (ly:self-alignment-interface::aligned-on-x-parent grob))
          (note-head-grob (ly:grob-parent grob X))
          (stem-grob (ly:grob-object note-head-grob 'stem)))
 

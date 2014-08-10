@@ -1180,12 +1180,13 @@
         (extra-spacing-width . (+inf.0 . -inf.0))
         (outside-staff-priority . 500)
         (padding . 0.5)
+        (parent-alignment-X . #f)
         (self-alignment-X . ,LEFT)
         (side-axis . ,Y)
         (staff-padding . 0.5)
         (stencil . ,ly:text-interface::print)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
-        (X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Item)
                  (interfaces . (font-interface
@@ -1901,6 +1902,7 @@
         (font-encoding . fetaMusic)
         (horizon-padding . 0.1) ; to avoid interleaving with accidentals
         (positioning-done . ,ly:script-interface::calc-positioning-done)
+        (self-alignment-X . ,CENTER)
         (side-axis . ,Y)
 
         ;; padding set in script definitions.
@@ -1916,6 +1918,7 @@
                  (interfaces . (font-interface
                                 outside-staff-interface
                                 script-interface
+                                self-alignment-interface
                                 side-position-interface))))))
 
     (ScriptColumn
@@ -1957,10 +1960,11 @@
         (extra-spacing-width . (+inf.0 . -inf.0))
         (font-shape . italic)
         (padding . 0.0) ;; padding relative to SostenutoPedalLineSpanner
+        (parent-alignment-X . #f)
         (self-alignment-X . ,CENTER)
         (stencil . ,ly:text-interface::print)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
-        (X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
                  (interfaces . (font-interface
@@ -2208,10 +2212,11 @@
      . (
         (extra-spacing-width . (+inf.0 . -inf.0))
         (padding . 0.0)  ;; padding relative to SustainPedalLineSpanner
+        (parent-alignment-X . #f)
         (self-alignment-X . ,CENTER)
         (stencil . ,ly:sustain-pedal::print)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
-        (X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
                  (interfaces . (font-interface
@@ -2621,11 +2626,12 @@
         (extra-spacing-width . (+inf.0 . -inf.0))
         (font-shape . italic)
         (padding . 0.0)  ;; padding relative to UnaCordaPedalLineSpanner
+        (parent-alignment-X . #f)
         (self-alignment-X . ,CENTER)
         (stencil . ,ly:text-interface::print)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
-        (X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (meta . ((class . Item)
                  (interfaces . (font-interface
                                 piano-pedal-script-interface
