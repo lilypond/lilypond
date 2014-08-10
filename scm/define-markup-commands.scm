@@ -3880,7 +3880,7 @@ an inverted glyph.  Note that within music, one would usually use the
 @code{\\fermata} articulation instead of a markup.
 
 @lilypond[verbatim,quote]
- { c1^\\markup \\fermata d1_\\markup \\fermata }
+ { c''1^\\markup \\fermata d''1_\\markup \\fermata }
 
 \\markup { \\fermata \\override #`(direction . ,DOWN) \\fermata }
 @end lilypond
