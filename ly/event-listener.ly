@@ -192,8 +192,8 @@ as an engraver for convenience."
 #(define (format-textspan engraver event)
    (let* ((context (ly:translator-context engraver))
           (moment (ly:context-current-moment context))
-          (spanner-props (ly:context-property context 'TextSpanner))
-          (details (chain-assoc-get 'bound-details spanner-props))
+          (spanner-props (ly:context-grob-definition context 'TextSpanner))
+          (details (assoc-get 'bound-details spanner-props))
           (left-props (assoc-get 'left details '()))
           (left-text (assoc-get 'text left-props '())))
      (print-line engraver
