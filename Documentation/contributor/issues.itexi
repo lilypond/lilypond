@@ -891,8 +891,8 @@ deadline date, and optionally your name.  Follow the instructions
 provided:
 
 @example
-cd $LILYPOND_BUILD_DIR
-../scripts/auxiliar/make-countdown-announcement.sh "Jan 1, 2001" James
+cd $LILYPOND_GIT
+scripts/auxiliar/make-countdown-announcement.sh "Jan 1, 2001" James
 @end example
 
 The script produces an announcement that is easily readable in all

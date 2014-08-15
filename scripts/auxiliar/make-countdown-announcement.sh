@@ -15,10 +15,10 @@
 
 CSV_FILE=lilypond-issues.csv # comma-separated values
 TSV_FILE=lilypond-issues.tsv # tab-separated values
-URL_BASE="http://code.google.com/p/lilypond/issues"
+URL_BASE="https://code.google.com/p/lilypond/issues"
 QUERY_STR="q=Patch%3Apush%2Ccountdown%2Creview%2Cnew%2Cwaiting&colspec=Patch%20Owner%20ID%20Summary&sort=patch"
 DEADLINE=$1
-PATCH_MEISTER=${2:-"The Patch Mister"}
+PATCH_MEISTER=${2:-"The Patch Meister"}
 MAILMAP='
 "adam.spiers","Adam Spiers"
 "aleksandr.andreev","Aleksandr Andreev"
@@ -40,6 +40,7 @@ MAILMAP='
 "graham@percival-music.ca","Graham Percival"
 "hanwenn","Han-Wen Nienhuys"
 "hjunes","Heikki Junes"
+"ht.lilypond.development","Heikki Tauriainen"
 "ianhulin44","Ian Hulin"
 "idragosani","Brett McCoy"
 "jameselihubailey","James E. Bailey"
@@ -161,11 +162,31 @@ fi
 sed '{
 1d
 /^$/d
+s/\t/ /g
 s/^"//
 s/","/\t/g
 s/",*$//
 s/""/"/g
 }' $CSV_FILE | cut -sf1-4 > $TSV_FILE
+
+
+ISSUES_WITH_MISSING_FIELDS=`sed -n '/\t\t\|\t$/p' $TSV_FILE |
+                            awk -F"\t" '{ print $3 }'`
+
+if [ "$ISSUES_WITH_MISSING_FIELDS" ]; then
+  COUNT=`wc --lines <(echo "$ISSUES_WITH_MISSING_FIELDS") | sed 's/ .*//'`
+  LINKS_WITH_MISSING_FIELDS=`echo "$ISSUES_WITH_MISSING_FIELDS" |
+                             sed "s!^!  $URL_BASE/detail?id=!"`
+  if [ $COUNT -eq 1 ]; then
+    echo -e "\nError: The following issue is missing an OWNER or SUMMARY:" >&2
+  else
+    echo -e "\nError: Each of the following issues is missing an OWNER or SUMMARY:" >&2
+  fi
+  echo "$LINKS_WITH_MISSING_FIELDS" >&2
+  echo "Please add the missing information in the tracker and start over." >&2
+  remove-if-exists $TSV_FILE
+  exit 1
+fi
 
 
 EMAILS_USED=`awk -F"\t" '{ print $2 }' $TSV_FILE | sort --unique`
