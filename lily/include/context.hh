@@ -97,6 +97,7 @@ public:
   SCM internal_get_property (SCM name_sym) const;
   SCM properties_as_alist () const;
   Context *where_defined (SCM name_sym, SCM *value) const;
+  bool here_defined (SCM name_sym, SCM *value) const;
   void unset_property (SCM var_sym);
 
   void instrumented_set_property (SCM, SCM, const char *, int, const char *);

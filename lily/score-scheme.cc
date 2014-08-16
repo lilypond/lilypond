@@ -130,7 +130,12 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
   if (!score_def)
     return SCM_BOOL_F;
 
-  score_def = scale_output_def (score_def, output_scale (od));
+  /* Don't rescale if the layout has already been scaled */
+  if (to_boolean (score_def->c_variable ("cloned")))
+    score_def = score_def->clone ();
+  else
+    score_def = scale_output_def (score_def, output_scale (od));
+
   score_def->parent_ = od;
 
   SCM context = ly_run_translator (sc->get_music (), score_def->unprotect ());

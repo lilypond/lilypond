@@ -131,7 +131,7 @@ Accidental_engraver::update_local_key_signature (SCM new_sig)
   */
 
   SCM val;
-  while (trans && trans->where_defined (ly_symbol2scm ("localAlterations"), &val) == trans)
+  while (trans && trans->here_defined (ly_symbol2scm ("localAlterations"), &val))
     {
       trans->set_property ("localAlterations", ly_deep_copy (last_keysig_));
       trans = trans->get_parent_context ();

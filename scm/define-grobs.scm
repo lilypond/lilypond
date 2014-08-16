@@ -79,6 +79,7 @@
         (font-size . -2)
         (glyph-name-alist . ,standard-alteration-glyph-name-alist)
         (outside-staff-priority . 0)
+        (parent-alignment-X . ,CENTER)
         (script-priority . 0)
         (self-alignment-X . ,CENTER)
         (side-axis . ,Y)
@@ -576,6 +577,7 @@
                    X 'color))
         (font-shape . italic)
         (font-size . -4)
+        (parent-alignment-X . ,CENTER)
         (self-alignment-X . ,CENTER)
         (staff-padding . 0.7)
         (stencil . ,ly:text-interface::print)
@@ -620,6 +622,7 @@
         (font-series . bold)
         (outside-staff-priority . 450)
         (padding . 0.5)
+        (parent-alignment-X . #f)
         (script-priority . 200)
         (self-alignment-X . #f)
         (side-axis . ,Y)
@@ -766,6 +769,7 @@
         (font-encoding . fetaText)
         (font-size . -2)
         (padding . 0.2)
+        (parent-alignment-X . ,CENTER)
         (self-alignment-X . ,CENTER)
         (side-axis . ,Y)
         (staff-padding . 0.25)
@@ -832,6 +836,7 @@
         (font-encoding . fetaText)
         (font-series . bold)
         (font-shape . italic)
+        (parent-alignment-X . ,CENTER)
         (positioning-done . ,ly:script-interface::calc-positioning-done)
         (right-padding . 0.5)
         (self-alignment-X . ,CENTER)
@@ -944,6 +949,8 @@
         (font-encoding . fetaText)
         (font-size . -5)                ; don't overlap when next to heads.
         (padding . 0.5)
+        (parent-alignment-X . ,CENTER)
+        (parent-alignment-Y . ,CENTER)
         (positioning-done . ,ly:script-interface::calc-positioning-done)
         (script-priority . 100)
         (self-alignment-X . ,CENTER)
@@ -1087,6 +1094,7 @@
     (GridLine
      . (
         (layer . 0)
+        (parent-alignment-X . ,CENTER)
         (self-alignment-X . ,CENTER)
         (stencil . ,ly:grid-line-interface::print)
         (X-extent . ,ly:grid-line-interface::width)
@@ -1389,6 +1397,7 @@
         (extra-spacing-height . (0.2 . -0.2))
         (font-series . medium)
         (font-size . 1.0)
+        (parent-alignment-X . ())
         (self-alignment-X . ,CENTER)
         (stencil . ,lyric-text::print)
         (text . ,(grob::calc-property-by-copy 'text))
@@ -1511,6 +1520,7 @@
         (direction . ,UP)
         (font-encoding . fetaText)
         (padding . 0.4)
+        (parent-alignment-X . ,CENTER)
         (self-alignment-X . ,CENTER)
         (side-axis . ,Y)
         (springs-and-rods . ,ly:multi-measure-rest::set-text-rods)
@@ -1533,6 +1543,7 @@
         (direction . ,UP)
         (outside-staff-priority . 450)
         (padding . 0.2)
+        (parent-alignment-X . ,CENTER)
         (self-alignment-X . ,CENTER)
         (skyline-horizontal-padding . 0.2)
         (staff-padding . 0.25)
@@ -1736,6 +1747,7 @@
         (font-encoding . fetaText)
         (font-size . -2)
         (padding . 0.2)
+        (parent-alignment-X . ,CENTER)
         (self-alignment-X . ,CENTER)
         (staff-padding . 0.25)
         (stencil . ,ly:text-interface::print)
@@ -2130,6 +2142,7 @@
         (beam-thickness . 0.48) ; staff-space
         (beam-width . ,ly:stem-tremolo::calc-width) ; staff-space
         (direction . ,ly:stem-tremolo::calc-direction)
+        (parent-alignment-X . ,CENTER)
         (slope . ,ly:stem-tremolo::calc-slope)
         (stencil . ,ly:stem-tremolo::print)
         (style . ,ly:stem-tremolo::calc-style)
@@ -2148,6 +2161,7 @@
         (font-encoding . fetaText)
         (font-size . -5)                ; don't overlap when next to heads.
         (padding . 0.5)
+        (parent-alignment-X . ,CENTER)
         (script-priority . 100)
         (self-alignment-X . ,CENTER)
         (self-alignment-Y . ,CENTER)
@@ -2170,6 +2184,7 @@
         (font-shape . italic)
         (font-size . -4)                ; don't overlap when next to heads.
         (padding . 0.5)
+        (parent-alignment-X . ,CENTER)
         (script-priority . 100)
         (self-alignment-X . ,CENTER)
         (self-alignment-Y . ,CENTER)
@@ -2348,6 +2363,7 @@
         ;; sync with Fingering ?
         (padding . 0.3)
 
+        (parent-alignment-X . #f)
         (script-priority . 200)
         ;; self-alignment cannot be LEFT because of fingering diagrams.
         (self-alignment-X . #f)
