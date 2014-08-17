@@ -158,22 +158,29 @@ Note_column::first_head (Grob *me)
 
 /*
   Return extent of the noteheads in the "main column",
-  i.e. excluding any suspended noteheads.
+  (i.e. excluding any suspended noteheads), or extent
+  of the rest (if there are no heads).
 */
 Interval
-Note_column::calc_main_heads_extent (Grob *me)
+Note_column::calc_main_extent (Grob *me)
 {
-  if (get_stem (me))
-    return first_head (me)->extent (me, X_AXIS);
-  else
-    {
-      // no stems => no suspended noteheads.
-      extract_grob_set (me, "note-heads", heads);
-      if (heads.size())
-        return heads[0]->extent (me, X_AXIS);
-      else
-        return Interval (0, 0);
-    }
+    Grob *main_head;
+    if (get_stem (me))
+        main_head = first_head (me);
+    else
+      {
+        // no stems => no suspended noteheads.
+        extract_grob_set (me, "note-heads", heads);
+        if (heads.size())
+        main_head = heads[0];
+      }
+    Grob *main_item = main_head
+            ? main_head
+            : Grob::unsmob (me->get_object ("rest"));
+
+    return main_item
+            ? main_item->extent (me, X_AXIS)
+            : Interval (0, 0);
 }
 
 /*
