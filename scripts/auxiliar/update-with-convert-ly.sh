@@ -14,7 +14,7 @@ fi
 
 ### make sure convert-ly is up-to-date
 cd $BUILD_DIR
-make pythonmodules
+make python-modules
 cd $TOP_SRC_DIR
 
 ### update manuals
