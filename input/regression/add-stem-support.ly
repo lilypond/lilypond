@@ -1,4 +1,4 @@
-\version "2.17.10"
+\version "2.19.12"
 
 \header {
   texidoc = "@code{add-stem-support} can be removed or implemented
@@ -18,8 +18,8 @@ music = {
 
 {
   \music
-  \override Fingering #'add-stem-support = ##f
+  \override Fingering.add-stem-support = ##f
   \music
-  \override Fingering #'add-stem-support = #only-if-beamed
+  \override Fingering.add-stem-support = #only-if-beamed
   \music
 }

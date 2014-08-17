@@ -1,4 +1,4 @@
-\version "2.17.18"
+\version "2.19.12"
 
 \header {
   texidoc = "An empty Dynamics context does not confuse the spacing."
@@ -19,7 +19,7 @@
   \layout {
     \context {
       \Dynamics
-      \override VerticalAxisGroup #'nonstaff-relatedstaff-spacing
+      \override VerticalAxisGroup.nonstaff-relatedstaff-spacing
         = #'((minimum-distance . 5))
     }
   }

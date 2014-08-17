@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.30"
+@c \version "2.19.12"
 
 @ignore
 GDP TODO list
@@ -581,7 +581,7 @@ segunda redefine la variable completamente:
 
 @example
 \paper @{
-  system-system-spacing #'basic-distance = #8
+  system-system-spacing.basic-distance = #8
   score-system-spacing =
     #'((basic-distance . 12)
        (minimum-distance . 6)

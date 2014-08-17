@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.12"
 
 \header {
   lsrtags = "devel, scheme-language, tweaks-and-overrides"
@@ -39,7 +39,7 @@ When called this way
 
 
 @{
- \\once \\override NoteHead #'before-line-breaking = #display-ancestry
+ \\once \\override NoteHead.before-line-breaking = #display-ancestry
  c @}
 
 

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.12"
 
 \header {
   lsrtags = "automatic-notation, keyboards, template, vocal-music"
@@ -22,10 +22,10 @@ reduction.
 } % begin verbatim
 
 \paper {
-  top-system-spacing #'basic-distance = #10
-  score-system-spacing #'basic-distance = #20
-  system-system-spacing #'basic-distance = #20
-  last-bottom-spacing #'basic-distance = #10
+  top-system-spacing.basic-distance = #10
+  score-system-spacing.basic-distance = #20
+  system-system-spacing.basic-distance = #20
+  last-bottom-spacing.basic-distance = #10
 }
 
 global = {

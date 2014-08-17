@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.12"
 
 \header {
 
@@ -9,8 +9,7 @@
 }
 
 \paper {
-  system-system-spacing
-    #'basic-distance = #10 % increase this value for more space
+  system-system-spacing.basic-distance = #10 % increase this value for more space
 }
 
 notes = \relative c {
