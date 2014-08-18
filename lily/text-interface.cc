@@ -95,6 +95,11 @@ Text_interface::interpret_string (SCM layout_smob,
   return fm->text_stencil (layout, str, is_music).smobbed_copy ();
 }
 
+static size_t markup_depth = 0;
+
+void markup_up_depth (void *) { ++markup_depth; }
+void markup_down_depth (void *) { --markup_depth; }
+
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Text_interface, interpret_markup, 3, 0,
                                    "Convert a text markup into a stencil."
                                    "  Takes three arguments, @var{layout}, @var{props}, and @var{markup}.\n"
@@ -114,28 +119,19 @@ Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
       SCM func = scm_car (markup);
       SCM args = scm_cdr (markup);
 
-      /* Use a hare/tortoise algorithm to detect whether we are in a cycle,
-       * i.e. whether we have already encountered the same markup in the
-       * current branch of the markup tree structure. */
-      static vector<SCM> encountered_markups;
-      size_t depth = encountered_markups.size ();
-      if (depth > 0)
-        {
-          int slow = depth / 2;
-          if (ly_is_equal (encountered_markups[slow], markup))
-            {
-              string name = ly_symbol2string (scm_procedure_name (func));
-              // TODO: Also print the arguments of the markup!
-              non_fatal_error (_f ("Cyclic markup detected: %s", name));
-              return Stencil ().smobbed_copy ();
-            }
-        }
-
       /* Check for non-terminating markups, e.g. recursive calls with
        * changing arguments */
       SCM opt_depth = ly_get_option (ly_symbol2scm ("max-markup-depth"));
       size_t max_depth = robust_scm2int (opt_depth, 1024);
-      if (depth > max_depth)
+
+      // Don't use SCM_F_DYNWIND_REWINDABLE since it may be expensive
+      // without any obvious use for retaining continuations into
+      // markup expansion
+      scm_dynwind_begin ((scm_t_dynwind_flags)0);
+      // scm_dynwind_rewind_handler (markup_up_depth, 0, SCM_F_WIND_EXPLICITLY);
+      markup_up_depth (0);
+      scm_dynwind_unwind_handler (markup_down_depth, 0, SCM_F_WIND_EXPLICITLY);
+      if (markup_depth > max_depth)
         {
           string name = ly_symbol2string (scm_procedure_name (func));
           // TODO: Also print the arguments of the markup!
@@ -144,9 +140,8 @@ Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
           return Stencil ().smobbed_copy ();
         }
 
-      encountered_markups.push_back (markup);
       SCM retval = scm_apply_2 (func, layout_smob, props, args);
-      encountered_markups.pop_back ();
+      scm_dynwind_end ();
       return retval;
     }
   else
