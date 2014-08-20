@@ -469,9 +469,9 @@ etc. are already taken.")
 ;;; h
 ;;;
      (hair-thickness ,number? "Thickness of the thin line in a bar
-line, expressed as a multiple of the default staff-line thickness
-(i.e. the visual output is @emph{not} influenced by changes to
-@code{@var{Staff}.StaffSymbol.thickness}).")
+line, expressed as a multiple of the default staff-line
+thickness (i.e. the visual output is @emph{not} influenced by changes
+to @code{@var{Staff}.StaffSymbol.thickness}).")
      (harp-pedal-details ,list? "An alist of detailed grob properties
 for harp pedal diagrams.  Each alist entry consists of a
 @code{(@var{property} . @var{value})} pair.  The properties which can
@@ -595,9 +595,9 @@ if this column is the start of a system.")
      (line-positions ,list? "Vertical positions of staff lines.")
      (line-thickness ,number? "For slurs and ties, this is the
 diameter of the virtual @qq{pen} that draws the two arcs of the
-curve's outline, which intersect at the endpoints.  This property
-is expressed as a multiple of the current staff-line thickness
-(i.e. the visual output is influenced by changes to
+curve's outline, which intersect at the endpoints.  This property is
+expressed as a multiple of the current staff-line thickness (i.e. the
+visual output is influenced by changes to
 @code{@var{Staff}.StaffSymbol.thickness}).")
      (long-text ,markup? "Text markup.  See @ruser{Formatting text}.")
 
