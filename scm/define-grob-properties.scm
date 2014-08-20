@@ -788,6 +788,12 @@ number, the quicker the slur attains its @code{height-limit}.")
 interesting items.")
      (remove-first ,boolean? "Remove the first staff of an orchestral
 score?")
+     (remove-layer ,integer? "The @code{Keep_alive_together_engraver}
+removes all @code{VerticalAxisGroup} grobs with a @code{remove-layer}
+larger than the smallest retained @code{remove-layer}.  Set to
+@code{#f} to make a layer invisible to the
+@code{Keep_alive_together_engraver}, set to @code{'()} to have it not
+participate in the layering decisions.")
      (replacement-alist ,list? "Alist of strings.
 The key is a string of the pattern to be replaced.  The value is a
 string of what should be displayed.  Useful for ligatures.")
@@ -1241,6 +1247,8 @@ empty in a particular staff, then that staff is erased.")
      (left-neighbor ,ly:grob? "The right-most column that has a spacing-wish
 for this column.")
 
+     (make-dead-when ,ly:grob-array? "An array of other
+@code{VerticalAxisGroup}s.  If any of them are alive, then we will turn dead.")
      (melody-spanner ,ly:grob? "The @code{MelodyItem} object for a stem.")
      (minimum-translations-alist ,list? "An list of translations for a given
 start and end point.")

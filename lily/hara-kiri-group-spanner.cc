@@ -77,6 +77,11 @@ bool find_in_range (SCM vector, int low, int hi, int min, int max)
 bool
 Hara_kiri_group_spanner::request_suicide (Grob *me, int start, int end)
 {
+  extract_grob_set (me, "make-dead-when", foes);
+  for (vsize i = 0; i < foes.size (); i++)
+    if (foes[i]->is_live () && !request_suicide_alone (foes[i], start, end))
+      return true;
+
   if (!request_suicide_alone (me, start, end))
     return false;
 
@@ -185,13 +190,16 @@ Hara_kiri_group_spanner::add_interesting_item (Grob *me, Grob *n)
 ADD_INTERFACE (Hara_kiri_group_spanner,
                "A group spanner that keeps track of interesting items.  If it"
                " doesn't contain any after line breaking, it removes itself"
-               " and all its children.",
+               " and all its children.  Children may be prioritized in layers"
+               " via @code{remove-layer}, in which case only the"
+               " lowest-numbered non-empty layer is retained.",
 
                /* properties */
                "items-worth-living "
                "important-column-ranks "
                "keep-alive-with "
+               "make-dead-when "
                "remove-empty "
                "remove-first "
+               "remove-layer "
               );
-
