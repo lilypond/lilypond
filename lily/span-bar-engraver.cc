@@ -82,10 +82,9 @@ Span_bar_engraver::stop_translation_timestep ()
 {
   if (spanbar_)
     {
-      SCM vissym = ly_symbol2scm ("break-visibility");
-      SCM vis = bars_[0]->internal_get_property (vissym);
-      if (ly_is_equal (spanbar_->internal_get_property (vissym), vis))
-        spanbar_->set_property (vissym, vis);
+      SCM vis = bars_[0]->get_property ("break-visibility");
+      if (ly_is_equal (spanbar_->get_property ("break-visibility"), vis))
+        spanbar_->set_property ("break-visibility", vis);
       scm_call_1 (ly_lily_module_constant ("span-bar::notify-grobs-of-my-existence"), spanbar_->self_scm ());
       spanbar_ = 0;
     }

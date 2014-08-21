@@ -90,7 +90,7 @@ Script_engraver::listen_articulation (Stream_event *ev)
 void
 copy_property (Grob *g, SCM sym, SCM alist)
 {
-  if (g->internal_get_property (sym) == SCM_EOL)
+  if (g->get_property (sym) == SCM_EOL)
     {
       SCM entry = scm_assoc (sym, alist);
       if (scm_is_pair (entry))

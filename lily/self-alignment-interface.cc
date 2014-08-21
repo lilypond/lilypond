@@ -49,10 +49,9 @@ Self_alignment_interface::pure_y_aligned_on_self (SCM smob, SCM start, SCM end)
 SCM
 Self_alignment_interface::aligned_on_self (Grob *me, Axis a, bool pure, int start, int end)
 {
-  SCM sym = (a == X_AXIS) ? ly_symbol2scm ("self-alignment-X")
-            : ly_symbol2scm ("self-alignment-Y");
-
-  SCM align (me->internal_get_property (sym));
+  SCM align = (a == X_AXIS)
+          ? me->get_property ("self-alignment-X")
+          : me->get_property ("self-alignment-Y");
   if (scm_is_number (align))
     {
       Interval ext (me->maybe_pure_extent (me, a, pure, start, end));
@@ -123,12 +122,12 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
     }
 
   SCM self_align = (a == X_AXIS)
-          ? me->internal_get_property (ly_symbol2scm ("self-alignment-X"))
-          : me->internal_get_property (ly_symbol2scm ("self-alignment-Y"));
+          ? me->get_property ("self-alignment-X")
+          : me->get_property ("self-alignment-Y");
 
   SCM par_align = (a == X_AXIS)
-          ? me->internal_get_property (ly_symbol2scm ("parent-alignment-X"))
-          : me->internal_get_property (ly_symbol2scm ("parent-alignment-Y"));
+          ? me->get_property ("parent-alignment-X")
+          : me->get_property ("parent-alignment-Y");
 
   if (par_align == SCM_EOL)
       par_align = self_align;

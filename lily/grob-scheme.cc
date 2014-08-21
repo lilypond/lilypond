@@ -138,7 +138,7 @@ LY_DEFINE (ly_grob_property, "ly:grob-property",
   if (val == SCM_UNDEFINED)
     val = SCM_EOL;
 
-  SCM retval = sc->internal_get_property (sym);
+  SCM retval = sc->get_property (sym);
   if (retval == SCM_EOL)
     retval = val;
 

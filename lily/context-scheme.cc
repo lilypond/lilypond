@@ -102,7 +102,7 @@ LY_DEFINE (ly_context_property, "ly:context-property",
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
   Context *t = Context::unsmob (context);
-  SCM result = t->internal_get_property (sym);
+  SCM result = t->get_property (sym);
   return def != SCM_UNDEFINED && scm_is_null (result) ? def : result;
 }
 

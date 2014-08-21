@@ -249,7 +249,7 @@ Piano_pedal_engraver::process_music ()
             mixed:   Ped. _____/\____|
           */
 
-          SCM style = internal_get_property (p->type_->style_sym_);
+          SCM style = get_property (p->type_->style_sym_);
 
           bool mixed = style == ly_symbol2scm ("mixed");
           bool bracket = (mixed
@@ -269,7 +269,7 @@ void
 Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
 {
   SCM s = SCM_EOL;
-  SCM strings = internal_get_property (p->type_->strings_sym_);
+  SCM strings = get_property (p->type_->strings_sym_);
 
   if (scm_ilength (strings) < 3)
     {

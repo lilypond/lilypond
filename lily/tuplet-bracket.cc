@@ -77,7 +77,7 @@ flatten_number_pair_property (Grob *me, Direction xdir, SCM sym)
 {
   Drul_array<Real> zero (0, 0);
   Drul_array<Real> pair
-    = robust_scm2drul (me->internal_get_property (sym), zero);
+    = robust_scm2drul (me->get_property (sym), zero);
   pair[xdir] = 0.0;
 
   me->set_property (sym, ly_interval2scm (pair));

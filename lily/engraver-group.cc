@@ -91,13 +91,12 @@ Engraver_group::acknowledge_grobs ()
     return;
 
   SCM name_sym = ly_symbol2scm ("name");
-  SCM meta_sym = ly_symbol2scm ("meta");
 
   for (vsize j = 0; j < announce_infos_.size (); j++)
     {
       Grob_info info = announce_infos_[j];
 
-      SCM meta = info.grob ()->internal_get_property (meta_sym);
+      SCM meta = info.grob ()->get_property ("meta");
       SCM nm = scm_assoc (name_sym, meta);
       if (scm_is_pair (nm))
         nm = scm_cdr (nm);

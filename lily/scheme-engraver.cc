@@ -158,7 +158,7 @@ void
 Scheme_engraver::acknowledge_grob_by_hash (Grob_info info,
                                            SCM iface_function_hash)
 {
-  SCM meta = info.grob ()->internal_get_property (ly_symbol2scm ("meta"));
+  SCM meta = info.grob ()->get_property ("meta");
   SCM ifaces = scm_cdr (scm_assoc (ly_symbol2scm ("interfaces"), meta));
   for (SCM s = ifaces; scm_is_pair (s); s = scm_cdr (s))
     {

@@ -54,7 +54,7 @@ LY_DEFINE (ly_prob_property, "ly:prob-property",
   if (val == SCM_UNDEFINED)
     val = SCM_EOL;
 
-  SCM retval = ps->internal_get_property (sym);
+  SCM retval = ps->get_property (sym);
   if (retval == SCM_EOL)
     return val;
   else

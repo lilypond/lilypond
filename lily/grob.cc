@@ -403,7 +403,7 @@ Grob::get_offset (Axis a) const
     UGH: can't fold next 2 statements together. Apparently GCC thinks
     dim_cache_[a].offset_ is unaliased.
   */
-  Real off = robust_scm2double (internal_get_property (sym), 0.0);
+  Real off = robust_scm2double (get_property (sym), 0.0);
   if (me->dim_cache_[a].offset_)
     {
       *me->dim_cache_[a].offset_ += off;
@@ -458,20 +458,15 @@ Grob::extent (Grob *refp, Axis a) const
       /*
         Order is significant: ?-extent may trigger suicide.
        */
-      SCM ext_sym
-        = (a == X_AXIS)
-          ? ly_symbol2scm ("X-extent")
-          : ly_symbol2scm ("Y-extent");
-
-      SCM ext = internal_get_property (ext_sym);
+      SCM ext = (a == X_AXIS)
+              ? get_property ("X-extent")
+              : get_property ("Y-extent");
       if (is_number_pair (ext))
         real_ext.unite (ly_scm2interval (ext));
 
-      SCM min_ext_sym
-        = (a == X_AXIS)
-          ? ly_symbol2scm ("minimum-X-extent")
-          : ly_symbol2scm ("minimum-Y-extent");
-      SCM min_ext = internal_get_property (min_ext_sym);
+      SCM min_ext = (a == X_AXIS)
+              ? get_property ("minimum-X-extent")
+              : get_property ("minimum-Y-extent");
       if (is_number_pair (min_ext))
         real_ext.unite (ly_scm2interval (min_ext));
 
