@@ -63,7 +63,8 @@ typecheck_grob (SCM symbol, SCM value)
     || type_check_assignment (symbol, value, ly_symbol2scm ("backend-type?"));
 }
 
-class Grob_properties {
+class Grob_properties
+{
   friend class Grob_property_info;
   friend SCM ly_make_grob_properties (SCM);
   // alist_ may contain unexpanded nested overrides

@@ -52,7 +52,7 @@ Undead::print_smob (SCM undead,
 
 IMPLEMENT_SIMPLE_SMOBS (Undead);
 IMPLEMENT_DEFAULT_EQUAL_P (Undead);
-IMPLEMENT_TYPE_P (Undead, "ly:undead?")
+IMPLEMENT_TYPE_P (Undead, "ly:undead?");
 
 LY_DEFINE (ly_make_undead, "ly:make-undead",
            1, 0, 0, (SCM object),

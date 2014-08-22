@@ -46,7 +46,7 @@
   one coming from score at markup level)
   
  */
-class Output_def   
+class Output_def
 {
 
 public:
