@@ -66,11 +66,27 @@ typecheck_grob (SCM symbol, SCM value)
 class Grob_properties {
   friend class Grob_property_info;
   friend SCM ly_make_grob_properties (SCM);
+  // alist_ may contain unexpanded nested overrides
   SCM alist_;
+  // based_on_ is the cooked_ value from the next higher context that
+  // alist_ is based on
   SCM based_on_;
+  // cooked_ is a version of alist_ where nested overrides have been
+  // expanded
+  SCM cooked_;
+  // cooked_from_ is the value of alist_ from which the expansion has
+  // been done
+  SCM cooked_from_;
+  // nested_ is a count of nested overrides in alist_
+  int nested_;
 
   Grob_properties (SCM alist, SCM based_on) :
-    alist_ (alist), based_on_ (based_on) { }
+    alist_ (alist), based_on_ (based_on),
+    // if the constructor was called with lists possibly containing
+    // partial overrides, we would need to initialize with based_on in
+    // order to trigger an initial update.  But this should never
+    // happen, so we initialize straight with alist.
+    cooked_ (alist), cooked_from_ (alist), nested_ (0) { }
   DECLARE_SIMPLE_SMOBS (Grob_properties);
 };
 
@@ -84,7 +100,9 @@ Grob_properties::mark_smob (SCM smob)
 {
   Grob_properties *gp = (Grob_properties *) SCM_SMOB_DATA (smob);
   scm_gc_mark (gp->alist_);
-  return gp->based_on_;
+  scm_gc_mark (gp->based_on_);
+  scm_gc_mark (gp->cooked_);
+  return gp->cooked_from_;
 }
 
 int
@@ -194,12 +212,15 @@ Grob_property_info::push (SCM grob_property_path, SCM new_value)
     return;
 
   SCM symbol = scm_car (grob_property_path);
-  if (scm_is_pair (scm_cdr (grob_property_path)))
+  SCM rest = scm_cdr (grob_property_path);
+  if (scm_is_pair (rest))
     {
-      new_value = nested_property_alist (ly_assoc_get (symbol, updated (),
-                                                       SCM_EOL),
-                                         scm_cdr (grob_property_path),
-                                         new_value);
+      // poor man's typechecking
+      if (typecheck_grob (symbol, nested_create_alist (rest, new_value))) {
+        props_->alist_ = scm_acons (grob_property_path, new_value, props_->alist_);
+        props_->nested_++;
+      }
+      return;
     }
 
   /* it's tempting to replace the head of the list if it's the same
@@ -230,37 +251,26 @@ Grob_property_info::pop (SCM grob_property_path)
       return;
     }
 
-  SCM symbol = scm_car (grob_property_path);
   if (scm_is_pair (scm_cdr (grob_property_path)))
     {
-      // This is definitely wrong: the symbol must only be looked up
-      // in the part of the alist before daddy.  We are not fixing
-      // this right now since this is slated for complete replacement.
-      SCM current_sub_alist = ly_assoc_get (symbol, current_alist, SCM_EOL);
-      SCM new_val
-        = nested_property_revert_alist (current_sub_alist,
-                                        scm_cdr (grob_property_path));
-
-      if (scm_is_pair (current_alist)
-          && scm_caar (current_alist) == symbol
-          && current_alist != daddy)
-        current_alist = scm_cdr (current_alist);
-
-      current_alist = scm_acons (symbol, new_val, current_alist);
-      props_->alist_ = current_alist;
+      SCM old_alist = current_alist;
+      current_alist = evict_from_alist (grob_property_path, current_alist, daddy);
+      if (scm_is_eq (old_alist, current_alist))
+        return;
+      props_->nested_--;
     }
   else
-    {
-      SCM new_alist = evict_from_alist (symbol, current_alist, daddy);
+    current_alist = evict_from_alist (scm_car (grob_property_path),
+                                      current_alist, daddy);
 
-      if (new_alist == daddy)
-        {
-          props_ = 0;
-          context_->unset_property (symbol_);
-        }
-      else
-        props_->alist_ = new_alist;
+  if (scm_is_eq (current_alist, daddy))
+    {
+      assert (props_->nested_ == 0);
+      props_ = 0;
+      context_->unset_property (symbol_);
+      return;
     }
+  props_->alist_ = current_alist;
 }
 /*
   Convenience: a push/pop grob property using a single grob_property
@@ -328,23 +338,16 @@ SCM Grob_property_info::updated ()
     = dad ? Grob_property_info (dad, symbol_).updated () : SCM_EOL;
 
   SCM based_on = where.props_->based_on_;
-  if (based_on == daddy_props)
-    return where.props_->alist_;
-  else
+  SCM alist = where.props_->alist_;
+  if (!scm_is_eq (based_on, daddy_props))
     {
-      SCM copy = daddy_props;
-      SCM *tail = &copy;
-      SCM p = where.props_->alist_;
-      while (p != based_on)
-        {
-          *tail = scm_cons (scm_car (p), daddy_props);
-          tail = SCM_CDRLOC (*tail);
-          p = scm_cdr (p);
-        }
-
-      where.props_->alist_ = copy;
-      where.props_->based_on_ =  daddy_props;
-
-      return copy;
+      where.props_->based_on_ = daddy_props;
+      alist = partial_list_copy (alist, based_on, daddy_props);
+      where.props_->alist_ = alist;
     }
+  if (scm_is_eq (where.props_->cooked_from_, alist))
+    return where.props_->cooked_;
+  where.props_->cooked_from_ = alist;
+  where.props_->cooked_ = nalist_to_alist (alist, where.props_->nested_);
+  return where.props_->cooked_;
 }
