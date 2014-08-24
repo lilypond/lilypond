@@ -119,6 +119,8 @@ Ottava_bracket::print (SCM smob)
 
       else
         span_points[d] = ext[d];
+
+      span_points[d] -= d * shorten[d];
     }
 
   /*
@@ -155,21 +157,19 @@ Ottava_bracket::print (SCM smob)
                                       Y_AXIS, Offset (bracket_span_points.length (), 0),
                                       edge_height,
                                       empty,
-                                      flare, shorten);
+                                      flare, Drul_array<Real> (0, 0));
 
   /*
-    The vertical lines should not take space, for the following scenario:
-
-    8 -----+
-    o  |
-    |
-    |
-
-
-    Just a small amount, yes.  In tight situations, it is even
-    possible to center the `8' directly below the note, dropping the
-    ottava line completely...
-
+   * The vertical lines should not take space, for the following scenario:
+   *
+   * 8 -----+
+   *     o  |
+   *    |
+   *    |
+   *
+   * Just a small amount, yes.  In tight situations, it is even
+   * possible to center the `8' directly below the note, dropping the
+   * ottava line completely...
   */
 
   b = Stencil (Box (b.extent (X_AXIS),

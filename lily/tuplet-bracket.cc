@@ -438,20 +438,19 @@ Tuplet_bracket::make_bracket (Grob *me, // for line properties.
     }
 
   Stencil m;
-  for (LEFT_and_RIGHT (d))
-    {
-      if (!gap.is_empty ())
-        m.add_stencil (Line_interface::line (me, straight_corners[d],
-                                             gap_corners[d]));
-
+  if (!gap.is_empty ())
+    for (LEFT_and_RIGHT (d))
       m.add_stencil (Line_interface::line (me, straight_corners[d],
-                                           flare_corners[d]));
-    }
-
-  if (gap.is_empty ())
+                                           gap_corners[d]));
+  else
     m.add_stencil (Line_interface::line (me, straight_corners[LEFT],
                                          straight_corners[RIGHT]));
 
+  if (scm_is_number (me->get_property ("dash-fraction")))
+    me->set_property ("dash-fraction", scm_from_double (1.0));
+  for (LEFT_and_RIGHT (d))
+    m.add_stencil (Line_interface::line (me, straight_corners[d],
+                                         flare_corners[d]));
   return m;
 }
 
