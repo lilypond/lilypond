@@ -6,8 +6,6 @@ best as possible and issue a warning otherwise.
 "
 }
 
-#(ly:expect-warning (_ "ignoring too many clashing note columns"))
-
 {
 <<
    {  b'4 f'2. }

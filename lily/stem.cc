@@ -835,6 +835,8 @@ Stem::is_valid_stem (Grob *me)
 {
   /* TODO: make the stem start a direction ?
      This is required to avoid stems passing in tablature chords.  */
+  if (!me)
+    return false;
   Grob *lh = get_reference_head (me);
   Grob *beam = Grob::unsmob (me->get_object ("beam"));
 

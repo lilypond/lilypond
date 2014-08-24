@@ -39,6 +39,24 @@ hairyChord = \context Staff  \relative c''
   ais
 >>
 
+minims = <<
+  { e''2 e'' e' d' } \\
+  c'' \\
+  { c' c' c' c' } \\
+  g' >>
+
+semibreves = <<
+  { e''1 e'' e' d' } \\
+  c'' \\
+  { c' c' c' c' } \\
+  g' >>
+
+sequence = <<
+  \new Voice { \voiceOne g''1 e''2 d'' e'' d'' }
+  \new Voice { \voiceThree c''2 b' a'1 b' }
+  \new Voice { \voiceFour g'1 e'2 f'2 a'1 }
+  \new Voice { \voiceTwo c'1 c'2 d' e'2 d' }
+>>
 
   {
     \transpose c c' {
@@ -47,6 +65,9 @@ hairyChord = \context Staff  \relative c''
       \threevoice
     }
     \hairyChord
+    \break
+    \minims \bar "||"
+    \semibreves \bar "||"
+    \sequence
   }
-  
 

@@ -14,17 +14,17 @@ to the last beam.
 
 \context PianoStaff \relative c' <<
   \new Staff = SA {
-    \stemDown
-    c8[ c16 \change Staff = SB \stemUp c16 ]
-    \stemNeutral
+    \voiceTwo
+    c8[ c16 \change Staff = SB \voiceOne c16 ]
+    \oneVoice
     f[ g \change Staff = SA a c] 
   }
   \new Staff = SB \relative c' {
     \clef bass
-    b8[ b16 \stemUp b,,16 ]
+    b8[ b16 \voiceOne b,,16 ]
 
     g'4\rest
-    b,8[ b16 \stemDown b''16 b ]
+    b,8[ b16 \voiceTwo b''16 b ]
   }
   
 >>

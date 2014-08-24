@@ -290,9 +290,8 @@ interpreted in different voices.
 @cindex collisions, ignoring
 
 @knownissues
-If notes from two or more voices, with stems in the same direction, are
-placed at the same position on the staff and have no shift (or have the
-same shift specified), the message:
+If notes from two or more voices, with no shifts specified,
+have stems in the same direction, the message
 
 @example
 warning: ignoring too many clashing note columns

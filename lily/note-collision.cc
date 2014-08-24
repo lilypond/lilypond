@@ -33,22 +33,14 @@
 #include "stem.hh"
 #include "warn.hh"
 
-void
+Real
 check_meshing_chords (Grob *me,
-                      Drul_array<vector<Real> > *offsets,
-                      Drul_array<vector<Slice> > const &extents,
-                      Drul_array<vector<Grob *> > const &clash_groups)
+                      Grob *clash_up, Grob *clash_down)
 
 {
-  if (!extents[UP].size () || !extents[DOWN].size ())
-    return;
-
-  Grob *clash_up = clash_groups[UP][0];
-  Grob *clash_down = clash_groups[DOWN][0];
-
   /* Every note column should have a stem, but avoid a crash. */
   if (!Note_column::get_stem (clash_up) || !Note_column::get_stem (clash_down))
-    return;
+    return 0.0;
 
   Drul_array<Grob *> stems (Note_column::get_stem (clash_down),
                             Note_column::get_stem (clash_up));
@@ -65,7 +57,7 @@ check_meshing_chords (Grob *me,
 
   /* Too far apart to collide. */
   if (ups[0] > dps.back () + 1)
-    return;
+    return 0.0;
 
   /* If the chords just 'touch' their extreme noteheads,
      then we can align their stems.
@@ -359,11 +351,7 @@ check_meshing_chords (Grob *me,
         }
     }
 
-  for (UP_and_DOWN (d))
-    {
-      for (vsize i = 0; i < clash_groups[d].size (); i++)
-        (*offsets)[d][i] += d * shift_amount;
-    }
+  return shift_amount;
 }
 
 MAKE_SCHEME_CALLBACK (Note_collision_interface, calc_positioning_done, 1)
@@ -471,37 +459,11 @@ SCM
 Note_collision_interface::automatic_shift (Grob *me,
                                            Drul_array<vector<Grob *> > clash_groups)
 {
-  Drul_array < vector<int> > shifts;
   SCM tups = SCM_EOL;
 
-  for (UP_and_DOWN (d))
-    {
-      vector<int> &shift (shifts[d]);
-      vector<Grob *> &clashes (clash_groups[d]);
-
-      for (vsize i = 0; i < clashes.size (); i++)
-        {
-          SCM sh
-            = clashes[i]->get_property ("horizontal-shift");
-
-          if (scm_is_number (sh))
-            shift.push_back (scm_to_int (sh));
-          else
-            shift.push_back (0);
-        }
-
-      for (vsize i = 1; i < shift.size (); i++)
-        {
-          if (shift[i - 1] == shift[i])
-            {
-              clashes[0]->warning (_ ("ignoring too many clashing note columns"));
-              return tups;
-            }
-        }
-    }
-
   Drul_array<vector<Slice> > extents;
-  Drul_array<vector<Real> > offsets;
+  Drul_array<Slice> extent_union;
+  Drul_array<vector<Grob *> > stems;
   for (UP_and_DOWN (d))
     {
       for (vsize i = 0; i < clash_groups[d].size (); i++)
@@ -510,9 +472,15 @@ Note_collision_interface::automatic_shift (Grob *me,
           s[LEFT]--;
           s[RIGHT]++;
           extents[d].push_back (s);
-          offsets[d].push_back (d * 0.5 * i);
+          extent_union[d].unite (s);
+          stems[d].push_back (Note_column::get_stem (clash_groups[d][i]));
         }
     }
+
+  Real inner_offset
+    = (clash_groups[UP].size () && clash_groups[DOWN].size ())
+      ? check_meshing_chords (me, clash_groups[UP][0], clash_groups[DOWN][0])
+      : 0.0;
 
   /*
    * do horizontal shifts of each direction
@@ -522,17 +490,46 @@ Note_collision_interface::automatic_shift (Grob *me,
    *  x||
    *   x|
   */
-
+  Drul_array<vector<Real> > offsets;
   for (UP_and_DOWN (d))
     {
-      for (vsize i = 1; i < clash_groups[d].size (); i++)
+      Real offset = inner_offset;
+      vector<int> shifts;
+      for (vsize i = 0; i < clash_groups[d].size (); i++)
         {
-          Slice prev = extents[d][i - 1];
-          prev.intersect (extents[d][i]);
-          if (prev.length () > 0
-              || (extents[-d].size () && d * (extents[d][i][-d] - extents[-d][0][d]) < 0))
-            for (vsize j = i; j < clash_groups[d].size (); j++)
-              offsets[d][j] += d * 0.5;
+          Grob *col = clash_groups[d][i];
+          SCM sh = col->get_property ("horizontal-shift");
+          shifts.push_back (robust_scm2int (sh, 0));
+
+          if (i == 0)
+            offset = inner_offset;
+          else if (shifts[i] == shifts[i - 1])
+            {
+              // Match the previous notecolumn offset,
+              // but warn if the user did not set these equal shifts explictly
+              if (!scm_is_number (sh))
+                col->warning (_ ("ignoring too many clashing note columns"));
+            }
+          else if (extents[d][i][UP] > extents[d][i - 1][DOWN]
+                   && extents[d][i][DOWN] < extents[d][i - 1][UP])
+            offset += 1.0; // fully clear the inner-voice heads
+          else
+            {
+              // check if we cross the inner voice
+              if (d * extents[d][i][-d] >= d * extents[d][i - 1][d])
+                offset += Stem::is_valid_stem (stems[d][i - 1])
+                          ? 1.0 : 0.5;
+              else if (Stem::is_valid_stem (stems[d][i]))
+                offset += 0.5;
+              // check if we cross the opposite-stemmed voices
+              if (d * extents[d][i][-d] < d * extent_union[-d][d])
+                offset = max (offset, 0.5);
+              if (extents[-d].size ()
+                  && extents[d][i][UP] > extents[-d][0][DOWN]
+                  && extents[d][i][DOWN] < extents[-d][0][UP])
+                offset = max (offset, 1.0);
+            }
+          offsets[d].push_back (d * offset);
         }
     }
 
@@ -546,17 +543,8 @@ Note_collision_interface::automatic_shift (Grob *me,
 
       if (dc)
         for (vsize j = i + 1; j < clash_groups[UP].size (); j++)
-          {
-            Grob *stem = Note_column::get_stem (clash_groups[UP][j]);
-            Side_position_interface::add_support (dc, stem);
-          }
+          Side_position_interface::add_support (dc, stems[UP][j]);
     }
-
-  /*
-    Check if chords are meshing
-  */
-
-  check_meshing_chords (me, &offsets, extents, clash_groups);
 
   for (UP_and_DOWN (d))
     {

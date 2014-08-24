@@ -801,7 +801,7 @@ later sections.
   \\  % Voice two
     {
       % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn.ignore-collision = ##t
+      \once \override NoteColumn.force-hshift = #0
       <ees, c>2
       \once \override NoteColumn.force-hshift = #0.5
       des2
@@ -851,7 +851,7 @@ not understand.
   \\  % Voice two
     { \voiceTwoStyle
       % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn.ignore-collision = ##t
+      \once \override NoteColumn.force-hshift = #0
       <ees, c>2
       \once \override NoteColumn.force-hshift = #0.5
       des2
