@@ -36,7 +36,6 @@ Translator::~Translator ()
 void
 Translator::init ()
 {
-  self_scm_ = SCM_EOL;
   daddy_context_ = 0;
   smobify_self ();
 }

@@ -33,7 +33,6 @@ Dispatcher::~Dispatcher ()
 
 Dispatcher::Dispatcher ()
 {
-  self_scm_ = SCM_EOL;
   listeners_ = SCM_EOL;
   dispatchers_ = SCM_EOL;
   listen_classes_ = SCM_EOL;

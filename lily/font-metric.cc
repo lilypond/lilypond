@@ -60,7 +60,6 @@ Font_metric::find_by_name (string s) const
 Font_metric::Font_metric ()
 {
   description_ = SCM_EOL;
-  self_scm_ = SCM_EOL;
   smobify_self ();
 }
 

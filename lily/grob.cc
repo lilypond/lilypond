@@ -51,7 +51,6 @@ Grob::Grob (SCM basicprops)
 {
 
   /* FIXME: default should be no callback.  */
-  self_scm_ = SCM_EOL;
   layout_ = 0;
   original_ = 0;
   interfaces_ = SCM_EOL;
@@ -96,7 +95,6 @@ Grob::Grob (SCM basicprops)
 Grob::Grob (Grob const &s)
 {
   original_ = (Grob *) & s;
-  self_scm_ = SCM_EOL;
 
   immutable_property_alist_ = s.immutable_property_alist_;
   mutable_property_alist_ = SCM_EOL;

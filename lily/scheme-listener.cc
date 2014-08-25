@@ -32,7 +32,6 @@ IMPLEMENT_DEFAULT_EQUAL_P (Scheme_listener);
 Scheme_listener::Scheme_listener (SCM c)
 {
   callback_ = SCM_EOL;
-  self_scm_ = SCM_EOL;
   smobify_self ();
   callback_ = c;
 }

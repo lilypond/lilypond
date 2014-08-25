@@ -102,7 +102,6 @@ Source_file::init ()
   istream_ = 0;
   line_offset_ = 0;
   str_port_ = SCM_EOL;
-  self_scm_ = SCM_EOL;
   smobify_self ();
 }
 

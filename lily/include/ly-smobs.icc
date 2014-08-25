@@ -122,6 +122,7 @@
       goodly sure                                                       \
     */                                                                  \
     SCM s;                                                              \
+    self_scm_ = SCM_UNDEFINED;						\
     SCM_NEWSMOB (s, CL::smob_tag_, this);                               \
     self_scm_ = s;                                                      \
     scm_gc_register_collectable_memory (this, sizeof (CL), #CL " smob"); \

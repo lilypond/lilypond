@@ -80,7 +80,6 @@ Prob::equal_p (SCM sa, SCM sb)
 
 Prob::Prob (SCM type, SCM immutable_init)
 {
-  self_scm_ = SCM_EOL;
   mutable_property_alist_ = SCM_EOL;
   immutable_property_alist_ = immutable_init;
   type_ = type;
@@ -95,7 +94,6 @@ Prob::Prob (Prob const &src)
 {
   immutable_property_alist_ = src.immutable_property_alist_;
   mutable_property_alist_ = SCM_EOL;
-  self_scm_ = SCM_EOL;
   type_ = src.type_;
 
   /* First we smobify_self, then we copy over the stuff.  If we don't,
