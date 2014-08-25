@@ -22,13 +22,17 @@
 
 #include "lily-guile.hh"
 #include "warn.hh"
+#include <string>
 
 /*
   Smobs are GUILEs mechanism of exporting C(++) objects to the Scheme
   world.  They are documented in the GUILE manual.
 
 
-  In LilyPond, smobs are created from C++ objects through macros.
+  In LilyPond, C++ objects can be placed under the control of GUILE's
+  type system and garbage collection mechanism by inheriting from one
+  of several Smob base classes.
+
   There are two types of smob objects.
 
   1. Simple smobs are intended for simple objects like numbers:
@@ -37,8 +41,7 @@
   To obtain an SCM version of a simple smob, use the member function
   SCM smobbed_copy ().
 
-  Simple smobs are created by adding the
-  DECLARE_SIMPLE_SMOBS(Classname) to the declaration
+  Simple smobs are created by deriving from Simple_smob<Classname>.
 
   A simple smob is only optionally under the reign of the GUILE
   garbage collector: its usual life time is that of a normal C++
@@ -68,7 +71,7 @@
 
   For example,
 
-  Complex_smob::Complex_smob () {
+  Complex_smob::Complex_smob : public Smob<Complex_smob> () {
   scm_member_ = SCM_EOL;
   smobify_self ();
   scm_member_ = <..what you want to store..>
@@ -89,79 +92,170 @@
   Complex_smob *p = new Complex_smob;
   list = scm_cons (p->unprotect (), list);
 
-  Complex smobs are made with DECLARE_SMOBS (Classname) in the class
-  declaration.
+  Complex smobs are created by deriving from Smob<Classname>.
 
   CALLING INTERFACE
 
   Common public methods to C++ smob objects:
 
-  unsmob (SCM x)  - unpacks X and returns pointer to the C++ object, or 0
-  if it has the wrong type.
-
-  SCM equal_p (SCM a, SCM b) - compare A and B. Returns a Scheme boolean
-
+  - unsmob (SCM x) - unpacks X and returns pointer to the C++ object,
+    or 0 if it has the wrong type.  This can be used as a boolean
+    condition at C++ level.
+  - smob_p (SCM x) returns #t or #f at Scheme level.
 
   IMPLEMENTATION
 
-  For implementating a class, the following should be provided
+  For implementating a class, the following public members can be
+  provided in the top class itself:
 
-  - an equal_p () function (a default is in the
-  IMPLEMENT_DEFAULT_EQUAL_P macro in ly-smobs.icc)
+  - SCM equal_p (SCM a, SCM b) - compare A and B. Returns a Scheme
+    boolean.  If the class does not define this function, equal? will
+    be equivalent to eq?.  The function will only be called when both
+    objects are of the respective type and not eq? to each other.
 
   - mark_smob () function, that calls scm_gc_mark () on all Scheme
-  objects in the class
+    objects in the class.  If the class does not define this function,
+    it must not contain non-immediate Scheme values.
 
   - a print_smob () function, that displays a representation for
-  debugging purposes
+    debugging purposes.  If the class does not define this function,
+    the output will be #<Classname> when printing.
 
-  - A call to one of the IMPLEMENT_SMOBS or IMPLEMENT_SIMPLE_SMOBS macros
-  from file "ly-smobs.icc"
+  - a static const type_p_name_[] string set to something like
+    "ly:grob?".  When provided, an accordingly named function for
+    checking for the given smob type will be available in Scheme.
+
 */
 
-#define DECLARE_SIMPLE_SMOBS(CL)                \
-  public:                                       \
-  SCM smobbed_copy () const;                    \
-  DECLARE_BASE_SMOBS (CL)
+// Initialization class.  Create a variable or static data member of
+// this type at global scope (or creation will happen too late for
+// Scheme initialization), initialising with a function to be called.
+// Reference somewhere (like in the constructor of the containing
+// class) to make sure the variable is actually instantiated.
 
-#define DECLARE_BASE_SMOBS(CL)                                  \
-  friend class Non_existent_class;                              \
-  private:                                                      \
-  static const char* smob_name_; \
-  static scm_t_bits smob_tag_;                                  \
-  static SCM mark_smob (SCM);                                   \
-  static size_t free_smob (SCM s);                              \
-  static int print_smob (SCM s, SCM p, scm_print_state*);       \
-  public:                                                       \
-  static SCM equal_p (SCM a, SCM b);                            \
-  static CL *unsmob (SCM s) __attribute__((pure))               \
-  {                                                             \
-    if (SCM_NIMP (s) && SCM_CELL_TYPE (s) == smob_tag_)         \
-      return (CL *) SCM_CELL_WORD_1 (s);                        \
-    else                                                        \
-      return 0;                                                 \
-  }                                                             \
-  static SCM smob_p (SCM);                                      \
-  static void init_smobs ();                                    \
-  private:
+class Scm_init {
+public:
+  Scm_init () { }
+  Scm_init (void (*fun) (void))
+  {
+    add_scm_init_func (fun);
+  }
+};
 
-#define DECLARE_SMOBS(CL)                       \
-  DECLARE_BASE_SMOBS (CL)                       \
-    protected:                                  \
-  virtual ~CL ();                               \
-  SCM unprotected_smobify_self ();              \
-  private:                                      \
-  void smobify_self ();                         \
-  SCM self_scm_;                                \
-  SCM protection_cons_;                         \
-  public:                                       \
-  SCM unprotect ();                             \
-  void protect ();                              \
-  SCM self_scm () const { return self_scm_; }   \
-  private:
+template <class Super>
+class Smob_base
+{
+  static scm_t_bits smob_tag_;
+  static Scm_init scm_init_;
+  static void init (void);
+  static string smob_name_;
+  static Super *unchecked_unsmob (SCM s)
+  {
+    return reinterpret_cast<Super *> (SCM_SMOB_DATA (s));
+  }
+protected:
+  // reference scm_init_ in smob_tag which is sure to be called.  The
+  // constructor, in contrast, may not be called at all in classes
+  // like Smob1.
+  static scm_t_bits smob_tag () { (void) scm_init_; return smob_tag_; }
+  Smob_base () { }
+  static SCM register_ptr (Super *p);
+  static Super *unregister_ptr (SCM obj);
+private:
+  // Those fallbacks are _only_ for internal use by Smob_base.  They
+  // are characterized by no knowledge about the implemented type
+  // apart from the type's name.  Overriding them as a template
+  // specialization is _not_ intended since a type-dependent
+  // implementation will in general need access to possibly private
+  // parts of the Super class.  So any class-dependent override should
+  // be done by redefining the respective function in the Super class
+  // (where it will mask the private template member) rather than
+  // specializing a different template function/pointer.
+  //
+  // Since we consider those internal-only, two of them are actually
+  // implemented as literal zero constant.  That allows us to fall
+  // back to GUILE's default implementation.  Arguably the same could
+  // be done for print_smob, but the resulting default output of, say,
+  // #<Context_mod 0x7352414> would depend on memory layout, thus
+  // being unsuitable for regtest comparisons unless filtered.
+
+  static const int mark_smob = 0;
+  static const int equal_p = 0;
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static size_t free_smob (SCM obj)
+  {
+    delete Smob_base<Super>::unregister_ptr (obj);
+    return 0;
+  }
+  // type_p_name_ can be overriden in the Super class with a static
+  // const char [] string.  This requires both a declaration in the
+  // class as well as a single instantiation outside.  Using a
+  // template specialization for supplying a different string name
+  // right in Smob_base<Super> itself seems tempting, but the C++
+  // rules would then require a specialization declaration at the
+  // class definition site as well as a specialization instantiation
+  // in a single compilation unit.  That requires just as much source
+  // code maintenance while being harder to understand and quite
+  // trickier in its failure symptoms when things go wrong.  So we
+  // just do things like with the other specializations.
+  static const int type_p_name_ = 0;
+public:
+  static bool is_smob (SCM s)
+  {
+    return SCM_SMOB_PREDICATE (smob_tag (), s);
+  }
+  static SCM smob_p (SCM s)
+  {
+    return is_smob (s) ? SCM_BOOL_T : SCM_BOOL_F;
+  }
+  static Super *unsmob (SCM s)
+  {
+    return is_smob (s) ? Super::unchecked_unsmob (s) : 0;
+  }
+};
+
+
+template <class Super>
+class Simple_smob : public Smob_base<Super> {
+public:
+  SCM smobbed_copy () const
+  {
+    Super *p = new Super(*static_cast<const Super *> (this));
+    return Smob_base<Super>::register_ptr (p);
+  }
+};
 
 void protect_smob (SCM smob, SCM *prot_cons);
 void unprotect_smob (SCM smob, SCM *prot_cons);
+
+template <class Super>
+class Smob : public Smob_base<Super> {
+private:
+  SCM self_scm_;
+  SCM protection_cons_;
+public:
+  SCM unprotected_smobify_self ()
+  {
+    self_scm_ = SCM_UNDEFINED;
+    self_scm_ = Smob_base<Super>::register_ptr (static_cast<Super *> (this));
+    return self_scm_;
+  }
+  void protect ()
+  {
+    protect_smob (self_scm_, &protection_cons_);
+  }
+  SCM unprotect ()
+  {
+    unprotect_smob (self_scm_, &protection_cons_);
+    return self_scm_;
+  }
+  void smobify_self () {
+    protection_cons_ = SCM_EOL;
+    self_scm_ = unprotected_smobify_self ();
+    protect ();
+  }
+  SCM self_scm () const { return self_scm_; }
+};
 
 extern bool parsed_objects_should_be_dead;
 class parsed_dead
@@ -195,5 +289,5 @@ public:
   while (0)
 #endif
 
+#include "smobs.tcc"
 #endif /* SMOBS_HH */
-
