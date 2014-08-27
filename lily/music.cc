@@ -24,7 +24,6 @@
 #include "duration.hh"
 #include "input.hh"
 #include "international.hh"
-#include "ly-smobs.icc"
 #include "main.hh"
 #include "music-sequence.hh"
 #include "score.hh"

@@ -21,19 +21,19 @@
 #define SCHEME_LISTENER_HH
 
 #include "listener.hh"
-#include "ly-smobs.icc"
 
 /*
  Scheme_listener is only used internally by scheme-listener-scheme.cc
 */
 
-class Scheme_listener
+class Scheme_listener : public Smob<Scheme_listener>
 {
 public:
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static SCM mark_smob (SCM);
+  virtual ~Scheme_listener ();
   Scheme_listener (SCM callback);
   DECLARE_LISTENER (call);
-protected:
-  DECLARE_SMOBS (Scheme_listener);
 private:
   SCM callback_;
 };

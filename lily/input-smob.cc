@@ -21,7 +21,6 @@
 #include "source-file.hh"
 #include "std-string.hh"
 
-#include "ly-smobs.icc"
 
 /* Dummy input location for use if real one is missing.  */
 Input dummy_input_global;
@@ -99,4 +98,3 @@ Input::unsmob (SCM s)
 }
 
 ADD_SCM_INIT_FUNC (input, start_input_smobs);
-

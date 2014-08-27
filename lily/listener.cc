@@ -18,7 +18,6 @@
 */
 
 #include "listener.hh"
-#include "ly-smobs.icc"
 #include "warn.hh"
 
 Listener::Listener ()
@@ -69,5 +68,4 @@ Listener::equal_p (SCM a, SCM b)
   return (*l1 == *l2) ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
-IMPLEMENT_SIMPLE_SMOBS (Listener);
-IMPLEMENT_TYPE_P (Listener, "ly:listener?");
+const char Listener::type_p_name_[] = "ly:listener?";

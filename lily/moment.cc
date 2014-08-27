@@ -43,16 +43,9 @@ Moment::Moment (Rational m)
   grace_part_ = Rational (0);
 }
 
-#include "ly-smobs.icc"
 
-IMPLEMENT_SIMPLE_SMOBS (Moment);
-IMPLEMENT_TYPE_P (Moment, "ly:moment?");
+const char Moment::type_p_name_[] = "ly:moment?";
 
-SCM
-Moment::mark_smob (SCM)
-{
-  return SCM_EOL;
-}
 
 int
 Moment::print_smob (SCM s, SCM port, scm_print_state *)
@@ -207,4 +200,3 @@ moment_less (SCM a, SCM b)
 {
   return *Moment::unsmob (a) < *Moment::unsmob (b);
 }
-

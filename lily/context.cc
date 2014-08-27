@@ -23,7 +23,6 @@
 #include "dispatcher.hh"
 #include "global-context.hh"
 #include "international.hh"
-#include "ly-smobs.icc"
 #include "main.hh"
 #include "output-def.hh"
 #include "profile.hh"
@@ -715,9 +714,7 @@ Context::mark_smob (SCM sm)
   return me->properties_scm_;
 }
 
-IMPLEMENT_SMOBS (Context);
-IMPLEMENT_DEFAULT_EQUAL_P (Context);
-IMPLEMENT_TYPE_P (Context, "ly:context?");
+const char Context::type_p_name_[] = "ly:context?";
 
 Global_context *
 Context::get_global_context () const

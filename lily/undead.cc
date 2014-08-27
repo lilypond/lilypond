@@ -18,11 +18,14 @@
 */
 
 #include "smobs.hh"
-#include "ly-smobs.icc"
 
-class Undead
+class Undead : public Simple_smob<Undead>
 {
-  DECLARE_SIMPLE_SMOBS (Undead);
+public:
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static SCM mark_smob (SCM);
+  static const char type_p_name_[];
+private:
   SCM object_;
 public:
   SCM object () { return object_; }
@@ -50,9 +53,7 @@ Undead::print_smob (SCM undead,
   return 1;
 }
 
-IMPLEMENT_SIMPLE_SMOBS (Undead);
-IMPLEMENT_DEFAULT_EQUAL_P (Undead);
-IMPLEMENT_TYPE_P (Undead, "ly:undead?");
+const char Undead::type_p_name_[] = "ly:undead?";
 
 LY_DEFINE (ly_make_undead, "ly:make-undead",
            1, 0, 0, (SCM object),

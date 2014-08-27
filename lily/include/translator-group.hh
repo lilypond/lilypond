@@ -47,8 +47,13 @@ struct Translator_method_binding
   }
 };
 
-class Translator_group
+class Translator_group : public Smob<Translator_group>
 {
+public:
+  static SCM mark_smob (SCM);
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static const char type_p_name_[];
+  virtual ~Translator_group ();
 private:
   void precompute_method_bindings ();
   vector<Translator_method_binding>
@@ -63,9 +68,7 @@ private:
 
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Translator_group, Translator_group);
-  DECLARE_SMOBS (Translator_group);
 
-public:
   virtual void connect_to_context (Context *c);
   virtual void disconnect_from_context ();
   virtual SCM get_simple_trans_list ();

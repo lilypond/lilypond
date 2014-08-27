@@ -20,11 +20,13 @@
 #include "music-function.hh"
 
 #include "music.hh"
-#include "ly-smobs.icc"
 
-class Musicfunction
+class Musicfunction : public Simple_smob<Musicfunction>
 {
-  DECLARE_SIMPLE_SMOBS (Musicfunction);
+public:
+  static SCM mark_smob (SCM);
+  static int print_smob (SCM, SCM, scm_print_state *);
+private:
   SCM signature_;
   SCM function_;
 public:
@@ -34,8 +36,6 @@ public:
   SCM get_signature () { return signature_; }
 };
 
-IMPLEMENT_SIMPLE_SMOBS (Musicfunction);
-IMPLEMENT_DEFAULT_EQUAL_P (Musicfunction);
 
 /* Print a textual represenation of the smob to a given port.  */
 int

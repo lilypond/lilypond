@@ -63,8 +63,13 @@ typecheck_grob (SCM symbol, SCM value)
     || type_check_assignment (symbol, value, ly_symbol2scm ("backend-type?"));
 }
 
-class Grob_properties
+class Grob_properties : public Simple_smob<Grob_properties>
 {
+public:
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static SCM mark_smob (SCM);
+  static const char type_p_name_[];
+private:
   friend class Grob_property_info;
   friend SCM ly_make_grob_properties (SCM);
   // alist_ may contain unexpanded nested overrides
@@ -88,13 +93,9 @@ class Grob_properties
     // order to trigger an initial update.  But this should never
     // happen, so we initialize straight with alist.
     cooked_ (alist), cooked_from_ (alist), nested_ (0) { }
-  DECLARE_SIMPLE_SMOBS (Grob_properties);
 };
 
-#include "ly-smobs.icc"
-IMPLEMENT_SIMPLE_SMOBS (Grob_properties);
-IMPLEMENT_DEFAULT_EQUAL_P (Grob_properties);
-IMPLEMENT_TYPE_P (Grob_properties, "ly:grob-properties?");
+const char Grob_properties::type_p_name_[] = "ly:grob-properties?";
 
 SCM
 Grob_properties::mark_smob (SCM smob)

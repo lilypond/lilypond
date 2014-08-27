@@ -31,10 +31,13 @@ bool busy_parsing ();
 void kill_lexer ();
 void set_lexer ();
 
-class Lily_lexer : public Includable_lexer
+class Lily_lexer : public Smob<Lily_lexer>, public Includable_lexer
 {
-  DECLARE_SMOBS (Lily_lexer);
-
+public:
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static SCM mark_smob (SCM);
+  static const char type_p_name_[];
+  virtual ~Lily_lexer ();
 private:
   int lookup_keyword (const string&);
   int scan_bare_word (const string&);

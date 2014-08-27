@@ -20,7 +20,6 @@
 #include "translator-dispatch-list.hh"
 #include "engraver.hh"
 
-#include "ly-smobs.icc"
 
 void
 Engraver_dispatch_list::apply (Grob_info gi)
@@ -72,21 +71,3 @@ Engraver_dispatch_list::create (SCM trans_list,
 
   return found ? retval : SCM_EOL;
 }
-
-SCM
-Engraver_dispatch_list::mark_smob (SCM)
-{
-  return SCM_BOOL_F;
-}
-
-int
-Engraver_dispatch_list::print_smob (SCM /* x */,
-                                    SCM p,
-                                    scm_print_state *)
-{
-  scm_puts ("#<Engraver_dispatch_list>", p);
-  return 1;
-}
-
-IMPLEMENT_SIMPLE_SMOBS (Engraver_dispatch_list);
-IMPLEMENT_DEFAULT_EQUAL_P (Engraver_dispatch_list);

@@ -23,7 +23,6 @@
 #include <algorithm>
 using namespace std;
 
-#include "ly-smobs.icc"
 
 /*
   Return: number of objects.
@@ -147,6 +146,3 @@ Scheme_hash_table::to_alist () const
   return scm_internal_hash_fold ((scm_t_hash_fold_fn) &collect_handles,
                                  NULL, SCM_EOL, hash_tab_);
 }
-
-IMPLEMENT_SMOBS (Scheme_hash_table);
-IMPLEMENT_DEFAULT_EQUAL_P (Scheme_hash_table);

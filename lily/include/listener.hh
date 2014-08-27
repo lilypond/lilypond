@@ -70,8 +70,14 @@ typedef struct
   bool (*equal_callback) (void *, void *);
 } Listener_function_table;
 
-class Listener
+class Listener : public Simple_smob<Listener>
 {
+public:
+  static SCM equal_p (SCM, SCM);
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static SCM mark_smob (SCM);
+  static const char type_p_name_[];
+private:
   void *target_;
   Listener_function_table *type_;
 public:
@@ -87,7 +93,6 @@ public:
            && (*type_->equal_callback) ((void *) target_, (void *) other.target_);
   }
 
-  DECLARE_SIMPLE_SMOBS (Listener);
 };
 
 #define IMPLEMENT_LISTENER(cl, method)                  \

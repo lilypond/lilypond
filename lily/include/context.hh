@@ -28,12 +28,17 @@
 #include "std-vector.hh"
 #include "virtual-methods.hh"
 
-class Context
+class Context : public Smob<Context>
 {
+public:
+  static SCM mark_smob (SCM);
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static const char type_p_name_[];
+  virtual ~Context ();
+private:
   Scheme_hash_table *properties_dict () const;
   Context (Context const &src);
 
-  DECLARE_SMOBS (Context);
   DECLARE_CLASSNAME (Context);
   void terminate ();
 

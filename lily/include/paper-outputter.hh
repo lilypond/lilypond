@@ -30,14 +30,16 @@
   Glue between the backend (grobs, systems, pages) and the output file.
   proxy for Scheme backends.
 */
-class Paper_outputter
+class Paper_outputter : public Smob<Paper_outputter>
 {
+public:
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static SCM mark_smob (SCM);
+  virtual ~Paper_outputter ();
+private:
   SCM output_module_;
   string file_name_;
   SCM file_;
-
-public:
-  DECLARE_SMOBS (Paper_outputter);
 
 public:
   Paper_outputter (SCM port, const string &format);

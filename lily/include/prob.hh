@@ -31,9 +31,15 @@
   Property_object. Page-breaking handles Property_object objects.
 */
 
-class Prob
+class Prob : public Smob<Prob>
 {
-  DECLARE_SMOBS (Prob);
+public:
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static SCM mark_smob (SCM);
+  static SCM equal_p (SCM, SCM);
+  static const char type_p_name_[];
+  virtual ~Prob ();
+private:
   DECLARE_CLASSNAME (Prob);
 
   void init_vars ();

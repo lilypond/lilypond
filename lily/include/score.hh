@@ -27,10 +27,14 @@
 #include "smobs.hh"
 #include "virtual-methods.hh"
 
-class Score
+class Score : public Smob<Score>
 {
-  DECLARE_SMOBS (Score);
-
+public:
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static SCM mark_smob (SCM);
+  static const char type_p_name_[];
+  virtual ~Score ();
+private:
   SCM music_;
   SCM input_location_;
   SCM header_;

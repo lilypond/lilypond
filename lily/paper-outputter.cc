@@ -38,7 +38,6 @@ using namespace std;
 #include "string-convert.hh"
 #include "warn.hh"
 
-#include "ly-smobs.icc"
 
 Paper_outputter::Paper_outputter (SCM port, const string &format)
 {
@@ -61,8 +60,6 @@ Paper_outputter::~Paper_outputter ()
 {
 }
 
-IMPLEMENT_SMOBS (Paper_outputter);
-IMPLEMENT_DEFAULT_EQUAL_P (Paper_outputter);
 
 SCM
 Paper_outputter::mark_smob (SCM x)

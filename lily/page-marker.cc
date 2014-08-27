@@ -18,7 +18,6 @@
 */
 
 #include "page-marker.hh"
-#include "ly-smobs.icc"
 
 Page_marker::Page_marker ()
 {
@@ -40,9 +39,7 @@ Page_marker::~Page_marker ()
 {
 }
 
-IMPLEMENT_SMOBS (Page_marker);
-IMPLEMENT_DEFAULT_EQUAL_P (Page_marker);
-IMPLEMENT_TYPE_P (Page_marker, "ly:page-marker?");
+const char Page_marker::type_p_name_[] = "ly:page-marker?";
 
 SCM
 Page_marker::mark_smob (SCM smob)

@@ -81,10 +81,7 @@ Context_def::~Context_def ()
 {
 }
 
-#include "ly-smobs.icc"
-IMPLEMENT_SMOBS (Context_def);
-IMPLEMENT_DEFAULT_EQUAL_P (Context_def);
-IMPLEMENT_TYPE_P (Context_def, "ly:context-def?");
+const char Context_def::type_p_name_[] = "ly:context-def?";
 
 int
 Context_def::print_smob (SCM smob, SCM port, scm_print_state *)

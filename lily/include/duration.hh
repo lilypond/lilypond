@@ -25,10 +25,11 @@
 /**
    A musical duration.
 */
-struct Duration
+struct Duration : public Simple_smob<Duration>
 {
-public:
-
+  static SCM equal_p (SCM, SCM);
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static const char type_p_name_[];
   Duration ();
   Duration (int, int);
   Duration (Rational, bool scale);
@@ -43,7 +44,6 @@ public:
   static int compare (Duration const &, Duration const &);
 
   DECLARE_SCHEME_CALLBACK (less_p, (SCM a, SCM b));
-  DECLARE_SIMPLE_SMOBS (Duration);
 
 private:
   /// Logarithm of the base duration.
@@ -58,4 +58,3 @@ INSTANTIATE_COMPARE (Duration, Duration::compare);
 extern SCM Duration_type_p_proc;
 
 #endif // DURATION_HH
-

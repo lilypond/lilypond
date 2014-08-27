@@ -43,9 +43,12 @@
   scm_gc_unprotect_object (tab->self_scm_);
 */
 
-class Scheme_hash_table
+class Scheme_hash_table : public Smob<Scheme_hash_table>
 {
 public:
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static SCM mark_smob (SCM);
+  virtual ~Scheme_hash_table ();
   bool try_retrieve (SCM key, SCM *val);
   bool contains (SCM key) const;
   void set (SCM k, SCM v);
@@ -59,8 +62,6 @@ public:
 private:
   SCM hash_tab_;
   void copy (Scheme_hash_table const &src);
-  DECLARE_SMOBS (Scheme_hash_table);
 };
 
 #endif /* SCM_HASH_HH */
-

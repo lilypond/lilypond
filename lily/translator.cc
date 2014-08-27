@@ -27,7 +27,6 @@
 #include "warn.hh"
 
 #include "translator.icc"
-#include "ly-smobs.icc"
 
 Translator::~Translator ()
 {
@@ -219,9 +218,7 @@ Translator::get_score_context () const
   return daddy_context_->get_score_context ();
 }
 
-IMPLEMENT_SMOBS (Translator);
-IMPLEMENT_DEFAULT_EQUAL_P (Translator);
-IMPLEMENT_TYPE_P (Translator, "ly:translator?");
+const char Translator::type_p_name_[] = "ly:translator?";
 
 bool
 Translator::must_be_last () const

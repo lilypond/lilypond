@@ -21,7 +21,6 @@
 #include "item.hh"
 #include "spanner.hh"
 
-#include "ly-smobs.icc"
 
 Item *
 Grob_array::item (vsize i)
@@ -113,10 +112,8 @@ Grob_array::set_array (vector<Grob *> const &src)
   grobs_ = src;
 }
 
-IMPLEMENT_SIMPLE_SMOBS (Grob_array);
-IMPLEMENT_TYPE_P (Grob_array, "ly:grob-array?");
+const char Grob_array::type_p_name_[] = "ly:grob-array?";
 
-IMPLEMENT_DEFAULT_EQUAL_P (Grob_array);
 
 SCM
 grob_list_to_grob_array (SCM lst)

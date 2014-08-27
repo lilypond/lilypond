@@ -23,10 +23,8 @@
 #include "input.hh"
 #include "profile.hh"
 
-#include "ly-smobs.icc"
 
-IMPLEMENT_SMOBS (Prob);
-IMPLEMENT_TYPE_P (Prob, "ly:prob?");
+const char Prob::type_p_name_[] = "ly:prob?";
 
 SCM
 Prob::equal_p (SCM sa, SCM sb)
@@ -198,4 +196,3 @@ Prob::name () const
   else
     return this->class_name ();
 }
-

@@ -30,7 +30,6 @@ using namespace std;
 #include "music-wrapper-iterator.hh"
 #include "simple-music-iterator.hh"
 
-#include "ly-smobs.icc"
 
 Music_iterator::Music_iterator ()
 {
@@ -193,9 +192,7 @@ Music_iterator::get_music () const
 
 /****************************************************************/
 
-IMPLEMENT_TYPE_P (Music_iterator, "ly:iterator?");
-IMPLEMENT_SMOBS (Music_iterator);
-IMPLEMENT_DEFAULT_EQUAL_P (Music_iterator);
+const char Music_iterator::type_p_name_[] = "ly:iterator?";
 
 SCM
 Music_iterator::mark_smob (SCM smob)

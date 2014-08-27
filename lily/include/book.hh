@@ -26,11 +26,13 @@
 #include "virtual-methods.hh"
 #include "smobs.hh"
 
-class Book
+class Book : public Smob<Book>
 {
-  DECLARE_SMOBS (Book);
-
 public:
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static SCM mark_smob (SCM);
+  static const char type_p_name_[];
+  virtual ~Book ();
   SCM header_;
   Output_def *paper_;
   SCM scores_;
