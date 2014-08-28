@@ -181,6 +181,8 @@ private:
 
   static const int mark_smob = 0;
   static const int equal_p = 0;
+  static const int smob_proc = 0;
+  static const int smob_proc_signature_ = 0;
   static int print_smob (SCM, SCM, scm_print_state *);
   static size_t free_smob (SCM obj)
   {
@@ -199,6 +201,20 @@ private:
   // trickier in its failure symptoms when things go wrong.  So we
   // just do things like with the other specializations.
   static const int type_p_name_ = 0;
+  // This macro is used in the Super class definition for making a
+  // smob callable like a function.  Declaration has to be public.  It
+  // may be either be completed with a semicolon in which case a
+  // definition of the member function smob_proc has to be done
+  // outside of the class body, or the semicolon is left off and an
+  // inline function body is added immediately below.  It would be
+  // nice if this were a non-static member function but it would seem
+  // tricky to do the required trampolining for unsmobbing the first
+  // argument of the callback and using it as a this pointer.
+#define LY_DECLARE_SMOB_PROC(REQ, OPT, VAR, ARGLIST)                    \
+  static const int smob_proc_signature_ = ((REQ)<<8)|((OPT)<<4)|(VAR);  \
+  static SCM smob_proc ARGLIST
+  // a separate LY_DEFINE_SMOB_PROC seems sort of pointless as it
+  // would just result in SCM CLASS::smob_proc ARGLIST
 public:
   static bool is_smob (SCM s)
   {

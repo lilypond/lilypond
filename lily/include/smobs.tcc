@@ -107,6 +107,11 @@ void Smob_base<Super>::init ()
       scm_c_export (Super::type_p_name_, NULL);
     }
   ly_add_type_predicate ((void *) unsmob, smob_name_.c_str ());
+  if (Super::smob_proc != 0)
+    scm_set_smob_apply (smob_tag_,
+                        (scm_t_subr)Super::smob_proc,
+                        Super::smob_proc_signature_ >> 8,
+                        (Super::smob_proc_signature_ >> 4)&0xf,
+                        Super::smob_proc_signature_ & 0xf);
 }
-
 #endif
