@@ -1,0 +1,1630 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+
+@ignore
+    Translation of GIT committish: 45dd19546e9b75b3e1e977732f0962f35dd3290e
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.19.2"
+
+@ignore
+Tutorial guidelines:  (different from policy.txt!)
+- unless you have a really good reason, use either
+    @lilypond[verbatim,quote]
+  or
+    @lilypond[verbatim,quote,relative=2]
+
+  Don't use any other relative=X commands.
+
+- use "aes" and "ees" instead of "as" and "es".  I know it's not
+  correct Dutch naming, but let's not confuse people with this
+  until we get to the Basic notation chapter.
+
+- Add "Music Glossary: @rglos{foo}" to the *top* of the relevant
+  portions of the tutorial.
+
+@end ignore
+
+
+@node Notació corrent
+@chapter Notació corrent
+@translationof Common notation
+
+Aquest capítol explica com crear boniques partitures que
+continguin notació musical comú, com a continuació al material que
+està al @ref{Tutorial}.
+
+@menu
+* Notació en un sol pentagrama::
+* Diverses notes a la vegada::
+* Cançons::
+* Retocs finals::
+@end menu
+
+
+@node Notació en un sol pentagrama
+@section Notació en un sol pentagrama
+@translationof Single staff notation
+
+Aquesta secció presenta la notació comú que s'utilitza per a
+música a una veu sobre un pentagrama únic.
+
+@menu
+* Línies divisòries i comprovacions de compàs::
+* Alteracions accidentals i armadures::
+* Lligadures d'unió i d'expressió::
+* Articulacions i matisos dinàmics::
+* Addició de text::
+* Barres automàtiques i manuals::
+* Instruccions rítmiques avançades::
+@end menu
+
+
+@node Línies divisòries i comprovacions de compàs
+@subsection Línies divisòries i comprovacions de compàs
+@translationof Bar lines and bar checks
+
+@menu
+* Línies divisòries::
+* Comprovacions de compàs::
+@end menu
+
+@node Línies divisòries
+@unnumberedsubsubsec Línies divisòries
+@translationof Bar lines
+
+Les línies de compàs senzilles es dibuixen automàticament a la
+música, per la qual cosa no s'han d'afegir de forma manual.
+Altres tipus de barres de compàs s'afegeixen usant @cod{\bar}, per
+exemple @code{\bar "||"} per a una doble barra, o @code{\bar "|."}
+per a la doble barra final.  Per veure una llista completa de les
+línies divisòries, consulteu @ruser{Barres de compàs}.
+
+@lilypond[verbatim,quote,relative=2]
+g1 e1 \bar "||" c2. c'4 \bar "|."
+@end lilypond
+
+@node Comprovacions de compàs
+@unnumberedsubsubsec Comprovacions de compàs
+@translationof Bar checks
+
+Tot i que no es estrictament necessari, és convenient utilitzar
+@emph{comprovacions de compàs} dins del codi d'entrada per a
+indicar on se suposa que van les línies divisòries.
+S'introdueixen mitjançant el caràcter de barra vertical, @code{|}
+(AltGr -1 al teclat català).  Amb les comprovacions de compàs, el
+programa pot verificar que hem introduït les duracions que
+completen els compassos correctament.  Les comprovacions de compàs
+també fan que el codi d'entrada sigui més fàcil de llegir, perquè
+ajuden a organitzar el material.
+
+@lilypond[verbatim,quote,relative=2]
+g1 | e1 | c2. c'4 | g4 c g e | c4 r r2 |
+@end lilypond
+
+@seealso
+Referència de la notació:
+@ruser{Comprovació de compàs i de número de compàs}.
+
+
+@node Alteracions accidentals i armadures
+@subsection Alteracions accidentals i armadures
+@translationof Accidentals and key signatures
+
+@menu
+* Alteracions accidentals::
+* Armadures::
+* Advertiment armadures i altures::
+@end menu
+
+@warning{Freqüentment els nous usuaris es confonen amb les
+alteracions accidentals: us preguem que llegeixi l'advertiment que
+apareix al final d'aquesta secció, especialment si no teniu
+familiaritat amb la teoria musical!}
+
+@node Alteracions accidentals
+@unnumberedsubsubsec Alteracions accidentals
+@translationof Accidentals
+
+@cindex accidentals, alteracions
+@cindex alteracions
+@cindex alteracions i armadures
+@cindex sostingut
+@cindex doble sostingut
+@cindex sostingut, doble
+@cindex bemoll
+@cindex doble bemoll
+@cindex bemoll, doble
+
+@funindex es
+@funindex is
+@funindex eses
+@funindex isis
+
+Glossari musical:
+@rglos{sharp},
+@rglos{flat},
+@rglos{double sharp},
+@rglos{double flat},
+@rglos{accidental}.
+
+Una nota amb @notation{sostingut} es fa afegint @code{is} al nom,
+i una nota @notation{bemoll} afegint @code{es}.  Como heu pogut
+endevinar, un @notation{doble sostingut} o @notation{doble
+bemol} es fa afegint @code{isis} o @code{eses}.  Aquesta sintaxi
+deriva de les convencions de nomenclatura de les notes en les
+llengües nòrdiques i germàniques com l'alemany i l'holandès.  Per
+utilitzar altres noms per a les @notation{alteracions
+accidentals}, vegeu @ruser{Noms de las notes en altres llengües}.
+
+@lilypond[verbatim,quote,relative=2]
+cis4 ees fisis, aeses
+@end lilypond
+
+@cindex tonalitat, armadura de la, establir
+
+@node Armadures
+@unnumberedsubsubsec Armadures
+@translationof Key signatures
+
+@cindex tonalitat, armadura de
+@cindex armadura
+@cindex major
+@cindex menor
+@cindex alteracions y armadura
+@cindex contingut en front a presentació
+@cindex presentació en front a contingut
+
+@funindex \key
+@funindex key
+@funindex \major
+@funindex major
+@funindex \minor
+@funindex minor
+
+Glossari musical:
+@rglos{key signature},
+@rglos{major},
+@rglos{minor}.
+
+La @notation{armadura de la tonalitat} se estableix mitjançant la
+instrucció @code{\key} seguit d'una nota i @code{\major} o
+@code{\minor}.
+
+@lilypond[verbatim,quote,relative=2]
+\key d \major
+a1 |
+\key c \minor
+a1 |
+@end lilypond
+
+@smallspace
+
+@node Advertiment armadures i altures
+@unnumberedsubsubsec Advertiment: armadures i altures
+@translationof Warning key signatures and pitches
+
+Glossari musical:
+@rglos{accidental},
+@rglos{key signature},
+@rglos{pitch},
+@rglos{flat},
+@rglos{natural},
+@rglos{sharp},
+@rglos{transposition},
+@rglos{Pitch names}.
+
+Per determinar si s'ha d'imprimir una notació @notation{alteració
+accidental}, el LilyPond examina les notes i la @notation{armadura
+de la tonalitat}.  L'armadura solament afecta a les alteracions
+@emph{impreses}, no a les pròpies notes!  Aquesta funcionalitat
+sol confondre als que estan començant amb el programa, per això
+deixeu-nos explicar-la en detall.
+
+El LilyPond fa una clara distinció entre el contingut musical i la
+presentació.  L'alteració (@notation{bemol}, @notation{becaire} o
+@notation{sostingut}) d'una nota és part de l'altura, i per tant
+és contingut musical.  Si una alteració (un signe @emph{imprès} de
+bemoll, becaire o sostingut) s'imprimeix o no davant de la nota
+corresponent, és una qüestió de presentació.  La presentació és
+quelcom que segueix unes regles, de manera que les alteracions
+accidentals s'imprimeixen automàticament segons aquestes regles.
+Les altures de les notes de la seva música són obres d'art, per
+tant no s'afegiran automàticament, i haureu d'introduir allò que
+vulgueu escoltar.
+
+Al següent exemple:
+
+@lilypond[verbatim,quote,relative=2]
+\key d \major
+cis4 d e fis
+@end lilypond
+
+@noindent
+Cap nota porta una alteració impresa, però de totes maneres heu
+d'escriure l' @code{is} a @code{cis} i a  @code{fis} al fitxers
+d'entrada.
+
+El text @code{b} no significa @qq{imprimir una boleta negra a la
+tercera línia del pentagrama.} El que significa en realitat:
+@qq{hi ha una nota Si natural.}  A la tonalitat de La bemoll
+major, @emph{porta} una alteració accidental:
+
+@lilypond[verbatim,quote,relative=2]
+\key aes \major
+aes4 c b c
+@end lilypond
+
+Si l'anterior us causa confusió, penseu sobre el següent: si
+estiguéssiu tocant el piano, quina tecla polsaríeu?  Si es tractés
+d'una tecla negra, aleshores @emph{heu} d'afegir @w{@code{-is}} o
+@w{@code{-es}} al nom de la nota!
+
+Posar totes les alteracions de forma explícita pot requerir una
+mica més de treball d'escriure, però l'avantatge és que la
+@notation{transposició} és més fàcil, i les alteracions es poden
+imprimir seguint diverses convencions diferents.  Consulteu
+@ruser{Alteracions accidentals automàtiques} per veure exemples de
+com es poden imprimir alteracions d'acord amb regles diferents.
+
+
+@seealso
+Referència de la notació:
+@ruser{Nom de las notes en altres idiomes},
+@ruser{Alteracions accidentals},
+@ruser{Alteracions accidentals automàtiques},
+@ruser{Armadura de la tonalitat}.
+
+
+@node Lligadures d'unió i d'expressió
+@subsection Lligadures d'unió i d'expressió
+@translationof Ties and slurs
+
+@cindex lligadura de unió
+@cindex lligadura de expressió
+@cindex lligadura de fraseig
+@cindex fraseig, lligadura de
+
+@funindex ~
+@funindex ( ... )
+@funindex \( ... \)
+
+@menu
+* Lligadures de unió::
+* Lligadures de expressió::
+* Lligadures de fraseig::
+* Advertències lligadures d'expressió en front a lligadures d'unió::
+@end menu
+
+@node Lligadures d'unió
+@unnumberedsubsubsec Lligadures d'unió
+@translationof Ties
+
+Glossari musical:
+@rglos{tie}.
+
+Una @notation{lligadura d'unió} es crea adjuntant un caràcter
+d'accent @code{~} a la primera nota lligada:
+
+@lilypond[verbatim,quote,relative=2]
+g4~ 4 c2~ | 4~ 8 a~ 2 |
+@end lilypond
+
+@node Lligadures d'expressió
+@unnumberedsubsubsec Lligadures d'expressió
+@translationof Slurs
+
+Glossari musical:
+@rglos{slur}.
+
+Una @notation{lligadura d'expressió} és una corba que es traça
+abastant diverses notes.  Les notes inicial i final es marquen
+mitjançant @code{(} y @code{)} respectivament.
+
+@lilypond[verbatim,quote,relative=2]
+d4( c16) cis( d e c cis d) e( d4)
+@end lilypond
+
+@node Lligadures de fraseig
+@unnumberedsubsubsec Lligadures de fraseig
+@translationof Phrasing slurs
+
+Glossari musical:
+@rglos{slur},
+@rglos{phrasing}.
+
+Les lligadures que s'utilitzen per indicar @notation{fraseigs} més
+llargs es poden introduir mitjançant @code{\(} i @code{\)}.  Poden
+haver-hi a l'hora lligadures de legato i lligadures de fraseig,
+però no és possible tenir legatos simultanis o lligadures
+d'expressió simultànies.
+
+@lilypond[verbatim,quote,relative=2]
+g4\( g8( a) b( c) b4\)
+@end lilypond
+
+@smallspace
+
+@cindex lligadures d'expressió en front a lligadures d'unió
+
+@node Advertiments lligadures d'expressió en front a lligadures d'unió
+@unnumberedsubsubsec Advertiments: lligadures d'expressió en front a lligadures d'unió
+@translationof Warnings slurs vs. ties
+
+Glossari musical:
+@rglos{articulation},
+@rglos{slur},
+@rglos{tie}.
+
+Una @notation{lligadura d'expressió} sembla una
+@notation{lligadura d'unió}, però té un significat diferent.  Una
+lligadura (d'unió) senzillament feu que la primera nota sigui més
+llarga, i sols es pot utilitzar sobre parelles de notes iguals.
+Les lligadures d'expressió indiquen la @notation{articulació} de
+les notes, i es poden utilitzar sobre grups majors de notes.  Les
+lligadures d'unió i d'expressió es poden niuar unes a dins de les
+altres.
+
+@lilypond[verbatim,quote,relative=2]
+c4~( c8 d~ 4 e)
+@end lilypond
+
+
+@seealso
+Referència de la notació:
+@ruser{Lligadures d'unió},
+@ruser{Lligadures d'expressió},
+@ruser{Lligadures de fraseig}.
+
+
+@node Articulacions i matisos dinàmics
+@subsection Articulacions i matisos dinàmics
+@translationof Articulation and dynamics
+
+@menu
+* Articulacions::
+* Indicacions de digitació::
+* Matisos dinàmics::
+@end menu
+
+@node Articulacions
+@unnumberedsubsubsec Articulacions
+@translationof Articulations
+
+@cindex articulació
+@cindex accent
+@cindex staccato
+
+Glossari musical:
+@rglos{articulation}.
+
+Les @notation{articulacions} més corrents es poden afegir a les
+notes utilitzant un guió @code{-} seguit d'un caràcter únic:
+
+@lilypond[verbatim,quote,relative=2]
+c4-^ c-+ c-- c-!
+c4-> c-. c2-_
+@end lilypond
+
+@node Indicacions de digitació
+@unnumberedsubsubsec Indicacions de digitació
+@translationof Fingerings
+
+@cindex digitacions
+
+@funindex ^
+@funindex _
+
+Glossari musical:
+@rglos{fingering}.
+
+De manera similar, les @notation{digitacions} es poden afegir a
+una nota utilitzant un guió (@code{-}) seguit del dígit desitjat:
+
+@lilypond[verbatim,quote,relative=2]
+c4-3 e-5 b-2 a-1
+@end lilypond
+
+Les articulacions i digitacions normalment es col·loquen de forma
+automàtica, però podeu especificar una direcció mitjançant
+@code{^} (a sobre) o @code{_} (a sota).  També podeu usar diverses
+articulacions sobre la mateixa nota.  No obstant, gairebé sempre és
+millor deixar que el LilyPond determini la direcció de les
+articulacions.
+
+@lilypond[verbatim,quote,relative=2]
+c4_-^1 d^. f^4_2-> e^-_+
+@end lilypond
+
+@node Matisos dinàmics
+@unnumberedsubsubsec Matisos dinàmics
+@translationof Dynamics
+
+@cindex dinàmica, indicacions de
+@cindex matisos
+@cindex decrescendo
+@cindex crescendo
+
+@funindex \f
+@funindex \ff
+@funindex \mp
+@funindex \p
+@funindex \mf
+@funindex \pp
+@funindex \<
+@funindex <
+@funindex \>
+@funindex >
+@funindex \!
+@funindex !
+
+Glossari musical:
+@rglos{dynamics},
+@rglos{crescendo},
+@rglos{decrescendo}.
+
+Les expressions de @notation{matís} o signes dinàmics es fan
+afegint les marques (amb una barra invertida) a la nota:
+
+@lilypond[verbatim,quote,relative=2]
+c4\ff c\mf c\p c\pp
+@end lilypond
+
+Els @notation{crescendi} i @notation{decrescendi} comencen amb les
+ordres @code{\<} i @code{\>}.  La següent indicació de matís, com
+per exemple @code{\f}, acabarà el (de)crescendo, o bé es pot usar
+la instrucció @code{\!}:
+
+@lilypond[verbatim,quote,relative=2]
+c4\< c\ff\> c c\!
+@end lilypond
+
+
+@seealso
+Referència de la notació:
+@ruser{Articulacions i ornaments},
+@ruser{Indicacions de digitació},
+@ruser{Matisos dinàmics}.
+
+
+@node Addició de text
+@subsection Addició de  text
+@translationof Adding text
+
+@cindex text, addició
+@cindex addició de text
+@cindex marcat
+
+@funindex \markup
+@funindex markup
+
+És possible afegir text a la partitura:
+
+@lilypond[verbatim,quote,relative=2]
+c2^"espr" a_"legato"
+@end lilypond
+
+Es pot aplicar un format addicional mitjançant la instrucció
+@code{\markup}:
+
+@lilypond[verbatim,quote,relative=2]
+c2^\markup { \bold espr }
+a2_\markup {
+  \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
+}
+@end lilypond
+
+
+@seealso
+Referència de la notació:
+@ruser{Escriptura del text}.
+
+
+@node Barres automàtiques i manuals
+@subsection Barres automàtiques i manuals
+@translationof Automatic and manual beams
+
+@cindex barres de corxera
+@cindex barrat
+@cindex automàtiques, barres
+@cindex manuals, barres
+@cindex barres automàtiques
+@cindex barres manuals
+
+@funindex [ ... ]
+@funindex [
+@funindex ]
+@funindex \autoBeamOff
+@funindex autoBeamOff
+@funindex \autoBeamOn
+@funindex autoBeamOn
+
+Glossari musical:
+@rglos{beam}.
+
+Totes les @notation{barres} de les figures es dibuixen
+automàticament:
+
+@lilypond[verbatim,quote,relative=2]
+a8 ais d ees r d c16 b a8
+@end lilypond
+
+Si no us agraden les barres automàtiques, poden forçar-se
+manualment. Marqueu la primera nota que comprèn la barra amb
+@code{[} i la última amb @code{]}.
+
+@lilypond[verbatim,quote,relative=2]
+a8[ ais] d[ ees r d] c16 b a8
+@end lilypond
+
+Si voleu desactivar completament el barrat automàtic o per a una
+secció extensa de música, utilitzeu l'ordre @code{\autoBeamOff}
+per desactivar-lo i @code{\autoBeamOn} para activar-lo un altre
+cop.
+
+@lilypond[verbatim,quote,relative=2]
+\autoBeamOff
+a8 c b4 d8. c16 b4 |
+\autoBeamOn
+a8 c b4 d8. c16 b4 |
+@end lilypond
+
+
+@seealso
+Referència de la notació:
+@ruser{Barres automàtiques},
+@ruser{Barres manuals}.
+
+
+@node Instruccions rítmiques avançades
+@subsection Instruccions rítmiques avançades
+@translationof Advanced rhythmic commands
+
+@menu
+* Compàs parcial::
+* Grups especials::
+* Notes d'adorn::
+@end menu
+
+@node Compàs parcial
+@unnumberedsubsubsec Compàs parcial
+@translationof Partial measure
+
+@cindex anacrusi
+@cindex compàs parcial
+
+@funindex \partial
+@funindex partial
+
+Glossari musical:
+@rglos{anacrusis}.
+
+Una @notation{anacrusi} s'introdueix amb la paraula clau
+@code{\partial}.  Va seguida d'una duració: @code{\partial 4} és
+una anacrusi de negra i @code{\partial 8} de corxera.
+
+@lilypond[verbatim,quote,relative=2]
+\partial 8 f8 |
+c2 d |
+@end lilypond
+
+@node Grups especials
+@unnumberedsubsubsec Grups especials
+@translationof Tuplets
+
+@cindex grups especials
+@cindex tresets
+
+@funindex \tuplet
+@funindex tuplet
+
+Glossari musical:
+@rglos{note value},
+@rglos{triplet}.
+
+Els grups especials com ara els tresets es fan amb la paraula clau
+@code{\tuplet}.  Requereix dos arguments: una fracció i un
+fragment de música.  La fracció és el nombre de notes del grup
+partit pel nombre de notes que normalment ocupen la mateixa
+duració.  Per als tresets hi ha tres notes a l'espai de dues, de
+manera que els @notation{tresets} es fan amb una fracció de 3/2.
+
+@lilypond[verbatim,quote,relative=2]
+\tuplet 3/2 { f8 g a }
+\tuplet 3/2 { c8 r c }
+\tuplet 3/2 { f,8 g16[ a g a] }
+\tuplet 3/2 { d4 a8 }
+@end lilypond
+
+@node Notes d'adorn
+@unnumberedsubsubsec Notes d'adorn
+@translationof Grace notes
+
+@cindex notes d'adorn
+@cindex acciaccatura
+@cindex appoggiatura
+
+@funindex \grace
+@funindex grace
+@funindex \acciaccatura
+@funindex acciaccatura
+@funindex \appoggiatura
+@funindex acciaccatura
+
+Glossari musical:
+@rglos{grace notes},
+@rglos{acciaccatura},
+@rglos{appoggiatura}.
+
+Les @notation{notes d'adorn} es creen amb l'ordre
+@code{\grace}, tot i que també es poden aconseguir precedint una
+expressió musical amb la paraula clau @code{\appoggiatura} o
+@code{\acciaccatura}.
+
+@lilypond[verbatim,quote,relative=2]
+c2 \grace { a32 b } c2 |
+c2 \appoggiatura b16 c2 |
+c2 \acciaccatura b16 c2 |
+@end lilypond
+
+
+@seealso
+Referència de la notació:
+@ruser{Notes d'adorn},
+@ruser{Grups especials},
+@ruser{Anacrusis}.
+
+
+@node Diverses notes a la vegada
+@section Diverses notes a la vegada
+@translationof Multiple notes at once
+
+Aquesta secció és una introducció a les notes simultànies:
+diversos instruments, diversos pentagrames per a un sol instrument
+(per exemple piano) i acords.
+
+La paraula @qq{polifonia} en música fa referència al fet de tenir
+més d'una veu en un moment determinat dins d'una peça musical. La
+paraula @qq{polifonia} al LilyPond es refereix al fet de tenir més
+d'una veu al mateix pentagrama.
+
+@menu
+* Explicació de les expressions musicals::
+* Diversos pentagrames::
+* Grups de pentagrames::
+* Combinar notes para formar acords::
+* Polifonia a un sol pentagrama::
+@end menu
+
+
+@node Explicació de les expressions musicals
+@subsection Explicació de les expressions musicals
+@translationof Music expressions explained
+
+@cindex musical, expressió
+@cindex expressió musical
+@cindex composta, expressió musical
+@cindex musical, expressió, composta
+
+@menu
+* Analogia expressions matemàtiques::
+* Expressions musicals simultànies diversos pentagrames::
+* Expressions musicals simultànies un sol pentagrama::
+@end menu
+
+Als fitxers d'entrada del LilyPond,  la música es representa
+mitjançant @emph{expressions musicals}.  Una sola nota és una
+expressió musical:
+
+@lilypond[verbatim,quote,relative=2]
+a4
+@end lilypond
+
+En tancar un grup de notes dins de claudàtors creem una
+@emph{expressió musical composta}. Aquí hem creat una expressió
+musical composta amb dues notes:
+
+@lilypond[verbatim,quote,relative=2]
+{ a4 g4 }
+@end lilypond
+
+Si col·loquem un grup d'expressions musicals (per exemple: notes)
+dins de claudàtors, això significa que es troben en seqüència (és
+a dir, cada una segueix a l'anterior).  El resultat és una altra
+expressió musical:
+
+@lilypond[verbatim,quote,relative=2]
+{ { a4 g } f4 g }
+@end lilypond
+
+@node Analogia expressions matemàtiques
+@unnumberedsubsubsec Analogia: expressions matemàtiques
+@translationof Analogy mathematical expressions
+
+Aquest mecanisme és semblant a les fórmules matemàtiques: una
+fórmula gran es construeix combinant fórmules petites.  Aquestes
+fórmules es diuen expressions, i la seva definició és recursiva de
+tal manera que es poden construir expressions d'una mida i
+complexitat arbitràries. Per exemple:
+
+@example
+1
+
+1 + 2
+
+(1 + 2) * 3
+
+((1 + 2) * 3) / (4 * 5)
+@end example
+
+Això és una seqüència d'expressions on cada expressió es troba
+continguda dins de la següent, més gran.  Les expressions més
+simples són números, i les majors es fan combinant expressions
+mitjançant operadors (coma ara @code{+}, @code{*} i @code{/}) i
+parèntesis. De la mateixa manera es pot niuar a una profunditat
+arbitrària, el que es fa necessari per a músiques complexes com ara
+les partitures polifòniques.
+
+@node Expressions musicals simultànies diversos pentagrames
+@unnumberedsubsubsec Expressions musicals simultànies: diversos pentagrames
+@translationof Simultaneous music expressions multiple staves
+
+@cindex diversos pentagrames
+@cindex pentagrames, diversos
+@cindex polifonia
+@cindex combinar expressions en paral·lel
+@cindex paral·leles, expressions
+@cindex expressions paral·leles
+@cindex relatiu, mode, música simultània i
+@cindex relatiu, mode, expressions paral·leles i
+@cindex simultània, música, mode relatiu i
+@cindex paral·leles, expressions, mode relatiu i
+
+@funindex <<
+@funindex >>
+@funindex << ... >>
+
+Glossari musical:
+@rglos{polyphony}.
+
+Aquesta tècnica és molt útil per a la música
+@notation{polifònica}.  Per introduir música amb més veus o amb
+més pentagrames, el que fem és combinar diverses expressions en
+paral·lel.  Per indicar que dues veus s'han d'interpretar al
+mateix temps, senzillament introduïu una combinació simultània
+d'expressions musicals.  Una expressió musical @q{simultània} es
+forma tancant les expressions dins de @code{<<} y @code{>>}.  A
+l'exemple que segueix, tres seqüències (cadascuna de les quals
+conté dues notes diferents) es combinen de forma simultània:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  <<
+    { a2 g }
+    { f2 e }
+    { d2 b }
+  >>
+}
+@end lilypond
+
+Tingueu en compte que hem sagnat cada nivell jeràrquic de
+l'entrada amb un marge diferent.  Al LilyPond no li importa quant
+(o que poc) espai hi hagi al començament d'una línia però
+l'establiment de marges diferents dins del codi del LilyPond,
+d'aquesta forma, el fa molt més fàcil de llegir per a nosaltres
+els éssers humans.
+
+@warning{Cada nota s'entén relativa a la nota anterior de
+l'entrada, solament la primera és relativa a la @code{c''} dins de
+la instrucció inicial @code{@bs{}\relative}.}
+
+@node Expressions musicals simultànies un solo pentagrama
+@unnumberedsubsubsec Expressions musicals simultànies: un solo pentagrama
+@translationof Simultaneous music expressions single staff
+
+Per determinar el nombre de pentagrames a una peça, el LilyPond
+examina el començament de la primera expressió.  Si hi ha una sola
+nota, hi ha un sol pentagrama; si hi ha una expressió simultània,
+hi ha més d'un pentagrama.  El següent exemple presenta una
+expressió complexa, però com comença amb una sola nota, es
+disposa sobre un sols pentagrama.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  c2 <<c e>> |
+  << { e2 f } { c2 <<b d>> } >> |
+}
+@end lilypond
+
+@node Diversos pentagrames
+@subsection Diversos pentagrames
+@translationof Multiple staves
+
+@cindex diversos pentagrames
+@cindex pentagrames, diversos
+@cindex context
+@cindex context de notació
+@cindex notació, context de
+
+@funindex \new Staff
+@funindex new Staff
+@funindex Staff
+@funindex \new
+@funindex new
+@funindex Score
+@funindex Voice
+@funindex Lyrics
+@funindex ChordNames
+
+Com ja hem vist a @ref{Explicació de las expressions musicals},
+els fitxers d'entrada per al LilyPond es construeixen a base
+d'expressions musicals.  Si la partitura comença amb expressions
+musicals simultànies, el LilyPond crea diversos pentagrames.  És
+més fàcil, no obstant, veure el que passa si creem cada u dels
+pentagrames de forma explícita.
+
+Per imprimir més d'un pentagrama, cada fragment de música que
+constitueix un pentagrama es marca escrivint @code{\new Staff}
+abans d'ell. Aquests elements @code{Staff} es combinen després en
+paral·lel amb @code{<<} y @code{>>}:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  <<
+    \new Staff { \clef "treble" c4 }
+    \new Staff { \clef "bass" c,,4 }
+  >>
+}
+@end lilypond
+
+L'ordre @code{\new} inaugura un @q{context de notació}.  Un
+context de notació és un entorn dins del què s'interpreten els
+esdeveniments musicals (com les notes o les ordres @code{\clef}).
+Per peces senzilles, els contextos d'aquest tipus es creen
+automàticament.  Per a peces més complicades, és millor marcar els
+contextos de forma explícita.
+
+Hi ha diverses classes de contextos. @code{Score}, @code{Staff} i
+@code{Voice} gestionen la notació melòdica, mentre que
+@code{Lyrics} s'ocupa dels textos cantats i @code{ChordNames}
+imprimeix els noms dels acords.
+
+En termes de sintaxi, l'anteposició de @code{\new} a una expressió
+musical crea una expressió musical major.  És semblant al signe
+menys de les matemàtiques.  La fórmula @math{(4+5)} és una
+expressió, per tant @math{-(4+5)} és una expressió més àmplia.
+
+Les indicacions de compàs escrites a un pentagrama afecten la
+resta d'ells, de forma predeterminada.  En canvi, l'armadura de la
+tonalitat d'un pentagrama @emph{no} afecta als altres
+pentagrames. Aquest comportament predeterminat diferent és a causa
+de què les partitures amb instruments transpositors són més
+comunes que les partitures polirítmiques.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  <<
+    \new Staff { \clef "treble" \key d \major \time 3/4 c4 }
+    \new Staff { \clef "bass" c,,4 }
+  >>
+}
+@end lilypond
+
+
+@node Grups de pentagrames
+@subsection Grups de pentagrames
+@translationof Staff groups
+
+@cindex sistema de piano
+@cindex piano, sistema de
+@cindex sistema de cor
+@cindex cor, sistema de
+@cindex grup de pentagrames
+@cindex pentagrames, grup de
+
+@funindex PianoStaff
+@funindex GrandStaff
+@funindex ChoirStaff
+
+Glossari musical:
+@rglos{brace},
+@rglos{staff},
+@rglos{system}.
+
+La música per a piano es composa tipogràficament en forma de dos
+pentagrames units mitjançant un @notation{claudàtor}. L'aspecte
+imprès d'aquest sistema de pentagrames se sembla a l'exemple
+polifònic que apareix a @ref{Diversos pentagrames}, però en aquest
+cas l'expressió completa es col·loca dins d'un @code{PianoStaff}:
+
+@example
+\new PianoStaff <<
+  \new Staff @dots{}
+  \new Staff @dots{}
+>>
+@end example
+
+Heus aquí un petit exemple:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \new PianoStaff <<
+    \new Staff { \time 2/4 c4 e | g g, | }
+    \new Staff { \clef "bass" c,,4 c' | e c | }
+  >>
+}
+@end lilypond
+
+Altres grups de pentagrames es declaren mitjançant @code{\new
+GrandStaff}, que és apropiat per a partitures orquestrals, i
+@code{\new ChoirStaff}, que és apropiat per a partitures
+vocals. Cadascú d'aquests grups de pautes forma un tipus de
+context diferent, que produeix el claudàtor a l'esquerra i que
+també controla l'abast de les línies divisòries.
+
+@seealso
+Referència de la notació:
+@ruser{Teclats i altres instruments de diversos pentagrames},
+@ruser{Impressió dels pentagrames}.
+
+
+@node Combinar notes per formar acords
+@subsection Combinar notes per formar acords
+@translationof Combining notes into chords
+
+Glossari musical:
+@rglos{chord}.
+
+@cindex acords
+@cindex duracions de notes en acords
+
+@funindex <
+@funindex >
+@funindex < ... >
+
+Hem vist amb anterioritat com es poden combinar les notes formant
+@notation{acordes} que indiquen que són simultànies, tancant-les
+entre dobles angles.  La forma normal d'indicar un acord, però, és
+tancar les notes entre angles @emph{senzills}.  Observeu que totes
+les notes d'un acord han de tenir la mateixa duració, i que la
+duració s'escriu després de l'angle de tancament.
+
+@lilypond[verbatim,quote,relative=2]
+r4 <c e g> <c f a>2
+@end lilypond
+
+Hem de pensar que els acords són quelcom gairebé equivalent a les
+notes senzilles: gairebé tot el es pot adjuntar a una nota es pot
+adjuntar també a un acord, i tot ha d'anar @emph{per fora} dels
+angles.  Per exemple, podeu combinar marques com ara barres i
+lligadures, amb acords. Tan sols heu de recordar que s'escriuen
+per fora dels angles.
+
+@lilypond[verbatim,quote,relative=2]
+r4 <c e g>~ <c f a>2 |
+<c e g>8[ <c f a> <c e g> <c f a>]
+  <c e g>8\>[ <c f a> <c f a> <c e g>]\! |
+r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
+@end lilypond
+
+@seealso
+Referència de la notació:
+@ruser{Notes en acord}.
+
+
+@node Polifonia en un sol pentagrama
+@subsection Polifonia en un sol pentagrama
+@translationof Single staff polyphony
+
+@cindex polifonia
+@cindex diverses veus
+@cindex veus, més, en un sol pentagrama
+@cindex únic, polifonia en pentagrama
+@cindex separador, silenci
+@cindex silenci separador
+
+@funindex << ... \\ ... >>
+@funindex <<
+@funindex \\
+@funindex >>
+
+La música polifònica al LilyPond, tot i que no és difícil, utilitza
+conceptes que encara no hem tractat, per la qual cosa no les
+presentarem en aquest moment.  En comptes d'això, les seccions
+següents presenten aquests conceptes i els expliquen en
+profunditat.
+
+@seealso
+Manual d'aprenentatge:
+@ref{Les veus contenen música}.
+
+Referència de la notació:
+@ruser{Notes simultànies}.
+
+
+@node Cançons
+@section Cançons
+@translationof Songs
+
+En aquesta secció presentem com elaborar música vocal i fulls
+senzilles de cançó.
+
+@menu
+* Elaborar cançons senzilles::
+* Alineació de la lletra a una melodia::
+* Lletra en diversos pentagrames::
+@end menu
+
+
+@node Elaborar cançons senzilles
+@subsection Elaborar cançons senzilles
+@translationof Setting simple songs
+
+@cindex lletra
+@cindex cançons
+
+@funindex \addlyrics
+@funindex addlyrics
+
+Glossari musical:
+@rglos{lyrics}.
+
+Presentem a continuació l'inici de la melodia d'una cançó
+infantil, @qq{Girls and boys come out to play}:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \key g \major
+  \time 6/8
+  d4 b8 c4 a8 | d4 b8 g4
+}
+@end lilypond
+
+Es pot assignar la @notation{lletra} a aquestes notes combinant
+ambdues amb la paraula clau @code{\addlyrics}.  La lletra s'escriu
+separant cada síl·laba mitjançant un espai.
+
+@lilypond[verbatim,quote]
+<<
+  \relative c'' {
+    \key g \major
+    \time 6/8
+    d4 b8 c4 a8 | d4 b8 g4
+  }
+  \addlyrics {
+    Girls and boys come | out to play,
+  }
+>>
+@end lilypond
+
+Observeu els angles dobles @w{@code{<<@dots{}>>}} al voltant del
+fragment sencer per expressar que la música i la lletra han de
+succeir al mateix temps.
+
+@node Alineació de la lletra a una melodia
+@subsection Alineació de la lletra a una melodia
+@translationof Aligning lyrics to a melody
+
+@cindex melisma
+@cindex línia de extensió
+@cindex guió
+@cindex guió baix
+@cindex lletra, alineació de
+@cindex alineació de la lletra
+@cindex lletra, paraules polisíl·labes
+@cindex paraules polisíl·labes en la lletra
+
+Glossari musical:
+@rglos{melisma},
+@rglos{extender line}.
+
+La següent línia de la cançó infantil és @notation{The moon doth
+shine as bright as day}.  A continuació l'ampliarem:
+
+@lilypond[verbatim,quote]
+<<
+  \relative c'' {
+    \key g \major
+    \time 6/8
+    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    a4 b8 c b a | d4 b8 g4. |
+  }
+  \addlyrics {
+    Girls and boys come | out to play,
+    The | moon doth shine as | bright as day; |
+  }
+>>
+@end lilypond
+
+Si compilem el codi de l'exemple anterior, veurem alguns missatges
+d'advertiment sobre la consola:
+
+@example
+song.ly:12:29: warning: la comprovació de compàs ha fallat a: 5/8
+    The | moon doth shine as
+                             | bright as day; |
+song.ly:12:46: warning: la comprovació de compàs ha fallat a: 3/8
+    The | moon doth shine as | bright as day;
+                                              |
+@end example
+
+Aquest és un bon exemple de la utilitat de les comprovacions de
+compàs.  Ara bé, si mirem la música, podem observar que la lletra
+addicional no s'alinea correctament amb les notes.  La paraula
+@q{shine} s'ha de cantar sobre dues notes, no una.  Això es coneix
+com @notation{melisma}, una síl·laba única que es canta sobre més
+d'una nota.  Existeixen diverses formes de fer que una síl·laba
+recaigui sobre diverses notes, sent la més senzilla escriure una
+lligadura d'expressió sobre elles (vegeu @ref{Lligadures d'unió y d'expressió}):
+
+@lilypond[verbatim,quote]
+<<
+  \relative c'' {
+    \key g \major
+    \time 6/8
+    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    a4 b8 c( b) a | d4 b8 g4. |
+  }
+  \addlyrics {
+    Girls and boys come | out to play,
+    The | moon doth shine as | bright as day; |
+  }
+>>
+@end lilypond
+
+Ara la lletra s'alinea correctament amb les notes, però el barrat
+automàtic de les notes que corresponen a @notation{shine as} no
+sembla correcte.  Podem remeiar-lo inserint instruccions de
+barrat manual per sobreescriure el barrat automàtic; per veure més
+detalls consulteu @ref{Barres automàtiques i manuals}.
+
+@lilypond[verbatim,quote]
+<<
+  \relative c'' {
+    \key g \major
+    \time 6/8
+    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    a4 b8 c([ b]) a | d4 b8 g4. |
+  }
+  \addlyrics {
+    Girls and boys come | out to play,
+    The | moon doth shine as | bright as day; |
+  }
+>>
+@end lilypond
+
+Com alternativa a la utilització de lligadures d'expressió, els
+melismes es poden indicar solament a la lletra utilitzant un guió
+baix, @code{_}, per a cada nota que volem incloure dins del
+melisma:
+
+@lilypond[verbatim,quote]
+<<
+  \relative c'' {
+    \key g \major
+    \time 6/8
+    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    a4 b8 c[ b] a | d4 b8 g4. |
+  }
+  \addlyrics {
+    Girls and boys come | out to play,
+    The | moon doth shine _ as | bright as day; |
+  }
+>>
+@end lilypond
+
+Si una síl·laba s'estén sobre diverses notes o una sola nota molt
+llarga, normalment es traça una @notation{línia extensora} des de
+la síl·laba que s'estén i per sota de totes les notes que
+corresponen a aquesta síl·laba.  S'escriu com dos guions baixos
+@code{__}.  Heus aquí un exemple extret dels primers tres
+compassos del @notation{Lament de Dido}, de @notation{Dido i
+Enees} de Purcell:
+
+@lilypond[verbatim,quote]
+<<
+  \relative c'' {
+    \key g \minor
+    \time 3/2
+    g2 a bes | bes2( a) b2 |
+    c4.( bes8 a4. g8 fis4.) g8 | fis1
+  }
+  \addlyrics {
+    When I am | laid,
+    am | laid __ in | earth,
+  }
+>>
+@end lilypond
+
+Fins al moment, cap dels exemples implicaven paraules que
+tinguessin més d'una síl·laba.  Aquestes paraules es reparteixen
+en general a raó d'una nota per cada síl·laba, amb guions curts
+entre les síl·labes.  Aquests guions separadors es teclegen com
+dos guions, amb el resultat d'un guió curt centrat entre les
+síl·labes. Presentem a continuació un exemple que demostra això i
+tot el que hem après fins aquest moment sobre l'alineació de la
+lletra a les notes.
+
+@c no ragged-right here because otherwise the hyphens get lost,
+@c but the example is long enough to avoid looking strange.
+@lilypond[verbatim,quote,noragged-right]
+<<
+  \relative c' {
+    \key g \major
+    \time 3/4
+    \partial 4
+    d4 | g4 g a8( b) | g4 g b8( c) |
+    d4 d e | c2
+  }
+  \addlyrics {
+    A -- | way in a __ | man -- ger,
+    no __ | crib for a | bed, __
+  }
+>>
+@end lilypond
+
+Alguns textos (especialment els que estan en italià o català)
+requereixen el contrari: col·locar més d'una síl·laba a una única
+nota. Això s'aconsegueix enllaçant les síl·labes entre sí
+mitjançant un guió baix simple @code{_} (sense cap espai), o bé
+envoltant-les entre claudàtors.  Aquí apareix un exemple procedent
+del @notation{Barber de Sevilla} de Rossini, on la síl·laba
+@notation{al} es canta sobre la mateixa nota que la síl·laba
+@notation{go} de la paraula @q{Largo} a l'ària de Fígaro
+@notation{Largo al factotum}:
+
+@c no ragged-right here because otherwise the hyphens get lost,
+@c but the example is long enough to avoid looking strange.
+@lilypond[verbatim,quote,noragged-right]
+<<
+  \relative c' {
+    \clef "bass"
+    \key c \major
+    \time 6/8
+    c4.~ 8 d b | c8([ d]) b c d b | c8
+  }
+  \addlyrics {
+    Lar -- go_al fac -- | to -- tum del -- la cit -- | tà
+  }
+>>
+@end lilypond
+
+
+@seealso
+Referència de la notació:
+@ruser{Música vocal}.
+
+
+@node Lletra en diversos pentagrames
+@subsection Lletra en diversos pentagrames
+@translationof Lyrics to multiple staves
+
+@cindex lletra i diversos pentagrames
+@cindex diversos pentagrames i lletra
+
+La solució senzilla que utilitza @code{\addlyrics} es pot usar per
+posar lletra a més d'un pentagrama.  Aquí apareix un exemple tret
+del @notation{Judas Macabeu} de Haendel:
+
+@lilypond[verbatim,quote]
+<<
+  \relative c'' {
+    \key f \major
+    \time 6/8
+    \partial 8
+    c8 | c8([ bes]) a a([ g]) f | f'4. b, | c4.~ 4
+  }
+  \addlyrics {
+    Let | flee -- cy flocks the | hills a -- | dorn, __
+  }
+  \relative c' {
+    \key f \major
+    \time 6/8
+    \partial 8
+    r8 | r4. r4 c8 | a'8([ g]) f f([ e]) d | e8([ d]) c bes'4
+  }
+  \addlyrics {
+    Let | flee -- cy flocks the | hills a -- dorn,
+  }
+>>
+@end lilypond
+
+Qualsevol partitura d'una complexitat més gran que la d'aquest
+senzill exemple es fa millor separant la lletra de l'estructura de
+pentagrames mitjançant variables (expressions amb nom).  Les
+variables es tracten a @ref{Organitzar les peces mitjançant
+variables}.
+
+@seealso
+Referència de la notació:
+@ruser{Música vocal}.
+
+
+@node Retocs finals
+@section Retocs finals
+@translationof Final touches
+
+Aquest és l'últim apartat del tutorial; mostra la forma de donar
+els retocs finals a peces senzilles, i ofereix una introducció a
+la resta del manual.
+
+@menu
+* Organitzar les peces mitjançant variables::
+* Afegir títols::
+* Noms de nota absoluts::
+* Més enllà del tutorial::
+@end menu
+
+
+@node Organitzar les peces mitjançant variables
+@subsection Organitzar les peces mitjançant variables
+@translationof Organizing pieces with variables
+
+@cindex variables
+@cindex variables, definir
+@cindex identificadors
+@cindex macros
+@cindex assignació de variables
+@cindex ús de les variables
+@cindex variables, ús de
+@cindex variables, caràcters permesos en
+@cindex caràcters permesos en variables
+
+Quan els elements que hem discutit anteriorment es combinen per
+produir fitxers més grans, les expressions musicals es fan
+enormes.  A la música polifònica amb molts pentagrames, els
+fitxers d'entrada poden tornar-se molt propensos a la confusió,
+Podem reduir aquesta confusió utilitzant les @emph{variables}.
+
+Amb les variables (també conegudes com identificadors o macros),
+podem trossejar les expressions musicals complexes.  Una variable
+s'assigna de la manera següent:
+
+@example
+musicaAmbNom = @{ @dots{} @}
+@end example
+
+El contingut de l'expressió musical @code{musicaAmbNom} es pot
+usar posteriorment col·locant una barra invertida davant del nom
+(@code{\musicaAmbNom}, igual que una ordre normal del LilyPond).
+
+@lilypond[verbatim,quote]
+violin = \new Staff {
+  \relative c'' {
+    a4 b c b
+  }
+}
+
+cello = \new Staff {
+  \relative c {
+    \clef "bass"
+    e2 d
+  }
+}
+
+{
+  <<
+    \violin
+    \cello
+  >>
+}
+@end lilypond
+
+@noindent
+El nom d'una variable ha de consistir enterament de caràcters
+alfabètics, és a dir sense números, guions, ni guions baixos.
+
+Les variables s'han de definir @emph{abans} de l'expressió musical
+principal, però es poden usar tantes vegades com es vulgui, en
+qualsevol lloc, un cop que han estat definides.  Fins i tot es
+poden usar dins de la definició d'una altra variable,
+proporcionant una via per escurçar el codi si una secció musical
+es repeteix moltes vegades.
+
+@c KEEP LY
+@lilypond[verbatim,quote,ragged-right]
+tresilloA = \tuplet 3/2 { c,8 e g }
+compasA = { \tresilloA \tresilloA \tresilloA \tresilloA }
+
+\relative c'' {
+ \compasA \compasA
+}
+@end lilypond
+
+Les variables es poden usar per a molts altres tipus d'objectes
+dins del codi d'entrada.  Per exemple,
+
+@example
+ancho = 4.5\cm
+nombre = "Wendy"
+papelAcinco = \paper @{ paperheight = 21.0 \cm @}
+@end example
+
+Depenent del seu contingut, la variable es pot usar en diferents
+llocs.  El següent exemple utilitza les variables anteriors:
+
+@example
+\paper @{
+  \papelAcinc
+  line-width = \ample
+@}
+
+@{
+  c4^\nom
+@}
+@end example
+
+
+@node Afegir títols
+@subsection Afegir títols
+@translationof Adding titles
+
+@cindex títol
+@cindex encapçalaments
+@cindex bloc d'encapçalaments
+
+@funindex \header
+@funindex header
+
+La informació sobre el títol, autor, número d'Opus i altres
+elements similars s'escriuen al bloc @code{\header}.  Aquest bloc
+es troba fora de l'expressió musical principal: el bloc
+@code{\header} normalment s'ubica per sota del número de versió.
+
+@example
+\version @w{"@version{}"}
+
+\header @{
+  title = "Sinfonia"
+  composer = "Jo"
+  opus = "Op. 9"
+@}
+
+@{
+  @dots{} música @dots{}
+@}
+@end example
+
+Quan es processa el fitxer, el títol i l'autor s'imprimeixen a
+sobre de la música.  Podeu obtenir més informació sobre els títols
+a @ruser{Crear títols encapçalaments i peus de pàgina}.
+
+@node Noms de nota absoluts
+@subsection Noms de nota absoluts
+@translationof Absolute note names
+
+@cindex notes, noms de
+@cindex notes, noms absoluts de
+@cindex absolut, mode
+@cindex absoluts, valors d'altura
+@cindex altures, valors absoluts d'
+@cindex absoluts, noms de nota
+
+Fins al moment sempre hem utilitzat @code{\relative} per definir
+les altures.  Aquesta és normalment la forma més ràpida d'escriure
+la major part de la música.  Sense @code{\relative}, les altures
+s'interpreten en mode absolut.
+
+En aquest mode, el LilyPond tractarà totes les altures com valors
+absoluts.  Una @code{c'} significarà sempre un Do central,
+una @code{b} significarà sempre la nota immediatament per sota del
+Do central i una @code{g,} significarà sempre la nota que es
+col·loca a la primera línia del pentagrama en clau de Fa.
+
+@lilypond[verbatim,quote]
+{
+  \clef "bass"
+  c'4 b g, g, |
+  g,4 f, f c' |
+}
+@end lilypond
+
+Heus aquí una escala que abasta quatre octaves:
+
+@lilypond[verbatim,quote]
+{
+  \clef "bass"
+  c,4 d, e, f, |
+  g,4 a, b, c |
+  d4 e f g |
+  a4 b c' d' |
+  \clef "treble"
+  e'4 f' g' a' |
+  b'4 c'' d'' e'' |
+  f''4 g'' a'' b'' |
+  c'''1 |
+}
+@end lilypond
+
+Com podeu veure, escriure una melodia en clau de Sol implica
+escriure una gran quantitat d'apòstrofs @q{'} .  Considerem aquest
+fragment de Mozart:
+
+@lilypond[verbatim,quote]
+{
+  \key a \major
+  \time 6/8
+  cis''8. d''16 cis''8 e''4 e''8 |
+  b'8. cis''16 b'8 d''4 d''8 |
+}
+@end lilypond
+
+Tots aquests apòstrofs fan gairebé illegible el codi d'entrada i
+serà origen de nombrosos errors.  Amb @code{\relative}, l'exemple
+anterior és molt més fàcil de llegir:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \key a \major
+  \time 6/8
+  cis8. d16 cis8 e4 e8 |
+  b8. cis16 b8 d4 d8 |
+}
+@end lilypond
+
+Si feu un error amb una marca d'octava (@code{'} o @code{,})
+mentre treballeu al mode @code{\relative}, serà molt obvi (moltes
+notes estaran a l'octava equivocada).  Mentre treballeu en mode
+absolut, una sola fallada no serà tan visible, i tampoc no serà
+tan fàcil de localitzar.
+
+El mode absolut és útil però per escriure música que contingui
+intervals grans, i serà extremadament útil per fer fitxers del
+LilyPond generats per ordinador.  Quan es copien i peguen
+fragments melòdics, el mode absolut preserva l'octava del material
+original.
+
+A vegades la música es disposa en formes més complexes.  Si esteu
+usant @code{\relative} dins de @code{\relative}, les seccions
+relatives externa i interna són independents:
+
+@lilypond[verbatim,quote]
+\relative c { c'4 \relative c'' { f g } c }
+@end lilypond
+
+@funindex \absolute
+Si esteu usant música absoluta dins d'un bloc de música relativa,
+tindreu que marcar la música absoluta explícitament amb la
+instrucció @code{\absolute} per evitar que s'incorpori a la música
+relativa:
+
+@lilypond[verbatim,quote]
+\relative c { c'4 \absolute { f'' g'' } c }
+@end lilypond
+
+@node Més enllà del tutorial
+@subsection Més enllà del tutorial
+@translationof After the tutorial
+
+Després d'acabar el tutorial, potser hauríeu de provar a escriure
+una o dues peces.  Comenceu amb una de les plantilles que
+apareixen a @ref{Plantilles} i afegeixi algunes notes.  Si
+necessiteu un tipus de notació que no ha estat tractat en aquest
+tutorial, doneu una ullada a la Referència de Notació, començant
+per @ruser{Notació musical}.  Si voleu escriure música per a un
+conjunt instrumental que no estigui cobert per cap plantilla,
+consulteu @ref{Extensió de les plantilles}.
+
+Un cop que heu escrit algunes peces curtes, llegiu la resta del
+Manual d'aprenentatge (capítols 3 al 5).  Per suposat no passa res
+per llegir-lo ara mateix!  La resta del Manual d'Aprenentatge,
+però, dona per suposat que teniu familiaritat amb l'entrada del
+LilyPond. Podeu saltar-vos aquests capítols ara i tornar a ells
+quan hagueu adquirit més experiència.
+
+En aquest tutorial i a la resta del Manual d'Aprenentatge, hi ha
+un apartat @strong{Vegeu també} al final de cada una de les
+seccions, que conté referències creuades a altres seccions: no
+seguiu aquestes referències durant la primera lectura: quan hagueu
+llegit el Manual d'Aprenentatge complet, potser desitgeu rellegir
+certes seccions i seguir les referències creuades per obtenir més
+informació.
+
+Si no ho heu fet ja, us @emph{preguem} que llegiu @ref{Panoràmica
+dels manuals}.  Hi ha una gran quantitat d'informació sobre el
+LilyPond, de manera que els nouvinguts amb freqüència no saben
+exactament on han de buscar l'ajuda.  Si dediqueu cinc minuts a
+llegir curosament aquesta secció us estalviareu hores de
+frustració buscant al lloc equivocat!

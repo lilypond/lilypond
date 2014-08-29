@@ -12,155 +12,617 @@
 @unnumbered Manuals
 @translationof Manuals
 
-@untranslated
+@macro details{reference}
+@spanClass{detail}
+(@ref{\reference\, detalls de \reference\})
+@spanEnd
+@end macro
+
+@divClass{heading-center}
+@ifclear web_version
+@heading Manuals de LilyPond @version
+@end ifclear
+@ifset web_version
+  @heading Manuals del LilyPond @versionStable
+@end ifset
+
+@divEnd
+
+@divClass{link-headings}
+
+@divClass{column-center-top}
+@subheading Introducció
+
+@itemize
+
+@item
+@ref{Entrada de text}:
+El LilyPond és un sistema de gravat musical @strong{basat en text}.
+Llegiu això primer!
+
+@item
+@ifWebLinks{@manualStableLearningSplitNoName-es,@rlearningnamed{Top,Aprenentatge}}
+una introducció al LilyPond amable i @qq{imprescindible}.
+@details{Aprenentatge}
+
+@item
+@ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossari}}
+@emph{(lectura opcional)} termes musicals i traduccions.
+@details{Glossari}
+
+@item
+@ifWebLinks{@manualStableEssaySplitNoName-es,@ressaynamed{Top,Monografia}}
+@emph{(lectura opcional)} la informació de rerefons sobre gravat musical
+@details{Monografia}
 
 
-@subheading Introduction
-@subheading Regular use
-@subheading Infrequent Use
-@subheading Other material
-@subheading Manual formats
+@end itemize
+
+@divEnd
+
+@divClass{column-left-top}
+@subheading Ús freqüent
+
+@itemize
+
+@item
+@ifWebLinks{@manualStableNotationSplitNoName-es,@rusernamed{Top,Notació}}
+referència de la sintaxi.
+@details{Notació}
+
+@item
+@ifWebLinks{@manualStableUsageSplitNoName-es,@rprogramnamed{Top,Utilizació}}
+com executar els programes.
+@details{Utilització}
+
+@item
+@ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Fragments}}
+trucs i consells curts.
+@details{Fragments}
+
+@end itemize
+
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading Ús infreqüent
+
+@itemize
+
+@item
+@ref{FAQ}:
+Preguntes  més freqüents (Frequently Asked Questions).
+
+@item
+@ref{Top,Web}:
+aquest document.
+@details{Web}
+
+@item
+@ifWebLinks{@manualStableChangesSplitNoName-es,@rchangesnamed{Top,Canvis}}
+que hi ha de nou?
+@details{Canvis}
+
+@item
+@ifWebLinks{@manualStableExtendingSplitNoName-es,@rextendnamed{Top,Extensió}}
+trucs interessants.
+@details{Extensió}
+
+@item
+@ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Funcionament intern}}
+referències sobre com fer trucs.
+@details{Funcionament intern}
+
+@end itemize
+
+@divEnd
+
+
+@divClass{column-center-bottom}
+@subheading Altres materials
+
+@itemize
+
+@item
+@ref{Tots}:
+Versions estables anteriors i versió actual com un fitxer comprimit.
+
+@item
+@ref{Traduït}:
+estat del procés de traducció per a lectors no anglòfons.
+
+@item
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository (el magatzem de fragments de codi del Lilypond)}:
+exemples, consells, i trucs creats pels usuaris.
+
+@item
+@uref{http://benlemon.me/blog/music/lilypond/operation-lilypond/,Video
+Tutorials}: Ben Lemon, usuari del LilyPond, ha creat i publicat un
+cert nombre de tutorials de vídeo al seu blog que són adequats per
+a usuaris nous
+
+@item
+@ref{Desenvolupament}:
+manuals per a la versió de desenvolupament.
+
+@item
+@ref{FDL}:
+aquests manuals estan publicats sota la Llicència de Documentació
+Lliure de GNU.
+
+@end itemize
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Formats dels manuals
+
+En general, els manuals del LilyPond es presenten en tres formats:
+HTML seccionat, HTML monolític i PDF.  L'HTML seccionat és adequat
+per a la lectura en línia.  L'HTML monolític (alguns d'aquests
+fitxers poden ser molt grans) conté tot el manual a una sola
+pàgina.  El PDF està disponible per a la seva descàrrega i per
+usar-lo fora de línia.  Per obtenir cada un dels tres formats,
+seguiu els enllaços amb el text @code{detalls de} i a continuació
+el nom del manual.
+
+@divEnd
+
+@divEnd
+
+
+@divClass{hide}
 @menu
-* Learning::
-* Glossary::
-* Essay::
-* Notation::
-* Usage::
-* Snippets::
-* FAQ::
-* Web::
-* Changes::
-* Extending::
-* Internals::
-* Translated::
-* All::
-* FDL::
+* Aprenentatge::           Aprenentatge.
+* Glossari::               Glossari.
+* Monografia::             Monografia.
+* Notació::                Referència.
+* Utilització::            Utilització.
+* Fragments::              Fragments de codi.
+* FAQ::                    Preguntes freqüents.
+* Web::                    Web.
+* Canvis::                 Notícies.
+* Extensió::               Programació.
+* Funcionament intern::    Funcionament intern.
+* Traduït::                Estat de la traducció.
+* Tots::                   Tots els manuals.
+* FDL::                    Llicència.
 @end menu
 
-@node Learning
-@unnumberedsec Learning
+@divEnd
+
+
+@c TRANSLATORS, most of the text in this file came from
+@c LM 1.1 About the documentation  (before this section was
+@c removed in July 2009).
+
+@node Aprenentatge
+@unnumberedsec Aprenentage
 @translationof Learning
 
-@untranslated
+@divClass{column-left-top}
+@subheading Manual d'aprenentatge
+
+Aquest llibre explica com començar a aprendre el LilyPond, així
+com alguns conceptes clau en termes senzills.  Hauríeu de llegir
+aquests capítols en seqüència lineal.
+
+Al final de totes les seccions hi ha un paràgraf @strong{Vegeu
+també} que conté referències creuades a altres seccions: no
+hauríeu de seguir les referències creuades la primera vegada que
+llegiu el manual.  Quan hàgiu llegir tot el manual, us convindrà
+llegir de nou algunes seccions i seguir aquestes referències
+creuades per obtenir més informació.
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Aprenentatge, learning,
+  @rlearningnamed{Top,Aprenentatge},
+  @manualStableLearningSplit-ca,
+  @manualStableLearningBig-ca, 3 MB,
+  @manualStableLearningPdf-ca, 5 MB}
+
+@divEnd
 
 
-@subheading Learning manual
-@node Glossary
-@unnumberedsec Glossary
+@node Glossari
+@unnumberedsec Glossari
 @translationof Glossary
 
-@untranslated
+@divClass{column-left-top}
+@subheading Glossari
+
+El glossari explica termes musicals i inclou traduccions a
+diversos idiomes.  Si no teniu familiaritat amb la notació o a
+terminologia musicals (en especial si no sou parlant nadiu de
+l'anglès), es recomana ferventment que consulteu el glossari.
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Glossari musical, music-glossary,
+  @rglosnamed{Top,Glossari musical},
+  @manualStableGlossarySplit,
+  @manualStableGlossaryBig, 1 MB,
+  @manualStableGlossaryPdf, 1.5 MB}
+
+@divEnd
 
 
-@subheading Glossary
-@node Essay
-@unnumberedsec Essay
+@node Monografia
+@unnumberedsec Monografia
 @translationof Essay
 
-@untranslated
+@divClass{column-left-top}
+@subheading Monografia
+
+Aquest llibre ofereix una història breu de la tipografia musical,
+seguida d'un examen de les tècniques de gravat musical del
+LilyPond.  Es fa una comparació entre el LilyPond i d'altres
+sistemes de tipografia musical.
+
+@warning{Els exemples tipogràfics detallats s'analitzen millor a
+la versió en format PDF a causa de la seva major resolució.}
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Monografia, essay,
+  @ressaynamed{Top,Ensayo},
+  @manualStableEssaySplit-ca,
+  @manualStableEssayBig-ca, 1 MB,
+  @manualStableEssayPdf-ca, 2 MB}
+
+@divEnd
 
 
-@subheading Essay
-@node Notation
-@unnumberedsec Notation
+@node Notació
+@unnumberedsec Notació
 @translationof Notation
 
-@untranslated
+@divClass{column-left-top}
+@subheading Referència de la notació
+
+Aquest llibre explica totes les instruccions del LilyPond que
+produeixen notació musical.
+
+@warning{La Referència de la Notació suposa que el lector coneix
+el material bàsica que apareix al Manual d'Aprenentatge i té
+familiaritat amb els termes musicals anglesos que es presenten al
+Glossari Musical.}
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Notació, notation,
+  @rusernamed{Top,Notació},
+  @manualStableNotationSplit-ca,
+  @manualStableNotationBig-ca, 9 MB,
+  @manualStableNotationPdf-ca, 35 MB}
+
+@divEnd
 
 
-@subheading Notation reference
-@node Usage
-@unnumberedsec Usage
+@node Utilització
+@unnumberedsec Utilització
 @translationof Usage
 
-@untranslated
+@divClass{column-left-top}
+@subheading Manual d'utilització del programa
+
+Aquest llibre explica com executar els programes, com integrar la
+notació del LilyPond amb altres programes, i suggereix @qq{bones
+pràctiques} per a un ús eficient d'aquestes eines.  Es recomana la
+seva lectura abans d'afrontar projectes grans.
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Utilització, usage,
+  @rprogramnamed{Top,Utilització},
+  @manualStableUsageSplit-ca,
+  @manualStableUsageBig-ca, 400 KB,
+  @manualStableUsagePdf-ca, 650 KB}
+
+@divEnd
 
 
-@subheading Usage manual
-@node Snippets
-@unnumberedsec Snippets
+@node Fragments
+@unnumberedsec Fragments
 @translationof Snippets
 
-@untranslated
+@divClass{column-left-top}
+@subheading Fragments
+
+Aquest manual presenta un conjunt seleccionat de fragmentes de
+codi del LilyPond extrets del
+@uref{http://lsr@/.dsi@/.unimi@/.it,Repositori de fragments de
+codi del LilyPond} (LSR).  Tots els fragments es troben al domini
+públic.
+
+Observeu que aquest document no és un subconjunt estricte del
+LSR.  L'LSR executa una versió estable del LilyPond per la qual
+cosa qualsevol fragment de codi que mostri funcionalitats noves
+d'una versió de desenvolupament s'ha d'afegir per separat.  Estan
+emmagatzemats dins de @file{input/new/} a l'arbre de codi font del
+LilyPond.
+
+La llista de fragments de  codi per a cada subsecció del manual de
+Notació estan enllaçats també a partir de la secció @strong{Vegeu
+també}.
+@divEnd
 
 
-@subheading Snippets
+@divClass{column-right-bottom}
+
+@docLinks{Fragments, snippets,
+  @rlsrnamed{Top,Fragments},
+  @manualStableSnippetsSplit,
+  @manualStableSnippetsBig, 1.5 MB,
+  @manualStableSnippetsPdf, 12.5 MB}
+
+@divEnd
+
+
 @node FAQ
 @unnumberedsec FAQ
 @translationof FAQ
 
-@untranslated
+@divClass{column-center-top}
+@subheading Preguntes preliminars
+
+@subsubheading On és la interfície gràfica, els menús i les barres d'eines?
+
+El LilyPond requereix que escrivim la música coma
+text. Informeu-vos d'això llegint la nostra @ref{Entrada de text}.
+
+@subsubheading Hi ha un munt de documentació!  He de llegir-la?
+
+Heu de llegir el manual de @ref{Aprenentatge}.  Respecte a la
+resta de la documentació, sols heu de llegir les seccions que
+tracten de la notació que vulgueu crear.
 
 
-@subheading Introductory questions
-@subsubheading Where are the graphical canvas, menus, and toolbars?
-@subsubheading There's a lot of documentation!  Do I need to read it?
-@subsubheading That's still a lot of reading!  Is it worth it?
-@subheading Usage questions
-@subsubheading Something isn't working!  How do I fix it?
-@subsubheading Why do you change the syntax?
+@subsubheading Això és encara molta cosa a llegir! Paga la pena?
+
+Decidiu per vos mateix; les raons per les quals voldríeu utilitzar
+el LilyPond es poden trobar a la @ref{Introducció}.
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Qüestions sobre la utilització
+
+@subsubheading Quelcom no funciona!  Com ho arreglo?
+
+S'explica a @rprogram{Solució de problemes}.
+
+
+@subsubheading Perquè canvien la sintaxi i el llenguatge?
+
+S'explica a @rprogram{Perquè canvia la sintaxi?}.
+
+@divEnd
+
+
 @node Web
 @unnumberedsec Web
 @translationof Web
 
-@untranslated
-
-
+@divClass{column-left-top}
 @subheading Web
-@subheading Read it
-@subsubheading Latest manual
-@subsubheading Web manual in @versionDevel
-@node Changes
-@unnumberedsec Changes
+
+Aquest manual dóna una informació general sobre el LilyPond.
+També conté informació sobre diversos fòrums de la comunitat,
+maneres d'informar de les fallades, i desenvolupament.
+
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Llegiu-lo
+
+@subsubheading Últims manuals
+
+@divClass{keep-bullets}
+@itemize
+@ref{Top,Web}
+@end itemize
+@divEnd
+
+@subsubheading Manual web en @versionDevel
+
+@docLinksBare{Web, web,
+  @ref{Arriba,Web},
+  @manualDevelWebSplit-ca,
+  @manualDevelWebBig-ca, 2.5 MB,
+  @manualDevelWebPdf, 3.5 MB}
+
+@divEnd
+
+
+@node Canvis
+@unnumberedsec Canvis
 @translationof Changes
 
-@untranslated
+@divClass{column-left-top}
+@subheading Canvis
+
+Això és un resum dels canvis més importants i noves funcionalitats
+produïdes al LilyPond a partir de la versió estable anterior.
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Canvis, changes,
+  @rchangesnamed{Top,Canvis},
+  @manualStableChangesSplit-ca,
+  @manualStableChangesBig-ca, 90 KB,
+  @manualStableChangesPdf-ca, 80 KB}
+
+@divEnd
 
 
-@subheading Changes
-@node Extending
-@unnumberedsec Extending
+@node Extensió
+@unnumberedsec Extensió
 @translationof Extending
 
-@untranslated
+@divClass{column-left-top}
+@subheading Extensió del LilyPond
 
+Aquest manual explica com escriure extensions del LilyPond.
 
-@subheading Extending LilyPond
-@node Internals
-@unnumberedsec Internals
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Extensió, extending,
+  @rextendnamed{Top,Extensió},
+  @manualStableExtendingSplit-ca,
+  @manualStableExtendingBig-ca, 300 KB,
+  @manualStableExtendingPdf-ca, 500 KB}
+
+@divEnd
+
+@node Funcionament intern
+@unnumberedsec Funcionament intern
 @translationof Internals
 
-@untranslated
+@divClass{column-left-top}
+@subheading Referència del funcionament intern
+
+Aquest és un conjunt de pàgines ple de referències creuades que
+constitueixen la documentació de tots els detalls de cada una de
+les classes, objectes i funcions del LilyPond.  Es produeix
+directament a partir de les definicions de format del codi font.
+
+Gairebé tota la funcionalitat de format que s'utilitza internament
+està disponible per a l'usuari directament.  Per exemple, gairebé
+totes les variables que controlen els valors de gruix, les
+distàncies, etc., es poden modificar als fitxers d'entrada.  Hi ha
+un nombre molt gran d'opcions de format, i totes ells es descriuen
+en aquest document.  Cadascuna de les seccions de la Referència de
+la Notació té una subsecció @b{Vegeu també}, que es refereix a la
+documentació generada.
+
+@divEnd
+
+@divClass{column-right-bottom}
+
+@docLinks{Funcionament intern, internals,
+  @rinternalsnamed{Top,Funcionament intern},
+  @manualStableInternalsSplit,
+  @manualStableInternalsBig, 3 MB,
+  @manualStableInternalsPdf, 4 MB}
+
+@divEnd
 
 
-@subheading Internals reference
-@node Translated
-@unnumberedsec Translated
+@node Traduït
+@unnumberedsec Traduït
 @translationof Translated
 
-@untranslated
+@divClass{column-center-bottom}
+@subheading Estat de la traducció
 
-
-@subheading Translations status
 @include translations.itexi
-@node All
-@unnumberedsec All
+
+@divEnd
+
+
+@node Tots
+@unnumberedsec Tots
 @translationof All
 
-@untranslated
+@divClass{column-left-top}
+@subheading Versions per descarregar
+
+@ifclear web_version
+Els @emph{tarballs} per descarregar
+sols estan disponibles a @uref{http://lilypond.org}
+@end ifclear
+@ifset web_version
+
+@divClass{keep-bullets}
+@itemize
+
+@item @doctarballStable-ca
+
+@end itemize
+
+@divEnd
+@end ifset
+
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading Versions estables anteriors
+
+@divClass{keep-bullets}
+@itemize
+
+@item @uref{http://lilypond.org/doc/v2.16/Documentation/,
+Documentación de LilyPond 2.16}
+
+@item @uref{http://lilypond.org/doc/v2.14/Documentation/,
+Documentación de LilyPond 2.14}
+
+@item @uref{http://lilypond.org/doc/v2.12/Documentation/,
+Documentación de LilyPond 2.12}
+
+@item @uref{http://lilypond.org/doc/v2.10/Documentation/,
+Documentación de LilyPond 2.10}
+
+@item @uref{http://lilypond.org/doc/v2.8/Documentation/,
+Documentación de LilyPond 2.8}
+
+@item @uref{http://lilypond.org/doc/v2.6/Documentation/,
+Documentación de LilyPond 2.6}
+
+@item @uref{http://lilypond.org/doc/v2.4/Documentation/out-www/,
+Documentación de LilyPond 2.4}
+
+@item @uref{http://lilypond.org/doc/v2.2/Documentation/out-www/,
+Documentación de LilyPond 2.2}
+
+@item @uref{http://lilypond.org/doc/v2.0/Documentation/out-www/,
+Documentación de LilyPond 2.0}
+
+@item @uref{http://lilypond.org/doc/v1.8/Documentation/out-www/,
+Documentación de LilyPond 1.8}
+
+@item @uref{http://lilypond.org/doc/v1.6/Documentation/out-www/,
+Documentación de LilyPond 1.6}
+
+@end itemize
+
+@divEnd
+@divEnd
 
 
-@subheading Downloadable versions
-@subheading Previous stable versions
 @node FDL
 @unnumberedsec FDL
 @translationof FDL
 
-@untranslated
+@divClass{column-center-top}
+@subheading Llicència de la documentació
 
+La documentació del GNU LilyPond està publicada sota la Llicència
+de Documentació Lliure de GNU.  Hi ha una introducció a aquesta
+llicència i a els nostres motius per haver-la escollit, a
+@ref{Llibertat}.
 
-@subheading Documentation license
+@divEnd
+
+@divClass{column-center-bottom}
 @subheading GNU Free Documentation License 1.1
+
 @include fdl.itexi
 
-@c -- SKELETON FILE --
+@divEnd

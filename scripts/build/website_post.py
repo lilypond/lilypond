@@ -11,6 +11,10 @@ import re
 
 ###### Translation data, move out, see create-weblinks-itexi.py
 translations = {
+    'ca': {
+        'English': 'Català',
+        'Other languages': 'Altres idiomes',
+        },
     'cs': {
         'English': 'Česky',
         'Other languages': 'Jiné jazyky',
@@ -217,4 +221,3 @@ urchinTracker();
             outfile.write("</div>\n")
         outfile.write(line)
     outfile.close()
-

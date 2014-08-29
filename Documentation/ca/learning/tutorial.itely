@@ -1,0 +1,853 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+
+@ignore
+    Translation of GIT committish: d378daa101069ce6497292b0f4a7f6ce2e9b51f0
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@include included/generating-output.itexi
+
+@c \version "2.16.0"
+
+@node Tutorial
+@chapter Tutorial
+@translationof Tutorial
+
+Aquest capítol ofereix una introducció bàsica al treball amb el Lilypond.
+
+@menu
+* Compilació d'un fitxer::
+* Com escriure fitxers d'entrada::
+* Gestió dels errors::
+* Com llegir els manuals::
+@end menu
+
+@node Compilació d'un fitxer
+@section Compilació d'un fitxer
+@translationof Compiling a file
+
+Aquesta secció presenta el concepte de @qq{compilació}: el
+processament dels documents d'entrada del LilyPond (escrits per
+vos mateix) per produir fitxers de sortida.
+
+@menu
+* Escriptura del codi d'entrada::
+* MacOS X::
+* Windows::
+* Línia d'ordres::
+@end menu
+
+@node Escriptura del codi d'entrada
+@subsection Escriptura del codi d'entrada
+@translationof Entering input
+
+@cindex compilació
+@cindex exemple inicial
+@cindex inicial, exemple
+@cindex majúscules, sensible a
+
+@menu
+* Generació del resultat::
+@end menu
+
+@qq{Compilació} és una paraula que significa processar un text
+d'entrada en format del LilyPond per produir un fitxers que es pot
+imprimir i (de manera opcional) un fitxer MIDI que es pot
+reproduir.  El primer exemple mostra l'aspecte d'un senzill fitxer
+de text d'entrada.
+
+Aquest exemple mostra un fitxer d'entrada senzill:
+
+@example
+\version "@w{@version{}}"
+@{
+  c' e' g' e'
+@}
+@end example
+
+El resultat té aquest aspecte:
+
+@c  in this case we don't want verbatim
+@lilypond[quote]
+{
+  c' e' g' e'
+}
+@end lilypond
+
+@warning{la música i la lletra escrita al codi d'entrada del
+Lilypond ha d'anar sempre entre @w{@strong{@{ claudàtors @}}}.
+Els claudàtors haurien també d'estar rodejats per espais a no ser
+que es trobin al principi o al final d'una línia, per evitar
+ambigüitats.  És possible que s'ometen en alguns exemples del
+manual actual, però eviteu d'ometre-les a la vostra pròpia música!
+Per veure més informació sobre la presentació dels exemples del
+manual, consulteu
+@ref{Com llegir els manuals}.}
+
+A més, l'entrada del Lilypond és @strong{sensible a les majúscules}.
+@w{@samp{ @{ c d e @}}} és una entrada vàlida; @w{@samp{@{ C D E @}}} produeix
+un missatge d'error.
+
+@smallspace
+
+@node Generació del resultat
+@unnumberedsubsubsec Generació del resultat
+@translationof Producing output
+
+@cindex PDF, fitxer
+@cindex veure la música
+@cindex editors de text
+
+El mètode per produir un resultat imprès depèn del nostre sistema
+operatiu i del programa o programes que utilitzem.
+
+@itemize
+
+@item
+@ref{MacOS X, @sourceimage{logo-macosx,,,}}
+@ref{MacOS X, MacOS X} (gràfic)
+
+@item
+@ref{Windows, @sourceimage{logo-windows,,,}}
+@ref{Windows, Microsoft Windows} (gràfic)
+
+@item
+@ref{Línia d'ordres, @sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+}
+@ref{Línia d'ordres, Tots els sistemes operatius} (consola)
+
+@end itemize
+
+Hi ha diversos altres editors de text amb un suport específic a
+l'edició de text del LilyPond.  Per veure més informació, consulteu
+@rweb{Entorns millorats}.
+
+@warning{El primer cop que executeu el LilyPond, trigarà un minut
+o dos perquè totes les tipografies del sistema han de ser
+analitzades prèviament.  Després d'això, el LilyPond serà molt més ràpid!}
+
+@node MacOS X
+@subsection MacOS X
+
+@cindex execució del LilyPond sota el MacOS X
+@cindex MacOS X, execució del LilyPond
+
+@lilypadOSX
+
+
+@node Windows
+@subsection Windows
+
+@cindex execució del LilyPond sota el Windows
+@cindex Windows, execució del LilyPond
+
+@lilypadWindows
+
+
+@node Línia d'ordres
+@subsection Línia d'ordres
+@translationof Command-line
+
+@cindex execució del  LilyPond sota l'Unix
+@cindex Unix, execució del LilyPond
+
+@lilypadCommandLine
+
+@node Com escriure fitxers d'entrada
+@section Com escriure fitxers d'entrada
+@translationof How to write input files
+
+Aquesta secció presenta una part de la sintaxi bàsica del LilyPond
+com ajuda perquè us inicieu a l'escriptura de fitxers d'entrada.
+
+@menu
+* Notació senzilla::
+* Treball sobre els fitxers d'entrada::
+@end menu
+
+
+@node Notació senzilla
+@subsection Notació senzilla
+@translationof Simple notation
+
+@cindex senzilla, notació
+@cindex notació senzilla
+
+@menu
+* Altures::
+* Duracions (valors rítmics)::
+* Silencis::
+* Indicació de compàs::
+* Indicacions de tempo::
+* Clau::
+* Tot a l'hora::
+@end menu
+
+El LilyPond afegirà certs elements de notació de manera
+automàtica. A l'exemple següent hem especificat solament quatre
+altures, però el LilyPond ha afegit la clau, el compàs i les
+duracions.
+
+@lilypond[verbatim,quote]
+{
+  c' e' g' e'
+}
+@end lilypond
+
+@noindent
+Aquest comportament es pot modificar, però en general aquests
+valors automàtics són adequats.
+
+@node Altures
+@unnumberedsubsubsec Altures
+@translationof Pitches
+
+@cindex altures
+@cindex notes
+@cindex relatiu, mode
+@cindex apòstrof
+@cindex cometa simple
+@cindex coma
+@cindex alteracions i mode relatiu
+@cindex relatiu, mode, alteracions i
+
+@funindex \relative
+@funindex relative
+@funindex '
+@funindex ,
+
+Glossari musical:
+@rglos{pitch},
+@rglos{interval},
+@rglos{scale},
+@rglos{middle C},
+@rglos{octave},
+@rglos{accidental}.
+
+La manera més senzilla d'introduir les notes és mitjançant la
+utilització del model @code{\relative} (relatiu). En aquest mode,
+s'escull l'octava automàticament sota el supòsit que la següent
+nota es col·locarà sempre el més a prop de la nota actual, és a
+dir, es col·locarà a l'octava compresa dins de fins a tres espais
+de pentagrama a partir de la nota anterior.  Començarem per
+introduir el fragment musical més elemental: una
+@notation{escala}, on cada nota està compresa dins de tans sols un
+espai de pentagrama des de la nota anterior.
+
+@lilypond[verbatim,quote]
+% set the starting point to middle C
+\relative c' {
+  c d e f
+  g a b c
+}
+@end lilypond
+
+La nota inicial és el @notation{Do central}.  Cada nota successiva
+es col·loca el més a prop possible de la nota prèvia (en altres
+paraules: la primera @samp{c} és el Do més proper al Do central; a
+aquesta nota la segueix el Re més a prop a la nota prèvia, i així
+successivament).  Podem crear melodies amb intervals més grans,
+fins i tot sense deixar d'utilitzar el mode relatiu:
+
+@lilypond[verbatim,quote]
+\relative c' {
+  d f a g
+  c b f d
+}
+@end lilypond
+
+@noindent
+No és necessari que la primera nota de la melodia comenci
+exactament a la nota que especifica l'altura d'inici.  A l'exemple
+anterior, la primera nota (@code{d}) és el Re més proper al Do central.
+
+Afegint (o eliminant) cometes simples @code{'} o comes @code{,} a
+l'ordre @q{@w{@code{@bs{}\relative c'}}}, podem canviar l'octava d'inici:
+
+@c KEEP LY
+@lilypond[verbatim,quote]
+% una octava per sobre del Do central
+\relative c'' {
+  e c a c
+}
+@end lilypond
+
+Al principi, el mode relatiu pot resultar una mica confús, però és
+la forma més senzilla d'introduir la major par de les melodies.
+Vegem com funciona en la pràctica aquest càlcul relatiu.
+Començant per Si, que està situat a la línia central en clau de
+Sol, podem arribar Do, Re i Mi dins dels tres espais de pentagrama
+cap amunt, i La, Sol i Fa dins del tres espais cap a baix.  Per
+tant, si la nota següent a Si és Do, Re o Mi se suposarà que està
+per sobre del Si, mentre que La, Sol o Fa s'entendran situats per
+sota.
+
+@c KEEP LY
+@lilypond[verbatim,quote]
+\relative c'' {
+  b c  % el Do està 1 espai per sobre, és el Do de dalt
+  b d  % el Re està 2 espais per sobre o 5 per sota, és el Re de dalt
+  b e  % el Mi està 3 espais per sobre o 4 per sota, és el Mi de dalt
+  b a  % el La està 6 espais per sobre o 1 per sota, és el La de sota
+  b g  % el Sol està 5 espais per sobre o 2 per sota, és el Sol de sota
+  b f  % el Fa està 4 espais per sobre o 3 per sota, és el F de sota
+}
+@end lilypond
+
+El mateix exactament passa quan qualssevol d'aquestes notes porten
+un sostingut o un bemoll.  Les @notation{Alteracions accidentals}
+s' @strong{ignoren totalment} al càlcul de la posició
+relativa. Exactament el mateix compte d'espais de pentagrama es fa
+a partir d'una nota situada en qualsevol altre lloc del mateix pentagrama.
+
+Per afegir intervals més grans que tres espais de pentagrama, podem
+elevar una @notation{octava} afegint una cometa simple  @code{'} (o
+apòstrof) a continuació del nom de la nota.  També podem baixar
+una octava escrivint una coma @code{,} a continuació del nom de la
+nota.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  a a, c' f,
+  g g'' a,, f'
+}
+@end lilypond
+
+@noindent
+Per pujar o baixar una nota en dos (o més!) octaves, utilitzem
+diverses @code{''} o @code{,,} (però teniu cura d'utilitzar dos
+cometes simples @code{''} i no una cometa doble @code{"}@tie{}!)
+@c " - keeps quotes in order for context-sensitive editor -td
+
+@node Duracions (valors rítmics)
+@unnumberedsubsubsec Duracions (valors rítmics)
+@translationof Durations (rhythms)
+
+@cindex duracions de les notes
+@cindex notes, duracions de
+@cindex ritmes
+@cindex rodona
+@cindex blanca
+@cindex negra
+@cindex figura amb puntet
+@cindex puntet
+@cindex notació de las duracions
+
+Glossari musical:
+@rglos{beam},
+@rglos{duration},
+@rglos{whole note},
+@rglos{half note},
+@rglos{quarter note},
+@rglos{dotted note}.
+
+La @notation{duració} d'una nota s'especifica mitjançant un número
+després del nom de la nota: @code{1} significa @notation{rodona},
+@code{2} significa @notation{blanca}, @code{4} significa
+@notation{negra} i així successivament. Les @notation{barres de
+corxera} s'afegeixen automàticament.
+
+Si no especifiqueu una  duració, s'utilitza la duració prèvia per
+a la nota següent.  La figura per omissió de la primera nota és
+una negra.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  a1
+  a2 a4 a8 a
+  a16 a a a a32 a a a a64 a a a a a a a a2
+}
+@end lilypond
+
+Per crear @notation{notes amb puntet}, afegiu un punt @code{.} al
+número de la duració.  La duració d'una nota amb puntet s'ha
+d'especificar de forma explícita (és a dir: mitjançant un número).
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  a4 a a4. a8
+  a8. a16 a a8. a8 a4.
+}
+@end lilypond
+
+@node Silencis
+@unnumberedsubsubsec Silencis
+@translationof Rests
+
+@cindex silenci
+@cindex notació dels silencis
+
+Glossari musical:
+@rglos{rest}.
+
+Un @notation{silenci} s'introdueix igual que si fos un anota amb
+el nom @code{r}@tie{}:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  a4 r r2
+  r8 a r4 r4. r8
+}
+@end lilypond
+
+
+@node Indicació de compàs
+@unnumberedsubsubsec Indicació de compàs
+@translationof Time signature
+
+@cindex compàs, indicació de
+
+@funindex \time
+@funindex time
+
+Glossari musical:
+@rglos{time signature}.
+
+La @notation{indicació de compàs} es pot establir amb l'ordre
+@code{\time} :
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \time 3/4
+  a4 a a
+  \time 6/8
+  a4. a
+  \time 4/4
+  a4 a a a
+}
+@end lilypond
+
+@node Indicacions de tempo
+@unnumberedsubsubsec Indicacions de tempo
+@translationof Tempo marks
+
+@cindex tempo, indicacions de
+@cindex metrònom, indicacions
+
+@funindex \tempo
+@funindex tempo
+
+Glossari musical:
+@rglos{tempo indication},
+@rglos{metronome}.
+
+La @notation{indicació de tempo} i la @notation{indicació
+de metrònom} poden establir-se amb l'ordre @code{\tempo}:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \time 3/4
+  \tempo "Andante"
+  a4 a a
+  \time 6/8
+  \tempo 4. = 96
+  a4. a
+  \time 4/4
+  \tempo  "Presto" 4 = 120
+  a4 a a a
+}
+@end lilypond
+
+
+@node Clau
+@unnumberedsubsubsec Clau
+@translationof Clef
+
+@cindex clau
+@cindex sol, clau de
+@cindex do en tercera, clau de
+@cindex do en quarta, clau de
+@cindex fa, clau de
+@cindex soprano
+@cindex alto
+@cindex tenor
+@cindex baix
+
+@funindex \clef
+@funindex clef
+
+Glossari musical:
+@rglos{clef}.
+
+La @notation{clau} es pot establir utilitzant l'ordre
+@code{\clef} :
+
+@lilypond[verbatim,quote]
+\relative c' {
+  \clef "treble"
+  c1
+  \clef "alto"
+  c1
+  \clef "tenor"
+  c1
+  \clef "bass"
+  c1
+}
+@end lilypond
+
+
+@node Tot a l'hora
+@unnumberedsubsubsec Tot a l'hora
+@translationof All together
+
+Aquí teniu un petit exemple que mostra tots els elements anteriors
+a l'hora:
+
+@lilypond[verbatim,quote]
+\relative c, {
+  \clef "bass"
+  \time 3/4
+  \tempo "Andante" 4 = 120
+  c2 e8 c'
+  g'2.
+  f4 e d
+  c4 c, r
+}
+@end lilypond
+
+
+@seealso
+Referència de la notació:
+@ruser{Escriptura de notes},
+@ruser{Escriptura de les duracions (valors rítmics)},
+@ruser{Escriptura de silencis},
+@ruser{Indicació de compàs},
+@ruser{Clau}.
+
+
+@node Treball sobre els fitxers d'entrada
+@subsection Treball sobre els fitxers d'entrada
+@translationof Working on input files
+
+@cindex claudàtors
+@cindex comentaris
+@cindex línia, comentari de
+@cindex comentari de línia
+@cindex bloc, comentari de
+@cindex majúscules, sensible a
+@cindex espais, insensible a
+@cindex expressions
+@cindex versions
+@cindex versió
+@cindex número de versió
+
+
+@funindex \version
+@funindex { ... }
+@funindex %
+@funindex %@{ ... %@}
+
+Els fitxers d'entrada del LilyPond són com els fitxers font de
+molts llenguatges de programació corrents.  Contenen un enunciat
+de versió, són sensibles a les majúscules i generalment els espais
+s'ignoren.  Les expressions es formen amb claudàtors
+@w{@code{@{ @}}} i els comentaris es denoten per un signe de
+percentatge (@code{%}) o per @w{@code{%@{ @dots{} %@}}}@tie{}.
+
+Si no enteneu res de la frase anterior, no us preocupeu! A
+continuació explicarem el significat de tots aquests termes:
+
+@itemize
+
+@item
+@strong{Enunciat de la versió}: Tot fitxer del LilyPond ha de
+contenir un enunciat de versió.  Un enunciat de versió és una
+línia que descriu la versió del LilyPond per a la es va escriure
+aquest fitxer, com a l'exemple següent:
+
+@example
+\version "@w{@version{}}"
+@end example
+
+Per conveni, l'enunciat de versió es col·loca al principi del
+fitxer del LilyPond.
+
+L'enunciat de versió és important per dos motius com a mínim.  En
+primer lloc, permet l'actualització automàtica del codi d'entrada
+conforme es va modificant la sintaxi del LilyPond.  En segon lloc,
+indica la versió del LilyPond que es necessita per compilar el
+fitxer.
+
+Si no s'escriu cap enunciat de versió al fitxer d'entrada, el
+LilyPond imprimeix un advertiment durant la compilació del fitxer.
+
+@item
+@strong{Sensible a les majúscules}: el fet que s'introdueixi una
+lletra en minúscules (per exemple @w{@code{a, b, s, t}}) o en
+majúscules (per exemple @w{@code{A, B, S, T}}) té importància.
+Les notes són minúscules: @w{@samp{@{ c d e @}}} és una entrada
+vàlida; @w{@samp{@{ C D E @}}} produiria un missatge d'error.
+
+@item
+@strong{Insensible al nombre d'espais}: no importa quants espais
+(o salts de línia o de tabulació) afegiu.
+@w{@samp{@{ c4 d e @}}} significa el mateix que
+@w{@samp{@{ c4 @tie{} @tie{} @tie{} d e @}}} i que
+
+@example
+@{ c4                       d
+                   e   @}
+@end example
+
+@noindent
+Per suposat, l'exemple anterior és difícil de llegir.  Una regla
+pràctica és sagnar els blocs de codi amb un caràcter de
+tabulació, o bé amb dos espais:
+
+@example
+@{
+  c4 d e
+@}
+@end example
+
+No obstant, @emph{sí} es necessiten espais per separar molts
+elements sintàctics els uns dels altres.  En altres paraules, els
+espais es poden sempre @emph{afegir}, però no sempre @emph{eliminar}.
+Degut a què la manca d'espais pot donar lloc a errors estranys,
+recomanem inserir espais sempre abans i després de qualsevol
+element sintàctic, per exemple, abans i després dels claudàtors.
+
+@item
+@strong{Expressions:} Tot fragment de codi d'entrada per al
+LilyPond ha de portar @strong{@{@tie{}claudàtors@tie{}@}} abans i
+després de l'entrada. Aquests claudàtors li diuen al LilyPond que
+l'entrada és una expressió musical unitària, igual que els
+parèntesis @samp{()} de les matemàtiques.  Els claudàtors han
+d'anar rodejats d'un espai a no ser que es trobin al començament o
+al final d'una línia, per evitar qualsevol ambigüitat.
+
+Una instrucció del LilyPond seguida d'una expressió simple entre
+claudàtors (com per exemple
+@q{@w{@code{@bs{}relative c' @{@dots{} @}}}})
+també és una expressió musical unitària.
+
+@cindex comentaris
+@cindex comentari de línia
+@cindex comentari de bloc
+@item
+@strong{Comentaris}: Un comentari és una nota per al lector humà
+de l'entrada musical; s'ignora quan s'analitza aquesta entrada, de
+manera que no té cap efecte sobre la sortida impresa.  Hi ha dos
+tipus de comentaris.  El símbol de percentatge @samp{%} introdueix
+un comentari de línia; s'ignora tot el que es troba després de
+@samp{%} a aquesta línia.  Per conveni, una  línia de comentari es
+col·loca @emph{per sobre} del codi a què es refereix el comentari.
+
+@example
+a4 a a a
+% aquest comentari es refereix a les notes Si
+b2 b
+@end example
+
+Un comentari de bloc marca una secció sencera d'entrada musical
+com a comentari.  Tot el que esta envoltat dins de @code{%@{} i
+@code{%@}} s'ignora (però els comentaris no poden niuar-se, cosa
+que significa que un comentari de bloc no pot incloure altres
+comentaris de bloc).  Si ho fes, el primer @code{%@}} donaria per
+acabat @emph{els dos} comentaris de bloc.  El següent fragment
+mostra alguns possibles usos per als comentaris:
+
+@example
+% a continuació van les notes de twinkle twinkle
+  c4 c g' g a a g2
+
+%@{
+  Aquesta línia i les notes que apareixen a sota
+  s'ignoren, per estar dins d'un
+  comentari de bloc.
+
+  f4 f e e d d c2
+%@}
+@end example
+
+@end itemize
+
+
+@node Gestió dels errors
+@section Gestió dels errors
+@translationof Dealing with errors
+
+@cindex depuració d'errors
+
+A vegades el LilyPond no produeix el resultat esperat.  Aquesta
+secció aporta alguns enllaços per ajudar-vos a resoldre els
+problemes que pugueu trobar.
+
+@menu
+* Consells generals de solució de problemes::
+* Alguns errors comuns::
+@end menu
+
+@node Consells generals de solució de problemes
+@subsection Consells generals de solució de problemes
+@translationof General troubleshooting tips
+
+La solució de problemes al LilyPond pot ser un desafiament per a
+les persones acostumades als interfícies gràfics, perquè és
+possible crear fitxers d'entrada invàlids.  Quan passa això, la
+millor manera d'identificar i resoldre el problema és aplicar un
+enfocament lògic.  A @rprogram{Solució de problemes} es donen
+algunes guies per ajudar-vos a aprendre a fer-lo.
+
+@node Alguns errors comuns
+@subsection Alguns errors comuns
+@translationof Some common errors
+
+@cindex comuns, errors
+@cindex errors comuns
+
+Hi ha alguns errors comuns que són difícils de solucionar si ens
+basem solament als missatges d'errors que se'ns presenten.
+Aquests errors es descriuen a @rprogram{Errors comuns}.
+
+@node Com llegir els manuals
+@section Com llegir els manuals
+@translationof How to read the manuals
+
+Aquesta secció mostra com llegir la documentació de forma
+eficient, i presenta algunes funcionalitats interactives de la
+versió en línia.
+
+@menu
+* Material omès::
+* Exemples amb enllaç::
+* Panoràmica dels manuals::
+@end menu
+
+
+@node Material omès
+@subsection Material omès
+@translationof Omitted material
+
+
+@cindex com llegir el manual
+@cindex manual, lectura del
+@cindex llegir el manual
+@cindex exemples, clicar
+@cindex clicar sobre els exemples
+@cindex consells per construir fitxers
+@cindex plantilles
+@cindex construir fitxers, consells
+@cindex fitxers, consells per construir
+
+Com ja hem vist a @ref{Treball sobre els fitxers d'entrada}
+codi d'entrada del LilyPond ha d'estar rodejat de claudàtors
+@code{@{ @}} o de
+@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}.  Durant la resta
+del manual actual, la major part dels exemple ometran els
+claudàtors. Per a reproduir els exemples, haureu de copiar i
+enganxar l'entrada que es mostra, però @strong{haureu} d'escriure
+el @q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}, de la forma següent:
+
+@example
+\relative c'' @{
+  @dots{}aquí va l'exemple@dots{}
+@}
+@end example
+
+Perquè ometre els claudàtors? Gairebé tots els exemples del manual
+actual es poden inserir al mig d'un fragment més gran de
+música. Per a aquests exemple no té cap sentit afegir
+@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}
+(no hauríeu de posar un @code{\relative} dins d'altre
+@code{\relative}!); si haguéssim inclòs
+@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}
+envoltant a cadascú dels exemples, no podríeu copiar un exemple
+petit procedent de la documentació i enganxar-lo dins de la seva
+pròpia partitura.  La major part de la gent voldrà inserir el codi
+dins d'una partitura més gran, és per això que hem formatat el
+manual d'aquesta manera.
+
+Recordeu també que tot fitxer del LilyPond ha de portar un
+enunciat @code{\version}.  Considerant que els exemple dels
+manuals són fragments de codi i no fitxers complets, l'enunciat
+@code{\version} s'omet.  Tot i així, ens hem d'acostumar a
+incloure'ls als nostres documents.
+
+@node Exemples amb enllaç
+@subsection Exemples amb enllaç
+@translationof Clickable examples
+
+@warning{Aquesta funcionalitat sols està disponible al manuals en HTML.}
+
+Moltes persones aprendran a utilitzar programes provant i
+trastejant amb ells. Això també es pot fer amb el LilyPond.  Si
+cliqueu sobre una imatge a la versió en HTML d'aquest manual,
+podreu veure l'entrada exacta del LilyPond que es va fer servir
+per generar aquesta imatge.  Proveu-lo sobre aquesta imatge:
+
+@c no verbatim here
+@c KEEP LY
+@lilypond[quote]
+\relative c'' {
+  c4-\markup { \bold \huge { Cliqueu aquí. } }
+}
+@end lilypond
+
+Tallent i enganxant tot el que es troba dins de la secció
+@qq{ly snippet} (fragment de tipus ly), tindreu una plantilla
+inicial per als vostres experiments. Per poder veure exactament
+el mateix resultat (amb la mateixa amplada i tot), copieu tot el
+que hi ha des de @qq{Start cut-&-pastable section} fins al final
+del fitxer.
+
+@ignore
+This is item 825
+
+@n ode Navegació amb el teclat
+@s ubsection Navegació amb el teclat
+@t ranslationof Keyboard navigation
+
+@warning{Aquesta possibilitat sols està disponible als manuals en
+HTML.}
+
+@c TODO: once this is figured out, insert it here.
+
+Estem treballant per proveir aquesta funcionalitat.
+@end ignore
+
+@node Panoràmica dels manuals
+@subsection Panoràmica dels manuals
+@translationof Overview of manuals
+
+Hi ha molt abundant documentació sobre el LilyPond.  Els nous
+usuaris es troben desorientats amb freqüència en quant a quina
+part o quines parts han de llegir, i ocasionalment passen per alt
+la lectura de parts d'importància vital.
+
+@warning{Si us plau: no us salteu les parts importants de la
+documentació.  Us resultarà molt més difícil comprendre les
+seccions subsegüents.}
+
+@itemize
+
+@item
+@strong{Abans d'intentar fer @emph{qualsevol cosa}}: llegiu el
+@ref{Tutorial} del manual d'Aprenentatge, i la secció
+@ref{Notació corrent}.  Si trobeu termes musicals que no
+reconeixeu, busqueu-los al @rglosnamed{Top, Glossari}.
+
+@item
+@strong{Abans d'intentar escriure una peça completa de música}:
+llegiu la secció @ref{Conceptes fonamentals} del manual
+d'Aprenentatge . Després us vindrà bé consultar les seccions
+corresponents de la @rusernamed{Top, Referència de la notació}.
+
+@item
+@strong{Abans d'intentar de modificar els resultats predeterminats}:
+llegiu la secció @ref{Trucar la sortida}
+del manual d'Aprenentatge.
+
+@item
+@strong{Abans d'afrontar un projecte gran}: llegiu la secció
+@rprogramnamed{Suggestions for writing files,Suggeriments per
+escriure fitxers d'entrada del LilyPond} del manual d'utilització
+del programa.
+
+@end itemize

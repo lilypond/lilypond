@@ -38,6 +38,35 @@ done
 '''
 
 translations = {
+    'ca': {
+        'Source': 'Font',
+        'Learning': 'Aprenentatge',
+        'Music glossary': 'Glossari musical',
+        'Essay': 'Monografia',
+        'Notation': 'Notació',
+        'Usage': 'Ús',
+        'Snippets': 'Fragments',
+        'Web': 'Web',
+        'Changes': 'Canvis',
+
+        'Extending': 'Extensions',
+        'Internals': 'Funcionament intern',
+        'Contributor': 'Guia del col·laborador',
+
+        ' (split HTML)': ' (HTML seccionat)',
+        ' (big HTML)': ' (HTML monolític)',
+
+        'Regression tests for ': 'Proves de regressió per a ',
+        'PDF of regtests for ': 'Proves de regressió en PDF per a ',
+        'abc2ly Regression tests for ': 'Proves de regressió d\'abc2ly per a ',
+        'PDF of abc2ly regtests for ': 'Proves de regressió d\'abc2ly en PDF per a ',
+        'lilypond-book Regression tests for ': 'Proves de regressió de lilypond-book per a ',
+        'PDF of lilypond-book regtests for ': 'Proves de regressió de lilypond-book en PDF per a ',
+        'MusicXML Regression tests for ': 'Proves de regressió de MusicXML per a ',
+        'PDF of MusicXML regtests for ': 'Proves de regressió de MusicXML en PDF per a ',
+
+        'Doc tarball for ': 'Tarball de la documentació per a ',
+        },
     'cs': {
         'Source': 'Source',
         'Learning': 'Učení',
