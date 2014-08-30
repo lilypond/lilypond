@@ -2572,53 +2572,42 @@ c4^\markup \fontsize #1 \smallCaps Kaspar
 c c c
 @end lilypond
 
-Alternatively, if there are many character changes, it may be
-easier to set up @qq{instrument} definitions for each character at
-the top level so that @code{\instrumentSwitch} can be used to
-indicate each change.  As notes for vocal parts are usually entered
-at sounding pitch no instrument transposition is required, even
-when, as here, the tenor line is printed an octave higher.
+Alternatively, if there are many character changes, it may be easier
+to set up variables to hold the definitions for each character so
+that the switch of characters can be indicated easily and concisely.
 
 @lilypond[quote,verbatim]
-\addInstrumentDefinition #"kaspar"
-  #`((instrumentTransposition . ,(ly:make-pitch 0 0 0))
-     (shortInstrumentName . "Kas.")
-     (clefGlyph . "clefs.G")
-     (clefTransposition . -7)
-     (middleCPosition . 1)
-     (clefPosition . -2)
-     (instrumentCueName . ,(markup #:fontsize 1 #:smallCaps "Kaspar"))
-     (midiInstrument . "voice oohs"))
+kaspar = {
+  \clef "G_8"
+  \set Staff.shortVocalName = "Kas."
+  \set Staff.midiInstrument = "voice oohs"
+  <>^\markup \smallCaps "Kaspar"
+}
 
-\addInstrumentDefinition #"melchior"
-  #`((instrumentTransposition . ,(ly:make-pitch 0 0 0))
-     (shortInstrumentName . "Mel.")
-     (clefGlyph . "clefs.F")
-     (clefTransposition . 0)
-     (middleCPosition . 6)
-     (clefPosition . 2)
-     (instrumentCueName . ,(markup #:fontsize 1 #:smallCaps "Melchior"))
-     (midiInstrument . "choir aahs"))
+melchior = {
+  \clef "bass"
+  \set Staff.shortVocalName = "Mel."
+  \set Staff.midiInstrument = "choir aahs"
+  <>^\markup \smallCaps "Melchior"
+}
 
 \relative c' {
-  \instrumentSwitch "kaspar"
+  \kaspar
   c4 c c c
-  \instrumentSwitch "melchior"
+  \melchior
   a4 a a a
-  \instrumentSwitch "kaspar"
+  \kaspar
   c4 c c c
 }
 @end lilypond
 
 @seealso
+Learning Manual:
+@rlearning{Organizing pieces with variables}.
+
 Notation Reference:
-@ref{Instrument names},
-@ref{Scheme functions},
 @ref{Text},
 @ref{Text markup commands}.
-
-Extending LilyPond:
-@rextend{Markup construction in Scheme}.
 
 
 @node Musical cues
