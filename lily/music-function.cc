@@ -19,71 +19,23 @@
 
 #include "music-function.hh"
 
-#include "music.hh"
-
-class Musicfunction : public Simple_smob<Musicfunction>
-{
-public:
-  static SCM mark_smob (SCM);
-  static int print_smob (SCM, SCM, scm_print_state *);
-private:
-  SCM signature_;
-  SCM function_;
-public:
-  Musicfunction (SCM signature, SCM function):
-    signature_ (signature), function_ (function) { }
-  SCM get_function () { return function_; }
-  SCM get_signature () { return signature_; }
-};
-
+const char Music_function::type_p_name_[] = "ly:music-function?";
 
 /* Print a textual represenation of the smob to a given port.  */
 int
-Musicfunction::print_smob (SCM b, SCM port, scm_print_state *)
+Music_function::print_smob (SCM b, SCM port, scm_print_state *)
 {
   scm_puts ("#<Music function ", port);
-  scm_write (Musicfunction::unsmob (b)->get_function (), port);
+  scm_write (Music_function::unsmob (b)->get_function (), port);
   scm_puts (">", port);
 
   /* Non-zero means success.  */
   return 1;
 }
 
-bool
-is_music_function (SCM music_function)
-{
-  return Musicfunction::unsmob (music_function);
-}
-
 SCM
-get_music_function_transform (SCM music_function)
+Music_function::mark_smob (SCM s)
 {
-  if (!is_music_function (music_function))
-    return SCM_UNDEFINED;
-
-  return Musicfunction::unsmob (music_function)->get_function ();
-}
-
-SCM
-make_music_function (SCM signature, SCM func)
-{
-  return Musicfunction (signature, func).smobbed_copy ();
-}
-
-SCM
-get_music_function_signature (SCM music_function)
-{
-  if (!is_music_function (music_function))
-    return SCM_UNDEFINED;
-
-  return Musicfunction::unsmob (music_function)->get_signature ();
-}
-
-SCM
-Musicfunction::mark_smob (SCM s)
-{
-  Musicfunction *p = Musicfunction::unsmob (s);
-  scm_gc_mark (p->signature_);
   ASSERT_LIVE_IS_ALLOWED (s);
-  return p->function_;
+  return Smob2<Music_function>::mark_smob (s);
 }

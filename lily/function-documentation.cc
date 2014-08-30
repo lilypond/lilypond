@@ -103,7 +103,7 @@ void
 init_func_doc ()
 {
   ly_add_type_predicate ((void *) &is_direction, "direction");
-  ly_add_type_predicate ((void *) &is_music_function, "Music_function");
+  ly_add_type_predicate ((void *) &Music_function::unsmob, "Music_function");
   ly_add_type_predicate ((void *) &ly_is_port, "port");
   ly_add_type_predicate ((void *) &ly_cheap_is_list, "list");
   ly_add_type_predicate ((void *) &Global_context::unsmob, "Global_context");

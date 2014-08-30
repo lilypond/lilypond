@@ -1,28 +1,21 @@
 #include "music-function.hh"
 
-LY_DEFINE (ly_music_function_p, "ly:music-function?", 1, 0, 0,
-           (SCM x),
-           "Is @var{x} a @code{music-function}?")
-{
-  return is_music_function (x) ? SCM_BOOL_T : SCM_BOOL_F;
-}
-
 LY_DEFINE (ly_music_function_extract, "ly:music-function-extract", 1, 0, 0,
            (SCM x),
            "Return the Scheme function inside@tie{}@var{x}.")
 {
-  LY_ASSERT_TYPE (is_music_function, x, 1);
+  LY_ASSERT_TYPE (Music_function::unsmob, x, 1);
 
-  return get_music_function_transform (x);
+  return Music_function::unsmob (x)->get_function ();
 }
 
 LY_DEFINE (ly_music_function_signature, "ly:music-function-signature", 1, 0, 0,
            (SCM x),
            "Return the function signature inside@tie{}@var{x}.")
 {
-  LY_ASSERT_TYPE (is_music_function, x, 1);
+  LY_ASSERT_TYPE (Music_function::unsmob, x, 1);
 
-  return get_music_function_signature (x);
+  return Music_function::unsmob (x)->get_signature ();
 }
 
 LY_DEFINE (ly_make_music_function, "ly:make-music-function", 2, 0, 0,
@@ -48,5 +41,5 @@ LY_DEFINE (ly_make_music_function, "ly:make-music-function", 2, 0, 0,
         }
     }
 
-  return make_music_function (signature, func);
+  return Music_function::make_smob (signature, func);
 }

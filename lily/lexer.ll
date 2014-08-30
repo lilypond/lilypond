@@ -952,13 +952,13 @@ Lily_lexer::scan_shorthand (const string &str)
 int
 Lily_lexer::scan_scm_id (SCM sid)
 {
-	if (is_music_function (sid))
+	if (Music_function *fun = Music_function::unsmob (sid))
 	{
 		int funtype = SCM_FUNCTION;
 
 		yylval = sid;
 
-		SCM s = get_music_function_signature (sid);
+		SCM s = fun->get_signature ();
 		SCM cs = scm_car (s);
 
 		if (scm_is_pair (cs))
