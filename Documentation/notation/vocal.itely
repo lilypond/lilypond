@@ -2575,11 +2575,13 @@ c c c
 Alternatively, if there are many character changes, it may be
 easier to set up @qq{instrument} definitions for each character at
 the top level so that @code{\instrumentSwitch} can be used to
-indicate each change.
+indicate each change.  As notes for vocal parts are usually entered
+at sounding pitch no instrument transposition is required, even
+when, as here, the tenor line is printed an octave higher.
 
 @lilypond[quote,verbatim]
 \addInstrumentDefinition #"kaspar"
-  #`((instrumentTransposition . ,(ly:make-pitch -1 0 0))
+  #`((instrumentTransposition . ,(ly:make-pitch 0 0 0))
      (shortInstrumentName . "Kas.")
      (clefGlyph . "clefs.G")
      (clefTransposition . -7)
