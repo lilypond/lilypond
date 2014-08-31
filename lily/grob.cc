@@ -79,16 +79,16 @@ Grob::Grob (SCM basicprops)
     set_property ("X-extent", Grob::stencil_width_proc);
   if (get_property_data ("Y-extent") == SCM_EOL)
     set_property ("Y-extent",
-                  ly_make_unpure_pure_container (Grob::stencil_height_proc,
-                                                 Grob::pure_stencil_height_proc));
+                  Unpure_pure_container::make_smob (Grob::stencil_height_proc,
+                                                    Grob::pure_stencil_height_proc));
   if (get_property_data ("vertical-skylines") == SCM_EOL)
     set_property ("vertical-skylines",
-                  ly_make_unpure_pure_container (Grob::simple_vertical_skylines_from_extents_proc,
-                                                 Grob::pure_simple_vertical_skylines_from_extents_proc));
+                  Unpure_pure_container::make_smob (Grob::simple_vertical_skylines_from_extents_proc,
+                                                    Grob::pure_simple_vertical_skylines_from_extents_proc));
   if (get_property_data ("horizontal-skylines") == SCM_EOL)
     set_property ("horizontal-skylines",
-                  ly_make_unpure_pure_container (Grob::simple_horizontal_skylines_from_extents_proc,
-                                                 Grob::pure_simple_horizontal_skylines_from_extents_proc));
+                  Unpure_pure_container::make_smob (Grob::simple_horizontal_skylines_from_extents_proc,
+                                                    Grob::pure_simple_horizontal_skylines_from_extents_proc));
 }
 
 Grob::Grob (Grob const &s)

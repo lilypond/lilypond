@@ -21,11 +21,25 @@
 #define UNPURE_PURE_CONTAINER_HH
 
 #include "lily-guile.hh"
+#include "small-smobs.hh"
 
-bool is_unpure_pure_container (SCM s);
-bool is_unchanging_unpure_pure_container (SCM s);
-SCM unpure_pure_container_unpure_part (SCM smob);
-SCM unpure_pure_container_pure_part (SCM smob);
-SCM ly_make_unpure_pure_container (SCM, SCM);
+class Unpure_pure_container : public Smob2<Unpure_pure_container>
+{
+public:
+  static const char type_p_name_ [];
+  SCM unpure_part () const { return scm1 (); }
+  // A container that has the same callback for both 'pure' and 'unpure' lookups
+  // and which ignores the 'start' and 'end' columnns.
+  // Such a callback will give the same answer for tentative or final layouts.
+  bool is_unchanging () const { return SCM_UNBNDP (scm2 ()); }
+  SCM pure_part () const;
+  static SCM make_smob (SCM a, SCM b = SCM_UNDEFINED)
+  {
+    if (SCM_UNBNDP (b) && !ly_is_procedure (a))
+      return Smob2::make_smob (a, a);
+    return Smob2::make_smob (a, b);
+  }
+  static int print_smob (SCM, SCM, scm_print_state *);
+};
 
 #endif /* UNPURE_PURE_CONTAINER_HH */

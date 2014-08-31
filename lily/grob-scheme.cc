@@ -451,7 +451,7 @@ LY_DEFINE (ly_grob_chain_callback, "ly:grob-chain-callback",
   Grob *gr = Grob::unsmob (grob);
 
   LY_ASSERT_SMOB (Grob, grob, 1);
-  SCM_ASSERT_TYPE (ly_is_procedure (proc) || is_unpure_pure_container (proc), proc, SCM_ARG2, __FUNCTION__, "procedure or unpure pure container");
+  SCM_ASSERT_TYPE (ly_is_procedure (proc) || Unpure_pure_container::unsmob (proc), proc, SCM_ARG2, __FUNCTION__, "procedure or unpure pure container");
   LY_ASSERT_TYPE (ly_is_symbol, sym, 3);
 
   chain_callback (gr, proc, sym);

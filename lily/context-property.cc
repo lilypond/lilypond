@@ -55,9 +55,9 @@ general_pushpop_property (Context *context,
 bool
 typecheck_grob (SCM symbol, SCM value)
 {
-  if (is_unpure_pure_container (value))
-    return typecheck_grob (symbol, unpure_pure_container_unpure_part (value))
-      && typecheck_grob (symbol, unpure_pure_container_pure_part (value));
+  if (Unpure_pure_container *upc = Unpure_pure_container::unsmob (value))
+    return typecheck_grob (symbol, upc->unpure_part ())
+      && typecheck_grob (symbol, upc->pure_part ());
   return ly_is_procedure (value)
     || Simple_closure::unsmob (value)
     || type_check_assignment (symbol, value, ly_symbol2scm ("backend-type?"));

@@ -73,10 +73,10 @@ Rest_collision::add_column (Grob *me, Grob *p)
   if (rest)
     {
       chain_offset_callback (rest,
-                             ly_make_unpure_pure_container
-                               (Rest_collision::force_shift_callback_rest_proc,
-                                ly_lily_module_constant ("pure-chain-offset-callback")),
-                              Y_AXIS);
+                             Unpure_pure_container::make_smob
+                             (Rest_collision::force_shift_callback_rest_proc,
+                              ly_lily_module_constant ("pure-chain-offset-callback")),
+                             Y_AXIS);
     }
 }
 

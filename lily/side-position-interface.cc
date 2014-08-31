@@ -419,7 +419,7 @@ Side_position_interface::set_axis (Grob *me, Axis a)
       chain_offset_callback (me,
                              (a == X_AXIS)
                              ? x_aligned_side_proc
-                             : ly_make_unpure_pure_container (y_aligned_side_proc, pure_y_aligned_side_proc),
+                             : Unpure_pure_container::make_smob (y_aligned_side_proc, pure_y_aligned_side_proc),
                              a);
     }
 }

@@ -39,7 +39,7 @@ add_offset_callback (Grob *g, SCM proc, Axis a)
       return;
     }
 
-  if (ly_is_procedure (data) || is_unpure_pure_container (data))
+  if (ly_is_procedure (data) || Unpure_pure_container::unsmob (data))
     data = Simple_closure::make_smob (scm_list_1 (data));
   else if (Simple_closure *sc = Simple_closure::unsmob (data))
     data = sc->expression ();
@@ -67,7 +67,7 @@ chain_callback (Grob *g, SCM proc, SCM sym)
 {
   SCM data = g->get_property_data (sym);
 
-  if (ly_is_procedure (data) || is_unpure_pure_container (data))
+  if (ly_is_procedure (data) || Unpure_pure_container::unsmob (data))
     data = Simple_closure::make_smob (scm_list_1 (data));
   else if (Simple_closure *sc = Simple_closure::unsmob (data))
     data = sc->expression ();

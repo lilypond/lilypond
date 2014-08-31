@@ -248,7 +248,7 @@ Beam_engraver::acknowledge_rest (Grob_info info)
   if (beam_
       && !scm_is_number (info.grob ()->get_property_data ("staff-position")))
     chain_offset_callback (info.grob (),
-                           ly_make_unpure_pure_container
+                           Unpure_pure_container::make_smob
                              (Beam::rest_collision_callback_proc,
                               Beam::pure_rest_collision_callback_proc),
                            Y_AXIS);

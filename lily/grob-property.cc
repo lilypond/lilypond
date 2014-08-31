@@ -124,7 +124,7 @@ Grob::internal_set_value_on_alist (SCM *alist, SCM sym, SCM v)
     {
       if (!ly_is_procedure (v)
           && !Simple_closure::unsmob (v)
-          && !is_unpure_pure_container (v)
+          && !Unpure_pure_container::unsmob (v)
           && v != ly_symbol2scm ("calculation-in-progress"))
         type_check_assignment (sym, v, ly_symbol2scm ("backend-type?"));
 
@@ -152,7 +152,7 @@ Grob::internal_get_property_data (SCM sym) const
     {
       SCM val = scm_cdr (handle);
       if (!ly_is_procedure (val) && !Simple_closure::unsmob (val)
-          && !is_unpure_pure_container (val))
+          && !Unpure_pure_container::unsmob (val))
         type_check_assignment (sym, val, ly_symbol2scm ("backend-type?"));
 
       check_interfaces_for_property (this, sym);
@@ -180,8 +180,8 @@ Grob::internal_get_property (SCM sym) const
     }
 #endif
 
-  if (is_unpure_pure_container (val))
-    val = unpure_pure_container_unpure_part (val);
+  if (Unpure_pure_container *upc = Unpure_pure_container::unsmob (val))
+    val = upc->unpure_part ();
 
   if (ly_is_procedure (val)
       || Simple_closure::unsmob (val))
@@ -201,9 +201,9 @@ Grob::internal_get_pure_property (SCM sym, int start, int end) const
   if (ly_is_procedure (val))
     return call_pure_function (val, scm_list_1 (self_scm ()), start, end);
 
-  if (is_unpure_pure_container (val)) {
+  if (Unpure_pure_container *upc = Unpure_pure_container::unsmob (val)) {
     // Do cache, if the function ignores 'start' and 'end'
-    if (is_unchanging_unpure_pure_container (val))
+    if (upc->is_unchanging ())
       return internal_get_property (sym);
     else
       return call_pure_function (val, scm_list_1 (self_scm ()), start, end);
@@ -305,7 +305,7 @@ Grob::internal_get_object (SCM sym) const
       SCM val = scm_cdr (s);
       if (ly_is_procedure (val)
           || Simple_closure::unsmob (val)
-          || is_unpure_pure_container (val))
+          || Unpure_pure_container::unsmob (val))
         {
           Grob *me = ((Grob *)this);
           val = me->try_callback_on_alist (&me->object_alist_, sym, val);
@@ -332,9 +332,9 @@ Grob::internal_has_interface (SCM k)
 SCM
 call_pure_function (SCM unpure, SCM args, int start, int end)
 {
-  if (is_unpure_pure_container (unpure))
+  if (Unpure_pure_container *upc = Unpure_pure_container::unsmob (unpure))
     {
-      SCM pure = unpure_pure_container_pure_part (unpure);
+      SCM pure = upc->pure_part ();
 
       if (Simple_closure *sc = Simple_closure::unsmob (pure))
         {

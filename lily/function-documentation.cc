@@ -111,8 +111,7 @@ init_func_doc ()
   ly_add_type_predicate ((void *) &Moment::unsmob, "Moment");
   ly_add_type_predicate ((void *) &Paper_score::unsmob, "Paper_score");
   ly_add_type_predicate ((void *) &Performance::unsmob, "Performance");
-  ly_add_type_predicate ((void *) &is_unpure_pure_container, "unpure pure container");
-
+  ly_add_type_predicate ((void *) &Unpure_pure_container::unsmob, "unpure pure container");
   ly_add_type_predicate ((void *) &is_axis, "axis");
   ly_add_type_predicate ((void *) &is_number_pair, "number pair");
   ly_add_type_predicate ((void *) &ly_is_list, "list");
