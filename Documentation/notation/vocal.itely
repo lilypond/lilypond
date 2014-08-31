@@ -2650,10 +2650,7 @@ pianoRH = \relative c'' {
   c4. g8
   % position name of cue-ing instrument just before the cue notes,
   % and above the staff
-  \new CueVoice {
-    \override InstrumentSwitch.self-alignment-X = #RIGHT
-    \set instrumentCueName = "Flute"
-  }
+  <>^\markup { \right-align { \tiny "Flute" } }
   \cueDuring "flute" #UP { g4 bes4 }
 }
 pianoLH = \relative c { c4 <c' e> e, <g c> }
@@ -2676,11 +2673,7 @@ specify its key so the conversion of its cue notes will be done
 automatically.  The example below shows this transposition for a
 B-flat clarinet.  The notes in this example are low on the staff so
 @code{DOWN} is specified in @code{\cueDuring} (so the stems are
-down) and the instrument name is positioned below the staff.  Note
-also that the piano right-hand voice is explicitly declared.  This
-is because the cue notes in this example begin at the start of the
-first bar and this would otherwise cause the entire piano right-hand
-notes to be placed in a @code{CueVoice} context.
+down) and the instrument name is positioned below the staff.
 
 @lilypond[quote,verbatim]
 clarinet = \relative c' {
@@ -2692,11 +2685,7 @@ clarinet = \relative c' {
 pianoRH = \relative c'' {
   \transposition c'
   % position name of cue-ing instrument below the staff
-  \new CueVoice {
-    \override InstrumentSwitch.self-alignment-X = #RIGHT
-    \override InstrumentSwitch.direction = #DOWN
-    \set instrumentCueName = "Clar."
-  }
+  <>_\markup { \right-align { \tiny "Clar." } }
   \cueDuring "clarinet" #DOWN { c4. g8 }
   g4 bes4
 }
@@ -2744,7 +2733,6 @@ Snippets:
 @rlsr{Vocal music}.
 
 Internals Reference:
-@rinternals{InstrumentSwitch},
 @rinternals{CueVoice}.
 
 @knownissues
