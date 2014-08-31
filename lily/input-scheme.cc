@@ -20,15 +20,6 @@
 #include "std-string.hh"
 #include "input.hh"
 
-/* We don't use IMPLEMENT_TYPE_P, since the smobification part is
-   implemented separately from the class.  */
-LY_DEFINE (ly_input_location_p, "ly:input-location?", 1, 0, 0,
-           (SCM x),
-           "Is @var{x} an @code{input-location}?")
-{
-  return Input::unsmob (x) ? SCM_BOOL_T : SCM_BOOL_F;
-}
-
 LY_DEFINE (ly_input_warning, "ly:input-warning", 2, 0, 1, (SCM sip, SCM msg, SCM rest),
            "Print @var{msg} as a GNU compliant warning message, pointing"
            " to the location in @var{sip}.  @var{msg} is interpreted"

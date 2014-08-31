@@ -43,7 +43,7 @@ Book::Book ()
   input_location_ = SCM_EOL;
   smobify_self ();
 
-  input_location_ = make_input (Input ());
+  input_location_ = Input ().smobbed_copy ();
 }
 
 Book::Book (Book const &s)
@@ -61,7 +61,7 @@ Book::Book (Book const &s)
       paper_->unprotect ();
     }
 
-  input_location_ = make_input (*s.origin ());
+  input_location_ = s.origin ()->smobbed_copy ();
 
   header_ = ly_make_module (false);
   if (ly_is_module (s.header_))

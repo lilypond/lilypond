@@ -26,17 +26,19 @@
 /**
    Base class for anything that records its poisition in the parse file.
 */
-class Input
+class Input : public Simple_smob<Input>
 {
   char const *start_;
   char const *end_;
   Source_file *source_file_;
 public:
+  static const char type_p_name_[];
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static SCM equal_p (SCM, SCM);
+  static SCM mark_smob (SCM);
   Source_file *get_source_file () const;
   char const *start () const;
   char const *end () const;
-
-  static Input *unsmob (SCM);
 
   void set (Source_file *, char const *, char const *);
   void error (const string&) const;
@@ -68,8 +70,6 @@ protected:
   string message_location () const;
   string message_string (const string &msg) const;
 };
-
-SCM make_input (Input spot);
 
 extern Input dummy_input_global;
 

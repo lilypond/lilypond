@@ -61,7 +61,7 @@ Stream_event::origin () const
 void
 Stream_event::set_spot (Input *i)
 {
-  set_property ("origin", make_input (*i));
+  set_property ("origin", i->smobbed_copy ());
 }
 
 bool

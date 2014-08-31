@@ -52,7 +52,7 @@ Score::Score ()
   error_found_ = false;
 
   smobify_self ();
-  input_location_ = make_input (Input ());
+  input_location_ = Input ().smobbed_copy ();
 }
 
 Score::~Score ()
@@ -90,7 +90,7 @@ Score::Score (Score const &s)
   error_found_ = s.error_found_;
 
   smobify_self ();
-  input_location_ = make_input (*s.origin ());
+  input_location_ = s.origin ()->smobbed_copy ();
 
   Music *m = Music::unsmob (s.music_);
   if (m)

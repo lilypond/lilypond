@@ -43,7 +43,7 @@ Context_def::Context_def ()
 
   smobify_self ();
 
-  input_location_ = make_input (Input ());
+  input_location_ = Input ().smobbed_copy ();
   context_name_ = ly_symbol2scm ("");
 }
 
@@ -67,7 +67,7 @@ Context_def::Context_def (Context_def const &s)
   smobify_self ();
 
   description_ = s.description_;
-  input_location_ = make_input (*s.origin ());
+  input_location_ = s.origin ()->smobbed_copy ();
   default_child_ = s.default_child_;
   accept_mods_ = s.accept_mods_;
   property_ops_ = s.property_ops_;

@@ -246,7 +246,7 @@ Music::transpose (Pitch delta)
 void
 Music::set_spot (Input ip)
 {
-  set_property ("origin", make_input (ip));
+  set_property ("origin", ip.smobbed_copy ());
 }
 
 Input *
