@@ -75,6 +75,10 @@ A @qq{minor release} means an update of @code{y} in @code{2.x.y}.
 @enumerate
 
 @item
+Don't forget to prepare the GUB build machine by deleting and moving unneeded
+files: see @qq{Subsequent builds} in @ref{Notes on builds with GUB}.
+
+@item
 Using any system with git pull access (not necessarily the GUB
 build machine), use the commands below to do the following:
 

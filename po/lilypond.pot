@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.12\n"
+"Project-Id-Version: lilypond 2.19.13\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2014-08-17 16:01+0100\n"
+"POT-Creation-Date: 2014-08-31 14:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,38 +81,38 @@ msgstr ""
 msgid "Missing files: %s"
 msgstr ""
 
-#: book_snippets.py:651
+#: book_snippets.py:661
 #, python-format
 msgid "Could not overwrite file %s"
 msgstr ""
 
-#: book_snippets.py:738
+#: book_snippets.py:748
 #, python-format
 msgid "Running through filter `%s'"
 msgstr ""
 
-#: book_snippets.py:759
+#: book_snippets.py:769
 #, python-format
 msgid "`%s' failed (%d)"
 msgstr ""
 
-#: book_snippets.py:760
+#: book_snippets.py:770
 msgid "The error log is as follows:"
 msgstr ""
 
-#: book_snippets.py:880
+#: book_snippets.py:890
 #, python-format
 msgid "Converting MusicXML file `%s'...\n"
 msgstr ""
 
-#: book_snippets.py:907
+#: book_snippets.py:917
 #, python-format
 msgid ""
 "%s: duplicate filename but different contents of original file,\n"
 "printing diff against existing file."
 msgstr ""
 
-#: book_snippets.py:920
+#: book_snippets.py:930
 #, python-format
 msgid ""
 "%s: duplicate filename but different contents of converted lilypond file,\n"
@@ -1261,19 +1261,19 @@ msgstr ""
 msgid "Removing `%s'"
 msgstr ""
 
-#: lilypond-book.py:714
+#: lilypond-book.py:727
 #, python-format
 msgid "Setting LilyPond's loglevel to %s"
 msgstr ""
 
-#: lilypond-book.py:718
+#: lilypond-book.py:731
 #, python-format
 msgid ""
 "Setting LilyPond's loglevel to %s (from environment variable "
 "LILYPOND_LOGLEVEL)"
 msgstr ""
 
-#: lilypond-book.py:721
+#: lilypond-book.py:734
 msgid ""
 "Setting LilyPond's output to --verbose, implied by lilypond-book's setting"
 msgstr ""
@@ -1673,12 +1673,12 @@ msgstr ""
 msgid "procedure or context-name expected for accidental rule, found %s"
 msgstr ""
 
-#: accidental.cc:170
+#: accidental.cc:141
 #, c-format
 msgid "Could not find glyph-name for alteration %s"
 msgstr ""
 
-#: accidental.cc:186
+#: accidental.cc:157
 msgid "natural alteration glyph not found"
 msgstr ""
 
@@ -1811,7 +1811,7 @@ msgstr ""
 msgid "cannot find line breaking that satisfies constraints"
 msgstr ""
 
-#: context-property.cc:44
+#: context-property.cc:46
 msgid "need symbol arguments for \\override and \\revert"
 msgstr ""
 
@@ -2833,10 +2833,6 @@ msgstr ""
 msgid "Unknown relocation command %s"
 msgstr ""
 
-#: rest-collision-engraver.cc:70
-msgid "rhythmic head is not part of a rhythmic column"
-msgstr ""
-
 #: rest-collision.cc:150
 msgid "cannot resolve rest collision: rest direction not set"
 msgstr ""
@@ -2850,21 +2846,21 @@ msgstr ""
 msgid "rest `%s' not found"
 msgstr ""
 
-#: score-engraver.cc:78
+#: score-engraver.cc:79
 #, c-format
 msgid "cannot find `%s'"
 msgstr ""
 
-#: score-engraver.cc:80
+#: score-engraver.cc:81
 msgid "Music font has not been installed properly."
 msgstr ""
 
-#: score-engraver.cc:82
+#: score-engraver.cc:83
 #, c-format
 msgid "Search path `%s'"
 msgstr ""
 
-#: score-engraver.cc:84
+#: score-engraver.cc:85
 msgid "Aborting"
 msgstr ""
 
@@ -2961,13 +2957,7 @@ msgid "Grob count %d"
 msgstr ""
 
 #. TODO: Also print the arguments of the markup!
-#: text-interface.cc:129
-#, c-format
-msgid "Cyclic markup detected: %s"
-msgstr ""
-
-#. TODO: Also print the arguments of the markup!
-#: text-interface.cc:142
+#: text-interface.cc:138
 #, c-format
 msgid "Markup depth exceeds maximal value of %d; Markup: %s"
 msgstr ""
@@ -3176,39 +3166,39 @@ msgstr ""
 msgid "expecting string or post-event as script definition"
 msgstr ""
 
-#: parser.yy:2944
+#: parser.yy:2949
 msgid "not an articulation"
 msgstr ""
 
-#: parser.yy:3016 parser.yy:3059
+#: parser.yy:3021 parser.yy:3064
 msgid "not a duration"
 msgstr ""
 
-#: parser.yy:3080
+#: parser.yy:3085
 msgid "bass number expected"
 msgstr ""
 
-#: parser.yy:3172
+#: parser.yy:3177
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:3211
+#: parser.yy:3216
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:3254
+#: parser.yy:3259
 msgid "markup outside of text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3259
+#: parser.yy:3264
 msgid "unrecognized string, not in text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3411 parser.yy:3420
+#: parser.yy:3416 parser.yy:3425
 msgid "not an unsigned integer"
 msgstr ""
 
-#: parser.yy:3494
+#: parser.yy:3499
 msgid "not a markup"
 msgstr ""
 

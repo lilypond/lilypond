@@ -9,9 +9,9 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
-@subsubheading LilyPond 2.19.12 released  @emph{August 17, 2014}
+@subsubheading LilyPond 2.19.13 released  @emph{August 31, 2014}
 
-We are happy to announce the release of LilyPond 2.19.12.  This
+We are happy to announce the release of LilyPond 2.19.13.  This
 release includes a number of enhancements, and contains some work
 in progress.  You will have access to the very latest features, but
 some may be incomplete, and you may encounter bugs and crashes.  If you
