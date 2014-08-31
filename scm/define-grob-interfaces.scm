@@ -83,7 +83,7 @@ found in @file{scm/bar-line.scm}.
  "The number describing transposition of the clef, placed below
 or above clef sign. Usually this is 8 (octave transposition)
 or 15 (two octaves), but LilyPond allows any integer here."
- '())
+ '(clef-alignments))
 
 (ly:add-interface
  'dynamic-interface

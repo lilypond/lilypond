@@ -51,14 +51,40 @@ Keep_alive_together_engraver::finalize ()
 {
   for (vsize i = 0; i < group_spanners_.size (); ++i)
     {
-      SCM grob_array_scm = Grob_array::make_array ();
-      Grob_array *ga = Grob_array::unsmob (grob_array_scm);
+      SCM this_layer = group_spanners_[i]->get_property ("remove-layer");
+      if (scm_is_false (this_layer))
+        continue;
 
-      // It would make Hara_kiri_group_spanner::request_suicide a _little_
-      // faster if we removed each grob from its own array. It seems
-      // unnecessary for now, though.
-      ga->set_array (group_spanners_);
-      group_spanners_[i]->set_object ("keep-alive-with", grob_array_scm);
+      SCM live_scm = Grob_array::make_array ();
+      Grob_array *live = Grob_array::unsmob (live_scm);
+      SCM dead_scm = Grob_array::make_array ();
+      Grob_array *dead = Grob_array::unsmob (dead_scm);
+
+      for (vsize j = 0; j < group_spanners_.size (); ++j)
+        {
+          if (i == j)
+            continue;
+          SCM that_layer = group_spanners_[j]->get_property ("remove-layer");
+          if (scm_is_false (that_layer))
+            continue;
+          if (!scm_is_integer (this_layer))
+            {
+              // Unspecified layers are kept alive by anything else
+              live->add (group_spanners_[j]);
+              continue;
+            }
+          // an explicit layer is only affected by explicit layers
+          if (!scm_is_integer (that_layer))
+            continue;
+          if (scm_is_true (scm_num_eq_p (that_layer, this_layer)))
+            live->add (group_spanners_[j]);
+          else if (scm_is_true (scm_less_p (that_layer, this_layer)))
+            dead->add (group_spanners_[j]);
+        }
+      if (!live->empty ())
+        group_spanners_[i]->set_object ("keep-alive-with", live_scm);
+      if (!dead->empty ())
+        group_spanners_[i]->set_object ("make-dead-when", dead_scm);
     }
 }
 

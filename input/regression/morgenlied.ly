@@ -27,7 +27,7 @@ been lowered
 
 }
 
-\version "2.19.2"
+\version "2.19.12"
 manuscriptBreak = { \break }
 
 
@@ -38,7 +38,7 @@ manuscriptBreak = { \break }
 %#(set-global-staff-size (* 5.8 mm))
     line-width = #(* mm 160)
     indent = 8\mm
-    system-system-spacing #'basic-distance = #10.3
+    system-system-spacing.basic-distance = #10.3
     ragged-bottom = ##t 
     }
 

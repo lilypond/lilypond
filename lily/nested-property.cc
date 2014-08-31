@@ -1,104 +1,134 @@
 #include "context.hh"
 #include "grob.hh"
 
+// scm_reverse_x without the checks
+SCM
+fast_reverse_x (SCM lst, SCM tail)
+{
+  while (!scm_is_null (lst))
+    {
+      SCM n = scm_cdr (lst);
+      scm_set_cdr_x (lst, tail);
+      tail = lst;
+      lst = n;
+    }
+  return tail;
+}
+
+// copy the spine of lst not including tail, appending newtail
+// returns new list.
+SCM
+partial_list_copy (SCM lst, SCM tail, SCM newtail)
+{
+  SCM p = SCM_EOL;
+  for (; !scm_is_eq (lst, tail); lst = scm_cdr (lst))
+    p = scm_cons (scm_car (lst), p);
+  return fast_reverse_x (p, newtail);
+}
+
+SCM
+assq_tail (SCM key, SCM alist, SCM based_on = SCM_EOL)
+{
+  for (SCM p = alist; !scm_is_eq (p, based_on); p = scm_cdr (p))
+    {
+      if (scm_is_eq (scm_caar (p), key))
+        return p;
+    }
+  return SCM_BOOL_F;
+}
+
+SCM
+assoc_tail (SCM key, SCM alist, SCM based_on = SCM_EOL)
+{
+  for (SCM p = alist; !scm_is_eq (p, based_on); p = scm_cdr (p))
+    {
+      if (ly_is_equal (scm_caar (p), key))
+        return p;
+    }
+  return SCM_BOOL_F;
+}
+
+// Like assq, but removes the found element destructively
+SCM assq_pop_x (SCM key, SCM *alist)
+{
+  for (SCM p = *alist; scm_is_pair (p); p = *(alist = SCM_CDRLOC (p)))
+    {
+      if (scm_is_eq (scm_caar (p), key))
+        {
+          *alist = scm_cdr (p);
+          return scm_car (p);
+        }
+    }
+  return SCM_BOOL_F;
+}
+
 /*
-  Drop symbol from the list alist..alist_end.
+  Drop key from the list alist..alist_end.
  */
 SCM
-evict_from_alist (SCM symbol, SCM alist, SCM alist_end)
+evict_from_alist (SCM key, SCM alist, SCM alist_end)
 {
-  SCM new_alist = SCM_EOL;
-  SCM *tail = &new_alist;
+// shortcircuit to an eq-using assoc_tail variant when key is a symbol
+// (common case)
+  SCM p = scm_is_symbol (key) ? assq_tail (key, alist, alist_end)
+    : assoc_tail (key, alist, alist_end);
+  if (scm_is_true (p))
+    return partial_list_copy (alist, p, scm_cdr (p));
+  return alist;
+}
 
-  while (alist != alist_end)
-    {
-      if (ly_is_equal (scm_caar (alist), symbol))
-        {
-          alist = scm_cdr (alist);
-          break;
-        }
-
-      *tail = scm_cons (scm_car (alist), SCM_EOL);
-      tail = SCM_CDRLOC (*tail);
-      alist = scm_cdr (alist);
-    }
-
-  *tail = alist;
-  return new_alist;
+// This is the same as
+// nested_property_alist (SCM_EOL, prop_path, value) but faster
+SCM
+nested_create_alist (SCM prop_path, SCM value)
+{
+  if (scm_is_null (prop_path))
+    return value;
+  return scm_acons (scm_car (prop_path),
+                    nested_create_alist (scm_cdr (prop_path), value),
+                    SCM_EOL);
 }
 
 /*
   PROP_PATH should be big-to-small ordering
  */
+
+// Take the given alist and replace the given nested property with the
+// given value.  Multiple overrides of the same property path are not
+// coalesced for efficiency reasons: they are considered rare enough
+// to not be worth the cost of detecting them.  When sublists are
+// modified, however, we remove the original sublist and copy the
+// spine before it.  The cost for finding the sublist has already been
+// paid anyway.
+
+// A typical use case for this routine is applying (possibly nested)
+// tweaks to a grob property list.
+
 SCM
 nested_property_alist (SCM alist, SCM prop_path, SCM value)
 {
-  SCM new_value = SCM_BOOL_F;
-  if (scm_is_pair (scm_cdr (prop_path)))
+  // replacement moves to the front.
+  SCM key = scm_car (prop_path);
+  SCM rest = scm_cdr (prop_path);
+  if (scm_is_pair (rest))
     {
-      SCM sub_alist = ly_assoc_get (scm_car (prop_path), alist, SCM_EOL);
-      new_value = nested_property_alist (sub_alist, scm_cdr (prop_path), value);
+      SCM where = assq_tail (key, alist);
+      if (scm_is_false (where))
+        return scm_acons (key, nested_create_alist (rest, value), alist);
+      return scm_acons (key, nested_property_alist (scm_cdar (where),
+                                                    rest,
+                                                    value),
+                        partial_list_copy (alist, where, scm_cdr (where)));
     }
-  else
-    {
-      new_value = value;
-    }
-
-  return scm_acons (scm_car (prop_path), new_value, alist);
-}
-
-/*
-  Recursively purge alist of prop_path:
-
-  revert ((sym, val) : L, [sym]) = L
-  revert ((sym, val) : L, sym : props) =
-    (sym, revert (val, rest-props)) ++ L
-  revert ((sym, val) : L, p ++ rest-props) =
-    (sym, val) : revert (L, p ++ rest-props)
-
- */
-SCM
-nested_property_revert_alist (SCM alist, SCM prop_path)
-{
-  assert (scm_is_pair (prop_path));
-
-  SCM wanted_sym = scm_car (prop_path);
-
-  SCM new_list = SCM_EOL;
-  SCM *tail = &new_list;
-  for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
-    {
-      SCM sub_sym = scm_caar (s);
-      SCM old_val = scm_cdar (s);
-
-      if (sub_sym == wanted_sym)
-        {
-          if (scm_is_pair (scm_cdr (prop_path)))
-            {
-              SCM new_val = nested_property_revert_alist (old_val, scm_cdr (prop_path));
-
-              /* nothing changed: drop newly constructed list. */
-              if (old_val == new_val)
-                return alist;
-
-              *tail = scm_acons (sub_sym, new_val, SCM_EOL);
-              tail = SCM_CDRLOC (*tail);
-            }
-          else
-            {
-              /* old value is dropped. */
-            }
-
-          *tail = scm_cdr (s);
-          return new_list;
-        }
-
-      *tail = scm_acons (sub_sym, old_val, SCM_EOL);
-      tail = SCM_CDRLOC (*tail);
-    }
-
-  /* Wanted symbol not found: drop newly constructed list. */
-  return alist;
+  // Outcommented code would coalesce multiple overrides of the same
+  // property
+#if 0
+  SCM where = assq_tail (alist, key);
+  if (scm_is_true (where))
+    return scm_acons (key, value,
+                      partial_list_copy (alist, where, scm_cdr (where)));
+#endif
+  return scm_acons (key, value, alist);
 }
 
 void
@@ -110,3 +140,122 @@ set_nested_property (Grob *me, SCM big_to_small, SCM value)
 
   me->set_property (scm_car (big_to_small), alist);
 }
+
+// This converts an alist with nested overrides in it to a proper
+// alist.  The number of nested overrides is known in advance,
+// everything up to the last nested override is copied, the tail is
+// shared
+
+SCM
+nalist_to_alist (SCM nalist, int nested)
+{
+  if (!nested)
+    return nalist;
+  SCM copied = SCM_EOL;
+  SCM partials = SCM_EOL;
+  // partials is a alist of partial overrides
+  for (;;)
+    {
+      SCM elt = scm_car (nalist);
+      nalist = scm_cdr (nalist);
+      SCM key = scm_car (elt);
+      if (scm_is_pair (key))
+        // nested override: record for key in partial
+        {
+          SCM pair = scm_sloppy_assq (scm_car (key), partials);
+          if (scm_is_false (pair))
+            partials = scm_acons (scm_car (key), scm_list_1 (elt),
+                                  partials);
+          else
+            scm_set_cdr_x (pair, scm_cons (elt, scm_cdr (pair)));
+          if (!--nested)
+            break;
+        }
+      else
+        // plain override: apply any known corresponding partials
+        {
+          SCM pair = assq_pop_x (key, &partials);
+          if (scm_is_true (pair))
+            {
+              SCM value = scm_cdr (elt);
+              for (SCM pp = scm_cdr (pair); scm_is_pair (pp); pp = scm_cdr (pp))
+                value = nested_property_alist (value, scm_cdaar (pp), scm_cdar (pp));
+              copied = scm_acons (key, value, copied);
+            }
+          else
+            copied = scm_cons (elt, copied);
+        }
+    }
+  // Now need to work off the remaining partials.  All of them are
+  // unique, so we can push them to `copied' after resolving without
+  // losing information.
+
+  for (;scm_is_pair (partials); partials = scm_cdr (partials))
+    {
+      SCM pair = scm_car (partials);
+      SCM key = scm_car (pair);
+      SCM elt = scm_sloppy_assq (key, nalist);
+      SCM value = SCM_EOL;
+      if (scm_is_true (elt))
+        value = scm_cdr (elt);
+
+      for (SCM pp = scm_cdr (pair); scm_is_pair (pp); pp = scm_cdr (pp))
+        value = nested_property_alist (value, scm_cdaar (pp), scm_cdar (pp));
+
+      copied = scm_acons (key, value, copied);
+    }
+  return fast_reverse_x (copied, nalist);
+}
+
+#if 0
+// Alternative approach: don't unfold those partial overrides while
+// they are part of contexts but instead use a special accessor for
+// subproperties in the grob.  Not used or tested for now.
+
+SCM
+nassq_ref (SCM key, SCM nalist, SCM fallback)
+{
+  SCM partials = SCM_EOL;
+  // partials is list of partial overrides for the given property
+  for (SCM p = nalist; scm_is_pair (p); p = scm_cdr (p))
+    {
+      SCM elt = scm_car (p);
+      SCM pkey = scm_car (elt);
+      if (scm_is_pair (pkey))
+        {
+          if (scm_is_eq (scm_car (pkey), key))
+            partials = scm_cons (elt, partials);
+        }
+      else if (scm_is_eq (pkey, key))
+        {
+          SCM value = scm_cdr (elt);
+          for (; scm_is_pair (partials); partials = scm_cdr (partials))
+            {
+              value = nested_property_alist (value, scm_cdaar (partials),
+                                            scm_cdar (partials));
+            }
+          return value;
+        }
+    }
+  if (scm_is_pair (partials))
+    {
+      // Bit of a quandary here: we have only subproperty overrides
+      // but no main property.  Could be a programming error, but we
+      // instead override an empty list.
+      SCM value = nested_create_alist (scm_cdaar (partials), scm_cdar (partials));
+      partials = scm_cdr (partials);
+      for (; scm_is_pair (partials); partials = scm_cdr (partials))
+        value = nested_property_alist (value, scm_cdaar (partials),
+                                      scm_cdar (partials));
+      return value;
+    }
+  return SCM_UNBNDP (fallback) ? SCM_EOL : fallback;
+}
+
+// Also needed for this approach to make sense: an accessor for true
+// subproperties.
+SCM
+nassq_nested_ref (SCM key, SCM subpath, SCM nalist, SCM fallback);
+// To be implemented
+
+#endif

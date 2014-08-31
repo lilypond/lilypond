@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.17.30"
+@c \version "2.19.12"
 
 @c Translators: Till Paala
 
@@ -478,7 +478,7 @@ vollständig neu definiert:
 
 @example
 \paper @{
-  system-system-spacing #'basic-distance = #8
+  system-system-spacing.basic-distance = #8
   score-system-spacing =
     #'((basic-distance . 12)
        (minimum-distance . 6)
@@ -1185,11 +1185,11 @@ Das obige Beispiel, das den Einsatz von  @code{\layoutVariable} zeigt,
 würde in seiner finalen Version folgende @code{\layout}-Umgebung haben:
 
 @example
-  TextScript #'padding = #1
-  TextScript #'color = #magenta
-  Glissando #'thickness = #1.5
-  NoteHead #' font-size = #4
-  NoteHead #' color = #red
+  TextScript.padding = #1
+  TextScript.color = #magenta
+  Glissando.thickness = #1.5
+  NoteHead.font-size = #4
+  NoteHead.color = #red
 @end example
 
 plus die Veränderungen an Einrückung (@code{indent}) und @code{StaffGrouper}.
@@ -1198,8 +1198,8 @@ Aber wenn die Variable vor der ersten @code{\layout}-Umgebung definiert
 wird, würde die aktuelle Konfiguration nur enthalten:
 
 @example
-  NoteHead #' font-size= #4 % (written in the variable definition)
-  NoteHead #' color = #red % (added after the use of the variable)
+  NoteHead.font-size= #4 % (written in the variable definition)
+  NoteHead.color = #red % (added after the use of the variable)
 @end example
 
 Wenn man sorgfältig plant, können @code{\layout}-Variablen ein wertvolles

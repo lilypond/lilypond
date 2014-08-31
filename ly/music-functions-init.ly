@@ -467,8 +467,8 @@ grobdescriptions =
 in the format of @code{all-grob-descriptions}.")
    (ly:make-context-mod
     (map (lambda (p)
-	   (list 'assign (car p) (list (cdr p))))
-	 descriptions)))
+	   (list 'assign (car p) (ly:make-grob-properties (cdr p))))
+         descriptions)))
 
 harmonicByFret = #(define-music-function (parser location fret music) (number? ly:music?)
   (_i "Convert @var{music} into mixed harmonics; the resulting notes resemble

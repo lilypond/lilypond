@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.12"
 
 @node Interfaces for programmers
 @chapter Interfaces for programmers
@@ -1368,7 +1368,7 @@ can by found in the Internals Reference or the file 'define-grobs.scm':
 
 @example
 \relative c'' @{
-  \override Flag #'X-offset = #(lambda (flag)
+  \override Flag.X-offset = #(lambda (flag)
     (let ((default (ly:flag::calc-x-offset flag)))
       (* default 4.0)))
   c4. d8 a4. g8

@@ -23,6 +23,7 @@
 #include "context-handle.hh"
 #include "duration.hh"
 #include "engraver.hh"
+#include "grob-properties.hh"
 #include "item.hh"
 #include "rest.hh"
 #include "spanner.hh"
@@ -240,7 +241,7 @@ Auto_beam_engraver::begin_beam ()
   stems_ = new vector<Item *>;
   grouping_ = new Beaming_pattern ();
   beaming_options_.from_context (context ());
-  beam_settings_ = updated_grob_properties (context (), ly_symbol2scm ("Beam"));
+  beam_settings_ = Grob_property_info (context (), ly_symbol2scm ("Beam")).updated ();
 
   beam_start_context_.set_context (context ()->get_parent_context ());
   beam_start_moment_ = now_mom ();

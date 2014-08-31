@@ -20,4 +20,8 @@ Within a lilypond block:
   \relative c'' { \myVar }
 @end lilypond
 
+Include a file that includes a file:
+
+@lilypondfile{include.ly}
+
 @bye

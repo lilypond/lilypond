@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.12"
 
 \header {
   texidoc = "Use @code{define-event-class}, scheme engraver methods,
@@ -12,7 +12,7 @@ in scheme."
    (let* ((meta-entry   (assoc-get 'meta grob-entry))
           (class        (assoc-get 'class meta-entry))
           (ifaces-entry (assoc-get 'interfaces meta-entry)))
-     (set-object-property! grob-name 'translation-type? list?)
+     (set-object-property! grob-name 'translation-type? ly:grob-properties?)
      (set-object-property! grob-name 'is-grob? #t)
      (set! ifaces-entry (append (case class
                                   ((Item) '(item-interface))

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.30"
+@c \version "2.19.12"
 
 
 @c Translators: Yoshiki Sawada
@@ -507,7 +507,7 @@ largest of:
 
 @example
 \paper @{
-  system-system-spacing #'basic-distance = #8
+  system-system-spacing.basic-distance = #8
   score-system-spacing =
     #'((basic-distance . 12)
        (minimum-distance . 6)
@@ -1196,11 +1196,11 @@ layoutVariable = \layout @{
 @code{\layout} ブロックの構成は以下のようになります:
 
 @example
-  TextScript #'padding = #1
-  TextScript #'color = #magenta
-  Glissando #'thickness = #1.5
-  NoteHead #' font-size = #4
-  NoteHead #' color = #red
+  TextScript.padding = #1
+  TextScript.color = #magenta
+  Glissando.thickness = #1.5
+  NoteHead.font-size = #4
+  NoteHead.color = #red
 @end example
 
 これに @code{indent} と @code{StaffGrouper} の設定がプラスしたものです。
@@ -1209,8 +1209,8 @@ layoutVariable = \layout @{
 場合、カレントの構成は以下だけになってしまいます:
 
 @example
-  NoteHead #' font-size= #4 % (変数定義で記述されたものです)
-  NoteHead #' color = #red % (変数が使用された後に追加されたものです)
+  NoteHead.font-size= #4 % (変数定義で記述されたものです)
+  NoteHead.color = #red % (変数が使用された後に追加されたものです)
 @end example
 
 注意深く計画を立てれば、@code{\layout} 変数はソースのレイアウト設計を構築@c

@@ -13,7 +13,7 @@ By setting @code{annotate-spacing}, we can see the effect of each property.
 
 }
 
-\version "2.17.6"
+\version "2.19.12"
 
 #(set-global-staff-size 11)
 
@@ -65,8 +65,8 @@ By setting @code{annotate-spacing}, we can see the effect of each property.
     ragged-last-bottom = ##f
     annotate-spacing = ##t
     obsolete-between-system-space = 1.0
-    system-system-spacing #'basic-distance = #(/ obsolete-between-system-space staff-space)
-    score-system-spacing #'basic-distance = #(/ obsolete-between-system-space staff-space)
+    system-system-spacing.basic-distance = #(/ obsolete-between-system-space staff-space)
+    score-system-spacing.basic-distance = #(/ obsolete-between-system-space staff-space)
     #(set! text-font-defaults
       (acons
        'font-size 6

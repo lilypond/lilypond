@@ -137,13 +137,8 @@ public:
 */
 
 void apply_property_operations (Context *tg, SCM pre_init_ops);
-void execute_revert_property (Context *context,
-                              SCM context_property,
-                              SCM grob_property_path);
 void execute_pushpop_property (Context *trg, SCM prop, SCM eltprop, SCM val);
-void sloppy_general_pushpop_property (Context *context,
-                                      SCM context_property, SCM grob_property_path, SCM val);
-SCM updated_grob_properties (Context *tg, SCM sym);
+
 Context *find_context_below (Context *where,
                              SCM type_sym, const string &id);
 bool melisma_busy (Context *);
@@ -169,7 +164,9 @@ void set_context_property_on_children (Context *trans, SCM sym, SCM val);
 }
 
 SCM nested_property_alist (SCM alist, SCM prop_path, SCM value);
-SCM nested_property_revert_alist (SCM alist, SCM prop_path);
+SCM nested_create_alist (SCM prop_path, SCM value);
+SCM partial_list_copy (SCM alist, SCM tail, SCM newtail);
 SCM evict_from_alist (SCM, SCM, SCM);
+SCM nalist_to_alist (SCM nalist, int nested);
 
 #endif /* CONTEXT_HH */

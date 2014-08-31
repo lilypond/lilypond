@@ -1,5 +1,5 @@
 
-\version "2.17.30"
+\version "2.19.12"
 
 \layout {
   indent = #0
@@ -42,7 +42,7 @@
   printfirst-page-number = ##t
   print-page-number = ##t
   ragged-last-bottom = ##t
-  markup-system-spacing #'minimum-distance = #25
+  markup-system-spacing.minimum-distance = #25
 }
 
 #(set-global-staff-size 14)

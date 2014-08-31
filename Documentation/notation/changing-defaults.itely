@@ -2599,7 +2599,7 @@ modified by completely re-defining them as alists.}
 The way in which the notation contained within an input file is
 interpreted is determined by the current input mode.
 
-@strong{Chord mode}
+@subsubsubheading Chord mode
 
 This is activated with the @code{\chordmode} command, and causes
 input to be interpreted with the syntax of chord notation, see
@@ -2611,7 +2611,7 @@ causes the following input to be interpreted with the syntax of
 chord notation and rendered as chord names in the @code{ChordNames}
 context, see @ref{Printing chord names}.
 
-@strong{Drum mode}
+@subsubsubheading Drum mode
 
 This is activated with the @code{\drummode} command, and causes
 input to be interpreted with the syntax of drum notation, see
@@ -2620,10 +2620,10 @@ input to be interpreted with the syntax of drum notation, see
 Drum mode is also activated with the @code{\drums} command.
 This also creates a new @code{DrumStaff} context and causes the
 following input to be interpreted with the syntax of drum notation
-and rendered as drum symbols on a drum staff, see @ref{Basic
-percussion notation}.
+and rendered as drum symbols on a drum staff, see
+@ref{Basic percussion notation}.
 
-@strong{Figure mode}
+@subsubsubheading Figure mode
 
 This is activated with the @code{\figuremode} command, and causes
 input to be interpreted with the syntax of figured bass, see
@@ -2635,7 +2635,7 @@ following input to be interpreted with the figured bass syntax
 and rendered as figured bass symbols in the @code{FiguredBass}
 context, see @ref{Introduction to figured bass}.
 
-@strong{Fret and tab modes}
+@subsubsubheading Fret and tab modes
 
 There are no special input modes for entering fret and tab symbols.
 
@@ -2649,7 +2649,7 @@ You can either use the @code{FretBoards} context (see
 above the notes using the @code{\fret-diagram} command (see
 @ref{Fret diagram markups}).
 
-@strong{Lyrics mode}
+@subsubsubheading Lyrics mode
 
 This is activated with the @code{\lyricmode} command, and causes
 input to be interpreted as lyric syllables with optional durations
@@ -2660,15 +2660,13 @@ This also creates a new @code{Lyrics} context and an implicit
 @code{\lyricsto} command which associates the following lyrics
 with the preceding music.
 
-@strong{Markup mode}
+@subsubsubheading Markup mode
 
 This is activated with the @code{\markup} command, and causes
 input to be interpreted with the syntax of markup, see
 @ref{Text markup commands}.
 
-@c silly work-around for texinfo broken-ness
-@c (@strong{Note...} causes a spurious cross-reference in Info)
-@b{Note mode}
+@subsubsubheading Note mode
 
 This is the default mode or it may be activated with the
 @code{\notemode} command.  Input is interpreted as pitches,
@@ -2678,23 +2676,6 @@ It is not normally necessary to specify note mode explicitly, but
 it may be useful to do so in certain situations, for example if you
 are in lyric mode, chord mode or any other mode and want to insert
 something that only can be done with note mode syntax.
-
-For example, to indicate dynamic markings for the verses of a
-choral pieces it is necessary to enter note mode to interpret
-the markings:
-
-@lilypond[verbatim,relative=2,quote]
-{ c4 c4 c4 c4 }
-\addlyrics {
-  \notemode{\set stanza = \markup{ \dynamic f 1. } }
-  To be sung loudly
-}
-\addlyrics {
-  \notemode{\set stanza = \markup{ \dynamic p 2. } }
-  To be sung quietly
-}
-@end lilypond
-
 
 
 @node Direction and placement

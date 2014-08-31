@@ -2656,7 +2656,7 @@ chord_body_elements:
 	;
 
 chord_body_element:
-	pitch exclamations questions octave_check post_events
+	pitch_or_tonic_pitch exclamations questions octave_check post_events
 	{
 		bool q = to_boolean ($3);
 		bool ex = to_boolean ($2);
@@ -2917,6 +2917,11 @@ pitch:
                         $$ = p.smobbed_copy ();
                 }
 	}
+	;
+
+pitch_or_tonic_pitch:
+	pitch
+	| steno_tonic_pitch
 	;
 
 gen_text_def:

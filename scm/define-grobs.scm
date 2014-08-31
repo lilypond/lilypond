@@ -29,6 +29,7 @@
   `(
     (Accidental
      . (
+        (after-line-breaking . ,ly:accidental-interface::remove-tied)
         (alteration . ,accidental-interface::calc-alteration)
         (avoid-slur . inside)
         (glyph-name . ,accidental-interface::glyph-name)
@@ -36,7 +37,6 @@
         (stencil . ,ly:accidental-interface::print)
         (horizontal-skylines . ,(ly:make-unpure-pure-container ly:accidental-interface::horizontal-skylines))
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
-        (X-extent . ,ly:accidental-interface::width)
         (Y-extent . ,accidental-interface::height)
         (meta . ((class . Item)
                  (interfaces . (accidental-interface
@@ -45,6 +45,7 @@
 
     (AccidentalCautionary
      . (
+        (after-line-breaking . ,ly:accidental-interface::remove-tied)
         (alteration . ,accidental-interface::calc-alteration)
         (avoid-slur . inside)
         (glyph-name-alist . ,standard-alteration-glyph-name-alist)
@@ -74,6 +75,7 @@
 
     (AccidentalSuggestion
      . (
+        (after-line-breaking . ,ly:accidental-interface::remove-tied)
         (alteration . ,accidental-interface::calc-alteration)
         (direction . ,UP)
         (font-size . -2)
@@ -85,7 +87,6 @@
         (side-axis . ,Y)
         (staff-padding . 0.25)
         (stencil . ,ly:accidental-interface::print)
-        (X-extent . ,ly:accidental-interface::width)
         (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-extent . ,accidental-interface::height)
         (Y-offset . ,side-position-interface::y-aligned-side)
@@ -573,11 +574,14 @@
      . (
         (break-visibility . ,(grob::inherit-parent-property
                               X 'break-visibility))
+        (clef-alignments . ((G . (-0.2 . 0.1))
+                            (F . (-0.3 . -0.2))
+                            (C . (0 . 0))))
         (color . ,(grob::inherit-parent-property
                    X 'color))
         (font-shape . italic)
         (font-size . -4)
-        (parent-alignment-X . ,CENTER)
+        (parent-alignment-X . ,ly:clef-modifier::calc-parent-alignment)
         (self-alignment-X . ,CENTER)
         (staff-padding . 0.7)
         (stencil . ,ly:text-interface::print)
@@ -1177,12 +1181,13 @@
         (extra-spacing-width . (+inf.0 . -inf.0))
         (outside-staff-priority . 500)
         (padding . 0.5)
+        (parent-alignment-X . #f)
         (self-alignment-X . ,LEFT)
         (side-axis . ,Y)
         (staff-padding . 0.5)
         (stencil . ,ly:text-interface::print)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
-        (X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Item)
                  (interfaces . (font-interface
@@ -1898,6 +1903,7 @@
         (font-encoding . fetaMusic)
         (horizon-padding . 0.1) ; to avoid interleaving with accidentals
         (positioning-done . ,ly:script-interface::calc-positioning-done)
+        (self-alignment-X . ,CENTER)
         (side-axis . ,Y)
 
         ;; padding set in script definitions.
@@ -1913,6 +1919,7 @@
                  (interfaces . (font-interface
                                 outside-staff-interface
                                 script-interface
+                                self-alignment-interface
                                 side-position-interface))))))
 
     (ScriptColumn
@@ -1954,10 +1961,11 @@
         (extra-spacing-width . (+inf.0 . -inf.0))
         (font-shape . italic)
         (padding . 0.0) ;; padding relative to SostenutoPedalLineSpanner
+        (parent-alignment-X . #f)
         (self-alignment-X . ,CENTER)
         (stencil . ,ly:text-interface::print)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
-        (X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
                  (interfaces . (font-interface
@@ -2205,10 +2213,11 @@
      . (
         (extra-spacing-width . (+inf.0 . -inf.0))
         (padding . 0.0)  ;; padding relative to SustainPedalLineSpanner
+        (parent-alignment-X . #f)
         (self-alignment-X . ,CENTER)
         (stencil . ,ly:sustain-pedal::print)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
-        (X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
                  (interfaces . (font-interface
@@ -2618,11 +2627,12 @@
         (extra-spacing-width . (+inf.0 . -inf.0))
         (font-shape . italic)
         (padding . 0.0)  ;; padding relative to UnaCordaPedalLineSpanner
+        (parent-alignment-X . #f)
         (self-alignment-X . ,CENTER)
         (stencil . ,ly:text-interface::print)
         (vertical-skylines . ,grob::always-vertical-skylines-from-stencil)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
-        (X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
+        (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (meta . ((class . Item)
                  (interfaces . (font-interface
                                 piano-pedal-script-interface
@@ -2813,7 +2823,7 @@
 (for-each (lambda (x)
             ;; (display (car x)) (newline)
 
-            (set-object-property! (car x) 'translation-type? list?)
+            (set-object-property! (car x) 'translation-type? ly:grob-properties?)
             (set-object-property! (car x) 'is-grob? #t))
           all-grob-descriptions)
 

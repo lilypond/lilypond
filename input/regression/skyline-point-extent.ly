@@ -1,4 +1,4 @@
-\version "2.17.15"
+\version "2.19.12"
 
 \header {
   texidoc = "The @code{Script} grobs should follow the descending melody line,
@@ -16,7 +16,7 @@ even though the @code{NoteHead} stencils are point stencils. The
 }
 
 {
-  \override Script #'direction = #DOWN
-  \override NoteHead #'stencil = #point-stencil
+  \override Script.direction = #DOWN
+  \override NoteHead.stencil = #point-stencil
   c'2.-> b8-- a-- g1->
 }

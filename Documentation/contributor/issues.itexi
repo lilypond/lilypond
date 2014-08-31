@@ -1,4 +1,4 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+Elu@c -*- coding: utf-8; mode: texinfo; -*-
 @node Issues
 @chapter Issues
 
@@ -187,10 +187,10 @@ the currently-active Bug Squad member(s) can handle the message.
 
 @example
 Monday: Eluze
-Tuesday:
+Tuesday: Federico Bruni
 Wednesday: Marek Klein
 Thursday: Eluze
-Friday:
+Friday: Ralph Palmer
 Saturday: Colin Campbell
 Sunday:
 @end example

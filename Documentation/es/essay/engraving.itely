@@ -491,7 +491,7 @@ used together on the same page:
 @c line weights be scaled for small staves?
 
 @c Grieg's Violin Sonata Op. 45
-@lilypond[indent=1.5cm]
+@lilypond[indent=1.5\cm]
 global = {
   \time 6/8
   \key c \minor

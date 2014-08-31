@@ -14,4 +14,9 @@ Within a lilypond block:
   \include "include/myvar.ily"
   \relative c'' { \myVar }
 \end{lilypond}
+
+Include a file that includes a file:
+
+\lilypondfile{include.ly}
+
 \end{document}

@@ -48,7 +48,7 @@ virtuoso that taught in Geneva.
 "
 }
 
-\version "2.16.0"
+\version "2.19.12"
 
 \include "mozart-hrn3-defs.ily"
 \include "mozart-hrn3-allegro.ily"
@@ -56,8 +56,8 @@ virtuoso that taught in Geneva.
 \include "mozart-hrn3-rondo.ily"
 
 \paper {
-  system-system-spacing #'basic-distance = 10
-  score-system-spacing #'basic-distance = 20
+  system-system-spacing.basic-distance = 10
+  score-system-spacing.basic-distance = 20
 }
 
 \book {

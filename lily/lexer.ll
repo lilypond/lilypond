@@ -422,7 +422,7 @@ BOM_UTF8	\357\273\277
 		return token;
 }
 
-<INITIAL,notes,lyrics>{ 
+<INITIAL,notes,lyrics,chords>{
 	\<\<	{
                 yylval = SCM_UNSPECIFIED;
 		return DOUBLE_ANGLE_OPEN;
@@ -433,7 +433,7 @@ BOM_UTF8	\357\273\277
 	}
 }
 
-<INITIAL,notes>{
+<INITIAL,notes,chords>{
 	\<	{
                 yylval = SCM_UNSPECIFIED;
 		return ANGLE_OPEN;

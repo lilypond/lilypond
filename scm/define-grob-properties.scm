@@ -179,6 +179,8 @@ on each chord to the height of the chord plus
 @code{chord-dots-limit} staff-positions.")
      (circled-tip ,boolean? "Put a circle at start/@/end of
 hairpins (al/@/del niente).")
+     (clef-alignments ,list? "An alist of parent-alignments
+that should be used for clef modifiers with various clefs")
      (clip-edges ,boolean? "Allow outward pointing beamlets at the
 edges of beams?")
      (collapse-height ,ly:dimension? "Minimum height of system start
@@ -467,9 +469,9 @@ etc. are already taken.")
 ;;; h
 ;;;
      (hair-thickness ,number? "Thickness of the thin line in a bar
-line, expressed as a multiple of the default staff-line thickness
-(i.e. the visual output is @emph{not} influenced by changes to
-@code{@var{Staff}.StaffSymbol.thickness}).")
+line, expressed as a multiple of the default staff-line
+thickness (i.e. the visual output is @emph{not} influenced by changes
+to @code{@var{Staff}.StaffSymbol.thickness}).")
      (harp-pedal-details ,list? "An alist of detailed grob properties
 for harp pedal diagrams.  Each alist entry consists of a
 @code{(@var{property} . @var{value})} pair.  The properties which can
@@ -593,9 +595,9 @@ if this column is the start of a system.")
      (line-positions ,list? "Vertical positions of staff lines.")
      (line-thickness ,number? "For slurs and ties, this is the
 diameter of the virtual @qq{pen} that draws the two arcs of the
-curve's outline, which intersect at the endpoints.  This property
-is expressed as a multiple of the current staff-line thickness
-(i.e. the visual output is influenced by changes to
+curve's outline, which intersect at the endpoints.  This property is
+expressed as a multiple of the current staff-line thickness (i.e. the
+visual output is influenced by changes to
 @code{@var{Staff}.StaffSymbol.thickness}).")
      (long-text ,markup? "Text markup.  See @ruser{Formatting text}.")
 
@@ -786,6 +788,12 @@ number, the quicker the slur attains its @code{height-limit}.")
 interesting items.")
      (remove-first ,boolean? "Remove the first staff of an orchestral
 score?")
+     (remove-layer ,integer? "The @code{Keep_alive_together_engraver}
+removes all @code{VerticalAxisGroup} grobs with a @code{remove-layer}
+larger than the smallest retained @code{remove-layer}.  Set to
+@code{#f} to make a layer invisible to the
+@code{Keep_alive_together_engraver}, set to @code{'()} to have it not
+participate in the layering decisions.")
      (replacement-alist ,list? "Alist of strings.
 The key is a string of the pattern to be replaced.  The value is a
 string of what should be displayed.  Useful for ligatures.")
@@ -1239,6 +1247,8 @@ empty in a particular staff, then that staff is erased.")
      (left-neighbor ,ly:grob? "The right-most column that has a spacing-wish
 for this column.")
 
+     (make-dead-when ,ly:grob-array? "An array of other
+@code{VerticalAxisGroup}s.  If any of them are alive, then we will turn dead.")
      (melody-spanner ,ly:grob? "The @code{MelodyItem} object for a stem.")
      (minimum-translations-alist ,list? "An list of translations for a given
 start and end point.")

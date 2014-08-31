@@ -99,7 +99,6 @@
   \defaultchild "Voice"
   \accepts "Voice"
   \accepts "CueVoice"
-  \accepts "NullVoice"
 
   \description "Handles clefs, bar lines, keys, accidentals.  It can contain
 @code{Voice} contexts."
@@ -578,6 +577,7 @@ automatically when an output definition (a @code{\\score} or
   \accepts "ChoirStaff"
   \accepts "PianoStaff"
   \accepts "Devnull"
+  \accepts "NullVoice"
   \accepts "NoteNames"
   \accepts "FiguredBass"
 
@@ -772,54 +772,30 @@ context."
 \context {
   \name "NullVoice"
   \type "Engraver_group"
-
-  \description "Non-printing context, typically used for aligning
-lyrics in polyphonic situations, or with @code{\partcombine}."
+  \description "For aligning lyrics without printing notes"
 
   %% don't route anything out of here
   \alias "Staff"
   \alias "Voice"
 
-  %% all three are needed for ties to work with lyrics
+  % provide non-printing NoteHeads with proper extents for lyric alignment
   \consists "Note_heads_engraver"
-  \consists "Rhythmic_column_engraver"
-  \consists "Tie_engraver"
+  \omit NoteHead
+  \override NoteHead.X-extent = #(lambda (g)
+    (ly:stencil-extent (ly:note-head::print g) X))
 
-  %% both are needed for melismas to work with \autoBeamOff
-  \consists "Beam_engraver"
-  \consists "Stem_engraver"
-
-  %% needed for slurs to work with lyrics
-  \consists "Slur_engraver"
-
-  %% keep noteheads inside the staff
-  \consists "Pitch_squash_engraver"
-  squashedPosition = 0
-
-  %% `\omit NoteHead' would give slur attachment errors
   \omit Accidental
-  \omit Beam
-  \omit Dots
-  \omit Flag
-  \omit Rest
-  \omit Slur
-  \omit Stem
+  \omit AccidentalCautionary
+  \omit AccidentalSuggestion
+
+  % the engravers that control the 'busy' flags for note-onsets and melismata
+  \consists "Grob_pq_engraver"
+  \consists "Tie_engraver"
   \omit Tie
-
-  %% let these take up space (for lyric extenders, etc.)
-  \override NoteHead.transparent = ##t
-  \override TabNoteHead.transparent = ##t
-
-  %% don't let notes shift
-  \override NoteHead.X-offset = 0
-  \override NoteColumn.ignore-collision = ##t
-
-  %% keep beams and stems inside the staff
-  \override Beam.positions = #'(1 . 1)
-  \override Stem.length = 0
-
-  %% prevent "weird stem size" warnings
-  \override Stem.direction = #UP
+  \consists "Beam_engraver"
+  \omit Beam
+  \consists "Slur_engraver"
+  \omit Slur
 }
 
 \context {

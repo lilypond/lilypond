@@ -81,8 +81,6 @@ inline SCM ly_symbol2scm (char const *x) { return scm_from_locale_symbol ((x)); 
 #endif
 
 /*
-  TODO: rename me to ly_c_lily_module_eval
-
   we don't have to protect the result; it's already part of the
   exports list of the module.
 */
@@ -95,11 +93,12 @@ inline SCM ly_symbol2scm (char const *x) { return scm_from_locale_symbol ((x)); 
     if (__builtin_constant_p ((x)))                                     \
       {                                                                 \
         if (!cached)                                                    \
-          value = cached = scm_eval (scm_from_locale_symbol (x),                \
-                                    global_lily_module);                \
+          value = cached =                                              \
+            scm_variable_ref (scm_c_module_lookup (global_lily_module, (x))); \
       }                                                                 \
     else                                                                \
-      value = scm_eval (scm_from_locale_symbol (x), global_lily_module);        \
+      value =                                                           \
+        scm_variable_ref (scm_c_module_lookup (global_lily_module, (x))); \
     value;                                                              \
   })
 
