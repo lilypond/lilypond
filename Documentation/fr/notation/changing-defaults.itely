@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ece268fa66e2576c01f33a4a6e1806f44c9f8fa8
+    Translation of GIT committish: 324ff94afc62c7011b7377f24392f95391ed3b84
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2801,7 +2801,8 @@ qu'au travers d'une complète redéfinition de leur liste associative.}
 La manière dont sera interprétée la notation contenue dans un fichier
 source dépend du mode affecté à la saisie.
 
-@strong{Mode accords}
+@subsubsubheading Mode accords
+@c VO Chord mode
 
 Ce mode, activé par la commande @code{\chordmode}, permet d'interpréter
 les saisies comme étant des accords, qui seront imprimés sous forme
@@ -2812,7 +2813,8 @@ créera un contexte @code{ChordNames}.  Les saisies, interprétées comme
 étant des accords, seront alors rendues sous forme nominale dans ce
 contexte @code{ChordNames} -- voir @ref{Impression des noms d'accord}.
 
-@strong{Mode percussions}
+@subsubsubheading Mode percussions
+@c VO Drum mode
 
 Ce mode, activé par la commande @code{\drummode}, permet d'interpréter
 les saisies comme étant de la notation pour percussions -- voir
@@ -2824,7 +2826,8 @@ créera un contexte @code{DrumStaff}.  Les saisies, interprétées comme
 forme symbolique sur une portée de percussions -- voir
 @ref{Notation de base pour percussions}.
 
-@strong{Mode figures}
+@subsubsubheading Mode figures
+@c VO Figure mode
 
 Ce mode, activé par la commande @code{\figuremode}, permet d'interpréter
 les saisies comme étant de la basse chiffrée (ou figurée) -- voir
@@ -2836,7 +2839,8 @@ créera un contexte @code{FiguredBass}.  Les saisies interprétées comme
 dans le contexte @code{FiguredBass} -- voir
 @ref{Introduction à la basse chiffrée}.
 
-@strong{Mode frets et tablatures}
+@subsubsubheading Mode frets et tablatures
+@c VO Fret and tab modes
 
 Il n'existe pas de mode spécifique pour saisir des symboles de fret ou
 de tablature.
@@ -2851,7 +2855,8 @@ surplomb d'une portée : directement à l'aide d'un contexte
 attachant aux notes des @emph{markups} créés par la commande
 @code{\fret-diagram} -- voir @ref{Tablatures sous forme d'étiquette}.
 
-@strong{Mode paroles}
+@subsubsubheading Mode paroles
+@c VO Lyrics mode
 
 Ce mode, activé par la commande @code{\lyricmode}, permet d'interpréter
 les saisies comme étant des syllabes, ayant éventuellement une durée, et
@@ -2862,16 +2867,16 @@ créera un contexte @code{Lyrics} et ajoutera implicitement une commande
 @code{\lyricsto} afin d'associer les paroles qui suivent à la musique
 précédemment saisie.
 
-@strong{Mode @emph{markup}}
+@subsubsubheading Mode @emph{markup}
+@c VO Markup mode
 
 Ce mode, activé par la commande @code{\markup}, permet d'interpréter les
 saisies comme étant des @emph{markups} (annotations ou étiquettes) --
 voir @ref{Commandes pour markup}.
 
 
-@c silly work-around for texinfo broken-ness
-@c (@strong{Note...} causes a spurious cross-reference in Info)
-@b{Mode notes}
+@subsubsubheading Mode notes
+@c VO Note mode
 
 Le mode notes est le mode par défaut dans LilyPond.  Il peut aussi
 s'activer par la commande @code{\notemode}.  Les saisies seront
@@ -2883,21 +2888,6 @@ dans certaines situations particulières, notamment lorsque vous êtes en
 mode paroles, accords, ou tout autre mode, et que vous deviez insérer
 un élément qui ne serait disponible que grâce à la syntaxe du mode
 notes.
-
-Il en va ainsi lorsque, par exemple, vous voulez ajouter une indication
-de nuance au numéro de couplet d'un chant choral :
-
-@lilypond[verbatim,relative=2,quote]
-{ c4 c4 c4 c4 }
-\addlyrics {
-  \notemode{\set stanza = \markup{ \dynamic f 1. } }
-  To be sung loudly
-}
-\addlyrics {
-  \notemode{\set stanza = \markup{ \dynamic p 2. } }
-  To be sung quietly
-}
-@end lilypond
 
 
 @node Direction et positionnement

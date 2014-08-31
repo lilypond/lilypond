@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ece268fa66e2576c01f33a4a6e1806f44c9f8fa8
+    Translation of GIT committish: 324ff94afc62c7011b7377f24392f95391ed3b84
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1707,14 +1707,6 @@ words = \lyricmode { la __ la __ }
 >>
 @end lilypond
 
-Le contexte @code{NullVoice} doit prendre place dans un contexte
-@code{Staff} et ne saurait contenir que des notes déjà présentes sur la
-portée en question et à la même octave.  Dans le cas contraire, ce
-@code{NullVoice} pourrait interagir avec les autres voix imprimées de
-façon inopinée.  Par exemple, des notes arbitraires dans un
-@code{NullVoice} pourraient entraîner l'apparition ou la disparition
-d'altérations sur la portée considérée.
-
 Cette façon de procéder permet par ailleurs d'utiliser la fonction
 @code{\partcombine} qui normalement ne peut s'utiliser avec des
 paroles :
@@ -1752,21 +1744,12 @@ aligner = \relative { b'8( c d c) d( d d d) }
 words = \lyricmode { la __ la __ }
 
 \new ChoirStaff <<
-  \new Staff <<
-    \soprano
-    \new NullVoice = "aligner" \aligner
-  >>
+  \new Staff \soprano
+  \new NullVoice = "aligner" \aligner
   \new Lyrics \lyricsto "aligner" \words
   \new Staff \partcombine \altoOne \altoTwo
 >>
 @end lilypond
-
-Vous aurez remarqué que, dans la deuxième partie de la mesure ci-dessus,
-les notes du contexte @code{NullVoice} reprennent le rythme de la portée
-inférieure sans pour autant dévier une seule fois des hauteurs affichées
-dans la voix à laquelle ce @code{NullVoice} est attaché.  Bien que ce ne
-soit pas nécessaire dans le cadre de cet exemple particulier, nous vous
-conseillons de saisir les notes d'un @code{NullVoice} de cette manière.
 
 
 @node Couplets
@@ -2693,7 +2676,7 @@ définition d'un « instrument » pour chacun des rôles en question :
 
 @lilypond[quote,verbatim]
 \addInstrumentDefinition #"kaspar"
-  #`((instrumentTransposition . ,(ly:make-pitch -1 0 0))
+  #`((instrumentTransposition . ,(ly:make-pitch 0 0 0))
      (shortInstrumentName . "Kas.")
      (clefGlyph . "clefs.G")
      (clefTransposition . -7)
