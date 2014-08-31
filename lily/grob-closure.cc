@@ -33,24 +33,24 @@ add_offset_callback (Grob *g, SCM proc, Axis a)
   SCM data = g->get_property_data (axis_offset_symbol (a));
   if (!scm_is_number (data)
       && !ly_is_procedure (data)
-      && !is_simple_closure (data))
+      && !Simple_closure::unsmob (data))
     {
       g->set_property (axis_offset_symbol (a), proc);
       return;
     }
 
   if (ly_is_procedure (data) || is_unpure_pure_container (data))
-    data = ly_make_simple_closure (scm_list_1 (data));
-  else if (is_simple_closure (data))
-    data = simple_closure_expression (data);
+    data = Simple_closure::make_smob (scm_list_1 (data));
+  else if (Simple_closure *sc = Simple_closure::unsmob (data))
+    data = sc->expression ();
 
   SCM plus = ly_lily_module_constant ("+");
 
   if (ly_is_procedure (proc))
-    proc = ly_make_simple_closure (scm_list_1 (proc));
+    proc = Simple_closure::make_smob (scm_list_1 (proc));
 
   SCM expr = scm_list_3 (plus, proc, data);
-  g->set_property (axis_offset_symbol (a), ly_make_simple_closure (expr));
+  g->set_property (axis_offset_symbol (a), Simple_closure::make_smob (expr));
 }
 
 /*
@@ -68,9 +68,9 @@ chain_callback (Grob *g, SCM proc, SCM sym)
   SCM data = g->get_property_data (sym);
 
   if (ly_is_procedure (data) || is_unpure_pure_container (data))
-    data = ly_make_simple_closure (scm_list_1 (data));
-  else if (is_simple_closure (data))
-    data = simple_closure_expression (data);
+    data = Simple_closure::make_smob (scm_list_1 (data));
+  else if (Simple_closure *sc = Simple_closure::unsmob (data))
+    data = sc->expression ();
   else
     /*
       Data may be nonnumber. In that case, it is assumed to be
@@ -84,7 +84,7 @@ chain_callback (Grob *g, SCM proc, SCM sym)
 
                    // twice: one as a wrapper for grob property routines,
                    // once for the actual delayed binding.
-                   ly_make_simple_closure (ly_make_simple_closure (expr)));
+                   Simple_closure::make_smob (Simple_closure::make_smob (expr)));
 }
 
 void

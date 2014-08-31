@@ -51,7 +51,7 @@ LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
   if (!ly_is_procedure (val)
-      && !is_simple_closure (val)
+      && !Simple_closure::unsmob (val)
       && !type_check_assignment (sym, val, ly_symbol2scm ("backend-type?")))
     error ("typecheck failed");
 

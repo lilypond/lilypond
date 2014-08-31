@@ -21,10 +21,16 @@
 #define SIMPLE_CLOSURE_HH
 
 #include "lily-guile.hh"
+#include "small-smobs.hh"
 
-bool is_simple_closure (SCM s);
-SCM simple_closure_expression (SCM smob);
+class Simple_closure : public Smob1<Simple_closure>
+{
+public:
+  SCM expression() const { return scm1 (); }
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static const char type_p_name_[];
+};
+
 SCM evaluate_with_simple_closure (SCM delayed_argument, SCM expr, bool pure, int start, int end);
-SCM ly_make_simple_closure (SCM);
 
 #endif /* SIMPLE_CLOSURE_HH */

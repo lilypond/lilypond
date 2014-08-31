@@ -59,7 +59,7 @@ typecheck_grob (SCM symbol, SCM value)
     return typecheck_grob (symbol, unpure_pure_container_unpure_part (value))
       && typecheck_grob (symbol, unpure_pure_container_pure_part (value));
   return ly_is_procedure (value)
-    || is_simple_closure (value)
+    || Simple_closure::unsmob (value)
     || type_check_assignment (symbol, value, ly_symbol2scm ("backend-type?"));
 }
 
