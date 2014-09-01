@@ -30,6 +30,7 @@
 #include "percent-repeat-item.hh"
 #include "rest.hh"
 #include "separation-item.hh"
+#include "spacing-options.hh"
 #include "spanner.hh"
 #include "staff-symbol.hh"
 #include "staff-symbol-referencer.hh"
@@ -227,7 +228,7 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
           Real pos = Rest::staff_position_internal (me, mdl, dir);
           me->set_property ("staff-position", scm_from_double (pos));
         }
- 
+
       Stencil s = musfont->find_by_name (Rest::glyph_name (me, mdl, "", true, 0.0));
 
       s.translate_axis ((space - s.extent (X_AXIS).length ()) / 2, X_AXIS);
@@ -354,6 +355,23 @@ Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
   Item *lb = li->find_prebroken_piece (RIGHT);
   Item *rb = ri->find_prebroken_piece (LEFT);
 
+  Grob *spacing = Grob::unsmob (li->get_object ("spacing"));
+  if (!spacing)
+    spacing = Grob::unsmob (ri->get_object ("spacing"));
+  if (spacing)
+    {
+      Spacing_options options;
+      options.init_from_grob (me);
+      Moment mlen = robust_scm2moment (li->get_property ("measure-length"),
+                                       Moment (1));
+      length += robust_scm2double (li->get_property ("full-measure-extra-space"), 0.0)
+                + options.get_duration_space (mlen.main_part_);
+    }
+
+  length += 2 * robust_scm2double (me->get_property ("bound-padding"), 0.0)
+            + 2 * robust_scm2double (me->get_property ("padding"), 0.0);
+  Real minlen = robust_scm2double (me->get_property ("minimum-length"), 0.0);
+
   Item *combinations[4][2] = {{li, ri},
     {lb, ri},
     {li, rb},
@@ -372,12 +390,8 @@ Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
       rod.item_drul_[LEFT] = li;
       rod.item_drul_[RIGHT] = ri;
 
-      rod.distance_ = Paper_column::minimum_distance (li, ri)
-                      + length
-                      + 2 * robust_scm2double (me->get_property ("bound-padding"), 1.0);
-
-      Real minlen = robust_scm2double (me->get_property ("minimum-length"), 0);
-      rod.distance_ = max (rod.distance_, minlen);
+      rod.distance_ = max (Paper_column::minimum_distance (li, ri) + length,
+                           minlen);
       rod.add_to_cols ();
     }
 }
@@ -418,6 +432,7 @@ ADD_INTERFACE (Multi_measure_rest,
                "hair-thickness "
                "measure-count "
                "minimum-length "
+               "padding "
                "round-up-exceptions "
                "round-up-to-longer-rest "
                "spacing-pair "
