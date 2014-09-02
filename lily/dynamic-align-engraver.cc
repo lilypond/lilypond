@@ -44,7 +44,7 @@ protected:
   virtual void stop_translation_timestep ();
 
 private:
-  void create_line_spanner (Stream_event *cause);
+  void create_line_spanner (Grob *cause);
   void set_spanner_bounds (Spanner *line, bool end);
   Spanner *line_;
   Spanner *ended_line_; // Spanner manually broken, don't use it for new grobs
@@ -71,11 +71,10 @@ ADD_ACKNOWLEDGER (Dynamic_align_engraver, footnote_spanner);
 ADD_END_ACKNOWLEDGER (Dynamic_align_engraver, dynamic);
 
 void
-Dynamic_align_engraver::create_line_spanner (Stream_event *event)
+Dynamic_align_engraver::create_line_spanner (Grob *cause)
 {
   if (!line_)
-    line_ = make_spanner ("DynamicLineSpanner",
-                          event ? event->self_scm () : SCM_EOL);
+    line_ = make_spanner ("DynamicLineSpanner", cause->self_scm ());
 }
 
 void
@@ -141,7 +140,7 @@ Dynamic_align_engraver::acknowledge_dynamic (Grob_info info)
         }
     }
 
-  create_line_spanner (cause);
+  create_line_spanner (info.grob ());
   if (Spanner::has_interface (info.grob ()))
     {
       started_.push_back (info.spanner ());
