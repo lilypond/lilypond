@@ -22,12 +22,14 @@
 
 #include "skyline.hh"
 
-class Skyline_pair
+class Skyline_pair : public Simple_smob<Skyline_pair>
 {
+public:
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static const char type_p_name_[];
 private:
   Drul_array<Skyline> skylines_;
 
-  DECLARE_SIMPLE_SMOBS (Skyline_pair);
 public:
   Skyline_pair ();
   Skyline_pair (vector<Box> const &boxes, Axis a);

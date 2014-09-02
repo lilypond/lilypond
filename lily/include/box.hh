@@ -9,10 +9,12 @@
 #include "offset.hh"
 #include "smobs.hh"
 
-class Box
+class Box : public Simple_smob<Box>
 {
+public:
+  static const char type_p_name_[];
+private:
   Interval interval_a_[NO_AXES];
-  DECLARE_SIMPLE_SMOBS (Box);
 public:
   Interval &x () {return interval_a_[X_AXIS]; }
   Interval &y () { return interval_a_[Y_AXIS]; }

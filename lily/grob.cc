@@ -39,7 +39,6 @@
 #include "unpure-pure-container.hh"
 #include "warn.hh"
 
-#include "ly-smobs.icc"
 
 Grob *
 Grob::clone () const

@@ -19,7 +19,6 @@
 
 #include "music-output.hh"
 
-#include "ly-smobs.icc"
 
 Music_output::Music_output ()
 {
@@ -40,9 +39,7 @@ Music_output::derived_mark () const
 {
 }
 
-IMPLEMENT_SMOBS (Music_output);
-IMPLEMENT_DEFAULT_EQUAL_P (Music_output);
-IMPLEMENT_TYPE_P (Music_output, "ly:music-output?");
+const char Music_output::type_p_name_[] = "ly:music-output?";
 
 SCM
 Music_output::mark_smob (SCM s)

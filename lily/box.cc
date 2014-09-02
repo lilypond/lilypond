@@ -132,21 +132,5 @@ Box::print ()
 
 /****************************************************************/
 
-#include "ly-smobs.icc"
 
-IMPLEMENT_SIMPLE_SMOBS (Box);
-IMPLEMENT_TYPE_P (Box, "ly:box?");
-IMPLEMENT_DEFAULT_EQUAL_P (Box);
-
-SCM
-Box::mark_smob (SCM /* x */)
-{
-  return SCM_EOL;
-}
-
-int
-Box::print_smob (SCM /* x */, SCM p, scm_print_state *)
-{
-  scm_puts ("#<Box>", p);
-  return 1;
-}
+const char Box::type_p_name_[] = "ly:box?";

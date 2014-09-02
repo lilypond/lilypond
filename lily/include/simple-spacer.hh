@@ -25,7 +25,7 @@
 #include "spring.hh"
 #include "smobs.hh"
 
-class Simple_spacer
+class Simple_spacer : public Simple_smob<Simple_spacer>
 {
 public:
   Simple_spacer ();
@@ -43,7 +43,6 @@ public:
   Real force_penalty (bool ragged) const;
   bool fits () const;
 
-  DECLARE_SIMPLE_SMOBS (Simple_spacer);
 
 private:
   Real expand_line ();
@@ -69,4 +68,3 @@ Column_x_positions get_line_configuration (vector<Grob *> const &columns,
                                            bool ragged);
 
 #endif /* SIMPLE_SPACER_HH */
-

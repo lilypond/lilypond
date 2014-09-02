@@ -35,8 +35,14 @@ using namespace std;
    get_line (), get_word () here.
 */
 
-class Source_file
+class Source_file : public Smob<Source_file>
 {
+public:
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static SCM mark_smob (SCM);
+  static const char type_p_name_[];
+  virtual ~Source_file ();
+private:
   vector<char const *> newline_locations_;
   istream *istream_;
   vector<char> characters_;
@@ -46,7 +52,6 @@ class Source_file
   void init_port ();
   void init ();
 
-  DECLARE_SMOBS (Source_file);
 public:
   Source_file (const string &fn);
   Source_file (const string&, const string&);
@@ -61,7 +66,6 @@ public:
   string name_string () const;
   string file_line_column_string (char const *str0) const;
 
-public:
   Slice line_slice (char const *pos_str0) const;
   string line_string (char const *pos_str0) const;
   void get_counts (char const *pos_str0, int *, int *, int *, int *) const;
@@ -76,4 +80,3 @@ protected:
 vector<char> gulp_file (const string &fn, int desired);
 
 #endif /* SOURCE_FILE_HH */
-

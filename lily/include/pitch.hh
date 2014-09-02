@@ -32,8 +32,13 @@
   Pitch is lexicographically ordered by (octave, notename, alteration).
 */
 
-class Pitch
+class Pitch : public Simple_smob<Pitch>
 {
+public:
+  static SCM equal_p (SCM, SCM);
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static SCM mark_smob (SCM);
+  static const char type_p_name_[];
 private:
   int octave_;
   int notename_;
@@ -70,7 +75,6 @@ public:
   string to_string () const;
 
   DECLARE_SCHEME_CALLBACK (less_p, (SCM a, SCM b));
-  DECLARE_SIMPLE_SMOBS (Pitch);
 };
 
 enum

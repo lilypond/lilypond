@@ -21,7 +21,6 @@
 #include "skyline-pair.hh"
 
 #include "international.hh"
-#include "ly-smobs.icc"
 
 Skyline_pair::Skyline_pair ()
   : skylines_ (Skyline (DOWN), Skyline (UP))
@@ -128,15 +127,8 @@ Skyline_pair::operator [] (Direction d) const
   return skylines_[d];
 }
 
-IMPLEMENT_SIMPLE_SMOBS (Skyline_pair);
-IMPLEMENT_TYPE_P (Skyline_pair, "ly:skyline-pair?");
-IMPLEMENT_DEFAULT_EQUAL_P (Skyline_pair);
+const char Skyline_pair::type_p_name_[] = "ly:skyline-pair?";
 
-SCM
-Skyline_pair::mark_smob (SCM)
-{
-  return SCM_EOL;
-}
 
 int
 Skyline_pair::print_smob (SCM s, SCM port, scm_print_state *)

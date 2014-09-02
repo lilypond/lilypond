@@ -34,10 +34,7 @@ Context_mod::Context_mod (SCM mod_list)
   mods_ = scm_reverse (mod_list);
 }
 
-#include "ly-smobs.icc"
-IMPLEMENT_SIMPLE_SMOBS (Context_mod);
-IMPLEMENT_DEFAULT_EQUAL_P (Context_mod);
-IMPLEMENT_TYPE_P (Context_mod, "ly:context-mod?");
+const char Context_mod::type_p_name_[] = "ly:context-mod?";
 
 int
 Context_mod::print_smob (SCM smob, SCM port, scm_print_state *)
@@ -78,4 +75,3 @@ Context_mod::get_mods () const
 {
   return scm_reverse (mods_);
 }
-

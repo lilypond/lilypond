@@ -31,7 +31,6 @@
 #include "program-option.hh"
 #include "page-marker.hh"
 
-#include "ly-smobs.icc"
 
 Paper_book::Paper_book ()
 {
@@ -52,9 +51,7 @@ Paper_book::~Paper_book ()
 {
 }
 
-IMPLEMENT_DEFAULT_EQUAL_P (Paper_book);
-IMPLEMENT_SMOBS (Paper_book);
-IMPLEMENT_TYPE_P (Paper_book, "ly:paper-book?");
+const char Paper_book::type_p_name_[] = "ly:paper-book?";
 
 SCM
 Paper_book::mark_smob (SCM smob)

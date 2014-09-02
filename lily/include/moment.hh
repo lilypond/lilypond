@@ -27,10 +27,12 @@
    Musical timing (Main-timing, grace-timing) with glue for
    Guilification;
 */
-class Moment
+class Moment : public Simple_smob<Moment>
 {
-  DECLARE_SIMPLE_SMOBS (Moment);
 public:
+  static SCM equal_p (SCM, SCM);
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static const char type_p_name_[];
   Moment ();
   Moment (int m);
 
@@ -80,4 +82,3 @@ ostream &operator << (ostream &, Moment const &);
 bool moment_less (SCM a, SCM b);
 
 #endif /* MOMENT_HH */
-

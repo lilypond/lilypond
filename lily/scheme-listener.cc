@@ -26,8 +26,6 @@ Scheme_listener::call (SCM ev)
   scm_call_1 (callback_, ev);
 }
 
-IMPLEMENT_SMOBS (Scheme_listener);
-IMPLEMENT_DEFAULT_EQUAL_P (Scheme_listener);
 
 Scheme_listener::Scheme_listener (SCM c)
 {

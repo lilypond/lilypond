@@ -33,7 +33,6 @@ using namespace std;
 #include "paper-score.hh"
 #include "page-marker.hh"
 
-#include "ly-smobs.icc"
 
 Book::Book ()
 {
@@ -105,8 +104,6 @@ Book::~Book ()
 {
 }
 
-IMPLEMENT_SMOBS (Book);
-IMPLEMENT_DEFAULT_EQUAL_P (Book);
 
 SCM
 Book::mark_smob (SCM s)

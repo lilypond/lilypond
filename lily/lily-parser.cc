@@ -37,7 +37,6 @@
 #include "warn.hh"
 #include "program-option.hh"
 
-#include "ly-smobs.icc"
 
 Lily_parser::Lily_parser (Sources *sources)
 {
@@ -211,9 +210,7 @@ Lily_parser::parser_error (Input const &i, const string &s)
   error_level_ = 1;
 }
 
-IMPLEMENT_SMOBS (Lily_parser);
-IMPLEMENT_TYPE_P (Lily_parser, "ly:lily-parser?");
-IMPLEMENT_DEFAULT_EQUAL_P (Lily_parser);
+const char Lily_parser::type_p_name_[] = "ly:lily-parser?";
 
 /****************************************************************
   OUTPUT-DEF

@@ -358,11 +358,8 @@ Source_file::get_port () const
 
 /****************************************************************/
 
-#include "ly-smobs.icc"
 
-IMPLEMENT_SMOBS (Source_file);
-IMPLEMENT_DEFAULT_EQUAL_P (Source_file);
-IMPLEMENT_TYPE_P (Source_file, "ly:source-file?");
+const char Source_file::type_p_name_[] = "ly:source-file?";
 
 SCM
 Source_file::mark_smob (SCM smob)
@@ -384,4 +381,3 @@ Source_file::print_smob (SCM smob, SCM port, scm_print_state *)
   scm_puts (" >", port);
   return 1;
 }
-

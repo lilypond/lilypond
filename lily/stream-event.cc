@@ -19,7 +19,6 @@
 
 #include "stream-event.hh"
 
-#include "ly-smobs.icc"
 #include "context.hh"
 #include "input.hh"
 #include "music.hh"

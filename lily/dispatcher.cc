@@ -20,12 +20,9 @@
 #include "dispatcher.hh"
 #include "input.hh"
 #include "international.hh"
-#include "ly-smobs.icc"
 #include "warn.hh"
 
-IMPLEMENT_SMOBS (Dispatcher);
-IMPLEMENT_TYPE_P (Dispatcher, "ly:dispatcher?");
-IMPLEMENT_DEFAULT_EQUAL_P (Dispatcher);
+const char Dispatcher::type_p_name_[] = "ly:dispatcher?";
 
 Dispatcher::~Dispatcher ()
 {

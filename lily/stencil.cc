@@ -25,7 +25,6 @@
 #include "string-convert.hh"
 #include "warn.hh"
 
-#include "ly-smobs.icc"
 
 Stencil::Stencil ()
 {
@@ -54,9 +53,7 @@ Stencil::mark_smob (SCM smob)
   return s->expr_;
 }
 
-IMPLEMENT_SIMPLE_SMOBS (Stencil);
-IMPLEMENT_TYPE_P (Stencil, "ly:stencil?");
-IMPLEMENT_DEFAULT_EQUAL_P (Stencil);
+const char Stencil::type_p_name_[] = "ly:stencil?";
 
 Interval
 Stencil::extent (Axis a) const

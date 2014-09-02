@@ -22,7 +22,6 @@
 #include <deque>
 #include <cstdio>
 
-#include "ly-smobs.icc"
 
 /* A skyline is a sequence of non-overlapping buildings: something like
    this:
@@ -862,9 +861,7 @@ Skyline::clear ()
 
 /****************************************************************/
 
-IMPLEMENT_SIMPLE_SMOBS (Skyline);
-IMPLEMENT_TYPE_P (Skyline, "ly:skyline?");
-IMPLEMENT_DEFAULT_EQUAL_P (Skyline);
+const char Skyline::type_p_name_[] = "ly:skyline?";
 
 SCM
 Skyline::mark_smob (SCM s)

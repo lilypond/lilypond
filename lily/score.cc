@@ -36,7 +36,6 @@ using namespace std;
 #include "paper-score.hh"
 #include "warn.hh"
 
-#include "ly-smobs.icc"
 
 Input *
 Score::origin () const
@@ -60,9 +59,7 @@ Score::~Score ()
 {
 }
 
-IMPLEMENT_SMOBS (Score);
-IMPLEMENT_DEFAULT_EQUAL_P (Score);
-IMPLEMENT_TYPE_P (Score, "ly:score?");
+const char Score::type_p_name_[] = "ly:score?";
 
 SCM
 Score::mark_smob (SCM s)

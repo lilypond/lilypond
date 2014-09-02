@@ -58,14 +58,18 @@
 
    merge pending_moment and process?
 */
-class Music_iterator
+class Music_iterator : public Smob<Music_iterator>
 {
+public:
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static SCM mark_smob (SCM);
+  static const char type_p_name_[];
+  virtual ~Music_iterator ();
 protected:
   Moment music_length_;
   Moment start_mom_;
 
   DECLARE_CLASSNAME (Music_iterator);
-  DECLARE_SMOBS (Music_iterator);
   Music_iterator (Music_iterator const &);
 
 public:

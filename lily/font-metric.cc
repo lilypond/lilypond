@@ -29,7 +29,6 @@ using namespace std;
 #include "stencil.hh"
 #include "warn.hh"
 
-#include "ly-smobs.icc"
 
 Real
 Font_metric::design_size () const
@@ -114,9 +113,7 @@ Font_metric::print_smob (SCM s, SCM port, scm_print_state *)
   return 1;
 }
 
-IMPLEMENT_SMOBS (Font_metric);
-IMPLEMENT_DEFAULT_EQUAL_P (Font_metric);
-IMPLEMENT_TYPE_P (Font_metric, "ly:font-metric?");
+const char Font_metric::type_p_name_[] = "ly:font-metric?";
 
 SCM
 Font_metric::font_file_name () const

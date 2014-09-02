@@ -24,9 +24,9 @@
 #include "rational.hh"
 #include "std-vector.hh"
 
-struct Scale
+struct Scale : public Smob<Scale>
 {
-public:
+  virtual ~Scale ();
   Scale (vector<Rational> const &);
   Scale (Scale const &);
 
@@ -35,7 +35,6 @@ public:
   int step_count () const;
   int normalize_step (int step) const;
 
-  DECLARE_SMOBS (Scale);
 
 private:
   vector<Rational> step_tones_;
@@ -44,4 +43,3 @@ private:
 extern Scale *default_global_scale;
 
 #endif /* SCALE_HH */
-

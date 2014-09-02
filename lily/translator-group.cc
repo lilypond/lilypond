@@ -343,11 +343,8 @@ Translator_group::~Translator_group ()
 {
 }
 
-#include "ly-smobs.icc"
 
-IMPLEMENT_SMOBS (Translator_group);
-IMPLEMENT_DEFAULT_EQUAL_P (Translator_group);
-IMPLEMENT_TYPE_P (Translator_group, "ly:translator-group?");
+const char Translator_group::type_p_name_[] = "ly:translator-group?";
 
 int
 Translator_group::print_smob (SCM s, SCM port, scm_print_state *)

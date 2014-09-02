@@ -364,11 +364,8 @@ Lily_lexer::add_lexed_char (int count)
   char_count_stack_.back () += count;
 }
 
-#include "ly-smobs.icc"
 
-IMPLEMENT_SMOBS (Lily_lexer);
-IMPLEMENT_TYPE_P (Lily_lexer, "ly:lily-lexer?");
-IMPLEMENT_DEFAULT_EQUAL_P (Lily_lexer);
+const char Lily_lexer::type_p_name_[] = "ly:lily-lexer?";
 
 SCM
 Lily_lexer::mark_smob (SCM s)

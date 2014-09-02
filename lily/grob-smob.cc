@@ -22,11 +22,8 @@
 #include "paper-score.hh"
 #include "warn.hh"
 
-#include "ly-smobs.icc"
 
-IMPLEMENT_SMOBS (Grob);
-IMPLEMENT_DEFAULT_EQUAL_P (Grob);
-IMPLEMENT_TYPE_P (Grob, "ly:grob?");
+const char Grob::type_p_name_[] = "ly:grob?";
 
 SCM
 Grob::mark_smob (SCM ses)

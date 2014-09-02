@@ -30,8 +30,14 @@
 
 typedef std::map<FT_UInt, FT_ULong> Index_to_charcode_map;
 
-class Font_metric
+class Font_metric : public Smob<Font_metric>
 {
+public:
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static SCM mark_smob (SCM);
+  static const char type_p_name_[];
+  virtual ~Font_metric ();
+private:
   DECLARE_CLASSNAME (Font_metric);
 
 public:
@@ -54,7 +60,6 @@ public:
   virtual Stencil find_by_name (string) const;
   virtual SCM sub_fonts () const;
   virtual SCM font_file_name () const;
-  DECLARE_SMOBS (Font_metric);
 
 private:
   /* No copying, no implicit copy constructor.  */

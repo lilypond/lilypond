@@ -24,7 +24,6 @@
 #include "string-convert.hh"
 #include "warn.hh"
 
-#include "ly-smobs.icc"
 #include <cmath>
 
 Pitch::Pitch (int o, int n, Rational a)
@@ -219,7 +218,7 @@ Pitch::down_to (int notename)
   notename_ = notename;
 }
 
-IMPLEMENT_TYPE_P (Pitch, "ly:pitch?");
+const char Pitch::type_p_name_[] = "ly:pitch?";
 SCM
 Pitch::mark_smob (SCM x)
 {
@@ -227,7 +226,6 @@ Pitch::mark_smob (SCM x)
   return p->scale_->self_scm ();
 }
 
-IMPLEMENT_SIMPLE_SMOBS (Pitch);
 int
 Pitch::print_smob (SCM s, SCM port, scm_print_state *)
 {

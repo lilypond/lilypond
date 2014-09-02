@@ -21,7 +21,6 @@
 
 #include "scale.hh"
 
-#include "ly-smobs.icc"
 
 /*
   todo: put string <-> pitch here too.
@@ -134,20 +133,7 @@ Scale::normalize_step (int step) const
   return ret;
 }
 
-int
-Scale::print_smob (SCM /* x */,
-                   SCM port,
-                   scm_print_state *)
-{
-  scm_puts ("#<Scale>", port);
-  return 1;
-}
 
-SCM
-Scale::mark_smob (SCM)
-{
-  return SCM_UNSPECIFIED;
-}
 
 Scale::Scale (vector<Rational> const &tones)
 {
@@ -165,6 +151,3 @@ Scale::Scale (Scale const &src)
 Scale::~Scale ()
 {
 }
-
-IMPLEMENT_SMOBS (Scale);
-IMPLEMENT_DEFAULT_EQUAL_P (Scale);

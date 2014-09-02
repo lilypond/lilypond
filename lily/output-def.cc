@@ -29,7 +29,6 @@
 #include "scm-hash.hh"
 #include "warn.hh"
 
-#include "ly-smobs.icc"
 
 #include "program-option.hh"
 
@@ -61,8 +60,6 @@ Output_def::~Output_def ()
 {
 }
 
-IMPLEMENT_SMOBS (Output_def);
-IMPLEMENT_DEFAULT_EQUAL_P (Output_def);
 
 SCM
 Output_def::mark_smob (SCM m)
@@ -259,5 +256,3 @@ line_dimensions_int (Output_def *def, int n)
     : def->get_dimension (ly_symbol2scm ("indent"));
   return Interval (ind, lw);
 }
-
-

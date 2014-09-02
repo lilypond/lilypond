@@ -23,8 +23,14 @@
 #include "listener.hh"
 #include "stream-event.hh"
 
-class Dispatcher
+class Dispatcher : public Smob<Dispatcher>
 {
+public:
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static SCM mark_smob (SCM);
+  static const char type_p_name_[];
+  virtual ~Dispatcher ();
+private:
   /* Hash table. Each event-class maps to a list of listeners. */
   SCM listeners_;
   /* alist of dispatchers that we listen to. Each entry is a
@@ -45,8 +51,6 @@ public:
   void remove_listener (Listener, SCM event_class);
   void register_as_listener (Dispatcher *dist);
   void unregister_as_listener (Dispatcher *dist);
-protected:
-  DECLARE_SMOBS (Dispatcher);
 };
 
 

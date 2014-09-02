@@ -27,10 +27,14 @@
 
 #include <set>
 
-class Grob
+class Grob : public Smob<Grob>
 {
+public:
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static SCM mark_smob (SCM);
+  static const char type_p_name_[];
+  virtual ~Grob ();
 private:
-  DECLARE_SMOBS (Grob);
   DECLARE_CLASSNAME (Grob);
 
   void init ();

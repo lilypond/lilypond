@@ -23,7 +23,6 @@
 #include "misc.hh"
 #include "lily-proto.hh"
 
-#include "ly-smobs.icc"
 
 int
 Duration::compare (Duration const &left, Duration const &right)
@@ -137,15 +136,9 @@ Duration::to_string () const
   return s;
 }
 
-IMPLEMENT_TYPE_P (Duration, "ly:duration?");
+const char Duration::type_p_name_[] = "ly:duration?";
 
-SCM
-Duration::mark_smob (SCM)
-{
-  return SCM_EOL;
-}
 
-IMPLEMENT_SIMPLE_SMOBS (Duration);
 int
 Duration::print_smob (SCM s, SCM port, scm_print_state *)
 {

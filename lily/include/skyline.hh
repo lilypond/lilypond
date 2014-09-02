@@ -49,8 +49,12 @@ struct Building
   Real shift_to_intersect (Real x, Real y) const;
 };
 
-class Skyline
+class Skyline : public Simple_smob<Skyline>
 {
+public:
+  static int print_smob (SCM, SCM, scm_print_state *);
+  static SCM mark_smob (SCM);
+  static const char type_p_name_[];
 private:
   list<Building> buildings_;
   Direction sky_;
@@ -62,7 +66,6 @@ private:
   Real internal_distance (Skyline const &, Real *touch_point) const;
   void normalize ();
 
-  DECLARE_SIMPLE_SMOBS (Skyline);
 
 public:
   Skyline ();
@@ -107,4 +110,3 @@ public:
 extern bool debug_skylines;
 
 #endif /* SKYLINE_HH */
-
