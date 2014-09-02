@@ -2599,3 +2599,63 @@ scaling, then does the equivalent of a
              (scaled-default (+ 119/925 (* mag 13/37)))
              (new-val (* scaled-default ratio-to-default)))
         (ly:context-pushpop-property context 'Beam 'beam-thickness new-val)))))
+
+;; tag management
+;;
+
+(define tag-groups (make-hash-table))
+(call-after-session (lambda () (hash-clear! tag-groups)))
+
+(define-public (define-tag-group tags)
+  "Define a tag-group consisting of the given @var{tags}, a@tie{}list
+of symbols.  Returns @code{#f} if successful, and an error message if
+there is a conflicting tag group definition."
+  (cond ((not (symbol-list? tags)) (format #f (_ "not a symbol list: ~a") tags))
+        ((any (lambda (tag) (hashq-ref tag-groups tag)) tags)
+         => (lambda (group) (and (not (lset= eq? group tags))
+                                 (format #f (_ "conflicting tag group ~a") group))))
+        (else
+         (for-each
+          (lambda (elt) (hashq-set! tag-groups elt tags))
+          tags)
+         #f)))
+
+(define-public (tag-group-get tag)
+  "Return the tag group (as a list of symbols) that the given
+@var{tag} symbol belongs to, @code{#f} if none."
+  (hashq-ref tag-groups tag))
+
+(define-public (tags-remove-predicate tags)
+  "Returns a predicate that returns @code{#f} for any music that is to
+be removed by @{\\removeWithTag} on the given symbol or list of
+symbols @var{tags}."
+  (if (symbol? tags)
+      (lambda (m)
+        (not (memq tags (ly:music-property m 'tags))))
+      (lambda (m)
+        (not (any (lambda (t) (memq t tags))
+                  (ly:music-property m 'tags))))))
+
+(define-public (tags-keep-predicate tags)
+  "Returns a predicate that returns @code{#f} for any music that is to
+be removed by @{\\keepWithTag} on the given symbol or list of symbols
+@var{tags}."
+  (if (symbol? tags)
+      (let ((group (tag-group-get tags)))
+        (lambda (m)
+          (let ((music-tags (ly:music-property m 'tags)))
+            (or
+             (null? music-tags) ; redundant but very frequent
+             ;; We know of only one tag to keep.  Either we find it in
+             ;; the music tags, or all music tags must be from a
+             ;; different group
+             (memq tags music-tags)
+             (not (any (lambda (t) (eq? (tag-group-get t) group)) music-tags))))))
+      (let ((groups (delete-duplicates (map tag-group-get tags) eq?)))
+        (lambda (m)
+          (let ((music-tags (ly:music-property m 'tags)))
+            (or
+             (null? music-tags) ; redundant but very frequent
+             (any (lambda (t) (memq t tags)) music-tags)
+             ;; if no tag matches, no tag group should match either
+             (not (any (lambda (t) (memq (tag-group-get t) groups)) music-tags))))))))

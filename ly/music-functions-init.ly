@@ -554,21 +554,18 @@ instrumentSwitch =
 
 
 keepWithTag =
-#(define-music-function (parser location tag music)
+#(define-music-function (parser location tags music)
    (symbol-list-or-symbol? ly:music?)
-   (_i "Include only elements of @var{music} that are either untagged
-or tagged with one of the tags in @var{tag}.  @var{tag} may be either
-a single symbol or a list of symbols.")
+   (_i "Include only elements of @var{music} that are tagged with one
+of the tags in @var{tags}.  @var{tags} may be either a single symbol
+or a list of symbols.
+
+Each tag may be declared as a member of at most one tag group (defined
+with @code{\\tagGroup}).  If none of a @var{music} element's tags
+share a tag group with one of the specified @var{tags}, the element is
+retained.")
    (music-filter
-    (if (symbol? tag)
-        (lambda (m)
-          (let ((music-tags (ly:music-property m 'tags)))
-            (or (null? music-tags)
-                (memq tag music-tags))))
-        (lambda (m)
-          (let ((music-tags (ly:music-property m 'tags)))
-            (or (null? music-tags)
-                (any (lambda (t) (memq t music-tags)) tag)))))
+    (tags-keep-predicate tags)
     music))
 
 key =
@@ -1261,19 +1258,13 @@ omitted, the first note in @var{music} is given in absolute pitch.")
 	       'element music))
 
 removeWithTag =
-#(define-music-function (parser location tag music)
+#(define-music-function (parser location tags music)
    (symbol-list-or-symbol? ly:music?)
    (_i "Remove elements of @var{music} that are tagged with one of the
-tags in @var{tag}.  @var{tag} may be either a single symbol or a list
+tags in @var{tags}.  @var{tags} may be either a single symbol or a list
 of symbols.")
    (music-filter
-    (if (symbol? tag)
-        (lambda (m)
-          (not (memq tag (ly:music-property m 'tags))))
-        (lambda (m)
-          (let ((music-tags (ly:music-property m 'tags)))
-            (or (null? music-tags)
-                (not (any (lambda (t) (memq t music-tags)) tag))))))
+    (tags-remove-predicate tags)
     music))
 
 resetRelativeOctave =
@@ -1469,17 +1460,24 @@ styledNoteHeads =
    (style-note-heads heads style music))
 
 tag =
-#(define-music-function (parser location tag music) (symbol-list-or-symbol? ly:music?)
-   (_i "Tag the following @var{music} with @var{tag} and return the
-result, by adding the single symbol or symbol list @var{tag} to the
+#(define-music-function (parser location tags music) (symbol-list-or-symbol? ly:music?)
+   (_i "Tag the following @var{music} with @var{tags} and return the
+result, by adding the single symbol or symbol list @var{tags} to the
 @code{tags} property of @var{music}.")
 
    (set!
     (ly:music-property music 'tags)
-    ((if (symbol? tag) cons append)
-     tag
+    ((if (symbol? tags) cons append)
+     tags
      (ly:music-property music 'tags)))
    music)
+
+tagGroup =
+#(define-void-function (parser location tags) (symbol-list?)
+   (_i "Define a tag group comprising the symbols in the symbol list
+@var{tags}.  Tag groups must not overlap.")
+   (let ((err (define-tag-group tags)))
+     (if err (ly:parser-error parser err location))))
 
 temporary =
 #(define-music-function (parser location music)
