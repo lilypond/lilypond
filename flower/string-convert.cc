@@ -85,8 +85,6 @@ String_convert::dec2int (const string &dec_string)
   if (!sscanf (dec_string.c_str (), "%ld", &l))
     assert (false);
 
-  assert (form_string ("%ld", l) == dec_string);
-
   return (int)l;
 }
 
