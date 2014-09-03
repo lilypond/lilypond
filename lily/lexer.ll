@@ -69,7 +69,6 @@ using namespace std;
 #include "pitch.hh"
 #include "source-file.hh"
 #include "std-string.hh"
-#include "string-convert.hh"
 #include "version.hh"
 #include "warn.hh"
 
@@ -1316,9 +1315,8 @@ scan_fraction (string frac)
 	string left = frac.substr (0, i);
 	string right = frac.substr (i + 1, (frac.length () - i + 1));
 
-	int n = String_convert::dec2int (left);
-	int d = String_convert::dec2int (right);
-	return scm_cons (scm_from_int (n), scm_from_int (d));
+	return scm_cons (scm_c_read_string (left.c_str ()),
+			 scm_c_read_string (right.c_str ()));
 }
 
 SCM
