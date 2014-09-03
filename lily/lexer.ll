@@ -1274,7 +1274,12 @@ is_valid_version (string s)
 {
   Lilypond_version current ( MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL );
   Lilypond_version ver (s);
-  if (int (ver) < oldest_version)
+  if (!ver)
+  {
+	  non_fatal_error (_f ("Invalid version string \"%s\"", s));
+	  return false;
+  }
+  if (ver < oldest_version)
 	{	
 		non_fatal_error (_f ("file too old: %s (oldest supported: %s)", ver.to_string (), oldest_version.to_string ()));
 		non_fatal_error (_ ("consider updating the input with the convert-ly script"));

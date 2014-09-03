@@ -21,6 +21,7 @@
 #define LILYPOND_VERSION_HH
 
 #include "std-string.hh"
+#include "compare.hh"
 
 struct Lilypond_version
 {
@@ -28,13 +29,16 @@ struct Lilypond_version
   Lilypond_version (const string &str);
 
   string to_string () const;
-  operator int () const;
+  operator bool () const;
+  static int compare (const Lilypond_version &, const Lilypond_version &);
 
   int major_;
   int minor_;
   int patch_;
   string extra_patch_string_;
 };
+
+INSTANTIATE_COMPARE (const Lilypond_version &, Lilypond_version::compare);
 
 extern Lilypond_version oldest_version;
 

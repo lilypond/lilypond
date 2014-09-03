@@ -32,38 +32,60 @@ Lilypond_version::Lilypond_version (int major, int minor, int patch)
 
 Lilypond_version::Lilypond_version (const string &str)
 {
-  major_ = 0;
+  major_ = -1;
   minor_ = 0;
   patch_ = 0;
 
   vector<string> version;
+  const char *digits = "0123456789";
   version = string_split (str, '.');
 
-  if (version.size () > 0 && isdigit (version[0][0]))
-    major_ = String_convert::dec2int (version[0]);
-  if (version.size () > 1 && isdigit (version[1][0]))
-    minor_ = String_convert::dec2int (version[1]);
-
-  patch_ = 0;
-  if (version.size () >= 3
-      && isdigit (version[2][0]))
-    patch_ = String_convert::dec2int (version[2]);
-
-  if (version.size () >= 4)
+  switch (version.size ()) {
+  case 4:
     extra_patch_string_ = version[3];
+    if (version[2].empty ())
+      return;
+  case 3:
+    if (version[2].find_first_not_of (digits) != string::npos
+        || version[1].empty ())
+      return;
+    patch_ = String_convert::dec2int (version[2]);
+  case 2:
+    if (version[1].find_first_not_of (digits) != string::npos
+        || version[1].empty () || version[0].empty ())
+      return;
+    minor_ = String_convert::dec2int (version[1]);
+    if (version[0].find_first_not_of (digits) != string::npos)
+      return;
+    major_ = String_convert::dec2int (version[0]);
+  }
 }
 
 string
 Lilypond_version::to_string () const
 {
+  if (major_ < 0)
+    return "invalid";
   return ::to_string (major_)
          + "." + ::to_string (minor_)
          + "." + ::to_string (patch_);
 }
 
-Lilypond_version::operator int () const
+Lilypond_version::operator bool () const
 {
-  // ugh
-  return 100000 * major_ + 1000 * minor_ + patch_;
+  return !(major_ < 0);
 }
 
+int
+Lilypond_version::compare (const Lilypond_version &a, const Lilypond_version &b)
+{
+  if (!a || !b)
+    return 0;
+  if (a.major_ != b.major_)
+    return a.major_ > b.major_ ? 1 : -1;
+  if (a.minor_ != b.minor_)
+    return a.minor_ > b.minor_ ? 1 : -1;
+  if (a.patch_ != b.patch_)
+    return a.patch_ > b.patch_ ? 1 : -1;
+  return 0;
+}
