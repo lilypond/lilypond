@@ -164,7 +164,7 @@ Note_column::first_head (Grob *me)
 Interval
 Note_column::calc_main_extent (Grob *me)
 {
-    Grob *main_head;
+    Grob *main_head = 0;
     if (get_stem (me))
         main_head = first_head (me);
     else
