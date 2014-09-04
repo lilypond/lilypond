@@ -1248,8 +1248,9 @@ words varies according to their relative lengths."
   (let* ((orig-stencils (interpret-markup-list layout props args))
          (stencils
            (map (lambda (stc)
-                  (if (ly:stencil-empty? stc)
-                      point-stencil
+                  (if (ly:stencil-empty? stc X)
+                      (ly:make-stencil (ly:stencil-expr stc)
+                                       '(0 . 0) (ly:stencil-extent stc Y))
                       stc))
                 orig-stencils))
          (text-widths
