@@ -135,7 +135,7 @@ get_voice_to_lyrics (Context *lyrics)
 }
 
 Grob *
-get_current_note_head (Context *voice, bool include_grace_notes)
+get_current_note_head (Context *voice)
 {
   Moment now = voice->now_mom ();
   for (SCM s = voice->get_property ("busyGrobs");
@@ -149,8 +149,22 @@ get_current_note_head (Context *voice, bool include_grace_notes)
           continue;
         }
 
-      if (((end_mom->main_part_ > now.main_part_)
-           || (include_grace_notes && end_mom->grace_part_ > now.grace_part_))
+      // It's a bit irritating that we just have the length and
+      // duration of the Grob.
+      Moment end_from_now =
+        get_event_length (Stream_event::unsmob (g->get_property ("cause")), now)
+        + now;
+      // We cannot actually include more than a single grace note
+      // using busyGrobs on ungraced lyrics since a grob ending on
+      // grace time will just have disappeared from busyGrobs by the
+      // time our ungraced lyrics appear.  At best we may catch a
+      // single grace note.
+      //
+      // However, a single grace note ending on a non-grace time is
+      // indistinguishable from a proper note ending on a non-grace
+      // time.  So we really have no way to obey includeGraceNotes
+      // here.  Not with this mechanism.
+      if ((*end_mom == end_from_now)
           && dynamic_cast<Item *> (g)
           && Note_head::has_interface (g))
         {
@@ -170,8 +184,7 @@ Lyric_engraver::stop_translation_timestep ()
 
       if (voice)
         {
-          bool include_grace_notes = to_boolean (get_property ("includeGraceNotes"));
-          Grob *head = get_current_note_head (voice, include_grace_notes);
+          Grob *head = get_current_note_head (voice);
 
           if (head)
             {
@@ -198,7 +211,6 @@ ADD_TRANSLATOR (Lyric_engraver,
 
                 /* read */
                 "ignoreMelismata "
-                "includeGraceNotes "
                 "lyricMelismaAlignment "
                 "searchForVoice",
 

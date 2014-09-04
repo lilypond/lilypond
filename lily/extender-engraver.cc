@@ -112,7 +112,7 @@ Extender_engraver::stop_translation_timestep ()
   if (extender_ || pending_extender_)
     {
       Context *voice = get_voice_to_lyrics (context ());
-      Grob *h = voice ? get_current_note_head (voice, to_boolean (get_property ("includeGraceNotes"))) : 0;
+      Grob *h = voice ? get_current_note_head (voice) : 0;
 
       if (h)
         {
@@ -189,8 +189,7 @@ ADD_TRANSLATOR (Extender_engraver,
                 "LyricExtender ",
 
                 /* read */
-                "extendersOverRests "
-                "includeGraceNotes ",
+                "extendersOverRests ",
 
                 /* write */
                 ""
