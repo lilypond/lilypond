@@ -153,6 +153,7 @@ Auto_beam_engraver::Auto_beam_engraver ()
   process_acknowledged_count_ = 0;
   stems_ = 0;
   shortest_mom_ = Moment (Rational (1, 4));
+  extend_mom_ = Moment (-1);
   finished_beam_ = 0;
   finished_grouping_ = 0;
   grouping_ = 0;
