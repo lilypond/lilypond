@@ -575,14 +575,32 @@ Stem::calc_positioning_done (SCM smob)
                 stem 100% whereas reversed heads only overlaps the
                 stem 50%
               */
-
               Real reverse_overlap = 0.5;
-              heads[i]->translate_axis ((ell - thick * reverse_overlap) * d,
-                                        X_AXIS);
+
+              /*
+                However, the first reverse head has to be shifted even
+                more than the full reverse overlap if it is the same
+                height as the first head or there will be a gap
+                because of the head slant (issue 346).
+              */
+
+              if (i == 1 && dy < 0.1)
+                reverse_overlap = 1.1;
 
               if (is_invisible (me))
-                heads[i]->translate_axis (-thick * (2 - reverse_overlap) * d,
-                                          X_AXIS);
+                {
+                  // Semibreves and longer are tucked in considerably
+                  // to be recognizable as chorded rather than
+                  // parallel voices.  During the course of issue 346
+                  // there was a discussion to change this for unisons
+                  // (dy < 0.1) to reduce overlap but without reaching
+                  // agreement and with Gould being rather on the
+                  // overlapping front.
+                  reverse_overlap = 2;
+                }
+
+              heads[i]->translate_axis ((ell - thick * reverse_overlap) * d,
+                                        X_AXIS);
 
               /* TODO:
 
