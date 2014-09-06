@@ -108,10 +108,13 @@ Rest_collision::calc_positioning_done (SCM smob)
   for (vsize i = 0; i < elts.size (); i++)
     {
       Grob *e = elts[i];
-      if (Grob::unsmob (e->get_object ("rest")))
-        rests.push_back (e);
-      else
-        notes.push_back (e);
+      if (Note_column::has_interface (e))
+        {
+          if (Grob::unsmob (e->get_object ("rest")))
+            rests.push_back (e);
+          else
+            notes.push_back (e);
+        }
     }
 
   /*
