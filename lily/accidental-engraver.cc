@@ -464,22 +464,20 @@ Accidental_engraver::acknowledge_rhythmic_head (Grob_info info)
   Stream_event *note = info.event_cause ();
   if (note
       && (note->in_event_class ("note-event")
-          || note->in_event_class ("trill-span-event")))
+          || note->in_event_class ("trill-span-event"))
+      // option to skip accidentals on string harmonics
+      && (to_boolean (get_property ("harmonicAccidentals"))
+          || info.grob ()->get_property ("style") != ly_symbol2scm ("harmonic"))
+      // ignore accidentals in non-printing voices like NullVoice
+      && !to_boolean (info.context ()->get_property ("nullAccidentals")))
     {
-      /*
-        string harmonics usually don't have accidentals.
-      */
-      if (info.grob ()->get_property ("style") != ly_symbol2scm ("harmonic")
-          || to_boolean (get_property ("harmonicAccidentals")))
-        {
-          Accidental_entry entry;
-          entry.head_ = info.grob ();
-          entry.origin_engraver_ = dynamic_cast<Engraver *> (info.origin_translator ());
-          entry.origin_ = entry.origin_engraver_->context ();
-          entry.melodic_ = note;
+      Accidental_entry entry;
+      entry.head_ = info.grob ();
+      entry.origin_engraver_ = dynamic_cast<Engraver *> (info.origin_translator ());
+      entry.origin_ = entry.origin_engraver_->context ();
+      entry.melodic_ = note;
 
-          accidentals_.push_back (entry);
-        }
+      accidentals_.push_back (entry);
     }
 }
 

@@ -487,7 +487,10 @@ ChordNames context.")
 defined strings to full list of strings and fret numbers.
 Parameters: The context, a list of note events, a list of
 tabstring events, and the fretboard grob if a fretboard is desired.")
-
+     (nullAccidentals ,boolean? "The @code{Accidental_engraver}
+generates no accidentals for notes in contexts were this is set.
+In addition to supressing the printed accidental, this option removes
+any effect the note would have had on accidentals in other voices.")
 
      (ottavation ,markup? "If set, the text for an ottava spanner.
 Changing this creates a new text spanner.")

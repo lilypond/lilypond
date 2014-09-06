@@ -99,6 +99,7 @@
   \defaultchild "Voice"
   \accepts "Voice"
   \accepts "CueVoice"
+  \accepts "NullVoice"
 
   \description "Handles clefs, bar lines, keys, accidentals.  It can contain
 @code{Voice} contexts."
@@ -785,9 +786,12 @@ context."
   \override NoteHead.X-extent = #(lambda (g)
     (ly:stencil-extent (ly:note-head::print g) X))
 
-  \omit Accidental
-  \omit AccidentalCautionary
-  \omit AccidentalSuggestion
+  % generate no accidentals
+  nullAccidentals = ##t
+
+  %% keep noteheads inside the staff
+  \consists "Pitch_squash_engraver"
+  squashedPosition = 0
 
   % the engravers that control the 'busy' flags for note-onsets and melismata
   \consists "Grob_pq_engraver"
