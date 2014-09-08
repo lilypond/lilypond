@@ -1222,7 +1222,11 @@ braced_music_list:
 
 music:	music_assign
 	| lyric_element_music
-	| pitch_or_music
+	| pitch_as_music
+	;
+
+pitch_as_music:
+	pitch_or_music
 	{
 	        $$ = make_music_from_simple (parser, @1, $1);
                 if (!Music::unsmob ($$))
@@ -1430,20 +1434,62 @@ new_lyrics:
 	}
 	;
 
-composite_music:
+/* basic_music is basically the same as composite_music but with
+ * context-prefixed music and lyricized music explicitly removed.  The
+ * reason is that in a sequence
+ *
+ *   \new Staff \new Voice { ... } \addlyrics { ... } \addlyrics { ... }
+ *
+ * we need to group both \addlyrics together (as they go with the same
+ * voice) but then combine them with \new Voice { ... }, meaning that
+ * combining \new Voice { ... } needs higher priority than
+ * { ... } \addlyrics, and *not* have \new Staff \new Voice { ... }
+ * combine before combining \new Voice { ... } \addlyrics: only one
+ * layer of context-prefixed music should assemble before \addlyrics
+ * is integrated.  Total mess, and we sort this mess out with explicit
+ * rules preferring a single context-prefix.
+ */
+
+basic_music:
 	music_function_call
-	| repeated_music		{ $$ = $1; }
-	| context_prefix music
+	| repeated_music
+	| music_bare
+	;
+
+contextable_music:
+	basic_music
+	| pitch_as_music
+	| event_chord
+	;
+
+contexted_basic_music:
+	context_prefix contextable_music new_lyrics
+	{
+		Input i;
+		i.set_location (@1, @2);
+		$$ = FINISH_MAKE_SYNTAX ($1, i, $2);
+		$$ = MAKE_SYNTAX ("add-lyrics", @$, $$, scm_reverse_x ($3, SCM_EOL));
+	} %prec COMPOSITE
+	| context_prefix contextable_music
+	{
+		$$ = FINISH_MAKE_SYNTAX ($1, @$, $2);
+	} %prec COMPOSITE
+	| context_prefix contexted_basic_music
 	{
 		$$ = FINISH_MAKE_SYNTAX ($1, @$, $2);
 	}
-	| composite_music new_lyrics {
+	;
+
+composite_music:
+	basic_music %prec COMPOSITE
+	| contexted_basic_music
+	| basic_music new_lyrics
+	{
 		$$ = MAKE_SYNTAX ("add-lyrics", @$, $1, scm_reverse_x ($2, SCM_EOL));
 	} %prec COMPOSITE
 	| LYRICSTO simple_string lyric_mode_music {
 		$$ = MAKE_SYNTAX ("lyric-combine", @$, $2, $3);
 	}
-	| music_bare
 	;
 
 music_bare:
