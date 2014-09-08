@@ -207,14 +207,21 @@ into a @code{MultiMeasureTextEvent}."
                 'context-type ctx
                 'origin location)))
 
-(define (get-first-context-id type mus)
-  "Find the name of a ContextSpeccedMusic with given type"
+(define (get-first-context-id! type mus)
+  "Find the name of a ContextSpeccedMusic with given type, possibly naming it"
   (let ((id (ly:music-property mus 'context-id)))
     (if (and (eq? (ly:music-property mus 'name) 'ContextSpeccedMusic)
-             (eq? (ly:music-property mus 'context-type) type)
-             (string? id)
-             (not (string-null? id)))
-        id
+             (eq? (ly:music-property mus 'context-type) type))
+        (if (and (string? id)
+                 (not (string-null? id)))
+            id
+            ;; We may reliably give a new context a unique name, but
+            ;; not an existing one
+            (if (ly:music-property mus 'create-new #f)
+                (let ((id (get-next-unique-voice-name)))
+                  (set! (ly:music-property mus 'context-id) id)
+                  id)
+                '()))
         '())))
 
 (define unique-counter -1)
@@ -240,7 +247,7 @@ into a @code{MultiMeasureTextEvent}."
   (lyric-combine-music voice music location))
 
 (define-ly-syntax (add-lyrics parser location music addlyrics-list)
-  (let* ((existing-voice-name (get-first-context-id 'Voice music))
+  (let* ((existing-voice-name (get-first-context-id! 'Voice music))
          (voice-name (if (string? existing-voice-name)
                          existing-voice-name
                          (get-next-unique-voice-name)))
