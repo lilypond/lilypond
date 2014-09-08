@@ -1454,6 +1454,9 @@ basic_music:
 	music_function_call
 	| repeated_music
 	| music_bare
+	| LYRICSTO simple_string lyric_mode_music {
+		$$ = MAKE_SYNTAX ("lyric-combine", @$, $2, $3);
+	}
 	;
 
 contextable_music:
@@ -1487,9 +1490,6 @@ composite_music:
 	{
 		$$ = MAKE_SYNTAX ("add-lyrics", @$, $1, scm_reverse_x ($2, SCM_EOL));
 	} %prec COMPOSITE
-	| LYRICSTO simple_string lyric_mode_music {
-		$$ = MAKE_SYNTAX ("lyric-combine", @$, $2, $3);
-	}
 	;
 
 music_bare:

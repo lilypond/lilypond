@@ -207,11 +207,10 @@ into a @code{MultiMeasureTextEvent}."
                 'context-type ctx
                 'origin location)))
 
-;; TODO: It seems that this function rarely returns anything useful.
 (define (get-first-context-id type mus)
   "Find the name of a ContextSpeccedMusic with given type"
   (let ((id (ly:music-property mus 'context-id)))
-    (if (and (eq? (ly:music-property mus 'type) 'ContextSpeccedMusic)
+    (if (and (eq? (ly:music-property mus 'name) 'ContextSpeccedMusic)
              (eq? (ly:music-property mus 'context-type) type)
              (string? id)
              (not (string-null? id)))
@@ -246,7 +245,7 @@ into a @code{MultiMeasureTextEvent}."
                          existing-voice-name
                          (get-next-unique-voice-name)))
          (voice (if (string? existing-voice-name)
-                    (music)
+                    music
                     (make-music 'ContextSpeccedMusic
                                 'element music
                                 'context-type 'Voice
