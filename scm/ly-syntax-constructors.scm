@@ -253,20 +253,11 @@ into a @code{MultiMeasureTextEvent}."
                          (get-next-unique-voice-name)))
          (voice (if (string? existing-voice-name)
                     music
-                    (if (eq? (ly:music-property music 'name) 'ContextSpeccedMusic)
-                        (begin
-                          (set! (ly:music-property music 'element)
-                                (make-music 'ContextSpeccedMusic
-                                            'element (ly:music-property music 'element)
-                                            'context-type 'Voice
-                                            'context-id voice-name
-                                            'origin (ly:music-property music 'origin)))
-                          music)
-                        (make-music 'ContextSpeccedMusic
-                                    'element music
-                                    'context-type 'Voice
-                                    'context-id voice-name
-                                    'origin (ly:music-property music 'origin)))))
+                    (make-music 'ContextSpeccedMusic
+                                'element music
+                                'context-type 'Voice
+                                'context-id voice-name
+                                'origin (ly:music-property music 'origin))))
          (lyricstos (map (lambda (mus)
                            (let* ((loc (ly:music-property mus 'origin))
                                   (lyr (lyric-combine-music voice-name mus loc)))
