@@ -207,11 +207,10 @@ into a @code{MultiMeasureTextEvent}."
                 'context-type ctx
                 'origin location)))
 
-(define (get-first-context-id! type mus)
-  "Find the name of a ContextSpeccedMusic with given type, possibly naming it"
+(define (get-first-context-id! mus)
+  "Find the name of a ContextSpeccedMusic, possibly naming it"
   (let ((id (ly:music-property mus 'context-id)))
-    (if (and (eq? (ly:music-property mus 'name) 'ContextSpeccedMusic)
-             (eq? (ly:music-property mus 'context-type) type))
+    (if (eq? (ly:music-property mus 'name) 'ContextSpeccedMusic)
         (if (and (string? id)
                  (not (string-null? id)))
             id
@@ -232,7 +231,7 @@ into a @code{MultiMeasureTextEvent}."
 (define-ly-syntax-simple (lyric-event text duration)
   (make-lyric-event text duration))
 
-(define (lyric-combine-music sync music loc)
+(define (lyric-combine-music sync sync-type music loc)
   ;; CompletizeExtenderEvent is added following the last lyric in MUSIC
   ;; to signal to the Extender_engraver that any pending extender should
   ;; be completed if the lyrics end before the associated voice.
@@ -241,13 +240,14 @@ into a @code{MultiMeasureTextEvent}."
   (make-music 'LyricCombineMusic
               'element music
               'associated-context sync
+              'associated-context-type sync-type
               'origin loc))
 
-(define-ly-syntax (lyric-combine parser location voice music)
-  (lyric-combine-music voice music location))
+(define-ly-syntax (lyric-combine parser location voice typ music)
+  (lyric-combine-music voice typ music location))
 
 (define-ly-syntax (add-lyrics parser location music addlyrics-list)
-  (let* ((existing-voice-name (get-first-context-id! 'Voice music))
+  (let* ((existing-voice-name (get-first-context-id! music))
          (voice-name (if (string? existing-voice-name)
                          existing-voice-name
                          (get-next-unique-voice-name)))
@@ -258,9 +258,11 @@ into a @code{MultiMeasureTextEvent}."
                                 'context-type 'Voice
                                 'context-id voice-name
                                 'origin (ly:music-property music 'origin))))
+         (voice-type (ly:music-property voice 'context-type))
          (lyricstos (map (lambda (mus)
                            (let* ((loc (ly:music-property mus 'origin))
-                                  (lyr (lyric-combine-music voice-name mus loc)))
+                                  (lyr (lyric-combine-music
+                                        voice-name voice-type mus loc)))
                              (make-music 'ContextSpeccedMusic
                                          'create-new #t
                                          'context-type 'Lyrics

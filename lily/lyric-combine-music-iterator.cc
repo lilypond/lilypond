@@ -112,14 +112,14 @@ Lyric_combine_music_iterator::set_music_context (Context *to)
 {
   if (music_context_)
     {
-      music_context_->event_source ()->
+      music_context_->events_below ()->
       remove_listener (GET_LISTENER (set_busy), ly_symbol2scm ("rhythmic-event"));
     }
 
   music_context_ = to;
   if (to)
     {
-      to->event_source ()->add_listener (GET_LISTENER (set_busy),
+      to->events_below ()->add_listener (GET_LISTENER (set_busy),
                                          ly_symbol2scm ("rhythmic-event"));
     }
 }
@@ -258,17 +258,14 @@ Lyric_combine_music_iterator::find_voice ()
                 ? lyrics_context_->get_property ("associatedVoice")
                 : SCM_EOL;
   SCM voice_type = lyricsto_voice_type_;
-  SCM running_type = lyrics_context_
-    ? lyrics_context_->get_property ("associatedVoiceType")
-    : SCM_EOL;
-  if (scm_is_string (running))
+  if (scm_is_string (running)) {
     voice_name = running;
-  if (scm_is_symbol (running_type))
-    voice_type = running_type;
+    voice_type = lyrics_context_->get_property ("associatedVoiceType");
+  }
 
   if (scm_is_string (voice_name)
       && (!music_context_ || ly_scm2string (voice_name) != music_context_->id_string ())
-      && scm_is_symbol (running_type))
+      && scm_is_symbol (voice_type))
     {
       Context *t = get_outlet ();
       while (t && t->get_parent_context ())
@@ -341,15 +338,16 @@ Lyric_combine_music_iterator::do_quit ()
   if (!music_found_)
     {
       SCM voice_name = get_music ()->get_property ("associated-context");
-
-      string name;
+      SCM voice_type = get_music ()->get_property ("associated-context-type");
+      string name, type;
       if (scm_is_string (voice_name))
         name = ly_scm2string (voice_name);
+      type = robust_symbol2string (voice_type, "Voice");
       /* Don't print a warning for empty lyrics (in which case we don't try
          to find the proper voice, so it will not be found) */
       if (lyrics_found_)
-        get_music ()->origin ()->warning (_f ("cannot find Voice `%s'",
-                                              name.c_str ()) + "\n");
+        get_music ()->origin ()->warning (_f ("cannot find %s `%s'",
+                                              type.c_str (), name.c_str ()) + "\n");
     }
 
   if (lyric_iter_)

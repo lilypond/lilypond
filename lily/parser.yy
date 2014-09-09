@@ -1455,7 +1455,11 @@ basic_music:
 	| repeated_music
 	| music_bare
 	| LYRICSTO simple_string lyric_mode_music {
-		$$ = MAKE_SYNTAX ("lyric-combine", @$, $2, $3);
+		$$ = MAKE_SYNTAX ("lyric-combine", @$, $2, SCM_EOL, $3);
+	}
+	| LYRICSTO symbol '=' simple_string lyric_mode_music
+	{
+		$$ = MAKE_SYNTAX ("lyric_combine", @$, $3, $2, $4);
 	}
 	;
 
