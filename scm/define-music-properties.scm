@@ -39,7 +39,9 @@ lettering should be incremented.")
 TODO: Consider making type into symbol.")
      (articulations ,ly:music-list?
                     "Articulation events specifically for this note.")
-     (associated-context ,string? "Name of the Voice context associated with
+     (associated-context ,string? "Name of the context associated with
+this @code{\\lyricsto} section.")
+     (associated-context-type ,symbol? "Type of the context associated with
 this @code{\\lyricsto} section.")
      (augmented ,boolean? "This figure is for an augmented figured
 bass (with @code{+} sign).")

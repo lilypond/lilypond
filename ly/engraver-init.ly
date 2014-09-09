@@ -592,6 +592,7 @@ automatically when an output definition (a @code{\\score} or
 
   drumStyleTable = #drums-style
 
+  associatedVoiceType = #'Voice
   melismaBusyProperties = #default-melisma-properties
   tieWaitForNote = ##f
   clefGlyph = #"clefs.G"
