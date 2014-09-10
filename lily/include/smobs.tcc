@@ -30,6 +30,13 @@
 
 template <class Super>
 SCM
+Smob_base<Super>::mark_trampoline (SCM arg)
+{
+  return (Super::unsmob (arg))->mark_smob ();
+}
+
+template <class Super>
+SCM
 Smob_base<Super>::register_ptr (Super *p)
 {
   // Don't use SCM_RETURN_NEWSMOB since that would require us to
@@ -40,6 +47,14 @@ Smob_base<Super>::register_ptr (Super *p)
   SCM_NEWSMOB (s, smob_tag (), p);
   scm_gc_register_collectable_memory (p, sizeof (*p), smob_name_.c_str ());
   return s;
+}
+
+// Default, should not actually get called
+template <class Super>
+SCM
+Smob_base<Super>::mark_smob ()
+{
+  return SCM_UNSPECIFIED;
 }
 
 template <class Super>
@@ -90,8 +105,8 @@ void Smob_base<Super>::init ()
 
   if (Super::free_smob != 0)
     scm_set_smob_free (smob_tag_, Super::free_smob);
-  if (Super::mark_smob != 0)
-    scm_set_smob_mark (smob_tag_, Super::mark_smob);
+  if (&Super::mark_smob != &Smob_base<Super>::mark_smob)
+    scm_set_smob_mark (smob_tag_, Super::mark_trampoline);
   if (Super::print_smob != 0)
     scm_set_smob_print (smob_tag_, Super::print_smob);
   if (Super::equal_p != 0)

@@ -62,16 +62,14 @@ Score::~Score ()
 const char Score::type_p_name_[] = "ly:score?";
 
 SCM
-Score::mark_smob (SCM s)
+Score::mark_smob ()
 {
-  Score *sc = (Score *) SCM_CELL_WORD_1 (s);
+  scm_gc_mark (header_);
+  for (vsize i = defs_.size (); i--;)
+    scm_gc_mark (defs_[i]->self_scm ());
 
-  scm_gc_mark (sc->header_);
-  for (vsize i = sc->defs_.size (); i--;)
-    scm_gc_mark (sc->defs_[i]->self_scm ());
-
-  scm_gc_mark (sc->input_location_);
-  return sc->music_;
+  scm_gc_mark (input_location_);
+  return music_;
 }
 
 int

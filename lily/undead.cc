@@ -23,7 +23,7 @@ class Undead : public Simple_smob<Undead>
 {
 public:
   static int print_smob (SCM, SCM, scm_print_state *);
-  static SCM mark_smob (SCM);
+  SCM mark_smob ();
   static const char type_p_name_[];
 private:
   SCM object_;
@@ -33,11 +33,11 @@ public:
 };
 
 SCM
-Undead::mark_smob (SCM s)
+Undead::mark_smob ()
 {
   bool saved = parsed_objects_should_be_dead;
   parsed_objects_should_be_dead = false;
-  scm_gc_mark (Undead::unsmob (s)->object ());
+  scm_gc_mark (object ());
   parsed_objects_should_be_dead = saved;
   return SCM_UNDEFINED;
 }

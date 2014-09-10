@@ -179,7 +179,9 @@ private:
   // #<Context_mod 0x7352414> would depend on memory layout, thus
   // being unsuitable for regtest comparisons unless filtered.
 
-  static const int mark_smob = 0;
+  SCM mark_smob (void); // Should not be inline since we do an address
+                        // comparison
+  static SCM mark_trampoline (SCM); // Used for calling mark_smob
   static const int equal_p = 0;
   static const int smob_proc = 0;
   static const int smob_proc_signature_ = 0;

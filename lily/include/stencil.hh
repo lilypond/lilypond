@@ -58,7 +58,7 @@ using namespace std;
 class Stencil : public Simple_smob<Stencil>
 {
 public:
-  static SCM mark_smob (SCM);
+  SCM mark_smob ();
   static int print_smob (SCM, SCM, scm_print_state *);
   static const char type_p_name_[];
 private:

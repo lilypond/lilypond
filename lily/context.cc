@@ -690,28 +690,26 @@ Context::print_smob (SCM s, SCM port, scm_print_state *)
 }
 
 SCM
-Context::mark_smob (SCM sm)
+Context::mark_smob ()
 {
-  Context *me = (Context *) SCM_CELL_WORD_1 (sm);
+  scm_gc_mark (context_list_);
+  scm_gc_mark (aliases_);
+  scm_gc_mark (definition_);
+  scm_gc_mark (definition_mods_);
+  scm_gc_mark (properties_scm_);
+  scm_gc_mark (accepts_list_);
+  scm_gc_mark (default_child_);
 
-  scm_gc_mark (me->context_list_);
-  scm_gc_mark (me->aliases_);
-  scm_gc_mark (me->definition_);
-  scm_gc_mark (me->definition_mods_);
-  scm_gc_mark (me->properties_scm_);
-  scm_gc_mark (me->accepts_list_);
-  scm_gc_mark (me->default_child_);
+  if (implementation_)
+    scm_gc_mark (implementation_->self_scm ());
 
-  if (me->implementation_)
-    scm_gc_mark (me->implementation_->self_scm ());
+  if (event_source_)
+    scm_gc_mark (event_source_->self_scm ());
 
-  if (me->event_source_)
-    scm_gc_mark (me->event_source_->self_scm ());
+  if (events_below_)
+    scm_gc_mark (events_below_->self_scm ());
 
-  if (me->events_below_)
-    scm_gc_mark (me->events_below_->self_scm ());
-
-  return me->properties_scm_;
+  return properties_scm_;
 }
 
 const char Context::type_p_name_[] = "ly:context?";

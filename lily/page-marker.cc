@@ -42,12 +42,11 @@ Page_marker::~Page_marker ()
 const char Page_marker::type_p_name_[] = "ly:page-marker?";
 
 SCM
-Page_marker::mark_smob (SCM smob)
+Page_marker::mark_smob ()
 {
-  Page_marker *pm = (Page_marker *) SCM_CELL_WORD_1 (smob);
-  scm_gc_mark (pm->symbol_);
-  scm_gc_mark (pm->permission_);
-  scm_gc_mark (pm->label_);
+  scm_gc_mark (symbol_);
+  scm_gc_mark (permission_);
+  scm_gc_mark (label_);
   return SCM_EOL;
 }
 

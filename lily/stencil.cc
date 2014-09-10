@@ -47,10 +47,9 @@ Stencil::print_smob (SCM, SCM port, scm_print_state *)
 }
 
 SCM
-Stencil::mark_smob (SCM smob)
+Stencil::mark_smob ()
 {
-  Stencil *s = (Stencil *) SCM_CELL_WORD_1 (smob);
-  return s->expr_;
+  return expr_;
 }
 
 const char Stencil::type_p_name_[] = "ly:stencil?";

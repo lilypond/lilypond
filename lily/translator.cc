@@ -199,10 +199,9 @@ Translator::static_translator_description (const char *grobs,
   SMOBS
 */
 SCM
-Translator::mark_smob (SCM sm)
+Translator::mark_smob ()
 {
-  Translator *me = (Translator *) SCM_CELL_WORD_1 (sm);
-  me->derived_mark ();
+  derived_mark ();
   return SCM_EOL;
 }
 

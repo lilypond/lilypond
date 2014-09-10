@@ -52,10 +52,8 @@ Grob_array::array () const
 }
 
 SCM
-Grob_array::mark_smob (SCM s)
+Grob_array::mark_smob ()
 {
-  (void) s;
-
 #if 0  /* see System::derived_mark () const */
   Grob_array *ga = Grob_array::unsmob (s);
   for (vsize i = 0; i < ga->grobs_.size (); i++)

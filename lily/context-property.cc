@@ -67,7 +67,7 @@ class Grob_properties : public Simple_smob<Grob_properties>
 {
 public:
   static int print_smob (SCM, SCM, scm_print_state *);
-  static SCM mark_smob (SCM);
+  SCM mark_smob ();
   static const char type_p_name_[];
 private:
   friend class Grob_property_info;
@@ -98,13 +98,12 @@ private:
 const char Grob_properties::type_p_name_[] = "ly:grob-properties?";
 
 SCM
-Grob_properties::mark_smob (SCM smob)
+Grob_properties::mark_smob ()
 {
-  Grob_properties *gp = (Grob_properties *) SCM_SMOB_DATA (smob);
-  scm_gc_mark (gp->alist_);
-  scm_gc_mark (gp->based_on_);
-  scm_gc_mark (gp->cooked_);
-  return gp->cooked_from_;
+  scm_gc_mark (alist_);
+  scm_gc_mark (based_on_);
+  scm_gc_mark (cooked_);
+  return cooked_from_;
 }
 
 int

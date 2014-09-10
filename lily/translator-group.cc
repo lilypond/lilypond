@@ -358,11 +358,9 @@ Translator_group::print_smob (SCM s, SCM port, scm_print_state *)
 }
 
 SCM
-Translator_group::mark_smob (SCM smob)
+Translator_group::mark_smob ()
 {
-  Translator_group *me = (Translator_group *)SCM_CELL_WORD_1 (smob);
-
-  me->derived_mark ();
-  scm_gc_mark (me->protected_events_);
-  return me->simple_trans_list_;
+  derived_mark ();
+  scm_gc_mark (protected_events_);
+  return simple_trans_list_;
 }

@@ -195,11 +195,9 @@ Music_iterator::get_music () const
 const char Music_iterator::type_p_name_[] = "ly:iterator?";
 
 SCM
-Music_iterator::mark_smob (SCM smob)
+Music_iterator::mark_smob ()
 {
-  Music_iterator *mus = (Music_iterator *)SCM_CELL_WORD_1 (smob);
-
-  mus->derived_mark ();
+  derived_mark ();
   /*
     Careful with GC, although we intend the following as pointers
     only, we _must_ mark them.
@@ -207,10 +205,10 @@ Music_iterator::mark_smob (SCM smob)
   /* Use handle_ directly as get_outlet is a virtual function and we
      need to protect the context until Music_iterator::quit is being
      run. */
-  if (mus->handle_.get_context ())
-    scm_gc_mark (mus->handle_.get_context ()->self_scm ());
-  if (mus->music_)
-    scm_gc_mark (mus->music_->self_scm ());
+  if (handle_.get_context ())
+    scm_gc_mark (handle_.get_context ()->self_scm ());
+  if (music_)
+    scm_gc_mark (music_->self_scm ());
 
   return SCM_EOL;
 }

@@ -34,8 +34,8 @@ Music_function::print_smob (SCM b, SCM port, scm_print_state *)
 }
 
 SCM
-Music_function::mark_smob (SCM s)
+Music_function::mark_smob ()
 {
-  ASSERT_LIVE_IS_ALLOWED (s);
-  return Smob2<Music_function>::mark_smob (s);
+  ASSERT_LIVE_IS_ALLOWED (self_scm ());
+  return Smob2<Music_function>::mark_smob ();
 }

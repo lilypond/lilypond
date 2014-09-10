@@ -219,11 +219,11 @@ Pitch::down_to (int notename)
 }
 
 const char Pitch::type_p_name_[] = "ly:pitch?";
+
 SCM
-Pitch::mark_smob (SCM x)
+Pitch::mark_smob ()
 {
-  Pitch *p = (Pitch *) SCM_CELL_WORD_1 (x);
-  return p->scale_->self_scm ();
+  return scale_->self_scm ();
 }
 
 int

@@ -94,11 +94,10 @@ Font_metric::derived_mark () const
 }
 
 SCM
-Font_metric::mark_smob (SCM s)
+Font_metric::mark_smob ()
 {
-  Font_metric *m = (Font_metric *) SCM_CELL_WORD_1 (s);
-  m->derived_mark ();
-  return m->description_;
+  derived_mark ();
+  return description_;
 }
 
 int

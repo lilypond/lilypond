@@ -50,7 +50,7 @@ class Output_def : public Smob<Output_def>
 {
 public:
   static int print_smob (SCM, SCM, scm_print_state *);
-  static SCM mark_smob (SCM);
+  SCM mark_smob ();
   virtual ~Output_def ();
   VIRTUAL_COPY_CONSTRUCTOR (Output_def, Output_def);
 

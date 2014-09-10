@@ -50,7 +50,7 @@ struct Translator_method_binding
 class Translator_group : public Smob<Translator_group>
 {
 public:
-  static SCM mark_smob (SCM);
+  SCM mark_smob ();
   static int print_smob (SCM, SCM, scm_print_state *);
   static const char type_p_name_[];
   virtual ~Translator_group ();

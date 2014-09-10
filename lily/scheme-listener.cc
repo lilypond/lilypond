@@ -35,10 +35,9 @@ Scheme_listener::Scheme_listener (SCM c)
 }
 
 SCM
-Scheme_listener::mark_smob (SCM obj)
+Scheme_listener::mark_smob ()
 {
-  Scheme_listener *me = (Scheme_listener *) SCM_CELL_WORD_1 (obj);
-  return me->callback_;
+  return callback_;
 }
 
 int

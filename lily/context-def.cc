@@ -98,22 +98,20 @@ Context_def::print_smob (SCM smob, SCM port, scm_print_state *)
 }
 
 SCM
-Context_def::mark_smob (SCM smob)
+Context_def::mark_smob ()
 {
-  ASSERT_LIVE_IS_ALLOWED (smob);
+  ASSERT_LIVE_IS_ALLOWED (self_scm ());
 
-  Context_def *me = (Context_def *) SCM_CELL_WORD_1 (smob);
+  scm_gc_mark (description_);
+  scm_gc_mark (context_aliases_);
+  scm_gc_mark (accept_mods_);
+  scm_gc_mark (translator_mods_);
+  scm_gc_mark (property_ops_);
+  scm_gc_mark (translator_group_type_);
+  scm_gc_mark (default_child_);
+  scm_gc_mark (input_location_);
 
-  scm_gc_mark (me->description_);
-  scm_gc_mark (me->context_aliases_);
-  scm_gc_mark (me->accept_mods_);
-  scm_gc_mark (me->translator_mods_);
-  scm_gc_mark (me->property_ops_);
-  scm_gc_mark (me->translator_group_type_);
-  scm_gc_mark (me->default_child_);
-  scm_gc_mark (me->input_location_);
-
-  return me->context_name_;
+  return context_name_;
 }
 
 void

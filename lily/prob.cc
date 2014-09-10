@@ -113,15 +113,14 @@ Prob::derived_mark () const
 }
 
 SCM
-Prob::mark_smob (SCM smob)
+Prob::mark_smob ()
 {
-  ASSERT_LIVE_IS_ALLOWED (smob);
+  ASSERT_LIVE_IS_ALLOWED (self_scm ());
 
-  Prob *system = (Prob *) SCM_CELL_WORD_1 (smob);
-  scm_gc_mark (system->mutable_property_alist_);
-  system->derived_mark ();
+  scm_gc_mark (mutable_property_alist_);
+  derived_mark ();
 
-  return system->immutable_property_alist_;
+  return immutable_property_alist_;
 }
 
 int

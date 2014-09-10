@@ -41,12 +41,11 @@ Dispatcher::Dispatcher ()
 }
 
 SCM
-Dispatcher::mark_smob (SCM sm)
+Dispatcher::mark_smob ()
 {
-  Dispatcher *me = (Dispatcher *) SCM_CELL_WORD_1 (sm);
-  scm_gc_mark (me->dispatchers_);
-  scm_gc_mark (me->listen_classes_);
-  return me->listeners_;
+  scm_gc_mark (dispatchers_);
+  scm_gc_mark (listen_classes_);
+  return listeners_;
 }
 
 int

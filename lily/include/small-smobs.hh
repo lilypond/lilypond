@@ -33,7 +33,7 @@ public:
     SCM_RETURN_NEWSMOB (Smob_base<Super>::smob_tag (), SCM_UNPACK (arg1));
   }
   static const int free_smob = 0;
-  static SCM mark_smob (SCM s) { return SCM_SMOB_OBJECT (s); };
+  SCM mark_smob () { return scm1 (); };
   static Super *unchecked_unsmob (SCM s) {
     return reinterpret_cast<Super *> (SCM_UNPACK (s));
   }
@@ -54,10 +54,10 @@ public:
                          SCM_UNPACK (arg2));
   }
   static const int free_smob = 0;
-  static SCM mark_smob (SCM s)
+  SCM mark_smob ()
   {
-    scm_gc_mark (SCM_SMOB_OBJECT_2 (s));
-    return SCM_SMOB_OBJECT (s);
+    scm_gc_mark (scm2 ());
+    return scm1 ();
   }
   static Super *unchecked_unsmob (SCM s) {
     return reinterpret_cast<Super *> (SCM_UNPACK (s));
@@ -85,9 +85,9 @@ public:
   static const int free_smob = 0;
   static SCM mark_smob (SCM s)
   {
-    scm_gc_mark (SCM_SMOB_OBJECT_3 (s));
-    scm_gc_mark (SCM_SMOB_OBJECT_2 (s));
-    return SCM_SMOB_OBJECT (s);
+    scm_gc_mark (scm3 ());
+    scm_gc_mark (scm2 ());
+    return scm1 ();
   }
   static Super *unchecked_unsmob (SCM s) {
     return reinterpret_cast<Super *> (SCM_UNPACK (s));

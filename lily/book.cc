@@ -106,17 +106,15 @@ Book::~Book ()
 
 
 SCM
-Book::mark_smob (SCM s)
+Book::mark_smob ()
 {
-  Book *book = (Book *) SCM_CELL_WORD_1 (s);
+  if (paper_)
+    scm_gc_mark (paper_->self_scm ());
+  scm_gc_mark (scores_);
+  scm_gc_mark (bookparts_);
+  scm_gc_mark (input_location_);
 
-  if (book->paper_)
-    scm_gc_mark (book->paper_->self_scm ());
-  scm_gc_mark (book->scores_);
-  scm_gc_mark (book->bookparts_);
-  scm_gc_mark (book->input_location_);
-
-  return book->header_;
+  return header_;
 }
 
 int

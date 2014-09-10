@@ -62,16 +62,14 @@ Output_def::~Output_def ()
 
 
 SCM
-Output_def::mark_smob (SCM m)
+Output_def::mark_smob ()
 {
-  Output_def *mo = (Output_def*) SCM_CELL_WORD_1 (m);
-
   /* FIXME: why is this necessary?
      all paper_ should be protected by themselves. */
-  if (mo->parent_)
-    scm_gc_mark (mo->parent_->self_scm ());
+  if (parent_)
+    scm_gc_mark (parent_->self_scm ());
 
-  return mo->scope_;
+  return scope_;
 }
 
 void

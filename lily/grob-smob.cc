@@ -26,12 +26,11 @@
 const char Grob::type_p_name_[] = "ly:grob?";
 
 SCM
-Grob::mark_smob (SCM ses)
+Grob::mark_smob ()
 {
-  ASSERT_LIVE_IS_ALLOWED (ses);
+  ASSERT_LIVE_IS_ALLOWED (self_scm ());
 
-  Grob *s = (Grob *) SCM_CELL_WORD_1 (ses);
-  scm_gc_mark (s->immutable_property_alist_);
+  scm_gc_mark (immutable_property_alist_);
 
   /* Do not mark the parents.  The pointers in the mutable
      property list form two tree like structures (one for X
@@ -40,14 +39,14 @@ Grob::mark_smob (SCM ses)
      between X and Y in an erratic manner, leading to much more
      recursion depth (and core dumps if we link to pthreads).  */
 
-  if (s->original ())
-    scm_gc_mark (s->original ()->self_scm ());
+  if (original ())
+    scm_gc_mark (original ()->self_scm ());
 
-  s->derived_mark ();
-  scm_gc_mark (s->object_alist_);
-  scm_gc_mark (s->interfaces_);
+  derived_mark ();
+  scm_gc_mark (object_alist_);
+  scm_gc_mark (interfaces_);
 
-  return s->mutable_property_alist_;
+  return mutable_property_alist_;
 }
 
 int

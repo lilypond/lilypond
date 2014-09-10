@@ -75,7 +75,7 @@ class Listener : public Simple_smob<Listener>
 public:
   static SCM equal_p (SCM, SCM);
   static int print_smob (SCM, SCM, scm_print_state *);
-  static SCM mark_smob (SCM);
+  SCM mark_smob ();
   static const char type_p_name_[];
 private:
   void *target_;

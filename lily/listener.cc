@@ -44,11 +44,10 @@ void Listener::listen (SCM ev) const
 }
 
 SCM
-Listener::mark_smob (SCM sm)
+Listener::mark_smob ()
 {
-  Listener *me = (Listener *) SCM_CELL_WORD_1 (sm);
-  if (me->type_)
-    (me->type_->mark_callback) (me->target_);
+  if (type_)
+    (type_->mark_callback) (target_);
   return SCM_EOL;
 }
 

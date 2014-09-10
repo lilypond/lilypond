@@ -71,10 +71,9 @@ Scheme_hash_table::~Scheme_hash_table ()
 }
 
 SCM
-Scheme_hash_table::mark_smob (SCM s)
+Scheme_hash_table::mark_smob ()
 {
-  Scheme_hash_table *me = (Scheme_hash_table *) SCM_CELL_WORD_1 (s);
-  scm_gc_mark (me->hash_tab_);
+  scm_gc_mark (hash_tab_);
   return SCM_EOL;
 }
 

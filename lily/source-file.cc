@@ -362,11 +362,9 @@ Source_file::get_port () const
 const char Source_file::type_p_name_[] = "ly:source-file?";
 
 SCM
-Source_file::mark_smob (SCM smob)
+Source_file::mark_smob ()
 {
-  Source_file *sc = (Source_file *) SCM_CELL_WORD_1 (smob);
-
-  return sc->str_port_;
+  return str_port_;
 }
 
 int

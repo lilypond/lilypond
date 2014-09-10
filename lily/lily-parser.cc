@@ -76,11 +76,10 @@ Lily_parser::~Lily_parser ()
 }
 
 SCM
-Lily_parser::mark_smob (SCM s)
+Lily_parser::mark_smob ()
 {
-  Lily_parser *parser = (Lily_parser *) SCM_CELL_WORD_1 (s);
-  scm_gc_mark (parser->closures_);
-  return (parser->lexer_) ? parser->lexer_->self_scm () : SCM_EOL;
+  scm_gc_mark (closures_);
+  return (lexer_) ? lexer_->self_scm () : SCM_EOL;
 }
 
 int
