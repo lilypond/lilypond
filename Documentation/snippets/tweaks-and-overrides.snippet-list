@@ -23,6 +23,7 @@ controlling-spanner-visibility-after-a-line-break.ly
 controlling-the-vertical-ordering-of-scripts.ly
 controlling-tuplet-bracket-visibility.ly
 creating-a-delayed-turn.ly
+creating-custom-key-signatures.ly
 creating-double-digit-fingerings.ly
 creating-simultaneous-rehearsal-marks.ly
 creating-text-spanners.ly
@@ -51,12 +52,12 @@ how-to-change-fret-diagram-position.ly
 how-to-print-two-rehearsal-marks-above-and-below-the-same-barline-method-1.ly
 how-to-print-two-rehearsal-marks-above-and-below-the-same-barline-method-2.ly
 inserting-a-caesura.ly
-keep-change-clefs-full-sized.ly
 line-arrows.ly
 making-an-object-invisible-with-the-transparent-property.ly
 making-glissandi-breakable.ly
 manually-controlling-beam-positions.ly
 mensurstriche-layout-bar-lines-between-the-staves.ly
+modifying-the-ottava-spanner-slope.ly
 moving-dotted-notes-in-polyphony.ly
 moving-slur-positions-vertically.ly
 nesting-staves.ly

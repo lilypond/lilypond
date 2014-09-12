@@ -8,6 +8,7 @@ changing-midi-output-to-one-channel-per-voice.ly
 changing-time-signatures-inside-a-polymetric-section-using--scaledurations.ly
 chant-or-psalms-notation.ly
 creating-blank-staves.ly
+creating-custom-key-signatures.ly
 cross-staff-stems.ly
 defining-an-engraver-in-scheme--ambitus-engraver.ly
 displaying-a-whole-grandstaff-system-if-only-one-of-its-staves-is-alive.ly

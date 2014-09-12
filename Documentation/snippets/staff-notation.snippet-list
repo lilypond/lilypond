@@ -9,6 +9,7 @@ centered-measure-numbers.ly
 changing-the-number-of-lines-in-a-staff.ly
 changing-the-staff-size.ly
 creating-blank-staves.ly
+creating-custom-key-signatures.ly
 creating-double-digit-fingerings.ly
 cross-staff-stems.ly
 display-bracket-with-only-one-staff-in-a-system.ly
@@ -25,6 +26,7 @@ making-glissandi-breakable.ly
 making-some-staff-lines-thicker-than-the-others.ly
 measure-counter.ly
 mensurstriche-layout-bar-lines-between-the-staves.ly
+modifying-the-ottava-spanner-slope.ly
 nesting-staves.ly
 non-traditional-key-signatures.ly
 numbering-groups-of-measures.ly
