@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 324ff94afc62c7011b7377f24392f95391ed3b84
+    Translation of GIT committish: b58a17a6b0b6f624cee7858a74092265e0791fe2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2669,51 +2669,42 @@ c c c
 @end lilypond
 
 Dans le cas où les changements de personnage se multiplient, il peut
-s'avérer pratique de détourner l'utilisation de la fonction
-@code{\instrumentSwitch} pour gérer les différentes interventions de
-l'un ou de l'autre ; vous devrez auparavant avoir établi la
-définition d'un « instrument » pour chacun des rôles en question :
+s'avérer pratique d'affecter à des variables la définition de
+chacun des rôles afin de simplifier la gestion des différentes
+interventions de l'un ou de l'autre.
 
 @lilypond[quote,verbatim]
-\addInstrumentDefinition #"kaspar"
-  #`((instrumentTransposition . ,(ly:make-pitch 0 0 0))
-     (shortInstrumentName . "Kas.")
-     (clefGlyph . "clefs.G")
-     (clefTransposition . -7)
-     (middleCPosition . 1)
-     (clefPosition . -2)
-     (instrumentCueName . ,(markup #:fontsize 1 #:smallCaps "Kaspar"))
-     (midiInstrument . "voice oohs"))
+kaspar = {
+  \clef "G_8"
+  \set Staff.shortVocalName = "Kas."
+  \set Staff.midiInstrument = "voice oohs"
+  <>^\markup \smallCaps "Kaspar"
+}
 
-\addInstrumentDefinition #"melchior"
-  #`((instrumentTransposition . ,(ly:make-pitch 0 0 0))
-     (shortInstrumentName . "Mel.")
-     (clefGlyph . "clefs.F")
-     (clefTransposition . 0)
-     (middleCPosition . 6)
-     (clefPosition . 2)
-     (instrumentCueName . ,(markup #:fontsize 1 #:smallCaps "Melchior"))
-     (midiInstrument . "choir aahs"))
+melchior = {
+  \clef "bass"
+  \set Staff.shortVocalName = "Mel."
+  \set Staff.midiInstrument = "choir aahs"
+  <>^\markup \smallCaps "Melchior"
+}
 
 \relative c' {
-  \instrumentSwitch "kaspar"
+  \kaspar
   c4 c c c
-  \instrumentSwitch "melchior"
+  \melchior
   a4 a a a
-  \instrumentSwitch "kaspar"
+  \kaspar
   c4 c c c
 }
 @end lilypond
 
 @seealso
+Manuel d'initiation:
+@rlearning{Organisation du code source avec des variables}.
+
 Manuel de notation :
-@ref{Noms d'instrument},
-@ref{Fonctions Scheme},
 @ref{Texte},
 @ref{Commandes pour markup}.
-
-Manuel d'extension des fonctionnalités :
-@rextend{Construction d'un markup en Scheme}.
 
 
 @node Citation-repère

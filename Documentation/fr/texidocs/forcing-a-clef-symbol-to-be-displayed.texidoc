@@ -1,9 +1,0 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
-  texidocfr = "
-Lorsqu'une clef a déjà été imprimée et qu'aucune autre clef n'a depuis
-été imprimée, LilyPond ignorera toute réitération de la commande
-@code{\\clef}.  Forcer la réimpression de la clef s'obtient à l'aide de
-la commande @code{\\set Staff.forceClef = ##t}.
-
-"
-  doctitlefr = "Réimpression forcée de la clef"

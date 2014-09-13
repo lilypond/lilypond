@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ece268fa66e2576c01f33a4a6e1806f44c9f8fa8
+    Translation of GIT committish: b58a17a6b0b6f624cee7858a74092265e0791fe2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1162,6 +1162,59 @@ c2 c
 Les hauteurs seront affichées comme si l'argument numérique
 n'avait pas été encadré de parenthèses ou crochets.
 
+Lorsqu'un changement de clef intervient en même temps qu'un saut de
+ligne, la nouvelle clef est imprimée à la fois en fin de ligne et au
+début de la suivante.  Vous pouvez toujours supprimer cette « clef de
+précaution ».
+
+@lilypond[verbatim,quote,relative=1]
+\clef treble { c2 c } \break
+\clef bass { c2 c } \break
+\clef alto
+  \set Staff.explicitClefVisibility = #end-of-line-invisible
+  { c2 c } \break
+  \unset Staff.explicitClefVisibility
+\clef bass { c2 c } \break
+@end lilypond
+
+Lorsqu'une clef a déjà été imprimée et qu'aucune autre clef n'a depuis
+été imprimée, LilyPond ignorera toute réitération de la commande
+@code{\clef}.  Forcer la réimpression de la clef s'obtient à l'aide de
+la commande @code{\set Staff.forceClef = ##t}.
+
+@lilypond[verbatim,quote,relative=1]
+  \clef treble
+  c1
+  \clef treble
+  c1
+  \set Staff.forceClef = ##t
+  c1
+  \clef treble
+  c1
+@end lilypond
+
+Le symbole imprimé lors d'un changement de clef est plus petit que la
+clef initiale.  La taille peut toutefois être ajustée.
+
+@lilypond[verbatim,quote,relative=1]
+  \clef "treble"
+  c1
+  \clef "bass"
+  c1
+  \clef "treble"
+  c1
+  \override Staff.Clef.full-size-change = ##t
+  \clef "bass"
+  c1
+  \clef "treble"
+  c1
+  \revert Staff.Clef.full-size-change
+  \clef "bass"
+  c1
+  \clef "treble"
+  c1
+@end lilypond
+
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {tweaking-clef-properties.ly}
@@ -1176,7 +1229,7 @@ Manuel de notation :
 @ref{Tablatures personnalisées}.
 
 Fichiers d'initialisation :
-@file{../scm/parser-clef.scm}.
+@file{scm/parser-clef.scm}.
 
 Morceaux choisis:
 @rlsrnamed{Pitches,Hauteurs}.
@@ -1317,6 +1370,7 @@ cette position sur la portée.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
+
 @seealso
 Glossaire musicologique :
 @rglosnamed{church mode,mode d'église},
@@ -1375,6 +1429,10 @@ a2 b
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-an-ottava-marking-to-a-single-voice.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{modifying-the-ottava-spanner-slope.ly}
+
 
 @seealso
 Glossaire musicologique :
