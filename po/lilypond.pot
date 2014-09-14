@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.13\n"
+"Project-Id-Version: lilypond 2.19.14\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2014-08-31 14:07+0100\n"
+"POT-Creation-Date: 2014-09-14 14:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1585,15 +1585,15 @@ msgstr ""
 msgid "Unable to find input file %s"
 msgstr ""
 
-#: website_post.py:125
+#: website_post.py:129
 msgid "English"
 msgstr ""
 
-#: website_post.py:128
+#: website_post.py:132
 msgid "Other languages"
 msgstr ""
 
-#: website_post.py:129
+#: website_post.py:133
 #, python-format
 msgid "About <a href=\"%s\">automatic language selection</a>."
 msgstr ""
@@ -1815,22 +1815,22 @@ msgstr ""
 msgid "need symbol arguments for \\override and \\revert"
 msgstr ""
 
-#: context.cc:149
+#: context.cc:148
 #, c-format
 msgid "cannot find or create new `%s'"
 msgstr ""
 
-#: context.cc:228
+#: context.cc:227
 #, c-format
 msgid "cannot find or create `%s' called `%s'"
 msgstr ""
 
-#: context.cc:425
+#: context.cc:424
 #, c-format
 msgid "cannot find or create: `%s'"
 msgstr ""
 
-#: context.cc:439
+#: context.cc:438
 #, c-format
 msgid "cannot find or create new Bottom = \"%s\""
 msgstr ""
@@ -1840,20 +1840,20 @@ msgstr ""
 msgid "custos `%s' not found"
 msgstr ""
 
-#: dispatcher.cc:89
+#: dispatcher.cc:85
 msgid "Event class should be a list"
 msgstr ""
 
-#: dispatcher.cc:172
+#: dispatcher.cc:168
 #, c-format
 msgid "Junking event: %s"
 msgstr ""
 
-#: dispatcher.cc:277
+#: dispatcher.cc:273
 msgid "Attempting to remove nonexisting listener."
 msgstr ""
 
-#: dispatcher.cc:303
+#: dispatcher.cc:299
 msgid "Already listening to dispatcher, ignoring request"
 msgstr ""
 
@@ -2000,7 +2000,7 @@ msgstr ""
 msgid "%d: %s"
 msgstr ""
 
-#: grob.cc:488
+#: grob.cc:480
 #, c-format
 msgid "ignored infinite %s-offset"
 msgstr ""
@@ -2039,7 +2039,7 @@ msgstr ""
 msgid "(search path: `%s')"
 msgstr ""
 
-#: input.cc:138 source-file.cc:178 source-file.cc:193
+#: input.cc:138 source-file.cc:177 source-file.cc:192
 msgid "position unknown"
 msgstr ""
 
@@ -2153,7 +2153,7 @@ msgid ""
 "include-string instead."
 msgstr ""
 
-#: lily-parser.cc:109
+#: lily-parser.cc:108
 msgid "Parsing..."
 msgstr ""
 
@@ -2162,13 +2162,13 @@ msgstr ""
 msgid "Not drawing a box with negative dimension, %.2f by %.2f."
 msgstr ""
 
-#: lyric-combine-music-iterator.cc:199
+#: lyric-combine-music-iterator.cc:204
 msgid "argument of \\lyricsto should contain Lyrics context"
 msgstr ""
 
-#: lyric-combine-music-iterator.cc:337
+#: lyric-combine-music-iterator.cc:349
 #, c-format
-msgid "cannot find Voice `%s'"
+msgid "cannot find %s `%s'"
 msgstr ""
 
 #: main.cc:104
@@ -2461,7 +2461,7 @@ msgstr ""
 msgid "Using naive multi measure rest spacing."
 msgstr ""
 
-#: music.cc:150
+#: music.cc:149
 #, c-format
 msgid "octave check failed; expected \"%s\", found: \"%s\""
 msgstr ""
@@ -2478,7 +2478,7 @@ msgstr ""
 msgid "placing below"
 msgstr ""
 
-#: note-collision.cc:497
+#: note-collision.cc:511
 msgid "ignoring too many clashing note columns"
 msgstr ""
 
@@ -2570,11 +2570,11 @@ msgstr ""
 msgid "Drawing systems..."
 msgstr ""
 
-#: output-def.cc:235
+#: output-def.cc:232
 msgid "margins do not fit with line-width, setting default values"
 msgstr ""
 
-#: output-def.cc:242
+#: output-def.cc:239
 msgid ""
 "systems run off the page due to improper paper settings, setting default "
 "values"
@@ -2677,12 +2677,12 @@ msgstr ""
 msgid "FreeType face has no PostScript font name"
 msgstr ""
 
-#: paper-book.cc:214
+#: paper-book.cc:211
 #, c-format
 msgid "program option -dprint-pages not supported by backend `%s'"
 msgstr ""
 
-#: paper-book.cc:233
+#: paper-book.cc:230
 #, c-format
 msgid "program option -dpreview not supported by backend `%s'"
 msgstr ""
@@ -2864,15 +2864,15 @@ msgstr ""
 msgid "Aborting"
 msgstr ""
 
-#: score.cc:172
+#: score.cc:169
 msgid "already have music in score"
 msgstr ""
 
-#: score.cc:173
+#: score.cc:170
 msgid "this is the previous music"
 msgstr ""
 
-#: score.cc:178
+#: score.cc:175
 msgid "errors found, ignoring music expression"
 msgstr ""
 
@@ -2885,7 +2885,7 @@ msgstr ""
 msgid " scheme encoding: "
 msgstr ""
 
-#: skyline-pair.cc:160
+#: skyline-pair.cc:152
 msgid "direction must not be CENTER in ly:skyline-pair::skyline"
 msgstr ""
 
@@ -3014,12 +3014,12 @@ msgstr ""
 msgid "cannot find: `%s'"
 msgstr ""
 
-#: translator.cc:326
+#: translator.cc:322
 #, c-format
 msgid "Two simultaneous %s events, junking this one"
 msgstr ""
 
-#: translator.cc:327
+#: translator.cc:323
 #, c-format
 msgid "Previous %s event here"
 msgstr ""
@@ -3094,7 +3094,7 @@ msgstr ""
 msgid "bad expression type"
 msgstr ""
 
-#: parser.yy:759 parser.yy:1357 parser.yy:1402
+#: parser.yy:759 parser.yy:1361 parser.yy:1406
 msgid "not a context mod"
 msgstr ""
 
@@ -3114,177 +3114,182 @@ msgstr ""
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1230
+#: parser.yy:1234
 msgid "music expected"
 msgstr ""
 
-#: parser.yy:1240 parser.yy:1274
+#: parser.yy:1244 parser.yy:1278
 msgid "unexpected post-event"
 msgstr ""
 
-#: parser.yy:1282
+#: parser.yy:1286
 msgid "Ignoring non-music expression"
 msgstr ""
 
-#: parser.yy:1500
+#: parser.yy:1587
 msgid "not a symbol"
 msgstr ""
 
-#: parser.yy:2295 parser.yy:2409 parser.yy:2422 parser.yy:2431
+#: parser.yy:2337 parser.yy:2451 parser.yy:2464 parser.yy:2473
 msgid "bad grob property path"
 msgstr ""
 
-#: parser.yy:2389
+#: parser.yy:2431
 msgid "only \\consists and \\remove take non-string argument."
 msgstr ""
 
-#: parser.yy:2450
+#: parser.yy:2492
 msgid "bad context property path"
 msgstr ""
 
-#: parser.yy:2551
+#: parser.yy:2593
 msgid "simple string expected"
 msgstr ""
 
-#: parser.yy:2569
+#: parser.yy:2611
 msgid "symbol expected"
 msgstr ""
 
-#: parser.yy:2705
+#: parser.yy:2747
 msgid "not a rhythmic event"
 msgstr ""
 
-#: parser.yy:2755
+#: parser.yy:2797
 msgid "post-event expected"
 msgstr ""
 
-#: parser.yy:2764 parser.yy:2769
+#: parser.yy:2806 parser.yy:2811
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:2845
+#: parser.yy:2887
 msgid "expecting string or post-event as script definition"
 msgstr ""
 
-#: parser.yy:2949
+#: parser.yy:2991
 msgid "not an articulation"
 msgstr ""
 
-#: parser.yy:3021 parser.yy:3064
+#: parser.yy:3063 parser.yy:3106
 msgid "not a duration"
 msgstr ""
 
-#: parser.yy:3085
+#: parser.yy:3127
 msgid "bass number expected"
 msgstr ""
 
-#: parser.yy:3177
+#: parser.yy:3219
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:3216
+#: parser.yy:3258
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:3259
+#: parser.yy:3301
 msgid "markup outside of text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3264
+#: parser.yy:3306
 msgid "unrecognized string, not in text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3416 parser.yy:3425
+#: parser.yy:3458 parser.yy:3467
 msgid "not an unsigned integer"
 msgstr ""
 
-#: parser.yy:3499
+#: parser.yy:3541
 msgid "not a markup"
 msgstr ""
 
-#: lexer.ll:193
+#: lexer.ll:192
 msgid "stray UTF-8 BOM encountered"
 msgstr ""
 
-#: lexer.ll:196
+#: lexer.ll:195
 msgid "Skipping UTF-8 BOM"
 msgstr ""
 
-#: lexer.ll:248
+#: lexer.ll:247
 #, c-format
 msgid "Renaming input to: `%s'"
 msgstr ""
 
-#: lexer.ll:265
+#: lexer.ll:264
 msgid "quoted string expected after \\version"
 msgstr ""
 
-#: lexer.ll:269
+#: lexer.ll:268
 msgid "quoted string expected after \\sourcefilename"
 msgstr ""
 
-#: lexer.ll:273
+#: lexer.ll:272
 msgid "integer expected after \\sourcefileline"
 msgstr ""
 
-#: lexer.ll:300
+#: lexer.ll:299
 msgid "\\maininput not allowed outside init files"
 msgstr ""
 
-#: lexer.ll:324
+#: lexer.ll:323
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr ""
 
-#: lexer.ll:349
+#: lexer.ll:348
 msgid "string expected after \\include"
 msgstr ""
 
-#: lexer.ll:359
+#: lexer.ll:358
 msgid "end quote missing"
 msgstr ""
 
-#: lexer.ll:714
+#: lexer.ll:713
 msgid "EOF found inside a comment"
 msgstr ""
 
-#: lexer.ll:719
+#: lexer.ll:718
 msgid "EOF found inside string"
 msgstr ""
 
-#: lexer.ll:734
+#: lexer.ll:733
 msgid "Unfinished main input"
 msgstr ""
 
-#: lexer.ll:805
+#: lexer.ll:804
 #, c-format
 msgid "invalid character: `%s'"
 msgstr ""
 
-#: lexer.ll:925
+#: lexer.ll:924
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr ""
 
-#: lexer.ll:945
+#: lexer.ll:944
 #, c-format
 msgid "undefined character or shorthand: %s"
 msgstr ""
 
-#: lexer.ll:1236
+#: lexer.ll:1235
 msgid "non-UTF-8 input"
 msgstr ""
 
-#: lexer.ll:1280
+#: lexer.ll:1279
+#, c-format
+msgid "Invalid version string \"%s\""
+msgstr ""
+
+#: lexer.ll:1284
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr ""
 
-#: lexer.ll:1281
+#: lexer.ll:1285
 msgid "consider updating the input with the convert-ly script"
 msgstr ""
 
-#: lexer.ll:1287
+#: lexer.ll:1291
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
@@ -3385,27 +3390,27 @@ msgstr ""
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:2907
+#: define-markup-commands.scm:2908
 #, scheme-format
 msgid "Cannot find glyph ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3333
+#: define-markup-commands.scm:3334
 #, scheme-format
 msgid "no brace found for point size ~S "
 msgstr ""
 
-#: define-markup-commands.scm:3334
+#: define-markup-commands.scm:3335
 #, scheme-format
 msgid "defaulting to ~S pt"
 msgstr ""
 
-#: define-markup-commands.scm:3586
+#: define-markup-commands.scm:3587
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3797
+#: define-markup-commands.scm:3798
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
@@ -3738,6 +3743,16 @@ msgstr ""
 
 #: music-functions.scm:2044
 msgid "Missing duration"
+msgstr ""
+
+#: music-functions.scm:2613
+#, scheme-format
+msgid "not a symbol list: ~a"
+msgstr ""
+
+#: music-functions.scm:2616
+#, scheme-format
+msgid "conflicting tag group ~a"
 msgstr ""
 
 #: output-ps.scm:278 output-svg.scm:539
