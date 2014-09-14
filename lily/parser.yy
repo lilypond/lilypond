@@ -1222,7 +1222,11 @@ braced_music_list:
 
 music:	music_assign
 	| lyric_element_music
-	| pitch_or_music
+	| pitch_as_music
+	;
+
+pitch_as_music:
+	pitch_or_music
 	{
 	        $$ = make_music_from_simple (parser, @1, $1);
                 if (!Music::unsmob ($$))
@@ -1404,9 +1408,88 @@ context_mod_list:
         }
         ;
 
-composite_music:
-	complex_music
+context_prefix:
+	CONTEXT symbol optional_id optional_context_mod {
+                Context_mod *ctxmod = Context_mod::unsmob ($4);
+                SCM mods = SCM_EOL;
+                if (ctxmod)
+                        mods = ctxmod->get_mods ();
+		$$ = START_MAKE_SYNTAX ("context-specification", $2, $3, mods, SCM_BOOL_F);
+	}
+	| NEWCONTEXT symbol optional_id optional_context_mod {
+                Context_mod *ctxmod = Context_mod::unsmob ($4);
+                SCM mods = SCM_EOL;
+                if (ctxmod)
+                        mods = ctxmod->get_mods ();
+		$$ = START_MAKE_SYNTAX ("context-specification", $2, $3, mods, SCM_BOOL_T);
+	}
+	;
+
+new_lyrics:
+	ADDLYRICS lyric_mode_music {
+		$$ = scm_list_1 ($2);
+	}
+	| new_lyrics ADDLYRICS lyric_mode_music {
+		$$ = scm_cons ($3, $1);
+	}
+	;
+
+/* basic_music is basically the same as composite_music but with
+ * context-prefixed music and lyricized music explicitly removed.  The
+ * reason is that in a sequence
+ *
+ *   \new Staff \new Voice { ... } \addlyrics { ... } \addlyrics { ... }
+ *
+ * we need to group both \addlyrics together (as they go with the same
+ * voice) but then combine them with \new Voice { ... }, meaning that
+ * combining \new Voice { ... } needs higher priority than
+ * { ... } \addlyrics, and *not* have \new Staff \new Voice { ... }
+ * combine before combining \new Voice { ... } \addlyrics: only one
+ * layer of context-prefixed music should assemble before \addlyrics
+ * is integrated.  Total mess, and we sort this mess out with explicit
+ * rules preferring a single context-prefix.
+ */
+
+basic_music:
+	music_function_call
+	| repeated_music
 	| music_bare
+	| LYRICSTO simple_string lyric_mode_music {
+		$$ = MAKE_SYNTAX ("lyric-combine", @$, $2, $3);
+	}
+	;
+
+contextable_music:
+	basic_music
+	| pitch_as_music
+	| event_chord
+	;
+
+contexted_basic_music:
+	context_prefix contextable_music new_lyrics
+	{
+		Input i;
+		i.set_location (@1, @2);
+		$$ = FINISH_MAKE_SYNTAX ($1, i, $2);
+		$$ = MAKE_SYNTAX ("add-lyrics", @$, $$, scm_reverse_x ($3, SCM_EOL));
+	} %prec COMPOSITE
+	| context_prefix contextable_music
+	{
+		$$ = FINISH_MAKE_SYNTAX ($1, @$, $2);
+	} %prec COMPOSITE
+	| context_prefix contexted_basic_music
+	{
+		$$ = FINISH_MAKE_SYNTAX ($1, @$, $2);
+	}
+	;
+
+composite_music:
+	basic_music %prec COMPOSITE
+	| contexted_basic_music
+	| basic_music new_lyrics
+	{
+		$$ = MAKE_SYNTAX ("add-lyrics", @$, $1, scm_reverse_x ($2, SCM_EOL));
+	} %prec COMPOSITE
 	;
 
 music_bare:
@@ -2138,33 +2221,6 @@ lyric_mode_music:
 	| MUSIC_IDENTIFIER
 	;
 
-complex_music:
-	music_function_call
-	| repeated_music		{ $$ = $1; }
-	| re_rhythmed_music	{ $$ = $1; }
-	| complex_music_prefix music
-	{
-		$$ = FINISH_MAKE_SYNTAX ($1, @$, $2);
-	}
-	;
-
-complex_music_prefix:
-	CONTEXT symbol optional_id optional_context_mod {
-                Context_mod *ctxmod = Context_mod::unsmob ($4);
-                SCM mods = SCM_EOL;
-                if (ctxmod)
-                        mods = ctxmod->get_mods ();
-		$$ = START_MAKE_SYNTAX ("context-specification", $2, $3, mods, SCM_BOOL_F);
-	}
-	| NEWCONTEXT symbol optional_id optional_context_mod {
-                Context_mod *ctxmod = Context_mod::unsmob ($4);
-                SCM mods = SCM_EOL;
-                if (ctxmod)
-                        mods = ctxmod->get_mods ();
-		$$ = START_MAKE_SYNTAX ("context-specification", $2, $3, mods, SCM_BOOL_T);
-	}
-	;
-
 mode_changed_music:
 	mode_changing_head grouped_music_list {
 		if ($1 == ly_symbol2scm ("chords"))
@@ -2246,24 +2302,6 @@ mode_changing_head_with_context:
 	| LYRICS
 		{ parser->lexer_->push_lyric_state ();
 		$$ = ly_symbol2scm ("Lyrics");
-	}
-	;
-
-new_lyrics:
-	ADDLYRICS lyric_mode_music {
-		$$ = scm_list_1 ($2);
-	}
-	| new_lyrics ADDLYRICS lyric_mode_music {
-		$$ = scm_cons ($3, $1);
-	}
-	;
-
-re_rhythmed_music:
-	composite_music new_lyrics {
-		$$ = MAKE_SYNTAX ("add-lyrics", @$, $1, scm_reverse_x ($2, SCM_EOL));
-	} %prec COMPOSITE
-	| LYRICSTO simple_string lyric_mode_music {
-		$$ = MAKE_SYNTAX ("lyric-combine", @$, $2, $3);
 	}
 	;
 
