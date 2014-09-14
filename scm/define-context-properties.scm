@@ -63,7 +63,10 @@ suffixes.  No setting will not go back in measure-number time.")
      (alternativeRestores ,symbol-list? "Timing variables that are
 restored to their value at the end of the first alternative in
 subsequent alternatives.")
-     (associatedVoice ,string? "Name of the @code{Voice} that has the
+     (associatedVoice ,string? "Name of the context (see
+@code{associatedVoiceType} for its type, usually @code{Voice}) that
+has the melody for this @code{Lyrics} line.")
+     (associatedVoiceType ,symbol? "Type of the context that has the
 melody for this @code{Lyrics} line.")
      (autoAccidentals ,list? "List of different ways to typeset an
 accidental.

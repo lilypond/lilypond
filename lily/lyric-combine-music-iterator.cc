@@ -67,6 +67,7 @@ private:
   Context *lyrics_context_;
   Context *music_context_;
   SCM lyricsto_voice_name_;
+  SCM lyricsto_voice_type_;
 
   Moment busy_moment_;
   Moment pending_grace_moment_;
@@ -83,6 +84,8 @@ Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
   music_context_ = 0;
   lyrics_context_ = 0;
   busy_moment_.set_infinite (-1);
+  lyricsto_voice_name_ = SCM_UNDEFINED;
+  lyricsto_voice_type_ = SCM_UNDEFINED;
 }
 
 /*
@@ -109,14 +112,14 @@ Lyric_combine_music_iterator::set_music_context (Context *to)
 {
   if (music_context_)
     {
-      music_context_->event_source ()->
+      music_context_->events_below ()->
       remove_listener (GET_LISTENER (set_busy), ly_symbol2scm ("rhythmic-event"));
     }
 
   music_context_ = to;
   if (to)
     {
-      to->event_source ()->add_listener (GET_LISTENER (set_busy),
+      to->events_below ()->add_listener (GET_LISTENER (set_busy),
                                          ly_symbol2scm ("rhythmic-event"));
     }
 }
@@ -171,6 +174,8 @@ Lyric_combine_music_iterator::derived_mark ()const
     scm_gc_mark (lyrics_context_->self_scm ());
   if (music_context_)
     scm_gc_mark (music_context_->self_scm ());
+  scm_gc_mark (lyricsto_voice_name_);
+  scm_gc_mark (lyricsto_voice_type_);
 }
 
 void
@@ -200,6 +205,9 @@ Lyric_combine_music_iterator::construct_children ()
     }
 
   lyricsto_voice_name_ = get_music ()->get_property ("associated-context");
+  lyricsto_voice_type_ = get_music ()->get_property ("associated-context-type");
+  if (!scm_is_symbol (lyricsto_voice_type_))
+    lyricsto_voice_type_ = ly_symbol2scm ("Voice");
 
   Context *voice = find_voice ();
   if (voice)
@@ -249,19 +257,22 @@ Lyric_combine_music_iterator::find_voice ()
   SCM running = lyrics_context_
                 ? lyrics_context_->get_property ("associatedVoice")
                 : SCM_EOL;
-
-  if (scm_is_string (running))
+  SCM voice_type = lyricsto_voice_type_;
+  if (scm_is_string (running)) {
     voice_name = running;
+    voice_type = lyrics_context_->get_property ("associatedVoiceType");
+  }
 
   if (scm_is_string (voice_name)
-      && (!music_context_ || ly_scm2string (voice_name) != music_context_->id_string ()))
+      && (!music_context_ || ly_scm2string (voice_name) != music_context_->id_string ())
+      && scm_is_symbol (voice_type))
     {
       Context *t = get_outlet ();
       while (t && t->get_parent_context ())
         t = t->get_parent_context ();
 
       string name = ly_scm2string (voice_name);
-      return find_context_below (t, ly_symbol2scm ("Voice"), name);
+      return find_context_below (t, voice_type, name);
     }
 
   return 0;
@@ -327,15 +338,16 @@ Lyric_combine_music_iterator::do_quit ()
   if (!music_found_)
     {
       SCM voice_name = get_music ()->get_property ("associated-context");
-
-      string name;
+      SCM voice_type = get_music ()->get_property ("associated-context-type");
+      string name, type;
       if (scm_is_string (voice_name))
         name = ly_scm2string (voice_name);
+      type = robust_symbol2string (voice_type, "Voice");
       /* Don't print a warning for empty lyrics (in which case we don't try
          to find the proper voice, so it will not be found) */
       if (lyrics_found_)
-        get_music ()->origin ()->warning (_f ("cannot find Voice `%s'",
-                                              name.c_str ()) + "\n");
+        get_music ()->origin ()->warning (_f ("cannot find %s `%s'",
+                                              type.c_str (), name.c_str ()) + "\n");
     }
 
   if (lyric_iter_)

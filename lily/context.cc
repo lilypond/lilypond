@@ -812,14 +812,29 @@ set_context_property_on_children (Context *trans, SCM sym, SCM val)
 bool
 melisma_busy (Context *tr)
 {
-  SCM melisma_properties = tr->get_property ("melismaBusyProperties");
-  bool busy = false;
+  // When there are subcontexts, they are responsible for maintaining
+  // melismata.
+  SCM ch = tr->children_contexts ();
+  if (scm_is_pair (ch))
+    {
+      // all contexts need to have a busy melisma for this to evaluate
+      // to true.
 
-  for (; !busy && scm_is_pair (melisma_properties);
+      do {
+        if (!melisma_busy (Context::unsmob (scm_car (ch))))
+          return false;
+        ch = scm_cdr (ch);
+      } while (scm_is_pair (ch));
+      return true;
+    }
+
+  for (SCM melisma_properties = tr->get_property ("melismaBusyProperties");
+       scm_is_pair (melisma_properties);
        melisma_properties = scm_cdr (melisma_properties))
-    busy = busy || to_boolean (tr->get_property (scm_car (melisma_properties)));
+    if (to_boolean (tr->get_property (scm_car (melisma_properties))))
+      return true;
 
-  return busy;
+  return false;
 }
 
 bool
