@@ -36,8 +36,8 @@ public:
   static SCM make_smob (SCM a, SCM b = SCM_UNDEFINED)
   {
     if (SCM_UNBNDP (b) && !ly_is_procedure (a))
-      return Smob2::make_smob (a, a);
-    return Smob2::make_smob (a, b);
+      return Smob2<Unpure_pure_container>::make_smob (a, a);
+    return Smob2<Unpure_pure_container>::make_smob (a, b);
   }
   static int print_smob (SCM, SCM, scm_print_state *);
 };
