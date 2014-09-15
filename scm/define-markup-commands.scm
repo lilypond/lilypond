@@ -1255,9 +1255,7 @@ words varies according to their relative lengths."
                 orig-stencils))
          (text-widths
            (map (lambda (stc)
-                  (if (ly:stencil-empty? stc)
-                      0.0
-                      (interval-length (ly:stencil-extent stc X))))
+                  (interval-length (ly:stencil-extent stc X)))
                 stencils))
          (text-width (apply + text-widths))
          (word-count (length stencils))
