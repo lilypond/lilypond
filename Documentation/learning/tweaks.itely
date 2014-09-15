@@ -450,7 +450,7 @@ the original event:
 This long form of the @code{\tweak} command can be described as
 
 @example
-\tweak @var{layout-object}.@var{layout-property} @var{value}
+\tweak @var{LayoutObject}.@var{layout-property} #@var{value}
 @end example
 
 @cindex tuplets, nested
