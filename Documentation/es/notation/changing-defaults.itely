@@ -1343,7 +1343,6 @@ contexto.
 @seealso
 
 Referencia de funcionamiento interno:
-@rinternals{Engraver_group},
 @rinternals{Note_heads_engraver},
 @rinternals{Text_engraver},
 @rinternals{Rhythmic_column_engraver},

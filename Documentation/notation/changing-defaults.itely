@@ -1318,7 +1318,6 @@ depends on the same context relations.
 @seealso
 
 Internals Reference:
-@rinternals{Engraver_group},
 @rinternals{Note_heads_engraver},
 @rinternals{Text_engraver},
 @rinternals{Rhythmic_column_engraver},

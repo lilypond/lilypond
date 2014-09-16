@@ -1394,7 +1394,6 @@ relations.
 
 @seealso
 Référence des propriétés internes :
-@rinternals{Engraver_group},
 @rinternals{Note_heads_engraver},
 @rinternals{Text_engraver},
 @rinternals{Rhythmic_column_engraver},
