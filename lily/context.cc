@@ -50,7 +50,7 @@ Context::check_removal ()
         {
           recurse_over_translators (ctx, &Translator::finalize,
                                     &Translator_group::finalize,
-                                    UP);
+                                    STOP);
           send_stream_event (ctx, "RemoveContext", 0, 0);
         }
     }
