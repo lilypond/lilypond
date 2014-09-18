@@ -116,6 +116,31 @@
 (define-public point-stencil (ly:make-stencil "" '(0 . 0) '(0 . 0)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; line has to come early since it is often used implicitly from the
+;; markup macro since \markup { a b c } -> \markup \line { a b c }
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define-markup-command (line layout props args)
+  (markup-list?)
+  #:category align
+  #:properties ((word-space)
+                (text-direction RIGHT))
+  "Put @var{args} in a horizontal line.  The property @code{word-space}
+determines the space between markups in @var{args}.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\line {
+    one two three
+  }
+}
+@end lilypond"
+  (let ((stencils (interpret-markup-list layout props args)))
+    (if (= text-direction LEFT)
+        (set! stencils (reverse stencils)))
+    (stack-stencil-line word-space stencils)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; geometric shapes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1132,56 +1157,6 @@ the use of @code{\\simple} is unnecessary.
 @end lilypond"
   (interpret-markup layout props str))
 
-(define-markup-command (tied-lyric layout props str)
-  (string?)
-  #:category music
-  #:properties ((word-space))
-  "
-@cindex simple text strings with tie characters
-
-Like simple-markup, but use tie characters for @q{~} tilde symbols.
-
-@lilypond[verbatim,quote]
-\\markup \\column {
-  \\tied-lyric #\"Siam navi~all'onde~algenti Lasciate~in abbandono\"
-  \\tied-lyric #\"Impetuosi venti I nostri~affetti sono\"
-  \\tied-lyric #\"Ogni diletto~e scoglio Tutta la vita~e~un mar.\"
-}
-@end lilypond"
-  (define (replace-ties tie str)
-    (if (string-contains str "~")
-        (let*
-            ((half-space (/ word-space 2))
-             (parts (string-split str #\~))
-             (tie-str (markup #:hspace half-space
-                              #:musicglyph tie
-                              #:hspace half-space))
-             (joined  (list-join parts tie-str)))
-          (make-concat-markup joined))
-        str))
-
-  (define short-tie-regexp (make-regexp "~[^.]~"))
-  (define (match-short str) (regexp-exec short-tie-regexp str))
-
-  (define (replace-short str mkp)
-    (let ((match (match-short str)))
-      (if (not match)
-          (make-concat-markup (list
-                               mkp
-                               (replace-ties "ties.lyric.default" str)))
-          (let ((new-str (match:suffix match))
-                (new-mkp (make-concat-markup (list
-                                              mkp
-                                              (replace-ties "ties.lyric.default"
-                                                            (match:prefix match))
-                                              (replace-ties "ties.lyric.short"
-                                                            (match:substring match))))))
-            (replace-short new-str new-mkp)))))
-
-  (interpret-markup layout
-                    props
-                    (replace-short str (markup))))
-
 (define-public empty-markup
   (make-simple-markup ""))
 
@@ -1349,26 +1324,6 @@ space.  If there are no arguments, return an empty stencil.
 @end lilypond"
   (justify-line-helper
     layout props args text-direction word-space line-width #t))
-
-(define-markup-command (line layout props args)
-  (markup-list?)
-  #:category align
-  #:properties ((word-space)
-                (text-direction RIGHT))
-  "Put @var{args} in a horizontal line.  The property @code{word-space}
-determines the space between markups in @var{args}.
-
-@lilypond[verbatim,quote]
-\\markup {
-  \\line {
-    one two three
-  }
-}
-@end lilypond"
-  (let ((stencils (interpret-markup-list layout props args)))
-    (if (= text-direction LEFT)
-        (set! stencils (reverse stencils)))
-    (stack-stencil-line word-space stencils)))
 
 (define-markup-command (concat layout props args)
   (markup-list?)
@@ -3039,6 +2994,56 @@ Draw @var{arg} in color specified by @var{color}.
     (ly:make-stencil (list 'color color (ly:stencil-expr stil))
                      (ly:stencil-extent stil X)
                      (ly:stencil-extent stil Y))))
+
+(define-markup-command (tied-lyric layout props str)
+  (string?)
+  #:category music
+  #:properties ((word-space))
+  "
+@cindex simple text strings with tie characters
+
+Like simple-markup, but use tie characters for @q{~} tilde symbols.
+
+@lilypond[verbatim,quote]
+\\markup \\column {
+  \\tied-lyric #\"Siam navi~all'onde~algenti Lasciate~in abbandono\"
+  \\tied-lyric #\"Impetuosi venti I nostri~affetti sono\"
+  \\tied-lyric #\"Ogni diletto~e scoglio Tutta la vita~e~un mar.\"
+}
+@end lilypond"
+  (define (replace-ties tie str)
+    (if (string-contains str "~")
+        (let*
+            ((half-space (/ word-space 2))
+             (parts (string-split str #\~))
+             (tie-str (markup #:hspace half-space
+                              #:musicglyph tie
+                              #:hspace half-space))
+             (joined  (list-join parts tie-str)))
+          (make-concat-markup joined))
+        str))
+
+  (define short-tie-regexp (make-regexp "~[^.]~"))
+  (define (match-short str) (regexp-exec short-tie-regexp str))
+
+  (define (replace-short str mkp)
+    (let ((match (match-short str)))
+      (if (not match)
+          (make-concat-markup (list
+                               mkp
+                               (replace-ties "ties.lyric.default" str)))
+          (let ((new-str (match:suffix match))
+                (new-mkp (make-concat-markup (list
+                                              mkp
+                                              (replace-ties "ties.lyric.default"
+                                                            (match:prefix match))
+                                              (replace-ties "ties.lyric.short"
+                                                            (match:substring match))))))
+            (replace-short new-str new-mkp)))))
+
+  (interpret-markup layout
+                    props
+                    (replace-short str (markup))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; glyphs
