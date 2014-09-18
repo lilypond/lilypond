@@ -66,7 +66,7 @@ for examples."
             'direction
             1
             'text
-            (markup ,(symbol->keyword set-symbol) register))))))))
+            (,(string->symbol (format #f "make-~a-markup" set-symbol)) register))))))))
 
 
 (define-register-set discant
