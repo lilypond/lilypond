@@ -593,12 +593,12 @@ thickness, and @code{offset} to determine line y-offset.
 @end lilypond"
   (let* ((thick (ly:output-def-lookup layout 'line-thickness))
          (underline-thick (* thickness thick))
-         (markup (interpret-markup layout props arg))
-         (x1 (car (ly:stencil-extent markup X)))
-         (x2 (cdr (ly:stencil-extent markup X)))
+         (m (interpret-markup layout props arg))
+         (x1 (car (ly:stencil-extent m X)))
+         (x2 (cdr (ly:stencil-extent m X)))
          (y (* thick (- offset)))
          (line (make-line-stencil underline-thick x1 y x2 y)))
-    (ly:stencil-add markup line)))
+    (ly:stencil-add m line)))
 
 (define-markup-command (box layout props arg)
   (markup?)
@@ -4205,7 +4205,7 @@ a column containing several lines of text.
   }
 }
 @end lilypond"
-  (let* ((markup (interpret-markup layout props arg))
+  (let* ((m (interpret-markup layout props arg))
          (scaled-width (* size width))
          (scaled-thickness
           (* (chain-assoc-get 'line-thickness props 0.1)
@@ -4215,7 +4215,7 @@ a column containing several lines of text.
                (* (/ 4 3.0) scaled-width)))
          (padding (chain-assoc-get 'padding props half-thickness)))
     (parenthesize-stencil
-     markup half-thickness scaled-width angularity padding)))
+     m half-thickness scaled-width angularity padding)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

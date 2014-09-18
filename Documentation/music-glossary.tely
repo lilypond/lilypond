@@ -3893,17 +3893,17 @@ the parallel minor scale, or the incomplete dominant seventh chord.
    ((thick (* (magstep font-size)
       (ly:output-def-lookup layout 'line-thickness)))
     (underline-thick (* thickness thick))
-    (markup (interpret-markup layout props arg))
-    (x1 (car (ly:stencil-extent markup X)))
-    (x2 (cdr (ly:stencil-extent markup X)))
-    (y1 (car (ly:stencil-extent markup Y)))
-    (y2 (cdr (ly:stencil-extent markup Y)))
+    (m (interpret-markup layout props arg))
+    (x1 (car (ly:stencil-extent m X)))
+    (x2 (cdr (ly:stencil-extent m X)))
+    (y1 (car (ly:stencil-extent m Y)))
+    (y2 (cdr (ly:stencil-extent m Y)))
     (dx (* extension (- x2 x1)))
     (dy (* extension (- y2 y1)))
     (line (make-line-stencil underline-thick
       (- x1 dx) (- y1 dy)
       (+ x2 dx) (+ y2 dy))))
-   (ly:stencil-add markup line)))
+   (ly:stencil-add m line)))
 <<
   {
     <g e c>1 <a f d> <b g e>
