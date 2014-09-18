@@ -7,7 +7,9 @@
 \version "2.19.22"
 
 #(if (guile-v2)
-  (use-modules (ice-9 curried-definitions)))
+  (begin
+   (use-modules (ice-9 curried-definitions))
+   (setlocale LC_ALL "")))
 
 #(session-initialize
   (lambda ()
