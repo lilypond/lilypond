@@ -293,7 +293,12 @@ public:
   static SCM readout ();
 };
 
-#ifndef NDEBUG
+// This does not appear to work with GUILEv2's garbage collector:
+// Objects are found in the GC phase but printing them will crash at
+// least some, so they are apparently not protected in spite of being
+// included in the GC scans.  So it would appear that scanning smobs
+// is not equivalent to marking them.  Ugh.
+#if !defined(NDEBUG) && !GUILEV2
 #define ASSERT_LIVE_IS_ALLOWED(arg)                                     \
   do {                                                                  \
     static parsed_dead pass_here;                                       \
