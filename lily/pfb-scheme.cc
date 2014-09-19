@@ -20,7 +20,7 @@ LY_DEFINE (ly_pfb_2_pfa, "ly:pfb->pfa",
   vector<char> pfb_string = gulp_file (file_name, 0);
   char *pfa = pfb2pfa ((Byte *) &pfb_string[0], pfb_string.size ());
 
-  SCM pfa_scm = scm_from_locale_string (pfa);
+  SCM pfa_scm = scm_from_latin1_string (pfa);
   free (pfa);
 
   debug_output ("]", false);
@@ -41,7 +41,7 @@ LY_DEFINE (ly_otf_2_cff, "ly:otf->cff",
   FT_Face face = open_ft_face (file_name, 0 /* index */);
   string table = get_otf_table (face, "CFF ");
 
-  SCM asscm = scm_from_locale_stringn ((char *) table.data (),
+  SCM asscm = scm_from_latin1_stringn ((char *) table.data (),
                                        table.length ());
 
   debug_output ("]", false);

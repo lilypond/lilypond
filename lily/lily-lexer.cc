@@ -193,7 +193,7 @@ Lily_lexer::keyword_list () const
   SCM *tail = &l;
   for (vsize i = 0; i < keytable_->table_.size (); i++)
     {
-      *tail = scm_acons (scm_from_locale_string (keytable_->table_[i].name_),
+      *tail = scm_acons (scm_from_utf8_string (keytable_->table_[i].name_),
                          scm_from_int (keytable_->table_[i].tokcode_),
                          SCM_EOL);
 

@@ -70,7 +70,7 @@ Lyric_engraver::process_music ()
     {
       SCM text = event_->get_property ("text");
 
-      if (ly_is_equal (text, scm_from_locale_string (" ")))
+      if (ly_is_equal (text, scm_from_ascii_string (" ")))
         {
           if (last_text_)
             last_text_->set_property ("self-alignment-X",

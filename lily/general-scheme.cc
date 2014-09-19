@@ -96,7 +96,7 @@ LY_DEFINE (ly_gulp_file, "ly:gulp-file",
     }
 
   string contents = gulp_file_to_string (ly_scm2string (name), true, sz);
-  return scm_from_locale_stringn (contents.c_str (), contents.length ());
+  return scm_from_latin1_stringn (contents.c_str (), contents.length ());
 }
 
 LY_DEFINE (ly_dir_p, "ly:dir?",
@@ -239,7 +239,7 @@ LY_DEFINE (ly_number_2_string, "ly:number->string",
   else
     snprintf (str, sizeof (str), "%d", int (scm_to_int (s)));
 
-  return scm_from_locale_string (str);
+  return scm_from_ascii_string (str);
 }
 
 LY_DEFINE (ly_version, "ly:version", 0, 0, 0, (),
@@ -254,7 +254,7 @@ LY_DEFINE (ly_version, "ly:version", 0, 0, 0, (),
 LY_DEFINE (ly_unit, "ly:unit", 0, 0, 0, (),
            "Return the unit used for lengths as a string.")
 {
-  return scm_from_locale_string (INTERNAL_UNIT);
+  return scm_from_ascii_string (INTERNAL_UNIT);
 }
 
 LY_DEFINE (ly_dimension_p, "ly:dimension?", 1, 0, 0, (SCM d),
@@ -342,7 +342,7 @@ LY_DEFINE (ly_wide_char_2_utf_8, "ly:wide-char->utf-8",
     }
   *p = 0;
 
-  return scm_from_locale_string (buf);
+  return scm_from_utf8_string (buf);
 }
 
 LY_DEFINE (ly_effective_prefix, "ly:effective-prefix",
@@ -506,7 +506,7 @@ format_single_argument (SCM arg, int precision, bool escape = false)
     return (ly_symbol2string (arg));
   else
     {
-      ly_progress (scm_from_locale_string ("\nUnsupported SCM value for format: ~a"),
+      ly_progress (scm_from_ascii_string ("\nUnsupported SCM value for format: ~a"),
                    scm_list_1 (arg));
     }
 

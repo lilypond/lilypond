@@ -77,7 +77,11 @@ load_scheme_table (char const *tag_str, FT_Face face)
       string contents ((char const *)buffer, length);
       contents = "(quote (" + contents + "))";
 
+#if GUILEV2
+      tab = scm_eval_string (scm_from_utf8_string (contents.c_str ()));
+#else
       tab = scm_c_eval_string (contents.c_str ());
+#endif
       free (buffer);
     }
   return tab;
@@ -337,7 +341,7 @@ Open_type_font::glyph_list () const
         warning (_f ("FT_Get_Glyph_Name () error: %s",
                      freetype_error_string (code).c_str ()));
 
-      *tail = scm_cons (scm_from_locale_string (name), SCM_EOL);
+      *tail = scm_cons (scm_from_ascii_string (name), SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }
 

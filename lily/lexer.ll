@@ -368,7 +368,7 @@ BOM_UTF8	\357\273\277
 <chords,notes,figures>{RESTNAME}/[-_]	|  // pseudo backup rule
 <chords,notes,figures>{RESTNAME} 	{
 	char const *s = YYText ();
-	yylval = scm_from_locale_string (s);
+	yylval = scm_from_ascii_string (s);
 	return RESTNAME;
 }
 <chords,notes,figures>q/[-_]	| // pseudo backup rule
@@ -508,11 +508,11 @@ BOM_UTF8	\357\273\277
 <quote,commandquote>{
 	\\{ESCAPED}	{
                 char c = escaped_char (YYText ()[1]);
-		yylval = scm_cons (scm_from_locale_stringn (&c, 1),
+		yylval = scm_cons (scm_from_ascii_stringn (&c, 1),
                                    yylval);
 	}
 	[^\\""]+	{
-                yylval = scm_cons (scm_from_locale_string (YYText_utf8 ()),
+                yylval = scm_cons (scm_from_utf8_string (YYText_utf8 ()),
                                    yylval);
 	}
 	\"	{
@@ -533,7 +533,7 @@ BOM_UTF8	\357\273\277
 		return STRING;
 	}
 	\\	{
-                yylval = scm_cons (scm_from_locale_string (YYText ()),
+                yylval = scm_cons (scm_from_ascii_string (YYText ()),
                                    yylval);
 	}
 }

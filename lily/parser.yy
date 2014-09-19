@@ -3002,25 +3002,25 @@ fingering:
 
 script_abbreviation:
 	'^'		{
-		$$ = scm_from_locale_string ("Hat");
+		$$ = scm_from_ascii_string ("Hat");
 	}
 	| '+'		{
-		$$ = scm_from_locale_string ("Plus");
+		$$ = scm_from_ascii_string ("Plus");
 	}
 	| '-' 		{
-		$$ = scm_from_locale_string ("Dash");
+		$$ = scm_from_ascii_string ("Dash");
 	}
  	| '!'		{
-		$$ = scm_from_locale_string ("Bang");
+		$$ = scm_from_ascii_string ("Bang");
 	}
 	| ANGLE_CLOSE	{
-		$$ = scm_from_locale_string ("Larger");
+		$$ = scm_from_ascii_string ("Larger");
 	}
 	| '.' 		{
-		$$ = scm_from_locale_string ("Dot");
+		$$ = scm_from_ascii_string ("Dot");
 	}
 	| '_' {
-		$$ = scm_from_locale_string ("Underscore");
+		$$ = scm_from_ascii_string ("Underscore");
 	}
 	;
 
@@ -3751,7 +3751,7 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 SCM
 get_next_unique_context_id ()
 {
-	return scm_from_locale_string ("$uniqueContextId");
+	return scm_from_ascii_string ("$uniqueContextId");
 }
 
 
@@ -3761,7 +3761,7 @@ get_next_unique_lyrics_context_id ()
 	static int new_context_count;
 	char s[128];
 	snprintf (s, sizeof (s)-1, "uniqueContext%d", new_context_count++);
-	return scm_from_locale_string (s);
+	return scm_from_ascii_string (s);
 }
 
 // check_scheme_arg checks one argument with a given predicate for use

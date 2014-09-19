@@ -144,7 +144,7 @@ ly_string2scm (string const &str)
 char *
 ly_scm2str0 (SCM str)
 {
-  return scm_to_locale_string (str);
+  return scm_to_utf8_string (str);
 }
 
 /*

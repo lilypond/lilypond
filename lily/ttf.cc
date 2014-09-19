@@ -570,7 +570,7 @@ LY_DEFINE (ly_ttf_2_pfa, "ly:ttf->pfa",
   Memory_out_stream stream;
 
   create_type42_font (&stream, file_name, i);
-  SCM asscm = scm_from_locale_stringn (stream.get_string (),
+  SCM asscm = scm_from_latin1_stringn (stream.get_string (),
                                        stream.get_length ());
 
   debug_output ("]", false);
