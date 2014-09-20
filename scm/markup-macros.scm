@@ -110,14 +110,14 @@ command.  There is no protection against circular definitions.
            (set! body (cddr body)))
     `(begin
        ;; define the COMMAND-markup function
-       ,(let* ((documentation (if (string? (car body))
-                                  (list (car body))
-                                  '()))
-               (real-body (if (or (null? documentation)
+       ,(let* ((documentation
+                (format #f "~a\n~a" (cddr args)
+                        (if (string? (car body)) (car body) "")))
+               (real-body (if (or (not (string? (car body)))
                                   (null? (cdr body)))
                               body (cdr body))))
           `(define-public (,command-name ,@args)
-             ,@documentation
+             ,documentation
              (let ,(map (lambda (prop-spec)
                           (let ((prop (car prop-spec))
                                 (default-value (if (null? (cdr prop-spec))
@@ -168,14 +168,14 @@ interpreted, returns a list of stencils instead of a single one"
            (set! body (cddr body)))
     `(begin
        ;; define the COMMAND-markup-list function
-       ,(let* ((documentation (if (string? (car body))
-                                  (list (car body))
-                                  '()))
-               (real-body (if (or (null? documentation)
+       ,(let* ((documentation
+                (format #f "~a\n~a" (cddr args)
+                        (if (string? (car body)) (car body) "")))
+               (real-body (if (or (not (string? (car body)))
                                   (null? (cdr body)))
                               body (cdr body))))
           `(define-public (,command-name ,@args)
-             ,@documentation
+             ,documentation
              (let ,(map (lambda (prop-spec)
                           (let ((prop (car prop-spec))
                                 (default-value (if (null? (cdr prop-spec))
