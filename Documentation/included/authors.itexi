@@ -169,9 +169,7 @@ LSR editor and Bug squad member
 
 @c use commas not colons
 
-Aleksandr Andreev,
-Frédéric Bron,
-Torsten Hämmerle,
+Dan Eble,
 Rutger Hofmann,
 Marc Hohl,
 Felix Janda,
@@ -182,9 +180,7 @@ Thomas Morley,
 David Nalesnik,
 Keith OHara,
 Benkő Pál,
-Anders Pilegaard,
 Julien Rioux,
-Johannes Rohrer,
 Devon Schudy,
 Adam Spiers,
 Heikki Tauriainen
@@ -198,6 +194,8 @@ Heikki Tauriainen
 @macro fontCurrent
 
 @c use commas not colons
+
+Abraham Lee
 
 @c no comma for last entry
 
@@ -216,10 +214,8 @@ Urs Liska,
 James Lowe,
 Thomas Morley,
 Jean-Charles Malahieude,
-Guy Stalnaker,
-Martin Tarenskeen,
-Arnold Theresius,
-Rodolfo Zitellini
+Pierre Perol-Schneider,
+Martin Tarenskeen
 
 @c no comma for last entry
 
@@ -246,14 +242,21 @@ Ralph Palmer
 
 @c use commas not colons
 
+Simon Albrecht,
 Colin Campbell,
 Eluze,
 Marc Hohl,
 Marek Klein,
 Alex Loomis,
 Kieren MacMillan,
+Tim McNamara,
+Paul Morris
+David Nalesnik,
 Urs Liska,
-Ralph Palmer
+Ralph Palmer,
+Pierre Perol-Schneider,
+Neil Puttock,
+Tao
 
 @c no comma for last entry
 
@@ -304,6 +307,7 @@ Bertalan Fodor,
 Richard Gay,
 Mathieu Giraud,
 Lisa Opus Goldstein,
+Torsten Hämmerle,
 Yuval Harel,
 Andrew Hawryluk,
 Christian Hitz,
@@ -331,9 +335,11 @@ Tatsuya Ono,
 Benkő Pál,
 Benjamin Peterson,
 Guy Gascoigne-Piggford,
+Anders Pilegaard,
 Henning Hraban Ramm,
 Nathan Reed,
 Julien Rioux,
+Johannes Rohrer,
 Stan Sanderson,
 Andreas Scherer,
 Johannes Schindelin,
@@ -409,10 +415,13 @@ Till Rettig,
 Pavel Roskin,
 Patrick Schmidt,
 Alberto Simoes,
+Guy Stalnaker,
+Arnold Theresius,
 Anh Hai Trinh,
 Eduardo Vieira,
 Stefan Weil,
-Rune Zedeler
+Rune Zedeler,
+Rodolfo Zitellini
 
 @c no comma for last entry
 
