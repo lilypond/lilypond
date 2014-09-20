@@ -1076,9 +1076,9 @@ result."
              (pair? (car args)))
         (currying-lambda (car args) doc-string?
                          `((lambda ,(cdr args) ,@body)))
-        (if doc-string?
-            `(lambda ,args ,doc-string? ,@body)
-            `(lambda ,args ,@body))))
+        `(lambda ,args
+           ,(format #f "~a\n~a" (cddr args) (or doc-string? ""))
+           ,@body)))
 
   (set! signature (map (lambda (pred)
                          (if (pair? pred)
