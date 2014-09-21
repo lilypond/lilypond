@@ -60,6 +60,110 @@ which scares away people.
 * only show user-visible changes.
 
 @end ignore
+
+@item
+It is now possible to override the @code{text} property of
+chord names.
+
+@lilypond[verbatim,fragment,quote]
+<<
+\new ChordNames \chordmode {
+  a' b c:7
+  \once \override ChordName.text = #"foo"
+  d
+}
+>>
+@end lilypond
+
+@item
+Improved horizontal alignment when using @code{TextScript},
+with @code{DynamicText} or @code{LyricText}.
+
+@item
+A new command @code{\magnifyStaff} has been added which scales staff
+sizes, staff lines, bar lines, beamlets and horizontal spacing generally
+at the @code{Staff} context level.  Staff lines are prevented from being
+scaled smaller than the default since the thickness of stems, slurs, and
+the like are all based on the staff line thickness.
+
+@item
+@code{InstrumentName} now supports @code{text-interface}.
+
+@item
+There is now support for controlling the @q{expression level} of
+MIDI channels using the @code{Staff.midiExpression} context property.
+This can be used to alter the perceived volume of even sustained notes
+(albeit in a very @q{low-level} way) and accepts a number value between
+@code{0.0} and @code{1.0}.
+
+@example
+\score @{
+  \new Staff \with @{
+    midiExpression = #0.6
+    midiInstrument = #"clarinet"
+  @}
+  <<
+    @{ a'1~ a'1 @}
+    @{
+      \set Staff.midiExpression = #0.7 s4\f\<
+      \set Staff.midiExpression = #0.8 s4
+      \set Staff.midiExpression = #0.9 s4
+      \set Staff.midiExpression = #1.0 s4
+
+      \set Staff.midiExpression = #0.9 s4\>
+      \set Staff.midiExpression = #0.8 s4
+      \set Staff.midiExpression = #0.7 s4
+      \set Staff.midiExpression = #0.6 s4\!
+    @}
+  >>
+  \midi @{ @}
+@}
+@end example
+
+@item
+Support for making it easier to use alternative @q{music} fonts other
+than the default Emmentaler in LilyPond has been added.  See
+@uref{http://fonts.openlilylib.org/} for more information.
+
+@item
+Grobs and their parents can now be aligned separately allowing
+more flexibility for grob positions.  For example the @q{left} edge of a
+grob can now be aligned on the @q{center} of its parent.
+
+@item
+Improvements to the @code{\partial} command have been made to
+avoid problems when using multiple, parallel contexts.
+
+@item @code{\chordmode} can now use @code{< >} and @code{<< >>}
+constructs.
+
+@item
+The @code{NullVoice} context is now @q{below} @code{Score}.
+
+@item
+A new command @code{\tagGroup} has now been added.  This compliments
+the existing @code{\keepWithTag} and @code{\removeWithTag} commands.
+For Example:
+
+@example
+\tagGroup #'(violinI violinII viola cello)
+@end example
+
+declares a list of @q{tags} that belong to a single @q{tag group}.
+
+@example
+\keepwithTag#'violinI
+@end example
+
+Is now only concerned with @q{tags} from @q{violinI}’s tag group.
+
+Any element of the included music tagged with one or more tags from the
+group, but @emph{not} with @var{violinI}, will be removed.
+
+@item
+The @code{\addlyrics} function now works with arbitrary contexts
+incuding @code{Staff}.
+
 @item
 The @code{thin-kern} property of the @code{BarLine} grob has been
 renamed to @code{segno-kern}.
