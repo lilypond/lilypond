@@ -23,6 +23,9 @@ namespace Guile_user {
   Scm_module module ("guile-user");
 
   Variable apply ("apply");
+#if GUILEV2
+  Variable f_default_port_encoding ("%default-port-encoding");
+#endif
   Variable plus ("+");
   Variable make_module ("make-module");
 #if GUILEV2

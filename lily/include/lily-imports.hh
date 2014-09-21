@@ -27,6 +27,9 @@ namespace Guile_user {
   typedef Module_variable<module> Variable;
 
   extern Variable apply;
+#if GUILEV2
+  extern Variable f_default_port_encoding;
+#endif
   extern Variable plus;
   extern Variable make_module;
 #if GUILEV2

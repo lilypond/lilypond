@@ -35,6 +35,7 @@
 #include "international.hh"
 #include "misc.hh"
 #include "warn.hh"
+#include "lily-imports.hh"
 
 using std::istream;
 using std::istringstream;
@@ -147,8 +148,22 @@ Source_file::init_port ()
   // This is somewhat icky: the string will in general be in utf8, but
   // we do our own utf8 encoding and verification in the parser, so we
   // use the no-conversion equivalent of latin1
+#if GUILEV2
+  SCM str = scm_c_make_bytevector (length () - 1);
+  memcpy (SCM_BYTEVECTOR_CONTENTS (str), c_str (), length () - 1);
+  // Setting %default-port-encoding to binary before calling
+  // open-bytevector-input-port appears quite unnecessary regarding
+  // the documented semantics, but at least GUILE 2.0.11 is not
+  // particularly interested in sticking to its documentation.
+  // <URL:http://debbugs.gnu.org/cgi/bugreport.cgi?bug=20200>
+  scm_dynwind_begin ((scm_t_dynwind_flags)0);
+  scm_dynwind_fluid (Guile_user::f_default_port_encoding, SCM_BOOL_F);
+  str_port_ = scm_open_bytevector_input_port (str, SCM_UNDEFINED);
+  scm_dynwind_end ();
+#else
   SCM str = scm_from_latin1_string (c_str ());
   str_port_ = scm_mkstrport (SCM_INUM0, str, SCM_OPN | SCM_RDNG, __FUNCTION__);
+#endif
   scm_set_port_filename_x (str_port_, ly_string2scm (name_));
 }
 
