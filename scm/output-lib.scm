@@ -404,8 +404,8 @@ and duration-log @var{log}."
                                 1.3)
                             line-thickness))
          (radius (/ (+ staff-space line-thickness) 2))
-         (letter (markup #:center-align #:vcenter pitch-string))
-         (filled-circle (markup #:draw-circle radius 0 #t)))
+         (letter (make-center-align-markup (make-vcenter-markup pitch-string)))
+         (filled-circle (make-draw-circle-markup radius 0 #t)))
 
     (ly:stencil-translate-axis
      (grob-interpret-markup
@@ -571,11 +571,12 @@ and duration-log @var{log}."
 ;; tuplet formatter function. It takes the value returned by the given
 ;; function and appends a note of given length.
 (define ((tuplet-number::append-note-wrapper function note) grob)
-  (let ((txt (if function (function grob) #f)))
+  (let ((txt (and function (function grob))))
 
     (if txt
-        (markup txt #:fontsize -5 #:note note UP)
-        (markup #:fontsize -5 #:note note UP))))
+        (make-line-markup
+         (list txt (make-fontsize-markup -5 (make-note-markup note UP))))
+        (make-fontsize-markup -5 (make-note-markup note UP)))))
 (export tuplet-number::append-note-wrapper)
 
 ;; Print a tuplet denominator with a different number than the one derived from
@@ -620,10 +621,10 @@ and duration-log @var{log}."
 
     (make-concat-markup (list
                          (make-simple-markup (format #f "~a" den))
-                         (markup #:fontsize -5 #:note denominatornote UP)
+                         (make-fontsize-markup -5 (make-note-markup denominatornote UP))
                          (make-simple-markup " : ")
                          (make-simple-markup (format #f "~a" num))
-                         (markup #:fontsize -5 #:note numeratornote UP)))))
+                         (make-fontsize-markup -5 (make-note-markup numeratornote UP))))))
 (export tuplet-number::non-default-fraction-with-notes)
 
 
@@ -704,7 +705,7 @@ and duration-log @var{log}."
 ;; annotations
 
 (define-public (numbered-footnotes int)
-  (markup #:tiny (number->string (+ 1 int))))
+  (make-tiny-markup (number->string (+ 1 int))))
 
 (define-public (symbol-footnotes int)
   (define (helper symbols out idx n)
@@ -714,10 +715,10 @@ and duration-log @var{log}."
                 (string-append out (list-ref symbols idx))
                 idx
                 (- n 1))))
-  (markup #:tiny (helper '("*" "†" "‡" "§" "¶")
-                         ""
-                         (remainder int 5)
-                         (+ 1 (quotient int 5)))))
+  (make-tiny-markup (helper '("*" "†" "‡" "§" "¶")
+                            ""
+                            (remainder int 5)
+                            (+ 1 (quotient int 5)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; accidentals
