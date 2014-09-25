@@ -3845,6 +3845,16 @@ def conv (str):
     str = re.sub (r":1\.5(?=\s|[.^}])", r":5", str)
     return str
 
+@rule ((2, 19, 29), r"partcombine*Once -> \once \partcombine*")
+def conv(str):
+    str = re.sub (r"(\\partcombine(?:Apart|Chords|Unisono|SoloII?|Automatic))Once\b",
+                  r"\\once \1", str)
+    str = re.sub (r"(\\partcombineForce" + matcharg + r")\s*##f(\s)",
+                  r"\1\2", str)
+    str = re.sub (r"(\\partcombineForce" + matcharg + r")\s*##t(\s)",
+                  r"\\once \1\2", str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
