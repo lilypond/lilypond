@@ -186,11 +186,11 @@ bool check_repeat_count_visibility (Context const *context, SCM count);
 void set_context_property_on_children (Context *trans, SCM sym, SCM val);
 
 /* Shorthand for creating and broadcasting stream events. */
-#define send_stream_event(ctx, type, origin, ...)                               \
-{                                                                       \
-  SCM props[] = { __VA_ARGS__, 0 };                                     \
-  ctx->internal_send_stream_event (ly_symbol2scm (type), origin, props);        \
-}
+#define send_stream_event(ctx, type, origin, ...)                       \
+  do {                                                                  \
+    SCM props[] = { __VA_ARGS__, 0 };                                   \
+    ctx->internal_send_stream_event (ly_symbol2scm (type), origin, props); \
+  } while (0)
 
 SCM nested_property_alist (SCM alist, SCM prop_path, SCM value);
 SCM nested_create_alist (SCM prop_path, SCM value);
