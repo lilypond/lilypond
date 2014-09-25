@@ -414,17 +414,11 @@ partcombineForce =
        (propertyUnset 'partCombineForced)))
 
 partcombineApart = \partcombineForce #'apart
-partcombineApartOnce = \once \partcombineApart
 partcombineChords = \partcombineForce #'chords
-partcombineChordsOnce = \once \partcombineChords
 partcombineUnisono = \partcombineForce #'unisono
-partcombineUnisonoOnce = \once \partcombineUnisono
 partcombineSoloI = \partcombineForce #'solo1
-partcombineSoloIOnce = \once \partcombineSoloI
 partcombineSoloII = \partcombineForce #'solo2
-partcombineSoloIIOnce = \once \partcombineSoloII
 partcombineAutomatic = \partcombineForce \default
-partcombineAutomaticOnce = \once \partcombineAutomatic
 
 
 %% phrasing slurs
