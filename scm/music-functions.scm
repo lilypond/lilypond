@@ -825,7 +825,10 @@ from the predecessor note/chord if available."
          m)
        (cond
         ((music-is-of-type? m 'event-chord)
-         (set-and-ret m))
+         (if (any (lambda (m) (music-is-of-type? m 'rhythmic-event))
+                  (ly:music-property m 'elements))
+             (set! last-pitch m))
+         m)
         ((music-is-of-type? m 'note-event)
          (cond
           ((or (ly:music-property m 'pitch #f)
