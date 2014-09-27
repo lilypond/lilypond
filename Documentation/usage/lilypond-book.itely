@@ -882,7 +882,7 @@ way you use, you can easily convert between PostScript and PDF with
 tools, like @command{ps2pdf} and @command{pdf2ps} included in
 Ghostscript package.
 
-To produce a PDF file through PDF@LaTeX{}, use
+To produce a PDF file through PDF@LaTeX{}, use;
 
 @example
 lilypond-book --pdf yourfile.lytex
@@ -893,8 +893,7 @@ pdflatex yourfile.tex
 @cindex type1 fonts
 @cindex dvips
 @cindex invoking dvips
-To produce PDF output via @LaTeX{}/@command{dvips}/@command{ps2pdf}, you
-should do
+To produce PDF output via @LaTeX{}/@command{dvips}/@command{ps2pdf};
 
 @example
 lilypond-book yourfile.lytex
@@ -904,16 +903,33 @@ ps2pdf yourfile.ps
 @end example
 
 @noindent
-The @file{.dvi} file created by this process will not contain
- note heads.  This is normal; if you follow the instructions, they
-will be included in the @file{.ps} and @file{.pdf} files.
+The @file{.dvi} file created by this process will not contain note heads.
+This is normal; if you follow the instructions, they will be included in
+the @file{.ps} and @file{.pdf} files.
 
 Running @command{dvips} may produce some warnings about fonts; these
 are harmless and may be ignored.  If you are running @command{latex} in
 twocolumn mode, remember to add @option{-t landscape} to the
 @command{dvips} options.
 
+Environments such as;
+
+@example
+\begin@{lilypond@} @dots{} \end@{lilypond@}
+@end example
+
+@noindent
+are not interpreted by @LaTeX{}. Instead, @code{lilypond-book} extracts
+those @q{environments} into files of its own and runs LilyPond on them'.
+It then takes the resulting graphics and creates a @file{.tex} file
+where the @code{\begin@{lilypond@}}@dots{}@code{\end@{lilypond@}} macros
+are then replaced by @q{graphics inclusion} commands.  It is at this
+time that @LaTeX{} is run (although @LaTeX{} will have run previously,
+it will have been, effectively, on an @q{empty} document in order to
+calculate things like @code{\linewidth}.
+
 @knownissues
+
 The @code{\pageBreak} command will not work within a
 @code{\begin@{lilypond@} @dots{} \end@{lilypond@}} environment.
 
