@@ -863,13 +863,6 @@ Skyline::clear ()
 
 const char Skyline::type_p_name_[] = "ly:skyline?";
 
-SCM
-Skyline::mark_smob (SCM s)
-{
-  ASSERT_LIVE_IS_ALLOWED (s);
-  return SCM_EOL;
-}
-
 int
 Skyline::print_smob (SCM s, SCM port, scm_print_state *)
 {

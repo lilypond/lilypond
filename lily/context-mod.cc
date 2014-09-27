@@ -50,8 +50,6 @@ Context_mod::print_smob (SCM smob, SCM port, scm_print_state *)
 SCM
 Context_mod::mark_smob (SCM smob)
 {
-  ASSERT_LIVE_IS_ALLOWED (smob);
-
   Context_mod *me = (Context_mod *) SCM_CELL_WORD_1 (smob);
 
   return me->mods_;
