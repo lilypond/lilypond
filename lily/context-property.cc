@@ -66,7 +66,6 @@ typecheck_grob (SCM symbol, SCM value)
 class Grob_properties : public Simple_smob<Grob_properties>
 {
 public:
-  static int print_smob (SCM, SCM, scm_print_state *);
   SCM mark_smob ();
   static const char type_p_name_[];
 private:
@@ -104,14 +103,6 @@ Grob_properties::mark_smob ()
   scm_gc_mark (based_on_);
   scm_gc_mark (cooked_);
   return cooked_from_;
-}
-
-int
-Grob_properties::print_smob (SCM /*smob*/, SCM port, scm_print_state *)
-{
-  scm_puts ("#<Grob_properties>", port);
-
-  return 1;
 }
 
 LY_DEFINE (ly_make_grob_properties, "ly:make-grob-properties",

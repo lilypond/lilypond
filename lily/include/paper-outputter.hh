@@ -33,7 +33,6 @@
 class Paper_outputter : public Smob<Paper_outputter>
 {
 public:
-  static int print_smob (SCM, SCM, scm_print_state *);
   SCM mark_smob ();
   virtual ~Paper_outputter ();
 private:

@@ -29,7 +29,6 @@
 class Book : public Smob<Book>
 {
 public:
-  static int print_smob (SCM, SCM, scm_print_state *);
   SCM mark_smob ();
   static const char type_p_name_[];
   virtual ~Book ();

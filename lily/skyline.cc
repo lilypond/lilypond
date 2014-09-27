@@ -863,17 +863,6 @@ Skyline::clear ()
 
 const char Skyline::type_p_name_[] = "ly:skyline?";
 
-int
-Skyline::print_smob (SCM s, SCM port, scm_print_state *)
-{
-  Skyline *r = (Skyline *) SCM_CELL_WORD_1 (s);
-  (void) r;
-
-  scm_puts ("#<Skyline>", port);
-
-  return 1;
-}
-
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Skyline, get_touching_point, 3, 1, "")
 SCM
 Skyline::get_touching_point (SCM skyline_scm, SCM other_skyline_scm, SCM horizon_padding_scm)

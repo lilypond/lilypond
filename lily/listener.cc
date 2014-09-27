@@ -51,13 +51,6 @@ Listener::mark_smob ()
   return SCM_EOL;
 }
 
-int
-Listener::print_smob (SCM, SCM p, scm_print_state *)
-{
-  scm_puts ("#<Listener>", p);
-  return 1;
-}
-
 SCM
 Listener::equal_p (SCM a, SCM b)
 {

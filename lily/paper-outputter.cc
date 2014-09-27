@@ -68,15 +68,6 @@ Paper_outputter::mark_smob ()
   return file_;
 }
 
-int
-Paper_outputter::print_smob (SCM /* x */,
-                             SCM p,
-                             scm_print_state *)
-{
-  scm_puts ("#<Paper_outputter>", p);
-  return 1;
-}
-
 SCM
 Paper_outputter::file () const
 {

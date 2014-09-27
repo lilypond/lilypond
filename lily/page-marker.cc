@@ -50,15 +50,6 @@ Page_marker::mark_smob ()
   return SCM_EOL;
 }
 
-int
-Page_marker::print_smob (SCM smob, SCM port, scm_print_state *)
-{
-  Page_marker *pm = (Page_marker *) SCM_CELL_WORD_1 (smob);
-  (void) pm;
-  scm_puts ("#<Page_marker>", port);
-  return 1;
-}
-
 SCM
 Page_marker::permission_symbol ()
 {

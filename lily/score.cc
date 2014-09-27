@@ -72,14 +72,6 @@ Score::mark_smob ()
   return music_;
 }
 
-int
-Score::print_smob (SCM, SCM p, scm_print_state *)
-{
-  scm_puts ("#<Score>", p);
-
-  return 1;
-}
-
 Score::Score (Score const &s)
 {
   header_ = SCM_EOL;

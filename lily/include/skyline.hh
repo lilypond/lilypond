@@ -52,7 +52,6 @@ struct Building
 class Skyline : public Simple_smob<Skyline>
 {
 public:
-  static int print_smob (SCM, SCM, scm_print_state *);
   static const char type_p_name_[];
 private:
   list<Building> buildings_;

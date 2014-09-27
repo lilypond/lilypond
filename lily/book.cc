@@ -117,13 +117,6 @@ Book::mark_smob ()
   return header_;
 }
 
-int
-Book::print_smob (SCM, SCM p, scm_print_state *)
-{
-  scm_puts ("#<Book>", p);
-  return 1;
-}
-
 void
 Book::add_score (SCM s)
 {

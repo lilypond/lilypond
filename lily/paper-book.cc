@@ -69,15 +69,6 @@ Paper_book::mark_smob ()
   return systems_;
 }
 
-int
-Paper_book::print_smob (SCM smob, SCM port, scm_print_state *)
-{
-  Paper_book *b = (Paper_book *) SCM_CELL_WORD_1 (smob);
-  (void)b;
-  scm_puts ("#<Paper_book>", port);
-  return 1;
-}
-
 Output_def *
 Paper_book::top_paper ()
 {
