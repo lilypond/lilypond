@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.14\n"
+"Project-Id-Version: lilypond 2.19.15\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2014-09-14 14:00+0100\n"
+"POT-Creation-Date: 2014-09-28 14:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -902,12 +902,12 @@ msgid ""
 msgstr ""
 
 #: abc2ly.py:1395 convert-ly.py:92 etf2ly.py:1208 lilypond-book.py:231
-#: midi2ly.py:1095 musicxml2ly.py:2590 main.cc:181
+#: midi2ly.py:1095 musicxml2ly.py:2590 main.cc:182
 msgid "show version number and exit"
 msgstr ""
 
 #: abc2ly.py:1398 convert-ly.py:96 etf2ly.py:1204 lilypond-book.py:140
-#: midi2ly.py:1062 musicxml2ly.py:2572 main.cc:160
+#: midi2ly.py:1062 musicxml2ly.py:2572 main.cc:161
 msgid "show this help and exit"
 msgstr ""
 
@@ -932,7 +932,7 @@ msgstr ""
 #. or if there is a LilyPond users list or forum in your language
 #. "Report bugs in English via %s or in YOUR_LANG via URI"
 #: abc2ly.py:1413 convert-ly.py:157 etf2ly.py:1218 lilypond-book.py:258
-#: midi2ly.py:1107 musicxml2ly.py:2674 main.cc:315
+#: midi2ly.py:1107 musicxml2ly.py:2674 main.cc:316
 #, c-format, python-format
 msgid "Report bugs via %s"
 msgstr ""
@@ -983,7 +983,7 @@ msgid ""
 msgstr ""
 
 #: convert-ly.py:111 lilypond-book.py:163 lilypond-book.py:181
-#: musicxml2ly.py:2629 main.cc:174
+#: musicxml2ly.py:2629 main.cc:175
 msgid "LOGLEVEL"
 msgstr ""
 
@@ -1015,7 +1015,7 @@ msgid "make a numbered backup [default: filename.ext~]"
 msgstr ""
 
 #: convert-ly.py:152 etf2ly.py:1212 lilypond-book.py:234 midi2ly.py:1096
-#: main.cc:183
+#: main.cc:184
 msgid "show warranty and copyright"
 msgstr ""
 
@@ -1074,7 +1074,7 @@ msgid ""
 msgstr ""
 
 #: etf2ly.py:1210 midi2ly.py:1067 midi2ly.py:1072 musicxml2ly.py:2659
-#: main.cc:166 main.cc:178
+#: main.cc:167 main.cc:179
 msgid "FILE"
 msgstr ""
 
@@ -1114,7 +1114,7 @@ msgid "add DIR to include path"
 msgstr ""
 
 #: lilypond-book.py:143 lilypond-book.py:150 lilypond-book.py:169
-#: lilypond-book.py:187 lilypond-book.py:208 lilypond-book.py:214 main.cc:165
+#: lilypond-book.py:187 lilypond-book.py:208 lilypond-book.py:214 main.cc:166
 msgid "DIR"
 msgstr ""
 
@@ -2171,7 +2171,7 @@ msgstr ""
 msgid "cannot find %s `%s'"
 msgstr ""
 
-#: main.cc:104
+#: main.cc:105
 #, c-format
 msgid ""
 "This program is free software.  It is covered by the GNU General Public\n"
@@ -2180,7 +2180,7 @@ msgid ""
 "information.\n"
 msgstr ""
 
-#: main.cc:110
+#: main.cc:111
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License as \n"
@@ -2198,98 +2198,98 @@ msgid ""
 "Boston, MA 02111-1307, USA.\n"
 msgstr ""
 
-#: main.cc:148
+#: main.cc:149
 msgid "SYM[=VAL]"
 msgstr ""
 
-#: main.cc:149
+#: main.cc:150
 msgid ""
 "set Scheme option SYM to VAL (default: #t).\n"
 "Use -dhelp for help."
 msgstr ""
 
-#: main.cc:153
+#: main.cc:154
 msgid "EXPR"
 msgstr ""
 
-#: main.cc:153
+#: main.cc:154
 msgid "evaluate scheme code"
 msgstr ""
 
 #. Bug in option parser: --output =foe is taken as an abbreviation
 #. for --output-format.
-#: main.cc:156
+#: main.cc:157
 msgid "FORMATs"
 msgstr ""
 
-#: main.cc:156
+#: main.cc:157
 msgid "dump FORMAT,...  Also as separate options:"
 msgstr ""
 
-#: main.cc:157
+#: main.cc:158
 msgid "generate PDF (default)"
 msgstr ""
 
-#: main.cc:158
+#: main.cc:159
 msgid "generate PNG"
 msgstr ""
 
-#: main.cc:159
+#: main.cc:160
 msgid "generate PostScript"
 msgstr ""
 
-#: main.cc:162
+#: main.cc:163
 msgid "FIELD"
 msgstr ""
 
-#: main.cc:162
+#: main.cc:163
 msgid ""
 "dump header field FIELD to file\n"
 "named BASENAME.FIELD"
 msgstr ""
 
-#: main.cc:165
+#: main.cc:166
 msgid "add DIR to search path"
 msgstr ""
 
-#: main.cc:166
+#: main.cc:167
 msgid "use FILE as init file"
 msgstr ""
 
-#: main.cc:169
+#: main.cc:170
 msgid "USER, GROUP, JAIL, DIR"
 msgstr ""
 
-#: main.cc:169
+#: main.cc:170
 msgid ""
 "chroot to JAIL, become USER:GROUP\n"
 "and cd into DIR"
 msgstr ""
 
-#: main.cc:174
+#: main.cc:175
 msgid ""
 "print log messages according to LOGLEVEL.  Possible values are:\n"
 "NONE, ERROR, WARNING, BASIC, PROGRESS, INFO (default) and DEBUG."
 msgstr ""
 
-#: main.cc:178
+#: main.cc:179
 msgid "write output to FILE (suffix will be added)"
 msgstr ""
 
-#: main.cc:179
+#: main.cc:180
 msgid "relocate using directory of lilypond program"
 msgstr ""
 
-#: main.cc:180
+#: main.cc:181
 msgid "no progress, only error messages (equivalent to loglevel=ERROR)"
 msgstr ""
 
-#: main.cc:182
+#: main.cc:183
 msgid "be verbose (equivalent to loglevel=DEBUG)"
 msgstr ""
 
 #. Do not update the copyright years here, run `make grand-replace'
-#: main.cc:261
+#: main.cc:262
 #, c-format
 msgid ""
 "Copyright (c) %s by\n"
@@ -2297,74 +2297,74 @@ msgid ""
 msgstr ""
 
 #. No version number or newline here.  It confuses help2man.
-#: main.cc:299
+#: main.cc:300
 #, c-format
 msgid "Usage: %s [OPTION]... FILE..."
 msgstr ""
 
-#: main.cc:301
+#: main.cc:302
 msgid "Typeset music and/or produce MIDI from FILE."
 msgstr ""
 
-#: main.cc:303
+#: main.cc:304
 msgid "LilyPond produces beautiful music notation."
 msgstr ""
 
-#: main.cc:305
+#: main.cc:306
 #, c-format
 msgid "For more information, see %s"
 msgstr ""
 
-#: main.cc:307
+#: main.cc:308
 msgid "Options:"
 msgstr ""
 
-#: main.cc:374
+#: main.cc:375
 #, c-format
 msgid "expected %d arguments with jail, found: %u"
 msgstr ""
 
-#: main.cc:388
+#: main.cc:389
 #, c-format
 msgid "no such user: %s"
 msgstr ""
 
-#: main.cc:390
+#: main.cc:391
 #, c-format
 msgid "cannot get user id from user name: %s: %s"
 msgstr ""
 
-#: main.cc:405
+#: main.cc:406
 #, c-format
 msgid "no such group: %s"
 msgstr ""
 
-#: main.cc:407
+#: main.cc:408
 #, c-format
 msgid "cannot get group id from group name: %s: %s"
 msgstr ""
 
-#: main.cc:415
+#: main.cc:416
 #, c-format
 msgid "cannot chroot to: %s: %s"
 msgstr ""
 
-#: main.cc:422
+#: main.cc:423
 #, c-format
 msgid "cannot change group id to: %d: %s"
 msgstr ""
 
-#: main.cc:428
+#: main.cc:429
 #, c-format
 msgid "cannot change user id to: %d: %s"
 msgstr ""
 
-#: main.cc:434
+#: main.cc:435
 #, c-format
 msgid "cannot change working directory to: %s: %s"
 msgstr ""
 
-#: main.cc:805
+#: main.cc:820
 #, c-format
 msgid "exception caught: %s"
 msgstr ""
@@ -2482,7 +2482,7 @@ msgstr ""
 msgid "ignoring too many clashing note columns"
 msgstr ""
 
-#: note-column.cc:147
+#: note-column.cc:150
 msgid "cannot have note heads and rests together on a stem"
 msgstr ""
 
@@ -2833,11 +2833,11 @@ msgstr ""
 msgid "Unknown relocation command %s"
 msgstr ""
 
-#: rest-collision.cc:150
+#: rest-collision.cc:153
 msgid "cannot resolve rest collision: rest direction not set"
 msgstr ""
 
-#: rest-collision.cc:161 rest-collision.cc:270
+#: rest-collision.cc:164 rest-collision.cc:273
 msgid "too many colliding rests"
 msgstr ""
 
@@ -3386,31 +3386,31 @@ msgstr ""
 msgid "Undefined parent event class `~S'"
 msgstr ""
 
-#: define-markup-commands.scm:1037
+#: define-markup-commands.scm:1062
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:2908
+#: define-markup-commands.scm:2861
 #, scheme-format
 msgid "Cannot find glyph ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3334
+#: define-markup-commands.scm:3337
 #, scheme-format
 msgid "no brace found for point size ~S "
 msgstr ""
 
-#: define-markup-commands.scm:3335
+#: define-markup-commands.scm:3338
 #, scheme-format
 msgid "defaulting to ~S pt"
 msgstr ""
 
-#: define-markup-commands.scm:3587
+#: define-markup-commands.scm:3590
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3798
+#: define-markup-commands.scm:3801
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
@@ -3464,22 +3464,22 @@ msgstr ""
 msgid "unknown Grob interface: ~S"
 msgstr ""
 
-#: documentation-lib.scm:59
+#: documentation-lib.scm:62
 #, scheme-format
 msgid "Processing ~S..."
 msgstr ""
 
-#: documentation-lib.scm:175
+#: documentation-lib.scm:178
 #, scheme-format
 msgid "Writing ~S..."
 msgstr ""
 
-#: documentation-lib.scm:187
+#: documentation-lib.scm:190
 #, scheme-format
 msgid "cannot find description for property `~S' (~S)"
 msgstr ""
 
-#: documentation-lib.scm:208
+#: documentation-lib.scm:211
 #, scheme-format
 msgid "cannot find description for property ~S (~S)"
 msgstr ""
