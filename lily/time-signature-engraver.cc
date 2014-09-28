@@ -22,8 +22,11 @@
 #include "item.hh"
 #include "international.hh"
 #include "misc.hh"
+#include "stream-event.hh"
 #include "time-signature.hh"
 #include "warn.hh"
+
+#include "translator.icc"
 
 /**
    generate time_signatures.
@@ -32,6 +35,7 @@ class Time_signature_engraver : public Engraver
 {
   Item *time_signature_;
   SCM last_time_fraction_;
+  SCM time_cause_;
 
 protected:
   virtual void derived_mark () const;
@@ -39,26 +43,33 @@ protected:
   void process_music ();
 public:
   TRANSLATOR_DECLARATIONS (Time_signature_engraver);
+  DECLARE_TRANSLATOR_LISTENER (time_signature);
 };
 
 void
 Time_signature_engraver::derived_mark () const
 {
   scm_gc_mark (last_time_fraction_);
+  scm_gc_mark (time_cause_);
 }
 
 Time_signature_engraver::Time_signature_engraver ()
 {
   time_signature_ = 0;
+  time_cause_ = SCM_EOL;
   last_time_fraction_ = SCM_BOOL_F;
+}
+
+IMPLEMENT_TRANSLATOR_LISTENER (Time_signature_engraver, time_signature);
+void
+Time_signature_engraver::listen_time_signature (Stream_event *ev)
+{
+  time_cause_ = ev->self_scm ();
 }
 
 void
 Time_signature_engraver::process_music ()
 {
-  /*
-    not rigorously safe, since the value might get GC'd and
-    reallocated in the same spot */
   SCM fr = get_property ("timeSignatureFraction");
   if (!time_signature_
       && last_time_fraction_ != fr
@@ -77,7 +88,7 @@ Time_signature_engraver::process_music ()
                        den));
         }
 
-      time_signature_ = make_item ("TimeSignature", SCM_EOL);
+      time_signature_ = make_item ("TimeSignature", time_cause_);
       time_signature_->set_property ("fraction", fr);
 
       if (last_time_fraction_ == SCM_BOOL_F)
@@ -92,6 +103,7 @@ void
 Time_signature_engraver::stop_translation_timestep ()
 {
   time_signature_ = 0;
+  time_cause_ = SCM_EOL;
 }
 
 #include "translator.icc"

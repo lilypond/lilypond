@@ -126,4 +126,5 @@ to be used by the sequential-iterator"
                  (ly:context-set-property!
                   context 'measureLength new-measure-length))))
             'Timing)
-           'Score))))
+           'Score)
+          (make-music 'TimeSignatureEvent music))))
