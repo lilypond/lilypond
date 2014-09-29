@@ -1013,7 +1013,7 @@ Lily_lexer::scan_bare_word (const string &str)
 		
 		if (scm_is_pair (handle)) {
 			yylval = scm_cdr (handle);
-			if (Pitch::unsmob (yylval))
+			if (Pitch::is_smob (yylval))
 	                    return (YYSTATE == notes) ? NOTENAME_PITCH : TONICNAME_PITCH;
 			else if (scm_is_symbol (yylval))
 			    return DRUM_PITCH;
@@ -1097,7 +1097,7 @@ Lily_lexer::eval_scm (SCM readerdata, Input hi, char extra_token)
 				SCM v = scm_car (p);
 				if (Music *m = Music::unsmob (v))
 				{
-					if (!Input::unsmob (m->get_property ("origin")))
+					if (!Input::is_smob (m->get_property ("origin")))
 						m->set_spot (override_input (here_input ()));
 				}
 					
@@ -1122,7 +1122,7 @@ Lily_lexer::eval_scm (SCM readerdata, Input hi, char extra_token)
 
 	if (Music *m = Music::unsmob (sval))
 	{
-		if (!Input::unsmob (m->get_property ("origin")))
+		if (!Input::is_smob (m->get_property ("origin")))
 			m->set_spot (override_input (here_input ()));
 	}
 

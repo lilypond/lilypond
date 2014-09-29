@@ -288,7 +288,7 @@ Paper_column::print (SCM p)
        scm_is_pair (s); s = scm_cdr (s))
     {
       Spring *sp = Spring::unsmob (scm_caar (s));
-      if (!Grob::unsmob (scm_cdar (s))
+      if (!Grob::is_smob (scm_cdar (s))
           || !Grob::unsmob (scm_cdar (s))->get_system ())
         continue;
 

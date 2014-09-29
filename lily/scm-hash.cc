@@ -80,7 +80,7 @@ Scheme_hash_table::mark_smob ()
 int
 Scheme_hash_table::print_smob (SCM s, SCM p, scm_print_state *)
 {
-  assert (unsmob (s));
+  assert (is_smob (s));
   scm_puts ("#<Scheme_hash_table  ", p);
   Scheme_hash_table *me = (Scheme_hash_table *) SCM_CELL_WORD_1 (s);
   scm_display (me->hash_tab_, p);

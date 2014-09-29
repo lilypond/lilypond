@@ -216,6 +216,6 @@ void ly_check_name (const string &cxx, const string &fname);
       }                                                                 \
   }
 
-#define LY_ASSERT_SMOB(klass, var, number) LY_ASSERT_TYPE(klass::unsmob, var, number)
+#define LY_ASSERT_SMOB(klass, var, number) LY_ASSERT_TYPE(klass::is_smob, var, number)
 
 #endif /* LILY_GUILE_MACROS_HH */

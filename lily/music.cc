@@ -90,7 +90,7 @@ Moment
 Music::get_length () const
 {
   SCM lst = get_property ("length");
-  if (Moment::unsmob (lst))
+  if (Moment::is_smob (lst))
     return *Moment::unsmob (lst);
 
   if (ly_is_procedure (length_callback_))

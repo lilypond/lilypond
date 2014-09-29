@@ -219,7 +219,7 @@ Slur::replace_breakable_encompass_objects (Grob *me)
     }
 
   SCM encompass_scm = me->get_object ("encompass-objects");
-  if (Grob_array::unsmob (encompass_scm))
+  if (Grob_array::is_smob (encompass_scm))
     {
       vector<Grob *> &arr
         = Grob_array::unsmob (encompass_scm)->array_reference ();

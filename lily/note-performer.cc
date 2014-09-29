@@ -54,7 +54,7 @@ Note_performer::process_music ()
 
   Pitch transposing;
   SCM prop = get_property ("instrumentTransposition");
-  if (Pitch::unsmob (prop))
+  if (Pitch::is_smob (prop))
     transposing = *Pitch::unsmob (prop);
 
   for (vsize i = 0; i < note_evs_.size (); i++)

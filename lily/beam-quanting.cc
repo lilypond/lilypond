@@ -371,7 +371,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
                          - my_y;
 
           Real factor = parameters_.STEM_COLLISION_FACTOR;
-          if (!Grob::unsmob (s->get_object ("beam")))
+          if (!Grob::is_smob (s->get_object ("beam")))
             factor = 1.0;
           add_collision (x, y, factor);
         }

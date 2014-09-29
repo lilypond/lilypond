@@ -281,10 +281,10 @@ New_fingering_engraver::position_scripts (SCM orientations,
       f->set_parent (ft.head_, Y_AXIS);
       f->set_property ("avoid-slur", ly_symbol2scm ("inside"));
       if (hordir == LEFT
-          && Grob::unsmob (ft.head_->get_object ("accidental-grob")))
+          && Grob::is_smob (ft.head_->get_object ("accidental-grob")))
         Side_position_interface::add_support (f,
                                               Grob::unsmob (ft.head_->get_object ("accidental-grob")));
-      else if (Grob::unsmob (ft.head_->get_object ("dot")))
+      else if (Grob::is_smob (ft.head_->get_object ("dot")))
         Side_position_interface::add_support (f,
                                               Grob::unsmob (ft.head_->get_object ("dot")));
 

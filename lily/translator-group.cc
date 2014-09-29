@@ -101,7 +101,7 @@ filter_performers (SCM ell)
   SCM *tail = &ell;
   for (SCM p = ell; scm_is_pair (p); p = scm_cdr (p))
     {
-      if (Performer::unsmob (scm_car (*tail)))
+      if (Performer::is_smob (scm_car (*tail)))
         *tail = scm_cdr (*tail);
       else
         tail = SCM_CDRLOC (*tail);
@@ -115,7 +115,7 @@ filter_engravers (SCM ell)
   SCM *tail = &ell;
   for (SCM p = ell; scm_is_pair (p); p = scm_cdr (p))
     {
-      if (Engraver::unsmob (scm_car (*tail)))
+      if (Engraver::is_smob (scm_car (*tail)))
         *tail = scm_cdr (*tail);
       else
         tail = SCM_CDRLOC (*tail);

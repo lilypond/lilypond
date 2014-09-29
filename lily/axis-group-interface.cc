@@ -421,7 +421,7 @@ Axis_group_interface::combine_skylines (SCM smob)
   for (vsize i = 0; i < elements.size (); i++)
     {
       SCM skyline_scm = elements[i]->get_property ("vertical-skylines");
-      if (Skyline_pair::unsmob (skyline_scm))
+      if (Skyline_pair::is_smob (skyline_scm))
         {
           Real offset = elements[i]->relative_coordinate (y_common, Y_AXIS);
           Skyline_pair other = *Skyline_pair::unsmob (skyline_scm);

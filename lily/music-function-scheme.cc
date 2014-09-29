@@ -4,7 +4,7 @@ LY_DEFINE (ly_music_function_extract, "ly:music-function-extract", 1, 0, 0,
            (SCM x),
            "Return the Scheme function inside@tie{}@var{x}.")
 {
-  LY_ASSERT_TYPE (Music_function::unsmob, x, 1);
+  LY_ASSERT_SMOB (Music_function, x, 1);
 
   return Music_function::unsmob (x)->get_function ();
 }
@@ -13,7 +13,7 @@ LY_DEFINE (ly_music_function_signature, "ly:music-function-signature", 1, 0, 0,
            (SCM x),
            "Return the function signature inside@tie{}@var{x}.")
 {
-  LY_ASSERT_TYPE (Music_function::unsmob, x, 1);
+  LY_ASSERT_SMOB (Music_function, x, 1);
 
   return Music_function::unsmob (x)->get_signature ();
 }

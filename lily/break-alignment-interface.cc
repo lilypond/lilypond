@@ -189,7 +189,7 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
             sym_string = ly_symbol2string (rsym);
 
           string orig_string;
-          if (Grob::unsmob (l->get_property ("cause")))
+          if (Grob::is_smob (l->get_property ("cause")))
             orig_string = Grob::unsmob (l->get_property ("cause"))->name ();
 
           programming_error (to_string ("No spacing entry from %s to `%s'",

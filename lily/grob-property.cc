@@ -123,8 +123,8 @@ Grob::internal_set_value_on_alist (SCM *alist, SCM sym, SCM v)
   if (do_internal_type_checking_global)
     {
       if (!ly_is_procedure (v)
-          && !Simple_closure::unsmob (v)
-          && !Unpure_pure_container::unsmob (v)
+          && !Simple_closure::is_smob (v)
+          && !Unpure_pure_container::is_smob (v)
           && v != ly_symbol2scm ("calculation-in-progress"))
         type_check_assignment (sym, v, ly_symbol2scm ("backend-type?"));
 
@@ -151,8 +151,8 @@ Grob::internal_get_property_data (SCM sym) const
   if (do_internal_type_checking_global && scm_is_pair (handle))
     {
       SCM val = scm_cdr (handle);
-      if (!ly_is_procedure (val) && !Simple_closure::unsmob (val)
-          && !Unpure_pure_container::unsmob (val))
+      if (!ly_is_procedure (val) && !Simple_closure::is_smob (val)
+          && !Unpure_pure_container::is_smob (val))
         type_check_assignment (sym, val, ly_symbol2scm ("backend-type?"));
 
       check_interfaces_for_property (this, sym);
@@ -184,7 +184,7 @@ Grob::internal_get_property (SCM sym) const
     val = upc->unpure_part ();
 
   if (ly_is_procedure (val)
-      || Simple_closure::unsmob (val))
+      || Simple_closure::is_smob (val))
     {
       Grob *me = ((Grob *)this);
       val = me->try_callback_on_alist (&me->mutable_property_alist_, sym, val);
@@ -304,8 +304,8 @@ Grob::internal_get_object (SCM sym) const
     {
       SCM val = scm_cdr (s);
       if (ly_is_procedure (val)
-          || Simple_closure::unsmob (val)
-          || Unpure_pure_container::unsmob (val))
+          || Simple_closure::is_smob (val)
+          || Unpure_pure_container::is_smob (val))
         {
           Grob *me = ((Grob *)this);
           val = me->try_callback_on_alist (&me->object_alist_, sym, val);

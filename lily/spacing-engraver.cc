@@ -204,7 +204,7 @@ Spacing_engraver::stop_translation_timestep ()
   ->set_object ("spacing", spacing_->self_scm ());
 
   SCM proportional = get_property ("proportionalNotationDuration");
-  if (Moment::unsmob (proportional))
+  if (Moment::is_smob (proportional))
     {
       musical_column->set_property ("shortest-playing-duration", proportional);
       musical_column->set_property ("shortest-starter-duration", proportional);

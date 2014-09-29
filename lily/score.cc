@@ -154,7 +154,7 @@ Score::book_rendering (Output_def *layoutbook,
 void
 Score::set_music (SCM music)
 {
-  if (Music::unsmob (music_))
+  if (Music::is_smob (music_))
     {
       Music::unsmob (music)->origin ()->error (_ ("already have music in score"));
       Music::unsmob (music_)->origin ()->error (_ ("this is the previous music"));

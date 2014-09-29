@@ -141,7 +141,7 @@ Axis_group_engraver::process_acknowledged ()
 
   for (vsize i = 0; i < elts_.size (); i++)
     {
-      if (!Grob::unsmob (elts_[i]->get_object ("axis-group-parent-Y")))
+      if (!Grob::is_smob (elts_[i]->get_object ("axis-group-parent-Y")))
         {
           if (staffline_->get_parent (Y_AXIS)
               && staffline_->get_parent (Y_AXIS) == elts_[i])

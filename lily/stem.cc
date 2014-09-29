@@ -456,7 +456,7 @@ Stem::internal_calc_stem_end_position (Grob *me, bool calc_beam)
 
   /* Tremolo stuff.  */
   Grob *t_flag = Grob::unsmob (me->get_object ("tremolo-flag"));
-  if (t_flag && (!Grob::unsmob (me->get_object ("beam")) || !calc_beam))
+  if (t_flag && (!Grob::is_smob (me->get_object ("beam")) || !calc_beam))
     {
       /* Crude hack: add extra space if tremolo flag is there.
 
@@ -724,7 +724,7 @@ Stem::internal_height (Grob *me, bool calc_beam)
     If there is a beam but no stem, slope calculations depend on this
     routine to return where the stem end /would/ be.
   */
-  if (calc_beam && !beam && !Stencil::unsmob (me->get_property ("stencil")))
+  if (calc_beam && !beam && !Stencil::is_smob (me->get_property ("stencil")))
     return Interval ();
 
   Real y1 = robust_scm2double ((calc_beam
@@ -837,7 +837,7 @@ SCM
 Stem::calc_length (SCM smob)
 {
   Grob *me = Grob::unsmob (smob);
-  if (Grob::unsmob (me->get_object ("beam")))
+  if (Grob::is_smob (me->get_object ("beam")))
     {
       me->programming_error ("ly:stem::calc-length called but will not be used for beamed stem.");
       return scm_from_double (0.0);

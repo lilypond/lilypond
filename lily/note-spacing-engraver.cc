@@ -101,7 +101,7 @@ Note_spacing_engraver::finalize ()
   Grob *last_spacing = last_spacings_[parent];
 
   if (last_spacing
-      && !Grob_array::unsmob (last_spacing->get_object ("right-items")))
+      && !Grob_array::is_smob (last_spacing->get_object ("right-items")))
     {
       Grob *col = Grob::unsmob (get_property ("currentCommandColumn"));
 

@@ -103,15 +103,15 @@ void
 init_func_doc ()
 {
   ly_add_type_predicate ((void *) &is_direction, "direction");
-  ly_add_type_predicate ((void *) &Music_function::unsmob, "Music_function");
+  ly_add_type_predicate ((void *) &Music_function::is_smob, "Music_function");
   ly_add_type_predicate ((void *) &ly_is_port, "port");
   ly_add_type_predicate ((void *) &ly_cheap_is_list, "list");
-  ly_add_type_predicate ((void *) &Global_context::unsmob, "Global_context");
-  ly_add_type_predicate ((void *) &Input::unsmob, "Input");
-  ly_add_type_predicate ((void *) &Moment::unsmob, "Moment");
-  ly_add_type_predicate ((void *) &Paper_score::unsmob, "Paper_score");
-  ly_add_type_predicate ((void *) &Performance::unsmob, "Performance");
-  ly_add_type_predicate ((void *) &Unpure_pure_container::unsmob, "unpure pure container");
+  ly_add_type_predicate ((void *) &Global_context::is_smob, "Global_context");
+  ly_add_type_predicate ((void *) &Input::is_smob, "Input");
+  ly_add_type_predicate ((void *) &Moment::is_smob, "Moment");
+  ly_add_type_predicate ((void *) &Paper_score::is_smob, "Paper_score");
+  ly_add_type_predicate ((void *) &Performance::is_smob, "Performance");
+  ly_add_type_predicate ((void *) &Unpure_pure_container::is_smob, "unpure pure container");
   ly_add_type_predicate ((void *) &is_axis, "axis");
   ly_add_type_predicate ((void *) &is_number_pair, "number pair");
   ly_add_type_predicate ((void *) &ly_is_list, "list");
@@ -124,10 +124,10 @@ init_func_doc ()
   ly_add_type_predicate ((void *) &scm_is_rational, "rational");
   ly_add_type_predicate ((void *) &scm_is_string, "string");
   ly_add_type_predicate ((void *) &scm_is_vector, "vector");
-  ly_add_type_predicate ((void *) &Item::unsmob, "Item");
-  ly_add_type_predicate ((void *) &Music::unsmob, "Music");
-  ly_add_type_predicate ((void *) &Spanner::unsmob, "Spanner");
-  ly_add_type_predicate ((void *) &Stream_event::unsmob, "Stream_event");
+  ly_add_type_predicate ((void *) &Item::is_smob, "Item");
+  ly_add_type_predicate ((void *) &Music::is_smob, "Music");
+  ly_add_type_predicate ((void *) &Spanner::is_smob, "Spanner");
+  ly_add_type_predicate ((void *) &Stream_event::is_smob, "Stream_event");
 }
 
 ADD_SCM_INIT_FUNC (func_doc, init_func_doc);

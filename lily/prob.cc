@@ -62,7 +62,7 @@ Prob::equal_p (SCM sa, SCM sb)
           SCM aval = scm_cdar (aprop);
           SCM bval = scm_cdar (bprop);
           if (scm_caar (aprop) != scm_caar (bprop)
-              || (!(Input::unsmob (aval) && Input::unsmob (bval))
+              || (!(Input::is_smob (aval) && Input::is_smob (bval))
                   &&
                   !to_boolean (scm_equal_p (aval, bval))))
             return SCM_BOOL_F;

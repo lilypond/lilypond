@@ -86,8 +86,8 @@ Stream_event::make_transposable ()
       SCM prop = scm_car (entry);
       SCM val = scm_cdr (entry);
 
-      if ((Pitch::unsmob (val)
-           || (prop == ly_symbol2scm ("element") && Music::unsmob (val))
+      if ((Pitch::is_smob (val)
+           || (prop == ly_symbol2scm ("element") && Music::is_smob (val))
            || (prop == ly_symbol2scm ("elements") && scm_is_pair (val))
            || (prop == ly_symbol2scm ("pitch-alist") && scm_is_pair (val)))
           && scm_is_false (scm_assq (prop, mutable_property_alist_)))

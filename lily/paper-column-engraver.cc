@@ -239,7 +239,7 @@ Paper_column_engraver::stop_translation_timestep ()
 
       if (!elem->get_parent (X_AXIS))
         elem->set_parent (col, X_AXIS);
-      if (!Grob::unsmob (elem->get_object ("axis-group-parent-X")))
+      if (!Grob::is_smob (elem->get_object ("axis-group-parent-X")))
         elem->set_object ("axis-group-parent-X", col->self_scm ());
 
       if (Accidental_placement::has_interface (elem)
@@ -279,7 +279,7 @@ Paper_column_engraver::stop_translation_timestep ()
 
   SCM mpos = get_property ("measurePosition");
   SCM barnum = get_property ("internalBarNumber");
-  if (Moment::unsmob (mpos)
+  if (Moment::is_smob (mpos)
       && scm_is_integer (barnum))
     {
       SCM where = scm_cons (barnum,

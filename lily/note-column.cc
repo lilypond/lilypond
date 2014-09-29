@@ -43,7 +43,7 @@ using namespace std;
 bool
 Note_column::has_rests (Grob *me)
 {
-  return Grob::unsmob (me->get_object ("rest"));
+  return Grob::is_smob (me->get_object ("rest"));
 }
 
 bool
@@ -141,7 +141,7 @@ Note_column::add_head (Grob *me, Grob *h)
     }
   else if (Note_head::has_interface (h))
     {
-      if (Grob::unsmob (me->get_object ("rest")))
+      if (Grob::is_smob (me->get_object ("rest")))
         both = true;
       Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-heads"), h);
     }

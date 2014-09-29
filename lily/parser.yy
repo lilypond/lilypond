@@ -444,7 +444,7 @@ toplevel_expression:
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("toplevel-text-handler");
 			scm_call_2 (proc, parser->self_scm (), out);
-		} else if (Score::unsmob ($1))
+		} else if (Score::is_smob ($1))
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("toplevel-score-handler");
 			scm_call_2 (proc, parser->self_scm (), $1);
@@ -583,9 +583,9 @@ embedded_lilypond:
 	| multiplied_duration
 	| music_embedded music_embedded music_list {
 		$3 = scm_reverse_x ($3, SCM_EOL);
-		if (Music::unsmob ($2))
+		if (Music::is_smob ($2))
 			$3 = scm_cons ($2, $3);
-		if (Music::unsmob ($1))
+		if (Music::is_smob ($1))
 			$3 = scm_cons ($1, $3);
 		$$ = MAKE_SYNTAX ("sequential-music", @$, $3);
 	}
@@ -747,7 +747,7 @@ context_def_spec_body:
 				$$ = Context_def::make_scm ();
 				td = Context_def::unsmob ($$);
 			}
-			if (Music::unsmob ($2)) {
+			if (Music::is_smob ($2)) {
 				SCM proc = parser->lexer_->lookup_identifier ("context-mod-music-handler");
 				$2 = scm_call_2 (proc, parser->self_scm (), $2);
 			}
@@ -828,7 +828,7 @@ book_body:
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("book-text-handler");
 			scm_call_2 (proc, $1, out);
-		} else if (Score::unsmob ($2))
+		} else if (Score::is_smob ($2))
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("book-score-handler");
 			scm_call_2 (proc, $1, $2);
@@ -909,7 +909,7 @@ bookpart_body:
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("bookpart-text-handler");
 			scm_call_2 (proc, $1, out);
-		} else if (Score::unsmob ($2))
+		} else if (Score::is_smob ($2))
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("bookpart-score-handler");
 			scm_call_2 (proc, $1, $2);
@@ -950,7 +950,7 @@ score_block:
 
 score_body:
 	score_items {
-		if (!Score::unsmob ($1)) {
+		if (!Score::is_smob ($1)) {
 			parser->parser_error (@1, _("Missing music in \\score"));
 			$$ = (new Score)->unprotect ();
 			if (scm_is_pair ($1) && ly_is_module (scm_car ($1)))
@@ -992,12 +992,12 @@ score_items:
 				od = 0;
 				$2 = SCM_UNSPECIFIED;
 			}
-		} else if (!Score::unsmob ($$)) {
-			if (Music::unsmob ($2)) {
+		} else if (!Score::is_smob ($$)) {
+			if (Music::is_smob ($2)) {
 				SCM scorify = ly_lily_module_constant ("scorify-music");
 				$2 = scm_call_2 (scorify, $2, parser->self_scm ());
 			}
-			if (Score::unsmob ($2))
+			if (Score::is_smob ($2))
 			{
 				$$ = $2;
 				$2 = SCM_UNSPECIFIED;
@@ -1137,10 +1137,10 @@ output_def_body:
 			} else
 				$1 = scm_car ($1);
 		}
-		if (Context_def::unsmob ($2))
+		if (Context_def::is_smob ($2))
 			assign_context_def (Output_def::unsmob ($1), $2);
 		// Seems unlikely, but let's be complete:
-		else if (Music::unsmob ($2))
+		else if (Music::is_smob ($2))
 		{
 			SCM proc = parser->lexer_->lookup_identifier
 				("output-def-music-handler");
@@ -1165,7 +1165,7 @@ output_def_body:
 	} music_or_context_def
 	{
 		parser->lexer_->pop_state ();
-		if (Context_def::unsmob ($3))
+		if (Context_def::is_smob ($3))
 			assign_context_def (Output_def::unsmob ($1), $3);
 		else {
 
@@ -1201,7 +1201,7 @@ music_list:
 		$$ = SCM_EOL;
 	}
 	| music_list music_embedded {
-		if (Music::unsmob ($2))
+		if (Music::is_smob ($2))
 			$$ = scm_cons ($2, $1);
 	}
 	| music_list error {
@@ -1229,7 +1229,7 @@ pitch_as_music:
 	pitch_or_music
 	{
 	        $$ = make_music_from_simple (parser, @1, $1);
-                if (!Music::unsmob ($$))
+                if (!Music::is_smob ($$))
 		{
                         parser->parser_error (@1, _ ("music expected"));
 			$$ = MAKE_SYNTAX ("void-music", @$);
@@ -1351,11 +1351,11 @@ context_modification:
         }
 	| WITH context_modification_arg
 	{
-		if (Music::unsmob ($2)) {
+		if (Music::is_smob ($2)) {
 			SCM proc = parser->lexer_->lookup_identifier ("context-mod-music-handler");
 			$2 = scm_call_2 (proc, parser->self_scm (), $2);
 		}
-		if (Context_mod::unsmob ($2))
+		if (Context_mod::is_smob ($2))
 			$$ = $2;
 		else {
 			parser->parser_error (@2, _ ("not a context mod"));
@@ -1395,11 +1395,11 @@ context_mod_list:
 	| context_mod_list context_mod_arg {
 		if (scm_is_eq ($2, SCM_UNSPECIFIED))
 			;
-		else if (Music::unsmob ($2)) {
+		else if (Music::is_smob ($2)) {
 			SCM proc = parser->lexer_->lookup_identifier ("context-mod-music-handler");
 			$2 = scm_call_2 (proc, parser->self_scm (), $2);
 		}
-		if (Context_mod::unsmob ($2))
+		if (Context_mod::is_smob ($2))
 			Context_mod::unsmob ($$)->add_context_mods
 				(Context_mod::unsmob ($2)->get_mods ());
 		else {
@@ -3257,7 +3257,7 @@ pitch_or_music:
 		if (!parser->lexer_->is_chord_state ())
                         parser->parser_error (@1, _ ("have to be in Chord mode for chords"));
 		if (scm_is_pair ($2)) {
-			if (Pitch::unsmob ($1))
+			if (Pitch::is_smob ($1))
 				$1 = make_chord_elements (@1,
 							  $1,
 							  parser->default_duration_.smobbed_copy (),
@@ -3266,7 +3266,7 @@ pitch_or_music:
 			SCM elts = ly_append2 ($1, scm_reverse_x ($2, SCM_EOL));
 
 			$$ = MAKE_SYNTAX ("event-chord", @1, elts);
-		} else if (!Pitch::unsmob ($1))
+		} else if (!Pitch::is_smob ($1))
 			$$ = MAKE_SYNTAX ("event-chord", @1, $1);
 		// A mere pitch drops through.
 	} %prec ':'
@@ -3709,7 +3709,7 @@ otherwise, we have to import music classes into the lexer.
 int
 Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 {
-	if (Book::unsmob (sid)) {
+	if (Book::is_smob (sid)) {
 		Book *book =  Book::unsmob (sid)->clone ();
 		*destination = book->self_scm ();
 		book->unprotect ();
@@ -3718,11 +3718,11 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 	} else if (scm_is_number (sid)) {
 		*destination = sid;
 		return NUMBER_IDENTIFIER;
-	} else if (Context_def::unsmob (sid))
+	} else if (Context_def::is_smob (sid))
 	{
 		*destination = Context_def::unsmob (sid)->clone ()->unprotect ();
 		return SCM_IDENTIFIER;
-        } else if (Context_mod::unsmob (sid)) {
+        } else if (Context_mod::is_smob (sid)) {
                 *destination = Context_mod::unsmob (sid)->smobbed_copy ();
                 return CONTEXT_MOD_IDENTIFIER;
 	} else if (Music *mus = Music::unsmob (sid)) {
@@ -3731,16 +3731,16 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 		bool is_event = mus->is_mus_type ("post-event");
 		mus->unprotect ();
 		return is_event ? EVENT_IDENTIFIER : MUSIC_IDENTIFIER;
-	} else if (Pitch::unsmob (sid)) {
+	} else if (Pitch::is_smob (sid)) {
 		*destination = Pitch::unsmob (sid)->smobbed_copy ();
 		return PITCH_IDENTIFIER;
-	} else if (Duration::unsmob (sid)) {
+	} else if (Duration::is_smob (sid)) {
 		*destination = Duration::unsmob (sid)->smobbed_copy ();
 		return DURATION_IDENTIFIER;
-	} else if (Output_def::unsmob (sid)) {
+	} else if (Output_def::is_smob (sid)) {
 		*destination = Output_def::unsmob (sid)->clone ()->unprotect ();
 		return SCM_IDENTIFIER;
-	} else if (Score::unsmob (sid)) {
+	} else if (Score::is_smob (sid)) {
 		*destination = Score::unsmob (sid)->clone ()->unprotect ();
 		return SCM_IDENTIFIER;
 	}
@@ -3877,7 +3877,7 @@ is_regular_identifier (SCM id, bool multiple)
 SCM
 make_music_from_simple (Lily_parser *parser, Input loc, SCM simple)
 {
-	if (Music::unsmob (simple))
+	if (Music::is_smob (simple))
 		return simple;
 	if (parser->lexer_->is_note_state ()) {
 		if (scm_is_symbol (simple)) {
@@ -3886,7 +3886,7 @@ make_music_from_simple (Lily_parser *parser, Input loc, SCM simple)
 			n->set_property ("drum-type", simple);
 			return n->unprotect ();
 		}
-		if (Pitch::unsmob (simple)) {
+		if (Pitch::is_smob (simple)) {
 			Music *n = MY_MAKE_MUSIC ("NoteEvent", loc);
 			n->set_property ("duration", parser->default_duration_.smobbed_copy ());
 			n->set_property ("pitch", simple);
@@ -3898,7 +3898,7 @@ make_music_from_simple (Lily_parser *parser, Input loc, SCM simple)
 			return MAKE_SYNTAX ("lyric-event", loc, simple,
 					    parser->default_duration_.smobbed_copy ());
 	} else if (parser->lexer_->is_chord_state ()) {
-		if (Pitch::unsmob (simple))
+		if (Pitch::is_smob (simple))
 			return MAKE_SYNTAX
 				("event-chord",
 				 loc,

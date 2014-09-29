@@ -100,7 +100,7 @@ Note_heads_engraver::process_music ()
         {
           SCM scm_tonic = get_property ("tonic");
           Pitch tonic;
-          if (Pitch::unsmob (scm_tonic))
+          if (Pitch::is_smob (scm_tonic))
             tonic = *Pitch::unsmob (scm_tonic);
 
           unsigned int delta = (pit->get_notename () - tonic.get_notename () + 7) % 7;

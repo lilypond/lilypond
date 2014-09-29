@@ -285,7 +285,7 @@ Paper_book::book_title ()
                       paper_->self_scm (),
                       scopes);
 
-  if (Stencil::unsmob (tit))
+  if (Stencil::is_smob (tit))
     title = *Stencil::unsmob (tit);
 
   if (!title.is_empty ())
@@ -314,7 +314,7 @@ Paper_book::score_title (SCM header)
                       paper_->self_scm (),
                       scopes);
 
-  if (Stencil::unsmob (tit))
+  if (Stencil::is_smob (tit))
     title = *Stencil::unsmob (tit);
 
   if (!title.is_empty ())
@@ -474,7 +474,7 @@ Paper_book::get_system_specs ()
               if (scm_is_pair (system_specs))
                 set_system_penalty (scm_car (system_specs), header);
 
-              if (Prob::unsmob (title))
+              if (Prob::is_smob (title))
                 {
                   system_specs = scm_cons (title, system_specs);
                   Prob::unsmob (title)->unprotect ();

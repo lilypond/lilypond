@@ -96,7 +96,7 @@ Chord_name_engraver::process_music ()
             {
               Stream_event *n = notes_[i];
               SCM p = n->get_property ("pitch");
-              if (!Pitch::unsmob (p))
+              if (!Pitch::is_smob (p))
                 continue;
 
               if (n->get_property ("bass") == SCM_BOOL_T)

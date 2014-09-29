@@ -240,7 +240,7 @@ Book::process_score (SCM s, Paper_book *output_paper_book, Output_def *layout)
         }
     }
   else if (Text_interface::is_markup_list (scm_car (s))
-           || Page_marker::unsmob (scm_car (s)))
+           || Page_marker::is_smob (scm_car (s)))
     output_paper_book->add_score (scm_car (s));
   else
     assert (0);

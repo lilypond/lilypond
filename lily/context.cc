@@ -741,7 +741,7 @@ measure_length (Context const *context)
 {
   SCM l = context->get_property ("measureLength");
   Rational length (1);
-  if (Moment::unsmob (l))
+  if (Moment::is_smob (l))
     length = Moment::unsmob (l)->main_part_;
   return length;
 }
@@ -752,7 +752,7 @@ measure_position (Context const *context)
   SCM sm = context->get_property ("measurePosition");
 
   Moment m = 0;
-  if (Moment::unsmob (sm))
+  if (Moment::is_smob (sm))
     {
       m = *Moment::unsmob (sm);
 

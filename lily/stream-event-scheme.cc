@@ -23,7 +23,7 @@ LY_DEFINE (ly_stream_event_p, "ly:stream-event?",
            1, 0, 0, (SCM obj),
            "Is @code{@var{obj}} a @code{Stream_event} object?")
 {
-  return scm_from_bool (Stream_event::unsmob (obj));
+  return scm_from_bool (Stream_event::is_smob (obj));
 }
 
 LY_DEFINE (ly_make_stream_event, "ly:make-stream-event",
@@ -49,7 +49,7 @@ LY_DEFINE (ly_event_property, "ly:event-property",
            "  If @var{sym} is undefined, return @var{val} or"
            " @code{'()} if @var{val} is not specified.")
 {
-  LY_ASSERT_TYPE (Stream_event::unsmob, sev, 1)
+  LY_ASSERT_SMOB (Stream_event, sev, 1)
   return ly_prob_property (sev, sym, val);
 }
 
@@ -57,7 +57,7 @@ LY_DEFINE (ly_event_set_property_x, "ly:event-set-property!",
            3, 0, 0, (SCM ev, SCM sym, SCM val),
            "Set property @var{sym} in event @var{ev} to @var{val}.")
 {
-  LY_ASSERT_TYPE (Stream_event::unsmob, ev, 1);
+  LY_ASSERT_SMOB (Stream_event, ev, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
   return ly_prob_set_property_x (ev, sym, val);
