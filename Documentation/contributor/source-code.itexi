@@ -216,9 +216,9 @@ this to your @file{~/.bashrc}:
 export PS1="\u@\h \w\$(__git_ps1)$ "
 @end verbatim
 
-If you are not using LilyDev, you may need to install the
-additional @code{git-completion} package, but it is definitely
-worth it.
+You may need to install the additional @code{bash-completion}
+package, but it is definitely worth it.  After installation
+you must log out, and then log back in again to enable it.
 
 
 @subsubheading Technical details
@@ -1324,7 +1324,7 @@ or create a symbolic link to the @command{git-cl}
 and @command{upload.py} scripts in one of your PATH
 directories (such as @file{$HOME/bin}).
 
-In Ubuntu (and LilyDev), you can add directories to PATH
+In GNU/Linux you can add directories to PATH
 by adding this line to a hidden file @file{.bashrc},
 located in your home directory:
 
