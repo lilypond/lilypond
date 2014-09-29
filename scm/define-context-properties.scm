@@ -285,8 +285,8 @@ slurred note, one above and one below the chord.")
 instruments (symbols) to pitches.")
      (drumStyleTable ,hash-table? "A hash table which maps drums to
 layout settings.  Predefined values: @samp{drums-style},
-@samp{timbales-style}, @samp{congas-style}, @samp{bongos-style}, and
-@samp{percussion-style}.
+@samp{agostini-drums-style}, @samp{timbales-style}, @samp{congas-style},
+@samp{bongos-style}, and @samp{percussion-style}.
 
 The layout style is a hash table, containing the drum-pitches (e.g.,
 the symbol @samp{hihat}) as keys, and a list
