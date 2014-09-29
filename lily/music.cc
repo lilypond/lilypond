@@ -329,9 +329,3 @@ Music::duration_length_callback (SCM m)
     mom = d->get_length ();
   return mom.smobbed_copy ();
 }
-
-Music *
-Music::unsmob (SCM m)
-{
-  return dynamic_cast<Music *> (Prob::unsmob (m));
-}

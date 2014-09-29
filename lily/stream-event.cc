@@ -113,9 +113,3 @@ Stream_event::undump (SCM data)
   obj->mutable_property_alist_ = scm_reverse (scm_cdr (data));
   return obj->unprotect ();
 }
-
-Stream_event *
-Stream_event::unsmob (SCM m)
-{
-  return dynamic_cast<Stream_event *> (Prob::unsmob (m));
-}

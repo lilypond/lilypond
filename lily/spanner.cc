@@ -465,12 +465,6 @@ Spanner::calc_normalized_endpoints (SCM smob)
   return result;
 }
 
-Spanner *
-Spanner::unsmob (SCM s)
-{
-  return dynamic_cast<Spanner *> (Grob::unsmob (s));
-}
-
 MAKE_SCHEME_CALLBACK (Spanner, bounds_width, 1);
 SCM
 Spanner::bounds_width (SCM grob)

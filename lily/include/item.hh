@@ -36,7 +36,12 @@ public:
   Item (SCM);
   Item (Item const &);
 
-  static Item *unsmob (SCM);
+  static Item *unsmob (SCM g) {
+    return dynamic_cast <Item *> (Grob::unsmob (g));
+  }
+  static bool is_smob (SCM g) {
+    return Grob::is_smob (g) && unsmob (g);
+  }
 
   virtual Grob *clone () const;
 

@@ -171,12 +171,6 @@ Engraver::internal_make_spanner (SCM x, SCM cause, char const *name,
   return sp;
 }
 
-Engraver *
-Engraver::unsmob (SCM eng)
-{
-  return dynamic_cast<Engraver *> (Translator::unsmob (eng));
-}
-
 bool
 ly_is_grob_cause (SCM obj)
 {

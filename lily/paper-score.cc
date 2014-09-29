@@ -165,9 +165,3 @@ Paper_score::get_paper_systems ()
     }
   return paper_systems_;
 }
-
-Paper_score *
-Paper_score::unsmob (SCM x)
-{
-  return dynamic_cast<Paper_score *> (Music_output::unsmob (x));
-}
