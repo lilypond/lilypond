@@ -131,13 +131,8 @@ LY_DEFINE (ly_output_find_context_def, "ly:output-find-context-def",
   return ell;
 }
 
-
-LY_DEFINE (ly_output_def_p, "ly:output-def?",
-	   1, 0, 0, (SCM def),
-	   "Is @var{def} an output definition?")
-{
-  return ly_bool2scm (Output_def::unsmob (def));
-}
+const char
+Output_def::type_p_name_[] = "ly:output-def?";
 
 LY_DEFINE (ly_paper_outputscale, "ly:paper-outputscale",
 	   1, 0, 0, (SCM def),
