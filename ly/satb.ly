@@ -214,6 +214,8 @@ SATB = <<
   >>
 >>
 
+\tagGroup #'(print play)
+
 \score {
   \keepWithTag #'print \SATB
   \layout { #(defaulting Layout) }
