@@ -196,17 +196,6 @@ easyHeadsOff = {
 }
 
 
-%% endincipit
-
-%% End the incipit and print a ``normal line start''.
-endincipit = \context Staff {
-  \partial 16 s16  % Hack to handle e.g. \bar ".|" \endincipit
-  \once \override Staff.Clef.full-size-change = ##t
-  \once \override Staff.Clef.non-default = ##t
-  \bar ""
-}
-
-
 %% fermata markup
 
 fermataMarkup =
@@ -284,6 +273,54 @@ improvisationOff = {
   \revert Accidental.stencil
   \revert AccidentalCautionary.stencil
 }
+
+%% incipit
+
+incipit =
+#(define-music-function (parser location incipit-music) (ly:music?)
+  #{
+    \once \override Staff.InstrumentName.stencil =
+      #(lambda (grob)
+        (let* ((instrument-name (ly:grob-property grob 'long-text))
+               (align-x (ly:grob-property grob 'self-alignment-X 0))
+               (align-y (ly:grob-property grob 'self-alignment-Y 0)))
+        (set! (ly:grob-property grob 'long-text)
+          #{ \markup {
+            \score
+            {
+              \new MensuralStaff \with {
+                \override InstrumentName.self-alignment-X = #align-x
+                \override InstrumentName.self-alignment-Y = #align-y
+                instrumentName = #instrument-name
+              }
+              {
+                $incipit-music
+              }
+              \layout {
+                $(ly:grob-layout grob)
+                indent-incipit-default = 15\mm
+                line-width = #(primitive-eval
+                  '(or (false-if-exception indent)
+                    indent-incipit-default))
+                indent = #(primitive-eval
+                           '(or (false-if-exception (- line-width incipit-width))
+                            (* 0.5 line-width)))
+                ragged-right = ##f
+                ragged-last = ##f
+                system-count = 1
+                \context {
+                  \Score
+                  \remove "Default_bar_line_engraver"
+                }
+              }
+            }
+            }
+          #})
+          (set! (ly:grob-property grob 'self-alignment-Y) #f)
+          (set! (ly:grob-property grob 'self-alignment-X) RIGHT)
+          (system-start-text::print grob)))
+  #}
+)
 
 %% kievan
 kievanOn = {

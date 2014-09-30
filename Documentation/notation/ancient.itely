@@ -2647,10 +2647,39 @@ same source.
 @node Incipits
 @unnumberedsubsubsec Incipits
 
-@c TODO Add text
-@c clefs, mensuration signs etc from lsr and -user
-@c use snippet Transcription-of-ancient-music-with-incipit
-TBC
+It is customary when transcribing mensural music into modern notation to place
+an indication of how the initial rests and note or notes of the original version
+appeared - including the original clefs.  This is called an @emph{incipit}.  The
+@code{\incipit} command uses the @code{indent} of the main staff to set the
+width occupied by the incipit, and @code{incipit-width} to set the width of the
+incipit staff.
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  \new Staff <<
+    \new Voice = Tenor {
+      \set Staff.instrumentName = #"Tenor"
+      \override Staff.InstrumentName.self-alignment-X = #RIGHT
+      \incipit { \clef "mensural-c4" \key f \major r\breve r1 c'1 }
+      \clef "treble_8"
+      \key f \major
+      R1 r2 c'2 |
+      a4. c'8
+    }
+    \new Lyrics \lyricsto Tenor { Cyn -- thia your }
+  >>
+  \layout
+  {
+    indent = 5\cm
+    incipit-width = 3\cm
+  }
+}
+@end lilypond
+
+@knownissues
+Note that instrumentName must be set in the music for the incipit to be
+produced.  If no instrument name is required then use
+@code{\set Staff.instrumentName = #""}.
 
 @c @seealso
 @c ... and reference to other sections ...
