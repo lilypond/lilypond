@@ -47,7 +47,8 @@ public:
   bool check ();
   bool create ();
   SCM updated ();
-  void push (SCM path, SCM value);
+  SCM push (SCM path, SCM value);
+  void matched_pop (SCM);
   void pop (SCM path);
   void pushpop (SCM path, SCM value)
   {

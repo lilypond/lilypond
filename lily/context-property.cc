@@ -190,18 +190,21 @@ Grob_property_info::create ()
   alist defined in a parent context. BASED-ON should always be a tail
   of ALIST.
 
-  Push or pop (depending on value of VAL) a single entry from a
+  Push a single entry from a
   translator property list by name of PROP.  GROB_PROPERTY_PATH
   indicates nested alists, eg. '(beamed-stem-lengths details)
+
+  Return value can be passed to matched_pop and will only cancel the
+  same override then.
 */
-void
+SCM
 Grob_property_info::push (SCM grob_property_path, SCM new_value)
 {
   /*
     Don't mess with MIDI.
   */
   if (!create ())
-    return;
+    return SCM_EOL;
 
   SCM symbol = scm_car (grob_property_path);
   SCM rest = scm_cdr (grob_property_path);
@@ -209,10 +212,12 @@ Grob_property_info::push (SCM grob_property_path, SCM new_value)
     {
       // poor man's typechecking
       if (typecheck_grob (symbol, nested_create_alist (rest, new_value))) {
-        props_->alist_ = scm_acons (grob_property_path, new_value, props_->alist_);
+        SCM cell = scm_cons (grob_property_path, new_value);
+        props_->alist_ = scm_cons (cell, props_->alist_);
         props_->nested_++;
+        return cell;
       }
-      return;
+      return SCM_EOL;
     }
 
   /* it's tempting to replace the head of the list if it's the same
@@ -221,7 +226,34 @@ Grob_property_info::push (SCM grob_property_path, SCM new_value)
   */
 
   if (typecheck_grob (symbol, new_value))
-    props_->alist_ = scm_acons (symbol, new_value, props_->alist_);
+    {
+      SCM cell = scm_cons (symbol, new_value);
+      props_->alist_ = scm_cons (cell, props_->alist_);
+      return cell;
+    }
+  return SCM_EOL;
+}
+
+void
+Grob_property_info::matched_pop (SCM cell)
+{
+  if (!scm_is_pair (cell))
+    return;
+  if (!check ())
+    return;
+  SCM current_alist = props_->alist_;
+  SCM daddy = props_->based_on_;
+  for (SCM p = current_alist; !scm_is_eq (p, daddy); p = scm_cdr (p))
+    {
+      if (scm_is_eq (scm_car (p), cell))
+        {
+          if (scm_is_pair (scm_car (cell)))
+            props_->nested_--;
+          props_->alist_ = partial_list_copy (current_alist, p, scm_cdr (p));
+          return;
+        }
+    }
+  return;
 }
 
 /*
