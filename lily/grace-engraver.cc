@@ -20,6 +20,7 @@
 #include "engraver.hh"
 #include "context.hh"
 #include "warn.hh"
+#include "grob-properties.hh"
 
 class Grace_engraver : public Engraver
 {
@@ -55,13 +56,12 @@ Grace_engraver::consider_change_grace_settings ()
     {
       for (SCM s = grace_settings_; scm_is_pair (s); s = scm_cdr (s))
         {
-          SCM context = scm_caar (s);
-          SCM entry = scm_cdar (s);
-          SCM grob = scm_cadr (entry);
-          SCM sym = scm_caddr (entry);
+          SCM elt = scm_car (s);
+          SCM context = scm_car (elt);
+          SCM grob = scm_cadr (elt);
+          SCM cell = scm_cddr (elt);
 
-          execute_pushpop_property (Context::unsmob (context),
-                                    grob, sym, SCM_UNDEFINED);
+          Grob_property_info (Context::unsmob (context), grob).matched_pop (cell);
         }
 
       grace_settings_ = SCM_EOL;
@@ -79,16 +79,18 @@ Grace_engraver::consider_change_grace_settings ()
           SCM sym = scm_caddr (entry);
           SCM val = scm_cadr (scm_cddr (entry));
 
+          if (!scm_is_pair (sym))
+            sym = scm_list_1 (sym);
+
           Context *c = context ();
           while (c && !c->is_alias (context_name))
             c = c->get_parent_context ();
 
           if (c)
             {
-              execute_pushpop_property (c,
-                                        grob, sym, val);
+              SCM cell = Grob_property_info (c, grob).push (sym, val);
               grace_settings_
-                = scm_cons (scm_cons (c->self_scm (), entry), grace_settings_);
+                = scm_cons (scm_cons2 (c->self_scm (), grob, cell), grace_settings_);
             }
           else
             programming_error ("cannot find context from graceSettings: "
