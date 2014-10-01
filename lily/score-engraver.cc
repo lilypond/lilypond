@@ -53,7 +53,7 @@ IMPLEMENT_LISTENER (Score_engraver, prepare);
 void
 Score_engraver::prepare (SCM)
 {
-  precomputed_recurse_over_translators (context (), START_TRANSLATION_TIMESTEP, START);
+  precomputed_recurse_over_translators (context (), START_TRANSLATION_TIMESTEP, DOWN);
 }
 
 IMPLEMENT_LISTENER (Score_engraver, finish);
@@ -62,7 +62,7 @@ Score_engraver::finish (SCM)
 {
   recurse_over_translators (context (), &Translator::finalize,
                             &Translator_group::finalize,
-                            STOP);
+                            UP);
 }
 
 #define MUSIC_FONT "emmentaler-20"

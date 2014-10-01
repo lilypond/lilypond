@@ -111,7 +111,7 @@ Score_performer::prepare (SCM sev)
   Moment *m = Moment::unsmob (sm);
   audio_column_ = new Audio_column (*m);
   announce_element (Audio_element_info (audio_column_, 0));
-  precomputed_recurse_over_translators (context (), START_TRANSLATION_TIMESTEP, STOP);
+  precomputed_recurse_over_translators (context (), START_TRANSLATION_TIMESTEP, UP);
 }
 
 IMPLEMENT_LISTENER (Score_performer, finish);
@@ -124,7 +124,7 @@ Score_performer::finish (SCM)
   recurse_over_translators (context (),
                             &Translator::finalize,
                             &Translator_group::finalize,
-                            STOP);
+                            UP);
 }
 
 IMPLEMENT_LISTENER (Score_performer, one_time_step);
@@ -159,11 +159,11 @@ Score_performer::one_time_step (SCM)
         }
 
       audio_column_->offset_when (offset_mom_);
-      precomputed_recurse_over_translators (context (), PROCESS_MUSIC, STOP);
+      precomputed_recurse_over_translators (context (), PROCESS_MUSIC, UP);
       do_announces ();
     }
 
-  precomputed_recurse_over_translators (context (), STOP_TRANSLATION_TIMESTEP, STOP);
+  precomputed_recurse_over_translators (context (), STOP_TRANSLATION_TIMESTEP, UP);
 }
 
 void

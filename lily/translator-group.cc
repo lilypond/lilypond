@@ -226,7 +226,7 @@ Translator_group::create_child_translator (SCM sev)
   recurse_over_translators (new_context,
                             &Translator::initialize,
                             &Translator_group::initialize,
-                            START);
+                            DOWN);
 }
 
 SCM
@@ -241,7 +241,7 @@ precomputed_recurse_over_translators (Context *c, Translator_precompute_index id
   Translator_group *tg
     = dynamic_cast<Translator_group *> (c->implementation ());
 
-  if (tg && dir == START)
+  if (tg && dir == DOWN)
     {
       tg->precomputed_translator_foreach (idx);
       tg->call_precomputed_self_method (idx);
@@ -251,7 +251,7 @@ precomputed_recurse_over_translators (Context *c, Translator_precompute_index id
        s = scm_cdr (s))
     precomputed_recurse_over_translators (Context::unsmob (scm_car (s)), idx, dir);
 
-  if (tg && dir == STOP)
+  if (tg && dir == UP)
     {
       tg->precomputed_translator_foreach (idx);
       tg->call_precomputed_self_method (idx);
@@ -265,7 +265,7 @@ recurse_over_translators (Context *c, Translator_method ptr,
   Translator_group *tg
     = dynamic_cast<Translator_group *> (c->implementation ());
 
-  if (tg && dir == START)
+  if (tg && dir == DOWN)
     {
       (tg->*tg_ptr) ();
       translator_each (tg->get_simple_trans_list (), ptr);
@@ -275,7 +275,7 @@ recurse_over_translators (Context *c, Translator_method ptr,
        s = scm_cdr (s))
     recurse_over_translators (Context::unsmob (scm_car (s)), ptr, tg_ptr, dir);
 
-  if (tg && dir == STOP)
+  if (tg && dir == UP)
     {
       translator_each (tg->get_simple_trans_list (),
                        ptr);
