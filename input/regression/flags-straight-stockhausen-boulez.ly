@@ -27,8 +27,7 @@ stemLength = #(define-music-function (parser location length) (number?)
          gis''8
          \stemNeutral
        } \stemLength #1.43 d'8 r16 
-       \stemLength #0.95
-       \acciaccatura c''8 
+       \acciaccatura { \stemLength #0.95 c''8 }
        \stemLength #1.25
        b'32 r
     \bar"|.|"
