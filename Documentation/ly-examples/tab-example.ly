@@ -1,4 +1,4 @@
-\version "2.19.2"
+\version "2.19.16"
 
 #(define (glissando::calc-extra-dy grob)
    (let* ((original (ly:grob-original grob))
@@ -18,7 +18,7 @@ upper= \relative c' {
   \set Staff.midiInstrument = #"acoustic guitar (steel)"
   \set fingeringOrientations = #'(left)
 
-  \partial 4. cis8 e4
+  \partial 4. \acciaccatura c16 \glissando cis8 e4
   < cis-1 g'-3 >2 s8 \grace a16 ( \glissando < b-2 >8\3 ) < d-1 > ( b )
   < e-3 >\2 ( <d-1> b ) \grace < ais-2 >16 ( \glissando a8 g ) s4.
   s4. < d'\3 g\2 >8 < gis,\4  d'\3 fis\2 >2\arpeggio ~
