@@ -19,13 +19,22 @@
 
 #include "grace-iterator.hh"
 #include "global-context.hh"
-#include "warn.hh"
+#include "music.hh"
 
 void
 Grace_iterator::process (Moment m)
 {
   Moment main;
   main.main_part_ = -start_mom_.grace_part_ + m.grace_part_;
+
+  // GraceChange is announced in order to make the Grace_engraver able
+  // to distinguish \stemNeutral \grace { ... and \grace { \stemNeutral ...
+  if (in_grace_ != bool (m.grace_part_) && child_iter_ && child_iter_->get_outlet ())
+    {
+      send_stream_event (child_iter_->get_outlet (), "GraceChange", get_music ()->origin (), 0);
+    }
+  in_grace_ = m.grace_part_;
+
   Music_wrapper_iterator::process (main);
 
   /* We can safely do this, since \grace should always be inside
