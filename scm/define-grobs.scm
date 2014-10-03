@@ -2060,6 +2060,7 @@
 
     (StaffSymbol
      . (
+        (break-align-symbols . (staff-bar break-alignment))
         (layer . 0)
         (ledger-line-thickness . (1.0 . 0.1))
         (line-count . 5)

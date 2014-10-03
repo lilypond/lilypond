@@ -65,11 +65,19 @@ Staff_symbol::print (SCM smob)
       else
         {
           Item *x = sp->get_bound (d);
-
-          span_points[d] = ((!x->break_status_dir ()
-                             && !x->extent (x, X_AXIS).is_empty ())
-                            ? Paper_column::break_align_width (x, ly_symbol2scm ("break-alignment"))[d]
-                            : x->relative_coordinate (common, X_AXIS));
+          if (x->extent (x, X_AXIS).is_empty ()
+              || (x->break_status_dir () && sp->broken_neighbor (d)))
+            span_points[d] = x->relative_coordinate (common, X_AXIS);
+          // What the default implementation of to-barline does for
+          // spanners is not really in usefully recognizable shape by
+          // now, so we just reimplement.
+          else
+            {
+              SCM where = (d == RIGHT
+                           ? me->get_property ("break-align-symbols")
+                           : ly_symbol2scm ("break-alignment"));
+              span_points[d] = Paper_column::break_align_width (x, where)[d];
+            }
         }
 
       span_points[d] -= d * t / 2;
@@ -372,6 +380,7 @@ ADD_INTERFACE (Staff_symbol,
                " @code{width} property.",
 
                /* properties */
+               "break-align-symbols "
                "ledger-extra "
                "ledger-line-thickness "
                "ledger-positions "
