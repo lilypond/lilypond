@@ -49,13 +49,29 @@ Smob_base<Super>::register_ptr (Super *p)
   return s;
 }
 
-// Default, should not actually get called
+// Defaults, should not actually get called
 template <class Super>
 SCM
 Smob_base<Super>::mark_smob ()
 {
   return SCM_UNSPECIFIED;
 }
+
+template <class Super>
+size_t
+Smob_base<Super>::free_smob (SCM)
+{
+  return 0;
+}
+
+template <class Super>
+SCM
+Smob_base<Super>::equal_p (SCM, SCM)
+{
+  return SCM_BOOL_F;
+}
+
+// Default, will often get called
 
 template <class Super>
 int
@@ -103,13 +119,12 @@ void Smob_base<Super>::init ()
   // While that's not a consideration for type_p_name_, it's easier
   // doing it like the rest.
 
-  if (Super::free_smob != 0)
+  if (&Super::free_smob != &Smob_base<Super>::free_smob)
     scm_set_smob_free (smob_tag_, Super::free_smob);
   if (&Super::mark_smob != &Smob_base<Super>::mark_smob)
     scm_set_smob_mark (smob_tag_, Super::mark_trampoline);
-  if (Super::print_smob != 0)
-    scm_set_smob_print (smob_tag_, Super::print_smob);
-  if (Super::equal_p != 0)
+  scm_set_smob_print (smob_tag_, Super::print_smob);
+  if (&Super::equal_p != &Smob_base<Super>::equal_p)
     scm_set_smob_equalp (smob_tag_, Super::equal_p);
   if (Super::type_p_name_ != 0)
     {
@@ -122,7 +137,7 @@ void Smob_base<Super>::init ()
       scm_c_export (Super::type_p_name_, NULL);
     }
   ly_add_type_predicate ((void *) is_smob, smob_name_.c_str ());
-  if (Super::smob_proc != 0)
+  if (Super::smob_proc_signature_ >= 0)
     scm_set_smob_apply (smob_tag_,
                         (scm_t_subr)Super::smob_proc,
                         Super::smob_proc_signature_ >> 8,

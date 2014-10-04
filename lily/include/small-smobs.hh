@@ -32,7 +32,6 @@ public:
   static SCM make_smob (SCM arg1 = SCM_UNDEFINED) {
     SCM_RETURN_NEWSMOB (Smob_base<Super>::smob_tag (), SCM_UNPACK (arg1));
   }
-  static const int free_smob = 0;
   SCM mark_smob () { return scm1 (); };
   static Super *unchecked_unsmob (SCM s) {
     return reinterpret_cast<Super *> (SCM_UNPACK (s));
@@ -53,7 +52,6 @@ public:
                          SCM_UNPACK (arg1),
                          SCM_UNPACK (arg2));
   }
-  static const int free_smob = 0;
   SCM mark_smob ()
   {
     scm_gc_mark (scm2 ());
@@ -82,7 +80,6 @@ public:
                          SCM_UNPACK (arg2),
                          SCM_UNPACK (arg3));
   }
-  static const int free_smob = 0;
   static SCM mark_smob (SCM s)
   {
     scm_gc_mark (scm3 ());
