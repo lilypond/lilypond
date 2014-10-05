@@ -82,23 +82,50 @@ Simultaneous_music_iterator::construct_children ()
     }
 }
 
+// If there are non-run-always iterators and all of them die, take the
+// rest of them along.
 void
 Simultaneous_music_iterator::process (Moment until)
 {
+  bool had_good = false;
+  bool had_bad = false;
   SCM *proc = &children_list_;
   while (scm_is_pair (*proc))
     {
       Music_iterator *i = Music_iterator::unsmob (scm_car (*proc));
-      if (i->run_always ()
-          || i->pending_moment () == until)
+      bool run_always = i->run_always ();
+      if (run_always || i->pending_moment () == until)
         i->process (until);
       if (!i->ok ())
         {
+          if (!run_always)
+            had_bad = true;
           i->quit ();
           *proc = scm_cdr (*proc);
         }
       else
-        proc = SCM_CDRLOC (*proc);
+        {
+          if (!run_always)
+            had_good = true;
+          proc = SCM_CDRLOC (*proc);
+        }
+    }
+  // If there were non-run-always iterators and all of them died, take
+  // the rest of the run-always iterators along with them.  They have
+  // likely lost their reference iterators.  Basing this on the actual
+  // music contexts is not reliable since something like
+  // \new Voice = blah {
+  //    << \context Voice = blah { c4 d }
+  //       \addlyrics { oh no }
+  //    >> e f
+  // }
+  // cannot wait for the death of context blah before ending the
+  // simultaneous iterator.
+  if (had_bad && !had_good)
+    {
+      for (SCM p = children_list_; scm_is_pair (p); p = scm_cdr (p))
+        Music_iterator::unsmob (scm_car (p))->quit ();
+      children_list_ = SCM_EOL;
     }
 }
 
