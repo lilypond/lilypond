@@ -756,7 +756,7 @@ within the measure, etc.  By moving these engraver from @code{Score} to
 time signature.
 
 @cindex polymetric scores
-@cindex Time signatures, multiple
+@cindex time signature, multiple
 
 @lilypond[quote,verbatim]
 \score {

@@ -62,6 +62,16 @@ which scares away people.
 @end ignore
 
 @item
+It is now possible to use @code{\time} and @code{\partial}
+together to change the time signature in mid measure.
+
+@lilypond[verbatim,quote,relative=1]
+\override Score.BarNumber.break-visibility = #end-of-line-invisible
+\partial 4 \time 3/4 f4 | 2 4 | 2 \bar "||"
+\time 9/8 \partial 4. f8 8 8 | 2. 8 8 8 |
+@end lilypond
+
+@item
 It is now possible to override the @code{text} property of
 chord names.
 
