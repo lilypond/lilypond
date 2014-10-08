@@ -84,14 +84,12 @@ Context_def::~Context_def ()
 const char Context_def::type_p_name_[] = "ly:context-def?";
 
 int
-Context_def::print_smob (SCM smob, SCM port, scm_print_state *)
+Context_def::print_smob (SCM port, scm_print_state *)
 {
-  Context_def *me = (Context_def *) SCM_CELL_WORD_1 (smob);
-
   scm_puts ("#<Context_def ", port);
-  scm_display (me->context_name_, port);
+  scm_display (context_name_, port);
   scm_puts (" ", port);
-  string loc = me->origin ()->location_string ();
+  string loc = origin ()->location_string ();
   scm_puts (loc.c_str (), port);
   scm_puts (">", port);
   return 1;

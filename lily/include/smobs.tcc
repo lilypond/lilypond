@@ -36,6 +36,13 @@ Smob_base<Super>::mark_trampoline (SCM arg)
 }
 
 template <class Super>
+int
+Smob_base<Super>::print_trampoline (SCM arg, SCM port, scm_print_state *p)
+{
+  return (Super::unsmob (arg))->print_smob (port, p);
+}
+
+template <class Super>
 SCM
 Smob_base<Super>::register_ptr (Super *p)
 {
@@ -75,7 +82,7 @@ Smob_base<Super>::equal_p (SCM, SCM)
 
 template <class Super>
 int
-Smob_base<Super>::print_smob (SCM, SCM p, scm_print_state *)
+Smob_base<Super>::print_smob (SCM p, scm_print_state *)
 {
   scm_puts ("#<", p);
   scm_puts (smob_name_.c_str (), p);
@@ -123,7 +130,7 @@ void Smob_base<Super>::init ()
     scm_set_smob_free (smob_tag_, Super::free_smob);
   if (&Super::mark_smob != &Smob_base<Super>::mark_smob)
     scm_set_smob_mark (smob_tag_, Super::mark_trampoline);
-  scm_set_smob_print (smob_tag_, Super::print_smob);
+  scm_set_smob_print (smob_tag_, Super::print_trampoline);
   if (&Super::equal_p != &Smob_base<Super>::equal_p)
     scm_set_smob_equalp (smob_tag_, Super::equal_p);
   if (Super::type_p_name_ != 0)

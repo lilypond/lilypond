@@ -114,10 +114,10 @@ LY_DEFINE (ly_eval_simple_closure, "ly:eval-simple-closure",
 }
 
 int
-Simple_closure::print_smob (SCM s, SCM port, scm_print_state *)
+Simple_closure::print_smob (SCM port, scm_print_state *)
 {
   scm_puts ("#<simple-closure ", port);
-  scm_display (scm_cdr (s), port);
+  scm_display (expression (), port);
   scm_puts (" >", port);
   return 1;
 }

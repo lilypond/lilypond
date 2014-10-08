@@ -33,7 +33,7 @@ class Input : public Simple_smob<Input>
   Source_file *source_file_;
 public:
   static const char type_p_name_[];
-  static int print_smob (SCM, SCM, scm_print_state *);
+  int print_smob (SCM, scm_print_state *);
   static SCM equal_p (SCM, SCM);
   SCM mark_smob ();
   Source_file *get_source_file () const;

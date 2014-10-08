@@ -27,7 +27,7 @@
 class Grob_array : public Simple_smob<Grob_array>
 {
 public:
-  static int print_smob (SCM, SCM, scm_print_state *);
+  int print_smob (SCM, scm_print_state *);
   SCM mark_smob ();
   static const char type_p_name_[];
 private:

@@ -48,12 +48,10 @@ const char Moment::type_p_name_[] = "ly:moment?";
 
 
 int
-Moment::print_smob (SCM s, SCM port, scm_print_state *)
+Moment::print_smob (SCM port, scm_print_state *)
 {
-  Moment *r = (Moment *) SCM_CELL_WORD_1 (s);
-
   scm_puts ("#<Mom ", port);
-  string str = r->to_string ();
+  string str = to_string ();
   scm_puts ((char *)str.c_str (), port);
   scm_puts (">", port);
 

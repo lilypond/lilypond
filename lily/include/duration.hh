@@ -28,7 +28,7 @@
 struct Duration : public Simple_smob<Duration>
 {
   static SCM equal_p (SCM, SCM);
-  static int print_smob (SCM, SCM, scm_print_state *);
+  int print_smob (SCM, scm_print_state *);
   static const char type_p_name_[];
   Duration ();
   Duration (int, int);

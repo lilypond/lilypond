@@ -31,7 +31,7 @@ class Moment : public Simple_smob<Moment>
 {
 public:
   static SCM equal_p (SCM, SCM);
-  static int print_smob (SCM, SCM, scm_print_state *);
+  int print_smob (SCM, scm_print_state *);
   static const char type_p_name_[];
   Moment ();
   Moment (int m);

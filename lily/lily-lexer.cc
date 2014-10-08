@@ -382,12 +382,10 @@ Lily_lexer::mark_smob ()
 }
 
 int
-Lily_lexer::print_smob (SCM s, SCM port, scm_print_state *)
+Lily_lexer::print_smob (SCM port, scm_print_state *)
 {
-  Lily_lexer *lexer = Lily_lexer::unsmob (s);
-
   scm_puts ("#<Lily_lexer ", port);
-  scm_display (lexer->scopes_, port);
+  scm_display (scopes_, port);
   scm_puts (" >", port);
   return 1;
 }

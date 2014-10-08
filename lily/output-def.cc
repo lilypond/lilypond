@@ -94,11 +94,10 @@ find_context_def (Output_def const *m, SCM name)
 }
 
 int
-Output_def::print_smob (SCM s, SCM p, scm_print_state *)
+Output_def::print_smob (SCM p, scm_print_state *)
 {
-  Output_def * def = Output_def::unsmob (s);
   scm_puts ("#< ", p);
-  scm_puts (def->class_name (), p);
+  scm_puts (class_name (), p);
   scm_puts (">", p);
   return 1;
 }

@@ -120,7 +120,7 @@ enum Translator_precompute_index
 class Translator : public Smob<Translator>
 {
 public:
-  static int print_smob (SCM, SCM, scm_print_state *);
+  int print_smob (SCM, scm_print_state *);
   SCM mark_smob ();
   static const char type_p_name_[];
   virtual ~Translator ();

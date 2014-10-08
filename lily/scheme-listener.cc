@@ -41,11 +41,10 @@ Scheme_listener::mark_smob ()
 }
 
 int
-Scheme_listener::print_smob (SCM obj, SCM p, scm_print_state *)
+Scheme_listener::print_smob (SCM p, scm_print_state *)
 {
-  Scheme_listener *me = (Scheme_listener *) SCM_CELL_WORD_1 (obj);
   scm_puts ("#<Scheme_listener ", p);
-  scm_write (me->callback_, p);
+  scm_write (callback_, p);
   scm_puts (">", p);
   return 1;
 }

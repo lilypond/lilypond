@@ -227,11 +227,10 @@ Pitch::mark_smob ()
 }
 
 int
-Pitch::print_smob (SCM s, SCM port, scm_print_state *)
+Pitch::print_smob (SCM port, scm_print_state *)
 {
-  Pitch *r = (Pitch *) SCM_CELL_WORD_1 (s);
   scm_puts ("#<Pitch ", port);
-  scm_display (ly_string2scm (r->to_string ()), port);
+  scm_display (ly_string2scm (to_string ()), port);
   scm_puts (" >", port);
   return 1;
 }

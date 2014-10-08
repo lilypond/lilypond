@@ -29,7 +29,7 @@
 class Scheme_listener : public Smob<Scheme_listener>
 {
 public:
-  static int print_smob (SCM, SCM, scm_print_state *);
+  int print_smob (SCM, scm_print_state *);
   SCM mark_smob ();
   virtual ~Scheme_listener ();
   Scheme_listener (SCM callback);

@@ -101,13 +101,12 @@ Font_metric::mark_smob ()
 }
 
 int
-Font_metric::print_smob (SCM s, SCM port, scm_print_state *)
+Font_metric::print_smob (SCM port, scm_print_state *)
 {
-  Font_metric *m = Font_metric::unsmob (s);
   scm_puts ("#<", port);
-  scm_puts (m->class_name (), port);
+  scm_puts (class_name (), port);
   scm_puts (" ", port);
-  scm_write (m->description_, port);
+  scm_write (description_, port);
   scm_puts (">", port);
   return 1;
 }

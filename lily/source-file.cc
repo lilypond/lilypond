@@ -368,12 +368,10 @@ Source_file::mark_smob ()
 }
 
 int
-Source_file::print_smob (SCM smob, SCM port, scm_print_state *)
+Source_file::print_smob (SCM port, scm_print_state *)
 {
-  Source_file *sc = (Source_file *) SCM_CELL_WORD_1 (smob);
-
   scm_puts ("#<Source_file ", port);
-  scm_puts (sc->name_.c_str (), port);
+  scm_puts (name_.c_str (), port);
 
   /* Do not print properties, that is too much hassle.  */
   scm_puts (" >", port);

@@ -179,12 +179,8 @@ private:
   static SCM mark_trampoline (SCM); // Used for calling mark_smob
   static size_t free_smob (SCM obj);
   static SCM equal_p (SCM, SCM);
-
-  // print_smob is the exception.  It is unconditionally passed to
-  // GUILE since the default output of, say, #<Context_mod 0x7352414>
-  // would depend on memory layout, thus being unsuitable for regtest
-  // comparisons unless filtered.
-  static int print_smob (SCM, SCM, scm_print_state *);
+  int print_smob (SCM, scm_print_state *);
+  static int print_trampoline (SCM, SCM, scm_print_state *);
 
   // type_p_name_ can be overriden in the Super class with a static
   // const char [] string.  This requires both a declaration in the

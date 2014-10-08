@@ -38,14 +38,6 @@ Stencil::Stencil (Box b, SCM func)
   dim_ = b;
 }
 
-int
-Stencil::print_smob (SCM, SCM port, scm_print_state *)
-{
-  scm_puts ("#<Stencil ", port);
-  scm_puts (" >", port);
-  return 1;
-}
-
 SCM
 Stencil::mark_smob ()
 {

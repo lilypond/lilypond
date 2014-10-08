@@ -347,12 +347,11 @@ Translator_group::~Translator_group ()
 const char Translator_group::type_p_name_[] = "ly:translator-group?";
 
 int
-Translator_group::print_smob (SCM s, SCM port, scm_print_state *)
+Translator_group::print_smob (SCM port, scm_print_state *)
 {
-  Translator_group *me = (Translator_group *) SCM_CELL_WORD_1 (s);
   scm_puts ("#<Translator_group ", port);
-  scm_puts (me->class_name (), port);
-  scm_display (me->simple_trans_list_, port);
+  scm_puts (class_name (), port);
+  scm_display (simple_trans_list_, port);
   scm_puts (" >", port);
   return 1;
 }

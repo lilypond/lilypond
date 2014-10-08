@@ -37,12 +37,10 @@ Context_mod::Context_mod (SCM mod_list)
 const char Context_mod::type_p_name_[] = "ly:context-mod?";
 
 int
-Context_mod::print_smob (SCM smob, SCM port, scm_print_state *)
+Context_mod::print_smob (SCM port, scm_print_state *)
 {
-  Context_mod *me = (Context_mod *) SCM_CELL_WORD_1 (smob);
-
   scm_puts ("#<Context_mod ", port);
-  scm_display (me->get_mods (), port);
+  scm_display (get_mods (), port);
   scm_puts (">", port);
   return 1;
 }

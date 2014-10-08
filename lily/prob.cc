@@ -124,16 +124,15 @@ Prob::mark_smob ()
 }
 
 int
-Prob::print_smob (SCM smob, SCM port, scm_print_state *)
+Prob::print_smob (SCM port, scm_print_state *)
 {
-  Prob *p = (Prob *) SCM_CELL_WORD_1 (smob);
   scm_puts ("#<", port);
   scm_puts ("Prob: ", port);
-  scm_display (p->type_, port);
+  scm_display (type_, port);
   scm_puts (" C++: ", port);
-  scm_puts (p->class_name (), port);
-  scm_display (p->mutable_property_alist_, port);
-  scm_display (p->immutable_property_alist_, port);
+  scm_puts (class_name (), port);
+  scm_display (mutable_property_alist_, port);
+  scm_display (immutable_property_alist_, port);
 
   scm_puts (" >\n", port);
   return 1;

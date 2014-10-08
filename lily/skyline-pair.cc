@@ -130,16 +130,6 @@ Skyline_pair::operator [] (Direction d) const
 const char Skyline_pair::type_p_name_[] = "ly:skyline-pair?";
 
 
-int
-Skyline_pair::print_smob (SCM s, SCM port, scm_print_state *)
-{
-  Skyline_pair *r = (Skyline_pair *) SCM_CELL_WORD_1 (s);
-  (void) r;
-
-  scm_puts ("#<Skyline-pair>", port);
-  return 1;
-}
-
 MAKE_SCHEME_CALLBACK (Skyline_pair, skyline, 2);
 SCM
 Skyline_pair::skyline (SCM smob, SCM dir_scm)

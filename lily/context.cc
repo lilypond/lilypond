@@ -663,27 +663,25 @@ Context::now_mom () const
 }
 
 int
-Context::print_smob (SCM s, SCM port, scm_print_state *)
+Context::print_smob (SCM port, scm_print_state *)
 {
-  Context *sc = (Context *) SCM_CELL_WORD_1 (s);
-
   scm_puts ("#<", port);
-  scm_puts (sc->class_name (), port);
-  if (Context_def *d = Context_def::unsmob (sc->definition_))
+  scm_puts (class_name (), port);
+  if (Context_def *d = Context_def::unsmob (definition_))
     {
       scm_puts (" ", port);
       scm_display (d->get_context_name (), port);
     }
 
-  if (!sc->id_string_.empty ())
+  if (!id_string_.empty ())
     {
       scm_puts ("=", port);
-      scm_puts (sc->id_string_.c_str (), port);
+      scm_puts (id_string_.c_str (), port);
     }
 
   scm_puts (" ", port);
 
-  scm_display (sc->context_list_, port);
+  scm_display (context_list_, port);
   scm_puts (" >", port);
 
   return 1;

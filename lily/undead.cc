@@ -22,7 +22,7 @@
 class Undead : public Simple_smob<Undead>
 {
 public:
-  static int print_smob (SCM, SCM, scm_print_state *);
+  int print_smob (SCM, scm_print_state *);
   SCM mark_smob ();
   static const char type_p_name_[];
 private:
@@ -43,12 +43,10 @@ Undead::mark_smob ()
 }
 
 int
-Undead::print_smob (SCM undead,
-                    SCM port,
-                    scm_print_state *)
+Undead::print_smob (SCM port, scm_print_state *)
 {
   scm_puts ("#<Undead ", port);
-  scm_display (Undead::unsmob (undead)->object (), port);
+  scm_display (object (), port);
   scm_puts (" >", port);
   return 1;
 }

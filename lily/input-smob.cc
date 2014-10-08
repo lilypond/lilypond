@@ -37,9 +37,9 @@ Input::mark_smob ()
 }
 
 int
-Input::print_smob (SCM s, SCM port, scm_print_state *)
+Input::print_smob (SCM port, scm_print_state *)
 {
-  string str = "#<location " + Input::unsmob (s)->location_string () + ">";
+  string str = "#<location " + location_string () + ">";
   scm_puts (str.c_str (), port);
   return 1;
 }

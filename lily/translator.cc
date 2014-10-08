@@ -231,11 +231,10 @@ Translator::derived_mark () const
 }
 
 int
-Translator::print_smob (SCM s, SCM port, scm_print_state *)
+Translator::print_smob (SCM port, scm_print_state *)
 {
-  Translator *me = (Translator *) SCM_CELL_WORD_1 (s);
   scm_puts ("#<Translator ", port);
-  scm_puts (me->class_name (), port);
+  scm_puts (class_name (), port);
   scm_puts (" >", port);
   return 1;
 }
