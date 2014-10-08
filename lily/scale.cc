@@ -143,6 +143,7 @@ Scale::Scale (vector<Rational> const &tones)
 }
 
 Scale::Scale (Scale const &src)
+  : Smob<Scale> ()
 {
   step_tones_ = src.step_tones_;
   smobify_self ();

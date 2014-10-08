@@ -45,6 +45,7 @@ Output_def::Output_def ()
 }
 
 Output_def::Output_def (Output_def const &s)
+  : Smob<Output_def> ()
 {
   scope_ = SCM_EOL;
   parent_ = 0;

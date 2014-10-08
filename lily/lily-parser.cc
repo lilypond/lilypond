@@ -54,6 +54,7 @@ Lily_parser::Lily_parser (Sources *sources)
 }
 
 Lily_parser::Lily_parser (Lily_parser const &src, SCM closures, SCM location)
+  : Smob<Lily_parser> ()
 {
   lexer_ = 0;
   sources_ = src.sources_;

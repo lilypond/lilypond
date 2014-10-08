@@ -28,6 +28,7 @@ Page_marker::Page_marker ()
 }
 
 Page_marker::Page_marker (Page_marker const &src)
+  : Smob<Page_marker> ()
 {
   symbol_ = src.symbol_;
   permission_ = src.permission_;

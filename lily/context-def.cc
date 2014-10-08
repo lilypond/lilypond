@@ -54,6 +54,7 @@ Context_def::origin () const
 }
 
 Context_def::Context_def (Context_def const &s)
+  : Smob<Context_def> ()
 {
   context_aliases_ = SCM_EOL;
   translator_group_type_ = SCM_EOL;

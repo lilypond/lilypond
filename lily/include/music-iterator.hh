@@ -70,7 +70,8 @@ protected:
   Moment start_mom_;
 
   DECLARE_CLASSNAME (Music_iterator);
-  Music_iterator (Music_iterator const &);
+private:
+  Music_iterator (Music_iterator const &); // Do not define!  Not copyable!
 
 public:
   Moment music_get_length () const;

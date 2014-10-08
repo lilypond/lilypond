@@ -42,12 +42,6 @@ Paper_score::Paper_score (Output_def *layout)
   paper_systems_ = SCM_BOOL_F;
 }
 
-Paper_score::Paper_score (Paper_score const &s)
-  : Music_output (s)
-{
-  assert (false);
-}
-
 void
 Paper_score::derived_mark () const
 {

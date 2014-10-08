@@ -54,9 +54,9 @@ Translator::Translator ()
   init ();
 }
 
-Translator::Translator (Translator const &src)
+Translator::Translator (Translator const &)
+  : Smob<Translator> ()
 {
-  (void) src;
   init ();
 }
 

@@ -61,7 +61,7 @@ protected:
   virtual void derived_mark () const;
 
 private:
-  Paper_score (Paper_score const &);
+  Paper_score (Paper_score const &); // Do not define!  Not copyable!
 };
 
 #endif /* PAPER_SCORE_HH */

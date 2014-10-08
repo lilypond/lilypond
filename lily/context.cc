@@ -56,11 +56,6 @@ Context::check_removal ()
     }
 }
 
-Context::Context (Context const & /* src */)
-{
-  assert (false);
-}
-
 Scheme_hash_table *
 Context::properties_dict () const
 {

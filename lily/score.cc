@@ -73,6 +73,7 @@ Score::mark_smob ()
 }
 
 Score::Score (Score const &s)
+  : Smob<Score> ()
 {
   header_ = SCM_EOL;
   music_ = SCM_EOL;

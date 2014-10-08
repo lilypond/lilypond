@@ -31,8 +31,7 @@ protected:
   DECLARE_LISTENER (override);
   DECLARE_LISTENER (revert);
 public:
-  VIRTUAL_COPY_CONSTRUCTOR (Translator_group, Engraver_group);
-
+  DECLARE_CLASSNAME (Engraver_group);
   Engraver_group ();
   virtual void derived_mark () const;
   void do_announces ();

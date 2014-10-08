@@ -47,6 +47,7 @@ Book::Book ()
 }
 
 Book::Book (Book const &s)
+  : Smob<Book> ()
 {
   paper_ = 0;
   header_ = SCM_EOL;

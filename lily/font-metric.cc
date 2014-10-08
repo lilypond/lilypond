@@ -63,6 +63,7 @@ Font_metric::Font_metric ()
 }
 
 Font_metric::Font_metric (Font_metric const &)
+  : Smob<Font_metric> ()
 {
 }
 

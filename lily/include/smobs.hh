@@ -255,6 +255,9 @@ class Smob : public Smob_base<Super> {
 private:
   SCM self_scm_;
   SCM protection_cons_;
+  Smob (const Smob<Super> &); // Do not define!  Not copyable!
+protected:
+  Smob () : self_scm_ (SCM_UNDEFINED), protection_cons_ (SCM_EOL) { };
 public:
   static size_t free_smob (SCM obj)
   {
@@ -263,7 +266,6 @@ public:
   }
   SCM unprotected_smobify_self ()
   {
-    self_scm_ = SCM_UNDEFINED;
     self_scm_ = Smob_base<Super>::register_ptr (static_cast<Super *> (this));
     return self_scm_;
   }
@@ -277,7 +279,6 @@ public:
     return self_scm_;
   }
   void smobify_self () {
-    protection_cons_ = SCM_EOL;
     self_scm_ = unprotected_smobify_self ();
     protect ();
   }

@@ -67,7 +67,7 @@ private:
   DECLARE_LISTENER (create_child_translator);
 
 public:
-  VIRTUAL_COPY_CONSTRUCTOR (Translator_group, Translator_group);
+  DECLARE_CLASSNAME (Translator_group);
 
   virtual void connect_to_context (Context *c);
   virtual void disconnect_from_context ();

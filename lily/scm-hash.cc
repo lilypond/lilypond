@@ -50,6 +50,7 @@ Scheme_hash_table::Scheme_hash_table ()
 }
 
 Scheme_hash_table::Scheme_hash_table (Scheme_hash_table const &src)
+  : Smob<Scheme_hash_table> ()
 {
   hash_tab_ = SCM_EOL;
   smobify_self ();

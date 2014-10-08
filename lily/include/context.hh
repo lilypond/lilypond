@@ -37,7 +37,7 @@ public:
   virtual ~Context ();
 private:
   Scheme_hash_table *properties_dict () const;
-  Context (Context const &src);
+  Context (Context const &src); // Do not define!  Not copyable!
 
   DECLARE_CLASSNAME (Context);
   void terminate ();

@@ -29,11 +29,6 @@ Sources::Sources ()
   path_ = 0;
 }
 
-Sources::Sources (Sources const &)
-{
-  assert (false);
-}
-
 void
 Sources::set_path (File_path *f)
 {

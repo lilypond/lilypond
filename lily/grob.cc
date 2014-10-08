@@ -92,6 +92,7 @@ Grob::Grob (SCM basicprops)
 }
 
 Grob::Grob (Grob const &s)
+  : Smob<Grob> ()
 {
   original_ = (Grob *) & s;
 
