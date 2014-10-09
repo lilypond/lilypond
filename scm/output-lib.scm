@@ -995,7 +995,9 @@ and duration-log @var{log}."
 (define-public (string-number::calc-text grob)
   (let ((event (event-cause grob)))
     (or (ly:event-property event 'text #f)
-        (number->string (ly:event-property event 'string-number) 10))))
+        (number-format
+         (ly:grob-property grob 'number-type)
+         (ly:event-property event 'string-number)))))
 
 (define-public (stroke-finger::calc-text grob)
   (let ((event (event-cause grob)))

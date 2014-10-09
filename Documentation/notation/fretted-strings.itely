@@ -119,6 +119,21 @@ g-0\3
 <g-0\3>
 @end lilypond
 
+String numbers may also, as is customary with unfretted strings,
+be printed in Roman numerals and placed below the staff rather
+than above.
+
+@lilypond[verbatim,quote,relative=2]
+c2\2
+a\3
+\romanStringNumbers
+c\2
+\set stringNumberOrientations = #'(down)
+a\3
+\arabicStringNumbers
+g1\4
+@end lilypond
+
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -126,6 +141,11 @@ g-0\3
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
+
+@predefined
+@code{\arabicStringNumbers},
+@code{\romanStringNumbers}.
+@endpredefined
 
 @seealso
 Notation Reference:

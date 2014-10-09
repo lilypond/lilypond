@@ -165,6 +165,17 @@ The @code{\addlyrics} function now works with arbitrary contexts
 incuding @code{Staff}.
 
 @item
+String numbers can now also be used to print roman numerals
+(e.g. for unfretted string instruments).
+@lilypond[verbatim,quote,relative=2]
+c2\2
+\romanStringNumbers
+c\2
+\arabicStringNumbers
+c1\3
+@end lilypond
+
+@item
 The @code{thin-kern} property of the @code{BarLine} grob has been
 renamed to @code{segno-kern}.
 

@@ -509,6 +509,22 @@ stemDown    = \override Stem.direction = #DOWN
 stemNeutral = \revert Stem.direction
 
 
+%% string numbers
+
+romanStringNumbers  = {
+  \override StringNumber.number-type = #'roman-upper
+  \override StringNumber.stencil = #ly:text-interface::print
+  \override StringNumber.font-encoding = #'latin1
+  \override StringNumber.font-shape = #'italic
+}
+arabicStringNumbers = {
+  \revert StringNumber.number-type
+  \revert StringNumber.stencil
+  \revert StringNumber.font-encoding
+  \revert StringNumber.font-shape
+}
+
+
 %% tablature
 
 % switch to full notation

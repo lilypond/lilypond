@@ -85,12 +85,14 @@ Snippets:
 @funindex \upbow
 @funindex \downbow
 @funindex \open
+@funindex \romanStringNumbers
 
 @cindex bowing indications
 @cindex up bow indication
 @cindex down bow indication
 @cindex open string indication
 @cindex string, indicating open
+@cindex string numbers
 
 Bowing indications are created as articulations, which are
 described in @ref{Articulations and ornamentations}.
@@ -103,12 +105,19 @@ c4(\downbow d) e(\upbow f)
 @end lilypond
 
 @noindent
-and the following example shows three ways in which an open A
-string on a violin might be indicated:
+
+Roman numerals can be added as strings numbers (rather
+than the default circled Arabic numbers), as explained in
+@ref{String number indications}.
+
+Alternatively, string indications may be printed using
+markup commands; articulation scripts may also indicate
+open strings.
 
 @lilypond[verbatim,quote,relative=2]
 a4 \open
-a^\markup { \teeny "II" }
+\romanStringNumbers
+a\2
 a2^\markup { \small "sul A" }
 @end lilypond
 
@@ -116,12 +125,14 @@ a2^\markup { \small "sul A" }
 @predefined
 @code{\downbow},
 @code{\upbow},
-@code{\open}.
+@code{\open},
+@code{\romanStringNumbers}.
 @endpredefined
 
 @seealso
 Notation Reference:
 @ref{Articulations and ornamentations},
+@ref{String number indications},
 @ref{Slurs}.
 
 

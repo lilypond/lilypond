@@ -801,19 +801,9 @@ at @var{fret}."
              (number-type
               (assoc-get 'number-type details 'roman-lower))
              (label-text
-              (cond
-               ((equal? number-type 'roman-lower)
-                (fancy-format #f "~(~@r~)" base-fret))
-               ((equal? number-type 'roman-upper)
-                (fancy-format #f "~@r" base-fret))
-               ((equal? 'arabic number-type)
-                (fancy-format #f "~d" base-fret))
-               ((equal? 'custom number-type)
-                (fancy-format #f
-                              (assoc-get 'fret-label-custom-format
-                                         details "~a")
-                              base-fret))
-               (else (fancy-format #f "~(~@r~)" base-fret))))
+              (number-format number-type base-fret
+                             (assoc-get 'fret-label-custom-format
+                                         details "~a")))
              (label-stencil
               (centered-stencil
                (sans-serif-stencil
