@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.15\n"
+"Project-Id-Version: lilypond 2.19.16\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2014-09-28 14:54+0100\n"
+"POT-Creation-Date: 2014-10-12 15:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1840,20 +1840,20 @@ msgstr ""
 msgid "custos `%s' not found"
 msgstr ""
 
-#: dispatcher.cc:85
+#: dispatcher.cc:83
 msgid "Event class should be a list"
 msgstr ""
 
-#: dispatcher.cc:168
+#: dispatcher.cc:166
 #, c-format
 msgid "Junking event: %s"
 msgstr ""
 
-#: dispatcher.cc:273
+#: dispatcher.cc:271
 msgid "Attempting to remove nonexisting listener."
 msgstr ""
 
-#: dispatcher.cc:299
+#: dispatcher.cc:297
 msgid "Already listening to dispatcher, ignoring request"
 msgstr ""
 
@@ -2153,7 +2153,7 @@ msgid ""
 "include-string instead."
 msgstr ""
 
-#: lily-parser.cc:108
+#: lily-parser.cc:106
 msgid "Parsing..."
 msgstr ""
 
@@ -2570,11 +2570,11 @@ msgstr ""
 msgid "Drawing systems..."
 msgstr ""
 
-#: output-def.cc:232
+#: output-def.cc:229
 msgid "margins do not fit with line-width, setting default values"
 msgstr ""
 
-#: output-def.cc:239
+#: output-def.cc:236
 msgid ""
 "systems run off the page due to improper paper settings, setting default "
 "values"
@@ -2677,12 +2677,12 @@ msgstr ""
 msgid "FreeType face has no PostScript font name"
 msgstr ""
 
-#: paper-book.cc:211
+#: paper-book.cc:201
 #, c-format
 msgid "program option -dprint-pages not supported by backend `%s'"
 msgstr ""
 
-#: paper-book.cc:230
+#: paper-book.cc:220
 #, c-format
 msgid "program option -dpreview not supported by backend `%s'"
 msgstr ""
@@ -2864,15 +2864,15 @@ msgstr ""
 msgid "Aborting"
 msgstr ""
 
-#: score.cc:169
+#: score.cc:159
 msgid "already have music in score"
 msgstr ""
 
-#: score.cc:170
+#: score.cc:160
 msgid "this is the previous music"
 msgstr ""
 
-#: score.cc:175
+#: score.cc:165
 msgid "errors found, ignoring music expression"
 msgstr ""
 
@@ -2885,7 +2885,7 @@ msgstr ""
 msgid " scheme encoding: "
 msgstr ""
 
-#: skyline-pair.cc:152
+#: skyline-pair.cc:142
 msgid "direction must not be CENTER in ly:skyline-pair::skyline"
 msgstr ""
 
@@ -2978,7 +2978,7 @@ msgstr ""
 msgid "unterminated tie"
 msgstr ""
 
-#: tie-engraver.cc:353
+#: tie-engraver.cc:355
 msgid "lonely tie"
 msgstr ""
 
@@ -2987,7 +2987,7 @@ msgstr ""
 #.
 #. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
 #.
-#: time-signature-engraver.cc:75
+#: time-signature-engraver.cc:86
 #, c-format
 msgid "strange time signature found: %d/%d"
 msgstr ""
@@ -3014,12 +3014,12 @@ msgstr ""
 msgid "cannot find: `%s'"
 msgstr ""
 
-#: translator.cc:322
+#: translator.cc:320
 #, c-format
 msgid "Two simultaneous %s events, junking this one"
 msgstr ""
 
-#: translator.cc:323
+#: translator.cc:321
 #, c-format
 msgid "Previous %s event here"
 msgstr ""
@@ -3371,17 +3371,17 @@ msgstr ""
 msgid "symbol ~S redefined"
 msgstr ""
 
-#: define-event-classes.scm:73
+#: define-event-classes.scm:74
 #, scheme-format
 msgid "unknown parent class `~a'"
 msgstr ""
 
-#: define-event-classes.scm:107
+#: define-event-classes.scm:108
 #, scheme-format
 msgid "Cannot redefine event class `~S'"
 msgstr ""
 
-#: define-event-classes.scm:109
+#: define-event-classes.scm:110
 #, scheme-format
 msgid "Undefined parent event class `~S'"
 msgstr ""
@@ -3420,17 +3420,17 @@ msgstr ""
 msgid "\\time in mid-measure at ~A"
 msgstr ""
 
-#: define-music-types.scm:791
+#: define-music-types.scm:796
 #, scheme-format
 msgid "symbol expected: ~S"
 msgstr ""
 
-#: define-music-types.scm:794
+#: define-music-types.scm:799
 #, scheme-format
 msgid "cannot find music object: ~S"
 msgstr ""
 
-#: define-music-types.scm:814
+#: define-music-types.scm:819
 #, scheme-format
 msgid "bad make-music argument: ~S"
 msgstr ""
@@ -3563,19 +3563,19 @@ msgstr ""
 msgid "Music unsuitable for output-def"
 msgstr ""
 
-#: lily-library.scm:901
+#: lily-library.scm:921
 msgid ""
 "Find the index between @var{start} and @var{end} (an integer)\n"
 "which produces the closest match to @var{target-val} if\n"
 "applied to function @var{getter}."
 msgstr ""
 
-#: lily-library.scm:995
+#: lily-library.scm:1015
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr ""
 
-#: lily-library.scm:1020
+#: lily-library.scm:1040
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
@@ -3601,37 +3601,37 @@ msgstr ""
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:884
+#: lily.scm:885
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:885
+#: lily.scm:886
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:946
+#: lily.scm:947
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:949
+#: lily.scm:950
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:971 lily.scm:1060
+#: lily.scm:972 lily.scm:1061
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:1051
+#: lily.scm:1052
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
 
-#: lily.scm:1070 ps-to-png.scm:66
+#: lily.scm:1071 ps-to-png.scm:66
 #, scheme-format
 msgid "Invoking `~a'...\n"
 msgstr ""
@@ -3713,44 +3713,44 @@ msgstr ""
 msgid "Bad chord repetition"
 msgstr ""
 
-#: music-functions.scm:888
+#: music-functions.scm:891
 #, scheme-format
 msgid "music expected: ~S"
 msgstr ""
 
-#: music-functions.scm:1230
+#: music-functions.scm:1233
 #, scheme-format
 msgid "cannot find quoted music: `~S'"
 msgstr ""
 
-#: music-functions.scm:1370
+#: music-functions.scm:1373
 msgid "Add @var{octave-shift} to the octave of @var{pitch}."
 msgstr ""
 
-#: music-functions.scm:1433
+#: music-functions.scm:1436
 #, scheme-format
 msgid "Unknown octaveness type: ~S "
 msgstr ""
 
-#: music-functions.scm:1434
+#: music-functions.scm:1437
 msgid "Defaulting to 'any-octave."
 msgstr ""
 
-#: music-functions.scm:1826
+#: music-functions.scm:1829
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr ""
 
-#: music-functions.scm:2044
+#: music-functions.scm:2047
 msgid "Missing duration"
 msgstr ""
 
-#: music-functions.scm:2613
+#: music-functions.scm:2616
 #, scheme-format
 msgid "not a symbol list: ~a"
 msgstr ""
 
-#: music-functions.scm:2616
+#: music-functions.scm:2619
 #, scheme-format
 msgid "conflicting tag group ~a"
 msgstr ""
@@ -3779,23 +3779,23 @@ msgstr ""
 msgid "cannot find SVG font ~S"
 msgstr ""
 
-#: paper.scm:121
+#: paper.scm:122
 msgid "set-global-staff-size: not in toplevel scope"
 msgstr ""
 
-#: paper.scm:321
+#: paper.scm:322
 #, scheme-format
 msgid "This is not a \\layout {} object, ~S"
 msgstr ""
 
-#: paper.scm:329
+#: paper.scm:330
 #, scheme-format
 msgid "Unknown paper size: ~a"
 msgstr ""
 
 #. TODO: should raise (generic) exception with throw, and catch
 #. that in parse-scm.cc
-#: paper.scm:348
+#: paper.scm:349
 msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
 msgstr ""
 
