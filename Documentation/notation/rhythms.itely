@@ -1027,7 +1027,9 @@ The time signature is set as follows:
 \time 3/4 c2.
 @end lilypond
 
-@cindex time signature, visibility of
+Mid-measure time signature changes are covered in @ref{Upbeats}.
+
+@cindex time signature visibility
 
 Time signatures are printed at the beginning of a piece
 and whenever the time signature changes.  If a change takes place
@@ -1374,29 +1376,22 @@ Internals Reference:
 @cindex measure, partial
 @cindex measure, pickup
 @cindex pickup measure
+@cindex time signature, mid-measure
 
 @funindex measurePosition
 @funindex \partial
 @funindex partial
 
 Partial or pick-up measures, such as an @emph{anacrusis} or an
-@emph{upbeat}, are entered using the @code{\partial} command,
+@emph{upbeat}, are entered using the @code{\partial} command:
 
 @example
 \partial @var{duration}
 @end example
 
-@noindent
-where @code{@var{duration}} is the @emph{remaining} length of the
-partial measure @emph{before} the start of the next full measure.
-
-@lilypond[quote,verbatim,relative=1]
-\time 3/4
-\partial 8
-e8 | a4 c8 b c4 |
-@end lilypond
-
-The @var{duration} can be any value less than a full measure:
+When @code{\partial} is used at the beginning of a score,
+@code{@var{duration}} is the length of the music preceding the
+first bar.
 
 @lilypond[quote,verbatim,relative=1]
 \time 3/4
@@ -1404,28 +1399,23 @@ The @var{duration} can be any value less than a full measure:
 r4 e8 | a4 c8 b c4 |
 @end lilypond
 
-@code{\partial @var{duration}} can also be written as:
-
-@example
-\set Timing.measurePosition -@var{duration}
-@end example
-
-So the first example above could be written:
+When @code{\partial} is used after the beginning of a score,
+@code{@var{duration}} is the @emph{remaining} length of the
+current measure.  It does not create a new numbered bar.
 
 @lilypond[quote,verbatim,relative=1]
-\time 3/4
-\set Timing.measurePosition = #(ly:make-moment -1/8)
-e8 | a4 c8 b c4 |
+\set Score.barNumberVisibility = #all-bar-numbers-visible
+\override Score.BarNumber.break-visibility =
+          #end-of-line-invisible
+\time 9/8
+d'4.~ 4 d8 d( c) b | c4.~ 4. \bar "||"
+\time 12/8
+\partial 4.
+c8( d) e | f2.~ 4 f8 a,( c) f |
 @end lilypond
 
-The property @code{measurePosition} contains a rational number,
-which is usually positive and indicates how much of the measure
-has passed at this point.  @code{\partial @var{duration}} is
-defined such that no numbered bar gets created: when used at the
-beginning of a score, @code{measurePosition} is set to a
-negative number, implying that the current bar will be
-@emph{preceded} by additional material.  When used elsewhere, it
-moves the requested distance before the @emph{end} of the bar.
+The @code{\partial} command is @emph{required} when the time
+signature changes in mid measure, but it may also be used alone.
 
 @lilypond[quote,verbatim,relative=1]
 \set Score.barNumberVisibility = #all-bar-numbers-visible
@@ -1441,6 +1431,9 @@ r8 e8 | a4
 c8 b[ c b] |
 @end lilypond
 
+The @code{\partial} command sets the @code{Timing.measurePosition}
+property, which is a rational number that indicates how much of
+the measure has passed.
 
 @seealso
 Music Glossary:
@@ -1594,8 +1587,8 @@ stretches of unmetered music to permit breaking:
 
 @cindex double time signatures
 @cindex signatures, polymetric
-@cindex time signatures, polymetric
-@cindex time signatures, double
+@cindex time signature, polymetric
+@cindex time signature, double
 @cindex polymetric signatures
 @cindex meter, polymetric
 

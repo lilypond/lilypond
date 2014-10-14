@@ -128,7 +128,10 @@ void Smob_base<Super>::init ()
 
   if (&Super::free_smob != &Smob_base<Super>::free_smob)
     scm_set_smob_free (smob_tag_, Super::free_smob);
-  if (&Super::mark_smob != &Smob_base<Super>::mark_smob)
+  // Old GCC versions refuse comparing pointers-to-member-function of
+  // covariant types, so we recast here.
+  if (&Super::mark_smob !=
+      static_cast<SCM (Super::*)()>(&Smob_base<Super>::mark_smob))
     scm_set_smob_mark (smob_tag_, Super::mark_trampoline);
   scm_set_smob_print (smob_tag_, Super::print_trampoline);
   if (&Super::equal_p != &Smob_base<Super>::equal_p)

@@ -731,6 +731,9 @@ This can be used to signal melismas on top of those automatically
 detected.")
 
 
+     (partialBusy ,boolean? "Signal that \\partial acts at the current timestep.")
+
+
      (quotedCueEventTypes ,list? "A list of symbols, representing the
 event types that should be duplicated for @code{\\cueDuring} commands.")
      (quotedEventTypes ,list? "A list of symbols, representing the
