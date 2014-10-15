@@ -1374,8 +1374,8 @@ equivalent to @code{\"fi\"}.
   "Perform simple wordwrap, return stencil of each line."
   (define space (if justify
                     ;; justify only stretches lines.
-		    (* 0.7 base-space)
-		    base-space))
+                    (* 0.7 base-space)
+                    base-space))
   (define (stencil-len s)
     (interval-end (ly:stencil-extent s X)))
   (define (maybe-shift line)
@@ -4231,7 +4231,11 @@ a column containing several lines of text.
 Reference to a page number.  @var{label} is the label set on the referenced
 page (using the @code{\\label} command), @var{gauge} a markup used to estimate
 the maximum width of the page number, and @var{default} the value to display
-when @var{label} is not found."
+when @var{label} is not found.
+
+(If the current book or bookpart is set to use roman numerals for page numbers,
+the reference will be formatted accordingly -- in which case the @var{gauge}'s
+width may require additional tweaking.)"
   (let* ((gauge-stencil (interpret-markup layout props gauge))
          (x-ext (ly:stencil-extent gauge-stencil X))
          (y-ext (ly:stencil-extent gauge-stencil Y)))
@@ -4244,7 +4248,10 @@ when @var{label} is not found."
                        (page-number (if (list? table)
                                         (assoc-get label table)
                                         #f))
-                       (page-markup (if page-number (format #f "~a" page-number) default))
+                       (number-type (ly:output-def-lookup layout 'page-number-type))
+                       (page-markup (if page-number
+                                        (number-format number-type page-number)
+                                        default))
                        (page-stencil (interpret-markup layout props page-markup))
                        (gap (- (interval-length x-ext)
                                (interval-length (ly:stencil-extent page-stencil X)))))

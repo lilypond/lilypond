@@ -991,6 +991,14 @@ If set to true, a page number is printed on the first page.
 
 If set to false, page numbers are not printed.
 
+@cindex page numbers in roman numerals
+@item page-number-type
+@funindex page-number-type
+
+The type of numerals used for page numbers.  Choices include
+@code{roman-lower}, @code{roman-upper} and @code{arabic}.
+Default: @code{'arabic}.
+
 @end table
 
 @seealso

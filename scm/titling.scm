@@ -48,6 +48,7 @@ variables set in @var{scopes} and @code{page:is-bookpart-last-page},
                                (cdr entry)))
                             alist))
                      alists))
+               (number-type (get 'page-number-type))
                (pgnum-alist
                 (list
                  (cons 'header:tagline
@@ -56,7 +57,7 @@ variables set in @var{scopes} and @code{page:is-bookpart-last-page},
                  (cons 'page:is-last-bookpart is-last-bookpart)
                  (cons 'page:is-bookpart-last-page is-bookpart-last-page)
                  (cons 'page:page-number-string
-                       (number->string page-number))
+                       (number-format number-type page-number))
                  (cons 'page:page-number page-number)))
                (props (append
                        (list pgnum-alist)

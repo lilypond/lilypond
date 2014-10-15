@@ -62,6 +62,10 @@ which scares away people.
 @end ignore
 
 @item
+Page numbers may now be printed in roman numerals, by setting the
+@code{page-number-type} paper variable.
+
+@item
 It is now possible to use @code{\time} and @code{\partial}
 together to change the time signature in mid measure.
 
