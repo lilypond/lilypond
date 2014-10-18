@@ -151,7 +151,7 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
   Grob *h = i.grob ();
 
   now_heads_.push_back (h);
-  for (vsize i = 0; i < heads_to_tie_.size (); i++)
+  for (vsize i = heads_to_tie_.size (); i--;)
     {
       Grob *th = heads_to_tie_[i].head_;
       Stream_event *right_ev = Stream_event::unsmob (h->get_property ("cause"));
@@ -203,15 +203,13 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
                 heads_to_tie_[j].tie_from_chord_created = true;
             }
         }
-      else
-        i++;
     }
 
   if (ties_.size () && ! tie_column_)
     tie_column_ = make_spanner ("TieColumn", ties_[0]->self_scm ());
 
   if (tie_column_)
-    for (vsize i = 0; i < ties_.size (); i++)
+    for (vsize i = ties_.size (); i--;)
       Tie_column::add_tie (tie_column_, ties_[i]);
 }
 
