@@ -367,6 +367,18 @@ Accidental_engraver::stop_translation_timestep ()
   for (vsize j = ties_.size (); j--;)
     {
       Grob *r = Tie::head (ties_[j], RIGHT);
+      Grob *l = Tie::head (ties_[j], LEFT);
+      if (l && r)
+        {
+          // Don't mark accidentals as "tied" when the pitch is not
+          // actually the same.  This is relevant for enharmonic ties.
+          Stream_event *le = Stream_event::unsmob (l->get_property ("cause"));
+          Stream_event *re = Stream_event::unsmob (r->get_property ("cause"));
+          if (le && re
+              && !ly_is_equal (le->get_property ("pitch"), re->get_property ("pitch")))
+            continue;
+        }
+
       for (vsize i = accidentals_.size (); i--;)
         if (accidentals_[i].head_ == r)
           {

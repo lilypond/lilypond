@@ -113,6 +113,31 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
               it = heads_to_tie_.erase (it);
             }
         }
+      if (found)
+        return;
+      for (it = heads_to_tie_.begin ();
+           !found && (it != heads_to_tie_.end ());
+           it++)
+        {
+          Audio_element_info et = (*it).head_;
+          Audio_note *th = dynamic_cast<Audio_note *> (et.elem_);
+          Stream_event *left_mus = et.event_;
+
+          if (!(th && right_mus && left_mus))
+            continue;
+
+          SCM p1 = left_mus->get_property ("pitch");
+          SCM p2 = right_mus->get_property ("pitch");
+          if (Pitch::is_smob (p1) && Pitch::is_smob (p2)
+              && Pitch::unsmob (p1)->tone_pitch () == Pitch::unsmob (p2)->tone_pitch ())
+            {
+              found = true;
+              // (*it).moment_ already stores the end of the tied note!
+              Moment skip = now_mom () - (*it).end_moment_;
+              an->tie_to (th, skip);
+              it = heads_to_tie_.erase (it);
+            }
+        }
     }
 }
 
