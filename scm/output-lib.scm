@@ -1361,6 +1361,49 @@ parent or the parent has no setting."
           (interval-union '(0 . 0) (cons smaller larger)))
         '(0 . 0))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; measure counter
+
+(define (measure-counter-stencil grob)
+  "Print a number for a measure count.  The number is centered using
+the extents of @code{BreakAlignment} grobs associated with the left and
+right bounds of a @code{MeasureCounter} spanner.  Broken measures are
+numbered in parentheses."
+  (let* ((num (markup (number->string (ly:grob-property grob 'count-from))))
+         (orig (ly:grob-original grob))
+         (siblings (ly:spanner-broken-into orig)) ; have we been split?
+         (num
+          (if (or (null? siblings)
+                  (eq? grob (car siblings)))
+              num
+              (make-parenthesize-markup num)))
+         (num (grob-interpret-markup grob num))
+         (num (ly:stencil-aligned-to num X (ly:grob-property grob 'self-alignment-X)))
+         (left-bound (ly:spanner-bound grob LEFT))
+         (right-bound (ly:spanner-bound grob RIGHT))
+         (elts-L (ly:grob-array->list (ly:grob-object left-bound 'elements)))
+         (elts-R (ly:grob-array->list (ly:grob-object right-bound 'elements)))
+         (break-alignment-L
+           (filter
+             (lambda (elt) (grob::has-interface elt 'break-alignment-interface))
+             elts-L))
+         (break-alignment-R
+           (filter
+             (lambda (elt) (grob::has-interface elt 'break-alignment-interface))
+             elts-R))
+         (refp (ly:grob-system grob))
+         (break-alignment-L-ext (ly:grob-extent (car break-alignment-L) refp X))
+         (break-alignment-R-ext (ly:grob-extent (car break-alignment-R) refp X))
+         (num
+           (ly:stencil-translate-axis
+             num
+             (+ (interval-length break-alignment-L-ext)
+                (* 0.5
+                   (- (car break-alignment-R-ext)
+                      (cdr break-alignment-L-ext))))
+             X)))
+    num))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; make-engraver helper macro
 
