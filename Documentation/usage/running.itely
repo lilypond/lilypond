@@ -947,6 +947,7 @@ are easily handled.
 * Error message FT_Get_Glyph_Name::
 * Warning staff affinities should only decrease::
 * Error message unexpected new::
+* Warning ignoring too many clashing note columns::
 @end menu
 
 @node Music runs off the page
@@ -1030,6 +1031,7 @@ UTF-8 encoding.  For details, see @ruser{Text encoding}.
 
 @node Warning staff affinities should only decrease
 @unnumberedsubsec Warning staff affinities should only decrease
+
 This warning can appear if there are no staves in the printed
 output, for example if there are just a @code{ChordName} context
 and a @code{Lyrics} context as in a lead sheet.  The warning
@@ -1093,3 +1095,37 @@ staves are introduced in parallel, i.e. simultaneously:
   >>
 }
 @end lilypond
+
+@node Warning ignoring too many clashing note columns
+@unnumberedsubsec Warning ignoring too many clashing note columns
+
+If notes from two different voices with stems in the same direction
+occur at the same musical moment, but the voices have no
+voice-specific shifts specified, the warning message
+@samp{warning: ignoring too many clashing note columns} will appear
+when compiling the LilyPond file.  This warning will appear even when
+the notes have no visible stems, e.g. whole notes, if the stems for
+shorter notes at the same pitch would be in the same direction.
+
+Remember that the stem direction depends on the position of the
+note on the staff unless the stem direction is specified, for example
+by using @code{\voiceOne}, etc.  In this case the warning will appear
+only when the stems happen to be in the same direction, i.e. when the
+notes are in the same half of the staff.
+
+By placing the notes in voices with stem directions and shifts
+specified, for example by using @code{\voiceOne}, etc., these warnings
+may be avoided.
+
+Notes in higher numbered voices, @code{\voiceThree} etc., are
+automatically shifted to avoid clashing note columns.  This causes a
+visible shift for notes with stems, but whole notes are not visibly
+shifted unless an actual clash of the note heads occurs, or when the
+voices cross over from their natural order (when @code{\voiceThree}
+is higher than @code{\voiceOne}, etc.)
+
+@seealso
+@rlearning{Explicitly instantiating voices},
+@rlearning{Real music example},
+@ruser{Single-staff polyphony},
+@ruser{Collision resolution}.
