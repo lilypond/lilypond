@@ -2585,6 +2585,7 @@ modified by completely re-defining them as alists.}
 * Input modes::
 * Direction and placement::
 * Distances and measurements::
+* Dimensions::
 * Staff symbol properties::
 * Spanners::
 * Visibility of objects::
@@ -2842,6 +2843,35 @@ Learning Manual:
 Notation Reference:
 @ref{Page layout},
 @ref{Setting the staff size}.
+
+
+@node Dimensions
+@subsection Dimensions
+
+@cindex dimensions
+@cindex bounding box
+
+The dimensions of a graphical object specify the positions of the left
+and right edges and the bottom and top edges of the objects' bounding
+box as distances from the objects' reference point in units of
+staff-spaces.  These positions are usually coded as two Scheme pairs.
+For example, the text markup command @code{\with-dimensions} takes
+three arguments, the first two of which are a Scheme pair giving the
+left and right edge positions and a Scheme pair giving the bottom and
+top edge positions:
+
+@example
+\with-dimensions #'(-5 . 10) #'(-3 . 15) @var{arg}
+@end example
+
+This specifies a bounding box for @var{arg} with its left edge at -5,
+its right edge at 10, its bottom edge at -3 and its top edge at 15,
+all measured from the objects' reference point in units of
+staff-spaces.
+
+@seealso
+Notation Reference:
+@ref{Distances and measurements}.
 
 
 @node Staff symbol properties
