@@ -456,7 +456,7 @@ Stem::internal_calc_stem_end_position (Grob *me, bool calc_beam)
 
   /* Tremolo stuff.  */
   Grob *t_flag = Grob::unsmob (me->get_object ("tremolo-flag"));
-  if (t_flag && (!Grob::unsmob (me->get_object ("beam")) || !calc_beam))
+  if (t_flag && (!Grob::is_smob (me->get_object ("beam")) || !calc_beam))
     {
       /* Crude hack: add extra space if tremolo flag is there.
 
@@ -575,14 +575,32 @@ Stem::calc_positioning_done (SCM smob)
                 stem 100% whereas reversed heads only overlaps the
                 stem 50%
               */
-
               Real reverse_overlap = 0.5;
-              heads[i]->translate_axis ((ell - thick * reverse_overlap) * d,
-                                        X_AXIS);
+
+              /*
+                However, the first reverse head has to be shifted even
+                more than the full reverse overlap if it is the same
+                height as the first head or there will be a gap
+                because of the head slant (issue 346).
+              */
+
+              if (i == 1 && dy < 0.1)
+                reverse_overlap = 1.1;
 
               if (is_invisible (me))
-                heads[i]->translate_axis (-thick * (2 - reverse_overlap) * d,
-                                          X_AXIS);
+                {
+                  // Semibreves and longer are tucked in considerably
+                  // to be recognizable as chorded rather than
+                  // parallel voices.  During the course of issue 346
+                  // there was a discussion to change this for unisons
+                  // (dy < 0.1) to reduce overlap but without reaching
+                  // agreement and with Gould being rather on the
+                  // overlapping front.
+                  reverse_overlap = 2;
+                }
+
+              heads[i]->translate_axis ((ell - thick * reverse_overlap) * d,
+                                        X_AXIS);
 
               /* TODO:
 
@@ -706,7 +724,7 @@ Stem::internal_height (Grob *me, bool calc_beam)
     If there is a beam but no stem, slope calculations depend on this
     routine to return where the stem end /would/ be.
   */
-  if (calc_beam && !beam && !Stencil::unsmob (me->get_property ("stencil")))
+  if (calc_beam && !beam && !Stencil::is_smob (me->get_property ("stencil")))
     return Interval ();
 
   Real y1 = robust_scm2double ((calc_beam
@@ -819,7 +837,7 @@ SCM
 Stem::calc_length (SCM smob)
 {
   Grob *me = Grob::unsmob (smob);
-  if (Grob::unsmob (me->get_object ("beam")))
+  if (Grob::is_smob (me->get_object ("beam")))
     {
       me->programming_error ("ly:stem::calc-length called but will not be used for beamed stem.");
       return scm_from_double (0.0);

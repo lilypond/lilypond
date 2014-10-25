@@ -50,6 +50,7 @@ Scheme_hash_table::Scheme_hash_table ()
 }
 
 Scheme_hash_table::Scheme_hash_table (Scheme_hash_table const &src)
+  : Smob<Scheme_hash_table> ()
 {
   hash_tab_ = SCM_EOL;
   smobify_self ();
@@ -71,20 +72,17 @@ Scheme_hash_table::~Scheme_hash_table ()
 }
 
 SCM
-Scheme_hash_table::mark_smob (SCM s)
+Scheme_hash_table::mark_smob ()
 {
-  Scheme_hash_table *me = (Scheme_hash_table *) SCM_CELL_WORD_1 (s);
-  scm_gc_mark (me->hash_tab_);
+  scm_gc_mark (hash_tab_);
   return SCM_EOL;
 }
 
 int
-Scheme_hash_table::print_smob (SCM s, SCM p, scm_print_state *)
+Scheme_hash_table::print_smob (SCM p, scm_print_state *)
 {
-  assert (unsmob (s));
   scm_puts ("#<Scheme_hash_table  ", p);
-  Scheme_hash_table *me = (Scheme_hash_table *) SCM_CELL_WORD_1 (s);
-  scm_display (me->hash_tab_, p);
+  scm_display (hash_tab_, p);
   scm_puts ("> ", p);
   return 1;
 }

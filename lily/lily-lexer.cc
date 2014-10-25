@@ -123,7 +123,7 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src, Lily_parser *parser,
   main_input_level_ = 0;
 
   extra_tokens_ = SCM_EOL;
-  if (Input::unsmob (override_input))
+  if (Input::is_smob (override_input))
     override_input_ = *Input::unsmob (override_input);
 
   smobify_self ();
@@ -368,28 +368,24 @@ Lily_lexer::add_lexed_char (int count)
 const char Lily_lexer::type_p_name_[] = "ly:lily-lexer?";
 
 SCM
-Lily_lexer::mark_smob (SCM s)
+Lily_lexer::mark_smob ()
 {
-  ASSERT_LIVE_IS_ALLOWED (s);
+  ASSERT_LIVE_IS_ALLOWED (self_scm ());
 
-  Lily_lexer *lexer = (Lily_lexer *) SCM_CELL_WORD_1 (s);
-
-  scm_gc_mark (lexer->chordmodifier_tab_);
-  if (lexer->parser_)
-    scm_gc_mark (lexer->parser_->self_scm ());
-  scm_gc_mark (lexer->pitchname_tab_stack_);
-  scm_gc_mark (lexer->start_module_);
-  scm_gc_mark (lexer->extra_tokens_);
-  return lexer->scopes_;
+  scm_gc_mark (chordmodifier_tab_);
+  if (parser_)
+    scm_gc_mark (parser_->self_scm ());
+  scm_gc_mark (pitchname_tab_stack_);
+  scm_gc_mark (start_module_);
+  scm_gc_mark (extra_tokens_);
+  return scopes_;
 }
 
 int
-Lily_lexer::print_smob (SCM s, SCM port, scm_print_state *)
+Lily_lexer::print_smob (SCM port, scm_print_state *)
 {
-  Lily_lexer *lexer = Lily_lexer::unsmob (s);
-
   scm_puts ("#<Lily_lexer ", port);
-  scm_display (lexer->scopes_, port);
+  scm_display (scopes_, port);
   scm_puts (" >", port);
   return 1;
 }

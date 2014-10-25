@@ -42,7 +42,7 @@ Unfolded_repeat_iterator::get_music_list () const
 
   for (int i = 0; i < rep_count; i++)
     {
-      if (Music::unsmob (body))
+      if (Music::is_smob (body))
         *tail = scm_cons (body, SCM_EOL);
 
       tail = SCM_CDRLOC (*tail);

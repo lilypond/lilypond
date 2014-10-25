@@ -50,7 +50,7 @@ evaluate_with_simple_closure (SCM delayed_argument,
   if (Simple_closure *sc = Simple_closure::unsmob (expr))
     {
       SCM inside = sc->expression ();
-      SCM proc = !pure && Unpure_pure_container::unsmob (scm_car (inside))
+      SCM proc = !pure && Unpure_pure_container::is_smob (scm_car (inside))
         ? Unpure_pure_container::unsmob (scm_car (inside))->unpure_part ()
         : scm_car (inside);
       SCM args = scm_cons (delayed_argument,
@@ -66,10 +66,10 @@ evaluate_with_simple_closure (SCM delayed_argument,
     return expr;
   else if (scm_car (expr) == ly_symbol2scm ("quote"))
     return scm_cadr (expr);
-  else if (Unpure_pure_container::unsmob (scm_car (expr))
+  else if (Unpure_pure_container::is_smob (scm_car (expr))
            || ly_is_procedure (scm_car (expr)))
     {
-      SCM proc = !pure && Unpure_pure_container::unsmob (scm_car (expr))
+      SCM proc = !pure && Unpure_pure_container::is_smob (scm_car (expr))
         ? Unpure_pure_container::unsmob (scm_car (expr))->unpure_part ()
         : scm_car (expr);
       SCM args = evaluate_args (delayed_argument, scm_cdr (expr), pure, start, end);
@@ -114,10 +114,10 @@ LY_DEFINE (ly_eval_simple_closure, "ly:eval-simple-closure",
 }
 
 int
-Simple_closure::print_smob (SCM s, SCM port, scm_print_state *)
+Simple_closure::print_smob (SCM port, scm_print_state *)
 {
   scm_puts ("#<simple-closure ", port);
-  scm_display (scm_cdr (s), port);
+  scm_display (expression (), port);
   scm_puts (" >", port);
   return 1;
 }

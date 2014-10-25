@@ -24,7 +24,9 @@
 
 class Grace_iterator : public Music_wrapper_iterator
 {
+  bool in_grace_;
 public:
+  Grace_iterator() : in_grace_ (false) { }
   virtual void process (Moment);
   DECLARE_SCHEME_CALLBACK (constructor, ());
   DECLARE_CLASSNAME (Grace_iterator);

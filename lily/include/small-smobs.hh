@@ -3,6 +3,16 @@
 
 #include "smobs.hh"
 
+#if GUILEV2
+// Fix the APIs of GUILE2.x, broken in 2009--2014
+#undef SCM_SMOB_OBJECT_LOC
+#undef SCM_SMOB_OBJECT_2_LOC
+#undef SCM_SMOB_OBJECT_3_LOC
+#define SCM_SMOB_OBJECT_LOC(x)          (SCM_SMOB_OBJECT_N_LOC ((x), 1))
+#define SCM_SMOB_OBJECT_2_LOC(x)        (SCM_SMOB_OBJECT_N_LOC ((x), 2))
+#define SCM_SMOB_OBJECT_3_LOC(x)        (SCM_SMOB_OBJECT_N_LOC ((x), 3))
+#endif
+
 // This is tricky: the small smobs contain all the data in the smob
 // itself.  Any derived classes must _not_ contain any data members or
 // be polymorphic (contain a virtual table pointer) as there is no
@@ -14,16 +24,15 @@
 template <class Super>
 class Smob1 : public Smob_base<Super>
 {
-  Smob1 () { } // private constructor: objects don't exist, only
-               // "pointers" to them
+  Smob1 (); // Do not define!  Not constructible!
+  Smob1 (const Smob1 &); // Do not define!  Not copyable!
 public:
   SCM self_scm () const { return SCM_PACK (this); }
   SCM & scm1 () const { return *SCM_SMOB_OBJECT_LOC (self_scm ()); }
   static SCM make_smob (SCM arg1 = SCM_UNDEFINED) {
     SCM_RETURN_NEWSMOB (Smob_base<Super>::smob_tag (), SCM_UNPACK (arg1));
   }
-  static const int free_smob = 0;
-  static SCM mark_smob (SCM s) { return SCM_SMOB_OBJECT (s); };
+  SCM mark_smob () { return scm1 (); };
   static Super *unchecked_unsmob (SCM s) {
     return reinterpret_cast<Super *> (SCM_UNPACK (s));
   }
@@ -32,8 +41,8 @@ public:
 template <class Super>
 class Smob2 : public Smob_base<Super>
 {
-  Smob2 () { } // private constructor: objects don't exist, only
-               // "pointers" to them
+  Smob2 (); // Do not define!  Not constructible!
+  Smob2 (const Smob2 &); // Do not define!  Not copyable!
 public:
   SCM self_scm () const { return SCM_PACK (this); }
   SCM & scm1 () const { return *SCM_SMOB_OBJECT_LOC (self_scm ()); }
@@ -43,11 +52,10 @@ public:
                          SCM_UNPACK (arg1),
                          SCM_UNPACK (arg2));
   }
-  static const int free_smob = 0;
-  static SCM mark_smob (SCM s)
+  SCM mark_smob ()
   {
-    scm_gc_mark (SCM_SMOB_OBJECT_2 (s));
-    return SCM_SMOB_OBJECT (s);
+    scm_gc_mark (scm2 ());
+    return scm1 ();
   }
   static Super *unchecked_unsmob (SCM s) {
     return reinterpret_cast<Super *> (SCM_UNPACK (s));
@@ -57,8 +65,8 @@ public:
 template <class Super>
 class Smob3 : public Smob_base<Super>
 {
-  Smob3 () { } // private constructor: objects don't exist, only
-               // "pointers" to them
+  Smob3 (); // Do not define!  Not constructible!
+  Smob3 (const Smob3 &); // Do not define!  Not copyable!
 public:
   SCM self_scm () const { return SCM_PACK (this); }
   SCM & scm1 () const { return *SCM_SMOB_OBJECT_LOC (self_scm ()); }
@@ -72,12 +80,11 @@ public:
                          SCM_UNPACK (arg2),
                          SCM_UNPACK (arg3));
   }
-  static const int free_smob = 0;
   static SCM mark_smob (SCM s)
   {
-    scm_gc_mark (SCM_SMOB_OBJECT_3 (s));
-    scm_gc_mark (SCM_SMOB_OBJECT_2 (s));
-    return SCM_SMOB_OBJECT (s);
+    scm_gc_mark (scm3 ());
+    scm_gc_mark (scm2 ());
+    return scm1 ();
   }
   static Super *unchecked_unsmob (SCM s) {
     return reinterpret_cast<Super *> (SCM_UNPACK (s));

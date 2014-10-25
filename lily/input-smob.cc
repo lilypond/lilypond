@@ -28,20 +28,18 @@ Input dummy_input_global;
 const char Input::type_p_name_[] = "ly:input-location?";
 
 SCM
-Input::mark_smob (SCM s)
+Input::mark_smob ()
 {
-  Input *sc = unsmob (s);
-
-  if (Source_file *sf = sc->get_source_file ())
+  if (Source_file *sf = get_source_file ())
     return sf->self_scm ();
 
   return SCM_EOL;
 }
 
 int
-Input::print_smob (SCM s, SCM port, scm_print_state *)
+Input::print_smob (SCM port, scm_print_state *)
 {
-  string str = "#<location " + Input::unsmob (s)->location_string () + ">";
+  string str = "#<location " + location_string () + ">";
   scm_puts (str.c_str (), port);
   return 1;
 }

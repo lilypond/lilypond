@@ -45,6 +45,7 @@ Output_def::Output_def ()
 }
 
 Output_def::Output_def (Output_def const &s)
+  : Smob<Output_def> ()
 {
   scope_ = SCM_EOL;
   parent_ = 0;
@@ -62,16 +63,14 @@ Output_def::~Output_def ()
 
 
 SCM
-Output_def::mark_smob (SCM m)
+Output_def::mark_smob ()
 {
-  Output_def *mo = (Output_def*) SCM_CELL_WORD_1 (m);
-
   /* FIXME: why is this necessary?
      all paper_ should be protected by themselves. */
-  if (mo->parent_)
-    scm_gc_mark (mo->parent_->self_scm ());
+  if (parent_)
+    scm_gc_mark (parent_->self_scm ());
 
-  return mo->scope_;
+  return scope_;
 }
 
 void
@@ -96,11 +95,10 @@ find_context_def (Output_def const *m, SCM name)
 }
 
 int
-Output_def::print_smob (SCM s, SCM p, scm_print_state *)
+Output_def::print_smob (SCM p, scm_print_state *)
 {
-  Output_def * def = Output_def::unsmob (s);
   scm_puts ("#< ", p);
-  scm_puts (def->class_name (), p);
+  scm_puts (class_name (), p);
   scm_puts (">", p);
   return 1;
 }

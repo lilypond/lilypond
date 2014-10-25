@@ -73,7 +73,7 @@ Bar_check_iterator::process (Moment m)
           else
             {
               SCM lf = tr->get_property ("barCheckLastFail");
-              if (Moment::unsmob (lf)
+              if (Moment::is_smob (lf)
                   && *Moment::unsmob (lf) == *where)
                 warn = false;
               else

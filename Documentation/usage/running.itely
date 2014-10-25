@@ -52,14 +52,14 @@ scope of this manual; please consult other documentation on this topic
 if you are unfamiliar with the command-line.
 
 @menu
-* Invoking lilypond::
+* Invoking LilyPond::
 * Basic command line options for LilyPond::
 * Advanced command line options for LilyPond::
 * Environment variables::
 * LilyPond in chroot jail::
 @end menu
 
-@node Invoking lilypond
+@node Invoking LilyPond
 @unnumberedsubsec Invoking @command{lilypond}
 
 The @command{lilypond} executable may be called as follows from
@@ -68,7 +68,6 @@ the command line.
 @example
 lilypond [@var{option}]@dots{} @var{file}@dots{}
 @end example
-
 
 When invoked with a filename that has no extension, the @file{.ly}
 extension is tried first.  To read input from stdin, use a
@@ -98,28 +97,36 @@ will output @var{base}@file{-violin.pdf} and
 @var{base}@file{-cello-1.pdf}.
 
 
-@unnumberedsubsubsec Standard shell commands
+@unnumberedsubsubsec Using LilyPond with standard shell features
 
-If your shell (i.e. command window) supports normal redirects,
-then you might find it useful to use the following commands to
-redirect console output to a file:
+Since LilyPond is a command line application, features of the @q{shell}
+used for calling LilyPond can also be put to good use.
 
-@itemize
+For example:
 
-@item
-@code{lilypond file.ly 1>stdout.log} to redirect normal output
+@example
+lilypond *.ly
+@end example
 
-@item
-@code{lilypond file.ly 2>stderr.log} to redirect error messages
+@noindent
+will process all LilyPond files in the current directory.
 
-@item
-@code{lilypond file.ly &>all.log} to redirect all output
+Redirecting the console output (e.g. to a file) may also be useful:
 
-@end itemize
+@example
+lilypond file.ly 1> stdout.txt
 
-Consult the documentation for your shell to see if it supports these
-options, or if the syntax is different.  Note that these are shell
-commands and have nothing to do with lilypond.
+lilypond file.ly 2> stderr.txt
+
+lilypond file.ly &> all.txt
+@end example
+
+@noindent
+Redirects @q{normal} output, @q{errors} only or @q{everything},
+respectively, to a text file.  Consult the documentation for your
+particular shell, Command (Windows), Terminal or Console
+applications (MacOS X) to see if output redirection is supported or if
+the syntax is different.
 
 
 @node Basic command line options for LilyPond

@@ -27,7 +27,7 @@ LY_DEFINE (ly_input_warning, "ly:input-warning", 2, 0, 1, (SCM sip, SCM msg, SCM
 {
   Input *ip = Input::unsmob (sip);
 
-  LY_ASSERT_TYPE (Input::unsmob, sip, 1);
+  LY_ASSERT_SMOB (Input, sip, 1);
   LY_ASSERT_TYPE (scm_is_string, msg, 2);
 
   msg = scm_simple_format (SCM_BOOL_F, msg, rest);
@@ -45,7 +45,7 @@ LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 1, (SCM sip, SCM msg, SCM
 {
   Input *ip = Input::unsmob (sip);
 
-  LY_ASSERT_TYPE (Input::unsmob, sip, 1);
+  LY_ASSERT_SMOB (Input, sip, 1);
   LY_ASSERT_TYPE (scm_is_string, msg, 2);
 
   msg = scm_simple_format (SCM_BOOL_F, msg, rest);
@@ -62,7 +62,7 @@ LY_DEFINE (ly_input_file_line_char_column,
            "Return input location in @var{sip} as"
            " @code{(file-name line char column)}.")
 {
-  LY_ASSERT_TYPE (Input::unsmob, sip, 1);
+  LY_ASSERT_SMOB (Input, sip, 1);
   Input *ip = Input::unsmob (sip);
 
   int l, ch, col, offset = 0;
@@ -80,7 +80,7 @@ LY_DEFINE (ly_input_both_locations,
            " @code{(file-name first-line first-column last-line last-column)}.")
 {
 
-  LY_ASSERT_TYPE (Input::unsmob, sip, 1);
+  LY_ASSERT_SMOB (Input, sip, 1);
   Input *ip = Input::unsmob (sip);
 
   return scm_list_5 (ly_string2scm (ip->file_string ()),

@@ -545,9 +545,9 @@ messages into errors.")
     "c++.scm"
     "chord-entry.scm"
     "skyline.scm"
-    "stencil.scm"
-    "define-markup-commands.scm"
     "markup.scm"
+    "define-markup-commands.scm"
+    "stencil.scm"
     "modal-transforms.scm"
     "chord-generic-names.scm"
     "chord-ignatzek-names.scm"
@@ -693,6 +693,7 @@ messages into errors.")
     (,ly:font-metric? . "font metric")
     (,ly:grob? . "graphical (layout) object")
     (,ly:grob-array? . "array of grobs")
+    (,ly:grob-properties? . "grob properties")
     (,ly:input-location? . "input location")
     (,ly:item? . "item")
     (,ly:iterator? . "iterator")

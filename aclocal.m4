@@ -674,7 +674,7 @@ AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
 	AC_MSG_RESULT([$ver])
 	GUILE_CONFIG=$found
     else
-	STEPMAKE_ADD_ENTRY($1, "$guile_config (guile-devel, guile-dev or libguile-dev package) or guile1-config (guile1-devel package)")
+	STEPMAKE_ADD_ENTRY($1, "$guile_config (guile-devel, guile-dev or libguile-dev package)")
     fi
 
     AC_SUBST(GUILE_CONFIG)

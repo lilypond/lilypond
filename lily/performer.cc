@@ -48,9 +48,3 @@ Performer::announce_element (Audio_element_info i)
 
   get_daddy_performer ()->announce_element (i);
 }
-
-Performer *
-Performer::unsmob (SCM perf)
-{
-  return dynamic_cast<Performer *> (Translator::unsmob (perf));
-}

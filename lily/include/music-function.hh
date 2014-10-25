@@ -28,8 +28,8 @@ class Music_function : public Smob2<Music_function>
 {
 public:
   static const char type_p_name_[];
-  static SCM mark_smob (SCM);
-  static int print_smob (SCM, SCM, scm_print_state *);
+  SCM mark_smob ();
+  int print_smob (SCM, scm_print_state *);
   SCM get_signature () { return scm1 (); }
   SCM get_function () { return scm2 (); }
 };

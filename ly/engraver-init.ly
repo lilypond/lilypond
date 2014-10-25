@@ -209,7 +209,8 @@ subscripts, slurs, ties, and rests.
 
 You have to instantiate this explicitly if you want to have
 multiple voices on the same staff."
-
+  %% Grace_engraver sets properties, it must come first.
+  \consists "Grace_engraver"
   \consists "Font_size_engraver"
 
   \consists "Pitched_trill_engraver"
@@ -265,7 +266,6 @@ multiple voices on the same staff."
   \consists "Slur_engraver"
   \consists "Tie_engraver"
   \consists "Tuplet_engraver"
-  \consists "Grace_engraver"
   \consists "Instrument_switch_engraver"
 }
 
@@ -592,6 +592,7 @@ automatically when an output definition (a @code{\\score} or
 
   drumStyleTable = #drums-style
 
+  associatedVoiceType = #'Voice
   melismaBusyProperties = #default-melisma-properties
   tieWaitForNote = ##f
   clefGlyph = #"clefs.G"

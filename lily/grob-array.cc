@@ -52,27 +52,22 @@ Grob_array::array () const
 }
 
 SCM
-Grob_array::mark_smob (SCM s)
+Grob_array::mark_smob ()
 {
-  (void) s;
-
 #if 0  /* see System::derived_mark () const */
-  Grob_array *ga = Grob_array::unsmob (s);
-  for (vsize i = 0; i < ga->grobs_.size (); i++)
-    scm_gc_mark (ga->grobs_[i]->self_scm ());
+  for (vsize i = 0; i < grobs_.size (); i++)
+    scm_gc_mark (grobs_[i]->self_scm ());
 #endif
   return SCM_UNDEFINED;
 }
 
 int
-Grob_array::print_smob (SCM arr, SCM port, scm_print_state *)
+Grob_array::print_smob (SCM port, scm_print_state *)
 {
   scm_puts ("#<Grob_array", port);
-
-  Grob_array *grob_arr = unsmob (arr);
-  for (vsize i = 0; i < grob_arr->size (); i++)
+  for (vsize i = 0; i < size (); i++)
     {
-      scm_display (grob_arr->grob (i)->self_scm (), port);
+      scm_display (grob (i)->self_scm (), port);
       scm_puts (" ", port);
     }
   scm_puts (">", port);

@@ -216,9 +216,9 @@ this to your @file{~/.bashrc}:
 export PS1="\u@\h \w\$(__git_ps1)$ "
 @end verbatim
 
-If you are not using LilyDev, you may need to install the
-additional @code{git-completion} package, but it is definitely
-worth it.
+You may need to install the additional @code{bash-completion}
+package, but it is definitely worth it.  After installation
+you must log out, and then log back in again to enable it.
 
 
 @subsubheading Technical details
@@ -531,7 +531,7 @@ We have a few other code repositories.
 @menu
 * lilypond-extra::
 * Grand Unified Builder (GUB)::
-* lilypad::
+* LilyPad::
 * yet more repositories::
 @end menu
 
@@ -587,16 +587,63 @@ and the original version by Jan Nieuwenhuizen, kept at
 @end example
 
 
-@node lilypad
-@unnumberedsubsubsec lilypad
+@node LilyPad
+@unnumberedsubsubsec LilyPad
 
 Our binary releases on MacOS X and Windows contain a lightweight
-text editor.  This code is here:
+text editor.
+
+To make any modifications the Windows editor, you will need to do the
+following:
+
+@enumerate
+@item
+Clone the git repository from @code{https://github.com/gperciva/lilypad}
+
+@item
+Make changes to the source, and check it compiles.  In a Windows environment
+@code{MinGW} provides both a @code{Git} installation and a @code{gcc}
+compiler.  This can be obtained from @code{http://www.mingw.org/}
+
+@item
+Update the version which is contained in the @file{rsrc.rc}.  Check
+this compiles, too.
+
+@item
+Commit the changes with an informative commit message.
+
+@item
+Push the changes to github.  You will need to use syntax similiar to this:
 
 @example
-https://github.com/gperciva/lilypad
+git push https://UserName@@github.com/gperciva/lilypad.git
 @end example
 
+You will need to have push access to the git repository for this to be
+successful.
+
+@item
+Make a tarball of the source code to be used by GUB by pulling the updated
+repository from GitHub.  Ensure that the tarball has the correct Version
+number.
+
+@item
+Copy the tarball to @code{http://lilypond.org/download/gub-sources/lilypad/}.
+You will need to have SSH access to @code{lilypond.org}.  If you do not, contact
+the Release Manager via the lilypond-devel mailing list.
+
+@item
+Update GUB to make it use the new tarball by editing
+@file{gub/specs/lilypad.py} and changing the @code{source =} line to point to
+the new source.
+
+@item
+Push this updated @file{lilypad.py} version to the GUB repository on GitHub.
+
+@item
+Test the changes with a new GUB compile.
+
+@end enumerate
 
 @node yet more repositories
 @unnumberedsubsubsec yet more repositories
@@ -1277,7 +1324,7 @@ or create a symbolic link to the @command{git-cl}
 and @command{upload.py} scripts in one of your PATH
 directories (such as @file{$HOME/bin}).
 
-In Ubuntu (and LilyDev), you can add directories to PATH
+In GNU/Linux you can add directories to PATH
 by adding this line to a hidden file @file{.bashrc},
 located in your home directory:
 

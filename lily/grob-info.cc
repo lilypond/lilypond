@@ -90,7 +90,7 @@ Stream_event *
 Grob_info::ultimate_event_cause () const
 {
   SCM cause = grob_->self_scm ();
-  while (Grob::unsmob (cause))
+  while (Grob::is_smob (cause))
     {
       cause = Grob::unsmob (cause)->get_property ("cause");
     }

@@ -63,7 +63,10 @@ suffixes.  No setting will not go back in measure-number time.")
      (alternativeRestores ,symbol-list? "Timing variables that are
 restored to their value at the end of the first alternative in
 subsequent alternatives.")
-     (associatedVoice ,string? "Name of the @code{Voice} that has the
+     (associatedVoice ,string? "Name of the context (see
+@code{associatedVoiceType} for its type, usually @code{Voice}) that
+has the melody for this @code{Lyrics} line.")
+     (associatedVoiceType ,symbol? "Type of the context that has the
 melody for this @code{Lyrics} line.")
      (autoAccidentals ,list? "List of different ways to typeset an
 accidental.
@@ -282,8 +285,8 @@ slurred note, one above and one below the chord.")
 instruments (symbols) to pitches.")
      (drumStyleTable ,hash-table? "A hash table which maps drums to
 layout settings.  Predefined values: @samp{drums-style},
-@samp{timbales-style}, @samp{congas-style}, @samp{bongos-style}, and
-@samp{percussion-style}.
+@samp{agostini-drums-style}, @samp{timbales-style}, @samp{congas-style},
+@samp{bongos-style}, and @samp{percussion-style}.
 
 The layout style is a hash table, containing the drum-pitches (e.g.,
 the symbol @samp{hihat}) as keys, and a list
@@ -726,6 +729,9 @@ also contain @code{((@var{octave} . @var{name}) . (@var{alter}
      (melismaBusy ,boolean? "Signifies whether a melisma is active.
 This can be used to signal melismas on top of those automatically
 detected.")
+
+
+     (partialBusy ,boolean? "Signal that \\partial acts at the current timestep.")
 
 
      (quotedCueEventTypes ,list? "A list of symbols, representing the

@@ -30,6 +30,20 @@
 
 template <class Super>
 SCM
+Smob_base<Super>::mark_trampoline (SCM arg)
+{
+  return (Super::unsmob (arg))->mark_smob ();
+}
+
+template <class Super>
+int
+Smob_base<Super>::print_trampoline (SCM arg, SCM port, scm_print_state *p)
+{
+  return (Super::unsmob (arg))->print_smob (port, p);
+}
+
+template <class Super>
+SCM
 Smob_base<Super>::register_ptr (Super *p)
 {
   // Don't use SCM_RETURN_NEWSMOB since that would require us to
@@ -42,9 +56,33 @@ Smob_base<Super>::register_ptr (Super *p)
   return s;
 }
 
+// Defaults, should not actually get called
+template <class Super>
+SCM
+Smob_base<Super>::mark_smob ()
+{
+  return SCM_UNSPECIFIED;
+}
+
+template <class Super>
+size_t
+Smob_base<Super>::free_smob (SCM)
+{
+  return 0;
+}
+
+template <class Super>
+SCM
+Smob_base<Super>::equal_p (SCM, SCM)
+{
+  return SCM_BOOL_F;
+}
+
+// Default, will often get called
+
 template <class Super>
 int
-Smob_base<Super>::print_smob (SCM, SCM p, scm_print_state *)
+Smob_base<Super>::print_smob (SCM p, scm_print_state *)
 {
   scm_puts ("#<", p);
   scm_puts (smob_name_.c_str (), p);
@@ -88,13 +126,18 @@ void Smob_base<Super>::init ()
   // While that's not a consideration for type_p_name_, it's easier
   // doing it like the rest.
 
-  if (Super::free_smob != 0)
+  if (&Super::free_smob != &Smob_base<Super>::free_smob)
     scm_set_smob_free (smob_tag_, Super::free_smob);
-  if (Super::mark_smob != 0)
-    scm_set_smob_mark (smob_tag_, Super::mark_smob);
-  if (Super::print_smob != 0)
-    scm_set_smob_print (smob_tag_, Super::print_smob);
-  if (Super::equal_p != 0)
+  // Old GCC versions get their type lattice for pointers-to-members
+  // tangled up to a degree where we need to typecast _both_ covariant
+  // types in order to be able to compare them.  The other comparisons
+  // are for static member functions and thus are ordinary function
+  // pointers which work without those contortions.
+  if (static_cast<SCM (Super::*)()>(&Super::mark_smob) !=
+      static_cast<SCM (Super::*)()>(&Smob_base<Super>::mark_smob))
+    scm_set_smob_mark (smob_tag_, Super::mark_trampoline);
+  scm_set_smob_print (smob_tag_, Super::print_trampoline);
+  if (&Super::equal_p != &Smob_base<Super>::equal_p)
     scm_set_smob_equalp (smob_tag_, Super::equal_p);
   if (Super::type_p_name_ != 0)
     {
@@ -106,8 +149,8 @@ void Smob_base<Super>::init ()
                                      fundoc);
       scm_c_export (Super::type_p_name_, NULL);
     }
-  ly_add_type_predicate ((void *) unsmob, smob_name_.c_str ());
-  if (Super::smob_proc != 0)
+  ly_add_type_predicate ((void *) is_smob, smob_name_.c_str ());
+  if (Super::smob_proc_signature_ >= 0)
     scm_set_smob_apply (smob_tag_,
                         (scm_t_subr)Super::smob_proc,
                         Super::smob_proc_signature_ >> 8,

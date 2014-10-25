@@ -161,7 +161,7 @@ Tie::calc_direction (SCM smob)
   Grob *yparent = me->get_parent (Y_AXIS);
   if ((Tie_column::has_interface (yparent)
        || Semi_tie_column::has_interface (yparent))
-      && Grob_array::unsmob (yparent->get_object ("ties"))
+      && Grob_array::is_smob (yparent->get_object ("ties"))
       //      && Grob_array::unsmob (yparent->get_object ("ties"))->size () > 1
      )
     {
@@ -223,7 +223,7 @@ Tie::calc_control_points (SCM smob)
   Grob *yparent = me->get_parent (Y_AXIS);
   if ((Tie_column::has_interface (yparent)
        || Semi_tie_column::has_interface (yparent))
-      && Grob_array::unsmob (yparent->get_object ("ties")))
+      && Grob_array::is_smob (yparent->get_object ("ties")))
     {
       extract_grob_set (yparent, "ties", ties);
       if (me->original () && ties.size () == 1

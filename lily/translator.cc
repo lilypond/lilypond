@@ -54,9 +54,9 @@ Translator::Translator ()
   init ();
 }
 
-Translator::Translator (Translator const &src)
+Translator::Translator (Translator const &)
+  : Smob<Translator> ()
 {
-  (void) src;
   init ();
 }
 
@@ -199,10 +199,9 @@ Translator::static_translator_description (const char *grobs,
   SMOBS
 */
 SCM
-Translator::mark_smob (SCM sm)
+Translator::mark_smob ()
 {
-  Translator *me = (Translator *) SCM_CELL_WORD_1 (sm);
-  me->derived_mark ();
+  derived_mark ();
   return SCM_EOL;
 }
 
@@ -232,11 +231,10 @@ Translator::derived_mark () const
 }
 
 int
-Translator::print_smob (SCM s, SCM port, scm_print_state *)
+Translator::print_smob (SCM port, scm_print_state *)
 {
-  Translator *me = (Translator *) SCM_CELL_WORD_1 (s);
   scm_puts ("#<Translator ", port);
-  scm_puts (me->class_name (), port);
+  scm_puts (class_name (), port);
   scm_puts (" >", port);
   return 1;
 }

@@ -56,11 +56,6 @@ Context::check_removal ()
     }
 }
 
-Context::Context (Context const & /* src */)
-{
-  assert (false);
-}
-
 Scheme_hash_table *
 Context::properties_dict () const
 {
@@ -663,55 +658,51 @@ Context::now_mom () const
 }
 
 int
-Context::print_smob (SCM s, SCM port, scm_print_state *)
+Context::print_smob (SCM port, scm_print_state *)
 {
-  Context *sc = (Context *) SCM_CELL_WORD_1 (s);
-
   scm_puts ("#<", port);
-  scm_puts (sc->class_name (), port);
-  if (Context_def *d = Context_def::unsmob (sc->definition_))
+  scm_puts (class_name (), port);
+  if (Context_def *d = Context_def::unsmob (definition_))
     {
       scm_puts (" ", port);
       scm_display (d->get_context_name (), port);
     }
 
-  if (!sc->id_string_.empty ())
+  if (!id_string_.empty ())
     {
       scm_puts ("=", port);
-      scm_puts (sc->id_string_.c_str (), port);
+      scm_puts (id_string_.c_str (), port);
     }
 
   scm_puts (" ", port);
 
-  scm_display (sc->context_list_, port);
+  scm_display (context_list_, port);
   scm_puts (" >", port);
 
   return 1;
 }
 
 SCM
-Context::mark_smob (SCM sm)
+Context::mark_smob ()
 {
-  Context *me = (Context *) SCM_CELL_WORD_1 (sm);
+  scm_gc_mark (context_list_);
+  scm_gc_mark (aliases_);
+  scm_gc_mark (definition_);
+  scm_gc_mark (definition_mods_);
+  scm_gc_mark (properties_scm_);
+  scm_gc_mark (accepts_list_);
+  scm_gc_mark (default_child_);
 
-  scm_gc_mark (me->context_list_);
-  scm_gc_mark (me->aliases_);
-  scm_gc_mark (me->definition_);
-  scm_gc_mark (me->definition_mods_);
-  scm_gc_mark (me->properties_scm_);
-  scm_gc_mark (me->accepts_list_);
-  scm_gc_mark (me->default_child_);
+  if (implementation_)
+    scm_gc_mark (implementation_->self_scm ());
 
-  if (me->implementation_)
-    scm_gc_mark (me->implementation_->self_scm ());
+  if (event_source_)
+    scm_gc_mark (event_source_->self_scm ());
 
-  if (me->event_source_)
-    scm_gc_mark (me->event_source_->self_scm ());
+  if (events_below_)
+    scm_gc_mark (events_below_->self_scm ());
 
-  if (me->events_below_)
-    scm_gc_mark (me->events_below_->self_scm ());
-
-  return me->properties_scm_;
+  return properties_scm_;
 }
 
 const char Context::type_p_name_[] = "ly:context?";
@@ -743,7 +734,7 @@ measure_length (Context const *context)
 {
   SCM l = context->get_property ("measureLength");
   Rational length (1);
-  if (Moment::unsmob (l))
+  if (Moment::is_smob (l))
     length = Moment::unsmob (l)->main_part_;
   return length;
 }
@@ -754,7 +745,7 @@ measure_position (Context const *context)
   SCM sm = context->get_property ("measurePosition");
 
   Moment m = 0;
-  if (Moment::unsmob (sm))
+  if (Moment::is_smob (sm))
     {
       m = *Moment::unsmob (sm);
 
@@ -812,14 +803,29 @@ set_context_property_on_children (Context *trans, SCM sym, SCM val)
 bool
 melisma_busy (Context *tr)
 {
-  SCM melisma_properties = tr->get_property ("melismaBusyProperties");
-  bool busy = false;
+  // When there are subcontexts, they are responsible for maintaining
+  // melismata.
+  SCM ch = tr->children_contexts ();
+  if (scm_is_pair (ch))
+    {
+      // all contexts need to have a busy melisma for this to evaluate
+      // to true.
 
-  for (; !busy && scm_is_pair (melisma_properties);
+      do {
+        if (!melisma_busy (Context::unsmob (scm_car (ch))))
+          return false;
+        ch = scm_cdr (ch);
+      } while (scm_is_pair (ch));
+      return true;
+    }
+
+  for (SCM melisma_properties = tr->get_property ("melismaBusyProperties");
+       scm_is_pair (melisma_properties);
        melisma_properties = scm_cdr (melisma_properties))
-    busy = busy || to_boolean (tr->get_property (scm_car (melisma_properties)));
+    if (to_boolean (tr->get_property (scm_car (melisma_properties))))
+      return true;
 
-  return busy;
+  return false;
 }
 
 bool

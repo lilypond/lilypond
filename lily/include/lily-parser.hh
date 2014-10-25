@@ -32,8 +32,8 @@
 class Lily_parser : public Smob<Lily_parser>
 {
 public:
-  static int print_smob (SCM, SCM, scm_print_state *);
-  static SCM mark_smob (SCM);
+  int print_smob (SCM, scm_print_state *);
+  SCM mark_smob ();
   static const char type_p_name_[];
   virtual ~Lily_parser ();
   Lily_lexer *lexer_;

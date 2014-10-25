@@ -25,7 +25,6 @@
 class Skyline_pair : public Simple_smob<Skyline_pair>
 {
 public:
-  static int print_smob (SCM, SCM, scm_print_state *);
   static const char type_p_name_[];
 private:
   Drul_array<Skyline> skylines_;

@@ -698,6 +698,8 @@ over the total spanner, where the width of the spanner is normalized
 between 0 and 1.")
      (note-names ,vector? "Vector of strings containing names for
 easy-notation note heads.")
+     (number-type ,symbol? "Numbering style. Choices include
+@code{roman-lower}, @code{roman-upper} and @code{arabic}.")
 
 
 ;;;

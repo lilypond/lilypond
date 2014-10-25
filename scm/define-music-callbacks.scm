@@ -102,19 +102,7 @@ to be used by the sequential-iterator"
                            structure))
                       (beaming-exception
                        (beam-exceptions fraction time-signature-settings))
-                      (new-measure-length (ly:make-moment num den))
-                      (pos (ly:context-property context 'measurePosition)))
-                 ;;\time is OK at a negative measurePosition (after \partial),
-                 ;;but at a positive position it's probably a mistake, so warn
-                 ;;(like a barcheck) and reset it to 0 to prevent errors.
-                 (if (> (ly:moment-main pos) 0)
-                     (begin
-                       (if (not (ly:context-property context 'ignoreBarChecks #f))
-                           (ly:music-warning music
-                                             (_ "\\time in mid-measure at ~A")
-                                             (ly:moment-main pos)))
-                       (ly:context-set-property!
-                        context 'measurePosition (ly:make-moment 0))))
+                      (new-measure-length (ly:make-moment num den)))
                  (ly:context-set-property!
                   context 'timeSignatureFraction fraction)
                  (ly:context-set-property!
@@ -126,4 +114,5 @@ to be used by the sequential-iterator"
                  (ly:context-set-property!
                   context 'measureLength new-measure-length))))
             'Timing)
-           'Score))))
+           'Score)
+          (make-music 'TimeSignatureEvent music))))

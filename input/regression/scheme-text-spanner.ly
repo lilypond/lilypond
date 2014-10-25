@@ -145,13 +145,13 @@ schemeTextSpannerEngraver =
       ((stop-translation-timestep trans)
        (if (and (ly:spanner? span)
                 (null? (ly:spanner-bound span LEFT)))
-           (set! (ly:spanner-bound span LEFT)
-                 (ly:context-property context 'currentMusicalColumn)))
+           (ly:spanner-set-bound! span LEFT
+             (ly:context-property context 'currentMusicalColumn)))
        (if (ly:spanner? finished)
            (begin
              (if (null? (ly:spanner-bound finished RIGHT))
-                 (set! (ly:spanner-bound finished RIGHT)
-                       (ly:context-property context 'currentMusicalColumn)))
+                 (ly:spanner-set-bound! finished RIGHT
+                   (ly:context-property context 'currentMusicalColumn)))
              (set! finished '())
              (set! event-start '())
              (set! event-stop '()))))
@@ -159,8 +159,8 @@ schemeTextSpannerEngraver =
        (if (ly:spanner? finished)
            (begin
              (if (null? (ly:spanner-bound finished RIGHT))
-                 (set! (ly:spanner-bound finished RIGHT)
-                       (ly:context-property context 'currentMusicalColumn)))
+                 (ly:spanner-set-bound! finished RIGHT
+                   (ly:context-property context 'currentMusicalColumn)))
              (set! finished '())))
        (if (ly:spanner? span)
            (begin

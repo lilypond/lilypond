@@ -2060,6 +2060,7 @@
 
     (StaffSymbol
      . (
+        (break-align-symbols . (staff-bar break-alignment))
         (layer . 0)
         (ledger-line-thickness . (1.0 . 0.1))
         (line-count . 5)
@@ -2168,6 +2169,7 @@
         (cross-staff . ,script-or-side-position-cross-staff)
         (font-encoding . fetaText)
         (font-size . -5)                ; don't overlap when next to heads.
+        (number-type . arabic)
         (padding . 0.5)
         (parent-alignment-X . ,CENTER)
         (script-priority . 100)
@@ -2182,6 +2184,7 @@
                                 self-alignment-interface
                                 outside-staff-interface
                                 side-position-interface
+                                number-interface
                                 string-number-interface
                                 text-interface
                                 text-script-interface))))))

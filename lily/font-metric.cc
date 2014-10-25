@@ -63,6 +63,7 @@ Font_metric::Font_metric ()
 }
 
 Font_metric::Font_metric (Font_metric const &)
+  : Smob<Font_metric> ()
 {
 }
 
@@ -94,21 +95,19 @@ Font_metric::derived_mark () const
 }
 
 SCM
-Font_metric::mark_smob (SCM s)
+Font_metric::mark_smob ()
 {
-  Font_metric *m = (Font_metric *) SCM_CELL_WORD_1 (s);
-  m->derived_mark ();
-  return m->description_;
+  derived_mark ();
+  return description_;
 }
 
 int
-Font_metric::print_smob (SCM s, SCM port, scm_print_state *)
+Font_metric::print_smob (SCM port, scm_print_state *)
 {
-  Font_metric *m = Font_metric::unsmob (s);
   scm_puts ("#<", port);
-  scm_puts (m->class_name (), port);
+  scm_puts (class_name (), port);
   scm_puts (" ", port);
-  scm_write (m->description_, port);
+  scm_write (description_, port);
   scm_puts (">", port);
   return 1;
 }

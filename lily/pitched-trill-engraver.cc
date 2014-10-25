@@ -88,7 +88,7 @@ Pitched_trill_engraver::acknowledge_trill_spanner (Grob_info info)
   if (ev
       && ev->in_event_class ("trill-span-event")
       && to_dir (ev->get_property ("span-direction")) == START
-      && Pitch::unsmob (ev->get_property ("pitch")))
+      && Pitch::is_smob (ev->get_property ("pitch")))
     make_trill (ev);
 }
 

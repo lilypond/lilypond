@@ -2071,12 +2071,9 @@ LilyPond files}.
 @funindex \tag
 @funindex \keepWithTag
 @funindex \removeWithTag
-@funindex \pushToTag
-@funindex \appendToTag
 @cindex tag
 @cindex keep tagged music
 @cindex remove tagged music
-@cindex splice into tagged music
 
 The @code{\tag #'@var{partA}} command marks a music expression
 with the name @var{partA}.
@@ -2106,9 +2103,9 @@ Tagged music not preceded by either @code{\keepWithTag} or
 @end multitable
 
 The arguments of the @code{\tag}, @code{\keepWithTag} and
-@code{\removeWithTag} commands should be a symbol
-(such as @code{#'score} or @code{#'part}), followed
-by a music expression.
+@code{\removeWithTag} commands should be a symbol or list of
+symbols (such as @code{#'score} or @code{#'(violinI violinII}),
+followed by a music expression.
 
 In the following example, we see two versions of a piece of music,
 one showing trills with the usual notation, and one with trills
@@ -2212,6 +2209,38 @@ Usually you would rather want to use a single @code{\keepWithTag}
 command with a list of multiple tags: this will only remove tagged
 sections not given in @emph{any} of the tags.
 
+@cindex tag groups
+@funindex \tagGroup
+While @code{\keepWithTag} is convenient when dealing with
+@emph{one} set of alternatives, the removal of music tagged with
+@emph{unrelated} tags is problematic when using tags for more than
+one purpose.  For that reason, @q{tag groups} of related tags can
+be declared:
+
+@example
+\tagGroup #'(violinI violinII viola cello)
+@end example
+
+declares the respective tags as belonging to one tag group.
+
+@example
+\keepWithTag #'violinI @dots{}
+@end example
+
+will then only be concerned with tags from @code{violinI}'s tag
+group: any element of the included music that is tagged with one
+or more of tags from this set but @emph{not} with @code{violinI}
+will get removed.
+
+To any @code{\keepWithTag} command, only tags from the tag groups
+of the tags given in the command are visible.
+
+Tags cannot be members of more than one tag group.
+
+@funindex \pushToTag
+@funindex \appendToTag
+@cindex splice into tagged music
+
 Sometimes you want to splice some music at a particular place in an
 existing music expression.  You can use @code{\pushToTag} and
 @code{\appendToTag} for adding material at the front or end of the
@@ -2233,9 +2262,7 @@ test = { \tag #'here { \tag #'here <<c''>> } }
 @end lilypond
 
 Both commands get a tag, the material to splice in at every occurence of
-the tag, and the tagged expression.  The commands make sure to
-copy everything that they change so that the original @code{\test}
-retains its meaning.
+the tag, and the tagged expression.
 
 @seealso
 Learning Manual:
@@ -2514,7 +2541,7 @@ In order to use this feature, LilyPond must be invoked with
 @option{-dclip-systems}.  The clips are output as EPS files, and are
 converted to PDF and PNG if these formats are switched on as well.
 
-For more information on output formats, see @rprogram{Invoking lilypond}.
+For more information on output formats, see @rprogram{Invoking LilyPond}.
 
 @node Skipping corrected music
 @subsection Skipping corrected music

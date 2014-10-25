@@ -28,6 +28,7 @@
                     footnote-padding
                     horizontal-shift
                     in
+                    incipit-width
                     indent
                     inner-margin
                     inner-margin-default-scaled

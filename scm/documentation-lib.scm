@@ -20,6 +20,9 @@
              (srfi srfi-13)
              (srfi srfi-1))
 
+(if (guile-v2)
+    (use-modules (ice-9 curried-definitions)))
+
 (define-class <texi-node> ()
   (appendix #:init-value #f #:accessor appendix? #:init-keyword #:appendix)
   (children #:init-value '() #:accessor node-children #:init-keyword #:children)

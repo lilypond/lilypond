@@ -116,6 +116,31 @@
 (define-public point-stencil (ly:make-stencil "" '(0 . 0) '(0 . 0)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; line has to come early since it is often used implicitly from the
+;; markup macro since \markup { a b c } -> \markup \line { a b c }
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define-markup-command (line layout props args)
+  (markup-list?)
+  #:category align
+  #:properties ((word-space)
+                (text-direction RIGHT))
+  "Put @var{args} in a horizontal line.  The property @code{word-space}
+determines the space between markups in @var{args}.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\line {
+    one two three
+  }
+}
+@end lilypond"
+  (let ((stencils (interpret-markup-list layout props args)))
+    (if (= text-direction LEFT)
+        (set! stencils (reverse stencils)))
+    (stack-stencil-line word-space stencils)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; geometric shapes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -568,12 +593,12 @@ thickness, and @code{offset} to determine line y-offset.
 @end lilypond"
   (let* ((thick (ly:output-def-lookup layout 'line-thickness))
          (underline-thick (* thickness thick))
-         (markup (interpret-markup layout props arg))
-         (x1 (car (ly:stencil-extent markup X)))
-         (x2 (cdr (ly:stencil-extent markup X)))
+         (m (interpret-markup layout props arg))
+         (x1 (car (ly:stencil-extent m X)))
+         (x2 (cdr (ly:stencil-extent m X)))
          (y (* thick (- offset)))
          (line (make-line-stencil underline-thick x1 y x2 y)))
-    (ly:stencil-add markup line)))
+    (ly:stencil-add m line)))
 
 (define-markup-command (box layout props arg)
   (markup?)
@@ -1132,56 +1157,6 @@ the use of @code{\\simple} is unnecessary.
 @end lilypond"
   (interpret-markup layout props str))
 
-(define-markup-command (tied-lyric layout props str)
-  (string?)
-  #:category music
-  #:properties ((word-space))
-  "
-@cindex simple text strings with tie characters
-
-Like simple-markup, but use tie characters for @q{~} tilde symbols.
-
-@lilypond[verbatim,quote]
-\\markup \\column {
-  \\tied-lyric #\"Siam navi~all'onde~algenti Lasciate~in abbandono\"
-  \\tied-lyric #\"Impetuosi venti I nostri~affetti sono\"
-  \\tied-lyric #\"Ogni diletto~e scoglio Tutta la vita~e~un mar.\"
-}
-@end lilypond"
-  (define (replace-ties tie str)
-    (if (string-contains str "~")
-        (let*
-            ((half-space (/ word-space 2))
-             (parts (string-split str #\~))
-             (tie-str (markup #:hspace half-space
-                              #:musicglyph tie
-                              #:hspace half-space))
-             (joined  (list-join parts tie-str)))
-          (make-concat-markup joined))
-        str))
-
-  (define short-tie-regexp (make-regexp "~[^.]~"))
-  (define (match-short str) (regexp-exec short-tie-regexp str))
-
-  (define (replace-short str mkp)
-    (let ((match (match-short str)))
-      (if (not match)
-          (make-concat-markup (list
-                               mkp
-                               (replace-ties "ties.lyric.default" str)))
-          (let ((new-str (match:suffix match))
-                (new-mkp (make-concat-markup (list
-                                              mkp
-                                              (replace-ties "ties.lyric.default"
-                                                            (match:prefix match))
-                                              (replace-ties "ties.lyric.short"
-                                                            (match:substring match))))))
-            (replace-short new-str new-mkp)))))
-
-  (interpret-markup layout
-                    props
-                    (replace-short str (markup))))
-
 (define-public empty-markup
   (make-simple-markup ""))
 
@@ -1255,9 +1230,7 @@ words varies according to their relative lengths."
                 orig-stencils))
          (text-widths
            (map (lambda (stc)
-                  (if (ly:stencil-empty? stc)
-                      0.0
-                      (interval-length (ly:stencil-extent stc X))))
+                  (interval-length (ly:stencil-extent stc X)))
                 stencils))
          (text-width (apply + text-widths))
          (word-count (length stencils))
@@ -1352,26 +1325,6 @@ space.  If there are no arguments, return an empty stencil.
   (justify-line-helper
     layout props args text-direction word-space line-width #t))
 
-(define-markup-command (line layout props args)
-  (markup-list?)
-  #:category align
-  #:properties ((word-space)
-                (text-direction RIGHT))
-  "Put @var{args} in a horizontal line.  The property @code{word-space}
-determines the space between markups in @var{args}.
-
-@lilypond[verbatim,quote]
-\\markup {
-  \\line {
-    one two three
-  }
-}
-@end lilypond"
-  (let ((stencils (interpret-markup-list layout props args)))
-    (if (= text-direction LEFT)
-        (set! stencils (reverse stencils)))
-    (stack-stencil-line word-space stencils)))
-
 (define-markup-command (concat layout props args)
   (markup-list?)
   #:category align
@@ -1421,8 +1374,8 @@ equivalent to @code{\"fi\"}.
   "Perform simple wordwrap, return stencil of each line."
   (define space (if justify
                     ;; justify only stretches lines.
-		    (* 0.7 base-space)
-		    base-space))
+                    (* 0.7 base-space)
+                    base-space))
   (define (stencil-len s)
     (interval-end (ly:stencil-extent s X)))
   (define (maybe-shift line)
@@ -3042,6 +2995,56 @@ Draw @var{arg} in color specified by @var{color}.
                      (ly:stencil-extent stil X)
                      (ly:stencil-extent stil Y))))
 
+(define-markup-command (tied-lyric layout props str)
+  (string?)
+  #:category music
+  #:properties ((word-space))
+  "
+@cindex simple text strings with tie characters
+
+Like simple-markup, but use tie characters for @q{~} tilde symbols.
+
+@lilypond[verbatim,quote]
+\\markup \\column {
+  \\tied-lyric #\"Siam navi~all'onde~algenti Lasciate~in abbandono\"
+  \\tied-lyric #\"Impetuosi venti I nostri~affetti sono\"
+  \\tied-lyric #\"Ogni diletto~e scoglio Tutta la vita~e~un mar.\"
+}
+@end lilypond"
+  (define (replace-ties tie str)
+    (if (string-contains str "~")
+        (let*
+            ((half-space (/ word-space 2))
+             (parts (string-split str #\~))
+             (tie-str (markup #:hspace half-space
+                              #:musicglyph tie
+                              #:hspace half-space))
+             (joined  (list-join parts tie-str)))
+          (make-concat-markup joined))
+        str))
+
+  (define short-tie-regexp (make-regexp "~[^.]~"))
+  (define (match-short str) (regexp-exec short-tie-regexp str))
+
+  (define (replace-short str mkp)
+    (let ((match (match-short str)))
+      (if (not match)
+          (make-concat-markup (list
+                               mkp
+                               (replace-ties "ties.lyric.default" str)))
+          (let ((new-str (match:suffix match))
+                (new-mkp (make-concat-markup (list
+                                              mkp
+                                              (replace-ties "ties.lyric.default"
+                                                            (match:prefix match))
+                                              (replace-ties "ties.lyric.short"
+                                                            (match:substring match))))))
+            (replace-short new-str new-mkp)))))
+
+  (interpret-markup layout
+                    props
+                    (replace-short str (markup))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; glyphs
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -4202,7 +4205,7 @@ a column containing several lines of text.
   }
 }
 @end lilypond"
-  (let* ((markup (interpret-markup layout props arg))
+  (let* ((m (interpret-markup layout props arg))
          (scaled-width (* size width))
          (scaled-thickness
           (* (chain-assoc-get 'line-thickness props 0.1)
@@ -4212,7 +4215,7 @@ a column containing several lines of text.
                (* (/ 4 3.0) scaled-width)))
          (padding (chain-assoc-get 'padding props half-thickness)))
     (parenthesize-stencil
-     markup half-thickness scaled-width angularity padding)))
+     m half-thickness scaled-width angularity padding)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -4228,7 +4231,11 @@ a column containing several lines of text.
 Reference to a page number.  @var{label} is the label set on the referenced
 page (using the @code{\\label} command), @var{gauge} a markup used to estimate
 the maximum width of the page number, and @var{default} the value to display
-when @var{label} is not found."
+when @var{label} is not found.
+
+(If the current book or bookpart is set to use roman numerals for page numbers,
+the reference will be formatted accordingly -- in which case the @var{gauge}'s
+width may require additional tweaking.)"
   (let* ((gauge-stencil (interpret-markup layout props gauge))
          (x-ext (ly:stencil-extent gauge-stencil X))
          (y-ext (ly:stencil-extent gauge-stencil Y)))
@@ -4241,7 +4248,10 @@ when @var{label} is not found."
                        (page-number (if (list? table)
                                         (assoc-get label table)
                                         #f))
-                       (page-markup (if page-number (format #f "~a" page-number) default))
+                       (number-type (ly:output-def-lookup layout 'page-number-type))
+                       (page-markup (if page-number
+                                        (number-format number-type page-number)
+                                        default))
                        (page-stencil (interpret-markup layout props page-markup))
                        (gap (- (interval-length x-ext)
                                (interval-length (ly:stencil-extent page-stencil X)))))

@@ -47,6 +47,7 @@ Book::Book ()
 }
 
 Book::Book (Book const &s)
+  : Smob<Book> ()
 {
   paper_ = 0;
   header_ = SCM_EOL;
@@ -106,24 +107,15 @@ Book::~Book ()
 
 
 SCM
-Book::mark_smob (SCM s)
+Book::mark_smob ()
 {
-  Book *book = (Book *) SCM_CELL_WORD_1 (s);
+  if (paper_)
+    scm_gc_mark (paper_->self_scm ());
+  scm_gc_mark (scores_);
+  scm_gc_mark (bookparts_);
+  scm_gc_mark (input_location_);
 
-  if (book->paper_)
-    scm_gc_mark (book->paper_->self_scm ());
-  scm_gc_mark (book->scores_);
-  scm_gc_mark (book->bookparts_);
-  scm_gc_mark (book->input_location_);
-
-  return book->header_;
-}
-
-int
-Book::print_smob (SCM, SCM p, scm_print_state *)
-{
-  scm_puts ("#<Book>", p);
-  return 1;
+  return header_;
 }
 
 void
@@ -249,7 +241,7 @@ Book::process_score (SCM s, Paper_book *output_paper_book, Output_def *layout)
         }
     }
   else if (Text_interface::is_markup_list (scm_car (s))
-           || Page_marker::unsmob (scm_car (s)))
+           || Page_marker::is_smob (scm_car (s)))
     output_paper_book->add_score (scm_car (s));
   else
     assert (0);

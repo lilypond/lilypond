@@ -42,19 +42,20 @@
     prop-strings))
 
 (define (doc-markup-function func)
-  (let* ((doc-str  (procedure-documentation func))
+  (let* ((full-doc (procedure-documentation func))
+         (match-args (and full-doc (string-match "^\\([^)]*\\)\n" full-doc)))
+         (arg-names (if match-args
+                        (with-input-from-string (match:string match-args) read)
+                        (circular-list "arg")))
+         (doc-str (if match-args (match:suffix match-args) full-doc))
          (f-name (symbol->string (procedure-name  func)))
          (c-name (regexp-substitute/global #f "-markup(-list)?$" f-name  'pre "" 'post))
          (sig (object-property func 'markup-signature))
-         (arg-names (let ((arg-list (cadr (procedure-source func))))
-                      (if (list? arg-list)
-                          (map symbol->string (cddr arg-list))
-                          (make-list (length sig) "arg"))))
          (sig-type-names (map type-name sig))
          (signature-str
           (string-join
-           (map (lambda (x y) (string-append
-                             "@var{" x "} (" y ")" ))
+           (map (lambda (x y)
+                  (format #f "@var{~a} (~a)" x y))
                 arg-names  sig-type-names)
            " " )))
 

@@ -666,6 +666,11 @@ Syntax: @code{\\times @var{fraction} @var{music}}, e.g.,
         (types . (general-music time-signature-music))
         ))
 
+    (TimeSignatureEvent
+     . ((description . "An event created when setting a new time signature")
+        (types . (general-music event time-signature-event))
+        ))
+
     (TransposedMusic
      . ((description . "Music that has been transposed.")
         (iterator-ctor . ,ly:music-wrapper-iterator::constructor)

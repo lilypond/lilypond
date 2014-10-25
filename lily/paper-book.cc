@@ -54,29 +54,19 @@ Paper_book::~Paper_book ()
 const char Paper_book::type_p_name_[] = "ly:paper-book?";
 
 SCM
-Paper_book::mark_smob (SCM smob)
+Paper_book::mark_smob ()
 {
-  Paper_book *b = (Paper_book *) SCM_CELL_WORD_1 (smob);
-  if (b->paper_)
-    scm_gc_mark (b->paper_->self_scm ());
-  if (b->parent_)
-    scm_gc_mark (b->parent_->self_scm ());
-  scm_gc_mark (b->header_);
-  scm_gc_mark (b->header_0_);
-  scm_gc_mark (b->pages_);
-  scm_gc_mark (b->performances_);
-  scm_gc_mark (b->scores_);
-  scm_gc_mark (b->bookparts_);
-  return b->systems_;
-}
-
-int
-Paper_book::print_smob (SCM smob, SCM port, scm_print_state *)
-{
-  Paper_book *b = (Paper_book *) SCM_CELL_WORD_1 (smob);
-  (void)b;
-  scm_puts ("#<Paper_book>", port);
-  return 1;
+  if (paper_)
+    scm_gc_mark (paper_->self_scm ());
+  if (parent_)
+    scm_gc_mark (parent_->self_scm ());
+  scm_gc_mark (header_);
+  scm_gc_mark (header_0_);
+  scm_gc_mark (pages_);
+  scm_gc_mark (performances_);
+  scm_gc_mark (scores_);
+  scm_gc_mark (bookparts_);
+  return systems_;
 }
 
 Output_def *
@@ -295,7 +285,7 @@ Paper_book::book_title ()
                       paper_->self_scm (),
                       scopes);
 
-  if (Stencil::unsmob (tit))
+  if (Stencil::is_smob (tit))
     title = *Stencil::unsmob (tit);
 
   if (!title.is_empty ())
@@ -324,7 +314,7 @@ Paper_book::score_title (SCM header)
                       paper_->self_scm (),
                       scopes);
 
-  if (Stencil::unsmob (tit))
+  if (Stencil::is_smob (tit))
     title = *Stencil::unsmob (tit);
 
   if (!title.is_empty ())
@@ -484,7 +474,7 @@ Paper_book::get_system_specs ()
               if (scm_is_pair (system_specs))
                 set_system_penalty (scm_car (system_specs), header);
 
-              if (Prob::unsmob (title))
+              if (Prob::is_smob (title))
                 {
                   system_specs = scm_cons (title, system_specs);
                   Prob::unsmob (title)->unprotect ();

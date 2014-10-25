@@ -59,15 +59,14 @@ typecheck_grob (SCM symbol, SCM value)
     return typecheck_grob (symbol, upc->unpure_part ())
       && typecheck_grob (symbol, upc->pure_part ());
   return ly_is_procedure (value)
-    || Simple_closure::unsmob (value)
+    || Simple_closure::is_smob (value)
     || type_check_assignment (symbol, value, ly_symbol2scm ("backend-type?"));
 }
 
 class Grob_properties : public Simple_smob<Grob_properties>
 {
 public:
-  static int print_smob (SCM, SCM, scm_print_state *);
-  static SCM mark_smob (SCM);
+  SCM mark_smob ();
   static const char type_p_name_[];
 private:
   friend class Grob_property_info;
@@ -98,21 +97,12 @@ private:
 const char Grob_properties::type_p_name_[] = "ly:grob-properties?";
 
 SCM
-Grob_properties::mark_smob (SCM smob)
+Grob_properties::mark_smob ()
 {
-  Grob_properties *gp = (Grob_properties *) SCM_SMOB_DATA (smob);
-  scm_gc_mark (gp->alist_);
-  scm_gc_mark (gp->based_on_);
-  scm_gc_mark (gp->cooked_);
-  return gp->cooked_from_;
-}
-
-int
-Grob_properties::print_smob (SCM /*smob*/, SCM port, scm_print_state *)
-{
-  scm_puts ("#<Grob_properties>", port);
-
-  return 1;
+  scm_gc_mark (alist_);
+  scm_gc_mark (based_on_);
+  scm_gc_mark (cooked_);
+  return cooked_from_;
 }
 
 LY_DEFINE (ly_make_grob_properties, "ly:make-grob-properties",
@@ -200,18 +190,21 @@ Grob_property_info::create ()
   alist defined in a parent context. BASED-ON should always be a tail
   of ALIST.
 
-  Push or pop (depending on value of VAL) a single entry from a
+  Push a single entry from a
   translator property list by name of PROP.  GROB_PROPERTY_PATH
   indicates nested alists, eg. '(beamed-stem-lengths details)
+
+  Return value can be passed to matched_pop and will only cancel the
+  same override then.
 */
-void
+SCM
 Grob_property_info::push (SCM grob_property_path, SCM new_value)
 {
   /*
     Don't mess with MIDI.
   */
   if (!create ())
-    return;
+    return SCM_EOL;
 
   SCM symbol = scm_car (grob_property_path);
   SCM rest = scm_cdr (grob_property_path);
@@ -219,10 +212,12 @@ Grob_property_info::push (SCM grob_property_path, SCM new_value)
     {
       // poor man's typechecking
       if (typecheck_grob (symbol, nested_create_alist (rest, new_value))) {
-        props_->alist_ = scm_acons (grob_property_path, new_value, props_->alist_);
+        SCM cell = scm_cons (grob_property_path, new_value);
+        props_->alist_ = scm_cons (cell, props_->alist_);
         props_->nested_++;
+        return cell;
       }
-      return;
+      return SCM_EOL;
     }
 
   /* it's tempting to replace the head of the list if it's the same
@@ -231,7 +226,34 @@ Grob_property_info::push (SCM grob_property_path, SCM new_value)
   */
 
   if (typecheck_grob (symbol, new_value))
-    props_->alist_ = scm_acons (symbol, new_value, props_->alist_);
+    {
+      SCM cell = scm_cons (symbol, new_value);
+      props_->alist_ = scm_cons (cell, props_->alist_);
+      return cell;
+    }
+  return SCM_EOL;
+}
+
+void
+Grob_property_info::matched_pop (SCM cell)
+{
+  if (!scm_is_pair (cell))
+    return;
+  if (!check ())
+    return;
+  SCM current_alist = props_->alist_;
+  SCM daddy = props_->based_on_;
+  for (SCM p = current_alist; !scm_is_eq (p, daddy); p = scm_cdr (p))
+    {
+      if (scm_is_eq (scm_car (p), cell))
+        {
+          if (scm_is_pair (scm_car (cell)))
+            props_->nested_--;
+          props_->alist_ = partial_list_copy (current_alist, p, scm_cdr (p));
+          return;
+        }
+    }
+  return;
 }
 
 /*

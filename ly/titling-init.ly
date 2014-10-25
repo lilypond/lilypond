@@ -1,5 +1,8 @@
 \version "2.16.0"
 
+#(if (guile-v2)
+  (use-modules (ice-9 curried-definitions)))
+
 slashSeparator = \markup {
   \center-align
   \vcenter \combine

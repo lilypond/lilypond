@@ -92,6 +92,7 @@ Grob::Grob (SCM basicprops)
 }
 
 Grob::Grob (Grob const &s)
+  : Smob<Grob> ()
 {
   original_ = (Grob *) & s;
 
@@ -855,7 +856,7 @@ SCM
 Grob::pure_stencil_height (SCM smob, SCM /* beg */, SCM /* end */)
 {
   Grob *me = Grob::unsmob (smob);
-  if (Stencil::unsmob (me->get_property_data ("stencil")))
+  if (Stencil::is_smob (me->get_property_data ("stencil")))
     return grob_stencil_extent (me, Y_AXIS);
 
   return ly_interval2scm (Interval ());

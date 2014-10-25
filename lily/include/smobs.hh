@@ -172,23 +172,16 @@ private:
   // (where it will mask the private template member) rather than
   // specializing a different template function/pointer.
   //
-  // Since we consider those internal-only, two of them are actually
-  // implemented as literal zero constant.  That allows us to fall
-  // back to GUILE's default implementation.  Arguably the same could
-  // be done for print_smob, but the resulting default output of, say,
-  // #<Context_mod 0x7352414> would depend on memory layout, thus
-  // being unsuitable for regtest comparisons unless filtered.
+  // Most default functions are do-nothings.  void init() will
+  // recognize their address when not overriden and will then refrain
+  // altogether from passing the the respective callbacks to GUILE.
+  SCM mark_smob (void);
+  static SCM mark_trampoline (SCM); // Used for calling mark_smob
+  static size_t free_smob (SCM obj);
+  static SCM equal_p (SCM, SCM);
+  int print_smob (SCM, scm_print_state *);
+  static int print_trampoline (SCM, SCM, scm_print_state *);
 
-  static const int mark_smob = 0;
-  static const int equal_p = 0;
-  static const int smob_proc = 0;
-  static const int smob_proc_signature_ = 0;
-  static int print_smob (SCM, SCM, scm_print_state *);
-  static size_t free_smob (SCM obj)
-  {
-    delete Smob_base<Super>::unregister_ptr (obj);
-    return 0;
-  }
   // type_p_name_ can be overriden in the Super class with a static
   // const char [] string.  This requires both a declaration in the
   // class as well as a single instantiation outside.  Using a
@@ -199,12 +192,13 @@ private:
   // in a single compilation unit.  That requires just as much source
   // code maintenance while being harder to understand and quite
   // trickier in its failure symptoms when things go wrong.  So we
-  // just do things like with the other specializations.
+  // just use a static zero as "not here" indication.
   static const int type_p_name_ = 0;
-  // This macro is used in the Super class definition for making a
-  // smob callable like a function.  Declaration has to be public.  It
-  // may be either be completed with a semicolon in which case a
-  // definition of the member function smob_proc has to be done
+
+  // LY_DECLARE_SMOB_PROC is used in the Super class definition for
+  // making a smob callable like a function.  Declaration has to be
+  // public.  It may be either be completed with a semicolon in which
+  // case a definition of the member function smob_proc has to be done
   // outside of the class body, or the semicolon is left off and an
   // inline function body is added immediately below.  It would be
   // nice if this were a non-static member function but it would seem
@@ -213,8 +207,15 @@ private:
 #define LY_DECLARE_SMOB_PROC(REQ, OPT, VAR, ARGLIST)                    \
   static const int smob_proc_signature_ = ((REQ)<<8)|((OPT)<<4)|(VAR);  \
   static SCM smob_proc ARGLIST
+
   // a separate LY_DEFINE_SMOB_PROC seems sort of pointless as it
   // would just result in SCM CLASS::smob_proc ARGLIST
+  //
+  // The default case without function functionality is recognized by
+  // smob_proc_signature being -1.
+  static const int smob_proc = 0;
+  static const int smob_proc_signature_ = -1;
+
 public:
   static bool is_smob (SCM s)
   {
@@ -230,10 +231,15 @@ public:
   }
 };
 
-
+// Simple smobs
 template <class Super>
 class Simple_smob : public Smob_base<Super> {
 public:
+  static size_t free_smob (SCM obj)
+  {
+    delete Smob_base<Super>::unregister_ptr (obj);
+    return 0;
+  }
   SCM smobbed_copy () const
   {
     Super *p = new Super(*static_cast<const Super *> (this));
@@ -249,10 +255,17 @@ class Smob : public Smob_base<Super> {
 private:
   SCM self_scm_;
   SCM protection_cons_;
+  Smob (const Smob<Super> &); // Do not define!  Not copyable!
+protected:
+  Smob () : self_scm_ (SCM_UNDEFINED), protection_cons_ (SCM_EOL) { };
 public:
+  static size_t free_smob (SCM obj)
+  {
+    delete Smob_base<Super>::unregister_ptr (obj);
+    return 0;
+  }
   SCM unprotected_smobify_self ()
   {
-    self_scm_ = SCM_UNDEFINED;
     self_scm_ = Smob_base<Super>::register_ptr (static_cast<Super *> (this));
     return self_scm_;
   }
@@ -266,7 +279,6 @@ public:
     return self_scm_;
   }
   void smobify_self () {
-    protection_cons_ = SCM_EOL;
     self_scm_ = unprotected_smobify_self ();
     protect ();
   }
@@ -293,7 +305,12 @@ public:
   static SCM readout ();
 };
 
-#ifndef NDEBUG
+// This does not appear to work with GUILEv2's garbage collector:
+// Objects are found in the GC phase but printing them will crash at
+// least some, so they are apparently not protected in spite of being
+// included in the GC scans.  So it would appear that scanning smobs
+// is not equivalent to marking them.  Ugh.
+#if !defined(NDEBUG) && !GUILEV2
 #define ASSERT_LIVE_IS_ALLOWED(arg)                                     \
   do {                                                                  \
     static parsed_dead pass_here;                                       \

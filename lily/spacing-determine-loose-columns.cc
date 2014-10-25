@@ -304,9 +304,9 @@ Spacing_spanner::set_implicit_neighbor_columns (vector<Grob *> const &cols)
       if (!Paper_column::is_breakable (it) && !Paper_column::is_musical (it))
         continue;
 
-      if (i && !Grob::unsmob (cols[i]->get_object ("left-neighbor")))
+      if (i && !Grob::is_smob (cols[i]->get_object ("left-neighbor")))
         cols[i]->set_object ("left-neighbor", cols[i - 1]->self_scm ());
-      if (i + 1 < cols.size () && !Grob::unsmob (cols[i]->get_object ("right-neighbor")))
+      if (i + 1 < cols.size () && !Grob::is_smob (cols[i]->get_object ("right-neighbor")))
         cols[i]->set_object ("right-neighbor", cols[i + 1]->self_scm ());
     }
 }

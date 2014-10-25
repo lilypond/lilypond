@@ -6,6 +6,9 @@
 
 \version "2.16.0"
 
+#(if (guile-v2)
+  (use-modules (ice-9 curried-definitions)))
+
 #(session-initialize
   (lambda ()
    ;; we can't use ly:parser-include-string here since that does not

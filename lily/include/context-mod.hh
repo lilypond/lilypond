@@ -36,8 +36,8 @@
 */
 struct Context_mod : public Simple_smob<Context_mod>
 {
-  static SCM mark_smob (SCM);
-  static int print_smob (SCM, SCM, scm_print_state *);
+  SCM mark_smob ();
+  int print_smob (SCM, scm_print_state *);
   static const char type_p_name_[];
 private:
   SCM mods_;

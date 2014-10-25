@@ -61,7 +61,7 @@ LY_DEFINE (ly_unpure_pure_container_unpure_part, "ly:unpure-pure-container-unpur
            1, 0, 0, (SCM pc),
            "Return the unpure part of @var{pc}.")
 {
-  LY_ASSERT_TYPE (Unpure_pure_container::unsmob, pc, 1);
+  LY_ASSERT_SMOB (Unpure_pure_container, pc, 1);
   return Unpure_pure_container::unsmob (pc)->unpure_part ();
 }
 
@@ -69,20 +69,19 @@ LY_DEFINE (ly_unpure_pure_container_pure_part, "ly:unpure-pure-container-pure-pa
            1, 0, 0, (SCM pc),
            "Return the pure part of @var{pc}.")
 {
-  LY_ASSERT_TYPE (Unpure_pure_container::unsmob, pc, 1);
+  LY_ASSERT_SMOB (Unpure_pure_container, pc, 1);
   return Unpure_pure_container::unsmob (pc)->pure_part ();
 }
 
 int
-Unpure_pure_container::print_smob (SCM s, SCM port, scm_print_state *)
+Unpure_pure_container::print_smob (SCM port, scm_print_state *)
 {
-  Unpure_pure_container *p = Unpure_pure_container::unsmob (s);
   scm_puts ("#<unpure-pure-container ", port);
-  scm_display (p->unpure_part (), port);
-  if (!p->is_unchanging ())
+  scm_display (unpure_part (), port);
+  if (!is_unchanging ())
     {
       scm_puts (" ", port);
-      scm_display (p->pure_part (), port);
+      scm_display (pure_part (), port);
     }
   scm_puts (" >", port);
   return 1;

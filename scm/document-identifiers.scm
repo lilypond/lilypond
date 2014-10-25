@@ -22,10 +22,12 @@
       ((name-sym (car music-func-pair))
        (music-func (cdr music-func-pair))
        (func (ly:music-function-extract music-func))
-       (arg-names
-        (map symbol->string
-             (cddr (cadr (procedure-source func)))))
-       (doc (procedure-documentation func))
+       (full-doc (procedure-documentation func))
+       (match-args (and full-doc (string-match "^\\([^)]*\\)\n" full-doc)))
+       (arg-names (if match-args
+                      (with-input-from-string (match:string match-args) read)
+                      (circular-list "arg")))
+       (doc (if match-args (match:suffix match-args) full-doc))
        (sign (ly:music-function-signature music-func))
        (type-names (map (lambda (pred)
                           (if (pair? pred)
@@ -44,7 +46,7 @@
             name-sym (car type-names)
             (if (string-null? signature-str) "" " - ") signature-str
             name-sym
-            (if doc
+            (if (and doc (not (string-null? doc)))
                 doc
                 (begin
                   (ly:warning "music function `~a' not documented." name-sym)

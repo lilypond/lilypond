@@ -31,13 +31,13 @@
 class Context : public Smob<Context>
 {
 public:
-  static SCM mark_smob (SCM);
-  static int print_smob (SCM, SCM, scm_print_state *);
+  SCM mark_smob ();
+  int print_smob (SCM, scm_print_state *);
   static const char type_p_name_[];
   virtual ~Context ();
 private:
   Scheme_hash_table *properties_dict () const;
-  Context (Context const &src);
+  Context (Context const &src); // Do not define!  Not copyable!
 
   DECLARE_CLASSNAME (Context);
   void terminate ();

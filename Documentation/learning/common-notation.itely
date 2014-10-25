@@ -274,15 +274,30 @@ Notation Reference:
 @node Ties
 @unnumberedsubsubsec Ties
 
-
 Music Glossary: @rglos{tie}.
 
 A @notation{tie} is created by appending a tilde @code{~} to the
-first note being tied.
+first of the two notes being tied.
+
+@lilypond[verbatim,quote,relative=2]
+g4~ g c2~ | c4~ c8 a~ a2 |
+@end lilypond
+
+@cindex bare duration
+@cindex duration, bare
+
+When the pitch does not change, as is always the case with tied notes,
+subsequent pitches may be omitted, specifying just the bare duration:
 
 @lilypond[verbatim,quote,relative=2]
 g4~ 4 c2~ | 4~ 8 a~ 2 |
 @end lilypond
+
+This shorthand may be useful in other places where the rhythm changes
+with an unchanging pitch, but remember a bare duration will attach to
+the preceding pitch, making a single note, if only white space
+separates them.
+
 
 @node Slurs
 @unnumberedsubsubsec Slurs

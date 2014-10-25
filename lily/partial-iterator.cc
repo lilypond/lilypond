@@ -41,8 +41,27 @@ Partial_iterator::process (Moment m)
       = Duration::unsmob (get_music ()->get_property ("duration")))
     {
       Moment length = Moment (dur->get_length ());
-      if (get_outlet ()->now_mom () > 0)
+
+      // Partial_iterator is an iterator rather than an engraver,
+      // so the active context it is getting called in does not
+      // depend on which context definition the engraver might be
+      // defined.
+      //
+      // Using where_defined to find the context where
+      // measurePosition should be overwritten does not actually
+      // work since the Timing_translator does not set
+      // measurePosition when initializing.
+
+      Context *timing = Context::unsmob
+                        (scm_call_2 (ly_lily_module_constant ("ly:context-find"),
+                                     get_outlet ()->self_scm (),
+                                     ly_symbol2scm ("Timing")));
+
+      if (!timing)
+        programming_error ("missing Timing in \\partial");
+      else if (get_outlet ()->now_mom () > 0)
         {
+          timing->set_property ("partialBusy", ly_bool2scm (true));
           Global_context *tg = get_outlet ()->get_global_context ();
           tg->add_finalization (scm_list_3 (finalization_proc,
                                             get_outlet ()->self_scm (),
@@ -50,31 +69,12 @@ Partial_iterator::process (Moment m)
         }
       else
         {
-          // Partial_iterator is an iterator rather than an engraver,
-          // so the active context it is getting called in does not
-          // depend on which context definition the engraver might be
-          // defined.
-          //
-          // Using where_defined to find the context where
-          // measurePosition should be overwritten does not actually
-          // work since the Timing_translator does not set
-          // measurePosition when initializing.
-
-          Context *timing = Context::unsmob
-            (scm_call_2 (ly_lily_module_constant ("ly:context-find"),
-                         get_outlet ()->self_scm (),
-                         ly_symbol2scm ("Timing")));
-          if (!timing)
-            programming_error ("missing Timing in \\partial");
-          else
-            {
-              Moment mp = robust_scm2moment
-                (timing->get_property ("measurePosition"),
-                 Rational (0));
-              mp.main_part_ = 0;
-              timing->set_property
-                ("measurePosition", (mp - length).smobbed_copy ());
-            }
+          Moment mp = robust_scm2moment
+                      (timing->get_property ("measurePosition"),
+                       Rational (0));
+          mp.main_part_ = 0;
+          timing->set_property
+          ("measurePosition", (mp - length).smobbed_copy ());
         }
     }
   else
@@ -104,5 +104,7 @@ Partial_iterator::finalization (SCM ctx, SCM length)
   mp.main_part_ = measure_length (timing);
   timing->set_property ("measurePosition",
                         (mp - *Moment::unsmob (length)).smobbed_copy ());
+  timing->unset_property (ly_symbol2scm ("partialBusy"));
+
   return SCM_UNSPECIFIED;
 }

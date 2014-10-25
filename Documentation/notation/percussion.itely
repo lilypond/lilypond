@@ -267,6 +267,37 @@ toms, simply select the toms that produce the desired result.  For
 example, to get toms on the three middle lines you use
 @code{tommh}, @code{tomml}, and @code{tomfh}.
 
+@item agostini-drums-style
+Invented by the French percussionist Dante Agostini in 1965, this notation is
+commonly employed in France but also elsewhere.
+
+@lilypond[quote,line-width=10.0\cm]
+nam = \lyricmode {
+  cymc cyms cymr hh hhc hho hhho hhp
+  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl }
+mus = \drummode {
+  cymc cyms cymr hh hhc hho hhho hhp \break
+  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
+\score {
+  << \new DrumStaff \with {
+       \remove "Bar_engraver"
+       \remove "Time_signature_engraver"
+       \hide Stem
+       \override Stem.Y-extent = ##f
+       drumStyleTable = #agostini-drums-style
+     } \mus
+     \new Lyrics \nam
+  >>
+  \layout {
+    \context {
+      \Score
+      \override LyricText.font-family = #'typewriter
+      \override BarNumber.transparent =##T
+    }
+  }
+}
+@end lilypond
+
 @item timbales-style
 This typesets timbales on a two line staff:
 

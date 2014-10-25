@@ -29,7 +29,7 @@ typedef void (Performer:: *Performer_method) (void);
 class Performer_group : public Translator_group
 {
 public:
-  VIRTUAL_COPY_CONSTRUCTOR (Translator_group, Performer_group);
+  DECLARE_CLASSNAME (Performer_group);
 
   void do_announces ();
   virtual void announce_element (Audio_element_info);

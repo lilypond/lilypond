@@ -47,7 +47,12 @@ public:
   Moment get_length () const;
   Moment start_mom () const;
   void print () const;
-  static Music *unsmob (SCM);
+  static Music *unsmob (SCM m) {
+    return dynamic_cast <Music *> (Prob::unsmob (m));
+  }
+  static bool is_smob (SCM m) {
+    return Prob::is_smob (m) && unsmob (m);
+  }
 
   /// Transpose, with the interval central C to #p#
   void transpose (Pitch p);

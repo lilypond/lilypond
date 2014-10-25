@@ -78,7 +78,7 @@ Timing_translator::initialize ()
 
   SCM measureLength = timing->get_property ("measureLength");
 
-  if (!Moment::unsmob (measureLength))
+  if (!Moment::is_smob (measureLength))
     {
       measureLength =
         Moment (ly_scm2rational
@@ -115,7 +115,7 @@ Timing_translator::initialize ()
   context ()->set_property ("beamExceptions", beamExceptions);
 
   SCM baseMoment = timing->get_property ("baseMoment");
-  if (!Moment::unsmob (baseMoment))
+  if (!Moment::is_smob (baseMoment))
     {
       baseMoment =
         Moment (ly_scm2rational
@@ -147,7 +147,7 @@ Rational
 Timing_translator::measure_length () const
 {
   SCM l = get_property ("measureLength");
-  if (Moment::unsmob (l))
+  if (Moment::is_smob (l))
     return Moment::unsmob (l)->main_part_;
   else
     return Rational (1);
@@ -181,7 +181,7 @@ Timing_translator::start_translation_timestep ()
   Moment measposp;
 
   SCM s = get_property ("measurePosition");
-  if (Moment::unsmob (s))
+  if (Moment::is_smob (s))
     measposp = *Moment::unsmob (s);
   else
     {

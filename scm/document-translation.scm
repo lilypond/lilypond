@@ -143,8 +143,7 @@
            (path (cdr args)))
 
         (string-append
-         (format #f "@item Set grob-property @code{~a} "
-                 (string-join (map symbol->string path) " "))
+         (format #f "@item Set grob-property @code{~{~a~^.~}} " path)
          (format #f "in @ref{~a} to" context-sym)
          (if (pretty-printable? value)
            (format #f ":~a\n" (scm->texi value))
@@ -166,6 +165,7 @@
          (accepts (assoc-get 'accepts context-desc))
          (consists (assoc-get 'consists context-desc))
          (props (assoc-get 'property-ops context-desc))
+         (defaultchild (assoc-get 'default-child context-desc))
          (grobs  (context-grobs context-desc))
          (grob-refs (map ref-ify (sort grobs ly:string-ci<?))))
 
@@ -198,8 +198,13 @@
                   "@end itemize\n")))
            "")
 
+       (if defaultchild
+           (format #f "\n\nThis is not a `Bottom' context; search for such a one will commence after creating an implicit context of type @ref{~a}."
+                   defaultchild)
+           "\n\nThis is a `Bottom' context; no contexts will be created implicitly from it.")
+
        (if (null? accepts)
-           "\n\nThis context is a `bottom' context; it cannot contain other contexts."
+           "\n\nThis context cannot contain other contexts."
            (string-append
             "\n\nContext "
             name

@@ -223,12 +223,6 @@ Item::derived_mark () const
     scm_gc_mark (broken_to_drul_[RIGHT]->self_scm ());
 }
 
-Item *
-Item::unsmob (SCM s)
-{
-  return dynamic_cast<Item *> (Grob::unsmob (s));
-}
-
 Interval
 Item::pure_height (Grob *g, int start, int end)
 {

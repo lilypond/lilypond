@@ -297,7 +297,7 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, int counter, Paper_book 
                   in_text_stencil = Text_interface::interpret_markup (layout,
                                                                       props,
                                                                       in_text_annotation);
-                  if (!Stencil::unsmob (in_text_stencil))
+                  if (!Stencil::is_smob (in_text_stencil))
                     in_text_stencil = SCM_EOL;
                   annotation.translate_axis ((footnote_stencil.extent (Y_AXIS)[UP]
                                               + number_raise
@@ -433,7 +433,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
       markup_markup_spacing = paper->c_variable ("markup-markup-spacing");
       last_bottom_spacing = paper->c_variable ("last-bottom-spacing");
       top_system_spacing = paper->c_variable ("top-system-spacing");
-      if (scm_is_pair (systems) && Prob::unsmob (scm_car (systems)))
+      if (scm_is_pair (systems) && Prob::is_smob (scm_car (systems)))
         top_system_spacing = paper->c_variable ("top-markup-spacing");
 
       // Note: the page height here does _not_ reserve space for headers and

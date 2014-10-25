@@ -38,19 +38,10 @@ Stencil::Stencil (Box b, SCM func)
   dim_ = b;
 }
 
-int
-Stencil::print_smob (SCM, SCM port, scm_print_state *)
-{
-  scm_puts ("#<Stencil ", port);
-  scm_puts (" >", port);
-  return 1;
-}
-
 SCM
-Stencil::mark_smob (SCM smob)
+Stencil::mark_smob ()
 {
-  Stencil *s = (Stencil *) SCM_CELL_WORD_1 (smob);
-  return s->expr_;
+  return expr_;
 }
 
 const char Stencil::type_p_name_[] = "ly:stencil?";
@@ -179,8 +170,7 @@ Stencil::translate (Offset o)
     expr_ = scm_list_n (ly_symbol2scm ("translate-stencil"),
                         ly_offset2scm (o),
                         expr_, SCM_UNDEFINED);
-  if (!is_empty ())
-    dim_.translate (o);
+  dim_.translate (o);
 }
 
 void

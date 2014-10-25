@@ -101,7 +101,7 @@ do_break_substitution (SCM src)
 {
 again:
 
-  if (Grob::unsmob (src))
+  if (Grob::is_smob (src))
     {
       Grob *new_ptr = substitute_grob (Grob::unsmob (src));
       return new_ptr ? new_ptr->self_scm () : SCM_UNDEFINED;
@@ -408,7 +408,7 @@ Spanner::fast_substitute_grob_array (SCM sym,
       set_break_subsititution (l ? l->self_scm () : SCM_UNDEFINED);
 
       SCM newval = sc->internal_get_object (sym);
-      if (!Grob_array::unsmob (newval))
+      if (!Grob_array::is_smob (newval))
         {
           newval = Grob_array::make_array ();
           sc->set_object (sym, newval);
@@ -511,7 +511,7 @@ Spanner::substitute_one_mutable_property (SCM sym,
         if (grob_array)
           {
             SCM newval = sc->internal_get_object (sym);
-            if (!Grob_array::unsmob (newval))
+            if (!Grob_array::is_smob (newval))
               {
                 newval = Grob_array::make_array ();
                 sc->set_object (sym, newval);

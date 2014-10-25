@@ -197,7 +197,7 @@ by default.
 @node Patchy requirements
 @subsection Patchy requirements
 
-@unnumberedsubsec Testing new patches
+@subsubsubheading Testing new patches
 
 @itemize
 
@@ -220,7 +220,7 @@ to @uref{http://code.google.com/} @emph{is}.
 @end itemize
 
 
-@unnumberedsubsec Testing & pushing new commits
+@subsubsubheading Testing & pushing new commits
 
 @itemize
 
@@ -359,7 +359,7 @@ instances of Patchy being run locally at the same time.
 @node Running the scripts
 @subsection Running the scripts
 
-@unnumberedsubsec Testing & pushing new commits
+@subsubsubheading Testing & pushing new commits
 
 @code{lilypond-patchy-staging.py} is run @emph{without} any arguments.
 It then checks to see if @code{remote/origin/staging} is
@@ -408,7 +408,7 @@ tests fail, do not try to push your own fixes but report the failures to
 the Developers List <lilypond-devel@@gnu.org> for advice.}
 
 
-@unnumberedsubsec Testing new patches
+@subsubsubheading Testing new patches
 
 When run without any argument, @code{test-patches.py} will check
 @uref{http://code.google.com/p/lilypond/issues/list} for all tracker
@@ -537,7 +537,7 @@ Issue 4008: Testing patch issue115770043_1_diff
 
 and so on.
 
-@unnumberedsubsubsec Checking the regression test results
+@subsubsubheading Checking the regression test results
 
 Assuming the patch passed all the @code{make} tests, the regression
 differences will be located in the @file{/test-results/} directory
@@ -561,7 +561,7 @@ sh ~/lilypond-auto-compile-results/show-regtests-4007
 
 See @ref{Regression tests}.
 
-@unnumberedsubsec Reporting test results
+@subsubsubheading Reporting test results
 
 Once a patch has been tested and the regression tests have been
 manually checked, the tracker can be updated manually by editing the

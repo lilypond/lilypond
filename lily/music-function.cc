@@ -23,10 +23,10 @@ const char Music_function::type_p_name_[] = "ly:music-function?";
 
 /* Print a textual represenation of the smob to a given port.  */
 int
-Music_function::print_smob (SCM b, SCM port, scm_print_state *)
+Music_function::print_smob (SCM port, scm_print_state *)
 {
   scm_puts ("#<Music function ", port);
-  scm_write (Music_function::unsmob (b)->get_function (), port);
+  scm_write (get_function (), port);
   scm_puts (">", port);
 
   /* Non-zero means success.  */
@@ -34,8 +34,8 @@ Music_function::print_smob (SCM b, SCM port, scm_print_state *)
 }
 
 SCM
-Music_function::mark_smob (SCM s)
+Music_function::mark_smob ()
 {
-  ASSERT_LIVE_IS_ALLOWED (s);
-  return Smob2<Music_function>::mark_smob (s);
+  ASSERT_LIVE_IS_ALLOWED (self_scm ());
+  return Smob2<Music_function>::mark_smob ();
 }

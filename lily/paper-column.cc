@@ -181,9 +181,12 @@ Paper_column::minimum_distance (Grob *left, Grob *right)
 }
 
 Interval
-Paper_column::break_align_width (Grob *me, SCM align_sym)
+Paper_column::break_align_width (Grob *me, SCM align_syms)
 {
   Grob *p = me->get_parent (X_AXIS);
+
+  if (scm_is_symbol (align_syms))
+    align_syms = scm_list_1 (align_syms);
 
   if (is_musical (me))
     {
@@ -192,22 +195,27 @@ Paper_column::break_align_width (Grob *me, SCM align_sym)
     }
 
   Grob *align = 0;
-  if (align_sym == ly_symbol2scm ("staff-bar")
-      || align_sym == ly_symbol2scm ("break-alignment"))
-    align
-      = Pointer_group_interface::find_grob (me, ly_symbol2scm ("elements"),
-                                            (align_sym == ly_symbol2scm ("staff-bar")
-                                             ? Bar_line::non_empty_barline
-                                             : Break_alignment_interface::has_interface));
-  else
+  for (;!align && scm_is_pair (align_syms); align_syms = scm_cdr (align_syms))
     {
-      extract_grob_set (me, "elements", elts);
-      for (vsize i = 0; i < elts.size (); i++)
+      SCM align_sym = scm_car (align_syms);
+      if (align_sym == ly_symbol2scm ("staff-bar")
+          || align_sym == ly_symbol2scm ("break-alignment"))
+        align = Pointer_group_interface::find_grob
+          (me, ly_symbol2scm ("elements"),
+           (align_sym == ly_symbol2scm ("staff-bar")
+            ? Bar_line::non_empty_barline
+            : Break_alignment_interface::has_interface));
+      else
         {
-          if (elts[i]->get_property ("break-align-symbol") == align_sym)
+          extract_grob_set (me, "elements", elts);
+          for (vsize i = 0; i < elts.size (); i++)
             {
-              align = elts[i];
-              break;
+              if (elts[i]->get_property ("break-align-symbol") == align_sym
+                  && !elts[i]->extent (elts[i], X_AXIS).is_empty ())
+                {
+                  align = elts[i];
+                  break;
+                }
             }
         }
     }
@@ -288,7 +296,7 @@ Paper_column::print (SCM p)
        scm_is_pair (s); s = scm_cdr (s))
     {
       Spring *sp = Spring::unsmob (scm_caar (s));
-      if (!Grob::unsmob (scm_cdar (s))
+      if (!Grob::is_smob (scm_cdar (s))
           || !Grob::unsmob (scm_cdar (s))->get_system ())
         continue;
 

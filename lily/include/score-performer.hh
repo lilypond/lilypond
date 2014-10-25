@@ -30,7 +30,7 @@
 class Score_performer : public Performer_group
 {
 public:
-  VIRTUAL_COPY_CONSTRUCTOR (Translator_group, Score_performer);
+  DECLARE_CLASSNAME (Score_performer);
   Performance *performance_;
 
   ~Score_performer ();

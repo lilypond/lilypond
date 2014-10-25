@@ -191,7 +191,7 @@ calc_measure_duration_log (Grob *me, bool paranoid)
 {
   SCM sml = dynamic_cast<Spanner *> (me)->get_bound (LEFT)
             ->get_property ("measure-length");
-  Rational ml = (Moment::unsmob (sml)) ? Moment::unsmob (sml)->main_part_
+  Rational ml = (Moment::is_smob (sml)) ? Moment::unsmob (sml)->main_part_
                 : Rational (1);
   double measure_duration = ml.Rational::to_double ();
   bool force_round_up = to_boolean (scm_list_p (scm_member (scm_cons (scm_from_int64 (ml.numerator ()),

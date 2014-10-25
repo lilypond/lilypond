@@ -111,7 +111,7 @@ Spacing_spanner::note_spacing (Grob * /* me */,
   Moment shortest_playing_len = 0;
   SCM s = lc->get_property ("shortest-playing-duration");
 
-  if (Moment::unsmob (s))
+  if (Moment::is_smob (s))
     shortest_playing_len = *Moment::unsmob (s);
 
   if (! shortest_playing_len.to_bool ())

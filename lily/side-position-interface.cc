@@ -212,7 +212,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
                                           pure,
                                           start,
                                           end);
-  if (Skyline_pair::unsmob (skyp))
+  if (Skyline_pair::is_smob (skyp))
     {
       // for spanner pure heights, we don't know horizontal spacing,
       // so a spanner can never have a meaningful x coordiante
@@ -271,7 +271,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
                                                 start,
                                                 end);
 
-           if (Skyline_pair::unsmob (sp))
+           if (Skyline_pair::is_smob (sp))
              {
                Real xc = pure && dynamic_cast<Spanner *> (e)
                          ? e->get_parent (X_AXIS)->relative_coordinate (common[X_AXIS], X_AXIS)

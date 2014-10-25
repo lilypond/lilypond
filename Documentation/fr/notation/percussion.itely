@@ -292,6 +292,38 @@ sûr, vous n'êtes pas obligé de tous les utiliser si la musique en
 prévoit moins ; par exemple, les trois toms des lignes du milieu
 sont @code{tommh}, @code{tomml}, et @code{tomfh}.
 
+
+@item agostini-drums-style
+Inventé par le percussioniste français Dante Agostini en 1965, cette notation
+est comunément utilisée en France mais aussi autre part.
+
+@lilypond[quote,line-width=10.0\cm]
+nam = \lyricmode {
+  cymc cyms cymr hh hhc hho hhho hhp
+  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl }
+mus = \drummode {
+  cymc cyms cymr hh hhc hho hhho hhp \break
+  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
+\score {
+  << \new DrumStaff \with {
+       \remove "Bar_engraver"
+       \remove "Time_signature_engraver"
+       \hide Stem
+       \override Stem.Y-extent = ##f
+       drumStyleTable = #agostini-drums-style
+     } \mus
+     \new Lyrics \nam
+  >>
+  \layout {
+    \context {
+      \Score
+      \override LyricText.font-family = #'typewriter
+      \override BarNumber.transparent =##T
+    }
+  }
+}
+@end lilypond
+
 @item timbales-style
 Ce style permet de saisir une partie de timbales, sur une portée à deux
 lignes.

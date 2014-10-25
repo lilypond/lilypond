@@ -99,7 +99,7 @@ Volta_engraver::process_music ()
       SCM l (get_property ("voltaSpannerDuration"));
       Moment now = now_mom ();
 
-      bool early_stop = Moment::unsmob (l)
+      bool early_stop = Moment::is_smob (l)
                         && *Moment::unsmob (l) <= now - started_mom_;
 
       end = end || early_stop;

@@ -889,6 +889,26 @@ Handy for debugging, possibly turned off."
 
   (reverse matches))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; numbering styles
+
+(define-public (number-format number-type num . custom-format)
+  "Print NUM accordingly to the requested NUMBER-TYPE.
+Choices include @code{roman-lower} (by default),
+@code{roman-upper}, @code{arabic} and @code{custom}.
+In the latter case, CUSTOM-FORMAT must be supplied
+and will be applied to NUM."
+ (cond
+   ((equal? number-type 'roman-lower)
+    (fancy-format #f "~(~@r~)" num))
+   ((equal? number-type 'roman-upper)
+    (fancy-format #f "~@r" num))
+   ((equal? number-type 'arabic)
+    (fancy-format #f "~d" num))
+   ((equal? number-type 'custom)
+    (fancy-format #f (car custom-format) num))
+   (else (fancy-format #f "~(~@r~)" num))))
+
 ;;;;;;;;;;;;;;;;
 ;; other
 

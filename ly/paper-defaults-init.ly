@@ -119,6 +119,7 @@
   first-page-number = #1
   print-first-page-number = ##f
   print-page-number = ##t
+  page-number-type = #'arabic
 
   %%
   %% Headers, footers, and titles

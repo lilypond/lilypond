@@ -42,20 +42,17 @@ Music_output::derived_mark () const
 const char Music_output::type_p_name_[] = "ly:music-output?";
 
 SCM
-Music_output::mark_smob (SCM s)
+Music_output::mark_smob ()
 {
-  Music_output *sc = (Music_output *) SCM_CELL_WORD_1 (s);
-
-  sc->derived_mark ();
+  derived_mark ();
   return SCM_EOL;
 }
 
 int
-Music_output::print_smob (SCM s, SCM p, scm_print_state *)
+Music_output::print_smob (SCM p, scm_print_state *)
 {
-  Music_output *sc = (Music_output *) SCM_CELL_WORD_1 (s);
   scm_puts ("#<", p);
-  scm_puts (sc->class_name (), p);
+  scm_puts (class_name (), p);
   scm_puts (">", p);
 
   return 1;

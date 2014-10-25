@@ -62,20 +62,10 @@ Paper_outputter::~Paper_outputter ()
 
 
 SCM
-Paper_outputter::mark_smob (SCM x)
+Paper_outputter::mark_smob ()
 {
-  Paper_outputter *p = (Paper_outputter *) SCM_CELL_WORD_1 (x);
-  scm_gc_mark (p->output_module_);
-  return p->file_;
-}
-
-int
-Paper_outputter::print_smob (SCM /* x */,
-                             SCM p,
-                             scm_print_state *)
-{
-  scm_puts ("#<Paper_outputter>", p);
-  return 1;
+  scm_gc_mark (output_module_);
+  return file_;
 }
 
 SCM

@@ -41,21 +41,19 @@ Dispatcher::Dispatcher ()
 }
 
 SCM
-Dispatcher::mark_smob (SCM sm)
+Dispatcher::mark_smob ()
 {
-  Dispatcher *me = (Dispatcher *) SCM_CELL_WORD_1 (sm);
-  scm_gc_mark (me->dispatchers_);
-  scm_gc_mark (me->listen_classes_);
-  return me->listeners_;
+  scm_gc_mark (dispatchers_);
+  scm_gc_mark (listen_classes_);
+  return listeners_;
 }
 
 int
-Dispatcher::print_smob (SCM s, SCM p, scm_print_state *)
+Dispatcher::print_smob (SCM p, scm_print_state *)
 {
-  Dispatcher *me = (Dispatcher *) SCM_CELL_WORD_1 (s);
   scm_puts ("#<Dispatcher ", p);
   scm_write (scm_call_1 (ly_lily_module_constant ("hash-table->alist"),
-                         me->listeners_), p);
+                         listeners_), p);
   scm_puts (">", p);
   return 1;
 }

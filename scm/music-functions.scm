@@ -825,7 +825,10 @@ from the predecessor note/chord if available."
          m)
        (cond
         ((music-is-of-type? m 'event-chord)
-         (set-and-ret m))
+         (if (any (lambda (m) (music-is-of-type? m 'rhythmic-event))
+                  (ly:music-property m 'elements))
+             (set! last-pitch m))
+         m)
         ((music-is-of-type? m 'note-event)
          (cond
           ((or (ly:music-property m 'pitch #f)
@@ -1076,9 +1079,9 @@ result."
              (pair? (car args)))
         (currying-lambda (car args) doc-string?
                          `((lambda ,(cdr args) ,@body)))
-        (if doc-string?
-            `(lambda ,args ,doc-string? ,@body)
-            `(lambda ,args ,@body))))
+        `(lambda ,args
+           ,(format #f "~a\n~a" (cddr args) (or doc-string? ""))
+           ,@body)))
 
   (set! signature (map (lambda (pred)
                          (if (pair? pred)
@@ -2234,66 +2237,6 @@ of list @var{arg}."
         (car arg))))
 (export value-for-spanner-piece)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; measure counter
-
-(define (measure-counter-stencil grob)
-  "Print a number for a measure count.  The number is centered using
-the extents of @code{BreakAlignment} grobs associated with
-@code{NonMusicalPaperColumn} grobs.  In the case of an unbroken measure, these
-columns are the left and right bounds of a @code{MeasureCounter} spanner.
-Broken measures are numbered in parentheses."
-  (let* ((orig (ly:grob-original grob))
-         (siblings (ly:spanner-broken-into orig)) ; have we been split?
-         (bounds (ly:grob-array->list (ly:grob-object grob 'columns)))
-         (refp (ly:grob-system grob))
-         ;; we use the first and/or last NonMusicalPaperColumn grob(s) of
-         ;; a system in the event that a MeasureCounter spanner is broken
-         (all-cols (ly:grob-array->list (ly:grob-object refp 'columns)))
-         (all-cols
-          (filter
-           (lambda (col) (eq? #t (ly:grob-property col 'non-musical)))
-           all-cols))
-         (left-bound
-          (if (or (null? siblings) ; spanner is unbroken
-                  (eq? grob (car siblings))) ; or the first piece
-              (car bounds)
-              (car all-cols)))
-         (right-bound
-          (if (or (null? siblings)
-                  (eq? grob (car (reverse siblings))))
-              (car (reverse bounds))
-              (car (reverse all-cols))))
-         (elts-L (ly:grob-array->list (ly:grob-object left-bound 'elements)))
-         (elts-R (ly:grob-array->list (ly:grob-object right-bound 'elements)))
-         (break-alignment-L
-          (filter
-           (lambda (elt) (grob::has-interface elt 'break-alignment-interface))
-           elts-L))
-         (break-alignment-R
-          (filter
-           (lambda (elt) (grob::has-interface elt 'break-alignment-interface))
-           elts-R))
-         (break-alignment-L-ext (ly:grob-extent (car break-alignment-L) refp X))
-         (break-alignment-R-ext (ly:grob-extent (car break-alignment-R) refp X))
-         (num (markup (number->string (ly:grob-property grob 'count-from))))
-         (num
-          (if (or (null? siblings)
-                  (eq? grob (car siblings)))
-              num
-              (make-parenthesize-markup num)))
-         (num (grob-interpret-markup grob num))
-         (num (ly:stencil-aligned-to num X (ly:grob-property grob 'self-alignment-X)))
-         (num
-          (ly:stencil-translate-axis
-           num
-           (+ (interval-length break-alignment-L-ext)
-              (* 0.5
-                 (- (car break-alignment-R-ext)
-                    (cdr break-alignment-L-ext))))
-           X)))
-    num))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; The following are used by the \offset function
 
@@ -2599,3 +2542,63 @@ scaling, then does the equivalent of a
              (scaled-default (+ 119/925 (* mag 13/37)))
              (new-val (* scaled-default ratio-to-default)))
         (ly:context-pushpop-property context 'Beam 'beam-thickness new-val)))))
+
+;; tag management
+;;
+
+(define tag-groups (make-hash-table))
+(call-after-session (lambda () (hash-clear! tag-groups)))
+
+(define-public (define-tag-group tags)
+  "Define a tag-group consisting of the given @var{tags}, a@tie{}list
+of symbols.  Returns @code{#f} if successful, and an error message if
+there is a conflicting tag group definition."
+  (cond ((not (symbol-list? tags)) (format #f (_ "not a symbol list: ~a") tags))
+        ((any (lambda (tag) (hashq-ref tag-groups tag)) tags)
+         => (lambda (group) (and (not (lset= eq? group tags))
+                                 (format #f (_ "conflicting tag group ~a") group))))
+        (else
+         (for-each
+          (lambda (elt) (hashq-set! tag-groups elt tags))
+          tags)
+         #f)))
+
+(define-public (tag-group-get tag)
+  "Return the tag group (as a list of symbols) that the given
+@var{tag} symbol belongs to, @code{#f} if none."
+  (hashq-ref tag-groups tag))
+
+(define-public (tags-remove-predicate tags)
+  "Returns a predicate that returns @code{#f} for any music that is to
+be removed by @{\\removeWithTag} on the given symbol or list of
+symbols @var{tags}."
+  (if (symbol? tags)
+      (lambda (m)
+        (not (memq tags (ly:music-property m 'tags))))
+      (lambda (m)
+        (not (any (lambda (t) (memq t tags))
+                  (ly:music-property m 'tags))))))
+
+(define-public (tags-keep-predicate tags)
+  "Returns a predicate that returns @code{#f} for any music that is to
+be removed by @{\\keepWithTag} on the given symbol or list of symbols
+@var{tags}."
+  (if (symbol? tags)
+      (let ((group (tag-group-get tags)))
+        (lambda (m)
+          (let ((music-tags (ly:music-property m 'tags)))
+            (or
+             (null? music-tags) ; redundant but very frequent
+             ;; We know of only one tag to keep.  Either we find it in
+             ;; the music tags, or all music tags must be from a
+             ;; different group
+             (memq tags music-tags)
+             (not (any (lambda (t) (eq? (tag-group-get t) group)) music-tags))))))
+      (let ((groups (delete-duplicates (map tag-group-get tags) eq?)))
+        (lambda (m)
+          (let ((music-tags (ly:music-property m 'tags)))
+            (or
+             (null? music-tags) ; redundant but very frequent
+             (any (lambda (t) (memq t tags)) music-tags)
+             ;; if no tag matches, no tag group should match either
+             (not (any (lambda (t) (memq (tag-group-get t) groups)) music-tags))))))))

@@ -90,7 +90,7 @@ Moment
 Music::get_length () const
 {
   SCM lst = get_property ("length");
-  if (Moment::unsmob (lst))
+  if (Moment::is_smob (lst))
     return *Moment::unsmob (lst);
 
   if (ly_is_procedure (length_callback_))
@@ -328,10 +328,4 @@ Music::duration_length_callback (SCM m)
   if (d)
     mom = d->get_length ();
   return mom.smobbed_copy ();
-}
-
-Music *
-Music::unsmob (SCM m)
-{
-  return dynamic_cast<Music *> (Prob::unsmob (m));
 }

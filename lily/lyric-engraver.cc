@@ -112,11 +112,15 @@ get_voice_to_lyrics (Context *lyrics)
         nm = nm.substr (0, idx);
     }
 
+  SCM voice_type = lyrics->get_property ("associatedVoiceType");
+  if (!scm_is_symbol (voice_type))
+    return 0;
+
   Context *parent = lyrics;
   Context *voice = 0;
   while (parent && !voice)
     {
-      voice = find_context_below (parent, ly_symbol2scm ("Voice"), nm);
+      voice = find_context_below (parent, voice_type, nm);
       parent = parent->get_parent_context ();
     }
 
@@ -127,7 +131,7 @@ get_voice_to_lyrics (Context *lyrics)
   voice = 0;
   while (parent && !voice)
     {
-      voice = find_context_below (parent, ly_symbol2scm ("Voice"), "");
+      voice = find_context_below (parent, voice_type, "");
       parent = parent->get_parent_context ();
     }
 

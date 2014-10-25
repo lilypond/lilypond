@@ -22,8 +22,12 @@
 #include "item.hh"
 #include "international.hh"
 #include "misc.hh"
+#include "moment.hh"
+#include "stream-event.hh"
 #include "time-signature.hh"
 #include "warn.hh"
+
+#include "translator.icc"
 
 /**
    generate time_signatures.
@@ -32,6 +36,7 @@ class Time_signature_engraver : public Engraver
 {
   Item *time_signature_;
   SCM last_time_fraction_;
+  SCM time_cause_;
 
 protected:
   virtual void derived_mark () const;
@@ -39,31 +44,48 @@ protected:
   void process_music ();
 public:
   TRANSLATOR_DECLARATIONS (Time_signature_engraver);
+  DECLARE_TRANSLATOR_LISTENER (time_signature);
 };
 
 void
 Time_signature_engraver::derived_mark () const
 {
   scm_gc_mark (last_time_fraction_);
+  scm_gc_mark (time_cause_);
 }
 
 Time_signature_engraver::Time_signature_engraver ()
 {
   time_signature_ = 0;
+  time_cause_ = SCM_EOL;
   last_time_fraction_ = SCM_BOOL_F;
+}
+
+IMPLEMENT_TRANSLATOR_LISTENER (Time_signature_engraver, time_signature);
+void
+Time_signature_engraver::listen_time_signature (Stream_event *ev)
+{
+  time_cause_ = ev->self_scm ();
 }
 
 void
 Time_signature_engraver::process_music ()
 {
-  /*
-    not rigorously safe, since the value might get GC'd and
-    reallocated in the same spot */
+  if (time_signature_)
+    return;
+
   SCM fr = get_property ("timeSignatureFraction");
-  if (!time_signature_
-      && last_time_fraction_ != fr
+  if (last_time_fraction_ != fr
       && scm_is_pair (fr))
     {
+      time_signature_ = make_item ("TimeSignature", time_cause_);
+      time_signature_->set_property ("fraction", fr);
+
+      // Todo: "implicit" does not seem perfectly accurate (issue 4151)
+      if (last_time_fraction_ == SCM_BOOL_F)
+        time_signature_->set_property ("break-visibility",
+                                       get_property ("implicitTimeSignatureVisibility"));
+
       int den = scm_to_int (scm_cdr (fr));
       if (den != (1 << intlog2 (den)))
         {
@@ -72,17 +94,10 @@ Time_signature_engraver::process_music ()
 
             OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
           */
-          warning (_f ("strange time signature found: %d/%d",
-                       int (scm_to_int (scm_car (fr))),
-                       den));
+          time_signature_->warning (_f ("strange time signature found: %d/%d",
+                                        int (scm_to_int (scm_car (fr))),
+                                        den));
         }
-
-      time_signature_ = make_item ("TimeSignature", SCM_EOL);
-      time_signature_->set_property ("fraction", fr);
-
-      if (last_time_fraction_ == SCM_BOOL_F)
-        time_signature_->set_property ("break-visibility",
-                                       get_property ("implicitTimeSignatureVisibility"));
 
       last_time_fraction_ = fr;
     }
@@ -91,7 +106,16 @@ Time_signature_engraver::process_music ()
 void
 Time_signature_engraver::stop_translation_timestep ()
 {
+  if (time_signature_ && (time_cause_ != SCM_EOL))
+    {
+      Moment *mp = Moment::unsmob (get_property ("measurePosition"));
+      if (mp && (mp->main_part_ > Rational (0))
+          && !to_boolean (get_property ("partialBusy")))
+        time_signature_->warning ("mid-measure time signature without \\partial");
+    }
+
   time_signature_ = 0;
+  time_cause_ = SCM_EOL;
 }
 
 #include "translator.icc"
@@ -106,6 +130,7 @@ ADD_TRANSLATOR (Time_signature_engraver,
 
                 /* read */
                 "implicitTimeSignatureVisibility "
+                "partialBusy "
                 "timeSignatureFraction ",
 
                 /* write */
