@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ece268fa66e2576c01f33a4a6e1806f44c9f8fa8
+    Translation of GIT committish: fab824ac128346465690246f7a42ce1e8b42db8d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2199,10 +2199,9 @@ rappellerez ensuite, comme indiqué à la rubrique
 @funindex \tag
 @funindex \keepWithTag
 @funindex \removeWithTag
-@funindex \pushToTag
-@funindex \appendToTag
 @cindex tag
 @cindex balise
+@cindex regroupement de balises
 
 La commande @code{\tag #'@var{partieA}} affecte à une expression
 musicale le nom @var{partieA}.  Les expressions ainsi balisées pourront
@@ -2236,9 +2235,9 @@ Musique balisée non précédée de @code{\keepWithTag} ou
 @end multitable
 
 Les arguments des commandes @code{\tag}, @code{\keepWithTag} et
-@code{\removeWithTag} doivent être un symbole (tel que
-@code{#'conducteur} ou @code{#'partie}), suivi d'une expression
-musicale.
+@code{\removeWithTag} doivent être un symbole ou une liste de symboles
+(tel que @code{#'conducteur} ou @code{#'(violonI violonII)}), suivi
+d'une expression musicale.
 
 Dans l'exemple qui suit, nous obtenons deux versions du même extrait,
 l'une pour le conducteur, l'autre pour l'instrumentiste qui, elle,
@@ -2346,6 +2345,40 @@ liste de balises est en pareil cas des plus pertinente : seront
 exclus tous les fragments non concernés par l'une quelconque des
 balises mentionnées.
 
+@cindex regroupements de balises
+@cindex balises, regroupement
+@funindex \tagGroup
+
+Bien que @code{\keepWithTag} soit efficace pour gérer @emph{un} jeu
+d'alternatives, le rejet de musique filtrée par des balises
+@emph{étrangères} se révèle problématique lorsque les @code{\tag} sont
+utilisés à plusieurs fins.  Des « groupements de balises » peuvent
+alors être déclarés :
+
+@example
+\tagGroup #'(violinI violinII viola cello)
+@end example
+
+stipule que ces filtres respectifs appartiennent à un même groupe.
+
+@example
+\keepWithTag #'violinI @dots{}
+@end example
+
+ne sera donc concerné que par les balises @code{violinI} contenues dans
+le groupe de filtres : tout élément de la musique incluse qui serait
+balisé par un ou plusieurs des filtres de ce jeu mais @emph{pas} par
+@code{violinI} sera rejeté.
+
+Pour toute commande @code{\keepWithTag}, seules les balises du
+regroupement mentionnées dans la commande seront visibles.
+
+Une balise ne peut faire partie que d'un seul regroupement.
+
+@funindex \pushToTag
+@funindex \appendToTag
+@cindex raccordement dans une balise
+
 Il peut arriver que vous ayez besoin de raccorder quelque chose en un
 point particulier d'une expression musicale.  Les commandes
 @code{\pushToTag} et @code{\appendToTag} permettent d'insérer du
@@ -2368,9 +2401,6 @@ test = { \tag #'here { \tag #'here <<c''>> } }
 
 Ces deux instructions sont affectées d'une balise, le matériau à
 raccorder à chaque instance de la balise, et l'expression balisée.
-Ces instructions prennent soin de recopier tout ce qui doit être
-modifié, de telle sorte que l'expression @code{\test} originale conserve
-tout son sens.
 
 @seealso
 Manuel d'initiation :
@@ -2663,7 +2693,7 @@ seront générées sous la forme de fichiers EPS, convertis en PDF ou PNG
 selon le format que vous aurez stipulé.
 
 Pour de plus amples informations quant au format des résultats,
-consultez le chapitre @rprogram{Lancement de lilypond}.
+consultez le chapitre @rprogram{Lancement de LilyPond}.
 
 
 @node Ignorer des passages de la partition

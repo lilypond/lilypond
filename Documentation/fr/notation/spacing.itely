@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 324ff94afc62c7011b7377f24392f95391ed3b84
+    Translation of GIT committish: fab824ac128346465690246f7a42ce1e8b42db8d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1076,6 +1076,14 @@ première.  La valeur par défaut est @code{#f}.
 
 La désactivation de cette variable permet d'obtenir des pages non
 numérotées.  La valeur par défaut est @code{#t}.
+
+@cindex page, numérotation en chiffres romains
+@item page-number-type
+@funindex page-number-type
+
+Le type de chiffres à utiliser pour la numérotation : @code{roman-lower}
+(romains minuscules), @code{roman-upper} (romains majuscules) ou
+@code{arabic} (arabes).  La valeur par défaut est @code{'arabic}.
 
 @end table
 
