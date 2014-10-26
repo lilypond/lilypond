@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 793b6a5963a279100616dec6d6613dd10541ac39
+   Translation of GIT committish: 0fe24db3936774a8fb913cb14c997036db7aeb1c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -313,8 +313,24 @@ liaison de tenue --, on ajoute un tilde @code{~} à la première note
 liée.
 
 @lilypond[verbatim,quote,relative=2]
+g4~ g c2~ | c4~ c8 a~ a2 |
+@end lilypond
+
+@cindex isolée, durée
+@cindex durée isolée
+
+Lorsque la hauteur ne change pas, ce qui est toujours le cas pour des
+liaisons de tenue, les hauteurs suivantes peuvent être omises auquel cas
+seules les durées successives seront mentionnées :
+
+@lilypond[verbatim,quote,relative=2]
 g4~ 4 c2~ | 4 ~ 8 a8 ~ 2 |
 @end lilypond
+
+Ce raccourci se révèle fort utile lors d'une succession de rythmes
+appliqués à une même hauteur.  Notez bien que stipuler une durée isolée
+l'attache à la dernière hauteur mentionnée -- une espace entre la
+hauteur et la durée aura pour effet de produire deux notes.
 
 
 @node Liaisons d'articulation

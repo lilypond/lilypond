@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 793b6a5963a279100616dec6d6613dd10541ac39
+    Translation of GIT committish: 0fe24db3936774a8fb913cb14c997036db7aeb1c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -49,7 +49,7 @@ théoriquement de modifier chaque élément de votre partition.
 @subsection Introduction aux retouches
 @translationof Introduction to tweaks
 
-LilyPond regroupe sous le terme de @qq{retouches} (@emph{tweaks} en
+LilyPond regroupe sous le terme de « retouches » (@emph{tweaks} en
 anglais) les différents moyens dont dispose l'utilisateur pour
 intervenir sur l'interprétation du fichier d'entrée et pour modifier
 l'apparence du fichier de sortie.  Certaines retouches sont très
@@ -90,7 +90,7 @@ et les structures du programme LilyPond.  Nous allons donc, pour
 commencer, présenter certains termes qui servent à décrire ces
 opérations internes et ces structures.
 
-Le terme @qq{Objet} est un terme générique qui fait référence à
+Le terme « Objet » est un terme générique qui fait référence à
 une multitude de structures internes mises en place par LilyPond
 durant la compilation d'un fichier d'entrée.  Ainsi, quand une
 commande du type @code{\new Staff} apparaît, un nouvel objet du type
@@ -107,12 +107,12 @@ les liaisons, les nuances, etc.  Chaque objet dispose de son propre
 Certains types d'objet portent des noms spécifiques.  Les objets qui se
 rapportent à des éléments de notation sur le fichier de sortie, comme
 les notes, les hampes, les liaisons de phrasé ou de prolongation, les
-doigtés, les clefs, etc. sont appelés @qq{Objets de rendu} ; ils sont
-aussi connus sous le nom d'@qq{Objets graphiques} (en anglais :
+doigtés, les clefs, etc. sont appelés « Objets de rendu » ; ils sont
+aussi connus sous le nom « d'Objets graphiques » (en anglais :
 @emph{Graphical objects} ou @emph{Grobs} pour faire court).  Ce sont
 bien des objets au sens générique ci-dessus et, en tant que tels, ils
 reçoivent des propriétés qui leur sont associées, comme leur position,
-leur taille, leur couleur etc.
+leur taille, leur couleur, etc.
 
 Certains objets de rendu, comme les liaisons de phrasé, les soufflets
 de crescendo, les marques d'octaviation et beaucoup d'autres
@@ -121,6 +121,14 @@ unique endroit -- ils ont un point de départ, un point d'arrivée, et
 éventuellement d'autres propriétés relatives à leur forme.  Ces objets
 avec une forme étendue sont appelés des bandeaux (@emph{Spanners} en
 anglais).
+
+De plus existent certains @emph{grobs} que l'on peut qualifier
+« d'astraits ».  Ils n'ont pas pour fonction intrinsèque d'imprimer
+quelque chose, mais plutôt de collecter, positionner et gérer d'autres
+objets.  Citons, parmi les plus courants, @code{DynamicLineSpanner},
+@code{BreakAlignment}, @code{NoteColumn}, @code{VerticalAxisGroup},
+@code{NonMusicalPaperColumn}.  Nous verrons plus avant comment les
+utiliser.
 
 Il reste à expliquer ce que sont les @qq{interfaces}.  De nombreux
 objets, qui peuvent être très différents les uns des autres, ont pour
@@ -148,14 +156,14 @@ que nous serons amenés à utiliser dans ce chapitre.
 @cindex objets, conventions de nommage
 @cindex propriétés, conventions de nommage
 
-Nous avons eu un aperçu, dans @ref{Contextes et graveurs}, de
-la façon de nommer les objets.  Voici maintenant une liste de
-référence des types d'objets et de propriétés les plus courants,
-avec leurs conventions de nommage et quelques exemples
-de cas concrets.  La lettre @var{A} représente n'importe quel
-caractère alphabétique majuscule, et les lettres @var{aaa}
-un nombre indéterminé de caractères alphabétiques minuscules.
-Les autres caractères sont à prendre tels qu'ils se présentent.
+Nous avons eu un aperçu, dans @ref{Contextes et graveurs}, de la façon
+de nommer les objets.  Voici maintenant une liste de référence des types
+d'objets et de propriétés les plus courants, avec leurs conventions de
+nommage et quelques exemples de cas concrets.  La lettre @var{A}
+représente n'importe quel caractère alphabétique majuscule, et les
+lettres @var{aaa} un nombre indéterminé de caractères alphabétiques
+minuscules. Les autres caractères sont à prendre tels qu'ils se
+présentent.
 
 @multitable @columnfractions .33 .33 .33
 @headitem Type d'objet/propriété
@@ -181,10 +189,10 @@ Les autres caractères sont à prendre tels qu'ils se présentent.
   @tab direction, beam-thickness
 @end multitable
 
-Comme nous le verrons bientôt, les propriétés des différents
-types d'objet sont modifiées par des commandes différentes, si bien
-qu'il est bon de savoir reconnaître le type d'un objet ou d'une
-propriété en fonction de son nom.
+Comme nous le verrons bientôt, les propriétés des différents types
+d'objet sont modifiées par des commandes différentes, si bien qu'il est
+bon de savoir reconnaître le type d'un objet ou d'une propriété en
+fonction de son nom.
 
 
 @node Méthodes de retouche
@@ -200,6 +208,7 @@ propriété en fonction de son nom.
 * Le préfixe once::
 * La commande overrideProperty::
 * La commande tweak::
+* Le préfixe single::
 @end menu
 
 
@@ -239,12 +248,12 @@ Elle attribue à la propriété appelée @var{propriété-rendu}, associée à
 l'objet @var{ObjetDeRendu}, appartenant lui-même au contexte
 @var{Contexte}, une valeur @var{valeur}.
 
-Le contexte @var{Contexte} peut être omis (c'est généralement
-le cas) quand il n'y a pas d'ambiguïté et qu'il s'agit d'un contexte
-de très bas niveau, comme @code{Voice}, @code{ChordNames} ou
-@code{Lyrics}.  Dans les exemples qui suivent, le contexte sera très
-souvent omis.  Nous verrons plus tard dans quelles circonstances il doit
-impérativement être indiqué.
+Le contexte @var{Contexte} peut être omis (c'est généralement le cas)
+quand il n'y a pas d'ambiguïté et qu'il s'agit d'un contexte de très bas
+niveau, comme @code{Voice}, @code{ChordNames} ou @code{Lyrics}.  Dans les
+exemples qui suivent, le contexte sera très souvent omis. Nous verrons
+plus tard dans quelles circonstances il doit impérativement être
+indiqué.
 
 Les sections ci-dessous traitent largement des propriétés et de leurs
 valeurs -- voir @ref{Types de propriétés} -- mais, pour illustrer la
@@ -252,22 +261,20 @@ mise en forme et l'utilisation de ces commandes, nous nous limiterons à
 n'employer que quelques propriétés et valeurs simples, facilement
 compréhensibles.
 
-Lilypond reconnaît comme expression primaire les éléments musicaux
-tels que les notes, durées et annotations (les @emph{markups}).
-D'autres expressions de base comme les nombres, chaînes de
-caractères et listes sont gérées en « mode Scheme », mode appelé
-en faisant précéder une valeur par un @samp{#}.  Bien que
-certaines valeurs puissent disposer d'une représentation tout à
-fait valide dans le mode musical de LilyPond, les exemples de ce
-manuel mentionnent un@samp{#} pour plus de clarté.  Pour de plus
-amples informations quant au mode Scheme, consultez
-@rextend{Syntaxe Scheme dans LilyPond}.
+Lilypond reconnaît comme expression primaire les éléments musicaux tels
+que les notes, durées et annotations (les @emph{markups}).  D'autres
+expressions de base comme les nombres, chaînes de caractères et listes
+sont gérées en « mode Scheme », mode appelé en faisant précéder une
+valeur par un @samp{#}.  Bien que certaines valeurs puissent disposer
+d'une représentation tout à fait valide dans le mode musical de
+LilyPond, les exemples de ce manuel mentionnent un@samp{#} pour plus de
+clarté.  Pour de plus amples informations quant au mode Scheme,
+consultez @rextend{Syntaxe Scheme dans LilyPond}.
 
-La commande @code{\override} est la plus fréquemment utilisée pour
-faire des retouches, et pratiquement tout le reste de ce chapitre
-aura pour but de montrer, à travers des exemples, comment
-l'utiliser.  L'exemple ci-dessous change la couleur des têtes de
-notes :
+La commande @code{\override} est la plus fréquemment utilisée pour faire
+des retouches, et pratiquement tout le reste de ce chapitre aura pour
+but de montrer, à travers des exemples, comment l'utiliser.  L'exemple
+ci-dessous change la couleur des têtes de notes :
 
 @cindex couleur,exemple d'utilisation de la propriété
 @cindex NoteHead, exemple de dérogation
@@ -292,11 +299,11 @@ g4 a b c |
 
 Une fois qu'elle a été modifiée, la propriété conserve sa nouvelle
 valeur jusqu'à ce qu'elle soit à nouveau modifiée ou qu'elle rencontre
-la commande @code{\revert}.  La commande @code{\revert} obéit à
-la syntaxe ci-dessous et ramène la valeur de la propriété à sa valeur
-d'origine.  Attention : dans le cas où plusieurs @code{\override}
-ont été employés, il ne s'agit pas de la valeur précédente mais bien de
-la valeur par défaut.
+la commande @code{\revert}.  La commande @code{\revert} obéit à la
+syntaxe ci-dessous et ramène la valeur de la propriété à sa valeur
+d'origine.  Attention : dans le cas où plusieurs @code{\override} ont
+été employés, il ne s'agit pas de la valeur précédente mais bien de la
+valeur par défaut.
 
 @example
 \revert @var{Contexte}.@var{ObjetDeRendu}.@var{propriété-de-rendu}
@@ -304,8 +311,8 @@ la valeur par défaut.
 
 Tout comme pour la commande @code{\override}, la mention du
 @var{Contexte} est souvent facultative.  Elle sera omise dans de
-nombreux exemples ci-dessous.  Voici un exemple qui ramène la
-couleur des deux dernières notes à leur valeur par défaut :
+nombreux exemples ci-dessous.  Voici un exemple qui ramène la couleur
+des deux dernières notes à leur valeur par défaut :
 
 @cindex couleur,exemple d'utilisation de la propriété
 @cindex NoteHead, exemple de dérogation
@@ -487,7 +494,7 @@ jusqu'à l'événement originel :
 
 Cette forme développée de la commande @code{\tweak} correspond à :
 @example
-\tweak @var{objet-de-rendu}.@var{propriété-de-rendu} @var{valeur}
+\tweak @var{objet-de-rendu}.@var{propriété-de-rendu} #@var{valeur}
 @end example
 
 @cindex n-olets imbriqués
@@ -547,6 +554,65 @@ avec la commande @code{\override} :
 @seealso
 Manuel de notation :
 @ruser{La commande d'affinage (@emph{tweak})}.
+
+
+@node Le préfixe single
+@unnumberedsubsubsec Le préfixe @code{@bs{}single}
+@translationof The single prefix
+
+@funindex \single
+@funindex single
+
+@cindex tweak généré par override
+
+Supposons que nous voulions mettre en exergue certaines têtes de note --
+plus grosses et en rouge -- et, pour nous simplifier la vie, que nous
+avons réalisé un fonction à ce effet :
+
+@lilypond[quote,verbatim]
+emphNoteHead = {
+  \override NoteHead.color = #red
+  \override NoteHead.font-size = 2
+}
+\relative c'' {
+  c4 a \once \emphNoteHead f d |
+}
+@end lilypond
+
+Le préfixe @code{\once} fonctionne à merveille dans le cas d'une note
+isolée ou de l'intégralité d'un accord, mais ne permet pas de souligner
+individuellement l'une des notes d'un accord.  Nous avons vu comment un
+@code{\tweak} permet d'y arriver -- voir @ref{La commande tweak}.  Un
+@code{\tweak} ne peut toutefois pas s'utiliser dans une fonction ; un
+@code{\single} permet d'appliquer la fonction une seule fois :
+
+@lilypond[quote,verbatim]
+emphNoteHead = {
+  \override NoteHead.color = #red
+  \override NoteHead.font-size = 2
+}
+\relative c'' {
+   <c a \single \emphNoteHead f d>4
+}
+@end lilypond
+
+En résumé, l'instruction @code{\single} convertit les instructions
+@code{\override} en @code{\tweak} de telle sorte que lorsque plusieurs
+objets se trouvent en un même point du temps musical, comme la tête des
+notes formant un accord, @code{\single} n'en affectera qu'une seule,
+celle générée par l'expression musicale qui vient juste après,
+contrairement à un @code{\once} qui en affectera tous les objets.
+
+Cette utilisation de @code{\single} permet d'appliquer individuellement
+n'importe quel raccourci de fonction contenant des @code{\override} aux
+notes d'un accord.  Néanmoins, l'instruction @code{\single} ne permet
+pas de convertir des @code{\revert}, @code{\set} ou @code{\unset} en
+@code{\tweak}.
+
+@seealso
+Manuel d'initiation :
+@ref{La commande tweak},
+@ref{Utilisation de variables dans les retouches}.
 
 
 @node Le manuel de référence des propriétés internes
@@ -1172,6 +1238,7 @@ LilyPond dispose d'un raccourci -- @code{\omit} (pour « oublier »)
 -- à cet effet :
 
 @funindex \omit
+@funindex omit
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
@@ -3986,15 +4053,8 @@ lhMusic = \relative c' {
 * Rendu MIDI d'un point d'orgue::
 @end menu
 
-@cindex transparent, utilisation de la propriété
-@cindex création d'objet invisible
 @cindex suppression d'objets
 @cindex objets, suppression d'
-@cindex masquage d'objets
-@cindex objets, masquage d'
-@cindex invisibles, objets
-@cindex objets, invisibles
-@cindex liaison de tenue avec changement de voix
 
 
 @node Liaison entre plusieurs voix
@@ -4012,32 +4072,20 @@ dont l'une avec les notes liées
 @end lilypond
 
 @noindent
-et à rendre transparente la première hampe de cette voix ;
-on a alors l'impression que la liaison couvre les deux voix.
+et à supprimer la première hampe ascendante et le crochet dans cette
+voix ; on a alors l'impression que la liaison couvre les deux voix.
 
-@cindex Stem, exemple de dérogation
-@cindex transparent, exemple d'utilisation de la propriété
+@cindex Stem, exemple de suppression
+@cindex Flag, exemple de suppression
+@cindex @code{\omit}, exemple d'utilisation
 
-@lilypond[quote,fragment,relative=2,verbatim]
-<<
-  {
-    \tweak Flag.transparent ##t
-    b8~ 8\noBeam
-  }
-\\
-  { b8[ g] }
->>
-@end lilypond
-
-Pour être sûr que la hampe que nous avons rendue transparente
-n'empiète pas trop sur le trait de liaison, nous pouvons l'allonger en
-réglant la longueur (@code{length}) sur @code{8},
+@funindex \omit
 
 @lilypond[quote,fragment,relative=2,verbatim]
 <<
   {
-    \tweak Flag.transparent ##t
-    \tweak Stem.length #8
+    \once \omit Stem
+    \once \omit Flag
     b8~ 8\noBeam
   }
 \\
@@ -4046,38 +4094,10 @@ réglant la longueur (@code{length}) sur @code{8},
 @end lilypond
 
 
-@funindex \single
-@cindex affinage généré par une dérogation
-
-Nous aurions pu, pour déroger à la transparence d'un objet
-graphique, utiliser le raccourci @code{\omit} que nous avons vu
-plus haut.  L'affinage constitue une opération différente en ceci
-qu'il n'affecte que les propriétés générées par une expression
-musicale unique.  Nous pourrions tout à fait convertir des
-dérogations en affinages à l'aide d'un @code{\single} et ré-écrire
-l'exemple précédent de cette manière :
-
-@lilypond[quote,fragment,relative=2,verbatim]
-<<
-  {
-    \single \hide Stem
-    \single \hide Flag
-    \tweak Stem.length #8
-    b8~ 8\noBeam
-  }
-\\
-  { b8[ g] }
->>
-@end lilypond
-
-Dans ce cas particulier, la différence avec un @code{\once \hide}
-n'est pas flagrante.  Elle prend cependant toute son importance
-lorsque plusieurs objets de retrouvent au même instant musical --
-comme les têtes des notes d'un accord.  En effet, la présence d'un
-@code{\once} sera répercutée à tous les objets, alors qu'un
-@code{\single} n'affectera, lui, qu'un seul objet, celui généré
-par l'expression musicale qui le suit directement.
-
+@seealso
+Manuel d'initiation :
+@ref{Le préfixe once},
+@ref{La propriété stencil}.
 
 @node Rendu MIDI d'un point d'orgue
 @unnumberedsubsubsec Rendu MIDI d'un point d'orgue
