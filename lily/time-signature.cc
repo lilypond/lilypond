@@ -68,6 +68,14 @@ Time_signature::special_time_signature (Grob *me, SCM scm_style, int n, int d)
 
   if ((style == "default") || (style == ""))
     style = ::to_string ("C");
+  else if (style == "single-C")
+    {
+      if ((n != 2) && (n != 4))
+        return numbered_time_signature (me, n, 0);
+      /* for any d, print 2/d as cut-C, 4/d as C */
+      style = ::to_string ("C");
+      d = n;
+    }
 
   if (style == "C")
     {
