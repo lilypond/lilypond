@@ -882,7 +882,7 @@ way you use, you can easily convert between PostScript and PDF with
 tools, like @command{ps2pdf} and @command{pdf2ps} included in
 Ghostscript package.
 
-To produce a PDF file through PDF@LaTeX{}, use;
+To produce a PDF file through PDF@LaTeX{}, use:
 
 @example
 lilypond-book --pdf yourfile.lytex
@@ -893,7 +893,7 @@ pdflatex yourfile.tex
 @cindex type1 fonts
 @cindex dvips
 @cindex invoking dvips
-To produce PDF output via @LaTeX{}/@command{dvips}/@command{ps2pdf};
+To produce PDF output via @LaTeX{}/@command{dvips}/@command{ps2pdf}:
 
 @example
 lilypond-book yourfile.lytex
@@ -919,14 +919,14 @@ Environments such as;
 @end example
 
 @noindent
-are not interpreted by @LaTeX{}. Instead, @code{lilypond-book} extracts
-those @q{environments} into files of its own and runs LilyPond on them'.
+are not interpreted by @LaTeX{}.  Instead, @code{lilypond-book} extracts
+those @q{environments} into files of its own and runs LilyPond on them.
 It then takes the resulting graphics and creates a @file{.tex} file
 where the @code{\begin@{lilypond@}}@dots{}@code{\end@{lilypond@}} macros
 are then replaced by @q{graphics inclusion} commands.  It is at this
 time that @LaTeX{} is run (although @LaTeX{} will have run previously,
 it will have been, effectively, on an @q{empty} document in order to
-calculate things like @code{\linewidth}.
+calculate things like @code{\linewidth}).
 
 @knownissues
 
@@ -1393,5 +1393,3 @@ where @code{\includescore} is defined as:
 Other means of mixing text and music (without
 @command{lilypond-book}) are discussed in
 @ref{LilyPond output in other programs}.
-
-
