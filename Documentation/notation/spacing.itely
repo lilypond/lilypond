@@ -634,14 +634,27 @@ Also see @code{check-consistency}.
 @item line-width
 @funindex line-width
 
-The horizontal extent of the staff lines in unindented, non-ragged
-systems, equal to
+When specified in a @code{\paper} block this defines the horizontal
+extent available for the staff lines in un-indented systems.  If left
+unspecified, the paper's @code{line-width} is determined from
 @code{(paper-width@tie{}@minus{}@tie{}left-margin@tie{}@minus{}@tie{}right-margin)}
-when unset.  If @code{line-width} is set, and both
-@code{left-margin} and @code{right-margin} are unset, then the
+If the paper's @code{line-width} is specified, and both
+@code{left-margin} and @code{right-margin} are not, then the
 margins will be updated to center the systems on the page
-automatically.  Also see @code{check-consistency}.  This variable
-can also be set in a @code{\layout} block.
+automatically.  Also see @code{check-consistency}.
+
+@code{line-width}s for individual scores can be specified in the
+scores' @code{\layout} blocks.  These values control the width of the
+lines produced on a score-by-score basis.  If @code{line-width} is not
+specified for a score, it defaults to the paper's @code{line-width}.
+Setting a score's @code{line-width} has no effect on the paper margins.
+Staff lines, of a length determined by the score's @code{line-width},
+are left-aligned within the paper area defined by the paper's
+@code{line-width}.  If the score and paper @code{line-width}s are equal,
+the staff lines will extend exactly from the left margin to the right
+margin, but if the score's @code{line-width} is greater than the
+paper's @code{line-width} the staff lines will run over into the right
+margin.
 
 @item left-margin
 @funindex left-margin
@@ -674,12 +687,12 @@ and the systems are consequently centered on the page.  Also see
 @item check-consistency
 @funindex check-consistency
 
-If set to true, print a warning if @code{left-margin},
-@code{line-width}, and @code{right-margin} do not exactly add up
-to @code{paper-width}, and replace each of these (except
-@code{paper-width}) with its default value (scaled to the paper
-size if necessary).  If set to false, ignore any inconsistencies
-and allow systems to run off the edge of the page.
+If this is true (the default value), print a warning if
+@code{left-margin}, @code{line-width}, and @code{right-margin} do not
+exactly add up to @code{paper-width}, and replace each of these
+(except @code{paper-width}) with their default values (scaled to the
+paper size if necessary).  If set to false, ignore any
+inconsistencies and allow systems to run off the edge of the page.
 
 @item ragged-right
 @funindex ragged-right
@@ -786,16 +799,21 @@ separators) are shifted to the right.  Default: @code{0.0\mm}.
 
 The level of indentation for the first system in a score.  If the
 paper size is modified, this dimension's default value is scaled
-accordingly.  This variable can also be set in a @code{\layout}
-block.
+accordingly.  The space within @code{line-width} available for
+the first system is reduced by this amount.  @code{indent} may also
+be specified in @code{\layout} blocks to set indents on a
+score-by-score basis.
 
 @item short-indent
 @funindex short-indent
 
 The level of indentation for all systems in a score besides the
 first system.  If the paper size is modified, this dimension's
-default value is scaled accordingly.  This variable can also be
-set in a @code{\layout} block.
+default value is scaled accordingly.  The space within
+@code{line-width} available for systems other than the first is
+reduced by this amount.  @code{short-indent} may also be specified in
+@code{\layout} blocks to set short indents on a score-by-score
+basis.
 
 @end table
 
@@ -1104,8 +1122,10 @@ The @code{layout-set-staff-size} function is discussed in the next
 section, @ref{Setting the staff size}.  Context modifications are
 discussed in a separate chapter; see
 @ref{Modifying context plug-ins} and
-@ref{Changing context default settings}.  The @code{\paper}
-variables that can appear in a @code{\layout} block are:
+@ref{Changing context default settings}.
+
+The @code{\paper} variables that can appear in a @code{\layout}
+block, with default values taken from the @code{\paper} block are:
 
 @itemize
 
