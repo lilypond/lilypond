@@ -5614,7 +5614,7 @@ theme or subject.
 @lilypond[quote,line-width=13.0\cm]
 \score{
 \relative c'' {
-  \set Score.implicitTimeSignatureVisibility = #all-invisible
+  \set Score.initialTimeSignatureVisibility = #all-invisible
   \override Score.TimeSignature #'break-visibility = #all-invisible
   \time 4/4
   \key g \major

@@ -370,8 +370,8 @@ string selector for tablature notation.")
 @rinternals{Lyrics} line.")
      (implicitBassFigures ,list? "A list of bass figures that are not
 printed as numbers, but only as extender lines.")
-     (implicitTimeSignatureVisibility ,vector? "break visibility for
-the default time signature.")
+     (initialTimeSignatureVisibility ,vector? "break visibility for
+the initial time signature.")
      (includeGraceNotes ,boolean? "Do not ignore grace notes for
 @rinternals{Lyrics}.")
      (instrumentCueName ,markup? "The name to print if another

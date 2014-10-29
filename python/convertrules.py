@@ -3723,6 +3723,11 @@ def conv(str):
     str = re.sub (r'\bthin-kern\b', 'segno-kern', str)
     return str
 
+@rule ((2, 19, 16), "implicitTimeSignatureVisibility -> initialTimeSignatureVisibility")
+def conv(str):
+    str = re.sub (r'\bimplicitTimeSignatureVisibility\b', 'initialTimeSignatureVisibility', str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
