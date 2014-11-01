@@ -253,7 +253,7 @@ LilyPond version 2.8 and earlier."
      global)
     context-list))
 
-(define-public (make-part-combine-music parser music-list direction)
+(define-public (make-part-combine-music parser music-list direction chord-range)
   (let* ((m (make-music 'PartCombineMusic))
          (m1 (make-non-relative-music (context-spec-music (first music-list) 'Voice "one")))
          (m2  (make-non-relative-music  (context-spec-music (second music-list) 'Voice "two")))
@@ -266,17 +266,19 @@ LilyPond version 2.8 and earlier."
     (set! (ly:music-property m 'split-list)
           (if (and (assoc "one" evs1) (assoc "two" evs2))
               (determine-split-list (reverse! (assoc-get "one" evs1) '())
-                                    (reverse! (assoc-get "two" evs2) '()))
+                                    (reverse! (assoc-get "two" evs2) '())
+                                    chord-range)
               '()))
     m))
 
-(define-public (determine-split-list evl1 evl2)
-  "@var{evl1} and @var{evl2} should be ascending."
+(define-public (determine-split-list evl1 evl2 chord-range)
+  "@var{evl1} and @var{evl2} should be ascending. @var{chord-range} is a pair of numbers (min . max) defining the distance in steps between notes that may be combined into a chord or unison."
   (let* ((pc-debug #f)
-         (chord-threshold 8)
          (voice-state-vec1 (make-voice-states evl1))
          (voice-state-vec2 (make-voice-states evl2))
-         (result (make-split-state voice-state-vec1 voice-state-vec2)))
+         (result (make-split-state voice-state-vec1 voice-state-vec2))
+         (chord-min-diff (car chord-range))
+         (chord-max-diff (cdr chord-range)))
 
     ;; Go through all moments recursively and check if the events of that
     ;; moment contain a part-combine-force-event override. If so, store its
@@ -378,15 +380,13 @@ Only set if not set previously.
                  (if (and (= (length pitches1) (length pitches2)))
                      (if (and (pair? pitches1)
                               (pair? pitches2)
-                              (or
-                               (< chord-threshold (ly:pitch-steps
-                                                   (ly:pitch-diff (car pitches1)
-                                                                  (car pitches2))))
-
-                               ;; voice crossings:
-                               (> 0 (ly:pitch-steps (ly:pitch-diff (car pitches1)
-                                                                   (car pitches2))))
-                               ))
+                              ; Is the interval outside of chord-range?
+                              (let ((diff (ly:pitch-steps
+                                           (ly:pitch-diff (car pitches1)
+                                                          (car pitches2)))))
+                                (or (< diff chord-min-diff)
+                                    (> diff chord-max-diff)
+                                    )))
                          (put 'apart)
                          ;; copy previous split state from spanner state
                          (begin

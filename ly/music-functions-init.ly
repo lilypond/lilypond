@@ -1131,26 +1131,28 @@ parenthesize =
        (set! (ly:music-property arg 'parenthesize) #t))
    arg)
 
+#(define partcombine-chord-range '(0 . 8))
+
 partcombine =
 #(define-music-function (parser location part1 part2) (ly:music? ly:music?)
    (_i "Take the music in @var{part1} and @var{part2} and typeset so
 that they share a staff.")
    (make-part-combine-music parser
-                            (list part1 part2) #f))
+                            (list part1 part2) #f partcombine-chord-range))
 
 partcombineUp =
 #(define-music-function (parser location part1 part2) (ly:music? ly:music?)
    (_i "Take the music in @var{part1} and @var{part2} and typeset so
 that they share a staff with stems directed upward.")
    (make-part-combine-music parser
-                            (list part1 part2) UP))
+                            (list part1 part2) UP partcombine-chord-range))
 
 partcombineDown =
 #(define-music-function (parser location part1 part2) (ly:music? ly:music?)
    (_i "Take the music in @var{part1} and @var{part2} and typeset so
 that they share a staff with stems directed downward.")
    (make-part-combine-music parser
-                            (list part1 part2) DOWN))
+                            (list part1 part2) DOWN partcombine-chord-range))
 
 partcombineForce =
 #(define-music-function (location parser type once) (symbol-or-boolean? boolean?)
