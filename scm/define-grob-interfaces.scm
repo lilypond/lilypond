@@ -318,6 +318,24 @@ interesting enough to maintain a hara-kiri staff."
  '(details display-cautionary span-start))
 
 (ly:add-interface
+ 'time-signature-interface
+ "A time signature, in different styles.  The following values for @code{style} are are recognized:
+
+ @table @code
+ @item C
+ 4/4 and 2/2 are typeset as C and struck C, respectively. All other time signatures are written with two digits. The value @code{default} is equivalent to @code{C}.
+ @item neomensural
+ 2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8, and 9/8 are typeset with neo-mensural style mensuration marks.  All other time signatures are written with two digits.
+ @item mensural
+ 2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8, and 9/8 are typeset with mensural style mensuration marks.  All other time signatures are written with two digits.
+ @item single-digit
+ All time signatures are typeset with a single digit, e.g., 3/2 is written as 3.
+ @item numbered
+ All time signatures are typeset with two digits.
+ @end table"
+ '(fraction style))
+
+(ly:add-interface
  'trill-spanner-interface
  "A trill spanner."
  '())

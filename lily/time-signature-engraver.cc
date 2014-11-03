@@ -24,7 +24,6 @@
 #include "misc.hh"
 #include "moment.hh"
 #include "stream-event.hh"
-#include "time-signature.hh"
 #include "warn.hh"
 
 #include "translator.icc"

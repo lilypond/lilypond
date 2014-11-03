@@ -42,7 +42,6 @@
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
 #include "stem.hh"
-#include "time-signature.hh"
 #include "warn.hh"
 
 /*
@@ -286,7 +285,7 @@ Slur_score_state::fill (Grob *me)
           && minmax (dir_, encompass_place, y_place) == encompass_place
           && (!extra_encompass_infos_[i].grob_->internal_has_interface (ly_symbol2scm ("key-signature-interface"))
               && !Clef::has_interface (extra_encompass_infos_[i].grob_)
-              && !Time_signature::has_interface (extra_encompass_infos_[i].grob_)))
+              && !extra_encompass_infos_[i].grob_->internal_has_interface (ly_symbol2scm ("time-signature-interface"))))
         {
           for (LEFT_and_RIGHT (d))
             additional_ys[d] = minmax (dir_,

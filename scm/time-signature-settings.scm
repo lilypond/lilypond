@@ -363,6 +363,45 @@ a fresh copy of the list-head is made."
 "
   (interpret-markup layout props (format-compound-time time-sig)))
 
+(add-simple-time-signature-style 'numbered make-compound-meter-markup)
+
+(add-simple-time-signature-style 'single-digit
+  (lambda (fraction) (make-compound-meter-markup (car fraction))))
+
+;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;;; Formatting of symbolic time signatures
+
+(define-public (make-glyph-time-signature-markup style fraction)
+  "Make markup for a symbolic time signature.  If the music font does not have a glyph for the requested style and fraction, issue a warning and make a numbered time signature instead."
+  (make-first-visible-markup
+   (list (make-musicglyph-markup (string-append
+                                  "timesig."
+                                  (symbol->string style)
+                                  (number->string (car fraction))
+                                  (number->string (cdr fraction))))
+         (make-compound-meter-markup fraction))))
+
+(define-public (make-c-time-signature-markup fraction)
+  "Make markup for the `C' time signature style."
+  (let ((n (car fraction))
+        (d (cdr fraction)))
+    ; check specific fractions to avoid warnings when no glyph exists
+    (if (or (and (= n 2) (= d 2))
+            (and (= n 4) (= d 4)))
+        (make-glyph-time-signature-markup 'C fraction)
+        (make-compound-meter-markup fraction))))
+
+(add-simple-time-signature-style 'C make-c-time-signature-markup)
+(add-simple-time-signature-style 'default make-c-time-signature-markup)
+
+(define-public (make-single-c-time-signature-markup fraction)
+  "Make markup for the `single-C' time signature style."
+  (let ((n (car fraction)))
+    (if (or (= n 2) (= n 4)) ; numerator only
+        (make-glyph-time-signature-markup 'C (cons n n))
+        (make-compound-meter-markup n))))
+
+(add-simple-time-signature-style 'single-C make-single-c-time-signature-markup)
 
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ;;; Measure length calculation of (possibly complex) compound time signatures
