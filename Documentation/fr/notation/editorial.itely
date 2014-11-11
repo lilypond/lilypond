@@ -297,7 +297,7 @@ Pour changer la taille des caractères, LilyPond met à l'échelle la fonte
 dont la taille est la plus proche de la taille voulue.  La taille
 standard (pour laquelle @code{font-size = 0}) dépend de la hauteur
 de la portée.  À une portée de 20 points correspond une police de
-10 points.
+11 points.
 
 
 @predefined

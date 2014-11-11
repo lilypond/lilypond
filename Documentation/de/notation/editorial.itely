@@ -120,7 +120,7 @@ Schriftgrößenänderungen werden erreicht, indem man die Design-Schriftgröße
 nimmt, die der gewünschten am nächsten kommt, und sie dann skaliert.  Die
 Standard-Schriftgröße (für @code{font-size = #0}) hängt von der
 Standard-Systemhöhe ab. Für ein Notensystem von 20pt wird eine Schriftgröße
-von 10pt ausgewählt.
+von 11pt ausgewählt.
 
 Die @code{font-size}-Eigenschaft kann nur für die Layoutobjekte gesetzt
 werden, die Schrift-Dateien benutzen.  Das sind die, welche die
