@@ -2377,7 +2377,7 @@ may be any property supported by @rinternals{font-interface},
 (define-markup-command (abs-fontsize layout props size arg)
   (number? markup?)
   #:category font
-  "Use @var{size} as the absolute font size to display @var{arg}.
+  "Use @var{size} as the absolute font size (in points) to display @var{arg}.
 Adjusts @code{baseline-skip} and @code{word-space} accordingly.
 
 @lilypond[verbatim,quote]
