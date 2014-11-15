@@ -296,6 +296,7 @@ a fresh copy of the list-head is made."
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ;;; Formatting of complex/compound time signatures
 
+; There ought to be a \join-line sep {...} command
 (define (insert-markups l m)
   (let ((ll (reverse l)))
     (let join-markups ((markups (list (car ll)))
@@ -311,24 +312,56 @@ a fresh copy of the list-head is made."
          (den (car revargs))
          (nums (reverse (cdr revargs))))
     (make-override-markup '(baseline-skip . 0)
-                          (make-number-markup
                            (make-left-column-markup
                             (list (make-center-column-markup
                                    (list (make-line-markup (insert-markups nums "+"))
-                                         den))))))))
+                                         den)))))))
 
-(define (format-complex-compound-time time-sig)
+(define (format-time-numerator time-sig)
+  (make-vcenter-markup (number->string (car time-sig))))
+
+(define (format-time-element time-sig)
+  (cond ((number-pair? time-sig)
+         (format-time-fraction (list (car time-sig) (cdr time-sig))))
+        ((pair? (cdr time-sig))
+         (format-time-fraction time-sig))
+        (else
+         (format-time-numerator time-sig))))
+
+(define (format-time-list time-sig)
   (make-override-markup '(baseline-skip . 0)
-                        (make-number-markup
-                         (make-line-markup
-                          (insert-markups (map format-time-fraction time-sig)
-                                          (make-vcenter-markup "+"))))))
+                        (make-line-markup
+                         (insert-markups (map format-time-element time-sig)
+                                         (make-vcenter-markup "+")))))
 
-(define-public (format-compound-time time-sig)
-  (cond
-   ((not (pair? time-sig)) (null-markup))
-   ((pair? (car time-sig)) (format-complex-compound-time time-sig))
-   (else (format-time-fraction time-sig))))
+(define (format-compound-time time-sig)
+  (make-number-markup
+   (cond
+    ((number? time-sig) (format-time-element (list time-sig)))
+    ((number-pair? time-sig)
+     (format-time-element (list (car time-sig) (cdr time-sig))))
+    ((pair? (car time-sig)) (format-time-list time-sig))
+    (else (format-time-element time-sig)))))
+
+(define-markup-command (compound-meter layout props time-sig)
+  (number-or-pair?)
+  #:category music
+  "Draw a numeric time signature.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\column {
+    \\line { Single number: \\compound-meter #3 }
+    \\line { Conventional: \\compound-meter #'(4 . 4)
+                       or \\compound-meter #'(4 4) }
+    \\line { Compound: \\compound-meter #'(2 3 8) }
+    \\line { Single-number compound: \\compound-meter #'((2) (3)) }
+    \\line { Complex compound: \\compound-meter #'((2 3 8) (3 4)) }
+  }
+}
+@end lilypond
+"
+  (interpret-markup layout props (format-compound-time time-sig)))
 
 
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

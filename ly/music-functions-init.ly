@@ -279,7 +279,7 @@ as @code{\\compoundMeter #'((3 2 8))} or shorter
                         (ly:moment-main-denominator mlen))))
   #{
     \once \override Timing.TimeSignature.stencil = #(lambda (grob)
-      (grob-interpret-markup grob (format-compound-time args)))
+      (grob-interpret-markup grob (make-compound-meter-markup args)))
     \set Timing.timeSignatureFraction = #timesig
     \set Timing.baseMoment = #beat
     \set Timing.beatStructure = #beatGrouping
