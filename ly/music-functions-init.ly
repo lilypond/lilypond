@@ -253,15 +253,7 @@ bookOutputSuffix =
 breathe =
 #(define-music-function (parser location) ()
    (_i "Insert a breath mark.")
-   (make-music 'BreathingEvent
-     'midi-length
-     (lambda (len context)
-       ;;Shorten by half, or by up to a second, but always by a power of 2
-       (let* ((desired (min (ly:moment-main (seconds->moment 1 context))
-                            (* (ly:moment-main len) 1/2)))
-              (scale (inexact->exact (ceiling (/ (log desired) (log 1/2)))))
-              (breath (ly:make-moment (expt 1/2 scale))))
-         (ly:moment-sub (ly:make-moment (ly:moment-main len)) breath)))))
+   (make-music 'BreathingEvent))
 
 clef =
 #(define-music-function (parser location type) (string?)

@@ -128,7 +128,7 @@ Syntax for manual control: @code{c8-[ c c-] c8}")
 Syntax: @var{note}@code{\\breathe}")
 
         (types . (general-music event breathing-event))
-        ))
+        (midi-length . ,breathe::midi-length)))
 
     (ClusterNoteEvent
      . ((description . "A note that is part of a cluster.")
