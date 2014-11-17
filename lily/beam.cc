@@ -1301,7 +1301,7 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
 
 /*
   Estimate the position of a rest under a beam,
-  as the average position of its neighboring heads.
+  using the average position of its neighboring heads.
 */
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Beam, pure_rest_collision_callback, 4, 1, "");
 SCM
@@ -1323,15 +1323,6 @@ Beam::pure_rest_collision_callback (SCM smob,
     return scm_from_double (previous);
 
   Real ss = Staff_symbol_referencer::staff_space (me);
-
-  /*
-    This gives the extrema of rest positions.
-    Even with noteheads on ledgers, beams typically remain within the staff,
-    and push rests at most one staff-space (2 positions) from the staff.
-  */
-  Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
-  Interval rest_max_pos = staff ? Staff_symbol::line_span (staff) : Interval (0.0, 0.0);
-  rest_max_pos.widen (2);
 
   extract_grob_set (beam, "stems", stems);
   vector<Grob *> my_stems;
@@ -1363,24 +1354,26 @@ Beam::pure_rest_collision_callback (SCM smob,
       right = my_stems[idx + 1];
     }
 
-  /* In stems with several heads, use the one closest to the beam. */
+  /* Estimate the closest beam to be four positions away from the heads, */
   Direction beamdir = get_grob_direction (beam);
-  Real shift = min (max ( (Stem::head_positions (left)[beamdir]
-                           + Stem::head_positions (right)[beamdir]) / 2.0,
-                          rest_max_pos[DOWN]),
-                    rest_max_pos[UP]
-                   ) * ss / 2.0
-               - previous;
+  Real beam_pos = (Stem::head_positions (left)[beamdir]
+                   + Stem::head_positions (right)[beamdir]) / 2.0
+                  + 4.0 * beamdir; // four staff-positions
+  /* and that the closest beam never crosses staff center by more than two positions */
+  beam_pos = max (-2.0, beam_pos * beamdir) * beamdir;
 
-  // So that ceil below kicks in for rests that would otherwise brush
-  // up against a beam quanted to a ledger line, add a bit of space
-  // between the beam and the rest.
-  shift += (0.01 * beamdir);
+  Real minimum_distance
+    = ss * (robust_scm2double (stem->get_property ("stemlet-length"), 0.0)
+            + robust_scm2double (me->get_property ("minimum-distance"), 0.0));
+  Real offset = beam_pos * ss / 2.0
+                - minimum_distance * beamdir
+                - me->extent (me, Y_AXIS)[beamdir];
 
-  /* Always move by a whole number of staff spaces */
-  shift = ceil (fabs (shift / ss)) * ss * sign (shift);
+  /* Always move by a whole number of staff spaces, always away from the beam */
+  offset = floor (min (0.0, (offset - previous) / ss * beamdir))
+           * ss * beamdir + previous;
 
-  return scm_from_double (previous + shift);
+  return scm_from_double (offset);
 }
 
 bool
