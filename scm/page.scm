@@ -102,6 +102,7 @@
           (ly:stencil-add stencil
                           (ly:stencil-translate-axis
                            (annotate-spacing-spec layout
+                                                  (symbol->string sym)
                                                   spacing-spec
                                                   (- top-margin)
                                                   (car header-extent)
