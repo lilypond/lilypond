@@ -618,7 +618,7 @@ automatically when an output definition (a @code{\\score} or
   explicitClefVisibility = #all-visible
   explicitCueClefVisibility = #end-of-line-invisible
   explicitKeySignatureVisibility = #all-visible
-  implicitTimeSignatureVisibility = #end-of-line-invisible
+  initialTimeSignatureVisibility = #end-of-line-invisible
 
   repeatCountVisibility = #all-repeat-counts-visible
 

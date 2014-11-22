@@ -352,6 +352,24 @@ kievanOff = {
  \revert NoteHead.duration-log
 }
 
+%% line and page breaking controls
+
+autoLineBreaksOff = {
+  \overrideProperty Score.NonMusicalPaperColumn.line-break-permission ##f
+  \override Score.NonMusicalPaperColumn.line-break-permission = ##f
+}
+autoLineBreaksOn = {
+  \overrideProperty Score.NonMusicalPaperColumn.line-break-permission #'allow
+  \override Score.NonMusicalPaperColumn.line-break-permission = #'allow
+}
+autoPageBreaksOff =
+  \override Score.NonMusicalPaperColumn.page-break-permission = ##f
+autoPageBreaksOn =
+  \override Score.NonMusicalPaperColumn.page-break-permission = #'allow
+autoBreaksOff = { \autoLineBreaksOff \autoPageBreaksOff }
+autoBreaksOn = { \autoLineBreaksOn \autoPageBreaksOn }
+
+
 %% merging
 
 mergeDifferentlyDottedOn =

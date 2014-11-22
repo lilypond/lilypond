@@ -151,7 +151,7 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item *> bounds,
                 stem_end_position = stem->extent (stem, Y_AXIS)[get_grob_direction (stem)];
               else
                 // May want to change this to the stem's pure height...
-                stem_end_position = Stem::note_head_positions (stem)[get_grob_direction (stem)]
+                stem_end_position = Stem::head_positions (stem)[get_grob_direction (stem)]
                                     * staff_space * .5;
             }
 

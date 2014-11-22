@@ -122,7 +122,7 @@ La modifica della dimensione del tipo di carattere si ottiene ridimensionando
 la dimensione, tra quelle predefinite, più vicina a quella desiderata.  La
 dimensione standard (per @w{@code{font-size = #0}}) dipende dall'altezza
 standard del rigo: per un rigo di 20pt, viene scelto un tipo di carattere
-di 10pt.
+di 11pt.
 
 La proprietà @code{font-size} si può impostare soltanto sugli oggetti di
 formattazione che usano i tipi di carattere, ovvero quegli oggetti che

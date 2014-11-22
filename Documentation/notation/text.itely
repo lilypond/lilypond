@@ -1122,9 +1122,10 @@ An exhaustive list of graphics-specific commands can be found in
 
 @seealso
 Notation Reference:
-@ref{Graphic},
+@ref{Align},
+@ref{Dimensions},
 @ref{Editorial annotations},
-@ref{Align}.
+@ref{Graphic}.
 
 Installed Files:
 @file{scm/define-markup-commands.scm},

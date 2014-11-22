@@ -218,12 +218,21 @@ Snippets:
 @funindex \addlyrics
 @funindex \lyricsto
 
-Lyrics are printed by interpreting them in the context called
-@code{Lyrics}, see @ref{Contexts explained}.
+Lyrics are interpreted in @code{\lyricmode} and printed in a
+@code{Lyrics} context, see @ref{Contexts explained}.
 
 @example
 \new Lyrics \lyricmode @{ @dots{} @}
 @end example
+
+Two variants of @code{\lyricmode} additionally set an associated
+context used to synchronise the lyric syllables to music.  The more
+convenient @code{\addlyrics} immediately follows the musical content
+of the Voice context with which it should be synchronised, implicitly
+creating a Lyrics context of its own.  The more versatile
+@code{\lyricsto} requires both specifying the associated Voice context
+by name and explicitly creating a containing Lyrics context.  For
+details see @ref{Automatic syllable durations}.
 
 Lyrics can be aligned with melodies in two main ways:
 
@@ -392,9 +401,9 @@ context, which must already exist.  Therefore normally the
 @code{Voice} context is specified first, followed by the
 @code{Lyrics} context.  The lyrics themselves follow the
 @code{\lyricsto} command.  The @code{\lyricsto} command
-invokes lyric mode automatically, so the @code{\lyricmode} keyword
-may be omitted.  By default, the lyrics are placed underneath the
-notes.  For other placements, see @ref{Placing lyrics vertically}.
+invokes lyric mode automatically.  By default, the lyrics are placed
+underneath the notes.  For other placements, see
+@ref{Placing lyrics vertically}.
 
 @subheading Using @code{\addlyrics}
 
@@ -2389,7 +2398,7 @@ Notation Reference:
 @ref{Score layout},
 @ref{Separating systems},
 @ref{Setting the staff size},
-@ref{Explicit breaks},
+@ref{Breaks},
 @ref{Vertical spacing}.
 
 Internals Reference:

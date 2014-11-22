@@ -2088,7 +2088,7 @@ to tagged music is as follows:
 Tagged music preceded by @code{\keepWithTag #'@var{name}} or
        @code{\keepWithTag #'(@var{name1} @var{name2}@dots{})}
 @tab Untagged music and music tagged with any of the given tag
-     names is included; 
+     names is included;
      music tagged with any other tag name is excluded.
 @item
 Tagged music preceded by @code{\removeWithTag #'@var{name}} or
@@ -2105,7 +2105,13 @@ Tagged music not preceded by either @code{\keepWithTag} or
 The arguments of the @code{\tag}, @code{\keepWithTag} and
 @code{\removeWithTag} commands should be a symbol or list of
 symbols (such as @code{#'score} or @code{#'(violinI violinII}),
-followed by a music expression.
+followed by a music expression.  If @emph{and only if} the symbols
+are valid LilyPond identifiers (alphabetic characters only, no
+numbers, underscores, or dashes) which cannot be confused with notes,
+the @code{#'} may be omitted and, as a shorthand, a list of symbols
+can use the dot separator: i.e. @code{\tag #'(violinI violinII)} can
+be written @code{\tag violinI.violinII}.  The same applies to
+@code{\keepWithTag} and @code{\removeWithTag}.
 
 In the following example, we see two versions of a piece of music,
 one showing trills with the usual notation, and one with trills

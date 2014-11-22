@@ -1157,6 +1157,31 @@ the use of @code{\\simple} is unnecessary.
 @end lilypond"
   (interpret-markup layout props str))
 
+(define-markup-command (first-visible layout props args)
+  (markup-list?)
+  #:category other
+  "Use the first markup in @var{args} that yields a non-empty stencil
+and ignore the rest.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\first-visible {
+    \\fromproperty #'header:composer
+    \\italic Unknown
+  }
+}
+@end lilypond"
+  (define (false-if-empty stencil)
+    (if (ly:stencil-empty? stencil) #f stencil))
+  (or
+   (any
+    (lambda (m)
+      (if (markup? m)
+          (false-if-empty (interpret-markup layout props m))
+          (any false-if-empty (interpret-markup-list layout props (list m)))))
+    args)
+   empty-stencil))
+
 (define-public empty-markup
   (make-simple-markup ""))
 
@@ -2377,7 +2402,7 @@ may be any property supported by @rinternals{font-interface},
 (define-markup-command (abs-fontsize layout props size arg)
   (number? markup?)
   #:category font
-  "Use @var{size} as the absolute font size to display @var{arg}.
+  "Use @var{size} as the absolute font size (in points) to display @var{arg}.
 Adjusts @code{baseline-skip} and @code{word-space} accordingly.
 
 @lilypond[verbatim,quote]

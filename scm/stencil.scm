@@ -800,7 +800,8 @@ with optional arrows of @code{max-size} on start and end controlled by
 
 ;; TODO: figure out how to annotate padding nicely
 ;; TODO: emphasize either padding or min-dist depending on which constraint was active
-(define*-public (annotate-spacing-spec layout spacing-spec start-Y-offset next-staff-Y
+(define*-public (annotate-spacing-spec layout name spacing-spec
+                                       start-Y-offset next-staff-Y
                                        #:key (base-color blue))
   (let* ((get-spacing-var (lambda (sym) (assoc-get sym spacing-spec 0.0)))
          (space (get-spacing-var 'basic-distance))
@@ -809,21 +810,27 @@ with optional arrows of @code{max-size} on start and end controlled by
          (contrast-color (append (cdr base-color) (list (car base-color))))
          (min-dist-blocks (<= (- start-Y-offset min-dist) next-staff-Y))
          (min-dist-color (if min-dist-blocks contrast-color base-color))
-         (basic-annotation (annotate-y-interval layout
-                                                "basic-dist"
-                                                (cons (- start-Y-offset space) start-Y-offset)
-                                                #t
-                                                #:color (map (lambda (x) (* x 0.25)) base-color)))
-         (min-annotation (annotate-y-interval layout
-                                              "min-dist"
-                                              (cons (- start-Y-offset min-dist) start-Y-offset)
-                                              #t
-                                              #:color min-dist-color))
-         (extra-annotation (annotate-y-interval layout
-                                                "extra dist"
-                                                (cons next-staff-Y (- start-Y-offset min-dist))
-                                                #t
-                                                #:color (map (lambda (x) (* x 0.5)) min-dist-color))))
+         (name-string (if (string-null? name)
+                         ""
+                         (simple-format #f " (~a)" name)))
+         (basic-annotation
+          (annotate-y-interval layout
+                               (simple-format #f "basic-dist~a" name-string)
+                               (cons (- start-Y-offset space) start-Y-offset)
+                               #t
+                               #:color (map (lambda (x) (* x 0.25)) base-color)))
+         (min-annotation
+          (annotate-y-interval layout
+                               (simple-format #f "min-dist~a" name-string)
+                               (cons (- start-Y-offset min-dist) start-Y-offset)
+                               #t
+                               #:color min-dist-color))
+         (extra-annotation
+          (annotate-y-interval layout
+                               (simple-format #f "extra dist~a" name-string)
+                               (cons next-staff-Y (- start-Y-offset min-dist))
+                               #t
+                               #:color (map (lambda (x) (* x 0.5)) min-dist-color))))
 
     (stack-stencils X RIGHT 0.0
                     (list

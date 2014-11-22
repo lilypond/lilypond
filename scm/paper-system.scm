@@ -144,6 +144,11 @@
                   (after-Y (ly:grob-relative-coordinate after-staff grob Y)))
               (annotate-spacing-spec
                layout
+               ;; FIXME: Improve `ly:get-spacing-spec' to return the
+               ;; name of the used `XXX-XXX-spacing' property, if
+               ;; possible.  Right now we have to use the empty
+               ;; string.
+               ""
                (ly:get-spacing-spec before-staff after-staff)
                before-Y
                after-Y))))
@@ -188,21 +193,22 @@
                                                    #f)
                               #f))
 
-         (spacing-spec (cond ((and next-system
-                                   (paper-system-title? system)
-                                   (paper-system-title? next-system))
-                              (ly:output-def-lookup layout 'markup-markup-spacing))
-                             ((paper-system-title? system)
-                              (ly:output-def-lookup layout 'markup-system-spacing))
-                             ((and next-system
-                                   (paper-system-title? next-system))
-                              (ly:output-def-lookup layout 'score-markup-spacing))
-                             ((not next-system)
-                              (ly:output-def-lookup layout 'last-bottom-spacing))
-                             ((ly:prob-property system 'last-in-score #f)
-                              (ly:output-def-lookup layout 'score-system-spacing))
-                             (else
-                              (ly:output-def-lookup layout 'system-system-spacing))))
+         (spacing-spec-sym (cond ((and next-system
+                                       (paper-system-title? system)
+                                       (paper-system-title? next-system))
+                                  'markup-markup-spacing)
+                                 ((paper-system-title? system)
+                                  'markup-system-spacing)
+                                 ((and next-system
+                                       (paper-system-title? next-system))
+                                  'score-markup-spacing)
+                                 ((not next-system)
+                                  'last-bottom-spacing)
+                                 ((ly:prob-property system 'last-in-score #f)
+                                  'score-system-spacing)
+                                 (else
+                                  'system-system-spacing)))
+         (spacing-spec (ly:output-def-lookup layout spacing-spec-sym))
          (last-staff-Y (car (paper-system-staff-extents system)))
          (system-Y (ly:prob-property system 'Y-offset 0.0))
          (system-X (ly:prob-property system 'X-offset 0.0))
@@ -237,7 +243,9 @@
                                  empty-stencil))
 
          (system-annotation (annotate-spacing-spec
-                             layout spacing-spec
+                             layout
+                             (symbol->string spacing-spec-sym)
+                             spacing-spec
                              last-staff-Y
                              first-staff-next-system-Y))
          (annotations (ly:stencil-add
