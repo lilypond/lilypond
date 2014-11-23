@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: fab824ac128346465690246f7a42ce1e8b42db8d
+    Translation of GIT committish: 3c907f2dd5ba3dd91e30454922d8361225ca28d5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2234,10 +2234,17 @@ Musique balisée non précédée de @code{\keepWithTag} ou
 
 @end multitable
 
-Les arguments des commandes @code{\tag}, @code{\keepWithTag} et
-@code{\removeWithTag} doivent être un symbole ou une liste de symboles
+L'argument des commandes @code{\tag}, @code{\keepWithTag} et
+@code{\removeWithTag} doit être un symbole ou une liste de symboles
 (tel que @code{#'conducteur} ou @code{#'(violonI violonII)}), suivi
-d'une expression musicale.
+d'une expression musicale.  Si, @emph{et seulement si} les symboles sont
+des indentifiants LilyPond valides (caractères alphabétiques uniquement,
+sans chiffre, souligné ou tiret) qui ne peuvent se confondre avec des
+notes, le @code{#'} peut s'omettre et, pour raccourcir, une liste de
+symbole peut utiliser le point en séparateur -- autrement dit,
+@code{\tag #'(violinI violinII)} peut s'écrire @code{\tag
+violinI.violinII}.  Ceci s'applique aussi bien pour @code{\keepWithTag}
+que pour @code{\removeWithTag}.
 
 Dans l'exemple qui suit, nous obtenons deux versions du même extrait,
 l'une pour le conducteur, l'autre pour l'instrumentiste qui, elle,

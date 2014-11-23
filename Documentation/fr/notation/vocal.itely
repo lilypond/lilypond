@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: b58a17a6b0b6f624cee7858a74092265e0791fe2
+    Translation of GIT committish: 3c907f2dd5ba3dd91e30454922d8361225ca28d5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -150,7 +150,7 @@ syllabe.  L'exemple suivant comporte une faute de frappe évidente :
 @end example
 
 @noindent
-la dernière syllabe contient une @code{@}} ; il y a de fait un
+la dernière syllabe contient une @code{@}} ; il y a de fait un
 défaut de parité avec l'accolade ouvrante, et la compilation échouera
 fort probablement.  Prenez dès à présent l'habitude de toujours encadrer
 d'espaces une accolade :
@@ -194,7 +194,7 @@ mode @code{\markup}, utilisable y compris au sein du mode
 @code{\lyricmode}.  Des explications complètes sont disponibles au
 chapitre @ref{Mise en forme du texte}.
 
-@snippets
+1@snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {formatting-lyrics-syllables.ly}
 
@@ -224,12 +224,24 @@ Référence des propriétés internes :
 @funindex \addlyrics
 @funindex \lyricsto
 
-L'impression des paroles est réalisée à partir de l'interprétation d'un
-contexte @code{Lyrics} -- voir @ref{Tout savoir sur les contextes}.
+Les paroles sont interprétées à partir à partir du mode
+@code{\lyricmode} et imprimées dans un contexte @code{Lyrics} -- voir
+ @ref{Tout savoir sur les contextes}.
 
 @example
 \new Lyrics \lyricmode @{ @dots{} @}
 @end example
+
+Deux variantes à @code{\lyricmode} permettent de plus d'associer
+un contexte pour synchroniser les syllabes à la musique.  La plus
+commode consiste à ajouter un @code{\addlyrics} directement après
+le contenu musical du context @code{Voice} qui devrait se
+synchroniser avec le contexte @code{Lyrics} alors implicitement
+créé.  L'instruction @code{\lyricsto} est plus versatile en ceci
+qu'elle requiert de spécifier à la fois le contexte @code{Voice}
+associé  et de créer explicitement un contexte @code{Lyrics} pour
+contenir les paroles.  Pour de plus amples détails, voir
+@ref{Durée automatique des syllabes}.
 
 Vous disposez de deux méthodes pour aligner des paroles sur une
 mélodie :
@@ -397,11 +409,9 @@ Cette commande adapte les paroles aux notes de la voix (contexte
 @code{Voice} dans le jargon LilyPond) @var{melodie}.  Ce contexte
 @code{Voice} doit exister avant l'affectation des paroles par
 @code{\lyricsto}.  La commande @code{\lyricsto} introduit
-automatiquement le mode @code{\lyricmode} ; il n'est alors pas
-nécessaire de rajouter @code{\lyricmode}.  Les paroles viendront par
-défaut se placer en dessous des notes ; la rubrique
-@ref{Positionnement vertical des paroles} vous donnera des indications
-pour d'autres options.
+automatiquement le mode @code{\lyricmode}. Les paroles viendront par
+défaut se placer en dessous des notes. Pour un autre positionnement,
+voir @ref{Positionnement vertical des paroles}.
 
 
 @subheading Utilisation de @code{\addlyrics}
@@ -2472,7 +2482,7 @@ Manuel de notation :
 @ref{Mise en forme de la partition},
 @ref{Séparation des systèmes},
 @ref{Définition de la taille de portée},
-@ref{Sauts explicites},
+@ref{Sauts},
 @ref{Espacement vertical}.
 
 Référence des propriétés internes :

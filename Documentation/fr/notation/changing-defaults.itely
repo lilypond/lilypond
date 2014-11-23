@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: fab824ac128346465690246f7a42ce1e8b42db8d
+    Translation of GIT committish: 3c907f2dd5ba3dd91e30454922d8361225ca28d5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2785,6 +2785,7 @@ qu'au travers d'une complète redéfinition de leur liste associative.}
 * Modes de saisie::
 * Direction et positionnement::
 * Distances et unités de mesure::
+* Dimensions::
 * Propriétés des symboles de la portée::
 * Extenseurs et prolongateurs::
 * Visibilité des objets::
@@ -3075,6 +3076,36 @@ Manuel d'initiation :
 Manuel de notation :
 @ref{Définition de la taille de portée},
 @ref{Mise en forme de la page}.
+
+
+@node Dimensions
+@subsection Dimensions
+@translationof Dimensions
+
+@cindex dimensions
+@cindex bounding box
+
+Les dimensions d'un objet graphique spécifient la position des bords
+droit et gauche ainsi que des bords supérieur et inférieur de la boîte
+englobante de ces objets, en tant que distance par rapport au point de
+référence de l'objet et en unité d'espace de portée.  Ces positions sont
+normalement codées sous la forme de deux paires Scheme.  Par exemple, la
+commande de @emph{markup} @code{\with-dimensions} prend trois arguments,
+les deux premiers étant des paires Scheme donnant la position des bords
+gauche et droit et celle des bords inférieur et supérieur :
+
+@example
+\with-dimensions #'(-5 . 10) #'(-3 . 15) @var{argument3}
+@end example
+
+Ceci spécifie une boîte englobante pour @var{argument3} dont le bord
+gauche est à @minus{}5, le bord droit à 10, le bord inférieur
+à @minus{}3 et le bord supérieur à 15 espaces de portée du point de
+référence de cet objet.
+
+@seealso
+Manuel de notation :
+@ref{Distances et unités de mesure}.
 
 
 @node Propriétés des symboles de la portée
@@ -3606,18 +3637,18 @@ fonctions prédéfinies, regroupées dans le fichier
 @file{scm/output-lib.scm}.  Le tableau suivant vous les présente ;
 les trois dernières colonnes indiquent l'endroit où l'objet sera visible.
 
-@multitable {@code{begin-of-line-invisible}} {@code{'#(#t #t #t)}} {apres} {apres} {apres}
+@multitable {@code{begin-of-line-invisible}} {@code{#(#t #t #t)}} {apres} {apres} {apres}
 @headitem Forme                      @tab Forme                  @tab Avant @tab Hors    @tab Après
 @headitem fonctionnelle              @tab vectorielle            @tab saut  @tab saut    @tab saut
 
-@item @code{all-visible}             @tab @code{'#(#t #t #t)}    @tab oui    @tab oui    @tab oui
-@item @code{begin-of-line-visible}   @tab @code{'#(#f #f #t)}    @tab non    @tab non    @tab oui
-@item @code{center-visible}          @tab @code{'#(#f #t #f)}    @tab non    @tab oui    @tab non
-@item @code{end-of-line-visible}     @tab @code{'#(#t #f #f)}    @tab oui    @tab non    @tab non
-@item @code{begin-of-line-invisible} @tab @code{'#(#t #t #f)}    @tab oui    @tab oui    @tab non
-@item @code{center-invisible}        @tab @code{'#(#t #f #t)}    @tab oui    @tab non    @tab oui
-@item @code{end-of-line-invisible}   @tab @code{'#(#f #t #t)}    @tab non    @tab oui    @tab oui
-@item @code{all-invisible}           @tab @code{'#(#f #f #f)}    @tab non    @tab non    @tab non
+@item @code{all-visible}             @tab @code{#(#t #t #t)}    @tab oui    @tab oui    @tab oui
+@item @code{begin-of-line-visible}   @tab @code{#(#f #f #t)}    @tab non    @tab non    @tab oui
+@item @code{center-visible}          @tab @code{#(#f #t #f)}    @tab non    @tab oui    @tab non
+@item @code{end-of-line-visible}     @tab @code{#(#t #f #f)}    @tab oui    @tab non    @tab non
+@item @code{begin-of-line-invisible} @tab @code{#(#t #t #f)}    @tab oui    @tab oui    @tab non
+@item @code{center-invisible}        @tab @code{#(#t #f #t)}    @tab oui    @tab non    @tab oui
+@item @code{end-of-line-invisible}   @tab @code{#(#f #t #t)}    @tab non    @tab oui    @tab oui
+@item @code{all-invisible}           @tab @code{#(#f #f #f)}    @tab non    @tab non    @tab non
 @end multitable
 
 Les réglages par défaut de la propriété @code{break-visibility}

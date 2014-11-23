@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 0a003d729ded8b728bf627c87c196719676dba6b
+    Translation of GIT committish: 3c907f2dd5ba3dd91e30454922d8361225ca28d5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -60,7 +60,7 @@ Aussi, si vous ne savez de quoi il retourne, nous vous renvoyons aux
 nombreuses documentations que vous pourrez trouver sur ce sujet.
 
 @menu
-* Lancement de lilypond::
+* Lancement de LilyPond::
 * Options basiques de lilypond::
 * Options avancées de lilypond::
 * Variables d'environnement::
@@ -68,8 +68,8 @@ nombreuses documentations que vous pourrez trouver sur ce sujet.
 @end menu
 
 
-@node Lancement de lilypond
-@unnumberedsubsec Lancement de @command{lilypond}
+@node Lancement de LilyPond
+@unnumberedsubsec Lancement de LilyPond
 @translationof Invoking LilyPond
 
 L'exécutable @command{lilypond} en ligne de commande se lance ainsi :
@@ -1031,6 +1031,7 @@ facilement.
 * Message d'erreur FT_Get_Glyph_Name::
 * staff-affinities devraient aller en ordre décroissant::
 * Message d'erreur unexpected new::
+* Trop d'empilements de notes se chevauchent::
 @end menu
 
 
@@ -1192,3 +1193,44 @@ dit, LilyPond les traitera simultanément :
   >>
 }
 @end lilypond
+
+
+@node Trop d'empilements de notes se chevauchent
+@unnumberedsubsec Trop d'empilements de notes se chevauchent
+@translationof Warning ignoring too many clashing note columns
+
+Lorsque des notes affectées à des voix différentes et ayant la même
+orientation de hampe interviennent au même instant musical et qu'aucun
+décalage spécifique à la voix n'a été spécifié, LilyPond émet
+@code{Avertissement : trop d'empilements de notes se chevauchent. On
+fera au mieux} (@emph{warning: ignoring too many clashing note columns}).
+Cet avertissement est émis même lorsque ces notes n'ont pas de hampe
+visible, comme par exemple des rondes, si les hampes des durées
+inférieures à ces même hauteurs avaient la même orientation.
+
+N'oublions pas que l'orientation des hampes dépend de la position des
+notes sur la portée à moins que cette orientation n'ait été spécifiée,
+par exemple à l'aide d'un @code{\voiceOne} ou autre clause.  En pareil
+cas, l'avertissement ne sera émis que lorsque les hampes auront la même
+orientation, autrement dit lorsque les notes seront dans la même moitié
+de la portée.
+
+Le fait de placer les notes dans des voix auxquelles sont attachés
+orientation de hampe et décalage, comme @code{\voiceOne} ou autre, peut
+permettre d'éviter ces avertissements.
+
+Les notes se trouvant dans des voix au numéro plus élévé --
+@code{\voiceThree} ou @code{\voiceFour} -- sont automatiquement décalées
+pour éviter que les empilements se chevauchent.  Ceci aura pour résultat
+de visuellement décaler les notes affublées de hampe sans toutefois
+bouger les rondes, hormis dans le cas d'un réel chevauchement ou lorsque
+ces voix se croisent (@code{\voiceThree} au dessus de@code{\voiceOne}).
+
+@seealso
+Manuel d'initiation :
+@rlearning{Instanciation explicite des voix},
+@rlearning{Exemple concret}.
+
+Manuel de notation :
+@ruser{Polyphonie sur une portée},
+@ruser{Résolution des collisions}.
