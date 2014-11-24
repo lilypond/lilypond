@@ -44,6 +44,12 @@
     (ly:in-event-class? x 'note-event))
   (filter f? (events vs)))
 
+(define-method (rest-and-skip-events (vs <Voice-state>))
+  (define (f? x)
+    (or (ly:in-event-class? x 'rest-event)
+        (ly:in-event-class? x 'skip-event)))
+  (filter f? (events vs)))
+
 (define-method (previous-voice-state (vs <Voice-state>))
   (let ((i (slot-ref vs 'vector-index))
         (v (slot-ref vs 'state-vector)))
@@ -432,18 +438,64 @@ Only set if not set previously.
           (let* ((now-state (vector-ref result result-idx))
                  (vs1 (car (voice-states now-state)))
                  (vs2 (cdr (voice-states now-state))))
-            (if (and (equal? (configuration now-state) 'chords)
-                     vs1 vs2)
-                (let ((notes1 (note-events vs1))
-                      (notes2 (note-events vs2)))
-                  (cond ((and (= 1 (length notes1))
+
+            (define (analyse-silence)
+              (let ((rests1 (if vs1 (rest-and-skip-events vs1) '()))
+                    (rests2 (if vs2 (rest-and-skip-events vs2) '())))
+                (cond
+                 
+                 ;; multi-measure rests (probably), which the
+                 ;; part-combine iterator handles well
+                 ((and (synced? now-state)
+                       (= 0 (length rests1))
+                       (= 0 (length rests2)))
+                  (set! (configuration now-state) 'unisilence))
+                 
+                 ;; equal rests or equal skips, but not one of each
+                 ((and (synced? now-state)
+                       (= 1 (length rests1))
+                       (= 1 (length rests2))
+                       (equal? (ly:event-property (car rests1) 'class)
+                               (ly:event-property (car rests2) 'class))
+                       (equal? (ly:event-property (car rests1) 'duration)
+                               (ly:event-property (car rests2) 'duration)))
+                  (set! (configuration now-state) 'unisilence))
+                 
+                 ;; rests of different durations or mixed with
+                 ;; skips or multi-measure rests
+                 ((synced? now-state)
+                  ;; TODO When one part has a rest and the other has a
+                  ;; multi-measure rest, tell the part-combine
+                  ;; iterator to route the part with the rest to the
+                  ;; shared voice.  Until there is a way to do this,
+                  ;; we print them both; it does not look very good,
+                  ;; but failing to print the rest is misleading.
+                  ;;
+                  ;; Maybe do something similar for skips; route
+                  ;; the rest to the shared voice and the skip to
+                  ;; the voice for its part.
+                  (set! (configuration now-state) 'apart-silence))
+                 
+                 ;; TODO At a multi-measure rest, return to unisilence
+                 ;; even after having been apart.  The results are not
+                 ;; good now because of the deficiency mentioned
+                 ;; above.
+                 )))
+
+            (if (or vs1 vs2)
+                (let ((notes1 (if vs1 (note-events vs1) '()))
+                      (notes2 (if vs2 (note-events vs2) '())))
+                  ; Todo: What about a2 chords, e.g. string multi-stops?
+                  ; Sort and compare notes1 and notes2?
+                  (cond ((and (equal? (configuration now-state) 'chords)
+                              (= 1 (length notes1))
                               (= 1 (length notes2))
                               (equal? (ly:event-property (car notes1) 'pitch)
                                       (ly:event-property (car notes2) 'pitch)))
                          (set! (configuration now-state) 'unisono))
                         ((and (= 0 (length notes1))
                               (= 0 (length notes2)))
-                         (set! (configuration now-state) 'unisilence)))))
+                         (analyse-silence)))))
             (analyse-a2 (1+ result-idx)))))
 
     (define (analyse-solo12 result-idx)
