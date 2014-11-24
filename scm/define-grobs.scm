@@ -2116,7 +2116,7 @@
             ;; Stems in unnatural (forced) direction should be shortened by
             ;; one staff space, according to [Roush & Gourlay].
             ;; Flagged stems we shorten only half a staff space.
-            (stem-shorten . (1.0 0.5))
+            (stem-shorten . (1.0 0.5 0.25))
 
             ))
 
