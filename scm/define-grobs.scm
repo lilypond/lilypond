@@ -1504,7 +1504,7 @@
         (expand-limit . 10)
         (hair-thickness . 2.0)
         (round-up-exceptions . ())
-        (padding . 0.5)
+        (bound-padding . 0.5)
         (spacing-pair . (break-alignment . break-alignment))
         (springs-and-rods . ,ly:multi-measure-rest::set-spacing-rods)
         (stencil . ,ly:multi-measure-rest::print)

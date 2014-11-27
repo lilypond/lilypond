@@ -368,8 +368,8 @@ Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
                 + options.get_duration_space (mlen.main_part_);
     }
 
-  length += 2 * robust_scm2double (me->get_property ("bound-padding"), 0.0)
-            + 2 * robust_scm2double (me->get_property ("padding"), 0.0);
+  length += 2 * robust_scm2double (me->get_property ("bound-padding"), 0.0);
+
   Real minlen = robust_scm2double (me->get_property ("minimum-length"), 0.0);
 
   Item *combinations[4][2] = {{li, ri},
@@ -432,7 +432,6 @@ ADD_INTERFACE (Multi_measure_rest,
                "hair-thickness "
                "measure-count "
                "minimum-length "
-               "padding "
                "round-up-exceptions "
                "round-up-to-longer-rest "
                "spacing-pair "
