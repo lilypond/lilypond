@@ -1505,6 +1505,7 @@
         (hair-thickness . 2.0)
         (round-up-exceptions . ())
         (bound-padding . 0.5)
+        (space-increment . 2.0)
         (spacing-pair . (break-alignment . break-alignment))
         (springs-and-rods . ,ly:multi-measure-rest::set-spacing-rods)
         (stencil . ,ly:multi-measure-rest::print)
@@ -1523,7 +1524,7 @@
 
     (MultiMeasureRestNumber
      . (
-        (bound-padding  . 2.0)
+        (bound-padding  . 1.0)
         (direction . ,UP)
         (font-encoding . fetaText)
         (padding . 0.4)

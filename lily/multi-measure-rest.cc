@@ -365,7 +365,9 @@ Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
       Moment mlen = robust_scm2moment (li->get_property ("measure-length"),
                                        Moment (1));
       length += robust_scm2double (li->get_property ("full-measure-extra-space"), 0.0)
-                + options.get_duration_space (mlen.main_part_);
+                + options.get_duration_space (mlen.main_part_)
+                + (robust_scm2double (me->get_property ("space-increment"), 0.0)
+                   * log_2 (robust_scm2int (me->get_property ("measure-count"), 1)));
     }
 
   length += 2 * robust_scm2double (me->get_property ("bound-padding"), 0.0);
@@ -434,6 +436,7 @@ ADD_INTERFACE (Multi_measure_rest,
                "minimum-length "
                "round-up-exceptions "
                "round-up-to-longer-rest "
+               "space-increment "
                "spacing-pair "
                "thick-thickness "
                "usable-duration-logs "

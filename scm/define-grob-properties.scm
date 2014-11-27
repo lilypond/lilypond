@@ -1284,6 +1284,9 @@ relevant for finding the @code{pure-Y-extent}.")
 grobs.")
      (slur ,ly:grob? "A pointer to a @code{Slur} object.")
      (spacing ,ly:grob? "The spacing spanner governing this section.")
+     (space-increment ,ly:dimension? "The amount by which the total duration
+of a multimeasure rest affects horizontal spacing.  Each doubling of the
+duration adds @code{space-increment} to the length of the bar.")
      (spacing-wishes ,ly:grob-array? "An array of note spacing or staff spacing
 objects.")
      (span-start ,boolean? "Is the note head at the start of a spanner?")
