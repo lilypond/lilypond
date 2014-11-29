@@ -378,6 +378,72 @@ fet_beginchar ("Classical quarter rest", "2classical");
 fet_endchar;
 
 
+fet_beginchar ("Z-shaped quarter rest", "2z");
+	save ycenter;
+	save pat, bulb, rest;
+	path pat, bulb, rest;
+	show_labels := 0;
+
+	set_char_box (0, 1.125 staff_space#,
+		      0.5 staff_space# + bulb_diam# / 2,
+		      0.5 staff_space# + bulb_diam# / 2);
+
+	% The brushes on other rests taper from thin to thick,
+	% but because this rest has a bulb on both ends, use
+	% a constant thickness somewhere in between.
+	slash_thickness := (7 thin + 3 thick) / 10;
+
+	x1 = 0 + hround 0.5 slash_thickness;
+	y1 = -(d - vround 0.5 slash_thickness);
+	x2 = w - hround 0.5 slash_thickness;
+	y2 = h - vround 0.5 slash_thickness;
+
+	penpos1 (slash_thickness, angle(z2 - z1) - 90);
+	penpos2 (slash_thickness, angle(z2 - z1) - 90);
+
+	z9 = z2 + 0.5 slash_thickness * dir (angle (z2 - z1));
+	z12 = z1 + 0.5 slash_thickness * dir (angle (z1 - z2));
+	y9 := vround y9;
+
+	x1l := hround x1l;
+	x1r := hround x1r;
+	x1 := .5 [x1l, x1r];
+
+	x2l := hround x2l;
+	x2r := hround x2r;
+	x2 := .5 [x2l, x2r];
+
+	if show_labels = 1:
+		penlabels (1, 2);
+		labels (9, 12);
+	fi;
+
+	pat = z1l
+	      -- z2l
+	      .. z9
+	      .. z2r
+	      -- z1r
+	      .. cycle;
+	bulb = draw_rest_bulb (0.5 staff_space, y2r, pat, 1.0, show_labels);
+
+	rest = z12
+	       .. bulb rotatedaround ((0.5 w, 0), 180)
+	       -- z2r
+	       .. z9
+	       .. bulb
+	       -- z1l
+	       .. cycle;
+
+	if show_labels = 0:
+		rest := rest xscaled -1 shifted (w, 0);
+	fi;
+
+	fill rest;
+
+	draw_staff_if_debugging (-2, 2);
+fet_endchar;
+
+
 fet_beginchar ("8th rest", "3");
 	draw_eighth_rest (1);
 fet_endchar;
