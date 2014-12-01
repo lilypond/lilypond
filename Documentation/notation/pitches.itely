@@ -510,7 +510,7 @@ In addition to note names, accidental suffixes may
 also vary depending on the language:
 
 @quotation
-@multitable {@code{nederlands}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
+@multitable {@code{nederlands}} {-s/--sharp} {-ess/-es} {-ss/-x/--sharpsharp} {-essess/-eses}
 @headitem Language
   @tab sharp @tab flat @tab double sharp @tab double flat
 @item @code{nederlands}
@@ -520,8 +520,8 @@ also vary depending on the language:
 @item @code{deutsch}
   @tab -is @tab -es @tab -isis @tab -eses
 @item @code{english}
-  @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
-    @tab -ff/-flatflat
+  @tab -s/--sharp @tab -f/--flat @tab -ss/-x/--sharpsharp
+    @tab -ff/--flatflat
 @item @code{espanol} or @code{español}
   @tab -s @tab -b @tab -ss/-x @tab -bb
 @item @code{italiano} or @code{français}

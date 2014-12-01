@@ -3723,9 +3723,11 @@ def conv(str):
     str = re.sub (r'\bthin-kern\b', 'segno-kern', str)
     return str
 
-@rule ((2, 19, 16), "implicitTimeSignatureVisibility -> initialTimeSignatureVisibility")
+@rule ((2, 19, 16), """implicitTimeSignatureVisibility -> initialTimeSignatureVisibility
+csharp -> c-sharp""")
 def conv(str):
     str = re.sub (r'\bimplicitTimeSignatureVisibility\b', 'initialTimeSignatureVisibility', str)
+    str = re.sub (r'\b([a-g])((?:sharp){1,2}|(?:flat){1,2})\b',r'\1-\2', str)
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)
