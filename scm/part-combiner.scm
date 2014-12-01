@@ -319,9 +319,11 @@ LilyPond version 2.8 and earlier."
       (if (< result-idx (vector-length result))
           (let* ((now-state (vector-ref result result-idx)) ; current result
                  ;; Extract all part-combine force events
-                 (ev1 (part-combine-events (car (voice-states now-state))))
-                 (ev2 (part-combine-events (cdr (voice-states now-state))))
-                 (evts (append ev1 ev2))
+                 (evts (if (synced? now-state)
+                           (append
+                            (part-combine-events (car (voice-states now-state)))
+                            (part-combine-events (cdr (voice-states now-state))))
+                           '()))
                  ;; result is (once-state permament-state):
                  (state (fold forced-result (cons 'automatic prev-res) evts))
                  ;; Now let once override permanent changes:

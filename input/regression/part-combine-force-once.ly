@@ -16,6 +16,7 @@ mI = \relative c' {
 	c \partcombineUnisonoOnce c c c |
 	\partcombineAutomatic \partcombineSoloIOnce r2 c4 c |
 	\partcombineSoloIIOnce R1 |
+	d'2 \partcombineChordsOnce d4^"1 chord" d|
 }
 mII = \relative c' {
 	c4 \partcombineApartOnce c c c |
@@ -23,6 +24,7 @@ mII = \relative c' {
 	c c c c |
 	R1 |
 	r2 c4 c |
+	b4 b b b |
 }
 
 \score {
