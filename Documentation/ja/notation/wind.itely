@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.19.16"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -196,9 +196,9 @@ LilyPond はスコティッシュ、ハイランド バグパイプ音楽のた�
 
 現代音楽のなかには、@c
 C と F をフラットにするためクロス フィンガリングを使うものがあります。@c
-これは @code{cflat} や @code{fflat} で示すことができます。@c
+これは @code{c-flat} や @code{f-flat} で示すことができます。@c
 同様に、軽音楽のピブロホ ハイ G (piobaireachd high g) は、@c
-@code{gflat} で示すことができます。
+@code{g-flat} で示すことができます。
 
 @seealso
 コード断片集:

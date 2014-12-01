@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.19.16"
 
 @node Wind instruments
 @section Wind instruments
@@ -182,8 +182,8 @@ reason want to show the key signature, you can use @code{\showKeySignature}
 instead.
 
 Some modern music use cross fingering on c and f to flatten those notes.
-This can be indicated by @code{cflat} or @code{fflat}.  Similarly, the
-piobaireachd high g can be written @code{gflat} when it occurs in light
+This can be indicated by @code{c-flat} or @code{f-flat}.  Similarly, the
+piobaireachd high g can be written @code{g-flat} when it occurs in light
 music.
 
 @seealso
