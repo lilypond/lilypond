@@ -904,7 +904,8 @@ Standard choices for @w{@code{@var{break-align-symbol}}} are listed in
 used when the grob is just left of the first note on a line
 
 @item next-note
-used when the grob is just left of any other note
+used when the grob is just left of any other note;
+if not set, the value of @code{first-note} gets used
 
 @item right-edge
 used when the grob is the last item on the line (only compatible with
