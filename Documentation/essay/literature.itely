@@ -23,11 +23,8 @@ Here are lists of references used in LilyPond.
 @node Short literature list
 @section Short literature list
 
-
 If you need to know more about music notation, here are some
 interesting titles to read.
-
-
 
 @table @cite
 @item Ignatzek 1995
@@ -38,12 +35,22 @@ A tutorial introduction to playing Jazz on the piano.  One of the first
 chapters contains an overview of chords in common use for Jazz music.
 
 @item Gerou 1996
-
 Tom Gerou and Linda Lusk, Essential Dictionary of Music
 Notation. Alfred Publishing, Van Nuys CA ISBN 0-88284-768-6.
 
 A concise, alphabetically ordered list of typesetting and music
 (notation) issues, covering most of the normal cases.
+
+@item Gould 2011
+Elaine Gould, Behind Bars: the Definitive Guide to Music Notation.
+Faber Music Ltd. ISBN 0-571-51456-1.
+
+Hals über Kopf: Das Handbuch des Notensatzes.
+Edition Peters. ISBN 1843670488.
+
+A comprehensive guide to the rules and conventions of music notation.
+Covering everything from basic themes to complex techniques and
+providing a comprehensive grounding in notational principles.
 
 @item Read 1968
 Gardner Read, Music Notation: A Manual of Modern Practice.
