@@ -128,6 +128,44 @@ particular shell, Command (Windows), Terminal or Console
 applications (MacOS X) to see if output redirection is supported or if
 the syntax is different.
 
+The following example searches and converts all input files in the
+current directory and all directories below it recursively.  The output
+files will be located in the same directory that the command was run in,
+rather than in the same directories as the original input files.
+
+@example
+find . -name '*.ly' -exec lilypond '@{@}' \;
+@end example
+
+@noindent
+This should also work for MacOS@tie{}X users.
+
+A Windows user would run;
+
+@example
+forfiles /s /M *.ly /c "cmd /c lilypond @@file"
+@end example
+
+@noindent
+entering these commands in a @code{command prompt} usually found under
+@code{Start > Accessories > Command Prompt} or for version 8 users,
+by typing in the search window @q{command prompt}.
+
+Alternatively, an explicit path to the top-level of your folder
+containing all the sub-folders that have input files in them can be
+stated using the @code{/p} option;
+
+@example
+forfiles /s /p C:\Documents\MyScores /M *.ly /c "cmd /c lilypond @@file"
+@end example
+
+If there are spaces in the path to the top-level folder, then the whole
+path needs to be inside double quotes;
+
+@example
+forfiles /s /p "C:\Documents\My Scores" /M *.ly /c "cmd /c lilypond @@file"
+@end example
+
 
 @node Basic command line options for LilyPond
 @unnumberedsubsec Basic command line options for LilyPond
