@@ -3209,18 +3209,26 @@ do this, see @ruser{Modifying ties and slurs}.
 Here's a further example.  We see that the beams
 collide with the ties:
 
-@lilypond[quote,verbatim,fragment,ragged-right]
+@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
 {
   \time 4/2
   <<
-    { c'1 ~ 2. e'8 f' }
+    { c1~ 2. e8 f }
     \\
-    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+    {
+      e'8 e e e
+      e e e e
+      f2 g
+    }
   >>
   <<
-    { c'1 ~ 2. e'8 f' }
+    { c,,1~ 2. e8 f }
     \\
-    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+    {
+      e'8 e e e
+      e e e e
+      f2 g
+    }
   >>
 }
 @end lilypond
@@ -3233,29 +3241,37 @@ say, 1:
 @cindex Beam, example of overriding
 @cindex positions property, example
 
-@lilypond[quote,verbatim,fragment,ragged-right]
+@lilypond[quote,verbatim,ragged-right,relative=1]
 {
   \time 4/2
   <<
-    { c'1 ~ 2. e'8 f' }
+    { c1~ 2. e8 f }
     \\
     {
       \override Beam.positions = #'(-1 . -1)
-      e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g''
+      e'8 e e e
+      e e e e
+      f2 g
     }
   >>
   <<
-    { c'1 ~ 2. e'8 f' }
+    { c,,1~ 2. e8 f }
     \\
-    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+    {
+      e'8 e e e
+      e e e e
+      f2 g
+      \revert Beam.positions
+    }
   >>
 }
 @end lilypond
 
 @noindent
-Note that the override continues to apply in the first voice of
+Note that the override continues to apply in the second voice of
 the second measure of eighth notes, but not to any of the beams in the
-second voice.
+first voice, even those in the later second measure.  As soon as the
+override should no longer apply it should be reverted, as shown.
 
 @node The force-hshift property
 @unnumberedsubsubsec The @code{force-hshift} property
