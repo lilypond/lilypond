@@ -37,21 +37,39 @@ void
 Slur_proto_engraver::derived_mark () const
 {
   for (vsize i = start_events_.size (); i--;)
-    scm_gc_mark (start_events_[i]->self_scm ());
+    {
+      scm_gc_mark (start_events_[i].slur_->self_scm ());
+      scm_gc_mark (start_events_[i].note_->self_scm ());
+    }
   for (vsize i = stop_events_.size (); i--;)
-    scm_gc_mark (stop_events_[i]->self_scm ());
+    {
+      scm_gc_mark (stop_events_[i].slur_->self_scm ());
+      scm_gc_mark (stop_events_[i].note_->self_scm ());
+    }
 }
 
 void
-Slur_proto_engraver::listen_slur (Stream_event *ev)
+Slur_proto_engraver::listen_slur (Stream_event *ev, Stream_event *note)
 {
   Direction d = to_dir (ev->get_property ("span-direction"));
   if (d == START)
-    start_events_.push_back (ev);
+    start_events_.push_back (Event_info (ev, note));
   else if (d == STOP)
-    stop_events_.push_back (ev);
+    stop_events_.push_back (Event_info (ev, note));
   else ev->origin ()->warning (_f ("direction of %s invalid: %d",
                                      event_name_, int (d)));
+}
+
+void
+Slur_proto_engraver::listen_note (Stream_event *ev)
+{
+  for (SCM arts = ev->get_property ("articulations");
+       scm_is_pair (arts); arts = scm_cdr (arts))
+    {
+      Stream_event *art = unsmob<Stream_event> (scm_car (arts));
+      if (art->in_event_class (event_symbol ()))
+        listen_slur (art, ev);
+    }
 }
 
 void
@@ -231,25 +249,27 @@ Slur_proto_engraver::process_music ()
 {
   for (vsize i = 0; i < stop_events_.size (); i++)
     {
-      string id = robust_scm2string (stop_events_[i]->get_property ("spanner-id"), "");
-      bool ended = try_to_end (stop_events_[i]);
+      string id = robust_scm2string
+        (stop_events_[i].slur_->get_property ("spanner-id"), "");
+      bool ended = try_to_end (stop_events_[i].slur_);
       if (ended)
         {
           // Ignore redundant stop events for this id
           for (vsize j = stop_events_.size (); --j > i;)
             {
-              if (id == robust_scm2string (stop_events_[j]->get_property ("spanner-id"), ""))
+              if (id == robust_scm2string
+                  (stop_events_[j].slur_->get_property ("spanner-id"), ""))
                 stop_events_.erase (stop_events_.begin () + j);
             }
         }
       else
-        stop_events_[i]->origin ()->warning (_f ("cannot end %s", object_name_));
+        stop_events_[i].slur_->origin ()->warning (_f ("cannot end %s", object_name_));
     }
 
   vsize old_slurs = slurs_.size ();
   for (vsize i = start_events_.size (); i--;)
     {
-      Stream_event *ev = start_events_[i];
+      Stream_event *ev = start_events_[i].slur_;
       string id = robust_scm2string (ev->get_property ("spanner-id"), "");
       Direction updown = to_dir (ev->get_property ("direction"));
 

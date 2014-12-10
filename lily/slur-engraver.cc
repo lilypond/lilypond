@@ -37,6 +37,7 @@ class Slur_engraver : public Slur_proto_engraver
 
 protected:
   DECLARE_TRANSLATOR_LISTENER (slur);
+  DECLARE_TRANSLATOR_LISTENER (note);
 
 public:
   SCM event_symbol ();
@@ -60,6 +61,13 @@ void
 Slur_engraver::listen_slur (Stream_event *ev)
 {
   Slur_proto_engraver::listen_slur (ev);
+}
+
+IMPLEMENT_TRANSLATOR_LISTENER (Slur_engraver, note);
+void
+Slur_engraver::listen_note (Stream_event *ev)
+{
+  Slur_proto_engraver::listen_note (ev);
 }
 
 void

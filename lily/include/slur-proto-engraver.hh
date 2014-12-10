@@ -32,9 +32,15 @@ protected:
       grob_name_ (grob_name), object_name_ (object_name),
       event_name_ (event_name) {}
 
+  struct Event_info {
+    Stream_event *slur_, *note_;
+    Event_info (Stream_event *slur, Stream_event *note)
+      : slur_ (slur), note_ (note)
+    { }
+  };
   // protected so that subclasses can see them
-  std::vector<Stream_event *> start_events_;
-  std::vector<Stream_event *> stop_events_;
+  std::vector<Event_info> start_events_;
+  std::vector<Event_info> stop_events_;
   std::vector<Grob *> slurs_;
   std::vector<Grob *> end_slurs_;
   std::vector<Grob_info> objects_to_acknowledge_;
@@ -53,7 +59,8 @@ protected:
   DECLARE_END_ACKNOWLEDGER (tie);
   DECLARE_ACKNOWLEDGER (tuplet_number);
 
-  void listen_slur (Stream_event *ev);
+  void listen_note (Stream_event *ev);
+  void listen_slur (Stream_event *ev, Stream_event *note = 0);
   void acknowledge_extra_object (Grob_info);
   void stop_translation_timestep ();
   void process_music ();

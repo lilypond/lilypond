@@ -35,6 +35,7 @@ class Phrasing_slur_engraver : public Slur_proto_engraver
 {
 protected:
   DECLARE_TRANSLATOR_LISTENER (phrasing_slur);
+  DECLARE_TRANSLATOR_LISTENER (note);
   DECLARE_ACKNOWLEDGER (slur);
 
 public:
@@ -59,6 +60,13 @@ void
 Phrasing_slur_engraver::listen_phrasing_slur (Stream_event *ev)
 {
   Slur_proto_engraver::listen_slur (ev);
+}
+
+IMPLEMENT_TRANSLATOR_LISTENER (Phrasing_slur_engraver, note);
+void
+Phrasing_slur_engraver::listen_note (Stream_event *ev)
+{
+  Slur_proto_engraver::listen_note (ev);
 }
 
 void
