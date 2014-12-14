@@ -256,7 +256,13 @@ Paper_column::get_interface_extent (Grob *column, SCM iface, Axis a)
   to your score.
   Also, as of 2013-10-16 there's a switch in Frescobaldi that turns this on.
 */
-MAKE_SCHEME_CALLBACK (Paper_column, print, 1);
+MAKE_DOCUMENTED_SCHEME_CALLBACK (Paper_column, print, 1,
+                                 "Optional stencil for @code{PaperColumn} or"
+                                 "@code{NonMusicalPaperColumn}.\n"
+                                 "Draws the @code{rank number} of each column,"
+                                 " its moment in time, a blue arrow showing the"
+                                 " ideal distance, and a red arrow showing the"
+                                 " minimum distance between columns.");
 SCM
 Paper_column::print (SCM p)
 {
