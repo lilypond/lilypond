@@ -73,7 +73,6 @@ public:
   Skyline (Box const &b, Axis a, Direction sky);
 
   vector<Offset> to_points (Axis) const;
-  void deholify ();
   void merge (Skyline const &);
   void insert (Box const &, Axis);
   void print () const;

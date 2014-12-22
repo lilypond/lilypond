@@ -233,32 +233,6 @@ Skyline::normalize ()
 }
 
 void
-Skyline::deholify ()
-{
-  // Since a skyline should always be normalized, we can
-  // assume that there are never two adjacent empty buildings.
-  // That is, if center is empty then left and right are not.
-  list<Building>::iterator left = buildings_.begin ();
-  list<Building>::iterator center = buildings_.begin ();
-  list<Building>::iterator right;
-
-  for (right = buildings_.begin (); right != buildings_.end (); right++)
-    {
-      if (center != buildings_.begin () && center->y_intercept_ == -infinity_f)
-        {
-          printf ("We are here");
-          exit (17); // not-reached
-          Real p1 = left->height (left->end_);
-          Real p2 = right->height (right->start_);
-          *center = Building (center->start_, p1, p2, center->end_);
-
-          left = center;
-          center = right;
-        }
-    }
-}
-
-void
 Skyline::internal_merge_skyline (list<Building> *s1, list<Building> *s2,
                                  list<Building> *const result) const
 {
