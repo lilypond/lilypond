@@ -1440,7 +1440,7 @@ Page_breaking::finalize_spacing_result (vsize configuration, Page_spacing_result
     }
 
   for (vsize i = ragged () ? res.force_.size () - 1 : 0;
-       i < res.force_.size () - ragged_last ();
+       i < res.force_.size () - (is_last () && ragged_last ());
        i++)
     {
       Real f = res.force_[i];
