@@ -22,7 +22,6 @@
 #include <deque>
 #include <cstdio>
 
-
 /* A skyline is a sequence of non-overlapping buildings: something like
    this:
                    _______
@@ -124,11 +123,11 @@ Building::precompute (Real start, Real start_height, Real end_height, Real end)
       assert (start_height == end_height);
       y_intercept_ = start_height;
     }
-  else if (fabs(slope_) > 1e6)
+  else if (fabs (slope_) > 1e6)
     // too steep to be stored in slope-intercept form, given round-off error
     {
       slope_ = 0.0;
-      y_intercept_ = max(start_height, end_height);
+      y_intercept_ = max (start_height, end_height);
     }
   else
     y_intercept_ = start_height - slope_ * start;
@@ -175,48 +174,36 @@ Building::shift_to_intersect (Real x, Real y) const
 
 static Real
 first_intersection (Building const &b, list<Building> *s, Real start_x)
-/* Return the first x >= start_x where skyline s above Building b.
- * Removes buildings from s that are concealed by b. */
+/* Return the first x (start_x <= x <= b.end)
+ * where skyline s is clear of Building b.
+ * Removes buildings from s that are fully concealed by b. */
 {
-  while (!s->empty () && start_x < b.end_)
+  for ( ; !s->empty (); s->pop_front ())
     {
       Building c = s->front ();
 
-      // conceals and intersection_x involve multiplication and
+      start_x = max (start_x, c.start_);
+      if (start_x >= b.end_)
+        return b.end_;
+
+      // height and intersection_x involve multiplication and
       // division. Avoid that, if we can.
-      if (c.y_intercept_ == -infinity_f)
+      if (c.y_intercept_ != -infinity_f)
         {
-          if (c.end_ > b.end_)
-            return b.end_;
-          start_x = c.end_;
-          s->pop_front ();
-          continue;
+          if (c.height (start_x) > b.height (start_x))
+            return start_x;
+
+          if (c.height (b.end_) > b.height (b.end_))
+            {
+              Real i = b.intersection_x (c);
+              if (i <= b.end_ && i <= c.end_)
+                return max (start_x, i);
+            }
         }
-
-      if (c.conceals (b, start_x))
-        return start_x;
-
-      Real i = b.intersection_x (c);
-      if (i > start_x && i <= b.end_ && i <= c.end_)
-        return i;
-
-      start_x = c.end_;
-      if (b.end_ > c.end_)
-        s->pop_front ();
+      if (c.end_ >= b.end_)
+        return b.end_; // leave this c on the list s
     }
   return b.end_;
-}
-
-bool
-Building::conceals (Building const &other, Real x) const
-{
-  if (slope_ == other.slope_)
-    return y_intercept_ > other.y_intercept_;
-
-  /* their slopes were not equal, so there is an intersection point */
-  Real i = intersection_x (other);
-  return (i <= x && slope_ > other.slope_)
-         || (i > x && slope_ < other.slope_);
 }
 
 // Remove redundant empty buildings from the skyline.
@@ -259,6 +246,8 @@ Skyline::deholify ()
     {
       if (center != buildings_.begin () && center->y_intercept_ == -infinity_f)
         {
+          printf ("We are here");
+          exit (17); // not-reached
           Real p1 = left->height (left->end_);
           Real p2 = right->height (right->start_);
           *center = Building (center->start_, p1, p2, center->end_);
@@ -273,21 +262,22 @@ void
 Skyline::internal_merge_skyline (list<Building> *s1, list<Building> *s2,
                                  list<Building> *const result) const
 {
-  if (s1->empty () || s2->empty ())
-    {
-      programming_error ("tried to merge an empty skyline");
-      return;
-    }
+  if (s1->empty () && s2->empty ())
+    programming_error ("tried to merge two empty skylines");
 
-  Real x = -infinity_f;
+  bool s2_pending = false;
   Real last_end = -infinity_f;
-  while (!s1->empty ())
+  while (!s1->empty () && !s2->empty ())
     {
-      if (s2->front ().conceals (s1->front (), x))
-        swap (s1, s2);
-
       Building b = s1->front ();
       Building c = s2->front ();
+      if (s2_pending // the head of s2 starts before the head of s1
+          || c.height (last_end) > b.height (last_end))
+        {
+          swap (s1, s2);
+          swap (b, c);
+        }
+      // Now b, the head of s1, starts earlier or lies above s2.
 
       // Optimization: if the other skyline is empty at this point,
       // we can avoid testing some intersections. Just grab as many
@@ -300,38 +290,54 @@ Skyline::internal_merge_skyline (list<Building> *s1, list<Building> *s2,
           while (i != s1->end () && i->end_ <= c.end_)
             i++;
 
-          s1->front ().start_ = x;
+          s1->front ().start_ = last_end;
           result->splice (result->end (), *s1, s1->begin (), i);
-          x = result->back ().end_;
-          last_end = x;
+          last_end = result->back ().end_;
           continue;
         }
       // first_intersection() removes buildings from s2 if b hides them
-      Real end = first_intersection (b, s2, x);
+      Real x = first_intersection (b, s2, last_end);
       if (s2->empty ())
-        {
-          b.start_ = last_end;
-          result->push_back (b);
-          break;
-        }
+        break;
 
-      // Should be (end > x), during ver2.19.  end == x happens fairly often,
-      // and we do not need to keep vertical segments within a skyline.
-      if (end >= x)
+      if (x > last_end)
         {
-          b.leading_part (end);
+          b.leading_part (x);  // chops b, leaving the part up to x
           b.start_ = last_end;
           last_end = b.end_;
           result->push_back (b);
         }
 
-      if (end >= s1->front ().end_)
-        s1->pop_front ();
-      // Should add during ver2.19 (to avoid an endless loop
-      // when  merging identical skylines with a vertical segment)
-      // if (end >= s2->front().end_) s2->pop_front();
-
-      x = end;
+      b = s1->front ();
+      c = s2->front ();
+      if (b.end_ <= c.end_)
+        {
+          // Any trailing part of b is concealed by c
+          s1->pop_front ();
+          // Consider c next for inclusion in the merged skyline
+          s2_pending = true;
+        }
+      else
+        {
+          // the trailing part of c is fully exposed, goes directly to merged
+          s2->pop_front ();
+          c.start_ = last_end;
+          last_end = c.end_;
+          result->push_back (c);
+        }
+    }
+  if (last_end < infinity_f)
+    {
+      if (!s1->empty ())
+        {
+          s1->front ().start_ = last_end;
+          result->splice (result->end (), *s1);
+        }
+      else if (!s2->empty ())
+        {
+          s2->front ().start_ = last_end;
+          result->splice (result->end (), *s2);
+        }
     }
 }
 
