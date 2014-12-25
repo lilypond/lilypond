@@ -48,7 +48,7 @@ Copyright @copyright{} 1999--2014 degli autori.
 @c Keep english titles of file not yet translated -- fb
 @menu
 * Notazione musicale::          Notazione usata in quasi tutti i progetti.
-* Specialist notation::         Notazione usata solo in contesti specifici. @c Notazione specialistica
+* Notazione specialistica::     Notazione usata solo in contesti specifici.
 * General input and output::    Informazioni generali su input e output. @c Input e output
 * Spacing issues::              Impaginazione della musica sul foglio. @c Gestione dello spazio
 * Changing defaults::           Aggiustamento dell'output. @c Modifica delle impostazioni predefinite

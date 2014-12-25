@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocit = "
+Il motore di spaziatura verticale è cambiato a partire dalla
+versione 2.14.  Ciò può far sì che il testo vocale abbia un
+posizionamento diverso.
+
+È possibile impostare delle proprietà dei contesti @code{Lyric} e @code{Staff}
+che facciano sì che il motore di spaziatura si comporti come nella versione 2.12.
+
+
+"
+  doctitleit = "Ottenere la spaziatura del testo della vecchia versione 2.12"
