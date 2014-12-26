@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: c0c3cd6ac43112ce392f9559555f723b359580a6
+    Translation of GIT committish: 85911b93739aed7bb9858ac950e975cd1343bfe6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -233,12 +233,21 @@ Frammenti:
 @funindex \addlyrics
 @funindex \lyricsto
 
-Il testo vocale deve trovarsi nel contesto @code{Lyrics}, vedi @ref{Contexts
-explained}.
+Il testo vocale viene interpretato in @code{\lyricmode} e stampato in un
+contesto @code{Lyrics}, vedi @ref{Contexts explained}.
 
 @example
 \new Lyrics \lyricmode @{ @dots{} @}
 @end example
+
+Due varianti di @code{\lyricmode} impostano un contesto associato
+usato per sincronizzare le sillabe del testo con la musica.  Il più
+comodo @code{\addlyrics} segue immediatamente il contenuto musicale
+del contesto della voce con cui deve essere sincronizzato, creando
+implicitamente un contesto Lyrics.  Il più versatile @code{\lyricsto}
+richiede sia di specificare il contesto della voce associata con un
+nome sia di creare esplicitamente un contesto Lyrics che contenga il
+testo.  Maggiori dettagli in @ref{Automatic syllable durations}.
 
 Ci sono due modi per allineare il testo a una melodia:
 
@@ -408,10 +417,9 @@ In questo modo il testo viene allineato alle note del contesto @code{Voice}
 con quel nome, che deve già esistere.  Ecco perché  di solito il contesto
 @code{Voice} viene indicato prima, seguito dal contesto @code{Lyrics}.
 Il testo segue il comando @code{\lyricsto}.  Il  comando @code{\lyricsto}
-invoca la modalità testo automaticamente, dunque si può omettere il
-comando @code{\lyricmode}.  Il testo viene posizionato sotto le note,
-ma sono possibili altri posizionamenti, come è descritto in
-@ref{Placing lyrics vertically}.
+invoca la modalità testo automaticamente.  Per impostazione predefinita,
+il testo viene posizionato sotto le note.  Altri posizionamenti sono
+descritti in @ref{Placing lyrics vertically}.
 
 @subheading Uso di @code{\addlyrics}
 
@@ -2425,7 +2433,7 @@ Guida alla notazione:
 @ref{Score layout},
 @ref{Separating systems},
 @ref{Setting the staff size},
-@ref{Explicit breaks},
+@ref{Breaks},
 @ref{Vertical spacing}.
 
 Guida al funzionamento interno:

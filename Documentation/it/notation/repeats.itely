@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 873151f815f8b8e27eb5231c74e28392561e4668
+    Translation of GIT committish: c91fbc19fc727ed8ef98241b86deaedfb954f1ef
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -96,6 +96,16 @@ Un'unica ripetizione senza finale alternativo:
 
 @lilypond[verbatim,quote,relative=2]
 \repeat volta 2 { c4 d e f }
+c2 d
+\repeat volta 2 { d4 e f g }
+@end lilypond
+
+Il segno di inizio della ripetizione, per impostazione predefinita, non
+appare nella prima misura.  È tuttavia possibile aggiungerlo inserendo
+a mano la battuta @code{\bar ".|:"} prima della prima nota.
+
+@lilypond[verbatim,fragment,quote,relative=2]
+\repeat volta 2 { \bar ".|:" c4 d e f }
 c2 d
 \repeat volta 2 { d4 e f g }
 @end lilypond
@@ -205,41 +215,6 @@ g4 |
 a2 a |
 g1 |
 @end lilypond
-
-Quando vengono aggiunti dei finali alternativi a una ripetizione che inizia
-con una misura incompleta, diventa necessario impostare manualmente la
-proprietà di contesto @code{Timing.measureLength} nei seguenti punti
-specifici:
-
-@itemize
-@item
-all'inizio di tutte le misure incomplete nel blocco @code{\alternative}, che
-di solito si trovano alla fine di ogni alternativa, con l'eccezione dell'ultima
-(nella maggior parte dei casi).
-
-@item
-all'inizio di ogni alternativa, eccetto la prima.
-@end itemize
-
-@lilypond[verbatim,quote,relative=1]
-\partial 4
-\repeat volta 2 { e4 | c2 e | }
-\alternative {
-  {
-    f2 d |
-    \set Timing.measureLength = #(ly:make-moment 3/4)
-    g4 g g  % un controllo di battuta opzionale è permesso qui
-  }
-  {
-    \set Timing.measureLength = #(ly:make-moment 4/4)
-    a2 a |
-  }
-}
-g1 |
-@end lilypond
-
-La proprietà @code{measureLength} è descritta in @ref{Time
-administration}.
 
 
 @cindex ripetizioni con legature di valore
@@ -373,6 +348,9 @@ Guida alla notazione:
 @ref{Modifying context plug-ins},
 @ref{Modifying ties and slurs},
 @ref{Time administration}.
+
+File installati:
+@file{ly/engraver-init.ly}.
 
 Frammenti:
 @rlsr{Repeats}.
@@ -820,14 +798,13 @@ essere racchiusa tra parentesi:
 
 @cindex segni di tremolo
 @cindex tremolo, segni
-@funindex tremoloFlags
 @funindex :
 
 Si può ottenere lo stesso output aggiungendo @code{:@var{N}} dopo
 la nota, dove @code{@var{N}} indica la durata della suddivisione
 (deve essere almeno 8).  Se @code{@var{N}} è 8, viene aggiunta una
 travatura al gambo della nota.  Se @code{@var{N}} è omesso, viene
-usato l'ultimo valore (salvato in @code{tremoloFlags}):
+usato l'ultimo valore:
 
 @lilypond[quote,verbatim,relative=2]
 c2:8 c:32

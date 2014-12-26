@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 45dd19546e9b75b3e1e977732f0962f35dd3290e
+    Translation of GIT committish: 62dddf43ef5990c6efc5944aadcab3ead9423f29
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -283,11 +283,28 @@ Guida alla notazione:
 Glossario musicale: @rglosnamed{tie,legatura di valore}.
 
 Una @notation{legatura di valore} si ottiene apponendo una tilde @code{~} alla
-prima nota della legatura.
+prima delle due note legate.
 
 @lilypond[verbatim,quote,relative=2]
 g4~ 4 c2~ | 4~ 8 a~ 2 |
 @end lilypond
+
+@cindex durata senza altezza
+@cindex durata isolata
+
+Quanndo l'altezza non cambia, come sempre accade nel caso di note legate
+con legatura di valore, le altezze successive possono essere omesse e basta
+specificare la sola durata:
+
+@lilypond[verbatim,quote,relative=2]
+g4~ 4 c2~ | 4~ 8 a~ 2 |
+@end lilypond
+
+Questa scorciatoia può essere utile in altre situazioni in cui il ritmo
+cambia senza che l'altezza cambi; ma ricorda che una durata isolata
+userà l'altezza che la precede, stampando una sola nota, se solo uno
+spazio bianco le separa.
+
 
 @node Legature di portamento
 @unnumberedsubsubsec Legature di portamento

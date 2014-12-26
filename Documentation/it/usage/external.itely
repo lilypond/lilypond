@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 07c022f5e65a806e27c3f5f4f4bdae4020c1af8e
+    Translation of GIT committish: 223b1ac16b1b80cd1226eed24968bf7c49c24ec8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -44,7 +44,7 @@ elementi musicali.
 @translationof Configuring the system for point and click
 
 Quando questa funzionalità è attiva, LilyPond aggiunge dei collegamenti
-ipertestuali al file PDF.  Questi collegamenti vengono inviati a un
+ipertestuali al file PDF e SVG.  Questi collegamenti vengono inviati a un
 @q{programma di supporto per URI} o al browser web, che apre un editor di testo
 col cursore posizionato nel punto giusto.
 
@@ -212,11 +212,11 @@ con altri visualizzatori.
 @cindex file di output, dimensione
 
 La funzionalità "punta e clicca" è abilitata di default quando si creano
-i file PDF.
+i file PDF o SVG.
 
 I collegamenti "punta e clicca" appesantiscono sensibilmente i file di output.  Per
-ridurre la dimensione dei file PDF e PS, è possibile disattivare il "punta e
-clicca" inserendo
+ridurre la dimensione di questi file (e dei file PS), è possibile disattivare
+il "punta e clicca" inserendo
 
 @example
 \pointAndClickOff
@@ -237,7 +237,7 @@ lilypond -dno-point-and-click file.ly
 @end example
 
 @warning{Occorre sempre disattivare il "punta e clicca" nei file LilyPond
-che si vogliano diffondere, per evitare di includere nel file .pdf delle informazioni
+che si vogliano diffondere, per evitare di includere nel file PDF delle informazioni
 sui percorsi del proprio computer: questo infatti può costituire un rischio di
 sicurezza.}
 
@@ -834,5 +834,3 @@ mordenti.
 La sua principale limitazione è che può agire solo sugli elementi che
 conosce: qualsiasi cosa che sia del semplice testo (invece di una proprietà
 della nota) viene dunque ignorato.
-
-

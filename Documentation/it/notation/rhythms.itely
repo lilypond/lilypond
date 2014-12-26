@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 873151f815f8b8e27eb5231c74e28392561e4668
+    Translation of GIT committish: 61d0f3c7bebf2a9cdea56ff4e3b52e3e3510bf8a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -96,6 +96,14 @@ predefinito della prima nota è di un quarto.
 
 @lilypond[quote,verbatim,relative=2]
 a a a2 a a4 a a1 a
+@end lilypond
+
+Le durate isolate prendono l'altezza dalla nota o accordo precedenti.
+
+@lilypond[quote,verbatim,relative=2]
+\time 8/1
+c \longa \breve 1 2
+4 8 16 32 64 128 128
 @end lilypond
 
 @cindex note puntate
@@ -206,7 +214,7 @@ dell'espressione musicale per una frazione:
 @noindent
 Il numeratore della frazione apparirà sopra o sotto le note; eventualmente, con
 l'aggiunta opzionale di una parentesi quadra.  Il gruppo irregolare più comune
-è la terzina, in cui 3@tie{}note hanno la durata di @tie{}2:
+è la terzina, in cui 3@tie{}note hanno la durata di@tie{}2:
 
 @lilypond[quote,verbatim,relative=2]
 a2 \tuplet 3/2 { b4 b b }
@@ -236,7 +244,14 @@ g2 r8 \tuplet 3/2 8 { cis16 d e e f g g f e }
 @funindex tupletNeutral
 
 Le parentesi dei gruppi irregolari si possono posizionare manualmente sopra
-o sotto il rigo, come spiegato dettagliatamente in @ref{Direction and placement}.
+o sotto il rigo:
+
+@lilypond[quote,verbatim,relative=2]
+\tupletUp \tuplet 3/2 { c8 d e }
+\tupletNeutral \tuplet 3/2 { c8 d e }
+\tupletDown \tuplet 3/2 { f,8 g a }
+\tupletNeutral \tuplet 3/2 { f8 g a }
+@end lilypond
 
 È possibile annidare i gruppi irregolari:
 
@@ -248,9 +263,8 @@ c4 \tuplet 5/4 { f8 e f \tuplet 3/2 { e[ f g] } } f4
 La modifica di gruppi irregolari annidati che iniziano simultaneamente
 richiede l'uso di @code{\tweak}.
 
-Per modificare la durata delle note senza introdurre un gruppo
-irregolare, si veda @ref{Scaling durations}.
-
+Per modificare la durata delle note senza che appaia la parentesi
+quadra del gruppo irregolare, si veda @ref{Scaling durations}.
 
 @predefined
 @code{\tupletUp},
@@ -299,6 +313,7 @@ Manuale di apprendimento:
 @rlearning{Tweaking methods}.
 
 Guida alla notazione:
+@ref{Direction and placement},
 @ref{Time administration},
 @ref{Scaling durations},
 @ref{The tweak command},
@@ -311,20 +326,6 @@ Guida al funzionamento interno:
 @rinternals{TupletBracket},
 @rinternals{TupletNumber},
 @rinternals{TimeScaledMusic}.
-
-@cindex abbellimenti all'interno della parentesi di un gruppo irregolare
-
-@knownissues
-Gli abbellimenti possono essere inseriti all'interno delle parentesi dei gruppi
-irregolari, @emph{eccetto} quando un rigo inizia con un abbellimento
-seguito da un gruppo irregolare.  In questo caso particolare, l'abbellimento
-deve essere inserito prima del comando @code{\tuplet} per evitare errori.
-
-@cindex segni di tempo all'interno delle parentesi di un gruppo irregolare
-
-Quando si pone un gruppo irregolare all'inizio di un brano che presenta
-un'indicazione di @code{\tempo}, la musica deve essere inserita esplicitamente
-in un blocco @code{\new Voice}, come è spiegato in @rlearning{Voices contain music}.
 
 
 @node Scalare le durate
@@ -436,6 +437,13 @@ essere legata alla nota successiva, che deve essere della stessa altezza.
 a2~ 4~ 16 r r8
 @end lilypond
 
+Le legature di valore possono avvantaggiarsi dell'interpretazione dell'
+@q{ultima altezza esplicita} per le durate isolate:
+
+@lilypond[quote,verbatim,relative=2]
+a2~ 4~ 16 r r8
+@end lilypond
+
 Le legature di valore si usano per unire due note a cavallo di una
 stanghetta di battuta, oppure quando non si possono usare i punti per esprimere
 una particolare durata.  Le legature si dovrebbero usare anche per
@@ -462,7 +470,8 @@ non verrà creata alcuna legatura.  Singoli suoni degli accordi possono essere
 legati inserendo la legatura all'interno dell'accordo stesso.
 
 @lilypond[quote,verbatim,relative=1]
-<c e g>~ <c e g c>
+<c e g>2 ~ 2
+<c e g>4~ <c e g c>
 <c~ e g~ b> <c e g b>
 @end lilypond
 
@@ -1032,7 +1041,10 @@ L'indicazione di tempo si imposta così:
 \time 3/4 c2.
 @end lilypond
 
+I cambi di indicazione di tempo a metà misura sono trattati in @ref{Upbeats}.
+
 @cindex indicazione di tempo, visibilità dell'
+@cindex visibilità dell'indicazione di tempo
 
 Le indicazioni di tempo appaiono all'inizio di un brano e ogni volta
 che l'indicazione cambia.  Se il cambio ha luogo alla fine di un rigo,
@@ -1383,24 +1395,16 @@ Guida al funzionamento interno:
 @funindex \partial
 @funindex partial
 
-Le misure parziali, come un @emph{anacrusi} o una battuta
-in levare, si inseriscono col comando @code{\partial},
+Le misure parziali, come l'@emph{anacrusi} o la battuta
+in levare, si inseriscono col comando @code{\partial}:
 
 @example
 \partial @var{durata}
 @end example
 
-@noindent
-dove @code{@var{durata}} è la lunghezza @emph{rimanente} della misura
-parziale @emph{prima} dell'inizio della nuova misura completa.
-
-@lilypond[quote,verbatim,relative=1]
-\time 3/4
-\partial 8
-e8 | a4 c8 b c4 |
-@end lilypond
-
-La @var{durata} può avere qualsiasi valore inferiore a quello di una misura intera:
+Quando si usa @code{\partial} all'inizio di una partitura, la
+@code{@var{durata}} è la lunghezza della musica che precede la
+prima battuta.
 
 @lilypond[quote,verbatim,relative=1]
 \time 3/4
@@ -1408,26 +1412,40 @@ La @var{durata} può avere qualsiasi valore inferiore a quello di una misura int
 r4 e8 | a4 c8 b c4 |
 @end lilypond
 
-L'espressione @code{\partial @var{durata}} si può scrivere anche così:
-
-@example
-\set Timing.measurePosition -@var{durata}
-@end example
-
-Quindi l'esempio precedente può essere scritto così:
+Quando si usa @code{\partial} dopo l'inizio di una partitura, la
+@var{durata} è la lunghezza @emph{rimanente} della misura corrente.
+Non crea una battuta con un nuovo numero.
 
 @lilypond[quote,verbatim,relative=1]
-\time 3/4
-\set Timing.measurePosition = #(ly:make-moment -1/8)
-e8 | a4 c8 b c4 |
+\set Score.barNumberVisibility = #all-bar-numbers-visible
+\override Score.BarNumber.break-visibility =
+          #end-of-line-invisible
+\time 9/8
+d'4.~ 4 d8 d( c) b | c4.~ 4. \bar "||"
+\time 12/8
+\partial 4.
+c8( d) e | f2.~ 4 f8 a,( c) f |
 @end lilypond
 
-La proprietà @code{measurePosition} contiene un numero razionale, solitamente
-positivo, che indica la durata corrispondente alla parte di misura trascorsa.
-Il comando @code{\partial @var{durata}} lo imposta su un numero negativo
-quando ha un senso diverso: in quel caso significa che la battuta corrente
-(la prima) sarà @emph{preceduta} da una battuta 0 (la battuta parziale)
-della durata indicata da @var{durata}.
+Il comando @code{\partial} è @emph{obbligatorio} quando l'indicazione
+di tempo cambia in mezzo a una misura, ma si può usare anche da solo.
+
+@lilypond[quote,verbatim,relative=1]
+\set Score.barNumberVisibility = #all-bar-numbers-visible
+\override Score.BarNumber.break-visibility =
+          #end-of-line-invisible
+\time 6/8
+\partial 8
+e8 | a4 c8 b[ c b] |
+\partial 4
+r8 e,8 | a4 \bar "||"
+\partial 4
+r8 e8 | a4
+c8 b[ c b] |
+@end lilypond
+
+Il comando @code{\partial} imposta la proprietà @code{Timing.measurePosition},
+che è un numero razionale che indica quanto tempo della misura è trascorsa.
 
 @seealso
 Glossario musicale:
@@ -1441,20 +1459,6 @@ Frammenti di codice:
 
 Guida al funzionamento interno:
 @rinternals{Timing_translator}.
-
-@knownissues
-Il comando @code{\partial} deve essere collocato solo all'inizio di un
-brano.  Se è posto dopo l'inizio, il programma potrebbe produrre degli
-avvisi o si potrebbero verificare problemi, dunque si consiglia di
-usare @code{\set Timing.measurePosition} al suo posto.
-
-@lilypond[quote,verbatim,relative=1]
-\time 6/8
-\partial 8
-e8 | a4 c8 b[ c b] |
-\set Timing.measurePosition = #(ly:make-moment -1/4)
-r8 e,8 | a4 c8 b[ c b] |
-@end lilypond
 
 
 @node Musica in tempo libero
@@ -1601,7 +1605,7 @@ di musica in tempo libero è necessario inserire manualmente delle stanghette
 @cindex indicazioni polimetriche
 @cindex indicazioni di tempo polimetrico
 @cindex polimetriche, indicazioni
-@cindex tempo, polimetrico
+@cindex tempo polimetrico
 
 @funindex timeSignatureFraction
 @funindex \scaleDurations
@@ -1804,13 +1808,46 @@ della stanghetta e inseriscono le legature di valore.  Uno dei suoi usi possibil
 è la verifica di partiture complesse: se le misure non sono riempite interamente,
 le legature di valore mostrano esattamente di quanto è ecceduta ogni misura.
 
+La proprietà @code{completionUnit} imposta la durata preferita per le note
+divise.
+
+@lilypond[quote,verbatim,relative=2]
+\new Voice \with {
+  \remove "Note_heads_engraver"
+  \consists "Completion_heads_engraver"
+} {
+  \time 9/8 g\breve. d4. \bar "||"
+  \set completionUnit = #(ly:make-moment 3 8)
+  g\breve. d4.
+}
+@end lilypond
+
+Questi incisori dividono le note che hanno una durata ridimensionata, come
+quelle dei gruppi irregolari, in note con lo stesso fattore di ridimensionamento
+della nota di input.
+
+@lilypond[quote,verbatim,relative=2]
+\new Voice \with {
+  \remove "Note_heads_engraver"
+  \consists "Completion_heads_engraver"
+} {
+  \time 2/4 r4
+  \tuplet 3/2 {g4 a b}
+  \scaleDurations 2/3 {g a b}
+  g4*2/3 a b
+  \tuplet 3/2 {g4 a b}
+  r4
+}
+@end lilypond
+
+
 @seealso
 Glossario musicale:
 @rglosnamed{tie,legatura di valore}
 
 Manuale di apprendimento:
-@rlearning{Engravers explained},
-@rlearning{Adding and removing engravers}.
+@rlearning{Gli incisori},
+@rlearning{Aggiungere e togliere gli incisori}.
 
 Frammenti di codice:
 @rlsr{Rhythms}.
@@ -1823,12 +1860,12 @@ Guida al funzionamento interno:
 @rinternals{Forbid_line_break_engraver}.
 
 @knownissues
-Non tutte le durate (specialmente quelle che contengono gruppi irregolari) possono
-essere rappresentate esattamente con normali note e punti, ma l'incisore
-@code{Completion_heads_engraver} non inserirà gruppi irregolari.
-
-L'incisore @code{Completion_heads_engraver} ha effetto solo sulle note, non
-divide le pause.
+In accordo col comportamento precedente, note e pause la cui durata è
+più lunga di una misura, come @code{c1*2}, sono divise in note prive
+di fattore di ridimensionamento, @code{@{ c1 c1 @}}.  La proprietà
+@code{completionFactor} controlla questo comportamento e impostandola
+su @code{#f} fa sì che le note e le pause divise abbiano il fattore di
+ridimensionamento delle durate di input.
 
 
 @node Mostrare i ritmi della melodia
@@ -2036,6 +2073,7 @@ non inizia la @emph{successiva}, nuova travatura.
 @funindex autoBeaming
 @funindex baseMoment
 @funindex beamExceptions
+@funindex \beamExceptions
 @funindex beatStructure
 @funindex measureLength
 @funindex \time
@@ -2177,44 +2215,23 @@ Le regole speciali di disposizione automatica delle travature (diverse da quelle
 che determinano la corrispondenza della travatura alla suddivisione) sono definite
 nella proprietà @code{beamExceptions}.
 
+Il valore di @code{beamExceptions}, una struttura dati Scheme piuttosto
+complessa, è più facile da generare con la funzione @code{\beamExceptions}.
+A tale funzione viene passato uno o più schemi ritmici della misura,
+specificati con travature manuali.  Le misure devono essere separate da
+un controllo di battuta@tie{}@code{|} dato che la funzione non ha altro
+modo per determinare la lunghezza della misura.  Ecco un semplice esempio:
+
 @lilypond[quote,relative=2,verbatim]
 \time 3/16
 \set Timing.beatStructure = #'(2 1)
 \set Timing.beamExceptions =
-  #'(                         ;inizio della lista di associazioni (alist)
-     (end .                   ;estremità delle travature
-      (                       ;inizio della lista che indica gli estremi
-       ((1 . 32) . (2 2 2))   ;regola per le travature da 1/32 -- termina ognuna a 1/16
-      )))                     %chiude tutti gli elementi
+  \beamExceptions { 32[ 32] 32[ 32] 32[ 32] }
 c16 c c |
 \repeat unfold 6 { c32 } |
 @end lilypond
 
-@code{beamExceptions} è una lista di associazioni (@emph{alist}) che ha una
-chiave che indica il tipo di regola e un valore che esprime le regole di
-disposizione delle travature.
-
-Al momento l'unico tipo di regola disponibile è @code{'end}, che specifica
-il termine della travatura.
-
-Le regole di disposizione delle travature sono una lista di associazione scheme
-(o lista di coppie) che indica il tipo di travatura e la modalità di raggruppamento
-da applicare alle travature contenenti note dalla durata più breve del tipo
-di travatura a loro assegnato.
-
-@example
-#'((travatura-1 . raggruppamento-1)
-   (travatura-2 . raggruppamento-2)
-   (travatura-3 . raggruppamento-3))
-@end example
-
-Il tipo di travatura è una coppia scheme che indica la durata della travatura,
-ad esempio @code{(1 . 16)}.
-
-Il raggruppamento è una lista scheme che indica il raggruppamento da usare
-per la travatura; ha come unità la durata specificata nel tipo di travatura.
-
-@warning{ Il valore di @code{beamExceptions} deve essere una lista @emph{completa}
+@warning{Il valore di @code{beamExceptions} deve essere una lista @emph{completa}
 di eccezioni, ovvero bisogna includere tutte le eccezioni che si vogliono
 applicare.  Non è possibile aggiungere, rimuovere o modificare soltanto
 una eccezione. Anche se questo può sembrare scomodo, significa anche che
@@ -2387,6 +2404,7 @@ un solo rigo.
     \time 3/4
     \set Timing.baseMoment = #(ly:make-moment 1/8)
     \set Timing.beatStructure = #'(1 5)
+    \set Timing.beamExceptions = #'()
     \repeat unfold 6 { a8 }
   }
   \new Staff {
@@ -3493,6 +3511,12 @@ corrispondente negli altri righi.  Riprendendo l'esempio precedente
   \new Staff { c4 \bar ".|:" \grace s16 d2. }
 >>
 @end lilypond
+
+L'uso del comando @code{\grace} nella parte con le pause spaziatrici è
+obbligatorio, anche se la parte visibile usa @code{\acciaccatura} o
+@code{\appoggiatura}, perché altrimenti apparirà un orribile frammento
+di legatura di portamento che connette la nota di abbellimento invisibile
+alla nota seguente.
 
 L'uso degli abbellimenti all'interno dei contesti della voce confonde il modo
 in cui la voce viene rappresentata. Si può evitare il problema inserendo una

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: b381556a3132e765159edc75107b31259dbf5988
+    Translation of GIT committish: 15b9d5a33fe02826075a651e96ae21d2ae66a680
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -156,8 +156,10 @@ Esistono le seguenti opzioni:
 aumenta il numero di versione in @code{\version} solo se il file è stato
 modificato da @command{convert-ly}. In questo caso, la dichiarazione di
 versione corrisponderà alla versione successiva all'ultimo reale cambiamento.
-Senza questa opzione, la versione rifletterà l'ultima conversione
-@emph{tentata}.
+Il numero di una versione instabile sarà arrotondato al numero della versione
+stabile successiva, a meno che ciò non vada oltre il numero di versione
+obiettivo.  Senza questa opzione, la versione rifletterà l'ultima
+conversione @emph{tentata}.
 
 @item -e, --edit
 Applica le conversioni direttamente nel file di input, modificando
