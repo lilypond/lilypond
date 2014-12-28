@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 3c907f2dd5ba3dd91e30454922d8361225ca28d5
+%% Translation of GIT committish: c86ce585e9451663b80beb5d03ee28a00b07e8e8
   texidocit = "
 Il raggruppamento delle pulsazioni all'interno della misura è regolato dalla
 proprietà di contesto @code{beatStructure}.  I valori di @code{beatStructure} per
-varie indicazioni di tempo vengono stabiliti in @@file{scm/time-signature-settings.scm@}.
+varie indicazioni di tempo vengono stabiliti in @file{scm/time-signature-settings.scm}.
 Questi valori possono essere impostati o modificati con @code{\\set}.  Altrimenti, si
 può usare @code{\\time} per impostare sia l'indicazione di tempo che la struttura
 delle pulsazioni.  Per farlo si specifica il raggruppamento interno delle pulsazioni in
@@ -19,7 +19,7 @@ della misura.  Tali segni facilitano la lettura di musica moderna ritmicamente
 complessa.
 Nell'esempio la misura di 9/8 è raggruppata in due diversi schemi usando
 due metodi differenti, mentre la misura di 5/8 è raggruppata in base alle
-impostazioni predefinite in @@file{scm/time-signature-settings.scm@}:
+impostazioni predefinite in @file{scm/time-signature-settings.scm}:
 
 "
   doctitleit = "Segni per la conduzione, segni di raggruppamento della misura"
