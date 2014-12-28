@@ -204,12 +204,15 @@ If next note has no duration, returns t"
 	  (while (< (point) end)
 	    (let ((new-duration (walk-note-duration)))
 	      (if (null new-duration)
-		  (if (not (looking-at "\\\\times[ \t]*\\([1-9]*\\)/\\([1-9]*\\)[ \t\n]*{"))
+		  (if (not (looking-at
+			    (concat "\\\\t\\(?:\\(imes\\)\\|uplet\\)[ \t]*\\([0-9]+\\)/\\([0-9]+\\)\\(?:[ \t\n]"
+				    duration-regex "\\)?[ \t\n]*{")))
 		      (skip-good-keywords)
 
-					; handle \times specially
-		    (let ((numerator (string-to-int (match-string 1)))
-			  (denominator (string-to-int (match-string 2))))
+					; handle \times/\tuplet specially
+		    (let* ((times-p (match-beginning 1))
+			   (numerator (string-to-int (match-string (if times-p 2 3))))
+			   (denominator (string-to-int (match-string (if times-p 3 2)))))
 		      (goto-char (match-end 0))
 		      (goto-note-begin)
 		      (while (and (not (looking-at "}"))
