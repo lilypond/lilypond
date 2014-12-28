@@ -38,12 +38,12 @@
     (let ((value (ly:context-property context name)))
       (if (not (null? value)) value default)))
 
-  (define (ending-moments group-list start-beat base-length)
-    (if (null? group-list)
-        '()
-        (let ((new-start (+ start-beat (car group-list))))
-          (cons (* new-start base-length)
-                (ending-moments (cdr group-list) new-start base-length)))))
+  (define (ending-moments group-list base-length)
+    (let ((beat 0))
+      (map-in-order (lambda (x)
+                      (set! beat (+ beat x))
+                      (* base-length beat))
+                    group-list)))
 
   (define (larger-setting type sorted-alist)
     (assoc type sorted-alist <=))
@@ -64,7 +64,7 @@
              (time-signature-fraction
               (get 'timeSignatureFraction '(4 . 4)))
              (beat-structure (get 'beatStructure '(1 1 1 1)))
-             (beat-endings (ending-moments beat-structure 0 base-length))
+             (beat-endings (ending-moments beat-structure base-length))
              (exceptions (sort (map
                                 (lambda (a)
                                   (if (pair? (car a))
@@ -95,7 +95,7 @@
                                   type))
              (exception-moments (and exception-grouping
                                      (ending-moments
-                                      exception-grouping 0 grouping-moment))))
+                                      exception-grouping grouping-moment))))
 
         (if (= dir START)
             ;; Start rules -- #t if beam is allowed to start
