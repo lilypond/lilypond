@@ -328,7 +328,7 @@ key signatures.  In LilyPond, note names specify pitches; key
 signatures and clefs determine how these pitches are displayed.
 An unaltered note like@tie{}@code{c} means @q{C natural},
 regardless of the key signature or clef.  For more information,
-see @rlearning{Accidentals and key signatures}.}
+see @rlearning{Pitches and key signatures}.}
 
 @cindex note names, Dutch
 @cindex note names, default
@@ -427,7 +427,7 @@ Music Glossary:
 @rglos{quarter tone}.
 
 Learning Manual:
-@rlearning{Accidentals and key signatures}.
+@rlearning{Pitches and key signatures}.
 
 Notation Reference:
 @ref{Automatic accidentals},
@@ -1285,7 +1285,7 @@ key signatures.  In LilyPond, note names are the raw input; key
 signatures and clefs determine how this raw input is displayed.
 An unaltered note like@tie{}@code{c} means @q{C natural},
 regardless of the key signature or clef.  For more information,
-see @rlearning{Accidentals and key signatures}.}
+see @rlearning{Pitches and key signatures}.}
 
 The key signature indicates the tonality in which a piece is
 played.  It is denoted by a set of alterations (flats or sharps)
@@ -1388,7 +1388,7 @@ Music Glossary:
 @rglos{scordatura}.
 
 Learning Manual:
-@rlearning{Accidentals and key signatures}.
+@rlearning{Pitches and key signatures}.
 
 Snippets:
 @rlsr{Pitches}.
