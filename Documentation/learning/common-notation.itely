@@ -52,7 +52,7 @@ on one staff.
 
 @menu
 * Bar lines and bar checks::
-* Accidentals and key signatures::
+* Pitches and key signatures::
 * Ties and slurs::
 * Articulation and dynamics::
 * Adding text::
@@ -104,25 +104,24 @@ Notation Reference:
 @ruser{Bar and bar number checks}.
 
 
-@node Accidentals and key signatures
-@subsection Accidentals and key signatures
+@node Pitches and key signatures
+@subsection Pitches and key signatures
 
 @menu
-* Accidentals::
+* Pitch alterations::
 * Key signatures::
 * Warning key signatures and pitches::
 @end menu
 
-@warning{New users are often confused by these -- please read the
-warning at the bottom of this page, especially if you are not
-familiar with music theory!}
+@warning{New users often misunderstand how LilyPond uses the key
+signature -- please read the warning at the bottom of this page.}
 
-@node Accidentals
-@unnumberedsubsubsec Accidentals
+@node Pitch alterations
+@unnumberedsubsubsec Pitch alterations
 
 
 @cindex accidentals
-@cindex accidentals and key signatures
+@cindex natural
 @cindex sharp
 @cindex double sharp
 @cindex sharp, double
@@ -138,13 +137,16 @@ familiar with music theory!}
 Music Glossary: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
 @rglos{double flat}, @rglos{accidental}.
 
+Note-names in LilyPond identify pitches.  For example, @code{c}
+always means C-natural, regardless of the key signature.
+
 A @notation{sharp} pitch is made by adding @code{is} to the name,
 and a @notation{flat} pitch by adding @code{es}.  As you might
 expect, a @notation{double sharp} or @notation{double flat} is
 made by adding @code{isis} or @code{eses}.  This syntax is derived
 from note naming conventions in Nordic and Germanic languages,
 like German and Dutch.  To use other names for
-@notation{accidentals}, see @ruser{Note names in other languages}.
+@notation{alterations}, see @ruser{Note names in other languages}.
 
 @lilypond[verbatim,quote,relative=2]
 cis4 ees fisis, aeses
@@ -176,11 +178,11 @@ Music Glossary: @rglos{key signature}, @rglos{major},
 The @notation{key signature} is set with the command @code{\key}
 followed by a pitch and @code{\major} or @code{\minor}.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,relative=1]
 \key d \major
-a1 |
-\key c \minor
-a1 |
+d4 fis a c |
+\bar "||" \key c \minor
+c,4 ees g b |
 @end lilypond
 
 @smallspace
@@ -193,22 +195,18 @@ Music Glossary: @rglos{accidental}, @rglos{key signature},
 @rglos{pitch}, @rglos{flat}, @rglos{natural}, @rglos{sharp},
 @rglos{transposition}, @rglos{Pitch names}.
 
-To determine whether to print an @notation{accidental}, LilyPond
-examines the pitches and the @notation{key signature}.  The key
-signature only affects the @emph{printed} accidentals, not the
-note's @notation{pitch}!  This is a feature that often causes
-confusion to newcomers, so let us explain it in more detail.
+LilyPond makes a distinction between musical content and
+its printed representation.  Input such as @code{d4 e fis2}
+defines the pitches and durations of notes, which is musical
+content.  The @notation{key signature} is part of the printed
+representation.  The key signature also sets rules for the
+printed representations of notes.  LilyPond compares each input
+pitch to the key signature to determine whether to print an
+@notation{accidental}.
 
-LilyPond makes a clear distinction between musical content and
-layout.  The alteration (@notation{flat}, @notation{natural sign} or
-@notation{sharp}) of a note is part of the pitch, and is therefore
-musical content.  Whether an accidental (a @emph{printed} flat,
-natural or sharp sign) is printed in front of the corresponding
-note is a question of layout.  Layout is something that follows
-rules, so accidentals are printed automatically according to those
-rules.  The pitches in your music are works of art, so they will
-not be added automatically, and you must enter what you want to
-hear.
+The command @code{\key} sets the @notation{key signature}, which
+affects the printed representation, but does @emph{not} change
+the pitch assigned to a note such as @code{c} in the input.
 
 In this example:
 
@@ -231,10 +229,8 @@ note with pitch B-natural.}  In the key of A-flat major, it
 aes4 c b c
 @end lilypond
 
-If the above seems confusing, consider this: if you were playing a
-piano, which key would you hit?  If you would press a black key,
-then you @emph{must} add @w{@code{-is}} or @w{@code{-es}} to the note
-name!
+Whenever you enter a pitch that is a black key on the piano, you
+@emph{must} add @w{@code{-is}} or @w{@code{-es}} to the note name.
 
 Adding all alterations explicitly might require a little more
 effort when typing, but the advantage is that

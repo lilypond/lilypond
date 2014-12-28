@@ -555,6 +555,7 @@ messages into errors.")
     "part-combiner.scm"
     "autochange.scm"
     "define-music-properties.scm"
+    "time-signature.scm"
     "time-signature-settings.scm"
     "auto-beam.scm"
     "chord-name.scm"

@@ -253,15 +253,7 @@ bookOutputSuffix =
 breathe =
 #(define-music-function (parser location) ()
    (_i "Insert a breath mark.")
-   (make-music 'BreathingEvent
-     'midi-length
-     (lambda (len context)
-       ;;Shorten by half, or by up to a second, but always by a power of 2
-       (let* ((desired (min (ly:moment-main (seconds->moment 1 context))
-                            (* (ly:moment-main len) 1/2)))
-              (scale (inexact->exact (ceiling (/ (log desired) (log 1/2)))))
-              (breath (ly:make-moment (expt 1/2 scale))))
-         (ly:moment-sub (ly:make-moment (ly:moment-main len)) breath)))))
+   (make-music 'BreathingEvent))
 
 clef =
 #(define-music-function (parser location type) (string?)
@@ -287,7 +279,7 @@ as @code{\\compoundMeter #'((3 2 8))} or shorter
                         (ly:moment-main-denominator mlen))))
   #{
     \once \override Timing.TimeSignature.stencil = #(lambda (grob)
-      (grob-interpret-markup grob (format-compound-time args)))
+      (grob-interpret-markup grob (make-compound-meter-markup args)))
     \set Timing.timeSignatureFraction = #timesig
     \set Timing.baseMoment = #beat
     \set Timing.beatStructure = #beatGrouping
@@ -1131,28 +1123,32 @@ parenthesize =
        (set! (ly:music-property arg 'parenthesize) #t))
    arg)
 
-#(define partcombine-chord-range '(0 . 8))
-
 partcombine =
-#(define-music-function (parser location part1 part2) (ly:music? ly:music?)
-   (_i "Take the music in @var{part1} and @var{part2} and typeset so
-that they share a staff.")
+#(define-music-function (parser location chord-range part1 part2)
+   ((number-pair? '(0 . 8)) ly:music? ly:music?)
+   (_i "Take the music in @var{part1} and @var{part2} and return
+a music expression containing simultaneous voices, where @var{part1}
+and @var{part2} are combined into one voice where appropriate.
+Optional @var{chord-range} sets the distance in steps between notes
+that may be combined into a chord or unison.")
    (make-part-combine-music parser
-                            (list part1 part2) #f partcombine-chord-range))
+                            (list part1 part2) #f chord-range))
 
 partcombineUp =
-#(define-music-function (parser location part1 part2) (ly:music? ly:music?)
+#(define-music-function (parser location chord-range part1 part2)
+   ((number-pair? '(0 . 8)) ly:music? ly:music?)
    (_i "Take the music in @var{part1} and @var{part2} and typeset so
 that they share a staff with stems directed upward.")
    (make-part-combine-music parser
-                            (list part1 part2) UP partcombine-chord-range))
+                            (list part1 part2) UP chord-range))
 
 partcombineDown =
-#(define-music-function (parser location part1 part2) (ly:music? ly:music?)
+#(define-music-function (parser location chord-range part1 part2)
+   ((number-pair? '(0 . 8)) ly:music? ly:music?)
    (_i "Take the music in @var{part1} and @var{part2} and typeset so
 that they share a staff with stems directed downward.")
    (make-part-combine-music parser
-                            (list part1 part2) DOWN partcombine-chord-range))
+                            (list part1 part2) DOWN chord-range))
 
 partcombineForce =
 #(define-music-function (location parser type once) (symbol-or-boolean? boolean?)

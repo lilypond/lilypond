@@ -3064,15 +3064,6 @@ next example, the second bar check will signal an error.
 \time 3/4 c2 e4 | g2 |
 @end example
 
-Bar checks can also be used in lyrics:
-
-@example
-\lyricmode @{
-  \time 2/4
-  Twin -- kle | Twin -- kle |
-@}
-@end example
-
 An incorrect duration can result in a completely garbled score,
 especially if the score is polyphonic, so a good place to start
 correcting input is by scanning for failed bar checks and
@@ -3081,6 +3072,22 @@ incorrect durations.
 If successive bar checks are off by the same musical interval,
 only the first warning message is displayed.  This allows the
 warning to focus on the source of the timing error.
+
+Bar checks can also be inserted in lyrics:
+
+@example
+\lyricmode @{
+  \time 2/4
+  Twin -- kle | Twin -- kle |
+@}
+@end example
+
+Note that bar check marks in lyrics are evaluated at the musical
+moment when the syllable @emph{following} the check mark is processed.
+If the lyrics are associated with the notes of a voice which has a
+rest at the beginning of a bar, then no syllable can be located at the
+start of that bar and a warning will be issued if a bar check mark is
+placed in the lyrics at that position.
 
 
 @funindex |

@@ -5,10 +5,10 @@
 }
 
 % N.B. It's strange that these warnings are doubled.
-#(ly:expect-warning "time signature symbol `mensural11' not found")
-#(ly:expect-warning "time signature symbol `mensural11' not found")
-#(ly:expect-warning "time signature symbol `neomensural11' not found")
-#(ly:expect-warning "time signature symbol `neomensural11' not found")
+#(ly:expect-warning "Cannot find glyph timesig.mensural11")
+#(ly:expect-warning "Cannot find glyph timesig.mensural11")
+#(ly:expect-warning "Cannot find glyph timesig.neomensural11")
+#(ly:expect-warning "Cannot find glyph timesig.neomensural11")
 
 \layout { indent = 0 }
 

@@ -8,8 +8,8 @@
 
 
 \version "2.16.0"
-\new Staff {
 
+music = {
   <<
     \relative c'' {
       f e d c b a g f e d c
@@ -28,4 +28,16 @@
       f e d c b a g f e d c
     }
   >>
+}
+
+\score {
+  \new Staff { \music }
+}
+
+\score {
+  \new Staff { \override Staff.Rest #'style = #'z \music }
+}
+
+\score {
+  \new Staff { \override Staff.Rest #'style = #'classical \music }
 }

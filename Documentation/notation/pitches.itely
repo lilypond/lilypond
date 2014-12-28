@@ -324,8 +324,8 @@ Internals Reference:
 
 @c duplicated in Key signature and Accidentals
 @warning{New users are sometimes confused about accidentals and
-key signatures.  In LilyPond, note names are the raw input; key
-signatures and clefs determine how this raw input is displayed.
+key signatures.  In LilyPond, note names specify pitches; key
+signatures and clefs determine how these pitches are displayed.
 An unaltered note like@tie{}@code{c} means @q{C natural},
 regardless of the key signature or clef.  For more information,
 see @rlearning{Accidentals and key signatures}.}
@@ -353,10 +353,9 @@ for accidentals, see @ref{Note names in other languages}.
 ais1 aes aisis aeses
 @end lilypond
 
-A natural will cancel the effect of an accidental or key
-signature.  However, naturals are not encoded into the note name
-syntax with a suffix; a natural pitch is shown as a simple note
-name:
+A natural pitch is entered as a simple note name; no suffix is
+required.  A natural sign will be printed when needed to cancel
+the effect of an earlier accidental or key signature.
 
 @lilypond[verbatim,quote,relative=2]
 a4 aes a2
@@ -391,8 +390,7 @@ print them manually.  A reminder accidental can be forced by
 adding an exclamation mark@tie{}@code{!} after the pitch.  A
 cautionary accidental (i.e., an accidental within parentheses) can
 be obtained by adding the question mark@tie{}@code{?} after the
-pitch.  These extra accidentals can also be used to produce
-natural signs.
+pitch.
 
 @lilypond[verbatim,quote,relative=2]
 cis cis cis! cis? c c c! c?
@@ -510,7 +508,7 @@ In addition to note names, accidental suffixes may
 also vary depending on the language:
 
 @quotation
-@multitable {@code{nederlands}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
+@multitable {@code{nederlands}} {-s/--sharp} {-ess/-es} {-ss/-x/--sharpsharp} {-essess/-eses}
 @headitem Language
   @tab sharp @tab flat @tab double sharp @tab double flat
 @item @code{nederlands}
@@ -520,8 +518,8 @@ also vary depending on the language:
 @item @code{deutsch}
   @tab -is @tab -es @tab -isis @tab -eses
 @item @code{english}
-  @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
-    @tab -ff/-flatflat
+  @tab -s/--sharp @tab -f/--flat @tab -ss/-x/--sharpsharp
+    @tab -ff/--flatflat
 @item @code{espanol} or @code{español}
   @tab -s @tab -b @tab -ss/-x @tab -bb
 @item @code{italiano} or @code{français}

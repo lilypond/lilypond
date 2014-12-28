@@ -9,7 +9,7 @@
   $Id: bagpipe.ly,v 1.12 2006/03/16 14:39:46 hanwen Exp $
 %}
 
-\version "2.19.0"
+\version "2.19.16"
 
 % Notes of the scale of the Great Highland Bagpipe. Extra high notes for bombarde.
 % Flat notes used mainly in some modern music.
@@ -19,13 +19,13 @@ pitchnamesBagpipe = #`(
   (a . ,(ly:make-pitch 0 5 NATURAL))
   (b . ,(ly:make-pitch 0 6 NATURAL))
   (c . ,(ly:make-pitch 1 0 SHARP))
-  (cflat . ,(ly:make-pitch 1 0 FLAT))
+  (c-flat . ,(ly:make-pitch 1 0 FLAT))
   (d . ,(ly:make-pitch 1 1 NATURAL))
   (e . ,(ly:make-pitch 1 2 NATURAL))
   (f . ,(ly:make-pitch 1 3 SHARP))
-  (fflat . ,(ly:make-pitch 1 3 FLAT))
+  (f-flat . ,(ly:make-pitch 1 3 FLAT))
   (g . ,(ly:make-pitch 1 4 NATURAL))
-  (gflat . ,(ly:make-pitch 1 4 FLAT))
+  (g-flat . ,(ly:make-pitch 1 4 FLAT))
   (A . ,(ly:make-pitch 1 5 NATURAL))
   (B . ,(ly:make-pitch 1 6 NATURAL))
   (C . ,(ly:make-pitch 2 0 SHARP))

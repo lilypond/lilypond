@@ -26,6 +26,7 @@
   \name Staff
   \accepts Voice
   \accepts CueVoice
+  \accepts NullVoice
   \defaultchild Voice
 
   \consists "Staff_performer"

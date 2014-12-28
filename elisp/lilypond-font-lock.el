@@ -58,8 +58,8 @@
 ;; ... keywords (defined above, see kwregex)
       (cons (concat "\\(\\([_^-]?\\(" kwregex "\\)\\)+\\)\\($\\|[] \t(~{}>\\\\_()^*-]\\)") '(1 font-lock-keyword-face))
 
-;; ... user defined identifiers \[a-zA-Z]+
-      '("\\([_^-]?\\\\\\([a-zA-Z][a-zA-Z]*\\)\\)" 1 font-lock-constant-face)
+;; ... user defined identifiers, roughly  \[a-zA-Z]+ with single - or _ in between.
+      '("\\([_^-]?\\\\\\([a-zA-Z[:nonascii:]]\\(?:[-_]?[a-zA-Z[:nonascii:]]\\)*\\)\\)" 1 font-lock-constant-face)
 
 ;; ... the left side of '=' -mark
       '("\\([_a-zA-Z.0-9-]+\\)[ \t]*=[ \t]*" 1 font-lock-variable-name-face)

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.19.16"
 
 @node Instrumentos de viento
 @section Instrumentos de viento
@@ -179,8 +179,8 @@ quiere mostrar la armadura, puede usar @code{\showKeySignature}
 en su lugar.
 
 Alguna música moderna utiliza digitaciones cruzadas sobre el Do y el Fa para bemolizar estas notas.
-Se puede indicar esto mediante @code{cflat} o @code{fflat}. De forma parecida, el
-sol agudo piobaireachd se puede escribir @code{gflat} cuando aparece en música
+Se puede indicar esto mediante @code{c-flat} o @code{f-flat}. De forma parecida, el
+sol agudo piobaireachd se puede escribir @code{g-flat} cuando aparece en música
 ligera.
 
 @seealso

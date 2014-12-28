@@ -751,7 +751,11 @@ duration is replaced with the specified @var{duration}."
                    (set! (ly:music-property m 'articulations)
                          (set-origin! (filter! keep-element? arts))))
                (if (ly:duration? (ly:music-property m 'duration))
-                   (set! (ly:music-property m 'duration) duration))))
+                   (set! (ly:music-property m 'duration) duration))
+               (if (ly:music-property m 'cautionary #f)
+                   (set! (ly:music-property m 'cautionary) #f))
+               (if (ly:music-property m 'force-accidental #f)
+                   (set! (ly:music-property m 'force-accidental) #f))))
            elts)
           (append! elts (ly:music-property repeat-chord 'elements))))
   (let ((arts (filter keep-element?

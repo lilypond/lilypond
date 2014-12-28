@@ -904,7 +904,8 @@ Standard choices for @w{@code{@var{break-align-symbol}}} are listed in
 used when the grob is just left of the first note on a line
 
 @item next-note
-used when the grob is just left of any other note
+used when the grob is just left of any other note;
+if not set, the value of @code{first-note} gets used
 
 @item right-edge
 used when the grob is the last item on the line (only compatible with
@@ -1283,6 +1284,9 @@ relevant for finding the @code{pure-Y-extent}.")
 grobs.")
      (slur ,ly:grob? "A pointer to a @code{Slur} object.")
      (spacing ,ly:grob? "The spacing spanner governing this section.")
+     (space-increment ,ly:dimension? "The amount by which the total duration
+of a multimeasure rest affects horizontal spacing.  Each doubling of the
+duration adds @code{space-increment} to the length of the bar.")
      (spacing-wishes ,ly:grob-array? "An array of note spacing or staff spacing
 objects.")
      (span-start ,boolean? "Is the note head at the start of a spanner?")

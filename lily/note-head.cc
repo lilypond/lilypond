@@ -204,6 +204,7 @@ ADD_INTERFACE (Note_head,
                " @ruser{Note head styles}.",
 
                /* properties */
+               "duration-log "
                "note-names "
                "accidental-grob "
                "glyph-name "

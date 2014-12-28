@@ -32,6 +32,7 @@
         (after-line-breaking . ,ly:accidental-interface::remove-tied)
         (alteration . ,accidental-interface::calc-alteration)
         (avoid-slur . inside)
+        (extra-spacing-width . (-0.2 . 0.0))
         (glyph-name . ,accidental-interface::glyph-name)
         (glyph-name-alist . ,standard-alteration-glyph-name-alist)
         (stencil . ,ly:accidental-interface::print)
@@ -744,6 +745,7 @@
         (stencil . ,ly:dots::print)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (extra-spacing-height . (-0.5 . 0.5))
+        (extra-spacing-width . (0.0 . 0.2))
         (meta . ((class . Item)
                  (interfaces . (dots-interface
                                 font-interface
@@ -1502,7 +1504,8 @@
         (expand-limit . 10)
         (hair-thickness . 2.0)
         (round-up-exceptions . ())
-        (padding . 1)
+        (bound-padding . 0.5)
+        (space-increment . 2.0)
         (spacing-pair . (break-alignment . break-alignment))
         (springs-and-rods . ,ly:multi-measure-rest::set-spacing-rods)
         (stencil . ,ly:multi-measure-rest::print)
@@ -1521,7 +1524,7 @@
 
     (MultiMeasureRestNumber
      . (
-        (bound-padding  . 2.0)
+        (bound-padding  . 1.0)
         (direction . ,UP)
         (font-encoding . fetaText)
         (padding . 0.4)
@@ -2114,7 +2117,7 @@
             ;; Stems in unnatural (forced) direction should be shortened by
             ;; one staff space, according to [Roush & Gourlay].
             ;; Flagged stems we shorten only half a staff space.
-            (stem-shorten . (1.0 0.5))
+            (stem-shorten . (1.0 0.5 0.25))
 
             ))
 
