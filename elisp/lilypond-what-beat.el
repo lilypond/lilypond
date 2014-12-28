@@ -57,12 +57,12 @@
 
 (defun add-fractions (f1 f2)
   "Adds two fractions, both are (numerator denominator)"
-  (set 'result (list (+ (* (car f1) (cadr f2)) (* (car f2) (cadr f1)))
+  (setq result (list (+ (* (car f1) (cadr f2)) (* (car f2) (cadr f1)))
 		     (* (cadr f1) (cadr f2))))
-  (set 'result (reduce-fraction result 2))
-  (set 'result (reduce-fraction result 3))
-  (set 'result (reduce-fraction result 5))
-  (set 'result (reduce-fraction result 7))
+  (setq result (reduce-fraction result 2))
+  (setq result (reduce-fraction result 3))
+  (setq result (reduce-fraction result 5))
+  (setq result (reduce-fraction result 7))
 )
 
 
@@ -72,7 +72,7 @@
 	      (= 0 (% (cadr result) divisor))
 	      (< 1 (cadr result))
 	      (< 0 (car result)))
-    (set 'result (list (/ (car result) divisor) (/ (cadr result) divisor))))
+    (setq result (list (/ (car result) divisor) (/ (cadr result) divisor))))
   result
 )
 
@@ -86,7 +86,7 @@
 	(denominator (or (extract-match duration 8) "1")))
     (if (and (not (null dots)) (< 0 (string-width dots)))
 	(dotimes (dummy (string-width dots))
-	  (set 'result (list (1+ (* 2 (car result))) (* 2 (cadr result))))))
+	  (setq result (list (1+ (* 2 (car result))) (* 2 (cadr result))))))
     (list (* (string-to-int numerator) (car result))
 	  (* (string-to-int denominator) (cadr result)))
 ))
@@ -203,7 +203,7 @@ If next note has no duration, returns t"
 	    (goto-char (1+ measure-start))
 	    (goto-note-begin)
 	    (while (< (point) end)
-	      (set 'new-duration (walk-note-duration))
+	      (setq new-duration (walk-note-duration))
 	      (if (null new-duration)
 		  (if (not (looking-at "\\\\times[ \t]*\\([1-9]*\\)/\\([1-9]*\\)[ \t\n]*{"))
 		      (skip-good-keywords)
@@ -215,14 +215,14 @@ If next note has no duration, returns t"
 		      (goto-note-begin)
 		      (while (and (not (looking-at "}"))
 				  (< (point) end))
-			(set 'new-duration (walk-note-duration))
+			(setq new-duration (walk-note-duration))
 			(if (null new-duration)
 			    (if (looking-at "\\\\[a-z]*[ \t]*[a-z]*")
 				(goto-char (match-end 0))
 			      (error "Unknown text: %S %s" result(buffer-substring (point) end))))
 			(if (not (eq new-duration t))
-			    (set 'duration new-duration))
-			(set 'result (add-fractions result
+			    (setq duration new-duration))
+			(setq result (add-fractions result
 						    (list (* numerator (car duration))
 							  (* denominator (cadr duration)))))
 			(goto-note-begin))
@@ -230,8 +230,8 @@ If next note has no duration, returns t"
 			  (forward-char 1)))) ; skip }
 
 		(if (not (eq new-duration t))
-		    (set 'duration new-duration))
-		(set 'result (add-fractions result duration)))
+		    (setq duration new-duration))
+		(setq result (add-fractions result duration)))
 	      (goto-note-begin))
 
 	    result
