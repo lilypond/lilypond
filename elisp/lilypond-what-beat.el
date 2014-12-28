@@ -199,11 +199,10 @@ If next note has no duration, returns t"
 	     (result '(0 1)))		; 0 in fraction form
 	(if (= measure-start -1)
 	    (message "No | before point")
-	  (progn
-	    (goto-char (1+ measure-start))
-	    (goto-note-begin)
-	    (while (< (point) end)
-	      (setq new-duration (walk-note-duration))
+	  (goto-char (1+ measure-start))
+	  (goto-note-begin)
+	  (while (< (point) end)
+	    (let ((new-duration (walk-note-duration)))
 	      (if (null new-duration)
 		  (if (not (looking-at "\\\\times[ \t]*\\([1-9]*\\)/\\([1-9]*\\)[ \t\n]*{"))
 		      (skip-good-keywords)
@@ -232,10 +231,9 @@ If next note has no duration, returns t"
 		(if (not (eq new-duration t))
 		    (setq duration new-duration))
 		(setq result (add-fractions result duration)))
-	      (goto-note-begin))
+	      (goto-note-begin)))
 
-	    result
-))))))
+	  result)))))
 
 (defun LilyPond-what-beat ()
   "Returns how much of a measure lies between last measaure '|' and point.
