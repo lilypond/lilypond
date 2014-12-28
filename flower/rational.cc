@@ -216,11 +216,11 @@ Rational::compare (Rational const &r, Rational const &s)
     return -1;
   else if (r.sign_ > s.sign_)
     return 1;
-  else if (r.is_infinity ())
+  else if (r.is_infinity ()) // here s is also infinite with the same sign
     return 0;
-  else if (r.sign_ == 0)
+  else if (r.sign_ == 0) // here s.sign_ is also zero
     return 0;
-  return r.sign_ * ::sign ((I64) (r.num_ * s.den_) - (I64) (s.num_ * r.den_));
+  return ::sign (r - s);
 }
 
 int
