@@ -201,7 +201,7 @@ If next note has no duration, returns t"
 	     (duration (if (= -1 last-dur) 0 (parse-duration (match-string 0))))
 	     (result '(0 1)))		; 0 in fraction form
 	(if (= measure-start -1)
-	    (error "No | before point")
+	    (message "No | before point")
 	  (progn
 	    (goto-char (1+ measure-start))
 	    (goto-note-begin)
