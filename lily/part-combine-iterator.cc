@@ -80,18 +80,26 @@ private:
   {
     APART,
     TOGETHER,
-    SOLO1,
-    SOLO2,
+    SOLO,
     UNISONO,
     UNISILENCE,
   };
   Status state_;
-  Status playing_state_;
 
-  /*
-    Should be SOLO1 or SOLO2
-  */
-  Status last_playing_;
+  // For states in which it matters, this is the relevant part,
+  // e.g. 1 for Solo I, 2 for Solo II.
+  int chosen_part_;
+
+  // States for generating partcombine text.
+  enum PlayingState
+  {
+    PLAYING_OTHER,
+    PLAYING_UNISONO,
+    PLAYING_SOLO1,
+    PLAYING_SOLO2,
+  } playing_state_;
+
+  int last_playing_;
 
   /*
     TODO: this is getting off hand...
@@ -107,7 +115,7 @@ private:
   void solo1 ();
   void solo2 ();
   void apart (bool silent);
-  void unisono (bool silent);
+  void unisono (bool silent, int newpart);
 };
 
 void
@@ -144,8 +152,9 @@ Part_combine_iterator::Part_combine_iterator ()
   horizontalShiftOne_ = scm_from_int (0);
   horizontalShiftTwo_ = scm_from_int (1);
   state_ = APART;
-  playing_state_ = APART;
-  last_playing_ = APART;
+  chosen_part_ = 1;
+  playing_state_ = PLAYING_OTHER;
+  last_playing_ = 0;
 
   busy_ = false;
   notice_busy_ = false;
@@ -234,26 +243,21 @@ Part_combine_iterator::kill_mmrest (int in)
 }
 
 void
-Part_combine_iterator::unisono (bool silent)
+Part_combine_iterator::unisono (bool silent, int newpart)
 {
   Status newstate = (silent) ? UNISILENCE : UNISONO;
 
-  if (newstate == state_)
+  if ((newstate == state_) and (newpart == chosen_part_))
     return;
   else
     {
-      /*
-        If we're coming from SOLO2 state, we might have kill mmrests
-        in the 1st voice, so in that case, we use the second voice
-        as a basis for events.
-      */
-      Outlet_type c1 = (last_playing_ == SOLO2) ? CONTEXT_NULL : CONTEXT_SHARED;
-      Outlet_type c2 = (last_playing_ == SOLO2) ? CONTEXT_SHARED : CONTEXT_NULL;
+      Outlet_type c1 = (newpart == 2) ? CONTEXT_NULL : CONTEXT_SHARED;
+      Outlet_type c2 = (newpart == 2) ? CONTEXT_SHARED : CONTEXT_NULL;
       substitute_both (c1, c2);
-      kill_mmrest ((last_playing_ == SOLO2) ? CONTEXT_ONE : CONTEXT_TWO);
+      kill_mmrest ((newpart == 2) ? CONTEXT_ONE : CONTEXT_TWO);
       kill_mmrest (CONTEXT_SHARED);
 
-      if (playing_state_ != UNISONO
+      if (playing_state_ != PLAYING_UNISONO
           && newstate == UNISONO)
         {
           if (!unisono_event_)
@@ -264,29 +268,31 @@ Part_combine_iterator::unisono (bool silent)
               unisono_event_->unprotect ();
             }
 
-          Context *out = (last_playing_ == SOLO2 ? second_iter_ : first_iter_)
+          Context *out = (newpart == 2 ? second_iter_ : first_iter_)
                          ->get_outlet ();
           out->event_source ()->broadcast (unisono_event_);
-          playing_state_ = UNISONO;
+          playing_state_ = PLAYING_UNISONO;
         }
       state_ = newstate;
+      chosen_part_ = newpart;
     }
 }
 
 void
 Part_combine_iterator::solo1 ()
 {
-  if (state_ == SOLO1)
+  if ((state_ == SOLO) && (chosen_part_ == 1))
     return;
   else
     {
-      state_ = SOLO1;
+      state_ = SOLO;
+      chosen_part_ = 1;
       substitute_both (CONTEXT_SOLO, CONTEXT_NULL);
 
       kill_mmrest (CONTEXT_TWO);
       kill_mmrest (CONTEXT_SHARED);
 
-      if (playing_state_ != SOLO1)
+      if (playing_state_ != PLAYING_SOLO1)
         {
           if (!solo_one_event_)
             {
@@ -298,22 +304,22 @@ Part_combine_iterator::solo1 ()
 
           first_iter_->get_outlet ()->event_source ()->broadcast (solo_one_event_);
         }
-      playing_state_ = SOLO1;
+      playing_state_ = PLAYING_SOLO1;
     }
 }
 
 void
 Part_combine_iterator::solo2 ()
 {
-  if (state_ == SOLO2)
+  if ((state_ == SOLO) and (chosen_part_ == 2))
     return;
   else
     {
-      state_ = SOLO2;
-
+      state_ = SOLO;
+      chosen_part_ = 2;
       substitute_both (CONTEXT_NULL, CONTEXT_SOLO);
 
-      if (playing_state_ != SOLO2)
+      if (playing_state_ != PLAYING_SOLO2)
         {
           if (!solo_two_event_)
             {
@@ -324,7 +330,7 @@ Part_combine_iterator::solo2 ()
             }
 
           second_iter_->get_outlet ()->event_source ()->broadcast (solo_two_event_);
-          playing_state_ = SOLO2;
+          playing_state_ = PLAYING_SOLO2;
         }
     }
 }
@@ -336,7 +342,7 @@ Part_combine_iterator::chords_together ()
     return;
   else
     {
-      playing_state_ = TOGETHER;
+      playing_state_ = PLAYING_OTHER;
       state_ = TOGETHER;
 
       substitute_both (CONTEXT_SHARED, CONTEXT_SHARED);
@@ -347,7 +353,7 @@ void
 Part_combine_iterator::apart (bool silent)
 {
   if (!silent)
-    playing_state_ = APART;
+    playing_state_ = PLAYING_OTHER;
 
   if (state_ == APART)
     return;
@@ -491,9 +497,20 @@ Part_combine_iterator::process (Moment m)
                || tag == ly_symbol2scm ("apart-spanner"))
         apart (tag == ly_symbol2scm ("apart-silence"));
       else if (tag == ly_symbol2scm ("unisono"))
-        unisono (false);
+        {
+          // Continue to use the most recently used part because we might have
+          // killed mmrests in the other part.
+          unisono (false, (last_playing_ == 2) ? 2 : 1);
+        }
       else if (tag == ly_symbol2scm ("unisilence"))
-        unisono (true);
+        {
+          // as for unisono
+          unisono (true, (last_playing_ == 2) ? 2 : 1);
+        }
+      else if (tag == ly_symbol2scm ("silence1"))
+        unisono (true, 1);
+      else if (tag == ly_symbol2scm ("silence2"))
+        unisono (true, 2);
       else if (tag == ly_symbol2scm ("solo1"))
         solo1 ();
       else if (tag == ly_symbol2scm ("solo2"))
@@ -509,13 +526,13 @@ Part_combine_iterator::process (Moment m)
   if (first_iter_->ok ())
     {
       if (try_process (first_iter_, m))
-        last_playing_ = SOLO1;
+        last_playing_ = 1;
     }
 
   if (second_iter_->ok ())
     {
       if (try_process (second_iter_, m))
-        last_playing_ = SOLO2;
+        last_playing_ = 2;
     }
 }
 
