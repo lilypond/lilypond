@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 0fe24db3936774a8fb913cb14c997036db7aeb1c
+   Translation of GIT committish: 4467a72a98fb582466ee4d5944ec8454b4b77fc6
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -56,7 +56,7 @@ Cette section présente la notation courante dont on a besoin pour
 
 @menu
 * Barre et contrôle de mesure::
-* Altérations et armure::
+* Hauteurs et armure::
 * Liaisons::
 * Articulations et nuances::
 * Ajout de texte::
@@ -114,9 +114,9 @@ Manuel de notation :
 @ruser{Vérification des limites et numéros de mesure}.
 
 
-@node Altérations et armure
-@subsection Altérations et armure
-@translationof Accidentals and key signatures
+@node Hauteurs et armure
+@subsection Hauteurs et armure
+@translationof Pitches and key signatures
 
 @menu
 * Altérations::
@@ -124,13 +124,13 @@ Manuel de notation :
 * Attention aux armures et aux hauteurs::
 @end menu
 
-@warning{Si, comme nombre de nouveaux utilisateurs, ce qui suit vous
-paraît déroutant, lisez cette partie jusqu'au bout, à plus forte raison
-si vous n'avez jamais fait de solfège !}
+@warning{Si, comme nombre de nouveaux utilisateurs, vous avez du mal à
+appréhender la notion de tonalité et d'armures dans LilyPond, consultez
+la note à la fin de cette page.}
 
 @node Altérations
 @unnumberedsubsubsec Altérations
-@translationof Accidentals
+@translationof Pitch alterations
 
 @cindex altérations
 @cindex dièse
@@ -139,6 +139,8 @@ si vous n'avez jamais fait de solfège !}
 @cindex bémol
 @cindex double bémol
 @cindex bémol, double
+@cindex bécarre
+@cindex naturel
 
 @funindex es
 @funindex is
@@ -149,6 +151,10 @@ Glossaire musicologique :
 @rglosnamed{sharp,dièse}, @rglosnamed{flat,bémol},
 @rglosnamed{double sharp,double dièse},
 @rglosnamed{double flat,double bémol}, @rglosnamed{accidental,altération}.
+
+LilyPond identifie le nom d'une note par sa hauteur.  Par exemple, un
+@code{c} signifiera toujours @notation{do naturel}, quelle que soit la
+tonalité ou l'armure.
 
 Dans la notation par défaut, on obtient un @notation{dièse} en
 ajoutant @code{is} au nom de la note, et un @notation{bémol} en
@@ -197,11 +203,11 @@ Glossaire musicologique :
 L'armure est déterminée par la commande @code{\key}, suivie d'une
 hauteur puis de @code{\major} (majeur) ou @code{\minor} (mineur).
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,relative=1]
 \key d \major
-a1
-\key c \minor
-a
+d4 fis a c |
+\bar "||" \key c \minor
+c,4 ees g b |
 @end lilypond
 
 @smallspace
@@ -217,25 +223,17 @@ Glossaire musicologique :
 @rglosnamed{natural,bécarre}, @rglosnamed{sharp,dièse},
 @rglos{transposition}, @rglosnamed{Pitch names,Noms de note}.
 
-La combinaison de l'@notation{armure} et des hauteurs de note -- y
-compris les altérations -- permet à LilyPond de déterminer dans quel
-cas imprimer des @notation{altérations accidentelles}.  L'armure
-n'affecte que les altérations @emph{imprimées}, et non les hauteurs
-réelles ! Cette fonctionnalité est souvent source de confusion pour
-les nouveaux utilisateurs, aussi expliquons-la en détail.
+LilyPond fait une distinction nette entre le contenu musical et sa
+représentation sur papier.  Un code tel que @code{d4 e fis2} définit la
+hauteur et la durée de notes ; il s'agit du contenu.  L'armure, les
+altérations « à la clef », fait partie de la représentation imprimée.
+L'armure définit aussi des règles en matière de représentation des notes
+imprimées.  LilyPond comparera chaque hauteur saisie avec l'armure pour
+déterminer s'il est besoin d'imprimer une altération accidentelle.
 
-LilyPond fait une distinction nette entre le contenu musical et la
-mise en forme.  L'altération d'une note -- @notation{bémol},
-@notation{bécarre} ou @notation{dièse} -- fait partie de sa hauteur,
-et relève donc du contenu musical.  La gravure ou non d'une altération
-accidentelle -- un @emph{signe} bémol, bécarre ou dièse -- devant la
-note correspondante est une question qui relève de la mise en forme.
-La gravure d'une partition suit des règles, en particulier des règles
-d'indication des altérations accidentelles.  Les hauteurs de note, en
-revanche, relèvent de ce que vous voulez entendre ; et, dans la
-mesure où la musique que vous entrez est censée être celle que vous
-voulez entendre, LilyPond, qui n'est chargé que de la gravure, ne les
-choisira pas à votre place.
+La commande @code{\key} détermine l'armure, ce qui affectera la
+représentation imprimée, et ne modifiera @b{en aucun cas} la hauteur
+assignée à une note telle qu'un @code{c} que vous aurez saisi.
 
 Dans cet exemple,
 

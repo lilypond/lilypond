@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 08560a1b8076630c4fc6cb9b902614d8b74fd6fc
+    Translation of GIT committish: f291e8c30bbde2cf1fe2fc1b359288c94b8e2503
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -18,7 +18,6 @@ Questo file fornisce un'introduzione alla versione di LilyPond
 @version{}.
 @end macro
 
-@c `Learning Manual' was born 1999-10-10 with git commit b9abaac...
 @macro copyrightDeclare
 Copyright @copyright{} 1999--2014 by the authors.
 @end macro

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 7fdce4f39834cc8c83f176480cc1d20900eb09f8
+    Translation of GIT committish: 63e280b6c609d307b1cb9aa1852fce7862c39738
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -109,6 +109,12 @@ un punto finale e talvolta altre proprietà relative alla loro forma.  Gli
 oggetti che hanno una forma estesa in questo modo vengono chiamati «Estensori»
 (in inglese @emph{Spanner}).
 
+Esistono anche dei grob @q{astratti} che non stampano niente da soli, bensì
+raccolgono, posizionano e gestiscono altri grob.  Esempi comuni sono
+@code{DynamicLineSpanner}, @code{BreakAlignment}, @code{NoteColumn},
+@code{VerticalAxisGroup}, @code{NonMusicalPaperColumn} e simili.  Vedremo
+in seguito come si usano alcuni di questi.
+
 Resta da spiegare cosa sono le «Interfacce».  Molti oggetti, pur essendo
 piuttosto diversi, condividono delle caratteristiche comuni che devono
 essere elaborate nello stesso modo.  Ad esempio, tutti i @emph{grob} hanno un
@@ -183,6 +189,7 @@ di oggetti e proprietà dai loro nomi.
 * Il prefisso once::
 * Il comando overrideProperty::
 * Il comando tweak::
+* Il prefisso single::
 @end menu
 
 @node Il comando override
@@ -458,7 +465,7 @@ seguire la sua origine fino all'evento originale:
 
 Questa forma estesa del comando @code{\tweak} può essere descritta così
 @example
-\tweak @var{oggetto-formattazione}.@var{proprietà-formattazione} @var{valore}
+\tweak @var{OggettoFormattazione}.@var{proprietà-formattazione} #@var{valore}
 @end example
 
 @cindex gruppi irregolari, annidati
@@ -521,10 +528,67 @@ aspetto può essere modificato come di consueto con i comandi @code{\override}:
 }
 @end lilypond
 
+@seealso
+@c need to comment this until the node conflict is fixed - fb
+Guida alla Notazione:
+@ruser{The tweak command,,The tweak command}.
+
+
+@node Il prefisso single
+@unnumberedsubsubsec Il prefisso @code{@bs{}single}
+@translationof The single prefix
+
+@funindex \single
+@cindex tweak, generato da override
+
+Immaginiamo di voler enfatizzare alcune teste di nota in particolare
+colorandole di rosso e aumentandone la dimensione; e immaginiamo anche
+che per comodità abbiamo definito una funzione per fare ciò:
+
+@lilypond[quote,verbatim]
+emphNoteHead = {
+  \override NoteHead.color = #red
+  \override NoteHead.font-size = 2
+}
+\relative c'' {
+  c4 a \once \emphNoteHead f d |
+}
+@end lilypond
+
+Il prefisso @code{\once} funziona bene se si desidera enfatizzare note
+singole o interi accordi, ma non permette di enfatizzare una singola
+nota @emph{dentro} un accordo.  Prima abbiamo visto come si possa usare
+@code{\tweak} per fare ciò, vedi @ref{The tweak command}.
+Ma non è possibile usare @code{\tweak} in una funzione; è in questo caso che
+torna utile il comando @code{\single}:
+
+@lilypond[quote,verbatim]
+emphNoteHead = {
+  \override NoteHead.color = #red
+  \override NoteHead.font-size = 2
+}
+\relative c'' {
+   <c a \single \emphNoteHead f d>4
+}
+@end lilypond
+
+In sintesi, @code{\single} converte le modifiche introdotte dal comando
+@code{\override} in modifiche eseguite dal comando @code{\tweak}.
+Ciò significa che quando ci sono vari oggetti che si trovano nello stesso
+momento musicale (come le teste di nota in un accordo), @code{\single} avrà
+effetto su uno solo, quello generato dall'espressione musicale immediatamente
+seguente; a differenza di @code{\once}, che ha effetto su tutti questi oggetti.
+
+Usando @code{\single} in questo modo qualsiasi funzione usata come
+scorciatoia che contiene soltanto @code{\override} può essere applicata
+a note individuali in un accordo.  Tuttavia, @code{\single} non converte
+@code{\revert}, @code{\set} e @code{\unset} in modifiche che hanno le
+proprietà di @code{\tweak}.
 
 @seealso
-Guida alla Notazione:
-@ruser{The tweak command}.
+Manuale di apprendimento:
+@ref{The tweak command},
+@ref{Using variables for layout adjustments}.
 
 
 @node Manuale del Funzionamento interno
@@ -3393,7 +3457,7 @@ rhMusic = \relative c'' {
     \time 6/4
     \mergeDifferentlyHeadedOn
     \mergeDifferentlyDottedOn
-    bes2.^\markup { \bold "Moderato" } r8
+    bes2.\tempo "Moderato" r8
     <<
       { c,8 d fis bes a }
       \new Voice {
@@ -3646,12 +3710,12 @@ lhMusic = \relative c' {
 @end lilypond
 
 Proseguiamo con la terza battuta e l'inizio della sezione del Moderato.  Nel
-tutorial abbiamo visto come aggiungere del testo in grassetto tramite il
-comando @code{\markup}, quindi aggiungere @qq{Moderato} in grassetto è
-facile.  Ma come facciamo ad accorpare le note appartenenti a voci
-diverse?  Ancora una volta dobbiamo rivolgerci alla guida alla Notazione per
-un aiuto.  Una ricerca del termine @qq{accorpare} (@emph{merge}) nell'indice della
-guida ci porta rapidamente al paragrafo @ruser{Collision resolution}, dove
+tutorial abbiamo visto come aggiungere un'indicazione di tempo col comando
+@code{\tempo}, quindi aggiungere @qq{Moderato} è facile.  Ma come facciamo
+ad accorpare le note appartenenti a voci diverse?  Ancora una volta
+dobbiamo rivolgerci alla guida alla Notazione per un aiuto.  Una ricerca
+del termine @qq{accorpare} (in inglese @emph{merge}) nell'indice della guida
+ci porta rapidamente al paragrafo @ruser{Collision resolution}, dove
 troviamo i comandi per allineare le note con teste e punti diversi.  Nel
 nostro esempio abbiamo bisogno di accorpare entrambi i tipi di note per la
 durata della sezione polifonica della terza battuta.  Dunque, usando le
@@ -3682,7 +3746,7 @@ rhMusic = \relative c'' {
     bes1~ |
     \bar "||"
     \time 6/4
-    bes2.^\markup { \bold "Moderato" } r8
+    bes2.\tempo "Moderato" r8
     \mergeDifferentlyHeadedOn
     \mergeDifferentlyDottedOn
     % Inizia la sezione polifonica a quattro voci
@@ -3757,7 +3821,7 @@ rhMusic = \relative c'' {
     bes1~ |
     \bar "||"
     \time 6/4
-    bes2.^\markup { \bold "Moderato" } r8
+    bes2.\tempo "Moderato" r8
     \mergeDifferentlyHeadedOn
     \mergeDifferentlyDottedOn
     % Inizia la sezione polifonica a quattro voci
@@ -3909,19 +3973,14 @@ lhMusic = \relative c' {
 * Simulare una corona nel MIDI::
 @end menu
 
-
-@cindex proprietà transparent, uso della
-@cindex oggetti, renderli invisibili
-@cindex togliere gli oggetti
-@cindex oggetti, toglierli
-@cindex nascondere gli oggetti
-@cindex oggetti, nascondere
-@cindex oggetti invisibili
-@cindex legature di valore tra note di voci diverse
+@cindex rimuovere gli oggetti
+@cindex oggetti, rimuoverli
 
 @node Legature di valore tra note di voci diverse
 @unnumberedsubsubsec Legature di valore tra note di voci diverse
 @translationof Tying notes across voices
+
+@cindex legature di valore tra note di voci diverse
 
 L'esempio seguente mostra come unire con legature di valore
 note appartenenti a voci diverse.  Di norma, solo le note nella
@@ -3933,17 +3992,18 @@ Se si usano due voci con le note legate in una voce
 @end lilypond
 
 @noindent
-e si cancella il primo gambo di quella voce, la legatura sembra
+e si toglie il primo gambo di quella voce e la sua coda, la legatura sembra
 attraversare le voci:
 
-@cindex Stem, esempio di sovrascrittura
-@cindex proprietà transparent, esempio
-@cindex transparent, esempio
+@cindex Stem, esempio di rimozione
+@cindex Flag, esempio di rimozione
+@cindex @code{\omit}, esempio
 
 @lilypond[quote,fragment,relative=2,verbatim]
 <<
   {
-    \tweak Stem.transparent ##t
+    \once \omit Stem
+    \once \omit Flag
     b8~ 8\noBeam
   }
 \\
@@ -3951,52 +4011,10 @@ attraversare le voci:
 >>
 @end lilypond
 
-Per far sì che il gambo cancellato non schiacci troppo la legatura,
-possiamo allungarlo impostando la proprietà
-@code{length} su @code{8},
-
-@lilypond[quote,fragment,relative=2,verbatim]
-<<
-  {
-    \tweak Stem.transparent ##t
-    \tweak Stem.length #8
-    b8~ 8\noBeam
-  }
-\\
-  { b8[ g] }
->>
-@end lilypond
-
-@funindex \single
-@cindex tweak, generato da un override
-
-Per @emph{sovrascrivere} (con @code{\override}) la trasparenza di un oggetto
-grafico, avremmo potuto usare la scorciatoia @code{\hide}, come spiegato
-in precedenza.  Ma la modifica manuale con @emph{\tweak} è un'operazione
-diversa, che riguarda solo le proprietà generate da una singola espressione
-musicale.  Tuttavia è possibile convertire le sovrascritture in @emph{tweak}
-usando @code{\single}. Questo ci permette di riscrivere l'esempio precedente
-in questo modo
-
-@lilypond[quote,fragment,relative=2,verbatim]
-<<
-  {
-    \single \hide Stem
-    \single \hide Flag
-    \tweak Stem.length #8
-    b8~ 8\noBeam
-  }
-\\
-  { b8[ g] }
->>
-@end lilypond
-
-In questo caso particolare, la differenza rispetto a @code{\once \hide} non
-è evidente.  La differenza è evidente quando ci sono vari oggetti che
-si trovano nello stesso punto del tempo musicale (come le teste delle note
-in un accordo).  In quel caso, @code{\once} avrà effetto su tutti quegli
-oggetti mentre @code{\single} solo su uno, ovvero quello generato
-dall'espressione musicale immediatamente seguente.
+@seealso
+Manuale di apprendimento:
+@ref{The once prefix,,Il prefisso @code{@bs{}once}},
+@ref{The stencil property}.
 
 
 @node Simulare una corona nel MIDI

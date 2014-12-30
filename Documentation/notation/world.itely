@@ -342,7 +342,7 @@ Notation Reference:
 @ref{Key signature}.
 
 Learning Manual:
-@rlearning{Accidentals and key signatures}.
+@rlearning{Pitches and key signatures}.
 
 Internals Reference:
 @rinternals{KeySignature}.

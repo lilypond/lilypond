@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: fab824ac128346465690246f7a42ce1e8b42db8d
+    Translation of GIT committish: 4467a72a98fb582466ee4d5944ec8454b4b77fc6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3139,6 +3139,16 @@ test de mesure signale une erreur.
 \time 3/4 c2 e4 | g2 |
 @end example
 
+Des durées incorrectes font échouer les tests de mesure et peuvent
+souvent mettre la partition sens dessus dessous, particulièrement s'il
+s'agit de musique polyphonique.  Vérifier les tests de mesure qui ont
+échoué et les durées incorrectes est un bon moyen de commencer à
+corriger sa partition.
+
+Lorsque plusieurs tests successifs présentent un même décalage, seul le
+message d'avertissement concernant la première occurrence est affiché.
+L'origine du problème est de fait plus évidente.
+
 Le test de mesure peut être aussi utilisé dans les paroles, par
 exemple :
 
@@ -3149,15 +3159,11 @@ exemple :
 @}
 @end example
 
-Des durées incorrectes font échouer les tests de mesure et peuvent
-souvent mettre la partition sens dessus dessous, particulièrement s'il
-s'agit de musique polyphonique.  Vérifier les tests de mesure qui ont
-échoué et les durées incorrectes est un bon moyen de commencer à
-corriger sa partition.
-
-Lorsque plusieurs tests successifs présentent un même décalage, seul le
-message d'avertissement concernant la première occurrence est affiché.
-L'origine du problème est de fait plus évidente.
+Notez bien qu'en matière de paroles, le test est effectué à l'instant
+musical où la syllabe @b{suivant} la marque est traitée.  Par voie de
+conséquence, lorsqu'une mesure débute par un silence, il n'y a pas moyen
+de positionner une syllabe à cet endroit, et LilyPond émettra un
+avertissement.
 
 @funindex |
 @funindex "|"

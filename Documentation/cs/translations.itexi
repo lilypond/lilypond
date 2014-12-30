@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Naposledy obnoveno Wed Dec 18 12:23:14 UTC 2013
+@emph{Naposledy obnoveno Tue Dec 30 15:39:08 UTC 2014
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -47,7 +47,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">částečně</span>
+<span style="background-color: #5bff27">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -111,24 +111,24 @@ ano
 @item
 2 Běžný notový zápis
 @*
-4396
+4417
 @tab Pavel Fric
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">částečně (35 %)</span>
+<span style="background-color: #dfef77">částečně (36 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-částečně (35 %)
+částečně (36 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">částečně</span>
+<span style="background-color: #6fff29">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -138,7 +138,7 @@ ano
 @item
 3 Základní pojmy
 @*
-11144
+11193
 @tab Pavel Fric
 @tab 
 @tab 
@@ -155,7 +155,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">částečně</span>
+<span style="background-color: #47ff24">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -165,24 +165,24 @@ ano
 @item
 4 Ladění výstupu
 @*
-16191
+16570
 @tab Pavel Fric
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">částečně (50 %)</span>
+<span style="background-color: #dfef77">částečně (51 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-částečně (50 %)
+částečně (51 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #9eff30">částečně</span>
+<span style="background-color: #b2fe32">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -192,24 +192,24 @@ ano
 @item
 A Předlohy
 @*
-372
+803
 @tab Pavel Fric
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">částečně (38 %)</span>
+<span style="background-color: #dfef77">částečně (66 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-částečně (38 %)
+částečně (66 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #fffd3d">částečně</span>
+<span style="background-color: #ffca45">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -231,7 +231,7 @@ LilyPond -- Zápis not pro každého
 @item
 Nadpisy
 @*
-616
+642
 @tab Pavel Fric
 @tab 
 @tab 
@@ -248,7 +248,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #8aff2d">částečně</span>
+<span style="background-color: #9eff30">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -285,7 +285,34 @@ ano
 @item
 Úvod
 @*
-4937
+5707
+@tab Pavel Fric
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ano</span>
+@end html
+@end ifhtml
+@ifnothtml
+ano
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #fcff3c">částečně</span>
+@end html
+@end ifhtml
+@ifnothtml
+částečně
+@end ifnothtml
+@tab před-GDP
+@item
+Stažení
+@*
+1145
 @tab Pavel Fric
 @tab 
 @tab 
@@ -310,36 +337,9 @@ ano
 @end ifnothtml
 @tab před-GDP
 @item
-Stažení
-@*
-1201
-@tab Pavel Fric
-@tab 
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">ano</span>
-@end html
-@end ifhtml
-@ifnothtml
-ano
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #68ff28">částečně</span>
-@end html
-@end ifhtml
-@ifnothtml
-částečně
-@end ifnothtml
-@tab před-GDP
-@item
 Příručky
 @*
-1284
+1314
 @tab Pavel Fric
 @tab 
 @tab 
@@ -356,7 +356,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #4efe25">částečně</span>
+<span style="background-color: #5bff27">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -366,18 +366,18 @@ ano
 @item
 Společenství
 @*
-3073
+2991
 @tab  Pavel Fric
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">částečně (95 %)</span>
+<span style="background-color: #dfef77">částečně (94 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-částečně (95 %)
+částečně (94 %)
 @end ifnothtml
 @tab 
 @ifhtml

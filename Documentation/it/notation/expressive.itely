@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 48a57a1c8feb426029e059d9fbf8aaf1b14f0ff8
+    Translation of GIT committish: e5f2d1122b7e2f4b6e4fd4b7c1404280e82bb6d5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.25"
+@c \version "2.18.0"
 
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
@@ -961,6 +961,12 @@ I respiri si inseriscono col comando @code{\breathe}:
 @lilypond[verbatim,quote,relative=2]
 c2. \breathe d4
 @end lilypond
+
+Diversamente da altri segni di espressione, il respiro non è associato
+alla nota precedente ma è un evento musicale separato.  Dunque tutti i
+segni espressivi attaccati alla nota precedente, tutte le parentesi quadre
+che indicano le travature manuali e le parentesi che indicano le legature
+di portamento e di frase devono essere poste prima di @code{\breathe}.
 
 Un respiro termina una travatura automatica; per evitare questo
 comportamento, si veda @ref{Manual beams}.

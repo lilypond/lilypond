@@ -1,0 +1,15 @@
+%% Translation of GIT committish: 3c907f2dd5ba3dd91e30454922d8361225ca28d5
+  texidocit = "
+L'esempio seguente mostra un approccio per simplificare l'aggiunta di
+citazioni orchestrali a una riduzione per pianoforte di una partitura
+vocale.  La funzione musicale @code{\\cueWhile} prende quattro argomenti:
+la musica da cui prendere la citazione, come è definita da @code{\\addQuote},
+il nome da inserire prima delle notine, poi o @code{#UP} o @code{#DOWN} per
+specificare o @code{\\voiceOne} col nome sopra il rigo o @code{\\voiceTwo}
+col nome sotto il rigo, e infine la musica per pianoforte che deve apparire
+in parallelo alle notine.  Il nome dello strumento citato è posto a sinistra
+delle notine.  Molti passaggi possono essere citati, ma non possono
+sovrapporsi l'un l'altro nel tempo.
+
+"
+  doctitleit = "Aggiungere citazioni orchestrali a una partitura vocale"

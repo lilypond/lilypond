@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 3c907f2dd5ba3dd91e30454922d8361225ca28d5
+  texidocit = "
+
+L'allineamento orizzontale del testo vocale si imposta attraverso la
+proprietà @code{self-alignment-X} dell'oggetto @code{LyricText}.
+@code{#-1} è sinistra, @code{#0} è centro e @code{#1} è destra;
+si possono usare anche @code{#LEFT}, @code{#CENTER} e @code{#RIGHT}.
+
+"
+  doctitleit = "Allineamento del testo vocale"

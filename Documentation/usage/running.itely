@@ -128,7 +128,7 @@ particular shell, Command (Windows), Terminal or Console
 applications (MacOS X) to see if output redirection is supported or if
 the syntax is different.
 
-The following example searches and converts all input files in the
+The following example searches and processes all input files in the
 current directory and all directories below it recursively.  The output
 files will be located in the same directory that the command was run in,
 rather than in the same directories as the original input files.

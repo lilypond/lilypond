@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 730d4eb3e0328e8ba0b376f8191a5bb6ae7f904c
+    Translation of GIT committish: 30e2aa8813df8903dc553ae80c82b8461ffbb381
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -56,7 +56,8 @@ concernées.
 @ref{Développement} : pour ceux qui veulent contribuer et tester.
 
 @item
-@ref{GSoC 2012}: liste des projets pour le Google Summer of Code 2012.
+@ref{Google Summer of Code}: liste des projets pour le Google Summer of
+Code 2012.
 
 @item
 @ref{Auteurs} : ceux qui ont permis à LilyPond d'être ce qu'il est
@@ -97,7 +98,7 @@ aux cours des versions précédentes.
 * Participation::
 * Mécénat::
 * Développement::
-* GSoC 2012::
+* Google Summer of Code::
 * Auteurs::
 * Remerciements::
 * Publications::
@@ -538,7 +539,7 @@ une fois qu'il aura été ajouté à la base.
 
 Vous pourrez alors, après l'avoir @qq{marqué}, y apporter vos
 commentaires et être automatiquement notifié du traitement apporté à ce
-bogue, dès lors que vous avez un compte chez google.
+bogue, dès lors que vous avez un identifiant reconnu par google.
 @divEnd
 
 @divClass{column-center-bottom}
@@ -925,68 +926,61 @@ dernière mouture est consultable sur @url{http://lilypond.org}}
 @divEnd
 
 
-@node GSoC 2012
-@unnumberedsec GSoC 2012
-@translationof GSoC 2012
+@node Google Summer of Code
+@unnumberedsec Google Summer of Code
+@translationof Google Summer of Code
 
 
 @divClass{column-center-top}
 @subheading Le Google Summer of Code
 
-Le Google Summer of Code est un programme global qui rémunère des
-étudiants durant la période estivale, pour travailler au profit de
-projets @emph{open source}.
+Ce programme global, mis en place par Google, rémunère des étudiants
+durant la période estivale, pour travailler au profit de projets
+@emph{open source}.
 
-L'équipe LilyPond considère qu'il s'agit là d'une excellente opportunité
-pour recruter de nouveaux contributeurs, encourager et motiver des
-étudiants qui participent déjà au développement de LilyPond.  L'un de
-nos contributeurs a été reçu pour participer à l'édition 2012 du
-programme, sous l'égide du @uref{http://www.gnu.org/, projet GNU}, et
-nous comptons bien participer aux éditions futures.
+Il s'agit là d'une excellente opportunité pour recruter de nouveaux
+contributeurs, encourager et motiver des étudiants qui participent déjà
+au développement de LilyPond.  L'un de nos contributeurs a été reçu pour
+participer à l'édition 2012 du programme, sous l'égide du
+@uref{http://www.gnu.org/, projet GNU}, et espérons bien que d'autres se
+feront acte de candidature pour les éditions futures.
 
 @divEnd
 
 
 @divClass{column-center-bottom}
-@subheading Recensement de nos idées pour 2012
+@subheading Recensement de nos idées
 
 Voici les projets que nous avons proposés aux étudiants du GSoC 2012.
-Bien que la période de candidature soit close, nous avons décidé de
-maintenir en ligne cette page du site, comme source d'inspiration pour
-ceux qui seraient intéressés au développement de LilyPond.  Des membres
-de l'équipe de développement aideront volontiers ceux qui aimeraient
-s'attaquer à l'un de ces projets.
+Nous avons décidé de maintenir en ligne cette page du site, comme source
+d'inspiration pour ceux qui seraient intéressés au développement de
+LilyPond.  Des membres de l'équipe de développement aideront volontiers
+ceux qui aimeraient s'attaquer à l'un de ces projets.
 
-Il y a naturellement bien d'autres choses à améliorer dans LilyPond, y
-compris dans les détails.  Une liste exhaustive des problèmes est
-disponible @uref{http://code.google.com/p/lilypond/issues/list, ici}.
+Il y a bien d'autres choses à améliorer dans LilyPond et les membres de
+l'équipe de développement aideront volontiers ceux qui aimeraient s'y
+atteler.
+
+Une liste exhaustive des problèmes est disponible
+@uref{http://code.google.com/p/lilypond/issues/list, ici}.
 
 
 @subheading Notes d'ornement @emph{(grace notes)}
 
-Résolution des problèmes de synchronisation des notes d'ornement, tout
-en tenant compte de l'architecture sous-jacente (voir
-@uref{http://code.google.com/p/lilypond/issues/detail?id=34,
-le numéro 34 de notre traceur}).  Les notes d'ornement perturbent
-LilyPond dans sa gestion du temps, dans la mesure où elles correspondent
-quelque peu à un retour en arrière.  Ceci entraîne des effets
-indésirables tout particulièrement lorsqu'elles interviennent dans une
-portée seulement.
+Résolution des problèmes de synchronisation des notes d'ornement.  Les
+notes d'ornement peuvent venir perturber LilyPond dans sa gestion du
+temps et entraîner des effets indésirables tout particulièrement
+lorsqu'elles interviennent dans une portée seulement.
 
 @strong{Difficulté :} moyenne
-
 @strong{Préalables :} C++, MIDI
-
 @strong{Recommandé :} familiarité avec les arcanes de LilyPond
-
 @strong{Mentors :} Mike Solomon, Carl Sorensen
 
 
 @subheading MusicXML
 
-Ajout d'une fonctionnalité d'export au format MusiXML et amélioration de
-l'import, tout en fournissant des tests de performance.  Selon le temps
-imparti, ceci pourrait se restreindre à :
+Amélioration des fonctionnalités d'import et d'export :
 
 @divClass{keep-bullets}
 @itemize
@@ -1017,40 +1011,29 @@ de mise en forme pour tout objet de rendu dans les  balises XML.
 @end itemize
 @divEnd
 
-Le but sera considéré atteint dès lors qu'une partition en XML aura été
-importée, puis ré-exportée dans ce même format sans perte non
-intentionnelle de donnée.
-
 @strong{Difficulté :} moyenne
-
 @strong{Préalables :} MusicXML, Python, les bases de LilyPond
-
 @strong{Mentors :} Reinhold Kainhofer, Mike Solomon
 
 La connaissance d'autres éditeurs de partition, dans un but de tests
-comparatifs, constituerait un plus.
+comparatifs, constituerait une aide.
 
 
 @subheading Amélioration des liaisons
 
 Le galbe par défaut des liaisons n'est souvent pas pleinement
-satisfaisant.  Il est par ailleurs impossible de marquer une liaison de
-prolongation entre des enharmoniques (@code{@{ cis'~ des' @}}), et la
-@qq{coupure} d'une liaison par un changement de clef ou de ligne n'est
-pas totalement fonctionnelle.  Ce projet comporte entre autres un
-recensement d'exemples de résultats défectueux, l'appréciation du
-résultat optimal et l'écriture du code approprié.
+satisfaisant.  La « coupure » d'une liaison par un changement de clef ou
+de ligne n'est pas totalement fonctionnelle.  Ce projet comporte entre
+autres un recensement d'exemples de résultats défectueux, l'appréciation
+du résultat optimal et l'écriture du code approprié.
 
 @strong{Difficulté :} difficile
-
 @strong{Préalables :} C++, expérience dans l'écriture d'heuristiques
-
 @strong{Connaissances appréciées :} LilyPond, sens de l'esthétique
-
 @strong{Mentor :} Mike Solomon
 
 
-@subheading Ajout de variantes spécifiques pour certains glyphes
+@subheading Ajout de variantes pour certains glyphes
 
 Il s'agit ici de pouvoir disposer de variantes, sur la ligne ou entre
 deux lignes, plus courts ou plus étroits, pour certains glyphes -- les
@@ -1059,49 +1042,49 @@ gestion.  Autre exemple, dans le domaine de la notation ancienne, avec
 deux variantes de la brève, l'une avec un évidement plus important que
 l'autre.
 
+@divClass{keep-bullets}
+@itemize
+
+@item
+Ajout de variantes positionnables « sur une ligne » et « dans un
+interligne ».
+
+@end itemize
+@divEnd
+
+
 @strong{Difficulté :} facile
-
 @strong{Préalables :} MetaFont, C++, une bonne vue pour les détails
-
 @strong{Connaissance appréciée :} les bases de LilyPond
-
 @strong{Mentor :} Werner Lemberg
 
 
-@subheading Amélioration des ligatures
+@subheading Amélioration du positionnement par défaut des ligatures
 
-Le positionnement des ligatures, qu'elles soient rectilignes, passent
-d'une portée à l'autre, discontinues ou coudées, n'est pas optimal.
-Une ligature devrait dépendre du contexte et des notes adjacentes (voir
+Une ligature, qu'elle soit rectiligne, passe d'une portée à l'autre,
+discontinue ou coudée, devrait dépendre du contexte et des notes
+adjacentes (voir
 @uref{http://icking-music-archive.org/lists/sottisier/sottigra.pdf,
 la section 2.2 de cet article}).  Dans la mesure du possible, raccourcir
 le temps de calcul nécessaire à la génération des ligatures.
 
 @strong{Difficulté :} moyenne
-
 @strong{Préalables :} C++, expérience dans l'écriture d'heuristiques
-
 @strong{Connaissance appréciée :} sens de l'esthétique
-
 @strong{Mentors :} Mike Solomon, Carl Sorensen
 
 
 @subheading Nettoyage des messages en cours de compilation
+@subheading Aide à l'amélioration du comportement lors de la compilation
 
-Il s'agit d'assainir les messages du compilateur, l'analyse du code
-statique, ainsi que les messages de @emph{valgrind}.  Les outils
-d'analyse automatique du code (messages en @code{g++} ou @code{clang})
-ainsi que les outils d'analyse comme @emph{valgrind} pour les
-éventuelles fuites de mémoire ou @emph{callgrind} pour le profilage du
-code, fournissent des informations précieuses quant à d'éventuelles
-faiblesses du code C++.  Faire le ménage dans tous ces messages nous
-permettrait de rejeter tout patch qui introduirait des messages
-superflus.
+Les outils d'analyse comme @emph{valgrind} pour la détection de fuites
+de mémoire ou @emph{callgrind} pour le profilage du code, fournissent
+des informations précieuses quant à d'éventuelles faiblesses du
+code C++.  Faire le ménage dans tous ces messages nous permettrait de
+rejeter tout patch qui introduirait des messages superflus.
 
 @strong{Difficulté :} moyenne
-
 @strong{Préalable :} C++
-
 @strong{Mentors :} Joe Neeman, Reinhold Kainhofer
 
 @divEnd

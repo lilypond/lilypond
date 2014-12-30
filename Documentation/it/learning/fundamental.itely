@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 7fdce4f39834cc8c83f176480cc1d20900eb09f8
+    Translation of GIT committish: 01980ec7e46ccd03ff7a379b6299842d788b8f8a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -130,8 +130,7 @@ di creare sempre esplicitamente i righi e le voci.}
 Ora però torniamo al primo esempio ed esaminiamo il comando
 @code{\score}, lasciando gli altri comandi secondo l'impostazione predefinita.
 
-Un blocco @code{\score} deve sempre contenere una sola espressione musicale,
-e questa deve trovarsi subito dopo il comando @code{\score}.
+Un blocco @code{\score} deve sempre contenere una sola espressione musicale.
 Ricorda che un'espressione musicale può essere qualsiasi cosa, da una
 singola nota a una grande espressione composta come
 
@@ -273,20 +272,19 @@ In realtà non l'abbiamo affatto dimenticato.  Il grande mistero è,
 semplicemente, che @emph{non c'è} alcun mistero.  La seguente frase spiega tutto:
 
 @quotation
-@emph{Un blocco @code{\score} deve iniziare con un'espressione musicale composta.}
+@emph{Un blocco @code{\score} deve contenere una sola espressione musicale.}
 @end quotation
 
 @noindent
-Per capire cosa si intende per espressione musicale e per espressione
-musicale composta, potrebbe esserti utile ripassare il tutorial,
-@ref{Espressioni musicali}.  In quella sezione, abbiamo visto
-come costruire grandi espressioni musicali a partire da piccoli brani -- abbiamo
-iniziato con le note, poi gli accordi, etc.  Adesso inizieremo da una grande
-espressione musicale e proseguiremo poi a spiegarne i dettagli. Per semplicità,
-nel nostro esempio useremo soltanto un canto e un pianoforte.  Per questa formazione
-non abbiamo bisogno di @code{StaffGroup}, che non fa altro che raggruppare un insieme
-di righi con una parentesi graffa a sinistra, ma abbiamo comunque bisogno dei
-righi per il canto e per il pianoforte.
+Per capire cosa si intende per espressione musicale, potrebbe esserti utile
+ripassare il tutorial, @ref{Espressioni musicali}.  In quella sezione, abbiamo
+visto come costruire grandi espressioni musicali a partire da piccoli brani --
+abbiamo iniziato con le note, poi gli accordi, etc.  Adesso inizieremo da una
+grande espressione musicale e proseguiremo poi a spiegarne i dettagli. Per
+semplicità, nel nostro esempio useremo soltanto un canto e un pianoforte.  Per
+questa formazione non abbiamo bisogno di @code{StaffGroup}, che non fa altro che
+raggruppare un insieme di righi con una parentesi graffa a sinistra, ma abbiamo
+comunque bisogno dei righi per il canto e per il pianoforte.
 
 @example
 \score @{
@@ -796,18 +794,18 @@ più complesse saranno spiegate tutte in sezioni successive.
 @lilypond[quote,ragged-right]
 \new Staff \relative c'' {
   \key aes \major
-  <<  % Voice one
+  <<  % Prima voce
     { c2 aes4. bes8 }
-  \\  % Voice two
+  \\  % Voce due
     {
-      % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn.ignore-collision = ##t
+      % Puoi ignorare questi per ora, saranno spiegati nel capitolo 4
+      \once \override NoteColumn.force-hshift = #0
       <ees, c>2
       \once \override NoteColumn.force-hshift = #0.5
       des2
     }
-  \\  % No voice three
-  \\  % Voice four
+  \\  % Nessuna terza voce
+  \\  % Quarta voce
     {
       \override NoteColumn.force-hshift = #0
       aes'2 f4 fes
@@ -842,20 +840,20 @@ ignora quel che non capisci.
 \new Staff \relative c'' {
   \key aes \major
   <<
-    {  % Voice one
+    {  % Prima voce
       \voiceOneStyle
       c2 aes4. bes8
     }
-  \\  % Voice two
+  \\  % Seconda voce
     { \voiceTwoStyle
-      % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn.ignore-collision = ##t
+      % Puoi ignorare questi per ora, saranno spiegati nel capitolo 4
+      \once \override NoteColumn.force-hshift = #0
       <ees, c>2
       \once \override NoteColumn.force-hshift = #0.5
       des2
     }
-  \\  % No Voice three (we want stems down)
-  \\  % Voice four
+  \\  % Nessuna terza voce (vogliamo i gambi in giù)
+  \\  % Quarta voce
     { \voiceThreeStyle
       \override NoteColumn.force-hshift = #0
       aes'2 f4 fes
@@ -864,7 +862,6 @@ ignora quel che non capisci.
   <c ees aes c>1 |
 }
 @end lilypond
-
 
 Proviamo a scrivere il codice di questa musica da zero.  Come
 vedremo, questo pone alcune difficoltà.  Come abbiamo imparato,
@@ -2449,8 +2446,16 @@ lower = \relative c, {
 }
 @end lilypond
 
-Nessun modello fornisce esattamente questo assetto.  Quello più simile
-è @q{Partitura vocale SATB e riduzione automatica per pianoforte}, ma
+@warning{Questa struttura può essere ottenuta facilmente usando il modello
+integrato @code{satb.ly}, descritto in @ref{Built-in templates}.  Ma per
+facilità d'uso tale modello nasconde deliberatamente la necessaria struttura
+dei contesti, dato che la fornisce automaticamente.  Dunque a scopo di
+apprendimento vediamo come costruire questa struttura da zero.  Potresti
+aver bisogno di far ciò se il modello integrato non soddisfa le tue
+necessità.}
+
+Il modello @qq{copia e modifica} più simile a questa struttura
+è @ref{SATB vocal score and automatic piano reduction}, ma
 abbiamo bisogno di modificare l'assetto e aggiungere
 un accompagnamento per pianoforte che non sia derivato automaticamente dalle
 parti vocali.  Le variabili che si riferiscono alla musica e alle parole per
@@ -3059,9 +3064,6 @@ violin = \relative c'' @{
 @}
 @end example
 
-@c TODO Replace the following with a better example  -td
-@c Skylining handles this correctly without padText
-
 Finora abbiamo visto la sostituzione statica -- quando LilyPond
 vede @code{\padText}, lo sostituisce con quel che noi abbiamo
 definito che sia (ovvero tutto ciò che sta a destra di
@@ -3223,5 +3225,3 @@ ovvero
   }
 >>
 @end lilypond
-
-

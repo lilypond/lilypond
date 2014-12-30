@@ -1,31 +1,17 @@
-%% Translation of GIT committish: 5db593aa3737cf8c60f9c4c4fcbe317c2d832766
+%% Translation of GIT committish: 3c907f2dd5ba3dd91e30454922d8361225ca28d5
   texidocit = "
-Il comando @code{\\clef \"treble_8\"} equivale a impostare
+Cambiando il glifo della chiave, la sua posizione o l'ottavazione non
+cambia la posizione delle note successive nel rigo.  Per far sì che
+le armature di chiave si trovino sulle linee del rigo corrette, bisogna
+specificare anche @code{middleCPosition}, con valori positivi o negativi
+che spostano il @emph{Do centrale} rispettivamente su o giù in senso
+relativo alla linea centrale del rigo.
+
+Per esempio, @code{\\clef \"treble_8\"} equivale a impostare
 @code{clefGlyph}, @code{clefPosition} (che regola la posizione
 verticale della chiave), @code{middleCPosition} e
 @code{clefTransposition}. Viene stampata una chiave quando cambia una
 di queste proprietà, eccetto @code{middleCPosition}.
-
-
-La modifica del glifo, della posizione della chiave o
-dell'ottavazione non è sufficiente per cambiare la posizione delle
-note che seguono sul rigo: bisogna anche specificare la posizione
-del Do centrale (middle C). Per far sì che le armature di chiave
-si trovino sulle linee corrette del rigo, occorre impostare anche
-@code{middleCClefPosition}. I parametri di posizione sono relativi
-alla linea centrale del rigo, con i numeri positivi che indicano
-la parte superiore: ogni linea e spazio valgono uno.  Il valore
-@code{clefTransposition} di norma è impostato su 7, -7, 15
-o -15, ma altri valori sono considerati validi.
-
-
-Quando un cambio di chiave avviene in corrispondenza di un'interruzione di
-linea, di norma il simbolo della nuova chiave viene inserito sia alla fine
-del rigo precedente sia all'inizio di quello successivo.  Se la
-chiave di avvertimento a fine rigo non fosse necessaria,
-può essere nascosta impostando la proprietà @code{explicitClefVisibility}
-del contesto @code{Staff} su @code{end-of-line-invisible}. Il comportamento
-predefinito può essere ripristinato con @code{\\unset Staff.explicitClefVisibility}.
 
 Gli esempi seguenti mostrano le possibilità date dall'impostazione
 manuale di tali proprietà. Sulla prima linea le modifiche manuali preservano
