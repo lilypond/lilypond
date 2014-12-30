@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: b58a17a6b0b6f624cee7858a74092265e0791fe2
+    Translation of GIT committish: 4467a72a98fb582466ee4d5944ec8454b4b77fc6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -325,12 +325,12 @@ Référence des propriétés internes :
 
 @c duplicated in Key signature and in Accidentals
 @warning{Les nouveaux utilisateurs sont parfois déroutés par la gestion
-des altérations et de l'armure.  Pour LilyPond, une hauteur n'est que du
-matériau brut ; l'armure et la clef ne feront que déterminer
-comment ce matériau sera retranscrit.  Un simple @code{c} signifie
-tout bonnement « do naturel » quelles que soient l'armure et la clef
-en question. Pour plus d'information, reportez-vous au chapitre
-@rlearning{Altérations et armure}.}
+des altérations et de l'armure. Pour LilyPond, un nom de note spécifie
+une hauteur ; l'armure et la clef ne feront que déterminer comment ces
+hauteurs seront retranscrites.  Un simple @code{c} signifie tout
+bonnement « do naturel » quelles que soient l'armure et la clef en
+vigueur. Pour plus d'information, reportez-vous au chapitre
+@rlearning{Hauteurs et armure}.}
 
 @cindex noms de note, hollandais
 @cindex noms de note, par défaut
@@ -353,10 +353,10 @@ langues, consultez @ref{Nom des notes dans d'autres langues}.
 ais1 aes aisis aeses
 @end lilypond
 
-Un bécarre annule l'effet d'une altération, qu'elle soit accidentelle
-ou à l'armure.  Cependant, dans la syntaxe des noms de note, les
-bécarres ne s'écrivent pas avec un suffixe ; un simple nom de note
-donnera une note bécarre.
+Une hauteur naturelle se saisit comme un simple nom de note, sans
+suffixe.  Un bécarre sera imprimé si besoin est, que ce soit pour
+annuler les effets d'un précédente altération accidentelle ou pour
+déroger à l'armure.
 
 @lilypond[verbatim,quote,relative=2]
 a4 aes a2
@@ -389,8 +389,7 @@ peut que vous vouliez les imprimer manuellement.  On peut forcer
 l'impression d'une altération, dite « de précaution », en ajoutant un
 point d'exclamation @code{!} après la hauteur de note.  Une altération
 entre parenthèses peut être obtenue en ajoutant un point
-d'interrogation @code{?} après la hauteur de note.  Ces signes peuvent
-aussi être utilisés pour imprimer des bécarres.
+d'interrogation @code{?} après la hauteur de note.
 
 @lilypond[verbatim,quote,relative=2]
 cis cis cis! cis? c c c! c?
@@ -425,7 +424,7 @@ Glossaire musicologique :
 @rglosnamed{quarter tone,quart de ton}.
 
 Manuel d'initiation :
-@rlearning{Altérations et armure}.
+@rlearning{Hauteurs et armure}.
 
 Manuel de notation :
 @ref{Altérations accidentelles automatiques},
@@ -507,7 +506,7 @@ sont les suivants :
 et les suffixes d'altération correspondants :
 
 @quotation
-@multitable {@code{nederlands}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
+@multitable {@code{nederlands}} {-s/--sharp} {-ess/-es} {-ss/-x/--sharpsharp} {-essess/-eses}
 @headitem Langue
   @tab dièse @tab bémol @tab double dièse @tab double bémol
 @item @code{nederlands}
@@ -517,8 +516,8 @@ et les suffixes d'altération correspondants :
 @item @code{deutsch}
   @tab -is @tab -es @tab -isis @tab -eses
 @item @code{english}
-  @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
-    @tab -ff/-flatflat
+  @tab -s/--sharp @tab -f/--flat @tab -ss/-x/--sharpsharp
+    @tab -ff/--flatflat
 @item @code{espanol} ou @code{español}
   @tab -s @tab -b @tab -ss/-x @tab -bb
 @item @code{italiano} ou @code{français}
@@ -1272,7 +1271,7 @@ matériau brut ; l'armure et la clef ne feront que déterminer
 comment ce matériau sera retranscrit.  Un simple @code{c} signifie
 tout bonnement « do naturel » quelles que soient l'armure et la
 clef en question.  Pour plus d'information, reportez-vous au chapitre
-@rlearning{Altérations et armure}.}
+@rlearning{Hauteurs et armure}.}
 
 L'armure indique la tonalité dans laquelle la pièce doit être jouée.
 Elle comprend un ensemble d'altérations (dièses ou bémols) à la clef,
@@ -1377,7 +1376,7 @@ Glossaire musicologique :
 @rglos{scordatura}.
 
 Manuel d'initiation :
-@rlearning{Altérations et armure}.
+@rlearning{Hauteurs et armure}.
 
 Morceaux choisis :
 @rlsrnamed{Pitches,Hauteurs}.

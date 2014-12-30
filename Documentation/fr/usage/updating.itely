@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 6ec0d3283b9e23f2d21658d71ac6801c3aab69b8
+    Translation of GIT committish: 4467a72a98fb582466ee4d5944ec8454b4b77fc6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -20,12 +20,16 @@
 @cindex mise à jour de fichiers LilyPond
 @cindex convert-ly
 
-La syntaxe des fichiers LilyPond évolue avec le temps, que ce soit dans
-le but de la simplifier ou pour l'améliorer.  Il en résulte que
-l'interpréteur de LilyPond se retrouve incapable de traiter d'anciens
-fichiers.  L'utilitaire @command{convert-ly} permet cependant de
-mettre ces fichiers en conformité au fur et à mesure que de nouvelles
-versions de LilyPond sont disponibles.
+Au fur et à mesure des améliorations de LilyPond, la syntaxe ou façon de
+libeller les fonctions et commandes peut être amenée à évoluer.  Ceci
+peut avoir pour effet de générer des erreurs ou avertissements
+intempestifs, voire une sortie erronée, lorsque des fichiers créés avec
+une version antérieure sont traités par une version plus récente du
+progamme.
+
+L'utilitaire @command{convert-ly} permet alors de mettre ces fichiers en
+conformité au fur et à mesure que de nouvelles versions de LilyPond sont
+disponibles.
 
 @menu
 * LilyPond est une langue vivante::
@@ -43,27 +47,29 @@ versions de LilyPond sont disponibles.
 @cindex convert-ly
 @cindex mise à jour d'anciens fichiers
 
-La syntaxe de LilyPond change de temps en temps.  Ces changements de
-syntaxe -- le langage d'entrée -- accompagnent les améliorations du
-logiciel.  Ces changements sont parfois destinés à rendre les fichiers
-plus faciles à lire et à écrire, ou permettent d'intégrer de nouvelles
-fonctionnalités.
+La syntaxe de LilyPond change de temps en temps, que ce soit pour rendre
+les fichiers plus faciles à lire et à écrire, ou pour intégrer de
+nouvelles fonctionnalités.
 
-Par exemple, tous les noms des propriétés de @code{\paper} et
-@code{\layout} devaient être libellées sous la forme
-@code{@w{premier-deuxième-troisième}}.  Nous avons constaté, une fois la
-version 2.11.60 mise à disposition, que la propriété
-@code{printallheaders} ne respectait pas cette convention.  Aurions-nous
-dû la laisser telle que, au risque de dérouter les nouveaux utilisateurs
-par cette exception au formatage, ou bien la modifier -- ce qui allait
-obliger ceux qui l'avaient déjà utilisée à se mettre en chasse ?
-Pour ce cas d'espèce, nous avons décidé de changer pour
-@code{print-all-headers}.  Cette modification peut heureusement être
-automatisée par notre utilitaire @command{convert-ly}.
+En voici un exemple flagrant :
+
+Tous les noms des propriétés de @code{\paper} et @code{\layout} sont
+libellés sous la forme @code{@w{premier-deuxième-troisième}}.  Nous
+avons constaté, une fois la version 2.11.60 mise à disposition, que la
+propriété @code{printallheaders} ne respectait pas cette convention.
+Aurions-nous dû la laisser telle que, au risque de dérouter les nouveaux
+utilisateurs par cette exception au formatage, ou bien la modifier -- ce
+qui allait obliger ceux qui l'avaient déjà utilisée à se mettre en
+chasse ?
+
+Pour ce cas d'espèce, nous avons décidé de changer le nom de cette
+propriété en @code{print-all-headers} et de permettre à ceux qui
+avaient utilisé l'ancienne syntaxe de modifier automatiquement leurs
+fichiers à l'aide de notre utilitaire @command{convert-ly}.
 
 Malheureusement, @command{convert-ly} ne peut pas réaliser toutes les
-modifications.  Par exemple, dans les versions 2.4 et antérieures de
-LilyPond, les accents et les lettres non anglaises étaient entrées en
+modifications.  Par exemple, dans les versions de LilyPond antérieures à
+la  2.4.2, les accents et les lettres non anglaises étaient entrées en
 utilisant @LaTeX{} -- par exemple, @code{No\"el}.  À partir de la
 version 2.6, le caractère @code{ë} doit être entré directement dans
 le fichier LilyPond comme caractère UTF-8.   @command{convert-ly} ne
@@ -83,10 +89,10 @@ manuelle ; la version de « départ » devrait toujours rester disponible
 pour comparaison.
 
 @item
-Seules des conversions à un format plus récent sont possibles ; aucune
-règle ne permet de revenir en arrière.  La copie de travail d'un fichier
-LilyPond ne devrait donc être mise à jour que lorsque la version sur
-laquelle il repose n'est plus disponible.  Des système de gestion de
+Seules des conversions à une syntaxe plus récente sont possibles ;
+aucune règle ne permet de revenir en arrière.  La copie de travail d'un
+fichier LilyPond ne devrait donc être mise à jour que lorsque la version
+sur laquelle il repose n'est plus maintenue.  Des système de gestion de
 version tels que Git permettent de se tenir à jour sur plusieurs
 versions.
 
@@ -104,8 +110,8 @@ jour avec @command{convert-ly}.
 @section Exécution de @command{convert-ly}
 @translationof Invoking convert-ly
 
-@command{convert-ly} utilise les mentions de @code{\version} -- que vous
-n'avez sûrement pas oublié de porter dans vos fichiers --  pour
+La commande @command{convert-ly} utilise les mentions de @code{\version}
+-- que vous n'avez sûrement pas oublié de porter dans vos fichiers --  pour
 déterminer le numéro de l'ancienne version.  Mettre à jour votre fichier
 ne vous demande que de lancer
 
@@ -115,7 +121,8 @@ convert-ly -e monfichier.ly
 
 @noindent
 dans le dossier où il se trouve.  @file{monfichier.ly} sera mis à jour,
-et vous aurez une copie de l'original : @file{monfichier.ly~}.
+avec un nouveau buméro en argument à @code{\version}, et vous aurez une
+copie de l'original : @file{monfichier.ly~}.
 
 @warning{@command{convert-ly} effectuera les conversions jusqu'aux
 modifications de syntaxe les plus récentes qu'il contient.  C'est la
@@ -129,23 +136,56 @@ Vous pouvez convertir tous les fichiers d'un dossier en lançant
 convert-ly -e *.ly
 @end example
 
-Vous pouvez aussi affecter un autre nom au fichier mis à jour et
-conserver votre fichier original en l'état :
+Les utilisatuers de Gnu/Linux ou de MacOS X peuvent lancer cette
+commande dans un terminal.  Les utilisateurs de MacOS X disposent d'une
+entrée spécifique dans le menu : @code{Compile > Update syntax}.
+
+Un utilisateur de Windows lancera la commande
 
 @example
-convert-ly monfichier.ly > monnouveaufichier.ly
+convert-ly.py -e *.ly
 @end example
 
-Le programme affichera les numéros de version correspondant aux
-différentes conversions effectuées.  Si aucun numéro de version
-n'apparaît, considérez que le fichier ne comporte pas de syntaxe
-obsolète.
+@noindent
+dans l'@code{interpréteur de commandes}, qui se trouve normalement sous
+@code{Démarrer > Accessoires > Interpréteur de commandes} ou, pour la
+version 8, en faisant une recherche sur « interpréteur de commande ».
 
-Les utilisateurs de MacOS X disposent d'une entrée spécifique dans
-le menu : @code{Compile > Update syntax}.
+La conversion d'un jeu de fichiers répartis dans différents
+sous-répertoires s'obtient en lançant
 
-Si vous utilisez windows, ouvrez un interpréteur de commande en faisant
-@code{Démarrer > Accessoires > Interpréteur de commandes}.
+@example
+find . -name '*.ly' -exec convert-ly -e '@{@}' \;
+@end example
+
+Ceci aura pour effet de rechercher et convertir tous les fichiers
+sources dans le répertoire en cours et dans tous ses sous-répertoires.
+les fichiers convertis se trouveront à leur emplacement d'orignie, tout
+comme les fichiers originels après renommage.  Cette commande, bien
+qu'effective uniquement dans un terminal, devrait etre fonctnionnelle
+aussi pour les utilisateurs de MacOS X.
+
+
+Les utilisateurs de windows utiliseront l'instruction
+
+@example
+forfiles /s /M *.ly /c "cmd /c convert-ly.py -e @@fichier"
+@end example
+
+Par ailleurs, il est possible de spécifier de manière explicite le chemin
+d'accès au dossier comportant des sous-répertoires où se trouvent les
+fichiers sources, à l'aide de l'option @code{/p} :
+
+@example
+forfiles /s /p C:\Documents\MesPartitions /M *.ly /c "cmd /c convert-ly.py -e @@fichier"
+@end example
+
+Dans le cas où ce chemin d'accès comporte des espaces, l'intégralité de
+ce chemin devra être borné par des guillemets informatiques :
+
+@example
+forfiles /s /p "C:\Documents\Mes Partitions" /M *.ly /c "cmd /c convert-ly.py -e @@fichier"
+@end example
 
 
 @node Options en ligne de commande pour convert-ly
@@ -174,6 +214,19 @@ appliquée la plus récente.
 pour éditer directement le fichier d'origine.  Le fichier originel est
 renommé en que @file{monfichier.ly~}.  Ce fichier de sauvegarde, selon
 le système d'exploitation, peut être « caché ».
+
+Vous pouvez aussi affecter un autre nom au fichier mis à jour et
+conserver votre fichier original en l'état :
+
+@example
+convert-ly monfichier.ly > monnouveaufichier.ly
+@end example
+
+@noindent et, pour les utilisateurs de windows :
+
+@example
+convert-ly.py monfichier.ly > monnouveaufichier.ly
+@end example
 
 @item -b, --backup-numbered
 combine à l'option @samp{-e}, pour numéroter les sauvegardes de telle

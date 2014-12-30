@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 0fe24db3936774a8fb913cb14c997036db7aeb1c
+    Translation of GIT committish: 4467a72a98fb582466ee4d5944ec8454b4b77fc6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3386,18 +3386,26 @@ voir à ce sujet @ruser{Modification des liaisons}.
 Voici un autre exemple. Comme nous pouvons le constater, les barres de
 ligature chevauchent les liaisons de tenue :
 
-@lilypond[quote,verbatim,fragment,ragged-right]
+@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
 {
   \time 4/2
   <<
-    { c'1 ~ 2. e'8 f' }
+    { c1~ 2. e8 f }
     \\
-    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+    {
+      e'8 e e e
+      e e e e
+      f2 g
+    }
   >>
   <<
-    { c'1 ~ 2. e'8 f' }
+    { c,,1~ 2. e8 f }
     \\
-    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+    {
+      e'8 e e e
+      e e e e
+      f2 g
+    }
   >>
 }
 @end lilypond
@@ -3410,29 +3418,38 @@ au-dessous de la ligne médiane mais, disons, à 1 :
 @cindex Beam, exemple de dérogation
 @cindex positions, exemple d'utilisation de la propriété
 
-@lilypond[quote,verbatim,fragment,ragged-right]
+@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
 {
   \time 4/2
   <<
-    { c'1 ~ 2. e'8 f' }
+    { c1~ 2. e'8 f' }
     \\
     {
       \override Beam.positions = #'(-1 . -1)
-      e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g''
+      e'8 e e e
+      e e e e
+      f2 g
     }
   >>
   <<
-    { c'1 ~ 2. e'8 f' }
+    { c,,1~ 2. e'8 f' }
     \\
-    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+    {
+      e'8 e e e
+      e e e e
+      f2 g
+      \revert Beam.positions
+    }
   >>
 }
 @end lilypond
 
 @noindent
-Vous remarquerez que la retouche continue de s'appliquer au
-second bloc de croches de la première voix mais qu'il ne s'applique
-à aucune mesure de la deuxième voix.
+Vous remarquerez que la retouche continue de s'appliquer au second bloc
+de croches de la deuxième voix mais qu'il ne s'applique à aucune des
+ligatures de la première voix, même dans la seconde mesure.  Dès que la
+dérogation ne doit plus s'appliquer, il suffit de l'annuler comme
+indiqué ici.
 
 
 @node La propriété force-hshift

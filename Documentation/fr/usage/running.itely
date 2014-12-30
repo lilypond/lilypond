@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 3c907f2dd5ba3dd91e30454922d8361225ca28d5
+    Translation of GIT committish: 4467a72a98fb582466ee4d5944ec8454b4b77fc6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -47,11 +47,11 @@ certaines options particulières.  D'autre part, certains utilitaires
 associés, tel que @code{midi2ly}, ne sont disponibles qu'en ligne de
 commande.
 
-Par @qq{ligne de commande}, nous entendons l'interface de commande du
+Par « ligne de commande », nous entendons l'interface de commande du
 système.  Les utilisateurs de Windows seront certainement plus familiers
-des termes @qq{fenêtre DOS} ou @qq{invite de commande}.  Quant aux
+des termes « fenêtre DOS » ou « invite de commande ».  Quant aux
 utilisateurs de MacOS X, ils connaissent assurément les termes
-@qq{console} et @qq{terminal}.  Les paramétrages spécifiques au système
+« console » et « terminal ».  Les paramétrages spécifiques au système
 MacOS font l'objet d'un @rwebnamed{MacOS X,chapitre particulier}.
 
 Notre propos n'est pas ici d'expliquer ce qu'est l'interface de
@@ -121,6 +121,7 @@ Par exemple,
 lilypond *.ly
 @end example
 
+@noindent
 traitera tous les fichiers LilyPond présent dans le répertoire en cours.
 
 Rediriger, par exemple dans un fichier, ce qui est émis à l'écran peut
@@ -141,6 +142,45 @@ dans un fichier texte.
 Consultez avant tout la documentation de votre interpréteur habituel
 -- terminal, console, etc. -- pour vérifier qu'il prend en charge les
 options dans cette syntaxe.
+
+Voici comment traiter un jeu de fichiers répartis dans un répertoire
+donné ainsi que tous ses différents sous-répertoires.  Les fichiers
+résultants seront regroupés dans le répertoire à partir duquel la
+commande a été exécutée, non selon l'emplacement des fichiers sources.
+
+@example
+find . -name '*.ly' -exec lilypond '@{@}' \;
+@end example
+
+@noindent
+Cette commande, bien qu'effective uniquement dans un terminal, devrait
+être fonctionnelle aussi pour les utilisateurs de MacOS X.
+
+Les utilisateurs de windows utiliseront l'instruction
+
+@example
+forfiles /s /M *.ly /c "cmd /c lilypond @@file"
+@end example
+
+@noindent
+dans l'@code{interpréteur de commandes}, qui se trouve normalement sous
+@code{Démarrer > Accessoires > Interpréteur de commandes} ou, pour la
+version 8, en faisant une recherche sur « interpréteur de commande ».
+
+Par ailleurs, il est possible de spécifier de manière explicite le chemin
+d'accès au dossier comportant des sous-répertoires où se trouvent les
+fichiers sources, à l'aide de l'option @code{/p} :
+
+@example
+forfiles /s /p C:\Documents\MesPartitions /M *.ly /c "cmd /c lilypond @@file"
+@end example
+
+Dans le cas où ce chemin d'accès comporte des espaces, l'intégralité de
+ce chemin devra être borné par des guillemets informatiques :
+
+@example
+forfiles /s /p "C:\Documents\Mes Partitions" /M *.ly /c "cmd /c lilypond @@file"
+@end example
 
 
 @node Options basiques de lilypond
@@ -195,7 +235,7 @@ doubles @code{"} en lieu et place des guillemets simples @code{'}.}
 Détermine le format à produire.  Il peut s'agir de @code{ps}, @code{pdf}
 ou @code{png}.
 
-Exemple : @code{lilypond -fpng @var{monfichier}.ly}
+Exemple : @code{lilypond -fpng @var{monfichier}.ly}
 
 @item -h, --help
 Affiche un résumé des commandes.
@@ -1074,7 +1114,7 @@ s'appliquer au contexte en cours.  Pour des partitions simples, le fait
 que les contextes soient automatiquement créés rend bien des services,
 et c'est d'ailleurs le cas pour la majorité des exemples contenus dans
 les manuels de LilyPond.  Cependant, la création implicite d'un contexte
-peut aboutir à l'apparition d'une portée @qq{parasite}.  On s'attend par
+peut aboutir à l'apparition d'une portée « parasite ».  On s'attend par
 exemple, en lisant le code qui suit, à ce que toutes les têtes de note
 soient en rouge, alors que le résultat nous présente deux portées et que
 les notes, placées sur la portée inférieure, restent en noir.
