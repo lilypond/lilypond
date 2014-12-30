@@ -16,188 +16,178 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最近更新 Tue Dec 30 15:39:08 UTC 2014
+@emph{Actualitzat el Tue Dec 30 15:39:08 UTC 2014
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
-LilyPond -- 人人的乐谱软件
-@tab 翻译者
-@tab 翻译校对
-@tab 已翻译
-@tab 最新
-@tab 其他信息
+LilyPond: notació musical per a tots
+@tab Traductors
+@tab Revisors
+@tab Traduït
+@tab Actualitzat
+@tab Més inf.
 @item
-章节标题
+Títols de secció
 @*
 642
-@tab Ben Luo
-@*
-Anthony Fok
+@tab Walter Garcia-Fontes
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">是</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-是
+si
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">部分</span>
+<span style="background-color: #2cff20">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-部分
+parcialment
 @end ifnothtml
-@tab GDP 前
+@tab pre-GDP
 @item
 LilyPond --- \TITLE\
 @*
 1139
-@tab Ben Luo
-@*
-Anthony Fok
+@tab Walter Garcia-Fontes
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">是</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-是
+si
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">不适用</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-不适用
+si
 @end ifnothtml
-@tab GDP 前
+@tab pre-GDP
 @item
-简介
+Introducció
 @*
 5707
-@tab Ben Luo
-@*
-Anthony Fok
+@tab Walter Garcia-Fontes
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">是</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-是
+si
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">不适用</span>
+<span style="background-color: #47ff24">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-不适用
+parcialment
 @end ifnothtml
-@tab GDP 前
+@tab pre-GDP
 @item
-下载
+Descàrrega
 @*
 1145
-@tab Ben Luo
-@*
-Anthony Fok
+@tab Walter Garcia-Fontes
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">是</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-是
+si
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">不适用</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-不适用
+si
 @end ifnothtml
-@tab GDP 前
+@tab pre-GDP
 @item
-手册
+Manuals
 @*
 1314
-@tab Ben Luo
-@tab Anthony Fok
+@tab Walter Garcia-Fontes
+@tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">是</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-是
+si
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">部分</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-部分
+si
 @end ifnothtml
-@tab GDP 前
+@tab pre-GDP
 @item
-社区
+Comunitat
 @*
 2991
-@tab Ben Luo
-@*
-Anthony Fok
+@tab Walter Garcia-Fontes
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">部分 (97 %)</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-部分 (97 %)
+si
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">不适用</span>
+<span style="background-color: #6fff29">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-不适用
+parcialment
 @end ifnothtml
-@tab GDP 前
+@tab pre-GDP
 @end multitable
 

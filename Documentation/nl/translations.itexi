@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Meest recente update Wed Dec 18 12:23:14 UTC 2013
+@emph{Meest recente update Tue Dec 30 15:39:08 UTC 2014
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -47,11 +47,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #5bff27">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+gedeeltelijk
 @end ifnothtml
 @tab na-GDP
 @item
@@ -111,24 +111,24 @@ gedeeltelijk
 @item
 2 Algemene muzieknotatie
 @*
-4396
+4417
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">gedeeltelijk (35 %)</span>
+<span style="background-color: #dfef77">gedeeltelijk (36 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk (35 %)
+gedeeltelijk (36 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #4efe25">gedeeltelijk</span>
+<span style="background-color: #68ff28">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -138,7 +138,7 @@ gedeeltelijk
 @item
 3 Fundamentele concepten
 @*
-11144
+11193
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
@@ -155,7 +155,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">gedeeltelijk</span>
+<span style="background-color: #33ff21">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -165,24 +165,24 @@ gedeeltelijk
 @item
 4 Tweaking output
 @*
-16191
+16570
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">gedeeltelijk (98 %)</span>
+<span style="background-color: #dfef77">gedeeltelijk (95 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk (98 %)
+gedeeltelijk (95 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">gedeeltelijk</span>
+<span style="background-color: #5bff27">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -192,28 +192,28 @@ gedeeltelijk
 @item
 A Templates
 @*
-372
+803
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #dfef77">gedeeltelijk (99 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+gedeeltelijk (99 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #dbff38">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+gedeeltelijk
 @end ifnothtml
 @tab voor-GDP
 @end multitable
@@ -231,7 +231,7 @@ LilyPond -- Muzieknotatie voor iedereen
 @item
 Paragraaftitels
 @*
-616
+642
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -248,11 +248,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #40fe23">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+gedeeltelijk
 @end ifnothtml
 @tab na-GDP
 @item
@@ -285,7 +285,61 @@ ja
 @item
 Inleiding
 @*
-4937
+5707
+@tab Jan Nieuwenhuizen
+@tab Tineke de Munnik
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #c7ff35">gedeeltelijk</span>
+@end html
+@end ifhtml
+@ifnothtml
+gedeeltelijk
+@end ifnothtml
+@tab voor-GDP
+@item
+Download
+@*
+1145
+@tab Jan Nieuwenhuizen
+@tab Tineke de Munnik
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">ja</span>
+@end html
+@end ifhtml
+@ifnothtml
+ja
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #62ff28">gedeeltelijk</span>
+@end html
+@end ifhtml
+@ifnothtml
+gedeeltelijk
+@end ifnothtml
+@tab voor-GDP
+@item
+Handleidingen
+@*
+1314
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -303,60 +357,6 @@ ja
 
 @html
 <span style="background-color: #5bff27">gedeeltelijk</span>
-@end html
-@end ifhtml
-@ifnothtml
-gedeeltelijk
-@end ifnothtml
-@tab voor-GDP
-@item
-Download
-@*
-1201
-@tab Jan Nieuwenhuizen
-@tab Tineke de Munnik
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">ja</span>
-@end html
-@end ifhtml
-@ifnothtml
-ja
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #33ff21">gedeeltelijk</span>
-@end html
-@end ifhtml
-@ifnothtml
-gedeeltelijk
-@end ifnothtml
-@tab voor-GDP
-@item
-Handleidingen
-@*
-1284
-@tab Jan Nieuwenhuizen
-@tab Tineke de Munnik
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #1fff1f">ja</span>
-@end html
-@end ifhtml
-@ifnothtml
-ja
-@end ifnothtml
-@tab 
-@ifhtml
-
-@html
-<span style="background-color: #4efe25">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
