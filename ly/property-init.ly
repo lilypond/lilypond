@@ -482,10 +482,10 @@ walkerHeadsMinor =
 
 %% shifts
 
+shiftOff  = \override NoteColumn.horizontal-shift = #0
 shiftOn   = \override NoteColumn.horizontal-shift = #1
 shiftOnn  = \override NoteColumn.horizontal-shift = #2
 shiftOnnn = \override NoteColumn.horizontal-shift = #3
-shiftOff  = \revert NoteColumn.horizontal-shift
 
 
 %% slurs

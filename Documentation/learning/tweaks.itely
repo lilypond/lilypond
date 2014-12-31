@@ -3298,10 +3298,7 @@ was left looking like this:
 @noindent
 The inner note of the first chord (i.e. the A-flat in the fourth
 Voice) need not be shifted away from the note column of the higher
-note.  We might expect to correct this by using @code{\shiftOff}, but
-this will cause warnings about clashing note columns.  Instead, we
-set @code{force-hshift}, which is a property of @code{NoteColumn},
-of this note to zero.
+note, so we use @code{\shiftOff}.
 
 In the second chord we prefer the F to line up with the A-flat and
 the lowest note to be positioned slightly right to avoid a collision
@@ -3327,8 +3324,7 @@ Here's the final result:
     { <ees, c>2 \once \override NoteColumn.force-hshift = 0.5 des }
     \\
     \\
-    { \once \override NoteColumn.force-hshift = 0 aes'2
-      \once \override NoteColumn.force-hshift = 0 f4 fes }
+    { \once \shiftOff aes'2 \once \shiftOff f4 fes }
   >> |
   <c ees aes c>1 |
 }
