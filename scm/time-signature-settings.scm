@@ -394,15 +394,6 @@ a fresh copy of the list-head is made."
 (add-simple-time-signature-style 'C make-c-time-signature-markup)
 (add-simple-time-signature-style 'default make-c-time-signature-markup)
 
-(define-public (make-single-c-time-signature-markup fraction)
-  "Make markup for the `single-C' time signature style."
-  (let ((n (car fraction)))
-    (if (or (= n 2) (= n 4)) ; numerator only
-        (make-glyph-time-signature-markup 'C (cons n n))
-        (make-compound-meter-markup n))))
-
-(add-simple-time-signature-style 'single-C make-single-c-time-signature-markup)
-
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ;;; Measure length calculation of (possibly complex) compound time signatures
 
