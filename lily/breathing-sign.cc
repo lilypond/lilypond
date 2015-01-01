@@ -119,7 +119,7 @@ Breathing_sign::divisio_maior (SCM smob)
                                     ydim[DOWN]);
               assert (line_pos.begin () < it);
               double val = (it[-1] + it[0]) / 2;
-              if (ydim[DOWN] < val && line_pos.begin () < it + 1)
+              if (ydim[DOWN] < val && line_pos.begin () < it - 1)
                 val = (it[-2] + it[-1]) / 2;
               ydim.add_point (val);
 
