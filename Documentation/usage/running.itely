@@ -464,7 +464,10 @@ files in the SVG backend.
 
 @item @code{clip-systems}
 @tab @code{#f}
-@tab Generate cut-out snippets of a score.
+@tab Extract music fragments out of a score.  This requires that the
+@code{clip-regions} function has been defined within the @code{\layout}
+block.  See @ruser{Extracting fragments of music}.  No fragments are
+extracted though if used with the @option{-dno-print-pages} option.
 
 @item @code{datadir}
 @tab
