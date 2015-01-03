@@ -1112,6 +1112,8 @@ positioning?")
 ;;;
      (vertical-skylines ,ly:skyline-pair? "Two skylines, one above and
 one below this grob.")
+     (voiced-position ,number? "The staff-position of a voiced
+@code{Rest}, negative if the rest has @code{direction} @code{DOWN}.")
 
 ;;;
 ;;; w

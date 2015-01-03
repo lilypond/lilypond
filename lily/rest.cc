@@ -72,12 +72,13 @@ Rest::staff_position_internal (Grob *me, int duration_log, int dir)
       return pos;
     }
 
-  pos = 4 * dir;
+  Real vpos = dir * robust_scm2int (me->get_property ("voiced-position"), 0);
+  pos = vpos;
 
   if (duration_log > 1)
     /* Only half notes or longer want alignment with staff lines */
     return pos;
-      
+
   /*
     We need a staff symbol for actually aligning anything
   */
@@ -89,9 +90,9 @@ Rest::staff_position_internal (Grob *me, int duration_log, int dir)
 
   if (linepos.empty ())
     return pos;
-      
+
   std::sort (linepos.begin (), linepos.end ());
-          
+
   if (duration_log == 0)
     {
       /*
@@ -105,7 +106,7 @@ Rest::staff_position_internal (Grob *me, int duration_log, int dir)
         make a semibreve rest hang from the next available line,
         except when there is none.
       */
-      
+
       std::vector<Real>::const_iterator it
         = std::upper_bound (linepos.begin (), linepos.end (), pos);
       if (it != linepos.end ())
@@ -127,16 +128,15 @@ Rest::staff_position_internal (Grob *me, int duration_log, int dir)
     return pos;
 
   /* If we have a voiced position, make sure that it's on the
-     proper side of neutral before using it.  If it isn't, we fall
-     back to a constant offset from neutral position.
+     proper side of neutral before using it.
   */
 
   Real neutral = staff_position_internal (me, duration_log, 0);
 
   if (dir * (pos - neutral) > 0)
     return pos;
-
-  return neutral + 4 * dir;
+  else
+    return neutral + vpos;
 }
 
 /* A rest might lie under a beam, in which case it should be cross-staff if
@@ -318,4 +318,5 @@ ADD_INTERFACE (Rest,
                "direction "
                "minimum-distance "
                "style "
+               "voiced-position "
               );

@@ -1513,6 +1513,7 @@
         (thick-thickness . 6.6)
         ;; See Wanske pp. 125
         (usable-duration-logs . ,(iota 4 -3))
+        (voiced-position . 4)
         (Y-extent . ,(ly:make-unpure-pure-container ly:multi-measure-rest::height))
         (Y-offset . ,staff-symbol-referencer::callback)
         (meta . ((class . Spanner)
@@ -1880,6 +1881,7 @@
         (duration-log . ,stem::calc-duration-log)
         (minimum-distance . 0.25)
         (stencil . ,ly:rest::print)
+        (voiced-position . 4)
         (X-extent . ,ly:rest::width)
         (Y-extent . ,(ly:make-unpure-pure-container ly:rest::height ly:rest::pure-height))
         (Y-offset . ,(ly:make-unpure-pure-container ly:rest::y-offset-callback))
