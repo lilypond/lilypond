@@ -1004,7 +1004,6 @@ section 2.2 here}).  If possible also reduce beaming-computation time.
 @strong{Requirements:} C++, experience with writing heuristics
 @strong{Recommended knowledge:} aesthetic sense
 @strong{Mentor(s):} Mike Solomon, Carl Sorensen
-@subheading Clean up various compilation warnings
 
 @subheading Help improve compilation behavior
 
