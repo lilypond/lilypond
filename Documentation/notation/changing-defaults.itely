@@ -3076,7 +3076,7 @@ Objects which support the @code{line-spanner-interface} include
 @end itemize
 
 The routine responsible for drawing the stencils for these spanners is
-@code{ly:line-interface::print}.  This routine determines the
+@code{ly:line-spanner::print}.  This routine determines the
 exact location of the two end points and draws a line
 between them, in the style requested.  The locations of the two
 end points of the spanner are computed on-the-fly, but it is
@@ -3610,7 +3610,7 @@ These all use the same routines as the glissando for drawing the
 texts and the lines, and tuning their behavior is therefore also
 done in the same way.  It is done with a spanner, and the routine
 responsible for drawing the spanners is
-@code{ly:line-interface::print}.  This routine determines the
+@code{ly:line-spanner::print}.  This routine determines the
 exact location of the two @i{span points} and draws a line
 between them, in the style requested.
 
