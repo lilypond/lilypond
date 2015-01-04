@@ -14,7 +14,7 @@
 @afourpaper
 
 @c @macro copyrightDeclare
-@c Copyright @copyright{} 2009--2014 by the authors.
+@c Copyright @copyright{} 2009--2015 by the authors.
 @c @end macro
 
 @set FDL
@@ -34,7 +34,7 @@
 @c Translators: Walter Garcia-Fontes
 
 @copying
-Copyright @copyright{} 2009--2014 pels autors
+Copyright @copyright{} 2009--2015 pels autors
 
 @c next line is necessary for broken pre-4.13 texinfo's
 @c install-info, so leave it there until we officially
