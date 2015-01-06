@@ -1067,6 +1067,7 @@
                                     ))
                           (left . ((attach-dir .  ,RIGHT)
                                    (padding . 0.5)
+                                   (start-at-dot . #t)
                                    ))
                           ))
         (cross-staff . ,ly:line-spanner::calc-cross-staff)
