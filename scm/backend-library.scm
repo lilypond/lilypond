@@ -82,6 +82,7 @@
                    "-dNOPAUSE"
                    "-dBATCH"
                    "-r1200"
+                   (if (ly:bigpdfs) "-dSubsetFonts=false")
                    "-sDEVICE=pdfwrite"
                    (string-append "-sOutputFile="
                                   (string-join

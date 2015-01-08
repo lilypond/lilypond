@@ -154,6 +154,38 @@ Die folgenden Kommandozeilenoptionen werden von @command{lilypond} unterstützt:
 
 @table @code
 
+@item -b, --bigpdfs
+@cindex bigpdfs
+
+Mit dieser Option generierte PDF-Dateien sind deutlich größer als sonst,
+weil keine oder nur minimale Zeichensatz-Optimierung erfolgt.  Werden
+jedoch zwei oder mehrere solcher PDF-Dateien in @w{@code{pdftex}-},
+@w{@code{xetex}-} oder @w{@code{luatex}}-Dokumente eingebunden und
+anschließend mit ghostscript weiterverarbeitet, entstehen
+@emph{signifikant} kleinere PDF-Dokumente, da die Zeichensatzdaten mit
+dieser Methode viel besser reduziert werden können.
+
+Nach
+
+@example
+lilypond -b myfile
+@end example
+
+@noindent
+sollte @code{ghostscript} wie folgt ausgeführt werden.
+
+@example
+gs -q -sDEVICE=pdfwrite -o gsout.pdf myfile.pdf
+@end example
+
+Mit Hilfe von
+@uref{https://code.google.com/p/pdfsizeopt/,@code{pdfsizeopt.py}}
+kann die Ausgabedatei noch mehr verkleinert werden.
+
+@example
+pdfsizeopt.py --use-multivalent=no gsout.pdf final.pdf
+@end example
+
 @item -d, --define-default=@var{Variable}=@var{Wert}
 Siehe @ref{Fortgeschrittene Optionen auf der Kommandozeile für LilyPond}.
 

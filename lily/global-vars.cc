@@ -33,6 +33,9 @@ string init_name_global;
 /* Output formats to generate.  */
 string output_format_global = "";
 
+/* Generate big pdfs */
+bool bigpdfs = false;
+
 /* Current output name. */
 string output_name_global;
 

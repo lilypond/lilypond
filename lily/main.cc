@@ -158,6 +158,7 @@ static Long_option_init options_static[]
   {0, "pdf", 0, _i ("generate PDF (default)")},
   {0, "png", 0, _i ("generate PNG")},
   {0, "ps", 0, _i ("generate PostScript")},
+  {0, "bigpdfs", 'b', _i("generate big PDF files")},
   {0, "help", 'h', _i ("show this help and exit")},
   {
     _i ("FIELD"), "header", 'H', _i ("dump header field FIELD to file\n"
@@ -611,6 +612,10 @@ parse_argv (int argc, char **argv)
             add_output_format (opt->longname_str0_);
           else if (string (opt->longname_str0_) == "relocate")
             relocate_binary = true;
+          break;
+
+        case 'b':
+          bigpdfs = true;
           break;
 
         case 'd':

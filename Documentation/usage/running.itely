@@ -179,6 +179,34 @@ The following options are supported:
 
 @table @code
 
+@item -b, --bigpdfs
+@cindex bigpdfs
+
+PDF files generated will be much larger than normal (due to little or no
+font optimization).  However, if two or more PDF files are included
+within @w{@code{pdftex}}, @w{@code{xetex}} or @w{@code{luatex}}
+documents they can then be processed further via ghostscript (merging
+duplicated font data) resulting in @emph{significantly} smaller PDF
+files.
+
+@example
+lilypond -b myfile
+@end example
+
+Then run @code{ghostscript};
+
+@example
+gs -q -sDEVICE=pdfwrite -o gsout.pdf myfile.pdf
+@end example
+
+@code{pdfsizeopt.py} can then be used to further optimize the size
+of file;
+
+@example
+pdfsizeopt.py --use-multivalent=no gsout.pdf final.pdf
+@end example
+
+
 @item -d, --define-default=@var{var}=@var{val}
 See @ref{Advanced command line options for LilyPond}.
 

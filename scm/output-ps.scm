@@ -117,28 +117,30 @@
                       size
                       cid?
                       w-x-y-named-glyphs)
-
   (define (glyph-spec w h x y g) ; h not used
     (let ((prefix (if (string? g) "/" "")))
-      (ly:format "~4f ~4f ~4f ~a~a"
-                 w x y
-                 prefix g)))
-
-  (ly:format
-   (if cid?
-       "/~a /CIDFont findresource ~a output-scale div scalefont setfont
-~a
-~a print_glyphs"
-
-       "/~a ~a output-scale div selectfont
-~a
-~a print_glyphs")
-   postscript-font-name
-   size
-   (string-join (map (lambda (x) (apply glyph-spec x))
-                     (reverse w-x-y-named-glyphs)) "\n")
-   (length w-x-y-named-glyphs)))
-
+      (ly:format "~4f ~4f ~4f ~a~a" w x y prefix g)))
+  (define (emglyph-spec w h x y g) ; h not used
+    (if (and (= x 0) (= y 0))
+        (ly:format "currentpoint ~a moveto ~4f 0 rmoveto" g w)
+        (ly:format "currentpoint ~4f ~4f rmoveto ~a moveto ~4f 0 rmoveto" x y g w)))
+  (if cid?
+      (ly:format
+       "/~a /CIDFont findresource ~a output-scale div scalefont setfont\n~a\n~a print_glyphs"
+       postscript-font-name size
+       (string-join (map (lambda (x) (apply glyph-spec x))
+                         (reverse w-x-y-named-glyphs)) "\n")
+       (length w-x-y-named-glyphs))
+      (if (and (ly:bigpdfs) (string-startswith postscript-font-name "Emmentaler"))
+          (ly:format "/~a-O ~a output-scale div selectfont\n~a"
+                     postscript-font-name size
+                     (string-join (map (lambda (x) (apply emglyph-spec x))
+                                       w-x-y-named-glyphs) "\n"))
+          (ly:format "/~a ~a output-scale div selectfont\n~a\n~a print_glyphs"
+                     postscript-font-name size
+                     (string-join (map (lambda (x) (apply glyph-spec x))
+                                       (reverse w-x-y-named-glyphs)) "\n")
+                     (length w-x-y-named-glyphs)))))
 
 (define (grob-cause offset grob)
   (if (ly:get-option 'point-and-click)
@@ -183,9 +185,19 @@
       ""))
 
 (define (named-glyph font glyph)
-  (ly:format "~a /~a glyphshow " ;;Why is there a space at the end?
-             (ps-font-command font)
-             glyph))
+  (if (and (ly:bigpdfs) (string-startswith (ly:font-file-name font) "emmentaler"))
+      (if (string-endswith (ly:font-file-name font)"-brace")
+          (if (or (string-startswith glyph "brace1") (string-startswith glyph "brace2"))
+              (ly:format "~a ~a" (string-append (ps-font-command font) "-N" ) glyph)
+              (if (or (string-startswith glyph "brace3") (string-startswith glyph "brace4"))
+                  (ly:format "~a ~a" (string-append (ps-font-command font) "-S" ) glyph)
+                  (ly:format "~a ~a" (string-append (ps-font-command font) "-O" ) glyph)))
+          (if (string-startswith glyph "noteheads")
+              (ly:format "~a ~a" (string-append (ps-font-command font) "-N" ) glyph)
+              (if (or (string-startswith glyph "scripts") (string-startswith glyph "clefs"))
+                  (ly:format "~a ~a" (string-append (ps-font-command font) "-S" ) glyph)
+                  (ly:format "~a ~a" (string-append (ps-font-command font) "-O" ) glyph))))
+      (ly:format "~a /~a glyphshow" (ps-font-command font) glyph)))
 
 (define (no-origin)
   "")
