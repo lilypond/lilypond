@@ -156,7 +156,7 @@ into the input file, providing it is saved with UTF-8 encoding.
 For more information, see @ref{Special characters}.
 
 @lilypond[quote,verbatim]
-\relative c'' { d8 c16 a bes8 f e' d c4 }
+\relative c'' { d8 c16 a bes8 f ees' d c4 }
 \addlyrics { „Schad’ um das schö -- ne grü -- ne Band, }
 @end lilypond
 
