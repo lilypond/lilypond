@@ -34,6 +34,19 @@ to be used by the sequential-iterator"
           (make-music 'BarCheck
                       'origin location))))
 
+(define (make-unfolded-set music)
+  (let ((n (ly:music-property music 'repeat-count))
+        (alts (ly:music-property music 'elements))
+        (body (ly:music-property music 'element)))
+    (cond ((<= n 0) '())
+          ((null? alts) (make-list n body))
+          (else
+           (concatenate
+            (zip (make-list n body)
+                 (append! (make-list (max 0 (- n (length alts)))
+                                     (car alts))
+                          alts)))))))
+
 (define (make-volta-set music)
   (let* ((alts (ly:music-property music 'elements))
          (lalts (length alts))

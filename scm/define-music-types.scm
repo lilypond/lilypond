@@ -718,7 +718,8 @@ brackets start and stop.")
     (UnfoldedRepeatedMusic
      . ((description . "Repeated music which is fully written (and
 played) out.")
-        (iterator-ctor . ,ly:unfolded-repeat-iterator::constructor)
+        (iterator-ctor . ,ly:sequential-iterator::constructor)
+        (elements-callback . ,make-unfolded-set)
         (start-callback .  ,ly:repeated-music::first-start)
         (types . (general-music repeated-music unfolded-repeated-music))
         (length-callback . ,ly:repeated-music::unfolded-music-length)

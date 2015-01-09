@@ -400,18 +400,7 @@ beats to be distinguished."
    (lambda (m)
      (and (music-is-of-type? m 'unfolded-repeated-music)
           (make-sequential-music
-           (ly:music-deep-copy
-            (let ((n (ly:music-property m 'repeat-count))
-                  (alts (ly:music-property m 'elements))
-                  (body (ly:music-property m 'element)))
-              (cond ((<= n 0) '())
-                    ((null? alts) (make-list n body))
-                    (else
-                     (concatenate
-                      (zip (make-list n body)
-                           (append! (make-list (max 0 (- n (length alts)))
-                                               (car alts))
-                                    alts))))))))))
+           (ly:music-deep-copy (make-unfolded-set m)))))
    (unfold-repeats music)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
