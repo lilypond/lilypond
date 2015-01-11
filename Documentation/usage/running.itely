@@ -988,7 +988,7 @@ are easily handled.
 * Error message FT_Get_Glyph_Name::
 * Warning staff affinities should only decrease::
 * Error message unexpected new::
-* Warning ignoring too many clashing note columns::
+* Warning this voice needs a voiceXx or shiftXx setting::
 @end menu
 
 @node Music runs off the page
@@ -1137,13 +1137,14 @@ staves are introduced in parallel, i.e. simultaneously:
 }
 @end lilypond
 
-@node Warning ignoring too many clashing note columns
-@unnumberedsubsec Warning ignoring too many clashing note columns
+@node Warning this voice needs a voiceXx or shiftXx setting
+@unnumberedsubsec Warning this voice needs a @code{@bs{}voiceXx}
+ or @code{@bs{}shiftXx} setting
 
 If notes from two different voices with stems in the same direction
 occur at the same musical moment, but the voices have no
 voice-specific shifts specified, the warning message
-@samp{warning: ignoring too many clashing note columns} will appear
+@samp{warning: this voice needs a \voiceXx or \shiftXx setting} will appear
 when compiling the LilyPond file.  This warning will appear even when
 the notes have no visible stems, e.g. whole notes, if the stems for
 shorter notes at the same pitch would be in the same direction.

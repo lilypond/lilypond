@@ -508,7 +508,7 @@ Note_collision_interface::automatic_shift (Grob *me,
               // Match the previous notecolumn offset,
               // but warn if the user did not set these equal shifts explictly
               if (!scm_is_number (sh))
-                col->warning (_ ("ignoring too many clashing note columns"));
+                col->warning (_ ("this Voice needs a \\voiceXx or \\shiftXx setting"));
             }
           else if (extents[d][i][UP] > extents[d][i - 1][DOWN]
                    && extents[d][i][DOWN] < extents[d][i - 1][UP])
