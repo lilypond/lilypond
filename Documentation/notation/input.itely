@@ -2540,7 +2540,7 @@ option;
 @noindent
 This example will extract a single fragment of the input file
 @emph{starting} after a half-note duration in fifth measure
-(@code{5 1 2}) and @emph{ending} after three, quarter notes in the
+(@code{5 1 2}) and @emph{ending} after the third quarter-note in the
 seventh measure (@code{7 3 4}).
 
 Additional fragments can be extracted by adding more pairs of
