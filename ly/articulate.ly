@@ -347,13 +347,11 @@
 	      (ly:music-property music 'elements)))
 	 (pre-t (if (pair? tr) (ly:music-property (car tr) 'twiddle)
 		 '()))
+	 (hemisemidur (ly:make-duration 5 0 1/1))
 	 (t (ac:targetTwiddleTime)))
    (if (ly:moment? pre-t)
     pre-t
-    (let loop ((len (ly:music-length music)))
-     (if (ly:moment<? t len)
-      (loop (ly:moment-mul len (ly:make-moment 1/2)))
-      len)))))
+    hemisemidur)))
 
 
 
@@ -367,7 +365,7 @@
 	 (t (ac:twiddletime music))
 	 (uppernote '())
 	 (note_moment (ly:moment-mul t (ly:make-moment 1/2)))
-	 (c1 (ly:moment-div orig-len note_moment))
+	 (c1 (ly:moment-div orig-len t))
 	 (c2 (inexact->exact
 	      (round (/ (ly:moment-main-numerator c1)
 		      (* 2 (ly:moment-main-denominator c1))))))
