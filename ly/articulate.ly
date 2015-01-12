@@ -400,6 +400,18 @@
 ;     (ac:accel trillMusic factor))
  )))
 
+
+% Copy music and strip articulations, ties, etc., for generating
+% mordents etc.
+#(define (ac:note-copy music)
+  "return a copy of music that is only notes, no articulations, ties, slurs etc"
+  (let ((new-music (ly:music-deep-copy music)))
+   (set! (ly:music-property new-music 'articulations) '())
+   (set! (ly:music-property new-music 'elements)
+    (filter (lambda (y) (eq? 'NoteEvent (ly:music-property y 'name)))
+     (ly:music-property new-music 'elements)))
+   new-music))
+
 %
 % Generate a tempoChangeEvent and its associated property setting.
 %
@@ -685,72 +697,54 @@
 	; or a half-shake -- a short, two twiddle trill.
 	; We implement as a half-shake.
 	(let*
-	 ((totallength (ly:music-length music))
-	  (newlen (ly:moment-sub totallength (ly:make-moment 3/32)))
-	  (newdur (ly:make-duration
-		   0 0
-		   (ly:moment-main-numerator newlen)
-		   (ly:moment-main-denominator newlen)))
+	 ((origlength (ly:music-length music))
 	  (gracedur (ly:make-duration 5 0 1/1))
-	  (gracenote (ly:music-deep-copy music))
-	  (abovenote (ly:music-deep-copy music))
-	  (mainnote (ly:music-deep-copy music))
-	  (prall (make-sequential-music (list gracenote abovenote)))
-	)
-	  (music-map (lambda (n)
-	   (if (eq? 'NoteEvent (ly:music-property n 'name))
-            (set! (ly:music-property n 'duration) gracedur))
-		      n)
-	   abovenote)
-	  (music-map (lambda (n)
-	   (if (eq? 'NoteEvent (ly:music-property n 'name))
-            (set! (ly:music-property n 'duration) gracedur))
-		      n)
-	   gracenote)
-	  (music-map (lambda (n)
-	   (if (eq? 'NoteEvent (ly:music-property n 'name))
-            (set! (ly:music-property n 'duration) newdur))
-		      n)
-	   mainnote)
+	  (gracenote (ac:note-copy music))
+	  (abovenote (ac:note-copy music))
+	  (abovenoteTwo (ac:note-copy music))
+	  (mainnote (ly:music-deep-copy music)))
 
-	  (map (lambda (y) (ac:up y))
-	   (filter
-	    (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
-	    (ly:music-property abovenote 'elements)))
-	  (make-sequential-music (list abovenote gracenote abovenote mainnote))))
+	 (map (lambda (y) (ac:setduration y gracedur))
+	  (ly:music-property gracenote 'elements))
+	 (map (lambda (y) (ac:setduration y gracedur))
+	  (ly:music-property abovenote 'elements))
+	 (map (lambda (y) (ac:setduration y gracedur))
+	  (ly:music-property abovenoteTwo 'elements))
+	 (map (lambda (y) (ac:up y))
+	  (filter
+	   (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
+	   (ly:music-property abovenote 'elements)))
+	 (map (lambda (y) (ac:up y))
+	  (filter
+	   (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
+	   (ly:music-property abovenoteTwo 'elements)))
+	 (let* ((prallMusic (make-sequential-music
+                              (list abovenote gracenote abovenoteTwo mainnote)))
+                 (newlen (ly:music-length prallMusic))
+                 (factor (ly:moment-div origlength newlen)))
+	   (ly:music-compress prallMusic factor))))
 
        ((mordent)
 	(let*
-	 ((totaldur (ly:music-property
-		(car (ly:music-property music 'elements)) 'duration))
-	  (dur (ly:duration-length totaldur))
-	  (newlen (ly:moment-sub dur (ly:make-moment 2/32)))
-	  (newdur (ly:make-duration
-		0 0
-		   (ly:moment-main-numerator newlen)
-		   (ly:moment-main-denominator newlen)))
-	  (gracenote (ly:music-deep-copy music))
-	  (belownote (ly:music-deep-copy music))
-	  (mainnote (ly:music-deep-copy music))
-	  (mordent (make-sequential-music (list gracenote belownote)))
-	)
-	 (begin
-	  (music-map (lambda (n)
-	   (if (eq? 'NoteEvent (ly:music-property n 'name))
-	    (set! (ly:music-property n 'duration)
-	     (ly:make-duration 5 0 1/1)))
-		      n)
-	   mordent)
-	  (music-map (lambda (n)
-	   (if (eq? 'NoteEvent (ly:music-property n 'name))
-            (set! (ly:music-property n 'duration) newdur))
-		      n)
-	   mainnote)
-	  (map (lambda (y) (ac:down y))
-	   (filter
-	    (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
-	    (ly:music-property belownote 'elements)))
-	  (make-sequential-music (list mordent mainnote)))))
+	 ((origlength (ly:music-length music))
+	  (gracedur (ly:make-duration 5 0 1/1))
+	  (gracenote (ac:note-copy music))
+	  (belownote (ac:note-copy music)))
+	 (map (lambda (y) (ac:setduration y gracedur))
+	  (ly:music-property gracenote 'elements))
+	 (map (lambda (y) (ac:setduration y gracedur))
+               (ly:music-property belownote 'elements))
+	 (map (lambda (y) (ac:down y))
+	  (filter
+	   (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
+	   (ly:music-property belownote 'elements)))
+	 (display belownote)
+
+	 (let* ((mordentMusic (make-sequential-music (list gracenote belownote music)))
+		(newlen (ly:music-length mordentMusic))
+		(factor (ly:moment-div origlength newlen)))
+	  (ly:music-compress mordentMusic factor))))
+
        ((turn)
 	(let*
 	 ((dur (ly:music-property
