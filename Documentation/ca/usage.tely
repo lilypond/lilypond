@@ -8,7 +8,7 @@
 @end ignore
 
 @setfilename lilypond-usage.info
-@settitle LilyPond: manual de utilització del programa
+@settitle LilyPond: manual d'utilització del programa
 @documentencoding UTF-8
 @documentlanguage ca
 @afourpaper
@@ -18,8 +18,7 @@
 @macro manualIntro
 Aquest fitxer explica com executar els programes que es
 distribueixen amb el LilyPond versió @version{}.  A més a més
-suggereix certes @qq{bones pràctiques} per a una utilització
-eficient.
+suggereix certes @qq{bones pràctiques} per a una utilització eficient.
 @end macro
 
 @c `Usage' was born 1999-10-10 with git commit c82c30c...
@@ -77,6 +76,7 @@ Annexos
 @include usage/suggestions.itely
 
 @include fdl.itexi
+
 
 @node Índex del LilyPond
 @appendix Índex del LilyPond

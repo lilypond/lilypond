@@ -58,15 +58,15 @@ documents sobre aquest tema si no us resulta familiar la línia
 d'ordres.
 
 @menu
-* Invocar al LilyPond::
+* Invocació del LilyPond::
 * Opcions bàsiques de la línia d'ordres per al LilyPond::
 * Opcions avançades  de la línia d'ordres per al LilyPond::
 * Variables d'entorn::
 * El LilyPond a una gàbia de chroot::
 @end menu
 
-@node Invocar al LilyPond
-@unnumberedsubsec Invocar @command{lilypond}
+@node Invocació del LilyPond
+@unnumberedsubsec Invocació @command{lilypond}
 @translationof Invoking lilypond
 
 L'executable @command{lilypond} es pot cridar des d'una línia
@@ -102,7 +102,7 @@ base i el número.  Un fitxer de sortida que contingui
 @end example
 
 @noindent
-produirà com a sortida @var{base}@file{-violí.pdf} y
+produirà com a sortida @var{base}@file{-violí.pdf} i
 @var{base}@file{-violoncel-1.pdf}.
 
 
@@ -843,7 +843,7 @@ i DIR serà @code{/lilyhome}.
 fitxers necessaris, com es mostra en el guió d'exemple que apareix
 més avall.
 
-Pot usar @code{sed} per crear els fitxeres de còpia necessaris per a
+Podeu usar @code{sed} per crear els fitxeres de còpia necessaris per a
 un executable donat:
 
 @example

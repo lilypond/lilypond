@@ -15,7 +15,7 @@
 @chapter Actualitzar fitxers amb @command{convert-ly}
 @translationof Updating files with convert-ly
 
-@cindex actualitzacío d'un fitxer del LilyPond
+@cindex actualització d'un fitxer del LilyPond
 @cindex convert-ly
 
 La sintaxi del llenguatge d'entrada del LilyPond es modifica de
@@ -39,13 +39,13 @@ actualitzar fitxers a versions més noves del LilyPond.
 @translationof Why does the syntax change?
 
 @cindex convert-ly
-@cindex actualizació de fitxers d'entrada antics
+@cindex actualització de fitxers d'entrada antics
 
 La sintaxi de l'entrada del LilyPond canvia de manera ocasional.
 A mesura que el propi LilyPond millora,  la sintaxi (el llenguatge
 de l'entrada) es modifica en consonància.  A vegades aquests
 canvis es fan per aconseguir que l'entrada sigui més fàcil de
-llegir i escriuure, i d'altres vegades aquests canvis són per
+llegir i escriure, i d'altres vegades aquests canvis són per
 donar cabuda a noves funcionalitats del LilyPond.
 
 Per exemple, se suposa que tots els noms de les propietats de
@@ -61,10 +61,10 @@ canvi es pot automatitzar amb la nostra eina
 @command{convert-ly}.
 
 Tanmateix, lamentablement @command{convert-ly} no pot tractar tots
-els canvis d'entrda.  Per exemple, a la versió 2.4 i anteriors de
-LilyPond els accents i les lletres no angleses s'introduien
+els canvis d'entrada.  Per exemple, a la versió 2.4 i anteriors de
+LilyPond els accents i les lletres no angleses s'introdueixen
 utilitzant el LaTeX: per exemple @code{No\"el} (que significa
-@{Nadal} en francès).  Al LilyPond 2.6 i següents el caràcter
+@q{Nadal} en francès).  Al LilyPond 2.6 i següents el caràcter
 especial @code{ë} s'ha d'introduir directament al fitxer del
 LilyPond com un caràcter UTF-8.  @command{convert-ly} no pot
 canviar tots els caràcters especials del LaTeX a caràcters de
@@ -79,20 +79,20 @@ conseqüències:
 @item
 El bon funcionament de la conversió depèn de la qualitat de cada
 conjunt de regles que s'apliquen i de la complexitat del canvi
-corresponent.  A vegades les converrsions poden necessitar
+corresponent.  A vegades les conversions poden necessitar
 correccions manuals, per la qual cosa la versió antiga hauria de
 conservar-se a efectes de comparació.
 @item
 Solament són possibles les conversions de formats més nous: no hi
-ha cap conjunt de regles per a la desactualitzacío.  Així doncs,
+ha cap conjunt de regles per a la desactualització.  Així doncs,
 la còpia principal de treball d'un fitxer del LilyPond solament
 s'ha d'actualitzar quan ja no hi ha necessitat de seguir mantenint
-versions antiques del LilyPond.  Els sistems de control de
+versions antigues del LilyPond.  Els sistemes de control de
 versions com ara el Git poden ser de gran ajuda per realitzar el
 manteniment de diverses versions dels mateixos fitxers.
 @item
 Els propis programes del LilyPond i de l'Scheme són força robustos
-enfront als espeais afegits i suprimirts de manera @qq{creativa},
+enfront als espais afegits i suprimits de manera @qq{creativa},
 però les regles utilitzades per @command{convert-ly} tendeixen a
 fer certes suposicions d'estil.  El millor que pot fer-se és
 seguir l'estil que s'usa als manuals per fer actualitzacions
@@ -110,7 +110,7 @@ gairebé tots els casos, per actualitzar el fitxer d'entrada sols
 cal executar
 
 @example
-convert-ly -e miarchivo.ly
+convert-ly -e elmeufitxer.ly
 @end example
 
 @noindent
@@ -133,7 +133,7 @@ convert-ly -e *.ly
 
 De forma alternativa, si volem especificar un nom diferent per al
 fitxer actualitzar, preservant el fitxer original amb el mateix
-nom, faci
+nom, feu
 
 @example
 convert-ly elmeufitxer.ly > elmeunoufitxer.ly
@@ -149,7 +149,7 @@ el menú @code{Compilar > Actualitzar sintaxi}.
 
 Els usuaris del Windows han d'introduir aquesta instrucció a una
 nova ventana del terminal del sistema, que es troba en general sota
-@code{Inici > Accesoris > Símbol del sistema}.
+@code{Inici > Accessoris > Símbol del sistema}.
 
 @node Opcions de la línia d'ordres per a convert-ly
 @section Opcions de la línia d'ordres per a @command{convert-ly}
@@ -167,7 +167,7 @@ Es poden donar les opcions següents:
 @item -d, --diff-version-update
 Incrementa la cadena @code{\version} solament si el fitxer
 efectivament ha canviat.  En tal cas, la capçalera de versió
-correspondrà a la versió següent a l'últim canvi efecdtiu.  Sense
+correspondrà a la versió següent a l'últim canvi efectiu.  Sense
 aquesta opció la versió reflecteix l'última conversió que es
 @emph{va intentar} fer.
 
@@ -175,7 +175,7 @@ aquesta opció la versió reflecteix l'última conversió que es
 Aplica les conversions directament al fitxer d'entrada,
 modificant-lo in situ.  El fitxer original es canvia de nom a
 @file{elmeufitxer.ly~}.  Aquest fitxer de còpia de seguretat
-podria ser un fitxer ocult en alguns sistemes opratius.
+podria ser un fitxer ocult en alguns sistemes operatius.
 
 @item -b, --backup-numbered
 Quan s'usa amb l'opció @samp{-e}, numera els fitxers de còpia de
@@ -271,13 +271,13 @@ prepareu-vos per manipular el codi del Scheme a mà.
 @translationof Manual conversions
 
 En teoria, un programa com @command{convert-ly} hauria de poder
-tractar qualsevol canvi de sintasi.  Després de tot, un programa
+tractar qualsevol canvi de sintaxi.  Després de tot, un programa
 d'ordinador interpreta les versions antiga i nova, per la qual
-coas un altre programa d'ordinador podria traduir un fitxer a
+cosa un altre programa d'ordinador podria traduir un fitxer a
 l'altre@footnote{Almenys això és possible en qualsevol fitxer del
 LilyPond que no contingui Scheme.  Si hi ha Scheme dins del
 fitxer, conté un llenguatge Turing-complet, i ens trobem amb el
-famòs @qq{Problema de l'aturada}  informàtica.}.
+famós @qq{Problema de l'aturada}  informàtica.}.
 
 Tot i així, el projecte LilyPond compta amb uns recursos limitats:
 no totes les conversions s'efectuen automàticament.  A continuació
@@ -286,14 +286,14 @@ hi ha una llista de problemes coneguts.
 @verbatim
 1.6->2.0:
 No sempre converteix el baix xifrat correctament, específicament
-coses com ara {< >}.  El comentari de Mats sobre com solventar el
+coses com ara {< >}.  El comentari de Mats sobre com solucionar el
 problema:
    Per poder executar convert-ly
    sobre ell, primer vaig sustituir totes les aparicions de '{<' a quelcom mut com ara '{#'
    i de forma semblant vaig sustituir '>}' amb '&}'.  Després de la conversió, vaig poder
    tornar a canviar-los de '{ #' a '{ <' i de '& }' a '> }'.
  No converteix tot l'etiquetatge de text correctament.  En sintaxi antiga,
- es podien agrupar diverses etiquetes entre parèntesis, per exmple
+ es podien agrupar diverses etiquetes entre parèntesis, per exemple
    -#'((bold italic) "cadena")
    Això es converteix incorrectament a
    -\markup{{\bold italic} "cadena"}
@@ -301,7 +301,7 @@ problema:
    -\markup{\bold \italic "cadena"}
 2.0->2.2:
  No gestiona \partcombine
- No va \addlyrics => \lyricsto, això trenca algunes partitures amb divereses estrofes
+ No va \addlyrics => \lyricsto, això trenca algunes partitures amb diverses estrofes
 2.0->2.4:
  \magnify no es canvia per \fontsize.
     - \magnify #m => \fontsize #f, on f = 6ln(m)/ln(2)
@@ -317,7 +317,7 @@ problema:
     - \rc => \!
 2.2->2.4:
  \turnOff (usat a \set Staff.VoltaBracket = \turnOff) no es converteix
-adeauadament.
+adequadament.
 2.4.2->2.5.9
  \markup{ \center-align <{ ... }> } s'hauria de convertir a
  \markup{ \center-align {\line { ... }} }

@@ -189,7 +189,7 @@ cap expressió musical.  Per tant, es poden posar dins d'un bloc
 situen en general fora del bloc @code{\score} (per exemple,
 @code{\header} se sol col·locar abans de la instrucció
 @code{\score}, com mostra l'exemple que apareix al principi de la
-secció.
+secció.)
 
 Dues instruccions més que no hem vist són @code{\layout @{ @}}
 i @code{\midi @{ @}}.  Si apareixen tal i com es mostren aquí, fan
@@ -227,10 +227,10 @@ bloc @code{\book}.
 
 Cada bloc @code{\layout} afecta el bloc @code{\score} o
 @code{\book} dins del qual apareix (és a dir, un bloc
-@code{\layout} dins d'un bloc @code{\score} afecta solament a
+@code{\layout} dins d'un bloc @code{\score}) afecta solament a
 aquest bloc @code{\score}, però un bloc @code{\layout} fora d'un
 bloc @code{\score} (que per això està dins d'un bloc
-@code{\book}, ja sigui explícit o implícitament afecta als blocs
+@code{\book}, ja sigui explícit o implícitament) afecta als blocs
 @code{\score} que estan dins d'aquest @code{\book}.
 
 Per veure més detalls, consulteu @ruser{Diverses partitures a un
@@ -2306,7 +2306,7 @@ melodia = \relative c' @{
 No necessitem dues instruccions @code{\version}.  Ens caldrà la
 secció @code{melodia}.  No volem dues seccions @code{\score} (si
 tinguéssim dues @code{\score}s, acabaríem amb dues particel·les
-per separat.  Volem les dues juntes, com un duo. Dins de la secció
+per separat.)  Volem les dues juntes, com un duo. Dins de la secció
 @code{\score}, no ens fan falta dos @code{\layout} ni dos
 @code{\midi}.
 
@@ -2961,7 +2961,7 @@ hauria de comportar-se de una manera semblant.
 
 El grau d'ampliabilitat i separabilitat dels pentagrames es pot
 controlar amb la propietat @code{staff-staff-spacing} de
-l'@q{objecte gràfic @code{VerticalAxisGroup} (els objectes gràfics
+l'@q{objecte gràfic} @code{VerticalAxisGroup} (els objectes gràfics
 reben en general el nom de @q{grob}s a la documentació del
 LilyPond); no us preocupeu de moment dels detalls, ja que això
 s'explica més tard de forma exhaustiva.  Els més curiosos podeu

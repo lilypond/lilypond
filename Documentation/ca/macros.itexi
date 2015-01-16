@@ -122,7 +122,7 @@ Si us falta algun manual, trobareu tota la documentació a
 
 @emph{La traducció de la següent nota de copyright s'ofereix com a
 cortesia per a les persones de parla no anglesa, però únicament la
-nota en anglès té validesa lgal.}
+nota en anglès té validesa legal.}
 
 @emph{The translation of the following copyright notice is provided
 for courtesy to non-English speakers, but only the notice in English
@@ -133,7 +133,7 @@ S'atorga permís per copiar, distribuir i/o modificar aquest
 document sota els termes de la Llicència de Documentació Lliure de
 GNU, versió 1.1 o qualsevol posterior publicada per la Free
 Software Foundation; sense cap de les seccions invariants.
-S'inclou una còpia d'aquesta llicència dins de la sección titulada
+S'inclou una còpia d'aquesta llicència dins de la secció titulada
 ``Llicència de Documentació Lliure de GNU''.
 @end quotation
 
@@ -369,12 +369,12 @@ Per a la versió del LilyPond @version{}
 
 @macro rinternals{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,internals-big-page,Referència de funcionamient intern}
+@ref{\TEXT\,,,internals-big-page,Referència de funcionament intern}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,internals-big-page,Referència de funcionamient intern}
+@ref{\TEXT\,,\DISPLAY\,internals-big-page,Referència de funcionament intern}
 @end macro
 
 @end ifset
@@ -820,6 +820,3 @@ aquesta pàgina de la Wikimedia Commons}.
 @macro englishref
 Aquesta secció encara no està traduïda; consulteu el manual en anglès.
 @end macro
-
-
-
