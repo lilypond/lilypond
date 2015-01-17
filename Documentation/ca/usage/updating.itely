@@ -21,7 +21,7 @@
 La sintaxi del llenguatge d'entrada del LilyPond es modifica de
 forma habitual per a simplificar-la o millorar-la de diferents
 maneres. Com a efecte secundari, l'intèrpret del LilyPond sovint
-ja no és compatible amb els fitxers d'entrada antics.  Per posa
+ja no és compatible amb els fitxers d'entrada antics.  Per posar
 remei a això es pot utilitzar el programa @command{convert-ly} per
 actualitzar fitxers a versions més noves del LilyPond.
 
@@ -196,7 +196,7 @@ Imprimeix l'ajuda d'utilització.
 Fixa el grau en el qual la sortida és detallada a
 @var{nivellderegistre}.  Els valors possibles són @code{NONE}
 (cap), @code{ERROR} (errors), @code{WARNING} (advertiments),
-@code{PROGRESS} (avenç);
+@code{PROGRESS} (avenç;predeterminat) i @code{DEBUG} (depuració).
 
 @item -n, --no-version
 Normalment @command{convert-ly} afegeix un indicador
@@ -244,7 +244,7 @@ parelles de cometes:
 convert-ly """D:/Les meves partitures/Oda.ly""" > "D:/Les meves partitures/nova Oda.ly"
 @end example
 
-Si l'ordre simple@command{convert-ly -e *.ly} no funciona perquè
+Si l'ordre simple @command{convert-ly -e *.ly} no funciona perquè
 la instrucció expandida es fa massa llarga, en comptes de fer això
 l'ordre @command{convert-ly} es pot posar dins d'un bucle.  Aquest
 exemple per a UNIX actualitza tots els documents @file{.ly} del
@@ -286,7 +286,8 @@ hi ha una llista de problemes coneguts.
 @verbatim
 1.6->2.0:
 No sempre converteix el baix xifrat correctament, específicament
-coses com ara {< >}.  El comentari de Mats sobre com solucionar el
+coses com ara {<
+>}.  El comentari de Mats sobre com solucionar el
 problema:
    Per poder executar convert-ly
    sobre ell, primer vaig sustituir totes les aparicions de '{<' a quelcom mut com ara '{#'
@@ -319,7 +320,7 @@ problema:
  \turnOff (usat a \set Staff.VoltaBracket = \turnOff) no es converteix
 adequadament.
 2.4.2->2.5.9
- \markup{ \center-align <{ ... }> } s'hauria de convertir a
+ \markup{ \center-align <{ ... }> } s'hauria de convertir a:
  \markup{ \center-align {\line { ... }} }
  però ara, falta el \line.
 2.4->2.6
