@@ -11,8 +11,8 @@
 @c \version "2.17.6"
 
 
-@node Executar el Lilypond
-@chapter Executar el LilyPond
+@node Execució del LilyPond
+@chapter Execució del LilyPond
 @translationof Running LilyPond
 
 Aquest capítol detalla els aspectes tècnics de l'execució del
@@ -31,7 +31,7 @@ LilyPond.
 @translationof Normal usage
 
 Gairebé tots els usuaris executen el LilyPond per mitjà d'una
-interfície gràfica; consulteu @rlearning{Primers passos} si encara
+interfície gràfica; consulteu @rlearning{Tutorial} si encara
 no l'heu llegit.
 
 @node Utilització des de la línia d'ordres
@@ -144,7 +144,7 @@ Estan contemplades les opcions següents:
 @table @code
 
 @item -d, --define-default=@var{variable}=@var{valor}
-Vegeu @ref{Opcions avançades de línia d'ordres per al LilyPond}.
+Vegeu @ref{Opcions avançades de la línia d'ordres per al LilyPond}.
 
 @cindex Scheme, avaluació d'expressions
 @cindex expressions del Scheme, avaluació
@@ -213,7 +213,7 @@ L'opció @option{--jail} (gàbia) proporciona una alternativa més
 flexible a l'opció @option{-dsafe} quan el procés de tipografia
 del LilyPond està disponible a un servidor web o quan el LilyPond
 executa instruccions enviades per fonts externes
-(vegeu @ref{Opcions avançades de línia d'ordres per al LilyPond}).
+(vegeu @ref{Opcions avançades de la línia d'ordres per al LilyPond}).
 
 L'opció @option{--jail} funciona canviant l'arrel de
 @command{lilypond} a @var{gàbia} just o abans de començar el
@@ -262,7 +262,7 @@ Si sorgeixen problemes, la forma més senzilla de rastrejar-los és
 executar el LilyPond usant @command{strace}, cosa que li permetrà
 determinar quins fitxers falten.
 
-@item Executar el LilyPond
+@item Execució del LilyPond
 Dins d'una gàbia muntada amb @code{noexec} és impossible executar
 cap programa extern.  Per tant, el LilyPond s'ha d'executar amb un
 backend que no necessiti un programa extern.  Com ja hem
@@ -357,8 +357,8 @@ Mostra la garantia del GNU LilyPond (no ve amb
 @end table
 
 
-@node Opcions avançades de línia d'ordres per al LilyPond
-@unnumberedsubsec Opcions avançades de línia d'ordres per al LilyPond
+@node Opcions avançades de la línia d'ordres per al LilyPond
+@unnumberedsubsec Opcions avançades de la línia d'ordres per al LilyPond
 @translationof Advanced command line options for LilyPond
 
 @table @code
@@ -594,7 +594,7 @@ cadena ha d'anar tancada entre cometes dobles.
 @item @code{point-and-click}
 @tab @code{#f}
 @tab Afegeix enllaços d'@q{apuntar i clicar} a la sortida @code{PDF}. Vegeu
-@ref{Apuntar i clicar}.
+@ref{Point and click}.
 
 @item @code{preview}
 @tab @code{#f}

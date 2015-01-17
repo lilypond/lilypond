@@ -3198,7 +3198,7 @@ padText =
 
 La utilització d'identificadors també és una bona forma de reduir
 el treball si la sintaxis d'entrada del LilyPonod canvia (vegeu
-@rprogram{Actualitzar fitxers amb convert-ly}).  Si teniu una sola
+@rprogram{Actualització de fitxers amb convert-ly}).  Si teniu una sola
 definició (com ara @code{\dolce}) per a tots els fitxers (vegeu
 @ref{Fulls d'estil}), i després la sintaxis es modifica, sols
 haurà d'actualitzar la seva definició @code{\dolce} única, enlloc

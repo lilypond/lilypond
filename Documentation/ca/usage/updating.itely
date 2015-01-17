@@ -11,8 +11,8 @@
 @c \version "2.16.0"
 
 
-@node Actualitzar fitxers amb convert.ly
-@chapter Actualitzar fitxers amb @command{convert-ly}
+@node Actualització de fitxers amb convert-ly
+@chapter Actualització de fitxers amb @command{convert-ly}
 @translationof Updating files with convert-ly
 
 @cindex actualització d'un fitxer del LilyPond
@@ -28,7 +28,7 @@ actualitzar fitxers a versions més noves del LilyPond.
 @menu
 * Perquè canvia la sintaxi?::
 * Invocació de convert-ly::
-* Opcions de la línia d'ordres per a convert.ly::
+* Opcions de la línia d'ordres per a convert-ly::
 * Problemes amb convert-ly::
 * Conversions manuals::
 @end menu
