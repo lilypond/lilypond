@@ -179,5 +179,5 @@ ADD_INTERFACE (Script_column,
                " @code{script-priority} and @code{outside-staff-priority}.",
 
                /* properties */
-               ""
+               "scripts "
               );

@@ -837,6 +837,7 @@ ADD_INTERFACE (Tuplet_bracket,
                "note-columns "
                "padding "
                "tuplet-number "
+               "scripts "
                "shorten-pair "
                "staff-padding "
                "thickness "

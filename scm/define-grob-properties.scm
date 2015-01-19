@@ -1282,6 +1282,7 @@ relevant for finding the @code{pure-Y-extent}.")
      (right-items ,ly:grob-array? "DOCME")
      (right-neighbor ,ly:grob? "See @code{left-neighbor}.")
 
+     (scripts ,ly:grob-array? "An array of @code{Script} objects.")
      (side-support-elements ,ly:grob-array? "The side support, an array of
 grobs.")
      (slur ,ly:grob? "A pointer to a @code{Slur} object.")
