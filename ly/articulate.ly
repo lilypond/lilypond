@@ -347,11 +347,11 @@
 	      (ly:music-property music 'elements)))
 	 (pre-t (if (pair? tr) (ly:music-property (car tr) 'twiddle)
 		 '()))
-	 (hemisemidur (ly:make-duration 5 0 1/1))
+	 (hemisemimom (ly:make-moment 1/64))
 	 (t (ac:targetTwiddleTime)))
    (if (ly:moment? pre-t)
     pre-t
-    hemisemidur)))
+    hemisemimom)))
 
 
 
