@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2009--2014 Carl Sorensen <c_sorensen@byu.edu>
+;;;; Copyright (C) 2009--2015 Carl Sorensen <c_sorensen@byu.edu>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -393,15 +393,6 @@ a fresh copy of the list-head is made."
 
 (add-simple-time-signature-style 'C make-c-time-signature-markup)
 (add-simple-time-signature-style 'default make-c-time-signature-markup)
-
-(define-public (make-single-c-time-signature-markup fraction)
-  "Make markup for the `single-C' time signature style."
-  (let ((n (car fraction)))
-    (if (or (= n 2) (= n 4)) ; numerator only
-        (make-glyph-time-signature-markup 'C (cons n n))
-        (make-compound-meter-markup n))))
-
-(add-simple-time-signature-style 'single-C make-single-c-time-signature-markup)
 
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ;;; Measure length calculation of (possibly complex) compound time signatures

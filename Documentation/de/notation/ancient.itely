@@ -2574,7 +2574,7 @@ Er bezeichnet die Position von @code{c}:
 
 @lilypond[quote,relative=1,notime,verbatim]
   \clef "kievan-do"
-  \override NoteHead.style = #'kievan
+  \kievanOn
   c
 @end lilypond
 
@@ -2606,8 +2606,10 @@ Notenköpfe:
 @lilypond[quote,fragment,ragged-right,verbatim]
 \autoBeamOff
 \cadenzaOn
-\override NoteHead.style = #'kievan
+\kievanOn
 b'1 b'2 b'4 b'8 b'\breve b'\longa
+\kievanOff
+b'2
 @end lilypond
 
 @seealso
@@ -2641,7 +2643,6 @@ vor allem der Vollständigkeit halber eingesetzt.
 
 @lilypond[quote,relative=1,notime,verbatim]
 \clef "kievan-do"
-\override NoteHead.style = #'kievan
 \override Accidental.glyph-name-alist =
  #alteration-kievan-glyph-name-alist
 bes' dis,
@@ -2663,18 +2664,17 @@ Notationsreferenz:
 
 Eine dekorative Figur wird üblicherweise am Ende von eines
 Musikstückes der Kiever Notation gesetzt, was man als Kiever
-Schlussstrich bezeichnen kann.  Es wird gesetzt mit @code{\bar "kievan"}.
+Schlussstrich bezeichnen kann.  Es wird gesetzt mit @code{\bar "k"}.
 
 @lilypond[quote,relative=1,notime,verbatim]
   \clef "kievan-do"
-  \override NoteHead.style = #'kievan
-  c \bar "kievan"
+  \kievanOn
+  c \bar "k"
 @end lilypond
 
 @seealso
 @ref{Takte},
 @ref{Die Feta-Schriftart}
-
 
 @c Working with ancient music: scenarios and solutions::  {{{1
 @node Musiksatz Alter Musik in der Praxis -- Szenarien und Lösungen

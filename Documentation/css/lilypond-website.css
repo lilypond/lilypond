@@ -419,7 +419,11 @@ div#quickSummary {
 }
 
 #quickSummary .subheading {
-  background: #fff url(../pictures/summary-gradient.png) repeat-y 0 0;
+  background: linear-gradient(to right,
+    rgb(79, 130, 99),
+    rgb(79, 130, 99) 10%,
+    rgb(255, 255, 255) 75%,
+    rgb(255, 255, 255));
   color: #fff;
   padding: 0 0.5em;
   margin: 0;
@@ -516,12 +520,18 @@ div#wildCardBox {
 
 /* this might not work in certain browsers */
 a[name="Stable"] + h4 {
-  background: #bdee9d url(../pictures/color1-bg.png) repeat-x top left;
+  background-color: #bdee9d;
+  background: linear-gradient(to top,
+    rgb(140, 210, 118),
+    rgb(212, 243, 201));
 }
 
 /* this might not work in certain browsers */
 a[name="Unstable"] + h4 {
-  background: #fad58c url(../pictures/color3-bg.png) repeat-x top left;
+  background-color: #fad58c;
+  background: linear-gradient(to top,
+    rgb(183, 213, 131),
+    rgb(231, 243, 207));
 }
 
 #latestVersion .subsubheading {
@@ -688,7 +698,10 @@ div.float-right a.clickable {
 
 /* color1 */
 .column-center-top h3 {
-  background: #9ccc7c url(../pictures/color1-bg.png) repeat-x top left;
+  background-color: #9ccc7c;
+  background: linear-gradient(to top,
+    rgb(140, 210, 118),
+    rgb(212, 242, 201));
   text-align: left;
   border-bottom: 1px solid #9ccc7c;
 }
@@ -714,7 +727,10 @@ div.float-right a.clickable {
 /* color2 */
 .column-left-top h3,
 .column-left-bottom h3 {
-  background: #adce82 url(../pictures/color2-bg.png) repeat-x top left;
+  background-color: #adce82;
+  background: linear-gradient(to top,
+    rgb(173, 206, 130),
+    rgb(221, 243, 204));
   border-bottom: 1px solid #adce82;
 }
 
@@ -738,7 +754,10 @@ div.float-right a.clickable {
 /* color3 */
 .column-right-top h3,
 .column-right-bottom h3 {
-  background: #bdd088 url(../pictures/color3-bg.png) repeat-x top left;
+  background-color: #bdd088;
+  background: linear-gradient(to top,
+    rgb(189, 208, 136),
+    rgb(231, 243, 207));
   border-bottom: 1px solid #bdd088;
 }
 
@@ -752,7 +771,10 @@ div.float-right a.clickable {
 
 /* color4 */
 .column-center-bottom h3 {
-  background: #ccd38f url(../pictures/color4-bg.png) repeat-x top left;
+  background-color: #ccd38f;
+  background: linear-gradient(to top,
+    rgb(204, 211, 143),
+    rgb(237, 244, 208));
   text-align: left;
   border-bottom: 1px solid #ccd38f;
 }

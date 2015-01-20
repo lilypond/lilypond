@@ -2,7 +2,7 @@
 
 # This file is part of LilyPond, the GNU music typesetter.
 #
-# Copyright (C) 2009--2014 Jan Nieuwenhuizen <janneke@gnu.org>
+# Copyright (C) 2009--2015 Jan Nieuwenhuizen <janneke@gnu.org>
 #
 # LilyPond is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -44,9 +44,11 @@ copied_files = [
     'texinfo.tex',
     'txi-de.tex',
     'txi-en.tex',
-    'txi-fr.tex',
     'txi-es.tex',
+    'txi-fr.tex',
+    'txi-hu.tex',
     'txi-it.tex',
+    'txi-nl.tex',
     ]
 
 def main ():

@@ -1192,7 +1192,7 @@ sub split_texi_filename ($)
 #############################################################################
 
 # Include our standard CSS file, not hard-coded CSS code directly in the HTML!
-# For IE, conditionally include the lilypond-ie-fixes.css style sheet
+# For IE, add a second conditionally included CSS file.
 sub lilypond_css_lines ($$)
 {
   my $import_lines = shift;
@@ -1216,10 +1216,13 @@ sub lilypond_css_lines ($$)
 	"<link rel=\"alternate stylesheet\" type=\"text/css\" href=\"css/$ref->{FILENAME}\" title=\"$ref->{TITLE}\">\n";
   }
 
-  # The ie-fixes stylesheet is needed for the docs, but not the website.
-  if (not ($web_manual)) {
+  # Add a conditionally included CSS file for IE, for either the docs or the website
+  if ($web_manual) {
     $Texi2HTML::THISDOC{'CSS_LINES'} .=
-	"<!--[if lte IE 7]>\n<link href=\"css/lilypond-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
+	"<!--[if lte IE 9]>\n<link href=\"css/lilypond-website-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
+  } else {
+    $Texi2HTML::THISDOC{'CSS_LINES'} .=
+	"<!--[if lte IE 7]>\n<link href=\"css/lilypond-manuals-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
   }
 
   if ($ENV{'AJAX_SEARCH'} == 1) {

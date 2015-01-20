@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 1998--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 1998--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;                 Neil Puttock <n.puttock@gmail.com>
 ;;;;                 Carl Sorensen <c_sorensen@byu.edu>
@@ -33,6 +33,19 @@ to be used by the sequential-iterator"
                                   (ly:music-property music 'articulations)))
           (make-music 'BarCheck
                       'origin location))))
+
+(define (make-unfolded-set music)
+  (let ((n (ly:music-property music 'repeat-count))
+        (alts (ly:music-property music 'elements))
+        (body (ly:music-property music 'element)))
+    (cond ((<= n 0) '())
+          ((null? alts) (make-list n body))
+          (else
+           (concatenate
+            (zip (make-list n body)
+                 (append! (make-list (max 0 (- n (length alts)))
+                                     (car alts))
+                          alts)))))))
 
 (define (make-volta-set music)
   (let* ((alts (ly:music-property music 'elements))

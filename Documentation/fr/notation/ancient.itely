@@ -2479,7 +2479,7 @@ lancer dans la saisie de votre chant, comme ci-dessous :
   <<
     \new KievanVoice = "melody" \relative c' {
       \cadenzaOn
-	c4 c c c c2 b,\longa
+	c4 c c c c2 b\longa
 	\bar "k"
     }
     \new Lyrics \lyricsto "melody" {

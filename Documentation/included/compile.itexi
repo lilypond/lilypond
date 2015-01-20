@@ -75,7 +75,7 @@ installed by default)
 newer)
 
 @item @uref{http://www.gnu.org/software/guile/guile.html, Guile}
-(1.8.2 or newer)
+(1.8.8 - version 2.x is not currently supported)
 
 @item @uref{http://www.pango.org/, Pango} (1.12 or newer)
 

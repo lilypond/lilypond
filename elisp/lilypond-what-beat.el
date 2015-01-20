@@ -57,12 +57,12 @@
 
 (defun add-fractions (f1 f2)
   "Adds two fractions, both are (numerator denominator)"
-  (set 'result (list (+ (* (car f1) (cadr f2)) (* (car f2) (cadr f1)))
+  (setq result (list (+ (* (car f1) (cadr f2)) (* (car f2) (cadr f1)))
 		     (* (cadr f1) (cadr f2))))
-  (set 'result (reduce-fraction result 2))
-  (set 'result (reduce-fraction result 3))
-  (set 'result (reduce-fraction result 5))
-  (set 'result (reduce-fraction result 7))
+  (setq result (reduce-fraction result 2))
+  (setq result (reduce-fraction result 3))
+  (setq result (reduce-fraction result 5))
+  (setq result (reduce-fraction result 7))
 )
 
 
@@ -72,7 +72,7 @@
 	      (= 0 (% (cadr result) divisor))
 	      (< 1 (cadr result))
 	      (< 0 (car result)))
-    (set 'result (list (/ (car result) divisor) (/ (cadr result) divisor))))
+    (setq result (list (/ (car result) divisor) (/ (cadr result) divisor))))
   result
 )
 
@@ -86,24 +86,21 @@
 	(denominator (or (extract-match duration 8) "1")))
     (if (and (not (null dots)) (< 0 (string-width dots)))
 	(dotimes (dummy (string-width dots))
-	  (set 'result (list (1+ (* 2 (car result))) (* 2 (cadr result))))))
+	  (setq result (list (1+ (* 2 (car result))) (* 2 (cadr result))))))
     (list (* (string-to-int numerator) (car result))
 	  (* (string-to-int denominator) (cadr result)))
 ))
 
 (defun walk-note-duration ()
-"Returns duration of next note, moving point past note.
+  "Returns duration of next note, moving point past note.
 If point is not before a note, returns nil
 If next note has no duration, returns t"
-  (if (not (looking-at pitch-regex))
-      nil
-    (progn
+  (let ((have-pitch (looking-at pitch-regex)))
+    (if have-pitch (goto-char (match-end 0)))
+    (if (not (looking-at duration-regex))
+	have-pitch
       (goto-char (match-end 0))
-      (if (not (looking-at duration-regex))
-	  t
-	(progn
-	  (goto-char (match-end 0))
-	  (parse-duration (match-string 0)))))))
+      (parse-duration (match-string 0)))))
 
 ; returns nil if not at a comment
 (defun skip-comment ()
@@ -161,7 +158,7 @@ If next note has no duration, returns t"
 	     (skip-quotation)
 	     (skip-sexp)))
   ; Now skip anything that isn't alphanum or \. And skip comments or quotations
-  (while (or (< 0 (skip-chars-forward "^A-Za-z<%}#=\""))
+  (while (or (< 0 (skip-chars-forward "^A-Za-z1-9<%}#=\""))
 	     (skip-comment)
 	     (skip-quotation)
 	     (skip-sexp)))
@@ -201,31 +198,33 @@ If next note has no duration, returns t"
 	     (duration (if (= -1 last-dur) 0 (parse-duration (match-string 0))))
 	     (result '(0 1)))		; 0 in fraction form
 	(if (= measure-start -1)
-	    (error "No | before point")
-	  (progn
-	    (goto-char (1+ measure-start))
-	    (goto-note-begin)
-	    (while (< (point) end)
-	      (set 'new-duration (walk-note-duration))
+	    (message "No | before point")
+	  (goto-char (1+ measure-start))
+	  (goto-note-begin)
+	  (while (< (point) end)
+	    (let ((new-duration (walk-note-duration)))
 	      (if (null new-duration)
-		  (if (not (looking-at "\\\\times[ \t]*\\([1-9]*\\)/\\([1-9]*\\)[ \t\n]*{"))
+		  (if (not (looking-at
+			    (concat "\\\\t\\(?:\\(imes\\)\\|uplet\\)[ \t]*\\([0-9]+\\)/\\([0-9]+\\)\\(?:[ \t\n]"
+				    duration-regex "\\)?[ \t\n]*{")))
 		      (skip-good-keywords)
 
-					; handle \times specially
-		    (let ((numerator (string-to-int (match-string 1)))
-			  (denominator (string-to-int (match-string 2))))
+					; handle \times/\tuplet specially
+		    (let* ((times-p (match-beginning 1))
+			   (numerator (string-to-int (match-string (if times-p 2 3))))
+			   (denominator (string-to-int (match-string (if times-p 3 2)))))
 		      (goto-char (match-end 0))
 		      (goto-note-begin)
 		      (while (and (not (looking-at "}"))
 				  (< (point) end))
-			(set 'new-duration (walk-note-duration))
+			(setq new-duration (walk-note-duration))
 			(if (null new-duration)
 			    (if (looking-at "\\\\[a-z]*[ \t]*[a-z]*")
 				(goto-char (match-end 0))
 			      (error "Unknown text: %S %s" result(buffer-substring (point) end))))
 			(if (not (eq new-duration t))
-			    (set 'duration new-duration))
-			(set 'result (add-fractions result
+			    (setq duration new-duration))
+			(setq result (add-fractions result
 						    (list (* numerator (car duration))
 							  (* denominator (cadr duration)))))
 			(goto-note-begin))
@@ -233,12 +232,11 @@ If next note has no duration, returns t"
 			  (forward-char 1)))) ; skip }
 
 		(if (not (eq new-duration t))
-		    (set 'duration new-duration))
-		(set 'result (add-fractions result duration)))
-	      (goto-note-begin))
+		    (setq duration new-duration))
+		(setq result (add-fractions result duration)))
+	      (goto-note-begin)))
 
-	    result
-))))))
+	  result)))))
 
 (defun LilyPond-what-beat ()
   "Returns how much of a measure lies between last measaure '|' and point.

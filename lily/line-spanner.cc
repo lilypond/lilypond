@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2000--2014 Jan Nieuwenhuizen <janneke@gnu.org>
+  Copyright (C) 2000--2015 Jan Nieuwenhuizen <janneke@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -117,6 +117,10 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
       Grob *acc = Grob::unsmob (bound_grob->get_object ("accidental-grob"));
       if (acc && to_boolean (ly_assoc_get (ly_symbol2scm ("end-on-accidental"), details, SCM_BOOL_F)))
         x_coord = robust_relative_extent (acc, commonx, X_AXIS).linear_combination (attach);
+
+      Grob *dot = Grob::unsmob (bound_grob->get_object ("dot"));
+      if (dot && to_boolean (ly_assoc_get (ly_symbol2scm ("start-at-dot"), details, SCM_BOOL_F)))
+        x_coord = robust_relative_extent (dot, commonx, X_AXIS).linear_combination (attach);
 
       details = scm_acons (ly_symbol2scm ("X"),
                            scm_from_double (x_coord),

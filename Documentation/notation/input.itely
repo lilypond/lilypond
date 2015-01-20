@@ -2438,7 +2438,7 @@ lyrics and as stand-alone text below the score:
   }
   \addlyrics { O \markup { \concat { Ph \char ##x0153 be! } } }
 }
-\markup { "Copyright 2008--2014" \char ##x00A9 }
+\markup { "Copyright 2008--2015" \char ##x00A9 }
 @end lilypond
 
 @cindex copyright sign
@@ -2514,40 +2514,54 @@ Installed Files:
 * Replacing the notation font::
 @end menu
 
+@funindex clip-regions
+@cindex Fragments, music
+@cindex Music fragments
+
 @node Extracting fragments of music
 @subsection Extracting fragments of music
 
-It is possible to quote small fragments of a large score directly from
-the output.  This can be compared to clipping a piece of a paper score
-with scissors.
+It is possible to output one or more fragments of a score by defining
+the explicit location of the music to be extracted within the
+@code{\layout} block of the the input file using the @code{clip-regions}
+function, and then running LilyPond with the @option{-dclip-systems}
+option;
 
-This is done by defining the measures that need to be cut out
-separately.  For example, including the following definition
-
-
-@verbatim
-\layout {
+@example
+\layout @{
   clip-regions
   = #(list
       (cons
        (make-rhythmic-location 5 1 2)
        (make-rhythmic-location 7 3 4)))
-}
-@end verbatim
+@}
+@end example
 
 @noindent
-will extract a fragment starting halfway the fifth measure, ending in
-the seventh measure.  The meaning of @code{5 1 2} is: after a 1/2 note
-in measure 5, and @code{7 3 4} after 3 quarter notes in measure 7.
+This example will extract a single fragment of the input file
+@emph{starting} after a half-note duration in fifth measure
+(@code{5 1 2}) and @emph{ending} after the third quarter-note in the
+seventh measure (@code{7 3 4}).
 
-More clip regions can be defined by adding more pairs of
-rhythmic-locations to the list.
+Additional fragments can be extracted by adding more pairs of
+@code{make-rhythmic-location} entries to the @code{clip-regions} list in
+the @code{\layout} block.
 
-In order to use this feature, LilyPond must be invoked with
-@option{-dclip-systems}.  The clips are output as EPS files, and are
-converted to PDF and PNG if these formats are switched on as well.
+By default, each music fragment will be output as a separate @code{EPS}
+file, but other formats such as @code{PDF} or @code{PNG} can also be
+created if required.  The extracted music is output as if had been
+literally @q{cut} from the original printed score so if a fragment runs
+over one or more lines, a separate ouput file for each line will be
+generated.
 
-For more information on output formats, see @rprogram{Invoking LilyPond}.
+@seealso
+Notation Reference:
+@ref{The layout block}.
+
+Application Usage
+@rprogram{Command-line usage}.
+
+
 
 @node Skipping corrected music
 @subsection Skipping corrected music

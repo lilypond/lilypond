@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2006--2014 Joe Neeman <joeneeman@gmail.com>
+  Copyright (C) 2006--2015 Joe Neeman <joeneeman@gmail.com>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -44,8 +44,7 @@ struct Building
 
   Real height (Real x) const;
   Real intersection_x (Building const &other) const;
-  void leading_part (Real chop);
-  bool conceals (Building const &other, Real x) const;
+  bool above (Building const &other, Real x) const;
   Real shift_to_intersect (Real x, Real y) const;
 };
 
@@ -74,7 +73,6 @@ public:
   Skyline (Box const &b, Axis a, Direction sky);
 
   vector<Offset> to_points (Axis) const;
-  void deholify ();
   void merge (Skyline const &);
   void insert (Box const &, Axis);
   void print () const;

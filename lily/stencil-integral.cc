@@ -1058,7 +1058,6 @@ Stencil::skylines_from_stencil (SCM sten, Real pad, Axis a)
   for (DOWN_and_UP (d))
     out[d] = out[d].padded (pad);
 
-  out.deholify ();
   return out.smobbed_copy ();
 }
 

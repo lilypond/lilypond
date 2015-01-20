@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2006--2014 Joe Neeman <joeneeman@gmail.com>
+  Copyright (C) 2006--2015 Joe Neeman <joeneeman@gmail.com>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -21,7 +21,6 @@
 #include "skyline-pair.hh"
 #include <deque>
 #include <cstdio>
-
 
 /* A skyline is a sequence of non-overlapping buildings: something like
    this:
@@ -124,11 +123,11 @@ Building::precompute (Real start, Real start_height, Real end_height, Real end)
       assert (start_height == end_height);
       y_intercept_ = start_height;
     }
-  else if (fabs(slope_) > 1e6)
+  else if (fabs (slope_) > 1e6)
     // too steep to be stored in slope-intercept form, given round-off error
     {
       slope_ = 0.0;
-      y_intercept_ = max(start_height, end_height);
+      y_intercept_ = max (start_height, end_height);
     }
   else
     y_intercept_ = start_height - slope_ * start;
@@ -153,13 +152,6 @@ Building::intersection_x (Building const &other) const
   return isnan (ret) ? -infinity_f : ret;
 }
 
-void
-Building::leading_part (Real chop)
-{
-  assert (chop <= end_);
-  end_ = chop;
-}
-
 // Returns a shift s such that (x + s, y) intersects the roof of
 // this building.  If no such shift exists, returns infinity_f.
 Real
@@ -173,50 +165,12 @@ Building::shift_to_intersect (Real x, Real y) const
   return infinity_f;
 }
 
-static Real
-first_intersection (Building const &b, list<Building> *s, Real start_x)
-/* Return the first x >= start_x where skyline s above Building b.
- * Removes buildings from s that are concealed by b. */
-{
-  while (!s->empty () && start_x < b.end_)
-    {
-      Building c = s->front ();
-
-      // conceals and intersection_x involve multiplication and
-      // division. Avoid that, if we can.
-      if (c.y_intercept_ == -infinity_f)
-        {
-          if (c.end_ > b.end_)
-            return b.end_;
-          start_x = c.end_;
-          s->pop_front ();
-          continue;
-        }
-
-      if (c.conceals (b, start_x))
-        return start_x;
-
-      Real i = b.intersection_x (c);
-      if (i > start_x && i <= b.end_ && i <= c.end_)
-        return i;
-
-      start_x = c.end_;
-      if (b.end_ > c.end_)
-        s->pop_front ();
-    }
-  return b.end_;
-}
-
 bool
-Building::conceals (Building const &other, Real x) const
+Building::above (Building const &other, Real x) const
 {
-  if (slope_ == other.slope_)
-    return y_intercept_ > other.y_intercept_;
-
-  /* their slopes were not equal, so there is an intersection point */
-  Real i = intersection_x (other);
-  return (i <= x && slope_ > other.slope_)
-         || (i > x && slope_ < other.slope_);
+  return (isinf (y_intercept_) || isinf (other.y_intercept_) || isinf (x))
+         ? y_intercept_ > other.y_intercept_
+         : (slope_ - other.slope_) * x + y_intercept_ > other.y_intercept_;
 }
 
 // Remove redundant empty buildings from the skyline.
@@ -246,93 +200,80 @@ Skyline::normalize ()
 }
 
 void
-Skyline::deholify ()
-{
-  // Since a skyline should always be normalized, we can
-  // assume that there are never two adjacent empty buildings.
-  // That is, if center is empty then left and right are not.
-  list<Building>::iterator left = buildings_.begin ();
-  list<Building>::iterator center = buildings_.begin ();
-  list<Building>::iterator right;
-
-  for (right = buildings_.begin (); right != buildings_.end (); right++)
-    {
-      if (center != buildings_.begin () && center->y_intercept_ == -infinity_f)
-        {
-          Real p1 = left->height (left->end_);
-          Real p2 = right->height (right->start_);
-          *center = Building (center->start_, p1, p2, center->end_);
-
-          left = center;
-          center = right;
-        }
-    }
-}
-
-void
-Skyline::internal_merge_skyline (list<Building> *s1, list<Building> *s2,
+Skyline::internal_merge_skyline (list<Building> *sb, list<Building> *sc,
                                  list<Building> *const result) const
 {
-  if (s1->empty () || s2->empty ())
+  if (sb->empty () || sc->empty ())
     {
       programming_error ("tried to merge an empty skyline");
       return;
     }
 
-  Real x = -infinity_f;
-  Real last_end = -infinity_f;
-  while (!s1->empty ())
+  Building b = sb->front ();
+  for (; !sc->empty (); sc->pop_front ())
     {
-      if (s2->front ().conceals (s1->front (), x))
-        swap (s1, s2);
-
-      Building b = s1->front ();
-      Building c = s2->front ();
-
-      // Optimization: if the other skyline is empty at this point,
-      // we can avoid testing some intersections. Just grab as many
-      // buildings from s1 as we can, and shove them onto the output.
-      if (c.y_intercept_ == -infinity_f
-          && c.end_ >= b.end_)
+      /* Building b is continuing from the previous pass through the loop.
+         Building c is newly-considered, and starts no earlier than b started.
+         The comments draw b as if its roof had zero slope ----.
+         with dashes where b lies above c.
+         The roof of c could rise / or fall \ through the roof of b,
+         or the vertical sides | of c could intersect the roof of b.  */
+      Building c = sc->front ();
+      if (b.end_ < c.end_) /* finish with b */
         {
-          list<Building>::iterator i = s1->begin ();
-          i++;
-          while (i != s1->end () && i->end_ <= c.end_)
-            i++;
-
-          s1->front ().start_ = x;
-          result->splice (result->end (), *s1, s1->begin (), i);
-          x = result->back ().end_;
-          last_end = x;
-          continue;
+          if (b.end_ <= b.start_) /* we are already finished with b */
+            ;
+          else if (c.above (b, c.start_)) /* -|   . | */
+            {
+              Building m (b);
+              m.end_ = c.start_;
+              if (m.end_ > m.start_)
+                result->push_back (m);
+              if (b.above (c, b.end_))    /* -|\--.   */
+                {
+                  Building n (c);
+                  n.end_ = b.start_ = b.intersection_x (c);
+                  result->push_back (n);
+                  result->push_back (b);
+                }
+            }
+          else
+            {
+              if (c.above (b, b.end_))    /* ---/ . | */
+                b.end_ = b.intersection_x (c);
+              else                        /* -----.   */
+                c.start_ = b.end_;
+              result->push_back (b);
+            }
+          /* 'c' continues further, so move it into 'b' for the next pass. */
+          b = c;
+          swap (sb, sc);
         }
-      // first_intersection() removes buildings from s2 if b hides them
-      Real end = first_intersection (b, s2, x);
-      if (s2->empty ())
+      else /* b.end_ > c.end_ so finish with c */
         {
-          b.start_ = last_end;
-          result->push_back (b);
-          break;
+          if (c.above (b, c.start_))    /* -| |---. */
+            {
+              Building m (b);
+              m.end_ = c.start_;
+              if (m.end_ > m.start_)
+                result->push_back (m);
+              if (b.above (c, c.end_))  /* -| \---. */
+                c.end_ = b.intersection_x (c);
+            }
+          else if (c.above (b, c.end_)) /* ---/|--. */
+            {
+              Building m (b);
+              c.start_ = m.end_ = b.intersection_x (c);
+              result->push_back (m);
+            }
+          else  /* c is completely hidden by b */
+            continue;
+          result->push_back (c);
+          b.start_ = c.end_;
         }
-
-      // Should be (end > x), during ver2.19.  end == x happens fairly often,
-      // and we do not need to keep vertical segments within a skyline.
-      if (end >= x)
-        {
-          b.leading_part (end);
-          b.start_ = last_end;
-          last_end = b.end_;
-          result->push_back (b);
-        }
-
-      if (end >= s1->front ().end_)
-        s1->pop_front ();
-      // Should add during ver2.19 (to avoid an endless loop
-      // when  merging identical skylines with a vertical segment)
-      // if (end >= s2->front().end_) s2->pop_front();
-
-      x = end;
     }
+  if (b.end_ > b.start_)
+    result->push_back (b);
 }
 
 static void

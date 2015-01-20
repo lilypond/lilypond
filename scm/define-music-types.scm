@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 1998--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 1998--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -718,7 +718,8 @@ brackets start and stop.")
     (UnfoldedRepeatedMusic
      . ((description . "Repeated music which is fully written (and
 played) out.")
-        (iterator-ctor . ,ly:unfolded-repeat-iterator::constructor)
+        (iterator-ctor . ,ly:sequential-iterator::constructor)
+        (elements-callback . ,make-unfolded-set)
         (start-callback .  ,ly:repeated-music::first-start)
         (types . (general-music repeated-music unfolded-repeated-music))
         (length-callback . ,ly:repeated-music::unfolded-music-length)

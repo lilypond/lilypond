@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 1998--2014 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; Copyright (C) 1998--2015 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;                 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -400,18 +400,7 @@ beats to be distinguished."
    (lambda (m)
      (and (music-is-of-type? m 'unfolded-repeated-music)
           (make-sequential-music
-           (ly:music-deep-copy
-            (let ((n (ly:music-property m 'repeat-count))
-                  (alts (ly:music-property m 'elements))
-                  (body (ly:music-property m 'element)))
-              (cond ((<= n 0) '())
-                    ((null? alts) (make-list n body))
-                    (else
-                     (concatenate
-                      (zip (make-list n body)
-                           (append! (make-list (max 0 (- n (length alts)))
-                                               (car alts))
-                                    alts))))))))))
+           (ly:music-deep-copy (make-unfolded-set m)))))
    (unfold-repeats music)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

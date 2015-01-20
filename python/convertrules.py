@@ -3728,6 +3728,7 @@ csharp -> c-sharp""")
 def conv(str):
     str = re.sub (r'\bimplicitTimeSignatureVisibility\b', 'initialTimeSignatureVisibility', str)
     str = re.sub (r'\b([a-g])((?:sharp){1,2}|(?:flat){1,2})\b',r'\1-\2', str)
+    str = re.sub (r'\\shiftOff\b', r'\\undo\\shiftOn', str)
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)

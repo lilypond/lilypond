@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 1998--2014  Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 1998--2015  Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -1112,6 +1112,8 @@ positioning?")
 ;;;
      (vertical-skylines ,ly:skyline-pair? "Two skylines, one above and
 one below this grob.")
+     (voiced-position ,number? "The staff-position of a voiced
+@code{Rest}, negative if the rest has @code{direction} @code{DOWN}.")
 
 ;;;
 ;;; w

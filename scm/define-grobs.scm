@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 1998--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 1998--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -1067,6 +1067,7 @@
                                     ))
                           (left . ((attach-dir .  ,RIGHT)
                                    (padding . 0.5)
+                                   (start-at-dot . #t)
                                    ))
                           ))
         (cross-staff . ,ly:line-spanner::calc-cross-staff)
@@ -1512,6 +1513,7 @@
         (thick-thickness . 6.6)
         ;; See Wanske pp. 125
         (usable-duration-logs . ,(iota 4 -3))
+        (voiced-position . 4)
         (Y-extent . ,(ly:make-unpure-pure-container ly:multi-measure-rest::height))
         (Y-offset . ,staff-symbol-referencer::callback)
         (meta . ((class . Spanner)
@@ -1879,6 +1881,7 @@
         (duration-log . ,stem::calc-duration-log)
         (minimum-distance . 0.25)
         (stencil . ,ly:rest::print)
+        (voiced-position . 4)
         (X-extent . ,ly:rest::width)
         (Y-extent . ,(ly:make-unpure-pure-container ly:rest::height ly:rest::pure-height))
         (Y-offset . ,(ly:make-unpure-pure-container ly:rest::y-offset-callback))
