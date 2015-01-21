@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 30e2aa8813df8903dc553ae80c82b8461ffbb381
+    Translation of GIT committish: c054eb280fd9953596eb164f67b0f9d5555c5a32
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1074,7 +1074,6 @@ le temps de calcul nécessaire à la génération des ligatures.
 @strong{Mentors :} Mike Solomon, Carl Sorensen
 
 
-@subheading Nettoyage des messages en cours de compilation
 @subheading Aide à l'amélioration du comportement lors de la compilation
 
 Les outils d'analyse comme @emph{valgrind} pour la détection de fuites
