@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 4467a72a98fb582466ee4d5944ec8454b4b77fc6
+    Translation of GIT committish: c8296cf3183f30e17e4d5f0501cf1462b71ec546
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.16"
 
 @c Translators: Valentin Villenave, Nicolas Klutchnikoff, Damien Heurtebise
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
@@ -3477,11 +3477,8 @@ nous avions laissé dans cet état :
 
 @noindent
 La note intermédiaire du premier accord, le la bémol à la quatrième
-voix, doit rester dans le même empilement que la note haute.  Pour y
-remédier, nous pourrions utiliser @code{\shiftOff}, ce qui
-malheureusement générera des avertissements au sujet d'empilements qui
-se chevauchent.  Nous préférons régler le @code{force-hshift} -- qui est
-une propriété de @code{NoteColumn} -- de cette note sur zéro.
+voix, doit rester dans le même empilement que la note haute, ce
+pourquoi nous utilisons un @code{\shiftOff}
 
 Quant au second accord, il serait préférable que le fa s'aligne avec le
 la et que la note la plus basse se positionne un peu plus sur la droite
@@ -3509,8 +3506,7 @@ Et voici le résultat final :
     { <ees, c>2 \once \override NoteColumn.force-hshift = #0.5 des }
     \\
     \\
-    { \once \override NoteColumn.force-hshift = 0 aes'2
-      \once \override NoteColumn.force-hshift = 0 f4 fes }
+    { \once \shiftOff aes'2 \once \shiftOff f4 fes }
   >> |
   <c ees aes c>1 |
 }
