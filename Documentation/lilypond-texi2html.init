@@ -1668,22 +1668,6 @@ sub generate_ly_toc_entries($$$$$)
   my $is_parent_of_current = $element->{'id'} && $element_path->{$element->{'id'}};
   my $ind = '  ' x $level;
   my $this_css_class = " class=\"";
-  # color indices for the second navigation bar on the website
-  if ($web_manual) {
-      my %color_maps = (
-	  'introduction' => [2, 2, 2, 2, 3, 3, 4, 4],
-	  'download' => [2, 2, 2, 3, 3, 4],
-	  'manuals' => [1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4],
-	  'community' => [1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4],
-	  );
-      my $addColor = "colorDefault";
-      while (($top_section, $color_indices) = each %color_maps) {
-	  if (index ($element->{'sectionup'}->{'file'}, $top_section) >= 0) {
-	      $addColor = "color" . $color_indices->[$child_count];
-	  }
-      }
-      $this_css_class .= $addColor;
-  }
   $this_css_class .= $is_parent_of_current ? ' toc_current"' : '"';
   my $entry = "$ind<li$this_css_class>" .
       &$anchor ($element->{'tocid'},
@@ -1756,10 +1740,10 @@ sub lilypond_generate_page_toc_body($)
         # FIXME: add link to main page, really hackily.
         if ($element->{'sectionup'}) {
             # it's not the top element
-            push (@toc_entries, "<li><a href=\"index.html\">Main</a></li>\n");
+            push (@toc_entries, "<li><a href=\"index.html\"><span>LilyPond</span></a></li>\n");
         } else {
             push (@toc_entries,
-		  "<li class=\"toc_current\"><a href=\"index.html\">Main</a></li>\n");
+		  "<li class=\"toc_current\"><a href=\"index.html\"><span>LilyPond</span></a></li>\n");
         }
     } else {
         push (@toc_entries, "<div class=\"contents\">\n");
