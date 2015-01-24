@@ -67,7 +67,10 @@ div#tocframe {
   top: 0;
   left: 0;
   right: 0;
-  background: #6aec7c url(../pictures/nav-bg.png) repeat-x top left;
+  background: rgb(35, 155, 80);
+  background: linear-gradient(to top,
+    rgb(25, 115, 50),
+    rgb(45, 205, 115));
   max-width: 70em;
   font-size: 100%;
   line-height: 1;
@@ -93,33 +96,17 @@ div#tocframe {
 }
 
 #tocframe > ul:first-child > li:first-child a {
-  text-indent: -999em;
-  background: #6aec7c url(../pictures/lily-home-nav-bg.png) no-repeat 50% 50%;
-  width: 9%;
   -moz-border-radius-bottomleft: 7px;
   -webkit-border-bottom-left-radius: 7px;
   border-bottom-left-radius: 7px;
 }
 
-#tocframe > ul:first-child > li:first-child a:hover {
-  background: #6aec7c url(../pictures/lily-home-nav-hover.png) no-repeat 50% 50%;
-  width: 9%;
-}
-
-#tocframe > ul:first-child > li:first-child.toc_current a {
-  text-indent: -999em;
-  background: url(../pictures/lily-home-nav-active.png) no-repeat 50% 50%;
-  width: 9%;
-}
-
-#tocframe > ul:first-child > li:first-child.toc_current a:hover {
-  text-indent: -999em;
-  background: url(../pictures/lily-home-nav-active.png) no-repeat 50% 50%;
-  width: 9%;
+#tocframe > ul:first-child > li:first-child a span {
+  background: url("../pictures/lily-home-32x32.png") no-repeat scroll 0% 40% transparent;
+  padding: 16px 0px 16px 38px;
 }
 
 #tocframe > ul:first-child > li:last-child {
-  width: 9%;
   -moz-border-radius-bottomright: 7px;
   -webkit-border-bottom-right-radius: 7px;
   border-bottom-right-radius: 7px;
@@ -134,57 +121,59 @@ div#tocframe {
 /* search box */
 #tocframe li form {
   float: left;
-  width: 17%;
-  background: #6aec7c url(../pictures/nav-bg.png);
+  width: 16%;
   font-size: 100%;
-  padding: 0.45em 0.8%;
-  margin: 0;
+  padding: 0.5em 0.8%;
+  margin: 0 0 0 1%;
 }
 
 #tocframe li form input {
   display: block;
   float: left;
-  width: 95%;
-  font-size: 100%;
-  padding: 0.1em;
+  width: 92%;
+  font-size: 90%;
+  color: rgb(85, 85, 85);
+  background: rgb(200, 230, 200);
+  padding: 0.1em 0.1em 0.1em 0.6em;
   border: 0;
   margin: 0;
-  -moz-border-radius-topright: 20px;
-  -moz-border-radius-bottomright: 20px;
-  -webkit-border-top-right-radius: 20px;
-  -webkit-border-bottom-right-radius: 20px;
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+  border-radius: 7px;
 }
 
 #tocframe li form input[type="hidden"] {
   position: relative;
   height: 0;
   overflow: hidden;
-  text-indent: -999em;
   padding: 0;
   margin: 0;
 }
 
 #tocframe li a {
-  background: #6aec7c url(../pictures/nav-bg.png);
   float: left;
-  width: 18%;
+  width: 16%;
   text-align: center;
   font-weight: bold;
   padding: 0.68em 0;
   margin: 0;
+  border-right: 1px solid rgba(25, 100, 40, 0.25);
 }
 
 #tocframe li a:hover {
-  background: url(../pictures/nav-hover.png);
+  background: rgb(45, 165, 90);
+  background: linear-gradient(to top,
+    rgb(35, 125, 60),
+    rgb(55, 215, 125));
 }
 
 #tocframe li.toc_current a,
 #tocframe li.toc_current a:hover {
-  background: url(../pictures/nav-active.png);
+  background: rgb(0, 120, 30);
+  background: linear-gradient(to top,
+    rgb(0, 85, 20),
+    rgb(15, 175, 85));
   color: #fff;
-  text-decoration: underline;
 }
 
 /* second level toc (unnumberedsec) */
@@ -211,6 +200,7 @@ div#tocframe {
   -webkit-border-bottom-left-radius: 7px;
   border-top-left-radius: 7px;
   border-bottom-left-radius: 7px;
+  border-left: 1px solid rgba(85, 130, 70, 0.25);
 }
 
 #tocframe .toc .toc li:last-child a {
@@ -225,7 +215,10 @@ div#tocframe {
 #tocframe .toc .toc li a {
   float: left;
   width: auto;
-  background: #ceffae;
+  background: rgb(165, 215, 150);
+  background: linear-gradient(to top,
+    rgb(130, 200, 110),
+    rgb(200, 230, 190));
   line-height: 2;
   color: #000;
   text-decoration: none;
@@ -233,86 +226,22 @@ div#tocframe {
   font-weight: normal;
   padding: 0 0.5em;
   margin: 0;
+  border-right: 1px solid rgba(85, 130, 70, 0.25);
 }
 
 #tocframe .toc .toc li a:hover {
-  background: #bdee9d;
-}
-
-/* colored second-level TOC items */
-#tocframe .toc .toc li.color1 a {
-  background: #9ccc7c url(../pictures/color1-bg.png) repeat-x top left;
-}
-
-#tocframe .toc .toc li.color2 a {
-  background: #bbcf81 url(../pictures/color2-bg.png) repeat-x top left;
-}
-
-#tocframe .toc .toc li.color3 a {
-  background: #dbd286 url(../pictures/color3-bg.png) repeat-x top left;
-}
-
-#tocframe .toc .toc li.color4 a {
-  background: #fad58c url(../pictures/color4-bg.png) repeat-x top left;
-}
-
-#tocframe .toc .toc li.colorDefault a {
-  background: #8cbc6c url(../pictures/nav-bg-2.png) repeat-x top left;
-  color: #fff;
-}
-
-#tocframe .toc .toc li.colorDefault a:hover {
-  background: #8cbc6c url(../pictures/nav-hover-2.png) repeat-x top left;
-  color: #fff;
-}
-
-#tocframe .toc .toc li.color1 a:hover {
-  background: #addd8d url(../pictures/color1-hover.png) repeat-x top left;
-}
-
-#tocframe .toc .toc li.color2 a:hover {
-  background: #ccdf92 url(../pictures/color2-hover.png) repeat-x top left;
-}
-
-#tocframe .toc .toc li.color3 a:hover {
-  background: #ece297 url(../pictures/color3-hover.png) repeat-x top left;
-}
-
-#tocframe .toc .toc li.color4 a:hover {
-  background: #fbe69d url(../pictures/color4-hover.png) repeat-x top left;
+  background: rgb(175, 225, 160);
+  background: linear-gradient(to top,
+    rgb(140, 210, 120),
+    rgb(210, 240, 200));
 }
 
 #tocframe .toc .toc li.toc_current a,
 #tocframe .toc .toc li.toc_current a:hover {
-  color: #000;
-  text-decoration: underline;
-}
-
-#tocframe .toc .toc li.colorDefault.toc_current a,
-#tocframe .toc .toc li.colorDefault.toc_current a:hover {
-  background: #8cbc6c url(../pictures/nav-active-2.png) repeat-x top left;
-  color: #fff;
-  text-decoration: underline;
-}
-
-#tocframe .toc .toc li.color1.toc_current a,
-#tocframe .toc .toc li.color1.toc_current a:hover {
-  background: #beee9e url(../pictures/color1-active.png) repeat-x top left;
-}
-
-#tocframe .toc .toc li.color2.toc_current a,
-#tocframe .toc .toc li.color2.toc_current a:hover {
-  background: #ddefa3 url(../pictures/color2-active.png) repeat-x top left;
-}
-
-#tocframe .toc .toc li.color3.toc_current a,
-#tocframe .toc .toc li.color3.toc_current a:hover {
-  background: #fdf4a8 url(../pictures/color3-active.png) repeat-x top left;
-}
-
-#tocframe .toc .toc li.color4.toc_current a,
-#tocframe .toc .toc li.color4.toc_current a:hover {
-  background: #fcf7ae url(../pictures/color4-active.png) repeat-x top left;
+  background: rgb(135, 185, 120);
+  background: linear-gradient(to top,
+    rgb(100, 170, 80),
+    rgb(170, 200, 160));
 }
 
 /* third level toc (unnumberedsubsec) */
@@ -520,7 +449,7 @@ div#wildCardBox {
 
 /* this might not work in certain browsers */
 a[name="Stable"] + h4 {
-  background-color: #bdee9d;
+  background: #bdee9d;
   background: linear-gradient(to top,
     rgb(140, 210, 118),
     rgb(212, 243, 201));
@@ -528,7 +457,7 @@ a[name="Stable"] + h4 {
 
 /* this might not work in certain browsers */
 a[name="Unstable"] + h4 {
-  background-color: #fad58c;
+  background: #fad58c;
   background: linear-gradient(to top,
     rgb(183, 213, 131),
     rgb(231, 243, 207));
@@ -698,7 +627,7 @@ div.float-right a.clickable {
 
 /* color1 */
 .column-center-top h3 {
-  background-color: #9ccc7c;
+  background: #9ccc7c;
   background: linear-gradient(to top,
     rgb(140, 210, 118),
     rgb(212, 242, 201));
@@ -727,7 +656,7 @@ div.float-right a.clickable {
 /* color2 */
 .column-left-top h3,
 .column-left-bottom h3 {
-  background-color: #adce82;
+  background: #adce82;
   background: linear-gradient(to top,
     rgb(173, 206, 130),
     rgb(221, 243, 204));
@@ -754,7 +683,7 @@ div.float-right a.clickable {
 /* color3 */
 .column-right-top h3,
 .column-right-bottom h3 {
-  background-color: #bdd088;
+  background: #bdd088;
   background: linear-gradient(to top,
     rgb(189, 208, 136),
     rgb(231, 243, 207));
@@ -771,7 +700,7 @@ div.float-right a.clickable {
 
 /* color4 */
 .column-center-bottom h3 {
-  background-color: #ccd38f;
+  background: #ccd38f;
   background: linear-gradient(to top,
     rgb(204, 211, 143),
     rgb(237, 244, 208));
