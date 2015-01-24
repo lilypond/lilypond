@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 3c907f2dd5ba3dd91e30454922d8361225ca28d5
+    Translation of GIT committish: 868bbbb78276796f43a1c72621fdb3a3a14d2555
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3322,7 +3322,7 @@ Un certain nombre d'objets disposent de la propriété
 @end itemize
 
 La routine en charge de dessiner le stencil de ces extenseurs est
-@code{ly:line-interface::print}.  Elle va déterminer les deux points
+@code{ly:line-spanner::print}.  Elle va déterminer les deux points
 extrêmes et dessiner entre eux une ligne du style requis.  Bien que la
 localisation des deux bornes de l'extenseur soit calculée à la volée,
 vous pouvez cependant forcer leur ordonnée (coordonnée-Y).  Les
@@ -3845,7 +3845,7 @@ ligne parfois pointillée ou ondulée.
 En matière de dessin du texte et des lignes, ces indications font appel
 aux mêmes routines que le glissando ; leur comportement peut donc
 être affiné selon les mêmes préceptes, au moyen de la routine
-@code{ly:line-interface::print} qui est tout spécialement chargée de
+@code{ly:line-spanner::print} qui est tout spécialement chargée de
 dessiner les extenseurs.  Cette routine détermine l'emplacement exact
 des deux points extrêmes de l'extenseur, puis trace une ligne du style
 demandé entre ces deux points.

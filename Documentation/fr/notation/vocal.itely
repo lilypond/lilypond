@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 3c907f2dd5ba3dd91e30454922d8361225ca28d5
+    Translation of GIT committish: 868bbbb78276796f43a1c72621fdb3a3a14d2555
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -165,7 +165,7 @@ dans le fichier et de veiller à le sauvegarder avec le codage UTF-8.
 Voir à ce sujet @ref{Caractères spéciaux} pour plus de détails.
 
 @lilypond[quote,verbatim]
-\relative c'' { d8 c16 a bes8 f e' d c4 }
+\relative c'' { d8 c16 a bes8 f ees' d c4 }
 \addlyrics { „Schad’ um das schö -- ne grü -- ne Band, }
 @end lilypond
 
@@ -2749,10 +2749,7 @@ pianoRH = \relative c'' {
   c4. g8
   % position name of cue-ing instrument just before the cue notes,
   % and above the staff
-  \new CueVoice {
-    \override InstrumentSwitch.self-alignment-X = #RIGHT
-    \set instrumentCueName = "Flute"
-  }
+  <>^\markup { \right-align { \tiny "Flute" } }
   \cueDuring "flute" #UP { g4 bes4 }
 }
 pianoLH = \relative c { c4 <c' e> e, <g c> }
@@ -2777,11 +2774,7 @@ par l'exemple ci-dessous, dans lequel il est fait appel à une clarinette
 en si bémol.  Dans la mesure où les notes citées se trouvent vers le bas
 de la portée, nous affectons un @code{DOWN} à la commande
 @code{\cueDuring}, de telle sorte que les hampes aillent vers le bas et
-que le nom de l'instrument cité soit en dessous de la portée.  Vous
-noterez que la voix contenant la main droite du piano est explicitement
-déclarée ; ceci tient au fait que la citation se produit dès le
-début de la première mesure -- si nous ne le faisions pas, l'intégralité
-de la main droite se verrait placée dans un contexte @code{CueVoice}.
+que le nom de l'instrument cité soit en dessous de la portée.
 
 @lilypond[quote,verbatim]
 clarinet = \relative c' {
@@ -2793,11 +2786,7 @@ clarinet = \relative c' {
 pianoRH = \relative c'' {
   \transposition c'
   % position name of cue-ing instrument below the staff
-  \new CueVoice {
-    \override InstrumentSwitch.self-alignment-X = #RIGHT
-    \override InstrumentSwitch.direction = #DOWN
-    \set instrumentCueName = "Clar."
-  }
+  <>_\markup { \right-align { \tiny "Clar." } }
   \cueDuring "clarinet" #DOWN { c4. g8 }
   g4 bes4
 }
@@ -2846,7 +2835,6 @@ Morceaux choisis :
 @rlsrnamed{Vocal music,Musique vocale}.
 
 Référence des propriétés internes :
-@rinternals{InstrumentSwitch},
 @rinternals{CueVoice}.
 
 @knownissues

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 3c907f2dd5ba3dd91e30454922d8361225ca28d5
+    Translation of GIT committish: 868bbbb78276796f43a1c72621fdb3a3a14d2555
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2668,39 +2668,49 @@ Fichiers d'initialisation :
 @subsection Extraction de fragments musicaux
 @translationof Extracting fragments of music
 
-LilyPond permet d'extraire des fragments d'une partition à l'instar du
-choriste amateur qui alimente son album avec des coupures de journaux.
+@cindex fragments, extraction
 
-Vous devrez pour cela définir les mesures à découper.  La définition
-suivante, incluse dans votre fichier source,
+@funindex clip-regions
 
-@verbatim
-\layout {
+LilyPond permet d'extraire des fragments d'une partition, une fois
+definis explicitement le ou les emplacements de la musique concernés au
+sein du bloc @code{\layout} du fichier source, grâce à la fonction
+@code{clip-regions}, puis en lançant @command{lilypond} avec l'option
+@w{@code{-dclip-systems}}.
+
+@example
+\layout @{
   clip-regions
   = #(list
       (cons
        (make-rhythmic-location 5 1 2)
        (make-rhythmic-location 7 3 4)))
-}
-@end verbatim
+@}
+@end example
 
 @noindent
-vous permettra d'extraire un fragment compris entre le milieu de la
-cinquième mesure et quelque part dans la septième.  Le triplet
-@code{5 1 2} signifie : après la durée d'une blanche dans la mesure 5 ;
-le @code{7 3 4} signifie quant à lui que l'on s'arrête à la mesure 7,
-après la durée de trois noires.
+L'exemple ci-dessus permet d'extraire un seul fragment @emph{débutant}
+après une blanche dans la cinquième mesure (@code{5 1 2}) et
+@emph{finissant} après trois noires dans la septième
+mesure (@code{7 3 4}).
 
-Rien ne vous empêche d'extraire plusieurs fragments, dès lors que vous
-définissez dans la liste d'autres paires d'emplacements rythmiques.
+D'autres fragments seront extraits dès lors que d'autres paires de
+@w{@code{make-rhythmic-location}} auront été ajoutées à la liste de
+@w{@code{clip-regions}} présente dans le bloc @code{\layout}.
 
-Cette fonctionnalité n'est toutefois effective que lorsque vous lancez
-LilyPond avec l'option @w{@code{-dclip-systems}}.  Les @qq{coupures}
-seront générées sous la forme de fichiers EPS, convertis en PDF ou PNG
-selon le format que vous aurez stipulé.
+Chaque fragment sera généré individuellement sous la forme d'un fichier
+@code{EPS}, converti en @code{PDF} ou @code{PNG} selon le format que
+vous aurez stipulé.  La musique extraite est rendue comme si elle avait
+été littéralement « découpée » dans la partition.  Par voie de
+conséquence, un fragment dépassant une ligne fera l'objet d'autant de
+fichiers séparés que de lignes de la partition complète.
 
-Pour de plus amples informations quant au format des résultats,
-consultez le chapitre @rprogram{Lancement de LilyPond}.
+@seealso
+Manuel de notation :
+@ref{Le bloc layout}.
+
+Manuel d'utilisation :
+@rprogram{Utilisation en ligne de commande}.
 
 
 @node Ignorer des passages de la partition
