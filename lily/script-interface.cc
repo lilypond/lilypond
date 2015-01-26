@@ -153,11 +153,13 @@ ADD_INTERFACE (Script_interface,
                "avoid-slur "
                "direction-source "
                "positioning-done "
+               "script-column "
                "script-priority "
                "script-stencil "
                "side-relative-direction "
                "slur "
                "slur-padding "
                "toward-stem-shift "
+               "toward-stem-shift-in-column "
               );
 

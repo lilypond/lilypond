@@ -1088,9 +1088,15 @@ automatically.")
 line just before it would otherwise stop.")
      (toward-stem-shift ,number? "Amount by which scripts are shifted
 toward the stem if their direction coincides with the stem direction.
-@code{0.0} means keep the default position (centered on the note
-head), @code{1.0} means centered on the stem.  Interpolated values are
-possible.")
+@code{0.0} means centered on the note head (the default position of
+most scripts); @code{1.0} means centered on the stem.  Interpolated
+values are possible.")
+     (toward-stem-shift-in-column ,number? "Amount by which a script
+is shifted toward the stem if its direction coincides with the stem
+direction and it is associated with a @code{ScriptColumn} object.
+@code{0.0} means centered on the note head (the default position of
+most scripts); @code{1.0} means centered on the stem.  Interpolated
+values are possible.")
      (transparent ,boolean? "This makes the grob invisible.")
 
 
@@ -1380,7 +1386,8 @@ to be within staff spaces.")
      (quantized-positions ,number-pair? "The beam positions after
 quanting.")
 
-
+     (script-column ,ly:grob? "A @code{ScriptColumn} associated with a
+@code{Script} object.")
      (script-stencil ,pair? "A pair @code{(@var{type} . @var{arg})} which
 acts as an index for looking up a @code{Stencil} object.")
      (shorten ,ly:dimension? "The amount of space that a stem is shortened.

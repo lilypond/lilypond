@@ -39,6 +39,7 @@ Script_column::add_side_positioned (Grob *me, Grob *script)
     return;
 
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("scripts"), script);
+  script->set_object ("script-column", me->self_scm ());
 }
 
 LY_DEFINE (ly_grob_script_priority_less, "ly:grob-script-priority-less",

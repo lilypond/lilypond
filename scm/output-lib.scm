@@ -1157,17 +1157,20 @@ parent or the parent has no setting."
 
 (define-public (script-interface::calc-x-offset grob)
   (ly:grob-property grob 'positioning-done)
-  (let* ((shift (ly:grob-property grob 'toward-stem-shift 0.0))
+  (let* ((shift-when-alone (ly:grob-property grob 'toward-stem-shift 0.0))
+         (shift-in-column (ly:grob-property grob 'toward-stem-shift-in-column))
+         (script-column (ly:grob-object grob 'script-column))
+         (shift (if (and (ly:grob? script-column) (number? shift-in-column))
+                    shift-in-column shift-when-alone))
          (note-head-location
           (ly:self-alignment-interface::aligned-on-x-parent grob))
          (note-head-grob (ly:grob-parent grob X))
          (stem-grob (ly:grob-object note-head-grob 'stem)))
 
     (+ note-head-location
-       ;; If the property 'toward-stem-shift is defined and the script
-       ;; has the same direction as the stem, move the script accordingly.
-       ;; Since scripts can also be over skips, we need to check whether
-       ;; the grob has a stem at all.
+       ;; If the script has the same direction as the stem, move the script
+       ;; in accordance with the value of 'shift'.  Since scripts can also be
+       ;; over skips, we need to check whether the grob has a stem at all.
        (if (ly:grob? stem-grob)
            (let ((dir1 (ly:grob-property grob 'direction))
                  (dir2 (ly:grob-property stem-grob 'direction)))
