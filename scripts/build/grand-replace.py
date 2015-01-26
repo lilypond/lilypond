@@ -42,6 +42,7 @@ copied_files = [
     'mf2pt1.mp',
     'mf2pt1.pl',
     'texinfo.tex',
+    'txi-ca.tex',
     'txi-de.tex',
     'txi-en.tex',
     'txi-es.tex',
