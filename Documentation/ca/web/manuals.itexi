@@ -438,7 +438,7 @@ maneres d'informar de les fallades, i desenvolupament.
 @subsubheading Manual web en @versionDevel
 
 @docLinksBare{Web, web,
-  @ref{Arriba,Web},
+  @ref{Amunt,Web},
   @manualDevelWebSplit-ca,
   @manualDevelWebBig-ca, 2.5 MB,
   @manualDevelWebPdf, 3.5 MB}

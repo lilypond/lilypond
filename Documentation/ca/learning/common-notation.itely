@@ -77,7 +77,7 @@ música a una veu sobre un pentagrama únic.
 
 Les línies de compàs senzilles es dibuixen automàticament a la
 música, per la qual cosa no s'han d'afegir de forma manual.
-Altres tipus de barres de compàs s'afegeixen usant @cod{\bar}, per
+Altres tipus de barres de compàs s'afegeixen usant @code{\bar}, per
 exemple @code{\bar "||"} per a una doble barra, o @code{\bar "|."}
 per a la doble barra final.  Per veure una llista completa de les
 línies divisòries, consulteu @ruser{Barres de compàs}.
@@ -427,7 +427,7 @@ una nota utilitzant un guió (@code{-}) seguit del dígit desitjat:
 c4-3 e-5 b-2 a-1
 @end lilypond
 
-Les articulacions i digitacions normalment es col·loquen de forma
+Les articulacions i digitacions normalment es col.loquen de forma
 automàtica, però podeu especificar una direcció mitjançant
 @code{^} (a sobre) o @code{_} (a sota).  També podeu usar diverses
 articulacions sobre la mateixa nota.  No obstant, gairebé sempre és
@@ -730,7 +730,7 @@ musical composta amb dues notes:
 { a4 g4 }
 @end lilypond
 
-Si col·loquem un grup d'expressions musicals (per exemple: notes)
+Si col.loquem un grup d'expressions musicals (per exemple: notes)
 dins de claudàtors, això significa que es troben en seqüència (és
 a dir, cada una segueix a l'anterior).  El resultat és una altra
 expressió musical:
@@ -774,13 +774,13 @@ les partitures polifòniques.
 @cindex diversos pentagrames
 @cindex pentagrames, diversos
 @cindex polifonia
-@cindex combinar expressions en paral·lel
-@cindex paral·leles, expressions
-@cindex expressions paral·leles
+@cindex combinar expressions en paral.lel
+@cindex paral.leles, expressions
+@cindex expressions paral.leles
 @cindex relatiu, mode, música simultània i
-@cindex relatiu, mode, expressions paral·leles i
+@cindex relatiu, mode, expressions paral.leles i
 @cindex simultània, música, mode relatiu i
-@cindex paral·leles, expressions, mode relatiu i
+@cindex paral.leles, expressions, mode relatiu i
 
 @funindex <<
 @funindex >>
@@ -792,7 +792,7 @@ Glossari musical:
 Aquesta tècnica és molt útil per a la música
 @notation{polifònica}.  Per introduir música amb més veus o amb
 més pentagrames, el que fem és combinar diverses expressions en
-paral·lel.  Per indicar que dues veus s'han d'interpretar al
+paral.lel.  Per indicar que dues veus s'han d'interpretar al
 mateix temps, senzillament introduïu una combinació simultània
 d'expressions musicals.  Una expressió musical @q{simultània} es
 forma tancant les expressions dins de @code{<<} y @code{>>}.  A
@@ -868,7 +868,7 @@ pentagrames de forma explícita.
 Per imprimir més d'un pentagrama, cada fragment de música que
 constitueix un pentagrama es marca escrivint @code{\new Staff}
 abans d'ell. Aquests elements @code{Staff} es combinen després en
-paral·lel amb @code{<<} y @code{>>}:
+paral.lel amb @code{<<} y @code{>>}:
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -937,7 +937,7 @@ La música per a piano es composa tipogràficament en forma de dos
 pentagrames units mitjançant un @notation{claudàtor}. L'aspecte
 imprès d'aquest sistema de pentagrames se sembla a l'exemple
 polifònic que apareix a @ref{Diversos pentagrames}, però en aquest
-cas l'expressió completa es col·loca dins d'un @code{PianoStaff}:
+cas l'expressió completa es col.loca dins d'un @code{PianoStaff}:
 
 @example
 \new PianoStaff <<
@@ -1084,7 +1084,7 @@ infantil, @qq{Girls and boys come out to play}:
 
 Es pot assignar la @notation{lletra} a aquestes notes combinant
 ambdues amb la paraula clau @code{\addlyrics}.  La lletra s'escriu
-separant cada síl·laba mitjançant un espai.
+separant cada síl.laba mitjançant un espai.
 
 @lilypond[verbatim,quote]
 <<
@@ -1113,8 +1113,8 @@ succeir al mateix temps.
 @cindex guió baix
 @cindex lletra, alineació de
 @cindex alineació de la lletra
-@cindex lletra, paraules polisíl·labes
-@cindex paraules polisíl·labes en la lletra
+@cindex lletra, paraules polisíl.labes
+@cindex paraules polisíl.labes en la lletra
 
 Glossari musical:
 @rglos{melisma},
@@ -1154,8 +1154,8 @@ Aquest és un bon exemple de la utilitat de les comprovacions de
 compàs.  Ara bé, si mirem la música, podem observar que la lletra
 addicional no s'alinea correctament amb les notes.  La paraula
 @q{shine} s'ha de cantar sobre dues notes, no una.  Això es coneix
-com @notation{melisma}, una síl·laba única que es canta sobre més
-d'una nota.  Existeixen diverses formes de fer que una síl·laba
+com @notation{melisma}, una síl.laba única que es canta sobre més
+d'una nota.  Existeixen diverses formes de fer que una síl.laba
 recaigui sobre diverses notes, sent la més senzilla escriure una
 lligadura d'expressió sobre elles (vegeu @ref{Lligadures d'unió y d'expressió}):
 
@@ -1215,10 +1215,10 @@ melisma:
 >>
 @end lilypond
 
-Si una síl·laba s'estén sobre diverses notes o una sola nota molt
+Si una síl.laba s'estén sobre diverses notes o una sola nota molt
 llarga, normalment es traça una @notation{línia extensora} des de
-la síl·laba que s'estén i per sota de totes les notes que
-corresponen a aquesta síl·laba.  S'escriu com dos guions baixos
+la síl.laba que s'estén i per sota de totes les notes que
+corresponen a aquesta síl.laba.  S'escriu com dos guions baixos
 @code{__}.  Heus aquí un exemple extret dels primers tres
 compassos del @notation{Lament de Dido}, de @notation{Dido i
 Enees} de Purcell:
@@ -1239,11 +1239,11 @@ Enees} de Purcell:
 @end lilypond
 
 Fins al moment, cap dels exemples implicaven paraules que
-tinguessin més d'una síl·laba.  Aquestes paraules es reparteixen
-en general a raó d'una nota per cada síl·laba, amb guions curts
-entre les síl·labes.  Aquests guions separadors es teclegen com
+tinguessin més d'una síl.laba.  Aquestes paraules es reparteixen
+en general a raó d'una nota per cada síl.laba, amb guions curts
+entre les síl.labes.  Aquests guions separadors es teclegen com
 dos guions, amb el resultat d'un guió curt centrat entre les
-síl·labes. Presentem a continuació un exemple que demostra això i
+síl.labes. Presentem a continuació un exemple que demostra això i
 tot el que hem après fins aquest moment sobre l'alineació de la
 lletra a les notes.
 
@@ -1266,12 +1266,12 @@ lletra a les notes.
 @end lilypond
 
 Alguns textos (especialment els que estan en italià o català)
-requereixen el contrari: col·locar més d'una síl·laba a una única
-nota. Això s'aconsegueix enllaçant les síl·labes entre sí
+requereixen el contrari: col.locar més d'una síl.laba a una única
+nota. Això s'aconsegueix enllaçant les síl.labes entre sí
 mitjançant un guió baix simple @code{_} (sense cap espai), o bé
 envoltant-les entre claudàtors.  Aquí apareix un exemple procedent
-del @notation{Barber de Sevilla} de Rossini, on la síl·laba
-@notation{al} es canta sobre la mateixa nota que la síl·laba
+del @notation{Barber de Sevilla} de Rossini, on la síl.laba
+@notation{al} es canta sobre la mateixa nota que la síl.laba
 @notation{go} de la paraula @q{Largo} a l'ària de Fígaro
 @notation{Largo al factotum}:
 
@@ -1387,7 +1387,7 @@ musicaAmbNom = @{ @dots{} @}
 @end example
 
 El contingut de l'expressió musical @code{musicaAmbNom} es pot
-usar posteriorment col·locant una barra invertida davant del nom
+usar posteriorment col.locant una barra invertida davant del nom
 (@code{\musicaAmbNom}, igual que una ordre normal del LilyPond).
 
 @lilypond[verbatim,quote]
@@ -1511,7 +1511,7 @@ En aquest mode, el LilyPond tractarà totes les altures com valors
 absoluts.  Una @code{c'} significarà sempre un Do central,
 una @code{b} significarà sempre la nota immediatament per sota del
 Do central i una @code{g,} significarà sempre la nota que es
-col·loca a la primera línia del pentagrama en clau de Fa.
+col.loca a la primera línia del pentagrama en clau de Fa.
 
 @lilypond[verbatim,quote]
 {

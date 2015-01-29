@@ -233,8 +233,8 @@ Glossari musical:
 La manera més senzilla d'introduir les notes és mitjançant la
 utilització del model @code{\relative} (relatiu). En aquest mode,
 s'escull l'octava automàticament sota el supòsit que la següent
-nota es col·locarà sempre el més a prop de la nota actual, és a
-dir, es col·locarà a l'octava compresa dins de fins a tres espais
+nota es col.locarà sempre el més a prop de la nota actual, és a
+dir, es col.locarà a l'octava compresa dins de fins a tres espais
 de pentagrama a partir de la nota anterior.  Començarem per
 introduir el fragment musical més elemental: una
 @notation{escala}, on cada nota està compresa dins de tans sols un
@@ -249,7 +249,7 @@ espai de pentagrama des de la nota anterior.
 @end lilypond
 
 La nota inicial és el @notation{Do central}.  Cada nota successiva
-es col·loca el més a prop possible de la nota prèvia (en altres
+es col.loca el més a prop possible de la nota prèvia (en altres
 paraules: la primera @samp{c} és el Do més proper al Do central; a
 aquesta nota la segueix el Re més a prop a la nota prèvia, i així
 successivament).  Podem crear melodies amb intervals més grans,
@@ -565,7 +565,7 @@ aquest fitxer, com a l'exemple següent:
 \version "@w{@version{}}"
 @end example
 
-Per conveni, l'enunciat de versió es col·loca al principi del
+Per conveni, l'enunciat de versió es col.loca al principi del
 fitxer del LilyPond.
 
 L'enunciat de versió és important per dos motius com a mínim.  En
@@ -637,7 +637,7 @@ manera que no té cap efecte sobre la sortida impresa.  Hi ha dos
 tipus de comentaris.  El símbol de percentatge @samp{%} introdueix
 un comentari de línia; s'ignora tot el que es troba després de
 @samp{%} a aquesta línia.  Per conveni, una  línia de comentari es
-col·loca @emph{per sobre} del codi a què es refereix el comentari.
+col.loca @emph{per sobre} del codi a què es refereix el comentari.
 
 @example
 a4 a a a
@@ -841,7 +841,7 @@ corresponents de la @rusernamed{Top, Referència de la notació}.
 
 @item
 @strong{Abans d'intentar de modificar els resultats predeterminats}:
-llegiu la secció @ref{Trucar la sortida}
+llegiu la secció @ref{Tweaking output}
 del manual d'Aprenentatge.
 
 @item
