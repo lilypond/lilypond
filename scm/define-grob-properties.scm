@@ -637,6 +637,11 @@ this long, normally in the horizontal direction.  This requires an
 appropriate callback for the @code{springs-and-rods} property.  If
 added to a @code{Tie}, this sets the minimum distance between
 noteheads.")
+     (minimum-length-after-break ,ly:dimension? "If set, try to make
+a broken spanner starting a line this long.  This requires an
+appropriate callback for the @code{springs-and-rods} property.  If
+added to a @code{Tie}, this sets the minimum distance to the
+notehead.")
      (minimum-length-fraction ,number? "Minimum length of ledger line
 as fraction of note head size.")
      (minimum-space ,ly:dimension? "Minimum distance that the victim
