@@ -514,12 +514,10 @@ a l'hora:
 
 @seealso
 Referència de la notació:
-@ruser{Escriptura de notes},
-@ruser{Escriptura de les duracions (valors rítmics)},
-@ruser{Escriptura de silencis},
-@ruser{Indicació de compàs},
-@ruser{Clau}.
-
+@ruser{Writing pitches},
+@ruser{Writing rhythms}, @ruser{Writing rests},
+@rusernamed{Time signature,Indicació de compàs},
+@rusernamed{Clef,Clau}.
 
 @node Treball sobre els fitxers d'entrada
 @subsection Treball sobre els fitxers d'entrada
@@ -692,7 +690,8 @@ La solució de problemes al LilyPond pot ser un desafiament per a
 les persones acostumades als interfícies gràfics, perquè és
 possible crear fitxers d'entrada invàlids.  Quan passa això, la
 millor manera d'identificar i resoldre el problema és aplicar un
-enfocament lògic.  A @rprogram{Solució de problemes} es donen
+enfocament lògic.  A @rprogramnamed{Troubleshooting,
+Solució de problemes} es donen
 algunes guies per ajudar-vos a aprendre a fer-lo.
 
 @node Alguns errors comuns

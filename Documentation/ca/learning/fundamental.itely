@@ -23,7 +23,7 @@ igualment belles però més complexes.
 * Com funcionen els fitxers d'entrada del LilyPond::
 * Les veus contenen música::
 * Contextos i gravadors::
-* Estendre les plantilles::
+* Extensió de les plantilles::
 @end menu
 
 
@@ -38,14 +38,14 @@ tota aquesta flexibilitat pot fer que les coses es tornin confuses
 per als nous usuaris.  Aquesta secció us explicarà part d'aquesta
 estructura, però pot obviar certs detalls per simplificar.  Per
 veure una descripció més completa del format d'entrada, consulteu
-@ruser{Estructura del fitxer}.
+@ruser{File structure}.
 
 
 @menu
 * Introducció a l'estructura dels fitxers del LilyPond::
 * La partitura és una (única) expressió musical composta::
 * Niuat d'expressions musicals::
-* Quant a la impossibilitat de niuat de claudàtors i lligadures::
+* Quant a la impossibilitat de niuar claudàtors i lligadures::
 @end menu
 
 @node Introducció a l'estructura dels fitxers del LilyPond
@@ -195,8 +195,8 @@ Dues instruccions més que no hem vist són @code{\layout @{ @}}
 i @code{\midi @{ @}}.  Si apareixen tal i com es mostren aquí, fan
 que el LilyPond produeixi una sortida impresa i una sortida MIDI,
 respectivament.  Es descriuen amb tot detall al manual de
-Referència de la notació, a @ruser{Disposició de la partitura} i a
-@ruser{Creació de fitxers MIDI}.
+Referència de la notació, a @ruser{Score layout} i a
+@ruser{Creating MIDI files}.
 
 @cindex partitures, diverses
 @cindex book, bloc implícit
@@ -233,8 +233,7 @@ bloc @code{\score} (que per això està dins d'un bloc
 @code{\book}, ja sigui explícit o implícitament) afecta als blocs
 @code{\score} que estan dins d'aquest @code{\book}.
 
-Per veure més detalls, consulteu @ruser{Diverses partitures a un
-llibre}.
+Per veure més detalls, consulteu @ruser{Multiple scores in a book}.
 
 @cindex variables
 
@@ -263,12 +262,12 @@ caràcters alfabètics i sigui diferent a qualsevol dels noms
 d'instrucció del LilyPond.  Per veure més detalls, consulteu
 @ref{Estalviar tecleig mitjançant variables i funcions}.  Les
 limitacions exactes que afecten els noms de variable es detallen a
-@ruser{Estructura del fitxer}.
+@ruser{File structure}.
 
 
 @seealso
 Per veure una definició completa del format del codi d'entrada,
-consulteu @ruser{Estructura del fitxer}.
+consulteu @ruser{File structure}
 
 @node La partitura és una (única) expressió musical composta
 @subsection La partitura és una (única) expressió musical composta
@@ -387,7 +386,7 @@ s'interpreta com a lletra, el precedim amb @code{\lyricmode}.
 Igual que @code{\addlyrics}, això activa el mode d'entrada de
 lletra.  Sense això, el LilyPond intentaria interpretar el
 contingut com a notes, cosa que generaria errors (Hi ha d'altres
-modes, vegeu @ruser{Modes d'entrada}).
+modes, vegeu @ruser{Input modes}).
 
 Així doncs, tot escrivint algunes notes, i una clau de Fa per a la
 mà esquerra, ara tenim un fragment musical de debò:
@@ -496,10 +495,11 @@ pentagrama nou s'ha de col.locar per sobre del pentagrama anomenat
 Els fragments d'ossia s'escriuen sovint sense clau i sense
 indicació de compàs, i generalment amb una lletra més petita.  Per
 fer això caldrien més ordres que encara no s'han vist.  Vegeu
-@ref{Size of objects} i @ruser{Ossia staves}.
+@rlearningnamed{Size of objects,Mida dels objectes} i
+@ruser{Ossia staves}.
 
-@node Quant a la no niuabilitat de claus i lligadures
-@subsection Quant a la no niuabilitat de claus i lligadures
+@node Quant a la impossibilitat de niuar claudàtors i lligadures
+@subsection Quant a la impossibilitat de niuar claudàtors i lligadures
 @translationof On the un-nestedness of brackets and ties
 
 @cindex claudàtors i parèntesis, niuat de
@@ -578,8 +578,8 @@ g,8[( a \tuplet 3/2 { b8 d) e~] } |
 @end lilypond
 
 
-@node Les veus que contenen música
-@section Les veus que contenen música
+@node Les veus contenen música
+@section Les veus contenen música
 @translationof Voices contain music
 
 Igual que els cantants, al LilyPond li calen veus per cantar.  En
@@ -791,8 +791,10 @@ aspes, i la veu quatre (que no es fa servir aquí) a aspes color
 magenta.  @code{\voiceNeutralStyle} (que tampoc no es fa servir
 aquí) retorna tot a l'estil predeterminat.  Veurem més endavant
 com l'usuari pot crear instruccions com aquestes.  Vegeu
-@ref{Visibility and color of objects} i
-@ref{Using variables for layout adjustments}.
+@rlearningnamed{Visibility and color of objects,Visibilitat i
+color dels objectes} i
+@rlearningnamed{Using variables for layout adjustments,Ús de
+variables per als ajustos de disposició}.
 
 @cindex polifonia i mode relatiu
 @cindex relatiu, mode, polifonia i
@@ -966,14 +968,15 @@ d'ajustar la col.locació horitzontal de les notes.  Encara no
 estem preparats per veure com es corregeix això, per la qual cosa
 deixarem el problema per a una secció posterior (vegeu la
 propietat @code{force-hshift} a
-@ref{Fixing overlapping notation}).
+@rlearningnamed{Fixing overlapping notation,Arreglar notació amb
+superposicions}).
 
 @warning{No es poden crear lletres ni objectes d'extensió
 (com ara lligadures, reguladors, etc.) @q{entre} veus diferents.}
 
 @seealso
 Referència de la notació:
-@ruser{Diverses veus}.
+@ruser{Multiple voices}.
 
 
 @node Veus explícites
@@ -1213,7 +1216,7 @@ quatre es desplacen cap a l'esquerra.
 @code{\shiftOnn} i @code{\shiftOnnn} defineixen nivells
 addicionals de desplaçament que es poden especificar temporalment
 per resoldre col.lisions en situacions complexes (vegeu
-@ref{Real music example}).
+@rlearningnamed{Real music example,Exemples reals de música}).
 
 Una columna de notes pot contenir sols una nota (o acord) d'una
 veu amb les pliques cap amunt i una nota (o acord) d'una veu amb
@@ -1225,10 +1228,10 @@ massa columnes de notes}.
 
 @seealso
 Manual d'aprenentatge:
-@ref{Moving objects}.
+@rlearningnamed{Moving objects,Moure objectes}.
 
 Referència de la notació:
-@ruser{Diverses veus}.
+@ruser{Multiple voices}.
 
 
 @node Veus i música vocal
@@ -1401,7 +1404,7 @@ VerseFour  =
 
 @seealso
 Referència de la notació:
-@ruser{Música vocal}.
+@ruser{Vocal music}.
 
 
 @node Contextos i gravadors
@@ -1498,7 +1501,7 @@ altres sense guió ni barra baixa, per exemple:
 
 @seealso
 Referencia de la notació:
-@ruser{Explicació dels contextos}.
+@rusernamed{Contexts explained,Explicació dels contextos}.
 
 
 @node Creació de contextos
@@ -1620,7 +1623,7 @@ secció sobre la lletra, a @ref{Veus i música vocal}.
 
 @seealso
 Referència de la notació:
-@ruser{Crear i referenciar contextos}.
+@ruser{Creating contexts}.
 
 
 @node Explicació dels gravadors
@@ -2043,10 +2046,10 @@ enunciats dins d'un bloc @code{\with}, i mitjançant instruccions
 
 @seealso
 Referència de la notació:
-@ruser{Canviar els valors per omissió dels contextos},
+@ruser{Changing context default settings}.
 @c FIXME
 @c uncomment when backslash-node-name issue is resolved -pm
-@ruser{La instrucció set}.
+@ruser{The set command}
 
 Referència de funcionament intern:
 @rinternals{Contexts},
@@ -2217,8 +2220,8 @@ particular incloent-hi la instrucció @code{\set} dins d'un bloc
 
 @seealso
 Referència de la notació:
-@ruser{Modificar els complements (plug-ins) de context},
-@ruser{Canviar els valors per omissió dels contextos}.
+@ruser{Modifying context plug-ins},
+@ruser{Changing context default settings}.
 
 @knownissues
 Els gravadors @code{Stem_engraver} i @code{Beam_engraver}
@@ -2234,7 +2237,8 @@ es creen tampoc pliques ni barres.
 Heu llegit el tutorial i ara sabeu escriure música.  Però, com
 podeu posar els pentagrames que voleu?  Les plantilles estan molt
 bé, però què passa si voleu alguna cosa que està en cap plantilla?
-Bé, podeu trobar muntanyes de plantilles (vegeu @ref{Templates})
+Bé, podeu trobar muntanyes de plantilles (vegeu
+@rlearningnamed{Templates,Plantilles})
 que us poden servir com a punt de partida.  Però i si voleu
 quelcom que no està contemplat aquí? Continueu llegint.
 
@@ -2243,7 +2247,7 @@ quelcom que no està contemplat aquí? Continueu llegint.
 * Partitura vocal a quatre veus SATB::
 * Crear una partitura partint de zero::
 * Estalviar tecleig mitjançant variables i funcions::
-* Partitures y particel.les::
+* Partitures i particel.les::
 @end menu
 
 @node Soprano i violoncel
@@ -2434,7 +2438,8 @@ musicaVioloncel = \relative c {
 
 @seealso
 Les plantilles d'inici es poden trobar a l'apèndix
-@q{Plantilles}, vegeu @ref{Single staff templates}.
+@q{Plantilles}, vegeu
+@rlearningnamed{Single staff templates,Plantilles de pentagrama únic}.
 
 @node Partitura vocal a quatre veus SATB
 @subsection Partitura vocal a quatre veus SATB
@@ -2546,12 +2551,14 @@ lower = \relative c, {
 @end lilypond
 
 Cap de les plantilles proporciona aquesta disposició amb
-exactitud.  La més semblant és @ref{SATB vocal score and automatic piano reduction}, però necessitem
-canviar la disposició i afegir un acompanyament de piano que no
-estigui derivat automàticament de les parts vocals.  Les variables
-que contenen la música i la lletra de les parts vocals és
-adequat, però haurem d'afegir variables per a la reducció de
-piano.
+exactitud.  La més semblant és
+@rlearningnamed{SATB vocal score and automatic piano reduction,
+Partitura vocal SATB i reducció per a piano automàtica},
+però necessitem canviar la disposició i afegir un acompanyament de
+piano que no estigui derivat automàticament de les parts vocals.
+Les variables que contenen la música i la lletra de les parts
+vocals és adequat, però haurem d'afegir variables per a la
+reducció de piano.
 
 L'ordre en què apareixen els contextos al ChoirStaff de la
 plantilla no es correspon amb l'ordre de la partitura vocal que
@@ -2965,8 +2972,8 @@ l'@q{objecte gràfic} @code{VerticalAxisGroup} (els objectes gràfics
 reben en general el nom de @q{grob}s a la documentació del
 LilyPond); no us preocupeu de moment dels detalls, ja que això
 s'explica més tard de forma exhaustiva.  Els més curiosos podeu
-donar una ullada a @ruser{Panoràmica de la modificació de las
-propietats}.  En aquest cas volem modificar solament la sub-propietat
+donar una ullada a @ruser{Overview of modifying properties}.
+En aquest cas volem modificar solament la sub-propietat
 @code{stretchability}.  Un altre cop, els curiosos trobareu els
 valors predeterminats per a la propietat staff-staff-spacing al
 fitxer @file{scm/define-grobs.scm} examinant la definició del grob
@@ -3200,9 +3207,10 @@ La utilització d'identificadors també és una bona forma de reduir
 el treball si la sintaxis d'entrada del LilyPonod canvia (vegeu
 @rprogram{Actualització de fitxers amb convert-ly}).  Si teniu una sola
 definició (com ara @code{\dolce}) per a tots els fitxers (vegeu
-@ref{Style sheets}), i després la sintaxis es modifica, sols
-haurà d'actualitzar la seva definició @code{\dolce} única, enlloc
-de haver de fer canvis a cadascú dels fitxers @file{.ly}.
+@rlearningnamed{Style sheets,Fulls d'estil}), i després la sintaxis es
+modifica, sols haurà d'actualitzar la seva definició @code{\dolce}
+única, enlloc de haver de fer canvis a cadascú dels fitxers
+@file{.ly}.
 
 @node Partitures i particel.les
 @subsection Partitures i particel.les

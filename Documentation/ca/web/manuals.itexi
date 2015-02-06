@@ -51,9 +51,9 @@ una introducció al LilyPond amable i @qq{imprescindible}.
 @details{Glossari}
 
 @item
-@ifWebLinks{@manualStableEssaySplitNoName-es,@ressaynamed{Top,Monografia}}
+@ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essay}}
 @emph{(lectura opcional)} la informació de rerefons sobre gravat musical
-@details{Monografia}
+@details{Essay}
 
 
 @end itemize
@@ -271,8 +271,8 @@ la versió en format PDF a causa de la seva major resolució.}
 
 @divClass{column-right-bottom}
 
-@docLinks{Monografia, essay,
-  @ressaynamed{Top,Ensayo},
+@docLinks{Essay, essay,
+  @ressaynamed{Top,Essay},
   @manualStableEssaySplit-ca,
   @manualStableEssayBig-ca, 1 MB,
   @manualStableEssayPdf-ca, 2 MB}
@@ -401,7 +401,7 @@ el LilyPond es poden trobar a la @ref{Introducció}.
 
 @subsubheading Quelcom no funciona!  Com ho arreglo?
 
-S'explica a @rprogram{Solució de problemes}.
+S'explica a @rprogramnamed{Troubleshooting,Solució de problemes}.
 
 
 @subsubheading Perquè canvien la sintaxi i el llenguatge?

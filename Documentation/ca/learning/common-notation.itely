@@ -80,7 +80,7 @@ música, per la qual cosa no s'han d'afegir de forma manual.
 Altres tipus de barres de compàs s'afegeixen usant @code{\bar}, per
 exemple @code{\bar "||"} per a una doble barra, o @code{\bar "|."}
 per a la doble barra final.  Per veure una llista completa de les
-línies divisòries, consulteu @ruser{Barres de compàs}.
+línies divisòries, consulteu @rusernamed{Bar lines,Línies divisòries}.
 
 @lilypond[verbatim,quote,relative=2]
 g1 e1 \bar "||" c2. c'4 \bar "|."
@@ -106,7 +106,7 @@ g1 | e1 | c2. c'4 | g4 c g e | c4 r r2 |
 
 @seealso
 Referència de la notació:
-@ruser{Comprovació de compàs i de número de compàs}.
+@ruser{Bar and bar number checks}.
 
 
 @node Alteracions accidentals i armadures
@@ -157,7 +157,7 @@ bemol} es fa afegint @code{isis} o @code{eses}.  Aquesta sintaxi
 deriva de les convencions de nomenclatura de les notes en les
 llengües nòrdiques i germàniques com l'alemany i l'holandès.  Per
 utilitzar altres noms per a les @notation{alteracions
-accidentals}, vegeu @ruser{Noms de las notes en altres llengües}.
+accidentals}, vegeu @ruser{Note names in other languages}.
 
 @lilypond[verbatim,quote,relative=2]
 cis4 ees fisis, aeses
@@ -266,24 +266,23 @@ Posar totes les alteracions de forma explícita pot requerir una
 mica més de treball d'escriure, però l'avantatge és que la
 @notation{transposició} és més fàcil, i les alteracions es poden
 imprimir seguint diverses convencions diferents.  Consulteu
-@ruser{Alteracions accidentals automàtiques} per veure exemples de
+@ruser{Automatic accidentals} per veure exemples de
 com es poden imprimir alteracions d'acord amb regles diferents.
 
 
 @seealso
 Referència de la notació:
-@ruser{Nom de las notes en altres idiomes},
-@ruser{Alteracions accidentals},
-@ruser{Alteracions accidentals automàtiques},
-@ruser{Armadura de la tonalitat}.
-
+@ruser{Note names in other languages},
+@rusernamed{Accidentals,Alteracions accidentals},
+@ruser{Automatic accidentals},
+@ruser{Key signature}.
 
 @node Lligadures d'unió i d'expressió
 @subsection Lligadures d'unió i d'expressió
 @translationof Ties and slurs
 
-@cindex lligadura de unió
-@cindex lligadura de expressió
+@cindex lligadura d'unió
+@cindex lligadura d'expressió
 @cindex lligadura de fraseig
 @cindex fraseig, lligadura de
 
@@ -292,10 +291,10 @@ Referència de la notació:
 @funindex \( ... \)
 
 @menu
-* Lligadures de unió::
-* Lligadures de expressió::
+* Lligadures d'unió::
+* Lligadures d'expressió::
 * Lligadures de fraseig::
-* Advertències lligadures d'expressió en front a lligadures d'unió::
+* Advertiments lligadures d'expressió en front a lligadures d'unió::
 @end menu
 
 @node Lligadures d'unió
@@ -374,10 +373,9 @@ c4~( c8 d~ 4 e)
 
 @seealso
 Referència de la notació:
-@ruser{Lligadures d'unió},
-@ruser{Lligadures d'expressió},
-@ruser{Lligadures de fraseig}.
-
+@rusernamed{Ties,Lligadures d'unió},
+@rusernamed{Slurs,Lligadures d'expressió},
+@rusernamed{Phrasing slurs,Lligadures de fraseig}.
 
 @node Articulacions i matisos dinàmics
 @subsection Articulacions i matisos dinàmics
@@ -484,10 +482,9 @@ c4\< c\ff\> c c\!
 
 @seealso
 Referència de la notació:
-@ruser{Articulacions i ornaments},
-@ruser{Indicacions de digitació},
-@ruser{Matisos dinàmics}.
-
+@ruser{Articulations and ornamentations},
+@ruser{Fingering instructions},
+@rusernamed{Dynamics,Matisos dinàmics}.
 
 @node Addició de text
 @subsection Addició de  text
@@ -519,7 +516,7 @@ a2_\markup {
 
 @seealso
 Referència de la notació:
-@ruser{Escriptura del text}.
+@ruser{Writing text}.
 
 
 @node Barres automàtiques i manuals
@@ -574,9 +571,8 @@ a8 c b4 d8. c16 b4 |
 
 @seealso
 Referència de la notació:
-@ruser{Barres automàtiques},
-@ruser{Barres manuals}.
-
+@ruser{Automatic beams},
+@ruser{Manual beams}.
 
 @node Instruccions rítmiques avançades
 @subsection Instruccions rítmiques avançades
@@ -672,10 +668,9 @@ c2 \acciaccatura b16 c2 |
 
 @seealso
 Referència de la notació:
-@ruser{Notes d'adorn},
-@ruser{Grups especials},
-@ruser{Anacrusis}.
-
+@rusernamed{Grace notes,Notes d'adorn},
+@rusernamed{Tuplets,Grups especials},
+@ruser{Upbeats}.
 
 @node Diverses notes a la vegada
 @section Diverses notes a la vegada
@@ -694,7 +689,7 @@ d'una veu al mateix pentagrama.
 * Explicació de les expressions musicals::
 * Diversos pentagrames::
 * Grups de pentagrames::
-* Combinar notes para formar acords::
+* Combinar notes per formar acords::
 * Polifonia a un sol pentagrama::
 @end menu
 
@@ -820,8 +815,8 @@ els éssers humans.
 l'entrada, solament la primera és relativa a la @code{c''} dins de
 la instrucció inicial @code{@bs{}\relative}.}
 
-@node Expressions musicals simultànies un solo pentagrama
-@unnumberedsubsubsec Expressions musicals simultànies: un solo pentagrama
+@node Expressions musicals simultànies un sol pentagrama
+@unnumberedsubsubsec Expressions musicals simultànies: un sol pentagrama
 @translationof Simultaneous music expressions single staff
 
 Per determinar el nombre de pentagrames a una peça, el LilyPond
@@ -858,7 +853,7 @@ disposa sobre un sols pentagrama.
 @funindex Lyrics
 @funindex ChordNames
 
-Com ja hem vist a @ref{Explicació de las expressions musicals},
+Com ja hem vist a @ref{Explicació de les expressions musicals},
 els fitxers d'entrada per al LilyPond es construeixen a base
 d'expressions musicals.  Si la partitura comença amb expressions
 musicals simultànies, el LilyPond crea diversos pentagrames.  És
@@ -966,9 +961,8 @@ també controla l'abast de les línies divisòries.
 
 @seealso
 Referència de la notació:
-@ruser{Teclats i altres instruments de diversos pentagrames},
-@ruser{Impressió dels pentagrames}.
-
+@ruser{Keyboard and other multi-staff instruments},
+@ruser{Displaying staves}.
 
 @node Combinar notes per formar acords
 @subsection Combinar notes per formar acords
@@ -1011,11 +1005,11 @@ r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
 
 @seealso
 Referència de la notació:
-@ruser{Notes en acord}.
+@ruser{Chorded notes}.
 
 
-@node Polifonia en un sol pentagrama
-@subsection Polifonia en un sol pentagrama
+@node Polifonia a un sol pentagrama
+@subsection Polifonia a un sol pentagrama
 @translationof Single staff polyphony
 
 @cindex polifonia
@@ -1041,7 +1035,7 @@ Manual d'aprenentatge:
 @ref{Les veus contenen música}.
 
 Referència de la notació:
-@ruser{Notes simultànies}.
+@ruser{Simultaneous notes}.
 
 
 @node Cançons
@@ -1157,7 +1151,7 @@ addicional no s'alinea correctament amb les notes.  La paraula
 com @notation{melisma}, una síl.laba única que es canta sobre més
 d'una nota.  Existeixen diverses formes de fer que una síl.laba
 recaigui sobre diverses notes, sent la més senzilla escriure una
-lligadura d'expressió sobre elles (vegeu @ref{Lligadures d'unió y d'expressió}):
+lligadura d'expressió sobre elles (vegeu @ref{Lligadures d'unió i d'expressió}):
 
 @lilypond[verbatim,quote]
 <<
@@ -1294,7 +1288,7 @@ del @notation{Barber de Sevilla} de Rossini, on la síl.laba
 
 @seealso
 Referència de la notació:
-@ruser{Música vocal}.
+@ruser{Vocal music}.
 
 
 @node Lletra en diversos pentagrames
@@ -1339,7 +1333,7 @@ variables}.
 
 @seealso
 Referència de la notació:
-@ruser{Música vocal}.
+@ruser{Vocal music}.
 
 
 @node Retocs finals
@@ -1489,7 +1483,7 @@ es troba fora de l'expressió musical principal: el bloc
 
 Quan es processa el fitxer, el títol i l'autor s'imprimeixen a
 sobre de la música.  Podeu obtenir més informació sobre els títols
-a @ruser{Crear títols encapçalaments i peus de pàgina}.
+a @ruser{Creating titles headers and footers}.
 
 @node Noms de nota absoluts
 @subsection Noms de nota absoluts
@@ -1600,12 +1594,12 @@ relativa:
 
 Després d'acabar el tutorial, potser hauríeu de provar a escriure
 una o dues peces.  Comenceu amb una de les plantilles que
-apareixen a @ref{Plantilles} i afegeixi algunes notes.  Si
-necessiteu un tipus de notació que no ha estat tractat en aquest
-tutorial, doneu una ullada a la Referència de Notació, començant
-per @ruser{Notació musical}.  Si voleu escriure música per a un
-conjunt instrumental que no estigui cobert per cap plantilla,
-consulteu @ref{Extensió de les plantilles}.
+apareixen a @rlearningnamed{Templates,Plantilles} i afegiu algunes
+notes.  Si necessiteu un tipus de notació que no ha estat tractat
+en aquest tutorial, doneu una ullada a la Referència de Notació,
+començant per @ruser{Musical notation}.  Si voleu escriure música
+per a un conjunt instrumental que no estigui cobert per cap
+plantilla, consulteu @ref{Extensió de les plantilles}.
 
 Un cop que heu escrit algunes peces curtes, llegiu la resta del
 Manual d'aprenentatge (capítols 3 al 5).  Per suposat no passa res

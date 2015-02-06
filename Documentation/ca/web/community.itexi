@@ -817,11 +817,11 @@ manuals més recents estan a @url{http://lilypond.org}}
 @docLinkPdf{Glossari,music-glossary,@manualDevelGlossaryPdf}
 
 @item
-@docLinkSplit{Monografia,essay,@manualDevelEssaySplit-ca}
+@docLinkSplit{Essay,essay,@manualDevelEssaySplit}
 @tab
-@docLinkBig{Monografia,essay,@manualDevelEssayBig-ca}
+@docLinkBig{Essay,essay,@manualDevelEssayBig}
 @tab
-@docLinkPdf{Monografia,essay,@manualDevelEssayPdf-ca}
+@docLinkPdf{Essay,essay,@manualDevelEssayPdf}
 @end multitable
 
 @multitable @columnfractions .3 .3 .3

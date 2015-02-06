@@ -119,7 +119,7 @@ bella. Tots els ajustos d'estil del LilyPond, el disseny dels
 tipus de lletra i els algoritmes s'han inspirat en la millor
 música gravada a mà. La sortida del Lilypond té el mateix aspecte
 robust, equilibrat i elegant que les partitures clàssiques millor
-gravades. Tot això s'explica amb detall al nostre @ref{Essay}.
+gravades. Tot això s'explica amb detall al nostre @ressaynamed{Essay,Monografia}.
 
 
 @subsubheading Opcions d'aspecte efectives
@@ -502,7 +502,7 @@ de crear bellesa amb un ordinador.
 
 Si tan sols voleu una introducció ràpida al LilyPond, llegir tot
 el material que constitueix la monografia podria ser massa. Si voleu
-llegir-lo ara, continueu cap a @ref{Essay}.
+llegir-lo ara, continueu cap a @ressaynamed{Essay,Monografia}.
 @divEnd
 
 @divClass{column-center-bottom}

@@ -60,13 +60,13 @@ d'ordres.
 @menu
 * Invocació del LilyPond::
 * Opcions bàsiques de la línia d'ordres per al LilyPond::
-* Opcions avançades  de la línia d'ordres per al LilyPond::
+* Opcions avançades de la línia d'ordres per al LilyPond::
 * Variables d'entorn::
 * El LilyPond a una gàbia de chroot::
 @end menu
 
 @node Invocació del LilyPond
-@unnumberedsubsec Invocació @command{lilypond}
+@unnumberedsubsec Invocació del @command{lilypond}
 @translationof Invoking lilypond
 
 L'executable @command{lilypond} es pot cridar des d'una línia
@@ -789,7 +789,7 @@ valor predeterminat és @code{70}.
 
 
 @node El LilyPond a una gàbia de chroot
-@unnumberedsubsec El LilyPond en una gàbia de chroot
+@unnumberedsubsec El LilyPond a una gàbia de chroot
 @translationof LilyPond in chroot jail
 
 La preparació del servidor perquè executi el LilyPond a una gàbia
