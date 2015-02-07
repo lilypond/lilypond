@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 2af77c4ae79774eeb99314c052b12f990f03a538
+    Translation of GIT committish: 0061a10c574353b9bb4097ba1c214da7d9d714a2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -197,6 +197,35 @@ forfiles /s /p "C:\Documents\Mes Partitions" /M *.ly /c "cmd /c lilypond @@file"
 Différentes options sont disponibles en ligne de commande :
 
 @table @code
+
+@item -b, --bigpdfs
+@cindex bigpdfs
+
+Les fichiers PDF générés peuvent être beaucoup plus lourd que la normale
+selon le degré d'optimisation des fontes.  Néanmoins, lorsque plusieurs
+fichiers PDF sont inclus dans un document @code{pdftex}, @code{xetex} ou
+@code{luatex}, ils peuvent faire l'objet d'un traitement supplémentaire
+par @code{ghostscript} afin de fusionner les données de fontes
+redondantes et ainsi obtenir un fichier PDF @emph{significativement}
+plus léger.
+
+@example
+lilypond -b monfichier
+@end example
+
+Puis lancer @code{ghostscript} :
+
+@example
+gs -q -sDEVICE=pdfwrite -o gsout.pdf monfichier.pdf
+@end example
+
+@code{pdfsizeopt.py} vient alors en complément pour optimiser encore la
+taille du fichier :
+
+@example
+pdfsizeopt.py --use-multivalent=no gsout.pdf final.pdf
+@end example
+
 
 @item -d, --define-default=@var{variable}=@var{valeur}
 Voir @ref{Options avancées de lilypond}.
