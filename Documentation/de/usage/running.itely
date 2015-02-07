@@ -157,13 +157,13 @@ Die folgenden Kommandozeilenoptionen werden von @command{lilypond} unterstützt:
 @item -b, --bigpdfs
 @cindex bigpdfs
 
-Mit dieser Option generierte PDF-Dateien sind deutlich größer als sonst,
+Mit dieser Option generierte PDF-Dateien sind deutlich größer als normal,
 weil keine oder nur minimale Zeichensatz-Optimierung erfolgt.  Werden
-jedoch zwei oder mehrere solcher PDF-Dateien in @w{@code{pdftex}-},
+jedoch zwei oder mehr solcher PDF-Dateien in @w{@code{pdftex}-},
 @w{@code{xetex}-} oder @w{@code{luatex}}-Dokumente eingebunden und
-anschließend mit ghostscript weiterverarbeitet, entstehen
-@emph{signifikant} kleinere PDF-Dokumente, da die Zeichensatzdaten mit
-dieser Methode viel besser reduziert werden können.
+anschließend mit ghostscript nachbearbeitet, entstehen deutlich
+kleinere PDF-Dokumente, da ghostscript die Zeichensatzdaten auf
+diesem Weg viel besser komprimieren kann.
 
 Nach
 
