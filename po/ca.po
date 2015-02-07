@@ -1,18 +1,22 @@
 # Translation of LilyPond.
-# Copyright (C) 1998--2015 Han-Wen Nienhuys, Jan Nieuwenhuizen
+# Copyright (C) 1998--2012 Han-Wen Nienhuys, Jan Nieuwenhuizen
 # This file is distributed under the same license as the lilypond package.
 # Walter Garcia-Fontes <walter.garcia@upf.edu>, 2013-2015.
 # Suggeriments de traducció:
 # tuplet - grup excedent d'acord amb http://www.termcat.cat/ca/Cercaterm
 # stem - plica
-# beam - barrat
+# beam - barra, barrat
 # grob - objecte gràfic
+# slur - lligadura d'expressió
+# tie - lligadura d'unió
+# typeset - gravar
+# typesetter - gravador
 msgid ""
 msgstr ""
 "Project-Id-Version: lilypond-2.17.96\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2013-11-24 12:14+0000\n"
-"PO-Revision-Date: 2015-01-09 09:28+0100\n"
+"PO-Revision-Date: 2015-01-30 08:43+0100\n"
 "Last-Translator: Walter Garcia-Fontes <walter.garcia@upf.edu>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "Language: ca\n"
@@ -1000,7 +1004,7 @@ msgstr "suprimeix els missatges de progrés"
 #: midi2ly.py:1107 musicxml2ly.py:2674 main.cc:315
 #, c-format, python-format
 msgid "Report bugs via %s"
-msgstr "Informa dels errors en anglès via %s"
+msgstr "Informeu dels errors en anglès via %s"
 
 #: convert-ly.py:47
 msgid ""
@@ -1555,12 +1559,12 @@ msgstr ""
 
 #: musicxml2ly.py:2576
 msgid ""
-"Copyright (c) 2005--2015 by\n"
+"Copyright (c) 2005--2012 by\n"
 "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 "    Jan Nieuwenhuizen <janneke@gnu.org> and\n"
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
 msgstr ""
-"Copyright (c) 2005--2015 per\n"
+"Copyright (c) 2005--2012 per\n"
 "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 "    Jan Nieuwenhuizen <janneke@gnu.org> i\n"
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
@@ -1727,7 +1731,7 @@ msgstr "advertiment suprimit %s"
 #: accidental-engraver.cc:180
 #, c-format
 msgid "accidental typesetting list must begin with context-name: %s"
-msgstr "la llista de tipografia d'accidents ha de començar amb un context-name: %s"
+msgstr "la llista de gravat d'accidents ha de començar amb un context-name: %s"
 
 #: accidental-engraver.cc:210
 #, c-format
@@ -2358,8 +2362,9 @@ msgid ""
 "print log messages according to LOGLEVEL.  Possible values are:\n"
 "NONE, ERROR, WARNING, BASIC, PROGRESS, INFO (default) and DEBUG."
 msgstr ""
-"imprimeix els missatges del registre d'acord amb NIVELL DE REGISTRE. Els valors\n"
-"possibles són: NONE, ERROR, WARNING, BASIC, PROGRESS,  (preterminat) i DEBUG."
+"imprimeix els missatges del registre d'acord amb NIVELL DE REGISTRE.\n"
+"Es valors possibles són: NONE, ERROR, WARNING, BASIC, PROGRESS, INFO\n"
+"(preterminat) i DEBUG."
 
 #: main.cc:178
 msgid "write output to FILE (suffix will be added)"
@@ -2371,7 +2376,9 @@ msgstr "relocalitza el directori d'us del programa lilypond"
 
 #: main.cc:180
 msgid "no progress, only error messages (equivalent to loglevel=ERROR)"
-msgstr "sense progrés, sols missatges d'error (equivalent a nivell de registre = ERROR)"
+msgstr ""
+"sense progrés, sols missatges d'error (equivalent a nivell \n"
+"de registre = ERROR)"
 
 #: main.cc:182
 msgid "be verbose (equivalent to loglevel=DEBUG)"
@@ -2395,7 +2402,7 @@ msgstr "Ús: %s [OPCIÓ]... FITXER..."
 
 #: main.cc:301
 msgid "Typeset music and/or produce MIDI from FILE."
-msgstr "Compon tipogràficament la músic i/o produeix MIDI des d'un FITXER."
+msgstr "Grava la música i/o produeix MIDI des d'un FITXER."
 
 #: main.cc:303
 msgid "LilyPond produces beautiful music notation."
