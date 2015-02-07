@@ -95,7 +95,7 @@ use Encode qw(decode);
 my $LY_LANGUAGES = {};
 $LY_LANGUAGES->{'ca'} = {
     'Back to Documentation Index' => '',
-    '<p>Thanks to ${webdev_link} for hosting ${lily_site}.' => '',
+    '<p>Gràcies a ${webdev_link} per allotjar ${lily_site}.' => '',
 };
 
 $LY_LANGUAGES->{'cs'} = {
@@ -1821,7 +1821,7 @@ sub lilypond_print_toc_div ($$)
         if ($have_index_entries) {
           my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
           print $fh '<script language="JavaScript">print_search_field ("' .
-             $Texi2HTML::THISDOC{current_lang} . '", "' . 
+             $Texi2HTML::THISDOC{current_lang} . '", "' .
              $docu_name . "\", " . $bigpage . ")</script>\n";
         }
       }
