@@ -1129,8 +1129,7 @@ one below this grob.")
 ;;;
 ;;; w
 ;;;
-     (when ,ly:moment? "Global time step associated with this column
-happen?")
+     (when ,ly:moment? "Global time step associated with this column.")
      (whiteout ,boolean? "If true, the grob is printed over a white
 background to white-out underlying material, if the grob is visible.
  Usually #f by default.")
