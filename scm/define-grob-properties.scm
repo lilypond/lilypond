@@ -1258,7 +1258,8 @@ empty in a particular staff, then that staff is erased.")
      (keep-alive-with ,ly:grob-array? "An array of other
 @code{VerticalAxisGroup}s.  If any of them are alive, then we will stay alive.")
 
-     (left-items ,ly:grob-array? "DOCME")
+     (left-items ,ly:grob-array? "Grobs organized on the left by a spacing
+object.")
      (left-neighbor ,ly:grob? "The right-most column that has a spacing-wish
 for this column.")
 
@@ -1289,7 +1290,8 @@ relevant for finding the @code{pure-Y-extent}.")
      (rest ,ly:grob? "A pointer to a @code{Rest} object.")
      (rest-collision ,ly:grob? "A rest collision that a rest is in.")
      (rests ,ly:grob-array? "An array of rest objects.")
-     (right-items ,ly:grob-array? "DOCME")
+     (right-items ,ly:grob-array? "Grobs organized on the right by
+a spacing object.")
      (right-neighbor ,ly:grob? "See @code{left-neighbor}.")
 
      (scripts ,ly:grob-array? "An array of @code{Script} objects.")
