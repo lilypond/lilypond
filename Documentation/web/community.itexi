@@ -178,8 +178,8 @@ be useful for others would better be posted to one of the mailing lists.
 @subsubheading Other languages
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
-Spanish mailing list}
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
+French mailing list}
 
 @uref{http://www.lilypondforum.de/,
 German forum}
@@ -187,26 +187,19 @@ German forum}
 @uref{http://groups.google.com/group/lilypond-brasil,
 Portuguese group}
 
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
-French mailing list}
-
-@uref{http://www.lilypondforum.nl/,
-Dutch forum}
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
+Spanish mailing list}
 @end quotation
-
 @divEnd
 
 
 @divClass{column-right-top}
-@subheading Stay Informed
+@subheading The LilyPond Blog
 
-@subsubheading LilyPond Report
-
-The easiest way to keep touch is by reading our community
-newsletter, the LilyPond Report:
+Read our community blog, @q{Scores of Beauty}:
 
 @example
-@uref{http://news.lilynet.net}
+@uref{http://lilypondblog.org}
 @end example
 
 @subsubheading Releases mailing list: @code{info-lilypond@@gnu.org}
@@ -233,12 +226,12 @@ archive3}
 
 
 @divClass{column-right-bottom}
-@subheading Developer Discussion
+@subheading Developer Discussions and Translations
 
 @subsubheading Developer mailing list: @code{lilypond-devel@@gnu.org}
 
-Most developer discussion takes place on this list.  Patches
-should be sent here.
+Developer discussions take place on this list. Patches can also be sent
+here.
 
 @quotation
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel,
@@ -258,7 +251,8 @@ send to lilypond-devel with gmane}
 
 @subsubheading Bug mailing list: @code{bug-lilypond@@gnu.org}
 
-Bug-specific discussion takes place here.
+Bug reports and discussions should be sent here.  Do not send patches
+to this list.
 
 @quotation
 @uref{http://lists.gnu.org/mailman/listinfo/bug-lilypond,
@@ -277,13 +271,16 @@ archive3}
 @warning{Before sending a message to the bug list, please read our
 guidelines for @ref{Bug reports}.}
 
-@divEnd
 
-@divClass{column-right-bottom}
-@subheading Sensitive emails
+@subsubheading Translation mailing list: @code{translations@@lilynet.org}
 
-Private matters should be sent to Graham Percival (project
-manager), who will discuss it with those concerned.
+All discussions about translating LilyPond manuals should be sent here.
+Do not send patches to this list.
+
+@quotation
+@uref{http://lilypond-translations.3384276.n2.nabble.com/,
+Translation mailing list archive}
+@end quotation
 
 @divEnd
 
