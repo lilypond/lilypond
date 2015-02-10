@@ -1305,7 +1305,7 @@ with LilyPond source files.  A developer  has written
 If you are not already familiar with Emacs then you may probably prefer
 to use a different editor for writing LilyPond input files.
 
-More information on setting up Vim can be found in
+More information on setting up Emacs can be found in
 @rprogram{Text editor support}.
 
 @subsubheading Vim
