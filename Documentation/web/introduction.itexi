@@ -466,7 +466,7 @@ not require hundreds of dollars of software!
 
 
 @c @divClass{column-left-top}
-@divClass{color2}
+@divClass{column-center-middle-color2}
 @divClass{keep-bullets}
 @subheading What are the benefits to users?
 
@@ -507,7 +507,7 @@ available for copying, modifications, and distribution.
 
 
 @c @divClass{column-right-top}
-@divClass{color3}
+@divClass{column-center-middle-color3}
 @divClass{keep-bullets}
 @subheading Why do LilyPond developers @qq{give away} their work for free?
 
