@@ -13,7 +13,7 @@
 @documentlanguage hu
 @afourpaper
 
-@c translator: Team-hu
+@c translator: Harmath Dénes
 
 @macro manualIntro
 Ez a dokumentáció ismerteti, hogyan kell a LilyPond @version{} verziójához
