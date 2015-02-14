@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: bd751630011a6fbfcf069ec1fc41a8eaed8a6b87
+   Translation of GIT committish: b5bcf58b17f2e5d8a76740050fe9b7212748bd7b
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -60,27 +60,20 @@ jour.
 @section Suggestions générales
 @translationof General suggestions
 
-Voici quelques conseils qui peuvent vous éviter certains problèmes ou
-en résoudre d'autres.
+Voici quelques conseils qui vous permettront d'éviter, voire même
+résoudre, la plupart des problèmes de saisie.
 
 @itemize
-@item @strong{Ajoutez le numéro de version dans chaque fichier}.
-Notez que chaque fichier modèle contient une ligne
-@code{\version "@version{}"}.  Nous vous conseillons fortement
-d'inclure cette ligne, même pour de petits fichiers.  Par expérience, il
-est très difficile de se rappeler quelle version de LilyPond on
-utilisait quelques années auparavant.  L'utilitaire @command{convert-ly}
-demande que vous spécifiiez la version de LilyPond vous utilisiez alors.
-
-@item @strong{Ajoutez des contrôles}
-@rusernamed{Vérifications d'octave,d'octaviation} et
-@rusernamed{Vérification des limites et numéros de mesure,de limite ou
-numéro de mesure}.  Si vous avez ajouté des contrôles de loin en loin,
-et que vous faites une erreur, vous pourrez la retrouver plus
-rapidement.  @qq{De loin en loin}, qu'est-ce à dire ?  Cela dépend
-de la complexité de la musique.  Pour de la musique très simple,
-peut-être une ou deux fois.  Pour de la musique très complexe, peut-être
-à chaque mesure.
+@item @strong{Ajoutez toujours le numéro de version dans chaque
+fichier}, quelle que soit sa taille.  Par expérience, il est très
+difficile de se rappeler quelle version de LilyPond a servi au moment de
+la création d'un fichier. Ceci s'avèrera d'autant plus utile lors d'une
+@rprogramnamed{Mise à jour avec convert-ly, mise à jour}
+(@command{convert-ly} requiert la présence d'une ligne @code{\version})
+ou si vous transmettez votre fichier à d'autres utilisateurs -- y
+compris pour demander de l'aide sur les listes de diffusion.  Vous
+noterez par ailleurs que tous les fichiers modèles de LilyPond ont une
+mention @code{\version}.
 
 @item @strong{Une mesure par ligne de texte}.
 Si la musique en elle-même ou le résultat que vous désirez contient
@@ -89,27 +82,77 @@ mesure par ligne. Économiser de la place en tassant huit mesures par
 ligne, ça ne vaut pas vraiment le coup si l'on doit corriger vos
 fichiers.
 
+@item @strong{Ajoutez des contrôles}
+@rusernamed{Vérifications d'octave,d'octaviation} et
+@rusernamed{Vérification des limites et numéros de mesure,de limite ou
+numéro de mesure}.  Si vous avez ajouté des contrôles de loin en loin,
+et que vous faites une erreur, vous pourrez la retrouver plus
+rapidement.  « De loin en loin », qu'est-ce à dire ?  Cela dépend
+de la complexité de la musique.  Pour de la musique très simple, à
+certains endroits stratégiques.  Pour de la musique très complexe ou
+avec une multiplicité de voix, peut-être à chaque mesure.
+
 @item @strong{Ajoutez des commentaires}.
 Utilisez soit des numéros de mesure (assez souvent), soit des références
-au contenu musical -- @qq{second thème des violons}, @qq{quatrième
-variation}, etc.  Vous pouvez ne pas avoir besoin des commentaires
+au contenu musical -- « second thème des violons », « quatrième
+variation », etc.  Vous pouvez ne pas avoir besoin des commentaires
 lorsque vous écrivez une pièce pour la première fois, mais si vous
 souhaitez y revenir deux ou trois ans plus tard pour changer quelque
 chose, ou si vous donnez le fichier source à un ami, ce sera beaucoup
 plus difficile de déterminer vos intentions ou la manière dont votre
 fichier est structuré si vous n'y avez pas adjoint de commentaires.
 
-@item @strong{Indentez les accolades}.
-Beaucoup de problèmes viennent d'un défaut de parité entre @code{@{} et
-@code{@}}.
-
 @item @strong{Mentionnez les durées}
 au début de chaque section ou variable.  Si vous saisissez @code{c4 d e}
 au début d'une phrase, vous vous épargnerez des problèmes si, plus tard,
 vous modifiez votre musique.
 
+@item @strong{Indentez les accolades et indications de musique en parallèle}.
+Beaucoup de problèmes viennent d'un défaut de parité entre @code{@{} et
+@code{@}} ou @code{<<} et @code{>>}.  Par exemple,
+
+@example
+\new Staff @{
+  \relative g' @{
+    r4 g8 g c8 c4 d |
+    e4 r8 |
+    % Ossia section
+    <<
+      @{ f8 c c | @}
+      \new Staff @{
+        f8 f c |
+      @}
+    >>
+    r4 |
+  @}
+@}
+@end example
+
+@noindent
+est bien plus facile à appréhender que
+
+@example
+\new Staff @{ \relative g' @{ r4 g8 g c4 c8 d | e4 r8
+% Ossia section
+<< @{ f8 c c @} \new Staff @{ f8 f c @} >> r4 | @} @}
+@end example
+
+
 @item @strong{Séparez les affinages de mise en forme}
-de la musique elle-même.  Voyez
+de la musique elle-même, ne serait-ce qu'en positionnant les dérogations
+au sein du bloc @code{\layout} :
+
+@example
+\score @{
+  @var{@dots{}musique@dots{}}
+  \layout @{
+   \override TabStaff.Stemstencil = ##f
+ @}
+@}
+@end example
+
+Ceci n'aura par pour effet de générer un contexte supplémentaire, mais
+s'appliquera dès sa création.  Voyez
 @rlearning{Économie de saisie grâce aux identificateurs et fonctions} et
 @rlearning{Feuilles de style}.
 
@@ -125,7 +168,7 @@ c'est-à-dire de la musique déjà écrite,
 
 @itemize
 
-@item 
+@item
 n'entrez qu'un seul système de la partition originale
 à la fois -- avec toujours une seule mesure par ligne de texte --,
 et vérifiez chaque système lorsqu'il est terminé.  Vous pouvez
