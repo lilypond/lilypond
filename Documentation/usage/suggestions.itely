@@ -53,51 +53,92 @@ structured in order to be easier (or harder) to update.
 @node General suggestions
 @section General suggestions
 
-Here are a few suggestions that can help you to avoid or fix
-problems:
+Here are a few suggestions that can help to avoid (and fix) the most
+common problems when typesetting:
 
 @itemize
-@item @strong{Include @code{\version} numbers in every file}.  Note that all
-templates contain @code{\version} information.  We
-highly recommend that you always include the @code{\version}, no matter
-how small your file is.  Speaking from personal experience, it's
-quite frustrating to try to remember which version of LilyPond you were
-using a few years ago.  @command{convert-ly} requires you to declare
-which version of LilyPond you used.
+@item
+@strong{Always include a @code{\version} number in your input files} no
+matter how small they are.  This prevents having to remember which
+version of LilyPond the file was created with and is especially relevant
+when @ref{Updating files with convert-ly} command (which requires the
+@code{\version} statement to be present); or if sending your input files
+to other users (e.g. when asking for help on the mail lists).  Note that
+all of the LilyPond templates contain @code{\version} numbers.
 
-@item @strong{Include checks}: @ruser{Bar and bar number checks},
-@ruser{Octave checks}.  If you include checks every so often, then
-if you make a mistake, you can pinpoint it quicker.  How often is
-@q{every so often}?  It depends on the complexity of the music.
-For very simple music, perhaps just once or twice.  For very
-complex music, perhaps every bar.
+@item
+@strong{For each line in your input file, write one bar of music}.  This
+will make debugging any problems in your input files much simpler.
 
-@item @strong{One bar per line of text}.  If there is anything complicated,
-either in the music
-itself or in the output you desire, it's often good to write only one bar
-per line.  Saving screen space by cramming eight bars per line just isn't
-worth it if you have to @q{debug} your input files.
+@item
+@strong{Include @ruser{Bar and bar number checks} as well as
+@ruser{Octave checks}}.  Including @q{checks} of this type in your input
+files will help pinpoint mistakes more quickly. How often checks are
+added will depend on the complexity of the music being typeset.  For
+simple compositions, checks added at a few at strategic points within
+the music can be enough but for more complex music, with many voices
+and/or staves, checks may be better placed after every bar.
 
-@item @strong{Comment your input files}.  Use either bar numbers
-(every so often) or
-references to musical themes (@q{second theme in violins,} @q{fourth
-variation,} etc.).  You may not need comments when you're writing the piece
-for the first time, but if you want to go back to change something two or
-three years later, or if you pass the source over to a friend, it will
-be much more
-challenging to determine your intentions or how your file is structured if
-you didn't comment the file.
+@item
+@strong{Add comments within input files}.  References to musical themes
+(i.e. @q{second theme in violins},  @q{fourth variation,} etc.), or
+simply including bar numbers as comments, will make navigating the input
+file much simpler especically if something needs to be altered later
+on or if passing on LilyPond input files to another person.
 
-@item @strong{Indent your braces}.  A lot of problems are caused by an
-imbalance
-in the number of @code{@{} and @code{@}}.
+@item
+@strong{Add explicit note durations at the start of @q{sections}}.  For
+example, @code{c4 d e f} instead of just @code{c d e f} can make
+rearranging the music later on simpler.
 
-@item @strong{Explicitly add durations} at the beginnings of sections
-and variables.  If you specify @code{c4 d e} at the beginning of a
-phrase (instead of just @code{c d e}) you can save yourself some
-problems if you rearrange your music later.
+@item
+@strong{Learn to indent and align braces and parallel music}.  Many
+problems are often caused by either @q{missing} braces.  Clearly
+indenting @q{opening} and @q{closing} braces (or @code{<<} and @code{>>}
+indicators) will help avoid such problems.  For example;
 
-@item @strong{Separate tweaks} from music definitions.  See
+@example
+\new Staff @{
+  \relative g' @{
+    r4 g8 g c8 c4 d |
+    e4 r8 |
+    % Ossia section
+    <<
+      @{ f8 c c | @}
+      \new Staff @{
+        f8 f c |
+      @}
+    >>
+    r4 |
+  @}
+@}
+@end example
+
+@noindent
+is much easier to follow than;
+
+@example
+\new Staff @{ \relative g' @{ r4 g8 g c4 c8 d | e4 r8
+% Ossia section
+<< @{ f8 c c @} \new Staff @{ f8 f c @} >> r4 | @} @}
+@end example
+
+
+@item
+@strong{Keep music and style separate} by putting overrides in the
+@code{\layout} block;
+
+@example
+\score @{
+  @var{@dots{}music@dots{}}
+  \layout @{
+   \override TabStaff.Stemstencil = ##f
+ @}
+@}
+@end example
+
+This will not create a new context but it will apply when one is
+created.  Also see
 @rlearning{Saving typing with variables and functions}, and
 @rlearning{Style sheets}.
 
