@@ -13,6 +13,8 @@
 @documentlanguage hu
 @afourpaper
 
+@c Translators: Hegyi Tamás, Harmath Dénes
+
 @macro manualIntro
 Ez az esszé a LilyPond @version{} automatikus kottaszedési mechanizmusmába nyújt mélyebb betekintést.
 @end macro
