@@ -26,6 +26,10 @@
 (define-public (grob::is-live? grob)
   (pair? (ly:grob-basic-properties grob)))
 
+(define-public (grob::name grob)
+  "Return the name of the grob @var{grob} as a symbol."
+  (assq-ref (ly:grob-property grob 'meta) 'name))
+
 (define-public (make-stencil-boxer thickness padding callback)
   "Return function that adds a box around the grob passed as argument."
   (lambda (grob)
