@@ -1367,7 +1367,7 @@ parent or the parent has no setting."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; measure counter
 
-(define (measure-counter-stencil grob)
+(define-public (measure-counter-stencil grob)
   "Print a number for a measure count.  The number is centered using
 the extents of @code{BreakAlignment} grobs associated with the left and
 right bounds of a @code{MeasureCounter} spanner.  Broken measures are
