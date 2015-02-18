@@ -32,10 +32,3 @@ Music_function::print_smob (SCM port, scm_print_state *)
   /* Non-zero means success.  */
   return 1;
 }
-
-SCM
-Music_function::mark_smob ()
-{
-  ASSERT_LIVE_IS_ALLOWED (self_scm ());
-  return Smob2<Music_function>::mark_smob ();
-}
