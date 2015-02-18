@@ -80,7 +80,7 @@ public:
                          SCM_UNPACK (arg2),
                          SCM_UNPACK (arg3));
   }
-  static SCM mark_smob (SCM s)
+  SCM mark_smob ()
   {
     scm_gc_mark (scm3 ());
     scm_gc_mark (scm2 ());
