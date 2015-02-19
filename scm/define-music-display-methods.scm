@@ -105,15 +105,13 @@ expression."
 ;;;
 ;;; durations
 ;;;
-(define*-public (duration->lily-string ly-duration #:key (prev-duration (*previous-duration*))
-                                       (force-duration (*force-duration*))
-                                       (time-scale (*time-scale*))
-                                       remember)
-  (if remember (*previous-duration* ly-duration))
+(define*-public (duration->lily-string ly-duration #:key
+                                       (force-duration #f)
+                                       (time-scale (*time-scale*)))
   (let ((log2    (ly:duration-log ly-duration))
         (dots    (ly:duration-dot-count ly-duration))
         (scale (ly:duration-scale ly-duration)))
-    (if (or force-duration (not prev-duration) (not (equal? ly-duration prev-duration)))
+    (if (or force-duration (not (*omit-duration*)))
         (string-append (case log2
                          ((-1) "\\breve")
                          ((-2) "\\longa")
@@ -429,14 +427,15 @@ Otherwise, return #f."
                ;; '<' (notepitch | drumpitch)* '>" duration post_events
                (let ((duration (duration->lily-string (ly:music-property
                                                        (car chord-elements)
-                                                       'duration)
-                                                      #:remember #t)))
+                                                       'duration))))
                  ;; Format duration first so that it does not appear on
                  ;; chord elements
                  (format #f "< ~{~a ~}>~a~:{~:[-~;~]~a~^ ~}"
-                         (map-in-order (lambda (music)
-                                         (music->lily-string music parser))
-                                       chord-elements)
+                         (parameterize ((*omit-duration* #t))
+                                       (map-in-order
+                                        (lambda (music)
+                                          (music->lily-string music parser))
+                                        chord-elements))
                          duration
                          (map-in-order (lambda (music)
                                          (list
@@ -444,8 +443,7 @@ Otherwise, return #f."
                                           (music->lily-string music parser)))
                                        other-elements))))
               ((ly:duration? chord-repeat)
-               (let ((duration (duration->lily-string chord-repeat
-                                                      #:remember #t)))
+               (let ((duration (duration->lily-string chord-repeat)))
                  (format #f "q~a~:{~:[-~;~]~a~^ ~}"
                          duration
                          (map-in-order (lambda (music)
@@ -467,8 +465,7 @@ Otherwise, return #f."
 
 (define-display-method MultiMeasureRestMusic (mmrest parser)
   (format #f "R~a~{~a~^ ~}"
-          (duration->lily-string (ly:music-property mmrest 'duration)
-                                 #:remember #t)
+          (duration->lily-string (ly:music-property mmrest 'duration))
           (map-in-order (lambda (music)
                           (music->lily-string music parser))
                         (ly:music-property mmrest 'articulations))))
@@ -504,8 +501,7 @@ Otherwise, return #f."
                                         (make-string (1- (* -1 octave-check)) #\,))
                                        (else "")))
                 ""))
-          (duration->lily-string (ly:music-property event 'duration)
-                                 #:remember #t)
+          (duration->lily-string (ly:music-property event 'duration))
           (if ((make-music-type-predicate 'RestEvent) event)
               "\\rest" "")
           (map-in-order (lambda (event)
@@ -519,19 +515,15 @@ Otherwise, return #f."
          (simple-note->lily-string note parser))
         ((not (null? (ly:music-property note 'drum-type))) ;; drum
          (format #f "~a~a~{~a~}" (ly:music-property note 'drum-type)
-                 (duration->lily-string (ly:music-property note 'duration)
-                                        #:remember #t)
+                 (duration->lily-string (ly:music-property note 'duration))
                  (map-in-order (lambda (event)
                                  (music->lily-string event parser))
                                (ly:music-property note 'articulations))))
         (else
          ;; pure duration
-         ;; FIXME: { c4 c4 4 4 } must not be output as { c4 c 4 4 }
-         ;; quite tricky to do.  Do it when outputting sequences?
          (format #f "~a~{~a~}"
                  (duration->lily-string (ly:music-property note 'duration)
-                                        #:force-duration #t
-                                        #:remember #t)
+                                        #:force-duration #t)
                  (map-in-order (lambda (event)
                                  (music->lily-string event parser))
                                (ly:music-property note 'articulations))))))
@@ -543,20 +535,17 @@ Otherwise, return #f."
   (if (not (null? (ly:music-property rest 'pitch)))
       (simple-note->lily-string rest parser)
       (format #f "r~a~{~a~}"
-              (duration->lily-string (ly:music-property rest 'duration)
-                                     #:remember #t)
+              (duration->lily-string (ly:music-property rest 'duration))
               (map-in-order (lambda (event)
                               (music->lily-string event parser))
                             (ly:music-property rest 'articulations)))))
 
 (define-display-method MultiMeasureRestEvent (rest parser)
-  (string-append "R" (duration->lily-string (ly:music-property rest 'duration)
-                                            #:remember #t)))
+  (string-append "R" (duration->lily-string (ly:music-property rest 'duration))))
 
 (define-display-method SkipEvent (rest parser)
   (format #f "s~a~{~a~}"
-          (duration->lily-string (ly:music-property rest 'duration)
-                                 #:remember #t)
+          (duration->lily-string (ly:music-property rest 'duration))
           (map-in-order (lambda (event)
                           (music->lily-string event parser))
                         (ly:music-property rest 'articulations))))
@@ -631,7 +620,7 @@ Otherwise, return #f."
             (if (null? bracket-stop) "" "]"))))
 
 (define-display-method LyricEvent (lyric parser)
-  (format "~a~{~a~^ ~}"
+  (format #f "~a~{~a~^ ~}"
           (let ((text (ly:music-property lyric 'text)))
             (if (or (string? text)
                     (eqv? (first text) simple-markup))
@@ -674,7 +663,6 @@ Otherwise, return #f."
           (and span (duration->lily-string span #:force-duration #t)))
          (scale (/ num den))
          (time-scale (*time-scale*)))
-    (*previous-duration* #f)
     (let ((result
            (parameterize ((*force-line-break* #f)
                           (*time-scale* (* time-scale scale)))
@@ -683,7 +671,6 @@ Otherwise, return #f."
                                  num
                                  formatted-span
                                  (music->lily-string (ly:music-property times 'element) parser)))))
-      (*previous-duration* #f)
       result)))
 
 (define-display-method RelativeOctaveMusic (m parser)
@@ -1104,7 +1091,8 @@ Otherwise, return #f."
 (define-display-method LyricCombineMusic (expr parser)
   (format #f "\\lyricsto ~s ~a"
           (ly:music-property expr 'associated-context)
-          (parameterize ((*explicit-mode* #f))
+          (parameterize ((*explicit-mode* #f)
+                         (*omit-duration* #t))
                         (music->lily-string (ly:music-property expr 'element) parser))))
 
 ;; \addlyrics
@@ -1124,7 +1112,8 @@ Otherwise, return #f."
                         (format #f "~a~a \\addlyrics ~a"
                                 (music->lily-string ?note-sequence parser)
                                 (new-line->lily-string)
-                                (parameterize ((*explicit-mode* #f))
+                                (parameterize ((*explicit-mode* #f)
+                                               (*omit-duration* #t))
                                               (music->lily-string ?lyric-sequence parser)))
                         #f)))
 

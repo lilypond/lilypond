@@ -11,10 +11,10 @@
 ;;; Display methods are stored in the `display-methods' property of each music
 ;;; type.
 ;;;
-;;; - `music->lily-string' return a string describing a music expression using
-;;; LilyPond notation. The special variables *indent*, *previous-duration*,
-;;; and *force-duration* influence the indentation level and the display of
-;;; music durations.
+;;; - `music->lily-string' return a string describing a music
+;;; expression using LilyPond notation. The special variables *indent*
+;;; and *omit-duration* influence the indentation level and the
+;;; display of music durations.
 ;;;
 ;;; - `with-music-match' can be used to destructure a music expression, extracting
 ;;; some interesting music properties.
@@ -282,11 +282,8 @@ inside body."
 ;;; indentation
 (define-public *indent* (make-parameter 0))
 
-;;; set to #t to force duration printing
-(define-public *force-duration* (make-parameter #f))
-
-;;; last duration found
-(define-public *previous-duration* (make-parameter (ly:make-duration 2)))
+;;; set to #t to omit duration printing
+(define-public *omit-duration* (make-parameter #f))
 
 ;;; Set to #t to force a line break with some kinds of expressions (eg sequential music)
 (define *force-line-break* (make-parameter #t))
