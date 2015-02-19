@@ -1,3 +1,5 @@
+\version "2.19.16"
+
 \header {
   texidoc = "The numbered time signature style prints a fraction."
 }

@@ -1,3 +1,5 @@
+\version "2.19.16"
+
 \header {
   texidoc = "The single-digit time signature style prints the numerator only."
 }
