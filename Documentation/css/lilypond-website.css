@@ -363,8 +363,8 @@ div.news-item {
 
 .news-item .subsubheading {
   text-align: left;
-  padding: 0 0 0 0.5em;
-  border-bottom: 1px solid #5b7f64;
+  padding: 0.5em 0.5em 0 0.5em;
+  border-top: 1px solid #5b7f64;
   margin: 0;
   overflow: hidden;
 }
@@ -399,34 +399,31 @@ div#latestVersion {
   position: absolute;
   top: 16em;
   right: 0;
-  width: 12em;
-  text-align: center;
-  border-left: 1px solid #5b7f64;
 }
 
 div#wildCardBox {
   position: absolute;
-  top: 0.0em;
+  top: 0;
   right: 0;
+}
+
+div#latestVersion,
+div#wildCardBox {
   width: 12em;
   text-align: center;
   border-left: 1px solid #5b7f64;
+  border-top-left-radius: 5px;
 }
 
-#latestVersion .subheading {
-  background: #5b7f64;
-  color: #fff;
-  text-align: center;
-  padding: 0 0.5em;
-  margin: 0;
-}
-
+#latestVersion .subheading,
 #wildCardBox .subheading {
   background: #5b7f64;
   color: #fff;
   text-align: center;
   padding: 0 0.5em;
   margin: 0;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 /* this might not work in certain browsers */
@@ -446,7 +443,7 @@ a[name="Unstable"] + h4 {
 }
 
 #latestVersion .subsubheading {
-  padding: 0.08em 0.25em;
+  padding: 0.25em 0.25em 0;
   border-bottom: 1px solid #5b7f64;
   margin: 0;
 }
@@ -534,7 +531,7 @@ h1.unnumbered, h2.unnumberedsec, h3.unnumberedsubsec {
 table {
   text-align: left;
   padding: 0 0 0 0.5em;
-  border-left: 3px solid green;
+  border-left: 3px solid #5b7f64;
   margin: 1em 0 0 1em;
 }
 
@@ -674,6 +671,7 @@ div.float-right a.clickable {
 .column-right-top,
 .column-right-bottom {
   background: #f5fffa;
+  border-radius: 5px;
 }
 
 /* color1 */
@@ -727,8 +725,10 @@ div.float-right a.clickable {
 .column-right-top h3,
 .column-right-bottom h3 {
   text-align: left;
-  padding: 0 0.5em;
+  padding: 3px 0.5em 0;
   margin: 0;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .column-center-top h4,
@@ -841,35 +841,25 @@ div.float-right a.clickable {
   overflow: auto;
 }
 
-.warning {
+.warning,
+.contactBox {
   background: #eef;
   text-align: left;
-  padding: 0;
-  border: 1px solid green;
-  /* Experimental rounded corners */
-  border-radius: 10px;
   margin: 1em;
-}
-
-.warning p {
-  padding: 0.5em;
-  margin: 0;
+  padding: 0;
+  border: 1px solid rgb(160, 160, 175);
+  border-radius: 5px;
 }
 
 .contactBox {
   float: left;
-  background: #eef;
-  text-align: left;
-  border: 1px solid green;
-  padding: 0;
-  margin: 1em;
 }
 
+.warning p,
 .contactBox p {
   padding: 0.5em;
   margin: 0;
 }
-
 
 .hide {
   position: relative;
