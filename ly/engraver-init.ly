@@ -455,9 +455,9 @@ printing of a single line of lyrics."
        (stretchability . 1))
   \override VerticalAxisGroup.nonstaff-nonstaff-spacing =
      #'((basic-distance . 0)
-	(minimum-distance . 2.8)
-	(padding . 0.2)
-	(stretchability . 0))
+        (minimum-distance . 2.8)
+        (padding . 0.2)
+        (stretchability . 0))
   \override VerticalAxisGroup.nonstaff-unrelatedstaff-spacing.padding = #1.5
   \override InstrumentName.self-alignment-Y = ##f
 
@@ -920,9 +920,9 @@ contexts and handles the line spacing, the tablature clef etc. properly."
   %% the direction for glissando lines will be automatically corrected
   \override Glissando.extra-dy = #glissando::calc-tab-extra-dy
   \override Glissando.bound-details.right = #`((attach-dir . ,LEFT)
-						   (padding . 0.3))
+                                                   (padding . 0.3))
   \override Glissando.bound-details.left = #`((attach-dir . ,RIGHT)
-						   (padding . 0.3))
+                                                   (padding . 0.3))
   %% dead notes
   \override TabNoteHead.glyph-name = #tab-note-head::calc-glyph-name
   \override TabNoteHead.stencil = #tab-note-head::whiteout-if-style-set

@@ -6,7 +6,7 @@ Define 1/9 alterations.
 
 %}
 
- 
+
 #(define-public EKSIK-IKI 5/18)
 #(define-public EKSIK-UC 6/18)
 
@@ -29,7 +29,7 @@ makamPitchNames = #`(
   (g . ,(ly:make-pitch -1 4 NATURAL))
   (a . ,(ly:make-pitch -1 5 NATURAL))
   (b . ,(ly:make-pitch -1 6 NATURAL))
-  
+
   (cc . ,(ly:make-pitch -1 0 KOMA))
   (dc . ,(ly:make-pitch -1 1 KOMA))
   (ec . ,(ly:make-pitch -1 2 KOMA))
@@ -70,7 +70,7 @@ makamPitchNames = #`(
   (gfc . ,(ly:make-pitch -1 4 (- KOMA)))
   (afc . ,(ly:make-pitch -1 5 (- KOMA)))
   (bfc . ,(ly:make-pitch -1 6 (- KOMA)))
-  
+
   (cfb . ,(ly:make-pitch -1 0 (- BAKIYE)))
   (dfb . ,(ly:make-pitch -1 1 (- BAKIYE)))
   (efb . ,(ly:make-pitch -1 2 (- BAKIYE)))
@@ -86,7 +86,7 @@ makamPitchNames = #`(
   (gfk . ,(ly:make-pitch -1 4 (- KUCUK)))
   (afk . ,(ly:make-pitch -1 5 (- KUCUK)))
   (bfk . ,(ly:make-pitch -1 6 (- KUCUK)))
-  
+
   (cfi . ,(ly:make-pitch -1 0 (- EKSIK-IKI)))
   (dfi . ,(ly:make-pitch -1 1 (- EKSIK-IKI)))
   (efi . ,(ly:make-pitch -1 2 (- EKSIK-IKI)))
@@ -102,8 +102,8 @@ makamPitchNames = #`(
   (gfu . ,(ly:make-pitch -1 4 (- EKSIK-UC)))
   (afu . ,(ly:make-pitch -1 5 (- EKSIK-UC)))
   (bfu . ,(ly:make-pitch -1 6 (- EKSIK-UC)))
-  
-  
+
+
   (cfbm . ,(ly:make-pitch -1 0 (- BUYUKMUCENNEB)))
   (dfbm . ,(ly:make-pitch -1 1 (- BUYUKMUCENNEB)))
   (efbm . ,(ly:make-pitch -1 2 (- BUYUKMUCENNEB)))
@@ -116,7 +116,7 @@ makamPitchNames = #`(
 
 
 %% set pitch names.
-pitchnames = \makamPitchNames 
+pitchnames = \makamPitchNames
 #(ly:parser-set-note-names parser makamPitchNames)
 
 #(define eksikMirroredSlashedFlat
@@ -131,11 +131,11 @@ makamGlyphs = #`((1 . "accidentals.doublesharp")
        (0 . "accidentals.natural")
        (-1/9 . "accidentals.mirroredflat")
        (-5/18 . ,(if eksikMirroredSlashedFlat
-		 "accidentals.mirroredflat.backslash"
-		 "accidentals.mirroredflat"))
+                 "accidentals.mirroredflat.backslash"
+                 "accidentals.mirroredflat"))
        (-6/18 . ,(if eksikMirroredSlashedFlat
-		 "accidentals.mirroredflat.backslash"
-		 "accidentals.mirroredflat"))
+                 "accidentals.mirroredflat.backslash"
+                 "accidentals.mirroredflat"))
        (-4/9 . "accidentals.flat.slash")
        (-5/9 . "accidentals.flat")
        (-8/9 . "accidentals.flat.slashslash")
@@ -151,4 +151,3 @@ makamGlyphs = #`((1 . "accidentals.doublesharp")
     \override AmbitusAccidental.glyph-name-alist = \makamGlyphs
   }
 }
-

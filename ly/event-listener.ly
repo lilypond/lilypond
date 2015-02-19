@@ -211,18 +211,18 @@ as an engraver for convenience."
   \Voice
   \consists #(make-engraver
               (listeners
-	       (tempo-change-event . format-tempo)
-	       (rest-event . format-rest)
-	       (note-event . format-note)
-	       (articulation-event . format-articulation)
-	       (text-script-event . format-text)
-	       (slur-event . format-slur)
-	       (breathing-event . format-breathe)
-	       (dynamic-event . format-dynamic)
-	       (crescendo-event . format-cresc)
-	       (decrescendo-event . format-decresc)
-	       (text-span-event . format-textspan)
-	       (glissando-event . format-glissando)
-	       (tie-event . format-tie)))
+               (tempo-change-event . format-tempo)
+               (rest-event . format-rest)
+               (note-event . format-note)
+               (articulation-event . format-articulation)
+               (text-script-event . format-text)
+               (slur-event . format-slur)
+               (breathing-event . format-breathe)
+               (dynamic-event . format-dynamic)
+               (crescendo-event . format-cresc)
+               (decrescendo-event . format-decresc)
+               (text-span-event . format-textspan)
+               (glissando-event . format-glissando)
+               (tie-event . format-tie)))
   }
 }

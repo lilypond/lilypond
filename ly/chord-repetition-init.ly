@@ -38,4 +38,4 @@ tabChordRepetition =
    (_i "Include the string and fingering information in a chord repetition.
 This function is deprecated; try using @code{\\tabChordRepeats} instead.")
    (ly:parser-define! parser '$chord-repeat-events
-		      '(string-number-event fingering-event)))
+                      '(string-number-event fingering-event)))

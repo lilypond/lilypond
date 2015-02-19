@@ -10,10 +10,10 @@ whiteTriangleMarkup = \markup {
 
   %% 2206 : delta from the symbol font.
   %   #(ly:wide-char->utf-8 #x2206)
-  
+
   %% up pointing triangle
   % #(ly:wide-char->utf-8 #x25B3)
-} 
+}
 
 blackTriangleMarkup = \markup {
   \triangle ##t

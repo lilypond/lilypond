@@ -24,52 +24,52 @@
 
 \storePredefinedDiagram #default-fret-table \chordmode {c:9}
                         #guitar-tuning
-			#(chord-shape 'c:9 guitar-tuning)
+                        #(chord-shape 'c:9 guitar-tuning)
 \storePredefinedDiagram #default-fret-table \chordmode {cis:9}
                         #guitar-tuning
-			#(offset-fret 1 (chord-shape 'c:9 guitar-tuning))
+                        #(offset-fret 1 (chord-shape 'c:9 guitar-tuning))
 \storePredefinedDiagram #default-fret-table \chordmode {des:9}
                         #guitar-tuning
-			#(offset-fret 1 (chord-shape 'c:9 guitar-tuning))
+                        #(offset-fret 1 (chord-shape 'c:9 guitar-tuning))
 \storePredefinedDiagram #default-fret-table \chordmode {d:9}
                         #guitar-tuning
-			#(offset-fret 2 (chord-shape 'c:9 guitar-tuning))
+                        #(offset-fret 2 (chord-shape 'c:9 guitar-tuning))
 \storePredefinedDiagram #default-fret-table \chordmode {dis:9}
                         #guitar-tuning
-			#(offset-fret 3 (chord-shape 'c:9 guitar-tuning))
+                        #(offset-fret 3 (chord-shape 'c:9 guitar-tuning))
 \storePredefinedDiagram #default-fret-table \chordmode {ees:9}
                         #guitar-tuning
-			#(offset-fret 3 (chord-shape 'c:9 guitar-tuning))
+                        #(offset-fret 3 (chord-shape 'c:9 guitar-tuning))
 \storePredefinedDiagram #default-fret-table \chordmode {e:9}
                         #guitar-tuning
-			#"o;2-2;o;1-1;o;2-3;"
+                        #"o;2-2;o;1-1;o;2-3;"
 \storePredefinedDiagram #default-fret-table \chordmode {f:9}
                         #guitar-tuning
-			#(chord-shape 'f:9 guitar-tuning)
+                        #(chord-shape 'f:9 guitar-tuning)
 \storePredefinedDiagram #default-fret-table \chordmode {fis:9}
                         #guitar-tuning
-			#(offset-fret 1 (chord-shape 'f:9 guitar-tuning))
+                        #(offset-fret 1 (chord-shape 'f:9 guitar-tuning))
 \storePredefinedDiagram #default-fret-table \chordmode {ges:9}
                         #guitar-tuning
-			#(offset-fret 1 (chord-shape 'f:9 guitar-tuning))
+                        #(offset-fret 1 (chord-shape 'f:9 guitar-tuning))
 \storePredefinedDiagram #default-fret-table \chordmode {g:9}
                         #guitar-tuning
-			#(offset-fret 2 (chord-shape 'f:9 guitar-tuning))
+                        #(offset-fret 2 (chord-shape 'f:9 guitar-tuning))
 \storePredefinedDiagram #default-fret-table \chordmode {gis:9}
                         #guitar-tuning
-			#(offset-fret 3 (chord-shape 'f:9 guitar-tuning))
+                        #(offset-fret 3 (chord-shape 'f:9 guitar-tuning))
 \storePredefinedDiagram #default-fret-table \chordmode {aes:9}
                         #guitar-tuning
-			#(offset-fret 3 (chord-shape 'f:9 guitar-tuning))
+                        #(offset-fret 3 (chord-shape 'f:9 guitar-tuning))
 \storePredefinedDiagram #default-fret-table \chordmode {a:9}
                         #guitar-tuning
-			#(offset-fret 4 (chord-shape 'f:9 guitar-tuning))
+                        #(offset-fret 4 (chord-shape 'f:9 guitar-tuning))
 \storePredefinedDiagram #default-fret-table \chordmode {ais:9}
                         #guitar-tuning
-			#(offset-fret 5 (chord-shape 'f:9 guitar-tuning))
+                        #(offset-fret 5 (chord-shape 'f:9 guitar-tuning))
 \storePredefinedDiagram #default-fret-table \chordmode {bes:9}
                         #guitar-tuning
-			#(offset-fret 5 (chord-shape 'f:9 guitar-tuning))
+                        #(offset-fret 5 (chord-shape 'f:9 guitar-tuning))
 \storePredefinedDiagram #default-fret-table \chordmode {b:9}
                         #guitar-tuning
-			#(offset-fret -1 (chord-shape 'c:9 guitar-tuning))
+                        #(offset-fret -1 (chord-shape 'c:9 guitar-tuning))

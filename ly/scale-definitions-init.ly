@@ -30,7 +30,7 @@ ionian = #`(
     (4 . 0)
     (5 . 0)
     (6 . 0)
-  )  
+  )
 
 
 locrian = #`(
@@ -41,7 +41,7 @@ locrian = #`(
     (4 . ,FLAT)
     (5 . ,FLAT)
     (6 . ,FLAT)
-  )  
+  )
 
 
 aeolian = #`(
@@ -63,7 +63,7 @@ mixolydian = #`(
     (4 . 0)
     (5 . 0)
     (6 . ,FLAT)
-  )  
+  )
 
 
 lydian = #`(
@@ -74,7 +74,7 @@ lydian = #`(
     (4 . 0)
     (5 . 0)
     (6 . 0)
-  )  
+  )
 
 
 phrygian = #`(
@@ -85,7 +85,7 @@ phrygian = #`(
     (4 . 0)
     (5 . ,FLAT)
     (6 . ,FLAT)
-)  
+)
 
 
 dorian = #`(
@@ -97,4 +97,3 @@ dorian = #`(
     (5 . 0)
     (6 . ,FLAT)
   )
-
