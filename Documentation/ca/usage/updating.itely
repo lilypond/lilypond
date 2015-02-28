@@ -1,0 +1,331 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+
+@ignore
+    Translation of GIT committish: b381556a3132e765159edc75107b31259dbf5988
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.16.0"
+
+
+@node Actualització de fitxers amb convert-ly
+@chapter Actualització de fitxers amb @command{convert-ly}
+@translationof Updating files with convert-ly
+
+@cindex actualització d'un fitxer del LilyPond
+@cindex convert-ly
+
+La sintaxi del llenguatge d'entrada del LilyPond es modifica de
+forma habitual per a simplificar-la o millorar-la de diferents
+maneres. Com a efecte secundari, l'intèrpret del LilyPond sovint
+ja no és compatible amb els fitxers d'entrada antics.  Per posar
+remei a això es pot utilitzar el programa @command{convert-ly} per
+actualitzar fitxers a versions més noves del LilyPond.
+
+@menu
+* Perquè canvia la sintaxi?::
+* Invocació de convert-ly::
+* Opcions de la línia d'ordres per a convert-ly::
+* Problemes amb convert-ly::
+* Conversions manuals::
+@end menu
+
+
+@node Perquè canvia la sintaxi?
+@section Perquè canvia la sintaxi?
+@translationof Why does the syntax change?
+
+@cindex convert-ly
+@cindex actualització de fitxers d'entrada antics
+
+La sintaxi de l'entrada del LilyPond canvia de manera ocasional.
+A mesura que el propi LilyPond millora,  la sintaxi (el llenguatge
+de l'entrada) es modifica en consonància.  A vegades aquests
+canvis es fan per aconseguir que l'entrada sigui més fàcil de
+llegir i escriure, i d'altres vegades aquests canvis són per
+donar cabuda a noves funcionalitats del LilyPond.
+
+Per exemple, se suposa que tots els noms de les propietats de
+@code{\paper} i de @code{\layout} estan escrits sota la norma
+@code{primer-segon-tercer}.  Tot i així, a la versió 2.11.60,
+observem que la propietat @code{printallheaders} no seguia aquesta
+convenció.  Hauríem de deixar-la tal com està (confonent als nous
+usuaris que han de tractar amb un format d'entrada inconsistent),
+o canviar-la (empipant als usuaris amb experiència que tenen
+partitures antigues)?  En aquest cas, vam decidir canviar el nom a
+@code{print-all-headers}.  Afortunadament, aquest
+canvi es pot automatitzar amb la nostra eina
+@command{convert-ly}.
+
+Tanmateix, lamentablement @command{convert-ly} no pot tractar tots
+els canvis d'entrada.  Per exemple, a la versió 2.4 i anteriors de
+LilyPond els accents i les lletres no angleses s'introdueixen
+utilitzant el LaTeX: per exemple @code{No\"el} (que significa
+@q{Nadal} en francès).  Al LilyPond 2.6 i següents el caràcter
+especial @code{ë} s'ha d'introduir directament al fitxer del
+LilyPond com un caràcter UTF-8.  @command{convert-ly} no pot
+canviar tots els caràcters especials del LaTeX a caràcters de
+UTF-8: haureu d'actualitzar manualment els vostres fitxers del
+LilyPond antics.
+
+Les regles de conversió de @command{convert-ly} funcionen usant
+correspondència i substitució de patrons de text enlloc d'una
+comprensió profunda de la sintaxi del LilyPond.  Això té diverses
+conseqüències:
+@itemize @bullet
+@item
+El bon funcionament de la conversió depèn de la qualitat de cada
+conjunt de regles que s'apliquen i de la complexitat del canvi
+corresponent.  A vegades les conversions poden necessitar
+correccions manuals, per la qual cosa la versió antiga hauria de
+conservar-se a efectes de comparació.
+@item
+Solament són possibles les conversions de formats més nous: no hi
+ha cap conjunt de regles per a la desactualització.  Així doncs,
+la còpia principal de treball d'un fitxer del LilyPond solament
+s'ha d'actualitzar quan ja no hi ha necessitat de seguir mantenint
+versions antigues del LilyPond.  Els sistemes de control de
+versions com ara el Git poden ser de gran ajuda per realitzar el
+manteniment de diverses versions dels mateixos fitxers.
+@item
+Els propis programes del LilyPond i de l'Scheme són força robustos
+enfront als espais afegits i suprimits de manera @qq{creativa},
+però les regles utilitzades per @command{convert-ly} tendeixen a
+fer certes suposicions d'estil.  El millor que pot fer-se és
+seguir l'estil que s'usa als manuals per fer actualitzacions
+indolores, especialment perquè els propis manuals s'actualitzen
+usant @command{convert-ly}.
+@end itemize
+
+@node Invocació de convert-ly
+@section Invocació de @command{convert-ly}
+@translationof Invoking convert-ly
+
+@command{convert-ly} utilitza el enunciats @code{\version} dels
+fitxers d'entrada per detectar el número de versió antic.  En
+gairebé tots els casos, per actualitzar el fitxer d'entrada sols
+cal executar
+
+@example
+convert-ly -e elmeufitxer.ly
+@end example
+
+@noindent
+dins del directori que conté el fitxer.  Amb això s'actualitza
+@file{elmeufitxer.ly} @emph{in situ} i es preserva el fitxer
+original @file{elmeufitxer.ly~}.
+
+@warning{@command{convert-ly} sempre converteix fins l'últim canvi
+de sintaxi que és capaç de gestionar.  Això significa que el
+número de @code{\version} que apareix al fitxer convertit sol ser
+inferior al número de versió del propi programa
+@command{convert-ly}.}
+
+Per convertir d'un cop tots els fitxers d'entrada que hi ha a un
+directori, useu
+
+@example
+convert-ly -e *.ly
+@end example
+
+De forma alternativa, si volem especificar un nom diferent per al
+fitxer actualitzar, preservant el fitxer original amb el mateix
+nom, feu
+
+@example
+convert-ly elmeufitxer.ly > elmeunoufitxer.ly
+@end example
+
+El programa imprimeix una relació dels números de versió per als
+que s'han fet conversions.  Si no s'imprimeix cap número de
+versió, el fitxer ja està actualitzat.
+
+@noindent
+Els usuaris del MacOS@tie{}X poden executar aquesta instrucció sota
+el menú @code{Compilar > Actualitzar sintaxi}.
+
+Els usuaris del Windows han d'introduir aquesta instrucció a una
+nova ventana del terminal del sistema, que es troba en general sota
+@code{Inici > Accessoris > Símbol del sistema}.
+
+@node Opcions de la línia d'ordres per a convert-ly
+@section Opcions de la línia d'ordres per a @command{convert-ly}
+@translationof Command line options for convert-ly
+
+En general, el programa s'invoca de la manera següent:
+
+@example
+convert-ly [@var{opció}]@dots{} @var{fitxer}@dots{}
+@end example
+
+Es poden donar les opcions següents:
+
+@table @code
+@item -d, --diff-version-update
+Incrementa la cadena @code{\version} solament si el fitxer
+efectivament ha canviat.  En tal cas, la capçalera de versió
+correspondrà a la versió següent a l'últim canvi efectiu.  Sense
+aquesta opció la versió reflecteix l'última conversió que es
+@emph{va intentar} fer.
+
+@item -e, --edit
+Aplica les conversions directament al fitxer d'entrada,
+modificant-lo in situ.  El fitxer original es canvia de nom a
+@file{elmeufitxer.ly~}.  Aquest fitxer de còpia de seguretat
+podria ser un fitxer ocult en alguns sistemes operatius.
+
+@item -b, --backup-numbered
+Quan s'usa amb l'opció @samp{-e}, numera els fitxers de còpia de
+seguretat de forma que no se sobreescrigui cap versió anterior.
+Els fitxers de còpia de seguretat podrien ser fitxer ocults en
+alguns sistemes operatius.
+
+@item -f, --from=@var{versió_d_origen}
+Estableix la versió des de la qual s'ha de convertir.  Si no
+apareix aquesta opció @command{convert-ly} intentarà endevinar-la,
+bastant-se en la instrucció @code{\version} del fitxer. Exemple:
+@option{--from=2.10.25}
+
+@item -h, --help
+Imprimeix l'ajuda d'utilització.
+
+@item -l @var{nivellderegistre}, --loglevel=@var{nivellderegistre}
+Fixa el grau en el qual la sortida és detallada a
+@var{nivellderegistre}.  Els valors possibles són @code{NONE}
+(cap), @code{ERROR} (errors), @code{WARNING} (advertiments),
+@code{PROGRESS} (avenç;predeterminat) i @code{DEBUG} (depuració).
+
+@item -n, --no-version
+Normalment @command{convert-ly} afegeix un indicador
+@code{\version} a la sortida.  L'especificació d'aquesta opció el
+suprimeix.
+
+@item -s, --show-rules
+Mostra totes les conversions conegudes i surt.
+
+@item -t, --to=@var{versió_final}
+Fixa explícitament a quina @code{\version} convertir, en cas
+contrari el valor predeterminat és la versió més actual.  Ha de
+ser més alta que la versió de partida.
+
+@example
+convert-ly --to=2.14.1 elmeufitxer.ly
+@end example
+
+@end table
+
+Per actualitzar fragments del LilyPond en fitxer de texinfo, useu
+
+@example
+convert-ly --from=@dots{} --to=@dots{} --no-version *.itely
+@end example
+
+Per veure els canvis en la sintaxi del LilyPond entre dues
+versions donades, useu
+
+@example
+convert-ly --from=@dots{} --to=@dots{} -s
+@end example
+
+
+@node Problemes amb convert-ly
+@section Problemes amb @code{convert-ly}
+@translationof Problems running convert-ly
+
+En executar convert-ly a una finestra del Símbol de Sistema sota
+el Windows sobre un fitxer que té espais al nom o la ruta, és
+necessari tancar tot el nom del fitxer d'entrada amb tres (!)
+parelles de cometes:
+
+@example
+convert-ly """D:/Les meves partitures/Oda.ly""" > "D:/Les meves partitures/nova Oda.ly"
+@end example
+
+Si l'ordre simple @command{convert-ly -e *.ly} no funciona perquè
+la instrucció expandida es fa massa llarga, en comptes de fer això
+l'ordre @command{convert-ly} es pot posar dins d'un bucle.  Aquest
+exemple per a UNIX actualitza tots els documents @file{.ly} del
+directori actual
+
+@example
+for f in *.ly; do convert-ly -e $f; done;
+@end example
+
+A la finestra del terminal d'ordres del Windows, la instrucció
+corresponent és
+
+@example
+for %x in (*.ly) do convert-ly -e """%x"""
+@end example
+
+No es gestionen tots els canvis al llenguatge.  Sols es pot
+especificar una opció de sortida.   L'actualització automàtica del
+Scheme i les interfícies Scheme del LilyPond és força improbable;
+prepareu-vos per manipular el codi del Scheme a mà.
+
+@node Conversions manuals
+@section Conversions manuals
+@translationof Manual conversions
+
+En teoria, un programa com @command{convert-ly} hauria de poder
+tractar qualsevol canvi de sintaxi.  Després de tot, un programa
+d'ordinador interpreta les versions antiga i nova, per la qual
+cosa un altre programa d'ordinador podria traduir un fitxer a
+l'altre@footnote{Almenys això és possible en qualsevol fitxer del
+LilyPond que no contingui Scheme.  Si hi ha Scheme dins del
+fitxer, conté un llenguatge Turing-complet, i ens trobem amb el
+famós @qq{Problema de l'aturada}  informàtica.}.
+
+Tot i així, el projecte LilyPond compta amb uns recursos limitats:
+no totes les conversions s'efectuen automàticament.  A continuació
+hi ha una llista de problemes coneguts.
+
+@verbatim
+1.6->2.0:
+No sempre converteix el baix xifrat correctament, específicament
+coses com ara {<
+>}.  El comentari de Mats sobre com solucionar el
+problema:
+   Per poder executar convert-ly
+   sobre ell, primer vaig sustituir totes les aparicions de '{<' a quelcom mut com ara '{#'
+   i de forma semblant vaig sustituir '>}' amb '&}'.  Després de la conversió, vaig poder
+   tornar a canviar-los de '{ #' a '{ <' i de '& }' a '> }'.
+ No converteix tot l'etiquetatge de text correctament.  En sintaxi antiga,
+ es podien agrupar diverses etiquetes entre parèntesis, per exemple
+   -#'((bold italic) "cadena")
+   Això es converteix incorrectament a
+   -\markup{{\bold italic} "cadena"}
+   en comptes del correcte
+   -\markup{\bold \italic "cadena"}
+2.0->2.2:
+ No gestiona \partcombine
+ No va \addlyrics => \lyricsto, això trenca algunes partitures amb diverses estrofes
+2.0->2.4:
+ \magnify no es canvia per \fontsize.
+    - \magnify #m => \fontsize #f, on f = 6ln(m)/ln(2)
+ remove-tag no es canvia.
+    - \applyMusic #(remove-tag '. . .) => \keepWithTag #'. . .
+ first-page-number no es canvia.
+    - first-page-number no => print-first-page-number = ##f
+ Els salts de línia a les cadenes de capçalera no es converteixen.
+    - \\\\  com salt de línia a les cadenes de \header  => \markup \center-align <
+      "Primera línia" "Segona línia" >
+ Els terminadors de crescendo i descrecendo no es converteixen.
+    - \rced => \!
+    - \rc => \!
+2.2->2.4:
+ \turnOff (usat a \set Staff.VoltaBracket = \turnOff) no es converteix
+adequadament.
+2.4.2->2.5.9
+ \markup{ \center-align <{ ... }> } s'hauria de convertir a:
+ \markup{ \center-align {\line { ... }} }
+ però ara, falta el \line.
+2.4->2.6
+ Els caràcters especials del LaTeX com $~$ al text no es converteixen a UTF8.
+2.8
+ \score{} ara ha de començar amb una expressió musical.  Qualsevol alta cosa
+ (en particular, \header{}) ha d'anar després de la música.
+@end verbatim

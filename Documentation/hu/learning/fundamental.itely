@@ -8,6 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
+@c Translators: Griechisch Erika, Harmath Dénes
 
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c \version "2.19.2"
@@ -494,11 +495,9 @@ frazeálóív, amely túlnyúlik a triolán.
 @section A szólamok zenét tartalmaznak
 @translationof Voices contain music
 
-
-Singers need voices to sing, and so does LilyPond.
-The actual music for all instruments in a score
-is contained in Voices -- the most fundamental
-of all LilyPond's concepts.
+Ahogy az énekeseknek dallamok kellenek ahhoz, hogy énekelhessenek, a LilyPondnak is szüksége van hangokra.
+A valódi zene minden hangszer számára magában a kottában szereplő szólamokat jelenti -- 
+ezek nem csak a zenének, hanem magának a LilyPondnak is alapkövei.
 
 @menu
 * Hangzatos szólamok::
@@ -524,58 +523,50 @@ of all LilyPond's concepts.
 @cindex voices vs. chords
 @cindex chords vs. voices
 
-The lowest, most fundamental or innermost layers in a LilyPond
-score are called @q{Voice contexts} or just @q{Voices} for short.
-Voices are sometimes called @q{layers} in other notation
-packages.
+A LilyPond kotta legalsó rétege a  @q{Szólam környezet} vagy röviden @q{Szólamok}. 
+A szólamokat egyes csomagokban csak rétegeknek nevezzük.
 
-In fact, a Voice layer or context is the only one which can contain
-music.  If a Voice context is not explicitly declared one is created
-automatically, as we saw at the beginning of this chapter.  Some
-instruments such as an Oboe can play only one note at a time.  Music
-written for such instruments is monophonic and requires just a single
-voice.  Instruments which can play more than one note at a time like
-the piano will often require multiple voices to encode the different
-concurrent notes and rhythms they are capable of playing.
+Valójában a szólam környezet az egyetlen, ami zenét tartalmazhat. 
+Ha szólam környezetet nem hozunk létre, akkor automatikusan készül 
+egy, ahogy láthattuk ennek a fejezetnek az elején. Egyes hangszerek 
+-- mint az oboa is -- egy időben csak egy hangot képesek kiadni. 
+Az ilyen hangszerekre írt zenék monofonikusak és csak egyetlen hangot 
+tartalmaznak (egy időben). Azon hangszerek esetén, melyek képesek egy 
+időben több hangot is kiadni -- mint a zongora -- sokszor többszörös 
+szólamokra van szükségünk, akár különböző ütemben. 
 
-A single voice can contain many notes in a chord, of course,
-so when exactly are multiple voices needed?  Look first at
-this example of four chords:
+	
+Egy egyszerű szólam  több hangjegyet is tartalmazhat egy akkordban, 
+tehát felmerül a kérdés, hogy mikor is van szükségünk többszörös szólamra. 
+Nézzük az első példát, 4 akkorddal:
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=1]
 \key g \major
 <d g>4 <d fis> <d a'> <d g>
 @end lilypond
 
-This can be expressed using just the single angle bracket chord
-symbols, @code{< ... >}, and for this just a single voice is
-needed.  But suppose the F-sharp were actually an eighth-note
-followed by an eighth-note G, a passing note on the way to the A?
-Now we have two notes which start at the same time but have
-different durations: the quarter-note D and the eighth-note
-F-sharp.  How are these to be coded?  They cannot be written as
-a chord because all the notes in a chord must have the same
-duration.  And they cannot be written as two sequential notes
-as they need to start at the same time.  This is when two
-voices are required.
+A fenti példa leírható egyszerű, kúpos („kacsacsőr”) zárójelekkel, @code{< ... >}, 
+így csak egy egyszeres szólamra volt szükségünk. De tegyük fel, hogy, hogy a FISZ 
+egy nyolcad, melyet egy másik G nyolcad követ. Ebben esetben két hangunk van, 
+mely ugyanakkor kezdődik, de különböző hanghosszúságú: a negyed D és a nyolcad FISZ. 
+Hogy írjuk ezt le? Nem írhatjuk akkordként, hiszen egy akkordban minden hang azonos 
+hosszúságú és nem írhatjuk egymást követő hangokként sem, hiszen egy időben kell kezdődniük a hangoknak. Ilyenkor van szükségünk két szólamra.
 
-Let us see how this is done in LilyPond input syntax.
+
+
+Nézzük, hogy néz ez ki a LilyPond szintaxisában.
 
 @funindex << \\ >>
 @funindex \\
 
-The easiest way to enter fragments with more than one voice on a
-staff is to enter each voice as a sequence (with @code{@{...@}}),
-and combine them simultaneously with angle brackets, @code{<<...>>}.
-The fragments must also be separated with double backward slashes,
-@code{\\}, to place them in separate voices.  Without these, the
-notes would be entered into a single voice, which would usually
-cause errors.  This technique is particularly suited to pieces of
-music which are largely monophonic with occasional short sections
-of polyphony.
+A legegyszerűbb módja olyan részek rögzítésének, amelyek több mint egy hangot 
+tartalmaznak egy szólamban, hogy szekvenciát @code{@{...@}} használunk és ezt kombináljuk a szögletes zárójelekkel @code{<<...>>}.
+Az ilyen a részeket @code{\\} segítségével kell elválasztani ahhoz, hogy különböző szólamként jelenjenek meg. 
+Az elválasztó jelek nélkül a hangok egyetlen szólamként szerepelnének, ami általában hibát okoz. 
+Ez a technika használható olyan daraboknál melyek leginkább monofonikusak és néhány részük polifón.
 
-Here's how we split the chords above into two voices and add both
-the passing note and a slur:
+
+Itt egy példa, ami a fenti akkord egyik hangját két szólamra osztja és kötést is tartalmaz:
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \key g \major
@@ -583,9 +574,10 @@ the passing note and a slur:
 << { g4 fis8( g) a4 g }  \\  { d4 d d d }  >>
 @end lilypond
 
-Notice how the stems of the second voice now point down.
+Vegyük észre, hogy a második hang szárai lefele mutatnak.
 
-Here's another simple example:
+
+Íme egy másik egyszerű példa:
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \key d \minor
@@ -595,11 +587,10 @@ Here's another simple example:
 << { a2. r4 }         \\ { fis2. s4 }       >>
 @end lilypond
 
-It is not necessary to use a separate @code{<< \\ >>} construct
-for each bar. For music with few notes in each bar this layout
-can help the legibility of the code, but if there are many
-notes in each bar it may be better to split out each voice
-separately, like this:
+Nem szükséges, hogy minden ütemet elválasszunk a  @code{<< \\ >>} segítségével.  
+Olyan zenék esetén, ahol csak néhány hang van minden ütemben, ez a felépítés 
+segíti a kód olvashatóságát, de ha már sok hang van, akkor jobb, ha a hangokat külön-külön jegyezzük le, például így:
+
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \key d \minor
@@ -622,13 +613,13 @@ separately, like this:
 @cindex slurs crossing brackets
 @cindex ties crossing brackest
 
-This example has just two voices, but the same construct may be
-used to encode three or more voices by adding more back-slash
-separators.
 
-The Voice contexts bear the names @code{"1"}, @code{"2"}, etc.
-In each of these contexts, the vertical direction of slurs,
-stems, ties, dynamics etc., is set appropriately.
+A fenti példában csak két szólam van, de ha három vagy több szólamot kell 
+lejegyezni, azt is hasonlóan lehet megoldani visszaperjelek (back-slash) használatával.
+
+A szólam környezetek nevei @code{"1"}, @code{"2"}, stb. 
+Minden ilyen környezetben a függőleges elrendezés (kötések, szárak, dinamika, stb) megfelelően jelenik meg.
+
 
 @lilypond[quote,verbatim,fragment]
 \new Staff \relative c' {
@@ -636,23 +627,26 @@ stems, ties, dynamics etc., is set appropriately.
   c16 d e f
   %    Voice "1"     Voice "2"                 Voice "3"
   << { g4 f e } \\ { r8 e4 d c8~ } >>
-  << { d2 e2 }  \\ { c8 b16 a b8 g~ 2 } \\ { s4 b4 c2 } >>
+  << { d2 e2 }  \\ { c8 b16 a b8 g~ g2 } \\ { s4 b4 c2 } >>
 }
 @end lilypond
 
-These voices are all separate from the main voice that contains
-the notes just outside the @code{<< .. >>} construct.  Let's call
-this the @emph{simultaneous construct}.  Slurs and ties may only
-connect notes within the same voice, so slurs and ties cannot go
-into or out of a simultaneous construct.  Conversely,
-parallel voices from separate simultaneous constructs on the same
-staff are the same voice.  Other voice-related properties also
-carry across simultaneous constructs.  Here is the same example,
-with different colors and note heads for each voice.  Note that
-changes in one voice do not affect other voices, but they do
-persist in the same voice later.  Note also that tied notes may be
-split across the same voices in two constructs, shown here in the
-blue triangle voice.
+
+A fő szólamtól különválasztva jelennek meg a @code{<< .. >>} között  
+szereplő szólamok (hangok). Ezt hívjuk @emph{szimultán felépítésnek}. 
+Az átkötések és kötőívek csak az azonos szólamon belül kötik 
+össze a hangokat, tehát ezek nem kerülhetnek belülre vagy kívülre a 
+szimultán felépítéshez képest.
+Fordítva, szimultán felépítés esetén azok a párhuzamos szólamok, 
+amelyek ugyanabban az ötvonalban vannak, egy szólamnak minősülnek. 
+Egyéb szólamhoz kapcsolódó tulajdonságok átöröklődnek a szimultán 
+felépítésbe is. Itt egy másik példa, melynél a különböző szólamokban 
+különböző színű hangok szerepelnek. Vegyük észre, hogy 
+adott szólambeli változások nincsenek hatással más szólamokra, 
+de a változtatások ugyanabban a szólamban később is érvényesek. 
+Vegyük észre azt is, hogy az összekötött hangokat szétválaszthatja 
+az ütemhatár, ahogy a kék háromszöget jelző szólamban láthatjuk: 
+
 
 @lilypond[quote,verbatim]
 \new Staff \relative c' {
@@ -674,7 +668,7 @@ blue triangle voice.
     { d2 e2 }
   \\
      % Voice 2 continues
-    { c8 b16 a b8 g ~ 2 }
+    { c8 b16 a b8 g ~ g2 }
   \\
     {
       \voiceThreeStyle
@@ -690,26 +684,26 @@ blue triangle voice.
 @funindex \voiceFourStyle
 @funindex \voiceNeutralStyle
 
-The commands @code{\voiceXXXStyle} are mainly intended for use in
-educational documents such as this one.  They modify the color
-of the note head, the stem and the beams, and the style of the
-note head, so that the voices may be easily distinguished.
-Voice one is set to red diamonds, voice two to blue triangles,
-voice three to green crossed circles, and voice four (not used
-here) to magenta crosses;  @code{\voiceNeutralStyle} (also not
-used here) reverts the style back to the default.
-We shall see later how commands like these may be created by the
-user.
-See @ref{Visibility and color of objects} and
-@ref{Using variables for tweaks}.
+
+A @code{\voiceXXXStyle} parancsot elsősorban oktatási célra érdemes 
+használni, olyan esetben, mint amilyet ez is.  Ezek a parancsok 
+módosítják a hangok színét illetve a kottafejet, a  szárat, a 
+gerendákat és a hangfejek stílusát, így lesznek a szólamok könnyen felismerhetőek. 
+
+Az első szólam piros rombusz, a második kék háromszög, a 
+harmadik zöld áthúzott kör, a negyedik (itt nem használt) magenta kereszt. 
+A @code{\voiceNeutralStyle} (szintén nem használt a fenti példában) visszaállítja 
+a stílust az alapértelmezettre. Később az  @ref{Objektumok láthatósága és színe} 
+és @ref{Változók felhasználása a finomhangoláshoz} fejezetekben majd látni fogjuk, 
+hogyan lehet hasonló parancsokat létrehozni.
+
 
 @cindex polyphony and relative note entry
 @cindex relative note entry and polyphony
 
-Polyphony does not change the relationship of notes within a
-@code{\relative @{ @}} block.  Each note is still calculated
-relative to the note immediately preceding it, or to the first
-note of the preceding chord.  So in
+
+A polifónia nem változtatja meg a hangjegyek viszonyát a @code{\relative @{ @}} blokkon belül. 
+Minden hangjegy helyzetét az azt megelőző hang illetve első hang helyzete határozza meg.
 
 @example
 \relative c' @{ noteA << < noteB noteC > \\ noteD >> noteE @}
@@ -722,9 +716,11 @@ note of the preceding chord.  So in
 @code{noteC};                                                 @*
 @code{noteE} is relative to @code{noteD}, not @code{noteA}.
 
-An alternative way, which may be clearer if the notes in the
-voices are widely separated, is to place a @code{\relative}
-command at the start of each voice:
+
+Van egy másik módszer, ami egyszerűbb, ha a hangjegyek a 
+szólamokon belül teljesen szét vannak választva. 
+Ezt úgy érthetjük el, hogy  a @code{\relative} parancsot használjuk minden szólam kezdetén:
+
 
 @example
 \relative c' @{ noteA ... @}
@@ -736,14 +732,14 @@ command at the start of each voice:
 \relative c' @{ noteE ... @}
 @end example
 
-Let us finally analyze the voices in a more complex piece of music.
-Here are the notes from the first two bars of the second of Chopin's
-Deux Nocturnes, Op 32.  This example will be used at later stages in
-this and the next chapter to illustrate several techniques for
-producing notation, so please ignore for now anything in the
-underlying code which looks mysterious and concentrate just on the
-music and the voices -- the complications will all be explained in
-later sections.
+Végül vizsgáljuk meg a szólamokat összetettebb zene esetén. 
+Nézzük Chopin Deux Nocturne, Op 32. művének első két ütemét. 
+A továbbiakban is ezt a példát fogjuk használni arra, hogy a 
+jelölésekre használható különböző technikákat szemléltessük, 
+ezért tekintsünk el attól, hogy az alábbi kód elsőre rejtélyesnek 
+tűnhet és koncentráljunk csak a zenére és a szólamokra -- a nehezebb részeket majd a későbbi fejezetekben áttekintjük. 
+
+
 
 @c The following should appear as music without code
 @lilypond[quote,ragged-right]
@@ -757,9 +753,9 @@ later sections.
   \\  % Voice four
     {
       % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn.force-hshift = #0
+      \once \override NoteColumn #'force-hshift = #0
       <ees c>2
-      \once \override NoteColumn.force-hshift = #0.5
+      \once \override NoteColumn #'force-hshift = #0.5
       des2
     }
   >> |
@@ -767,26 +763,13 @@ later sections.
 }
 @end lilypond
 
-The direction of the stems is often used to indicate the continuity of
-two simultaneous melodic lines.  Here the stems of the highest notes
-are all pointing up and the stems of the lower notes are all pointing
-down.  This is the first indication that more than one voice is
-required.
+A szárak iránya gyakran jelzi két egyidejű dallamsor folytonosságát. 
+A fenti példánál a legfelső hangjegy szárai felfelé mutatnak, az alsóké mind lefelé. 
+Ez az első jelölés, amire szükségünk van több szólam lejegyzése során. 
 
-But the real need for multiple voices arises when notes
-which start at the same time have different durations.
-Look at the notes which start at beat three in the first
-bar.  The A-flat is a dotted quarter note, the F is a
-quarter note and the D-flat is a half note.  These
-cannot be written as a chord as all the notes in a chord
-must have the same duration.  Neither can they be written
-as sequential notes, as they must start at the same time.
-This section of the bar requires three voices, and the
-normal practice would be to write the whole bar as three
-voices, as shown below, where we have used different note heads
-and colors for the three voices.  Again, the code behind this
-example will be explained later, so ignore anything you do
-not understand.
+
+Leginkább viszont akkor van szükségünk többszörös szólamokra, amikor a hangok ugyanakkor kezdődnek ugyan, de különböző hosszúságúak. Nézzük azt a hangot, ami első ütem harmadik ütésekor kezdődik. Az ASZ egy pontozott negyed, az alatta levő F egy pontozatlan negyed,  a DESZ pedig egy fél hang.  Ezek nem írhatók le akkordként, hiszen akkord esetén minden hang azonos hosszúságú. Nem írhatóak le egymást követő hangokként sem, hiszen egy időben kell kezdődniük. Az ütemnek ebben a részében három szólamra van szükségünk, és normál esetben az egész ütem három szólamú, ahogy az alábbi példa mutatja, ahol különböző hangjegyfejeket használunk különböző színekkel a három szólamhoz. Szeretnénk ismét kihangsúlyozni, hogy az alábbi példa mögötti kódot később elmagyarázzuk, most csak hagyjuk figyelmen kívül azokat a részeket, amik nem érthetőek. 
+
 
 @c The following should appear as music without code
 @c The three voice styles should be defined in -init
@@ -806,9 +789,9 @@ not understand.
   \\  % Voice four
     { \voiceThreeStyle
       % Ignore these for now - they are explained in Ch 4
-      \once \override NoteColumn.force-hshift = #0
+      \once \override NoteColumn #'force-hshift = #0
       <ees c>2
-      \once \override NoteColumn.force-hshift = #0.5
+      \once \override NoteColumn #'force-hshift = #0.5
       des2
     }
   >>
@@ -816,11 +799,10 @@ not understand.
 }
 @end lilypond
 
-
-Let us try to encode this music from scratch.  As we
-shall see, this encounters some difficulties.  We begin as
-we have learnt, using the @code{<< \\  >>} construct to
-enter the music of the first bar in three voices:
+Kezdjük a legelején a fenti zene kódolását.  
+Látni fogjuk, hogy beleütközünk majd több problémába is (de ez ne keserítsen el minket, a lényeg, hogy ezekből tanulunk :) ). 
+Kezdjük azzal, amit tanultunk: a @code{<< \\  >>}  használatával. 
+Gépeljük be a három szólam első ütemét:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 \new Staff \relative c'' {
@@ -837,13 +819,9 @@ enter the music of the first bar in three voices:
 @cindex stem directions and voices
 @cindex stem up
 
-The stem directions are automatically assigned with the
-odd-numbered voices taking upward stems and the even-numbered
-voices downward ones.  The stems for voices 1 and 2 are right,
-but the stems in voice 3 should go down in this particular piece
-of music.  We can correct this by skipping voice three
-and placing the music in voice four. This is done by simply
-adding another pair of @code{\\}.
+
+A szárak iránya automatikusan hozzárendelődik a szólamokhoz, a páratlan-sorszámú szólamoknál felfelé, a párosoknál lefelé. Az első és második szólamhoz tartozó hangok szárai megfelelőek, de a harmadik szólamban a száraknak lefelé kellene állniuk. Ezt úgy javíthatjuk, hogy a harmadik szólamot átugorjuk (üresen hagyjuk) és a negyedik szólamba helyezzük az eredetileg harmadik szólamot. Ezt egyszerűen megtehetjük a @code{\\} segítségével:
+
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 \new Staff \relative c'' {
@@ -861,19 +839,10 @@ adding another pair of @code{\\}.
 @end lilypond
 
 @noindent
-We see that this fixes the stem direction, but exposes a problem
-sometimes encountered with multiple voices -- the stems of the notes
-in one voice can collide with the note heads in other voices.  In
-laying out the notes, LilyPond allows the notes or chords from two
-voices to occupy the same vertical note column provided the stems are
-in opposite directions, but the notes from the third and fourth voices
-are displaced, if necessary, to avoid the note heads colliding.  This
-usually works well, but in this example the notes of the lowest voice
-are clearly not well placed by default. LilyPond provides several ways
-to adjust the horizontal placing of notes.  We are not quite ready yet
-to see how to correct this, so we shall leave this problem until a
-later section --- see the @code{force-hshift} property in @ref{Fixing
-overlapping notation}.
+Látjuk, hogy ez megoldotta a problémát a szárak irányával kapcsolatban, 
+de előhozott egy másikat, ami többszörös szólamoknál néha előfordul -- 
+a hangok szárai a szólamon belül ütköznek más kottafejekkel más szólamokban. 
+A hangok megtervezéséhez a LilyPond lehetővé teszi, hogy hangok illetve akkordok esetén, két hang ugyanazt a függőleges pozíciót foglalja el akár ellentétes szárirány esetén, viszont figyelembe veszi azt, hogy bizonyos esetekben a harmadik és a negyedik szólam elmozdulhat, ezzel elkerülve azt, hogy a kottafejek egymást fedjék. Ez általában működik, de a fenti példában egyértelmű, hogy az alacsonyabb szólamok alapértelmezetten nem jól helyezkednek el. Jelenleg még nem vagyunk készen rá, hogy ezt kijavítsuk, úgyhogy most ezt érintetlenül hagyjuk és visszatérünk rá egy későbbi fejezetben -- lásd  @code{force-hshift} tulajdonság az @ref{Egymást átfedő jelek javítása} fejezetben.
 
 
 @seealso
@@ -898,15 +867,11 @@ Notation Reference: @ruser{Multiple voices}.
 @funindex \new Voice
 @cindex voice contexts, creating
 
-Voice contexts can also be created manually
-inside a @code{<< >>} block to create polyphonic music, using
-@code{\voiceOne} ... @code{\voiceFour} to indicate the required
-directions of stems, slurs, etc.  In longer scores this method
-is clearer, as it permits the voices to be separated and to be
-given more descriptive names.
+A @code{<< >>} blokkon belül is létrehozhatunk polifón zenét és ha szükséges, 
+a  @code{\voiceOne} ... @code{\voiceFour} parancsokkal jelezhetjük a szárak, ívek, stb irányát. 
+Hosszabb kották esetén ez a módszer átláthatóbb, mert így külön-külön írhatjuk a szólamokat és beszédesebb neveket is adhatunk nekik. 
 
-Specifically, the construct @code{<< \\ >>} which we used in
-the previous section:
+Konkrétan a @code{<< \\ >>}szerkezet, amit az előző fejezetben használtunk:
 
 @example
 \new Staff @{
@@ -917,7 +882,7 @@ the previous section:
 @end example
 
 @noindent
-is equivalent to
+egyenértékű az alábbival:
 
 @example
 \new Staff <<
@@ -926,7 +891,7 @@ is equivalent to
 >>
 @end example
 
-Both of the above would produce
+Mindkét fenti esetben az alábbi kottát kapjuk
 
 @c The following example should not display the code
 @lilypond[ragged-right,quote]
@@ -939,54 +904,51 @@ Both of the above would produce
 @cindex voices, reverting to single
 @cindex reverting to a single voice
 
-The @code{\voiceXXX} commands set the direction of stems, slurs,
-ties, articulations, text annotations, augmentation dots of dotted
-notes, and fingerings.  @code{\voiceOne} and @code{\voiceThree}
-make these objects point upwards, while @code{\voiceTwo} and
-@code{\voiceFour} make them point downwards.  These commands also
-generate a horizontal shift for each voice when this is required
-to avoid clashes of note heads.  The command @code{\oneVoice}
-reverts the settings back to the normal values for a single voice.
 
-Let us see in some simple examples exactly what effect
-@code{\oneVoice}, @code{\voiceOne} and @code{voiceTwo} have on
-markup, ties, slurs, and dynamics:
+A  @code{\voiceXXX} parancs meghatározza a szárak irányát, az 
+átkötéseket, a kötőíveket, az artikulációt, a szöveges magyarázatokat, 
+a pontozott hangokat és az ujjrendet.  A @code{\voiceOne} és a @code{\voiceThree} 
+hatására a mutató elemek felfele mutatnak, míg a @code{\voiceTwo} és a 
+@code{\voiceFour} esetén lefelé. Ezen parancsok ha szükséges vízszintes 
+eltolást is létrehoznak minden szólam esetén, hogy elkerüljék a kottafejek 
+ütközését. A @code{\oneVoice} parancs visszaállítja a beállításokat a normál egyszeres szólamra.
+
+
+Nézzünk egy egyszerű példát arra, hogy a @code{\oneVoice}, @code{\voiceOne} és @code{\voiceTwo} 
+parancsok milyen hatással vannak a jelzésekre, ívekre illetve dinamikára:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'{
   % Default behavior or behavior after \oneVoice
-  c d8~ 8 e4( f g a) b-> c
+  c d8~ d e4( f g a) b-> c
 }
 @end lilypond
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'{
   \voiceOne
-  c d8~ 8 e4( f g a) b-> c
+  c d8~ d e4( f g a) b-> c
   \oneVoice
-  c, d8~ 8 e4( f g a) b-> c
+  c, d8~ d e4( f g a) b-> c
 }
 @end lilypond
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'{
   \voiceTwo
-  c d8~ 8 e4( f g a) b-> c
+  c d8~ d e4( f g a) b-> c
   \oneVoice
-  c, d8~ 8 e4( f g a) b-> c
+  c, d8~ d e4( f g a) b-> c
 }
 @end lilypond
 
-Now let's look at three different ways to notate the same passage
-of polyphonic music, each of which is advantageous in different
-circumstances, using the example from the previous section.
+Nézzük végig a három különböző lejegyzési módját ugyanannak a polifón dallamnak, 
+és vizsgáljuk meg melyik milyen esetben előnyös, használva az előző fejezetbeli példát.
 
-An expression that appears directly inside a @code{<< >>} belongs
-to the main voice (but, note, @strong{not} in a @code{<< \\ >>}
-construct).  This is useful when extra voices appear while the
-main voice is playing.  Here is a more correct rendition of our
-example.  The red diamond-shaped notes
-demonstrate that the main melody is now in a single voice context,
+
+A @code{<< >>} közt található kifejezés a főszólamhoz tartozik (jegyezzük meg, hogy a @code{<< >>}  használata során ez @strong{nem} igaz). 
+Ez akkor hasznos, amikor további szólamok jelennek meg a főszólam mellett. Egy helyesebb megvalósítása a példánknak alább látható. 
+The red diamond-shaped notes demonstrate that the main melody is now in a single voice context,
 permitting a phrasing slur to be drawn over them.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -1002,7 +964,7 @@ permitting a phrasing slur to be drawn over them.
     \new Voice {
       % Set stems, etc., down
       \voiceTwo
-      r8 e4 d c8~ | 8 b16 a b8 g~ 2 |
+      r8 e4 d c8~ | c8 b16 a b8 g~ g2 |
     }
     % Initiate third voice
     \new Voice {
@@ -1020,9 +982,7 @@ permitting a phrasing slur to be drawn over them.
 @cindex voices, temporary
 @cindex voices, nesting
 
-More deeply nested polyphony constructs are possible, and if a
-voice appears only briefly this might be a more natural way to
-typeset the music:
+Létrehozhatunk többszörösen beágyazott polifón szerkezetet is, és ha a szólamok rövidek, az alábbi módon természetesebbnek tűnik a leírásuk:
 
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' {
@@ -1033,7 +993,7 @@ typeset the music:
       \voiceTwo
       r8 e4 d c8~
       <<
-        { c8 b16 a b8 g~ 2 }
+        { c8 b16 a b8 g~ g2 }
         \new Voice {
           \voiceThree
           s4 b4 c2
@@ -1046,12 +1006,7 @@ typeset the music:
 
 @cindex spacing notes
 
-This method of nesting new voices briefly is useful
-when only small sections of the music
-are polyphonic, but when the whole staff is largely polyphonic
-it can be clearer to use multiple voices throughout, using
-spacing notes to step over sections where the voice is silent,
-as here:
+A szólamokat akkor érdemes így írni, ha a zene csak egy kis része polifón. Viszont amikor az egész ötvonalas kotta nagyrésze polifón, egyszerűbb, ha többszörös szólamokat  használunk mindenütt, --  ritkított hangokkal, hogy átlépjük azokat a részeket, ahol a szólamok  üresek. Az alábbi példa ezt mutatja:
 
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' <<
@@ -1064,7 +1019,7 @@ as here:
   \new Voice {
     % Set stems, etc, down
     \voiceTwo
-    s4 r8 e4 d c8~ | 8 b16 a b8 g~ 2 |
+    s4 r8 e4 d c8~ | c8 b16 a b8 g~ g2 |
   }
   % Initiate third voice
   \new Voice {
@@ -1075,7 +1030,7 @@ as here:
 >>
 @end lilypond
 
-@subsubheading Note columns
+@subsubheading Hangoszlopok
 
 @cindex note column
 @cindex note collisions
@@ -1090,36 +1045,27 @@ as here:
 @funindex \shiftOnnn
 @funindex shiftOnnn
 
-Closely spaced notes in a chord, or notes occurring at the same
-time in different voices, are arranged in two, occasionally more,
-columns to prevent the note heads overlapping.  These are called
-note columns.  There are separate columns for each voice, and
-the currently specified voice-dependent shift is applied to the
-note column if there would otherwise be a collision.  This can
-be seen in the example above.  In bar 2 the C in voice two is
-shifted to the right relative to the D in voice one, and in the
-final chord the C in voice three is also shifted to the right
-relative to the other notes.
 
-The @code{\shiftOn}, @code{\shiftOnn}, @code{\shiftOnnn}, and
-@code{\shiftOff} commands specify the degree to which notes and
-chords of the voice should be shifted if a collision
-would otherwise occur. By default, the outer voices (normally
-voices one and two) have @code{\shiftOff} specified, while the
-inner voices (three and four) have @code{\shiftOn} specified.
-When a shift is applied, voices one and three are shifted to
-the right and voices two and four to the left.
+Egymáshoz közel elhelyezkedő, különböző szólamban levő hangok esetén 
+kettő, esetenként több oszlopba rendezzük a hangokat, hogy a kottafejek 
+fedését elkerüljük. Ezeket hangoszlopoknak hívjuk. Különálló oszlopokat 
+hozunk létre minden szólamhoz és az éppen aktuális szólam-független eltolást 
+minden oszlopra alkalmazzuk, ezzel elkerülve az ütközéseket. A fenti példában 
+is ezt láthatjuk. A 2. ütemben a C a kettes szólamban eltolódik a D-tól jobbra 
+(ami az első szólamban van) és a végső C akkord a hármas szólamban szintén eltolódik jobbra a többi hangtól. 
 
-@code{\shiftOnn} and @code{\shiftOnnn} define further shift
-levels which may be specified temporarily to resolve collisions
-in complex situations -- see @ref{Real music example}.
+A @code{\shiftOn}, @code{\shiftOnn}, @code{\shiftOnnn}, és
+@code{\shiftOff} parancsok meghatározzák, hogy melyik hangot vagy akkordot milyen mértékben kell megemelnünk ahhoz, hogy az ütközést elkerüljük. Alapértelmezett esetben, a külső szólamokban (az egyes és a kettes szólamban) a  @code{\shiftOff} érvényes, amíg a köztes szólamokban (hármas és négyes) a  @code{\shiftOn}. Eltolás esetén az egyes és a hármas szólam jobbra a kettes és a négyes balra tolódik
 
-A note column can contain just one note (or chord) from a voice
-with stems up and one note (or chord) from a voice with stems
-down.  If notes from two voices which have their stems in the
-same direction are placed at the same position and both voices
-have no shift or the same shift specified, the error message
-@qq{Too many clashing note columns} will be produced.
+
+A @code{\shiftOnn} és @code{\shiftOnnn} további eltolási szinteket 
+határoznak meg, melyek összetett esetekben ideiglenesen szükségesek 
+lehetnek ahhoz, hogy elkerüljük az ütközéseket – lásd @ref{Valós zenei példa}. 
+
+Egy hangoszlop egyszerre csak egy hangot (vagy akkordot) tartalmazhat egy szólamból 
+szárral felfelé és egy másikat szárral lefelé. Ha két különböző szólambeli hang 
+azonos irányú szárral kerül ugyanabba a pozícióba és egyik szólamban sincs eltolás 
+vagy ugyanazt az eltolást adjuk meg, akkor a @qq{Too many clashing note columns} hibaüzenetet kapjuk.
 
 
 @seealso

@@ -1,0 +1,84 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+@ignore
+    Translation of GIT committish: 08560a1b8076630c4fc6cb9b902614d8b74fd6fc
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@setfilename lilypond-learning.info
+@settitle Manual d'aprenentatge del GNU LilyPond
+@documentencoding UTF-8
+@documentlanguage ca
+@afourpaper
+
+@macro manualIntro
+Aquest fitxer ofereix una introducció al programa LilyPond versió
+@version{}.
+@end macro
+
+@c `Learning Manual' was born 1999-10-10 with git commit b9abaac...
+@macro copyrightDeclare
+Copyright @copyright{} 1999--2015 pels autors.
+@end macro
+
+@set FDL
+@include macros.itexi
+
+
+@c don't remove this comment.
+@ignore
+@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
+@omfdescription Learning Manual of the LilyPond music engraving system
+@omftype program usage
+@omfcategory Applications|Publishing
+@omflanguage Spanish
+@end ignore
+
+@c Translators: Walter Garcia-Fontes
+
+@lilyTitlePage{Manual d'aprenentatge}
+
+@c TOC -- non-tex
+@ifnottex
+
+@menu
+* Tutorial::                       Fonaments de la tipografia musical amb el LilyPond.
+* Notació corrent::                Escripture de la notació molt comú.
+* Conceptes fonamentals::          Conceptes bàsics per llegir la resta dels manuals.
+* Tweaking output::                Introducció a la modificació de la sortida.
+
+Annexos
+
+* Templates::                     Plantilles a punt per usar.
+* GNU Free Documentation License:: Llicència d'aquest document.
+* Índex del LilyPond::
+@end menu
+
+@docMain
+@end ifnottex
+
+
+@c TOC - tex
+@contents
+
+@allowcodebreaks false
+
+@c INCLUDES
+
+@include learning/tutorial.itely
+@include learning/common-notation.itely
+@include learning/fundamental.itely
+@include learning/tweaks.itely
+
+@include learning/templates.itely
+@include fdl.itexi
+
+@node Índex del LilyPond
+@appendix Índex del LilyPond
+@translationof LilyPond index
+
+@printindex cp
+
+@bye

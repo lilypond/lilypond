@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 1998--2014  Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 1998--2015  Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -67,8 +67,6 @@ cautionary accidental.")
      (change-to-id ,string? "Name of the context to change to.")
      (change-to-type ,symbol? "Type of the context to change to.")
      (class ,symbol? "The class name of an event class.")
-     (compress-procedure ,procedure? "Compress this music expression.
-Arg@tie{}1: the music, arg@tie{}2: factor.")
      (context ,ly:context? "The context to which an event is sent.")
      (context-id ,string? "Name of context.")
      (context-type ,symbol?  "Type of context.")
@@ -92,7 +90,6 @@ simultaneous music, or the alternatives of repeated music.")
 a sequential iterator.  Takes a single music parameter.")
      (error-found ,boolean?
                   "If true, a parsing error was found in this expression.")
-     (events ,list? "A list of events contained in this event.")
 
      (figure ,integer? "A bass figure.")
      (footnote-text ,markup? "Text to appear in a footnote.")
@@ -158,7 +155,6 @@ Options are @code{solo1}, @code{solo2} and @code{unisono}.")
 of a key signature.")
      (pop-first ,boolean? "Do a revert before we try to do an override
 on some grob property.")
-     (prob-property ,symbol? "The symbol of the prob property to set.")
      (procedure ,procedure? "The function to run with @code{\\applycontext}.
 It must take a single argument, being the context.")
      (property-operations ,list? "Do these operations for instantiating

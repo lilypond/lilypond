@@ -1340,11 +1340,20 @@ LilyDev users should perform these @q{configuration} instructions.
 
 @enumerate
 @item
-You must have a google account; please create one if you do not
+You must own a Google account login; please create one if you do not
 have one already.
 
-Note that a google account does not need to be a gmail account; you can
-use any email address for your google account when you sign up.
+@noindent
+Note that a google account does not need to be a Gmail account; you can
+use @emph{any} email address for your google account when you sign up.
+
+@warning{In order for @code{git-cl} to work as expected, your Google
+Account Settings must have the @q{Access for less secure apps} set to
+@q{Allowed}.  This is normally the default setting.}
+
+@item
+Move into the top source directory and then configure @command{git
+cl} with the following commands:
 
 @item
 Move into the top source directory and then configure @command{git

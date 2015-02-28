@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: a59d022ee65e8310ea16954da7b637c07ca00ae2
+    Translation of GIT committish: 3c907f2dd5ba3dd91e30454922d8361225ca28d5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1171,9 +1171,10 @@ de graphisme.
 
 @seealso
 Manuel de notation :
-@ref{Graphic},
+@ref{Align},
 @ref{Annotations éditoriales},
-@ref{Align}.
+@ref{Dimensions},
+@ref{Graphic}.
 
 Fichiers d'initialisation :
 @file{scm/define-markup-commands.scm},

@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2000--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2000--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -54,6 +54,7 @@ Context_def::origin () const
 }
 
 Context_def::Context_def (Context_def const &s)
+  : Smob<Context_def> ()
 {
   context_aliases_ = SCM_EOL;
   translator_group_type_ = SCM_EOL;

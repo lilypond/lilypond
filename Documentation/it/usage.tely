@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 08560a1b8076630c4fc6cb9b902614d8b74fd6fc
+    Translation of GIT committish: f291e8c30bbde2cf1fe2fc1b359288c94b8e2503
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -24,7 +24,7 @@ LilyPond versione @version{}.  Inoltre, suggerisce alcune delle
 
 @c `Usage' was born 1999-10-10 with git commit c82c30c...
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2014 degli autori.
+Copyright @copyright{} 1999--2015 degli autori.
 @end macro
 
 @set FDL

@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -70,7 +70,8 @@ protected:
   Moment start_mom_;
 
   DECLARE_CLASSNAME (Music_iterator);
-  Music_iterator (Music_iterator const &);
+private:
+  Music_iterator (Music_iterator const &); // Do not define!  Not copyable!
 
 public:
   Moment music_get_length () const;

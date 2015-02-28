@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2000--2014  Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 2000--2015  Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                  Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -1157,6 +1157,31 @@ the use of @code{\\simple} is unnecessary.
 @end lilypond"
   (interpret-markup layout props str))
 
+(define-markup-command (first-visible layout props args)
+  (markup-list?)
+  #:category other
+  "Use the first markup in @var{args} that yields a non-empty stencil
+and ignore the rest.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\first-visible {
+    \\fromproperty #'header:composer
+    \\italic Unknown
+  }
+}
+@end lilypond"
+  (define (false-if-empty stencil)
+    (if (ly:stencil-empty? stencil) #f stencil))
+  (or
+   (any
+    (lambda (m)
+      (if (markup? m)
+          (false-if-empty (interpret-markup layout props m))
+          (any false-if-empty (interpret-markup-list layout props (list m)))))
+    args)
+   empty-stencil))
+
 (define-public empty-markup
   (make-simple-markup ""))
 
@@ -1374,8 +1399,8 @@ equivalent to @code{\"fi\"}.
   "Perform simple wordwrap, return stencil of each line."
   (define space (if justify
                     ;; justify only stretches lines.
-		    (* 0.7 base-space)
-		    base-space))
+                    (* 0.7 base-space)
+                    base-space))
   (define (stencil-len s)
     (interval-end (ly:stencil-extent s X)))
   (define (maybe-shift line)
@@ -2377,7 +2402,7 @@ may be any property supported by @rinternals{font-interface},
 (define-markup-command (abs-fontsize layout props size arg)
   (number? markup?)
   #:category font
-  "Use @var{size} as the absolute font size to display @var{arg}.
+  "Use @var{size} as the absolute font size (in points) to display @var{arg}.
 Adjusts @code{baseline-skip} and @code{word-space} accordingly.
 
 @lilypond[verbatim,quote]
@@ -4231,7 +4256,11 @@ a column containing several lines of text.
 Reference to a page number.  @var{label} is the label set on the referenced
 page (using the @code{\\label} command), @var{gauge} a markup used to estimate
 the maximum width of the page number, and @var{default} the value to display
-when @var{label} is not found."
+when @var{label} is not found.
+
+(If the current book or bookpart is set to use roman numerals for page numbers,
+the reference will be formatted accordingly -- in which case the @var{gauge}'s
+width may require additional tweaking.)"
   (let* ((gauge-stencil (interpret-markup layout props gauge))
          (x-ext (ly:stencil-extent gauge-stencil X))
          (y-ext (ly:stencil-extent gauge-stencil Y)))
@@ -4244,7 +4273,10 @@ when @var{label} is not found."
                        (page-number (if (list? table)
                                         (assoc-get label table)
                                         #f))
-                       (page-markup (if page-number (format #f "~a" page-number) default))
+                       (number-type (ly:output-def-lookup layout 'page-number-type))
+                       (page-markup (if page-number
+                                        (number-format number-type page-number)
+                                        default))
                        (page-stencil (interpret-markup layout props page-markup))
                        (gap (- (interval-length x-ext)
                                (interval-length (ly:stencil-extent page-stencil X)))))

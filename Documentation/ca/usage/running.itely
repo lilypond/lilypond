@@ -1,0 +1,1201 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+
+@ignore
+    Translation of GIT committish: 93d725094ee629b2d5200ab5a75b609579a62973
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.17.6"
+
+
+@node Execució del LilyPond
+@chapter Execució del LilyPond
+@translationof Running LilyPond
+
+Aquest capítol detalla els aspectes tècnics de l'execució del
+LilyPond.
+
+@menu
+* Utilització normal::
+* Utilització des de la línia d'ordres::
+* Missatges d'error::
+* Errors comuns::
+@end menu
+
+
+@node Utilització normal
+@section Utilització normal
+@translationof Normal usage
+
+Gairebé tots els usuaris executen el LilyPond per mitjà d'una
+interfície gràfica; consulteu @rlearning{Tutorial} si encara
+no l'heu llegit.
+
+@node Utilització des de la línia d'ordres
+@section Utilització des de la línia d'ordres
+@translationof Command-line usage
+
+Aquesta secció conté informació addicional sobre l'ús del
+LilyPond a la línia d'ordres.  Aquesta forma pot ser preferible
+per passar-li al programa algunes opcions addicionals.  A més a
+més, existeixen alguns programes complementaris @q{de suport} (com
+ara @code{midi2ly}) que sols estan disponibles a la línia d'ordres.
+
+En parlar de la @q{línia d'ordres}, ens referim a la consola del
+sistema operatiu.  Els usuaris del Windows possiblement estiguin
+més familiaritzats amb els termes @q{finestra del MS-DOS} o
+@q{línia de comandes}; Els usuaris del MacOS@tie{}X potser que
+estiguin més familiaritzats amb els termes @q{terminal} o
+@q{consola}.  Aquests podrien requerir algunes configuracions
+addicionals i haurien de consultar també l'apartat @rweb{MacOS X}.
+
+La descripció de l'ús d'aquesta part dels sistemes operatius
+excedeix l'àmbit d'aquest manual; us preguem que consulteu altres
+documents sobre aquest tema si no us resulta familiar la línia
+d'ordres.
+
+@menu
+* Invocació del LilyPond::
+* Opcions bàsiques de la línia d'ordres per al LilyPond::
+* Opcions avançades de la línia d'ordres per al LilyPond::
+* Variables d'entorn::
+* El LilyPond a una gàbia de chroot::
+@end menu
+
+@node Invocació del LilyPond
+@unnumberedsubsec Invocació del @command{lilypond}
+@translationof Invoking lilypond
+
+L'executable @command{lilypond} es pot cridar des d'una línia
+d'ordres de la manera següent:
+
+@example
+lilypond [@var{opció}]@dots{} @var{fitxer}@dots{}
+@end example
+
+Quan s'invoca amb un nom de fitxer sense extensió, es prova en
+primer lloc amb la extensió @file{.ly}.  Per llegir l'entrada des
+de stdin, utilitzeu un guió (@code{-}) en substitució de @var{fitxer}.
+
+Quan es processa @file{archivo.ly}, la sortida resultant són els
+fitxers @file{fitxer.ps} i @file{fitxer.pdf}.  Es poden
+especificar diversos fitxers; cadascú d'ells es processarà de
+forma independent@footnote{L'estat del GUILE no es restableix
+després de processar un fitxer @code{.ly}, per la qual cosa heu de
+tenir cura de no modificar cap valor predeterminat des de dins del
+Scheme.}.
+
+Si @file{fitxer.ly} conté més d'un bloc @code{\score}, la resta de
+les partitures s'obtindran com a sortida en fitxers numerats,
+començant per @file{fitxer-1.pdf}.  A més, el valor de
+@code{output-suffix} (sufix de sortida) s'inserirà entre el nom
+base i el número.  Un fitxer de sortida que contingui
+
+@example
+#(define output-suffix "violí")
+\score @{ @dots{} @}
+#(define output-suffix "violoncel")
+\score @{ @dots{} @}
+@end example
+
+@noindent
+produirà com a sortida @var{base}@file{-violí.pdf} i
+@var{base}@file{-violoncel-1.pdf}.
+
+
+@unnumberedsubsubsec Instruccions estàndard de la línia d'ordres
+
+Si la vostra terminal (o finestra d'ordres) contempla les
+redireccions normals, potser us siguin d'utilitat les següents
+instruccions per redirigir la sortida de la consola d'un fitxer:
+
+@itemize
+
+@item
+@code{lilypond fitxer.ly 1>sortidaestandard.log} per redirigir la sortida normal
+
+@item
+@code{lilypond fitxer.ly 2>sortidaderror.log} per redirigir els missatges d'error
+
+@item
+@code{lilypond fitxer.ly &>tot.log} per redirigir tota la sortida
+
+@end itemize
+
+Consulteu la documentació del vostre intèrpret d'ordres per veure
+si contempla aquestes opcions, o si la sintaxi és diferent.
+Observeu que són instruccions de l'intèrpret d'ordres i que no
+tenen res a veure amb el LilyPond.
+
+@node Opcions bàsiques de la línia d'ordres per al LilyPond
+@unnumberedsubsec Opcions bàsiques de la línia d'ordres per al LilyPond
+@translationof Basic command line options for LilyPond
+
+@cindex invocació de @command{lilypond}
+@cindex opcions de la línia d'ordres per a @command{lilypond}
+@cindex línia d'ordres, opcions de
+@cindex modificadors
+
+Estan contemplades les opcions següents:
+
+@table @code
+
+@item -d, --define-default=@var{variable}=@var{valor}
+Vegeu @ref{Opcions avançades de la línia d'ordres per al LilyPond}.
+
+@cindex Scheme, avaluació d'expressions
+@cindex expressions del Scheme, avaluació
+
+@item -e, --evaluate=@var{expressió}
+Avalua l'@var{expressió} del Scheme abans d'analitzar els fitxers
+@file{.ly}.  Es poden passar diverses opcions @option{-e}, que
+s'avaluaran en seqüència.
+
+L'expressió s'avaluarà al mòdul @code{guile-user}, de manera que
+si voleu usar definicions dins d'@var{expressió}, heu d'utilitzar
+
+@example
+lilypond -e '(define-public a 42)'
+@end example
+
+@noindent
+a la línia d'ordres, i incloure
+
+@example
+#(use-modules (guile-user))
+@end example
+
+@noindent
+al principi del fitxer @file{.ly}.
+
+@warning{Els usuaris de Windows han d'utilitzar cometes dobles en
+comptes de cometes simples.}
+
+@cindex sortida, format
+@cindex format, sortida
+
+@item -f, --format=@var{format}
+quins formats s'han d'escriure.  Les opcions per a @code{format} són
+@code{ps}, @code{pdf}, i @code{png}.
+
+Exemple: @code{lilypond -fpng @var{fitxer}.ly}
+
+@item -h, --help
+Mostra un resum de les formes de utilització.
+
+@item -H, --header=@var{CAMP}
+Bolca un camp de capçalera al fitxer @file{NOMBASE.@var{CAMP}}
+
+@item -i, --init=@var{archivo}
+Establir el fitxer d'inici a @var{fitxer} (predeterminat:
+@file{init.ly}).
+
+@cindex fitxers, cerca de
+@cindex cerca, ruta de
+
+@item -I, --include=@var{directori}
+Afegir el @var{directori} a la ruta de cerca de fitxers
+d'entrada.
+
+Es poden escriure diverses opcions -I.  La cerca s'inicia al
+primer directori definit, i si el fitxer que s'ha d'incloure no es
+troba, la cerca continua als directoris següents.
+
+@cindex chroot, executar dins d'una gàbia
+
+@item -j, --jail=@var{usuari},@var{grup},@var{gàbia},@var{directori}
+Executar @command{lilypond} a una gàbia de chroot.
+
+L'opció @option{--jail} (gàbia) proporciona una alternativa més
+flexible a l'opció @option{-dsafe} quan el procés de tipografia
+del LilyPond està disponible a un servidor web o quan el LilyPond
+executa instruccions enviades per fonts externes
+(vegeu @ref{Opcions avançades de la línia d'ordres per al LilyPond}).
+
+L'opció @option{--jail} funciona canviant l'arrel de
+@command{lilypond} a @var{gàbia} just o abans de començar el
+procés de compilació en sí.  Si es fa això es canvien l'usuari i
+el grup als que s'han donat a l'opció, i el directori actual es
+canvia a @var{directori}.  Aquesta instal.lació garanteix que no
+és possible, al menys en teoria, escapar a la gàbia.  Observeu que
+perquè funcioni @option{--jail}, s'ha d'executar
+@command{lilypond} com root, cosa que normalment es pot fer d'una
+forma segura utilitzant @command{sudo}.
+
+La instal.lació d'una gàbia pot ser un assumpte relativament
+complex, atès que hem d'assegurar-nos que el LilyPond pot trobar
+@emph{dins} de la pròpia gàbia tot el que necessita per poder
+compilar la font.  Una típica configuració de gàbia de chroot
+consta dels següents elements:
+
+@table @asis
+
+@item Preparació d'un sistema de fitxers separat
+S'ha de crear un sistema de fitxers separat per al LilyPond, de
+forma que es pugui muntar amb opcions segures com @code{noexec},
+@code{nodev} i @code{nosuid}.  D'aquesta forma, és impossible
+executar programes o escriure directament a un dispositiu des del
+LilyPond.  Si no voleu crear una partició separada, tan sols té
+que crear un fitxer d'una mida raonable i usar-lo per muntar un
+dispositiu loop.  El sistema de fitxers separat garanteix també
+que el LilyPond mai no pugui escriure en un espai major del què se
+li permeti.
+
+@item Preparar un usuari separat
+Es pot usar un usuari i grup separats (diguem-ne
+@code{lily}/@code{lily}) amb pocs privilegis per executar el
+LilyPond dins d'una gàbia.  Hauria d'existir un sols directori amb
+permisos d'escriptura per a aquest usuari, i s'ha de passar el valor
+@var{directori}.
+
+@item Preparació de la gàbia
+El LilyPond necessita llegir alguns fitxers mentre s'executa,
+Tots aquests fitxers s'han de copiar  dins de la gàbia, sota la
+mateixa ruta en la qual apareixen al sistema de fitxers real de
+root.  Tot el contingut de la instal.lació del LilyPond (per exemple
+@file{/usr/share/lilypond}) s'ha de copiar.
+
+Si sorgeixen problemes, la forma més senzilla de rastrejar-los és
+executar el LilyPond usant @command{strace}, cosa que li permetrà
+determinar quins fitxers falten.
+
+@item Execució del LilyPond
+Dins d'una gàbia muntada amb @code{noexec} és impossible executar
+cap programa extern.  Per tant, el LilyPond s'ha d'executar amb un
+backend que no necessiti un programa extern.  Com ja hem
+mencionat, s'ha d'executar amb privilegis del superusuari (que per
+suposat perdrà immediatament), possiblement usant @command{sudo}.
+També de CPU que el LilyPond pot usar (per exemple usant
+@command{ulimit@tie{}-t}), i, si el vostre sistema operatiu ho
+contempla, la mida de la memòria que es pot reservar.  Vegeu també
+@ref{El LilyPond a una gàbia de chroot}.
+
+@end table
+
+@cindex loglevel
+@cindex registre, nivell de
+@cindex sortida neta, fixar el nivell
+
+@item -l, --loglevel=@var{NIVELL}
+Fixa el grau en el qual la sortida de consola és neta al nivell
+@var{NIVELL}. Els valors possibles són:
+
+@table @code
+
+@item NONE
+Cap sortida en absolut, ni tan sols missatges d'error.
+
+@item ERROR
+Sols missatges d'error, cap advertiment o indicacions de progrés.
+
+@item WARN
+Advertiments i missatges d'error, no de progrés.
+
+@item BASIC_PROGRESS
+Missatges de progrés bàsics (èxit), advertiment i errors.
+
+@item PROGRESS
+Tots els missatges de progrés, advertiments i errors.
+
+@item INFO (predeterminat)
+Missatges de progrés, advertiments, errors i informació d'execució
+addicional.
+
+@item DEBUG
+Tots els missatges possibles, fins i tot la informació detallada de
+depuració.
+@end table
+
+@cindex carpeta, dirigir la sortida cap a
+@cindex sortida, establir el nom del fitxer de
+
+@item -o, --output=@var{FITXER} o @var{CARPETA}
+Estableix el nom del fitxer de sortida predeterminat a
+@var{FITXER} o, si hi ha una carpeta amb aquest nom, dirigeix la
+sortida cap a @var{CARPETA}, agafant el nom de fitxer del
+document d'entrada.  S'afegeix el sufix corresponent (per exemple,
+@code{.pdf} per a PDF) als dos casos.
+
+@cindex PS (Postscript), sortida
+@cindex Postscript (PS), sortida
+@cindex sortida, PS (Postscript)
+
+@item --ps
+Generar PostScript.
+
+@cindex PNG (Portable Network Graphics), sortida
+@cindex sortida, PNG (Portable Network Graphics)
+
+@item --png
+Genera imatges de les pàgines en format PNG.  Això implica
+@option{--ps}.  La resolució en PPP de la imatge es pot establir
+amb
+@example
+-dresolution=110
+@end example
+
+@cindex PDF (format de document portàtil), sortida de
+@cindex sortida, PDF (format de document portàtil)
+
+@item --pdf
+Genera PDF.  Implica @option{--ps}.
+
+@item -v, --version
+Mostra la informació de la versió.
+
+@item -V, --verbose
+Sigues detallat: mostra les rutes completes de tots els fitxers
+que se llegeixen, i dóna informació cronomètrica.
+
+@item -w, --warranty
+Mostra la garantia del GNU LilyPond (no ve amb
+@strong{CAP GARANTIA}!).
+
+@end table
+
+
+@node Opcions avançades de la línia d'ordres per al LilyPond
+@unnumberedsubsec Opcions avançades de la línia d'ordres per al LilyPond
+@translationof Advanced command line options for LilyPond
+
+@table @code
+
+@item -d@var{[nom-de-opció]}=@var{[valor]}, --define-default=@var{[nom-de-opció]}=@var{[valor]}
+Estableix la funció del Scheme interna equivalent a @var{valor}.
+
+@example
+-dbackend=svg
+@end example
+
+Si no es proporciona cap @var{valor}, s'usa el valor predeterminat
+Per desactivar una opció es pot anteposar @code{no-} a la
+@var{variable}, per exemple:
+
+@cindex apuntar i clicar, línia d'ordres
+
+@example
+-dno-point-and-click
+@end example
+
+@noindent
+és el mateix que
+@example
+-dpoint-and-click=#f
+@end example
+@end table
+
+@noindent Estan contemplades les següents opcions junt als seus
+respectius valors  predeterminats:
+
+@multitable @columnfractions .33 .16 .51
+@item @strong{Símbol}
+@tab @strong{Valor}
+@tab @strong{Explicació/Opcions}
+
+@item @code{anti-alias-factor} (factor d'antiàlies)
+@tab @code{1}
+@tab Renderitza a una major resolució (utilitzant el factor
+donat) i redueix l'escala del resultat per així evitar
+@q{escales} a les imatges @code{PNG}.
+
+@item @code{aux-files} (fitxers auxiliars)
+@tab @code{#t}
+@tab Crea fitxeres  @code{.tex}, @code{.texi}, @code{.count} al
+@q{back-end} @code{EPS}.
+
+@item @code{backend}
+@tab @code{ps}
+@tab Selecciona un @q{rerefons}.  Els fitxers (l'opció
+predeterminada) inclouen els tipus tipogràfics de lletra @code{TTF},
+@code{Type1} i @code{OTF}.  No es fa cap subconjunt d'aquests tipus
+de lletra.  L'ús de conjunts de  caràcters @q{orientals} pot
+produir fitxers molts grans.
+
+@item
+@tab @code{eps}
+@tab PostScript encapsulat.  Bolca cada pàgina o sistema com un
+fitxer @file{EPS} diferent, sense tipus tipogràfics de lletra, i
+com un fitxer @file{EPS} enquadernat amb totes les pàgines o
+sistemes que inclouen els tipus de lletra.  Utilitzat com a opció
+predeterminada per part de @command{lilypond-book}.
+
+@item
+@tab @code{null}
+@tab No produeixes cap partitura impresa a la sortida; té el
+mateix efecte que @code{-dno-print-pages}.
+
+@item
+@tab @code{svg}
+@tab Gràfics vectorials escalables.  Crea un únic fitxer
+@code{SVG}, sense tipus tipogràfics de lletra incrustats, per a
+cada pàgina de sortida.  Es recomana instal.lar el tipus de lletra
+Century Schoolbook, que està inclòs a la instal.lació del
+LilyPond, per a un renderitzat òptim.  Sota l'UNIX, bastarà amb
+que copieu aquests fitxers de tipus de lletra del directori del
+Lilypond (normalment @file{/usr/share/lilypond/VERSION/fonts/otf/})
+al directori @file{~/.fonts/}.  La sortida @code{SVG} hauria de
+ser compatible amb qualsevol editor o client de SVG.  També hi ha
+una opció @code{svg-woff} (vegeu més avall) per usar els fitxers
+de tipus de lletra woff al @q{rerefons} SVG.
+
+@item
+@tab @code{scm}
+@tab Bolcat de les instruccions de dibuix internes basades en
+Scheme, en brut.
+
+@item @code{check-internal-types}
+n@tab @code{#f}
+@tab Comprova el tipus de cada assignació de propietats.
+
+@item @code{clip-systems} (retalla els sistemes de pentagrames)
+@tab @code{#f}
+@tab Genera framents d'imatge retallats d'una partitura.
+
+@item @code{datadir} (directori de dades)
+@tab
+@tab Prefix dels fitxers de dades (sols lectura).
+
+@item @code{debug-gc}
+@tab @code{#f}
+@tab Bolca estadístiques de depuració de memòria.
+
+@item @code{debug-gc-assert-parsed-dead}
+@tab @code{#f}
+@tab Per a la depuració de memòria: assegura't que totes les
+referències a objectes analitzats estiguin mortes.  És una opció
+interna, i s'activa automàticament per a @code{`-ddebug-gc'}.
+
+@item @code{debug-lexer}
+@tab @code{#f}
+@tab Depuració de l'analitzador lèxic flex.
+
+@item @code{debug-page-breaking-scoring}
+@tab @code{#f}
+@tab Bolca les partitures per a moltes configuracions de salts de
+pàgina diferents.
+
+@item @code{debug-parser}
+@tab @code{#f}
+f@tab Depuració de l'analitzador sintàctic bison.
+
+@item @code{debug-property-callbacks}
+@tab @code{#f}
+@tab Depuració de les cadenes cícliues de funcions de callback.
+
+@item @code{debug-skylines}
+@tab @code{#f}
+@tab Depuració de les línies de horitzó.
+
+@item @code{delete-intermediate-files}
+@tab @code{#t}
+@tab Elimina els fitxers intermedis @code{.ps} inútils que es
+creen durant la compilació.
+
+@item @code{dump-cpu-profile}
+@tab @code{#f}
+@tab Bolcar informació de comptabilització del temps (dependent
+del sistema).
+
+@item @code{dump-profile}
+@tab @code{#f}
+@tab Bolca la informació de memòria i de temps de cada fitxer.
+
+@item @code{dump-signatures}
+@tab @code{#f}
+@tab Bolca les signatures de sortida de cada sistema.  Usat per a
+les proves de regressió.
+
+@item @code{eps-box-padding}
+@tab @code{#f}
+@tab Omple la vora esquerra de la capsa contenidora de l'EPS de
+sortida en la quantitat donada (en mm).
+
+@item @code{gs-load-fonts}
+@tab @code{#f}
+@tab Carrega els tipus tipogràfics de lletra a través del Ghostscript.
+
+@item @code{gs-load-lily-fonts}
+@tab @code{#f}
+@tab Carrega sols els tipus de lletra del LilyPond per mitjà del
+Ghostscript.
+
+@item @code{gui}
+@tab @code{#f}
+@tab S'executa silenciosament i es redirigeix tota la sortida a un
+fitxer de registre.
+@end multitable
+
+@noindent
+@strong{Nota per als usuaris del Windows:} De manera predeterminada,
+@code{lilypond.exe} dirigeix tota la sortida de la informació
+d'avenç cap a la finestra de consola, @code{lilypond-windows.exe}
+no ho fa i retorna un indicador del sistema, sense cap indicació
+d'avenç, immediatament en la línia d'ordres.  L'opció
+@option{-dgui} es pot usar en aquest cas per redirigir la sortida
+a un fitxer de registre.
+
+@multitable @columnfractions .33 .16 .51
+@item @code{help}
+@tab @code{#f}
+@tab Mostra aquesta ajuda
+
+@item @code{include-book-title-preview}
+@tab @code{#t}
+@tab Inclou els títols de llibre a les imatges de vista prèvia.
+
+@item @code{include-eps-fonts}
+@tab @code{#t}
+@tab Incloure els tipus tipogràfics de fonts als fitxers EPS de
+cadascú dels sistemes.
+
+@item @code{include-settings}
+@tab @code{#f}
+@tab Inclou el fitxer dels ajustos globals, s'inclou abans que la
+partitura es processi.
+
+@item @code{job-count}
+@tab @code{#f}
+@tab Processa en paral.lel, usant el nombre de tasques donat.
+
+@item @code{log-file}
+@tab @code{#f [fitxer]}
+@tab Si es dóna a una cadena @code{fitxer} como a segon argument,
+redirigeix la sortida al fitxer de registre @code{fitxer.log}.
+
+@item @code{max-markup-depth}
+@tab @code{1024}
+@tab Profunditat màxima de l'arbre de l'etiquetatge.  Si un
+etiquetatge té més nivells, suposa que no acabarà per sí mateix,
+imprimint un advertiment i retornant en el seu lloc un element
+d'etiquetatge nul.
+
+@item @code{midi-extension}
+@tab @code{"midi"}
+@tab Fixa l'extensió de fitxer predeterminat per al fitxer de
+sortida MIDI a la cadena donada.
+
+@item @code{music-strings-to-paths}
+@tab @code{#f}
+@tab Converteix les cadenes de text a rutes quan els glifs
+pertanyen a un tipus de lletra de tipografia musical.
+
+@item @code{paper-size}
+@tab @code{\"a4\"}
+@tab Estableix la mida predeterminada del paper.  Observeu que la
+cadena ha d'anar tancada entre cometes dobles.
+
+@item @code{pixmap-format}
+@tab @code{png16m}
+@tab Fixa el format de sortida del Ghostsript per a les imatges de píxels.
+
+@item @code{point-and-click}
+@tab @code{#f}
+@tab Afegeix enllaços d'@q{apuntar i
+clicar} a la sortida @code{PDF}. Vegeu
+@ref{Point and click}.
+
+@item @code{preview}
+@tab @code{#f}
+@tab Crea imatges de vista prèvia a més de la sortida normal.
+@end multitable
+
+@noindent
+Aquesta opció està contemplada per tots els @q{rerefons}: @code{pdf},
+@code{png}, @code{ps}, @code{eps} i @code{svg}, però no per
+@code{scm}.  Genera un fitxer de sortida, en la forma
+@code{elmeuFitxer.preview.extensió}, que conté els títols i el
+primer sistema de la música.  Si s'estan utilitzant blocs
+@code{\book} o @code{\bookpart}, apareixen a la sortida els títols de
+@code{\book}, @code{\bookpart} o @code{\score}, inclòs el primer
+sistema de cada bloc @code{\score} si la variable de @code{\paper}
+@code{print-all-headers} està fixada al valor @code{#t}.
+
+Per suprimir la sortida actual, utilitzeu les opcions
+@option{-dprint-pages} o @option{-dno-print-pages} segons les
+vostres necessitats.
+
+@multitable @columnfractions .33 .16 .51
+@item @code{print-pages}
+@tab @code{#t}
+@tab Genera pàgines completes (és l'opció predeterminada).  És útil
+@option{-dno-print-pages} en combinació amb @option{-dpreview}.
+
+@item @code{profile-property-accesses}
+@tab @code{#f}
+@tab Conserva les estadístiques de les crides de funció
+@code{get_property()}.
+
+@item @code{protected-scheme-parsing}
+@tab @code{#t}
+@tab Continua quan es capten a l'analitzador sintàctic errors del
+Scheme encastat.  Si es fixa a @code{#f}, detenir-se quan hi hagi
+errors i imprimir un registre de traça de pila.
+
+@item @code{read-file-list}
+@tab @code{#f [fitxer]}
+@tab Especifica el nom d'un fitxer que conté una llista de fitxers
+d'entrada per processar.
+
+@item @code{relative-includes}
+@tab @code{#f}
+@tab Quan es processa una instrucció @code{\include}, cerca el
+fitxer inclòs de forma relativa al fitxer actual (enlloc del
+fitxer principal).
+
+@item @code{resolution}
+@tab @code{101}
+@tab Fixa la resolució per generar imatges de píxels @code{PNG} al
+valor donat (en ppp).
+
+@item @code{safe}
+@tab @code{#f}
+@tab No confiïs en l'entrada @code{.ly}.
+@end multitable
+
+@noindent
+Quan el servei de tipografia està disponible a través d'un
+servidor web, @b{S'HAN DE} passar les opcions @option{--safe} o
+@option{--jail}.  L'opció @option{--safe} evita que el codi del
+Scheme faci un desastre, per exemple:
+
+@quotation
+@verbatim
+#(system "rm -rf /")
+{
+  c4^$(ly:gulp-file "/etc/passwd")
+}
+@end verbatim
+@end quotation
+
+L'opció @option{-dsafe} funciona avaluant les expressions del
+Scheme en línia dins d'un mòdul segur especial.  Deriva del mòdul
+@file{safe-r5rs} del GUILE, però a més afegeix unes quantes
+funcions de l'API del LilyPond que estan relacionades en
+@file{scm/safe-lily.scm}.
+
+A més, el mode segur prohibeix les directives @code{\include} i
+desactiva la utilització de barres invertides a les cadene de
+@TeX{}.  A més, no és possible importar variables del LilyPond
+dins del Scheme quan s'està em mode segur.
+
+@option{-dsafe} @emph{no} detecta la sobreutilitizació de
+recursos, per la qual cosa encara és possible fer que el programa
+es pengi indefinidament, per exemple subministrant estructures de
+dades cícliques en el rerefons.  Per això, si esteu usant el
+LilyPond en un servidor web accessible públicament, el procés s'ha
+de limitar tant en l'ús de memòria com de CPU.
+
+El mode segur evita que es puguin compilar molts fragments de codi
+útils.
+
+L'opció @option{--jail} és una alternativa encara més segura, però
+requereix més feina per a la seva configuració.  Vegeu
+@ref{Opcions bàsiques de la línia d'ordres per al LilyPond}.
+
+@multitable @columnfractions .33 .16 .51
+@item @code{separate-log-files}
+@tab @code{#f}
+@tab Per als fitxers d'entrada @code{FITXER1.ly},
+@code{FITXER2.ly}, etc., treu les dades de registre cap als
+fitxers @code{FITXER1.log}, @code{FITXER2.log}@dots{}
+
+@item @code{show-available-fonts}
+@tab @code{#f}
+@tab Llista tots els noms dels tipus tipogràfics de lletra
+disponibles.
+
+@item @code{strict-infinity-checking}
+@tab @code{#f}
+@tab Força una terminació abrupta si es troben les excepcions de
+punt flotant @code{Inf} i @code{NaN}.
+
+@item @code{strip-output-dir}
+@tab @code{#t}
+@tab No usis els directoris dels fitxers d'entrada en construir
+els noms dels fitxers de sortida.
+
+@item @code{strokeadjust}
+@tab @code{#f}
+@tab Força l'ajust dels traços de PostScript.  Aquesta opció és
+rellevant principalment quan es genera un @code{PDF} a partir de
+la sortida de PostScript (l'ajust del traç està en general activat
+automàticament per a dispositius de mapa de punts de baixa
+resolució).  Sense aquesta opció, els visors de @code{PDF}
+tendeixen a produir amplades de plica molt poc consistents a les
+resolucions típiques de les pantalles d'ordinador.  L'opció no
+afecta de forma molt significativa a la qualitat de la impressió i
+causa grans increments a la mida del fitxer @code{PDF}.
+
+@item @code{svg-woff}
+@tab @code{#f}
+@tab Usar fitxers de tipus tipogràfic de lletra de woff al
+rerefons SVG.
+
+@item @code{trace-memory-frequency}
+@tab @code{#f}
+@tab Registra l'ús de cèl.lules del Scheme aquesta quantitat de
+vegades per segon.  Bolca els resultats en @code{FITXER.stacks} i
+en @code{FITXER.graph}.
+
+@item @code{trace-scheme-coverage}
+@tab @code{#f}
+@tab Registra la cobertura dels fitxers del Scheme a @code{FITXER.cov}.
+
+@item @code{verbose}
+@tab @code{#f}
+@tab Sortida detallada, és a dir el nivell de registre en DEBUT
+(sols lectura).
+
+@item @code{warning-as-error}
+@tab @code{#f}
+@tab Canvia tots els missatges d'advertiment i de @q{error de
+programació} a errors.
+@end multitable
+
+
+@node Variables d'entorn
+@unnumberedsubsec Variables d'entorn
+@translationof Environment variables
+
+@cindex LANG
+@cindex LILYPOND_DATADIR
+
+@command{lilypond} reconeix les següents variables d'entorn:
+@table @code
+@item LILYPOND_DATADIR
+Especifica un directori en el qual els missatges de localització i
+de dades es buscaran de forma predeterminada.  El directori ha de
+contenir subdirectoris anomenats @file{ly/}, @file{ps/},
+@file{tex/}, etc.
+
+@item LANG
+Selecciona l'idioma dels missatges d'advertiment.
+
+@item LILYPOND_LOGLEVEL
+Nivell de registre predeterminat.  Si el LilyPond es crida sense
+cap nivell de registre explícit (és a dir, sense opció de línia d'ordres
+@option{--loglevel}), s'usa aquest valor.
+
+@item LILYPOND_GC_YIELD
+Una variable, com a percentatge, que ajusta el comportament de
+l'administració de memòria.  Amb valors més alts, el programa usa
+més memòria; amb valors més baixos, usa més temps de CPU.  El
+valor predeterminat és @code{70}.
+
+@end table
+
+
+@node El LilyPond a una gàbia de chroot
+@unnumberedsubsec El LilyPond a una gàbia de chroot
+@translationof LilyPond in chroot jail
+
+La preparació del servidor perquè executi el LilyPond a una gàbia
+de chroot és una tasca molt complicada.  Els passos estan
+relacionats més avall.  Els exemples que apareixen en cadascú dels
+passos son vàlids per a Ubuntu GNU/Linux, i poden requerir l'ús de
+@code{sudo} segons correspongui.
+
+@itemize
+
+@item Instal.leu els paquets necessaris: el LilyPond, el Ghostscript i l'ImageMagick.
+
+@item Creeu un usuari nou amb el nom de @code{lily}:
+
+@example
+adduser lily
+@end example
+
+@noindent
+Això també crearà un nou grup per a l'usuari @code{lily}, i una
+carpeta personal, @code{/home/lily}
+
+@item A la carpeta personal de l'usuari @code{lily}, creeu un fitxer per usar-lo com a sistema de fitxers separat:
+
+@example
+dd if=/dev/zero of=/home/lily/loopfile bs=1k count= 200000
+@end example
+
+@noindent
+Aquest exemple crea un fitxer de 200MB per al seu ús com el
+sistema de fitxers de la gàbia.
+
+@item Creeu un dispositiu loop, feu un sistema de fitxers i munteu-lo,
+després creeu una carpeta que es pugui escriure per l'usuari
+@code{lily}:
+
+@example
+mkdir /mnt/lilyloop
+losetup /dev/loop0 /home/lily/loopfile
+mkfs -t ext3 /dev/loop0 200000
+mount -t ext3 /dev/loop0 /mnt/lilyloop
+mkdir /mnt/lilyloop/lilyhome
+chown lily /mnt/lilyloop/lilyhome
+@end example
+
+@item En la configuració dels servidors, JAIL serà @code{/mnt/lilyloop}
+i DIR serà @code{/lilyhome}.
+
+@item Creeu un gran arbre de directoris dins de la gàbia copiant els
+fitxers necessaris, com es mostra en el guió d'exemple que apareix
+més avall.
+
+Podeu usar @code{sed} per crear els fitxeres de còpia necessaris per a
+un executable donat:
+
+@example
+for i in "/usr/local/lilypond/usr/bin/lilypond" "/bin/sh" "/usr/bin/;  \
+  do ldd $i | sed 's/.*=> \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\&  \
+    cp -L \/\1\2 \1\2/' | sed 's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p  \
+      \1 \&\& cp -L \/\1\2 \1\2/' | sed '/.*=>.*/d'; done
+@end example
+
+@end itemize
+
+@subheading Guió d'exemple per a l'Ubuntu 8.04 de 32 bits
+
+@example
+#!/bin/sh
+## aquí es fixen els valors predeterminats
+
+username=lily
+home=/home
+loopdevice=/dev/loop0
+jaildir=/mnt/lilyloop
+# prefix (sense la barra inicial!)
+lilyprefix=usr/local
+# el directori en el qual el LilyPond es troba instal.lat en el sistema
+lilydir=/$lilyprefix/lilypond/
+
+userhome=$home/$username
+loopfile=$userhome/loopfile
+adduser $username
+dd if=/dev/zero of=$loopfile bs=1k count=200000
+mkdir $jaildir
+losetup $loopdevice $loopfile
+mkfs -t ext3 $loopdevice 200000
+mount -t ext3 $loopdevice $jaildir
+mkdir $jaildir/lilyhome
+chown $username $jaildir/lilyhome
+cd $jaildir
+
+mkdir -p bin usr/bin usr/share usr/lib usr/share/fonts $lilyprefix tmp
+chmod a+w tmp
+
+cp -r -L $lilydir $lilyprefix
+cp -L /bin/sh /bin/rm bin
+cp -L /usr/bin/convert /usr/bin/gs usr/bin
+cp -L /usr/share/fonts/truetype usr/share/fonts
+
+# Ara la màgia de copiar les biblioteques
+for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh"  \
+  "/bin/rm" "/usr/bin/gs" "/usr/bin/convert"; do ldd $i | sed 's/.*=>  \
+    \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed  \
+      's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/'  \
+        | sed '/.*=>.*/d'; done | sh -s
+
+# Els fitxers compartits per al ghostcript...
+      cp -L -r /usr/share/ghostscript usr/share
+# Els fitxers compartits per a l'ImageMagick
+      cp -L -r /usr/lib/ImageMagick* usr/lib
+
+### Ara, suposant que tenim test.ly a /mnt/lilyloop/lilyhome,
+### hauríem de poder executar:
+### Observeu que /$lilyprefix/bin/lilypond és un guió, que estableix
+### un valor per a LD_LIBRARY_PATH : això és crucial
+      /$lilyprefix/bin/lilypond -jlily,lily,/mnt/lilyloop,/lilyhome test.ly
+@end example
+
+@c " keep quote signs balanced for context-sensitive editors
+
+@node Missatges d'error
+@section Missatges d'error
+@translationof Error messages
+
+@cindex error, missatges d'error
+@cindex missatges d'error
+
+Poden aparèixer diferents missatges d'error en compilar un fitxer:
+
+@table @emph
+
+@item Advertiment
+@cindex advertiment
+Alguna cosa té un aspecte sospitós.  Si estem demanant quelcom
+fora del comú, entendrem el missatge i podrem ignorar-lo.  Tot i
+així, els advertiments solen indicar que alguna cosa va mal amb el
+fitxer d'entrada.
+
+@item Error
+@cindex error
+És clar que alguna cosa va malament.  El pas actual del
+processament (anàlisi, interpretació o format visual) es donarà
+per acabat, però el pas següent se saltarà.
+
+@item Error fatal
+@cindex error fatal
+@cindex fatal, error
+És clar que alguna cosa va malament, i el LilyPond no pot
+continuar.  Poques vegades passa això.  La causa més freqüent són
+els tipus de lletra mal instal.lats.
+
+@item Error del Scheme
+@cindex traça del Scheme
+@cindex crides, traça de
+@cindex Scheme, error de
+@cindex error del Scheme
+Els errors que ocorren en executar el codi del Scheme
+s'intercepten per part de l'intèrpret del Scheme.  Si s'està
+executant amb les opcions @option{-V} o @option{--verbose}
+(detallat) aleshores s'imprimeix una traça de crides de la funció
+ofensiva.
+
+@item Error de programació
+@cindex error de programació
+@cindex programació, error de
+Hi ha hagut algun tipus d'inconsistència interna.  Aquests
+missatges d'error estan orientats a ajudar als programadors i als
+depuradors.  Normalment es poden ignorar.  En ocasions apareixen
+en quantitats tan grans que poden entorpir la visió d'altres
+missatges de sortida.
+
+@item Abort (bolcat de core)
+Això senyala un error de programació seriós que ha causat la
+interrupció abrupta del programa.  Aquests errors es consideren
+crítics.  Si es topa amb un, envieu un informe de fallada.
+@end table
+
+@cindex error, format dels missatges de
+
+Si els errors i advertiments es poden lligar a un punt del fitxer
+d'entrada, els missatges tenen la forma següent:
+
+@example
+@var{fitxer}:@var{línia}:@var{columna}: @var{missatge}
+@var{línia d'entrada problemàtica}
+@end example
+
+S'insereix un salt de línia a la línia problemàtica per indicar la
+columna on es va trobar l'error.  Per exemple,
+
+@example
+prova.ly:2:19: error: no és una duració: 5
+  @{ c'4 e'
+           5 g' @}
+@end example
+
+Aquestes posicions són la millor suposició del LilyPond sobre on
+s'ha produït el missatge d'error, però (per la seva pròpia
+naturalesa) els advertiment i errors es produeixen quan passa
+quelcom inesperat.  Si no veieu un error a la línia que s'indica
+del fitxer d'entrada, intenteu comprovar una o dues línies per
+sobre de la posició indicada.
+
+S'ofereix més informació sobre els errors a la secció @ref{Errors
+comuns}.
+
+@node Errors comuns
+@section Errors comuns
+@translationof Common errors
+
+Les condicions d'error que es descriuen més a sota es produeixen
+amb freqüència, tot i que la causa no és òbvia o fàcil de trobar.
+Un cop se han vist i comprès, es gestionen sense problema.
+
+@menu
+* La música se surt de la pàgina::
+* Apareix un pentagrama de més::
+* Missatge d'error Unbound variable %::
+* Missatge d'error FT_Get_Glyph_Name::
+* Advertiment sobre que les afinitats del pentagrama sols han de decrèixer::
+* Missatge d'error Unexpected new::
+@end menu
+
+@node La música se surt de la pàgina
+@unnumberedsubsec La música se surt de la pàgina
+@translationof Music runs off the page
+
+La música que se surt de la pàgina pel marge dret o que apareix
+exageradament comprimida està causada gairebé sempre per haver
+introduït una duració incorrecta per a una nota, produint que la
+nota final d'un compàs s'estengui més enllà de la línia
+divisòria.  Això no és invàlid si la nota final d'un compàs no
+acaba sobre la línia divisòria introduïda automàticament, atès que
+simplement se suposa que la nota se solapa a sobre del compàs
+següent.  Però si es produeix una seqüència llarga d'aquestes
+notes solapades, la música pot aparèixer comprimida o sortir-se
+de la pàgina perquè els salts de línia automàtiques solament se
+poden inserir al final dels compassos complets, és a dir, els
+compassos en els quals totes les notes acaben abans o just al
+final del compàs.
+
+@warning{Una duració incorrecta pot fer que s'inhibeixin els salts
+de línia, el que portaria a una sola línia de música molt
+comprimida o que se surti de la pàgina.}
+
+La duració incorrecta es pot trobar fàcilment si s'utilitzen
+comprovacions de compàs, vegeu @ruser{Comprovació de compàs i de
+número de compàs}.
+
+Si realment volem tenir una sèrie d'aquests compassos amb notes
+solapades, hem d'inserir una línia divisòria invisible on volem
+el salt de línia.  Per veure més detalls, consulteu
+@ruser{Barres de compàs}.
+
+
+@node Apareix un pentagrama de més
+@unnumberedsubsec Apareix un pentagrama de més
+@translationof An extra staff appears
+
+Si no es creen els contextos explícitament amb @code{\new} o amb
+@code{\context}, es crearan discretament tan aviat com es trobi
+una instrucció que no es pot aplicar a un context existent.  A
+partitures senzilles, la creació automàtica dels contextos és
+útil, i gairebé tots els exemples dels manuals del LilyPond
+s'aprofiten d'aquesta simplificació.  Però ocasionalment la
+creació discreta de contextos pot fer aflorar pentagrames o
+partitures nous o inesperats.  Per exemple, podria esperar-se que
+el codi següent fet que totes les notes dins del pentagrama
+següent estiguessin acolorides de vermell, però de fet el
+resultat són dos pentagrames, romanent el de sota amb les
+notes amb el color negre predeterminat.
+
+@lilypond[quote,verbatim,relative=2]
+\override Staff.NoteHead.color = #red
+\new Staff { a }
+@end lilypond
+
+Això és així perquè no hi ha cap context @code{Staff} quan es
+processa la instrucció override de sobreescriptura, es crea un
+implícitament i la sobreescriptura s'aplica a aquest context, però
+aleshores la instrucció @code{\new Staff} crea un pentagrama nou i
+diferent, en el qual es col.loquen les notes.  El codi correcte
+per acolorir totes les notes de vermell és
+
+@lilypond[quote,verbatim,relative=2]
+\new Staff {
+  \override Staff.NoteHead.color = #red
+  a
+}
+@end lilypond
+
+Com a segon exemple, si una instrucció @code{\relative} s'escriu
+dins d'una instrucció @code{\repeat}, el resultat són dos
+pentagrames, el segon desplaçat respecte al primer, perquè la
+instrucció @code{\repeat} genera dos blocs @code{\relative}, cada
+un dels quals crea implícitament blocs @code{Staff} i @code{Voice}.
+
+@lilypond[quote,verbatim]
+\repeat unfold 2 {
+  \relative c' { c4 d e f }
+}
+@end lilypond
+
+El problema es resol instanciant el context @code{Voice}
+explícitament:
+
+@lilypond[quote,verbatim]
+\new Voice {
+  \repeat unfold 2 {
+    \relative c' { c4 d e f }
+  }
+}
+@end lilypond
+
+
+@node Missatge d'error Unbound variable %
+@unnumberedsubsec Missatge d'error Unbound variable %
+@translationof Error message Unbound variable %
+
+Aquest missatge d'error apareix al final dels missatges de la
+consola o del fitxer de registre junt a un missatge @qq{GUILE
+ha senyalat un error @dots{}} cada cop que es cridi a una rutina
+del Scheme que (incorrectament) contingui un comentari @emph{del
+LilyPond} enlloc d'un comentari @emph{del Scheme}.
+
+Els comentaris del LilyPond comencen amb un símbol de
+percentatge, (@code{%}), i no s'han d'utilitzar dins de les
+rutines del Scheme.  Els comentaris del Scheme comencen amb punt i
+coma, (@code{;}).
+
+@node Missatge d'error FT_Get_Glyph_Name
+@unnumberedsubsec Missatge d'error FT_Get_Glyph_Name
+@translationof Error message FT_Get_Glyph_Name
+
+Aquest missatge d'error apareix a la sortida de la consola o al
+fitxer log de registre si un fitxer d'entrada conté un caràcter que
+no és ASCII i no s'ha desat en la codificació de caràcters
+UTF-8.  Per veure més detalls, consulteu @ruser{Codificació del
+text}.
+
+@node Advertiment sobre que les afinitats del pentagrama sols han de decrèixer
+@unnumberedsubsec Advertiment sobre que les afinitats del pentagrama sols han de decrèixer
+@translationof Warning staff affinities should only decrease
+
+Aquest advertiment pot aparèixer si no hi ha cap pentagrama a la
+sortida impresa, per exemple si sols hi ha un context
+@code{ChordName} i un context @code{Lyrics} com a un full guia
+d'acords.  Els missatges d'advertiment es poden evitar fent que un
+dels contextos es comporti com un pentagrama, inserint
+
+@example
+\override VerticalAxisGroup.staff-affinity = ##f
+@end example
+
+@noindent
+al començament.  Per veure més detalls, consulteu @qq{Espaiat de
+les línies que no són pautes} a @ruser{Espaiat vertical flexible
+dins dels sistemes}.
+
+@node Missatge d'error Unexpected new
+@unnumberedsubsec Missatge d'error Unexpected new @code{@bs{}new}
+@translationof Error message unexpected new
+
+Un bloc @code{\score} ha de contenir una @emph{única} expressió
+musical.  Si en comptes d'això conté diverses instruccions
+@code{\new Staff}, @code{\new StaffGroup} o contextos semblants
+introduïts amb @code{\new} sense que s'hagin tancat entre
+claudàtors corbs, @code{@{ @dots{} @}}, o dobles parèntesis en
+angle, @code{<< @dots{}  >>}, així:
+
+@example
+\score @{
+  % Invàlid! Genera error: error de sintaxi, \new inesperat
+  \new Staff @{ @dots{} @}
+  \new Staff @{ @dots{} @}
+@}
+@end example
+
+@noindent
+aleshores es produirà un missatge d'error.
+
+Per evitar l'error, tanqueu totes les instruccions @code{\new}
+dins dels claudàtors corbs o dobles parèntesis d'angle.
+
+L'ús de claudàtors corbs introdueix les instruccions @code{\new}
+de forma seqüencial:
+
+@lilypond[quote,verbatim]
+\score {
+  {
+    \new Staff { a' a' a' a' }
+    \new Staff { g' g' g' g' }
+  }
+}
+@end lilypond
+
+@noindent
+però és més probable que us trobeu utilitzant angles dobles de
+manera que els pentagrames nous s'insereixin en paral.lel, és a
+dir, simultàniament:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff { a' a' a' a' }
+    \new Staff { g' g' g' g' }
+  >>
+}
+@end lilypond

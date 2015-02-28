@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1996--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1996--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -366,9 +366,10 @@ Spanner::set_spacing_rods (SCM smob)
 {
   Grob *me = Grob::unsmob (smob);
   SCM num_length = me->get_property ("minimum-length");
-  if (scm_is_number (num_length))
+  SCM broken_length = me->get_property ("minimum-length-after-break");
+  if (scm_is_number (num_length)
+     || scm_is_number (broken_length))
     {
-      Rod r;
       Spanner *sp = dynamic_cast<Spanner *> (me);
       System *root = get_root_system (me);
       Drul_array<Item *> bounds (sp->get_bound (LEFT),
@@ -389,9 +390,23 @@ Spanner::set_spacing_rods (SCM smob)
 
           r.item_drul_[LEFT] = cols.back ()->find_prebroken_piece (RIGHT);
           r.item_drul_[RIGHT] = sp->get_bound (RIGHT);
+          if (scm_is_number (broken_length))
+            /*
+              r.distance_ may have been modified by add_to_cols ()
+              above.  For treatment of minimum-distance-after-break
+              consistent with minimum-distance (which will use the
+              changed value), we cannot directly reset r.distance_ to
+              broken_length.
+            */
+            r.distance_ += robust_scm2double (broken_length, 0) -
+              robust_scm2double (num_length, 0);
           r.add_to_cols ();
         }
 
+      Rod r;
+      /*
+        As r is a fresh rod, we can set distance_ with no complication.
+      */
       r.distance_ = robust_scm2double (num_length, 0);
       r.item_drul_[LEFT] = sp->get_bound (LEFT);
       r.item_drul_[RIGHT] = sp->get_bound (RIGHT);
@@ -546,6 +561,7 @@ ADD_INTERFACE (Spanner,
                /* properties */
                "normalized-endpoints "
                "minimum-length "
+               "minimum-length-after-break "
                "spanner-broken "
                "spanner-id "
                "to-barline "

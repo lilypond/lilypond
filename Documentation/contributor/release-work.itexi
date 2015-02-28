@@ -588,7 +588,7 @@ to continue uninterrupted.
 Download GUB and start the set up:
 
 @example
-git clone git://github.com/gperciva/gub/gub.git
+git clone git://github.com/gperciva/gub.git
 cd gub
 make bootstrap
 @end example

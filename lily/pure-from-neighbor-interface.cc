@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2011--2014 Mike Solomon <mike@mikesolomon.org>
+  Copyright (C) 2011--2015 Mike Solomon <mike@mikesolomon.org>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -53,8 +53,8 @@ Pure_from_neighbor_interface::calc_pure_relevant_grobs (SCM smob)
 }
 
 ADD_INTERFACE (Pure_from_neighbor_interface,
-               "A collection of routines to allow for objects' pure"
-               "heights and heights to be calculated based on the"
+               "A collection of routines to allow for objects' pure "
+               "heights and heights to be calculated based on the "
                "heights of the objects' neighbors.",
 
                /* properties */

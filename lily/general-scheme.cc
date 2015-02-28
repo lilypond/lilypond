@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1998--2014 Jan Nieuwenhuizen <janneke@gnu.org>
+  Copyright (C) 1998--2015 Jan Nieuwenhuizen <janneke@gnu.org>
   Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -300,6 +300,14 @@ LY_DEFINE (ly_output_formats, "ly:output-formats",
     lst = scm_cons (ly_string2scm (output_formats[i]), lst);
 
   return lst;
+}
+
+LY_DEFINE (ly_bigpdfs, "ly:bigpdfs",
+           0, 0, 0, (),
+           "Return true if the command line includes the @option{--bigpdf} parameter."
+)
+{
+  return bigpdfs ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
 LY_DEFINE (ly_wide_char_2_utf_8, "ly:wide-char->utf-8",

@@ -963,66 +963,48 @@ that context.  For details, see @ref{Modifying context plug-ins}.
 @cindex instrument names, changing
 @cindex changing instrument names
 
-The @code{shortInstrumentName} may be changed in the middle of a piece.
+The @code{shortInstrumentName} may be changed in the middle of a piece,
+along with other settings as needed for the new instrument.
 However, only the first instance of @code{instrumentName} will be
 printed and subsequent changes will be ignored:
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
+@lilypond[verbatim,quote,ragged-right]
+prepPiccolo = <>^\markup \italic { muta in Piccolo }
+
+setPiccolo = {
+  \set Staff.instrumentName = #"Piccolo"
+  \set Staff.shortInstrumentName = #"Picc."
+  \set Staff.midiInstrument = #"piccolo"
+  <>^\markup \bold { Piccolo }
+  \transposition c''
+}
+
+prepFlute = <>^\markup \italic { muta in Flauto }
+
+setFlute = {
+  \set Staff.instrumentName = #"Flute"
+  \set Staff.shortInstrumentName = #"Flt."
+  \set Staff.midiInstrument = #"flute"
+  <>^\markup \bold { Flute }
+  \transposition c'
+}
+
 \new Staff \with {
   instrumentName = #"Flute"
   shortInstrumentName = #"Flt."
+  midiInstrument = #"flute"
 }
-{
-  c1 c c c \break
-  c1 c c c \break
-  \set Staff.instrumentName = #"Clarinet"
-  \set Staff.shortInstrumentName = #"Clt."
-  c1 c c c \break
-  c1 c c c \break
-}
-@end lilypond
-
-@cindex instrument switch
-@cindex switching instruments
-
-@funindex \addInstrumentDefinition
-@funindex addInstrumentDefinition
-@funindex \instrumentSwitch
-@funindex instrumentSwitch
-
-If an instrument @emph{switch} is needed,
-@code{\addInstrumentDefinition} may be used in combination with
-@code{\instrumentSwitch} to create a detailed list of the
-necessary changes for the switch.  The
-@code{\addInstrumentDefinition} command has two arguments: an
-identifying string, and an association list of context properties
-and values to be used for the instrument.  It must be placed in
-the toplevel scope.  @code{\instrumentSwitch} is used in the music
-expression to declare the instrument switch:
-
-@lilypond[verbatim,quote,ragged-right]
-\addInstrumentDefinition #"contrabassoon"
-  #`((instrumentTransposition . ,(ly:make-pitch -1 0 0))
-     (shortInstrumentName . "Cbsn.")
-     (clefGlyph . "clefs.F")
-     (middleCPosition . 6)
-     (clefPosition . 2)
-     (instrumentCueName . ,(make-bold-markup "cbsn."))
-     (midiInstrument . "bassoon"))
-
-\new Staff \with {
-  instrumentName = #"Bassoon"
-}
-\relative c' {
-  \clef tenor
-  \compressFullBarRests
-  c2 g'
-  R1*16
-  \instrumentSwitch "contrabassoon"
-  c,,2 g \break
-  c,1 ~ | 1
+\relative c'' {
+  g1 g g g \break
+  g1 g \prepPiccolo R R \break
+  \setPiccolo
+  g1 g g g \break
+  g1 g \prepFlute R R \break
+  \setFlute
+  g1 g g g
 }
 @end lilypond
+
 
 @seealso
 Notation Reference:
@@ -1300,7 +1282,7 @@ fluteNotes = \relative c'' {
 
 oboeNotes = \relative c'' {
   R1
-  \new CueVoice { \set instrumentCueName = "flute" }
+  <>^\markup \tiny { flute }
   \cueDuring #"flute" #UP { R1 }
   g2 c,
 }
@@ -1343,11 +1325,8 @@ oboeNotes = \relative c'' {
 }
 @end lilypond
 
-The name of the instrument playing the cue can be printed by setting
-the @code{instrumentCueName} property in a temporary @code{CueVoice}
-context.  The placement and style of the @code{instrumentCueName} is
-controlled by the @code{InstrumentSwitch} object, see
-@ref{Instrument names}.  If the cue notes require a change in clef,
+Markup can be used to show the name of the quoted instrument.
+If the cue notes require a change in clef,
 this can be done manually but the original clef should also be
 restored manually at the end of the cue notes.
 
@@ -1360,7 +1339,7 @@ bassoonNotes = \relative c {
   \clef bass
   R1
   \clef treble
-  \new CueVoice { \set instrumentCueName = "flute" }
+  <>^\markup \tiny { flute }
   \cueDuring #"flute" #UP { R1 }
   \clef bass
   g4. b8 d2
@@ -1386,7 +1365,7 @@ fluteNotes = \relative c'' {
 bassoonNotes = \relative c {
   \clef bass
   R1
-  \new CueVoice { \set instrumentCueName = "flute" }
+  <>^\markup { \tiny "flute" }
   \cueDuringWithClef #"flute" #UP #"treble" { R1 }
   g4. b8 d2
 }
@@ -1441,8 +1420,6 @@ bassClarinetNotes = \relative c' {
 
 @funindex \killCues
 @funindex killCues
-@funindex \addInstrumentDefinition
-@funindex addInstrumentDefinition
 
 The @code{\killCues} command removes cue notes from a music
 expression, so the same music expression can be used to produce
@@ -1462,7 +1439,7 @@ bassoonNotes = \relative c {
   R1
   \tag #'part {
     \clef treble
-    \new CueVoice { \set instrumentCueName = "flute" }
+    <>^\markup \tiny { flute }
   }
   \cueDuring #"flute" #UP { R1 }
   \tag #'part \clef bass

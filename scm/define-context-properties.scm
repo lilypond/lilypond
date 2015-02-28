@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 1998--2014  Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 1998--2015  Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                  Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -370,8 +370,8 @@ string selector for tablature notation.")
 @rinternals{Lyrics} line.")
      (implicitBassFigures ,list? "A list of bass figures that are not
 printed as numbers, but only as extender lines.")
-     (implicitTimeSignatureVisibility ,vector? "break visibility for
-the default time signature.")
+     (initialTimeSignatureVisibility ,vector? "break visibility for
+the initial time signature.")
      (includeGraceNotes ,boolean? "Do not ignore grace notes for
 @rinternals{Lyrics}.")
      (instrumentCueName ,markup? "The name to print if another
@@ -487,7 +487,10 @@ ChordNames context.")
 defined strings to full list of strings and fret numbers.
 Parameters: The context, a list of note events, a list of
 tabstring events, and the fretboard grob if a fretboard is desired.")
-
+     (nullAccidentals ,boolean? "The @code{Accidental_engraver}
+generates no accidentals for notes in contexts were this is set.
+In addition to supressing the printed accidental, this option removes
+any effect the note would have had on accidentals in other voices.")
 
      (ottavation ,markup? "If set, the text for an ottava spanner.
 Changing this creates a new text spanner.")

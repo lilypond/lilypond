@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: b58a17a6b0b6f624cee7858a74092265e0791fe2
+    Translation of GIT committish: 3c907f2dd5ba3dd91e30454922d8361225ca28d5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -297,7 +297,7 @@ Pour changer la taille des caractères, LilyPond met à l'échelle la fonte
 dont la taille est la plus proche de la taille voulue.  La taille
 standard (pour laquelle @code{font-size = 0}) dépend de la hauteur
 de la portée.  À une portée de 20 points correspond une police de
-10 points.
+11 points.
 
 
 @predefined

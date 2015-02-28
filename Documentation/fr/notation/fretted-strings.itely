@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ece268fa66e2576c01f33a4a6e1806f44c9f8fa8
+    Translation of GIT committish: fab824ac128346465690246f7a42ce1e8b42db8d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -135,6 +135,21 @@ g-0\3
 <g-0\3>
 @end lilypond
 
+Les numéros de corde peuvent aussi, comme traditionnellement pour les
+cordes non frettées, s'imprimer en chiffres romains placés sous la
+portée plutôt qu'en surplomb.
+
+@lilypond[verbatim,quote,relative=2]
+c2\2
+a\3
+\romanStringNumbers
+c\2
+\set stringNumberOrientations = #'(down)
+a\3
+\arabicStringNumbers
+g1\4
+@end lilypond
+
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -142,6 +157,11 @@ g-0\3
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {allowing-fingerings-to-be-printed-inside-the-staff.ly}
+
+@predefined
+@code{\arabicStringNumbers},
+@code{\romanStringNumbers}.
+@endpredefined
 
 @seealso
 Manuel de notation :

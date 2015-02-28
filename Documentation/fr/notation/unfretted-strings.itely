@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d4c6b132223ef4312a637160503a132c2373f525
+    Translation of GIT committish: fab824ac128346465690246f7a42ce1e8b42db8d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -99,12 +99,14 @@ Morceaux choisis :
 @funindex \upbow
 @funindex \downbow
 @funindex \open
+@funindex \romanStringNumbers
 
 @cindex indications d'archet
 @cindex poussé, indication d'archet
 @cindex tiré, indication d'archet
 @cindex indication de corde à vide
 @cindex corde à vide, indication
+@cindex corde, numéro
 
 Les indications d'archet se créent comme des articulations, elles sont
 décrites dans @ref{Articulations et ornements}.
@@ -117,24 +119,31 @@ c4(\downbow d) e(\upbow f)
 @end lilypond
 
 @noindent
-ou dans l'exemple suivant qui montre trois manières d'indiquer la corde
-de La, à vide, sur un violon :
+Des chiffres romains peuvent s'ajouter pour indiquer les numéros de
+corde (en lieu et place de chiffres arabes cerclés), comme expliqué
+dans @ref{Indications du numéro de corde}.
+
+Alternativement, les indications de corde peuvent se traiter sous forme
+de @emph{markup}, et un script indiquer une corde à vide.
 
 @lilypond[verbatim,quote,relative=2]
 a4 \open
-a^\markup { \teeny "II" }
+\romanStringNumbers
+a\2
 a2^\markup { \small "sul A" }
 @end lilypond
 
 @predefined
 @code{\downbow},
 @code{\upbow},
-@code{\open}.
+@code{\open},
+@code{\romanStringNumbers}.
 @endpredefined
 
 @seealso
 Manuel de notation :
 @ref{Articulations et ornements},
+@ref{Indications du numéro de corde},
 @ref{Liaisons d'articulation}.
 
 

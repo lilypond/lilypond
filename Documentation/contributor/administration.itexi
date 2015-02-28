@@ -217,6 +217,14 @@ documentation.  See @ref{Compiling}.
 Commit access is @emph{not} required to test patches, but a valid login
 to @uref{http://code.google.com/} @emph{is}.
 
+@noindent
+Note that a google account does not need to be a Gmail account; you can
+use @emph{any} email address for your google account when you sign up.
+
+@warning{In order for @code{patchy} to work as expected, your Google
+Account Settings must have the @q{Access for less secure apps} set to
+@q{Allowed}.  This is normally the default setting.}
+
 @end itemize
 
 

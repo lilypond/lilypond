@@ -154,11 +154,11 @@ Returns nil if line starts inside a string"
 	      ;; start there too.  If LilyPond-indent-level is zero, use
 	      ;; LilyPond-brace-offset instead
 	      (+ (if (and (bolp) (zerop LilyPond-indent-level))
-		     (cond ((= (following-char) ?{) 
+		     (cond ((= (following-char) ?{)
 			    LilyPond-brace-offset)
-			   ((= (following-char) ?<) 
+			   ((= (following-char) ?<)
 			    LilyPond-angle-offset)
-			   ((= (following-char) ?[) 
+			   ((= (following-char) ?\[)
 			    LilyPond-square-offset)
 			   ((= (following-char) ?\))
 			    LilyPond-scheme-paren-offset)
@@ -196,7 +196,7 @@ Return the amount the indentation changed by."
 	       (setq indent  (+ indent (- LilyPond-close-brace-offset LilyPond-indent-level))))
 	      ((= (following-char) ?>)
 	       (setq indent  (+ indent (- LilyPond-close-angle-offset LilyPond-indent-level))))
-	      ((= (following-char) ?])
+	      ((= (following-char) ?\])
 	       (setq indent  (+ indent (- LilyPond-close-square-offset LilyPond-indent-level))))
 	      ((and (= (following-char) ?\)) (LilyPond-inside-scheme-p))
 	       (setq indent  (+ indent (- LilyPond-close-scheme-paren-offset LilyPond-indent-level))))
@@ -204,7 +204,7 @@ Return the amount the indentation changed by."
 	       (setq indent  (+ indent LilyPond-brace-offset)))
 	      ((= (following-char) ?<)
 	       (setq indent  (+ indent LilyPond-angle-offset)))
-	      ((= (following-char) ?[)
+	      ((= (following-char) ?\[)
 	       (setq indent  (+ indent LilyPond-square-offset)))
 	      ((and (= (following-char) ?\() (LilyPond-inside-scheme-p))
 	       (setq indent  (+ indent LilyPond-scheme-paren-offset)))
@@ -326,7 +326,7 @@ Argument LIM limit."
      ;; duh .. a single '>', as in chords '<< ... >>', was not matched here
      ( ?}  .  ("{" . "}"))
      ;; ligatures  '\[ ... \]' are skipped in the following expression
-     ( ?]  .  ("\\([^\\]\\([\\][\\]\\)*\\|^\\)[[]" . "\\([^\\]\\([\\][\\]\\)*\\|^\\)[]]"))
+     ( ?\]  .  ("\\([^\\]\\([\\][\\]\\)*\\|^\\)[[]" . "\\([^\\]\\([\\][\\]\\)*\\|^\\)[]]"))
      ( "\\]" . ("\\([^\\]\\|^\\)\\([\\][\\]\\)*[\\][[]" . "\\([^\\]\\|^\\)\\([\\][\\]\\)*[\\][]]"))
      ( "\\)" . ("\\([^\\]\\|^\\)\\([\\][\\]\\)*[\\][(]" . "\\([^\\]\\|^\\)\\([\\][\\]\\)*[\\][)]"))
      ))
@@ -335,7 +335,7 @@ Argument LIM limit."
 (defconst LilyPond-parens-alist
   `( ( ?<  .  ?> )    
      ( ?{  .  ?} )    
-     ( ?[  .  ?] )
+     ( ?\[  .  ?\] )
      ( "\\["  .  "\\]" )
      ( ?\(  .  ?\) )
      ( "\\("  .  "\\)" )
@@ -406,7 +406,7 @@ slur-paren-p defaults to nil.
       (if (not (save-excursion (goto-char (match-end 0))
 			       ;; skip over strings and comments
 			       (LilyPond-inside-string-or-comment-p)))
-	  (if (memq match '(?} ?> ?] ?\)))
+	  (if (memq match '(?} ?> ?\] ?\)))
 	      ;; count closing brackets
 	      (progn (setq level (1+ level))
 		     ;; slurs may be close to each other, e.g.,
@@ -452,17 +452,16 @@ slur-paren-p defaults to nil.
   (let ( (test-point (point))
 	 (level 0) )
     (save-excursion 
-      (if (or (and (/= (point) (point-max))
-		   (= (char-after (point)) ?\()
-		   (or (= (char-after (- (point) 1)) ?#)
-		       (and (= (char-after (- (point) 2)) ?#)
-			    (= (char-after (- (point) 1)) ?`))))
-	      (and (re-search-backward "#(\\|#`(" nil t)
+      (if (or (and (eq (char-after (point)) ?\()
+		   (save-excursion
+		     (skip-chars-backward "'`")
+		     (memq (char-before) '(?# ?$))))
+	      (and (re-search-backward "[#$][`']?(" nil t)
 		   (progn 
 		     (search-forward "(")
 		     (setq level 1)
 		     (while (and (> level 0)
-				 (re-search-forward "(\\|)" test-point t)
+				 (re-search-forward "[()]" test-point t)
 				 (setq match (char-after (match-beginning 0)))
 				 (<= (point) test-point))
 		       (if (= match ?\()
@@ -492,7 +491,7 @@ builtin 'blink-matching-open' is not used. In syntax table, see
     ;; Test if a ligature \] or expressional slur \) was encountered
     (setq bracket-type (char-after (point)))
     (setq char-before-bracket-type nil)
-    (if (memq bracket-type '(?] ?\) ?[ ?\())
+    (if (memq bracket-type '(?\] ?\) ?\[ ?\())
       (progn 
 	(setq np -1)
 	(while (eq (char-before (- (point) (setq np (+ np 1)))) ?\\)

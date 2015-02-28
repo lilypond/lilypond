@@ -22,6 +22,7 @@
 
 #include "listener.hh"
 #include "stream-event.hh"
+#include "smobs.hh"
 
 class Dispatcher : public Smob<Dispatcher>
 {

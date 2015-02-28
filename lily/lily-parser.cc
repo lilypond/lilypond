@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -54,6 +54,7 @@ Lily_parser::Lily_parser (Sources *sources)
 }
 
 Lily_parser::Lily_parser (Lily_parser const &src, SCM closures, SCM location)
+  : Smob<Lily_parser> ()
 {
   lexer_ = 0;
   sources_ = src.sources_;

@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2006--2014 Han-Wen Nienhuys <hanwen@lilypond.org>
+  Copyright (C) 2006--2015 Han-Wen Nienhuys <hanwen@lilypond.org>
       2007--2008 Rune Zedeler
       2008       Joe Neeman <joeneeman@gmail.com>
 
@@ -143,6 +143,7 @@ Scale::Scale (vector<Rational> const &tones)
 }
 
 Scale::Scale (Scale const &src)
+  : Smob<Scale> ()
 {
   step_tones_ = src.step_tones_;
   smobify_self ();

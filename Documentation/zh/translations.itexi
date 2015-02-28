@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最近更新 Wed Dec 18 12:23:14 UTC 2013
+@emph{最近更新 Tue Dec 30 15:39:08 UTC 2014
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -30,7 +30,7 @@ LilyPond -- 人人的乐谱软件
 @item
 章节标题
 @*
-616
+642
 @tab Ben Luo
 @*
 Anthony Fok
@@ -49,11 +49,11 @@ Anthony Fok
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">是</span>
+<span style="background-color: #40fe23">部分</span>
 @end html
 @end ifhtml
 @ifnothtml
-是
+部分
 @end ifnothtml
 @tab GDP 前
 @item
@@ -88,7 +88,7 @@ Anthony Fok
 @item
 简介
 @*
-4937
+5707
 @tab Ben Luo
 @*
 Anthony Fok
@@ -117,7 +117,7 @@ Anthony Fok
 @item
 下载
 @*
-1201
+1145
 @tab Ben Luo
 @*
 Anthony Fok
@@ -146,7 +146,7 @@ Anthony Fok
 @item
 手册
 @*
-1284
+1314
 @tab Ben Luo
 @tab Anthony Fok
 @tab 
@@ -163,7 +163,7 @@ Anthony Fok
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">部分</span>
+<span style="background-color: #54ff26">部分</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -173,7 +173,7 @@ Anthony Fok
 @item
 社区
 @*
-3073
+2991
 @tab Ben Luo
 @*
 Anthony Fok

@@ -1192,7 +1192,7 @@ sub split_texi_filename ($)
 #############################################################################
 
 # Include our standard CSS file, not hard-coded CSS code directly in the HTML!
-# For IE, conditionally include the lilypond-ie-fixes.css style sheet
+# For IE, add a second conditionally included CSS file.
 sub lilypond_css_lines ($$)
 {
   my $import_lines = shift;
@@ -1216,10 +1216,13 @@ sub lilypond_css_lines ($$)
 	"<link rel=\"alternate stylesheet\" type=\"text/css\" href=\"css/$ref->{FILENAME}\" title=\"$ref->{TITLE}\">\n";
   }
 
-  # The ie-fixes stylesheet is needed for the docs, but not the website.
-  if (not ($web_manual)) {
+  # Add a conditionally included CSS file for IE, for either the docs or the website
+  if ($web_manual) {
     $Texi2HTML::THISDOC{'CSS_LINES'} .=
-	"<!--[if lte IE 7]>\n<link href=\"css/lilypond-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
+	"<!--[if lte IE 9]>\n<link href=\"css/lilypond-website-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
+  } else {
+    $Texi2HTML::THISDOC{'CSS_LINES'} .=
+	"<!--[if lte IE 7]>\n<link href=\"css/lilypond-manuals-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
   }
 
   if ($ENV{'AJAX_SEARCH'} == 1) {
@@ -1665,22 +1668,6 @@ sub generate_ly_toc_entries($$$$$)
   my $is_parent_of_current = $element->{'id'} && $element_path->{$element->{'id'}};
   my $ind = '  ' x $level;
   my $this_css_class = " class=\"";
-  # color indices for the second navigation bar on the website
-  if ($web_manual) {
-      my %color_maps = (
-	  'introduction' => [2, 2, 2, 2, 3, 3, 4, 4],
-	  'download' => [2, 2, 2, 3, 3, 4],
-	  'manuals' => [1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4],
-	  'community' => [1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4],
-	  );
-      my $addColor = "colorDefault";
-      while (($top_section, $color_indices) = each %color_maps) {
-	  if (index ($element->{'sectionup'}->{'file'}, $top_section) >= 0) {
-	      $addColor = "color" . $color_indices->[$child_count];
-	  }
-      }
-      $this_css_class .= $addColor;
-  }
   $this_css_class .= $is_parent_of_current ? ' toc_current"' : '"';
   my $entry = "$ind<li$this_css_class>" .
       &$anchor ($element->{'tocid'},
@@ -1753,10 +1740,10 @@ sub lilypond_generate_page_toc_body($)
         # FIXME: add link to main page, really hackily.
         if ($element->{'sectionup'}) {
             # it's not the top element
-            push (@toc_entries, "<li><a href=\"index.html\">Main</a></li>\n");
+            push (@toc_entries, "<li><a href=\"index.html\"><span>LilyPond</span></a></li>\n");
         } else {
             push (@toc_entries,
-		  "<li class=\"toc_current\"><a href=\"index.html\">Main</a></li>\n");
+		  "<li class=\"toc_current\"><a href=\"index.html\"><span>LilyPond</span></a></li>\n");
         }
     } else {
         push (@toc_entries, "<div class=\"contents\">\n");

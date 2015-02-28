@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: e0f3be42e16458e44183c142561ccdd05aa1bfb9
+    Translation of GIT committish: 0a003d729ded8b728bf627c87c196719676dba6b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -992,6 +992,23 @@ des fontes, que vous pouvez ignorer sans scrupule.@*
 Si vous utilisez @command{latex} en mode colonnage, n'oubliez pas
 d'ajouter @option{-t landscape} aux options de @command{dvips}.
 
+Les environnements tels que
+
+@example
+\begin@{lilypond@} @dots{} \end@{lilypond@}
+@end example
+
+@noindent
+ne sont pas interprétés par @LaTeX{}.  En fait, @code{lilypond-book}
+extrait ces « environnements » dans des fichiers accessoires et les
+traite par LilyPond.  Il récupère ensuite les graphiques résultants et
+crée un fichier @file{.tex} dans lequel les macros
+@code{\begin@{lilypond@}}@dots{}@code{\end@{lilypond@}} sont alors
+remplacées par des commandes « d'inclusion de graphique ».  C'est
+seulement à ce moment là que @LaTeX{} est lancé -- bien que @LaTeX{}
+aura préalablement tourné, cela aura été en fait sur un document
+« vide » et pour calculer certains éléments comme @code{\linewidth}.
+
 @knownissues
 La commande @code{\pageBreak} est inopérante dans un environnement
 @code{\begin@{lilypond@}@dots{}\end@{lilypond@}}.
@@ -1479,4 +1496,3 @@ où @code{\includescore} est défini ainsi :
 D'autres moyens de mélanger musique et texte sans recourir à
 @command{lilypond-book} sont abordés au chapitre
 @ref{Inclusion de partition LilyPond dans d'autres programmes}.
-

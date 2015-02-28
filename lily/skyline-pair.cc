@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2008--2014 Han-Wen Nienhuys <hanwen@lilypond.org>
+  Copyright (C) 2008--2015 Han-Wen Nienhuys <hanwen@lilypond.org>
 
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -52,13 +52,6 @@ Skyline_pair::raise (Real r)
 {
   skylines_[UP].raise (r);
   skylines_[DOWN].raise (r);
-}
-
-void
-Skyline_pair::deholify ()
-{
-  skylines_[UP].deholify ();
-  skylines_[DOWN].deholify ();
 }
 
 void

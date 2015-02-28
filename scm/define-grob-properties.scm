@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 1998--2014  Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 1998--2015  Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -199,7 +199,7 @@ measure of the closeness of the inner stems.  It is used for damping
 the slope of the beam.")
      (connect-to-neighbor ,pair? "Pair of booleans, indicating whether
 this grob looks as a continued break.")
-     (control-points ,list? "List of offsets (number pairs) that form
+     (control-points ,number-pair-list? "List of offsets (number pairs) that form
 control points for the tie, slur, or bracket shape.  For B@'eziers,
 this should list the control points of a third-order B@'ezier curve.")
      (count-from ,integer? "The first measure in a measure count
@@ -214,8 +214,8 @@ increments from this initial value.")
 dash structure.  Each @code{dash-element} has a starting t value,
 an ending t-value, a @code{dash-fraction}, and a @code{dash-period}.")
      (dash-fraction ,number? "Size of the dashes, relative to
-@code{dash-period}.  Should be between @code{0.0} (no line) and
-@code{1.0} (continuous line).")
+@code{dash-period}.  Should be between @code{0.1} and @code{1.0}
+(continuous line).  If set to @code{0.0}, a dotted line is produced")
      (dash-period ,number? "The length of one dash together with
 whitespace.  If negative, no line is drawn at all.")
      (default-direction ,ly:dir? "Direction determined by note head
@@ -637,6 +637,11 @@ this long, normally in the horizontal direction.  This requires an
 appropriate callback for the @code{springs-and-rods} property.  If
 added to a @code{Tie}, this sets the minimum distance between
 noteheads.")
+     (minimum-length-after-break ,ly:dimension? "If set, try to make
+a broken spanner starting a line this long.  This requires an
+appropriate callback for the @code{springs-and-rods} property.  If
+added to a @code{Tie}, this sets the minimum distance to the
+notehead.")
      (minimum-length-fraction ,number? "Minimum length of ledger line
 as fraction of note head size.")
      (minimum-space ,ly:dimension? "Minimum distance that the victim
@@ -904,7 +909,8 @@ Standard choices for @w{@code{@var{break-align-symbol}}} are listed in
 used when the grob is just left of the first note on a line
 
 @item next-note
-used when the grob is just left of any other note
+used when the grob is just left of any other note;
+if not set, the value of @code{first-note} gets used
 
 @item right-edge
 used when the grob is the last item on the line (only compatible with
@@ -1087,9 +1093,15 @@ automatically.")
 line just before it would otherwise stop.")
      (toward-stem-shift ,number? "Amount by which scripts are shifted
 toward the stem if their direction coincides with the stem direction.
-@code{0.0} means keep the default position (centered on the note
-head), @code{1.0} means centered on the stem.  Interpolated values are
-possible.")
+@code{0.0} means centered on the note head (the default position of
+most scripts); @code{1.0} means centered on the stem.  Interpolated
+values are possible.")
+     (toward-stem-shift-in-column ,number? "Amount by which a script
+is shifted toward the stem if its direction coincides with the stem
+direction and it is associated with a @code{ScriptColumn} object.
+@code{0.0} means centered on the note head (the default position of
+most scripts); @code{1.0} means centered on the stem.  Interpolated
+values are possible.")
      (transparent ,boolean? "This makes the grob invisible.")
 
 
@@ -1111,12 +1123,13 @@ positioning?")
 ;;;
      (vertical-skylines ,ly:skyline-pair? "Two skylines, one above and
 one below this grob.")
+     (voiced-position ,number? "The staff-position of a voiced
+@code{Rest}, negative if the rest has @code{direction} @code{DOWN}.")
 
 ;;;
 ;;; w
 ;;;
-     (when ,ly:moment? "Global time step associated with this column
-happen?")
+     (when ,ly:moment? "Global time step associated with this column.")
      (whiteout ,boolean? "If true, the grob is printed over a white
 background to white-out underlying material, if the grob is visible.
  Usually #f by default.")
@@ -1245,7 +1258,8 @@ empty in a particular staff, then that staff is erased.")
      (keep-alive-with ,ly:grob-array? "An array of other
 @code{VerticalAxisGroup}s.  If any of them are alive, then we will stay alive.")
 
-     (left-items ,ly:grob-array? "DOCME")
+     (left-items ,ly:grob-array? "Grobs organized on the left by a spacing
+object.")
      (left-neighbor ,ly:grob? "The right-most column that has a spacing-wish
 for this column.")
 
@@ -1276,13 +1290,18 @@ relevant for finding the @code{pure-Y-extent}.")
      (rest ,ly:grob? "A pointer to a @code{Rest} object.")
      (rest-collision ,ly:grob? "A rest collision that a rest is in.")
      (rests ,ly:grob-array? "An array of rest objects.")
-     (right-items ,ly:grob-array? "DOCME")
+     (right-items ,ly:grob-array? "Grobs organized on the right by
+a spacing object.")
      (right-neighbor ,ly:grob? "See @code{left-neighbor}.")
 
+     (scripts ,ly:grob-array? "An array of @code{Script} objects.")
      (side-support-elements ,ly:grob-array? "The side support, an array of
 grobs.")
      (slur ,ly:grob? "A pointer to a @code{Slur} object.")
      (spacing ,ly:grob? "The spacing spanner governing this section.")
+     (space-increment ,ly:dimension? "The amount by which the total duration
+of a multimeasure rest affects horizontal spacing.  Each doubling of the
+duration adds @code{space-increment} to the length of the bar.")
      (spacing-wishes ,ly:grob-array? "An array of note spacing or staff spacing
 objects.")
      (span-start ,boolean? "Is the note head at the start of a spanner?")
@@ -1373,7 +1392,8 @@ to be within staff spaces.")
      (quantized-positions ,number-pair? "The beam positions after
 quanting.")
 
-
+     (script-column ,ly:grob? "A @code{ScriptColumn} associated with a
+@code{Script} object.")
      (script-stencil ,pair? "A pair @code{(@var{type} . @var{arg})} which
 acts as an index for looking up a @code{Stencil} object.")
      (shorten ,ly:dimension? "The amount of space that a stem is shortened.

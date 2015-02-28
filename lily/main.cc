@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -158,6 +158,7 @@ static Long_option_init options_static[]
   {0, "pdf", 0, _i ("generate PDF (default)")},
   {0, "png", 0, _i ("generate PNG")},
   {0, "ps", 0, _i ("generate PostScript")},
+  {0, "bigpdfs", 'b', _i("generate big PDF files")},
   {0, "help", 'h', _i ("show this help and exit")},
   {
     _i ("FIELD"), "header", 'H', _i ("dump header field FIELD to file\n"
@@ -259,7 +260,7 @@ copyright ()
  */
 {
   /* Do not update the copyright years here, run `make grand-replace'  */
-  printf ("%s", (_f ("Copyright (c) %s by\n%s  and others.", "1996--2014",
+  printf ("%s", (_f ("Copyright (c) %s by\n%s  and others.", "1996--2015",
                      AUTHORS).c_str ()));
   printf ("\n");
 }
@@ -611,6 +612,10 @@ parse_argv (int argc, char **argv)
             add_output_format (opt->longname_str0_);
           else if (string (opt->longname_str0_) == "relocate")
             relocate_binary = true;
+          break;
+
+        case 'b':
+          bigpdfs = true;
           break;
 
         case 'd':

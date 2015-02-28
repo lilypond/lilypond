@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 1998--2014 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; Copyright (C) 1998--2015 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -555,6 +555,7 @@ messages into errors.")
     "part-combiner.scm"
     "autochange.scm"
     "define-music-properties.scm"
+    "time-signature.scm"
     "time-signature-settings.scm"
     "auto-beam.scm"
     "chord-name.scm"

@@ -1,0 +1,3342 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+
+@ignore
+    Translation of GIT committish: 7fdce4f39834cc8c83f176480cc1d20900eb09f8
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.19.2"
+
+@node Conceptes fonamentals
+@chapter Conceptes fonamentals
+@translationof Fundamental concepts
+
+Heu pogut veure al tutorial com produir música impresa amb bellesa
+a partir d'un simple fitxer de text.  Aquesta secció presenta els
+conceptes i tècniques que es requereixen per produir partitures
+igualment belles però més complexes.
+
+@menu
+* Com funcionen els fitxers d'entrada del LilyPond::
+* Les veus contenen música::
+* Contextos i gravadors::
+* Extensió de les plantilles::
+@end menu
+
+
+@node Com funcionen els fitxers d'entrada del LilyPond
+@section Com funcionen els fitxers d'entrada del LilyPond
+@translationof How LilyPond input files work
+
+El format d'entrada del LilyPond és força lliure en la seva forma
+i concedeix els usuaris amb experiència molta flexibilitat per
+estructurar els seus fitxers de la forma desitjada.  Nogensmenys,
+tota aquesta flexibilitat pot fer que les coses es tornin confuses
+per als nous usuaris.  Aquesta secció us explicarà part d'aquesta
+estructura, però pot obviar certs detalls per simplificar.  Per
+veure una descripció més completa del format d'entrada, consulteu
+@ruser{File structure}.
+
+
+@menu
+* Introducció a l'estructura dels fitxers del LilyPond::
+* La partitura és una (única) expressió musical composta::
+* Niuat d'expressions musicals::
+* Quant a la impossibilitat de niuar claudàtors i lligadures::
+@end menu
+
+@node Introducció a l'estructura dels fitxers del LilyPond
+@subsection Introducció a l'estructura dels fitxers del LilyPond
+@translationof Introduction to the LilyPond file structure
+
+@cindex entrada, format de l'
+@cindex fitxer, estructura del
+
+Un exemple bàsic de fitxer d'entrada del LilyPond és el següent:
+
+@example
+\version @w{"@version{}"}
+
+\header @{ @}
+
+\score @{
+  @var{ @dots{} expressió musical composta @dots{} }  % tota la música va aquí
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+@noindent
+Hi ha moltes variacions d'aquest esquema bàsic, però l'exemple
+constitueix un punt de partida útil.
+
+@funindex \book
+@funindex book
+@funindex \score
+@funindex score
+@cindex book (llibre)
+@cindex score (partitura)
+@cindex llibre
+@cindex partitura
+
+Fins al moment, cap dels exemples que heu pogut veure utilitza la
+instrucció @code{\score@{@}}.  Això és així perquè el LilyPond
+afegeix automàticament les ordres addicionals que es requereixen
+quan li proporcionem una entrada senzilla.  El LilyPond tracta una
+entrada com aquesta:
+
+@example
+\relative c'' @{
+  c4 a d c
+@}
+@end example
+
+@noindent
+com una abreviatura d'aquesta altra:
+
+@example
+\book @{
+  \score @{
+    \new Staff @{
+      \new Voice @{
+        \relative c'' @{
+          c4 a b c
+        @}
+      @}
+    @}
+    \layout @{ @}
+  @}
+@}
+@end example
+
+En altres paraules, si l'entrada consta d'una única expressió
+musical, el LilyPond interpreta el fitxers com si l'expressió
+musical estigués rodejada per un embolcall fet per les
+instruccions que acabem de veure.
+
+@cindex contextos implícits
+v@cindex implícits, contextos
+
+@strong{¡Advertiment!}  Molts dels exemples que apareixen a la
+documentació del LilyPond ometen les instruccions @code{\new
+Staff} i @code{\new Voice}, deixant que es creïn de forma
+implícita.  Això funciona bé per a exemples senzills, però per a
+exemples més complicats, especialment quan s'usen instruccions
+addicionals, la creació implícita dels contextos poden donar lloc
+a resultats inesperats, fins i tot en ocasions crear pentagrames
+no desitjats.  La forma de crear contextos de forma explícita
+s'explica a @ref{Contextos i gravadors}.
+
+@warning{Quan s'escriuen més d'unes poques línies de música, es
+recomana crear sempre els pentagrames i les veus de forma
+explícita.}
+
+En tot cas, per ara anem a tornar al primer exemple per examinar
+l'ordre @code{\score}, deixant les altres en la seva forma
+predeterminada.
+
+Un bloc @code{\score} sempre ha de contenir una expressió musical
+única, que ha d'aparèixer immediatament després de la instrucció
+@code{\score}.  Recordeu que una expressió musical pot ser
+qualsevol cosa, des d'una sola nota fina una enorme expressió
+composta com ara
+
+@example
+@{
+  \new StaffGroup <<
+    @var{ @dots{} inseriu aquí la partitura completa d'una òpera
+  de Wagner @dots{} }
+  >>
+@}
+@end example
+
+@noindent
+A causa que tot es troba dins de @code{@{ @dots{} @}}, compta com
+una expressió musical.
+
+Com hem vist anteriorment, el bloc @code{\score} pot contenir
+altres coses, com ara
+
+@example
+\score @{
+  @{ c'4 a b c' @}
+  \header @{ @}
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+@funindex \header
+@funindex header
+@funindex \layout
+@funindex layout
+@funindex \midi
+@funindex midi
+@cindex midi
+@cindex capçalera
+@cindex disposició
+
+@noindent
+Observeu que aquestes tres instruccions (@code{\header},
+@code{\layout} i @code{\midi}) són especials: a diferència de la
+resta de les instruccions que comencen amb una barra invertida
+(@code{\}), @emph{no} són expressions musicals i no formen part de
+cap expressió musical.  Per tant, es poden posar dins d'un bloc
+@code{\score} o a fora d'ell.  De fet, aquestes instruccions se
+situen en general fora del bloc @code{\score} (per exemple,
+@code{\header} se sol col.locar abans de la instrucció
+@code{\score}, com mostra l'exemple que apareix al principi de la
+secció.)
+
+Dues instruccions més que no hem vist són @code{\layout @{ @}}
+i @code{\midi @{ @}}.  Si apareixen tal i com es mostren aquí, fan
+que el LilyPond produeixi una sortida impresa i una sortida MIDI,
+respectivament.  Es descriuen amb tot detall al manual de
+Referència de la notació, a @ruser{Score layout} i a
+@ruser{Creating MIDI files}.
+
+@cindex partitures, diverses
+@cindex book, bloc implícit
+@cindex implícit, bloc book
+@funindex \book
+@funindex book
+
+Podem escriure diversos blocs @code{\score}.  Cada un d'ells rebrà
+el mateix tractament que una partitura independent, però es
+combinaran tots junts a un fitxer de sortida únic.  No fa falta
+cap instrucció @code{\book}, es crearà un implícitament.  No
+obstant, si voleu fitxers de sortida separats a partir d'un únic
+fitxer @file{.ly}, aleshores cal utilitzar l'ordre
+@code{\book} per separar les diferents seccions: cada bloc
+@code{\book} produeix un fitxer de sortida diferent.
+
+En resum:
+
+Cada bloc @code{\book} crea un fitxer de sortida diferent (per
+exemple, un fitxer PDF).  Si no hem escrit un de forma explícita,
+el LilyPond envolta tot el nostre codi d'entrada dins d'un bloc
+@code{\book} de forma implícita.
+
+Cada bloc @code{\score} és un tros de música separat dins d'un
+bloc @code{\book}.
+
+@cindex layout, efecte de la situació del bloc
+
+Cada bloc @code{\layout} afecta el bloc @code{\score} o
+@code{\book} dins del qual apareix (és a dir, un bloc
+@code{\layout} dins d'un bloc @code{\score}) afecta solament a
+aquest bloc @code{\score}, però un bloc @code{\layout} fora d'un
+bloc @code{\score} (que per això està dins d'un bloc
+@code{\book}, ja sigui explícit o implícitament) afecta als blocs
+@code{\score} que estan dins d'aquest @code{\book}.
+
+Per veure més detalls, consulteu @ruser{Multiple scores in a book}.
+
+@cindex variables
+
+Una altra magnifica drecera és la possibilitat de definir
+variables com es mostra a @ref{Organitzar les peces mitjançant
+variables}.  Totes les plantilles fan servir el següent:
+
+@example
+melodia = \relative c' @{
+  c4 a b c
+@}
+
+\score @{
+  \melodia
+@}
+@end example
+
+Quan el LilyPond examina aquest fitxer, agafa el valor de
+@code{melodia} (tot el que hi ha després del signe igual) i
+l'insereix a tot arreu que veu @code{\melodia}.  No es requereix
+una cura especial amb el nom (pot ser @code{melodia},
+@code{global}, @code{CompasArmadura}, @code{madretadelpiano} o
+@code{fulanet} o qualsevol altre).  Recordeu que pot ser gairebé
+qualsevol nom que se us acudeixi, sempre i quan contingui sols
+caràcters alfabètics i sigui diferent a qualsevol dels noms
+d'instrucció del LilyPond.  Per veure més detalls, consulteu
+@ref{Estalviar tecleig mitjançant variables i funcions}.  Les
+limitacions exactes que afecten els noms de variable es detallen a
+@ruser{File structure}.
+
+
+@seealso
+Per veure una definició completa del format del codi d'entrada,
+consulteu @ruser{File structure}
+
+@node La partitura és una (única) expressió musical composta
+@subsection La partitura és una (única) expressió musical composta
+@translationof Score is a (single) compound musical expression
+
+@cindex score
+@cindex partitura
+@cindex contingut del bloc score
+@cindex score, contingut del bloc
+@cindex composta, expressió musical
+@cindex musical, expressió, composta
+@cindex expressió musical composta
+@funindex \score
+@funindex score
+
+En la secció anterior, @ref{Introducció a l'estructura dels
+fitxers del LilyPond}, hem pogut veure l'organització general dels
+fitxers d'entrada del LilyPond.  Però sembla que ens hem salta la
+part més important: com esbrinem què escriure després de
+@code{\score}?
+
+No ens hem salta res de res.  El gran misteri és, senzillament,
+que no hi ha @emph{cap} misteri.  La línia següent ho explica tot:
+
+@quotation
+@emph{Un bloc @code{\score} ha de començar amb una expressió
+musical composta.}
+@end quotation
+
+@noindent
+Per comprendre el que s'entén per expressió musical i expressió
+musical composta, potser trobeu útil fer un repàs al tutorial,
+@ref{Explicació de les expressions musicals}.  En aquesta secció
+vam veure com elaborar grans expressions musicals a partir de
+petites peces (començàvem amb notes, després acords, etc.).  Ara
+partirem d'una gran expressió musical i recorrerem el camí invers
+cap avall.  Per simplicitat, farem sols un cantant i un piano.
+No necessitem un @code{StaffGroup} (que simplement agrupa un cert
+nombre de pautes amb un claudàtor a l'esquerra) per a aquest
+conjunt, i aleshores el retirem. Tot i així, @emph{sí} necessitem
+pentagrames per a un cantant i un piano.
+
+@example
+\score @{
+  <<
+    \new Staff = "cantant" <<
+    >>
+    \new PianoStaff = "piano" <<
+    >>
+  >>
+  \layout @{ @}
+@}
+@end example
+
+Aquí hem assignat noms als pentagrames: @qq{cantant} i
+@qq{piano}.  Això no és essencial en aquest moment, però és un
+hàbit que resulta útil cultivar de manera que podem saber d'una
+ullada per a què és cada pentagrama.
+
+Recordeu que utilitzem @code{<< @dots{} >>} en comptes de @code{ @dots{} @}}
+per presentar la música simultània.  Això fa que les parts vocals
+i del piano apareguin una sobre l'altra a la partitura.  La
+construcció @code{<< @dots{} >>} no seria necessària per al
+pentagrama del cantant a l'exemple de dalt si conté solament una
+expressió musical seqüencial, però es necessitarien els @code{<<
+@dots{} >>} en comptes de les claus si la música d'aquest
+pentagrama anés a contenir dues o més expressions simultànies, per
+exemple dues veus simultànies, o una veu amb lletra.  Tindrem una
+veu amb lletra, per la qual cosa es requereixen els angles
+dobles.  Després afegirem quelcom de música real; per ara
+limitem-nos a posar unes quantes notes i text de farciment.  Si
+heu oblidat com afegir la lletra, podeu rellegir la secció
+@code{\addlyrics} de @ref{Elaborar cançons senzilles}.
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  <<
+    \new Staff = "singer" <<
+      \new Voice = "vocal" { c'1 }
+      \addlyrics { And }
+    >>
+    \new PianoStaff = "piano" <<
+      \new Staff = "upper" { c'1 }
+      \new Staff = "lower" { c'1 }
+    >>
+  >>
+  \layout { }
+}
+@end lilypond
+
+Ara tenim molts més detalls.  Tenim la pauta del cantant: conté
+una @code{Voice} o veu (al LilyPond, aquest terme fa referència a
+un conjunt de notes, no necessàriament notes vocals -- per
+exemple, un violí generalment toca una veu --) i el text de la
+cançó.  També tenim una pauta de piano: conté un pentagrama
+superior (mà dreta) i un pentagrama inferior (mà esquerra), tot i
+que el pentagrama inferior encara no té la clau de Fa.
+
+En aquest moment podríem començar a ficar les notes.  Dins dels
+claudàtors que segueixen a @code{\new Voice = "vocal"}, podríem
+començar escrivint
+
+@example
+\relative c'' @{
+  r4 d8\noBeam g, c4 r
+@}
+@end example
+
+Però si ho féssim, la secció @code{\score} es faria força llarga i
+seria més difícil comprendre el que passa.  En comptes d'això
+utilitzarem identificadors o variables.  Recordareu que les vam
+veure per primer cop a la secció anterior.
+
+Per assegurar-nos que el contingut de la variable @code{text}
+s'interpreta com a lletra, el precedim amb @code{\lyricmode}.
+Igual que @code{\addlyrics}, això activa el mode d'entrada de
+lletra.  Sense això, el LilyPond intentaria interpretar el
+contingut com a notes, cosa que generaria errors (Hi ha d'altres
+modes, vegeu @ruser{Input modes}).
+
+Així doncs, tot escrivint algunes notes, i una clau de Fa per a la
+mà esquerra, ara tenim un fragment musical de debò:
+
+@lilypond[verbatim,quote,ragged-right]
+melody = \relative c'' { r4 d8\noBeam g, c4 r }
+text   = \lyricmode { And God said, }
+upper  = \relative c'' { <g d g,>2~ <g d g,> }
+lower  = \relative c { b2 e }
+
+\score {
+  <<
+    \new Staff = "singer" <<
+      \new Voice = "vocal" { \melody }
+      \addlyrics { \text }
+    >>
+    \new PianoStaff = "piano" <<
+      \new Staff = "upper" { \upper }
+      \new Staff = "lower" {
+        \clef "bass"
+        \lower
+      }
+    >>
+  >>
+  \layout { }
+}
+@end lilypond
+
+Quan escriviu una secció @code{\score} o quan l'esteu llegint,
+feu-lo a poc a poc i amb cura.  Comenceu pel nivell exterior i
+després treballeu sobre cadascú dels nivells interiors.  També és
+d'una gran ajuda ser molt estricte amb els marges (assegureu-vos
+que al seu editor de text cada element del mateix nivell comença a
+la mateixa posició horitzontal).
+
+@seealso
+Referència de la notació:
+@ruser{Estructura d'una partitura}.
+
+
+@node Niuat d'expressions musicals
+@subsection Niuat d'expressions musicals
+@translationof Nesting music expressions
+
+@cindex pentagrames temporals
+@cindex temporals, pentagrames
+@cindex ossias
+
+No és essencial declarar tots els pentagrames al començament; es
+poden crear temporalment en qualsevol moment.  Això és d'especial
+utilitat per crear seccions d'ossia (vegeu @rglos{ossia}).  A
+continuació presentem un exemple senzill que mostra com introduir
+temporalment un pentagrama nou mentre dura un fragment de tres
+notes:
+
+@lilypond[verbatim,quote,ragged-right]
+\new Staff {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f8 c c }
+      \new Staff {
+        f8 f c
+      }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+@noindent
+Noteu que la mida de la clau és igual a la que s'imprimeix en un
+canvi de clau (lleugerament més petita que la clau al principi
+d'una línia).  Això és normal per a qualsevol clau que
+s'imprimeixi a la meitat d'una línia.
+
+@cindex pentagrama, posicionat del
+
+La secció ossia es pot col.locar a sobre del pentagrama de la
+manera següent:
+
+@lilypond[verbatim,quote,ragged-right]
+\new Staff = "main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f8 c c }
+      \new Staff \with {
+        alignAboveContext = #"main"
+      } { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+Aquest exemple utilitza @code{\with}, que s'explica en tot detall
+més endavant.  És un mitjà per modificar el comportament
+predeterminat d'un sol pentagrama.  En aquest exemple, diu que el
+pentagrama nou s'ha de col.locar per sobre del pentagrama anomenat
+@qq{main} en comptes de la posició predeterminada que seria per sota.
+
+@seealso
+Els fragments d'ossia s'escriuen sovint sense clau i sense
+indicació de compàs, i generalment amb una lletra més petita.  Per
+fer això caldrien més ordres que encara no s'han vist.  Vegeu
+@rlearningnamed{Size of objects,Mida dels objectes} i
+@ruser{Ossia staves}.
+
+@node Quant a la impossibilitat de niuar claudàtors i lligadures
+@subsection Quant a la impossibilitat de niuar claudàtors i lligadures
+@translationof On the un-nestedness of brackets and ties
+
+@cindex claudàtors i parèntesis, niuat de
+@cindex claudàtors i parèntesis, tipus de
+@cindex claudàtors i parèntesis, tancar en front a marcar
+
+A l'escriptura del fitxer d'entrada del LilyPond hem pogut veure
+alguns tipus de parèntesis, claudàtors i angles de diversos
+tipus. Obeeixen a diverses regles que el principi poden semblar
+confuses.  Abans d'explicar aquestes regles, fem un repàs a les
+diverses classes de claudàtors, claus i parèntesis.
+
+@c attempt to force this onto a new page
+@need 50
+@multitable @columnfractions .3 .7
+@headitem Tipus de parèntesis
+  @tab Funció
+@item @code{@{ @dots{} @}}
+  @tab Tanca un fragment seqüencial de música
+@item @code{< @dots{} >}
+  @tab Tanca les notes d'un acord
+@item @code{<< @dots{} >>}
+  @tab Tanca expressions musicals simultànies
+@item @code{( @dots{} )}
+  @tab Marca el començament i el final d'una lligadura d'expressió
+@item @code{\( @dots{} \)}
+  @tab Marca el començament d'una lligadura de frasseig
+@item @code{[ @dots{} ]}
+  @tab Marca el començament i el final d'un barrat manual
+@end multitable
+
+A les anteriors hem d'afegir d'altres construccions que generen
+línies entre o a través de ls notes: les lligadures d'unió
+(marcades amb un accent corb, @code{~}), els grups especials que
+s'escriuen amb @code{\tuplet x/y @{ @dots{} @}}, i les notes
+d'adorn, que s'escriuen amb @code{\grace @{ @dots{} @}}.
+
+Fora del LilyPond, l'ús convencional dels parèntesis i d'altres
+claudàtors requereix que els diversos tipus es trobin niuats
+correctament, com a: @code{<< [ @{ ( @dots{} ) @} ] >>}, de manera
+que els parèntesis que es tanquen han de trobar-se a l'ordre
+exactament oposat als dels parèntesis que s'obren.  Això
+@strong{és} un requisit per als tres tipus de parèntesis que es
+descriuen mitjançant la paraula @q{Tanca} a la taula anterior:
+s'han de niuar correctament.  Tanmateix, la resta de claus i
+claudàtors, que estan descrits per la paraula @q{Marca} a la
+mateixa taula anterior, @strong{no} han de niuar-se estrictament
+per cap raó  amb cap dels altres parèntesis.  De fet, aquests
+parèntesis no són parèntesis en el sentit que tanquen quelcom:
+simplement són marcadors que indiquen on comença o finalitza
+quelcom.
+
+Així doncs, per exemple, una lligadura de fraseig pot començar
+abans d'una barra inserida manualment, i acabar abans que acabi
+la barra (una cosa que potser no sigui molt musical, però és
+possible):
+
+@lilypond[quote,verbatim,ragged-right,relative=2]
+g8\( a b[ c b\) a] g4
+@end lilypond
+
+En general, els diversos tipus de claudàtors, i els que es fan
+servir per grups especials, lligadures d'unió i notes d'adorn, es
+poden barrejar amb total llibertat.  Aquest exemple mostra una
+barra que s'estén cap a l'interior d'un grup de valoració especial
+(línia 1), una lligadura d'expressió que es perllonga cap a
+l'interior d'un grup especial, una lligadura d'unió que travessa
+dos grups especials, i una lligadura de fraseig que surt de
+l'interior d'un grup especial (línies 3 i 4).
+
+@lilypond[quote,verbatim,ragged-right,relative=1]
+r16[ g \tuplet 3/2 { r16 e'8] }
+g,16( a \tuplet 3/2 { b16 d) e }
+g,8[( a \tuplet 3/2 { b8 d) e~] } |
+\tuplet 5/4 { e32\( a, b d e } a4.\)
+@end lilypond
+
+
+@node Les veus contenen música
+@section Les veus contenen música
+@translationof Voices contain music
+
+Igual que els cantants, al LilyPond li calen veus per cantar.  En
+realitat, la música per a qualsevol instrument d'una partitura
+està sempre continguda dins d'una veu --el concepte del LilyPond
+més fonamental de tots--.
+
+@menu
+* Escolto veus::
+* Veus explícites::
+* Veus i música vocal::
+@end menu
+
+@node Escolto veus
+@subsection Escolto veus
+@translationof I'm hearing Voices
+
+@cindex polifonia
+@cindex capes
+@cindex diverses veus
+@cindex veus, diverses
+@cindex Voice (veu), context de
+@cindex context Voice (de veu)
+@cindex simultània, música
+@cindex concorrent, música
+@cindex veus en front a acords
+@cindex acords en front a veus
+
+De les capes més fondes d'una partitura del LilyPond, les més
+baixes i més fonamental reben el nom de @q{Voice contexts}
+(«contextos de veu») o, abreujadament, @q{Voices} («veus»).  Les
+veus s'anomenen a vegades @q{layers} («capes») a d'altres
+programes d'edició de partitures.
+
+De fet, una capa o context de veu és l'única que pot contenir
+música.  Si un context de veu no es declara explícitament, es crea
+un de forma automàtica, com vam veure al principi d'aquest capítol.
+Certs instruments com l'oboè sols poden tocar una nota cada
+cop. La música escrita per a aquests instruments sols requereix
+una veu.  Els instruments que poden tocar més d'una nota a la
+vegada, com el piano, amb freqüència necessitaran diverses veus
+per codificar les diverses notes i ritmes concurrents que són
+capaces de tocar.
+
+Una sola veu pot contenir moltes notes dins d'un acord, per
+suposat; aleshores, quan, exactament, es necessiten diverses veus?
+En primer lloc observeu aquest exemple de quatre acords:
+
+@lilypond[quote,verbatim,ragged-right,relative=1]
+\key g \major
+<d g>4 <d fis> <d a'> <d g>
+@end lilypond
+
+Això es pot expressar utilitzant sols símbols d'acord amb angles
+simples, @code{< @dots{} >}, i per això tan sols es necessita una
+veu.  Però suposeu que el Fa sostingut fos realment una corxera
+seguida d'un Sol corxera, una nota de pas que condueix al La.  Ara
+tenim duen notes que comencen el mateix moment però tenen
+diferents duracions: la negra Re, i la corxera Fa sostingut.  Com
+es codifica això? No es poden escriure amb un acord perquè totes
+les notes d'un acord han de tenir la mateixa duració.  I no es
+poden escriure com dues notes en seqüència perquè han de començar
+al mateix moment.  Aquí és on necessiten dues veus.
+
+Vegem com es fa això dins de la sintaxi d'entrada del LilyPond.
+
+@funindex << \\ >>
+@funindex \\
+
+La forma més fàcil d'introduir fragments amb més d'una veu a un
+sol pentagrama és escriure cada veu com una seqüència (amb
+@code{@{ @dots{} @}}), i combinar-les simultàniament amb angles
+dobles, @code{<< @dots{} >>}.  Els fragments també s'han de
+separar mitjançant una doble barra invertida, @code{\\}, per
+situar-los a veus separades.
+Sense això, les notes anirien a una sola veu, el que normalment
+produeix errors.  Aquesta tècnica s'adapta especialment bé a peces
+de música que són majorment homofòniques però ocasionalment tenen
+seccions curtes de polifonia.
+
+Heus ací com dividim els acords anteriors en dues veus i afegim la
+nota de pas i la lligadura:
+
+@lilypond[quote,verbatim,ragged-right,relative=2]
+\key g \major
+%    Veu "1"                 Veu "2"
+<< { g4 fis8( g) a4 g } \\ { d4 d d d }  >>
+@end lilypond
+
+Observe com les pliques de la segona veu ara es dirigeixen cap
+avall.
+
+A continuació vegem un altre exemple senzill:
+
+@lilypond[quote,verbatim,ragged-right,relative=2]
+\key d \minor
+%    Veu "1"               Veu "2"
+<< { r4 g g4. a8 }    \\ { d,2 d4 g }       >> |
+<< { bes4 bes c bes } \\ { g4 g g8( a) g4 } >> |
+<< { a2. r4 }         \\ { fis2. s4 }       >> |
+@end lilypond
+
+No és necessari usar una construcció @code{<< \\ >>} diferent per
+a cada compàs.  Per a música que tingui unes poques notes a cada
+compàs, aquesta disposició podria facilitar la llegibilitat del
+codi, però si hi ha moltes notes a cada compàs podria ser millor
+dividir-lo en dues veus separades de la següent manera:
+
+@lilypond[quote,verbatim,ragged-right,relative=2]
+\key d \minor
+<< {
+  % Veu "1"
+  r4 g g4. a8 |
+  bes4 bes c bes |
+  a2. r4 |
+} \\ {
+  % Veu "2"
+  d,2 d4 g |
+  g4 g g8( a) g4 |
+  fis2. s4 |
+} >>
+@end lilypond
+
+@cindex veus, nomenament de
+@cindex veus que creuen claudàtors
+@cindex lligadures que creuen claudàtors
+
+Aquest exemple té sols dues veus, però la mateixa construcció es
+pot usar per codificar tres o més veus mitjançant l'addició de més
+separadors de barra invertida.
+
+Els contextos de veu porten els noms de @code{"1"}, @code{"2"},
+etc. Els primers contextos estableixen les veus @emph{externes},
+la veu aguda del context @code{"1"} i la veu greu del context
+@code{"2"}.  Les veus interiors van als contextos @code{"3"} i
+@code{"4"}.  A cada un d'aquests contextos, la direcció vertical
+de les lligadures, pliques, matisos dinàmics, etc., s'ajusta de
+forma correcta.
+
+@lilypond[quote,verbatim]
+\new Staff \relative c' {
+  % Veu principal
+  c16 d e f
+  %    Veu "1"       Veu "2"                 Veu "3"
+  << { g4 f e } \\ { r8 e4 d c8~ } >> |
+  << { d2 e }   \\ { c8 b16 a b8 g~ 2 } \\ { s4 b c2 } >> |
+}
+@end lilypond
+
+Totes aquestes veus estan separades de la veu principal que conté
+les notes just per fora de la construcció @code{<< @dots{} >>}.
+Anomenarem això la @emph{construcció simultània}.  Les lligadures
+(de prolongació i d'expressió) solament poden connectar notes
+que estiguin dins de la mateixa veu, en conseqüència les
+lligadures no poden entrar o sortir d'una construcció
+simultània. A la inversa, les veus paral.leles de construccions
+simultànies diferents sobre el mateix pentagrama són la mateixa
+veu. Hi ha altres propietats relatives a les veus que també
+impliquen construccions simultànies. A continuació veiem el mateix
+exemple, amb colors i caps diferents per a cada veu.  Observeu que
+els canvis a una veu no afecten a d'altres veus, però persisteixen
+més tard dins de la mateixa veu.  Observeu també que les notes
+lligades es poden dividir entre les mateixes veus de dues
+construccions, com s'indica aquí a la veu de triangles blaus.
+
+@lilypond[quote,verbatim]
+\new Staff \relative c' {
+  % Veu principal
+  c16 d e f
+  <<  % Bar 1
+    {
+      \voiceOneStyle
+      g4 f e
+    }
+  \\
+    {
+      \voiceTwoStyle
+      r8 e4 d c8~
+    }
+  >> |
+  <<  % Bar 2
+     % Continua la Veu 1
+    { d2 e }
+  \\
+     % Continua la Veu 2
+    { c8 b16 a b8 g~ 2 }
+  \\
+    {
+      \voiceThreeStyle
+      s4 b c2
+    }
+  >> |
+}
+@end lilypond
+
+@funindex \voiceOneStyle
+@funindex \voiceTwoStyle
+@funindex \voiceThreeStyle
+@funindex \voiceFourStyle
+@funindex \voiceNeutralStyle
+
+Les instruccions @code{\voiceXXXStyle} estan pensades
+principalment per usar-les en documents educatius com el que
+presentem aquí. Modifiquen el color del cap, la plica i les
+barres, i l'estil del cap, de manera que les veus es poden
+distingir fàcilment.  La veu u està establerta a rombes vermells,
+la veu dos a triangles blaus, la veu tres a cercles verdes amb
+aspes, i la veu quatre (que no es fa servir aquí) a aspes color
+magenta.  @code{\voiceNeutralStyle} (que tampoc no es fa servir
+aquí) retorna tot a l'estil predeterminat.  Veurem més endavant
+com l'usuari pot crear instruccions com aquestes.  Vegeu
+@rlearningnamed{Visibility and color of objects,Visibilitat i
+color dels objectes} i
+@rlearningnamed{Using variables for layout adjustments,Ús de
+variables per als ajustos de disposició}.
+
+@cindex polifonia i mode relatiu
+@cindex relatiu, mode, polifonia i
+
+La polifonia no canvia la relació de les notes dins d'un bloc
+@code{\relative}.  L'alçada de cada nota encara es calcula amb
+relació a la nota que la precedeix immediatament, o a la primera
+nota de l'acord precedent.  Així, en
+
+@example
+\relative c' @{ notaA << < notaB notaC > \\ notaD >> notaE @}
+@end example
+
+@noindent
+@code{notaB} és relativa a @code{notaA}                      @*
+@code{notaC} és relativa a @code{notaB}, no a @code{notaA};   @*
+@code{notaD} és relativa a @code{notaB}, no a @code{notaA} ni a
+@code{notaC};                                                 @*
+@code{notaE} és relativa a @code{notaD}, no a @code{notaA}.
+
+Una forma alternativa, que podria ser més clara si les notes a les
+veus estan molt separades, és col.locar una instrucció
+@code{\relative} al principi de cada veu:
+
+@example
+\relative c' @{ notaA @dots{} @}
+<<
+  \relative c'' @{ < notaB notaC > @dots{} @}
+\\
+  \relative g' @{ notaD @dots{} @}
+>>
+\relative c' @{ notaE @dots{} @}
+@end example
+
+Finalment, analitzem les veus en una peça de música més
+complexa. Heus aquí les notes dels dos primers compassos del segon
+dels Dos Nocturns de Chopin, Op 32.  Aquest exemple s'utilitzarà
+en fases posteriors dins del present capítol i el següent, per
+il.lustrar diverses tècniques per produir notació, i per tant us
+demanem que ignoreu per ara qualsevol cosa al codi subjacent que
+li sembli misteriós i tan sols es concentri a la música i les veus
+(totes les complicacions s'explicaran a seccions posteriors).
+
+@c The following should appear as music without code
+@lilypond[quote,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  <<  % Veu u
+    { c2 aes4. bes8 }
+  \\  % Voice two
+    {
+      % Ignoreu aquestes expressions per ara, s'explicaran al Cap. 4
+      \once \override NoteColumn.ignore-collision = ##t
+      <ees, c>2
+      \once \override NoteColumn.force-hshift = #0.5
+      des2
+    }
+  \\  % Sense veu tres
+  \\  % Veu quatre
+    {
+      \override NoteColumn.force-hshift = #0
+      aes'2 f4 fes
+    }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+Amb freqüència, la direcció de les pliques s'utilitza per indicar
+la continuïtat de dues línies melòdiques simultànies.  En aquest
+cas, totes les pliques de les notes agudes es dirigeixen cap amunt
+i les de la notes greus cap avall.  Aquesta és la primera
+indicació que es requereix més d'una veu.
+
+Però la necessitat real de diverses veus apareix quan hi ha notes
+que comencen al mateix temps però tenen duracions
+diferents. Observeu les notes que comencen a la tercera part del
+primer compàs. El La bemoll és una negra amb puntet, el Fa és una
+negra i el Re bemoll és una blanca.  Aquestes notes no es poden
+escriure com un acord perquè totes les notes d'un acord han de
+tenir la mateixa duració. Tampoc es poden escriure com notes
+seqüencials, ja que han de començar al mateix temps.  Aquesta
+secció del compas requereix tres veus, i la pràctica comuna seria
+escriure tot el compàs com tres veus com es mostra a sota, on hem
+usat diferents caps i colors per a la tres veus. Un cop més, el
+codi que hi ha a aquest exemple s'explicarà més tard, així que
+ignoreu tot el que no entengueu.
+
+@c The following should appear as music without code
+@c The three voice styles should be defined in -init
+@lilypond[quote,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  <<
+    {  % Veu u
+      \voiceOneStyle
+      c2 aes4. bes8
+    }
+  \\  % Veu dos
+    { \voiceTwoStyle
+      % Ignoreu això per ara - s'explicarà al Cap 4
+      \once \override NoteColumn.ignore-collision = ##t
+      <ees, c>2
+      \once \override NoteColumn.force-hshift = #0.5
+      des2
+    }
+  \\  % No hi ha veu tres (volem les pliques cap avall)
+  \\  % Veu quatre
+    { \voiceThreeStyle
+      \override NoteColumn.force-hshift = #0
+      aes'2 f4 fes
+    }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+Intentarem codificar aquesta música partint de zero.  Com veurem,
+això s'enfronta a certes dificultats.  Començarem tal com hem
+après, usant la construcció @code{<< \\ >>} per introduir la
+música del primer compàs a tres veus:
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  <<
+    { c2 aes4. bes8 } \\ { <ees, c>2 des } \\ { aes'2 f4 fes }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+@cindex plica avall
+@cindex veus i direcció de ls pliques
+@cindex pliques, veus i direcció de les
+@cindex plica amunt
+
+Les direccions de les pliques s'assignen automàticament de forma
+que les veus de numeració imparell reben les pliques cap amunt i les
+de numeració parell cap avall.  Les pliques de les veus 1 i 2
+són correctes, però les pliques de la veu 3 haurien d'anar cap
+avall en aquest fragment en particular.  Podem corregir això
+simplement oblidant-nos de la veu tres i situant la música a la
+veu quatre.  Això es fa escrivint un altre parell de barres
+invertides (@code{\\}).
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  <<  % Veu u
+    { c2 aes4. bes8 }
+  \\  % Veu dos
+    { <ees, c>2 des }
+  \\  % Omet Veu tres
+  \\  % Veu quatre
+    { aes'2 f4 fes }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+@noindent
+Veiem que això arregla la direcció de la plica, però la
+col.locació horitzontal de les notes no és la desitjada.  El
+LilyPond desplaça les notes interiors quan elles o les seves
+pliques d'una altra manera col.lisionarien amb les veus exteriors,
+però això no és el més adequat per a música de piano.  En altres
+situacions, els desplaçaments que el LilyPond aplica poden no
+eliminar les col.lisions.  El LilyPond aporta diverses formes
+d'ajustar la col.locació horitzontal de les notes.  Encara no
+estem preparats per veure com es corregeix això, per la qual cosa
+deixarem el problema per a una secció posterior (vegeu la
+propietat @code{force-hshift} a
+@rlearningnamed{Fixing overlapping notation,Arreglar notació amb
+superposicions}).
+
+@warning{No es poden crear lletres ni objectes d'extensió
+(com ara lligadures, reguladors, etc.) @q{entre} veus diferents.}
+
+@seealso
+Referència de la notació:
+@ruser{Multiple voices}.
+
+
+@node Veus explícites
+@subsection Veus explícites
+@translationof Explicitly instantiating voices
+
+
+@funindex \voiceOne
+@funindex voiceOne
+@funindex \voiceTwo
+@funindex voiceTwo
+@funindex \voiceThree
+@funindex voiceThree
+@funindex \voiceFour
+@funindex voiceFour
+@funindex \oneVoice
+@funindex oneVoice
+@funindex \new Voice
+@cindex contextos de veu, creació de
+
+Els contextos de veu també es poden crear manualment dins d'un
+bloc @code{<< >>} per crear música polifònica, utilitzant
+@code{\voiceOne} @dots{} @code{\voiceFour} per indicar les
+direccions requerides de pliques, lligadures, etc.  A partitures
+més llargues, aquest mètode és més clar perquè permet que les veus
+estiguin separades i rebin noms més descriptius.
+
+Concretament, la construcció @code{<< \\ >>} que usem a la secció
+prèvia:
+
+@example
+\new Staff @{
+  \relative c' @{
+    << @{ e4 f g a @} \\ @{ c,4 d e f @} >>
+  @}
+@}
+@end example
+
+@noindent
+equival a
+
+@example
+\new Staff <<
+  \new Voice = "1" @{ \voiceOne \relative c' @{ e4 f g a @} @}
+  \new Voice = "2" @{ \voiceTwo \relative c' @{ c4 d e f @} @}
+>>
+@end example
+
+Els dos exemples anteriors produeixen:
+
+@c The following example should not display the code
+@lilypond[ragged-right,quote]
+\new Staff <<
+  \new Voice = "1" { \voiceOne \relative c' { e4 f g a } }
+  \new Voice = "2" { \voiceTwo \relative c' { c4 d e f } }
+>>
+@end lilypond
+
+@cindex veus, retorn a única
+@cindex retorn a veu única
+
+Les instruccions @code{\voiceXXX} estableixen la direcció de les
+pliques, lligadures d'expressió, lligadures de prolongació,
+articulacions, anotacions de text, puntets i digitacions.
+@code{\voiceOne} i @code{\voiceThree} fan que aquests objectes
+apuntin cap amunt, mentre que @code{\voiceTwo} i @code{\voiceFour}
+els fan apuntar cap avall.  Aquestes instruccions també produeixen
+un desplaçament horitzontal per a cada veu quan és necessari per
+evitar xocs entre els caps.  La instrucció @code{\oneVoice}
+retorna els ajustos de nou als valors normals per a una sola veu.
+
+Vegem a alguns exemples senzills exactament quin efecte tenen
+@code{\oneVoice}, @code{\voiceOne} i @code{voiceTwo} sobre
+l'escriptura, les lligadures d'unió i d'expressió i les
+indicacions de dinàmica:
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c' {
+  % Comportament predeterminat o comportament després de \oneVoice
+  c4 d8~ 8 e4( f | g4 a) b-> c |
+}
+@end lilypond
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c' {
+  \voiceOne
+  c4 d8~ 8 e4( f | g4 a) b-> c |
+  \oneVoice
+  c,4 d8~ 8 e4( f | g4 a) b-> c |
+}
+@end lilypond
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c' {
+  \voiceTwo
+  c4 d8~ 8 e4( f | g4 a) b-> c |
+  \oneVoice
+  c,4 d8~ 8 e4( f | g4 a) b-> c |
+}
+@end lilypond
+
+A continuació veurem tres formes diferents de composar la notació
+del mateix passatge polifònic, cada una de les quals té els seus
+avantatges segons la circumstància, utilitzant l'exemple de la
+secció anterior.
+
+Una expressió que apareix directament dins de @code{<< >>} pertany
+a la veu principal (però, observeu, @strong{no} dins d'una
+construcció @code{<< \\ >>}).  Això és útil quan apareixen veus
+noves mentre la veu principal està sonant.  A continuació podem
+veure una realització més correcte de l'exemple de la secció
+anterior. Les notes vermelles en forma de rombe mostren que la
+melodia principal està ara dins d'un context d'una sola veu, fent
+que es pugui traçar una lligadura per sobre d'elles.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  \voiceOneStyle
+  % Aquesta secció és homofònica
+  c16^( d e f
+  % Comença una secció simultània de tres veus
+  <<
+    % Continua la veu principal en paral.lel
+    { g4 f e | d2 e) | }
+    % Inicia la segona veu
+    \new Voice {
+      % Estableix les pliques, etc., cap avall
+      \voiceTwo
+      r8 e4 d c8~ | 8 b16 a b8 g~ 2 |
+    }
+    % Inicia la tercera veu
+    \new Voice {
+      % Set stems, etc, up
+      \voiceThree
+      s2. | s4 b c2 |
+    }
+  >>
+}
+@end lilypond
+
+@cindex aniuat d'expressions musicals
+@cindex aniuat de construccions simultànies
+@cindex aniuat de veus
+@cindex veus temporals
+@cindex veus, aniuat de
+
+Les construccions polifòniques niuades més profundament són
+possibles, i si hi ha una veu que apareix sols breument podria
+haver-hi una forma més natural d'escriure la música.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  c16^( d e f
+  <<
+    { g4 f e | d2 e) | }
+    \new Voice {
+      \voiceTwo
+      r8 e4 d c8~ |
+      <<
+        { c8 b16 a b8 g~ 2 | }
+        \new Voice {
+          \voiceThree
+          s4 b c2 |
+        }
+      >>
+    }
+  >>
+}
+@end lilypond
+
+@cindex espaiadores, notes
+
+Aquest mètode de niuar veus noves breument és útil quan sols hi ha
+seccions polifòniques petites, però quan tot el pentagrama és molt
+polifònic podria ser més clar usar sempre diverses veus, usant
+notes espaiadores per passar per sobre de les seccions on una veu
+està en silenci, com per exemple:
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' <<
+  % Inicia la primera veu
+  \new Voice {
+    \voiceOne
+    c16^( d e f g4 f e | d2 e) |
+  }
+  % Inicia la segona veu
+  \new Voice {
+    % Estableix les pliques, etc., cap avall
+    \voiceTwo
+    s4 r8 e4 d c8~ | 8 b16 a b8 g~ 2 |
+  }
+  % Inicia la tercera veu
+  \new Voice {
+    % Estableix les pliques, etc., cap amunt
+    \voiceThree
+    s1 | s4 b c2 |
+  }
+>>
+@end lilypond
+
+@subsubheading Columnes de notes
+
+@cindex columna de notes
+@cindex col.lisions de notes
+@cindex notes, col.lisions de
+@cindex desplaçament, instruccions de
+@funindex \shiftOff
+@funindex shiftOff
+@funindex \shiftOn
+@funindex shiftOn
+@funindex \shiftOnn
+@funindex shiftOnn
+@funindex \shiftOnnn
+@funindex shiftOnnn
+
+Les notes properes a un acord, o les notes que es produeixen al
+mateix temps en diferents veus, es disposen en dos (i
+ocasionalment més) columnes per evitar el solapament dels caps.
+Reben el nom de columnes de notes.  Hi ha columnes diferents per a
+cada veu, i el desplaçament especificat en curs depenent de la veu
+s'aplica a la columna de la nota si en cas contrari es produís una
+col.lisió.  Això es pot veure a l'exemple anterior. Al compàs 2 el
+Do a la veu dos està desplaçat a la dreta respecte del Re de la
+veu u, i a l'últim acord el Do de la veu tres també està desplaçat
+a la dreta respecte de les altres notes.
+
+Les instruccions @code{\shiftOn}, @code{\shiftOnn},
+@code{\shiftOnnn} i @code{\shiftOff} especifiquen el grau que
+s'han de desplaçar les notes i acords de la veu si en cas contrari
+es produís una col.lisió.  De forma predeterminada, les veus
+exteriors (normalment les veus u i dos) tenen com a especificació
+@code{\shiftOff}, mentre que les veus interiors (tres i quatre)
+tenen especificat @code{\shiftOn}.  Quan s'aplica un desplaçament,
+les veus u i tres es desplacen cap a la dreta i les veus dos i
+quatre es desplacen cap a l'esquerra.
+
+@code{\shiftOnn} i @code{\shiftOnnn} defineixen nivells
+addicionals de desplaçament que es poden especificar temporalment
+per resoldre col.lisions en situacions complexes (vegeu
+@rlearningnamed{Real music example,Exemples reals de música}).
+
+Una columna de notes pot contenir sols una nota (o acord) d'una
+veu amb les pliques cap amunt i una nota (o acord) d'una veu amb
+les pliques cap avall.  Si les notes de dues veus que tenen les
+pliques a la mateixa direcció se situen en la mateixa posició i
+les dues veus no tenen cap desplaçament o porten especificat el
+mateix desplaçament, es produirà el missatge d'error @qq{Xoquen
+massa columnes de notes}.
+
+@seealso
+Manual d'aprenentatge:
+@rlearningnamed{Moving objects,Moure objectes}.
+
+Referència de la notació:
+@ruser{Multiple voices}.
+
+
+@node Veus i música vocal
+@subsection Veus i música vocal
+@translationof Voices and vocals
+
+La música vocal presenta una dificultat especial: hem de combinar
+dues expressions, és a dir, les notes i la lletra.
+
+@funindex \new Lyrics
+@funindex \lyricsto
+@funindex lyricsto
+@funindex Lyrics
+@cindex Lyrics, creació d'un context
+@cindex lletra, creació d'un context de
+@cindex lletra, enllaçar amb una veu
+
+Ja heu vist la instrucció @code{\addlyrics@{@}}, que funciona bé
+per a partitures senzilles.  Tot i així, aquesta tècnica és una
+mica limitada.  Per a música de complexitat més gran, hem
+d'introduir la lletra en un context @code{Lyrics} utilitzant
+@code{\new Lyrics} i enllaçar explícitament la lletra i les notes
+mitjançant @code{\lyricsto@{@}}, usant el nom assignat a la veu.
+
+@lilypond[quote,verbatim]
+<<
+  \new Voice = "una" {
+    \relative c'' {
+      \autoBeamOff
+      \time 2/4
+      c4 b8. a16 | g4. f8 | e4 d | c2 |
+    }
+  }
+  \new Lyrics \lyricsto "una" {
+    No more let | sins and | sor -- rows | grow. |
+  }
+>>
+@end lilypond
+
+Observeu que la lletra s'ha d'enllaçar a un context de
+@code{Voice}, @emph{no} a un context de @code{Staff}.  Aquest és
+un cas on és necessari crear contextos de @code{Staff} i de
+@code{Voice} explícitament.
+
+@cindex lletra i barrat
+@cindex barrat i lletra
+@funindex \autoBeamOff
+@funindex autoBeamOff
+
+El barrat automàtic que el LilyPond usa de forma predeterminada
+funciona bé per a la música instrumental, però no tan bé per a
+música sense lletra, on o bé el barrat no es necessita en absolut,
+o bé s'utilitza per indicar els melismes de la lletra.  A
+l'exemple anterior hem utilitzat la instrucció @code{\autoBeamOff}
+per desactivar el barrat automàtic.
+
+@funindex \new ChoirStaff
+@funindex ChoirStaff
+@funindex \lyricmode
+@funindex lyricmode
+@cindex vocal, estructura d'una partitura
+@cindex cor, sistema de
+
+Ara reutilitzarem l'exemple anterior de «Judes Macabeu» per a
+il.lustrar aquesta tècnica més flexible.  Primer la reescriurem
+per que faci servir variables, de manera que la música i la lletra
+es puguin separar de l'estructura de pentagrames.  També
+introduirem una clau de grup de ChoirStaff.  La lletra pròpiament
+dita s'ha de introduir amb @code{\lyricmode} perquè tenir seguretat
+que s'interpreti com a lletra i no com a música.
+
+@lilypond[quote,verbatim]
+global = { \key f \major \time 6/8 \partial 8 }
+
+SopOneMusic = \relative c'' {
+  c8 | c8([ bes)] a a([ g)] f | f'4. b, | c4.~ 4
+}
+SopOneLyrics = \lyricmode {
+  Let | flee -- cy flocks the | hills a -- dorn, __
+}
+SopTwoMusic = \relative c' {
+  r8 | r4. r4 c8 | a'8([ g)] f f([ e)] d | e8([ d)] c bes'
+}
+SopTwoLyrics = \lyricmode {
+  Let | flee -- cy flocks the | hills a -- dorn,
+}
+
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \new Voice = "SopOne" {
+        \global
+        \SopOneMusic
+      }
+      \new Lyrics \lyricsto "SopOne" {
+        \SopOneLyrics
+      }
+    >>
+    \new Staff <<
+      \new Voice = "SopTwo" {
+        \global
+        \SopTwoMusic
+      }
+      \new Lyrics \lyricsto "SopTwo" {
+        \SopTwoLyrics
+      }
+    >>
+  >>
+}
+@end lilypond
+
+Aquesta és l'estructura bàsica de totes les partitures vocals.  Es
+poden afegir més pentagrames segons es necessiti, es poden afegir
+més veus als pentagrames i més estrofes a la lletra, i les
+variables que contenen la música es poden col.locar fàcilment en
+fitxers separats quan es facin massa llargs.
+
+@cindex himne, estructura de
+@cindex SATB, estructura de
+@cindex vocal, partitura, diverses estrofes
+@cindex diverses estrofes vocals
+@cindex estrofes, diverses, vocals
+
+A continuació podem veure un exemple final de la primera línia
+d'un himne amb quatre estrofes, per a cor SATB.  En aquest cas la
+lletra de les quatre parts és la mateixa.  Observeu com utilitzem
+variables per a separar la notació musical de l'estructura de
+pentagrames.  Observeu també com s'utilitza una variable, per a la
+qual hem escollit el nom @q{TimeKey} («compàs i tonalitat»), per a
+que contingui diverses instruccions que s'usaran dins dels dos
+pentagrames.  A d'altres exemples se li sol donar el nom de @q{global}.
+
+@lilypond[quote,verbatim]
+keyTime = { \key c \major \time 4/4 \partial 4 }
+
+SopMusic   = \relative c' { c4 | e4. e8 g4  g    | a4   a   g  }
+AltoMusic  = \relative c' { c4 | c4. c8 e4  e    | f4   f   e  }
+TenorMusic = \relative c  { e4 | g4. g8 c4.   b8 | a8 b c d e4 }
+BassMusic  = \relative c  { c4 | c4. c8 c4  c    | f8 g a b c4 }
+
+VerseOne =
+  \lyricmode { E -- | ter -- nal fa -- ther, | strong to save, }
+VerseTwo   =
+  \lyricmode { O | Christ, whose voice the | wa -- ters heard, }
+VerseThree =
+  \lyricmode { O | Ho -- ly Spi -- rit, | who didst brood }
+VerseFour  =
+  \lyricmode { O | Tri -- ni -- ty of | love and pow'r }
+
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \clef "treble"
+      \new Voice = "Sop"  { \voiceOne \keyTime \SopMusic }
+      \new Voice = "Alto" { \voiceTwo \AltoMusic }
+      \new Lyrics \lyricsto "Sop" { \VerseOne   }
+      \new Lyrics \lyricsto "Sop" { \VerseTwo   }
+      \new Lyrics \lyricsto "Sop" { \VerseThree }
+      \new Lyrics \lyricsto "Sop" { \VerseFour  }
+    >>
+    \new Staff <<
+      \clef "bass"
+      \new Voice = "Tenor" { \voiceOne \keyTime \TenorMusic }
+      \new Voice = "Bass"  { \voiceTwo \BassMusic }
+    >>
+  >>
+}
+@end lilypond
+
+
+@seealso
+Referència de la notació:
+@ruser{Vocal music}.
+
+
+@node Contextos i gravadors
+@section Contextos i gravadors
+@translationof Contexts and engravers
+
+Els contextos i els gravadors s'han mencionat de manera informal a
+seccions anteriors; ara tan sols veurem aquests conceptes amb més
+detall, ja que són importants a l'ajust fi de la sortida del
+LilyPond.
+
+@menu
+* Explicació dels contextos::
+* Creació de contextos::
+* Explicació dels gravadors::
+* Modificar les propietats dels contextos::
+* Afegir i eliminar gravadors::
+@end menu
+
+@node Explicació dels contextos
+@subsection Explicació dels contextos
+@translationof Contexts explained
+
+@cindex contextos, explicació dels
+
+Quan s'imprimeix la música, s'han de afegir a la sortida una gran
+quantitat d'elements de notació que no apareixen explícitament al
+fitxer d'entrada.  Per exemple, compareu l'entrada i la sortida
+del següent exemple:
+
+@lilypond[quote,verbatim,relative=2]
+cis4 cis2. | a4 a2. |
+@end lilypond
+
+L'entrada és força greu, però a la sortida s'han afegit línies
+divisòries, les alteracions, la clau i l'armadura de la
+tonalitat.  Quan el LilyPond @emph{interpreta} l'entrada, la
+informació musical s'analitza d'esquerra a dreta de la mateixa
+manera que un intèrpret llegeix la partitura.  Mentre es llegeix
+el codi d'entrada, el programa recorda on estan els límits dels
+compassos, i quines alçades requereixen alteracions accidentals
+explícites.  Aquesta informació s'ha de conservar a diversos
+nivells.  Per exemple, una alteració accidental afecta solament a
+un pentagrama, mentre que una línia divisòria ha d'estar
+sincronitzada al llarg de tot els sistema.
+
+Dins del LilyPond, aquestes regles i petites porcions d'informació
+s'agrupen en @emph{Contexts}.  Ja hem vist el context de veu,
+@code{Voice}.  Altres exemples de contextos són  @code{Staff}
+(Pauta o pentagrama) i @code{Score} (Partitura).  Els contextos
+són jeràrquics, de forma que reflecteixen la naturalesa jeràrquica
+d'una partitura musical.  Per exemple: un context de @code{Staff}
+pot contenir molts contextos de @code{Voice}, i un context de
+@code{Score} pot contenir molts contextos de @code{Staff}.
+
+@quotation
+@sourceimage{context-example,5cm,,}
+@end quotation
+
+Cada context assumeix la responsabilitat d'imposar algunes regles
+de notació, creant certs objectes de notació i mantenint les
+propietats associades.  Per exemple, el context @code{Voice} pot
+introduir una alteració accidental i llavors el context
+@code{Staff} manté la regla de mostrar o suprimir l'alteració per
+a la resta del compàs.
+
+Un altre exemple el constitueix el fet que la sincronització de les
+línies divisòries es gestiona dins del context de la partitura,
+@code{Score}, de forma predeterminada.  Nogensmenys, a algunes
+músiques és possible que vulguem que les línies divisòries
+estiguin sincronitzades (pensem en una partitura polimètrica en
+compassos de 4/4 i de 3/4).  En aquests casos hem de modificar els
+ajustos per omissió dels contextos @code{Score} i @code{Staff}.
+
+Per a partitures molt senzilles, els contextos es creen
+implícitament i no hem de preocupar-nos per ells.  Per a peces més
+grans, com per exemple qualsevol que tingui més d'un pentagrama,
+els contextos s'han de crear explícitament per assegurar-nos que
+no tindrem la quantitat exacta de pentagrames que necessitem, i
+que estan a l'ordre correcte.  Per escriure peces amb notació
+especialitzada, és freqüent la modificació de contextos existents
+o fins i tot definir d'uns completament nous.
+
+A més dels contextos @code{Score,} @code{Staff} i @code{Voice}, hi
+ha contextos que se situen entre els nivells de partitura i de
+pentagrama per controlar els grups de pentagrames , com els
+contextos alternatius de pentagrama i de veu, i contextos per a la
+lletra, la percussió, diagrames de trasts, baix xifrat, etc.
+
+Els noms de tots els tipus de contextos es composen d'una o més
+paraules que comencen amb majúscula i que estan unides unes a les
+altres sense guió ni barra baixa, per exemple:
+@code{PartituraDeTranscripcióGregoriana}
+
+@seealso
+Referencia de la notació:
+@rusernamed{Contexts explained,Explicació dels contextos}.
+
+
+@node Creació de contextos
+@subsection Creació de contextos
+@translationof Creating contexts
+
+@funindex \new
+@funindex new
+@cindex nous contextos
+@cindex creació de contextos
+@cindex contextos, creació de
+
+A un fitxer d'entrada, el bloc de partitura, que es presenta
+precedit per la instrucció @code{\score}, conté una sola expressió
+musical i una definició de sortida associada (o bé un bloc
+@code{\layout} o bé un bloc @code{\midi}).  El context
+@code{Score} se sol deixar que es creï automàticament quan
+comença la interpretació d'aquesta expressió musical.
+
+Per a partitures que solament tenen una veu i un pentagrama, podem
+també deixar que els contextos @code{Voice} i @code{Staff} se
+creïn automàticament, però per a partitures més complexes és
+necessari crear-los a mà.  La instrucció més simple que fa això és
+@code{\new}.  S'anteposa a una expressió musical, per exemple
+
+@example
+\new @var{tipus} @var{expressió_musical}
+@end example
+
+@noindent
+on @var{tipus} és el nom d'un context (com @code{Staff} o
+@code{Voice}).  Aquesta instrucció crea un context nou, i comença
+a interpretar la @var{expressió_musical} que està dins d'aquest
+context.
+
+@warning{No s'ha d'usar @bs{}@code{new Score} perquè el context
+@code{Score} essencial del nivell superior ja es crea
+automàticament al interpretar-se l'expressió musical que està
+dins del bloc @bs{}@code{score}.  Els valors predeterminats de
+propietats de context vàlids per a tota la partitura es poden
+canviar dins del bloc @bs{}@code{layout}.  Vegeu @ref{Modificar
+les propietats dels contextos}.}
+
+En les seccions anteriors heu pogut veure molts exemples pràctics
+que creaven nous contextos de  @code{Staff} i de @code{Voice},
+però per a recordar-vos com s'usen aquestes instruccions en la
+pràctica, heus aquí un exemple anotat de música real:
+
+@lilypond[quote,verbatim,ragged-right]
+\score {  % inici de l'expressió única de música composta
+  <<  % inici d'una secció pentagrames simultanis
+    \time 2/4
+    \new Staff {  % crea el pentagrama de la mà dreta
+      \clef "treble"
+      \key g \minor
+      \new Voice {  % crea la veu per a les notes de la mà dreta
+        \relative c'' {  % inici de les notes de la mà dreta
+          d4 ees16 c8. |
+          d4 ees16 c8. |
+        }  % fi de les notes de la mà dreta
+      }  % fi de la veu de la mà dreta
+    }  % fi del pentagrama de la mà dreta
+    \new Staff <<  % crea el pentagrama de la mà esquerra
+      \clef "bass"
+      \key g \minor
+      \new Voice {  % crea la veu de la mà esquerra
+        \voiceOne
+        \relative g {  % inicia les notes de la veu u de la mà esquerra
+          g8 <bes d> ees, <g c> |
+          g8 <bes d> ees, <g c> |
+        }  % fi de les notes de la veu u de la mà esquerra
+      }  % fi de la veu u de la mà esquerra
+      \new Voice {  % crea la veu dos de la mà esquerra
+        \voiceTwo
+        \relative g {  % inici de les notes de la veu dos de la mà esquerra
+          g4 ees |
+          g4 ees |
+        }  % fi de les notes de la veu dos de la mà esquerra
+      }  % fi de la veu dos de la mà esquerra
+    >>  % fi del pentagrama de la mà esquerra
+  >>  % fi de la secció de pentagrames simultanis
+}  % fi de l'expressió única de música composta
+@end lilypond
+
+(Observeu com totes les instruccions que obren un bloc amb un
+claudàtor corb, @code{@{}, o amb angles dobles, @code{<<}, estan
+sagnades (tenen un marge addicional) amb dos espais addicionals,
+i el claudàtor de tancament corresponent té un marge exactament
+igual. Tot i no ser necessari, observar aquesta pràctica reduirà
+considerablement el nombre d'errors de @q{parèntesis
+descompensats}, i es recomana especialment.  Permet apreciar d'una
+sola ullada l'estructura de la música, i qualsevol parèntesis
+descompensat apareixerà molt clarament.  Observeu també com el
+pentagrama de la mà esquerra es crea usant dobles angles perquè
+requereix dues veus, mentre que el pentagrama de la mà dreta es
+crea amb una expressió musical única tancada entre claudàtors
+perquè sols requereix una veu.)
+
+@cindex contextos, nomenament
+@cindex anomenar contextos
+
+La instrucció @code{\new} també pot atorgar un nom identificatiu
+al context per distingir-lo d'altres contextos del mateix tipus:
+
+@example
+\new @var{tipus} = @var{identificador} @var{expressió_musical}
+@end example
+
+Observeu la distinció entre el nom del tipus de context,
+@code{Staff}, @code{Voice}, etc., i el nom identificatiu d'una
+instància en particular d'aquest tipus, que pot ser qualsevol
+seqüència de lletres inventada per l'usuari.  En el nom
+identificatiu també es poden utilitzar dígits i espais, però en
+aquest cas aquest nom ha d'anar entre cometes, per exemple
+@code{\new Staff = "ElMeuPentagrama 1" @var{expressió_musical}}.
+El nom  identificatiu s'utilitza per referir-nos més tard a
+aquesta instància en particular d'un context. Hem vist això a la
+secció sobre la lletra, a @ref{Veus i música vocal}.
+
+@seealso
+Referència de la notació:
+@ruser{Creating contexts}.
+
+
+@node Explicació dels gravadors
+@subsection Explicació dels gravadors
+@translationof Engravers explained
+
+@cindex gravadors
+
+Totes i cadascuna de les marques de la sortida impresa d'una
+partitura feta amb el LilyPond està produïda per un
+@code{Engraver} (gravador).  Així, tenim un gravador per imprimir
+pentagrames, un altre per imprimir els caps de les notes, un altre
+per a les pliques, un altre per a les barres, i molts més.  En
+total hi ha més de 120 gravadors!  Afortunadament, per a la major
+part de les partitures no és necessari conèixer més que alguns,
+per a partitures senzilles no hem de saber res de cap d'ells.
+
+Els gravadores resideixen i operen dins de Contextos.  Els
+gravadors com ara el gravador de la indicació de metrònom,
+@code{Metronome_mark_engraver}, l'acció i resultat del qual
+s'apliquen a la partitura com un tot, operen en el context més
+alt: el context de partitura @code{Score}.
+
+El gravador de la clau @code{Clef_engraver} i el de l'armadura
+@code{Key_engraver} es troben probablement a tots els contextos de
+pentagrama (@code{Staff}), ja que els diferents pentagrames
+podrien requerir diferents claus i armadures.
+
+El gravador dels caps de nota @code{Note_heads_engraver} i el de
+les pliques @code{Stem_engraver} viuen en cada u dels contextos de
+veu @code{Voice}, el context de nivell més baix de tots.
+
+Cada gravador processa els objectes particulars associats amb la
+seva funció, i manté les propietats que estan relacionades amb
+aquesta funció.  Aquestes propietats, com les que estan
+associades amb els contextos, es poden modificar per canviar el
+funcionament del gravador o l'aspecte d'aquests elements de la
+partitura impresa.
+
+Tots els gravadors tenen noms compostos de diverses paraules que
+descriuen la seva funció.  Sols està en majúscules la inicial de
+la primera paraula, i la resta se li uneix mitjançant guionets
+baixos.  D'aquesta manera el gravador @code{Staff_symbol_engraver}
+és responsable de la creació de les línies del pentagrama, i el
+@code{Clef_engraver} determina i estableix l'alçada o el punt de
+referència sobre el pentagrama dibuixant un símbol de clau.
+
+A continuació presentem alguns del gravadors més comuns, junt amb
+la seva funció.  Podreu comprovar que és fàcil endevinar la funció
+a partir del nom (en anglès), i a l'inrevés.
+
+@multitable @columnfractions .3 .7
+@headitem Gravador
+  @tab Funció
+@item Accidental_engraver
+  @tab Fa les alteracions accidentals, de precaució i de suggeriment.
+@item Beam_engraver
+  @tab Grava les barres
+@item Clef_engraver
+  @tab Grava les claus
+@item Completion_heads_engraver
+  @tab Divideix les notes que travessen una línia divisòria
+@item Dynamic_engraver
+  @tab Crea reguladors i indicacions dinàmiques textuals
+@item Forbid_line_break_engraver
+  @tab Evita els salts de línia si queda algun element musical actiu
+@item Key_engraver
+  @tab Crea l'armadura de la tonalitat
+@item Metronome_mark_engraver
+  @tab Grava la indicació de metrònom
+@item Note_heads_engraver
+  @tab Grava el cap de les notes
+@item Rest_engraver
+  @tab Grava els silencis
+@item Staff_symbol_engraver
+  @tab Grava les cinc línies (de forma predeterminada) del pentagrama
+@item Stem_engraver
+  @tab Crea les pliques i els trèmolos d'una sola plica
+@item Time_signature_engraver
+  @tab Crea les indicacions de compàs
+@end multitable
+
+@smallspace
+
+Més endavant veurem es pot canviar com la sortida del LilyPond
+mitjançant la modificació del funcionament dels Gravadors.
+
+@seealso
+Referència de funcionament intern:
+@rinternals{Engravers and Performers}.
+
+
+@node Modificar les propietats dels contextos
+@subsection Modificar les propietats dels contextos
+@translationof Modifying context properties
+
+@cindex context, propietats de
+@cindex context, propietats de, modificació
+@cindex modificar les propietats de context
+@funindex \set
+@funindex set
+@funindex \unset
+@funindex unset
+
+Els contextos es responsabilitzen de mantenir els valors d'un cert
+nombre de @emph{properties} de context.  Moltes d'elles es poden
+canviar per influir en la interpretació del codi d'entrada i
+canviar així l'aparença de la sortida impresa.  Es modifiquen
+mitjançant la instrucció @code{\set}.  Aquesta instrucció pren la
+forma següent:
+
+@example
+\set @emph{NomDelContext}.@emph{nomDeLaPropietat} = #@emph{valor}
+@end example
+
+On el @emph{NomDelContext} és normalment @code{Score},
+@code{Staff} o @code{Voice}.  Es pot ometre, i en aquest cas se
+suposa que és el context en curs (normalment @code{Voice}).
+
+Els noms de les propietats de context consisteixen en paraules
+unides sense cap guió o barra fixa, i on totes les paraules
+excepte la primera comencen en majúscula.  A continuació podem
+veure alguns exemples de noms de propietats utilitzades amb
+freqüència.  Hi ha moltes més que les que es mostren aquí.
+
+@c attempt to force this onto a new page
+@need 50
+@multitable @columnfractions .25 .15 .45 .15
+@headitem nomDeLaPropietat
+  @tab Tipus
+  @tab Funció
+  @tab Valor d'exemple
+@item extraNatural
+  @tab Booleà
+  @tab Si és vertader, posa becaires addicionals abans de les alteracions
+  @tab @code{#t}, @code{#f}
+@item currentBarNumber
+  @tab Enter
+  @tab Ajustar el número del compàs actual
+  @tab @code{50}
+@item doubleSlurs
+  @tab Booleà
+  @tab Si és vertader, imprimir lligadures d'expressió per sobre i per sota de les notes
+  @tab @code{#t}, @code{#f}
+@item instrumentName
+  @tab Text
+  @tab Establir el nom del pentagrama, situat a l'esquerra
+  @tab @code{"Cello I"}
+@item fontSize
+  @tab Real
+  @tab Augmentar o disminuir la mida de la font tipogràfica
+  @tab @code{2.4}
+@item stanza
+  @tab Text
+  @tab Establir el text que s'imprimeix abans del començament d'una estrofa
+  @tab @code{"2"}
+@end multitable
+
+@noindent
+on un valor Booleà es vertader (@code{#t}, True) o fals
+(@code{#f}, False), un Enter és un nombre enter positiu, un nombre
+real és un nombre decimal positiu o negatiu, i el text es tanca
+entre cometes dobles.  Observeu l'aparició de signes de coixinet
+(@code{#}), en dos llocs diferents: com a part del valor Booleà
+abans de la @code{t} o la @code{f}, i abans del @emph{valor} dins
+de la instrucció @code{\set}.  Així doncs, quan s'està escrivint
+un valor Booleà, s'han d'escriure dos signes de coixinet, per
+exemple: @code{##t}.
+
+@cindex propietats que funcionen en contextos
+@cindex establir propietats en contextos
+
+Abans de poder establir qualsevol d'aquestes propietats, hem de
+saber en quin context operen.  A vegades és quelcom obvi, però en
+ocasions pot ser quelcom complicat.  Si especifiquem un context
+equivocat, no es produeix cap missatge d'error, però el
+funcionament esperat no tindrà lloc.  Per exemple, la propietat
+@code{instrumentName} (nom de l'instrument) viu clarament dins del
+context de @code{Staff}, ja que és el pentagrama el que ha de ser
+anomenat.  En aquest exemple, el primer pentagrama resulta
+etiquetat, però no el segon, perquè hem omès el nom del context.
+
+@lilypond[quote,verbatim,ragged-right]
+<<
+  \new Staff \relative c'' {
+    \set Staff.instrumentName = #"Soprano"
+    c2 c
+  }
+  \new Staff \relative c' {
+    \set instrumentName = #"Alto"  % Incorrecte!
+    d2 d
+  }
+>>
+@end lilypond
+
+Recordeu que el nom del context predeterminat és @code{Voice},
+així que la segona instrucció @code{\set} estableix la propietat
+@code{instrumentName} del context @code{Voice} a @qq{Alto}, pero com
+el LilyPond no busca aquesta propietat al context @code{Voice}, no
+es realitza cap acció.  Això no és un error, i no es registra cap
+missatge al fitxer Log del registre d'errors.
+
+De forma semblant, si el nom de la propietat s'escriu amb alguna
+falta, no es produeix cap missatge d'error, i clarament l'acció
+esperada no pot tenir lloc.  De fet, es pot establir qualsevol
+@q{property} (fictícia) usant qualsevol nom que volem en qualsevol
+context que existeixi, mitjançant l'ús de la instrucció
+@code{\set}.  Però si el nom no és conegut per al LilyPond, no
+produirà cap acció.  Alguns editors de text que donen suport als
+fitxers d'entrada del LilyPond de manera especial, documenten els
+noms de propietats amb vinyetes quan passem sobre ells el punter
+del ratolí, com ara JEdit amb l'extensió LilyPondTool, o destaquen
+els noms de propietats desconegudes de manera diferent, com ara
+ConTEXT.  Si no s'utilitza un editor amb aquesta possibilitats, es
+recomana comprovar la correcció del nom de la propietat al manual
+de Referència de funcionament intern: vegeu
+@rinternals{Tunable context properties} o @rinternals{Contexts}.
+
+La propietat @code{instrumentName} tindrà efecte solament si
+s'estableix dins del context @code{Staff}, però algunes propietats
+es poden establir a més d'un context.  Per exemple, la propietat
+@code{extraNatural} està establerta de forma predeterminada al
+valor @code{##t} (vertader) per a tots els pentagrames.  Si
+s'estableix a @code{##f} (fals) en un context de @code{Staff}
+determinat s'aplicarà solament a les alteracions d'aquest
+pentagrama.  Si s'estableix a fals en el context de la partitura,
+@code{Score}, s'aplicarà a tots els pentagrames.
+
+Així, això desactivarà els bequadres addicionals a un pentagrama:
+
+@lilypond[quote,verbatim,ragged-right]
+<<
+  \new Staff \relative c'' {
+    aeses2 aes
+  }
+  \new Staff \relative c'' {
+    \set Staff.extraNatural = ##f
+    aeses2 aes
+  }
+>>
+@end lilypond
+
+@noindent
+i això els desactivarà a tots els pentagrames:
+
+@lilypond[quote,verbatim,ragged-right]
+<<
+  \new Staff \relative c'' {
+    aeses2 aes
+  }
+  \new Staff \relative c'' {
+    \set Score.extraNatural = ##f
+    aeses2 aes
+  }
+>>
+@end lilypond
+
+Com un exemple més, si s'estableix @code{clefTransposition} dins
+del context de @code{Score}, aquesta instrucció canvia
+immediatament el valor de la transposició en tots els pentagrames
+en curs i estableix un nou valor predeterminat que s'aplicarà a
+tots els pentagrames.
+
+La instrucció oposada, @code{\unset}, té l'efecte de suprimir la
+propietat del context, el que ocasiona que la major part de les
+propietats tornin al seu valor predeterminat.  Normalment no és
+necessari l'ús de @code{\unset}, atès que una nova instrucció
+@code{\set} farà l'ajust desitjat.
+
+Les instruccions @code{\set} i @code{\unset} poden aparèixer en
+qualsevol lloc del fitxer d'entrada i tindran un efecte a partir
+del temps on es troben i fins al final de la partitura o fins que la
+propietat es torni a establir mitjançant @code{\set} o
+@code{\unset}.  Provem a modificar la mida de la font tipogràfica,
+el que afecta la mida dels caps de les notes (entre altres coses)
+diverses vegades.  El canvi s'agafa a partir del valor
+predeterminat, no el valor en curs.
+
+@lilypond[quote,verbatim,ragged-right,relative=1]
+c4 d
+% fes que els caps de nota siguin més petits
+\set fontSize = #-4
+e4 f |
+% fes que els caps de nota siguin més grans
+\set fontSize = #2.5
+g4 a
+% torna a la mida predeterminada
+\unset fontSize
+b4 c |
+@end lilypond
+
+Hem pogut veure com establir els valors de diversos tipus de
+propietat diferents.  Observeu que els nombres enters i reals van
+sempre precedits d'un símbol de coixinet, @code{#}, mentre que un
+valor booleà vertader o fals s'especifica mitjançant
+@code{##t} i @code{##f}, amb dos coixinets.  Una propietat de
+test s'ha de tancar entre cometes dobles, com abans, tot i que
+veurem més endavant que el text realment es pot especificar d'una
+forma molt més general utilitzant la molt potent instrucció
+@code{markup}.
+
+@subsubheading Canviar les propietats d'un context amb @code{\with}
+
+@funindex \with
+@funindex with
+@cindex context,  propietats de, establiment amb \with
+
+El valor predeterminat de les propietats de context es pot
+establir en el moment que es crea el context.  A vegades aquesta
+forma d'establir el valor d'una propietat és molt més clara, si ha
+de quedar fix durant tot el temps que duri el context.  Quan es
+crea un context amb una instrucció @code{\new} pot anar
+immediatament seguit d'un bloc @code{\with @{ @dots{} @}} en el
+que s'estableix els valors predeterminats de les propietats.  Per
+exemple, si volem suprimir la impressió de bequadres addicionals per
+a tota la duració d'un pentagrama, podem escriure:
+
+@example
+\new Staff \with @{ extraNatural = ##f @}
+@end example
+
+@noindent
+de la forma següent:
+
+@lilypond[quote,verbatim,ragged-right]
+<<
+  \new Staff {
+    \relative c'' {
+      gisis4 gis aeses aes
+    }
+  }
+  \new Staff \with { extraNatural = ##f } {
+    \relative c'' {
+      gisis4 gis aeses aes
+    }
+  }
+>>
+@end lilypond
+
+Les propietats ajustades d'aquesta manera encara poden canviar-se
+dinàmicament utilitzant @code{\set} i tornar-se al valor
+predeterminat que es va establir al bloc @code{\with} mitjançant
+@code{\unset}.
+
+@cindex fontSize (mida de la tipografia)
+@cindex font, mida de la
+@cindex mida de la font
+
+Així doncs, si la propietat @code{fontSize} s'ajusta dins d'una
+instrucció @code{\with}, té l'efecte de reiniciar el valor
+predeterminat de la mida de la font tipogràfica.  Si més tard es
+modifica amb @code{\set}, aquest nou valor predeterminat pot
+restablir-se amb la instrucció @code{\unset fontSize}.
+
+@subsubheading Canviar las propietats d'un context amb @code{\context}
+
+@cindex contextos, establir propietats de, amb \context
+@funindex \context
+@funindex context
+
+Els valors de propietat dels contextos es poden establir per a
+@emph{tots} els contextos d'un tipus determinat, com per exemple
+tots els contextos de @code{Staff}, amb una única instrucció.  El
+tipus de context s'identifica mitjançant la utilització del nom
+del seu tipus, com @code{Staff}, precedit d'una barra invertida:
+@code{\Staff}.  L'enunciat que estableix el valor de la propietat
+és el mateix que el que està en un bloc @code{\with}, presentat
+anteriorment.  Es col.loca en un bloc @code{\context} dins d'un
+bloc @code{\layout}.  Cada bloc @code{\context} afecta a tots els
+contextos del tipus especificat al llarg del bloc @code{\score} o
+@code{\book} en el que apareix el bloc @code{\layout}.  A
+continuació presentem un exemple que mostra el format:
+
+@lilypond[verbatim,quote]
+\score {
+  \new Staff {
+    \relative c'' {
+      cisis4 e d cis
+    }
+  }
+  \layout {
+    \context {
+      \Staff
+      extraNatural = ##t
+    }
+  }
+}
+@end lilypond
+
+Si es vol aplicar la sobreescriptura de propietats a tos els
+pentagrames de la partitura:
+
+@lilypond[quote,verbatim]
+\score {
+  <<
+    \new Staff {
+      \relative c'' {
+        gisis4 gis aeses aes
+      }
+    }
+    \new Staff {
+      \relative c'' {
+        gisis4 gis aeses aes
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Score extraNatural = ##f
+    }
+  }
+}
+@end lilypond
+
+@noindent
+Les propietats de context establertes d'aquesta forma es poden
+sobreescriure per a exemples concrets de contextos mitjançant
+enunciats dins d'un bloc @code{\with}, i mitjançant instruccions
+@code{\set} intercalades dins d'enunciats musicals.
+
+@seealso
+Referència de la notació:
+@ruser{Changing context default settings}.
+@c FIXME
+@c uncomment when backslash-node-name issue is resolved -pm
+@ruser{The set command}
+
+Referència de funcionament intern:
+@rinternals{Contexts},
+@rinternals{Tunable context properties}.
+
+
+@node Afegir i eliminar gravadors
+@subsection Afegir i eliminar gravadors
+@translationof Adding and removing engravers
+
+@cindex gravadors, addició
+@cindex gravadors, eliminació
+@cindex addició de gravadors
+@cindex eliminació de gravadors
+
+@funindex \consists
+@funindex consists
+@funindex \remove
+@funindex remove
+
+Hem vist que cada un dels contextos conté diversos gravadors, cada
+u dels quals és al seu cop responsable de la producció d'una
+fracció particular del resultat imprès, com ara línies divisòries,
+pentagrames, caps, pliques, etc.  Si un gravador és eliminat d'un
+context, ja no podrà produir la seva sortida impresa.  És una
+forma una mica radical de modificar la sortida, pero algunes
+vegades pot ser útil.
+
+@subsubheading Canviar un sol context
+
+Per eliminar un gravador d'un context únic, usem la instrucció
+@code{\with} situada immediatament després de la instrucció que
+crea el context, com a la secció anterior.
+
+Com a il.lustració, repetim un exemple estret de la secció
+anterior amb les línies del pentagrama eliminades.  Recordeu que
+les línies del pentagrama estan dibuixades pel gravador
+@code{Staff_symbol_engraver}.
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff \with {
+  \remove "Staff_symbol_engraver"
+}
+\relative c' {
+  c4 d
+  \set fontSize = #-4  % fes més petits els caps de les notes
+  e4 f |
+  \set fontSize = #2.5  % fes més grans els caps de les notes
+  g4 a
+  \unset fontSize  % retorna a la mida predeterminada
+  b4 c |
+}
+@end lilypond
+
+@cindex àmbit, gravador del
+
+Els gravadors també es poden afegir als contextos individuals. La
+instrucció que ho fa és
+
+@code{\consists @var{Nom_del_gravador}},
+
+situada dins d'un bloc @code{\with}.  Certes partitures vocals
+tenen una indicació d'àmbit o tessitura situada al principi del
+pentagrama per indicar l'àmbit de notes en aquest pentagrama, vegeu
+@rglos{ambitus}.  L'ambitus es produeix per part del gravador
+@code{Ambitus_engraver}, que normalment no està inclòs en cap
+context.  Si l'afegim al context @code{Voice}, calcula el rang a
+partir d'aquesta única veu:
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff <<
+  \new Voice \with {
+    \consists "Ambitus_engraver"
+  } {
+    \relative c'' {
+      \voiceOne
+      c4 a b g
+    }
+  }
+  \new Voice {
+    \relative c' {
+      \voiceTwo
+      c4 e d f
+    }
+  }
+>>
+@end lilypond
+
+@noindent
+però si afegim el gravador d'àmbit al context de @code{Staff},
+calcula el rang de totes les notes en totes les veus d'aquest
+pentagrama:
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff \with {
+  \consists "Ambitus_engraver"
+}
+<<
+  \new Voice {
+    \relative c'' {
+      \voiceOne
+      c4 a b g
+    }
+  }
+  \new Voice {
+    \relative c' {
+      \voiceTwo
+      c4 e d f
+    }
+  }
+>>
+@end lilypond
+
+@subsubheading Canviar tots els contextos del mateix tipus
+
+@funindex \layout
+@funindex layout
+
+Els exemples anteriors mostren la manera d'eliminar o afegir
+gravadors als contextos individuals.  També és possible eliminar o
+afegir gravadors a tots els contextos d'un tipus específic,
+situant les instruccions al context corresponent dins d'un bloc
+@code{\layout}.  Per exemple, si volem mostrar els rangs de
+tessitura per a tots els pentagrames d'una partitura de quatre
+pautes, podem escriure
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  <<
+    \new Staff {
+      \relative c'' {
+        c4 a b g
+      }
+    }
+    \new Staff {
+      \relative c' {
+        c4 a b g
+      }
+    }
+    \new Staff {
+      \clef "G_8"
+      \relative c' {
+        c4 a b g
+      }
+    }
+    \new Staff {
+      \clef "bass"
+      \relative c {
+        c4 a b g
+      }
+    }
+  >>
+  \layout {
+    \context {
+      \Staff
+      \consists "Ambitus_engraver"
+    }
+  }
+}
+@end lilypond
+
+@noindent
+Els valors predeterminats de les propietats dels contextos també
+es poden establir per a tots els contextos d'un tipus en
+particular incloent-hi la instrucció @code{\set} dins d'un bloc
+@code{\context} de la mateixa forma.
+
+
+@seealso
+Referència de la notació:
+@ruser{Modifying context plug-ins},
+@ruser{Changing context default settings}.
+
+@knownissues
+Els gravadors @code{Stem_engraver} i @code{Beam_engraver}
+(de plica i de barra) adjunten al cap de les notes els objectes
+que creen.  Si es suprimeix el gravador de caps de nota
+@code{Note_heads_engraver}, no es produeix cap cap i per tant no
+es creen tampoc pliques ni barres.
+
+@node Extensió de les plantilles
+@section Extensió de les plantilles
+@translationof Extending the templates
+
+Heu llegit el tutorial i ara sabeu escriure música.  Però, com
+podeu posar els pentagrames que voleu?  Les plantilles estan molt
+bé, però què passa si voleu alguna cosa que està en cap plantilla?
+Bé, podeu trobar muntanyes de plantilles (vegeu
+@rlearningnamed{Templates,Plantilles})
+que us poden servir com a punt de partida.  Però i si voleu
+quelcom que no està contemplat aquí? Continueu llegint.
+
+@menu
+* Soprano i violoncel::
+* Partitura vocal a quatre veus SATB::
+* Crear una partitura partint de zero::
+* Estalviar tecleig mitjançant variables i funcions::
+* Partitures i particel.les::
+@end menu
+
+@node Soprano i violoncel
+@subsection Soprano i violoncel
+@translationof Soprano and cello
+
+@cindex plantilla, modificar
+@cindex modificar plantilles
+
+Per començar, agafeu la plantilla que us sembli més semblant a
+allò que voleu aconseguir.  Diguem-ne que voleu escriure alguna
+cosa per a soprano i violoncel.  En aquest cas començaríem amb la
+plantilla @q{Notes i lletra} (per a la part de soprano).
+
+@example
+\version @w{"@version{}"}
+melodia = \relative c' @{
+  \clef "treble"
+  \key c \major
+  \time 4/4
+  a4 b c d
+@}
+
+text = \lyricmode @{
+  Aaa Bee Cee Dee
+@}
+
+\score @{
+  <<
+    \new Voice = "u" @{
+      \autoBeamOff
+      \melodia
+    @}
+    \new Lyrics \lyricsto "u" \text
+  >>
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+Ara volem afegir una part de violoncel.  Vegem l'exemple
+@q{Sols notes}:
+
+@example
+\version @w{"@version{}"}
+melodia = \relative c' @{
+  \clef "treble"
+  \key c \major
+  \time 4/4
+  a4 b c d
+@}
+
+\score @{
+  \new Staff \melodia
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+No necessitem dues instruccions @code{\version}.  Ens caldrà la
+secció @code{melodia}.  No volem dues seccions @code{\score} (si
+tinguéssim dues @code{\score}s, acabaríem amb dues particel.les
+per separat.)  Volem les dues juntes, com un duo. Dins de la secció
+@code{\score}, no ens fan falta dos @code{\layout} ni dos
+@code{\midi}.
+
+Si ens limitéssim a copiar i enganxar la secció @code{melodia},
+acabaríem amb dues seccions @code{melodia} separades, així que
+anem a canviar-los el nom.  Anomenarem @code{musicaSoprano} a la
+secció de la soprano i @code{musicaVioloncel} a la secció de
+violoncel.  Al mateix temps canviarem el nom de @code{text} a
+@code{lletraSoprano}.  Recordeu canviar el nom a les dues
+aparicions de totes aquests noms -- tant la definició inicial (la
+part @code{melodia = relative c' @{ }) -- com l'ús d'aquest nom
+(en la secció @code{\score}).
+
+També aprofitarem per canviar el pentagrama de la part del
+violoncel (els violoncels s'escriuen normalment en clau de
+Fa). Així mateix, canviarem algunes del violoncel.
+
+@example
+\version @w{"@version{}"}
+musicaSoprano = \relative c' @{
+  \clef "treble"
+  \key c \major
+  \time 4/4
+  a4 b c d
+@}
+
+lletraSoprano = \lyricmode @{
+  Aaa Bee Cee Dee
+@}
+
+musicaVioloncel = \relative c @{
+  \clef "bass"
+  \key c \major
+  \time 4/4
+  d4 g fis8 e d4
+@}
+
+\score@{
+  <<
+    \new Voice = "u" @{
+      \autoBeamOff
+      \musicaSoprano
+    @}
+    \new Lyrics \lyricsto "u" \lletraSoprano
+  >>
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+Això té una aparença prometedora, però la part del violoncel no
+surt a la partitura (no l'hem posada a la secció @code{\score}).
+Si volem que la part del violoncel aparegui a sota de la de
+soprano, hem d'afegir
+
+@example
+\new Staff \musicaVioloncel
+@end example
+
+@noindent
+just a sota de tot el codi de la soprano.  També hem de posar
+@code{<<} i @code{>>} abans i després de la música -- el que
+indica al LilyPond que hi ha més d'una cosa (en aquest cas,
+@code{Staff}) succeint al mateix moment --.  La @code{\score}
+s'assemblarà ara a això:
+
+@c Indentation in this example is deliberately poor
+@example
+\score @{
+  <<
+  <<
+    \new Voice = "u" @{
+      \autoBeamOff
+      \musicaSoprano
+    @}
+    \new Lyrics \lyricsto "u" \lletraSoprano
+  >>
+  \new Staff \musicaVioloncel
+  >>
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+@noindent
+Això sembla una mica enrevessat; el marges estan desquadrats.  Això té
+fàcil solució.  Presentem aquí la plantilla completa per a
+soprano i violoncel.
+
+@lilypond[quote,verbatim,ragged-right,addversion]
+musicaSoprano = \relative c' {
+  \clef "treble"
+  \key c \major
+  \time 4/4
+  a4 b c d
+}
+
+lletraSoprano = \lyricmode {
+  Aaa Bee Cee Dee
+}
+
+musicaVioloncel = \relative c {
+  \clef "bass"
+  \key c \major
+  \time 4/4
+  d4 g fis8 e d4
+}
+
+\score {
+  <<
+    <<
+      \new Voice = "u" {
+        \autoBeamOff
+        \musicaSoprano
+      }
+      \new Lyrics \lyricsto "u" \lletraSoprano
+    >>
+    \new Staff \musicaVioloncel
+  >>
+  \layout { }
+  \midi { }
+}
+@end lilypond
+
+
+@seealso
+Les plantilles d'inici es poden trobar a l'apèndix
+@q{Plantilles}, vegeu
+@rlearningnamed{Single staff templates,Plantilles de pentagrama únic}.
+
+@node Partitura vocal a quatre veus SATB
+@subsection Partitura vocal a quatre veus SATB
+@translationof Four-part SATB vocal score
+
+La major part de les partitures vocals escrites per a cor mixt a
+quatre veus amb acompanyament orquestral, com l'«Elies» de
+Mendelssohn o el «Messies» de Haendel, tenen la música coral i la
+lletra en quatre pentagrames S, A, T i B, respectivament, amb una
+reducció de piano de l'acompanyament d'orquestra, per sota. Heus
+aquí un exemple del «Messies» de Haendel:
+
+@c The following should appear as music without code
+@lilypond[quote,ragged-right]
+global = { \key d \major \time 4/4 }
+
+musicaSoprano = \relative c'' {
+  \clef "treble"
+  r4 d2 a4 | d4. d8 a2 | cis4 d cis2 |
+}
+lletraSoprano = \lyricmode {
+  Wor -- thy | is the lamb | that was slain |
+}
+
+musicaAlto = \relative a' {
+  \clef "treble"
+  r4 a2 a4 | fis4. fis8 a2 | g4 fis e2 |
+}
+
+lletraAlto = \lletraSoprano
+
+musicaTenor = \relative c' {
+  \clef "G_8"
+  r4 fis2 e4 | d4. d8 d2 | e4 a, cis2 |
+}
+
+lletraTenor = \lletraSoprano
+
+musicaBaix = \relative c' {
+  \clef "bass"
+  r4 d2 cis4 | b4. b8 fis2 | e4 d a'2 |
+}
+
+lletraBaix = \lletraSoprano
+
+upper = \relative a' {
+  \clef "treble"
+  \global
+  r4 <a d fis>2 <a e' a>4 |
+  <d fis d'>4. <d fis d'>8 <a d a'>2 |
+  <g cis g'>4 <a d fis> <a cis e>2 |
+}
+
+lower = \relative c, {
+  \clef "bass"
+  \global
+  <d d'>4 <d d'>2 <cis cis'>4 |
+  <b b'>4. <b' b'>8 <fis fis'>2 |
+  <e e'>4 <d d'> <a' a'>2 |
+}
+
+\score {
+  <<  % combina el pentagrama del cor i del piano en paral.lel
+    \new ChoirStaff <<
+      \new Staff = "sopranos" <<
+        \set Staff.instrumentName = #"Soprano"
+        \new Voice = "sopranos" {
+          \global
+          \musicaSoprano
+        }
+      >>
+      \new Lyrics \lyricsto "sopranos" {
+        \lletraSoprano
+      }
+      \new Staff = "altos" <<
+        \set Staff.instrumentName = #"Alto"
+        \new Voice = "altos" {
+          \global
+          \musicaAlto
+        }
+      >>
+      \new Lyrics \lyricsto "altos" { \lletraAlto }
+      \new Staff = "tenors" <<
+        \set Staff.instrumentName = #"Tenor"
+        \new Voice = "tenors" {
+          \global
+          \musicaTenor
+        }
+      >>
+      \new Lyrics \lyricsto "tenors" { \lletraTenor }
+      \new Staff = "baixos" <<
+        \set Staff.instrumentName = #"Baix"
+        \new Voice = "baixos" {
+          \global
+          \musicaBaix
+        }
+      >>
+      \new Lyrics \lyricsto "baixos" {
+        \lletraBaix
+      }
+    >>  % final del pentagrama del cor
+    \new PianoStaff <<
+      \set PianoStaff.instrumentName = #"Piano"
+      \new Staff = "upper" \upper
+      \new Staff = "lower" \lower
+    >>
+  >>
+}
+@end lilypond
+
+Cap de les plantilles proporciona aquesta disposició amb
+exactitud.  La més semblant és
+@rlearningnamed{SATB vocal score and automatic piano reduction,
+Partitura vocal SATB i reducció per a piano automàtica},
+però necessitem canviar la disposició i afegir un acompanyament de
+piano que no estigui derivat automàticament de les parts vocals.
+Les variables que contenen la música i la lletra de les parts
+vocals és adequat, però haurem d'afegir variables per a la
+reducció de piano.
+
+L'ordre en què apareixen els contextos al ChoirStaff de la
+plantilla no es correspon amb l'ordre de la partitura vocal que
+hem mostrat més amunt.  Hem de reordenar-los perquè hi hagi quatre
+pentagrames amb la lletra escrita directament a sota de les notes
+de cada part.  Totes les veus han de ser @code{\voiceOne}, que és
+la predeterminada, perquè les instruccions @code{\voiceXXX} es
+puguin eliminar.  També hem d'especificar la clau de tenor (clau
+de sol octava baixa) a les parts de tenor.  Encara no hem trobat
+la forma que la lletra s'especifica a la plantilla, així que hem
+d'utilitzar el mètode que ens resulta familiar.  També hem
+d'escriure els noms de cada pentagrama.
+
+En fer-lo així obtenim el ChoirStaff següent:
+
+@example
+\new ChoirStaff <<
+  \new Staff = "sopranos" <<
+    \set Staff.instrumentName = #"Soprano"
+    \new Voice = "sopranos" @{
+      \global
+      \musicaSoprano
+    @}
+  >>
+  \new Lyrics \lyricsto "sopranos" @{
+    \lletraSoprano
+  @}
+  \new Staff = "altos" <<
+    \set Staff.instrumentName = #"Alto"
+    \new Voice = "altos" @{
+      \global
+      \musicaAlto
+    @}
+  >>
+  \new Lyrics \lyricsto "altos" @{
+    \lletraAlto
+  @}
+  \new Staff = "tenors" <<
+    \set Staff.instrumentName = #"Tenor"
+    \new Voice = "tenors" @{
+      \global
+      \musicaTenor
+    @}
+  >>
+  \new Lyrics \lyricsto "tenors" @{
+    \lletraTenor
+  @}
+  \new Staff = "baixos" <<
+    \set Staff.instrumentName = #"Baix"
+    \new Voice = "baixos" @{
+      \global
+      \musicaBaix
+    @}
+  >>
+  \new Lyrics \lyricsto "baixos" @{
+    \lletraBaix
+  @}
+>>  % fi del ChoirStaff
+@end example
+
+A continuació podem treballar sobre la part de piano.  És fàcil:
+tan sols s'ha de treure la part de piano de la plantilla de
+@q{Piano solista}:
+
+@example
+\new PianoStaff <<
+  \set PianoStaff.instrumentName = #"Piano"
+  \new Staff = "superior" \superior
+  \new Staff = "inferior" \inferior
+>>
+@end example
+
+i escriure les definicions de variable per a @code{superior} i
+@code{inferior}.
+
+Els grups ChoirStaff i PianoStaff s'han de combinar utilitzant
+angles dobles, atès que els volem apilar l'un sobre l'altre
+
+@example
+<<  % combina els grups ChoirStaff i PianoStaff l'un sobre l'altre
+  \new ChoirStaff <<
+    \new Staff = "sopranos" <<
+      \new Voice = "sopranos" @{
+        \global
+        \musicaSoprano
+      @}
+    >>
+    \new Lyrics \lyricsto "sopranos" @{
+      \lletraSoprano
+     @}
+    \new Staff = "altos" <<
+      \new Voice = "altos" @{
+        \global
+        \musicaAlto
+      @}
+    >>
+    \new Lyrics \lyricsto "altos" @{
+      \lletraAlto
+    @}
+    \new Staff = "tenores" <<
+      \clef "G_8"  % clave de tenor
+      \new Voice = "tenores" @{
+        \global
+        \musicaTenor
+      @}
+    >>
+    \new Lyrics \lyricsto "tenores" @{
+      \lletraTenor
+    @}
+    \new Staff = "baixos" <<
+      \clef "bass"
+      \new Voice = "baixos" @{
+        \global
+        \musicaBaix
+      @}
+    >>
+    \new Lyrics \lyricsto "baixos" @{
+      \lletraBaix
+    @}
+  >>  % fi del ChoirStaff
+
+  \new PianoStaff <<
+    \set PianoStaff.instrumentName = #"Piano"
+    \new Staff = "upper" \upper
+    \new Staff = "lower" \lower
+  >>
+>>
+@end example
+
+En combinar tot això junt i escriure la música dels tres compassos
+de l'exemple anterior, obtenim:
+
+@lilypond[quote,verbatim,ragged-right,addversion]
+global = { \key d \major \time 4/4 }
+musicaSoprano = \relative c'' {
+  \clef "treble"
+  r4 d2 a4 | d4. d8 a2 | cis4 d cis2 |
+}
+lletraSoprano = \lyricmode {
+  Wor -- thy | is the lamb | that was slain |
+}
+musicaAlto = \relative a' {
+  \clef "treble"
+  r4 a2 a4 | fis4. fis8 a2 | g4 fis fis2 |
+}
+lletraAlto = \lletraSoprano
+musicaTenor = \relative c' {
+  \clef "G_8"
+  r4 fis2 e4 | d4. d8 d2 | e4 a, cis2 |
+}
+lletraTenor = \lletraSoprano
+musicaBaix = \relative c' {
+  \clef "bass"
+  r4 d2 cis4 | b4. b8 fis2 | e4 d a'2 |
+}
+lletraBaix = \lletraSoprano
+upper = \relative a' {
+  \clef "treble"
+  \global
+  r4 <a d fis>2 <a e' a>4 |
+  <d fis d'>4. <d fis d'>8 <a d a'>2 |
+  <g cis g'>4 <a d fis> <a cis e>2 |
+}
+lower = \relative c, {
+  \clef "bass"
+  \global
+  <d d'>4 <d d'>2 <cis cis'>4 |
+  <b b'>4. <b' b'>8 <fis fis'>2 |
+  <e e'>4 <d d'> <a' a'>2 |
+}
+
+\score {
+  <<  % combina el ChoirStaff i PianoStaff en paral.lel
+    \new ChoirStaff <<
+      \new Staff = "sopranos" <<
+        \set Staff.instrumentName = #"Soprano"
+        \new Voice = "sopranos" {
+          \global
+          \musicaSoprano
+        }
+      >>
+      \new Lyrics \lyricsto "sopranos" {
+        \lletraSoprano
+      }
+      \new Staff = "altos" <<
+        \set Staff.instrumentName = #"Alto"
+        \new Voice = "altos" {
+          \global
+          \musicaAlto
+        }
+      >>
+      \new Lyrics \lyricsto "altos" {
+        \lletraAlto
+      }
+      \new Staff = "tenors" <<
+        \set Staff.instrumentName = #"Tenor"
+        \new Voice = "tenors" {
+          \global
+          \musicaTenor
+        }
+      >>
+      \new Lyrics \lyricsto "tenors" {
+        \lletraTenor
+      }
+      \new Staff = "baixos" <<
+        \set Staff.instrumentName = #"Baix"
+        \new Voice = "baixos" {
+          \global
+          \musicaBaix
+        }
+      >>
+      \new Lyrics \lyricsto "baixos" {
+        \lletraBaix
+      }
+    >>  % fi ChoirStaff
+
+    \new PianoStaff <<
+      \set PianoStaff.instrumentName = #"Piano  "
+      \new Staff = "upper" \upper
+      \new Staff = "lower" \lower
+    >>
+  >>
+}
+@end lilypond
+
+
+@node Crear una partitura partint de zero
+@subsection Crear una partitura partint de zero
+@translationof Building a score from scratch
+
+@cindex plnantilla, escriure la vostra pròpia
+@cindex exemple d'escriptura d'una partitura
+@cindex escriure una partitura, exemple
+@cindex partitura, exemple d'escriptura
+
+Després d'adquirir una mica de soltesa en l'escriptura del codi
+del LilyPond, us adonareu que és més fàcil construir completament
+una partitura partint de zero, que modificar una plantilla.  També
+podeu desenvolupar el vostre propi estil de forma que s'adapti al
+tipus de música que us agradi.  Vegem a continuació com
+confeccionar una partitura per a un preludi d'òrgan, com a exemple.
+
+Comencem amb una secció per al encapçalament.  Aquí és on van el
+títol, nom del compositor, etc., després van les definicions de
+les variables, i finalment el bloc de partitura.  Comencem a
+veure-les per sobre i més tard completarem els detalls.
+
+Utilitzarem els dos primers compassos del preludi de Bach basat en
+@emph{Jesu, meine Freude}, que està escrit per a òrgan amb dos
+manuals i pedal.  Conté els dos compassos següents de música al
+final de la secció.  La part del manual superior té dues veus, i
+l'inferior i el pedal, una veu cada u.  Així doncs, necessitem
+quatre definicions per a la música i una més per definir el compàs
+i la tonalitat:
+
+@example
+\version @w{"@version{}"}
+\header @{
+  title = "Jesu, meine Freude"
+  composer = "J S Bach"
+@}
+keyTime = @{ \key c \minor \time 4/4 @}
+MusicaManualUVeuU = @{ s1 @}
+MusicaManualUVeuDos = @{ s1 @}
+MusicaManualDos = @{ s1 @}
+MusicaOrganPedal = @{ s1 @}
+
+\score @{
+@}
+@end example
+
+De moment hem escrit tan sols una nota espaiadora, @code{s1}, en
+lloc de la música de veritat.  Li afegirem més endavant.
+
+A continuació vegem què va al bloc de partitura. Senzillament,
+reflectirem l'estructura de pentagrames que desitgem.  La música
+d'òrgan s'escriu s'escriu en general en tres pentagrames, un per
+cada un dels manuals i l'altre pel pedal.  Els pentagrames dels
+manuals s'abasten amb una clau, així que els inclourem en un grup
+PianoStaff.  La primera part de manual té dues veus, i la segona
+una sola.
+
+@example
+\new PianoStaff <<
+  \new Staff = "ManualU" <<
+    \new Voice @{
+      \MusicaManualUVeuU
+    @}
+    \new Voice @{
+      \MusicaManualUVeuDos
+    @}
+  >>  % fi del context de Staff ManualU
+  \new Staff = "ManualDos" <<
+    \new Voice @{
+      \MusicaManualDos
+    @}
+  >>  % fi del context de Staff ManualDos
+>>  % fi del context de PianoStaff
+@end example
+
+Després, hem d'afegir un pentagrama per a l'òrgan de pedal.  Això
+va per sota del PianoStaff, però ha de ser simultani amb ell, per
+la qual cosa escrivim angles dobles rodejant als dos.  Si ens
+oblidem d'això, es produirà un error al fitxer log de registre.
+És un error molt comú que cometrà abans o després!  Intenteu
+copiar l'exemple final que apareix al final de la secció, esborreu
+els dobles angles i processeu el fitxer per veure quin error
+produeix.
+
+@example
+<<  % el grup PianoStaff i el pentagrama de Pedal son simultanis
+  \new PianoStaff <<
+    \new Staff = "ManualU" <<
+      \new Voice @{
+        \MusicaManualUVeuU
+      @}
+      \new Voice @{
+        \MusicaManualUVeuDos
+      @}
+    >>  % fi del context de Staff ManualU
+    \new Staff = "ManualDos" <<
+      \new Voice @{
+        \MusicaManualDos
+      @}
+    >>  % fi del context de Staff ManualDos
+  >>  % fi del context de PianoStaff
+  \new Staff = "OrganPedal" <<
+    \new Voice @{
+      \MusicaOrganPedal
+    @}
+  >>
+>>
+@end example
+
+No és necessari utilitzar la construcció simultània @code{<<
+@dots{} >>} per al pentagrama del manual dos i el pentagrama del
+òrgan de pedal, atès que contenen una única expressió, però no fa
+mal, i és un bon costum utilitzar sempre dobles angles després de
+@code{\new Staff} quan hi diverses veus.  El contrari és cert per
+a les veus: normalment han d'anar seguides de claudàtors @code{@{
+@dots{} @}} en cas que tinguem música codificada com a variables
+diferents que s'han de situar consecutivament.
+
+Afegim aquesta estructura al bloc de partitura, i ajustem el
+sagnat dels marges.  També escrivim els claudàtors
+corresponents, ens assegurem que les pliques i lligadures d'unió
+i expressió en cada una de les veus del pentagrama superior
+apunten en la direcció adequada amb @code{\voiceOne} i
+@code{\voiceTwo} i escrivim el compàs i la tonalitat en cadascú
+dels pentagrames usant la nostra variable prèviament definida
+@code{\TimeKey}.
+
+@example
+\score @{
+  <<  % el grup PianoStaff i el pentagrama de Pedal són simultanis
+    \new PianoStaff <<
+      \new Staff = "ManualU" <<
+        \keyTime  % establir compàs i tonalitat
+        \clef "treble"
+        \new Voice @{
+          \voiceOne
+          \MusicaManualUVeuU
+        @}
+        \new Voice @{
+          \voiceTwo
+          \MusicaManualUVeuDos
+        @}
+      >>  % fi del context de Staff ManualU
+      \new Staff = "ManualDos" <<
+        \keyTime
+        \clef "bass"
+        \new Voice @{
+          \MusicaManualDos
+        @}
+      >>  % fi del context de Staff ManualDos
+    >>  % fi del context de PianoStaff
+    \new Staff = "OrganPedal" <<
+     \keyTime
+      \clef "bass"
+      \new Voice @{
+        \MusicaOrganPedal
+      @}
+    >>  % fi del pentagrama de OrganPedal
+  >>
+@}  % fi del context Score
+@end example
+
+@cindex ampliabilitat de las pautes
+@cindex pautes, ampliabilitat
+
+La disposició anterior dels pentagrames d'òrgan és gairebé
+perfecta; tanmateix, hi ha un lleuger defecte que no és
+visible quan s'observa un sol sistema: la distància entre el
+pentagrama de pedal i el de la mà esquerra hauria de ser
+aproximadament la mateixa que la que hi ha entre els pentagrames
+de les mans esquerra i dreta.  Concretament, la ampliabilitat dels
+pentagrames dins d'un context @code{PianoStaff} és limitada (de
+forme que la distància entre els pentagrames de les mans esquerra
+i dreta mai no creixin excessivament), i el pentagrama dels pedals
+hauria de comportar-se de una manera semblant.
+
+@cindex sub-propietats
+@cindex propietats, sub-propietats
+@cindex objectes gràfics
+@cindex gràfics, objectes
+@cindex grobs
+
+El grau d'ampliabilitat i separabilitat dels pentagrames es pot
+controlar amb la propietat @code{staff-staff-spacing} de
+l'@q{objecte gràfic} @code{VerticalAxisGroup} (els objectes gràfics
+reben en general el nom de @q{grob}s a la documentació del
+LilyPond); no us preocupeu de moment dels detalls, ja que això
+s'explica més tard de forma exhaustiva.  Els més curiosos podeu
+donar una ullada a @ruser{Overview of modifying properties}.
+En aquest cas volem modificar solament la sub-propietat
+@code{stretchability}.  Un altre cop, els curiosos trobareu els
+valors predeterminats per a la propietat staff-staff-spacing al
+fitxer @file{scm/define-grobs.scm} examinant la definició del grob
+@code{VerticalAxisGroup}.  El valor de @code{stretchability}
+s'agafa de la definició del context @code{PianoStaff} (al fitxer
+@file{ly/engraver-init.ly}) de forma que els valors siguin idèntics.
+
+@example
+\score @{
+  <<  % el grup PianoStaff i el pentagrama de Pedal son simultanis
+    \new PianoStaff <<
+      \new Staff = "ManualU" <<
+        \keyTime  % establir compàs y tonalitat
+        \clef "treble"
+        \new Voice @{
+          \voiceOne
+          \MusicaManualUVeuU
+        @}
+        \new Voice @{
+          \voiceTwo
+          \MusicaManualUVeuDos
+        @}
+      >>  % % fi del context de Staff ManualU
+      \new Staff = "ManualDos" \with @{
+        \override VerticalAxisGroup.staff-staff-spacing.stretchability = 5
+      @} <<
+        \keyTime
+        \clef "bass"
+        \new Voice @{
+          \MusicaManualDos
+        @}
+      >>  % fi del context de Staff ManualDos
+    >>  % fi del context de PianoStaff
+    \new Staff = "OrganPedal" <<
+      \keyTime
+      \clef "bass"
+      \new Voice @{
+        \MusicaOrganPedal
+      @}
+    >>  % fi del pentagrama de OrganPedal
+  >>
+@}  % fi del context Score
+@end example
+
+Amb això es completa l'estructura.  Tota música per a òrgan de
+tres pentagrames tindrà una estructura semblant, tot i que el
+nombre de veus pot variar.  Tot el que ens queda és afegir la
+música, i combinar totes les parts.
+
+@lilypond[quote,verbatim,ragged-right,addversion]
+\header {
+  title = "Jesu, meine Freude"
+  composer = "J S Bach"
+}
+keyTime = { \key c \minor \time 4/4 }
+MusicaManualUVeuU = \relative g' {
+  g4 g f ees |
+  d2 c |
+}
+MusicaManualUVeuDos = \relative c' {
+  ees16 d ees8~ 16 f ees d c8 d~ d c~ |
+  8 c4 b8 c8. g16 c b c d |
+}
+MusicaManualDos= \relative c' {
+  c16 b c8~ 16 b c g a8 g~ 16 g aes ees |
+  f16 ees f d g aes g f ees d ees8~ 16 f ees d |
+}
+MusicaOrganPedal = \relative c {
+  r8 c16 d ees d ees8~ 16 a, b g c b c8 |
+  r16 g ees f g f g8 c,2 |
+}
+
+\score {
+  <<  % PianoStaff i Pedal Staff han de ser simultanis
+    \new PianoStaff <<
+      \new Staff = "ManualU" <<
+        \keyTime  % establir la clau i l'armadura
+        \clef "treble"
+        \new Voice {
+          \voiceOne
+          \MusicaManualUVeuU
+        }
+        \new Voice {
+          \voiceTwo
+          \MusicaManualUVeuDos
+        }
+      >>  % fi del context Staff ManualU
+      \new Staff = "ManualDos" \with {
+        \override VerticalAxisGroup.staff-staff-spacing.stretchability = 5
+      } <<
+        \keyTime
+        \clef "bass"
+        \new Voice {
+          \MusicaManualDos
+        }
+      >>  % fi del context Staff ManualDos
+    >>  % fi del context PianoStaff
+    \new Staff = "PedalOrgan" <<
+      \keyTime
+      \clef "bass"
+      \new Voice {
+        \MusicaOrganPedal
+      }
+    >>  % fi del context Staff PedalOrgan
+  >>
+}  % fi del context Score
+@end lilypond
+
+@seealso
+Glossari musical:
+@rglos{system}.
+
+@node Estalviar tecleig mitjançant variables i funcions
+@subsection Estalviar tecleig mitjançant variables i funcions
+@translationof Saving typing with variables and functions
+
+@cindex variables
+@cindex identificadors
+
+Arribats a aquest punt, heu vist coses d'aquest tipus:
+
+@lilypond[quote,verbatim,ragged-right]
+hornNotes = \relative c'' { c4 b dis c }
+
+\score {
+  {
+    \hornNotes
+  }
+}
+@end lilypond
+
+Fins i tot us adonareu que això pot ser útil en música
+minimalista:
+
+@lilypond[quote,verbatim,ragged-right]
+fragmentA = \relative c'' { a4 a8. b16 }
+fragmentB = \relative c'' { a8. gis16 ees4 }
+
+violí = \new Staff {
+  \fragmentA \fragmentA |
+  \fragmentB \fragmentA |
+}
+
+\score {
+  {
+    \violí
+  }
+}
+@end lilypond
+
+Tot i així també es pot fer servir aquests identificadors (que
+també es coneixen com a variables, macros o instruccions
+definides per l'usuari) per fer trucs:
+
+@c TODO Avoid padtext - not needed with skylining
+@lilypond[quote,verbatim,ragged-right]
+dolce = \markup { \italic \bold dolce }
+
+padText = { \once \override TextScript.padding = #5.0 }
+fthenp =_\markup {
+  \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
+}
+
+violí = \relative c'' {
+  \repeat volta 2 {
+    c4._\dolce b8 a8 g a b |
+    \padText
+    c4.^"hi there!" d8 e' f g d |
+    c,4.\fthenp b8 c4 c-. |
+  }
+}
+
+\score {
+  {
+    \violí
+  }
+  \layout { ragged-right = ##t }
+}
+@end lilypond
+
+Òbviament aquests identificadors són útils per estalviar tecleig.
+Però són dignes de tenir en compte fins i tot si s'utilitzaran un
+sol cop: redueixen la complexitat.  Examinem l'exemple anterior
+reescrit sense cap identificador.  Trobareu que és molt més
+difícil de llegir, sobretot l'última línia.
+
+@example
+violí = \relative c'' @{
+  \repeat volta 2 @{
+    c4._\markup @{ \italic \bold dolce @} b8 a8 g a b |
+    \once \override TextScript.padding = #5.0
+    c4.^"hi there!" d8 e' f g d |
+    c,4.\markup @{
+      \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p
+    @}
+    b8 c4 c-. |
+  @}
+@}
+@end example
+
+@c TODO Replace the following with a better example  -td
+@c Skylining handles this correctly without padText
+
+Fins ara hem contemplat la substitució estàtica: quan el LilyPonod
+es troba amb @code{\padText}, el substitueix amb allò que hem
+definit que sigui (és a dir, tot el que està a la dreta de
+@code{padtext=}).
+
+El LilyPond també pot gestionar substitucions no estàtiques
+(penseu en elles com funcions).
+
+@lilypond[quote,verbatim,ragged-right]
+padText =
+#(define-music-function
+     (parser location padding)
+     (number?)
+   #{
+     \once \override TextScript.padding = #padding
+   #})
+
+\relative c''' {
+  c4^"piu mosso" b a b |
+  \padText #1.8
+  c4^"piu mosso" d e f |
+  \padText #2.6
+  c4^"piu mosso" fis a g |
+}
+@end lilypond
+
+La utilització d'identificadors també és una bona forma de reduir
+el treball si la sintaxis d'entrada del LilyPonod canvia (vegeu
+@rprogram{Actualització de fitxers amb convert-ly}).  Si teniu una sola
+definició (com ara @code{\dolce}) per a tots els fitxers (vegeu
+@rlearningnamed{Style sheets,Fulls d'estil}), i després la sintaxis es
+modifica, sols haurà d'actualitzar la seva definició @code{\dolce}
+única, enlloc de haver de fer canvis a cadascú dels fitxers
+@file{.ly}.
+
+@node Partitures i particel.les
+@subsection Partitures i particel.les
+@translationof Scores and parts
+
+En música orquestral, totes les notes s'imprimeixen dues vegades.
+Un cop en les particel.les per a tots els músics, i una altra per
+a la partitura del director.  Els identificadors es poden usar per
+evitar la duplicació del treball.  La música s'escriu un cop
+s'emmagatzema en una variable.  El contingut d'aquesta variable
+s'usa després per generar tant la particel.la com la partitura del
+director.
+
+És molt convenient definir les notes en un fitxer especial.  Per
+exemple, suposem que el fitxer @file{trompa.ly} conté la següent
+part d'un duo per a trompa i fagot:
+
+@example
+notesTrompa = \relative c @{
+  \time 2/4
+  r4 f8 a | cis4 f | e4 d |
+@}
+@end example
+
+@noindent
+Després es fa una particel.la escrivint en un fitxer el següent:
+
+@example
+\include "trompa.ly"
+
+\header @{
+  instrument = "Trompa en Fa"
+@}
+
+@{
+ \transpose f c' \notesTrompa
+@}
+@end example
+
+La línia
+
+@example
+\include "trompa.ly"
+@end example
+
+@noindent
+substitueix el contingut de @file{trompa.ly} en aquesta posició
+dins del fitxer, així que @code{notesTrompa} es defineix amb
+posterioritat.  La instrucció @code{\transpose f@tie{}c'} indica
+que l'argument constituït per @code{\notesTrompa} s'ha de
+transposar una quina cap amunt.  El que sona com @code{f} s'escriu
+com @code{c'}, el que correspon amb el to d'afinació d'una trompa
+normal en@tie{}Fa.  La transposició es pot veure a la següent
+sortida
+
+@lilypond[quote,ragged-right]
+\transpose f c' \relative c {
+  \time 2/4
+  r4 f8 a | cis4 f | e4 d |
+}
+@end lilypond
+
+A peces per a conjunt, amb freqüència una de les veus no sona
+durant molts compasso.  Això queda denotat per un silenci
+especial, el silenci multicompàs.  S'introdueix amb una @code{R}
+majúscula seguida d'una duració (@code{1}@tie{}en el cas de la
+rodona, @code{2}@tie{}en el caso de una blanca,
+etc.). Multiplicant la duració es poden construir silencis més
+llargs.  Per exemple, aquest silenci ocupa 3@tie{}compassos de 2/4
+
+@example
+R2*3
+@end example
+
+Quan s'imprimeix la particel.la s'han de comprimir els silencis
+multicompàs.  Això es fa establint una variable de temps de execució
+
+@example
+\set Score.skipBars = ##t
+@end example
+
+@noindent
+Aquesta instrucció estableix el valor de la propietat
+@code{skipBars} al context de @code{Score} a vertader
+(@code{##t}).  Anteposant el silenci i aquesta opció a la música
+anterior, arribem al següent resultat
+
+@lilypond[quote,ragged-right]
+\transpose f c' \relative c {
+  \time 2/4
+  \set Score.skipBars = ##t
+  R2*3 |
+  r4 f8 a | cis4 f | e4 d |
+}
+@end lilypond
+
+Aquesta partitura es fa combinant tota la música junta.  Suposant
+que l'altra veu es troba dins de @code{notesFagot} al fitxer
+@file{fagot.ly}, la partitura es fa amb
+
+@example
+\include "fagot.ly"
+\include "trompa.ly"
+
+<<
+  \new Staff \notesTrompa
+  \new Staff \notesFagot
+>>
+@end example
+
+@noindent
+el que ens porta a
+
+@lilypond[quote,ragged-right]
+\relative c <<
+  \new Staff {
+    \clef "treble"
+    \time 2/4
+    R2*3 |
+    r4 f8 a | cis4 f | e4 d |
+  }
+  \new Staff {
+    \clef "bass"
+    \time 2/4
+    r4 d,8 f | gis4 c | b4 bes |
+    a8 e f4 | g4 d | gis4 f |
+  }
+>>
+@end lilypond

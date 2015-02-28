@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2004--2014 Jan Nieuwenhuizen <janneke@gnu.org>
+  Copyright (C) 2004--2015 Jan Nieuwenhuizen <janneke@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -76,7 +76,7 @@ Prob::equal_p (SCM sa, SCM sb)
   return SCM_BOOL_T;
 }
 
-Prob::Prob (SCM type, SCM immutable_init)
+Prob::Prob (SCM type, SCM immutable_init) : Smob<Prob> ()
 {
   mutable_property_alist_ = SCM_EOL;
   immutable_property_alist_ = immutable_init;
@@ -89,6 +89,7 @@ Prob::~Prob ()
 }
 
 Prob::Prob (Prob const &src)
+  : Smob<Prob> ()
 {
   immutable_property_alist_ = src.immutable_property_alist_;
   mutable_property_alist_ = SCM_EOL;

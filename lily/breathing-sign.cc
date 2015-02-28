@@ -1,8 +1,8 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1999--2014 Michael Krause
-  Extensions for ancient notation (c) 2003--2014 by Juergen Reuter
+  Copyright (C) 1999--2015 Michael Krause
+  Extensions for ancient notation (c) 2003--2015 by Juergen Reuter
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -119,7 +119,7 @@ Breathing_sign::divisio_maior (SCM smob)
                                     ydim[DOWN]);
               assert (line_pos.begin () < it);
               double val = (it[-1] + it[0]) / 2;
-              if (ydim[DOWN] < val && line_pos.begin () < it + 1)
+              if (ydim[DOWN] < val && line_pos.begin () < it - 1)
                 val = (it[-2] + it[-1]) / 2;
               ydim.add_point (val);
 

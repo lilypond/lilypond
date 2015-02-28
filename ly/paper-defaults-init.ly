@@ -1,6 +1,6 @@
 %%%% This file is part of LilyPond, the GNU music typesetter.
 %%%%
-%%%% Copyright (C) 2004--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+%%%% Copyright (C) 2004--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 %%%%                          Jan Nieuwenhuizen <janneke@gnu.org>
 %%%%                          Neil Puttock <n.puttock@gmail.com>
 %%%%
@@ -119,6 +119,7 @@
   first-page-number = #1
   print-first-page-number = ##f
   print-page-number = ##t
+  page-number-type = #'arabic
 
   %%
   %% Headers, footers, and titles

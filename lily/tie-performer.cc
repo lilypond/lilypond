@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1998--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1998--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -105,6 +105,31 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
           if (th && right_mus && left_mus
               && ly_is_equal (right_mus->get_property ("pitch"),
                               left_mus->get_property ("pitch")))
+            {
+              found = true;
+              // (*it).moment_ already stores the end of the tied note!
+              Moment skip = now_mom () - (*it).end_moment_;
+              an->tie_to (th, skip);
+              it = heads_to_tie_.erase (it);
+            }
+        }
+      if (found)
+        return;
+      for (it = heads_to_tie_.begin ();
+           !found && (it != heads_to_tie_.end ());
+           it++)
+        {
+          Audio_element_info et = (*it).head_;
+          Audio_note *th = dynamic_cast<Audio_note *> (et.elem_);
+          Stream_event *left_mus = et.event_;
+
+          if (!(th && right_mus && left_mus))
+            continue;
+
+          SCM p1 = left_mus->get_property ("pitch");
+          SCM p2 = right_mus->get_property ("pitch");
+          if (Pitch::is_smob (p1) && Pitch::is_smob (p2)
+              && Pitch::unsmob (p1)->tone_pitch () == Pitch::unsmob (p2)->tone_pitch ())
             {
               found = true;
               // (*it).moment_ already stores the end of the tied note!

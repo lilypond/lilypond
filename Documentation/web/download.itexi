@@ -82,7 +82,7 @@ latest unstable version
 
 @divEnd
 
-@divClass{column-center-bottom}
+@divClass{column-center-middle-color2}
 
 @subheading Software License
 
@@ -91,7 +91,7 @@ LilyPond is published under the
 @divEnd
 
 
-@divClass{color1}
+@divClass{column-center-bottom}
 
 @subheading Sponsors
 

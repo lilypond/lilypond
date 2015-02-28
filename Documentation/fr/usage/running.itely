@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 6ec0d3283b9e23f2d21658d71ac6801c3aab69b8
+    Translation of GIT committish: 0061a10c574353b9bb4097ba1c214da7d9d714a2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -15,7 +15,7 @@
 
 @node Exécution de lilypond
 @chapter Exécution de @command{lilypond}
-@translationof Running lilyPond
+@translationof Running lilypond
 
 Ce chapitre passe en revue ce qui se passe lorsque vous lancez LilyPond.
 
@@ -47,11 +47,11 @@ certaines options particulières.  D'autre part, certains utilitaires
 associés, tel que @code{midi2ly}, ne sont disponibles qu'en ligne de
 commande.
 
-Par @qq{ligne de commande}, nous entendons l'interface de commande du
+Par « ligne de commande », nous entendons l'interface de commande du
 système.  Les utilisateurs de Windows seront certainement plus familiers
-des termes @qq{fenêtre DOS} ou @qq{invite de commande}.  Quant aux
+des termes « fenêtre DOS » ou « invite de commande ».  Quant aux
 utilisateurs de MacOS X, ils connaissent assurément les termes
-@qq{console} et @qq{terminal}.  Les paramétrages spécifiques au système
+« console » et « terminal ».  Les paramétrages spécifiques au système
 MacOS font l'objet d'un @rwebnamed{MacOS X,chapitre particulier}.
 
 Notre propos n'est pas ici d'expliquer ce qu'est l'interface de
@@ -60,7 +60,7 @@ Aussi, si vous ne savez de quoi il retourne, nous vous renvoyons aux
 nombreuses documentations que vous pourrez trouver sur ce sujet.
 
 @menu
-* Lancement de lilypond::
+* Lancement de LilyPond::
 * Options basiques de lilypond::
 * Options avancées de lilypond::
 * Variables d'environnement::
@@ -68,9 +68,9 @@ nombreuses documentations que vous pourrez trouver sur ce sujet.
 @end menu
 
 
-@node Lancement de lilypond
-@unnumberedsubsec Lancement de @command{lilypond}
-@translationof Invoking lilypond
+@node Lancement de LilyPond
+@unnumberedsubsec Lancement de LilyPond
+@translationof Invoking LilyPond
 
 L'exécutable @command{lilypond} en ligne de commande se lance ainsi :
 
@@ -108,32 +108,80 @@ fournira grâce à LilyPond @file{@var{racine}-violon.pdf} et
 @file{@var{racine}-cello-1.pdf}.
 
 
-@unnumberedsubsubsec Commandes standard de l'interpréteur
-@translationof Standard shell commands
+@unnumberedsubsubsec Utilisation de LilyPond avec les fonctionnalités standard de l'interpréteur
+@translationof Using LilyPond with standard shell features
 
-Si votre interpréteur -- terminal, console, etc. -- prend en charge les
-redirections, les commandes qui suivent vous permettront de
-judicieusement rediriger les affichages de la console dans un
-fichier :
+Dans la mesure où LilyPond est une application qui fonctionne en ligne
+de commande, les fonctionnalités de l'interpréteur utilisé pour lancer
+LilyPond peuvent se révéler utiles.
 
-@itemize
+Par exemple,
 
-@item
-@code{lilypond fichier.ly 1>stdout.log} pour le verbiage normal
+@example
+lilypond *.ly
+@end example
 
-@item
-@code{lilypond fichier.ly 2>stderr.log} pour les messages d'erreur
+@noindent
+traitera tous les fichiers LilyPond présents dans le répertoire en
+cours.
 
-@item
-@code{lilypond fichier.ly &>tous.log} pour garder une trace de tout ce
-qui s'est passé
+Rediriger, par exemple dans un fichier, ce qui est émis à l'écran peut
+s'avérer utile.
 
-@end itemize
+@example
+lilypond fichier.ly 1> stdout.log
+
+lilypond fichier.ly 2> stderr.log
+
+lilypond fichier.ly &> tous.log
+@end example
+
+@noindent
+redirigeront respectivement le « verbiage normal », les erreurs ou tout,
+dans un fichier texte.
 
 Consultez avant tout la documentation de votre interpréteur habituel
-pour vérifier qu'il prend en charge ces options dans cette syntaxe.
-Notez bien qu'il s'agit ici de commandes internes à l'interpréteur et
-qui n'ont rien à voir avec LilyPond.
+-- terminal, console, etc. -- pour vérifier qu'il prend en charge les
+options dans cette syntaxe.
+
+Voici comment traiter un jeu de fichiers répartis dans un répertoire
+donné ainsi que tous ses différents sous-répertoires.  Les fichiers
+résultants seront regroupés dans le répertoire à partir duquel la
+commande a été exécutée, non selon l'emplacement des fichiers sources.
+
+@example
+find . -name '*.ly' -exec lilypond '@{@}' \;
+@end example
+
+@noindent
+Cette commande, bien qu'effective uniquement dans un terminal, devrait
+être fonctionnelle aussi pour les utilisateurs de MacOS X.
+
+Les utilisateurs de windows utiliseront l'instruction
+
+@example
+forfiles /s /M *.ly /c "cmd /c lilypond @@file"
+@end example
+
+@noindent
+dans l'@code{interpréteur de commandes}, qui se trouve normalement sous
+@code{Démarrer > Accessoires > Interpréteur de commandes} ou, pour la
+version 8, en faisant une recherche sur « interpréteur de commande ».
+
+Par ailleurs, il est possible de spécifier de manière explicite le chemin
+d'accès au dossier comportant des sous-répertoires où se trouvent les
+fichiers sources, à l'aide de l'option @code{/p} :
+
+@example
+forfiles /s /p C:\Documents\MesPartitions /M *.ly /c "cmd /c lilypond @@file"
+@end example
+
+Dans le cas où ce chemin d'accès comporte des espaces, l'intégralité de
+ce chemin devra être borné par des guillemets informatiques :
+
+@example
+forfiles /s /p "C:\Documents\Mes Partitions" /M *.ly /c "cmd /c lilypond @@file"
+@end example
 
 
 @node Options basiques de lilypond
@@ -149,6 +197,35 @@ qui n'ont rien à voir avec LilyPond.
 Différentes options sont disponibles en ligne de commande :
 
 @table @code
+
+@item -b, --bigpdfs
+@cindex bigpdfs
+
+Les fichiers PDF générés peuvent être beaucoup plus lourd que la normale
+selon le degré d'optimisation des fontes.  Néanmoins, lorsque plusieurs
+fichiers PDF sont inclus dans un document @code{pdftex}, @code{xetex} ou
+@code{luatex}, ils peuvent faire l'objet d'un traitement supplémentaire
+par @code{ghostscript} afin de fusionner les données de fontes
+redondantes et ainsi obtenir un fichier PDF @emph{significativement}
+plus léger.
+
+@example
+lilypond -b monfichier
+@end example
+
+Puis lancer @code{ghostscript} :
+
+@example
+gs -q -sDEVICE=pdfwrite -o gsout.pdf monfichier.pdf
+@end example
+
+@code{pdfsizeopt.py} vient alors en complément pour optimiser encore la
+taille du fichier :
+
+@example
+pdfsizeopt.py --use-multivalent=no gsout.pdf final.pdf
+@end example
+
 
 @item -d, --define-default=@var{variable}=@var{valeur}
 Voir @ref{Options avancées de lilypond}.
@@ -188,7 +265,7 @@ doubles @code{"} en lieu et place des guillemets simples @code{'}.}
 Détermine le format à produire.  Il peut s'agir de @code{ps}, @code{pdf}
 ou @code{png}.
 
-Exemple : @code{lilypond -fpng @var{monfichier}.ly}
+Exemple : @code{lilypond -fpng @var{monfichier}.ly}
 
 @item -h, --help
 Affiche un résumé des commandes.
@@ -450,7 +527,11 @@ permet d'utiliser les fontes woff avec le moteur SVG.
 
 @item @code{clip-systems}
 @tab @code{#f}
-@tab Génère des typons à partir d'une partition.
+@tab Extrait des fragments musicaux d'une partition.  Ceci requiert que
+la fonction @code{clip-regions} a été définie au sein du bloc
+@code{\layout} -- voir @ruser{Extraction de fragments musicaux}.  Bien
+entendu, aucun fragment ne sera extrait si l'on utilise l'option
+@option{-dno-print-pages}
 
 @item @code{datadir}
 @tab
@@ -1024,6 +1105,7 @@ facilement.
 * Message d'erreur FT_Get_Glyph_Name::
 * staff-affinities devraient aller en ordre décroissant::
 * Message d'erreur unexpected new::
+* Cette voix requiert un voiceXx ou un réglage shiftXx::
 @end menu
 
 
@@ -1066,7 +1148,7 @@ s'appliquer au contexte en cours.  Pour des partitions simples, le fait
 que les contextes soient automatiquement créés rend bien des services,
 et c'est d'ailleurs le cas pour la majorité des exemples contenus dans
 les manuels de LilyPond.  Cependant, la création implicite d'un contexte
-peut aboutir à l'apparition d'une portée @qq{parasite}.  On s'attend par
+peut aboutir à l'apparition d'une portée « parasite ».  On s'attend par
 exemple, en lisant le code qui suit, à ce que toutes les têtes de note
 soient en rouge, alors que le résultat nous présente deux portées et que
 les notes, placées sur la portée inférieure, restent en noir.
@@ -1185,3 +1267,44 @@ dit, LilyPond les traitera simultanément :
   >>
 }
 @end lilypond
+
+
+@node Cette voix requiert un voiceXx ou un réglage shiftXx
+@unnumberedsubsec Cette voix requiert un @code{@bs{}voiceXx} ou un réglage @code{@bs{}shiftXx}
+@translationof Warning this voice needs a voiceXx or shiftXx setting
+
+Lorsque des notes affectées à des voix différentes et ayant la même
+orientation de hampe interviennent au même instant musical et qu'aucun
+décalage spécifique à la voix n'a été spécifié, LilyPond émet
+@code{Avertissement : Cette voix requiert un voiceXx ou un réglage
+shiftXx} (@emph{warning: this voice needs a \voiceXx or \shiftXx
+setting}).  Cet avertissement est émis même lorsque ces notes n'ont pas
+de hampe visible, comme par exemple des rondes, si les hampes des durées
+inférieures à ces même hauteurs avaient la même orientation.
+
+N'oublions pas que l'orientation des hampes dépend de la position des
+notes sur la portée à moins que cette orientation n'ait été spécifiée,
+par exemple à l'aide d'un @code{\voiceOne} ou autre clause.  En pareil
+cas, l'avertissement ne sera émis que lorsque les hampes auront la même
+orientation, autrement dit lorsque les notes seront dans la même moitié
+de la portée.
+
+Le fait de placer les notes dans des voix auxquelles sont attachés
+orientation de hampe et décalage, comme @code{\voiceOne} ou autre, peut
+permettre d'éviter ces avertissements.
+
+Les notes se trouvant dans des voix au numéro plus élévé --
+@code{\voiceThree} ou @code{\voiceFour} -- sont automatiquement décalées
+pour éviter que les empilements se chevauchent.  Ceci aura pour résultat
+de visuellement décaler les notes affublées de hampe sans toutefois
+bouger les rondes, hormis dans le cas d'un réel chevauchement ou lorsque
+ces voix se croisent (@code{\voiceThree} au dessus de@code{\voiceOne}).
+
+@seealso
+Manuel d'initiation :
+@rlearning{Instanciation explicite des voix},
+@rlearning{Exemple concret}.
+
+Manuel de notation :
+@ruser{Polyphonie sur une portée},
+@ruser{Résolution des collisions}.

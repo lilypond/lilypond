@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2000--2014 Jan Nieuwenhuizen <janneke@gnu.org>
+  Copyright (C) 2000--2015 Jan Nieuwenhuizen <janneke@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -113,12 +113,10 @@ Note_head_line_engraver::stop_translation_timestep ()
 ADD_ACKNOWLEDGER (Note_head_line_engraver, rhythmic_head);
 ADD_TRANSLATOR (Note_head_line_engraver,
                 /* doc */
-                "Engrave a line between two note heads, for example a"
-                " glissando.  If @code{followVoice} is set, staff switches"
-                " also generate a line.",
+                "Engrave a line between two note heads in a staff"
+                " switch if @code{followVoice} is set.",
 
                 /* create */
-                "Glissando "
                 "VoiceFollower ",
 
                 /* read */

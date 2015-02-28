@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -181,9 +181,12 @@ Paper_column::minimum_distance (Grob *left, Grob *right)
 }
 
 Interval
-Paper_column::break_align_width (Grob *me, SCM align_sym)
+Paper_column::break_align_width (Grob *me, SCM align_syms)
 {
   Grob *p = me->get_parent (X_AXIS);
+
+  if (scm_is_symbol (align_syms))
+    align_syms = scm_list_1 (align_syms);
 
   if (is_musical (me))
     {
@@ -192,22 +195,27 @@ Paper_column::break_align_width (Grob *me, SCM align_sym)
     }
 
   Grob *align = 0;
-  if (align_sym == ly_symbol2scm ("staff-bar")
-      || align_sym == ly_symbol2scm ("break-alignment"))
-    align
-      = Pointer_group_interface::find_grob (me, ly_symbol2scm ("elements"),
-                                            (align_sym == ly_symbol2scm ("staff-bar")
-                                             ? Bar_line::non_empty_barline
-                                             : Break_alignment_interface::has_interface));
-  else
+  for (;!align && scm_is_pair (align_syms); align_syms = scm_cdr (align_syms))
     {
-      extract_grob_set (me, "elements", elts);
-      for (vsize i = 0; i < elts.size (); i++)
+      SCM align_sym = scm_car (align_syms);
+      if (align_sym == ly_symbol2scm ("staff-bar")
+          || align_sym == ly_symbol2scm ("break-alignment"))
+        align = Pointer_group_interface::find_grob
+          (me, ly_symbol2scm ("elements"),
+           (align_sym == ly_symbol2scm ("staff-bar")
+            ? Bar_line::non_empty_barline
+            : Break_alignment_interface::has_interface));
+      else
         {
-          if (elts[i]->get_property ("break-align-symbol") == align_sym)
+          extract_grob_set (me, "elements", elts);
+          for (vsize i = 0; i < elts.size (); i++)
             {
-              align = elts[i];
-              break;
+              if (elts[i]->get_property ("break-align-symbol") == align_sym
+                  && !elts[i]->extent (elts[i], X_AXIS).is_empty ())
+                {
+                  align = elts[i];
+                  break;
+                }
             }
         }
     }
@@ -248,7 +256,13 @@ Paper_column::get_interface_extent (Grob *column, SCM iface, Axis a)
   to your score.
   Also, as of 2013-10-16 there's a switch in Frescobaldi that turns this on.
 */
-MAKE_SCHEME_CALLBACK (Paper_column, print, 1);
+MAKE_DOCUMENTED_SCHEME_CALLBACK (Paper_column, print, 1,
+                                 "Optional stencil for @code{PaperColumn} or"
+                                 "@code{NonMusicalPaperColumn}.\n"
+                                 "Draws the @code{rank number} of each column,"
+                                 " its moment in time, a blue arrow showing the"
+                                 " ideal distance, and a red arrow showing the"
+                                 " minimum distance between columns.");
 SCM
 Paper_column::print (SCM p)
 {

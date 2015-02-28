@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 45dd19546e9b75b3e1e977732f0962f35dd3290e
+    Translation of GIT committish: 01980ec7e46ccd03ff7a379b6299842d788b8f8a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -160,6 +160,7 @@ i @ref{Clusters}.
 
 @cindex accordo, ripetizione
 @cindex ripetizione, uso di @code{q}
+@cindex @code{q}, ripetizione accordo
 
 Per inserire la musica più rapidamente, si può usare una scorciatoia che ripete
 l'accordo precedente.  Il simbolo di ripetizione dell'accordo è @code{q}:
@@ -297,10 +298,8 @@ interpretate in voci diverse.
 @cindex collisioni, ignorare
 
 @knownissues
-Se le note appartenenti a due o più  voci, con gambi nella stessa direzione, si
-trovano nello stesso punto del rigo e non è stato specificato uno spostamento
-orizzontale (oppure è stato specificato lo stesso valore per lo spostamento),
-il messaggio:
+Se le note appartenenti a due o più voci, senza che sia stato specificato
+uno spostamento, hanno i gambi nella stessa direzione, il messaggio
 
 @example
 attenzione: troppe collisioni tra colonne di note, ignorate
@@ -417,7 +416,7 @@ automaticamente per evitare collisioni.  Il comando @code{\oneVoice}
 ripristina tutte le impostazioni della voce alle direzioni neutrali
 predefinite.
 
-@subsubsubheading Pasaggi polifonici temporanei
+@subsubsubheading Passaggi polifonici temporanei
 
 Un passaggio polifonico temporaneo si può creare col seguente costrutto:
 

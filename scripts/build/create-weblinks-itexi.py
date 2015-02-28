@@ -28,7 +28,7 @@ depth = "../"
 
 # Get/update node translations
 '''
-for i in cs de es fr hu it ja nl zh; do
+for i in ca cs de es fr hu it ja nl zh; do
     echo "'"$i"': {"
     (echo '--' ; grep -nH -B1 translationof Documentation/$i/web/* ) \
         | pytt '^--\n.*@(?:unnum|sub)[^ ]* (.*)\n.*@translationof (.*)\n' "'\2': '\1',\n" \

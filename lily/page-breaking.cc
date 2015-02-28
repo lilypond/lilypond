@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2006--2014 Joe Neeman <joeneeman@gmail.com>
+  Copyright (C) 2006--2015 Joe Neeman <joeneeman@gmail.com>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -747,7 +747,7 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break, Prob_break_pred
           vector<vsize> line_breaker_columns;
           line_breaker_columns.push_back (0);
 
-          for (vsize j = 1; j < cols.size (); j++)
+          for (vsize j = 0; j < cols.size (); j++)
             {
               if (forced_line_break_cols.size ())
                 {
@@ -1440,7 +1440,7 @@ Page_breaking::finalize_spacing_result (vsize configuration, Page_spacing_result
     }
 
   for (vsize i = ragged () ? res.force_.size () - 1 : 0;
-       i < res.force_.size () - ragged_last ();
+       i < res.force_.size () - (is_last () && ragged_last ());
        i++)
     {
       Real f = res.force_[i];

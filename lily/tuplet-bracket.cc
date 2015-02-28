@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2014 Jan Nieuwenhuizen <janneke@gnu.org>
+  Copyright (C) 1997--2015 Jan Nieuwenhuizen <janneke@gnu.org>
   Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -837,6 +837,7 @@ ADD_INTERFACE (Tuplet_bracket,
                "note-columns "
                "padding "
                "tuplet-number "
+               "scripts "
                "shorten-pair "
                "staff-padding "
                "thickness "

@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2008--2014 Han-Wen Nienhuys <hanwen@lilypond.org>
+  Copyright (C) 2008--2015 Han-Wen Nienhuys <hanwen@lilypond.org>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -40,7 +40,6 @@ public:
   Real right () const;
   void raise (Real);
   void shift (Real);
-  void deholify ();
   void insert (Box const &, Axis);
   void merge (Skyline_pair const &other);
   Skyline &operator [] (Direction d);

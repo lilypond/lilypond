@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -503,24 +503,23 @@ Note_collision_interface::automatic_shift (Grob *me,
 
           if (i == 0)
             offset = inner_offset;
-          else if (shifts[i] == shifts[i - 1])
-            {
-              // Match the previous notecolumn offset,
-              // but warn if the user did not set these equal shifts explictly
-              if (!scm_is_number (sh))
-                col->warning (_ ("ignoring too many clashing note columns"));
-            }
-          else if (extents[d][i][UP] > extents[d][i - 1][DOWN]
-                   && extents[d][i][DOWN] < extents[d][i - 1][UP])
-            offset += 1.0; // fully clear the inner-voice heads
           else
             {
-              // check if we cross the inner voice
-              if (d * extents[d][i][-d] >= d * extents[d][i - 1][d])
+              bool explicit_shift = scm_is_number (sh);
+              if (!explicit_shift)
+                col->warning (_ ("this Voice needs a \\voiceXx or \\shiftXx setting"));
+
+              if (explicit_shift && shifts[i] == shifts[i - 1])
+                ; // Match the previous notecolumn offset
+              else if (extents[d][i][UP] > extents[d][i - 1][DOWN]
+                       && extents[d][i][DOWN] < extents[d][i - 1][UP])
+                offset += 1.0; // fully clear the previous-notecolumn heads
+              else if (d * extents[d][i][-d] >= d * extents[d][i - 1][d])
                 offset += Stem::is_valid_stem (stems[d][i - 1])
-                          ? 1.0 : 0.5;
+                          ? 1.0 : 0.5; // we cross the previous notecolumn
               else if (Stem::is_valid_stem (stems[d][i]))
                 offset += 0.5;
+
               // check if we cross the opposite-stemmed voices
               if (d * extents[d][i][-d] < d * extent_union[-d][d])
                 offset = max (offset, 0.5);

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: b58a17a6b0b6f624cee7858a74092265e0791fe2
+    Translation of GIT committish: c8296cf3183f30e17e4d5f0501cf1462b71ec546
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1200,8 +1200,8 @@ aux hampes vers le haut, et une note ou un accord dans une voix
 aux hampes vers le bas.  Dans le cas où des notes, issues de deux voix
 ayant toutes deux des hampes dans la même direction, se retrouvent au
 même moment et qu'aucun décalage n'a été spécifié ou qu'ils sont
-identiques, LilyPond vous le signalera par le message @qq{Trop
-d'empilements en conflit}.
+identiques, LilyPond vous le signalera par le message « Cette voix
+requiert un @code{@bs{}voiceXx} ou un réglage @code{@bs{}shiftXx}  ».
 
 @seealso
 Manuel d'initiation :

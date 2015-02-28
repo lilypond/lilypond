@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: e3c6bd65c8db492728d2f1f3a791bcf6bde056e4
+    Translation of GIT committish: 30e2aa8813df8903dc553ae80c82b8461ffbb381
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1299,7 +1299,10 @@ C'est le cas, en particulier, pour :
 @end ignore
 
 @divClass{column-center-top}
-@subheading Frescobaldi
+@subheading Applications avec interface graphique
+@c VO Front-end Applications
+
+@subsubheading Frescobaldi
 
 @imageClickable{frescobaldi-lilypond-editor-small,png,
   (cliquez pour agrandir),frescobaldi-lilypond-editor,png,right}
@@ -1317,10 +1320,8 @@ coloration syntaxique et auto-comlplétion.  Frescobaldi est écrit en
 Python et PyQt4 ; il fonctionne actuellement sur la plupart des systèmes
 d'exploitation (GNU/Linux, MacOS X et Windows).
 
-@divEnd
 
-@divClass{column-center-top}
-@subheading Denemo
+@subsubheading Denemo
 
 @imageClickable{screenshot-denemo-small,png,
   (cliquez pour agrandir),screenshot-denemo,png,right}
@@ -1344,15 +1345,20 @@ la vue graphique et toute erreur de syntaxe dans votre code sera mise en
 
 @divEnd
 
-
 @divClass{column-center-top}
-@subheading Tunefl
 
-@c do we need logos for web-based packages?
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+
+@subheading Éditeurs basés sur un navigateur
+@c VO Browser-based editors
+
+@subsubheading LilyBin
+@uref{http://lilybin.com}
+
+LilyBin vous permet de saisir en ligne vos partitions sans avoir
+préalablement installé LilyPond sur votre oridnateur.
+
+
+@subheading Tunefl
 
 @uref{http://www.tunefl.com}
 
@@ -1363,7 +1369,10 @@ tester toutes les fonctionnalités du programme dans une interface web.
 @divEnd
 
 @divClass{column-center-top}
-@subheading Elysium
+@subheading Greffons pour EDI
+@c VO IDE Plug-ins
+
+@subsubheading Elysium
 
 @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}
@@ -1388,6 +1397,7 @@ de nombreux canevas.
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
+@subsubheading Emacs
 @uref{http://www.gnu.org/software/emacs/}
 
 Emacs est un éditeur de texte avec des fontionnalités spécifiques pour
@@ -1399,20 +1409,22 @@ fichiers source LilyPond.  L'un des développeurs a même écrit un mode
 majeur pour Emacs, @uref{https://github.com/nsceaux/lyqi,lyqi}.
 
 
+@subsubheading Vim
 @uref{http://www.vim.org}
 
 Vim, éditeur de texte minimal, est une extension de l'ancien éditeur
 Unix @command{vi}.  Il est également extensible et configurable.
 
-En règle générale, si vous n'êtes pas déjà familier avec Emacs ou Vim,
-alors vous préfèrerez peut-être utiliser un autre éditeur pour
-travailler sur des fichiers source LilyPond.
+Si vous n'êtes pas déjà familier avec Vim, vous préfèrerez probablement
+utiliser un autre éditeur pour travailler sur des fichiers source
+LilyPond.
 
-Vous trouverez plus d'information quant au paramétrage d'Emacs et Vim au
+Vous trouverez plus d'information quant au paramétrage de Vim au
 chapitre @rprogram{LilyPond et les éditeurs de texte}.
 
 
 @sourceimage{logo-macosx,,,}
+@subsubheading TeXShop
 @uref{http://www.uoregon.edu/~koch/texshop}
 
 L'éditeur TexShop pour MacOS X peut être muni d'une extension pour
@@ -1426,8 +1438,8 @@ disponible à
 
 
 @divClass{column-center-top}
-@subheading Programmes qui exportent du code LilyPond
-@c VO Programs that can export LilyPond code
+@subheading Autres programmes, qui exportent du code LilyPond
+@c VO Other programs that can export LilyPond code
 
 
 @subsubheading Éditeurs de partition, tablature et MIDI
@@ -1448,15 +1460,15 @@ Les testeurs sont les bienvenus.
 
 @item
 @uref{http://enc2ly.sourceforge.net/en/,Enc2ly} est un programme
-GNU/Linux qui convertit des partitions du format
-@uref{http://www.gvox.com/,Encore} au format LilyPond.
+GNU/Linux qui convertit des partitions du format Encore au format
+LilyPond.
 
 @item
 @uref{https://github.com/hanwen/go-enc2ly,go-enc2ly} est un programme Go
-qui convertit des fichiers @uref{http://www.gvox.com/,Encore} au format
-LilyPond.  Il a été conçu à partir du travail d'ingénierie inverse de
-Felipe Castro en modifiant des fichiers @code{.enc} existant et en les
-chargeant avec la version de démonstration 4.55.
+qui convertit des fichiers Encore au format LilyPond.  Il a été conçu à
+partir du travail d'ingénierie inverse de Felipe Castro en modifiant des
+fichiers @code{.enc} existant et en les chargeant avec la version de
+démonstration 4.55.
 
 @item
 @uref{http://musescore.org,MuseScore} est un éditeur de partition. Il
@@ -1481,15 +1493,6 @@ mixer plusieurs parties en un conducteur.
 @item
 @uref{http://www.rosegardenmusic.com,Rosegarden}, séquenceur audio et
 MIDI, comporte aussi un éditeur pour portée unique.
-
-@item
-@uref{http://launchpad.net/rumor/,Rumor}, un convertisseur monophonique
-temps-réel MIDI vers LilyPond.
-
-@item
-@uref{http://www.tuxguitar.com.ar/,TuxGuitar} est un éditeur de
-tablatures multi-pistes.  Il permet d'afficher tablatures et partitions,
-et il peut exporter du code LilyPond.
 
 @end itemize
 
@@ -1521,14 +1524,15 @@ est un système de composition musicale basé sur le projet
 
 @divClass{column-center-top}
 
-@subheading Autres programmes dont le développement est peu actif
-@c VO Other programs not being actively developed
+@subheading Autres programmes dont le développement n'est plus actif
+@c VO Other programs no longer being actively developed
 
 @itemize
 
 @item
-@uref{https://sourceforge.net/projects/lily4jedit,LilyPondTool} a été
-créé en tant que greffon de l'éditeur @uref{http://www.jedit.org,jEdit}.
+@uref{http://lilycomp.sourceforge.net,LilyComp} permet de saisir
+graphiquement des notes.  Il fonctionne comme un pavé numérique
+permettant de produire de la notation LilyPond.
 
 @item
 @uref{http://lilykde.googlecode.com/,LilyKDE} a été remplacé par
@@ -1537,15 +1541,23 @@ disponible en version LilyKDE3 pour KDE 3.5 et lilypond-KDE4 pour
 KDE 4.1.
 
 @item
+@uref{https://sourceforge.net/projects/lily4jedit,LilyPondTool} a été
+créé en tant que greffon de l'éditeur @uref{http://www.jedit.org,jEdit}.
+
+@item
 @uref{http://noteedit.berlios.de,NoteEdit}, qui importait
 @uref{http://www.makemusic.com/musicxml, MusicXML}, s'est scindé en
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 et @uref{http://canorus.org,Canorus}.
 
 @item
-@uref{http://lilycomp.sourceforge.net,LilyComp} permet de saisir
-graphiquement des notes.  Il fonctionne comme un pavé numérique
-permettant de produire de la notation LilyPond.
+@uref{http://launchpad.net/rumor/,Rumor}, un convertisseur monophonique
+temps-réel MIDI vers LilyPond.
+
+@item
+@uref{http://www.tuxguitar.com.ar/,TuxGuitar} est un éditeur de
+tablatures multi-pistes.  Il permet d'afficher tablatures et partitions,
+et il peut exporter du code LilyPond.
 
 @end itemize
 

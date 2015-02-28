@@ -1,0 +1,106 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+
+@ignore
+    Translation of GIT committish: e5d3fb33ceaec6d10e06af0c667e4e982a0028ce
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.16.0"
+
+@node Irodalomjegyzék
+@chapter Irodalomjegyzék
+@translationof Literature list
+
+Here are lists of references used in LilyPond.
+
+@menu
+* Short literature list::
+* Long literature list::
+@end menu
+
+@node Short literature list
+@section Short literature list
+
+If you need to know more about music notation, here are some
+interesting titles to read.
+
+@table @cite
+@item Ignatzek 1995
+Klaus Ignatzek, Die Jazzmethode für Klavier. Schott's Söhne
+1995. Mainz, Germany ISBN 3-7957-5140-3.
+
+A tutorial introduction to playing Jazz on the piano.  One of the first
+chapters contains an overview of chords in common use for Jazz music.
+
+@item Gerou 1996
+Tom Gerou and Linda Lusk, Essential Dictionary of Music
+Notation. Alfred Publishing, Van Nuys CA ISBN 0-88284-768-6.
+
+A concise, alphabetically ordered list of typesetting and music
+(notation) issues, covering most of the normal cases.
+
+@item Gould 2011
+Elaine Gould, Behind Bars: the Definitive Guide to Music Notation.
+Faber Music Ltd. ISBN 0-571-51456-1.
+
+Hals über Kopf: Das Handbuch des Notensatzes.
+Edition Peters. ISBN 1843670488.
+
+A comprehensive guide to the rules and conventions of music notation.
+Covering everything from basic themes to complex techniques and
+providing a comprehensive grounding in notational principles.
+
+@item Read 1968
+Gardner Read, Music Notation: A Manual of Modern Practice.
+Taplinger Publishing, New York (2nd edition).
+
+A standard work on music notation.
+
+@item Ross 1987
+Ted Ross, Teach yourself the art of music engraving and processing.
+Hansen House, Miami, Florida 1987.
+
+This book is about music engraving, i.e., professional typesetting.
+It contains directions on stamping, use of pens and notational
+conventions.  The sections on reproduction technicalities and history
+are also interesting.
+
+@item Schirmer 2001
+The G.Schirmer/AMP Manual of Style and Usage. G.Schirmer/AMP, NY, 2001.
+(This book can be ordered from the rental department.)
+
+This manual specifically focuses on preparing print for publication by
+Schirmer.  It discusses many details that are not in other, normal
+notation books.  It also gives a good idea of what is necessary to bring
+printouts to publication quality.
+
+@item Stone 1980
+
+Kurt Stone, Music Notation in the Twentieth Century.
+Norton, New York 1980.
+
+This book describes music notation for modern serious music, but
+starts out with a thorough overview of existing traditional notation
+practices.
+
+@end table
+
+
+@node Long literature list
+@section Long literature list
+
+@subheading University of Colorado Engraving music bibliography
+
+@include colorado.itexi
+
+@subheading Computer notation bibliography
+
+@include computer-notation.itexi
+
+@subheading Engraving bibliography
+
+@include engravingbib.itexi
+

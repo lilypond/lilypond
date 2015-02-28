@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -236,11 +236,13 @@ ADD_ACKNOWLEDGER (Stem_engraver, rhythmic_head);
 
 ADD_TRANSLATOR (Stem_engraver,
                 /* doc */
-                "Create stems and single-stem tremolos.  It also works"
+                "Create stems, flags and single-stem tremolos.  It also works"
                 " together with the beam engraver for overriding beaming.",
 
                 /* create */
+                "Flag "
                 "Stem "
+                "StemStub "
                 "StemTremolo ",
 
                 /* read */

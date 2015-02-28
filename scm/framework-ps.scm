@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2004--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 2004--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -52,11 +52,32 @@
   "")
 
 (define (ps-define-font font font-name scaling)
-  (string-append
-   "/" (ps-font-command font)
-   " { /" font-name
-   " " (ly:number->string scaling) " output-scale div selectfont }"
-   " bind def\n"))
+  (if (ly:bigpdfs)
+      (string-append
+       "/" (ps-font-command font) "-N"
+       " { /" font-name "-N"
+       " " (ly:number->string scaling) " output-scale div selectfont }"
+       " bind def\n"
+       "/" (ps-font-command font) "-S"
+       " { /" font-name "-S"
+       " " (ly:number->string scaling) " output-scale div selectfont }"
+       " bind def\n"
+       "/" (ps-font-command font) "-O"
+       " { /" font-name "-O"
+       " " (ly:number->string scaling) " output-scale div selectfont }"
+       " bind def\n"
+       "/help" font-name " {\n  gsave\n  1 setgray\n  /"
+       font-name "-N"
+       " 0.001 selectfont 0 0 moveto <01> show\n  /"
+       font-name "-S"
+       " 0.001 selectfont 0 0 moveto <01> show\n  /"
+       font-name "-O"
+       " 0.001 selectfont 0 0 moveto <01> show\n  grestore\n} def\n")
+      (string-append
+       "/" (ps-font-command font)
+       " { /" font-name
+       " " (ly:number->string scaling) " output-scale div selectfont }"
+       " bind def\n")))
 
 ;; FIXME: duplicated in other output backends
 ;; FIXME: silly interface name
@@ -99,7 +120,16 @@
         "")
     "%%EndPageSetup\n"
     "\n"
-    "gsave 0 paper-height translate set-ps-scale-to-lily-scale\n"))
+    "gsave 0 paper-height translate set-ps-scale-to-lily-scale\n"
+    "/helpEmmentaler-Brace where {pop helpEmmentaler-Brace} if\n"
+    "/helpEmmentaler-11 where {pop helpEmmentaler-11} if\n"
+    "/helpEmmentaler-13 where {pop helpEmmentaler-13} if\n"
+    "/helpEmmentaler-14 where {pop helpEmmentaler-14} if\n"
+    "/helpEmmentaler-16 where {pop helpEmmentaler-16} if\n"
+    "/helpEmmentaler-18 where {pop helpEmmentaler-18} if\n"
+    "/helpEmmentaler-20 where {pop helpEmmentaler-20} if\n"
+    "/helpEmmentaler-23 where {pop helpEmmentaler-23} if\n"
+    "/helpEmmentaler-26 where {pop helpEmmentaler-26} if\n"))
   (ly:outputter-dump-stencil outputter page)
   (ly:outputter-dump-string outputter "stroke grestore\nshowpage\n"))
 
@@ -392,6 +422,8 @@
                   (display (cdr f) port)
                   (display "%%EndFont\n" port))
                 (load-fonts paper)))
+  (if (ly:bigpdfs)
+      (display (procset "encodingdefs.ps") port))
   (display (setup-variables paper) port)
 
   ;; adobe note 5002: should initialize variables before loading routines.
@@ -542,6 +574,15 @@
     (write-preamble paper load-fonts port)
     (display "/mark_page_link { pop pop pop pop pop } bind def\n" port)
     (display "gsave set-ps-scale-to-lily-scale\n" port)
+    (display "/helpEmmentaler-Brace where {pop helpEmmentaler-Brace} if\n" port)
+    (display "/helpEmmentaler-11 where {pop helpEmmentaler-11} if\n" port)
+    (display "/helpEmmentaler-13 where {pop helpEmmentaler-13} if\n" port)
+    (display "/helpEmmentaler-14 where {pop helpEmmentaler-14} if\n" port)
+    (display "/helpEmmentaler-16 where {pop helpEmmentaler-16} if\n" port)
+    (display "/helpEmmentaler-18 where {pop helpEmmentaler-18} if\n" port)
+    (display "/helpEmmentaler-20 where {pop helpEmmentaler-20} if\n" port)
+    (display "/helpEmmentaler-23 where {pop helpEmmentaler-23} if\n" port)
+    (display "/helpEmmentaler-26 where {pop helpEmmentaler-26} if\n" port)
     (ly:outputter-dump-stencil outputter dump-me)
     (display "stroke grestore\n%%Trailer\n%%EOF\n" port)
     (ly:outputter-close outputter)))

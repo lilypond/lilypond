@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2004--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2004--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -28,7 +28,6 @@ class Music_function : public Smob2<Music_function>
 {
 public:
   static const char type_p_name_[];
-  SCM mark_smob ();
   int print_smob (SCM, scm_print_state *);
   SCM get_signature () { return scm1 (); }
   SCM get_function () { return scm2 (); }

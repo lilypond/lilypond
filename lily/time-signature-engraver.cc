@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -24,7 +24,6 @@
 #include "misc.hh"
 #include "moment.hh"
 #include "stream-event.hh"
-#include "time-signature.hh"
 #include "warn.hh"
 
 #include "translator.icc"
@@ -81,10 +80,9 @@ Time_signature_engraver::process_music ()
       time_signature_ = make_item ("TimeSignature", time_cause_);
       time_signature_->set_property ("fraction", fr);
 
-      // Todo: "implicit" does not seem perfectly accurate (issue 4151)
       if (last_time_fraction_ == SCM_BOOL_F)
         time_signature_->set_property ("break-visibility",
-                                       get_property ("implicitTimeSignatureVisibility"));
+                                       get_property ("initialTimeSignatureVisibility"));
 
       int den = scm_to_int (scm_cdr (fr));
       if (den != (1 << intlog2 (den)))
@@ -129,7 +127,7 @@ ADD_TRANSLATOR (Time_signature_engraver,
                 "TimeSignature ",
 
                 /* read */
-                "implicitTimeSignatureVisibility "
+                "initialTimeSignatureVisibility "
                 "partialBusy "
                 "timeSignatureFraction ",
 

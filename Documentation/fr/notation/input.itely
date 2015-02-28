@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ece268fa66e2576c01f33a4a6e1806f44c9f8fa8
+    Translation of GIT committish: 868bbbb78276796f43a1c72621fdb3a3a14d2555
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2199,10 +2199,9 @@ rappellerez ensuite, comme indiqué à la rubrique
 @funindex \tag
 @funindex \keepWithTag
 @funindex \removeWithTag
-@funindex \pushToTag
-@funindex \appendToTag
 @cindex tag
 @cindex balise
+@cindex regroupement de balises
 
 La commande @code{\tag #'@var{partieA}} affecte à une expression
 musicale le nom @var{partieA}.  Les expressions ainsi balisées pourront
@@ -2235,10 +2234,17 @@ Musique balisée non précédée de @code{\keepWithTag} ou
 
 @end multitable
 
-Les arguments des commandes @code{\tag}, @code{\keepWithTag} et
-@code{\removeWithTag} doivent être un symbole (tel que
-@code{#'conducteur} ou @code{#'partie}), suivi d'une expression
-musicale.
+L'argument des commandes @code{\tag}, @code{\keepWithTag} et
+@code{\removeWithTag} doit être un symbole ou une liste de symboles
+(tel que @code{#'conducteur} ou @code{#'(violonI violonII)}), suivi
+d'une expression musicale.  Si, @emph{et seulement si} les symboles sont
+des indentifiants LilyPond valides (caractères alphabétiques uniquement,
+sans chiffre, souligné ou tiret) qui ne peuvent se confondre avec des
+notes, le @code{#'} peut s'omettre et, pour raccourcir, une liste de
+symbole peut utiliser le point en séparateur -- autrement dit,
+@code{\tag #'(violinI violinII)} peut s'écrire @code{\tag
+violinI.violinII}.  Ceci s'applique aussi bien pour @code{\keepWithTag}
+que pour @code{\removeWithTag}.
 
 Dans l'exemple qui suit, nous obtenons deux versions du même extrait,
 l'une pour le conducteur, l'autre pour l'instrumentiste qui, elle,
@@ -2346,6 +2352,40 @@ liste de balises est en pareil cas des plus pertinente : seront
 exclus tous les fragments non concernés par l'une quelconque des
 balises mentionnées.
 
+@cindex regroupements de balises
+@cindex balises, regroupement
+@funindex \tagGroup
+
+Bien que @code{\keepWithTag} soit efficace pour gérer @emph{un} jeu
+d'alternatives, le rejet de musique filtrée par des balises
+@emph{étrangères} se révèle problématique lorsque les @code{\tag} sont
+utilisés à plusieurs fins.  Des « groupements de balises » peuvent
+alors être déclarés :
+
+@example
+\tagGroup #'(violinI violinII viola cello)
+@end example
+
+stipule que ces filtres respectifs appartiennent à un même groupe.
+
+@example
+\keepWithTag #'violinI @dots{}
+@end example
+
+ne sera donc concerné que par les balises @code{violinI} contenues dans
+le groupe de filtres : tout élément de la musique incluse qui serait
+balisé par un ou plusieurs des filtres de ce jeu mais @emph{pas} par
+@code{violinI} sera rejeté.
+
+Pour toute commande @code{\keepWithTag}, seules les balises du
+regroupement mentionnées dans la commande seront visibles.
+
+Une balise ne peut faire partie que d'un seul regroupement.
+
+@funindex \pushToTag
+@funindex \appendToTag
+@cindex raccordement dans une balise
+
 Il peut arriver que vous ayez besoin de raccorder quelque chose en un
 point particulier d'une expression musicale.  Les commandes
 @code{\pushToTag} et @code{\appendToTag} permettent d'insérer du
@@ -2368,9 +2408,6 @@ test = { \tag #'here { \tag #'here <<c''>> } }
 
 Ces deux instructions sont affectées d'une balise, le matériau à
 raccorder à chaque instance de la balise, et l'expression balisée.
-Ces instructions prennent soin de recopier tout ce qui doit être
-modifié, de telle sorte que l'expression @code{\test} originale conserve
-tout son sens.
 
 @seealso
 Manuel d'initiation :
@@ -2546,7 +2583,7 @@ dans des paroles et dans du texte indépendant.
   }
   \addlyrics { O \markup { \concat { Ph \char ##x0153 be! } } }
 }
-\markup { "Copyright 2008--2014" \char ##x00A9 }
+\markup { "Copyright 2008--2015" \char ##x00A9 }
 @end lilypond
 
 @cindex copyright
@@ -2631,39 +2668,49 @@ Fichiers d'initialisation :
 @subsection Extraction de fragments musicaux
 @translationof Extracting fragments of music
 
-LilyPond permet d'extraire des fragments d'une partition à l'instar du
-choriste amateur qui alimente son album avec des coupures de journaux.
+@cindex fragments, extraction
 
-Vous devrez pour cela définir les mesures à découper.  La définition
-suivante, incluse dans votre fichier source,
+@funindex clip-regions
 
-@verbatim
-\layout {
+LilyPond permet d'extraire des fragments d'une partition, une fois
+definis explicitement le ou les emplacements de la musique concernés au
+sein du bloc @code{\layout} du fichier source, grâce à la fonction
+@code{clip-regions}, puis en lançant @command{lilypond} avec l'option
+@w{@code{-dclip-systems}}.
+
+@example
+\layout @{
   clip-regions
   = #(list
       (cons
        (make-rhythmic-location 5 1 2)
        (make-rhythmic-location 7 3 4)))
-}
-@end verbatim
+@}
+@end example
 
 @noindent
-vous permettra d'extraire un fragment compris entre le milieu de la
-cinquième mesure et quelque part dans la septième.  Le triplet
-@code{5 1 2} signifie : après la durée d'une blanche dans la mesure 5 ;
-le @code{7 3 4} signifie quant à lui que l'on s'arrête à la mesure 7,
-après la durée de trois noires.
+L'exemple ci-dessus permet d'extraire un seul fragment @emph{débutant}
+après une blanche dans la cinquième mesure (@code{5 1 2}) et
+@emph{finissant} après trois noires dans la septième
+mesure (@code{7 3 4}).
 
-Rien ne vous empêche d'extraire plusieurs fragments, dès lors que vous
-définissez dans la liste d'autres paires d'emplacements rythmiques.
+D'autres fragments seront extraits dès lors que d'autres paires de
+@w{@code{make-rhythmic-location}} auront été ajoutées à la liste de
+@w{@code{clip-regions}} présente dans le bloc @code{\layout}.
 
-Cette fonctionnalité n'est toutefois effective que lorsque vous lancez
-LilyPond avec l'option @w{@code{-dclip-systems}}.  Les @qq{coupures}
-seront générées sous la forme de fichiers EPS, convertis en PDF ou PNG
-selon le format que vous aurez stipulé.
+Chaque fragment sera généré individuellement sous la forme d'un fichier
+@code{EPS}, converti en @code{PDF} ou @code{PNG} selon le format que
+vous aurez stipulé.  La musique extraite est rendue comme si elle avait
+été littéralement « découpée » dans la partition.  Par voie de
+conséquence, un fragment dépassant une ligne fera l'objet d'autant de
+fichiers séparés que de lignes de la partition complète.
 
-Pour de plus amples informations quant au format des résultats,
-consultez le chapitre @rprogram{Lancement de lilypond}.
+@seealso
+Manuel de notation :
+@ref{Le bloc layout}.
+
+Manuel d'utilisation :
+@rprogram{Utilisation en ligne de commande}.
 
 
 @node Ignorer des passages de la partition

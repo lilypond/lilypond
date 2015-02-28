@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2005--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2005--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -19,6 +19,7 @@
 */
 
 #include "item.hh"
+#include "paper-column.hh"
 
 LY_DEFINE (ly_item_p, "ly:item?",
            1, 0, 0, (SCM g),
@@ -38,4 +39,18 @@ LY_DEFINE (ly_item_break_dir, "ly:item-break-dir",
   LY_ASSERT_SMOB (Item, it, 1);
   Item *me = Item::unsmob (it);
   return scm_from_int (me->break_status_dir ());
+}
+
+LY_DEFINE (ly_item_get_column, "ly:item-get-column",
+           1, 0, 0, (SCM it),
+           "Return the @code{PaperColumn} or @code{NonMusicalPaperColumn}"
+           " associated with this @code{Item}.")
+{
+  LY_ASSERT_SMOB (Item, it, 1);
+  Item *me = Item::unsmob (it);
+
+  if (Paper_column *col = me->get_column ())
+    return col->self_scm ();
+
+  return SCM_EOL;
 }

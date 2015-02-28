@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: b58a17a6b0b6f624cee7858a74092265e0791fe2
+    Translation of GIT committish: 868bbbb78276796f43a1c72621fdb3a3a14d2555
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.16"
 
 @c Translators: Frédéric Chiasson, Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
@@ -303,7 +303,6 @@ plusieurs portées :
 En pareil cas, des rythmes différents ne sont source d'aucun problème
 puisqu'ils sont interprétés dans des voix différentes.
 
-@cindex collision sur empilement de notes
 @cindex collisions, ignorer
 
 @knownissues
@@ -313,10 +312,11 @@ sur la portée, ce quelque soit le décalage que vous auriez pu leur
 appliquer.  Ceci ne manque pas de faire apparaître un message
 
 @example
-warning: ignoring too many clashing note columns
+warning: This voice needs a \voiceXx or \shiftXx setting
 
 @emph{en français :}
-Avertissement : trop d'empilements de notes se chevauchent. On fera au mieux.
+Avertissement : Cette voix requiert un @code{voiceXx} ou un réglage
+@code{\shiftXx}
 @end example
 
 lors de la compilation.  Le déclenchement de cet avertissement peut être

@@ -1,6 +1,6 @@
 %%%% This file is part of LilyPond, the GNU music typesetter.
 %%%%
-%%%% Copyright (C) 1996--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+%%%% Copyright (C) 1996--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 %%%%                          Jan Nieuwenhuizen <janneke@gnu.org>
 %%%%
 %%%% LilyPond is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.17.29"
+\version "2.19.16"
 
 \context {
   \name "Global"
@@ -99,6 +99,7 @@
   \defaultchild "Voice"
   \accepts "Voice"
   \accepts "CueVoice"
+  \accepts "NullVoice"
 
   \description "Handles clefs, bar lines, keys, accidentals.  It can contain
 @code{Voice} contexts."
@@ -618,7 +619,7 @@ automatically when an output definition (a @code{\\score} or
   explicitClefVisibility = #all-visible
   explicitCueClefVisibility = #end-of-line-invisible
   explicitKeySignatureVisibility = #all-visible
-  implicitTimeSignatureVisibility = #end-of-line-invisible
+  initialTimeSignatureVisibility = #end-of-line-invisible
 
   repeatCountVisibility = #all-repeat-counts-visible
 
@@ -785,9 +786,12 @@ context."
   \override NoteHead.X-extent = #(lambda (g)
     (ly:stencil-extent (ly:note-head::print g) X))
 
-  \omit Accidental
-  \omit AccidentalCautionary
-  \omit AccidentalSuggestion
+  % generate no accidentals
+  nullAccidentals = ##t
+
+  %% keep noteheads inside the staff
+  \consists "Pitch_squash_engraver"
+  squashedPosition = 0
 
   % the engravers that control the 'busy' flags for note-onsets and melismata
   \consists "Grob_pq_engraver"

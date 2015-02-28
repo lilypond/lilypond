@@ -1,7 +1,7 @@
 /* -*- C++ -*-
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2005--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 2005--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -32,14 +32,20 @@ template <class Super>
 SCM
 Smob_base<Super>::mark_trampoline (SCM arg)
 {
-  return (Super::unsmob (arg))->mark_smob ();
+  Super *ptr = Super::unsmob (arg);
+  if (ptr)
+    return ptr->mark_smob ();
+  return SCM_UNDEFINED;
 }
 
 template <class Super>
 int
 Smob_base<Super>::print_trampoline (SCM arg, SCM port, scm_print_state *p)
 {
-  return (Super::unsmob (arg))->print_smob (port, p);
+  Super *ptr = Super::unsmob (arg);
+  if (ptr)
+    return ptr->print_smob (port, p);
+  return 0;
 }
 
 template <class Super>
@@ -96,6 +102,7 @@ Smob_base<Super>::unregister_ptr (SCM obj)
 {
   Super *p = Super::unchecked_unsmob (obj);
   scm_gc_unregister_collectable_memory (p, sizeof (*p), smob_name_.c_str ());
+  SCM_SET_SMOB_DATA (obj, static_cast<Super *> (0));
   return p;
 }
 

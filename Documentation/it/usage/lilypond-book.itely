@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: eba67a0bc70f38a7847de75c640d7ad19c6fd804
+    Translation of GIT committish: fab824ac128346465690246f7a42ce1e8b42db8dq
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -899,7 +899,7 @@ indipendentemente da quello che userai, puoi convertire facilmente PostScript e
 PDF con strumenti come @command{ps2pdf} e @command{pdf2ps} inclusi nel pacchetto
 Ghostscript.
 
-Per creare un file PDF con PDF@LaTeX{}, si usa
+Per creare un file PDF con PDF@LaTeX{}, si usa:
 
 @example
 lilypond-book --pdf tuofile.lytex
@@ -910,8 +910,7 @@ pdflatex tuofile.tex
 @cindex type1, carattere
 @cindex dvips
 @cindex utilizzo di dvips
-Per produrre l'output PDF attraverso @LaTeX{}/@command{dvips}/@command{ps2pdf},
-bisogna usare questi comandi
+Per produrre l'output PDF attraverso @LaTeX{}/@command{dvips}/@command{ps2pdf}:
 
 @example
 lilypond-book tuofile.lytex
@@ -929,6 +928,23 @@ L'esecuzione di @command{dvips} potrebbe generare dei messaggi di avviso
 relativi ai caratteri; questi messaggi sono innocui e possono
 essere ignorati.  Se esegui @command{latex} in modalità due colonne, ricorda
 di aggiungere @option{-t landscape} alle opzioni di @command{dvips}.
+
+Gli ambienti come:
+
+@example
+\begin@{lilypond@} @dots{} \end@{lilypond@}
+@end example
+
+@noindent
+non sono interpretati da @LaTeX{}.  @code{lilypond-book} estrae questi
+@q{ambienti} e li copia in file in un suo formato per poter eseguire
+LilyPond su di essi.  Prende quindi gli elementi grafici risultanti
+e crea un file @file{.tex} dove le macro
+@code{\begin@{lilypond@}}@dots{}@code{\end@{lilypond@}} sono poi
+sostituite da comandi di @q{inclusione di immagini}.  È a questo
+punto che @LaTeX{} viene eseguito (anche se @LaTeX{} è stato eseguito
+in precedenza, in realtà ha agito su un documento @q{vuoto} solo per
+fare alcuni calcoli, come per esempio di @code{\linewidth}).
 
 @knownissues
 Il comando @code{\pageBreak} non funziona all'interno dell'ambiente
@@ -1394,4 +1410,3 @@ dove @code{\includescore} viene definito in questo modo:
 Altri modi per combinare testo e musica (senza usare
 @command{lilypond-book}) sono trattati in
 @ref{LilyPond output in other programs}.
-

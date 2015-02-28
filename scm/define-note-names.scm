@@ -1,22 +1,22 @@
 ;;;; Common note names in various languages.
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2010--2014 Valentin Villenave <valentin@villenave.net> et al:
+;;;; Copyright (C) 2010--2015 Valentin Villenave <valentin@villenave.net> et al:
 ;;;;
-;;;; Copyright (C) 1996--2014 Han-Wen Nienhuys <hanwen@xs4all.nl> (Nederlands)
-;;;; Copyright (C) 1998--2014 Jaume Obrador <jobrador@ipc4.uib.es> (Catalan)
-;;;; Copyright (C) 1997--2014 Roland Meier <meier@informatik.th-darmstadt.de>
+;;;; Copyright (C) 1996--2015 Han-Wen Nienhuys <hanwen@xs4all.nl> (Nederlands)
+;;;; Copyright (C) 1998--2015 Jaume Obrador <jobrador@ipc4.uib.es> (Catalan)
+;;;; Copyright (C) 1997--2015 Roland Meier <meier@informatik.th-darmstadt.de>
 ;;;;                Bjoern Jacke <bjoern.jacke@gmx.de> (Deutsch)
-;;;; Copyright (C) 1996--2014 Han-Wen Nienhuys <hanwen@xs4all.nl> (English)
-;;;; Copyright (C) 2002--2014 Carlos García Suárez <cgscqmp@terra.es>
+;;;; Copyright (C) 1996--2015 Han-Wen Nienhuys <hanwen@xs4all.nl> (English)
+;;;; Copyright (C) 2002--2015 Carlos García Suárez <cgscqmp@terra.es>
 ;;;;                Maximiliano G. G. <mxgdvg@yahoo.it> (Espanol)
-;;;; Copyright (C) 1998--2014 Paolo Zuliani <zuliap@easynet.it>
+;;;; Copyright (C) 1998--2015 Paolo Zuliani <zuliap@easynet.it>
 ;;;;                Eric Wurbel <wurbel@univ-tln.fr> (Italiano)
-;;;; Copyright (C) 1998--2014 Arvid Grøtting <arvidg@ifi.uio.no> (Norsk)
-;;;; Copyright (C) 2004--2014 Pedro Kröger <kroeger@pedrokroeger.net> (Portugues)
-;;;; Copyright (C) 2001--2014 Heikki Junes <heikki.junes@hut.fi> (Suomi)
-;;;; Copyright (C) 1997--2014 Mats Bengtsson <mabe@violin.s3.kth.se> (Svenska)
-;;;; Copyright (C) 2004--2014 Hendrik Maryns <hendrik.maryns@ugent.be> (Vlaams)
+;;;; Copyright (C) 1998--2015 Arvid Grøtting <arvidg@ifi.uio.no> (Norsk)
+;;;; Copyright (C) 2004--2015 Pedro Kröger <kroeger@pedrokroeger.net> (Portugues)
+;;;; Copyright (C) 2001--2015 Heikki Junes <heikki.junes@hut.fi> (Suomi)
+;;;; Copyright (C) 1997--2015 Mats Bengtsson <mabe@violin.s3.kth.se> (Svenska)
+;;;; Copyright (C) 2004--2015 Hendrik Maryns <hendrik.maryns@ugent.be> (Vlaams)
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -310,42 +310,6 @@
     ;;  tqs = three-quarter[-tones] sharp
 
     (english . (
-                (cflatflat . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
-                (cflat . ,(ly:make-pitch -1 0 FLAT))
-                (c . ,(ly:make-pitch -1 0 NATURAL))
-                (csharp . ,(ly:make-pitch -1 0 SHARP))
-                (csharpsharp . ,(ly:make-pitch -1 0 DOUBLE-SHARP))
-                (dflatflat . ,(ly:make-pitch -1 1 DOUBLE-FLAT))
-                (dflat . ,(ly:make-pitch -1 1 FLAT))
-                (d . ,(ly:make-pitch -1 1 NATURAL))
-                (dsharp . ,(ly:make-pitch -1 1 SHARP))
-                (dsharpsharp . ,(ly:make-pitch -1 1 DOUBLE-SHARP))
-                (eflatflat . ,(ly:make-pitch -1 2 DOUBLE-FLAT))
-                (eflat . ,(ly:make-pitch -1 2 FLAT))
-                (e . ,(ly:make-pitch -1 2 NATURAL))
-                (esharp . ,(ly:make-pitch -1 2 SHARP))
-                (esharpsharp . ,(ly:make-pitch -1 2 DOUBLE-SHARP))
-                (fflatflat . ,(ly:make-pitch -1 3 DOUBLE-FLAT))
-                (fflat . ,(ly:make-pitch -1 3 FLAT))
-                (f . ,(ly:make-pitch -1 3 NATURAL))
-                (fsharp . ,(ly:make-pitch -1 3 SHARP))
-                (fsharpsharp . ,(ly:make-pitch -1 3 DOUBLE-SHARP))
-                (gflatflat . ,(ly:make-pitch -1 4 DOUBLE-FLAT))
-                (gflat . ,(ly:make-pitch -1 4 FLAT))
-                (g . ,(ly:make-pitch -1 4 NATURAL))
-                (gsharp . ,(ly:make-pitch -1 4 SHARP))
-                (gsharpsharp . ,(ly:make-pitch -1 4 DOUBLE-SHARP))
-                (aflatflat . ,(ly:make-pitch -1 5 DOUBLE-FLAT))
-                (aflat . ,(ly:make-pitch -1 5 FLAT))
-                (a . ,(ly:make-pitch -1 5 NATURAL))
-                (asharp . ,(ly:make-pitch -1 5 SHARP))
-                (asharpsharp . ,(ly:make-pitch -1 5 DOUBLE-SHARP))
-                (bflatflat . ,(ly:make-pitch -1 6 DOUBLE-FLAT))
-                (bflat . ,(ly:make-pitch -1 6 FLAT))
-                (b . ,(ly:make-pitch -1 6 NATURAL))
-                (bsharp . ,(ly:make-pitch -1 6 SHARP))
-                (bsharpsharp . ,(ly:make-pitch -1 6 DOUBLE-SHARP))
-
                 (cff . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
                 (ctqf . ,(ly:make-pitch -1 0 THREE-Q-FLAT))
                 (cf . ,(ly:make-pitch -1 0 FLAT))
@@ -422,6 +386,42 @@
                 (btqs . ,(ly:make-pitch -1 6 THREE-Q-SHARP))
                 (bss . ,(ly:make-pitch -1 6 DOUBLE-SHARP))
                 (bx . ,(ly:make-pitch -1 6 DOUBLE-SHARP))
+
+                (c-flatflat . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
+                (c-flat . ,(ly:make-pitch -1 0 FLAT))
+                (c . ,(ly:make-pitch -1 0 NATURAL))
+                (c-sharp . ,(ly:make-pitch -1 0 SHARP))
+                (c-sharpsharp . ,(ly:make-pitch -1 0 DOUBLE-SHARP))
+                (d-flatflat . ,(ly:make-pitch -1 1 DOUBLE-FLAT))
+                (d-flat . ,(ly:make-pitch -1 1 FLAT))
+                (d . ,(ly:make-pitch -1 1 NATURAL))
+                (d-sharp . ,(ly:make-pitch -1 1 SHARP))
+                (d-sharpsharp . ,(ly:make-pitch -1 1 DOUBLE-SHARP))
+                (e-flatflat . ,(ly:make-pitch -1 2 DOUBLE-FLAT))
+                (e-flat . ,(ly:make-pitch -1 2 FLAT))
+                (e . ,(ly:make-pitch -1 2 NATURAL))
+                (e-sharp . ,(ly:make-pitch -1 2 SHARP))
+                (e-sharpsharp . ,(ly:make-pitch -1 2 DOUBLE-SHARP))
+                (f-flatflat . ,(ly:make-pitch -1 3 DOUBLE-FLAT))
+                (f-flat . ,(ly:make-pitch -1 3 FLAT))
+                (f . ,(ly:make-pitch -1 3 NATURAL))
+                (f-sharp . ,(ly:make-pitch -1 3 SHARP))
+                (f-sharpsharp . ,(ly:make-pitch -1 3 DOUBLE-SHARP))
+                (g-flatflat . ,(ly:make-pitch -1 4 DOUBLE-FLAT))
+                (g-flat . ,(ly:make-pitch -1 4 FLAT))
+                (g . ,(ly:make-pitch -1 4 NATURAL))
+                (g-sharp . ,(ly:make-pitch -1 4 SHARP))
+                (g-sharpsharp . ,(ly:make-pitch -1 4 DOUBLE-SHARP))
+                (a-flatflat . ,(ly:make-pitch -1 5 DOUBLE-FLAT))
+                (a-flat . ,(ly:make-pitch -1 5 FLAT))
+                (a . ,(ly:make-pitch -1 5 NATURAL))
+                (a-sharp . ,(ly:make-pitch -1 5 SHARP))
+                (a-sharpsharp . ,(ly:make-pitch -1 5 DOUBLE-SHARP))
+                (b-flatflat . ,(ly:make-pitch -1 6 DOUBLE-FLAT))
+                (b-flat . ,(ly:make-pitch -1 6 FLAT))
+                (b . ,(ly:make-pitch -1 6 NATURAL))
+                (b-sharp . ,(ly:make-pitch -1 6 SHARP))
+                (b-sharpsharp . ,(ly:make-pitch -1 6 DOUBLE-SHARP))
                 ))
 
 

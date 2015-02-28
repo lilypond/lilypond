@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 1998--2014 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; Copyright (C) 1998--2015 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;                 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -400,18 +400,7 @@ beats to be distinguished."
    (lambda (m)
      (and (music-is-of-type? m 'unfolded-repeated-music)
           (make-sequential-music
-           (ly:music-deep-copy
-            (let ((n (ly:music-property m 'repeat-count))
-                  (alts (ly:music-property m 'elements))
-                  (body (ly:music-property m 'element)))
-              (cond ((<= n 0) '())
-                    ((null? alts) (make-list n body))
-                    (else
-                     (concatenate
-                      (zip (make-list n body)
-                           (append! (make-list (max 0 (- n (length alts)))
-                                               (car alts))
-                                    alts))))))))))
+           (ly:music-deep-copy (make-unfolded-set m)))))
    (unfold-repeats music)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -751,7 +740,11 @@ duration is replaced with the specified @var{duration}."
                    (set! (ly:music-property m 'articulations)
                          (set-origin! (filter! keep-element? arts))))
                (if (ly:duration? (ly:music-property m 'duration))
-                   (set! (ly:music-property m 'duration) duration))))
+                   (set! (ly:music-property m 'duration) duration))
+               (if (ly:music-property m 'cautionary #f)
+                   (set! (ly:music-property m 'cautionary) #f))
+               (if (ly:music-property m 'force-accidental #f)
+                   (set! (ly:music-property m 'force-accidental) #f))))
            elts)
           (append! elts (ly:music-property repeat-chord 'elements))))
   (let ((arts (filter keep-element?
@@ -2236,66 +2229,6 @@ of list @var{arg}."
         (helper siblings arg)
         (car arg))))
 (export value-for-spanner-piece)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; measure counter
-
-(define (measure-counter-stencil grob)
-  "Print a number for a measure count.  The number is centered using
-the extents of @code{BreakAlignment} grobs associated with
-@code{NonMusicalPaperColumn} grobs.  In the case of an unbroken measure, these
-columns are the left and right bounds of a @code{MeasureCounter} spanner.
-Broken measures are numbered in parentheses."
-  (let* ((orig (ly:grob-original grob))
-         (siblings (ly:spanner-broken-into orig)) ; have we been split?
-         (bounds (ly:grob-array->list (ly:grob-object grob 'columns)))
-         (refp (ly:grob-system grob))
-         ;; we use the first and/or last NonMusicalPaperColumn grob(s) of
-         ;; a system in the event that a MeasureCounter spanner is broken
-         (all-cols (ly:grob-array->list (ly:grob-object refp 'columns)))
-         (all-cols
-          (filter
-           (lambda (col) (eq? #t (ly:grob-property col 'non-musical)))
-           all-cols))
-         (left-bound
-          (if (or (null? siblings) ; spanner is unbroken
-                  (eq? grob (car siblings))) ; or the first piece
-              (car bounds)
-              (car all-cols)))
-         (right-bound
-          (if (or (null? siblings)
-                  (eq? grob (car (reverse siblings))))
-              (car (reverse bounds))
-              (car (reverse all-cols))))
-         (elts-L (ly:grob-array->list (ly:grob-object left-bound 'elements)))
-         (elts-R (ly:grob-array->list (ly:grob-object right-bound 'elements)))
-         (break-alignment-L
-          (filter
-           (lambda (elt) (grob::has-interface elt 'break-alignment-interface))
-           elts-L))
-         (break-alignment-R
-          (filter
-           (lambda (elt) (grob::has-interface elt 'break-alignment-interface))
-           elts-R))
-         (break-alignment-L-ext (ly:grob-extent (car break-alignment-L) refp X))
-         (break-alignment-R-ext (ly:grob-extent (car break-alignment-R) refp X))
-         (num (markup (number->string (ly:grob-property grob 'count-from))))
-         (num
-          (if (or (null? siblings)
-                  (eq? grob (car siblings)))
-              num
-              (make-parenthesize-markup num)))
-         (num (grob-interpret-markup grob num))
-         (num (ly:stencil-aligned-to num X (ly:grob-property grob 'self-alignment-X)))
-         (num
-          (ly:stencil-translate-axis
-           num
-           (+ (interval-length break-alignment-L-ext)
-              (* 0.5
-                 (- (car break-alignment-R-ext)
-                    (cdr break-alignment-L-ext))))
-           X)))
-    num))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; The following are used by the \offset function

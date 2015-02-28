@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1998--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1998--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -380,10 +380,9 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
           Interval staff_span = Staff_symbol::line_span (staff);
           staff_span.widen (1);
           if (staff_span.contains (position)
-              /* In case of a ledger lines, quantize even if we're outside the staff. */
+              /* If we are between notehead and staff, quantize for ledger lines. */
               || (Note_head::has_interface (head)
-
-                  && abs (Staff_symbol_referencer::get_position (head)) > abs (position)))
+                  && dir * position < 0))
             {
               total_off += (rounded - position) * 0.5 * ss;
               if (Staff_symbol_referencer::on_line (me, int (rounded)))

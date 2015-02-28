@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.19.16"
 
 @c Translators: Till Paala
 
@@ -222,9 +222,9 @@ Wenn die Vorzeichen hingegen angezeigt werden sollen, kann das
 mithilfe des Befehls @code{\showKeySignature} vorgenommen werden.
 
 Einige moderne Dudelsacknoten benutzen halbe Finger auf c und f, um
-diese Noten zu erniedrigen.  Das kann angezeigt werden mit @code{cflat}
-bzw. @code{fflat}.  Gleicherweise kann das piobaireachd hohe g als
-@code{gflat} geschrieben werden, wenn es in leichter Musik vorkommt.
+diese Noten zu erniedrigen.  Das kann angezeigt werden mit @code{c-flat}
+bzw. @code{f-flat}.  Gleicherweise kann das piobaireachd hohe g als
+@code{g-flat} geschrieben werden, wenn es in leichter Musik vorkommt.
 
 @seealso
 Schnipsel:

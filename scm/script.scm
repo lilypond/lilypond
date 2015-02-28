@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2000--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 2000--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -270,14 +270,17 @@
         (script-stencil . (feta . ("dstaccatissimo" . "ustaccatissimo")))
         (padding . 0.20)
         (skyline-horizontal-padding . 0.10)
-        (side-relative-direction . ,DOWN)))
+        (side-relative-direction . ,DOWN)
+        (toward-stem-shift . 1.0)
+        (toward-stem-shift-in-column . 0.0)))
     ("staccato"
      . (
         (script-stencil . (feta . ("staccato" . "staccato")))
         (side-relative-direction . ,DOWN)
         (quantize-position . #t)
         (avoid-slur . inside)
-        (toward-stem-shift . 0.5)
+        (toward-stem-shift . 1.0)
+        (toward-stem-shift-in-column . 0.0)
         (padding . 0.20)
         (skyline-horizontal-padding . 0.10)
         (script-priority . -100)))

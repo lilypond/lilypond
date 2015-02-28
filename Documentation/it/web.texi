@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 0807a75d66c302c6b7fb13c9b586a25ebf0265ad
+    Translation of GIT committish: f291e8c30bbde2cf1fe2fc1b359288c94b8e2503
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -12,11 +12,6 @@
 @documentencoding UTF-8
 @documentlanguage it
 @afourpaper
-
-@c `Web' was imported 2009-08-05 with git commit b938d71...
-@c @macro copyrightDeclare
-@c Copyright @copyright{} 2009--2014 by the authors.
-@c @end macro
 
 @set FDL
 @set web
@@ -37,7 +32,7 @@
 @c Translation checkers: Luca Rossetto Casel
 
 @copying
-Copyright @copyright{} 2009--2014 degli autori.
+Copyright @copyright{} 2009--2015 degli autori.
 
 @quotation
 Permission is granted to copy, distribute and/or modify this

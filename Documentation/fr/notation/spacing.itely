@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 324ff94afc62c7011b7377f24392f95391ed3b84
+    Translation of GIT committish: 3c907f2dd5ba3dd91e30454922d8361225ca28d5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -692,19 +692,36 @@ aussi @code{check-consistency}.
 @item line-width
 @funindex line-width
 
-la longueur d'un système musical sans indentation et justifié sur toute
-la largeur de la page.  La valeur par défaut est égale à
+La longueur d'une ligne.  Lorsque spécifié dans un bloc @code{\paper},
+ceci définit l'étendue horizontale dont disposeront les lignes de portée
+d'un système non indenté.  La valeur par défaut est égale à
 @code{paper-width}, auquel sont retranchés @code{left-margin} et
 @code{right-margin}.  Lorsque vous définissez @code{line-width} sans
 modifier les valeurs de @code{left-margin} et @code{right-margin}, les
 marges seront alors recalculées de telle sorte que les systèmes soient
-centrés.  Voir aussi @code{check-consistency}.  La variable
-@code{line-width} peut se définir aussi dans un bloc @code{\layout}.
+centrés.  Voir aussi @code{check-consistency}.
+
+La valeur de @code{line-width} peut aussi se spécifier individuellement
+au niveau de la partition, au sein d'un bloc @code{\layout}.  Ceci
+permet de contrôler la longueur des lignes partition par partition.  Si
+la longueur de ligne n'est pas spécifié dans une partition particulière,
+elle sera valorisée à celle du @code{line-width} mentionné dans le bloc
+@code{\paper}.  La détermination de @code{line-width} pour un
+@code{\score} particulier n'a aucun effet sur les marges.  Les lignes
+d'une portée dont la longueur est déterminée par le @code{line-width}
+d'une partition seront alignées par la gauche sur la surface de papier
+telle que définie par le @code{line-width} du bloc @code{\paper}.  Dès
+lors que les valeurs de @code{line-width} de la partition et du papier
+sont égales, les lignes s'étendront de la marge gauche à la marge
+droite.  En cas de @code{line-width} de la partition supérieur au
+@code{line-width} du papier, les lignes de portée déborderont dans la
+marge de droite.
+
 
 @item left-margin
 @funindex left-margin
 
-la marge entre le bord gauche de la feuille et le début de chaque
+La marge entre le bord gauche de la feuille et le début de chaque
 système.  La valeur par défaut est de @code{10\mm} ; elle sera
 ajustée selon le format du papier.  Lorsque vous définissez
 @code{line-width} et @code{right-margin} sans modifier la valeur de
@@ -740,7 +757,9 @@ l'addition de ces trois éléments ne dépassera pas la largeur du papier
 (@code{paper-width}).  La valeur par défaut est @code{#t}.  Dans
 le cas d'une incohérence, un message d'avertissement est émis et les
 trois variables -- marges et longueur de ligne -- rétablies à leur
-valeur par défaut (ajustées selon le format du papier).
+valeur par défaut (ajustées selon le format du papier).  La
+désactivation de cette variable (valorisation à @code{#f}, toute
+incohérence sera ignorée, et les systèmes pourront déborder de la page.
 
 @item ragged-right
 @funindex ragged-right
@@ -748,7 +767,7 @@ valeur par défaut (ajustées selon le format du papier).
 Lorsque cette variable est activée, les systèmes ne s'étendront pas sur
 la longueur de la ligne, mais s'arrêteront à leur longueur normale.
 La valeur par défaut est @code{#f} mais, si la partition ne comporte
-qu'un seul système, elle passe à @code{#t}.  Cette variable peut aussi
+qu'un seul système, elle passe à @code{#t}.  Cette variable peut aussi
 se gérer au sein d'un bloc @code{\layout}.
 
 @item ragged-last
@@ -856,17 +875,20 @@ de @code{0.0\mm}.
 @funindex indent
 
 Le niveau d'indentation du premier système d'une partition.  La valeur
-par défaut est de @code{15\mm} et s'ajustera selon le format du
-papier.  Cette variable peut aussi se gérer au sein d'un bloc
-@code{\layout}.
+par défaut est de @code{15\mm} en A4 et s'ajustera selon le format du
+papier.  L'espace correspondant à @code{line-width} est réduit d'autant
+pour le premier système.  Cette variable peut aussi se gérer partition
+par partition au sein d'un bloc @code{\layout}.
 
 @item short-indent
 @funindex short-indent
 
 Le niveau d'indentation de tous les systèmes hormis le premier.  La
-valeur par défaut est de @code{0}, et s'ajustera selon le format du
-papier dès lors que vous lui aurez affecté une valeur.  Cette
-variable peut aussi se gérer au sein d'un bloc @code{\layout}.
+valeur par défaut est de @code{0} pour du A4, et s'ajustera selon le
+format du papier dès lors que vous lui aurez affecté une valeur.  Bien
+entendu, l'espace spécifié par @code{line-width} sera réduit d'autant.
+Cette variable peut aussi se gérer partition par partition, au sein d'un
+bloc @code{\layout}.
 
 @end table
 
@@ -1077,6 +1099,14 @@ première.  La valeur par défaut est @code{#f}.
 La désactivation de cette variable permet d'obtenir des pages non
 numérotées.  La valeur par défaut est @code{#t}.
 
+@cindex page, numérotation en chiffres romains
+@item page-number-type
+@funindex page-number-type
+
+Le type de chiffres à utiliser pour la numérotation : @code{roman-lower}
+(romains minuscules), @code{roman-upper} (romains majuscules) ou
+@code{arabic} (arabes).  La valeur par défaut est @code{'arabic}.
+
 @end table
 
 @seealso
@@ -1198,8 +1228,9 @@ La fonction @code{layout-set-staff-size} fait l'objet de la rubrique
 suivante, @ref{Définition de la taille de portée}.  La modification des
 contextes est abordée dans d'autres chapitres -- voir
 @ref{Modification des greffons de contexte} et
-@ref{Modification des réglages par défaut d'un contexte}.  Les variables
-du bloc @code{\paper} que l'on peut retrouver dans un bloc
+@ref{Modification des réglages par défaut d'un contexte}.
+
+Les variables du bloc @code{\paper} que l'on peut retrouver dans un bloc
 @code{\layout} sont :
 
 @itemize
@@ -1473,7 +1504,6 @@ lignes d'une portée.
 @menu
 * Sauts de ligne::
 * Sauts de page::
-* Sauts explicites::
 @end menu
 
 
@@ -1481,8 +1511,14 @@ lignes d'une portée.
 @subsection Sauts de ligne
 @translationof Line breaking
 
-@cindex saut de ligne
+@cindex saut de ligne manuel
 @cindex ligne, passer à la suivante
+@funindex \break
+@funindex \noBreak
+@funindex \autoBreaksOff
+@funindex \autoBreaksOn
+@funindex \autoLineBreaksOff
+@funindex \autoLineBreaksOn
 
 Les sauts de ligne sont normalement gérés de façon automatique.  Ils
 interviennent de telle sorte qu'une ligne ne soit ni trop resserrée, ni
@@ -1490,7 +1526,7 @@ trop aérée, et que des lignes consécutives aient à peu près la même
 densité.
 
 Vous pouvez cependant insérer l'instruction @code{\break} à l'endroit où
-vous le jugez utile pour @qq{forcer} le passage à la ligne suivante :
+vous le jugez utile pour « forcer » le passage à la ligne suivante :
 
 @lilypond[quote,ragged-right,relative=2,verbatim]
 c4 c c c | \break
@@ -1542,6 +1578,23 @@ c8 c] c2. |
 L'instruction opposée, @code{\noBreak}, interdira toute tentative de
 saut de ligne à la fin de la mesure où elle est explicitée.
 
+Au sein même d'une pièce, les sauts de lignes automatiques sont inhibés
+dans la musique encadrée par les commandes @code{\autoLineBreaksOff} et
+@code{\autoLineBreaksOn}.  Dans le cas où les sauts de pages
+automatiques devraient eux aussi être  inhibés, ce sont les commandes
+@code{\autoBreaksOff} et @code{\autoBreaksOn} qu'il faudrait utiliser.
+Les sauts de ligne ou de page manuels ne sont pas affectés par ces
+commandes.  Notez bien que la désactivation du positionnement
+automatique des sauts des ligne peut avoir pour effet un débordement de
+la musique dans la marge de droite si tout ne peut être contenu sur une
+ligne.
+
+Des sauts de ligne automatiques peuvent cependant être autorisés en un
+point particulier à l'aide d'un @code{\once \autoLineBreaksOn} sur une
+barre de mesure.  Ceci ne concerne pas les sauts de page.  Ceci indique
+qu'un saut de ligne peut intervenir à cet endroit précis, mais ne le
+force en aucun cas.
+
 LilyPond dispose de deux variables de base pour influencer l'espacement
 au niveau des lignes.  Toutes deux se définissent dans un bloc
 @code{\layout}, @code{indent} réglant l'indentation de la première
@@ -1586,11 +1639,18 @@ ailleurs :
 @end example
 
 @predefined
-@funindex \break
 @code{\break},
-@funindex \noBreak
-@code{\noBreak}.
+@code{\noBreak},
+@code{\autoBreaksOff},
+@code{\autoBreaksOn},
+@code{\autoLineBreaksOff},
+@code{\autoLineBreaksOn}.
 @endpredefined
+
+@snippets
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{using-an-extra-voice-for-breaks.ly}
 
 @seealso
 Manuel de notation :
@@ -1602,6 +1662,12 @@ Référence des propriétés internes :
 
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
+
+@knownissues
+
+Les commandes @code{\autoLineBreaksOff} et @code{\autoBreaksOff} doivent
+impérativement se placer après le début de la musique pour éviter tout
+message d'erreur.
 
 
 @node Sauts de page
@@ -1624,17 +1690,28 @@ page, ainsi que les moyens de les modifier.
 @unnumberedsubsubsec Saut de page manuel
 @translationof Manual page breaking
 
+@cindex manuel, saut de page
+@funindex \pageBreak
+@funindex \noPageBreak
+@funindex \autoPageBreaksOn
+@funindex \autoPageBreaksOff
+
 La gestion automatique des sauts de page se contrôle à l'aide des
 commandes @code{\pageBreak} et @code{\noPageBreak}. Ces commandes
 fonctionnent de manière analogue à @code{\break} et @code{\noBreak} pour
 les sauts de ligne et se placent donc au moment d'une barre de mesure.
-Elles permettent de forcer, ou d'interdire, un saut de page à l'endroit
-indiqué.  Comme on peut s'y attendre, @code{\pageBreak} force aussi le
-saut de ligne.
+Elles permettent de forcer, ou d'interdire, un saut de page à la
+prochaine barre de mesure.  Comme on peut s'y attendre,
+@code{\pageBreak} force aussi le saut de ligne.
 
 Les commandes @code{\pageBreak} et @code{\noPageBreak} peuvent se
 trouver à des niveaux supérieurs, entre deux partitions ou
 @emph{markups} de premier rang.
+
+Au sein même d'une pièce, les sauts de page automatiques sont inhibés
+dans la musique encadrée par les commandes @code{\autoPageBreaksOff} et
+@code{\autoPageeBreaksOn}.  Les sauts de page manuels ne sont pas
+affectés par ces commandes.
 
 Tout comme @code{ragged-right} et @code{ragged-last} qui permettent de
 gérer la répartition horizontale, LilyPond dispose de commutateurs
@@ -1694,10 +1771,10 @@ sections.
 @end example
 
 @predefined
-@funindex \pageBreak
 @code{\pageBreak},
-@funindex \noPageBreak
-@code{\noPageBreak}.
+@code{\noPageBreak},
+@code{\autoPageBreaksOn},
+@code{\autoPageBreaksOff}.
 @endpredefined
 
 @seealso
@@ -1706,6 +1783,16 @@ Manuel de notation :
 
 Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
+
+@knownissues
+
+Le préfixe @code{\once} est ineffectif en ce qui concerne les commandes
+@code{\autoPageBreaksOn} et @code{\autoPageBreaksOff}.  Si le
+positionnement automatique des sauts de page est désactivé et qu'il est
+réactivé pour permettre un saut de page, il doit le rester pendant
+quelques mesures (le nombre précis de mesures dépendant de la pièce)
+avant d'être à nouveau désactivé, autrement l'opportunité de passer à la
+page suivante ne sera pas saisie.
 
 
 @node Optimisation des sauts de page
@@ -1863,65 +1950,6 @@ Morceaux choisis :
 @knownissues
 Une partition ne devrait contenir qu'une seule instance du
 @code{Page_turn_engraver}, au risque de les voir se contredire.
-
-
-@node Sauts explicites
-@subsection Sauts explicites
-@translationof Explicit breaks
-
-Il arrive parfois que LilyPond rejette des @code{\break} ou des
-@code{\pageBreak} explicites.  Vous pouvez alors prendre le contrôle
-avec ces deux instructions dérogatoires :
-
-@example
-\override NonMusicalPaperColumn.line-break-permission = ##f
-\override NonMusicalPaperColumn.page-break-permission = ##f
-@end example
-
-Lorsque vous désactivez @code{line-break-permission}, LilyPond
-ne passera à la ligne suivante qu'en présence d'un @code{\break}
-explicite, et nulle part ailleurs.  De la même façon, la désactivation
-de @code{page-break-permission} aura pour conséquence que LilyPond ne
-changera de page que lorsqu'il rencontrera un @code{\pageBreak}, et
-nulle part ailleurs.
-
-@lilypond[quote,verbatim]
-\paper {
-  indent = #0
-  ragged-right = ##t
-  ragged-bottom = ##t
-}
-
-music = \relative c'' { c8 c c c }
-
-\score {
-  \new Staff {
-    \repeat unfold 2 { \music } \break
-    \repeat unfold 4 { \music } \break
-    \repeat unfold 6 { \music } \break
-    \repeat unfold 8 { \music } \pageBreak
-    \repeat unfold 8 { \music } \break
-    \repeat unfold 6 { \music } \break
-    \repeat unfold 4 { \music } \break
-    \repeat unfold 2 { \music }
-  }
-  \layout {
-    \context {
-      \Score
-      \override NonMusicalPaperColumn.line-break-permission = ##f
-      \override NonMusicalPaperColumn.page-break-permission = ##f
-    }
-  }
-}
-@end lilypond
-
-@snippets
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{using-an-extra-voice-for-breaks.ly}
-
-@seealso
-Morceaux choisis :
-@rlsrnamed{Spacing,Espacements}.
 
 
 @node Espacement vertical
@@ -2608,7 +2636,7 @@ Cette partition isole les informations de saut de ligne ou de page dans
 une voix spécifique.  La mise en forme est ainsi séparée des événements
 musicaux ; ceci nous permettra d'y voir plus clair au fur et à
 mesure que nous avancerons.  Pour plus de précisions, relisez
-@ref{Sauts explicites}.
+@ref{Sauts}.
 
 Les @code{\break} explicites répartissent la musique en lignes de six
 mesures chacune.  L'espacement vertical est celui que LilyPond attribue
@@ -2898,9 +2926,7 @@ souvent.
 La courte durée la plus fréquente est déterminée à partir de la note la
 plus courte de chaque mesure.  C'est elle qui servira de base pour
 l'espacement, à cette nuance près que la plus courte durée ne saurait
-être strictement supérieure à la croche.  Cette @qq{durée de référence}
-est d'ailleurs affichée lorsque vous lancez @code{lilypond} avec l'option
-@option{--verbose}.
+être strictement supérieure à la croche.
 
 Ces durées peuvent être adaptées.  Vous pouvez définir la durée de base
 pour les espacements grâce à la propriété

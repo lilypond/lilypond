@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-   Translation of GIT committish: fa12d929326daf49f84838a95b0570b32e4b3400
+   Translation of GIT committish: a1c9c3d285a2f3e59cf79a375b67cfb58ceca7ba
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1119,9 +1119,15 @@ Questa sezione tratta il modo di modificare l'aspetto delle altezze delle note.
 @funindex \clef
 @funindex clef
 
-È possibile cambiare la chiave impiegata.  Negli esempi seguenti mostriamo il Do
-centrale.  I seguenti nomi di chiave possono (ma non devono) essere
-racchiusi tra virgolette.
+Senza un comando esplicito, la chiave predefinita in LilyPond è la chiave
+di violino (o di @emph{Sol}).
+
+@lilypond[verbatim,quote,relative=1,ragged-right]
+c2 c
+@end lilypond
+
+Per cambiare la chiave si usa il comando @code{\clef} seguito dal nome della
+chiave.  In tutti gli esempi seguenti viene mostrato il @emph{Do centrale}.
 
 @lilypond[verbatim,quote,relative=1]
 \clef treble
@@ -1134,36 +1140,18 @@ c2 c
 c2 c
 @end lilypond
 
-Altre chiavi:
+L'elenco completo di tutti i nomi di chiave possibili si trova in @ref{Clef styles}.
+Chiavi speciali, come quelle usate nella musica @emph{antica}, sono descritte
+in @ref{Mensural clefs} e @ref{Gregorian clefs}.  La musica che utilizza le
+chiavi dell'intavolatura è discussa in @ref{Default tablatures} e
+@ref{Custom tablatures}.
 
-@lilypond[verbatim,quote,relative=1]
-\clef french
-c2 c
-\clef soprano
-c2 c
-\clef mezzosoprano
-c2 c
-\clef baritone
-c2 c
+@cindex notine, chiavi
+@cindex citazioni in corpo piccolo, chiavi
+@cindex chiavi con notine (citazioni in corpo piccolo)
 
-\break
-
-\clef varbaritone
-c2 c
-\clef subbass
-c2 c
-\clef percussion
-c2 c
-
-\break
-
-\clef G   % synonym for treble
-c2 c
-\clef F   % synonym for bass
-c2 c
-\clef C   % synonym for alto
-c2 c
-@end lilypond
+Per mischiare le chiavi quando si usano le notine, leggere come si usano i comandi
+@code{\cueClef} e @code{\cueDuringWithClef} descritti in @ref{Formatting cue notes}.
 
 @cindex chiave traspositrice
 @cindex trasposizione, chiave
@@ -1205,11 +1193,58 @@ c2 c
 Le altezze vengono mostrate come se l'argomento numerico fosse
 inserito senza parentesi.
 
-Alcune chiavi particolari sono descritte in @ref{Mensural clefs},
-@ref{Gregorian clefs}, @ref{Default tablatures} e @ref{Custom
-tablatures}.  Per alternare chiavi diverse nelle citazioni in corpo più piccolo
-all'interno di una partitura, si vedano le funzioni @code{\cueClef} e
-@code{\cueDuringWithClef} in @ref{Formatting cue notes}.
+Se c'è un cambio di chiave quando si interrompe la linea, il simbolo della
+nuova chiave viene ripetuto alla fine della linea precedente, come chiave
+di @emph{avviso}, e all'inizio di quella successiva.  Tale chiave di
+@emph{precauzione} può essere soppressa.
+
+@lilypond[verbatim,quote,relative=1]
+\clef treble { c2 c } \break
+\clef bass { c2 c } \break
+\clef alto
+  \set Staff.explicitClefVisibility = #end-of-line-invisible
+  { c2 c } \break
+  \unset Staff.explicitClefVisibility
+\clef bass { c2 c } \break
+@end lilypond
+
+Una chiave che è già stata visualizzata non viene ristampata se viene
+ripetuto lo stesso comando @code{\clef} e verrà quindi ignorata.
+Si può cambiare tale comportamento predefinito col comando
+@code{\set Staff.forceClef = ##t}.
+
+@lilypond[verbatim,quote,relative=1]
+  \clef treble
+  c1
+  \clef treble
+  c1
+  \set Staff.forceClef = ##t
+  c1
+  \clef treble
+  c1
+@end lilypond
+
+When there is a manual clef change, the glyph of the changed clef
+will be smaller than normal.  This behaviour can be overridden.
+
+@lilypond[verbatim,quote,relative=1]
+  \clef "treble"
+  c1
+  \clef "bass"
+  c1
+  \clef "treble"
+  c1
+  \override Staff.Clef.full-size-change = ##t
+  \clef "bass"
+  c1
+  \clef "treble"
+  c1
+  \revert Staff.Clef.full-size-change
+  \clef "bass"
+  c1
+  \clef "treble"
+  c1
+@end lilypond
 
 @snippets
 
@@ -1223,6 +1258,9 @@ Guida alla notazione:
 @ref{Default tablatures},
 @ref{Custom tablatures},
 @ref{Formatting cue notes}.
+
+File installati:
+@file{scm/parser-clef.scm}.
 
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
@@ -1238,10 +1276,10 @@ I numeri di ottavazione assegnati alle chiavi sono trattati come oggetti grafici
 separati.  Quindi qualsiasi @code{\override} all'oggetto @var{Clef} dovrà essere
 applicato, con un altro @code{\override}, all'oggetto @var{ClefModifier}.
 
-@lilypond[fragment,quote,relative=1]
+@lilypond[fragment,quote,verbatim,relative=1]
 \new Staff \with {
-  \override ClefModifier.color = #red
   \override Clef.color = #blue
+  \override ClefModifier.color = #red
 }
 
 \clef "treble_8" c4
@@ -1419,6 +1457,9 @@ a2 b
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {adding-an-ottava-marking-to-a-single-voice.ly}
+
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{modifying-the-ottava-spanner-slope.ly}
 
 @seealso
 Glossario musicale:
@@ -2388,8 +2429,8 @@ musicB = {
 
 @item dodecaphonic
 
-@cindex stile delle alterazioni @emph{dodecaphonic}
-@cindex @emph{dodecaphonic}, stile delle alterazioni
+@cindex stile delle alterazioni @emph{dodecafonico}
+@cindex @emph{dodecafonico}, stile delle alterazioni
 
 @funindex dodecaphonic
 
@@ -2446,12 +2487,131 @@ musicB = {
 }
 @end lilypond
 
+@item dodecaphonic-no-repeat
+
+@cindex stile delle alterazioni dodecafonico
+@cindex stile dodecafonico neomoderno
+
+@funindex dodecaphonic-no-repeat
+
+Come nello stile delle alterazioni dodecafonico @emph{ogni} nota ha
+un segno di alterazione, ma le alterazioni sono soppresse per tutte
+le altezze ripetute immediatamente nello stesso rigo.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle dodecaphonic-no-repeat
+      \musicA
+    }
+    \context Staff = "down" {
+      \accidentalStyle dodecaphonic-no-repeat
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+
+@item dodecaphonic-first
+
+@cindex stile delle alterazioni dodecafonico
+@cindex stile dodecafonico neomoderno
+@cindex dodecafonico, stile delle alterazioni
+@cindex dodecafonico, stile neomoderno
+
+@funindex dodecaphonic-first
+
+In modo analogo allo stile delle alterazioni dodecafonico @emph{ogni}
+altezza ha un segno di alterazione, ma solo la prima volta che si
+incontra in una misura.  Le alterazioni vengono ricordate solo per
+l'ottava corrente ma in tutte le voci.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, bes4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>8[ <fis a cis>
+      \change Staff = up
+      cis' cis
+      \change Staff = down
+      <fis, a> <fis a>]
+      \showStaffSwitch
+      \change Staff = up
+      dis'4 |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \accidentalStyle dodecaphonic-first
+      \musicA
+    }
+    \context Staff = "down" {
+      \accidentalStyle dodecaphonic-first
+      \musicB
+    }
+  >>
+}
+@end lilypond
 
 @item teaching
 
-@cindex stile delle alterazioni @emph{teaching}
+@cindex stile delle alterazioni per insegnamento (@emph{teaching})
+@cindex insegnamento (@emph{teaching}), stile delle alterazioni
 @cindex @emph{teaching}, stile delle alterazioni
-
 @funindex teaching
 
 Questa regola è pensata per gli studenti: permette di generare facilmente degli

@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2004--2014 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; Copyright (C) 2004--2015 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;          Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -48,6 +48,7 @@ variables set in @var{scopes} and @code{page:is-bookpart-last-page},
                                (cdr entry)))
                             alist))
                      alists))
+               (number-type (get 'page-number-type))
                (pgnum-alist
                 (list
                  (cons 'header:tagline
@@ -56,7 +57,7 @@ variables set in @var{scopes} and @code{page:is-bookpart-last-page},
                  (cons 'page:is-last-bookpart is-last-bookpart)
                  (cons 'page:is-bookpart-last-page is-bookpart-last-page)
                  (cons 'page:page-number-string
-                       (number->string page-number))
+                       (number-format number-type page-number))
                  (cons 'page:page-number page-number)))
                (props (append
                        (list pgnum-alist)

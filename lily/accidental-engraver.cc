@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1997--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1997--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
   Modified 2001--2002 by Rune Zedeler <rz@daimi.au.dk>
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -367,6 +367,18 @@ Accidental_engraver::stop_translation_timestep ()
   for (vsize j = ties_.size (); j--;)
     {
       Grob *r = Tie::head (ties_[j], RIGHT);
+      Grob *l = Tie::head (ties_[j], LEFT);
+      if (l && r)
+        {
+          // Don't mark accidentals as "tied" when the pitch is not
+          // actually the same.  This is relevant for enharmonic ties.
+          Stream_event *le = Stream_event::unsmob (l->get_property ("cause"));
+          Stream_event *re = Stream_event::unsmob (r->get_property ("cause"));
+          if (le && re
+              && !ly_is_equal (le->get_property ("pitch"), re->get_property ("pitch")))
+            continue;
+        }
+
       for (vsize i = accidentals_.size (); i--;)
         if (accidentals_[i].head_ == r)
           {
@@ -452,22 +464,20 @@ Accidental_engraver::acknowledge_rhythmic_head (Grob_info info)
   Stream_event *note = info.event_cause ();
   if (note
       && (note->in_event_class ("note-event")
-          || note->in_event_class ("trill-span-event")))
+          || note->in_event_class ("trill-span-event"))
+      // option to skip accidentals on string harmonics
+      && (to_boolean (get_property ("harmonicAccidentals"))
+          || info.grob ()->get_property ("style") != ly_symbol2scm ("harmonic"))
+      // ignore accidentals in non-printing voices like NullVoice
+      && !to_boolean (info.context ()->get_property ("nullAccidentals")))
     {
-      /*
-        string harmonics usually don't have accidentals.
-      */
-      if (info.grob ()->get_property ("style") != ly_symbol2scm ("harmonic")
-          || to_boolean (get_property ("harmonicAccidentals")))
-        {
-          Accidental_entry entry;
-          entry.head_ = info.grob ();
-          entry.origin_engraver_ = dynamic_cast<Engraver *> (info.origin_translator ());
-          entry.origin_ = entry.origin_engraver_->context ();
-          entry.melodic_ = note;
+      Accidental_entry entry;
+      entry.head_ = info.grob ();
+      entry.origin_engraver_ = dynamic_cast<Engraver *> (info.origin_translator ());
+      entry.origin_ = entry.origin_engraver_->context ();
+      entry.melodic_ = note;
 
-          accidentals_.push_back (entry);
-        }
+      accidentals_.push_back (entry);
     }
 }
 

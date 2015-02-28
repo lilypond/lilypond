@@ -30,7 +30,7 @@ information about different jobs, see @rweb{Help us}.
 @c   file: Documentation/devel.html.in
 
 @macro copyrightDeclare
-Copyright @copyright{} 2007--2014 by the authors.
+Copyright @copyright{} 2007--2015 by the authors.
 @end macro
 
 @set FDL

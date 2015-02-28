@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1996--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1996--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -30,7 +30,7 @@
 class Score_performer : public Performer_group
 {
 public:
-  VIRTUAL_COPY_CONSTRUCTOR (Translator_group, Score_performer);
+  DECLARE_CLASSNAME (Score_performer);
   Performance *performance_;
 
   ~Score_performer ();

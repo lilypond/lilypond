@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1996--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1996--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -40,12 +40,6 @@ Paper_score::Paper_score (Output_def *layout)
   system_ = 0;
   systems_ = SCM_EOL;
   paper_systems_ = SCM_BOOL_F;
-}
-
-Paper_score::Paper_score (Paper_score const &s)
-  : Music_output (s)
-{
-  assert (false);
 }
 
 void

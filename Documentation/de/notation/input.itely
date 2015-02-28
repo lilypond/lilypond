@@ -2266,7 +2266,7 @@ im Gesangstext und als normaler Text außerhalb der Partitur.
   }
   \addlyrics { O \markup { \concat { Ph \char ##x0153 be! } } }
 }
-\markup { "Copyright 2008--2014" \char ##x00A9 }
+\markup { "Copyright 2008--2015" \char ##x00A9 }
 @end lilypond
 
 @cindex Copyright-Zeichen
@@ -2526,7 +2526,7 @@ realistischere MIDI-Ausgabe mit einem @ref{Artikuliere-Skript}
 erzeugt werden.
 
 Die MIDI-Ausgabe benötigt einen Kanal für jedes System und reserviert
-Kanala 10 für Schlagzeug.  Es gibt nur 16 MIDI-Kanäle pro Gerät,
+Kanal 10 für Schlagzeug.  Es gibt nur 16 MIDI-Kanäle pro Gerät,
 sodass MIDI-Kanäle mehrfach benutzt werden, wenn eine Partitur mehr
 als 15 Notensysteme hat.
 

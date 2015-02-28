@@ -14,7 +14,7 @@
 @afourpaper
 
 @c @macro copyrightDeclare
-@c Copyright @copyright{} 2009--2014 by the authors.
+@c Copyright @copyright{} 2009--2015 by the authors.
 @c @end macro
 
 @set FDL
@@ -34,7 +34,7 @@
 @c Translators: Walter Garcia-Fontes
 
 @copying
-Copyright @copyright{} 2009--2014 pels autors
+Copyright @copyright{} 2009--2015 pels autors
 
 @c next line is necessary for broken pre-4.13 texinfo's
 @c install-info, so leave it there until we officially
@@ -61,7 +61,7 @@ Free Documentation License''.
 * LilyPond: (lilypond-notation).                      Referència de la notació amb el Lilypond.
 * Fragments de codi del LilyPond: (lilypond-snippets). Consells, trucs i exemples curts.
 * Referència de funcionament intern: (lilypond-internals). Definicions pera a la construcció de trucs.
-* Utilització del prrograma: (lilypond-usage). Instal·lació i execució de les aplicacions
+* Utilització del prrograma: (lilypond-usage). Instal.lació i execució de les aplicacions
 * Pàgina web: (lilypond-web).    Vista prèvia de la nova pàgina.
 * lilypond: (lilypond-usage)Executar el Lilypond.   Invocar el programa LilyPond.
 * abc2ly: (lilypond-usage)Invocació d'abc2ly.      Importació d'ABC.

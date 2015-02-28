@@ -10,5 +10,5 @@ that gets their spacing correct in the majority of circumstances.
   <f b c f>16[ r <f bes c f> <f b c f>]
   <f b c f>16[ r <f'' bes c f> <f b c f>]
   <f b c f>16[ r <f,, bes c f> <f b c f>]
-  <f'' b c f>16[ r <f bes c f> <f b c f>]
+  <f, b c f>16[ r <f bes c f> <f b c f>]
 }

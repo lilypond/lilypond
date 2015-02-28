@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.19.16"
 
 
 @c TODO: add tablature.
@@ -127,7 +127,7 @@ c c,
 @tab
 @lilypond[relative=2]
 \set Score.timing = ##f
-\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\set Staff.initialTimeSignatureVisibility = #all-invisible
 \set Staff.autoBeaming = ##f
 c( d e)
 @end lilypond
@@ -138,7 +138,7 @@ c( d e)
 @tab
 @lilypond[relative=2]
 \set Score.timing = ##f
-\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\set Staff.initialTimeSignatureVisibility = #all-invisible
 \set Staff.autoBeaming = ##f
 c\( c( d) e\)
 @end lilypond
@@ -149,7 +149,7 @@ c\( c( d) e\)
 @tab
 @lilypond[relative=2]
 \set Score.timing = ##f
-\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\set Staff.initialTimeSignatureVisibility = #all-invisible
 \set Staff.autoBeaming = ##f
 a8-[ b-]
 @end lilypond
@@ -160,11 +160,11 @@ a8-[ b-]
 @tab
 @lilypond[relative=1]
 << \new Staff {
-     \set Staff.implicitTimeSignatureVisibility = #all-invisible
+     \set Staff.initialTimeSignatureVisibility = #all-invisible
      c1
    }
    \new Staff {
-     \set Staff.implicitTimeSignatureVisibility = #all-invisible
+     \set Staff.initialTimeSignatureVisibility = #all-invisible
      c1
    } >>
 @end lilypond
@@ -174,7 +174,7 @@ a8-[ b-]
 @tab articulations
 @tab
 @lilypond[relative=2]
-\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\set Staff.initialTimeSignatureVisibility = #all-invisible
 c-> c-.
 @end lilypond
 
@@ -183,7 +183,7 @@ c-> c-.
 @tab dynamics
 @tab
 @lilypond[relative=2]
-\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\set Staff.initialTimeSignatureVisibility = #all-invisible
 c2\mf c\sfz
 @end lilypond
 
@@ -193,7 +193,7 @@ c2\mf c\sfz
 @tab
 @lilypond[relative=2]
 \set Score.timing = ##f
-\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\set Staff.initialTimeSignatureVisibility = #all-invisible
 \set Staff.autoBeaming = ##f
 a\< a a\!
 @end lilypond
@@ -203,7 +203,7 @@ a\< a a\!
 @tab
 @lilypond[relative=2]
 \set Score.timing = ##f
-\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\set Staff.initialTimeSignatureVisibility = #all-invisible
 \set Staff.autoBeaming = ##f
 a\> a a\!
 @end lilypond
@@ -213,7 +213,7 @@ a\> a a\!
 @tab chord
 @tab
 @lilypond[relative=2]
-\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\set Staff.initialTimeSignatureVisibility = #all-invisible
 <c e>
 @end lilypond
 
@@ -231,7 +231,7 @@ f8 c2 d e
 @tab triplets
 @tab
 @lilypond[relative=1]
-\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\set Staff.initialTimeSignatureVisibility = #all-invisible
 \tuplet 3/2 { f8 g a }
 @end lilypond
 
@@ -240,7 +240,7 @@ f8 c2 d e
 @tab grace notes
 @tab
 @lilypond[relative=2]
-\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\set Staff.initialTimeSignatureVisibility = #all-invisible
 \context Voice { \grace b16 c4 }
 @end lilypond
 
@@ -261,7 +261,7 @@ twinkle
 @tab lyric hyphen
 @tab
 @lilypond[relative=2]
-\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\set Staff.initialTimeSignatureVisibility = #all-invisible
 <<
    { g'1 g }
   \new Lyrics \lyricsto "" { twin -- kle }
@@ -272,7 +272,7 @@ twinkle
 @tab chords
 @tab
 @lilypond[relative=2]
-\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\set Staff.initialTimeSignatureVisibility = #all-invisible
 \chordmode { c:dim f:maj7 }
 @end lilypond
 
@@ -287,7 +287,7 @@ twinkle
 @tab polyphony
 @tab
 @lilypond[relative=2]
-\set Staff.implicitTimeSignatureVisibility = #all-invisible
+\set Staff.initialTimeSignatureVisibility = #all-invisible
 \context Staff <<{e f} \\ {c d}>>
 @end lilypond
 

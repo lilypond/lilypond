@@ -1131,12 +1131,12 @@ class Etf_file:
 
         
         while c and c.number <> endno:
-            d = c # hack to avoid problem with build/scripts/grand-replace.py
+            d = c # hack to avoid problem with scripts/build/grand-replace.py
             thread.append (d)
             c = c.next
 
         if c: 
-            d = c # hack to avoid problem with build/scripts/grand-replace.py
+            d = c # hack to avoid problem with scripts/build/grand-replace.py
             thread.append (d)
         
         return thread
@@ -1188,7 +1188,7 @@ def warranty ():
 
 %s
 %s
-''' % ( _ ('Copyright (c) %s by') % '2001--2014',
+''' % ( _ ('Copyright (c) %s by') % '2001--2015',
         '\n  '.join (authors),
         _ ('Distributed under terms of the GNU General Public License.'),
         _ ('It comes with NO WARRANTY.')))

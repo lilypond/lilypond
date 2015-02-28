@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d935a5a0fac63dc0dcd8197d4d2286d235fe617c
+    Translation of GIT committish: 4467a72a98fb582466ee4d5944ec8454b4b77fc6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1068,6 +1068,9 @@ fraction au début de la portée :
 \time 3/4 c2.
 @end lilypond
 
+Les changements de métrique en cours de mesure sont abordés dans
+@ref{Levées}.
+
 @cindex métrique, visibilité
 
 La métrique est imprimée en début de morceau, et à chaque fois qu'elle
@@ -1415,6 +1418,7 @@ Référence des propriétés internes :
 @cindex levée
 @cindex mesure incomplète
 @cindex incomplète, mesure
+@cindex métrique en cours de mesure
 
 @funindex measurePosition
 @funindex \partial
@@ -1428,18 +1432,9 @@ commande est
 \partial @var{durée}
 @end example
 
-@noindent
-où @var{durée} correspond à la valeur rythmique @strong{restant}
-dans la mesure et @strong{avant} la première mesure complète :
-
-@lilypond[quote,verbatim,relative=1]
-\time 3/4
-\partial 8
-e8 | a4 c8 b c4 |
-@end lilypond
-
-La @var{durée} peut être de n'importe quelle longueur inférieure
-à la mesure complète :
+Lorsque @code{\partial} est utilisé en début de pièce,
+@code{@var{durée}} égale la valeur rythmique précédant la première
+mesure.
 
 @lilypond[quote,verbatim,relative=1]
 \time 3/4
@@ -1447,29 +1442,23 @@ La @var{durée} peut être de n'importe quelle longueur inférieure
 r4 e8 | a4 c8 b c4 |
 @end lilypond
 
-Cette commande @code{\partial @var{durée}} peut aussi s'écrire :
-
-@example
-\set Timing.measurePosition -@var{durée}
-@end example
-
-De fait, le premier exemple pourrait s'écrire :
+Lorsque @code{\partial} est utilisé après le début du morceau,
+@code{@var{durée}} égale la valeur rythmique @strong{restant} dans la
+mesure en cours.  Ceci ne crée pas de nouveau numéro de mesure.
 
 @lilypond[quote,verbatim,relative=1]
-\time 3/4
-\set Timing.measurePosition = #(ly:make-moment -1/8)
-e8 | a4 c8 b c4 |
+\set Score.barNumberVisibility = #all-bar-numbers-visible
+\override Score.BarNumber.break-visibility =
+          #end-of-line-invisible
+\time 9/8
+d'4.~ 4 d8 d( c) b | c4.~ 4. \bar "||"
+\time 12/8
+\partial 4.
+c8( d) e | f2.~ 4 f8 a,( c) f |
 @end lilypond
 
-La propriété @code{measurePosition} contient un nombre rationnel
-généralement positif et qui indique, à ce point précis, où l'on en
-est de la mesure.  L'instruction @code{\partial @var{durée}} est définie
-telle qu'aucune mesure numérotée ne sera créée.  Son apparition en
-début de pièce transforme @var{durée} en nombre négatif, ce qui signifie
-que  la mesure en cours sera @strong{précédée} de matériau additionnel
-(l'anacrouse).  Dans tous les autres cas, un @code{\partial @var{durée}}
-aura pour effet de se décaler d'autat par rapport à la @b{fin} de la
-mesure.
+La commande @code{\partial} est @b{obligatoire} lorsque la métrique
+change en cours de mesure, mais peut aussi s'utiliser isolément.
 
 @lilypond[quote,verbatim,relative=1]
 \set Score.barNumberVisibility = #all-bar-numbers-visible
@@ -1484,6 +1473,10 @@ r8 e,8 | a4 \bar "||"
 r8 e8 | a4
 c8 b[ c b] |
 @end lilypond
+
+La commande @code{\partial} détermine la propriété
+@code{Timing.measurePosition}, nombre rationnel qui indique combien de
+temps est déjà passé dans la mesure.
 
 @seealso
 Glossaire musicologique :
@@ -3146,6 +3139,16 @@ test de mesure signale une erreur.
 \time 3/4 c2 e4 | g2 |
 @end example
 
+Des durées incorrectes font échouer les tests de mesure et peuvent
+souvent mettre la partition sens dessus dessous, particulièrement s'il
+s'agit de musique polyphonique.  Vérifier les tests de mesure qui ont
+échoué et les durées incorrectes est un bon moyen de commencer à
+corriger sa partition.
+
+Lorsque plusieurs tests successifs présentent un même décalage, seul le
+message d'avertissement concernant la première occurrence est affiché.
+L'origine du problème est de fait plus évidente.
+
 Le test de mesure peut être aussi utilisé dans les paroles, par
 exemple :
 
@@ -3156,15 +3159,11 @@ exemple :
 @}
 @end example
 
-Des durées incorrectes font échouer les tests de mesure et peuvent
-souvent mettre la partition sens dessus dessous, particulièrement s'il
-s'agit de musique polyphonique.  Vérifier les tests de mesure qui ont
-échoué et les durées incorrectes est un bon moyen de commencer à
-corriger sa partition.
-
-Lorsque plusieurs tests successifs présentent un même décalage, seul le
-message d'avertissement concernant la première occurrence est affiché.
-L'origine du problème est de fait plus évidente.
+Notez bien qu'en matière de paroles, le test est effectué à l'instant
+musical où la syllabe @b{suivant} la marque est traitée.  Par voie de
+conséquence, lorsqu'une mesure débute par un silence, il n'y a pas moyen
+de positionner une syllabe à cet endroit, et LilyPond émettra un
+avertissement.
 
 @funindex |
 @funindex "|"

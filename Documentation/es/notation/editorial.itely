@@ -121,7 +121,7 @@ Los cambios en el tamaño de la fuente se obtienen por medio del
 escalado del tamaño del diseño que se encuentra más cerca del tamaño
 deseado.  El tamaño estándar para la tipografía (para @code{font-size
 = #0}), depende de la altura estándar del pentagrama.  Para un
-pentagrama de 20 puntos, se selecciona una fuente de 10 puntos.
+pentagrama de 20 puntos, se selecciona una fuente de 11 puntos.
 
 La propiedad @code{font-size} sólo se puede establecer en objetos
 gráficos que utilicen fuentes tipográficas.  Éstos son los que

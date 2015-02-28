@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: e6e64de1da49ff8c6005daa5fd81adc8387b2668
+    Translation of GIT committish: 4467a72a98fb582466ee4d5944ec8454b4b77fc6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.19.16"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
@@ -214,12 +214,12 @@ tenez à afficher l'armure.
 
 Des compositions actuelles peuvent ne pas respecter cette tonalité
 traditionnelle, auquel cas les do et fa devraient être abaissés en
-utilisant @code{cflat} ou @code{fflat} ; ils seront représentés par
+utilisant @code{c-flat} ou @code{f-flat} ; ils seront représentés par
 une note en forme de croix.
 
 Lorsqu'on joue des œuvres moins cérémonieuses que pour une parade
 ou un défilé, peut survenir un sol aigu, au doux nom de
-@qq{piobaireachd}, et que l'on indiquera par @code{gflat}.
+@qq{piobaireachd}, et que l'on indiquera par @code{g-flat}.
 
 @seealso
 Morceaux choisis :

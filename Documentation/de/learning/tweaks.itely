@@ -1047,7 +1047,7 @@ wenn sie in einem @code{\override}-Befehl benutzt werden.
   @tab Regeln
   @tab Beispiele
 @item Boolesch
-  @tab Entweder wahr oder falsch, dargestellt als #t oder #f
+  @tab Entweder wahr oder falsch, dargestellt als @code{#t} oder @code{#f}
   @tab @code{#t}, @code{#f}
 @item Dimension (in Notenlinienabständen)
   @tab Eine positive Dezimalzahl (in Notenlinienabstand-Einheiten)
@@ -1060,8 +1060,8 @@ wenn sie in einem @code{\override}-Befehl benutzt werden.
   @tab Eine positive ganze Zahl
   @tab @code{3}, @code{1}
 @item Liste
-  @tab Eine eingeklammerte Anzahl von Einträgen, mit Klammern getrennt
-  und angeführt von einem Apostroph
+  @tab Eine eingeklammerte Liste von Einträgen, angeführt von einem Apostroph;
+  Einträge durch Leerzeichen voneinander getrennt
   @tab @code{'(left-edge staff-bar)}, @code{'(1)},
        @code{'(1.0 0.25 0.5)}
 @item Textbeschriftung (markup)
@@ -1076,7 +1076,7 @@ wenn sie in einem @code{\override}-Befehl benutzt werden.
   @tab Eine beliebige positive oder negative Dezimalzahl
   @tab @code{3.5}, @w{@code{-2.45}}
 @item Paar (Zahlenpaar)
-  @tab Zwei Zahlen getrennt von @qq{Leerzeichen . Leerzeichen}, eingeklammert
+  @tab Zwei Zahlen getrennt durch @qq{Leerzeichen . Leerzeichen}, eingeklammert
   und angeführt von einem Apostroph
   @tab @code{'(2 . 3.5)}, @code{'(0.1 . -3.2)}
 @item Symbol
@@ -1088,9 +1088,9 @@ wenn sie in einem @code{\override}-Befehl benutzt werden.
   @tab @code{bend::print}, @code{ly:text-interface::print},
        @code{#f}
 @item Vektor
-  @tab Eine Liste mit drei Einträgen, eingeklammert und mit
-  Apostroph-Raute ( @code{'#}) angeführt.
-  @tab @code{'#(#t #t #f)}
+  @tab Konstanten, getrennt durch Leerzeichen, eingeschlossen in
+  @code{#(}@dots{}@code{)}.
+  @tab @code{#(#t #t #f)}
 @end multitable
 
 

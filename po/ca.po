@@ -1,14 +1,22 @@
 # Translation of LilyPond.
-# Copyright (C) 1998--2014 Han-Wen Nienhuys, Jan Nieuwenhuizen
+# Copyright (C) 1998--2012 Han-Wen Nienhuys, Jan Nieuwenhuizen
 # This file is distributed under the same license as the lilypond package.
-# Walter Garcia-Fontes <walter.garcia@upf.edu>, 2013.
-#
+# Walter Garcia-Fontes <walter.garcia@upf.edu>, 2013-2015.
+# Suggeriments de traducció:
+# tuplet - grup excedent d'acord amb http://www.termcat.cat/ca/Cercaterm
+# stem - plica
+# beam - barra, barrat
+# grob - objecte gràfic
+# slur - lligadura d'expressió
+# tie - lligadura d'unió
+# typeset - gravar
+# typesetter - gravador
 msgid ""
 msgstr ""
 "Project-Id-Version: lilypond-2.17.96\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2013-11-24 12:14+0000\n"
-"PO-Revision-Date: 2013-11-30 19:23+0100\n"
+"PO-Revision-Date: 2015-01-30 08:43+0100\n"
 "Last-Translator: Walter Garcia-Fontes <walter.garcia@upf.edu>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "Language: ca\n"
@@ -434,11 +442,11 @@ msgstr "O deseu com a UTF-8 al vostre editor"
 
 #: convertrules.py:2154
 msgid "warn about auto beam settings"
-msgstr "adverteix-me sobre paràmetres per a vírgules automàtiques"
+msgstr "adverteix-me sobre paràmetres per a barrat automàtic"
 
 #: convertrules.py:2158
 msgid "auto beam settings"
-msgstr "paràmetres de pliques automàtiques"
+msgstr "paràmetres de barrat automàtic"
 
 #: convertrules.py:2159
 msgid ""
@@ -447,7 +455,7 @@ msgid ""
 "explicitly; 1/4 is no longer multiplied to cover moments 1/2 and 3/4 too.\n"
 msgstr ""
 "\n"
-"Els paràmetres per a vírgules automàtiques han d'especificar ara\n"
+"Els paràmetres per a barres automàtiques han d'especificar ara\n"
 "explícitament cada  moment interessant en un compàs; no es multiplica\n"
 "més la duració 1/4 per cobrir també duracions d'1/2 i 3/4.\n"
 
@@ -620,8 +628,8 @@ msgid "\\bar \".\" now produces a thick barline.\n"
 msgstr "\\bar \".\" produeix ara una línia divisòria gruixuda.\n"
 
 #: convertrules.py:2849
-msgid "Dash parameters for slurs and ties are now in 'dash-definition.\n"
-msgstr "Els paràmetres de discontinuïtat per a lligadures d'expressió i d'unió estan ara a 'dash-definition.\n"
+msgid "Dash parameters for slurs and ties are now in 'dash-details.\n"
+msgstr "Els paràmetres de discontinuïtat per a lligadures d'expressió i d'unió estan ara a 'dash-details.\n"
 
 #: convertrules.py:2854
 msgid ""
@@ -996,7 +1004,7 @@ msgstr "suprimeix els missatges de progrés"
 #: midi2ly.py:1107 musicxml2ly.py:2674 main.cc:315
 #, c-format, python-format
 msgid "Report bugs via %s"
-msgstr "Informa dels errors en anglès via %s"
+msgstr "Informeu dels errors en anglès via %s"
 
 #: convert-ly.py:47
 msgid ""
@@ -1551,12 +1559,12 @@ msgstr ""
 
 #: musicxml2ly.py:2576
 msgid ""
-"Copyright (c) 2005--2014 by\n"
+"Copyright (c) 2005--2012 by\n"
 "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 "    Jan Nieuwenhuizen <janneke@gnu.org> and\n"
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
 msgstr ""
-"Copyright (c) 2005--2014 per\n"
+"Copyright (c) 2005--2012 per\n"
 "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 "    Jan Nieuwenhuizen <janneke@gnu.org> i\n"
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
@@ -1723,7 +1731,7 @@ msgstr "advertiment suprimit %s"
 #: accidental-engraver.cc:180
 #, c-format
 msgid "accidental typesetting list must begin with context-name: %s"
-msgstr "la llista de tipografia d'accidents ha de començar amb un context-name: %s"
+msgstr "la llista de gravat d'accidents ha de començar amb un context-name: %s"
 
 #: accidental-engraver.cc:210
 #, c-format
@@ -1793,11 +1801,11 @@ msgstr "barra sense terminar"
 
 #: beam-engraver.cc:282 chord-tremolo-engraver.cc:149
 msgid "stem must have Rhythmic structure"
-msgstr "la vírgula ha de tenir una estructura rítmica"
+msgstr "la plica ha de tenir una estructura rítmica"
 
 #: beam-engraver.cc:293
 msgid "stem does not fit in beam"
-msgstr "la vírgula no encaixa amb la barra"
+msgstr "la plica no encaixa amb la barra"
 
 #: beam-engraver.cc:294
 msgid "beam was started here"
@@ -1810,7 +1818,7 @@ msgstr "no s'ha trobat cap configuració inicial viable: és possible que no es 
 
 #: beam.cc:181
 msgid "removing beam with no stems"
-msgstr "s'està eliminant una barra sense vírgules"
+msgstr "s'està eliminant una barra sense pliques"
 
 #: change-iterator.cc:34
 #, c-format
@@ -2354,8 +2362,9 @@ msgid ""
 "print log messages according to LOGLEVEL.  Possible values are:\n"
 "NONE, ERROR, WARNING, BASIC, PROGRESS, INFO (default) and DEBUG."
 msgstr ""
-"imprimeix els missatges del registre d'acord amb NIVELL DE REGISTRE. Els valors\n"
-"possibles són: NONE, ERROR, WARNING, BASIC, PROGRESS,  (preterminat) i DEBUG."
+"imprimeix els missatges del registre d'acord amb NIVELL DE REGISTRE.\n"
+"Es valors possibles són: NONE, ERROR, WARNING, BASIC, PROGRESS, INFO\n"
+"(preterminat) i DEBUG."
 
 #: main.cc:178
 msgid "write output to FILE (suffix will be added)"
@@ -2367,7 +2376,9 @@ msgstr "relocalitza el directori d'us del programa lilypond"
 
 #: main.cc:180
 msgid "no progress, only error messages (equivalent to loglevel=ERROR)"
-msgstr "sense progrés, sols missatges d'error (equivalent a nivell de registre = ERROR)"
+msgstr ""
+"sense progrés, sols missatges d'error (equivalent a nivell \n"
+"de registre = ERROR)"
 
 #: main.cc:182
 msgid "be verbose (equivalent to loglevel=DEBUG)"
@@ -2391,7 +2402,7 @@ msgstr "Ús: %s [OPCIÓ]... FITXER..."
 
 #: main.cc:301
 msgid "Typeset music and/or produce MIDI from FILE."
-msgstr "Compon tipogràficament la músic i/o produeix MIDI des d'un FITXER."
+msgstr "Grava la música i/o produeix MIDI des d'un FITXER."
 
 #: main.cc:303
 msgid "LilyPond produces beautiful music notation."
@@ -2585,7 +2596,7 @@ msgstr "s'ignorarà per un excessiu nombre de columnes de nota en conflicte"
 
 #: note-column.cc:147
 msgid "cannot have note heads and rests together on a stem"
-msgstr "no es poden tenir caps de nota i silencis a l'hora a una barra"
+msgstr "no es poden tenir caps de nota i silencis a l'hora a una plica"
 
 #: note-head.cc:95
 #, c-format
@@ -3039,7 +3050,7 @@ msgstr "la duració del trèmolo és massa llarga"
 #: stem-engraver.cc:162
 #, c-format
 msgid "adding note head to incompatible stem (type = %d/%d)"
-msgstr "s'afegirà un cap de nota a una vírgula incompatible (tipus = %d/%d)"
+msgstr "s'afegirà un cap de nota a una plica incompatible (tipus = %d/%d)"
 
 #: stem-engraver.cc:165
 msgid "maybe input should specify polyphonic voices"
@@ -3047,7 +3058,7 @@ msgstr "potser l'entrada hauria d'especificar veus polifòniques"
 
 #: stem.cc:128
 msgid "weird stem size, check for narrow beams"
-msgstr "dimensió de vírgula estranya, verifiqueu si hi han barres estretes "
+msgstr "dimensió de plica estranya, verifiqueu si hi han barres estretes "
 
 #: system.cc:201
 #, c-format

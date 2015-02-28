@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2009--2014 Carl Sorensen <c_sorensen@byu.edu>
+;;;; Copyright (C) 2009--2015 Carl Sorensen <c_sorensen@byu.edu>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -296,6 +296,7 @@ a fresh copy of the list-head is made."
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ;;; Formatting of complex/compound time signatures
 
+; There ought to be a \join-line sep {...} command
 (define (insert-markups l m)
   (let ((ll (reverse l)))
     (let join-markups ((markups (list (car ll)))
@@ -311,25 +312,87 @@ a fresh copy of the list-head is made."
          (den (car revargs))
          (nums (reverse (cdr revargs))))
     (make-override-markup '(baseline-skip . 0)
-                          (make-number-markup
                            (make-left-column-markup
                             (list (make-center-column-markup
                                    (list (make-line-markup (insert-markups nums "+"))
-                                         den))))))))
+                                         den)))))))
 
-(define (format-complex-compound-time time-sig)
+(define (format-time-numerator time-sig)
+  (make-vcenter-markup (number->string (car time-sig))))
+
+(define (format-time-element time-sig)
+  (cond ((number-pair? time-sig)
+         (format-time-fraction (list (car time-sig) (cdr time-sig))))
+        ((pair? (cdr time-sig))
+         (format-time-fraction time-sig))
+        (else
+         (format-time-numerator time-sig))))
+
+(define (format-time-list time-sig)
   (make-override-markup '(baseline-skip . 0)
-                        (make-number-markup
-                         (make-line-markup
-                          (insert-markups (map format-time-fraction time-sig)
-                                          (make-vcenter-markup "+"))))))
+                        (make-line-markup
+                         (insert-markups (map format-time-element time-sig)
+                                         (make-vcenter-markup "+")))))
 
-(define-public (format-compound-time time-sig)
-  (cond
-   ((not (pair? time-sig)) (null-markup))
-   ((pair? (car time-sig)) (format-complex-compound-time time-sig))
-   (else (format-time-fraction time-sig))))
+(define (format-compound-time time-sig)
+  (make-number-markup
+   (cond
+    ((number? time-sig) (format-time-element (list time-sig)))
+    ((number-pair? time-sig)
+     (format-time-element (list (car time-sig) (cdr time-sig))))
+    ((pair? (car time-sig)) (format-time-list time-sig))
+    (else (format-time-element time-sig)))))
 
+(define-markup-command (compound-meter layout props time-sig)
+  (number-or-pair?)
+  #:category music
+  "Draw a numeric time signature.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\column {
+    \\line { Single number: \\compound-meter #3 }
+    \\line { Conventional: \\compound-meter #'(4 . 4)
+                       or \\compound-meter #'(4 4) }
+    \\line { Compound: \\compound-meter #'(2 3 8) }
+    \\line { Single-number compound: \\compound-meter #'((2) (3)) }
+    \\line { Complex compound: \\compound-meter #'((2 3 8) (3 4)) }
+  }
+}
+@end lilypond
+"
+  (interpret-markup layout props (format-compound-time time-sig)))
+
+(add-simple-time-signature-style 'numbered make-compound-meter-markup)
+
+(add-simple-time-signature-style 'single-digit
+  (lambda (fraction) (make-compound-meter-markup (car fraction))))
+
+;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;;; Formatting of symbolic time signatures
+
+(define-public (make-glyph-time-signature-markup style fraction)
+  "Make markup for a symbolic time signature.  If the music font does not have a glyph for the requested style and fraction, issue a warning and make a numbered time signature instead."
+  (make-first-visible-markup
+   (list (make-musicglyph-markup (string-append
+                                  "timesig."
+                                  (symbol->string style)
+                                  (number->string (car fraction))
+                                  (number->string (cdr fraction))))
+         (make-compound-meter-markup fraction))))
+
+(define-public (make-c-time-signature-markup fraction)
+  "Make markup for the `C' time signature style."
+  (let ((n (car fraction))
+        (d (cdr fraction)))
+    ; check specific fractions to avoid warnings when no glyph exists
+    (if (or (and (= n 2) (= d 2))
+            (and (= n 4) (= d 4)))
+        (make-glyph-time-signature-markup 'C fraction)
+        (make-compound-meter-markup fraction))))
+
+(add-simple-time-signature-style 'C make-c-time-signature-markup)
+(add-simple-time-signature-style 'default make-c-time-signature-markup)
 
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ;;; Measure length calculation of (possibly complex) compound time signatures

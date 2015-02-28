@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1999--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1999--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -39,6 +39,7 @@ Script_column::add_side_positioned (Grob *me, Grob *script)
     return;
 
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("scripts"), script);
+  script->set_object ("script-column", me->self_scm ());
 }
 
 LY_DEFINE (ly_grob_script_priority_less, "ly:grob-script-priority-less",
@@ -179,5 +180,5 @@ ADD_INTERFACE (Script_column,
                " @code{script-priority} and @code{outside-staff-priority}.",
 
                /* properties */
-               ""
+               "scripts "
               );

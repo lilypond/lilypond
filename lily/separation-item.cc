@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1998--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1998--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -186,7 +186,15 @@ Separation_item::boxes (Grob *me, Grob *left)
   return out;
 }
 
-MAKE_SCHEME_CALLBACK (Separation_item, print, 1)
+MAKE_DOCUMENTED_SCHEME_CALLBACK (Separation_item, print, 1,
+                                 "Optional stencil for @code{PaperColumn} or"
+                                 "@code{NonMusicalPaperColumn}.\n"
+                                 "Draws the @code{horizontal-skylines} of each"
+                                 " @code{PaperColumn}, showing the shapes used"
+                                 " to determine the minimum distances between"
+                                 " @code{PaperColumns} at the note-spacing step,"
+                                 " before staves have been spaced (vertically)"
+                                 " on the page.")
 SCM
 Separation_item::print (SCM smob)
 {

@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: ed1acf4b9b63f6acdb4feb24eb4acf3f83548319
+    Translation of GIT committish: 39f7a447f567bf8cb4e61f2672a81d7d2306b53e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.18.0"
 
 @c Translators: Federico Bruni
 @c Translation checkers:
@@ -51,6 +51,7 @@ Questa sezione spiega come aggiungere enfasi agli elementi interni al rigo.
 @cindex scelta della dimensione del tipo di carattere (per gli elementi della notazione)
 @cindex notazione, dimensione del tipo di carattere
 @cindex teste di nota
+@cindex ingrandimento del tipo di carattere
 
 @funindex fontSize
 @funindex font-size
@@ -67,48 +68,194 @@ Questa sezione spiega come aggiungere enfasi agli elementi interni al rigo.
 @funindex small
 @funindex tiny
 @funindex teeny
+@funindex \magnifyMusic
+@funindex magnifyMusic
+@funindex magnification->font-size
 
-È possibile modificare la dimensione del tipo di carattere degli elementi
-della notazione.  Tale modifica non altera la dimensione di altri simboli
-variabili, come le travature o le legature di portamento.
+@warning{@*
+Per le dimensioni del testo, leggere @ref{Selecting font and font size}.@*
+Per la dimensione del rigo, leggere @ref{Setting the staff size}.@*
+Per le citazioni in corpo piccolo, leggere @ref{Formatting cue notes}.@*
+Per i righi ossia, leggere @ref{Ossia staves}.}
 
-@warning{Per informazioni sulla dimensione del tipo di carattere per il
-testo, si veda @ref{Selecting font and font size}.}
+Per modificare la dimensione di un elemento della notazione senza cambiare
+anche la dimensione del rigo, si può specificare un fattore di ingrandimento
+col comando @code{\magnifyMusic}:
+
+@c Grieg Piano Concerto (mvt.1 cadenza)
+@lilypond[verbatim,quote]
+\new Staff <<
+  \new Voice \relative {
+    \voiceOne
+    <e' e'>4 <f f'>8. <g g'>16 <f f'>8 <e e'>4 r8
+  }
+  \new Voice \relative {
+    \voiceTwo
+    \magnifyMusic 0.63 {
+      \override Score.SpacingSpanner.spacing-increment = #(* 1.2 0.63)
+      r32 c'' a c a c a c r c a c a c a c
+      r c a c a c a c a c a c a c a c
+    }
+  }
+>>
+@end lilypond
+
+L'@code{\override} in questo esempio serve a eludere un difetto del programma,
+spiegato in @qq{Known issues and warnings} alla fine di questa sezione.
+
+Se la testa di una nota di dimensione normale è accorpata con una più
+piccola, potrebbe essere necessario ripristinare la dimensione della
+nota più piccola (con @w{@samp{\once@tie{}\normalsize}}) in modo che i
+gambi e le alterazioni siano allineati correttamente:
+
+@c Chopin Prelude op.28 no.8
+@lilypond[verbatim,quote]
+\new Staff <<
+  \key fis \minor
+  \mergeDifferentlyDottedOn
+  \new Voice \relative {
+    \voiceOne
+    \magnifyMusic 0.63 {
+      \override Score.SpacingSpanner.spacing-increment = #(* 1.2 0.63)
+      \once \normalsize cis'32( cis' gis b a fis \once \normalsize d d'
+      \once \normalsize cis, cis' gis b a gis \once \normalsize fis fis'
+      \once \normalsize fis, fis' ais, cis b gis \once \normalsize eis eis'
+      \once \normalsize a, a' bis, d cis b \once \normalsize gis gis')
+    }
+  }
+  \new Voice \relative {
+    \voiceTwo
+    cis'8. d16 cis8. fis16 fis8. eis16 a8. gis16
+  }
+>>
+@end lilypond
+
+Il comando @code{\magnifyMusic} non è adatto per le citazioni in corpo
+piccolo, gli abbellimenti o i righi ossia, per i quali esistono
+metodi di inserimento più appropriati.  È invece utile quando la
+dimensione della notazione cambia in una singola parte strumentale
+su un rigo e quando gli abbellimenti non sono la scelta appropriata,
+come nei passaggi di tipo cadenza o in casi simili agli esempi
+precedenti.  Impostando il valore di @code{\magnifyMusic} su 0.63
+si duplicano le dimensioni del contesto @code{CueVoice}.
+
+@warning{Il comando @code{@bs{}magnifyMusic} @i{non} deve essere
+usato quando si ridimensiona anche il rigo.  Maggiori informazioni
+ in @ref{Setting the staff size}.}
+
+@subsubsubheading Ridimensionare oggetti della formattazione individualmente
+
+Un singolo oggetto della formattazione può essere ridimensionato
+coi comandi @code{\tweak} o @code{\override} per regolare la sua
+proprietà @code{font-size}:
+
+@lilypond[quote,verbatim,relative=1]
+% ridimensiona una testa di nota
+<f \tweak font-size -4 b e>-5
+% ridimensiona una diteggiatura
+bes-\tweak font-size 0 -3
+% ridimensiona un'alterazione
+\once \override Accidental.font-size = -4 bes!-^
+% ridimensiona un'articolazione
+\once \override Script.font-size = 4 bes!-^
+@end lilypond
+
+Il valore predefinito di @code{font-size} per ogni oggetto della
+formattazione è elencato nella Guida al funzionamento interno.  La
+proprietà @code{font-size} può essere impostata solo per quegli
+oggetti che supportano l'interfaccia di formattazione @code{font-interface}.
+Se @code{font-size} non è specificato nella lista @q{Standard@tie{}settings}
+dell'oggetto, il suo valore è 0.  Si veda @rinternals{All layout objects}.
+
+@subsubsubheading Capire la proprietà @code{fontSize}
+
+La proprietà di contesto @code{fontSize} regola la dimensione relativa di
+tutti gli elementi della notazione basati su un glifo in un contesto:
 
 @lilypond[verbatim,quote,relative=2]
-\huge
-c4.-> d8---3
-\large
-c4.-> d8---3
-\normalsize
-c4.-> d8---3
-\small
+\time 3/4
+d4---5 c8( b a g) |
+\set fontSize = -6
+e'4-- c!8-4( b a g) |
+\set fontSize = 0
+fis4---3 e8( d) fis4 |
+g2.
+@end lilypond
+
+Il valore di @code{fontSize} è un numero che indica la dimensione
+relativa alla dimensione standard dell'altezza del rigo corrente.
+Il valore predefinito di @code{fontSize} è 0; aggiungendo 6 a qualsiasi
+valore di @code{fontSize} si raddoppia la dimensione dei glifi e
+togliendo 6 si dimezza.  Ogni punto aumenta la dimensione di circa
+il 12%.
+
+Dato che le unità logaritmiche della proprietà @code{font-size} non sono
+del tutto intuitive, viene fornita per comodità la funzione scheme
+@code{magnification->font-size}.  Per esempio, per ridurre la notazione
+musicale al 75% della dimensione predefinita si usa:
+
+@example
+\set fontSize = #(magnification->font-size 0.75)
+@end example
+
+La funzione scheme @code{magstep} fa l'opposto: converte un valore
+di @code{font-size} in un fattore di ingrandimento.
+
+La proprietà @code{fontSize} avrà effetto soltanto sugli elementi
+della notazione che sono disegnati con glifi, come le teste di
+nota, le alterazioni, i segni, etc.  Non modificherà la dimensione
+del rigo stesso né ridimensionerà proporzionalmente gambi, travature
+o la spaziatura orizzontale.   Per ridimensionare gambi, travature
+e spaziatura orizzontale insieme alla dimensione degli elementi della
+notazione (senza cambiare la dimensione del rigo), si usa il comando
+@code{\magnifyMusic} presentato prima.  Per ridimensionare tutto,
+compreso il rigo, leggere @ref{Setting the staff size}.
+
+Ogni volta che la @i{proprietà di contesto} @code{fontSize} è impostata, il
+suo valore viene aggiunto al valore della @i{proprietà del grob} @code{font-size}
+per i singoli oggetti di formattazione, prima che siano stampati i glifi.
+Ciò può creare confusione quando si impostano individualmente le proprietà
+@code{font-size} mentre è impostato anche @code{fontSize}:
+
+@lilypond[verbatim,quote,relative=2]
+% il valore predefinito di font-size per NoteHead è 0
+% il valore predefinito di font-size per Fingering è -5
+c4-3
+
+\set fontSize = -3
+% la dimensione effettiva per NoteHead è ora -3
+% la dimensione effettiva per Fingering è ora -8
+c4-3
+
+\override Fingering.font-size = 0
+% la dimensione effettiva per Fingering è ora -3
+c4-3
+@end lilypond
+
+Sono anche disponibili le seguenti scorciatoie:
+
+@multitable @columnfractions .2 .4 .4
+@item @b{Comando} @tab @b{Equivalente a} @tab @b{Dimensione relativa}
+@item @code{\teeny}      @tab @code{\set fontSize = -3} @tab 71%
+@item @code{\tiny}       @tab @code{\set fontSize = -2} @tab 79%
+@item @code{\small}      @tab @code{\set fontSize = -1} @tab 89%
+@item @code{\normalsize} @tab @code{\set fontSize = 0} @tab 100%
+@item @code{\large}      @tab @code{\set fontSize = 1} @tab 112%
+@item @code{\huge}       @tab @code{\set fontSize = 2} @tab 126%
+@end multitable
+
+@lilypond[verbatim,quote,relative=2]
+\teeny
 c4.-> d8---3
 \tiny
 c4.-> d8---3
-\teeny
+\small
 c4.-> d8---3
-@end lilypond
-
-Internamente, questi comandi impostano la proprietà @code{fontSize}.  In questo
-modo la proprietà @code{font-size} viene impostata per tutti gli oggetti della
-formattazione.  Il valore di @code{font-size} è un numero che indica la
-dimensione relativa alla dimensione standard per l'altezza del rigo corrente.
-Ogni grado in su corrisponde a un aumento di circa il 12% della dimensione
-del tipo di carattere.  Sei gradi corrispondono esattamente a un fattore
-di due.  La funzione Scheme @code{magstep} converte un numero di @code{font-size}
-in un fattore di ridimensionamento.  Si può impostare la proprietà
-@code{font-size} anche direttamente, in modo da agire solo su certi
-oggetti di formattazione.
-
-@lilypond[verbatim,quote,relative=2]
-\set fontSize = #3
+\normalsize
 c4.-> d8---3
-\override NoteHead.font-size = #-4
+\large
 c4.-> d8---3
-\override Script.font-size = #2
-c4.-> d8---3
-\override Stem.font-size = #-5
+\huge
 c4.-> d8---3
 @end lilypond
 
@@ -120,16 +267,13 @@ c4.-> d8---3
 
 La modifica della dimensione del tipo di carattere si ottiene ridimensionando
 la dimensione, tra quelle predefinite, più vicina a quella desiderata.  La
-dimensione standard (per @w{@code{font-size = #0}}) dipende dall'altezza
+dimensione standard (per @w{@code{font-size = 0}}) dipende dall'altezza
 standard del rigo: per un rigo di 20pt, viene scelto un tipo di carattere
-di 10pt.
-
-La proprietà @code{font-size} si può impostare soltanto sugli oggetti di
-formattazione che usano i tipi di carattere, ovvero quegli oggetti che
-supportano l'interfaccia di formattazione @code{font-interface}.
+di 11pt.
 
 
 @predefined
+@code{\magnifyMusic},
 @code{\teeny},
 @code{\tiny},
 @code{\small},
@@ -139,11 +283,43 @@ supportano l'interfaccia di formattazione @code{font-interface}.
 @endpredefined
 
 @seealso
+Guida alla notazione:
+@ref{Selecting font and font size},
+@ref{Setting the staff size},
+@ref{Formatting cue notes},
+@ref{Ossia staves}.
+
+File installati:
+@file{ly/music-functions-init.ly},
+@file{ly/property-init.ly}.
+
 Frammenti:
 @rlsr{Editorial annotations}.
 
 Guida al funzionamento interno:
 @rinternals{font-interface}.
+
+@c The two issues mentioned below:
+@c http://code.google.com/p/lilypond/issues/detail?id=3987
+@c http://code.google.com/p/lilypond/issues/detail?id=3990
+@knownissues
+Attualmente ci sono due bug che impediscono una corretta spaziatura
+orizzontale quando si usa @code{\magnifyMusic}.  C'è un solo modo
+per eludere questi bug e non funziona in tutte le circostanze.
+Nell'esempio seguente, sostituire la variabile @var{mag} con un
+valore a piacere.  Si può provare anche a togliere uno o entrambi
+i comandi @code{\newSpacingSection} e/o i comandi @code{\override}
+e @code{\revert}:
+
+@example
+\magnifyMusic @var{mag} @{
+  \newSpacingSection
+  \override Score.SpacingSpanner.spacing-increment = #(* 1.2 @var{mag})
+  @var{[music]}
+  \newSpacingSection
+  \revert Score.SpacingSpanner.spacing-increment
+@}
+@end example
 
 
 @node Indicazioni di diteggiatura
@@ -393,8 +569,9 @@ un browser potrebbe non mostrare alcuna differenza tra @code{LimeGreen}
 e @code{ForestGreen}.  Per il web si consiglia di usare i colori normali
 (ovvero @code{blue}, @code{green}, @code{red}).
 
-Le note in un accordo non possono essere colorate con un @code{\override}; al
-suo posto si usa @code{\tweak}, vedi @ref{The tweak command}.
+Le note in un accordo non possono essere colorate separatamente con un
+@code{\override}; al suo posto si usa @code{\tweak} o l'equivalente
+@code{\single\override}, vedi @ref{The tweak command}.
 
 
 @node Parentesi

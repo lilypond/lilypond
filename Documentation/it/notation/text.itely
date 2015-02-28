@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 354e5ce3edd1dba03b4ecb68fc766bb46235f5d2
+    Translation of GIT committish: 2583260566074fd263a84d515ef637267563d371
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1134,9 +1134,10 @@ Una lista completa dei comandi specifici per la grafica si trova in
 
 @seealso
 Guida alla notazione:
-@ref{Graphic},
+@ref{Align},
+@ref{Dimensions},
 @ref{Editorial annotations},
-@ref{Align}.
+@ref{Graphic}.
 
 File installati:
 @file{scm/define-markup-commands.scm},
@@ -1503,8 +1504,8 @@ a1_\markup {
 
 @funindex show-available-fonts
 
-Il seguente comando mostra un elenco di tutti i tipi di carattere disponibili
-nel sistema operativo:
+Lanciando lilypond con la seguente opzione si ottiene un elenco di tutti i
+tipi di carattere disponibili nel sistema operativo:
 
 @example
 lilypond -dshow-available-fonts x
@@ -1564,4 +1565,3 @@ Guida alla notazione:
 @ref{Single entry fonts},
 @ref{Selecting font and font size},
 @ref{Font}.
-

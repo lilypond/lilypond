@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 53ea968b35ad64c914a7bd503786aaf8d3b0c762
+    Translation of GIT committish: 7a5bfc62fcac71d5c996b2df58921fd2fe783415
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -142,12 +142,12 @@ immagini dei prodotti.
 @divClass{column-center-top}
 @subheading Pacchetti generici o pacchetti specifici di una distribuzione?
 
-Molte distribuzioni includono LilyPond nel loro repository di pacchetti
-e questi pacchetti sono spesso molto più facili da installare rispetto
-ai pacchetti generici che si trovano su queto sito.  Tuttavia le versioni
-di LilyPond in questi repository sono @emph{molto} più vecchi della versione
-stabile corrente.  Se preferisci usare i nostri pacchetti generici, controlla
-che il tuo editor LilyPond stia usando la versione corretta.  Vedi @ref{Easier editing}.
+Molte distribuzioni includono LilyPond nei loro repository ma i loro
+pacchetti sono spesso @emph{molto} più vecchi della versione
+stabile corrente.  Anche se questi pacchetti più vecchi sono più facili
+da installare, consigliamo @emph{caldamente} di usare i nostri pacchetti
+generici.  In questo caso, controlla che il tuo editor LilyPond stia usando
+la versione corretta.  Vedi @ref{Easier editing}.
 
 @divEnd
 
@@ -167,12 +167,12 @@ che il tuo editor LilyPond stia usando la versione corretta.  Vedi @ref{Easier e
 @ifset web_version
   @downloadStableLinuxNormal
 @end ifset
-
-(se non sei sicuro, usa questo)
+Sistemi a 32bit.
 
 @item
 @sourceimage{logo-linux,,,}
 @downloadStableLinuxBig
+Sistemi a 64bit.
 
 @item
 @sourceimage{logo-linux,,,}
@@ -181,10 +181,12 @@ che il tuo editor LilyPond stia usando la versione corretta.  Vedi @ref{Easier e
 @item
 @sourceimage{logo-freebsd,,,}
 @downloadStableFreeBSDNormal
+Sistemi a 32bit.
 
 @item
 @sourceimage{logo-freebsd,,,}
 @downloadStableFreeBSDBig
+Sistemi a 64bit.
 
 @end itemize
 
@@ -219,44 +221,7 @@ sh lilypond-@versionStable{}-OS-TYPE.sh --help
 
 
 @divClass{column-right-top}
-@subheading Pacchetti specifici di una distribuzione
 
-Usa il gestore pacchetti della tua distribuzione per istallare o
-aggiornare a queste versioni.
-
-@itemize
-
-@item
-@sourceimage{logo-fedora,,,}
-@uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447,
-Fedora: LilyPond 2.14.2}
-
-@item
-@sourceimage{logo-ubuntu,,,}
-@uref{http://packages.ubuntu.com/search?keywords=lilypond,
-Ubuntu: LilyPond 2.14.2}
-
-@item
-@sourceimage{logo-slackware,,,}
-@uref{http://www.johannes-schoepfer.de/lilypond/,
-Slackware: LilyPond 2.14.2}
-
-@item
-@sourceimage{logo-debian,,,}
-@uref{http://packages.debian.org/search?keywords=lilypond,
-Debian: LilyPond 2.12.3}
-
-@item
-@sourceimage{logo-suse,,,}
-@uref{http://software.opensuse.org/search?baseproject=openSUSE%3A11.2&p=1&q=lilypond,
-openSUSE: LilyPond 2.12.3}
-
-@end itemize
-
-@divEnd
-
-
-@divClass{column-center-top}
 @subheading Compilare un file
 
 @lilypadCommandLine

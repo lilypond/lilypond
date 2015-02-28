@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 1996--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  Copyright (C) 1996--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
@@ -29,7 +29,7 @@ typedef void (Performer:: *Performer_method) (void);
 class Performer_group : public Translator_group
 {
 public:
-  VIRTUAL_COPY_CONSTRUCTOR (Translator_group, Performer_group);
+  DECLARE_CLASSNAME (Performer_group);
 
   void do_announces ();
   virtual void announce_element (Audio_element_info);

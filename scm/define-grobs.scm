@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 1998--2014 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 1998--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -32,6 +32,7 @@
         (after-line-breaking . ,ly:accidental-interface::remove-tied)
         (alteration . ,accidental-interface::calc-alteration)
         (avoid-slur . inside)
+        (extra-spacing-width . (-0.2 . 0.0))
         (glyph-name . ,accidental-interface::glyph-name)
         (glyph-name-alist . ,standard-alteration-glyph-name-alist)
         (stencil . ,ly:accidental-interface::print)
@@ -744,6 +745,7 @@
         (stencil . ,ly:dots::print)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (extra-spacing-height . (-0.5 . 0.5))
+        (extra-spacing-width . (0.0 . 0.2))
         (meta . ((class . Item)
                  (interfaces . (dots-interface
                                 font-interface
@@ -1065,6 +1067,7 @@
                                     ))
                           (left . ((attach-dir .  ,RIGHT)
                                    (padding . 0.5)
+                                   (start-at-dot . #t)
                                    ))
                           ))
         (cross-staff . ,ly:line-spanner::calc-cross-staff)
@@ -1502,13 +1505,15 @@
         (expand-limit . 10)
         (hair-thickness . 2.0)
         (round-up-exceptions . ())
-        (padding . 1)
+        (bound-padding . 0.5)
+        (space-increment . 2.0)
         (spacing-pair . (break-alignment . break-alignment))
         (springs-and-rods . ,ly:multi-measure-rest::set-spacing-rods)
         (stencil . ,ly:multi-measure-rest::print)
         (thick-thickness . 6.6)
         ;; See Wanske pp. 125
         (usable-duration-logs . ,(iota 4 -3))
+        (voiced-position . 4)
         (Y-extent . ,(ly:make-unpure-pure-container ly:multi-measure-rest::height))
         (Y-offset . ,staff-symbol-referencer::callback)
         (meta . ((class . Spanner)
@@ -1521,7 +1526,7 @@
 
     (MultiMeasureRestNumber
      . (
-        (bound-padding  . 2.0)
+        (bound-padding  . 1.0)
         (direction . ,UP)
         (font-encoding . fetaText)
         (padding . 0.4)
@@ -1876,6 +1881,7 @@
         (duration-log . ,stem::calc-duration-log)
         (minimum-distance . 0.25)
         (stencil . ,ly:rest::print)
+        (voiced-position . 4)
         (X-extent . ,ly:rest::width)
         (Y-extent . ,(ly:make-unpure-pure-container ly:rest::height ly:rest::pure-height))
         (Y-offset . ,(ly:make-unpure-pure-container ly:rest::y-offset-callback))
@@ -2060,6 +2066,7 @@
 
     (StaffSymbol
      . (
+        (break-align-symbols . (staff-bar break-alignment))
         (layer . 0)
         (ledger-line-thickness . (1.0 . 0.1))
         (line-count . 5)
@@ -2113,7 +2120,7 @@
             ;; Stems in unnatural (forced) direction should be shortened by
             ;; one staff space, according to [Roush & Gourlay].
             ;; Flagged stems we shorten only half a staff space.
-            (stem-shorten . (1.0 0.5))
+            (stem-shorten . (1.0 0.5 0.25))
 
             ))
 
