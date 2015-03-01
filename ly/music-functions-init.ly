@@ -1151,7 +1151,7 @@ that they share a staff with stems directed downward.")
                             (list part1 part2) DOWN chord-range))
 
 partcombineForce =
-#(define-music-function (location parser type once) (symbol-or-boolean? boolean?)
+#(define-music-function (location parser type once) (boolean-or-symbol? boolean?)
    (_i "Override the part-combiner.")
    (make-music 'EventChord
                'elements (list (make-music 'PartCombineForceEvent

@@ -93,8 +93,6 @@
 
 (define-public (scheme? x) #t)
 
-(define-public (symbol-or-boolean? x)
-  (or (symbol? x) (boolean? x)))
 
 (define-public (void? x)
   (unspecified? x))
