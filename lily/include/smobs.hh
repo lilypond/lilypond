@@ -266,21 +266,22 @@ public:
   }
   SCM unprotected_smobify_self ()
   {
-    self_scm_ = Smob_base<Super>::register_ptr (static_cast<Super *> (this));
-    return self_scm_;
+    SCM s = Smob_base<Super>::register_ptr (static_cast<Super *> (this));
+    self_scm_ = s;
+    return s;
   }
   void protect ()
   {
     protect_smob (self_scm_, &protection_cons_);
   }
+  void smobify_self () {
+    protect_smob (unprotected_smobify_self (), &protection_cons_);
+  }
   SCM unprotect ()
   {
-    unprotect_smob (self_scm_, &protection_cons_);
-    return self_scm_;
-  }
-  void smobify_self () {
-    self_scm_ = unprotected_smobify_self ();
-    protect ();
+    SCM s = self_scm_;
+    unprotect_smob (s, &protection_cons_);
+    return s;
   }
   SCM self_scm () const { return self_scm_; }
 };
