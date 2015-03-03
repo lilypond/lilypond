@@ -306,10 +306,10 @@ g4~ 4 c2~ | 4~ 8 a~ 2 |
 @end lilypond
 
 This shorthand may be useful in other places where the rhythm changes
-with an unchanging pitch, but remember a bare duration will attach to
-the preceding pitch, making a single note, if only white space
-separates them.
-
+with an unchanging pitch, but remember that a bare pitch followed by a
+space and a bare duration will be interpreted as a single note. In
+other words, @code{c4 a 8 8} would be interpreted as @code{c4 a8 a8},
+not as @code{c4 a4 a8 a8}.  Write instead @code{c4 a4 8 8 }.
 
 @node Slurs
 @unnumberedsubsubsec Slurs
