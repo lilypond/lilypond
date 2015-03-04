@@ -282,7 +282,6 @@ div#main {
   overflow: auto;
 }
 
-/* FIXME: does not work in IE<=6 */
 #main > a:first-child {
   position: absolute;
   top: -10em;
@@ -326,18 +325,8 @@ div#cmws {
 
 div#quickSummary {
   text-align: left;
-  margin: 4em 13em 0 0;
-}
-
-#quickSummary .subheading {
-  background: linear-gradient(to right,
-    rgb(79, 130, 99),
-    rgb(79, 130, 99) 10%,
-    rgb(255, 255, 255) 75%,
-    rgb(255, 255, 255));
-  color: #fff;
-  padding: 0 0.5em;
-  margin: 0;
+  margin: 3em 14em 25px 0;
+  font-size: 19px;
 }
 
 #quickSummary p {
@@ -345,29 +334,12 @@ div#quickSummary {
   margin: 0;
 }
 
-div.separator {
-  background: transparent url(../pictures/squiggle.jpg) no-repeat 50% 50%;
-  height: 36px;
-  padding: 10px;
-  margin: 0 13em 0 0;
-}
-
 div#news {
   padding: 0;
-  margin: 0 13em 1em 0;
+  margin: 0 14em 1em 0;
 }
 
-div.news-item {
-  padding: 1em 0;
-}
-
-.news-item .subsubheading {
-  text-align: left;
-  padding: 0.5em 0.5em 0 0.5em;
-  border-top: 1px solid #5b7f64;
-  margin: 0;
-  overflow: hidden;
-}
+/* .news-item is styled below with columns */
 
 .testimonial-item {
   /* Not sure how to style the testimonials */
@@ -389,69 +361,33 @@ div.news-item {
   padding: 0 0.5em;
 }
 
-.news-item p {
-  text-align: left;
-  padding: 0.5em;
-  margin: 0;
-}
-
-div#latestVersion {
-  position: absolute;
-  top: 16em;
-  right: 0;
-}
-
-div#wildCardBox {
+div#homePageSideBar {
   position: absolute;
   top: 0;
   right: 0;
-}
-
-div#latestVersion,
-div#wildCardBox {
   width: 12em;
-  text-align: center;
-  border-left: 1px solid #5b7f64;
-  border-top-left-radius: 5px;
+  text-align: left;
 }
 
-#latestVersion .subheading,
-#wildCardBox .subheading {
+#homePageSideBar .subheading {
+  font-size: 15.2px;
   background: #5b7f64;
   color: #fff;
-  text-align: center;
-  padding: 0 0.5em;
+  padding: 0.2em 0.5em 0em 0.7em;
   margin: 0;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-radius: 5px;
 }
 
-/* this might not work in certain browsers */
-a[name="Stable"] + h4 {
-  background: #bdee9d;
-  background: linear-gradient(to top,
-    rgb(140, 210, 118),
-    rgb(212, 243, 201));
-}
-
-/* this might not work in certain browsers */
-a[name="Unstable"] + h4 {
-  background: #fad58c;
-  background: linear-gradient(to top,
-    rgb(183, 213, 131),
-    rgb(231, 243, 207));
-}
-
-#latestVersion .subsubheading {
-  padding: 0.25em 0.25em 0;
-  border-bottom: 1px solid #5b7f64;
+#homePageSideBar p,
+#pondingsText {
+  padding: 0.7em 0.5em;
   margin: 0;
 }
 
-#latestVersion p {
-  font-size: 90%;
-  padding: 0.5em;
-  margin: 0;
+/* for better spacing between "download" and "manuals" links */
+#homePageSideBar p:nth-of-type(2n) {
+  padding-top: 0;
+  margin-top: -3px;
 }
 
 div#footer {
@@ -607,8 +543,10 @@ div.float-right a.clickable {
 }
 
 .column-center-middle-color2,
-.column-center-middle-color3 {
+.column-center-middle-color3,
+.news-item {
   clear: both;
+  float: left;
   width: 99.5%;
   text-align: left;
   margin: 1em auto;
@@ -642,7 +580,8 @@ div.float-right a.clickable {
 /* color2 */
 .column-left-top,
 .column-left-bottom,
-.column-center-middle-color2 {
+.column-center-middle-color2,
+.news-item {
   border: 1px solid #adce82;
 }
 
@@ -656,6 +595,7 @@ div.float-right a.clickable {
 /* color4 */
 .column-center-bottom {
   clear: both;
+  float: left;
   width: 99.5%;
   text-align: center;
   border: 1px solid #ccd38f;
@@ -669,7 +609,8 @@ div.float-right a.clickable {
 .column-left-top,
 .column-left-bottom,
 .column-right-top,
-.column-right-bottom {
+.column-right-bottom,
+.news-item {
   background: #f5fffa;
   border-radius: 5px;
 }
@@ -687,12 +628,17 @@ div.float-right a.clickable {
 /* color2 */
 .column-left-top h3,
 .column-left-bottom h3,
-.column-center-middle-color2 h3 {
+.column-center-middle-color2 h3,
+.news-item h3 {
   background: #adce82;
   background: linear-gradient(to top,
     rgb(173, 206, 130),
     rgb(221, 243, 204));
   border-bottom: 1px solid #adce82;
+}
+
+.news-item h3 {
+  font-size: 15.2px;
 }
 
 /* color3 */
@@ -723,7 +669,8 @@ div.float-right a.clickable {
 .column-left-top h3,
 .column-left-bottom h3,
 .column-right-top h3,
-.column-right-bottom h3 {
+.column-right-bottom h3,
+.news-item h3 {
   text-align: left;
   padding: 3px 0.5em 0;
   margin: 0;

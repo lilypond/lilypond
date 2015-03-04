@@ -120,8 +120,6 @@ For LilyPond version @version{}
 @c @im ageId{cmws,web-snippet-alpha.png,Catchy Musical Web Snippet}
 
 @divId{quickSummary}
-@subheading What is LilyPond?
-
 LilyPond is a music engraving program, devoted to producing the
 highest-quality sheet music possible.  It brings the aesthetics of
 traditionally engraved music to computer printouts.  LilyPond is free
@@ -132,9 +130,6 @@ software and part of the @uref{http://gnu.org,GNU Project}.
 Read more in our @ref{Introduction}!
 
 @divEnd
-@divEnd
-
-@divClass{separator}
 @divEnd
 
 
@@ -149,18 +144,35 @@ Read more in our @ref{Introduction}!
 
 @divEnd
 
+
 @ifclear web_version
   @c do nothing
 @end ifclear
 @ifset web_version
-  @c make the box:
-@divId{wildCardBox}
+  @c make the side bar:
+@divId{homePageSideBar}
+@subheading Stable Release
+
+@c TODO: javascript to detect OS and suggest download?
+
+@ref{Download, Download @versionStable}
+
+@ref{Manuals, Manuals @versionStable}
+
+@subheading Unstable Release
+
+@ref{Development, Download @versionDevel}
+
+@ref{Development, Manuals @versionDevel}
+
 @subheading Pondings
-@divId{wildCardText}
+@divId{pondingsText}
 
 @divEnd
+
 @divEnd
 @end ifset
+
 
 @html
 
@@ -185,32 +197,10 @@ Read more in our @ref{Introduction}!
   var index = Math.floor(Math.random() * tweets.length);
   var tweet = tweets[index];
   var text = tweet.childNodes[0];
-  document.getElementById("wildCardText").innerHTML = text.nodeValue;
+  document.getElementById("pondingsText").innerHTML = text.nodeValue;
 </script>
 
 @end html
-
-@ifset web_version
-  @c make the box:
-@divId{latestVersion}
-@subheading Quick links
-
-@c TODO: javascript to detect OS and suggest download?
-
-@subsubheading Stable
-
-@ref{Download, Download @versionStable}
-
-@ref{Manuals, Manuals @versionStable}
-
-@subsubheading Unstable
-
-@ref{Development, Download @versionDevel}
-
-@ref{Development, Manuals @versionDevel}
-
-@divEnd
-@end ifset
 
 
 @ifnottex

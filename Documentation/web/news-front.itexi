@@ -9,7 +9,7 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
-@subsubheading LilyPond 2.19.16 released  @emph{February 28, 2015}
+@subheading LilyPond 2.19.16 released  @emph{February 28, 2015}
 
 At long last, we are very happy to announce the release of LilyPond
 2.19.16.  This release includes a number of enhancements, and contains some
@@ -24,7 +24,7 @@ release possible with his work on updating GUB, the build tool.
 @newsEnd
 
 @newsItem
-@subsubheading Lilypond 2.18.2 released!  @emph{March 23, 2014}
+@subheading Lilypond 2.18.2 released!  @emph{March 23, 2014}
 
 We are proud to announce the release of GNU LilyPond 2.18.2.
 LilyPond is a music engraving program devoted to producing the
@@ -38,7 +38,7 @@ updated manuals.  We recommend all users to upgrade to this version.
 
 
 @newsItem
-@subsubheading LilyPond production named BEST EDITION 2014  @emph{March 11, 2014}
+@subheading LilyPond production named BEST EDITION 2014  @emph{March 11, 2014}
 
 We are thrilled to announce that the new edition of the songs of Oskar
 Fried (1871-1941), published recently by our fellow contributors Urs Liska
@@ -63,7 +63,7 @@ pledging a contribution at the Indiegogo campaign [5]!
 
 
 @newsItem
-@subsubheading Lilypond 2.18.0 released!  @emph{December 29, 2013}
+@subheading Lilypond 2.18.0 released!  @emph{December 29, 2013}
 
 We are proud to announce the release of GNU LilyPond 2.18.0.
 LilyPond is a music engraving program devoted to producing the
@@ -150,7 +150,7 @@ and numerous other contributors.
 @newsEnd
 
 @newsItem
-@subsubheading LilyPond blog.  @emph{June 2, 2013}
+@subheading LilyPond blog.  @emph{June 2, 2013}
 
 Janek Warchoł has created a LilyPond blog.  You can find it at
 @uref{http://lilypondblog.org/, lilypondblog.org}!
@@ -158,7 +158,7 @@ Janek Warchoł has created a LilyPond blog.  You can find it at
 @newsEnd
 
 @newsItem
-@subsubheading LilyPond 2.16.2 released!  @emph{January 4, 2013}
+@subheading LilyPond 2.16.2 released!  @emph{January 4, 2013}
 
 We are happy to announce the release of LilyPond 2.16.2. This release is mainly
 to correct a problem with lilypond-book running on Windows. We recommend that
@@ -167,7 +167,7 @@ only people requiring this functionality upgrade to this version.
 @newsEnd
 
 @newsItem
-@subsubheading The LilyPond Report #28.  @emph{November 12, 2012}
+@subheading The LilyPond Report #28.  @emph{November 12, 2012}
 
 The @uref{http://news.lilynet.net/?The-LilyPond-Report-28, October
 issue of the @emph{LilyPond Report}} focuses on the
@@ -191,7 +191,7 @@ encouraged!
 @newsEnd
 
 @newsItem
-@subsubheading LilyPond 2.16.1 released!  @emph{November 9, 2012}
+@subheading LilyPond 2.16.1 released!  @emph{November 9, 2012}
 
 We are happy to announce the release of LilyPond 2.16.1. This has a number of
 updates to the previous stable version, and should cause no problems. We
@@ -199,7 +199,7 @@ recommend that everybody upgrade to this version.
 @newsEnd
 
 @newsItem
-@subsubheading Lilypond 2.16.0 released!  @emph{August 24, 2012}
+@subheading Lilypond 2.16.0 released!  @emph{August 24, 2012}
 
 We are proud to announce the release of GNU LilyPond 2.16.1.
 LilyPond is a music engraving program, devoted to producing the
