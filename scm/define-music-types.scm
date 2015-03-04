@@ -317,6 +317,7 @@ Example: @code{\\mark \"A\"}")
     (MultiMeasureRestEvent
      . ((description . "Used internally by @code{MultiMeasureRestMusic}
 to signal rests.")
+        (iterator-ctor . ,ly:rhythmic-music-iterator::constructor)
         (types . (general-music event rhythmic-event
                                 multi-measure-rest-event))
         ))
