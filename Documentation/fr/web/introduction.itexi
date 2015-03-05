@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 30e2aa8813df8903dc553ae80c82b8461ffbb381
+    Translation of GIT committish: 181147f9ad3477cc873e195574b948249c490cff
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -96,16 +96,17 @@ pourront se concentrer sur leur @emph{jeu} plutôt que sur du
 
 @c Les traductions ne se compilent pas encore au format Info, il est
 @c donc inutile de traduire la colonne de droite du menu suivant. -JM
+@c Mais elle apparaît dans Emacs "M-x ewww-open-file" - JCM
 @divClass{hide}
 @menu
-* Fonctionnalités::            What can LilyPond do?
-* Exemples::                   I want to see some music!
-* Liberté::                    Freedom and the GPL.
-* Contexte::                   Computational aesthetics.
-* Productions::                Real-life use of LilyPond.
-* Témoignages::                What do people say about it?
-* Entrée sous forme de texte:: You write music as text?!
-* Facilités d'édition::        Other ways of working with LilyPond.
+* Fonctionnalités::            Ce dont LilyPond est capable.
+* Exemples::                   Quelques exemples concrets.
+* Liberté::                    De la liberté et de la GPL.
+* Contexte::                   L'esthétique assistée par ordinateur.
+* Productions::                Cas concrets d'utilisation de LilyPond.
+* Témoignages::                Ce que se dit de LilyPond.
+* Entrée sous forme de texte:: C'est du texte, pas de la musique !
+* Facilités d'édition::        Différentes méthodes de travail avec LilyPond.
 @end menu
 @divEnd
 
@@ -349,7 +350,7 @@ vous invitons à lire d'abord @ref{Entrée sous forme de texte}.
 
 @divClass{column-center-top}
 
-@subheading Beautiful examples
+@subheading La beauté par l'exemple
 
 LilyPond est un outil puissant et flexible, adapté à beaucoup de styles
 et systèmes de notation.  Parcourez notre galerie d'exemples et
