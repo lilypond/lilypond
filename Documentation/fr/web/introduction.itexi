@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 181147f9ad3477cc873e195574b948249c490cff
+    Translation of GIT committish: e692f41399fc6953aa800c99a8dbe7f59a9a064a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -356,18 +356,20 @@ LilyPond est un outil puissant et flexible, adapté à beaucoup de styles
 et systèmes de notation.  Parcourez notre galerie d'exemples et
 inspirez-vous en !
 
+@divEnd
 
-@newsItem
-@subsubheading Musique classique
+
+@divClass{column-center-middle-color2}
+@subheading Musique classique
 
 Cette pièce pour orgue de J.-S. Bach est représentative d'un travail
 basique de gravure avec LilyPond.
 
 @exampleImage{bach-bwv610}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Notation complexe
+@divClass{column-center-middle-color2}
+@subheading Notation complexe
 
 Cet exemple extrait de @emph{Goyescas} de Enrique Granados montre
 quelques-unes des fonctionnalités de gravure les plus avancées,
@@ -375,10 +377,10 @@ notamment les liens coudés, les hampes traversant les portées, et les
 lignes de suivi de voix.
 
 @exampleImage{granados}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Musique ancienne
+@divClass{column-center-middle-color2}
+@subheading Musique ancienne
 
 LilyPond prend également en charge plusieurs types de notation ancienne,
 en particulier grégorienne comme le montre cet exemple.
@@ -386,19 +388,19 @@ en particulier grégorienne comme le montre cet exemple.
 @exampleImage{ancient-headword}
 @newsEnd
 
-@newsItem
-@subsubheading Musique moderne
+@divClass{column-center-middle-color2}
+@subheading Musique moderne
 
 Certains compositeurs de musique contemporaine apprécient la capacité de
 LilyPond à s'adapter à des notations personnalisées.  L'exemple suivant
 est extrait de @emph{Čáry}, pour flûte basse seule, de Trevor Bača.
 
 @exampleImage{cary}
-@newsEnd
+@divEnd
 
 
-@newsItem
-@subsubheading Création efficace et flexible de matériels d'exécution
+@divClass{column-center-middle-color2}
+@subheading Création efficace et flexible de matériels d'exécution
 
 Divers matériels d'exécution -- conducteur, parties séparées --
 peuvent être créés à partir du même code source LilyPond.  Voici un
@@ -413,10 +415,10 @@ vocales, et une partie de violon.
 
 @exampleImage{sesto-violin}
 
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Tablature
+@divClass{column-center-middle-color2}
+@subheading Tablature
 
 LilyPond prend en charge la notation de tablature, qui peut être
 personnalisée pour n'importe quel instrument utilisant ce type de
@@ -424,10 +426,10 @@ notation.  La notation des tablatures est calculée automatiquement par
 LilyPond en fonction des hauteurs des notes.
 
 @exampleImage{tab-example}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Diagrammes de Schenker
+@divClass{column-center-middle-color2}
+@subheading Diagrammes de Schenker
 
 La notation musicale standard peut être grandement personnalisée, au
 point de créer un diagramme d'analyse schenkérienne comme celui-ci, créé
@@ -436,10 +438,10 @@ par Kris Schaffer pour un article du
 couleurs ont été ajoutés pour plus de visibilité.
 
 @exampleImage{bach-schenker}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Sortie personnalisée
+@divClass{column-center-middle-color2}
+@subheading Sortie personnalisée
 @c VO Customized Output
 
 Ce court extrait du Klavierstück II de Stockhausen illustre les
@@ -447,10 +449,10 @@ possibilités dont LilyPond dispose en matière de personnalisation d'une
 partition.
 
 @exampleImage{Stockhausen_Klavierstueck2}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Musique vocale
+@divClass{column-center-middle-color2}
+@subheading Musique vocale
 
 LilyPond excelle dans la gravure de toute sorte de musique vocale, du
 chant sacré à l'opéra.  Voici un motet médiéval qui présente quelques
@@ -462,19 +464,19 @@ les hampes barrées indiquant des notes plicaturées, et les crochets de
 ligature sur certains groupes de notes.
 
 @exampleImage{aucun-snippet}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Applications pédagogiques
+@divClass{column-center-middle-color2}
+@subheading Applications pédagogiques
 
 LilyPond est également adapté à une utilisation à des fins
 pédagogiques.  Voici par exemple un exercice de contrepoint.
 
 @exampleImage{theory}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Musique pop
+@divClass{column-center-middle-color2}
+@subheading Musique pop
 
 Il est facile de créer des partitions de chansons pop avec la mélodie,
 les paroles, les chiffrages d'accords et les diagrammes de frettes.
@@ -482,10 +484,10 @@ Vous pouvez voir des exemples de tels diagrammes qui sont prédéfinis,
 mais il est possible de les personnaliser dans presque tous les cas.
 
 @exampleImage{chart}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Grands projets
+@divClass{column-center-middle-color2}
+@subheading Grands projets
 
 LilyPond excelle également dans les grands projets tels qu'un opéra ou
 une œuvre pour grand orchestre symphonique.  De plus, l'entrée sous
@@ -493,7 +495,6 @@ forme de texte offre une meilleure accessibilité -- cet exemple est
 extrait de l'œuvre de Hu Haipeng, compositeur aveugle.
 
 @exampleImage{orchestra}
-@newsEnd
 
 @divEnd
 
@@ -526,7 +527,7 @@ d'euros dépensés pour acheter une licence d'utilisation d'un logiciel !
 
 
 @c @divClass{column-left-top}
-@divClass{color2}
+@divClass{column-center-middle-color2}
 @divClass{keep-bullets}
 @subheading Les bénéfices pour les utilisateurs
 
@@ -572,7 +573,7 @@ effectivement disponible afin d'être copié, modifié et distribué.
 
 
 @c @divClass{column-right-top}
-@divClass{color3}
+@divClass{column-center-middle-color3}
 @divClass{keep-bullets}
 @subheading Pourquoi les développeurs de LilyPond « donnent-ils » leur travail gratuitement ?
 
@@ -1158,6 +1159,7 @@ Lisez @ref{Entrée sous forme de texte}.
 @c http://lilypond.org/web/switch/howto
 
 
+@divClass{column-center-top}
 @subheading « Compilation » de la musique
 @c VO Compiling Music
 
@@ -1275,6 +1277,8 @@ D'autres programmes proposent même une interface utilisateur graphique
 (GUI) qui permet la manipulation directe des objets graphiques d'une
 partition.  Pour plus de détails, voir @ref{Facilités d'édition}.
 
+@divEnd
+
 
 @divClass{column-center-bottom}
 @subheading Et ensuite ?
@@ -1359,7 +1363,7 @@ LilyBin vous permet de saisir en ligne vos partitions sans avoir
 préalablement installé LilyPond sur votre oridnateur.
 
 
-@subheading Tunefl
+@subsubheading Tunefl
 
 @uref{http://www.tunefl.com}
 
@@ -1408,6 +1412,9 @@ développement intégré (IDE).  Il existe un @emph{mode LilyPond} qui
 offre quelques fonctionnalités spécifiques pour travailler avec des
 fichiers source LilyPond.  L'un des développeurs a même écrit un mode
 majeur pour Emacs, @uref{https://github.com/nsceaux/lyqi,lyqi}.
+
+Vous trouverez plus d'information quant au paramétrage d'Emacs au
+chapitre @rprogram{LilyPond et les éditeurs de texte}.
 
 
 @subsubheading Vim
@@ -1581,7 +1588,10 @@ donnée par LilyPond, ou revoir les @ref{Témoignages} ou
 approche de la technique informatique au service de la gravure musicale
 dans la partie @ref{Contexte}.
 
+@divEnd
 
+
+@divClass{column-center-bottom}
 @subheading Mentions légales
 
 @divClass{legal}

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: febe2e4ff91dda9227e85274ae045e23c6b4ec28
+    Translation of GIT committish: e692f41399fc6953aa800c99a8dbe7f59a9a064a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -49,7 +49,7 @@ lire @ref{Entrée sous forme de texte}.}
 @itemize
 
 @item
-@c TODO: duplicate to avoid underlined refs in HTML?  icky.
+@c ref is duplicated to avoid underlining ref as image.
 @ref{Unix, @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}}
 @ref{Unix, Unix (GNU/Linux et FreeBSD)}
@@ -88,7 +88,7 @@ version instable la plus récente
 
 @divEnd
 
-@divClass{column-center-bottom}
+@divClass{column-center-middle-color2}
 
 @subheading Licence logicielle
 
@@ -97,7 +97,7 @@ LilyPond est publié selon les termes de la
 @divEnd
 
 
-@divClass{color1}
+@divClass{column-center-bottom}
 
 @subheading Sponsors
 
@@ -108,6 +108,10 @@ bande passante.
 @sourceimage{VTlogo_ITF,,,}
 @sourceimage{lao_banner_06_on_white_demo,,,}
 
+@divEnd
+
+
+@divClass{column-center-bottom}
 @subheading Mention légale
 
 @divClass{legal}
@@ -242,7 +246,6 @@ sh lilypond-@versionStable{}-OS-TYPE.sh --help
 @divClass{legal}
 Tous les logos et images des produits sont des marques déposées ou sont
 protégés par le droit d’auteur.
-
 
 @logoLegalLinux
 
@@ -418,7 +421,7 @@ protégés par le droit d’auteur.
 @item
 @sourceimage{logo-windows,,,}
 @downloadStableWindows
-Pour Windows ME, NT, 2000, XP, Vista, Windows 7 et 8.
+Pour Windows 2000, XP, Vista, Windows 7 et 8.
 
 @end itemize
 
@@ -518,7 +521,6 @@ lilypond test.ly
 @divEnd
 
 
-@divClass{column-left-top}
 @divClass{column-center-bottom}
 @subheading Mention légale
 

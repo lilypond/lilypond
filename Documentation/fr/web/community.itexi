@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: c054eb280fd9953596eb164f67b0f9d5555c5a32
+    Translation of GIT committish: e692f41399fc6953aa800c99a8dbe7f59a9a064a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -948,9 +948,9 @@ feront acte de candidature pour les éditions futures.
 @divEnd
 
 
-@divClass{column-center-bottom}
+@divClass{column-center-middle-color2}
 @subheading Recensement de nos idées
-
+@c VO Our Ideas List
 Voici les projets que nous avons proposés aux étudiants du GSoC 2012.
 Nous avons décidé de maintenir en ligne cette page du site, comme source
 d'inspiration pour ceux qui seraient intéressés au développement de
@@ -964,7 +964,9 @@ atteler.
 Une liste exhaustive des problèmes est disponible
 @uref{http://code.google.com/p/lilypond/issues/list, ici}.
 
+@divEnd
 
+@divClass{column-center-middle-color3}
 @subheading Notes d'ornement @emph{(grace notes)}
 
 Résolution des problèmes de synchronisation des notes d'ornement.  Les
@@ -977,7 +979,10 @@ lorsqu'elles interviennent dans une portée seulement.
 @strong{Recommandé :} familiarité avec les arcanes de LilyPond
 @strong{Mentors :} Mike Solomon, Carl Sorensen
 
+@divEnd
 
+
+@divClass{column-center-middle-color3}
 @subheading MusicXML
 
 Amélioration des fonctionnalités d'import et d'export :
@@ -1018,7 +1023,10 @@ de mise en forme pour tout objet de rendu dans les  balises XML.
 La connaissance d'autres éditeurs de partition, dans un but de tests
 comparatifs, constituerait une aide.
 
+@divEnd
 
+
+@divClass{column-center-middle-color3}
 @subheading Amélioration des liaisons
 
 Le galbe par défaut des liaisons n'est souvent pas pleinement
@@ -1032,7 +1040,10 @@ du résultat optimal et l'écriture du code approprié.
 @strong{Connaissances appréciées :} LilyPond, sens de l'esthétique
 @strong{Mentor :} Mike Solomon
 
+@divEnd
 
+
+@divClass{column-center-middle-color3}
 @subheading Ajout de variantes pour certains glyphes
 
 Il s'agit ici de pouvoir disposer de variantes, sur la ligne ou entre
@@ -1058,7 +1069,10 @@ interligne ».
 @strong{Connaissance appréciée :} les bases de LilyPond
 @strong{Mentor :} Werner Lemberg
 
+@divEnd
 
+
+@divClass{column-center-middle-color3}
 @subheading Amélioration du positionnement par défaut des ligatures
 
 Une ligature, qu'elle soit rectiligne, passe d'une portée à l'autre,
@@ -1073,7 +1087,10 @@ le temps de calcul nécessaire à la génération des ligatures.
 @strong{Connaissance appréciée :} sens de l'esthétique
 @strong{Mentors :} Mike Solomon, Carl Sorensen
 
+@divEnd
 
+
+@divClass{column-center-middle-color3}
 @subheading Aide à l'amélioration du comportement lors de la compilation
 
 Les outils d'analyse comme @emph{valgrind} pour la détection de fuites
