@@ -738,7 +738,6 @@
           (filter
            (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
            (ly:music-property belownote 'elements)))
-         (display belownote)
 
          (let* ((mordentMusic (make-sequential-music (list gracenote belownote music)))
                 (newlen (ly:music-length mordentMusic))
