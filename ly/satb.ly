@@ -79,19 +79,19 @@ PartInstrumentName or its default."
       (if (defined? sname)
         sname
         `(substring (defaulting ,(sym part "InstrumentName") ,part)
-	            0 1)))
+                    0 1)))
     ""))
 
 #(defmacro lyrics-if-defined (name voice . optionals)
   (let ((above (if (pair? optionals) (car optionals) #f)))
     (if (defined? name)
       `(make-music 'ContextSpeccedMusic
-	 'create-new #t
-	 'context-type 'Lyrics
-	 'property-operations ',(if above `((assign alignAboveContext ,above)) '())
-	 'element (make-music 'LyricCombineMusic
-		   'associated-context ,voice
-		   'element ,name))
+         'create-new #t
+         'context-type 'Lyrics
+         'property-operations ',(if above `((assign alignAboveContext ,above)) '())
+         'element (make-music 'LyricCombineMusic
+                   'associated-context ,voice
+                   'element ,name))
       #{#})))
 
 #(defmacro one-voice-staff (name clef)
@@ -105,9 +105,9 @@ PartInstrumentName or its default."
        #(defaulting Key)
        \clef #(identity ,clef)
        \new Voice = #(identity ,name) <<
-	 #(defaulting Time)
-	 \dynamicUp
-	 #(defaulting ,(sym name "Music"))
+         #(defaulting Time)
+         \dynamicUp
+         #(defaulting ,(sym name "Music"))
        >>
      }
      #(lyrics-if-defined ,(sym name "Lyrics") ,name)
@@ -124,23 +124,23 @@ PartInstrumentName or its default."
         #(defaulting ,(sym v2name "InstrumentName") ,v2name)
       }
       shortInstrumentName = \markup \right-column \smallCaps {
-	#(short-name ,v1name)
-	#(short-name ,v2name)
+        #(short-name ,v1name)
+        #(short-name ,v2name)
       }
       midiInstrument = "clarinet"
     } <<
       #(defaulting Key)
       \clef #(identity ,clef)
       \new Voice = #(identity ,v1name) <<
-	#(defaulting Time)
-	\voiceOne
-	\dynamicUp
-	#(defaulting ,(sym v1name "Music"))
+        #(defaulting Time)
+        \voiceOne
+        \dynamicUp
+        #(defaulting ,(sym v1name "Music"))
       >>
       \new Voice = #(identity ,v2name) <<
-	#(defaulting Time)
-	\voiceTwo
-	#(defaulting ,(sym v2name "Music"))
+        #(defaulting Time)
+        \voiceTwo
+        #(defaulting ,(sym v2name "Music"))
       >>
     >>
     #(lyrics-if-defined ,(sym v1name "Lyrics") ,v1name ,name)
@@ -165,7 +165,7 @@ SATB = <<
     #(if (defaulting TwoVoicesPerStaff #f)
       (two-voice-staff "Women" "treble" "Soprano" "Alto")
       (make-simultaneous-music (list (one-voice-staff "Soprano" "treble")
-				     (one-voice-staff "Alto" "treble"))))
+                                     (one-voice-staff "Alto" "treble"))))
 
     #(lyrics-if-defined VerseOne "Soprano")
     #(lyrics-if-defined VerseTwo "Soprano")
@@ -180,7 +180,7 @@ SATB = <<
     #(if (defaulting TwoVoicesPerStaff #f)
       (two-voice-staff "Men" "bass" "Tenor" "Bass")
       (make-simultaneous-music (list (one-voice-staff "Tenor" "treble_8")
-				     (one-voice-staff "Bass" "bass"))))
+                                     (one-voice-staff "Bass" "bass"))))
   >>  % End ChoirStaff
 
   \new PianoStaff
@@ -196,8 +196,8 @@ SATB = <<
       \clef "treble"
       #(defaulting Key)
       \new Voice <<
-	#(defaulting Time)
-	#(defaulting PianoRHMusic)
+        #(defaulting Time)
+        #(defaulting PianoRHMusic)
       >>
     }
     \new Dynamics {
@@ -207,8 +207,8 @@ SATB = <<
       \clef "bass"
       #(defaulting Key)
       \new Voice <<
-	#(defaulting Time)
-	#(defaulting PianoLHMusic)
+        #(defaulting Time)
+        #(defaulting PianoLHMusic)
       >>
     }
   >>
@@ -225,4 +225,3 @@ SATB = <<
   \keepWithTag #'play \SATB
   \midi { }
 }
-

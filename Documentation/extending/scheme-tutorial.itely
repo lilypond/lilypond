@@ -1264,7 +1264,7 @@ The note pitch can be changed by setting this @code{'pitch} property,
        (ly:make-pitch 0 1 0)) ;; set the pitch to d'.
 \displayLilyMusic \someNote
 ===>
-d'
+d'4
 @end example
 
 

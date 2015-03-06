@@ -199,11 +199,10 @@ Rest::glyph_name (Grob *me, int durlog, const string &style, bool try_ledgers,
         actual_style = "";
     }
 
-  if ((style == "classical") && (durlog != 2))
+  if (((style == "classical") || (style == "z")) && (durlog != 2))
     {
       /*
-        classical style: revert back to default style for any rest other
-        than quarter rest
+        these styles differ from the default in quarter rests only
       */
       actual_style = "";
     }

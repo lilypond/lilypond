@@ -20,4 +20,3 @@
 \midi {
 	\include "performer-init.ly"
 }
-

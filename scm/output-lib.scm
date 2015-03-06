@@ -26,6 +26,33 @@
 (define-public (grob::is-live? grob)
   (pair? (ly:grob-basic-properties grob)))
 
+(define-public (grob::name grob)
+  "Return the name of the grob @var{grob} as a symbol."
+  (assq-ref (ly:grob-property grob 'meta) 'name))
+
+(define-public (grob::rhythmic-location grob)
+  "Return a pair consisting of the measure number and moment within
+   the measure of grob @var{grob}."
+  (let* (; all grobs support either spanner- or item-interface
+         (item (if (grob::has-interface grob 'spanner-interface)
+                   (ly:spanner-bound grob LEFT)
+                   grob))
+         (col (ly:item-get-column item)))
+    (if (ly:grob? col)
+        (ly:grob-property col 'rhythmic-location)
+        '())))
+
+(define-public (grob::when grob)
+  "Return the global timestep (a moment) of grob @var{grob}."
+  (let* (; all grobs support either spanner- or item-interface
+         (item (if (grob::has-interface grob 'spanner-interface)
+                   (ly:spanner-bound grob LEFT)
+                   grob))
+         (col (ly:item-get-column item)))
+    (if (ly:grob? col)
+        (ly:grob-property col 'when)
+        '())))
+
 (define-public (make-stencil-boxer thickness padding callback)
   "Return function that adds a box around the grob passed as argument."
   (lambda (grob)
@@ -1367,7 +1394,7 @@ parent or the parent has no setting."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; measure counter
 
-(define (measure-counter-stencil grob)
+(define-public (measure-counter-stencil grob)
   "Print a number for a measure count.  The number is centered using
 the extents of @code{BreakAlignment} grobs associated with the left and
 right bounds of a @code{MeasureCounter} spanner.  Broken measures are

@@ -53,12 +53,14 @@ a[name="Unstable"] + h4 {
 }
 
 .column-left-top h3,
-.column-left-bottom h3 {
+.column-left-bottom h3,
+.column-center-middle-color2 h3 {
   background: #adce82 url(../pictures/color2-bg.png) repeat-x top left;
 }
 
 .column-right-top h3,
-.column-right-bottom h3 {
+.column-right-bottom h3,
+.column-center-middle-color3 h3 {
   background: #bdd088 url(../pictures/color3-bg.png) repeat-x top left;
 }
 

@@ -89,4 +89,4 @@ defaultStringTunings = #(reverse! defaultStringTunings)
 
 %% convert 5-string banjo tuning to 4-string by removing the 5th string
 four-string-banjo = #(lambda (tuning)
-			 (take tuning 4))
+                         (take tuning 4))

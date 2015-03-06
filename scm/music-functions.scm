@@ -234,8 +234,7 @@ which often can be read back in order to generate an equivalent expression."
   "Display the music expression using LilyPond syntax"
   (memoize-clef-names supported-clefs)
   (parameterize ((*indent* 0)
-                 (*previous-duration* (ly:make-duration 2))
-                 (*force-duration* force-duration))
+                 (*omit-duration* #f))
                 (display (music->lily-string expr parser) port)
                 (newline port)))
 

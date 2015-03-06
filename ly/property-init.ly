@@ -200,10 +200,10 @@ easyHeadsOff = {
 
 fermataMarkup =
 #(make-music 'MultiMeasureTextEvent
-	     ;; Set the 'text based on the 'direction
-	     'text (make-fermata-markup)
+             ;; Set the 'text based on the 'direction
+             'text (make-fermata-markup)
              'tweaks '((outside-staff-priority . 40)
-		       (outside-staff-padding . 0)))
+                       (outside-staff-padding . 0)))
 
 %% font sizes
 
@@ -424,10 +424,10 @@ phrasingSlurDotted =
   \override PhrasingSlur.dash-definition = #'((0 1 0.1 0.75))
 phrasingSlurHalfDashed =
   \override PhrasingSlur.dash-definition = #'((0 0.5 0.4 0.75)
-						(0.5 1 1 1))
+                                                (0.5 1 1 1))
 phrasingSlurHalfSolid =
   \override PhrasingSlur.dash-definition = #'((0 0.5 1 1)
-						(0.5 1 0.4 0.75))
+                                                (0.5 1 0.4 0.75))
 phrasingSlurSolid =
   \revert PhrasingSlur.dash-definition
 
@@ -508,9 +508,9 @@ ratio of line to space repeated at @var{dash-period} interval for slurs.")
 slurDashed     = \override Slur.dash-definition = #'((0 1 0.4 0.75))
 slurDotted     = \override Slur.dash-definition = #'((0 1 0.1 0.75))
 slurHalfDashed = \override Slur.dash-definition = #'((0 0.5 0.4 0.75)
-						       (0.5 1 1 1))
+                                                       (0.5 1 1 1))
 slurHalfSolid  = \override Slur.dash-definition = #'((0 0.5 1 1)
-						       (0.5 1 0.4 0.75))
+                                                       (0.5 1 0.4 0.75))
 slurSolid      = \revert Slur.dash-definition
 
 
@@ -663,9 +663,9 @@ ratio of line to space repeated at @var{dash-period} interval for ties.")
 tieDashed     = \override Tie.dash-definition = #'((0 1 0.4 0.75))
 tieDotted     = \override Tie.dash-definition = #'((0 1 0.1 0.75))
 tieHalfDashed = \override Tie.dash-definition = #'((0 0.5 0.4 0.75)
-						     (0.5 1 1 1))
+                                                     (0.5 1 1 1))
 tieHalfSolid  = \override Tie.dash-definition = #'((0 0.5 1 1)
-						     (0.5 1 0.4 0.75))
+                                                     (0.5 1 0.4 0.75))
 tieSolid      = \revert Tie.dash-definition
 
 

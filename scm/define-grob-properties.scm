@@ -637,6 +637,11 @@ this long, normally in the horizontal direction.  This requires an
 appropriate callback for the @code{springs-and-rods} property.  If
 added to a @code{Tie}, this sets the minimum distance between
 noteheads.")
+     (minimum-length-after-break ,ly:dimension? "If set, try to make
+a broken spanner starting a line this long.  This requires an
+appropriate callback for the @code{springs-and-rods} property.  If
+added to a @code{Tie}, this sets the minimum distance to the
+notehead.")
      (minimum-length-fraction ,number? "Minimum length of ledger line
 as fraction of note head size.")
      (minimum-space ,ly:dimension? "Minimum distance that the victim
@@ -1124,8 +1129,7 @@ one below this grob.")
 ;;;
 ;;; w
 ;;;
-     (when ,ly:moment? "Global time step associated with this column
-happen?")
+     (when ,ly:moment? "Global time step associated with this column.")
      (whiteout ,boolean? "If true, the grob is printed over a white
 background to white-out underlying material, if the grob is visible.
  Usually #f by default.")
@@ -1254,7 +1258,8 @@ empty in a particular staff, then that staff is erased.")
      (keep-alive-with ,ly:grob-array? "An array of other
 @code{VerticalAxisGroup}s.  If any of them are alive, then we will stay alive.")
 
-     (left-items ,ly:grob-array? "DOCME")
+     (left-items ,ly:grob-array? "Grobs organized on the left by a spacing
+object.")
      (left-neighbor ,ly:grob? "The right-most column that has a spacing-wish
 for this column.")
 
@@ -1285,7 +1290,8 @@ relevant for finding the @code{pure-Y-extent}.")
      (rest ,ly:grob? "A pointer to a @code{Rest} object.")
      (rest-collision ,ly:grob? "A rest collision that a rest is in.")
      (rests ,ly:grob-array? "An array of rest objects.")
-     (right-items ,ly:grob-array? "DOCME")
+     (right-items ,ly:grob-array? "Grobs organized on the right by
+a spacing object.")
      (right-neighbor ,ly:grob? "See @code{left-neighbor}.")
 
      (scripts ,ly:grob-array? "An array of @code{Script} objects.")

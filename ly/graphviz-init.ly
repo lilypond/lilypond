@@ -26,7 +26,7 @@
 
 #(define (grob-name g)
   (let* ((meta (ly:grob-property g 'meta))
-	 (name-pair (assq 'name meta)))
+         (name-pair (assq 'name meta)))
    (if (pair? name-pair)
        (cdr name-pair)
        #f)))
@@ -51,7 +51,7 @@
 
 #(define (grob-event-node grob label cluster)
   (let ((node-id (add-node graph label cluster))
-	(prev (assv grob last-grob-action)))
+        (prev (assv grob last-grob-action)))
    (if (pair? prev)
        (add-edge graph (cdr prev) node-id))
    (set! last-grob-action (assv-set! last-grob-action grob node-id))))
@@ -62,13 +62,13 @@
 
 #(define (grob-mod grob file line func prop val)
   (let* ((val-str (truncate-value val))
-	 (label (format #f "~a\\n~a:~a\\n~a <- ~a" (grob-name grob) file line prop val-str)))
+         (label (format #f "~a\\n~a:~a\\n~a <- ~a" (grob-name grob) file line prop val-str)))
    (if (relevant? grob file line prop)
        (grob-event-node grob label file))))
 
 #(define (grob-cache grob prop callback value)
   (let* ((val-str (truncate-value value))
-	 (label (format #f "caching ~a.~a\\n~a -> ~a" (grob-name grob) prop callback value)))
+         (label (format #f "caching ~a.~a\\n~a -> ~a" (grob-name grob) prop callback value)))
    (if (relevant? grob #f #f prop)
        (grob-event-node grob label #f))))
 

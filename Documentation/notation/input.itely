@@ -3413,7 +3413,7 @@ line.  For example,
 will display
 
 @example
-@{ a,4 cis e fis g @}
+@{ a,4 cis4 e4 fis4 g4 @}
 @end example
 
 By default, LilyPond will print these messages to the console

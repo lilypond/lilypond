@@ -307,48 +307,49 @@ already decided to try LilyPond, first read about our
 LilyPond is a powerful and flexible tool for engraving tasks of
 all kinds.  Please browse our gallery of examples and be inspired!
 
+@divEnd
 
-@newsItem
-@subsubheading Classical Music
+@divClass{column-center-middle-color2}
+@subheading Classical Music
 
 This organ work by J.S. Bach is a fairly typical engraving project
 in LilyPond.
 
 @exampleImage{bach-bwv610}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Complex Notation
+@divClass{column-center-middle-color2}
+@subheading Complex Notation
 
 This example from @emph{Goyescas} by Enrique Granados shows some
 of the more advanced features of typesetting, including kneed
 beams, cross-staff stems, and voice-follow lines.
 
 @exampleImage{granados}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Early Music
+@divClass{column-center-middle-color2}
+@subheading Early Music
 
 LilyPond also supports various types of ancient notation, such
 as this passage of Gregorian chant.
 
 @exampleImage{ancient-headword}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Modern Music
+@divClass{column-center-middle-color2}
+@subheading Modern Music
 
 Contemporary composers find LilyPond well-suited to displaying
 unusual notation.  Here is an excerpt from Trevor Bača's
 @emph{Čáry}, for unaccompanied bass flute.
 
 @exampleImage{cary}
-@newsEnd
+@divEnd
 
 
-@newsItem
-@subsubheading Efficient, flexible creation of performance materials
+@divClass{column-center-middle-color2}
+@subheading Efficient, flexible creation of performance materials
 
 Various performance materials can be created from the same source
 code.  This is an excerpt of @uref{http://nicolas.sceaux.free.fr/,
@@ -361,10 +362,10 @@ full score, piano-vocal reduction, and a violin part.
 
 @exampleImage{sesto-violin}
 
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Tablature
+@divClass{column-center-middle-color2}
+@subheading Tablature
 
 LilyPond supports tablature notation, which can be customized to
 suit any instrument that reads from tablature.  The tablature
@@ -372,10 +373,10 @@ staff is generated automatically from notes entered for the 5-line
 staff.
 
 @exampleImage{tab-example}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Schenker Graphs
+@divClass{column-center-middle-color2}
+@subheading Schenker Graphs
 
 Standard output can be modified heavily.  Here is an impressive
 Schenkerian analysis, created by Kris Schaffer, for an article
@@ -383,19 +384,19 @@ in @uref{http://www.linuxjournal.com/article/8364 , Linux Journal}.
 The colors have been added for better visibility.
 
 @exampleImage{bach-schenker}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Customized Output
+@divClass{column-center-middle-color2}
+@subheading Customized Output
 
 A short excerpt from Stockhausen's Klavierstück II to demonstrate
 Lilypond's ability to provide customised output.
 
 @exampleImage{Stockhausen_Klavierstueck2}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Vocal Music
+@divClass{column-center-middle-color2}
+@subheading Vocal Music
 
 LilyPond is excellent for vocal music of all kinds, from sacred
 hymns to opera.  Here is a medieval motet with slightly unusual
@@ -406,19 +407,19 @@ Vaticana style clefs, the slashed stems indicating plicated notes,
 and the ligature braces above certain groups of notes.
 
 @exampleImage{aucun-snippet}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Educational Applications
+@divClass{column-center-middle-color2}
+@subheading Educational Applications
 
 LilyPond is perfectly suited for educational purposes as well.
 Here is an example of a simple counterpoint exercise.
 
 @exampleImage{theory}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Popular Music
+@divClass{column-center-middle-color2}
+@subheading Popular Music
 
 It is simple to create pop lead sheets with melody, lyrics,
 chord names, and fretboards.  In this example you see some of the
@@ -426,10 +427,10 @@ predefined fretboard diagrams, but these can be heavily customized
 to suit nearly any situation.
 
 @exampleImage{chart}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Large Projects
+@divClass{column-center-middle-color2}
+@subheading Large Projects
 
 LilyPond is excellent for large projects like operas or works for
 full symphony orchestra, as well.  In addition, the text-based
@@ -437,8 +438,6 @@ input provides greater accessibility -- this example was
 contributed by Hu Haipeng, a blind composer.
 
 @exampleImage{orchestra}
-@newsEnd
-
 @divEnd
 
 @divClass{column-center-bottom}
@@ -466,7 +465,7 @@ not require hundreds of dollars of software!
 
 
 @c @divClass{column-left-top}
-@divClass{color2}
+@divClass{column-center-middle-color2}
 @divClass{keep-bullets}
 @subheading What are the benefits to users?
 
@@ -507,7 +506,7 @@ available for copying, modifications, and distribution.
 
 
 @c @divClass{column-right-top}
-@divClass{color3}
+@divClass{column-center-middle-color3}
 @divClass{keep-bullets}
 @subheading Why do LilyPond developers @qq{give away} their work for free?
 
@@ -1073,6 +1072,7 @@ Read about our @ref{Text input}.
 @c TRANSLATORS, so far it's mostly from
 @c http://lilypond.org/web/switch/howto
 
+@divClass{column-center-top}
 @subheading @qq{Compiling} Music
 
 @imageClickable{nereid-shot-small,png, (click to enlarge), nereid-shot,png, right}
@@ -1181,7 +1181,7 @@ command completion, and pre-made templates.  Other programs
 actually provide a GUI which allows direct manipulation of a
 graphical score.  For more information, see @ref{Easier editing}.
 
-
+@divEnd
 
 @divClass{column-center-bottom}
 @subheading Where now?
@@ -1305,7 +1305,7 @@ with LilyPond source files.  A developer  has written
 If you are not already familiar with Emacs then you may probably prefer
 to use a different editor for writing LilyPond input files.
 
-More information on setting up Vim can be found in
+More information on setting up Emacs can be found in
 @rprogram{Text editor support}.
 
 @subsubheading Vim
@@ -1465,7 +1465,10 @@ like to review the @ref{Features}, @ref{Examples}, or the
 approach to the computational aesthetics of classical engraving is
 explained in our @ref{Background}.
 
+@divEnd
 
+
+@divClass{column-center-bottom}
 @subheading Legalese
 
 @divClass{legal}

@@ -32,7 +32,7 @@
 %%%USAGE
 % In the \score section do:
 % \articulate <<
-%	all the rest of the score
+%       all the rest of the score
 % >>
 % or use the lilywrap script.
 %
@@ -66,8 +66,8 @@
 %   -- accent needs better control of dynamics.
 %   -- Articulations: mezzo-staccato, portato.
 %   -- Handling of generic ornaments (in lily, `\stopped'; in
-%		most early music:  ornament this note (trill, turn
-%		or mordent as the player wishes))
+%               most early music:  ornament this note (trill, turn
+%               or mordent as the player wishes))
 % * Automatic gruppetto at end of trill; better handling of
 %      initial/final grace notes on trill
 % * Automatic ornaments.
@@ -209,8 +209,8 @@
        #t)
       (begin
        (if (any (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
-		(ly:music-property lastev 'elements))
-	(ly:warning (_ "stealing the entirety of a note's time")))
+                (ly:music-property lastev 'elements))
+        (ly:warning (_ "stealing the entirety of a note's time")))
        (set! (ly:music-property lastev 'elements) '())
        (set! ac:eventsBackward (cdr ac:eventsBackward))
        (ac:stealTimeBackward (- tosteal levlen))))))))
@@ -236,12 +236,12 @@
 % Raise note one step in the current diatonic scale.
 #(define (ac:up note)
   (let* ((pitch (ly:music-property note 'pitch))
-	 (notename (ly:pitch-notename pitch))
-	 (new-notename (if (eq? notename 6) 0 (+ 1 notename)))
-	 (alterations (ly:music-property ac:current-key 'pitch-alist))
-	 (new-alteration (cdr (assq new-notename alterations)))
-	 (new-octave (if (eq? new-notename 0) (+ 1 (ly:pitch-octave pitch))
-		      (ly:pitch-octave pitch)))
+         (notename (ly:pitch-notename pitch))
+         (new-notename (if (eq? notename 6) 0 (+ 1 notename)))
+         (alterations (ly:music-property ac:current-key 'pitch-alist))
+         (new-alteration (cdr (assq new-notename alterations)))
+         (new-octave (if (eq? new-notename 0) (+ 1 (ly:pitch-octave pitch))
+                      (ly:pitch-octave pitch)))
        )
    (set! (ly:music-property note 'pitch)(ly:make-pitch new-octave new-notename new-alteration))))
 
@@ -249,12 +249,12 @@
 % Lower note one step in the current diatonic scale.
 #(define (ac:down note)
   (begin  (let* ((pitch (ly:music-property note 'pitch))
-	 (notename (ly:pitch-notename pitch))
-	 (new-notename (if (eq? notename 0) 6 (- notename 1)))
-	 (alterations (ly:music-property ac:current-key 'pitch-alist))
-	 (new-alteration (cdr (assq new-notename alterations)))
-	 (new-octave (if (eq? new-notename 6) (- (ly:pitch-octave pitch) 1)
-		      (ly:pitch-octave pitch)))
+         (notename (ly:pitch-notename pitch))
+         (new-notename (if (eq? notename 0) 6 (- notename 1)))
+         (alterations (ly:music-property ac:current-key 'pitch-alist))
+         (new-alteration (cdr (assq new-notename alterations)))
+         (new-octave (if (eq? new-notename 6) (- (ly:pitch-octave pitch) 1)
+                      (ly:pitch-octave pitch)))
        )
    (set! (ly:music-property note 'pitch)(ly:make-pitch new-octave new-notename new-alteration))))
 )
@@ -293,11 +293,11 @@
 % Used in afterGrace to mark all notes as tenuto, so they're not shortened
 #(define (ac:add-articulation type music)
     (music-map (lambda (m)
-		(if (eq? 'EventChord (ly:music-property m 'name))
-		 (set! (ly:music-property m 'elements)
-		  (append (ly:music-property m 'elements)
-		   (list (make-music 'ArticulationEvent 'articulation-type type)))))
-		m)
+                (if (eq? 'EventChord (ly:music-property m 'name))
+                 (set! (ly:music-property m 'elements)
+                  (append (ly:music-property m 'elements)
+                   (list (make-music 'ArticulationEvent 'articulation-type type)))))
+                m)
      music))
 
 % Convert a long note to an equivalent set of short notes, tied together.
@@ -308,17 +308,17 @@
 
 #(define (ac:to128_disabled music)
   (if (or (eq? 'SkipEvent (ly:music-property music 'name))
-	(eq? 'NoteEvent (ly:music-property music 'name)))
+        (eq? 'NoteEvent (ly:music-property music 'name)))
    (let* ((dur (ly:music-property music 'duration))
-	  (log2 (ly:duration-log dur))
-	 (shiftcount (- 6 log2))
-	 (lastm (ly:music-deep-copy (shift-duration-log music shiftcount 0))))
+          (log2 (ly:duration-log dur))
+         (shiftcount (- 6 log2))
+         (lastm (ly:music-deep-copy (shift-duration-log music shiftcount 0))))
    (set! (ly:music-property music 'elements)
     (cons (make-music 'TieEvent) (ly:music-property music 'elements)))
    (make-sequential-music (list
-			   (make-repeat "unfold" (1- (expt 2 shiftcount))
-			    (make-sequential-music (list music)) '())
-			   lastm)))
+                           (make-repeat "unfold" (1- (expt 2 shiftcount))
+                            (make-sequential-music (list music)) '())
+                           lastm)))
  music))
 
 
@@ -342,13 +342,13 @@
 % If the music has a precomputed twiddletime (e.g., from \afterGrace) use that.
 #(define (ac:twiddletime music)
   (let* ((tr (filter (lambda (x)
-		     (and (eq? 'ArticulationEvent (ly:music-property x 'name))
-		      (string= "trill" (ly:music-property x 'articulation-type))))
-	      (ly:music-property music 'elements)))
-	 (pre-t (if (pair? tr) (ly:music-property (car tr) 'twiddle)
-		 '()))
-	 (hemisemimom (ly:make-moment 1/64))
-	 (t (ac:targetTwiddleTime)))
+                     (and (eq? 'ArticulationEvent (ly:music-property x 'name))
+                      (string= "trill" (ly:music-property x 'articulation-type))))
+              (ly:music-property music 'elements)))
+         (pre-t (if (pair? tr) (ly:music-property (car tr) 'twiddle)
+                 '()))
+         (hemisemimom (ly:make-moment 1/64))
+         (t (ac:targetTwiddleTime)))
    (if (ly:moment? pre-t)
     pre-t
     hemisemimom)))
@@ -361,15 +361,15 @@
   " Replace music with time-compressed repeats of the music,
     maybe accelerating if the length is longer than a crotchet "
   (let* ((hemisemidur (ly:make-duration 5 0 1/1))
-	 (orig-len  (ly:music-length music))
-	 (t (ac:twiddletime music))
-	 (uppernote '())
-	 (note_moment (ly:moment-mul t (ly:make-moment 1/2)))
-	 (c1 (ly:moment-div orig-len t))
-	 (c2 (inexact->exact
-	      (round (/ (ly:moment-main-numerator c1)
-		      (* 2 (ly:moment-main-denominator c1))))))
-	 (count (if (< c2 2) 2 c2)))
+         (orig-len  (ly:music-length music))
+         (t (ac:twiddletime music))
+         (uppernote '())
+         (note_moment (ly:moment-mul t (ly:make-moment 1/2)))
+         (c1 (ly:moment-div orig-len t))
+         (c2 (inexact->exact
+              (round (/ (ly:moment-main-numerator c1)
+                      (* 2 (ly:moment-main-denominator c1))))))
+         (count (if (< c2 2) 2 c2)))
 
    (set! (ly:music-property music 'elements)
     (filter (lambda (y) (eq? 'NoteEvent (ly:music-property y 'name)))
@@ -383,20 +383,20 @@
      (ly:music-property uppernote 'elements)))
 
    (let* ((trillMusicElements
-	  (let loop ((so_far (list uppernote music))
-		     (c count))
-	   (if (> c 1)
-	    (loop (append (list (ly:music-deep-copy uppernote) (ly:music-deep-copy music)) so_far) (1- c))
-	    so_far)))
-	  (trillMusic (make-sequential-music trillMusicElements))
-	  (newlen (ly:music-length trillMusic))
-	  (factor (ly:moment-div  orig-len newlen)))
+          (let loop ((so_far (list uppernote music))
+                     (c count))
+           (if (> c 1)
+            (loop (append (list (ly:music-deep-copy uppernote) (ly:music-deep-copy music)) so_far) (1- c))
+            so_far)))
+          (trillMusic (make-sequential-music trillMusicElements))
+          (newlen (ly:music-length trillMusic))
+          (factor (ly:moment-div  orig-len newlen)))
     (ly:music-compress trillMusic factor)
 ; accelerating the music seems to put lily into an infinite loop in
 ; its layout and midi engines.
 ;    (let* ((realfactor (exp (* (/ 1.0 count) (log 0.75))))
-;	   (factor (ly:make-moment (inexact->exact (round (* 1024 realfactor)))
-;		    1024)))
+;          (factor (ly:make-moment (inexact->exact (round (* 1024 realfactor)))
+;                   1024)))
 ;     (ac:accel trillMusic factor))
  )))
 
@@ -418,10 +418,10 @@
 #(define (ac:tempoChange tempo)
   (make-sequential-music
    (list (make-music 'TempoChangeEvent
-	  'metronome-count
-	  tempo
-	  'tempo-unit
-	  (ly:make-duration 0 0 1/1))
+          'metronome-count
+          tempo
+          'tempo-unit
+          (ly:make-duration 0 0 1/1))
     (context-spec-music
     (make-property-set 'tempoWholesPerMinute  tempo) 'Score))))
 
@@ -441,53 +441,53 @@
      ((UnfoldedRepeatedMusic)
       (let
        ((body (ly:music-property m 'element))
-	(altl (ly:music-property m 'elements))
-	(rc (ly:music-property m 'repeat-count)))
+        (altl (ly:music-property m 'elements))
+        (rc (ly:music-property m 'repeat-count)))
        (if (null? altl)
-	(make-sequential-music
-	 (list-tabulate rc (lambda (i) (ly:music-deep-copy body))))
-	(let ((ealtl (if (> (length altl) rc) (take altl rc) altl)))
-	 (make-sequential-music
-	  (apply append!
-	   (append!
-	    (list-tabulate
-	     (- rc (length ealtl))
-	     (lambda (i) (list (ly:music-deep-copy body) (ly:music-deep-copy (car ealtl)))))
-	    (map (lambda (alt) (list (ly:music-deep-copy body) alt)) ealtl))))))))
+        (make-sequential-music
+         (list-tabulate rc (lambda (i) (ly:music-deep-copy body))))
+        (let ((ealtl (if (> (length altl) rc) (take altl rc) altl)))
+         (make-sequential-music
+          (apply append!
+           (append!
+            (list-tabulate
+             (- rc (length ealtl))
+             (lambda (i) (list (ly:music-deep-copy body) (ly:music-deep-copy (car ealtl)))))
+            (map (lambda (alt) (list (ly:music-deep-copy body) alt)) ealtl))))))))
      ((EventChord)
       (let-values
        (((trem evl)
-	 (partition (lambda (v) (eq? (ly:music-property v 'name) 'TremoloEvent))
-	  (ly:music-property m 'elements))))
+         (partition (lambda (v) (eq? (ly:music-property v 'name) 'TremoloEvent))
+          (ly:music-property m 'elements))))
        (if (null? trem)
-	m
-	(let*
-	 ((tremtype (ly:music-property (car trem) 'tremolo-type))
-	  (tremtype-log (1- (integer-length tremtype)))
-	  (durev (find (lambda (v) (not (null? (ly:music-property v 'duration)))) evl))
-	  (totaldur (if durev (ly:music-property durev 'duration) (ly:make-duration tremtype-log 0 1)))
-	  (tgt-nrep (/ (duration-visual-length totaldur) (duration-log-factor tremtype-log)))
-	  (eff-nrep (max (truncate tgt-nrep) 1))
-	  (tremdur (ly:make-duration tremtype-log 0
-		    (* (/ tgt-nrep eff-nrep) (ly:duration-scale totaldur)))))
-	 (or (and (= eff-nrep tgt-nrep) (= (ash 1 tremtype-log) tremtype))
-	  (ly:warning (_ "non-integer tremolo ~a:~a")
-	   (duration->lily-string (duration-visual totaldur) #:force-duration #t #:time-scale 1)
-	   tremtype))
-	 (for-each
-	  (lambda (v)
-	   (or (null? (ly:music-property v 'duration))
-	    (set! (ly:music-property v 'duration) tremdur)))
-	  evl)
-	 (set! (ly:music-property m 'elements) evl)
-	 (make-sequential-music
-	  (list-tabulate eff-nrep (lambda (i) (ly:music-deep-copy m))))))))
+        m
+        (let*
+         ((tremtype (ly:music-property (car trem) 'tremolo-type))
+          (tremtype-log (1- (integer-length tremtype)))
+          (durev (find (lambda (v) (not (null? (ly:music-property v 'duration)))) evl))
+          (totaldur (if durev (ly:music-property durev 'duration) (ly:make-duration tremtype-log 0 1)))
+          (tgt-nrep (/ (duration-visual-length totaldur) (duration-log-factor tremtype-log)))
+          (eff-nrep (max (truncate tgt-nrep) 1))
+          (tremdur (ly:make-duration tremtype-log 0
+                    (* (/ tgt-nrep eff-nrep) (ly:duration-scale totaldur)))))
+         (or (and (= eff-nrep tgt-nrep) (= (ash 1 tremtype-log) tremtype))
+          (ly:warning (_ "non-integer tremolo ~a:~a")
+           (duration->lily-string (duration-visual totaldur) #:force-duration #t #:time-scale 1)
+           tremtype))
+         (for-each
+          (lambda (v)
+           (or (null? (ly:music-property v 'duration))
+            (set! (ly:music-property v 'duration) tremdur)))
+          evl)
+         (set! (ly:music-property m 'elements) evl)
+         (make-sequential-music
+          (list-tabulate eff-nrep (lambda (i) (ly:music-deep-copy m))))))))
      ((MultiMeasureRestMusic)
       (make-sequential-music
        (list
-	(make-music 'BarCheck)
-	(make-music 'SkipMusic 'duration (ly:music-property m 'duration))
-	(make-music 'BarCheck))))
+        (make-music 'BarCheck)
+        (make-music 'SkipMusic 'duration (ly:music-property m 'duration))
+        (make-music 'BarCheck))))
      (else
       m)))
    (unfold-repeats music)))
@@ -502,37 +502,37 @@
 % trills, turns, ornaments etc.  are also treated as Articulations.
 % Split into two functions:
 %  ac:getactions traverses the elements in the EventChord
-%		and calculates the parameters.
+%               and calculates the parameters.
 %  ac:articulate-chord applies the actions to each NoteEvent in
-%		the EventChord.
+%               the EventChord.
 #(define (ac:getactions music)
   (let  loop ((factor ac:normalFactor)
-	      (newelements '())
-	      (es (ly:music-property music 'elements))
-	      (actions '()))
+              (newelements '())
+              (es (ly:music-property music 'elements))
+              (actions '()))
    (if (null? es)
     (begin
      (set! (ly:music-property music 'elements) (reverse newelements))
      (if
       (not (any (lambda (m) (music-is-of-type? m 'rhythmic-event))
-		newelements))
+                newelements))
       actions
       (append
        (let ((st ac:stealForward))
-	(if (= st 0)
-	 '()
-	 (begin
-	  (set! ac:stealForward 0)
-	  (list 'steal st))))
+        (if (= st 0)
+         '()
+         (begin
+          (set! ac:stealForward 0)
+          (list 'steal st))))
        actions
        (cond
-	(ac:inTrill '(trill))
-	((and (eq? factor ac:normalFactor) (or ac:inSlur ac:inPhrasingSlur))
-	 (list 'articulation  '(1 . 1)))
-	(else (list 'articulation  factor))))))
+        (ac:inTrill '(trill))
+        ((and (eq? factor ac:normalFactor) (or ac:inSlur ac:inPhrasingSlur))
+         (list 'articulation  '(1 . 1)))
+        (else (list 'articulation  factor))))))
     ; else part
     (let ((e (car es))
-	  (tail (cdr es)))
+          (tail (cdr es)))
      (case (ly:music-property e 'name)
 
       ((BeamEvent) ; throw away beam events, or they'll be duplicated by turn or trill
@@ -543,69 +543,69 @@
 
       ((ArticulationEvent)
        (let ((articname (ly:music-property e 'articulation-type)))
-	; TODO: add more here
-	(cond
-	 ((string= articname "staccato")
-	  (loop ac:staccatoFactor newelements tail actions))
-	 ((string= articname "staccatissimo")
-	  (loop ac:staccatissimoFactor newelements tail actions))
-	 ((string= articname "tenuto")
-	  (loop ac:tenutoFactor newelements tail actions))
-	 ((string= articname "mordent")
-	  (loop (cons 1 1) newelements tail (cons 'mordent actions)))
-	 ((string= articname "prall")
-	  (loop (cons 1 1) newelements tail (cons 'prall actions)))
-	 ((string= articname "trill")
-	  (loop (cons 1 1) newelements tail (cons 'trill actions)))
-	 ((string= articname "turn")
-	  (loop (cons 1 1) newelements tail (cons 'turn actions)))
-	 (else (loop factor (cons e newelements) tail actions)))))
+        ; TODO: add more here
+        (cond
+         ((string= articname "staccato")
+          (loop ac:staccatoFactor newelements tail actions))
+         ((string= articname "staccatissimo")
+          (loop ac:staccatissimoFactor newelements tail actions))
+         ((string= articname "tenuto")
+          (loop ac:tenutoFactor newelements tail actions))
+         ((string= articname "mordent")
+          (loop (cons 1 1) newelements tail (cons 'mordent actions)))
+         ((string= articname "prall")
+          (loop (cons 1 1) newelements tail (cons 'prall actions)))
+         ((string= articname "trill")
+          (loop (cons 1 1) newelements tail (cons 'trill actions)))
+         ((string= articname "turn")
+          (loop (cons 1 1) newelements tail (cons 'turn actions)))
+         (else (loop factor (cons e newelements) tail actions)))))
 
       ((TextScriptEvent)
        (let ((t (ly:music-property e 'text)))
-	(if (not (string? t))
-	 (loop factor (cons e newelements) tail actions)
-	 (begin
-	  (cond
-	   ((or
-	     (string= t "rall")
-	     (string= t "Rall")
-	     (string= t "rit.")
-	     (string= t "rall."))
-	    (loop factor (cons e newelements) tail (cons 'rall actions)))
-	   ((or
-	     (string= t "accelerando")
-	     (string= t "accel")
-	     (string= t "accel."))
-	    (loop factor (cons e newelements) tail (cons 'accel actions)))
-	   ((or
-	     (string= t "poco accel."))
-	    (loop factor (cons e newelements) tail (cons 'pocoAccel actions)))
-	   ((or
-	     (string= t "poco rall.")
-	     (string= t "poco rit."))
-	    (loop factor (cons e newelements) tail (cons 'pocoRall actions)))
-	   ((or (string= t "a tempo")
-	     (string= t "tempo I"))
-	  (loop factor (cons e newelements) tail (cons 'aTempo actions)))
-	   (else (loop factor (cons e newelements) tail actions)))))))
+        (if (not (string? t))
+         (loop factor (cons e newelements) tail actions)
+         (begin
+          (cond
+           ((or
+             (string= t "rall")
+             (string= t "Rall")
+             (string= t "rit.")
+             (string= t "rall."))
+            (loop factor (cons e newelements) tail (cons 'rall actions)))
+           ((or
+             (string= t "accelerando")
+             (string= t "accel")
+             (string= t "accel."))
+            (loop factor (cons e newelements) tail (cons 'accel actions)))
+           ((or
+             (string= t "poco accel."))
+            (loop factor (cons e newelements) tail (cons 'pocoAccel actions)))
+           ((or
+             (string= t "poco rall.")
+             (string= t "poco rit."))
+            (loop factor (cons e newelements) tail (cons 'pocoRall actions)))
+           ((or (string= t "a tempo")
+             (string= t "tempo I"))
+          (loop factor (cons e newelements) tail (cons 'aTempo actions)))
+           (else (loop factor (cons e newelements) tail actions)))))))
 
       ((SlurEvent)
        (let ((direction (ly:music-property e 'span-direction)))
-	(set! ac:inSlur (eq? direction -1))
-	(loop factor newelements tail actions)))
+        (set! ac:inSlur (eq? direction -1))
+        (loop factor newelements tail actions)))
 
       ((TrillSpanEvent)
        (let ((direction (ly:music-property e 'span-direction)))
-	(set! ac:inTrill (eq? direction -1))
-	(if ac:inTrill
-	 (loop factor newelements tail (cons 'trill actions))
-	 (loop factor (cons e newelements) tail actions))))
+        (set! ac:inTrill (eq? direction -1))
+        (if ac:inTrill
+         (loop factor newelements tail (cons 'trill actions))
+         (loop factor (cons e newelements) tail actions))))
 
       ((PhrasingSlurEvent)
        (let ((direction (ly:music-property e 'span-direction)))
-	(set! ac:inPhrasingSlur (eq? direction -1))
-	(loop factor newelements tail actions)))
+        (set! ac:inPhrasingSlur (eq? direction -1))
+        (loop factor newelements tail actions)))
 
       (else (loop factor (cons e newelements) tail actions)))))))
 
@@ -617,193 +617,193 @@
     (ac:logEventsBackward
      (let loop ((actions (ac:getactions music)))
       (if (null? actions)
-	(if (ly:moment<? (ly:make-moment 1/4) (ly:music-length music))
-	 (ac:to128  music)
-	 music)
+        (if (ly:moment<? (ly:make-moment 1/4) (ly:music-length music))
+         (ac:to128  music)
+         music)
 
       (case (car actions)
 
        ((articulation)
-	(map
-	 (lambda (x) (ac:articulate-one-note x (cadr actions)))
-	 (ly:music-property music 'elements))
-	(let*
-	 ((num (caadr actions))
-	  (denom (cdadr actions))
-	  (mult (ly:duration-factor ac:currentDuration))
-	  (newnum (* (- denom num) (car mult)))
-	  (newdenom (* (cdr mult) denom))
-	  (len (ly:duration-log ac:currentDuration))
-	  (dots (ly:duration-dot-count ac:currentDuration)))
+        (map
+         (lambda (x) (ac:articulate-one-note x (cadr actions)))
+         (ly:music-property music 'elements))
+        (let*
+         ((num (caadr actions))
+          (denom (cdadr actions))
+          (mult (ly:duration-factor ac:currentDuration))
+          (newnum (* (- denom num) (car mult)))
+          (newdenom (* (cdr mult) denom))
+          (len (ly:duration-log ac:currentDuration))
+          (dots (ly:duration-dot-count ac:currentDuration)))
 
-	 (if (not (eq? num denom))
-	  (make-sequential-music
-	   (list (ac:to128 music)
-	   (make-music 'EventChord 'elements
-	    (list
-	     (make-music 'RestEvent 'duration (ly:make-duration len dots newnum newdenom))))))
-	  music)))
+         (if (not (eq? num denom))
+          (make-sequential-music
+           (list (ac:to128 music)
+           (make-music 'EventChord 'elements
+            (list
+             (make-music 'RestEvent 'duration (ly:make-duration len dots newnum newdenom))))))
+          music)))
 
        ((accel)
-	(set! ac:lastTempo ac:currentTempo)
-	(set! ac:currentTempo (ly:moment-div ac:currentTempo ac:rallFactor))
-	(let ((pset (ac:tempoChange ac:currentTempo)))
-	 (if (null? (cdr actions))
-	  (make-sequential-music (list pset music))
-	  (make-sequential-music
-	   (list pset (loop (cdr actions)))))))
+        (set! ac:lastTempo ac:currentTempo)
+        (set! ac:currentTempo (ly:moment-div ac:currentTempo ac:rallFactor))
+        (let ((pset (ac:tempoChange ac:currentTempo)))
+         (if (null? (cdr actions))
+          (make-sequential-music (list pset music))
+          (make-sequential-music
+           (list pset (loop (cdr actions)))))))
 
        ((pocoAccel)
-	(set! ac:lastTempo ac:currentTempo)
-	(set! ac:currentTempo (ly:moment-div ac:currentTempo ac:pocoRallFactor))
-	(let ((pset (ac:tempoChange ac:currentTempo)))
-	 (if (null? (cdr actions))
-	  (make-sequential-music (list pset music))
-	  (make-sequential-music
-	   (list pset (loop (cdr actions)))))))
+        (set! ac:lastTempo ac:currentTempo)
+        (set! ac:currentTempo (ly:moment-div ac:currentTempo ac:pocoRallFactor))
+        (let ((pset (ac:tempoChange ac:currentTempo)))
+         (if (null? (cdr actions))
+          (make-sequential-music (list pset music))
+          (make-sequential-music
+           (list pset (loop (cdr actions)))))))
 
        ((rall)
-	(set! ac:lastTempo ac:currentTempo)
-	(set! ac:currentTempo (ly:moment-mul ac:currentTempo ac:rallFactor))
-	(let ((pset (ac:tempoChange ac:currentTempo)))
-	 (if (null? (cdr actions))
-	  (make-sequential-music (list pset music))
-	  (make-sequential-music
-	   (list pset (loop (cdr actions)))))))
+        (set! ac:lastTempo ac:currentTempo)
+        (set! ac:currentTempo (ly:moment-mul ac:currentTempo ac:rallFactor))
+        (let ((pset (ac:tempoChange ac:currentTempo)))
+         (if (null? (cdr actions))
+          (make-sequential-music (list pset music))
+          (make-sequential-music
+           (list pset (loop (cdr actions)))))))
 
        ((pocoRall)
-	(set! ac:lastTempo ac:currentTempo)
-	(set! ac:currentTempo (ly:moment-mul ac:currentTempo ac:pocoRallFactor))
-	(let ((pset (ac:tempoChange ac:currentTempo)))
-	 (if (null? (cdr actions))
-	  (make-sequential-music (list pset music))
-	  (make-sequential-music
-	   (list pset (loop (cdr actions)))))))
+        (set! ac:lastTempo ac:currentTempo)
+        (set! ac:currentTempo (ly:moment-mul ac:currentTempo ac:pocoRallFactor))
+        (let ((pset (ac:tempoChange ac:currentTempo)))
+         (if (null? (cdr actions))
+          (make-sequential-music (list pset music))
+          (make-sequential-music
+           (list pset (loop (cdr actions)))))))
 
        ((aTempo)
-	(set! ac:currentTempo ac:lastTempo)
+        (set! ac:currentTempo ac:lastTempo)
 
-	(let ((pset (ac:tempoChange ac:currentTempo)))
-	 (if (null? (cdr actions))
-	  (make-sequential-music (list pset music))
-	  (make-sequential-music
-	   (list pset (loop (cdr actions)))))))
+        (let ((pset (ac:tempoChange ac:currentTempo)))
+         (if (null? (cdr actions))
+          (make-sequential-music (list pset music))
+          (make-sequential-music
+           (list pset (loop (cdr actions)))))))
 
        ((trill)
-	 (ac:trill music))
+         (ac:trill music))
 
        ((prall)
-	; A pralltriller symbol can either mean an inverted mordent
-	; or a half-shake -- a short, two twiddle trill.
-	; We implement as a half-shake.
-	(let*
-	 ((origlength (ly:music-length music))
-	  (gracedur (ly:make-duration 5 0 1/1))
-	  (gracenote (ac:note-copy music))
-	  (abovenote (ac:note-copy music))
-	  (abovenoteTwo (ac:note-copy music))
-	  (mainnote (ly:music-deep-copy music)))
+        ; A pralltriller symbol can either mean an inverted mordent
+        ; or a half-shake -- a short, two twiddle trill.
+        ; We implement as a half-shake.
+        (let*
+         ((origlength (ly:music-length music))
+          (gracedur (ly:make-duration 5 0 1/1))
+          (gracenote (ac:note-copy music))
+          (abovenote (ac:note-copy music))
+          (abovenoteTwo (ac:note-copy music))
+          (mainnote (ly:music-deep-copy music)))
 
-	 (map (lambda (y) (ac:setduration y gracedur))
-	  (ly:music-property gracenote 'elements))
-	 (map (lambda (y) (ac:setduration y gracedur))
-	  (ly:music-property abovenote 'elements))
-	 (map (lambda (y) (ac:setduration y gracedur))
-	  (ly:music-property abovenoteTwo 'elements))
-	 (map (lambda (y) (ac:up y))
-	  (filter
-	   (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
-	   (ly:music-property abovenote 'elements)))
-	 (map (lambda (y) (ac:up y))
-	  (filter
-	   (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
-	   (ly:music-property abovenoteTwo 'elements)))
-	 (let* ((prallMusic (make-sequential-music
+         (map (lambda (y) (ac:setduration y gracedur))
+          (ly:music-property gracenote 'elements))
+         (map (lambda (y) (ac:setduration y gracedur))
+          (ly:music-property abovenote 'elements))
+         (map (lambda (y) (ac:setduration y gracedur))
+          (ly:music-property abovenoteTwo 'elements))
+         (map (lambda (y) (ac:up y))
+          (filter
+           (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
+           (ly:music-property abovenote 'elements)))
+         (map (lambda (y) (ac:up y))
+          (filter
+           (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
+           (ly:music-property abovenoteTwo 'elements)))
+         (let* ((prallMusic (make-sequential-music
                               (list abovenote gracenote abovenoteTwo mainnote)))
                  (newlen (ly:music-length prallMusic))
                  (factor (ly:moment-div origlength newlen)))
-	   (ly:music-compress prallMusic factor))))
+           (ly:music-compress prallMusic factor))))
 
        ((mordent)
-	(let*
-	 ((origlength (ly:music-length music))
-	  (gracedur (ly:make-duration 5 0 1/1))
-	  (gracenote (ac:note-copy music))
-	  (belownote (ac:note-copy music)))
-	 (map (lambda (y) (ac:setduration y gracedur))
-	  (ly:music-property gracenote 'elements))
-	 (map (lambda (y) (ac:setduration y gracedur))
+        (let*
+         ((origlength (ly:music-length music))
+          (gracedur (ly:make-duration 5 0 1/1))
+          (gracenote (ac:note-copy music))
+          (belownote (ac:note-copy music)))
+         (map (lambda (y) (ac:setduration y gracedur))
+          (ly:music-property gracenote 'elements))
+         (map (lambda (y) (ac:setduration y gracedur))
                (ly:music-property belownote 'elements))
-	 (map (lambda (y) (ac:down y))
-	  (filter
-	   (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
-	   (ly:music-property belownote 'elements)))
-	 (display belownote)
+         (map (lambda (y) (ac:down y))
+          (filter
+           (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
+           (ly:music-property belownote 'elements)))
+         (display belownote)
 
-	 (let* ((mordentMusic (make-sequential-music (list gracenote belownote music)))
-		(newlen (ly:music-length mordentMusic))
-		(factor (ly:moment-div origlength newlen)))
-	  (ly:music-compress mordentMusic factor))))
+         (let* ((mordentMusic (make-sequential-music (list gracenote belownote music)))
+                (newlen (ly:music-length mordentMusic))
+                (factor (ly:moment-div origlength newlen)))
+          (ly:music-compress mordentMusic factor))))
 
        ((turn)
-	(let*
-	 ((dur (ly:music-property
-		(car (ly:music-property music 'elements)) 'duration))
-	  (factor (ly:duration-factor dur))
-	  (newdur (ly:make-duration (+ (ly:duration-log dur) 2)
-		   (ly:duration-dot-count dur) (car factor)(cdr factor))))
-	 (begin
-	  (map (lambda (y) (ac:setduration y newdur))
-	   (ly:music-property music 'elements))
-	  (let* ((above (ly:music-deep-copy music))
-		 (below (ly:music-deep-copy music))
-		 (newmusic (make-sequential-music (list above music below music))))
-	   (begin
-	    (map (lambda (y) (ac:down y))
-	     (filter
-	      (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
-	      (ly:music-property below 'elements)))
-	    (map (lambda (y) (ac:up y))
-	     (filter
-	      (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
-	      (ly:music-property above 'elements)))
-	    newmusic)))))
+        (let*
+         ((dur (ly:music-property
+                (car (ly:music-property music 'elements)) 'duration))
+          (factor (ly:duration-factor dur))
+          (newdur (ly:make-duration (+ (ly:duration-log dur) 2)
+                   (ly:duration-dot-count dur) (car factor)(cdr factor))))
+         (begin
+          (map (lambda (y) (ac:setduration y newdur))
+           (ly:music-property music 'elements))
+          (let* ((above (ly:music-deep-copy music))
+                 (below (ly:music-deep-copy music))
+                 (newmusic (make-sequential-music (list above music below music))))
+           (begin
+            (map (lambda (y) (ac:down y))
+             (filter
+              (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
+              (ly:music-property below 'elements)))
+            (map (lambda (y) (ac:up y))
+             (filter
+              (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
+              (ly:music-property above 'elements)))
+            newmusic)))))
        ((steal)
-	(let
-	 ((totallen (ly:moment-main (ly:music-length music)))
-	  (steallen (cadr actions)))
-	 (if (>= steallen totallen)
-	  (begin
-	   (if (any (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
-		    (ly:music-property music 'elements))
-	    (ly:warning (_ "stealing the entirety of a note's time")))
-	   (set! ac:stealForward (- steallen totallen))
-	   (make-sequential-music '()))
-	  (begin
-	   (ly:music-compress music (ly:make-moment (/ (- totallen steallen) totallen)))
-	   (loop (cddr actions))))))
+        (let
+         ((totallen (ly:moment-main (ly:music-length music)))
+          (steallen (cadr actions)))
+         (if (>= steallen totallen)
+          (begin
+           (if (any (lambda (z) (eq? 'NoteEvent (ly:music-property z 'name)))
+                    (ly:music-property music 'elements))
+            (ly:warning (_ "stealing the entirety of a note's time")))
+           (set! ac:stealForward (- steallen totallen))
+           (make-sequential-music '()))
+          (begin
+           (ly:music-compress music (ly:make-moment (/ (- totallen steallen) totallen)))
+           (loop (cddr actions))))))
      )))))
 
    ((eq? 'GraceMusic (ly:music-property music 'name))
     (let
      ((first-ev
        (call-with-current-continuation
-	(lambda (yield-fev)
-	 (music-map
-	  (lambda (m)
-	   (if (eq? 'EventChord (ly:music-property m 'name))
-	    (yield-fev m)
-	    m))
-	  music)
-	 #f))))
+        (lambda (yield-fev)
+         (music-map
+          (lambda (m)
+           (if (eq? 'EventChord (ly:music-property m 'name))
+            (yield-fev m)
+            m))
+          music)
+         #f))))
      (if first-ev
       (let ((fev-pos (find-tail (lambda (m) (eq? m first-ev)) ac:eventsBackward)))
        (if fev-pos
-	(set! ac:eventsBackward (cdr fev-pos))
-	(ly:warning (_ "articulation of grace notes has gone awry"))))))
+        (set! ac:eventsBackward (cdr fev-pos))
+        (ly:warning (_ "articulation of grace notes has gone awry"))))))
     (let*
      ((gmus (ly:music-compress (ly:music-property music 'element)
-			       (ly:make-moment ac:defaultGraceFactor)))
+                               (ly:make-moment ac:defaultGraceFactor)))
       (glen (ly:moment-main (ly:music-length gmus))))
      (ac:stealTimeBackward (* glen ac:defaultGraceBackwardness))
      (set! ac:stealForward (+ ac:stealForward (* glen (- 1 ac:defaultGraceBackwardness))))
@@ -811,14 +811,14 @@
 
    ((memq (ly:music-property music 'name) '(BarCheck SkipMusic))
     (let ((totallen (ly:moment-main (ly:music-length music)))
-	  (steallen ac:stealForward))
+          (steallen ac:stealForward))
      (cond
       ((= steallen 0)
        (ac:logEventsBackward music))
       ((< steallen totallen)
        (set! ac:stealForward 0)
        (ac:logEventsBackward
-	(ly:music-compress music (ly:make-moment (/ (- totallen steallen) totallen)))))
+        (ly:music-compress music (ly:make-moment (/ (- totallen steallen) totallen)))))
       (else
        (set! ac:stealForward (- steallen totallen))
        (make-sequential-music '())))))
@@ -838,24 +838,24 @@
 % At last ... here's the music function that applies all the above to a
 % score.
 articulate = #(define-music-function (parser location music)
-	       (ly:music?)
-	       "Adjust times of note to add tenuto, staccato and
+               (ly:music?)
+               "Adjust times of note to add tenuto, staccato and
                 normal articulations.
-		"
-	       (dynamic-wind
-		(lambda ()
-		 (set! ac:stealForward 0)
-		 (set! ac:eventsBackward '()))
-		(lambda ()
-		 (music-map
-		  ac:articulate-chord
-		  (ac:unfoldMusic (event-chord-wrap! music parser))))
-		(lambda ()
-		 (or (= ac:stealForward 0)
-		  (begin
-		   (ly:warning (_ "articulation failed to steal ~a note at end of music") ac:stealForward)
-		   (set! ac:stealForward 0)))
-		 (set! ac:eventsBackward '()))))
+                "
+               (dynamic-wind
+                (lambda ()
+                 (set! ac:stealForward 0)
+                 (set! ac:eventsBackward '()))
+                (lambda ()
+                 (music-map
+                  ac:articulate-chord
+                  (ac:unfoldMusic (event-chord-wrap! music parser))))
+                (lambda ()
+                 (or (= ac:stealForward 0)
+                  (begin
+                   (ly:warning (_ "articulation failed to steal ~a note at end of music") ac:stealForward)
+                   (set! ac:stealForward 0)))
+                 (set! ac:eventsBackward '()))))
 
 
 % Override \afterGrace to be in terms of audio, not spacing.
@@ -876,11 +876,11 @@ afterGrace =
     (factor (ly:moment-div new-main-length main-length))
   )
    (map (lambda (y) (set! (ly:music-property y 'twiddle) gracelen))
-	 (filter (lambda (z)
-		  (and
-		   (eq? 'ArticulationEvent (ly:music-property z 'name))
-		   (string= "trill" (ly:music-property z 'articulation-type))))
-	  (ly:music-property main 'elements)))
+         (filter (lambda (z)
+                  (and
+                   (eq? 'ArticulationEvent (ly:music-property z 'name))
+                   (string= "trill" (ly:music-property z 'articulation-type))))
+          (ly:music-property main 'elements)))
    (ac:add-articulation "tenuto" grace)
    (make-sequential-music  (list (ly:music-compress main factor) (ly:music-compress grace grace-factor)))))
 
@@ -894,11 +894,11 @@ appoggiatura =
   (set! grace (event-chord-wrap! grace parser))
   (set! main (event-chord-wrap! main parser))
   (let* ((maindur (ly:music-length main))
-	 (grace-orig-len (ly:music-length grace))
-	 (main-orig-len (ly:music-length main))
-	 (numerator (ly:moment-main-numerator maindur))
-	 (factor (if (eq? (remainder numerator 3) 0)
-		  (ly:make-moment 1/3) (ly:make-moment 1/2))))
+         (grace-orig-len (ly:music-length grace))
+         (main-orig-len (ly:music-length main))
+         (numerator (ly:moment-main-numerator maindur))
+         (factor (if (eq? (remainder numerator 3) 0)
+                  (ly:make-moment 1/3) (ly:make-moment 1/2))))
    (ly:music-compress grace
     (ly:moment-mul factor (ly:moment-div main-orig-len grace-orig-len)))
    (ly:music-compress main (ly:moment-sub (ly:make-moment 1/1) factor))

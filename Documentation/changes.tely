@@ -518,6 +518,15 @@ examples where this makes for readable input:
 @end lilypond
 
 @item
+@code{\displayLilyMusic} and its underlying Scheme functions no
+longer omit redundant note durations.  This makes it easier to
+reliably recognize and format standalone durations in expressions
+like
+@example
+@{ c4 d4 8 @}
+@end example
+
+@item
 Beaming exceptions can now be constructed using the
 @code{\beamExceptions} scheme function.  One can now write
 

@@ -48,24 +48,24 @@ stderr of this run."
 }
 
 %% Sequential music
-\test ##[ { { a b } { c d } } #]		% SequentialMusic
-\test ##[ << { a b } { c d } >> #]		% SimultaneousMusic
-\test ##[ << { a b } \\ { c d } >> #]		% VoiceSeparator
+\test ##[ { { a4 b4 } { c4 d4 } } #]		% SequentialMusic
+\test ##[ << { a4 b4 } { c4 d4 } >> #]		% SimultaneousMusic
+\test ##[ << { a4 b4 } \\ { c4 d4 } >> #]	% VoiceSeparator
 
 %% Chords and Notes
-\test ##[ { ceses ces c cis cisis } #]		% NoteEvent
-\test ##[ { deses des d dis disis } #]
-\test ##[ { eeses ees e eis eisis } #]
-\test ##[ { feses fes f fis fisis } #]
-\test ##[ { geses ges g gis gisis } #]
-\test ##[ { aeses aes a ais aisis } #]
-\test ##[ { beses bes b bis bisis } #]
-\test ##[ { c,, d' } #]
-\test ##[ { c' d'=' } #]
-\test ##[ { c! c? } #]
+\test ##[ { ceses4 ces4 c4 cis4 cisis4 } #]	% NoteEvent
+\test ##[ { deses4 des4 d4 dis4 disis4 } #]
+\test ##[ { eeses4 ees4 e4 eis4 eisis4 } #]
+\test ##[ { feses4 fes4 f4 fis4 fisis4 } #]
+\test ##[ { geses4 ges4 g4 gis4 gisis4 } #]
+\test ##[ { aeses4 aes4 a4 ais4 aisis4 } #]
+\test ##[ { beses4 bes4 b4 bis4 bisis4 } #]
+\test ##[ { c,,4 d'4 } #]
+\test ##[ { c'4 d'='4 } #]
+\test ##[ { c!4 c?4 } #]
 \test ##[ r1.*4/3 #]		% RestEvent
 \test ##[ c1\rest #]		% RestEvent
-\test ##[ s2..*3/4 #]			% SkipEvent
+\test ##[ s2..*3/4 #]		% SkipEvent
 \test ##[ R1.*2/3 #]		% MultiMeasureRestMusicGroup, MultiMeasureRestEvent
 \test ##[ \skip 2.*3/4 #]		% SkipMusic
 \test ##[ < c\1 e\3 >4.*3/4-. #]	% EventChord, NoteEvent, StringNumberEvent, ArticulationEvent
@@ -73,22 +73,22 @@ stderr of this run."
 \test ##[ { < c e g c' >4 q8-. } #] % RepeatedChord
 
 %% tags
-\test ##[ { \tag #'foo { c4 d } } #]
-\test ##[ c-\tag #'foo -\tag #'baz -^-. #]
+\test ##[ { \tag #'foo { c4 d4 } } #]
+\test ##[ c4-\tag #'foo -\tag #'baz -^-. #]
 
 %% Graces
 \test ##[ { \grace c8 d2 } #]				% GraceMusic
 \test ##[ { \appoggiatura c8 d2 } #]
 \test ##[ { \acciaccatura c8 d2 } #]
-\test ##[ { c1 \afterGrace { b,16 c } d2 } #]
+\test ##[ { c1 \afterGrace { b,16 c16 } d2 } #]
 
 %% Clusters
-\test ##[ { \makeClusters { c4 g } } #]			% ClusterNoteEvent
+\test ##[ { \makeClusters { c4 g4 } } #]		% ClusterNoteEvent
 
 %% Figured bass
-\test ##[ \figures { < 6 > } #]				% BassFigureEvent
-\test ##[ \figuremode { < 1-- 3- > < 2+ 4++ > < _! 7! > } #]
-\test ##[ \figuremode { < [6 > < 5] > } #]
+\test ##[ \figures { < 6 >4 } #]			% BassFigureEvent
+\test ##[ \figuremode { < 1-- 3- >4 < 2+ 4++ >4 < _! 7! >4 } #]
+\test ##[ \figuremode { < [6 >4 < 5] >4 } #]
 
 %% Lyrics
 \test ##[ \lyrics { a b } #]
@@ -96,53 +96,53 @@ stderr of this run."
 \test ##[ \lyricmode { a __ b } #] 		% ExtenderEvent
 \test ##[ \lyricmode { "a " } #] 			% LyricEvent
 \test ##[ \lyricsto "foo" { bla bla  } #]		% LyricCombineMusic
-\test ##[ { { c d }
+\test ##[ { { c4 d4 }
   \addlyrics { bla bla  } } #]
 
 %% Drums
-\test ##[ \drums { hihat } #]
+\test ##[ \drums { hihat4 } #]
 \test ##[ \drummode { hihat4.*3/4 } #]
 
 %% Expressive marks
 \test ##[ c4 ~ #]			 		% TieEvent
-\test ##[ c\noBeam #] 					% BeamForbidEvent
-\test ##[ c\1 #] 					% StringNumberEvent
-\test ##[ { c:8 c:1 } #]				% TremoloEvent
-\test ##[ { c-^ c^^ c_^ } #]				% ArticulationEvent
-\test ##[ { c-+ c^+ c_+ } #]
-\test ##[ { c-- c^- c_- } #]
-\test ##[ { c-! c^! c_! } #]
-\test ##[ { c-> c^> c_> } #]
-\test ##[ { c-. c^. c_. } #]
-\test ##[ { c-_ c^_ c__ } #]
-\test ##[ { c\trill c^\trill c_\trill } #]
-\test ##[ { c-1 c^2 c_3 } #]				% FingerEvent
-\test ##[ { c-"foo" c^"foo" c_"foo" } #]		% TextScriptEvent
-\test ##[ { R1*4-"foo" R^"foo" R_"foo" } #]		% MultiMeasureTextEvent
-\test ##[ { < c\harmonic >4 < c e\harmonic > } #] 	% HarmonicEvent
-\test ##[ { c\glissando c^\glissando c_\glissando } #]	% GlissandoEvent
-\test ##[ { c\arpeggio c^\arpeggio c_\arpeggio } #] 	% ArpeggioEvent
-\test ##[ { c\p c^\ff c_\sfz } #] 			% AbsoluteDynamicEvent
-\test ##[ { c[ c] c^[ c^] c_[ c_] } #] 			% BeamEvent
-\test ##[ { c( c) c^( c^) c_( c_) } #] 			% SlurEvent
-\test ##[ { c\< c\! c^\< c^\! c_\< c_\! } #]		% CrescendoEvent
-\test ##[ { c\> c\! c^\> c^\! c_\> c_\! } #]		% DecrescendoEvent
-\test ##[ { c\episemInitium c\episemFinis } #]		% EpisemaEvent
-\test ##[ { c\( c\) c^\( c^\) c_\( c_\) } #]		% PhrasingSlurEvent
-\test ##[ { c\sustainOn c\sustainOff } #]		% SustainEvent
-\test ##[ { c\sostenutoOn c\sostenutoOff } #]		% SostenutoEvent
+\test ##[ c4\noBeam #] 					% BeamForbidEvent
+\test ##[ c4\1 #] 					% StringNumberEvent
+\test ##[ { c4:8 c4:1 } #]				% TremoloEvent
+\test ##[ { c4-^ c4^^ c4_^ } #]				% ArticulationEvent
+\test ##[ { c4-+ c4^+ c4_+ } #]
+\test ##[ { c4-- c4^- c4_- } #]
+\test ##[ { c4-! c4^! c4_! } #]
+\test ##[ { c4-> c4^> c4_> } #]
+\test ##[ { c4-. c4^. c4_. } #]
+\test ##[ { c4-_ c4^_ c4__ } #]
+\test ##[ { c4\trill c4^\trill c4_\trill } #]
+\test ##[ { c4-1 c4^2 c4_3 } #]				% FingerEvent
+\test ##[ { c4-"foo" c4^"foo" c4_"foo" } #]		% TextScriptEvent
+\test ##[ { R1*4-"foo" R1*4^"foo" R1*4_"foo" } #]	% MultiMeasureTextEvent
+\test ##[ { < c\harmonic >4 < c e\harmonic >4 } #] 	% HarmonicEvent
+\test ##[ { c4\glissando c4^\glissando c4_\glissando } #]	% GlissandoEvent
+\test ##[ { c4\arpeggio c4^\arpeggio c4_\arpeggio } #] 	% ArpeggioEvent
+\test ##[ { c4\p c4^\ff c4_\sfz } #] 			% AbsoluteDynamicEvent
+\test ##[ { c4[ c4] c4^[ c4^] c4_[ c4_] } #] 		% BeamEvent
+\test ##[ { c4( c4) c4^( c4^) c4_( c4_) } #] 		% SlurEvent
+\test ##[ { c4\< c4\! c4^\< c4^\! c4_\< c4_\! } #]	% CrescendoEvent
+\test ##[ { c4\> c4\! c4^\> c4^\! c4_\> c4_\! } #]	% DecrescendoEvent
+\test ##[ { c4\episemInitium c4\episemFinis } #]	% EpisemaEvent
+\test ##[ { c4\( c4\) c4^\( c4^\) c4_\( c4_\) } #]	% PhrasingSlurEvent
+\test ##[ { c4\sustainOn c4\sustainOff } #]		% SustainEvent
+\test ##[ { c4\sostenutoOn c4\sostenutoOff } #]		% SostenutoEvent
 \test ##[ \melisma #]
 \test ##[ \melismaEnd #]
-\test ##[ { c\startTextSpan c\stopTextSpan } #]		% TextSpanEvent
-\test ##[ { c\startTrillSpan c\stopTrillSpan } #]	% TrillSpanEvent
-\test ##[ { c \startStaff c \stopStaff } #]		% StaffSpanEvent
-\test ##[ { c\startGroup c\stopGroup c^\startGroup c^\stopGroup c_\startGroup c_\stopGroup } #]    % NoteGroupingEvent
-\test ##[ { c\unaCorda c\treCorde } #]			% UnaCordaEvent
+\test ##[ { c4\startTextSpan c4\stopTextSpan } #]	% TextSpanEvent
+\test ##[ { c4\startTrillSpan c4\stopTrillSpan } #]	% TrillSpanEvent
+\test ##[ { c4 \startStaff c4 \stopStaff } #]		% StaffSpanEvent
+\test ##[ { c4\startGroup c4\stopGroup c4^\startGroup c4^\stopGroup c4_\startGroup c4_\stopGroup } #]    % NoteGroupingEvent
+\test ##[ { c4\unaCorda c4\treCorde } #]		% UnaCordaEvent
 \test ##[ \breathe #]
-\test ##[ { c \[ c \] } #]			% LigatureEvent
+\test ##[ { c4 \[ c4 \] } #]				% LigatureEvent
 \test ##[ \~ #]						% PesOrFlexaEvent
-\test ##[ c\bendAfter #3 #]    % BendAfterEvent
-\test ##[ c\rightHandFinger #1 #]    % StrokeFingerEvent
+\test ##[ c4\bendAfter #3 #]				% BendAfterEvent
+\test ##[ c4\rightHandFinger #1 #]			% StrokeFingerEvent
 
 \test ##[ \break #]
 \test ##[ \noBreak #]
@@ -176,41 +176,41 @@ stderr of this run."
 \test ##[ \bar "|." #]
 
 %% staff switches
-\test ##[ \autochange { c d } #]			% AutoChangeMusic
-\test ##[ { \change Staff = "up" { c d } } #]		% ContextChange
+\test ##[ \autochange { c4 d4 } #]			% AutoChangeMusic
+\test ##[ { \change Staff = "up" { c4 d4 } } #]		% ContextChange
 
 %% Tuplets
-\test ##[ \tuplet 3/2 { c8 d e } #]				% TimeScaledMusic
-\test ##[ \tuplet 6/4 { c16 d e f g a } #]
-\test ##[ \tuplet 3/2 { c4 d e \tuplet 5/2 { f4 e d2 d4 } c4 } #]
-\test ##[ \tuplet 3/2 2 { c4 d e \tuplet 5/2 2 { f4 e d2 d4 } c4 } #]
+\test ##[ \tuplet 3/2 { c8 d8 e8 } #]				% TimeScaledMusic
+\test ##[ \tuplet 6/4 { c16 d16 e16 f16 g16 a16 } #]
+\test ##[ \tuplet 3/2 { c4 d4 e4 \tuplet 5/2 { f4 e4 d2 d4 } c4 } #]
+\test ##[ \tuplet 3/2 2 { c4 d4 e4 \tuplet 5/2 2 { f4 e4 d2 d4 } c4 } #]
 
 %% pure rhythm
 \test ##[ { 4 4 8 \tuplet 3/2 { 8[ 16] } 16 } #]
 
 %% \relative and \tranpose
-\test #"NOT A BUG" ##[ \relative c' { c b } #]	% RelativeOctaveMusic
-\test #"NOT A BUG" ##[ \transpose c d { c d } #]	% TransposedMusic
+\test #"NOT A BUG" ##[ \relative c' { c4 b4 } #]	% RelativeOctaveMusic
+\test #"NOT A BUG" ##[ \transpose c d { c4 d4 } #]	% TransposedMusic
 
 %% Repeats
-\test ##[ \repeat volta 2 { c d } #]		% VoltaRepeatedMusic
-\test ##[ \repeat unfold 2 { c d } #]			% UnfoldedRepeatedMusic
-\test ##[ \repeat percent 2 { c d } #]			% PercentRepeatedMusic
-\test ##[ \repeat tremolo 4 { c16 d } #]		% TremoloRepeatedMusic
-\test ##[ \repeat tremolo 7 { c''32 b' } #]
-\test ##[ \repeat tremolo 15 { c''16 b' } #]
-\test ##[ \repeat volta 2 { c4 d } \alternative { { c d } { e f } } #]    % 
+\test ##[ \repeat volta 2 { c4 d4 } #]			% VoltaRepeatedMusic
+\test ##[ \repeat unfold 2 { c4 d4 } #]			% UnfoldedRepeatedMusic
+\test ##[ \repeat percent 2 { c4 d4 } #]		% PercentRepeatedMusic
+\test ##[ \repeat tremolo 4 { c16 d16 } #]		% TremoloRepeatedMusic
+\test ##[ \repeat tremolo 7 { c''32 b'32 } #]
+\test ##[ \repeat tremolo 15 { c''16 b'16 } #]
+\test ##[ \repeat volta 2 { c4 d4 } \alternative { { c4 d4 } { e4 f4 } } #]    % 
 
 %% Context creation
-\test ##[ \new Staff { c d } #]				% ContextSpeccedMusic
-\test ##[ \new Staff = "up" { c d } #]				% ContextSpeccedMusic
-\test ##[ \context Staff { c d } #]
-\test ##[ \context Staff = "up" { c d } #]
+\test ##[ \new Staff { c4 d4 } #]			% ContextSpeccedMusic
+\test ##[ \new Staff = "up" { c4 d4 } #]		% ContextSpeccedMusic
+\test ##[ \context Staff { c4 d4 } #]
+\test ##[ \context Staff = "up" { c4 d4 } #]
 \test ##[
 \new Staff \with {
   \consists "Timing_engraver"
   \remove "Clef_engraver"
-} { c d } #]
+} { c4 d4 } #]
 %% Context properties
 \test ##[ \once \set Score . skipBars = ##t #]		% PropertySet
 \test ##[ \set autoBeaming = ##f #]
@@ -236,22 +236,22 @@ stderr of this run."
 \test ##[ \partial 4*2/3 #]
 
 %% \partcombine
-\test ##[ \partcombine { c e }
-{ d f } #]						% PartCombineMusic UnrelativableMusic
+\test ##[ \partcombine { c4 e4 }
+{ d4 f4 } #]						% PartCombineMusic UnrelativableMusic
 
 %% Cue notes
-\test ##[ \cueDuring #"foo" #1 { c d } #]
-\test ##[ \quoteDuring #"foo" { c d } #]
+\test ##[ \cueDuring #"foo" #1 { c4 d4 } #]
+\test ##[ \quoteDuring #"foo" { c4 d4 } #]
 
 %% \ottava
 \test ##[ \ottava #1 #]    % OttavaMusic
 
 %% \tweak
-\test ##[ < \tweak duration-log #2 c > #]
-\test ##[ < c \tweak transparent ##t e > #]
-\test ##[ < \tweak color #'(1.0 0.0 0.0) \tweak duration-log #2 c > #]
-\test ##[ c-\tweak font-size #3 -> #]
-\test ##[ < \tweak Accidental.color #'(1.0 0.0 0.0) cis eis g > #]
+\test ##[ < \tweak duration-log #2 c >4 #]
+\test ##[ < c \tweak transparent ##t e >4 #]
+\test ##[ < \tweak color #'(1.0 0.0 0.0) \tweak duration-log #2 c >4 #]
+\test ##[ c4-\tweak font-size #3 -> #]
+\test ##[ < \tweak Accidental.color #'(1.0 0.0 0.0) cis eis g >4 #]
 
 %% end test.
 

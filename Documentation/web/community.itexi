@@ -898,7 +898,7 @@ looking for others to participate in future programs.
 
 @divEnd
 
-@divClass{column-center-bottom}
+@divClass{column-center-middle-color2}
 @subheading Our Ideas List
 
 Below is a list of projects that were suggested for the GSoC 2012
@@ -912,6 +912,9 @@ those who would like to tackle projects such as those listed below.
 A full list of all the current open issues can be found
 @uref{http://code.google.com/p/lilypond/issues/list, here}.
 
+@divEnd
+
+@divClass{column-center-middle-color3}
 @subheading Grace notes
 
 Fix problems with synchronization of grace notes.  Grace notes can
@@ -923,6 +926,9 @@ multiple staffs are used where some have grace notes and others don't.
 @strong{Recommended:} familiarity with LilyPond internals
 @strong{Mentor(s):} Mike Solomon, Carl Sorensen
 
+@divEnd
+
+@divClass{column-center-middle-color3}
 @subheading MusicXML
 
 Improving MusicXML import and export functions:
@@ -958,7 +964,9 @@ each output object to the XML tags.
 
 Familiarity with other scorewriters (for cross-testing) would also help.
 
+@divEnd
 
+@divClass{column-center-middle-color3}
 @subheading Improve slurs and ties
 
 The default curves of slurs and ties are often unsatisfactory. Ties
@@ -971,6 +979,9 @@ the intended output and writing code to improve them.
 @strong{Recommended knowledge:} LilyPond knowledge, aesthetic sense
 @strong{Mentor(s):} Mike Solomon
 
+@divEnd
+
+@divClass{column-center-middle-color3}
 @subheading Adding variants of font glyphs
 
 @divClass{keep-bullets}
@@ -993,6 +1004,9 @@ it.
 @strong{Recommended knowledge:} basic LilyPond knowledge
 @strong{Mentor(s):} Werner Lemberg
 
+@divEnd
+
+@divClass{column-center-middle-color3}
 @subheading Improve default beam positioning
 
 For regular, cross-staff, broken and kneed beams.  Beaming should depend
@@ -1005,6 +1019,9 @@ section 2.2 here}).  If possible also reduce beaming-computation time.
 @strong{Recommended knowledge:} aesthetic sense
 @strong{Mentor(s):} Mike Solomon, Carl Sorensen
 
+@divEnd
+
+@divClass{column-center-middle-color3}
 @subheading Help improve compilation behavior
 
 Automatic code analysis tools, like valgrind memory leak detection or

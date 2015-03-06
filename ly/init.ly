@@ -1,4 +1,4 @@
-%% Toplevel initialisation file. 
+%% Toplevel initialisation file.
 
 %% switch on debugging.
 #(if (and #t (defined? 'set-debug-cell-accesses!))
@@ -70,7 +70,7 @@ $(if (ly:get-option 'include-settings)
             (set! toplevel-scores (list))
             (book-handler parser book)))
          ((or (pair? toplevel-scores) output-empty-score-list)
-          (let ((book (apply ly:make-book $defaultpaper 
+          (let ((book (apply ly:make-book $defaultpaper
                              $defaultheader toplevel-scores)))
             (set! toplevel-scores (list))
             (book-handler parser book)))))

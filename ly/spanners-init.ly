@@ -7,7 +7,7 @@ stopGroup = #(make-span-event 'NoteGroupingEvent STOP)
 cr = #(make-span-event 'CrescendoEvent START)
 decr = #(make-span-event 'DecrescendoEvent START)
 enddecr = #(make-span-event 'DecrescendoEvent STOP)
-endcr = #(make-span-event 'CrescendoEvent STOP) 
+endcr = #(make-span-event 'CrescendoEvent STOP)
 
 
 startMeasureCount = #(make-span-event 'MeasureCounterEvent START)
@@ -50,14 +50,14 @@ deprecateddim =  {
 
 deprecatedenddim =  {
   $(make-event-chord (list enddecr))
-%  \unset decrescendoText 
-%  \unset decrescendoSpanner 
+%  \unset decrescendoText
+%  \unset decrescendoSpanner
 }
 
 deprecatedendcresc =  {
   $(make-event-chord (list endcr))
-%  \unset crescendoText 
-%  \unset crescendoSpanner 
+%  \unset crescendoText
+%  \unset crescendoSpanner
 }
 
 
@@ -84,13 +84,13 @@ dimTextDim = {
 }
 
 crescHairpin = {
-    \unset crescendoText 
-    \unset crescendoSpanner 
+    \unset crescendoText
+    \unset crescendoSpanner
 }
 
 dimHairpin = {
-    \unset decrescendoText 
-    \unset decrescendoSpanner 
+    \unset decrescendoText
+    \unset decrescendoSpanner
 }
 
 
