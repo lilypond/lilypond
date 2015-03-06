@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 324ff94afc62c7011b7377f24392f95391ed3b84
+    Translation of GIT committish: ec074a41f03cf4cd3b914daa1359dd6e0fb2012d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1402,7 +1402,7 @@ La hauteur de la note se modifie en définissant sa propriété
        (ly:make-pitch 0 1 0)) ;; set the pitch to d'.
 \displayLilyMusic \someNote
 ===>
-d'
+d'4
 @end example
 
 

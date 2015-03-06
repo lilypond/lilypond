@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 4467a72a98fb582466ee4d5944ec8454b4b77fc6
+    Translation of GIT committish: ec074a41f03cf4cd3b914daa1359dd6e0fb2012d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3574,34 +3574,6 @@ Bien que la partie visible contient un @code{\acciaccatura} ou un
 @code{\grace} dans la partie invisible, au risque de voir apparaître un
 tronçon de liaison connectant la petite note invisible à la note qui la
 suit.
-
-Lorsque des petites notes font l'objet d'un contexte de voix, cela
-perturbe la présentation des voix normales.  Vous pourrez y remédier en
-insérant un silence ou une note entre la commande affectant la voix et
-les petites notes.
-
-@lilypond[quote,verbatim]
-accMusic = {
-  \acciaccatura { f8 } e8 r8 \acciaccatura { f8 } e8 r4
-}
-
-\new Staff {
-  <<
-    \new Voice {
-      \relative c'' {
-        r8 r8 \voiceOne \accMusic \oneVoice r8 |
-        r8 \voiceOne r8 \accMusic \oneVoice r8 |
-      }
-    }
-    \new Voice {
-      \relative c' {
-        s8 s8 \voiceTwo \accMusic \oneVoice s8 |
-        s8 \voiceTwo r8 \accMusic \oneVoice s8 |
-      }
-    }
-  >>
-}
-@end lilypond
 
 Seules des expressions musicales séquentielles peuvent être utilisées
 pour des petites notes ; il n'est pas possible d'imbriquer ni de

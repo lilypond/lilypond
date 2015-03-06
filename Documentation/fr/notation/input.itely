@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 868bbbb78276796f43a1c72621fdb3a3a14d2555
+    Translation of GIT committish: ec074a41f03cf4cd3b914daa1359dd6e0fb2012d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3657,7 +3657,7 @@ terminal après avoir lancé LilyPond en ligne de commande.  Par exemple,
 affichera
 
 @example
-@{ a,4 cis e fis g @}
+@{ a,4 cis4 e4 fis4 g4 @}
 @end example
 
 LilyPond affichera le résultat sous forme de message en console, au
