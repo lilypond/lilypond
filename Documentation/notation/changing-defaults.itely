@@ -1471,8 +1471,6 @@ below:
 
 @lilypond[quote,relative=2,verbatim]
 c-2
-\stemUp
-f
 @end lilypond
 
 If you visit the documentation on fingering instructions (in
@@ -1689,8 +1687,6 @@ Recall that we wanted to change the position of the @b{2} in
 
 @lilypond[quote,relative=2,verbatim]
 c-2
-\stemUp
-f
 @end lilypond
 
 Since the @b{2} is vertically positioned next to its note, we have to
@@ -1733,8 +1729,6 @@ i.e., before @code{c2}, yields the following result:
 @lilypond[quote,relative=2,verbatim]
 \once \override Voice.Fingering.padding = #3
 c-2
-\stemUp
-f
 @end lilypond
 
 

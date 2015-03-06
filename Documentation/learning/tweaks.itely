@@ -331,12 +331,12 @@ The @code{\once} prefix may also be used in front of many
 predefined commands to limit their effect to one musical moment:
 
 @lilypond[quote,verbatim,relative=1]
-c4 d
-\once \stemDown
-e4 f |
-g4 a
+c4( d)
+\once \slurDashed
+e4( f) |
+g4( a)
 \once \hideNotes
-b c |
+b( c) |
 @end lilypond
 
 However, predefined commands of the form @code{\@dots{}Neutral},
@@ -1869,30 +1869,30 @@ automatically when @code{direction} is set.
 @cindex center
 @cindex neutral
 
-The following example shows in bar 1 the default behavior of stems,
-with those on high notes pointing down and those on low notes pointing
-up, followed by four notes with all stems forced down, four notes with
-all stems forced up, and finally four notes reverted back to the
-default behavior.
+The following example shows the default positioning of slurs in the
+first bar, with slurs starting on high notes positioned above the notes
+and those starting on low notes positioned below, followed by a bar
+with both slurs forced down, a bar with both slurs forced up, and
+finally a bar with both slurs reverted back to the default behavior.
 
-@cindex Stem, example of overriding
+@cindex Slur, example of overriding
 @cindex direction property, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-a4 g c a |
-\override Stem.direction = #DOWN
-a4 g c a |
-\override Stem.direction = #UP
-a4 g c a |
-\revert Stem.direction
-a4 g c a |
+@lilypond[quote,verbatim,relative=2]
+a4( g) c( a) |
+\override Slur.direction = #DOWN
+a4( g) c( a) |
+\override Slur.direction = #UP
+a4( g) c( a) |
+\revert Slur.direction
+a4( g) c( a) |
 @end lilypond
 
-Here we use the constants @code{DOWN} and @code{UP}.
+Here we have used the constants @code{DOWN} and @code{UP}.
 These have the values @w{@code{-1}} and @code{+1} respectively, and
 these numerical values may be used instead.  The value @code{0}
 may also be used in some cases.  It is simply treated as meaning
-@code{UP} for stems, but for some objects it means @q{center}.
+@code{UP} for slurs, but for some objects it means @q{center}.
 There is a constant, @code{CENTER} which has the value @code{0}.
 
 However, these explicit overrides are not usually used, as there are
@@ -1943,11 +1943,19 @@ the commonest.  The meaning of each is stated where it is not obvious.
 @end multitable
 
 The neutral/normal variants of these commands are implemented
-using @code{\revert} and may @strong{not} be
+using @code{\revert} and these may @strong{not} be
 preceded by @code{\once}.  If you wish to limit the
 effect of the other commands (which are implemented using
 @code{\override}) to a single timestep, you can precede them with
 @code{\once} like you would do with explicit overrides.
+
+Or, if just a single layout object needs to be forced up or down, the
+direction indicators, @code{^} or @code{_}, may be used:
+
+@lilypond[quote,verbatim,relative=2]
+a4( g) c( a) |
+a4^( g) c_( a) |
+@end lilypond
 
 @node Fingering
 @unnumberedsubsubsec Fingering
@@ -3155,8 +3163,7 @@ the left, and 1.8 staff space downwards:
 @cindex Fingering, example of overriding
 @cindex extra-offset property, example
 
-@lilypond[quote,fragment,relative=1,verbatim]
-\stemUp
+@lilypond[quote,relative=1,verbatim]
 f4-5
 \once \override Fingering.extra-offset = #'(-0.3 . -1.8)
 f4-5
@@ -4442,10 +4449,10 @@ Let's begin by looking at some files in @file{ly/}.
 Open @file{ly/property-init.ly} in a text editor.  The one
 you normally use for @code{.ly} files will be fine.  This file
 contains the definitions of all the standard LilyPond predefined
-commands, such as @code{\stemUp} and @code{\slurDotted}.  You will
+commands, such as @code{\tieUp} and @code{\slurDotted}.  You will
 see that these are nothing more than definitions of variables
 containing one or a group of @code{\override} commands.  For
-example, @code{/tieDotted} is defined to be:
+example, @code{\tieDotted} is defined to be:
 
 @example
 tieDotted = @{
