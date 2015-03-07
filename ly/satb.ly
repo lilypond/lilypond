@@ -1,4 +1,4 @@
-\version "2.18.0"
+%\version "2.19.17"
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                                                %%
@@ -29,8 +29,10 @@
 
   \paper { ... }
   \header { ... }
+  TwoVoicesPerStaff = ##f or ##t
   Key = { ... }
   Time = { ... }
+  Layout = \layout { ... }
   DescantMusic = \relative { ... }
   DescantLyrics = \lyricmode { ... }
   SopranoMusic = \relative { ... }
@@ -48,7 +50,6 @@
   PianoRHMusic = \relative { ... }
   PianoDynamics = { ... }
   PianoLHMusic = \relative { ... }
-  TwoVoicesPerStaff = ##f
   \include "satb.ly"
 
   All of the definitions are optional. Staves with no music will be
@@ -66,24 +67,24 @@
 
 %}
 
-#(defmacro defaulting (name . default)
-  (if (defined? name) name (if (pair? default) (car default) '#{#})))
+#(defmacro satb-defaulting (name . default)
+  (if (defined? name) name (if (pair? default) (car default) *unspecified*)))
 
-#(define (sym . strings) (string->symbol (apply string-append strings)))
+#(define (satb-sym . strings) (string->symbol (apply string-append strings)))
 
-#(defmacro short-name (part)
+#(defmacro satb-short-name (part)
   "Use PartShortInstrumentName, or the first letter of
 PartInstrumentName or its default."
-  (if (defined? (sym part "Music"))
-    (let ((sname (sym part "ShortInstrumentName")))
+  (if (defined? (satb-sym part "Music"))
+    (let ((sname (satb-sym part "ShortInstrumentName")))
       (if (defined? sname)
         sname
-        `(substring (defaulting ,(sym part "InstrumentName") ,part)
+        `(substring (satb-defaulting ,(satb-sym part "InstrumentName") ,part)
                     0 1)))
     ""))
 
-#(defmacro lyrics-if-defined (name voice . optionals)
-  (let ((above (if (pair? optionals) (car optionals) #f)))
+#(defmacro satb-lyrics-if-defined (name voice . optionals)
+  (let ((above (and (pair? optionals) (car optionals))))
     (if (defined? name)
       `(make-music 'ContextSpeccedMusic
          'create-new #t
@@ -92,65 +93,65 @@ PartInstrumentName or its default."
          'element (make-music 'LyricCombineMusic
                    'associated-context ,voice
                    'element ,name))
-      #{#})))
+      *unspecified*)))
 
-#(defmacro one-voice-staff (name clef)
+#(defmacro satb-one-voice-staff (name clef)
   `#{ <<
-     \new Staff = #(identity ,name) \with {
+     \new Staff = #,name \with {
        instrumentName = \markup \smallCaps
-         #(defaulting ,(sym name "InstrumentName") ,name)
-       shortInstrumentName = \markup \smallCaps #(short-name ,name)
+         #(satb-defaulting ,(satb-sym name "InstrumentName") ,name)
+       shortInstrumentName = \markup \smallCaps #(satb-short-name ,name)
        midiInstrument = "clarinet"
      } {
-       #(defaulting Key)
-       \clef #(identity ,clef)
-       \new Voice = #(identity ,name) <<
-         #(defaulting Time)
+       #(satb-defaulting Key)
+       \clef #,clef
+       \new Voice = #,name <<
+         #(satb-defaulting Time)
          \dynamicUp
-         #(defaulting ,(sym name "Music"))
+         #(satb-defaulting ,(satb-sym name "Music"))
        >>
      }
-     #(lyrics-if-defined ,(sym name "Lyrics") ,name)
-     #(lyrics-if-defined ,(sym name "LyricsOne") ,name)
-     #(lyrics-if-defined ,(sym name "LyricsTwo") ,name)
-     #(lyrics-if-defined ,(sym name "LyricsThree") ,name)
+     #(satb-lyrics-if-defined ,(satb-sym name "Lyrics") ,name)
+     #(satb-lyrics-if-defined ,(satb-sym name "LyricsOne") ,name)
+     #(satb-lyrics-if-defined ,(satb-sym name "LyricsTwo") ,name)
+     #(satb-lyrics-if-defined ,(satb-sym name "LyricsThree") ,name)
    >> #})
 
-#(defmacro two-voice-staff (name clef v1name v2name)
+#(defmacro satb-two-voice-staff (name clef v1name v2name)
   `#{ <<
-    \new Staff = #(identity ,name) \with {
+    \new Staff = #,name \with {
       instrumentName = \markup \right-column \smallCaps {
-        #(defaulting ,(sym v1name "InstrumentName") ,v1name)
-        #(defaulting ,(sym v2name "InstrumentName") ,v2name)
+        #(satb-defaulting ,(satb-sym v1name "InstrumentName") ,v1name)
+        #(satb-defaulting ,(satb-sym v2name "InstrumentName") ,v2name)
       }
       shortInstrumentName = \markup \right-column \smallCaps {
-        #(short-name ,v1name)
-        #(short-name ,v2name)
+        #(satb-short-name ,v1name)
+        #(satb-short-name ,v2name)
       }
       midiInstrument = "clarinet"
     } <<
-      #(defaulting Key)
-      \clef #(identity ,clef)
-      \new Voice = #(identity ,v1name) <<
-        #(defaulting Time)
+      #(satb-defaulting Key)
+      \clef #,clef
+      \new Voice = #,v1name <<
+        #(satb-defaulting Time)
         \voiceOne
         \dynamicUp
-        #(defaulting ,(sym v1name "Music"))
+        #(satb-defaulting ,(satb-sym v1name "Music"))
       >>
-      \new Voice = #(identity ,v2name) <<
-        #(defaulting Time)
+      \new Voice = #,v2name <<
+        #(satb-defaulting Time)
         \voiceTwo
-        #(defaulting ,(sym v2name "Music"))
+        #(satb-defaulting ,(satb-sym v2name "Music"))
       >>
     >>
-    #(lyrics-if-defined ,(sym v1name "Lyrics") ,v1name ,name)
-    #(lyrics-if-defined ,(sym v1name "LyricsOne") ,v1name ,name)
-    #(lyrics-if-defined ,(sym v1name "LyricsTwo") ,v1name ,name)
-    #(lyrics-if-defined ,(sym v1name "LyricsThree") ,v1name ,name)
-    #(lyrics-if-defined ,(sym v2name "Lyrics") ,v2name)
-    #(lyrics-if-defined ,(sym v2name "LyricsOne") ,v2name)
-    #(lyrics-if-defined ,(sym v2name "LyricsTwo") ,v2name)
-    #(lyrics-if-defined ,(sym v2name "LyricsThree") ,v2name)
+    #(satb-lyrics-if-defined ,(satb-sym v1name "Lyrics") ,v1name ,name)
+    #(satb-lyrics-if-defined ,(satb-sym v1name "LyricsOne") ,v1name ,name)
+    #(satb-lyrics-if-defined ,(satb-sym v1name "LyricsTwo") ,v1name ,name)
+    #(satb-lyrics-if-defined ,(satb-sym v1name "LyricsThree") ,v1name ,name)
+    #(satb-lyrics-if-defined ,(satb-sym v2name "Lyrics") ,v2name)
+    #(satb-lyrics-if-defined ,(satb-sym v2name "LyricsOne") ,v2name)
+    #(satb-lyrics-if-defined ,(satb-sym v2name "LyricsTwo") ,v2name)
+    #(satb-lyrics-if-defined ,(satb-sym v2name "LyricsThree") ,v2name)
   >> #})
 
 SATB = <<
@@ -160,55 +161,55 @@ SATB = <<
     \override VerticalAxisGroup.remove-first = ##t
   }
   <<
-    #(one-voice-staff "Descant" "treble")
+    #(satb-one-voice-staff "Descant" "treble")
 
-    #(if (defaulting TwoVoicesPerStaff #f)
-      (two-voice-staff "Women" "treble" "Soprano" "Alto")
-      (make-simultaneous-music (list (one-voice-staff "Soprano" "treble")
-                                     (one-voice-staff "Alto" "treble"))))
+    #(if (satb-defaulting TwoVoicesPerStaff #f)
+      (satb-two-voice-staff "Women" "treble" "Soprano" "Alto")
+      (make-simultaneous-music (list (satb-one-voice-staff "Soprano" "treble")
+                                     (satb-one-voice-staff "Alto" "treble"))))
 
-    #(lyrics-if-defined VerseOne "Soprano")
-    #(lyrics-if-defined VerseTwo "Soprano")
-    #(lyrics-if-defined VerseThree "Soprano")
-    #(lyrics-if-defined VerseFour "Soprano")
-    #(lyrics-if-defined VerseFive "Soprano")
-    #(lyrics-if-defined VerseSix "Soprano")
-    #(lyrics-if-defined VerseSeven "Soprano")
-    #(lyrics-if-defined VerseEight "Soprano")
-    #(lyrics-if-defined VerseNine "Soprano")
+    #(satb-lyrics-if-defined VerseOne "Soprano")
+    #(satb-lyrics-if-defined VerseTwo "Soprano")
+    #(satb-lyrics-if-defined VerseThree "Soprano")
+    #(satb-lyrics-if-defined VerseFour "Soprano")
+    #(satb-lyrics-if-defined VerseFive "Soprano")
+    #(satb-lyrics-if-defined VerseSix "Soprano")
+    #(satb-lyrics-if-defined VerseSeven "Soprano")
+    #(satb-lyrics-if-defined VerseEight "Soprano")
+    #(satb-lyrics-if-defined VerseNine "Soprano")
 
-    #(if (defaulting TwoVoicesPerStaff #f)
-      (two-voice-staff "Men" "bass" "Tenor" "Bass")
-      (make-simultaneous-music (list (one-voice-staff "Tenor" "treble_8")
-                                     (one-voice-staff "Bass" "bass"))))
+    #(if (satb-defaulting TwoVoicesPerStaff #f)
+      (satb-two-voice-staff "Men" "bass" "Tenor" "Bass")
+      (make-simultaneous-music (list (satb-one-voice-staff "Tenor" "treble_8")
+                                     (satb-one-voice-staff "Bass" "bass"))))
   >>  % End ChoirStaff
 
   \new PianoStaff
   \with {
     instrumentName = \markup \smallCaps
-                       #(defaulting PianoInstrumentName "Piano" )
-    shortInstrumentName = \markup \smallCaps #(short-name "Piano" )
+                       #(satb-defaulting PianoInstrumentName "Piano" )
+    shortInstrumentName = \markup \smallCaps #(satb-short-name "Piano" )
     \override VerticalAxisGroup.remove-empty = ##t
     \override VerticalAxisGroup.remove-first = ##t
   }
   <<
     \new Staff {
       \clef "treble"
-      #(defaulting Key)
+      #(satb-defaulting Key)
       \new Voice <<
-        #(defaulting Time)
-        #(defaulting PianoRHMusic)
+        #(satb-defaulting Time)
+        #(satb-defaulting PianoRHMusic)
       >>
     }
     \new Dynamics {
-      #(defaulting PianoDynamics)
+      #(satb-defaulting PianoDynamics)
     }
     \new Staff {
       \clef "bass"
-      #(defaulting Key)
+      #(satb-defaulting Key)
       \new Voice <<
-        #(defaulting Time)
-        #(defaulting PianoLHMusic)
+        #(satb-defaulting Time)
+        #(satb-defaulting PianoLHMusic)
       >>
     }
   >>
@@ -218,7 +219,7 @@ SATB = <<
 
 \score {
   \keepWithTag #'print \SATB
-  \layout { #(defaulting Layout) }
+  \layout { $(satb-defaulting Layout) }
 }
 
 \score {
