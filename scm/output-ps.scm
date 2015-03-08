@@ -295,15 +295,20 @@
                                     (ly:warning (_ "unknown line-join-style: ~S")
                                                 (symbol->string join))
                                     1)))))
-    (ly:format
-     "gsave currentpoint translate
+     (ly:format
+      "gsave currentpoint translate
 ~a setlinecap ~a setlinejoin ~a setlinewidth
-~l gsave stroke grestore ~a grestore"
-     cap-numeric
-     join-numeric
-     thickness
-     (convert-path-exps exps)
-     (if fill? "fill" ""))))
+~l ~a grestore"
+      cap-numeric
+      join-numeric
+      thickness
+      (convert-path-exps exps)
+      ;; print outline contour only if there is no fill or if
+      ;; contour is explicitly requested with a thickness > 0
+      (cond ((not fill?) "stroke")
+            ((positive? thickness) "gsave stroke grestore fill")
+            (else "fill")))))
+
 
 (define (setscale x y)
   (ly:format "gsave ~4l scale\n"
