@@ -95,9 +95,25 @@ durations that make each measure add up to the correct
 length.  Bar checks also make your input code easier to
 read, since they help to keep things organized.
 
-@lilypond[verbatim,quote,relative=2]
-g1 | e1 | c2. c'4 | g4 c g e | c4 r r2 |
+@c This example deliberately produces a warning
+@lilypond[verbatim,quote]
+\relative g' {
+  g1 | e1 | c2. c' | g4 c g e | c4 r r2 |
+}
 @end lilypond
+
+If you compile the code in the example above, you should see a
+warning in the console output:
+
+@example
+warning: barcheck failed at: 1/2
+ g1 | e1 | c2. c'
+                  | g4 c g e | c4 r r2 |
+@end example
+
+Although the missing duration is clear in the musical output in this
+simple example, the warning in the console output is far more
+effective in drawing attention to the missing @code{4} in bar 3.
 
 @seealso
 Notation Reference:
@@ -1026,7 +1042,7 @@ separating each syllable with a space.
     d4 b8 c4 a8 | d4 b8 g4
   }
   \addlyrics {
-    Girls and boys come | out to play,
+    Girls and boys come out to play,
   }
 >>
 @end lilypond
@@ -1061,26 +1077,13 @@ shine as bright as day}.  Let's extend it:
     a4 b8 c b a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come | out to play,
-    The | moon doth shine as | bright as day; |
+    Girls and boys come out to play,
+    The moon doth shine as bright as day;
   }
 >>
 @end lilypond
 
-If you compile the code in the example above, you should see some
-warnings in the console output:
-
-@example
-song.ly:12:29: warning: barcheck failed at: 5/8
-    The | moon doth shine as
-                             | bright as day; |
-song.ly:12:46: warning: barcheck failed at: 3/8
-    The | moon doth shine as | bright as day;
-                                              |
-@end example
-
-This is a good example of the usefulness of bar checks.  Now,
-looking at the music, we see that the extra lyrics do not align
+Looking at the music, we see that the extra lyrics do not align
 properly with the notes.  The word @notation{shine} should be sung
 on two notes, not one.  This is called a @notation{melisma}, a
 single syllable sung to more than one note.  There are several
@@ -1096,8 +1099,8 @@ to add a slur across them, for details, see @ref{Ties and slurs}:
     a4 b8 c( b) a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come | out to play,
-    The | moon doth shine as | bright as day; |
+    Girls and boys come out to play,
+    The moon doth shine as bright as day;
   }
 >>
 @end lilypond
@@ -1117,8 +1120,8 @@ manual beams}.
     a4 b8 c([ b]) a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come | out to play,
-    The | moon doth shine as | bright as day; |
+    Girls and boys come out to play,
+    The moon doth shine as bright as day;
   }
 >>
 @end lilypond
@@ -1136,8 +1139,8 @@ that should be included in the melisma:
     a4 b8 c[ b] a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come | out to play,
-    The | moon doth shine _ as | bright as day; |
+    Girls and boys come out to play,
+    The moon doth shine _ as bright as day;
   }
 >>
 @end lilypond
@@ -1158,8 +1161,8 @@ first three bars of @notation{Dido's Lament}, from Purcell's
     c4.( bes8 a4. g8 fis4.) g8 | fis1
   }
   \addlyrics {
-    When I am | laid,
-    am | laid __ in | earth,
+    When I am laid,
+    am laid __ in earth,
   }
 >>
 @end lilypond
@@ -1183,8 +1186,8 @@ far about aligning lyrics to notes.
     d4 d e | c2
   }
   \addlyrics {
-    A -- | way in a __ | man -- ger,
-    no __ | crib for a | bed, __
+    A -- way in a __ man -- ger,
+    no __ crib for a bed,
   }
 >>
 @end lilypond
@@ -1208,7 +1211,7 @@ Here's an example from Rossini's @notation{Figaro}, where
     c4.~ 8 d b | c8([ d]) b c d b | c8
   }
   \addlyrics {
-    Lar -- go_al fac -- | to -- tum del -- la cit -- | tà
+    Lar -- go_al fac -- to -- tum del -- la cit -- tà
   }
 >>
 @end lilypond
@@ -1238,7 +1241,7 @@ example from Handel's @notation{Judas Maccabæus}:
     c8 | c8([ bes]) a a([ g]) f | f'4. b, | c4.~ 4
   }
   \addlyrics {
-    Let | flee -- cy flocks the | hills a -- | dorn, __
+    Let flee -- cy flocks the hills a -- dorn, __
   }
   \relative c' {
     \key f \major
@@ -1247,7 +1250,7 @@ example from Handel's @notation{Judas Maccabæus}:
     r8 | r4. r4 c8 | a'8([ g]) f f([ e]) d | e8([ d]) c bes'4
   }
   \addlyrics {
-    Let | flee -- cy flocks the | hills a -- dorn,
+    Let flee -- cy flocks the hills a -- dorn,
   }
 >>
 @end lilypond
