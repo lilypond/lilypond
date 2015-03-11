@@ -66,8 +66,8 @@ Multi-measure rests have length according to their total duration,
 under the control of @code{MultiMeasureRest.space-increment}.
 @lilypond[quote]
 { \compressFullBarRests
-  \override MultiMeasureRest.space-increment = 2.2
-  R1 R1 R1*2 R1*8 R1*24 R1*80 }
+  \override Staff.MultiMeasureRest.space-increment = 3.0
+  R1*2 R1*12 R1*64 }
 @end lilypond
 
 @item
