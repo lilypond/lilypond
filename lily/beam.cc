@@ -870,11 +870,11 @@ Beam::consider_auto_knees (Grob *me)
     {
       Grob *stem = stems[i];
 
-      Interval head_extents = Stem::head_positions (stem);
-      if (!head_extents.is_empty ())
+      Interval head_extents;
+      if (Stem::head_count (stem))
         {
-          head_extents[LEFT] += -1;
-          head_extents[RIGHT] += 1;
+          head_extents = Stem::head_positions (stem);
+          head_extents.widen (1);
           head_extents *= staff_space * 0.5;
 
           /*

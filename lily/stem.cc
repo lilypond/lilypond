@@ -110,10 +110,10 @@ Stem::head_positions (Grob *me)
 Real
 Stem::chord_start_y (Grob *me)
 {
-  Interval hp = head_positions (me);
-  if (!hp.is_empty ())
-    return hp[get_grob_direction (me)] * Staff_symbol_referencer::staff_space (me)
-           * 0.5;
+  if (head_count (me))
+    return Staff_symbol_referencer::get_position (last_head (me))
+      * Staff_symbol_referencer::staff_space (me) * 0.5;
+
   return 0;
 }
 
@@ -658,9 +658,9 @@ Stem::calc_default_direction (SCM smob)
 
   Direction dir = CENTER;
   int staff_center = 0;
-  Interval hp = head_positions (me);
-  if (!hp.is_empty ())
+  if (head_count (me))
     {
+      Interval hp = head_positions (me);
       int udistance = (int) (UP * hp[UP] - staff_center);
       int ddistance = (int) (DOWN * hp[DOWN] - staff_center);
 
