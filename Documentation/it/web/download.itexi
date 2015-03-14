@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 7a5bfc62fcac71d5c996b2df58921fd2fe783415
+    Translation of GIT committish: 30773c8a2cca86f5f4a6d3c4e0ba4359e5d05f91
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -82,7 +82,7 @@ ultima versione non stabile
 
 @divEnd
 
-@divClass{column-center-bottom}
+@divClass{column-center-middle-color2}
 
 @subheading Licenza software
 
@@ -91,7 +91,7 @@ LilyPond è distribuito secondo la
 @divEnd
 
 
-@divClass{color1}
+@divClass{column-center-bottom}
 
 @subheading Sponsor
 
@@ -102,6 +102,9 @@ Un ringraziamento a @uref{http://www.vt.edu/, Virginia Tech} e
 @sourceimage{VTlogo_ITF,,,}
 @sourceimage{lao_banner_06_on_white_demo,,,}
 
+@divEnd
+
+@divClass{column-center-bottom}
 @subheading Legalese
 
 @divClass{legal}

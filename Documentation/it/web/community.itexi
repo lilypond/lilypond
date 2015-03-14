@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 0ea80a5e850c6114d1ba7dc4cfd81d5a45d9604a
+    Translation of GIT committish: 30773c8a2cca86f5f4a6d3c4e0ba4359e5d05f91
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -50,7 +50,7 @@ quando si discute di LilyPond.
 @ref{Sviluppo}: per i collaboratori e i tester.
 
 @item
-@ref{GSoC 2012}: le nostre idee per l'edizione 2012 del Google Summer of Code.
+@ref{Google Summer of Code}: idee per il Google Summer of Code (GSoC).
 
 @item
 @ref{Autori}: le persone che hanno reso LilyPond quello che è oggi.
@@ -88,7 +88,7 @@ quando si discute di LilyPond.
 * Aiutaci::
 * Sponsor::
 * Sviluppo::
-* GSoC 2012::
+* Google Summer of Code::
 * Autori::
 * Riconoscimenti::
 * Pubblicazioni::
@@ -872,9 +872,9 @@ manuali sono reperibili su @url{http://lilypond.org}}
 @divEnd
 
 
-@node GSoC 2012
-@unnumberedsec GSoC 2012
-@translationof GSoC 2012
+@node Google Summer of Code
+@unnumberedsec Google Summer of Code
+@translationof Google Summer of Code
 
 @divClass{column-center-top}
 @subheading Che cos'è il Google Summer of Code?
@@ -883,36 +883,37 @@ manuali sono reperibili su @url{http://lilypond.org}}
 degli stipendi per lavorare a progetti di software libero durante le
 vacanze estive.
 
-Il team di LilyPond ha deciso che si tratta di un'ottima opportunità per trovare
-nuovi collaboratori e stimolare gli studenti che già partecipano allo sviluppo di
-LilyPond ad essere più coinvolti.  Uno dei nostri sviluppatori è stato accettato
-per l'edizione 2012 sotto l'egida del @uref{http://www.gnu.org/, progetto GNU};
-speriamo di partecipare anche a future edizioni.
+È un'ottima opportunità per trovare nuovi collaboratori e per stimolare gli
+studenti che già partecipano allo sviluppo di LilyPond ad impegnarsi di
+più in esso.  Uno dei nostri sviluppatori è stato accettato
+per il programma 2012 sotto l'egida del @uref{http://www.gnu.org/, progetto GNU} e
+siamo sempre in cerca di persone che vogliano partecipare ai programmi futuri.
 
 @divEnd
 
-@divClass{column-center-bottom}
-@subheading La nostra lista delle idee per il 2012
+@divClass{column-center-middle-color2}
+@subheading La lista delle nostre idee
 
-Ecco una lista di progetti che suggeriamo per gli studenti del GSoC 2012.
-Sebbene il periodo delle domande sia finito, abbiamo deciso di tenere questa
-pagina online come fonte di ispirazione per chiunque sia interessato a
-contribuire allo sviluppo di LilyPond.
-Alcuni membri del team di sviluppo sono disponibili a aiutare chi volesse
-affrontare questi progetti.
+Ecco una lista di progetti suggeriti agli studenti del GSoC 2012.  Viene
+conservata qui come fonte di ispirazione per chiunque sia interessato a
+contribuire allo sviluppo di LilyPond in futuri progetti GSoC.
+Ci sono molte altre cose da fare per migliorare LilyPond e i membri del
+team di sviluppo sono sempre disponibili a aiutare chi volesse affrontare
+progetti simili a quelli elencati sotto.
 
-Ci sono certamente molte altre cose da migliorare in LilyPond, inclusi
-progetti molto piccoli.  Una lista completa di tutti i problemi si trova
+Una lista completa di tutti i problemi da risolvere si trova
 @uref{http://code.google.com/p/lilypond/issues/list, qui}.
 
+@divEnd
+
+@divClass{column-center-middle-color3}
 @subheading Abbellimenti
 
-Correggere i problemi di sincronizzazione degli abbellimenti,
-insieme a tutta l'architettura sottostante (si veda il
-@uref{http://code.google.com/p/lilypond/issues/detail?id=34, numero 34 del nostro tracker}).
-Gli abbellimenti confondono il tempo di LilyPond perché è come se portassero
-indietro il tempo.  Questo causa strani effetti, specialmente quando un rigo
-ha un abbellimento e l'altro non ce l'ha.
+Correggere i problemi di sincronizzazione degli abbellimenti.
+Gli abbellimenti possono interferire col modo in cui LilyPond
+gestisce il tempo e causare strani effetti, specialmente quando si usano
+più righi e alcuni di questi hanno degli abbellimenti mentre altri
+non ce li hanno.
 
 @strong{Difficoltà:} media
 
@@ -922,11 +923,12 @@ ha un abbellimento e l'altro non ce l'ha.
 
 @strong{Mentore/i:} Mike Solomon, Carl Sorensen
 
+@divEnd
+
+@divClass{column-center-middle-color3}
 @subheading MusicXML
 
-Aggiungere un'esportazione a MusicXML completa e migliorare l'importazione,
-insieme a dei test che verifichino il funzionamento.  A seconda del tempo a
-disposizione, implementare alcune o tutte le seguenti funzionalità:
+Migliorare le funzioni di importazione e esportazione di MusicXML:
 
 @divClass{keep-bullets}
 @itemize
@@ -934,30 +936,27 @@ disposizione, implementare alcune o tutte le seguenti funzionalità:
 @item
 Gestire l'esportazione del contenuto musicale principale come l'esportazione
 MIDI (ovvero usando classi dedicate dell'esportatore, derivate dalla classe
-del traduttore)
+del traduttore).
 
 @item
 Costruire l'albero XML del contenuto musicale di base,
-aggiungere un collegamento dall'evento musicale al tag XML
+aggiungere un collegamento dall'evento musicale al tag XML.
 
 @item
-Far sì che tutti gli incisori di LilyPond facciano il loro lavoro
+Far sì che tutti gli incisori di LilyPond facciano il loro lavoro.
 
 @item
 Aggiungere la capacità di collegare ogni oggetto dell'output
-(in pratica ogni stampo (stencil) / gruppo di stampi) alla sua causa musicale
-(e quindi al tag XML nell'albero XML)
+(ovvero ogni stampo (stencil) / gruppo di stampi) alla sua causa musicale
+(e quindi al tag XML nell'albero XML).
 
 @item
-Aggiungere un backend di output XML, che possa aggiungere le informazioni di
-formattazione per ogni oggetto di output ai tag XML
+Creare un backend di output XML, che possa aggiungere le informazioni di
+formattazione per ogni oggetto di output ai tag XML.
 
 @end itemize
 @divEnd
 
-L'obiettivo sarà considerato raggiunto quando una partitura (scelta precedentemente)
-può essere importata da MusicXML e riesportata senza una perdita di dati
-indesiderata.
 
 @strong{Difficoltà:} media
 
@@ -968,14 +967,14 @@ indesiderata.
 è auspicabile una certa familiarità con altri software di notazione musicale (a
 fine comparativo).
 
+@divClass{column-center-middle-color3}
 @subheading Migliorare le legature di portamento e di valore
 
 La forma predefinita delle curve delle legature di portamento e di valore è spesso
-non soddisfacente.  Non sono supportate né le legature di valore su note
-enarmoniche @code{@{ cis'~ des' @}} né le legature di valore "spezzate" da
-una chiave o da un cambio di rigo.  Il progetto include la raccolta e la classificazione
-di esempi di output scadente, la decisione sull'output desiderato e la scrittura
-del codice vero e proprio.
+non soddisfacente.  Le legature di valore "spezzate" da una chiave o da
+un cambio di rigo non sono gestite al meglio.  Il progetto potrebbe
+includere la raccolta e la classificazione di esempi di output scadente, la
+decisione sull'output desiderato e la scrittura del codice per migliorarlo.
 
 @strong{Difficoltà:} difficile
 
@@ -984,12 +983,24 @@ del codice vero e proprio.
 @strong{Conoscenze consigliate:} conoscenza di LilyPond, senso estetico
 
 @strong{Mentore/i:} Mike Solomon
+@divEnd
 
-@subheading Aggiungere una variante speciale dei glifi dei tipi di carattere
-Aggiungere varianti sulla linea del rigo, tra le linee dei righi, più corte e
-più strette di alcuni glifi, come ad esempio le alterazioni, insieme a un'infrastruttura
-generica per supportarle.  Un esempio è la testa della nota breve nella notazione
-antica che ha due varianti, con un buco più piccolo e più grande.
+@divClass{column-center-middle-color3}
+@subheading Aggiungere varianti dei glifi dei tipi di carattere
+
+@divClass{keep-bullets}
+@itemize
+@item
+Aggiungere varianti @q{sulla} linea del rigo e @q{tra} le linee dei righi.
+
+@item
+Varianti più corte e più strette di alcuni glifi, come ad esempio le
+alterazioni.  Un altro esempio più specifico è la testa della nota
+breve nella notazione antica che ha due varianti, con un @q{buco} più
+piccolo e più grande.
+
+@end itemize
+@divEnd
 
 @strong{Difficoltà:} facile
 
@@ -998,14 +1009,17 @@ antica che ha due varianti, con un buco più piccolo e più grande.
 @strong{Conoscenze consigliate:} conoscenza di base di LilyPond
 
 @strong{Mentore/i:} Werner Lemberg
+@divEnd
 
-@subheading Migliorare la disposizione delle travature
+
+@divClass{column-center-middle-color3}
+@subheading Migliorare la disposizione predefinita delle travature
 
 Il posizionamento predefinito delle travature normali, tra i righi, spezzate e angolari
 deve essere migliorato.  La disposizione delle travature deve dipendere dal contesto
 e dalle note vicine (si veda la
 @uref{http://icking-music-archive.org/lists/sottisier/sottieng.pdf, sezione 2.2 qui}).
-Se possibile, ridurre il tempo di elaborazione della disposizione delle travature.
+Se possibile, ridurre anche il tempo di elaborazione della disposizione delle travature.
 
 @strong{Difficoltà:} media
 
@@ -1015,15 +1029,16 @@ Se possibile, ridurre il tempo di elaborazione della disposizione delle travatur
 
 @strong{Mentore/i:} Mike Solomon, Carl Sorensen
 
-@subheading Semplificare vari avvisi durante la compilazione
+@divEnd
 
-Semplificare gli avvisi del compilatore e di valgrind e l'analisi del codice statico.
-Strumenti di analisi automatica del codice (avvisi in @code{g++} e @code{clang})
-e strumenti di analisi come il rilevamento di perdite di memoria di valgrind e
-i profilatori di codice di callgrind forniscono informazioni utili per individuare
-possibili errori nel codice C++.
-Pulire questi avvisi ci permetterebbe di rifiutare automaticamente qualsiasi
-patch che introduca avvisi ulteriori.
+@divClass{column-center-middle-color3}
+@subheading Migliorare il comportamento durante la compilazione
+
+Strumenti di analisi automatica del codice, come il rilevamento di
+perdite di memoria di valgrind e i profilatori di codice di callgrind,
+forniscono informazioni utili per individuare possibili errori nel
+nostro codice C++.  Pulire gli avvisi ci permetterebbe automatizzare
+il rifiuto di qualsiasi patch che introduca avvisi ulteriori.
 
 @strong{Difficoltà:} media
 

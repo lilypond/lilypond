@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: b567622265c20aaafdb5904b910794ae171d01e4
+    Translation of GIT committish: 8d79501773810429b8294c7a2234884775b12600
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -305,27 +305,20 @@ già deciso di provare LilyPond, per prima cosa informati sul nostro
 Lilypond è uno strumento potente e flessibile per scrivere ogni tipo
 di musica. Dai un'occhiata alla galleria di esempi e lasciati ispirare!
 
-@ignore
-Here is a passage from Franz Liszt's solo piano transcription
-of the Overture to Wagner's @emph{Tannhäuser}. The spacing
-in this example was all performed by Lilypond's formatting
-algorithms, without tweaks of any kind. It
-handles cross-staff beaming gracefully and puts the system brace
-perfectly around all three staves.
+@divEnd
 
-@exampleImage{liszt-wagner}
-@end ignore
 
-@newsItem
-@subsubheading Musica Classica
+@divClass{column-center-middle-color2}
+@subheading Musica Classica
 
-Questo brano per organo di J.S. Bach rappresenta un tipico esempio di progetto Lilypond.
+Questo brano per organo di J.S. Bach rappresenta un tipico esempio di
+progetto Lilypond.
 
 @exampleImage{bach-bwv610}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Notazione Complessa
+@divClass{column-center-middle-color2}
+@subheading Notazione Complessa
 
 Questo esempio tratto dalle @emph{Goyescas} di Enrique Granados mostra alcune
 delle funzionalità tipografiche più avanzate, come la ripartizione di travature
@@ -333,30 +326,30 @@ e gambi tra più righi e l'evidenziazione dello svolgimento di una singola voce
 mediante tratti spezzati.
 
 @exampleImage{granados}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Musica Antica
+@divClass{column-center-middle-color2}
+@subheading Musica Antica
 
 Lilypond supporta anche vari tipi di notazione antica, come
 questo passaggio di canto gregoriano.
 
 @exampleImage{ancient-headword}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Musica Moderna
+@divClass{column-center-middle-color2}
+@subheading Musica Moderna
 
 I compositori contemporanei ritengono che Lilypond sia molto adatto a
 visualizzare notazioni non convenzionali.  Ecco un estratto dal @emph{Čáry} di
 Trevor Bača, per flauto basso non accompagnato.
 
 @exampleImage{cary}
-@newsEnd
+@divEnd
 
 
-@newsItem
-@subsubheading Creazione efficiente e flessibile di materiali da esecuzione
+@divClass{column-center-middle-color2}
+@subheading Creazione efficiente e flessibile di materiali da esecuzione
 
 A partire dallo stesso codice
 sorgente possono essere creati diversi materiali d'esecuzione.  Questo è
@@ -370,10 +363,10 @@ completa, riduzione per canto e pianoforte, e parte per violino.
 
 @exampleImage{sesto-violin}
 
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Intavolatura
+@divClass{column-center-middle-color2}
+@subheading Intavolatura
 
 Lilypond supporta la notazione per intavolatura, che può essere personalizzata
 per adattarsi a ogni strumento che ne fa uso.  Il rigo
@@ -381,10 +374,10 @@ dell'intavolatura viene generato automaticamente dalle note inserite per
 il pentagramma.
 
 @exampleImage{tab-example}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Grafici Schenker
+@divClass{column-center-middle-color2}
+@subheading Grafici Schenker
 
 L'output di default può essere ampiamente modificato.  Ecco un'analisi
 Schenkeriana di grande effetto, creata da Kris Schaffer,  per un articolo
@@ -392,20 +385,20 @@ su @uref{http://www.linuxjournal.com/article/8364 , Linux Journal}.
 I colori sono stati aggiunti per migliorare la visibilità.
 
 @exampleImage{bach-schenker}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Output personalizzato
+@divClass{column-center-middle-color2}
+@subheading Output personalizzato
 
 Un breve estratto del Klavierstück II di Stockhausen per dimostrare  la
 capacità di Lilypond di fornire output personalizzato.
 
 @exampleImage{Stockhausen_Klavierstueck2}
-@newsEnd
+@divEnd
 
 
-@newsItem
-@subsubheading Musica Vocale
+@divClass{column-center-middle-color2}
+@subheading Musica Vocale
 
 Lilypond è eccellente per la musica vocale di tutti i generi, dagli inni
 sacri all'opera.  Ecco un mottetto medievale con requisiti leggermente
@@ -416,19 +409,19 @@ incipit con chiave in stile Vaticana, i gambi barrati a indicare note plicate,
 e le parentesi quadre sulle sezioni legate.
 
 @exampleImage{aucun-snippet}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Applicazioni didattiche
+@divClass{column-center-middle-color2}
+@subheading Applicazioni didattiche
 
 Lilypond è molto indicato anche per applicazioni didattiche.
 Ecco un esempio di un semplice esercizio di contrappunto.
 
 @exampleImage{theory}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Musica Popolare
+@divClass{column-center-middle-color2}
+@subheading Musica Popolare
 
 È semplice creare spartiti semplificati pop con melodia, testo,
 nomi degli accordi, e tastiere.  In questo esempio puoi vedere alcuni
@@ -436,10 +429,10 @@ dei diagrammi di tastiera predefiniti, ma questi possono essere ampiamente
 personalizzati per adattarsi a quasi ogni situazione.
 
 @exampleImage{chart}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Grandi Progetti
+@divClass{column-center-middle-color2}
+@subheading Grandi Progetti
 
 Lilypond è ottimo anche per progetti ad ampio respiro come opere o lavori per
 un'orchestra sinfonica al completo.  Inoltre l'input testuale permette
@@ -447,7 +440,6 @@ una maggiore accessibilità -- questo esempio è stato realizzato
 da Hu Haipeng, un compositore cieco.
 
 @exampleImage{orchestra}
-@newsEnd
 
 @divEnd
 
@@ -477,7 +469,7 @@ dovrebbe richiedere centinaia di dollari di software!
 
 
 @c @divClass{column-left-top}
-@divClass{color2}
+@divClass{column-center-middle-color2}
 @divClass{keep-bullets}
 @subheading Quali sono i vantaggi per gli utenti?
 
@@ -518,7 +510,7 @@ essere legalmente disponibile per la copia, la modifica e la distribuzione.
 
 
 @c @divClass{column-right-top}
-@divClass{color3}
+@divClass{column-center-middle-color3}
 @divClass{keep-bullets}
 @subheading Perché gli sviluppatori di LilyPond @qq{regalano} la loro opera?
 
@@ -620,26 +612,34 @@ In evidenza:
 @itemize
 
 @item
-@uref{http://www.aurelienbello.com/,Aurélien Bello} ha riorchestrato
-@emph{Der Ring des Nibelungen} di Richard Wagner in una
+@uref{http://www.aurelienbello.com/,Aurélien Bello} ha arrangiato una
+versione @q{ridotta} del @emph{Der Rosenkavalier} di Richard Strauss
+per quattro voci e un'orchestra da camera di tredici musicisti.  Verrà
+eseguita il
+@uref{http://www.festspielhaus.de/veranstaltung/der-kleine-rosenkavalier-02-04-2015-1100/,2 e 6 Aprile}
+al Festspielhaus, Baden-Baden, e poi di nuovo il
+@uref{http://www.berliner-philharmoniker.de/konzerte/kalender/details/21070/,26 Aprile}
+al @emph{Großer Saal}, Berlino.
+Aurélien ha anche riorchestrato il @emph{Der Ring des Nibelungen} di Richard Wagner in una
 @uref{http://www.rsb-online.de/content/konzerte/wagnerzyklus-10-13/wagner-fuer-kinder/index_ger.html,100-
 versione ridotta per bambini}.
-È stata scritta per un'orchestra sinfonica standard ma con un cast ridotto di
-cantanti, e verrà eseguita dalla
-@emph{Radio-Sinfonieorchester Berlin} il 5 e 6 Aprile 2014 nel teatro
-Atze Musiktheater di Berlino.  Il direttore è Heiko Matthias Förster.
+Scritta per un'orchestra sinfonica standard, ma con un cast ridotto di
+cantanti, è stata eseguita dalla
+@emph{Radio-Sinfonieorchester Berlin} nell'Aprile 2014 al teatro
+Atze Musiktheater di Berlino.  Il direttore era Heiko Matthias Förster.
 
 @item
 Joe Smeets ha creato una partitura per il libro di bambini @emph{Zing Mee}
 (@emph{Sing along}) di Annie M.G. pubblicato da Querido -- ISBN
 9789045106205:
-@uref{http://www.queridokinderenjeugdboeken.nl/web/Boek.htm?dbid=18954&typeofpage=134707, www.queridokinderenjeugdboeken.nl}; le partiture delle prove del coro
-per la traduzione olandese del @emph{Saint Nicolas} di Benjamin Britten sono
-state eseguite dal @emph{Muziektheater Hollands Diep} nel 2011:
-@uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft, www.muziektheaterhollandsdiep.nl}.  Attualmente sta lavorando sulla partitura
-e le parti per un arrangiamento del @emph{Boris Godounov} di Moussurgsky per
-quartetto d'archi, pianoforte e percussioni.  Verrà eseguita nel 2014,
-di nuovo dal @emph{Muziektheater Hollands Diep}.
+@uref{http://www.queridokinderenjeugdboeken.nl/web/Boek.htm?dbid=18954&typeofpage=134707, www.queridokinderenjeugdboeken.nl};
+le partiture delle prove del coro per la traduzione olandese del
+@emph{Saint Nicolas} di Benjamin Britten sono state eseguite dal
+@emph{Muziektheater Hollands Diep} nel 2011:
+@uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft, www.muziektheaterhollandsdiep.nl}.
+Ha lavorato alla partitura e alle parti di un arrangiamento del
+@emph{Boris Godounov} di Moussurgsky per quartetto d'archi, pianoforte e
+percussioni, eseguito nel 2014, di nuovo dal @emph{Muziektheater Hollands Diep}.
 
 
 @item
@@ -658,7 +658,7 @@ per la sua tesi di dottorato.
 @emph{Pictures at an exhibition} di Mussorgsky, riorchestrata e diretta
 da @uref{http://www.aurelienbello.com/,Aurélien Bello} con
 la @uref{http://www.junge-philharmonie-brandenburg.de/,Junge Philharmonie Brandenburg}
-il 10 Ottobre 2011 e di nuovo il 15-16 Aprile 2012.
+nell'Ottobre 2011 e nell'Aprile 2012.
 
 @item
 @uref{http://www.kierenmacmillan.info/, Kieren MacMillan}, compositore e
@@ -1081,6 +1081,7 @@ Leggi cos'è l' @ref{Input testuale}.
 @c TRANSLATORS, so far it's mostly from
 @c http://lilypond.org/web/switch/howto
 
+@divClass{column-center-top}
 @subheading @qq{Compilare} Musica
 
 @imageClickable{nereid-shot-small,png, (clicca per ingrandire), nereid-shot,png, right}
@@ -1191,6 +1192,7 @@ programmi forniscono una vera e propria interfaccia grafica che consente
 la manipolazione diretta di una partitura grafica.  Per maggiori informazioni,
 si veda @ref{Editing facilitato}.
 
+@divEnd
 
 @divClass{column-center-bottom}
 @subheading E ora?
@@ -1206,7 +1208,8 @@ ancora convinto?  Leggi a proposito dell' @ref{Editing facilitato}.
 @translationof Easier editing
 
 @divClass{column-center-top}
-@subheading Frescobaldi
+@subheading Interfacce grafiche
+@subsubheading Frescobaldi
 
 @imageClickable{frescobaldi-lilypond-editor-small,png,
   (clicca per ingrandire),frescobaldi-lilypond-editor,png,right}
@@ -1230,7 +1233,7 @@ sistemi operativi (Linux, Mac OS X e Windows).
 @divEnd
 
 @divClass{column-center-top}
-@subheading Denemo
+@subsubheading Denemo
 
 @imageClickable{screenshot-denemo-small,png,
   (clicca per ingrandire),screenshot-denemo,png,right}
@@ -1257,13 +1260,16 @@ quando elaborato da lì.
 
 
 @divClass{column-center-top}
-@subheading Tunefl
+@subheading Editor online su browser
 
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
+@subsubheading LilyBin
+@uref{http://lilybin.com}
 
+Un editor LilyPond che si usa nel browser e permette di scrivere una
+partitura direttamente senza dover installare LilyPond, purché si sia
+connessi a Internet.
+
+@subsubheading Tunefl
 @uref{http://www.tunefl.com}
 
 Con tunefl è possibile scrivere le partiture direttamente online,
@@ -1275,7 +1281,8 @@ interfaccia web.
 
 
 @divClass{column-center-top}
-@subheading Elysium
+@subheading Plugin IDE
+@subsubheading Elysium
 
 @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}
@@ -1298,7 +1305,7 @@ configurazione assistita.
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
-
+@subsubheading Emacs
 @uref{http://www.gnu.org/software/emacs/}
 
 Emacs è un editor di testo che ha la capacità di comprendere molti
@@ -1310,23 +1317,32 @@ Uno sviluppatore ha scritto
 @uref{https://github.com/nsceaux/lyqi,lyqi}, una
 modalità primaria di Emacs.
 
+A meno che tu non sia un utente esperto di Emacs, probabilmente
+dovresti usare un altro editor per scrivere file di input di
+LilyPond.
+
+Maggori informazioni su come impostare Emacs si trovano in
+@rprogram{LilyPond e gli editor di testo}.
+
+@subsubheading Vim
 @uref{http://www.vim.org}
 
 Vim è un editor di testo minimale che deriva dal vecchio editor Unix
 @command{vi}.  Anch'esso è estendibile e configurabile.
 
-Come regola generale, se non hai già confidenza con Emacs o
-Vim, allora probabilmente vorrai usare un editor diverso per scrivere
-i file di input di LilyPond.
+A meno che tu non sia un utente esperto di Vim, probabilmente
+dovresti usare un altro editor per scrivere file di input di
+LilyPond.
 
 Puoi trovare maggiori informazioni sulla configurazione di Emacs e Vim in
 @rprogram{LilyPond e gli editor di testo}.
 
 @sourceimage{logo-macosx,,,}
 
+@subsubheading TeXShop
 @uref{http://www.uoregon.edu/~koch/texshop}
 
-L'editor TexShop per MacOS@tie{}X può essere potenziato per eseguire LilyPond,
+L'editor TeXShop per MacOS@tie{}X può essere potenziato per eseguire LilyPond,
 @command{lilypond-book} e @command{convert-ly} all'interno dell'editor,
 usando le estensioni disponibili presso:
 
@@ -1338,7 +1354,7 @@ usando le estensioni disponibili presso:
 @divEnd
 
 @divClass{column-center-top}
-@subheading Programmi che possono esportare in codice LilyPond
+@subheading Altri programmi che possono esportare in codice LilyPond
 
 
 @subsubheading Editor di partiture, intavolature e MIDI:
@@ -1359,14 +1375,13 @@ che vogliono provarlo sono benvenuti.
 
 @item
 @uref{http://enc2ly.sourceforge.net/en/,Enc2ly} è un programma GNU/Linux che
-converte uno spartito @uref{http://www.gvox.com/,Encore} in uno in formato
-LilyPond.
+converte uno spartito Encore in uno in formato LilyPond.
 
 @item
 @uref{https://github.com/hanwen/go-enc2ly,go-enc2ly} è uno strumento Go che
-converte i file @uref{http://www.gvox.com/,Encore} in formato LilyPond. È stato
-creato grazie al lavoro di ricerca e di reverse engineering di Felipe Castro, che
-ha modificato file .enc esistenti e li ha caricati usando la versione demo 4.55.
+converte i file Encore in formato LilyPond. È stato creato grazie al
+lavoro di ricerca e di reverse engineering di Felipe Castro, che ha
+modificato file .enc esistenti e li ha caricati usando la versione demo 4.55.
 
 @item
 @uref{http://www.musescore.org,MuseScore}, un editor di partiture, ha un'esportazione
@@ -1391,15 +1406,6 @@ mischiare insieme opere musicali diverse in una singola partitura o parte.
 @item
 @uref{http://www.rosegardenmusic.com,Rosegarden}, un sequencer audio
 e MIDI, che ha anche un editor per le partiture con un solo rigo.
-
-@item
-@uref{https://launchpad.net/rumor/,Rumor}, un convertitore
-realtime monofonico da MIDI a LilyPond.
-
-@item
-@uref{http://www.tuxguitar.com.ar/,TuxGuitar}, un editor e riproduttore
-multitraccia per tablatura, include un visualizzatore della partitura e può
-esportare in formato LilyPond.
 
 @end itemize
 
@@ -1430,7 +1436,7 @@ ambiente costruito sul linguaggio di programmazione a vincoli
 
 @divClass{column-center-top}
 
-@subheading Altri programmi che non sono sviluppati attivamente
+@subheading Altri programmi che non sono più sviluppati attivamente
 
 @itemize
 
@@ -1456,6 +1462,15 @@ e @uref{http://canorus.org,Canorus}.
 inserimento note, che si comporta in modo molto simile a un tastierino numerico
 che produce note di LilyPond.
 
+@item
+@uref{https://launchpad.net/rumor/,Rumor}, un convertitore
+realtime monofonico da MIDI a LilyPond.
+
+@item
+@uref{http://www.tuxguitar.com.ar/,TuxGuitar}, un editor e riproduttore
+multitraccia per tablatura, include un visualizzatore della partitura e può
+esportare in formato LilyPond.
+
 @end itemize
 
 @divEnd
@@ -1476,7 +1491,10 @@ le @ref{Funzionalità}, gli @ref{Esempi}, o la
 approccio all'estetica computazionale della tipografia musicale classica
 viene spiegato nella nostra @ref{Storia}.
 
+@divEnd
 
+
+@divClass{column-center-bottom}
 @subheading Legalese
 
 @divClass{legal}
