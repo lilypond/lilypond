@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: c8296cf3183f30e17e4d5f0501cf1462b71ec546
+    Translation of GIT committish: cb70d3b93e015c85de728f8558fecf95e418e39f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -130,7 +130,7 @@ objets.  Citons, parmi les plus courants, @code{DynamicLineSpanner},
 @code{NonMusicalPaperColumn}.  Nous verrons plus avant comment les
 utiliser.
 
-Il reste à expliquer ce que sont les @qq{interfaces}.  De nombreux
+Il reste à expliquer ce que sont les « interfaces ».  De nombreux
 objets, qui peuvent être très différents les uns des autres, ont pour
 point commun de devoir être compilés simultanément.  Par exemple, tous
 les @emph{grobs} ont une couleur, une taille, une position, etc. et
@@ -362,12 +362,12 @@ commandes prédéfinies pour en limiter les effets à un seul instant
 musical :
 
 @lilypond[quote,verbatim,relative=1]
-c4 d
-\once \stemDown
-e4 f |
-g4 a
+c4( d)
+\once \slurDashed
+e4( f) |
+g4( a)
 \once \hideNotes
-b c |
+b( c) |
 @end lilypond
 
 Les commandes prédéfinies de la forme @code{\@dots{}Neutral},
@@ -685,8 +685,8 @@ Prenons un exemple concret tiré d'un morceau de musique connu :
 
 Admettons que nous voulions rendre les traits de liaison plus épais.
 Est-ce possible ?  Une liaison est assurément un objet de rendu, si
-bien que la question est @qq{Existe-t-il une propriété attachée aux
-liaisons et qui en contrôle l'épaisseur ?}  Pour y répondre, nous
+bien que la question est « Existe-t-il une propriété attachée aux
+liaisons et qui en contrôle l'épaisseur ? »  Pour y répondre, nous
 consultons la Référence des propriétés internes (ou RPI pour faire
 court).
 
@@ -694,7 +694,7 @@ Vous trouverez sur le site de LilyPond @uref{http://lilypond.org} la
 RPI correspondant à votre version du programme.  Allez sur la page
 Documentation et cliquez sur Référence des propriétés internes.
 Pour l'apprentissage, mieux vaut utiliser la version HTML standard,
-et non la @qq{page unique en anglais} ou le PDF.  Durant la lecture
+et non la « page unique en anglais » ou le PDF.  Durant la lecture
 des prochains paragraphes, il vous est conseillé de vous y reporter
 réellement afin que les explications prennent tout leur sens.
 
@@ -748,10 +748,10 @@ Nous obtenons :
 
 N'oublions pas le @code{#} qui doit précéder la nouvelle valeur.
 
-La dernière question est : @qq{Où placer cette commande ?}
-Tant qu'on n'est pas sûr de soi, la meilleure réponse est @qq{À
+La dernière question est : « Où placer cette commande ? »
+Tant qu'on n'est pas sûr de soi, la meilleure réponse est « À
 l'intérieur de l'expression musicale, avant la première liaison et
-proche d'elle.}  Essayons :
+proche d'elle. »  Essayons :
 
 @cindex Slur, exemple de dérogation
 @cindex thickness, exemple d'utilisation de la propriété
@@ -795,8 +795,8 @@ quoi devait-il ressembler ?  Gageons que les liaisons appartiennent au
 contexte Voix, dans la mesure où elles sont étroitement liées à une
 ligne mélodique, mais comment en être sûr ?  Pour répondre à cette
 question, revenons en haut de la page de la RPI consacrée aux liaisons ;
-il est écrit : @qq{Les objets Liaison sont créés par le graveur
-Slur_engraver}.  Ainsi les liaisons seront créées dans n'importe quel
+il est écrit : « Les objets Liaison sont créés par le graveur
+Slur_engraver. »  Ainsi les liaisons seront créées dans n'importe quel
 contexte où se trouve le @code{Slur_engraver}.  Suivons le lien vers la
 page @code{Slur_engraver}.  Tout en bas, on lit que le
 @code{Slur_engraver} est un élément appartenant à sept contextes Voix,
@@ -951,7 +951,7 @@ introduiront des termes nouveaux.
 Supposons maintenant que nous voulions imprimer des paroles en italique.
 Quelle formulation de la commande @code{\override} allons-nous
 utiliser ?  Nous consultons en premier lieu, comme précédemment, la
-page de la RPI qui contient la liste @qq{Tous les objets de rendu}, et
+page de la RPI qui contient la liste « Tous les objets de rendu », et
 recherchons un objet qui contrôle les paroles.  Nous trouvons
 @code{LyricText}, qui semble approprié.  Nous cliquons dessus et nous
 voyons apparaître les différentes propriétés des paroles, parmi
@@ -980,10 +980,10 @@ contrôlent les polices de caractères, et notamment
 
 Vous remarquerez que @code{font-series} et @code{font-size} figurent
 aussi dans la liste.  La question qui ne manque pas de se poser
-est : @qq{Comment se fait-il que les propriétés @code{font-series}
+est : « Comment se fait-il que les propriétés @code{font-series}
 et @code{font-size} se retrouvent à la fois dans @code{LyricText} et
 dans l'interface @code{font-interface} alors que ce n'est pas le cas
-pour @code{font-shape} ?}  La réponse est que lorsqu'un objet
+pour @code{font-shape} ? »  La réponse est que lorsqu'un objet
 @code{LyricText} est créé, les valeurs globales par défaut de
 @code{font-series} et @code{font-size} sont modifiées, mais pas celles
 de @code{font-shape}.  Les possibilités de modification dans
@@ -1102,7 +1102,7 @@ pour obtenir des valeurs fait l'objet de la rubrique
   @tab Une valeur positive ou négative, qui peut être décimale
   @tab @code{3}, @w{@code{-2.45}}
 @item Paire (de nombres)
-  @tab Deux nombres séparées par @qq{espace point espace}, encadrés
+  @tab Deux nombres séparées par « espace point espace », encadrés
 par des parenthèses et précédés par une apostrophe
   @tab @code{'(2 . 3.5)}, @code{'(0.1 . -3.2)}
 @item Symbole
@@ -1208,8 +1208,8 @@ encore, le contexte concerné (@code{Voice} en l'occurrence) :
 
 Les barres de mesure sont encore là !  Pourquoi ?  Retournons
 à la RPI et regardons de nouveau la page qui traite des propriétés de
-@code{BarLine}.  En haut de la page, il est précisé que @qq{Les objets
-BarLine sont créés par le graveur Bar_engraver}.  Allons à la page de
+@code{BarLine}.  En haut de la page, il est précisé que « Les objets
+BarLine sont créés par le graveur Bar_engraver ».  Allons à la page de
 @code{Bar_engraver}.  Tout en bas se trouve la liste des contextes dans
 lesquels fonctionne ce graveur.  Tous sont du type @code{Staff}, de
 sorte que, si la commande @code{\override} n'a pas fonctionné comme
@@ -1317,7 +1317,7 @@ mettre @code{#t} pour rendre l'objet transparent.  Dans cet exemple,
 essayons de rendre transparente la métrique (@emph{time signature} en
 anglais) plutôt que les barres de mesure.  Pour cela, il nous faut
 trouver le nom du @emph{grob} chargé de l'indication de mesure.  De
-retour sur la page @qq{Tous les objets de rendu} de la RPI, nous
+retour sur la page « Tous les objets de rendu » de la RPI, nous
 cherchons les propriétés de l'objet @code{TimeSignature}.  Celui-ci est
 géré par le graveur @code{Time_signature_engraver} qui, comme vous
 pouvez le constater, appartient au contexte @code{Staff} et peut se
@@ -1426,7 +1426,7 @@ invisibles.  Attention : aucune apostrophe ne précède @code{white}
 -- il ne s'agit pas d'un symbole mais d'une @strong{variable}.
 Quand on l'invoque, elle fournit une liste de valeurs internes
 requises pour changer la couleur en blanc.  Les autres couleurs
-aussi, dans la @qq{liste normale}, sont des variables.  Pour en
+aussi, dans la « liste normale », sont des variables.  Pour en
 être certain, vous pouvez faire l'essai en choisissant une autre
 variable de la liste en guise de couleur.
 
@@ -1765,12 +1765,12 @@ sous-section montrera comment faire.
 @cindex écartement des lignes, modification
 
 Dans LilyPond, les écartements et longueurs sont généralement mesurés en
-@qq{intervalles de lignes} (@emph{staff-spaces} en anglais),
+« intervalles de lignes » (@emph{staff-spaces} en anglais),
 c'est-à-dire l'écartement qui sépare deux lignes adjacentes dans la
 portée -- plus rarement, il est question de demi-intervalles de lignes.
 Les propriétés d'épaisseur (@code{thickness}), quant à elles, sont
 généralement mesurées en unités d'une propriété interne appelée
-@qq{épaisseur de ligne} (@code{line-thickness}).  Par exemple, les
+« épaisseur de ligne » (@code{line-thickness}).  Par exemple, les
 lignes de (de)crescendo présentent par défaut une épaisseur d'une
 unité de @code{line-thickness}, alors que l'épaisseur d'une hampe
 est de 1,3.  Toutefois, certaines propriétés d'épaisseur sont
@@ -1866,8 +1866,8 @@ peut être changée de la même manière.
 
 Dans la notation musicale, il y a des objets qui appartiennent à la
 portée et d'autres qui sont placés à l'extérieur de la portée. On les
-appelle respectivement les @qq{objets de la portée} (@emph{within-staff
-objects} en anglais) et les @qq{objets extérieurs à la portée}
+appelle respectivement les « objets de la portée » (@emph{within-staff
+objects} en anglais) et les « objets extérieurs à la portée »
 (@emph{outside-staff objects} en anglais).
 
 Les objets de la portée sont ceux qui sont placés sur la portée
@@ -1970,31 +1970,32 @@ automatiquement dès lors que @code{direction} est activé.
 @cindex center
 @cindex neutral
 
-L'exemple ci-dessous montre dans la première mesure le comportement par
-défaut des hampes -- celles des notes les plus hautes pointant vers le
-bas et celles des notes les plus basses pointant vers le haut ;
-viennent ensuite quatre notes avec les hampes forcées vers le bas, puis
-quatre autres avec les hampes forcées vers le haut, et pour finir quatre
-notes de nouveau avec le comportement par défaut.
 
-@cindex Stem, exemple de dérogation
+L'exemple ci-dessous montre dans la première mesure le positionnement
+par défaut des liaisons -- celles des notes les plus hautes en surplomb
+des têtes et celles des notes les plus basses au-dessous ; viennent
+ensuite une mesure avec les liaisons forcées vers le bas, puis une
+mesure avec les liaisons forcées vers le haut, et pour finir une mesure
+où elles adoptent de nouveau le comportement par défaut.
+
+@cindex Slur, exemple de dérogation
 @cindex direction, exemple d'utilisation de la propriété
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-a4 g c a |
-\override Stem.direction = #DOWN
-a4 g c a |
-\override Stem.direction = #UP
-a4 g c a |
-\revert Stem.direction
-a4 g c a |
+@lilypond[quote,verbatim,relative=2]
+a4( g) c( a) |
+\override Slur.direction = #DOWN
+a4( g) c( a) |
+\override Slur.direction = #UP
+a4( g) c( a) |
+\revert Slur.direction
+a4( g) c( a) |
 @end lilypond
 
 Nous utilisons ici les directions @code{DOWN} et @code{UP}.  Elles
 correspondent respectivement aux valeurs @code{-1} et @code{+1},
 que l'on peut utiliser à la place.  La valeur @code{0} peut aussi être
 utilisée dans certains cas.  Elle est interprétée comme un @code{UP}
-pour les hampes, et comme un @qq{centré} pour d'autres objets.  Il
+pour les liaisons, et comme un « centré » pour d'autres objets.  Il
 existe une direction, @code{CENTER}, qui correspond à la
 valeur @code{0}.
 
@@ -2053,6 +2054,14 @@ commandes sont implémentées à l'aide de @code{\revert} ; elles
 limiter les effets des autres commandes prédéfinies (fonctionnant
 à base de @code{\override}) à une seule note, il faut les faire
 précéder d'un @code{\once}, comme pour toute dérogation.
+
+Dans le cas où un seul objet de rendu doit déroger à la règle, LilyPond
+dispose des indicateurs de positionnement @code{^} et @code{_} :
+
+@lilypond[quote,verbatim,relative=2]
+a4( g) c( a) |
+a4^( g) c_( a) |
+@end lilypond
 
 
 @node Doigtés
@@ -2394,7 +2403,7 @@ notes auxquelles elles se rattachent sont relativement hautes.  Ceci
 peut avoir pour conséquence de remonter d'autant les objets externes
 (@emph{outside-staff objects}) tels les articulations.  La propriété
 @code{avoid-slur} de l'articulation en question peut se voir déterminée
-à @code{'inside} dans le but de @qq{ramener} cette articulation à
+à @code{'inside} dans le but de « ramener » cette articulation à
 l'intérieur de la liaison.  Cette propriété @code{avoid-slur} ne sera
 toutefois effective que dans la mesure où la
 @code{outside-staff-priority} est désactivée (valeur @code{#f}).  Dans
@@ -2416,11 +2425,11 @@ c4( c^\markup { \tiny \sharp } d4.) c8 |
 Le fait de changer la @code{outside-staff-priority} peut aussi servir à
 contrôler le positionnement vertical des objets individuels, quoique le
 résultat ne soit pas toujours formidable.  Imaginons que nous voulions
-placer @qq{Text3} au-dessus de @qq{Text4} dans l'exemple de la section
+placer « Text3 » au-dessus de « Text4 » dans l'exemple de la section
 @ref{Comportement automatique}, plus haut.  Il nous suffit pour cela de
 regarder dans la Référence des propriétés internes ou dans le tableau
 plus haut la priorité de @code{TextScript}, et d'augmenter la priorité
-de @qq{Text3} jusqu'à une valeur très haute :
+de « Text3 » jusqu'à une valeur très haute :
 
 @cindex TextScript, exemple de dérogation
 @cindex outside-staff-priority, exemple d'utilisation de la propriété
@@ -2433,8 +2442,8 @@ c2^"Text3"
 c2^"Text4" |
 @end lilypond
 
-S'il est vrai que cela place @qq{Text3} au-dessus de @qq{Text4}, ça le
-place aussi plus haut que @qq{Text2} tandis que @qq{Text4} dégringole.
+S'il est vrai que cela place « Text3 » au-dessus de « Text4 », ça le
+place aussi plus haut que « Text2 » tandis que « Text4 » dégringole.
 Ce n'est peut-être pas si bien que ça.  En fait, ce que nous aimerions
 faire, c'est placer toutes les annotations à égale distance de la
 portée.  Pour cela, nous avons besoin d'espacer horizontalement les
@@ -2543,7 +2552,7 @@ a4\f b\mf a\mp b\p
 @end lilypond
 
 @noindent
-Si une telle situation devait survenir dans de la musique @qq{réelle},
+Si une telle situation devait survenir dans de la musique « réelle »,
 il serait préférable d'espacer un peu plus les notes, de façon que les
 indications de nuance puissent toutes se situer à la même distance de la
 portée.  S'il est possible de faire cela pour les textes de
@@ -3078,7 +3087,7 @@ la portée.  L'unité de référence est l'intervalle de lignes de portée.
 Attention toutefois au fait que les liaisons et phrasés ne peuvent pas
 être repositionnés n'importe où.  LilyPond commence par dresser la liste
 des emplacements possibles pour les liaisons et choisit par défaut la
-liaison qui @qq{semble la meilleure}.  Si la propriété @code{positions}
+liaison qui « semble la meilleure ».  Si la propriété @code{positions}
 a été retouchée, la liaison la plus proche de la position demandée sera
 retenue dans la liste.
 @end table
@@ -3137,7 +3146,7 @@ précédente peuvent nous aider à résoudre les collisions.
 @cindex chevauchement de notation
 
 En jouant sur la propriété @code{padding} (littéralement
-@qq{rembourrage}), on augmente (ou on diminue) la distance entre
+« rembourrage »), on augmente (ou on diminue) la distance entre
 des symboles qui sont imprimés au-dessus ou en dessous des notes.
 
 @cindex Script, exemple de dérogation
@@ -3329,8 +3338,7 @@ légèrement vers la gauche et de 1,8 intervalle de lignes vers le bas :
 @cindex Fingering, exemple de dérogation
 @cindex extra-offset, exemple d'utilisation de la propriété
 
-@lilypond[quote,fragment,relative=1,verbatim]
-\stemUp
+@lilypond[quote,relative=1,verbatim]
 f4-5
 \once \override Fingering.extra-offset = #'(-0.3 . -1.8)
 f4-5
@@ -3731,7 +3739,7 @@ La première mesure est maintenant correcte.  La seconde contient un
 arpège et doit se terminer par une double barre.  Comment faire, puisque
 cela n'a pas été traité dans le Manuel d'initiation ?  C'est alors
 qu'il faut nous reporter au Manuel de notation.  Quand on cherche
-@qq{arpège} et @qq{barre de mesure} dans l'index, on voit aisément qu'il
+« arpège » et « barre de mesure » dans l'index, on voit aisément qu'il
 faut ajouter @code{\arpeggio} à un accord pour produire un arpège et
 qu'une double barre est le résultat de la commande @code{\bar "||"}.
 Rien de plus facile !  Nous devons ensuite corriger la collision entre
@@ -3804,9 +3812,9 @@ lhMusic = \relative c' {
 Venons-en à la troisième mesure et au début de la section Moderato.
 Dans le Tutoriel, il est indiqué comment insérer une indication de tempo
 à l'aide de la commande @code{\tempo} ; pas de problème, du coup, pour
-ajouter @qq{Moderato}.  Mais comment faire pour fusionner les notes de
+ajouter « Moderato ».  Mais comment faire pour fusionner les notes de
 différentes voix ?  C'est là que le Manuel de notation peut nous venir
-en aide.  Une recherche sur @qq{fusionnement de notes} dans l'index nous
+en aide.  Une recherche sur « fusionnement de notes » dans l'index nous
 renvoie au chapitre @ruser{Résolution des collisions}, et plus
 précisément aux commandes permettant de fusionner des notes en fonction
 de leur type et selon qu'elles sont pointées ou non.  Dans notre exemple,
@@ -4397,8 +4405,8 @@ est peu visible, c'est pourquoi nous allons l'épaissir et le
 rapprocher des têtes de note.  Déplaçons l'indication métronomique
 au-dessus de la clef, au lieu de la laisser au-dessus de la première
 note.  Et pour finir, mon professeur de composition déteste les
-chiffrages de mesure en @qq{C}, nous allons donc le transformer en
-@qq{4/4}.
+chiffrages de mesure en « C », nous allons donc le transformer en
+« 4/4 ».
 
 Cependant, ne changez pas le fichier @file{musique.ly}.  Remplacez le
 fichier @file{definitions.ily} par ceci :
@@ -4475,7 +4483,7 @@ inst =
 
 C'est encore mieux !  Mais supposons maintenant que je veuille
 publier cette pièce.  Mon professeur de composition n'aime pas les
-chiffrages de mesure en @qq{C}, mais moi je les aime bien.  Copions
+chiffrages de mesure en « C », mais moi je les aime bien.  Copions
 l'actuel @file{definitions.ily} dans le fichier
 @file{publication-web.ily}, et modifions ce dernier.  Puisque la musique
 est destinée à produire un fichier PDF affiché sur écran, nous allons
@@ -4572,7 +4580,7 @@ alors à
 
 Cette approche peut être utile même si vous ne produisez qu'un seul
 jeu de partitions.  J'utilise personnellement une demi-douzaine de
-fichiers de @qq{feuille de style} pour mes projets.  Je commence
+fichiers de « feuille de style » pour mes projets.  Je commence
 chaque fichier de musique par @code{\include "../global.ily"} qui
 contient :
 
@@ -4623,7 +4631,7 @@ encore vous l'avez compilé directement à partir des sources ; et
 Pour accéder à ce dossier, deux possibilités : soit, dans un
 Terminal, taper @code{cd} suivi du chemin complet ci-dessus ; soit
 Control-cliquer (ou clic droit) sur l'application LilyPond
-et sélectionner @qq{Afficher le contenu du paquet}.
+et sélectionner « Afficher le contenu du paquet ».
 
 @item Windows
 
@@ -4656,7 +4664,7 @@ Commençons par examiner quelques fichiers contenus dans @file{ly/}.
 Nous ouvrons @file{ly/property-init.ly} dans un éditeur de texte --
 celui que vous avez l'habitude d'utiliser pour les fichiers @file{.ly}
 fera très bien l'affaire.  Ce fichier contient les définitions de toutes
-les commandes standard prédéfinies de LilyPond, comme @code{\stemUp} et
+les commandes standard prédéfinies de LilyPond, comme @code{\tieUp} et
 @code{\slurDotted}.  Vous pouvez constater que ce n'est rien d'autre
 que des définitions de variables composées d'un ou plusieurs groupes
 de commandes @code{\override}.  Par exemple, @code{\tieDotted}

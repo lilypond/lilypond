@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 4467a72a98fb582466ee4d5944ec8454b4b77fc6
+   Translation of GIT committish: cb70d3b93e015c85de728f8558fecf95e418e39f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -104,9 +104,25 @@ avez attribuée aux notes correspondent bien à longueur de la mesure qui
 les contient.  Les contrôles de mesure apportent aussi clarté et
 organisation à votre code.
 
-@lilypond[verbatim,quote,relative=2]
-g1 | e1 | c2. c'4 | g4 c g e | c4 r r2 |
+@c This example deliberately produces a warning
+@lilypond[verbatim,quote]
+\relative g' {
+g1 | e1 | c2. c' | g4 c g e | c4 r r2 |
+}
 @end lilypond
+
+La compilation du code ci-dessus devrait vous afficher le message
+suivant en console :
+
+@example
+Avertissement : échec du contrôle de mesure (barcheck) à 1/2
+ g1 | e1 | c2. c'
+                  | g4 c g e | c4 r r2 |
+@end example
+
+Si la durée manquante est évitente au vu du rendu musical de cet exemple
+minimaliste, l'avertissement émis en console ne manquera pas de porter à
+votre attention l'absence du @code{4} à la troisième mesure.
 
 @seealso
 Manuel de notation :
@@ -326,10 +342,11 @@ g4~ 4 c2~ | 4 ~ 8 a8 ~ 2 |
 @end lilypond
 
 Ce raccourci se révèle fort utile lors d'une succession de rythmes
-appliqués à une même hauteur.  Notez bien que stipuler une durée isolée
-l'attache à la dernière hauteur mentionnée -- une espace entre la
-hauteur et la durée aura pour effet de produire deux notes.
-
+appliqués à une même hauteur.  Notez bien qu'une espace entre une
+hauteur isolée et une durée isolée aura pour effet de ne produire qu'une
+seule note.  Autrement dit, @code{c4 a 8 8} sera interprété comme
+@code{c4 a8 a8}, non comme @code{c4 a4 a8 a8} ; écrivez plutôt
+@code{c4 a4 8 8}.
 
 @node Liaisons d'articulation
 @unnumberedsubsubsec Liaisons d'articulation
@@ -1124,7 +1141,7 @@ séparant chaque syllable par une espace :
     d4 b8 c4 a8 | d4 b8 g4
   }
   \addlyrics {
-    Girls and boys come | out to play,
+    Girls and boys come out to play,
   }
 >>
 @end lilypond
@@ -1161,25 +1178,13 @@ shine as bright as day}.  Ajoutons-la au code.
     a4 b8 c b a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come | out to play,
-    The | moon doth shine as | bright as day; |
+    Girls and boys come out to play,
+    The moon doth shine as bright as day;
   }
 >>
 @end lilypond
 
-Si vous compilez ce code en l'état, vous verrez apparaître :
-
-@example
-song.ly:12:29: Avertissement : échec du contrôle de mesure (barcheck) à : 5/8
-    The | moon doth shine as
-                             | bright as day; |
-song.ly:12:46: Avertissement : échec du contrôle de mesure (barcheck) à : 3/8
-    The | moon doth shine as | bright as day;
-                                              |
-@end example
-
-Voici qui illustre bien l'utilité des contrôles de barre de mesure !
-Remarquez que les paroles ajoutées ne s'alignent pas bien avec les
+Remarquez comme les paroles ajoutées ne s'alignent pas bien avec les
 notes.  Le mot @emph{shine} devrait être chanté sur deux notes au lieu
 d'une.  On appelle ceci un @notation{mélisme} : il s'agit d'une seule
 syllabe chantée sur plus d'une note.  Il existe plusieurs façons
@@ -1195,8 +1200,8 @@ les notes du mélisme.  Pour les détails, consultez @ref{Liaisons}.
     a4 b8 c( b) a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come | out to play,
-    The | moon doth shine as | bright as day; |
+    Girls and boys come out to play,
+    The moon doth shine as bright as day;
   }
 >>
 @end lilypond
@@ -1216,8 +1221,8 @@ manuels ; pour ceci consultez
     a4 b8 c([ b]) a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come | out to play,
-    The | moon doth shine as | bright as day; |
+    Girls and boys come out to play,
+    The moon doth shine as bright as day;
   }
 >>
 @end lilypond
@@ -1235,8 +1240,8 @@ mélisme sauf la première.
     a4 b8 c[ b] a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come | out to play,
-    The | moon doth shine _ as | bright as day; |
+    Girls and boys come out to play,
+    The moon doth shine _ as bright as day;
   }
 >>
 @end lilypond
@@ -1256,8 +1261,8 @@ Didon, extraite de @notation{Didon et Énée} de Purcell.
     c4.( bes8 a4. g8 fis4.) g8 | fis1
   }
   \addlyrics {
-    When I am | laid,
-    am | laid __ in | earth,
+    When I am laid,
+    am laid __ in earth,
   }
 >>
 @end lilypond
@@ -1281,8 +1286,8 @@ sur l'alignement de paroles à une mélodie.
     d4 d e | c2
   }
   \addlyrics {
-    A -- | way in a __ | man -- ger,
-    no __ | crib for a | bed, __
+    A -- way in a __ man -- ger,
+    no __ crib for a bed, __
   }
 >>
 @end lilypond
@@ -1306,7 +1311,7 @@ la syllabe @emph{al} est chantée sur la même note que @emph{go}.
     c4.~ 8 d b | c8([ d]) b c d b | c8
   }
   \addlyrics {
-    Lar -- go_al fac -- | to -- tum del -- la cit -- | tà
+    Lar -- go_al fac -- to -- tum del -- la cit -- tà
   }
 >>
 @end lilypond
@@ -1336,7 +1341,7 @@ L'exemple suivant est extrait de @emph{Judas Macchabée} de Händel.
     c8 | c8([ bes]) a a([ g]) f | f'4. b, | c4.~ 4
   }
   \addlyrics {
-    Let | flee -- cy flocks the | hills a -- | dorn, __
+    Let flee -- cy flocks the hills a -- dorn, __
   }
   \relative c' {
     \key f \major
@@ -1345,7 +1350,7 @@ L'exemple suivant est extrait de @emph{Judas Macchabée} de Händel.
     r8 | r4. r4 c8 | a'8([ g]) f f([ e]) d | e8([ d]) c bes'4
   }
   \addlyrics {
-    Let | flee -- cy flocks the | hills a -- dorn,
+    Let flee -- cy flocks the hills a -- dorn,
   }
 >>
 @end lilypond

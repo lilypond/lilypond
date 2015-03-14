@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 868bbbb78276796f43a1c72621fdb3a3a14d2555
+    Translation of GIT committish: cb70d3b93e015c85de728f8558fecf95e418e39f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1554,8 +1554,6 @@ Comment, par exemple, déplacer le doigté dans le fragment suivant ?
 
 @lilypond[quote,relative=2,verbatim]
 c-2
-\stemUp
-f
 @end lilypond
 
 Sur la page de la documentation relative aux doigtés, c'est-à-dire
@@ -1801,8 +1799,6 @@ suivant :
 
 @lilypond[quote,relative=2,verbatim]
 c-2
-\stemUp
-f
 @end lilypond
 
 Dans la mesure où le @b{2} est placé, verticalement, à proximité de la
