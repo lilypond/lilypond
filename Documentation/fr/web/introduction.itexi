@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: e692f41399fc6953aa800c99a8dbe7f59a9a064a
+    Translation of GIT committish: 9dca368f5d0b7b0e0f28656f29de4fd24de7d934
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -682,13 +682,22 @@ mentionnons que quelques-uns.
 @itemize
 
 @item
-@uref{http://www.aurelienbello.com/,Aurélien Bello} a réorchestré
-@emph{Der Ring des Nibelungen} de Richard Wagner en une
-+@uref{http://www.rsb-online.de/content/konzerte/wagnerzyklus-10-13/wagner-fuer-kinder/index_ger.html,version en 100 minutes pour enfants}.
-Celle-ci est écrite pour orchestre symphonique traditionnel et un nombre
-réduit de chanteurs.  Elle sera donnée les 5 et 6 avril 2014 au Atze
-Musiktheater de Berlin, par l'orchestre radio-symphonique de Berlin sous
-la direction de Heiko Matthias Förster.
+@uref{http://www.aurelienbello.com/,Aurélien Bello} a réalisé un
+arrangement « réduit » du @emph{Chevalier à la rose} de Richard Strauss,
+pour quatre chanteurs et un orchestre de chambre à treize interprètes ;
+la première aura lieu au palais des festivals de Baden-Baden les
+@uref{http://www.festspielhaus.de/veranstaltung/der-kleine-rosenkavalier-02-04-2015-1100/,
+4 et 6 avril 2015}.
+Il sera ensuite diffusé dans la @emph{Großer Saal} de Berlin le
+@uref{http://www.berliner-philharmoniker.de/konzerte/kalender/details/21070/,
+26 avril}.  Aurélien a aussi réorchestré @emph{Der Ring der Nibelungen}
+de Richard Wagner en une
+@uref{http://www.rsb-online.de/content/konzerte/wagnerzyklus-10-13/wagner-fuer-kinder/index_ger.html,
+version en 100 minutes pour enfants}.
+Celle-ci, écrite pour un orchestre symphonique traditionnel et un nombre
+réduit de chanteurs, a été donnée en avril 2014 au Atze Musiktheater de
+Berlin par l'orchestre radio-symphonique de Berlin sous la direction de
+Heiko Matthias Förster.
 
 @item
 Joe Smeets a réalisé les partitions du livre pour enfants @emph{Zing
@@ -698,20 +707,18 @@ Mee} (@emph{Chanter}) d'Annie M.G. publié chez Querido -- ISBN
 www.queridokinderenjeugdboeken.nl} --, les partitions de chœur d'une
 traduction en hollandais du @emph{Saint Nicolas} de Benjamin Britten
 donné en 2011 par le @emph{Muziektheater Hollands Diep} --
-@uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft, www.muziektheaterhollandsdiep.nl}.
-Il réalise le conducteur et le matériel d'un arrangement pour quatuor à
-vent, piano et percussions, du @emph{Boris Godounov} de Modeste
-Moussorgski, qui sera donné en 2014, toujours par le @emph{Muziektheater
-Hollands Diep}.
+@uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft,
+www.muziektheaterhollandsdiep.nl}.  Il a réalisé le conducteur et le
+matériel d'un arrangement pour quatuor à vent, piano et percussions, du
+@emph{Boris Godounov} de Modeste Moussorgski, qui a été donné en 2014,
+toujours par le @emph{Muziektheater Hollands Diep}.
 
 @item
 Pour sa thèse de doctorat,
-@uref{http://unito.academia.edu/LucaRossettoCasel, Luca Rossetto
-Casel} a réalisé une édition critique du @emph{Enea nel Lazio
-(1760)} de Tommaso Traetta, opéra sur un libret de Vittorio Amedeo
-Cigna-Santi, en quatre parties :
-@uref{http://www.academia.edu/1987651/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_1_4_,
-première},
+@uref{http://unito.academia.edu/LucaRossettoCasel, Luca Rossetto Casel}
+a réalisé une édition critique du @emph{Enea nel Lazio (1760)} de
+Tommaso Traetta, opéra sur un libret de Vittorio Amedeo Cigna-Santi, en quatre parties :
+@uref{http://www.academia.edu/1987651/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_1_4_, première},
 @uref{http://www.academia.edu/1994533/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_2_4_, deuxième},
 @uref{http://www.academia.edu/1994558/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_3_4_, troisième},
 @uref{http://www.academia.edu/1996242/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_4_4_, quatrième partie}.
@@ -755,15 +762,14 @@ Stigliano à Naples lors des célébrations organisées pour le
 @item
 L'exécution d'@emph{Armide} de Lully, les 15 et 16 mai 2009, à Houston,
 Texas, par @uref{http://www.mercurybaroque.org/, Mercury Baroque},
-avec un matériel gravé par
-@uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}.
+avec un matériel gravé par @uref{http://nicolas.sceaux.free.fr/, Nicolas
+Sceaux}.
 
 @item
 Des passages instrumentaux @emph{d'Hippolyte et Aricie} de Rameau ont
 été joués le 8 mai 2009 en l'église Saint-James de Manhattan, par
-Frederick Renz et son ensemble
-@uref{http://www.earlymusicny.org/, Early Music New York}, avec des
-partitions gravées par
+Frederick Renz et son ensemble @uref{http://www.earlymusicny.org/, Early
+Music New York}, avec des partitions gravées par
 @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}.
 
 @item

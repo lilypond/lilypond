@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: c054eb280fd9953596eb164f67b0f9d5555c5a32
+    Translation of GIT committish: 9dca368f5d0b7b0e0f28656f29de4fd24de7d934
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -122,7 +122,7 @@ Pour LilyPond version @version{}
 @c @im ageId{cmws,web-snippet-alpha.png,Catchy Musical Web Snippet}
 
 @divId{quickSummary}
-@subheading Qu'est-ce que LilyPond ?
+@c s u bheading Qu'est-ce que LilyPond ?
 
 LilyPond est un logiciel de gravure musicale, destiné à produire
 des partitions de qualité optimale.  Ce projet apporte à l'édition
@@ -134,9 +134,6 @@ traditionnelle.  LilyPond est un logiciel libre rattaché au
 Plus sur LilyPond dans notre @ref{Introduction} !
 
 @divEnd
-@divEnd
-
-@divClass{separator}
 @divEnd
 
 
@@ -156,14 +153,32 @@ Plus sur LilyPond dans notre @ref{Introduction} !
   @c do nothing
 @end ifclear
 @ifset web_version
-  @c make the box:
-@divId{wildCardBox}
+  @c make the sidebar:
+@divId{homePageSideBar}
+
+@subheading Branche stable
+
+@c TODO: javascript to detect OS and suggest download?
+
+@ref{Download, Téléchargemement de @versionStable}
+
+@ref{Manuals, Manuels de @versionStable}
+
+@subheading Branche de développement
+
+@ref{Development, Téléchargement de @versionDevel}
+
+@ref{Development, Manuels de @versionDevel}
+
 @subheading Dépêches
-@divId{wildCardText}
+@c VO Pondings
+@divId{pondingsText}
 
 @divEnd
+
 @divEnd
 @end ifset
+
 
 @html
 
@@ -188,38 +203,10 @@ Plus sur LilyPond dans notre @ref{Introduction} !
   var index = Math.floor(Math.random() * tweets.length);
   var tweet = tweets[index];
   var text = tweet.childNodes[0];
-  document.getElementById("wildCardText").innerHTML = text.nodeValue;
+  document.getElementById("pondingsText").innerHTML = text.nodeValue;
 </script>
 
 @end html
-
-
-@ifclear web_version
-  @c do nothing
-@end ifclear
-@ifset web_version
-  @c make the box:
-@divId{latestVersion}
-
-@subheading Raccourcis
-
-@c TODO: javascript to detect OS and suggest download?
-
-@subsubheading Branche stable
-
-@ref{Download, Téléchargemement de @versionStable}
-
-@ref{Manuals, Manuels de @versionStable}
-
-@subsubheading Branche de développement
-
-@ref{Development, Téléchargement de @versionDevel}
-
-@ref{Development, Manuels de @versionDevel}
-
-@divEnd
-@end ifset
-
 
 @ifnottex
 
