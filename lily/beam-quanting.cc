@@ -45,6 +45,7 @@ using namespace std;
 #include "stencil.hh"
 #include "stem.hh"
 #include "warn.hh"
+#include "string-convert.hh"
 
 Real
 get_detail (SCM alist, SCM sym, Real def)
@@ -66,7 +67,10 @@ Beam_quant_parameters::fill (Grob *him)
   REGION_SIZE = get_detail (details, ly_symbol2scm ("region-size"), 2);
 
   // forbidden quants
-  SECONDARY_BEAM_DEMERIT = get_detail (details, ly_symbol2scm ("secondary-beam-demerit"), 10.0);
+  SECONDARY_BEAM_DEMERIT = get_detail (details, ly_symbol2scm ("secondary-beam-demerit"), 10.0)
+    // For stems that are non-standard, the forbidden beam quanting
+    // doesn't really work, so decrease their importance.
+    * exp(- 8*fabs (1.0 - robust_scm2double(him->get_property ("length-fraction"), 1.0)));
   STEM_LENGTH_DEMERIT_FACTOR = get_detail (details, ly_symbol2scm ("stem-length-demerit-factor"), 5);
   HORIZONTAL_INTER_QUANT_PENALTY = get_detail (details, ly_symbol2scm ("horizontal-inter-quant"), 500);
 
@@ -79,7 +83,14 @@ Beam_quant_parameters::fill (Grob *him)
 
   // Collisions
   COLLISION_PENALTY = get_detail (details, ly_symbol2scm ("collision-penalty"), 500);
-  COLLISION_PADDING = get_detail (details, ly_symbol2scm ("collision-padding"), 0.5);
+
+  /* For grace notes, beams get scaled down to 80%, but glyphs go down
+     to 63% (magstep -4 for accidentals). To make the padding
+     commensurate with glyph size for grace notes, we take the square
+     of the length fraction, yielding a 64% decrease.
+   */
+  COLLISION_PADDING = get_detail (details, ly_symbol2scm ("collision-padding"), 0.5)
+    * sqr (robust_scm2double(him->get_property ("length-fraction"), 1.0));
   STEM_COLLISION_FACTOR = get_detail (details, ly_symbol2scm ("stem-collision-factor"), 0.1);
 }
 
@@ -1190,9 +1201,10 @@ Beam_scoring_problem::score_forbidden_quants (Beam_configuration *config) const
 {
   Real dy = config->y.delta ();
 
-  Real extra_demerit = parameters_.SECONDARY_BEAM_DEMERIT
-                       / max (edge_beam_counts_[LEFT], edge_beam_counts_[RIGHT]);
-
+  Real extra_demerit =
+    parameters_.SECONDARY_BEAM_DEMERIT
+    / max (edge_beam_counts_[LEFT], edge_beam_counts_[RIGHT]);
+  
   Real dem = 0.0;
   Real eps = parameters_.BEAM_EPS;
 
@@ -1203,13 +1215,15 @@ Beam_scoring_problem::score_forbidden_quants (Beam_configuration *config) const
           Direction stem_dir = edge_dirs_[d];
 
           /*
-            The 2.2 factor is to provide a little leniency for
+            The fudge_factor is to provide a little leniency for
             borderline cases. If we do 2.0, then the upper outer line
             will be in the gap of the (2, sit) quant, leading to a
-            false demerit.
+            false demerit. By increasing the fudge factor to 2.2, we
+            fix this case.
           */
-          Real gap1 = config->y[d] - stem_dir * ((j - 1) * beam_translation_ + beam_thickness_ / 2 - line_thickness_ / 2.2);
-          Real gap2 = config->y[d] - stem_dir * (j * beam_translation_ - beam_thickness_ / 2 + line_thickness_ / 2.2);
+          Real fudge_factor = 2.2;
+          Real gap1 = config->y[d] - stem_dir * ((j - 1) * beam_translation_ + beam_thickness_ / 2 - line_thickness_ / fudge_factor);
+          Real gap2 = config->y[d] - stem_dir * (j * beam_translation_ - beam_thickness_ / 2 + line_thickness_ / fudge_factor);
 
           Interval gap;
           gap.add_point (gap1);
@@ -1240,6 +1254,8 @@ Beam_scoring_problem::score_forbidden_quants (Beam_configuration *config) const
         }
     }
 
+  config->add (dem, "Fl");
+  dem = 0.0;
   if (max (edge_beam_counts_[LEFT], edge_beam_counts_[RIGHT]) >= 2)
     {
       Real straddle = 0.0;
@@ -1277,7 +1293,7 @@ Beam_scoring_problem::score_forbidden_quants (Beam_configuration *config) const
         }
     }
 
-  config->add (dem, "F");
+  config->add (dem, "Fs");
 }
 
 void
@@ -1295,16 +1311,20 @@ Beam_scoring_problem::score_collisions (Beam_configuration *config) const
       Real dist = infinity_f;
       if (!intersection (beam_y, collision_y).is_empty ())
         dist = 0.0;
-      else
+      else 
         dist = min (beam_y.distance (collision_y[DOWN]),
                     beam_y.distance (collision_y[UP]));
 
+      
       Real scale_free
         = max (parameters_.COLLISION_PADDING - dist, 0.0)
           / parameters_.COLLISION_PADDING;
-      demerits
-      += collisions_[i].base_penalty_ *
+      Real collision_demerit = collisions_[i].base_penalty_ *
          pow (scale_free, 3) * parameters_.COLLISION_PENALTY;
+
+      if (collision_demerit > 0) {
+        demerits += collision_demerit;
+      }
     }
 
   config->add (demerits, "C");

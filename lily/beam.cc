@@ -119,11 +119,13 @@ Beam::get_beam_translation (Grob *me)
   Real beam_thickness = get_beam_thickness (me);
   Real fract = robust_scm2double (me->get_property ("length-fraction"), 1.0);
 
-  Real beam_translation = beam_count < 4
-                          ? (2 * staff_space + line - beam_thickness) / 2.0
-                          : (3 * staff_space + line - beam_thickness) / 3.0;
-
-  return fract * beam_translation;
+  /*
+    if fract != 1.0, as is the case for grace notes, we want the gap
+    to decrease too. To achieve this, we divide the thickness by
+    fract */
+  return (beam_count < 4
+          ? (2 * staff_space * fract + line * fract - beam_thickness) / 2.0
+          : (3 * staff_space * fract + line * fract - beam_thickness) / 3.0);
 }
 
 /* Maximum beam_count. */
