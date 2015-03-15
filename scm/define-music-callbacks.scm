@@ -125,7 +125,24 @@ to be used by the sequential-iterator"
                   context 'measureLength new-measure-length))))
             'Timing)
            'Score)
-          (make-music 'TimeSignatureEvent music))))
+          ;; (make-music 'TimeSignatureEvent music) would always
+          ;; create a Bottom context.  So instead, we just send the
+          ;; event to whatever context may be currently active.  If
+          ;; that is not contained within an existing context with
+          ;; TimeSignatureEngraver at the time \time is iterated, it
+          ;; will drop through the floor which mostly means that
+          ;; point&click and tweaks are not available for any time
+          ;; signatures engraved due to the Timing property changes
+          ;; but without a \time of its own.  This is more a
+          ;; "notification" rather than an "event" (which is always
+          ;; sent to Bottom) but we don't currently have iterators for
+          ;; that.
+          (make-apply-context
+           (lambda (context)
+             (ly:broadcast (ly:context-event-source context)
+                           (ly:make-stream-event
+                            (ly:make-event-class 'time-signature-event)
+                            (ly:music-mutable-properties music))))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Some MIDI callbacks -- is this a good place for them?
