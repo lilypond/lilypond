@@ -106,6 +106,7 @@ PartInstrumentName or its default."
        #(satb-defaulting Key)
        \clef #,clef
        \new Voice = #,name <<
+         \satb-spacers
          #(satb-defaulting Time)
          \dynamicUp
          #(satb-defaulting ,(satb-sym name "Music"))
@@ -133,12 +134,14 @@ PartInstrumentName or its default."
       #(satb-defaulting Key)
       \clef #,clef
       \new Voice = #,v1name <<
+        \satb-spacers
         #(satb-defaulting Time)
         \voiceOne
         \dynamicUp
         #(satb-defaulting ,(satb-sym v1name "Music"))
       >>
       \new Voice = #,v2name <<
+        \satb-spacers
         #(satb-defaulting Time)
         \voiceTwo
         #(satb-defaulting ,(satb-sym v2name "Music"))
@@ -153,6 +156,33 @@ PartInstrumentName or its default."
     #(satb-lyrics-if-defined ,(satb-sym v2name "LyricsTwo") ,v2name)
     #(satb-lyrics-if-defined ,(satb-sym v2name "LyricsThree") ,v2name)
   >> #})
+
+satb-define-if-unused =
+#(define-void-function (parser location syms) (symbol-list?)
+   (for-each
+      (lambda (sym)
+        (if (null? (ly:parser-lookup parser sym))
+            (ly:parser-define! parser sym *unspecified*)))
+      syms))
+
+\satb-define-if-unused
+  #'(
+    DescantMusic
+    SopranoMusic
+    AltoMusic
+    TenorMusic
+    BassMusic
+  )
+
+satb-AllChoirMusic = <<
+  \DescantMusic
+  \SopranoMusic
+  \AltoMusic
+  \TenorMusic
+  \BassMusic
+>>
+
+#(define satb-spacers (skip-of-length satb-AllChoirMusic))
 
 SATB = <<
   \new ChoirStaff
@@ -197,6 +227,7 @@ SATB = <<
       \clef "treble"
       #(satb-defaulting Key)
       \new Voice <<
+        \satb-spacers
         #(satb-defaulting Time)
         #(satb-defaulting PianoRHMusic)
       >>
@@ -208,6 +239,7 @@ SATB = <<
       \clef "bass"
       #(satb-defaulting Key)
       \new Voice <<
+        \satb-spacers
         #(satb-defaulting Time)
         #(satb-defaulting PianoLHMusic)
       >>
