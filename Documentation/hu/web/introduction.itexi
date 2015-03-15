@@ -247,7 +247,7 @@ Nicolas Sceaux} szedésében.
 
 A LilyPond tabulatúra szedésére is képes, és testreszabható bármilyen
 hangszerre, amely tabulatúrából olvas. A hangok bevitele ugyanúgy történik,
-mint a rendes ötvanalas vonalrendszerben, a LilyPond automatikusan
+mint a rendes ötvonalas vonalrendszerben, a LilyPond automatikusan
 tabulatúraként jegyzi le őket.
 
 @exampleImage{tab-example}
@@ -256,7 +256,7 @@ tabulatúraként jegyzi le őket.
 @newsItem
 @subsubheading Schenker-diagramok
 
-Az alapbeállítású kimenet erőteljesen módosítható. Példánkban egy
+Az alapbeállítású kimenet nagy mértékben módosítható. Példánkban egy
 figyelemreméltó Schenker-féle analízis eredményét láthatjuk.
 
 @exampleImage{bach-schenker}
