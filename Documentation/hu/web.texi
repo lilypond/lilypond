@@ -119,7 +119,6 @@ Verzió: @version{}
 @c @im ageId{cmws,web-snippet-alpha.png,Catchy Musical Web Snippet}
 
 @divId{quickSummary}
-@subheading Mi az a LilyPond?
 
 A LilyPond egy nyílt forrású kottaszedő program,
 mely a lehető legjobb minőségű kotta előállítására képes.
@@ -151,27 +150,57 @@ Ha többet akarsz róla megtudni, olvasd el a @ref{Bevezetés}t!
   @c do nothing
 @end ifclear
 @ifset web_version
-  @c make the box:
-@divId{latestVersion}
-@subheading Gyorslinkek
+  @c make the side bar:
+@divId{homePageSideBar}
+@subheading Stabil változat
 
 @c TODO: javascript to detect OS and suggest download?
-
-@subsubheading Stabil
 
 @ref{Letöltés, Letöltés @versionStable}
 
 @ref{Dokumentáció, Dokumentáció @versionStable}
 
-@subsubheading Fejlesztői
+@subheading Fejlesztői változat
 
 @ref{Fejlesztés, Letöltés @versionDevel}
 
 @ref{Fejlesztés, Dokumentáció @versionDevel}
 
+@subheading Aktuális
+@divId{pondingsText}
+
+@divEnd
+
 @divEnd
 @end ifset
 
+@html
+
+<script language="JavaScript" type="text/javascript">
+  function loadXMLDoc(dname)
+    {
+      if (window.XMLHttpRequest)
+        {
+          xhttp=new XMLHttpRequest();
+        }
+      else
+        {
+          xhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+      xhttp.open("GET",dname,false);
+      xhttp.send();
+      return xhttp.responseXML;
+    }
+
+  var xmlDoc = loadXMLDoc("tweets.xml");
+  var tweets = xmlDoc.getElementsByTagName("tweet");
+  var index = Math.floor(Math.random() * tweets.length);
+  var tweet = tweets[index];
+  var text = tweet.childNodes[0];
+  document.getElementById("pondingsText").innerHTML = text.nodeValue;
+</script>
+
+@end html
 
 @ifnottex
 
@@ -298,3 +327,4 @@ please let us know by following the instructions on
 
 
 @bye
+
