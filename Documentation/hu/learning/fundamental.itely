@@ -570,7 +570,7 @@ Itt egy példa, ami a fenti akkord egyik hangját két szólamra osztja és köt
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \key g \major
-%    Voice "1"                  Voice "2"
+%    1. szólam                  2. szólam
 << { g4 fis8( g) a4 g }  \\  { d4 d d d }  >>
 @end lilypond
 
@@ -581,7 +581,7 @@ Vegyük észre, hogy a második hang szárai lefele mutatnak.
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \key d \minor
-%    Voice "1"             Voice "2"
+%    1. szólam               2. szólam
 << { r4 g g4. a8 }    \\ { d,2 d4 g }       >>
 << { bes4 bes c bes } \\ { g4 g g8( a) g4 } >>
 << { a2. r4 }         \\ { fis2. s4 }       >>
@@ -595,12 +595,12 @@ segíti a kód olvashatóságát, de ha már sok hang van, akkor jobb, ha a hang
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \key d \minor
 << {
-  % Voice "1"
+  % 1. szólam
   r4 g g4. a8 |
   bes4 bes c bes |
   a2. r4 |
 } \\ {
-  % Voice "2"
+  % 2. szólam
   d,2 d4 g |
   g4 g g8( a) g4 |
   fis2. s4 |
@@ -623,9 +623,9 @@ Minden ilyen környezetben a függőleges elrendezés (kötések, szárak, dinam
 
 @lilypond[quote,verbatim,fragment]
 \new Staff \relative c' {
-  % Main voice
+  % Fő hang
   c16 d e f
-  %    Voice "1"     Voice "2"                 Voice "3"
+  %   1. szólam       2. szólam                 3. szólam
   << { g4 f e } \\ { r8 e4 d c8~ } >>
   << { d2 e2 }  \\ { c8 b16 a b8 g~ g2 } \\ { s4 b4 c2 } >>
 }
@@ -650,9 +650,9 @@ az ütemhatár, ahogy a kék háromszöget jelző szólamban láthatjuk:
 
 @lilypond[quote,verbatim]
 \new Staff \relative c' {
-  % Main voice
+  % Fő szólam
   c16 d e f
-  <<  % Bar 1
+  <<  % 1. ütem
     {
       \voiceOneStyle
       g4 f e
@@ -663,11 +663,11 @@ az ütemhatár, ahogy a kék háromszöget jelző szólamban láthatjuk:
       r8 e4 d c8~
     }
   >>
-  <<  % Bar 2
-     % Voice 1 continues
+  <<  % 2. ütem
+     % 1. szólam folytatása
     { d2 e2 }
   \\
-     % Voice 2 continues
+     % 2. szólam folytatása
     { c8 b16 a b8 g ~ g2 }
   \\
     {
@@ -745,14 +745,14 @@ tűnhet és koncentráljunk csak a zenére és a szólamokra -- a nehezebb rész
 @lilypond[quote,ragged-right]
 \new Staff \relative c'' {
   \key aes \major
-  <<  % Voice one
+  <<  % 1. szólam
     { c2 aes4. bes8 }
-  \\  % Voice two
+  \\  % 2. szólam
     { aes2 f4 fes }
-  \\  % No voice three
-  \\  % Voice four
+  \\  % Nincs 3. szólam
+  \\  % 4. szólam
     {
-      % Ignore these for now - they are explained in Ch 4
+      % Az alábbival nem foglalkozunk most, a 4. fejezetben megtalálhatjuk a kód magyarázatát
       \once \override NoteColumn #'force-hshift = #0
       <ees c>2
       \once \override NoteColumn #'force-hshift = #0.5
@@ -777,18 +777,18 @@ Leginkább viszont akkor van szükségünk többszörös szólamokra, amikor a h
 \new Staff \relative c'' {
   \key aes \major
   <<
-    {  % Voice one
+    {  % 1. szólam
       \voiceOneStyle
       c2 aes4. bes8
     }
-  \\  % Voice two
+  \\  % 2. szólam
     { \voiceTwoStyle
       aes2 f4 fes
     }
-  \\  % No Voice three (we want stems down)
-  \\  % Voice four
+  \\  % Nincs 3. szólam (a hangjegyek szárait lefele szeretnénk)
+  \\  % 4. szólam
     { \voiceThreeStyle
-      % Ignore these for now - they are explained in Ch 4
+       % Az alábbival nem foglalkozunk most, a 4. fejezetben megtalálhatjuk a kód magyarázatát
       \once \override NoteColumn #'force-hshift = #0
       <ees c>2
       \once \override NoteColumn #'force-hshift = #0.5
@@ -826,12 +826,12 @@ A szárak iránya automatikusan hozzárendelődik a szólamokhoz, a páratlan-so
 @lilypond[quote,verbatim,fragment,ragged-right]
 \new Staff \relative c'' {
   \key aes \major
-  <<  % Voice one
+  <<  % 1. szólam
     { c2 aes4. bes8 }
-  \\  % Voice two
+  \\  % 2. szólam
     { aes2 f4 fes }
-  \\  % Omit Voice three
-  \\  % Voice four
+  \\  % 3. szólam - elhagyjuk
+  \\  % 4. szólam
     { <ees c>2 des2 }
   >>
   <c ees aes c>1
@@ -919,7 +919,7 @@ parancsok milyen hatással vannak a jelzésekre, ívekre illetve dinamikára:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'{
-  % Default behavior or behavior after \oneVoice
+  % Alapértelmezett viselkedés vagy  viselkedés \oneVoice után
   c d8~ d e4( f g a) b-> c
 }
 @end lilypond
@@ -954,9 +954,9 @@ permitting a phrasing slur to be drawn over them.
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' {
   \voiceOneStyle
-  % The following notes are monophonic
+  % A következő hangok monofónok
   c16^( d e f
-  % Start simultaneous section of three voices
+  % Szimultán rész három szólammal
   <<
     % Continue the main voice in parallel
     { g4 f e | d2 e2) | }
