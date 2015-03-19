@@ -22,11 +22,39 @@
 % replacing notes  with sequential music of suitably time-scaled note plus
 % skip.
 %
-% It also tries to unfold trills turns etc., and take rallentendo
-% and accelerando into account.
+% Trills, turns, mordents and pralls are expanded with rallentendo
+% and accelerando taken into account.
 %
 % As my scheme knowledge is poor (I was teaching myself as I went), there
 % is much scope for improvement.
+
+% See: http://nicta.com.au/people/chubbp/articulate for additional
+
+% information about how the articulate function works.
+
+%%% Supported items:
+% Slurs and phrasing slurs.
+% Ornaments (i.e. mordents, trills, turns).
+% Rallentando, accelerando, ritard and 'a tempo'.
+%
+% Please refer to 'MIDI output' (Section 3.5) in the Notation Reference
+% Manual for a more detailed list of supported items.
+
+%%% Technical Details:
+% * Any note not under a slur or phrasing mark, and not marked with an
+% explicit articulation, is shortened by ac:normalFactor (default 7/8)
+% * Any note marked staccato is shortened by ac:staccatoFactor.
+% (default 1/2).
+% * Any note marked tenuto gets its full value.
+% * Appogiaturas are made to take half the value of the note following,
+% without taking dots into account (so in \appoggiatura c8 d2. the c
+% will take the time of a crotchet).
+% * Trills and turns are expanded. The algorithm tries to choose notes
+% within the time of the current tempo that lead to each twiddle being
+% around 1/8 seconds; this can be adjusted with the ac:maxTwiddleTime
+% variable.
+% * Rall, poco rall and a tempo are observed. It'd be fairly trivial to
+% make accel. and stringendo and so on work too.
 
 %
 %%%USAGE
@@ -36,7 +64,7 @@
 % >>
 % or use the lilywrap script.
 %
-% TO DO (prioritised, the ones that'll make the most difference first)
+% TO DO:
 %
 % * Dynamics.
 %   * Fix quantisation for dynamics on single note (replace note
@@ -68,8 +96,10 @@
 %   -- Handling of generic ornaments (in lily, `\stopped'; in
 %               most early music:  ornament this note (trill, turn
 %               or mordent as the player wishes))
+
 % * Automatic gruppetto at end of trill; better handling of
 %      initial/final grace notes on trill
+
 % * Automatic ornaments.
 %   * Spot cadences and ornament
 %   * Look for quaver-dotted note for trills, for example.

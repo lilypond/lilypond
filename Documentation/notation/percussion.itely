@@ -44,7 +44,7 @@ discussed in @ref{Showing melody rhythms}, and
 @ref{Instantiating new staves}.
 
 @item MIDI output is discussed in a separate section; please see
-@ref{Percussion in MIDI}.
+@ref{MIDI instruments}.
 
 @end itemize
 
@@ -52,7 +52,7 @@ discussed in @ref{Showing melody rhythms}, and
 Notation Reference:
 @ref{Showing melody rhythms},
 @ref{Instantiating new staves}.
-@ref{Percussion in MIDI}.
+@ref{MIDI instruments}.
 
 Snippets:
 @rlsr{Percussion}.
@@ -108,11 +108,11 @@ be set explicitly.  Other clefs may be used as well.
 
 
 There are a few issues concerning MIDI support for percussion
-instruments; for details please see @ref{Percussion in MIDI}.
+instruments; for details please see @ref{MIDI instruments}.
 
 @seealso
 Notation Reference:
-@ref{Percussion in MIDI},
+@ref{MIDI instruments},
 @ref{Percussion notes}.
 
 Installed Files:
@@ -173,11 +173,8 @@ vibraphone, and timpani) are written using normal staves.
 This is covered in other sections of the manual.
 
 @seealso
-@c TODO: possibly link to an alternate section of NR 3.5, if
-@c "percussion in MIDI" gets a separate subsubsection for
-@c pitched percussion sounds.  -gp
 Notation Reference:
-@ref{Percussion in MIDI}.
+@ref{MIDI instruments}.
 
 Snippets:
 @rlsr{Percussion}.

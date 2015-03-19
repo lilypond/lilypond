@@ -1373,7 +1373,7 @@ Glossario musicale:
 
 Guida alla notazione:
 @ref{Formatting text},
-@ref{MIDI output}.
+@ref{Creating MIDI output}.
 
 Frammenti di codice:
 @rlsr{Staff notation}.

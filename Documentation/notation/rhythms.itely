@@ -1356,7 +1356,7 @@ Music Glossary:
 
 Notation Reference:
 @ref{Formatting text},
-@ref{MIDI output}.
+@ref{Creating MIDI output}.
 
 Snippets:
 @rlsr{Staff notation}.
