@@ -316,34 +316,9 @@ Staff_symbol::height (SCM smob)
 bool
 Staff_symbol::on_line (Grob *me, int pos, bool allow_ledger)
 {
-  SCM line_positions = me->get_property ("line-positions");
-  if (scm_is_pair (line_positions))
-    {
-      Real min_line = HUGE_VAL;
-      Real max_line = -HUGE_VAL;
-      for (SCM s = line_positions; scm_is_pair (s); s = scm_cdr (s))
-        {
-          Real current_line = scm_to_double (scm_car (s));
-          if (pos == current_line)
-            return true;
-          if (current_line > max_line)
-            max_line = current_line;
-          if (current_line < min_line)
-            min_line = current_line;
-
-        }
-
-      if (allow_ledger)
-        {
-          if (pos < min_line)
-            return (( (int) (rint (pos - min_line)) % 2) == 0);
-          if (pos > max_line)
-            return (( (int) (rint (pos - max_line)) % 2) == 0);
-        }
-
-      return false;
-    }
-  else
+  // standard staff lines (any line count) and standard ledger lines
+  if (!scm_is_pair (me->get_property ("line-positions"))
+      && !scm_is_pair (me->get_property ("ledger-positions")))
     {
       int const line_cnt = line_count (me);
       bool result = abs (pos + line_cnt) % 2 == 1;
@@ -353,6 +328,34 @@ Staff_symbol::on_line (Grob *me, int pos, bool allow_ledger)
         }
       return result;
     }
+
+  // staff lines (custom or standard)
+  vector<Real> lines = Staff_symbol::line_positions (me);
+  for (vector<Real>::const_iterator i = lines.begin (),
+       e = lines.end ();
+       i != e;
+       ++i)
+    {
+      if (pos == *i)
+        return true;
+    }
+
+  // ledger lines (custom or standard)
+  if (allow_ledger)
+    {
+      vector<Real> ledgers = Staff_symbol::ledger_positions (me, pos);
+      if (ledgers.empty ())
+        return false;
+      for (vector<Real>::const_iterator i = ledgers.begin (),
+           e = ledgers.end ();
+           i != e;
+           ++i)
+        {
+          if (pos == *i)
+            return true;
+        }
+    }
+  return false;
 }
 
 Interval
