@@ -181,7 +181,9 @@ setup_paths (char const *argv0_ptr)
         {
           /* Find absolute ARGV0 name, using PATH.  */
           File_path path;
-          path.parse_path (getenv ("PATH"));
+          char *p = getenv ("PATH");
+          if (p)
+            path.parse_path (p);
 
 #ifndef __MINGW32__
           argv0_abs = path.find (argv0_filename.to_string ());

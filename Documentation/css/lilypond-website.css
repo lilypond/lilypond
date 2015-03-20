@@ -15,10 +15,16 @@ body {
   max-width: 70em;
   font-size: 95%;
   line-height: 1.5;
-  background: #fff url(../pictures/background-image.png) no-repeat 0 0;
   text-align: justify;
   padding: 0;
   margin: 0 auto;
+  background-color: rgb(245, 252, 242);
+  background-image: url(../pictures/background-top-right.png),
+    url(../pictures/background-top-left.png);
+  background-position: top right, top left;
+  background-repeat: no-repeat, no-repeat;
+  /* fallback for IE8 which doesn't support multiple backgrounds */
+  background: url(../pictures/background-top-left.png) no-repeat top left;
 }
 
 hr {
@@ -96,7 +102,7 @@ div#tocframe {
 }
 
 #tocframe > ul:first-child > li:first-child a span {
-  background: url("../pictures/lily-home-32x32.png") no-repeat scroll 0% 40% transparent;
+  background: url(../pictures/lily-home-32x32.png) no-repeat scroll 0% 40% transparent;
   padding: 16px 0px 16px 38px;
 }
 
@@ -125,7 +131,7 @@ div#tocframe {
   width: 92%;
   font-size: 90%;
   color: rgb(85, 85, 85);
-  background: rgb(200, 230, 200);
+  background: rgb(235, 242, 232);
   padding: 0.1em 0.1em 0.1em 0.6em;
   border: 0;
   margin: 0;
@@ -611,7 +617,7 @@ div.float-right a.clickable {
 .column-right-top,
 .column-right-bottom,
 .news-item {
-  background: #f5fffa;
+  background: #fff;
   border-radius: 5px;
 }
 

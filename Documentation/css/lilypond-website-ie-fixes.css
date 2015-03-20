@@ -32,20 +32,6 @@ div#tocframe {
   background: url(../pictures/nav2-active.png);
 }
 
-/* Divs */
-
-#quickSummary .subheading {
-  background: #fff url(../pictures/summary-gradient.png) repeat-y 0 0;
-}
-
-a[name="Stable"] + h4 {
-  background: #bdee9d url(../pictures/color1-bg.png) repeat-x top left;
-}
-
-a[name="Unstable"] + h4 {
-  background: #fad58c url(../pictures/color3-bg.png) repeat-x top left;
-}
-
 /* Columns */
 
 .column-center-top h3 {
@@ -54,7 +40,8 @@ a[name="Unstable"] + h4 {
 
 .column-left-top h3,
 .column-left-bottom h3,
-.column-center-middle-color2 h3 {
+.column-center-middle-color2 h3,
+.news-item h3 {
   background: #adce82 url(../pictures/color2-bg.png) repeat-x top left;
 }
 

@@ -1187,8 +1187,19 @@ parent or the parent has no setting."
   (let* ((shift-when-alone (ly:grob-property grob 'toward-stem-shift 0.0))
          (shift-in-column (ly:grob-property grob 'toward-stem-shift-in-column))
          (script-column (ly:grob-object grob 'script-column))
-         (shift (if (and (ly:grob? script-column) (number? shift-in-column))
-                    shift-in-column shift-when-alone))
+         (shift
+           (if (and (ly:grob? script-column)
+                    (number? shift-in-column)
+                    ;; ScriptColumn can contain grobs other than Script.
+                    ;; These should not result in a shift.
+                    (any (lambda (s)
+                           (and (not (eq? s grob))
+                                (grob::has-interface s 'script-interface)
+                                (not (grob::has-interface s
+                                       'accidental-suggestion-interface))))
+                         (ly:grob-array->list
+                           (ly:grob-object script-column 'scripts))))
+               shift-in-column shift-when-alone))
          (note-head-location
           (ly:self-alignment-interface::aligned-on-x-parent grob))
          (note-head-grob (ly:grob-parent grob X))

@@ -9,17 +9,14 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
-@subheading LilyPond 2.19.16 released  @emph{February 28, 2015}
+@subheading LilyPond 2.19.17 released  @emph{March 15, 2015}
 
-At long last, we are very happy to announce the release of LilyPond
-2.19.16.  This release includes a number of enhancements, and contains some
+We are happy to announce the release of LilyPond
+2.19.17.  This release includes a number of enhancements, and contains some
 work in progress.  You will have access to the very latest features, but
 some may be incomplete, and you may encounter bugs and crashes.  If you
 require a stable version of Lilypond, we recommend using the 2.18
 version.
-
-We would like to acknowledge and thank Masamichi Hosoda for making this
-release possible with his work on updating GUB, the build tool.
 
 @newsEnd
 
