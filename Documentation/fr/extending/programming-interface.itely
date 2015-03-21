@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 324ff94afc62c7011b7377f24392f95391ed3b84
+    Translation of GIT committish: 5a6340b7f319802a7313c0e6b82eef96909cde42
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -165,8 +165,8 @@ compris dans le cas de blocs de code LilyPond ; vous devrez donc,
 si ces valeurs par défaut ne peuvent être déterminées que plus tard,
 mentionner une valeur spéciale que vous reconnaîtrez facilement.
 Lorsque vous mentionnez un prédicat entre parenthèses sans toutefois
-fournir sa valeur par défaut, celle-ci sera considérée comme étant
-@code{#f}.  Les valeurs par défaut d'un @code{prédicat?} ne sont
+fournir sa valeur par défaut, celle-ci sera considérée comme
+étant @code{#f}.  Les valeurs par défaut d'un @code{prédicat?} ne sont
 vérifiées ni au moment de la définition, ni à l'exécution ; il est
 de votre ressort de gérer les valeurs que vous spécifiez.  Une valeur
 par défaut constituée d'une expression musicale est recopiée dès la
@@ -192,7 +192,7 @@ attribuée la valeur @code{origin}.
 
 @noindent
 La recevabilité des arguments est déterminée par un appel effectif au
-prédicat après que LilyPond les a déjà converti en expression Scheme.
+prédicat après que LilyPond les a déjà convertis en expression Scheme.
 Par voie de conséquence, l'argument peut tout à fait se libeller en
 syntaxe Scheme -- introduite par un @code{#} ou en tant que résultat
 d'un appel à une fonction Scheme.  Par ailleurs, LilyPond convertira en
@@ -205,7 +205,7 @@ guillemets), des nombres, des @emph{markups} et listes de
 
 Il existe certaines situations pour lesquelles LilyPond lèvera toute
 ambiguïté grâce aux fonctions de prédicat : un @samp{-3} est-il un
-@emph{postévénement} de type doigté ou un nombre négatif@tie{}?  Un
+@emph{postévénement} de type doigté ou un nombre négatif ?  Un
 @code{"a" 4} en mode paroles est-il une chaîne suivie d'un nombre ou
 bien un événement syllabe de durée @code{4} ?  LilyPond répondra à ces
 questions par des interprétations successives du prédicat de l'argument,
@@ -220,7 +220,7 @@ raison pour laquelle il vaut mieux éviter des prédicats par trop
 permissifs tel que @code{Scheme?} lorsque l'application fait plutôt
 appel à des type d'argument plus spécifiques.
 
-Les différents types des prédicat propres à LilyPond sont recensés à
+Les différents types de prédicat propres à LilyPond sont recensés à
 l'annexe @ruser{Types de prédicats prédéfinis}.
 
 @seealso
@@ -239,11 +239,11 @@ Fichiers d'initialisation :
 
 Vous pouvez appeler une fonction Scheme pratiquement partout où une
 expression Scheme derrière un @code{#} peut prendre place.  Vous appelez
-une fonction Scheme en faisant précéder son nom d'un @code{\}, et en le
+une fonction Scheme en faisant précéder son nom d'un @code{\}, et en le
 faisant suivre de ses arguments.  Lorsqu'un prédicat d'argument
 optionnel ne correspond pas à un argument, LilyPond l'ignore ainsi que
 tous les arguments optionnels qui suivent, les remplaçant par leur
-valeur par défaut, et @qq{sauvegarde} en tant que prochain argument
+valeur par défaut, et « sauvegarde » en tant que prochain argument
 obligatoire l'argument qui ne correspondait pas.  Dans la mesure où
 l'argument sauvegardé doit servir, les argument optionnels ne sont en
 fait pas considérés comme optionnels, sauf à être suivis d'un argument
@@ -440,8 +440,8 @@ LilyPond.
 
 Certaines commandes @code{\override} nécessitent un argument
 supplémentaire constitué d'une paire de nombres, appelée @emph{cons
-cell} en Scheme -- que l'on pourrait traduire par @qq{construction de
-cellule}.
+cell} en Scheme -- que l'on pourrait traduire par « construction de
+cellule ».
 
 Cette paire peut se mentionner directement dans la fonction musicale à
 l'aide d'une variable @code{pair?} :
@@ -485,7 +485,7 @@ manualBeam =
 
 L'entretien des propriétés peut se voir comme un empilement par
 propriété par objet par contexte.  Les fonctions musicales peuvent
-nécessiter des dérogatoins pour une ou plusieurs propriétés pour la
+nécessiter des dérogations pour une ou plusieurs propriétés pour la
 durée de la fonction, puis de revenir aux valeurs précédentes avant de
 quitter.  Néanmoins, une dérogation normale va retirer de la pile -- ou
 dépiler -- et supprimer le sommet de la pile de la propriété avant
@@ -507,13 +507,13 @@ temporaire, réapparaitra la valeur antérieure.
 
 En d'autres termes, un @code{\revert} qui suit un @code{\temporary
 \override} pour la même propriété n'apporte rien.  Ce principe est aussi
-valable pour une couple @code{\temporary} et @code{\undo} sur la même
+valable pour un couple @code{\temporary} et @code{\undo} sur la même
 musique contenant des dérogations.
 
 Voici un exemple de fonction musicale utilisant cette fonctionnalité.
 La présence du @code{\temporary} permet de s'assurer qu'en sortant de la
 fonction, les propriétés @code{cross-staff} et @code{style} retrouveront
-les valeurs qu'elles avaient que ne soit appelée la fonction
+les valeurs qu'elles avaient avant que ne soit appelée la fonction
 @code{crossStaff}.  En l'absence de @code{\temporary}, ces propriétés
 auraient retrouvé leurs valeurs par défaut à la sortie de la fonction.
 
@@ -844,7 +844,7 @@ Quelques commentaires sur les arguments :
 @item @var{nom-commande}
 le nom que vous attribuez à votre commande de @emph{markup}.
 @item layout
-la définition du @qq{layout} -- son formatage.
+la définition du « layout » -- son formatage.
 @item props
 une liste de listes associatives, comprenant toutes les propriétés actives.
 @item @var{argi}
@@ -860,9 +860,9 @@ différentes propriétés ainsi que leur valeur par défaut.
 Les arguments se distinguent selon leur type :
 @itemize
 @item un @emph{markup}, correspondant au type de prédicat
-@code{markup?}@tie{};
+@code{markup?} ;
 @item une liste de @emph{markups}, correspondant au type de prédicat
-@code{markup-list?}@tie{};
+@code{markup-list?} ;
 @item tout autre objet Scheme, correspondant au types de prédicat tels
 que @code{list?}, @code{number?}, @code{boolean?}, etc.
 @end itemize
@@ -895,7 +895,7 @@ la fonction @code{interpret-markup}, en lui passant les arguments
 @var{layout} et @var{props}.  Ces arguments ne seront en principe connus
 que bien plus tardivement dans le processus typographique.  Lors de
 l'expansion d'une expression LilyPond @code{\markup} ou d'une macro
-Scheme @code{macro}, les expressions @emph{markup} auront déjà vu leurs
+Scheme @code{markup}, les expressions @emph{markup} auront déjà vu leurs
 composants assemblés en expressions @emph{markup}.  L'évaluation et le
 contrôle du type des arguments à une commande de @emph{markup}
 n'interviennent qu'au moment de l'interprétation de @code{\markup} ou
@@ -913,7 +913,7 @@ fonctions @emph{markup}.
 
 Les arguments @code{layout} et @code{props} d'une commande de
 @emph{markup} fournissent un contexte à l'interprétation du
-@emph{markup} : taille de fonte, longueur de ligne etc.
+@emph{markup} : taille de fonte, longueur de ligne, etc.
 
 L'argument @code{layout} permet d'accéder aux propriétés définies dans
 les blocs @code{\paper}, grâce à la fonction
@@ -929,7 +929,7 @@ commandes de @emph{markup}.  Il en va ainsi lors de l'interprétation
 d'un @emph{markup} de titre d'ouvrage : toutes les variables
 définies dans le bloc @code{\header} sont automatiquement ajoutées aux
 @code{props}, de telle sorte que le @emph{markup} de titrage de
-l'ouvrage pourra accéder aux différents champs titre, compositeur etc.
+l'ouvrage pourra accéder aux différents champs titre, compositeur, etc.
 Ceci permet aussi de configurer le comportement d'une commande de
 @emph{markup} : la taille des fontes, par exemple, est lue à
 partir de @code{props} plutôt que grâce à un argument @code{font-size}.
@@ -1018,7 +1018,7 @@ Notre commande personnalisée s'utilise ainsi :
 @end example
 
 Il serait intéressant de rendre cette commande @code{double-box} plus
-souple@tie{}:  les valeurs de @code{box-padding} sont figées et ne
+souple :  les valeurs de @code{box-padding} sont figées et ne
 peuvent être modifiées à l'envie.  Pareillement, il serait bien de
 distinguer l'espacement entre les encadrements de l'espacement entre le
 texte et ses encadrements.  Nous allons donc introduire une propriété
@@ -1052,7 +1052,7 @@ Ainsi que son équivalent à partir de la macro @emph{markup} :
 
 C'est ici le mot-clé @code{#:properties} qui permet de lire les
 propriétés @code{inter-box-padding} et @code{box-padding} à partir de
-l'argumenet @code{props}@tie{}; on leur a d'ailleurs fourni des valeurs
+l'argumenet @code{props} ; on leur a d'ailleurs fourni des valeurs
 par défaut au cas où elles ne seraient pas définies.
 
 Ces valeurs permettront alors d'adapter les propriétés de
@@ -1173,14 +1173,15 @@ regrouperons les stencils à l'aide de @code{ly:stencil-add} :
 @subsection Définition d'une nouvelle commande de liste de @emph{markups}
 @translationof New markup list command definition
 
+@cindex liste de markup, définition de commande
 @funindex define-markup-list-command
 @funindex interpret-markup-list
 
 Une commande traitant une liste de @emph{markups} se définit à l'aide de
 la macro Scheme @code{define-markup-list-command}, de manière analogue à
 la macro @code{define-markup-command} abordée à la rubrique
-@ref{Définition d'une nouvelle commande de markup} à ceci près que cette
-dernière renvoie un seul stencil, non une liste de stencils.
+@ref{Définition d'une nouvelle commande de markup}, à ceci près que
+cette dernière renvoie un seul stencil, non une liste de stencils.
 
 La fonction @code{interpret-markup-list}, à l'instar de la fonction
 @code{interpret-markup}, permet de convertir une liste de @emph{markups}
@@ -1209,7 +1210,7 @@ La version purement Scheme est un peu plus complexe :
 
 En dehors des habituels arguments @code{layout} et @code{props}, la
 commande de liste de @emph{markups} @code{paragraph} prend en argument
-une liste de @emph{markups} appelé @code{args}.  Le prédicat des listes
+une liste de @emph{markups} appelée @code{args}.  Le prédicat des listes
 de @emph{markups} est @code{markup-list?}.
 
 Pour commencer, la fonction récupère la taille de l'alinéa, propriété
@@ -1224,6 +1225,7 @@ interprétée par la fonction @code{interpret-markup-list}.
 
 Voici comment utiliser cette nouvelle commande de liste de
 @emph{markups} :
+
 @example
 \markuplist @{
   \paragraph @{
@@ -1305,7 +1307,7 @@ détermine une propriété de contexte,
 recherche la valeur d'une propriété de @emph{grob},
 
 @item ly:context-pushpop-property
-réalise un @code{\temporary@tie{}\override} ou un @code{\revert} sur une
+réalise un @code{\temporary \override} ou un @code{\revert} sur une
 propriété de @emph{grob}.
 @end table
 
@@ -1355,7 +1357,7 @@ desaturate =
 Ceci pourrait tout à fait s'implémenter sous la forme d'une fonction
 musicale, afin d'en réduire les effets à un seul bloc de musique.  Notez
 comment @code{ly:context-pushpop-property} est utilisé à la fois pour un
-@code{\temporary@tie{}\override} et pour un @code{\revert} :
+@code{\temporary \override} et pour un @code{\revert} :
 
 @lilypond[quote,verbatim]
 desaturate =
@@ -1394,6 +1396,7 @@ desaturate =
 @translationof Running a function on all layout objects
 
 @cindex appel de code sur des objets de mise en forme
+@cindex objets de mise en forme, appel de code
 @funindex \applyOutput
 
 La manière la plus souple d'affiner un objet consiste à utiliser la
@@ -1414,7 +1417,7 @@ arguments suivants :
 @itemize
 @item l'objet de rendu en lui-même,
 @item le contexte au sein duquel cet objet est créé,
-@item et le contexte dans lequel @code{\applyOutput} est effectué.
+@item le contexte dans lequel @code{\applyOutput} est effectué.
 @end itemize
 
 De plus, ce qui est à l'origine de l'objet de rendu -- l'expression
@@ -1423,8 +1426,8 @@ d'objet @code{cause}.  Il s'agit, pour une tête de note, d'un événement
 @rinternals{NoteHead}, et d'un objet @rinternals{Stem} pour une hampe.
 
 Voici une fonction utilisable avec la commande
-@code{\applyOutput} : elle @qq{blanchit} la tête des notes se
-trouvant sur la ligne médiane ou bien directement à son contact.
+@code{\applyOutput} : elle « blanchit » la tête des notes se trouvant
+sur la ligne médiane ou bien directement à son contact.
 
 @lilypond[quote,verbatim,ragged-right]
 #(define (blanker grob grob-origin context)
@@ -1453,14 +1456,13 @@ des syntaxes
 
 Certaines propriétés, entre autres @code{thickness} ou @code{direction},
 peuvent voir leur valeur figée à l'aide d'un @code{\override} comme
-ici@tie{}:
+ici :
 
 @example
 \override Stem.thickness = #2.0
 @end example
 
-Une procédure Scheme peut aussi se charger de modifier des
-propriétés@tie{}:
+Une procédure Scheme peut aussi se charger de modifier des propriétés :
 
 @lilypond[fragment,verbatim,quote,relative=2]
 \override Stem.thickness = #(lambda (grob)
@@ -1559,8 +1561,8 @@ F = #(let ((m (make-music 'ArticulationEvent
 @end example
 
 @noindent
-Ici les propriétés @code{tweak} de l'objet flageolet nommé
-@samp{m} (créé au moyen de @code{make-music}) sont extraites par
+Ici les propriétés @code{tweak} de l'objet flageolet nommé @samp{m}
+(créé au moyen de @code{make-music}) sont extraites par
 @code{ly:music-property}, une nouvelle valeur de la taille de fonte
 est ajoutée à la liste de ses propriétés (grâce à la fonction Scheme
 @code{acons}), et le résultat de cette opération est renvoyé par
@@ -1578,7 +1580,7 @@ Certains réglages sont plus délicats que d'autres.
 
 @itemize
 @item
-L'un d'entre eux est l'apparence des objets dits @qq{extenseurs}
+L'un d'entre eux est l'apparence des objets dits « extenseurs »
 (@emph{spanner}), qui s'étendent horizontalement, tels que les liaisons.
 Si, en principe, un seul de ces objets est créé à la fois et peut donc
 être modifié de façon habituelle, lorsque ces objets doivent enjamber un
@@ -1603,7 +1605,7 @@ Dans l'exemple suivant, on définit une nouvelle opération nommée
 @item
 détermine si l'objet a été divisé à l'occasion d'un changement de ligne
 @item
-dans l'affirmative, recherche les différents morceaux de l'objet
+dans l'affirmative, recherche les différents tronçons de l'objet
 @item
 vérifie si l'objet considéré est bien la deuxième moitié d'un objet
 divisé
@@ -1613,7 +1615,7 @@ dans l'affirmative, applique un espacement supplémentaire
 @end itemize
 
 On ajoute cette procédure à l'objet @rinternals{Tie} (liaison de tenue),
-de façon à ce que le deuxième morceau d'une liaison divisée soit
+de façon à ce que le deuxième tronçon d'une liaison divisée soit
 rehaussé.
 
 @c KEEP LY
@@ -1623,7 +1625,7 @@ rehaussé.
           ;; l'objet a-t-il été divisé ?
           (orig (ly:grob-original grob))
 
-          ;; si oui, rechercher les morceaux frères (siblings)
+          ;; si oui, rechercher les tronçons frères (siblings)
           (siblings (if (ly:grob? orig)
                         (ly:spanner-broken-into orig)
                         '())))
@@ -1653,7 +1655,7 @@ Pour des raisons d'ordre technique, certains objets ne peuvent être
 modifiés par @code{\override}.  Parmi ceux-là, les objets
 @code{NonMusicalPaperColumn} et @code{PaperColumn}.  La commande
 @code{\overrideProperty} sert à les modifier, de façon similaire à
-@code{\once \override} mais avec une syntaxe différente :
+@code{\once \override}, mais avec une syntaxe différente :
 
 @example
 \overrideProperty

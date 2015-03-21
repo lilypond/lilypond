@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ec074a41f03cf4cd3b914daa1359dd6e0fb2012d
+    Translation of GIT committish: 5a6340b7f319802a7313c0e6b82eef96909cde42
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -30,12 +30,12 @@ Scheme.  Si vous désirez en apprendre plus sur Scheme, n'hésitez pas à
 vous rendre sur @uref{http://@/www@/.schemers@/.org}.
 
 Le Scheme utilisé par LilyPond repose sur l'implémentation GNU
-Guile ; celle-ci se base sur le standard Scheme @qq{R5RS}.  Si
+Guile ; celle-ci se base sur le standard Scheme « R5RS ».  Si
 votre but est d'apprendre Scheme au travers de LilyPond, sachez que
 l'utilisation d'une autre implémentation ou d'un autre standard pourrait
 être source de désagrément.  Vous trouverez plus d'information sur
-GUILE à la page @uref{http://www.gnu.org/software/guile/} ; le
-standard Scheme @qq{R5RS} est quant à lui disponible à la page
+Guile à la page @uref{http://www.gnu.org/software/guile/} ; le
+standard Scheme « R5RS » est quant à lui disponible à la page
 @uref{http://www.schemers.org/Documents/Standards/R5RS/}.
 
 @menu
@@ -50,7 +50,7 @@ standard Scheme @qq{R5RS} est quant à lui disponible à la page
 @translationof Introduction to Scheme
 
 Nous commencerons par nous intéresser à Scheme et à son fonctionnement,
-grâce à l'interpréteur GUILE.  Une fois plus à l'aise avec Scheme, nous
+grâce à l'interpréteur Guile.  Une fois plus à l'aise avec Scheme, nous
 verrons comment ce langage peut s'intégrer à un fichier LilyPond.
 
 @menu
@@ -68,16 +68,16 @@ verrons comment ce langage peut s'intégrer à un fichier LilyPond.
 @subsection Le bac à sable de Scheme
 @translationof Scheme sandbox
 
-L'installation de LilyPond comprend l'implémentation GUILE de Scheme.
-La plupart des systèmes disposent d'un @qq{bac à sable} Scheme pour
-effectuer des tests ; vous y accéderez en tapant @qq{guile} dans
+L'installation de LilyPond comprend l'implémentation Guile de Scheme.
+La plupart des systèmes disposent d'un « bac à sable » Scheme pour
+effectuer des tests ; vous y accéderez en tapant @code{guile} dans
 un terminal.  Certains systèmes, notamment Windows, nécessitent d'avoir
 auparavant créé la variable d'environnement @code{GUILE_LOAD_PATH} qui
 devra pointer vers le répertoire @code{../usr/share/guile/1.8} de
 l'installation de LilyPond -- pour connaître le chemin complet d'accès à
 ce répertoire, consultez @rlearning{Autres sources de documentation}.
-Les utilisateurs de Windows peuvent aussi prendre l'option @qq{Exécuter}
-à partir du menu @qq{Démarrer} puis taper @qq{guile}.
+Les utilisateurs de Windows peuvent aussi prendre l'option « Exécuter »
+à partir du menu « Démarrer » puis taper @code{guile}.
 
 Néanmoins, tous les paquetages de LilyPond disposent d'un bac à sable
 Scheme, accessible par la commande :
@@ -135,7 +135,7 @@ guile> (display a)
 Vous aurez remarqué que la valeur @code{2} et l'invite @code{guile}
 apparaissent sur une même ligne.  On peut améliorer la présentation à
 l'aide de la procédure @code{newline} ou bien en affichant un caractère
-@qq{retour chariot}.
+« retour chariot ».
 
 @lisp
 guile> (display a)(newline)
@@ -168,7 +168,7 @@ guile> (quit)
 @translationof Scheme simple data types
 
 L'un des concepts de base de tout langage est la saisie de données,
-qu'il s'agisse de nombres, de chaînes de caractères, de listes etc.
+qu'il s'agisse de nombres, de chaînes de caractères, de listes, etc.
 Voici les différents types de données Scheme simples utilisées
 couramment dans LilyPond.
 
@@ -295,7 +295,7 @@ guile>
 
 @noindent
 
-Note : @code{cdr} se prononce @qq{couldeur}, comme l'indiquent Sussman et
+Note : @code{cdr} se prononce « couldeur », comme l'indiquent Sussman et
 Abelson -- voir
 @uref{http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-14.html#footnote_Temp_133}.
 
@@ -331,7 +331,7 @@ guile> '(17 23 "foo" "bar" "bazzle")
 
 Les listes ont une importance considérable en Scheme.  Certains vont
 d'ailleurs jusqu'à considérer Scheme comme un dialecte du lisp, où
-@qq{lisp} serait une abréviation de @qq{List Processing}.  Il est vrai
+« lisp » serait une abréviation de « List Processing ».  Il est vrai
 que toute expression Scheme est une liste.
 
 
@@ -416,6 +416,7 @@ guile> (hashq-get-handle h 'zut)
 guile>
 @end lisp
 
+
 @node Scheme et les calculs
 @subsection Scheme et les calculs
 @translationof Calculations in Scheme
@@ -495,7 +496,7 @@ guile>
 
 Vous pouvez constater que l'interpréteur a tenté de considérer @code{1}
 comme étant un opérateur ou une procédure, ce qu'il n'a pu réaliser.  Il
-a donc renvoyé l'erreur @qq{Wrong type to apply: 1} (@emph{Application
+a donc renvoyé l'erreur « Wrong type to apply: 1 » (@emph{Application
 d'un type erroné : 1}).
 
 C'est pourquoi il est impératif, pour créer une liste, soit d'utiliser
@@ -590,7 +591,7 @@ guile> (moyenne 3 12)
 @translationof Predicates
 
 Une procédure Scheme chargée de retourner une valeur booléenne s'appelle
-un @qq{prédicat} (@emph{predicate}).  Par convention, plutôt que par
+un « prédicat » (@emph{predicate}).  Par convention, plutôt que par
 nécessité, le nom d'un prédicat se termine par un point
 d'interrogation :
 
@@ -657,7 +658,7 @@ Scheme dispose d'une procédure @code{if} :
 @end example
 
 @var{expression-test} est une expression qui renverra une valeur
-booléenne.  Dans le cas où @var{expression-test} retourne @code{#t}, la
+booléenne.  Dans le cas où @var{expression-test} retourne @code{#t}, la
 procédure @code{if} renvoie la valeur de @var{expression-affirmative},
 et celle de @var{expression-négative} dans le cas contraire.
 
@@ -727,14 +728,14 @@ Rappelons-nous qu'un fichier source LilyPond est structuré en jetons et
 expressions, tout comme le langage humain est structuré en mots et
 phrases.  LilyPond dispose d'un analyseur lexical (appelé @emph{lexer})
 qui sait identifier les jetons -- nombres, chaînes, éléments Scheme,
-hauteurs etc. -- ainsi que d'un analyseur syntaxique (appelé
+hauteurs, etc. -- ainsi que d'un analyseur syntaxique (appelé
 @emph{parser}) -- voir
 @rcontribnamed{LilyPond grammar, Grammaire de LilyPond}.  Dès lors
 que le programme sait quelle règle grammaticale particulière doit
 s'appliquer, il exécute les consignes qui lui sont associées.
 
 Le recours à un @emph{hash} pour mettre en exergue du Scheme est tout à
-fait approprié.  Dès qu'il rencontre un @code{#}, l'analyseur lexical
+fait approprié.  Dès qu'il rencontre un @code{#}, l'analyseur lexical
 passe le relais au lecteur Scheme qui va alors déchiffrer l'intégralité
 de l'expression Scheme -- ce peut être un identificateur, une expression
 bornée par des parenthèses ou bien d'autres choses encore.  Une fois
@@ -782,7 +783,7 @@ qui l'abrite devait être réutilisée, un appel expicite à
 @funindex #@@
 
 Les opérateurs @code{$@@} et @code{#@@} agissent comme des « colleurs de
-liste » : leur fonction consiste à insérer tous les éléments d'un liste
+liste » : leur fonction consiste à insérer tous les éléments d'une liste
 dans le contexte environnant.
 
 Examinons à présent du vrai code Scheme.  Nous pouvons définir des
@@ -793,7 +794,7 @@ procédures Scheme au milieu d'un fichier source LilyPond :
 @end example
 
 Pour mémoire, vous noterez que les commentaires LilyPond (@code{%} ou
-@code{%@{ %@}}) ne peuvent s'utiliser dans du code Scheme, même si
+@code{%@{…%@}}) ne peuvent s'utiliser dans du code Scheme, même si
 celui-ci se trouve au sein d'un fichier LilyPond.  Ceci tient au fait
 que l'expression Scheme est lue par l'interpréteur Guile, et en aucune
 façon par l'analyseur lexical de LilyPond.  Voici comment introduire des
@@ -861,7 +862,7 @@ La façon habituelle de faire référence à une variable LilyPond consiste
 internes de LilyPond y compris les expressions musicales, aura pour
 effet d'en recopier la valeur, les fonctions musicales n'ont pas pour
 habitude de créer une copie du matériau qu'elles vont modifier.  De
-fait, une expression musicale introduite par @code{#} ne devrait pas
+fait, une expression musicale introduite par @code{#} ne devrait pas
 contenir de matériau inexistant auparavant ou bien littéralement
 recopié, mais plutôt une référence explicite.
 
@@ -930,7 +931,7 @@ traLaLa = { c'4 d'4 }
 Cet exemple est particulièrement intéressant.  L'assignation
 n'interviendra qu'une fois que l'analyseur grammatical aura l'assurance
 que rien du type de @code{\addlyrics} ne suit ; il doit donc
-vérifier ce qui vient après.  Le @emph{parser} lit le @code{#} et
+vérifier ce qui vient après.  Le @emph{parser} lit le @code{#} et
 l'expression Scheme qui le suit @strong{sans} l'évaluer, de telle sorte
 qu'il peut procéder à l'assignation, et @strong{ensuite} exécuter le
 code Scheme sans problème.
@@ -943,7 +944,7 @@ code Scheme sans problème.
 @funindex $
 @funindex #
 
-L'exemple précédent illustre la manière @qq{d'exporter} une expression
+L'exemple précédent illustre la manière « d'exporter » une expression
 musicale à partir des saisies et à destination de l'interpréteur Scheme.
 L'inverse est aussi réalisable : en la plaçant derrière un @code{$}, une
 valeur Scheme sera interprétée comme si elle avait été saisie en
@@ -1022,7 +1023,7 @@ listes associatives.
 
 La modification d'une valeur pour une propriété donnée requiert
 l'assignation d'une valeur de la liste associative, tant pour la clé que
-la valeur associée.  Voici comment procéder selon la syntaxe de
+pour la valeur associée.  Voici comment procéder selon la syntaxe de
 LilyPond :
 
 @example
@@ -1037,7 +1038,7 @@ s'exprimer en unité d'épaisseur de ligne, les hampes auront donc une
 épaisseur normale.  Afin de faire la distinction entre les variables que
 vous définissez au fil de vos fichiers -- tel le @code{vingtQuatre} que
 nous avons vu plus haut -- et les variables internes des objets, nous
-parlerons de @qq{propriétés} pour ces dernières, et de @qq{variables}
+parlerons de « propriétés » pour ces dernières, et de « variables »
 pour les autres.  Ainsi, l'objet hampe possède une propriété
 @code{thickness}, alors que @code{vingtQuatre} est une variable.
 
@@ -1089,12 +1090,12 @@ le fichier @file{scm/lily-library.scm}.
 @unnumberedsubsubsec Fractions
 @translationof Fractions
 
-Les fractions, tel que LilyPond les utilise, sont aussi stockées sous
+Les fractions, telles que LilyPond les utilise, sont aussi stockées sous
 forme de @emph{paire}.  Alors que Scheme est tout à fait capable de
 représenter des nombres rationnels, vous conviendrez que, musicalement
 parlant, @samp{2/4} et @samp{1/2} ne se valent pas ; nous devrons
 donc pouvoir les distinguer.  Dans le même ordre d'idée, LilyPond ne
-connaît pas les @qq{fractions} négatives.  Pour ces raisons, @code{2/4}
+connaît pas les « fractions » négatives.  Pour ces raisons, @code{2/4}
 en LilyPond correspond à @code{(2 . 4)} en Scheme, et @code{#2/4} en
 LilyPond correspond à @code{1/2} en Scheme.
 
@@ -1106,7 +1107,7 @@ LilyPond correspond à @code{1/2} en Scheme.
 Les paires permettent aussi de stocker des intervalles qui représentent
 un ensemble de nombres compris entre un minimum (le @code{car}) et un
 maximum (le @code{cdr}).  Ces intervalles stockent l'étendue, tant au
-niveau horizontal (X) que vertical (Y) des objets imprimables.  En
+niveau horizontal (X) que vertical (Y) des objets imprimables.  En
 matière d'étendue sur les X, le @code{car} correspond à la coordonnée de
 l'extrémité gauche, et le @code{cdr} à la coordonnée de l'extrémité
 droite.  En matière d'étendue sur les Y, le @code{car} correspond à la
@@ -1170,14 +1171,14 @@ rapport à la ronde.
 Un objet musical dispose de trois types :
 @itemize
 @item
-un nom de musique : Toute expression musicale a un nom.  Par exemple,
+un nom de musique : toute expression musicale a un nom.  Par exemple,
 une note amène à un @rinternals{NoteEvent}, un @code{\simultaneous} à un
 @rinternals{SimultaneousMusic}.  Une liste exhaustive des différentes
 expressions est disponible dans la référence des propriétés internes, à
 la rubrique @rinternals{Music expressions}.
 
 @item
-un @qq{type} ou interface : Tout nom de musique dispose de
+un « type » ou interface : tout nom de musique dispose de
 plusieurs types ou interfaces.  Ainsi, une note est tout à la fois un
 @code{event}, un @code{note-event}, un @code{rhythmic-event} et un
 @code{melodic-event}.  Les différentes classes musicales sont
@@ -1185,7 +1186,7 @@ répertoriées à la rubrique @rinternals{Music classes} de la référence
 des propriétés internes.
 
 @item
-un objet C++ : Tout objet musical est représenté par un objet de la
+un objet C++ : tout objet musical est représenté par un objet de la
 classe C++ @code{Music}.
 @end itemize
 
@@ -1199,7 +1200,7 @@ de la référence des propriétés internes.
 Une expression composite est un objet musical dont les propriétés
 contiennent d'autres objets musicaux.  S'il s'agit d'une liste d'objets,
 elle sera stockée dans la propriété @code{elements} d'un objet
-musical ; s'il n'y a qu'un seul objet @qq{enfant}, il sera stocké
+musical ; s'il n'y a qu'un seul objet « enfant », il sera stocké
 dans la propriété @code{element}.  Ainsi, par exemple, les enfants de
 @rinternals{SequentialMusic} iront dans @code{elements}, alors que
 l'argument unique de @rinternals{GraceMusic} ira dans @code{element}.
@@ -1330,7 +1331,7 @@ s'affranchir de la phase d'interprétation.
 Nous abordons ici les propriétés @emph{music}, et non pas les propriétés
 @emph{context} ou @emph{layout}.
 
-Partons de cet exemple simple@tie{}:
+Partons de cet exemple simple :
 
 @example
 someNote = c'
@@ -1392,7 +1393,7 @@ La hauteur de la note est accessible au travers de la propriété
 @end example
 
 La hauteur de la note se modifie en définissant sa propriété
-@code{'pitch}@tie{}:
+@code{'pitch} :
 
 @funindex \displayLilyMusic
 
@@ -1445,7 +1446,7 @@ comment le résultat est représenté en interne.
 @end example
 
 Mauvaise nouvelle ! Les expressions @code{SlurEvent} doivent
-s'ajouter @qq{à l'intérieur} de la note -- dans sa propriété
+s'ajouter « à l'intérieur » de la note -- dans sa propriété
 @code{articulations}.
 
 Examinons à présent la saisie :
@@ -1596,7 +1597,7 @@ répétant un certain argument musical.  Dans ce cas là, l'une des
 répétitions se devait d'être une copie.  Dans le cas contraire,
 certaines bizarreries auraient pu survenir.  Par exemple, la présence
 d'un @code{\relative} ou d'un @code{\transpose}, après plusieurs
-répétitions du même élément, entraînerait des @qq{relativisations} ou
+répétitions du même élément, entraînerait des « relativisations » ou
 transpositions en cascade.  Si nous les assignons à une variable
 musicale, l'enchaînement est rompu puisque la référence à @samp{\nom}
 créera une nouvelle copie sans toutefois prendre en considération
@@ -1611,11 +1612,10 @@ besoin de l'argument dans son état originel.  Vous constaterez, à la
 lecture des fonctions propres à LilyPond, comme @code{music-map}, que ce
 principe est toujours respecté.
 
-Revenons à nos moutons@dots{} Nous disposons maintenant d'un
-@code{note-event} que nous pouvons modifier, non pas grâce à un
-@code{ly:music-deep-copy}, mais plutôt en raison de notre précédente
-réflexion.  Nous ajoutons @notation{l'accent} à la liste de ses
-propriétés @code{'articulations}.
+Revenons à nos moutons… Nous disposons maintenant d'un @code{note-event}
+que nous pouvons modifier, non pas grâce à un @code{ly:music-deep-copy},
+mais plutôt en raison de notre précédente réflexion.  Nous ajoutons
+@notation{l'accent} à la liste de ses propriétés @code{'articulations}.
 
 @example
 (set! emplacement nouvelle-valeur)
@@ -1629,7 +1629,7 @@ propriété @code{'articulations} de l'expression @code{note-event}.
 @end example
 
 La fonction @code{ly:music-property} permet d'accéder aux propriétés
-musicales -- les @code{'articulations}, @code{'duration}, @code{'pitch}
+musicales -- les @code{'articulations}, @code{'duration}, @code{'pitch},
 etc. que @code{\displayMusic} nous a indiquées.  La nouvelle valeur sera
 l'ancienne propriété @code{'articulations}, augmentée d'un
 élément : l'expression @code{ArticulationEvent}, que nous
@@ -1653,7 +1653,7 @@ propriété @code{articulations}, nous pouvons renvoyer le
 
 Nous pouvons à présent transformer la fonction @code{ajoute-accent} en
 fonction musicale, à l'aide d'un peu d'enrobage syntaxique et mention du
-type de son unique argument @qq{réel}.
+type de son unique argument « réel ».
 
 @example
 ajouteAccent = #(define-music-function (parser location note-event)
