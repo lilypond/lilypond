@@ -130,6 +130,44 @@
 
     line-thickness))
 
+(define (grob::objects-from-interface grob iface)
+  "For grob @var{grob} return the name and contents of all properties
+ within interface @var{iface} having type @code{ly:grob?} or
+ @code{ly:grob-array?}."
+  (let* ((iface-entry (hashq-ref (ly:all-grob-interfaces) iface))
+         (props (if iface-entry (last iface-entry) '()))
+         (pointer-props
+          (filter
+           (lambda (prop)
+             (let ((type (object-property prop 'backend-type?)))
+               (or (eq? type ly:grob?)
+                   (eq? type ly:grob-array?))))
+           props)))
+    (if (null? pointer-props)
+        '()
+        (list iface
+          (map
+           (lambda (prop) (list prop (ly:grob-object grob prop)))
+           pointer-props)))))
+
+(define-public (grob::all-objects grob)
+  "Return a list of the names and contents of all properties having type
+ @code{ly:grob?} or @code{ly:grob-array?} for all interfaces supported by
+ grob @var{grob}."
+  (let loop ((ifaces (ly:grob-interfaces grob)) (result '()))
+    (if (null? ifaces)
+        (cons grob (list result))
+        (let ((entry (grob::objects-from-interface grob (car ifaces))))
+          (if (pair? entry)
+              (loop (cdr ifaces) (append result (list entry)))
+              (loop (cdr ifaces) result))))))
+
+(use-modules (ice-9 pretty-print))
+(define-public (grob::display-objects grob)
+  "Display all objects stored in properties of grob @var{grob}."
+  (pretty-print (grob::all-objects grob))
+  (newline))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; beam slope
 
