@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.17\n"
+"Project-Id-Version: lilypond 2.19.18\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2015-03-15 11:17+0000\n"
+"POT-Creation-Date: 2015-03-29 12:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2039,7 +2039,7 @@ msgstr ""
 msgid "(search path: `%s')"
 msgstr ""
 
-#: input.cc:138 source-file.cc:177 source-file.cc:192
+#: input.cc:138 source-file.cc:180 source-file.cc:195
 msgid "position unknown"
 msgstr ""
 
@@ -2510,22 +2510,22 @@ msgstr ""
 msgid "FreeType error: %s"
 msgstr ""
 
-#: open-type-font.cc:112
+#: open-type-font.cc:116
 #, c-format
 msgid "unsupported font format: %s"
 msgstr ""
 
-#: open-type-font.cc:114
+#: open-type-font.cc:118
 #, c-format
 msgid "error reading font file %s: %s"
 msgstr ""
 
-#: open-type-font.cc:189
+#: open-type-font.cc:193
 #, c-format
 msgid "FT_Get_Glyph_Name () Freetype error: %s"
 msgstr ""
 
-#: open-type-font.cc:337 pango-font.cc:257
+#: open-type-font.cc:341 pango-font.cc:257
 #, c-format
 msgid "FT_Get_Glyph_Name () error: %s"
 msgstr ""
