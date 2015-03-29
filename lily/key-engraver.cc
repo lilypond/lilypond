@@ -140,8 +140,7 @@ Key_engraver::acknowledge_clef (Grob_info /* info */)
 void
 Key_engraver::acknowledge_bar_line (Grob_info /* info */)
 {
-  if (scm_is_pair (get_property ("keyAlterations")))
-    create_key (true);
+  create_key (true);
 }
 
 void
