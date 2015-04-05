@@ -119,15 +119,14 @@ Per al LilyPond versió @version{}
 @divId{quickSummary}
 @subheading ¿Què és el LilyPond?
 
-El Lilypond és un programa de gravació musical
+El Lilypond és un programa de gravat musical
 (tipografia musical o edició de partitures),
 consagrat a la producció de partitures de la
-qualitat més alta possible. Porta l'estètica
-de la música tipografiada de la forma tradicional
-a les partitures impreses de la forma tradicional
+qualitat més alta possible. Introdueix l'estètica
+de la música gravada de la forma tradicional
 a les partitures impreses mijtançant l'ordinador.
 Lilypond és programari lliure i forma part del
-@uref{http://gnu.org,Proyecto GNU}.
+@uref{http://gnu.org,Projecte GNU}.
 
 
 @divClass{align-right}
@@ -157,7 +156,7 @@ Lilypond és programari lliure i forma part del
 @ifset web_version
   @c make the box:
 @divId{wildCardBox}
-@subheading Novedades
+@subheading Novetats
 @divId{wildCardText}
 
 @divEnd

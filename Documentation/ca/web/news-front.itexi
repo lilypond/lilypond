@@ -1,21 +1,283 @@
-\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
-@c This file is part of web.texi
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
 @ignore
-    Translation of GIT committish: feeca25b207bd510705974896d640ea292cd7fc4
+    Translation of GIT committish: 7e3df6b879dcd850a4e7645b1afc151111c77436
 
     When revising a translation, copy the HEAD committish of the
-    version that you are working on.  See TRANSLATION for details.
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
 @end ignore
 
+@c This file is part of lilypond-web.texi and community.itexi
 
-@subsubheading Lilypond 2.18.2 released!  @emph{March 23, 2014}
-@subsubheading LilyPond production named BEST EDITION 2014  @emph{March 11, 2014}
-@subsubheading LilyPond 2.19.3 released  @emph{March 2, 2014}
-@subsubheading Lilypond 2.18.0 released!  @emph{December 29, 2013}
-@subsubheading LilyPond blog.  @emph{June 2, 2013}
-@subsubheading LilyPond 2.16.2 released!  @emph{January 4, 2013}
-@subsubheading The LilyPond Report #28.  @emph{November 12, 2012}
-@subsubheading LilyPond 2.16.1 released!  @emph{November 9, 2012}
-@subsubheading Lilypond 2.16.0 released!  @emph{August 24, 2012}
+@c when you add a new item, consider moving the lowest item(s)
+@c into news.itexi.
 
-@c -- SKELETON FILE --
+@c Translators: Walter Garcia-Fontes
+@c keep two blank lines between news entries
+
+@c used for news about the upcoming release; see CG 10.2
+
+@newsItem
+@subsubheading LilyPond 2.19.15 llençat el @emph{28 de setembre 28 de 2014}!
+
+Estem contents d'anunciar el llançament del LilyPond 2.19.15.
+Aquest llançament inclou nombroses millores, i conté algun treball
+en progrés.  Tindreu accés a les funcionalitats més recents, però
+algunes poden estar incompletes, i és possible que trobeu errors i
+penjades.  Si us cal una versió estable del LilyPond, recomanem
+l'ús de la versió 2.18.
+
+@newsEnd
+
+@newsItem
+@subsubheading Lilypond 2.18.2 llençat el @emph{23 de març de 2014}!
+
+Estem orgullosos d'anunciar el llançament del GNU LilyPond
+2.18.2.  El LilyPond és un programa de gravat musical dedicat a la
+producció de les partitures musicals de la màxima qualitat
+possible.  Introdueix l'estètica de la música amb gravat
+tradicional a les impressions d'ordinador.
+
+Aquesta versió proveeix nombroses actualitzacions a la versió
+2.18.0, incloent-hi manuals actualitzats.  Recomanem a tots els
+usuaris actualitzar a aquesta versió.
+
+@newsEnd
+
+
+@newsItem
+@subsubheading Una producció amb el LilyPond anomenada MILLOR
+EDICIÓ DE 2014  @emph{11 de març de 2014}
+
+Estem encantats d'anunciar que la nova edició de les cançons
+de l'Oskar Fried (1871-1941), publicada recentment pels nostres
+col.laboradors Urs Liska i Janek Warchoł [1], rebrà la
+"Musikeditionspreis MILLOR EDICIÓ 2014'' de l'Associació d'Editors
+de Música Alemanya [2]!  La cerimònia tindrà lloc en un parell de
+dies a la Frankfurt Musikmesse [3].
+
+Congratulem el Janek i l'Urs per guanyar un reconeixement així per
+l'excel·lència tipogràfica i editorial del seu treball.  També
+estem encantats d'informar que tenen la intenció de posar a
+disposició el seu treball sota una llicència lliure en quant es
+cobreixin les despeses de l'editor.  Si us plau suporteu aquesta
+iniciativa comprant el volum imprès a través de l'editor [4] o
+aportant una contribució a la campanya Indiegogo [5]!
+
+[1] @uref{http://lilypondblog.org/category/fried-songs}@*
+[2] @uref{http://www.best-edition.de}@*
+[3] @uref{https://musik.messefrankfurt.com/frankfurt/en/besucher/events/awards/best_edition.html}@*
+[4] @uref{http://www.sound-rel.de}@*
+[5] @uref{http://igg.me/at/free-fried}
+
+@newsEnd
+
+
+@newsItem
+@subsubheading Lilypond 2.18.0 llençat el @emph{29 de Desembre de
+2013}!
+
+Estem orgullosos d'anunciar el llançament del GNU LilyPond
+2.18.0. El LilyPond és un programa de gravat musical dedicat a la
+producció de les partitures musicals de la màxima qualitat
+possible.  Introdueix l'estètica de la música amb gravat
+tradicional a les impressions d'ordinador.
+
+Entre les nombroses millores i canvis, els següents poden ser el
+més visibles:
+
+@itemize @bullet
+@item
+Molts elements es posicionen ara usant contorn real en comptes
+d'una capsa contenidora rectangular.  Això redueix en gran part
+l'aparició de espais lletjos grans.
+
+@item
+Els conjunts i les anul·lacions poden usar ara la sintaxi
+@example
+\override Voice.TextSpanner.bound-details.left.text = "rit."
+@end example
+en comptes de la notació prèvia
+@example
+\override Voice.TextSpanner #'(bound-details left text) = "rit."
+@end example
+
+@item
+Els tresets amb una longitud de grup donada es poden escriure ara com
+@example
+\tuplet 3/2 4 @{ c8 c c  c c c @}
+@end example
+en comptes de
+@example
+\times 2/3 @{ c8 c c @}  \times 2/3 @{ c8 c c @}
+@end example
+@end itemize
+
+Una llista completa de noves funcionalitats destacables es poden
+trobar a:
+
+@example
+@uref{http://lilypond.org/doc/v2.18/Documentation/changes/index.html}
+@end example
+
+Moltes gràcies a un gran nombre d'entusiastes del LilyPond les
+contribucions dels quals han permès que un desenvolupador del
+nucli, el David Kastrup, es pugui enfocar exclusivament en el
+LilyPond durant tot el cicle de desenvolupament.
+
+El LilyPond 2.18 us ha estat portat per
+
+@table @asis
+@item Desenvolupadors principals:
+Bertrand Bordage, Trevor Daniels, Colin Hall, Phil Holmes, Ian
+Hulin, Reinhold Kainhofer, David Kastrup, Jonathan Kulp, Werner
+Lemberg, John Mandereau, Patrick McCarty, Joe Neeman, Han-Wen
+Nienhuys, Jan Nieuwenhuizen, Graham Percival, Mark Polesky, Neil
+Puttock, Mike Solomon, Carl Sorensen, Francisco Vila, Valentin
+Villenave, Janek Warchoł
+
+@item Col·laboradors bàsics:
+Aleksandr Andreev, Frédéric Bron, Torsten Hämmerle, Marc Hohl,
+James Lowe, Andrew Main, Thomas Morley, David Nalesnik, Keith
+OHara, Benkő Pál, Anders Pilegaard, Julien Rioux, Johannes Rohrer,
+Adam Spiers, Heikki Tauriainen
+
+@item Autors de documentació:
+Frédéric Bron, Federico Bruni, Colin Campbell, Urs Liska, James
+Lowe, Thomas Morley, Jean-Charles Malahieude, Guy Stalnaker,
+Martin Tarenskeen, Arnold Theresius, Rodolfo Zitellini
+
+@item Esquadró d'errors:
+Colin Campbell, Eluze, Marc Hohl, Phil Holmes, Marek Klein, Ralph
+Palmer
+
+@item Equip de suport:
+Colin Campbell, Eluze, Marc Hohl, Marek Klein, Kieren MacMillan,
+Urs Liska, Ralph Palmer
+
+@item Traductors:
+Federico Bruni, Luca Rossetto Casel, Felipe Castro, Pavel Fric,
+Jean-Charles Malahieude, Till Paala, Yoshiki Sawada
+
+@end table
+i nombrosos altres col.laboradors.
+
+@newsEnd
+
+@newsItem
+@subsubheading Blog del LilyPond.  @emph{2 de juny de 2013}
+
+Janek Warchoł ha creat un blog del LilyPond.  El podeu trobar a
+@uref{http://lilypondblog.org/, lilypondblog.org}!
+
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.16.2 llençat el @emph{4 de gener de 2013}!
+
+Estem contents d'anunciar el llançament del LilyPond
+2.16.2. Aquest llançament és principalment per corregir un
+problema amb el lilypond-book executant-se al Windows. Recomanem
+que sols les persones que necessiten aquesta funcionalitat
+actualitzin a aquesta versió
+
+@newsEnd
+
+@newsItem
+@subsubheading El LilyPond Report #28.  @emph{12 de novembre de 2012}
+
+L'informe @uref{http://news.lilynet.net/?The-LilyPond-Report-28,
+número d'octubre del @emph{LilyPond Report}} es focalitza en la
+@uref{http://news.lilynet.net/?LilyPond-meeting-in-Waltrop,
+reunió l'últim agost de desenvolupadors i usuaris del LilyPond} a
+Waltrop, Alemanya. Òbviament, hi ha també alguns enraonaments
+sobre el LilyPond causats pel llançament de les versions 2.16.0 i
+2.17.0 que han passat des d'aquest lloc.
+
+També hi ha dos informes financers mensuals de David Kastrup, atès
+que la seva feina sobre el LilyPond és
+@uref{http://news.lilynet.net/?The-LilyPond-Report-24#an_urgent_request_for_funding,
+pagat exclusivament per} contribucions financeres d'altres
+desenvolupadors i usuaris (gràcies!), i un informa sobre les
+experiències de
+@uref{http://scorio.com, un servei de gravat musical basat en la
+web} que usa el LilyPond internament.
+
+@uref{http://news.lilynet.net/?The-LilyPond-Report-28, Llegiu el
+LilyPond Report 28} ara; els comentaris i les contribucions són
+molt benvinguts!
+@newsEnd
+
+@newsItem
+@subsubheading LilyPond 2.16.1 llençat el @emph{9 de novembre de
+2012}!
+
+Estem contents d'anunciar el llançament del LilyPond 2.16.1. Té
+nombroses actualitzacions sobre la versió estable prèvia, i no
+hauria de causar cap problema. Recomanem a tothom actualitzar a
+aquesta versió.
+@newsEnd
+
+@newsItem
+@subsubheading Lilypond 2.16.0 llençat el @emph{24 d'agost de 2012}!
+
+Estem orgullosos d'anunciar el llançament del GNU LilyPond
+2.16.1. El LilyPond és un programa de gravat musical, dedicat a
+la producció de les partitures musicals de la màxima qualitat
+possible.  Introdueix l'estètica de la música amb gravat
+tradicional a les impressions d'ordinador.
+
+S'han fet moltes millores a l'últim any des de la versió principal
+estable prèvia. Algunes millores importants són:
+
+@itemize
+@item
+Suport per a la notació kievan de quadrats
+@item
+S'han millorat molt les interfícies d'usuari i de programació
+@item
+Les funcions musicals s'han fet molt més versàtils
+@end itemize
+
+Es dóna una llista completa de noves funcionalitats a:
+
+@example
+@uref{http://lilypond.org/doc/v2.16/Documentation/changes/index.html}
+@end example
+
+Feliç gravat musical!  LilyPond 2.16 us ha estat portat per...
+
+Principal equip de desenvolupament:
+
+Bertrand Bordage, Trevor Daniels, Colin Hall, Phil Holmes, Ian Hulin,
+Reinhold Kainhofer, David Kastrup, Jonathan Kulp, Werner Lemberg,
+John Mandereau, Patrick McCarty, Joe Neeman, Han-Wen Nienhuys,
+Jan Nieuwenhuizen, Graham Percival, Mark Polesky, Neil Puttock,
+Mike Solomon, Carl Sorensen, Francisco Vila, Valentin Villenave,
+Jan Warchoł
+
+Col·laboradors en programació:
+
+Aleksandr Andreev, Sven Axelsson, Peter Chubb, Karin Hoethker,
+Marc Hohl, David Nalesnik, Justin Ohmie, Benkő Pál, Julien Rioux, Patrick Schmidt,
+Adam Spiers, Heikki Taurainen, Piers Titus van der Torren,
+Jan-Peter Voigt, Janek Warchol
+
+Col·laboradors de documentació:
+
+James Lowe, Pavel Roskin, Alberto Simoes, Stefan Weil
+
+Esquadró d'errors:
+
+Colin Campbell, Eluze, Phil Holmes, Marek Klein, Ralph Palmer,
+James Lowe
+
+Suport:
+
+Colin Campbell, Christian Hitz, Phil Holmes
+
+Col·laboradors de traducció:
+
+Jean-Charles Malahieude, Till Paala, Yoshiki Sawada
+
+@newsEnd

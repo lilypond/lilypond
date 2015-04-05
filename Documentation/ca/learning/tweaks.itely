@@ -1,0 +1,4791 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+
+@ignore
+    Translation of GIT committish: 7fdce4f39834cc8c83f176480cc1d20900eb09f8
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.19.2"
+
+@node Ajustament de la sortida
+@chapter Ajustament de la sortida
+@translationof Tweaking output
+
+Aquest capítol tracta de com modificar la sortida.  El LilyPond és
+extremadament configurable; pràcticament tots els fragments de la
+sortida es poden canviar.
+
+@menu
+* Elements de l'ajustament::
+* Manual de referència de funcionament intern::
+* Aparença dels objectes::
+* Col·locació dels objectes::
+* Espaiat vertical::
+* Col·lisions d'objectes::
+* Ajustaments addicionals:.
+@end menu
+
+@node Elements de l'ajustament
+@section Elements de l'ajustament
+@translationof Tweaking basics
+
+@menu
+* Introduccció a l'ajustament::
+* Objectes i interfícies::
+* Convencions de noms d'objectes i propietats::
+* Mètodes d'ajustament::
+@end menu
+
+@node Introducció a l'ajustament::
+@subsection Introducció a l'ajustament::
+@translationof Introduction to tweaks
+
+L'@q{Ajustament} és un terme del LilyPond que denota els diversos
+mètodes que l'usuari té a la seva disposició per modificar el
+procés d'interpretació del fitxer d'entrada i canviar l'aparença
+de la sortida impresa.  Alguns trucs són molt fàcils d'usar;
+d'altres són més complexes.  Però en el seu conjunt, els mètodes
+d'ajustament disponibles possibiliten aconseguir gairebé qualsevol
+aparença que desitgem a la música impresa.
+
+En aquesta secció estudiarem els conceptes bàsics que es
+necessiten per comprendre l'ajustament.  Més tard donarem un ampli
+ventall d'ordres llestes per usar, que podreu simplement
+copiar per obtenir el mateix efecte a les vostres partitures, i al
+mateix temps mostrarem la forma de construir aquestes ordres
+perquè podeu aprendre com desenvolupar els vostres propis trucs.
+
+Abans de començar aquest capítol, potser voleu donar una ulla a la
+secció @ref{Contextos i gravadors}, atès que els contextos, els
+gravadors i les propietats contingudes en ells són fonamentals per
+comprendre i construir els trucs.
+
+@node Objectes i interfícies
+@subsection Objectes i interfícies
+@translationof Objects and interfaces
+
+@cindex objecte
+@cindex grob
+@cindex objecte d'extensió
+@cindex interfície
+@cindex propietats d'objectes
+@cindex objecte, propietats de
+@cindex layout (disposició), objecte de
+@cindex objecte de disposició (layout)
+
+L'ajustament consisteix de modificar el funcionament i estructura
+interna del programa LilyPond, per la qual cosa en primer lloc
+introduirem alguns termes que s'usen per descriure aquestes
+operacions i estructures internes.
+
+El terme @q{Objecte} és un terme genèric que s'usa per referir-se
+a la multitud d'estructures internes que el LilyPond construeix
+durant el processament d'un fitxer d'entrada.  Així, quan es troba
+una ordre com ara @code{\new Staff}, es construeix un objecte
+no del tipus @code{Staff}.  Així doncs, aquest objecte
+@code{Staff} conté totes les propietats associades amb aquest
+pentagrama en particular, per exemple, el seu nom i la seva
+armadura, a més d'altres detalls dels gravadors que s'han assignat
+perquè operin dins del context del pentagrama.  De forma semblant,
+hi ha objectes que emmagatzemen les propietats de tots els altres
+contextos, com ara objectes de @code{Voice}, objectes de
+@code{Score}, objectes de @code{Lyrics}, així com objectes que
+representen tots els elements notacionals com ara línies
+divisòries, caps de les notes, lligadures, indicacions dinàmiques,
+etc.  Cada objecte té el seu propi conjunt de valors de
+propietat.
+
+Certs tipus d'objectes reben noms especials.  Els objectes que
+representen elements de notació sobre la sortida impresa com ara
+caps de notes, pliques, lligadures d'expressió i d'unió,
+digitacions, claus, etc., reben el nom de @q{Objectes de
+presentació}, sovint coneguts com @q{Objectes gràfics}, o
+abreujadament @q{Grobs}.  Encara són objectes en el sentit genèric
+que hem mencionat, i també tots ells tenen propietats associades,
+com la seva posició, mida, color, etc.
+
+Certs objectes de presentació són encara més especialitzats.  Les
+lligadures de fraseig, els reguladors, les indicacions d'octava
+alta i baixa, i molts altres objectes gràfics on estan situats en
+un sol lloc: tenen un punt d'inici, un punt de final, i potser
+altres propietats relacionades amb la seva formam.  Els objectes
+amb una forma estesa com aquests, reben el nom de «Objectes de
+extensió» o @q{Spanners}.
+
+Encara falta per explicar que són les @q{Interfícies}.  Molts
+objectes, tot i ser força diferents, comparteixen funcionalitats
+que s'han de processar de la mateixa manera.  Per exemple, tots
+els objectes gràfics tenen un color, una mida, una posició, etc.,
+i totes aquestes propietats es processen de la mateixa forma
+durant la interpretació del fitxer d'entrada per part del
+LilyPond.  Per simplificar aquestes operacions internes, aquestes
+accions i propietats comuns s'agrupen en un objecte anomenat
+@code{grob-interface}, interfície de grob.  Hi ha moltes altres
+agrupacions de propietats comuns com aquesta, i cada una rep un
+nom que acaba en @code{interface}.  En total hi ha més de 100
+interfícies d'aquest tipus.  Veurem més endavant perquè és
+d'interès i d'utilitzar per a l'usuari.
+
+Aquest són, doncs, els termes principals relatius als objectes que
+utilitzarem en aquest capítol.
+
+@node Convencions de noms d'objectes i propietats
+@subsection Convencions de noms d'objectes i propietats
+@translationof Naming conventions of objects and properties
+
+@cindex nomenclatura, convencions de, per a objectes
+@cindex nomenclatura, convencions de, per a propietats
+@cindex objectes, convencions de nomenclatura
+@cindex propietats, convencions de nomenclatura
+
+Ja hem vist certes convencions de nomenclatura d'objectes, a la
+secció @ref{Contextos i gravadors}.  En aquest lloc, per a més
+fàcil referència, presentem una llista dels tipus d'objectes i
+propietats més comuns, junt amb les convencions segons les quals
+reben el seu nom, i un parell d'exemples de noms reals.  Hem
+utilitzat una @q{A} majúscula per denotar els caràcters alfabètics
+en majúscules, i @q{aaa} per qualsevol nombre de caràcters
+alfabètics en minúscules.  Altres caràcters s'utilitzen
+literalment tal com estan.
+
+@multitable @columnfractions .33 .33 .33
+@headitem Objecte o tipus de propietat
+  @tab Convenció de nomenclatura
+  @tab Exemples
+@item Contextos
+  @tab Aaaa o AaaaAaaaAaaa
+  @tab Staff, GrandStaff
+@item Objectes de presentació
+  @tab Aaaa o AaaaAaaaAaaa
+  @tab Slur, NoteHead
+@item Gravadors
+  @tab Aaaa_aaa_engraver
+  @tab Clef_engraver, Note_heads_engraver
+@item Interfícies
+  @tab aaa-aaa-interface
+  @tab grob-interface, break-aligned-interface
+@item Propietats de contextos
+  @tab aaa o aaaAaaaAaaa
+  @tab alignAboveContext, skipBars
+@item Propietats d'objectes de presentació
+  @tab aaa o aaa-aaa-aaa
+  @tab direction, beam-thickness
+@end multitable
+
+Com podrem veure en breu, les propietats de diferents tipus
+d'objecte es modifiquen per part de diferents ordres; així
+doncs, és útil poder reconèixer el tipus d'objectes i propietats
+a partir dels seus noms.
+
+@node Mètodes d'ajustament
+@subsection Mètodes d'ajustament
+@translationof Tweaking methods
+
+@cindex ajustament, mètodes de
+
+@strong{L'ordre \override}
+
+@menu
+* L'ordre override::
+* L'ordre revert::
+* El prefix once::
+* L'ordre overrideProperty::
+* L'ordre tweak::
+@end menu
+
+@node L'ordre override
+@unnumberedsubsubsec L'ordre @code{@bs{}override}
+@translationof The override command
+
+@cindex override, ordre
+@cindex override (sobreescriptura), sintaxi de
+
+@funindex \override
+@funindex override
+
+Ja hem vist les ordres @code{\set} i @code{\with}, que
+s'usen per canviar les propietats dels @strong{contextos} i per
+treure o posar @strong{gravadors}, a
+@ref{Modificar les propietats dels contextos} i
+@ref{Afegir i eliminar gravadors}.  Ara hem d'examinar algunes
+altres ordres importants.
+
+L'ordre que canvia les propietats dels @strong{objectes de
+presentació} és @code{\override}.  Atès que aquesta ordre ha
+de modificar propietats internes que es troben a un lloc profund
+dins del LilyPond, la seva sintaxi no és tan simple com la de la
+resta de les ordres que hem usat fins ara.  Heu de saber
+exactament quina propietat, de quin objecte i en quin context s'ha
+de modificar, i quin ha de ser el seu nou valor.  Vegem com es fa.
+
+La sintaxi genèrica d'aquesta ordre és:
+
+@example
+\override @var{Context}.@var{ObjecteDePresentació}.@var{propietat-de-presentació} =
+#@var{valor}
+@end example
+
+@noindent
+Això establirà la propietat de nom
+@var{propietat-de-presentació} de l'objecte de presentació amb el
+nom @var{ObjecteDePresentació}, que és membre del context
+@var{Context}, al valor @var{valor}.
+
+El @var{context} es pot ometre (i normalment així es fa) quan el
+context requerit es troba implicat sense ambigüitat i és un dels
+contextos del nivell més baix, és a dir: @code{Voice},
+@code{ChordNames} o @code{Lyrics}, i l'ometrem a molts dels
+exemples següents.  Veurem més endavant quan s'ha d'especificar.
+
+Les últimes seccions tracten de forma exhaustiva les propietats i
+els seus valors, vegeu @ref{Tipus de propietats}.  Però en aquesta
+secció usarem sols unes quantes propietats i valors senzills que
+siguin fàcils d'entendre, per il·lustrar el format i la
+utilització d'aquestes ordres.
+
+Les expressions principals del LilyPond són elements musicals com
+ara notes, duracions i elements d'etiquetatge.  Les expressions
+més bàsiques com ara números, cadenes de caràcters i llistes es
+processen en el @q{mode del Scheme}, que s'invoca mitjançant el
+prefix @samp{#} escrit abans del valor.  Tot i que els valors
+poden tenir a vegades una representació vàlida en el mode de
+música del LilyPond, aquest manual utilitza sempre @samp{#} per a
+l'escriptura, per coherència.  Per veure més informació sobre el
+mode del Scheme, consulteu
+@rextendnamed{LilyPond Scheme syntax,Sintaxi de l'Scheme del LilyPond}.
+
+@code{\override} és l'ordre d'ús més comú dins dels
+ajustaments, i durant la major part de la resta d'aquest capítol
+mostrarem presentarem exemples de com es fa servir.  A continuació
+hi ha un exemple senzill per canviar el color d'un cap:
+
+@cindex color, propietat, exemple
+@cindex NoteHead, exemple de sobreescriptura
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+c4 d
+\override NoteHead.color = #red
+e4 f |
+\override NoteHead.color = #green
+g4 a b c |
+@end lilypond
+
+
+@node L'ordre revert
+@unnumberedsubsubsec L'ordre @code{@bs{}revert}
+@translationof The revert command
+
+@cindex revert, ordre
+
+@funindex \revert
+@funindex revert
+
+Un cop sobreescrita, la propietat reté el seu nou valor fins que
+es sobreescriu de nou o es troba una ordre
+@code{\revert}.  L'ordre @code{\revert} té la sintaxi
+següent i fa que el valor de la propietat es retorni al seu valor
+predeterminat original; observeu que no serà el seu valor previ si
+s'han utilitzat diverses ordres @code{\override}.
+
+@example
+\revert @var{Context}.@var{ObjecteDePresentació}.@var{propietat-de-presentació}
+@end example
+
+Un cop més, igual que @var{Context} dins de l'ordre
+@code{\override}, amb freqüència no cal especificar el
+@var{Context}.  S'ometrà en molts dels exemples següents.
+Aquí retornem el color del cap al valor predeterminat per a les
+dues últimes notes:
+
+@cindex color, propietat, exemple
+@cindex NoteHead, exemple de sobreescriptura
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+c4 d
+\override NoteHead.color = #red
+e4 f |
+\override NoteHead.color = #green
+g4 a
+\revert NoteHead.color
+b4 c |
+@end lilypond
+
+
+@node El prefix once
+@unnumberedsubsubsec El prefix @code{@bs{}once}
+@translationof The once prefix
+
+@funindex \once
+@funindex once
+
+Tant l'ordre @code{\override} com @code{\set} es poden
+precedir per @code{\once}.  Això fa que la següent ordre
+@code{\override} o @code{\set} sigui efectiva sols durant el temps
+musical en curs i abans que la propietat torni a tenir un altre
+cop el seu valor anterior (que pot ser diferent del seu valor
+predeterminat si encara s'està aplicant una altra ordre
+@code{\override} de sobreescriptura).  Utilitzant el mateix
+exemple, podem canviar el color d'una sola nota de la manera
+següent:
+
+@cindex color, propietat, exemple
+@cindex NoteHead, exemple de sobreescriptura
+
+@lilypond[quote,verbatim,relative=1]
+c4 d
+\override NoteHead.color = #red
+e4 f |
+\once \override NoteHead.color = #green
+g4 a
+\revert NoteHead.color
+b c |
+@end lilypond
+
+El prefix @code{\once} també es pot usar davant de moltes
+ordres predefinides per limitar el seu efecte a un sol
+element musical:
+
+@lilypond[quote,verbatim,relative=1]
+c4 d
+\once \stemDown
+e4 f |
+g4 a
+\once \hideNotes
+b c |
+@end lilypond
+
+Tot i així, les ordres predefinides de la forma
+@code{\@dots{}Neutral},
+@code{\@dots{}Off} i @code{\un@dots{}} utilitzen
+internament @code{\revert} en comptes de @code{\override},
+per la qual cosa afegir @code{\once} com a prefix ací no té cap
+efecte.
+
+@node L'ordre overrideProperty
+@unnumberedsubsubsec L'ordre @code{@bs{}overrideProperty}
+@translationof The overrideProperty command
+
+@cindex overrideProperty, ordre
+
+@funindex \overrideProperty
+@funindex overrideProperty
+
+Hi ha una altra forma per a l'ordre de sobreescriptura,
+@code{\overrideProperty}, que ocasionalment és necessària.  La
+mencionem ací amb un propòsit d'exhaustivitat, però per veure més
+detalls consulteu
+@rextendnamed{Difficult tweaks,Ajustaments difícils}.
+@c Maybe explain in a later iteration  -td
+
+@node L'ordre tweak
+@unnumberedsubsubsec L'ordre @code{@bs{}tweak}
+@translationof The tweak command
+
+@cindex tweak, ordre
+
+@funindex \tweak
+@funindex tweak
+
+La última ordre d'ajustament que està disponible és
+@code{\tweak}.  S'ha d'utilitzar quan diversos objectes tenen lloc
+al mateix moment musical però sols volem canviar les propietats
+d'alguns d'ells, com una sola nota dins d'un acord.  L'ús de
+@code{\override} per a la sobreescriptura afectaria a totes les
+notes de l'acord, mentre que @code{\tweak} afecta sols al següent
+element del flux d'entrada.
+
+Vet aquí un exemple.  Suposeu que volem canviar la mida del cap
+de la nota intermèdia (el Mi) a un acord de Do major.  En primer
+lloc, vegem el que faria @code{\once \override}:
+
+@cindex font-size, propiedad, ejemplo
+@cindex NoteHead, exemple de sobreescriptura
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+<c e g>4
+\once \override NoteHead.font-size = #-3
+<c e g>4
+<c e g>4
+@end lilypond
+
+Veiem que la sobreescriptura amb override afecta a @emph{tots} els
+caps de les notes de l'acord.  Això és així perquè totes les notes
+d'un acord passen en el mateix @emph{moment musical}, i l'acció de
+@code{\once} és aplicar la sobreescriptura a tots els objectes de
+presentació del tipus especificat que passen en el mateix moment
+musical que la pròpia ordre de sobreescriptura @code{\override}.
+
+L'ordre @code{\tweak} opera d'una manera diferent.  Actua
+sobre l'element immediatament següent dins del flux d'entrada.  En
+la seva forma més senzilla és efectiu sols sobre objectes que es
+creen directament a partir de l'element següent, en essència els
+caps i les articulacions.
+
+Així doncs, tornant al nostre exemple, la mida de la nota
+intermèdia es canviaria de la forma següent:
+
+@cindex font-size, propietat, exemple
+@cindex @code{\tweak}, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+<c e g>4
+<c \tweak font-size #-3 e g>4
+@end lilypond
+
+Observeu que la sintaxi de @code{\tweak} no és igual que la de
+@code{\override}.  El context no s'ha d'especificar; de fet, es
+generaria un error si es fa.  Tant el context com l'objecte de
+presentació estan implícits pel següent element del flux
+d'entrada. Observeu també que no ha d'haver un signe d'igual.  En
+conseqüència la sintaxi de l'ordre @code{\tweak} en la seva
+forma senzilla és:
+
+@example
+\tweak @var{propietat-de-presentació} #@var{valor}
+@end example
+
+Una ordre @code{\tweak} també es pot usar per modificar sols
+una d'una sèrie d'articulacions, com es mostra aquí:
+
+@cindex color, propietat, exemple
+@cindex @code{\tweak}, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+a4^"Black"
+  -\tweak color #red ^"Red"
+  -\tweak color #green _"Green"
+@end lilypond
+
+@noindent
+Observeu que l'ordre @code{\tweak} ha de venir precedida
+d'una marca d'articulació perquè la pròpia expressió ajustada s'ha
+d'aplicar com una articulació.  En el cas de més d'una
+sobreescriptura de direcció
+(@code{^} o @code{_}), guanya la sobreescriptura ubicada més a
+l'esquerra perquè s'aplica en últim lloc.
+
+@cindex @code{\tweak}, Accidental
+@cindex @code{\tweak}, objecte de disposició específic
+
+Els objectes com ara pliques i alteracions accidentals es creen
+més tard, i no directament a partir de l'esdeveniment que ve a
+continuació.  Per aquesta causa és possible utilitzar
+@code{\tweak} sobre aquests objectes creats indirectament
+mitjançant el nomenament explícit de l'objecte de presentació,
+sempre i quan el LilyPond pugui rastrejar el seu origen fins
+l'esdeveniment original:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+<\tweak Accidental.color #red   cis4
+ \tweak Accidental.color #green es
+ g>
+@end lilypond
+
+Aquesta forma extensa de l'ordre @code{\tweak} es pot
+descriuure com
+@example
+\tweak @var{objecte-de-presentació}.@var{propietat-de-presentació} @var{valor}
+@end example
+
+@cindex grups especials niuats
+@cindex tresets niuats
+@cindex claudàtor de grup excedent
+@cindex claudàtor de treset
+@cindex grup excedent, claudàtor de
+@cindex treset, claudàtor de
+
+@funindex TupletBracket
+
+L'ordre @code{\tweak} també es pot usar per canviar
+l'aparença d'un sol d'un conjunt de grups excedents niuats que
+comencin en el mateix instant musical.  Al següent exemple, el
+claudàtor de treset llarg i el primer dels tres claudàtors curts
+comencen al mateix moment musical, i per això qualsevol ordre
+@code{\override} s'aplicaria als dos.  A l'exemple s'usa
+@code{\tweak} per distingir entre ells.  La primera ordre
+@code{\tweak} especifica que el claudàtor del treset llarg s'ha de
+col·locar a dalt de les notes i el segon especifica que el número
+del treset s'ha d'imprimir en vermell sobre el claudàtor del primer
+treset curt.
+
+@cindex @code{\tweak}, exemple
+@cindex direction, propietat, exemple
+@cindex color, propietat, exemple
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+\tweak direction #up
+\tuplet 3/4 {
+  \tweak color #red
+  \tuplet 3/2 { c8[ c c] }
+  \tuplet 3/2 { c8[ c c] }
+  \tuplet 3/2 { c8[ c c] }
+}
+@end lilypond
+
+Si els grups niuats no comence al mateix moment, la seva aparença
+es pot modificar de la forma usual mitjançant ordres
+@code{\override}:
+
+@cindex text, propietat, exemple
+@cindex tuplet-number, funció, exemple
+@cindex transparent, propietat, exemple
+@cindex TupletNumber, exemple de sobreescriptura
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
+\tuplet 3/2 { c8[ c c] }
+\once \override TupletNumber.text = #tuplet-number::calc-fraction-text
+\tuplet 3/2 {
+  c8[ c]
+  c8[ c]
+  \once \override TupletNumber.transparent = ##t
+  \tuplet 3/2 { c8[ c c] }
+  \tuplet 3/2 { c8[ c c] }
+}
+@end lilypond
+
+
+@seealso
+Referència de la notació:
+@rusernamed{The tweak command,L'ordre tweak}.
+
+
+@node Manual de referència de funcionament intern
+@section Manual de referència de funcionament intern
+@translationof The Internals Reference manual
+
+@cindex Referència de funcionament intern
+
+@menu
+* Propietats dels objectes de presentació::
+* Propietats de les interfícies::
+* Tipus de propietats::
+@end menu
+
+@node Propietats dels objectes de presentació
+@subsection Propietats dels objectes de presentació
+@translationof Properties of layout objects
+
+@cindex propietats dels objectes de presentació
+@cindex propietats dels grobs
+@cindex grobs, propietats de
+@cindex presentació, propietats dels objectes de
+@cindex Referència de funcionament intern
+
+Suposeu que teniu una partitura amb una lligadura d'expressió que
+per al vostre gust és massa fina i voleu dibuixar-la una mica més
+gruixuda.  Com heu de procedir?  Ja sabeu, per les afirmacions
+anteriors sobre la flexibilitat del LilyPond, que aquests tipus de
+coses es poden fer, i segurament penseu que una certa ordre
+de sobreescriptura @code{\override} serà necessària.  Però, hi ha
+una propietat de gruix per a les lligadures? I si n'hi ha, com es
+pot modificar?  Aquí és on intervé el Manual de Funcionament
+Intern.  Conté tota la informació que necessiteu per construir
+aquesta ordre i totes les ordres @code{\override} de sobreescriptura.
+
+Un advertiment abans de dirigir la nostra mirada cap a la
+referència de funcionament intern.  Aquest és un document de
+@strong{referència}, el que significa que hi ha poques o cap
+explicació en ell: el seu propòsit és presentar la informació de
+forma precisa i concisa.  Per tant, us pot semblar descoratjador
+inicialment.  No us preocupeu!  La guia i les explicacions que
+presentem aquí us permetran extraure la informació de la
+referència de funcionament intern per sí mateix amb tans sols una
+mica de pràctica.
+
+@cindex sobreescriptura, exemple de
+@cindex Referència de Funcionament Intern, exemple d'utilització
+@cindex @code{\addlyrics}, ejemplo
+
+Utilitzem un exemple concret amb un senzill fragment de música real:
+
+@c Mozart, duo, núm. 7 de La Flauta Màgica
+
+@lilypond[quote,verbatim,relative=2]
+{
+  \key es \major
+  \time 6/8
+  {
+    r4 bes8 bes[( g]) g |
+    g8[( es]) es d[( f]) as |
+    as8 g
+  }
+  \addlyrics {
+    The man who | feels love's sweet e -- | mo -- tion
+  }
+}
+@end lilypond
+
+Suposeu ara que decidim que ens agraden les lligadures una mica
+més gruixudes.  És possible?  La lligadura és, certament, un
+objecte de presentació, així que la qüestió és @q{Hi ha una
+propietat pertanyent a les lligadures d'expressió que controli el
+seu gruix?}  Per respondre a aquesta pregunta hem de mirar el
+manual de Referència de Funcionament Intern, abreujadament
+RFI.@footnote{@strong{IR} (Internals Reference) en anglès}
+
+El RFI de la versió del LilyPond que esteu usant es pot trobar a
+la pàgina web del LilyPond a @uref{http://lilypond.org}.  Aneu a
+la pàgina de documentació i seguiu l'enllaç Manual de Referència
+de Funcionament Intern (RFI).  Per als nostres propòsits
+pedagògics fora millor que utilitzéssiu la versió en HTML, no la
+@q{en una sola pàgina} ni el PDF.  Perquè els següents paràgrafs
+tinguin algun sentit haureu de consultar-lo realment al mateix
+temps que llegiu.
+
+@c Link names in English as those pages are not yet translated. FV
+Sota el encapçalament @strong{Top} podreu veure cinc enllaços.
+Seleccioneu l'enllaç @emph{Backend}, que és don es troba la
+informació sobre els objectes de presentació.  Un cop aquí, sota
+el encapçalament @strong{Backend}, seguiu l'enllaç @emph{All
+layout objects}.  La pàgina que apareix relaciona tots els
+objectes de presentació que s'usen en la vostra versió del
+LilyPond, en ordre alfabètic.  Seguiu l'enllaç Slur (lligadura
+d'expressió), i apareixeran relacionades les propietats de les
+lligadures d'expressió o Slurs.
+
+Una forma alternativa de trobar aquesta pàgina és a partir de la
+Referència de la Notació.  A una d'aquestes pàgines que tracten de
+les lligadures d'expressió, podreu trobar un enllaç al manual de
+referència del funcionament intern.  Aquest enllaç us portarà
+directament a aquesta pàgina, tot i que si teniu una idea del nom
+de l'objecte de presentació que preteneu ajustar, us resultarà més
+fàcil anar directament al RFI i buscar allà.
+
+Aquesta pàgina sobre les lligadures d'expressió dins del manual
+RFI ens diu en primer lloc que els objectes Slur es creen
+mitjançant el gravador Slur_engraver.  A continuació relaciona els
+ajustos estàndard.  Navegueu per ells buscant una propietat que
+pugui controlar el gruix de les lligadures, i trobareu
+
+@example
+@code{thickness} (number)
+     @code{1.2}
+     Line thickness, generally measured in @code{line-thickness}
+@end example
+
+Això promet ser una bona opció per canviar el gruix.  Ens diu
+que el valor de @code{thickness} és un simple @emph{nombre}, que
+el valor predeterminat és 1.2, i que les unitats estan dins d'una
+altra propietat nomenada @code{line-thickness}.
+
+Com hem dit abans, hi ha enter poques i cap explicació en el RFI,
+però ja tenim informació suficient per a provar a canviar el gruix
+de la lligadura.  Veiem que el nom de l'objecte de presentació és
+@code{Slur}, que el nom de la propietat que hem de canviar és
+@code{thickness} i que el nou valor ha de ser un nombre més gran
+que 1.2 si volem fer les lligadures més gruixudes.
+
+Ara podem contruir l'ordre de sobreescriptura
+@code{\override} simplement mitjançant la substitució dels valors
+que hem trobar per als noms, ometent el context.  Usarem un valor
+molt gran per al gruix al principi, per estar segurs que
+l'ordre està funcionant.  Obtenim el següent:
+
+@example
+\override Slur.thickness = #5.0
+@end example
+
+No oblideu i@tie{}@code{#} abans del valor nou!
+
+La pregunta final és @q{On s'ha de col·locar aquesta ordre?}
+Tot i que ens falta seguretat i encara estem aprenent, la millor
+resposta és: @{Dins de la música, abans de la primera lligadura i
+a prop d'ella.} Fem-lo així:
+
+@cindex Slur, exemple de sobreescriptura
+@cindex thickness, propietat, exemple
+
+@lilypond[quote,verbatim,relative=2]
+{
+  \key es \major
+  \time 6/8
+  {
+    % Increase thickness of all following slurs from 1.2 to 5.0
+    \override Slur.thickness = #5.0
+    r4 bes8 bes[( g]) g |
+    g8[( es]) es d[( f]) as |
+    as8 g
+  }
+  \addlyrics {
+    The man who | feels love's sweet e -- | mo -- tion
+  }
+}
+@end lilypond
+
+@noindent
+i podem veure que la lligadura és, sense dubte, més gruixuda.
+
+Així doncs, aquesta és la forma bàsica de construir ordres
+@code{\override} o de sobreescriptura.  Hi ha unes quantes
+complicacions més amb les quals ens trobarem a seccions
+posteriors, però ara coneixeu tots els principis essencials que
+necessiteu per fer-lo vos mateix (tot i que necessiteu encara
+quelcom més de pràctica).  Els exemples següents us proporcionaran
+més pràctica.
+
+@subsubsubheading Cerca del context
+
+@cindex context, trobar
+@cindex context, cercar el, correcte
+
+Però en primer lloc, què hagués passat si haguéssim hagut
+d'especificar el context? Quin seria?  Podem suposar que les
+lligadures estan al context Veu, per estar clarament associats de
+manera estreta amb les línies individuals de música, però, podem
+estar segurs?  Per esbrinar-ho, anem de nou a l'inici de la pàgina
+del RFI que descriu les lligadures d'expressió (Slur), on diu
+@q{Slur objects are created by: Slur engraver} («Els objectes de
+lligadura d'expressió es creen per: el gravador Slur»).  Així
+doncs, les lligadures d'expressió es creen en qualsevol context en
+el qual es trobi el gravador @code{Slur_engraver}.  Seguiu
+l'enllaç a la pàgina del gravador @code{Slur_engraver}.  Al final
+del tot, diu que el gravador @code{Slur_engraver} és part de set
+contextos de veu, incloent-hi el context de veu estàndard,
+@code{Voice}, per la qual cosa la nostra suposició és correcta.  I
+atès que @code{Voice} és un dels contextos de més baix nivell que
+es troba implícit sense ambigüitat pel fet que estem escrivint
+notes, podem ometre'l en aquest lloc concret.
+
+@subsubsubheading Sobreescriptura per un sol cop
+
+@cindex sobreescriptura por un sol cop
+@cindex once override
+
+@funindex \once
+@funindex once
+
+Com es pot veure, @emph{totes} les lligadures són més gruixudes a
+l'últim exemple.  Però, i si voléssim que sols la primera
+lligadura fos més gruixuda? Això s'aconsegueix amb l'ordre o
+prefix @code{\once}.  Col·locant immediatament abans de
+l'ordre @code{\override} s'aconsegueix que sols canviï la
+lligadura que comença a la nota @strong{immediata següent}.  Si la
+nota immediata següent no inicia una lligadura, l'ordre no
+té cap efecte en absolut: no es recorda fins que es trobi alguna
+lligadura, simplement s'ignora.  Així dons l'ordre que porta
+@code{\once} s'ha de reposicionar de la forma següent:
+
+@cindex Slur, exemple de sobreescriptura
+@cindex thickness, propietat, exemple
+
+@lilypond[quote,verbatim,relative=2]
+{
+  \key es \major
+  \time 6/8
+  {
+    r4 bes8
+    % Increase thickness of immediately following slur only
+    \once \override Slur.thickness = #5.0
+    bes8[( g]) g |
+    g8[( es]) es d[( f]) as |
+    as8 g
+  }
+  \addlyrics {
+    The man who | feels love's sweet e -- | mo -- tion
+  }
+}
+@end lilypond
+
+@noindent
+Hem fet que ara sols la primera lligadura sigui més gruixuda.
+
+L'ordre o prefix @code{\once} també es pot usar abans de
+l'ordre @code{\set}.
+
+@subsubsubheading Recuperació de l'ajust
+
+@cindex revertir
+@cindex predeterminades, recuperar las propietats
+
+@funindex \revert
+@funindex revert
+
+Finalment, i si volguéssim que sols les dues primeres lligadures
+fossin més gruixudes?  En fi, podríem usar dues ordres, cada
+una d'elles precedida pel prefix @code{\once}, situades
+immediatament abans de cada una de les notes en les quals comencen
+les lligadures:
+
+@cindex Slur, exemple de sobreescriptura
+@cindex thickness, propietat, exemple
+
+@lilypond[quote,verbatim,relative=2]
+{
+  \key es \major
+  \time 6/8
+  {
+    r4 bes8
+    % Increase thickness of immediately following slur only
+    \once \override Slur.thickness = #5.0
+    bes[( g]) g |
+    % Increase thickness of immediately following slur only
+    \once \override Slur.thickness = #5.0
+    g8[( es]) es d[( f]) as |
+    as8 g
+  }
+  \addlyrics {
+    The man who | feels love's sweet e -- | mo -- tion
+  }
+}
+@end lilypond
+
+@noindent
+o podríem ometre l'ordre o prefix @code{\once} i utilitzar l'ordre
+@code{\revert} (restablir) per revertir la propietat del gruix,
+@code{thickness}, al seu valor predeterminat després de la segona
+lligadura:
+
+@cindex Slur, exemple de sobreesriptura
+@cindex thickness, propietat, exemple
+
+@lilypond[quote,verbatim,relative=2]
+{
+  \key es \major
+  \time 6/8
+  {
+    r4 bes8
+    % Increase thickness of all following slurs from 1.2 to 5.0
+    \override Slur.thickness = #5.0
+    bes[( g]) g |
+    g8[( es]) es
+    % Revert thickness of all following slurs to default of 1.2
+    \revert Slur.thickness
+    d8[( f]) as |
+    as8 g
+  }
+  \addlyrics {
+    The man who | feels love's sweet e -- | mo -- tion
+  }
+}
+@end lilypond
+
+@noindent
+L'ordre @code{\revert} es pot utilitzar per revertir qualsevol
+propietat que s'hagi canviat amb @code{\override} al seu valor
+predeterminat.  Podeu utilitzar el mètode que millor s'adapti a
+això que voleu fer.
+
+Així finalitza la nostra ordre al manual de RFI, i el mètode
+bàsic d'ajustament.  A continuació, a les últimes seccions
+d'aquest capítol, trobareu diversos exemples, en part per
+introduir-vos a algunes de les possibilitats addicionals del
+manual RFI, i en part per proporcionar-vos més pràctica sobre com
+extraure informació d'ell.  Aquests exemples aniran contenint cada
+cop menys paraules de guia i explicació.
+
+@node Propietats de les interfícies
+@subsection Propietats de les interfícies
+@translationof Properties found in interfaces
+
+@cindex interface
+@cindex Propietats dels interfaces
+@cindex interfaces, propietats
+
+Suposeu ara que volem imprimir la lletra de la cançó en
+cursiva. Quina forma d'ordre @code{\override} necessitem per
+fer-lo?  En primer lloca mirem a la pàgina del RFI que relaciona
+tots els objectes, @q{All layout objects}, com abans, i busquem un
+objecte que pugui controlar la lletra de la cançó.  Trobem
+@code{LyricText}, que sembla adequat.  En seguir aquest enllaç es
+presenten les propietats ajustables per al text de la lletra.
+Aquestes propietats inclouen @code{font-series} i
+@code{font-size}, però res que podem usar per ajustar una forma
+cursiva.  La causa d'això és que la propietat de la forma és
+comuna a tots els objectes de tipus de lletra, i per tant, en
+comptes de incloure-la en cada un dels objectes de presentació,
+s'agrupa junt amb altres propietats comunes similars i es deposita
+en un @strong{Interface}, la interfície dels tipus de lletra
+@code{font-interface}.
+
+Així doncs, ara necessitem aprendre com trobar les propietats de
+les interfícies, i descobrir quins objectes usen aquestes
+propietats de la interfície.
+
+Mireu de nou la pàgina del RFI que descriu a LyricText.  Al final
+de la pàgina hi ha una llista d'enllaços a les interfícies que
+LyricText contempla.  La llista té set elements, entre ells
+@code{font-interface}.  En seguir aquest enllaça arribem a les
+propietats associades amb aquesta interfície, que també són
+propietats de tots els objectes que la porten, entre ells LyricText.
+
+Ara veiem totes les propietats ajustables per l'usuari que
+controlen els tipus de lletra, entre elles
+@code{font-shape(symbol)}, on @code{symbol} es pot establir a
+@code{upright} (recta), @code{italics} (cursiva) o @code{caps}
+(majúscules petites).
+
+Observareu que @code{font-series} i @code{font-size} també es
+troben mencionades aquí.  Això immediatament fa que es plantegi la
+pregunta: Perquè estan les propietats comunes de tipografia
+@code{font-series} i @code{font-size} mencionades sota
+@code{LyricText} així com sota la interfície @code{font-interface}
+però @code{font-shape} no ho està?  La resposta és que
+@code{font-series} i @code{font-size} es canvien a partir dels
+seus valor predeterminats globals quan es crea un objecte
+@code{LyricText}, però @code{font-shape} no ho fa.  Llavors els
+elements de la llista @code{LyricText} us indiquen els valors per
+a aquestes dues propietats que són d'aplicació per a
+@code{LyricText}.  Altres objectes que prenen en compte
+@code{font-interface} establiran aquestes propietats de forma
+diferent quan es creen.
+
+Vegem si ara podem construir l'ordre @code{\override} per
+canviar la lletra a cursiva.  L'objecte és @code{LyricText},  la
+propietat és @code{font-shape} i el valor és @code{italic}.  Com
+abans, ometrem el context.
+
+Com a nota a part, tot i que és important, observeu que certes
+propietats prenen valors que són símbols, com ara @code{italic}, i
+han d'anar precedits d'un apòstrof, @code{'}.  Els símbols es
+llegeixen a continuació internament.
+
+Com a nota a part, tot i que és important, observeu que certes
+propietats prenen valors que són símbols, com ara @code{italic}, i
+han d'anar precedits d'un apòstrof, @code{'}.  Els símbols es
+llegeixen a continuació internament per part del LilyPond.  Tingueu
+en compte la diferència amb les cadenes de text arbitràries, que
+apareixeran com a @code{"una cadena de text"}; per veure més
+detalls sobre els símbols i les cadenes, consulteu
+@rextendnamed{Scheme tutorial,Tutorial de l'Scheme}.
+
+Així doncs, l'ordre @code{\override} necessària per imprimir la
+lletra en cursiva és:
+
+@example
+\override LyricText.font-shape = #'italic
+@end example
+
+@noindent
+Això s'ha d'escriure just davant de la lletra a la qual ha
+d'afectar, d'aquesta forma:
+
+@cindex font-shape, propietat, exemple
+@cindex italic, exemple
+@cindex LyricText, exemple de sobreescriptura
+@cindex @code{\addlyrics}, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \key es \major
+  \time 6/8
+  {
+    r4 bes8 bes[( g]) g |
+    g8[( es]) es d[( f]) as |
+    as8 g
+  }
+  \addlyrics {
+    \override LyricText.font-shape = #'italic
+    The man who | feels love's sweet e -- | mo -- tion
+  }
+}
+@end lilypond
+
+@noindent
+i tota la lletra s'imprimeix en cursiva.
+
+@warning{Dins de la lletra, deixeu sempre espais entre la síl·laba
+final i el claudàtor de tancament.}
+
+@seealso
+Manual d'extensió:
+@rextendnamed{Scheme tutorial,Tutorial de l'Scheme}.
+
+@node Tipus de propietats
+@subsection Tipus de propietats
+@translationof Types of properties
+
+@cindex propietats, tipus de
+
+Fins ara hem vist dos tipus de propietat: @code{número} i
+@code{símbol}.  Perquè sigui vàlid, el valor que es dóna a una
+propietat ha de ser del tipus correcte i obeir les regles d'aquest
+tipus.  El tipus de la propietat es mostra sempre entre parèntesis
+després del nom de la propietat al RFI.  Vet aquí una llista dels
+tipus que us caldrà, junt amb les regles d'aquest tipus, i alguns
+exemples.  Heu d'escriure sempre un símbol amb coixinet, @code{#},
+per suposat, davant d'aquests valors quan s'introdueixen a
+l'ordre @code{\override}, fins i tot si el propi valor ja
+comença per@tie{}@code{#}.  Sols oferim aquí exemples per a
+constants; si voleu calcular un valor usant l'Scheme, consulteu
+@rextendnamed{Calculations in Scheme,Càlculs a l'Scheme}.
+
+@multitable @columnfractions .2 .45 .35
+@headitem Tipus de propietat
+  @tab Regles
+  @tab Exemples
+@item Booleà
+  @tab Vertader o Fals, representat per #t o #f
+  @tab @code{#t}, @code{#f}
+@item Dimensió (en espais de pentagrama)
+  @tab Un nombre decimal (en unitats d'espais de pentagrama)
+  @tab @code{2.5}, @code{0.34}
+@item Direcció
+  @tab Una constant vàlida de direcció o el seu equivalent numèric
+  (@code{0} o @code{CENTER} indiquen una direcció neutra)
+  @tab @code{LEFT}, @code{CENTER}, @code{UP},
+       @code{1}, @w{@code{-1}}
+@item Enter
+  @tab Un nombre enter positiu
+  @tab @code{3}, @code{-1}
+@item Llista
+  @tab Una seqüència de constants o símbols separats per espais,
+  tancat entre parèntesis
+  i precedit d'un apòstrof o cometa simple
+  @tab @code{'(left-edge staff-bar)}, @code{'(1)}, @code{'()},
+       @code{'(1.0 0.25 0.5)}
+@item Etiquetatge
+  @tab Qualsevol element vàlid d'etiquetatge de text
+  @tab @code{\markup @{ \italic "cresc." @}}, @code{"gralla"}
+@item Moment
+  @tab Una fracció de rodona construïda amb la funció make-moment
+  @tab @code{(ly:make-moment 1/4)},
+       @code{(ly:make-moment 3/8)}
+@item Nombre
+  @tab Qualsevol valor positiu o negatiu, possiblement decimal
+  @tab @code{3}, @w{@code{-2.45}}
+@item Parella (de nombres)
+  @tab Dos nombres separats per un @q{espai . espai}, tancat entre parèntesis i precedit per un apòstrof
+  @tab @code{'(2 . 3.5)}, @code{'(0.1 . -3.2)}
+@item Símbol
+  @tab Qualsevol del conjunt de símbols permesos per a aquesta propietat, precedit d'un apòstrof
+  @tab @code{'italic}, @code{'inside}
+@item Desconegut
+  @tab Un procediment o @code{#f} per no produir cap acció
+  @tab @code{bend::print}, @code{ly:text-interface::print},
+       @code{#f}
+@item Vector
+  @tab Constants
+  tancades entre @code{#(}@dots{}@code{)}.
+  @tab @code{#(#t #t #f)}
+@end multitable
+
+@seealso
+Manual d'Extensió:
+@rextendnamed{Scheme tutorial,Tutorial de l'Scheme}.
+
+
+@node Aparença dels objectes
+@section Aparença dels objectes
+@translationof Appearance of objects
+
+Ara anem a posar en pràctica el que hem après amb uns quants
+exemples que mostren com es poden usar els ajustaments per canviar
+l'aspecte de la música impresa.
+
+@menu
+* Visibilitat i color dels objectes::
+* Mida dels objectes::
+* Longitud i gruix dels objectes::
+@end menu
+
+@node Visibilitat i color dels objectes
+@subsection Visibilitat i color dels objectes
+@translationof Visibility and color of objects
+
+Dins d'un ús educatiu de la música, podríem desitjar imprimir una
+partitura amb certs elements omesos com a exercici per a l'alumne,
+a qui se'l demana que els completi.  Com a exemple senzill,
+suposem que l'exercici és escriure les línies divisòries que
+falten a un fragment musical.  Però les línies divisòries
+normalment s'insereixen automàticament. Com fem perquè no
+s'imprimeixin?
+
+Abans d'embolicar-nos amb això, recordem que les propietats dels
+objectes s'agrupen en el que hem anomenat @emph{interfaces} (vegeu
+@ref{Propietats de les interfícies}).  Això és simplement agrupar
+les propietats que es poden usar juntes per ajustar un objecte
+gràfic: si cal una d'elles per a un objecte, també les altres.
+Així, certs objectes usen les propietats d'algunes interfícies,
+uns altres usen les d'unes altres interfícies.  Les interfícies
+que contenen les propietats que un determinat objecte gràfic
+(grob) necessita es troben relacionades al manual RFI al final de
+la pàgina que descriu aquest objecte gràfic, i aquestes propietats
+es poden veure mirant aquestes interfícies.
+
+Hem explicat com trobar informació sobre els objectes gràfics en
+@ref{Propietats dels objectes de presentació}.  Usant el mateix
+enfoc, anem al RFI per buscar l'objecte de presentació que
+imprimeix les línies divisòries.  A través de l'enllaç
+@emph{Backend} i @emph{All layout objects} trobem que hi ha un
+objecte de presentació anomenat @code{BarLine}.  Entre les seves
+propietats es troben dos que controlen la visibilitat:
+@code{break-visibility} i @code{stencil}.  Les línies divisòries
+també contemplen un nombre de interfícies, entre elles
+@code{transparent} i @code{color}.  Totes elles poden afectar la
+visibilitat de les barres de compàs (i, per suposat, per extensió,
+també la de molts altres objectes de presentació).  Anem a
+considerar cadascú d'ells en ordre.
+
+@menu
+* La propietat stencil (segell)::
+* La propietat break-visibility (visibilitat en els salts)::
+* La propietat transparent::
+* La propietat color::
+@end menu
+
+@node La propietat stencil (segell)
+@unnumberedsubsubsec La propietat @code{stencil} (segell)
+@translationof The stencil property
+
+@cindex stencil (segell), propietat
+
+Aquesta propietat controla l'aparença de les barres de compàs
+mitjançant l'especificació del símbol (o «glif») que s'ha
+d'imprimir.  Igual que amb altres moltes propietats, es poden
+establir de forma que no imprimeixi res ajustant el seu valor a
+@code{#f}.  Comprovem-ho, com abans, ometent el context implícit,
+@code{Voice}:
+
+@cindex BarLine, exemple de sobreescriptura
+@cindex stencil, propietat, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override BarLine.stencil = ##f
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+Les barres de compàs encara s'imprimeixen.  Què és el està
+malament? Torneu al RFI i mireu un altre cop la pàgina que ofereix
+les propietats de l'objecte BarLine.  Al principi de la pàgina diu
+@qq{Barline objects are created by: Bar_engraver} (els objecte
+Barline es creen pel gravador Bar_engraver}.  Aneu a la pàgina del
+gravador @code{Bar_engraver} seguint l'enllaç.  Al final dóna una
+llista de contextos en els quals opera el gravador de línies
+divisòries.  Tots ells són del tipus @code{Staff}, i així la raó
+que l'ordre @code{\override} no funcionarà com esperàvem, és
+perquè @code{Barline} no es troba en el context predeterminat
+@code{Voice}.  Si el context no s'especifica correctament, l'ordre
+simplement no funciona.  No es produeix cap missatge d'error, i no
+es registra res al fitxer log de registre.  Anem a intentar
+corregir-lo escrivint el context correcte:
+
+@cindex BarLine, exemple de sobreescriptura
+@cindex stencil, propietat, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine.stencil = ##f
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+Ara les barres de compàs han desaparegut.  L'operació de fixar la
+propietat @code{stencil} al valor @code{#f} és tan freqüent que
+existeix una abreviatura per a ella, anomenada
+@code{\omit} (ometre):
+@funindex \omit
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \omit Staff.BarLine
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+Tot i així, observeu que l'establiment de la propietat
+@code{stencil} al valor @code{#f} produeix errors quan calen les
+dimensions de l'objecte per a un processament correcte.  Per
+exemple, es generen errors si la propietat @code{stencil} de
+l'objecte @code{NoteHead} s'estableix al valor @code{#f}.  Si és
+el cas, podem en comptes d'això utilitzar la funció
+@code{point-stencil}, que estableix el segell a un objecte amb
+mida nul·la:
+
+@lilypond[quote,verbatim,relative=2]
+{
+  c4 c
+  \once \override NoteHead.stencil = #point-stencil
+  c4 c
+}
+@end lilypond
+
+@node La propietat break-visibility (visibilitat en els salts)
+@unnumberedsubsubsec La propietat @code{break-visibility} (visibilitat en els salts)
+@translationof The break-visibility property
+
+@cindex break-visibility, propiedad
+
+A les propietats de @code{BarLine} que apareixen en el RFI veiem
+que la propietat @code{break-visibility} requereix un vector de
+tres valors booleans.  Controlen respectivament si les barres de
+compàs se imprimeixen al final d'una línia, a la meitat d'una
+línia, i al principi de les línies.  Per al nostre exemple, volem
+que totes les barres de compàs se suprimeixin, per la qual cosa
+el valor que ens cal és @code{#(#f #f #f)} (disponible també sota
+el nom @code{all-invisible}, totes invisibles).  Provem-ho, tot
+recordant incloure el context de @code{Staff}.  Observeu també que
+en escriure aquest valor tenim @code{##} abans del parèntesis
+d'obertura.  Cal un @code{#} com a par de la sintaxi de les
+constants vectorials, i el primer símbol de coixinet@tie{}@code{#}
+cal, com sempre, per precedir el valor en sí dins de l'ordre
+@code{\override}.
+
+@cindex BarLine, exemple de sobreescriptura
+@cindex break-visibility, propietat, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine.break-visibility = ##(#f #f #f)
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+I podem veure que això també elimina totes les línies divisòries.
+
+@node La propietat transparent
+@unnumberedsubsubsec La propietat @code{transparent}
+@translationof The transparent property
+
+@cindex transparent, propietat
+@cindex transparència
+
+En la relació de propietats que s'especifiquen a la pàgina del
+@code{grob-interface} del RFI podem veure que la propietat
+@code{transparent} és un valor booleà.  Això s'ha d'establir a
+@code{#t} per fer que el grob sigui transparent.  A l'exemple
+següent farem que la indicació de compàs, i no les línies
+divisòries, sigui transparent.  Per fer-lo hem de buscar el nom
+de l'objecte gràfic de la indicació de compàs.  Tornant a la
+pàgina @q{All layout objects} del RFI, busquem les propietats de
+l'objecte de presentació @code{TimeSignature}.  El produeix el
+gravador @code{Time_signature_engraver} que com podeu comprovar
+viu dins del context @code{Staff} y també contempla la interfície
+@code{grob-interface}.  Així doncs, l'ordre que fa transparent la
+indicació de compàs és:
+
+@cindex TimeSignature, exemple de sobreescriptura
+@cindex transparent, propietat, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.TimeSignature.transparent = ##t
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+Un cop més, l'establiment de la propietat @code{transparent} és
+una operació força freqüent, de manera que tenim una abreviatura
+anomenada @code{\hide} (amagar):
+@funindex \hide
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \hide Staff.TimeSignature
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+En cap dels dos casos apareix ja la indicació de compàs, però
+aquesta ordre deixa una separació al lloc on abans hi havia la
+indicació de compàs.  Potser això és el que volem per a un
+exercici en el qual l'alumne ha d'escriure'l, però en altres
+circumstàncies aquesta separació podria no ser desitjable.  En
+comptes d'això, per treure-la, el stencil o «segell» de la
+indicació de compàs s'ha d'establir al valor @code{#f}:
+
+@cindex TimeSignature, exemple de sobreescriptura
+@cindex stencil, propietat, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \omit Staff.TimeSignature
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+i la diferència és òbvia: en establir el segell al valor
+@code{#f} (possiblement per mitjà de @code{\omit} traiem l'objecte
+completament; en fer l'objecte @code{transparent} (el que es pot
+fer utilitzant @code{\hide}) el deixem on és, però el fem invisible.
+
+@node La propietat color
+@unnumberedsubsubsec La propietat @code{color}
+@translationof The color property
+
+@cindex color, propietat
+
+Per finalitzar, intentem fer invisibles les barres de compàs
+pintant-les de color blanc (hi ha un problema relacionat, que
+consisteix que la línia divisòria blanca pot tapar o no tapar les
+línies del pentagrama a les que creua.  Podreu observar en alguns
+dels exemples que apareixen a continuació, que això succeeix de
+forma impredictible.  Els detalls de perquè passa això, i com
+controlar-ho, s'estudien a
+@rusernamed{Painting objects white,Pintar els objectes de blanc};
+de moment estem estudiant el color, per la qual cosa us preguem
+que per ara accepteu aquesta limitació).
+
+La interfície @code{grob-interface} especifica que la propietat
+del color és una llisa, però no hi ha cap explicació sobre el que
+ha d'anar a aquesta llista.  La llista que requereix és realment
+una llista de valors en unitats internes, però per evitar tenir
+que saber quines són, s'ofereixen diverses vies per a
+l'especificació dels colors.  La primera via és utilitzar un dels
+colors @q{normals} que estan relacionats amb la primera taula de
+la @rusernamed{List of colors,Llista de colors}.  Per a posar les
+línies divisòries de color blanc, escrivim:
+
+@cindex BarLine, exemple de sobreescriptura
+@cindex color, propietat, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine.color = #white
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+i de nou podem comprovar que les barres de compàs no són
+visibles.  Observeu que @emph{white} no ve precedit d'un apòstrof:
+no és un símbol, sinó una @emph{variable}.  Quan s'avalua,
+proporciona la llista de valors interns que es requereixen per
+establir el color a blanc.  Els altres colors de la llista normal
+també són variables.  Per convèncer-vos que això funciona, potser
+voleu canviar el colro d'una de les altres variables de la llista.
+
+@cindex colors de X11
+@cindex X11, colors de
+
+@funindex x11-color
+
+La segona via de canviar el color és utilitzar la llista de noms
+de colors de X11 que apareixen a la segona llista de
+@rusernamed{List of colors, Llista de colors}.  De totes maneres,
+es fan correspondre als valors reals per mitjà de la funció
+@code{x11-color} que converteix els símbols de color de X11 a la
+llista de valors interns d'aquests colors:
+
+@cindex BarLine, exemple de sobreescriptura
+@cindex color, propietat, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine.color = #(x11-color 'white)
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+Observeu que en aquest cas la funció @code{x11-color} agafa un
+símbol com argument, de manera que el símbol ha d'anar precedit
+per un apòstrof per evitar que resulti avaluat com si fos una
+variable, i tota la crida de la funció s'ha de tancar entre
+parèntesis.
+
+@cindex rgb, colors
+@cindex color, rgb
+
+@funindex rgb-color
+
+Encara hi ha una altra funció, que converteix valors RGB en colors
+interns: la funció @code{rgb-color}.  Agafa tres arguments que
+donen les intensitats de vermell, verd i blau.  Cada u d'ells pot
+agafar valors entre 0 i 1.  Per tant, per establir el color a
+vermell el valor ha de ser @code{(rgb-color 1 0 0)} i per a blanc
+ha de ser @code{(rgb-color 1 1 1)}:
+
+@cindex BarLine, exemplo de sobreescriptura
+@cindex color, propietat, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine.color = #(rgb-color 1 1 1)
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+Finalment, hi ha també una escala de grisos com a part del conjunt
+de colors de X11.  Varien des del negre, @code{'grey0}, fins el
+blanc, @code{'grey100}, en passos d'1.  Il·lustrarem això
+establint tots els objectes de presentació del nostre exemple a
+diverses gradacions de gris:
+
+@cindex StaffSymbol, exemple de sobreescriptura
+@cindex TimeSignature, exemple de sobreescriptura
+@cindex Clef, exemple de sobreescriptura
+@cindex NoteHead, exemple de sobreescriptura
+@cindex Stem, exemple de sobreescriptura
+@cindex BarLine, exemple de sobreescriptura
+@cindex color property, exemple
+@cindex x11-color, exemple d'utilització
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.StaffSymbol.color = #(x11-color 'grey30)
+  \override Staff.TimeSignature.color = #(x11-color 'grey60)
+  \override Staff.Clef.color = #(x11-color 'grey60)
+  \override Voice.NoteHead.color = #(x11-color 'grey85)
+  \override Voice.Stem.color = #(x11-color 'grey85)
+  \override Staff.BarLine.color = #(x11-color 'grey10)
+  c4 b8 c d16 c d8 |
+  g,8 a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+Observeu els contextos associats amb cada un dels objectes de
+presentació.  És important que estiguin correctament escrits, o
+les ordres no funcionaran!  Recordeu que el context és aquell en
+el qual es troba el gravador corresponent.  El context
+predeterminat per als gravadors pot trobar-se començant per
+l'objecte de presentació, això porta al gravador que el produeix,
+i a la pàgina del gravador del RFI apareix en quin context es pot
+trobar normalment el gravador.
+
+@node Mida dels objectes
+@subsection Mida dels objectes
+@translationof Size of objects
+
+@cindex canviar la mida dels objectes
+@cindex mida dels objectes
+@cindex objectes, mida de
+@cindex objectes, canviar la mida dels
+
+Començarem examinant de nou un exemple anterior (vegeu
+@ref{Niuat d'expressions musicals} que ens mostrava com
+introduir un pentagrama temporal, com a un @rglos{ossia}.
+
+@cindex alignAboveContext, propietat, exemple
+@cindex @code{\with}, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f8 c c }
+      \new Staff \with {
+        alignAboveContext = #"main" }
+      { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+Els fragments d'Ossia s'escriuen normalment sense clau ni compàs, i
+normalment s'escriuen més petits que el pentagrama principal.  Ja
+sabem com treure la clau i el compàs: simplement establim el
+segell de cadascú d'ells a @code{#f}, com segueix:
+
+@cindex alignAboveContext, propietat, exemple
+@cindex @code{\with}, exemple
+@funindex \omit
+@cindex Clef, exemple de sobreescriptura
+@cindex TimeSignature, exemple de sobreescriptura
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f8 c c }
+      \new Staff \with {
+        alignAboveContext = #"main"
+      }
+      {
+        \omit Staff.Clef
+        \omit Staff.TimeSignature
+        { f8 f c }
+      }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+@noindent
+on el parell de claudàtors addicionals després de la clàusula
+@code{\with} és necessari per assegurar que la sobreescriptura
+tancada i la música s'apliquen al pentagrama d'ossia.
+
+Però, quina és la diferència entre modificar el context de
+pentagrama usant @code{\with} i modificar els segells de clau i de
+compàs amb \override, o en aquest cas @code{\omit}?  La diferència
+principal és que els canvis es realitzen a una clàusula
+@code{\with} es fan al moment que es crea el context, i romanen
+actius com a valors @strong{predeterminats} durant tota la duració d'
+aquest context, mentre que les ordres @code{\set} o
+@code{\override} incloses dins de la música són dinàmiques: fan
+canvis sincronitzats amb un punt concret de la música.  Si els
+canvis es desfan o es reverteixen mitjançant @code{\unset} o
+@code{\revert} tornaran al seu valor predeterminat que serà
+l'establert a la clàusula @code{\with}, o si no s'ha establert cap
+en aquest lloc, els valors predeterminats normals.
+
+Certes propietats de context es poden modificar sols dins de
+clàusules @code{\with}.  Aquestes propietats són les que no es
+poden canviar després que el context s'ha creat.
+@code{alignAboveContext} i el seu company,
+@code{alignBelowContext}, són dues d'aquestes propietats: un cop
+el pentagrama s'ha creat, la seva alineació està decidida i no
+tindria sentit intentar canviar-la més tard.
+
+Els valors predeterminats de les propietats dels objectes de
+presentació també es poden establir dins de clàusules
+@code{\with}.  Simplement utilitzeu l'ordre @code{\override}
+normal deixant a part el nom del context, atès que està definit
+sense ambigüitat com el context que la clàusula @code{\with} està
+modificant.  De fet, es produirà un error si s'especifica un
+context en aquest lloc.
+
+Així doncs, podem reemplaçar l'exemple anterior amb
+
+@cindex alignAboveContext, propietat, exemple
+@cindex @code{\with}, exemple
+@cindex Clef, exemple de sobreescriptura
+@cindex TimeSignature, exemple de sobreesriptura
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f8 c c }
+      \new Staff \with {
+        alignAboveContext = #"main"
+        % Don't print clefs in this staff
+        \override Clef.stencil = ##f
+        % Don't print time signatures in this staff
+        \override TimeSignature.stencil = ##f
+      }
+      { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+Fixeu-vos que aquí també podem usar les abreviatures
+@code{\hide} i @code{\omit} per fixar la propietat
+@code{transparent} i esborrar el @code{stencil}, cosa que porta al
+resultat següent:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f8 c c }
+      \new Staff \with {
+        alignAboveContext = #"main"
+        %  Don't print clefs in this staff
+        \omit Clef
+        % Don't print time signatures in this staff
+        \omit TimeSignature
+      }
+      { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+Finalment arribarem a la forma de canviar la mida dels objectes de
+presentació.
+
+Certs objectes de presentació es creen com glifs trets d'un tipus
+de lletra.  Entre ells es troben els caps, les alteracions,
+elements d'etiquetatge, claus, indicacions de temps, indicacions
+dinàmiques i la lletra de les cançons.  La seva mida es canvia
+mitjançant la modificació de la propietat @code{font-size}, com
+veurem a la brevetat. Altres objectes de presentació com ara les
+lligadures d'unió i d'expressió (en general, els objectes
+d'extensió) es tracen individualment, per la qual cosa no hi ha
+una mida de tipus de lletra @code{font-size} associats a ells.
+Aquests objectes generalment deriven la seva mida dels objectes
+als que estan annexats, i per això normalment no hi ha necessitat
+de canviar la seva mida manualment.  A més altres propietats com
+la longitud de les pliques i les barres de compàs, el gruix de les
+barres de corxera i altres línies, i la separació de les línies
+del pentagrama, s'han de modificar usant altres procediments
+especials.
+
+Tornant a l'exemple de l'ossia, canviarem en primer lloc la mida
+del tipus de lletra.  Podem fer-lo de dues formes.  Podem canviar
+la mida del tipus de lletra de cadascú dels tipus d'objecte com
+els caps (@code{NoteHead}) amb ordres com ara
+
+@example
+\override NoteHead.font-size = #-2
+@end example
+
+o podem canviar la mida de tots els tipus de lletra establint una
+propietat especial, @code{fontsize}, utilitzant @code{\set}, o
+mitjançant la seva inclusió dins d'una clàusula @code{\with} (però
+sense el @code{\set}).
+
+@example
+\set fontSize = #-2
+@end example
+
+Els dos enunciats produiran una reducció de la mida del tipus de
+lletra en dos passos del seu valor previ, on cada pas redueix o
+augmenta la mida aproximadament un 12%·
+
+Provem-lo en el nostre exemple de l'ossia:
+
+@cindex alignAboveContext, propietat, exemple
+@cindex @code{\with}, exemple
+@cindex Clef, exemple de sobreescriptura
+@cindex TimeSignature, exemple de sobreescriptura
+@cindex fontSize, propietat, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f8 c c }
+      \new Staff \with {
+        alignAboveContext = #"main"
+        \omit Clef
+        \omit TimeSignature
+        % Reduce all font sizes by ~24%
+        fontSize = #-2
+      }
+      { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+Encara no està massa bé.  Els caps i els claudàtors de les notes
+són més petits, però les pliques són massa llargues en proporció,
+i les línies del pentagrama estan massa separades entre sí.  S'ha
+de reduir la seva escala en proporció a la reducció del tipus de
+lletra.  El següent apartat tracte sobre com fer això.
+
+@node Longitud i gruix dels objectes
+@subsection Longitud i gruix dels objectes
+@translationof Length and thickness of objects
+
+@cindex distàncies
+@cindex gruix
+@cindex longitud
+@cindex magstep
+@cindex midas, canviar
+@cindex plica, canviar la longitud
+@cindex pentagrama, canviar la separació de les línies
+
+Les distàncies i longituds al LilyPond es mesuren generalment en
+espais de pentagrama, la distància entre línies adjacents de la
+pauta (o de manera ocasional mig espais), mentre que la majoria de
+les propietat de @code{thickness} (gruix) es mesuren en unitats
+d'una propietat interna anomenada @code{line-thinkness.} Per
+exemple, de forma predeterminada, a les línies dels reguladors
+se'ls dóna un gruix d'una unitat de @code{line-thickness.}  Per
+exemple, de forma predeterminada, a les línies dels reguladors
+se'ls dóna un gruix d'una unitat de @code{line-thickness}, mentre
+que el @code{thickness} d'una plica és 1.3.  Observeu tanmateix
+que certes propietats de gruix són diferents; per exemple, el
+gruix de les barres de corxera es control·la per mitjà del valor
+@code{beam-thickness}, que es mesura en espais de pentagrama.
+
+Aleshores, com s'han d'escalar les longituds en proporció a la
+mida del tipus de lletra?  Es pot fer amb l'ajuda d'una funció
+especial que es diu @code{magstep}, pensada especialment per a
+aquest propòsit.  Agafa un argument, el canvi de mida del tipus de
+lletra (#-2 en el nostre exemple) i retorna un factor d'escalat
+adequat per reduir uns altres objectes en la mateixa proporció.
+S'usa de la següent forma:
+
+@cindex alignAboveContext, propietat, exemple
+@cindex @code{\with}, exemple
+@cindex Clef, exemple de sobreescriptura
+@cindex TimeSignature, exemple de sobreescriptura
+@cindex fontSize, propietat, exemple
+@cindex StaffSymbol, exemple de sobreescriptura
+@cindex magstep, función, exemple de sobreescriptura
+@cindex staff-space, propietat, exemple
+@cindex stencil, propietat, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f8 c c }
+      \new Staff \with {
+        alignAboveContext = #"main"
+        \omit Clef
+        \omit TimeSignature
+        fontSize = #-2
+        % Reduce stem length and line spacing to match
+        \override StaffSymbol.staff-space = #(magstep -2)
+      }
+      { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+@noindent
+Atès que la longitud de les pliques i moltes altres propietats
+relacionades amb les longituds es calculen sempre amb relació al
+valor de la propietat @code{staff-space}, l'escala de la seva
+longitud també es veu reduïda automàticament.  Observeu que això
+afecta sols a l'escala vertical de l'ossia: l'escala horitzontal
+es determina per mitjà de la disposició de la música principal amb
+l'objecte de mantenir-se en sincronia amb ella, de forma que no
+resulti afectada per cap d'aquests canvis de mida.  Òbviament, si
+l'escala de tota la música principal es canviés d'aquesta forma,
+llavors l'espaiat horitzontal es veuria afectat.  Tractarem d'això
+més endavant a la secció sobre la disposició.
+
+Això, finalment, completa la creació d'un ossia.  Les mides i
+longituds de la resta dels objectes es poden modificar de manera
+anàloga.
+
+Per a canvis d'escala petits, com a l'exemple de dalt, el gruix de
+les diverses línies dibuixades com a divisòries, barres de
+corxera, reguladors, lligadures, etc., no requereixen normalment
+d'ajustament global. Si al gruix de qualsevol objecte de presentació en
+particular li cal ajustar-se, es pot fer millor mitjançant la
+sobreescriptura de la seva propietat @code{thickness}.
+Anteriorment vam mostrar un exemple de canvi de gruix a les
+lligadures, a  @ref{Propietats dels objectes de presentació}.  El
+gruix de tots els objectes traçats, és a dir, els objectes que no
+es produeixen a partir d'un tipus de lletra, es poden canviar de
+la mateixa forma.
+
+@node Col·locació dels objectes
+@section Col·locació dels objectes
+@translationof Placement of objects
+
+@menu
+* Comportament automàtic::
+* Objectes interiors al pentagrama::
+* Objectes fora del pentagrama::
+@end menu
+
+
+@node Comportament automàtic
+@subsection Comportament automàtic
+@translationof Automatic behavior
+
+@cindex dins del pentagrama, objectes
+@cindex fora del pentagrama, objectes
+@cindex objectes dins del pentagrama
+@cindex objectes fora del pentagrama
+
+Hi ha certs objectes a la notació musical que pertanyen al
+pentagrama i d'altres el lloc dels quals se situa fora del
+pentagrama.  Reben el nom de objectes dins del pentagrama i
+objectes fora del pentagrama, respectivament.
+
+Els objectes dins del pentagrama són els que se situen sobre la
+pauta: caps, pliques, alteracions, etc.  Les seves posicions
+normalment es fixen per la pròpia música; es posicionen
+verticalment sobre línies específiques del pentagrama o estan
+units a d'altres objectes posicionats d'aquesta forma.  Les
+col·lisions entre caps, pliques i alteracions a acords de notes
+molt juntes, normalment s'eviten automàticament.  Hi ha
+ordres i sobreescriptures que poden modificar aquest
+comportament automàtic, com veurem en breu.
+
+Entre els objectes que pertanyen a l'exterior de la pauta es
+troben elements com les marques d'assaig, les marques de text i
+les de dinàmica.  La regla del LilyPond per a la col·locació
+vertical dels objectes fora-de-pentagrama és col·locar-los tan a
+prop del pentagrama com sigui possible, però no tan a prop com
+perquè puguin xocar amb algun altre objecte.  El LilyPond utilitza
+la propietat @code{outside-staff-priority} per determinar l'ordre
+que s'han de situar els objectes, com veurem ara.
+
+En primer lloc, el LilyPond situa tots els objectes
+dins-del-pentagrama.  Després ordena els objects
+fora-del-pentagrama d'acord amb la seva prioritat
+@code{outside-staff-priority}.  Els objectes fora-del-pentagrama
+s'agafen d'un en un, començant pel que té la prioritat
+@code{outside-staff-priority} més baixa, i se situen de forma que
+no col·lisionin amb cap objecte que ja s'hagi col·locat.  Així
+doncs, si dos objectes gràfics fora-del-pentagrama competeixen pel
+mateix espai, el que té la prioritat @code{outside-staff-priority}
+més baixa es col·locarà més a prop del pentagrama.  Si dos
+objectes tenen la mateixa @code{outside-staff-priority}, el que
+s'ha trobat primer se situarà més a prop de la pauta.
+
+Al següent exemple, tots els textos d'etiquetatge tenen la mateixa
+prioritat (ja que no s'ha establert explícitament).  Observeu que
+@q{Text3} es posiciona de nou automàticament a prop del
+pentagrama, ajustat per sota de @q{Text2}.
+
+@cindex markup, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+c2^"Text1"
+c2^"Text2" |
+c2^"Text3"
+c2^"Text4" |
+@end lilypond
+
+Els pentagrames també es posicionen, de forma predeterminada, tan
+a prop uns dels altres com sigui possible (subjecte a una
+separació mínima).  Si les notes es projecten molt lluny en
+direcció a un pentagrama adjacent, forçaran a allunyar-se als
+pentagrames sols si en cas contrari fos a produir-se un solapament
+de la notació.  L'exemple següent mostra aquest ajustament @q{niuat}
+de les notes sobre pentagrames adjacents:
+
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new Staff {
+    \relative c' { c4 a, }
+  }
+  \new Staff {
+    \relative c'''' { c4 a, }
+  }
+>>
+@end lilypond
+
+
+@node Objectes interiors al pentagrama
+@subsection Objectes interiors al pentagrama
+@translationof Within-staff objects
+
+Ja hem vist com les ordres @code{\voiceXXX} afecten a la
+direcció de les lligadures d'expressió i d'unió, digitacions i tota
+la resta que depengui de la direcció de les pliques (vegeu
+@ref{Veus explícites}).  Quan s'escriu música polifònica, aquestes
+ordres són essencials perquè es puguin distingir diverses
+línies melòdiques entrellaçades.  Però ocasionalment pot ser
+necessari sobreescriure aquest comportament automàtic.  Es pot fer
+per seccions de música completes o fins i tot per una nota
+individual.  La propietat que controla aquest comportament és la
+propietat de @code{direction} (direcció) de cada objecte de
+presentació.  En primer lloc explicarem que fa això, i després
+introduirem algunes ordres preparades per usar que us
+evitaran haver de codificar sobreescriptures explícites per a les
+modificacions més comuns.
+
+Alguns objectes de presentació com les lligadures es corben cap
+amunt o cap avall: d'altres, com les pliques i els claudàtors,
+també es mouen cap a la dreta i cap a l'esquerra quan apunten cap
+amunt o cap avall.  Això es controla automàticament quan està
+establerta la propietat @code{direction}.
+
+@menu
+* La propietat direction (direcció)::
+* Digitacions::
+@end menu
+
+@node La propietat direction (direcció)
+@unnumberedsubsubsec La propietat @code{direction} (direcció)
+@translationof The direction property
+
+@cindex avall
+@cindex amunt
+@cindex centre
+@cindex neutre
+@cindex down
+@cindex up
+@cindex center
+@cindex neutral
+
+L'exemple següent mostra al compàs 1 el comportament
+predeterminada de les pliques, amb les de les altres notes agudes
+apuntant cap avall i els greus cap amunt, seguides de quatre notes
+amb totes les pliques forçades cap avall, quatre notes amb les
+pliques forçades cap amunt, i per últim quatre notes amb el
+comportament predeterminat.
+
+@cindex Stem, exemple de sobrescriptura
+@cindex direction, propietat, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+a4 g c a |
+\override Stem.direction = #DOWN
+a4 g c a |
+\override Stem.direction = #UP
+a4 g c a |
+\revert Stem.direction
+a4 g c a |
+@end lilypond
+
+Aquí utilitzem les constants @code{DOWN} (avall) i @code{UP}
+(amunt).  Aquestes constants tenen els valors @w{@code{-1}} i
+@code{+1} respectivament, i aquests valors numèrics també es poder
+usar directament.  El valor @code{0} també es pot usar en alguns
+casos.  S'interpreta amb el significat de @code{UP} per a les
+pliques, però per a alguns objects té el significat de
+@q{centrat}.  Hi ha una constant @code{CENTER} que té el valor
+@code{0}.
+
+Tot i així, aquestes sobreescriptures no s'usen massa sovint
+perquè hi ha ordres predefinides equivalent més senzilles.
+Aquí podem veure una taula de les més comuns.  Es menciona el
+significat de cada una als llocs on no és obvi.
+
+@multitable @columnfractions .2 .2 .25 .35
+@headitem A sota o Esquerra
+  @tab A dalt o Dreta
+  @tab Anul·lar
+  @tab Efecte
+@item @code{\arpeggioArrowDown}
+  @tab @code{\arpeggioArrowUp}
+  @tab @code{\arpeggioNormal}
+  @tab La fletxa està a sota, a dalt o no hi ha fletxa
+@item @code{\dotsDown}
+  @tab @code{\dotsUp}
+  @tab @code{\dotsNeutral}
+  @tab Direcció del desplaçament per evitar les línies del pentagrama
+@item @code{\dynamicDown}
+  @tab @code{\dynamicUp}
+  @tab @code{\dynamicNeutral}
+  @tab
+@item @code{\phrasingSlurDown}
+  @tab @code{\phrasingSlurUp}
+  @tab @code{\phrasingSlurNeutral}
+  @tab Nota: diferent de les intruccions de lligadures d'expressió
+@item @code{\slurDown}
+  @tab @code{\slurUp}
+  @tab @code{\slurNeutral}
+  @tab
+@item @code{\stemDown}
+  @tab @code{\stemUp}
+  @tab @code{\stemNeutral}
+  @tab
+@item @code{\textSpannerDown}
+  @tab @code{\textSpannerUp}
+  @tab @code{\textSpannerNeutral}
+  @tab El text introduït com objecte d'extensió està a sota o a
+  dalt del pentagrama
+@item @code{\tieDown}
+  @tab @code{\tieUp}
+  @tab @code{\tieNeutral}
+  @tab
+@item @code{\tupletDown}
+  @tab @code{\tupletUp}
+  @tab @code{\tupletNeutral}
+  @tab Els grups especials estan a sota o a dalt de les notes
+@end multitable
+
+Les variants neutres o normals d'aquestes ordres estan
+implementades usant @code{\revert} i @strong{no} poden anar
+precedides de @code{\once}.  Si voleu limitar l'efecte de les
+altres ordres (que estan implementades usant
+@code{\override}) a un únic pas de temps, podeu precedir-la de
+@code{\once} de la mateixa forma que ho faríeu amb les
+sobreescriptures explícites.
+
+@node Digitacions
+@unnumberedsubsubsec Digitacions
+@translationof Fingering
+
+@cindex digitació, col·locació
+@cindex digitació d'acords
+
+La col·locació de les digitacions sobre notes aïllades també es
+pot controlar mitjançant la propietat @code{direction}, però els
+canvis sobre @code{direction} no tenen cap efecte sobre les notes
+dels acords.  Com veurem, hi ha ordres especials que
+permeten controlar les digitacions de notes individuals, situant
+la digitació a sobre, a sota, a l'esquerra o a la dreta de cada
+nota.
+
+En primer  lloc, heus ací l'efecte de @code{direction} sobre les
+digitacions aplicades a notes aïllades.  Es mostra al primer
+compàs el comportament predeterminat, i en els dos compassos
+següents l'efecte d'especificar @code{DOWN} i @code{UP}:
+
+@cindex Fingering, exemple de sobreescriptura
+@cindex direction, propietat, exemple
+
+@lilypond[quote,verbatim,relative=2]
+c4-5 a-3 f-1 c'-5 |
+\override Fingering.direction = #DOWN
+c4-5 a-3 f-1 c'-5 |
+\override Fingering.direction = #UP
+c4-5 a-3 f-1 c'-5 |
+@end lilypond
+
+Tot i així, la sobreescriptura de la propietat @code{direction} no
+és la forma més senzilla d'especificar manualment la digitació
+per sobre o per sota de les notes; sol ser preferible usar
+@code{_} o @code{^} en lloc de @code{-}, abans del número de digitació.
+Aquest és l'exemple anterior utilitzant aquest mètode:
+
+@cindex fingering, exemple
+@cindex digitación, exemple
+
+@lilypond[quote,verbatim,relative=2]
+c4-5 a-3 f-1 c'-5 |
+c4_5 a_3 f_1 c'_5 |
+c4^5 a^3 f^1 c'^5 |
+@end lilypond
+
+La propietat @code{direction} s'ignora per als acords, però els
+prefixos direccionals @code{_} i @code{^} sí funcionen.  De forma
+predeterminada, les digitacions es col·loquen automàticament a
+sobre i a sota de les notes d'un acord, com es mostra aquí:
+
+@cindex fingering, exemple
+@cindex digitación, exemple
+
+@lilypond[quote,verbatim,relative=2]
+<c-5 g-3>4
+<c-5 g-3 e-2>4
+<c-5 g-3 e-2 c-1>4
+@end lilypond
+
+@noindent
+però es poden forçar de manera que tots o alguns dels números de
+digitació estan per sobre o per sota:
+
+@cindex fingering, exemple
+@cindex digitación, exemple
+
+@lilypond[quote,verbatim,relative=2]
+<c-5 g-3 e-2 c-1>4
+<c^5 g_3 e_2 c_1>4
+<c^5 g^3 e^2 c_1>4
+@end lilypond
+
+És possible exercir un control encara més gran sobre la
+col·locació de les digitacions mitjançant la utilització de
+l'ordre @code{\set fingeringOrientations}.  El format d'aquesta
+ordre és:
+
+@example
+@code{\set fingeringOrientations = #'([up] [left/right] [down])}
+@end example
+
+@noindent
+S'utilitza @code{\set} perquè @code{fingeringOrientations} és una
+propietat del context @code{Voice}, creat i usat pel gravador
+@code{New_fingering_engraver}.
+
+La propietat es pot establir al valor d'una llista d'entre u i
+tres valors.  Controla si les digitacions es poden col·locar per
+sobre (si  @code{up} apareix a la llista), per sota (si apareix
+@code{down}), a l'esquerra (si apareix acord d'una sola nota
+envoltant-la entre angles simples.}
+
+Aquí podem veure alguns exemples:
+
+@cindex fingering, exemple
+@cindex digitación, exemple
+@cindex @code{\set}, exemple d'utilització
+@cindex fingeringOrientations, propietat, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+\set fingeringOrientations = #'(left)
+<f-2>4
+<c-1 e-2 g-3 b-5>4
+\set fingeringOrientations = #'(left)
+<f-2>4
+<c-1 e-2 g-3 b-5>4 |
+\set fingeringOrientations = #'(up left down)
+<f-2>4
+<c-1 e-2 g-3 b-5>4
+\set fingeringOrientations = #'(up left)
+<f-2>4
+<c-1 e-2 g-3 b-5>4 |
+\set fingeringOrientations = #'(right)
+<f-2>4
+<c-1 e-2 g-3 b-5>4
+@end lilypond
+
+@noindent
+Si la digitació sembla una mica atapeïda, es pot reduir la mida
+@code{font-size}.  El valor predeterminat pot veure's a l'objecte
+@code{Fingering} del RFI que és @w{@code{-5}}, així que provarem
+@w{@code{-7}}:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+\override Fingering.font-size = #-7
+\set fingeringOrientations = #'(left)
+<f-2>4
+<c-1 e-2 g-3 b-5>4
+\set fingeringOrientations = #'(left)
+<f-2>4
+<c-1 e-2 g-3 b-5>4 |
+\set fingeringOrientations = #'(up left down)
+<f-2>4
+<c-1 e-2 g-3 b-5>4
+\set fingeringOrientations = #'(up left)
+<f-2>4
+<c-1 e-2 g-3 b-5>4 |
+\set fingeringOrientations = #'(right)
+<f-2>4
+<c-1 e-2 g-3 b-5>4
+@end lilypond
+
+
+@node Objectes fora del pentagrama
+@subsection Objectes fora del pentagrama
+@translationof Outside-staff objects
+
+Els objectes fora-del-pentagrama s'ubiquen automàticament per
+evitar les col·lisions.  Hi ha diverses formes de sobreescriure la
+col·locació automàtica si la posició no resulta òptima.
+
+@menu
+* La propietat outside-staff-priority (prioritat fora del pentagrama)::
+* L'ordre textLengthOn::
+* Posicionament dels matisos dinàmics::
+* Escalat d'un objecte gràfic (grob)::
+@end menu
+
+@node La propietat outside-staff-priority (prioritat fora del pentagrama)
+@unnumberedsubsubsec La propietat @code{outside-staff-priority} (prioritat fora del pentagrama)
+@translationof The outside-staff-priority property
+
+Els objectes fora-del-pentagrama es col·loquen automàticament per
+evitar les col·lisions.  Els objectes que tenen el valor més baix
+de la propietat @code{outside-staff-priority} s'ubiquen més a prop
+del pentagrama, i així altres objectes fora-del-pentagrama
+s'eleven tant com sigui necessari per evitar la col·lisió.  La
+prioritat @code{outside-staff-priority} es defineix al
+@code{grob-interface} i així és una propietat de tots els objectes
+de presentació.  De forma predeterminada s'estableix a @code{#f}
+per a tots els objectes dins-del-pentagrama, i a un valor numèric
+adequat a cada objecte fora del pentagrama quan es crea
+l'objecte.  La taula següent presenta els valors numèrics
+predeterminats per a alguns dels objects fora-del-pentagrama més
+comuns.
+
+@cindex objectes d'extensió
+
+Observeu els noms una mica inusuals d'alguns dels objectes: els
+objectes d'extensió es creen automàticament per controlar el
+posicionament vertical dels objectes gràfics que (potser) comencen
+i acaben en diferents moments musicals, de manera que qualsevol
+modificació a la prioritat @code{outside-staff-priority} de
+l'objecte gràfic subjacent no té cap efecte.  Per exemple, canviar la
+@code{outside-staff-priority} de l'objecte de regulador
+@code{Hairpin} no té efecte sobre la posició vertical dels
+reguladors: en comptes d'això, hem de canviar la
+@code{outside-staff-priority} de l'objecte associat
+@code{DynamicLineSpanner}.  Aquesta sobreescriptura s'ha
+d'escriure al començament de l'objecte d'extensió, que podria
+incloure diversos reguladors o matissos dinàmics encadenats.
+
+@multitable @columnfractions .3 .3 .3
+@headitem Objecte de presentació
+  @tab Prioritat
+  @tab Controla la posició de:
+@item @code{RehearsalMark}
+  @tab @code{1500}
+  @tab Lletres d'assaig
+@item @code{MetronomeMark}
+  @tab @code{1000}
+  @tab Indicacions metronòmiques
+@item @code{VoltaBracketSpanner}
+  @tab @code{600}
+  @tab Capsetes de primera i segona vegada
+@item @code{TextScript}
+  @tab @code{450}
+  @tab Text a elements d'etiquetatge
+@item @code{MultiMeasureRestText}
+  @tab @code{450}
+  @tab Text sobre silencis de compàs complet
+@item @code{OttavaBracket}
+  @tab @code{400}
+  @tab Claudàtors d'octava alta i baixa
+@item @code{TextSpanner}
+  @tab @code{350}
+  @tab Objectes d'extensió de text
+@item @code{DynamicLineSpanner}
+  @tab @code{250}
+  @tab Totes les indicacions dinàmiques
+@item @code{VoltaBracketSpanner}
+  @tab @code{100}
+  @tab Números de compàs
+@item @code{TrillSpanner}
+  @tab @code{50}
+  @tab Trinats mantinguts
+@end multitable
+
+Heus ací un exemple que mostra la situació predeterminada d'alguns d'ells.
+
+@cindex text, extensions de
+@cindex octava alta i baixa, claudàtor de
+
+@funindex \startTextSpan
+@funindex startTextSpan
+@funindex \stopTextSpan
+@funindex stopTextSpan
+
+@cindex TextSpanner, exemple de sobreesriptura
+@cindex bound-details, propietat, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+% Set details for later Text Spanner
+\override TextSpanner.bound-details.left.text
+    = \markup { \small \bold Slower }
+% Place dynamics above staff
+\dynamicUp
+% Start Ottava Bracket
+\ottava #1
+c'4 \startTextSpan
+% Add Dynamic Text and hairpin
+c4\pp\<
+c4
+% Add Text Script
+c4^Text |
+c4 c
+% Add Dynamic Text and terminate hairpin
+c4\ff c \stopTextSpan |
+% Stop Ottava Bracket
+\ottava #0
+c,4 c c c |
+@end lilypond
+
+Aquest exemple també mostra com crear textos amb extensió (Text
+Spanners): textos amb línies extensores a dalt d'una secció de
+música.  L'extensor abasta des de l'ordre @code{\startTextSpan}
+fins l'ordre @code{\stopTextSpan}, i la composició del text es
+defineix mitjançant l'ordre @code{\override TextSpanner}.  Per
+veure més detalls, consulteu @rusernamed{Text spanners,Extensions de text}.
+
+També es mostra la manera de crear claudàtors d'octva alta i baixa.
+
+@cindex ajustar la situació dels números de compàs
+@cindex números de compàs, ajustar posició
+@cindex ajustar la situació de marques metronòmiques
+@cindex metrònom, situació de les indicacions de
+@cindex ajustar la situació de les lletres d'assaig
+@cindex assaig, lletres, ajustar la col·locació
+
+Si els valors predeterminats de @code{outside-staff-priority} no
+us ofereixen les col·locacions desitjades es pot sobreescriure la
+prioritat de qualssevol dels objectes.  Suposeu que volguéssim que
+el claudàtor d'octava estigués situat per sota de l'element
+extensor de text a l'exemple de dalt.  Tot el que hem de fer és
+localitzar la prioritat de @code{OttavaBracket} al RFI o en les
+taules anteriors, i reduir-lo a un valor inferior al de
+@code{TextSpanner}, recordant que @code{OttavaBracket} es crea
+dins del context de @code{Staff}:
+
+@cindex TextSpanner, exemple de sobreescriptura
+@cindex bound-details, propietat, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+% Set details for later Text Spanner
+\override TextSpanner.bound-details.left.text
+    = \markup { \small \bold Slower }
+% Place dynamics above staff
+\dynamicUp
+% Place following Ottava Bracket below Text Spanners
+\once \override Staff.OttavaBracket.outside-staff-priority = #340
+% Start Ottava Bracket
+\ottava #1
+c'4 \startTextSpan
+% Add Dynamic Text
+c4\pp
+% Add Dynamic Line Spanner
+c4\<
+% Add Text Script
+c4^Text |
+c4 c
+% Add Dynamic Text
+c4\ff c \stopTextSpan |
+% Stop Ottava Bracket
+\ottava #0
+c,4 c c c |
+@end lilypond
+
+Observeu que alguns d'aquests objectes, concretament els números de
+compàs, les indicacions metronòmiques i les lletres d'assaig,
+s'acullen de forma predeterminada dins del context @code{Score};
+així doncs, heu d'assegurar-vos que utilitzeu el context adequat
+quan se sobreescriuen les seves propietats.
+
+@cindex lligadures i outside-staff-priority
+@cindex lligadures i articulacions
+@cindex articulacions i lligadures
+
+De forma predeterminada, les lligadures d'expressió estan
+classificades com a objectes dins-del-pentagrama, però sovint
+apareixen a sobre del pentagrama si les notes que uneix són molt
+agudes.  Això pot portar a una posició molt elevada els objectes
+fora-del-pentagrama com les articulacions, ja que la lligadura es
+col·locarà en primer lloc.  Es pot establir la propietat
+@code{avoid-slur} de l'articulació al valor @code{'inside} (per
+dins) per portar-la a l'interior de la lligadura, però la
+propietat @code{avoid-slur} és efectiva sols si la propietat
+@code{outside-staff-priority} està també ajustada al valor
+@code{#f}.  De forma alternativa, la prioritat
+@code{outside-staff-priority} de la lligadura es pot fixar a un
+valor numèric per fer que es col·loqui en línia amb altres objectes
+fora del pentagrama d'acord amb aquest valor.  Heus ací un exemple
+que mostra l'efecte dels dos mètodes:
+
+@lilypond[quote,verbatim,relative=2]
+c4( c^\markup { \tiny \sharp } d4.) c8 |
+c4(
+\once \override TextScript.avoid-slur = #'inside
+\once \override TextScript.outside-staff-priority = ##f
+c4^\markup { \tiny \sharp } d4.) c8 |
+\once \override Slur.outside-staff-priority = #500
+c4( c^\markup { \tiny \sharp } d4.) c8 |
+@end lilypond
+
+Els canvis a @code{outside-staff-priority} també es pode usar per
+controlar la situació vertical dels objectes individuals, tot i
+que els resultats poden no sempre ser desitjables.  Suposeu que
+voleu que @qq{Text3} se situï por sobre de @qq{Text4} a l'exemple
+sota l'epígraf Comportament Automàtic de més a dalt (vegeu
+@ref{Comportament automàtic}).  Tot el que hem de fer és
+localitzar la prioritat de @code{TextScript} al RFI o a les taules
+de dalt, i augmentar la prioritat de @qq{Text3} fins un valor superior:
+
+@cindex TextScript, exemple de sobreescriptura
+@cindex outside-staff-priority, propietat, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+c2^"Text1"
+c2^"Text2" |
+\once \override TextScript.outside-staff-priority = #500
+c2^"Text3"
+c2^"Text4" |
+@end lilypond
+
+Això, certament, eleva a @qq{Text3} per sobre de @qq{Text4} però
+també l'eleva per sobre de @qq{Text2}, i @qq{Text4} ara cau cap
+avall.  Potser no sigui tan bona idea.  I si el que realment volem
+fer és posicionar totes les anotacions a la mateixa distància per
+sobre del pentagrama?  Per fer-lo, ens caldrà clarament posar més
+espai entre les notes en sentit horitzontal per fer lloc per al
+text.  Això es fa usant l'ordre @code{textLengthOn}.
+
+@node L'ordre textLengthOn
+@unnumberedsubsubsec L'ordre @code{@bs{}textLengthOn}
+@translationof The textLengthOn command
+
+@cindex notes, posar més espai al costat del text
+
+@funindex \textLengthOn
+@funindex textLengthOn
+@funindex \textLengthOff
+@funindex textLengthOff
+
+De forma predeterminada, el text produït mitjançant l'etiquetatge
+no ocupa cap espai horitzontal pel que fa a la disposició de la
+música.  L'ordre @code{\textLengthOn} inverteix aquest
+comportament, fent que les notes portin tant d'espai com sigui
+necessari per acomodar el text:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\textLengthOn  % Cause notes to space out to accommodate text
+c2^"Text1"
+c2^"Text2" |
+c2^"Text3"
+c2^"Text4" |
+@end lilypond
+
+L'ordre per tornar al comportament predeterminat és
+@code{\textLengthOff}.  De forma alternativa, es pot usar
+@code{\once} amb @code{\textLengthOn} si l'efecte s'ha de limitar
+a un sol moment musical.  El comportament corresponent per posar
+espai per a les marques d'assaig i les indicacions de temps es
+control·la independentment amb les ordres @code{\markLengthOn} i
+@code{\markLengthOff}.
+
+@cindex etiquetatge, text de, permetre les col·lisions a
+
+El text d'etiquetatge també evita les notes que es projecten per
+sobre del pentagrama.  Si això no és el que desitgem, el
+desplaçament automàtica cap a dalt es pot desactivar mitjançant
+l'establiment de la prioritat a @code{#f}.  Heus així un exemple
+que mostra com el text d'etiquetatge interactua amb aquestes
+notes.
+
+@cindex TextScript, exemple de sobreescriptura
+@cindex outside-staff-priority, propietat, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+% This markup is short enough to fit without collision
+c2^"Tex" c'' |
+R1 |
+
+% This is too long to fit, so it is displaced upwards
+c,,2^"Text" c'' |
+R1 |
+
+% Turn off collision avoidance
+\once \override TextScript.outside-staff-priority = ##f
+c,,2^"Long Text   " c'' |
+R1 |
+
+% Turn off collision avoidance
+\once \override TextScript.outside-staff-priority = ##f
+\textLengthOn        % and turn on textLengthOn
+c,,2^"Long Text   "  % Spaces at end are honored
+c''2 |
+@end lilypond
+
+@node Posicionament dels matisos dinàmics
+@unnumberedsubsubsec Posicionament dels matisos dinàmics
+@translationof Dynamics placement
+
+@cindex ajustar la col·locació dels matisos
+@cindex dinàmica, ajustar la col·locació de les indicacions de
+@cindex matisos, ajustar la col·locació
+
+Les indicacions de matís dinàmic normalment es col·locaran per
+sota del pentagrama, però es poden posicionar per sobre amb
+l'ordre @code{\dynamicUp}.  Se situaran verticalment respecte
+a la nota a la que van adosades, i flotaran per sota (o per sobre)
+de tots els objects dins-del-pentagrama tals com lligadures de
+fraseig i números de compàs.  Això pot oferir resultats força
+acceptables, com mostra aquest exemple:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+\clef "bass"
+\key aes \major
+\time 9/8
+\dynamicUp
+bes4.~\f\< \( bes4 bes8 des4\ff\> c16 bes\! |
+ees,2.~\)\mf ees4 r8 |
+@end lilypond
+
+Tot i així, si les notes i les seves indicacions dinàmiques
+adossades estan molt a prop, la col·locació automàtic evitarà les
+col·lisions desplaçant les marques dinàmiques posteriors més
+lluny, tot i que pot no ser el lloc òptim, com mostra l'exemple
+següent més aviat artificial:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+a4\f b\mf a\mp b\p
+@end lilypond
+
+@noindent
+Si es presentés una situació semblant a música @q{real}, podria
+ser preferible posar més espai entre les notes, de forma que totes
+les marques dinàmiques puguin cabre a la mateixa distància
+vertical des del pentagrama.  Hem sigut capaços de fer això al
+text d'etiquetatge utilitzant l'ordre @code{\textLengthOn},
+però no existeix una ordre equivalent per a les indicacions de
+matís dinàmic.  Per tant, haurem d'esbrinar com fer-ho utilitzant
+ordres @code{\override}.
+
+@node Escalat d'un objecte gràfic (grob)
+@unnumberedsubsubsec Escalat d'un objecte gràfic (grob)
+@translationof Grob sizing
+
+@cindex objecte gràfic (grob), canvi de mida d'un
+@cindex escala dels objectes gràfics (grob)
+
+En primer lloc hem d'aprendre com s'especifica la mida dels
+objectes gràfics (grobs).  Tots els objectes gràfics (grobs) tenen
+un punt de referència definit dins d'ells que s'usa per
+col·locar-los respecte al seu objecte pare.  Aleshores, aquest
+punt del grob es posiciona a una distància horitzontal,
+@code{X-offset}, i una distància vertical, @code{Y-offset}, a
+partir del seu pare.  La dimensió horitzontal de l'objecte ve
+donada per una parella de números, @code{X-extent}, que diu on
+estan els límits esquerra i dreta respecte del punt de
+referència.  L'amplitud vertical es defineix de forma semblant
+mitjançant una parella de números, @code{Y-extent}.  Aquestes són
+propietats de tots els objects gràfics (grobs) que contemplen el
+@code{grob-interface}.
+
+@cindex @code{extra-spacing-width}
+
+De forma predeterminada, els objectes fora-del-pentagrama reben
+una amplada zero, de manera que poden solapar-se en la direcció
+horitzontal.  Això es fa mitjançant l'ajustament de fer que la dimensió
+més a l'esquerra sigui igual a infinit i que la dimensió més a la
+dreta sigui igual a menys infinit, establint el valor a
+@code{extra-spacing-width} a @code{'(+inf.0 . -inf.0)}.  Així, per
+assegurar que se superposen en la direcció horitzontal haurem de
+sobreescriure aquest valor de @code{extra-spacing-width} per
+donar-los una mica d'espai addicional.  Les unitats són l'espai
+entre dues línies del pentagrama, de forma que hauria de ser
+suficient moure el límit esquerra mitja unitat a l'esquerra i el
+límit dret mitja unitat a la dreta:
+
+@example
+\override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
+@end example
+
+@noindent
+Vegem si funciona en el nostre exemple anterior:
+
+@cindex DynamicText, exemple de sobreescriptura
+@cindex extra-spacing-width, propietat, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+% Extend width by 1 staff space
+\override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
+a4\f b\mf a\mp b\p
+@end lilypond
+
+@noindent
+Això té un aspecte millor, però potser hauríem preferit que les
+indicacions de dinàmica estiguessin alineats sobre la mateixa
+línia de base en lloc d'anar cap amunt i cap avall amb les
+notes. La propietat que ho fa és @code{staff-padding} (emplenament
+del pentagrama) que s'estudia en la secció dedicada a les
+col·lisions (vegeu @ref{Col·lisions d'objectes}).
+
+@node Espaiat vertical
+@section Espaiat vertical
+@translationof Vertical spacing
+
+En general, l'espaiat vertical dels objectes musicals que el
+LilyPond fa és força bo.  Vegem com es comporta amb una cançó
+senzilla, amb dues veus i acompanyament de piano:
+
+@lilypond[quote,fragment,ragged-right]
+<<
+  \new ChoirStaff
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+
+No hi ha cap problema amb l'espaiat vertical predeterminat. Tot i
+així, suposem que estem treballant amb un editor que té certs
+requisits específics per a l'espaiat vertical dels pentagrames i
+la lletra: vol que la lletra estigui més separada de les notes,
+que l'acompanyament de piano estigui més separat de la línia vocal
+i que els dos pentagrames de piano estiguin més junts entre sí.
+Començarem amb la lletra.
+
+La lletra es troba a l'interior d'un sistema, i per tant les
+ordres per aplicar-li l'espaiat estaran en
+@rusernamed{Flexible vertical spacing within systems,Espaiat
+vertical flexible dins dels sistemes}.
+Allà es diu que el text són línies del tipus @qq{no-pauta} i per
+tant l'ordre per canviar el seu espaiat farà referència a la
+propietat @code{nonstaff}.  Per separar-les del pentagrama al que
+pertanyen (la pauta superior) usarem la propietat
+@code{relatedstaff}.  Per separar-les de la línia inferior usarem
+la propietat @code{unrelatedstaff}.  Les parts vocals pertanyen a
+un grup vertical @code{VerticalAxisGroup}, per la qual cosa hem
+d'ajustar les seves propietats.  Provem-lo i vegem si funciona.
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+<<
+  \new ChoirStaff
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics \with {
+      \override VerticalAxisGroup.
+        nonstaff-relatedstaff-spacing.padding = #5
+      \override VerticalAxisGroup.
+        nonstaff-unrelatedstaff-spacing.padding = #5
+    }
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+
+Bé: sí, funciona, però potser massa bé.  Quan establim el
+@code{padding} (farciment) a 5, el LilyPond afegeix 5
+espais de pentagrama a la distància entre els objectes, cosa que
+és excessiva per nosaltres en aquest cas.  Usarem un valor de 2.
+
+A continuació, desplaçarem la música de piano per separar-la de
+les parts vocals.  La música vocal és una @code{ChoirStaff} (un
+context de sistema coral), i per tant hem d'augmentar l'espai
+entre aquest grup de pentagrames i el sistema de piano que es
+troba a sota.  Ho farem canviant la
+@code{basic-distance} (distància bàsica) del @code{StaffGrouper}
+del @code{staffgroup-staff-spacing}.
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+<<
+  \new ChoirStaff \with {
+    \override StaffGrouper.
+      staffgroup-staff-spacing.basic-distance = #15
+  }
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics \with {
+      \override VerticalAxisGroup.
+        nonstaff-relatedstaff-spacing.padding = #2
+      \override VerticalAxisGroup.
+        nonstaff-unrelatedstaff-spacing.padding = #2
+    }
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+
+Molt bé.  Ara sols ens queda l'últim requisit de fer que els
+pentagrames de piano estiguin més junts.  Per aconseguir-lo, de
+nou alterem les propietats del @code{StaffGrouper}, però aquesta
+vegada reduirem tant la @code{basic-distance} (distància bàsica)
+com el @code{padding} (farciment).  Podem fer-lo com es mostra a
+continuació.
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+<<
+  \new ChoirStaff \with {
+    \override StaffGrouper.
+      staffgroup-staff-spacing.basic-distance = #15
+  }
+  <<
+    \new Staff {
+      \new Voice = "music" {
+        b'2 c' c' c'
+      }
+    }
+    \new Lyrics \with {
+      \override VerticalAxisGroup.
+        nonstaff-relatedstaff-spacing.padding = #2
+      \override VerticalAxisGroup.
+        nonstaff-unrelatedstaff-spacing.padding = #2
+    }
+    \lyricsto "music" {
+      Here are some lyrics
+    }
+    \new Staff {
+      \clef bass e'2 f e c
+    }
+  >>
+  \new PianoStaff \with {
+    \override StaffGrouper.staff-staff-spacing = #'(
+                            (basic-distance . 0)
+                            (padding . 0))
+  }
+  <<
+    \new Staff {
+      g''2 c'' c'' a''
+    }
+    \new Staff {
+      \clef bass e2 f c e
+    }
+  >>
+>>
+@end lilypond
+
+Amb això els hem col·locat molt junts entre sí (però és el que
+l'editor volia).  Es podria haver separat més alterant el
+farciment, @code{padding}, o la distància bàsica,
+@code{basic-distance}, si volguéssim. Hi ha moltes formes
+d'alterar l'espaiat vertical.  Un punt clau que hem de recordar és
+que l'espaiat entre objectes dins d'un @code{StaffGroup} (com els
+grups @code{GrandStaff} o @code{PianoStaff}) es controla amb les
+variables d'espaiat del @code{StaffGrouper}.  L'espaiat dels
+pentagrames no agrupats (como @code{Lyrics} i @code{Staff}) es
+controla amb les variables del @code{VerticalAxisGroup}.  per
+veure més detalls consulteu
+@rusernamed{Fixed vertical spacing paper variables,Variables d'espaiat de paper verticals flexibles} i
+@rusernamed{Flexible vertical spacing within systems,vertical flexible dins dels sistemes}.
+
+@node Col·lisions d'objectes
+@section Col·lisions d'objectes
+@translationof Collisions of objects
+
+@menu
+* Moviment d'objectes::
+* Arreglar notació amb superposicions::
+* Exemple reals de música::
+@end menu
+
+@node Moviment d'objectes
+@subsection Moviment d'objectes
+@translationof Moving objects
+
+@cindex moviment d'objectes superposats
+@cindex moviment d'objectes que col·lisionen
+@cindex moviment d'objectes gràfics (grobs) que col·lisionen
+@cindex objectes que col·lisionen, moviment
+@cindex objectes gràfics (grobs) que col·lisionen, moviment
+
+Tot i que us pugui sorprendre, el LilyPond no és perfecte.  Certs
+elements de notació es poden superposar, el que és una llàstima,
+però en realitat és força poc freqüent.  Normalment la necessitat
+de moure objectes és per claredat o raons estètiques: l'aspecte és
+millor amb una mica més o una mica menys d'espai de separació.
+
+Hi ha tres enfocaments principals que porten a la resolució de
+superposicions en la notació.  Es poden considerar en l'ordre
+següent:
+
+@enumerate
+@item
+La @strong{direcció} d'un dels objectes que se superposen es pot
+canviar usant les ordres predefinides que estan relacionades
+a dalt per als objectes dins-del-pentagrama (vegeu @ref{Objectes interiors al pentagrama}).
+Es poden recol·locar fàcilment les pliques, lligadures d'expressió
+i d'unió, barres de corxera, indicacions dinàmiques, text i grups
+de valoració especial d'aquesta forma.  La limitació és que sols
+teniu la possibilitat d'elegir entre dues posicions, i podria fer
+que cap d'elles fos l'adequada.
+
+@item
+Les @strong{propietats de l'objecte}, que el LilyPond usa quan
+està col·locant els objectes de presentació, es poden modificar
+usant l'ordre de sobreescriptura @code{\override}.  Els
+avantatges de fer canvis d'aquest tipus de propietat són: a) que
+algun altre objecte es mourà automàticament si és necessari, per
+deixar-li lloc, i b) una única sobreescriptura es pot aplicar a
+totes les instàncies del mateix tipus d'objecte.  Entre tals
+propietats es troben:
+
+@itemize
+
+@item
+@code{direction} (direcció)
+
+Ja s'ha estudiat amb cert detall: vegeu @ref{Objectes interiors al pentagrama}.
+
+@item
+@code{padding} (farciment),
+@code{right-padding} (farciment per la dreta)
+@code{staff-padding} (farciment de pentagrama)
+
+@cindex farciment
+@cindex padding, propietat
+@cindex right-padding, propietat
+@cindex staff-padding, propietat
+
+Segons s'està col·locant un objecte, el valor de la seva propietat
+de farciment @code{padding} especifica l'espai intermedi que s'ha
+de deixar entre ell mateix i el límit més pròxim de l'objecte
+contra el que s'està col·locant.  Observeu que és el valor de
+@code{padding} de l'objecte
+@strong{que s'està col·locant} el que s'usa; el valor de
+@code{padding} de l'objecte que ja està col·locat s'ignora.  Els
+espais intermedis especificats mitjançant @code{padding} es poden
+aplicar a tots els objectes que responen a la interfície
+@code{side-position-interface}.
+
+En lloca de amb @code{padding}, la col·locació dels grups
+d'alteracions es controla amb
+@code{right-padding}.  Aquesta propietat es troba a l'objecte
+@code{AccidentalPlacement} que, observeu, viu dins del context de
+@strong{Staff}.  Durant el procés tipogràfic, els caps de les
+notes es composen tipogràficament en primer lloc, i després les
+alteracions, si hi ha, s'afegeixen a l'esquerra dels caps
+utilitzant la propietat de farciment per la dreta
+@code{right-padding} per determinar la separació entre l'alteració
+i el cap, i de les alteracions entre sí.  Així doncs, sols la
+propietat de farciment per la dreta @code{right-padding} de
+l'objecte @code{AccidentalPlacement} té efecte sobre la
+col·locació de les alteracions.
+
+La propietat @code{staff-padding} està estretament relacionada amb
+la propietat @code{padding}: @code{padding} controla la separació
+mínima entre qualsevol objecte que respongui a la interfície
+@code{side-position-interface} i l'objecte més proper (generalment
+la nota o les línies del pentagrama); @code{staff-padding}
+s'aplica sols als objectes que sempre se situen fora del
+pentagrama: controla la separació mínima entre aquest objecte i el
+pentagrama. Observeu que @code{staff-padding} no té cap efecte
+sobre objectes que es posicionen respecte a la nota en comptes de
+fer-lo respecte al pentagrama, fins i tot malgrat pugui ser
+sobreescrit sense error per aquests objectes: simplement s'ignora.
+
+Per descobrir quina propietat de farciment es necessita per a
+l'objecte que voleu recol·locar, heu de tornar al manual de RFI i
+buscar les propietat de l'objecte.  Aneu amb compte perquè les
+propietats de farciment podrien no estar a l'objecte més obvi,
+així que busqueu en els objectes que puguin tenir alguna relació
+amb ell.
+
+Tots els valors de farciment es mesuren en espais del pentagrama.
+Per la major part dels objectes el valor s'estableix de forma
+predeterminada en aproximadament 1.0 o menys (varia amb cada
+objecte). Es pot sobreescriure si es necessita una separació
+intermèdia major (o menor).
+
+@item
+@code{self-alignment-X} (Alineament automàtic a l'eix X)
+
+@cindex self-alignment-X, propietat
+
+Aquesta propietat es pot usar per alinear l'objecte a l'esquerra,
+a la dreta, o centrar-lo amb respecte al punt de referència de
+l'objecte «pare».  Es pot usar amb tots els objectes que
+contemplen la interfície @code{self-alignment-interface}.  En
+general són objectes que contenen text.  Els valors són
+@code{LEFT}, @code{RIGHT} o @code{CENTER}.  De forma alternativa
+es pot especificar un valor numèric entre @w{@code{-1}} i
+@code{+1}, on @w{@code{-1}} és alineat per l'esquerra,
+@code{+1} és alineat per la dreta, i els números intermedis mouen
+el text progressivament des d'alineat per l'esquerra fins alineat
+per la dreta.  Es poden especificar valors numèrics més grans de
+@code{1} per moure el text fins i tot més lluny cap a l'esquerra,
+o menys de @w{@code{-1}} per allunyar-lo més cap a la dreta.  Un
+canvi en @code{1} al valor correspon a un moviment de la meitat de
+la longitud total del propi text.
+
+@item
+@code{extra-spacing-width} (amplada de separació addicional)
+
+@cindex extra-spacing-width, propietat
+
+Aquesta propietat està disponible per a tots els objectes que
+respecten la interfície @code{item-interface}.  Agafa dos números,
+el primer se suma al límit esquerre i el segon se suma al límit
+dret.  Els números negatius desplacen el límit a l'esquerra i els
+positius a la dreta, per la qual cosa per fer més ample un objecte
+el primer número ha de ser negatiu i el segon positiu.  Observeu
+que no tots els objectes necessiten els dos números.  Per exemple,
+l'objecte @code{Accidental} (alteració) sols respon al primer
+número (la vora esquerra).
+
+@item
+@code{staff-position} (posició de pentagrama)
+
+@cindex staff-position, propietat
+
+@code{staff-position} és una propietat de la interfície
+@code{staff-symbol-referencer-interface}, que està contemplat pels
+objectes que es col·loquen amb relació al pentagrama.  Especifica
+la posició vertical de l'objecte amb relació a la tercera línia
+del pentagrama en mig espais de pentagrama.  És útil en la
+resolució de col·lisions entre objectes de presentació com
+silencis multicompàs, lligadures d'unió i notes en diferents veus.
+
+@item
+@code{horizontal-shift}
+
+@cindex horizontal-shift, propietat
+@cindex nota, columna de
+@cindex nota, col·lisions
+@cindex col·lisions de notes
+@cindex desplaçament, ordres de
+@funindex \shiftOff
+@funindex shiftOff
+@funindex \shiftOn
+@funindex shiftOn
+@funindex \shiftOnn
+@funindex shiftOnn
+@funindex \shiftOnnn
+@funindex shiftOnnn
+
+Dins d'una veu totes les notes que es produeixen al mateix moment
+s'agrupen en una columna de notes, i es crea un objecte
+@code{NoteColumn} per controlar el posicionament horitzontal
+d'aquest grup de notes (vegeu @qq{Columnes de nota} a @ref{Veus
+explícites}).  Si @emph{i sols si} dues o més columnes de nota
+apareixen al mateix moment musical i les dues tenen les pliques en
+la mateixa direcció, els valors de les seves propietats
+@code{horizontal-shift} s'usen per assignar-los una puntuació i
+les columnes amb puntuacions més altes es desplacen
+progressivament per evitar les col·lisions entre els caps de les
+notes.  Aquesta propietat s'estableix amb les ordres
+@code{\voiceXXX} i es poden sobreescriure directament amb una
+ordre @code{\override} o, de forma més comú amb les ordres
+@code{\shiftOn}.  Observeu que aquesta propietat s'usa per
+@empf{qualificar} les columnes de nota o per aplicar
+desplaçaments: no especifica la magnitud del desplaçament, que es
+va incrementant progressivament en passos en base a l'amplada dels
+caps de nota per a cada puntuació.  Els passos són normalment de
+la meitat d'amplada d'un cap de nota, però pot ser l'amplada
+completa del cap d'una nota quan està implicat un grup de notes
+molt ajustades entre sí.
+
+@item
+@code{force-hshift} (desplaçament horitzontal forçat)
+
+@cindex force-hshift, propietat
+
+La propietat @code{force-hshift} és una propietat d'una
+@code{NoteColumn} (en realitat és una propietat de la interfície
+@code{note-column-interface}).  Modificar-lo permet moure una
+columna de notes en situacions on les columnes de notes se
+superposen.  Observeu que no té efecte sobre les columnes de nota
+que no se superposen.  S'especifica en unitats adequats a una
+columna de notes, per exemple l'amplada del cap de la nota de la
+primera veu.  S'ha d'usar en situacions complexes on les ordres
+@code{\shiftOn} normals (vegeu @ref{Veus explícites}) no resolen
+el conflicte entre les notes de forma satisfactòria.  És
+preferible a la propietat @code{extra-offset} per a aquest
+propòsit perquè no hi ha necessitat d'esbrinar la distància en
+espais de pentagrama, i moure les notes dins o fora d'una
+@code{NoteColumn} afecta a altres accions com a la fusió entre
+caps de nota.
+
+@end itemize
+
+@item
+Finalment, quan tota la resta falla, els objectes es poden
+tornar a posicionar manualment amb relació a la tercera línia del
+pentagrama verticalment, o desplaçant-los una certa distància a
+una nova posició.  Els avantatges són que els valors correctes per
+a tornar a posicionar els objectes s'han d'esbrinar, sovint per
+prova i error, per a cada objecte individual i, atès que el
+moviment es fa després que el LilyPond hagi col·locat tots els
+altres objectes, l'usuari és responsable d'evitar qualsevol
+col·lisió que pugui produir-se.  Però la dificultat principal amb
+aquest enfocament és que els valors de posicionat podria tenir que
+ser tornats a calcular si la música es modifica més tard.  Les
+propietats que es poden usar per aquest tipus de posicionament
+manual són:
+
+@table @code
+@item extra-offset (desplaçament addicional)
+
+@cindex extra-offset, propietat
+
+Aquesta propietat s'aplica a qualsevol objecte de presentació que
+contempli el @code{grob-interface}.  Agafa una parella de números
+que especifiquen el desplaçament addicional en les direccions
+horitzontal i vertical.  Els números negatius mouen l'objecte a
+l'esquerra o cap avall.  Les unitats són espais de pentagrama.  El
+desplaçament addicional es fa després que la composició
+tipogràfica dels objectes ha terminat, així que un objecte pot ser
+tornat a posicionar a qualsevol lloc sense afecta a cap altra cosa.
+
+@item positions (posicions)
+
+@cindex positions, propietat
+
+Aquesta propietat és de la major utilitat per ajustar manualment
+la inclinació i l'alçada de les barres de corxera, lligadures
+d'expressió i claudàtors de grups excedents.  Agafa una parella de
+números que donen la posició dels extrems esquerra i dreta de la
+barra, lligadura, etc. amb relació a la tercera línia del
+pentagrama.  Les unitats són espais de pentagrama.  Observeu,
+però, que les lligadures d'expressió i de fraseig no es poden
+tornar a posicionar en quantitats arbitràriament grans.  El
+LilyPond en primer lloc genera una llista de posicions possibles
+per a la lligadura i de forma predeterminada troba la lligadura
+que té el @qq{millor aspecte}.  Si la propietat
+@code{positions} s'ha sobreescrit, la lligadura que està més a
+prop de les posicions que s'han sol·licitat, se selecciona de la llista.
+@end table
+
+@end enumerate
+
+Un objecte en particular podria no tenir totes aquestes
+propietats.  És necessari anar al manual RFI per buscar quines
+propietats es troben disponible per a l'objecte en qüestió.
+
+Aquí presentem una llista dels objectes que és més probable que
+estiguin implicats en col·lisions, amb el nom de l'objecte que
+hauria de buscar-se en el RFI per descobrir quines propietats
+s'han d'usar per moure'ls.
+
+@multitable @columnfractions .5 .5
+@headitem Tipus d'objecte           @tab Nom de l'objecte
+@item Articulacions            @tab @code{Script}
+@item Barres                    @tab @code{Beam}
+@item Dinàmica (verticalment)  @tab @code{DynamicLineSpanner}
+@item Dinàmica (horitzontalment)   @tab @code{DynamicText}
+@item Digitacions                @tab @code{Fingering}
+@item Marques d'assaig i textuals @tab @code{RehearsalMark}
+@item Lligadures d'expressió    @tab @code{Slur}
+@item Text, per exemple @code{^"text"}  @tab @code{TextScript}
+@item Lligadures d'unió   @tab @code{Tie}
+@item Grups de valoració especial @tab @code{TupletBracket}
+@end multitable
+
+
+@node Arreglar notació amb superposicions
+@subsection Arreglar notació amb superposicions
+@translationof Fixing overlapping notation
+
+Vegem ara com poden ser d'ajuda les propietats que hem vist en la
+secció anterior, per resoldre problemes de notació que se superposa.
+
+@menu
+* La propietat padding (farciment)::
+* La propietat right-padding (farciment per la dreta)::
+* La propietat staff-padding (farciment de pentagrama)::
+* La propietat self-alignment-X (auto-alineació en X)::
+* La propietat staff-position (posició al pentagrama)::
+* La propietat extra-offset (desplaçament addicional)::
+* La propietat positions (posicions)::
+* La propietat force-hshift (forçament del desplaçament horitzontal)::
+@end menu
+
+@node La propietat padding (farciment)
+@unnumberedsubsubsec La propietat @code{padding} (farciment)
+@translationof The padding property
+
+@cindex farciment
+@cindex arreglar notació que se superposa
+@cindex superposada, notació
+
+La propietat @code{padding} es pot ajustar per augmentar (o
+disminuir) la distància entre símbols impresos a sobre o a sota de
+les notes.
+
+@cindex Script, exemple de sobreescriptura
+@cindex padding, propietat, exemple
+
+@lilypond[quote,fragment,relative=1,verbatim]
+c2\fermata
+\override Script.padding = #3
+b2\fermata
+@end lilypond
+
+@cindex MetronomeMark, exemple de sobreescriptura
+@cindex padding, propietat, exemple
+
+@lilypond[quote,fragment,relative=1,verbatim]
+% This will not work, see below
+\override MetronomeMark.padding = #3
+\tempo 4 = 120
+c1 |
+% This works
+\override Score.MetronomeMark.padding = #3
+\tempo 4 = 80
+d1 |
+@end lilypond
+
+Observeu que al segon exemple la gran importància que té saber
+quin context manega un determinat objecte.  Posat que l'objecte
+@code{MetronomeMark} es manega dins del context @code{Score}, els
+canvis de propietats en el context @code{Voice} passaran
+inadvertits.  Per veure més detalls, consulteu
+@rusernamed{Modifying properties,Modificació de les propietats}.
+
+Si la propietat de farciment @code{padding} d'un objecte
+s'incrementa quan aquest objecte es troba a una pila d'objectes
+que s'estan col·locant d'acord amb la seva prioritat
+@code{outside-staff-priority}, aleshores aquest objecte es mourà,
+i també tots els que estan per fora d'ell.
+
+@node La propietat right-padding (farciment per la dreta)
+@unnumberedsubsubsec La propietat @code{right-padding} (farciment per la dreta)
+@translationof The right-padding property
+
+@cindex right-padding, propietat
+
+La propietat @code{right-padding} afecta l'espaiat entre
+l'alteració i la nota a la qual s'aplica.  Normalment no és
+necessària, però l'espaiat predeterminat pot estar malament per a
+certs glifs d'alteracions o combinacions de glifs que s'usen en
+música microtonal.  Aquests glifs s'han d'introduir sobreescrivint
+el segell de l'alteració amb un element d'etiquetatge que
+contingui els símbols desitjats, com segueix:
+
+@cindex Accidental, exemple de sobreescriptura
+@cindex text, propietat, exemple
+@cindex stencil, propietat, exemple
+@cindex AccidentalPlacement, exemple de sobreescriptura
+@cindex right-padding, propietat, exemple
+
+
+@lilypond[quote,ragged-right,verbatim]
+sesquisharp = \markup { \sesquisharp }
+\relative c'' {
+  c4
+  % This prints a sesquisharp but the spacing is too small
+  \once \override Accidental.stencil = #ly:text-interface::print
+  \once \override Accidental.text = #sesquisharp
+  cis4 c
+  % This improves the spacing
+  \once \override Score.AccidentalPlacement.right-padding = #0.6
+  \once \override Accidental.stencil = #ly:text-interface::print
+  \once \override Accidental.text = #sesquisharp
+  cis4 |
+}
+@end lilypond
+
+@noindent
+Això utilitza necessàriament una sobrescriptura per al segell de
+l'alteració que no s'estudiarà fins més endavant.  El tipus de
+segell ha de ser un procediment, aquí modificat perquè s'imprimeixi
+el contingut de la propietat @code{text} de l'objecte
+@code{Accidental}, que al seu cop està establert com un signe de
+sesquisostingut.  Aleshores el signe es pot separar del cap de la
+nota sobreescrivint @code{right-padding}.
+
+@noindent
+
+@node La propietat staff-padding (farciment de pentagrama)
+@unnumberedsubsubsec La propietat @code{staff-padding} (farciment de pentagrama)
+@translationof The staff-padding property
+
+@cindex alineació d'objectes sobre la línia base
+@cindex objectes, alineació sobre la línia base
+
+@code{staff-padding} es pot usar per alinear objectes com matisos
+dinàmics al llarg d'una línia de base a una distància fixa del
+pentagrama, sempre que no existeixi cap altre element de notació
+que forci una distància més gran al pentagrama.  No és una
+propietat de @code{DynamicText} sinó de @code{DynamicLineSpanner}.
+Això és així perquè la línia de base ha d'aplicar-se per igual a
+@strong{totes} les dinàmiques, entre elles les que s'han creat com
+objectes d'extensió.  Així que aquesta es la forma d'alinear les
+indicacions de matís a l'exemple de la secció anterior:
+
+@cindex DynamicText, exemple de sobreescriptura
+@cindex extra-spacing-width, propietat, exemple
+@cindex DynamicLineSpanner, exemple de sobreescriptura
+@cindex staff-padding, propietat, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\override DynamicLineSpanner.staff-padding = #3
+a4\f b\mf a\p b\mp
+@end lilypond
+
+
+@node La propietat self-alignment-X (auto-alineació en X)
+@unnumberedsubsubsec La propietat @code{self-alignment-X} (auto-alineació en X)
+@translationof The self-alignment-X property
+
+L'exemple següent mostra com ajustar la posició d'un objecte de
+digitació de corda en relació a la plica d'una nota mitjançant
+l'alineament del límit dret amb el punt de referència de la nota
+«pare»:
+
+@cindex StringNumber, exemple de sobreescriptura
+@cindex self-alignment-X, propietat, exemple
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=3]
+\voiceOne
+<a\2>
+\once \override StringNumber.self-alignment-X = #RIGHT
+<a\2>
+@end lilypond
+
+@node La propietat staff-position (posició al pentagrama)
+@unnumberedsubsubsec La propietat @code{staff-position} (posició al pentagrama)
+@translationof The staff-position property
+
+@cindex objecte, col·lisió dins del pentagrama
+
+Els silencis multi-compàs a una veu poden xocar amb les notes en
+una altre veu.  Atès que aquests silencis es composin centrats
+entre les barres de compàs es necessitaria força esforç perquè el
+LilyPond esbrini quines altres notes poden xocar amb eĺls, ja que
+en realitat tota la gestió de col·lisions entre notes i silencis
+es fa solament per a notes i silencis que passen al mateix
+moment.  Heus ací un exemple de col·lisió d'aquest tipus:
+
+@lilypond[quote,verbatim,fragment,ragged-right, relative=1]
+<< { c4 c c c } \\ { R1 } >>
+@end lilypond
+
+La millor solució aquí és moure el silenci multi-compàs cap avall,
+ja que el silenci està en la veu dos.  L'ajustament predeterminat per a
+@code{\voiceTwo} (és a dir, en la segona veu d'una construcció
+@code{<<@{@dots{}@} \\ @{@dots{}@}>>}) és  que
+@code{staff-position} tingui el valor -4 per a MultiMeasureRest,
+així que hem de baixar-lo, diguem-ne quatre semiespais de
+pentagrama, al valor @w{@code{-8}}.
+
+@cindex MultiMeasureRest, exemple de sobreesriptura
+@cindex staff-position, propietat, exemple
+
+@lilypond[quote,verbatim,fragment,ragged-right, relative=1]
+<<
+  { c4 c c c }
+  \\
+  \override MultiMeasureRest.staff-position = #-8
+  { R1 }
+>>
+@end lilypond
+
+Això és millor que utilitzar, per exemple, @code{extra-offset},
+perquè la línia addicional per sobre del silenci s'insereix
+automàticament.
+
+@node La propietat extra-offset (desplaçament addicional)
+@unnumberedsubsubsec La propietat @code{extra-offset} (desplaçament addicional)
+@translationof The extra-offset property
+
+@cindex posicionar objectes
+@cindex posicionar objectes gràfics (grobs)
+@cindex objectes, posicionar
+@cindex objectes gràfics (grobs), posicionar
+
+La propietat @code{extra-offset} dóna un complet control sobre el
+posicionament d'un objectes tant vertical com horitzontalment.
+
+A l'exemple següent, la segona digitació es desplaça lleugerament
+a l'esquerra, i 1,8 espais de pentagrama cap avall:
+
+@cindex fingering (digitació), exemple de sobrescriptura
+@cindex extra-offset, propietat, exemple
+
+@lilypond[quote,fragment,relative=1,verbatim]
+\stemUp
+f4-5
+\once \override Fingering.extra-offset = #'(-0.3 . -1.8)
+f4-5
+@end lilypond
+
+
+@node La propietat positions (posicions)
+@unnumberedsubsubsec La propietat @code{positions} (posicions)
+@translationof The positions property
+
+@cindex controlar manualment grups excedents, lligadures i barres
+@cindex manual, control, de grups excedents, lligadures i barres
+@cindex grups excedents, barres de, control manual
+@cindex lligadures d'expressió, control manual
+@cindex lligadures de fraseig, control manual
+@cindex barres de corxera, control manual
+
+La propietat @code{positions} permet controlar manualment la
+posició vertical i d'aquesta manera també la inclinació dels
+tresets, lligadures d'expressió i de fraseig, i barres de
+corxera.
+
+Heus ací un exemple en al qual les lligadures de fraseig i
+d'expressió xoquen entre sí:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+a8 \( ( a'16 ) a \)
+@end lilypond
+
+@cindex PhrasingSlur, exemple de sobreesriptura
+@cindex positions, propietat, exemple
+
+@noindent
+Una possibilitat seria moure els dos extrems de la lligadura de
+fraseig cap amunt.  Podem intentar establir l'extrem esquerre a
+2,5 espais de pentagrama per sobre de la tercera línia i l'extrem
+dret de 4,5 també cap a munt, i el LilyPond seleccionaria la
+lligadura de fraseig d'entre les candidates que ha trobat amb els
+seus extrems més propers a ells:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\once \override PhrasingSlur.positions = #'(2.5 . 4.5)
+a8 \( ( a'16 ) a \)
+@end lilypond
+
+Això suposa una millora, però perquè no baixar una mica l'extrem
+dret de la lligadura d'expressió?  Si ho provem, veurem que no es
+pot fer així.  Això és degut a què no hi ha lligadures d'expressió
+candidates que estiguin més baixes que la que ja s'ha seleccionat,
+i en aquest cas la propietat @code{positions} no té cap efecte.
+Malgrat això, les lligadures d'unió, d'expressió i de fraseig
+@emph{es poden} col·locar i ajustar de manera molt exacta quan
+cal.  Per aprendre la manera de fer-lo, consulteu
+@rusernamed{Modifying ties and slurs,Modificació de lligadures d'unió i d'expressió}.
+
+A continuació presentem un altre exemple.  Vegem que la barra xoca
+amb les lligadures:
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+{
+  \time 4/2
+  <<
+    { c'1 ~ 2. e'8 f' }
+    \\
+    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+  >>
+  <<
+    { c'1 ~ 2. e'8 f' }
+    \\
+    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+  >>
+}
+@end lilypond
+
+@noindent
+Això es pot resoldre manualment elevant els dos extrems de la
+barra des de la seva posició a 1,81 espais de pentagrama sota la
+línia central fins, diguem-ne, 1 espai:
+
+@cindex Beam, exemple de sobreescriptura
+@cindex positions, propietat, exemple
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+{
+  \time 4/2
+  <<
+    { c'1 ~ 2. e'8 f' }
+    \\
+    {
+      \override Beam.positions = #'(-1 . -1)
+      e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g''
+    }
+  >>
+  <<
+    { c'1 ~ 2. e'8 f' }
+    \\
+    { e''8 e'' e'' e''  e'' e'' e'' e''  f''2 g'' }
+  >>
+}
+@end lilypond
+
+@noindent
+Observeu que la sobreescriptura segueix aplicant-se a la primera
+veu del segon compàs de corxeres, però no a cap de les barres de la
+segona veu.
+
+@node La propietat force-hshift (forçament del desplaçament horitzontal)
+@unnumberedsubsubsec La propietat @code{force-hshift} (forçament del desplaçament horitzontal)
+@translationof The force-hshift property
+
+Ara podrem veure com aplicar les correccions finals a l'exemple de
+Chopin que present al final de @ref{Sento veus}, que vam deixar
+amb aquest aspecte:
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  <<
+    { c2 aes4. bes8 }
+    \\
+    { <ees, c>2 des }
+    \\
+    \\
+    { aes'2 f4 fes }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+@noindent
+És necessari que la nota interior del primer acord (el La bemoll
+de la quarta veu) no s'aparti de la columna vertical de la nota
+aguda. Podríem esperar corregir-lo mitjançant l'ús de
+@code{\shiftOff}, però això produeix advertiments sobre columnes
+de notes que col·lisionen.  En lloc d'això, ajustem a zero el
+valor per a aquesta nota de @code{force-hshift}, que és una
+propietat de @code{NoteColumn}.
+
+En el segon acord preferim que el Fa estigui alineat amb el La
+bemoll i que la nota greu es col·loqui lleugerament a la dreta per
+evitar una col·lisió de les pliques.  Ho aconseguim ajustant el
+valor de @code{force-hshift} a la @code{NoteColumn} del Re bemoll
+greu per moure'l a la dreta mig espai de pentagrama, i establint
+@code{force-hshift} per al Fa al valor zero.  Observeu que usem
+{\once} per evitar que els ajustos es propaguin més enllà del
+moment musical immediat, tot i que a aquest exemple podrien
+ometre's el @code{\once} i el segon @code{\override} de la quarta
+veu.  Això no suposaria una bona pràctica.
+
+Presentem a continuació el resultat final:
+
+@cindex NoteColumn, exemple de sobreescriptura
+@cindex force-hshift, propietat, exemple
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  <<
+    { c2 aes4. bes8 }
+    \\
+    { <ees, c>2 \once \override NoteColumn.force-hshift = 0.5 des }
+    \\
+    \\
+    { \once \override NoteColumn.force-hshift = 0 aes'2
+      \once \override NoteColumn.force-hshift = 0 f4 fes }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+
+@node Exemples reals de música
+@subsection Exemples reals de música
+@translationof Real music example
+
+Acabarem aquesta secció sobre els ajustaments mostrant els passos
+que s'han de prendre per resoldre un exemple complicat al qual li
+calen diversos ajustaments per produir el resultat desitjat.
+L'exemple s'ha escollit deliberadament per il·lustrar l'ús de la
+Referència de la Notació per resoldre problemes de notació pocs
+comuns.  No es representatiu del procés de gravat més usual, per
+la qual cosa us recomanem que no deixeu que aquestes dificultats
+us desanimin. Afortunadament, les dificultats com aquestes són
+molt comunes.
+
+L'exemple està estret de la Primera Balada de Chopin, Op. 23,
+compassos 6 al 9, la transició en el Lento inicial i el
+Moderato. Presentem en primer lloc l'aspecte que volem que tingui
+el resultat, però per evitar complicar massa l'exemple hem tret
+les indicacions dinàmiques, les digitacions i el pedal.
+
+@c The following should appear as music without code
+@c This example should not be indexed
+@c line-width ensures no break
+@lilypond[quote,ragged-right,line-width=6\in]
+rhMusic = \relative c'' {
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie.staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    bes2.^\markup { \bold "Moderato" } r8
+    <<
+      { c,8 d fis bes a }
+      \new Voice {
+        \voiceTwo
+        c,8~
+        % Reposition the c2 to the right of the merged note
+        \once \override NoteColumn.force-hshift = #1.0
+        % Move the c2 out of the main note column
+        % so the merge will work
+        \shiftOnn
+        c2
+      }
+      \new Voice {
+        \voiceThree
+        s8
+        % Stem on the d2 must be down to permit merging
+        \stemDown
+        % Stem on the d2 should be invisible
+        \tweak Stem.transparent ##t
+        d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    \mergeDifferentlyHeadedOff
+    \mergeDifferentlyDottedOff
+    g2.\)
+  }
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+Observem en primer lloc que la part de la mà dreta del tercer
+compàs requereix quatre veus.  Són les cinc corxeres unides per
+una barra, la nota Do lligada, el Re blanca que es fusiona amb el Re
+corxera, i el Fa sostingut negra amb puntet, que també està fosa
+amb la corxera de la mateixa altura.  Tota la resta està en una
+sola veu, així que el més fàcil és introduir aquestes tres veus
+addicionals, al moment que es necessiten i de forma temporal.  Si
+heu oblidat com fer-lo, llegiu les seccions @ref{Sento veus} i
+@ref{Veus explícites}. Aquí prenem la decisió d'utilitzar veus
+instanciades explícitament per al passatge polifònic, atès que el
+LilyPond és més probable que pugui evitar les col·lisions si totes
+les veus s'instancien explícitament d'aquesta forma.
+
+Començarem introduint les notes com a dues i disposant
+l'estructura de pentagrames en un bloc Score, i veurem què
+produeix el LilyPond de forma predeterminada:
+
+@c line-width ensures no break
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
+rhMusic = \relative c'' {
+  \new Voice {
+    r2 c4. g8 |
+    bes1~ |
+    \time 6/4
+    bes2. r8
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~ 2
+      }
+      \new Voice {
+        \voiceThree
+        s8 d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    g2.  % continuation of main voice
+  }
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2 |
+  <d g, d>1 |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+Totes les notes són correctes, però l'aspecte està lluny de ser
+satisfactori.  La lligadura d'unió xoca amb el canvi de compàs,
+certes notes no es fusionen correctament, i falten alguns elements de
+notació.  En primer lloc tractarem amb el més fàcil.  Podem afegir
+fàcilment la lligadura d'expressió de la mà esquerra i la
+lligadura de fraseig de la mà dreta, ja que tot això es va
+estudiar al Tutorial. En fer-lo, obtenim:
+
+@c line-width ensures no break
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
+rhMusic = \relative c'' {
+  \new Voice {
+    r2 c4.\( g8 |
+    bes1~ |
+    \time 6/4
+    bes2. r8
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~ 2
+      }
+      \new Voice {
+        \voiceThree
+        s8 d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    g2.\)  % continuation of main voice
+  }
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1) |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+El primer compàs ara és correcte.  El segon compàs conté un arpegi
+i acaba amb una doble barra.  Com els fem, atès que no s'han
+mencionat al Manual d'Aprenentatge?  Aquí és on hem de tornar a la
+Referència de la Notació.  Buscant la paraula @q{arpegio} i
+@q{línia divisòria} a l'índex ens mostra ràpidament que un arpegio
+es fa afegint @code{\arpeggio} a un acord, i la doble barra es
+produeix mitjançant l'ordre @code{\bar "||"}.  Això ho podem
+fer fàcilment.  A continuació hem de corregir la col·lisió entre
+la lligadura d'unió i la indicació de compàs.  Això es fa millor
+movent la lligadura cap amunt.  Vam estudiar com moure objectes
+anteriorment a @ref{Moviment d'objectes}, on diu que els
+objectes que estan situats de forma relativa al pentagrama es
+poden moure verticalment sobreescrivint la seva propietat
+@code{staff-position}, que s'especifica en unitats de mig espai de
+pentagrama respecte de la línia central del pentagrama.  Això
+doncs, la sobreescriptura següent col·locada just abans de la
+primera nota lligada pujarà la lligadura 3,5 mig espais de
+pentagrama per sobre de la línia central:
+
+@code{\once \override Tie.staff-position = #3.5}
+
+Amb això es completa el compàs dos, produint el següent resultat:
+
+@c line-width ensures no break
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
+rhMusic = \relative c'' {
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie.staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    bes2. r8
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~ 2
+      }
+      \new Voice {
+        \voiceThree
+        s8 d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    g2.\)  % continuation of main voice
+  }
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+Anem ara al tercer compàs i començament de la secció Moderato.  El
+tutorial ens va ensenyar com escriure text en negreta mitjançant
+l'ordre @code{\markup}, per la qual cosa afegir
+@qq{Moderato} en negreta és fàcil.  Però ara, com fusionem notes que
+estan en diferents veus?  Aquí és on hem de tornar a buscar ajuda
+al manual de Referència de la notació.  En buscar la paraula
+@qq{merge} (mescla} a l'índex de la Referència de la notació
+arribem ràpidament a les ordres per mesclar notes amb cap diferent
+i amb o sense puntet, a
+@rusernamed{Collision resolution,Resolució de les col·lisions}.
+Al nostre exemple hem de fusionar ambdós tipus de nota al
+transcurs de la secció polifònica del compàs 3; per tant, en
+virtut de la informació que apareix a la Referència de la Notació,
+escrivim
+
+@example
+\mergeDifferentlyHeadedOn
+\mergeDifferentlyDottedOn
+@end example
+
+@noindent
+al principi de la secció, i
+
+@example
+\mergeDifferentlyHeadedOff
+\mergeDifferentlyDottedOff
+@end example
+
+@noindent
+al final, obtenint com a resultat:
+
+@c line-width ensures no break
+@lilypond[quote,ragged-right,line-width=6\in]
+rhMusic = \relative c'' {
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie.staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    bes2.^\markup { \bold "Moderato" } r8
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~ 2
+      }
+      \new Voice {
+        \voiceThree
+        s8 d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    \mergeDifferentlyHeadedOff
+    \mergeDifferentlyDottedOff
+    g2.\)  % continuation of main voice
+  }
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+Aquestes sobreescriptures han fusionat els dos Fa sostingut, però no els
+dos Re.  Perquè no?  La resposta està a la mateixa secció de la
+Referència de la Notació: les notes que es fusionen han de tenir
+les pliques en direccions oposades i dues notes no es poden
+fusionar bé si hi ha una tercera nota en la mateixa columna.  Aquí
+els dos Re tenen les pliques cap amunt i hi ha una tercera nota:
+el Do.  Sabem com canviar la direcció de la plica usant
+@code{\stemDown}, i la Referència de la Notació també explica com
+moure el Do: s'ha d'aplicar un desplaçament usant una de les
+ordres @code{\shift}. Però, quina?  El Do està a la veu dos que té
+desactivat el desplaçament, i els dos Re estan en les veus u i
+tres, que tenen el desplaçament desactivat i activat,
+respectivament.  Per això hem de desplaçar el Do un nivell més
+encara, usant @code{\shiftOnn} per evitar que interfereixi amb els
+dos Re.  En aplicar aquests canvis obtenim:
+
+@cindex Tie, exemple de sobreescriptura
+@cindex staff-position, propietat, exemple
+
+@c line-width ensures no break
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
+rhMusic = \relative c'' {
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie.staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    bes2.^\markup { \bold "Moderato" } r8
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        % Move the c2 out of the main note column
+        % so the merge will work
+        c,8~ \shiftOnn c2
+      }
+      \new Voice {
+        \voiceThree
+        % Stem on the d2 must be down to permit merging
+        s8 \stemDown d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    \mergeDifferentlyHeadedOff
+    \mergeDifferentlyDottedOff
+    g2.\)  % continuation of main voice
+  }
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+Ja gairebé està.  Sols queden dos problemes: la plica cap avall
+sobre el Re fusionat no hauria d'ésser aquí, i el Do estaria
+millor col·locat a la dreta dels Re.  Sabem com fer les des coses
+a partir dels ajustaments anteriors: fem la plica transparent, i
+movem el Do amb la propietat @code{force-hshift}.  Heus ací el
+resultat final:
+
+@cindex NoteColumn, exemple de sobrescriptura
+@cindex force-hshift, propietat, exemple
+@cindex Stem, exemple de sobreescriptura
+@cindex transparent, propietat, exemple
+
+@c line-width ensures no break
+@lilypond[quote,verbatim,ragged-right,line-width=6\in]
+rhMusic = \relative c'' {
+  \new Voice {
+    r2 c4.\( g8 |
+    \once \override Tie.staff-position = #3.5
+    bes1~ |
+    \bar "||"
+    \time 6/4
+    bes2.^\markup { \bold "Moderato" } r8
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
+    % Start polyphonic section of four voices
+    <<
+      { c,8 d fis bes a }  % continuation of main voice
+      \new Voice {
+        \voiceTwo
+        c,8~
+        % Reposition the c2 to the right of the merged note
+        \once \override NoteColumn.force-hshift = #1.0
+        % Move the c2 out of the main note column
+        % so the merge will work
+        \shiftOnn
+        c2
+      }
+      \new Voice {
+        \voiceThree
+        s8
+        % Stem on the d2 must be down to permit merging
+        \stemDown
+        % Stem on the d2 should be invisible
+        \tweak Stem.transparent ##t
+        d2
+      }
+      \new Voice {
+        \voiceFour
+        s4 fis4.
+      }
+    >> |
+    \mergeDifferentlyHeadedOff
+    \mergeDifferentlyDottedOff
+    g2.\)  % continuation of main voice
+  }
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+
+@node Ajustaments addicionals
+@section Ajustaments addicionals
+@translationof Further tweaking
+
+@menu
+* Altres aplicacions dels ajustaments::
+* Ús de variables per als ajustaments de disposició::
+* Fulls d'estil::
+* Altres fonts d'informació::
+* Ajustaments avançats amb l'Scheme::
+@end menu
+
+@node Altres aplicacions dels ajustaments
+@subsection Altres aplicacions dels ajustaments
+@translationof Other uses for tweaks
+
+@menu
+* Unió de notes entre veus diferents::
+* Simulació d'un calderó al MIDI::
+@end menu
+
+@cindex transparent, ús de la propietat
+@cindex objectes, fa invisibles
+@cindex eliminar objectes
+@cindex objectes, eliminar
+@cindex objectes, ocultar
+@cindex ocultar objectes
+@cindex invisibles, objectes
+@cindex objectes invisibles
+
+@node Unió de notes entre veus diferents
+@unnumberedsubsubsec Unió de notes entre veus diferents
+@translationof Tying notes across voices
+
+@cindex Lligadures de notes entre veus diferents
+
+L'exemple següent mostra com connectar notes que estiguin a
+diferents veus utilitzant lligadures d'unió.  Normalment sol es
+poden connectar mitjançant lligadures d'unió dues notes que
+estiguin en la mateixa veu.  Usant dues veus, amb les notes
+lligades en una d'elles:
+
+@lilypond[quote,fragment,relative=2]
+<< { b8~ 8\noBeam } \\ { b8[ g] } >>
+@end lilypond
+
+@noindent
+i esborrant la primera plica cap amunt a aquesta veu, dóna la
+impressió que la lligadura es creua entre les veus:
+
+@cindex Stem, exemple de sobreescriptura
+@cindex transparent, propietat, exemple
+
+@lilypond[quote,fragment,relative=2,verbatim]
+<<
+  {
+    \tweak Stem.transparent ##t
+    b8~ 8\noBeam
+  }
+\\
+  { b8[ g] }
+>>
+@end lilypond
+
+Per tenir seguretat que la plica que acabem d'esborrar no prem
+massa la lligadura, podem allargar la plica establint el seu valor
+de longitud @code{length} a @code{8},
+
+@lilypond[quote,fragment,relative=2,verbatim]
+<<
+  {
+    \tweak Stem.transparent ##t
+    \tweak Stem.length #8
+    b8~ 8\noBeam
+  }
+\\
+  { b8[ g] }
+>>
+@end lilypond
+
+@funindex \single
+@cindex tweak, generat a partir d'una lligadura
+Ara bé, per a la @emph{sobreescriptura} de la transparència d'un
+objecte gràfic, podríem haver usar l'abreviatura
+@code{\hide} com es va explicar anteriorment.  L'ajustament
+mitjançant @@{tweak} és una operació diferent que afecta sols a
+les propietats generades a partir d'una sola expressió musical.
+Resulta que podem convertir els overrides o sobreescriptures a
+tweaks o ajustaments utilitzant
+@code{\single}, fent possible tornar a escriure l'exemple anterior
+com
+
+@lilypond[quote,fragment,relative=2,verbatim]
+<<
+  {
+    \single \hide Stem
+    \single \hide Flag
+    \tweak Stem.length #8
+    b8~ 8\noBeam
+  }
+\\
+  { b8[ g] }
+>>
+@end lilypond
+
+En aquest cas particular, la diferència amb @code{\once \hide} no
+és massa apreciable.  És important quan existeixen diversos
+objectes al mateix punt del temps musical (com ara les notes d'un
+acord).  En aquest cas,  @code{\once} afecta a tots els objectes,
+mentre que @code{\single} sols afecta un, l'objecte que es genera
+per part de l'expressió musical que li segueix immediatament.
+
+@node Simulació d'un calderó al MIDI
+@unnumberedsubsubsec Simulació d'un calderó al MIDI
+@translationof Simulating a fermata in MIDI
+
+@cindex segell, ús de la propietat
+@cindex fermata, realització en MIDI
+
+Per als objectes fora-del-pentagrama, normalment és millor
+sobreescriure la propietat @code{stencil} («segell») de l'objecte
+que la seva propietat @code{transparent} quan vulgueu treure'ls de
+la sortida impresa.  Mitjançant l'establiment de la propietat
+@code{stencil} d'un objecte al valor @code{#f} podem treure
+l'objecte per complet de la sortida impresa.  Això significa que
+no té efecte sobre la col·locació d'altres objectes que es
+poguessin col·locar en relació a ell.
+
+Per exemple, si volguéssim canviar la indicació de metrònom amb el
+propòsit de simular un calderó a la sortida MIDI, segurament no
+voldríem que la indicació de metrònom aparegui a la sortida
+impresa, i no voldríem influir sobre la separació entre els dos
+sistemes ni sobre la col·locació de les anotacions adjacents sobre
+el pentagrama.  Per tant, establir la seva propietat
+@code{stencil} al valor @code{#f} seria la millor manera. Mostrem
+aquí l'efecte dels dos mètodes:
+
+@cindex MetronomeMark, exemple de sobreescriptura
+@cindex transparent, propietat, exemple
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  \relative c'' {
+    % Visible tempo marking
+    \tempo 4=120
+    a4 a a
+    \once \hide Score.MetronomeMark
+    % Invisible tempo marking to lengthen fermata in MIDI
+    \tempo 4=80
+    a4\fermata |
+    % New tempo for next section
+    \tempo 4=100
+    a4 a a a |
+  }
+  \layout { }
+  \midi { }
+}
+@end lilypond
+
+@cindex MetronomeMark, exemple de sobreescriptura
+@cindex stencil, propietat, exemple
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  \relative c'' {
+    % Visible tempo marking
+    \tempo 4=120
+    a4 a a
+    \once \override Score.MetronomeMark.stencil = ##f
+    % Invisible tempo marking to lengthen fermata in MIDI
+    \tempo 4=80
+    a4\fermata |
+    % New tempo for next section
+    \tempo 4=100
+    a4 a a a |
+  }
+  \layout { }
+  \midi { }
+}
+@end lilypond
+
+@noindent
+Els dos mètodes treuen de la sortida impresa la indicació de
+metrònom que allarga el calderó, i els dos afecten al tempo del
+MIDI tal i com volíem, però la indicació de metrònom transparent
+de la primera línia força una col·locació molt alta de la
+indicació de tempo que segueix, mentre que la segona (amb el
+segell suprimit) no ho fa.
+
+@seealso
+Glossari musical:
+@rglosnamed{system,sistema}.
+
+@node Ús de variables per als ajustaments de disposició
+@subsection Ús de variables per als ajustaments de disposició
+@translationof Using variables for layout adjustments
+
+@cindex variables, usar per a sobreescriptures
+@cindex sobreescriptures, usar variables per a
+@cindex ajustaments, usar variables per a
+@cindex ajustaments de disposició, usar variables per fer
+
+Les ordres de sobreesriptura són amb freqüència llargues i
+tedioses d'escriure, i s'han d'escriure de forma absolutament
+correcta.  Si s'han d'utilitzar les mateixes sobreescriptures
+moltes vegades, podria valdre la pena definir variables per desar-les.
+
+Suposem que volem realçar certes paraules de la lletra d'una cançó
+imprimint-les en cursiva i negreta.  Les ordres @code{\italic} i
+@code{\bold} sols funcionen dins de la lletra de les cançons si
+estan incloses, junt amb la paraula o paraules que es volen
+modificar, dins d'un @code{\markup}, cosa que les fa tedioses
+d'escriure.  La necessitat d'incloure les pròpies paraules
+impedeix que es puguin usar en variables simples. Podríem, com
+alternativa, utilitzar les ordres @code{\override} i
+@code{\revert}?
+
+@example
+@code{\override Lyrics.LyricText.font-shape = #'italic}
+@code{\override Lyrics.LyricText.font-series = #'bold}
+
+@code{\revert Lyrics.LyricText.font-shape}
+@code{\revert Lyrics.LyricText.font-series}
+@end example
+
+Aquestes ordres també serien extremadament tedioses
+d'escriure si hi hagués moltes paraules que volguéssim
+subratllar.  Però sí que @emph{podem} definir-les com a dues
+variables i usar-les per delimitar les paraules a destacar.  Un
+altre avantatge de la utilització de variables per a aquestes
+sobreescriptures és que ja no són necessaris els espais que
+rodegen al punt, atès que no s'interpreten directament al mode
+@code{\lyricmode}.  Heus ací un exemple d'això, tot i que a la
+pràctica potser escolliríem uns noms de variable més curts perquè
+fossin més ràpids de teclejar:
+
+@cindex LyricText, exemple de sobreescriptura
+@cindex font-shape, propietat, exemple
+@cindex font-series, propietat, exemple
+
+@lilypond[quote,verbatim]
+emphasize = {
+  \override Lyrics.LyricText.font-shape = #'italic
+  \override Lyrics.LyricText.font-series = #'bold
+}
+
+normal = {
+  \revert Lyrics.LyricText.font-shape
+  \revert Lyrics.LyricText.font-series
+}
+
+global = { \key c \major \time 4/4 \partial 4 }
+
+SopranoMusic = \relative c' { c4 | e4. e8 g4 g    | a4   a   g  }
+AltoMusic    = \relative c' { c4 | c4. c8 e4 e    | f4   f   e  }
+TenorMusic   = \relative c  { e4 | g4. g8 c4.  b8 | a8 b c d e4 }
+BassMusic    = \relative c  { c4 | c4. c8 c4 c    | f8 g a b c4 }
+
+VerseOne = \lyrics {
+  E -- | ter -- nal \emphasize Fa -- ther, | \normal strong to save,
+}
+
+VerseTwo = \lyricmode {
+  O | \once \emphasize Christ, whose voice the | wa -- ters heard,
+}
+
+VerseThree = \lyricmode {
+  O | \emphasize Ho -- ly Spi -- rit, | \normal who didst brood
+}
+
+VerseFour = \lyricmode {
+  O | \emphasize Tri -- ni -- ty \normal of | love and pow'r
+}
+
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \clef "treble"
+      \new Voice = "Soprano"  { \voiceOne \global \SopranoMusic }
+      \new Voice = "Alto" { \voiceTwo \AltoMusic }
+      \new Lyrics \lyricsto "Soprano" { \VerseOne }
+      \new Lyrics \lyricsto "Soprano" { \VerseTwo }
+      \new Lyrics \lyricsto "Soprano" { \VerseThree }
+      \new Lyrics \lyricsto "Soprano" { \VerseFour }
+    >>
+    \new Staff <<
+      \clef "bass"
+      \new Voice = "Tenor" { \voiceOne \TenorMusic }
+      \new Voice = "Bass"  { \voiceTwo \BassMusic }
+    >>
+  >>
+}
+@end lilypond
+
+
+@node Fulls d'estil
+@subsection Fulls d'estil
+@translationof Style sheets
+
+La sortida que produeix el LilyPond es pot modificar profundament;
+consulteu @ref{Ajustament de la sortida} per llegir detalls sobre
+aquest tema.  Però, què passa si teniu molts fitxers als quals el
+voleu aplicar els seus propis ajustaments?  O, què passa si,
+senzillament, voleu separar els ajustament de la pròpia música?
+Tot això és força fàcil d'aconseguir.
+
+Vegem un exemple.  No us preocupeu si no enteneu les parts que
+tenen tots els @code{#()}.  Això s'explicarà a
+@ref{Ajustaments avançats amb l'Scheme}.
+
+@lilypond[quote,verbatim,ragged-right]
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
+
+inst =
+#(define-music-function
+     (parser location string)
+     (string?)
+   #{ <>^\markup \bold \box #string #})
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a |
+  b4 bes a2 |
+  \inst "Clarinet"
+  cis4.\< d8 e4 fis |
+  g8(\! fis)-. e( d)-. cis2 |
+}
+@end lilypond
+
+Fem alguna cosa respecte a les definicions @code{mpdolce} i
+@code{inst}.  Aquestes definicions produeixen la sortida que
+desitgem, però potser les voldríem utilitzar en una altra peça.
+Podríem simplement copiar-les i enganxar-les al principi de cada
+fitxer, però seria força molest.  També fa que quedin les
+definicions a la vista dins dels nostres fitxers de música, i els
+@code{#()} poden ser poc estètics.  Els amagarem dins d'una altre fitxer:
+
+@example
+%%% deseu el que segueix a un fitxer amb el nom "definicions.ily"
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #@{ \markup @{ \dynamic mp \normal-text \italic \bold dolce @} #@})
+
+inst =
+#(define-music-function
+     (parser location string)
+     (string?)
+   #@{ <>^\markup \bold \box #string #@})
+@end example
+
+Farem referència a aquest fitxer utilitzant l'ordre
+@code{\include} al principi del fitxer de música (l'extensió
+@code{.ily} es fa servir per distingir aquest fitxer d'inclusió
+--que se suposa que no ha de ser processar de forma independent--
+del fitxer principal.  Ara modificarem la música (deseu aquest
+fitxer com @file{musica.ly}).
+
+@c  We have to do this awkward example/lilypond-non-verbatim
+@c  because we can't do the \include stuff in the manual.
+
+@example
+\include "definicions.ily"
+
+\relative c'' @{
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a |
+  b4 bes a2 |
+  \inst "Clarinet"
+  cis4.\< d8 e4 fis |
+  g8(\! fis)-. e( d)-. cis2 |
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
+
+inst =
+#(define-music-function
+     (parser location string)
+     (string?)
+   #{ <>^\markup \bold \box #string #})
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a |
+  b4 bes a2 |
+  \inst "Clarinet"
+  cis4.\< d8 e4 fis |
+  g8(\! fis)-. e( d)-. cis2 |
+}
+@end lilypond
+
+Això té un aspecte millor, però farem alguns canvis més.  El
+glissando és difícil de veure, així que ho farem més gruixut i
+l'aproparem als caps de les notes.  Posarem la indicació de
+metrònom a sobre de la clau, en lloc d'anar a sobre de la primera
+nota.  I per últim, si no ens agraden les indicacions de compàs
+@q{C}, les convertirem a @q{4/4}.
+
+En tot cas, no hem de canviar el fitxer @file{musica.ly}.
+Substituïm en canvi el nostre fitxer @file{definicions.ily} amb
+el següent:
+
+@example
+%%%  definicions.ily
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #@{ \markup @{ \dynamic mp \normal-text \italic \bold dolce @} #@})
+
+inst =
+#(define-music-function
+     (parser location string)
+     (string?)
+   #@{ <>^\markup \bold \box #string #@})
+
+\layout@{
+  \context @{
+    \Score
+    \override MetronomeMark.extra-offset = #'(-5 . 0)
+    \override MetronomeMark.padding = #'3
+  @}
+  \context @{
+    \Staff
+    \override TimeSignature.style = #'numbered
+  @}
+  \context @{
+    \Voice
+    \override Glissando.thickness = #3
+    \override Glissando.gap = #0.1
+  @}
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
+
+inst =
+#(define-music-function
+     (parser location string)
+     (string?)
+   #{ <>^\markup \bold \box #string #})
+
+\layout{
+  \context {
+    \Score
+    \override MetronomeMark.extra-offset = #'(-5 . 0)
+    \override MetronomeMark.padding = #'3
+  }
+  \context {
+    \Staff
+    \override TimeSignature.style = #'numbered
+  }
+  \context {
+    \Voice
+    \override Glissando.thickness = #3
+    \override Glissando.gap = #0.1
+  }
+}
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a |
+  b4 bes a2 |
+  \inst "Clarinet"
+  cis4.\< d8 e4 fis |
+  g8(\! fis)-. e( d)-. cis2 |
+}
+@end lilypond
+
+Això té molt millor aspecte!  Ara suposeu que voleu publicar
+aquesta peça.  Tot que hi ha gent a la que no li agraden les
+indicacions de compàs @q{C}, jo me les estimo.  Copiarem el fitxer
+actual @file{definicions.ily} a @file{publicar-web.ily} i
+modificarem aquest fitxer.  Atès que el propòsit d'aquest música
+és produir un PDF que es mostrarà a la pantalla, també augmentarem
+la mida general de la sortida.
+
+@example
+%%%  publicar-web.ily
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #@{ \markup @{ \dynamic mp \normal-text \italic \bold dolce @} #@})
+
+inst =
+#(define-music-function
+     (parser location string)
+     (string?)
+   #@{ <>^\markup \bold \box #string #@})
+
+#(set-global-staff-size 23)
+
+\layout@{
+  \context @{
+    \Score
+    \override MetronomeMark.extra-offset = #'(-5 . 0)
+    \override MetronomeMark.padding = #'3
+  @}
+  \context @{
+    \Staff
+  @}
+  \context @{
+    \Voice
+    \override Glissando.thickness = #3
+    \override Glissando.gap = #0.1
+  @}
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+mpdolce =
+  \tweak self-alignment-X #-0.6
+  #(make-dynamic-script
+    #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
+
+inst =
+#(define-music-function
+     (parser location string)
+     (string?)
+   #{ <>^\markup \bold \box #string #})
+
+#(set-global-staff-size 23)
+
+\layout{
+  \context { \Score
+    \override MetronomeMark.extra-offset = #'(-5 . 0)
+    \override MetronomeMark.padding = #'3
+  }
+  \context { \Voice
+    \override Glissando.thickness = #3
+    \override Glissando.gap = #0.1
+  }
+}
+
+\relative c'' {
+  \tempo 4=50
+  a4.\mpdolce d8 cis4--\glissando a |
+  b4 bes a2 |
+  \inst "Clarinet"
+  cis4.\< d8 e4 fis |
+  g8(\! fis)-. e( d)-. cis2 |
+}
+@end lilypond
+
+Ara, a la música, simplement substituïm @code{\include
+"definicions.ily"} per @code{\include "publicar-web.ily"}.
+Òbviament podríem fer això encara més pràctic.  Podríem fer un
+fitxer @file{definicions.ily} que contingués sols les definicions
+de @code{mpdolce} i de @code{inst}, un fitxer
+@file{publicar-web.ily} que contingués sols la secció
+@code{\layout} que es va mostrar a l'exemple, i un fitxer
+@file{universitat.ily} que contindria sols els ajustament que
+agraden a cert professor de música.  El començament de
+@file{musica.ly} tindria aleshores aquest aspecte:
+
+@example
+\include "definicions.ily"
+
+%%%  Traieu el comentari d'una sola d'aquestes línies!
+\include "publicar-web.ily"
+%\include "universitat.ily"
+@end example
+
+Aquest enfoc pot ser útil fins i tot si produirà sols un conjunt
+de particel·les.  Hi ha gent que fa servir molts fitxers de
+@q{fulls d'estil} per als seus projectes.  Per fer-los servir,
+simplement s'ha d'iniciar els fitxers de música amb
+@code{\include "../global.ily"}, que conté
+
+@example
+%%%   global.ily
+\version @w{"@version{}"}
+
+#(ly:set-option 'point-and-click #f)
+
+\include "../iniciar/iniciar-definicions.ily"
+\include "../iniciar/iniciar-disposició.ily"
+\include "../iniciar/iniciar-capçaleres.ily"
+\include "../iniciar/iniciar-paper.ily"
+@end example
+
+
+@node Altres fonts d'informació
+@subsection Altres fonts d'informació
+@translationof Other sources of information
+
+La documentació del manual de Referència de Funcionament Intern
+conté muntanyes d'informació sobre el LilyPond, però es pot
+obtenir més informació encara llegint els fitxers interns del
+LilyPond.  Per donar-los una ullada, en primer lloc heu de buscar
+la carpeta corresponent al seu sistema.  La ubicació d'aquesta
+carpeta depèn (a) de si heu aconseguit el LilyPond descarregat un
+binari precompilat des del lloc web lilypond.org o si el vau
+instal·lar mitjançant un gestor de paquets (és a dir, distribuït
+amb el GNU/Linux, o instal·lat sota fink o cygwin) o va ser
+compilat des de la font, i (b) de quin sistema operatiu estigueu
+utilitzant:
+
+@subsubsubheading Descàrrega des de lilypond.org
+
+@itemize @bullet
+@item GNU/Linux
+
+Dirigiu-vos a
+@example
+@file{@var{CARPETA__INSTAL·LACIÓ}/lilypond/usr/@/share/lilypond/current/}
+@end example
+
+@item MacOS X
+
+Dirigiu-vos a
+@example
+@file{@var{CARPETA_INSTAL·LACIÓ}/LilyPond.app/Contents/@/Resources/share/lilypond/current/}
+@end example
+
+o bé fent @code{cd} cap aquest directori des de la Terminal, o bé
+mantenint polsada la tecla de Control i fent clic sobre
+l'aplicació de LilyPond, i aquí escollint @q{Mostrar el contingut
+del paquet}.
+
+@item Windows
+
+Mitjançant l'Explorador del Windows, dirigiu-vos a
+@example
+@file{@var{CARPETA_INSTAL·LACIÓ}/LilyPond/usr/@/share/lilypond/current/}
+@end example
+
+@end itemize
+
+@subsubsubheading Instal·lat mitjançant un gestor de paquets o compilar a partir de la font
+
+Dirigiu-vos a
+@file{@var{PREFIX}/share/lilypond/@var{X.Y.Z}/}, on @var{PREFIX}
+està determinat pel seu administrador de paquets o pel guió
+@code{configure}, i @var{X.Y.Z} és el número de versió del
+LilyPond.
+
+@smallspace
+
+Dins d'aquesta carpeta, les dues subcarpetes interessants són
+
+@itemize
+@item @file{ly/} - conté fitxers en format LilyPond
+@item @file{scm/} - conté fitxers en format Scheme
+@end itemize
+
+Comencem observant alguns fitxers que estan a @file{ly/}.
+Obriu @file{ly/property-init.ly} amb un editor de textos. El
+mateix que fa servir pels fitxers @file{.ly} servirà
+perfectament.  Aquest fitxer conté les definicions de totes les
+ordres estàndard predefinides del LilyPond, com ara
+@code{\stemUp} i @code{\slurDotted}.  Podreu veure que no són res
+més que definicions de variables que contenen una o diverses ordres
+@code{\override}. Per exemple, @code{/tieDotted} està definit de
+tal forma que el seu valor és:
+
+@example
+tieDotted = @{
+  \override Tie.dash-period = #0.75
+  \override Tie.dash-fraction = #0.1
+@}
+@end example
+
+Si no us agraden els valors predeterminats, aquestes ordres
+predefinides es poden redefinir amb facilitat com qualsevol altra
+variable, al principi del seu fitxer de codi d'entrada.
+
+Els següents són els fitxers més útils que es troben a
+@file{ly/}:
+
+@multitable @columnfractions .4 .6
+@headitem Fitxer
+  @tab Contingut
+@item @file{ly/engraver-init.ly}
+  @tab Definicions de contextos de gravadors
+@item @file{ly/paper-defaults-init.ly}
+  @tab Especificacions de valors predeterminats relacionats amb el paper
+@item @file{ly/performer-init.ly}
+  @tab Definicions de contextos d'interpretació
+@item @file{ly/property-init.ly}
+  @tab Definicions de totes les ordres predefinides que són comunes
+@item @file{ly/spanner-init.ly}
+  @tab Definicions de les ordres predefinides relacionades amb els objects d'extensió
+@end multitable
+
+Altres ajustaments (com ara les definicions de les ordres
+d'etiquetatge) s'emmagatzemen com fitxers @file{.scm} (de l'Scheme).
+El llenguatge de programació Scheme es fa servir per proporcionar
+una interfície programable per al funcionament intern del
+LilyPond.  Qualsevol explicació addicional sobre aquests fitxers
+es troba pel moment fora de l'àmbit d'aquest manual, perquè es
+requereixen coneixements del llenguatge Scheme.  S'adverteix als
+usuaris cal una important quantitat de coneixements tècnics o de
+temps per comprendre el llenguatge Scheme i aquests fitxers (vegeu
+@rextendnamed{Scheme tutorial,Tutorial de l'Scheme}.
+
+Si ja teniu aquests coneixements, els fitxers de l'Scheme que us
+poden interessar són:
+
+@multitable @columnfractions .4 .6
+@headitem Fitxer
+  @tab Contingut
+@item @file{scm/auto-beam.scm}
+  @tab Valors predeterminats de sub-barrat
+@item @file{scm/define-grobs.scm}
+  @tab Valors predeterminats de les propietats d'objectes gràfics (grobs)
+@item @file{scm/define-markup-commands.scm}
+  @tab Especificació de totes les ordres d'etiquetatge
+@item @file{scm/midi.scm}
+  @tab Ajustaments predeterminats per a la sortida MIDI
+@item @file{scm/output-lib.scm}
+  @tab Ajustaments que afecten l'aspecte dels trastos, colors, alteracions, línies divisòries, etc.
+@item @file{scm/parser-clef.scm}
+  @tab Definicions de les claus contemplades
+@item @file{scm/script.scm}
+  @tab Ajustaments predeterminats per a les articulacions
+@end multitable
+
+@node Ajustaments avançats amb l'Scheme
+@subsection Ajustaments avançats amb l'Scheme
+@translationof Advanced tweaks with Scheme
+
+Tot i que és possible fer moltes coses amb les ordres
+@code{\override} i @code{\tweak}, tenim una forma fins i tot més
+poderosa de modificar el funcionament del LilyPond, a través d'una
+interfície programable cap a les operacions internes del
+LilyPond.  Es pot incorporar codi escrit en el llenguatge de
+programació Scheme, directament al mecanisme de funcionament del
+LilyPond.  Per suposat, per fer això calen almenys uns
+coneixements bàsics de programació de l'Scheme, i donem una
+instroducció al
+@rextendnamed{Scheme tutorial,Tutorial de l'Scheme}.
+
+Com a exemple que il·lustra una de les moltes possibilitats,
+enlloc de donar a una propietat un valor constant, es pot establir
+el resultat d'un procediment de l'Scheme que s'invoca cada cop que
+el LilyPond accedeix a aquesta propietat.  La propietat es pot
+establir dinàmicament a un valor determinat pel procediment en el
+moment que s'invoca.  En aquest exemple donem als caps de les
+notes un color que depèn de la seva posició dins del pentagrama.
+
+@cindex x11-color, funció, exemple d'utilització
+@cindex NoteHead, exemple de sobreescriptura
+@cindex color, propietat, establir a procediment de l'Scheme
+
+@lilypond[quote,verbatim,ragged-right]
+#(define (color-notehead grob)
+   "Color the notehead according to its position on the staff."
+   (let ((mod-position (modulo (ly:grob-property grob 'staff-position)
+                               7)))
+     (case mod-position
+       ;;   Return rainbow colors
+       ((1) (x11-color 'red    ))  ; for C
+       ((2) (x11-color 'orange ))  ; for D
+       ((3) (x11-color 'yellow ))  ; for E
+       ((4) (x11-color 'green  ))  ; for F
+       ((5) (x11-color 'blue   ))  ; for G
+       ((6) (x11-color 'purple ))  ; for A
+       ((0) (x11-color 'violet ))  ; for B
+       )))
+
+\relative c' {
+  % Arrange to obtain color from color-notehead procedure
+  \override NoteHead.color = #color-notehead
+  a2 b | c2 d | e2 f | g2 a |
+}
+@end lilypond
+
+Es poden trobar exemples addicionals que mostren la utilització
+d'aquestes interfícies programables a
+@rextendnamed{Callback functions,Funcions de callback}.

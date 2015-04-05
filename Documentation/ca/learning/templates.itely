@@ -1,0 +1,247 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+
+@ignore
+    Translation of GIT committish: 67a345f965d169bc1acd23ff4160914fb2142f38
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.16.0"
+
+@node Plantilles
+@appendix Plantilles
+@translationof Templates
+
+Aquesta secció del manual conté plantilles amb la partitura del
+LilyPond ja preparada.  Sols heu d'escriure les notes, llençar el
+LilyPond i gaudir d'unes belles partitures impreses!
+
+@menu
+* Plantilles de pentagrama únic::
+* Plantilles de piano::
+* Plantilles de quartet de corda::
+* Plantilles de conjunts vocals::
+* Plantilles orquestrals::
+* Plantilles per a  notació antiga::
+* Altres plantilles::
+@end menu
+
+
+@node Plantilles de pentagrama únic
+@appendixsec Plantilles de pentagrama únic
+@translationof Single staff templates
+
+@menu
+* Sols notes::
+* Notes i lletra::
+* Notes i acords::
+* Notes, lletra i acords::
+@end menu
+
+@node Sols notes
+@appendixsubsec Sols notes
+@translationof Notes only
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
+{single-staff-template-with-only-notes.ly}
+
+@node Notes i lletra
+@appendixsubsec Notes i lletra
+@translationof Notes and lyrics
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,addversion]
+{single-staff-template-with-notes-and-lyrics.ly}
+
+@node Notes i acords
+@appendixsubsec Notes i acords
+@translationof Notes and chords
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
+{single-staff-template-with-notes-and-chords.ly}
+
+@node Notes, lletra i acords
+@appendixsubsec Notes, lletra i acords
+@translationof Notes lyrics and chords
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
+{single-staff-template-with-notes,-lyrics,-and-chords.ly}
+
+
+@node Plantilles de piano
+@appendixsec Plantilles de piano
+@translationof Piano templates
+
+@menu
+* Piano sol::
+* Piano i melodia amb lletra::
+* Piano amb lletra centrada::
+@end menu
+
+@node Piano sol
+@appendixsubsec Piano sol
+@translationof Solo piano
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
+{piano-template-simple.ly}
+
+@node Piano i melodia amb lletra
+@appendixsubsec Piano i melodia amb lletra
+@translationof Piano and melody with lyrics
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
+{piano-template-with-melody-and-lyrics.ly}
+
+@node Piano amb lletra centrada
+@appendixsubsec Piano amb lletra centrada
+@translationof Piano and melody with lyrics
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
+{piano-template-with-centered-lyrics.ly}
+
+
+@node Plantilles de quartet de corda
+@appendixsec Plantilles de quartet de corda
+@translationof String quartet templates
+
+@menu
+* Quartet de corda simple::
+* Particel·les de quartet de corda::
+@end menu
+
+@node Quartet de corda simple
+@appendixsubsec Quartet de corda simple
+@translationof String quartet
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
+{string-quartet-template-simple.ly}
+
+@node Particel·les de quartet de corda
+@appendixsubsec Particel·les de quartet de corda
+@translationof String quartet parts
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
+{string-quartet-template-with-separate-parts.ly}
+
+
+@node Plantilles de conjunts vocals
+@appendixsec Plantilles de conjunts vocals
+@translationof Vocal ensembles templates
+
+@menu
+* Partitura vocal SATB::
+* Partitura vocal SATB i reducció per a piano automàtica::
+* SATB amb contextos alineats::
+* SATB sobre quatre pentagrames::
+* Estrofes a sol i tornada a dues veus::
+* Melodies d'himnes::
+* Salms::
+@end menu
+
+@node Partitura vocal SATB
+@appendixsubsec Partitura vocal SATB
+@translationof SATB vocal score
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
+{vocal-ensemble-template.ly}
+
+@node Partitura vocal SATB i reducció per a  piano automàtica
+@appendixsubsec Partitura vocal SATB i reducció per a  piano automàtica
+@translationof SATB vocal score and automatic piano reduction
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
+{vocal-ensemble-template-with-automatic-piano-reduction.ly}
+
+@node SATB amb contextos alineats
+@appendixsubsec SATB amb contextos alineats
+@translationof SATB with aligned contexts
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
+{vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
+
+@node SATB sobre quatre pentagrames
+@appendixsubsec SATB sobre quatre pentagrames
+@translationof SATB on four staves
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
+{satb-choir-template---four-staves.ly}
+
+@node Estrofes a sol y tornada a dues veus
+@appendixsubsec Estrofes a sol y tornada a dues veus
+@translationof Solo verse and two-part refrain
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
+{vocal-ensemble-template-with-verse-and-refrain.ly}
+
+@node Melodies d'himnes
+@appendixsubsec Melodies d'himnes
+@translationof Hymn tunes
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
+{hymn-template.ly}
+
+@node Salms
+@appendixsubsec Salms
+@translationof Psalms
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
+{anglican-psalm-template.ly}
+
+
+@node Plantilles orquestrals
+@appendixsec Plantilles orquestrals
+@translationof Orchestral templates
+
+@menu
+* Orquestra cor i piano::
+@end menu
+
+@node Orquestra cor i piano
+@appendixsubsec Orquestra, cor i piano
+@translationof Orchestra choir and piano
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
+{orchestra,-choir-and-piano-template.ly}
+
+
+@node Plantilles per a notació antiga
+@appendixsec Plantilles per a notació antiga
+@translationof Ancient notation templates
+
+@menu
+* Transcripció de música mensural::
+* Plantilla per a transcripció de cant gregorià::
+@end menu
+
+@node Transcripció de música mensural
+@appendixsubsec Transcripció dfe música mensural
+@translationof Transcription of mensural music
+
+@c Line-width below is because of Issue 766.  If that's fixed, it can be removed.
+@lilypondfile[verbatim,quote,ragged-right,texidoc,line-width=140]
+{ancient-notation-template----modern-transcription-of-mensural-music.ly}
+
+@node Plantilla per a transcripció de cant gregorià
+@appendixsubsec Plantilla per a transcripció de cant gregorià
+@translationof Gregorian transcription template
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
+{ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+
+
+@node Altres plantilles
+@appendixsec Altres plantilles
+@translationof Other templates
+
+@menu
+* Combo de jazz::
+@end menu
+
+@node Combo de jazz
+@appendixsubsec Combo de jazz
+@translationof Jazz combo
+
+@c Line-width below is because of Issue 766.  If that's fixed, it can be removed.
+@lilypondfile[verbatim,quote,ragged-right,texidoc,line-width=140]
+{jazz-combo-template.ly}

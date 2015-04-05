@@ -1,0 +1,636 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+
+@ignore
+    Translation of GIT committish: 45d0e015edc53abebada17a0fdb1d665f7edf900
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.16.0"
+
+@node Suggeriments per escriure fitxers d'entrada
+@chapter Suggeriments per escriure fitxers d'entrada
+@translationof Suggestions for writing files
+
+En aquest moment teniu la preparació per començar a escriure
+fitxers del LilyPond més grans -- no sols els petits exemples que
+apareixen en el tutorial, sinó peces completes --. Però, com heu
+de procedir per fer-lo?
+
+En la mesura que el LilyPond entengui els seus fitxers i produeixi
+la sortida que preteníeu, realment no importa massa quin aspecte
+tinguin els vostres fitxers.  Tot i així existeixen algunes altres
+coses a tenir en compte quan s'escriuen fitxers del LilyPond.
+
+@itemize
+@item Què passa si feu un error? L'estructura d'un fitxers del
+LilyPond pot fer que certs errors es facin més fàcils (o més
+difícils) de trobar.
+
+@item Què passa si voleu compartir els vostres fitxers amb altres
+persones? De fet, i si voleu alterar els vostres propis fitxers
+després d'alguns anys?  Alguns fitxers del LilyPond s'entenen a
+primera vista; d'altres poden portar-vos una hora d'entendre.
+
+@item Què passa si voleu actualitzar el vostre fitxers del
+LilyPond per poder-lo usar amb una versió més recent del programa?
+
+La sintaxi de l'entrada es modifica de forma ocasional segons el
+LilyPond es va perfeccionant.  Gairebé tots els canvis es poden
+fer de forma automàtica amb @code{convert-ly}, però a alguns
+altres els caldria una ajuda manual.  Els fitxers del LilyPond es
+poden estructura perquè siguin més fàcils (o més difícils)
+d'actualitzar.
+
+@end itemize
+
+@menu
+* Suggeriments de tipus general::
+* Gravació de música existent::
+* Projectes grans::
+* Solució de problemes::
+* Make i els Makefiles::
+@end menu
+
+
+@node Suggeriments de tipus general
+@section Suggeriments de tipus general
+@translationof General suggestions
+
+Us presentem alguns suggeriments que us poden servir d'ajuda per
+evitar o corregir problemes:
+
+@itemize
+@item @strong{Incloeu els números de @code{\version} a tots els fitxers}.
+Adoneu-vos que totes les plantilles contenen informació sobre la
+versió (@code{\version}).  Us recomanem molt que sempre incloeu la
+versió, tot i que els vostre fitxer pugui ser molt petit.  Des de
+l'experiència personal us podem dir que força frustrant intentar
+recordar el número de versió del LilyPond que estàveu fent servir
+fa uns anys.  @code{convert-ly} requereix que declareu quina
+versió del LilyPond fèieu servir.
+
+@item @strong{Incloeu comprovacions}:
+@rusernamed{Bar and bar number checks,Comprovació de compàs y de
+número de compàs},
+@rusernamed{Octave checks,Comprovació d'octava}.
+Si incloeu comprovacions de tant en tant, en cas que cometeu un
+error podreu localitzar-lo molt més ràpidament.  Amb quina
+freqüència és @q{de tant en tant}?  Depèn de la complexitat de la
+música.  Per a una música molt senzilla, potser tan sols una o
+dues vegades.  Per a una música molt complexa, potser a cada
+compàs.
+
+@item @strong{Un compàs per cada línia de text}. Si hi ha quelcom
+molt complicat, ja sigui a la pròpia música o a la sortida que
+desitgeu produir, sovint convé escriure un sol compàs per a cada
+línia.  L'estalvi en espai de pantalla que s'obté acumulant nou
+compassos per línia no paga la pena si després heu de @q{depurar}
+els fitxers.
+
+@item @strong{Comenteu els fitxers}.  Utilitzeu o bé números de
+compàs (de tant en tant), o referències a temes musicals (@q{segon
+tema dels violins,} @{quarta variació,} etc.).  Potser que no us
+calguin comentaris quan introduïu una peça per primer cop, però si
+voleu tornar a ella o modificar quelcom al cap de dos o tres anys,
+i també si li passeu la font a un amic, serà tot un desafiament
+determinar les seves intencions o de quina menara estava
+estructurat el fitxer si no li heu afegit els comentaris.
+
+@item @strong{Apliqueu marges als claudàtors}.  Molts problemes
+estan casat per una falta d'equilibri en el nombre de @code{@{} i
+@code{@}}.
+
+@item @strong{Escriviu les duracions explícitament} al començament
+de les seccions i identificadors.  Si especifiqueu @code{c4 d e}
+al principi d'una frase (en lloc de sols @code{c d e}) us podeu
+estalviar problemes si reelaboreu la música més tard.
+
+@item @strong{Separeu els ajustaments} de les definicions
+musicals. Consulteu
+@rlearning{Estalvi de tecleig mitjançant variables i funcions} i
+@rlearning{Fulls d'estil}
+
+@end itemize
+
+@node Gravació de música existent
+@section Gravació de música existent
+@translationof Typesetting existing music
+
+Si esteu introduint música a partir d'una partitura existent (és a
+dir, gravant un full de música ja imprès),
+
+@itemize
+
+@item Introduïu al LilyPond cada sistema del manuscrit, o còpia
+física, per separat (però manteniu la pràctica d'escriure un
+compàs per línia de text), i comproveu cada sistema quan l'hàgiu
+acabat.  Podeu usar les propietats @code{showLastLength} o
+@code{showFirstLength} per accelerar el procés (vegeu
+@rusernamed{Skipping corrected music,Omissió de la música corregida}).
+
+@item Definiu @code{mBreak = @{ \break @}} i inseriu
+@code{\mBreak} dins del fitxer d'entrada on el manuscrit tingui un
+salt de línia.  D'aquesta forma us resultarà molt més fàcil
+comparar la música del LilyPond amb l'original.  Quan hageu acabat
+de revisar la vostra partitura podreu definir
+@code{mBreak = @{ @}} per treure tots aquests salts de línia.
+Així permetreu el LilyPond col·locar els salts on el LilyPond el
+consideri més oportú.
+
+@item En escriure una part per a un instrument transpositor dins
+d'una variable, es recomana que les notes estiguin envoltades dins de
+
+@example
+\transpose c altura-natural @{@dots{}@}
+@end example
+
+@noindent
+(on @code{altura-natural} és l'afinació natural de l'instrument)
+de forma que la música dins de la variable estigui realment en Do
+major.  Després podem tornar a transportar-les en sentit invers
+quan s'utilitza la variable, si és necessari, però potser no
+vulguem fer-lo (per exemple en imprimir una partitura en afinació
+de concert, en convertir una part de trombó de clau de Sol a clau
+de Fa, etc.).  És menys probable cometre errors als transports si
+tota la música que està dins de les variables es troba en un to
+coherent.
+
+A més a més, feu els transport exclusivament cap o des de Do
+major.  Això significa que a part de Do major, les úniques
+tonalitats que usarem seran els tons d'afinació dels instruments
+transpositors: bes per a una trompeta en Si bemoll, aes per a un
+clarinet en La bemoll, etc.
+
+@end itemize
+
+@node Projectes grans
+@section Projectes grans
+@translationof Large projects
+
+En treballar en projectes grans es fa essencial tenir una
+estructura clara als fitxers dels LilyPond:
+
+@itemize
+
+@item @strong{Utilitzeu un identificador per a cada veu}, amb un
+mínim d'estructura dins de la definició.  L'estructura de la
+secció @code{\score} és la que canviarà amb major probabilitat:
+per contra, és extremadament improbable que canviï la definició de
+@code{violí} a versions noves del LilyPond.
+
+
+@example
+violí = \relative c'' @{
+g4 c'8. e16
+@}
+@dots{}
+\score @{
+  \new GrandStaff @{
+    \new Staff @{
+      \violí
+    @}
+  @}
+@}
+@end example
+
+@item @strong{Separeu els ajustaments de les definicions
+musicals}. Ja s'ha mencionat amb anterioritat, però per a
+projectes grans és vital.  Potser haurem de canviar la definició
+de @code{fdesprésp}, però en aquest cas sols ho haurem de fer un
+cop, i encara podrem evitar tocar res dins de @code{violí}.
+
+@example
+fdesprésp = _\markup@{
+  \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p @}
+violí = \relative c'' @{
+g4\fluegop c'8. e16
+@}
+@end example
+
+@end itemize
+
+
+@node Solució de problemes
+@section Solució de problemes
+@translationof Troubleshooting
+
+Abans o després escriureu un fitxer que el LilyPond no podrà
+compilar.  Els missatges que el LilyPond proporciona poden
+ajudar-vos a trobar l'error, però en molts casos haureu de portar
+endavant algun tipus d'investigació per determinar l'origen del
+problema.  Les eines més poderoses per a aquest propòsit son el
+comentari d'una sola línia (indicat per @code{%}) i el comentari
+de bloc (indicat per @code{%@{@dots{}%@}}).  Si no sabeu on és el
+problema, comenceu convertint seccions grans del fitxer d'entrada
+en un comentari.  Després d'eliminar una secció convertint-la en
+un comentari, proveu a compilar un fitxer un altre cop.  Si
+funciona, aleshores el problema hauria d'estar a la porció que
+havíeu eliminat.  Si no funciona, continueu eliminant material
+(transformant-lo en comentaris) fins que tingueu quelcom que
+funcioni.
+
+En un cas extrem podríeu acabat amb sols
+
+@example
+\score @{
+  <<
+    % \melodia
+    % \armonia
+    % \baix
+  >>
+  \layout@{@}
+@}
+@end example
+
+@noindent
+(en altres paraules: un fitxer sense música)
+
+Si passa això, no abandoneu.  Traieu el comentari d'una secció
+petita -- diguem-ne la part del baix -- i observeu si funciona.
+Si no és així, transformeu en comentaris tota la música del baix
+(però deixeu el @code{\baix} de la secció @code{\score} no comentat.
+
+@example
+bajo = \relative c' @{
+%@{
+  c4 c c c
+  d d d d
+%@}
+@}
+@end example
+
+Ara comenceu poc a poc traient comentaris a cada cop més fraccions
+de la part del @code{baix} fins que trobeu la línia del problema.
+
+Una altra tècnica de depuració molt útil és la construcció de
+@rweb{Exemples mínims}.
+
+@node Make i els Makefiles
+@section Make i els Makefiles
+@translationof Make and Makefiles
+
+@cindex make, fitxers de
+@cindex make
+
+Possiblement totes les plataformes on pot executar-se el LilyPond
+contemplen una possibilitat de programari anomenada @code{make}.
+Aquest programa llegeix un fitxer especial anomenat
+@code{Makefile} que defineix les relacions de dependència entre
+els fitxers i quines instruccions necessitem donar al sistema
+operatiu per produir un fitxer a partir d'un altre.  Per exemple,
+el fitxer de make detallaria com obtenir
+@file{balada.pdf} i @file{balada.midi} a partir de @file{balada.ly}
+mitjançant l'execució del LilyPond.
+
+Hi ha ocasions en les quals és una bona idea crear un
+@code{Makefile} per al nostre projecte, bé sigui per la nostra
+pròpia comoditat o com a cortesia per a altres que possiblement
+tinguin accés als nostres fitxers font.  Això és cert per a
+projectes molt grans amb molts fitxers d'inclusió i diferents
+opcions de sortida (per exemple partitura completa, particel·les,
+partitura del director, reducció per a piano, etc.), o per a
+projectes que requereixen ordres difícils per muntar-los (com els
+projectes de @code{lilypond-book}). La complexitat i flexibilitat
+dels Mekfiles varia enormement segons les necessitats i
+l'habilitat dels autors.  El programa GNU Make ve instal·lat a les
+distribucions del GNU/Linux i al MacOS X, i també existeix per al
+Windows.
+
+Consulteu el @strong{Manual de GNU Make} per veure tots els
+detalls sobre l'ús de @code{make}, atès que el segueix a
+continuació ofereix sols una pinzellada de tot els és capaç de fer.
+
+Les instruccions que defineixen les regles a un fitxer de make
+difereixen en funció de la plataforma; per exemple, les diferents
+formes del GNU/Linux i del MacOS usen @code{bash}, mentre que el Windows
+usa @code{cmd}.  Observeu que al MacOS C, hem de configurar el
+sistema perquè faci servir l'interpret d'ordres.  A continuació
+presentem alguns makefiles d'exemple, amb versions tant per al
+GNU/Linux/MacOS com per al Windows.
+
+El primer exemple és per a una obra orquestral en quatre moviments
+amb l'estructura de directoris següent:
+
+@example
+Sinfonia/
+|-- MIDI/
+|-- Makefile
+|-- Notes/
+|   |-- cello.ily
+|   |-- xifres.ily
+|   |-- trompa.ily
+|   |-- oboe.ily
+|   |-- trioCordes.ily
+|   |-- viola.ily
+|   |-- violiU.ily
+|   `-- violiDos.ily
+|-- PDF/
+|-- Particelles/
+|   |-- sinfonia-cello.ly
+|   |-- sinfonia-trompa.ly
+|   |-- sinfonia-oboes.ly
+|   |-- sinfonia-viola.ly
+|   |-- sinfonia-violiU.ly
+|   `-- sinfonia-violiDos.ly
+|-- Partitures/
+|   |-- sinfonia.ly
+|   |-- sinfoniaI.ly
+|   |-- sinfoniaII.ly
+|   |-- sinfoniaIII.ly
+|   `-- sinfoniaIV.ly
+`-- sinfoniaDefs.ily
+@end example
+
+Els fitxers @file{.ly} dels directoris @code{Partitures} i
+@code{Particelles} obtenen les notes de fitxers @file{.ily} que estan al
+directori @code{Notes}:
+
+@example
+%%% principi del fitxer "sinfonia-cello.ly"
+\include ../definicionsSinf.ily
+\include ../Notes/cello.ily
+@end example
+
+El makefile tindrà els objectius de @code{partitura} (la peça
+completa en tot el seu esplendor), @code{moviments} (partitura
+completa dels moviments individuals) i @code{particel·les} (parts
+individuals per als faristols). També hi ha un objectiu
+@code{fitxer} que produeix un fitxer tar de distribució (tarball)
+dels fitxers font, adequat per compartir-lo a través de la web o
+per correu electrònic.   A continuació presentem el makefile per a
+GNU/Linux o MacOS C.  S'ha de desar amb el nom exacte
+@code{Makefile} al directori superior del projecte:
+
+@warning{Quan es defineix un objectiu o una regla de patró, les
+línies següents han de començar amb tabuladors, no amb espais.}
+
+@example
+# nom principal dels fitxers de sortida
+nom = sinfonia
+# determinació del nombre de processadors
+CPU_CORES=`cat /proc/cpuinfo | grep -m1 "cpu cores" | sed s/".*: "//`
+# L'ordre per executar el LilyPond
+LILY_CMD = lilypond -ddelete-intermediate-files \
+                    -dno-point-and-click -djob-count=$(CPU_CORES)
+
+# Els sufixos utilitzats a aquest Makefile.
+.SUFFIXES: .ly .ily .pdf .midi
+
+# Els fitxers d'entrada i de sortida es busquen dins dels directoris relacionats a
+# la variable VPATH.  Tots ells són subdirectoris del directori
+# en curs (donat per la variable de GNU make `CURDIR').
+VPATH = \
+  $(CURDIR)/Partitures \
+  $(CURDIR)/PDF \
+  $(CURDIR)/Particelles \
+  $(CURDIR)/Notes
+
+# La regla de patró per crear fitxers PDF i MIDI a partir fitxers d'entrada LY
+# Els fitxers de sortida .pdf es col·loquen al subdirectori `PDF', i els fitxers
+# .midi van al subdirectori `MIDI'.
+%.pdf %.midi: %.ly
+        $(LILY_CMD) $<; \           # Aquesta línia comença amb un salt de tabulació
+        if test -f "$*.pdf"; then \
+            mv "$*.pdf" PDF/; \
+        fi; \
+        if test -f "$*.midi"; then \
+            mv "$*.midi" MIDI/; \
+        fi
+
+notes = \
+  cello.ily \
+  trompa.ily \
+  oboe.ily \
+  viola.ily \
+  violiU.ily \
+  violiDos.ily
+
+# Dependències dels moviments
+$(nom)I.pdf: $(nom)I.ly $(notes)
+$(nom)II.pdf: $(nom)II.ly $(notes)
+$(nom)III.pdf: $(nom)III.ly $(notes)
+$(nom)IV.pdf: $(nom)IV.ly $(notes)
+
+# Dependències de la partitura completa.
+$(nom).pdf: $(nom).ly $(notes)
+
+# Dependències de les particel·les.
+$(nom)-cello.pdf: $(nom)-cello.ly cello.ily
+$(nom)-trompa.pdf: $(nom)-trompa.ly trompa.ily
+$(nom)-oboes.pdf: $(nom)-oboes.ly oboe.ily
+$(nom)-viola.pdf: $(nom)-viola.ly viola.ily
+$(nom)-violiU.pdf: $(nom)-violiU.ly violiU.ily
+$(nom)-violiDos.pdf: $(nom)-violiDos.ly violiDos.ily
+
+# Teclegeu `make partitura' per generar la partitura completa dels quatre
+# moviments com un fitxer únic.
+.PHONY: partitura
+partitura: $(nom).pdf
+
+# Teclegeu `make particelles' per generar totes les particel·les
+# Teclegeu `make pepet.pdf' per generar la particel·la de
+# l'instrument `pepet'.
+
+# Exemple: `make sinfonia-cello.pdf'.
+.PHONY: particellas
+particellas: $(nom)-cello.pdf \
+       $(nom)-violinUno.pdf \
+       $(nom)-violinDos.pdf \
+       $(nom)-viola.pdf \
+       $(nom)-oboes.pdf \
+       $(nom)-trompa.pdf
+
+# Teclegeu `make moviments' per generar els fitxers dels
+# quatre moviments de forma separada.
+.PHONY: moviments
+moviments: $(nom)I.pdf \
+           $(nom)II.pdf \
+           $(nom)III.pdf \
+           $(nom)IV.pdf
+
+all: partitura particelles moviments
+
+fitxer:
+        tar -cvvf stamitz.tar \       # aquesta línia comença amb un salt de tabulació
+        --exclude=*pdf --exclude=*~ \
+        --exclude=*midi --exclude=*.tar \
+        ../Stamitz/*
+@end example
+
+A la plataforma Windows hi ha certes complicacions.  Després de
+descarregar i instal·lar el programa GNU Make per al Windows,
+haurem de configurar la ruta adequada a las variables d'entorn del
+sistema de que l'intèrpret d'ordres del DOS pugui trobar el
+programa Make.  Per fer-lo, polseu amb el botó dret sobre "El meu
+ordinador", escolliu @code{Propietats} i @code{Avançades}. Polseu
+sobre @code{Variables d'entorn}, i després a la pestanya
+@code{Variables del sistema}, seleccioneu @code{Ruta}, polseu
+sobre @code{edita}  i afegiu la ruta al fitxer executable de GNU
+Make, amb la qual cosa quedarà quelcom semblant al següent:
+
+@example
+C:\Fitxers de programa\GnuWin32\bin
+@end example
+
+El makefile en si s'ha de modificar perquè gestioni diverses
+instruccions de l'intèrpret d'ordres i perquè pugui tractar amb
+els espais que apareixen al nom d'alguns directoris del sistema
+predeterminats.  L'objectiu @code{fitxer} s'elimina perquè el
+Windows no té l'ordre @code{tar}, i el Windows a més té una
+extensió predeterminada diferent per als fitxers MIDI.
+
+@example
+## VERSIÓ PER AL WINDOWS
+##
+nom = sinfonia
+LILY_CMD = lilypond -ddelete-intermediate-files \
+                    -dno-point-and-click \
+                    -djob-count=$(NUMBER_OF_PROCESSORS)
+
+#obtenció del nom 8.3 de CURDIR (truc per als espais a PATH)
+workdir = $(shell for /f "tokens=*" %%b in ("$(CURDIR)") \
+          do @@echo %%~sb)
+
+.SUFFIXES: .ly .ily .pdf .mid
+
+VPATH = \
+  $(workdir)/Partitures \
+  $(workdir)/PDF \
+  $(workdir)/Particelles \
+  $(workdir)/Notes
+
+%.pdf %.mid: %.ly
+        $(LILY_CMD) $<      # aquesta línia comença amb un salt de tabulació
+        if exist "$*.pdf"  move /Y "$*.pdf"  PDF/ # començament amb tab
+        if exist "$*.mid" move /Y "$*.mid" MIDI/  # començament amb tab
+
+notes = \
+  cello.ily \
+  xifres.ily \
+  trompa.ily \
+  oboe.ily \
+  trioCordes.ily \
+  viola.ily \
+  violiU.ily \
+  violiDos.ily
+
+$(nom)I.pdf: $(nom)I.ly $(notes)
+$(nom)II.pdf: $(nom)II.ly $(notes)
+$(nom)III.pdf: $(nom)III.ly $(notes)
+$(nom)IV.pdf: $(nom)IV.ly $(notes)
+
+$(nom).pdf: $(nom).ly $(notes)
+
+$(nom)-cello.pdf: $(nom)-cello.ly cello.ily
+$(nom)-trompa.pdf: $(nom)-trompa.ly trompa.ily
+$(nom)-oboes.pdf: $(nom)-oboes.ly oboe.ily
+$(nom)-viola.pdf: $(nom)-viola.ly viola.ily
+$(nom)-violiU.pdf: $(nom)-violiU.ly violiU.ily
+$(nom)-violiDos.pdf: $(nom)-violiDos.ly violiDos.ily
+
+.PHONY: partitura
+partitura: $(nom).pdf
+
+.PHONY: particelles
+particelles: $(nom)-cello.pdf \
+       $(nom)-violiU.pdf \
+       $(nom)-violiDos.pdf \
+       $(nom)-viola.pdf \
+       $(nom)-oboes.pdf \
+       $(nom)-trompa.pdf
+
+.PHONY: moviments
+moviments: $(nom)I.pdf \
+           $(nom)II.pdf \
+           $(nom)III.pdf \
+           $(nom)IV.pdf
+
+all: partitura particelles moviments
+@end example
+
+El Makefile següent és per a un document de
+@command{lilypond-book} fet en LaTeX.  Aquest projecte té un
+índex, que requereix executar l'ordre @command{latex} dues vegades
+per actualitzar els enllaços.  Tots els fitxers de sortida
+s'emmagatzemen al directori @code{sortida} per als documents .pdf
+i al directori @code{sortidahtml} per a la sortida en format html.
+
+@example
+SHELL=/bin/sh
+NOM=elmeuprojecte
+DIR_SORTIDA=sortida
+DIR_WEB=sortidahtml
+VISUALITZADOR=acroread
+NAVEGADOR=firefox
+LILYBOOK_PDF=lilypond-book --output=$(DIR_SORTIDA) --pdf $(NOM).lytex
+LILYBOOK_HTML=lilypond-book --output=$(DIR_WEB) $(NOM).lytex
+PDF=cd $(DIR_SORTIDA) && pdflatex $(NOM)
+HTML=cd $(DIR_WEB) && latex2html $(NOM)
+INDEX=cd $(DIR_SORTIDA) && makeindex $(NOM)
+VISTA_PREVIA=$(VISUALITZADOR) $(DIR_SORTIDA)/$(NOM).pdf &
+
+all: pdf web desar
+
+pdf:
+        $(LILYBOOK_PDF)  # comença amb un tab
+        $(PDF)           # comença amb un tab
+        $(INDEX)        # comença amb un tab
+        $(PDF)           # comença amb un tab
+        $(VISTA_PREVIA)  # comença amb un tab
+
+web:
+        $(LILYBOOK_HTML) # comença amb un tab
+        $(HTML)          # comença amb un tab
+        cp -R $(DIR_WEB)/$(NOM)/ ./  #
+        $(NAVEGADOR) $(NOM)/$(NOM).html &  # comença amb un tab
+
+desar: pdf
+        cp $(DIR_SORTIDA)/$(NOM).pdf $(NOM).pdf  # comença amb un tab
+
+clean:
+        rm -rf $(DIR_SORTIDA) # comença amb un tab
+
+web-clean:
+        rm -rf $(DIR_WEB) # comença amb un tab
+
+fitxer:
+        tar -cvvf elmeuprojecte.tar \ # comença amb un tab
+        --exclude=sortida/* \
+        --exclude=sortidahtml/* \
+        --exclude=elmeuprojecte/* \
+        --exclude=*midi \
+        --exclude=*pdf \
+        --exclude=*~ \
+        ../ElMeuProjecte/*
+@end example
+
+PERFER: aconseguir que funcioni a windows
+
+El makefile anterior no funciona al Windows.  Una alternativa per
+als usuaris del Windows seria crear un fitxer de lots senzill que
+contingui les ordres de muntatge.  Això no segueix les
+dependències com ho fa un makefile, però almenys redueix el procés
+de construcció a una sola instrucció.  Deseu el codi següent com
+@command{muntatge.bat} o @command{muntatge.cmd}. El fitxer de lots
+es pot executar en la línia d'ordres del DOS o simplement fent
+doble clic sobre la seva icona.
+
+@example
+lilypond-book --output=sortida --pdf elmeuprojecte.lytex
+cd sortida
+pdflatex elmeuprojecte
+makeindex elmeuprojecte
+pdflatex elmeuprojecte
+cd ..
+copy sortida\elmeuprojecte.pdf ElMeuProjecte.pdf
+@end example
+
+
+@seealso
+Manual d'utilització del programa:
+@rprogram{Configuració per a MacOS X},
+@rprogram{Utilització des de la línia d'ordres},
+@rprogram{LilyPond-book}

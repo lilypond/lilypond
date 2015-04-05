@@ -1,5 +1,4 @@
-\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
-@c This file is part of web.texi
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
 @ignore
     Translation of GIT committish: feeca25b207bd510705974896d640ea292cd7fc4
 
@@ -20,7 +19,7 @@
 El LilyPond va aparèixer quan dos músics van voler anar més enllà
 de la inexpressiva aparença de la música impresa mitjançant
 ordinador. Els músics prefereixen llegir partitures boniques, així
-que perquè haurien de poder els programadors crear un programari
+que perquè no haurien de poder els programadors crear un programari
 per produir partitures elegants?
 
 El resultat és un sistema que allibera els músics de preocupar-se
@@ -72,7 +71,7 @@ les millors tradicions del gravat musical clàssic.
 @itemize
 
 @item
-@ref{Entrada de text}: Escriuen música coma @emph{text}?!
+@ref{Entrada de text}: Escriuen música com si fos @emph{text}?!
 
 @item
 @ref{Entorns millorats}: Altres formes de treballar amb el LilyPond.
@@ -119,7 +118,7 @@ bella. Tots els ajustos d'estil del LilyPond, el disseny dels
 tipus de lletra i els algoritmes s'han inspirat en la millor
 música gravada a mà. La sortida del Lilypond té el mateix aspecte
 robust, equilibrat i elegant que les partitures clàssiques millor
-gravades. Tot això s'explica amb detall al nostre @ressaynamed{Essay,Monografia}.
+gravades. Tot això s'explica amb detall a la nostra @ressaynamed{Essay,Monografia}.
 
 
 @subsubheading Opcions d'aspecte efectives
@@ -150,7 +149,7 @@ com a referència futura.
 @subsubheading Combinar música i text
 
 Col.loqueu fragments de música dins de textos sense retallar i
-enganxeu imatges. Integreu música dins del @LaTeX{} i HTML de forma
+enganxeu imatges. Integreu música dins del @LaTeX{} i de l'HTML de forma
 senzilla, o afegiu música a documents de l'OpenOffice o del
 LibreOffice mitjançant OOoLilyPond. També hi ha connectors o
 complements disponibles per permetre codi del LilyPond dins de
@@ -160,8 +159,8 @@ diversos blogs i wikis, fent possible la col.laboració en línia.
 
 L'entrada basada en text també fa possible l'escriptura de
 partitures per a usuaris amb deficiències físiques. Els usuaris
-amb alguna dificultat manual que poden teclejar o usar un ratolí
-d'ordinador poden usar programari de reconeixement de veu per
+amb alguna dificultat manual que no poden teclejar o usar un ratolí
+d'ordinador, poden usar programari de reconeixement de veu per
 editar els fitxers del LilyPond. Fins i tot les persones totalment
 cegues poden usar lectors de pantalla per escriure els fitxers del
 Lilypond (una tasca impossible als programes d'edició de
@@ -180,7 +179,7 @@ al complet manual de referència del programa.
 
 @divClass{color3}
 
-@subheading Entorno
+@subheading Entorn
 
 @imageFloat{frescobaldi-lilypond-editor-small,png,right}
 
@@ -202,7 +201,7 @@ GNU/Linux, MacOS X i Windows. El LilyPond ve amb una completa
 documentació i centenars de fitxers d'exemple. Hi ha una activa
 comunitat d'usuaris disposada a respondre dubtes i qüestions a la
 llista de distribució de correu d'usuaris del LilyPond,
-lilypond-user, a l'hora que l'equip de desenvolupament s'assegura
+lilypond-user, a l'hora que l'equip de desenvolupament assegura
 que els problemes es resolen amb rapidesa.
 
 @subsubheading Editors millorats
@@ -218,7 +217,7 @@ alguns exemples, consulteu @ref{Entorns millorats}.
 
 Encara no us convenç el LilyPond? Doneu una ullada a alguns
 @ref{Exemples} concrets. Si ja heu decidit provar el LilyPond, en
-primer lloca informeu-vos de la nostra @ref{Entrada de text}.
+primer lloc informeu-vos de la nostra @ref{Entrada de text}.
 @divEnd
 
 
@@ -1164,7 +1163,7 @@ In particular, don't link to:
 
 @uref{http://www.tunefl.com}
 
-Amb el tunefl es poden compondre tipogràficament les partitures de
+Amb el tunefl es poden gravar les partitures senzilles de
 forma directa en línia sense necessitat d'instal.lar el LilyPond
 localment.  Permet provar totes les capacitats del programa usant
 una interfície web còmoda.
@@ -1191,7 +1190,7 @@ partitures del LilyPond.  Entre les seves possibilitats es troben:
 un assistent de documents que contempla la possibilitat de
 introduir lletres de cançons per a la preparació fàcil de
 documents, i un visor de PDF integrat que contempla la
-possibilitat d'apuntar i clicar amb reflex al codi.
+possibilitat d'apuntar i clicar per mostrar el codi.
 
 @divEnd
 
@@ -1229,12 +1228,12 @@ El Denemo és un editor gràfic que genera codi font del LilyPond,
 en la versió 2.8.7, i també permet la reproducció sonora de la
 música.  Permet els usuaris veure el codi d'entrada de LilyPond en
 paral.lel amb la visualització gràfica.  Es poden aplicar a les
-notes, acords, etc., trucs del LilyPond addicionals i es desen amb
+notes, acords, etc., ajustament addicionals del LilyPond i es desen amb
 el document del Denemo, de forma que els usuaris poden continuar
 editant-lo de manera gràfica.
 
 En moure el cursor pel text del LilyPond es mou també a la
-presentació gràfica, i els errors de sintaxi dels seus trucs del
+presentació gràfica, i els errors de sintaxi dels ajustaments al
 LilyPond es destaquen a la finestra de text quan s'imprimeixen des
 del programa.
 
@@ -1314,8 +1313,8 @@ beta, s'agraeixen les provatures per part dels usuaris.
 
 @item
 @uref{http://enc2ly.sourceforge.net/en/,Enc2ly} és un programa per
-a GNU/Linux que converteix una partitura musical de
-@uref{http://www.gvox.com/,Encore} en una del LilyPond.
+a GNU/Linux que converteix una partitura musical
+d'@uref{http://www.gvox.com/,Encore} en una del LilyPond.
 
 @item
 @uref{https://github.com/hanwen/go-enc2ly,go-enc2ly} és una eina
@@ -1410,7 +1409,7 @@ i @uref{http://canorus.org,Canorus}.
 @item
 @uref{http://lilycomp.sourceforge.net, LilyComp} és un programa
 gràfic d'introducció de notes, que actua més o menys com un
-teclat numèrica que produeix notes del LilyPond.
+teclat numèric que produeix notes del LilyPond.
 
 @end itemize
 
@@ -1422,11 +1421,11 @@ teclat numèrica que produeix notes del LilyPond.
 
 Ja esteu preparat per a @ref{Descàrrega, Descarregar el LilyPond}.
 
-Encara no esteu convençut? Molts compositors, músics i director
-d'orquestra han après a escriure música en el nostra format
+Encara no esteu convençut? Molts compositors, músics i directors
+d'orquestra han après a escriure música en el nostre format
 d'entrada.  Els usuaris amb experiència fins i tot que poden
 introduir una partitura completa al LilyPond més ràpid que amb un
-teclat de piano o amb el ratolí i un GUI! Possiblement li agradi
+teclat de piano o amb el ratolí i un GUI! Possiblement us agradi
 donar una ullada a les @ref{Possibilitats}, @ref{Exemples} o a la
 @ref{Llibertat} i @ref{Ressenyes} dels nostres usuaris. A més a
 més, el nostre enfoc de l'estètica computacional del gravat

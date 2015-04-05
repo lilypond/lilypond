@@ -260,7 +260,7 @@ una cura especial amb el nom (pot ser @code{melodia},
 qualsevol nom que se us acudeixi, sempre i quan contingui sols
 caràcters alfabètics i sigui diferent a qualsevol dels noms
 d'instrucció del LilyPond.  Per veure més detalls, consulteu
-@ref{Estalviar tecleig mitjançant variables i funcions}.  Les
+@ref{Estalvi de tecleig mitjançant variables i funcions}.  Les
 limitacions exactes que afecten els noms de variable es detallen a
 @ruser{File structure}.
 
@@ -566,9 +566,9 @@ servir per grups especials, lligadures d'unió i notes d'adorn, es
 poden barrejar amb total llibertat.  Aquest exemple mostra una
 barra que s'estén cap a l'interior d'un grup de valoració especial
 (línia 1), una lligadura d'expressió que es perllonga cap a
-l'interior d'un grup especial, una lligadura d'unió que travessa
+l'interior d'un grup excedent, una lligadura d'unió que travessa
 dos grups especials, i una lligadura de fraseig que surt de
-l'interior d'un grup especial (línies 3 i 4).
+l'interior d'un grup excedent (línies 3 i 4).
 
 @lilypond[quote,verbatim,ragged-right,relative=1]
 r16[ g \tuplet 3/2 { r16 e'8] }
@@ -588,13 +588,13 @@ està sempre continguda dins d'una veu --el concepte del LilyPond
 més fonamental de tots--.
 
 @menu
-* Escolto veus::
+* Sento veus::
 * Veus explícites::
 * Veus i música vocal::
 @end menu
 
-@node Escolto veus
-@subsection Escolto veus
+@node Sento veus
+@subsection Sento veus
 @translationof I'm hearing Voices
 
 @cindex polifonia
@@ -2246,7 +2246,7 @@ quelcom que no està contemplat aquí? Continueu llegint.
 * Soprano i violoncel::
 * Partitura vocal a quatre veus SATB::
 * Crear una partitura partint de zero::
-* Estalviar tecleig mitjançant variables i funcions::
+* Estalvi de tecleig mitjançant variables i funcions::
 * Partitures i particel.les::
 @end menu
 
@@ -3086,8 +3086,8 @@ MusicaOrganPedal = \relative c {
 Glossari musical:
 @rglos{system}.
 
-@node Estalviar tecleig mitjançant variables i funcions
-@subsection Estalviar tecleig mitjançant variables i funcions
+@node Estalvi de tecleig mitjançant variables i funcions
+@subsection Estalvi de tecleig mitjançant variables i funcions
 @translationof Saving typing with variables and functions
 
 @cindex variables

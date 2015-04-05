@@ -204,7 +204,7 @@ highest-quality sheet music possible.  It brings the aesthetics of
 traditionally engraved music to computer printouts.
 
 Many improvements have been made in the past year since the previous
-main stable version. A few major improvements are: 
+main stable version. A few major improvements are:
 
 @itemize
 @item
@@ -212,7 +212,7 @@ Support for kievan square notation
 @item
 User and programming interfaces have greatly improved
 @item
-Music functions have become quite more versatile 
+Music functions have become quite more versatile
 @end itemize
 
 A full list of new features is given in:
@@ -254,9 +254,6 @@ Colin Campbell, Christian Hitz, Phil Holmes
 
 Translation contributors:
 
-Jean-Charles Malahieude, Till Paala, Yoshiki Sawada 
+Jean-Charles Malahieude, Till Paala, Yoshiki Sawada
 
 @newsEnd
-
-
-

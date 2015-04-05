@@ -617,8 +617,8 @@ c2 d |
 @funindex tuplet
 
 Glossari musical:
-@rglos{note value},
-@rglos{triplet}.
+@rglosnamed{note value,valor de la nota},
+@rglosnamed{triplet,treset}.
 
 Els grups especials com ara els tresets es fan amb la paraula clau
 @code{\tuplet}.  Requereix dos arguments: una fracció i un
