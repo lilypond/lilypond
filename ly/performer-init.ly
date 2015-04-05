@@ -319,7 +319,14 @@
 \context {
   \type "Performer_group"
   \consists "Staff_performer"
+  \accepts ChordNameVoice
+  \defaultchild ChordNameVoice
   \name ChordNames
+}
+
+\context {
+  \Voice
+  \name ChordNameVoice
 }
 
 \context {
