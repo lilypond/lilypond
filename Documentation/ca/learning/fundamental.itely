@@ -187,7 +187,7 @@ resta de les instruccions que comencen amb una barra invertida
 cap expressió musical.  Per tant, es poden posar dins d'un bloc
 @code{\score} o a fora d'ell.  De fet, aquestes instruccions se
 situen en general fora del bloc @code{\score} (per exemple,
-@code{\header} se sol col.locar abans de la instrucció
+@code{\header} se sol col·locar abans de la instrucció
 @code{\score}, com mostra l'exemple que apareix al principi de la
 secció.)
 
@@ -466,7 +466,7 @@ s'imprimeixi a la meitat d'una línia.
 
 @cindex pentagrama, posicionat del
 
-La secció ossia es pot col.locar a sobre del pentagrama de la
+La secció ossia es pot col·locar a sobre del pentagrama de la
 manera següent:
 
 @lilypond[verbatim,quote,ragged-right]
@@ -488,7 +488,7 @@ manera següent:
 Aquest exemple utilitza @code{\with}, que s'explica en tot detall
 més endavant.  És un mitjà per modificar el comportament
 predeterminat d'un sol pentagrama.  En aquest exemple, diu que el
-pentagrama nou s'ha de col.locar per sobre del pentagrama anomenat
+pentagrama nou s'ha de col·locar per sobre del pentagrama anomenat
 @qq{main} en comptes de la posició predeterminada que seria per sota.
 
 @seealso
@@ -735,7 +735,7 @@ Anomenarem això la @emph{construcció simultània}.  Les lligadures
 (de prolongació i d'expressió) solament poden connectar notes
 que estiguin dins de la mateixa veu, en conseqüència les
 lligadures no poden entrar o sortir d'una construcció
-simultània. A la inversa, les veus paral.leles de construccions
+simultània. A la inversa, les veus paral·leles de construccions
 simultànies diferents sobre el mateix pentagrama són la mateixa
 veu. Hi ha altres propietats relatives a les veus que també
 impliquen construccions simultànies. A continuació veiem el mateix
@@ -816,7 +816,7 @@ nota de l'acord precedent.  Així, en
 @code{notaE} és relativa a @code{notaD}, no a @code{notaA}.
 
 Una forma alternativa, que podria ser més clara si les notes a les
-veus estan molt separades, és col.locar una instrucció
+veus estan molt separades, és col·locar una instrucció
 @code{\relative} al principi de cada veu:
 
 @example
@@ -833,7 +833,7 @@ Finalment, analitzem les veus en una peça de música més
 complexa. Heus aquí les notes dels dos primers compassos del segon
 dels Dos Nocturns de Chopin, Op 32.  Aquest exemple s'utilitzarà
 en fases posteriors dins del present capítol i el següent, per
-il.lustrar diverses tècniques per produir notació, i per tant us
+il·lustrar diverses tècniques per produir notació, i per tant us
 demanem que ignoreu per ara qualsevol cosa al codi subjacent que
 li sembli misteriós i tan sols es concentri a la música i les veus
 (totes les complicacions s'explicaran a seccions posteriors).
@@ -958,13 +958,13 @@ invertides (@code{\\}).
 
 @noindent
 Veiem que això arregla la direcció de la plica, però la
-col.locació horitzontal de les notes no és la desitjada.  El
+col·locació horitzontal de les notes no és la desitjada.  El
 LilyPond desplaça les notes interiors quan elles o les seves
-pliques d'una altra manera col.lisionarien amb les veus exteriors,
+pliques d'una altra manera col·lisionarien amb les veus exteriors,
 però això no és el més adequat per a música de piano.  En altres
 situacions, els desplaçaments que el LilyPond aplica poden no
-eliminar les col.lisions.  El LilyPond aporta diverses formes
-d'ajustar la col.locació horitzontal de les notes.  Encara no
+eliminar les col·lisions.  El LilyPond aporta diverses formes
+d'ajustar la col·locació horitzontal de les notes.  Encara no
 estem preparats per veure com es corregeix això, per la qual cosa
 deixarem el problema per a una secció posterior (vegeu la
 propietat @code{force-hshift} a
@@ -1099,7 +1099,7 @@ que es pugui traçar una lligadura per sobre d'elles.
   c16^( d e f
   % Comença una secció simultània de tres veus
   <<
-    % Continua la veu principal en paral.lel
+    % Continua la veu principal en paral·lel
     { g4 f e | d2 e) | }
     % Inicia la segona veu
     \new Voice {
@@ -1180,8 +1180,8 @@ està en silenci, com per exemple:
 @subsubheading Columnes de notes
 
 @cindex columna de notes
-@cindex col.lisions de notes
-@cindex notes, col.lisions de
+@cindex col·lisions de notes
+@cindex notes, col·lisions de
 @cindex desplaçament, instruccions de
 @funindex \shiftOff
 @funindex shiftOff
@@ -1198,7 +1198,7 @@ ocasionalment més) columnes per evitar el solapament dels caps.
 Reben el nom de columnes de notes.  Hi ha columnes diferents per a
 cada veu, i el desplaçament especificat en curs depenent de la veu
 s'aplica a la columna de la nota si en cas contrari es produís una
-col.lisió.  Això es pot veure a l'exemple anterior. Al compàs 2 el
+col·lisió.  Això es pot veure a l'exemple anterior. Al compàs 2 el
 Do a la veu dos està desplaçat a la dreta respecte del Re de la
 veu u, i a l'últim acord el Do de la veu tres també està desplaçat
 a la dreta respecte de les altres notes.
@@ -1206,7 +1206,7 @@ a la dreta respecte de les altres notes.
 Les instruccions @code{\shiftOn}, @code{\shiftOnn},
 @code{\shiftOnnn} i @code{\shiftOff} especifiquen el grau que
 s'han de desplaçar les notes i acords de la veu si en cas contrari
-es produís una col.lisió.  De forma predeterminada, les veus
+es produís una col·lisió.  De forma predeterminada, les veus
 exteriors (normalment les veus u i dos) tenen com a especificació
 @code{\shiftOff}, mentre que les veus interiors (tres i quatre)
 tenen especificat @code{\shiftOn}.  Quan s'aplica un desplaçament,
@@ -1215,7 +1215,7 @@ quatre es desplacen cap a l'esquerra.
 
 @code{\shiftOnn} i @code{\shiftOnnn} defineixen nivells
 addicionals de desplaçament que es poden especificar temporalment
-per resoldre col.lisions en situacions complexes (vegeu
+per resoldre col·lisions en situacions complexes (vegeu
 @rlearningnamed{Real music example,Exemples reals de música}).
 
 Una columna de notes pot contenir sols una nota (o acord) d'una
@@ -1296,7 +1296,7 @@ per desactivar el barrat automàtic.
 @cindex cor, sistema de
 
 Ara reutilitzarem l'exemple anterior de «Judes Macabeu» per a
-il.lustrar aquesta tècnica més flexible.  Primer la reescriurem
+il·lustrar aquesta tècnica més flexible.  Primer la reescriurem
 per que faci servir variables, de manera que la música i la lletra
 es puguin separar de l'estructura de pentagrames.  També
 introduirem una clau de grup de ChoirStaff.  La lletra pròpiament
@@ -1346,7 +1346,7 @@ SopTwoLyrics = \lyricmode {
 Aquesta és l'estructura bàsica de totes les partitures vocals.  Es
 poden afegir més pentagrames segons es necessiti, es poden afegir
 més veus als pentagrames i més estrofes a la lletra, i les
-variables que contenen la música es poden col.locar fàcilment en
+variables que contenen la música es poden col·locar fàcilment en
 fitxers separats quan es facin massa llargs.
 
 @cindex himne, estructura de
@@ -1991,7 +1991,7 @@ tipus de context s'identifica mitjançant la utilització del nom
 del seu tipus, com @code{Staff}, precedit d'una barra invertida:
 @code{\Staff}.  L'enunciat que estableix el valor de la propietat
 és el mateix que el que està en un bloc @code{\with}, presentat
-anteriorment.  Es col.loca en un bloc @code{\context} dins d'un
+anteriorment.  Es col·loca en un bloc @code{\context} dins d'un
 bloc @code{\layout}.  Cada bloc @code{\context} afecta a tots els
 contextos del tipus especificat al llarg del bloc @code{\score} o
 @code{\book} en el que apareix el bloc @code{\layout}.  A
@@ -2084,7 +2084,7 @@ Per eliminar un gravador d'un context únic, usem la instrucció
 @code{\with} situada immediatament després de la instrucció que
 crea el context, com a la secció anterior.
 
-Com a il.lustració, repetim un exemple estret de la secció
+Com a il·lustració, repetim un exemple estret de la secció
 anterior amb les línies del pentagrama eliminades.  Recordeu que
 les línies del pentagrama estan dibuixades pel gravador
 @code{Staff_symbol_engraver}.
@@ -2247,7 +2247,7 @@ quelcom que no està contemplat aquí? Continueu llegint.
 * Partitura vocal a quatre veus SATB::
 * Crear una partitura partint de zero::
 * Estalvi de tecleig mitjançant variables i funcions::
-* Partitures i particel.les::
+* Partitures i particel·les::
 @end menu
 
 @node Soprano i violoncel
@@ -2309,7 +2309,7 @@ melodia = \relative c' @{
 
 No necessitem dues instruccions @code{\version}.  Ens caldrà la
 secció @code{melodia}.  No volem dues seccions @code{\score} (si
-tinguéssim dues @code{\score}s, acabaríem amb dues particel.les
+tinguéssim dues @code{\score}s, acabaríem amb dues particel·les
 per separat.)  Volem les dues juntes, com un duo. Dins de la secció
 @code{\score}, no ens fan falta dos @code{\layout} ni dos
 @code{\midi}.
@@ -2502,7 +2502,7 @@ lower = \relative c, {
 }
 
 \score {
-  <<  % combina el pentagrama del cor i del piano en paral.lel
+  <<  % combina el pentagrama del cor i del piano en paral·lel
     \new ChoirStaff <<
       \new Staff = "sopranos" <<
         \set Staff.instrumentName = #"Soprano"
@@ -2731,7 +2731,7 @@ lower = \relative c, {
 }
 
 \score {
-  <<  % combina el ChoirStaff i PianoStaff en paral.lel
+  <<  % combina el ChoirStaff i PianoStaff en paral·lel
     \new ChoirStaff <<
       \new Staff = "sopranos" <<
         \set Staff.instrumentName = #"Soprano"
@@ -3212,16 +3212,16 @@ modifica, sols haurà d'actualitzar la seva definició @code{\dolce}
 única, enlloc de haver de fer canvis a cadascú dels fitxers
 @file{.ly}.
 
-@node Partitures i particel.les
-@subsection Partitures i particel.les
+@node Partitures i particel·les
+@subsection Partitures i particel·les
 @translationof Scores and parts
 
 En música orquestral, totes les notes s'imprimeixen dues vegades.
-Un cop en les particel.les per a tots els músics, i una altra per
+Un cop en les particel·les per a tots els músics, i una altra per
 a la partitura del director.  Els identificadors es poden usar per
 evitar la duplicació del treball.  La música s'escriu un cop
 s'emmagatzema en una variable.  El contingut d'aquesta variable
-s'usa després per generar tant la particel.la com la partitura del
+s'usa després per generar tant la particel·la com la partitura del
 director.
 
 És molt convenient definir les notes en un fitxer especial.  Per
@@ -3236,7 +3236,7 @@ notesTrompa = \relative c @{
 @end example
 
 @noindent
-Després es fa una particel.la escrivint en un fitxer el següent:
+Després es fa una particel·la escrivint en un fitxer el següent:
 
 @example
 \include "trompa.ly"
@@ -3285,7 +3285,7 @@ llargs.  Per exemple, aquest silenci ocupa 3@tie{}compassos de 2/4
 R2*3
 @end example
 
-Quan s'imprimeix la particel.la s'han de comprimir els silencis
+Quan s'imprimeix la particel·la s'han de comprimir els silencis
 multicompàs.  Això es fa establint una variable de temps de execució
 
 @example

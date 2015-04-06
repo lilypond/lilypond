@@ -219,13 +219,13 @@ L'opció @option{--jail} funciona canviant l'arrel de
 @command{lilypond} a @var{gàbia} just o abans de començar el
 procés de compilació en sí.  Si es fa això es canvien l'usuari i
 el grup als que s'han donat a l'opció, i el directori actual es
-canvia a @var{directori}.  Aquesta instal.lació garanteix que no
+canvia a @var{directori}.  Aquesta instal·lació garanteix que no
 és possible, al menys en teoria, escapar a la gàbia.  Observeu que
 perquè funcioni @option{--jail}, s'ha d'executar
 @command{lilypond} com root, cosa que normalment es pot fer d'una
 forma segura utilitzant @command{sudo}.
 
-La instal.lació d'una gàbia pot ser un assumpte relativament
+La instal·lació d'una gàbia pot ser un assumpte relativament
 complex, atès que hem d'assegurar-nos que el LilyPond pot trobar
 @emph{dins} de la pròpia gàbia tot el que necessita per poder
 compilar la font.  Una típica configuració de gàbia de chroot
@@ -255,7 +255,7 @@ permisos d'escriptura per a aquest usuari, i s'ha de passar el valor
 El LilyPond necessita llegir alguns fitxers mentre s'executa,
 Tots aquests fitxers s'han de copiar  dins de la gàbia, sota la
 mateixa ruta en la qual apareixen al sistema de fitxers real de
-root.  Tot el contingut de la instal.lació del LilyPond (per exemple
+root.  Tot el contingut de la instal·lació del LilyPond (per exemple
 @file{/usr/share/lilypond}) s'ha de copiar.
 
 Si sorgeixen problemes, la forma més senzilla de rastrejar-los és
@@ -431,8 +431,8 @@ mateix efecte que @code{-dno-print-pages}.
 @tab @code{svg}
 @tab Gràfics vectorials escalables.  Crea un únic fitxer
 @code{SVG}, sense tipus tipogràfics de lletra incrustats, per a
-cada pàgina de sortida.  Es recomana instal.lar el tipus de lletra
-Century Schoolbook, que està inclòs a la instal.lació del
+cada pàgina de sortida.  Es recomana instal·lar el tipus de lletra
+Century Schoolbook, que està inclòs a la instal·lació del
 LilyPond, per a un renderitzat òptim.  Sota l'UNIX, bastarà amb
 que copieu aquests fitxers de tipus de lletra del directori del
 Lilypond (normalment @file{/usr/share/lilypond/VERSION/fonts/otf/})
@@ -558,7 +558,7 @@ partitura es processi.
 
 @item @code{job-count}
 @tab @code{#f}
-@tab Processa en paral.lel, usant el nombre de tasques donat.
+@tab Processa en paral·lel, usant el nombre de tasques donat.
 
 @item @code{log-file}
 @tab @code{#f [fitxer]}
@@ -736,7 +736,7 @@ rerefons SVG.
 
 @item @code{trace-memory-frequency}
 @tab @code{#f}
-@tab Registra l'ús de cèl.lules del Scheme aquesta quantitat de
+@tab Registra l'ús de cèl·lules del Scheme aquesta quantitat de
 vegades per segon.  Bolca els resultats en @code{FITXER.stacks} i
 en @code{FITXER.graph}.
 
@@ -800,7 +800,7 @@ passos son vàlids per a Ubuntu GNU/Linux, i poden requerir l'ús de
 
 @itemize
 
-@item Instal.leu els paquets necessaris: el LilyPond, el Ghostscript i l'ImageMagick.
+@item Instal·leu els paquets necessaris: el LilyPond, el Ghostscript i l'ImageMagick.
 
 @item Creeu un usuari nou amb el nom de @code{lily}:
 
@@ -866,7 +866,7 @@ loopdevice=/dev/loop0
 jaildir=/mnt/lilyloop
 # prefix (sense la barra inicial!)
 lilyprefix=usr/local
-# el directori en el qual el LilyPond es troba instal.lat en el sistema
+# el directori en el qual el LilyPond es troba instal·lat en el sistema
 lilydir=/$lilyprefix/lilypond/
 
 userhome=$home/$username
@@ -939,7 +939,7 @@ per acabat, però el pas següent se saltarà.
 @cindex fatal, error
 És clar que alguna cosa va malament, i el LilyPond no pot
 continuar.  Poques vegades passa això.  La causa més freqüent són
-els tipus de lletra mal instal.lats.
+els tipus de lletra mal instal·lats.
 
 @item Error del Scheme
 @cindex traça del Scheme
@@ -1071,7 +1071,7 @@ Això és així perquè no hi ha cap context @code{Staff} quan es
 processa la instrucció override de sobreescriptura, es crea un
 implícitament i la sobreescriptura s'aplica a aquest context, però
 aleshores la instrucció @code{\new Staff} crea un pentagrama nou i
-diferent, en el qual es col.loquen les notes.  El codi correcte
+diferent, en el qual es col·loquen les notes.  El codi correcte
 per acolorir totes les notes de vermell és
 
 @lilypond[quote,verbatim,relative=2]
@@ -1188,7 +1188,7 @@ de forma seqüencial:
 
 @noindent
 però és més probable que us trobeu utilitzant angles dobles de
-manera que els pentagrames nous s'insereixin en paral.lel, és a
+manera que els pentagrames nous s'insereixin en paral·lel, és a
 dir, simultàniament:
 
 @lilypond[quote,verbatim]

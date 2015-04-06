@@ -145,7 +145,7 @@ logotips i imatges de productes.
 
 Moltes distribucions ja inclouen al LilyPond dins dels seus
 dipòsits normals de paquets i amb freqüència són molt més fàcils
-d'instal.lar que els paquets genèrics que oferim aquí. Malgrat
+d'instal·lar que els paquets genèrics que oferim aquí. Malgrat
 això, la versió del LilyPond d'aquests dipòsits podria ser
 @emph{significativament} més antiga que la versió estable actual.
 Si voleu utilitzar els nostres paquets genèrics, comproveu que el
@@ -192,7 +192,7 @@ programa LilyPond. Vegeu @ref{Entorns millorats}.
 @end itemize
 
 
-@subsubheading Instal.lació
+@subsubheading Instal·lació
 
 A la línia d'ordres, escriviu:
 
@@ -201,7 +201,7 @@ cd CAMÍ-DEL-DIRECTORI-DE-DESCÀRREGA
 sh lilypond-@versionStable{}-SISTEMA-OPERATIU.sh
 @end example
 
-@subsubheading Desinstal.lació
+@subsubheading Desinstal·lació
 
 A la línia d'ordres, escriviu:
 
@@ -225,7 +225,7 @@ sh lilypond-@versionStable{}-SIST-OPERATIU.sh --help
 @subheading Paquets específics de cada distribució
 
 Utilitzeu el gestor de paquets de la seva distribució per
-instal.lar o actualitzar a aquestes versions.
+instal·lar o actualitzar a aquestes versions.
 
 @itemize
 
@@ -311,12 +311,12 @@ CPUs G3 i G4 (ordinadors Apple antics).
 
 @end itemize
 
-@subsubheading Instal.lació
+@subsubheading Instal·lació
 
 Feu doble clic sobre el fitxer descarregat.  Després,
 arrossegueu-lo a on voleu.
 
-@subsubheading Desinstal.lació
+@subsubheading Desinstal·lació
 
 Esborreu la carpeta LilyPond.app.
 
@@ -452,30 +452,30 @@ Per a Windows 2000, XP, Vista, Windows 7 i 8.
 
 @end itemize
 
-@subsubheading Instal.lació
+@subsubheading Instal·lació
 
 @enumerate
 
 @item
 Ubiqueu el fitxer descarregat i feu doble clic sobre ell per a
-iniciar l'instal.lador.  Seguiu les instruccions que us indica
-l'instal.lador; us recomanem que deixeu seleccionades totes les
-opcions d'instal.lació i que utilitzeu el camí d'instal.lació
+iniciar l'instal·lador.  Seguiu les instruccions que us indica
+l'instal·lador; us recomanem que deixeu seleccionades totes les
+opcions d'instal·lació i que utilitzeu el camí d'instal·lació
 predeterminat.  Cliqueu sobre el botó @q{finalitzar} quan
-l'instal.lador acabi.  El LilyPond està instal.lat.
+l'instal·lador acabi.  El LilyPond està instal·lat.
 
 @end enumerate
 
-@subsubheading Desinstal.lació
+@subsubheading Desinstal·lació
 
-Per a la desintal.lació, escolliu entre:
+Per a la desintal·lació, escolliu entre:
 
 @enumerate
 
 @item
 Ubicar l'apartat del LilyPond al menú Inici i escollir
-@q{Desinstal.la}.  Cliqueu el botó @q{Finalitza} quan acabi el
-programa de desintal.lació.
+@q{Desinstal·la}.  Cliqueu el botó @q{Finalitza} quan acabi el
+programa de desintal·lació.
 
 @end enumerate
 

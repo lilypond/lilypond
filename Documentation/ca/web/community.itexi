@@ -40,14 +40,14 @@
 @itemize
 
 @item
-@ref{Presteu la vostra ajuda}: se sol.licita la vostra col.laboració.
+@ref{Presteu la vostra ajuda}: se sol·licita la vostra col·laboració.
 
 
 @item
 @ref{Patrocini}: contribucions financeres.
 
 @item
-@ref{Desenvolupament}: per a col.laboradors i pilots de prova.
+@ref{Desenvolupament}: per a col·laboradors i pilots de prova.
 
 @item
 @ref{GSoC 2012}: les nostres idees per a l'edició 2012 del «Google
@@ -63,7 +63,7 @@ Summer of Code» (Estiu de Codi del Google).
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Miscel.lània
+@subheading Miscel·lània
 
 @itemize
 
@@ -130,7 +130,7 @@ escriure a la llista lilypond-user mitjançant el gmane}
 @subsubheading El dipòsit de fragments de codi del LilyPond
 
 El dipòsit de fragments de codi del LilyPond és una gran
-col.lecció d'exemple enviats pels usuaris, que es poden copiar i
+col·lecció d'exemple enviats pels usuaris, que es poden copiar i
 usar lliurement en les seves pròpies obres. Vegeu les coses que
 han escrit els altres, i afegiu les vostres pròpies!
 
@@ -644,7 +644,7 @@ implementació, simplificació, documentació i depuració.
 @c it's good to emphasize the "stable" part.  -gp
 @warning{Aquestes són les versionns @emph{inestables de
 desenvolupment}.  Si teniu el més lleuger dubte en torn a com usar
-o instal.lar el LilyPond, us comminem a utilitzar la
+o instal·lar el LilyPond, us comminem a utilitzar la
 @ref{Descàrrega, descàrrega estable}, i llegeixi els @ref{Manuals,
 manuals estables}.}
 
@@ -665,7 +665,7 @@ un número @q{menor} de versió imparell (per exemple 2.7, 2.9, 2.11).
 @divClass{column-left-top}
 @subheading Descàrrega
 
-Les instruccions de Git i per a la compilació estan a la Guia del Col.laborador.
+Les instruccions de Git i per a la compilació estan a la Guia del Col·laborador.
 
 @quotation
 @uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, Dipòsit Git del LilyPond}
@@ -700,16 +700,16 @@ voldran descarregar l'últim fitxer binari:
 
 
 @divClass{column-right-top}
-@subheading Guia del col.laborador
+@subheading Guia del col·laborador
 
 El desenvolupament del LilyPond és un assumpte força complicat.
 El LilyPond és un projecte gran i (més o menys) estable.  Per
-poder ajudar als nous col.laboradors, i per mantenir tot el
+poder ajudar als nous col·laboradors, i per mantenir tot el
 sistema (més o menys) estable, hem escrit un manual per als
-col.laboradors.
+col·laboradors.
 
-@docLinksBare{Guia del col.laborador, contribuïdor,
-  @rcontribnamed{Top,Guía del col.laborador},
+@docLinksBare{Guia del col·laborador, contribuïdor,
+  @rcontribnamed{Top,Guía del col·laborador},
   @manualDevelContributorSplit,
   @manualDevelContributorBig, 500 kB,
   @manualDevelContributorPdf, 2.8 MB}
@@ -909,9 +909,9 @@ estudiants una ajuda perquè treballin en projectes de programari
 de codi obert durant les vacances d'estiu.
 
 L'equip del LilyPond va decidir que aquesta era una oportunitat
-excel.lent per trobar col.laboradors nous i animar els estudiants
+excel·lent per trobar col·laboradors nous i animar els estudiants
 que ja participen en el desenvolupament del LilyPond a què
-s'impliquin encara més. Un dels nostre col.laboradors ha estat
+s'impliquin encara més. Un dels nostre col·laboradors ha estat
 seleccionat per a l'edició del program com a part del
 @uref{http://www.gnu.org/, project GNU}; esperem poder participar
 també a edicions futures.
@@ -923,7 +923,7 @@ també a edicions futures.
 
 Més a baix hi apareix una llista dels projectes que hem suggerit
 per als estudiants del GSoC 2012.  Tot i que ha finalitzat el plaç
-de sol.licituds, hem decidit mantenir visible aquesta pàgina com
+de sol·licituds, hem decidit mantenir visible aquesta pàgina com
 inspiració per a qualsevol persona interessada en el
 desenvolupament del LilyPond.  Alguns membres de l'equip de
 desenvolupament estan disposats a prestar la seva ajuda a aquells
@@ -1005,7 +1005,7 @@ Sovint la forma predeterminada de les corbes de lligadura no és
 satisfactòria.  No estan contemplades les lligadures d'unió entre
 notes enharmòniques @code{@{ dos' - reb' @}}, les lligadores
 "trencades" per una clau o un canvi de pauta no estan ben
-contemplades.  El projecte inclou la recol.lecció i ordenació
+contemplades.  El projecte inclou la recol·lecció i ordenació
 d'exemples de sortida defectuosa, decidir sobre la sortida que es
 desitja tenir i escriure el codi corresponent.
 
@@ -1092,7 +1092,7 @@ que introduís més advertiments dels que hi ha actualment.
 
 
 @divClass{column-center-top}
-@subheading Col.laboradors actuals
+@subheading Col·laboradors actuals
 
 @divClass{keep-bullets}
 @subsubheading Programació
@@ -1124,7 +1124,7 @@ que introduís més advertiments dels que hi ha actualment.
 
 
 @divClass{column-center-bottom}
-@subheading Col.laboradors anteriors
+@subheading Col·laboradors anteriors
 
 @divClass{keep-bullets}
 @subsubheading Programació
@@ -1249,7 +1249,7 @@ Llista descriptiva dels canvis per versió:
 @divClass{column-center-bottom}
 @subheading Agraïments
 
-Gràcies als desenvolupadors, col.laboradors, i caçadors de
+Gràcies als desenvolupadors, col·laboradors, i caçadors de
 fallades i aportadors de suggeriments per
 @miscLink{THANKS-2.16,v2.16},
 @miscLink{THANKS-2.14,v2.14},

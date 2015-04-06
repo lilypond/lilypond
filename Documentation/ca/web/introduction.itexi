@@ -106,7 +106,7 @@ les millors tradicions del gravat musical clàssic.
 
 
 @subheading Elegància
-@subsubheading Excel.lència al gravat clàssic
+@subsubheading Excel·lència al gravat clàssic
 
 @imageFloat{flat-design,png,right}
 
@@ -148,12 +148,12 @@ com a referència futura.
 
 @subsubheading Combinar música i text
 
-Col.loqueu fragments de música dins de textos sense retallar i
+Col·loqueu fragments de música dins de textos sense retallar i
 enganxeu imatges. Integreu música dins del @LaTeX{} i de l'HTML de forma
 senzilla, o afegiu música a documents de l'OpenOffice o del
 LibreOffice mitjançant OOoLilyPond. També hi ha connectors o
 complements disponibles per permetre codi del LilyPond dins de
-diversos blogs i wikis, fent possible la col.laboració en línia.
+diversos blogs i wikis, fent possible la col·laboració en línia.
 
 @subsubheading Accessibilitat
 
@@ -194,7 +194,7 @@ modificar-lo i copiar-lo. Així doncs, esteu fart d'alguna fallada
 o demaneu alguna funcionalitat determinada? Tan sols afegiu-la
 personalment, o pagueu a algú que ho faci.
 
-@subsubheading Excel.lent suport
+@subsubheading Excel·lent suport
 
 El LilyPond funciona amb totes les plataformes populars:
 GNU/Linux, MacOS X i Windows. El LilyPond ve amb una completa
@@ -277,7 +277,7 @@ Es poden crear diferents materials de lectura a partir del mateix
 codi font. Heus aquí un extracte de la realització del
 @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux} de @emph{Giulio
 Cesare} del Haendel, en partitura completa, reducció per a piano y
-veu, i una particel.la de violí.
+veu, i una particel·la de violí.
 
 @exampleImage{sesto-full}
 
@@ -314,7 +314,7 @@ Journal}. S'han afegit alguns colors per millorar la visibilitat.
 @newsItem
 @subsubheading Música vocal
 
-El LilyPond és excel.lent per a tot tipus de música vocal, des
+El LilyPond és excel·lent per a tot tipus de música vocal, des
 d'himnes de música sacra fins a òperes. A continuació presentem un
 motet medieval amb uns requisits lleugerament inusuals. La veu de
 tenor està escrita en un compàs diferent a les altres però s'ha
@@ -352,7 +352,7 @@ profundament per complir amb gairebé qualsevol situació.
 @newsItem
 @subsubheading Projectes grans
 
-El LilyPond és excel.lent per a projectes grans com ara òperes o
+El LilyPond és excel·lent per a projectes grans com ara òperes o
 també obres per a orquestra simfònica. A més a més, l'entrada
 basada en text proporciona una major accessibilitat (aquest exemple
 ha estat aportat per Hu Haipeng, un compositor cec).
@@ -399,7 +399,7 @@ Sense cost: descarregueu-lo i proveu-lo! Que podeu perdre?
 
 @item
 Compartir: si us agrada el programa passeu una còpia a les vostres
-amistats, professors i professores, alumnes i col.legues!
+amistats, professors i professores, alumnes i col·legues!
 
 @item
 Disponibilitat de la font: si teniu curiositat sobre com el
@@ -547,7 +547,7 @@ per a la traducció holandesa del @emph{Saint Nicolas} del Benjamin
 Britten realitzat per @emph{Muziektheater Hollands Diep} el 2011,
 @uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft,
 www.muziektheaterhollandsdiep.nl}; i està treballant actualment en
-la partitura general i particel.les d'un arranjament del
+la partitura general i particel·les d'un arranjament del
 @emph{Boris Godounov} del Moussurgsky per a quartet de vent,
 piano i percussió.  S'interpretarà el 2014, de nou per part de
 @emph{Muziektheater Hollands Diep}.
@@ -860,7 +860,7 @@ facilitat d'ús i aparença dels resultats!}
 
 @divClass{testimonial-item}
 @imageFloat{darius-blasband,jpg, right}
-@subsubheading Darius Blasband, compositor (Brussel.les, Bèlgica)
+@subsubheading Darius Blasband, compositor (Brussel·les, Bèlgica)
 
 @qq{[...després de primer assaig orquestral] vaig obtenir
 nombrosos complits sobre la qualitat de les partitures. El que és
@@ -913,7 +913,7 @@ tots els compositors s'han quedat bocabadats per la qualitat del
 gravat que se'l presentava amb les proves de la seva música prèvia
 a la publicació. Em reservo part del mèrit d'això (ocupo molt
 temps a alterar els resultats, especialment les lligadures,
-sobretot als acords), però el LilyPond em dóna un excel.lent punt
+sobretot als acords), però el LilyPond em dóna un excel·lent punt
 de partida, una interfície molt intuïtiva, i la capacitat de
 modificar absolutament qualsevol cosa si el vull dedicar el temps
 necessari. Estic convençut que cap producte comercial se li apropa
@@ -941,7 +941,7 @@ més m'agrada!}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, col.laborador de @uref{http://www.mutopiaproject.org/, Mutopia}
+@subsubheading @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}, col·laborador de @uref{http://www.mutopiaproject.org/, Mutopia}
 
 @qq{Tenia una espècie de relació passió-odi amb el
 LilyPond. Passió perquè la primera partitura que vaig veure era
@@ -1064,12 +1064,12 @@ Aplegui acords i lletra per obtenir un full guia d'acords:
 
 
 
-@subsubheading Particel.les d'orquestra
+@subsubheading Particel·les d'orquestra
 
 El fitxer d'entrada conté les notes d'una peça musical  La
-partitura i les particel.les es poden fer a partir d'un sol fitxer
+partitura i les particel·les es poden fer a partir d'un sol fitxer
 d'entrada, de manera que un canvi en una nota sempre afecta tant a
-les particel.les com a la partitura general.  Per poder incloure la
+les particel·les com a la partitura general.  Per poder incloure la
 mateixa música en diversos llocs, assignem la música a una
 @qq{variable} (un nom):
 
@@ -1107,7 +1107,7 @@ Teniu a la vostra disposició una documentació molt més profunda a
 la secció @ref{Manuals}.
 
 Ben Lemon, usuari del LilyPond, ha creat i publicat una
-col.lecció de
+col·lecció de
 @uref{http://benlemon.me/blog/music/lilypond/operation-lilypond/,tutorials
 en vídeo} al seu blog, dirigits a nous usuaris.
 
@@ -1164,7 +1164,7 @@ In particular, don't link to:
 @uref{http://www.tunefl.com}
 
 Amb el tunefl es poden gravar les partitures senzilles de
-forma directa en línia sense necessitat d'instal.lar el LilyPond
+forma directa en línia sense necessitat d'instal·lar el LilyPond
 localment.  Permet provar totes les capacitats del programa usant
 una interfície web còmoda.
 
@@ -1227,7 +1227,7 @@ d'utilitzar i funciona en tots els principals sistemes operatius
 El Denemo és un editor gràfic que genera codi font del LilyPond,
 en la versió 2.8.7, i també permet la reproducció sonora de la
 música.  Permet els usuaris veure el codi d'entrada de LilyPond en
-paral.lel amb la visualització gràfica.  Es poden aplicar a les
+paral·lel amb la visualització gràfica.  Es poden aplicar a les
 notes, acords, etc., ajustament addicionals del LilyPond i es desen amb
 el document del Denemo, de forma que els usuaris poden continuar
 editant-lo de manera gràfica.
@@ -1343,8 +1343,8 @@ Composer al LilyPond.
 @item
 @uref{https://github.com/ciconia/ripple/blob/master/README.markdown,Ripple}
 és un programa que ajuda en la creació de partitures i
-particel.les, i que inclou un mode per barrejar diferents obres
-musicals a una sola partitura o particel.la.
+particel·les, i que inclou un mode per barrejar diferents obres
+musicals a una sola partitura o particel·la.
 
 @item
 @uref{http://www.rosegardenmusic.com,Rosegarden}, un seqüenciador
