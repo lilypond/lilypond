@@ -283,6 +283,14 @@
   dynamicAbsoluteVolumeFunction = #default-dynamic-absolute-volume
   instrumentEqualizer = #default-instrument-equalizer
   drumPitchTable = #(alist->hash-table midiDrumPitches)
+
+  %% \quoteDuring is supposed to quote everything but we don't admit
+  %% cue events by default in order not to get multiple midi
+  %% renditions in an orchestral score.
+
+  quotedEventTypes = #'(StreamEvent)
+  quotedCueEventTypes = #'()
+
   timing = ##t
 }
 
