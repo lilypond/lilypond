@@ -136,7 +136,8 @@ void
 Ambitus_engraver::acknowledge_note_head (Grob_info info)
 {
   Stream_event *nr = info.event_cause ();
-  if (nr && nr->in_event_class ("note-event"))
+  if (nr && nr->in_event_class ("note-event")
+      && !to_boolean (info.grob ()->get_property ("ignore-ambitus")))
     {
       SCM p = nr->get_property ("pitch");
       /*

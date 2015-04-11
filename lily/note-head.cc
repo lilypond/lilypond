@@ -207,6 +207,7 @@ ADD_INTERFACE (Note_head,
                "duration-log "
                "note-names "
                "accidental-grob "
+               "ignore-ambitus "
                "glyph-name "
                "stem-attachment "
                "style "

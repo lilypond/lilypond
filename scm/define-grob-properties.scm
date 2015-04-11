@@ -214,8 +214,9 @@ increments from this initial value.")
 dash structure.  Each @code{dash-element} has a starting t value,
 an ending t-value, a @code{dash-fraction}, and a @code{dash-period}.")
      (dash-fraction ,number? "Size of the dashes, relative to
-@code{dash-period}.  Should be between @code{0.1} and @code{1.0}
-(continuous line).  If set to @code{0.0}, a dotted line is produced")
+@code{dash-period}.  Should be between @code{0.1} and
+@code{1.0} (continuous line).  If set to @code{0.0}, a dotted line is
+produced")
      (dash-period ,number? "The length of one dash together with
 whitespace.  If negative, no line is drawn at all.")
      (default-direction ,ly:dir? "Direction determined by note head
@@ -530,6 +531,8 @@ the string will be assigned to the @code{id} attribute of a group (<g>)
 that encloses the stencils that comprise the grob.  In the Postscript
 backend, as there is no way to group items, the setting of the id property
 will have no effect.")
+     (ignore-ambitus ,boolean? "If set, don't consider this notehead
+for ambitus calculation.")
      (ignore-collision ,boolean? "If set, don't do note collision
 resolution on this @code{NoteColumn}.")
      (implicit ,boolean? "Is this an implicit bass figure?")

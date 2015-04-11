@@ -154,6 +154,7 @@
      . (
         (duration-log . 2)
         (glyph-name . ,note-head::calc-glyph-name)
+        (ignore-ambitus . #t)
         (stencil . ,ly:note-head::print)
         (Y-offset . ,staff-symbol-referencer::callback)
         (Y-extent . ,grob::always-Y-extent-from-stencil)

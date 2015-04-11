@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.19.16"
+\version "2.19.19"
 
 \context {
   \name "Global"
@@ -277,6 +277,7 @@ multiple voices on the same staff."
   \name "CueVoice"
   \alias "Voice"
   fontSize = #-4
+  \override NoteHead.ignore-ambitus = ##t
   \override Stem.length-fraction = #(magstep -4)
   \override Beam.length-fraction = #(magstep -4)
   \override Beam.beam-thickness = #0.35
