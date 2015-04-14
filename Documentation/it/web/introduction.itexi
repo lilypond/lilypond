@@ -119,6 +119,9 @@ L'output di LilyPond ha lo stesso aspetto netto, equilibrato ed elegante
 delle migliori partiture classiche.  Questo è stato approfondito nel nostro
 @ref{Essay}.
 
+@divEnd
+
+
 @divClass{column-center-top}
 @subheading Input testuale
 
@@ -282,8 +285,10 @@ dalla pagina di download.
 permesso di modificarlo e copiarlo.  Sei infastidito da un
 malfunzionamento, o desideri una nuova funzionalità? Puoi aggiungerla tu
 stesso, o pagare qualcun altro per farlo.
+Maggiori informazioni in @ref{Freedom}.
 
 
+@divEnd
 @divClass{column-center-bottom}
 @subheading E ora?
 
