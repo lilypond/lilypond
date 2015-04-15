@@ -905,12 +905,25 @@ and duration-log @var{log}."
     (list (stencil-whiteout lp)
           (stencil-whiteout rp))))
 
+(define-public (parentheses-item::y-extent grob) (ly:grob::stencil-height grob))
+
 (define (parenthesize-elements grob . rest)
   (let* ((refp (if (null? rest)
                    grob
                    (car rest)))
-         (elts (ly:grob-object grob 'elements))
-         (x-ext (ly:relative-group-extent elts refp X))
+         (elts (ly:grob-array->list (ly:grob-object grob 'elements)))
+         (get-friends
+           (lambda (g)
+             (let ((syms (ly:grob-property g 'parenthesis-friends '()))
+                   (get-friend (lambda (s)
+                                 (let ((f (ly:grob-object g s)))
+                                   (cond
+                                     ((ly:grob? f) (list f))
+                                     ((ly:grob-array? f) (ly:grob-array->list f))
+                                     (else '()))))))
+               (apply append (map get-friend syms)))))
+         (friends (apply append elts (map get-friends elts)))
+         (x-ext (ly:relative-group-extent friends refp X))
          (stencils (ly:grob-property grob 'stencils))
          (lp (car stencils))
          (rp (cadr stencils))

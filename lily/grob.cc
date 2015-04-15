@@ -818,6 +818,7 @@ ADD_INTERFACE (Grob,
                "meta "
                "minimum-X-extent "
                "minimum-Y-extent "
+               "parenthesis-friends "
                "pure-Y-offset-in-progress "
                "rotation "
                "skyline-horizontal-padding "

@@ -777,6 +777,10 @@ If unset, the value from @code{self-alignment-X} property will be
 used.")
      (parent-alignment-Y ,number? "Like @code{parent-alignment-X}
 but for the Y@tie{}axis.")
+     (parenthesis-friends ,list? "A list of Grob types, as symbols.
+When parentheses enclose a Grob that has 'parenthesis-friends, the
+parentheses widen to include any child Grobs with type among
+'parenthesis-friends.")
      (parenthesized ,boolean? "Parenthesize this grob.")
      (positions ,number-pair? "Pair of staff coordinates
 @code{(@var{left} . @var{right})}, where both @var{left} and

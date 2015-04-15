@@ -1635,6 +1635,7 @@
         (extra-spacing-height . ,ly:note-head::include-ledger-line-height)
         (glyph-name . ,note-head::calc-glyph-name)
         (ligature-flexa . #f)
+        (parenthesis-friends . (accidental-grob dot))
         (stem-attachment . ,ly:note-head::calc-stem-attachment)
         (stencil . ,ly:note-head::print)
         (X-offset . ,ly:note-head::stem-x-shift)
@@ -1734,6 +1735,7 @@
         ;; horizontal attachment.  ParenthesesItem does not reserve
         ;; space of its own, however.
         (X-extent . (0 . 0))
+        (Y-extent . ,parentheses-item::y-extent)
         (meta . ((class . Item)
                  (interfaces . (font-interface
                                 parentheses-interface))))))
@@ -1881,6 +1883,7 @@
         (cross-staff . ,ly:rest::calc-cross-staff)
         (duration-log . ,stem::calc-duration-log)
         (minimum-distance . 0.25)
+        (parenthesis-friends . (dot))
         (stencil . ,ly:rest::print)
         (voiced-position . 4)
         (X-extent . ,ly:rest::width)
@@ -2355,6 +2358,7 @@
         (duration-log . ,note-head::calc-duration-log)
         (font-series . bold)
         (font-size . -2)
+        (parenthesis-friends . (dot))
         (stem-attachment . (0.0 . 1.35))
         (stencil . ,tab-note-head::print)
         (whiteout . #t)
