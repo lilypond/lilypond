@@ -54,7 +54,7 @@ music =  \relative c' {
   }
   \alternative {
     { d1 }
-    { \repeatGliss c e1 }
+    { \repeatGliss c \once \omit StringNumber e1\2 }
   }
 }
 
