@@ -261,14 +261,24 @@ public:
 void protect_smob (SCM smob, SCM *prot_cons);
 void unprotect_smob (SCM smob, SCM *prot_cons);
 
-template <class Super>
-class Smob : public Smob_base<Super> {
-private:
+// The Smob_core class is not templated and contains material not
+// depending on the Super class.
+
+class Smob_core {
+protected:
   SCM self_scm_;
+  Smob_core () : self_scm_ (SCM_UNDEFINED) { };
+public:
+  SCM self_scm () const { return self_scm_; }
+};
+
+template <class Super>
+class Smob : public Smob_core, public Smob_base<Super> {
+private:
   SCM protection_cons_;
   Smob (const Smob<Super> &); // Do not define!  Not copyable!
 protected:
-  Smob () : self_scm_ (SCM_UNDEFINED), protection_cons_ (SCM_EOL) { };
+  Smob () : protection_cons_ (SCM_EOL) { };
 public:
   static size_t free_smob (SCM obj)
   {
@@ -294,7 +304,6 @@ public:
     unprotect_smob (s, &protection_cons_);
     return s;
   }
-  SCM self_scm () const { return self_scm_; }
 };
 
 extern bool parsed_objects_should_be_dead;
