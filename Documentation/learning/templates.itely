@@ -106,11 +106,11 @@ parts:
 
 @lilypond[verbatim, quote]
   SopranoMusic = \relative { a'4 a a a }
-  SopranoLyricsOne = \lyricsto "Soprano" {
+  SopranoLyricsOne = \lyricmode {
     \set stanza = "1."
     Words to verse one
   }
-  SopranoLyricsTwo = \lyricsto "Soprano" {
+  SopranoLyricsTwo = \lyricmode {
     \set stanza = "2."
     Words to verse two
   }
