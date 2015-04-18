@@ -1012,6 +1012,7 @@ Otherwise, return #f."
 
 (define-extra-display-method PartCombineMusic (expr parser)
   (with-music-match (expr (music 'PartCombineMusic
+                                 direction ?dir
                                  elements ((music 'UnrelativableMusic
                                                   element (music 'ContextSpeccedMusic
                                                                  context-id "one"
@@ -1022,10 +1023,34 @@ Otherwise, return #f."
                                                                  context-id "two"
                                                                  context-type 'Voice
                                                                  element ?sequence2)))))
-                    (format #f "\\partcombine ~a~a~a"
+                    (format #f "\\partcombine~a ~a~a~a"
+                            (cond ((equal? ?dir UP) "Up")
+                                  ((equal? ?dir DOWN) "Down")
+                                  (else ""))
                             (music->lily-string ?sequence1 parser)
                             (new-line->lily-string)
                             (music->lily-string ?sequence2 parser))))
+
+(define-extra-display-method ContextSpeccedMusic (expr parser)
+  "If `expr' is a \\partcombine expression, return \"\\partcombine ...\".
+Otherwise, return #f."
+  (with-music-match
+   (expr (music 'ContextSpeccedMusic
+                context-type 'Staff
+                element (music 'SimultaneousMusic
+                               elements ((music 'ContextSpeccedMusic
+                                                context-id "one"
+                                                context-type 'Voice)
+                                         (music 'ContextSpeccedMusic
+                                                context-id "two"
+                                                context-type 'Voice)
+                                         (music 'ContextSpeccedMusic
+                                                context-id "shared"
+                                                context-type 'Voice)
+                                         ?pc-music))))
+   (with-music-match
+    (?pc-music (music 'PartCombineMusic))
+    (format #f "~a" (music->lily-string ?pc-music parser)))))
 
 (define-display-method UnrelativableMusic (expr parser)
   (music->lily-string (ly:music-property expr 'element) parser))

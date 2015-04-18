@@ -237,7 +237,11 @@ stderr of this run."
 
 %% \partcombine
 \test ##[ \partcombine { c4 e4 }
-{ d4 f4 } #]						% PartCombineMusic UnrelativableMusic
+{ d4 f4 } #]
+\test ##[ \partcombineUp { c2 e2 }
+{ d2 f2 } #]
+\test ##[ \partcombineDown { c1 e1 }
+{ d1 f1 } #]
 
 %% Cue notes
 \test ##[ \cueDuring #"foo" #1 { c4 d4 } #]

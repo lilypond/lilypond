@@ -65,11 +65,6 @@ private:
   Moment start_moment_;
 
   SCM split_list_;
-  SCM direction_;
-  SCM directionOne_;
-  SCM directionTwo_;
-  SCM horizontalShiftOne_;
-  SCM horizontalShiftTwo_;
 
   Stream_event *unisono_event_;
   Stream_event *solo_one_event_;
@@ -146,11 +141,6 @@ Part_combine_iterator::Part_combine_iterator ()
   first_iter_ = 0;
   second_iter_ = 0;
   split_list_ = SCM_EOL;
-  direction_ = SCM_BOOL_F;
-  directionOne_ = scm_from_int (1);
-  directionTwo_ = scm_from_int (-1);
-  horizontalShiftOne_ = scm_from_int (0);
-  horizontalShiftTwo_ = scm_from_int (1);
   state_ = APART;
   chosen_part_ = 1;
   playing_state_ = PLAYING_OTHER;
@@ -369,17 +359,6 @@ Part_combine_iterator::construct_children ()
 {
   start_moment_ = get_outlet ()->now_mom ();
   split_list_ = get_music ()->get_property ("split-list");
-  direction_ = get_music ()->get_property ("direction");
-  if (is_direction (direction_))
-    {
-      directionOne_ = direction_;
-      directionTwo_ = direction_;
-      if (scm_is_true (scm_negative_p (direction_)))
-        {
-          horizontalShiftOne_ = scm_from_int (1);
-          horizontalShiftTwo_ = scm_from_int (0);
-        }
-    }
 
   Context *c = get_outlet ();
 
@@ -402,44 +381,6 @@ Part_combine_iterator::construct_children ()
   second_iter_ = Music_iterator::unsmob (get_iterator (Music::unsmob (scm_cadr (lst))));
   Context *shared = handles_[CONTEXT_SHARED].get_context ();
   set_context (shared);
-
-  /* Mimic all settings of voiceOne/voiceTwo for the two separate voices...*/
-  /* FIXME: Is there any way to use the definition of \voiceOne/\voiceTwo
-            directly??? */
-  char const *syms[]
-  =
-  {
-    "Stem",
-    "DynamicLineSpanner",
-    "Tie",
-    "Dots",
-    "MultiMeasureRest",
-    "Rest",
-    "Slur",
-    "TextScript",
-    "Script",
-    0
-  };
-
-  for (char const **p = syms; *p; p++)
-    {
-      SCM sym = ly_symbol2scm (*p);
-      execute_pushpop_property (one, sym,
-                                ly_symbol2scm ("direction"), directionOne_);
-
-      execute_pushpop_property (two, sym,
-                                ly_symbol2scm ("direction"), directionTwo_);
-
-      if (scm_is_number (direction_))
-        execute_pushpop_property (shared, sym,
-                                  ly_symbol2scm ("direction"), direction_);
-    }
-  /* Handle horizontal shifts for crossing notes */
-  execute_pushpop_property (one, ly_symbol2scm ("NoteColumn"),
-                            ly_symbol2scm ("horizontal-shift"), horizontalShiftOne_);
-  execute_pushpop_property (two, ly_symbol2scm ("NoteColumn"),
-                            ly_symbol2scm ("horizontal-shift"), horizontalShiftTwo_);
-
 }
 
 IMPLEMENT_LISTENER (Part_combine_iterator, set_busy);
