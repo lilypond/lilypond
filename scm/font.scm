@@ -253,8 +253,8 @@ used.  This is used to select the proper design size for the text fonts.
   (music "emmentaler")
   (brace "emmentaler")
   (roman "Century Schoolbook L")
-  (sans "sans-serif")
-  (typewriter "monospace")
+  (sans "Nimbus Sans L")
+  (typewriter "Nimbus Mono L")
   (factor 1))
   (let ((n (make-font-tree-node 'font-encoding 'fetaMusic)))
     (add-music-fonts n 'feta music brace feta-design-size-mapping factor)
@@ -274,8 +274,8 @@ used.  This is used to select the proper design size for the text fonts.
 (define-public (make-century-schoolbook-tree factor)
   (make-pango-font-tree
    "Century Schoolbook L"
-   "sans-serif"
-   "monospace"
+   "Nimbus Sans L"
+   "Nimbus Mono L"
    factor))
 
 (define-public all-text-font-encodings

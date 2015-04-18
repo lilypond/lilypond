@@ -32,9 +32,9 @@ AC_ARG_ENABLE(guile2,
 		    [highly experimental GUILE 2 support.  Default: off])],
     [GUILEv2=$enableval])
 
-AC_ARG_WITH(ncsb-dir,
-    [AS_HELP_STRING([--with-ncsb-dir=DIR],
-		    [location of Century Schoolbook fonts.])],
+AC_ARG_WITH(fonts-dir,
+    [AS_HELP_STRING([--with-fonts-dir=DIR],
+		    [location of URW++ fonts.])],
     [NCSB_DIR=$withval],
     [NCSB_DIR=""])
 
@@ -61,7 +61,7 @@ AC_SUBST(LINK_GXX_STATICALLY)
 STEPMAKE_COMPILE
 
 AC_CHECK_PROG(FCLIST, fc-list, fc-list)
-AC_MSG_CHECKING([for New Century Schoolbook PFB files])
+AC_MSG_CHECKING([for Century Schoolbook L PFB files])
 AC_SUBST(NCSB_SOURCE_FILES)
 AC_SUBST(NCSB_DIR)
 if test "$NCSB_DIR" = ""; then
@@ -90,12 +90,12 @@ if test "$NCSB_DIR" != "" ;  then
 fi
 if test "$NCSB_DIR" = "" -o "$MISSING_NCSB_SOURCE_FILES" != "$INCOMPLETE_NCSB_SOURCE_FILES"; then
   AC_MSG_RESULT(no)
-  STEPMAKE_ADD_ENTRY(REQUIRED,International New Century Schoolbook fonts)
+  STEPMAKE_ADD_ENTRY(REQUIRED,International Century Schoolbook L fonts)
   if test "$NCSB_DIR" = ""; then
     if test "$FCLIST" = ""; then
-      STEPMAKE_ADD_ENTRY(REQUIRED,'(install the fc-list utility from FontConfig, or use --with-ncsb-dir)')
+      STEPMAKE_ADD_ENTRY(REQUIRED,'(install the fc-list utility from FontConfig, or use --with-fonts-dir)')
     else
-      STEPMAKE_ADD_ENTRY(REQUIRED,'(make sure the fc-list utility can see them, or use --with-ncsb-dir)')
+      STEPMAKE_ADD_ENTRY(REQUIRED,'(make sure the fc-list utility can see them, or use --with-fonts-dir)')
     fi
   fi
   if test "$MISSING_NCSB_SOURCE_FILES" != ""; then
@@ -103,6 +103,62 @@ if test "$NCSB_DIR" = "" -o "$MISSING_NCSB_SOURCE_FILES" != "$INCOMPLETE_NCSB_SO
   fi
   if test "$INCOMPLETE_NCSB_SOURCE_FILES" != ""; then
     STEPMAKE_ADD_ENTRY(REQUIRED,'(these files do not contain Cyrillic characters: $INCOMPLETE_NCSB_SOURCE_FILES)')
+  fi
+else
+  AC_MSG_RESULT(yes)
+fi
+
+AC_MSG_CHECKING([for Nimbus Sans L (Helvetica) PFB files])
+AC_SUBST(HELV_SOURCE_FILES)
+if test "$NCSB_DIR" != "" ;  then
+  for f in n019003l.pfb n019004l.pfb n019023l.pfb n019024l.pfb; do
+    if test ! -f "$NCSB_DIR/$f"; then
+      MISSING_HELV_SOURCE_FILES="$f $MISSING_HELV_SOURCE_FILES"
+    else
+      if test "`grep Cyrillic "$NCSB_DIR/$f"`" = ""; then
+        INCOMPLETE_HELV_SOURCE_FILES="$f $INCOMPLETE_HELV_SOURCE_FILES"
+      else
+        HELV_SOURCE_FILES="$NCSB_DIR/$f $HELV_SOURCE_FILES"
+      fi
+    fi
+  done
+fi
+if test "$NCSB_DIR" = "" -o "$MISSING_HELV_SOURCE_FILES" != "$INCOMPLETE_HELV_SOURCE_FILES"; then
+  AC_MSG_RESULT(no)
+  STEPMAKE_ADD_ENTRY(REQUIRED,International Nimbus Sans L fonts)
+  if test "$MISSING_HELV_SOURCE_FILES" != ""; then
+    STEPMAKE_ADD_ENTRY(REQUIRED,'(these files are missing: $MISSING_HELV_SOURCE_FILES)')
+  fi
+  if test "$INCOMPLETE_HELV_SOURCE_FILES" != ""; then
+    STEPMAKE_ADD_ENTRY(REQUIRED,'(these files do not contain Cyrillic characters: $INCOMPLETE_HELV_SOURCE_FILES)')
+  fi
+else
+  AC_MSG_RESULT(yes)
+fi
+
+AC_MSG_CHECKING([for Nimbus Mono L (Courier) PFB files])
+AC_SUBST(COUR_SOURCE_FILES)
+if test "$NCSB_DIR" != "" ;  then
+  for f in n022003l.pfb n022004l.pfb n022023l.pfb n022024l.pfb; do
+    if test ! -f "$NCSB_DIR/$f"; then
+      MISSING_COUR_SOURCE_FILES="$f $MISSING_COUR_SOURCE_FILES"
+    else
+      if test "`grep Cyrillic "$NCSB_DIR/$f"`" = ""; then
+        INCOMPLETE_COUR_SOURCE_FILES="$f $INCOMPLETE_COUR_SOURCE_FILES"
+      else
+        COUR_SOURCE_FILES="$NCSB_DIR/$f $COUR_SOURCE_FILES"
+      fi
+    fi
+  done
+fi
+if test "$NCSB_DIR" = "" -o "$MISSING_COUR_SOURCE_FILES" != "$INCOMPLETE_COUR_SOURCE_FILES"; then
+  AC_MSG_RESULT(no)
+  STEPMAKE_ADD_ENTRY(REQUIRED,International Nimbus Mono L fonts)
+  if test "$MISSING_COUR_SOURCE_FILES" != ""; then
+    STEPMAKE_ADD_ENTRY(REQUIRED,'(these files are missing: $MISSING_COUR_SOURCE_FILES)')
+  fi
+  if test "$INCOMPLETE_COUR_SOURCE_FILES" != ""; then
+    STEPMAKE_ADD_ENTRY(REQUIRED,'(these files do not contain Cyrillic characters: $INCOMPLETE_COUR_SOURCE_FILES)')
   fi
 else
   AC_MSG_RESULT(yes)
