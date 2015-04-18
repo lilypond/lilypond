@@ -1134,6 +1134,24 @@ parenthesize =
        (set! (ly:music-property arg 'parenthesize) #t))
    arg)
 
+#(define (make-directed-part-combine-music
+          parser direction chord-range part1 part2
+          one-context-settings
+          two-context-settings
+          shared-context-settings)
+
+   (let ((pc-music (make-part-combine-music
+                     parser (list part1 part2) direction chord-range)))
+     #{ \context Staff <<
+          \context Voice = "one" \with #one-context-settings {}
+          \context Voice = "two" \with #two-context-settings {}
+          \context Voice = "shared" \with #shared-context-settings {}
+          #pc-music
+          #(make-part-combine-marks
+            default-part-combine-mark-state-machine
+            (ly:music-property pc-music 'split-list))
+        >> #} ))
+
 partcombine =
 #(define-music-function (parser location chord-range part1 part2)
    ((number-pair? '(0 . 8)) ly:music? ly:music?)
@@ -1142,60 +1160,30 @@ a music expression containing simultaneous voices, where @var{part1}
 and @var{part2} are combined into one voice where appropriate.
 Optional @var{chord-range} sets the distance in steps between notes
 that may be combined into a chord or unison.")
-   #{ \context Staff <<
-        \context Voice = "one" \with {
-          \voiceOne
-          \override DynamicLineSpanner.direction = #UP
-        } {}
-        \context Voice = "two" \with {
-          \voiceTwo
-          \override DynamicLineSpanner.direction = #DOWN
-        } {}
-        \context Voice = "shared" {}
-        #(make-part-combine-music parser (list part1 part2) #f chord-range)
-      >> #} )
+   (make-directed-part-combine-music parser #f chord-range part1 part2
+    #{ \with { \voiceOne \override DynamicLineSpanner.direction = #UP } #}
+    #{ \with { \voiceTwo \override DynamicLineSpanner.direction = #DOWN } #}
+    #{ #} ))
 
 partcombineUp =
 #(define-music-function (parser location chord-range part1 part2)
    ((number-pair? '(0 . 8)) ly:music? ly:music?)
    (_i "Take the music in @var{part1} and @var{part2} and typeset so
 that they share a staff with stems directed upward.")
-   #{ \context Staff <<
-        \context Voice = "one" \with {
-          \voiceOne
-          \override DynamicLineSpanner.direction = #UP
-        } {}
-        \context Voice = "two" \with {
-          \voiceThree
-          \override DynamicLineSpanner.direction = #UP
-        } {}
-        \context Voice = "shared" \with {
-          \voiceOne
-          \override DynamicLineSpanner.direction = #UP
-        } {}
-        #(make-part-combine-music parser (list part1 part2) UP chord-range)
-      >> #} )
+   (make-directed-part-combine-music parser UP chord-range part1 part2
+    #{ \with { \voiceOne \override DynamicLineSpanner.direction = #UP } #}
+    #{ \with { \voiceThree \override DynamicLineSpanner.direction = #UP } #}
+    #{ \with { \voiceOne \override DynamicLineSpanner.direction = #UP } #} ))
 
 partcombineDown =
 #(define-music-function (parser location chord-range part1 part2)
    ((number-pair? '(0 . 8)) ly:music? ly:music?)
    (_i "Take the music in @var{part1} and @var{part2} and typeset so
 that they share a staff with stems directed downward.")
-   #{ \context Staff <<
-        \context Voice = "one" \with {
-          \voiceFour
-          \override DynamicLineSpanner.direction = #DOWN
-        } {}
-        \context Voice = "two" \with {
-          \voiceTwo
-          \override DynamicLineSpanner.direction = #DOWN
-        } {}
-        \context Voice = "shared" \with {
-          \voiceTwo
-          \override DynamicLineSpanner.direction = #DOWN
-        } {}
-        #(make-part-combine-music parser (list part1 part2) DOWN chord-range)
-      >> #} )
+   (make-directed-part-combine-music parser DOWN chord-range part1 part2
+    #{ \with { \voiceFour \override DynamicLineSpanner.direction = #DOWN } #}
+    #{ \with { \voiceTwo \override DynamicLineSpanner.direction = #DOWN } #}
+    #{ \with { \voiceTwo \override DynamicLineSpanner.direction = #DOWN } #} ))
 
 partcombineForce =
 #(define-music-function (location parser type once) (boolean-or-symbol? boolean?)

@@ -66,9 +66,6 @@ private:
 
   SCM split_list_;
 
-  Stream_event *unisono_event_;
-  Stream_event *solo_one_event_;
-  Stream_event *solo_two_event_;
   Stream_event *mmrest_event_;
 
   enum Status
@@ -134,9 +131,6 @@ Part_combine_iterator::do_quit ()
 Part_combine_iterator::Part_combine_iterator ()
 {
   mmrest_event_ = 0;
-  unisono_event_ = 0;
-  solo_two_event_ = 0;
-  solo_one_event_ = 0;
 
   first_iter_ = 0;
   second_iter_ = 0;
@@ -157,14 +151,8 @@ Part_combine_iterator::derived_mark () const
     scm_gc_mark (first_iter_->self_scm ());
   if (second_iter_)
     scm_gc_mark (second_iter_->self_scm ());
-  if (unisono_event_)
-    scm_gc_mark (unisono_event_->self_scm ());
   if (mmrest_event_)
     scm_gc_mark (mmrest_event_->self_scm ());
-  if (solo_one_event_)
-    scm_gc_mark (solo_one_event_->self_scm ());
-  if (solo_two_event_)
-    scm_gc_mark (solo_two_event_->self_scm ());
 }
 
 void
@@ -250,17 +238,6 @@ Part_combine_iterator::unisono (bool silent, int newpart)
       if (playing_state_ != PLAYING_UNISONO
           && newstate == UNISONO)
         {
-          if (!unisono_event_)
-            {
-              unisono_event_ = new Stream_event
-                (scm_call_1 (ly_lily_module_constant ("ly:make-event-class"),
-                             ly_symbol2scm ("unisono-event")));
-              unisono_event_->unprotect ();
-            }
-
-          Context *out = (newpart == 2 ? second_iter_ : first_iter_)
-                         ->get_outlet ();
-          out->event_source ()->broadcast (unisono_event_);
           playing_state_ = PLAYING_UNISONO;
         }
       state_ = newstate;
@@ -282,18 +259,6 @@ Part_combine_iterator::solo1 ()
       kill_mmrest (CONTEXT_TWO);
       kill_mmrest (CONTEXT_SHARED);
 
-      if (playing_state_ != PLAYING_SOLO1)
-        {
-          if (!solo_one_event_)
-            {
-              solo_one_event_ = new Stream_event
-                (scm_call_1 (ly_lily_module_constant ("ly:make-event-class"),
-                             ly_symbol2scm ("solo-one-event")));
-              solo_one_event_->unprotect ();
-            }
-
-          first_iter_->get_outlet ()->event_source ()->broadcast (solo_one_event_);
-        }
       playing_state_ = PLAYING_SOLO1;
     }
 }
@@ -309,19 +274,7 @@ Part_combine_iterator::solo2 ()
       chosen_part_ = 2;
       substitute_both (CONTEXT_NULL, CONTEXT_SOLO);
 
-      if (playing_state_ != PLAYING_SOLO2)
-        {
-          if (!solo_two_event_)
-            {
-              solo_two_event_ = new Stream_event
-                (scm_call_1 (ly_lily_module_constant ("ly:make-event-class"),
-                             ly_symbol2scm ("solo-two-event")));
-              solo_two_event_->unprotect ();
-            }
-
-          second_iter_->get_outlet ()->event_source ()->broadcast (solo_two_event_);
-          playing_state_ = PLAYING_SOLO2;
-        }
+      playing_state_ = PLAYING_SOLO2;
     }
 }
 

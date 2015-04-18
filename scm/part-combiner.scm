@@ -732,6 +732,73 @@ the mark when there are no spanners active.
         (display result))
     result))
 
+(define-public default-part-combine-mark-state-machine
+  ;; (current-state . ((split-state-event .
+  ;;                      (output-voice output-event next-state)) ...))
+  '((Initial . ((solo1   . (solo   SoloOneEvent Solo1))
+                (solo2   . (solo   SoloTwoEvent Solo2))
+                (unisono . (shared UnisonoEvent Unisono))))
+    (Solo1   . ((apart   . (#f     #f           Initial))
+                (chords  . (#f     #f           Initial))
+                (solo2   . (solo   SoloTwoEvent Solo2))
+                (unisono . (shared UnisonoEvent Unisono))))
+    (Solo2   . ((apart   . (#f     #f           Initial))
+                (chords  . (#f     #f           Initial))
+                (solo1   . (solo   SoloOneEvent Solo1))
+                (unisono . (shared UnisonoEvent Unisono))))
+    (Unisono . ((apart   . (#f     #f           Initial))
+                (chords  . (#f     #f           Initial))
+                (solo1   . (solo   SoloOneEvent Solo1))
+                (solo2   . (solo   SoloTwoEvent Solo2))))))
+
+(define-public (make-part-combine-marks state-machine split-list)
+  "Generate a sequence of part combiner events from a split list"
+
+  (define (get-state state-name)
+    (assq-ref state-machine state-name))
+
+  (let ((full-seq '()) ; sequence of { \context Voice = "x" {} ... }
+        (segment '()) ; sequence within \context Voice = "x" {...}
+        (prev-moment ZERO-MOMENT)
+        (prev-voice #f)
+        (state (get-state 'Initial)))
+
+    (define (commit-segment)
+      "Add the current segment to the full sequence and begin another."
+      (if (pair? segment)
+          (set! full-seq
+                (cons (make-music 'ContextSpeccedMusic
+                                  'context-id (symbol->string prev-voice)
+                                  'context-type 'Voice
+                                  'element (make-sequential-music (reverse! segment)))
+                      full-seq)))
+      (set! segment '()))
+
+    (define (handle-split split)
+      (let* ((moment (car split))
+             (action (assq-ref state (cdr split))))
+        (if action
+            (let ((voice (car action))
+                  (part-combine-event (cadr action))
+                  (next-state-name (caddr action)))
+              (if part-combine-event
+                  (let ((dur (ly:moment-sub moment prev-moment)))
+                    ;; start a new segment when the voice changes
+                    (if (not (eq? voice prev-voice))
+                        (begin
+                          (commit-segment)
+                          (set! prev-voice voice)))
+                    (if (not (equal? dur ZERO-MOMENT))
+                        (set! segment (cons (make-music 'SkipEvent
+                                                          'duration (make-duration-of-length dur)) segment)))
+                    (set! segment (cons (make-music part-combine-event) segment))
+
+                    (set! prev-moment moment)))
+              (set! state (get-state next-state-name))))))
+
+    (for-each handle-split split-list)
+    (commit-segment)
+    (make-sequential-music (reverse! full-seq))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
