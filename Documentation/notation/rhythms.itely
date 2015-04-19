@@ -2095,6 +2095,14 @@ units of @code{baseMoment}.  By default, @code{baseMoment} is one
 over the denominator of the time signature.  By default, each unit of
 length @code{baseMoment} is a single beat.
 
+Note that there are separate @code{beatStructure} and @code{baseMoment}
+values for each time signature.  Changes to these variables apply only
+to the time signature that is currently in force, hence those changes
+must be placed after the @code{\time} command which starts a new time
+signature section, not before it.  New values given to a particular
+time signature are retained and reinstated whenever that time signature
+is re-established.
+
 @lilypond[quote,relative=2,verbatim]
 \time 5/16
 c16^"default" c c c c |
