@@ -692,7 +692,7 @@ No oblideu i@tie{}@code{#} abans del valor nou!
 
 La pregunta final és @q{On s'ha de col·locar aquesta ordre?}
 Tot i que ens falta seguretat i encara estem aprenent, la millor
-resposta és: @{Dins de la música, abans de la primera lligadura i
+resposta és: @q{Dins de la música, abans de la primera lligadura i
 a prop d'ella.} Fem-lo així:
 
 @cindex Slur, exemple de sobreescriptura
@@ -1156,7 +1156,7 @@ Les barres de compàs encara s'imprimeixen.  Què és el està
 malament? Torneu al RFI i mireu un altre cop la pàgina que ofereix
 les propietats de l'objecte BarLine.  Al principi de la pàgina diu
 @qq{Barline objects are created by: Bar_engraver} (els objecte
-Barline es creen pel gravador Bar_engraver}.  Aneu a la pàgina del
+Barline es creen pel gravador Bar_engraver).  Aneu a la pàgina del
 gravador @code{Bar_engraver} seguint l'enllaç.  Al final dóna una
 llista de contextos en els quals opera el gravador de línies
 divisòries.  Tots ells són del tipus @code{Staff}, i així la raó
@@ -2109,7 +2109,7 @@ La propietat es pot establir al valor d'una llista d'entre u i
 tres valors.  Controla si les digitacions es poden col·locar per
 sobre (si  @code{up} apareix a la llista), per sota (si apareix
 @code{down}), a l'esquerra (si apareix acord d'una sola nota
-envoltant-la entre angles simples.}
+envoltant-la entre angles simples).
 
 Aquí podem veure alguns exemples:
 
@@ -2975,7 +2975,7 @@ notes.  Aquesta propietat s'estableix amb les ordres
 @code{\voiceXXX} i es poden sobreescriure directament amb una
 ordre @code{\override} o, de forma més comú amb les ordres
 @code{\shiftOn}.  Observeu que aquesta propietat s'usa per
-@empf{qualificar} les columnes de nota o per aplicar
+@emph{qualificar} les columnes de nota o per aplicar
 desplaçaments: no especifica la magnitud del desplaçament, que es
 va incrementant progressivament en passos en base a l'amplada dels
 caps de nota per a cada puntuació.  Els passos són normalment de
@@ -2984,7 +2984,7 @@ completa del cap d'una nota quan està implicat un grup de notes
 molt ajustades entre sí.
 
 @item
-@code{force-hshift} (desplaçament horitzontal forçat)
+@code{force-hshift} (desplaçament horitzontayesl forçat)
 
 @cindex force-hshift, propietat
 
@@ -3768,7 +3768,7 @@ l'ordre @code{\markup}, per la qual cosa afegir
 @qq{Moderato} en negreta és fàcil.  Però ara, com fusionem notes que
 estan en diferents veus?  Aquí és on hem de tornar a buscar ajuda
 al manual de Referència de la notació.  En buscar la paraula
-@qq{merge} (mescla} a l'índex de la Referència de la notació
+@qq{merge} (mescla) a l'índex de la Referència de la notació
 arribem ràpidament a les ordres per mesclar notes amb cap diferent
 i amb o sense puntet, a
 @rusernamed{Collision resolution,Resolució de les col·lisions}.
@@ -4013,7 +4013,7 @@ lhMusic = \relative c' {
 
 @menu
 * Altres aplicacions dels ajustaments::
-* Ús de variables per als ajustaments de disposició::
+* Us de variables per als ajustaments de disposició::
 * Fulls d'estil::
 * Altres fonts d'informació::
 * Ajustaments avançats amb l'Scheme::
@@ -4200,8 +4200,8 @@ segell suprimit) no ho fa.
 Glossari musical:
 @rglosnamed{system,sistema}.
 
-@node Ús de variables per als ajustaments de disposició
-@subsection Ús de variables per als ajustaments de disposició
+@node Us de variables per als ajustaments de disposició
+@subsection Us de variables per als ajustaments de disposició
 @translationof Using variables for layout adjustments
 
 @cindex variables, usar per a sobreescriptures

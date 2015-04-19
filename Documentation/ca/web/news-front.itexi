@@ -46,8 +46,7 @@ usuaris actualitzar a aquesta versió.
 
 
 @newsItem
-@subsubheading Una producció amb el LilyPond anomenada MILLOR
-EDICIÓ DE 2014  @emph{11 de març de 2014}
+@subsubheading Una producció amb el LilyPond anomenada MILLOR EDICIÓ DE 2014  @emph{11 de març de 2014}
 
 Estem encantats d'anunciar que la nova edició de les cançons
 de l'Oskar Fried (1871-1941), publicada recentment pels nostres
@@ -74,8 +73,7 @@ aportant una contribució a la campanya Indiegogo [5]!
 
 
 @newsItem
-@subsubheading Lilypond 2.18.0 llençat el @emph{29 de Desembre de
-2013}!
+@subsubheading Lilypond 2.18.0 llençat el @emph{29 de Desembre de 2013}!
 
 Estem orgullosos d'anunciar el llançament del GNU LilyPond
 2.18.0. El LilyPond és un programa de gravat musical dedicat a la
@@ -209,8 +207,7 @@ molt benvinguts!
 @newsEnd
 
 @newsItem
-@subsubheading LilyPond 2.16.1 llençat el @emph{9 de novembre de
-2012}!
+@subsubheading LilyPond 2.16.1 llençat el @emph{9 de novembre de 2012}!
 
 Estem contents d'anunciar el llançament del LilyPond 2.16.1. Té
 nombroses actualitzacions sobre la versió estable prèvia, i no

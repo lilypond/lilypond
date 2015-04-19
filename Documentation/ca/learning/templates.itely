@@ -37,7 +37,7 @@ LilyPond i gaudir d'unes belles partitures impreses!
 * Sols notes::
 * Notes i lletra::
 * Notes i acords::
-* Notes, lletra i acords::
+* Notes lletra i acords::
 @end menu
 
 @node Sols notes
@@ -61,7 +61,7 @@ LilyPond i gaudir d'unes belles partitures impreses!
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
 {single-staff-template-with-notes-and-chords.ly}
 
-@node Notes, lletra i acords
+@node Notes lletra i acords
 @appendixsubsec Notes, lletra i acords
 @translationof Notes lyrics and chords
 

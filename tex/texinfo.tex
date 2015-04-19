@@ -1,14 +1,16 @@
 % texinfo.tex -- TeX macros to handle Texinfo files.
-% 
+%
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2015-02-05.16}
+\def\texinfoversion{2015-04-18.21}
 %
 % Copyright 1985, 1986, 1988, 1990, 1991, 1992, 1993, 1994, 1995,
 % 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006,
 % 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015
 % Free Software Foundation, Inc.
+%
+% Modified version used in LilyPond, changed in 2012.
 %
 % This texinfo.tex file is free software: you can redistribute it and/or
 % modify it under the terms of the GNU General Public License as
@@ -237,7 +239,7 @@
 % @errormsg{MSG}.  Do the index-like expansions on MSG, but if things
 % aren't perfect, it's not the end of the world, being an error message,
 % after all.
-% 
+%
 \def\errormsg{\begingroup \indexnofonts \doerrormsg}
 \def\doerrormsg#1{\errmessage{#1}}
 
@@ -1105,7 +1107,7 @@ where each line of input produces a line of output.}
 % for display in the outlines, and in other places.  Thus, we have to
 % double any backslashes.  Otherwise, a name like "\node" will be
 % interpreted as a newline (\n), followed by o, d, e.  Not good.
-% 
+%
 % See http://www.ntg.nl/pipermail/ntg-pdftex/2004-July/000654.html and
 % related messages.  The final outcome is that it is up to the TeX user
 % to double the backslashes and otherwise make the string valid, so
@@ -1346,7 +1348,7 @@ output) for that.)}
       % their "best" equivalent, based on the @documentencoding.  Too
       % much work for too little return.  Just use the ASCII equivalents
       % we use for the index sort strings.
-      % 
+      %
       \indexnofonts
       \setupdatafile
       % We can have normal brace characters in the PDF outlines, unlike
@@ -2317,7 +2319,7 @@ end
 }
 
 % Commands to set the quote options.
-% 
+%
 \parseargdef\codequoteundirected{%
   \def\temp{#1}%
   \ifx\temp\onword
@@ -2358,7 +2360,7 @@ end
 % If we are in a monospaced environment, however, 1) always use \ttsl,
 % and 2) do not add an italic correction.
 \def\dosmartslant#1#2{%
-  \ifusingtt 
+  \ifusingtt
     {{\ttsl #2}\let\next=\relax}%
     {\def\next{{#1#2}\futurelet\next\smartitaliccorrection}}%
   \next
@@ -2506,14 +2508,14 @@ end
   \gdef\codedash{\futurelet\next\codedashfinish}
   \gdef\codedashfinish{%
     \normaldash % always output the dash character itself.
-    % 
+    %
     % Now, output a discretionary to allow a line break, unless
     % (a) the next character is a -, or
     % (b) the preceding character is a -.
     % E.g., given --posix, we do not want to allow a break after either -.
     % Given --foo-bar, we do want to allow a break between the - and the b.
     \ifx\next\codedash \else
-      \ifx\codedashprev\codedash 
+      \ifx\codedashprev\codedash
       \else \discretionary{}{}{}\fi
     \fi
     % we need the space after the = for the case when \next itself is a
@@ -2594,7 +2596,7 @@ end
       \ifpdf
         \ifurefurlonlylink
           % PDF plus option to not display url, show just arg
-          \unhbox0             
+          \unhbox0
         \else
           % PDF, normally display both arg and url for consistency,
           % visibility, if the pdf is eventually used to print, etc.
@@ -2664,7 +2666,7 @@ end
 % One more complication: by default we'll break after the special
 % characters, but some people like to break before the special chars, so
 % allow that.  Also allow no breaking at all, for manual control.
-% 
+%
 \parseargdef\urefbreakstyle{%
   \def\txiarg{#1}%
   \ifx\txiarg\wordnone
@@ -2885,7 +2887,7 @@ end
 % @inlinefmt{FMTNAME,PROCESSED-TEXT} and @inlineraw{FMTNAME,RAW-TEXT}.
 % Ignore unless FMTNAME == tex; then it is like @iftex and @tex,
 % except specified as a normal braced arg, so no newlines to worry about.
-% 
+%
 \def\outfmtnametex{tex}
 %
 \long\def\inlinefmt#1{\doinlinefmt #1,\finish}
@@ -2893,7 +2895,7 @@ end
   \def\inlinefmtname{#1}%
   \ifx\inlinefmtname\outfmtnametex \ignorespaces #2\fi
 }
-% 
+%
 % @inlinefmtifelse{FMTNAME,THEN-TEXT,ELSE-TEXT} expands THEN-TEXT if
 % FMTNAME is tex, else ELSE-TEXT.
 \long\def\inlinefmtifelse#1{\doinlinefmtifelse #1,,,\finish}
@@ -2909,7 +2911,7 @@ end
 % *right* brace they would have to use a command anyway, so they may as
 % well use a command to get a left brace too.  We could re-use the
 % delimiter character idea from \verb, but it seems like overkill.
-% 
+%
 \long\def\inlineraw{\tex \doinlineraw}
 \long\def\doinlineraw#1{\doinlinerawtwo #1,\finish}
 \def\doinlinerawtwo#1,#2,\finish{%
@@ -3326,7 +3328,7 @@ end
 % inside a \vbox, and fonts need to be set appropriately first.  Because
 % it is always used for titles, nothing else, we call \rmisbold.  \par
 % should be specified before the end of the \vbox, since a vbox is a group.
-% 
+%
 \def\raggedtitlesettings{%
   \rmisbold
   \hyphenpenalty=10000
@@ -3940,7 +3942,7 @@ end
 }
 
 % multitable-only commands.
-% 
+%
 % @headitem starts a heading row, which we typeset in bold.  Assignments
 % have to be global since we are inside the implicit group of an
 % alignment entry.  \everycr below resets \everytab so we don't have to
@@ -4254,12 +4256,12 @@ end
 % variable's value contains other Texinfo commands, it's almost certain
 % it will fail (although perhaps we could fix that with sufficient work
 % to do a one-level expansion on the result, instead of complete).
-% 
+%
 % Unfortunately, this has the consequence that when _ is in the *value*
 % of an @set, it does not print properly in the roman fonts (get the cmr
 % dot accent at position 126 instead).  No fix comes to mind, and it's
 % been this way since 2003 or earlier, so just ignore it.
-% 
+%
 \def\expandablevalue#1{%
   \expandafter\ifx\csname SET#1\endcsname\relax
     {[No value for ``#1'']}%
@@ -4271,7 +4273,7 @@ end
 
 % @ifset VAR ... @end ifset reads the `...' iff VAR has been defined
 % with @set.
-% 
+%
 % To get the special treatment we need for `@end ifset,' we call
 % \makecond and then redefine.
 %
@@ -4304,7 +4306,7 @@ end
 % without the @) is in fact defined.  We can only feasibly check at the
 % TeX level, so something like `mathcode' is going to considered
 % defined even though it is not a Texinfo command.
-% 
+%
 \makecond{ifcommanddefined}
 \def\ifcommanddefined{\parsearg{\doifcmddefined{\let\next=\ifcmddefinedfail}}}
 %
@@ -5593,7 +5595,7 @@ end
 \let\top\unnumbered
 
 % Sections.
-% 
+%
 \outer\parseargdef\numberedsec{\numhead1{#1}} % normally calls seczzz
 \def\seczzz#1{%
   \global\subsecno=0 \global\subsubsecno=0  \global\advance\secno by 1
@@ -5616,7 +5618,7 @@ end
 }
 
 % Subsections.
-% 
+%
 % normally calls numberedsubseczzz:
 \outer\parseargdef\numberedsubsec{\numhead2{#1}}
 \def\numberedsubseczzz#1{%
@@ -5641,7 +5643,7 @@ end
 }
 
 % Subsubsections.
-% 
+%
 % normally numberedsubsubseczzz:
 \outer\parseargdef\numberedsubsubsec{\numhead3{#1}}
 \def\numberedsubsubseczzz#1{%
@@ -6687,7 +6689,7 @@ end
 
 % @indentedblock is like @quotation, but indents only on the left and
 % has no optional argument.
-% 
+%
 \makedispenvdef{indentedblock}{\indentedblockstart}
 %
 \def\indentedblockstart{%
@@ -6984,7 +6986,7 @@ end
 % @deftypefnnewline on|off says whether the return type of typed functions
 % are printed on their own line.  This affects @deftypefn, @deftypefun,
 % @deftypeop, and @deftypemethod.
-% 
+%
 \parseargdef\deftypefnnewline{%
   \def\temp{#1}%
   \ifx\temp\onword
@@ -7165,7 +7167,7 @@ end
       \tclose{\temp}% typeset the return type
       \ifrettypeownline
         % put return type on its own line; prohibit line break following:
-        \hfil\vadjust{\nobreak}\break  
+        \hfil\vadjust{\nobreak}\break
       \else
         \space  % type on same line, so just followed by a space
       \fi
@@ -7322,7 +7324,7 @@ end
   % would then have different behavior).  See the Macro Details node in
   % the manual for the workaround we recommend for macros and
   % line-oriented commands.
-  % 
+  %
   \scantokens{#1\empty}%
 \endgroup}
 
@@ -7416,20 +7418,25 @@ end
   \usembodybackslash
 }
 
+% LilyPond CHANGE: The following definition has been reverted to the
+% original definition since it was problematic in the context of
+% indexing.
+
 \def\macroargctxt{% used when scanning invocations
   \scanctxt
-  \catcode`\\=0
+%  \catcode`\\=0
+  \catcode`\\=\other
 }
 % why catcode 0 for \ in the above?  To recognize \\ \{ \} as "escapes"
 % for the single characters \ { }.  Thus, we end up with the "commands"
 % that would be written @\ @{ @} in a Texinfo document.
-% 
+%
 % We already have @{ and @}.  For @\, we define it here, and only for
 % this purpose, to produce a typewriter backslash (so, the @\ that we
 % define for @math can't be used with @macro calls):
 %
 \def\\{\normalbackslash}%
-% 
+%
 % We would like to do this for \, too, since that is what makeinfo does.
 % But it is not possible, because Texinfo already has a command @, for a
 % cedilla accent.  Documents must use @comma{} instead.
@@ -7523,7 +7530,7 @@ end
 % in the params list to some hook where the argument is to be expanded.  If
 % there are less than 10 arguments that hook is to be replaced by ##N where N
 % is the position in that list, that is to say the macro arguments are to be
-% defined `a la TeX in the macro body.  
+% defined `a la TeX in the macro body.
 %
 % That gets used by \mbodybackslash (above).
 %
@@ -7572,7 +7579,7 @@ end
 
 \def\parsemmanyargdef@@#1,{%
   \if#1;\let\next=\relax
-  \else 
+  \else
     \let\next=\parsemmanyargdef@@
     \edef\tempb{\eatspaces{#1}}%
     \expandafter\def\expandafter\tempa
@@ -7624,7 +7631,7 @@ end
   \fi
 }
 
-% 
+%
 \def\getargvals@@{%
   \ifx\paramlist\nilm@
       % Some sanity check needed here that \argvaluelist is also empty.
@@ -7692,8 +7699,8 @@ end
   \expandafter\def\expandafter\@tempa\expandafter{\@tempc}%
   }
 
-\def\macargexpandinbody@{% 
-  %% Define the named-macro outside of this group and then close this group. 
+\def\macargexpandinbody@{%
+  %% Define the named-macro outside of this group and then close this group.
   \expandafter
   \endgroup
   \macargdeflist@
@@ -7802,7 +7809,7 @@ end
       \else % 10 or more
         \expandafter\xdef\csname\the\macname\endcsname{%
           \noexpand\getargvals@{\the\macname}{\argl}%
-        }%    
+        }%
         \global\expandafter\let\csname mac.\the\macname .body\endcsname\temp
         \global\expandafter\let\csname mac.\the\macname .recurse\endcsname\gobble
       \fi
@@ -7855,7 +7862,7 @@ end
 % {.  If so it reads up to the closing }, if not, it reads the whole
 % line.  Whatever was read is then fed to the next control sequence
 % as an argument (by \parsebrace or \parsearg).
-% 
+%
 \def\braceorline#1{\let\macnamexxx=#1\futurelet\nchar\braceorlinexxx}
 \def\braceorlinexxx{%
   \ifx\nchar\bgroup\else
@@ -7958,7 +7965,7 @@ end
 % automatically in xrefs, if the third arg is not explicitly specified.
 % This was provided as a "secret" @set xref-automatic-section-title
 % variable, now it's official.
-% 
+%
 \parseargdef\xrefautomaticsectiontitle{%
   \def\temp{#1}%
   \ifx\temp\onword
@@ -8084,24 +8091,24 @@ end
     \fi
   \else
     % node/anchor (non-float) references.
-    % 
+    %
     % If we use \unhbox to print the node names, TeX does not insert
     % empty discretionaries after hyphens, which means that it will not
     % find a line break at a hyphen in a node names.  Since some manuals
     % are best written with fairly long node names, containing hyphens,
     % this is a loss.  Therefore, we give the text of the node name
     % again, so it is as if TeX is seeing it for the first time.
-    % 
+    %
     \ifdim \wd\printedmanualbox > 0pt
       % Cross-manual reference with a printed manual name.
-      % 
+      %
       \crossmanualxref{\cite{\printedmanual\unskip}}%
     %
     \else\ifdim \wd\infofilenamebox > 0pt
       % Cross-manual reference with only an info filename (arg 4), no
       % printed manual name (arg 5).  This is essentially the same as
       % the case above; we output the filename, since we have nothing else.
-      % 
+      %
       \crossmanualxref{\code{\infofilename\unskip}}%
     %
     \else
@@ -8132,20 +8139,20 @@ end
 \endgroup}
 
 % Output a cross-manual xref to #1.  Used just above (twice).
-% 
+%
 % Only include the text "Section ``foo'' in" if the foo is neither
 % missing or Top.  Thus, @xref{,,,foo,The Foo Manual} outputs simply
 % "see The Foo Manual", the idea being to refer to the whole manual.
-% 
+%
 % But, this being TeX, we can't easily compare our node name against the
 % string "Top" while ignoring the possible spaces before and after in
 % the input.  By adding the arbitrary 7sp below, we make it much less
 % likely that a real node name would have the same width as "Top" (e.g.,
 % in a monospaced font).  Hopefully it will never happen in practice.
-% 
+%
 % For the same basic reason, we retypeset the "Top" at every
 % reference, since the current font is indeterminate.
-% 
+%
 \def\crossmanualxref#1{%
   \setbox\toprefbox = \hbox{Top\kern7sp}%
   \setbox2 = \hbox{\ignorespaces \printedrefname \unskip \kern7sp}%
@@ -8591,7 +8598,7 @@ end
   %
   \ifimagevmode
     \medskip  % space after a standalone image
-  \fi  
+  \fi
   \ifx\centersub\centerV \egroup \fi
 \endgroup}
 
@@ -9301,7 +9308,7 @@ directory should work if nowhere else does.}
 % @U{xxxx} to produce U+xxxx, if we support it.
 \def\U#1{%
   \expandafter\ifx\csname uni:#1\endcsname \relax
-    \errhelp = \EMsimple	
+    \errhelp = \EMsimple
     \errmessage{Unicode character U+#1 not supported, sorry}%
   \else
     \csname uni:#1\endcsname
@@ -9330,7 +9337,7 @@ directory should work if nowhere else does.}
       \expandafter\expandafter\expandafter\expandafter
        \expandafter\expandafter\expandafter
        \gdef\UTFviiiTmp{#2}%
-      % 
+      %
       \expandafter\ifx\csname uni:#1\endcsname \relax \else
        \errmessage{Internal error, already defined: #1}%
       \fi
@@ -9379,7 +9386,7 @@ directory should work if nowhere else does.}
 % U+0080..U+00FF = https://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)
 % U+0100..U+017F = https://en.wikipedia.org/wiki/Latin_Extended-A
 % U+0180..U+024F = https://en.wikipedia.org/wiki/Latin_Extended-B
-% 
+%
 % Many of our renditions are less than wonderful, and all the missing
 % characters are available somewhere.  Loading the necessary fonts
 % awaits user request.  We can't truly support Unicode without
@@ -9546,7 +9553,7 @@ directory should work if nowhere else does.}
   \DeclareUnicodeCharacter{0135}{\^{\dotless{j}}}
   \DeclareUnicodeCharacter{0136}{\cedilla{K}}
   \DeclareUnicodeCharacter{0137}{\cedilla{k}}
-  \DeclareUnicodeCharacter{0138}{\ifmmode\kappa\else $\kappa$\fi}  
+  \DeclareUnicodeCharacter{0138}{\ifmmode\kappa\else $\kappa$\fi}
   \DeclareUnicodeCharacter{0139}{\'L}
   \DeclareUnicodeCharacter{013A}{\'l}
   \DeclareUnicodeCharacter{013B}{\cedilla{L}}
@@ -10164,9 +10171,9 @@ directory should work if nowhere else does.}
 \def\texinfochars{%
   \let< = \activeless
   \let> = \activegtr
-  \let~ = \activetilde 
+  \let~ = \activetilde
   \let^ = \activehat
-  \markupsetuplqdefault \markupsetuprqdefault 
+  \markupsetuplqdefault \markupsetuprqdefault
   \let\b = \strong
   \let\i = \smartitalic
   % in principle, all other definitions in \tex have to be undone too.

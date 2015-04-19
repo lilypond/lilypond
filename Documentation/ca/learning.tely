@@ -51,9 +51,9 @@ Copyright @copyright{} 1999--2015 pels autors.
 
 Annexos
 
-* Templates::                     Plantilles a punt per usar.
+* Plantilles::                     Plantilles a punt per usar.
 * GNU Free Documentation License:: Llicència d'aquest document.
-* Índex del LilyPond::
+* Index del LilyPond::
 @end menu
 
 @docMain
@@ -75,8 +75,8 @@ Annexos
 @include learning/templates.itely
 @include fdl.itexi
 
-@node Índex del LilyPond
-@appendix Índex del LilyPond
+@node Index del LilyPond
+@appendix Index del LilyPond
 @translationof LilyPond index
 
 @printindex cp

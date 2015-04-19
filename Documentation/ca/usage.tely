@@ -53,13 +53,13 @@ Copyright @copyright{} 1999--2014 pels autors.
 * Actualització de fitxers amb convert-ly:: Actualitzar els fitxers d'entrada.
 * lilypond-book::                  Integrar text i música.
 * External programs::              Barrejar el LilyPond amb altres programes.
-* Suggestions for writing files::  Bones pràctiques i depuració eficient d'errors.
+* Suggeriments per escriure fitxers d'entrada::  Bones pràctiques i depuració eficient d'errors.
 
 
 Annexos
 
 * GNU Free Documentation License:: Llicència d'aquest document.
-* Índex del LilyPond::
+* Index del LilyPond::
 @end menu
 
 @docMain
@@ -79,8 +79,8 @@ Annexos
 @include fdl.itexi
 
 
-@node Índex del LilyPond
-@appendix Índex del LilyPond
+@node Index del LilyPond
+@appendix Index del LilyPond
 @translationof LilyPond index
 
 @printindex cp
