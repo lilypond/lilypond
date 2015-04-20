@@ -173,6 +173,4 @@ class Timing_translator;
 class Translator;
 class Translator_group;
 
-typedef void (Translator::*Translator_void_method_ptr) ();
-
 #endif /* LILY_PROTO_HH */

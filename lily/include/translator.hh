@@ -54,7 +54,7 @@ typedef struct translator_listener_record
   VIRTUAL_COPY_CONSTRUCTOR (Translator, NAME);                          \
   static SCM static_description_;                                       \
   static Drul_array<vector<Acknowledge_information> > acknowledge_static_array_drul_; \
-  virtual void fetch_precomputable_methods (Translator_void_method_ptr methods[]); \
+  virtual void fetch_precomputable_methods (Callback methods[]); \
   virtual SCM static_translator_description () const;                   \
   virtual SCM translator_description () const;                          \
   static Grob_info_callback static_get_acknowledger (SCM sym);          \
@@ -111,6 +111,7 @@ public:
   // otherwise get into a circular mess with regard to the definitions
   // as the timing of Engraver is exercised from within Translator
   typedef void (Translator::*Grob_info_callback) (Grob_info);
+  typedef void (Translator::*Callback) (void);
   int print_smob (SCM, scm_print_state *);
   SCM mark_smob ();
   static const char type_p_name_[];
