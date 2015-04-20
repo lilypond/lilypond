@@ -28,18 +28,6 @@
 #include "std-vector.hh"
 #include "protected-scm.hh"
 
-struct Acknowledge_information
-{
-  SCM symbol_;
-  Engraver_void_function_engraver_grob_info function_;
-
-  Acknowledge_information ()
-  {
-    symbol_ = SCM_EOL;
-    function_ = 0;
-  }
-};
-
 /*
   Each translator class has a static list of listener records. Each
   record makes one explains how to register one of the class's stream event
@@ -61,7 +49,6 @@ typedef struct translator_listener_record
 } translator_listener_record;
 
 #define TRANSLATOR_DECLARATIONS_NO_LISTENER(NAME)                       \
-private:                                                                \
   public:                                                               \
   NAME ();                                                              \
   VIRTUAL_COPY_CONSTRUCTOR (Translator, NAME);                          \
@@ -70,13 +57,13 @@ private:                                                                \
   virtual void fetch_precomputable_methods (Translator_void_method_ptr methods[]); \
   virtual SCM static_translator_description () const;                   \
   virtual SCM translator_description () const;                          \
-  static Engraver_void_function_engraver_grob_info static_get_acknowledger (SCM sym); \
-  static Engraver_void_function_engraver_grob_info static_get_end_acknowledger(SCM); \
-  virtual Engraver_void_function_engraver_grob_info get_acknowledger (SCM sym) \
+  static Grob_info_callback static_get_acknowledger (SCM sym);          \
+  static Grob_info_callback static_get_end_acknowledger(SCM);           \
+  virtual Grob_info_callback get_acknowledger (SCM sym)                 \
   {                                                                     \
     return static_get_acknowledger (sym);                               \
   }                                                                     \
-  virtual Engraver_void_function_engraver_grob_info get_end_acknowledger (SCM sym) \
+  virtual Grob_info_callback get_end_acknowledger (SCM sym)             \
   {                                                                     \
     return static_get_end_acknowledger (sym);                           \
   } \
@@ -120,6 +107,10 @@ enum Translator_precompute_index
 class Translator : public Smob<Translator>
 {
 public:
+  // We don't make Grob_info_callback specific to Engraver since we
+  // otherwise get into a circular mess with regard to the definitions
+  // as the timing of Engraver is exercised from within Translator
+  typedef void (Translator::*Grob_info_callback) (Grob_info);
   int print_smob (SCM, scm_print_state *);
   SCM mark_smob ();
   static const char type_p_name_[];
@@ -171,6 +162,19 @@ protected:                      // should be private.
 
   friend class Translator_group;
 };
+
+struct Acknowledge_information
+{
+  SCM symbol_;
+  Translator::Grob_info_callback function_;
+
+  Acknowledge_information ()
+  {
+    symbol_ = SCM_EOL;
+    function_ = 0;
+  }
+};
+
 
 void add_translator (Translator *trans);
 

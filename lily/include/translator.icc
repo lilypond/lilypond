@@ -1,4 +1,4 @@
-/*
+/* -*- c++ -*-
   This file is part of LilyPond, the GNU music typesetter.
 
   Copyright (C) 2005--2015 Han-Wen Nienhuys <hanwen@xs4all.nl>
@@ -53,13 +53,13 @@
 
 #define DEFINE_ACKNOWLEDGERS(classname) \
   Drul_array< vector<Acknowledge_information> > classname::acknowledge_static_array_drul_;      \
-  Engraver_void_function_engraver_grob_info                             \
+  Translator::Grob_info_callback                                        \
   classname::static_get_acknowledger (SCM sym)                          \
   {                                                                     \
     return generic_get_acknowledger (sym, &acknowledge_static_array_drul_[START]);      \
   }                                                                     \
-  Engraver_void_function_engraver_grob_info                             \
-  classname::static_get_end_acknowledger (SCM sym)                              \
+  Translator::Grob_info_callback                                        \
+  classname::static_get_end_acknowledger (SCM sym)                      \
   {                                                                     \
     return generic_get_acknowledger (sym, &acknowledge_static_array_drul_[STOP]);       \
   }                                                                     \
@@ -105,25 +105,25 @@
       : (Translator_void_method_ptr) & T::process_acknowledged;         \
   }
 
-void add_acknowledger (Engraver_void_function_engraver_grob_info ptr,
+void add_acknowledger (Translator::Grob_info_callback ptr,
                        char const *func_name,
                        vector<Acknowledge_information> *ack_array);
 
-Engraver_void_function_engraver_grob_info
+Translator::Grob_info_callback
 generic_get_acknowledger (SCM sym,
                           vector<Acknowledge_information> const *ack_array);
 
 #define ADD_ACKNOWLEDGER(CLASS, NAME)                                   \
   void CLASS ## NAME ## _ack_adder ()                                   \
   {                                                                     \
-    add_acknowledger ((Engraver_void_function_engraver_grob_info) & CLASS::acknowledge_ ## NAME, #NAME, &CLASS::acknowledge_static_array_drul_[START]); \
+    add_acknowledger (static_cast<Translator::Grob_info_callback> (&CLASS::acknowledge_ ## NAME), #NAME, &CLASS::acknowledge_static_array_drul_[START]); \
   }                                                                     \
   ADD_SCM_INIT_FUNC (CLASS ## NAME ## _ack_adder_initclass, CLASS ## NAME ## _ack_adder);
 
 #define ADD_END_ACKNOWLEDGER(CLASS, NAME)                                       \
   void CLASS ## NAME ## _end_ack_adder ()                                       \
   {                                                                     \
-    add_acknowledger ((Engraver_void_function_engraver_grob_info) & CLASS::acknowledge_end_ ## NAME, #NAME, &CLASS::acknowledge_static_array_drul_[STOP]); \
+    add_acknowledger (static_cast<Translator::Grob_info_callback> (&CLASS::acknowledge_end_ ## NAME), #NAME, &CLASS::acknowledge_static_array_drul_[STOP]); \
   }                                                                     \
   ADD_SCM_INIT_FUNC (CLASS ## NAME ## _end_ack_adder_initclass, CLASS ## NAME ## _end_ack_adder);
 

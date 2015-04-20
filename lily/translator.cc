@@ -240,7 +240,7 @@ Translator::print_smob (SCM port, scm_print_state *)
 }
 
 void
-add_acknowledger (Engraver_void_function_engraver_grob_info ptr,
+add_acknowledger (Translator::Grob_info_callback ptr,
                   char const *func_name,
                   vector<Acknowledge_information> *ack_array)
 {
@@ -259,7 +259,7 @@ add_acknowledger (Engraver_void_function_engraver_grob_info ptr,
   ack_array->push_back (inf);
 }
 
-Engraver_void_function_engraver_grob_info
+Translator::Grob_info_callback
 generic_get_acknowledger (SCM sym, vector<Acknowledge_information> const *ack_array)
 {
   for (vsize i = 0; i < ack_array->size (); i++)
