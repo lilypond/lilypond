@@ -1128,6 +1128,8 @@ AC_DEFUN(STEPMAKE_PYTHON_DEVEL, [
 	warn="Python.h (python-devel, python-dev or libpython-dev package)"
 	STEPMAKE_ADD_ENTRY($1, $warn)
     fi
+    AC_SUBST(PYTHON_CFLAGS)
+    AC_SUBST(PYTHON_LDFLAGS)
 ])
 
 
