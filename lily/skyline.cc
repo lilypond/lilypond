@@ -811,7 +811,7 @@ Skyline::get_touching_point (SCM skyline_scm, SCM other_skyline_scm, SCM horizon
   LY_ASSERT_SMOB (Skyline, other_skyline_scm, 1);
 
   Real horizon_padding = 0;
-  if (horizon_padding_scm != SCM_UNDEFINED)
+  if (!SCM_UNBNDP (horizon_padding_scm))
     {
       LY_ASSERT_TYPE (scm_is_number, horizon_padding_scm, 3);
       horizon_padding = scm_to_double (horizon_padding_scm);
@@ -829,7 +829,7 @@ Skyline::get_distance (SCM skyline_scm, SCM other_skyline_scm, SCM horizon_paddi
   LY_ASSERT_SMOB (Skyline, other_skyline_scm, 1);
 
   Real horizon_padding = 0;
-  if (horizon_padding_scm != SCM_UNDEFINED)
+  if (!SCM_UNBNDP (horizon_padding_scm))
     {
       LY_ASSERT_TYPE (scm_is_number, horizon_padding_scm, 3);
       horizon_padding = scm_to_double (horizon_padding_scm);

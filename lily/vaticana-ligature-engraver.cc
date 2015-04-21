@@ -247,7 +247,7 @@ Vaticana_ligature_engraver::align_heads (vector<Grob_info> const &primitives,
        */
 
       SCM glyph_name_scm = primitive->get_property ("glyph-name");
-      if (glyph_name_scm == SCM_EOL)
+      if (scm_is_null (glyph_name_scm))
         {
           primitive->programming_error ("Vaticana_ligature:"
                                         " undefined glyph-name ->"
@@ -260,7 +260,7 @@ Vaticana_ligature_engraver::align_heads (vector<Grob_info> const &primitives,
       if (prev_primitive) /* urgh, need prev_primitive only here */
         {
           SCM delta_pitch_scm = prev_primitive->get_property ("delta-position");
-          if (delta_pitch_scm != SCM_EOL)
+          if (!scm_is_null (delta_pitch_scm))
             delta_pitch = scm_to_int (delta_pitch_scm);
           else
             {
@@ -491,7 +491,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 
       int delta_pitch;
       SCM delta_pitch_scm = primitive->get_property ("delta-position");
-      if (delta_pitch_scm != SCM_EOL)
+      if (!scm_is_null (delta_pitch_scm))
         delta_pitch = scm_to_int (delta_pitch_scm);
       else
         {

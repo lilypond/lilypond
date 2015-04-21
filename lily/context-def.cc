@@ -117,7 +117,7 @@ void
 Context_def::add_context_mod (SCM mod)
 {
   SCM tag = scm_car (mod);
-  if (ly_symbol2scm ("description") == tag)
+  if (scm_is_eq (tag, ly_symbol2scm ("description")))
     {
       description_ = scm_cadr (mod);
       return;
@@ -130,27 +130,27 @@ Context_def::add_context_mod (SCM mod)
   if (scm_is_string (sym))
     sym = scm_string_to_symbol (sym);
 
-  if (ly_symbol2scm ("default-child") == tag)
+  if (scm_is_eq (tag, ly_symbol2scm ("default-child")))
     default_child_ = sym;
-  else if (ly_symbol2scm ("consists") == tag
-           || ly_symbol2scm ("remove") == tag)
+  else if (scm_is_eq (tag, ly_symbol2scm ("consists"))
+           || scm_is_eq (tag, ly_symbol2scm ("remove")))
     {
       translator_mods_ = scm_cons (scm_list_2 (tag, sym), translator_mods_);
     }
-  else if (ly_symbol2scm ("accepts") == tag
-           || ly_symbol2scm ("denies") == tag)
+  else if (scm_is_eq (tag, ly_symbol2scm ("accepts"))
+           || scm_is_eq (tag, ly_symbol2scm ("denies")))
     accept_mods_ = scm_cons (scm_list_2 (tag, sym), accept_mods_);
-  else if (ly_symbol2scm ("pop") == tag
-           || ly_symbol2scm ("push") == tag
-           || ly_symbol2scm ("assign") == tag
-           || ly_symbol2scm ("unset") == tag
-           || ly_symbol2scm ("apply") == tag)
+  else if (scm_is_eq (tag, ly_symbol2scm ("pop"))
+           || scm_is_eq (tag, ly_symbol2scm ("push"))
+           || scm_is_eq (tag, ly_symbol2scm ("assign"))
+           || scm_is_eq (tag, ly_symbol2scm ("unset"))
+           || scm_is_eq (tag, ly_symbol2scm ("apply")))
     property_ops_ = scm_cons (mod, property_ops_);
-  else if (ly_symbol2scm ("alias") == tag)
+  else if (scm_is_eq (tag, ly_symbol2scm ("alias")))
     context_aliases_ = scm_cons (sym, context_aliases_);
-  else if (ly_symbol2scm ("translator-type") == tag)
+  else if (scm_is_eq (tag, ly_symbol2scm ("translator-type")))
     translator_group_type_ = sym;
-  else if (ly_symbol2scm ("context-name") == tag)
+  else if (scm_is_eq (tag, ly_symbol2scm ("context-name")))
     context_name_ = sym;
   else
     programming_error ("unknown context mod tag");
@@ -165,9 +165,9 @@ Context_def::get_accepted (SCM user_mod) const
     {
       SCM tag = scm_caar (s);
       SCM sym = scm_cadar (s);
-      if (tag == ly_symbol2scm ("accepts"))
+      if (scm_is_eq (tag, ly_symbol2scm ("accepts")))
         acc = scm_cons (sym, acc);
-      else if (tag == ly_symbol2scm ("denies"))
+      else if (scm_is_eq (tag, ly_symbol2scm ("denies")))
         acc = scm_delete_x (sym, acc);
     }
 
@@ -188,7 +188,7 @@ Context_def::get_default_child (SCM user_mod) const
   for (SCM s = user_mod; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM entry = scm_car (s);
-      if (scm_car (entry) == ly_symbol2scm ("default-child"))
+      if (scm_is_eq (scm_car (entry), ly_symbol2scm ("default-child")))
         {
           name = scm_cadr (entry);
           break;
@@ -289,9 +289,9 @@ Context_def::get_translator_names (SCM user_mod) const
       if (scm_is_string (arg))
         arg = scm_string_to_symbol (arg);
 
-      if (ly_symbol2scm ("consists") == tag)
+      if (scm_is_eq (tag, ly_symbol2scm ("consists")))
         l1 = scm_cons (arg, l1);
-      else if (ly_symbol2scm ("remove") == tag
+      else if (scm_is_eq (tag, ly_symbol2scm ("remove"))
                && (scm_is_pair (arg)
                    || ly_is_procedure (arg)
                    || get_translator (arg)))

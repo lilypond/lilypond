@@ -34,7 +34,7 @@
 bool
 Context::is_removable () const
 {
-  return context_list_ == SCM_EOL && ! client_count_
+  return scm_is_null (context_list_) && ! client_count_
          && !dynamic_cast<Global_context const *> (daddy_context_);
 }
 
@@ -181,7 +181,7 @@ Context::find_create_context (SCM n, const string &id, SCM operations)
   if (Context *existing = find_context_below (this, n, id))
     return existing;
 
-  if (n == ly_symbol2scm ("Bottom"))
+  if (scm_is_eq (n, ly_symbol2scm ("Bottom")))
     {
       Context *tg = get_default_interpreter (id);
       return tg;
@@ -248,7 +248,7 @@ Context::set_property_from_event (SCM sev)
         unset_property (sym);
         return;
       }
-          
+
       bool ok = true;
       ok = type_check_assignment (sym, val, ly_symbol2scm ("translation-type?"));
 
@@ -341,7 +341,7 @@ Context::path_to_acceptable_context (SCM name) const
   // but the Context_def expects to see elements of the form ('accepts symbol).
   SCM accepts = SCM_EOL;
   for (SCM s = definition_mods_; scm_is_pair (s); s = scm_cdr (s))
-    if (scm_caar (s) == ly_symbol2scm ("accepts"))
+    if (scm_is_eq (scm_caar (s), ly_symbol2scm ("accepts")))
       {
         SCM elt = scm_list_2 (scm_caar (s), scm_string_to_symbol (scm_cadar (s)));
         accepts = scm_cons (elt, accepts);
@@ -514,7 +514,7 @@ Context::is_alias (SCM sym) const
   if (scm_is_eq (sym, context_name_symbol ()))
     return true;
 
-  return scm_c_memq (sym, aliases_) != SCM_BOOL_F;
+  return scm_is_true (scm_c_memq (sym, aliases_));
 }
 
 void

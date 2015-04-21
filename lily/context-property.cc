@@ -321,24 +321,24 @@ apply_property_operations (Context *tg, SCM pre_init_ops)
       SCM type = scm_car (entry);
       entry = scm_cdr (entry);
 
-      if (type == ly_symbol2scm ("push"))
+      if (scm_is_eq (type, ly_symbol2scm ("push")))
         {
           SCM context_prop = scm_car (entry);
           SCM val = scm_cadr (entry);
           SCM grob_prop_path = scm_cddr (entry);
           Grob_property_info (tg, context_prop).push (grob_prop_path, val);
         }
-      else if (type == ly_symbol2scm ("pop"))
+      else if (scm_is_eq (type, ly_symbol2scm ("pop")))
         {
           SCM context_prop = scm_car (entry);
           SCM grob_prop_path = scm_cdr (entry);
           Grob_property_info (tg, context_prop).pop (grob_prop_path);
         }
-      else if (type == ly_symbol2scm ("assign"))
+      else if (scm_is_eq (type, ly_symbol2scm ("assign")))
         tg->set_property (scm_car (entry), scm_cadr (entry));
-      else if (type == ly_symbol2scm ("apply"))
+      else if (scm_is_eq (type, ly_symbol2scm ("apply")))
 	scm_apply_1 (scm_car (entry), tg->self_scm (), scm_cdr (entry));
-      else if (type == ly_symbol2scm ("unset"))
+      else if (scm_is_eq (type, ly_symbol2scm ("unset")))
         tg->unset_property (scm_car (entry));
     }
 }

@@ -136,7 +136,7 @@ Break_align_engraver::add_to_group (SCM align_name, Item *item)
   SCM s = scm_assoc (align_name, column_alist_);
   Item *group = 0;
 
-  if (s != SCM_BOOL_F)
+  if (scm_is_true (s))
     {
       Grob *e = Grob::unsmob (scm_cdr (s));
       group = dynamic_cast<Item *> (e);

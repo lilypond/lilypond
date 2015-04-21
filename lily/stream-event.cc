@@ -68,7 +68,7 @@ bool
 Stream_event::internal_in_event_class (SCM class_name)
 {
   SCM cl = get_property ("class");
-  return scm_c_memq (class_name, cl) != SCM_BOOL_F;
+  return scm_is_true (scm_c_memq (class_name, cl));
 }
 
 MAKE_SCHEME_CALLBACK (Stream_event, undump, 1);
@@ -87,9 +87,9 @@ Stream_event::make_transposable ()
       SCM val = scm_cdr (entry);
 
       if ((Pitch::is_smob (val)
-           || (prop == ly_symbol2scm ("element") && Music::is_smob (val))
-           || (prop == ly_symbol2scm ("elements") && scm_is_pair (val))
-           || (prop == ly_symbol2scm ("pitch-alist") && scm_is_pair (val)))
+           || (scm_is_eq (prop, ly_symbol2scm ("element")) && Music::is_smob (val))
+           || (scm_is_eq (prop, ly_symbol2scm ("elements")) && scm_is_pair (val))
+           || (scm_is_eq (prop, ly_symbol2scm ("pitch-alist")) && scm_is_pair (val)))
           && scm_is_false (scm_assq (prop, mutable_property_alist_)))
         mutable_property_alist_
           = scm_acons (prop, ly_music_deep_copy (val), mutable_property_alist_);

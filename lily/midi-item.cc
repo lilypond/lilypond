@@ -86,7 +86,7 @@ Midi_instrument::to_string () const
 
   SCM proc = ly_lily_module_constant ("midi-program");
   SCM program = scm_call_1 (proc, ly_symbol2scm (audio_->str_.c_str ()));
-  found = (program != SCM_BOOL_F);
+  found = (scm_is_true (program));
   if (found)
     program_byte = (Byte) scm_to_int (program);
   else

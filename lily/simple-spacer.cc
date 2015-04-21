@@ -528,7 +528,7 @@ get_line_configuration (vector<Grob *> const &columns,
   for (vsize i = 1; i + 1 < ret.cols_.size (); i++)
     {
       SCM p = ret.cols_[i]->get_property ("line-break-permission");
-      if (p == ly_symbol2scm ("force"))
+      if (scm_is_eq (p, ly_symbol2scm ("force")))
         ret.satisfies_constraints_ = false;
     }
 

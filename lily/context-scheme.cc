@@ -103,7 +103,7 @@ LY_DEFINE (ly_context_property, "ly:context-property",
 
   Context *t = Context::unsmob (context);
   SCM result = t->get_property (sym);
-  return def != SCM_UNDEFINED && scm_is_null (result) ? def : result;
+  return !SCM_UNBNDP (def) && scm_is_null (result) ? def : result;
 }
 
 LY_DEFINE (ly_context_set_property_x, "ly:context-set-property!",

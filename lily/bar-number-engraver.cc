@@ -62,8 +62,10 @@ Bar_number_engraver::listen_alternative (Stream_event *ev)
   alternative_event_ = ev;
   int current_barnumber = robust_scm2int (get_property ("currentBarNumber"), 0);
   Direction alternative_dir = robust_scm2dir (ev->get_property ("alternative-dir"), CENTER);
-  bool make_alternative = get_property ("alternativeNumberingStyle") == ly_symbol2scm ("numbers")
-                          || get_property ("alternativeNumberingStyle") == ly_symbol2scm ("numbers-with-letters");
+  bool make_alternative = scm_is_eq (get_property ("alternativeNumberingStyle"),
+                                     ly_symbol2scm ("numbers"))
+                          || scm_is_eq (get_property ("alternativeNumberingStyle"),
+                                        ly_symbol2scm ("numbers-with-letters"));
   if (make_alternative)
     {
       /*
@@ -100,7 +102,7 @@ Bar_number_engraver::process_music ()
           create_items ();
           SCM alternative_style = get_property ("alternativeNumberingStyle");
           string text_tag = "";
-          if (alternative_style == ly_symbol2scm ("numbers-with-letters"))
+          if (scm_is_eq (alternative_style, ly_symbol2scm ("numbers-with-letters")))
             {
               if (alternative_event_)
                 {

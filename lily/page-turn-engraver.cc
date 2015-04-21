@@ -66,7 +66,7 @@ public:
     if (duration_[LEFT] < penalty.duration_[LEFT])
       ret.push_back (Page_turn_event (duration_[LEFT], penalty.duration_[LEFT], permission_, penalty_));
 
-    if (penalty.permission_ != SCM_EOL)
+    if (!scm_is_null (penalty.permission_))
       ret.push_back (Page_turn_event (intersect[LEFT], intersect[RIGHT], permission_, new_pen));
 
     if (penalty.duration_[RIGHT] < duration_[RIGHT])
@@ -229,9 +229,9 @@ Page_turn_engraver::stop_translation_timestep ()
   for (; scm_is_pair (cs); cs = scm_cdr (cs))
     {
       SCM command = scm_car (cs);
-      if (command == ly_symbol2scm ("start-repeat"))
+      if (scm_is_eq (command, ly_symbol2scm ("start-repeat")))
         start = true;
-      else if (command == ly_symbol2scm ("end-repeat"))
+      else if (scm_is_eq (command, ly_symbol2scm ("end-repeat")))
         end = true;
     }
 
@@ -265,9 +265,10 @@ Page_turn_engraver::stop_translation_timestep ()
 SCM
 Page_turn_engraver::max_permission (SCM perm1, SCM perm2)
 {
-  if (perm1 == SCM_EOL)
+  if (scm_is_null (perm1))
     return perm2;
-  if (perm1 == ly_symbol2scm ("allow") && perm2 == ly_symbol2scm ("force"))
+  if (scm_is_eq (perm1, ly_symbol2scm ("allow"))
+      && scm_is_eq (perm2, ly_symbol2scm ("force")))
     return perm2;
   return perm1;
 }

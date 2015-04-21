@@ -32,7 +32,7 @@ evaluate_args (SCM delayed_argument, SCM args, bool pure, int start, int end)
       *tail = scm_cons (evaluate_with_simple_closure (delayed_argument, scm_car (s),
                                                       pure, start, end),
                         SCM_EOL);
-      if (scm_car (*tail) == SCM_UNSPECIFIED)
+      if (scm_is_eq (scm_car (*tail), SCM_UNSPECIFIED))
         return SCM_UNSPECIFIED;
       tail = SCM_CDRLOC (*tail);
     }
@@ -56,7 +56,7 @@ evaluate_with_simple_closure (SCM delayed_argument,
       SCM args = scm_cons (delayed_argument,
                            evaluate_args (delayed_argument, scm_cdr (inside),
                                           pure, start, end));
-      if (scm_cdr (args) == SCM_UNSPECIFIED)
+      if (scm_is_eq (scm_cdr (args), SCM_UNSPECIFIED))
         return SCM_UNSPECIFIED;
       if (pure)
         return call_pure_function (proc, args, start, end);
@@ -64,7 +64,7 @@ evaluate_with_simple_closure (SCM delayed_argument,
     }
   else if (!scm_is_pair (expr))
     return expr;
-  else if (scm_car (expr) == ly_symbol2scm ("quote"))
+  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("quote")))
     return scm_cadr (expr);
   else if (Unpure_pure_container::is_smob (scm_car (expr))
            || ly_is_procedure (scm_car (expr)))
@@ -73,7 +73,7 @@ evaluate_with_simple_closure (SCM delayed_argument,
         ? Unpure_pure_container::unsmob (scm_car (expr))->unpure_part ()
         : scm_car (expr);
       SCM args = evaluate_args (delayed_argument, scm_cdr (expr), pure, start, end);
-      if (args == SCM_UNSPECIFIED)
+      if (scm_is_eq (args, SCM_UNSPECIFIED))
         return SCM_UNSPECIFIED;
       if (pure)
         return call_pure_function (proc, args, start, end);

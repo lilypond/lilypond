@@ -41,7 +41,7 @@ Music::internal_is_music_type (SCM k) const
 {
   SCM ifs = get_property ("types");
 
-  return scm_c_memq (k, ifs) != SCM_BOOL_F;
+  return scm_is_true (scm_c_memq (k, ifs));
 }
 
 Music::Music (SCM init)
@@ -211,21 +211,21 @@ transpose_mutable (SCM alist, Pitch delta)
         {
           Pitch transposed = p->transposed (delta);
 
-          if (prop == ly_symbol2scm ("tonic"))
+          if (scm_is_eq (prop, ly_symbol2scm ("tonic")))
             transposed = Pitch (-1, transposed.get_notename (),
                                 transposed.get_alteration ());
 
           new_val = transposed.smobbed_copy ();
         }
-      else if (prop == ly_symbol2scm ("element"))
+      else if (scm_is_eq (prop, ly_symbol2scm ("element")))
         {
           if (Music *m = Music::unsmob (val))
             m->transpose (delta);
         }
-      else if (prop == ly_symbol2scm ("elements")
-               || prop == ly_symbol2scm ("articulations"))
+      else if (scm_is_eq (prop, ly_symbol2scm ("elements"))
+               || scm_is_eq (prop, ly_symbol2scm ("articulations")))
         transpose_music_list (val, delta);
-      else if (prop == ly_symbol2scm ("pitch-alist")
+      else if (scm_is_eq (prop, ly_symbol2scm ("pitch-alist"))
                && scm_is_pair (val))
         new_val = ly_transpose_key_alist (val, delta.smobbed_copy ());
 

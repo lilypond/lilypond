@@ -73,7 +73,7 @@ Double_percent_repeat_engraver::process_music ()
                                         percent_event_->self_scm ());
 
       SCM count = percent_event_->get_property ("repeat-count");
-      if (count != SCM_EOL && to_boolean (get_property ("countPercentRepeats"))
+      if (!scm_is_null (count) && to_boolean (get_property ("countPercentRepeats"))
           && check_repeat_count_visibility (context (), count))
         {
           Item *double_percent_counter

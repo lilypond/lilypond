@@ -48,9 +48,9 @@ Measure_grouping::print (SCM grob)
   /*
     TODO: use line interface
   */
-  if (which == ly_symbol2scm ("bracket"))
+  if (scm_is_eq (which, ly_symbol2scm ("bracket")))
     m = Lookup::bracket (X_AXIS, iv, t, -height, t);
-  else if (which == ly_symbol2scm ("triangle"))
+  else if (scm_is_eq (which, ly_symbol2scm ("triangle")))
     m = Lookup::triangle (iv, t, height);
 
   m.align_to (Y_AXIS, DOWN);

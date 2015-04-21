@@ -281,7 +281,8 @@ Slur_score_state::fill (Grob *me)
                                          end_ys[RIGHT],
                                          end_ys[LEFT]);
       Real encompass_place = extra_encompass_infos_[i].extents_[Y_AXIS][dir_];
-      if (extra_encompass_infos_[i].type_ == ly_symbol2scm ("inside")
+      if (scm_is_eq (extra_encompass_infos_[i].type_,
+                     ly_symbol2scm ("inside"))
           && minmax (dir_, encompass_place, y_place) == encompass_place
           && (!extra_encompass_infos_[i].grob_->internal_has_interface (ly_symbol2scm ("key-signature-interface"))
               && !Clef::has_interface (extra_encompass_infos_[i].grob_)
@@ -638,7 +639,8 @@ Slur_score_state::generate_avoid_offsets () const
           z[Y_AXIS] += dir_ * parameters_.free_slur_distance_;
           avoid.push_back (z);
         }
-      else if (extra_encompasses[i]->get_property ("avoid-slur") == ly_symbol2scm ("inside"))
+      else if (scm_is_eq (extra_encompasses[i]->get_property ("avoid-slur"),
+                          ly_symbol2scm ("inside")))
         {
           Grob *g = extra_encompasses [i];
           Interval xe = g->extent (common_[X_AXIS], X_AXIS);

@@ -36,9 +36,9 @@ LY_DEFINE (ly_output_def_lookup, "ly:output-def-lookup",
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
   SCM answer = op->lookup_variable (sym);
-  if (answer == SCM_UNDEFINED)
+  if (SCM_UNBNDP (answer))
     {
-      if (val == SCM_UNDEFINED)
+      if (SCM_UNBNDP (val))
 	val = SCM_EOL;
 
       answer = val;
@@ -187,7 +187,7 @@ LY_DEFINE (ly_paper_fonts, "ly:paper-fonts",
   SCM tab2 = b->lookup_variable (ly_symbol2scm ("pango-fonts"));
 
   SCM alist1 = SCM_EOL;
-  if (scm_hash_table_p (tab1) == SCM_BOOL_T)
+  if (to_boolean (scm_hash_table_p (tab1)))
     {
       alist1 = scm_append (ly_alist_vals (ly_hash2alist (tab1)));
 

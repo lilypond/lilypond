@@ -705,10 +705,10 @@ valid_outside_staff_placement_directive (Grob *me)
 {
   SCM directive = me->get_property ("outside-staff-placement-directive");
 
-  if ((directive == ly_symbol2scm ("left-to-right-greedy"))
-      || (directive == ly_symbol2scm ("left-to-right-polite"))
-      || (directive == ly_symbol2scm ("right-to-left-greedy"))
-      || (directive == ly_symbol2scm ("right-to-left-polite")))
+  if (scm_is_eq (directive, ly_symbol2scm ("left-to-right-greedy"))
+      || scm_is_eq (directive, ly_symbol2scm ("left-to-right-polite"))
+      || scm_is_eq (directive, ly_symbol2scm ("right-to-left-greedy"))
+      || scm_is_eq (directive, ly_symbol2scm ("right-to-left-polite")))
     return directive;
 
   me->warning (_f ("\"%s\" is not a valid outside-staff-placement-directive",
@@ -735,11 +735,11 @@ add_grobs_of_one_priority (Grob *me,
   SCM directive
     = valid_outside_staff_placement_directive (me);
 
-  bool l2r = ((directive == ly_symbol2scm ("left-to-right-greedy"))
-              || (directive == ly_symbol2scm ("left-to-right-polite")));
+  bool l2r = (scm_is_eq (directive, ly_symbol2scm ("left-to-right-greedy"))
+              || scm_is_eq (directive, ly_symbol2scm ("left-to-right-polite")));
 
-  bool polite = ((directive == ly_symbol2scm ("left-to-right-polite"))
-                 || (directive == ly_symbol2scm ("right-to-left-polite")));
+  bool polite = (scm_is_eq (directive, ly_symbol2scm ("left-to-right-polite"))
+                 || scm_is_eq (directive, ly_symbol2scm ("right-to-left-polite")));
 
   vector<Box> boxes;
   vector<Skyline_pair> skylines_to_merge;

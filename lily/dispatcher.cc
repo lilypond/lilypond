@@ -244,7 +244,7 @@ Dispatcher::remove_listener (Listener l, SCM ev_class)
 {
   SCM list = scm_hashq_ref (listeners_, ev_class, SCM_EOL);
 
-  if (list == SCM_EOL)
+  if (scm_is_null (list))
     {
       programming_error ("remove_listener called with incorrect class.");
       return;
@@ -292,7 +292,7 @@ Dispatcher::register_as_listener (Dispatcher *disp)
   int priority = ++disp->priority_count_;
 
   // Don't register twice to the same dispatcher.
-  if (scm_assq (disp->self_scm (), dispatchers_) != SCM_BOOL_F)
+  if (scm_is_true (scm_assq (disp->self_scm (), dispatchers_)))
     {
       warning (_ ("Already listening to dispatcher, ignoring request"));
       return;

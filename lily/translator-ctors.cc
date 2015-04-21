@@ -60,7 +60,7 @@ get_translator (SCM sym)
   if (global_translator_dict)
     global_translator_dict->try_retrieve (sym, &v);
 
-  if (v == SCM_BOOL_F)
+  if (scm_is_false (v))
     {
       warning (_f ("unknown translator: `%s'", ly_symbol2string (sym).c_str ()));
       return 0;

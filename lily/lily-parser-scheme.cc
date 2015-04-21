@@ -50,8 +50,8 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 
   out_file_name.ext_ = "";
   out_file_name.root_ = "";
-  if (ly_get_option (ly_symbol2scm ("gui")) != SCM_BOOL_T
-      && ly_get_option (ly_symbol2scm ("strip-output-dir")) == SCM_BOOL_T)
+  if (!to_boolean (ly_get_option (ly_symbol2scm ("gui")))
+      && to_boolean (ly_get_option (ly_symbol2scm ("strip-output-dir"))))
     {
       out_file_name.dir_ = "";
     }
@@ -190,7 +190,7 @@ LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
   LY_ASSERT_TYPE (ly_is_symbol, symbol, 2);
 
   SCM val = parser->lexer_->lookup_identifier (ly_symbol2string (symbol));
-  if (val != SCM_UNDEFINED)
+  if (!SCM_UNBNDP (val))
     return val;
   else
     return SCM_EOL;

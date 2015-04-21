@@ -45,7 +45,7 @@ Font_interface::music_font_alist_chain (Grob *g)
 {
   SCM defaults
     = g->layout ()->lookup_variable (ly_symbol2scm ("font-defaults"));
-  if (defaults == SCM_UNDEFINED)
+  if (SCM_UNBNDP (defaults))
     defaults = SCM_EOL;
   return g->get_property_alist_chain (defaults);
 }
@@ -55,7 +55,7 @@ Font_interface::text_font_alist_chain (Grob *g)
 {
   SCM defaults
     = g->layout ()->lookup_variable (ly_symbol2scm ("text-font-defaults"));
-  if (defaults == SCM_UNDEFINED)
+  if (SCM_UNBNDP (defaults))
     defaults = SCM_EOL;
   return g->get_property_alist_chain (defaults);
 }

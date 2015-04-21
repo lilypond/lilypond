@@ -200,20 +200,21 @@ Line_interface::line (Grob *me, Offset from, Offset to)
                * robust_scm2double (me->get_property ("thickness"), 1);
 
   SCM type = me->get_property ("style");
-  if (type == ly_symbol2scm ("zigzag"))
+  if (scm_is_eq (type, ly_symbol2scm ("zigzag")))
     return make_zigzag_line (me, from, to);
-  else if (type == ly_symbol2scm ("trill"))
+  else if (scm_is_eq (type, ly_symbol2scm ("trill")))
     return make_trill_line (me, from, to);
-  else if (type == ly_symbol2scm ("none"))
+  else if (scm_is_eq (type, ly_symbol2scm ("none")))
     return Stencil ();
 
   Stencil stencil;
 
-  if (type == ly_symbol2scm ("dashed-line") || type == ly_symbol2scm ("dotted-line"))
+  if (scm_is_eq (type, ly_symbol2scm ("dashed-line"))
+      || scm_is_eq (type, ly_symbol2scm ("dotted-line")))
     {
 
       Real fraction
-        = type == ly_symbol2scm ("dotted-line")
+        = scm_is_eq (type, ly_symbol2scm ("dotted-line"))
           ? 0.0
           : robust_scm2double (me->get_property ("dash-fraction"), 0.4);
 

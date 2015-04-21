@@ -317,7 +317,7 @@ Accidental_engraver::make_standard_accidental (Stream_event * /* note */,
   */
   for (vsize i = 0; i < left_objects_.size (); i++)
     {
-      if (left_objects_[i]->get_property ("side-axis") == scm_from_int (X_AXIS))
+      if (scm_is_eq (left_objects_[i]->get_property ("side-axis"), scm_from_int (X_AXIS)))
         Side_position_interface::add_support (left_objects_[i], a);
     }
 
@@ -332,7 +332,7 @@ Accidental_engraver::make_standard_accidental (Stream_event * /* note */,
 
   Accidental_placement::add_accidental
     (accidental_placement_, a,
-     get_property ("accidentalGrouping") == ly_symbol2scm ("voice"),
+     scm_is_eq (get_property ("accidentalGrouping"), ly_symbol2scm ("voice")),
      (long) trans);
 
   note_head->set_object ("accidental-grob", a->self_scm ());
@@ -467,7 +467,8 @@ Accidental_engraver::acknowledge_rhythmic_head (Grob_info info)
           || note->in_event_class ("trill-span-event"))
       // option to skip accidentals on string harmonics
       && (to_boolean (get_property ("harmonicAccidentals"))
-          || info.grob ()->get_property ("style") != ly_symbol2scm ("harmonic"))
+          || !scm_is_eq (info.grob ()->get_property ("style"),
+                         ly_symbol2scm ("harmonic")))
       // ignore accidentals in non-printing voices like NullVoice
       && !to_boolean (info.context ()->get_property ("nullAccidentals")))
     {

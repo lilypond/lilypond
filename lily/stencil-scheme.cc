@@ -116,15 +116,15 @@ LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
   Stencil *s2 = Stencil::unsmob (second);
   Stencil result;
 
-  SCM_ASSERT_TYPE (s1 || first == SCM_BOOL_F || first == SCM_EOL,
+  SCM_ASSERT_TYPE (s1 || scm_is_false (first) || scm_is_null (first),
                    first, SCM_ARG1, __FUNCTION__, "Stencil, #f or ()");
-  SCM_ASSERT_TYPE (s2 || second == SCM_BOOL_F || second == SCM_EOL,
+  SCM_ASSERT_TYPE (s2 || scm_is_false (second) || scm_is_null (second),
                    second, SCM_ARG4, __FUNCTION__, "Stencil, #f or ()");
   LY_ASSERT_TYPE (is_axis, axis, 2);
   LY_ASSERT_TYPE (is_direction, direction, 3);
 
   Real p = 0.0;
-  if (padding != SCM_UNDEFINED)
+  if (!SCM_UNBNDP (padding))
     {
       LY_ASSERT_TYPE (scm_is_number, padding, 5);
       p = scm_to_double (padding);
@@ -163,15 +163,15 @@ LY_DEFINE (ly_stencil_stack, "ly:stencil-stack",
   Stencil *s2 = Stencil::unsmob (second);
   Stencil result;
 
-  SCM_ASSERT_TYPE (s1 || first == SCM_BOOL_F || first == SCM_EOL,
+  SCM_ASSERT_TYPE (s1 || scm_is_false (first) || scm_is_null (first),
                    first, SCM_ARG1, __FUNCTION__, "Stencil, #f or ()");
-  SCM_ASSERT_TYPE (s2 || second == SCM_BOOL_F || second == SCM_EOL,
+  SCM_ASSERT_TYPE (s2 || scm_is_false (second) || scm_is_null (second),
                    second, SCM_ARG4, __FUNCTION__, "Stencil, #f or ()");
   LY_ASSERT_TYPE (is_axis, axis, 2);
   LY_ASSERT_TYPE (is_direction, direction, 3);
 
   Real p = 0.0;
-  if (padding != SCM_UNDEFINED)
+  if (!SCM_UNBNDP (padding))
     {
       LY_ASSERT_TYPE (scm_is_number, padding, 5);
       p = scm_to_double (padding);
@@ -252,14 +252,14 @@ LY_DEFINE (ly_make_stencil, "ly:make-stencil",
                    expr, SCM_ARG1, __FUNCTION__, "registered stencil expression");
 
   Interval x;
-  if (xext != SCM_UNDEFINED)
+  if (!SCM_UNBNDP (xext))
     {
       LY_ASSERT_TYPE (is_number_pair, xext, 2);
       x = ly_scm2interval (xext);
     }
 
   Interval y;
-  if (yext != SCM_UNDEFINED)
+  if (!SCM_UNBNDP (yext))
     {
       LY_ASSERT_TYPE (is_number_pair, yext, 3);
       y = ly_scm2interval (yext);

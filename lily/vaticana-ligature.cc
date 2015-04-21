@@ -86,7 +86,7 @@ vaticana_brew_flexa (Grob *me,
 
   Real interval;
   SCM flexa_height_scm = me->get_property ("flexa-height");
-  if (flexa_height_scm != SCM_EOL)
+  if (!scm_is_null (flexa_height_scm))
     interval = scm_to_int (flexa_height_scm);
   else
     {
@@ -200,7 +200,7 @@ Stencil
 vaticana_brew_primitive (Grob *me)
 {
   SCM glyph_name_scm = me->get_property ("glyph-name");
-  if (glyph_name_scm == SCM_EOL)
+  if (scm_is_null (glyph_name_scm))
     {
       me->programming_error ("Vaticana_ligature: "
                              "undefined glyph-name -> ignoring grob");
@@ -222,7 +222,7 @@ vaticana_brew_primitive (Grob *me)
 
   SCM delta_pitch_scm = me->get_property ("delta-position");
   int delta_pitch;
-  if (delta_pitch_scm != SCM_EOL)
+  if (!scm_is_null (delta_pitch_scm))
     delta_pitch = scm_to_int (delta_pitch_scm);
   else
     delta_pitch = 0;

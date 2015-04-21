@@ -90,7 +90,7 @@ Script_engraver::listen_articulation (Stream_event *ev)
 void
 copy_property (Grob *g, SCM sym, SCM alist)
 {
-  if (g->get_property (sym) == SCM_EOL)
+  if (scm_is_null (g->get_property (sym)))
     {
       SCM entry = scm_assoc (sym, alist);
       if (scm_is_pair (entry))
@@ -109,7 +109,7 @@ make_script_from_event (Grob *p, Context *tg,
   SCM alist = tg->get_property ("scriptDefinitions");
   SCM art = scm_assoc (art_type, alist);
 
-  if (art == SCM_BOOL_F)
+  if (scm_is_false (art))
     {
       /* FIXME: */
       warning (_ ("do not know how to interpret articulation:"));
@@ -132,7 +132,7 @@ make_script_from_event (Grob *p, Context *tg,
 
       SCM val = scm_cdar (s);
 
-      if (sym == ly_symbol2scm ("script-priority"))
+      if (scm_is_eq (sym, ly_symbol2scm ("script-priority")))
         {
           priority_found = true;
           /* Make sure they're in order of user input by adding index i.
@@ -144,8 +144,8 @@ make_script_from_event (Grob *p, Context *tg,
         }
 
       SCM preset = p->get_property_data (sym);
-      if (val == SCM_EOL
-          || scm_call_1 (type, preset) == SCM_BOOL_F)
+      if (scm_is_null (val)
+          || scm_is_false (scm_call_1 (type, preset)))
         p->set_property (sym, val);
     }
 

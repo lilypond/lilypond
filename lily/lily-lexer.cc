@@ -209,7 +209,7 @@ Lily_lexer::lookup_identifier_symbol (SCM sym)
   for (SCM s = scopes_; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM var = ly_module_lookup (scm_car (s), sym);
-      if (var != SCM_BOOL_F)
+      if (scm_is_true (var))
         return scm_variable_ref (var);
     }
 
@@ -281,7 +281,7 @@ Lily_lexer::set_identifier (SCM path, SCM val)
       if (scm_is_pair (path))
         {
           SCM prev = ly_module_lookup (mod, sym);
-          if (prev != SCM_BOOL_F)
+          if (scm_is_true (prev))
             val = nested_property_alist (scm_variable_ref (prev), path, val);
         }
       scm_module_define (mod, sym, val);

@@ -58,7 +58,7 @@ Break_alignment_interface::ordered_elements (Grob *grob)
 
   SCM order = break_align_order (me);
 
-  if (order == SCM_BOOL_F)
+  if (scm_is_false (order))
     return elts;
 
   vector<Grob *> writable_elts (elts);
@@ -144,8 +144,8 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
           Grob *elt = elts[i];
 
           if (edge_idx == VPOS
-              && (elt->get_property ("break-align-symbol")
-                  == ly_symbol2scm ("left-edge")))
+              && scm_is_eq (elt->get_property ("break-align-symbol"),
+                            ly_symbol2scm ("left-edge")))
             edge_idx = idx;
 
           SCM l = elt->get_property ("space-alist");
@@ -174,7 +174,7 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
             }
         }
 
-      if (rsym == ly_symbol2scm ("left-edge"))
+      if (scm_is_eq (rsym, ly_symbol2scm ("left-edge")))
         edge_idx = next_idx;
 
       SCM entry = SCM_EOL;
@@ -210,11 +210,11 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
 
       if (r)
         {
-          if (type == ly_symbol2scm ("extra-space"))
+          if (scm_is_eq (type, ly_symbol2scm ("extra-space")))
             offsets[next_idx] = extents[idx][RIGHT] + distance
                                 - extents[next_idx][LEFT];
           /* should probably junk minimum-space */
-          else if (type == ly_symbol2scm ("minimum-space"))
+          else if (scm_is_eq (type, ly_symbol2scm ("minimum-space")))
             offsets[next_idx] = max (extents[idx][RIGHT], distance);
         }
       else

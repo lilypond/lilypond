@@ -140,8 +140,8 @@ Mark_engraver::process_music ()
           if (!scm_is_number (m))
             m = get_property ("rehearsalMark");
 
-          if (scm_integer_p (m) == SCM_BOOL_T
-              && scm_exact_p (m) == SCM_BOOL_T)
+          if (scm_is_integer (m)
+              && scm_is_true (scm_exact_p (m)))
             {
               int mark_count = scm_to_int (m);
               mark_count++;

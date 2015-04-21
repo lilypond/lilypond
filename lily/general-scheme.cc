@@ -89,7 +89,7 @@ LY_DEFINE (ly_gulp_file, "ly:gulp-file",
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
   int sz = INT_MAX;
-  if (size != SCM_UNDEFINED)
+  if (!SCM_UNBNDP (size))
     {
       LY_ASSERT_TYPE (scm_is_number, size, 2);
       sz = scm_to_int (size);
@@ -128,10 +128,10 @@ LY_DEFINE (ly_assoc_get, "ly:assoc-get",
   if (scm_is_pair (handle))
     return scm_cdr (handle);
 
-  if (default_value == SCM_UNDEFINED)
+  if (SCM_UNBNDP (default_value))
     default_value = SCM_BOOL_F;
 
-  if (strict_checking == SCM_BOOL_T)
+  if (to_boolean (strict_checking))
     {
       string key_string = ly_scm2string
                           (scm_object_to_string (key, SCM_UNDEFINED));
@@ -223,7 +223,7 @@ LY_DEFINE (ly_number_2_string, "ly:number->string",
 
   char str[400];                        // ugh.
 
-  if (scm_exact_p (s) == SCM_BOOL_F)
+  if (scm_is_false (scm_exact_p (s)))
     {
       Real r (scm_to_double (s));
       if (isinf (r) || isnan (r))
@@ -368,7 +368,7 @@ LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
         return ly_chain_assoc_get (key, scm_cdr (achain), default_value);
     }
 
-  if (strict_checking == SCM_BOOL_T)
+  if (to_boolean (strict_checking))
     {
       string key_string = ly_scm2string
                           (scm_object_to_string (key, SCM_UNDEFINED));
@@ -381,7 +381,7 @@ LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
                          + default_value_string + "'.");
     }
 
-  return default_value == SCM_UNDEFINED ? SCM_BOOL_F : default_value;
+  return SCM_UNBNDP (default_value) ? SCM_BOOL_F : default_value;
 }
 
 LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect",
@@ -471,7 +471,7 @@ LY_DEFINE (ly_truncate_list_x, "ly:truncate-list!",
 string
 format_single_argument (SCM arg, int precision, bool escape = false)
 {
-  if (scm_is_integer (arg) && scm_exact_p (arg) == SCM_BOOL_T)
+  if (scm_is_integer (arg) && scm_is_true (scm_exact_p (arg)))
     return (String_convert::int_string (scm_to_int (arg)));
   else if (scm_is_number (arg))
     {
@@ -570,11 +570,11 @@ LY_DEFINE (ly_format, "ly:format",
               for (; scm_is_pair (s); s = scm_cdr (s))
                 {
                   results.push_back (format_single_argument (scm_car (s), precision));
-                  if (scm_cdr (s) != SCM_EOL)
+                  if (!scm_is_null (scm_cdr (s)))
                     results.push_back (" ");
                 }
 
-              if (s != SCM_EOL)
+              if (!scm_is_null (s))
                 results.push_back (format_single_argument (s, precision));
 
             }

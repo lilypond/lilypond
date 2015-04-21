@@ -116,7 +116,7 @@ Stem_tremolo::raw_stencil (Grob *me, Real slope, Direction dir)
   thick *= ss;
 
   Stencil a;
-  if (style == ly_symbol2scm ("rectangle"))
+  if (scm_is_eq (style, ly_symbol2scm ("rectangle")))
     a = Lookup::rotated_box (slope, width, thick, blot);
   else
     a = Lookup::beam (slope, width, thick, blot);

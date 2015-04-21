@@ -162,7 +162,7 @@ Open_type_font::attachment_point (const string &glyph_name) const
   SCM entry = scm_hashq_ref (lily_character_table_, sym, SCM_BOOL_F);
 
   Offset o;
-  if (entry == SCM_BOOL_F)
+  if (scm_is_false (entry))
     return o;
 
   SCM char_alist = entry;
@@ -196,7 +196,7 @@ Open_type_font::get_indexed_char_dimensions (size_t signed_idx) const
       SCM sym = ly_symbol2scm (name);
       SCM alist = scm_hashq_ref (lily_character_table_, sym, SCM_BOOL_F);
 
-      if (alist != SCM_BOOL_F)
+      if (scm_is_true (alist))
         {
           SCM bbox = scm_cdr (scm_assq (ly_symbol2scm ("bbox"), alist));
 

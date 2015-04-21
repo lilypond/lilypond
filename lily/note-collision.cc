@@ -209,8 +209,10 @@ check_meshing_chords (Grob *me,
   SCM up_style = head_up->get_property ("style");
   SCM down_style = head_down->get_property ("style");
   if (merge_possible
-      && (up_style == ly_symbol2scm ("fa") || up_style == ly_symbol2scm ("faThin"))
-      && (down_style == ly_symbol2scm ("fa") || down_style == ly_symbol2scm ("faThin")))
+      && (scm_is_eq (up_style, ly_symbol2scm ("fa"))
+          || scm_is_eq (up_style, ly_symbol2scm ("faThin")))
+      && (scm_is_eq (down_style, ly_symbol2scm ("fa"))
+          || scm_is_eq (down_style, ly_symbol2scm ("faThin"))))
     {
       Offset att = Offset (0.0, -1.0);
       head_up->set_property ("stem-attachment", ly_offset2scm (att));

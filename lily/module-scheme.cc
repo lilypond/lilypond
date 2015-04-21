@@ -34,7 +34,7 @@ module_define_closure_func (void *closure,
                             SCM /* result */)
 {
   SCM module = (SCM) closure;
-  if (scm_variable_bound_p (val) == SCM_BOOL_T)
+  if (to_boolean (scm_variable_bound_p (val)))
     scm_module_define (module, key, scm_variable_ref (val));
   return SCM_EOL;
 }
@@ -92,11 +92,11 @@ LY_DEFINE (ly_modules_lookup, "ly:modules-lookup",
     {
       SCM mod = scm_car (s);
       SCM v = ly_module_lookup (mod, sym);
-      if (SCM_VARIABLEP (v) && SCM_VARIABLE_REF (v) != SCM_UNDEFINED)
+      if (SCM_VARIABLEP (v) && !SCM_UNBNDP (SCM_VARIABLE_REF (v)))
         return scm_variable_ref (v);
     }
 
-  if (def != SCM_UNDEFINED)
+  if (!SCM_UNBNDP (def))
     return def;
   return SCM_BOOL_F;
 }

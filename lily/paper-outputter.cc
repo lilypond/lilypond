@@ -118,7 +118,7 @@ Paper_outputter::output_stencil (Stencil stil)
 void
 Paper_outputter::close ()
 {
-  if (scm_port_p (file_) == SCM_BOOL_T)
+  if (ly_is_port (file_))
     {
       scm_close_port (file_);
       /*

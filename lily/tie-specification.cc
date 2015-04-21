@@ -33,7 +33,7 @@ Tie_specification::from_grob (Grob *tie)
   SCM pos_scm = tie->get_property ("staff-position");
   if (scm_is_number (pos_scm))
     {
-      has_manual_delta_y_ = (scm_inexact_p (pos_scm) == SCM_BOOL_T);
+      has_manual_delta_y_ = !ly_is_rational (pos_scm);
       manual_position_ = scm_to_double (tie->get_property ("staff-position"));
       has_manual_position_ = true;
     }

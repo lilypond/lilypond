@@ -114,7 +114,7 @@ SCM
 Output_def::lookup_variable (SCM sym) const
 {
   SCM var = ly_module_lookup (scope_, sym);
-  if (SCM_VARIABLEP (var) && SCM_VARIABLE_REF (var) != SCM_UNDEFINED)
+  if (SCM_VARIABLEP (var) && !SCM_UNBNDP (SCM_VARIABLE_REF (var)))
     return SCM_VARIABLE_REF (var);
 
   if (parent_)
@@ -160,9 +160,9 @@ Output_def::normalize ()
                           ? c_variable ("inner-margin")
                           : c_variable ("right-margin"));
 
-  if (scm_paper_width == SCM_UNDEFINED
-      || scm_left_margin_default == SCM_UNDEFINED
-      || scm_right_margin_default == SCM_UNDEFINED)
+  if (SCM_UNBNDP (scm_paper_width)
+      || SCM_UNBNDP (scm_left_margin_default)
+      || SCM_UNBNDP (scm_right_margin_default))
     {
       programming_error ("called normalize () on paper with missing settings");
       return;
@@ -183,12 +183,12 @@ Output_def::normalize ()
   if (twosided)
     binding_offset = robust_scm2double (c_variable ("binding-offset"), 0);
 
-  if (scm_line_width == SCM_UNDEFINED)
+  if (SCM_UNBNDP (scm_line_width))
     {
-      left_margin = ((scm_left_margin == SCM_UNDEFINED)
+      left_margin = (SCM_UNBNDP (scm_left_margin)
                      ? left_margin_default
                      : scm_to_double (scm_left_margin));
-      right_margin = ((scm_right_margin == SCM_UNDEFINED)
+      right_margin = (SCM_UNBNDP (scm_right_margin)
                       ? right_margin_default
                       : scm_to_double (scm_right_margin)) + binding_offset;
       line_width = paper_width - left_margin - right_margin;
@@ -196,10 +196,10 @@ Output_def::normalize ()
   else
     {
       line_width = scm_to_double (scm_line_width);
-      if (scm_left_margin == SCM_UNDEFINED)
+      if (SCM_UNBNDP (scm_left_margin))
         {
           // Vertically center systems if only line-width is given
-          if (scm_right_margin == SCM_UNDEFINED)
+          if (SCM_UNBNDP (scm_right_margin))
             {
               left_margin = (paper_width - line_width) / 2;
               right_margin = left_margin;
@@ -213,7 +213,7 @@ Output_def::normalize ()
       else
         {
           left_margin = scm_to_double (scm_left_margin);
-          right_margin = ((scm_right_margin == SCM_UNDEFINED)
+          right_margin = (SCM_UNBNDP (scm_right_margin)
                            ? (paper_width - line_width - left_margin)
                            : scm_to_double (scm_right_margin)) + binding_offset;
         }

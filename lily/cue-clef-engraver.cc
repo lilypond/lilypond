@@ -171,9 +171,9 @@ Cue_clef_engraver::inspect_clef_properties ()
   SCM clefpos = get_property ("cueClefPosition");
   SCM transposition = get_property ("cueClefTransposition");
 
-  if (scm_equal_p (glyph, prev_glyph_) == SCM_BOOL_F
-      || scm_equal_p (clefpos, prev_cpos_) == SCM_BOOL_F
-      || scm_equal_p (transposition, prev_transposition_) == SCM_BOOL_F)
+  if (!ly_is_equal (glyph, prev_glyph_)
+      || !ly_is_equal (clefpos, prev_cpos_)
+      || !ly_is_equal (transposition, prev_transposition_))
     {
       set_glyph ();
       if (scm_is_string (glyph))

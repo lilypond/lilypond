@@ -161,7 +161,7 @@ Audio_staff *
 Staff_performer::get_audio_staff (const string &voice)
 {
   SCM channel_mapping = get_property ("midiChannelMapping");
-  if (channel_mapping != ly_symbol2scm ("instrument")
+  if (!scm_is_eq (channel_mapping, ly_symbol2scm ("instrument"))
       && staff_map_.size ())
     return staff_map_.begin ()->second;
 
@@ -201,7 +201,7 @@ Staff_performer::set_instrument (int channel, const string &voice)
   audio_staff->add_audio_item (instrument_);
   SCM proc = ly_lily_module_constant ("percussion?");
   SCM drums = scm_call_1 (proc, ly_symbol2scm (instrument_string_.c_str ()));
-  audio_staff->percussion_ = (drums == SCM_BOOL_T);
+  audio_staff->percussion_ = to_boolean (drums);
 }
 
 void
@@ -272,11 +272,11 @@ Staff_performer::get_channel (const string &instrument)
 {
   SCM channel_mapping = get_property ("midiChannelMapping");
   map<string, int> &channel_map
-    = (channel_mapping != ly_symbol2scm ("instrument"))
+    = (!scm_is_eq (channel_mapping, ly_symbol2scm ("instrument")))
       ? channel_map_
       : static_channel_map_;
 
-  if (channel_mapping == ly_symbol2scm ("staff")
+  if (scm_is_eq (channel_mapping, ly_symbol2scm ("staff"))
       && channel_ >= 0)
     return channel_;
 
@@ -284,7 +284,7 @@ Staff_performer::get_channel (const string &instrument)
   if (i != channel_map.end ())
     return i->second;
 
-  int channel = (channel_mapping == ly_symbol2scm ("staff"))
+  int channel = (scm_is_eq (channel_mapping, ly_symbol2scm ("staff")))
                 ? channel_count_++
                 : channel_map.size ();
 
@@ -319,13 +319,13 @@ Staff_performer::acknowledge_audio_element (Audio_element_info inf)
         voice = c->id_string ();
       SCM channel_mapping = get_property ("midiChannelMapping");
       string str = new_instrument_string ();
-      if (channel_mapping != ly_symbol2scm ("instrument"))
+      if (!scm_is_eq (channel_mapping, ly_symbol2scm ("instrument")))
         channel_ = get_channel (voice);
       else if (channel_ < 0 && str.empty ())
         channel_ = get_channel (str);
       if (str.length ())
         {
-          if (channel_mapping != ly_symbol2scm ("voice"))
+          if (!scm_is_eq (channel_mapping, ly_symbol2scm ("voice")))
             channel_ = get_channel (str);
           set_instrument (channel_, voice);
           set_instrument_name (voice);

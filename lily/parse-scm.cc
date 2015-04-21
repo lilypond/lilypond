@@ -92,7 +92,7 @@ internal_ly_eval_scm (Parse_start *ps)
   if (ps->safe_)
     {
       static SCM module = SCM_BOOL_F;
-      if (module == SCM_BOOL_F)
+      if (scm_is_false (module))
         {
           SCM function = ly_lily_module_constant ("make-safe-lilypond-module");
           module = scm_gc_protect_object (scm_call_0 (function));

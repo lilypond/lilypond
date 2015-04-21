@@ -80,7 +80,7 @@ Time_signature_engraver::process_music ()
       time_signature_ = make_item ("TimeSignature", time_cause_);
       time_signature_->set_property ("fraction", fr);
 
-      if (last_time_fraction_ == SCM_BOOL_F)
+      if (scm_is_false (last_time_fraction_))
         time_signature_->set_property ("break-visibility",
                                        get_property ("initialTimeSignatureVisibility"));
 
@@ -104,7 +104,7 @@ Time_signature_engraver::process_music ()
 void
 Time_signature_engraver::stop_translation_timestep ()
 {
-  if (time_signature_ && (time_cause_ != SCM_EOL))
+  if (time_signature_ && !scm_is_null (time_cause_))
     {
       Moment *mp = Moment::unsmob (get_property ("measurePosition"));
       if (mp && (mp->main_part_ > Rational (0))

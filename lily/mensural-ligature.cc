@@ -117,7 +117,7 @@ Stencil
 internal_brew_primitive (Grob *me)
 {
   SCM primitive_scm = me->get_property ("primitive");
-  if (primitive_scm == SCM_EOL)
+  if (scm_is_null (primitive_scm))
     {
       programming_error ("Mensural_ligature:"
                          " undefined primitive -> ignoring grob");

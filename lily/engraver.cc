@@ -56,7 +56,7 @@ Engraver::make_grob_info (Grob *e, SCM cause)
     {
       cause = m->to_event ()->unprotect ();
     }
-  if (e->get_property ("cause") == SCM_EOL
+  if (scm_is_null (e->get_property ("cause"))
       && (Stream_event::is_smob (cause) || Grob::is_smob (cause)))
     e->set_property ("cause", cause);
 
@@ -125,11 +125,11 @@ Engraver::internal_make_grob (SCM symbol,
   SCM handle = scm_sloppy_assq (ly_symbol2scm ("meta"), props);
   SCM klass = scm_cdr (scm_sloppy_assq (ly_symbol2scm ("class"), scm_cdr (handle)));
 
-  if (klass == ly_symbol2scm ("Item"))
+  if (scm_is_eq (klass, ly_symbol2scm ("Item")))
     grob = new Item (props);
-  else if (klass == ly_symbol2scm ("Spanner"))
+  else if (scm_is_eq (klass, ly_symbol2scm ("Spanner")))
     grob = new Spanner (props);
-  else if (klass == ly_symbol2scm ("Paper_column"))
+  else if (scm_is_eq (klass, ly_symbol2scm ("Paper_column")))
     grob = new Paper_column (props);
 
   assert (grob);
@@ -174,7 +174,7 @@ Engraver::internal_make_spanner (SCM x, SCM cause, char const *name,
 bool
 ly_is_grob_cause (SCM obj)
 {
-  return Grob::is_smob (obj) || Stream_event::is_smob (obj) || (obj == SCM_EOL);
+  return Grob::is_smob (obj) || Stream_event::is_smob (obj) || scm_is_null (obj);
 }
 
 #include "translator.icc"

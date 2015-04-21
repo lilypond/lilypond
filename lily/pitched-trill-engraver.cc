@@ -106,7 +106,7 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
   int bn = measure_number (context ());
 
   SCM handle = scm_assoc (key, keysig);
-  if (handle != SCM_BOOL_F)
+  if (scm_is_true (handle))
     {
       bool same_bar = (bn == robust_scm2int (scm_caddr (handle), 0));
       bool same_alt
@@ -116,9 +116,9 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
         handle = SCM_BOOL_F;
     }
 
-  bool print_acc
-    = (handle == SCM_BOOL_F) || p->get_alteration () == Rational (0)
-      || (ev->get_property ("force-accidental") == SCM_BOOL_T);
+  bool print_acc = scm_is_false (handle)
+                   || p->get_alteration () == Rational (0)
+                   || to_boolean (ev->get_property ("force-accidental"));
 
   if (trill_head_)
     {

@@ -117,7 +117,7 @@ Score::book_rendering (Output_def *layoutbook,
 
   Real scale = 1.0;
 
-  if (layoutbook && layoutbook->c_variable ("is-paper") == SCM_BOOL_T)
+  if (layoutbook && to_boolean (layoutbook->c_variable ("is-paper")))
     scale = scm_to_double (layoutbook->c_variable ("output-scale"));
 
   SCM outputs = SCM_EOL;
@@ -129,7 +129,7 @@ Score::book_rendering (Output_def *layoutbook,
       Output_def *def = outdef_count ? defs_[i] : default_def;
       SCM scaled = def->self_scm ();
 
-      if (def->c_variable ("is-layout") == SCM_BOOL_T)
+      if (to_boolean (def->c_variable ("is-layout")))
         {
           def = scale_output_def (def, scale);
           def->parent_ = layoutbook;

@@ -433,7 +433,7 @@ Figured_bass_engraver::create_grobs ()
               Align_interface::add_element (alignment_, group.group_);
             }
 
-          if (scm_memq (group.number_, get_property ("implicitBassFigures")) != SCM_BOOL_F)
+          if (scm_is_true (scm_memq (group.number_, get_property ("implicitBassFigures"))))
             {
               item->set_property ("transparent", SCM_BOOL_T);
               item->set_property ("implicit", SCM_BOOL_T);

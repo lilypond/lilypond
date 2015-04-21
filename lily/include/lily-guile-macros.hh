@@ -88,7 +88,7 @@ scm_or_str2symbol (SCM s)
     SCM value = cached;                                                 \
     if (__builtin_constant_p ((x)))                                     \
       {                                                                 \
-        if (!cached)                                                    \
+        if (!SCM_UNPACK (cached))                                       \
           value = cached = scm_gc_protect_object (scm_or_str2symbol (x)); \
       }                                                                 \
     else                                                                \
@@ -111,7 +111,7 @@ inline SCM ly_symbol2scm (char const *x) { return scm_from_utf8_symbol ((x)); }
     SCM value = cached;                                                 \
     if (__builtin_constant_p ((x)))                                     \
       {                                                                 \
-        if (!cached)                                                    \
+        if (!SCM_UNPACK (cached))                                       \
           value = cached =                                              \
             scm_variable_ref (scm_c_module_lookup (global_lily_module, (x))); \
       }                                                                 \

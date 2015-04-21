@@ -89,8 +89,8 @@ Instrument_name_engraver::consider_start_spanner ()
   if ((Text_interface::is_markup (long_text)
        || Text_interface::is_markup (short_text))
       && (!text_spanner_
-          || short_text_ != short_text
-          || long_text_ != long_text))
+          || !scm_is_eq (short_text_, short_text)
+          || !scm_is_eq (long_text_, long_text)))
     {
       if (text_spanner_)
         stop_spanner ();

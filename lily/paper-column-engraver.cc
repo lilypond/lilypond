@@ -259,7 +259,8 @@ Paper_column_engraver::stop_translation_timestep ()
       for (vsize i = 0; i < break_events_.size (); i++)
         {
           SCM perm = break_events_[i]->get_property ("break-permission");
-          if (perm == ly_symbol2scm ("force") || perm == ly_symbol2scm ("allow"))
+          if (scm_is_eq (perm, ly_symbol2scm ("force"))
+              || scm_is_eq (perm, ly_symbol2scm ("allow")))
             warning (_ ("forced break was overridden by some other event, "
                         "should you be using bar checks?"));
         }

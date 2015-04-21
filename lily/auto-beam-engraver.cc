@@ -170,12 +170,11 @@ Auto_beam_engraver::listen_beam_forbid (Stream_event *ev)
 bool
 Auto_beam_engraver::test_moment (Direction dir, Moment test_mom, Moment dur)
 {
-  return scm_call_4 (get_property ("autoBeamCheck"),
-                     context ()->self_scm (),
-                     scm_from_int (dir),
-                     test_mom.smobbed_copy (),
-                     dur.smobbed_copy ())
-         != SCM_BOOL_F;
+  return scm_is_true (scm_call_4 (get_property ("autoBeamCheck"),
+                                    context ()->self_scm (),
+                                    scm_from_int (dir),
+                                    test_mom.smobbed_copy (),
+                                    dur.smobbed_copy ()));
 }
 
 void
@@ -438,7 +437,7 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
                        durlog - 2,
                        Stem::is_invisible (stem),
                        stem_duration->factor (),
-                       (stem->get_property ("tuplet-start") == SCM_BOOL_T));
+                       (to_boolean (stem->get_property ("tuplet-start"))));
   stems_->push_back (stem);
   last_add_mom_ = now;
   extend_mom_ = max (extend_mom_, now) + get_event_length (ev, now);

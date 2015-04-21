@@ -594,7 +594,7 @@ System::get_paper_system ()
       Grob *g = entries[j].grob_;
       Stencil st = g->get_print_stencil ();
 
-      if (st.expr () == SCM_EOL)
+      if (scm_is_null (st.expr ()))
         continue;
 
       Offset o;

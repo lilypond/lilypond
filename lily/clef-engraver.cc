@@ -156,17 +156,17 @@ Clef_engraver::inspect_clef_properties ()
   SCM transposition = get_property ("clefTransposition");
   SCM force_clef = get_property ("forceClef");
 
-  if (clefpos == SCM_EOL
-      || scm_equal_p (glyph, prev_glyph_) == SCM_BOOL_F
-      || scm_equal_p (clefpos, prev_cpos_) == SCM_BOOL_F
-      || scm_equal_p (transposition, prev_transposition_) == SCM_BOOL_F
+  if (scm_is_null (clefpos)
+      || !ly_is_equal (glyph, prev_glyph_)
+      || !ly_is_equal (clefpos, prev_cpos_)
+      || !ly_is_equal (transposition, prev_transposition_)
       || to_boolean (force_clef))
     {
       apply_on_children (context (),
                          ly_lily_module_constant ("invalidate-alterations"));
 
       set_glyph ();
-      if (prev_cpos_ != SCM_BOOL_F || to_boolean (get_property ("firstClef")))
+      if (scm_is_true (prev_cpos_) || to_boolean (get_property ("firstClef")))
         create_clef ();
 
       if (clef_)

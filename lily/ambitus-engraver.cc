@@ -174,11 +174,11 @@ Ambitus_engraver::finalize ()
                                             scm_from_int (p.get_notename ())),
                                   start_key_sig_);
 
-          if (handle == SCM_BOOL_F)
+          if (scm_is_false (handle))
             handle = scm_assoc (scm_from_int (p.get_notename ()),
                                 start_key_sig_);
 
-          Rational sig_alter = (handle != SCM_BOOL_F)
+          Rational sig_alter = (scm_is_true (handle))
                                ? robust_scm2rational (scm_cdr (handle), Rational (0))
                                : Rational (0);
 

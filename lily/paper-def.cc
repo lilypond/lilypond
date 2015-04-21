@@ -34,7 +34,7 @@ SCM
 get_font_table (Output_def *def)
 {
   SCM font_table = def->lookup_variable (ly_symbol2scm ("scaled-fonts"));
-  if (scm_hash_table_p (font_table) != SCM_BOOL_T)
+  if (!to_boolean (scm_hash_table_p (font_table)))
     {
       font_table = scm_c_make_hash_table (11);
       def->set_variable (ly_symbol2scm ("scaled-fonts"), font_table);
@@ -46,7 +46,7 @@ SCM
 get_pango_font_table (Output_def *def)
 {
   SCM font_table = def->lookup_variable (ly_symbol2scm ("pango-fonts"));
-  if (scm_hash_table_p (font_table) != SCM_BOOL_T)
+  if (!to_boolean (scm_hash_table_p (font_table)))
     {
       font_table = scm_c_make_hash_table (11);
       def->set_variable (ly_symbol2scm ("pango-fonts"), font_table);

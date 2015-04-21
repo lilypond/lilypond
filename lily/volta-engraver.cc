@@ -82,10 +82,10 @@ Volta_engraver::process_music ()
       SCM c = scm_car (cs);
 
       if (scm_is_pair (c)
-          && scm_car (c) == ly_symbol2scm ("volta")
+          && scm_is_eq (scm_car (c), ly_symbol2scm ("volta"))
           && scm_is_pair (scm_cdr (c)))
         {
-          if (scm_cadr (c) == SCM_BOOL_F)
+          if (scm_is_false (scm_cadr (c)))
             end = true;
           else
             start_string_ = scm_cadr (c);

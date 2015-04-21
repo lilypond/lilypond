@@ -31,13 +31,13 @@ LY_DEFINE (ly_property_lookup_stats, "ly:property-lookup-stats",
            " @var{sym}.  Choices are @code{prob}, @code{grob}, and"
            " @code{context}.")
 {
-  if (sym == ly_symbol2scm ("context"))
+  if (scm_is_eq (sym, ly_symbol2scm ("context")))
     return context_property_lookup_table ? context_property_lookup_table
            : scm_c_make_hash_table (1);
-  if (sym == ly_symbol2scm ("prob"))
+  if (scm_is_eq (sym, ly_symbol2scm ("prob")))
     return prob_property_lookup_table ? prob_property_lookup_table
            : scm_c_make_hash_table (1);
-  if (sym == ly_symbol2scm ("grob"))
+  if (scm_is_eq (sym, ly_symbol2scm ("grob")))
     return grob_property_lookup_table ? grob_property_lookup_table
            : scm_c_make_hash_table (1);
   return scm_c_make_hash_table (1);
@@ -53,7 +53,7 @@ note_property_access (SCM *table, SCM sym)
     *table = scm_permanent_object (scm_c_make_hash_table (259));
 
   SCM hashhandle = scm_hashq_get_handle (*table, sym);
-  if (hashhandle == SCM_BOOL_F)
+  if (scm_is_false (hashhandle))
     {
       scm_hashq_set_x (*table, sym, scm_from_int (0));
       hashhandle = scm_hashq_get_handle (*table, sym);

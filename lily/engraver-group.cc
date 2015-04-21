@@ -109,7 +109,7 @@ Engraver_group::acknowledge_grobs ()
       Engraver_dispatch_list *dispatch
         = Engraver_dispatch_list::unsmob (acklist);
 
-      if (acklist == SCM_BOOL_F)
+      if (scm_is_false (acklist))
         {
           SCM ifaces
             = scm_cdr (scm_assoc (ly_symbol2scm ("interfaces"), meta));

@@ -119,7 +119,7 @@ void
 Score_performer::finish (SCM)
 {
   SCM channel_mapping = context ()->get_property ("midiChannelMapping");
-  bool use_ports = channel_mapping == ly_symbol2scm ("voice");
+  bool use_ports = scm_is_eq (channel_mapping, ly_symbol2scm ("voice"));
   performance_->ports_ = use_ports;
   recurse_over_translators (context (),
                             &Translator::finalize,

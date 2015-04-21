@@ -28,13 +28,13 @@
 Translator_group *
 get_translator_group (SCM sym)
 {
-  if (sym == ly_symbol2scm ("Engraver_group"))
+  if (scm_is_eq (sym, ly_symbol2scm ("Engraver_group")))
     return new Engraver_group ();
-  else if (sym == ly_symbol2scm ("Performer_group"))
+  else if (scm_is_eq (sym, ly_symbol2scm ("Performer_group")))
     return new Performer_group ();
-  else if (sym == ly_symbol2scm ("Score_engraver"))
+  else if (scm_is_eq (sym, ly_symbol2scm ("Score_engraver")))
     return new Score_engraver ();
-  else if (sym == ly_symbol2scm ("Score_performer"))
+  else if (scm_is_eq (sym, ly_symbol2scm ("Score_performer")))
     return new Score_performer ();
 
   error (_f ("fatal error.  Couldn't find type: %s",

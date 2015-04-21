@@ -71,8 +71,7 @@ Metronome_mark_engraver::listen_tempo_change (Stream_event *ev)
 static bool
 safe_is_member (SCM scm, SCM lst)
 {
-  return scm_list_p (lst) == SCM_BOOL_T
-         && scm_member (scm, lst) != SCM_BOOL_F;
+  return ly_is_list (lst) && scm_is_true (scm_member (scm, lst));
 }
 
 void
@@ -81,8 +80,8 @@ Metronome_mark_engraver::acknowledge_break_aligned (Grob_info info)
   Grob *g = info.grob ();
 
   if (text_
-      && g->get_property ("break-align-symbol")
-      == ly_symbol2scm ("staff-bar"))
+      && scm_is_eq (g->get_property ("break-align-symbol"),
+                    ly_symbol2scm ("staff-bar")))
     bar_ = g;
   else if (text_
            && !support_

@@ -119,7 +119,7 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
           // when we don't want them displayed.  So don't make space
           // for them if 'stencil is #f
           Grob *g = make_item ("StringNumber", ev->self_scm ());
-          if (g->get_property ("stencil") != SCM_BOOL_F)
+          if (scm_is_true (g->get_property ("stencil")))
             add_fingering (inf.grob (),
                            ly_symbol2scm ("StringNumber"), &string_numbers_,
                            ev, note_ev);
@@ -230,10 +230,10 @@ New_fingering_engraver::position_scripts (SCM orientations,
 
   vector_sort (*scripts, less<Finger_tuple> ());
 
-  bool up_p = scm_c_memq (ly_symbol2scm ("up"), orientations) != SCM_BOOL_F;
-  bool down_p = scm_c_memq (ly_symbol2scm ("down"), orientations) != SCM_BOOL_F;
-  bool left_p = scm_c_memq (ly_symbol2scm ("left"), orientations) != SCM_BOOL_F;
-  bool right_p = scm_c_memq (ly_symbol2scm ("right"), orientations) != SCM_BOOL_F;
+  bool up_p = scm_is_true (scm_c_memq (ly_symbol2scm ("up"), orientations));
+  bool down_p = scm_is_true (scm_c_memq (ly_symbol2scm ("down"), orientations));
+  bool left_p = scm_is_true (scm_c_memq (ly_symbol2scm ("left"), orientations));
+  bool right_p = scm_is_true (scm_c_memq (ly_symbol2scm ("right"), orientations));
   Direction hordir = (right_p) ? RIGHT : LEFT;
   if (left_p || right_p)
     {

@@ -61,7 +61,7 @@ Accidental_placement::add_accidental (Grob *me, Grob *a, bool stagger, long cont
   SCM key = scm_cons (scm_from_int (n), scm_from_long  (stagger ? context_hash : 1));
   // assoc because we're dealing with pairs
   SCM entry = scm_assoc (key, accs);
-  if (entry == SCM_BOOL_F)
+  if (scm_is_false (entry))
     entry = SCM_EOL;
   else
     entry = scm_cdr (entry);
@@ -342,7 +342,7 @@ extract_heads_and_stems (vector<Accidental_placement_entry *> const &apes)
   for (vsize i = ret.size (); i--;)
     if (Grob *s = Rhythmic_head::get_stem (ret[i]))
       ret.push_back (s);
-  
+
   uniquify (ret);
   return ret;
 }

@@ -71,7 +71,7 @@ Quote_iterator::accept_music_type (Stream_event *ev, bool is_cue) const
   // for cue notes if quotedCueEventTypes is not set) use quotedEventTypes
   if (is_cue)
     accept = get_outlet ()->get_property ("quotedCueEventTypes");
-  if (accept == SCM_EOL)
+  if (scm_is_null (accept))
     accept = get_outlet ()->get_property ("quotedEventTypes");
 
   for (; scm_is_pair (accept); accept = scm_cdr (accept))

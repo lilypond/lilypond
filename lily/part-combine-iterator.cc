@@ -490,30 +490,30 @@ Part_combine_iterator::process (Moment m)
 
       SCM tag = scm_cdar (split_list_);
 
-      if (tag == ly_symbol2scm ("chords"))
+      if (scm_is_eq (tag, ly_symbol2scm ("chords")))
         chords_together ();
-      else if (tag == ly_symbol2scm ("apart")
-               || tag == ly_symbol2scm ("apart-silence")
-               || tag == ly_symbol2scm ("apart-spanner"))
-        apart (tag == ly_symbol2scm ("apart-silence"));
-      else if (tag == ly_symbol2scm ("unisono"))
+      else if (scm_is_eq (tag, ly_symbol2scm ("apart"))
+               || scm_is_eq (tag, ly_symbol2scm ("apart-silence"))
+               || scm_is_eq (tag, ly_symbol2scm ("apart-spanner")))
+        apart (scm_is_eq (tag, ly_symbol2scm ("apart-silence")));
+      else if (scm_is_eq (tag, ly_symbol2scm ("unisono")))
         {
           // Continue to use the most recently used part because we might have
           // killed mmrests in the other part.
           unisono (false, (last_playing_ == 2) ? 2 : 1);
         }
-      else if (tag == ly_symbol2scm ("unisilence"))
+      else if (scm_is_eq (tag, ly_symbol2scm ("unisilence")))
         {
           // as for unisono
           unisono (true, (last_playing_ == 2) ? 2 : 1);
         }
-      else if (tag == ly_symbol2scm ("silence1"))
+      else if (scm_is_eq (tag, ly_symbol2scm ("silence1")))
         unisono (true, 1);
-      else if (tag == ly_symbol2scm ("silence2"))
+      else if (scm_is_eq (tag, ly_symbol2scm ("silence2")))
         unisono (true, 2);
-      else if (tag == ly_symbol2scm ("solo1"))
+      else if (scm_is_eq (tag, ly_symbol2scm ("solo1")))
         solo1 ();
-      else if (tag == ly_symbol2scm ("solo2"))
+      else if (scm_is_eq (tag, ly_symbol2scm ("solo2")))
         solo2 ();
       else if (scm_is_symbol (tag))
         {

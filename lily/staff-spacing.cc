@@ -165,21 +165,21 @@ Staff_spacing::get_spacing (Grob *me, Grob *right_col, Real situational_space)
   Real fixed = last_ext[RIGHT];
   Real ideal = fixed + 1.0;
 
-  if (type == ly_symbol2scm ("fixed-space"))
+  if (scm_is_eq (type, ly_symbol2scm ("fixed-space")))
     {
       fixed += distance;
       ideal = fixed;
     }
-  else if (type == ly_symbol2scm ("extra-space"))
+  else if (scm_is_eq (type, ly_symbol2scm ("extra-space")))
     ideal = fixed + distance;
-  else if (type == ly_symbol2scm ("semi-fixed-space"))
+  else if (scm_is_eq (type, ly_symbol2scm ("semi-fixed-space")))
     {
       fixed += distance / 2;
       ideal = fixed + distance / 2;
     }
-  else if (type == ly_symbol2scm ("minimum-space"))
+  else if (scm_is_eq (type, ly_symbol2scm ("minimum-space")))
     ideal = last_ext[LEFT] + max (last_ext.length (), distance);
-  else if (type == ly_symbol2scm ("minimum-fixed-space"))
+  else if (scm_is_eq (type, ly_symbol2scm ("minimum-fixed-space")))
     {
       fixed = last_ext[LEFT] + max (last_ext.length (), distance);
       ideal = fixed;

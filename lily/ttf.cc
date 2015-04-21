@@ -503,7 +503,7 @@ LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
   LY_ASSERT_TYPE (scm_is_string, ttf_file_name, 1);
 
   int i = 0;
-  if (idx != SCM_UNDEFINED)
+  if (!SCM_UNBNDP (idx))
     {
       LY_ASSERT_TYPE (scm_is_integer, idx, 2);
       i = scm_to_int (idx);
@@ -553,7 +553,7 @@ LY_DEFINE (ly_ttf_2_pfa, "ly:ttf->pfa",
   LY_ASSERT_TYPE (scm_is_string, ttf_file_name, 1);
 
   int i = 0;
-  if (idx != SCM_UNDEFINED)
+  if (!SCM_UNBNDP (idx))
     {
       LY_ASSERT_TYPE (scm_is_integer, idx, 2);
       i = scm_to_int (idx);

@@ -55,7 +55,7 @@ Drum_note_performer::process_music ()
       SCM defn = SCM_EOL;
 
       if (scm_is_symbol (sym)
-          && (scm_hash_table_p (tab) == SCM_BOOL_T))
+          && to_boolean (scm_hash_table_p (tab)))
         defn = scm_hashq_ref (tab, sym, SCM_EOL);
 
       if (Pitch *pit = Pitch::unsmob (defn))

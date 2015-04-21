@@ -412,14 +412,14 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
         }
 
       Real dist = 0.0;
-      if (info.type_ == ly_symbol2scm ("around"))
+      if (scm_is_eq (info.type_, ly_symbol2scm ("around")))
         dist = info.extents_[Y_AXIS].distance (y);
 
       /*
         Have to score too: the curve enumeration is limited in its
         shape, and may produce curves which collide anyway.
        */
-      else if (info.type_ == ly_symbol2scm ("inside"))
+      else if (scm_is_eq (info.type_, ly_symbol2scm ("inside")))
         dist = state.dir_ * (y - info.extents_[Y_AXIS][state.dir_]);
       else
         programming_error ("unknown avoidance type");

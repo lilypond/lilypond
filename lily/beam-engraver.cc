@@ -308,7 +308,7 @@ Beam_engraver::acknowledge_stem (Grob_info info)
                         max (durlog - 2, 0),
                         Stem::is_invisible (stem),
                         stem_duration->factor (),
-                        (stem->get_property ("tuplet-start") == SCM_BOOL_T));
+                        (to_boolean (stem->get_property ("tuplet-start"))));
   Beam::add_stem (beam_, stem);
 }
 

@@ -251,11 +251,11 @@ Piano_pedal_engraver::process_music ()
 
           SCM style = get_property (p->type_->style_sym_);
 
-          bool mixed = style == ly_symbol2scm ("mixed");
+          bool mixed = scm_is_eq (style, ly_symbol2scm ("mixed"));
           bool bracket = (mixed
-                          || style == ly_symbol2scm ("bracket"));
-          bool text = (style == ly_symbol2scm ("text")
-                       || mixed);
+                          || scm_is_eq (style, ly_symbol2scm ("bracket")));
+          bool text = (mixed
+                       || scm_is_eq (style, ly_symbol2scm ("text")));
 
           if (text && !p->item_)
             create_text_grobs (p, mixed);
