@@ -143,8 +143,8 @@ Dispatcher::dispatch (SCM sev)
           assert (lists[0].prio > last_priority);
           last_priority = lists[0].prio;
 
-          Listener *l = Listener::unsmob (scm_cdar (lists[0].list));
-          l->listen (ev->self_scm ());
+          SCM l = scm_cdar (lists[0].list);
+          scm_call_1 (l, ev->self_scm ());
 #if 0
           sent = true;
 #endif

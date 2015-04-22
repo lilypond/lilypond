@@ -86,6 +86,12 @@ public:
 
   void listen (SCM ev) const;
 
+  LY_DECLARE_SMOB_PROC (1, 0, 0, (SCM self, SCM ev))
+  {
+    Listener::unsmob (self)->listen (ev);
+    return SCM_UNSPECIFIED;
+  }
+
   bool operator == (Listener const &other) const
   {
     return type_ == other.type_
