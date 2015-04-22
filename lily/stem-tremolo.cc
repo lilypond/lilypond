@@ -39,7 +39,9 @@ Stem_tremolo::calc_slope (SCM smob)
   Grob *stem = Grob::unsmob (me->get_object ("stem"));
   Spanner *beam = Stem::get_beam (stem);
 
-  if (beam)
+  SCM style = me->get_property ("style");
+
+  if (beam && !scm_is_eq (style, ly_symbol2scm ("constant")))
     {
       Real dy = 0;
       SCM s = beam->get_property ("quantized-positions");
@@ -58,7 +60,8 @@ Stem_tremolo::calc_slope (SCM smob)
   else
     /* down stems with flags should have more sloped trems (helps avoid
        flag/stem collisions without making the stem very long) */
-    return scm_from_double ((Stem::duration_log (stem) >= 3 && get_grob_direction (me) == DOWN)
+    return scm_from_double ((Stem::duration_log (stem) >= 3
+                             && get_grob_direction (me) == DOWN && !beam)
                             ? 0.40 : 0.25);
 }
 
@@ -76,17 +79,20 @@ Stem_tremolo::calc_width (SCM smob)
   return scm_from_double (((dir == UP && flag) || beam) ? 1.0 : 1.5);
 }
 
-MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_style, 1)
+MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_shape, 1)
 SCM
-Stem_tremolo::calc_style (SCM smob)
+Stem_tremolo::calc_shape (SCM smob)
 {
   Grob *me = Grob::unsmob (smob);
   Grob *stem = Grob::unsmob (me->get_object ("stem"));
   Direction dir = get_grob_direction (me);
   bool beam = Stem::get_beam (stem);
   bool flag = Stem::duration_log (stem) >= 3 && !beam;
+  SCM style = me->get_property ("style");
 
-  return ly_symbol2scm (((dir == UP && flag) || beam) ? "rectangle" : "default");
+  return ly_symbol2scm (!scm_is_eq (style, ly_symbol2scm ("constant"))
+                        && ((dir == UP && flag) || beam)
+                        ? "rectangle" : "beam-like");
 }
 
 Real
@@ -108,15 +114,15 @@ Stem_tremolo::raw_stencil (Grob *me, Real slope, Direction dir)
   Real thick = robust_scm2double (me->get_property ("beam-thickness"), 1);
   Real width = robust_scm2double (me->get_property ("beam-width"), 1);
   Real blot = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
-  SCM style = me->get_property ("style");
-  if (!scm_is_symbol (style))
-    style = ly_symbol2scm ("default");
+  SCM shape = me->get_property ("shape");
+  if (!scm_is_symbol (shape))
+    shape = ly_symbol2scm ("beam-like");
 
   width *= ss;
   thick *= ss;
 
   Stencil a;
-  if (scm_is_eq (style, ly_symbol2scm ("rectangle")))
+  if (scm_is_eq (shape, ly_symbol2scm ("rectangle")))
     a = Lookup::rotated_box (slope, width, thick, blot);
   else
     a = Lookup::beam (slope, width, thick, blot);
@@ -339,7 +345,7 @@ Stem_tremolo::print (SCM grob)
 
 ADD_INTERFACE (Stem_tremolo,
                "A beam slashing a stem to indicate a tremolo.  The property"
-               " @code{style} can be @code{default} or @code{rectangle}.",
+               " @code{shape} can be @code{beam-like} or @code{rectangle}.",
 
                /* properties */
                "beam-thickness "
@@ -348,6 +354,6 @@ ADD_INTERFACE (Stem_tremolo,
                "flag-count "
                "length-fraction "
                "stem "
-               "style "
+               "shape "
                "slope "
               );

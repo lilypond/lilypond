@@ -2161,7 +2161,7 @@
         (parent-alignment-X . ,CENTER)
         (slope . ,ly:stem-tremolo::calc-slope)
         (stencil . ,ly:stem-tremolo::print)
-        (style . ,ly:stem-tremolo::calc-style)
+        (shape . ,ly:stem-tremolo::calc-shape)
         (X-extent . ,ly:stem-tremolo::width)
         (X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
         (Y-extent . ,(grob::unpure-Y-extent-from-stencil ly:stem-tremolo::pure-height))

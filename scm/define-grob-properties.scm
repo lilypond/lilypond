@@ -847,6 +847,9 @@ value @w{@code{-1}} means left aligned, @code{0}@tie{}centered, and
 values may also be specified - the unit is half the object width.")
      (self-alignment-Y ,number? "Like @code{self-alignment-X} but for
 the Y@tie{}axis.")
+     (shape ,symbol? "This setting determines what shape a grob
+has.  Valid choices depend on the @code{stencil} callback reading
+this property.")
      (sharp-positions ,list? "Sharps in key signatures are placed
 within the specified ranges of staff-positions.  The general form
 is a list of pairs, with one pair for each type of clef, in order
