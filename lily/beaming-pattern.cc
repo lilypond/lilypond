@@ -19,6 +19,7 @@
 
 #include "context.hh"
 #include "beaming-pattern.hh"
+#include "misc.hh"
 
 /*
   Represents a stem belonging to a beam. Sometimes (for example, if the stem
@@ -166,8 +167,10 @@ Beaming_pattern::beamify (Beaming_options const &options)
         if (non_flag_dir)
           {
             int importance = infos_[i + 1].rhythmic_importance_;
-            int count = (importance < 0 && options.subdivide_beams_)
-                        ? 1 : min (min (infos_[i].count (non_flag_dir),
+            int start_dur = intlog2(infos_[i+1].start_moment_.main_part_.den());
+            int count = (importance < 0 && options.subdivide_beams_) 
+                        ? max(start_dur,3)-2 // 1/8 note has one beam
+                        : min (min (infos_[i].count (non_flag_dir),
                                         infos_[i + non_flag_dir].count (-non_flag_dir)),
                                    infos_[i - non_flag_dir].count (non_flag_dir));
 
