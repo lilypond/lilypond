@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.18\n"
+"Project-Id-Version: lilypond 2.19.19\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2015-04-05 10:58+0100\n"
+"POT-Creation-Date: 2015-04-26 11:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1862,14 +1862,14 @@ msgstr ""
 msgid "dot `%s' not found"
 msgstr ""
 
-#: dynamic-engraver.cc:168
+#: dynamic-engraver.cc:169
 #, c-format
 msgid ""
 "unknown crescendo style: %s\n"
 "defaulting to hairpin."
 msgstr ""
 
-#: dynamic-engraver.cc:233 slur-proto-engraver.cc:119
+#: dynamic-engraver.cc:234 slur-proto-engraver.cc:119
 #, c-format
 msgid "unterminated %s"
 msgstr ""
@@ -2043,7 +2043,7 @@ msgstr ""
 msgid "position unknown"
 msgstr ""
 
-#: key-engraver.cc:198
+#: key-engraver.cc:197
 msgid "Incomplete keyAlterationOrder for key signature"
 msgstr ""
 
@@ -2478,7 +2478,7 @@ msgstr ""
 msgid "placing below"
 msgstr ""
 
-#: note-collision.cc:510
+#: note-collision.cc:512
 msgid "this Voice needs a \\voiceXx or \\shiftXx setting"
 msgstr ""
 
@@ -2565,7 +2565,7 @@ msgstr ""
 msgid "best score for this sys-count: %f"
 msgstr ""
 
-#: optimal-page-breaking.cc:216 page-turn-page-breaking.cc:248
+#: optimal-page-breaking.cc:216 page-turn-page-breaking.cc:249
 #: paper-score.cc:156
 msgid "Drawing systems..."
 msgstr ""
@@ -2615,43 +2615,43 @@ msgstr ""
 msgid "staff-affinities should only decrease"
 msgstr ""
 
-#: page-turn-page-breaking.cc:168
+#: page-turn-page-breaking.cc:169
 #, c-format
 msgid "page-turn-page-breaking: breaking from %d to %d"
 msgstr ""
 
-#: page-turn-page-breaking.cc:217
+#: page-turn-page-breaking.cc:218
 msgid ""
 "cannot fit the first page turn onto a single page.  Consider setting first-"
 "page-number to an even number."
 msgstr ""
 
-#: page-turn-page-breaking.cc:230
+#: page-turn-page-breaking.cc:231
 #, c-format
 msgid "Calculating page and line breaks (%d possible page breaks)..."
 msgstr ""
 
-#: page-turn-page-breaking.cc:300
+#: page-turn-page-breaking.cc:301
 #, c-format
 msgid "break starting at page %d"
 msgstr ""
 
-#: page-turn-page-breaking.cc:301
+#: page-turn-page-breaking.cc:302
 #, c-format
 msgid "\tdemerits: %f"
 msgstr ""
 
-#: page-turn-page-breaking.cc:302
+#: page-turn-page-breaking.cc:303
 #, c-format
 msgid "\tsystem count: %d"
 msgstr ""
 
-#: page-turn-page-breaking.cc:303
+#: page-turn-page-breaking.cc:304
 #, c-format
 msgid "\tpage count: %d"
 msgstr ""
 
-#: page-turn-page-breaking.cc:304
+#: page-turn-page-breaking.cc:305
 #, c-format
 msgid "\tprevious break: %d"
 msgstr ""
@@ -2687,7 +2687,7 @@ msgstr ""
 msgid "program option -dpreview not supported by backend `%s'"
 msgstr ""
 
-#: paper-column-engraver.cc:263
+#: paper-column-engraver.cc:264
 msgid ""
 "forced break was overridden by some other event, should you be using bar "
 "checks?"
@@ -2911,7 +2911,7 @@ msgstr ""
 msgid "cannot end %s"
 msgstr ""
 
-#: slur.cc:434
+#: slur.cc:436
 #, c-format
 msgid "Ignoring grob for slur: %s.  avoid-slur not set?"
 msgstr ""
@@ -3408,17 +3408,17 @@ msgstr ""
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
 
-#: define-music-types.scm:798
+#: define-music-types.scm:794
 #, scheme-format
 msgid "symbol expected: ~S"
 msgstr ""
 
-#: define-music-types.scm:801
+#: define-music-types.scm:797
 #, scheme-format
 msgid "cannot find music object: ~S"
 msgstr ""
 
-#: define-music-types.scm:821
+#: define-music-types.scm:817
 #, scheme-format
 msgid "bad make-music argument: ~S"
 msgstr ""
@@ -3801,7 +3801,7 @@ msgstr ""
 msgid "error in #{ ... #}"
 msgstr ""
 
-#: part-combiner.scm:748
+#: part-combiner.scm:763
 #, scheme-format
 msgid "quoted music `~a' is empty"
 msgstr ""
