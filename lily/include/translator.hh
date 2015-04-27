@@ -87,7 +87,7 @@ inline void listen_ ## m (Stream_event *);              \
 static void _internal_declare_ ## m ();                 \
 private:                                                \
  static Listener _get_ ## m ## _listener (void *, SCM); \
-DECLARE_LISTENER (_listen_scm_ ## m);
+void _listen_scm_ ## m (SCM);
 
 #define DECLARE_ACKNOWLEDGER(x) public : void acknowledge_ ## x (Grob_info); protected:
 #define DECLARE_END_ACKNOWLEDGER(x) public : void acknowledge_end_ ## x (Grob_info); protected:

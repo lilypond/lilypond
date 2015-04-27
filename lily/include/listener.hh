@@ -30,7 +30,7 @@
   - declare the method using the DECLARE_LISTENER macro.
   class Foo
   {
-    DECLARE_LISTENER (method);
+    void method (SCM);
     ...
   };
   This macro declares the method to take a SCM as parameter, and to
@@ -38,7 +38,6 @@
     touched.
 
   - implement the method using IMPLEMENT_LISTENER:
-  IMPLEMENT_LISTENER (Foo, method)
   void method (SCM e)
   {
     write ("Foo hears an event!");
@@ -51,7 +50,7 @@
 
   Foo *foo = (...);
   Stream_distributor *d = (...);
-  Listener l = GET_LISTENER (foo->method);
+  Listener l = foo->GET_LISTENER (Foo, method);
   d->register_listener (l, "EventClass");
 
   Whenever d hears a stream-event ev of class "EventClass",

@@ -42,7 +42,7 @@ public:
   void apply_finalizations ();
   void add_finalization (SCM);
 
-  DECLARE_LISTENER (prepare);
+  void prepare (SCM);
   virtual SCM get_output ();
   virtual Output_def *get_output_def () const;
   virtual Moment now_mom () const;

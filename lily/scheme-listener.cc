@@ -19,7 +19,6 @@
 
 #include "scheme-listener.hh"
 
-IMPLEMENT_LISTENER (Scheme_listener, call)
 void
 Scheme_listener::call (SCM ev)
 {

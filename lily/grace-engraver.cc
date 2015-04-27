@@ -38,7 +38,7 @@ protected:
   virtual void finalize ();
 
   TRANSLATOR_DECLARATIONS (Grace_engraver);
-  DECLARE_LISTENER (grace_change);
+  void grace_change (SCM);
 };
 
 Grace_engraver::Grace_engraver ()
@@ -48,7 +48,6 @@ Grace_engraver::Grace_engraver ()
 }
 
 // The iterator should usually come before process_music
-IMPLEMENT_LISTENER (Grace_engraver, grace_change);
 void
 Grace_engraver::grace_change (SCM)
 {
@@ -139,7 +138,7 @@ Grace_engraver::consider_change_grace_settings ()
   if (last_moment_ == Rational (-1))
     {
       Dispatcher *d = context ()->event_source ();
-      d->add_listener (GET_LISTENER (grace_change), ly_symbol2scm ("GraceChange"));
+      d->add_listener (GET_LISTENER (Grace_engraver, grace_change), ly_symbol2scm ("GraceChange"));
     }
   last_moment_ = now;
 }
@@ -150,7 +149,7 @@ Grace_engraver::finalize ()
   if (last_moment_ != Rational (-1))
     {
       Dispatcher *d = context ()->event_source ();
-      d->remove_listener (GET_LISTENER (grace_change), ly_symbol2scm ("GraceChange"));
+      d->remove_listener (GET_LISTENER (Grace_engraver, grace_change), ly_symbol2scm ("GraceChange"));
     }
 }
 

@@ -79,8 +79,8 @@ protected:
   // UGH! initialises implementation_
   friend SCM ly_make_global_translator (SCM);
 
-  DECLARE_LISTENER (set_property_from_event);
-  DECLARE_LISTENER (unset_property_from_event);
+  void set_property_from_event (SCM);
+  void unset_property_from_event (SCM);
 
 public:
   string id_string () const { return id_string_; }
@@ -109,10 +109,10 @@ public:
   void internal_set_property (SCM var_sym, SCM value);
 
   Context *create_context (Context_def *, const string&, SCM);
-  DECLARE_LISTENER (create_context_from_event);
-  DECLARE_LISTENER (acknowledge_infant);
-  DECLARE_LISTENER (remove_context);
-  DECLARE_LISTENER (change_parent);
+  void create_context_from_event (SCM);
+  void acknowledge_infant (SCM);
+  void remove_context (SCM);
+  void change_parent (SCM);
   void disconnect_from_parent ();
   void check_removal ();
   string context_name () const;

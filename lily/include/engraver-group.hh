@@ -28,8 +28,8 @@ class Engraver_group : public Translator_group
 protected:
   vector<Grob_info> announce_infos_;
   Drul_array<SCM> acknowledge_hash_table_drul_;
-  DECLARE_LISTENER (override);
-  DECLARE_LISTENER (revert);
+  void override (SCM);
+  void revert (SCM);
 public:
   DECLARE_CLASSNAME (Engraver_group);
   Engraver_group ();
