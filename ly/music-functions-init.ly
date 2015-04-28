@@ -1132,8 +1132,14 @@ and @var{part2} are combined into one voice where appropriate.
 Optional @var{chord-range} sets the distance in steps between notes
 that may be combined into a chord or unison.")
    #{ \context Staff <<
-        \context Voice = "one" \with { \voiceOne } {}
-        \context Voice = "two" \with { \voiceTwo } {}
+        \context Voice = "one" \with {
+          \voiceOne
+          \override DynamicLineSpanner.direction = #UP
+        } {}
+        \context Voice = "two" \with {
+          \voiceTwo
+          \override DynamicLineSpanner.direction = #DOWN
+        } {}
         \context Voice = "shared" {}
         #(make-part-combine-music parser (list part1 part2) #f chord-range)
       >> #} )
@@ -1144,9 +1150,18 @@ partcombineUp =
    (_i "Take the music in @var{part1} and @var{part2} and typeset so
 that they share a staff with stems directed upward.")
    #{ \context Staff <<
-        \context Voice = "one" \with { \voiceOne } {}
-        \context Voice = "two" \with { \voiceThree } {}
-        \context Voice = "shared" \with { \voiceOne } {}
+        \context Voice = "one" \with {
+          \voiceOne
+          \override DynamicLineSpanner.direction = #UP
+        } {}
+        \context Voice = "two" \with {
+          \voiceThree
+          \override DynamicLineSpanner.direction = #UP
+        } {}
+        \context Voice = "shared" \with {
+          \voiceOne
+          \override DynamicLineSpanner.direction = #UP
+        } {}
         #(make-part-combine-music parser (list part1 part2) UP chord-range)
       >> #} )
 
@@ -1156,9 +1171,18 @@ partcombineDown =
    (_i "Take the music in @var{part1} and @var{part2} and typeset so
 that they share a staff with stems directed downward.")
    #{ \context Staff <<
-        \context Voice = "one" \with { \voiceFour } {}
-        \context Voice = "two" \with { \voiceTwo } {}
-        \context Voice = "shared" \with { \voiceTwo } {}
+        \context Voice = "one" \with {
+          \voiceFour
+          \override DynamicLineSpanner.direction = #DOWN
+        } {}
+        \context Voice = "two" \with {
+          \voiceTwo
+          \override DynamicLineSpanner.direction = #DOWN
+        } {}
+        \context Voice = "shared" \with {
+          \voiceTwo
+          \override DynamicLineSpanner.direction = #DOWN
+        } {}
         #(make-part-combine-music parser (list part1 part2) DOWN chord-range)
       >> #} )
 
