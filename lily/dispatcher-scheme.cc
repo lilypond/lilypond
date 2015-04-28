@@ -42,22 +42,21 @@ LY_DEFINE (ly_connect_dispatchers, "ly:connect-dispatchers",
 }
 
 LY_DEFINE (ly_add_listener, "ly:add-listener",
-           2, 0, 1, (SCM list, SCM disp, SCM cl),
-           "Add the listener @var{list} to the dispatcher @var{disp}."
-           "  Whenever @var{disp} hears an event of class @var{cl},"
-           " it is forwarded to @var{list}.")
+           2, 0, 1, (SCM callback, SCM disp, SCM cl),
+           "Add the single-argument procedure @var{callback} as listener"
+           " to the dispatcher @var{disp}.  Whenever @var{disp} hears"
+           " an event of class @var{cl}, it calls @var{callback} with it.")
 {
-  Listener *l = Listener::unsmob (list);
   Dispatcher *d = Dispatcher::unsmob (disp);
 
-  LY_ASSERT_SMOB (Listener, list, 1);
+  LY_ASSERT_TYPE (ly_is_procedure, callback, 1);
   LY_ASSERT_SMOB (Dispatcher, disp, 2);
 
   for (int arg = SCM_ARG3; scm_is_pair (cl); cl = scm_cdr (cl), arg++)
     {
       SCM sym = scm_car (cl);
       SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, arg, __FUNCTION__, "symbol");
-      d->add_listener (*l, sym);
+      d->add_listener (callback, sym);
     }
 
   return SCM_UNSPECIFIED;

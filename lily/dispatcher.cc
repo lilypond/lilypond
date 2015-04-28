@@ -206,11 +206,17 @@ Dispatcher::broadcast (Stream_event *ev)
 void
 Dispatcher::add_listener (Listener l, SCM ev_class)
 {
-  internal_add_listener (l, ev_class, ++priority_count_);
+  add_listener (l.smobbed_copy (), ev_class);
+}
+
+void
+Dispatcher::add_listener (SCM callback, SCM ev_class)
+{
+  internal_add_listener (callback, ev_class, ++priority_count_);
 }
 
 inline void
-Dispatcher::internal_add_listener (Listener l, SCM ev_class, int priority)
+Dispatcher::internal_add_listener (SCM callback, SCM ev_class, int priority)
 {
   SCM list = scm_hashq_ref (listeners_, ev_class, SCM_EOL);
   // if ev_class is not yet listened to, we go through our list of
@@ -229,11 +235,12 @@ Dispatcher::internal_add_listener (Listener l, SCM ev_class, int priority)
         {
           int priority = scm_to_int (scm_cdar (disp));
           Dispatcher *d = Dispatcher::unsmob (scm_caar (disp));
-          d->internal_add_listener (GET_LISTENER (Dispatcher, dispatch), ev_class, priority);
+          d->internal_add_listener (GET_LISTENER (Dispatcher, dispatch).smobbed_copy (),
+                                    ev_class, priority);
         }
       listen_classes_ = scm_cons (ev_class, listen_classes_);
     }
-  SCM entry = scm_cons (scm_from_int (priority), l.smobbed_copy ());
+  SCM entry = scm_cons (scm_from_int (priority), callback);
   list = scm_merge (list, scm_list_1 (entry), ly_lily_module_constant ("car<"));
   scm_hashq_set_x (listeners_, ev_class, list);
 }
@@ -299,7 +306,7 @@ Dispatcher::register_as_listener (Dispatcher *disp)
 
   dispatchers_ = scm_acons (disp->self_scm (), scm_from_int (priority), dispatchers_);
 
-  Listener list = GET_LISTENER (Dispatcher, dispatch);
+  SCM list = GET_LISTENER (Dispatcher, dispatch).smobbed_copy ();
   for (SCM cl = listen_classes_; scm_is_pair (cl); cl = scm_cdr (cl))
     {
       disp->internal_add_listener (list, scm_car (cl), priority);

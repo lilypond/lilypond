@@ -30,7 +30,7 @@ public:
   void init_from_scheme (SCM definition);
   TRANSLATOR_DECLARATIONS_NO_LISTENER (Scheme_engraver);
 
-  static Listener get_listener (void *generic_arg, SCM event);
+  static Listener tlr_get_listener (void *generic_arg, SCM event);
 
 protected:
   ~Scheme_engraver ();

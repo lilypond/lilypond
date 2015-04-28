@@ -105,7 +105,7 @@ Scheme_engraver::init_from_scheme (SCM definition)
       translator_listener_record *rec = new translator_listener_record;
       *tail = rec;
       rec->event_class_ = event_class;
-      rec->get_listener_ = &Scheme_engraver::get_listener;
+      rec->get_listener_ = &Scheme_engraver::tlr_get_listener;
       tail = &rec->next_;
     }
 
@@ -173,7 +173,7 @@ Scheme_engraver::acknowledge_grob_by_hash (Grob_info info,
 
 /* static */
 Listener
-Scheme_engraver::get_listener (void *arg, SCM name)
+Scheme_engraver::tlr_get_listener (void *arg, SCM name)
 {
   Scheme_engraver *me = (Scheme_engraver *) arg;
   SCM func = ly_assoc_get (name, me->listeners_alist_, SCM_BOOL_F);

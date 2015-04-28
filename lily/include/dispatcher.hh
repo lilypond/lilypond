@@ -42,13 +42,14 @@ private:
   /* priority counter. Listeners with low priority receive events
      first. */
   int priority_count_;
-  void internal_add_listener (Listener, SCM event_class, int priority);
+  void internal_add_listener (SCM callback, SCM event_class, int priority);
 public:
   Dispatcher ();
   void broadcast (Stream_event *ev);
   bool is_listened_class (SCM);
   SCM listened_types ();
   void add_listener (Listener, SCM event_class);
+  void add_listener (SCM callback, SCM event_class);
   void remove_listener (Listener, SCM event_class);
   void register_as_listener (Dispatcher *dist);
   void unregister_as_listener (Dispatcher *dist);
