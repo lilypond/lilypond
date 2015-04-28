@@ -287,6 +287,17 @@ as @code{\\compoundMeter #'((3 2 8))} or shorter
     \set Timing.measureLength = #mlen
   #} ))
 
+compressMMRests =
+#(define-music-function (parser location music) (ly:music?)
+  (_i "Remove the empty bars created by multi-measure rests,
+leaving just the first bar containing the MM rest itself.")
+   (music-map
+    (lambda (m)
+      (if (eq? 'MultiMeasureRestMusic (ly:music-property m 'name))
+          #{ \once \set Score.skipBars = ##t #m #}
+          #{ #m #} ))
+    music))
+
 crossStaff =
 #(define-music-function (parser location notes) (ly:music?)
   (_i "Create cross-staff stems")
