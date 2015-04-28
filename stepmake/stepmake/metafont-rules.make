@@ -19,15 +19,15 @@ $(outdir)/%.tfm $(outdir)/%.log: %.mf
 # the soft link for mf2pt1.mp is for recent mpost versions
 # which no longer dump a .mem file
 $(outdir)/%.pfb: %.mf $(outdir)/mf2pt1.mem $(outdir)/%.log
-	$(DO_MF_DEP) TMP=`mktemp -d $(outdir)/pfbtemp.$*.XXXXXXXXX` \
-	&& ( cd $$TMP \
+	$(DO_MF_DEP) TMP_DIR=`mktemp -d $(outdir)/pfbtemp.$*.XXXXXXXXX` \
+	&& ( cd $$TMP_DIR \
 		&& ln -s ../mf2pt1.mem . \
 		&& ln -s ../../mf2pt1.mp . \
 		&& MFINPUTS=$(abs-src-dir):..:: \
 		   FONTFORGE=$(FONTFORGE) \
 		   $(buildscript-dir)/mf2pt1 $(MF2PT1_OPTIONS) $< $(METAFONT_QUIET)) \
-	&& mv $$TMP/*pfb $(outdir); \
-	rm -rf $$TMP
+	&& mv $$TMP_DIR/*pfb $(outdir); \
+	rm -rf $$TMP_DIR
 
 # since recent mpost versions no longer create a mem file, we create a dummy
 # file to satisfy the dependency (which gets overwritten in case an older
