@@ -23,67 +23,84 @@
 /*
   Listeners
 
-  Listeners are used for stream event dispatching. If you want to
-  register a method as an event handler in a dispatcher, then you
-  must:
+  Listeners are used for stream event dispatching.  The usual way to
+  work with them is to use the GET_LISTENER macro which combines the
+  basic Listener algorithm with a Callback_wrapper structure providing
+  a Scheme handle into a member function.
 
-  - declare the method using the DECLARE_LISTENER macro.
+  To register a member function of Foo as an event handler in a
+  dispatcher, you must:
+
+  - declare the function:
   class Foo
   {
     void method (SCM);
     ...
   };
-  This macro declares the method to take a SCM as parameter, and to
-    return void. It also declares some other stuff that shouldn't be
-    touched.
 
-  - implement the method using IMPLEMENT_LISTENER:
-  void method (SCM e)
+  - implement the method::
+  void Foo::method (SCM e)
   {
     write ("Foo hears an event!");
   }
 
-  - Extract a listener using GET_LISTENER (Foo->method)
+  - Extract a listener using GET_LISTENER (Foo, method)
   - Register the method to the dispatcher using Dispatcher::register
 
   Example:
 
   Foo *foo = (...);
-  Stream_distributor *d = (...);
+  Dispatcher *d = (...);
   Listener l = foo->GET_LISTENER (Foo, method);
-  d->register_listener (l, "EventClass");
+  d->add_listener (l, ly_symbol2scm ("EventClass"));
 
   Whenever d hears a stream-event ev of class "EventClass",
   the implemented procedure is called.
 
+  GET_LISTENER actually makes use of a member function
+  get_listener (SCM) available in every Smob<...>-derived class.
+  get_listener receives a function getting an object instance and an
+  event and will turn it into a Listener that will (after turning into
+  Scheme), behave as a function receiving an event as its sole
+  argument, with the object instance being the object from which
+  get_listener was called as a member.
+
+  So (p->get_listener (f)).smobbed_copy () is roughly equivalent to
+  (lambda (ev) (f p->self_scm() ev))
+
   Limitations:
-  - DECLARE_LISTENER currently only works inside smob classes.
+
+  The Callback_wrapper mechanism used in GET_LISTENER works only for
+  classes derived from Smob<...>.
 */
 
 #include "smobs.hh"
 
-typedef struct
-{
-  void (*listen_callback) (void *, SCM);
-  void (*mark_callback) (void *);
-  bool (*equal_callback) (void *, void *);
-} Listener_function_table;
+// A listener is essentially any procedure accepting a single argument
+// (namely an event).  The class Listener (or rather a smobbed_copy of
+// it) behaves like such a procedure and is composed of a generic
+// callback function accepting two arguments, namely a "target"
+// (usually an engraver instance) and the event.  Its Scheme
+// equivalent would be
+//
+// (define (make-listener callback target)
+//   (lambda (event) (callback target event)))
+//
+// The class construction is lightweight: as a Simple_smob, this is
+// only converted into Scheme when a smobbed_copy is created.
 
 class Listener : public Simple_smob<Listener>
 {
-public:
-  static SCM equal_p (SCM, SCM);
-  SCM mark_smob ();
-  static const char type_p_name_[];
 private:
-  void *target_;
-  Listener_function_table *type_;
+  SCM callback_;
+  SCM target_;
 public:
-  Listener (const void *target, Listener_function_table *type);
-  Listener (Listener const &other);
-  Listener ();
+  static const char type_p_name_[];
 
-  void listen (SCM ev) const;
+  Listener (SCM callback, SCM target)
+    : callback_ (callback), target_ (target) { }
+
+  void listen (SCM ev) const { scm_call_2 (callback_, target_, ev); }
 
   LY_DECLARE_SMOB_PROC (1, 0, 0, (SCM self, SCM ev))
   {
@@ -91,49 +108,82 @@ public:
     return SCM_UNSPECIFIED;
   }
 
-  bool operator == (Listener const &other) const
+  SCM mark_smob ()
   {
-    return type_ == other.type_
-           && (*type_->equal_callback) ((void *) target_, (void *) other.target_);
+    scm_gc_mark (callback_);
+    return target_;
   }
 
+  bool operator == (Listener const &other) const
+  {
+    return scm_is_eq (callback_, other.callback_)
+      && scm_is_eq (target_, other.target_);
+  }
+
+  static SCM equal_p (SCM a, SCM b)
+  {
+    return *Listener::unsmob (a) == *Listener::unsmob (b)
+      ? SCM_BOOL_T : SCM_BOOL_F;
+  }
 };
 
-#define IMPLEMENT_LISTENER(cl, method)                  \
-void                                                    \
-cl :: method ## _callback (void *self, SCM ev)          \
-{                                                       \
-  cl *s = (cl *)self;                                   \
-  s->method (ev);                                       \
-}                                                       \
-void                                                    \
-cl :: method ## _mark (void *self)                      \
-{                                                       \
-  cl *s = (cl *)self;                                   \
-  scm_gc_mark (s->self_scm ());                         \
-}                                                       \
-bool                                                    \
-cl :: method ## _is_equal (void *a, void *b)            \
-{                                                       \
-  return a == b;                                        \
-}                                                       \
-Listener                                                \
-cl :: method ## _listener () const                      \
-{                                                       \
-  static Listener_function_table callbacks;             \
-  callbacks.listen_callback = &cl::method ## _callback; \
-  callbacks.mark_callback = &cl::method ## _mark;       \
-  callbacks.equal_callback = &cl::method ## _is_equal;  \
-  return Listener (this, &callbacks);                   \
-}
+// A callback wrapper creates a Scheme-callable version of a
+// non-static class member function callback which you can call with a
+// class instance and an event.
+//
+// If you have a class member function
+// void T::my_listen (SCM ev)
+// then Callback_wrapper::make_smob<&T::my_listen> ()
+// will return an SCM function roughly defined as
+// (lambda (target ev) (target->my_listen ev))
+//
+// The setup is slightly tricky since the make_smob quasi-constructor
+// call is a template function templated on the given callback, and so
+// is the trampoline it uses for redirecting the callback.  The class
+// itself, however, is not templated as that would create a wagonload
+// of SCM types.
 
-#define GET_LISTENER(proc) proc ## _listener ()
+class Callback_wrapper : public Simple_smob<Callback_wrapper>
+{
+  // We use an ordinary function pointer pointing to a trampoline
+  // function (templated on the callback in question) instead of
+  // storing a member function pointer to a common base class like
+  // Smob_core.  The additional code for the trampolines is negligible
+  // and the performance implications of using member function
+  // pointers in connection with inheritance are somewhat opaque as
+  // this involves an adjustment of the this pointer from Smob_core to
+  // the scope containing the callback.
+  void (*trampoline_) (SCM, SCM);
+  template <class T, void (T::*callback)(SCM)>
+  static void trampoline (SCM target, SCM ev)
+  {
+    T *t = derived_unsmob<T> (target);
+    LY_ASSERT_DERIVED_SMOB (T, target, 1);
 
-#define DECLARE_LISTENER(name)                          \
-  inline void name (SCM);                               \
-  static void name ## _callback (void *self, SCM ev);   \
-  static void name ## _mark (void *self);               \
-  static bool name ## _is_equal (void *a, void *b);     \
-  Listener name ## _listener () const
+    (t->*callback) (ev);
+  }
+
+  Callback_wrapper (void (*trampoline) (SCM, SCM)) : trampoline_ (trampoline)
+  { } // Private constructor, use only in make_smob
+public:
+  LY_DECLARE_SMOB_PROC (2, 0, 0, (SCM self, SCM target, SCM ev))
+  {
+    unsmob (self)->trampoline_ (target, ev);
+    return SCM_UNSPECIFIED;
+  }
+  // Callback wrappers are for an unchanging entity, so we do the Lisp
+  // creation just once on the first call of make_smob.  So we only
+  // get a single Callback_wrapper instance for each differently
+  // templated make_smob call.
+  template <class T, void (T::*callback)(SCM)>
+  static SCM make_smob ()
+  {
+    static SCM res = scm_permanent_object
+      (Callback_wrapper (trampoline<T, callback>).smobbed_copy ());
+    return res;
+  }
+};
+
+#define GET_LISTENER(cl, proc) get_listener (Callback_wrapper::make_smob<cl, &cl::proc> ())
 
 #endif /* LISTENER_HH */

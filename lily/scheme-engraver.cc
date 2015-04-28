@@ -171,36 +171,6 @@ Scheme_engraver::acknowledge_grob_by_hash (Grob_info info,
     }
 }
 
-static
-void call_listen_closure (void *target, SCM ev)
-{
-  SCM cl = (SCM) target;
-  SCM func = scm_car (cl);
-  SCM engraver = scm_cdr (cl);
-  scm_call_2 (func, engraver, ev);
-}
-
-static
-void mark_listen_closure (void *target)
-{
-  scm_gc_mark ((SCM)target);
-}
-
-static
-bool equal_listen_closure (void *a, void *b)
-{
-  SCM target_a = (SCM) a;
-  SCM target_b = (SCM) b;
-
-  return ly_is_equal (target_a, target_b);
-}
-
-Listener_function_table listen_closure
-=
-{
-  call_listen_closure, mark_listen_closure, equal_listen_closure
-};
-
 /* static */
 Listener
 Scheme_engraver::get_listener (void *arg, SCM name)
@@ -209,8 +179,7 @@ Scheme_engraver::get_listener (void *arg, SCM name)
   SCM func = ly_assoc_get (name, me->listeners_alist_, SCM_BOOL_F);
   assert (ly_is_procedure (func));
 
-  SCM closure = scm_cons (func, me->self_scm ());
-  return Listener ((void *)closure, &listen_closure);
+  return me->get_listener (func);
 }
 
 translator_listener_record *

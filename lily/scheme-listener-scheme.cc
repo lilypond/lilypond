@@ -28,7 +28,7 @@ LY_DEFINE (ly_make_listener, "ly:make-listener",
 {
   LY_ASSERT_TYPE (ly_is_procedure, callback, 1);
   Scheme_listener *l = new Scheme_listener (callback);
-  SCM listener = GET_LISTENER (l->call).smobbed_copy ();
+  SCM listener = l->GET_LISTENER (Scheme_listener, call).smobbed_copy ();
   l->unprotect ();
   return listener;
 }
