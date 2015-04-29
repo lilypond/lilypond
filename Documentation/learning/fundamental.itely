@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.16"
 
 @node Fundamental concepts
 @chapter Fundamental concepts
@@ -1129,7 +1129,7 @@ as here:
 @cindex note collisions
 @cindex collisions, notes
 @cindex shift commands
-@funindex \shiftOff
+@funindex \undo\shiftOn
 @funindex shiftOff
 @funindex \shiftOn
 @funindex shiftOn
@@ -1150,10 +1150,10 @@ final chord the C in voice three is also shifted to the right
 relative to the other notes.
 
 The @code{\shiftOn}, @code{\shiftOnn}, @code{\shiftOnnn}, and
-@code{\shiftOff} commands specify the degree to which notes and
+@code{\undo\shiftOn} commands specify the degree to which notes and
 chords of the voice should be shifted if a collision
 would otherwise occur.  By default, the outer voices (normally
-voices one and two) have @code{\shiftOff} specified, while the
+voices one and two) have @code{\undo\shiftOn} specified, while the
 inner voices (three and four) have @code{\shiftOn} specified.
 When a shift is applied, voices one and three are shifted to
 the right and voices two and four to the left.
