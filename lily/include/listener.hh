@@ -75,6 +75,7 @@
 */
 
 #include "smobs.hh"
+#include "stream-event.hh"
 
 // A listener is essentially any procedure accepting a single argument
 // (namely an event).  The class Listener (or rather a smobbed_copy of
@@ -133,7 +134,7 @@ public:
 //
 // If you have a class member function
 // void T::my_listen (SCM ev)
-// then Callback_wrapper::make_smob<&T::my_listen> ()
+// then Callback_wrapper::make_smob<T, SCM, &T::my_listen> ()
 // will return an SCM function roughly defined as
 // (lambda (target ev) (target->my_listen ev))
 //
@@ -162,6 +163,19 @@ class Callback_wrapper : public Simple_smob<Callback_wrapper>
 
     (t->*callback) (ev);
   }
+  template <class T, void (T::*callback)(Stream_event *)>
+  static void trampoline (SCM target, SCM event)
+  {
+    // The same, but for callbacks for translator listeners which get
+    // the unpacked event which, in turn, gets protected previously
+
+    T *t = derived_unsmob<T> (target);
+    LY_ASSERT_DERIVED_SMOB (T, target, 1);
+    LY_ASSERT_SMOB (Stream_event, event, 2);
+
+    t->protect_event (event);
+    (t->*callback) (Stream_event::unsmob (event));
+  }
 
   Callback_wrapper (void (*trampoline) (SCM, SCM)) : trampoline_ (trampoline)
   { } // Private constructor, use only in make_smob
@@ -175,7 +189,7 @@ public:
   // creation just once on the first call of make_smob.  So we only
   // get a single Callback_wrapper instance for each differently
   // templated make_smob call.
-  template <class T, void (T::*callback)(SCM)>
+  template <class T, class Arg, void (T::*callback)(Arg)>
   static SCM make_smob ()
   {
     static SCM res = scm_permanent_object
@@ -184,6 +198,6 @@ public:
   }
 };
 
-#define GET_LISTENER(cl, proc) get_listener (Callback_wrapper::make_smob<cl, &cl::proc> ())
+#define GET_LISTENER(cl, proc) get_listener (Callback_wrapper::make_smob<cl, SCM, &cl::proc> ())
 
 #endif /* LISTENER_HH */

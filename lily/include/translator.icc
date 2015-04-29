@@ -141,20 +141,12 @@ cl :: _internal_declare_ ## m ()                        \
                                                         \
 ADD_SCM_INIT_FUNC (cl ## _declare_event_ ## m, cl::_internal_declare_ ## m);    \
                                                         \
-Listener                                                \
- cl :: _get_ ## m ## _listener (void *me, SCM unused)   \
-{                                                       \
-  cl *obj = (cl *) me;                                  \
-  (void) unused; \
-  return obj->GET_LISTENER (cl, _listen_scm_ ## m);         \
-}                                                       \
-                                                        \
-void                                                    \
-cl::_listen_scm_ ## m (SCM sev)                         \
-{                                                       \
-  Stream_event *ev = Stream_event::unsmob (sev);         \
-  protect_event (sev);                                  \
-  listen_ ## m (ev);                                    \
-}
+ Listener                                                               \
+ cl :: _get_ ## m ## _listener (void *me, SCM)                          \
+ {                                                                      \
+   cl *obj = (cl *) me;                                                 \
+   return obj->get_listener                                             \
+     (Callback_wrapper::make_smob<cl, Stream_event *, &cl::listen_ ## m> ());      \
+ }
 
 #endif /* TRANSLATOR_ICC */

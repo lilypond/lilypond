@@ -86,8 +86,7 @@ inline void listen_ ## m (Stream_event *);              \
 /* Should be private */                                 \
 static void _internal_declare_ ## m ();                 \
 private:                                                \
- static Listener _get_ ## m ## _listener (void *, SCM); \
-void _listen_scm_ ## m (SCM);
+ static Listener _get_ ## m ## _listener (void *, SCM);
 
 #define DECLARE_ACKNOWLEDGER(x) public : void acknowledge_ ## x (Grob_info); protected:
 #define DECLARE_END_ACKNOWLEDGER(x) public : void acknowledge_end_ ## x (Grob_info); protected:
@@ -150,6 +149,7 @@ public:
 protected:                      // should be private.
   Context *daddy_context_;
   void protect_event (SCM ev);
+  friend class Callback_wrapper;
   virtual void derived_mark () const;
   static void add_translator_listener (translator_listener_record **listener_list,
                                        translator_listener_record *r,
