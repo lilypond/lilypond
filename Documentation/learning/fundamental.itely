@@ -3014,11 +3014,11 @@ violin = \new Staff {
 However, you can also use these variables (also known as
 macros, or user-defined commands) for tweaks:
 
-@c TODO Avoid padtext - not needed with skylining
 @lilypond[quote,verbatim,ragged-right]
 dolce = \markup { \italic \bold dolce }
 
-padText = { \once \override TextScript.padding = #5.0 }
+centreText = { \once \override TextScript.self-alignment-X = #CENTER }
+
 fthenp =_\markup {
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
 }
@@ -3026,9 +3026,9 @@ fthenp =_\markup {
 violin = \relative c'' {
   \repeat volta 2 {
     c4._\dolce b8 a8 g a b |
-    \padText
-    c4.^"hi there!" d8 e' f g d |
-    c,4.\fthenp b8 c4 c-. |
+    \centreText
+    c4.^"hi there!" d8 e f g d |
+    c4.\fthenp b8 c4 c-. |
   }
 }
 
@@ -3036,7 +3036,6 @@ violin = \relative c'' {
   {
     \violin
   }
-  \layout { ragged-right = ##t }
 }
 @end lilypond
 
@@ -3051,9 +3050,9 @@ the last line.
 violin = \relative c'' @{
   \repeat volta 2 @{
     c4._\markup @{ \italic \bold dolce @} b8 a8 g a b |
-    \once \override TextScript.padding = #5.0
-    c4.^"hi there!" d8 e' f g d |
-    c,4.\markup @{
+    \once \override TextScript.self-alignment-X = #CENTER
+    c4.^"hi there!" d8 e f g d |
+    c4._\markup @{
       \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p
     @}
     b8 c4 c-. |
@@ -3062,9 +3061,9 @@ violin = \relative c'' @{
 @end example
 
 So far we've seen static substitution -- when LilyPond
-sees @code{\padText}, it replaces it with the stuff that
+sees @code{\centreText}, it replaces it with the stuff that
 we've defined it to be (ie the stuff to the right of
-@code{padtext=}).
+@code{centreText=}).
 
 LilyPond can handle non-static substitution, too (you
 can think of these as functions).

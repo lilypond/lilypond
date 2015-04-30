@@ -82,7 +82,7 @@ Key_engraver::create_key (bool is_default)
       SCM key = get_property ("keyAlterations");
 
       if ((to_boolean (get_property ("printKeyCancellation"))
-           || key == SCM_EOL)
+           || scm_is_null (key))
           && !scm_is_eq (last, key))
         {
           SCM restore = SCM_EOL;
@@ -90,7 +90,7 @@ Key_engraver::create_key (bool is_default)
             {
               SCM new_alter_pair = scm_assoc (scm_caar (s), key);
               Rational old_alter = robust_scm2rational (scm_cdar (s), 0);
-              if (new_alter_pair == SCM_BOOL_F
+              if (scm_is_false (new_alter_pair)
                   || ((ly_scm2rational (scm_cdr (new_alter_pair)) - old_alter) * old_alter
                       < Rational (0)))
                 {
@@ -140,8 +140,7 @@ Key_engraver::acknowledge_clef (Grob_info /* info */)
 void
 Key_engraver::acknowledge_bar_line (Grob_info /* info */)
 {
-  if (scm_is_pair (get_property ("keyAlterations")))
-    create_key (true);
+  create_key (true);
 }
 
 void

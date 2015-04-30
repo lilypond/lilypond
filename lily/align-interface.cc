@@ -179,7 +179,7 @@ Align_interface::internal_get_minimum_translations (Grob *me,
       SCM fv = ly_assoc_get (scm_cons (scm_from_int (start), scm_from_int (end)),
                              me->get_property ("minimum-translations-alist"),
                              SCM_EOL);
-      if (fv != SCM_EOL)
+      if (!scm_is_null (fv))
         return ly_scm2floatvector (fv);
     }
 

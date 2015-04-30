@@ -81,11 +81,11 @@ Part_combine_engraver::create_item (Stream_event *ev)
 {
   SCM what = scm_car (ev->get_property ("class"));
   SCM text = SCM_EOL;
-  if (what == ly_symbol2scm ("solo-one-event"))
+  if (scm_is_eq (what, ly_symbol2scm ("solo-one-event")))
     text = get_property ("soloText");
-  else if (what == ly_symbol2scm ("solo-two-event"))
+  else if (scm_is_eq (what, ly_symbol2scm ("solo-two-event")))
     text = get_property ("soloIIText");
-  else if (what == ly_symbol2scm ("unisono-event"))
+  else if (scm_is_eq (what, ly_symbol2scm ("unisono-event")))
     text = get_property ("aDueText");
 
   if (Text_interface::is_markup (text))

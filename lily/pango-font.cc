@@ -290,7 +290,7 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item) const
           char_id = scm_from_uint32 (pg);
         }
       else
-        char_id = scm_from_locale_string (glyph_name);
+        char_id = scm_from_utf8_string (glyph_name);
 
       PangoRectangle logical_sub_rect;
       PangoRectangle ink_sub_rect;
@@ -440,8 +440,8 @@ Pango_font::text_stencil (Output_def * /* state */,
         variable that is bound to a *named* procedure, i.e. not a
         lambda expression.
       */
-      if (utf8_string != SCM_BOOL_F
-          && scm_procedure_name (SCM_VARIABLE_REF (utf8_string)) != SCM_BOOL_F)
+      if (scm_is_true (utf8_string)
+          && scm_is_true (scm_procedure_name (SCM_VARIABLE_REF (utf8_string))))
         has_utf8_string = true;
     }
 

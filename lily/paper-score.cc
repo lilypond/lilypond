@@ -149,7 +149,7 @@ Paper_score::layout () const
 SCM
 Paper_score::get_paper_systems ()
 {
-  if (paper_systems_ == SCM_BOOL_F)
+  if (scm_is_false (paper_systems_))
     {
       vector<Column_x_positions> breaking = calc_breaking ();
       system_->break_into_pieces (breaking);

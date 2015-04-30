@@ -148,7 +148,10 @@ Source_file::Source_file (const string &filename_string)
 void
 Source_file::init_port ()
 {
-  SCM str = scm_from_locale_string (c_str ());
+  // This is somewhat icky: the string will in general be in utf8, but
+  // we do our own utf8 encoding and verification in the parser, so we
+  // use the no-conversion equivalent of latin1
+  SCM str = scm_from_latin1_string (c_str ());
   str_port_ = scm_mkstrport (SCM_INUM0, str, SCM_OPN | SCM_RDNG, __FUNCTION__);
   scm_set_port_filename_x (str_port_, ly_string2scm (name_));
 }

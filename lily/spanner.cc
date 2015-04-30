@@ -533,7 +533,7 @@ Spanner::get_cached_pure_property (SCM sym, int start, int end)
   // The pure property cache is indexed by (name start . end), where name is
   // a symbol, and start and end are numbers referring to the starting and
   // ending column ranks of the current line.
-  if (scm_hash_table_p (pure_property_cache_) == SCM_BOOL_F)
+  if (scm_is_false (scm_hash_table_p (pure_property_cache_)))
     return SCM_UNDEFINED;
 
   SCM key = scm_cons (sym, scm_cons (scm_from_int (start), scm_from_int (end)));
@@ -543,7 +543,7 @@ Spanner::get_cached_pure_property (SCM sym, int start, int end)
 void
 Spanner::cache_pure_property (SCM sym, int start, int end, SCM val)
 {
-  if (scm_hash_table_p (pure_property_cache_) == SCM_BOOL_F)
+  if (scm_is_false (scm_hash_table_p (pure_property_cache_)))
     pure_property_cache_ = scm_c_make_hash_table (17);
 
   SCM key = scm_cons (sym, scm_cons (scm_from_int (start), scm_from_int (end)));

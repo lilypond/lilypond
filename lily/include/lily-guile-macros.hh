@@ -22,6 +22,25 @@
 
 #include "config.hh"
 
+#if GUILEV2
+// if Guile's internal representation switches to utf8, this should be
+// changed accordingly for efficiency's sake.  This is used for
+// strings known to be in ASCII entirely, including any string
+// constants in the C code.
+#define scm_from_ascii_string scm_from_latin1_string
+#define scm_from_ascii_stringn scm_from_latin1_stringn
+#define scm_from_ascii_symbol scm_from_latin1_symbol
+#else
+#define scm_from_ascii_string scm_from_locale_string
+#define scm_from_ascii_stringn scm_from_locale_stringn
+#define scm_from_ascii_symbol scm_from_locale_symbol
+#define scm_from_latin1_string scm_from_locale_string
+#define scm_from_latin1_stringn scm_from_locale_stringn
+#define scm_from_utf8_string scm_from_locale_string
+#define scm_from_utf8_symbol scm_from_locale_symbol
+#define scm_to_utf8_string scm_to_locale_string
+#endif
+
 #ifndef SMOB_FREE_RETURN_VAL
 #define SMOB_FREE_RETURN_VAL(CL) 0
 #endif
@@ -48,7 +67,7 @@ typedef SCM (*scm_t_subr) (GUILE_ELLIPSIS);
 /* this lets us "overload" macros such as get_property to take
    symbols as well as strings */
 inline SCM
-scm_or_str2symbol (char const *c) { return scm_from_locale_symbol (c); }
+scm_or_str2symbol (char const *c) { return scm_from_utf8_symbol (c); }
 
 inline SCM
 scm_or_str2symbol (SCM s)
@@ -69,7 +88,7 @@ scm_or_str2symbol (SCM s)
     SCM value = cached;                                                 \
     if (__builtin_constant_p ((x)))                                     \
       {                                                                 \
-        if (!cached)                                                    \
+        if (!SCM_UNPACK (cached))                                       \
           value = cached = scm_gc_protect_object (scm_or_str2symbol (x)); \
       }                                                                 \
     else                                                                \
@@ -77,7 +96,7 @@ scm_or_str2symbol (SCM s)
     value;                                                              \
   })
 #else
-inline SCM ly_symbol2scm (char const *x) { return scm_from_locale_symbol ((x)); }
+inline SCM ly_symbol2scm (char const *x) { return scm_from_utf8_symbol ((x)); }
 #endif
 
 /*
@@ -92,7 +111,7 @@ inline SCM ly_symbol2scm (char const *x) { return scm_from_locale_symbol ((x)); 
     SCM value = cached;                                                 \
     if (__builtin_constant_p ((x)))                                     \
       {                                                                 \
-        if (!cached)                                                    \
+        if (!SCM_UNPACK (cached))                                       \
           value = cached =                                              \
             scm_variable_ref (scm_c_module_lookup (global_lily_module, (x))); \
       }                                                                 \

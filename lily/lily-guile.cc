@@ -144,7 +144,7 @@ ly_string2scm (string const &str)
 char *
 ly_scm2str0 (SCM str)
 {
-  return scm_to_locale_string (str);
+  return scm_to_utf8_string (str);
 }
 
 /*
@@ -401,13 +401,13 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
 {
 
   // If undefined, some internal function caused it...should never happen.
-  assert (val != SCM_UNDEFINED);
+  assert (!SCM_UNBNDP (val));
   if (!scm_is_symbol (sym))
     return false;
 
   SCM type = scm_object_property (sym, type_symbol);
 
-  if (type != SCM_EOL && !ly_is_procedure (type))
+  if (!scm_is_null (type) && !ly_is_procedure (type))
     {
       warning (_f ("cannot find property type-check for `%s' (%s).",
                    ly_symbol2string (sym).c_str (),
@@ -429,16 +429,16 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
 
     TODO: should remove #f from allowed vals?
   */
-  if (val == SCM_EOL || val == SCM_BOOL_F)
+  if (scm_is_null (val) || scm_is_false (val))
     return true;
 
-  if (val != SCM_EOL
+  if (!scm_is_null (val)
       && ly_is_procedure (type)
-      && scm_call_1 (type, val) == SCM_BOOL_F)
+      && scm_is_false (scm_call_1 (type, val)))
     {
       SCM typefunc = ly_lily_module_constant ("type-name");
       SCM type_name = scm_call_1 (typefunc, type);
-      
+
       warning (_f ("type check for `%s' failed; value `%s' must be of type `%s'",
                    ly_symbol2string (sym).c_str (),
                    print_scm_val (val),
@@ -564,7 +564,7 @@ robust_scm2string (SCM k, const string &s)
 int
 robust_scm2int (SCM k, int o)
 {
-  if (scm_integer_p (k) == SCM_BOOL_T)
+  if (scm_is_integer (k))
     o = scm_to_int (k);
   return o;
 }
@@ -572,7 +572,7 @@ robust_scm2int (SCM k, int o)
 vsize
 robust_scm2vsize (SCM k, vsize o)
 {
-  if (scm_integer_p (k) == SCM_BOOL_T)
+  if (scm_is_integer (k))
     {
       int i = scm_to_int (k);
       if (i >= 0)

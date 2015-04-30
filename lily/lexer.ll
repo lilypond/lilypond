@@ -30,9 +30,9 @@
 /*
   backup rules
 
-  after making a change to the lexer rules, run 
+  after making a change to the lexer rules, run
       flex -b <this lexer file>
-  and make sure that 
+  and make sure that
       lex.backup
   contains no backup states, but only the reminder
       Compressed tables always back up.
@@ -119,7 +119,7 @@ SCM (* scm_parse_error_handler) (void *);
 %option debug
 %option yyclass="Lily_lexer"
 %option stack
-%option never-interactive 
+%option never-interactive
 %option warn
 
 %x chords
@@ -346,7 +346,7 @@ BOM_UTF8	\357\273\277
 		yy_pop_state ();
 	} else {
 		LexerError (_ ("string expected after \\include").c_str ());
-		if (sval != SCM_UNDEFINED) {
+		if (!SCM_UNBNDP (sval)) {
 			SCM err = scm_current_error_port ();
 			scm_puts ("This value was found instead: ", err);
 			scm_display (sval, err);
@@ -368,7 +368,7 @@ BOM_UTF8	\357\273\277
 <chords,notes,figures>{RESTNAME}/[-_]	|  // pseudo backup rule
 <chords,notes,figures>{RESTNAME} 	{
 	char const *s = YYText ();
-	yylval = scm_from_locale_string (s);
+	yylval = scm_from_ascii_string (s);
 	return RESTNAME;
 }
 <chords,notes,figures>q/[-_]	| // pseudo backup rule
@@ -387,7 +387,7 @@ BOM_UTF8	\357\273\277
 	hi.step_forward ();
 	SCM sval = ly_parse_scm (hi, be_safe_global && is_main_input_, parser_);
 
-	if (sval == SCM_UNDEFINED)
+	if (SCM_UNBNDP (sval))
 		error_level_ = 1;
 
 	int n = hi.end () - hi.start ();
@@ -508,11 +508,11 @@ BOM_UTF8	\357\273\277
 <quote,commandquote>{
 	\\{ESCAPED}	{
                 char c = escaped_char (YYText ()[1]);
-		yylval = scm_cons (scm_from_locale_stringn (&c, 1),
+		yylval = scm_cons (scm_from_ascii_stringn (&c, 1),
                                    yylval);
 	}
 	[^\\""]+	{
-                yylval = scm_cons (scm_from_locale_string (YYText_utf8 ()),
+                yylval = scm_cons (scm_from_utf8_string (YYText_utf8 ()),
                                    yylval);
 	}
 	\"	{
@@ -533,7 +533,7 @@ BOM_UTF8	\357\273\277
 		return STRING;
 	}
 	\\	{
-                yylval = scm_cons (scm_from_locale_string (YYText ()),
+                yylval = scm_cons (scm_from_ascii_string (YYText ()),
                                    yylval);
 	}
 }
@@ -809,7 +809,7 @@ BOM_UTF8	\357\273\277
 
 %%
 
-/* Make the lexer generate a token of the given type as the next token. 
+/* Make the lexer generate a token of the given type as the next token.
  TODO: make it possible to define a value for the token as well */
 void
 Lily_lexer::push_extra_token (Input const &where, int token_type, SCM scm)
@@ -918,10 +918,10 @@ Lily_lexer::scan_escaped_word (const string &str)
 		m->set_spot (override_input (here_input ()));
 	}
 
-	if (sid != SCM_UNDEFINED)
+	if (!SCM_UNBNDP (sid))
 		return scan_scm_id (sid);
 
-	string msg (_f ("unknown escaped string: `\\%s'", str));	
+	string msg (_f ("unknown escaped string: `\\%s'", str));
 	LexerError (msg.c_str ());
 
 	yylval = ly_string2scm (str);
@@ -938,10 +938,10 @@ Lily_lexer::scan_shorthand (const string &str)
 		m->set_spot (override_input (here_input ()));
 	}
 
-	if (sid != SCM_UNDEFINED)
+	if (!SCM_UNBNDP (sid))
 		return scan_scm_id (sid);
 
-	string msg (_f ("undefined character or shorthand: %s", str));	
+	string msg (_f ("undefined character or shorthand: %s", str));
 	LexerError (msg.c_str ());
 
 	yylval = ly_string2scm (str);
@@ -985,7 +985,7 @@ Lily_lexer::scan_scm_id (SCM sid)
 				optional = SCM_CDR (cs);
 				cs = SCM_CAR (cs);
 			}
-			
+
 			if (ly_is_procedure (cs))
 				push_extra_token (here_input (), EXPECT_SCM, cs);
 			else
@@ -1010,7 +1010,7 @@ Lily_lexer::scan_bare_word (const string &str)
 		SCM handle = SCM_BOOL_F;
 		if (scm_is_pair (pitchname_tab_stack_))
 			handle = scm_hashq_get_handle (scm_cdar (pitchname_tab_stack_), sym);
-		
+
 		if (scm_is_pair (handle)) {
 			yylval = scm_cdr (handle);
 			if (Pitch::is_smob (yylval))
@@ -1019,7 +1019,7 @@ Lily_lexer::scan_bare_word (const string &str)
 			    return DRUM_PITCH;
 		}
 		else if ((YYSTATE == chords)
-		     	&& (handle = scm_hashq_get_handle (chordmodifier_tab_, sym))!= SCM_BOOL_F)
+			&& scm_is_true (handle = scm_hashq_get_handle (chordmodifier_tab_, sym)))
 		{
 		    yylval = scm_cdr (handle);
 		    return CHORD_MODIFIER;
@@ -1100,7 +1100,7 @@ Lily_lexer::eval_scm (SCM readerdata, Input hi, char extra_token)
 					if (!Input::is_smob (m->get_property ("origin")))
 						m->set_spot (override_input (here_input ()));
 				}
-					
+
 				int token;
 				switch (extra_token) {
 				case '$':
@@ -1240,7 +1240,7 @@ Lily_lexer::YYText_utf8 ()
 
 /*
  urg, belong to string (_convert)
- and should be generalised 
+ and should be generalised
  */
 void
 strip_leading_white (string&s)
@@ -1256,8 +1256,8 @@ strip_leading_white (string&s)
 void
 strip_trailing_white (string&s)
 {
-	ssize i = s.length ();	
-	while (i--) 
+	ssize i = s.length ();
+	while (i--)
 		if (!isspace (s[i]))
 			break;
 
@@ -1280,7 +1280,7 @@ is_valid_version (string s)
 	  return false;
   }
   if (ver < oldest_version)
-	{	
+	{
 		non_fatal_error (_f ("file too old: %s (oldest supported: %s)", ver.to_string (), oldest_version.to_string ()));
 		non_fatal_error (_ ("consider updating the input with the convert-ly script"));
 		return false;
@@ -1293,7 +1293,7 @@ is_valid_version (string s)
 	}
   return true;
 }
-	
+
 
 /*
   substitute _

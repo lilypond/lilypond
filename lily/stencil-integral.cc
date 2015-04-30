@@ -113,7 +113,7 @@ get_number_list (SCM l)
       if (scm_is_number (scm_car (l)))
         return l;
       SCM res = get_number_list (scm_car (l));
-      if (res == SCM_BOOL_F)
+      if (scm_is_false (res))
         return get_number_list (scm_cdr (l));
       return res;
     }
@@ -129,19 +129,18 @@ get_path_list (SCM l)
 {
   if (scm_is_pair (l))
     {
-      if (scm_memv (scm_car (l),
-                    scm_list_n (ly_symbol2scm ("moveto"),
-                                ly_symbol2scm ("rmoveto"),
-                                ly_symbol2scm ("lineto"),
-                                ly_symbol2scm ("rlineto"),
-                                ly_symbol2scm ("curveto"),
-                                ly_symbol2scm ("rcurveto"),
-                                ly_symbol2scm ("closepath"),
-                                SCM_UNDEFINED))
-          != SCM_BOOL_F)
+      if (scm_is_true (scm_memv (scm_car (l),
+                                 scm_list_n (ly_symbol2scm ("moveto"),
+                                             ly_symbol2scm ("rmoveto"),
+                                             ly_symbol2scm ("lineto"),
+                                             ly_symbol2scm ("rlineto"),
+                                             ly_symbol2scm ("curveto"),
+                                             ly_symbol2scm ("rcurveto"),
+                                             ly_symbol2scm ("closepath"),
+                                             SCM_UNDEFINED))))
         return l;
       SCM res = get_path_list (scm_car (l));
-      if (res == SCM_BOOL_F)
+      if (scm_is_false (res))
         return get_path_list (scm_cdr (l));
       return res;
     }
@@ -530,8 +529,8 @@ all_commands_to_absolute_and_group (SCM expr)
   bool first = true;
   while (scm_is_pair (expr))
     {
-      if (scm_car (expr) == ly_symbol2scm ("moveto")
-          || (scm_car (expr) == ly_symbol2scm ("rmoveto") && first))
+      if (scm_is_eq (scm_car (expr), ly_symbol2scm ("moveto"))
+          || (scm_is_eq (scm_car (expr), ly_symbol2scm ("rmoveto")) && first))
         {
           Real x = robust_scm2double (scm_cadr (expr), 0.0);
           Real y = robust_scm2double (scm_caddr (expr), 0.0);
@@ -539,7 +538,7 @@ all_commands_to_absolute_and_group (SCM expr)
           current = start;
           expr = scm_cdddr (expr);
         }
-      if (scm_car (expr) == ly_symbol2scm ("rmoveto"))
+      if (scm_is_eq (scm_car (expr), ly_symbol2scm ("rmoveto")))
         {
           Real x = robust_scm2double (scm_cadr (expr), 0.0);
           Real y = robust_scm2double (scm_caddr (expr), 0.0);
@@ -547,7 +546,7 @@ all_commands_to_absolute_and_group (SCM expr)
           current = start;
           expr = scm_cdddr (expr);
         }
-      else if (scm_car (expr) == ly_symbol2scm ("lineto"))
+      else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("lineto")))
         {
           Real x = robust_scm2double (scm_cadr (expr), 0.0);
           Real y = robust_scm2double (scm_caddr (expr), 0.0);
@@ -559,7 +558,7 @@ all_commands_to_absolute_and_group (SCM expr)
           current = Offset (x, y);
           expr = scm_cdddr (expr);
         }
-      else if (scm_car (expr) == ly_symbol2scm ("rlineto"))
+      else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("rlineto")))
         {
           Real x = robust_scm2double (scm_cadr (expr), 0.0);
           Real y = robust_scm2double (scm_caddr (expr), 0.0);
@@ -571,7 +570,7 @@ all_commands_to_absolute_and_group (SCM expr)
           current = (Offset (x, y) + current);
           expr = scm_cdddr (expr);
         }
-      else if (scm_car (expr) == ly_symbol2scm ("curveto"))
+      else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("curveto")))
         {
           Real x1 = robust_scm2double (scm_cadr (expr), 0.0);
           expr = scm_cddr (expr);
@@ -597,7 +596,7 @@ all_commands_to_absolute_and_group (SCM expr)
                           out);
           current = Offset (x3, y3);
         }
-      else if (scm_car (expr) == ly_symbol2scm ("rcurveto"))
+      else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("rcurveto")))
         {
           Real x1 = robust_scm2double (scm_cadr (expr), 0.0);
           expr = scm_cddr (expr);
@@ -623,7 +622,7 @@ all_commands_to_absolute_and_group (SCM expr)
                           out);
           current = (Offset (x3, y3) + current);
         }
-      else if (scm_car (expr) == ly_symbol2scm ("closepath"))
+      else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("closepath")))
         {
           if ((current[X_AXIS] != start[X_AXIS]) || (current[Y_AXIS] != start[Y_AXIS]))
             {
@@ -825,9 +824,9 @@ stencil_dispatcher (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings, 
 {
   if (not scm_is_pair (expr))
     return;
-  if (scm_car (expr) == ly_symbol2scm ("draw-line"))
+  if (scm_is_eq (scm_car (expr), ly_symbol2scm ("draw-line")))
     make_draw_line_boxes (boxes, buildings, trans, scm_cdr (expr), true);
-  else if (scm_car (expr) == ly_symbol2scm ("dashed-line"))
+  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("dashed-line")))
     {
       expr = scm_cdr (expr);
       SCM th = scm_car (expr);
@@ -839,7 +838,7 @@ stencil_dispatcher (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings, 
       SCM x2 = scm_car (expr);
       make_draw_line_boxes (boxes, buildings, trans, scm_list_5 (th, scm_from_double (0.0), scm_from_double (0.0), x1, x2), true);
     }
-  else if (scm_car (expr) == ly_symbol2scm ("circle"))
+  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("circle")))
     {
       expr = scm_cdr (expr);
       SCM rad = scm_car (expr);
@@ -855,7 +854,7 @@ stencil_dispatcher (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings, 
                                               SCM_BOOL_T,
                                               SCM_UNDEFINED));
     }
-  else if (scm_car (expr) == ly_symbol2scm ("ellipse"))
+  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("ellipse")))
     {
       expr = scm_cdr (expr);
       SCM x_rad = scm_car (expr);
@@ -873,17 +872,17 @@ stencil_dispatcher (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings, 
                                               SCM_BOOL_T,
                                               SCM_UNDEFINED));
     }
-  else if (scm_car (expr) == ly_symbol2scm ("partial-ellipse"))
+  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("partial-ellipse")))
     make_partial_ellipse_boxes (boxes, buildings, trans, scm_cdr (expr));
-  else if (scm_car (expr) == ly_symbol2scm ("round-filled-box"))
+  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("round-filled-box")))
     make_round_filled_box_boxes (boxes, trans, scm_cdr (expr));
-  else if (scm_car (expr) == ly_symbol2scm ("named-glyph"))
+  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("named-glyph")))
     make_named_glyph_boxes (boxes, buildings, trans, scm_cdr (expr));
-  else if (scm_car (expr) == ly_symbol2scm ("polygon"))
+  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("polygon")))
     make_polygon_boxes (boxes, buildings, trans, scm_cdr (expr));
-  else if (scm_car (expr) == ly_symbol2scm ("path"))
+  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("path")))
     make_path_boxes (boxes, buildings, trans, scm_cdr (expr));
-  else if (scm_car (expr) == ly_symbol2scm ("glyph-string"))
+  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("glyph-string")))
     make_glyph_string_boxes (boxes, buildings, trans, scm_cdr (expr));
   else
     {
@@ -908,9 +907,9 @@ stencil_traverser (PangoMatrix trans, SCM expr)
 {
   if (scm_is_null (expr))
     return vector<Transform_matrix_and_expression> ();
-  else if (expr == ly_string2scm (""))
+  else if (scm_is_eq (expr, ly_string2scm ("")))
     return vector<Transform_matrix_and_expression> ();
-  else if (scm_car (expr) == ly_symbol2scm ("combine-stencil"))
+  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("combine-stencil")))
     {
       vector<Transform_matrix_and_expression> out;
       for (SCM s = scm_cdr (expr); scm_is_pair (s); s = scm_cdr (s))
@@ -920,23 +919,23 @@ stencil_traverser (PangoMatrix trans, SCM expr)
         }
       return out;
     }
-  else if (scm_car (expr) == ly_symbol2scm ("footnote"))
+  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("footnote")))
     return vector<Transform_matrix_and_expression> ();
-  else if (scm_car (expr) == ly_symbol2scm ("translate-stencil"))
+  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("translate-stencil")))
     {
       Real x = robust_scm2double (scm_caadr (expr), 0.0);
       Real y = robust_scm2double (scm_cdadr (expr), 0.0);
       pango_matrix_translate (&trans, x, y);
       return stencil_traverser (trans, scm_caddr (expr));
     }
-  else if (scm_car (expr) == ly_symbol2scm ("scale-stencil"))
+  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("scale-stencil")))
     {
       Real x = robust_scm2double (scm_caadr (expr), 0.0);
       Real y = robust_scm2double (scm_cadadr (expr), 0.0);
       pango_matrix_scale (&trans, x, y);
       return stencil_traverser (trans, scm_caddr (expr));
     }
-  else if (scm_car (expr) == ly_symbol2scm ("rotate-stencil"))
+  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("rotate-stencil")))
     {
       Real ang = robust_scm2double (scm_caadr (expr), 0.0);
       Real x = robust_scm2double (scm_car (scm_cadadr (expr)), 0.0);
@@ -946,16 +945,16 @@ stencil_traverser (PangoMatrix trans, SCM expr)
       pango_matrix_translate (&trans, -x, -y);
       return stencil_traverser (trans, scm_caddr (expr));
     }
-  else if (scm_car (expr) == ly_symbol2scm ("delay-stencil-evaluation"))
+  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("delay-stencil-evaluation")))
     // should not use the place-holder text, but no need for the warning below
     return vector<Transform_matrix_and_expression> ();
-  else if (scm_car (expr) == ly_symbol2scm ("grob-cause"))
+  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("grob-cause")))
     return stencil_traverser (trans, scm_caddr (expr));
-  else if (scm_car (expr) == ly_symbol2scm ("color"))
+  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("color")))
     return stencil_traverser (trans, scm_caddr (expr));
-  else if (scm_car (expr) == ly_symbol2scm ("transparent-stencil"))
+  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("transparent-stencil")))
     return stencil_traverser (trans, scm_cadr (expr));
-  else if (scm_car (expr) == ly_symbol2scm ("id"))
+  else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("id")))
     return stencil_traverser (trans, scm_caddr (expr));
   else
     {

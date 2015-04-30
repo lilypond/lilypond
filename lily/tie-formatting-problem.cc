@@ -1200,7 +1200,8 @@ Tie_formatting_problem::set_manual_tie_configuration (SCM manual_configs)
             {
               spec.has_manual_position_ = true;
               spec.manual_position_ = scm_to_double (scm_car (entry));
-              spec.has_manual_delta_y_ = (scm_inexact_p (scm_car (entry)) == SCM_BOOL_T);
+              /* TODO: check whether inexact? is an appropriate condition here */
+              spec.has_manual_delta_y_ = (scm_is_true (scm_inexact_p (scm_car (entry))));
             }
 
           if (scm_is_number (scm_cdr (entry)))

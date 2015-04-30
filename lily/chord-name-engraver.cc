@@ -99,7 +99,7 @@ Chord_name_engraver::process_music ()
               if (!Pitch::is_smob (p))
                 continue;
 
-              if (n->get_property ("bass") == SCM_BOOL_T)
+              if (to_boolean (n->get_property ("bass")))
                 bass = p;
               else
                 {
@@ -111,7 +111,7 @@ Chord_name_engraver::process_music ()
                     }
                   else
                     pitches = scm_cons (p, pitches);
-                  if (n->get_property ("inversion") == SCM_BOOL_T)
+                  if (to_boolean (n->get_property ("inversion")))
                     {
                       inversion = p;
                       if (!scm_is_number (oct))

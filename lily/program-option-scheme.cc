@@ -208,7 +208,7 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
 {
   LY_ASSERT_TYPE (ly_is_symbol, var, 1);
 
-  if (val == SCM_UNDEFINED)
+  if (SCM_UNBNDP (val))
     val = SCM_BOOL_T;
 
   string varstr = robust_symbol2string (var, "");
@@ -219,7 +219,7 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
     }
 
   SCM handle = scm_hashq_get_handle (option_hash, var);
-  if (handle == SCM_BOOL_F)
+  if (scm_is_false (handle))
     warning (_f ("no such internal option: %s", varstr.c_str ()));
 
   internal_set_option (var, val);

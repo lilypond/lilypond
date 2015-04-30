@@ -365,10 +365,10 @@ Constrained_breaking::Constrained_breaking (Paper_score *ps, vector<vsize> const
 static SCM
 min_permission (SCM perm1, SCM perm2)
 {
-  if (perm1 == ly_symbol2scm ("force"))
+  if (scm_is_eq (perm1, ly_symbol2scm ("force")))
     return perm2;
-  if (perm1 == ly_symbol2scm ("allow")
-      && perm2 != ly_symbol2scm ("force"))
+  if (scm_is_eq (perm1, ly_symbol2scm ("allow"))
+      && !scm_is_eq (perm2, ly_symbol2scm ("force")))
     return perm2;
   return SCM_EOL;
 }

@@ -110,7 +110,7 @@ Glissando_engraver::acknowledge_note_column (Grob_info info)
     {
       extract_grob_set (g, "note-heads", note_heads);
       SCM map = get_property ("glissandoMap");
-      if (map == SCM_EOL)
+      if (scm_is_null (map))
         for (vsize i = 0; i < note_heads.size (); i++)
           {
             note_column_1.push_back (i);

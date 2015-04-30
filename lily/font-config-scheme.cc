@@ -120,7 +120,7 @@ LY_DEFINE (ly_font_config_get_font_file, "ly:font-config-get-font-file", 1, 0, 0
   pat = FcFontMatch (NULL, pat, &result);
   FcChar8 *str = 0;
   if (FcPatternGetString (pat, FC_FILE, 0, &str) == FcResultMatch)
-    scm_result = scm_from_locale_string ((char const *)str);
+    scm_result = scm_from_utf8_string ((char const *)str);
 
   FcPatternDestroy (pat);
 

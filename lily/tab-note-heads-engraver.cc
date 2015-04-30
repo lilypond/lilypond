@@ -111,12 +111,12 @@ Tab_note_heads_engraver::process_music ()
   bool length_changed = (note_events_.size () != fret_count);
   vsize index;
 
-  if (string_fret_finger != SCM_EOL)
+  if (!scm_is_null (string_fret_finger))
     for (vsize i = 0; i < fret_count; i++)
       {
         note_entry = scm_list_ref (string_fret_finger, scm_from_int (i));
         string_number = scm_car (note_entry);
-        if (string_number != SCM_BOOL_F)
+        if (scm_is_true (string_number))
           {
             fret = scm_cadr (note_entry);
             fret_label = scm_call_3 (fret_procedure,

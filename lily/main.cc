@@ -480,8 +480,8 @@ main_with_guile (void *, int, char **)
    //  " \"" + lilypond_datadir + "/scm/out\")";
    //scm_c_eval_string (scm_pct_set_fallback.c_str() );
    scm_primitive_eval
-     (scm_list_3 (scm_from_locale_symbol ("set!"),
-                  scm_from_locale_symbol ("%compile-fallback-path"),
+     (scm_list_3 (scm_from_latin1_symbol ("set!"),
+                  scm_from_latin1_symbol ("%compile-fallback-path"),
                   scm_from_locale_string (ly_scm_go_dir.c_str())));
 #endif
 

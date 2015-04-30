@@ -154,7 +154,7 @@ Translator::add_translator_listener (translator_listener_record **listener_list,
   // the static translator_listener_record chains while garbage
   // collecting.
 
-  SCM class_sym = scm_permanent_object (scm_from_locale_symbol (name.c_str ()));
+  SCM class_sym = scm_permanent_object (scm_from_ascii_symbol (name.c_str ()));
 
   r->event_class_ = class_sym;
   r->get_listener_ = get_listener;
@@ -178,7 +178,7 @@ Translator::static_translator_description (const char *grobs,
                                  parse_symbol_list (grobs), static_properties);
 
   static_properties = scm_acons (ly_symbol2scm ("description"),
-                                 scm_from_locale_string (desc), static_properties);
+                                 scm_from_utf8_string (desc), static_properties);
 
   SCM list = SCM_EOL;
   for (; listener_list; listener_list = listener_list->next_)
@@ -240,7 +240,7 @@ Translator::print_smob (SCM port, scm_print_state *)
 }
 
 void
-add_acknowledger (Engraver_void_function_engraver_grob_info ptr,
+add_acknowledger (Translator::Grob_info_callback ptr,
                   char const *func_name,
                   vector<Acknowledge_information> *ack_array)
 {
@@ -259,7 +259,7 @@ add_acknowledger (Engraver_void_function_engraver_grob_info ptr,
   ack_array->push_back (inf);
 }
 
-Engraver_void_function_engraver_grob_info
+Translator::Grob_info_callback
 generic_get_acknowledger (SCM sym, vector<Acknowledge_information> const *ack_array)
 {
   for (vsize i = 0; i < ack_array->size (); i++)

@@ -85,13 +85,14 @@ Repeat_acknowledge_engraver::process_music ()
   while (scm_is_pair (cs))
     {
       SCM command = scm_car (cs);
-      if (command == ly_symbol2scm ("start-repeat"))
+      if (scm_is_eq (command, ly_symbol2scm ("start-repeat")))
         start = true;
-      else if (command == ly_symbol2scm ("end-repeat"))
+      else if (scm_is_eq (command, ly_symbol2scm ("end-repeat")))
         end = true;
-      else if (command == ly_symbol2scm ("segno-display"))
+      else if (scm_is_eq (command, ly_symbol2scm ("segno-display")))
         segno = true;
-      else if (scm_is_pair (command) && scm_car (command) == ly_symbol2scm ("volta"))
+      else if (scm_is_pair (command)
+               && scm_is_eq (scm_car (command), ly_symbol2scm ("volta")))
         volta_found = true;
       cs = scm_cdr (cs);
     }

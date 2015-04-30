@@ -76,7 +76,7 @@ Drum_notes_engraver::process_music ()
 
       SCM defn = SCM_EOL;
 
-      if (scm_hash_table_p (tab) == SCM_BOOL_T)
+      if (to_boolean (scm_hash_table_p (tab)))
         defn = scm_hashq_ref (tab, drum_type, SCM_EOL);
 
       if (scm_is_pair (defn))
@@ -85,7 +85,7 @@ Drum_notes_engraver::process_music ()
           SCM style = scm_car (defn);
           SCM script = scm_cadr (defn);
 
-          if (scm_integer_p (pos) == SCM_BOOL_T)
+          if (scm_is_integer (pos))
             note->set_property ("staff-position", pos);
           if (scm_is_symbol (style))
             note->set_property ("style", style);

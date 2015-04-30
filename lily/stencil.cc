@@ -55,7 +55,7 @@ Stencil::extent (Axis a) const
 bool
 Stencil::is_empty () const
 {
-  return (expr_ == SCM_EOL
+  return (scm_is_null (expr_)
           || dim_.is_empty ());
 }
 

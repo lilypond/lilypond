@@ -129,13 +129,13 @@ System_start_delimiter::print (SCM smob)
     }
 
   Stencil m;
-  if (glyph_sym == ly_symbol2scm ("bracket"))
+  if (scm_is_eq (glyph_sym, ly_symbol2scm ("bracket")))
     m = staff_bracket (me, len);
-  else if (glyph_sym == ly_symbol2scm ("brace"))
+  else if (scm_is_eq (glyph_sym, ly_symbol2scm ("brace")))
     m = staff_brace (me, len);
-  else if (glyph_sym == ly_symbol2scm ("bar-line"))
+  else if (scm_is_eq (glyph_sym, ly_symbol2scm ("bar-line")))
     m = simple_bar (me, len);
-  else if (glyph_sym == ly_symbol2scm ("line-bracket"))
+  else if (scm_is_eq (glyph_sym, ly_symbol2scm ("line-bracket")))
     m = line_bracket (me, len);
 
   m.translate_axis (ext.center (), Y_AXIS);

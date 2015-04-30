@@ -533,7 +533,8 @@ Stem::calc_positioning_done (SCM smob)
   bool is_harmonic_centered = false;
   for (vsize i = 0; i < heads.size (); i++)
     is_harmonic_centered = is_harmonic_centered
-                           || heads[i]->get_property ("style") == ly_symbol2scm ("harmonic");
+                           || scm_is_eq (heads[i]->get_property ("style"),
+                                         ly_symbol2scm ("harmonic"));
   is_harmonic_centered = is_harmonic_centered && is_invisible (me);
 
   Real w = hed->extent (hed, X_AXIS)[dir];

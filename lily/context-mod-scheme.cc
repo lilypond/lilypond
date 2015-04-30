@@ -47,7 +47,7 @@ LY_DEFINE (ly_make_context_mod, "ly:make-context-mod",
            "Creates a context modification, optionally initialized"
            " via the list of modifications @var{mod-list}.")
 {
-  if (mod_list != SCM_UNDEFINED)
+  if (!SCM_UNBNDP (mod_list))
     {
       LY_ASSERT_TYPE (ly_cheap_is_list, mod_list, 1);
       return Context_mod (mod_list).smobbed_copy ();

@@ -138,7 +138,8 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
   for (vsize start = end; start--;)
     {
       if (start < end - 1
-          && breakpoint_property (start + 1, "page-turn-permission") == ly_symbol2scm ("force"))
+          && scm_is_eq (breakpoint_property (start + 1, "page-turn-permission"),
+                        ly_symbol2scm ("force")))
         break;
 
       if (start > 0 && best.demerits_ < state_[start - 1].demerits_)

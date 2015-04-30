@@ -214,8 +214,9 @@ increments from this initial value.")
 dash structure.  Each @code{dash-element} has a starting t value,
 an ending t-value, a @code{dash-fraction}, and a @code{dash-period}.")
      (dash-fraction ,number? "Size of the dashes, relative to
-@code{dash-period}.  Should be between @code{0.1} and @code{1.0}
-(continuous line).  If set to @code{0.0}, a dotted line is produced")
+@code{dash-period}.  Should be between @code{0.1} and
+@code{1.0} (continuous line).  If set to @code{0.0}, a dotted line is
+produced")
      (dash-period ,number? "The length of one dash together with
 whitespace.  If negative, no line is drawn at all.")
      (default-direction ,ly:dir? "Direction determined by note head
@@ -530,6 +531,8 @@ the string will be assigned to the @code{id} attribute of a group (<g>)
 that encloses the stencils that comprise the grob.  In the Postscript
 backend, as there is no way to group items, the setting of the id property
 will have no effect.")
+     (ignore-ambitus ,boolean? "If set, don't consider this notehead
+for ambitus calculation.")
      (ignore-collision ,boolean? "If set, don't do note collision
 resolution on this @code{NoteColumn}.")
      (implicit ,boolean? "Is this an implicit bass figure?")
@@ -774,6 +777,10 @@ If unset, the value from @code{self-alignment-X} property will be
 used.")
      (parent-alignment-Y ,number? "Like @code{parent-alignment-X}
 but for the Y@tie{}axis.")
+     (parenthesis-friends ,list? "A list of Grob types, as symbols.
+When parentheses enclose a Grob that has 'parenthesis-friends, the
+parentheses widen to include any child Grobs with type among
+'parenthesis-friends.")
      (parenthesized ,boolean? "Parenthesize this grob.")
      (positions ,number-pair? "Pair of staff coordinates
 @code{(@var{left} . @var{right})}, where both @var{left} and
@@ -844,6 +851,9 @@ value @w{@code{-1}} means left aligned, @code{0}@tie{}centered, and
 values may also be specified - the unit is half the object width.")
      (self-alignment-Y ,number? "Like @code{self-alignment-X} but for
 the Y@tie{}axis.")
+     (shape ,symbol? "This setting determines what shape a grob
+has.  Valid choices depend on the @code{stencil} callback reading
+this property.")
      (sharp-positions ,list? "Sharps in key signatures are placed
 within the specified ranges of staff-positions.  The general form
 is a list of pairs, with one pair for each type of clef, in order

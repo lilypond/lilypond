@@ -139,7 +139,7 @@ Paper_book::output_aux (SCM output_channel,
     }
   else
     {
-      if (scores_ == SCM_EOL)
+      if (scm_is_null (scores_))
         return 0;
       paper_->set_variable (ly_symbol2scm ("first-page-number"),
                             scm_from_long (*first_page_number));
@@ -165,7 +165,7 @@ Paper_book::output (SCM output_channel)
      with different line-widths) and why we need it at all.
   */
 
-  if (paper_->c_variable ("line-width") == SCM_UNDEFINED)
+  if (SCM_UNBNDP (paper_->c_variable ("line-width")))
     paper_->set_variable (ly_symbol2scm ("line-width"),
                           paper_->c_variable ("paper-width"));
 
@@ -188,7 +188,7 @@ Paper_book::output (SCM output_channel)
       SCM framework = ly_module_lookup (mod,
                                         ly_symbol2scm ("output-framework"));
 
-      if (framework != SCM_BOOL_F)
+      if (scm_is_true (framework))
         {
           SCM func = scm_variable_ref (framework);
           scm_call_4 (func,
@@ -207,7 +207,7 @@ Paper_book::output (SCM output_channel)
       SCM framework
         = ly_module_lookup (mod, ly_symbol2scm ("output-preview-framework"));
 
-      if (framework != SCM_BOOL_F)
+      if (scm_is_true (framework))
         {
           SCM func = scm_variable_ref (framework);
           scm_call_4 (func,
@@ -444,7 +444,7 @@ Paper_book::get_system_specs ()
       if (ly_is_module (scm_car (s)))
         {
           header = scm_car (s);
-          if (header_0_ == SCM_EOL)
+          if (scm_is_null (header_0_))
             header_0_ = header;
         }
       else if (Page_marker *page_marker = Page_marker::unsmob (scm_car (s)))
@@ -560,7 +560,7 @@ Paper_book::get_system_specs ()
 SCM
 Paper_book::systems ()
 {
-  if (systems_ != SCM_BOOL_F)
+  if (scm_is_true (systems_))
     return systems_;
 
   systems_ = SCM_EOL;
@@ -610,9 +610,9 @@ Paper_book::systems ()
             {
               SCM perm = ps->get_property ("page-break-permission");
               Prob *next = Prob::unsmob (scm_cadr (s));
-              if (perm == SCM_EOL)
+              if (scm_is_null (perm))
                 next->set_property ("penalty", scm_from_int (10001));
-              else if (perm == ly_symbol2scm ("force"))
+              else if (scm_is_eq (perm, ly_symbol2scm ("force")))
                 next->set_property ("penalty", scm_from_int (-10001));
             }
         }
@@ -624,7 +624,7 @@ Paper_book::systems ()
 SCM
 Paper_book::pages ()
 {
-  if (SCM_BOOL_F != pages_)
+  if (scm_is_true (pages_))
     return pages_;
 
   pages_ = SCM_EOL;
@@ -653,7 +653,7 @@ Paper_book::pages ()
         scm_call_2 (post_process, paper_->self_scm (), pages_);
 
       /* set systems_ from the pages */
-      if (systems_ == SCM_BOOL_F)
+      if (scm_is_false (systems_))
         {
           systems_ = SCM_EOL;
           for (SCM p = pages_; scm_is_pair (p); p = scm_cdr (p))

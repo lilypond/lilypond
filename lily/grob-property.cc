@@ -83,7 +83,7 @@ Grob::instrumented_set_property (SCM sym, SCM v,
                  scm_list_n (self_scm (),
                              scm_from_locale_string (file),
                              scm_from_int (line),
-                             scm_from_locale_string (fun),
+                             scm_from_ascii_string (fun),
                              sym, v, SCM_UNDEFINED));
 #else
   (void) file;
@@ -125,7 +125,7 @@ Grob::internal_set_value_on_alist (SCM *alist, SCM sym, SCM v)
       if (!ly_is_procedure (v)
           && !Simple_closure::is_smob (v)
           && !Unpure_pure_container::is_smob (v)
-          && v != ly_symbol2scm ("calculation-in-progress"))
+          && !scm_is_eq (v, ly_symbol2scm ("calculation-in-progress")))
         type_check_assignment (sym, v, ly_symbol2scm ("backend-type?"));
 
       check_interfaces_for_property (this, sym);
@@ -143,7 +143,7 @@ Grob::internal_get_property_data (SCM sym) const
 #endif
 
   SCM handle = scm_sloppy_assq (sym, mutable_property_alist_);
-  if (handle != SCM_BOOL_F)
+  if (scm_is_true (handle))
     return scm_cdr (handle);
 
   handle = scm_sloppy_assq (sym, immutable_property_alist_);
@@ -158,7 +158,7 @@ Grob::internal_get_property_data (SCM sym) const
       check_interfaces_for_property (this, sym);
     }
 
-  return (handle == SCM_BOOL_F) ? SCM_EOL : scm_cdr (handle);
+  return scm_is_false (handle) ? SCM_EOL : scm_cdr (handle);
 }
 
 SCM
@@ -167,7 +167,7 @@ Grob::internal_get_property (SCM sym) const
   SCM val = get_property_data (sym);
 
 #ifndef NDEBUG
-  if (val == ly_symbol2scm ("calculation-in-progress"))
+  if (scm_is_eq (val, ly_symbol2scm ("calculation-in-progress")))
     {
       programming_error (to_string ("cyclic dependency: calculation-in-progress encountered for #'%s (%s)",
                                     ly_symbol2string (sym).c_str (),
@@ -252,11 +252,11 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
     grob_property_callback_stack = scm_cdr (grob_property_callback_stack);
 #endif
 
-  if (value == SCM_UNSPECIFIED)
+  if (scm_is_eq (value, SCM_UNSPECIFIED))
     {
       value = get_property_data (sym);
-      assert (value == SCM_EOL || value == marker);
-      if (value == marker)
+      assert (scm_is_null (value) || scm_is_eq (value, marker));
+      if (scm_is_eq (value, marker))
         *alist = scm_assq_remove_x (*alist, sym);
     }
   else
@@ -300,7 +300,7 @@ Grob::internal_get_object (SCM sym) const
 
   SCM s = scm_sloppy_assq (sym, object_alist_);
 
-  if (s != SCM_BOOL_F)
+  if (scm_is_true (s))
     {
       SCM val = scm_cdr (s);
       if (ly_is_procedure (val)
@@ -326,7 +326,7 @@ Grob::is_live () const
 bool
 Grob::internal_has_interface (SCM k)
 {
-  return scm_c_memq (k, interfaces_) != SCM_BOOL_F;
+  return scm_is_true (scm_c_memq (k, interfaces_));
 }
 
 SCM

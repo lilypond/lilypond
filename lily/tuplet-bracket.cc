@@ -268,7 +268,7 @@ Tuplet_bracket::print (SCM smob)
   */
   SCM bracket_vis_prop = me->get_property ("bracket-visibility");
   bool bracket_prop = ly_scm2bool (bracket_vis_prop); // Flag, user has set bracket-visibility prop.
-  bool bracket = (bracket_vis_prop == ly_symbol2scm ("if-no-beam"));
+  bool bracket = scm_is_eq (bracket_vis_prop, ly_symbol2scm ("if-no-beam"));
   if (scm_is_bool (bracket_vis_prop))
     bracket_visibility = bracket_prop;
   else if (bracket)

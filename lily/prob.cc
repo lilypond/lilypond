@@ -61,15 +61,14 @@ Prob::equal_p (SCM sa, SCM sb)
         {
           SCM aval = scm_cdar (aprop);
           SCM bval = scm_cdar (bprop);
-          if (scm_caar (aprop) != scm_caar (bprop)
+          if (!scm_is_eq (scm_caar (aprop), scm_caar (bprop))
               || (!(Input::is_smob (aval) && Input::is_smob (bval))
-                  &&
-                  !to_boolean (scm_equal_p (aval, bval))))
+                  && !ly_is_equal (aval, bval)))
             return SCM_BOOL_F;
         }
 
       /* is one list shorter? */
-      if (aprop != SCM_EOL || bprop != SCM_EOL)
+      if (!scm_is_null (aprop) || !scm_is_null (bprop))
         return SCM_BOOL_F;
     }
 
@@ -151,11 +150,11 @@ Prob::internal_get_property (SCM sym) const
     TODO: type checking
    */
   SCM s = scm_sloppy_assq (sym, mutable_property_alist_);
-  if (s != SCM_BOOL_F)
+  if (scm_is_true (s))
     return scm_cdr (s);
 
   s = scm_sloppy_assq (sym, immutable_property_alist_);
-  return (s == SCM_BOOL_F) ? SCM_EOL : scm_cdr (s);
+  return scm_is_false (s) ? SCM_EOL : scm_cdr (s);
 }
 
 /* We don't (yet) instrument probs */

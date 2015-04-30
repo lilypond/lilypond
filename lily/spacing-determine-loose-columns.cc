@@ -115,7 +115,8 @@ is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
             {
               Grob *h = gelts[j];
 
-              if (h && h->get_property ("break-align-symbol") == ly_symbol2scm ("staff-bar"))
+              if (h && scm_is_eq (h->get_property ("break-align-symbol"),
+                                  ly_symbol2scm ("staff-bar")))
                 {
                   extract_grob_set (h, "elements", helts);
                   for (vsize k = helts.size (); k--;)

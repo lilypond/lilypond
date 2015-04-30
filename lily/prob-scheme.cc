@@ -51,11 +51,11 @@ LY_DEFINE (ly_prob_property, "ly:prob-property",
   Prob *ps = Prob::unsmob (prob);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
-  if (val == SCM_UNDEFINED)
+  if (SCM_UNBNDP (val))
     val = SCM_EOL;
 
   SCM retval = ps->get_property (sym);
-  if (retval == SCM_EOL)
+  if (scm_is_null (retval))
     return val;
   else
     return retval;

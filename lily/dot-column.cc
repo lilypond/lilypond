@@ -217,8 +217,9 @@ Dot_column::calc_positioning_done (SCM smob)
 
       cfg.remove_collision (p);
       cfg[p] = dp;
-      if (Staff_symbol_referencer::on_line (dp.dot_, p) &&
-          dp.dot_->get_property ("style") != ly_symbol2scm ("kievan"))
+      if (Staff_symbol_referencer::on_line (dp.dot_, p)
+          && !scm_is_eq (dp.dot_->get_property ("style"),
+                         ly_symbol2scm ("kievan")))
         cfg.remove_collision (p);
     }
 

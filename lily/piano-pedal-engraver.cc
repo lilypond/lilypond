@@ -166,9 +166,9 @@ init_pedal_types ()
         be careful, as we don't want to loose references to the _sym_ members.
        */
       Pedal_type_info info;
-      info.event_class_sym_ = scm_from_locale_symbol ((base_ident + "-event").c_str ());
-      info.style_sym_ = scm_from_locale_symbol (("pedal" + base_name + "Style").c_str ());
-      info.strings_sym_ = scm_from_locale_symbol (("pedal" + base_name + "Strings").c_str ());
+      info.event_class_sym_ = scm_from_ascii_symbol ((base_ident + "-event").c_str ());
+      info.style_sym_ = scm_from_ascii_symbol (("pedal" + base_name + "Style").c_str ());
+      info.strings_sym_ = scm_from_ascii_symbol (("pedal" + base_name + "Strings").c_str ());
 
       info.base_name_ = name;
       info.pedal_c_str_ = strdup ((base_name + "Pedal").c_str ());
@@ -251,11 +251,11 @@ Piano_pedal_engraver::process_music ()
 
           SCM style = get_property (p->type_->style_sym_);
 
-          bool mixed = style == ly_symbol2scm ("mixed");
+          bool mixed = scm_is_eq (style, ly_symbol2scm ("mixed"));
           bool bracket = (mixed
-                          || style == ly_symbol2scm ("bracket"));
-          bool text = (style == ly_symbol2scm ("text")
-                       || mixed);
+                          || scm_is_eq (style, ly_symbol2scm ("bracket")));
+          bool text = (mixed
+                       || scm_is_eq (style, ly_symbol2scm ("text")));
 
           if (text && !p->item_)
             create_text_grobs (p, mixed);

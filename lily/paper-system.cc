@@ -46,13 +46,13 @@ get_footnotes (SCM expr)
 
   SCM head = scm_car (expr);
 
-  if (head == ly_symbol2scm ("delay-stencil-evaluation"))
+  if (scm_is_eq (head, ly_symbol2scm ("delay-stencil-evaluation")))
     {
       // we likely need to do something here...just don't know what...
       return SCM_EOL;
     }
 
-  if (head == ly_symbol2scm ("combine-stencil"))
+  if (scm_is_eq (head, ly_symbol2scm ("combine-stencil")))
     {
       SCM out = SCM_EOL;
       SCM *tail = &out;
@@ -60,7 +60,7 @@ get_footnotes (SCM expr)
       for (SCM x = scm_cdr (expr); scm_is_pair (x); x = scm_cdr (x))
         {
           SCM footnote = get_footnotes (scm_car (x));
-          if (SCM_EOL != footnote)
+          if (!scm_is_null (footnote))
             {
               *tail = scm_cons (footnote, SCM_EOL);
               tail = SCM_CDRLOC (*tail);
@@ -68,10 +68,10 @@ get_footnotes (SCM expr)
         }
       return scm_append (out);
     }
-  if (head == ly_symbol2scm ("translate-stencil"))
+  if (scm_is_eq (head, ly_symbol2scm ("translate-stencil")))
     return get_footnotes (scm_caddr (expr));
 
-  if (head == ly_symbol2scm ("footnote"))
+  if (scm_is_eq (head, ly_symbol2scm ("footnote")))
     return scm_list_1 (scm_cdr (expr));
 
   return SCM_EOL;

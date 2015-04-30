@@ -132,10 +132,10 @@ Bracket_nesting_group::from_list (SCM x)
           node->from_list (entry);
           children_.push_back (node);
         }
-      else if (entry == ly_symbol2scm ("SystemStartBrace")
-               || entry == ly_symbol2scm ("SystemStartBracket")
-               || entry == ly_symbol2scm ("SystemStartBar")
-               || entry == ly_symbol2scm ("SystemStartSquare"))
+      else if (scm_is_eq (entry, ly_symbol2scm ("SystemStartBrace"))
+               || scm_is_eq (entry, ly_symbol2scm ("SystemStartBracket"))
+               || scm_is_eq (entry, ly_symbol2scm ("SystemStartBar"))
+               || scm_is_eq (entry, ly_symbol2scm ("SystemStartSquare")))
         symbol_ = entry;
       else
         children_.push_back (new Bracket_nesting_staff (0));

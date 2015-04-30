@@ -211,7 +211,8 @@ Slur::replace_breakable_encompass_objects (Grob *me)
             /* if we encompass a separation-item that spans multiple staves,
                we filter out the grobs that don't belong to our staff */
             if (me->common_refpoint (breakables[j], Y_AXIS) == me->get_parent (Y_AXIS)
-                && breakables[j]->get_property ("avoid-slur") == ly_symbol2scm ("inside"))
+                && scm_is_eq (breakables[j]->get_property ("avoid-slur"),
+                              ly_symbol2scm ("inside")))
               new_encompasses.push_back (breakables[j]);
         }
       else
@@ -264,7 +265,8 @@ Slur::pure_outside_slur_callback (SCM grob, SCM start_scm, SCM end_scm, SCM offs
     return offset_scm;
 
   SCM avoid = script->get_property ("avoid-slur");
-  if (avoid != ly_symbol2scm ("outside") && avoid != ly_symbol2scm ("around"))
+  if (!scm_is_eq (avoid, ly_symbol2scm ("outside"))
+      && !scm_is_eq (avoid, ly_symbol2scm ("around")))
     return offset_scm;
 
   Real offset = robust_scm2double (offset_scm, 0.0);
@@ -283,8 +285,8 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
     return offset_scm;
 
   SCM avoid = script->get_property ("avoid-slur");
-  if (avoid != ly_symbol2scm ("outside")
-      && avoid != ly_symbol2scm ("around"))
+  if (!scm_is_eq (avoid, ly_symbol2scm ("outside"))
+      && !scm_is_eq (avoid, ly_symbol2scm ("around")))
     return offset_scm;
 
   Direction dir = get_grob_direction (script);
@@ -328,7 +330,7 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
   Interval exts[] = {xext, yext};
   bool do_shift = false;
   Real EPS = 1.0e-5;
-  if (avoid == ly_symbol2scm ("outside"))
+  if (scm_is_eq (avoid, ly_symbol2scm ("outside")))
     {
       for (LEFT_and_RIGHT (d))
         {
@@ -408,7 +410,7 @@ Slur::auxiliary_acknowledge_extra_object (Grob_info const &info,
     slur = slurs[0];
 
   if (Tie::has_interface (e)
-      || avoid == ly_symbol2scm ("inside"))
+      || scm_is_eq (avoid, ly_symbol2scm ("inside")))
     {
       for (vsize i = slurs.size (); i--;)
         add_extra_encompass (slurs[i], e);
@@ -417,8 +419,8 @@ Slur::auxiliary_acknowledge_extra_object (Grob_info const &info,
       if (slur)
         e->set_object ("slur", slur->self_scm ());
     }
-  else if (avoid == ly_symbol2scm ("outside")
-           || avoid == ly_symbol2scm ("around"))
+  else if (scm_is_eq (avoid, ly_symbol2scm ("outside"))
+           || scm_is_eq (avoid, ly_symbol2scm ("around")))
     {
       if (slur)
         {
@@ -430,7 +432,7 @@ Slur::auxiliary_acknowledge_extra_object (Grob_info const &info,
           e->set_object ("slur", slur->self_scm ());
         }
     }
-  else if (avoid != ly_symbol2scm ("ignore"))
+  else if (!scm_is_eq (avoid, ly_symbol2scm ("ignore")))
     e->warning (_f ("Ignoring grob for slur: %s.  avoid-slur not set?",
                     e->name ().c_str ()));
 }
@@ -445,7 +447,7 @@ MAKE_SCHEME_CALLBACK (Slur, outside_slur_cross_staff, 2)
 SCM
 Slur::outside_slur_cross_staff (SCM smob, SCM previous)
 {
-  if (previous == SCM_BOOL_T)
+  if (to_boolean (previous))
     return previous;
 
   Grob *me = Grob::unsmob (smob);

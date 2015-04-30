@@ -129,7 +129,7 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
           ? me->get_property ("parent-alignment-X")
           : me->get_property ("parent-alignment-Y");
 
-  if (par_align == SCM_EOL)
+  if (scm_is_null (par_align))
       par_align = self_align;
 
   Real x = 0.0;

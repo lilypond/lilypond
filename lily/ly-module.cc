@@ -100,7 +100,7 @@ entry_to_alist (void * /* closure */,
                 SCM val,
                 SCM result)
 {
-  if (scm_variable_bound_p (val) == SCM_BOOL_T)
+  if (to_boolean (scm_variable_bound_p (val)))
     return scm_cons (scm_cons (key, scm_variable_ref (val)), result);
   programming_error ("unbound variable in module");
   return result;

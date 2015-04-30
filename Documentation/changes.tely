@@ -62,6 +62,19 @@ which scares away people.
 @end ignore
 
 @item
+The visual style of tremolo slashes (shape, style and slope)
+is now more finely controlled.
+@lilypond[quote,relative=2]
+  a8:32 b: c: d:
+  \override StemTremolo.shape = #'beam-like
+  a: b: c: d:
+  \override StemTremolo.style = #'constant
+  a: b: c: d:
+  g,2
+@end lilypond
+
+
+@item
 Multi-measure rests have length according to their total duration,
 under the control of @code{MultiMeasureRest.space-increment}.
 @lilypond[quote]

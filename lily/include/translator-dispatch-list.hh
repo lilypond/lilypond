@@ -23,11 +23,12 @@
 #include "lily-proto.hh"
 #include "std-vector.hh"
 #include "smobs.hh"
+#include "translator.hh"
 
 struct Engraver_dispatch_entry
 {
   Engraver *engraver_;
-  Engraver_void_function_engraver_grob_info function_;
+  Translator::Grob_info_callback function_;
 };
 
 class Engraver_dispatch_list : public Simple_smob<Engraver_dispatch_list>

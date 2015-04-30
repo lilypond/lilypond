@@ -87,7 +87,7 @@ Dynamic_performer::equalize_volume (Real volume)
         s = get_property ("instrumentName");
 
       if (!scm_is_string (s))
-        s = scm_from_locale_string ("piano");
+        s = scm_from_ascii_string ("piano");
 
       SCM eq = get_property ("instrumentEqualizer");
       if (ly_is_procedure (eq))

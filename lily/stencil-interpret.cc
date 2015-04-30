@@ -32,28 +32,28 @@ interpret_stencil_expression (SCM expr,
 
       SCM head = scm_car (expr);
 
-      if (head == ly_symbol2scm ("delay-stencil-evaluation"))
+      if (scm_is_eq (head, ly_symbol2scm ("delay-stencil-evaluation")))
         {
           interpret_stencil_expression (scm_force (scm_cadr (expr)), func, func_arg, o);
           return;
         }
-      if (head == ly_symbol2scm ("transparent-stencil"))
+      if (scm_is_eq (head, ly_symbol2scm ("transparent-stencil")))
         return;
-      if (head == ly_symbol2scm ("footnote"))
+      if (scm_is_eq (head, ly_symbol2scm ("footnote")))
         return;
-      if (head == ly_symbol2scm ("translate-stencil"))
+      if (scm_is_eq (head, ly_symbol2scm ("translate-stencil")))
         {
           o += ly_scm2offset (scm_cadr (expr));
           expr = scm_caddr (expr);
         }
-      else if (head == ly_symbol2scm ("combine-stencil"))
+      else if (scm_is_eq (head, ly_symbol2scm ("combine-stencil")))
         {
 
           for (SCM x = scm_cdr (expr); scm_is_pair (x); x = scm_cdr (x))
             interpret_stencil_expression (scm_car (x), func, func_arg, o);
           return;
         }
-      else if (head == ly_symbol2scm ("grob-cause"))
+      else if (scm_is_eq (head, ly_symbol2scm ("grob-cause")))
         {
           SCM grob = scm_cadr (expr);
 
@@ -65,7 +65,7 @@ interpret_stencil_expression (SCM expr,
             (*func) (func_arg, scm_list_1 (ly_symbol2scm ("no-origin")));
           return;
         }
-      else if (head == ly_symbol2scm ("color"))
+      else if (scm_is_eq (head, ly_symbol2scm ("color")))
         {
           SCM color = scm_cadr (expr);
           SCM r = scm_car (color);
@@ -78,7 +78,7 @@ interpret_stencil_expression (SCM expr,
 
           return;
         }
-      else if (head == ly_symbol2scm ("id"))
+      else if (scm_is_eq (head, ly_symbol2scm ("id")))
         {
           SCM id = scm_cadr (expr);
 
@@ -88,7 +88,7 @@ interpret_stencil_expression (SCM expr,
 
           return;
         }
-      else if (head == ly_symbol2scm ("rotate-stencil"))
+      else if (scm_is_eq (head, ly_symbol2scm ("rotate-stencil")))
         {
           SCM args = scm_cadr (expr);
           SCM angle = scm_car (args);
@@ -104,7 +104,7 @@ interpret_stencil_expression (SCM expr,
 
           return;
         }
-      else if (head == ly_symbol2scm ("scale-stencil"))
+      else if (scm_is_eq (head, ly_symbol2scm ("scale-stencil")))
         {
           SCM args = scm_cadr (expr);
           SCM x_scale = scm_car (args);
@@ -142,7 +142,7 @@ find_font_function (void *fs, SCM x)
 {
   Font_list *me = (Font_list *) fs;
 
-  if (scm_car (x) == ly_symbol2scm ("placebox"))
+  if (scm_is_eq (scm_car (x), ly_symbol2scm ("placebox")))
     {
       SCM args = scm_cdr (x);
       SCM what = scm_caddr (args);
@@ -150,9 +150,9 @@ find_font_function (void *fs, SCM x)
       if (scm_is_pair (what))
         {
           SCM head = scm_car (what);
-          if (ly_symbol2scm ("text") == head)
+          if (scm_is_eq (head, ly_symbol2scm ("text")))
             me->fonts_ = scm_cons (scm_cadr (what), me->fonts_);
-          else if (head == ly_symbol2scm ("char"))
+          else if (scm_is_eq (head, ly_symbol2scm ("char")))
             me->fonts_ = scm_cons (scm_cadr (what), me->fonts_);
         }
     }

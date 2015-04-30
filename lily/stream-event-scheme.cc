@@ -36,7 +36,7 @@ LY_DEFINE (ly_make_stream_event, "ly:make-stream-event",
   /* should be scm_list_p, but scm_list_p is expensive. */
   LY_ASSERT_TYPE (scm_is_pair, proplist, 2);
 
-  if (proplist == SCM_UNDEFINED)
+  if (SCM_UNBNDP (proplist))
     proplist = SCM_EOL;
 
   Stream_event *e = new Stream_event (cl, proplist);

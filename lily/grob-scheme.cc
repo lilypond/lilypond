@@ -94,11 +94,11 @@ LY_DEFINE (ly_grob_pure_property, "ly:grob-pure-property",
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
   LY_ASSERT_TYPE (scm_is_integer, beg, 3);
   LY_ASSERT_TYPE (scm_is_integer, end, 4);
-  if (val == SCM_UNDEFINED)
+  if (SCM_UNBNDP (val))
     val = SCM_EOL;
 
   SCM retval = sc->internal_get_pure_property (sym, scm_to_int (beg), scm_to_int (end));
-  if (retval == SCM_EOL)
+  if (scm_is_null (retval))
     retval = val;
 
   return retval;
@@ -117,7 +117,7 @@ LY_DEFINE (ly_grob_pure_height, "ly:grob-pure-height",
   LY_ASSERT_SMOB (Grob, refp, 2);
   LY_ASSERT_TYPE (scm_is_integer, beg, 3);
   LY_ASSERT_TYPE (scm_is_integer, end, 4);
-  if (val == SCM_UNDEFINED)
+  if (SCM_UNBNDP (val))
     val = SCM_EOL;
 
   Interval retval = sc->pure_height (ref, scm_to_int (beg), scm_to_int (end));
@@ -135,11 +135,11 @@ LY_DEFINE (ly_grob_property, "ly:grob-property",
 
   LY_ASSERT_SMOB (Grob, grob, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
-  if (val == SCM_UNDEFINED)
+  if (SCM_UNBNDP (val))
     val = SCM_EOL;
 
   SCM retval = sc->get_property (sym);
-  if (retval == SCM_EOL)
+  if (scm_is_null (retval))
     retval = val;
 
   return retval;
@@ -206,10 +206,10 @@ LY_DEFINE (ly_grob_alist_chain, "ly:grob-alist-chain",
 
   LY_ASSERT_SMOB (Grob, grob, 1);
 
-  if (global == SCM_UNDEFINED)
+  if (SCM_UNBNDP (global))
     {
       global = sc->layout ()->lookup_variable (ly_symbol2scm ("font-defaults"));
-      if (global == SCM_UNDEFINED)
+      if (SCM_UNBNDP (global))
         global = SCM_EOL;
     }
 

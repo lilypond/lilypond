@@ -33,10 +33,6 @@ using namespace std;
 #include <sys/stat.h>
 #endif
 
-#ifdef __CYGWIN__
-#include <sys/cygwin.h>
-#endif
-
 #ifndef ROOTSEP
 #define ROOTSEP ':'
 #endif
@@ -48,21 +44,6 @@ using namespace std;
 #ifndef EXTSEP
 #define EXTSEP '.'
 #endif
-
-#ifdef __CYGWIN__
-static string
-dos_to_posix (const string &file_name)
-{
-  char buf[PATH_MAX] = "";
-  char s[PATH_MAX] = {0};
-  file_name.copy (s, PATH_MAX - 1);
-  /* ugh: char const* argument gets modified.  */
-  int fail = cygwin_conv_to_posix_path (s, buf);
-  if (!fail)
-    return buf;
-  return file_name;
-}
-#endif /* __CYGWIN__ */
 
 /** Use slash as directory separator.  On Windows, they can pretty
     much be exchanged.  */
@@ -144,12 +125,6 @@ File_name::to_string () const
 
 File_name::File_name (string file_name)
 {
-#ifdef __CYGWIN__
-  /* All system functions would work, even if we do not convert to
-     posix file_name, but we would think that \foe\bar\baz.ly is in
-     the cwd.  */
-  file_name = dos_to_posix (file_name);
-#endif
 #ifdef __MINGW32__
   file_name = slashify (file_name);
 #endif

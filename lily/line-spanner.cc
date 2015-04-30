@@ -64,7 +64,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
   SCM bound_details = me->get_property ("bound-details");
 
   SCM details = SCM_BOOL_F;
-  if (details == SCM_BOOL_F)
+  if (scm_is_false (details))
     details = ly_assoc_get ((dir == LEFT)
                             ? ly_symbol2scm ("left")
                             : ly_symbol2scm ("right"), bound_details, SCM_BOOL_F);
@@ -78,7 +78,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
       details = scm_append (scm_list_2 (extra, details));
     }
 
-  if (details == SCM_BOOL_F)
+  if (scm_is_false (details))
     details = ly_assoc_get (ly_symbol2scm ("default"), bound_details, SCM_EOL);
 
   SCM text = ly_assoc_get (ly_symbol2scm ("text"), details, SCM_BOOL_F);
@@ -246,7 +246,7 @@ Line_spanner::calc_left_bound_info_and_text (SCM smob)
   SCM text = me->get_property ("text");
   if (Text_interface::is_markup (text)
       && me->get_bound (LEFT)->break_status_dir () == CENTER
-      && ly_assoc_get (ly_symbol2scm ("stencil"), alist, SCM_BOOL_F) == SCM_BOOL_F)
+      && scm_is_false (ly_assoc_get (ly_symbol2scm ("stencil"), alist, SCM_BOOL_F)))
     {
       Output_def *layout = me->layout ();
       SCM properties = Font_interface::text_font_alist_chain (me);

@@ -122,7 +122,7 @@ Percent_repeat_engraver::process_music ()
       percent_->set_bound (LEFT, col);
 
       SCM count = percent_event_->get_property ("repeat-count");
-      if (count != SCM_EOL && to_boolean (get_property ("countPercentRepeats"))
+      if (!scm_is_null (count) && to_boolean (get_property ("countPercentRepeats"))
           && check_repeat_count_visibility (context (), count))
         {
           percent_counter_ = make_spanner ("PercentRepeatCounter",

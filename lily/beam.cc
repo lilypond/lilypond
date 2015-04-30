@@ -203,7 +203,8 @@ Beam::calc_direction (SCM smob)
              placing this here avoids warnings downstream */
           if (heads.size())
             {
-               if (heads[0]->get_property ("style") == ly_symbol2scm ("kievan"))
+               if (scm_is_eq (heads[0]->get_property ("style"),
+                              ly_symbol2scm ("kievan")))
                  {
                     if (dir == CENTER)
                       dir = DOWN;
@@ -256,7 +257,7 @@ position_with_maximal_common_beams (SCM left_beaming, SCM right_beaming,
       for (SCM s = scm_car (right_beaming); scm_is_pair (s); s = scm_cdr (s))
         {
           int k = -right_dir * scm_to_int (scm_car (s)) + i;
-          if (scm_c_memq (scm_from_int (k), left_beaming) != SCM_BOOL_F)
+          if (scm_is_true (scm_c_memq (scm_from_int (k), left_beaming)))
             count++;
         }
 
@@ -961,7 +962,7 @@ Beam::calc_stem_shorten (SCM smob)
   int beam_count = get_beam_count (me);
 
   SCM shorten_list = me->get_property ("beamed-stem-shorten");
-  if (shorten_list == SCM_EOL)
+  if (scm_is_null (shorten_list))
     return scm_from_int (0);
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
@@ -1003,7 +1004,7 @@ where_are_the_whole_beams (SCM beaming)
 
   for (SCM s = scm_car (beaming); scm_is_pair (s); s = scm_cdr (s))
     {
-      if (scm_c_memq (scm_car (s), scm_cdr (beaming)) != SCM_BOOL_F)
+      if (scm_is_true (scm_c_memq (scm_car (s), scm_cdr (beaming))))
 
         l.add_point (scm_to_int (scm_car (s)));
     }
@@ -1139,8 +1140,8 @@ Beam::set_beaming (Grob *me, Beaming_pattern const *beaming)
         {
           Grob *stem = stems[i];
           SCM beaming_prop = stem->get_property ("beaming");
-          if (beaming_prop == SCM_EOL
-              || index_get_cell (beaming_prop, d) == SCM_EOL)
+          if (scm_is_null (beaming_prop)
+              || scm_is_null (index_get_cell (beaming_prop, d)))
             {
               int count = beaming->beamlet_count (i, d);
               if (i > 0

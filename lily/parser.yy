@@ -451,11 +451,11 @@ toplevel_expression:
 		} else if (Output_def * od = Output_def::unsmob ($1)) {
 			SCM id = SCM_EOL;
 
-			if (od->c_variable ("is-paper") == SCM_BOOL_T)
+			if (to_boolean (od->c_variable ("is-paper")))
 				id = ly_symbol2scm ("$defaultpaper");
-			else if (od->c_variable ("is-midi") == SCM_BOOL_T)
+			else if (to_boolean (od->c_variable ("is-midi")))
 				id = ly_symbol2scm ("$defaultmidi");
-			else if (od->c_variable ("is-layout") == SCM_BOOL_T)
+			else if (to_boolean (od->c_variable ("is-layout")))
 				id = ly_symbol2scm ("$defaultlayout");
 
 			parser->lexer_->set_identifier (id, $1);
@@ -466,11 +466,11 @@ toplevel_expression:
 		SCM id = SCM_EOL;
 		Output_def * od = Output_def::unsmob ($1);
 
-		if (od->c_variable ("is-paper") == SCM_BOOL_T)
+		if (to_boolean (od->c_variable ("is-paper")))
 			id = ly_symbol2scm ("$defaultpaper");
-		else if (od->c_variable ("is-midi") == SCM_BOOL_T)
+		else if (to_boolean (od->c_variable ("is-midi")))
 			id = ly_symbol2scm ("$defaultmidi");
-		else if (od->c_variable ("is-layout") == SCM_BOOL_T)
+		else if (to_boolean (od->c_variable ("is-layout")))
 			id = ly_symbol2scm ("$defaultlayout");
 
 		parser->lexer_->set_identifier (id, $1);
@@ -835,11 +835,11 @@ book_body:
 		} else if (Output_def *od = Output_def::unsmob ($2)) {
 			SCM id = SCM_EOL;
 
-			if (od->c_variable ("is-paper") == SCM_BOOL_T)
+			if (to_boolean (od->c_variable ("is-paper")))
 				id = ly_symbol2scm ("$defaultpaper");
-			else if (od->c_variable ("is-midi") == SCM_BOOL_T)
+			else if (to_boolean (od->c_variable ("is-midi")))
 				id = ly_symbol2scm ("$defaultmidi");
-			else if (od->c_variable ("is-layout") == SCM_BOOL_T)
+			else if (to_boolean (od->c_variable ("is-layout")))
 				id = ly_symbol2scm ("$defaultlayout");
 
 			parser->lexer_->set_identifier (id, $2);
@@ -916,11 +916,11 @@ bookpart_body:
 		} else if (Output_def *od = Output_def::unsmob ($2)) {
 			SCM id = SCM_EOL;
 
-			if (od->c_variable ("is-paper") == SCM_BOOL_T)
+			if (to_boolean (od->c_variable ("is-paper")))
 				id = ly_symbol2scm ("$defaultpaper");
-			else if (od->c_variable ("is-midi") == SCM_BOOL_T)
+			else if (to_boolean (od->c_variable ("is-midi")))
 				id = ly_symbol2scm ("$defaultmidi");
-			else if (od->c_variable ("is-layout") == SCM_BOOL_T)
+			else if (to_boolean (od->c_variable ("is-layout")))
 				id = ly_symbol2scm ("$defaultlayout");
 
 			parser->lexer_->set_identifier (id, $2);
@@ -986,7 +986,7 @@ score_items:
 	{
 		Output_def *od = Output_def::unsmob ($2);
 		if (od) {
-			if (od->lookup_variable (ly_symbol2scm ("is-paper")) == SCM_BOOL_T)
+			if (to_boolean (od->lookup_variable (ly_symbol2scm ("is-paper"))))
 			{
 				parser->parser_error (@2, _("\\paper cannot be used in \\score, use \\layout instead"));
 				od = 0;
@@ -1052,7 +1052,7 @@ paper_block:
 	output_def {
                 Output_def *od = Output_def::unsmob ($1);
 
-		if (od->lookup_variable (ly_symbol2scm ("is-paper")) != SCM_BOOL_T)
+		if (!to_boolean (od->lookup_variable (ly_symbol2scm ("is-paper"))))
 		{
 			parser->parser_error (@1, _ ("need \\paper for paper block"));
 			$$ = get_paper (parser)->unprotect ();
@@ -2227,7 +2227,7 @@ lyric_mode_music:
 
 mode_changed_music:
 	mode_changing_head grouped_music_list {
-		if ($1 == ly_symbol2scm ("chords"))
+		if (scm_is_eq ($1, ly_symbol2scm ("chords")))
 		{
 		  $$ = MAKE_SYNTAX ("unrelativable-music", @$, $2);
 		}
@@ -2243,7 +2243,7 @@ mode_changed_music:
                 if (ctxmod)
                         mods = ctxmod->get_mods ();
 		$$ = MAKE_SYNTAX ("context-specification", @$, $1, SCM_EOL, mods, SCM_BOOL_T, $3);
-		if ($1 == ly_symbol2scm ("ChordNames"))
+		if (scm_is_eq ($1, ly_symbol2scm ("ChordNames")))
 		{
 		  $$ = MAKE_SYNTAX ("unrelativable-music", @$, $$);
 		}
@@ -3002,25 +3002,25 @@ fingering:
 
 script_abbreviation:
 	'^'		{
-		$$ = scm_from_locale_string ("Hat");
+		$$ = scm_from_ascii_string ("Hat");
 	}
 	| '+'		{
-		$$ = scm_from_locale_string ("Plus");
+		$$ = scm_from_ascii_string ("Plus");
 	}
 	| '-' 		{
-		$$ = scm_from_locale_string ("Dash");
+		$$ = scm_from_ascii_string ("Dash");
 	}
  	| '!'		{
-		$$ = scm_from_locale_string ("Bang");
+		$$ = scm_from_ascii_string ("Bang");
 	}
 	| ANGLE_CLOSE	{
-		$$ = scm_from_locale_string ("Larger");
+		$$ = scm_from_ascii_string ("Larger");
 	}
 	| '.' 		{
-		$$ = scm_from_locale_string ("Dot");
+		$$ = scm_from_ascii_string ("Dot");
 	}
 	| '_' {
-		$$ = scm_from_locale_string ("Underscore");
+		$$ = scm_from_ascii_string ("Underscore");
 	}
 	;
 
@@ -3751,7 +3751,7 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 SCM
 get_next_unique_context_id ()
 {
-	return scm_from_locale_string ("$uniqueContextId");
+	return scm_from_ascii_string ("$uniqueContextId");
 }
 
 
@@ -3761,7 +3761,7 @@ get_next_unique_lyrics_context_id ()
 	static int new_context_count;
 	char s[128];
 	snprintf (s, sizeof (s)-1, "uniqueContext%d", new_context_count++);
-	return scm_from_locale_string (s);
+	return scm_from_ascii_string (s);
 }
 
 // check_scheme_arg checks one argument with a given predicate for use

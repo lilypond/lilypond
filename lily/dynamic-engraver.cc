@@ -107,7 +107,7 @@ Dynamic_engraver::get_property_setting (Stream_event *evt,
                                         char const *ctxprop)
 {
   SCM spanner_type = evt->get_property (evprop);
-  if (spanner_type == SCM_EOL)
+  if (scm_is_null (spanner_type))
     spanner_type = get_property (ctxprop);
   return spanner_type;
 }
@@ -141,7 +141,7 @@ Dynamic_engraver::process_music ()
       SCM cresc_type = get_property_setting (current_span_event_, "span-type",
                                              (start_type + "Spanner").c_str ());
 
-      if (cresc_type == ly_symbol2scm ("text"))
+      if (scm_is_eq (cresc_type, ly_symbol2scm ("text")))
         {
           current_spanner_
             = make_spanner ("DynamicTextSpanner",
@@ -156,12 +156,13 @@ Dynamic_engraver::process_music ()
             early: this allows dynamics to be spaced individually instead of
             being linked together.
           */
-          if (current_spanner_->get_property ("style") == ly_symbol2scm ("none"))
+          if (scm_is_eq (current_spanner_->get_property ("style"),
+                         ly_symbol2scm ("none")))
             current_spanner_->set_property ("spanner-broken", SCM_BOOL_T);
         }
       else
         {
-          if (cresc_type != ly_symbol2scm ("hairpin"))
+          if (!scm_is_eq (cresc_type, ly_symbol2scm ("hairpin")))
             {
               string as_string = ly_scm_write_string (cresc_type);
               current_span_event_
@@ -244,9 +245,9 @@ Dynamic_engraver::get_spanner_type (Stream_event *ev)
   string type;
   SCM start_sym = scm_car (ev->get_property ("class"));
 
-  if (start_sym == ly_symbol2scm ("decrescendo-event"))
+  if (scm_is_eq (start_sym, ly_symbol2scm ("decrescendo-event")))
     type = "decrescendo";
-  else if (start_sym == ly_symbol2scm ("crescendo-event"))
+  else if (scm_is_eq (start_sym, ly_symbol2scm ("crescendo-event")))
     type = "crescendo";
   else
     programming_error ("unknown dynamic spanner type");

@@ -242,7 +242,7 @@ Output_def *
 get_paper (Lily_parser *parser)
 {
   SCM papers = parser->lexer_->lookup_identifier ("$papers");
-  Output_def *layout = ((papers == SCM_UNDEFINED) || scm_is_null (papers))
+  Output_def *layout = (SCM_UNBNDP (papers) || scm_is_null (papers))
                        ? 0 : Output_def::unsmob (scm_car (papers));
   SCM default_paper = parser->lexer_->lookup_identifier ("$defaultpaper");
   layout = layout ? layout : Output_def::unsmob (default_paper);

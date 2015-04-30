@@ -51,7 +51,7 @@ Spaceable_grob::add_rod (Grob *me, Grob *p, Real d)
   for (SCM s = mins; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM dist = scm_car (s);
-      if (scm_car (dist) == p->self_scm ())
+      if (scm_is_eq (scm_car (dist), p->self_scm ()))
         {
           scm_set_cdr_x (dist, scm_max (scm_cdr (dist),
                                         newdist));

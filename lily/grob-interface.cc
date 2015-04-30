@@ -37,7 +37,7 @@ SCM add_interface (char const *cxx_name,
     lispy_name += suffix;
 
   SCM s = ly_symbol2scm (lispy_name.c_str ());
-  SCM d = scm_from_locale_string (descr);
+  SCM d = scm_from_utf8_string (descr);
   SCM l = parse_symbol_list (vars);
 
   internal_add_interface (s, d, l);
@@ -48,7 +48,7 @@ SCM add_interface (char const *cxx_name,
 void
 check_interfaces_for_property (Grob const *me, SCM sym)
 {
-  if (sym == ly_symbol2scm ("meta"))
+  if (scm_is_eq (sym, ly_symbol2scm ("meta")))
     {
       /*
         otherwise we get in a nasty recursion loop.
@@ -63,7 +63,7 @@ check_interfaces_for_property (Grob const *me, SCM sym)
   for (; !found && scm_is_pair (ifs); ifs = scm_cdr (ifs))
     {
       SCM iface = scm_hashq_ref (all_ifaces, scm_car (ifs), SCM_BOOL_F);
-      if (iface == SCM_BOOL_F)
+      if (scm_is_false (iface))
         {
           string msg = to_string (_f ("Unknown interface `%s'",
                                       ly_symbol2string (scm_car (ifs)).c_str ()));
@@ -71,7 +71,7 @@ check_interfaces_for_property (Grob const *me, SCM sym)
           continue;
         }
 
-      found = found || (scm_c_memq (sym, scm_caddr (iface)) != SCM_BOOL_F);
+      found = found || scm_is_true (scm_c_memq (sym, scm_caddr (iface)));
     }
 
   if (!found)

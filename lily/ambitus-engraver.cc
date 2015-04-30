@@ -136,7 +136,8 @@ void
 Ambitus_engraver::acknowledge_note_head (Grob_info info)
 {
   Stream_event *nr = info.event_cause ();
-  if (nr && nr->in_event_class ("note-event"))
+  if (nr && nr->in_event_class ("note-event")
+      && !to_boolean (info.grob ()->get_property ("ignore-ambitus")))
     {
       SCM p = nr->get_property ("pitch");
       /*
@@ -173,11 +174,11 @@ Ambitus_engraver::finalize ()
                                             scm_from_int (p.get_notename ())),
                                   start_key_sig_);
 
-          if (handle == SCM_BOOL_F)
+          if (scm_is_false (handle))
             handle = scm_assoc (scm_from_int (p.get_notename ()),
                                 start_key_sig_);
 
-          Rational sig_alter = (handle != SCM_BOOL_F)
+          Rational sig_alter = (scm_is_true (handle))
                                ? robust_scm2rational (scm_cdr (handle), Rational (0))
                                : Rational (0);
 

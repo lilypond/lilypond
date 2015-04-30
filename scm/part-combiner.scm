@@ -44,6 +44,25 @@
     (ly:in-event-class? x 'note-event))
   (filter f? (events vs)))
 
+; Return a list of note events which is sorted and stripped of
+; properties that we do not want to prevent combining parts.
+(define-method (comparable-note-events (vs <Voice-state>))
+  (define (note<? note1 note2)
+    (let ((p1 (ly:event-property note1 'pitch))
+          (p2 (ly:event-property note2 'pitch)))
+      (cond ((ly:pitch<? p1 p2) #t)
+            ((ly:pitch<? p2 p1) #f)
+            (else (ly:duration<? (ly:event-property note1 'duration)
+                                 (ly:event-property note2 'duration))))))
+  ;; TODO we probably should compare articulations too
+  (sort (map (lambda (x)
+               (ly:make-stream-event
+                (ly:make-event-class 'note-event)
+                (list (cons 'duration (ly:event-property x 'duration))
+                      (cons 'pitch (ly:event-property x 'pitch)))))
+             (note-events vs))
+        note<?))
+
 (define-method (rest-and-skip-events (vs <Voice-state>))
   (define (f? x)
     (or (ly:in-event-class? x 'rest-event)
@@ -381,49 +400,49 @@ Only set if not set previously.
       (define (analyse-notes now-state)
         (let* ((vs1 (car (voice-states now-state)))
                (vs2 (cdr (voice-states now-state)))
-               (notes1 (note-events vs1))
-               (durs1 (sort (map (lambda (x) (ly:event-property x 'duration))
-                                 notes1)
-                            ly:duration<?))
-               (pitches1 (sort (map (lambda (x) (ly:event-property x 'pitch))
-                                    notes1)
-                               ly:pitch<?))
-               (notes2 (note-events vs2))
-               (durs2 (sort (map (lambda (x) (ly:event-property x 'duration))
-                                 notes2)
-                            ly:duration<?))
-               (pitches2 (sort (map (lambda (x) (ly:event-property x 'pitch))
-                                    notes2)
-                               ly:pitch<?)))
-          (cond ((> (length notes1) 1) (put 'apart))
-                ((> (length notes2) 1) (put 'apart))
-                ((= 1 (+ (length notes2) (length notes1))) (put 'apart))
-                ((and (= (length durs1) 1)
-                      (= (length durs2) 1)
-                      (not (equal? (car durs1) (car durs2))))
-                 (put 'apart))
-                (else
-                 (if (and (= (length pitches1) (length pitches2)))
-                     (if (and (pair? pitches1)
-                              (pair? pitches2)
-                              ; Is the interval outside of chord-range?
-                              (let ((diff (ly:pitch-steps
-                                           (ly:pitch-diff (car pitches1)
-                                                          (car pitches2)))))
-                                (or (< diff chord-min-diff)
-                                    (> diff chord-max-diff)
-                                    )))
-                         (put 'apart)
-                         ;; copy previous split state from spanner state
-                         (begin
-                           (if (previous-voice-state vs1)
-                               (copy-state-from voice-state-vec1
-                                                (previous-voice-state vs1)))
-                           (if (previous-voice-state vs2)
-                               (copy-state-from voice-state-vec2
-                                                (previous-voice-state vs2)))
-                           (if (and (null? (span-state vs1)) (null? (span-state vs2)))
-                               (put 'chords)))))))))
+               (notes1 (comparable-note-events vs1))
+               (notes2 (comparable-note-events vs2)))
+          (cond
+           ;; if neither part has notes, do nothing
+           ((and (not (pair? notes1)) (not (pair? notes2))))
+
+           ;; if one part has notes and the other does not
+           ((or (not (pair? notes1)) (not (pair? notes2))) (put 'apart))
+
+           ;; if either part has a chord
+           ((or (> (length notes1) 1) 
+                (> (length notes2) 1))
+            (if (and (<= chord-min-diff 0) ; user requests combined unisons
+                     (equal? notes1 notes2)) ; both parts have the same chord
+                (put 'chords)
+                (put 'apart)))
+
+           ;; if the durations are different
+           ;; TODO articulations too?
+           ((and (not (equal? (ly:event-property (car notes1) 'duration)
+                              (ly:event-property (car notes2) 'duration))))
+            (put 'apart))
+
+           (else
+            ;; Is the interval outside of chord-range?
+            (if (let ((diff (ly:pitch-steps
+                             (ly:pitch-diff 
+                              (ly:event-property (car notes1) 'pitch)
+                              (ly:event-property (car notes2) 'pitch)))))
+                  (or (< diff chord-min-diff)
+                      (> diff chord-max-diff)
+                      ))
+                (put 'apart)
+                ;; copy previous split state from spanner state
+                (begin
+                  (if (previous-voice-state vs1)
+                      (copy-state-from voice-state-vec1
+                                       (previous-voice-state vs1)))
+                  (if (previous-voice-state vs2)
+                      (copy-state-from voice-state-vec2
+                                       (previous-voice-state vs2)))
+                  (if (and (null? (span-state vs1)) (null? (span-state vs2)))
+                      (put 'chords))))))))
 
       (if (< result-idx (vector-length result))
           (let* ((now-state (vector-ref result result-idx))
@@ -508,15 +527,11 @@ Only set if not set previously.
                  )))
 
             (if (or vs1 vs2)
-                (let ((notes1 (if vs1 (note-events vs1) '()))
-                      (notes2 (if vs2 (note-events vs2) '())))
-                  ; Todo: What about a2 chords, e.g. string multi-stops?
-                  ; Sort and compare notes1 and notes2?
+                (let ((notes1 (if vs1 (comparable-note-events vs1) '()))
+                      (notes2 (if vs2 (comparable-note-events vs2) '())))
                   (cond ((and (equal? (configuration now-state) 'chords)
-                              (= 1 (length notes1))
-                              (= 1 (length notes2))
-                              (equal? (ly:event-property (car notes1) 'pitch)
-                                      (ly:event-property (car notes2) 'pitch)))
+                              (pair? notes1)
+                              (equal? notes1 notes2))
                          (set! (configuration now-state) 'unisono))
 
                         ((synced? now-state)

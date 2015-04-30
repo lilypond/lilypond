@@ -125,8 +125,8 @@ again:
       SCM newcar = do_break_substitution (scm_car (src));
       SCM oldcdr = scm_cdr (src);
 
-      if (newcar == SCM_UNDEFINED
-          && (scm_is_pair (oldcdr) || oldcdr == SCM_EOL))
+      if (SCM_UNBNDP (newcar)
+          && (scm_is_pair (oldcdr) || scm_is_null (oldcdr)))
         {
           /*
             This is tail-recursion, ie.
@@ -477,7 +477,7 @@ substitute_object_alist (SCM alist, SCM dest)
       else
         val = do_break_substitution (val);
 
-      if (val != SCM_UNDEFINED)
+      if (!SCM_UNBNDP (val))
         {
           /*
             for ly:grob? properties, SCM_UNDEFINED could leak out

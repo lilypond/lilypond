@@ -222,7 +222,7 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
 
   if (measure_count == 1)
     {
-      if (me->get_property ("staff-position") == SCM_EOL)
+      if (scm_is_null (me->get_property ("staff-position")))
         {
           int dir = get_grob_direction (me);
           Real pos = Rest::staff_position_internal (me, mdl, dir);

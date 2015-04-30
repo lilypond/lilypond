@@ -36,7 +36,7 @@ Script_interface::get_stencil (Grob *me, Direction d)
   assert (scm_is_pair (s));
 
   SCM key = scm_car (s);
-  if (key == ly_symbol2scm ("feta"))
+  if (scm_is_eq (key, ly_symbol2scm ("feta")))
     {
       SCM name_entry = scm_cdr (s);
       SCM str = ((scm_is_pair (name_entry)) ? index_get_cell (name_entry, d)
@@ -110,8 +110,8 @@ Script_interface::calc_cross_staff (SCM smob)
   Grob *slur = Grob::unsmob (me->get_object ("slur"));
   SCM avoid_slur = me->get_property ("avoid-slur");
   if (slur && to_boolean (slur->get_property ("cross-staff"))
-      && (avoid_slur == ly_symbol2scm ("outside")
-          || avoid_slur == ly_symbol2scm ("around")))
+      && (scm_is_eq (avoid_slur, ly_symbol2scm ("outside"))
+          || scm_is_eq (avoid_slur, ly_symbol2scm ("around"))))
     return SCM_BOOL_T;
 
   return SCM_BOOL_F;

@@ -55,7 +55,7 @@ Engraver_dispatch_list::create (SCM trans_list,
       entry.engraver_ = eng;
       for (SCM i = iface_list; scm_is_pair (i); i = scm_cdr (i))
         {
-          Engraver_void_function_engraver_grob_info ptr
+          Translator::Grob_info_callback ptr
             = (start_end == START)
               ? eng->get_acknowledger (scm_car (i))
               : eng->get_end_acknowledger (scm_car (i));

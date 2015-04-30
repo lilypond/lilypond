@@ -18,13 +18,13 @@ body {
   text-align: justify;
   padding: 0;
   margin: 0 auto;
+  /* fallback for IE8 which doesn't support multiple backgrounds */
+  background: url(../pictures/background-top-left.png) no-repeat top left;
   background-color: rgb(245, 252, 242);
   background-image: url(../pictures/background-top-right.png),
     url(../pictures/background-top-left.png);
   background-position: top right, top left;
   background-repeat: no-repeat, no-repeat;
-  /* fallback for IE8 which doesn't support multiple backgrounds */
-  background: url(../pictures/background-top-left.png) no-repeat top left;
 }
 
 hr {

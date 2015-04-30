@@ -58,7 +58,7 @@ Page_layout_problem::get_footnote_grobs (SCM lines)
       else if (Prob *p = Prob::unsmob (scm_car (s)))
         {
           SCM stencils = p->get_property ("footnotes");
-          if (stencils == SCM_EOL)
+          if (scm_is_null (stencils))
             continue;
           for (SCM st = stencils; scm_is_pair (st); st = scm_cdr (st))
             footnotes.push_back (0);

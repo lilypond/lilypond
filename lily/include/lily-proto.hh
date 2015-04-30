@@ -22,6 +22,7 @@
 
 #include "flower-proto.hh"
 
+class Acknowledge_information;
 class All_font_metrics;
 class Audio_column;
 class Audio_control_function_value_change;
@@ -171,8 +172,5 @@ class Time_signature_performer;
 class Timing_translator;
 class Translator;
 class Translator_group;
-
-typedef void (Engraver::*Engraver_void_function_engraver_grob_info) (Grob_info);
-typedef void (Translator::*Translator_void_method_ptr) ();
 
 #endif /* LILY_PROTO_HH */

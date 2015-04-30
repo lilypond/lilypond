@@ -30,12 +30,12 @@ typedef void (*Translator_group_void_method) (Translator_group *);
 struct Translator_method_binding
 {
   Translator *translator_;
-  Translator_void_method_ptr method_;
+  Translator::Callback method_;
 
   Translator_method_binding ()
   {
   }
-  Translator_method_binding (Translator *tr, Translator_void_method_ptr ptr)
+  Translator_method_binding (Translator *tr, Translator::Callback ptr)
   {
     translator_ = tr;
     method_ = ptr;

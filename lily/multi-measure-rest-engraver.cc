@@ -132,7 +132,8 @@ Multi_measure_rest_engraver::process_music ()
               Grob *last = 0;
               for (vsize i = 0; i < numbers_.size (); i++)
                 {
-                  if (scm_from_int (d) == numbers_[i]->get_property ("direction"))
+                  if (scm_is_eq (scm_from_int (d),
+                                 numbers_[i]->get_property ("direction")))
                     {
                       if (last)
                         Side_position_interface::add_support (numbers_[i], last);
@@ -231,7 +232,7 @@ Multi_measure_rest_engraver::start_translation_timestep ()
       numbers_.clear ();
 
       Grob *last = last_numbers_.size () ? last_numbers_[0] : 0;
-      if (last && last->get_property ("text") == SCM_EOL)
+      if (last && scm_is_null (last->get_property ("text")))
         {
           SCM thres = get_property ("restNumberThreshold");
           int t = 1;

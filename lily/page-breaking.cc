@@ -594,7 +594,7 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
   SCM ret = SCM_EOL;
   bool reset_footnotes_on_new_page = to_boolean (book_->top_paper ()->c_variable ("reset-footnotes-on-new-page"));
   SCM label_page_table = book_->top_paper ()->c_variable ("label-page-table");
-  if (label_page_table == SCM_UNDEFINED)
+  if (SCM_UNBNDP (label_page_table))
     label_page_table = SCM_EOL;
 
   // Build a list of (systems configuration . footnote-count) triples.
@@ -1133,7 +1133,7 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
 
       if ((!too_few_lines (line_count) && (next_height > cur_page_height && cur_rod_height > 0))
           || too_many_lines (next_line_count)
-          || (prev && prev->page_permission_ == ly_symbol2scm ("force")))
+          || prev && scm_is_eq (prev->page_permission_, ly_symbol2scm ("force")))
         {
           line_count = cur.compressed_nontitle_lines_count_;
           cur_rod_height = cur.full_height ();
@@ -1332,7 +1332,7 @@ Page_breaking::space_systems_with_fixed_number_per_page (vsize configuration,
           system_count_on_this_page += cur_line.compressed_nontitle_lines_count_;
           line++;
 
-          if (cur_line.page_permission_ == ly_symbol2scm ("force"))
+          if (scm_is_eq (cur_line.page_permission_, ly_symbol2scm ("force")))
             break;
         }
 
@@ -1374,7 +1374,8 @@ Page_breaking::pack_systems_on_least_pages (vsize configuration, vsize first_pag
       if ((line > page_first_line)
           && (isinf (space.force_)
               || ((line > 0)
-                  && (cached_line_details_[line - 1].page_permission_ == ly_symbol2scm ("force")))))
+                  && scm_is_eq (cached_line_details_[line - 1].page_permission_,
+                                ly_symbol2scm ("force")))))
         {
           res.systems_per_page_.push_back (line - page_first_line);
           res.force_.push_back (prev_force);
@@ -1498,7 +1499,8 @@ Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_n
   /* if there is a forced break, this reduces to 2 1-page problems */
   cache_line_details (configuration);
   for (vsize i = 0; i + 1 < cached_line_details_.size (); i++)
-    if (cached_line_details_[i].page_permission_ == ly_symbol2scm ("force"))
+    if (scm_is_eq (cached_line_details_[i].page_permission_,
+        ly_symbol2scm ("force")))
       {
         vector<Line_details> lines1 (cached_line_details_.begin (), cached_line_details_.begin () + i + 1);
         vector<Line_details> lines2 (cached_line_details_.begin () + i + 1, cached_line_details_.end ());

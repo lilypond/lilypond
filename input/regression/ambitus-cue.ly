@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.19"
 
 \header {
   texidoc = "Ambitus for pieces beginning with @code{\\cueDuringWithClef}.
@@ -8,6 +8,9 @@ a cue is frequently in a different clef, so the
 @code{\\cueDuringWithClef} command is handy.  Using this command at
 the beginning of a piece should leave the ambitus displayed based
 on the main clef.
+
+An @code{Ambitus_engraver} should ignore notes in @code{CueVoice}
+contexts.
 "
 }
 
@@ -21,7 +24,7 @@ on the main clef.
 
 \layout {
  \context {
-   \Voice
+   \Staff
    \consists "Ambitus_engraver"
  }
 }

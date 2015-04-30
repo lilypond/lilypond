@@ -124,7 +124,7 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
   /* UGR, FIXME, these are default \layout blocks once again.  They
      suck. */
   for (vsize i = 0; !score_def && i < sc->defs_.size (); i++)
-    if (sc->defs_[i]->c_variable ("is-layout") == SCM_BOOL_T)
+    if (to_boolean (sc->defs_[i]->c_variable ("is-layout")))
       score_def = sc->defs_[i];
 
   if (!score_def)

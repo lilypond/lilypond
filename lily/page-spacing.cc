@@ -388,7 +388,8 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
         }
 
       if (page_start > 0
-          && lines_[page_start - 1].page_permission_ == ly_symbol2scm ("force"))
+          && scm_is_eq (lines_[page_start - 1].page_permission_,
+                        ly_symbol2scm ("force")))
         break;
     }
   return !isinf (cur.demerits_);

@@ -303,7 +303,7 @@ Translator_group::precompute_method_bindings ()
   for (SCM s = simple_trans_list_; scm_is_pair (s); s = scm_cdr (s))
     {
       Translator *tr = Translator::unsmob (scm_car (s));
-      Translator_void_method_ptr ptrs[TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
+      Translator::Callback ptrs[TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
       tr->fetch_precomputable_methods (ptrs);
 
       assert (tr);

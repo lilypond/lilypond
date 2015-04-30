@@ -25,7 +25,7 @@ Direction
 get_grob_direction (Grob *me)
 {
   SCM d = me->get_property ("direction");
-  if (d == ly_symbol2scm ("calculation-in-progress"))
+  if (scm_is_eq (d, ly_symbol2scm ("calculation-in-progress")))
     {
       programming_error ("Grob direction requested while calculation in"
                          " progress.");

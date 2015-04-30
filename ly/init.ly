@@ -35,6 +35,7 @@
 
 #(use-modules (scm clip-region))
 #(use-modules (srfi srfi-1))
+#(use-modules (ice-9 pretty-print))
 
 $(if (ly:get-option 'include-settings)
   (ly:parser-include-string parser

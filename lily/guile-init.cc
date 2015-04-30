@@ -51,7 +51,7 @@ ly_init_ly_module (void *)
       debug_output ("]\n", false);
     }
 
-  scm_primitive_load_path (scm_from_locale_string ("lily.scm"));
+  scm_primitive_load_path (scm_from_ascii_string ("lily.scm"));
 }
 
 SCM global_lily_module;

@@ -40,7 +40,7 @@ get_font_by_design_size (Output_def *layout, Real requested,
     {
       SCM entry = scm_c_vector_ref (font_vector, i);
 
-      if (scm_promise_p (entry) == SCM_BOOL_T)
+      if (to_boolean (scm_promise_p (entry)))
         {
           Font_metric *fm = Font_metric::unsmob (scm_force (entry));
           size = fm->design_size ();

@@ -91,7 +91,7 @@ Text_interface::interpret_string (SCM layout_smob,
                                      SCM_BOOL_F);
   SCM music_encodings = ly_lily_module_constant ("all-music-font-encodings");
 
-  bool is_music = (scm_memq (encoding, music_encodings) != SCM_BOOL_F);
+  bool is_music = scm_is_true (scm_memq (encoding, music_encodings));
   return fm->text_stencil (layout, str, is_music).smobbed_copy ();
 }
 
