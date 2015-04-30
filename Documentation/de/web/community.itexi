@@ -1,4 +1,4 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
     Translation of GIT committish:  a0077273ac8bf29ae472c8712bc78a02d138f898
 
@@ -212,7 +212,7 @@ unserer Gemeinschaft zu lesen, den LilyPond Report (auf Englisch).
 
 @example
 @uref{http://news.lilynet.net}
-@end example 
+@end example
 
 @subsubheading Mailingliste für neue Versionen: @code{info-lilypond@@gnu.org}
 
@@ -489,7 +489,7 @@ ganz gewöhnlich eine E-Mail schicken.
 
 @item
 Wenn Sie nicht Mitglied der Liste sind, können Sie trotzdem
-einen Fehlerbericht über die 
+einen Fehlerbericht über die
 @uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
 gmane lilypond.bugs web interface} schicken.
 

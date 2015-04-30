@@ -7,6 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
+@documentencoding UTF-8
 
 @include version.itexi
 @include common-macros.itexi
@@ -816,4 +817,3 @@ this Wikipedia Commons page}.
 Dieser Abschnitt wurde noch nicht übersetzt.  Bitte lesen Sie den
 Abschnitt im englischen Benutzerhandbuch.
 @end macro
-

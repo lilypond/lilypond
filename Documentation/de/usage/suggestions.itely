@@ -1,4 +1,4 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
     Translation of GIT committish: e5a609e373eae846857f9a6d70a402a3d42b7d94
@@ -635,4 +635,3 @@ copy out\myproject.pdf MyProject.pdf
 Programmbenutzung:
 @rprogram{Benutzung auf der Kommandozeile},
 @rprogram{lilypond-book}.
-

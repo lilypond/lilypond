@@ -1,4 +1,4 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
     Translation of GIT committish: e5a609e373eae846857f9a6d70a402a3d42b7d94
 
@@ -529,7 +529,7 @@ und klicken Sie auf @qq{OK} um das Fenster zu schließen.
 
 @subsubheading Einzelne Programme ausführen
 
-LilyPond-Programme 
+LilyPond-Programme
 -- wie lilypond, lilypond-book, convert-ly und so weiter --
 können von der Kommandozeile aus aufgerufen werden:
 

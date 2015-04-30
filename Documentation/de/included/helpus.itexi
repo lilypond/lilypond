@@ -1,4 +1,4 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of web/community.itexi and
 @c contributor/introduction.itely
 
@@ -29,7 +29,7 @@ oft schwierig zu entscheiden, wo man anfangen soll.  Zusätzlich zu
 den Vorschlägen, die sich weiter unten finden, können Sie auch eine
 E-Mail (auf Englisch) an den @email{mike@@mikesolomon.org, Frog meister}
 schicken und Ihre Fähigkeiten mitteilen, sodass er Ihnen einen Einstieg
-zeigen oder Ihnen bei ihren eigenen Projekten helfen kann. 
+zeigen oder Ihnen bei ihren eigenen Projekten helfen kann.
 
 @end macro
 
@@ -185,5 +185,3 @@ bewerkstelligt werden können.
 @end macro
 
 @end ignore
-
-

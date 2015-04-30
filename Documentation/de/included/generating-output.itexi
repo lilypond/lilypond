@@ -1,4 +1,4 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of web/download.itexi and
 @c learning/tutorial.itely
 
@@ -234,5 +234,3 @@ Standardprogrammen Ihres Betriebssystemes anschauen können.
 
 
 @end macro
-
-

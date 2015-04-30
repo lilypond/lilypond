@@ -1,4 +1,4 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
     Translation of GIT committish:  e5a609e373eae846857f9a6d70a402a3d42b7d94
 
@@ -820,7 +820,7 @@ Nummer CMS06.
 
 @qq{Auch wenn ich [LilyPond] noch nicht sehr gut kenne, bin ich schon außerordentlich
   beeindruckt. Ich habe das Programm benutzt, um eine Motette von Josquin Desprez
-  in Mensuralnotation zu notieren. Es steht außer Frage, dass LilyPond in 
+  in Mensuralnotation zu notieren. Es steht außer Frage, dass LilyPond in
   der Geschwindigkeit, Einfachheit in der Benutzung und Notensatz alle
   anderen Notationsprogramme leicht überholt.}
 @divEnd
@@ -913,7 +913,7 @@ desto mehr mag ich es!}
   das erste Notenblatt, das ich gesehen hatte, so gut aussah. Die
   Beschreibung lügt, wenn es um die Schönheit von LilyPond
   geht -- das ist viel zu bescheiden! [...] da LilyPond immer besser
-  wird und ich mich mehr damit auseinander setze, wie Sachen in 
+  wird und ich mich mehr damit auseinander setze, wie Sachen in
   Scheme gemacht werden, habe ich viel weniger Frustrationen. Auf
   jeden Fall wollte ich sagen: Danke, dass ihr LilyPond anbietet, es
   ist wirklich toll!}
@@ -1013,7 +1013,7 @@ mit einem Backslash eingegeben.
 
 Versetzungszeichen werden durch verschiedene Endungen hinzugefügt: @w{@code{-is}}
 nach der Note setzt ein Kreuz, @w{@code{-es}} dagegen ein b (-- das sind die deutschen
-Endungen, Endungen in anderen Sprachen sind auch möglich). LilyPond entscheidet selber, wo 
+Endungen, Endungen in anderen Sprachen sind auch möglich). LilyPond entscheidet selber, wo
 es die Versetzungszeichen platziert.
 
 @imageFloat{text-input-2-annotate-de,png,center}
