@@ -19,6 +19,8 @@
 
 #include "box.hh"
 
+ADD_SMOB_INIT (Box);
+
 void
 Box::translate (Offset o)
 {

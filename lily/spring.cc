@@ -36,6 +36,8 @@
 
 #include "spring.hh"
 
+ADD_SMOB_INIT (Spring);
+
 Spring::Spring ()
 {
   distance_ = 1.0;

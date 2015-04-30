@@ -21,6 +21,8 @@
 
 #include "warn.hh"
 
+ADD_SMOB_INIT (Moment);
+
 Moment::Moment ()
 {
 }

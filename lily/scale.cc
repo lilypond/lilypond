@@ -21,6 +21,7 @@
 
 #include "scale.hh"
 
+ADD_SMOB_INIT (Scale);
 
 /*
   todo: put string <-> pitch here too.

@@ -36,6 +36,8 @@ using namespace std;
 #include "program-option.hh"
 #include "lily-parser.hh"
 
+ADD_SMOB_INIT (Lily_lexer);
+
 static Keyword_ent the_key_tab[]
 =
 {

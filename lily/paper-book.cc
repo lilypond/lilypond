@@ -31,6 +31,7 @@
 #include "program-option.hh"
 #include "page-marker.hh"
 
+ADD_SMOB_INIT (Paper_book);
 
 Paper_book::Paper_book ()
 {

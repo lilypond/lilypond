@@ -30,6 +30,7 @@ using namespace std;
 #include "music-wrapper-iterator.hh"
 #include "simple-music-iterator.hh"
 
+ADD_SMOB_INIT (Music_iterator);
 
 Music_iterator::Music_iterator ()
 {

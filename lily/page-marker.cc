@@ -19,6 +19,8 @@
 
 #include "page-marker.hh"
 
+ADD_SMOB_INIT (Page_marker);
+
 Page_marker::Page_marker ()
 {
   symbol_ = SCM_EOL;

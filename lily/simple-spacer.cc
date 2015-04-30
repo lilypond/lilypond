@@ -32,6 +32,8 @@
 #include "spring.hh"
 #include "warn.hh"
 
+ADD_SMOB_INIT (Simple_spacer);
+
 /*
   A simple spacing constraint solver. The approach:
 

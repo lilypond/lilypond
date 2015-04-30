@@ -107,16 +107,10 @@ Smob_base<Super>::unregister_ptr (SCM obj)
 }
 
 template <class Super>
-scm_t_bits Smob_base<Super>::smob_tag_ = 0;
-
-template <class Super>
-Scm_init Smob_base<Super>::scm_init_ = init;
-
-template <class Super>
 string Smob_base<Super>::smob_name_;
 
 template <class Super>
-void Smob_base<Super>::init ()
+scm_t_bits Smob_base<Super>::init_id ()
 {
   smob_name_ = typeid (Super).name ();
   // Primitive demangling, suitable for GCC, should be harmless
@@ -124,8 +118,7 @@ void Smob_base<Super>::init ()
   // unsuitable for Texinfo documentation.  If that proves to be an
   // issue, we need some smarter strategy.
   smob_name_ = smob_name_.substr (smob_name_.find_first_not_of ("0123456789"));
-  assert(!smob_tag_);
-  smob_tag_ = scm_make_smob_type (smob_name_.c_str (), 0);
+  scm_t_bits smob_tag = scm_make_smob_type (smob_name_.c_str (), 0);
   // The following have trivial private default definitions not
   // referring to any aspect of the Super class apart from its name.
   // They should be overridden (or rather masked) at Super level: that
@@ -134,7 +127,7 @@ void Smob_base<Super>::init ()
   // doing it like the rest.
 
   if (&Super::free_smob != &Smob_base<Super>::free_smob)
-    scm_set_smob_free (smob_tag_, Super::free_smob);
+    scm_set_smob_free (smob_tag, Super::free_smob);
   // Old GCC versions get their type lattice for pointers-to-members
   // tangled up to a degree where we need to typecast _both_ covariant
   // types in order to be able to compare them.  The other comparisons
@@ -142,10 +135,10 @@ void Smob_base<Super>::init ()
   // pointers which work without those contortions.
   if (static_cast<SCM (Super::*)()>(&Super::mark_smob) !=
       static_cast<SCM (Super::*)()>(&Smob_base<Super>::mark_smob))
-    scm_set_smob_mark (smob_tag_, Super::mark_trampoline);
-  scm_set_smob_print (smob_tag_, Super::print_trampoline);
+    scm_set_smob_mark (smob_tag, Super::mark_trampoline);
+  scm_set_smob_print (smob_tag, Super::print_trampoline);
   if (&Super::equal_p != &Smob_base<Super>::equal_p)
-    scm_set_smob_equalp (smob_tag_, Super::equal_p);
+    scm_set_smob_equalp (smob_tag, Super::equal_p);
   if (Super::type_p_name_ != 0)
     {
       SCM subr = scm_c_define_gsubr (Super::type_p_name_, 1, 0, 0,
@@ -158,10 +151,11 @@ void Smob_base<Super>::init ()
     }
   ly_add_type_predicate ((void *) is_smob, smob_name_.c_str ());
   if (Super::smob_proc_signature_ >= 0)
-    scm_set_smob_apply (smob_tag_,
+    scm_set_smob_apply (smob_tag,
                         (scm_t_subr)Super::smob_proc,
                         Super::smob_proc_signature_ >> 8,
                         (Super::smob_proc_signature_ >> 4)&0xf,
                         Super::smob_proc_signature_ & 0xf);
+  return smob_tag;
 }
 #endif

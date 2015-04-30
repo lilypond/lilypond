@@ -20,6 +20,8 @@
 #include "listener.hh"
 #include "warn.hh"
 
+ADD_SMOB_INIT (Listener);
+
 Listener::Listener ()
 {
   target_ = 0;

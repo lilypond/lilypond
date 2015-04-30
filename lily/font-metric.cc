@@ -29,6 +29,7 @@ using namespace std;
 #include "stencil.hh"
 #include "warn.hh"
 
+ADD_SMOB_INIT (Font_metric);
 
 Real
 Font_metric::design_size () const

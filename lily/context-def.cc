@@ -29,6 +29,8 @@
 #include "translator.hh"
 #include "warn.hh"
 
+ADD_SMOB_INIT (Context_def);
+
 Context_def::Context_def ()
 {
   context_aliases_ = SCM_EOL;

@@ -39,6 +39,7 @@
 #include "unpure-pure-container.hh"
 #include "warn.hh"
 
+ADD_SMOB_INIT (Grob);
 
 Grob *
 Grob::clone () const

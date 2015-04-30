@@ -65,6 +65,8 @@
    Alert to these considerations, we now accept buildings of zero-width.
 */
 
+ADD_SMOB_INIT (Skyline);
+
 static void
 print_buildings (list<Building> const &b)
 {

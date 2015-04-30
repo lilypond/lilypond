@@ -22,6 +22,8 @@
 #include "international.hh"
 #include "warn.hh"
 
+ADD_SMOB_INIT (Dispatcher);
+
 const char Dispatcher::type_p_name_[] = "ly:dispatcher?";
 
 Dispatcher::~Dispatcher ()

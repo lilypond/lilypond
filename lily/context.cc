@@ -31,6 +31,8 @@
 #include "translator-group.hh"
 #include "warn.hh"
 
+ADD_SMOB_INIT (Context);
+
 bool
 Context::is_removable () const
 {

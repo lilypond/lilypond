@@ -19,6 +19,8 @@
 
 #include "score.hh"
 
+ADD_SMOB_INIT (Score);
+
 #include <cstdio>
 
 using namespace std;

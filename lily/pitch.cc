@@ -26,6 +26,8 @@
 
 #include <cmath>
 
+ADD_SMOB_INIT (Pitch);
+
 Pitch::Pitch (int o, int n, Rational a)
 {
   notename_ = n;

@@ -35,6 +35,8 @@
 #include "scm-hash.hh"
 #include "warn.hh"
 
+ADD_SMOB_INIT (Translator_group);
+
 void
 translator_each (SCM list, Translator_method method)
 {

@@ -22,6 +22,8 @@
 
 #include "grob.hh"
 
+ADD_SMOB_INIT (Simple_closure);
+
 SCM
 evaluate_args (SCM delayed_argument, SCM args, bool pure, int start, int end)
 {

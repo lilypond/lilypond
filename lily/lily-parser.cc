@@ -37,6 +37,7 @@
 #include "warn.hh"
 #include "program-option.hh"
 
+ADD_SMOB_INIT (Lily_parser);
 
 Lily_parser::Lily_parser (Sources *sources)
 {

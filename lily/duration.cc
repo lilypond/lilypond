@@ -20,6 +20,8 @@
 
 #include "duration.hh"
 
+ADD_SMOB_INIT (Duration);
+
 #include "misc.hh"
 #include "lily-proto.hh"
 

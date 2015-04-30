@@ -20,6 +20,7 @@
 #include "translator-dispatch-list.hh"
 #include "engraver.hh"
 
+ADD_SMOB_INIT (Engraver_dispatch_list);
 
 void
 Engraver_dispatch_list::apply (Grob_info gi)

@@ -33,6 +33,7 @@ using namespace std;
 #include "paper-score.hh"
 #include "page-marker.hh"
 
+ADD_SMOB_INIT (Book);
 
 Book::Book ()
 {

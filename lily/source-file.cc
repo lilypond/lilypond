@@ -42,6 +42,8 @@ using namespace std;
 #include "misc.hh"
 #include "warn.hh"
 
+ADD_SMOB_INIT (Source_file);
+
 void
 Source_file::load_stdin ()
 {

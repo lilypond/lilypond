@@ -19,6 +19,8 @@
 
 #include "context-mod.hh"
 
+ADD_SMOB_INIT (Context_mod);
+
 Context_mod::Context_mod ()
 {
   mods_ = SCM_EOL;

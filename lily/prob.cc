@@ -23,6 +23,7 @@
 #include "input.hh"
 #include "profile.hh"
 
+ADD_SMOB_INIT (Prob);
 
 const char Prob::type_p_name_[] = "ly:prob?";
 

@@ -34,6 +34,8 @@
 
 #include "string-convert.hh"
 
+ADD_SMOB_INIT (Output_def);
+
 Output_def::Output_def ()
 {
   scope_ = SCM_EOL;
