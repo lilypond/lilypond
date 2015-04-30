@@ -29,7 +29,7 @@ See user manual, \NAME\
 @end macro
 
 
-@documentencoding utf-8
+@documentencoding UTF-8
 @documentlanguage en
 @afourpaper
 
