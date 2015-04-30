@@ -8,6 +8,7 @@
 @end ignore
 @setfilename lilypond-changes.info
 @settitle Registro de cambios de LilyPond
+@documentencoding UTF-8
 
 @include macros.itexi
 
