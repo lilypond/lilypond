@@ -1,14 +1,15 @@
 \version "2.19.8"
 
 \header {
-  texidoc = "Properties that control looks of tremolo slashes.
-  Slope is self-explanatory.  Shape determines wheteher slashes look like
-  rectangles or like very small beams.  Setting this properties directly
-  causes all slashes behave in the specified way.  However, one usually
-  wants the slashes to behave differently depending on wheter the note
-  has flags, beams or only a plain stem.  That's what style property
-  is used for: it sets shape and slope depending on situation.
-  There are two styles defined: default and constant."
+  texidoc = "Controlling the appearance of tremolo slashes.  Property
+  @code{slope} is self-explanatory.  Property @code{shape} determines
+  whether slashes look like rectangles or like very small beams.  Setting
+  these properties directly cause all slashes behave in the specified way.
+  However, one usually wants the slashes to behave differently depending on
+  whether the note has flags, beams or only a plain stem.  That's what the
+  @code{style} property is used for: it sets shape and slope depending on
+  the situation.  There are two styles defined: @code{default} and
+  @code{constant}."
 }
 
 music = {
