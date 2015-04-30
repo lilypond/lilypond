@@ -53,7 +53,7 @@ Annexos
 
 * Plantilles::                     Plantilles a punt per usar.
 * GNU Free Documentation License:: Llicència d'aquest document.
-* Index del LilyPond::
+* Índex del LilyPond::
 @end menu
 
 @docMain
@@ -75,8 +75,8 @@ Annexos
 @include learning/templates.itely
 @include fdl.itexi
 
-@node Index del LilyPond
-@appendix Index del LilyPond
+@node Índex del LilyPond
+@appendix Índex del LilyPond
 @translationof LilyPond index
 
 @printindex cp

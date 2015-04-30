@@ -25,7 +25,7 @@ sortida es poden canviar.
 * Col·locació dels objectes::
 * Espaiat vertical::
 * Col·lisions d'objectes::
-* Ajustaments addicionals:.
+* Ajustaments addicionals::
 @end menu
 
 @node Elements de l'ajustament
@@ -33,14 +33,14 @@ sortida es poden canviar.
 @translationof Tweaking basics
 
 @menu
-* Introduccció a l'ajustament::
+* Introducció a l'ajustament::
 * Objectes i interfícies::
 * Convencions de noms d'objectes i propietats::
 * Mètodes d'ajustament::
 @end menu
 
-@node Introducció a l'ajustament::
-@subsection Introducció a l'ajustament::
+@node Introducció a l'ajustament
+@subsection Introducció a l'ajustament
 @translationof Introduction to tweaks
 
 L'@q{Ajustament} és un terme del LilyPond que denota els diversos
@@ -2784,7 +2784,7 @@ veure més detalls consulteu
 @menu
 * Moviment d'objectes::
 * Arreglar notació amb superposicions::
-* Exemple reals de música::
+* Exemples reals de música::
 @end menu
 
 @node Moviment d'objectes
@@ -3447,7 +3447,7 @@ evitar una col·lisió de les pliques.  Ho aconseguim ajustant el
 valor de @code{force-hshift} a la @code{NoteColumn} del Re bemoll
 greu per moure'l a la dreta mig espai de pentagrama, i establint
 @code{force-hshift} per al Fa al valor zero.  Observeu que usem
-{\once} per evitar que els ajustos es propaguin més enllà del
+@code{\once} per evitar que els ajustos es propaguin més enllà del
 moment musical immediat, tot i que a aquest exemple podrien
 ometre's el @code{\once} i el segon @code{\override} de la quarta
 veu.  Això no suposaria una bona pràctica.
@@ -4013,7 +4013,7 @@ lhMusic = \relative c' {
 
 @menu
 * Altres aplicacions dels ajustaments::
-* Us de variables per als ajustaments de disposició::
+* Ús de variables per als ajustaments de disposició::
 * Fulls d'estil::
 * Altres fonts d'informació::
 * Ajustaments avançats amb l'Scheme::
@@ -4200,8 +4200,8 @@ segell suprimit) no ho fa.
 Glossari musical:
 @rglosnamed{system,sistema}.
 
-@node Us de variables per als ajustaments de disposició
-@subsection Us de variables per als ajustaments de disposició
+@node Ús de variables per als ajustaments de disposició
+@subsection Ús de variables per als ajustaments de disposició
 @translationof Using variables for layout adjustments
 
 @cindex variables, usar per a sobreescriptures
