@@ -48,7 +48,7 @@
   /* end define */
 
 #define DEFINE_TRANSLATOR_LISTENER_LIST(T) \
-  translator_listener_record *T::listener_list_;        \
+  Protected_scm T::listener_list_ (SCM_EOL);    \
   /* end define */
 
 #define DEFINE_ACKNOWLEDGERS(classname) \
@@ -135,18 +135,12 @@ generic_get_acknowledger (SCM sym,
 void                                                    \
 cl :: _internal_declare_ ## m ()                        \
 {                                                       \
-  static translator_listener_record r;                  \
-  add_translator_listener (&listener_list_, &r, _get_ ## m ## _listener, #m); \
-}                                                       \
-                                                        \
-ADD_SCM_INIT_FUNC (cl ## _declare_event_ ## m, cl::_internal_declare_ ## m);    \
-                                                        \
- Listener                                                               \
- cl :: _get_ ## m ## _listener (void *me, SCM)                          \
- {                                                                      \
-   cl *obj = (cl *) me;                                                 \
-   return obj->get_listener                                             \
-     (Callback_wrapper::make_smob<cl, Stream_event *, &cl::listen_ ## m> ());      \
- }
+  listener_list_ = scm_acons                                            \
+    (event_class_symbol (#m),                                           \
+     Callback_wrapper::make_smob<cl, Stream_event *, &cl::listen_ ## m> (), \
+     listener_list_);                                                   \
+}                                                                       \
+                                                                        \
+ADD_SCM_INIT_FUNC (cl ## _declare_event_ ## m, cl::_internal_declare_ ## m);
 
 #endif /* TRANSLATOR_ICC */

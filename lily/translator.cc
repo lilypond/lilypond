@@ -118,48 +118,38 @@ Translator::finalize ()
 void
 Translator::connect_to_context (Context *c)
 {
-  for (translator_listener_record *r = get_listener_list (); r; r = r->next_)
-    c->events_below ()->add_listener (r->get_listener_ (this, r->event_class_),
-                                      r->event_class_);
+  for (SCM r = get_listener_list (); scm_is_pair (r); r = scm_cdr (r))
+    {
+      SCM event_class = scm_caar (r);
+      SCM callback = scm_cdar (r);
+
+      c->events_below ()->add_listener (get_listener (callback),
+                                        event_class);
+    }
 }
 
 void
 Translator::disconnect_from_context (Context *c)
 {
-  for (translator_listener_record *r = get_listener_list (); r; r = r->next_)
-    c->events_below ()->remove_listener (r->get_listener_ (this, r->event_class_),
-                                         r->event_class_);
+  for (SCM r = get_listener_list (); scm_is_pair (r); r = scm_cdr (r))
+    {
+      SCM event_class = scm_caar (r);
+      SCM callback = scm_cdar (r);
+
+      c->events_below ()->remove_listener (get_listener (callback),
+                                           event_class);
+    }
 }
 
-/*
-  internally called once, statically, for each translator
-  listener. Connects the name of an event class with a procedure that
-  fetches the corresponding listener.
-
-  The method should only be called from the macro
-  IMPLEMENT_TRANSLATOR_LISTENER.
- */
-void
-Translator::add_translator_listener (translator_listener_record **listener_list,
-                                     translator_listener_record *r,
-                                     Listener (*get_listener) (void *, SCM),
-                                     const char *ev_class)
+SCM
+Translator::event_class_symbol (const char *ev_class)
 {
   /* ev_class is the C++ identifier name. Convert to scm symbol */
   string name = string (ev_class);
   name = replace_all (&name, '_', '-');
   name += "-event";
 
-  // we make the symbol permanent in order not to have to bother about
-  // the static translator_listener_record chains while garbage
-  // collecting.
-
-  SCM class_sym = scm_permanent_object (scm_from_ascii_symbol (name.c_str ()));
-
-  r->event_class_ = class_sym;
-  r->get_listener_ = get_listener;
-  r->next_ = *listener_list;
-  *listener_list = r;
+  return scm_from_ascii_symbol (name.c_str ());
 }
 
 /*
@@ -168,7 +158,7 @@ Translator::add_translator_listener (translator_listener_record **listener_list,
 SCM
 Translator::static_translator_description (const char *grobs,
                                            const char *desc,
-                                           translator_listener_record *listener_list,
+                                           SCM listener_list,
                                            const char *read,
                                            const char *write) const
 {
@@ -181,8 +171,8 @@ Translator::static_translator_description (const char *grobs,
                                  scm_from_utf8_string (desc), static_properties);
 
   SCM list = SCM_EOL;
-  for (; listener_list; listener_list = listener_list->next_)
-    list = scm_cons (listener_list->event_class_, list);
+  for (; scm_is_pair (listener_list); listener_list = scm_cdr (listener_list))
+    list = scm_cons (scm_caar (listener_list), list);
   static_properties = scm_acons (ly_symbol2scm ("events-accepted"),
                                  list, static_properties);
 

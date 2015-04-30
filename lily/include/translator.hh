@@ -28,26 +28,6 @@
 #include "std-vector.hh"
 #include "protected-scm.hh"
 
-/*
-  Each translator class has a static list of listener records. Each
-  record makes one explains how to register one of the class's stream event
-  listeners to a context.
-*/
-typedef struct translator_listener_record
-{
-  Listener (*get_listener_) (void *, SCM event_class);
-  SCM event_class_;
-  struct translator_listener_record *next_;
-
-  translator_listener_record ()
-  {
-    next_ = 0;
-    event_class_ = SCM_EOL;
-    get_listener_ = 0;
-  }
-
-} translator_listener_record;
-
 #define TRANSLATOR_DECLARATIONS_NO_LISTENER(NAME)                       \
   public:                                                               \
   NAME ();                                                              \
@@ -69,12 +49,19 @@ typedef struct translator_listener_record
   } \
   /* end #define */
 
+/*
+  Each translator class has a static alist of event class symbols
+  mapping to callbacks that are called with a translator instance and
+  a stream event when an event of the appropriate event class is
+  announced in a context.
+*/
+
 #define TRANSLATOR_DECLARATIONS(NAME)                                   \
   TRANSLATOR_DECLARATIONS_NO_LISTENER(NAME)                             \
 private:                                                                \
-  static translator_listener_record *listener_list_;                    \
+  static Protected_scm listener_list_;                                  \
 public:                                                                 \
-  virtual translator_listener_record *get_listener_list () const        \
+  virtual SCM get_listener_list () const                                \
   {                                                                     \
     return listener_list_;                                              \
   }                                                                     \
@@ -84,9 +71,7 @@ public:                                                                 \
 public:                                                 \
 inline void listen_ ## m (Stream_event *);              \
 /* Should be private */                                 \
-static void _internal_declare_ ## m ();                 \
-private:                                                \
- static Listener _get_ ## m ## _listener (void *, SCM);
+static void _internal_declare_ ## m ();
 
 #define DECLARE_ACKNOWLEDGER(x) public : void acknowledge_ ## x (Grob_info); protected:
 #define DECLARE_END_ACKNOWLEDGER(x) public : void acknowledge_end_ ## x (Grob_info); protected:
@@ -151,13 +136,10 @@ protected:                      // should be private.
   void protect_event (SCM ev);
   friend class Callback_wrapper;
   virtual void derived_mark () const;
-  static void add_translator_listener (translator_listener_record **listener_list,
-                                       translator_listener_record *r,
-                                       Listener (*get_listener) (void *, SCM),
-                                       const char *ev_class);
+  static SCM event_class_symbol (const char *ev_class);
   SCM static_translator_description (const char *grobs,
                                      const char *desc,
-                                     translator_listener_record *listener_list,
+                                     SCM listener_list,
                                      const char *read,
                                      const char *write) const;
 

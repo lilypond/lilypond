@@ -33,24 +33,16 @@ Scheme_engraver::Scheme_engraver ()
   process_acknowledged_function_ = SCM_EOL;
   initialize_function_ = SCM_EOL;
   finalize_function_ = SCM_EOL;
-  listeners_alist_ = SCM_EOL;
 
   interface_acknowledger_hash_ = SCM_EOL;
   interface_end_acknowledger_hash_ = SCM_EOL;
 
   must_be_last_ = false;
-  per_instance_listeners_ = 0;
+  per_instance_listeners_ = SCM_EOL;
 }
 
 Scheme_engraver::~Scheme_engraver ()
 {
-  translator_listener_record *next = 0;
-  for (translator_listener_record *r = per_instance_listeners_;
-       r; r = next)
-    {
-      next = r->next_;
-      delete r;
-    }
 }
 
 // Extracts the value if callable, if not return #f.
@@ -82,13 +74,12 @@ Scheme_engraver::init_from_scheme (SCM definition)
 
   SCM listeners = ly_assoc_get (ly_symbol2scm ("listeners"), definition, SCM_EOL);
 
-  listeners_alist_ = SCM_EOL;
+  per_instance_listeners_ = SCM_EOL;
 
   must_be_last_ = to_boolean (ly_assoc_get (ly_symbol2scm ("must-be-last"),
                                             definition,
                                             SCM_BOOL_F));
 
-  translator_listener_record **tail = &per_instance_listeners_;
   for (SCM p = listeners; scm_is_pair (p); p = scm_cdr (p))
     {
       SCM event_class = scm_caar (p);
@@ -100,13 +91,7 @@ Scheme_engraver::init_from_scheme (SCM definition)
       // We should check the arity of the function?
 
       // Record for later lookup.
-      listeners_alist_ = scm_acons (event_class, proc, listeners_alist_);
-
-      translator_listener_record *rec = new translator_listener_record;
-      *tail = rec;
-      rec->event_class_ = event_class;
-      rec->get_listener_ = &Scheme_engraver::tlr_get_listener;
-      tail = &rec->next_;
+      per_instance_listeners_ = scm_acons (event_class, proc, per_instance_listeners_);
     }
 
   init_acknowledgers (ly_assoc_get (ly_symbol2scm ("acknowledgers"),
@@ -171,18 +156,7 @@ Scheme_engraver::acknowledge_grob_by_hash (Grob_info info,
     }
 }
 
-/* static */
-Listener
-Scheme_engraver::tlr_get_listener (void *arg, SCM name)
-{
-  Scheme_engraver *me = (Scheme_engraver *) arg;
-  SCM func = ly_assoc_get (name, me->listeners_alist_, SCM_BOOL_F);
-  assert (ly_is_procedure (func));
-
-  return me->get_listener (func);
-}
-
-translator_listener_record *
+SCM
 Scheme_engraver::get_listener_list () const
 {
   return per_instance_listeners_;
@@ -212,7 +186,7 @@ Scheme_engraver::derived_mark () const
   scm_gc_mark (finalize_function_);
   scm_gc_mark (process_music_function_);
   scm_gc_mark (process_acknowledged_function_);
-  scm_gc_mark (listeners_alist_);
+  scm_gc_mark (per_instance_listeners_);
   scm_gc_mark (interface_acknowledger_hash_);
   scm_gc_mark (interface_end_acknowledger_hash_);
 }
