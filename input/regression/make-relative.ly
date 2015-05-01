@@ -1,4 +1,4 @@
-\version "2.19.2"
+\version "2.19.20"
 \header {
 
   texidoc = "@code{make-relative} is a Scheme utility macro mainly
@@ -40,8 +40,8 @@ ph =
 }
 
 \score {
-  \new PianoStaff <<
-    \compressFullBarRests
+  \new PianoStaff
+  \compressMMRests <<
     \new Staff = "up" {
       << \high \\ \middle >>
     }
@@ -69,8 +69,8 @@ ph =
 }
 
 \score {
-  \new PianoStaff <<
-    \compressFullBarRests
+  \new PianoStaff
+  \compressMMRests <<
     \new Staff = "up" {
       << \high \\ \middle >>
     }
