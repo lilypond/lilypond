@@ -7,13 +7,16 @@
 #
 # Konventioner:
 # alteration -> alteration
+# argument -> argument (bedre med parameter?)
 # beam -> bjælke
 # clef -> nøgle
+# deprecate -> foræld/forældet (måske afskriv/afskrevet/misbillig)
 # duration -> længde
 # glyph -> skrifttegn
 # grace note -> forslagstone (siger ordlisten; men er det forslagsnode?)
 # key -> toneart
 # ligature -> fraseringsbue
+# parameter -> parameter
 # rest -> pause
 # score -> partitur
 # skip -> hop eller udelad
@@ -30,7 +33,7 @@ msgstr ""
 "Project-Id-Version: lilypond 2.19.16\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2015-02-28 14:31+0000\n"
-"PO-Revision-Date: 2015-04-10 21:00+0200\n"
+"PO-Revision-Date: 2015-04-12 21:00+0200\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -59,7 +62,7 @@ msgstr "Kører »%s« på filen »%s« for at detektere standardindstillinger fo
 
 #: book_latex.py:219 book_texinfo.py:228
 msgid "Unable to auto-detect default settings:\n"
-msgstr "Kan ikke automatisk detektere standardingstillinger:\n"
+msgstr "Kan ikke automatisk detektere standardindstillinger:\n"
 
 #: book_latex.py:231 book_texinfo.py:240
 #, python-format
@@ -143,7 +146,7 @@ msgid ""
 "%s: duplicate filename but different contents of converted lilypond file,\n"
 "printing diff against existing file."
 msgstr ""
-"%s: duplikeret filnavn men forskelligt indhold for konvereteret lilypond-fil,\n"
+"%s: duplikeret filnavn men forskelligt indhold for konverteret lilypond-fil,\n"
 "udskriver forskelsfil mod eksisterende fil."
 
 #. Work around a texi2pdf bug: if LANG=C is not given, a broken regexp is
@@ -242,7 +245,7 @@ msgstr "identifikationsnavne: %s"
 
 #: convertrules.py:549
 msgid "point-and-click argument changed to procedure."
-msgstr "peg og klik-parameter ændret til procedure."
+msgstr "peg og klik-argument ændret til procedure."
 
 #: convertrules.py:591
 msgid "semicolons removed"
@@ -413,7 +416,7 @@ msgid ""
 "fold \\new FooContext \\foomode into \\foo."
 msgstr ""
 "\\foo -> \\foomode (for akkorder, noder, etc.)\n"
-"fold \\new FooContext \\foomode into \\foo."
+"fold \\new FooContext \\foomode til \\foo."
 
 #: convertrules.py:1996
 msgid ""
@@ -424,7 +427,7 @@ msgid ""
 "\n"
 msgstr ""
 "nodelinjens størrelse skal ændres på topniveau\n"
-"with\n"
+"med\n"
 "\n"
 "  #(set-global-staff-size <NODELINJE-HØJDE-I-PUNKTER>)\n"
 "\n"
@@ -470,7 +473,7 @@ msgid ""
 msgstr ""
 "\n"
 "Automatiske bjælkeindstillinger skal nu angive hver interessant moment i en\n"
-"måling eksplicit; 1/4 er ikke længere ganget for også at dække 1/2 og 3/4.\n"
+"måling eksplicit; 1/4 bliver ikke længere ganget for også at dække 1/2 og 3/4.\n"
 
 #: convertrules.py:2272
 msgid "verticalAlignmentChildCallback has been deprecated"
@@ -478,7 +481,7 @@ msgstr "verticalAlignmentChildCallback er blevet forældet"
 
 #: convertrules.py:2277
 msgid "Remove callbacks property, deprecate XY-extent-callback."
-msgstr "Fjern egenskabsegenskab, misbillig XY-extent-callback."
+msgstr "Fjern egenskabsegenskab, foræld XY-extent-callback."
 
 #: convertrules.py:2298
 msgid "Use grob closures iso. XY-offset-callbacks."
@@ -494,7 +497,7 @@ msgstr "misbillig \\tempo i \\midi"
 
 #: convertrules.py:2523
 msgid "deprecate cautionary-style. Use AccidentalCautionary properties"
-msgstr "misbllig cautionary-style. Brug AccidentalCautionary-egenskaber"
+msgstr "foræld cautionary-style. Brug AccidentalCautionary-egenskaber"
 
 #: convertrules.py:2536
 msgid "Rename accidental glyphs, use glyph-name-alist."
@@ -533,11 +536,11 @@ msgstr "Brug #'style ikke #'dash-fraction for at vælge hele/stiplede linjer."
 
 #: convertrules.py:2645
 msgid "all settings related to dashed lines"
-msgstr "alle indstillinger forbundet med hele linjer"
+msgstr "alle indstillinger forbundet med stiplede linjer"
 
 #: convertrules.py:2646
 msgid "Use \\override ... #'style = #'line for solid lines and\n"
-msgstr "Brug \\override ... #'style = #'line for faste linjer og\n"
+msgstr "Brug \\override ... #'style = #'line for hele linjer og\n"
 
 #: convertrules.py:2647
 msgid "\t\\override ... #'style = #'dashed-line for dashed lines."
@@ -553,7 +556,7 @@ msgstr ""
 
 #: convertrules.py:2689
 msgid "metronomeMarkFormatter got an additional text argument.\n"
-msgstr "metronomeMarkFormatter fik en ekstra tekstparameter.\n"
+msgstr "metronomeMarkFormatter fik en ekstra tekstargument.\n"
 
 #: convertrules.py:2690
 #, python-format
@@ -571,7 +574,7 @@ msgstr "%s i fret-diagram-egenskaber"
 
 #: convertrules.py:2752
 msgid "\\put-adjacent argument order"
-msgstr "\\put-adjacent-parameterrækkefølge"
+msgstr "\\put-adjacent-argumentrækkefølge"
 
 #: convertrules.py:2753
 msgid "Axis and direction now come before markups:\n"
@@ -707,7 +710,7 @@ msgstr "Lodret mellemrum er ikke længere afhængig af Y-rækkevidden for en Ver
 
 #: convertrules.py:2933
 msgid "Unify fetaNumber and fetaDynamic encodings"
-msgstr "Unify fetaNumber- og fetaDynamic-kodninger"
+msgstr "Foren fetaNumber- og fetaDynamic-kodninger"
 
 #: convertrules.py:2938
 msgid "\\RemoveEmpty*StaffContext -> \\*Staff \\RemoveEmptyStaves"
@@ -746,8 +749,8 @@ msgid ""
 "Woodwind diagrams: Move size, thickness, and graphic from argument list to properties.\n"
 "Deprecate negative dash-period for hidden lines: use #'style = #'none instead."
 msgstr ""
-"Woodwinddiagrammer: Flyt størrelse, tykkelse og grafik fra parameterliste til egenskaber.\n"
-"Misbillig negative dash-period for skjulte linjer: Brug #'style = #'none i stedet for."
+"Woodwinddiagrammer: Flyt størrelse, tykkelse og grafik fra argumentliste til egenskaber.\n"
+"Foræld negativ dash-period for skjulte linjer: Brug #'style = #'none i stedet for."
 
 #: convertrules.py:3005
 msgid "Move size, thickness, and graphic to properties.  Argument should be just the key list.\n"
@@ -759,7 +762,7 @@ msgid ""
 "Add fretboard-table argument to savePredefinedFretboard."
 msgstr ""
 "Omdøb lodret afstandsvaribler.\n"
-"Tilføj fretboard-table-parameter til savePredefinedFretboard."
+"Tilføj fretboard-table-argument til savePredefinedFretboard."
 
 #: convertrules.py:3031
 msgid "Rename vertical spacing grob properties."
@@ -791,7 +794,7 @@ msgstr "HarmonicParenthesesItem er blevet elimineret.\n"
 
 #: convertrules.py:3069
 msgid "Harmonic parentheses are part of the TabNoteHead grob.\n"
-msgstr "Harmoniske parenteser er en delaf TabNoteHead-grob.\n"
+msgstr "Harmoniske parenteser er en del af TabNoteHead-grob.\n"
 
 #: convertrules.py:3074
 msgid "Remove context from overrideTimeSignatureSettings and revertTimeSignatureSettings.\n"
@@ -821,11 +824,11 @@ msgstr "Woodwind-diagrammer: Skifter til klarinetdiagrammet."
 
 #: convertrules.py:3146
 msgid "Clarinet fingering changed to reflect actual anatomy of instrument.\n"
-msgstr "Klarinetfingersætning ændret til at reflektere faktisk instrumentanatomi.\n"
+msgstr "Klarinetfingersætning ændret til at reflektere faktisk anatomi for instrumentet.\n"
 
 #: convertrules.py:3156
 msgid "Handling of non-automatic footnotes."
-msgstr "Håndtering af ikke automaiske fodnoter."
+msgstr "Håndtering af ikke automatiske fodnoter."
 
 #: convertrules.py:3160
 msgid "If you are using non-automatic footnotes, make sure to set footnote-auto-numbering = ##f in the paper block.\n"
@@ -853,7 +856,7 @@ msgstr "input/regression/beam-broken-classic.ly viser hvordan ødelagte bjælker
 
 #: convertrules.py:3369
 msgid "beamExceptions controls whole-measure beaming."
-msgstr "beamExceptions kontrollerer bjæker i hele mål."
+msgstr "beamExceptions kontrollerer bjælker i hele mål."
 
 #: convertrules.py:3606
 msgid "Flag.transparent and Flag.color inherit from Stem"
@@ -1034,7 +1037,7 @@ msgstr "Eksempler:"
 #: convert-ly.py:79 etf2ly.py:1191 lilypond-book.py:115 midi2ly.py:81
 #, python-format
 msgid "Copyright (c) %s by"
-msgstr "Copyright © %s af"
+msgstr "Ophavsret © %s af"
 
 #: convert-ly.py:81 etf2ly.py:1193 lilypond-book.py:117 midi2ly.py:83
 msgid "Distributed under terms of the GNU General Public License."
@@ -1095,7 +1098,7 @@ msgstr "lav en nummereret sikkerhedskopi [standard: filnavn.ext~]"
 #: convert-ly.py:152 etf2ly.py:1212 lilypond-book.py:234 midi2ly.py:1096
 #: main.cc:185
 msgid "show warranty and copyright"
-msgstr "vis garanti og copyright"
+msgstr "vis garanti og ophavsret"
 
 #: convert-ly.py:196
 msgid "Applying conversion: "
@@ -1280,7 +1283,7 @@ msgstr "kør kørbar PROG i stedet for texi2pdf"
 
 #: lilypond-book.py:252
 msgid "create PDF files for use with PDFTeX"
-msgstr "opret PDF-filer for rbug med PDFTeX"
+msgstr "opret PDF-filer for brug med PDFTeX"
 
 #: lilypond-book.py:463
 msgid "Writing snippets..."
@@ -1288,7 +1291,7 @@ msgstr "Skriver kodestykker ..."
 
 #: lilypond-book.py:468
 msgid "Processing..."
-msgstr "Behandler..."
+msgstr "Behandler ..."
 
 #: lilypond-book.py:473
 msgid "All snippets are up to date..."
@@ -1353,7 +1356,7 @@ msgstr "Sætter LilyPonds logniveau til %s (fra miljøvariabel LILYPOND_LOGLEVEL
 
 #: lilypond-book.py:734
 msgid "Setting LilyPond's output to --verbose, implied by lilypond-book's setting"
-msgstr "Sætter LilyPonds uddata til --verbose, underforstået af lilypond-book's indstilling"
+msgstr "Sætter LilyPonds uddata til --verbose, underforstået af lilypond-books indstilling"
 
 #: midi2ly.py:90
 msgid "warning: "
@@ -1371,7 +1374,7 @@ msgstr "Afslutter ... "
 msgid "found more than 5 voices on a staff, expect bad output"
 msgstr "fandt mere end 5 stemmer på en node, forvent et ugyldigt resultat"
 
-# hær er det spørg om skrivning til en fil (første parametern er t.ex
+# hær er det spørg om skrivning til en fil (første argument er t.ex
 # DVI, LATEX, MIDI, TEX)
 #: midi2ly.py:1032
 #, python-format
@@ -1450,7 +1453,7 @@ msgstr "Eksempler"
 
 #: midi2ly.py:1125
 msgid "no files specified on command line."
-msgstr "ingen filer angivne på kommandolinjen."
+msgstr "ingen filer blev angivet på kommandolinjen."
 
 #: musicxml2ly.py:228
 #, python-format
@@ -1498,7 +1501,7 @@ msgstr "ukendt afstandstype %s for %s"
 
 #: musicxml2ly.py:1456
 msgid "Unknown metronome mark, ignoring"
-msgstr "Ukendt metronome-mærke, ignorerer"
+msgstr "Ukendt metronom-mærke, ignorerer"
 
 #. TODO: Implement the other (more complex) way for tempo marks!
 #: musicxml2ly.py:1461
@@ -1508,7 +1511,7 @@ msgstr "Metronom markerer med komplekse relationer (<metronome-note> i MusicXML)
 #: musicxml2ly.py:1663
 #, python-format
 msgid "Unable to convert chord type %s to lilypond."
-msgstr "Kunne ikke konvertere akkortype %s til lilypond."
+msgstr "Kunne ikke konvertere akkordtype %s til lilypond."
 
 #: musicxml2ly.py:1816
 #, python-format
@@ -1578,7 +1581,7 @@ msgid ""
 "    Jan Nieuwenhuizen <janneke@gnu.org> and\n"
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
 msgstr ""
-"Ophavsret 2005--2015 by\n"
+"Ophavsret 2005-2015 af\n"
 "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
 "    Jan Nieuwenhuizen <janneke@gnu.org> and\n"
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
@@ -1680,12 +1683,12 @@ msgstr "Om <a href=\"%s\">automatisk sprogvalg</a>."
 #: getopt-long.cc:153
 #, c-format
 msgid "option `%s' requires an argument"
-msgstr "tilvalg »%s« kræver en parameter"
+msgstr "tilvalget »%s« kræver et argument"
 
 #: getopt-long.cc:157
 #, c-format
 msgid "option `%s' does not allow an argument"
-msgstr "tilvalg »%s« tillader ikke en parameter"
+msgstr "tilvalget »%s« tillader ikke et argument"
 
 #: getopt-long.cc:161
 #, c-format
@@ -1768,7 +1771,7 @@ msgstr "kan ikke finde skrifttype: »%s«"
 
 #: apply-context-iterator.cc:42
 msgid "\\applycontext argument is not a procedure"
-msgstr "\\applycontext-parameter er ikke en procedure"
+msgstr "\\applycontext-argument er ikke en procedure"
 
 #: arpeggio.cc:138
 msgid "no heads for arpeggio found?"
@@ -2090,6 +2093,7 @@ msgstr "ignoreret uendelig %s-forskydning"
 msgid "Asking for broken bound padding at a non-broken bound."
 msgstr "Anmoder om ødelagt bundet mellemrum ved en ikkebundet bund."
 
+# http://www.denstoredanske.dk/Kunst_og_kultur/Musik/Klassisk_musik/Terminologi,_noder_og_tonearter/diminuendo
 #: hairpin.cc:257
 msgid "decrescendo too small"
 msgstr "diminuendo for lille"
@@ -2168,7 +2172,7 @@ msgstr "fraseringsbuen startede her"
 #: lily-guile.cc:93
 #, c-format
 msgid "(load path: `%s')"
-msgstr "(indlæsningssøgesti: »%s«)"
+msgstr "(indlæsningssti: »%s«)"
 
 #: lily-guile.cc:412
 #, c-format
@@ -2241,7 +2245,7 @@ msgstr "Tegner ikke en boks med negative dimensioner, %.2f x %.2f."
 
 #: lyric-combine-music-iterator.cc:204
 msgid "argument of \\lyricsto should contain Lyrics context"
-msgstr "parameteren \\lyricsto skal indeholde lyrikindhold"
+msgstr "argumentet \\lyricsto skal indeholde lyrikindhold"
 
 #: lyric-combine-music-iterator.cc:349
 #, c-format
@@ -2495,7 +2499,7 @@ msgstr "kan ikke bestemme tonehøjde for oprindelig fraseringsbue -> udelader"
 
 #: mensural-ligature-engraver.cc:141
 msgid "single note ligature - skipping"
-msgstr "enkel node fraseringsbude - udelader"
+msgstr "enkel node fraseringsbue - udelader"
 
 #: mensural-ligature-engraver.cc:152
 msgid "prime interval within ligature -> skipping"
@@ -2555,7 +2559,7 @@ msgstr "kan ikke til skrivning: %s: %s"
 #: midi-stream.cc:54
 #, c-format
 msgid "cannot write to file: `%s'"
-msgstr "kan ikke skrive til fil: »%s«"
+msgstr "kan ikke skrive til filen: »%s«"
 
 #: minimal-page-breaking.cc:40 paper-score.cc:116
 msgid "Calculating line breaks..."
@@ -2756,7 +2760,7 @@ msgstr "\tforrige ombrydning: %d"
 #: pango-font.cc:246
 #, c-format
 msgid "no glyph for character U+%0X in font `%s'"
-msgstr "intet skrifttegn for tegn U+%0X i skrifttype »%s«"
+msgstr "intet skrifttegn for tegn U+%0X i skrifttypen »%s«"
 
 #: pango-font.cc:273
 #, c-format
@@ -2765,7 +2769,7 @@ msgid ""
 "Skipping glyph U+%0X, file %s"
 msgstr ""
 "Skrifttegn har intet navn, men skrifttypen understøtter skrifttegnnavngivning.\n"
-"Udelager skrifttegn U+%0X, fil %s"
+"Udelader skrifttegn U+%0X, fil %s"
 
 #: pango-font.cc:323
 #, c-format
@@ -3320,7 +3324,7 @@ msgstr "\\maininput er ikke tilladt uden for init-filer"
 #: lexer.ll:323
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
-msgstr "fejlagtig eller udefineret identificerer: »%s«"
+msgstr "fejlagtig eller ikke defineret identifikator: »%s«"
 
 #: lexer.ll:348
 msgid "string expected after \\include"
@@ -3359,7 +3363,7 @@ msgstr "ikke defineret tegn eller stenografi: %s"
 
 #: lexer.ll:1235
 msgid "non-UTF-8 input"
-msgstr "ikke-UTF-i-inddata"
+msgstr "ikke-UTF-8-inddata"
 
 #: lexer.ll:1279
 #, c-format
@@ -3369,7 +3373,7 @@ msgstr "Ugyldig versionstreng »%s«"
 #: lexer.ll:1284
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
-msgstr "fil er for gammel: %s (ældest understøttet: %s)"
+msgstr "filen er for gammel: %s (ældest understøttet: %s)"
 
 #: lexer.ll:1285
 msgid "consider updating the input with the convert-ly script"
@@ -3606,7 +3610,7 @@ msgid ""
 "  %% ****************************************************************\n"
 msgstr ""
 "\n"
-"PostScript-motorern understøtter ikke\n"
+"PostScript-motoreren understøtter ikke\n"
 "system efter system-uddata. Her bruges EPS-motoren i stedet,\n"
 "\n"
 "  lilypond -dbackend=eps FIL\n"
@@ -3669,11 +3673,11 @@ msgstr "ukendt enhed: ~S"
 #: lily-library.scm:1040
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
-msgstr "ingen \\version-udtryk fundet, tilføj venligst ~afor fremtidig kompatibilitet"
+msgstr "ingen \\version-udtryk fundet, tilføj venligst~afor fremtidig kompatibilitet"
 
 #: lily.scm:75
 msgid "call-after-session used after session start"
-msgstr "call-after-sessin brugt efter sessionstart"
+msgstr "call-after-session brugt efter sessionstart"
 
 #: lily.scm:93
 msgid "define-session used after session start"
@@ -3737,7 +3741,7 @@ msgstr "~a-funktion kan ikke returnere ~a"
 #: ly-syntax-constructors.scm:76
 #, scheme-format
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
-msgstr "forker type for argument ~a. Forventede ~a, fandt ~s"
+msgstr "forkert type for argument ~a. Forventede ~a, fandt ~s"
 
 #: ly-syntax-constructors.scm:200
 #, scheme-format
@@ -3962,249 +3966,3 @@ msgid ""
 msgstr ""
 "Ingen etiket for bånd ~a (på streng ~a);\n"
 "kun ~a båndetiketter tilbudt"
-
-# "pitch" hær skal alltså være en ton i et akkord
-#~ msgid "invalid inversion pitch: not part of chord: %s"
-#~ msgstr "ugyldig tone for inversion: ikke del af en akkord: %s"
-
-#~ msgid "can't find start of (de)crescendo"
-#~ msgstr "kan ikke finde starten på crescendo/diminuendo"
-
-#~ msgid "already have a crescendo"
-#~ msgstr "har allerede et crescendo"
-
-#~ msgid "already have a decrescendo"
-#~ msgstr "har allerede et diminuendo"
-
-#~ msgid "Cresc started here"
-#~ msgstr "Cresc startede her"
-
-#~ msgid "unterminated (de)crescendo"
-#~ msgstr "uafsluttet crescendo/diminuendo"
-
-#~ msgid "Nothing to connect extender to on the left.  Ignoring extender request."
-#~ msgstr "Der er ingenting at forbinde udvideren mod til venstre. Ignorerer ønsket om udvider"
-
-#~ msgid "no one to print a repeat brace"
-#~ msgstr "der er ingen som kan skrive et gentagelsestegn"
-
-#~ msgid "couldn't find any font satisfying "
-#~ msgstr "kunne ikke finde nogen skrifttype som opfylder "
-
-#~ msgid "No feasible line breaking found"
-#~ msgstr "Ingen mulig linjebrydning fandtes"
-
-#~ msgid "crescendo too small"
-#~ msgstr "crescendo for lille"
-
-#~ msgid "Nothing to connect hyphen to on the left.  Ignoring hyphen request."
-#~ msgstr "Der er ingenting at forbinde bindestregen med til venstre. Ignorerer bindestregsforespørgslen."
-
-#~ msgid "Kpathsea couldn't find TFM file `%s'"
-#~ msgstr "Kpathsea kunne ikke finde TMF-fil: \"%s\""
-
-#~ msgid "lyrics found without any matching notehead"
-#~ msgstr "tekst fundet uden noget tilhørende nodehoved"
-
-#~ msgid "Huh? Melismatic note found to have associated lyrics."
-#~ msgstr "Øh? Melismatisk node har tilhørende tekst."
-
-#~ msgid "set options, use -e '(ly-option-usage)' for help"
-#~ msgstr "sæt alternativer, brug -e '(ly-option-usage)' for hjælp"
-
-#~ msgid "EXT"
-#~ msgstr "FMT"
-
-#~ msgid "prepend DIR to dependencies"
-#~ msgstr "tilføj KATALOG efter afhængigheder"
-
-#~ msgid "inhibit file output naming and exporting"
-#~ msgstr "hindr navngivning af filuddata og eksportering"
-
-#~ msgid ""
-#~ "LilyPond is a music typesetter.  It produces beautiful sheet music\n"
-#~ "using a high level description file as input.  LilyPond is part of \n"
-#~ "the GNU Project.\n"
-#~ msgstr ""
-#~ "LilyPond er en musiktypesætter. Den producerer smukke noder fra en\n"
-#~ "højniveaubeskrivning af musikken i en fil. LilyPond er en del af\n"
-#~ "GNU-projektet.\n"
-
-#~ msgid "GNU LilyPond -- The music typesetter"
-#~ msgstr "GNU Lilypond -- Musiktypesætteren"
-
-#~ msgid "silly pitch"
-#~ msgstr "tåbelig tone"
-
-#~ msgid "Transposition by %s makes accidental larger than two"
-#~ msgstr "Transponering med %s medfører løst fortegn større end to"
-
-#~ msgid "Too many clashing notecolumns.  Ignoring them."
-#~ msgstr "For mange overlappende nodekolonner. Ignorerer dem."
-
-#~ msgid "paper output to `%s'..."
-#~ msgstr "papirsuddata til \"%s\"..."
-
-#~ msgid "Don't know how to handle a percent repeat of this length."
-#~ msgstr "Véd ikke hvordan en procenttegnsgentagelse (percent) af denne længde skal håndteres."
-
-#~ msgid "unterminated phrasing slur"
-#~ msgstr "uafsluttet fraseringsbue"
-
-#~ msgid "can't find start of phrasing slur"
-#~ msgstr "kan ikke finde start på fraseringsbue"
-
-#~ msgid "Pitch arguments out of range"
-#~ msgstr "Toneargument udenfor intervallet"
-
-#~ msgid "Separation_item:  I've been drinking too much"
-#~ msgstr "Separation_item: Jeg har drukket for meget"
-
-#~ msgid "can't find start of slur"
-#~ msgstr "kan ikke finde start på legatobue"
-
-#~ msgid "Putting slur over rest."
-#~ msgstr "Sætter legatobue over pause."
-
-#~ msgid "Slur over rest?"
-#~ msgstr "Legatobue over pause?"
-
-#~ msgid "Huh?  Got %d, expected %d characters"
-#~ msgstr "Øh? Fik %d, forventede %d tegn"
-
-#~ msgid "Error syncing file (disk full?)"
-#~ msgstr "Fejl ved synkning af fil (disken fuld?)"
-
-#~ msgid "TFM header of `%s' has only %u word (s)"
-#~ msgstr "TFM-rubrik i \"%s\" har kun %u ord"
-
-#~ msgid "%s: TFM file has %u parameters, which is more than the %u I can handle"
-#~ msgstr "%s: TFM-fil har %u parametre, hvilket er mere end de %u jeg kan håndtere"
-
-#~ msgid "can't find ascii character: %d"
-#~ msgstr "kan ikke finde ASCII-tegn: %d"
-
-#~ msgid "Program has no such type"
-#~ msgstr "Programmet har ingen sådan type"
-
-#~ msgid "Already contains: `%s'"
-#~ msgstr "Indholder allerede: \"%s\""
-
-#~ msgid "Second argument must be a symbol"
-#~ msgstr "Andet argument skal være et symbol"
-
-#~ msgid "Can't specify direction for this request"
-#~ msgstr "Kan ikke angive retning for denne forespørgsel"
-
-#~ msgid "Expecting musical-pitch value"
-#~ msgstr "Forventer nodeværdi"
-
-#~ msgid "Brace found at end of lyric.  Did you forget a space?"
-#~ msgstr "Krølleparentes fundet i slutning af tekst. Glemte du et mellemrum?"
-
-#~ msgid "Generate .dvi with LaTeX for LilyPond"
-#~ msgstr "Generér .dvi med LaTeX for LilyPond"
-
-# %s er progravnavnet (mup2ly)
-#~ msgid "%s is far from completed.  Not all constructs are recognised."
-#~ msgstr "%s er langt fra færdig, og kan ikke genkende alle konstruktioner."
-
-#~ msgid "Cleaning `%s'..."
-#~ msgstr "Renser \"%s\"..."
-
-#~ msgid "EOF in a string"
-#~ msgstr "EOF i en streng"
-
-# det handlar om mmap hær
-#~ msgid "can't map file"
-#~ msgstr "kan ikke lave \"mmap\" på filen"
-
-#~ msgid "evalute EXPR as Scheme after .scm init is read"
-#~ msgstr "evaluér UDTR som Scheme efter .scm-init er læst"
-
-#~ msgid "This binary was compiled with the following options:"
-#~ msgstr "Dette program blev oversat med følgende flag:"
-
-#~ msgid "ly_get_mus_property (): Not a Music"
-#~ msgstr "ly_get_mus_property (): Ikke en \"Music\""
-
-#~ msgid "ly_set_mus_property (): Not a symbol"
-#~ msgstr "ly_set_mus_property (): ikke et symbol"
-
-#~ msgid "ly_set_mus_property ():  not of type Music"
-#~ msgstr "ly_set_mus_property (): ikke af typen \"Music\""
-
-#~ msgid "ly_make_music (): Not a string"
-#~ msgstr "ly_make_music (): Ikke en streng"
-
-#~ msgid "ly_music_name (): Not a music expression"
-#~ msgstr "ly_music_name (): Ikke et musikudtryk"
-
-#~ msgid ""
-#~ "`%s' is deprecated.  Use\n"
-#~ " \\property %s.%s \\override #'%s = #%s"
-#~ msgstr ""
-#~ "\"%s\" er forældet. Brug\n"
-#~ " \\property %s.%s \\override #'%s = #%s"
-
-#~ msgid "Wrong type for property: %s, type: %s, value found: %s, type: %s"
-#~ msgstr "Forkert type for egenskab: %s, type: %s, værdi fundet: %s, type: %s"
-
-#~ msgid "too many notes for rest collision"
-#~ msgstr "for mange noder for pausesammenstød"
-
-#~ msgid "Can't find property type-check for `%s'.  Perhaps you made a typing error? Doing assignment anyway."
-#~ msgstr "Kan ikke finde egenskabstypekontrol for \"%s\". Måske har du lavet en tastefejl? Laver tildeling alligevel."
-
-#~ msgid "ly-get-trans-property: expecting a Translator_group argument"
-#~ msgstr "ly-get-trans-property: forventede et Translator_group-argument"
-
-#~ msgid "Expecting %d arguments"
-#~ msgstr "Forventer %d argumenter"
-
-#~ msgid "Oldest supported input version: %s"
-#~ msgstr "Ældste inddataversion som understøttes: %s"
-
-#~ msgid "#32 in quarter: %d"
-#~ msgstr "#32 i fjerdedel: %d"
-
-#~ msgid "lily indent level: %d"
-#~ msgstr "indenteringsniveau for lily: %d"
-
-# Kanske man ikke skal oversætta, men når får de tage bort _() i stællet for
-# at skrive en fånig kommentar
-#~ msgid "% Creator: "
-#~ msgstr "% Kreatør: "
-
-#~ msgid "% Automatically generated"
-#~ msgstr "% Automatgenereret"
-
-#~ msgid "% from input file: "
-#~ msgstr "% fra inddatafil: "
-
-#~ msgid "enable debugging output"
-#~ msgstr "aktivér fejlsøgningsuddata"
-
-#~ msgid "don't timestamp the output"
-#~ msgstr "tidsstempl ikke uddata"
-
-#~ msgid "assume no double dotted notes"
-#~ msgstr "antag ingen dobbeltpunktede noder"
-
-#~ msgid "Usage: %s [OPTION]... [FILE]"
-#~ msgstr "Brug: %s [FLAG]... [FIL]"
-
-#~ msgid "Translate MIDI-file to lilypond"
-#~ msgstr "Oversæt MIDI-fil til lilypond"
-
-#~ msgid "zero length string encountered"
-#~ msgstr "streng med længde nul mødtes"
-
-#~ msgid "invalid header length"
-#~ msgstr "ugyldig rubriklængde"
-
-#~ msgid "can't handle non-metrical time"
-#~ msgstr "kan ikke håndtere ikke-metrisk tid"
-
-#~ msgid "Junking note-end event: channel = %d, pitch = %d"
-#~ msgstr "Stryger nodeslutshændelse: kanal = %d, tone = %d"
