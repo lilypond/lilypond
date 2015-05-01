@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 9dca368f5d0b7b0e0f28656f29de4fd24de7d934
+    Translation of GIT committish: 29fa30fae237f7011932dc59c2a4e3e720913a27
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -683,15 +683,20 @@ mentionnons que quelques-uns.
 
 @item
 @uref{http://www.aurelienbello.com/,Aurélien Bello} a réalisé un
-arrangement « réduit » du @emph{Chevalier à la rose} de Richard Strauss,
-pour quatre chanteurs et un orchestre de chambre à treize interprètes ;
-la première aura lieu au palais des festivals de Baden-Baden les
+arrangement du @emph{Chevalier à la rose} de Richard Strauss,
+pour quatre chanteurs et orchestre de chambre à treize interprètes.
+Après deux représentations au palais des festivals de Baden-Baden les
 @uref{http://www.festspielhaus.de/veranstaltung/der-kleine-rosenkavalier-02-04-2015-1100/,
-4 et 6 avril 2015}.
-Il sera ensuite diffusé dans la @emph{Großer Saal} de Berlin le
+2 et 6 avril 2015} par l'orchestre philharmonique de Berlin, il a
+ensuite été donné dans la @emph{Großer Saal} de la philharmonie de
+Berlin le
 @uref{http://www.berliner-philharmoniker.de/konzerte/kalender/details/21070/,
-26 avril}.  Aurélien a aussi réorchestré @emph{Der Ring der Nibelungen}
-de Richard Wagner en une
+26 avril}.  Nous nous sentons très honorés que des musiciens d'une telle
+réputation aient joué avec des partitions rélisées avec LilyPond --
+qu'ils ont ,à notre connaissane, grandement apprécié.
+
+Aurélien a aussi réorchestré @emph{Der Ring der Nibelungen} de Richard
+Wagner en une
 @uref{http://www.rsb-online.de/content/konzerte/wagnerzyklus-10-13/wagner-fuer-kinder/index_ger.html,
 version en 100 minutes pour enfants}.
 Celle-ci, écrite pour un orchestre symphonique traditionnel et un nombre
@@ -708,10 +713,10 @@ www.queridokinderenjeugdboeken.nl} --, les partitions de chœur d'une
 traduction en hollandais du @emph{Saint Nicolas} de Benjamin Britten
 donné en 2011 par le @emph{Muziektheater Hollands Diep} --
 @uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft,
-www.muziektheaterhollandsdiep.nl}.  Il a réalisé le conducteur et le
-matériel d'un arrangement pour quatuor à vent, piano et percussions, du
-@emph{Boris Godounov} de Modeste Moussorgski, qui a été donné en 2014,
-toujours par le @emph{Muziektheater Hollands Diep}.
+www.muziektheaterhollandsdiep.nl}.  Il a aussi réalisé le conducteur et
+le matériel d'un arrangement pour quatuor à vent, piano et percussions,
+du @emph{Boris Godounov} de Modeste Moussorgski, qui a été donné en
+2014, toujours par le @emph{Muziektheater Hollands Diep}.
 
 @item
 Pour sa thèse de doctorat,
