@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.16"
+@c \version "2.19.20"
 
 @node Changing defaults
 @chapter Changing defaults
@@ -2972,12 +2972,13 @@ a
 
 @lilypond[verbatim,quote,relative=2]
 a1
-\compressFullBarRests
-R1*23
-% increase the length of the rest bar
-\once \override MultiMeasureRest.minimum-length = #20
-R1*23
-a1
+\compressMMRests {
+  R1*23
+  % increase the length of the rest bar
+  \once \override MultiMeasureRest.minimum-length = #20
+  R1*23
+  a1
+}
 @end lilypond
 
 @lilypond[verbatim,quote,relative=2]

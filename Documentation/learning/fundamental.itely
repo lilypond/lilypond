@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.16"
+@c \version "2.19.20"
 
 @node Fundamental concepts
 @chapter Fundamental concepts
@@ -3164,22 +3164,18 @@ takes 3@tie{}measures in 2/4 time
 R2*3
 @end example
 
-When printing the part, multi-rests
-must be condensed.  This is done by setting a run-time variable
+When printing the part, multi-measure rests must be compressed.  There
+is a music function available to do this:
 
 @example
-\set Score.skipBars = ##t
+\compressMMRests @{ ... @}
 @end example
 
-@noindent
-This command sets the property @code{skipBars} in the
-@code{Score} context to true (@code{##t}).  Prepending the rest and
-this option to the music above, leads to the following result
+Applying this to @code{hornNotes} gives:
 
 @lilypond[quote,ragged-right]
-\transpose f c' \relative c {
+\compressMMRests \transpose f c' \relative c {
   \time 2/4
-  \set Score.skipBars = ##t
   R2*3 |
   r4 f8 a | cis4 f | e4 d |
 }
@@ -3220,5 +3216,13 @@ leading to
 >>
 @end lilypond
 
+@seealso
+Learning Manual:
+@ref{Organizing pieces with variables}.
 
+Notation Reference:
+@ruser{Transpose},
+@ruser{Writing parts},
+@ruser{Full measure rests},
+@ruser{Including LilyPond files}.
 

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.16"
+@c \version "2.19.20"
 
 @node Rhythms
 @section Rhythms
@@ -810,6 +810,8 @@ Internals Reference:
 @cindex whole rest for a full measure
 @cindex rest, whole for a full measure
 
+@funindex compressMMRests
+@funindex \compressMMRests
 @funindex R
 
 Rests for one or more full measures are entered like notes with
@@ -817,11 +819,12 @@ the note name uppercase @code{R}:
 
 @lilypond[quote,verbatim,relative=2]
 % Rest measures contracted to single measure
-\compressFullBarRests
-R1*4
-R1*24
-R1*4
-b2^"Tutti" b4 a4
+\compressMMRests {
+  R1*4
+  R1*24
+  R1*4
+  b2^"Tutti" b4 a4
+}
 @end lilypond
 
 The duration of full-measure rests is identical to the duration
@@ -830,15 +833,16 @@ always be an integral number of measure-lengths, so augmentation dots
 or fractions must often be used:
 
 @lilypond[quote,verbatim,relative=2]
-\compressFullBarRests
-\time 2/4
-R1 | R2 |
-\time 3/4
-R2. | R2.*2 |
-\time 13/8
-R1*13/8 | R1*13/8*12 |
-\time 10/8
-R4*5*4 |
+\compressMMRests {
+  \time 2/4
+  R1 | R2 |
+  \time 3/4
+  R2. | R2.*2 |
+  \time 13/8
+  R1*13/8 | R1*13/8*12 |
+  \time 10/8
+  R4*5*4 |
+}
 @end lilypond
 
 A full-measure rest is printed as either a whole or breve rest,
@@ -856,11 +860,6 @@ R1*2 |
 @cindex multi-measure rest, expanding
 @cindex multi-measure rest, contracting
 
-@funindex \expandFullBarRests
-@funindex expandFullBarRests
-@funindex \compressFullBarRests
-@funindex compressFullBarRests
-
 By default a multi-measure rest is expanded in the printed score to
 show all the rest measures explicitly.  Alternatively, a multi-measure
 rest can be shown as a single measure containing a multi-measure rest
@@ -872,10 +871,10 @@ symbol, with the number of measures of rest printed above the measure:
 \time 2/4 R2 |
 \time 4/4
 % Rest measures contracted to single measure
-\compressFullBarRests
-r1 | R1*17 | R1*4 |
-% Rest measures expanded
-\expandFullBarRests
+\compressMMRests {
+  r1 | R1*17 | R1*4 |
+}
+% Rest measures expanded again
 \time 3/4
 R2.*2 |
 @end lilypond
@@ -899,10 +898,11 @@ The predefined command @code{\fermataMarkup}
 is provided for adding fermatas.
 
 @lilypond[quote,verbatim,relative=2]
-\compressFullBarRests
-\time 3/4
-R2.*10^\markup { \italic "ad lib." }
-R2.^\fermataMarkup
+\compressMMRests {
+  \time 3/4
+  R2.*10^\markup { \italic "ad lib." }
+  R2.^\fermataMarkup
+}
 @end lilypond
 
 @warning{Markups attached to a multi-measure rest are objects of type
@@ -929,17 +929,14 @@ setting, resulting bar-check warnings may not be displayed.
 @funindex textLengthOff
 @funindex \fermataMarkup
 @funindex fermataMarkup
-@funindex \compressFullBarRests
-@funindex compressFullBarRests
-@funindex \expandFullBarRests
-@funindex expandFullBarRests
+@funindex \compressMMRests
+@funindex compressMMRests
 
 @predefined
 @code{\textLengthOn},
 @code{\textLengthOff},
 @code{\fermataMarkup},
-@code{\compressFullBarRests},
-@code{\expandFullBarRests}.
+@code{\compressMMRests}.
 @endpredefined
 
 
@@ -1323,15 +1320,16 @@ restores the default behavior of ignoring tempo marks
 for horizontal spacing.
 
 @lilypond[verbatim,quote,relative=0]
-\compressFullBarRests
-\markLengthOn
-\tempo "Molto vivace"
-R1*12
-\tempo "Meno mosso"
-R1*16
-\markLengthOff
-\tempo "Tranquillo"
-R1*20
+\compressMMRests {
+  \markLengthOn
+  \tempo "Molto vivace"
+  R1*12
+  \tempo "Meno mosso"
+  R1*16
+  \markLengthOff
+  \tempo "Tranquillo"
+  R1*20
+}
 @end lilypond
 
 @snippets
