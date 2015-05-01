@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ab336761427b7214e133ff06b3592afa75eda1cf
+    Translation of GIT committish: d139eb3fc0ee681dac939a0ac4949ba1f4e4d0e3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -114,11 +114,11 @@ paroles alternatives :
 
 @lilypond[verbatim, quote]
   SopranoMusic = \relative { a'4 a a a }
-  SopranoLyricsOne = \lyricsto "Soprano" {
+  SopranoLyricsOne = \lyricmode {
     \set stanza = "1."
     Words to verse one
   }
-  SopranoLyricsTwo = \lyricsto "Soprano" {
+  SopranoLyricsTwo = \lyricmode {
     \set stanza = "2."
     Words to verse two
   }

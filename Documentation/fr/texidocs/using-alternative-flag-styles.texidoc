@@ -1,9 +1,10 @@
-%% Translation of GIT committish: c5f6541667b71037c4965b482a8161628c7cc485
+%% Translation of GIT committish: d139eb3fc0ee681dac939a0ac4949ba1f4e4d0e3
   texidocfr = "
 Une dérogation à la propriété @code{stencil} de l'objet @code{Flag}
 permet aux croches et notes de durée inférieure d'adopter une autre
 forme de crochet.  Sont disponibles les variantes
-@code{modern-straight-flag} et @code{old-straight-flag}.
+@code{modern-straight-flag}, @code{old-straight-flag} et
+@code{flat-flag}.
 
 "
   doctitlefr = "Crochets de style alternatif"

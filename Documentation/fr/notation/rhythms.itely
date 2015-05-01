@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ec074a41f03cf4cd3b914daa1359dd6e0fb2012d
+    Translation of GIT committish: d139eb3fc0ee681dac939a0ac4949ba1f4e4d0e3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2155,6 +2155,14 @@ définit la longueur de chaque pulsation, prenant @code{baseMoment} comme
 unité.  L'unité de base (le @code{baseMoment}) correspond par défaut à
 l'inverse du dénominateur de la métrique.  D'autre part, chaque unité de
 @code{baseMoment} constitue par défaut une seule pulsation.
+
+Notez bien la présence de valeurs distinctes de @code{beatStructure} et
+@code{baseMoment} pour chaque métrique.  Toute modification de ces
+variables ne s'applique qu'à la métrique alors en vigueur, raison pour
+laquelle elles doivent se placer à la suite de la commande @code{\time}
+qui entame un fragment ayant une nouvelle métrique, non au préalable.
+Les nouvelles valeurs affectées à une métrique particulière resteront en
+vigueur et ré-instaurées si cette métrique réapparaît plus tard.
 
 @lilypond[quote,relative=2,verbatim]
 \time 5/16
