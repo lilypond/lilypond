@@ -927,6 +927,37 @@ and second parts get marked with @qq{Solo} and @qq{Solo II},
 respectively.  The unison (@notation{a due}) parts are marked with the
 text @qq{a2}.
 
+By default, the partcombiner merges two notes of the same pitch as an
+@notation{a due} note, combines notes with the same
+rhythm less than a ninth apart as chords and separates notes more than
+a ninth apart (or when the voices cross) into
+separate voices.  This can be overridden with an optional argument of a pair
+of numbers after the @code{\partcombine} command: the first specifies
+the interval where notes start to be combined (the default is zero) and the
+second where the notes are split into separate voices.  Setting the second
+argument to zero means that the partcombiner splits notes with an interval of
+a second or more, setting it to one splits notes of a third or more, and so on.
+
+@lilypond[quote,verbatim]
+instrumentOne = \relative c' {
+  a4 b c d |
+  e f g a |
+  b c d e |
+}
+
+instrumentTwo = \relative c' {
+  c4 c c c |
+  c c c c |
+  c c c c |
+}
+
+<<
+  \new Staff \partcombine \instrumentOne \instrumentTwo
+  \new Staff \partcombine #'(2 . 3) \instrumentOne \instrumentTwo
+>>
+@end lilypond
+
+
 Both arguments to @code{\partcombine} will be interpreted as separate
 @code{Voice} contexts, so if the music is being specified in relative
 mode then @emph{both} parts must contain a @code{\relative} function,
