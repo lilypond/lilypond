@@ -352,7 +352,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
           for (LEFT_and_RIGHT (d))
             add_collision (b[X_AXIS][d], b[Y_AXIS], width_factor);
 
-          Grob *stem = Grob::unsmob (collisions[j]->get_object ("stem"));
+          Grob *stem = unsmob<Grob> (collisions[j]->get_object ("stem"));
           if (stem && Stem::has_interface (stem) && Stem::is_normal_stem (stem))
             {
               colliding_stems.insert (stem);
@@ -371,7 +371,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
                          - my_y;
 
           Real factor = parameters_.STEM_COLLISION_FACTOR;
-          if (!Grob::is_smob (s->get_object ("beam")))
+          if (!unsmob<Grob> (s->get_object ("beam")))
             factor = 1.0;
           add_collision (x, y, factor);
         }

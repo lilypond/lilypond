@@ -73,7 +73,7 @@ Midi_control_function_performer::disconnect_from_context (Context *c)
 void
 Midi_control_function_performer::announce_function_value_change (SCM sev)
 {
-  Stream_event *ev = Stream_event::unsmob (sev);
+  Stream_event *ev = unsmob<Stream_event> (sev);
   SCM sym = ev->get_property ("symbol");
   if (!scm_is_symbol (sym))
     return;

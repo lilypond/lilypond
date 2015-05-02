@@ -30,7 +30,7 @@ MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, y_extent, 1);
 SCM
 Hara_kiri_group_spanner::y_extent (SCM smob)
 {
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
   consider_suicide (me);
   return Axis_group_interface::generic_group_extent (me, Y_AXIS);
 }
@@ -39,7 +39,7 @@ MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, calc_skylines, 1);
 SCM
 Hara_kiri_group_spanner::calc_skylines (SCM smob)
 {
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
   consider_suicide (me);
   return Axis_group_interface::calc_skylines (smob);
 }
@@ -48,7 +48,7 @@ MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, pure_height, 3);
 SCM
 Hara_kiri_group_spanner::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 {
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
   int start = robust_scm2int (start_scm, 0);
   int end = robust_scm2int (end_scm, INT_MAX);
 
@@ -167,7 +167,7 @@ MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, force_hara_kiri_callback, 1);
 SCM
 Hara_kiri_group_spanner::force_hara_kiri_callback (SCM smob)
 {
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
   consider_suicide (me);
   return scm_from_double (0.0);
 }
@@ -176,7 +176,7 @@ MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, force_hara_kiri_in_y_parent_callb
 SCM
 Hara_kiri_group_spanner::force_hara_kiri_in_y_parent_callback (SCM smob)
 {
-  Grob *daughter = Grob::unsmob (smob);
+  Grob *daughter = unsmob<Grob> (smob);
   force_hara_kiri_callback (daughter->get_parent (Y_AXIS)->self_scm ());
   return scm_from_double (0.0);
 }

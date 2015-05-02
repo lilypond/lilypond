@@ -88,7 +88,7 @@ Pitched_trill_engraver::acknowledge_trill_spanner (Grob_info info)
   if (ev
       && ev->in_event_class ("trill-span-event")
       && to_dir (ev->get_property ("span-direction")) == START
-      && Pitch::is_smob (ev->get_property ("pitch")))
+      && unsmob<Pitch> (ev->get_property ("pitch")))
     make_trill (ev);
 }
 
@@ -96,7 +96,7 @@ void
 Pitched_trill_engraver::make_trill (Stream_event *ev)
 {
   SCM scm_pitch = ev->get_property ("pitch");
-  Pitch *p = Pitch::unsmob (scm_pitch);
+  Pitch *p = unsmob<Pitch> (scm_pitch);
 
   SCM keysig = get_property ("localAlterations");
 
@@ -132,7 +132,7 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
   int c0 = scm_is_number (c0scm) ? scm_to_int (c0scm) : 0;
 
   trill_head_->set_property ("staff-position",
-                             scm_from_int (Pitch::unsmob (scm_pitch)->steps ()
+                             scm_from_int (unsmob<Pitch> (scm_pitch)->steps ()
                                            + c0));
 
   trill_group_ = make_item ("TrillPitchGroup", ev->self_scm ());

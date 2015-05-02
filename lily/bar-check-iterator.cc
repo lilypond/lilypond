@@ -56,7 +56,7 @@ Bar_check_iterator::process (Moment m)
       SCM mp = tr->get_property ("measurePosition");
       SCM sync = tr->get_property ("barCheckSynchronize");
 
-      Moment *where = Moment::unsmob (mp);
+      Moment *where = unsmob<Moment> (mp);
       if (!where)
         return;
 
@@ -73,8 +73,8 @@ Bar_check_iterator::process (Moment m)
           else
             {
               SCM lf = tr->get_property ("barCheckLastFail");
-              if (Moment::is_smob (lf)
-                  && *Moment::unsmob (lf) == *where)
+              if (unsmob<Moment> (lf)
+                  && *unsmob<Moment> (lf) == *where)
                 warn = false;
               else
                 tr->set_property ("barCheckLastFail", mp);

@@ -233,7 +233,7 @@ Accidental_engraver::process_acknowledged ()
           Stream_event *note = accidentals_[i].melodic_;
           Context *origin = accidentals_[i].origin_;
 
-          Pitch *pitch = Pitch::unsmob (note->get_property ("pitch"));
+          Pitch *pitch = unsmob<Pitch> (note->get_property ("pitch"));
           if (!pitch)
             continue;
 
@@ -348,7 +348,7 @@ Accidental_engraver::make_suggested_accidental (Stream_event * /* note */,
   Grob *a = trans->make_item ("AccidentalSuggestion", note_head->self_scm ());
 
   Side_position_interface::add_support (a, note_head);
-  if (Grob *stem = Grob::unsmob (a->get_object ("stem")))
+  if (Grob *stem = unsmob<Grob> (a->get_object ("stem")))
     Side_position_interface::add_support (a, stem);
 
   a->set_parent (note_head, X_AXIS);
@@ -372,8 +372,8 @@ Accidental_engraver::stop_translation_timestep ()
         {
           // Don't mark accidentals as "tied" when the pitch is not
           // actually the same.  This is relevant for enharmonic ties.
-          Stream_event *le = Stream_event::unsmob (l->get_property ("cause"));
-          Stream_event *re = Stream_event::unsmob (r->get_property ("cause"));
+          Stream_event *le = unsmob<Stream_event> (l->get_property ("cause"));
+          Stream_event *re = unsmob<Stream_event> (r->get_property ("cause"));
           if (le && re
               && !ly_is_equal (le->get_property ("pitch"), re->get_property ("pitch")))
             continue;
@@ -399,7 +399,7 @@ Accidental_engraver::stop_translation_timestep ()
 
       int barnum = measure_number (origin);
 
-      Pitch *pitch = Pitch::unsmob (note->get_property ("pitch"));
+      Pitch *pitch = unsmob<Pitch> (note->get_property ("pitch"));
       if (!pitch)
         continue;
 
@@ -409,7 +409,7 @@ Accidental_engraver::stop_translation_timestep ()
       SCM key = scm_cons (scm_from_int (o), scm_from_int (n));
 
       Moment end_mp = measure_position (context (),
-                                        Duration::unsmob (note->get_property ("duration")));
+                                        unsmob<Duration> (note->get_property ("duration")));
       SCM position = scm_cons (scm_from_int (barnum), end_mp.smobbed_copy ());
 
       SCM localsig = SCM_EOL;

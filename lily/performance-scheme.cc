@@ -26,7 +26,7 @@ LY_DEFINE (ly_performance_write, "ly:performance-write",
   LY_ASSERT_SMOB (Performance, performance, 1);
   LY_ASSERT_TYPE (scm_is_string, filename, 2);
 
-  Performance::unsmob (performance)->write_output (ly_scm2string (filename));
+  unsmob<Performance> (performance)->write_output (ly_scm2string (filename));
   return SCM_UNSPECIFIED;
 }
 

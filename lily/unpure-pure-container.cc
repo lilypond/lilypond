@@ -61,7 +61,7 @@ LY_DEFINE (ly_unpure_pure_container_unpure_part, "ly:unpure-pure-container-unpur
            "Return the unpure part of @var{pc}.")
 {
   LY_ASSERT_SMOB (Unpure_pure_container, pc, 1);
-  return Unpure_pure_container::unsmob (pc)->unpure_part ();
+  return unsmob<Unpure_pure_container> (pc)->unpure_part ();
 }
 
 LY_DEFINE (ly_unpure_pure_container_pure_part, "ly:unpure-pure-container-pure-part",
@@ -69,7 +69,7 @@ LY_DEFINE (ly_unpure_pure_container_pure_part, "ly:unpure-pure-container-pure-pa
            "Return the pure part of @var{pc}.")
 {
   LY_ASSERT_SMOB (Unpure_pure_container, pc, 1);
-  return Unpure_pure_container::unsmob (pc)->pure_part ();
+  return unsmob<Unpure_pure_container> (pc)->pure_part ();
 }
 
 int

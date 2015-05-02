@@ -178,7 +178,7 @@ Open_type_font::get_indexed_char_dimensions (size_t signed_idx) const
     {
       SCM box = scm_hashq_ref (lily_index_to_bbox_table_,
                                scm_from_unsigned_integer (signed_idx), SCM_BOOL_F);
-      Box *box_ptr = Box::unsmob (box);
+      Box *box_ptr = unsmob<Box> (box);
       if (box_ptr)
         return *box_ptr;
     }

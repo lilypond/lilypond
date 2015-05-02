@@ -29,7 +29,7 @@ MAKE_SCHEME_CALLBACK (Measure_grouping, print, 1);
 SCM
 Measure_grouping::print (SCM grob)
 {
-  Spanner *me = Spanner::unsmob (grob);
+  Spanner *me = unsmob<Spanner> (grob);
 
   SCM which = me->get_property ("style");
   Real height = robust_scm2double (me->get_property ("height"), 1);

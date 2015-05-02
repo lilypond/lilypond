@@ -43,7 +43,7 @@ using namespace std;
 bool
 Note_column::has_rests (Grob *me)
 {
-  return Grob::is_smob (me->get_object ("rest"));
+  return unsmob<Grob> (me->get_object ("rest"));
 }
 
 bool
@@ -61,7 +61,7 @@ Item *
 Note_column::get_stem (Grob *me)
 {
   SCM s = me->get_object ("stem");
-  return Item::unsmob (s);
+  return unsmob<Item> (s);
 }
 
 Item *
@@ -71,7 +71,7 @@ Note_column::get_flag (Grob *me)
   if (stem)
     {
       SCM s = stem->get_object ("flag");
-      return Item::unsmob (s);
+      return unsmob<Item> (s);
     }
   return 0;
 }
@@ -97,7 +97,7 @@ Note_column::head_positions_interval (Grob *me)
 Direction
 Note_column::dir (Grob *me)
 {
-  Grob *stem = Grob::unsmob (me->get_object ("stem"));
+  Grob *stem = unsmob<Grob> (me->get_object ("stem"));
   if (stem && Stem::has_interface (stem))
     return get_grob_direction (stem);
   else
@@ -124,7 +124,7 @@ Note_column::set_stem (Grob *me, Grob *stem)
 Grob *
 Note_column::get_rest (Grob *me)
 {
-  return Grob::unsmob (me->get_object ("rest"));
+  return unsmob<Grob> (me->get_object ("rest"));
 }
 
 void
@@ -141,7 +141,7 @@ Note_column::add_head (Grob *me, Grob *h)
     }
   else if (Note_head::has_interface (h))
     {
-      if (Grob::is_smob (me->get_object ("rest")))
+      if (unsmob<Grob> (me->get_object ("rest")))
         both = true;
       Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-heads"), h);
     }
@@ -179,7 +179,7 @@ Note_column::calc_main_extent (Grob *me)
       }
     Grob *main_item = main_head
             ? main_head
-            : Grob::unsmob (me->get_object ("rest"));
+            : unsmob<Grob> (me->get_object ("rest"));
 
     return main_item
             ? main_item->extent (me, X_AXIS)
@@ -197,7 +197,7 @@ Note_column::accidentals (Grob *me)
   for (vsize i = 0; i < heads.size (); i++)
     {
       Grob *h = heads[i];
-      acc = h ? Grob::unsmob (h->get_object ("accidental-grob")) : 0;
+      acc = h ? unsmob<Grob> (h->get_object ("accidental-grob")) : 0;
       if (acc)
         break;
     }
@@ -218,7 +218,7 @@ Note_column::dot_column (Grob *me)
   extract_grob_set (me, "note-heads", heads);
   for (vsize i = 0; i < heads.size (); i++)
     {
-      Grob *dots = Grob::unsmob (heads[i]->get_object ("dot"));
+      Grob *dots = unsmob<Grob> (heads[i]->get_object ("dot"));
       if (dots)
         return dots->get_parent (X_AXIS);
     }

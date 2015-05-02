@@ -38,7 +38,7 @@ void
 Partial_iterator::process (Moment m)
 {
   if (Duration * dur
-      = Duration::unsmob (get_music ()->get_property ("duration")))
+      = unsmob<Duration> (get_music ()->get_property ("duration")))
     {
       Moment length = Moment (dur->get_length ());
 
@@ -52,7 +52,7 @@ Partial_iterator::process (Moment m)
       // work since the Timing_translator does not set
       // measurePosition when initializing.
 
-      Context *timing = Context::unsmob
+      Context *timing = unsmob<Context>
                         (scm_call_2 (ly_lily_module_constant ("ly:context-find"),
                                      get_outlet ()->self_scm (),
                                      ly_symbol2scm ("Timing")));
@@ -91,7 +91,7 @@ Partial_iterator::finalization (SCM ctx, SCM length)
 {
   LY_ASSERT_SMOB (Context, ctx, 1);
   LY_ASSERT_SMOB (Moment, length, 2);
-  Context *timing = Context::unsmob
+  Context *timing = unsmob<Context>
     (scm_call_2 (ly_lily_module_constant ("ly:context-find"),
                  ctx,
                  ly_symbol2scm ("Timing")));
@@ -103,7 +103,7 @@ Partial_iterator::finalization (SCM ctx, SCM length)
                                  Rational (0));
   mp.main_part_ = measure_length (timing);
   timing->set_property ("measurePosition",
-                        (mp - *Moment::unsmob (length)).smobbed_copy ());
+                        (mp - *unsmob<Moment> (length)).smobbed_copy ());
   timing->unset_property (ly_symbol2scm ("partialBusy"));
 
   return SCM_UNSPECIFIED;

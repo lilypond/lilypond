@@ -37,17 +37,17 @@ LY_DEFINE (ly_paper_system_minimum_distance, "ly:paper-system-minimum-distance",
            " their extents otherwise.")
 {
   Real ret = 0;
-  Prob *p1 = Prob::unsmob (sys1);
-  Prob *p2 = Prob::unsmob (sys2);
-  Skyline_pair *sky1 = Skyline_pair::unsmob (p1->get_property ("vertical-skylines"));
-  Skyline_pair *sky2 = Skyline_pair::unsmob (p2->get_property ("vertical-skylines"));
+  Prob *p1 = unsmob<Prob> (sys1);
+  Prob *p2 = unsmob<Prob> (sys2);
+  Skyline_pair *sky1 = unsmob<Skyline_pair> (p1->get_property ("vertical-skylines"));
+  Skyline_pair *sky2 = unsmob<Skyline_pair> (p2->get_property ("vertical-skylines"));
 
   if (sky1 && sky2)
     ret = (*sky1)[DOWN].distance ((*sky2)[UP]);
   else
     {
-      Stencil *s1 = Stencil::unsmob (p1->get_property ("stencil"));
-      Stencil *s2 = Stencil::unsmob (p2->get_property ("stencil"));
+      Stencil *s1 = unsmob<Stencil> (p1->get_property ("stencil"));
+      Stencil *s2 = unsmob<Stencil> (p2->get_property ("stencil"));
       Interval iv1 = s1->extent (Y_AXIS);
       Interval iv2 = s2->extent (Y_AXIS);
       ret = iv2[UP] - iv1[DOWN];

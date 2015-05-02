@@ -138,7 +138,7 @@ Tuplet_engraver::process_music ()
           if (stopped_tuplets_[i].full_length_)
             {
               Item *col
-                = Item::unsmob (stopped_tuplets_[i].full_length_note_
+                = unsmob<Item> (stopped_tuplets_[i].full_length_note_
                                ? get_property ("currentMusicalColumn")
                                : get_property ("currentCommandColumn"));
 
@@ -263,7 +263,7 @@ Tuplet_engraver::finalize ()
   if (to_boolean (get_property ("tupletFullLength")))
     for (vsize i = 0; i < last_tuplets_.size (); i++)
       {
-        Item *col = Item::unsmob (get_property ("currentCommandColumn"));
+        Item *col = unsmob<Item> (get_property ("currentCommandColumn"));
         last_tuplets_[i]->set_bound (RIGHT, col);
       }
 }

@@ -129,7 +129,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
           continue;
         }
 
-      int pitch = Pitch::unsmob (nr->get_property ("pitch"))->steps ();
+      int pitch = unsmob<Pitch> (nr->get_property ("pitch"))->steps ();
       int prim = 0;
 
       if (at_beginning)
@@ -182,7 +182,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
             }
           // b. descendens longa or brevis
           else if (i < s - 1
-                   && (Pitch::unsmob (primitives[i + 1].event_cause ()
+                   && (unsmob<Pitch> (primitives[i + 1].event_cause ()
                                      ->get_property ("pitch"))->steps () < pitch)
                    && duration_log > -3)
             {
@@ -275,7 +275,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> const &primitives
                   /*
                     breve: check whether descending
                   */
-                  int const next_pitch = Pitch::unsmob
+                  int const next_pitch = unsmob<Pitch>
                                          (next_info.event_cause ()->get_property ("pitch"))->steps ();
                   if (next_pitch < pitch)
                     /*

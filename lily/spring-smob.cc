@@ -49,7 +49,7 @@ LY_DEFINE (ly_spring_set_inverse_compress_strength_x, "ly:spring-set-inverse-com
   LY_ASSERT_SMOB (Spring, spring, 1);
   LY_ASSERT_TYPE (scm_is_number, strength, 2);
 
-  Spring *s = Spring::unsmob (spring);
+  Spring *s = unsmob<Spring> (spring);
   s->set_inverse_compress_strength (scm_to_double (strength));
   return s->smobbed_copy ();
 }
@@ -61,7 +61,7 @@ LY_DEFINE (ly_spring_set_inverse_stretch_strength_x, "ly:spring-set-inverse-stre
   LY_ASSERT_SMOB (Spring, spring, 1);
   LY_ASSERT_TYPE (scm_is_number, strength, 2);
 
-  Spring *s = Spring::unsmob (spring);
+  Spring *s = unsmob<Spring> (spring);
   s->set_inverse_stretch_strength (scm_to_double (strength));
   return s->smobbed_copy ();
 }

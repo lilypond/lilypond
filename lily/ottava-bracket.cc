@@ -49,7 +49,7 @@ MAKE_SCHEME_CALLBACK (Ottava_bracket, print, 1);
 SCM
 Ottava_bracket::print (SCM smob)
 {
-  Spanner *me = Spanner::unsmob (smob);
+  Spanner *me = unsmob<Spanner> (smob);
   Interval span_points;
 
   Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
@@ -79,7 +79,7 @@ Ottava_bracket::print (SCM smob)
   SCM markup = me->get_property ("text");
   Stencil text;
   if (Text_interface::is_markup (markup))
-    text = *Stencil::unsmob (Text_interface::interpret_markup (layout->self_scm (),
+    text = *unsmob<Stencil> (Text_interface::interpret_markup (layout->self_scm (),
                                                               properties, markup));
 
   Drul_array<Real> shorten = robust_scm2interval (me->get_property ("shorten-pair"),

@@ -107,7 +107,7 @@ Instrument_name_engraver::start_spanner ()
 {
   text_spanner_ = make_spanner ("InstrumentName", SCM_EOL);
 
-  Grob *col = Grob::unsmob (get_property ("currentCommandColumn"));
+  Grob *col = unsmob<Grob> (get_property ("currentCommandColumn"));
   text_spanner_->set_bound (LEFT, col);
   text_spanner_->set_property ("text", short_text_);
   text_spanner_->set_property ("long-text", long_text_);
@@ -115,7 +115,7 @@ Instrument_name_engraver::start_spanner ()
   /*
     UGH, should handle this in Score_engraver.
   */
-  Grob *system = Grob::unsmob (get_property ("rootSystem"));
+  Grob *system = unsmob<Grob> (get_property ("rootSystem"));
   if (system)
     Axis_group_interface::add_element (system, text_spanner_);
   else
@@ -164,7 +164,7 @@ Instrument_name_engraver::stop_spanner ()
                                        axis_groups_[i]);
 
   text_spanner_->set_bound (RIGHT,
-                            Grob::unsmob (get_property ("currentCommandColumn")));
+                            unsmob<Grob> (get_property ("currentCommandColumn")));
 
   Pointer_group_interface::set_ordered (text_spanner_,
                                         ly_symbol2scm ("elements"),

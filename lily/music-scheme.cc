@@ -29,7 +29,7 @@ LY_DEFINE (ly_music_length, "ly:music-length",
            " it as a @code{Moment} object.")
 {
   LY_ASSERT_SMOB (Music, mus, 1);
-  Music *sc = Music::unsmob (mus);
+  Music *sc = unsmob<Music> (mus);
   return sc->get_length ().smobbed_copy ();
 }
 
@@ -71,14 +71,14 @@ LY_DEFINE (ly_music_p, "ly:music?",
            1, 0, 0, (SCM obj),
            "Is @var{obj} a music object?")
 {
-  return ly_bool2scm (Music::is_smob (obj));
+  return ly_bool2scm (unsmob<Music> (obj));
 }
 
 LY_DEFINE (ly_event_p, "ly:event?",
            1, 0, 0, (SCM obj),
            "Is @var{obj} a proper (non-rhythmic) event object?")
 {
-  if (Music *m = Music::unsmob (obj))
+  if (Music *m = unsmob<Music> (obj))
     {
       return scm_from_bool (m->is_mus_type ("post-event"));
     }
@@ -93,7 +93,7 @@ LY_DEFINE (ly_music_mutable_properties, "ly:music-mutable-properties",
            " constant and initialized by the @code{make-music} function.")
 {
   LY_ASSERT_SMOB (Music, mus, 1);
-  Music *m = Music::unsmob (mus);
+  Music *m = unsmob<Music> (mus);
   return m->get_property_alist (true);
 }
 
@@ -106,7 +106,7 @@ LY_DEFINE (ly_music_list_p, "ly:music-list?",
 
   while (scm_is_pair (lst))
     {
-      if (!Music::is_smob (scm_car (lst)))
+      if (!unsmob<Music> (scm_car (lst)))
         return SCM_BOOL_F;
       lst = scm_cdr (lst);
     }
@@ -120,8 +120,8 @@ LY_DEFINE (ly_music_deep_copy, "ly:music-deep-copy",
            " @var{m} may be an arbitrary type; cons cells and music"
            " are copied recursively.")
 {
-  if (Music::is_smob (m))
-      return Music::unsmob (m)->clone ()->unprotect ();
+  if (unsmob<Music> (m))
+      return unsmob<Music> (m)->clone ()->unprotect ();
   if (scm_is_pair (m))
     {
       SCM copy = SCM_EOL;
@@ -150,8 +150,8 @@ LY_DEFINE (ly_music_transpose, "ly:music-transpose",
   LY_ASSERT_SMOB (Music, m, 1);
   LY_ASSERT_SMOB (Pitch, p, 2);
 
-  Music *sc = Music::unsmob (m);
-  Pitch *sp = Pitch::unsmob (p);
+  Music *sc = unsmob<Music> (m);
+  Pitch *sp = unsmob<Pitch> (p);
 
   sc->transpose (*sp);
   // SCM_UNDEFINED ?
@@ -168,8 +168,8 @@ LY_DEFINE (ly_music_compress, "ly:music-compress",
   LY_ASSERT_SMOB (Music, m, 1);
   LY_ASSERT_SMOB (Moment, factor, 2);
 
-  Music *sc = Music::unsmob (m);
-  sc->compress (*Moment::unsmob (factor));
+  Music *sc = unsmob<Music> (m);
+  sc->compress (*unsmob<Moment> (factor));
   return sc->self_scm ();
 }
 
@@ -181,8 +181,8 @@ LY_DEFINE (ly_make_music_relative_x, "ly:make-music-relative!",
   LY_ASSERT_SMOB (Music, music, 1);
   LY_ASSERT_SMOB (Pitch, pitch, 2);
 
-  Pitch start = *Pitch::unsmob (pitch);
-  Music *m = Music::unsmob (music);
+  Pitch start = *unsmob<Pitch> (pitch);
+  Music *m = unsmob<Music> (music);
   Pitch last = m->to_relative_octave (start);
 
   return last.smobbed_copy ();
@@ -194,9 +194,9 @@ LY_DEFINE (ly_music_duration_length, "ly:music-duration-length", 1, 0, 0,
            " length.")
 {
   LY_ASSERT_SMOB (Music, mus, 1);
-  Music *m = Music::unsmob (mus);
+  Music *m = unsmob<Music> (mus);
 
-  Duration *d = Duration::unsmob (m->get_property ("duration"));
+  Duration *d = unsmob<Duration> (m->get_property ("duration"));
   Moment len;
 
   if (d)
@@ -214,10 +214,10 @@ LY_DEFINE (ly_music_duration_compress, "ly:music-duration-compress", 2, 0, 0,
   LY_ASSERT_SMOB (Music, mus, 1);
   LY_ASSERT_SMOB (Moment, fact, 2);
 
-  Music *m = Music::unsmob (mus);
-  Moment *f = Moment::unsmob (fact);
+  Music *m = unsmob<Music> (mus);
+  Moment *f = unsmob<Moment> (fact);
 
-  Duration *d = Duration::unsmob (m->get_property ("duration"));
+  Duration *d = unsmob<Duration> (m->get_property ("duration"));
   if (d)
     m->set_property ("duration", d->compressed (f->main_part_).smobbed_copy ());
   return SCM_UNSPECIFIED;
@@ -236,7 +236,7 @@ LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
            " pitch @var{pit}.")
 {
   SCM newlist = SCM_EOL;
-  Pitch *p = Pitch::unsmob (pit);
+  Pitch *p = unsmob<Pitch> (pit);
 
   for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
     {

@@ -89,7 +89,7 @@ Axis_group_engraver::process_music ()
   if (!staffline_ && active_)
     {
       staffline_ = get_spanner ();
-      Grob *it = Grob::unsmob (get_property ("currentCommandColumn"));
+      Grob *it = unsmob<Grob> (get_property ("currentCommandColumn"));
       staffline_->set_bound (LEFT, it);
     }
   interesting_ = get_property ("keepAliveInterfaces");
@@ -106,7 +106,7 @@ Axis_group_engraver::finalize ()
 {
   if (staffline_)
     {
-      Grob *it = Grob::unsmob (get_property ("currentCommandColumn"));
+      Grob *it = unsmob<Grob> (get_property ("currentCommandColumn"));
       staffline_->set_bound (RIGHT, it);
 
       Pointer_group_interface::set_ordered (staffline_, ly_symbol2scm ("elements"), false);
@@ -141,7 +141,7 @@ Axis_group_engraver::process_acknowledged ()
 
   for (vsize i = 0; i < elts_.size (); i++)
     {
-      if (!Grob::is_smob (elts_[i]->get_object ("axis-group-parent-Y")))
+      if (!unsmob<Grob> (elts_[i]->get_object ("axis-group-parent-Y")))
         {
           if (staffline_->get_parent (Y_AXIS)
               && staffline_->get_parent (Y_AXIS) == elts_[i])

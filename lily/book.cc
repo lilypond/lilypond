@@ -72,9 +72,9 @@ Book::Book (Book const &s)
     {
       SCM entry = scm_car (p);
 
-      if (Score *newscore = Score::unsmob (entry))
+      if (Score *newscore = unsmob<Score> (entry))
         * t = scm_cons (newscore->clone ()->unprotect (), SCM_EOL);
-      else if (Page_marker *marker = Page_marker::unsmob (entry))
+      else if (Page_marker *marker = unsmob<Page_marker> (entry))
         * t = scm_cons (marker->clone ()->unprotect (), SCM_EOL);
       else
         {
@@ -87,7 +87,7 @@ Book::Book (Book const &s)
   t = &bookparts_;
   for (SCM p = s.bookparts_; scm_is_pair (p); p = scm_cdr (p))
     {
-      Book *newpart = Book::unsmob (scm_car (p))->clone ();
+      Book *newpart = unsmob<Book> (scm_car (p))->clone ();
 
       *t = scm_cons (newpart->self_scm (), SCM_EOL);
       t = SCM_CDRLOC (*t);
@@ -98,7 +98,7 @@ Book::Book (Book const &s)
 Input *
 Book::origin () const
 {
-  return Input::unsmob (input_location_);
+  return unsmob<Input> (input_location_);
 }
 
 Book::~Book ()
@@ -168,7 +168,7 @@ void
 Book::add_bookpart (SCM b)
 {
   add_scores_to_bookpart ();
-  Book *part = Book::unsmob (b);
+  Book *part = unsmob<Book> (b);
   part->set_parent (this);
   bookparts_ = scm_cons (b, bookparts_);
 }
@@ -177,12 +177,12 @@ bool
 Book::error_found ()
 {
   for (SCM s = scores_; scm_is_pair (s); s = scm_cdr (s))
-    if (Score *score = Score::unsmob (scm_car (s)))
+    if (Score *score = unsmob<Score> (scm_car (s)))
       if (score->error_found_)
         return true;
 
   for (SCM part = bookparts_; scm_is_pair (part); part = scm_cdr (part))
-    if (Book *bookpart = Book::unsmob (scm_car (part)))
+    if (Book *bookpart = unsmob<Book> (scm_car (part)))
       if (bookpart->error_found ())
         return true;
 
@@ -202,7 +202,7 @@ Book::process_bookparts (Paper_book *output_paper_book, Output_def *paper, Outpu
   add_scores_to_bookpart ();
   for (SCM p = scm_reverse (bookparts_); scm_is_pair (p); p = scm_cdr (p))
     {
-      if (Book *book = Book::unsmob (scm_car (p)))
+      if (Book *book = unsmob<Book> (scm_car (p)))
         {
           Paper_book *paper_book_part = book->process (paper, layout, output_paper_book);
           if (paper_book_part)
@@ -219,14 +219,14 @@ Book::process_bookparts (Paper_book *output_paper_book, Output_def *paper, Outpu
 void
 Book::process_score (SCM s, Paper_book *output_paper_book, Output_def *layout)
 {
-  if (Score *score = Score::unsmob (scm_car (s)))
+  if (Score *score = unsmob<Score> (scm_car (s)))
     {
       SCM outputs = score
                     ->book_rendering (output_paper_book->paper_, layout);
 
       while (scm_is_pair (outputs))
         {
-          Music_output *output = Music_output::unsmob (scm_car (outputs));
+          Music_output *output = unsmob<Music_output> (scm_car (outputs));
 
           if (Performance *perf = dynamic_cast<Performance *> (output))
             output_paper_book->add_performance (perf->self_scm ());
@@ -241,7 +241,7 @@ Book::process_score (SCM s, Paper_book *output_paper_book, Output_def *layout)
         }
     }
   else if (Text_interface::is_markup_list (scm_car (s))
-           || Page_marker::is_smob (scm_car (s)))
+           || unsmob<Page_marker> (scm_car (s)))
     output_paper_book->add_score (scm_car (s));
   else
     assert (0);

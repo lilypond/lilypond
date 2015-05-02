@@ -29,7 +29,7 @@
 void
 Engraver_group::override (SCM sev)
 {
-  Stream_event *ev = Stream_event::unsmob (sev);
+  Stream_event *ev = unsmob<Stream_event> (sev);
 
   Grob_property_info (context (), ev->get_property ("symbol"))
     .push (ev->get_property ("property-path"),
@@ -39,7 +39,7 @@ Engraver_group::override (SCM sev)
 void
 Engraver_group::revert (SCM sev)
 {
-  Stream_event *ev = Stream_event::unsmob (sev);
+  Stream_event *ev = unsmob<Stream_event> (sev);
 
   Grob_property_info (context (), ev->get_property ("symbol"))
     .pop (ev->get_property ("property-path"));
@@ -117,7 +117,7 @@ Engraver_group::acknowledge_grobs ()
         }
 
       Engraver_dispatch_list *dispatch
-        = Engraver_dispatch_list::unsmob (acklist);
+        = unsmob<Engraver_dispatch_list> (acklist);
 
       if (dispatch)
         dispatch->apply (info);
@@ -136,7 +136,7 @@ Engraver_group::pending_grobs () const
   for (SCM s = context_->children_contexts ();
        scm_is_pair (s); s = scm_cdr (s))
     {
-      Context *c = Context::unsmob (scm_car (s));
+      Context *c = unsmob<Context> (scm_car (s));
       Engraver_group *group
         = dynamic_cast<Engraver_group *> (c->implementation ());
 
@@ -157,7 +157,7 @@ Engraver_group::do_announces ()
       for (SCM s = context ()->children_contexts ();
            scm_is_pair (s); s = scm_cdr (s))
         {
-          Context *c = Context::unsmob (scm_car (s));
+          Context *c = unsmob<Context> (scm_car (s));
           Engraver_group *group
             = dynamic_cast<Engraver_group *> (c->implementation ());
           if (group)

@@ -133,7 +133,7 @@ MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_connect_to_neighbors, 1);
 SCM
 Tuplet_bracket::calc_connect_to_neighbors (SCM smob)
 {
-  Spanner *me = Spanner::unsmob (smob);
+  Spanner *me = unsmob<Spanner> (smob);
 
   Direction dir = get_grob_direction (me);
   Drul_array<Item *> bounds (get_x_bound_item (me, LEFT, dir),
@@ -184,7 +184,7 @@ MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_x_positions, 1)
 SCM
 Tuplet_bracket::calc_x_positions (SCM smob)
 {
-  Spanner *me = Spanner::unsmob (smob);
+  Spanner *me = unsmob<Spanner> (smob);
   extract_grob_set (me, "note-columns", columns);
 
   Grob *commonx = get_common_x (me);
@@ -255,7 +255,7 @@ MAKE_SCHEME_CALLBACK (Tuplet_bracket, print, 1);
 SCM
 Tuplet_bracket::print (SCM smob)
 {
-  Spanner *me = Spanner::unsmob (smob);
+  Spanner *me = unsmob<Spanner> (smob);
   Stencil mol;
 
   extract_grob_set (me, "note-columns", columns);
@@ -303,7 +303,7 @@ Tuplet_bracket::print (SCM smob)
 
   Output_def *pap = me->layout ();
 
-  Grob *number_grob = Grob::unsmob (me->get_object ("tuplet-number"));
+  Grob *number_grob = unsmob<Grob> (me->get_object ("tuplet-number"));
 
   /*
     Don't print the bracket when it would be smaller than the number.
@@ -364,7 +364,7 @@ Tuplet_bracket::print (SCM smob)
                         = Text_interface::interpret_markup (pap->self_scm (),
                                                             properties, text);
 
-                      Stencil *edge_text = Stencil::unsmob (t);
+                      Stencil *edge_text = unsmob<Stencil> (t);
                       edge_text->translate_axis (x_span[d] - x_span[LEFT],
                                                  X_AXIS);
                       edge_stencils[d] = *edge_text;
@@ -632,7 +632,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
         }
 
       // Check for number-on-bracket collisions
-      Grob *number = Grob::unsmob (tuplets[i]->get_object ("tuplet-number"));
+      Grob *number = unsmob<Grob> (tuplets[i]->get_object ("tuplet-number"));
       if (number)
         points.push_back (Offset (number->extent (commonx, X_AXIS).center () - x0,
                                   number->extent (commony, Y_AXIS)[dir]));
@@ -651,7 +651,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
 
           // assume that if a script is avoiding slurs, it should not get placed
           // under a tuplet bracket
-          if (Grob::is_smob (scripts[i]->get_object ("slur")))
+          if (unsmob<Grob> (scripts[i]->get_object ("slur")))
             continue;
 
           Interval script_x (scripts[i]->extent (commonx, X_AXIS));
@@ -701,7 +701,7 @@ MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_direction, 1);
 SCM
 Tuplet_bracket::calc_direction (SCM smob)
 {
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
   Direction dir = Tuplet_bracket::get_default_dir (me);
   return scm_from_int (dir);
 }
@@ -710,7 +710,7 @@ MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_positions, 1);
 SCM
 Tuplet_bracket::calc_positions (SCM smob)
 {
-  Spanner *me = Spanner::unsmob (smob);
+  Spanner *me = unsmob<Spanner> (smob);
 
   Real dy = 0.0;
   Real offset = 0.0;
@@ -787,7 +787,7 @@ MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_cross_staff, 1);
 SCM
 Tuplet_bracket::calc_cross_staff (SCM smob)
 {
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
   extract_grob_set (me, "note-columns", cols);
   extract_grob_set (me, "tuplets", tuplets);
 
@@ -806,7 +806,7 @@ Tuplet_bracket::calc_cross_staff (SCM smob)
 
   for (vsize i = 0; i < cols.size (); i++)
     {
-      Grob *stem = Grob::unsmob (cols[i]->get_object ("stem"));
+      Grob *stem = unsmob<Grob> (cols[i]->get_object ("stem"));
       if (stem && to_boolean (stem->get_property ("cross-staff")))
         return SCM_BOOL_T;
     }

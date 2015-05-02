@@ -76,7 +76,7 @@ Text_interface::interpret_string (SCM layout_smob,
   LY_ASSERT_TYPE (scm_is_string, markup, 3);
 
   string str = ly_scm2string (markup);
-  Output_def *layout = Output_def::unsmob (layout_smob);
+  Output_def *layout = unsmob<Output_def> (layout_smob);
   Font_metric *fm = select_encoded_font (layout, props);
 
   replace_special_characters (str, props);
@@ -159,7 +159,7 @@ MAKE_SCHEME_CALLBACK (Text_interface, print, 1);
 SCM
 Text_interface::print (SCM grob)
 {
-  Grob *me = Grob::unsmob (grob);
+  Grob *me = unsmob<Grob> (grob);
 
   SCM t = me->get_property ("text");
   SCM chain = Font_interface::text_font_alist_chain (me);

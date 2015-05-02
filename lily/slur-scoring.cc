@@ -106,7 +106,7 @@ Slur_score_state::slur_direction () const
 Encompass_info
 Slur_score_state::get_encompass_info (Grob *col) const
 {
-  Grob *stem = Grob::unsmob (col->get_object ("stem"));
+  Grob *stem = unsmob<Grob> (col->get_object ("stem"));
   Encompass_info ei;
 
   if (!stem)
@@ -331,7 +331,7 @@ MAKE_SCHEME_CALLBACK (Slur, calc_control_points, 1)
 SCM
 Slur::calc_control_points (SCM smob)
 {
-  Spanner *me = Spanner::unsmob (smob);
+  Spanner *me = unsmob<Spanner> (smob);
 
   Slur_score_state state;
   state.fill (me);

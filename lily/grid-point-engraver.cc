@@ -35,7 +35,7 @@ void
 Grid_point_engraver::process_music ()
 {
   SCM grid_interval = get_property ("gridInterval");
-  if (Moment *mom = Moment::unsmob (grid_interval))
+  if (Moment *mom = unsmob<Moment> (grid_interval))
     {
       Moment now = now_mom ();
 

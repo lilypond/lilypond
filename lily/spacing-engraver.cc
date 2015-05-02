@@ -123,7 +123,7 @@ Spacing_engraver::start_spanner ()
 
   spacing_ = make_spanner ("SpacingSpanner", SCM_EOL);
   spacing_->set_bound (LEFT,
-                       Grob::unsmob (get_property ("currentCommandColumn")));
+                       unsmob<Grob> (get_property ("currentCommandColumn")));
 }
 
 void
@@ -137,7 +137,7 @@ Spacing_engraver::stop_spanner ()
 {
   if (spacing_)
     {
-      Grob *p = Grob::unsmob (get_property ("currentCommandColumn"));
+      Grob *p = unsmob<Grob> (get_property ("currentCommandColumn"));
 
       spacing_->set_bound (RIGHT, p);
       spacing_ = 0;
@@ -194,17 +194,17 @@ void
 Spacing_engraver::stop_translation_timestep ()
 {
   Paper_column *musical_column
-    = derived_unsmob<Paper_column> (get_property ("currentMusicalColumn"));
+    = unsmob<Paper_column> (get_property ("currentMusicalColumn"));
 
   if (!spacing_)
     start_spanner ();
 
   musical_column->set_object ("spacing", spacing_->self_scm ());
-  Grob::unsmob (get_property ("currentCommandColumn"))
+  unsmob<Grob> (get_property ("currentCommandColumn"))
   ->set_object ("spacing", spacing_->self_scm ());
 
   SCM proportional = get_property ("proportionalNotationDuration");
-  if (Moment::is_smob (proportional))
+  if (unsmob<Moment> (proportional))
     {
       musical_column->set_property ("shortest-playing-duration", proportional);
       musical_column->set_property ("shortest-starter-duration", proportional);

@@ -47,7 +47,7 @@ using namespace std;
     efficient to add "fresh" stencils to what you're going to build.
 
     * Do not create Stencil objects on the heap. That includes passing
-    around Stencil* which are produced by Stencil::unsmob(). Either
+    around Stencil* which are produced by unsmob<Stencil>(). Either
     copy Stencil objects, or use SCM references.
 
     * Empty stencils have empty dimensions.  If add_at_edge is used to

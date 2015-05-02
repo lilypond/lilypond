@@ -90,13 +90,13 @@ Moment
 Music::get_length () const
 {
   SCM lst = get_property ("length");
-  if (Moment::is_smob (lst))
-    return *Moment::unsmob (lst);
+  if (unsmob<Moment> (lst))
+    return *unsmob<Moment> (lst);
 
   if (ly_is_procedure (length_callback_))
     {
       SCM res = scm_call_1 (length_callback_, self_scm ());
-      return *Moment::unsmob (res);
+      return *unsmob<Moment> (res);
     }
 
   return Moment (0);
@@ -109,7 +109,7 @@ Music::start_mom () const
   if (ly_is_procedure (lst))
     {
       SCM res = scm_call_1 (lst, self_scm ());
-      return *Moment::unsmob (res);
+      return *unsmob<Moment> (res);
     }
 
   Moment m;
@@ -133,7 +133,7 @@ Pitch
 Music::generic_to_relative_octave (Pitch last)
 {
   SCM elt = get_property ("element");
-  Pitch *old_pit = Pitch::unsmob (get_property ("pitch"));
+  Pitch *old_pit = unsmob<Pitch> (get_property ("pitch"));
   if (old_pit)
     {
       Pitch new_pit = *old_pit;
@@ -157,7 +157,7 @@ Music::generic_to_relative_octave (Pitch last)
       last = new_pit;
     }
 
-  if (Music *m = Music::unsmob (elt))
+  if (Music *m = unsmob<Music> (elt))
     last = m->to_relative_octave (last);
 
   (void) music_list_to_relative (get_property ("articulations"), last, true);
@@ -171,7 +171,7 @@ Music::to_relative_octave (Pitch last)
   SCM callback = get_property ("to-relative-callback");
   if (ly_is_procedure (callback))
     {
-      Pitch *p = Pitch::unsmob (scm_call_2 (callback, self_scm (),
+      Pitch *p = unsmob<Pitch> (scm_call_2 (callback, self_scm (),
                                            last.smobbed_copy ()));
       return *p;
     }
@@ -184,11 +184,11 @@ Music::compress (Moment factor)
 {
   SCM elt = get_property ("element");
 
-  if (Music *m = Music::unsmob (elt))
+  if (Music *m = unsmob<Music> (elt))
     m->compress (factor);
 
   compress_music_list (get_property ("elements"), factor);
-  Duration *d = Duration::unsmob (get_property ("duration"));
+  Duration *d = unsmob<Duration> (get_property ("duration"));
   if (d)
     set_property ("duration",
                   d->compressed (factor.main_part_).smobbed_copy ());
@@ -207,7 +207,7 @@ transpose_mutable (SCM alist, Pitch delta)
       SCM val = scm_cdr (entry);
       SCM new_val = val;
 
-      if (Pitch *p = Pitch::unsmob (val))
+      if (Pitch *p = unsmob<Pitch> (val))
         {
           Pitch transposed = p->transposed (delta);
 
@@ -219,7 +219,7 @@ transpose_mutable (SCM alist, Pitch delta)
         }
       else if (scm_is_eq (prop, ly_symbol2scm ("element")))
         {
-          if (Music *m = Music::unsmob (val))
+          if (Music *m = unsmob<Music> (val))
             m->transpose (delta);
         }
       else if (scm_is_eq (prop, ly_symbol2scm ("elements"))
@@ -252,7 +252,7 @@ Music::set_spot (Input ip)
 Input *
 Music::origin () const
 {
-  Input *ip = Input::unsmob (get_property ("origin"));
+  Input *ip = unsmob<Input> (get_property ("origin"));
   return ip ? ip : &dummy_input_global;
 }
 
@@ -282,7 +282,7 @@ Music::to_event () const
       SCM art_ev = SCM_EOL;
       for (; scm_is_pair (art_mus); art_mus = scm_cdr (art_mus))
         {
-          Music *m = Music::unsmob (scm_car (art_mus));
+          Music *m = unsmob<Music> (scm_car (art_mus));
           art_ev = scm_cons (m->to_event ()->unprotect (), art_ev);
         }
       e->set_property ("articulations", scm_reverse_x (art_ev, SCM_EOL));
@@ -312,7 +312,7 @@ make_music_by_name (SCM sym)
   SCM rv = scm_call_1 (make_music_proc, sym);
 
   /* UGH. */
-  Music *m = Music::unsmob (rv);
+  Music *m = unsmob<Music> (rv);
   m->protect ();
   return m;
 }
@@ -321,8 +321,8 @@ MAKE_SCHEME_CALLBACK (Music, duration_length_callback, 1);
 SCM
 Music::duration_length_callback (SCM m)
 {
-  Music *me = Music::unsmob (m);
-  Duration *d = Duration::unsmob (me->get_property ("duration"));
+  Music *me = unsmob<Music> (m);
+  Duration *d = unsmob<Duration> (me->get_property ("duration"));
 
   Moment mom;
   if (d)

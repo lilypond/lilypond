@@ -144,9 +144,9 @@ Ambitus_engraver::acknowledge_note_head (Grob_info info)
         If the engraver is added to a percussion context,
         filter out unpitched note heads.
       */
-      if (!Pitch::is_smob (p))
+      if (!unsmob<Pitch> (p))
         return;
-      Pitch pitch = *Pitch::unsmob (p);
+      Pitch pitch = *unsmob<Pitch> (p);
       Drul_array<bool> expands = pitch_interval_.add_point (pitch);
       if (expands[UP])
         causes_[UP] = nr;

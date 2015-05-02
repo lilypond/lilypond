@@ -97,12 +97,10 @@
 
   CALLING INTERFACE
 
-  Common public methods to C++ smob objects:
+  Common global functions for accessing C++ smob objects:
 
-  - unsmob (SCM x) - unpacks X and returns pointer to the C++ object,
-    or 0 if it has the wrong type.  This can be used as a boolean
-    condition at C++ level.
-  - smob_p (SCM x) returns #t or #f at Scheme level.
+  - unsmob<T> (SCM x) - unpack X and return a pointer to the C++ object,
+    or 0 if it has the wrong type.
 
   IMPLEMENTATION
 
@@ -153,11 +151,11 @@ class Smob_base
   static Scm_init scm_init_;
   static void init (void);
   static string smob_name_;
+protected:
   static Super *unchecked_unsmob (SCM s)
   {
     return reinterpret_cast<Super *> (SCM_SMOB_DATA (s));
   }
-protected:
   // reference scm_init_ in smob_tag which is sure to be called.  The
   // constructor, in contrast, may not be called at all in classes
   // like Smob1.
@@ -237,7 +235,6 @@ private:
     return (Super::unchecked_unsmob (self)->*pmf)(arg1, arg2, arg3);
   }
 
-public:
   static bool is_smob (SCM s)
   {
     return SCM_SMOB_PREDICATE (smob_tag (), s);
@@ -246,18 +243,18 @@ public:
   {
     return is_smob (s) ? SCM_BOOL_T : SCM_BOOL_F;
   }
-  static Super *unsmob (SCM s)
-  {
-    return is_smob (s) ? Super::unchecked_unsmob (s) : 0;
-  }
+
+  template <class T>
+  friend T *unsmob (SCM s);
+
+  template <class T>
+  friend T *ly_assert_smob (SCM s, int number, const char *fun);
 };
 
-// derived_unsmob includes a dynamic_cast:
-
 template <class T>
-inline T *derived_unsmob (SCM arg)
+inline T *unsmob (SCM s)
 {
-  return dynamic_cast<T *> (T::unsmob (arg));
+  return T::is_smob (s) ? dynamic_cast<T *> (T::unchecked_unsmob (s)) : 0;
 }
 
 // Simple smobs

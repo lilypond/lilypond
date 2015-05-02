@@ -36,7 +36,7 @@ MAKE_SCHEME_CALLBACK (Align_interface, align_to_minimum_distances, 1);
 SCM
 Align_interface::align_to_minimum_distances (SCM smob)
 {
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
 
   me->set_property ("positioning-done", SCM_BOOL_T);
 
@@ -52,7 +52,7 @@ MAKE_SCHEME_CALLBACK (Align_interface, align_to_ideal_distances, 1);
 SCM
 Align_interface::align_to_ideal_distances (SCM smob)
 {
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
 
   me->set_property ("positioning-done", SCM_BOOL_T);
 
@@ -76,7 +76,7 @@ get_skylines (Grob *g,
 
   if (!pure)
     {
-      Skyline_pair *skys = Skyline_pair::unsmob (g->get_property (a == Y_AXIS
+      Skyline_pair *skys = unsmob<Skyline_pair> (g->get_property (a == Y_AXIS
                                                                   ? "vertical-skylines"
                                                                   : "horizontal-skylines"));
       if (skys)
@@ -353,11 +353,11 @@ void
 Align_interface::set_ordered (Grob *me)
 {
   SCM ga_scm = me->get_object ("elements");
-  Grob_array *ga = Grob_array::unsmob (ga_scm);
+  Grob_array *ga = unsmob<Grob_array> (ga_scm);
   if (!ga)
     {
       ga_scm = Grob_array::make_array ();
-      ga = Grob_array::unsmob (ga_scm);
+      ga = unsmob<Grob_array> (ga_scm);
       me->set_object ("elements", ga_scm);
     }
 

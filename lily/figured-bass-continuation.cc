@@ -41,7 +41,7 @@ MAKE_SCHEME_CALLBACK (Figured_bass_continuation, center_on_figures, 1);
 SCM
 Figured_bass_continuation::center_on_figures (SCM grob)
 {
-  Spanner *me = Spanner::unsmob (grob);
+  Spanner *me = unsmob<Spanner> (grob);
   extract_grob_set (me, "figures", figures);
   if (figures.empty ())
     return scm_from_double (0.0);
@@ -57,7 +57,7 @@ MAKE_SCHEME_CALLBACK (Figured_bass_continuation, print, 1);
 SCM
 Figured_bass_continuation::print (SCM grob)
 {
-  Spanner *me = Spanner::unsmob (grob);
+  Spanner *me = unsmob<Spanner> (grob);
 
   Real thick
     = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))

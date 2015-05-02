@@ -44,7 +44,7 @@ Page_layout_problem::get_footnote_grobs (SCM lines)
   vector<Grob *> footnotes;
   for (SCM s = lines; scm_is_pair (s); s = scm_cdr (s))
     {
-      if (Grob *g = Grob::unsmob (scm_car (s)))
+      if (Grob *g = unsmob<Grob> (scm_car (s)))
         {
           System *sys = dynamic_cast<System *> (g);
           if (!sys)
@@ -55,7 +55,7 @@ Page_layout_problem::get_footnote_grobs (SCM lines)
           extract_grob_set (sys, "footnotes-after-line-breaking", footnote_grobs);
           footnotes.insert (footnotes.end (), footnote_grobs.begin (), footnote_grobs.end ());
         }
-      else if (Prob *p = Prob::unsmob (scm_car (s)))
+      else if (Prob *p = unsmob<Prob> (scm_car (s)))
         {
           SCM stencils = p->get_property ("footnotes");
           if (scm_is_null (stencils))
@@ -82,9 +82,9 @@ Page_layout_problem::get_footnotes_from_lines (SCM lines)
     return SCM_EOL;
 
   bool footnotes_added;
-  if (Grob *g = Grob::unsmob (scm_car (lines)))
+  if (Grob *g = unsmob<Grob> (scm_car (lines)))
     footnotes_added = !scm_is_null (g->get_property ("footnote-stencil"));
-  else if (Prob *p = Prob::unsmob (scm_car (lines)))
+  else if (Prob *p = unsmob<Prob> (scm_car (lines)))
     footnotes_added = !scm_is_null (p->get_property ("footnote-stencil"));
   else
     {
@@ -100,9 +100,9 @@ Page_layout_problem::get_footnotes_from_lines (SCM lines)
   SCM out = SCM_EOL;
   for (SCM s = lines; scm_is_pair (s); s = scm_cdr (s))
     {
-      if (Grob *g = Grob::unsmob (scm_car (s)))
+      if (Grob *g = unsmob<Grob> (scm_car (s)))
         out = scm_cons (g->get_property ("footnote-stencil"), out);
-      else if (Prob *p = Prob::unsmob (scm_car (s)))
+      else if (Prob *p = unsmob<Prob> (scm_car (s)))
         out = scm_cons (p->get_property ("footnote-stencil"), out);
       else
         programming_error ("Systems on a page must be a prob or grob.");
@@ -175,13 +175,13 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, int counter, Paper_book 
         }
       SCM markup = scm_call_1 (numbering_function, scm_from_int (counter));
       SCM stencil = Text_interface::interpret_markup (layout, props, markup);
-      Stencil *st = Stencil::unsmob (stencil);
+      Stencil *st = unsmob<Stencil> (stencil);
       if (!st)
         {
           programming_error ("Your numbering function needs to return a stencil.");
           markup = SCM_EOL;
           stencil = Stencil (Box (Interval (0, 0), Interval (0, 0)), SCM_EOL).smobbed_copy ();
-          st = Stencil::unsmob (stencil);
+          st = unsmob<Stencil> (stencil);
         }
       in_text_numbers = scm_cons (markup, in_text_numbers);
       numbers = scm_cons (stencil, numbers);
@@ -202,7 +202,7 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, int counter, Paper_book 
 
   for (SCM p = numbers; scm_is_pair (p); p = scm_cdr (p))
     {
-      Stencil *st = Stencil::unsmob (scm_car (p));
+      Stencil *st = unsmob<Stencil> (scm_car (p));
       if (!st->extent (X_AXIS).is_empty ())
         st->translate_axis ((max_length - st->extent (X_AXIS)[RIGHT]),
                             X_AXIS);
@@ -213,7 +213,7 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, int counter, Paper_book 
   for (SCM s = lines; scm_is_pair (s); s = scm_cdr (s))
     {
       // Take care of musical systems.
-      if (Grob *g = Grob::unsmob (scm_car (s)))
+      if (Grob *g = unsmob<Grob> (scm_car (s)))
         {
           System *sys = dynamic_cast<System *> (g);
           if (!sys)
@@ -238,7 +238,7 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, int counter, Paper_book 
               SCM footnote_stl = Text_interface::interpret_markup (paper->self_scm (),
                                                                    props, footnote_markup);
 
-              Stencil footnote_stencil = *Stencil::unsmob (footnote_stl);
+              Stencil footnote_stencil = *unsmob<Stencil> (footnote_stl);
               bool do_numbering = to_boolean (footnote->get_property ("automatically-numbered"));
               if (Spanner *orig = dynamic_cast<Spanner *>(footnote))
                 {
@@ -259,7 +259,7 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, int counter, Paper_book 
                           orig->broken_intos_[i]->set_property ("text", annotation_scm);
                     }
 
-                  Stencil annotation = *Stencil::unsmob (scm_car (numbers));
+                  Stencil annotation = *unsmob<Stencil> (scm_car (numbers));
                   annotation.translate_axis ((footnote_stencil.extent (Y_AXIS)[UP]
                                               + number_raise
                                               - annotation.extent (Y_AXIS)[UP]),
@@ -280,24 +280,24 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, int counter, Paper_book 
           sys->set_property ("footnote-stencil", mol.smobbed_copy ());
         }
       // Take care of top-level markups
-      else if (Prob *p = Prob::unsmob (scm_car (s)))
+      else if (Prob *p = unsmob<Prob> (scm_car (s)))
         {
           SCM stencils = p->get_property ("footnotes");
           Stencil mol;
 
           for (SCM st = stencils; scm_is_pair (st); st = scm_cdr (st))
             {
-              Stencil footnote_stencil = *Stencil::unsmob (scm_caddar (st));
+              Stencil footnote_stencil = *unsmob<Stencil> (scm_caddar (st));
               bool do_numbering = to_boolean (scm_cadar (st));
               SCM in_text_stencil = Stencil ().smobbed_copy ();
               if (do_numbering)
                 {
-                  Stencil annotation = *Stencil::unsmob (scm_car (numbers));
+                  Stencil annotation = *unsmob<Stencil> (scm_car (numbers));
                   SCM in_text_annotation = scm_car (in_text_numbers);
                   in_text_stencil = Text_interface::interpret_markup (layout,
                                                                       props,
                                                                       in_text_annotation);
-                  if (!Stencil::is_smob (in_text_stencil))
+                  if (!unsmob<Stencil> (in_text_stencil))
                     in_text_stencil = SCM_EOL;
                   annotation.translate_axis ((footnote_stencil.extent (Y_AXIS)[UP]
                                               + number_raise
@@ -335,7 +335,7 @@ Page_layout_problem::get_footnote_separator_stencil (Output_def *paper)
   SCM footnote_stencil = Text_interface::interpret_markup (paper->self_scm (),
                                                            props, markup);
 
-  Stencil *footnote_separator = Stencil::unsmob (footnote_stencil);
+  Stencil *footnote_separator = unsmob<Stencil> (footnote_stencil);
 
   return footnote_separator ? *footnote_separator : Stencil ();
 }
@@ -352,7 +352,7 @@ Page_layout_problem::add_footnotes_to_footer (SCM footnotes, Stencil foot, Paper
 
   for (SCM s = footnotes; scm_is_pair (s); s = scm_cdr (s))
     {
-      Stencil *stencil = Stencil::unsmob (scm_car (s));
+      Stencil *stencil = unsmob<Stencil> (scm_car (s));
 
       if (!stencil)
         continue;
@@ -377,7 +377,7 @@ Page_layout_problem::add_footnotes_to_footer (SCM footnotes, Stencil foot, Paper
 Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM systems)
   : bottom_skyline_ (DOWN)
 {
-  Prob *page = Prob::unsmob (page_scm);
+  Prob *page = unsmob<Prob> (page_scm);
   bottom_loose_baseline_ = 0;
   header_height_ = 0;
   footer_height_ = 0;
@@ -388,8 +388,8 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
 
   if (page)
     {
-      Stencil *head = Stencil::unsmob (page->get_property ("head-stencil"));
-      Stencil *foot = Stencil::unsmob (page->get_property ("foot-stencil"));
+      Stencil *head = unsmob<Stencil> (page->get_property ("head-stencil"));
+      Stencil *foot = unsmob<Stencil> (page->get_property ("foot-stencil"));
 
       Stencil foot_stencil = foot ? *foot : Stencil ();
 
@@ -433,7 +433,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
       markup_markup_spacing = paper->c_variable ("markup-markup-spacing");
       last_bottom_spacing = paper->c_variable ("last-bottom-spacing");
       top_system_spacing = paper->c_variable ("top-system-spacing");
-      if (scm_is_pair (systems) && Prob::is_smob (scm_car (systems)))
+      if (scm_is_pair (systems) && unsmob<Prob> (scm_car (systems)))
         top_system_spacing = paper->c_variable ("top-markup-spacing");
 
       // Note: the page height here does _not_ reserve space for headers and
@@ -453,7 +453,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
     {
       bool first = (s == systems);
 
-      if (Grob *g = Grob::unsmob (scm_car (s)))
+      if (Grob *g = unsmob<Grob> (scm_car (s)))
         {
           System *sys = dynamic_cast<System *> (g);
           if (!sys)
@@ -479,7 +479,7 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm, SCM syst
           append_system (sys, spring, indent, padding);
           last_system_was_title = false;
         }
-      else if (Prob *p = Prob::unsmob (scm_car (s)))
+      else if (Prob *p = unsmob<Prob> (scm_car (s)))
         {
           SCM spec = first ? top_system_spacing
                      : (last_system_was_title ? markup_markup_spacing : score_markup_spacing);
@@ -538,7 +538,7 @@ Page_layout_problem::set_footer_height (Real height)
 void
 Page_layout_problem::append_system (System *sys, Spring const &spring, Real indent, Real padding)
 {
-  Grob *align = Grob::unsmob (sys->get_object ("vertical-alignment"));
+  Grob *align = unsmob<Grob> (sys->get_object ("vertical-alignment"));
   if (!align)
     return;
 
@@ -554,7 +554,7 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
   build_system_skyline (elts, minimum_offsets_with_min_dist, &up_skyline, &down_skyline);
   up_skyline.shift (indent);
   down_skyline.shift (indent);
-  Stencil *in_note_stencil = Stencil::unsmob (sys->get_property ("in-note-stencil"));
+  Stencil *in_note_stencil = unsmob<Stencil> (sys->get_property ("in-note-stencil"));
 
   if (in_note_stencil && in_note_stencil->extent (Y_AXIS).length () > 0)
     {
@@ -587,7 +587,7 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
       // store the minimum distance, considering relative indents,
       // for a loose line
       Skyline first_skyline (UP);
-      Skyline_pair *sky = Skyline_pair::unsmob (elts[0]->get_property ("vertical-skylines"));
+      Skyline_pair *sky = unsmob<Skyline_pair> (elts[0]->get_property ("vertical-skylines"));
       if (sky)
         first_skyline.merge ((*sky)[UP]);
       first_skyline.shift (indent);
@@ -659,7 +659,7 @@ Page_layout_problem::append_system (System *sys, Spring const &spring, Real inde
 void
 Page_layout_problem::append_prob (Prob *prob, Spring const &spring, Real padding)
 {
-  Skyline_pair *sky = Skyline_pair::unsmob (prob->get_property ("vertical-skylines"));
+  Skyline_pair *sky = unsmob<Skyline_pair> (prob->get_property ("vertical-skylines"));
   Real minimum_distance = 0;
   bool tight_spacing = to_boolean (prob->get_property ("tight-spacing"));
 
@@ -669,7 +669,7 @@ Page_layout_problem::append_prob (Prob *prob, Spring const &spring, Real padding
                               bottom_loose_baseline_);
       bottom_skyline_ = (*sky)[DOWN];
     }
-  else if (Stencil *sten = Stencil::unsmob (prob->get_property ("stencil")))
+  else if (Stencil *sten = unsmob<Stencil> (prob->get_property ("stencil")))
     {
       Interval iv = sten->extent (Y_AXIS);
       minimum_distance = iv[UP] - bottom_skyline_.max_height ();
@@ -772,7 +772,7 @@ Page_layout_problem::find_system_offsets ()
         {
           *tail = scm_cons (scm_from_double (solution_[spring_idx]), SCM_EOL);
           tail = SCM_CDRLOC (*tail);
-          Interval prob_extent = Stencil::unsmob (elements_[i].prob->get_property ("stencil"))->extent (Y_AXIS);
+          Interval prob_extent = unsmob<Stencil> (elements_[i].prob->get_property ("stencil"))->extent (Y_AXIS);
 
           // Lay out any non-spaceable lines between this line and
           // the last one.
@@ -991,7 +991,7 @@ Page_layout_problem::build_system_skyline (vector<Grob *> const &staves,
     {
       Real dy = minimum_translations[i] - first_translation;
       Grob *g = staves[i];
-      Skyline_pair *sky = Skyline_pair::unsmob (g->get_property ("vertical-skylines"));
+      Skyline_pair *sky = unsmob<Skyline_pair> (g->get_property ("vertical-skylines"));
       if (sky)
         {
           up->raise (-dy);
@@ -1025,7 +1025,7 @@ Page_layout_problem::build_system_skyline (vector<Grob *> const &staves,
 Interval
 Page_layout_problem::prob_extent (Prob *p)
 {
-  Stencil *sten = Stencil::unsmob (p->get_property ("stencil"));
+  Stencil *sten = unsmob<Stencil> (p->get_property ("stencil"));
   return sten ? sten->extent (Y_AXIS) : Interval (0, 0);
 }
 

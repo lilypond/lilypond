@@ -28,9 +28,9 @@ LY_DEFINE (ly_pointer_group_interface__add_grob, "ly:pointer-group-interface::ad
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
   LY_ASSERT_SMOB (Grob, grob_element, 3);
 
-  Pointer_group_interface::add_grob (Grob::unsmob (grob),
+  Pointer_group_interface::add_grob (unsmob<Grob> (grob),
                                      sym,
-                                     Grob::unsmob (grob_element));
+                                     unsmob<Grob> (grob_element));
   return SCM_UNSPECIFIED;
 }
 

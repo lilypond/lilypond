@@ -263,7 +263,7 @@ generic_get_acknowledger (SCM sym, vector<Acknowledge_information> const *ack_ar
 Moment
 get_event_length (Stream_event *e)
 {
-  Moment *m = Moment::unsmob (e->get_property ("length"));
+  Moment *m = unsmob<Moment> (e->get_property ("length"));
   if (m)
     return *m;
   else

@@ -89,8 +89,8 @@ MAKE_SCHEME_CALLBACK (Property_iterator, once_finalization, 3);
 SCM
 Property_iterator::once_finalization (SCM ctx, SCM music, SCM previous_value)
 {
-  Music *m = Music::unsmob (music);
-  Context *c = Context::unsmob (ctx);
+  Music *m = unsmob<Music> (music);
+  Context *c = unsmob<Context> (ctx);
 
   // Do not use UnsetProperty, which sets the default, but rather
   // cache the value before the \once \set command and restore it now
@@ -159,8 +159,8 @@ MAKE_SCHEME_CALLBACK (Push_property_iterator, once_finalization, 2);
 SCM
 Push_property_iterator::once_finalization (SCM ctx, SCM music)
 {
-  Music *mus = Music::unsmob (music);
-  Context *c = Context::unsmob (ctx);
+  Music *mus = unsmob<Music> (music);
+  Context *c = unsmob<Context> (ctx);
 
   SCM sym = mus->get_property ("symbol");
   if (check_grob (mus, sym))

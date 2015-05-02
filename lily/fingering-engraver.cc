@@ -101,7 +101,7 @@ Fingering_engraver::make_script (Direction d, Stream_event *r, int i)
     junkme.
   */
   SCM pitch = r->get_property ("pitch");
-  if (Pitch::is_smob (pitch))
+  if (unsmob<Pitch> (pitch))
     fingering->set_property ("pitch", pitch);
 
   /*

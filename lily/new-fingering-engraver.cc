@@ -99,7 +99,7 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
 
   for (SCM s = arts; scm_is_pair (s); s = scm_cdr (s))
     {
-      Stream_event *ev = Stream_event::unsmob (scm_car (s));
+      Stream_event *ev = unsmob<Stream_event> (scm_car (s));
 
       if (!ev)
         continue;
@@ -132,7 +132,7 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
       else if (ev->in_event_class ("harmonic-event"))
         {
           inf.grob ()->set_property ("style", ly_symbol2scm ("harmonic"));
-          Grob *d = Grob::unsmob (inf.grob ()->get_object ("dot"));
+          Grob *d = unsmob<Grob> (inf.grob ()->get_object ("dot"));
           if (d && !to_boolean (get_property ("harmonicDots")))
             d->suicide ();
         }
@@ -197,7 +197,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
     if (stem_)
       {
         Side_position_interface::add_support (scripts->at (i).script_, stem_);
-        if (Grob *flag = Grob::unsmob (stem_->get_object ("flag")))
+        if (Grob *flag = unsmob<Grob> (stem_->get_object ("flag")))
           Side_position_interface::add_support (scripts->at (i).script_, flag);
       }
 
@@ -281,12 +281,12 @@ New_fingering_engraver::position_scripts (SCM orientations,
       f->set_parent (ft.head_, Y_AXIS);
       f->set_property ("avoid-slur", ly_symbol2scm ("inside"));
       if (hordir == LEFT
-          && Grob::is_smob (ft.head_->get_object ("accidental-grob")))
+          && unsmob<Grob> (ft.head_->get_object ("accidental-grob")))
         Side_position_interface::add_support (f,
-                                              Grob::unsmob (ft.head_->get_object ("accidental-grob")));
-      else if (Grob::is_smob (ft.head_->get_object ("dot")))
+                                              unsmob<Grob> (ft.head_->get_object ("accidental-grob")));
+      else if (unsmob<Grob> (ft.head_->get_object ("dot")))
         Side_position_interface::add_support (f,
-                                              Grob::unsmob (ft.head_->get_object ("dot")));
+                                              unsmob<Grob> (ft.head_->get_object ("dot")));
 
       Self_alignment_interface::set_aligned_on_parent (f, Y_AXIS);
       Side_position_interface::set_axis (f, X_AXIS);

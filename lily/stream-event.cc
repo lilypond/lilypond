@@ -54,7 +54,7 @@ Stream_event::copy_mutable_properties () const
 Input *
 Stream_event::origin () const
 {
-  Input *i = Input::unsmob (get_property ("origin"));
+  Input *i = unsmob<Input> (get_property ("origin"));
   return i ? i : &dummy_input_global;
 }
 
@@ -86,8 +86,8 @@ Stream_event::make_transposable ()
       SCM prop = scm_car (entry);
       SCM val = scm_cdr (entry);
 
-      if ((Pitch::is_smob (val)
-           || (scm_is_eq (prop, ly_symbol2scm ("element")) && Music::is_smob (val))
+      if ((unsmob<Pitch> (val)
+           || (scm_is_eq (prop, ly_symbol2scm ("element")) && unsmob<Music> (val))
            || (scm_is_eq (prop, ly_symbol2scm ("elements")) && scm_is_pair (val))
            || (scm_is_eq (prop, ly_symbol2scm ("pitch-alist")) && scm_is_pair (val)))
           && scm_is_false (scm_assq (prop, mutable_property_alist_)))
@@ -99,7 +99,7 @@ Stream_event::make_transposable ()
 SCM
 Stream_event::dump (SCM self)
 {
-  Stream_event *ev = Stream_event::unsmob (self);
+  Stream_event *ev = unsmob<Stream_event> (self);
   // Reversed alists look prettier.
   return scm_cons (scm_reverse (ev->immutable_property_alist_),
                    scm_reverse (ev->mutable_property_alist_));

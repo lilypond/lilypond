@@ -27,6 +27,6 @@ LY_DEFINE (ly_paper_score_paper_systems, "ly:paper-score-paper-systems",
 {
   LY_ASSERT_SMOB (Paper_score, paper_score, 1);
 
-  Paper_score *pscore = Paper_score::unsmob (paper_score);
+  Paper_score *pscore = unsmob<Paper_score> (paper_score);
   return pscore->get_paper_systems ();
 }

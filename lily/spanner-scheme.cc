@@ -28,7 +28,7 @@ LY_DEFINE (ly_spanner_bound, "ly:spanner-bound",
 {
   LY_ASSERT_SMOB (Spanner, spanner, 1);
   LY_ASSERT_TYPE (is_direction, dir, 2);
-  Item *bound = Spanner::unsmob (spanner)->get_bound (to_dir (dir));
+  Item *bound = unsmob<Spanner> (spanner)->get_bound (to_dir (dir));
   return bound ? bound->self_scm () : SCM_EOL;
 }
 
@@ -41,7 +41,7 @@ LY_DEFINE (ly_spanner_set_bound_x, "ly:spanner-set-bound!",
   LY_ASSERT_TYPE (is_direction, dir, 2);
   LY_ASSERT_SMOB (Item, item, 3);
 
-  Spanner::unsmob (spanner)->set_bound (to_dir (dir), Item::unsmob (item));
+  unsmob<Spanner> (spanner)->set_bound (to_dir (dir), unsmob<Item> (item));
   return SCM_UNSPECIFIED;
 }
 
@@ -51,8 +51,8 @@ LY_DEFINE (ly_spanner_broken_into, "ly:spanner-broken-into",
            1, 0, 0, (SCM spanner),
            "Return broken-into list for @var{spanner}.")
 {
-  LY_ASSERT_TYPE (Spanner::unsmob, spanner, 1);
-  Spanner *me = Spanner::unsmob (spanner);
+  LY_ASSERT_TYPE (unsmob<Spanner>, spanner, 1);
+  Spanner *me = unsmob<Spanner> (spanner);
 
   SCM s = SCM_EOL;
   for (vsize i = me->broken_intos_.size (); i--;)
@@ -64,7 +64,7 @@ LY_DEFINE (ly_spanner_p, "ly:spanner?",
            1, 0, 0, (SCM g),
            "Is @var{g} a spanner object?")
 {
-  Grob *me = Grob::unsmob (g);
+  Grob *me = unsmob<Grob> (g);
   bool b = dynamic_cast<Spanner *> (me);
 
   return ly_bool2scm (b);

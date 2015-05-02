@@ -106,7 +106,7 @@ Episema_engraver::typeset_all ()
         {
           Grob *col = (note_columns_.size ()
                        ? note_columns_.back ()
-                       : Grob::unsmob (get_property ("currentMusicalColumn")));
+                       : unsmob<Grob> (get_property ("currentMusicalColumn")));
           finished_->set_bound (RIGHT, col);
         }
       finished_ = 0;
@@ -120,7 +120,7 @@ Episema_engraver::stop_translation_timestep ()
     {
       Grob *col = (note_columns_.size ()
                    ? note_columns_.front ()
-                   : Grob::unsmob (get_property ("currentMusicalColumn")));
+                   : unsmob<Grob> (get_property ("currentMusicalColumn")));
       span_->set_bound (LEFT, col);
     }
 

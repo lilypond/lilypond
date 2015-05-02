@@ -222,11 +222,11 @@ Figured_bass_engraver::center_continuations (vector<Spanner *> const &consecutiv
     left_figs.push_back (consecutive_lines[j]->get_bound (LEFT));
 
   SCM ga = Grob_array::make_array ();
-  Grob_array::unsmob (ga)->set_array (left_figs);
+  unsmob<Grob_array> (ga)->set_array (left_figs);
 
   for (vsize j = consecutive_lines.size (); j--;)
     consecutive_lines[j]->set_object ("figures",
-                                      Grob_array::unsmob (ga)->smobbed_copy ());
+                                      unsmob<Grob_array> (ga)->smobbed_copy ());
 }
 
 void
@@ -407,7 +407,7 @@ void
 Figured_bass_engraver::create_grobs ()
 {
   Grob *muscol
-    = Item::unsmob (get_property ("currentMusicalColumn"));
+    = unsmob<Item> (get_property ("currentMusicalColumn"));
   if (!alignment_)
     {
       alignment_ = make_spanner ("BassFigureAlignment", SCM_EOL);

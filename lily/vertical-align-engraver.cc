@@ -100,7 +100,7 @@ Vertical_align_engraver::process_music ()
       top_level_ = to_boolean (get_property ("topLevelAlignment"));
 
       valign_ = make_spanner (top_level_ ? "VerticalAlignment" : "StaffGrouper", SCM_EOL);
-      valign_->set_bound (LEFT, Grob::unsmob (get_property ("currentCommandColumn")));
+      valign_->set_bound (LEFT, unsmob<Grob> (get_property ("currentCommandColumn")));
       Align_interface::set_ordered (valign_);
     }
 }
@@ -110,7 +110,7 @@ Vertical_align_engraver::finalize ()
 {
   if (valign_)
     {
-      valign_->set_bound (RIGHT, Grob::unsmob (get_property ("currentCommandColumn")));
+      valign_->set_bound (RIGHT, unsmob<Grob> (get_property ("currentCommandColumn")));
       valign_ = 0;
     }
 }
@@ -145,14 +145,14 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
       SCM before = scm_hash_ref (id_to_group_hashtab_, before_id, SCM_BOOL_F);
       SCM after = scm_hash_ref (id_to_group_hashtab_, after_id, SCM_BOOL_F);
 
-      Grob *before_grob = Grob::unsmob (before);
-      Grob *after_grob = Grob::unsmob (after);
+      Grob *before_grob = unsmob<Grob> (before);
+      Grob *after_grob = unsmob<Grob> (after);
 
       Align_interface::add_element (valign_, i.grob ());
 
       if (before_grob || after_grob)
         {
-          Grob_array *ga = Grob_array::unsmob (valign_->get_object ("elements"));
+          Grob_array *ga = unsmob<Grob_array> (valign_->get_object ("elements"));
           vector<Grob *> &arr = ga->array_reference ();
 
           Grob *added = arr.back ();
@@ -182,7 +182,7 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
   else if (qualifies (i))
     {
       Pointer_group_interface::add_grob (valign_, ly_symbol2scm ("elements"), i.grob ());
-      if (!Grob::is_smob (i.grob ()->get_object ("staff-grouper")))
+      if (!unsmob<Grob> (i.grob ()->get_object ("staff-grouper")))
         i.grob ()->set_object ("staff-grouper", valign_->self_scm ());
     }
 }

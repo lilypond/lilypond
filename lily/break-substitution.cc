@@ -51,7 +51,7 @@ substitute_grob (Grob *sc)
   else
     {
       System *line
-        = derived_unsmob<System> (break_criterion);
+        = unsmob<System> (break_criterion);
       if (sc->get_system () != line)
         sc = sc->find_broken_piece (line);
 
@@ -101,9 +101,9 @@ do_break_substitution (SCM src)
 {
 again:
 
-  if (Grob::is_smob (src))
+  if (unsmob<Grob> (src))
     {
-      Grob *new_ptr = substitute_grob (Grob::unsmob (src));
+      Grob *new_ptr = substitute_grob (unsmob<Grob> (src));
       return new_ptr ? new_ptr->self_scm () : SCM_UNDEFINED;
     }
   else if (scm_is_vector (src))
@@ -408,13 +408,13 @@ Spanner::fast_substitute_grob_array (SCM sym,
       set_break_subsititution (l ? l->self_scm () : SCM_UNDEFINED);
 
       SCM newval = sc->internal_get_object (sym);
-      if (!Grob_array::is_smob (newval))
+      if (!unsmob<Grob_array> (newval))
         {
           newval = Grob_array::make_array ();
           sc->set_object (sym, newval);
         }
 
-      Grob_array *new_array = Grob_array::unsmob (newval);
+      Grob_array *new_array = unsmob<Grob_array> (newval);
       for (int k = 0; k < 2; k++)
         for (int j = (*arrs[k])[i][LEFT]; j <= (*arrs[k])[i][RIGHT]; j++)
           {
@@ -461,7 +461,7 @@ substitute_object_alist (SCM alist, SCM dest)
       SCM sym = scm_caar (s);
       SCM val = scm_cdar (s);
 
-      if (Grob_array *orig = Grob_array::unsmob (val))
+      if (Grob_array *orig = unsmob<Grob_array> (val))
         {
           SCM handle = scm_assq (sym, dest);
           SCM newval
@@ -469,7 +469,7 @@ substitute_object_alist (SCM alist, SCM dest)
               ? scm_cdr (handle)
               : Grob_array::make_array ();
 
-          Grob_array *new_arr = Grob_array::unsmob (newval);
+          Grob_array *new_arr = unsmob<Grob_array> (newval);
 
           substitute_grob_array (orig, new_arr);
           val = newval;
@@ -497,7 +497,7 @@ Spanner::substitute_one_mutable_property (SCM sym,
   Spanner *s = this;
 
   bool fast_done = false;
-  Grob_array *grob_array = Grob_array::unsmob (val);
+  Grob_array *grob_array = unsmob<Grob_array> (val);
   if (grob_array)
     fast_done = s->fast_substitute_grob_array (sym, grob_array);
 
@@ -511,12 +511,12 @@ Spanner::substitute_one_mutable_property (SCM sym,
         if (grob_array)
           {
             SCM newval = sc->internal_get_object (sym);
-            if (!Grob_array::is_smob (newval))
+            if (!unsmob<Grob_array> (newval))
               {
                 newval = Grob_array::make_array ();
                 sc->set_object (sym, newval);
               }
-            substitute_grob_array (grob_array, Grob_array::unsmob (newval));
+            substitute_grob_array (grob_array, unsmob<Grob_array> (newval));
           }
         else
           {

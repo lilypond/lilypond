@@ -285,9 +285,9 @@ Beam_engraver::acknowledge_stem (Grob_info info)
 
   last_stem_added_at_ = now;
 
-  Duration *stem_duration = Duration::unsmob (ev->get_property ("duration"));
+  Duration *stem_duration = unsmob<Duration> (ev->get_property ("duration"));
   int durlog = stem_duration->duration_log ();
-  //int durlog = Duration::unsmob (ev->get_property ("duration"))->duration_log ();
+  //int durlog = unsmob<Duration> (ev->get_property ("duration"))->duration_log ();
   if (durlog <= 2)
     {
       ev->origin ()->warning (_ ("stem does not fit in beam"));

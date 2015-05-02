@@ -68,7 +68,7 @@ Note_heads_engraver::process_music ()
       Stream_event *ev = note_evs_[i];
       Item *note = make_item ("NoteHead", ev->self_scm ());
 
-      Pitch *pit = Pitch::unsmob (ev->get_property ("pitch"));
+      Pitch *pit = unsmob<Pitch> (ev->get_property ("pitch"));
 
 #if 0 /* TODO: should have a mechanism to switch off these warnings. */
 
@@ -100,8 +100,8 @@ Note_heads_engraver::process_music ()
         {
           SCM scm_tonic = get_property ("tonic");
           Pitch tonic;
-          if (Pitch::is_smob (scm_tonic))
-            tonic = *Pitch::unsmob (scm_tonic);
+          if (unsmob<Pitch> (scm_tonic))
+            tonic = *unsmob<Pitch> (scm_tonic);
 
           unsigned int delta = (pit->get_notename () - tonic.get_notename () + 7) % 7;
 

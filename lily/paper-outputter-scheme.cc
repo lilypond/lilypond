@@ -57,8 +57,8 @@ LY_DEFINE (ly_outputter_dump_stencil, "ly:outputter-dump-stencil",
   LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
   LY_ASSERT_SMOB (Stencil, stencil, 2);
 
-  Paper_outputter *po = Paper_outputter::unsmob (outputter);
-  Stencil *st = Stencil::unsmob (stencil);
+  Paper_outputter *po = unsmob<Paper_outputter> (outputter);
+  Stencil *st = unsmob<Stencil> (stencil);
 
   po->output_stencil (*st);
   return SCM_UNSPECIFIED;
@@ -71,7 +71,7 @@ LY_DEFINE (ly_outputter_dump_string, "ly:outputter-dump-string",
   LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
   LY_ASSERT_TYPE (scm_is_string, str, 2);
 
-  Paper_outputter *po = Paper_outputter::unsmob (outputter);
+  Paper_outputter *po = unsmob<Paper_outputter> (outputter);
 
   return po->dump_string (str);
 }
@@ -81,7 +81,7 @@ LY_DEFINE (ly_outputter_port, "ly:outputter-port",
            "Return output port for @var{outputter}.")
 {
   LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
-  Paper_outputter *po = Paper_outputter::unsmob (outputter);
+  Paper_outputter *po = unsmob<Paper_outputter> (outputter);
 
   return po->file ();
 }
@@ -91,7 +91,7 @@ LY_DEFINE (ly_outputter_close, "ly:outputter-close",
            "Close port of @var{outputter}.")
 {
   LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
-  Paper_outputter *po = Paper_outputter::unsmob (outputter);
+  Paper_outputter *po = unsmob<Paper_outputter> (outputter);
 
   po->close ();
   return SCM_UNSPECIFIED;
@@ -102,7 +102,7 @@ LY_DEFINE (ly_outputter_output_scheme, "ly:outputter-output-scheme",
            "Eval @var{expr} in module of @var{outputter}.")
 {
   LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
-  Paper_outputter *po = Paper_outputter::unsmob (outputter);
+  Paper_outputter *po = unsmob<Paper_outputter> (outputter);
 
   po->output_scheme (expr);
 
@@ -115,6 +115,6 @@ LY_DEFINE (ly_outputter_module, "ly:outputter-module",
 {
   LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
 
-  Paper_outputter *po = Paper_outputter::unsmob (outputter);
+  Paper_outputter *po = unsmob<Paper_outputter> (outputter);
   return po->module ();
 }

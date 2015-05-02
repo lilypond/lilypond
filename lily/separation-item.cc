@@ -46,8 +46,8 @@ Separation_item::add_conditional_item (Grob *me, Grob *e)
 Real
 Separation_item::set_distance (Item *l, Item *r, Real padding)
 {
-  Drul_array<Skyline_pair *> lines (Skyline_pair::unsmob (l->get_property ("horizontal-skylines")),
-                                    Skyline_pair::unsmob (r->get_property ("horizontal-skylines")));
+  Drul_array<Skyline_pair *> lines (unsmob<Skyline_pair> (l->get_property ("horizontal-skylines")),
+                                    unsmob<Skyline_pair> (r->get_property ("horizontal-skylines")));
   Skyline right = conditional_skyline (r, l);
   right.merge ((*lines[RIGHT])[LEFT]);
 
@@ -68,7 +68,7 @@ Separation_item::set_distance (Item *l, Item *r, Real padding)
 bool
 Separation_item::is_empty (Grob *me)
 {
-  Skyline_pair *sky = Skyline_pair::unsmob (me->get_property ("horizontal-skylines"));
+  Skyline_pair *sky = unsmob<Skyline_pair> (me->get_property ("horizontal-skylines"));
   return (!sky || sky->is_empty ());
 }
 
@@ -87,7 +87,7 @@ MAKE_SCHEME_CALLBACK (Separation_item, calc_skylines, 1);
 SCM
 Separation_item::calc_skylines (SCM smob)
 {
-  Item *me = Item::unsmob (smob);
+  Item *me = unsmob<Item> (smob);
   vector<Box> bs = boxes (me, 0);
   Skyline_pair sp (bs, Y_AXIS);
   /*
@@ -201,9 +201,9 @@ Separation_item::print (SCM smob)
   if (!debug_skylines)
     return SCM_BOOL_F;
 
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
   Stencil ret;
-  if (Skyline_pair *s = Skyline_pair::unsmob (me->get_property ("horizontal-skylines")))
+  if (Skyline_pair *s = unsmob<Skyline_pair> (me->get_property ("horizontal-skylines")))
     {
       ret.add_stencil (Lookup::points_to_line_stencil (0.1, (*s)[LEFT].to_points (Y_AXIS)).in_color (255, 255, 0));
       ret.add_stencil (Lookup::points_to_line_stencil (0.1, (*s)[RIGHT].to_points (Y_AXIS)).in_color (0, 255, 255));

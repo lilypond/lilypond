@@ -148,7 +148,7 @@ Page_turn_engraver::acknowledge_note_head (Grob_info gi)
   Stream_event *cause = gi.event_cause ();
 
   Duration *dur_ptr = cause
-                      ? Duration::unsmob (cause->get_property ("duration"))
+                      ? unsmob<Duration> (cause->get_property ("duration"))
                       : 0;
 
   if (!dur_ptr)
@@ -208,7 +208,7 @@ Page_turn_engraver::start_translation_timestep ()
 void
 Page_turn_engraver::stop_translation_timestep ()
 {
-  Grob *pc = Grob::unsmob (get_property ("currentCommandColumn"));
+  Grob *pc = unsmob<Grob> (get_property ("currentCommandColumn"));
 
   if (pc)
     {
@@ -239,7 +239,7 @@ Page_turn_engraver::stop_translation_timestep ()
     {
       Rational now = now_mom ().main_part_;
       Real pen = penalty ((now_mom () - rest_begin_).main_part_ + repeat_begin_rest_length_);
-      Moment *m = Moment::unsmob (get_property ("minimumRepeatLengthForPageTurn"));
+      Moment *m = unsmob<Moment> (get_property ("minimumRepeatLengthForPageTurn"));
       if (m && *m > (now_mom () - repeat_begin_))
         pen = infinity_f;
 

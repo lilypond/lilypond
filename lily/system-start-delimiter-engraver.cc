@@ -191,7 +191,7 @@ System_start_delimiter_engraver::process_music ()
       nesting_->from_list (hierarchy);
       nesting_->create_grobs (this, delimiter_name);
       nesting_->set_bound (LEFT,
-                           Grob::unsmob (get_property ("currentCommandColumn")));
+                           unsmob<Grob> (get_property ("currentCommandColumn")));
     }
 }
 
@@ -201,7 +201,7 @@ System_start_delimiter_engraver::finalize ()
   if (nesting_)
     {
       nesting_->set_bound (RIGHT,
-                           Grob::unsmob (get_property ("currentCommandColumn")));
+                           unsmob<Grob> (get_property ("currentCommandColumn")));
       nesting_->set_nesting_support (0);
 
       delete nesting_;

@@ -123,8 +123,8 @@ Grob::internal_set_value_on_alist (SCM *alist, SCM sym, SCM v)
   if (do_internal_type_checking_global)
     {
       if (!ly_is_procedure (v)
-          && !Simple_closure::is_smob (v)
-          && !Unpure_pure_container::is_smob (v)
+          && !unsmob<Simple_closure> (v)
+          && !unsmob<Unpure_pure_container> (v)
           && !scm_is_eq (v, ly_symbol2scm ("calculation-in-progress")))
         type_check_assignment (sym, v, ly_symbol2scm ("backend-type?"));
 
@@ -151,8 +151,8 @@ Grob::internal_get_property_data (SCM sym) const
   if (do_internal_type_checking_global && scm_is_pair (handle))
     {
       SCM val = scm_cdr (handle);
-      if (!ly_is_procedure (val) && !Simple_closure::is_smob (val)
-          && !Unpure_pure_container::is_smob (val))
+      if (!ly_is_procedure (val) && !unsmob<Simple_closure> (val)
+          && !unsmob<Unpure_pure_container> (val))
         type_check_assignment (sym, val, ly_symbol2scm ("backend-type?"));
 
       check_interfaces_for_property (this, sym);
@@ -180,11 +180,11 @@ Grob::internal_get_property (SCM sym) const
     }
 #endif
 
-  if (Unpure_pure_container *upc = Unpure_pure_container::unsmob (val))
+  if (Unpure_pure_container *upc = unsmob<Unpure_pure_container> (val))
     val = upc->unpure_part ();
 
   if (ly_is_procedure (val)
-      || Simple_closure::is_smob (val))
+      || unsmob<Simple_closure> (val))
     {
       Grob *me = ((Grob *)this);
       val = me->try_callback_on_alist (&me->mutable_property_alist_, sym, val);
@@ -201,7 +201,7 @@ Grob::internal_get_pure_property (SCM sym, int start, int end) const
   if (ly_is_procedure (val))
     return call_pure_function (val, scm_list_1 (self_scm ()), start, end);
 
-  if (Unpure_pure_container *upc = Unpure_pure_container::unsmob (val)) {
+  if (Unpure_pure_container *upc = unsmob<Unpure_pure_container> (val)) {
     // Do cache, if the function ignores 'start' and 'end'
     if (upc->is_unchanging ())
       return internal_get_property (sym);
@@ -209,7 +209,7 @@ Grob::internal_get_pure_property (SCM sym, int start, int end) const
       return call_pure_function (val, scm_list_1 (self_scm ()), start, end);
   }
 
-  if (Simple_closure *sc = Simple_closure::unsmob (val))
+  if (Simple_closure *sc = unsmob<Simple_closure> (val))
     return evaluate_with_simple_closure (self_scm (),
                                          sc->expression (),
                                          true, start, end);
@@ -240,7 +240,7 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
   SCM value = SCM_EOL;
   if (ly_is_procedure (proc))
     value = scm_call_1 (proc, self_scm ());
-  else if (Simple_closure *sc = Simple_closure::unsmob (proc))
+  else if (Simple_closure *sc = unsmob<Simple_closure> (proc))
     {
       value = evaluate_with_simple_closure (self_scm (),
                                             sc->expression (),
@@ -304,8 +304,8 @@ Grob::internal_get_object (SCM sym) const
     {
       SCM val = scm_cdr (s);
       if (ly_is_procedure (val)
-          || Simple_closure::is_smob (val)
-          || Unpure_pure_container::is_smob (val))
+          || unsmob<Simple_closure> (val)
+          || unsmob<Unpure_pure_container> (val))
         {
           Grob *me = ((Grob *)this);
           val = me->try_callback_on_alist (&me->object_alist_, sym, val);
@@ -332,11 +332,11 @@ Grob::internal_has_interface (SCM k)
 SCM
 call_pure_function (SCM unpure, SCM args, int start, int end)
 {
-  if (Unpure_pure_container *upc = Unpure_pure_container::unsmob (unpure))
+  if (Unpure_pure_container *upc = unsmob<Unpure_pure_container> (unpure))
     {
       SCM pure = upc->pure_part ();
 
-      if (Simple_closure *sc = Simple_closure::unsmob (pure))
+      if (Simple_closure *sc = unsmob<Simple_closure> (pure))
         {
           SCM expr = sc->expression ();
           return evaluate_with_simple_closure (scm_car (args), expr, true, start, end);
@@ -352,7 +352,7 @@ call_pure_function (SCM unpure, SCM args, int start, int end)
       return pure;
     }
 
-  if (Simple_closure *sc = Simple_closure::unsmob (unpure))
+  if (Simple_closure *sc = unsmob<Simple_closure> (unpure))
     {
       SCM expr = sc->expression ();
       return evaluate_with_simple_closure (scm_car (args), expr, true, start, end);

@@ -32,7 +32,7 @@ template <class Super>
 SCM
 Smob_base<Super>::mark_trampoline (SCM arg)
 {
-  Super *ptr = Super::unsmob (arg);
+  Super *ptr = unsmob<Super> (arg);
   if (ptr)
     return ptr->mark_smob ();
   return SCM_UNDEFINED;
@@ -42,7 +42,7 @@ template <class Super>
 int
 Smob_base<Super>::print_trampoline (SCM arg, SCM port, scm_print_state *p)
 {
-  Super *ptr = Super::unsmob (arg);
+  Super *ptr = unsmob<Super> (arg);
   if (ptr)
     return ptr->print_smob (port, p);
   return 0;

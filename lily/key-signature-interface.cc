@@ -42,7 +42,7 @@ MAKE_SCHEME_CALLBACK (Key_signature_interface, print, 1);
 SCM
 Key_signature_interface::print (SCM smob)
 {
-  Item *me = Item::unsmob (smob);
+  Item *me = unsmob<Item> (smob);
 
   Real inter = Staff_symbol_referencer::staff_space (me) / 2.0;
 

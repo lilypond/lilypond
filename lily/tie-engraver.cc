@@ -155,8 +155,8 @@ Tie_engraver::tie_notehead (Grob *h, bool enharmonic)
   for (vsize i = 0; i < heads_to_tie_.size (); i++)
     {
       Grob *th = heads_to_tie_[i].head_;
-      Stream_event *right_ev = Stream_event::unsmob (h->get_property ("cause"));
-      Stream_event *left_ev = Stream_event::unsmob (th->get_property ("cause"));
+      Stream_event *right_ev = unsmob<Stream_event> (h->get_property ("cause"));
+      Stream_event *left_ev = unsmob<Stream_event> (th->get_property ("cause"));
 
       /*
         maybe should check positions too.
@@ -171,8 +171,8 @@ Tie_engraver::tie_notehead (Grob *h, bool enharmonic)
       SCM p1 = left_ev->get_property ("pitch");
       SCM p2 = right_ev->get_property ("pitch");
       if ((enharmonic
-           ? (Pitch::is_smob (p1) && Pitch::is_smob (p2) &&
-              Pitch::unsmob (p1)->tone_pitch () == Pitch::unsmob (p2)->tone_pitch ())
+           ? (unsmob<Pitch> (p1) && unsmob<Pitch> (p2) &&
+              unsmob<Pitch> (p1)->tone_pitch () == unsmob<Pitch> (p2)->tone_pitch ())
            : ly_is_equal (p1, p2))
           && (!Tie_engraver::has_autosplit_end (left_ev)))
         {
@@ -281,7 +281,7 @@ Tie_engraver::process_acknowledged ()
     {
       Grob *head = now_heads_[i];
       Stream_event *left_ev
-        = Stream_event::unsmob (head->get_property ("cause"));
+        = unsmob<Stream_event> (head->get_property ("cause"));
 
       if (!left_ev)
         {
@@ -301,7 +301,7 @@ Tie_engraver::process_acknowledged ()
            !tie_event && !tie_stream_event && scm_is_pair (s);
            s = scm_cdr (s))
         {
-          Stream_event *ev = Stream_event::unsmob (scm_car (s));
+          Stream_event *ev = unsmob<Stream_event> (scm_car (s));
           if (!ev)
             continue;
 

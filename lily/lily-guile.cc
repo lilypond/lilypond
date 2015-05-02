@@ -455,8 +455,8 @@ ly_wrong_smob_arg (bool pred (SCM), SCM var, int number, const char *fun)
   string type = predicate_to_typename ((void *) pred);
   if (pred (var))
     {
-      // Uh oh.  derived_unsmob <T> delivered 0, yet
-      // T::is_smob delivers true.  This means that T::is_smob is a
+      // Uh oh.  unsmob<T> delivered 0, yet
+      // unsmob<T> delivers true.  This means that unsmob<T> is a
       // matching check from a base class of T, but var is of an
       // incompatible derived type.
       type = string (_ ("Wrong kind of ")).append (type);

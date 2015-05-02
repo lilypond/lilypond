@@ -40,14 +40,14 @@ Engraver_dispatch_list::create (SCM trans_list,
                                 SCM iface_list, Direction start_end)
 {
   SCM retval = Engraver_dispatch_list ().smobbed_copy ();
-  Engraver_dispatch_list *list = Engraver_dispatch_list::unsmob (retval);
+  Engraver_dispatch_list *list = unsmob<Engraver_dispatch_list> (retval);
 
   Engraver_dispatch_entry entry;
   bool found = false;
   for (SCM s = trans_list; scm_is_pair (s); s = scm_cdr (s))
     {
       Engraver *eng
-        = Engraver::unsmob (scm_car (s));
+        = unsmob<Engraver> (scm_car (s));
 
       if (!eng)
         continue;

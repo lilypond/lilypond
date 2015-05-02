@@ -34,14 +34,14 @@ LY_DEFINE (ly_format_output, "ly:format-output",
            " process it and return the @code{Music_output} object"
            " in its final state.")
 {
-  Global_context *g = Global_context::unsmob (context);
+  Global_context *g = unsmob<Global_context> (context);
 
   LY_ASSERT_SMOB (Global_context, context, 1);
 
   SCM output = g->get_output ();
   progress_indication ("\n");
 
-  if (Music_output *od = Music_output::unsmob (output))
+  if (Music_output *od = unsmob<Music_output> (output))
     od->process ();
 
   return output;
@@ -52,7 +52,7 @@ LY_DEFINE (ly_make_global_translator, "ly:make-global-translator",
            "Create a translator group and connect it to the global context"
            " @var{global}.  The translator group is returned.")
 {
-  Global_context *g = Global_context::unsmob (global);
+  Global_context *g = unsmob<Global_context> (global);
   LY_ASSERT_SMOB (Global_context, global, 1);
 
   Translator_group *tg = new Translator_group ();
@@ -68,7 +68,7 @@ LY_DEFINE (ly_make_global_context, "ly:make-global-context",
            " block @var{output-def}.  The context is returned.")
 {
   LY_ASSERT_SMOB (Output_def, output_def, 1);
-  Output_def *odef = Output_def::unsmob (output_def);
+  Output_def *odef = unsmob<Output_def> (output_def);
 
   Global_context *glob = new Global_context (odef);
 
@@ -89,21 +89,21 @@ LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression",
   LY_ASSERT_SMOB (Music, mus, 1);
   LY_ASSERT_SMOB (Global_context, ctx, 2);
 
-  Music *music = Music::unsmob (mus);
+  Music *music = unsmob<Music> (mus);
   if (!music)
     {
       warning (_ ("no music found in score"));
       return SCM_BOOL_F;
     }
 
-  Global_context *g = Global_context::unsmob (ctx);
+  Global_context *g = unsmob<Global_context> (ctx);
 
   Cpu_timer timer;
 
   message (_ ("Interpreting music..."));
 
   SCM protected_iter = Music_iterator::get_static_get_iterator (music);
-  Music_iterator *iter = Music_iterator::unsmob (protected_iter);
+  Music_iterator *iter = unsmob<Music_iterator> (protected_iter);
 
   iter->init_context (music, g);
   iter->construct_children ();

@@ -691,7 +691,7 @@ void
 make_named_glyph_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings, PangoMatrix trans, SCM expr)
 {
   SCM fm_scm = scm_car (expr);
-  Font_metric *fm = Font_metric::unsmob (fm_scm);
+  Font_metric *fm = unsmob<Font_metric> (fm_scm);
   expr = scm_cdr (expr);
   SCM glyph = scm_car (expr);
   string glyph_s = ly_scm2string (glyph);
@@ -730,7 +730,7 @@ void
 make_glyph_string_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings, PangoMatrix trans, SCM expr)
 {
   SCM fm_scm = scm_car (expr);
-  Font_metric *fm = Font_metric::unsmob (fm_scm);
+  Font_metric *fm = unsmob<Font_metric> (fm_scm);
   expr = scm_cdr (expr);
   expr = scm_cdr (expr); // font-name
   expr = scm_cdr (expr); // size
@@ -994,7 +994,7 @@ MAKE_SCHEME_CALLBACK (Grob, pure_simple_vertical_skylines_from_extents, 3);
 SCM
 Grob::pure_simple_vertical_skylines_from_extents (SCM smob, SCM begscm, SCM endscm)
 {
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
   int beg = robust_scm2int (begscm, 0);
   int end = robust_scm2int (endscm, INT_MAX);
   // We cannot measure the widths before line breaking,
@@ -1006,7 +1006,7 @@ MAKE_SCHEME_CALLBACK (Grob, simple_vertical_skylines_from_extents, 1);
 SCM
 Grob::simple_vertical_skylines_from_extents (SCM smob)
 {
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
   return maybe_pure_internal_simple_skylines_from_extents (me, X_AXIS, false, 0, 0, false, false);
 }
 
@@ -1014,7 +1014,7 @@ MAKE_SCHEME_CALLBACK (Grob, pure_simple_horizontal_skylines_from_extents, 3);
 SCM
 Grob::pure_simple_horizontal_skylines_from_extents (SCM smob, SCM begscm, SCM endscm)
 {
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
   int beg = robust_scm2int (begscm, 0);
   int end = robust_scm2int (endscm, INT_MAX);
   // If the grob is cross staff, we cannot measure its Y-extent before
@@ -1027,7 +1027,7 @@ MAKE_SCHEME_CALLBACK (Grob, simple_horizontal_skylines_from_extents, 1);
 SCM
 Grob::simple_horizontal_skylines_from_extents (SCM smob)
 {
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
   // See comment in function above.
   return maybe_pure_internal_simple_skylines_from_extents (me, Y_AXIS, false, 0, 0, false, to_boolean (me->get_property ("cross-staff")));
 }
@@ -1035,7 +1035,7 @@ Grob::simple_horizontal_skylines_from_extents (SCM smob)
 SCM
 Stencil::skylines_from_stencil (SCM sten, Real pad, Axis a)
 {
-  Stencil *s = Stencil::unsmob (sten);
+  Stencil *s = unsmob<Stencil> (sten);
   if (!s)
     return Skyline_pair ().smobbed_copy ();
 
@@ -1064,7 +1064,7 @@ MAKE_SCHEME_CALLBACK (Grob, vertical_skylines_from_stencil, 1);
 SCM
 Grob::vertical_skylines_from_stencil (SCM smob)
 {
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
 
   Real pad = robust_scm2double (me->get_property ("skyline-horizontal-padding"), 0.0);
   SCM out = Stencil::skylines_from_stencil (me->get_property ("stencil"), pad, X_AXIS);
@@ -1076,7 +1076,7 @@ MAKE_SCHEME_CALLBACK (Grob, horizontal_skylines_from_stencil, 1);
 SCM
 Grob::horizontal_skylines_from_stencil (SCM smob)
 {
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
 
   Real pad = robust_scm2double (me->get_property ("skyline-vertical-padding"), 0.0);
   SCM out = Stencil::skylines_from_stencil (me->get_property ("stencil"), pad, Y_AXIS);
@@ -1104,7 +1104,7 @@ Grob::internal_skylines_from_element_stencils (Grob *me, Axis a, bool pure, int 
   Skyline_pair res;
   for (vsize i = 0; i < elts.size (); i++)
     {
-      Skyline_pair *skyp = Skyline_pair::unsmob (elts[i]->get_maybe_pure_property (a == X_AXIS ? "vertical-skylines" : "horizontal-skylines", pure, beg, end));
+      Skyline_pair *skyp = unsmob<Skyline_pair> (elts[i]->get_maybe_pure_property (a == X_AXIS ? "vertical-skylines" : "horizontal-skylines", pure, beg, end));
       if (skyp)
         {
           /*
@@ -1138,7 +1138,7 @@ MAKE_SCHEME_CALLBACK (Grob, vertical_skylines_from_element_stencils, 1);
 SCM
 Grob::vertical_skylines_from_element_stencils (SCM smob)
 {
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
   return internal_skylines_from_element_stencils (me, X_AXIS, false, 0, INT_MAX);
 }
 
@@ -1146,7 +1146,7 @@ MAKE_SCHEME_CALLBACK (Grob, horizontal_skylines_from_element_stencils, 1);
 SCM
 Grob::horizontal_skylines_from_element_stencils (SCM smob)
 {
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
   return internal_skylines_from_element_stencils (me, Y_AXIS, false, 0, INT_MAX);
 }
 
@@ -1154,7 +1154,7 @@ MAKE_SCHEME_CALLBACK (Grob, pure_vertical_skylines_from_element_stencils, 3);
 SCM
 Grob::pure_vertical_skylines_from_element_stencils (SCM smob, SCM beg_scm, SCM end_scm)
 {
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
   int beg = robust_scm2int (beg_scm, 0);
   int end = robust_scm2int (end_scm, 0);
   return internal_skylines_from_element_stencils (me, X_AXIS, true, beg, end);
@@ -1164,7 +1164,7 @@ MAKE_SCHEME_CALLBACK (Grob, pure_horizontal_skylines_from_element_stencils, 3);
 SCM
 Grob::pure_horizontal_skylines_from_element_stencils (SCM smob, SCM beg_scm, SCM end_scm)
 {
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
   int beg = robust_scm2int (beg_scm, 0);
   int end = robust_scm2int (end_scm, 0);
   return internal_skylines_from_element_stencils (me, Y_AXIS, true, beg, end);

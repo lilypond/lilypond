@@ -67,7 +67,7 @@ LY_DEFINE (ly_get_undead, "ly:get-undead",
            "Get back object from @var{undead}.")
 {
   LY_ASSERT_SMOB (Undead, undead, 1);
-  return Undead::unsmob (undead)->object ();
+  return unsmob<Undead> (undead)->object ();
 }
 
 // '

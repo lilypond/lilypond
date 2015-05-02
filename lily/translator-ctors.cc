@@ -69,6 +69,6 @@ get_translator (SCM sym)
       return 0;
     }
 
-  return Translator::unsmob (v);
+  return unsmob<Translator> (v);
 }
 

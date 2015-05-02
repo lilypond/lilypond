@@ -118,7 +118,7 @@ Moment
 Paper_column::when_mom (Grob *me)
 {
   SCM m = me->get_property ("when");
-  if (Moment *when = Moment::unsmob (m))
+  if (Moment *when = unsmob<Moment> (m))
     return *when;
   return Moment (0);
 }
@@ -128,8 +128,8 @@ Paper_column::is_musical (Grob *me)
 {
   SCM m = me->get_property ("shortest-starter-duration");
   Moment s (0);
-  if (Moment::unsmob (m))
-    s = *Moment::unsmob (m);
+  if (unsmob<Moment> (m))
+    s = *unsmob<Moment> (m);
   return s != Moment (0);
 }
 
@@ -170,7 +170,7 @@ Paper_column::minimum_distance (Grob *left, Grob *right)
 
   for (LEFT_and_RIGHT (d))
     {
-      Skyline_pair *sp = Skyline_pair::unsmob (cols[d]->get_property ("horizontal-skylines"));
+      Skyline_pair *sp = unsmob<Skyline_pair> (cols[d]->get_property ("horizontal-skylines"));
       if (sp)
         skys[d] = (*sp)[-d];
     }
@@ -266,11 +266,11 @@ MAKE_DOCUMENTED_SCHEME_CALLBACK (Paper_column, print, 1,
 SCM
 Paper_column::print (SCM p)
 {
-  Paper_column *me = derived_unsmob<Paper_column> (p);
+  Paper_column *me = unsmob<Paper_column> (p);
 
   string r = ::to_string (Paper_column::get_rank (me));
 
-  Moment *mom = Moment::unsmob (me->get_property ("when"));
+  Moment *mom = unsmob<Moment> (me->get_property ("when"));
   string when = mom ? mom->to_string () : "?/?";
 
   Font_metric *musfont = Font_interface::get_default_font (me);
@@ -281,9 +281,9 @@ Paper_column::print (SCM p)
   SCM when_mol = Text_interface::interpret_markup (me->layout ()->self_scm (),
                                                    properties,
                                                    ly_string2scm (when));
-  Stencil t = *Stencil::unsmob (scm_mol);
+  Stencil t = *unsmob<Stencil> (scm_mol);
   t.scale (1.2, 1.4);
-  t.add_at_edge (Y_AXIS, DOWN, *Stencil::unsmob (when_mol), 0.1);
+  t.add_at_edge (Y_AXIS, DOWN, *unsmob<Stencil> (when_mol), 0.1);
   t.align_to (X_AXIS, LEFT);
   // compensate for font serifs and half letter-distance
   t.translate (Offset (-0.1, 0));
@@ -301,9 +301,9 @@ Paper_column::print (SCM p)
   for (SCM s = me->get_object ("ideal-distances");
        scm_is_pair (s); s = scm_cdr (s))
     {
-      Spring *sp = Spring::unsmob (scm_caar (s));
-      if (!Grob::is_smob (scm_cdar (s))
-          || !Grob::unsmob (scm_cdar (s))->get_system ())
+      Spring *sp = unsmob<Spring> (scm_caar (s));
+      if (!unsmob<Grob> (scm_cdar (s))
+          || !unsmob<Grob> (scm_cdar (s))->get_system ())
         continue;
 
       j++;
@@ -316,7 +316,7 @@ Paper_column::print (SCM p)
       SCM stil = Text_interface::interpret_markup (me->layout ()->self_scm (),
                                                    properties,
                                                    ly_string2scm (String_convert::form_string ("%5.2lf", sp->distance ())));
-      Stencil *number_stc = Stencil::unsmob (stil);
+      Stencil *number_stc = unsmob<Stencil> (stil);
       number_stc->scale (1, 1.1);
       Real num_height = number_stc->extent (Y_AXIS).length ();
       Real num_len = number_stc->extent (X_AXIS).length ();
@@ -347,7 +347,7 @@ Paper_column::print (SCM p)
        scm_is_pair (s); s = scm_cdr (s))
     {
       Real dist = scm_to_double (scm_cdar (s));
-      Grob *other = Grob::unsmob (scm_caar (s));
+      Grob *other = unsmob<Grob> (scm_caar (s));
       if (!other || other->get_system () != me->get_system ())
         continue;
 
@@ -361,7 +361,7 @@ Paper_column::print (SCM p)
       SCM stil = Text_interface::interpret_markup (me->layout ()->self_scm (),
                                                    properties,
                                                    ly_string2scm (String_convert::form_string ("%5.2lf", dist)));
-      Stencil *number_stc = Stencil::unsmob (stil);
+      Stencil *number_stc = unsmob<Stencil> (stil);
       number_stc->scale (1, 1.1);
       Real num_height = number_stc->extent (Y_AXIS).length ();
       Real num_len = number_stc->extent (X_AXIS).length ();
@@ -403,10 +403,10 @@ MAKE_SCHEME_CALLBACK (Paper_column, before_line_breaking, 1);
 SCM
 Paper_column::before_line_breaking (SCM grob)
 {
-  Grob *me = Grob::unsmob (grob);
+  Grob *me = unsmob<Grob> (grob);
 
   SCM bbm = me->get_object ("bounded-by-me");
-  Grob_array *ga = Grob_array::unsmob (bbm);
+  Grob_array *ga = unsmob<Grob_array> (bbm);
   if (!ga)
     return SCM_UNSPECIFIED;
 
