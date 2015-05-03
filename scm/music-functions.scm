@@ -285,8 +285,9 @@ depth-first through MUSIC."
          (body (ly:music-property tremolo 'element))
          (children (if (music-is-of-type? body 'sequential-music)
                        ;; \repeat tremolo n { ... }
-                       (length (extract-named-music body '(EventChord
-                                                           NoteEvent)))
+                       (count duration-of-note ; do not count empty <>
+                              (extract-named-music body
+                                                   '(EventChord NoteEvent)))
                        ;; \repeat tremolo n c4
                        1))
          (tremolo-type (if (positive? children)
