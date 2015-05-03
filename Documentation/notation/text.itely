@@ -573,6 +573,15 @@ b1^\markup { \abs-fontsize #8 da }
 b1-\markup { \abs-fontsize #14 camera }
 @end lilypond
 
+If the text includes spaces, then it is best to put it all inside quote
+marks, so that the size of each space is appropriate for the size of the
+other characters.
+
+@lilypond[quote,verbatim]
+\markup \fontsize #6 \bold { Sinfonia da camera }
+\markup \fontsize #6 \bold { "Sinfonia da camera" }
+@end lilypond
+
 @cindex subscript
 @cindex superscript
 
