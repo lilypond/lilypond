@@ -36,7 +36,7 @@ absolute =
    (ly:music?)
    (_i "Make @var{music} absolute.  This does not actually change the
 music itself but rather hides it from surrounding @code{\\relative}
-commands.")
+and @code{\\fixed} commands.")
    (make-music 'RelativeOctaveMusic 'element music))
 
 acciaccatura =
@@ -428,6 +428,20 @@ finger =
             'FingeringEvent
             (if (number? finger) 'digit 'text)
             finger))
+
+fixed =
+#(define-music-function (parser location pitch music)
+   (ly:pitch? ly:music?)
+   (_i "Use the octave of @var{pitch} as the default octave for @var{music}.")
+   (let ((octave-marks (1+ (ly:pitch-octave pitch))))
+     (cond ((not (= 0 octave-marks))
+            (ly:music-transpose music (ly:make-pitch octave-marks 0 0))
+            ;;In order to leave unchanged the notes in any enclosed
+            ;; \absolute or \fixed or \relative, make a cancelling shift
+            (map (lambda (m)
+                   (ly:music-transpose m (ly:make-pitch (- octave-marks) 0 0)))
+                 (extract-named-music music 'RelativeOctaveMusic)))))
+   (make-music 'RelativeOctaveMusic 'element music))
 
 footnote =
 #(define-music-function (parser location mark offset footnote item)

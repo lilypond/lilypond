@@ -478,7 +478,7 @@ Syntax: @code{\\unset @var{context}.@var{prop}}")
         ))
 
     (RelativeOctaveMusic
-     . ((description . "Music that was entered in relative octave notation.")
+     . ((description . "Music in which the assignment of octaves is complete.")
         (to-relative-callback . ,ly:relative-octave-music::relative-callback)
         (iterator-ctor . ,ly:music-wrapper-iterator::constructor)
         (length-callback . ,ly:music-wrapper::length-callback)

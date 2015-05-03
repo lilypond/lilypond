@@ -79,25 +79,38 @@ octave.
 @lilypond[verbatim,quote]
 {
   \clef treble
-  c'4 c'' e' g
-  d''4 d' d c
+  c'4 e' g' c''
+  c'4 g b c'
   \clef bass
-  c,4 c,, e, g
-  d,,4 d, d c
+  c,4 e, g, c
+  c,4 g,, b,, c,
 }
 @end lilypond
 
-@funindex absolute
-@funindex \absolute
-Music can be marked explicitly as being in absolute octave
-notation by preceding it with @code{\absolute}:
+@funindex fixed
+@funindex \fixed
+Common octave marks can be entered just once on a reference pitch
+after @code{\fixed} placed before the music.  Pitches inside
+@code{\fixed} only need @code{'} or@tie{}@code{,} marks
+when they are above or below the octave of the reference pitch.
 
-@example
-\absolute @var{musicexpr}
-@end example
+@lilypond[verbatim,quote]
+{
+  \fixed c' {
+    \clef treble
+    c4 e g c'
+    c4 g, b, c
+  }
+  \clef bass
+  \fixed c, {
+    c4 e g c'
+    c4 g, b, c
+  }
+}
+@end lilypond
 
-will be interpreted in absolute octave entry mode regardless of
-the context it appears in.
+Pitches in the music expression following @code{\fixed} are
+unaffected by any enclosing @code{\relative}, discussed next.
 
 @seealso
 Music Glossary:
