@@ -278,6 +278,8 @@ improvisationOff = {
 
 incipit =
 #(define-music-function (parser location incipit-music) (ly:music?)
+  (_i "Output @var{incipit-music} before the main staff as an indication of
+    its appearance in the original music.")
   #{
     \once \override Staff.InstrumentName.stencil =
       #(lambda (grob)

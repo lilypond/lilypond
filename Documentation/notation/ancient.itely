@@ -2647,6 +2647,9 @@ same source.
 
 @node Incipits
 @unnumberedsubsubsec Incipits
+@funindex \incipit
+@funindex incipit
+@cindex incipits, adding
 
 It is customary when transcribing mensural music into modern notation to place
 an indication of how the initial rests and note or notes of the original version
