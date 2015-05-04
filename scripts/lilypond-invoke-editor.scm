@@ -151,9 +151,12 @@ Options:
     (if (running-from-gui?)
 	(redirect-port (current-error-port)
 		       (open-file (string-append
-				   (or (getenv "TMP")
-				       (getenv "TEMP")
-				       "/tmp")
+                                   (if (string-match "^(Windows|CYGWIN)"
+                                                     (utsname:sysname (uname)))
+                                       (or (getenv "TMP")
+                                           (getenv "TEMP"))
+                                       (or (getenv "TMPDIR")
+                                           "/tmp"))
 				   "/lilypond-invoke-editor.log") "a")))
     (if (not (= (length files) 1))
 	(begin
