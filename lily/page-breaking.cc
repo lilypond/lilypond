@@ -1133,7 +1133,7 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
 
       if ((!too_few_lines (line_count) && (next_height > cur_page_height && cur_rod_height > 0))
           || too_many_lines (next_line_count)
-          || prev && scm_is_eq (prev->page_permission_, ly_symbol2scm ("force")))
+          || (prev && scm_is_eq (prev->page_permission_, ly_symbol2scm ("force"))))
         {
           line_count = cur.compressed_nontitle_lines_count_;
           cur_rod_height = cur.full_height ();
