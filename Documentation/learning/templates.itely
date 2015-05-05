@@ -370,9 +370,8 @@ use the built-in templates, which can simply be @code{\include}'d, see
 @node Transcription of mensural music
 @appendixsubsec Transcription of mensural music
 
-@c Line-width below is because of Issue 766.  If that's fixed, it can be removed.
-@lilypondfile[verbatim,quote,ragged-right,texidoc,line-width=140]
-{ancient-notation-template----modern-transcription-of-mensural-music.ly}
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
+{incipit.ly}
 
 @node Gregorian transcription template
 @appendixsubsec Gregorian transcription template
@@ -391,8 +390,7 @@ use the built-in templates, which can simply be @code{\include}'d, see
 @node Jazz combo
 @appendixsubsec Jazz combo
 
-@c Line-width below is because of Issue 766.  If that's fixed, it can be removed.
-@lilypondfile[verbatim,quote,ragged-right,texidoc,line-width=140]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {jazz-combo-template.ly}
 
 

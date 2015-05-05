@@ -218,9 +218,8 @@ LilyPond i gaudir d'unes belles partitures impreses!
 @appendixsubsec Transcripció dfe música mensural
 @translationof Transcription of mensural music
 
-@c Line-width below is because of Issue 766.  If that's fixed, it can be removed.
-@lilypondfile[verbatim,quote,ragged-right,texidoc,line-width=140]
-{ancient-notation-template----modern-transcription-of-mensural-music.ly}
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
+{incipit.ly}
 
 @node Plantilla per a transcripció de cant gregorià
 @appendixsubsec Plantilla per a transcripció de cant gregorià
@@ -242,6 +241,5 @@ LilyPond i gaudir d'unes belles partitures impreses!
 @appendixsubsec Combo de jazz
 @translationof Jazz combo
 
-@c Line-width below is because of Issue 766.  If that's fixed, it can be removed.
-@lilypondfile[verbatim,quote,ragged-right,texidoc,line-width=140]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {jazz-combo-template.ly}

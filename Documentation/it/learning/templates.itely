@@ -396,9 +396,8 @@ inclusi con @code{include}, come è spiegato in @ref{Built-in templates}.
 @appendixsubsec Trascrizione di musica mensurale
 @translationof Transcription of mensural music
 
-@c Line-width below is because of Issue 766.  If that's fixed, it can be removed.
-@lilypondfile[verbatim,quote,ragged-right,texidoc,line-width=140]
-{ancient-notation-template----modern-transcription-of-mensural-music.ly}
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
+{incipit.ly}
 
 @node Trascrizione di musica Gregoriana
 @appendixsubsec Trascrizione di musica Gregoriana
@@ -420,8 +419,7 @@ inclusi con @code{include}, come è spiegato in @ref{Built-in templates}.
 @appendixsubsec Combo jazz
 @translationof Jazz combo
 
-@c Line-width below is because of Issue 766.  If that's fixed, it can be removed.
-@lilypondfile[verbatim,quote,ragged-right,texidoc,line-width=140]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {jazz-combo-template.ly}
 
 

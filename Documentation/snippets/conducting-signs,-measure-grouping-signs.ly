@@ -12,7 +12,7 @@
   texidoc = "
 Beat grouping within a measure is controlled by the context property
 @code{beatStructure}.  Values of @code{beatStructure} are established
-for many time signatures in @file{scm/time-signature-settings.scm}.
+for many time signatures in @@file@{scm/time-signature-settings.scm@}.
 Values of @code{beatStructure} can be changed or set with @code{\\set}.
 Alternatively, @code{\\time} can be used to both set the time signature
 and establish the beat structure. For this, you specify the internal
@@ -28,7 +28,7 @@ display contexts, measure grouping signs will be created.  Such signs
 ease reading rhythmically complex modern music. In the example, the 9/8
 measure is grouped in two different patterns using the two different
 methods, while the 5/8 measure is grouped according to the default
-setting in @file{scm/time-signature-settings.scm}:
+setting in @@file@{scm/time-signature-settings.scm@}:
 
 "
   doctitle = "Conducting signs measure grouping signs"

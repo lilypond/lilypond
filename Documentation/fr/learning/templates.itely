@@ -420,9 +420,8 @@ adopter une construction préprogrammée appelée par une instruction
 @appendixsubsec Transcription de musique mensurale
 @translationof Transcription of mensural music
 
-@c Line-width below is because of Issue 766.  If that's fixed, it can be removed.
-@lilypondfile[verbatim,quote,ragged-right,texidoc,line-width=140]
-{ancient-notation-template----modern-transcription-of-mensural-music.ly}
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
+{incipit.ly}
 
 
 @node Transcription du grégorien
@@ -446,6 +445,5 @@ adopter une construction préprogrammée appelée par une instruction
 @appendixsubsec Symboles de jazz
 @translationof Jazz combo
 
-@c Line-width below is because of Issue 766.  If that's fixed, it can be removed.
-@lilypondfile[verbatim,quote,ragged-right,texidoc,line-width=140]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {jazz-combo-template.ly}

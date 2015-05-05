@@ -154,9 +154,8 @@ schönen Notenbild erfreuen!
 @translationof Ancient notation templates
 
 @appendixsubsec Transkription mensuraler Musik
-@c Line-width below is because of Issue 766.  If that's fixed, it can be removed.
-@lilypondfile[verbatim,quote,ragged-right,texidoc,line-width=140]
-{ancient-notation-template----modern-transcription-of-mensural-music.ly}
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
+{incipit.ly}
 
 
 @appendixsubsec Vorlage zur Transkription von Gregorianik
@@ -172,8 +171,7 @@ schönen Notenbild erfreuen!
 @appendixsubsec Jazz-Combo
 @translationof Jazz combo
 
-@c Line-width below is because of Issue 766.  If that's fixed, it can be removed.
-@lilypondfile[verbatim,quote,ragged-right,texidoc,line-width=140]
+@lilypondfile[verbatim,quote,ragged-right,texidoc]
 {jazz-combo-template.ly}
 
 
