@@ -662,6 +662,23 @@ producing a new stencil."
     (set! stencil (ly:stencil-add outer inner))
     stencil))
 
+(define-public (flip-stencil axis stil)
+  "Flip stencil @var{stil} in the direction of @var{axis}.
+Value @code{X} (or @code{0}) for @var{axis} flips it horizontally.
+Value @code{Y} (or @code{1}) flips it vertically.  @var{stil} is
+flipped in place; its position, the coordinates of its bounding
+box, remains the same."
+  (let* (
+          ;; scale stencil using -1 to flip it and
+          ;; then restore it to its original position
+          (xy (if (= axis X) '(-1 . 1) '(1 . -1)))
+          (flipped-stil (ly:stencil-scale stil (car xy) (cdr xy)))
+          (flipped-ext (ly:stencil-extent flipped-stil axis))
+          (original-ext (ly:stencil-extent stil axis))
+          (offset (- (car original-ext) (car flipped-ext)))
+          (replaced-stil (ly:stencil-translate-axis flipped-stil offset axis)))
+    replaced-stil))
+
 (define-public (stencil-with-color stencil color)
   (ly:make-stencil
    (list 'color color (ly:stencil-expr stencil))

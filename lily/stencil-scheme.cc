@@ -457,8 +457,10 @@ LY_DEFINE (ly_all_stencil_expressions, "ly:all-stencil-expressions",
 
 LY_DEFINE (ly_stencil_scale, "ly:stencil-scale",
            3, 0, 0, (SCM stil, SCM x, SCM y),
-           "Scale @var{stil} using the horizontal and vertical scaling"
-           " factors @var{x} and @var{y}.")
+           "Scale stencil @var{stil} using the horizontal and vertical"
+           " scaling factors @var{x} and @var{y}.  Negative values will"
+           " flip or mirror @var{stil} without changing its origin;"
+           " this may result in collisions unless it is repositioned.")
 {
   Stencil *s = Stencil::unsmob (stil);
   LY_ASSERT_SMOB (Stencil, stil, 1);
