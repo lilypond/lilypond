@@ -38,7 +38,6 @@ using namespace std;
 #include "string-convert.hh"
 #include "warn.hh"
 
-ADD_SMOB_INIT (Paper_outputter);
 
 Paper_outputter::Paper_outputter (SCM port, const string &format)
 {

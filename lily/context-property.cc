@@ -94,8 +94,6 @@ private:
     cooked_ (alist), cooked_from_ (alist), nested_ (0) { }
 };
 
-ADD_SMOB_INIT (Grob_properties);
-
 const char Grob_properties::type_p_name_[] = "ly:grob-properties?";
 
 SCM

@@ -19,7 +19,6 @@
 
 #include "music-output.hh"
 
-ADD_SMOB_INIT (Music_output);
 
 Music_output::Music_output ()
 {

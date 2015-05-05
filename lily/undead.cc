@@ -32,8 +32,6 @@ public:
   Undead (SCM object = SCM_UNDEFINED) : object_ (object) { };
 };
 
-ADD_SMOB_INIT (Undead);
-
 SCM
 Undead::mark_smob ()
 {

@@ -19,8 +19,6 @@
 
 #include "scheme-listener.hh"
 
-ADD_SMOB_INIT (Scheme_listener);
-
 IMPLEMENT_LISTENER (Scheme_listener, call)
 void
 Scheme_listener::call (SCM ev)

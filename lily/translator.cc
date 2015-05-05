@@ -28,8 +28,6 @@
 
 #include "translator.icc"
 
-ADD_SMOB_INIT (Translator);
-
 Translator::~Translator ()
 {
 }

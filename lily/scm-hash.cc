@@ -23,8 +23,6 @@
 #include <algorithm>
 using namespace std;
 
-ADD_SMOB_INIT (Scheme_hash_table);
-
 
 /*
   Return: number of objects.

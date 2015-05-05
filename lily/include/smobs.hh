@@ -127,26 +127,37 @@
 
 */
 
+// Initialization class.  Create a variable or static data member of
+// this type at global scope (or creation will happen too late for
+// Scheme initialization), initialising with a function to be called.
+// Reference somewhere (like in the constructor of the containing
+// class) to make sure the variable is actually instantiated.
+
+class Scm_init {
+public:
+  Scm_init () { }
+  Scm_init (void (*fun) (void))
+  {
+    add_scm_init_func (fun);
+  }
+};
+
 template <class Super>
 class Smob_base
 {
   static scm_t_bits smob_tag_;
-  static scm_t_bits init_id (void);
+  static Scm_init scm_init_;
+  static void init (void);
   static string smob_name_;
   static Super *unchecked_unsmob (SCM s)
   {
     return reinterpret_cast<Super *> (SCM_SMOB_DATA (s));
   }
 protected:
-  // This is an initialization with side effect.  It is called once,
-  // the first time smob_tag is actually getting called.  This
-  // allocates and initializes the type before it is first used for
-  // anything.
-  static scm_t_bits smob_tag ()
-  {
-    static scm_t_bits tag = init_id ();
-    return tag;
-  }
+  // reference scm_init_ in smob_tag which is sure to be called.  The
+  // constructor, in contrast, may not be called at all in classes
+  // like Smob1.
+  static scm_t_bits smob_tag () { (void) scm_init_; return smob_tag_; }
   Smob_base () { }
   static SCM register_ptr (Super *p);
   static Super *unregister_ptr (SCM obj);
@@ -206,17 +217,6 @@ private:
   static const int smob_proc_signature_ = -1;
 
 public:
-  static void init (void)
-  {
-    // This is stupid, but without forcing initialization at the
-    // Scheme startup hook stage, stuff like ly:undead? will not be
-    // defined when the first Scheme files are loaded.
-    //
-    // So we provide an explicit initialization routine that can be
-    // used with ADD_SCM_INIT_FUNC
-    (void) smob_tag ();
-  }
-#define ADD_SMOB_INIT(type) ADD_SCM_INIT_FUNC (Smob_init_ ## type, Smob_base<type>::init)
   static bool is_smob (SCM s)
   {
     return SCM_SMOB_PREDICATE (smob_tag (), s);

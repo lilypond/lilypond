@@ -25,7 +25,6 @@
 #include "string-convert.hh"
 #include "warn.hh"
 
-ADD_SMOB_INIT (Stencil);
 
 Stencil::Stencil ()
 {

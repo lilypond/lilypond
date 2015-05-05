@@ -21,8 +21,6 @@
 #include "source-file.hh"
 #include "std-string.hh"
 
-ADD_SMOB_INIT (Input);
-
 
 /* Dummy input location for use if real one is missing.  */
 Input dummy_input_global;

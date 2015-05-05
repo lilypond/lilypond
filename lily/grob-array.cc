@@ -21,7 +21,6 @@
 #include "item.hh"
 #include "spanner.hh"
 
-ADD_SMOB_INIT (Grob_array);
 
 Item *
 Grob_array::item (vsize i)

@@ -19,8 +19,6 @@
 
 #include "music-function.hh"
 
-ADD_SMOB_INIT (Music_function);
-
 const char Music_function::type_p_name_[] = "ly:music-function?";
 
 /* Print a textual represenation of the smob to a given port.  */
