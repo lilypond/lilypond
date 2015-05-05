@@ -464,9 +464,9 @@ coordinates for the previous point in the path."
                   ((eq? head 'curveto) 6)
                   (else 0)))
           (coordinates-raw (take rest arity))
-          (absolute? (if (memq head-raw
+          (is-absolute (if (memq head-raw
                            '(rmoveto m rlineto l rcurveto c)) #f #t))
-          (coordinates (if absolute?
+          (coordinates (if is-absolute
                            coordinates-raw
                            ;; convert relative coordinates to absolute by
                            ;; adding them to previous point values
