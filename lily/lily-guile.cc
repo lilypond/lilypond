@@ -449,6 +449,23 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
   return true;
 }
 
+void
+ly_wrong_smob_arg (bool pred (SCM), SCM var, int number, const char *fun)
+{
+  string type = predicate_to_typename ((void *) pred);
+  if (pred (var))
+    {
+      // Uh oh.  derived_unsmob <T> delivered 0, yet
+      // T::is_smob delivers true.  This means that T::is_smob is a
+      // matching check from a base class of T, but var is of an
+      // incompatible derived type.
+      type = string (_ ("Wrong kind of ")).append (type);
+    }
+  scm_wrong_type_arg_msg (mangle_cxx_identifier (fun).c_str (),
+                          number, var, type.c_str ());
+}
+
+
 /* some SCM abbrevs
 
 zijn deze nou handig?

@@ -235,6 +235,23 @@ void ly_check_name (const string &cxx, const string &fname);
       }                                                                 \
   }
 
-#define LY_ASSERT_SMOB(klass, var, number) LY_ASSERT_TYPE(klass::is_smob, var, number)
+void ly_wrong_smob_arg (bool pred (SCM), SCM var, int number, const char *fun);
+
+// Could be just implemented using LY_ASSERT_TYPE, but this variant
+// saves a slight amount of code
+
+#define LY_ASSERT_SMOB(klass, var, number)                              \
+  {                                                                     \
+    if (!klass::is_smob (var))                                          \
+      ly_wrong_smob_arg (klass::is_smob, var, number, __FUNCTION__);    \
+  }
+
+// This variant is for the case where klass::unsmob might actually be
+// situated in a base class of klass
+#define LY_ASSERT_DERIVED_SMOB(klass, var, number)                      \
+  {                                                                     \
+    if (!derived_unsmob<klass> (var))                                   \
+      ly_wrong_smob_arg (klass::is_smob, var, number, __FUNCTION__);    \
+  }
 
 #endif /* LILY_GUILE_MACROS_HH */
