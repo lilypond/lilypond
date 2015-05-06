@@ -21,10 +21,20 @@
 #include "lily-guile.hh"
 #include "main.hh"
 #include "warn.hh"
+#include "smobs.hh"
 
 /*
   INIT
 */
+
+// Why a pointer here?  Because it has zero initialization at load
+// time which is guaranteed to come before the static initializations
+// of all constructors for static expressions of the classes created
+// by ADD_SCM_INIT_FUNC.  The vector data type does not have load-time
+// initialization and might clear out already set callbacks at the
+// time it is initialized since there is no implied order among
+// non-trivial constructors for static data in separate compilation
+// units.  So we need a trivial type like a pointer instead.
 
 typedef void (*Void_fptr) ();
 vector<Void_fptr> *scm_init_funcs_;
@@ -40,6 +50,8 @@ void add_scm_init_func (void (*f) ())
 void
 ly_init_ly_module (void *)
 {
+  // Start up type system first.
+  Scm_init::init ();
   for (vsize i = scm_init_funcs_->size (); i--;)
     (scm_init_funcs_->at (i)) ();
 

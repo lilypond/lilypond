@@ -85,3 +85,13 @@ unprotect_smob (SCM smob, SCM *prot_cons)
   *prot_cons = SCM_EOL;
 #endif
 }
+
+
+Scm_init const *Scm_init::list_ = 0;
+
+void
+Scm_init::init ()
+{
+  for (Scm_init const *p = list_; p; p = p->next_)
+    p->fun_ ();
+}

@@ -110,7 +110,7 @@ template <class Super>
 scm_t_bits Smob_base<Super>::smob_tag_ = 0;
 
 template <class Super>
-Scm_init Smob_base<Super>::scm_init_ = init;
+Scm_init Smob_base<Super>::scm_init_ (init);
 
 template <class Super>
 string Smob_base<Super>::smob_name_;

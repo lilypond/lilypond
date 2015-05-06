@@ -134,12 +134,15 @@
 // class) to make sure the variable is actually instantiated.
 
 class Scm_init {
+  static const Scm_init * list_;
+  void (*const fun_)(void);
+  Scm_init const * const next_;
+  Scm_init ();          // don't use default constructor, don't define
+  Scm_init (const Scm_init &);  // don't define copy constructor
 public:
-  Scm_init () { }
-  Scm_init (void (*fun) (void))
-  {
-    add_scm_init_func (fun);
-  }
+  Scm_init (void (*fun) (void)) : fun_ (fun), next_ (list_)
+  { list_ = this; }
+  static void init ();
 };
 
 template <class Super>
