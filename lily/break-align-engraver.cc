@@ -118,7 +118,7 @@ Break_align_engraver::create_alignment (Grob_info inf)
   Context *origin = inf.origin_contexts (this)[0];
 
   Translator_group *tg = origin->implementation ();
-  Engraver *random_source = dynamic_cast<Engraver *> (Translator::unsmob (scm_car (tg->get_simple_trans_list ())));
+  Engraver *random_source = Engraver::unsmob (scm_car (tg->get_simple_trans_list ()));
   if (!random_source)
     random_source = this;
 

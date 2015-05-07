@@ -34,7 +34,7 @@ LY_DEFINE (ly_format_output, "ly:format-output",
            " process it and return the @code{Music_output} object"
            " in its final state.")
 {
-  Global_context *g = dynamic_cast<Global_context *> (Context::unsmob (context));
+  Global_context *g = Global_context::unsmob (context);
 
   LY_ASSERT_SMOB (Global_context, context, 1);
 
@@ -52,7 +52,7 @@ LY_DEFINE (ly_make_global_translator, "ly:make-global-translator",
            "Create a translator group and connect it to the global context"
            " @var{global}.  The translator group is returned.")
 {
-  Global_context *g = dynamic_cast<Global_context *> (Context::unsmob (global));
+  Global_context *g = Global_context::unsmob (global);
   LY_ASSERT_SMOB (Global_context, global, 1);
 
   Translator_group *tg = new Translator_group ();
@@ -96,7 +96,7 @@ LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression",
       return SCM_BOOL_F;
     }
 
-  Global_context *g = dynamic_cast<Global_context *> (Context::unsmob (ctx));
+  Global_context *g = Global_context::unsmob (ctx);
 
   Cpu_timer timer;
 

@@ -66,7 +66,7 @@ MAKE_SCHEME_CALLBACK (Ledger_line_spanner, set_spacing_rods, 1);
 SCM
 Ledger_line_spanner::set_spacing_rods (SCM smob)
 {
-  Spanner *me = dynamic_cast<Spanner *> (Grob::unsmob (smob));
+  Spanner *me = Spanner::unsmob (smob);
 
   // find size of note heads.
   Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
@@ -164,7 +164,7 @@ MAKE_SCHEME_CALLBACK (Ledger_line_spanner, print, 1);
 SCM
 Ledger_line_spanner::print (SCM smob)
 {
-  Spanner *me = dynamic_cast<Spanner *> (Grob::unsmob (smob));
+  Spanner *me = Spanner::unsmob (smob);
 
   extract_grob_set (me, "note-heads", heads);
 

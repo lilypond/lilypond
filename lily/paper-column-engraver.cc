@@ -98,7 +98,7 @@ Paper_column_engraver::make_columns ()
 void
 Paper_column_engraver::initialize ()
 {
-  system_ = dynamic_cast<System *> (Grob::unsmob (get_property ("rootSystem")));
+  system_ = derived_unsmob<System> (get_property ("rootSystem"));
   make_columns ();
 
   system_->set_bound (LEFT, command_column_);

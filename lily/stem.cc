@@ -952,7 +952,7 @@ Spanner *
 Stem::get_beam (Grob *me)
 {
   SCM b = me->get_object ("beam");
-  return dynamic_cast<Spanner *> (Grob::unsmob (b));
+  return Spanner::unsmob (b);
 }
 
 Stem_info

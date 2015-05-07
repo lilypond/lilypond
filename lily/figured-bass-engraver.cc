@@ -407,7 +407,7 @@ void
 Figured_bass_engraver::create_grobs ()
 {
   Grob *muscol
-    = dynamic_cast<Item *> (Grob::unsmob (get_property ("currentMusicalColumn")));
+    = Item::unsmob (get_property ("currentMusicalColumn"));
   if (!alignment_)
     {
       alignment_ = make_spanner ("BassFigureAlignment", SCM_EOL);

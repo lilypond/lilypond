@@ -52,7 +52,7 @@ LY_DEFINE (ly_spanner_broken_into, "ly:spanner-broken-into",
            "Return broken-into list for @var{spanner}.")
 {
   LY_ASSERT_TYPE (Spanner::unsmob, spanner, 1);
-  Spanner *me = dynamic_cast<Spanner *> (Grob::unsmob (spanner));
+  Spanner *me = Spanner::unsmob (spanner);
 
   SCM s = SCM_EOL;
   for (vsize i = me->broken_intos_.size (); i--;)

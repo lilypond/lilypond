@@ -263,7 +263,7 @@ MAKE_SCHEME_CALLBACK (Line_spanner, print, 1);
 SCM
 Line_spanner::print (SCM smob)
 {
-  Spanner *me = dynamic_cast<Spanner *> (Grob::unsmob (smob));
+  Spanner *me = Spanner::unsmob (smob);
 
   // Triggers simple-Y calculations
   bool simple_y = to_boolean (me->get_property ("simple-Y")) && !to_boolean (me->get_property ("cross-staff"));

@@ -139,7 +139,7 @@ Score::book_rendering (Output_def *layoutbook,
 
       /* TODO: fix or junk --no-layout.  */
       SCM context = ly_run_translator (music_, scaled);
-      if (dynamic_cast<Global_context *> (Context::unsmob (context)))
+      if (Global_context::unsmob (context))
         {
           SCM s = ly_format_output (context);
 

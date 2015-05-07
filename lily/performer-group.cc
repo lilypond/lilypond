@@ -71,7 +71,7 @@ performer_each (SCM list, Performer_method method)
 {
   for (SCM p = list; scm_is_pair (p); p = scm_cdr (p))
     {
-      Performer *e = dynamic_cast<Performer *> (Translator::unsmob (scm_car (p)));
+      Performer *e = Performer::unsmob (scm_car (p));
       if (e)
         (e->*method) ();
     }

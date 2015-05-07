@@ -90,7 +90,7 @@ Translator_group::finalize ()
   Both filter_performers and filter_engravers used to use a direct dynamic_cast
   on the unsmobbed translator to be filtered, i.e.,
 
-  if (dynamic_cast<Performer *> (Translator::unsmob (scm_car (*tail))))
+  if (Performer::unsmob (scm_car (*tail)))
 
   but this caused mysterious optimisation issues in several GUB builds.  See
   issue #818 for the background to this change.

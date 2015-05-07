@@ -326,7 +326,7 @@ Paper_book::score_title (SCM header)
 void
 set_page_permission (SCM sys, SCM symbol, SCM permission)
 {
-  if (Paper_score *ps = dynamic_cast<Paper_score *> (Music_output::unsmob (sys)))
+  if (Paper_score *ps = Paper_score::unsmob (sys))
     {
       vector<Grob *> cols = ps->get_columns ();
       if (cols.size ())
@@ -370,7 +370,7 @@ set_system_penalty (SCM sys, SCM header)
 void
 set_labels (SCM sys, SCM labels)
 {
-  if (Paper_score *ps = dynamic_cast<Paper_score *> (Music_output::unsmob (sys)))
+  if (Paper_score *ps = Paper_score::unsmob (sys))
     {
       vector<Grob *> cols = ps->get_columns ();
       if (cols.size ())
@@ -578,7 +578,7 @@ Paper_book::systems ()
       for (SCM s = specs; scm_is_pair (s); s = scm_cdr (s))
         {
           if (Paper_score * pscore
-              = dynamic_cast<Paper_score *> (Music_output::unsmob (scm_car (s))))
+              = Paper_score::unsmob (scm_car (s)))
             {
               SCM system_list
                 = scm_vector_to_list (pscore->get_paper_systems ());

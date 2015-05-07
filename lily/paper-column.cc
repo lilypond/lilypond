@@ -266,7 +266,7 @@ MAKE_DOCUMENTED_SCHEME_CALLBACK (Paper_column, print, 1,
 SCM
 Paper_column::print (SCM p)
 {
-  Paper_column *me = dynamic_cast<Paper_column *> (Grob::unsmob (p));
+  Paper_column *me = derived_unsmob<Paper_column> (p);
 
   string r = ::to_string (Paper_column::get_rank (me));
 

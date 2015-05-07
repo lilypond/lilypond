@@ -51,7 +51,7 @@ substitute_grob (Grob *sc)
   else
     {
       System *line
-        = dynamic_cast<System *> (Grob::unsmob (break_criterion));
+        = derived_unsmob<System> (break_criterion);
       if (sc->get_system () != line)
         sc = sc->find_broken_piece (line);
 

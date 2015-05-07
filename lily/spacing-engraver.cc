@@ -194,7 +194,7 @@ void
 Spacing_engraver::stop_translation_timestep ()
 {
   Paper_column *musical_column
-    = dynamic_cast<Paper_column *> (Grob::unsmob (get_property ("currentMusicalColumn")));
+    = derived_unsmob<Paper_column> (get_property ("currentMusicalColumn"));
 
   if (!spacing_)
     start_spanner ();

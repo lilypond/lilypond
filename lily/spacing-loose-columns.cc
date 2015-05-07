@@ -60,8 +60,8 @@ set_loose_columns (System *which, Column_x_positions const *posns)
           if (!loose->get_system ())
             break;
 
-          Paper_column *le = dynamic_cast<Paper_column *> (Grob::unsmob (scm_car (between)));
-          Paper_column *re = dynamic_cast<Paper_column *> (Grob::unsmob (scm_cdr (between)));
+          Paper_column *le = derived_unsmob<Paper_column> (scm_car (between));
+          Paper_column *re = derived_unsmob<Paper_column> (scm_cdr (between));
 
           if (! (le && re))
             break;

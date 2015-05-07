@@ -49,7 +49,7 @@ MAKE_SCHEME_CALLBACK (Ottava_bracket, print, 1);
 SCM
 Ottava_bracket::print (SCM smob)
 {
-  Spanner *me = dynamic_cast<Spanner *> (Grob::unsmob (smob));
+  Spanner *me = Spanner::unsmob (smob);
   Interval span_points;
 
   Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);

@@ -949,7 +949,7 @@ MAKE_SCHEME_CALLBACK (System, calc_pure_height, 3);
 SCM
 System::calc_pure_height (SCM smob, SCM start_scm, SCM end_scm)
 {
-  System *me = dynamic_cast<System *> (Grob::unsmob (smob));
+  System *me = derived_unsmob<System> (smob);
   int start = scm_to_int (start_scm);
   int end = scm_to_int (end_scm);
 
@@ -993,7 +993,7 @@ enum
 static SCM
 get_maybe_spaceable_staves (SCM smob, int filter)
 {
-  System *me = dynamic_cast<System *> (Grob::unsmob (smob));
+  System *me = derived_unsmob<System> (smob);
   Grob *align = Grob::unsmob (me->get_object ("vertical_alignment"));
   SCM ret = SCM_EOL;
 

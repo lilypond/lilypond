@@ -33,7 +33,7 @@ MAKE_SCHEME_CALLBACK (Piano_pedal_bracket, print, 1);
 SCM
 Piano_pedal_bracket::print (SCM smob)
 {
-  Spanner *me = dynamic_cast<Spanner *> (Grob::unsmob (smob));
+  Spanner *me = Spanner::unsmob (smob);
   Spanner *orig = dynamic_cast<Spanner *> (me->original ());
 
   Drul_array<bool> broken (false, false);
