@@ -91,7 +91,7 @@ private:
 
   void substitute_both (Outlet_type to1,
                         Outlet_type to2);
-
+  void kill_mmrest_in_inactive_outlets ();
   /* parameter is really Outlet_type */
   void kill_mmrest (int in);
   void chords_together ();
@@ -180,11 +180,21 @@ Part_combine_iterator::substitute_both (Outlet_type to1,
                                   handles_[to1].get_context ());
   second_iter_->substitute_outlet (second_iter_->get_outlet (),
                                    handles_[to2].get_context ());
+}
 
+void Part_combine_iterator::kill_mmrest_in_inactive_outlets ()
+{
   for (int j = 0; j < NUM_OUTLETS; j++)
     {
-      if (j != to1 && j != to2)
-        kill_mmrest (j);
+      Context *c = handles_[j].get_context ();
+
+      if (first_iter_->get_outlet () == c)
+        continue;
+
+      if (second_iter_->get_outlet () == c)
+        continue;
+
+      kill_mmrest (j);
     }
 }
 
@@ -216,8 +226,6 @@ Part_combine_iterator::unisono (bool silent, int newpart)
       Outlet_type c1 = (newpart == 2) ? CONTEXT_NULL : CONTEXT_SHARED;
       Outlet_type c2 = (newpart == 2) ? CONTEXT_SHARED : CONTEXT_NULL;
       substitute_both (c1, c2);
-      kill_mmrest ((newpart == 2) ? CONTEXT_ONE : CONTEXT_TWO);
-      kill_mmrest (CONTEXT_SHARED);
 
       state_ = newstate;
       chosen_part_ = newpart;
@@ -234,9 +242,6 @@ Part_combine_iterator::solo1 ()
       state_ = SOLO;
       chosen_part_ = 1;
       substitute_both (CONTEXT_SOLO, CONTEXT_NULL);
-
-      kill_mmrest (CONTEXT_TWO);
-      kill_mmrest (CONTEXT_SHARED);
     }
 }
 
@@ -354,6 +359,9 @@ Part_combine_iterator::process (Moment m)
 
       SCM tag = scm_cdar (split_list_);
 
+      Context *outletsBefore[] = { first_iter_->get_outlet (),
+                                   second_iter_->get_outlet () };
+
       if (scm_is_eq (tag, ly_symbol2scm ("chords")))
         chords_together ();
       else if (scm_is_eq (tag, ly_symbol2scm ("apart"))
@@ -385,6 +393,10 @@ Part_combine_iterator::process (Moment m)
                      + (scm_is_symbol (tag) ? ly_symbol2string (tag) : string ("not a symbol"));
           programming_error (s);
         }
+
+      if ((first_iter_->get_outlet () != outletsBefore[0])
+          || (second_iter_->get_outlet () != outletsBefore[1]))
+        kill_mmrest_in_inactive_outlets ();
     }
 
   if (first_iter_->ok ())
