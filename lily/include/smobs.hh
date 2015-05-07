@@ -234,6 +234,14 @@ public:
   }
 };
 
+// derived_unsmob includes a dynamic_cast:
+
+template <class T>
+inline T *derived_unsmob (SCM arg)
+{
+  return dynamic_cast<T *> (T::unsmob (arg));
+}
+
 // Simple smobs
 template <class Super>
 class Simple_smob : public Smob_base<Super> {
