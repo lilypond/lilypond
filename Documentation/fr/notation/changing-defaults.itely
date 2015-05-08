@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: cb70d3b93e015c85de728f8558fecf95e418e39f
+    Translation of GIT committish: 9f999a9739b9a81fe7c62ac35cb7008f8864b55d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.7"
+@c \version "2.19.20"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Gilles Thibault
@@ -3216,12 +3216,13 @@ a
 
 @lilypond[verbatim,quote,relative=2]
 a1
-\compressFullBarRests
-R1*23
-% increase the length of the rest bar
-\once \override MultiMeasureRest.minimum-length = #20
-R1*23
-a1
+\compressMMRests {
+  R1*23
+  % increase the length of the rest bar
+  \once \override MultiMeasureRest.minimum-length = #20
+  R1*23
+  a1
+}
 @end lilypond
 
 @lilypond[verbatim,quote,relative=2]

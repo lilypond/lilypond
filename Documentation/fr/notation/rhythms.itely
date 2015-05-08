@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d139eb3fc0ee681dac939a0ac4949ba1f4e4d0e3
+    Translation of GIT committish: 9f999a9739b9a81fe7c62ac35cb7008f8864b55d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.20"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, François Martin, Xavier Scheuer
@@ -845,6 +845,8 @@ Référence des propriétés internes :
 @cindex silences, mesure entière
 @cindex une pause par mesure
 
+@funindex compressMMRests
+@funindex \compressMMRests
 @funindex R
 
 Un silence valant une ou plusieurs mesures entières s'entre avec un
@@ -852,11 +854,12 @@ Un silence valant une ou plusieurs mesures entières s'entre avec un
 
 @lilypond[quote,verbatim,relative=2]
 % Rest measures contracted to single measure
-\compressFullBarRests
-R1*4
-R1*24
-R1*4
-b2^"Tutti" b4 a4
+\compressMMRests {
+  R1*4
+  R1*24
+  R1*4
+  b2^"Tutti" b4 a4
+}
 @end lilypond
 
 Ceci ne peut être utile que pour une mesure complètement vide.  Sa durée
@@ -865,15 +868,16 @@ la métrique.  C'est la raison pour laquelle on utilisera aussi des
 points d'augmentation ou des fractions :
 
 @lilypond[quote,verbatim,relative=2]
-\compressFullBarRests
-\time 2/4
-R1 | R2 |
-\time 3/4
-R2. | R2.*2 |
-\time 13/8
-R1*13/8 | R1*13/8*12 |
-\time 10/8
-R4*5*4 |
+\compressMMRests {
+  \time 2/4
+  R1 | R2 |
+  \time 3/4
+  R2. | R2.*2 |
+  \time 13/8
+  R1*13/8 | R1*13/8*12 |
+  \time 10/8
+  R4*5*4 |
+}
 @end lilypond
 
 Un @code{R} qui s'étend sur une seule mesure s'imprime tantôt comme
@@ -892,11 +896,6 @@ R1*2 |
 @cindex silence multimesure, expansion
 @cindex silence multimesure, contraction
 
-@funindex \expandFullBarRests
-@funindex expandFullBarRests
-@funindex \compressFullBarRests
-@funindex compressFullBarRests
-
 Par défaut, un silence multimesure sera répété sur autant de mesures
 que nécessaire.  Il peut aussi n'être imprimé qu'une seule fois,
 surplombé du nombre de mesures vides -- ou @qq{à compter} :
@@ -907,10 +906,10 @@ surplombé du nombre de mesures vides -- ou @qq{à compter} :
 \time 2/4 R2 |
 \time 4/4
 % Rest measures contracted to single measure
-\compressFullBarRests
-r1 | R1*17 | R1*4 |
-% Rest measures expanded
-\expandFullBarRests
+\compressMMRests {
+  r1 | R1*17 | R1*4 |
+}
+% Rest measures expanded again
 \time 3/4
 R2.*2 |
 @end lilypond
@@ -934,10 +933,11 @@ utilisant la syntaxe @w{@var{note}-@code{markup}} (cf.
 à elle permet d'ajouter un point d'orgue :
 
 @lilypond[quote,verbatim,relative=2]
-\compressFullBarRests
-\time 3/4
-R2.*10^\markup { \italic "ad lib." }
-R2.^\fermataMarkup
+\compressMMRests {
+  \time 3/4
+  R2.*10^\markup { \italic "ad lib." }
+  R2.^\fermataMarkup
+}
 @end lilypond
 
 @warning{C'est @code{MultiMeasureRestText} qui créera le texte,
@@ -965,17 +965,14 @@ numéros de mesure.
 @funindex textLenthOff
 @funindex \fermataMarkup
 @funindex fermataMarkup
-@funindex \compressFullBarRests
-@funindex compressFullBarRests
-@funindex \expandFullBarRests
-@funindex expandFullBarRests
+@funindex \compressMMRests
+@funindex compressMMRests
 
 @predefined
 @code{\textLengthOn},
 @code{\textLengthOff},
 @code{\fermataMarkup},
-@code{\compressFullBarRests},
-@code{\expandFullBarRests}.
+@code{\compressMMRests}.
 @endpredefined
 
 @snippets
@@ -1366,15 +1363,16 @@ ignore les indications de tempo dans les calculs d'espacement
 horizontal.
 
 @lilypond[verbatim,quote,relative=0]
-\compressFullBarRests
-\markLengthOn
-\tempo "Molto vivace"
-R1*12
-\tempo "Meno mosso"
-R1*16
-\markLengthOff
-\tempo "Tranquillo"
-R1*20
+\compressMMRests {
+  \markLengthOn
+  \tempo "Molto vivace"
+  R1*12
+  \tempo "Meno mosso"
+  R1*16
+  \markLengthOff
+  \tempo "Tranquillo"
+  R1*20
+}
 @end lilypond
 
 @snippets

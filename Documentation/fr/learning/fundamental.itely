@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d139eb3fc0ee681dac939a0ac4949ba1f4e4d0e3
+    Translation of GIT committish: 9f999a9739b9a81fe7c62ac35cb7008f8864b55d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.20"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: John Mandereau
@@ -1162,7 +1162,7 @@ voix.
 @cindex shift, commandes
 @cindex décalage, commandes
 
-@funindex \shiftOff
+@funindex \undo\shiftOff
 @funindex shiftOff
 @funindex \shiftOn
 @funindex shiftOn
@@ -1183,11 +1183,11 @@ la première voix et, dans l'accord final, le do de la troisième voix est
 lui aussi décalé à droite des autres notes.
 
 Les commandes @code{\shiftOn}, @code{\shiftOnn}, @code{\shiftOnnn} et
-@code{\shiftOff} spécifient le degré nécessaire de décalage qui sera
+@code{\undo\shiftOn} spécifient le degré nécessaire de décalage qui sera
 appliqué aux notes ou accords de la voix en question afin d'éviter une
 collision.  Par défaut, les voix extérieures -- normalement les
-première et deuxième -- se verront attribuer @code{\shiftOff}, alors que
-les voix intérieures -- trois et quatre -- se verront attribuer
+première et deuxième -- se verront attribuer @code{\undo\shiftOn}, alors
+que les voix intérieures -- trois et quatre -- se verront attribuer
 @code{\shiftOn}.  Lorsqu'un décalage s'applique, les voix un et trois
 iront vers la droite, et les voix deux et quatre vers la gauche.
 
@@ -3234,29 +3234,26 @@ pendant plusieurs mesures.  Un silence spécial, appelé silence
 multimesures, l'indique alors.  On l'obtient par un @code{R} majuscule,
 suivi d'une durée : @code{1} pour une pause, @code{2} pour une
 demi-pause, etc.  Cette durée peut être multipliée pour établir de plus
-longs silences.  Par exemple, le silence suivant dure 3 mesures à 2/4.
+longs silences.  Par exemple, le silence suivant dure trois mesures
+à 2/4.
 
 @example
 R2*3
 @end example
 
 Dans une partie séparée, les silences multimesure sont compressés.
-Il faut pour cela définir la propriété @code{skipBars} à @qq{vrai} :
+LilyPond dispose d'une commande à cet effet :
 
 @example
-\set Score.skipBars = ##t
+\compressMMRests @{ ... @}
 @end example
 
-@noindent
-Cette commande assigne la valeur @qq{vrai} -- @emph{true} en anglais, et
-@code{#t} dans le langage Scheme -- à cette propriété dans le contexte
-@code{Score}.  Si l'on ajoute dans la musique ci-dessus le silence
-multimesure et cette option, on obtient le résultat suivant :
+Si l'on ajoute dans la musique ci-dessus le silence multimesure et cette
+instruction, on obtient le résultat suivant :
 
 @lilypond[quote,ragged-right]
-\transpose f c' \relative c {
+\compressMMRests \transpose f c' \relative c {
   \time 2/4
-  \set Score.skipBars = ##t
   R2*3 |
   r4 f8 a | cis4 f | e d |
 }
@@ -3295,3 +3292,13 @@ ce qui équivaut à
   }
 >>
 @end lilypond
+
+@seealso
+Manuel d'initiation :
+@ref{Organisation du code source avec des variables}.
+
+Manuel de notation :
+@ruser{Écriture de parties séparées},
+@ruser{Insertion de fichiers LilyPond},
+@ruser{Silences valant une mesure},
+@ruser{Transposition}.
