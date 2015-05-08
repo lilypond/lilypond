@@ -24,19 +24,33 @@
 
 /*
   Mix GUILE GC with C++ ctors and dtors.
+
+  This version is intended to be only used for variables of static
+  lifetime (which are not feasible to protect using the per-instance
+  mechanism of the smob classes) but possibly varying content.  As a
+  result, the protection mechanism being used is the irreversible
+  scm_permanent_object.  The destructor (typically called after the
+  end of program execution) does not free resources and consequently
+  does not require the memory subsystem to be still workable.  A
+  working memory subsystem is only required once a non-immediate
+  Scheme value is assigned to the variable.  Since creation of a
+  non-immediate Scheme value requires a working memory subsystem in
+  the first place, this is not really a restriction.
+
+  To avoid accidental creation of temporaries, the copy constructor is
+  made unavailable.
 */
 class Protected_scm
 {
   SCM object_;
+  Protected_scm (Protected_scm const &);
 public:
   Protected_scm ();
   Protected_scm (SCM);
-  Protected_scm (Protected_scm const &);
   ~Protected_scm ();
   Protected_scm &operator = (SCM);
   Protected_scm &operator = (Protected_scm const &);
   operator SCM () const;
-  SCM to_SCM () const;
 };
 
 #endif /* PROTECTED_SCM_HH */

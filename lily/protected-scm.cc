@@ -19,54 +19,51 @@
 
 #include "protected-scm.hh"
 
+// We store the data in the car of a cons cell: it is faster to keep
+// only one object protected during the life time of Protected_scm
+// than several.
+
 Protected_scm::Protected_scm ()
+  : object_ (SCM_UNDEFINED)
 {
-  object_ = SCM_UNDEFINED;
 }
 
 Protected_scm::Protected_scm (SCM s)
+  : object_ (s)
 {
-  object_ = SCM_NIMP (s) ? scm_gc_protect_object (s) : s;
+  // Only allow immediate objects at construction time.  Protected_scm
+  // is intended for variables of static duration, and creating
+  // non-immediate objects when GUILE is not yet up is a bad idea.
+  assert (SCM_IMP (s));
 }
 
-Protected_scm::Protected_scm (Protected_scm const &s)
-{
-  object_ = (SCM_NIMP (s.object_) ? scm_gc_protect_object (s.object_)
-             : s.object_);
-}
+// For static objects, this will be called at program exit.  With the
+// state of the memory system unknown, we refrain from any cleanup
+// actions outside of the object memory itself.
 
 Protected_scm::~Protected_scm ()
 {
-  if (SCM_NIMP (object_))
-    scm_gc_unprotect_object (object_);
+  object_ = SCM_UNDEFINED;
 }
 
 Protected_scm &
 Protected_scm::operator = (SCM s)
 {
-  if (object_ == s)
-    return *this;
+  if (SCM_CONSP (object_))
+    SCM_SETCAR (object_, s);
+  else
+    object_ = SCM_NIMP (s) ? scm_permanent_object (scm_list_1 (s)) : s;
 
-  if (SCM_NIMP (object_))
-    scm_gc_unprotect_object (object_);
-
-  object_ = SCM_NIMP (s) ? scm_gc_protect_object (s) : s;
   return *this;
 }
 
 Protected_scm &
 Protected_scm::operator = (Protected_scm const &s)
 {
-  return operator = (s.object_);
+  return *this = (SCM) s;
 }
 
 Protected_scm::operator SCM () const
 {
-  return object_;
-}
-
-SCM
-Protected_scm::to_SCM () const
-{
-  return object_;
+  return SCM_CONSP (object_) ? SCM_CAR (object_) : object_;
 }
