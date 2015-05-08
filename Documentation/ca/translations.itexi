@@ -16,12 +16,12 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualitzat el Tue Dec 30 15:39:08 UTC 2014
+@emph{Actualitzat el Fri May  8 16:25:29 UTC 2015
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
-LilyPond: notació musical per a tots
+Manual d'aprenentatge del GNU LilyPond
 @tab Traductors
 @tab Revisors
 @tab Traduït
@@ -30,7 +30,115 @@ LilyPond: notació musical per a tots
 @item
 Títols de secció
 @*
-642
+124
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #5bff27">parcialment</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialment
+@end ifnothtml
+@tab pre-GDP
+@item
+LilyPond --- \TITLE\
+@*
+1139
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab pre-GDP
+@item
+1 Tutorial
+@*
+2578
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab pre-GDP
+@item
+2 Notació corrent
+@*
+4453
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #54ff26">parcialment</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialment
+@end ifnothtml
+@tab pre-GDP
+@item
+3 Conceptes fonamentals
+@*
+11192
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -48,6 +156,246 @@ si
 
 @html
 <span style="background-color: #2cff20">parcialment</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialment
+@end ifnothtml
+@tab pre-GDP
+@item
+4 Ajustament de la sortida
+@*
+16574
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #dfef77">parcialment (98 %)</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialment (98 %)
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #33ff21">parcialment</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialment
+@end ifnothtml
+@tab pre-GDP
+@item
+A Plantilles
+@*
+803
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #dfef77">parcialment (99 %)</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialment (99 %)
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #dbff38">parcialment</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialment
+@end ifnothtml
+@tab pre-GDP
+@end multitable
+
+
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
+
+@headitem
+LilyPond: manual d'utilització del programa
+@tab Traductors
+@tab Revisors
+@tab Traduït
+@tab Actualitzat
+@tab Més inf.
+@item
+Títols de secció
+@*
+135
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #54ff26">parcialment</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialment
+@end ifnothtml
+@tab pre-GDP
+@item
+LilyPond --- \TITLE\
+@*
+1139
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab pre-GDP
+@item
+1 Execució del LilyPond
+@*
+5207
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #dfef77">parcialment (95 %)</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialment (95 %)
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #62ff28">parcialment</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialment
+@end ifnothtml
+@tab pre-GDP
+@item
+2 Actualització de fitxers amb @command{convert-ly}
+@*
+1865
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #ffe241">parcialment</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialment
+@end ifnothtml
+@tab pre-GDP
+@item
+3 Suggeriments per escriure fitxers d'entrada
+@*
+2798
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #6fff29">parcialment</span>
+@end html
+@end ifhtml
+@ifnothtml
+parcialment
+@end ifnothtml
+@tab pre-GDP
+@end multitable
+
+
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
+
+@headitem
+LilyPond: notació musical per a tots
+@tab Traductors
+@tab Revisors
+@tab Traduït
+@tab Actualitzat
+@tab Més inf.
+@item
+Títols de secció
+@*
+629
+@tab Walter Garcia-Fontes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">si</span>
+@end html
+@end ifhtml
+@ifnothtml
+si
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #54ff26">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -84,7 +432,7 @@ si
 @item
 Introducció
 @*
-5707
+5777
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -101,7 +449,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">parcialment</span>
+<span style="background-color: #62ff28">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -111,7 +459,7 @@ parcialment
 @item
 Descàrrega
 @*
-1145
+1147
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -165,7 +513,7 @@ si
 @item
 Comunitat
 @*
-2991
+2997
 @tab Walter Garcia-Fontes
 @tab 
 @tab 

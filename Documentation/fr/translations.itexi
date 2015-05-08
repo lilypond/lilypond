@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Tue Dec 30 15:39:08 UTC 2014
+@emph{Dernière mise à jour Fri May  8 16:25:29 UTC 2015
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -371,7 +371,7 @@ oui
 @item
 2 Bases de notation musicale
 @*
-4417
+4453
 @tab Nicolas Grandclaude
 @*
 Ludovic Sardain
@@ -406,7 +406,7 @@ oui
 @item
 3 Concepts fondamentaux
 @*
-11193
+11192
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -435,7 +435,7 @@ oui
 @item
 4 Retouche de partition
 @*
-16570
+16574
 @tab Valentin Villenave
 @*
 Nicolas Klutchnikoff
@@ -623,7 +623,7 @@ oui
 @item
 1.2 Rythme
 @*
-6916
+6874
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -718,7 +718,7 @@ oui
 @item
 1.5 Notes simultanées
 @*
-2810
+2807
 @tab Frédéric Chiasson
 @*
 Valentin Villenave
@@ -751,7 +751,7 @@ oui
 @item
 1.6 Notation sur la portée
 @*
-2476
+2373
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -865,7 +865,7 @@ oui
 @item
 2.1 Musique vocale
 @*
-4985
+4941
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1157,7 +1157,7 @@ oui
 @item
 3 Généralités en matière d'entrée et sortie
 @*
-10610
+10644
 @tab Jean-Charles Malahieude
 @*
 Valentin Villenave
@@ -1370,7 +1370,7 @@ oui
 @item
 1 Exécution de @command{lilypond}
 @*
-5080
+5207
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1478,7 +1478,7 @@ oui
 @item
 5 Suggestions pour la saisie de fichiers LilyPond
 @*
-2692
+2798
 @tab Ludovic Sardain
 @*
 Jean-Charles Malahieude
@@ -1523,7 +1523,7 @@ LilyPond -- la notation musicale pour tous
 @item
 Titre des chapitres
 @*
-642
+629
 @tab John Mandereau
 @tab 
 @tab 
@@ -1577,7 +1577,7 @@ oui
 @item
 Introduction
 @*
-5707
+5777
 @tab Gauvain Pocentek
 @*
 Jean-Charles Malahieude
@@ -1608,7 +1608,7 @@ oui
 @item
 Téléchargement
 @*
-1145
+1147
 @tab Jean-Charles Malahieude
 @*
 John Mandereau
@@ -1664,7 +1664,7 @@ oui
 @item
 Communauté
 @*
-2991
+2997
 @tab Jean-Charles Malahieude
 @*
 John Mandereau

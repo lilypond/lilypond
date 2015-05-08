@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最近更新 Tue Dec 30 15:39:08 UTC 2014
+@emph{最近更新 Fri May  8 16:25:29 UTC 2015
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -30,7 +30,7 @@ LilyPond -- 人人的乐谱软件
 @item
 章节标题
 @*
-642
+629
 @tab Ben Luo
 @*
 Anthony Fok
@@ -49,7 +49,7 @@ Anthony Fok
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">部分</span>
+<span style="background-color: #68ff28">部分</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -88,7 +88,7 @@ Anthony Fok
 @item
 简介
 @*
-5707
+5777
 @tab Ben Luo
 @*
 Anthony Fok
@@ -117,7 +117,7 @@ Anthony Fok
 @item
 下载
 @*
-1145
+1147
 @tab Ben Luo
 @*
 Anthony Fok
@@ -173,7 +173,7 @@ Anthony Fok
 @item
 社区
 @*
-2991
+2997
 @tab Ben Luo
 @*
 Anthony Fok

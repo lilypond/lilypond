@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Meest recente update Tue Dec 30 15:39:08 UTC 2014
+@emph{Meest recente update Fri May  8 16:25:29 UTC 2015
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -111,24 +111,24 @@ gedeeltelijk
 @item
 2 Algemene muzieknotatie
 @*
-4417
+4453
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">gedeeltelijk (36 %)</span>
+<span style="background-color: #dfef77">gedeeltelijk (38 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk (36 %)
+gedeeltelijk (38 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">gedeeltelijk</span>
+<span style="background-color: #83fe2c">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -138,7 +138,7 @@ gedeeltelijk
 @item
 3 Fundamentele concepten
 @*
-11193
+11192
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
@@ -155,7 +155,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">gedeeltelijk</span>
+<span style="background-color: #39ff22">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -165,7 +165,7 @@ gedeeltelijk
 @item
 4 Tweaking output
 @*
-16570
+16574
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
@@ -231,7 +231,7 @@ LilyPond -- Muzieknotatie voor iedereen
 @item
 Paragraaftitels
 @*
-642
+629
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -248,7 +248,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">gedeeltelijk</span>
+<span style="background-color: #68ff28">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -285,7 +285,7 @@ ja
 @item
 Inleiding
 @*
-5707
+5777
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -302,7 +302,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #c7ff35">gedeeltelijk</span>
+<span style="background-color: #d4ff37">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -312,7 +312,7 @@ gedeeltelijk
 @item
 Download
 @*
-1145
+1147
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -329,7 +329,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #62ff28">gedeeltelijk</span>
+<span style="background-color: #68ff28">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml

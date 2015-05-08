@@ -16,8 +16,136 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Tue Dec 30 15:39:08 UTC 2014
+@emph{Last updated Fri May  8 16:25:29 UTC 2015
 }
+@multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
+
+@headitem
+Esszé az automatizált kottaszedésről
+@tab Translators
+@tab Translation checkers
+@tab Translated
+@tab Up to date
+@tab Other info
+@item
+Section titles
+@*
+92
+@tab Hegyi Tamás
+@*
+Harmath Dénes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab pre-GDP
+@item
+LilyPond --- \TITLE\
+@*
+1139
+@tab Hegyi Tamás
+@*
+Harmath Dénes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #39ff22">partially</span>
+@end html
+@end ifhtml
+@ifnothtml
+partially
+@end ifnothtml
+@tab pre-GDP
+@item
+1 A kottaszedés
+@*
+5315
+@tab Hegyi Tamás
+@*
+Harmath Dénes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab pre-GDP
+@item
+2 Irodalomjegyzék
+@*
+382
+@tab Hegyi Tamás
+@*
+Harmath Dénes
+@tab 
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab 
+@ifhtml
+
+@html
+<span style="background-color: #1fff1f">yes</span>
+@end html
+@end ifhtml
+@ifnothtml
+yes
+@end ifnothtml
+@tab pre-GDP
+@end multitable
+
+
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
@@ -111,24 +239,24 @@ partially
 @item
 2 Elemi kottaírás
 @*
-4417
+4453
 @tab Harmath Dénes
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially (35 %)</span>
+<span style="background-color: #dfef77">partially (37 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially (35 %)
+partially (37 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #c0ff34">partially</span>
+<span style="background-color: #b2fe32">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -138,8 +266,10 @@ partially
 @item
 3 Alapfogalmak
 @*
-11193
-@tab Harmath Dénes
+11192
+@tab Griechisch Erika
+@*
+Harmath Dénes
 @tab 
 @tab 
 @ifhtml
@@ -155,7 +285,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #a5ff31">partially</span>
+<span style="background-color: #acff31">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -165,7 +295,7 @@ partially
 @item
 4 A kimenet finomhangolása
 @*
-16570
+16574
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -182,7 +312,7 @@ no
 @ifhtml
 
 @html
-<span style="background-color: #e1ff39">partially</span>
+<span style="background-color: #e8fe39">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -232,7 +362,7 @@ LilyPond Használati útmutató
 Section titles
 @*
 135
-@tab Team-hu
+@tab Harmath Dénes
 @tab 
 @tab 
 @ifhtml
@@ -259,7 +389,7 @@ partially
 LilyPond --- \TITLE\
 @*
 1139
-@tab Team-hu
+@tab Harmath Dénes
 @tab 
 @tab 
 @ifhtml
@@ -285,8 +415,8 @@ partially
 @item
 1 A @command{lilypond} használata
 @*
-5080
-@tab Team-hu
+5207
+@tab Harmath Dénes
 @tab 
 @tab 
 @ifhtml
@@ -302,7 +432,7 @@ partially (90 %)
 @ifhtml
 
 @html
-<span style="background-color: #ffb249">partially</span>
+<span style="background-color: #ffaf4a">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -313,7 +443,7 @@ partially
 2 A @command{convert-ly} használata
 @*
 1865
-@tab Team-hu
+@tab Harmath Dénes
 @tab 
 @tab 
 @ifhtml
@@ -340,7 +470,7 @@ partially
 3 A @command{lilypond-book} használata
 @*
 4217
-@tab Team-hu
+@tab Harmath Dénes
 @tab 
 @tab 
 @ifhtml
@@ -378,7 +508,7 @@ LilyPond -- kottaszedés mindenkinek
 @item
 Section titles
 @*
-642
+629
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -395,7 +525,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #76fe2a">partially</span>
+<span style="background-color: #7dff2b">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -432,7 +562,7 @@ partially
 @item
 Bevezetés
 @*
-5707
+5777
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -449,7 +579,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #e1ff39">partially</span>
+<span style="background-color: #f6fe3b">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -459,7 +589,7 @@ partially
 @item
 Letöltés
 @*
-1145
+1147
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -476,7 +606,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #6fff29">partially</span>
+<span style="background-color: #76fe2a">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -513,7 +643,7 @@ partially
 @item
 Közösség
 @*
-2991
+2997
 @tab Harmath Dénes
 @tab 
 @tab 
