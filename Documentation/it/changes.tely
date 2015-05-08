@@ -36,7 +36,7 @@ Vedi il manuale utente, \NAME\
 @end macro
 
 
-@documentencoding utf-8
+@documentencoding UTF-8
 @documentlanguage it
 @afourpaper
 

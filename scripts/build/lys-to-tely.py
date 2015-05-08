@@ -61,7 +61,7 @@ template = '''\input texinfo
 @setfilename %%(name)s.info
 @settitle %%(title)s
 
-@documentencoding utf-8
+@documentencoding UTF-8
 @iftex
 @afourpaper
 @end iftex

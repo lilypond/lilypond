@@ -144,7 +144,7 @@ string-to-use).  If QUOTE? is #t, embed table in a @quotation environment."
    "\n* GNU " name ": (" file-name ").          " name "."
    "\n@end direntry\n"
    "@documentlanguage en\n"
-   "@documentencoding utf-8\n"))
+   "@documentencoding UTF-8\n"))
 
 (define (context-name name)
   name)
