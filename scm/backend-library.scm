@@ -111,6 +111,25 @@
                     #:pixmap-format (ly:get-option 'pixmap-format))
     (ly:progress "\n")))
 
+(define-public (copy-binary-file from-name to-name)
+  (if (eq? PLATFORM 'windows)
+      ;; MINGW hack: MinGW Guile's copy-file is broken.
+      ;; It opens files by the text mode instead of the binary mode.
+      ;; (It is fixed from Guile 2.0.9.)
+      ;; By the text mode, copied binary files are broken.
+      ;; So, we open files by the binary mode and copy by ourselves.
+      (let ((port-from (open-file from-name "rb"))
+            (port-to (open-file to-name "wb")))
+        (let loop((c (read-char port-from)))
+          (if (eof-object? c)
+              (begin (close port-from)
+                     (close port-to))
+              (begin (write-char c port-to)
+                     (loop (read-char port-from))))))
+      ;; Cygwin and other platforms:
+      ;; Pass through to copy-file
+      (copy-file from-name to-name)))
+
 (define-public (make-tmpfile)
   (let* ((tmpl
           (string-append (cond
