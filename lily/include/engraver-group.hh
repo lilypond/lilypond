@@ -38,7 +38,7 @@ public:
   virtual void connect_to_context (Context *c);
   virtual void disconnect_from_context ();
   virtual void announce_grob (Grob_info);
-  int pending_grob_count () const;
+  bool pending_grobs () const;
 private:
   virtual void acknowledge_grobs ();
 };

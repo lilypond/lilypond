@@ -218,7 +218,8 @@ Dispatcher::add_listener (SCM callback, SCM ev_class)
 inline void
 Dispatcher::internal_add_listener (SCM callback, SCM ev_class, int priority)
 {
-  SCM list = scm_hashq_ref (listeners_, ev_class, SCM_EOL);
+  SCM handle = scm_hashq_create_handle_x (listeners_, ev_class, SCM_EOL);
+  SCM list = scm_cdr (handle);
   // if ev_class is not yet listened to, we go through our list of
   // source dispatchers and register ourselves there with the priority
   // we have reserved for this dispatcher.  The priority system
@@ -242,20 +243,21 @@ Dispatcher::internal_add_listener (SCM callback, SCM ev_class, int priority)
     }
   SCM entry = scm_cons (scm_from_int (priority), callback);
   list = scm_merge (list, scm_list_1 (entry), ly_lily_module_constant ("car<"));
-  scm_hashq_set_x (listeners_, ev_class, list);
+  scm_set_cdr_x (handle, list);
 }
 
 void
 Dispatcher::remove_listener (Listener l, SCM ev_class)
 {
-  SCM list = scm_hashq_ref (listeners_, ev_class, SCM_EOL);
+  SCM handle = scm_hashq_get_handle (listeners_, ev_class);
 
-  if (scm_is_null (list))
+  if (scm_is_false (handle))
     {
       programming_error ("remove_listener called with incorrect class.");
       return;
     }
 
+  SCM list = scm_cdr (handle);
   // We just remove the listener once.
   bool first = true;
 
@@ -271,7 +273,7 @@ Dispatcher::remove_listener (Listener l, SCM ev_class)
     else
       e = scm_cdr (e);
   list = scm_cdr (dummy);
-  scm_hashq_set_x (listeners_, ev_class, list);
+  scm_set_cdr_x (handle, list);
 
   if (first)
     warning (_ ("Attempting to remove nonexisting listener."));

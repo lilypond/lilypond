@@ -101,11 +101,10 @@ Engraver_group::acknowledge_grobs ()
       else
         continue;
 
-      SCM acklist = scm_hashq_ref (acknowledge_hash_table_drul_[info.start_end ()],
-                                   nm, SCM_BOOL_F);
+      SCM ackhandle = scm_hashq_create_handle_x (acknowledge_hash_table_drul_[info.start_end ()],
+                                                 nm, SCM_BOOL_F);
 
-      Engraver_dispatch_list *dispatch
-        = Engraver_dispatch_list::unsmob (acklist);
+      SCM acklist = scm_cdr (ackhandle);
 
       if (scm_is_false (acklist))
         {
@@ -114,11 +113,11 @@ Engraver_group::acknowledge_grobs ()
           acklist = Engraver_dispatch_list::create (get_simple_trans_list (),
                                                     ifaces, info.start_end ());
 
-          dispatch
-            = Engraver_dispatch_list::unsmob (acklist);
-
-          scm_hashq_set_x (acknowledge_hash_table_drul_[info.start_end ()], nm, acklist);
+          scm_set_cdr_x (ackhandle, acklist);
         }
+
+      Engraver_dispatch_list *dispatch
+        = Engraver_dispatch_list::unsmob (acklist);
 
       if (dispatch)
         dispatch->apply (info);
@@ -129,10 +128,11 @@ Engraver_group::acknowledge_grobs ()
   Ugh. This is slightly expensive. We could/should cache the value of
   the group count?
 */
-int
-Engraver_group::pending_grob_count () const
+bool
+Engraver_group::pending_grobs () const
 {
-  int count = announce_infos_.size ();
+  if (!announce_infos_.empty ())
+    return true;
   for (SCM s = context_->children_contexts ();
        scm_is_pair (s); s = scm_cdr (s))
     {
@@ -140,10 +140,10 @@ Engraver_group::pending_grob_count () const
       Engraver_group *group
         = dynamic_cast<Engraver_group *> (c->implementation ());
 
-      if (group)
-        count += group->pending_grob_count ();
+      if (group && group->pending_grobs ())
+        return true;
     }
-  return count;
+  return false;
 }
 
 void
@@ -174,7 +174,7 @@ Engraver_group::do_announces ()
           announce_infos_.clear ();
         }
     }
-  while (pending_grob_count () > 0);
+  while (pending_grobs ());
 }
 
 Engraver_group::Engraver_group ()
