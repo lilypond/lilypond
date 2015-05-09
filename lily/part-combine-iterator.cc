@@ -186,16 +186,10 @@ void
 Part_combine_iterator::substitute_both (Outlet_type to1,
                                         Outlet_type to2)
 {
-  Outlet_type tos[] = {to1, to2};
-
-  Music_iterator *mis[] = {first_iter_, second_iter_};
-
-  for (int i = 0; i < 2; i++)
-    {
-      for (int j = 0; j < NUM_OUTLETS; j++)
-        if (j != tos[i])
-          mis[i]->substitute_outlet (handles_[j].get_context (), handles_[tos[i]].get_context ());
-    }
+  first_iter_->substitute_outlet (first_iter_->get_outlet (),
+                                  handles_[to1].get_context ());
+  second_iter_->substitute_outlet (second_iter_->get_outlet (),
+                                   handles_[to2].get_context ());
 
   for (int j = 0; j < NUM_OUTLETS; j++)
     {

@@ -132,9 +132,12 @@ Music_iterator::init_context (Music *m, Context *report)
 void
 Music_iterator::substitute_outlet (Context *f, Context *t)
 {
-  if (get_outlet () == f)
-    set_context (t);
-  derived_substitute (f, t);
+  if (f != t)
+    {
+      if (get_outlet () == f)
+        set_context (t);
+      derived_substitute (f, t);
+    }
 }
 
 void
