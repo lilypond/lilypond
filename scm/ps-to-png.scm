@@ -34,7 +34,7 @@
 (define PLATFORM
   (string->symbol
    (string-downcase
-    (car (string-tokenize (vector-ref (uname) 0) char-set:letter)))))
+    (car (string-tokenize (utsname:sysname (uname)) char-set:letter)))))
 
 (define (re-sub re sub string)
   (regexp-substitute/global #f re string 'pre sub 'post))

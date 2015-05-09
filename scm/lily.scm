@@ -41,7 +41,7 @@
 (define-public PLATFORM
   (string->symbol
    (string-downcase
-    (car (string-tokenize (utsname:sysname (uname)))))))
+    (car (string-tokenize (utsname:sysname (uname)) char-set:letter)))))
 
 ;;
 ;; Session-handling variables and procedures.
