@@ -55,11 +55,9 @@
   ;; must be sure that we don't catch stuff from old GUBs.
   (search-executable '("gs")))
 
-(define-public (postscript->pdf paper-width paper-height name)
-  (let* ((pdf-name (string-append
-                    (dir-basename name ".ps" ".eps")
-                    ".pdf"))
-         (is-eps (string-match "\\.eps$" name))
+(define-public (postscript->pdf paper-width paper-height
+                                base-name tmp-name is-eps)
+  (let* ((pdf-name (string-append base-name ".pdf"))
          (*unspecified* (if #f #f))
          (cmd
           (remove (lambda (x) (eq? x *unspecified*))
@@ -89,19 +87,20 @@
                                    (string-split pdf-name #\%)
                                    "%%"))
                    "-c.setpdfwrite"
-                   (string-append "-f" name)))))
+                   (string-append "-f" tmp-name)))))
 
     (ly:message (_ "Converting to `~a'...\n") pdf-name)
     (ly:system cmd)))
 
-(define-public (postscript->png resolution paper-width paper-height name)
+(define-public (postscript->png resolution paper-width paper-height
+                                base-name tmp-name is-eps)
   (let* ((verbose (ly:get-option 'verbose))
          (rename-page-1 #f))
 
     ;; Do not try to guess the name of the png file,
     ;; GS produces PNG files like BASE-page%d.png.
     (ly:message (_ "Converting to ~a...") "PNG")
-    (make-ps-images name
+    (make-ps-images base-name tmp-name is-eps
                     #:resolution resolution
                     #:page-width paper-width
                     #:page-height paper-height
@@ -110,6 +109,14 @@
                     #:anti-alias-factor (ly:get-option 'anti-alias-factor)
                     #:pixmap-format (ly:get-option 'pixmap-format))
     (ly:progress "\n")))
+
+(define-public (postscript->ps base-name tmp-name is-eps)
+  (let* ((ps-name (string-append base-name
+                                 (if is-eps ".eps" ".ps"))))
+    (if (not (equal? ps-name tmp-name))
+        (begin
+          (ly:message (_ "Copying to `~a'...\n") ps-name)
+          (copy-binary-file tmp-name ps-name)))))
 
 (define-public (copy-binary-file from-name to-name)
   (if (eq? PLATFORM 'windows)
@@ -164,23 +171,25 @@
         ;; Pass through the return value of mkstemp!
         port-tmp)))
 
-(define-public (postprocess-output paper-book module filename formats)
-  (let* ((completed (completize-formats formats))
-         (base (dir-basename filename ".ps" ".eps"))
-         (intermediate (remove (lambda (x) (member x formats)) completed)))
+(define-public (postprocess-output paper-book module formats
+                                   base-name tmp-name is-eps)
+  (let* ((completed (completize-formats formats is-eps)))
     (for-each (lambda (f)
-                ((eval (string->symbol (format #f "convert-to-~a" f))
-                       module) paper-book filename)) completed)
-    (if (ly:get-option 'delete-intermediate-files)
-        (for-each (lambda (f)
-                    (if (file-exists? f) (delete-file f)))
-                  (map (lambda (x) (string-append base "." x)) intermediate)))))
+                ((eval (string->symbol (format #f "convert-to-~a" f)) module)
+                 paper-book base-name tmp-name is-eps)) completed)
+    (if (and (ly:get-option 'delete-intermediate-files)
+             (or (not is-eps)
+                 (not (member "ps" completed)))
+             (file-exists? tmp-name))
+        (begin (ly:message (_ "Deleting `~a'...\n") tmp-name)
+               (delete-file tmp-name)))))
 
-(define-public (completize-formats formats)
+(define-public (completize-formats formats is-eps)
   (define new-fmts '())
-  (if (member "png" formats)
+  (if (and is-eps (member "eps" formats))
       (set! formats (cons "ps" formats)))
-  (if (member "pdf" formats)
+  (if (not (or (member "pdf" formats)
+               (member "png" formats)))
       (set! formats (cons "ps" formats)))
   (for-each (lambda (x)
               (if (member x formats) (set! new-fmts (cons x new-fmts))))

@@ -96,7 +96,7 @@
                                   header))))
     (if match (string->number (match:substring match 1)) 0)))
 
-(define-public (make-ps-images ps-name . rest)
+(define-public (make-ps-images base-name tmp-name is-eps . rest)
   (let-keywords*
    rest #f
    ((resolution 90)
@@ -114,17 +114,14 @@
                       ((string-contains format-str "jpeg") "jpeg")
                       (else
                        (ly:error "Unknown pixmap format ~a" pixmap-format))))
-          (base (string-join
-                 (string-split (dir-basename ps-name ".ps" ".eps") #\%)
-                 "%%"))
-          (png1 (format #f "~a.~a" base extension))
-          (pngn (format #f "~a-page%d.~a" base extension))
-          (page-count (ps-page-count ps-name))
+          (png1 (format #f "~a.~a" base-name extension))
+          (pngn (format #f "~a-page%d.~a" base-name extension))
+          (page-count (ps-page-count tmp-name))
           (multi-page? (> page-count 1))
           (output-file (if multi-page? pngn png1))
 
           (gs-variable-options
-           (if (string-suffix-ci? ".eps" ps-name)
+           (if is-eps
                "-dEPSCrop"
                (format #f "-dDEVICEWIDTHPOINTS=~,2f -dDEVICEHEIGHTPOINTS=~,2f"
                        page-width page-height)))
@@ -144,7 +141,7 @@
                           gs-variable-options
                           pixmap-format
                           output-file
-                          (* anti-alias-factor resolution) ps-name))
+                          (* anti-alias-factor resolution) tmp-name))
           (status 0)
           (files '()))
 
@@ -161,9 +158,9 @@
            (if multi-page?
                (map
                 (lambda (n)
-                  (format #f "~a-page~a.png" base (1+ n)))
+                  (format #f "~a-page~a.png" base-name (1+ n)))
                 (iota page-count))
-               (list (format #f "~a.png" base))))
+               (list (format #f "~a.png" base-name))))
 
      (if (not (= 0 status))
          (begin

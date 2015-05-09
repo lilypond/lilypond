@@ -83,8 +83,10 @@ alignment."
   ;; First, create the output, then if necessary, individual staves and
   ;; finally write some auxiliary files if desired
   (dump-infinite-stack-EPS stencils)
-  (postprocess-output book framework-eps-module
-                      (format #f "~a.eps" basename) (ly:output-formats))
+  (postprocess-output book framework-eps-module (ly:output-formats)
+                      basename
+                      (format #f "~a.eps" basename)
+                      #t)
 
   ;; individual staves (*-1.eps etc.); only print if more than one stencil
   ;; Otherwise the .eps and the -1.eps file will be identical and waste space
@@ -95,7 +97,9 @@ alignment."
              (eps-files (map dump-counted-stencil counted-systems)))
         (if do-pdf
             ;; par-for-each: a bit faster ...
-            (for-each (lambda (y) (postscript->pdf 0 0 y))
+            (for-each (lambda (y) (postscript->pdf 0 0
+                                                   (dir-basename y ".eps")
+                                                   y #t))
                       eps-files))))
 
   ;; Now, write some aux files if requested: .texi, .tex and .count

@@ -474,12 +474,10 @@
 
 
 (define-public (output-framework basename book scopes fields)
-  (let* ((filename (format #f "~a.ps" basename))
+  (let* ((port-tmp (make-tmpfile))
+         (tmp-name (port-filename port-tmp))
          (outputter (ly:make-paper-outputter
-                     ;; FIXME: better wrap open/open-file,
-                     ;; content-mangling is always bad.
-                     ;; MINGW hack: need to have "b"inary for embedding CFFs
-                     (open-file filename "wb")
+                     port-tmp
                      'ps))
          (paper (ly:paper-book-paper book))
          (header (ly:paper-book-header book))
@@ -507,8 +505,8 @@
      page-stencils)
     (display "%%Trailer\n%%EOF\n" port)
     (ly:outputter-close outputter)
-    (postprocess-output book framework-ps-module filename
-                        (ly:output-formats))))
+    (postprocess-output book framework-ps-module (ly:output-formats)
+                        basename tmp-name #f)))
 
 (define-public (dump-stencil-as-EPS paper dump-me filename
                                     load-fonts)
@@ -615,10 +613,10 @@
                                         (ly:get-option 'include-eps-fonts)
                                         bbox)
          (if do-pdf
-             (postscript->pdf 0 0 (format #f "~a.eps" filename)))
+             (postscript->pdf 0 0 filename (format #f "~a.eps" filename) #t))
          (if do-png
              (postscript->png (ly:get-option 'resolution) 0 0
-                              (format #f "~a.eps" filename)))))
+                              filename (format #f "~a.eps" filename) #t))))
      extents-system-pairs)))
 
 (define-public (clip-system-EPSes basename paper-book)
@@ -678,8 +676,11 @@
                          (format #f "~a.preview" basename)
                          #t)
     (postprocess-output book framework-ps-module
+                        (cons "png" (ly:output-formats))
+                        (format #f "~a.preview" basename)
                         (format #f "~a.preview.eps" basename)
-                        (cons "png" (ly:output-formats)))))
+                        #t
+                        )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -700,30 +701,23 @@
         defs-resolution
         (ly:get-option 'resolution))))
 
-(define (output-filename name)
-  (if (equal? (basename name ".ps") "-")
-      (string-append "./" name)
-      name))
-
-(define-public (convert-to-pdf book name)
+(define-public (convert-to-pdf book base-name tmp-name is-eps)
   (let* ((defs (ly:paper-book-paper book))
          (width-height (output-width-height defs))
          (width (car width-height))
-         (height (cdr width-height))
-         (filename (output-filename name)))
-    (postscript->pdf width height filename)))
+         (height (cdr width-height)))
+    (postscript->pdf width height base-name tmp-name is-eps)))
 
-(define-public (convert-to-png book name)
+(define-public (convert-to-png book base-name tmp-name is-eps)
   (let* ((defs (ly:paper-book-paper book))
          (resolution (output-resolution defs))
          (width-height (output-width-height defs))
          (width (car width-height))
-         (height (cdr width-height))
-         (filename (output-filename name)))
-    (postscript->png resolution width height filename)))
+         (height (cdr width-height)))
+    (postscript->png resolution width height base-name tmp-name is-eps)))
 
-(define-public (convert-to-ps book name)
-  #t)
+(define-public (convert-to-ps book base-name tmp-name is-eps)
+  (postscript->ps base-name tmp-name is-eps))
 
 (define-public (output-classic-framework basename book scopes fields)
   (ly:error (_ "\nThe PostScript backend does not support the
