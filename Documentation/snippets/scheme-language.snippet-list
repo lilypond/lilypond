@@ -5,6 +5,8 @@ center-text-below-hairpin-dynamics.ly
 changing--flageolet-mark-size.ly
 changing-properties-for-individual-grobs.ly
 creating-a-sequence-of-notes-on-various-pitches.ly
+creating-custom-dynamics-in-midi-output.ly
+creating-custom-dynamics-in-midi.ly
 creating-double-digit-fingerings.ly
 customizing-the-position-and-number-of-dots-in-repeat-sign-bar-lines.ly
 displaying-grob-ancestry.ly
@@ -14,6 +16,7 @@ generating-random-notes.ly
 generating-whole-scores-also-book-parts-in-scheme-without-using-the-parser.ly
 outputting-the-version-number.ly
 overriding-articulations-of-destinct-type.ly
+replacing-default-midi-instrument-equalization.ly
 string-number-extender-lines.ly
 three-sided-box.ly
 transposing-pitches-with-minimum-accidentals-smart-transpose.ly
