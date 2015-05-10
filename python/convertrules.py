@@ -3723,11 +3723,24 @@ def conv(str):
     str = re.sub (r'\bthin-kern\b', 'segno-kern', str)
     return str
 
+# before_id is written in a manner where it will only substantially
+# (rather than as a lookbefore assertion) match material that could
+# not be part of a previous id.  In that manner, one replacement does
+# not inhibit an immediately adjacent replacement.
+
+before_id = r'(?:^|(?<!\\)(?:\\\\)+|(?<=[^-_\\a-zA-Z])|(?<=[^a-zA-Z][-_]))'
+
+# after_id is a pure lookbehind assertion so its match string is
+# always empty
+
+after_id = r'(?![a-zA-Z]|[-_][a-zA-Z])'
+
 @rule ((2, 19, 16), """implicitTimeSignatureVisibility -> initialTimeSignatureVisibility
 csharp -> c-sharp""")
 def conv(str):
     str = re.sub (r'\bimplicitTimeSignatureVisibility\b', 'initialTimeSignatureVisibility', str)
-    str = re.sub (r'\b([a-g])((?:sharp){1,2}|(?:flat){1,2})\b',r'\1-\2', str)
+    str = re.sub ('(' + before_id + r'[a-g])((?:sharp){1,2}|(?:flat){1,2})'
+                  + after_id, r'\1-\2', str)
     str = re.sub (r'\\shiftOff\b', r'\\undo\\shiftOn', str)
     return str
 
