@@ -82,15 +82,6 @@ private:
   // e.g. 1 for Solo I, 2 for Solo II.
   int chosen_part_;
 
-  // States for generating partcombine text.
-  enum PlayingState
-  {
-    PLAYING_OTHER,
-    PLAYING_UNISONO,
-    PLAYING_SOLO1,
-    PLAYING_SOLO2,
-  } playing_state_;
-
   int last_playing_;
 
   /*
@@ -137,7 +128,6 @@ Part_combine_iterator::Part_combine_iterator ()
   split_list_ = SCM_EOL;
   state_ = APART;
   chosen_part_ = 1;
-  playing_state_ = PLAYING_OTHER;
   last_playing_ = 0;
 
   busy_ = false;
@@ -229,11 +219,6 @@ Part_combine_iterator::unisono (bool silent, int newpart)
       kill_mmrest ((newpart == 2) ? CONTEXT_ONE : CONTEXT_TWO);
       kill_mmrest (CONTEXT_SHARED);
 
-      if (playing_state_ != PLAYING_UNISONO
-          && newstate == UNISONO)
-        {
-          playing_state_ = PLAYING_UNISONO;
-        }
       state_ = newstate;
       chosen_part_ = newpart;
     }
@@ -252,8 +237,6 @@ Part_combine_iterator::solo1 ()
 
       kill_mmrest (CONTEXT_TWO);
       kill_mmrest (CONTEXT_SHARED);
-
-      playing_state_ = PLAYING_SOLO1;
     }
 }
 
@@ -267,8 +250,6 @@ Part_combine_iterator::solo2 ()
       state_ = SOLO;
       chosen_part_ = 2;
       substitute_both (CONTEXT_NULL, CONTEXT_SOLO);
-
-      playing_state_ = PLAYING_SOLO2;
     }
 }
 
@@ -279,7 +260,6 @@ Part_combine_iterator::chords_together ()
     return;
   else
     {
-      playing_state_ = PLAYING_OTHER;
       state_ = TOGETHER;
 
       substitute_both (CONTEXT_SHARED, CONTEXT_SHARED);
@@ -289,9 +269,6 @@ Part_combine_iterator::chords_together ()
 void
 Part_combine_iterator::apart (bool silent)
 {
-  if (!silent)
-    playing_state_ = PLAYING_OTHER;
-
   if (state_ == APART)
     return;
   else
