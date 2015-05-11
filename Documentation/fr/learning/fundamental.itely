@@ -1162,7 +1162,7 @@ voix.
 @cindex shift, commandes
 @cindex décalage, commandes
 
-@funindex \undo\shiftOff
+@funindex \shiftOff
 @funindex shiftOff
 @funindex \shiftOn
 @funindex shiftOn
@@ -1183,10 +1183,10 @@ la première voix et, dans l'accord final, le do de la troisième voix est
 lui aussi décalé à droite des autres notes.
 
 Les commandes @code{\shiftOn}, @code{\shiftOnn}, @code{\shiftOnnn} et
-@code{\undo\shiftOn} spécifient le degré nécessaire de décalage qui sera
+@code{\shiftOff} spécifient le degré nécessaire de décalage qui sera
 appliqué aux notes ou accords de la voix en question afin d'éviter une
 collision.  Par défaut, les voix extérieures -- normalement les
-première et deuxième -- se verront attribuer @code{\undo\shiftOn}, alors
+première et deuxième -- se verront attribuer @code{\shiftOff}, alors
 que les voix intérieures -- trois et quatre -- se verront attribuer
 @code{\shiftOn}.  Lorsqu'un décalage s'applique, les voix un et trois
 iront vers la droite, et les voix deux et quatre vers la gauche.
