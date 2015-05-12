@@ -26,7 +26,7 @@ Protected_scm grob_property_callback_stack (SCM_EOL);
 
 extern bool debug_property_callbacks;
 
-#ifndef NDEBUG
+#ifdef DEBUG
 static void
 print_property_callback_stack ()
 {
@@ -77,7 +77,7 @@ Grob::instrumented_set_property (SCM sym, SCM v,
                                  int line,
                                  char const *fun)
 {
-#ifndef NDEBUG
+#ifdef DEBUG
   if (ly_is_procedure (modification_callback))
     scm_apply_0 (modification_callback,
                  scm_list_n (self_scm (),
@@ -137,7 +137,7 @@ Grob::internal_set_value_on_alist (SCM *alist, SCM sym, SCM v)
 SCM
 Grob::internal_get_property_data (SCM sym) const
 {
-#ifndef NDEBUG
+#ifdef DEBUG
   if (profile_property_accesses)
     note_property_access (&grob_property_lookup_table, sym);
 #endif
@@ -166,7 +166,7 @@ Grob::internal_get_property (SCM sym) const
 {
   SCM val = get_property_data (sym);
 
-#ifndef NDEBUG
+#ifdef DEBUG
   if (scm_is_eq (val, ly_symbol2scm ("calculation-in-progress")))
     {
       programming_error (to_string ("cyclic dependency: calculation-in-progress encountered for #'%s (%s)",
@@ -232,7 +232,7 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
   */
   *alist = scm_assq_set_x (*alist, sym, marker);
 
-#ifndef NDEBUG
+#ifdef DEBUG
   if (debug_property_callbacks)
     grob_property_callback_stack = scm_cons (scm_list_3 (self_scm (), sym, proc), grob_property_callback_stack);
 #endif
@@ -247,7 +247,7 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
                                             false, 0, 0);
     }
 
-#ifndef NDEBUG
+#ifdef DEBUG
   if (debug_property_callbacks)
     grob_property_callback_stack = scm_cdr (grob_property_callback_stack);
 #endif
@@ -261,7 +261,7 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
     }
   else
     {
-#ifndef NDEBUG
+#ifdef DEBUG
       if (ly_is_procedure (cache_callback))
         scm_apply_0 (cache_callback,
                      scm_list_n (self_scm (),

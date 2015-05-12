@@ -215,7 +215,7 @@ void ly_check_name (const string &cxx, const string &fname);
 #define set_object(x, y) internal_set_object (ly_symbol2scm (x), y)
 #define del_property(x) internal_del_property (ly_symbol2scm (x))
 
-#ifndef NDEBUG
+#ifdef DEBUG
 /*
   TODO: include modification callback support here, perhaps
   through intermediate Grob::instrumented_set_property( .. __LINE__ ).

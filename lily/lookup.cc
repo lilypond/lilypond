@@ -244,7 +244,7 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
 
   const Real epsilon = 0.01;
 
-#ifndef NDEBUG
+#ifdef DEBUG
   /* remove consecutive duplicate points */
   for (vsize i = 0; i < points.size (); i++)
     {

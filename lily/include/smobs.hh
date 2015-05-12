@@ -333,7 +333,7 @@ public:
 // least some, so they are apparently not protected in spite of being
 // included in the GC scans.  So it would appear that scanning smobs
 // is not equivalent to marking them.  Ugh.
-#if !defined(NDEBUG) && !GUILEV2
+#if defined(DEBUG) && !GUILEV2
 #define ASSERT_LIVE_IS_ALLOWED(arg)                                     \
   do {                                                                  \
     static parsed_dead pass_here;                                       \

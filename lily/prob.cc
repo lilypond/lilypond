@@ -141,7 +141,7 @@ Prob::print_smob (SCM port, scm_print_state *)
 SCM
 Prob::internal_get_property (SCM sym) const
 {
-#ifndef NDEBUG
+#ifdef DEBUG
   if (profile_property_accesses)
     note_property_access (&prob_property_lookup_table, sym);
 #endif

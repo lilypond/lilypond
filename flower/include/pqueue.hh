@@ -69,7 +69,7 @@ public:
   }
   void OK () const
   {
-#ifndef NDEBUG
+#ifdef DEBUG
     for (vsize i = 2; i <= size (); i++)
       assert (compare (elt (i / 2), elt (i)) <= 0);
 #endif

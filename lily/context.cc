@@ -438,7 +438,7 @@ Context::get_default_interpreter (const string &context_id)
 Context *
 Context::where_defined (SCM sym, SCM *value) const
 {
-#ifndef NDEBUG
+#ifdef DEBUG
   if (profile_property_accesses)
     note_property_access (&context_property_lookup_table, sym);
 #endif
@@ -454,7 +454,7 @@ Context::where_defined (SCM sym, SCM *value) const
 bool
 Context::here_defined (SCM sym, SCM *value) const
 {
-#ifndef NDEBUG
+#ifdef DEBUG
   if (profile_property_accesses)
     note_property_access (&context_property_lookup_table, sym);
 #endif
@@ -468,7 +468,7 @@ Context::here_defined (SCM sym, SCM *value) const
 SCM
 Context::internal_get_property (SCM sym) const
 {
-#ifndef NDEBUG
+#ifdef DEBUG
   if (profile_property_accesses)
     note_property_access (&context_property_lookup_table, sym);
 #endif
