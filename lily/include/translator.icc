@@ -146,10 +146,9 @@ Listener                                                \
 {                                                       \
   cl *obj = (cl *) me;                                  \
   (void) unused; \
-  return obj->GET_LISTENER (_listen_scm_ ## m);         \
+  return obj->GET_LISTENER (cl, _listen_scm_ ## m);         \
 }                                                       \
                                                         \
-IMPLEMENT_LISTENER (cl, _listen_scm_ ## m)              \
 void                                                    \
 cl::_listen_scm_ ## m (SCM sev)                         \
 {                                                       \

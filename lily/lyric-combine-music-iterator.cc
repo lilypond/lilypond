@@ -59,8 +59,8 @@ protected:
 private:
   bool start_new_syllable () const;
   Context *find_voice ();
-  DECLARE_LISTENER (set_busy);
-  DECLARE_LISTENER (check_new_context);
+  void set_busy (SCM);
+  void check_new_context (SCM);
 
   bool music_found_;
   bool lyrics_found_;
@@ -93,7 +93,6 @@ Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
   associatedVoice switching, this routine may be triggered for
   the wrong music_context_
  */
-IMPLEMENT_LISTENER (Lyric_combine_music_iterator, set_busy)
 void
 Lyric_combine_music_iterator::set_busy (SCM se)
 {
@@ -113,13 +112,13 @@ Lyric_combine_music_iterator::set_music_context (Context *to)
   if (music_context_)
     {
       music_context_->events_below ()->
-      remove_listener (GET_LISTENER (set_busy), ly_symbol2scm ("rhythmic-event"));
+      remove_listener (GET_LISTENER (Lyric_combine_music_iterator, set_busy), ly_symbol2scm ("rhythmic-event"));
     }
 
   music_context_ = to;
   if (to)
     {
-      to->events_below ()->add_listener (GET_LISTENER (set_busy),
+      to->events_below ()->add_listener (GET_LISTENER (Lyric_combine_music_iterator, set_busy),
                                          ly_symbol2scm ("rhythmic-event"));
     }
 }
@@ -218,7 +217,7 @@ Lyric_combine_music_iterator::construct_children ()
     delayed when voices are created implicitly.
   */
   Global_context *g = get_outlet ()->get_global_context ();
-  g->events_below ()->add_listener (GET_LISTENER (check_new_context), ly_symbol2scm ("CreateContext"));
+  g->events_below ()->add_listener (GET_LISTENER (Lyric_combine_music_iterator, check_new_context), ly_symbol2scm ("CreateContext"));
 
   /*
     We do not create a Lyrics context, because the user might
@@ -227,7 +226,6 @@ Lyric_combine_music_iterator::construct_children ()
   */
 }
 
-IMPLEMENT_LISTENER (Lyric_combine_music_iterator, check_new_context)
 void
 Lyric_combine_music_iterator::check_new_context (SCM /*sev*/)
 {

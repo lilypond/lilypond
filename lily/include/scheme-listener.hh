@@ -33,7 +33,7 @@ public:
   SCM mark_smob ();
   virtual ~Scheme_listener ();
   Scheme_listener (SCM callback);
-  DECLARE_LISTENER (call);
+  void call (SCM);
 private:
   SCM callback_;
 };

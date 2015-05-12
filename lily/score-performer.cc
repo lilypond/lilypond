@@ -86,23 +86,22 @@ Score_performer::connect_to_context (Context *c)
   Performer_group::connect_to_context (c);
 
   Dispatcher *d = c->get_global_context ()->event_source ();
-  d->add_listener (GET_LISTENER (one_time_step), ly_symbol2scm ("OneTimeStep"));
-  d->add_listener (GET_LISTENER (prepare), ly_symbol2scm ("Prepare"));
-  d->add_listener (GET_LISTENER (finish), ly_symbol2scm ("Finish"));
+  d->add_listener (GET_LISTENER (Score_performer, one_time_step), ly_symbol2scm ("OneTimeStep"));
+  d->add_listener (GET_LISTENER (Score_performer, prepare), ly_symbol2scm ("Prepare"));
+  d->add_listener (GET_LISTENER (Score_performer, finish), ly_symbol2scm ("Finish"));
 }
 
 void
 Score_performer::disconnect_from_context ()
 {
   Dispatcher *d = context ()->get_global_context ()->event_source ();
-  d->remove_listener (GET_LISTENER (one_time_step), ly_symbol2scm ("OneTimeStep"));
-  d->remove_listener (GET_LISTENER (prepare), ly_symbol2scm ("Prepare"));
-  d->remove_listener (GET_LISTENER (finish), ly_symbol2scm ("Finish"));
+  d->remove_listener (GET_LISTENER (Score_performer, one_time_step), ly_symbol2scm ("OneTimeStep"));
+  d->remove_listener (GET_LISTENER (Score_performer, prepare), ly_symbol2scm ("Prepare"));
+  d->remove_listener (GET_LISTENER (Score_performer, finish), ly_symbol2scm ("Finish"));
 
   Performer_group::disconnect_from_context ();
 }
 
-IMPLEMENT_LISTENER (Score_performer, prepare);
 void
 Score_performer::prepare (SCM sev)
 {
@@ -114,7 +113,6 @@ Score_performer::prepare (SCM sev)
   precomputed_recurse_over_translators (context (), START_TRANSLATION_TIMESTEP, UP);
 }
 
-IMPLEMENT_LISTENER (Score_performer, finish);
 void
 Score_performer::finish (SCM)
 {
@@ -127,7 +125,6 @@ Score_performer::finish (SCM)
                             UP);
 }
 
-IMPLEMENT_LISTENER (Score_performer, one_time_step);
 void
 Score_performer::one_time_step (SCM)
 {

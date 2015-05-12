@@ -37,9 +37,9 @@ public:
   Score_performer ();
 
 protected:
-  DECLARE_LISTENER (finish);
-  DECLARE_LISTENER (prepare);
-  DECLARE_LISTENER (one_time_step);
+  void finish (SCM);
+  void prepare (SCM);
+  void one_time_step (SCM);
 
   /* Engraver_group_engraver interface */
   virtual void connect_to_context (Context *);

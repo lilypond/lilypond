@@ -21,6 +21,7 @@
 #define SMOBS_HH
 
 #include "lily-guile.hh"
+#include "lily-proto.hh"
 #include "warn.hh"
 #include <string>
 
@@ -270,6 +271,7 @@ protected:
   Smob_core () : self_scm_ (SCM_UNDEFINED) { };
 public:
   SCM self_scm () const { return self_scm_; }
+  Listener get_listener (SCM callback);
 };
 
 template <class Super>

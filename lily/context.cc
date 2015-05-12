@@ -226,14 +226,12 @@ Context::find_create_context (SCM n, const string &id, SCM operations)
   return ret;
 }
 
-IMPLEMENT_LISTENER (Context, acknowledge_infant);
 void
 Context::acknowledge_infant (SCM sev)
 {
   infant_event_ = Stream_event::unsmob (sev);
 }
 
-IMPLEMENT_LISTENER (Context, set_property_from_event);
 void
 Context::set_property_from_event (SCM sev)
 {
@@ -257,7 +255,6 @@ Context::set_property_from_event (SCM sev)
     }
 }
 
-IMPLEMENT_LISTENER (Context, unset_property_from_event);
 void
 Context::unset_property_from_event (SCM sev)
 {
@@ -272,7 +269,6 @@ Context::unset_property_from_event (SCM sev)
   Creates a new context from a CreateContext event, and sends an
   AnnounceNewContext event to this context.
 */
-IMPLEMENT_LISTENER (Context, create_context_from_event);
 void
 Context::create_context_from_event (SCM sev)
 {
@@ -302,19 +298,19 @@ Context::create_context_from_event (SCM sev)
   /* We want to be the first ones to hear our own events. Therefore, wait
      before registering events_below_ */
   new_context->event_source ()->
-  add_listener (GET_LISTENER (new_context->create_context_from_event),
+  add_listener (new_context->GET_LISTENER (Context, create_context_from_event),
                 ly_symbol2scm ("CreateContext"));
   new_context->event_source ()->
-  add_listener (GET_LISTENER (new_context->remove_context),
+  add_listener (new_context->GET_LISTENER (Context, remove_context),
                 ly_symbol2scm ("RemoveContext"));
   new_context->event_source ()->
-  add_listener (GET_LISTENER (new_context->change_parent),
+  add_listener (new_context->GET_LISTENER (Context, change_parent),
                 ly_symbol2scm ("ChangeParent"));
   new_context->event_source ()->
-  add_listener (GET_LISTENER (new_context->set_property_from_event),
+  add_listener (new_context->GET_LISTENER (Context, set_property_from_event),
                 ly_symbol2scm ("SetProperty"));
   new_context->event_source ()->
-  add_listener (GET_LISTENER (new_context->unset_property_from_event),
+  add_listener (new_context->GET_LISTENER (Context, unset_property_from_event),
                 ly_symbol2scm ("UnsetProperty"));
 
   new_context->events_below_->register_as_listener (new_context->event_source_);
@@ -362,7 +358,7 @@ Context::create_context (Context_def *cdef,
   /* TODO: This is fairly misplaced. We can fix this when we have taken out all
      iterator specific stuff from the Context class */
   event_source_->
-  add_listener (GET_LISTENER (acknowledge_infant),
+  add_listener (GET_LISTENER (Context, acknowledge_infant),
                 ly_symbol2scm ("AnnounceNewContext"));
   /* The CreateContext creates a new context, and sends an announcement of the
      new context through another event. That event will be stored in
@@ -372,7 +368,7 @@ Context::create_context (Context_def *cdef,
                      ly_symbol2scm ("type"), cdef->get_context_name (),
                      ly_symbol2scm ("id"), ly_string2scm (id));
   event_source_->
-  remove_listener (GET_LISTENER (acknowledge_infant),
+  remove_listener (GET_LISTENER (Context, acknowledge_infant),
                    ly_symbol2scm ("AnnounceNewContext"));
 
   assert (infant_event_);
@@ -551,7 +547,6 @@ Context::unset_property (SCM sym)
   properties_dict ()->remove (sym);
 }
 
-IMPLEMENT_LISTENER (Context, change_parent);
 void
 Context::change_parent (SCM sev)
 {
@@ -565,7 +560,6 @@ Context::change_parent (SCM sev)
 /*
   Die. The next GC sweep should take care of the actual death.
  */
-IMPLEMENT_LISTENER (Context, remove_context);
 void
 Context::remove_context (SCM)
 {

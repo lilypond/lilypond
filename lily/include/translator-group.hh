@@ -64,7 +64,7 @@ private:
 
   SCM protected_events_;
 
-  DECLARE_LISTENER (create_child_translator);
+  void create_child_translator (SCM);
 
 public:
   DECLARE_CLASSNAME (Translator_group);

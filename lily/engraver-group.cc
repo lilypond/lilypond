@@ -26,7 +26,6 @@
 #include "translator-dispatch-list.hh"
 #include "warn.hh"
 
-IMPLEMENT_LISTENER (Engraver_group, override);
 void
 Engraver_group::override (SCM sev)
 {
@@ -37,7 +36,6 @@ Engraver_group::override (SCM sev)
            ev->get_property ("value"));
 }
 
-IMPLEMENT_LISTENER (Engraver_group, revert);
 void
 Engraver_group::revert (SCM sev)
 {
@@ -51,15 +49,15 @@ void
 Engraver_group::connect_to_context (Context *c)
 {
   Translator_group::connect_to_context (c);
-  c->event_source ()->add_listener (GET_LISTENER (override), ly_symbol2scm ("Override"));
-  c->event_source ()->add_listener (GET_LISTENER (revert), ly_symbol2scm ("Revert"));
+  c->event_source ()->add_listener (GET_LISTENER (Engraver_group, override), ly_symbol2scm ("Override"));
+  c->event_source ()->add_listener (GET_LISTENER (Engraver_group, revert), ly_symbol2scm ("Revert"));
 }
 
 void
 Engraver_group::disconnect_from_context ()
 {
-  context ()->event_source ()->remove_listener (GET_LISTENER (override), ly_symbol2scm ("Override"));
-  context ()->event_source ()->remove_listener (GET_LISTENER (revert), ly_symbol2scm ("Revert"));
+  context ()->event_source ()->remove_listener (GET_LISTENER (Engraver_group, override), ly_symbol2scm ("Override"));
+  context ()->event_source ()->remove_listener (GET_LISTENER (Engraver_group, revert), ly_symbol2scm ("Revert"));
   Translator_group::disconnect_from_context ();
 }
 

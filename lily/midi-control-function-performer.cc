@@ -39,7 +39,7 @@ class Midi_control_function_performer : public Performer
 {
 public:
   TRANSLATOR_DECLARATIONS (Midi_control_function_performer);
-  DECLARE_LISTENER (announce_function_value_change);
+  void announce_function_value_change (SCM);
   ~Midi_control_function_performer ();
 
   void connect_to_context (Context *c);
@@ -58,7 +58,7 @@ void
 Midi_control_function_performer::connect_to_context (Context *c)
 {
   c->events_below ()->
-    add_listener (GET_LISTENER (announce_function_value_change),
+    add_listener (GET_LISTENER (Midi_control_function_performer, announce_function_value_change),
                   ly_symbol2scm ("SetProperty"));
 }
 
@@ -66,12 +66,10 @@ void
 Midi_control_function_performer::disconnect_from_context (Context *c)
 {
   c->events_below ()->
-    remove_listener (GET_LISTENER (announce_function_value_change),
+    remove_listener (GET_LISTENER (Midi_control_function_performer, announce_function_value_change),
                      ly_symbol2scm ("SetProperty"));
 }
 
-IMPLEMENT_LISTENER (Midi_control_function_performer,
-                    announce_function_value_change)
 void
 Midi_control_function_performer::announce_function_value_change (SCM sev)
 {

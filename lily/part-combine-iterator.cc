@@ -54,7 +54,7 @@ protected:
 
 private:
   /* used by try_process */
-  DECLARE_LISTENER (set_busy);
+  void set_busy (SCM);
   bool busy_;
   bool notice_busy_;
 
@@ -123,7 +123,7 @@ Part_combine_iterator::do_quit ()
     {
       Context *c = handles_[i].get_context ();
       if (c->is_alias (ly_symbol2scm ("Voice")))
-        c->event_source ()->remove_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
+        c->event_source ()->remove_listener (GET_LISTENER (Part_combine_iterator, set_busy), ly_symbol2scm ("music-event"));
       handles_[i].set_context (0);
     }
 }
@@ -322,7 +322,7 @@ Part_combine_iterator::construct_children ()
       c = c->find_create_context (type, outlet_names_[i], SCM_EOL);
       handles_[i].set_context (c);
       if (c->is_alias (ly_symbol2scm ("Voice")))
-        c->event_source ()->add_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
+        c->event_source ()->add_listener (GET_LISTENER (Part_combine_iterator, set_busy), ly_symbol2scm ("music-event"));
     }
 
   SCM lst = get_music ()->get_property ("elements");
@@ -336,7 +336,6 @@ Part_combine_iterator::construct_children ()
   set_context (shared);
 }
 
-IMPLEMENT_LISTENER (Part_combine_iterator, set_busy);
 void
 Part_combine_iterator::set_busy (SCM se)
 {

@@ -18,6 +18,13 @@
 */
 
 #include "smobs.hh"
+#include "listener.hh"
+
+Listener
+Smob_core::get_listener (SCM callback)
+{
+  return Listener (callback, self_scm ());
+}
 
 /*
   The CDR contains the actual protected list.

@@ -38,7 +38,7 @@ private:
      (dist . priority) pair. */
   SCM dispatchers_;
   SCM listen_classes_;
-  DECLARE_LISTENER (dispatch);
+  void dispatch (SCM);
   /* priority counter. Listeners with low priority receive events
      first. */
   int priority_count_;
