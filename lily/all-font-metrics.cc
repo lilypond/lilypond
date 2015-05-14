@@ -42,9 +42,16 @@ All_font_metrics::get_index_to_charcode_map (const string &filename,
 
 All_font_metrics::All_font_metrics (const string &path)
 {
+#if HAVE_PANGO_FT2
+  pango_dict_ = new Scheme_hash_table;
+#endif
+
   otf_dict_ = new Scheme_hash_table;
+  smobify_self ();
+  otf_dict_->unprotect ();
 
 #if HAVE_PANGO_FT2
+  pango_dict_->unprotect ();
   PangoFontMap *pfm = pango_ft2_font_map_new ();
 
   pango_ft2_fontmap_ = PANGO_FT2_FONT_MAP (pfm);
@@ -52,8 +59,6 @@ All_font_metrics::All_font_metrics (const string &path)
   pango_dpi_ = PANGO_RESOLUTION;
   pango_ft2_font_map_set_resolution (pango_ft2_fontmap_,
                                      pango_dpi_, pango_dpi_);
-
-  pango_dict_ = new Scheme_hash_table;
 #endif
 
   search_path_.parse_path (path);
@@ -61,16 +66,21 @@ All_font_metrics::All_font_metrics (const string &path)
 
 All_font_metrics::~All_font_metrics ()
 {
-  otf_dict_->unprotect ();
-
 #if HAVE_PANGO_FT2
-  pango_dict_->unprotect ();
   g_object_unref (pango_ft2_fontmap_);
 #endif
 }
 
-All_font_metrics::All_font_metrics (All_font_metrics const &)
+SCM
+All_font_metrics::mark_smob ()
 {
+#if HAVE_PANGO_FT2
+  if (pango_dict_)
+    scm_gc_mark (pango_dict_->self_scm ());
+#endif
+  if (otf_dict_)
+    return otf_dict_->self_scm ();
+  return SCM_UNDEFINED;
 }
 
 #if HAVE_PANGO_FT2
@@ -151,5 +161,3 @@ All_font_metrics::find_font (const string &name)
 
   return f;
 }
-
-All_font_metrics *all_fonts_global;

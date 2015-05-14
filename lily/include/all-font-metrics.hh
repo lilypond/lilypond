@@ -33,7 +33,7 @@
    Interface to all fonts (both system fonts and fonts loaded
    via Pango).
 */
-class All_font_metrics
+class All_font_metrics : public Smob<All_font_metrics>
 {
   Scheme_hash_table *otf_dict_;
   File_path search_path_;
@@ -48,6 +48,7 @@ class All_font_metrics
 
   All_font_metrics (All_font_metrics const &);
 public:
+  SCM mark_smob ();
 
   Index_to_charcode_map const *get_index_to_charcode_map (const string &filename,
                                                           int face_index,
