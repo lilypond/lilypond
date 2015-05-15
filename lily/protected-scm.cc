@@ -46,13 +46,25 @@ Protected_scm::~Protected_scm ()
   object_ = SCM_UNDEFINED;
 }
 
+SCM Protected_scm::list_ = SCM_EOL;
+SCM Protected_scm::last_ = SCM_EOL;
+
 Protected_scm &
 Protected_scm::operator = (SCM s)
 {
   if (SCM_CONSP (object_))
     SCM_SETCAR (object_, s);
+  else if (SCM_IMP (s))
+    object_ = s;
   else
-    object_ = SCM_NIMP (s) ? scm_permanent_object (scm_list_1 (s)) : s;
+    {
+      s = scm_list_1 (s);
+      if (SCM_CONSP (last_))
+        SCM_SETCDR (last_, s);
+      else
+        list_ = scm_permanent_object (s);
+      last_ = object_ = s;
+    }
 
   return *this;
 }
