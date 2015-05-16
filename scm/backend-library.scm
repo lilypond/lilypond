@@ -111,6 +111,40 @@
                     #:pixmap-format (ly:get-option 'pixmap-format))
     (ly:progress "\n")))
 
+(define-public (make-tmpfile)
+  (let* ((tmpl
+          (string-append (cond
+                          ;; MINGW hack: TMP / TEMP may include
+                          ;; unusable characters (Unicode etc.).
+                          ((eq? PLATFORM 'windows) "./tmp-")
+                          ;; Cygwin can handle any characters
+                          ;; including Unicode.
+                          ((eq? PLATFORM 'cygwin) (string-append
+                                                   (or (getenv "TMP")
+                                                       (getenv "TEMP"))
+                                                   "/"))
+                          ;; Other platforms (POSIX platforms)
+                          ;; use TMPDIR or /tmp.
+                          (else (string-append
+                                 (or (getenv "TMPDIR")
+                                     "/tmp")
+                                 "/")))
+                          "lilypond-XXXXXX"))
+         (port-tmp (mkstemp! tmpl)))
+    (if (eq? PLATFORM 'windows)
+        ;; MINGW hack: MinGW Guile's mkstemp! is broken.
+        ;; It creates a file by the text mode instead of the binary mode.
+        ;; (It is fixed from Guile 2.0.9.)
+        ;; We need the binary mode for embeddings CFFs.
+        ;; So, we re-open the same file by the binary mode.
+        (let* ((filename (port-filename port-tmp))
+               (port (open-file filename "r+b")))
+          (close port-tmp)
+          port)
+        ;; Cygwin and other platforms:
+        ;; Pass through the return value of mkstemp!
+        port-tmp)))
+
 (define-public (postprocess-output paper-book module filename formats)
   (let* ((completed (completize-formats formats))
          (base (dir-basename filename ".ps" ".eps"))
