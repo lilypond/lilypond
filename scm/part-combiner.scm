@@ -63,11 +63,16 @@
              (note-events vs))
         note<?))
 
-(define-method (rest-and-skip-events (vs <Voice-state>))
-  (define (f? x)
-    (or (ly:in-event-class? x 'rest-event)
-        (ly:in-event-class? x 'skip-event)))
-  (filter f? (events vs)))
+(define-method (rest-or-skip-events (vs <Voice-state>))
+  (define (filtered-events event-class)
+    (filter (lambda(x) (ly:in-event-class? x event-class))
+            (events vs)))
+  (let ((result (filtered-events 'rest-event)))
+    ;; There may be skips in the same part with rests for various
+    ;; reasons.  Regard the skips only if there are no rests.
+    (if (and (not (pair? result)) (not (any-mmrest-events vs)))
+        (set! result (filtered-events 'skip-event)))
+  result))
 
 (define-method (any-mmrest-events (vs <Voice-state>))
   (define (f? x)
@@ -477,8 +482,8 @@ Only set if not set previously.
                  (vs2 (cdr (voice-states now-state))))
 
             (define (analyse-synced-silence)
-              (let ((rests1 (if vs1 (rest-and-skip-events vs1) '()))
-                    (rests2 (if vs2 (rest-and-skip-events vs2) '())))
+              (let ((rests1 (if vs1 (rest-or-skip-events vs1) '()))
+                    (rests2 (if vs2 (rest-or-skip-events vs2) '())))
                 (cond
 
                  ;; multi-measure rests (probably), which the
@@ -616,8 +621,8 @@ the mark when there are no spanners active.
         (let* ((now-state (vector-ref result result-idx))
                (vs1 (current-voice-state now-state 1))
                (vs2 (current-voice-state now-state 2))
-               (rests1 (if vs1 (rest-and-skip-events vs1) '()))
-               (rests2 (if vs2 (rest-and-skip-events vs2) '()))
+               (rests1 (if vs1 (rest-or-skip-events vs1) '()))
+               (rests2 (if vs2 (rest-or-skip-events vs2) '()))
                (prev-state (if (> result-idx 0)
                                (vector-ref result (- result-idx 1))
                                #f))
