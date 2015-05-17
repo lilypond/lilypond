@@ -7,7 +7,7 @@
 	}
 
 
-\version "2.16.0"
+\version "2.18.0"
 
 music = {
   <<
@@ -35,9 +35,9 @@ music = {
 }
 
 \score {
-  \new Staff { \override Staff.Rest #'style = #'z \music }
+  \new Staff { \override Staff.Rest.style = #'z \music }
 }
 
 \score {
-  \new Staff { \override Staff.Rest #'style = #'classical \music }
+  \new Staff { \override Staff.Rest.style = #'classical \music }
 }
