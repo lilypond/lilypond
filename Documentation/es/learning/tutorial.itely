@@ -10,7 +10,7 @@
 
 @include included/generating-output.itexi
 
-@c \version "2.16.0"
+@c \version "2.19.21"
 
 @node Tutorial
 @chapter Tutorial
@@ -243,8 +243,8 @@ desde la nota anterior.
 
 @lilypond[verbatim,quote]
 % set the starting point to middle C
-\relative c' {
-  c d e f
+\relative {
+  c' d e f
   g a b c
 }
 @end lilypond
@@ -257,8 +257,8 @@ crear melodías con intervalos mayores, aún sin dejar de utilizar el
 modo relativo:
 
 @lilypond[verbatim,quote]
-\relative c' {
-  d f a g
+\relative {
+  d' f a g
   c b f d
 }
 @end lilypond
@@ -276,8 +276,8 @@ de inicio:
 @c KEEP LY
 @lilypond[verbatim,quote]
 % una octava por encima del Do central
-\relative c'' {
-  e c a c
+\relative {
+  e'' c a c
 }
 @end lilypond
 
@@ -293,8 +293,8 @@ por debajo.
 
 @c KEEP LY
 @lilypond[verbatim,quote]
-\relative c'' {
-  b c  % el Do está un espacio por encima, es el Do de arriba
+\relative {
+  b' c  % el Do está un espacio por encima, es el Do de arriba
   b d  % el Re está dos por encima ó 5 por debajo, es el Re de arriba
   b e  % el Mi está 3 por encima ó 4 por debajo, es el Mi de arriba
   b a  % el La está 6 por encima ó 1 por debajo, es el La de abajo
@@ -316,8 +316,8 @@ bajar la octava escribiendo una coma @code{,} a continuación del
 nombre de la nota.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a a, c' f,
+\relative {
+  a' a, c' f,
   g g'' a,, f'
 }
 @end lilypond
@@ -361,8 +361,8 @@ nota siguiente.  La figura por omisión de la primera nota es una
 negra.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a1
+\relative {
+  a'1
   a2 a4 a8 a
   a16 a a a a32 a a a a64 a a a a a a a a2
 }
@@ -373,8 +373,8 @@ número de la duración.  La duración de una nota con puntillo se debe
 especificar de forma explícita (es decir: mediante un número).
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a4 a a4. a8
+\relative {
+  a'4 a a4. a8
   a8. a16 a a8. a8 a4.
 }
 @end lilypond
@@ -393,8 +393,8 @@ Un @notation{silencio} se introduce igual que si fuera una nota con el
 nombre @code{r}@tie{}:
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a4 r r2
+\relative {
+  a'4 r r2
   r8 a r4 r4. r8
 }
 @end lilypond
@@ -416,9 +416,9 @@ La @notation{indicación de compás} se puede establecer con la orden
 @code{\time} :
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \time 3/4
-  a4 a a
+  a'4 a a
   \time 6/8
   a4. a
   \time 4/4
@@ -482,9 +482,9 @@ La @notation{clave} se puede establecer utilizando la orden
 @code{\clef} :
 
 @lilypond[verbatim,quote]
-\relative c' {
+\relative {
   \clef "treble"
-  c1
+  c'1
   \clef "alto"
   c1
   \clef "tenor"
@@ -788,8 +788,8 @@ sobre esta imagen:
 @c no verbatim here
 @c KEEP LY
 @lilypond[quote]
-\relative c'' {
-  c4-\markup { \bold \huge { Haga clic aquí. } }
+\relative {
+  c''4-\markup { \bold \huge { Haga clic aquí. } }
 }
 @end lilypond
 

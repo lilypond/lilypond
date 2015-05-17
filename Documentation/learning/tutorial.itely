@@ -10,7 +10,7 @@
 
 @include included/generating-output.itexi
 
-@c \version "2.16.0"
+@c \version "2.19.21"
 
 @node Tutorial
 @chapter Tutorial
@@ -224,8 +224,8 @@ is within just one staff space of the previous note.
 
 @lilypond[verbatim,quote]
 % set the starting point to middle C
-\relative c' {
-  c d e f
+\relative {
+  c' d e f
   g a b c
 }
 @end lilypond
@@ -237,8 +237,8 @@ closest D to the previous note.  We can create melodies which have
 larger intervals, still using only @code{\relative} mode:
 
 @lilypond[verbatim,quote]
-\relative c' {
-  d f a g
+\relative {
+  d' f a g
   c b f d
 }
 @end lilypond
@@ -255,8 +255,8 @@ starting octave:
 
 @lilypond[verbatim,quote]
 % one octave above middle C
-\relative c'' {
-  e c a c
+\relative {
+  e'' c a c
 }
 @end lilypond
 
@@ -269,8 +269,8 @@ if the note following a B is a C, D or E it will be assumed to be
 above the B, and an A, G or F will be assumed to be below.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  b c  % c is 1 staff space up, so is the c above
+\relative {
+  b' c  % c is 1 staff space up, so is the c above
   b d  % d is 2 up or 5 down, so is the d above
   b e  % e is 3 up or 4 down, so is the e above
   b a  % a is 6 up or 1 down, so is the a below
@@ -291,8 +291,8 @@ apostrophe) to the note name.  We can lower the octave by adding a
 comma @code{,} to the note name.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a a, c' f,
+\relative {
+  a' a, c' f,
   g g'' a,, f'
 }
 @end lilypond
@@ -329,8 +329,8 @@ for the next note.  The duration of the first note defaults to a
 quarter note.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a1
+\relative {
+  a'1
   a2 a4 a8 a
   a16 a a a a32 a a a a64 a a a a a a a a2
 }
@@ -341,8 +341,8 @@ duration number.  The duration of a dotted note must be stated
 explicitly (i.e., with a number).
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a4 a a4. a8
+\relative {
+  a'4 a a4. a8
   a8. a16 a a8. a8 a4.
 }
 @end lilypond
@@ -359,8 +359,8 @@ A @notation{rest} is entered just like a note with the name
 @code{r}@tie{}:
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a4 r r2
+\relative {
+  a'4 r r2
   r8 a r4 r4. r8
 }
 @end lilypond
@@ -380,9 +380,9 @@ The @notation{time signature} can be set with the @code{\time}
 command:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \time 3/4
-  a4 a a
+  a'4 a a
   \time 6/8
   a4. a
   \time 4/4
@@ -436,9 +436,9 @@ Music Glossary: @rglos{clef}.
 The @notation{clef} can be set using the @code{\clef} command:
 
 @lilypond[verbatim,quote]
-\relative c' {
+\relative {
   \clef "treble"
-  c1
+  c'1
   \clef "alto"
   c1
   \clef "tenor"
@@ -724,8 +724,8 @@ this image:
 
 @c no verbatim here
 @lilypond[quote]
-\relative c'' {
-  c4-\markup { \bold \huge { Click here. } }
+\relative {
+  c''4-\markup { \bold \huge { Click here. } }
 }
 @end lilypond
 

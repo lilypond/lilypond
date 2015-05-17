@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @c Translators: Till Paala
 
@@ -183,7 +183,7 @@ die Datei in der UTF-8-Kodierung gespeichert wird.  Zu mehr Information siehe
 @ref{Sonderzeichen}.
 
 @lilypond[quote,verbatim]
-\relative c'' { d8 c16 a bes8 f e' d c4 }
+\relative { d''8 c16 a bes8 f e' d c4 }
 \addlyrics { „Schad’ um das schö -- ne grü -- ne Band, }
 @end lilypond
 
@@ -191,7 +191,7 @@ Normale Anführungszeichen können im Gesangstext auch benutzt werden, aber sie
 müssen mit einem Backslash und weiteren Anführungszeichen begleitet werden:
 
 @lilypond[quote,verbatim]
-\relative c' { \time 3/4 e4 e4. e8 d4 e d c2. }
+\relative { \time 3/4 e'4 e4. e8 d4 e d c2. }
 \addlyrics { "\"I" am so lone -- "ly,\"" said she }
 @end lilypond
 
@@ -307,9 +307,9 @@ innerhalb von @code{\lyricmode} notiert:
 
 @lilypond[quote,ragged-right,verbatim]
 <<
-  \new Voice = "one" \relative c'' {
+  \new Voice = "one" \relative {
     \time 2/4
-    c4 b8. a16 g4. f8 e4 d c2
+    c''4 b8. a16 g4. f8 e4 d c2
   }
 
 % uses previous explicit duration of 2;
@@ -456,7 +456,7 @@ Hier ein Beispiel:
 @lilypond[verbatim,quote]
 {
   \time 3/4
-  \relative c' { c2 e4 g2. }
+  \relative { c'2 e4 g2. }
   \addlyrics { play the game }
 }
 @end lilypond
@@ -467,7 +467,7 @@ hinzugefügt werden:
 @lilypond[ragged-right,verbatim,quote]
 {
   \time 3/4
-  \relative c' { c2 e4 g2. }
+  \relative { c'2 e4 g2. }
   \addlyrics { play the game }
   \addlyrics { speel het spel }
   \addlyrics { joue le jeu }
@@ -558,8 +558,8 @@ Hier zwei Beispiele:
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff {
-    \relative c'' {
-      c2 c2
+    \relative {
+      c''2 c2
       d1
     }
   }
@@ -569,8 +569,8 @@ Hier zwei Beispiele:
     }
   }
   \new Staff {
-    \relative c' {
-      c8 c c c c c c c
+    \relative {
+      c'8 c c c c c c c
       c8 c c c c c c c
     }
   }
@@ -913,8 +913,8 @@ Um Variablen zu definieren, die Gesangstext beinhalten, muss die
 @code{\lyricmode}-Umgebung benutzt werden.
 
 @lilypond[quote,verbatim]
-musicOne = \relative c'' {
-  c4 b8. a16 g4. f8 e4 d c2
+musicOne = \relative {
+  c''4 b8. a16 g4. f8 e4 d c2
 }
 verseOne = \lyricmode {
   Joy to the world, the Lord is come.
@@ -943,8 +943,8 @@ aufzurufen.  Das stellt sicher, dass die Stimmen, die durch @code{\lyricsto}
 angefordert werden, auch immer schon definiert sind.  Beispielsweise:
 
 @lilypond[quote,verbatim]
-sopranoMusic = \relative c'' { c4 c c c }
-contraltoMusic = \relative c'' { a4 a a a }
+sopranoMusic = \relative { c''4 c c c }
+contraltoMusic = \relative { a'4 a a a }
 sopranoWords = \lyricmode { Sop -- ra -- no words }
 contraltoWords = \lyricmode { Con -- tral -- to words }
 
@@ -1005,7 +1005,7 @@ System zu positionieren, was man erreicht, indem man den
   <<
     \new Staff {
       \new Voice = "melody" {
-        \relative c'' { c4 c c c }
+        \relative { c''4 c c c }
       }
     }
     \new Lyrics {
@@ -1027,7 +1027,7 @@ Position des Gesangstextes explizit anzugeben:
   <<
     \new Staff = "staff" {
       \new Voice = "melody" {
-        \relative c'' { c4 c c c }
+        \relative { c''4 c c c }
       }
     }
     \new Lyrics \with { alignAboveContext = "staff" } {
@@ -1054,7 +1054,7 @@ verweist, mit @code{\context} angegeben:
     }
     \new Staff {
       \new Voice = "melody" {
-        \relative c'' { c4 c c c }
+        \relative { c''4 c c c }
       }
     }
     \context Lyrics = "lyrics" {
@@ -1075,7 +1075,7 @@ einesetzt werden können.  Hier ein Beispiel für die zweite Methode:
   \new ChoirStaff <<
     \new Staff {
       \new Voice = "sopranos" {
-        \relative c'' { c4 c c c }
+        \relative { c''4 c c c }
       }
     }
     \new Lyrics = "sopranos"
@@ -1085,7 +1085,7 @@ einesetzt werden können.  Hier ein Beispiel für die zweite Methode:
     }
     \new Staff {
       \new Voice = "contraltos" {
-        \relative c'' { a4 a a a }
+        \relative { a'4 a a a }
       }
     }
     \context Lyrics = "sopranos" {
@@ -1150,8 +1150,8 @@ wirkt, muss sie im @code{layout}-Block vorgenommen werden.
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
-  \relative c' {
-  c c c c
+  \relative {
+  c' c c c
   c c c c
   }
   \addlyrics {
@@ -1220,8 +1220,8 @@ sich nicht ändert:
   <<
     \new Staff {
       \new Voice = "melody" {
-        \relative c'' {
-          a4 a a a
+        \relative {
+          a'4 a a a
           \repeat volta 2 { b4 b b b }
         }
       }
@@ -1245,8 +1245,8 @@ mit @code{\unfoldRepeats} ausgeklappt wird:
     <<
       \new Staff {
         \new Voice = "melody" {
-          \relative c'' {
-            a4 a a a
+          \relative {
+            a'4 a a a
             \repeat volta 2 { b4 b b b }
           }
         }
@@ -1270,8 +1270,8 @@ ausgeklappt werden soll, müssen alle Wörter notiert werden:
   <<
     \new Staff {
       \new Voice = "melody" {
-        \relative c'' {
-          a4 a a a
+        \relative {
+          a'4 a a a
           \repeat unfold 2 { b4 b b b }
         }
       }
@@ -1297,8 +1297,8 @@ parrallelen Abschnitten geschachtelt wird:
   <<
     \new Staff {
       \new Voice = "melody" {
-        \relative c'' {
-          a4 a a a
+        \relative {
+          a'4 a a a
           \repeat volta 2 { b4 b b b }
         }
       }
@@ -1324,8 +1324,8 @@ Neue Strophen können auf die gleiche Art hinzugefügt werden:
   <<
     \new Staff {
       \new Voice = "singleVoice" {
-        \relative c'' {
-	  a4 a a a
+        \relative {
+	  a'4 a a a
 	  \repeat volta 3 { b4 b b b }
           c4 c c c
 	}
@@ -1366,8 +1366,8 @@ eingesetzt werden:
   <<
     \new Staff {
       \new Voice = "melody" {
-        \relative c'' {
-	  a4 a a a
+        \relative {
+	  a'4 a a a
 	  \repeat volta 3 { b4 b b b }
           c4 c c c
 	}
@@ -1391,8 +1391,8 @@ eingesetzt werden:
       The end sec -- tion.
     }
     \new Voice = "harmony" {
-      \relative c' {
-        f4 f f f \repeat volta 2 { g8 g g4 g2 } a4 a8. a16 a2
+      \relative {
+        f'4 f f f \repeat volta 2 { g8 g g4 g2 } a4 a8. a16 a2
       }
     }
   >>
@@ -1418,8 +1418,8 @@ werden.
     \new Staff {
       \time 2/4
       \new Voice = "melody" {
-        \relative c'' {
-          a4 a a a
+        \relative {
+          a'4 a a a
           \repeat volta 2 { b4 b }
           \alternative { { b b } { b c } }
         }
@@ -1870,8 +1870,8 @@ geändert werden, wie das folgende Beispiel zeigt.
 
 @lilypond[verbatim,ragged-right,quote]
 <<
-  \new Voice = melody \relative c' {
-    f4 \appoggiatura a32 b4
+  \new Voice = melody \relative {
+    f'4 \appoggiatura a32 b4
     \grace { f16 a16 } b2
     \afterGrace b2 { f16[ a16] }
     \appoggiatura a32 b4
@@ -1994,8 +1994,8 @@ gesetzt.  Es gibt zwei Arten, die Zeilen auszurichten,
 wie das Beispiel zeigt:
 
 @lilypond[ragged-right,verbatim,quote]
-melody = \relative c' {
-e d c d | e e e e |
+melody = \relative {
+e' d c d | e e e e |
 d d e d | c1 |
 }
 
@@ -2037,8 +2037,8 @@ zeigt die Strophennummer an.  Dieses Beispiel zeigt eine Methode, diese
 Art von Notensatz zu produzieren.
 
 @lilypond[ragged-right,quote,verbatim]
-melody = \relative c' {
-  c4 c c c | d d d d
+melody = \relative {
+  c'4 c c c | d d d d
 }
 
 text = \lyricmode {
@@ -2329,12 +2329,12 @@ Form genutzt werden, wie das Beispiel zeigt:
   \new ChoirStaff <<
     \new Staff {
       \new Voice {
-        \relative c'' { g4\f g g g }
+        \relative { g'4\f g g g }
       }
     }
     \new Staff {
       \new Voice {
-        \relative c' { d4 d d\p d }
+        \relative { d'4 d d\p d }
       }
     }
   >>
@@ -2511,9 +2511,9 @@ wenn auf dem System nur die Stimme einer Figure notiert ist:
     \new Staff {
       \set Staff.vocalName = \markup \smallCaps Kaspar
       \set Staff.shortVocalName = \markup \smallCaps Kas.
-      \relative c' {
+      \relative {
         \clef "G_8"
-        c4 c c c
+        c'4 c c c
         \break
         c4 c c c
       }
@@ -2522,7 +2522,7 @@ wenn auf dem System nur die Stimme einer Figure notiert ist:
       \set Staff.vocalName = \markup \smallCaps Melchior
       \set Staff.shortVocalName = \markup \smallCaps Mel
       \clef "bass"
-      \relative c' {
+      \relative {
         a4 a a a
         a4 a a a
       }
@@ -2617,13 +2617,13 @@ Instrumentenbezeichnungen sein.  Im folgenden Beispiel gibt es dazu
 einige Hilfestellungen.
 
 @lilypond[quote,verbatim]
-flute = \relative c'' {
-  s4 s4 e g
+flute = \relative {
+  s4 s4 e'' g
 }
 \addQuote "flute" { \flute }
 
-pianoRH = \relative c'' {
-  c4. g8
+pianoRH = \relative {
+  c''4. g8
   % position name of cue-ing instrument just before the cue notes,
   % and above the staff
   \new CueVoice {
@@ -2632,7 +2632,7 @@ pianoRH = \relative c'' {
   }
   \cueDuring "flute" #UP { g4 bes4 }
 }
-pianoLH = \relative c { c4 <c' e> e, <g c> }
+pianoLH = \relative { c4 <c' e> e, <g c> }
 
 \score {
   \new PianoStaff <<
@@ -2678,7 +2678,7 @@ pianoRH = \relative c'' {
   \cueDuring "clarinet" #DOWN { c4. g8 }
   g4 bes4
 }
-pianoLH = \relative c { c4 <c' e> e, <g c> }
+pianoLH = \relative { c4 <c' e> e, <g c> }
 
 \score {
   <<
@@ -2900,15 +2900,15 @@ auszulassen, kann der @code{Bar_engraver} entfert werden.
 \score {
   \new StaffGroup <<
     \new Staff {
-      \relative c'' {
-        a4 b c2 |
+      \relative {
+        a'4 b c2 |
         a4 b c2 |
         a4 b c2 |
       }
     }
     \new Staff {
-      \relative c'' {
-        a4 b c2 |
+      \relative {
+        a'4 b c2 |
         a4 b c2 |
         a4 b c2 |
       }
@@ -2930,15 +2930,15 @@ Taktstriche können auf nur für ein System entfernt werden:
   \new ChoirStaff <<
     \new Staff
     \with { \remove "Bar_engraver" } {
-      \relative c'' {
-        a4 b c2 |
+      \relative {
+        a'4 b c2 |
         a4 b c2 |
         a4 b c2 |
       }
     }
     \new Staff {
-      \relative c'' {
-        a4 b c2 |
+      \relative {
+        a'4 b c2 |
         a4 b c2 |
         a4 b c2 |
       }
@@ -3009,8 +3009,8 @@ finalis = {
 }
 
 \score {
-  \relative c'' {
-    g2 a4 g
+  \relative {
+    g'2 a4 g
     \divisioMinima
     g2 a4 g
     \divisioMaior
@@ -3034,8 +3034,8 @@ weggelassen.
 @lilypond[verbatim,quote]
 \score {
   \new Staff {
-    \relative c'' {
-      a4 b c2 |
+    \relative {
+      a'4 b c2 |
       a4 b c2 |
       a4 b c2 |
     }
@@ -3061,22 +3061,22 @@ Der erste Takt jeder Hälfte hat immer eine ganze Note.  Das ist der
 zentriert.
 
 @lilypond[verbatim,quote]
-SopranoMusic = \relative g' {
-  g1 | c2 b | a1 | \bar "||"
+SopranoMusic = \relative {
+  g'1 | c2 b | a1 | \bar "||"
   a1 | d2 c | c b | c1 | \bar "||"
 }
 
-AltoMusic = \relative c' {
-  e1 | g2 g | f1 |
+AltoMusic = \relative {
+  e'1 | g2 g | f1 |
   f1 | f2 e | d d | e1 |
 }
 
-TenorMusic = \relative a {
-  c1 | c2 c | c1 |
+TenorMusic = \relative {
+  c'1 | c2 c | c1 |
   d1 | g,2 g | g g | g1 |
 }
 
-BassMusic =  \relative c {
+BassMusic =  \relative {
   c1 | e2 e | f1 |
   d1 | b2 c | g' g | c,1 |
 }

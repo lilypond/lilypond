@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (_ "Harp pedal diagram contains ~a pedals rather than the usual 7.") 0)
@@ -18,8 +18,8 @@ The third diagram uses an empty string, the third contains invalid characters.
 Both cases will create warnings, but should still not fail with an error."
 }
 
-\relative c'' {
-  c1^\markup \harp-pedal #"^v-|vv-^"
+\relative {
+  c''1^\markup \harp-pedal #"^v-|vv-^"
   % circled boxes:
   c1^\markup \harp-pedal #"o^ovo-|vovo-o^"
   % invalid pedal specifications, which still should be handled gracefully:

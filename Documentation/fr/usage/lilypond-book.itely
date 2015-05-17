@@ -9,7 +9,7 @@
 @end ignore
 
 
-@c \version "2.17.11"
+@c \version "2.19.21"
 
 @c Translators: Jean-Charles Malahieude
 @c Translation checkers:
@@ -99,8 +99,8 @@ fait mélanger de la musique et du texte.
 Par exemple,
 
 \begin{lilypond}
-\relative c' {
-  c2 e2 \tuplet 3/2 { f8 a b } a2 e4
+\relative {
+  c'2 e2 \tuplet 3/2 { f8 a b } a2 e4
 }
 \end{lilypond}
 
@@ -164,8 +164,8 @@ fait mélanger de la musique et du texte.
 Par exemple,
 
 @lilypond
-\relative c' {
-  c2 e2 \tuplet 3/2 { f8 a b } a2 e4
+\relative {
+  c'2 e2 \tuplet 3/2 { f8 a b } a2 e4
 }
 @end lilypond
 
@@ -190,8 +190,8 @@ type @code{\book @{ @}}.
     title = "LilyPond fait ses gammes"
   }
 
-  \relative c' {
-    c d e f g a b c
+  \relative {
+    c' d e f g a b c
   }
 }
 @end lilypond
@@ -833,8 +833,8 @@ la musique sera interprétée en mode relatif, mais la recopie du code ne
 comportera pas l'assertion du bloc @code{relative} :
 
 @example
-\relative c' @{ % begin verbatim
-  c4 e2 g4
+\relative @{ % begin verbatim
+  c'4 e2 g4
   f2 e % end verbatim
 @}
 @end example
@@ -1247,8 +1247,8 @@ Vous pouvez inclure des partitions LilyPond dans un document LaTeX.
 Des bananes alitées sur du LaTeX.
 
 \begin@{lilypond@}
-\relative c'' @{
-  a4 b c d
+\relative @{
+  a'4 b c d
 @}
 \end@{lilypond@}
 
@@ -1275,7 +1275,7 @@ l'intégralité de ce manuel est rédigée en Texinfo.
 Du verbiage à la mode Texinfo
 
 @@lilypond
-\relative c' @{
+\relative @{
   a4 b c d
 @}
 @@end lilypond
@@ -1302,8 +1302,8 @@ d4 c b a
 Un document pour lilypond-book peut absolument mélanger musique et
 texte.  Par exemple,
 <lilypond>
-\relative c'' @{
-  a4 b c d
+\relative @{
+  a'4 b c d
 @}
 </lilypond>
 </p>

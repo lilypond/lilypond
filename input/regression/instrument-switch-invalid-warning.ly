@@ -1,4 +1,4 @@
-\version "2.17.15"
+\version "2.19.21"
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (_ "No such instrument: ~a") "bassClar")
 
@@ -7,9 +7,9 @@
 the given instrument definition does not exist."
 }
 
-\relative c'
+\relative
 {
-  c4
+  c'4
   \instrumentSwitch "bassClar"
   c
 }

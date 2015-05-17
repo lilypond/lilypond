@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.21"
 \header {
   
   texidoc = "Notes that are shorter than the common shortest note get a
@@ -12,10 +12,10 @@ eighth note. "
 
 \layout { ragged-right = ##t}
 
-\relative c''
+\relative
 {
   \time 2/4 
-  c16 c c c c4 c4
+  c''16 c c c c4 c4
   c8 c8 c8 c8
   c8 c8 c4
   c8 c8 c4

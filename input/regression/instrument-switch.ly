@@ -5,7 +5,7 @@
 properties for an in staff instrument switch. "
   }
 
-\version "2.17.15"
+\version "2.19.21"
 \addInstrumentDefinition #"bassClar"
   #`((instrumentTransposition . ,(ly:make-pitch -1 6 FLAT))
      (instrumentName . "bla") 
@@ -21,9 +21,9 @@ properties for an in staff instrument switch. "
   ragged-right = ##t
 }
 
-\relative c'
+\relative
 {
-  c4
+  c'4
   \instrumentSwitch "bassClar"
   c2.\break
   c1\break

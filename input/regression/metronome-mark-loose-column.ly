@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "Metronome marks aligned on notes do not interfere with
@@ -9,13 +9,13 @@ the second note in the lower staff."
 
 \score {
   <<
-    \new Staff \relative c' {
-      c8 c c c
+    \new Staff \relative {
+      c'8 c c c
       \tempo 4 = 60
       c2
     }
-    \new Staff \relative c' {
-      c2 \clef bass c2
+    \new Staff \relative {
+      c'2 \clef bass c2
     }
   >>
   \layout {

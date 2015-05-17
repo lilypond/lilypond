@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.19.21"
 
 @node Suggestions for writing files
 @chapter Suggestions for writing files
@@ -99,8 +99,8 @@ indicators) will help avoid such problems.  For example;
 
 @example
 \new Staff @{
-  \relative g' @{
-    r4 g8 g c8 c4 d |
+  \relative @{
+    r4 g'8 g c8 c4 d |
     e4 r8 |
     % Ossia section
     <<
@@ -118,7 +118,7 @@ indicators) will help avoid such problems.  For example;
 is much easier to follow than;
 
 @example
-\new Staff @{ \relative g' @{ r4 g8 g c4 c8 d | e4 r8
+\new Staff @{ \relative @{ r4 g'8 g c4 c8 d | e4 r8
 % Ossia section
 << @{ f8 c c @} \new Staff @{ f8 f c @} >> r4 | @} @}
 @end example
@@ -205,8 +205,8 @@ the @code{violin} definition is extremely unlikely to change
 in a new version of LilyPond.
 
 @example
-violin = \relative c'' @{
-g4 c'8. e16
+violin = \relative @{
+g'4 c'8. e16
 @}
 @dots{}
 \score @{
@@ -227,8 +227,8 @@ need to do this once, and we can still avoid touching anything inside
 @example
 fthenp = _\markup@{
   \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p @}
-violin = \relative c'' @{
-g4\fthenp c'8. e16
+violin = \relative @{
+g'4\fthenp c'8. e16
 @}
 @end example
 
@@ -275,9 +275,9 @@ then comment out all of the bass music (but leave
 @code{\bass} in the @code{\score} uncommented.
 
 @example
-bass = \relative c' @{
+bass = \relative @{
 %@{
-  c4 c c c
+  c'4 c c c
   d d d d
 %@}
 @}

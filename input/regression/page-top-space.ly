@@ -4,15 +4,15 @@
 first system can be forced to be uniform."
 
 }
-\version "2.19.12"
+\version "2.19.21"
 
 #(set-default-paper-size "a6")
 
 \book {
   \score {
 
-    \relative c' {
-      c1\break\pageBreak
+    \relative {
+      c'1\break\pageBreak
       c1\break\pageBreak
       c1
       \break\pageBreak

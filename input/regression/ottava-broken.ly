@@ -10,12 +10,12 @@ the end of the line (regardless of prefatory matter).
 
 }
 
-\version "2.16.0"
+\version "2.19.21"
 
 
 \layout { ragged-right = ##t }
-\relative c'''  {
-    a2 b
+\relative  {
+    a''2 b
     \ottava #1
     a2 b \time 3/4  \break c''2. \break
     a

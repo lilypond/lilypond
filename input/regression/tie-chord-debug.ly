@@ -5,7 +5,7 @@ decisions made."
   
 }
 
-\version "2.16.0"
+\version "2.19.21"
 
 \paper
 {
@@ -13,7 +13,7 @@ decisions made."
   debug-tie-scoring = ##t
 }
 
-\relative g' {
-  <a b e f> ~
+\relative {
+  <a' b e f> ~
   <a b e f>
 }

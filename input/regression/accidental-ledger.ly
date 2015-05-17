@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 
@@ -9,7 +9,7 @@ and only if the accidental is horizontally close to the head.  "
 }
 
 
-\relative c {
+\relative {
   disis
   dis
   d

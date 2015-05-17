@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.12"
+@c \version "2.19.21"
 
 @ignore
 GDP TODO list
@@ -1067,7 +1067,7 @@ sensible default, for example:
     tagline = ##f
   }
   \score {
-    \relative c'' { c1 \break c1 \break c1 }
+    \relative { c''1 \break c1 \break c1 }
   }
 }
 @end lilypond
@@ -1434,9 +1434,9 @@ with the music:
 @lilypond[quote,ragged-right,verbatim]
 \new Voice \with {
   \remove "Forbid_line_break_engraver"
-} \relative c'' {
+} \relative {
   <<
-    { c2. \tuplet 3/2 { c4 c c } c2. | }
+    { c''2. \tuplet 3/2 { c4 c c } c2. | }
     { s1 | \break s1 | }
   >>
 }
@@ -2878,8 +2878,8 @@ than @code{1 16}.
 
 @lilypond[verbatim,line-width=12\cm]
 \score {
-  \relative c'' {
-    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+  \relative {
+    g'4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
     g4 e e2 | f4 d d2 | c4 e g g | c,1 |
     d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
     g4 e e2 | f4 d d2 | c4 e g g | c,1 |
@@ -2889,8 +2889,8 @@ than @code{1 16}.
 
 @lilypond[verbatim,line-width=12\cm]
 \score {
-  \relative c'' {
-    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+  \relative {
+    g'4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
     g4 e e2 | f4 d d2 | c4 e g g | c,1 |
     d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
     g4 e e2 | f4 d d2 | c4 e g g | c,1 |
@@ -3483,8 +3483,8 @@ example illustrates the default spacing:
 
 @lilypond[verbatim,quote]
 \score {
-  \relative c'' {
-    g4 e e2 |
+  \relative {
+    g'4 e e2 |
     f4 d d2 |
     c4 d e f |
     g4 g g2 |
@@ -3501,8 +3501,8 @@ duration longer, a @q{squeezing} effect occurs:
 
 @lilypond[verbatim,quote]
 \score {
-  \relative c'' {
-    g4 e e2 |
+  \relative {
+    g'4 e e2 |
     f4 d d2 |
     c4 d e f |
     g4 g g2 |

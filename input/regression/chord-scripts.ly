@@ -1,12 +1,12 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Scripts can also be attached to chord elements.
 They obey manual direction indicators."
 }
 
-\relative c'' {
-  < c-. >4
+\relative {
+  < c''-. >4
   < c-> >4
   < c-. e-. g-. b-. >4
   < c^^ >4

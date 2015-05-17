@@ -1,4 +1,4 @@
-\version "2.19.0"
+\version "2.19.21"
 
 \header {
   tagline = ##f
@@ -166,19 +166,19 @@ modern =
     R1*9/8 |
   }
 
-  flutes = \relative c'''' {
+  flutes = \relative {
     \clef treble \key ees \minor \time 6/8
     R2.
-    <ges, c,>16(\mf\< <ees bes> <c ges> <ees bes> <ges c,> <bes ees,>) <c ges>( <bes ees,> <ges c,> <bes ees,> <c ges> <ees bes>) |
+    <ges'' c,>16(\mf\< <ees bes> <c ges> <ees bes> <ges c,> <bes ees,>) <c ges>( <bes ees,> <ges c,> <bes ees,> <c ges> <ees bes>) |
     <ges c,>8-.->\!\ff \offCr r r r4 r8 | R2. |
     \time 9/8
     R1*9/8 |
   }
 
-  oboes = \relative c''' {
+  oboes = \relative {
     \clef treble \key ees \minor \time 6/8
     R2. |
-    <ges, c,>4(\mf\< <bes ees,>8 <c ges>4 <ees bes>8) |
+    <ges' c,>4(\mf\< <bes ees,>8 <c ges>4 <ees bes>8) |
     <ges c,>-.->\!\ff \offCr r r r4 r8 | R2. |
     \time 9/8
     R1*9/8 |
@@ -194,9 +194,9 @@ modern =
     R1*9/8 |
   }
 
-  bassoons = \relative c, {
+  bassoons = \relative {
     \clef bass \key ees \minor \time 6/8
-    <ees bes'>4.\pp\< c'^"a2" |
+    <ees, bes'>4.\pp\< c'^"a2" |
     bes8-. bes-. bes-. ges-. ges-. ges-. |
     ees-.->\!\ff \offCr <ees bes'>4\pp ~ <ees bes'>4. ~ | <ees bes'>2. |
     \time 9/8
@@ -243,7 +243,7 @@ R2. |
     R1*9/8 |
   }
 
-  trombones = \relative c' {
+  trombones = \relative {
     \clef tenor \key ees \minor \time 6/8
     r4 r8 <ges c>4.\mp\< ~ |
     <ges c>8-. <ges c>-. <ges c>-. <ges c>-. <ges c>-. <ges c>-. |
@@ -252,16 +252,16 @@ R2. |
     R1*9/8 |
   }
 
-  tuba = \relative c,, {
+  tuba = \relative {
     \clef bass \key ees \minor \time 6/8
-    <ees' ees'>4.(\pp\< <c c'> |
+    <ees, ees'>4.(\pp\< <c c'> |
     <bes bes'>8-.) <bes bes'>-. <bes bes'>-. <ges ges'>-. <ges ges'>-. <ges ges'>-. |
     <ees ees'>-.->\!\ff \offCr r r r4 r8 | R2. |
     \time 9/8
     R1*9/8 |
   }
 
-  timpani = \relative c {
+  timpani = \relative {
     \clef bass \key ees \minor \time 6/8
     ees8\< ees ees ees ees ees |
     bes bes bes bes bes bes |
@@ -337,25 +337,25 @@ R2. |
   }
 
 
-  violinI = \relative c'''' {
+  violinI = \relative {
     \clef treble \key ees \minor \time 6/8
-    ges,,16(\pp\< ees c ees ges bes) c( bes ges bes c ees) |
+    ges'16(\pp\< ees c ees ges bes) c( bes ges bes c ees) |
     ges( ees c ees ges bes) c( bes ges bes c ees) |
     ges8-.->\!\ff \offCr r r r4 r8 | R2. |
     \time 9/8
     R1*9/8 |
   }
 
-  violinII = \relative c''' {
+  violinII = \relative {
     \clef treble \key ees \minor \time 6/8
-    c,,16(\pp\< bes ges bes c ees) ges( ees c ees ges bes) |
+    c'16(\pp\< bes ges bes c ees) ges( ees c ees ges bes) |
     c( bes ges bes c ees) ges( ees c ees ges bes) |
     c8-.->\!\ff \offCr r r r4 r8 | R2. |
     \time 9/8
     r4 r8 \repeat tremolo 6 { c,,32->\pp^\pont e } r4 r8 |
   }
 
-  viola = \relative c {
+  viola = \relative {
     \clef alto \key ees \minor \time 6/8
     <ees bes'>8-.\pp\< <ees bes'>-. <ees bes'>-. <ges c>-. <ges c>-. <ges c>-. |
     <bes ees>-. <bes ees>-. <bes ees>-. <c ges'>-. <c ges'>-. <c ges'>-. |
@@ -364,7 +364,7 @@ R2. |
     \repeat tremolo 12 { ges,32->^\pont bes } \repeat tremolo 6 {ges->( bes) } |
   }
 
-  cello = \relative c {
+  cello = \relative {
     \clef bass \key ees \minor \time 6/8
     <c ges'>8-.\pp\< <c ges'>-. <c ges'>-. <bes ees>-. <bes ees>-. <bes ees>-. |
     <c ges'>-. <c ges'>-. <c ges'>-. <c ges'>-. <c ges'>-. <c ges'>-. |

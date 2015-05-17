@@ -1,19 +1,19 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "Text spanners work in the @code{Dynamics} context."
 }
 
 <<
-  \new Staff \relative c' {
-    c1 | c
+  \new Staff \relative {
+    c'1 | c
   }
   \new Dynamics {
     \override TextSpanner.bound-details.left.text = #"rit."
     s1\startTextSpan
     s1\stopTextSpan
   }
-  \new Staff \relative c' {
-    c1 | c
+  \new Staff \relative {
+    c'1 | c
   }
 >>

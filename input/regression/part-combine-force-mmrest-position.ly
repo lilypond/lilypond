@@ -7,7 +7,7 @@
 
 \layout { ragged-right = ##t }
 
-\version "2.16.0"
+\version "2.19.21"
 
 mI = \relative c'' {
   \partcombineApart
@@ -15,9 +15,9 @@ mI = \relative c'' {
   R1 |
   c1
 }
-mII = \relative c' {
+mII = \relative {
   R1 |
-  c2 c |
+  c'2 c |
   c1
 }
 

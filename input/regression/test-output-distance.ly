@@ -5,7 +5,7 @@ it should always show up in the output-distance testing. "
 
 }
 
-\version "2.16.0"
+\version "2.19.21"
 
 
 #(define time (gettimeofday))
@@ -18,7 +18,7 @@ it should always show up in the output-distance testing. "
   ragged-right = ##f
 }
 
-\new PianoStaff << \new Staff \relative c' { c4 d f8_\f[ g-.] r4 }
+\new PianoStaff << \new Staff \relative { c'4 d f8_\f[ g-.] r4 }
 		   \new Staff { \clef "bass" R1 }
 		>>
 

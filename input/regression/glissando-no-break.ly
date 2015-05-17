@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (_ "forced break was overridden by some other event, should you be using bar checks?"))
 
@@ -12,8 +12,8 @@ Use @code{breakable} grob property to override."
 \layout {
   ragged-right = ##t
 }
-\relative c' {
-  c1 
+\relative {
+  c'1 
   c1\glissando
   \break
   d'1

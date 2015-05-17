@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 \header{
   texidoc="@code{staffLineLayoutFunction} is used to change the position of the notes.
 This sets @code{staffLineLayoutFunction} to @code{ly:pitch-semitones} to
@@ -7,7 +7,7 @@ space and line equal to one semitone.
 "
 }
 
-scales = \relative c' {
+scales = \relative {
   a ais b c cis d dis e f fis g gis
   a
 }

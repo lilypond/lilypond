@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 texidoc = "The \cresc, \dim and \decresc spanners are now postfix operators
@@ -11,8 +11,8 @@ hairpins by default, \cresc etc. produce text spanners by default."
 crpoco = #(make-music 'CrescendoEvent 'span-direction START
                       'span-type 'text 'span-text "cresc. poco a poco")
 
-\relative c' {
-  c4\cresc d4 e4 f4 |
+\relative {
+  c'4\cresc d4 e4 f4 |
   g4 a4\! b4\crpoco c4 |
   c4 d4 e4 f4 |
   g4 a4\! b4\< c4 |

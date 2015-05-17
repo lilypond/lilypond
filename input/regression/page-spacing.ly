@@ -13,15 +13,15 @@ By setting @code{annotate-spacing}, we can see the effect of each property.
 
 }
 
-\version "2.19.12"
+\version "2.19.21"
 
 #(set-global-staff-size 11)
 
 \book {
   \score {
-    \relative c'' \new PianoStaff <<
+    \relative \new PianoStaff <<
       \new Voice  {
-	c1_"followed by default spacing"\break
+	c''1_"followed by default spacing"\break
 	c\break
 
 	\overrideProperty

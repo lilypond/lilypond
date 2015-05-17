@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 
@@ -15,14 +15,14 @@ example should be printed above the top staff.
       f1
     }
     \new Staff {
-      \relative c'' {
-        a4 a a a
+      \relative {
+        a'4 a a a
       }
     }
     \new Staff {
       \clef "bass"
-      \relative c {
-        a4 a a a
+      \relative {
+        a,4 a a a
       }
     }
    >>

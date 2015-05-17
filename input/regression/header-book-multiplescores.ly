@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc="
@@ -14,7 +14,7 @@ Changing the header fields in a book or a bookpart shall not have any effect on 
   title = "Title correct (set at top level)"
 }
 \score {
-  \relative c' { c1 }
+  \relative { c'1 }
 }
 
 

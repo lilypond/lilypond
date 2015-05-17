@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @c Translators: Federico Bruni
 @c Translation checkers:
@@ -171,7 +171,7 @@ nel file di input, purché sia salvato nella codifica UTF-8.
 Ulteriori informazioni in @ref{Special characters}.
 
 @lilypond[quote,verbatim]
-\relative c'' { d8 c16 a bes8 f e' d c4 }
+\relative { d''8 c16 a bes8 f e' d c4 }
 \addlyrics { „Schad’ um das schö -- ne grü -- ne Band, }
 @end lilypond
 
@@ -180,7 +180,7 @@ devono essere precedute da un carattere di barra inversa e l'intera
 sillaba deve essere racchiusa tra altre virgolette.  Per esempio,
 
 @lilypond[quote,verbatim]
-\relative c' { \time 3/4 e4 e4. e8 d4 e d c2. }
+\relative { \time 3/4 e'4 e4. e8 d4 e d c2. }
 \addlyrics { "\"I" am so lone -- "ly,\"" said she }
 @end lilypond
 
@@ -305,9 +305,9 @@ e inserite con @code{\lyricmode}.
 
 @lilypond[quote,ragged-right,verbatim]
 <<
-  \new Voice = "one" \relative c'' {
+  \new Voice = "one" \relative {
     \time 2/4
-    c4 b8. a16 g4. f8 e4 d c2
+    c''4 b8. a16 g4. f8 e4 d c2
   }
 
 % usa la durata esplicita precedente di 2;
@@ -447,7 +447,7 @@ Ecco un esempio,
 @lilypond[verbatim,quote]
 {
   \time 3/4
-  \relative c' { c2 e4 g2. }
+  \relative { c'2 e4 g2. }
   \addlyrics { play the game }
 }
 @end lilypond
@@ -459,7 +459,7 @@ Si possono aggiungere più strofe aggiungendo più sezioni
 @lilypond[ragged-right,verbatim,quote]
 {
   \time 3/4
-  \relative c' { c2 e4 g2. }
+  \relative { c'2 e4 g2. }
   \addlyrics { play the game }
   \addlyrics { speel het spel }
   \addlyrics { joue le jeu }
@@ -551,8 +551,8 @@ Ecco due esempi:
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff {
-    \relative c'' {
-      c2 c2
+    \relative {
+      c''2 c2
       d1
     }
   }
@@ -562,8 +562,8 @@ Ecco due esempi:
     }
   }
   \new Staff {
-    \relative c' {
-      c8 c c c c c c c
+    \relative {
+      c'8 c c c c c c c
       c8 c c c c c c c
     }
   }
@@ -902,8 +902,8 @@ Si possono creare delle variabili contenenti il testo vocale, ma questo
 deve essere inserito in modalità testo vocale:
 
 @lilypond[quote,verbatim]
-musicOne = \relative c'' {
-  c4 b8. a16 g4. f8 e4 d c2
+musicOne = \relative {
+  c''4 b8. a16 g4. f8 e4 d c2
 }
 verseOne = \lyricmode {
   Joy to the world, the Lord is come.
@@ -931,8 +931,8 @@ garantisce che le voci richiamate da @code{\lyricsto} siano sempre
 state definite prima.  Per esempio:
 
 @lilypond[quote,verbatim]
-sopranoMusic = \relative c'' { c4 c c c }
-contraltoMusic = \relative c'' { a4 a a a }
+sopranoMusic = \relative { c''4 c c c }
+contraltoMusic = \relative { a'4 a a a }
 sopranoWords = \lyricmode { Sop -- ra -- no words }
 contraltoWords = \lyricmode { Con -- tral -- to words }
 
@@ -990,7 +990,7 @@ contesto @code{Lyrics} sotto il contesto @code{Staff};
   <<
     \new Staff {
       \new Voice = "melody" {
-        \relative c'' { c4 c c c }
+        \relative { c''4 c c c }
       }
     }
     \new Lyrics {
@@ -1011,7 +1011,7 @@ indicare in modo esplicito la posizione del testo:
   <<
     \new Staff = "staff" {
       \new Voice = "melody" {
-        \relative c'' { c4 c c c }
+        \relative { c''4 c c c }
       }
     }
     \new Lyrics \with { alignAboveContext = "staff" } {
@@ -1037,7 +1037,7 @@ voce a cui si riferisce tramite @code{\context}.  Ecco un esempio:
     }
     \new Staff {
       \new Voice = "melody" {
-        \relative c'' { c4 c c c }
+        \relative { c''4 c c c }
       }
     }
     \context Lyrics = "lyrics" {
@@ -1058,7 +1058,7 @@ metodo:
   \new ChoirStaff <<
     \new Staff {
       \new Voice = "sopranos" {
-        \relative c'' { c4 c c c }
+        \relative { c''4 c c c }
       }
     }
     \new Lyrics = "sopranos"
@@ -1068,7 +1068,7 @@ metodo:
     }
     \new Staff {
       \new Voice = "contraltos" {
-        \relative c'' { a4 a a a }
+        \relative { a'4 a a a }
       }
     }
     \context Lyrics = "sopranos" {
@@ -1130,8 +1130,8 @@ proprietà nel blocco @code{\layout}.
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
-  \relative c' {
-  c c c c
+  \relative {
+  c' c c c
   c c c c
   }
   \addlyrics {
@@ -1196,8 +1196,8 @@ parole non sono modificate.
   <<
     \new Staff {
       \new Voice = "melody" {
-        \relative c'' {
-          a4 a a a
+        \relative {
+          a'4 a a a
           \repeat volta 2 { b4 b b b }
         }
       }
@@ -1221,8 +1221,8 @@ sono ripetute.
     <<
       \new Staff {
         \new Voice = "melody" {
-          \relative c'' {
-            a4 a a a
+          \relative {
+            a'4 a a a
             \repeat volta 2 { b4 b b b }
           }
         }
@@ -1246,8 +1246,8 @@ Se la sezione ripetuta deve essere ripetuta di nuovo con parole diverse,
   <<
     \new Staff {
       \new Voice = "melody" {
-        \relative c'' {
-          a4 a a a
+        \relative {
+          a'4 a a a
           \repeat unfold 2 { b4 b b b }
         }
       }
@@ -1272,8 +1272,8 @@ le parole di ogni ripetizione devono essere inserite in contesti
   <<
     \new Staff {
       \new Voice = "melody" {
-        \relative c'' {
-          a4 a a a
+        \relative {
+          a'4 a a a
           \repeat volta 2 { b4 b b b }
         }
       }
@@ -1299,8 +1299,8 @@ Si possono aggiungere più strofe in modo analogo:
   <<
     \new Staff {
       \new Voice = "singleVoice" {
-  \relative c'' {
-    a4 a a a
+  \relative {
+    a'4 a a a
     \repeat volta 3 { b4 b b b }
     c4 c c c
   }
@@ -1339,8 +1339,8 @@ Per posizionarli correttamente usare @code{alignBelowContext}:
   <<
     \new Staff {
       \new Voice = "melody" {
-  \relative c'' {
-    a4 a a a
+  \relative {
+    a'4 a a a
     \repeat volta 3 { b4 b b b }
     c4 c c c
   }
@@ -1364,8 +1364,8 @@ Per posizionarli correttamente usare @code{alignBelowContext}:
       La sezione fi -- nale.
     }
     \new Voice = "harmony" {
-      \relative c' {
-  f4 f f f \repeat volta 2 { g8 g g4 g2 } a4 a8. a16 a2
+      \relative {
+  f'4 f f f \repeat volta 2 { g8 g g4 g2 } a4 a8. a16 a2
       }
     }
   >>
@@ -1392,8 +1392,8 @@ la musica.
     \new Staff {
       \time 2/4
       \new Voice = "melody" {
-  \relative c'' {
-    a4 a a a
+  \relative {
+    a'4 a a a
     \repeat volta 2 { b4 b }
     \alternative { { b b } { b c } }
   }
@@ -1934,8 +1934,8 @@ con @code{\grace}) non sono assegnati alle sillabe quando si usa
 
 @lilypond[verbatim,ragged-right,quote]
 <<
-  \new Voice = melody \relative c' {
-    f4 \appoggiatura a32 b4
+  \new Voice = melody \relative {
+    f'4 \appoggiatura a32 b4
     \grace { f16 a16 } b2
     \afterGrace b2 { f16[ a16] }
     \appoggiatura a32 b4
@@ -2060,8 +2060,8 @@ Nell'esempio seguente si possono notare due modi di forzare
 le interruzioni di linea in un blocco @code{\markup}.
 
 @lilypond[ragged-right,verbatim,quote]
-melody = \relative c' {
-e d c d | e e e e |
+melody = \relative {
+e' d c d | e e e e |
 d d e d | c1 |
 }
 
@@ -2103,8 +2103,8 @@ spesso introduce ciascuna strofa.  L'esempio seguente mostra come
 riprodurre questo output in LilyPond.
 
 @lilypond[ragged-right,quote,verbatim]
-melody = \relative c' {
-  c4 c c c | d d d d
+melody = \relative {
+  c'4 c c c | d d d d
 }
 
 text = \lyricmode {
@@ -2402,12 +2402,12 @@ partitura sopra i loro rispettivi righi, come mostrato in questo esempio:
   \new ChoirStaff <<
     \new Staff {
       \new Voice {
-  \relative c'' { g4\f g g g }
+  \relative { g'4\f g g g }
       }
     }
     \new Staff {
       \new Voice {
-  \relative c' { d4 d d\p d }
+  \relative { d'4 d d\p d }
       }
     }
   >>
@@ -2586,9 +2586,9 @@ il rigo è dedicato a quel personaggio soltanto:
     \new Staff {
       \set Staff.vocalName = \markup \smallCaps Kaspar
       \set Staff.shortVocalName = \markup \smallCaps Kas.
-      \relative c' {
+      \relative {
   \clef "G_8"
-  c4 c c c
+  c'4 c c c
   \break
   c4 c c c
       }
@@ -2597,7 +2597,7 @@ il rigo è dedicato a quel personaggio soltanto:
       \set Staff.vocalName = \markup \smallCaps Melchior
       \set Staff.shortVocalName = \markup \smallCaps Mel
       \clef "bass"
-      \relative c' {
+      \relative {
   a4 a a a
   a4 a a a
       }
@@ -2684,13 +2684,13 @@ attentamente proprio prima dell'inizio delle citazioni in corpo più piccolo
 (@qq{cue notes}).   L'esempio seguente mostra come si fa.
 
 @lilypond[quote,verbatim]
-flute = \relative c'' {
-  s4 s4 e g
+flute = \relative {
+  s4 s4 e'' g
 }
 \addQuote "flute" { \flute }
 
-pianoRH = \relative c'' {
-  c4. g8
+pianoRH = \relative {
+  c''4. g8
   % posiziona il nome dello strumento citato proprio prima delle citazioni in corpo piccolo,
   % e sopra il rigo
   \new CueVoice {
@@ -2699,7 +2699,7 @@ pianoRH = \relative c'' {
   }
   \cueDuring "flute" #UP { g4 bes4 }
 }
-pianoLH = \relative c { c4 <c' e> e, <g c> }
+pianoLH = \relative { c4 <c' e> e, <g c> }
 
 \score {
   \new PianoStaff <<
@@ -2744,7 +2744,7 @@ pianoRH = \relative c'' {
   \cueDuring "clarinet" #DOWN { c4. g8 }
   g4 bes4
 }
-pianoLH = \relative c { c4 <c' e> e, <g c> }
+pianoLH = \relative { c4 <c' e> e, <g c> }
 
 \score {
   <<
@@ -2960,15 +2960,15 @@ si disattiva l'incisore delle stanghette:
 \score {
   \new StaffGroup <<
     \new Staff {
-      \relative c'' {
-  a4 b c2 |
+      \relative {
+  a'4 b c2 |
   a4 b c2 |
   a4 b c2 |
       }
     }
     \new Staff {
-      \relative c'' {
-  a4 b c2 |
+      \relative {
+  a'4 b c2 |
   a4 b c2 |
   a4 b c2 |
       }
@@ -2990,15 +2990,15 @@ Le stanghette possono anche essere tolte solo in certi righi:
   \new ChoirStaff <<
     \new Staff
     \with { \remove "Bar_engraver" } {
-      \relative c'' {
-  a4 b c2 |
+      \relative {
+  a'4 b c2 |
   a4 b c2 |
   a4 b c2 |
       }
     }
     \new Staff {
-      \relative c'' {
-  a4 b c2 |
+      \relative {
+  a'4 b c2 |
   a4 b c2 |
   a4 b c2 |
       }
@@ -3069,8 +3069,8 @@ finalis = {
 }
 
 \score {
-  \relative c'' {
-    g2 a4 g
+  \relative {
+    g'2 a4 g
     \divisioMinima
     g2 a4 g
     \divisioMaior
@@ -3094,8 +3094,8 @@ anche la chiave.
 @lilypond[verbatim,quote]
 \score {
   \new Staff {
-    \relative c'' {
-      a4 b c2 |
+    \relative {
+      a'4 b c2 |
       a4 b c2 |
       a4 b c2 |
     }
@@ -3121,22 +3121,22 @@ che viene chiamato la @qq{nota recitativa}.  I canti sono centrati
 sulla pagina.
 
 @lilypond[verbatim,quote]
-SopranoMusic = \relative g' {
-  g1 | c2 b | a1 | \bar "||"
+SopranoMusic = \relative {
+  g'1 | c2 b | a1 | \bar "||"
   a1 | d2 c | c b | c1 | \bar "||"
 }
 
-AltoMusic = \relative c' {
-  e1 | g2 g | f1 |
+AltoMusic = \relative {
+  e'1 | g2 g | f1 |
   f1 | f2 e | d d | e1 |
 }
 
-TenorMusic = \relative a {
-  c1 | c2 c | c1 |
+TenorMusic = \relative {
+  c'1 | c2 c | c1 |
   d1 | g,2 g | g g | g1 |
 }
 
-BassMusic = \relative c {
+BassMusic = \relative {
   c1 | e2 e | f1 |
   d1 | b2 c | g' g | c,1 |
 }

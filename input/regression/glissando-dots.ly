@@ -1,4 +1,4 @@
-\version "2.19.16"
+\version "2.19.21"
 
 \header {
   texidoc = "Glissandi begin after dots by default.  This behavior may
@@ -11,8 +11,8 @@ be changed by overriding the @code{start-at-dot} property.
   ragged-right = ##t
 }
 
-\relative c'' {
-  c2.\glissando b4
+\relative {
+  c''2.\glissando b4
   c2..\glissando b8
   c2...\glissando b16
   \bar "||"

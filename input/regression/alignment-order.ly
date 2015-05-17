@@ -3,14 +3,14 @@
 anywhere in the vertical alignment. "
 }
 
-\version "2.17.15"
+\version "2.19.21"
 
 \paper {
   ragged-right = ##t
 }
 
-\relative c' <<
-  \new Staff = "1" { c2 c s1 }
+\relative <<
+  \new Staff = "1" { c'2 c s1 }
   \new Staff = "2" { c2  c s1 }
   \new StaffGroup <<
     \new Staff = "3" { c2  c s1 }

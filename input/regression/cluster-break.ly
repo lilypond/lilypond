@@ -1,14 +1,14 @@
 
-\version "2.16.0"
+\version "2.19.21"
 \header {
   texidoc = "Clusters behave well across line breaks."
 }
 
 \layout { ragged-right = ##t }
 
-fragment = \relative c' {
+fragment = \relative {
   \time 2/4 
-  <e d'>4
+  <e' d'>4
   <g a>4 | \break
   <e a>
   <f a>

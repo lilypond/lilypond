@@ -3,11 +3,11 @@
 a clef transposition (8 below the clef)."
 }
 
-\version "2.16.0"
+\version "2.19.21"
 
 \paper {
   ragged-right = ##t
 }
 
-\relative c' { \clef "G_8" c c c c }
+\relative { \clef "G_8" c' c c c }
 \addlyrics { bla bla bla bla }

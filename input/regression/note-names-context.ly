@@ -1,4 +1,4 @@
-\version "2.19.12"
+\version "2.19.21"
 
 \header {
 
@@ -12,7 +12,7 @@
   system-system-spacing.basic-distance = #10 % increase this value for more space
 }
 
-notes = \relative c {
+notes = \relative {
   c'4 c c c
 }
 

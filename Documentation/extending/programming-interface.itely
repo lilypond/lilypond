@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.12"
+@c \version "2.19.21"
 
 @node Interfaces for programmers
 @chapter Interfaces for programmers
@@ -489,8 +489,8 @@ AltOff = {
   \revert NoteHead.font-size
 }
 
-\relative c' {
-  c2 \AltOn #0.5 c4 c
+\relative {
+  c'2 \AltOn #0.5 c4 c
   \AltOn #1.5 c c \AltOff c2
 }
 @end lilypond
@@ -512,8 +512,8 @@ withAlt =
      \revert NoteHead.font-size
    #})
 
-\relative c' {
-  c2 \withAlt #0.5 { c4 c }
+\relative {
+  c'2 \withAlt #0.5 { c4 c }
   \withAlt #1.5 { c c } c2
 }
 @end lilypond
@@ -574,7 +574,7 @@ dynamics:
 @lilypond[quote,verbatim,ragged-right]
 dyn=#(define-event-function (parser location arg) (markup?)
          (make-dynamic-script arg))
-\relative c' { c\dyn pfsss }
+\relative { c'\dyn pfsss }
 @end lilypond
 You could do the same using a music function, but then you always would
 have to write a direction indicator before calling it, like
@@ -1220,9 +1220,9 @@ desaturate =
          (ly:context-pushpop-property context grob 'color new-color)))
      (for-each desaturate-grob '(NoteHead Stem Beam)))
 
-\relative g' {
+\relative {
   \time 3/4
-  g8[ g] \desaturate g[ g] \desaturate g[ g]
+  g'8[ g] \desaturate g[ g] \desaturate g[ g]
   \override NoteHead.color = #darkred
   \override Stem.color = #darkred
   \override Beam.color = #darkred
@@ -1310,7 +1310,7 @@ note-heads on the center-line and next to it:
             (< (abs (ly:grob-property grob 'staff-position)) 2))
        (set! (ly:grob-property grob 'transparent) #t)))
 
-\relative c' {
+\relative {
   a'4 e8 <<\applyOutput #'Voice #blanker a c d>> b2
 }
 @end lilypond
@@ -1401,8 +1401,8 @@ inflexibility.  For example, the following produces a syntax error
 @example
 F = \tweak font-size #-3 -\flageolet
 
-\relative c'' @{
-  c4^\F c4_\F
+\relative @{
+  c''4^\F c4_\F
 @}
 @end example
 
@@ -1419,8 +1419,8 @@ F = #(let ((m (make-music 'ArticulationEvent
                     (ly:music-property m 'tweaks)))
        m)
 
-\relative c'' @{
-  c4^\F c4_\F
+\relative @{
+  c''4^\F c4_\F
 @}
 @end example
 

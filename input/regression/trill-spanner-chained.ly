@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 \header {
   texidoc = "Chained trills end at the next trill or barline.
 Collisions can be prevented by overriding @code{bound-details}.
@@ -7,8 +7,8 @@ Collisions can be prevented by overriding @code{bound-details}.
 
 \paper { ragged-right = ##f }
 
-\relative c'' {
-  g8 f\startTrillSpan ~
+\relative {
+  g'8 f\startTrillSpan ~
   f8 g\stopTrillSpan \startTrillSpan ~
   g8 r\stopTrillSpan r4
   \once \override TrillSpanner.to-barline = ##t

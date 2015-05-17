@@ -1,11 +1,11 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "
 @code{\\laissezVibrer} ties should also work on individual notes of a chord.
 " }
 
-\relative c' {
-  <d-\laissezVibrer g>1
+\relative {
+  <d'-\laissezVibrer g>1
   <d^\laissezVibrer g_\laissezVibrer>1
 }

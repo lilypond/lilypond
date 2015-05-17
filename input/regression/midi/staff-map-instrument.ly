@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 texidoc="Midi2ly remaps voices correctly to staves in MIDI-files that use instrument<->channel mapping when combined with voice<->track mapping.  TODO: pianostaff"
@@ -30,11 +30,11 @@ options=""
       }
     >>
     \context Staff = "bass" <<
-      \context Voice="three" \relative c' {
+      \context Voice="three" \relative {
 	\key c \minor
 	\clef bass
 %7
-	r8 c16 b c8 g as c16 b c8 d |
+	r8 c'16 b c8 g as c16 b c8 d |
 %8	g8 c16 b c8 d f,16 g as4 g16 f | 
 	<c,, c'>1
       }

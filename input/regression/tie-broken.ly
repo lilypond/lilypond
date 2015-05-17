@@ -3,11 +3,11 @@
 texidoc = "Ties behave properly at line breaks."
   }
 
-\version "2.16.0"
+\version "2.19.21"
 
 \paper { ragged-right = ##t } 
 
-\relative c'
+\relative
 {
   r2...  <b e a>16 ~
   \break

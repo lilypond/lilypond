@@ -1,4 +1,4 @@
-\version "2.19.19"
+\version "2.19.21"
 
 \header {
   texidoc = "Ambitus for pieces beginning with @code{\\cueDuringWithClef}.
@@ -14,7 +14,7 @@ contexts.
 "
 }
 
-\addQuote "other" \relative c { r4 c e g }
+\addQuote "other" \relative { r4 c e g }
 
 \new Staff \new Voice \relative c'
 {

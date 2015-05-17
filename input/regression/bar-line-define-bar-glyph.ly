@@ -1,4 +1,4 @@
-\version "2.17.15"
+\version "2.19.21"
 
 \header { texidoc = "New bar line glyphs can be defined in Scheme."
         }
@@ -16,9 +16,9 @@
 \defineBarLine "0" #'("0" "" "")
 
 
-\relative c' \new StaffGroup <<
+\relative \new StaffGroup <<
   \new Staff {
-    c4 c \bar "0" c c \bar "0" \break
+    c'4 c \bar "0" c c \bar "0" \break
     c1
   }
   \new Staff {

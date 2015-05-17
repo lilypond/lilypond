@@ -1,4 +1,4 @@
-\version "2.17.25"
+\version "2.19.21"
 
 \header {
 
@@ -19,8 +19,8 @@ replacing @code{(} and @code{)} with melismata commands which are
 ")" = \melismaEnd
 
 \new Staff <<
-  \relative c' {
-    c8 \{ d e f \} % slurred
+  \relative {
+    c'8 \{ d e f \} % slurred
     g ( a b c ) % no slur, but with melisma
     c,1 \bar "|."
    }

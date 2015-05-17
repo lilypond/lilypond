@@ -1,4 +1,4 @@
-\version "2.17.15"
+\version "2.19.21"
 
 \header { texidoc = "Various types of bar lines can be drawn.
 
@@ -15,9 +15,9 @@ space, centered on the top-most barline.
 
 " }
 
-\relative c' \new StaffGroup <<
+\relative \new StaffGroup <<
   \new Staff = "1" {
-    c2 \bar "!" c
+    c'2 \bar "!" c
     s1
     c2 \bar ";" c
     s1

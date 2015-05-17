@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.19.21"
 
 @c Note: keep this node named so that `info lilypond-book' brings you here.
 @node lilypond-book
@@ -85,8 +85,8 @@ Documents for \verb+lilypond-book+ may freely mix music and text.
 For example,
 
 \begin{lilypond}
-\relative c' {
-  c2 e2 \tuplet 3/2 { f8 a b } a2 e4
+\relative {
+  c'2 e2 \tuplet 3/2 { f8 a b } a2 e4
 }
 \end{lilypond}
 
@@ -144,8 +144,8 @@ Documents for @command{lilypond-book} may freely mix music and text.
 For example,
 
 @lilypond
-\relative c' {
-  c2 e2 \tuplet 3/2 { f8 a b } a2 e4
+\relative {
+  c'2 e2 \tuplet 3/2 { f8 a b } a2 e4
 }
 @end lilypond
 
@@ -169,8 +169,8 @@ entire snippet must be enclosed in a @code{\book @{ @}} construct.
     title = "A scale in LilyPond"
   }
 
-  \relative c' {
-    c d e f g a b c
+  \relative {
+    c' d e f g a b c
   }
 }
 @end lilypond
@@ -765,8 +765,8 @@ example, the music will be interpreted in relative mode, but the
 verbatim quote will not show the @code{relative} block, i.e.
 
 @example
-\relative c' @{ % begin verbatim
-  c4 e2 g4
+\relative @{ % begin verbatim
+  c'4 e2 g4
   f2 e % end verbatim
 @}
 @end example
@@ -1153,8 +1153,8 @@ You can include LilyPond fragments in a LaTeX document.
 Normal LaTeX text.
 
 \begin@{lilypond@}
-\relative c'' @{
-  a4 b c d
+\relative @{
+  a'4 b c d
 @}
 \end@{lilypond@}
 
@@ -1179,7 +1179,7 @@ is written in Texinfo.
 Texinfo text
 
 @@lilypond
-\relative c' @{
+\relative @{
   a4 b c d
 @}
 @@end lilypond
@@ -1206,8 +1206,8 @@ d4 c b a
 Documents for lilypond-book may freely mix music and text.  For
 example,
 <lilypond>
-\relative c'' @{
-  a4 b c d
+\relative @{
+  a'4 b c d
 @}
 </lilypond>
 </p>

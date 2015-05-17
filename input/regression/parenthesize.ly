@@ -12,10 +12,10 @@
   ragged-right = ##t
 }
 
-\version "2.17.6"
+\version "2.19.21"
 
-\relative c' {
-  c2 -\parenthesize -.
+\relative {
+  c'2 -\parenthesize -.
 
   \parenthesize \breathe
 

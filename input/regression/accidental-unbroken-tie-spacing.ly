@@ -3,12 +3,12 @@
 texidoc = "Space is allowed for the actual size of accidentals on tied notes."
 }
 
-\version "2.19.13"
+\version "2.19.21"
 \paper {ragged-right = ##t }
-\relative c' {
+\relative {
   \clef treble
   \time 3/4
-  c8 b2  <g b des f>8 ~ |
+  c'8 b2  <g b des f>8 ~ |
   <g b des f>8 r
   % Large accidental
   \override Staff.Accidental.stencil =

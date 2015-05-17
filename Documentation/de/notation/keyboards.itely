@@ -10,7 +10,7 @@
 
 @c Translators: Till Paala
 
-@c \version "2.17.6"
+@c \version "2.19.21"
 
 @node Tasteninstrumente und andere Instrumente mit mehreren Systemen
 @section Tasteninstrumente und andere Instrumente mit mehreren Systemen
@@ -346,7 +346,7 @@ System gesetzt werden kann:
   \new Staff = "up" {
     \new Voice = "melodieEins" {
       \key g \major
-      \autochange \relative c' {
+      \autochange \relative {
         g8 b a c b d c e
         d8 r fis, g a2
       }

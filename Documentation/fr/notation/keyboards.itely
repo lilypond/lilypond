@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.19.21"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
@@ -346,7 +346,7 @@ portée inférieure :
   \new Staff = "up" {
     \new Voice = "melodieUn" {
       \key g \major
-      \autochange \relative c' {
+      \autochange \relative {
         g8 b a c b d c e
         d8 r fis, g a2
       }

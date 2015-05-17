@@ -1,4 +1,4 @@
-\version "2.17.28"
+\version "2.19.21"
 
 #(ly:set-option 'warning-as-error #f)
 
@@ -7,6 +7,6 @@
  Grace notes after the last note do not confuse the timing code."
 }
 
-\context Voice \relative c' {
-  c4 \grace { d16 d16 }
+\context Voice \relative {
+  c'4 \grace { d16 d16 }
 }

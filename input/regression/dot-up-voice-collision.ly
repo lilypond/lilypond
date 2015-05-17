@@ -5,14 +5,14 @@
 
 }
 
-\version "2.16.0"
+\version "2.19.21"
 
 \layout { ragged-right = ##t }
 
 \new Staff {
   \key e \major \time 3/4
-  \relative c'' {
-    << { dis4.  } \\
+  \relative {
+    << { dis''4.  } \\
        { fis,4 } \\ { b8 } >>
   }
 }

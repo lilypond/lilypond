@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @node Entrada y salida generales
 @chapter Entrada y salida generales
@@ -943,8 +943,8 @@ La línea de etiqueta tagline predeterminada se puede cambiar añadiendo un camp
     tagline = "... music notation for Everyone"
   }
   \score {
-    \relative c' {
-      c4 d e f
+    \relative {
+      c'4 d e f
     }
   }
 }
@@ -1433,8 +1433,8 @@ una marca de nota al pie adjunta.  La sintaxis es:
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
-  \relative c'' {
-    a4_\footnote #'(0 . -1) "Ligadura forzada hacia abajo" (
+  \relative {
+    a'4_\footnote #'(0 . -1) "Ligadura forzada hacia abajo" (
     b8^\footnote #'(1 . 0.5) "Barra manual forzada hacia arriba" [
     b8 ]
     c4 )
@@ -1632,7 +1632,7 @@ Por ejemplo:
     \auto-footnote "recent" \italic " Aug 2012"
     "composition."
   }
-  \relative c' {
+  \relative {
     a'4 b8 e c4 d
   }
 }
@@ -1682,7 +1682,7 @@ De forma alternativa, se pueden usar alias en ASCII (véase
     }
     "composition."
   }
-  \relative c' {
+  \relative {
     a'4 b8 e c4 d
   }
 }
@@ -1705,7 +1705,7 @@ especificar las marcas (véase @ref{Unicode}):
     }
     "composition."
   }
-  \relative c' {
+  \relative {
     a'4 b8 e c4 d
   }
 }
@@ -2140,10 +2140,10 @@ puede combinar sobre un solo pentagrama la música de dos variables,
 véase @ref{Combinación automática de las partes}.  He aquí un ejemplo:
 
 @lilypond[verbatim,quote]
-sopranoMusic = \relative c'' { a4 b c b8( a) }
-altoMusic = \relative g' { e4 e e f }
-tenorMusic = \relative c' { c4 b e d8( c) }
-bassMusic = \relative c' { a4 gis a d, }
+sopranoMusic = \relative { a'4 b c b8( a) }
+altoMusic = \relative { e'4 e e f }
+tenorMusic = \relative { c'4 b e d8( c) }
+bassMusic = \relative { a4 gis a d, }
 allLyrics = \lyricmode {King of glo -- ry }
 <<
   \new Staff = "Soprano" \sopranoMusic
@@ -2239,8 +2239,8 @@ que muestra trinos con la notación usual y otra con los trinos
 expandidos explícitamente:
 
 @lilypond[verbatim,quote]
-music = \relative g' {
-  g8. c32 d
+music = \relative {
+  g'8. c32 d
   \tag #'trills { d8.\trill }
   \tag #'expand { \repeat unfold 3 { e32 d } }
   c32 d
@@ -2258,8 +2258,8 @@ music = \relative g' {
 De forma alternativa, a veces es más fácil excluir secciones de música:
 
 @lilypond[verbatim,quote]
-music = \relative g' {
-  g8. c32 d
+music = \relative {
+  g'8. c32 d
   \tag #'trills { d8.\trill }
   \tag #'expand {\repeat unfold 3 { e32 d } }
   c32 d
@@ -2490,8 +2490,8 @@ portuguese = \lyricmode {
   à vo -- cê uma can -- ção legal
 }
 
-\relative c' {
-  c2 d e f g f e
+\relative {
+  c'2 d e f g f e
 }
 \addlyrics { \bulgarian }
 \addlyrics { \hebrew }
@@ -2537,8 +2537,8 @@ partitura:
 
 @lilypond[quote,verbatim]
 \score {
-  \relative c'' {
-    c1 \mark \markup { \char ##x03EE }
+  \relative {
+    c''1 \mark \markup { \char ##x03EE }
     c1_\markup { \tiny { \char ##x03B1 " to " \char ##x03C9 } }
   }
   \addlyrics { O \markup { \concat { Ph \char ##x0153 be! } } }
@@ -3149,8 +3149,8 @@ contrario llama a la función predeterminada.
     \set Staff.midiInstrument = #"cello"
     \set Score.dynamicAbsoluteVolumeFunction = #myDynamics
     \new Voice {
-      \relative c'' {
-        a4\pp b c-\rfz
+      \relative {
+        a'4\pp b c-\rfz
       }
     }
   }
@@ -3192,8 +3192,8 @@ volumen general MIDI está limitado al intervalo desde 0.2 hasta
       \key g \major
       \time 2/2
       \set Staff.midiInstrument = #"flute"
-      \new Voice \relative c''' {
-        r2 g\mp g fis~
+      \new Voice \relative {
+        r2 g''\mp g fis~
         4 g8 fis e2~
         4 d8 cis d2
       }
@@ -3201,8 +3201,8 @@ volumen general MIDI está limitado al intervalo desde 0.2 hasta
     \new Staff {
       \key g \major
       \set Staff.midiInstrument = #"clarinet"
-      \new Voice \relative c'' {
-        b1\p a2. b8 a
+      \new Voice \relative {
+        b'1\p a2. b8 a
         g2. fis8 e
         fis2 r
       }
@@ -3242,8 +3242,8 @@ de la flauta.
       \set Staff.midiInstrument = #"flute"
       \set Staff.midiMinimumVolume = #0.7
       \set Staff.midiMaximumVolume = #0.9
-      \new Voice \relative c''' {
-        r2 g\mp g fis~
+      \new Voice \relative {
+        r2 g''\mp g fis~
         4 g8 fis e2~
         4 d8 cis d2
       }
@@ -3253,8 +3253,8 @@ de la flauta.
       \set Staff.midiInstrument = #"clarinet"
       \set Staff.midiMinimumVolume = #0.3
       \set Staff.midiMaximumVolume = #0.6
-      \new Voice \relative c'' {
-        b1\p a2. b8 a
+      \new Voice \relative {
+        b'1\p a2. b8 a
         g2. fis8 e
         fis2 r
       }
@@ -3317,8 +3317,8 @@ anterior.
       \time 2/2
       \set Score.instrumentEqualizer = #my-instrument-equalizer
       \set Staff.midiInstrument = #"flute"
-      \new Voice \relative c''' {
-        r2 g\mp g fis~
+      \new Voice \relative {
+        r2 g''\mp g fis~
         4 g8 fis e2~
         4 d8 cis d2
       }
@@ -3326,8 +3326,8 @@ anterior.
     \new Staff {
       \key g \major
       \set Staff.midiInstrument = #"clarinet"
-      \new Voice \relative c'' {
-        b1\p a2. b8 a
+      \new Voice \relative {
+        b'1\p a2. b8 a
         g2. fis8 e
         fis2 r
       }
@@ -3356,8 +3356,8 @@ copied out and compiled to test microtones in your MIDI player.
 
 @lilypond[verbatim,quote]
 \score {
-  \relative c' {
-    c4 cih cis cisih
+  \relative {
+    c'4 cih cis cisih
     d4 dih ees eeh
     e4 eih f fih
     fis4 fisih g gih

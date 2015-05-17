@@ -11,17 +11,17 @@ last note."
 
 }
 
-\version "2.16.0"
+\version "2.19.21"
 \layout {
   ragged-right = ##t
 }
 
-quoteMe = \relative c' { fis4 r16  a8.-> b4(-\ff~  b16 c8.  b) }
+quoteMe = \relative { fis'4 r16  a8.-> b4(-\ff~  b16 c8.  b) }
 
 \addQuote quoteMe \quoteMe 
 
-original = \relative c'' {
-  c8 d
+original = \relative {
+  c''8 d
   \cueDuring #"quoteMe"  #1 { r2 }
   es8 gis8
   \cueDuring #"quoteMe"  #1 { r4 }

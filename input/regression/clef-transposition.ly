@@ -1,5 +1,5 @@
 
-\version "2.16.0" \header {
+\version "2.19.21" \header {
 
     texidoc = "Clefs may be transposed up or down
 by arbitrary amount, including 15 for two octaves."
@@ -8,10 +8,10 @@ by arbitrary amount, including 15 for two octaves."
 \layout { ragged-right = ##t  }
 
 
-\relative c'' {
+\relative {
 
   \clef "G_8"
-  c4
+  c''4
   \clef "G_15"
   c4
   \clef "G_7"

@@ -6,12 +6,12 @@
     slur responds appropriately if a script is moved."
 }
 
-\version "2.17.15"
+\version "2.19.21"
 \layout {
   indent = 0\mm
   ragged-right = ##t
 }
-\relative c'
+\relative
 {
   b4-.( b-.)
   \once \override Script.padding = #1.5

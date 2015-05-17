@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "The @code{X-offset} of @code{DynamicText} grobs in a
@@ -12,8 +12,8 @@
     \new PianoStaff <<
       \new Staff = "up" {
         \clef treble
-        \relative c' {
-          c4\p c c\mp c |
+        \relative {
+          c'4\p c c\mp c |
           c4\mf c c\f c |
           <<
             \repeat unfold 8 c4

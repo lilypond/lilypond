@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 \header {
   texidoc = "Festival song synthesis output supports
 lyrics which are not complete words.
@@ -8,7 +8,7 @@ lyrics which are not complete words.
 #(*skip-word* #f)
 
 \festival #"song-skip-noword.xml" { \tempo 4 = 100 }
-\relative c' { c4 c g' }
+\relative { c'4 c g' }
 \addlyrics {
   twin -- \skip 4
   kle

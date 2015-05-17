@@ -13,7 +13,7 @@
 
 @include included/generating-output.itexi
 
-@c \version "2.16.0"
+@c \version "2.19.21"
 
 @node Leerboek
 @translationof Tutorial
@@ -228,8 +228,8 @@ muziek, een @notation{toonladder}, waarin elke noot precies
 
 @lilypond[verbatim,quote]
 % zet het beginpunt op de centrale C
-\relative c' {
-  c d e f
+\relative {
+  c' d e f
   g a b c
 }
 @end lilypond
@@ -244,8 +244,8 @@ steeds uitsluitend gebruikmakend van de @code{\relative}
 modus:
 
 @lilypond[verbatim,quote]
-\relative c' {
-  d f a g
+\relative {
+  d' f a g
   c b f d
 }
 @end lilypond
@@ -262,8 +262,8 @@ c'}}}-commando, kunnen we het beginoctaaf veranderen:
 
 @lilypond[verbatim,quote]
 % één octaaf boven de centrale C
-\relative c'' {
-  e c a c
+\relative {
+  e'' c a c
 }
 @end lilypond
 
@@ -279,8 +279,8 @@ dan de B, en van een A, G of F wordt aangenomen dat hij
 lager is.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  b c  % c is 1 notenbalk-ruimte omhoog, dus de c hoger
+\relative {
+  b' c  % c is 1 notenbalk-ruimte omhoog, dus de c hoger
   b d  % d is 2 omhoog of 5 omlaag, dus de d hoger
   b e  % e is 3 omhoog of 4 omlaag, dus de e hoger
   b a  % a is 6 omhoog of 1 omlaag, dus de a lager
@@ -303,8 +303,8 @@ notenaam toe te voegen.  We kunnen het octaaf verlagen door
 een komma @code{,} aan de notenaam toe toe voegen.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a a, c' f,
+\relative {
+  a' a, c' f,
   g g'' a,, f'
 }
 @end lilypond
@@ -342,8 +342,8 @@ gebruikt voor de volgende noot.  De lengte van de eerste
 noot is standaard een kwartnoot.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a1
+\relative {
+  a'1
   a2 a4 a8 a
   a16 a a a a32 a a a a64 a a a a a a a a2
 }
@@ -355,8 +355,8 @@ gepuncteerde noot moet expliciet worden aangegeven (d.w.z.,
 altijd ook met een getal).
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a4 a a4. a8
+\relative {
+  a'4 a a4. a8
   a8. a16 a a8. a8 a4.
 }
 @end lilypond
@@ -373,8 +373,8 @@ Een @notation{rust} voer je in net zoals een noot met de
 naam @code{r}@tie{}:
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a4 r r2
+\relative {
+  a'4 r r2
   r8 a r4 r4. r8
 }
 @end lilypond
@@ -392,9 +392,9 @@ Terminologie: @rglos{time signature}.
 De @notation{maatsoort} kun je aangeven met het @code{\time}-commando:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \time 3/4
-  a4 a a
+  a'4 a a
   \time 6/8
   a4. a
   \time 4/4
@@ -448,9 +448,9 @@ De @notation{sleutel} kun je aangeven met het @code{\clef}
 commando:
 
 @lilypond[verbatim,quote]
-\relative c' {
+\relative {
   \clef "treble"
-  c1
+  c'1
   \clef "alto"
   c1
   \clef "tenor"
@@ -761,8 +761,8 @@ afbeelding:
 
 @c no verbatim here
 @lilypond[quote]
-\relative c'' {
-  c4-\markup { \bold \huge { Klik hier. } }
+\relative {
+  c''4-\markup { \bold \huge { Klik hier. } }
 }
 @end lilypond
 

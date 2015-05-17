@@ -10,7 +10,7 @@
 
 @include included/generating-output.itexi
 
-@c \version "2.16.0"
+@c \version "2.19.21"
 
 @c Translators: Nicolas Grandclaude, Ludovic Sardain, Gauvain Pocentek
 @c Translation checkers: Jean-Charles Malahieude, Valentin Villenave, John Mandereau
@@ -262,8 +262,8 @@ gamme.
 
 @lilypond[verbatim,quote]
 % set the starting point to middle C
-\relative c' {
-  c d e f
+\relative {
+  c' d e f
   g a b c
 }
 @end lilypond
@@ -277,8 +277,8 @@ avec de plus grands intervalles, toujours avec le mode
 @code{\relative} :
 
 @lilypond[verbatim,quote]
-\relative c' {
-  d f a g
+\relative {
+  d' f a g
   c b f d
 }
 @end lilypond
@@ -295,8 +295,8 @@ central :
 
 @lilypond[verbatim,quote]
 % one octave above middle C
-\relative c'' {
-  e c a c
+\relative {
+  e'' c a c
 }
 @end lilypond
 
@@ -311,8 +311,8 @@ sol ou un fa seront placés juste en-dessous du si, c'est-à-dire au
 plus à une quarte descendante du si.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  b c  % c is 1 staff space up, so is the c above
+\relative {
+  b' c  % c is 1 staff space up, so is the c above
   b d  % d is 2 up or 5 down, so is the d above
   b e  % e is 3 up or 4 down, so is the e above
   b a  % a is 6 up or 1 down, so is the a below
@@ -330,8 +330,8 @@ octave -- ou des virgules @code{,} -- qui font chacune descendre la
 hauteur d'une octave -- au nom de la note.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a a, c' f,
+\relative {
+  a' a, c' f,
   g g'' a,, f'
 }
 @end lilypond
@@ -377,8 +377,8 @@ est utilisée.  En l'absence d'indication de durée, la première note
 est une noire.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a1
+\relative {
+  a'1
   a2 a4 a8 a
   a16 a a a a32 a a a a64 a a a a a a a a2
 }
@@ -389,8 +389,8 @@ la valeur rythmique.  Le point doit être précédé d'un nombre spécifiant
 la durée de base.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a a a4. a8
+\relative {
+  a' a a4. a8
   a8. a16 a a8. a8 a4.
 }
 @end lilypond
@@ -410,8 +410,8 @@ On saisit un @notation{silence} tout comme une note, mais avec la
 lettre @code{r} (pour @emph{rest}).
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a r r2
+\relative {
+  a' r r2
   r8 a r4 r4. r8
 }
 @end lilypond
@@ -433,9 +433,9 @@ La @notation{métrique}, aussi appelée @notation{chiffre de mesure},
 peut être définie à l'aide de la commande @code{\time} :
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \time 3/4
-  a4 a a
+  a'4 a a
   \time 6/8
   a4. a
   \time 4/4
@@ -497,9 +497,9 @@ La @notation{clef} peut être définie à l'aide de la commande
 @code{\clef} :
 
 @lilypond[verbatim,quote]
-\relative c' {
+\relative {
   \clef "treble"
-  c1
+  c'1
   \clef "alto"
   c1
   \clef "tenor"
@@ -518,10 +518,10 @@ Voici un bref exemple qui rassemble tous les éléments que nous déjà
 vus :
 
 @lilypond[verbatim,quote]
-\relative c, {
+\relative {
   \clef "bass"
   \time 3/4
-  c2 e8 c'
+  c,2 e8 c'
   g'2.
   f4 e d
   c4 c, r
@@ -792,8 +792,8 @@ Essayez sur cette image :
 @c no verbatim here
 @c KEEP LY
 @lilypond[quote,ragged-right]
-\relative c'' {
-  c-\markup { \bold \huge { Cliquez ici.  } }
+\relative {
+  c''-\markup { \bold \huge { Cliquez ici.  } }
 }
 @end lilypond
 

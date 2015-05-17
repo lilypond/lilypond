@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.19.21"
 
 
 @node A lilypond használata
@@ -550,7 +550,7 @@ kezdődik, mint az első, mert a @code{\repeat} parancs hatására két
 
 @lilypond[quote,verbatim]
 \repeat unfold 2 {
-  \relative c' { c d e f }
+  \relative { c' d e f }
 }
 @end lilypond
 

@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.21"
 % candidate for regression.  -gp
 \header {
   texidoc="Converting LilyPond input to MIDI and then again back with
@@ -27,7 +27,7 @@
 
 %}
 
-scales =  \relative c {
+scales =  \relative {
 
   % [INSTRUMENT_NAME] bright acoustic
   \key c \major  % sharp-major

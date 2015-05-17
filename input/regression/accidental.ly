@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.21"
 
 \header{
   texidoc="
@@ -10,7 +10,7 @@ fourth show forced and cautionary accidentals.
 
 \layout { ragged-right = ##t }
 
-foo = \relative c''   {   \key as \major dis4 dis dis!^"force" dis? }
+foo = \relative   {   \key as \major dis''4 dis dis!^"force" dis? }
 
 << \foo 
    \context NoteNames \foo

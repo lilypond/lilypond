@@ -1,15 +1,15 @@
-\version "2.16.0"
+\version "2.19.21"
 \paper {ragged-right = ##t}
 \header {
   texidoc = "The spacing engine avoids collisions between non-adjacent columns."
 }
 
 
-foo = \relative c'' {
-  g'32[ c,]
+foo = \relative {
+  g''32[ c,]
 }
 
-bar = \relative c {
+bar = \relative {
   s16 <feses ases ceses eses ases ceses eses geses beses deses>4
 }
 

@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.21"
 \header{
 texidoc = "Broken crescendi should be open on one side."
 }
@@ -9,7 +9,7 @@ texidoc = "Broken crescendi should be open on one side."
 }
 
 
-\relative c'' { 
-  c1 \< \break c1\!  \> \break c1\!
+\relative { 
+  c''1 \< \break c1\!  \> \break c1\!
 }
 

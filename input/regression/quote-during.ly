@@ -8,16 +8,16 @@ quoted. In this example, a 16th rest is not quoted, since
 @code{rest-event} is not in @code{quotedEventTypes}."
 
 }
-\version "2.17.6"
+\version "2.19.21"
 \layout {
     ragged-right = ##t
 }
 
 
-quoteMe = \relative c' { fis4 r16  a8.-> b4-\ff c }
+quoteMe = \relative { fis'4 r16  a8.-> b4-\ff c }
 
 \addQuote quoteMe \quoteMe 
-original = \relative c'' { c8 d s2 es8 gis8 }
+original = \relative { c''8 d s2 es8 gis8 }
 
 <<
     \new Staff {

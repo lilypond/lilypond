@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
@@ -694,9 +694,9 @@ a4
 保持しています) が同時進行するように組み合わされています:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   <<
-    { a2 g }
+    { a'2 g }
     { f2 e }
     { d2 b }
   >>
@@ -723,8 +723,8 @@ LilPond は最初の音楽表記の始まりを調べます。@c
 以下の例は複雑な表記を持ちますが、単一の表記で始まっているため譜表も 1 つです。
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  c2 <<c e>> |
+\relative {
+  c''2 <<c e>> |
   << { e2 f } { c2 <<b d>> } >> |
 }
 @end lilypond
@@ -761,9 +761,9 @@ LilyPond 入力ファイルは音楽表記によって構築されています�
 これらの @code{Staff} 要素は @code{<<} と @code{>>} で並列に組み合わされます:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   <<
-    \new Staff { \clef "treble" c4 }
+    \new Staff { \clef "treble" c''4 }
     \new Staff { \clef "bass" c,,4 }
   >>
 }
@@ -792,9 +792,9 @@ LilyPond 入力ファイルは音楽表記によって構築されています�
 複合リズム (polyrhythmic) の楽譜よりも一般的だからです。
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   <<
-    \new Staff { \clef "treble" \key d \major \time 3/4 c4 }
+    \new Staff { \clef "treble" \key d \major \time 3/4 c''4 }
     \new Staff { \clef "bass" c,,4 }
   >>
 }
@@ -836,9 +836,9 @@ LilyPond 入力ファイルは音楽表記によって構築されています�
 小さな例を挙げます:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \new PianoStaff <<
-    \new Staff { \time 2/4 c4 e | g g, | }
+    \new Staff { \time 2/4 c''4 e | g g, | }
     \new Staff { \clef "bass" c,,4 c' | e c | }
   >>
 }
@@ -1011,10 +1011,10 @@ LilyPond での多声音楽はまだ説明していないコンセプトを用�
 歌詞は @notation{Girls and boys come out to play} です:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \key g \major
   \time 6/8
-  d4 b8 c4 a8 | d4 b8 g4
+  d''4 b8 c4 a8 | d4 b8 g4
 }
 @end lilypond
 
@@ -1024,10 +1024,10 @@ LilyPond での多声音楽はまだ説明していないコンセプトを用�
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 | d4 b8 g4
+    d''4 b8 c4 a8 | d4 b8 g4
   }
   \addlyrics {
     Girls and boys come | out to play,
@@ -1059,10 +1059,10 @@ LilyPond での多声音楽はまだ説明していないコンセプトを用�
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    d''4 b8 c4 a8 | d4 b8 g4 g8 |
     a4 b8 c b a | d4 b8 g4. |
   }
   \addlyrics {
@@ -1096,10 +1096,10 @@ song.ly:12:46: warning: barcheck failed at: 3/8
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    d''4 b8 c4 a8 | d4 b8 g4 g8 |
     a4 b8 c( b) a | d4 b8 g4. |
   }
   \addlyrics {
@@ -1118,10 +1118,10 @@ song.ly:12:46: warning: barcheck failed at: 3/8
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    d''4 b8 c4 a8 | d4 b8 g4 g8 |
     a4 b8 c([ b]) a | d4 b8 g4. |
   }
   \addlyrics {
@@ -1137,10 +1137,10 @@ song.ly:12:46: warning: barcheck failed at: 3/8
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    d''4 b8 c4 a8 | d4 b8 g4 g8 |
     a4 b8 c[ b] a | d4 b8 g4. |
   }
   \addlyrics {
@@ -1160,10 +1160,10 @@ song.ly:12:46: warning: barcheck failed at: 3/8
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \minor
     \time 3/2
-    g2 a bes | bes2( a) b2 |
+    g'2 a bes | bes2( a) b2 |
     c4.( bes8 a4. g8 fis4.) g8 | fis1
   }
   \addlyrics {
@@ -1211,11 +1211,11 @@ song.ly:12:46: warning: barcheck failed at: 3/8
 @c but the example is long enough to avoid looking strange.
 @lilypond[verbatim,quote,noragged-right]
 <<
-  \relative c' {
+  \relative {
     \clef "bass"
     \key c \major
     \time 6/8
-    c4.~ 8 d b | c8([ d]) b c d b | c8
+    c'4.~ 8 d b | c8([ d]) b c d b | c8
   }
   \addlyrics {
     Lar -- go_al fac -- | to -- tum del -- la cit -- | tÃ
@@ -1323,13 +1323,13 @@ namedMusic = @{ @dots{} @}
 
 @lilypond[verbatim,quote]
 violin = \new Staff {
-  \relative c'' {
-    a4 b c b
+  \relative {
+    a'4 b c b
   }
 }
 
 cello = \new Staff {
-  \relative c {
+  \relative {
     \clef "bass"
     e2 d
   }
@@ -1484,10 +1484,10 @@ aFivePaper = \paper @{ paperheight = 21.0 \cm @}
 @code{\relative} を使うことで、上の例はずっと読みやすく、入力しやすくなります:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \key a \major
   \time 6/8
-  cis8. d16 cis8 e4 e8 |
+  cis''8. d16 cis8 e4 e8 |
   b8. cis16 b8 d4 d8 |
 }
 @end lilypond

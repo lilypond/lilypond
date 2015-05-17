@@ -1,11 +1,11 @@
-\version "2.17.6"
+\version "2.19.21"
 \header {
   texidoc = "Beams can be allowed to collide with grobs by overriding
 the collision-interfaces property."
 }
 
-\relative c' {
-  c8 [ des' ]
+\relative {
+  c'8 [ des' ]
   \once \override Beam.collision-interfaces = #'(beam-interface
                                                    clef-interface
                                                    ;inline-accidental-interface

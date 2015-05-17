@@ -1,5 +1,5 @@
 % Lily was here -- automatically converted by ../../../scripts/midi2ly.py from out/initial-key.midi
-\version "2.16.0"
+\version "2.19.21"
 
 \layout {
   \context {
@@ -26,10 +26,10 @@ options=""
 
 \score {
   <<
-    \relative c'' {
+    \relative {
       \key g \major
       \time 6/8
-      d4 b8 c4 a8 | d4 b8 g4
+      d''4 b8 c4 a8 | d4 b8 g4
     }
     \addlyrics {
       Girls and boys come | out to play,

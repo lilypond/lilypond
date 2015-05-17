@@ -7,10 +7,10 @@
 
 }
 
-\version "2.17.6"
+\version "2.19.21"
   
-\relative c' {
-  c1 \mark "foo"
+\relative {
+  c'1 \mark "foo"
   c1
   \key cis \major
   \clef alto

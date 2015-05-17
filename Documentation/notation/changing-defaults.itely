@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.20"
+@c \version "2.19.21"
 
 @node Changing defaults
 @chapter Changing defaults
@@ -428,13 +428,13 @@ from the musical content.  Either of these two forms is valid:
 
     % musical content
     \context Voice = "one" {
-      \relative c'' {
-        c4 c c c
+      \relative {
+        c''4 c c c
       }
     }
     \context Voice = "two" {
-      \relative c'' {
-        g8 g g4 g g
+      \relative {
+        g'8 g g4 g g
       }
     }
   >>
@@ -456,13 +456,13 @@ from the musical content.  Either of these two forms is valid:
 
     % musical content
     \context Voice = "one" {
-      \relative c'' {
-        c4 c c c
+      \relative {
+        c''4 c c c
       }
     }
     \context Voice = "two" {
-      \relative c'' {
-        g8 g g4 g g
+      \relative {
+        g'8 g g4 g g
       }
     }
   >>
@@ -483,8 +483,8 @@ is used to set the context in which a Scheme procedure specified with
 @code{\applyContext} is executed:
 
 @example
-\new Staff \relative c' @{
-  c1
+\new Staff \relative @{
+  c'1
   \context Timing
   \applyContext #(lambda (ctx)
                    (newline)
@@ -562,8 +562,8 @@ In the following example, both voice A and voice B are kept alive
 in this way for the duration of the piece:
 
 @lilypond[quote,verbatim]
-musicA = \relative c'' { d4 d d d }
-musicB = \relative c'' { g4 g g g }
+musicA = \relative { d''4 d d d }
+musicB = \relative { g'4 g g g }
 keepVoicesAlive = {
   <<
     \new Voice = "A" { s1*5 }  % Keep Voice "A" alive for 5 bars
@@ -601,8 +601,8 @@ melody and accompaniment would consist of several different
 sections, of course.
 
 @lilypond[quote,verbatim]
-melody = \relative c'' { a4 a a a }
-accompaniment = \relative c' { d4 d d d }
+melody = \relative { a'4 a a a }
+accompaniment = \relative { d'4 d d d }
 words = \lyricmode { These words fol -- low the mel -- o -- dy }
 \score {
   <<
@@ -640,14 +640,14 @@ to keep the melody line alive by simply including spacer notes to
 line it up correctly with the accompaniment:
 
 @lilypond[quote,verbatim]
-melody = \relative c'' {
+melody = \relative {
   s1  % skip a bar
-  a4 a a a
+  a'4 a a a
   s1  % skip a bar
   a4 a a a
 }
-accompaniment = \relative c' {
-  d4 d d d
+accompaniment = \relative {
+  d'4 d d d
   d4 d d d
   d4 d d d
   d4 d d d
@@ -765,17 +765,17 @@ time signature.
       \consists "Timing_translator"
       \consists "Default_bar_line_engraver"
     }
-    \relative c'' {
+    \relative {
         \time 3/4
-        c4 c c c c c
+        c''4 c c c c c
     }
   \new Staff \with {
     \consists "Timing_translator"
     \consists "Default_bar_line_engraver"
   }
-  \relative c'' {
+  \relative {
       \time 2/4
-      c4 c c c c c
+      c''4 c c c c c
   }
 >>
 \layout {
@@ -882,8 +882,8 @@ An @code{\override} command, but with the context name omitted
 
 @lilypond[quote,verbatim]
 \score {
-  \relative c'' {
-    a4^"Thicker stems" a a a
+  \relative {
+    a'4^"Thicker stems" a a a
     a4 a a\ff a
   }
   \layout {
@@ -900,8 +900,8 @@ Directly setting a context property
 
 @lilypond[quote,verbatim]
 \score {
-  \relative c'' {
-    a4^"Smaller font" a a a
+  \relative {
+    a'4^"Smaller font" a a a
     a4 a a\ff a
   }
   \layout {
@@ -919,8 +919,8 @@ expression like @code{\accidentalStyle dodecaphonic}
 
 @lilypond[quote,verbatim]
 \score {
-  \relative c'' {
-    a4^"Dynamics above" a a a
+  \relative {
+    a'4^"Dynamics above" a a a
     a4 a a\ff a
   }
   \layout {
@@ -948,8 +948,8 @@ StaffDefaults = \with {
 
 \score {
   \new Staff {
-    \relative c'' {
-      a4^"Smaller font" a a a
+    \relative {
+      a'4^"Smaller font" a a a
       a4 a a a
     }
   }
@@ -976,8 +976,8 @@ the same command written in the music stream.
 @lilypond[quote,verbatim]
 \score {
   \new Staff {
-    \relative c'' {
-      a4^"Smaller font" a a a
+    \relative {
+      a'4^"Smaller font" a a a
       a4 a a a
     }
   }
@@ -1025,8 +1025,8 @@ An @code{\override} command, but with the context name omitted
   \new Staff {
     \new Voice \with { \override Stem.thickness = #4.0 }
     {
-      \relative c'' {
-        a4^"Thick stems" a a a
+      \relative {
+        a'4^"Thick stems" a a a
         a4 a a a
       }
     }
@@ -1041,15 +1041,15 @@ Directly setting a context property
 \score {
   <<
     \new Staff {
-      \relative c'' {
-        a4^"Default font" a a a
+      \relative {
+        a'4^"Default font" a a a
         a4 a a a
       }
     }
     \new Staff \with { fontSize = #-4 }
     {
-      \relative c'' {
-        a4^"Smaller font" a a a
+      \relative {
+        a'4^"Smaller font" a a a
         a4 a a a
       }
     }
@@ -1065,8 +1065,8 @@ A predefined command such as @code{\dynamicUp}
   <<
     \new Staff {
       \new Voice {
-        \relative c'' {
-          a4^"Dynamics below" a a a
+        \relative {
+          a'4^"Dynamics below" a a a
           a4 a a\ff a
         }
       }
@@ -1075,8 +1075,8 @@ A predefined command such as @code{\dynamicUp}
     {
       \new Voice \with { \dynamicUp }
       {
-        \relative c'' {
-          a4^"Dynamics above" a a a
+        \relative {
+          a'4^"Dynamics above" a a a
           a4 a a\ff a
         }
       }
@@ -1168,8 +1168,8 @@ to indicate improvisation in jazz pieces,
   \accepts "ImproVoice"
 }}
 
-\relative c'' {
-  a4 d8 bes8 \new ImproVoice { c4^"ad lib" c
+\relative {
+  a'4 d8 bes8 \new ImproVoice { c4^"ad lib" c
    c4 c^"undress" c_"while playing :)" c }
   a1
 }
@@ -1300,8 +1300,8 @@ Putting both into a @code{\layout} block, like
 Then the output at the start of this subsection can be entered as
 
 @example
-\relative c'' @{
-  a4 d8 bes8
+\relative @{
+  a'4 d8 bes8
   \new ImproVoice @{
     c4^"ad lib" c
     c4 c^"undress"
@@ -4125,8 +4125,8 @@ XinO = {
       \musicglyph #"noteheads.s2cross"
   }
 }
-\relative c'' {
-  a a \XinO a a
+\relative {
+  a' a \XinO a a
 }
 @end lilypond
 
@@ -4691,8 +4691,8 @@ padText =
      \once \override TextScript.padding = #padding
    #})
 
-\relative c'' {
-  c4^"piu mosso" b a b
+\relative {
+  c''4^"piu mosso" b a b
   \padText #1.8
   c4^"piu mosso" b a b
   \padText #2.6
@@ -4716,7 +4716,7 @@ custosNote =
      #note
    #})
 
-\relative c' { c4 d e f \custosNote g }
+\relative { c'4 d e f \custosNote g }
 @end lilypond
 
 Substitution functions with multiple arguments can be defined:

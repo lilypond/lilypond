@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 
@@ -13,7 +13,7 @@ note. When central C is reached, staff is not yet switched (by default).
 
 \context PianoStaff <<
   \context Staff = "up" {
-    \autochange  \new Voice << \relative c' { g4 c e d c r4 a g } >>
+    \autochange  \new Voice << \relative { g4 c e d c r4 a g } >>
   }
   \context Staff = "down" {
     \clef bass 

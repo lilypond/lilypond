@@ -1,4 +1,4 @@
-\version "2.17.29"
+\version "2.19.21"
 
 \header {
   texidoc = "The @code{\\offset} command may be used to displace various properties
@@ -13,11 +13,11 @@ default appearance.  The command is demonstrated as a tweak and as an override."
   indent = 0
 }
 
-\relative c' {
+\relative {
 
   %% ARPEGGIO %%
   % default
-  <c e g b>1\arpeggio
+  <c' e g b>1\arpeggio
   <c e g b>1-\offset positions #'(-1 . 1) \arpeggio
   \bar "||"
 

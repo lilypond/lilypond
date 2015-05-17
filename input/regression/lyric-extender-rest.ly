@@ -10,11 +10,11 @@ is not terminated upon encountering a rest. "
   ragged-right = ##T
 }
 
-\version "2.16.0"
+\version "2.19.21"
 
 <<
-  \new Voice = "one" \relative c'' {
-    c4\melisma 
+  \new Voice = "one" \relative {
+    c''4\melisma 
     c4 r c\melismaEnd c
   }
   \new Lyrics \lyricsto "one" {

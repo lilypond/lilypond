@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @c Translators: Till Paala
 
@@ -444,8 +444,8 @@ sollten auch benutzt werden, wenn Notenwerte über die
 inneren Unterteilungen von Takten hinüberreichen:
 
 @lilypond[quote]
-\relative c' {
-  r8 c8 ~ 2 r4 |
+\relative {
+  r8 c'8 ~ 2 r4 |
   r8^"not" c2 ~ 8 r4
 }
 @end lilypond
@@ -1658,10 +1658,10 @@ weil die Skalierung sich auch auf die automatische Bebalkung
 auswirkt.
 
 @lilypond[quote,verbatim]
-\relative c' <<
+\relative <<
   \new Staff {
     \time 3/4
-    c4 c c |
+    c'4 c c |
     c4 c c |
   }
   \new Staff {
@@ -1706,10 +1706,10 @@ verschoben werden.
 
 % Now each staff has its own time signature.
 
-\relative c' <<
+\relative <<
   \new Staff {
     \time 3/4
-    c4 c c |
+    c'4 c c |
     c4 c c |
   }
   \new Staff {
@@ -2164,8 +2164,8 @@ niedrigere befindet.
   \time 7/8
   \set Staff.beatStructure = #'(2 3 2)
   \new Voice = one {
-    \relative c'' {
-        a8 a a a a a a
+    \relative {
+        a'8 a a a a a a
     }
   }
   \new Voice  = two {
@@ -3559,8 +3559,8 @@ als Argument und produzieren entweder Ganztaktpausen oder leere
 Takte, die genauso lang sind wie der Notenabschnitt.
 
 @lilypond[verbatim,quote]
-MyCadenza = \relative c' {
-  c4 d8 e f g g4
+MyCadenza = \relative {
+  c'4 d8 e f g g4
   f2 g4 g
 }
 

@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "The staff is a grob (graphical object) which may be adjusted as well, for example, to have 6 thick lines and a slightly large @code{staff-space}.
@@ -11,7 +11,7 @@ However, beams remain correctly quantized."
 }
 
 
-mus =  \relative c' { c4 g' d'8 d d d }
+mus =  \relative { c'4 g' d'8 d d d }
 
 
 <<

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "The PDF backend uses several header fields to store metadata
@@ -17,4 +17,4 @@ those without the prefix for PDF creation (not for visual display on the page).
 }
 \layout { ragged-right= ##t }
 
-\relative c' { g4 }
+\relative { g4 }

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (_ "stem does not fit in beam"))
@@ -8,6 +8,6 @@
   texidoc= "Quarter notes may be beamed: the beam is halted momentarily."
 }
 
-\relative c'' {
-  c8[ c4 c8] % should warn here!
+\relative {
+  c''8[ c4 c8] % should warn here!
 }

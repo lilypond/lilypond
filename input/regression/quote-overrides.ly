@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "The @code{\\quoteDuring} command shall also quote correctly all
@@ -11,10 +11,10 @@
   @code{'(StreamEvent)}, everything should be quoted."
 }
 
-mus = \relative c' {
+mus = \relative {
   % Acciaccaturas contain a slur and  \override Flag.stroke-style
   % Thus, we're checking \override here
-  c4 \acciaccatura d8 c4
+  c'4 \acciaccatura d8 c4
   % Checking \set and \unset
   \set fontSize = #6 f
   \unset fontSize f |

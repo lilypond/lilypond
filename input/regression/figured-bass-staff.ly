@@ -3,7 +3,7 @@
   ragged-right = ##t
 }
 
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 
@@ -21,8 +21,8 @@ controlling figured bass should be set in @code{Staff} context.
 <<
 
   \new Staff = someUniqueName
-  \relative c'' {
-    c4 c'8 r8 c,4 c'
+  \relative {
+    c''4 c'8 r8 c,4 c'
   }
 
   %% send to existing Staff.

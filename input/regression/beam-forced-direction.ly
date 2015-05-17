@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "The direction of manual beams can be forced using
@@ -6,7 +6,7 @@
 "
 }
 
-\relative c' {
+\relative {
   \time 2/4
- c8_[] c'^[ d e]
+ c'8_[] c'^[ d e]
 }

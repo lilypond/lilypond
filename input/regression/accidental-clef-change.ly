@@ -7,11 +7,11 @@
 }
 
 
-\version "2.16.0"
-\new Staff \relative c' {
+\version "2.19.21"
+\new Staff \relative {
   \key g \major
   \clef treble
-  cis dis f
+  cis' dis f
   \clef bass
   <c dis fis>
 }

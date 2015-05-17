@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "In addition to @code{Slur}, the music function @code{\\shape} works
@@ -12,9 +12,9 @@ function."
   ragged-right = ##t
 }
 
-\relative c'' {
+\relative {
   % PhrasingSlur
-  d4\( d' b g g,8 f' e d c2\)
+  d''4\( d' b g g,8 f' e d c2\)
   \override PhrasingSlur.color = #blue
   \shape #'((0 . -2) (-1 . 3.5) (0.5 . 0.5) (0 . -2.5)) PhrasingSlur
   d4\( d' b g g,8 f' e d c2\)

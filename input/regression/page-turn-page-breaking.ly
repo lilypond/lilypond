@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header{
     texidoc="The page-turn breaker will put a page turn after
@@ -26,7 +26,7 @@ in which case the turn will go after the special barline.
   }
 
   \score {
-    \relative c' {
+    \relative {
       a b c d a b c d \break
       c d e f c d e f R1*4
       \repeat unfold 13 {d4 e f g} \break

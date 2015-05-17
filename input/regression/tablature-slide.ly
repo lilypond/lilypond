@@ -4,13 +4,13 @@
   texidoc = "Tab supports slides."
 }
 
-\version "2.17.15"
+\version "2.19.21"
 \paper {
   ragged-right = ##T
 }
 
 
-\relative c' \new TabVoice
+\relative \new TabVoice
 {
-  <c g'\harmonic> d\2\glissando e\2
+  <c' g'\harmonic> d\2\glissando e\2
 }

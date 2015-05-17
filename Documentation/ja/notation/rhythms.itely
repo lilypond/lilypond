@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -420,8 +420,8 @@ a2 ~ 2
 
 @c KEEP LY
 @lilypond[verbatim,quote]
-\relative c' {
-  r8 c8 ~ 2 r4 |
+\relative {
+  r8 c'8 ~ 2 r4 |
   r8^"こうすべきではありません" c2 ~ 8 r4
 }
 @end lilypond
@@ -1629,10 +1629,10 @@ c8 c c
 手動で連桁を付ける必要があるかもしれません。
 
 @lilypond[quote,verbatim]
-\relative c' <<
+\relative <<
   \new Staff {
     \time 3/4
-    c4 c c |
+    c'4 c c |
     c4 c c |
   }
   \new Staff {
@@ -1677,10 +1677,10 @@ c8 c c
 
 % 以上で、各譜はそれぞれに拍子を持つようになります
 
-\relative c' <<
+\relative <<
   \new Staff {
     \time 3/4
-    c4 c c |
+    c'4 c c |
     c4 c c |
   }
   \new Staff {
@@ -2075,8 +2075,8 @@ c16^"(3+2)" c c c c |
   \set Staff.beatStructure = #'(2 3 2)
   <<
     \new Voice = one {
-      \relative c'' {
-        a8 a a a a a a
+      \relative {
+        a'8 a a a a a a
       }
     }
     \new Voice = two {
@@ -3441,8 +3441,8 @@ MIDI 出力において装飾小音符はそれぞれ 1/4 の実演奏時間を�
 その音楽表記と同じ長さの複数小節休符または @code{\skip} を生成します。
 
 @lilypond[verbatim,quote]
-MyCadenza = \relative c' {
-  c4 d8 e f g g4
+MyCadenza = \relative {
+  c'4 d8 e f g g4
   f2 g4 g
 }
 

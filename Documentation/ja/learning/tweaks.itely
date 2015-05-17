@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -1487,8 +1487,8 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
-  \relative g' {
-    r4 g8 g c4 c8 d |
+  \relative {
+    r4 g'8 g c4 c8 d |
     e4 r8
     <<
       { f8 c c }
@@ -1514,8 +1514,8 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
-  \relative g' {
-    r4 g8 g c4 c8 d |
+  \relative {
+    r4 g'8 g c4 c8 d |
     e4 r8
     <<
       { f8 c c }
@@ -1577,8 +1577,8 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
 @c KEEP LY
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
-  \relative g' {
-    r4 g8 g c4 c8 d |
+  \relative {
+    r4 g'8 g c4 c8 d |
     e4 r8
     <<
       { f8 c c }
@@ -1602,8 +1602,8 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
-  \relative g' {
-    r4 g8 g c4 c8 d |
+  \relative {
+    r4 g'8 g c4 c8 d |
     e4 r8
     <<
       { f8 c c }
@@ -1672,8 +1672,8 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
 @c KEEP LY
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
-  \relative g' {
-    r4 g8 g c4 c8 d |
+  \relative {
+    r4 g'8 g c4 c8 d |
     e4 r8
     <<
       { f8 c c }
@@ -1740,8 +1740,8 @@ LilyPond では距離と長さは一般に譜スペース -- 譜の中の隣り�
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
-  \relative g' {
-    r4 g8 g c4 c8 d |
+  \relative {
+    r4 g'8 g c4 c8 d |
     e4 r8
     <<
       { f8 c c }
@@ -1862,10 +1862,10 @@ c2^"Text4" |
 @lilypond[quote,ragged-right,verbatim]
 <<
   \new Staff {
-    \relative c' { c4 a, }
+    \relative { c'4 a, }
   }
   \new Staff {
-    \relative c'''' { c4 a, }
+    \relative { c''''4 a, }
   }
 >>
 @end lilypond
@@ -2901,8 +2901,8 @@ d1 |
 @c KEEP LY
 @lilypond[quote,ragged-right,verbatim]
 sesquisharp = \markup { \sesquisharp }
-\relative c'' {
-  c4
+\relative {
+  c''4
   % これは 1.5 倍シャープを譜刻しますが、スペースが小さすぎます
   \once \override Accidental.stencil = #ly:text-interface::print
   \once \override Accidental.text = #sesquisharp
@@ -3152,10 +3152,10 @@ a8 \( ( a'16 ) a \)
 この例は以下のような状態でした:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
-\new Staff \relative c'' {
+\new Staff \relative {
   \key aes \major
   <<
-    { c2 aes4. bes8 }
+    { c''2 aes4. bes8 }
     \\
     { <ees, c>2 des }
     \\
@@ -3186,10 +3186,10 @@ a8 \( ( a'16 ) a \)
 @cindex force-hshift property, example (force-hshift プロパティの例)
 
 @lilypond[quote,verbatim,fragment,ragged-right]
-\new Staff \relative c'' {
+\new Staff \relative {
   \key aes \major
   <<
-    { c2 aes4. bes8 }
+    { c''2 aes4. bes8 }
     \\
     {
       <ees, c>2
@@ -3231,9 +3231,9 @@ a8 \( ( a'16 ) a \)
 @c line-width ensures no break
 @c KEEP LY
 @lilypond[quote,ragged-right,line-width=6\in]
-rhMusic = \relative c'' {
+rhMusic = \relative {
   \new Voice {
-    r2 c4.\( g8 |
+    r2 c''4.\( g8 |
     \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
@@ -3273,8 +3273,8 @@ rhMusic = \relative c'' {
   }
 }
 
-lhMusic = \relative c' {
-  r2 <c g ees>2( |
+lhMusic = \relative {
+  r2 <c' g ees>2( |
   <d g, d>1)\arpeggio |
   r2. d,,4 r4 r |
   r4
@@ -3316,9 +3316,9 @@ LilyPond はうまく衝突を回避できるからです。
 @c line-width ensures no break
 @c KEEP LY
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
-rhMusic = \relative c'' {
+rhMusic = \relative {
   \new Voice {
-    r2 c4. g8 |
+    r2 c''4. g8 |
     bes1~ |
     \time 6/4
     bes2. r8
@@ -3342,8 +3342,8 @@ rhMusic = \relative c'' {
   }
 }
 
-lhMusic = \relative c' {
-  r2 <c g ees>2 |
+lhMusic = \relative {
+  r2 <c' g ees>2 |
   <d g, d>1 |
   r2. d,,4 r4 r |
   r4
@@ -3377,9 +3377,9 @@ lhMusic = \relative c' {
 @c line-width ensures no break
 @c KEEP LY
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
-rhMusic = \relative c'' {
+rhMusic = \relative {
   \new Voice {
-    r2 c4.\( g8 |
+    r2 c''4.\( g8 |
     bes1~ |
     \time 6/4
     bes2. r8
@@ -3403,8 +3403,8 @@ rhMusic = \relative c'' {
   }
 }
 
-lhMusic = \relative c' {
-  r2 <c g ees>2( |
+lhMusic = \relative {
+  r2 <c' g ees>2( |
   <d g, d>1) |
   r2. d,,4 r4 r |
   r4
@@ -3453,9 +3453,9 @@ lhMusic = \relative c' {
 @c line-width ensures no break
 @c KEEP LY
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
-rhMusic = \relative c'' {
+rhMusic = \relative {
   \new Voice {
-    r2 c4.\( g8 |
+    r2 c''4.\( g8 |
     \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
@@ -3481,8 +3481,8 @@ rhMusic = \relative c'' {
   }
 }
 
-lhMusic = \relative c' {
-  r2 <c g ees>2( |
+lhMusic = \relative {
+  r2 <c' g ees>2( |
   <d g, d>1)\arpeggio |
   r2. d,,4 r4 r |
   r4
@@ -3535,9 +3535,9 @@ lhMusic = \relative c' {
 @c line-width ensures no break
 @c KEEP LY
 @lilypond[quote,ragged-right,line-width=6\in]
-rhMusic = \relative c'' {
+rhMusic = \relative {
   \new Voice {
-    r2 c4.\( g8 |
+    r2 c''4.\( g8 |
     \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
@@ -3567,8 +3567,8 @@ rhMusic = \relative c'' {
   }
 }
 
-lhMusic = \relative c' {
-  r2 <c g ees>2( |
+lhMusic = \relative {
+  r2 <c' g ees>2( |
   <d g, d>1)\arpeggio |
   r2. d,,4 r4 r |
   r4
@@ -3614,9 +3614,9 @@ C はシフト off のボイス 2 の中にあり、2 つの D はボイス 1 �
 @c line-width ensures no break
 @c KEEP LY
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
-rhMusic = \relative c'' {
+rhMusic = \relative {
   \new Voice {
-    r2 c4.\( g8 |
+    r2 c''4.\( g8 |
     \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
@@ -3649,8 +3649,8 @@ rhMusic = \relative c'' {
   }
 }
 
-lhMusic = \relative c' {
-  r2 <c g ees>2( |
+lhMusic = \relative {
+  r2 <c' g ees>2( |
   <d g, d>1)\arpeggio |
   r2. d,,4 r4 r |
   r4
@@ -3687,9 +3687,9 @@ lhMusic = \relative c' {
 @c line-width ensures no break
 @c KEEP LY
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
-rhMusic = \relative c'' {
+rhMusic = \relative {
   \new Voice {
-    r2 c4.\( g8 |
+    r2 c''4.\( g8 |
     \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
@@ -3729,8 +3729,8 @@ rhMusic = \relative c'' {
   }
 }
 
-lhMusic = \relative c' {
-  r2 <c g ees>2( |
+lhMusic = \relative {
+  r2 <c' g ees>2( |
   <d g, d>1)\arpeggio |
   r2. d,,4 r4 r |
   r4
@@ -4003,10 +4003,10 @@ normal = {
 
 global = { \key c \major \time 4/4 \partial 4 }
 
-SopranoMusic = \relative c' { c4 | e4. e8 g4 g    | a4   a   g  }
-AltoMusic    = \relative c' { c4 | c4. c8 e4 e    | f4   f   e  }
-TenorMusic   = \relative c  { e4 | g4. g8 c4.  b8 | a8 b c d e4 }
-BassMusic    = \relative c  { c4 | c4. c8 c4 c    | f8 g a b c4 }
+SopranoMusic = \relative { c'4 | e4. e8 g4 g    | a4   a   g  }
+AltoMusic    = \relative { c'4 | c4. c8 e4 e    | f4   f   e  }
+TenorMusic   = \relative  { e4 | g4. g8 c4.  b8 | a8 b c d e4 }
+BassMusic    = \relative  { c4 | c4. c8 c4 c    | f8 g a b c4 }
 
 VerseOne = \lyrics {
   E -- | ter -- nal \emphasize Fa -- ther, | \normal strong to save,

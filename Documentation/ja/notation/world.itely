@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.19.21"
 
 
 @c Translators: Yoshiki Sawada
@@ -191,8 +191,8 @@
 
 @lilypond[quote,verbatim]
 \include "arabic.ly"
-\relative do' {
-  do re misb fa sol la sisb do sisb la sol fa misb re do
+\relative {
+  do' re misb fa sol la sisb do sisb la sol fa misb re do
 }
 @end lilypond
 

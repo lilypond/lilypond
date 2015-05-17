@@ -6,13 +6,13 @@
     respectively."
 
 }
-\version "2.16.0"
+\version "2.19.21"
 
 
 \layout { ragged-right = ##t }
 
-\relative c'' { 
-  c4 \< c4 \!
+\relative { 
+  c''4 \< c4 \!
   c4 \< c \!\> c\!
   c4 \< c c \!  \fff\> c c\!
   

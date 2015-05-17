@@ -12,7 +12,7 @@
 @c Translation checker:
 @c Translation checker committish:
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
@@ -716,9 +716,9 @@ sequenties (die allemaal enkele noten bevatten) simultaan
 samengesteld:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   <<
-    { a2 g }
+    { a'2 g }
     { f2 e }
     { d2 b }
   >>
@@ -747,8 +747,8 @@ maar omdat het begint met een enkele noot wordt het
 genoteerd op een enkele notenbalk.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  c2 <<c e>> |
+\relative {
+  c''2 <<c e>> |
   << { e2 f } { c2 <<b d>> } >> |
 }
 @end lilypond
@@ -787,9 +787,9 @@ muziek dat een op een notebalk hoort gemarkeerd door er
 met @code{<<} en @code{>>}:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   <<
-    \new Staff { \clef "treble" c4 }
+    \new Staff { \clef "treble" c''4 }
     \new Staff { \clef "bass" c,,4 }
   >>
 }
@@ -822,9 +822,9 @@ instrumenten veel meer voorkomen dan polyritmische
 partituren.
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   <<
-    \new Staff { \clef "treble" \key d \major \time 3/4 c4 }
+    \new Staff { \clef "treble" \key d \major \time 3/4 c''4 }
     \new Staff { \clef "bass" c,,4 }
   >>
 }
@@ -870,9 +870,9 @@ uitdrukking in een @code{PianoStaff} gestopt:
 Hier is een voorbeeldje:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \new PianoStaff <<
-    \new Staff { \time 2/4 c4 e | g g, | }
+    \new Staff { \time 2/4 c''4 e | g g, | }
     \new Staff { \clef bass c,,4 c' | e c | }
   >>
 }
@@ -997,10 +997,10 @@ Hier is het begin van de melodie van een slaapliedje,
 @notation{Girls and boys come out to play}:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \key g \major
   \time 6/8
-  d4 b8 c4 a8 | d4 b8 g4
+  d''4 b8 c4 a8 | d4 b8 g4
 }
 @end lilypond
 
@@ -1012,10 +1012,10 @@ een spatie.
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 | d4 b8 g4
+    d''4 b8 c4 a8 | d4 b8 g4
   }
   \addlyrics {
     Girls and boys come | out to play,
@@ -1054,10 +1054,10 @@ doth shine as bright as day}.  Laten we die ook invoeren:
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    d''4 b8 c4 a8 | d4 b8 g4 g8 |
     a4 b8 c b a | d4 b8 g4. |
   }
   \addlyrics {
@@ -1092,10 +1092,10 @@ legatoboog over de noten te zetten, voor details, zie
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    d''4 b8 c4 a8 | d4 b8 g4 g8 |
     a4 b8 c( b) a | d4 b8 g4. |
   }
   \addlyrics {
@@ -1115,10 +1115,10 @@ waardestrepen te overschrijven, voor details, see
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    d''4 b8 c4 a8 | d4 b8 g4 g8 |
     a4 b8 c([ b]) a | d4 b8 g4. |
   }
   \addlyrics {
@@ -1135,10 +1135,10 @@ worden opgenomen in de melisma:
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    d''4 b8 c4 a8 | d4 b8 g4 g8 |
     a4 b8 c[ b] a | d4 b8 g4. |
   }
   \addlyrics {
@@ -1158,10 +1158,10 @@ Lament}, van Purcells @notation{Dido and Æneas}:
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \minor
     \time 3/2
-    g2 a bes | bes2( a) b2 |
+    g'2 a bes | bes2( a) b2 |
     c4.( bes8 a4. g8 fis4.) g8 | fis1
   }
   \addlyrics {
@@ -1213,11 +1213,11 @@ in Figaro's aria @notation{Largo al factotum}:
 @c but the example is long enough to avoid looking strange.
 @lilypond[verbatim,quote,noragged-right]
 <<
-  \relative c' {
+  \relative {
     \clef "bass"
     \key c \major
     \time 6/8
-    c4.~ 8 d b | c8([ d]) b c d b | c8
+    c'4.~ 8 d b | c8([ d]) b c d b | c8
   }
   \addlyrics {
     Lar -- go_al fac -- | to -- tum del -- la cit -- | tà
@@ -1332,13 +1332,13 @@ LilyPond-commando).
 @c KEEP LY
 @lilypond[verbatim,quote]
 viool = \new Staff {
-  \relative c'' {
-    a4 b c b
+  \relative {
+    a'4 b c b
   }
 }
 
 cello = \new Staff {
-  \relative c {
+  \relative {
     \clef "bass"
     e2 d
   }
@@ -1497,10 +1497,10 @@ van fouten.  met @code{\relative} is bovenstaand voorbeeld
 een stuk leesbaarder en ook eenvoudiger in te voeren:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \key a \major
   \time 6/8
-  cis8. d16 cis8 e4 e8 |
+  cis''8. d16 cis8 e4 e8 |
   b8. cis16 b8 d4 d8 |
 }
 @end lilypond

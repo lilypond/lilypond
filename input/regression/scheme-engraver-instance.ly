@@ -8,7 +8,7 @@
 
 }
 
-\version "2.16.0"
+\version "2.19.21"
 
 \layout {
   \context {
@@ -31,6 +31,6 @@
 }
 
 <<
-  \relative c'' { c4 d e f }
-  \\ \relative c' { c4 d e f }
+  \relative { c''4 d e f }
+  \\ \relative { c'4 d e f }
 >>

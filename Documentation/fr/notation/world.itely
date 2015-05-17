@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.19.21"
 
 @c Translators: Jean-Jacques Gerbaud, Valentin Villenave
 @c Translation checkers: Jean-Charles Malahieude
@@ -197,8 +197,8 @@ Par exemple, voici comment on peut écrire la gamme arabe
 
 @lilypond[quote,verbatim]
 \include "arabic.ly"
-\relative do' {
-  do re misb fa sol la sisb do sisb la sol fa misb re do
+\relative {
+  do' re misb fa sol la sisb do sisb la sol fa misb re do
 }
 @end lilypond
 

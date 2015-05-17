@@ -8,16 +8,16 @@
 }
 
 
-\version "2.16.0"
+\version "2.19.21"
 \layout { ragged-right = ##t }
 
 \score {
   \context ChoirStaff <<
     \context Staff = soprano <<
-      \context Voice = sop \relative c' { e2 e4  }
+      \context Voice = sop \relative { e'2 e4  }
     >>
     \context Staff = alto <<
-      \context Voice = alt \relative c' { e4  e4  e4  }
+      \context Voice = alt \relative { e'4  e4  e4  }
       \new Lyrics \lyricmode { 
         do4 re4 me4
       }

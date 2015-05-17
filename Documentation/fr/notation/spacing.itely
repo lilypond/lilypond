@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.12"
+@c \version "2.19.21"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 
@@ -1162,7 +1162,7 @@ courant :
     tagline = ##f
   }
   \score {
-    \relative c'' { c1 \break c1 \break c1 }
+    \relative { c''1 \break c1 \break c1 }
   }
 }
 @end lilypond
@@ -1557,9 +1557,9 @@ forcés doivent être saisis au sein d'une expression polyphonique :
 @lilypond[quote,ragged-right,verbatim]
 \new Voice \with {
   \remove "Forbid_line_break_engraver"
-} \relative c'' {
+} \relative {
   <<
-    { c2. \tuplet 3/2 { c4 c c } c2. | }
+    { c''2. \tuplet 3/2 { c4 c c } c2. | }
     { s1 | \break s1 | }
   >>
 }
@@ -3067,8 +3067,8 @@ resserrée.  En effet, @code{ly:make-moment} construit une durée :
 
 @lilypond[verbatim,line-width=12\cm]
 \score {
-  \relative c'' {
-    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+  \relative {
+    g'4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
     g4 e e2 | f4 d d2 | c4 e g g | c,1 |
     d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
     g4 e e2 | f4 d d2 | c4 e g g | c,1 |
@@ -3078,8 +3078,8 @@ resserrée.  En effet, @code{ly:make-moment} construit une durée :
 
 @lilypond[verbatim,line-width=12\cm]
 \score {
-  \relative c'' {
-    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+  \relative {
+    g'4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
     g4 e e2 | f4 d d2 | c4 e g g | c,1 |
     d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
     g4 e e2 | f4 d d2 | c4 e g g | c,1 |
@@ -3709,8 +3709,8 @@ l'espacement par défaut :
 
 @lilypond[verbatim,quote]
 \score {
-  \relative c'' {
-    g4 e e2 |
+  \relative {
+    g'4 e e2 |
     f4 d d2 |
     c4 d e f |
     g4 g g2 |
@@ -3727,8 +3727,8 @@ valeur plus longue -- donnera un effet @qq{resserré} à la musique :
 
 @lilypond[verbatim,quote]
 \score {
-  \relative c'' {
-    g4 e e2 |
+  \relative {
+    g'4 e e2 |
     f4 d d2 |
     c4 d e f |
     g4 g g2 |

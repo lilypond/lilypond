@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "System separators may be defined as markups in the
@@ -10,8 +10,8 @@ centered between the boundary staves of each system."
   system-separator-markup = \slashSeparator
 }
 
-foobar = \relative c' {
-  c1 c \break
+foobar = \relative {
+  c'1 c \break
   c1 c \break
   c1 c
 }

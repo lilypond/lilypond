@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \layout {
   \context {
@@ -21,17 +21,17 @@ texidoc="Partcombined music is preserved"
 options="--skip"
 }
 
-instrumentOne = \relative c' {
-  c4 d e f
+instrumentOne = \relative {
+  c'4 d e f
   R1
   d'4 c b a
   b4 g2 f4
   e1
 }
 
-instrumentTwo = \relative g' {
+instrumentTwo = \relative {
   R1
-  g4 a b c
+  g'4 a b c
   d c b a
   g f( e) d
   e1

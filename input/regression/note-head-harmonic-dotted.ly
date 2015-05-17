@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "
@@ -7,8 +7,8 @@ Dots on harmonic note heads can be shown by setting the property
 "
 }
 
-\relative c'' {
-  r4 <bes es\harmonic>2.
+\relative {
+  r4 <bes' es\harmonic>2.
   \set harmonicDots = ##t
   r4 <bes es\harmonic>2.
 }

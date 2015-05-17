@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.21"
 
 \header{
 
@@ -9,8 +9,8 @@ lengths are between 2 and 1.5."
 
 }
 
-\relative c' { 
-  c8[ c]  a''[ a]
+\relative { 
+  c'8[ c]  a''[ a]
   a,[ a]  c[ c]
   d,8[ d]  g'[ g]
   g,[ g]  d'[ d]

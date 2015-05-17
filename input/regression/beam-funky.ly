@@ -1,5 +1,5 @@
 
-\version "2.17.6"
+\version "2.19.21"
 \header {
   
   texidoc = "In complex configurations of knee beaming, according to
@@ -25,7 +25,7 @@ beam. This is in disagreement with the current algorithm."
 	  b'''   b b b]
 
   \transpose c' a, {
-    \relative b'' {  g,16[  g'''16  
+    \relative {  g'16[  g'''16  
 			    g,,,16  g'''16 
 			    g,,,16  g'''16 	     	     
 			    g,,,16  g'''16

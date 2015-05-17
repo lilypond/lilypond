@@ -1,9 +1,9 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header{ texidoc = "Fret numbers belonging to grace notes are smaller."
        }
 
-gracenotes = \relative c {
+gracenotes = \relative {
    c4 d e f
    \grace e8 c4 d e f
    \grace \parenthesize e8 c4 d e f

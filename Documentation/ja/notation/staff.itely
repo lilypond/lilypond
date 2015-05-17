@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 
 @c Translators: Yoshiki Sawada
@@ -363,15 +363,15 @@ turned on with a @code{\paper} option.
   \score {
     \new StaffGroup <<
       \new Staff {
-        \relative c'' {
-          c4 c c c
+        \relative {
+          c''4 c c c
           \break
           c4 c c c
         }
       }
       \new Staff {
-        \relative c'' {
-          c4 c c c
+        \relative {
+          c''4 c c c
           \break
           c4 c c c
         }
@@ -585,8 +585,8 @@ d4 e f g
 @notation{オッシア} 譜をセットすることができます:
 
 @lilypond[verbatim,quote]
-\new Staff \relative c'' {
-  c4 b d c
+\new Staff \relative {
+  c''4 b d c
   <<
     { c4 b d c }
     \new Staff { e4 d f e }
@@ -608,8 +608,8 @@ d4 e f g
 最も適切な方法です。
 
 @lilypond[verbatim,quote]
-\new Staff = main \relative c'' {
-  c4 b d c
+\new Staff = main \relative {
+  c''4 b d c
   <<
     { c4 b d c }
 
@@ -646,8 +646,8 @@ d4 e f g
   }
   { \stopStaff s1*6 }
 
-  \new Staff \relative c' {
-    c4 b c2
+  \new Staff \relative {
+    c'4 b c2
     <<
       { e4 f e2 }
       \context Staff = ossia {
@@ -683,12 +683,12 @@ d4 e f g
     fontSize = #-3
     \override StaffSymbol.staff-space = #(magstep -3)
     \override StaffSymbol.thickness = #(magstep -3)
-  } \relative c'' {
+  } \relative {
     R1*3
-    c4 e8 d c2
+    c''4 e8 d c2
   }
-  \new Staff \relative c' {
-    c4 b c2
+  \new Staff \relative {
+    c'4 b c2
     e4 f e2
     g4 a g2 \break
     c4 b c2
@@ -758,7 +758,7 @@ d4 e f g
 \new Staff \with {
   \remove "Staff_symbol_engraver"
 }
-\relative c''' { a8 f e16 d c b a2 }
+\relative { a''8 f e16 d c b a2 }
 @end lilypond
 
 @c 未訳: Frenched Score
@@ -781,9 +781,9 @@ d4 e f g
   }
 }
 
-\relative c' <<
+\relative <<
   \new Staff {
-    e4 f g a \break
+    e'4 f g a \break
     b1 \break
     a4 b c2
   }
@@ -1093,12 +1093,12 @@ d4 e f g
 引用部分の演奏時間を示す音楽表記です。
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  a4 gis g gis | b4^"quoted" r8 ais\p a4( f)
+fluteNotes = \relative {
+  a'4 gis g gis | b4^"quoted" r8 ais\p a4( f)
 }
 
-oboeNotes = \relative c'' {
-  c4 cis c b \quoteDuring #"flute" { s1 }
+oboeNotes = \relative {
+  c''4 cis c b \quoteDuring #"flute" { s1 }
 }
 
 \addQuote "flute" { \fluteNotes }
@@ -1116,12 +1116,12 @@ oboeNotes = \relative c'' {
 引用は多声となり、予期しない結果となる可能性があります。
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  a4 gis g gis | b4^"quoted" r8 ais\p a4( f)
+fluteNotes = \relative {
+  a'4 gis g gis | b4^"quoted" r8 ais\p a4( f)
 }
 
-oboeNotes = \relative c'' {
-  c4 cis c b \quoteDuring #"flute" { e4 r8 ais b4 a }
+oboeNotes = \relative {
+  c''4 cis c b \quoteDuring #"flute" { e4 r8 ais b4 a }
 }
 
 \addQuote "flute" { \fluteNotes }
@@ -1146,8 +1146,8 @@ clarinetNotes = \relative c'' {
   b4 ais a ais | cis4^"quoted" r8 bis\p b4( f)
 }
 
-oboeNotes = \relative c'' {
-  c4 cis c b \quoteDuring #"clarinet" { s1 }
+oboeNotes = \relative {
+  c''4 cis c b \quoteDuring #"clarinet" { s1 }
 }
 
 \addQuote "clarinet" { \clarinetNotes }
@@ -1175,13 +1175,13 @@ oboeNotes = \relative c'' {
 引用される音楽から引用するオブジェクトを選択することが可能です。
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  a2 g2 |
+fluteNotes = \relative {
+  a'2 g2 |
   b4\<^"quoted" r8 ais a4\f( c->)
  }
 
-oboeNotes = \relative c'' {
-  c2. b4 |
+oboeNotes = \relative {
+  c''2. b4 |
   \quoteDuring #"flute" { s1 }
 }
 
@@ -1328,8 +1328,8 @@ d,,4 r a r
 @code{UP} は第 1 ボイスに相当し、@code{DOWN} は第 2 ボイスに相当します。
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  r2. c4 | d8 c d e fis2 | g2 d |
+fluteNotes = \relative {
+  r2. c''4 | d8 c d e fis2 | g2 d |
 }
 
 oboeNotes = \relative c'' {
@@ -1360,8 +1360,8 @@ tie-event beam-event tuplet-span-event)} であり、音符、休符、タイ、
 そうしないと音楽表記全体が @code{CueVoice} コンテキストに属してしまいます。}
 
 @lilypond[verbatim,quote]
-oboeNotes = \relative c'' {
-  r2 r8 d16(\f f e g f a)
+oboeNotes = \relative {
+  r2 r8 d''16(\f f e g f a)
   g8 g16 g g2.
 }
 \addQuote "oboe" { \oboeNotes }
@@ -1386,8 +1386,8 @@ oboeNotes = \relative c'' {
 合図音符が終わったところで手動で元の音部記号に戻す必要がありｍす。
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  r2. c4 d8 c d e fis2 g2 d2
+fluteNotes = \relative {
+  r2. c''4 d8 c d e fis2 g2 d2
 }
 
 bassoonNotes = \relative c {
@@ -1413,8 +1413,8 @@ bassoonNotes = \relative c {
 合図音部が終了したところで元の音部記号を自動的に譜刻します。
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  r2. c4 d8 c d e fis2 g2 d2
+fluteNotes = \relative {
+  r2. c''4 d8 c d e fis2 g2 d2
 }
 
 bassoonNotes = \relative c {
@@ -1445,10 +1445,10 @@ bassoonNotes = \relative c {
 これは、全く別の場所で登録された楽器から合図を取る場合に有用です。
 
 @lilypond[verbatim,quote]
-piccoloNotes = \relative c''' {
+piccoloNotes = \relative {
   \clef "treble^8"
   R1
-  c8 c c e g2
+  c'''8 c c e g2
   c4 g g2
 }
 
@@ -1487,8 +1487,8 @@ bassClarinetNotes = \relative c' {
 @ref{Using tags} を参照してください。
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  r2. c4 d8 c d e fis2 g2 d2
+fluteNotes = \relative {
+  r2. c''4 d8 c d e fis2 g2 d2
 }
 
 bassoonNotes = \relative c {

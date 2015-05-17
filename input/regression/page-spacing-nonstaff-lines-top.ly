@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "A non-staff line (such as @code{Lyrics}) at the top
@@ -20,8 +20,8 @@ of a system is spaced appropriately."
   \new Lyrics \lyricmode {
     Not2 much can4 go wrong!
   }
-  \context Voice = "voice" \relative c'' {
-    d2 d c4 bes a2
+  \context Voice = "voice" \relative {
+    d''2 d c4 bes a2
   }
 >>
 

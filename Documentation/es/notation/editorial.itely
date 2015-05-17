@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.19.21"
 
 @node Anotaciones editoriales
 @section Anotaciones editoriales
@@ -685,8 +685,8 @@ horizontales simples.
     \consists "Horizontal_bracket_engraver"
   }
 }
-\relative c'' {
-  c2\startGroup
+\relative {
+  c''2\startGroup
   d\stopGroup
 }
 @end lilypond
@@ -700,8 +700,8 @@ Los corchetes de análisis se pueden anidar.
     \consists "Horizontal_bracket_engraver"
   }
 }
-\relative c'' {
-  c4\startGroup\startGroup
+\relative {
+  c''4\startGroup\startGroup
   d4\stopGroup
   e4\startGroup
   d4\stopGroup\stopGroup

@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 
@@ -13,8 +13,8 @@
   ragged-right = ##t
 }
 
-\relative c'' {
- bes1~ \break
+\relative {
+ bes'1~ \break
  bes2.
  \stemUp bes4 ~ \break
  bes1 

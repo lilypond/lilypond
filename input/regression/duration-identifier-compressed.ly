@@ -1,4 +1,4 @@
-\version "2.17.11"
+\version "2.19.21"
 
 \header {
   texidoc = "The compression factor of a duration identifier is
@@ -9,7 +9,7 @@ correctly accounted for by the parser."
 wholeHalved = #(ly:make-duration 0 0 1/2)
 
 
-\relative c' {
-  c\wholeHalved c |
+\relative {
+  c'\wholeHalved c |
   c\wholeHalved. c4 |
 }

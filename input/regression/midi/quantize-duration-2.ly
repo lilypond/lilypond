@@ -1,5 +1,5 @@
 % Lily was here -- automatically converted by out/bin/midi2ly from /home/janneke/testmidi.mid
-\version "2.16.0"
+\version "2.19.21"
 
 \layout {
   \context {
@@ -43,7 +43,7 @@ trackA = <<
 >>
 
 
-trackBchannelB = \relative c {
+trackBchannelB = \relative {
   e'''4*41/192 r4*7/192 d4*41/192 r4*7/192 fis,4*89/192 r4*7/192 gis4*89/192 
   r4*7/192 
   | % 2

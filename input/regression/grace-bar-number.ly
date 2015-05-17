@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.21"
 \header {
 
   texidoc = "Grace notes do tricky things with timing. If a measure
@@ -12,7 +12,7 @@ printed correctly.
 \layout { ragged-right = ##t }
 
 
-\relative c'' { c1 \break
+\relative { c''1 \break
 		\grace c8
 		c1  }
 

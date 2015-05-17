@@ -6,7 +6,7 @@ and the barline do not collide."
 
 }
 
-\version "2.17.6"
+\version "2.19.21"
 
 \paper
 {
@@ -20,7 +20,7 @@ and the barline do not collide."
   \time 6/8
   \clef bass
   s2. |
-  \relative c <<
+  \relative <<
     {
       <des ges b des>4\arpeggio
     }

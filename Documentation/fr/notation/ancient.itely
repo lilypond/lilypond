@@ -9,7 +9,7 @@
 @end ignore
 
 
-@c \version "2.17.30"
+@c \version "2.19.21"
 
 @c Translators: Jean-Charles Malahieude
 
@@ -305,8 +305,8 @@ L'impression de guidons s'obtient en affectant, dans un bloc
 
 @lilypond[quote,ragged-right]
 \score {
-  \relative c'' {
-    a1
+  \relative {
+    a'1
     \break
     g
   }
@@ -2823,9 +2823,9 @@ gauche :
 
 @lilypond[verbatim,ragged-right]
 \include "gregorian.ly"
-chant = \relative c' {
+chant = \relative {
   \clef "G_8"
-  c\breve c4 b4 a c2 c4  \divisioMaior
+  c'\breve c4 b4 a c2 c4  \divisioMaior
   c\breve c4 c f, f \finalis
 }
 

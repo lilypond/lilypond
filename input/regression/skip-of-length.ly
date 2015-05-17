@@ -7,12 +7,12 @@ last as long as their arguments."
   ragged-right = ##T
 }
 
-\version "2.17.15"
+\version "2.19.21"
 
-\relative c'
+\relative
 <<
   \new Staff {
-    c\breve    f4 r2.
+    c'\breve    f4 r2.
     c\breve    f4 r2.
     s\breve^"skip"
   }

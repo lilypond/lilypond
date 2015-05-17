@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 \header {
   texidoc = "Lilypond does footnotes."
 }
@@ -22,10 +22,10 @@ a b c d }
 
 \markup { k \footnote \concat { l \super 5 } \line { 5. m }  }
 
-\relative c' { a1 }
+\relative { a1 }
 
-\relative c' {
-  d4 e
+\relative {
+  d'4 e
   < f \footnote \markup { \tiny 6 } #'(1 . -1) \markup { 6. n } a c >
   a8-\footnote \markup { \tiny 8 } #'(1 . 1) \markup { 8. p } \<
   -\footnote \markup { \tiny 7 } #'(1 . 1) \markup { 7. o }

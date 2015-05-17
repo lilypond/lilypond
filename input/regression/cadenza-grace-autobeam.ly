@@ -1,4 +1,4 @@
-\version "2.17.30"
+\version "2.19.21"
 
 \header {
 
@@ -9,8 +9,8 @@
 
 \layout { ragged-right = ##t }
 
-\relative c' {
-  e8 e e e e e e e
+\relative {
+  e'8 e e e e e e e
   \cadenzaOn <>^\markup \typewriter "\\cadenzaOn"
   e e e e e e e e
   \cadenzaOff

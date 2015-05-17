@@ -6,12 +6,12 @@
 
   }
 
-\version "2.17.6"
+\version "2.19.21"
 
 \paper{ ragged-right=##t }
 
-\new Staff \relative c' <<
-  { fis4.
+\new Staff \relative <<
+  { fis'4.
     \override Staff.NoteCollision.prefer-dotted-right = ##f
     fis4. }
   \\

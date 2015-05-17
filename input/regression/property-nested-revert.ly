@@ -6,10 +6,10 @@ Scheme list syntax."
 
 }
 
-\version "2.17.6"
+\version "2.19.21"
 
-\relative c' {
-  f2 \glissando c
+\relative {
+  f'2 \glissando c
   \override Glissando.bound-details.right.Y = #4
   f2 \glissando c |
   \override Glissando.bound-details.left.Y = #-6

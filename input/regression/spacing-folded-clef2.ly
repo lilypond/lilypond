@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 \header {
 
 texidoc = "A clef can be folded below notes in a different staff, if
@@ -19,8 +19,8 @@ can show where columns are in the score."
     }
 }
 		   
-\relative c'' <<
-    \new Staff  { c4 c4 c4 c \bar "|." }
+\relative <<
+    \new Staff  { c''4 c4 c4 c \bar "|." }
     \new Staff { \clef bass c,2 \clef treble  c'2 }
 >>
 

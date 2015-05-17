@@ -9,7 +9,7 @@
 @end ignore
 
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @node Elemi kottaírás
 @chapter Elemi kottaírás
@@ -595,9 +595,9 @@ három dallamot (ezek mindegyike két hangból áll) kombinálunk össze
 három szólammá:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   <<
-    { a4 g }
+    { a'4 g }
     { f e }
     { d b }
   >>
@@ -621,8 +621,8 @@ darabban, hogy az első kifejezés többszólamú-e. Ha nem, egy kottasort
 hoz létre, ha igen, többet.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  c2 <<c e>>
+\relative {
+  c''2 <<c e>>
   << { e f } { c <<b d>> } >>
 }
 @end lilypond
@@ -657,9 +657,9 @@ Az így kapott kottasorokat, ahogy már megszoktuk, a @code{<<} és
 @code{>>} jelekkel kell összekombinálni:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   <<
-    \new Staff { \clef treble c }
+    \new Staff { \clef treble c'' }
     \new Staff { \clef bass c,, }
   >>
 }
@@ -689,9 +689,9 @@ mert a transzponáló hangszereket tartalmozó és a politonális zene gyakoribb
 mint a poliritmikus.
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   <<
-    \new Staff { \clef treble \key d \major \time 3/4 c }
+    \new Staff { \clef treble \key d \major \time 3/4 c'' }
     \new Staff { \clef bass c,, }
   >>
 }
@@ -728,9 +728,9 @@ kifejezés egy @code{PianoStaff} kontextuson belül szerepel:
 Egy rövid zongoradarab-részlet:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \new PianoStaff <<
-    \new Staff { \time 2/4 c4 e g g, }
+    \new Staff { \time 2/4 c''4 e g g, }
     \new Staff { \clef bass c,, c' e c }
   >>
 }
@@ -839,10 +839,10 @@ Egy angol gyermekdal, a @notation{Girls and boys come out to play} így
 kezdődik:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \key g \major
   \time 6/8
-  d4 b8 c4 a8 d4 b8 g4
+  d''4 b8 c4 a8 d4 b8 g4
 }
 @end lilypond
 
@@ -852,10 +852,10 @@ Minden szótagot szóközzel kell elválasztani.
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
+    d''4 b8 c4 a8 d4 b8 g4
   }
   \addlyrics {
     Girls and boys come out to play,
@@ -884,10 +884,10 @@ A gyerekdal következő sora: @notation{The moon doth shine as bright as day}.
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
+    d''4 b8 c4 a8 d4 b8 g4
     g8 a4 b8 c b a d4 b8 g4.
   }
   \addlyrics {
@@ -905,10 +905,10 @@ legegyszerűbb, ha a melizma hangjait kötőívvel összekötjük (ld. az
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
+    d''4 b8 c4 a8 d4 b8 g4
     g8 a4 b8 c( b) a d4 b8 g4.
   }
   \addlyrics {
@@ -925,10 +925,10 @@ szakaszt):
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
+    d''4 b8 c4 a8 d4 b8 g4
     g8 a4 b8 c([ b]) a d4 b8 g4.
   }
   \addlyrics {
@@ -944,10 +944,10 @@ leszámítva) kiterjed:
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4
+    d''4 b8 c4 a8 d4 b8 g4
     g8 a4 b8 c[ b] a d4 b8 g4.
   }
   \addlyrics {
@@ -964,10 +964,10 @@ három üteme:
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \minor
     \time 3/2
-    g2 a bes bes( a)
+    g'2 a bes bes( a)
     b c4.( bes8 a4. g8 fis4.) g8 fis1
   }
   \addlyrics {
@@ -1013,11 +1013,11 @@ kezdetű áriájában a @notation{Largo} szó @notation{go} szótagját és az
 @c but the example is long enough to avoid looking strange.
 @lilypond[verbatim,quote,noragged-right]
 <<
-  \relative c' {
+  \relative {
     \clef bass
     \key c \major
     \time 6/8
-    c4.~ 8 d b c([ d]) b c d b c
+    c'4.~ 8 d b c([ d]) b c d b c
   }
   \addlyrics {
     Lar -- go_al fac -- to -- tum del -- la cit -- tà
@@ -1121,12 +1121,12 @@ akárcsak egy LilyPond parancs esetén).
 @c KEEP LY
 @lilypond[verbatim,quote]
 hegedű = \new Staff {
-  \relative c'' {
-    a4 b c b
+  \relative {
+    a'4 b c b
   }
 }
 cselló = \new Staff {
-  \relative c {
+  \relative {
     \clef bass
     e2 d
   }
@@ -1305,10 +1305,10 @@ A @code{\relative} módban az előző példát sokkal könnyebb elolvasni és
 begépelni:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \key a \major
   \time 6/8
-  cis8. d16 cis8 e4 e8
+  cis''8. d16 cis8 e4 e8
   b8. cis16 b8 d4 d8
 }
 @end lilypond

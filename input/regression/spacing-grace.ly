@@ -5,13 +5,13 @@
   run are spaced accordingly. "
 }
 
-\version "2.17.28"
+\version "2.19.21"
 
 \paper {  ragged-right = ##t }
 
-\relative c''
+\relative
 {
-  c4
+  c''4
   \grace { c16  }
   c
   \grace { c16  }

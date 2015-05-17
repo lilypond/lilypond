@@ -22,11 +22,11 @@ that otherwise don't fit in a space
   ragged-right = ##t
 }
 
-\version "2.19.2"
+\version "2.19.21"
 
 frag =
-\relative c'' {
-  c16 c2...~ 16 ~ 2... |
+\relative {
+  c''16 c2...~ 16 ~ 2... |
   c4~8 c8~16 c16~32 c16.~[ c64]~ 64[ c8..] |
 }
 

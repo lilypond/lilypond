@@ -4,13 +4,13 @@ string number indications.  Predefined options
 are arabic (used by default) and roman numerals."
 }
 
-\version "2.19.16"
+\version "2.19.21"
 \paper {
   ragged-right = ##t
 }
 
-\relative c'' {
-  c2\2
+\relative {
+  c''2\2
   \romanStringNumbers
   a\3
   \override StringNumber.number-type = #'roman-lower

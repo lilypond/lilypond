@@ -1,7 +1,7 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \pointAndClickTypes #'note-event
 
-\relative c' {
-  c2\f( f)
+\relative {
+  c'2\f( f)
 }

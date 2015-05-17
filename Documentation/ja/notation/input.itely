@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 
 @c Translators: Yoshiki Sawada
@@ -837,8 +837,8 @@ book のメイン タイトル ブロックのテキスト フィールドはす
 @lilypond[papersize=a8landscape]
 \book {
   \score {
-    \relative c' {
-      c4 d e f
+    \relative {
+      c'4 d e f
     }
   }
 }
@@ -853,8 +853,8 @@ book のメイン タイトル ブロックのテキスト フィールドはす
     tagline = "... music notation for Everyone"
   }
   \score {
-    \relative c' {
-      c4 d e f
+    \relative {
+      c'4 d e f
     }
   }
 }
@@ -1292,7 +1292,7 @@ scoreTitleMarkup = \markup @{ \column @{
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
   \header { copyright = \markup { "Copyright 1970" } }
-  \relative c' {
+  \relative {
     a'4-\footnote #'(-3 . 0) \markup { \bold Forte } \f
     -\footnote #'(0 . 1.5) \markup { スラー } (
     b8)-\footnote #'(0 . -2) \markup { 連桁 } [ e]
@@ -1315,7 +1315,7 @@ scoreTitleMarkup = \markup @{ \column @{
 \book {
   \header { tagline = ##f }
   \markup { \auto-footnote "A simple tune" \italic "By me" }
-  \relative c' {
+  \relative {
     a'4 b8 e c4 d
   }
 }
@@ -1386,7 +1386,7 @@ LilyPond は対応するマークアップを同じページの下に表示す�
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
   \header { tagline = ##f }
-  \relative c' {
+  \relative {
     a'4-\footnote
       \markup { \teeny 1 } #'(-3 . 0)
       \markup { 1. \bold フォルテ } \f
@@ -1422,7 +1422,7 @@ LilyPond は対応するマークアップを同じページの下に表示す�
 \book {
   \header { tagline = ##f }
   \markup { "A simple tune" \footnote "*" \italic "* By me" }
-  \relative c' {
+  \relative {
     a'4 b8 e c4 d4
   }
 }
@@ -1892,10 +1892,10 @@ LilyPond が使用するパスとファイルのリストを表示します。@c
 ここに例を挙げます:
 
 @lilypond[verbatim,quote]
-sopranoMusic = \relative c'' { a4 b c b8( a) }
-altoMusic = \relative g' { e4 e e f }
-tenorMusic = \relative c' { c4 b e d8( c) }
-bassMusic = \relative c' { a4 gis a d, }
+sopranoMusic = \relative { a'4 b c b8( a) }
+altoMusic = \relative { e'4 e e f }
+tenorMusic = \relative { c'4 b e d8( c) }
+bassMusic = \relative { a4 gis a d, }
 allLyrics = \lyricmode {King of glo -- ry }
 <<
   \new Staff = "Soprano" \sopranoMusic
@@ -1986,8 +1986,8 @@ allLyrics = \lyricmode {King of glo -- ry }
 もう 1 つはトリルを明示的に展開しています:
 
 @lilypond[verbatim,quote]
-music = \relative g' {
-  g8. c32 d
+music = \relative {
+  g'8. c32 d
   \tag #'trills {d8.\trill }
   \tag #'expand {\repeat unfold 3 {e32 d} }
   c32 d
@@ -2006,8 +2006,8 @@ music = \relative g' {
 音楽セクションを排除する方が楽な場合もあります:
 
 @lilypond[verbatim,quote]
-music = \relative g' {
-  g8. c32 d
+music = \relative {
+  g'8. c32 d
   \tag #'trills {d8.\trill }
   \tag #'expand {\repeat unfold 3 {e32 d} }
   c32 d
@@ -2231,8 +2231,8 @@ portuguese = \lyricmode {
   à vo -- cê uma can -- ção legal
 }
 
-\relative c'  {
-  c2 d e f g f e
+\relative  {
+  c'2 d e f g f e
 }
 \addlyrics { \bulgarian }
 \addlyrics { \hebrew }
@@ -2280,8 +2280,8 @@ Unicode U+03BE の文字を入力します
 
 @lilypond[quote,verbatim]
 \score {
-  \relative c'' {
-    c1 \mark \markup { \char ##x03EE }
+  \relative {
+    c''1 \mark \markup { \char ##x03EE }
     c1_\markup { \tiny { \char ##x03B1 " to " \char ##x03C9 } }
   }
   \addlyrics { O \markup { \concat { Ph \char ##x0153 be! } } }
@@ -2919,8 +2919,8 @@ MIDI ボリュームに影響を与えません。@c
     \set Staff.midiInstrument = #"cello"
     \set Score.dynamicAbsoluteVolumeFunction = #myDynamics
     \new Voice {
-      \relative c'' {
-        a4\pp b c-\rfz
+      \relative {
+        a'4\pp b c-\rfz
       }
     }
   }
@@ -2959,8 +2959,8 @@ midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fraction
       \key g \major
       \time 2/2
       \set Staff.midiInstrument = #"flute"
-      \new Voice \relative c''' {
-        r2 g\mp g fis~
+      \new Voice \relative {
+        r2 g''\mp g fis~
         4 g8 fis e2~
         4 d8 cis d2
       }
@@ -2968,8 +2968,8 @@ midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fraction
     \new Staff {
       \key g \major
       \set Staff.midiInstrument = #"clarinet"
-      \new Voice \relative c'' {
-        b1\p a2. b8 a
+      \new Voice \relative {
+        b'1\p a2. b8 a
         g2. fis8 e
         fis2 r
       }
@@ -3010,8 +3010,8 @@ MIDI 出力の品質を著しく高めることができます。
       \set Staff.midiInstrument = #"flute"
       \set Staff.midiMinimumVolume = #0.7
       \set Staff.midiMaximumVolume = #0.9
-      \new Voice \relative c''' {
-        r2 g\mp g fis~
+      \new Voice \relative {
+        r2 g''\mp g fis~
         4 g8 fis e2~
         4 d8 cis d2
       }
@@ -3021,8 +3021,8 @@ MIDI 出力の品質を著しく高めることができます。
       \set Staff.midiInstrument = #"clarinet"
       \set Staff.midiMinimumVolume = #0.3
       \set Staff.midiMaximumVolume = #0.6
-      \new Voice \relative c'' {
-        b1\p a2. b8 a
+      \new Voice \relative {
+        b'1\p a2. b8 a
         g2. fis8 e
         fis2 r
       }
@@ -3079,8 +3079,8 @@ MIDI 最小/最大ボリューム プロパティが設定されていない場�
       \time 2/2
       \set Score.instrumentEqualizer = #my-instrument-equalizer
       \set Staff.midiInstrument = #"flute"
-      \new Voice \relative c''' {
-        r2 g\mp g fis ~
+      \new Voice \relative {
+        r2 g''\mp g fis ~
         4 g8 fis e2 ~
         4 d8 cis d2
       }
@@ -3088,8 +3088,8 @@ MIDI 最小/最大ボリューム プロパティが設定されていない場�
     \new Staff {
       \key g \major
       \set Staff.midiInstrument = #"clarinet"
-      \new Voice \relative c'' {
-        b1\p a2. b8 a
+      \new Voice \relative {
+        b'1\p a2. b8 a
         g2. fis8 e
         fis2 r
       }
@@ -3120,8 +3120,8 @@ MIDI 最小/最大ボリューム プロパティが設定されていない場�
 
 @lilypond[verbatim,quote]
 \score {
-  \relative c' {
-    c cih cis cisih
+  \relative {
+    c' cih cis cisih
     d dih ees eeh
     e eih f fih
     fis fisih g gih

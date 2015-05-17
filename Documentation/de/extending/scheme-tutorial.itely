@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.19.21"
 
 @node Scheme-Übung
 @chapter Scheme-Übung
@@ -1593,8 +1593,8 @@ padText = #(define-music-function (parser location padding) (number?)
   \once \override TextScript.padding = #padding
 #})
 
-\relative c''' {
-  c4^"piu mosso" b a b
+\relative {
+  c'''4^"piu mosso" b a b
   \padText #1.8
   c4^"piu mosso" d e f
   \padText #2.6

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 
@@ -20,8 +20,8 @@ they go past the first note. "
 
 
 <<
-  \new Voice \relative c'' {
-    \time 1/4 c16[ c c  c]
+  \new Voice \relative {
+    \time 1/4 c''16[ c c  c]
     \time 1/4
     c16[ c c c]
     \time 1/4

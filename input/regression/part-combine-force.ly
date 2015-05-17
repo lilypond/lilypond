@@ -8,10 +8,10 @@
 
 \layout { ragged-right = ##t }
 
-\version "2.16.0"
+\version "2.19.21"
 
-mI = \relative c' {
-	e4 e c2 |
+mI = \relative {
+	e'4 e c2 |
 	\partcombineApart c^"apart" e |
 	e e |
 	\partcombineChords e'^"chord" e |
@@ -19,8 +19,8 @@ mI = \relative c' {
 	\partcombineUnisono c^"unisono" c |
 	\partcombineAutomatic c\! c^"V1 longer" |
 }
-mII = \relative c' {
-	c4 c c2 |
+mII = \relative {
+	c'4 c c2 |
 	c c |
 	\partcombineAutomatic e^"auto" e |
 	a, c |

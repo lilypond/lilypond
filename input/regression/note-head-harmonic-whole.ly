@@ -6,14 +6,14 @@
 }
 
 
-\version "2.16.0"
+\version "2.19.21"
 
 \paper {
   ragged-right = ##t
 }
 
-\relative c' {
-  <e a\harmonic>1
+\relative {
+  <e' a\harmonic>1
   <e'' a\harmonic>1
 }
 

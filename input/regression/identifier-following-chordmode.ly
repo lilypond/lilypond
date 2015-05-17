@@ -7,7 +7,7 @@ modifier."
 
 }
 
-\version "2.16.0"
+\version "2.19.21"
 
 myDisplayMusic =
 #(define-void-function (parser location music)
@@ -16,6 +16,6 @@ myDisplayMusic =
 
 \myDisplayMusic \chordmode { c }
 
-m = \relative c' { c4 d e f }
+m = \relative { c'4 d e f }
 
 \new Staff { \m }

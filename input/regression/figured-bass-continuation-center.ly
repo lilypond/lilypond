@@ -6,14 +6,14 @@ true."
 
 }
 
-\version "2.17.15"
+\version "2.19.21"
 \paper {
   ragged-right = ##t
 }
 
 <<
-  \relative c' \new Voice {
-    c8 c  b b  a a  b b  
+  \relative \new Voice {
+    c'8 c  b b  a a  b b  
     c c  b b
   
   }

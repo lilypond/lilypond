@@ -1,5 +1,5 @@
 
-\version "2.17.6"
+\version "2.19.21"
 
 
 \header {
@@ -10,8 +10,8 @@
   ragged-right = ##t 
 }
 
-\relative c'' {
-  c32[ c
+\relative {
+  c''32[ c
 
        %% WARNING: #'beaming is written, so this
        %% property can not be shared between objects. Always use

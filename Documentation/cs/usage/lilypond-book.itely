@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.19.21"
 
 @c Translators: Pavel Fric
 
@@ -94,8 +94,8 @@ Dokumente für \verb+lilypond-book+ können Musik und Text nach Belieben
 kombinieren. Zum Beispiel:
 
 \begin{lilypond}
-\relative c' {
-  c2 e2 \tuplet 3/2 { f8 a b } a2 e4
+\relative {
+  c'2 e2 \tuplet 3/2 { f8 a b } a2 e4
 }
 \end{lilypond}
 
@@ -154,8 +154,8 @@ Dokumente für @command{lilypond-book} können Musik und Text nach Belieben
 kombinieren. Zum Beispiel:
 
 @lilypond
-\relative c' {
-  c2 e2 \tuplet 3/2 { f8 a b } a2 e4
+\relative {
+  c'2 e2 \tuplet 3/2 { f8 a b } a2 e4
 }
 @end lilypond
 
@@ -706,8 +706,8 @@ Erzeugung der Grafik im relativen Oktavenmodus interpretiert, der
 wörtlich in das Dokument kopierte LilyPond-Code zeigt den @code{relative}-Befehl jedoch nicht.
 
 @example
-\relative c' @{ % begin verbatim
-  c4 e2 g4
+\relative @{ % begin verbatim
+  c'4 e2 g4
   f2 e % end verbatim
 @}
 @end example
@@ -1067,8 +1067,8 @@ Sie können LilyPond-Fragmente in ein LaTeX-Dokument einfügen:
 Normaler LaTeX-Text.
 
 \begin@{lilypond@}
-\relative c'' @{
-  a4 b c d
+\relative @{
+  a'4 b c d
 @}
 \end@{lilypond@}
 
@@ -1093,7 +1093,7 @@ Handbuch wurde in Texinfo geschrieben.
 Texinfo-Text
 
 @@lilypond
-\relative c' @{
+\relative @{
   a4 b c d
 @}
 @@end lilypond
@@ -1120,8 +1120,8 @@ d4 c b a
 Dokumente für lilypond-book können Noten und Text frei kombinieren. Zum
 Beispiel
 <lilypond>
-\relative c'' @{
-  a4 b c d
+\relative @{
+  a'4 b c d
 @}
 </lilypond>
 </p>

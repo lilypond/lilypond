@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.19.21"
 
 @node Consigli su come scrivere i file
 @chapter Consigli su come scrivere i file
@@ -164,8 +164,8 @@ struttura nella definizione.  La struttura della sezione
 in una nuova versione di LilyPond.
 
 @example
-violin = \relative c'' @{
-g4 c'8. e16
+violin = \relative @{
+g'4 c'8. e16
 @}
 @dots{}
 \score @{
@@ -186,8 +186,8 @@ niente in @code{violin}.
 @example
 fthenp = _\markup@{
   \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p @}
-violin = \relative c'' @{
-g4\fthenp c'8. e16
+violin = \relative @{
+g'4\fthenp c'8. e16
 @}
 @end example
 
@@ -234,9 +234,9 @@ allora commenta tutta la musica del basso (ma lascia
 @code{\bass} in @code{\score} non commentato).
 
 @example
-bass = \relative c' @{
+bass = \relative @{
 %@{
-  c4 c c c
+  c'4 c c c
   d d d d
 %@}
 @}

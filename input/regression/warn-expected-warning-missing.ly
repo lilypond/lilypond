@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (_ "this is a warning that won't be triggered"))
@@ -9,4 +9,4 @@ warning about this fact. This will be used to detect missing warnings
 in our regtests."
 }
 
-\relative c' { c4 }
+\relative { c'4 }

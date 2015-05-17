@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.19.12"
+@c \version "2.19.21"
 
 @c Translators: Till Paala
 
@@ -1009,7 +1009,7 @@ benutzt werden, etwa so:
     tagline = ##f
   }
   \score {
-    \relative c'' { c1 \break c1 \break c1 }
+    \relative { c''1 \break c1 \break c1 }
   }
 }
 @end lilypond
@@ -1399,9 +1399,9 @@ müssen.
 @lilypond[quote,ragged-right,verbatim]
 \new Voice \with {
   \remove "Forbid_line_break_engraver"
-} \relative c'' {
+} \relative {
   <<
-    { c2. \tuplet 3/2 { c4 c c } c2. | }
+    { c''2. \tuplet 3/2 { c4 c c } c2. | }
     { s1 | \break s1 | }
   >>
 }
@@ -1763,7 +1763,7 @@ Wenn @code{line-break-permission} die Einstellung falsch
   ragged-bottom = ##t
 }
 
-music = \relative c'' { c8 c c c }
+music = \relative { c''8 c c c }
 
 \score {
   \new Staff {
@@ -1800,7 +1800,7 @@ Zeilen- und Seitenumbruchbefehle werden normalerweise direkt
 zusammen mit den Noten eingegeben.
 
 @example
-music = \relative c'' @{ c4 c c c @}
+music = \relative @{ c''4 c c c @}
 
 \score @{
   \new Staff @{
@@ -1819,7 +1819,7 @@ Diese zusätzliche Stimme enthält nur unsichtbare Noten und die
 Umbruchbefehle:
 
 @lilypond[quote,verbatim]
-music = \relative c'' { c4 c c c }
+music = \relative { c''4 c c c }
 
 \score {
   \new Staff <<
@@ -1847,7 +1847,7 @@ anderer Eigenschaften von
 @ref{Vertikale Abstände}).
 
 @lilypond[quote,verbatim]
-music = \relative c'' { c4 c c c }
+music = \relative { c''4 c c c }
 
 \score {
   \new Staff <<
@@ -3021,8 +3021,8 @@ eine größere Dauer ist als @code{1 16}.
 
 @lilypond[verbatim,line-width=12\cm]
 \score {
-  \relative c'' {
-    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+  \relative {
+    g'4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
     g4 e e2 | f4 d d2 | c4 e g g | c,1 |
     d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
     g4 e e2 | f4 d d2 | c4 e g g | c,1 |
@@ -3032,8 +3032,8 @@ eine größere Dauer ist als @code{1 16}.
 
 @lilypond[verbatim,line-width=12\cm]
 \score {
-  \relative c'' {
-    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+  \relative {
+    g'4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
     g4 e e2 | f4 d d2 | c4 e g g | c,1 |
     d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
     g4 e e2 | f4 d d2 | c4 e g g | c,1 |
@@ -3713,8 +3713,8 @@ Beispiel zeigt die normalen Abstände:
 
 @lilypond[verbatim,quote]
 \score {
-  \relative c'' {
-    g4 e e2 |
+  \relative {
+    g'4 e e2 |
     f4 d d2 |
     c4 d e f |
     g4 g g2 |
@@ -3732,8 +3732,8 @@ angegeben wird:
 
 @lilypond[verbatim,quote]
 \score {
-  \relative c'' {
-    g4 e e2 |
+  \relative {
+    g'4 e e2 |
     f4 d d2 |
     c4 d e f |
     g4 g g2 |

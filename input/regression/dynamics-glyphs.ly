@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.21"
 
 \header {texidoc = "Dynamic letters are kerned, and their weight
 matches that of the hairpin signs.  The dynamic scripts should be
@@ -8,8 +8,8 @@ closer to the note head (staccato, accent) are reckoned with.
 "  }
 
 
-\relative c'' {
-  c1\ff
+\relative {
+  c''1\ff
   e,-.-> \f
   e \rfz		      
   c' \mf

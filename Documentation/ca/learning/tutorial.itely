@@ -10,7 +10,7 @@
 
 @include included/generating-output.itexi
 
-@c \version "2.16.0"
+@c \version "2.19.21"
 
 @node Tutorial
 @chapter Tutorial
@@ -242,8 +242,8 @@ espai de pentagrama des de la nota anterior.
 
 @lilypond[verbatim,quote]
 % set the starting point to middle C
-\relative c' {
-  c d e f
+\relative {
+  c' d e f
   g a b c
 }
 @end lilypond
@@ -256,8 +256,8 @@ successivament).  Podem crear melodies amb intervals més grans,
 fins i tot sense deixar d'utilitzar el mode relatiu:
 
 @lilypond[verbatim,quote]
-\relative c' {
-  d f a g
+\relative {
+  d' f a g
   c b f d
 }
 @end lilypond
@@ -273,8 +273,8 @@ l'ordre @q{@w{@code{@bs{}\relative c'}}}, podem canviar l'octava d'inici:
 @c KEEP LY
 @lilypond[verbatim,quote]
 % una octava per sobre del Do central
-\relative c'' {
-  e c a c
+\relative {
+  e'' c a c
 }
 @end lilypond
 
@@ -290,8 +290,8 @@ sota.
 
 @c KEEP LY
 @lilypond[verbatim,quote]
-\relative c'' {
-  b c  % el Do està 1 espai per sobre, és el Do de dalt
+\relative {
+  b' c  % el Do està 1 espai per sobre, és el Do de dalt
   b d  % el Re està 2 espais per sobre o 5 per sota, és el Re de dalt
   b e  % el Mi està 3 espais per sobre o 4 per sota, és el Mi de dalt
   b a  % el La està 6 espais per sobre o 1 per sota, és el La de sota
@@ -313,8 +313,8 @@ una octava escrivint una coma @code{,} a continuació del nom de la
 nota.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a a, c' f,
+\relative {
+  a' a, c' f,
   g g'' a,, f'
 }
 @end lilypond
@@ -358,8 +358,8 @@ a la nota següent.  La figura per omissió de la primera nota és
 una negra.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a1
+\relative {
+  a'1
   a2 a4 a8 a
   a16 a a a a32 a a a a64 a a a a a a a a2
 }
@@ -370,8 +370,8 @@ número de la duració.  La duració d'una nota amb puntet s'ha
 d'especificar de forma explícita (és a dir: mitjançant un número).
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a4 a a4. a8
+\relative {
+  a'4 a a4. a8
   a8. a16 a a8. a8 a4.
 }
 @end lilypond
@@ -390,8 +390,8 @@ Un @notation{silenci} s'introdueix igual que si fos un anota amb
 el nom @code{r}@tie{}:
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a4 r r2
+\relative {
+  a'4 r r2
   r8 a r4 r4. r8
 }
 @end lilypond
@@ -413,9 +413,9 @@ La @notation{indicació de compàs} es pot establir amb l'ordre
 @code{\time} :
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \time 3/4
-  a4 a a
+  a'4 a a
   \time 6/8
   a4. a
   \time 4/4
@@ -479,9 +479,9 @@ La @notation{clau} es pot establir utilitzant l'ordre
 @code{\clef} :
 
 @lilypond[verbatim,quote]
-\relative c' {
+\relative {
   \clef "treble"
-  c1
+  c'1
   \clef "alto"
   c1
   \clef "tenor"
@@ -784,8 +784,8 @@ per generar aquesta imatge.  Proveu-lo sobre aquesta imatge:
 @c no verbatim here
 @c KEEP LY
 @lilypond[quote]
-\relative c'' {
-  c4-\markup { \bold \huge { Cliqueu aquí. } }
+\relative {
+  c''4-\markup { \bold \huge { Cliqueu aquí. } }
 }
 @end lilypond
 

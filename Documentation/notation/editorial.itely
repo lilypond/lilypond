@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.18.0"
+@c \version "2.19.21"
 
 @node Editorial annotations
 @section Editorial annotations
@@ -845,8 +845,8 @@ pieces.  Simple horizontal brackets are supported.
     \consists "Horizontal_bracket_engraver"
   }
 }
-\relative c'' {
-  c2\startGroup
+\relative {
+  c''2\startGroup
   d\stopGroup
 }
 @end lilypond
@@ -860,8 +860,8 @@ Analysis brackets may be nested.
     \consists "Horizontal_bracket_engraver"
   }
 }
-\relative c'' {
-  c4\startGroup\startGroup
+\relative {
+  c''4\startGroup\startGroup
   d4\stopGroup
   e4\startGroup
   d4\stopGroup\stopGroup

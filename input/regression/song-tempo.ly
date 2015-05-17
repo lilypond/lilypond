@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 \header {
   texidoc="Festival song synthesis output supports
 changing tempo in the middle of a piece.
@@ -9,7 +9,7 @@ changing tempo in the middle of a piece.
 \festival #"song-tempo.xml" { \tempo 4=90 }
 {
 \time 3/4
-\relative c' { c4 e g \tempo 4=60 c, e g }
+\relative { c'4 e g \tempo 4=60 c, e g }
 \addlyrics { do re mi do re mi }
 }
 #(ly:progress "song-tempo")

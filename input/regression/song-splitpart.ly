@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 \header {
   texidoc="Festival song synthesis output supports
 divided voices.
@@ -10,8 +10,8 @@ divided voices.
 \festival #"song-splitpart.xml" { \tempo 4 = 100 }
 <<
   \context Voice = "melody" {
-    \relative c' {
-      c4
+    \relative {
+      c'4
       <<
         { \voiceOne c8 e }
         \context Voice = splitpart { \voiceTwo c4 }

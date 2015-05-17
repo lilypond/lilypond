@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (_ "already have slur"))
@@ -16,9 +16,9 @@ sp=#(define-event-function (parser location n e) (index? ly:event?)
      (set! (ly:music-property e 'spanner-id) (format "sp~a" n))
      e)
 
-\relative c'' { 
+\relative { 
   % This will give warnings ("Already have slur" and "Cannot end slur")
-  c4((\sp1( d4)(\sp1( e4) f) |
+  c''4((\sp1( d4)(\sp1( e4) f) |
   % This will give two overlapping slurs and "unterminated slur" from above
   d(  d\sp2( e) f\sp2) |
   

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 %% Edit this file using a Unicode aware editor, such as GVIM, GEDIT, Emacs
 
@@ -54,8 +54,8 @@ portuguese = \lyricmode {
   ragged-right = ##T
 }
 
-\relative c' {
-  c2 d e f g f e
+\relative {
+  c'2 d e f g f e
 }
 \addlyrics { \bulgarian }
 \addlyrics { \hebrew }

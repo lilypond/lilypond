@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header{
 
@@ -12,7 +12,7 @@ The angularity of the parentheses can be adjusted.
 }
 
 \score {
-  \relative c'' {c^\markup {
+  \relative {c''^\markup {
     \parenthesize {
       \column { "A" "B" "C" }
     }

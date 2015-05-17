@@ -32,7 +32,7 @@ Good luck with LilyPond!  Happy engraving.
 
 %}
 
-\version "2.19.20"  % necessary for upgrading to future LilyPond versions.
+\version "2.19.21"  % necessary for upgrading to future LilyPond versions.
 
 \header{
   title = "A scale in LilyPond"
@@ -40,6 +40,6 @@ Good luck with LilyPond!  Happy engraving.
 http://lilypond.org/introduction.html"
 }
 
-\relative c' {
-  c d e f g a b c
+\relative {
+  c' d e f g a b c
 }

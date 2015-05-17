@@ -1,4 +1,4 @@
-\version "2.17.30"
+\version "2.19.21"
 \header {
   texidoc = "Span bars are drawn only between staff bar lines. By setting 
 bar lines to transparent, they are shown only between systems.
@@ -16,7 +16,7 @@ between systems.
   ragged-right =##t 
 }
 
-\relative c' \new StaffGroup <<
+\relative \new StaffGroup <<
   \new Staff {
     a1
     \once \hide Score.BarLine

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Ambitus indicate pitch ranges for voices.
@@ -22,13 +22,13 @@ visible; the accidentals are prevented from colliding.
     \time 2/4
     c4 f'
   }
-  \new Staff \relative c' {
+  \new Staff \relative {
     \time  2/4
     \key d \major
-    cis as'
+    cis' as'
   }
-  \new Staff \relative c' {
+  \new Staff \relative {
     \time 2/4
-    c4 cis
+    c'4 cis
   }
 >>

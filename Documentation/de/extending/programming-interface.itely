@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @c Translators: Till Paala
 
@@ -457,8 +457,8 @@ AltOff = {
   \revert NoteHead.font-size
 }
 
-\relative c' {
-  c2 \AltOn #0.5 c4 c
+\relative {
+  c'2 \AltOn #0.5 c4 c
   \AltOn #1.5 c c \AltOff c2
 }
 @end lilypond
@@ -481,8 +481,8 @@ withAlt =
      \revert NoteHead.font-size
    #})
 
-\relative c' {
-  c2 \withAlt #0.5 { c4 c }
+\relative {
+  c'2 \withAlt #0.5 { c4 c }
   \withAlt #1.5 { c c } c2
 }
 @end lilypond
@@ -554,7 +554,7 @@ Dynamikbefehle zu schreiben:
 @lilypond[quote,verbatim,ragged-right]
 dyn=#(define-event-function (parser location arg) (markup?)
          (make-dynamic-script arg))
-\relative c' { c\dyn pfsss }
+\relative { c'\dyn pfsss }
 @end lilypond
 
 Man kann das Gleiche auch mit einer musikalischen Funktion erreichen, aber dann
@@ -1187,7 +1187,7 @@ werden kann; sie macht Notenköpfe auf und neben der Mittellinie unsichtbar:
             (< (abs (ly:grob-property grob 'staff-position)) 2))
        (set! (ly:grob-property grob 'transparent) #t)))
 
-\relative c' {
+\relative {
   a'4 e8 <<\applyOutput #'Voice #blanker a c d>> b2
 }
 @end lilypond
@@ -1300,8 +1300,8 @@ ergibt einen Syntaxfehler:
 @example
 F = \tweak font-size #-3 -\flageolet
 
-\relative c'' @{
-  c4^\F c4_\F
+\relative @{
+  c''4^\F c4_\F
 @}
 @end example
 
@@ -1319,8 +1319,8 @@ F = #(let ((m (make-music 'ArticulationEvent
                     (ly:music-property m 'tweaks)))
        m)
 
-\relative c'' @{
-  c4^\F c4_\F
+\relative @{
+  c''4^\F c4_\F
 @}
 @end example
 

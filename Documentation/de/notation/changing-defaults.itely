@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.7"
+@c \version "2.19.21"
 
 @c Translators: Till Paala
 
@@ -447,8 +447,8 @@ Im folgenden Beispiel werden sowohl Stimme A als auch B auf diese
 Weise für die gesamte Dauer des Stückes am Leben gehalten.
 
 @lilypond[quote,verbatim]
-musicA = \relative c'' { d4 d d d }
-musicB = \relative c'' { g4 g g g }
+musicA = \relative { d''4 d d d }
+musicB = \relative { g'4 g g g }
 keepVoicesAlive = {
   <<
     \new Voice = "A" { s1*5 }  % Keep Voice "A" alive for 5 bars
@@ -486,8 +486,8 @@ kann, indem man die Stimme am Leben hält.  In wirklichen Situationen
 würden Begleitung und Melodie natürlich aus mehreren Abschnitten bestehen.
 
 @lilypond[quote,verbatim]
-melody = \relative c'' { a4 a a a }
-accompaniment = \relative c' { d4 d d d }
+melody = \relative { a'4 a a a }
+accompaniment = \relative { d'4 d d d }
 words = \lyricmode { These words fol -- low the mel -- o -- dy }
 \score {
   <<
@@ -525,14 +525,14 @@ ist es, einfach unsichtbare Pausen einzufügen, um die Melodie
 mit der Begleitung passend auszurichten:
 
 @lilypond[quote,verbatim]
-melody = \relative c'' {
+melody = \relative {
   s1  % skip a bar
-  a4 a a a
+  a'4 a a a
   s1  % skip a bar
   a4 a a a
 }
-accompaniment = \relative c' {
-  d4 d d d
+accompaniment = \relative {
+  d'4 d d d
   d4 d d d
   d4 d d d
   d4 d d d
@@ -771,8 +771,8 @@ Ein @code{\override}-Befehl, aber ohne die Kontextbezeichnung:
 
 @lilypond[quote,verbatim]
 \score {
-  \relative c'' {
-    a4^"Thicker stems" a a a
+  \relative {
+    a'4^"Thicker stems" a a a
     a4 a a\ff a
   }
   \layout {
@@ -789,8 +789,8 @@ Eine Kontexteigenschaft kann direkt gesetzt werden:
 
 @lilypond[quote,verbatim]
 \score {
-  \relative c'' {
-    a4^"Smaller font" a a a
+  \relative {
+    a'4^"Smaller font" a a a
     a4 a a\ff a
   }
   \layout {
@@ -808,8 +808,8 @@ musikalischer Ausdruck wie @code{\accidentalStyle dodecaphonic}:
 
 @lilypond[quote,verbatim]
 \score {
-  \relative c'' {
-    a4^"Dynamics above" a a a
+  \relative {
+    a'4^"Dynamics above" a a a
     a4 a a\ff a
   }
   \layout {
@@ -837,8 +837,8 @@ StaffDefaults = \with {
 
 \score {
   \new Staff {
-    \relative c'' {
-      a4^"Smaller font" a a a
+    \relative {
+      a'4^"Smaller font" a a a
       a4 a a a
     }
   }
@@ -865,8 +865,8 @@ ist die gleiche wie für den Befehl direkt zwischen den Noten geschrieben.
 @lilypond[quote,verbatim]
 \score {
   \new Staff {
-    \relative c'' {
-      a4^"Smaller font" a a a
+    \relative {
+      a'4^"Smaller font" a a a
       a4 a a a
     }
   }
@@ -916,8 +916,8 @@ Ein @code{\override}-Befehl, dessen Kontextbezeichnung ausgelassen wird:
       \override Stem.thickness = #4.0
     }
     {
-      \relative c'' {
-        a4^"Thick stems" a a a
+      \relative {
+        a'4^"Thick stems" a a a
         a4 a a a
       }
     }
@@ -932,8 +932,8 @@ Eine Kontexeigenschaft direkt einstellen:
 \score {
   <<
     \new Staff {
-      \relative c'' {
-        a4^"Default font" a a a
+      \relative {
+        a'4^"Default font" a a a
         a4 a a a
       }
     }
@@ -941,8 +941,8 @@ Eine Kontexeigenschaft direkt einstellen:
     \with {
       fontSize = #-4
     } {
-      \relative c'' {
-        a4^"Smaller font" a a a
+      \relative {
+        a'4^"Smaller font" a a a
         a4 a a a
       }
     }
@@ -958,8 +958,8 @@ Ein vordefinierter Befehl wie etwa @code{\dynamicUp}
   <<
     \new Staff {
       \new Voice {
-        \relative c'' {
-          a4^"Dynamics below" a a a
+        \relative {
+          a'4^"Dynamics below" a a a
           a4 a a\ff a
         }
       }
@@ -970,8 +970,8 @@ Ein vordefinierter Befehl wie etwa @code{\dynamicUp}
       \new Voice
       \with { \dynamicUp }
       {
-        \relative c'' {
-          a4^"Dynamics above" a a a
+        \relative {
+          a'4^"Dynamics above" a a a
           a4 a a\ff a
         }
       }
@@ -1068,8 +1068,8 @@ in Jazzmusik anzuzeigen.
   \accepts "ImproVoice"
 }}
 
-\relative c'' {
-  a4 d8 bes8 \new ImproVoice { c4^"ad lib" c
+\relative {
+  a'4 d8 bes8 \new ImproVoice { c4^"ad lib" c
    c4 c^"ausziehen" c_"während des Spiels :)" c }
   a1
 }
@@ -1199,8 +1199,8 @@ Jetzt kann die Notation zu Beginn des Abschnitts folgendermaßen
 notiert werden:
 
 @example
-\relative c'' @{
-  a4 d8 bes8
+\relative @{
+  a'4 d8 bes8
   \new ImproVoice @{
     c4^"ad lib" c
     c4 c^"ausziehen"
@@ -4055,8 +4055,8 @@ XinO = {
       \musicglyph #"noteheads.s2cross"
   }
 }
-\relative c'' {
-  a a \XinO a a
+\relative {
+  a' a \XinO a a
 }
 @end lilypond
 
@@ -4404,8 +4404,8 @@ padText =
      \once \override TextScript.padding = #padding
    #})
 
-\relative c''' {
-  c4^"piu mosso" b a b
+\relative {
+  c'''4^"piu mosso" b a b
   \padText #1.8
   c4^"piu mosso" d e f
   \padText #2.6
@@ -4429,7 +4429,7 @@ custosNote =
      #note
    #})
 
-\relative c' { c4 d e f \custosNote g }
+\relative { c'4 d e f \custosNote g }
 @end lilypond
 
 Ersetzungsfunktionen mit mehrfachen Argumenten können definiert

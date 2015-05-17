@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.21"
 
 
 \header {
@@ -17,8 +17,8 @@ This example prints a bar-number during processing on stdout.
 \layout { ragged-right= ##t }
 
 
-\relative c'' {
-  c1 c1
+\relative {
+  c''1 c1
 
   %% todo: should put something interesting in the .tex output.
   

@@ -8,7 +8,7 @@ heavily mutilated Edition Peters Morgenlied by Schubert"
 
 }
 
-\version "2.19.12"
+\version "2.19.21"
 #(ly:expect-warning (_ "(De)crescendo with unspecified starting volume in MIDI."))
 
 ignoreMelisma =	\set ignoreMelismata = ##t
@@ -44,7 +44,7 @@ melody =    \relative c'' \repeat volta 2 \context Voice = "singer" {
     { \stemDown f8.[ g16] } >> \stemNeutral a8 |
   fis4  g8 c16[ b a g] f[ e] |
   d4 f8
-  \transpose a' e' \relative c'' { a16[ g fis! g] f![ d]  } |
+  \transpose a' e' \relative { a'16[ g fis! g] f![ d]  } |
   g4. r8 gis gis |
   a4 a16.[ b32] c8[( a]) fis8 |
   g4.~ 8-\fermata

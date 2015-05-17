@@ -5,11 +5,11 @@
 
 }
 
-\version "2.17.15"
+\version "2.19.21"
 
 <<
-  \relative c' \new Voice {
-    c8 c c c c c
+  \relative \new Voice {
+    c'8 c c c c c
   }
   \figures {
     \bassFigureExtendersOn

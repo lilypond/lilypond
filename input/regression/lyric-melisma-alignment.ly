@@ -1,12 +1,12 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "@code{lyricMelismaAlignment} sets the default alignment for melismata.
 It works with both automatic and manual melismata."
 }
 
-\relative c' {
-  c4^"auto"( d e f)
+\relative {
+  c'4^"auto"( d e f)
   \set melismaBusyProperties = #'()
   c4^"manual" d e f
 }

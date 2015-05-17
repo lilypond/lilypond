@@ -1,17 +1,17 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "@code{Dynamics} and @code{Lyrics} lines below
 a @code{PianoStaff} do not affect the placement of the instrument name."
 }
 
-upper = \relative c'' {
-  a4 b c d
+upper = \relative {
+  a'4 b c d
 }
 
-lower = \relative c {
+lower = \relative {
   \clef bass
-  a2 c
+  a,2 c
 }
 
 \score { 

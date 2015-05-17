@@ -1,3 +1,3 @@
-\version "2.16.0"
+\version "2.19.21"
 \include "include/myvar.ily"
-melody = \relative c'' { \key c \minor c4 es g2 \myVar }
+melody = \relative { \key c \minor c''4 es g2 \myVar }

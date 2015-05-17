@@ -5,13 +5,13 @@ aligned correctly even if the paper column is very wide."
  
 \layout{ ragged-right = ##t }
 
-\version "2.17.6"
+\version "2.19.21"
 <<
   \override Score.PaperColumn.keep-inside-line = ##f
-  \new Staff \relative c' {
+  \new Staff \relative {
     \key aes \major
     \context Voice = "1" { 
-      f8 f
+      f'8 f
       \textLengthOff
       
       f^"xxxxxxxxxxxxxxxxxxxxxxxxxx"  f

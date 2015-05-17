@@ -6,12 +6,12 @@
 
 }
 
-\version "2.17.6"
+\version "2.19.21"
 
 \book {
   \score {
-    \relative c'' \new StaffGroup <<
-      \new Staff { c1 c c c }
+    \relative \new StaffGroup <<
+      \new Staff { c''1 c c c }
       \new Staff { c c c c }
       \new Staff { 
 	\overrideProperty

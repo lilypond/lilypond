@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header { texidoc =
 
@@ -21,9 +21,9 @@ not erase previous settings to the Staff context.
 % Old \RemoveEmptyStaffContext: Will erase previous settings...
 \score {
   <<
-    \new Staff \relative c'' {  c4 c c c \break s1 \break c4 c c c \break c c c c}
-    \new Staff \relative c'' {  d4 d d d        s1        s1              s1 }
-    \new Staff \relative c'' {  e4 e e e        s1        e4 e e e        s1 }
+    \new Staff \relative {  c''4 c c c \break s1 \break c4 c c c \break c c c c}
+    \new Staff \relative {  d''4 d d d        s1        s1              s1 }
+    \new Staff \relative {  e''4 e e e        s1        e4 e e e        s1 }
   >>
   \layout {
     \context { \RemoveEmptyStaffContext }
@@ -33,9 +33,9 @@ not erase previous settings to the Staff context.
 % New \RemoveEmptyStaves settings: Preserves previous settings...
 \score {
   <<
-    \new Staff \relative c'' {  c4 c c c \break s1 \break c4 c c c \break c c c c}
-    \new Staff \relative c'' {  d4 d d d        s1        s1              s1 }
-    \new Staff \relative c'' {  e4 e e e        s1        e4 e e e        s1 }
+    \new Staff \relative {  c''4 c c c \break s1 \break c4 c c c \break c c c c}
+    \new Staff \relative {  d''4 d d d        s1        s1              s1 }
+    \new Staff \relative {  e''4 e e e        s1        e4 e e e        s1 }
   >>
   \layout {
     \context { \Staff \RemoveEmptyStaves }

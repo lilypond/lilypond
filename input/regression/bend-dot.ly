@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 \header {
   texidoc  = "Bends avoid dots, but only if necessary."
 }
@@ -9,7 +9,7 @@
 
 \score {
   <<
-    \new Staff \relative c' {
+    \new Staff \relative {
       \time 4/4
       g''4.-\bendAfter #+1
       s8 s2

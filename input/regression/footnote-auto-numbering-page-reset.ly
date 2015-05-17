@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 \header {
   texidoc = "This is an example of automatic footnote numbering
 where the number is reset on each page.  It uses the symbol-footnotes
@@ -31,10 +31,10 @@ a b c d }
 
 \markup { k \auto-footnote l m }
 
-\relative c' { a1 }
+\relative { a1 }
 
-\relative c' {
-  d4 e
+\relative {
+  d'4 e
   < f  \footnote #'(1 . -1) \markup { n } a c >
   a8-\footnote #'(1 . 1) \markup { p } \<
   -\footnote #'(1 . 1) \markup { o } [ b c d ] a4 b c |

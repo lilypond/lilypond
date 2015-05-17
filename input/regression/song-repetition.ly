@@ -1,4 +1,4 @@
-\version "2.19.2"
+\version "2.19.21"
 \header {
   texidoc="Festival song synthesis output supports
 repeat signs.
@@ -9,8 +9,8 @@ repeat signs.
 \score{
 \festival #"song-repetition.xml" { \tempo 4 = 100 }
 <<
-  \context Voice = melody \relative c' {
-    c2 e4 r4 | g2 e | c1 |
+  \context Voice = melody \relative {
+    c'2 e4 r4 | g2 e | c1 |
     \context Voice = verse \repeat volta 2 {c4 d e f | g1 | }
     a2 b | c1}
   \context Lyrics = mainlyrics \lyricsto melody  {

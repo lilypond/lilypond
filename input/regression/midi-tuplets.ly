@@ -1,4 +1,4 @@
-\version "2.17.11"
+\version "2.19.21"
 \header {
 texidoc = "
 
@@ -17,7 +17,7 @@ Midi2ly tuplet test.
 
 
 \score { 
-  \context Voice  \relative c' {
+  \context Voice  \relative {
 
     a1 a2 a2. a4 a4. a8 a8. a16 a16. a32 a32. a64
 

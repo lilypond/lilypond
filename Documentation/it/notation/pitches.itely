@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
@@ -166,10 +166,10 @@ più  conveniente?
 Identificare il Do centrale con @code{c'} è molto semplice, quindi trovare
 le ottave del @code{c} (Do) sarà altrettanto semplice.  Se la musica inizia
 con @code{gis} sopra @code{c'''}, si scriverà qualcosa simile a
-@code{\relative c''' @{ gis' @dots{} @}}
+@code{\relative @{ gis''' @dots{} @}}
 
 @item un'ottava della prima nota
-Scrivere @code{\relative gis''' @{ gis @dots{} @}} è un modo semplice per
+Scrivere @code{\relative @{ gis''' @dots{} @}} è un modo semplice per
 determinare l'altezza assoluta della prima nota dell'espressione musicale.
 
 @item nessuna altezza di riferimento esplicita
@@ -185,7 +185,7 @@ La documentazione di solito usa la prima opzione.
 Ecco il modo relativo in azione:
 
 @lilypond[verbatim,quote]
-\relative c {
+\relative {
   \clef bass
   c d e f
   g a b c
@@ -197,8 +197,8 @@ I segni di cambiamento d'ottava si impiegano per gli intervalli più ampi
 di quello di quarta:
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  c g c f,
+\relative {
+  c'' g c f,
   c' a, e'' c
 }
 @end lilypond
@@ -207,7 +207,7 @@ Una sequenza di note senza segni di ottava può tuttavia
 comprendere intervalli di grande estensione:
 
 @lilypond[verbatim,quote]
-\relative c {
+\relative {
   c f b e
   a d g c
 }
@@ -217,10 +217,10 @@ Nel caso di blocchi @code{\relative} annidati, si
 considera il blocco @code{\relative} più interno.
 
 @lilypond[verbatim,quote]
-\relative c' {
-  c d e f
-  \relative c'' {
-    c d e f
+\relative {
+  c' d e f
+  \relative {
+    c'' d e f
   }
 }
 @end lilypond
@@ -243,12 +243,12 @@ notazione d'ottava assoluta, a meno che non sia incluso il
 blocco @code{\relative}.
 
 @lilypond[verbatim,quote]
-\relative c' {
-  d e
+\relative {
+  d' e
   \transpose f g {
     d e
-    \relative c' {
-      d e
+    \relative {
+      d' e
     }
   }
 }
@@ -265,8 +265,8 @@ quella precedente.  Esaminate con attenzione l'esempio seguente, e in
 particolare le note @code{c}.
 
 @lilypond[verbatim,quote]
-\relative c' {
-  c
+\relative {
+  c'
   <c e g>
   <c' e g'>
   <c, e, g''>
@@ -282,8 +282,8 @@ diminuita due volte, indipendentemente dal numero di semitoni contenuto
 in ogni intervallo.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  c2 fis
+\relative {
+  c''2 fis
   c2 ges
   b2 eisis
   b2 feses
@@ -476,8 +476,8 @@ file; l'esempio seguente è scritto in notazione italiana:
 @lilypond[quote,verbatim]
 \language "italiano"
 
-\relative do' {
-  do re mi sib
+\relative {
+  do' re mi sib
 }
 @end lilypond
 
@@ -651,8 +651,8 @@ dopo il simbolo@tie{}@code{=}.  Questo esempio genererà un avviso
 @code{d''} invece di @code{d'}, come indicato dalla correzione di ottava.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  c2 d='4 d
+\relative {
+  c''2 d='4 d
   e2 f
 }
 @end lilypond
@@ -667,8 +667,8 @@ un avviso, ma la nota precedente non viene modificata.  Le note successive
 sono relative all'@code{@var{altezza_di_controllo}}.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  c2 d
+\relative {
+  c''2 d
   \octaveCheck c'
   e2 f
 }
@@ -678,8 +678,8 @@ Nelle due battute che seguono, il primo e il terzo @code{\octaveCheck}
 falliscono, mentre il secondo non fallisce.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  c4 f g f
+\relative {
+  c''4 f g f
 
   c4
   \octaveCheck c'
@@ -738,9 +738,9 @@ venga trasposta automaticamente.
 
 @lilypond[verbatim,quote]
 \transpose d e {
-  \relative c' {
+  \relative {
     \key d \major
-    d4 fis a d
+    d'4 fis a d
   }
 }
 @end lilypond
@@ -755,9 +755,9 @@ sarà ottenuta con:
 
 @lilypond[verbatim,quote]
 \transpose a c' {
-  \relative c' {
+  \relative {
     \key c \major
-    c4 d e g
+    c'4 d e g
   }
 }
 @end lilypond
@@ -774,7 +774,7 @@ le note rimarranno sullo stesso grado della scala, mentre la seconda
 versione mostrerà i bemolle sul grado superiore della scala.
 
 @lilypond[verbatim,quote]
-music = \relative c' { c d e f }
+music = \relative { c' d e f }
 \new Staff {
   \transpose c cis { \music }
   \transpose c des { \music }
@@ -869,7 +869,7 @@ ci sia una corrispondenza tra @code{@var{altezza-di-riferimento}} e
 @code{@var{altezza-di-arrivo}}.
 
 @lilypond[verbatim,quote]
-music = \relative c' { c d e f }
+music = \relative { c' d e f }
 \new Staff {
   \music
   \inversion d' d' \music
@@ -902,7 +902,7 @@ Un'espressione musicale può essere invertita in modo da produrre il proprio
 retrogrado:
 
 @lilypond[verbatim,quote]
-music = \relative c' { c8. ees16( fis8. a16 b8.) gis16 f8. d16 }
+music = \relative { c'8. ees16( fis8. a16 b8.) gis16 f8. d16 }
 
 \new Staff {
   \music
@@ -959,8 +959,8 @@ numero di gradi della scala dati dall'intervallo tra @var{altezza-di-arrivo}
 e @var{altezza-di-partenza}:
 
 @lilypond[verbatim,quote]
-diatonicScale = \relative c' { c d e f g a b }
-motif = \relative c' { c8 d e f g a b c }
+diatonicScale = \relative { c' d e f g a b }
+motif = \relative { c'8 d e f g a b c }
 
 \new Staff {
   \motif
@@ -973,8 +973,8 @@ motif = \relative c' { c8 d e f g a b c }
 intervallo:
 
 @lilypond[verbatim,quote]
-pentatonicScale = \relative c' { ges aes bes des ees }
-motif = \relative c' { ees8 des ges,4 <ges' bes,> <ges bes,> }
+pentatonicScale = \relative { ges aes bes des ees }
+motif = \relative { ees'8 des ges,4 <ges' bes,> <ges bes,> }
 
 \new Staff {
   \motif
@@ -987,8 +987,8 @@ effetto simile a @code{\transpose}, con in più la possibilità
 di specificare i nomi delle note da usare:
 
 @lilypond[verbatim,quote]
-chromaticScale = \relative c' { c cis d dis e f fis g gis a ais b }
-motif = \relative c' { c8 d e f g a b c }
+chromaticScale = \relative { c' cis d dis e f fis g gis a ais b }
+motif = \relative { c'8 d e f g a b c }
 
 \new Staff {
   \motif
@@ -1022,8 +1022,8 @@ Dunque, per invertire intorno a una particolare nota della scala, è necessario
 usare il medesimo valore per @var{altezza-cardine} e @var{altezza-di-arrivo}:
 
 @lilypond[verbatim,quote]
-octatonicScale = \relative c' { ees f fis gis a b c d }
-motif = \relative c' { c8. ees16 fis8. a16 b8. gis16 f8. d16 }
+octatonicScale = \relative { ees' f fis gis a b c d }
+motif = \relative { c'8. ees16 fis8. a16 b8. gis16 f8. d16 }
 
 \new Staff {
   \motif
@@ -1036,8 +1036,8 @@ intorno a una della note e poi si traspone di un grado della scala.  Le due
 note specificate possono essere interpretate come parentesi del punto cardine:
 
 @lilypond[verbatim,quote]
-scale = \relative c' { c g' }
-motive = \relative c' { c c g' c, }
+scale = \relative { c' g' }
+motive = \relative { c' c g' c, }
 
 \new Staff {
   \motive
@@ -1049,8 +1049,8 @@ L'operazione combinata di inversione e retrogradazione produce la
 retrogradazione inversa:
 
 @lilypond[verbatim,quote]
-octatonicScale = \relative c' { ees f fis gis a b c d }
-motif = \relative c' { c8. ees16 fis8. a16 b8. gis16 f8. d16 }
+octatonicScale = \relative { ees' f fis gis a b c d }
+motif = \relative { c'8. ees16 fis8. a16 b8. gis16 f8. d16 }
 
 \new Staff {
   \motif
@@ -1364,8 +1364,8 @@ grado della scala quando il modo inizia col Do.
 freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
     (3 . ,NATURAL) (4 . ,NATURAL) (5 . ,FLAT) (6 . ,FLAT))
 
-\relative c' {
-  \key c \freygish c4 des e f
+\relative {
+  \key c \freygish c'4 des e f
   \bar "||" \key d \freygish d es fis g
 }
 @end lilypond
@@ -1623,12 +1623,12 @@ mostra tutti gli stili:
 @lilypond[verbatim,quote]
 musicA = {
   <<
-    \relative c' {
-      cis'8 fis, bes4 <a cis>8 f bis4 |
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
-    \relative c' {
+    \relative {
       ais'2 cis, |
       fis8 b a4 cis2 |
     }
@@ -1638,8 +1638,8 @@ musicA = {
 musicB = {
   \clef bass
   \new Voice {
-    \voiceTwo \relative c' {
-      <fis, a cis>8[ <fis a cis>
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
@@ -1704,12 +1704,12 @@ dell'ultimo@tie{}@code{c}:
 @lilypond[quote]
 musicA = {
   <<
-    \relative c' {
-      cis'8 fis, bes4 <a cis>8 f bis4 |
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
-    \relative c' {
+    \relative {
       ais'2 cis, |
       fis8 b a4 cis2 |
     }
@@ -1719,8 +1719,8 @@ musicA = {
 musicB = {
   \clef bass
   \new Voice {
-    \voiceTwo \relative c' {
-      <fis, a cis>8[ <fis a cis>
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
@@ -1776,12 +1776,12 @@ allora è preferibile usare @code{modern} o @code{modern-cautionary}.
 @lilypond[quote]
 musicA = {
   <<
-    \relative c' {
-      cis'8 fis, bes4 <a cis>8 f bis4 |
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
-    \relative c' {
+    \relative {
       ais'2 cis, |
       fis8 b a4 cis2 |
     }
@@ -1791,8 +1791,8 @@ musicA = {
 musicB = {
   \clef bass
   \new Voice {
-    \voiceTwo \relative c' {
-      <fis, a cis>8[ <fis a cis>
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
@@ -1841,12 +1841,12 @@ e del@tie{}@code{c} nella seconda misura del rigo superiore:
 @lilypond[quote]
 musicA = {
   <<
-    \relative c' {
-      cis'8 fis, bes4 <a cis>8 f bis4 |
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
-    \relative c' {
+    \relative {
       ais'2 cis, |
       fis8 b a4 cis2 |
     }
@@ -1856,8 +1856,8 @@ musicA = {
 musicB = {
   \clef bass
   \new Voice {
-    \voiceTwo \relative c' {
-      <fis, a cis>8[ <fis a cis>
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
@@ -1903,12 +1903,12 @@ di @code{AccidentalSuggestion}.
 @lilypond[quote]
 musicA = {
   <<
-    \relative c' {
-      cis'8 fis, bes4 <a cis>8 f bis4 |
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
-    \relative c' {
+    \relative {
       ais'2 cis, |
       fis8 b a4 cis2 |
     }
@@ -1918,8 +1918,8 @@ musicA = {
 musicB = {
   \clef bass
   \new Voice {
-    \voiceTwo \relative c' {
-      <fis, a cis>8[ <fis a cis>
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
@@ -1968,12 +1968,12 @@ voce della misura precedente:
 @lilypond[quote]
 musicA = {
   <<
-    \relative c' {
-      cis'8 fis, bes4 <a cis>8 f bis4 |
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
-    \relative c' {
+    \relative {
       ais'2 cis, |
       fis8 b a4 cis2 |
     }
@@ -1983,8 +1983,8 @@ musicA = {
 musicB = {
   \clef bass
   \new Voice {
-    \voiceTwo \relative c' {
-      <fis, a cis>8[ <fis a cis>
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
@@ -2029,12 +2029,12 @@ esse sono indicate come alterazioni di precauzione.
 @lilypond[quote]
 musicA = {
   <<
-    \relative c' {
-      cis'8 fis, bes4 <a cis>8 f bis4 |
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
-    \relative c' {
+    \relative {
       ais'2 cis, |
       fis8 b a4 cis2 |
     }
@@ -2044,8 +2044,8 @@ musicA = {
 musicB = {
   \clef bass
   \new Voice {
-    \voiceTwo \relative c' {
-      <fis, a cis>8[ <fis a cis>
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
@@ -2092,12 +2092,12 @@ gli annullamenti delle note finali.
 @lilypond[quote]
 musicA = {
   <<
-    \relative c' {
-      cis'8 fis, bes4 <a cis>8 f bis4 |
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
-    \relative c' {
+    \relative {
       ais'2 cis, |
       fis8 b a4 cis2 |
     }
@@ -2107,8 +2107,8 @@ musicA = {
 musicB = {
   \clef bass
   \new Voice {
-    \voiceTwo \relative c' {
-      <fis, a cis>8[ <fis a cis>
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
@@ -2149,12 +2149,12 @@ mostrate come alterazioni di precauzione.
 @lilypond[quote]
 musicA = {
   <<
-    \relative c' {
-      cis'8 fis, bes4 <a cis>8 f bis4 |
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
-    \relative c' {
+    \relative {
       ais'2 cis, |
       fis8 b a4 cis2 |
     }
@@ -2164,8 +2164,8 @@ musicA = {
 musicB = {
   \clef bass
   \new Voice {
-    \voiceTwo \relative c' {
-      <fis, a cis>8[ <fis a cis>
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
@@ -2208,12 +2208,12 @@ seconda occorrenza non segua direttamente la prima.
 @lilypond[quote]
 musicA = {
   <<
-    \relative c' {
-      cis'8 fis, bes4 <a cis>8 f bis4 |
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
-    \relative c' {
+    \relative {
       ais'2 cis, |
       fis8 b a4 cis2 |
     }
@@ -2223,8 +2223,8 @@ musicA = {
 musicB = {
   \clef bass
   \new Voice {
-    \voiceTwo \relative c' {
-      <fis, a cis>8[ <fis a cis>
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
@@ -2265,12 +2265,12 @@ supplementari sono mostrate come alterazioni di precauzione.
 @lilypond[quote]
 musicA = {
   <<
-    \relative c' {
-      cis'8 fis, bes4 <a cis>8 f bis4 |
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
-    \relative c' {
+    \relative {
       ais'2 cis, |
       fis8 b a4 cis2 |
     }
@@ -2280,8 +2280,8 @@ musicA = {
 musicB = {
   \clef bass
   \new Voice {
-    \voiceTwo \relative c' {
-      <fis, a cis>8[ <fis a cis>
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
@@ -2326,12 +2326,12 @@ voci nello stesso rigo (@code{Staff}).
 @lilypond[quote]
 musicA = {
   <<
-    \relative c' {
-      cis'8 fis, bes4 <a cis>8 f bis4 |
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
-    \relative c' {
+    \relative {
       ais'2 cis, |
       fis8 b a4 cis2 |
     }
@@ -2341,8 +2341,8 @@ musicA = {
 musicB = {
   \clef bass
   \new Voice {
-    \voiceTwo \relative c' {
-      <fis, a cis>8[ <fis a cis>
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
@@ -2383,12 +2383,12 @@ supplementari sono indicate come alterazioni di precauzione.
 @lilypond[quote]
 musicA = {
   <<
-    \relative c' {
-      cis'8 fis, bes4 <a cis>8 f bis4 |
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
-    \relative c' {
+    \relative {
       ais'2 cis, |
       fis8 b a4 cis2 |
     }
@@ -2398,8 +2398,8 @@ musicA = {
 musicB = {
   \clef bass
   \new Voice {
-    \voiceTwo \relative c' {
-      <fis, a cis>8[ <fis a cis>
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
@@ -2443,12 +2443,12 @@ naturali.
 @lilypond[quote]
 musicA = {
   <<
-    \relative c' {
-      cis'8 fis, bes4 <a cis>8 f bis4 |
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
-    \relative c' {
+    \relative {
       ais'2 cis, |
       fis8 b a4 cis2 |
     }
@@ -2458,8 +2458,8 @@ musicA = {
 musicB = {
   \clef bass
   \new Voice {
-    \voiceTwo \relative c' {
-      <fis, a cis>8[ <fis a cis>
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
@@ -2501,12 +2501,12 @@ le altezze ripetute immediatamente nello stesso rigo.
 @lilypond[quote]
 musicA = {
   <<
-    \relative c' {
-      cis'8 fis, bes4 <a cis>8 f bis4 |
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
-    \relative c' {
+    \relative {
       ais'2 cis, |
       fis8 b a4 cis2 |
     }
@@ -2516,8 +2516,8 @@ musicA = {
 musicB = {
   \clef bass
   \new Voice {
-    \voiceTwo \relative c' {
-      <fis, a cis>8[ <fis a cis>
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
@@ -2563,12 +2563,12 @@ l'ottava corrente ma in tutte le voci.
 @lilypond[quote]
 musicA = {
   <<
-    \relative c' {
-      cis'8 fis, bes4 <a cis>8 f bis4 |
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
-    \relative c' {
+    \relative {
       ais'2 cis, |
       fis8 b a4 cis2 |
     }
@@ -2578,8 +2578,8 @@ musicA = {
 musicB = {
   \clef bass
   \new Voice {
-    \voiceTwo \relative c' {
-      <fis, a cis>8[ <fis a cis>
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
@@ -2624,12 +2624,12 @@ immediatamente successive di una stessa nota.
 @lilypond[quote,staffsize=18]
 musicA = {
   <<
-    \relative c' {
-      cis'8 fis, bes4 <a cis>8 f bis4 |
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
-    \relative c' {
+    \relative {
       ais'2 cis, |
       fis8 b a4 cis2 |
     }
@@ -2639,8 +2639,8 @@ musicA = {
 musicB = {
   \clef bass
   \new Voice {
-    \voiceTwo \relative c' {
-      <fis, a cis>8[ <fis a cis>
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
@@ -2685,12 +2685,12 @@ musicB = {
 @lilypond[quote]
 musicA = {
   <<
-    \relative c' {
-      cis'8 fis, bes4 <a cis>8 f bis4 |
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
-    \relative c' {
+    \relative {
       ais'2 cis, |
       fis8 b a4 cis2 |
     }
@@ -2700,8 +2700,8 @@ musicA = {
 musicB = {
   \clef bass
   \new Voice {
-    \voiceTwo \relative c' {
-      <fis, a cis>8[ <fis a cis>
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
@@ -2744,12 +2744,12 @@ materiale musicale precedente.
 @lilypond[quote]
 musicA = {
   <<
-    \relative c' {
-      cis'8 fis, bes4 <a cis>8 f bis4 |
+    \relative {
+      cis''8 fis, bes4 <a cis>8 f bis4 |
       cis2. <c, g'>4 |
     }
     \\
-    \relative c' {
+    \relative {
       ais'2 cis, |
       fis8 b a4 cis2 |
     }
@@ -2759,8 +2759,8 @@ musicA = {
 musicB = {
   \clef bass
   \new Voice {
-    \voiceTwo \relative c' {
-      <fis, a cis>8[ <fis a cis>
+    \voiceTwo \relative {
+      <fis a cis>8[ <fis a cis>
       \change Staff = up
       cis' cis
       \change Staff = down
@@ -2888,8 +2888,8 @@ di chiave.
   }
 }
 
-\relative c'' {
-  aes c e2
+\relative {
+  aes' c e2
   cis,1
 }
 @end lilypond

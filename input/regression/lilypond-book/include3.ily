@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 doctitlees = "If you see this 'translated' doctitle, language detection works!"
@@ -9,7 +9,7 @@ texidoces = "If you see this 'translated' texidoc, language detection works!"
   doctitle = "Original doctitle (you should not see this!)"
 }
 
-\relative c'' {
-  c1
+\relative {
+  c''1
 }
 

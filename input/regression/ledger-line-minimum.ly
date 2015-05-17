@@ -7,10 +7,10 @@ disappearing."
 
 }
 
-\version "2.16.0"
+\version "2.19.21"
 \paper { ragged-right = ##t}
-\relative c'' {
+\relative {
   \time 2/4 
-  c8 c c c
+  c''8 c c c
   c \grace { \stemDown e'32[ c a f] } f8 f f 
 }

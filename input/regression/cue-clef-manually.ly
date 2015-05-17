@@ -1,7 +1,7 @@
-\version "2.16.0"
+\version "2.19.21"
 
-Solo = \relative c' { 
-  c4 c c c |
+Solo = \relative { 
+  c'4 c c c |
 
   % Manually written cue notes, not quoted from another lilypond voice:
   << 

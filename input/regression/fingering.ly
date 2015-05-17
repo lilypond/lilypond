@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Automatic fingering tries to put fingering instructions
@@ -8,8 +8,8 @@ next to noteheads.
 
 \layout { ragged-right= ##t }
 
-\relative c' {
-  c4-4
+\relative {
+  c'4-4
   <c-1 f-4>
   < c-1 e-2 g-3  b-4 >
 }

@@ -10,13 +10,13 @@ They have fixed size. Their formatting can be tuned with
 "
   }
 
-\version "2.17.6"
+\version "2.19.21"
 \paper {
   ragged-right = ##t
 }
 
-\relative c' {
-  <c e g>\laissezVibrer r4
+\relative {
+  <c' e g>\laissezVibrer r4
   <c f g>\laissezVibrer r
   <c d f g>\laissezVibrer r
   <c d f g>4.\laissezVibrer r8

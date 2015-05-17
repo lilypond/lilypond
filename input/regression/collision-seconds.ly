@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Seconds do not confuse the collision algorithm.
@@ -7,7 +7,7 @@ or come relatively close, but the second in each measure needs
 more space to make clear which notes belong to which voice."
 }
 
-\relative f << {
+\relative << {
   <a' b>2 <a b d e> <a e' f> <a e' f> <a b c> <f g a>
   \bar "||" <f g c> <g a c> <f g c d> <f g c d>
 } \\ {

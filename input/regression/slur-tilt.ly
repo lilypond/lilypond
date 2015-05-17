@@ -8,11 +8,11 @@ point into one note head, and point over another note head."
 \layout {
     ragged-right = ##t
 }
-\version "2.16.0"
+\version "2.19.21"
 
-\relative c'' {
+\relative {
     \time 2/4
-    g8( f)
+    g'8( f)
     a( f)
     b( f)
     c'( f,)

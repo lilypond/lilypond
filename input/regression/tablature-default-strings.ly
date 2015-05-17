@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "
@@ -7,7 +7,7 @@ for fret calculations if no strings are defined explicitly.
 "
 }
 
-mymusic = \relative c {
+mymusic = \relative {
   <c c'>4
   \set defaultStrings = #'(5 3)
   <c c'>4

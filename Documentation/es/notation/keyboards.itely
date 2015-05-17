@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.19.21"
 
 @node Teclados y otros instrumentos de varios pentagramas
 @section Teclados y otros instrumentos de varios pentagramas
@@ -333,7 +333,7 @@ en el pentagrama inferior:
   \new Staff = "up" {
     \new Voice = "melodiaUno" {
       \key g \major
-      \autochange \relative c' {
+      \autochange \relative {
         g8 b a c b d c e
         d8 r fis, g a2
       }

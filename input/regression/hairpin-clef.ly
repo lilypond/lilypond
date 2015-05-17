@@ -1,10 +1,10 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Broken hairpins are not printed too high after treble clefs.
 "
 }
 
-\relative c'' {
-  c4^\< c c c \break c c c c\! |
+\relative {
+  c''4^\< c c c \break c c c c\! |
 }

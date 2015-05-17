@@ -9,7 +9,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @c Translators: Till Paala
 
@@ -670,7 +670,7 @@ Der letzte Bogen erhält 10.04 Punkte für die Lücke rechts und
 der drei Varianten, sodass LilyPond ihn auswählt:
 
 @lilypond
-\relative c {
+\relative {
   \clef bass
   e8[(_"12.04" f] g[ a b d,)] r4
 }
@@ -796,10 +796,10 @@ dem Wohltemperierten Clavier 1, BWV 861 von J. S. Bach entschieden,
 mit dem Hauptthema:
 
 @lilypond
-\relative c' {
+\relative {
   \key g \minor
   \clef "treble_8"
-  r8 d ees g, fis4 g
+  r8 d' ees g, fis4 g
   r8 a16 bes c8 bes16 a bes8
 }
 @end lilypond
@@ -1105,12 +1105,12 @@ Nehmen wir etwa die hierarchische Natur der Musiknotation:
 
 @lilypond[quote,fragment]
 <<
-  \new Staff \relative c'' {
+  \new Staff \relative {
     \key g \major
     \time 3/4
-    d4 g,8 a b c d4 g, g
+    d''4 g,8 a b c d4 g, g
   }
-  \new Staff \relative c' {
+  \new Staff \relative {
     \clef "bass"
     \key g \major
     <g b d>2 a4 b2.
@@ -1172,7 +1172,7 @@ Beispiel heranzieht:
     }
   >>
   \new Staff = "LH" <<
-    \new Voice = "III" \relative c' {
+    \new Voice = "III" \relative {
       \time 2/4
       \clef "bass"
       g4 \stopStaff s
@@ -1574,9 +1574,9 @@ ein Liedblatt.
 <<
    \chords { c2 c f2 c }
    \new Staff
-   \relative c' {
+   \relative {
      \time 2/4
-     c4 c g' g a a g2
+     c'4 c g' g a a g2
    }
    \addlyrics { twin -- kle twin -- kle lit -- tle star }
 >>

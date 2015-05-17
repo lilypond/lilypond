@@ -1,4 +1,4 @@
-\version "2.17.25"
+\version "2.19.21"
 #(use-modules (srfi srfi-13)
               (ice-9 format))
 
@@ -189,7 +189,7 @@ stderr of this run."
 \test ##[ { 4 4 8 \tuplet 3/2 { 8[ 16] } 16 } #]
 
 %% \relative and \tranpose
-\test #"NOT A BUG" ##[ \relative c' { c4 b4 } #]	% RelativeOctaveMusic
+\test #"NOT A BUG" ##[ \relative { c'4 b4 } #]	% RelativeOctaveMusic
 \test #"NOT A BUG" ##[ \transpose c d { c4 d4 } #]	% TransposedMusic
 
 %% Repeats

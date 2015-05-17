@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.19.21"
 
 @c Translators: Yoshiki Sawada
 
@@ -94,8 +94,8 @@ Windows や Mac OS X のコマンド ラインを用いて @code{lilypond-book} 
 例えば、以下のように:
 
 \begin{lilypond}
-\relative c' {
-  c2 e2 \tuplet 3/2 { f8 a b } a2 e4
+\relative {
+  c'2 e2 \tuplet 3/2 { f8 a b } a2 e4
 }
 \end{lilypond}
 
@@ -156,8 +156,8 @@ Texinfo で処理されるため、上記の例とはレイアウトが少し異
 例えば、以下のように:
 
 @lilypond
-\relative c' {
-  c2 e2 \tuplet 3/2 { f8 a b } a2 e4
+\relative {
+  c'2 e2 \tuplet 3/2 { f8 a b } a2 e4
 }
 @end lilypond
 
@@ -181,8 +181,8 @@ c'4 f16
     title = "A scale in LilyPond"
   }
 
-  \relative c' {
-    c d e f g a b c
+  \relative {
+    c' d e f g a b c
   }
 }
 @end lilypond
@@ -794,8 +794,8 @@ LilyPond コマンドの引数をそのまま出力ファイルにコピーし�
 つまり、
 
 @example
-\relative c' @{ % begin verbatim
-  c4 e2 g4
+\relative @{ % begin verbatim
+  c'4 e2 g4
   f2 e % end verbatim
 @}
 @end example
@@ -1186,8 +1186,8 @@ LilyPond 断片を LaTex ドキュメントに組み込むことができます�
 通常の LaTeX テキスト。
 
 \begin@{lilypond@}
-\relative c'' @{
-  a4 b c d
+\relative @{
+  a'4 b c d
 @}
 \end@{lilypond@}
 
@@ -1212,7 +1212,7 @@ LilyPond 断片を Texinfo に組み込むことができます。@c
 Texinfo テキスト
 
 @@lilypond
-\relative c' @{
+\relative @{
   a4 b c d
 @}
 @@end lilypond
@@ -1240,8 +1240,8 @@ d4 c b a
 以下のように、lilypond-book 用のドキュメントには自由に楽譜と
 テキストを組み合わせることができます。
 <lilypond>
-\relative c'' @{
-  a4 b c d
+\relative @{
+  a'4 b c d
 @}
 </lilypond>
 </p>

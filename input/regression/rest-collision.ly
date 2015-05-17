@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.21"
 \header{
   texidoc="
 Rests should not collide with beams, stems and noteheads.  Rests may
@@ -12,16 +12,16 @@ cases.
 
 \layout { ragged-right = ##t }
 
-scale =  \relative c' {
-  c8 d e f g a b c c d e f g a b c
+scale =  \relative {
+  c'8 d e f g a b c c d e f g a b c
 
 }
 rests =              {
   r r r  r r r r r r r r r r r r r
 } 
 different = <<  {
-  \relative c'' {
-    r8 a e4 a e
+  \relative {
+    r8 a' e4 a e
   }
 }\\ {
   

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @c Translators: Till Paala
 
@@ -176,7 +176,7 @@ und darin den @code{TabVoice}-Kontext benutzt.  Ein kalligraphischer
 Tabulaturschlüssel wird automatisch hinzugefügt.
 
 @lilypond[quote,ragged-right,verbatim]
-\new TabStaff \relative c' {
+\new TabStaff \relative {
   a,8 a' <c e> a
   d,8 a' <d f> a
 }
@@ -251,14 +251,14 @@ indem @code{restrainOpenStrings} auf @code{#t} gesetzt wird.
 @lilypond[quote,ragged-right,verbatim]
 \layout { \omit Voice.StringNumber }
 \new StaffGroup <<
-   \new Staff \relative c {
+   \new Staff \relative {
      \clef "treble_8"
      \time 2/4
      c16 d e f g4
      c,16\5 d\5 e\4 f\4 g4\4
      c,16 d e f g4
    }
-   \new TabStaff \relative c {
+   \new TabStaff \relative {
      c16 d e f g4
      c,16\5 d\5 e\4 f\4 g4\4
      \set TabStaff.minimumFret = #5
@@ -287,7 +287,7 @@ Akkordwiederholungen gewünscht sind.  Der Befehl ist so wichtig,
 dass er durch @code{\tabChordRepeats} zur Verfügung gestellt wird.
 
 @lilypond[quote,verbatim]
-guitar = \relative c' {
+guitar = \relative {
   r8 <gis-2 cis-3 b-0>~ q4 q8~ 8 q4
 }
 
@@ -560,15 +560,15 @@ geschrieben ist:
     \omit StringNumber
   } {
     \clef "bass_8"
-    \relative c, {
-      c4 d e f
+    \relative {
+      c,4 d e f
     }
   }
   \new TabStaff \with {
     stringTunings = #bass-tuning
   } {
-    \relative c, {
-      c4 d e f
+    \relative {
+      c,4 d e f
     }
   }
 >>
@@ -1761,7 +1761,7 @@ Gedämpfte oder gestoppte Noten werden in normalen und Tabulatur-Systemen
 unterstützt:
 
 @lilypond[quote,ragged-right,verbatim]
-music = \relative c' {
+music = \relative {
   < a\3 \deadNote c\2 a'\1 >4
   < b\3 \deadNote d\2 b'\1 >
   < c\3 \deadNote e\2 c'\1 >

@@ -5,9 +5,9 @@ proper padding > 0 to the start of the staff lines."
 
 }
 
-\version "2.16.0"
+\version "2.19.21"
 
-m = \relative c' { \key f \major c8 }
+m = \relative { \key f \major c'8 }
 
 % Default spacing should not be affected
 \score {

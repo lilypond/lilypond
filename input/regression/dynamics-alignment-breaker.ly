@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Hairpins, DynamicTextSpanners and dynamics can be
@@ -7,8 +7,8 @@ causes the alignment spanner to end prematurely.
 "
 }
 
-\relative c' {
-  c1^\<
+\relative {
+  c'1^\<
   \dimTextDim
   c1_\>
   f,1\p

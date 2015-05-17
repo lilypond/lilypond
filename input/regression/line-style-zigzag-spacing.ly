@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "Setting @code{'zigzag} style for spanners does not
@@ -8,8 +8,8 @@ the second markup and default trillspanner.
 "
 }
 
-\relative c' {
-  c1^"text"
+\relative {
+  c'1^"text"
   \override TrillSpanner.style = #'zigzag
   c1\startTrillSpan
   c2^\stopTrillSpan c^"text"

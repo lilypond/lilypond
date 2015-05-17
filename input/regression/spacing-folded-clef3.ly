@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Voices that go back and forth between staves do not confuse the spacing engine."
@@ -7,9 +7,9 @@
 \paper { ragged-right = ##t }
 
 \new PianoStaff <<
-        \new Staff = "rh" \relative c'' {
+        \new Staff = "rh" \relative {
                 \time 6/8
-                bes16 c d
+                bes'16 c d
                 \change Staff = lh
                 \stemUp bes a g
                 \change Staff = rh
@@ -25,9 +25,9 @@
 >>
 
 \new PianoStaff <<
-        \new Staff = "rh" \relative c'' {
+        \new Staff = "rh" \relative {
                 \time 6/8
-                bes16 c d
+                bes'16 c d
                 \change Staff = lh
                 \stemUp bes a g
                 \change Staff = rh

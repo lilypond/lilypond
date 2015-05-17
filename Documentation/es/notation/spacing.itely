@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.12"
+@c \version "2.19.21"
 
 @ignore
 GDP TODO list
@@ -1160,7 +1160,7 @@ adecuado, por ejemplo:
     tagline = ##f
   }
   \score {
-    \relative c'' { c1 \break c1 \break c1 }
+    \relative { c''1 \break c1 \break c1 }
   }
 }
 @end lilypond
@@ -1535,9 +1535,9 @@ paralelo con la música:
 @lilypond[quote,ragged-right,verbatim]
 \new Voice \with {
   \remove "Forbid_line_break_engraver"
-} \relative c'' {
+} \relative {
   <<
-    { c2. \tuplet 3/2 { c4 c c } c2. | }
+    { c''2. \tuplet 3/2 { c4 c c } c2. | }
     { s1 | \break s1 | }
   >>
 }
@@ -1887,7 +1887,7 @@ las instrucciones @code{\pageBreak} explícitas y en ningún otro lugar.
   ragged-bottom = ##t
 }
 
-music = \relative c'' { c8 c c c }
+music = \relative { c''8 c c c }
 
 \score {
   \new Staff {
@@ -1923,7 +1923,7 @@ La información sobre saltos de línea y de página suele aparecer
 directamente entremezclado dentro del código de notas.
 
 @example
-music = \relative c'' @{ c4 c c c @}
+music = \relative @{ c''4 c c c @}
 
 \score @{
   \new Staff @{
@@ -1944,7 +1944,7 @@ contiene solamente desplazamientos o @q{skips} junto con los
 disposición de los saltos.
 
 @lilypond[quote,verbatim]
-music = \relative c'' { c4 c c c }
+music = \relative { c''4 c c c }
 
 \header { tagline = ##f }
 \paper { left-margin = 0\mm }
@@ -1974,7 +1974,7 @@ propiedades de @code{NonMusicalPaperColumnGrob}, como se explica en
 @ref{Espaciado vertical}.
 
 @lilypond[quote,verbatim]
-music = \relative c'' { c4 c c c }
+music = \relative { c''4 c c c }
 
 \header { tagline = ##f }
 \paper { left-margin = 0\mm }
@@ -3131,8 +3131,8 @@ que @code{ly:make-moment} construye una duración, por lo que @code{1
 
 @lilypond[verbatim,line-width=12\cm]
 \score {
-  \relative c'' {
-    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+  \relative {
+    g'4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
     g4 e e2 | f4 d d2 | c4 e g g | c,1 |
     d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
     g4 e e2 | f4 d d2 | c4 e g g | c,1 |
@@ -3142,8 +3142,8 @@ que @code{ly:make-moment} construye una duración, por lo que @code{1
 
 @lilypond[verbatim,line-width=12\cm]
 \score {
-  \relative c'' {
-    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+  \relative {
+    g'4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
     g4 e e2 | f4 d d2 | c4 e g g | c,1 |
     d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
     g4 e e2 | f4 d d2 | c4 e g g | c,1 |
@@ -3766,8 +3766,8 @@ El ejemplo siguiente ilustra el espaciado predeterminado:
 
 @lilypond[verbatim,quote]
 \score {
-  \relative c'' {
-    g4 e e2 |
+  \relative {
+    g'4 e e2 |
     f4 d d2 |
     c4 d e f |
     g4 g g2 |
@@ -3784,8 +3784,8 @@ duración se produce un efecto de @q{apretujamiento}:
 
 @lilypond[verbatim,quote]
 \score {
-  \relative c'' {
-    g4 e e2 |
+  \relative {
+    g'4 e e2 |
     f4 d d2 |
     c4 d e f |
     g4 g g2 |

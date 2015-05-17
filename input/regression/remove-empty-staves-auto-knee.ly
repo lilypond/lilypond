@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "
@@ -11,8 +11,8 @@ should be between the two staves.
 staffMusic = \new StaffGroup {
   <<
     \new Staff = "rh" {
-      \relative c' {
-        c1 \break
+      \relative {
+        c'1 \break
         c1 \break
         c8[ c c c
         \change Staff = "lh"
@@ -22,7 +22,7 @@ staffMusic = \new StaffGroup {
       }
     }
     \new Staff = "lh" {
-      \relative c {
+      \relative {
         \clef bass
         c1
         R1

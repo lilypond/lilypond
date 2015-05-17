@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.18.0"
+@c \version "2.19.21"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
@@ -435,8 +435,8 @@ avec ou sans extenseur, ainsi que les indications de pédale.
 
 @lilypond[verbatim,quote]
 <<
-  \new Staff \relative c' {
-    c2 d4 e |
+  \new Staff \relative {
+    c'2 d4 e |
     c4 e e,2 |
     g'4 a g a |
     c1 |
@@ -534,8 +534,8 @@ consiste à utiliser un objet @code{\markup}.
 @lilypond[verbatim,quote]
 moltoF = \markup { molto \dynamic f }
 
-\relative c' {
-  <d e>16_\moltoF <d e>
+\relative {
+  <d' e>16_\moltoF <d e>
   <d e>2..
 }
 @end lilypond
@@ -559,8 +559,8 @@ roundF = \markup {
     \center-align \concat { \bold { \italic ( }
            \dynamic f \bold { \italic ) } } }
 boxF = \markup { \bracket { \dynamic f } }
-\relative c' {
-  c1_\roundF
+\relative {
+  c'1_\roundF
   c1_\boxF
 }
 @end lilypond
@@ -575,8 +575,8 @@ nuance.
 
 @lilypond[verbatim,quote]
 sfzp = #(make-dynamic-script "sfzp")
-\relative c' {
-  c4 c c\sfzp c
+\relative {
+  c'4 c c\sfzp c
 }
 @end lilypond
 
@@ -602,8 +602,8 @@ mfEspress = \markup { \center-align \line {
 roundFdynamic = #(make-dynamic-script roundF)
 boxFdynamic = #(make-dynamic-script boxF)
 mfEspressDynamic = #(make-dynamic-script mfEspress)
-\relative c' {
-  c4_\roundFdynamic\< d e f
+\relative {
+  c'4_\roundFdynamic\< d e f
   g,1~_\boxFdynamic\>
   g
   g'~\mfEspressDynamic
@@ -620,8 +620,8 @@ modalités.
 moltoF = #(make-dynamic-script
             (markup #:normal-text "molto"
                     #:dynamic "f"))
-\relative c' {
-  <d e>16 <d e>
+\relative {
+  <d' e>16 <d e>
   <d e>2..\moltoF
 }
 @end lilypond
@@ -634,8 +634,8 @@ moltoF = \tweak DynamicText.self-alignment-X #LEFT
          #(make-dynamic-script
             (markup #:normal-text "molto"
                     #:dynamic "f"))
-\relative c' {
-  <d e>16 <d e>
+\relative {
+  <d' e>16 <d e>
   <d e>2..\moltoF <d e>1
 }
 @end lilypond

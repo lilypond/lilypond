@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header
 {
@@ -15,8 +15,8 @@ dynScript =
 #(define-music-function (parser location text) (string?)
    (make-dynamic-script text))
 
-\relative c' {
-  c1-\dynScript "pp"
+\relative {
+  c'1-\dynScript "pp"
   c^\dynScript "fp"
   c_\dynScript "spz"
 }

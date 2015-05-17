@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.19.21"
 
 @c Translators: Ludovic Sardain, Jean-Charles Malahieude
 @c Translation checkers: Jean-Yves Baudais, Valentin Villenave, John Mandereau
@@ -113,8 +113,8 @@ Beaucoup de problèmes viennent d'un défaut de parité entre @code{@{} et
 
 @example
 \new Staff @{
-  \relative g' @{
-    r4 g8 g c8 c4 d |
+  \relative @{
+    r4 g'8 g c8 c4 d |
     e4 r8 |
     % Ossia section
     <<
@@ -132,7 +132,7 @@ Beaucoup de problèmes viennent d'un défaut de parité entre @code{@{} et
 est bien plus facile à appréhender que
 
 @example
-\new Staff @{ \relative g' @{ r4 g8 g c4 c8 d | e4 r8
+\new Staff @{ \relative @{ r4 g'8 g c4 c8 d | e4 r8
 % Ossia section
 << @{ f8 c c @} \new Staff @{ f8 f c @} >> r4 | @} @}
 @end example
@@ -224,8 +224,8 @@ dans une nouvelle version de LilyPond, alors que la définition du
 @code{violon} l'est beaucoup moins.
 
 @example
-violon = \relative c'' @{
-g4 c'8. e16
+violon = \relative @{
+g'4 c'8. e16
 @}
 @dots{}
 \score @{
@@ -248,8 +248,8 @@ définition du @code{violon}.
 @example
 fpuisp = _\markup@{
  \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p @}
-violon = \relative c'' @{
-g4\fpuisp c'8. e16
+violon = \relative @{
+g'4\fpuisp c'8. e16
 @}
 @end example
 
@@ -297,9 +297,9 @@ le cas, placez en commentaire toute la partie de basse, mais laissez
 @code{\basse} décommenté dans le bloc @code{\score}.
 
 @example
-basse = \relative c' @{
+basse = \relative @{
 %@{
-  c4 c c c
+  c'4 c c c
   d d d d
 %@}
 @}

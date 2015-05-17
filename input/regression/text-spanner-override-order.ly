@@ -5,10 +5,10 @@
 
 }
 
-\version "2.17.6"
+\version "2.19.21"
 
-sample = \relative c'' {
-  c2\startTextSpan c2 \break
+sample = \relative {
+  c''2\startTextSpan c2 \break
   c2 c2 \stopTextSpan
 }
 

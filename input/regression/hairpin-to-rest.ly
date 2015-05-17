@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 \header {
   texidoc = "Hairpins end at the left edge of a rest."
 }
@@ -6,6 +6,6 @@
 \layout{
   ragged-right=##t
 }
-\relative c'' {
-  c2\p\> r4\!
+\relative {
+  c''2\p\> r4\!
 }

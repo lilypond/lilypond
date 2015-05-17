@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.19.21"
 
 @node External programs
 @chapter External programs
@@ -251,8 +251,8 @@ Hard-coded in the @file{.ly} file:
 
 @example
 \pointAndClickTypes #'note-event
-\relative c' @{
-  c2\f( f)
+\relative @{
+  c'2\f( f)
 @}
 @end example
 
@@ -260,8 +260,8 @@ or
 
 @example
 #(ly:set-option 'point-and-click 'note-event)
-\relative c' @{
-  c2\f( f)
+\relative @{
+  c'2\f( f)
 @}
 @end example
 
@@ -282,8 +282,8 @@ Hard-coded in the @file{.ly} file:
 
 @example
 \pointAndClickTypes #'(note-event dynamic-event)
-\relative c' @{
-  c2\f( f)
+\relative @{
+  c'2\f( f)
 @}
 @end example
 
@@ -291,8 +291,8 @@ or
 
 @example
 #(ly:set-option 'point-and-click '(note-event dynamic-event))
-\relative c' @{
-  c2\f( f)
+\relative @{
+  c'2\f( f)
 @}
 @end example
 

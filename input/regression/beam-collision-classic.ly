@@ -7,7 +7,7 @@
 %  debug-beam-scoring = ##t
 }
 
-\version "2.17.6"
+\version "2.19.21"
 
 \new Staff
 {
@@ -22,18 +22,18 @@
   r8 r4 |
 
   % Ligeti 1st etude.
-  \relative c''
+  \relative
   <<
-    { g8[ a b c d] } \\
+    { g'8[ a b c d] } \\
     { s4. <f, f'>4. }
     >>
   r4.
 
   % Ligeti 1st etude.
-  \relative c''
+  \relative
   <<
     {
-      s4. <g g'>4.
+      s4. <g' g'>4.
     } \\
     {
 %      \override Beam.inspect-quants = #'(-4 . -3)
@@ -43,16 +43,16 @@
   r4.
   
   % Ligeti 1st etude.
-  \relative c'
+  \relative
   <<
-    { <d d'>2. } \\
+    { <d' d'>2. } \\
     { a'8[ b c] }
     >>
 
   % Schubert morgenlied.
   \clef bass
-  \relative c {
-    a16[ d fis d a d]
+  \relative {
+    a,16[ d fis d a d]
   }
   
 }

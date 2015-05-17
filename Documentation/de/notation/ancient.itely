@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.30"
+@c \version "2.19.21"
 
 @c Translators: Till Paala
 
@@ -306,8 +306,8 @@ folgenden Beispiel gezeigt:
 
 @lilypond[quote,ragged-right]
 \score {
-  \relative c'' {
-    a1
+  \relative {
+    a'1
     \break
     g
   }
@@ -2804,9 +2804,9 @@ werden: entweder als einzelne, links ausgerichtete Silbe:
 
 @lilypond[verbatim,ragged-right]
 \include "gregorian.ly"
-chant = \relative c' {
+chant = \relative {
   \clef "G_8"
-  c\breve c4 b4 a c2 c4  \divisioMaior
+  c'\breve c4 b4 a c2 c4  \divisioMaior
   c\breve c4 c f, f \finalis
 }
 

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Horizontal spacing works as expected on tied notes with
@@ -8,9 +8,9 @@ but accidentals that are printed don't collide with anything."
 
 \paper { ragged-right = ##t }
 
-\relative c'
+\relative
 { \time 1/4
-  cis16 cis cis cis~
+  cis'16 cis cis cis~
   cis cis cis cis
   c c c c \break
 

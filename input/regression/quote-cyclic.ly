@@ -1,11 +1,11 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Two quoted voices may refer to each other. In this
 example, there are notes with each full-bar rest."
 }
 
-A = \relative c' { c4 d e f | \cueDuring #"qB" #1 { R1 } | }
+A = \relative { c'4 d e f | \cueDuring #"qB" #1 { R1 } | }
 B = \new Voice \relative c' { \cueDuring #"qA" #1 { R1 } | f4 e d c | }
 
 \addQuote "qA" \A

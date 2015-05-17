@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (_ "Requested string for pitch requires negative fret: string ~a pitch ~a") 1 "#<Pitch c' >")
 #(ly:expect-warning (_ "Ignoring string request and recalculating."))
@@ -20,8 +20,8 @@ all three cases demonstrated.
 
 }
 
-myMusic = \relative c'  {
-  <c\1>1 ^\markup { recalculate }
+myMusic = \relative  {
+  <c'\1>1 ^\markup { recalculate }
   \set TabStaff.handleNegativeFrets = #'include
   <c\1>1 ^ \markup { include }
   \set TabStaff.handleNegativeFrets = #'ignore

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.18.0"
+@c \version "2.19.21"
 
 @c Translators: Jean-Charles Malahieude
 
@@ -895,8 +895,8 @@ structure d'une pièce.
     \consists "Horizontal_bracket_engraver"
   }
 }
-\relative c'' {
-  c2\startGroup
+\relative {
+  c''2\startGroup
   d\stopGroup
 }
 @end lilypond
@@ -910,8 +910,8 @@ Les crochets d'analyses sont susceptibles d'être imbriqués :
     \consists "Horizontal_bracket_engraver"
   }
 }
-\relative c'' {
-  c4\startGroup\startGroup
+\relative {
+  c''4\startGroup\startGroup
   d4\stopGroup
   e4\startGroup
   d4\stopGroup\stopGroup

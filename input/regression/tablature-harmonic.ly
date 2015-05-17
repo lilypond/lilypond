@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 \header {
 
   texidoc = "Harmonics get angled brackets in tablature.
@@ -9,8 +9,8 @@
 }
 
 \new TabVoice
-\relative c' {
-  <c\2 g'\1\harmonic>4
+\relative {
+  <c'\2 g'\1\harmonic>4
   <c g'\1\harmonic>4
   <c\2 g'\harmonic>4
   <c g'\harmonic>4

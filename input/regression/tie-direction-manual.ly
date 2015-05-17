@@ -4,13 +4,13 @@
 This makes correction in complex chords easier."
 
 }
-\version "2.16.0"
+\version "2.19.21"
 \paper
 {
   ragged-right= ##t
 }
 
-\relative c' {
-  <f^~ d'>(  <e f c'>)
+\relative {
+  <f'^~ d'>(  <e f c'>)
 }
 

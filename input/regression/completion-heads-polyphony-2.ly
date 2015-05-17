@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "
@@ -14,8 +14,8 @@ Complex completion heads work properly in a polyphonic environment.
   }
 }
 
-\context Staff \relative c'' <<
-  { c4. c c c4 c4. c4 }
+\context Staff \relative <<
+  { c''4. c c c4 c4. c4 }
   \\
   { g8 g2 g1 g4. }
 >>

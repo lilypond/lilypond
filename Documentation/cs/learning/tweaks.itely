@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @node Ladění výstupu
 @chapter Ladění výstupu
@@ -1476,8 +1476,8 @@ braucht.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
-  \relative g' {
-    r4 g8 g c4 c8 d |
+  \relative {
+    r4 g'8 g c4 c8 d |
     e4 r8
     <<
       { f c c }
@@ -1504,8 +1504,8 @@ wir setzen den Stencil von beiden auf @code{#f}:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
-  \relative g' {
-    r4 g8 g c4 c8 d
+  \relative {
+    r4 g'8 g c4 c8 d
     e4 r8
     <<
       { f8 c c }
@@ -1573,8 +1573,8 @@ Das obige Beispiel könnte also auch so aussehen:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
-  \relative g' {
-    r4 g8 g c4 c8 d
+  \relative {
+    r4 g'8 g c4 c8 d
     e4 r8
     <<
       { f8 c c }
@@ -1644,8 +1644,8 @@ Setzen wir das also in unserem Ossia-Beispiel ein:
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \new Staff ="main" {
-  \relative g' {
-    r4 g8 g c4 c8 d
+  \relative {
+    r4 g'8 g c4 c8 d
     e4 r8
     <<
       { f8 c c }
@@ -1717,8 +1717,8 @@ sie benutzt:
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \new Staff ="main" {
-  \relative g' {
-    r4 g8 g c4 c8 d
+  \relative {
+    r4 g'8 g c4 c8 d
     e4 r8
     <<
       { f8 c c }
@@ -1846,10 +1846,10 @@ Im nächsten Beispiel sehen Sie, wie Noten auf zwei Systemen
 @lilypond[quote,ragged-right,verbatim]
 <<
   \new Staff {
-    \relative c' { c4 a, }
+    \relative { c'4 a, }
   }
   \new Staff {
-    \relative c'''' { c4 a, }
+    \relative { c''''4 a, }
   }
 >>
 @end lilypond
@@ -2906,8 +2906,8 @@ wie im folgenden Beispiel:
 
 @lilypond[quote,ragged-right,verbatim]
 sesquisharp = \markup { \sesquisharp }
- \relative c'' {
-  c4
+ \relative {
+  c''4
   % This prints a sesquisharp but the spacing is too small
   \once \override Accidental.stencil = #ly:text-interface::print
   \once \override Accidental.text = #sesquisharp
@@ -3150,10 +3150,10 @@ Chopin-Beispiel vornehmen, das wir behandelt haben in
 gebracht:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
-\new Staff \relative c'' {
+\new Staff \relative {
   \key aes \major
   <<
-    { c2 aes4. bes8 }
+    { c''2 aes4. bes8 }
     \\
     { aes2 f4 fes }
     \\
@@ -3186,10 +3186,10 @@ Hier das Endergebnis:
 @cindex vertikale Verschiebung, Beispiel
 
 @lilypond[quote,verbatim,fragment,ragged-right]
-\new Staff \relative c'' {
+\new Staff \relative {
   \key aes \major
   <<
-    { c2 aes4. bes8 }
+    { c''2 aes4. bes8 }
     \\
     { aes2 f4 fes }
     \\
@@ -3227,9 +3227,9 @@ zu kompliziert zu machen.
 
 @c This example should not be indexed
 @lilypond[quote,ragged-right,line-width=6\in]
-rhMusic = \relative c'' {
+rhMusic = \relative {
   \new Voice {
-    r2 c4.\( g8 |
+    r2 c''4.\( g8 |
     \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
@@ -3268,8 +3268,8 @@ rhMusic = \relative c'' {
   }
 }
 
-lhMusic = \relative c' {
-  r2 <c g ees>2( |
+lhMusic = \relative {
+  r2 <c' g ees>2( |
   <d g, d>1)\arpeggio |
   r2. d,,4 r4 r |
   r4
@@ -3312,8 +3312,8 @@ erstellt:
 
 @c line-width ensures no break
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
-rhMusic = \relative c'' {
-  \new Voice {    r2 c4. g8 |
+rhMusic = \relative {
+  \new Voice {    r2 c''4. g8 |
     bes1~ |
     \time 6/4
     bes2. r8
@@ -3337,8 +3337,8 @@ rhMusic = \relative c'' {
   }
 }
 
-lhMusic = \relative c' {
-  r2 <c g ees>2 |
+lhMusic = \relative {
+  r2 <c' g ees>2 |
   <d g, d>1 |
   r2. d,,4 r4 r |
   r4
@@ -3372,9 +3372,9 @@ sind schnell gesetzt, denn sie wurden schon in der
 
 @c line-width ensures no break
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
-rhMusic = \relative c'' {
+rhMusic = \relative {
   \new Voice {
-    r2 c4.\( g8 |
+    r2 c''4.\( g8 |
     bes1~ |
     \time 6/4
     bes2. r8
@@ -3398,8 +3398,8 @@ rhMusic = \relative c'' {
   }
 }
 
-lhMusic = \relative c' {
-  r2 <c g ees>2( |
+lhMusic = \relative {
+  r2 <c' g ees>2( |
   <d g, d>1) |
   r2. d,,4 r4 r |
   r4
@@ -3446,9 +3446,9 @@ den Bindebogen (@code{tie}) 3,5 halbe Notenlinienabstände
 Damit ist auch der zweite Takt vollständig:
 
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
-rhMusic = \relative c'' {
+rhMusic = \relative {
   \new Voice {
-    r2 c4.\( g8 |
+    r2 c''4.\( g8 |
     \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
@@ -3474,8 +3474,8 @@ rhMusic = \relative c'' {
   }
 }
 
-lhMusic = \relative c' {
-  r2 <c g ees>2( |
+lhMusic = \relative {
+  r2 <c' g ees>2( |
   <d g, d>1)\arpeggio |
   r2. d,,4 r4 r |
   r4
@@ -3530,9 +3530,9 @@ um das Verhalten wieder auszuschalten. Das sieht so aus:
 @cindex staff-position-Eigenschaft, Beispiel
 
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
-rhMusic = \relative c'' {
+rhMusic = \relative {
   \new Voice {
-    r2 c4.\( g8 |
+    r2 c''4.\( g8 |
     \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
@@ -3562,8 +3562,8 @@ rhMusic = \relative c'' {
   }
 }
 
-lhMusic = \relative c' {
-  r2 <c g ees>2( |
+lhMusic = \relative {
+  r2 <c' g ees>2( |
   <d g, d>1)\arpeggio |
   r2. d,,4 r4 r |
   r4
@@ -3604,9 +3604,9 @@ es die Verschmelzung der Ds nicht stört.  Das sieht jetzt so
 aus:
 
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
-rhMusic = \relative c'' {
+rhMusic = \relative {
   \new Voice {
-    r2 c4.\( g8 |
+    r2 c''4.\( g8 |
     \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
@@ -3638,8 +3638,8 @@ rhMusic = \relative c'' {
   }
 }
 
-lhMusic = \relative c' {
-  r2 <c g ees>2( |
+lhMusic = \relative {
+  r2 <c' g ees>2( |
   <d g, d>1)\arpeggio |
   r2. d,,4 r4 r |
   r4
@@ -3674,9 +3674,9 @@ wir durchsichtig und das C verschieben wir mit der
 @cindex transparent-Eigenschaft, Beispiel
 
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
-rhMusic = \relative c'' {
+rhMusic = \relative {
   \new Voice {
-    r2 c4.\( g8 |
+    r2 c''4.\( g8 |
     \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
@@ -3716,8 +3716,8 @@ rhMusic = \relative c'' {
   }
 }
 
-lhMusic = \relative c' {
-  r2 <c g ees>2( |
+lhMusic = \relative {
+  r2 <c' g ees>2( |
   <d g, d>1)\arpeggio |
   r2. d,,4 r4 r |
   r4
@@ -3956,10 +3956,10 @@ normal = {
 
 global = { \key c \major \time 4/4 \partial 4 }
 
-SopranoMusic = \relative c' { c4 | e4. e8 g4 g    | a4   a   g  }
-AltoMusic    = \relative c' { c4 | c4. c8 e4 e    | f4   f   e  }
-TenorMusic   = \relative c  { e4 | g4. g8 c4.  b8 | a8 b c d e4 }
-BassMusic    = \relative c  { c4 | c4. c8 c4 c    | f8 g a b c4 }
+SopranoMusic = \relative { c'4 | e4. e8 g4 g    | a4   a   g  }
+AltoMusic    = \relative { c'4 | c4. c8 e4 e    | f4   f   e  }
+TenorMusic   = \relative  { e4 | g4. g8 c4.  b8 | a8 b c d e4 }
+BassMusic    = \relative  { c4 | c4. c8 c4 c    | f8 g a b c4 }
 
 VerseOne = \lyrics {
   E -- | ter -- nal \emphasize Fa -- ther, | \normal strong to save,

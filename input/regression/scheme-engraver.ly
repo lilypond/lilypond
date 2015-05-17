@@ -5,7 +5,7 @@
 
 }
 
-\version "2.16.0"
+\version "2.19.21"
 
 #(define (t->m t)
    "Return the current moment of translator object @var{t}."
@@ -48,6 +48,6 @@ engraver_demo =
   }
 }
 
-\relative c' {
-  c8[ r c]
+\relative {
+  c'8[ r c]
 }

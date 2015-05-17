@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Accidentals can be forced with ! and ? even if the
@@ -11,8 +11,8 @@ after a bar line are valid for the whole measure.
   ragged-right = ##t
 }
 
-\relative c'' {
-  gis4 ~ gis!~ gis? r4
+\relative {
+  gis'4 ~ gis!~ gis? r4
   fis1 ~
   fis!2 fis ~
   fis?2 fis

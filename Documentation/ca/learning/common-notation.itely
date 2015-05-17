@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
@@ -795,9 +795,9 @@ l'exemple que segueix, tres seqüències (cadascuna de les quals
 conté dues notes diferents) es combinen de forma simultània:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   <<
-    { a2 g }
+    { a'2 g }
     { f2 e }
     { d2 b }
   >>
@@ -827,8 +827,8 @@ expressió complexa, però com comença amb una sola nota, es
 disposa sobre un sols pentagrama.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  c2 <<c e>> |
+\relative {
+  c''2 <<c e>> |
   << { e2 f } { c2 <<b d>> } >> |
 }
 @end lilypond
@@ -866,9 +866,9 @@ abans d'ell. Aquests elements @code{Staff} es combinen després en
 paral·lel amb @code{<<} y @code{>>}:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   <<
-    \new Staff { \clef "treble" c4 }
+    \new Staff { \clef "treble" c''4 }
     \new Staff { \clef "bass" c,,4 }
   >>
 }
@@ -899,9 +899,9 @@ de què les partitures amb instruments transpositors són més
 comunes que les partitures polirítmiques.
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   <<
-    \new Staff { \clef "treble" \key d \major \time 3/4 c4 }
+    \new Staff { \clef "treble" \key d \major \time 3/4 c''4 }
     \new Staff { \clef "bass" c,,4 }
   >>
 }
@@ -944,9 +944,9 @@ cas l'expressió completa es col·loca dins d'un @code{PianoStaff}:
 Heus aquí un petit exemple:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \new PianoStaff <<
-    \new Staff { \time 2/4 c4 e | g g, | }
+    \new Staff { \time 2/4 c''4 e | g g, | }
     \new Staff { \clef "bass" c,,4 c' | e c | }
   >>
 }
@@ -1069,10 +1069,10 @@ Presentem a continuació l'inici de la melodia d'una cançó
 infantil, @qq{Girls and boys come out to play}:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \key g \major
   \time 6/8
-  d4 b8 c4 a8 | d4 b8 g4
+  d''4 b8 c4 a8 | d4 b8 g4
 }
 @end lilypond
 
@@ -1082,10 +1082,10 @@ separant cada síl·laba mitjançant un espai.
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 | d4 b8 g4
+    d''4 b8 c4 a8 | d4 b8 g4
   }
   \addlyrics {
     Girls and boys come | out to play,
@@ -1119,10 +1119,10 @@ shine as bright as day}.  A continuació l'ampliarem:
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    d''4 b8 c4 a8 | d4 b8 g4 g8 |
     a4 b8 c b a | d4 b8 g4. |
   }
   \addlyrics {
@@ -1155,10 +1155,10 @@ lligadura d'expressió sobre elles (vegeu @ref{Lligadures d'unió i d'expressió
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    d''4 b8 c4 a8 | d4 b8 g4 g8 |
     a4 b8 c( b) a | d4 b8 g4. |
   }
   \addlyrics {
@@ -1176,10 +1176,10 @@ detalls consulteu @ref{Barres automàtiques i manuals}.
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    d''4 b8 c4 a8 | d4 b8 g4 g8 |
     a4 b8 c([ b]) a | d4 b8 g4. |
   }
   \addlyrics {
@@ -1196,10 +1196,10 @@ melisma:
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 | d4 b8 g4 g8 |
+    d''4 b8 c4 a8 | d4 b8 g4 g8 |
     a4 b8 c[ b] a | d4 b8 g4. |
   }
   \addlyrics {
@@ -1219,10 +1219,10 @@ Enees} de Purcell:
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key g \minor
     \time 3/2
-    g2 a bes | bes2( a) b2 |
+    g'2 a bes | bes2( a) b2 |
     c4.( bes8 a4. g8 fis4.) g8 | fis1
   }
   \addlyrics {
@@ -1273,11 +1273,11 @@ del @notation{Barber de Sevilla} de Rossini, on la síl·laba
 @c but the example is long enough to avoid looking strange.
 @lilypond[verbatim,quote,noragged-right]
 <<
-  \relative c' {
+  \relative {
     \clef "bass"
     \key c \major
     \time 6/8
-    c4.~ 8 d b | c8([ d]) b c d b | c8
+    c'4.~ 8 d b | c8([ d]) b c d b | c8
   }
   \addlyrics {
     Lar -- go_al fac -- | to -- tum del -- la cit -- | tà
@@ -1386,13 +1386,13 @@ usar posteriorment col·locant una barra invertida davant del nom
 
 @lilypond[verbatim,quote]
 violin = \new Staff {
-  \relative c'' {
-    a4 b c b
+  \relative {
+    a'4 b c b
   }
 }
 
 cello = \new Staff {
-  \relative c {
+  \relative {
     \clef "bass"
     e2 d
   }
@@ -1550,10 +1550,10 @@ serà origen de nombrosos errors.  Amb @code{\relative}, l'exemple
 anterior és molt més fàcil de llegir:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \key a \major
   \time 6/8
-  cis8. d16 cis8 e4 e8 |
+  cis''8. d16 cis8 e4 e8 |
   b8. cis16 b8 d4 d8 |
 }
 @end lilypond
@@ -1575,7 +1575,7 @@ usant @code{\relative} dins de @code{\relative}, les seccions
 relatives externa i interna són independents:
 
 @lilypond[verbatim,quote]
-\relative c { c'4 \relative c'' { f g } c }
+\relative { c'4 \relative { f'' g } c }
 @end lilypond
 
 @funindex \absolute
@@ -1585,7 +1585,7 @@ instrucció @code{\absolute} per evitar que s'incorpori a la música
 relativa:
 
 @lilypond[verbatim,quote]
-\relative c { c'4 \absolute { f'' g'' } c }
+\relative { c'4 \absolute { f'' g'' } c }
 @end lilypond
 
 @node Més enllà del tutorial

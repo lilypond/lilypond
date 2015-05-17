@@ -4,8 +4,8 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.19.12
-\version "2.19.12"
+%% Note: this file works from version 2.19.21
+\version "2.19.21"
 
 \header {
   lsrtags = "really-simple, template, vocal-music"
@@ -33,28 +33,28 @@ global = {
   \time 4/4
 }
 
-sopMusic = \relative c'' {
-  c4 c c8[( b)] c4
+sopMusic = \relative {
+  c''4 c c8[( b)] c4
 }
 sopWords = \lyricmode {
   hi hi hi hi
 }
 
-altoMusic = \relative c' {
-  e4 f d e
+altoMusic = \relative {
+  e'4 f d e
 }
 altoWords = \lyricmode {
   ha ha ha ha
 }
 
-tenorMusic = \relative c' {
+tenorMusic = \relative {
   g4 a f g
 }
 tenorWords = \lyricmode {
   hu hu hu hu
 }
 
-bassMusic = \relative c {
+bassMusic = \relative {
   c4 c g c
 }
 bassWords = \lyricmode {

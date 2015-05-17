@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.19.21"
 
 @node Sugerencias para escribir archivos de entrada
 @chapter Sugerencias para escribir archivos de entrada
@@ -175,8 +175,8 @@ extremadamente improbable que cambie la definición de @code{violin} en
 versiones nuevas de LilyPond.
 
 @example
-violin = \relative c'' @{
-g4 c'8. e16
+violin = \relative @{
+g'4 c'8. e16
 @}
 @dots{}
 \score @{
@@ -197,8 +197,8 @@ nada dentro de @code{violin}.
 @example
 fluegop = _\markup@{
   \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p @}
-violin = \relative c'' @{
-g4\fluegop c'8. e16
+violin = \relative @{
+g'4\fluegop c'8. e16
 @}
 @end example
 
@@ -246,9 +246,9 @@ en comentarios toda la música del bajo (pero deje el @code{\bajo} de
 la sección @code{\score} no comentado.
 
 @example
-bajo = \relative c' @{
+bajo = \relative @{
 %@{
-  c4 c c c
+  c'4 c c c
   d d d d
 %@}
 @}

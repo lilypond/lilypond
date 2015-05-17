@@ -1,11 +1,11 @@
-\version "2.17.5"
+\version "2.19.21"
 
 \header {
   texidoc = "Three types of double repeat bar line are supported."
 }
 \new StaffGroup <<
-  \new Staff \relative c' {
-    c1
+  \new Staff \relative {
+    c'1
     \mark "\":|:\""
     \bar ":..:"
     c1

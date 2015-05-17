@@ -1,5 +1,5 @@
 
-\version "2.19.2"
+\version "2.19.21"
 
 \header {
   texidoc = "The @code{SpanBarStub} grob takes care of horizontal spacing
@@ -16,8 +16,8 @@ span bar were not there.
   \new GrandStaff <<
     \new Staff
       \new Voice = "upper"
-        \relative c'' {
-          c2 c c c
+        \relative {
+          c''2 c c c
           \once \override Staff.BarLine.allow-span-bar = ##f
           c2 c c c
           c2 c c c
@@ -31,8 +31,8 @@ span bar were not there.
 
     \new Staff
       \new Voice = "middle"
-        \relative c'' {
-          c2 c c c
+        \relative {
+          c''2 c c c
           c2 c c c
           c2 c c c
           \once \override Staff.BarLine.allow-span-bar = ##f
@@ -45,8 +45,8 @@ span bar were not there.
 
     \new Staff
       \new Voice = "lower"
-        \relative c'' {
-          c2 c c c
+        \relative {
+          c''2 c c c
           c2 c c c
           c2 c c c
           c2 c c c

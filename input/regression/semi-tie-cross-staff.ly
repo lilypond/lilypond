@@ -1,4 +1,4 @@
-\version "2.17.18"
+\version "2.19.21"
 
 \header {
   texidoc = "Cross-staff @code{RepeatTie} and @code{LaissezVibrerTie}
@@ -7,8 +7,8 @@ do not trigger programming errors for circular dependencies in direction.
 }
 
 <<
-  \new Staff = "up" \relative c' {
-    f8
+  \new Staff = "up" \relative {
+    f'8
     \change Staff = "down"
     c\laissezVibrer eeses
     \change Staff = "up"

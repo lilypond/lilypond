@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "
@@ -9,9 +9,9 @@ the second beam strictly follows the beat.
 }
 
 
-\relative c'' {
+\relative {
   \time 6/8
-  a8. a16 a a
+  a'8. a16 a a
   \set strictBeatBeaming = ##t
   a8. a16 a a
 }

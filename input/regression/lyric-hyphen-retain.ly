@@ -14,16 +14,16 @@ effect of a setting is delayed is one syllable."
 
 }
 
-\version "2.17.6"
+\version "2.19.21"
 
 \layout {
   ragged-right = ##t
 }
 
 
-\relative c'' {
+\relative {
   \time 2/4
-  c32 c c c 
+  c''32 c c c 
   c32 c c c 
   c32 c c c 
   c32 c c c 

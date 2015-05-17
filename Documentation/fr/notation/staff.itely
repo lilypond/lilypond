@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: John Mandereau
@@ -362,15 +362,15 @@ défaut, mais vous pouvez l'activer par une option au sein du bloc
   \score {
     \new StaffGroup <<
       \new Staff {
-        \relative c'' {
-          c4 c c c
+        \relative {
+          c''4 c c c
           \break
           c4 c c c
         }
       }
       \new Staff {
-        \relative c'' {
-          c4 c c c
+        \relative {
+          c''4 c c c
           \break
           c4 c c c
         }
@@ -605,8 +605,8 @@ Une portée d'@notation{ossia} -- ou de variante -- s'obtient en créant,
 à l'endroit approprié, une nouvelle portée simultanée :
 
 @lilypond[verbatim,quote]
-\new Staff \relative c'' {
-  c4 b d c
+\new Staff \relative {
+  c''4 b d c
   <<
     { c4 b d c }
     \new Staff { e4 d f e }
@@ -629,8 +629,8 @@ L'exemple qui suit utilise, pour aligner la portée d'ossia, la propriété
 lorsqu'il y a un nombre restreint d'ossias.
 
 @lilypond[verbatim,quote]
-\new Staff = "main" \relative c'' {
-  c4 b d c
+\new Staff = "main" \relative {
+  c''4 b d c
   <<
     { c4 b d c }
 
@@ -663,8 +663,8 @@ procéder, bien plus que dans l'exemple suivant.
   }
   { \stopStaff s1*6 }
 
-  \new Staff \relative c' {
-    c4 b c2
+  \new Staff \relative {
+    c'4 b c2
     <<
       { e4 f e2 }
       \context Staff = "ossia" {
@@ -697,12 +697,12 @@ début de ligne.  Pour plus d'information au sujet de la commande
     \remove "Time_signature_engraver"
     \hide Clef
     \magnifyStaff #2/3
-  } \relative c'' {
+  } \relative {
     R1*3
-    c4 e8 d c2
+    c''4 e8 d c2
   }
-  \new Staff \relative c' {
-    c4 b c2
+  \new Staff \relative {
+    c'4 b c2
     e4 f e2
     g4 a g2 \break
     c4 b c2
@@ -765,7 +765,7 @@ Désactiver le graveur @code{Staff_symbol_engraver} dans un contexte
 \new Staff \with {
   \remove "Staff_symbol_engraver"
 }
-\relative c''' { a8 f e16 d c b a2 }
+\relative { a''8 f e16 d c b a2 }
 @end lilypond
 
 L'instruction @code{\Staff \RemoveEmptyStaves} placée dans un bloc
@@ -788,9 +788,9 @@ combinaison de ces éléments.}
   }
 }
 
-\relative c' <<
+\relative <<
   \new Staff {
-    e4 f g a \break
+    e'4 f g a \break
     b1 \break
     a4 b c2
   }
@@ -1027,8 +1027,8 @@ setFlute = {
   shortInstrumentName = #"Flt."
   midiInstrument = #"flute"
 }
-\relative c'' {
-  g1 g g g \break
+\relative {
+  g'1 g g g \break
   g1 g \prepPiccolo R R \break
   \setPiccolo
   g1 g g g \break
@@ -1084,12 +1084,12 @@ arguments : le nom de la voix reproduite, tel que défini par
 cette citation.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  a4 gis g gis | b4^"quoted" r8 ais\p a4( f)
+fluteNotes = \relative {
+  a'4 gis g gis | b4^"quoted" r8 ais\p a4( f)
 }
 
-oboeNotes = \relative c'' {
-  c4 cis c b \quoteDuring #"flute" { s1 }
+oboeNotes = \relative {
+  c''4 cis c b \quoteDuring #"flute" { s1 }
 }
 
 \addQuote "flute" { \fluteNotes }
@@ -1107,12 +1107,12 @@ autre chose que du silence, il en résulterait une situation
 polyphonique, ce qui n'est pas le but recherché :
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  a4 gis g gis | b4^"quoted" r8 ais\p a4( f)
+fluteNotes = \relative {
+  a'4 gis g gis | b4^"quoted" r8 ais\p a4( f)
  }
 
-oboeNotes = \relative c'' {
-  c4 cis c b \quoteDuring #"flute" { e4 r8 ais b4 a }
+oboeNotes = \relative {
+  c''4 cis c b \quoteDuring #"flute" { e4 r8 ais b4 a }
 }
 
 \addQuote "flute" { \fluteNotes }
@@ -1136,8 +1136,8 @@ clarinetNotes = \relative c'' {
   b4 ais a ais | cis4^"quoted" r8 bis\p b4( f)
 }
 
-oboeNotes = \relative c'' {
-  c4 cis c b \quoteDuring #"clarinet" { s1 }
+oboeNotes = \relative {
+  c''4 cis c b \quoteDuring #"clarinet" { s1 }
  }
 \addQuote "clarinet" { \clarinetNotes }
 
@@ -1165,13 +1165,13 @@ permet de définir plus précisément quels éléments de la voix originelle
 seront reproduits.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  a2 g2 |
+fluteNotes = \relative {
+  a'2 g2 |
   b4\<^"quoted" r8 ais a4\f( c->)
  }
 
-oboeNotes = \relative c'' {
-  c2. b4 |
+oboeNotes = \relative {
+  c''2. b4 |
   \quoteDuring #"flute" { s1 }
 }
 
@@ -1312,8 +1312,8 @@ notes seront attachées à la première ou à la seconde voix -- @code{UP}
 pour la première, @code{DOWN} pour la seconde.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  r2. c4 | d8 c d e fis2 | g2 d |
+fluteNotes = \relative {
+  r2. c''4 | d8 c d e fis2 | g2 d |
 }
 
 oboeNotes = \relative c'' {
@@ -1344,8 +1344,8 @@ l'expression musicale se serait retrouvée dans le contexte
 @code{CueVoice}.}
 
 @lilypond[verbatim,quote]
-oboeNotes = \relative c'' {
-  r2 r8 d16(\f f e g f a)
+oboeNotes = \relative {
+  r2 r8 d''16(\f f e g f a)
   g8 g16 g g2.
 }
 \addQuote "oboe" { \oboeNotes }
@@ -1365,8 +1365,8 @@ d'une clef différente, celle-ci devra être introduite manuellement, tout
 comme l'originale qui devra être rappelée en fin de citation.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  r2. c4 d8 c d e fis2 g2 d2
+fluteNotes = \relative {
+  r2. c''4 d8 c d e fis2 g2 d2
 }
 
 bassoonNotes = \relative c {
@@ -1391,8 +1391,8 @@ grâce à un argument supplémentaire, de gérer le changement de clef
 nécessaire à la citation et le retour à la clef originelle.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  r2. c4 d8 c d e fis2 g2 d2
+fluteNotes = \relative {
+  r2. c''4 d8 c d e fis2 g2 d2
 }
 
 bassoonNotes = \relative c {
@@ -1426,10 +1426,10 @@ argument supplémentaire afin de spécifier la transposition à effectuer
 en hauteur absolue.
 
 @lilypond[verbatim,quote]
-piccoloNotes = \relative c''' {
+piccoloNotes = \relative {
   \clef "treble^8"
   R1
-  c8 c c e g2
+  c'''8 c c e g2
   c4 g g2
 }
 
@@ -1466,8 +1466,8 @@ faites appel à des balises -- voir @ref{Utilisation de balises} à ce
 sujet.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  r2. c4 d8 c d e fis2 g2 d2
+fluteNotes = \relative {
+  r2. c''4 d8 c d e fis2 g2 d2
 }
 
 bassoonNotes = \relative c {

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 
 \header {
@@ -9,8 +9,8 @@ No segfault should occur in this case.
 }
 
 mypart = \bookpart {
-  \relative c' {
-    c1
+  \relative {
+    c'1
   }
 }
 

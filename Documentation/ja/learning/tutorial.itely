@@ -10,7 +10,7 @@
 
 @include included/generating-output.itexi
 
-@c \version "2.16.0"
+@c \version "2.19.21"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -239,8 +239,8 @@ LilyPond はいくつかの記譜要素を自動的に追加します。@c
 
 @lilypond[verbatim,quote]
 % set the starting point to middle C
-\relative c' {
-  c d e f
+\relative {
+  c' d e f
   g a b c
 }
 @end lilypond
@@ -253,8 +253,8 @@ LilyPond はいくつかの記譜要素を自動的に追加します。@c
 より大きな音程を持つ旋律を作ることができます:
 
 @lilypond[verbatim,quote]
-\relative c' {
-  d f a g
+\relative {
+  d' f a g
   c b f d
 }
 @end lilypond
@@ -269,8 +269,8 @@ LilyPond はいくつかの記譜要素を自動的に追加します。@c
 
 @lilypond[verbatim,quote]
 % one octave above middle C
-\relative c'' {
-  e c a c
+\relative {
+  e'' c a c
 }
 @end lilypond
 
@@ -285,8 +285,8 @@ A, G, F である場合は B の下に置かれます。
 
 @c KEEP LY
 @lilypond[verbatim,quote]
-\relative c'' {
-  b c  % c は b よりも 1 譜表スペース上なので、c は b の上になります
+\relative {
+  b' c  % c は b よりも 1 譜表スペース上なので、c は b の上になります
   b d  % d は 2 つ上または 5 つ下なので、d は上になります
   b e  % e は 3 つ上または 4 つ下なので、e は上になります
   b a  % a は 6 つ上または 1 つ下なので、a は下になります
@@ -307,8 +307,8 @@ A, G, F である場合は B の下に置かれます。
 下げることができます。
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a a, c' f,
+\relative {
+  a' a, c' f,
   g g'' a,, f'
 }
 @end lilypond
@@ -353,8 +353,8 @@ A, G, F である場合は B の下に置かれます。
 最初の音符のデフォルトの演奏時間は 4 分音符です。
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a1
+\relative {
+  a'1
   a2 a4 a8 a
   a16 a a a a32 a a a a64 a a a a a a a a2
 }
@@ -365,8 +365,8 @@ A, G, F である場合は B の下に置かれます。
 付点音符の演奏時間は明記されなければなりません (つまり、数字で)。
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a4 a a4. a8
+\relative {
+  a'4 a a4. a8
   a8. a16 a a8. a8 a4.
 }
 @end lilypond
@@ -384,8 +384,8 @@ A, G, F である場合は B の下に置かれます。
 @notation{休符}は @code{r} という名前の音符のような形で入力されます:
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a r r2
+\relative {
+  a' r r2
   r8 a r4 r4. r8
 }
 @end lilypond
@@ -405,9 +405,9 @@ A, G, F である場合は B の下に置かれます。
 @notation{拍子記号}は @code{\time} コマンドでセットすることができます:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \time 3/4
-  a4 a a
+  a'4 a a
   \time 6/8
   a4. a
   \time 4/4
@@ -463,9 +463,9 @@ A, G, F である場合は B の下に置かれます。
 @notation{音部記号}は @code{\clef} コマンドを使ってセットすることができます:
 
 @lilypond[verbatim,quote]
-\relative c' {
+\relative {
   \clef treble
-  c1
+  c'1
   \clef alto
   c1
   \clef tenor
@@ -773,8 +773,8 @@ LilyPond で発生する問題をトラブルシュートすることは、@c
 
 @c no verbatim here
 @lilypond[quote]
-\relative c'' {
-  c-\markup { \bold \huge { ここをクリックしてください } }
+\relative {
+  c''-\markup { \bold \huge { ここをクリックしてください } }
 }
 @end lilypond
 

@@ -4,14 +4,14 @@
 
 }
 
-\version "2.17.6"
+\version "2.19.21"
 
 \layout {
   ragged-right = ##t
 }
 
-fragment = \relative c' {
-  c4:64 c:64 c8:64 c:64 c:64 c:64 c:64
+fragment = \relative {
+  c'4:64 c:64 c8:64 c:64 c:64 c:64 c:64
 }
 
 

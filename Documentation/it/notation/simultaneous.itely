@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
@@ -226,8 +226,8 @@ specificata con un'ottava diversa.
 \new Voice
 \relative c'' {
   \chordRepeats #'(articulation-event)
-  \relative c''
-  { <a-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
+  \relative
+  { <a'-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
   q2 c |
 }
 @end lilypond
@@ -788,10 +788,10 @@ nel file di input non deve essere lo stesso dell'ordine verticale delle
 voci del rigo!}
 
 @lilypond[quote,verbatim]
-\new Staff \relative c'' {
+\new Staff \relative {
   %% inserimento abbreviato
   <<
-    { f2  }  % 1: più alta
+    { f''2  }  % 1: più alta
     \\
     { g,2 }  % 2: più bassa
     \\
@@ -908,17 +908,17 @@ gambi sono regolate di conseguenza.  Si usano le stesse variabili
 per le parti indipendenti e il rigo combinato.
 
 @lilypond[quote,verbatim]
-instrumentOne = \relative c' {
-  c4 d e f |
+instrumentOne = \relative {
+  c'4 d e f |
   R1 |
   d'4 c b a |
   b4 g2 f4 |
   e1 |
 }
 
-instrumentTwo = \relative g' {
+instrumentTwo = \relative {
   R1 |
-  g4 a b c |
+  g'4 a b c |
   d4 c b a |
   g4 f( e) d |
   e1 |
@@ -1019,8 +1019,8 @@ instrumentOne = \relative c' {
   \partcombineApart c2^"separato" \partcombineChordsOnce e^"accordo una volta sola" |
   c2 c |
 }
-instrumentTwo = \relative c' {
-  c2 c |
+instrumentTwo = \relative {
+  c'2 c |
   e2 e |
   a,2 c |
   c2 c' |

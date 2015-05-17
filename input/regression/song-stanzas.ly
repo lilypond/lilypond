@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 \header {
   texidoc="Festival song synthesis output supports
 multiple stanzas.
@@ -9,7 +9,7 @@ multiple stanzas.
 \festival #"song-stanzas.xml" { \tempo 4 = 100 }
 {
 \time 3/4
-\relative c' { c2 e4 g2. }
+\relative { c'2 e4 g2. }
 \addlyrics { play the game }
 \addlyrics { speel het spel }
 \addlyrics { joue le jeu }

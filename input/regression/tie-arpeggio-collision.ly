@@ -8,12 +8,12 @@ unarpegiated case."
   
 }
 
-\version "2.16.0"
+\version "2.19.21"
 
 
 \layout { ragged-right = ##t }
-\new Staff \relative c'' {
-  <e c a f>2~ <e c a f> |
+\new Staff \relative {
+  <e'' c a f>2~ <e c a f> |
   \set tieWaitForNote = ##t
   e8~ c~ a~ f~ <e' c a f>2 |
   f,8~ a~ c~ e~ <f, a c e>2 |

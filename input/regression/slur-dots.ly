@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.21"
 \header{
   texidoc="Slurs should not get confused by augmentation dots.  With a lot
 of dots, the problems becomes more visible."
@@ -9,8 +9,8 @@ of dots, the problems becomes more visible."
   ragged-right = ##t
 }
 
-\relative c'' {
-  c4.............( c)
+\relative {
+  c''4.............( c)
 }
 
 

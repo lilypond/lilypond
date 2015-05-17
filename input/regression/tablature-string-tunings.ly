@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 
@@ -11,7 +11,7 @@
 
 \new TabStaff {
   \set TabStaff.stringTunings = \stringTuning <gis'' dis'' ais' f'>
-  \relative c''  { c4 d e f }
+  \relative  { c''4 d e f }
 }
 
 

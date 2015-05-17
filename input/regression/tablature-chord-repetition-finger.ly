@@ -1,4 +1,4 @@
-\version "2.19.2"
+\version "2.19.21"
 
 \header {
   texidoc = "In a TabStaff, the chord repetition function needs
@@ -7,7 +7,7 @@ to retain string and fingering information.  Using
 on the main staff."
 }
 
-Guitar = \relative c' {
+Guitar = \relative {
   r8 < gis-6 cis-6 b-0 > ~ q4 q8 ~ 8 q4
 }
 

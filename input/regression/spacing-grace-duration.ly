@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.21"
 \header {
 
   texidoc = "Spacing uses the duration of the notes, but disregards
@@ -11,10 +11,10 @@
 
 \layout { ragged-right = ##t}
 
-\relative c''
+\relative
 \context Voice 
 {
-  c8[  c8]
+  c''8[  c8]
   \grace {  b16 }
   c8[ c8]  c8[ c8] 
 

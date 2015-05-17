@@ -1,4 +1,4 @@
-\version "2.19.2"
+\version "2.19.21"
 \include "example-header.ily"
 
 \paper {
@@ -200,9 +200,9 @@ motetusWords = \lyricmode {
   mes or ai _ _
 }
 
-motetusNotes = \relative c' {
+motetusNotes = \relative {
   \clef "treble_8"
-  c2. c8\startGroup b8 \slash c\stopGroup | % 1
+  c'2. c8\startGroup b8 \slash c\stopGroup | % 1
 	a2. c4. | d2. e4. | % 2-3
   f2. f8 e d | % 4
 	c2. ~ 4. | r2. r4. | % 5-6
@@ -210,7 +210,7 @@ motetusNotes = \relative c' {
 }
 
 
-tenorNotes = \relative c {
+tenorNotes = \relative {
   \clef "treble_8"
 	f2. | a2. | g2. | r2. | % 1-4
 	c2. | b2. | c2. |  % 5-7

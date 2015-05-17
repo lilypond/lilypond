@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "The command @code{\\alterBroken} may be used to override the
@@ -12,8 +12,8 @@ its usage with a variety of data types."
 
 #(ly:expect-warning (_ "not a spanner name"))
 
-\relative c'' {
-  d4-\alterBroken #'positions #'((3 . 3) (5 . 5))
+\relative {
+  d''4-\alterBroken #'positions #'((3 . 3) (5 . 5))
     -\alterBroken #'color #'((0 0 1) (1 0 0))
     -\alterBroken #'dash-definition #'( ((0 1 0.4 0.75))
                                         ((0 0.5 0.4 0.75) (0.5 1 1 1)) )

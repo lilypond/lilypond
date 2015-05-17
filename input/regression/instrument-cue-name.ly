@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 
@@ -7,8 +7,8 @@ names for cue notes. It can also be unset properly."
   }
 
 
-\relative c'' {
-  c4
+\relative {
+  c''4
   \set Voice.instrumentCueName = "In.1"
   c2.
   \set Voice.instrumentCueName = "I.2"

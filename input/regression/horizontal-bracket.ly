@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 
@@ -24,9 +24,9 @@ analysis brackets start and end.
 }
 
 
-\relative c''
+\relative
 {
-  c4\startGroup\startGroup\startGroup
+  c''4\startGroup\startGroup\startGroup
   c4\stopGroup
   c4\startGroup
   c4\stopGroup\stopGroup

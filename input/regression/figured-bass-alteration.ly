@@ -3,16 +3,16 @@
   texidoc = "Bass figures can carry alterations."
 }
 
-\version "2.16.0"
+\version "2.19.21"
 
 \layout {
   ragged-right= ##t
 }
 
-\relative c'' {
+\relative {
   \new Voice 
   <<
-    { c4 c c }
+    { c''4 c c }
     \figures
     {
       <3- > <3! > <3+ >

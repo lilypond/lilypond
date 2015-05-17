@@ -6,15 +6,15 @@
 }
 
 
-\version "2.16.0"
+\version "2.19.21"
 \paper
 {
   ragged-right = ##t
 }
 
 <<
-  \relative c'' \new Voice {
-    c^"normal" c c c^"extenders" c c c_"implicit" c
+  \relative \new Voice {
+    c''^"normal" c c c^"extenders" c c c_"implicit" c
     }
   \figures {
     <3 6!>

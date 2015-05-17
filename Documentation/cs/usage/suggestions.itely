@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.19.21"
 
 @node Návrhy pro psaní vstupních souborů LilyPond
 @chapter Návrhy pro psaní vstupních souborů LilyPond
@@ -60,7 +60,7 @@ Hier einige Vorschläge, wie Sie Probleme vermeiden oder lösen können:
 @item @strong{Schreiben Sie immer mit @code{\version} die
 Versionsnummer
 in jede Datei}.  Beachten Sie, dass in allen Vorlagen die Versionsnummer
-@code{\version "2.16.0"} eingetragen ist.  Es empfiehlt sich, in alle
+@code{\version "2.19.21"} eingetragen ist.  Es empfiehlt sich, in alle
 Dateien, unabhängig von ihrer Größe, den @code{\version}-Befehl
 einzufügen.  Persönliche Erfahrung hat gezeigt, dass es ziemlich
 frustrierend sein kann zu erinnern, welche Programmversion man etwa
@@ -176,8 +176,8 @@ während die @code{violine}-Definition sich wahrscheinlich mit einer
 neuen Programmversion nicht verändern wird.
 
 @example
-violine = \relative c'' @{
-g4 c'8. e16
+violine = \relative @{
+g'4 c'8. e16
 @}
 ...
 \score @{
@@ -199,8 +199,8 @@ man es nur einmal vorzunehmen und die Noten in der Geigenstimme,
 @example
 fdannp = _\markup@{
   \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p @}
-violin = \relative c'' @{
-g4\fdannp c'8. e16
+violin = \relative @{
+g'4\fdannp c'8. e16
 @}
 @end example
 
@@ -254,9 +254,9 @@ aus, aber nicht den @code{\bass}-Befehl in dem
  @code{\score}-Abschnitt:
 
 @example
-bass = \relative c' @{
+bass = \relative @{
 %@{
-  c4 c c c
+  c'4 c c c
   d d d d
 %@}
 @}

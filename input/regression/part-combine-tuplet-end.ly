@@ -5,7 +5,7 @@ even after a switch, a tuplet ends correctly."
   
 }
 
-\version "2.17.11"
+\version "2.19.21"
 
 \new Staff <<
   \partcombine
@@ -14,6 +14,6 @@ even after a switch, a tuplet ends correctly."
     \tuplet 3/2 { g8[ g g] }
     \tuplet 3/2 { g[ g g] } g1
   }
-  \relative c'' { R1 g1 }
+  \relative { R1 g'1 }
 >>
 

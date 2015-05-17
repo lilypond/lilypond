@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 @c Translators: Pavel Fric
 
 @node Základní pojmy
@@ -63,8 +63,8 @@ tak notová sazba vypadá zřídka, když se tento příkaz
 vynechá.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-\relative c'' {
-  c4 a b c
+\relative {
+  c''4 a b c
 }
 @end lilypond
 
@@ -119,8 +119,8 @@ stavbu.
 Podívejme se na jeden takový jednoduchý příklad:
 
 @example
-\relative c'' @{
-  c4 a d c
+\relative @{
+  c''4 a d c
 @}
 @end example
 
@@ -135,8 +135,8 @@ takové soubory daly napsat a také správně zapsat, znamená
   \score @{
     \new Staff @{
       \new Voice @{
-        \relative c'' @{
-          c4 a b c
+        \relative @{
+          c''4 a b c
         @}
       @}
     @}
@@ -277,8 +277,8 @@ jak je to také ukázáno v @ref{Pořádání děl pomocí proměnných}.
 Všechny předlohy používají tuto možnost:
 
 @example
-melodie = \relative c' @{
-  c4 a b c
+melodie = \relative @{
+  c'4 a b c
 @}
 
 \score @{
@@ -410,8 +410,8 @@ složených závorek vedle @code{\new Voice = "Zpěvní hlas"}
 bychom mohli zapisovat
 
 @example
-\relative c'' @{
-  r4 d8\noBeam g, c4 r
+\relative @{
+  r4 d''8\noBeam g, c4 r
 @}
 @end example
 
@@ -433,10 +433,10 @@ Takže nyní máme, když přidáme několik not a basový klíč
 pro levou ruku, následující příklad:
 
 @lilypond[verbatim,quote,ragged-right]
-melody = \relative c'' { r4 d8\noBeam g, c4 r }
+melody = \relative { r4 d''8\noBeam g, c4 r }
 text   = \lyricmode { And God said, }
-upper  = \relative c'' { <g d g,>2~ <g d g,> }
-lower  = \relative c { b2 e }
+upper  = \relative { <g' d g,>2~ <g d g,> }
+lower  = \relative { b,2 e }
 
 \score {
   <<
@@ -485,8 +485,8 @@ jen pro dobu trvání tří not:
 
 @lilypond[verbatim,quote,ragged-right]
 \new Staff {
-  \relative g' {
-    r4 g8 g c4 c8 d |
+  \relative {
+    r4 g'8 g c4 c8 d |
     e4 r8
     <<
       { f8 c c }
@@ -513,8 +513,8 @@ osnovu:
 
 @lilypond[verbatim,quote,ragged-right]
 \new Staff = "main" {
-  \relative g' {
-    r4 g8 g c4 c8 d |
+  \relative {
+    r4 g'8 g c4 c8 d |
     e4 r8
     <<
       { f8 c c }
@@ -762,9 +762,9 @@ z těchto prostředí je nastaven svislý směr nožiček, legatových obloučk�
 ligatur, značek pro dynamiku atd. tak, jak se patří.
 
 @lilypond[quote,verbatim]
-\new Staff \relative c' {
+\new Staff \relative {
   % Main voice
-  c16 d e f
+  c'16 d e f
   %    Voice "1"     Voice "2"                Voice "3"
   << { g4 f e } \\ { r8 e4 d c8~ } >> |
   << { d2 e }   \\ { c8 b16 a b8 g~ 2 } \\ { s4 b c2 } >> |
@@ -786,9 +786,9 @@ Všimněte si také, že spojené noty mohou být rozděleny přes stejný hlas
 do dvou staveb, jak je to ukázáno zde na modrém trojúhelníkovém hlase.
 
 @lilypond[quote,verbatim]
-\new Staff \relative c' {
+\new Staff \relative {
   % Main voice
-  c16 d e f
+  c'16 d e f
   <<   % Bar 1
     {
       \voiceOneStyle
@@ -878,10 +878,10 @@ a hlasy.  Složitější věci budou vysvětleny v pozdějších částech.
 
 @c The following should appear as music without code
 @lilypond[quote,ragged-right]
-\new Staff \relative c'' {
+\new Staff \relative {
   \key aes \major
   <<  % Voice one
-    { c2 aes4. bes8 }
+    { c''2 aes4. bes8 }
   \\  % Voice two
     { aes2 f4 fes }
   \\  % No voice three
@@ -953,10 +953,10 @@ se to naučili, pomocí konstrukcí @code{<< \\  >>},
 kterou zapíšeme tři hlasy prvního taktu:
 
 @lilypond[quote,verbatim,ragged-right]
-\new Staff \relative c'' {
+\new Staff \relative {
   \key aes \major
   <<
-    { c2 aes4. bes8 } \\ { aes2 f4 fes } \\ { <ees c>2 des }
+    { c''2 aes4. bes8 } \\ { aes2 f4 fes } \\ { <ees c>2 des }
   >> |
   <c ees aes c>1 |
 }
@@ -978,10 +978,10 @@ umístíme do čtvrtého hlasu.  To se udělá jednoduše přidáním
 páru @code{\\}.
 
 @lilypond[quote,verbatim,ragged-right]
-\new Staff \relative c'' {
+\new Staff \relative {
   \key aes \major
   <<  % Voice one
-    { c2 aes4. bes8 }
+    { c''2 aes4. bes8 }
   \\  % Voice two
     { aes2 f4 fes }
   \\  % Omit Voice three
@@ -1043,8 +1043,8 @@ Stavba @code{<< \\ >>}, kterou jsme použili v předchozím
 
 @example
 \new Staff @{
-  \relative c' @{
-    << @{ e4 f g a @} \\ @{ c,4 d e f @} >>
+  \relative @{
+    << @{ e'4 f g a @} \\ @{ c,4 d e f @} >>
   @}
 @}
 @end example
@@ -1054,8 +1054,8 @@ ist identisch mit
 
 @example
 \new Staff <<
-  \new Voice = "1" @{ \voiceOne \relative c' @{ e4 f g a @} @}
-  \new Voice = "2" @{ \voiceTwo \relative c' @{ c4 d e f @} @}
+  \new Voice = "1" @{ \voiceOne \relative @{ e'4 f g a @} @}
+  \new Voice = "2" @{ \voiceTwo \relative @{ c'4 d e f @} @}
 >>
 @end example
 
@@ -1064,8 +1064,8 @@ Obojí výše by vytvořilo následující notový obraz:
 @c The following example should not display the code
 @lilypond[ragged-right,quote]
 \new Staff <<
-  \new Voice = "1" { \voiceOne \relative c' { e4 f g a } }
-  \new Voice = "2" { \voiceTwo \relative c' { c4 d e f } }
+  \new Voice = "1" { \voiceOne \relative { e'4 f g a } }
+  \new Voice = "2" { \voiceTwo \relative { c'4 d e f } }
 >>
 @end lilypond
 
@@ -1086,9 +1086,9 @@ mají příkazy @code{\oneVoice}, @code{\voiceOne} a @code{voiceTwo}
 účinek na text, obloučky a označení dynamiky:
 
 @lilypond[quote,ragged-right,verbatim]
-\relative c' {
+\relative {
   % Default behavior or behavior after \oneVoice
-  c4 d8~ 8 e4( f | g4 a) b-> c |
+  c'4 d8~ 8 e4( f | g4 a) b-> c |
 }
 @end lilypond
 
@@ -1159,8 +1159,8 @@ hlas objeví jen krátce, může to být přirozenější způsob
 sázení not:
 
 @lilypond[quote,ragged-right,verbatim]
-\new Staff \relative c' {
-  c16^( d e f
+\new Staff \relative {
+  c'16^( d e f
   <<
     { g4 f e | d2 e2) | }
     \new Voice {
@@ -1334,14 +1334,14 @@ ne jako noty.
 @lilypond[quote,verbatim]
 global = { \key f \major \time 6/8 \partial 8 }
 
-SopOneMusic = \relative c'' {
-  c8 | c8([ bes)] a a([ g)] f | f'4. b, | c4.~ 4
+SopOneMusic = \relative {
+  c''8 | c8([ bes)] a a([ g)] f | f'4. b, | c4.~ 4
 }
 SopOneLyrics = \lyricmode {
   Let | flee -- cy flocks the | hills a -- dorn, __
 }
-SopTwoMusic = \relative c' {
-  r8 | r4. r4 c8 | a'8([ g)] f f([ e)] d | e8([ d)] c bes'
+SopTwoMusic = \relative {
+  r8 | r4. r4 c'8 | a'8([ g)] f f([ e)] d | e8([ d)] c bes'
 }
 SopTwoLyrics = \lyricmode {
   Let | flee -- cy flocks the | hills a -- dorn,
@@ -1395,10 +1395,10 @@ tóninu.  Taková proměnná se často označuje @qq{global}.
 @lilypond[quote,verbatim]
 keyTime = { \key c \major \time 4/4 \partial 4 }
 
-SopMusic   = \relative c' { c4 | e4. e8 g4  g    | a4   a   g  }
-AltoMusic  = \relative c' { c4 | c4. c8 e4  e    | f4   f   e  }
-TenorMusic = \relative c  { e4 | g4. g8 c4.   b8 | a8 b c d e4 }
-BassMusic  = \relative c  { c4 | c4. c8 c4  c    | f8 g a b c4 }
+SopMusic   = \relative { c'4 | e4. e8 g4  g    | a4   a   g  }
+AltoMusic  = \relative { c'4 | c4. c8 e4  e    | f4   f   e  }
+TenorMusic = \relative  { e4 | g4. g8 c4.   b8 | a8 b c d e4 }
+BassMusic  = \relative  { c4 | c4. c8 c4  c    | f8 g a b c4 }
 
 VerseOne =
   \lyricmode { E -- | ter -- nal fa -- ther, | strong to save, }
@@ -1598,8 +1598,8 @@ werden, hier ein kommentiertes Beispiel aus dem richtigen Leben:
       \clef "treble"
       \key g \minor
       \new Voice {  % create voice for RH notes
-        \relative c'' {  % start of RH notes
-          d4 ees16 c8.
+        \relative {  % start of RH notes
+          d''4 ees16 c8.
           d4 ees16 c8.
         }  % end of RH notes
       }  % end of RH voice
@@ -1609,14 +1609,14 @@ werden, hier ein kommentiertes Beispiel aus dem richtigen Leben:
       \key g \minor
       \new Voice {  % create LH voice one
         \voiceOne
-        \relative g {  % start of LH voice one notes
+        \relative {  % start of LH voice one notes
           g8 <bes d> ees, <g c>
           g8 <bes d> ees, <g c>
         }  % end of LH voice one notes
       }  % end of LH voice one
       \new Voice {  % create LH voice two
         \voiceTwo
-        \relative g {  % start of LH voice two notes
+        \relative {  % start of LH voice two notes
           g4 ees
           g4 ees
         }  % end of LH voice two notes
@@ -1914,8 +1914,8 @@ ausgeschaltet sind:
 
 @lilypond[quote,verbatim,ragged-right]
 <<
-  \new Staff \relative c'' {
-    ais2 aes
+  \new Staff \relative {
+    ais'2 aes
   }
   \new Staff \relative c'' {
     \set Staff.extraNatural = ##f
@@ -1929,8 +1929,8 @@ während das dazu dient, sie in allen Systemen auszuschalten:
 
 @lilypond[quote,verbatim,ragged-right]
 <<
-  \new Staff \relative c'' {
-    ais2 aes
+  \new Staff \relative {
+    ais'2 aes
   }
   \new Staff \relative c'' {
     \set Score.extraNatural = ##f
@@ -2007,12 +2007,12 @@ etwa so:
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff
-    \relative c'' {
-      gis4 ges aes ais
+    \relative {
+      gis'4 ges aes ais
     }
   \new Staff \with { extraNatural = ##f } {
-    \relative c'' {
-      gis ges aes ais
+    \relative {
+      gis' ges aes ais
     }
   }
 >>
@@ -2056,8 +2056,8 @@ Funktion anwendet:
 @lilypond[verbatim,quote]
 \score {
   \new Staff {
-    \relative c'' {
-      cis4 e d ces
+    \relative {
+      cis''4 e d ces
     }
   }
   \layout {
@@ -2076,13 +2076,13 @@ Wenn die Veränderung der Eigenschaft sich auf alle Systeme einer
 \score {
   <<
     \new Staff {
-      \relative c'' {
-        gis4 ges aes ais
+      \relative {
+        gis'4 ges aes ais
       }
     }
     \new Staff {
-      \relative c'' {
-        gis4 ges aes ais
+      \relative {
+        gis'4 ges aes ais
       }
     }
   >>
@@ -2151,8 +2151,8 @@ erstellt werden.
 \new Staff \with {
   \remove "Staff_symbol_engraver"
 }
-\relative c' {
-  c4 d
+\relative {
+  c'4 d
   \set fontSize = #-4  % make note heads smaller
   e4 f |
   \set fontSize = #2.5  % make note heads larger
@@ -2244,24 +2244,24 @@ mit vier Systemen anzeigen wollen, könnte das so aussehen:
 \score {
   <<
     \new Staff {
-      \relative c'' {
-        c4 a b g
+      \relative {
+        c''4 a b g
       }
     }
     \new Staff {
-      \relative c' {
-        c4 a b g
+      \relative {
+        c'4 a b g
       }
     }
     \new Staff {
       \clef "G_8"
-      \relative c' {
-        c4 a b g
+      \relative {
+        c'4 a b g
       }
     }
     \new Staff {
       \clef "bass"
-      \relative c {
+      \relative {
         c4 a b g
       }
     }
@@ -2331,7 +2331,7 @@ Fall könnten Sie mit der Vorlage @qq{Noten und Text}
 
 @example
 \version @w{"@version{}"}
-melody = \relative c' @{
+melody = \relative @{
   \clef "treble"
   \key c \major
   \time 4/4
@@ -2361,7 +2361,7 @@ Beispiel @qq{Nur Noten} an:
 @example
 \version @w{"@version{}"}
 
-melody = \relative c' @{
+melody = \relative @{
   \clef "treble"
   \key c \major
   \time 4/4
@@ -2405,7 +2405,7 @@ Wir ändern auch die Noten etwas ab.
 @example
 \version @w{"@version{}"}
 
-SopranNoten = \relative c' @{
+SopranNoten = \relative @{
   \clef "treble"
   \key c \major
   \time 4/4
@@ -2416,7 +2416,7 @@ SoprText = \lyricmode @{
   Aaa Bee Cee Dee
 @}
 
-CelloNoten = \relative c @{
+CelloNoten = \relative @{
   \clef "bass"
   \key c \major
   \time 4/4
@@ -2478,7 +2478,7 @@ nicht mehr.  Das können wir aber schnell in Ordnung bringen.
 Hier also die gesamte Vorlage für Soprán a violoncello:
 
 @lilypond[quote,verbatim,ragged-right,addversion]
-sopranoMusic = \relative c' {
+sopranoMusic = \relative {
   \clef "treble"
   \key c \major
   \time 4/4
@@ -2489,7 +2489,7 @@ sopranoLyrics = \lyricmode {
   Aaa Bee Cee Dee
 }
 
-celloMusic = \relative c {
+celloMusic = \relative {
   \clef "bass"
   \key c \major
   \time 4/4
@@ -2539,26 +2539,26 @@ notiert wird.  Hier ein Beispiel aus Händels @notation{Messias}:
 @lilypond[quote,ragged-right]
 global = { \key d \major \time 4/4 }
 
-sopranoMusic = \relative c'' {
+sopranoMusic = \relative {
   \clef "treble"
-  r4 d2 a4 | d4. d8 a2 | cis4 d cis2 |
+  r4 d''2 a4 | d4. d8 a2 | cis4 d cis2 |
 }
 sopranoWords = \lyricmode {
   Wor -- thy | is the lamb | that was slain |
 }
-altoMusic = \relative a' {
+altoMusic = \relative {
   \clef "treble"
-  r4 a2 a4 | fis4. fis8 a2 | g4 fis e2 |
+  r4 a'2 a4 | fis4. fis8 a2 | g4 fis e2 |
 }
 altoWords = \sopranoWords
-tenorMusic = \relative c' {
+tenorMusic = \relative {
   \clef "G_8"
-  r4 fis2 e4 | d4. d8 d2 | e4 a, cis2 |
+  r4 fis'2 e4 | d4. d8 d2 | e4 a, cis2 |
 }
 tenorWords = \sopranoWords
-bassMusic = \relative c' {
+bassMusic = \relative {
   \clef "bass"
-  r4 d2 cis4 | b4. b8 fis2 | e4 d a'2 |
+  r4 d'2 cis4 | b4. b8 fis2 | e4 d a'2 |
 }
 bassWords = \sopranoWords
 upper = \relative a' {
@@ -2777,26 +2777,26 @@ global = {
   \key d \major
   \time 4/4
 }
-sopranoMusic = \relative c'' {
+sopranoMusic = \relative {
   \clef "treble"
-  r4 d2 a4 | d4. d8 a2 | cis4 d cis2 |
+  r4 d''2 a4 | d4. d8 a2 | cis4 d cis2 |
 }
 sopranoWords = \lyricmode {
   Wor -- thy | is the lamb | that was slain |
 }
-altoMusic = \relative a' {
+altoMusic = \relative {
   \clef "treble"
-  r4 a2 a4 | fis4. fis8 a2 | g4 fis fis2 |
+  r4 a'2 a4 | fis4. fis8 a2 | g4 fis fis2 |
 }
 altoWords = \sopranoWords
-tenorMusic = \relative c' {
+tenorMusic = \relative {
   \clef "G_8"
-  r4 fis2 e4 | d4. d8 d2 | e4 a, cis2 |
+  r4 fis'2 e4 | d4. d8 d2 | e4 a, cis2 |
 }
 tenorWords = \sopranoWords
-bassMusic = \relative c' {
+bassMusic = \relative {
   \clef "bass"
-  r4 d2 cis4 | b4. b8 fis2 | e4 d a'2 |
+  r4 d'2 cis4 | b4. b8 fis2 | e4 d a'2 |
 }
 bassWords = \sopranoWords
 upper = \relative a' {
@@ -3132,19 +3132,19 @@ die Variablen mit einem Backslash in die Partitur einbauen.
   composer = "J S Bach"
 }
 keyTime = { \key c \minor \time 4/4 }
-ManualOneVoiceOneMusic = \relative g' {
-  g4 g f ees |
+ManualOneVoiceOneMusic = \relative {
+  g'4 g f ees |
   d2 c2 |
 }
-ManualOneVoiceTwoMusic = \relative c' {
-  ees16 d ees8~ 16 f ees d c8 d~ d c~ |
+ManualOneVoiceTwoMusic = \relative {
+  ees'16 d ees8~ 16 f ees d c8 d~ d c~ |
   8 c4 b8 c8. g16 c b c d |
 }
-ManualTwoMusic = \relative c' {
-  c16 b c8~ 16 b c g a8 g~ 16 g aes ees |
+ManualTwoMusic = \relative {
+  c'16 b c8~ 16 b c g a8 g~ 16 g aes ees |
   f16 ees f d g aes g f ees d e8~ 8es16 f ees d |
 }
-PedalOrganMusic = \relative c {
+PedalOrganMusic = \relative {
   r8 c16 d ees d ees8~ 16 a, b g c b c8 |
   r16 g ees f g f g8 c,2 |
 }
@@ -3199,7 +3199,7 @@ Glossar:
 Bis jetzt wurde immer derartige Notation vorgestellt:
 
 @lilypond[quote,verbatim,ragged-right]
-hornNotes = \relative c'' { c4 b dis c }
+hornNotes = \relative { c''4 b dis c }
 
 \score {
   {
@@ -3212,8 +3212,8 @@ Sie können sich vorstellen, dass das etwa für minimalistische
 Musik sehr nützlich sein könnte:
 
 @lilypond[quote,verbatim,ragged-right]
-fragmentA = \relative c'' { a4 a8. b16 }
-fragmentB = \relative c'' { a8. gis16 ees4 }
+fragmentA = \relative { a'4 a8. b16 }
+fragmentB = \relative { a'8. gis16 ees4 }
 violin = \new Staff {
   \fragmentA \fragmentA |
   \fragmentB \fragmentA |
@@ -3295,8 +3295,8 @@ padText =
      \once \override TextScript.padding = $padding
    #})
 
-\relative c''' {
-  c4^"piu mosso" b a b |
+\relative {
+  c'''4^"piu mosso" b a b |
   \padText #1.8
   c4^"piu mosso" d e f |
   \padText #2.6
@@ -3330,7 +3330,7 @@ Nehmen wir an, dass die Datei @file{horn-music.ly} folgende
 Noten eines Horn/@/Fagott-Duos enthält:
 
 @example
-hornNotes = \relative c @{
+hornNotes = \relative @{
   \time 2/4
   r4 f8 a | cis4 f | e4 d |
 @}
@@ -3368,7 +3368,7 @@ die Stimmung eines normalen F-Hornes verlangt.  Die Transposition
 kann in folgender Notenausgabe gesehen werden:
 
 @lilypond[quote,ragged-right]
-\transpose f c' \relative c {
+\transpose f c' \relative {
   \time 2/4
   r4 f8 a | cis4 f | e4 d |
 }
@@ -3425,7 +3425,7 @@ Partitur erstellt mit:
 woraus sich ergibt:
 
 @lilypond[quote,ragged-right]
-\relative c <<
+\relative <<
   \new Staff {
     \clef "treble"
     \time 2/4

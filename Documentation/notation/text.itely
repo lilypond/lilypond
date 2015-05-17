@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.19.21"
 
 @node Text
 @section Text
@@ -1247,7 +1247,7 @@ block, as demonstrated here:
 @lilypond[quote,verbatim,relative=1]
 c4 d^\markup {
   \score {
-    \relative c' { c4 d e f }
+    \relative { c'4 d e f }
     \layout { }
   }
 }

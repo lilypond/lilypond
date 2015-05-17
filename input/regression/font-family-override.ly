@@ -5,7 +5,7 @@
 
 }
 
-\version "2.17.6"
+\version "2.19.21"
 
 \paper {
   % change for other default global staff size.
@@ -35,9 +35,9 @@
 }
 
 \score {
-  \relative c'' {
+  \relative {
 
-    c^\markup { roman: foo \bold bla \italic bar \italic \bold baz }
+    c''^\markup { roman: foo \bold bla \italic bar \italic \bold baz }
     c'_\markup {
       \override #'(font-family . sans)
       {

@@ -7,13 +7,13 @@ is suppressed if the rest has a pitch."
 
 }
 
-\version "2.16.0"
+\version "2.19.21"
 
 \new Staff <<
-  \relative c''' { g8 g g r r2 } \\
-  \relative c' { a4\rest c r2 } \\
-  \relative c'' { c4 c f2\rest } \\
-  \relative c'' { r2 g }
+  \relative { g''8 g g r r2 } \\
+  \relative { a4\rest c r2 } \\
+  \relative { c''4 c f2\rest } \\
+  \relative { r2 g' }
 >>
 
 

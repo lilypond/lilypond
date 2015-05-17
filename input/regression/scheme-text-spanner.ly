@@ -1,4 +1,4 @@
-\version "2.19.12"
+\version "2.19.21"
 
 \header {
   texidoc = "Use @code{define-event-class}, scheme engraver methods,
@@ -185,7 +185,7 @@ schemeTextSpannerEnd =
   }
 }
 
-\relative c' {
+\relative {
   a4 b\schemeTextSpannerStart c d |
   \repeat unfold 20 { a4 b c d | }
   a4 b c\schemeTextSpannerEnd d |

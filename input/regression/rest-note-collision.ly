@@ -7,12 +7,12 @@
 	}
 
 
-\version "2.18.0"
+\version "2.19.21"
 
 music = {
   <<
-    \relative c'' {
-      f e d c b a g f e d c
+    \relative {
+      f'' e d c b a g f e d c
     }
     \\
     {
@@ -24,8 +24,8 @@ music = {
       r4 r r r r r r r r r r
     }
     \\
-    \relative c'' {
-      f e d c b a g f e d c
+    \relative {
+      f'' e d c b a g f e d c
     }
   >>
 }

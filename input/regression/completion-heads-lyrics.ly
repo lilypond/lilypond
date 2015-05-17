@@ -1,10 +1,10 @@
 \header {
   texidoc = "You can put lyrics under completion heads."
 }
-\version "2.16.0"
+\version "2.19.21"
 
-mel = \relative c'' {
- c1. c1.
+mel = \relative {
+ c''1. c1.
 }
 
 lyr = \lyricmode {

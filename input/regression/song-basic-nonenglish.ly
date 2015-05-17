@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 \header {
   texidoc="Festival song synthesis output supports
 non-english syllabels.
@@ -8,7 +8,7 @@ non-english syllabels.
 
 \festivalsyl #"song-basic-nonenglish.xml" { \tempo 4 = 100 }
 {
-\relative c' { c e g r }
+\relative { c' e g r }
 \addlyrics { ov -- čá -- ci }
 }
 #(ly:progress "song-basic-nonenglish")

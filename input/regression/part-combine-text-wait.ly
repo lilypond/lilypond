@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 
 \header {
@@ -15,8 +15,8 @@ mI = \relative c'' {
   g4 \partcombineSoloI r4 c2 |
   \partcombineSoloII R1*2 |
 }
-mII = \relative c' {
-  c4 r2. |
+mII = \relative {
+  c'4 r2. |
   r2 r4 c4 |
   R1 |
 }

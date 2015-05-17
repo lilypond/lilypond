@@ -5,12 +5,12 @@ note head."
 
 }
 
-\version "2.16.0"
+\version "2.19.21"
 \paper {
   ragged-right = ##t
 }
 
-\relative c'' {
-  r4 c4\repeatTie r <c d f  g> \repeatTie
+\relative {
+  r4 c''4\repeatTie r <c d f  g> \repeatTie
 
 } 

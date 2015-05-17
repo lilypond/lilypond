@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header { texidoc=" You can write stencil callbacks in Scheme, thus
 providing custom glyphs for notation elements.  A simple example is
@@ -46,8 +46,8 @@ GROB.  It does not affect the dimensions of the stencil.
     
 
 \layout { ragged-right = ##t }
-\relative c' {
-    c4 e
+\relative {
+    c'4 e
 
     \override NoteHead.stencil
     =

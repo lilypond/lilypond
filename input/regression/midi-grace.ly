@@ -5,10 +5,10 @@
 off will appear at tick 768 (2 * 384)."
   
 }
-\version "2.16.0"
+\version "2.19.21"
 \score {
- \relative c' {
-   c4
+ \relative {
+   c'4
    \grace { b8 }
    d4
  }

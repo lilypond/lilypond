@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header{
   texidoc="
@@ -11,9 +11,9 @@ finalis, the latter three looking similar to bar glyphs.
 \include "gregorian.ly"
 
 \context VaticanaStaff {
-  \relative c' {
+  \relative {
     % here is no \breathe
-    c g c
+    c' g c
 
     % \virgula applies rcomma, but in a smaller font
     c \virgula g c
@@ -37,9 +37,9 @@ finalis, the latter three looking similar to bar glyphs.
   }
 }
 
-mus = \relative f' {
+mus = \relative {
   \clef tenor
-  c g c
+  c' g c
   c \virgula g c
   c \caesura g c
   c \divisioMinima g c

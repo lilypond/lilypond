@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 \header {
   texidoc = "This regtest makes sure that footnote numbers are laid out
 in the correct vertical order.
@@ -28,8 +28,8 @@ in the correct vertical order.
 \book {
   \score {
     <<
-      \new Staff \relative c' {
-        d4 e
+      \new Staff \relative {
+        d'4 e
         \once \override FootnoteItem.numbering-assertion-function =
           #(lambda (grob) (make-footnote-numbering-assertion-function 0))
         < f \footnote #'(1 . -1) \markup { n } a c >
@@ -57,8 +57,8 @@ in the correct vertical order.
 	-\single\footnote #'(1 . 1) \markup { o } Beam [ b c d ] a4 b c |
         d a b c\! |\break
       }
-      \new Staff \relative c' {
-        d4 e
+      \new Staff \relative {
+        d'4 e
         \once \override FootnoteItem.numbering-assertion-function =
           #(lambda (grob) (make-footnote-numbering-assertion-function 1))
         < f \footnote #'(1 . -1) \markup { n } a c >

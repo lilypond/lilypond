@@ -3,7 +3,7 @@
 beam."
 }
 
-\version "2.16.0"
+\version "2.19.21"
 
 \layout  {
   ragged-right = ##t 
@@ -14,7 +14,7 @@ beam."
 }
 
 
-\relative c'' {
-  a\longa a\breve  
+\relative {
+  a'\longa a\breve  
   a1 a2 a4 a8 a16 a32 a64 a64 
 }

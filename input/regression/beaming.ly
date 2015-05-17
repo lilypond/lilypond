@@ -1,5 +1,5 @@
 
-\version "2.17.11"
+\version "2.19.21"
 
 \header{
 texidoc="
@@ -8,9 +8,9 @@ case, line breaks are forbidden.
 "
 }
 
-\context Staff  \relative c''  {
+\context Staff  \relative  {
 
-  c8[ \tuplet 3/2 { c16 d e] }
+  c''8[ \tuplet 3/2 { c16 d e] }
   s4*3
   
   c8.[ c16]

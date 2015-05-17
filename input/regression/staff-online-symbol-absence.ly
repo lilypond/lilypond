@@ -1,4 +1,4 @@
-\version "2.19.2"
+\version "2.19.21"
 \header {
 
   texidoc = "Symbols that need on-staffline info (like dots and ties)
@@ -9,8 +9,8 @@
 \new Staff \with {
   \remove "Staff_symbol_engraver"
 }
-\relative c' {
+\relative {
   \time 5/8
-  f4 ~ 4 
+  f'4 ~ 4 
   f4 f4.
 }

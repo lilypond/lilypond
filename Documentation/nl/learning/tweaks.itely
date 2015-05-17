@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @node Tweaking output
 @chapter Tweaking output
@@ -1379,8 +1379,8 @@ how to introduce a new temporary staff, as in an @rglos{ossia}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
-  \relative g' {
-    r4 g8 g c4 c8 d |
+  \relative {
+    r4 g'8 g c4 c8 d |
     e4 r8
     <<
       { f8 c c }
@@ -1406,8 +1406,8 @@ we simply set the stencil of each to @code{#f}, as follows:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
-  \relative g' {
-    r4 g8 g c4 c8 d |
+  \relative {
+    r4 g'8 g c4 c8 d |
     e4 r8
     <<
       { f8 c c }
@@ -1469,8 +1469,8 @@ So we could replace the example above with
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
-  \relative g' {
-    r4 g8 g c4 c8 d |
+  \relative {
+    r4 g'8 g c4 c8 d |
     e4 r8
     <<
       { f8 c c }
@@ -1494,8 +1494,8 @@ clearing the @code{stencil} here, leading to the result
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
-  \relative g' {
-    r4 g8 g c4 c8 d |
+  \relative {
+    r4 g'8 g c4 c8 d |
     e4 r8
     <<
       { f8 c c }
@@ -1558,8 +1558,8 @@ Let's try it in our ossia example:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
-  \relative g' {
-    r4 g8 g c4 c8 d |
+  \relative {
+    r4 g'8 g c4 c8 d |
     e4 r8
     <<
       { f8 c c }
@@ -1624,8 +1624,8 @@ objects in proportion.  It is used like this:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
-  \relative g' {
-    r4 g8 g c4 c8 d |
+  \relative {
+    r4 g'8 g c4 c8 d |
     e4 r8
     <<
       { f8 c c }
@@ -1746,10 +1746,10 @@ this @q{nestling} of the notes on adjacent staves:
 @lilypond[quote,ragged-right,verbatim]
 <<
   \new Staff {
-    \relative c' { c4 a, }
+    \relative { c'4 a, }
   }
   \new Staff {
-    \relative c'''' { c4 a, }
+    \relative { c''''4 a, }
   }
 >>
 @end lilypond
@@ -2738,8 +2738,8 @@ stencil with a markup containing the desired symbol(s), like this:
 
 @lilypond[quote,ragged-right,verbatim]
 sesquisharp = \markup { \sesquisharp }
-\relative c'' {
-  c4
+\relative {
+  c''4
   % This prints a sesquisharp but the spacing is too small
   \once \override Accidental.stencil = #ly:text-interface::print
   \once \override Accidental.text = #sesquisharp
@@ -2974,10 +2974,10 @@ example introduced at the end of @ref{I'm hearing Voices}, which
 was left looking like this:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
-\new Staff \relative c'' {
+\new Staff \relative {
   \key aes \major
   <<
-    { c2 aes4. bes8 }
+    { c''2 aes4. bes8 }
     \\
     { <ees, c>2 des }
     \\
@@ -3006,10 +3006,10 @@ Here's the final result:
 @cindex force-hshift property, example
 
 @lilypond[quote,verbatim,fragment,ragged-right]
-\new Staff \relative c'' {
+\new Staff \relative {
   \key aes \major
   <<
-    { c2 aes4. bes8 }
+    { c''2 aes4. bes8 }
     \\
     {
       <ees, c>2
@@ -3049,9 +3049,9 @@ dynamics, fingering and pedalling.
 @c This example should not be indexed
 @c line-width ensures no break
 @lilypond[quote,ragged-right,line-width=6\in]
-rhMusic = \relative c'' {
+rhMusic = \relative {
   \new Voice {
-    r2 c4.\( g8 |
+    r2 c''4.\( g8 |
     \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
@@ -3091,8 +3091,8 @@ rhMusic = \relative c'' {
   }
 }
 
-lhMusic = \relative c' {
-  r2 <c g ees>2( |
+lhMusic = \relative {
+  r2 <c' g ees>2( |
   <d g, d>1)\arpeggio |
   r2. d,,4 r4 r |
   r4
@@ -3132,9 +3132,9 @@ produces by default:
 
 @c line-width ensures no break
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
-rhMusic = \relative c'' {
+rhMusic = \relative {
   \new Voice {
-    r2 c4. g8 |
+    r2 c''4. g8 |
     bes1~ |
     \time 6/4
     bes2. r8
@@ -3158,8 +3158,8 @@ rhMusic = \relative c'' {
   }
 }
 
-lhMusic = \relative c' {
-  r2 <c g ees>2 |
+lhMusic = \relative {
+  r2 <c' g ees>2 |
   <d g, d>1 |
   r2. d,,4 r4 r |
   r4
@@ -3189,9 +3189,9 @@ since these were all covered in the Tutorial.  Doing this gives:
 
 @c line-width ensures no break
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
-rhMusic = \relative c'' {
+rhMusic = \relative {
   \new Voice {
-    r2 c4.\( g8 |
+    r2 c''4.\( g8 |
     bes1~ |
     \time 6/4
     bes2. r8
@@ -3215,8 +3215,8 @@ rhMusic = \relative c'' {
   }
 }
 
-lhMusic = \relative c' {
-  r2 <c g ees>2( |
+lhMusic = \relative {
+  r2 <c' g ees>2( |
   <d g, d>1) |
   r2. d,,4 r4 r |
   r4
@@ -3259,9 +3259,9 @@ This completes bar two, giving:
 
 @c line-width ensures no break
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
-rhMusic = \relative c'' {
+rhMusic = \relative {
   \new Voice {
-    r2 c4.\( g8 |
+    r2 c''4.\( g8 |
     \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
@@ -3287,8 +3287,8 @@ rhMusic = \relative c'' {
   }
 }
 
-lhMusic = \relative c' {
-  r2 <c g ees>2( |
+lhMusic = \relative {
+  r2 <c' g ees>2( |
   <d g, d>1)\arpeggio |
   r2. d,,4 r4 r |
   r4
@@ -3338,9 +3338,9 @@ to the end, giving:
 
 @c line-width ensures no break
 @lilypond[quote,ragged-right,line-width=6\in]
-rhMusic = \relative c'' {
+rhMusic = \relative {
   \new Voice {
-    r2 c4.\( g8 |
+    r2 c''4.\( g8 |
     \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
@@ -3370,8 +3370,8 @@ rhMusic = \relative c'' {
   }
 }
 
-lhMusic = \relative c' {
-  r2 <c g ees>2( |
+lhMusic = \relative {
+  r2 <c' g ees>2( |
   <d g, d>1)\arpeggio |
   r2. d,,4 r4 r |
   r4
@@ -3412,9 +3412,9 @@ Applying these changes gives:
 
 @c line-width ensures no break
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
-rhMusic = \relative c'' {
+rhMusic = \relative {
   \new Voice {
-    r2 c4.\( g8 |
+    r2 c''4.\( g8 |
     \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
@@ -3447,8 +3447,8 @@ rhMusic = \relative c'' {
   }
 }
 
-lhMusic = \relative c' {
-  r2 <c g ees>2( |
+lhMusic = \relative {
+  r2 <c' g ees>2( |
   <d g, d>1)\arpeggio |
   r2. d,,4 r4 r |
   r4
@@ -3482,9 +3482,9 @@ the @code{force-hshift} property.  Here's the final result:
 
 @c line-width ensures no break
 @lilypond[quote,verbatim,ragged-right,line-width=6\in]
-rhMusic = \relative c'' {
+rhMusic = \relative {
   \new Voice {
-    r2 c4.\( g8 |
+    r2 c''4.\( g8 |
     \once \override Tie.staff-position = #3.5
     bes1~ |
     \bar "||"
@@ -3525,8 +3525,8 @@ rhMusic = \relative c'' {
   }
 }
 
-lhMusic = \relative c' {
-  r2 <c g ees>2( |
+lhMusic = \relative {
+  r2 <c' g ees>2( |
   <d g, d>1)\arpeggio |
   r2. d,,4 r4 r |
   r4
@@ -3783,10 +3783,10 @@ normal = {
 
 global = { \key c \major \time 4/4 \partial 4 }
 
-SopranoMusic = \relative c' { c4 | e4. e8 g4 g    | a4   a   g  }
-AltoMusic    = \relative c' { c4 | c4. c8 e4 e    | f4   f   e  }
-TenorMusic   = \relative c  { e4 | g4. g8 c4.  b8 | a8 b c d e4 }
-BassMusic    = \relative c  { c4 | c4. c8 c4 c    | f8 g a b c4 }
+SopranoMusic = \relative { c'4 | e4. e8 g4 g    | a4   a   g  }
+AltoMusic    = \relative { c'4 | c4. c8 e4 e    | f4   f   e  }
+TenorMusic   = \relative  { e4 | g4. g8 c4.  b8 | a8 b c d e4 }
+BassMusic    = \relative  { c4 | c4. c8 c4 c    | f8 g a b c4 }
 
 VerseOne = \lyrics {
   E -- | ter -- nal \emphasize Fa -- ther, | \normal strong to save,

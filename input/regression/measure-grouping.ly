@@ -7,7 +7,7 @@ brackets above beats when the beats of a time signature are grouped.  "
 
 }
 
-\version "2.16.0"
+\version "2.19.21"
 
 \layout  {
   ragged-right = ##t
@@ -19,9 +19,9 @@ brackets above beats when the beats of a time signature are grouped.  "
     \consists "Measure_grouping_engraver"
   }
 
-\relative c' {
+\relative {
   \time 2/4 
-  c8 a'4 a8~
+  c'8 a'4 a8~
   \time #'(3 2) 5/8 
   a8 bes4 r8 bes8->
   \time 2/4

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @node Conceptes fonamentals
 @chapter Conceptes fonamentals
@@ -89,8 +89,8 @@ quan li proporcionem una entrada senzilla.  El LilyPond tracta una
 entrada com aquesta:
 
 @example
-\relative c'' @{
-  c4 a d c
+\relative @{
+  c''4 a d c
 @}
 @end example
 
@@ -102,8 +102,8 @@ com una abreviatura d'aquesta altra:
   \score @{
     \new Staff @{
       \new Voice @{
-        \relative c'' @{
-          c4 a b c
+        \relative @{
+          c''4 a b c
         @}
       @}
     @}
@@ -242,8 +242,8 @@ variables com es mostra a @ref{Organitzar les peces mitjançant
 variables}.  Totes les plantilles fan servir el següent:
 
 @example
-melodia = \relative c' @{
-  c4 a b c
+melodia = \relative @{
+  c'4 a b c
 @}
 
 \score @{
@@ -371,8 +371,8 @@ claudàtors que segueixen a @code{\new Voice = "vocal"}, podríem
 començar escrivint
 
 @example
-\relative c'' @{
-  r4 d8\noBeam g, c4 r
+\relative @{
+  r4 d''8\noBeam g, c4 r
 @}
 @end example
 
@@ -392,10 +392,10 @@ Així doncs, tot escrivint algunes notes, i una clau de Fa per a la
 mà esquerra, ara tenim un fragment musical de debò:
 
 @lilypond[verbatim,quote,ragged-right]
-melody = \relative c'' { r4 d8\noBeam g, c4 r }
+melody = \relative { r4 d''8\noBeam g, c4 r }
 text   = \lyricmode { And God said, }
-upper  = \relative c'' { <g d g,>2~ <g d g,> }
-lower  = \relative c { b2 e }
+upper  = \relative { <g' d g,>2~ <g d g,> }
+lower  = \relative { b,2 e }
 
 \score {
   <<
@@ -444,8 +444,8 @@ notes:
 
 @lilypond[verbatim,quote,ragged-right]
 \new Staff {
-  \relative g' {
-    r4 g8 g c4 c8 d |
+  \relative {
+    r4 g'8 g c4 c8 d |
     e4 r8
     <<
       { f8 c c }
@@ -471,8 +471,8 @@ manera següent:
 
 @lilypond[verbatim,quote,ragged-right]
 \new Staff = "main" {
-  \relative g' {
-    r4 g8 g c4 c8 d |
+  \relative {
+    r4 g'8 g c4 c8 d |
     e4 r8
     <<
       { f8 c c }
@@ -720,9 +720,9 @@ de les lligadures, pliques, matisos dinàmics, etc., s'ajusta de
 forma correcta.
 
 @lilypond[quote,verbatim]
-\new Staff \relative c' {
+\new Staff \relative {
   % Veu principal
-  c16 d e f
+  c'16 d e f
   %    Veu "1"       Veu "2"                 Veu "3"
   << { g4 f e } \\ { r8 e4 d c8~ } >> |
   << { d2 e }   \\ { c8 b16 a b8 g~ 2 } \\ { s4 b c2 } >> |
@@ -746,9 +746,9 @@ lligades es poden dividir entre les mateixes veus de dues
 construccions, com s'indica aquí a la veu de triangles blaus.
 
 @lilypond[quote,verbatim]
-\new Staff \relative c' {
+\new Staff \relative {
   % Veu principal
-  c16 d e f
+  c'16 d e f
   <<  % Bar 1
     {
       \voiceOneStyle
@@ -840,10 +840,10 @@ li sembli misteriós i tan sols es concentri a la música i les veus
 
 @c The following should appear as music without code
 @lilypond[quote,ragged-right]
-\new Staff \relative c'' {
+\new Staff \relative {
   \key aes \major
   <<  % Veu u
-    { c2 aes4. bes8 }
+    { c''2 aes4. bes8 }
   \\  % Voice two
     {
       % Ignoreu aquestes expressions per ara, s'explicaran al Cap. 4
@@ -918,10 +918,10 @@ après, usant la construcció @code{<< \\ >>} per introduir la
 música del primer compàs a tres veus:
 
 @lilypond[quote,verbatim,ragged-right]
-\new Staff \relative c'' {
+\new Staff \relative {
   \key aes \major
   <<
-    { c2 aes4. bes8 } \\ { <ees, c>2 des } \\ { aes'2 f4 fes }
+    { c''2 aes4. bes8 } \\ { <ees, c>2 des } \\ { aes'2 f4 fes }
   >> |
   <c ees aes c>1 |
 }
@@ -942,10 +942,10 @@ veu quatre.  Això es fa escrivint un altre parell de barres
 invertides (@code{\\}).
 
 @lilypond[quote,verbatim,ragged-right]
-\new Staff \relative c'' {
+\new Staff \relative {
   \key aes \major
   <<  % Veu u
-    { c2 aes4. bes8 }
+    { c''2 aes4. bes8 }
   \\  % Veu dos
     { <ees, c>2 des }
   \\  % Omet Veu tres
@@ -1009,8 +1009,8 @@ prèvia:
 
 @example
 \new Staff @{
-  \relative c' @{
-    << @{ e4 f g a @} \\ @{ c,4 d e f @} >>
+  \relative @{
+    << @{ e'4 f g a @} \\ @{ c,4 d e f @} >>
   @}
 @}
 @end example
@@ -1020,8 +1020,8 @@ equival a
 
 @example
 \new Staff <<
-  \new Voice = "1" @{ \voiceOne \relative c' @{ e4 f g a @} @}
-  \new Voice = "2" @{ \voiceTwo \relative c' @{ c4 d e f @} @}
+  \new Voice = "1" @{ \voiceOne \relative @{ e'4 f g a @} @}
+  \new Voice = "2" @{ \voiceTwo \relative @{ c'4 d e f @} @}
 >>
 @end example
 
@@ -1030,8 +1030,8 @@ Els dos exemples anteriors produeixen:
 @c The following example should not display the code
 @lilypond[ragged-right,quote]
 \new Staff <<
-  \new Voice = "1" { \voiceOne \relative c' { e4 f g a } }
-  \new Voice = "2" { \voiceTwo \relative c' { c4 d e f } }
+  \new Voice = "1" { \voiceOne \relative { e'4 f g a } }
+  \new Voice = "2" { \voiceTwo \relative { c'4 d e f } }
 >>
 @end lilypond
 
@@ -1054,9 +1054,9 @@ l'escriptura, les lligadures d'unió i d'expressió i les
 indicacions de dinàmica:
 
 @lilypond[quote,ragged-right,verbatim]
-\relative c' {
+\relative {
   % Comportament predeterminat o comportament després de \oneVoice
-  c4 d8~ 8 e4( f | g4 a) b-> c |
+  c'4 d8~ 8 e4( f | g4 a) b-> c |
 }
 @end lilypond
 
@@ -1128,8 +1128,8 @@ possibles, i si hi ha una veu que apareix sols breument podria
 haver-hi una forma més natural d'escriure la música.
 
 @lilypond[quote,ragged-right,verbatim]
-\new Staff \relative c' {
-  c16^( d e f
+\new Staff \relative {
+  c'16^( d e f
   <<
     { g4 f e | d2 e) | }
     \new Voice {
@@ -1306,14 +1306,14 @@ que s'interpreti com a lletra i no com a música.
 @lilypond[quote,verbatim]
 global = { \key f \major \time 6/8 \partial 8 }
 
-SopOneMusic = \relative c'' {
-  c8 | c8([ bes)] a a([ g)] f | f'4. b, | c4.~ 4
+SopOneMusic = \relative {
+  c''8 | c8([ bes)] a a([ g)] f | f'4. b, | c4.~ 4
 }
 SopOneLyrics = \lyricmode {
   Let | flee -- cy flocks the | hills a -- dorn, __
 }
-SopTwoMusic = \relative c' {
-  r8 | r4. r4 c8 | a'8([ g)] f f([ e)] d | e8([ d)] c bes'
+SopTwoMusic = \relative {
+  r8 | r4. r4 c'8 | a'8([ g)] f f([ e)] d | e8([ d)] c bes'
 }
 SopTwoLyrics = \lyricmode {
   Let | flee -- cy flocks the | hills a -- dorn,
@@ -1367,10 +1367,10 @@ pentagrames.  A d'altres exemples se li sol donar el nom de @q{global}.
 @lilypond[quote,verbatim]
 keyTime = { \key c \major \time 4/4 \partial 4 }
 
-SopMusic   = \relative c' { c4 | e4. e8 g4  g    | a4   a   g  }
-AltoMusic  = \relative c' { c4 | c4. c8 e4  e    | f4   f   e  }
-TenorMusic = \relative c  { e4 | g4. g8 c4.   b8 | a8 b c d e4 }
-BassMusic  = \relative c  { c4 | c4. c8 c4  c    | f8 g a b c4 }
+SopMusic   = \relative { c'4 | e4. e8 g4  g    | a4   a   g  }
+AltoMusic  = \relative { c'4 | c4. c8 e4  e    | f4   f   e  }
+TenorMusic = \relative  { e4 | g4. g8 c4.   b8 | a8 b c d e4 }
+BassMusic  = \relative  { c4 | c4. c8 c4  c    | f8 g a b c4 }
 
 VerseOne =
   \lyricmode { E -- | ter -- nal fa -- ther, | strong to save, }
@@ -1558,8 +1558,8 @@ pràctica, heus aquí un exemple anotat de música real:
       \clef "treble"
       \key g \minor
       \new Voice {  % crea la veu per a les notes de la mà dreta
-        \relative c'' {  % inici de les notes de la mà dreta
-          d4 ees16 c8. |
+        \relative {  % inici de les notes de la mà dreta
+          d''4 ees16 c8. |
           d4 ees16 c8. |
         }  % fi de les notes de la mà dreta
       }  % fi de la veu de la mà dreta
@@ -1569,14 +1569,14 @@ pràctica, heus aquí un exemple anotat de música real:
       \key g \minor
       \new Voice {  % crea la veu de la mà esquerra
         \voiceOne
-        \relative g {  % inicia les notes de la veu u de la mà esquerra
+        \relative {  % inicia les notes de la veu u de la mà esquerra
           g8 <bes d> ees, <g c> |
           g8 <bes d> ees, <g c> |
         }  % fi de les notes de la veu u de la mà esquerra
       }  % fi de la veu u de la mà esquerra
       \new Voice {  % crea la veu dos de la mà esquerra
         \voiceTwo
-        \relative g {  % inici de les notes de la veu dos de la mà esquerra
+        \relative {  % inici de les notes de la veu dos de la mà esquerra
           g4 ees |
           g4 ees |
         }  % fi de les notes de la veu dos de la mà esquerra
@@ -1856,8 +1856,8 @@ Així, això desactivarà els bequadres addicionals a un pentagrama:
 
 @lilypond[quote,verbatim,ragged-right]
 <<
-  \new Staff \relative c'' {
-    aeses2 aes
+  \new Staff \relative {
+    aeses'2 aes
   }
   \new Staff \relative c'' {
     \set Staff.extraNatural = ##f
@@ -1871,8 +1871,8 @@ i això els desactivarà a tots els pentagrames:
 
 @lilypond[quote,verbatim,ragged-right]
 <<
-  \new Staff \relative c'' {
-    aeses2 aes
+  \new Staff \relative {
+    aeses'2 aes
   }
   \new Staff \relative c'' {
     \set Score.extraNatural = ##f
@@ -1951,13 +1951,13 @@ de la forma següent:
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff {
-    \relative c'' {
-      gisis4 gis aeses aes
+    \relative {
+      gisis'4 gis aeses aes
     }
   }
   \new Staff \with { extraNatural = ##f } {
-    \relative c'' {
-      gisis4 gis aeses aes
+    \relative {
+      gisis'4 gis aeses aes
     }
   }
 >>
@@ -2000,8 +2000,8 @@ continuació presentem un exemple que mostra el format:
 @lilypond[verbatim,quote]
 \score {
   \new Staff {
-    \relative c'' {
-      cisis4 e d cis
+    \relative {
+      cisis''4 e d cis
     }
   }
   \layout {
@@ -2020,13 +2020,13 @@ pentagrames de la partitura:
 \score {
   <<
     \new Staff {
-      \relative c'' {
-        gisis4 gis aeses aes
+      \relative {
+        gisis'4 gis aeses aes
       }
     }
     \new Staff {
-      \relative c'' {
-        gisis4 gis aeses aes
+      \relative {
+        gisis'4 gis aeses aes
       }
     }
   >>
@@ -2093,8 +2093,8 @@ les línies del pentagrama estan dibuixades pel gravador
 \new Staff \with {
   \remove "Staff_symbol_engraver"
 }
-\relative c' {
-  c4 d
+\relative {
+  c'4 d
   \set fontSize = #-4  % fes més petits els caps de les notes
   e4 f |
   \set fontSize = #2.5  % fes més grans els caps de les notes
@@ -2180,24 +2180,24 @@ pautes, podem escriure
 \score {
   <<
     \new Staff {
-      \relative c'' {
-        c4 a b g
+      \relative {
+        c''4 a b g
       }
     }
     \new Staff {
-      \relative c' {
-        c4 a b g
+      \relative {
+        c'4 a b g
       }
     }
     \new Staff {
       \clef "G_8"
-      \relative c' {
-        c4 a b g
+      \relative {
+        c'4 a b g
       }
     }
     \new Staff {
       \clef "bass"
-      \relative c {
+      \relative {
         c4 a b g
       }
     }
@@ -2264,7 +2264,7 @@ plantilla @q{Notes i lletra} (per a la part de soprano).
 
 @example
 \version @w{"@version{}"}
-melodia = \relative c' @{
+melodia = \relative @{
   \clef "treble"
   \key c \major
   \time 4/4
@@ -2293,7 +2293,7 @@ Ara volem afegir una part de violoncel.  Vegem l'exemple
 
 @example
 \version @w{"@version{}"}
-melodia = \relative c' @{
+melodia = \relative @{
   \clef "treble"
   \key c \major
   \time 4/4
@@ -2330,7 +2330,7 @@ Fa). Així mateix, canviarem algunes del violoncel.
 
 @example
 \version @w{"@version{}"}
-musicaSoprano = \relative c' @{
+musicaSoprano = \relative @{
   \clef "treble"
   \key c \major
   \time 4/4
@@ -2341,7 +2341,7 @@ lletraSoprano = \lyricmode @{
   Aaa Bee Cee Dee
 @}
 
-musicaVioloncel = \relative c @{
+musicaVioloncel = \relative @{
   \clef "bass"
   \key c \major
   \time 4/4
@@ -2401,7 +2401,7 @@ fàcil solució.  Presentem aquí la plantilla completa per a
 soprano i violoncel.
 
 @lilypond[quote,verbatim,ragged-right,addversion]
-musicaSoprano = \relative c' {
+musicaSoprano = \relative {
   \clef "treble"
   \key c \major
   \time 4/4
@@ -2412,7 +2412,7 @@ lletraSoprano = \lyricmode {
   Aaa Bee Cee Dee
 }
 
-musicaVioloncel = \relative c {
+musicaVioloncel = \relative {
   \clef "bass"
   \key c \major
   \time 4/4
@@ -2456,31 +2456,31 @@ aquí un exemple del «Messies» de Haendel:
 @lilypond[quote,ragged-right]
 global = { \key d \major \time 4/4 }
 
-musicaSoprano = \relative c'' {
+musicaSoprano = \relative {
   \clef "treble"
-  r4 d2 a4 | d4. d8 a2 | cis4 d cis2 |
+  r4 d''2 a4 | d4. d8 a2 | cis4 d cis2 |
 }
 lletraSoprano = \lyricmode {
   Wor -- thy | is the lamb | that was slain |
 }
 
-musicaAlto = \relative a' {
+musicaAlto = \relative {
   \clef "treble"
-  r4 a2 a4 | fis4. fis8 a2 | g4 fis e2 |
+  r4 a'2 a4 | fis4. fis8 a2 | g4 fis e2 |
 }
 
 lletraAlto = \lletraSoprano
 
-musicaTenor = \relative c' {
+musicaTenor = \relative {
   \clef "G_8"
-  r4 fis2 e4 | d4. d8 d2 | e4 a, cis2 |
+  r4 fis'2 e4 | d4. d8 d2 | e4 a, cis2 |
 }
 
 lletraTenor = \lletraSoprano
 
-musicaBaix = \relative c' {
+musicaBaix = \relative {
   \clef "bass"
-  r4 d2 cis4 | b4. b8 fis2 | e4 d a'2 |
+  r4 d'2 cis4 | b4. b8 fis2 | e4 d a'2 |
 }
 
 lletraBaix = \lletraSoprano
@@ -2693,26 +2693,26 @@ de l'exemple anterior, obtenim:
 
 @lilypond[quote,verbatim,ragged-right,addversion]
 global = { \key d \major \time 4/4 }
-musicaSoprano = \relative c'' {
+musicaSoprano = \relative {
   \clef "treble"
-  r4 d2 a4 | d4. d8 a2 | cis4 d cis2 |
+  r4 d''2 a4 | d4. d8 a2 | cis4 d cis2 |
 }
 lletraSoprano = \lyricmode {
   Wor -- thy | is the lamb | that was slain |
 }
-musicaAlto = \relative a' {
+musicaAlto = \relative {
   \clef "treble"
-  r4 a2 a4 | fis4. fis8 a2 | g4 fis fis2 |
+  r4 a'2 a4 | fis4. fis8 a2 | g4 fis fis2 |
 }
 lletraAlto = \lletraSoprano
-musicaTenor = \relative c' {
+musicaTenor = \relative {
   \clef "G_8"
-  r4 fis2 e4 | d4. d8 d2 | e4 a, cis2 |
+  r4 fis'2 e4 | d4. d8 d2 | e4 a, cis2 |
 }
 lletraTenor = \lletraSoprano
-musicaBaix = \relative c' {
+musicaBaix = \relative {
   \clef "bass"
-  r4 d2 cis4 | b4. b8 fis2 | e4 d a'2 |
+  r4 d'2 cis4 | b4. b8 fis2 | e4 d a'2 |
 }
 lletraBaix = \lletraSoprano
 upper = \relative a' {
@@ -3029,19 +3029,19 @@ música, i combinar totes les parts.
   composer = "J S Bach"
 }
 keyTime = { \key c \minor \time 4/4 }
-MusicaManualUVeuU = \relative g' {
-  g4 g f ees |
+MusicaManualUVeuU = \relative {
+  g'4 g f ees |
   d2 c |
 }
-MusicaManualUVeuDos = \relative c' {
-  ees16 d ees8~ 16 f ees d c8 d~ d c~ |
+MusicaManualUVeuDos = \relative {
+  ees'16 d ees8~ 16 f ees d c8 d~ d c~ |
   8 c4 b8 c8. g16 c b c d |
 }
-MusicaManualDos= \relative c' {
-  c16 b c8~ 16 b c g a8 g~ 16 g aes ees |
+MusicaManualDos= \relative {
+  c'16 b c8~ 16 b c g a8 g~ 16 g aes ees |
   f16 ees f d g aes g f ees d ees8~ 16 f ees d |
 }
-MusicaOrganPedal = \relative c {
+MusicaOrganPedal = \relative {
   r8 c16 d ees d ees8~ 16 a, b g c b c8 |
   r16 g ees f g f g8 c,2 |
 }
@@ -3096,7 +3096,7 @@ Glossari musical:
 Arribats a aquest punt, heu vist coses d'aquest tipus:
 
 @lilypond[quote,verbatim,ragged-right]
-hornNotes = \relative c'' { c4 b dis c }
+hornNotes = \relative { c''4 b dis c }
 
 \score {
   {
@@ -3109,8 +3109,8 @@ Fins i tot us adonareu que això pot ser útil en música
 minimalista:
 
 @lilypond[quote,verbatim,ragged-right]
-fragmentA = \relative c'' { a4 a8. b16 }
-fragmentB = \relative c'' { a8. gis16 ees4 }
+fragmentA = \relative { a'4 a8. b16 }
+fragmentB = \relative { a'8. gis16 ees4 }
 
 violí = \new Staff {
   \fragmentA \fragmentA |
@@ -3194,8 +3194,8 @@ padText =
      \once \override TextScript.padding = #padding
    #})
 
-\relative c''' {
-  c4^"piu mosso" b a b |
+\relative {
+  c'''4^"piu mosso" b a b |
   \padText #1.8
   c4^"piu mosso" d e f |
   \padText #2.6
@@ -3229,7 +3229,7 @@ exemple, suposem que el fitxer @file{trompa.ly} conté la següent
 part d'un duo per a trompa i fagot:
 
 @example
-notesTrompa = \relative c @{
+notesTrompa = \relative @{
   \time 2/4
   r4 f8 a | cis4 f | e4 d |
 @}
@@ -3267,7 +3267,7 @@ normal en@tie{}Fa.  La transposició es pot veure a la següent
 sortida
 
 @lilypond[quote,ragged-right]
-\transpose f c' \relative c {
+\transpose f c' \relative {
   \time 2/4
   r4 f8 a | cis4 f | e4 d |
 }
@@ -3325,7 +3325,7 @@ que l'altra veu es troba dins de @code{notesFagot} al fitxer
 el que ens porta a
 
 @lilypond[quote,ragged-right]
-\relative c <<
+\relative <<
   \new Staff {
     \clef "treble"
     \time 2/4

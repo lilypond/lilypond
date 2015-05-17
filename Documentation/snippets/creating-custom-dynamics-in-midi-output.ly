@@ -4,8 +4,8 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.18.0
-\version "2.18.0"
+%% Note: this file works from version 2.19.21
+\version "2.19.21"
 
 \header {
 
@@ -32,8 +32,8 @@
     \set Staff.midiInstrument = #"cello"
     \set Score.dynamicAbsoluteVolumeFunction = #myDynamics
     \new Voice {
-      \relative c'' {
-        a4\pp b c-\rfz
+      \relative {
+        a'4\pp b c-\rfz
       }
     }
   }

@@ -10,7 +10,7 @@
 
 @include included/generating-output.itexi
 
-@c \version "2.16.0"
+@c \version "2.19.21"
 @c Translators: Till Paala, Reinhold Kainhofer
 @c Translation checkers: Hajo Bäß
 
@@ -257,8 +257,8 @@ die nächste Note immer nur eine Notenlinie über der vorherigen steht.
 @c KEEP LY
 @lilypond[verbatim,quote]
 % Beginnpunkt auf das mittlere C setzen
-\relative c' {
-  c d e f
+\relative {
+  c' d e f
   g a b c
 }
 @end lilypond
@@ -272,8 +272,8 @@ auch Melodien mit größeren Intervallen im @code{\relative}-Modus
 gebildet werden:
 
 @lilypond[verbatim,quote]
-\relative c' {
-  d f a g
+\relative {
+  d' f a g
   c b f d
 }
 @end lilypond
@@ -291,8 +291,8 @@ Oktave der ersten Tonhöhe verändert werden:
 @c KEEP LY
 @lilypond[verbatim,quote]
 % zweigestrichenes C
-\relative c'' {
-  e c a c
+\relative {
+  e'' c a c
 }
 @end lilypond
 
@@ -307,8 +307,8 @@ Hs, wenn es ein A, G oder F ist, wird es darunter gesetzt.
 
 @c KEEP LY
 @lilypond[verbatim,quote]
-\relative c'' {
-  b c  % c ist 1 Zeile aufwärts, also c über dem b
+\relative {
+  b' c  % c ist 1 Zeile aufwärts, also c über dem b
   b d  % d ist 2 Zeilen aufwärts, oder 5 runter, also d über dem b
   b e  % e ist 3 aufwärts oder 4 runter, also e über dem b
   b a  % a ist 6 aufwärts oder 1 runter, also a unter dem b
@@ -327,8 +327,8 @@ Um Intervalle zu notieren, die größer als drei Notenzeilen sind, kann man die 
 direkt hinter dem Notennamen wird die Oktave um eins erhöht, mit einem Komma @code{,} um eins erniedrigt.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a a, c' f,
+\relative {
+  a' a, c' f,
   g g'' a,, f'
 }
 @end lilypond
@@ -365,8 +365,8 @@ Wenn keine Dauer bezeichnet wird, wird die der vorhergehenden Note
 verwendet. Für die erste Note ist eine Viertel als Standard definiert.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a1
+\relative {
+  a'1
   a2 a4 a8 a
   a16 a a a a32 a a a a64 a a a a a a a a2
 }
@@ -378,8 +378,8 @@ punktierten Note muss explizit, also inklusive der Nummer,
 angegeben werden.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a4 a a4. a8
+\relative {
+  a'4 a a4. a8
   a8. a16 a a8. a8 a4.
 }
 @end lilypond
@@ -395,8 +395,8 @@ Eine @notation{Pause} wird genauso wie eine Noten eingegeben; ihre
 Bezeichnung ist @code{r}@tie{}:
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a4 r r2
+\relative {
+  a'4 r r2
   r8 a r4 r4. r8
 }
 @end lilypond
@@ -415,9 +415,9 @@ Die @notation{Taktart} kann mit dem
 @code{\time}-Befehl definiert werden:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \time 3/4
-  a4 a a
+  a'4 a a
   \time 6/8
   a4. a
   \time 4/4
@@ -471,9 +471,9 @@ Der @notation{Notenschlüssel} kann mit dem @code{\clef}-Befehl
 gesetzt werden:
 
 @lilypond[verbatim,quote]
-\relative c' {
+\relative {
   \clef "treble"
-  c1
+  c'1
   \clef "alto"
   c1
   \clef "tenor"
@@ -778,8 +778,8 @@ Abbildung:
 @c no verbatim here
 @c KEEP LY
 @lilypond[quote]
-\relative c'' {
-  c4-\markup { \bold \huge { Hier klicken! } }
+\relative {
+  c''4-\markup { \bold \huge { Hier klicken! } }
 }
 @end lilypond
 

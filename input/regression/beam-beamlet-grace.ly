@@ -3,12 +3,12 @@
   texidoc = "Beamlets in grace notes remain readable."
 }
 
-\version "2.17.28"
+\version "2.19.21"
 \layout {
   ragged-right = ##t
 }
 
-\relative c'
+\relative
 \context Staff {
-  f1 \grace { a'8 f16 } g1
+  f'1 \grace { a'8 f16 } g1
 }

@@ -1,5 +1,5 @@
 % Lily was here -- automatically converted by ../../../scripts/midi2ly.py from out-www/voice-4.midi
-\version "2.16.0"
+\version "2.19.21"
 
 \layout {
   \context {
@@ -73,7 +73,7 @@ trackBchannelD = \relative c {
   
 }
 
-trackBchannelE = \relative c {
+trackBchannelE = \relative {
   s1 d1
   | % 2
   

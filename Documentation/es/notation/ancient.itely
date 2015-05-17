@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.30"
+@c \version "2.19.21"
 
 
 @node Notación antigua
@@ -301,8 +301,8 @@ muestra en el ejemplo siguiente:
 
 @lilypond[quote,ragged-right]
 \score {
-  \relative c'' {
-    a1
+  \relative {
+    a'1
     \break
     g
   }
@@ -2788,9 +2788,9 @@ sola sílaba alineada por la izquierda:
 
 @lilypond[verbatim,ragged-right]
 \include "gregorian.ly"
-chant = \relative c' {
+chant = \relative {
   \clef "G_8"
-  c\breve c4 b4 a c2 c4  \divisioMaior
+  c'\breve c4 b4 a c2 c4  \divisioMaior
   c\breve c4 c f, f \finalis
 }
 

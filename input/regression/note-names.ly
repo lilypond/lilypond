@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Various languages are supported for note names input.
@@ -11,8 +11,8 @@ and doesn't break point-and-click abilities.
 %% Old syntax.
 \include "english.ly"
 
-\relative c'' {
-  g4 bf d c
+\relative {
+  g'4 bf d c
 
   %% Manual override of the pitchnames variable
   %% and the parser note names:

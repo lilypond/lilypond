@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header  {
 texidoc = "Context modifications can be stored into a variable as a
@@ -26,7 +26,7 @@ ctxmod = \with {
 }
 
 
-music = \relative c'' { \key fis \minor c1 d e }
+music = \relative { \key fis \minor c''1 d e }
 
 \score { <<
   \override Score.RehearsalMark.self-alignment-X = #LEFT

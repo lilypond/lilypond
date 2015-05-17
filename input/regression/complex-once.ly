@@ -1,10 +1,10 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header{
   texidoc= "This tests @code{\\once} applied to multiple property operations."
 }
 
-\relative c' {
-  c4 d \hideNotes e4 f |
+\relative {
+  c'4 d \hideNotes e4 f |
   \unHideNotes g a \once \hideNotes b c |
 }

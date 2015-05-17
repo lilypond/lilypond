@@ -14,10 +14,10 @@ Solo 1/2 can not be used when a spanner is active, so there is no solo
 "
     }
 
-vone =  \relative a' { d4 r8 d8 d8 r8 d8 r8 d2 ~ 2 ~ 4 }
-vtwo =  \relative g' { g4.   g8 r2          g4 r4 r2  g4 } 
+vone =  \relative { d''4 r8 d8 d8 r8 d8 r8 d2 ~ 2 ~ 4 }
+vtwo =  \relative { g'4.   g8 r2          g4 r4 r2  g4 } 
 
-\version "2.19.2"
+\version "2.19.21"
 
 \paper { ragged-right = ##t } 
 

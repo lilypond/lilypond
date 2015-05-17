@@ -1,9 +1,9 @@
-\version "2.19.2"
+\version "2.19.21"
 
 \include "mozart-hrn3-defs.ily"
 
-rondotheme = \relative c' {
-  c'8[ c c] c[ c c]
+rondotheme = \relative {
+  c''8[ c c] c[ c c]
   c4( cis8  d) r g,
   d'8[ d d] d[ d d]
   d4( dis8  e) r c |
@@ -13,7 +13,7 @@ rondotheme = \relative c' {
   e4.( d8) r r |
 }
 
-lipbreaker = \relative c' {
+lipbreaker = \relative {
   r8  g'[-. g-.] c[( e) g,-.]
   c[( e) g,-.] c[( e) g,-.]
   c[ c, c] c[ c c]

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Clefs for cue notes and line breaks.  If the cue notes start in a
@@ -13,7 +13,7 @@ line plus an additional cue clef after the time/@/key signature."
 vI = \relative c'' { \clef "treble" \repeat unfold 40 g4 }
 \addQuote vIQuote { \vI }
 
-Solo = \relative c {
+Solo = \relative {
   \clef "bass"
   c1 | \break
   \cueDuringWithClef #"vIQuote" #UP #"tenor" { R1 } | \break

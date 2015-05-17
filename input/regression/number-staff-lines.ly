@@ -1,5 +1,5 @@
 
-\version "2.17.6"
+\version "2.19.21"
 
 \header{
   texidoc=" The number of stafflines of a staff can be set.  Ledger
@@ -11,7 +11,7 @@ adjusted accordingly.  "
 \new Staff \with {
   \override StaffSymbol.line-count = #3
 }
-\relative c {
+\relative {
   c' c c c | g' g g g 	\bar ":|."
 }
 

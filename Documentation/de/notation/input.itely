@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @c Translators: Till Paala
 
@@ -850,8 +850,8 @@ handelt.
 @lilypond[papersize=a8landscape]
 \book {
   \score {
-    \relative c' {
-      c4 d e f
+    \relative {
+      c'4 d e f
     }
   }
 }
@@ -867,8 +867,8 @@ höchster Ebene schreibt.
     tagline = "... music notation for Everyone"
   }
   \score {
-    \relative c' {
-      c4 d e f
+    \relative {
+      c'4 d e f
     }
   }
 }
@@ -1325,7 +1325,7 @@ Tagline und Copyright gezeigt wird.
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
   \header { copyright = \markup { "Copyright 1970" } }
-  \relative c' {
+  \relative {
     a'4-\footnote #'(-3 . 0) \markup { \bold Forte } \f
     -\footnote #'(0 . 1.5) \markup { Ein Bogen } (
     b8)-\footnote #'(0 . -2) \markup { Balken } [ e]
@@ -1349,7 +1349,7 @@ den Befehl @code{\auto-footnote}:
 \book {
   \header { tagline = ##f }
   \markup { \auto-footnote "Eine einfache Melodie" \italic "Von mir" }
-  \relative c' {
+  \relative {
     a'4 b8 e c4 d
   }
 }
@@ -1417,7 +1417,7 @@ Position der Fußnotentexte zu Tagline und Copyright anzeigen:
 @lilypond[verbatim,quote,ragged-right,papersize=a8]
 \book {
   \header { tagline = ##f }
-  \relative c' {
+  \relative {
     a'4-\footnote
       \markup { \teeny 1 } #'(-3 . 0)
       \markup { 1. \bold Forte } \f
@@ -1455,7 +1455,7 @@ annotiert:
 \book {
   \header { tagline = ##f }
   \markup { "Eine einfache Melodie" \footnote "*" \italic "* Von mir" }
-  \relative c' {
+  \relative {
     a'4 b8 e c4 d4
   }
 }
@@ -1866,10 +1866,10 @@ System kombiniert werden, siehe @ref{Automatische Kombination von Stimmen}.
 Hier ein Beispiel:
 
 @lilypond[verbatim,quote]
-sopranoMusic = \relative c'' { a4 b c b8( a) }
-altoMusic = \relative g' { e4 e e f }
-tenorMusic = \relative c' { c4 b e d8( c) }
-bassMusic = \relative c' { a4 gis a d, }
+sopranoMusic = \relative { a'4 b c b8( a) }
+altoMusic = \relative { e'4 e e f }
+tenorMusic = \relative { c'4 b e d8( c) }
+bassMusic = \relative { a4 gis a d, }
 allLyrics = \lyricmode {King of glo -- ry }
 <<
   \new Staff = "Soprano" \sopranoMusic
@@ -1972,8 +1972,8 @@ Im folgenden Beispiel erscheinen zwei Versionen der Noten, eine
 zeigt Triller in normaler Notation, die andere zeigt sie ausgeschrieben:
 
 @lilypond[verbatim,quote]
-music = \relative g' {
-  g8. c32 d
+music = \relative {
+  g'8. c32 d
   \tag #'trills { d8.\trill }
   \tag #'expand { \repeat unfold 3 { e32 d } }
   c32 d
@@ -1992,8 +1992,8 @@ Entsprechend können auch Abschnitte ausgeschlossen werden; das
 erfordert manchmal weniger Schreibarbeit:
 
 @lilypond[verbatim,quote]
-music = \relative g' {
-  g8. c32 d
+music = \relative {
+  g'8. c32 d
   \tag #'trills { d8.\trill }
   \tag #'expand {\repeat unfold 3 { e32 d } }
   c32 d
@@ -2217,8 +2217,8 @@ portuguese = \lyricmode {
   à vo -- cê uma can -- ção legal
 }
 
-\relative c' {
-  c2 d e f g f e
+\relative {
+  c'2 d e f g f e
 }
 \addlyrics { \bulgarian }
 \addlyrics { \hebrew }
@@ -2260,8 +2260,8 @@ im Gesangstext und als normaler Text außerhalb der Partitur.
 
 @lilypond[quote,verbatim]
 \score {
-  \relative c'' {
-    c1 \mark \markup { \char ##x03EE }
+  \relative {
+    c''1 \mark \markup { \char ##x03EE }
     c1_\markup { \tiny { \char ##x03B1 " to " \char ##x03C9 } }
   }
   \addlyrics { O \markup { \concat { Ph \char ##x0153 be! } } }
@@ -2873,8 +2873,8 @@ Standardanweisungen auf:
     \set Staff.midiInstrument = #"cello"
     \set Score.dynamicAbsoluteVolumeFunction = #myDynamics
     \new Voice {
-      \relative c'' {
-        a4\pp b c-\rfz
+      \relative {
+        a'4\pp b c-\rfz
       }
     }
   }
@@ -2917,8 +2917,8 @@ auf den Bereich zwischen 0.2 und 0.5 eingeschränkt.
       \key g \major
       \time 2/2
       \set Staff.midiInstrument = #"flute"
-      \new Voice \relative c''' {
-        r2 g\mp g fis~
+      \new Voice \relative {
+        r2 g''\mp g fis~
         4 g8 fis e2~
         4 d8 cis d2
       }
@@ -2926,8 +2926,8 @@ auf den Bereich zwischen 0.2 und 0.5 eingeschränkt.
     \new Staff {
       \key g \major
       \set Staff.midiInstrument = #"clarinet"
-      \new Voice \relative c'' {
-        b1\p a2. b8 a
+      \new Voice \relative {
+        b'1\p a2. b8 a
         g2. fis8 e
         fis2 r
       }
@@ -2968,8 +2968,8 @@ diese Einstellung korrekt funktioniert.
       \set Staff.midiInstrument = #"flute"
       \set Staff.midiMinimumVolume = #0.7
       \set Staff.midiMaximumVolume = #0.9
-      \new Voice \relative c''' {
-        r2 g\mp g fis~
+      \new Voice \relative {
+        r2 g''\mp g fis~
         4 g8 fis e2~
         4 d8 cis d2
       }
@@ -2979,8 +2979,8 @@ diese Einstellung korrekt funktioniert.
       \set Staff.midiInstrument = #"clarinet"
       \set Staff.midiMinimumVolume = #0.3
       \set Staff.midiMaximumVolume = #0.6
-      \new Voice \relative c'' {
-        b1\p a2. b8 a
+      \new Voice \relative {
+        b'1\p a2. b8 a
         g2. fis8 e
         fis2 r
       }
@@ -3041,8 +3041,8 @@ Lautstärkewerte, die denen des vorigen Beispiels entsprechen.
       \time 2/2
       \set Score.instrumentEqualizer = #my-instrument-equalizer
       \set Staff.midiInstrument = #"flute"
-      \new Voice \relative c''' {
-        r2 g\mp g fis~
+      \new Voice \relative {
+        r2 g''\mp g fis~
         4 g8 fis e2~
         4 d8 cis d2
       }
@@ -3050,8 +3050,8 @@ Lautstärkewerte, die denen des vorigen Beispiels entsprechen.
     \new Staff {
       \key g \major
       \set Staff.midiInstrument = #"clarinet"
-      \new Voice \relative c'' {
-        b1\p a2. b8 a
+      \new Voice \relative {
+        b'1\p a2. b8 a
         g2. fis8 e
         fis2 r
       }

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 
@@ -9,8 +9,8 @@ respect two-digit fret numbers.
 
 }
 
-myMusic = \relative c'  {
-  <f\3 a c>4.
+myMusic = \relative  {
+  <f'\3 a c>4.
   <f\3 g d'>4.
   <f\3 a d>4
 }

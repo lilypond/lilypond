@@ -5,8 +5,8 @@
 }
 \layout { ragged-right = ##t }
 <<
-    \new Staff \relative c'' {
-	d2 d c4 bes a2 \break
+    \new Staff \relative {
+	d''2 d c4 bes a2 \break
     }
     \addlyrics {
 	My first Li -- ly song,
@@ -14,9 +14,9 @@
     \addlyrics {
 	Not much can go wrong!
     }
-    \new Staff \relative c' {
+    \new Staff \relative {
 	\clef bass
-	d2 d c4 bes a2 \break
+	d'2 d c4 bes a2 \break
     }
     \addlyrics {
 	MY FIRST LI -- LY SONG,
@@ -26,4 +26,4 @@
     }
 >>
 
-\version "2.16.0"
+\version "2.19.21"

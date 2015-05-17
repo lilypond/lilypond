@@ -1,11 +1,11 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Broken hairpins are not printed too high after key signatures.
 "
 }
 
-\relative c'' {
+\relative {
   \key e \major
-  c4^\< c c c \break c c c c\! |
+  c''4^\< c c c \break c c c c\! |
 }

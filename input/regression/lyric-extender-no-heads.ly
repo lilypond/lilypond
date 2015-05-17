@@ -6,15 +6,15 @@ without a lyric attached."
   
 }
 
-\version "2.19.2"
+\version "2.19.21"
 
 \layout {
   ragged-right = ##t
 }
 
-\relative c'' {
+\relative {
   \time 3/4
-  d4~ 4 r4
+  d''4~ 4 r4
   \grace es8
 
   d4

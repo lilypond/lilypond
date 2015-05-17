@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.19.21"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -324,7 +324,7 @@
   \new Staff = "up" {
     \new Voice = "melOne" {
       \key g \major
-      \autochange \relative c' {
+      \autochange \relative {
         g8 b a c b d c e
         d8 r fis, g a2
       }

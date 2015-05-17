@@ -2,8 +2,8 @@
   texidoc = "Glissandi stop before hitting accidentals."
 
 }
-\version "2.16.0"
+\version "2.19.21"
 
-\relative c'' {
-  a1\glissando cis
+\relative {
+  a'1\glissando cis
 }

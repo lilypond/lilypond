@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header { texidoc = "
 
@@ -8,8 +8,8 @@ are tried for the extremal ties in a chord.
 
 " }
 
-\relative c'' {
-  \time 4/4 <bis bis>1 ~ \break
+\relative {
+  \time 4/4 <bis' bis>1 ~ \break
 
   \override Tie.details.multi-tie-region-size = #1
   \time 3/4 <bis bis>2.~ \break

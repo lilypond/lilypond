@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Rehearsal marks at the end of the last measure of a
@@ -6,7 +6,7 @@ score are automatically made visible.
 "
 }
 
-\relative c' {
-  c1
+\relative {
+  c'1
   \mark "Final Mark"
 }

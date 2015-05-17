@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Clefs for cue notes: Print a cue clef at the begin of the cue
@@ -8,7 +8,7 @@ notes and a canceling clef after the cue notes."
 vI = \relative c'' { \clef "treble" \repeat unfold 16 g4 }
 \addQuote vIQuote { \vI }
 
-Solo = \relative c {
+Solo = \relative {
   \clef "bass"
   c4 \cueDuringWithClef #"vIQuote" #DOWN #"treble" {
     r4 r2 |

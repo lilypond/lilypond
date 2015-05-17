@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.20"
+@c \version "2.19.21"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, François Martin, Xavier Scheuer
@@ -1664,10 +1664,10 @@ devront être explicites, la fonction d'échelonnement venant perturber
 les règles de ligature automatique.
 
 @lilypond[quote,verbatim]
-\relative c' <<
+\relative <<
   \new Staff {
     \time 3/4
-    c4 c c |
+    c'4 c c |
     c4 c c |
   }
   \new Staff {
@@ -1712,10 +1712,10 @@ parviendrez en déplaçant le @code{Timing_translator} et le
 
 % Now each staff has its own time signature.
 
-\relative c' <<
+\relative <<
   \new Staff {
     \time 3/4
-    c4 c c |
+    c'4 c c |
     c4 c c |
   }
   \new Staff {
@@ -2198,8 +2198,8 @@ supérieur s'appliqueront.
   \set Staff.beatStructure = #'(2 3 2)
   <<
     \new Voice = one {
-      \relative c'' {
-        a8 a a a a a a
+      \relative {
+        a'8 a a a a a a
       }
     }
     \new Voice = two {
@@ -3633,8 +3633,8 @@ argument un fragment de musique, et génèrent un @code{\skip} ou un
 silence multimesure d'une durée correspondant à ce fragment.
 
 @lilypond[verbatim,quote]
-MyCadenza = \relative c' {
-  c4 d8 e f g g4
+MyCadenza = \relative {
+  c'4 d8 e f g g4
   f2 g4 g
 }
 

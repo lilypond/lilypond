@@ -1,4 +1,4 @@
-\version "2.18.0"
+\version "2.19.21"
 
 \header {
 
@@ -38,8 +38,8 @@
       \time 2/2
       \set Score.instrumentEqualizer = #my-instrument-equalizer
       \set Staff.midiInstrument = #"flute"
-      \new Voice \relative c''' {
-        r2 g\mp g fis~
+      \new Voice \relative {
+        r2 g''\mp g fis~
         4 g8 fis e2~
         4 d8 cis d2
       }
@@ -47,8 +47,8 @@
     \new Staff {
       \key g \major
       \set Staff.midiInstrument = #"clarinet"
-      \new Voice \relative c'' {
-        b1\p a2. b8 a
+      \new Voice \relative {
+        b'1\p a2. b8 a
         g2. fis8 e
         fis2 r
       }

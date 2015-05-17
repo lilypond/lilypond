@@ -5,10 +5,10 @@ the wavy line should appear to come from the crook of the r"
 
 }
 
-\version "2.16.0"
+\version "2.19.21"
 \paper { ragged-right = ##t }
-\relative c'' {
-  c1\startTrillSpan
+\relative {
+  c''1\startTrillSpan
   c\stopTrillSpan
 }
 

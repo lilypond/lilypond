@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.19.21"
 
 @c Note: keep this node named so that `info lilypond-book' brings you here.
 @node lilypond-book
@@ -91,8 +91,8 @@ Los documentos para \verb+lilypond-book+ pueden mezclar libremente
 música y texto. Por ejemplo:
 
 \begin{lilypond}
-\relative c' {
-  c2 e2 \tuplet 3/2 { f8 a b } a2 e4
+\relative {
+  c'2 e2 \tuplet 3/2 { f8 a b } a2 e4
 }
 \end{lilypond}
 
@@ -153,8 +153,8 @@ Los documentos para @command{lilypond-book} pueden mezclar libremente
 música y texto.  Por ejemplo:
 
 @lilypond
-\relative c' {
-  c2 e2 \tuplet 3/2 { f8 a b } a2 e4
+\relative {
+  c'2 e2 \tuplet 3/2 { f8 a b } a2 e4
 }
 @end lilypond
 
@@ -180,8 +180,8 @@ de una construcción @code{\book @{ @}}.
     title = "Una escala en LilyPond"
   }
 
-  \relative c' {
-    c d e f g a b c
+  \relative {
+    c' d e f g a b c
   }
 }
 @end lilypond
@@ -812,8 +812,8 @@ el modo relativo, pero la cita preformateada no presentará el bloque
 @code{relative}, es decir
 
 @example
-\relative c' @{ % begin verbatim
-  c4 e2 g4
+\relative @{ % begin verbatim
+  c'4 e2 g4
   f2 e % end verbatim
 @}
 @end example
@@ -1209,8 +1209,8 @@ LaTeX.
 Texto normal en LaTeX.
 
 \begin@{lilypond@}
-\relative c'' @{
-  a4 b c d
+\relative @{
+  a'4 b c d
 @}
 \end@{lilypond@}
 
@@ -1235,7 +1235,7 @@ todo el presente manual está escrito en Texinfo.
 Texto en Texinfo
 
 @@lilypond
-\relative c' @{
+\relative @{
   a4 b c d
 @}
 @@end lilypond
@@ -1262,8 +1262,8 @@ d4 c b a
 Los documentos para lilypond-book pueden mezclar música y texto libremente.  Por
 ejemplo,
 <lilypond>
-\relative c'' @{
-  a4 b c d
+\relative @{
+  a'4 b c d
 
 <p>
 Otro poco de lilypond, esta vez con opciones:

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @c Translation status: post-GDP
 
@@ -227,8 +227,8 @@ la distinta escritura de octava en la última nota de este ejemplo.
 \new Voice
 \relative c'' {
   \chordRepeats #'(articulation-event)
-  \relative c''
-  { <a-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
+  \relative
+  { <a'-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
   q2 c |
 }
 @end lilypond
@@ -803,10 +803,10 @@ las mismas dentro de su archivo de entrada ¡no sería el mismo que
 el orden vertical de las voces en el pentagrama!}
 
 @lilypond[quote,verbatim]
-\new Staff \relative c'' {
+\new Staff \relative {
   %% abbreviated entry
   <<
-    { f2  }  % 1: highest
+    { f''2  }  % 1: highest
     \\
     { g,2 }  % 2: lowest
     \\
@@ -926,17 +926,17 @@ Se utilizan las mismas variables para las partes
 independientes y el pentagrama combinado.
 
 @lilypond[quote,verbatim]
-instrumentOne = \relative c' {
-  c4 d e f |
+instrumentOne = \relative {
+  c'4 d e f |
   R1 |
   d'4 c b a |
   b4 g2 f4 |
   e1 |
 }
 
-instrumentTwo = \relative g' {
+instrumentTwo = \relative {
   R1 |
-  g4 a b c |
+  g'4 a b c |
   d4 c b a |
   g4 f( e) d |
   e1 |
@@ -1040,8 +1040,8 @@ instrumentOne = \relative c' {
   \partcombineApart c2^"apart" \partcombineChordsOnce e^"chord once" |
   c2 c |
 }
-instrumentTwo = \relative c' {
-  c2 c |
+instrumentTwo = \relative {
+  c'2 c |
   e2 e |
   a,2 c |
   c2 c' |

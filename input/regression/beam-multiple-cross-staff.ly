@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 \header {
 
   texidoc = "Kneed beams (often happens with cross-staff beams)
@@ -19,7 +19,7 @@ to the last beam.
     \oneVoice
     f[ g \change Staff = SA a c] 
   }
-  \new Staff = SB \relative c' {
+  \new Staff = SB \relative {
     \clef bass
     b8[ b16 \voiceOne b,,16 ]
 

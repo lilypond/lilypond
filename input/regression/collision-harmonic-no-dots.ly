@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Collision resolution involving dotted harmonic heads
@@ -7,9 +7,9 @@ will only retrieve @code{'dot-count} from live grobs.
 "
 }
 
-\relative c' {
+\relative {
   <<
-    { <fis\harmonic>2. }
+    { <fis'\harmonic>2. }
     \\
     { e2. }
   >>

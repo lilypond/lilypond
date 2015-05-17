@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 
@@ -11,15 +11,15 @@
 }
 
 \new Staff <<
-  \relative c''' {
+  \relative {
     \key f \major
-    es4 c c c \bar "||" \noBreak
+    es'''4 c c c \bar "||" \noBreak
     \key g \major
     <gis cis,>4 r2. \bar "|."
     } \\
-  \relative c' {
+  \relative {
     R1
-    r4 cis a a
+    r4 cis' a a
   }
 >>
 \layout {

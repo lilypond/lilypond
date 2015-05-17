@@ -7,7 +7,7 @@ path)."
 
 }
 
-\version "2.17.6"
+\version "2.19.21"
 
 \paper {
   myStaffSize = 20
@@ -20,8 +20,8 @@ path)."
      (/ myStaffSize 20))
 }
 
-sampleMusic = \relative c'' {
-  a4-\trill_\sfz b8 c16 d32
+sampleMusic = \relative {
+  a'4-\trill_\sfz b8 c16 d32
 }
 
 

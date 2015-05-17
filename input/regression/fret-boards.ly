@@ -6,9 +6,9 @@ best when one string number is indicated in advance "
   
 }
 
-\version "2.16.0"
+\version "2.19.21"
 
-foo = \relative c {
+foo = \relative {
   <d\5 fis a d fis>_\markup {
     \fret-diagram-terse #"x;5;4;2;3;2;"
   }

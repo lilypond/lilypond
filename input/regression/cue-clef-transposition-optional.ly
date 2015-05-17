@@ -1,4 +1,4 @@
-\version "2.17.7"
+\version "2.19.21"
 
 \header {
   texidoc = "Optional transposition for clefs for cue notes is supported
@@ -8,8 +8,8 @@ by using parentheses or brackets around the transposition number."
 vI = \relative c'' { \clef "treble" \repeat unfold 40 g4 }
 \addQuote vIQuote { \vI }
 
-Solo = \relative c' {
-  \clef "treble_8" c1 |
+Solo = \relative {
+  \clef "treble_8" c'1 |
   \cueDuringWithClef #"vIQuote" #UP #"bass^(15)" { R1 } |
   c1 | \break
   c c

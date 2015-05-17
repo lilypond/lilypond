@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header { 
   texidoc = "Accidentals in different staves do not affect the
@@ -7,11 +7,11 @@ spacing of the eighth notes here."
 
 \layout { ragged-right = ##t}
 
-\relative c'' <<
+\relative <<
   \new Staff {
     \time 4/4
 
-    c8[ c8 cis8 cis8]
+    c''8[ c8 cis8 cis8]
     cis8[ cis8 cis8 cis]
   }
   {

@@ -1,11 +1,11 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "LilyPond typesets glissandi between chords."
 }
 
-\relative c' {
-  c1 \glissando g'
+\relative {
+  c'1 \glissando g'
   c,1 \glissando s1 g'
   <c, e>1 \glissando <g' b>
   <c, e>1 \glissando s1 <g' b>

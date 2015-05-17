@@ -1,10 +1,10 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header{ texidoc = "The sans serif style tab clef is automatically adjusted to
                     different string spacings."
        }
 
-guitar = \relative c {
+guitar = \relative {
   c4 d e f
   e4 d c2
 }

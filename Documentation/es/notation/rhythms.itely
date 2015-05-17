@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @node Duraciones
 @section Duraciones
@@ -1674,10 +1674,10 @@ forma manual, pues el escalado de las duraciones afecta a las reglas
 de barrado automático.
 
 @lilypond[quote,verbatim]
-\relative c' <<
+\relative <<
   \new Staff {
     \time 3/4
-    c4 c c |
+    c'4 c c |
     c4 c c |
   }
   \new Staff {
@@ -1720,10 +1720,10 @@ independiente trasladando los grabadores @code{Timing_translator} y
 
 % Now each staff has its own time signature.
 
-\relative c' <<
+\relative <<
   \new Staff {
     \time 3/4
-    c4 c c |
+    c'4 c c |
     c4 c c |
   }
   \new Staff {
@@ -2169,8 +2169,8 @@ más bajo, se aplican los ajustes del contexto circundante.
   \set Staff.beatStructure = #'(2 3 2)
   <<
     \new Voice = one {
-      \relative c'' {
-        a8 a a a a a a
+      \relative {
+        a'8 a a a a a a
       }
     }
     \new Voice = two {
@@ -3667,8 +3667,8 @@ de música como argumento y generan un @code{\skip} o silencio
 multicompás, de la longitud exacta del fragmento.
 
 @lilypond[verbatim,quote]
-MyCadenza = \relative c' {
-  c4 d8 e f g g4
+MyCadenza = \relative {
+  c'4 d8 e f g g4
   f2 g4 g
 }
 

@@ -1,4 +1,4 @@
-\version "2.17.11"
+\version "2.19.21"
 \header{
 
   texidoc = "Fully concave beams should be horizontal. Informally spoken,
@@ -15,9 +15,9 @@
 resetMeasure = \set Score.measurePosition = #(ly:make-moment 0/1)
 
 %% examples from Ross.
-rossFourBeams =\relative c'' {
+rossFourBeams =\relative {
   \time 2/4
-  c8[ e b c]
+  c''8[ e b c]
   b[ c d b]
   c[ f b, c]
 
@@ -31,9 +31,9 @@ rossFourBeams =\relative c'' {
   f[g g e]
   a[ d, b' g]
 }
-rossThreeBeams = \relative c'' {
+rossThreeBeams = \relative {
   \time 6/8
-  e[ a, c] f[ d g]
+  e''[ a, c] f[ d g]
   f,[ b g] a[ b f]
   d'[ c b a b e]
   c[ b a c b a]

@@ -1,4 +1,4 @@
-\version "2.18.0"
+\version "2.19.21"
 
 \header {
   texidoc="
@@ -8,8 +8,8 @@
 "
 }
 
-\relative c' {
-  c1
+\relative {
+  c'1
   \inStaffSegno
   c2^"no repeat" c c c
   \repeat volta 2 {

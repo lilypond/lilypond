@@ -6,12 +6,12 @@ end span events at the end of a note."
   
 }
 
-\version "2.17.15"
+\version "2.19.21"
 \paper{
   ragged-right = ##T
 }
-\relative c'
-<< {   c'4 c c c }
+\relative
+<< {   c''4 c c c }
    \\
    {
      \override TextSpanner.bound-details.left.text = "x" 

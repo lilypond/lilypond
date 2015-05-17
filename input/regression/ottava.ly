@@ -11,7 +11,7 @@ markup can be tuned with @code{Staff.ottavation}.
 
 }
 
-\version "2.16.0"
+\version "2.19.21"
 
 %% . There must be a minimum distance between the octavation line and the
 %%   topmost staff line, taking into account the height of the closing
@@ -35,8 +35,8 @@ markup can be tuned with @code{Staff.ottavation}.
 
 \layout { ragged-right = ##t} 
 
-\relative c'''  {
-  a b c a
+\relative  {
+  a'' b c a
   \ottava #1
   a b c a
   \ottava #0

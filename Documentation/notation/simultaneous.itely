@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.16"
+@c \version "2.19.21"
 
 
 @node Simultaneous notes
@@ -219,8 +219,8 @@ in this example.
 \new Voice
 \relative c'' {
   \chordRepeats #'(articulation-event)
-  \relative c''
-  { <a-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
+  \relative
+  { <a'-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
   q2 c |
 }
 @end lilypond
@@ -776,10 +776,10 @@ of voices in your input file should not be the same as the
 vertical order of voices on the staff!}
 
 @lilypond[quote,verbatim]
-\new Staff \relative c'' {
+\new Staff \relative {
   %% abbreviated entry
   <<
-    { f2  }  % 1: highest
+    { f''2  }  % 1: highest
     \\
     { g,2 }  % 2: lowest
     \\
@@ -894,17 +894,17 @@ accordingly.  The same variables are used for the independent parts and
 the combined staff.
 
 @lilypond[quote,verbatim]
-instrumentOne = \relative c' {
-  c4 d e f |
+instrumentOne = \relative {
+  c'4 d e f |
   R1 |
   d'4 c b a |
   b4 g2 f4 |
   e1 |
 }
 
-instrumentTwo = \relative g' {
+instrumentTwo = \relative {
   R1 |
-  g4 a b c |
+  g'4 a b c |
   d4 c b a |
   g4 f( e) d |
   e1 |
@@ -939,14 +939,14 @@ argument to zero means that the partcombiner splits notes with an interval of
 a second or more, setting it to one splits notes of a third or more, and so on.
 
 @lilypond[quote,verbatim]
-instrumentOne = \relative c' {
+instrumentOne = \relative {
   a4 b c d |
   e f g a |
   b c d e |
 }
 
-instrumentTwo = \relative c' {
-  c4 c c c |
+instrumentTwo = \relative {
+  c'4 c c c |
   c c c c |
   c c c c |
 }
@@ -1035,8 +1035,8 @@ instrumentOne = \relative c' {
   \partcombineApart c2^"apart" \partcombineChordsOnce e^"chord once" |
   c2 c |
 }
-instrumentTwo = \relative c' {
-  c2 c |
+instrumentTwo = \relative {
+  c'2 c |
   e2 e |
   a,2 c |
   c2 c' |

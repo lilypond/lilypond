@@ -3,12 +3,12 @@
   texidoc = "Quarter tone notation is supported, including
     threequarters flat."
 }
-\version "2.16.0"
+\version "2.19.21"
 \layout { ragged-right = ##t }
 
-\relative c'' {
+\relative {
   \time 12/4 
-  ceses4
+  ceses''4
   ceseh
   ces
   ceh

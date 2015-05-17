@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "@code{Hairpin} grobs do not collide with @code{SpanBar} grobs.
@@ -10,16 +10,16 @@
 \score {
   <<
     \new GrandStaff <<
-      \new Staff \relative c'' { a\< a a a \break a a a a \break a a a a\! }
-      \new Staff \relative c'' { a4 a a a s1 a4 a a a }
+      \new Staff \relative { a'\< a a a \break a a a a \break a a a a\! }
+      \new Staff \relative { a'4 a a a s1 a4 a a a }
     >>
     \new GrandStaff <<
-      \new Staff \relative c'' { a^\< a a a a a a a a a a a\! }
+      \new Staff \relative { a'^\< a a a a a a a a a a a\! }
       \new Staff \relative c'' { \repeat unfold 12 a4 }
     >>
     \new GrandStaff <<
-      \new Staff \relative c'' { a4 a a a s1 a4 a a a }
-      \new Staff \relative c'' { a^\< a a a a a a a a a a a\! }
+      \new Staff \relative { a'4 a a a s1 a4 a a a }
+      \new Staff \relative { a'^\< a a a a a a a a a a a\! }
     >>
   >>
   \layout {

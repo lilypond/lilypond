@@ -1,14 +1,14 @@
-\version "2.17.6"
+\version "2.19.21"
 \header {
 texidoc = "Concave beaming works for chords as well as monophonic
 music.
 "
 }
 
-morgenliedBeam = \relative c'' \new Voice {
+morgenliedBeam = \relative \new Voice {
   \time 3/8
   % morgenlied
-  c16 b c e g <e b'> |
+  c''16 b c e g <e b'> |
   \stemUp
   c16 b c e g <e b'> |
 }

@@ -5,12 +5,12 @@
 
   
   }
-\version "2.17.15"
+\version "2.19.21"
 
 \paper { ragged-right =  ##t }
-\relative c'
+\relative
 {
-  <f d a>1~
+  <f' d a>1~
   <f d a>1~
   <f d a>1~
 }

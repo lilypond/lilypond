@@ -11,21 +11,21 @@ voices.
   
 "
 	}
-\version "2.19.2"
+\version "2.19.21"
 
 vone =
 
 %%%%%%%%%%%%%%  0   1   2   3  
-\relative c'' {
+\relative {
   \time 2/4
-  a8[ a]  a8[ a] |
+  a'8[ a]  a8[ a] |
   a8[ a]  a8[ a]
 }
 
 vtwo =
-\relative c' {
+\relative {
   \time 2/4
-  f8[ f]~ 8[ f] |
+  f'8[ f]~ 8[ f] |
   f8[ f]  f8[ f]
 }
 

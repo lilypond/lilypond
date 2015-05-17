@@ -1,12 +1,12 @@
-\version "2.17.6"
+\version "2.19.21"
 
 instrument = \relative c' {
   \repeat unfold 40 { c8 }
 }
 \addQuote "instrQuote" \instrument
 
-Solo = \relative c' { 
-  c2 c |
+Solo = \relative { 
+  c'2 c |
   
   % Change the break-align-orders of the score so that cue-clef comes after bar-line
   \override Score.BarLine.space-alist.cue-clef = #'(minimum-space . 1.0)

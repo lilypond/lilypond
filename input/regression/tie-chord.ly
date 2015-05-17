@@ -11,7 +11,7 @@ each system."
 
 }
 
-\version "2.16.0"
+\version "2.19.21"
 
 \paper {
   indent = #0.0
@@ -61,8 +61,8 @@ translate x y z to x~x y~y z~z
 baseChords =
 \applyMusic #(lambda (mus)
 	      (ly:music-property mus 'element))
-\relative c'' {
-  <c e>  
+\relative {
+  <c'' e>  
   <b c e>
   <a c e>
   <a b e>

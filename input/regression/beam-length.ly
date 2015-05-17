@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.21"
 
 \header{
   texidoc="
@@ -9,7 +9,7 @@ Beams should look the same.
 \layout { ragged-right= ##t }
 
 
-\context Voice \relative c {
+\context Voice \relative {
   d''8[ d d]  d[ g d]
   c c
 }

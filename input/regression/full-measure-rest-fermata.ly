@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc="
@@ -8,9 +8,9 @@ be closer to the staff than other articulations."
 \layout {
   ragged-right = ##t
 }
-\relative c'' {
+\relative {
   R1
-  a1^"should be lower"
+  a'1^"should be lower"
   R1^"should be higher"
   \break
   R1

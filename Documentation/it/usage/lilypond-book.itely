@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.19.21"
 
 @c Note: keep this node named so that `info lilypond-book' brings you here.
 @node lilypond-book
@@ -86,8 +86,8 @@ I documenti per \verb+lilypond-book+ possono combinare liberamente musica e test
 Ad esempio,
 
 \begin{lilypond}
-\relative c' {
-  c2 e2 \tuplet 3/2 { f8 a b } a2 e4
+\relative {
+  c'2 e2 \tuplet 3/2 { f8 a b } a2 e4
 }
 \end{lilypond}
 
@@ -146,8 +146,8 @@ I documenti per \verb+lilypond-book+ possono combinare liberamente musica e test
 Ad esempio,
 
 @lilypond
-\relative c' {
-  c2 e2 \tuplet 3/2 { f8 a b } a2 e4
+\relative {
+  c'2 e2 \tuplet 3/2 { f8 a b } a2 e4
 }
 @end lilypond
 
@@ -171,8 +171,8 @@ frammento deve essere compreso in un costrutto @code{\book @{ @}}.
     title = "Una scala in LilyPond"
   }
 
-  \relative c' {
-    c d e f g a b c
+  \relative {
+    c' d e f g a b c
   }
 }
 @end lilypond
@@ -781,8 +781,8 @@ esempio, la musica viene interpretata in modalità relativa ma il blocco
 testuale non mostrerà il blocco @code{relative}, ovvero
 
 @example
-\relative c' @{ % begin verbatim
-  c4 e2 g4
+\relative @{ % begin verbatim
+  c'4 e2 g4
   f2 e % end verbatim
 @}
 @end example
@@ -1168,8 +1168,8 @@ Si possono includere frammenti LilyPond in un documento LaTeX.
 Normale testo LaTeX.
 
 \begin@{lilypond@}
-\relative c'' @{
-  a4 b c d
+\relative @{
+  a'4 b c d
 @}
 \end@{lilypond@}
 
@@ -1194,7 +1194,7 @@ manuale è scritto in Texinfo.
 Testo Texinfo
 
 @@lilypond
-\relative c' @{
+\relative @{
   a4 b c d
 @}
 @@end lilypond
@@ -1221,8 +1221,8 @@ d4 c b a
 I documenti per lilypond-book possono combinare liberamente musica e testo.  Ad
 esempio,
 <lilypond>
-\relative c'' @{
-  a4 b c d
+\relative @{
+  a'4 b c d
 @}
 </lilypond>
 </p>

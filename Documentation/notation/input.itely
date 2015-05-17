@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @node General input and output
 @chapter General input and output
@@ -884,8 +884,8 @@ top-level @code{\header} block.
     tagline = "... music notation for Everyone"
   }
   \score {
-    \relative c' {
-      c4 d e f
+    \relative {
+      c'4 d e f
     }
   }
 }
@@ -1354,8 +1354,8 @@ is:
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
   \header { tagline = ##f }
-  \relative c'' {
-    a4_\footnote #'(0 . -1) "A slur forced down" (
+  \relative {
+    a'4_\footnote #'(0 . -1) "A slur forced down" (
     b8^\footnote #'(1 . 0.5) "A manual beam forced up" [
     b8 ]
     c4 )
@@ -1537,7 +1537,7 @@ For example:
     \auto-footnote "recent" \italic " Aug 2012"
     "composition."
   }
-  \relative c' {
+  \relative {
     a'4 b8 e c4 d
   }
 }
@@ -1583,7 +1583,7 @@ aliases may be used (see @ref{ASCII aliases}):
     }
     "composition."
   }
-  \relative c' {
+  \relative {
     a'4 b8 e c4 d
   }
 }
@@ -1606,7 +1606,7 @@ Unicode character codes may also be used to specify marks
     }
     "composition."
   }
-  \relative c' {
+  \relative {
     a'4 b8 e c4 d
   }
 }
@@ -2019,10 +2019,10 @@ may be combined on one staff, see @ref{Automatic part combining}.
 Here is an example:
 
 @lilypond[verbatim,quote]
-sopranoMusic = \relative c'' { a4 b c b8( a) }
-altoMusic = \relative g' { e4 e e f }
-tenorMusic = \relative c' { c4 b e d8( c) }
-bassMusic = \relative c' { a4 gis a d, }
+sopranoMusic = \relative { a'4 b c b8( a) }
+altoMusic = \relative { e'4 e e f }
+tenorMusic = \relative { c'4 b e d8( c) }
+bassMusic = \relative { a4 gis a d, }
 allLyrics = \lyricmode {King of glo -- ry }
 <<
   \new Staff = "Soprano" \sopranoMusic
@@ -2118,8 +2118,8 @@ one showing trills with the usual notation, and one with trills
 explicitly expanded:
 
 @lilypond[verbatim,quote]
-music = \relative g' {
-  g8. c32 d
+music = \relative {
+  g'8. c32 d
   \tag #'trills { d8.\trill }
   \tag #'expand { \repeat unfold 3 { e32 d } }
   c32 d
@@ -2137,8 +2137,8 @@ music = \relative g' {
 Alternatively, it is sometimes easier to exclude sections of music:
 
 @lilypond[verbatim,quote]
-music = \relative g' {
-  g8. c32 d
+music = \relative {
+  g'8. c32 d
   \tag #'trills { d8.\trill }
   \tag #'expand {\repeat unfold 3 { e32 d } }
   c32 d
@@ -2389,8 +2389,8 @@ portuguese = \lyricmode {
   à vo -- cê uma can -- ção legal
 }
 
-\relative c' {
-  c2 d e f g f e
+\relative {
+  c'2 d e f g f e
 }
 \addlyrics { \bulgarian }
 \addlyrics { \hebrew }
@@ -2432,8 +2432,8 @@ lyrics and as stand-alone text below the score:
 
 @lilypond[quote,verbatim]
 \score {
-  \relative c'' {
-    c1 \mark \markup { \char ##x03EE }
+  \relative {
+    c''1 \mark \markup { \char ##x03EE }
     c1_\markup { \tiny { \char ##x03B1 " to " \char ##x03C9 } }
   }
   \addlyrics { O \markup { \concat { Ph \char ##x0153 be! } } }

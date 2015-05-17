@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Slur shaping is not adapted to accommodate objects
@@ -8,7 +8,7 @@ the edges are not, however, ignored in the slur scoring.
 "
 }
 
-\relative c {
+\relative {
   \clef bass
   c8( d' a d c, d' a d)
   c,8( des' as des c, des' as des) |

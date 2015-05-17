@@ -12,12 +12,12 @@ centered on the note head, @code{1.0} means centered on the stem.)
 "
 }
 
-\version "2.19.16"
+\version "2.19.21"
 
-\relative c''
+\relative
 {
   % default
-  a4^. c_.
+  a'4^. c_.
   a^.^- c_._-
 
   \override Script.toward-stem-shift-in-column = 1.0

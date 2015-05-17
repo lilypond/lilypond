@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "Horizontal brackets are created with the correct event-cause, ensuring
@@ -12,8 +12,8 @@ tweaks are applied to the correct spanner."
   }
 }
 
-\relative c' {
-  c1-\tweak thickness #6 \startGroup
+\relative {
+  c'1-\tweak thickness #6 \startGroup
   c1\startGroup
   c1\stopGroup
   c1\stopGroup

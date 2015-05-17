@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "
@@ -7,8 +7,8 @@ nor the harmonic brackets for the second note appear in the tablature.
 "
 }
 
-music =  \relative c' {
-  s2.  <d\4\harmonic>4 ~ |
+music =  \relative {
+  s2.  <d'\4\harmonic>4 ~ |
   <d\4\harmonic>1  |
 }
 

@@ -7,11 +7,11 @@
 
 }
 
-\version "2.16.0"
+\version "2.19.21"
 
 \layout { ragged-right = ##t } 
 
-\relative c' {
-  c1 c1^"This is a really long text" c
+\relative {
+  c'1 c1^"This is a really long text" c
 }
 

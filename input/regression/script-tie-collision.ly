@@ -1,4 +1,4 @@
-\version "2.19.2"
+\version "2.19.21"
 
 \header {
   texidoc = "Scripts avoid ties.
@@ -10,8 +10,8 @@
 % This regtest tries to confuse it with various configurations
 % Of notes with and without ties, with multiple scripts, etc..
 
-\relative c''' {
-  r2. c4~-> | c-> r2. |
+\relative {
+  r2. c'''4~-> | c-> r2. |
   r2. c4-> | c-> r2. |
   r2. c4~-> | c r2. |
   r2. c4~ | 4-> r2. | \break

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
@@ -450,8 +450,8 @@ una particolare durata.  Le legature si dovrebbero usare anche per
 unire note dalle durate superiori all'unità di suddivisione della misura:
 
 @lilypond[verbatim,quote]
-\relative c' {
-  r8 c~ 2 r4 |
+\relative {
+  r8 c'~ 2 r4 |
   r8^"non" c2~ 8 r4
 }
 @end lilypond
@@ -1635,10 +1635,10 @@ che si debbano inserire a mano le travature, perché la scalatura delle
 durate influenzerà le regole della disposizione automatica delle travature.
 
 @lilypond[quote,verbatim]
-\relative c' <<
+\relative <<
   \new Staff {
     \time 3/4
-    c4 c c |
+    c'4 c c |
     c4 c c |
   }
   \new Staff {
@@ -1681,10 +1681,10 @@ Si può dare a ogni rigo la sua indicazione di tempo indipendente spostando
 
 % Ora ogni rigo ha la sua indicazione di tempo.
 
-\relative c' <<
+\relative <<
   \new Staff {
     \time 3/4
-    c4 c c |
+    c'4 c c |
     c4 c c |
   }
   \new Staff {
@@ -2155,8 +2155,8 @@ contiene.
   \set Staff.beatStructure = #'(2 3 2)
   <<
     \new Voice = one {
-      \relative c'' {
-        a8 a a a a a a
+      \relative {
+        a'8 a a a a a a
       }
     }
     \new Voice = two {
@@ -3595,8 +3595,8 @@ prendono come argomento una sezione di musica salvata in una variabile e generan
 una pausa multipla o @code{\skip} della lunghezza esatta del brano.
 
 @lilypond[verbatim,quote]
-MyCadenza = \relative c' {
-  c4 d8 e f g g4
+MyCadenza = \relative {
+  c'4 d8 e f g g4
   f2 g4 g
 }
 

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 \header {
 
   texidoc = " A dotted whole note displayed via the @code{\\note}
@@ -6,8 +6,8 @@
 
 	}
 
-\relative c' {
-  c4^\markup { \note #"1." #1 }
+\relative {
+  c'4^\markup { \note #"1." #1 }
   c4^\markup { \note #"2." #1 }
   c4^\markup { \note #"8." #1 }
 }

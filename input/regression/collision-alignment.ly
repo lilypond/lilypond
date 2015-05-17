@@ -7,12 +7,12 @@
 
 \layout  { ragged-right = ##t }
 
-\version "2.17.15"
+\version "2.19.21"
 
-\relative c' <<
+\relative <<
     \new Staff {
 	<<
-	    { f g } \\
+	    { f' g } \\
 	    { g f }
 	>> }
     \new Staff {

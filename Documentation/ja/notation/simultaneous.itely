@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 
 @c Translators: Yoshiki Sawada
@@ -224,8 +224,8 @@ q2 c, |
 \new Voice
 \relative c'' {
   \chordRepeats #'(articulation-event)
-  \relative c''
-  { <a-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
+  \relative
+  { <a'-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
   q2 c |
 }
 @end lilypond
@@ -789,10 +789,10 @@ etc.
 
 @c KEEP LY
 @lilypond[quote,verbatim]
-\new Staff \relative c'' {
+\new Staff \relative {
   %% 簡略化された入力
   <<
-    { f2  }  % 1: 最上段
+    { f''2  }  % 1: 最上段
     \\
     { g,2 }  % 2: 最下段
     \\
@@ -920,17 +920,17 @@ are at the same time differently dotted are not clear.
 個々のパート譜と結合譜で同じ変数が使用されています。
 
 @lilypond[quote,verbatim]
-instrumentOne = \relative c' {
-  c4 d e f |
+instrumentOne = \relative {
+  c'4 d e f |
   R1 |
   d'4 c b a |
   b4 g2 f4 |
   e1 |
 }
 
-instrumentTwo = \relative g' {
+instrumentTwo = \relative {
   R1 |
-  g4 a b c |
+  g'4 a b c |
   d4 c b a |
   g4 f( e) d |
   e1 |
@@ -1031,8 +1031,8 @@ instrumentOne = \relative c' {
   \partcombineApart c2^"apart" \partcombineChordsOnce e^"chord once" |
   c2 c |
 }
-instrumentTwo = \relative c' {
-  c2 c |
+instrumentTwo = \relative {
+  c'2 c |
   e2 e |
   a,2 c |
   c2 c' |

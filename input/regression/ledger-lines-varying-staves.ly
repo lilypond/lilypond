@@ -1,13 +1,13 @@
-\version "2.17.6"
+\version "2.19.21"
 \header {
   texidoc = "Ledger lines should appear at every other location
 for a variety of staves using both @code{line-count} and
 @code{line-positions}."
 }
 
-notes = \relative c' {
+notes = \relative {
   \time 3/4
-  c2. | d | e | f
+  c'2. | d | e | f
   g2. | a | b | c
   d2. | e | f | g
   a2.

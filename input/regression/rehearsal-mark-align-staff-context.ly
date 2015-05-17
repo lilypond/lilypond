@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "RehearsalMarks still align correctly if Mark_engraver is moved to
@@ -16,8 +16,8 @@ another context."
   }
 }
 
-\relative c' {
-  c1 \mark "foo"
+\relative {
+  c'1 \mark "foo"
   c1
   \key cis \major
   \clef alto

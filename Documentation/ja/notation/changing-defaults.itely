@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.7"
+@c \version "2.19.21"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -404,13 +404,13 @@ score を作成するのに用いられます:
 
     % 音楽コンテンツ
     \context Voice = "one" {
-      \relative c'' {
-        c4 c c c
+      \relative {
+        c''4 c c c
       }
     }
     \context Voice = "two" {
-      \relative c'' {
-        g8 g g4 g g
+      \relative {
+        g'8 g g4 g g
       }
     }
   >>
@@ -433,13 +433,13 @@ score を作成するのに用いられます:
 
     % 音楽コンテンツ
     \context Voice = "one" {
-      \relative c'' {
-        c4 c c c
+      \relative {
+        c''4 c c c
       }
     }
     \context Voice = "two" {
-      \relative c'' {
-        g8 g g4 g g
+      \relative {
+        g'8 g g4 g g
       }
     }
   >>
@@ -464,8 +464,8 @@ score を作成するのに用いられます:
 プロシージャを実行させるのに用いられます:
 
 @example
-\new Staff \relative c' @{
-  c1
+\new Staff \relative @{
+  c'1
   \context Timing
   \applyContext #(lambda (ctx)
                    (newline)
@@ -551,8 +551,8 @@ score を作成するのに用いられます:
 
 @c KEEP LY
 @lilypond[quote,verbatim]
-musicA = \relative c'' { d4 d d d }
-musicB = \relative c'' { g4 g g g }
+musicA = \relative { d''4 d d d }
+musicB = \relative { g'4 g g g }
 keepVoicesAlive = {
   <<
     \new Voice = "A" { s1*5 }  % Voice "A" を 5 小節の間、維持する
@@ -591,8 +591,8 @@ music = {
 
 @c KEEP LY
 @lilypond[quote,verbatim]
-melody = \relative c'' { a4 a a a }
-accompaniment = \relative c' { d4 d d d }
+melody = \relative { a'4 a a a }
+accompaniment = \relative { d'4 d d d }
 words = \lyricmode { These words fol -- low the mel -- o -- dy }
 \score {
   <<
@@ -631,14 +631,14 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
 
 @c KEEP LY
 @lilypond[quote,verbatim]
-melody = \relative c'' {
+melody = \relative {
   s1  % 1 小節スキップします
-  a4 a a a
+  a'4 a a a
   s1  % 1 小節スキップします
   a4 a a a
 }
-accompaniment = \relative c' {
-  d4 d d d
+accompaniment = \relative {
+  d'4 d d d
   d4 d d d
   d4 d d d
   d4 d d d
@@ -868,8 +868,8 @@ Internals Reference @expansion{} Translation @expansion{} Context.
 
 @lilypond[quote,verbatim]
 \score {
-  \relative c'' {
-    a4^"Thicker stems" a a a
+  \relative {
+    a'4^"Thicker stems" a a a
     a4 a a\ff a
   }
   \layout {
@@ -886,8 +886,8 @@ Internals Reference @expansion{} Translation @expansion{} Context.
 
 @lilypond[quote,verbatim]
 \score {
-  \relative c'' {
-    a4^"Smaller font" a a a
+  \relative {
+    a'4^"Smaller font" a a a
     a4 a a\ff a
   }
   \layout {
@@ -905,8 +905,8 @@ Internals Reference @expansion{} Translation @expansion{} Context.
 
 @lilypond[quote,verbatim]
 \score {
-  \relative c'' {
-    a4^"Dynamics above" a a a
+  \relative {
+    a'4^"Dynamics above" a a a
     a4 a a\ff a
   }
   \layout {
@@ -933,8 +933,8 @@ StaffDefaults = \with {
 
 \score {
   \new Staff {
-    \relative c'' {
-      a4^"Smaller font" a a a
+    \relative {
+      a'4^"Smaller font" a a a
       a4 a a a
     }
   }
@@ -961,8 +961,8 @@ StaffDefaults = \with {
 @lilypond[quote,verbatim]
 \score {
   \new Staff {
-    \relative c'' {
-      a4^"Smaller font" a a a
+    \relative {
+      a'4^"Smaller font" a a a
       a4 a a a
     }
   }
@@ -1013,8 +1013,8 @@ StaffDefaults = \with {
       \override Stem.thickness = #4.0
     }
     {
-      \relative c'' {
-        a4^"Thick stems" a a a
+      \relative {
+        a'4^"Thick stems" a a a
         a4 a a a
       }
     }
@@ -1029,8 +1029,8 @@ StaffDefaults = \with {
 \score {
   <<
     \new Staff {
-      \relative c'' {
-        a4^"Default font" a a a
+      \relative {
+        a'4^"Default font" a a a
         a4 a a a
       }
     }
@@ -1038,8 +1038,8 @@ StaffDefaults = \with {
     \with {
       fontSize = #-4
     } {
-      \relative c'' {
-        a4^"Smaller font" a a a
+      \relative {
+        a'4^"Smaller font" a a a
         a4 a a a
       }
     }
@@ -1055,8 +1055,8 @@ StaffDefaults = \with {
   <<
     \new Staff {
       \new Voice {
-        \relative c'' {
-          a4^"Dynamics below" a a a
+        \relative {
+          a'4^"Dynamics below" a a a
           a4 a a\ff a
         }
       }
@@ -1067,8 +1067,8 @@ StaffDefaults = \with {
       \new Voice
       \with { \dynamicUp }
       {
-        \relative c'' {
-          a4^"Dynamics above" a a a
+        \relative {
+          a'4^"Dynamics above" a a a
           a4 a a\ff a
         }
       }
@@ -1162,8 +1162,8 @@ StaffDefaults = \with {
   \accepts "ImproVoice"
 }}
 
-\relative c'' {
-  a4 d8 bes8 \new ImproVoice { c4^"ad lib" c
+\relative {
+  a'4 d8 bes8 \new ImproVoice { c4^"ad lib" c
    c4 c^"undress" c_"while playing :)" c }
   a1
 }
@@ -1284,8 +1284,8 @@ squashedPosition = #0
 それから、このサブセクションの最初にあった出力を入力します:
 
 @example
-\relative c'' @{
-  a4 d8 bes8
+\relative @{
+  a'4 d8 bes8
   \new ImproVoice @{
     c4^"ad lib" c
     c4 c^"undress"
@@ -4194,8 +4194,8 @@ XinO = {
       \musicglyph #"noteheads.s2cross"
   }
 }
-\relative c'' {
-  a a \XinO a a
+\relative {
+  a' a \XinO a a
 }
 @end lilypond
 
@@ -4644,8 +4644,8 @@ padText =
      \once \override TextScript.padding = $padding
    #})
 
-\relative c''' {
-  c4^"piu mosso" b a b
+\relative {
+  c'''4^"piu mosso" b a b
   \padText #1.8
   c4^"piu mosso" d e f
   \padText #2.6
@@ -4668,7 +4668,7 @@ custosNote =
      #note
    #})
 
-\relative c' { c4 d e f \custosNote g }
+\relative { c'4 d e f \custosNote g }
 @end lilypond
 
 複数の引数をとる置換関数を定義することもできます:

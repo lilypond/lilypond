@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.6"
+@c \version "2.19.21"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -1060,7 +1060,7 @@ LilyPond マニュアルのほとんどの例はこの手法を用いていま�
 
 @lilypond[quote,verbatim]
 \repeat unfold 2 {
-  \relative c' { c4 d e f }
+  \relative { c'4 d e f }
 }
 @end lilypond
 
@@ -1069,7 +1069,7 @@ LilyPond マニュアルのほとんどの例はこの手法を用いていま�
 @lilypond[quote,verbatim]
 \new Voice {
   \repeat unfold 2 {
-    \relative c' { c4 d e f }
+    \relative { c'4 d e f }
   }
 }
 @end lilypond

@@ -1,4 +1,4 @@
-\version "2.19.0"
+\version "2.19.21"
 
 \header{
   texidoc= "Test optional music function arguments.
@@ -24,5 +24,5 @@ zap =
    (ly:pitch? #{ d' #}) (ly:pitch? #{ e' #})
    ly:music?) #{ $a $dur $b $c ^\markup{!} $d  #})
 
-\new Voice { \relative c' e' \relative c' { e' } \ablative c' e' \ablative { e' }
+\new Voice { \relative c' e' \relative { e'' } \ablative c' e' \ablative { e' }
   \zap 8. c'' d'' {e''4..} \zap f''8 g'' \zap 4 a'' b'' c''' d'''2 }

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.19.21"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -154,8 +154,8 @@ lilypond -dno-point-and-click file.ly
 
 @example
 \pointAndClickTypes #'note-event
-\relative c' @{
-  c2\f( f)
+\relative @{
+  c'2\f( f)
 @}
 @end example
 
@@ -163,8 +163,8 @@ lilypond -dno-point-and-click file.ly
 
 @example
 #(ly:set-option 'point-and-click 'note-event)
-\relative c' @{
-  c2\f( f)
+\relative @{
+  c'2\f( f)
 @}
 @end example
 
@@ -185,8 +185,8 @@ lilypond -dpoint-and-click=note-event   example.ly
 
 @example
 \pointAndClickTypes #'(note-event dynamic-event)
-\relative c' @{
-  c2\f( f)
+\relative @{
+  c'2\f( f)
 @}
 @end example
 
@@ -194,8 +194,8 @@ lilypond -dpoint-and-click=note-event   example.ly
 
 @example
 #(ly:set-option 'point-and-click '(note-event dynamic-event))
-\relative c' @{
-  c2\f( f)
+\relative @{
+  c'2\f( f)
 @}
 @end example
 

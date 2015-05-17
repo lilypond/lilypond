@@ -2,15 +2,15 @@
   texidoc = "Span arpeggios within one staff also work"
   }
 
-\version "2.16.0"
+\version "2.19.21"
 \layout { ragged-right = ##t }
 
 \new PianoStaff <<
  \set PianoStaff.connectArpeggios = ##t
- \new Staff \relative c'' {
+ \new Staff \relative {
    <<
      {
-       c2\arpeggio
+       c''2\arpeggio
      }
      \\
      {

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 texidoc = "Postfix functions for custom crescendo text spanners.  The spanners
@@ -15,8 +15,8 @@ mydecresc = #(define-music-function (parser location mymarkup) (string?)
   (make-music 'DecrescendoEvent 'span-direction START
               'span-type 'text 'span-text mymarkup))
 
-\relative c' {
-  c4-\mycresc "custom cresc" c4 c4 c4 |
+\relative {
+  c'4-\mycresc "custom cresc" c4 c4 c4 |
   c4 c4 c4 c4 |
   c4-\mydecresc "custom decresc" c4 c4 c4 |
   c4 c4\! c4 c4

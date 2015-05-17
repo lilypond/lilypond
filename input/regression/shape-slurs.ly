@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "The control points of a broken or unbroken slur may be offset by
@@ -11,8 +11,8 @@
 }
 
 % unmodified
-\relative c'' {
-  d4( d' b g
+\relative {
+  d''4( d' b g
   g,8 f' e d c2)
   d4( d' b g
   \break

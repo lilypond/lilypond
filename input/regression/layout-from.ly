@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "
@@ -9,7 +9,7 @@ into context modifications.
 }
 
 \score {
-  \relative c' { cis cis cis cis }
+  \relative { cis' cis cis cis }
   \layout {
     \accidentalStyle dodecaphonic
   }

@@ -1,5 +1,5 @@
 
-\version "2.19.2"
+\version "2.19.21"
 
 \header{
 texidoc="
@@ -35,14 +35,14 @@ in unbroken state.
     <bis f' b>) s2..\break
     \stemNeutral
 
-    \new Voice \relative c' {
-	c'8[( c c c] g2 ~ | \break
+    \new Voice \relative {
+	c''8[( c c c] g2 ~ | \break
 	g1) | \break
 	\slurDown c8[( c] g4 ~ 2 ~ | \break
 	g2 ~ 2)
     }
-    \relative c'' {
-	a4( c b4 e, ~ | \break
+    \relative {
+	a'4( c b4 e, ~ | \break
 	e1 ~ | 1)
     }
     

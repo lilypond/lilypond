@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.21"
 
 \header{
 
@@ -24,8 +24,8 @@
     e-. g-. b-. d-.
   }
   \context Voice {
-    \relative c' {
-      e'4-. f-. g-. d-. c-. b-.
+    \relative {
+      e''4-. f-. g-. d-. c-. b-.
       \stemDown
       e,-. d-. c-. b-. a-. g-.    
     }

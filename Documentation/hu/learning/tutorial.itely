@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.19.21"
 
 @node Első lecke
 @chapter Első lecke
@@ -240,8 +240,8 @@ is alapesetben b-t kell írni h helyett!)
 @c KEEP LY
 @lilypond[verbatim,quote]
 % megadjuk, hogy az első viszonyítási hang az egyvonalas c legyen
-\relative c' {
-  c d e f
+\relative {
+  c' d e f
   g a b c
 }
 @end lilypond
@@ -255,8 +255,8 @@ Legfeljebb kvárt nagyságú hangközöket tartalmazó dallamok tápláhatók be
 legegyszerűbben.
 
 @lilypond[verbatim,quote]
-\relative c' {
-  d f a g
+\relative {
+  d' f a g
   c b f d
 }
 @end lilypond
@@ -274,8 +274,8 @@ változtatható a kezdőoktáv:
 @c KEEP LY
 @lilypond[verbatim,quote]
 % kétvonalas oktáv
-\relative c'' {
-  e c a c
+\relative {
+  e'' c a c
 }
 @end lilypond
 
@@ -288,8 +288,8 @@ h alá kerül.
 
 @c KEEP LY
 @lilypond[verbatim,quote]
-\relative c'' {
-  b c  % felfelé szekund, lefelé szeptim, így: felső c
+\relative {
+  b' c  % felfelé szekund, lefelé szeptim, így: felső c
   b d  % felfelé terc, lefelé szext, így: felső d
   b e  % felfelé kvárt, lefelé kvint, így: felső e
   b a  % felfelé szeptim, lefelé szekund, így: alsó a
@@ -308,8 +308,8 @@ karaktereket helyezünk a hang után. Az @code{'} egy @notation{oktáv}nyi
 emelkedést, a @code{,} egy oktávnyi süllyedést jelent.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a a, c' f,
+\relative {
+  a' a, c' f,
   g g'' a,, f'
 }
 @end lilypond
@@ -345,8 +345,8 @@ Ha nincs megadva a hosszúság, az előző hang hossza marad érvényben.
 Az első hang alapértelmezetten negyed hosszúságú.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a1
+\relative {
+  a'1
   a2 a4 a8 a
   a16 a a a a32 a a a a64 a a a a a a a a2
 }
@@ -357,8 +357,8 @@ ahányszoros a pontozás. A pontozott hangok ritmusértékét mindig meg kell
 adni számmal.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a a a4. a8
+\relative {
+  a' a a4. a8
   a8. a16 a a8. a8 a4.
 }
 @end lilypond
@@ -374,8 +374,8 @@ A @notation{szünetek} megadása hasonlóképpen történik, mint a hangoké,
 csak a hangmagasság megjelölése helyett @code{r}@tie{} betűt kell írni:
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a r r2
+\relative {
+  a' r r2
   r8 a r4 r4. r8
 }
 @end lilypond
@@ -393,9 +393,9 @@ Fogalomtár: @rglos{time signature}.
 Az @notation{ütemmutató} beállítására a @code{\time} parancs szolgál:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \time 3/4
-  a4 a a
+  a'4 a a
   \time 6/8
   a4. a
   \time 4/4
@@ -420,9 +420,9 @@ Fogalomtár: @rglos{clef}.
 A @notation{kulcs} beállítása a @code{\clef} paranccsal lehetséges:
 
 @lilypond[verbatim,quote]
-\relative c' {
+\relative {
   \clef treble
-  c1
+  c'1
   \clef alto
   c1
   \clef tenor
@@ -438,10 +438,10 @@ A @notation{kulcs} beállítása a @code{\clef} paranccsal lehetséges:
 Alább látható egy rövid példa, mely az eddig tanult elemeket mutatja be:
 
 @lilypond[verbatim,quote]
-\relative c, {
+\relative {
   \time 3/4
   \clef bass
-  c2 e8 c' g'2.
+  c,2 e8 c' g'2.
   f4 e d c4 c, r4
 }
 @end lilypond
@@ -613,8 +613,8 @@ kipróbálható:
 @c no verbatim here
 @c KEEP LY
 @lilypond[quote]
-\relative c'' {
-  c-\markup { \bold \huge { Ide kell kattintani! } }
+\relative {
+  c''-\markup { \bold \huge { Ide kell kattintani! } }
 }
 @end lilypond
 

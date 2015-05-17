@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "
@@ -13,10 +13,10 @@ even if scaled to a smaller size.
     fontSize = #-6
     \override StaffSymbol.staff-space = #(magstep -6)
   }
-  \relative c' {
-    c1\startTrillSpan | c\stopTrillSpan |
+  \relative {
+    c'1\startTrillSpan | c\stopTrillSpan |
   }
-  \new Staff \relative c' {
-    c1\startTrillSpan | c\stopTrillSpan |
+  \new Staff \relative {
+    c'1\startTrillSpan | c\stopTrillSpan |
   }
 >>

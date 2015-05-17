@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "The page breaking algorithm can handle clefs combined
@@ -9,8 +9,8 @@ should fit on one page here."
 
 #(set-default-paper-size "a6")
 
-Melody = \relative c' {
-  c2 c | c c | c c | \break
+Melody = \relative {
+  c'2 c | c c | c c | \break
   c2 c | c c | c c
 }
 Words = \lyricmode{

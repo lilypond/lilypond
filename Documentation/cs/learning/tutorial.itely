@@ -10,7 +10,7 @@
 
 @include included/generating-output.itexi
 
-@c \version "2.16.0"
+@c \version "2.19.21"
 @c Translators: Pavel Fric
 
 @node Cvičení
@@ -248,8 +248,8 @@ vždy jen o jeden notový řádek nad předchozím.
 @c KEEP LY
 @lilypond[verbatim,quote]
 % Počáteční bod napsat na jednočárkovaném C
-\relative c' {
-  c d e f
+\relative {
+  c' d e f
   g a b c
 }
 @end lilypond
@@ -263,8 +263,8 @@ režimu @code{\relative} zobrazit i melodie s většími
 intervaly:
 
 @lilypond[verbatim,quote]
-\relative c' {
-  d f a g
+\relative {
+  d' f a g
   c b f d
 }
 @end lilypond
@@ -282,8 +282,8 @@ je odstraňuje, může být oktáva první výšky tónu změněna:
 @c KEEP LY
 @lilypond[verbatim,quote]
 % dvoučárkované C
-\relative c'' {
-  e c a c
+\relative {
+  e'' c a c
 }
 @end lilypond
 
@@ -297,8 +297,8 @@ H, když je to A, G nebo F, je napsáno pod ním.
 
 @c KEEP LY
 @lilypond[verbatim,quote]
-\relative c'' {
-  b c  % c je 1 řádek nahoru, tedy c nad b
+\relative {
+  b' c  % c je 1 řádek nahoru, tedy c nad b
   b d  % d je 2 řádky nahoru, nebo 5 dolů, tedy d nad b
   b e  % e je 3 nahoru, nebo 4 dolů, tedy e pod b
   b a  % a je 6 nahoru, nebo 1 dolů, tedy a pod b
@@ -317,8 +317,8 @@ Aby se zapsaly intervaly, které jsou větší než tři notové řádky, lze ok
 posazeným přímo za název noty se oktáva zvýší o jednu, čárkou @code{,} se oktáva o jednu sníží.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a a, c' f,
+\relative {
+  a' a, c' f,
   g g'' a,, f'
 }
 @end lilypond
@@ -355,8 +355,8 @@ Není-li označena žádná délka, používá se délka předcházející noty.
 Pro první notu je jako výchozí určena čtvrťová nota.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a1
+\relative {
+  a'1
   a2 a4 a8 a
   a16 a a a a32 a a a a64 a a a a a a a a2
 }
@@ -368,8 +368,8 @@ tečkované noty musí být udána výslovně, tudíž včetně
 čísla.
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a4 a a4. a8
+\relative {
+  a'4 a a4. a8
   a8. a16 a a8. a8 a4.
 }
 @end lilypond
@@ -385,8 +385,8 @@ tečkované noty musí být udána výslovně, tudíž včetně
 označením je @code{r}@tie{}:
 
 @lilypond[verbatim,quote]
-\relative c'' {
-  a4 r r2
+\relative {
+  a'4 r r2
   r8 a r4 r4. r8
 }
 @end lilypond
@@ -405,9 +405,9 @@ Slovníček: @rglos{time signature}.
 @code{\time}:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \time 3/4
-  a4 a a
+  a'4 a a
   \time 6/8
   a4. a
   \time 4/4
@@ -461,9 +461,9 @@ Slovníček: @rglos{clef}.
 @code{\clef}:
 
 @lilypond[verbatim,quote]
-\relative c' {
+\relative {
   \clef "treble"
-  c1
+  c'1
   \clef "alto"
   c1
   \clef "tenor"
@@ -765,8 +765,8 @@ vyobrazením:
 @c no verbatim here
 @c KEEP LY
 @lilypond[quote]
-\relative c'' {
-  c4-\markup { \bold \huge { Klepněte sem! } }
+\relative {
+  c''4-\markup { \bold \huge { Klepněte sem! } }
 }
 @end lilypond
 

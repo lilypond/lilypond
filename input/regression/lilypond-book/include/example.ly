@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 \score {
-  \relative c'' { d c b c }
+  \relative { d'' c b c }
 }

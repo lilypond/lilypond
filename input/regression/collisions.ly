@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 \header{
   texidoc="
 In addition to normal collision rules, there is support for polyphony, 
@@ -8,16 +8,16 @@ where the collisions are avoided by shifting middle voices horizontally.
 
 
 twovoice =
-\relative c' \context Staff  << 
+\relative \context Staff  << 
   {  g4 f f e e d d c } 
   \\ {  c4 c  d d e e f f }
 >>
 
 twovoicechords = \context Staff  <<
-  \relative c' {
-    e4 d c b a g f
+  \relative {
+    e'4 d c b a g f
   }\\
-  \relative c' {
+  \relative {
     <a c>4 <a c>4 <a c>4 <a c>4 <a c>
     <a c> <a c>  
   }
@@ -30,9 +30,9 @@ threevoice = \context Staff  <<
   { e4 e e e e e e e  }
 >>
 
-hairyChord = \context Staff  \relative c''
+hairyChord = \context Staff  \relative
 <<
-  e \\
+  e'' \\
   fis, \\
   cis' \\
   \\

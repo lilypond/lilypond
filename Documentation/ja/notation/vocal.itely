@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -165,7 +165,7 @@
 さらなる情報は、@ref{Special characters} を参照してください。
 
 @lilypond[quote,verbatim]
-\relative c'' { d8 c16 a bes8 f e' d c4 }
+\relative { d''8 c16 a bes8 f e' d c4 }
 \addlyrics { „Schad’ um das schö -- ne grü -- ne Band, }
 
 @end lilypond
@@ -176,7 +176,7 @@
 例を挙げます:
 
 @lilypond[quote,verbatim]
-\relative c' { \time 3/4 e4 e4. e8 d4 e d c2. }
+\relative { \time 3/4 e'4 e4. e8 d4 e d c2. }
 \addlyrics { "\"I" am so lone -- "ly,\"" said she }
 @end lilypond
 
@@ -292,9 +292,9 @@
 @c KEEP LY
 @lilypond[quote,ragged-right,verbatim]
 <<
-  \new Voice = "one" \relative c'' {
+  \new Voice = "one" \relative {
     \time 2/4
-    c4 b8. a16 g4. f8 e4 d c2
+    c''4 b8. a16 g4. f8 e4 d c2
   }
 
 % 前で指定された演奏時間 2 を用います
@@ -435,7 +435,7 @@
 @lilypond[verbatim,quote]
 {
   \time 3/4
-  \relative c' { c2 e4 g2. }
+  \relative { c'2 e4 g2. }
   \addlyrics { play the game }
 }
 @end lilypond
@@ -447,7 +447,7 @@
 @lilypond[ragged-right,verbatim,quote]
 {
   \time 3/4
-  \relative c' { c2 e4 g2. }
+  \relative { c'2 e4 g2. }
   \addlyrics { play the game }
   \addlyrics { speel het spel }
   \addlyrics { joue le jeu }
@@ -540,8 +540,8 @@
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff {
-    \relative c'' {
-      c2 c2
+    \relative {
+      c''2 c2
       d1
     }
   }
@@ -551,8 +551,8 @@
     }
   }
   \new Staff {
-    \relative c' {
-      c8 c c c c c c c
+    \relative {
+      c'8 c c c c c c c
       c8 c c c c c c c
     }
   }
@@ -891,8 +891,8 @@
 歌詞は歌詞モードで入力する必要があります:
 
 @lilypond[quote,verbatim]
-musicOne = \relative c'' {
-  c4 b8. a16 g4. f8 e4 d c2
+musicOne = \relative {
+  c''4 b8. a16 g4. f8 e4 d c2
 }
 verseOne = \lyricmode {
   Joy to the world, the Lord is come.
@@ -922,8 +922,8 @@ verseOne = \lyricmode {
 例を挙げます:
 
 @lilypond[quote,verbatim]
-sopranoMusic = \relative c'' { c4 c c c }
-contraltoMusic = \relative c'' { a4 a a a }
+sopranoMusic = \relative { c''4 c c c }
+contraltoMusic = \relative { a'4 a a a }
 sopranoWords = \lyricmode { Sop -- ra -- no words }
 contraltoWords = \lyricmode { Con -- tral -- to words }
 
@@ -981,7 +981,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
   <<
     \new Staff {
       \new Voice = "melody" {
-        \relative c'' { c4 c c c }
+        \relative { c''4 c c c }
       }
     }
     \new Lyrics {
@@ -1002,7 +1002,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
   <<
     \new Staff = "staff" {
       \new Voice = "melody" {
-        \relative c'' { c4 c c c }
+        \relative { c''4 c c c }
       }
     }
     \new Lyrics \with { alignAboveContext = "staff" } {
@@ -1031,7 +1031,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
     }
     \new Staff {
       \new Voice = "melody" {
-        \relative c'' { c4 c c c }
+        \relative { c''4 c c c }
       }
     }
     \context Lyrics = "lyrics" {
@@ -1053,7 +1053,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
   \new ChoirStaff <<
     \new Staff {
       \new Voice = "sopranos" {
-        \relative c'' { c4 c c c }
+        \relative { c''4 c c c }
       }
     }
     \new Lyrics = "sopranos"
@@ -1064,7 +1064,7 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
     }
     \new Staff {
       \new Voice = "contraltos" {
-        \relative c'' { a4 a a a }
+        \relative { a'4 a a a }
       }
     }
     \context Lyrics = "sopranos" {
@@ -1126,8 +1126,8 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
-  \relative c' {
-  c c c c
+  \relative {
+  c' c c c
   c c c c
   }
   \addlyrics {
@@ -1193,8 +1193,8 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
   <<
     \new Staff {
       \new Voice = "melody" {
-        \relative c'' {
-          a4 a a a
+        \relative {
+          a'4 a a a
           \repeat volta 2 { b4 b b b }
         }
       }
@@ -1217,8 +1217,8 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
     <<
       \new Staff {
         \new Voice = "melody" {
-          \relative c'' {
-            a4 a a a
+          \relative {
+            a'4 a a a
             \repeat volta 2 { b4 b b b }
           }
         }
@@ -1242,8 +1242,8 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
   <<
     \new Staff {
       \new Voice = "melody" {
-        \relative c'' {
-          a4 a a a
+        \relative {
+          a'4 a a a
           \repeat unfold 2 { b4 b b b }
         }
       }
@@ -1268,8 +1268,8 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
   <<
     \new Staff {
       \new Voice = "melody" {
-        \relative c'' {
-          a4 a a a
+        \relative {
+          a'4 a a a
           \repeat volta 2 { b4 b b b }
         }
       }
@@ -1295,8 +1295,8 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
   <<
     \new Staff {
       \new Voice = "singleVoice" {
-        \relative c'' {
-	  a4 a a a
+        \relative {
+	  a'4 a a a
 	  \repeat volta 3 { b4 b b b }
           c4 c c c
 	}
@@ -1334,8 +1334,8 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
   <<
     \new Staff {
       \new Voice = "melody" {
-        \relative c'' {
-	  a4 a a a
+        \relative {
+	  a'4 a a a
 	  \repeat volta 3 { b4 b b b }
           c4 c c c
 	}
@@ -1359,8 +1359,8 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
       The end sec -- tion.
     }
     \new Voice = "harmony" {
-      \relative c' {
-        f4 f f f \repeat volta 2 { g8 g g4 g2 } a4 a8. a16 a2
+      \relative {
+        f'4 f f f \repeat volta 2 { g8 g g4 g2 } a4 a8. a16 a2
       }
     }
   >>
@@ -1386,8 +1386,8 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
     \new Staff {
       \time 2/4
       \new Voice = "melody" {
-        \relative c'' {
-          a4 a a a
+        \relative {
+          a'4 a a a
           \repeat volta 2 { b4 b }
           \alternative { { b b } { b c } }
         }
@@ -1826,8 +1826,8 @@ text = {
 
 @lilypond[verbatim,ragged-right,quote]
 <<
-  \new Voice = melody \relative c' {
-    f4 \appoggiatura a32 b4
+  \new Voice = melody \relative {
+    f'4 \appoggiatura a32 b4
     \grace { f16 a16 } b2
     \afterGrace b2 { f16[ a16] }
     \appoggiatura a32 b4
@@ -1954,8 +1954,8 @@ sau -- rus Rex
 @code{\markup} で 2 つの方法で改行していることに注意してください。
 
 @lilypond[ragged-right,verbatim,quote]
-melody = \relative c' {
-e d c d | e e e e |
+melody = \relative {
+e' d c d | e e e e |
 d d e d | c1 |
 }
 
@@ -1997,8 +1997,8 @@ its fleece was white as snow.
 
 @c KEEP LY
 @lilypond[ragged-right,quote,verbatim]
-melody = \relative c' {
-  c4 c c c | d d d d
+melody = \relative {
+  c'4 c c c | d d d d
 }
 
 text = \lyricmode {
@@ -2296,12 +2296,12 @@ SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜
   \new ChoirStaff <<
     \new Staff {
       \new Voice {
-        \relative c'' { g4\f g g g }
+        \relative { g'4\f g g g }
       }
     }
     \new Staff {
       \new Voice {
-        \relative c' { d4 d d\p d }
+        \relative { d'4 d d\p d }
       }
     }
   >>
@@ -2477,9 +2477,9 @@ LilyPond で台詞を譜刻することはできますが、台詞には音楽�
     \new Staff {
       \set Staff.vocalName = \markup \smallCaps Kaspar
       \set Staff.shortVocalName = \markup \smallCaps Kas.
-      \relative c' {
+      \relative {
         \clef "G_8"
-        c4 c c c
+        c'4 c c c
         \break
         c4 c c c
       }
@@ -2488,7 +2488,7 @@ LilyPond で台詞を譜刻することはできますが、台詞には音楽�
       \set Staff.vocalName = \markup \smallCaps Melchior
       \set Staff.shortVocalName = \markup \smallCaps Mel
       \clef "bass"
-      \relative c' {
+      \relative {
         a4 a a a
         a4 a a a
       }
@@ -2584,13 +2584,13 @@ LilyPond の拡張:
 
 @c KEEP LY
 @lilypond[quote,verbatim]
-flute = \relative c'' {
-  s4 s4 e g
+flute = \relative {
+  s4 s4 e'' g
 }
 \addQuote "flute" { \flute }
 
-pianoRH = \relative c'' {
-  c4. g8
+pianoRH = \relative {
+  c''4. g8
   % 合図音符の楽器名を、合図音符の直前、かつ譜の上に配置します
   \new CueVoice {
     \override InstrumentSwitch.self-alignment-X = #RIGHT
@@ -2598,7 +2598,7 @@ pianoRH = \relative c'' {
   }
   \cueDuring "flute" #UP { g4 bes4 }
 }
-pianoLH = \relative c { c4 <c' e> e, <g c> }
+pianoLH = \relative { c4 <c' e> e, <g c> }
 
 \score {
   \new PianoStaff <<
@@ -2645,7 +2645,7 @@ pianoRH = \relative c'' {
   \cueDuring "clarinet" #DOWN { c4. g8 }
   g4 bes4
 }
-pianoLH = \relative c { c4 <c' e> e, <g c> }
+pianoLH = \relative { c4 <c' e> e, <g c> }
 
 \score {
   <<
@@ -2861,15 +2861,15 @@ stemOff = { \hide Staff.Stem }
 \score {
   \new StaffGroup <<
     \new Staff {
-      \relative c'' {
-        a4 b c2 |
+      \relative {
+        a'4 b c2 |
         a4 b c2 |
         a4 b c2 |
       }
     }
     \new Staff {
-      \relative c'' {
-        a4 b c2 |
+      \relative {
+        a'4 b c2 |
         a4 b c2 |
         a4 b c2 |
       }
@@ -2891,15 +2891,15 @@ stemOff = { \hide Staff.Stem }
   \new ChoirStaff <<
     \new Staff
     \with { \remove "Bar_engraver" } {
-      \relative c'' {
-        a4 b c2 |
+      \relative {
+        a'4 b c2 |
         a4 b c2 |
         a4 b c2 |
       }
     }
     \new Staff {
-      \relative c'' {
-        a4 b c2 |
+      \relative {
+        a'4 b c2 |
         a4 b c2 |
         a4 b c2 |
       }
@@ -2971,8 +2971,8 @@ finalis = {
 }
 
 \score {
-  \relative c'' {
-    g2 a4 g
+  \relative {
+    g'2 a4 g
     \divisioMinima
     g2 a4 g
     \divisioMaior
@@ -2995,8 +2995,8 @@ finalis = {
 @lilypond[verbatim,quote]
 \score {
   \new Staff {
-    \relative c'' {
-      a4 b c2 |
+    \relative {
+      a'4 b c2 |
       a4 b c2 |
       a4 b c2 |
     }
@@ -3023,22 +3023,22 @@ finalis = {
 
 @c KEEP LY
 @lilypond[verbatim,quote]
-SopranoMusic = \relative g' {
-  g1 | c2 b | a1 | \bar "||"
+SopranoMusic = \relative {
+  g'1 | c2 b | a1 | \bar "||"
   a1 | d2 c | c b | c1 | \bar "||"
 }
 
-AltoMusic = \relative c' {
-  e1 | g2 g | f1 |
+AltoMusic = \relative {
+  e'1 | g2 g | f1 |
   f1 | f2 e | d d | e1 |
 }
 
-TenorMusic = \relative a {
-  c1 | c2 c | c1 |
+TenorMusic = \relative {
+  c'1 | c2 c | c1 |
   d1 | g,2 g | g g | g1 |
 }
 
-BassMusic =  \relative c {
+BassMusic =  \relative {
   c1 | e2 e | f1 |
   d1 | b2 c | g' g | c,1 |
 }

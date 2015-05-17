@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.30"
+@c \version "2.19.21"
 
 
 @node Chord notation
@@ -410,8 +410,8 @@ chord mode.  The displayed chord name will be the same, regardless
 of the mode of entry, unless there are inversions or added bass notes:
 
 @lilypond[verbatim,quote]
-chordmusic = \relative c' {
-  <c e g>2 <f bes c>
+chordmusic = \relative {
+  <c' e g>2 <f bes c>
   <f c' e g>1
   \chordmode {
     c2 f:sus4 c1:/f
@@ -1024,8 +1024,8 @@ of the figures is independent of the notes on the staff.
 
 @lilypond[verbatim,ragged-right,quote]
 <<
-  \relative c'' {
-    c4 c'8 r8 c,4 c'
+  \relative {
+    c''4 c'8 r8 c,4 c'
   }
   \new FiguredBass {
     \figuremode {

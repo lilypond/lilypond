@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 \header {
   texidoc = "Footnotes are annotated at the correct place, and the
 annotation goes to the correct page."
@@ -12,8 +12,8 @@ annotation goes to the correct page."
 
 \book {
 
-\relative c'' {
-b4-\single\footnote
+\relative {
+b'4-\single\footnote
               \markup { \tiny "1." }
               #'(0.5 . 0.5)
               \markup { 1. \justify { Goes to the first broken spanner. } } Hairpin

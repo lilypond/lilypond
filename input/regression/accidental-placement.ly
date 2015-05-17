@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 
@@ -15,9 +15,9 @@ flats in a sixth should be staggered.  "
 }
 
 
-\context Voice \relative c'
+\context Voice \relative
 {
-  <d e! bes'!>4
+  <d' e! bes'!>4
   cis4
   c4
   \transpose c c' {

@@ -1,5 +1,5 @@
 
-\version "2.17.6"
+\version "2.19.21"
 \header{
 
   texidoc=" Beams on ledgered notes should always reach the middle staff
@@ -14,7 +14,7 @@ note beams.  Override with @code{no-stem-extend}.  "
 }  
 
 
-\context Voice \relative c {
+\context Voice \relative {
   f8[ f]   f64[ f] 
   \grace { 
     f8[ e8] 

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 
@@ -17,7 +17,7 @@
     }
     \score {
 	<<
-	    \relative c {
+	    \relative {
 		\clef bass
 		d2 d c4 bes a2 \break
 		c2 c d4 f g2

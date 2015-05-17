@@ -1,4 +1,4 @@
-\version "2.19.2"
+\version "2.19.21"
 
 \header {
   texidoc = "The second and third notes should not get accidentals,
@@ -14,8 +14,8 @@
   ragged-right = ##t
 }
 
-mus =  	\relative c' {
-  f1~
+mus =  	\relative {
+  f'1~
   2~4 % ~ f8
   fis8  gis8 ~
   \break

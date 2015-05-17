@@ -1,4 +1,4 @@
-\version "2.17.28"
+\version "2.19.21"
 
 \header {
   texidoc="
@@ -7,8 +7,8 @@ assigned to grace notes.
 "
 }
 
-\relative c' {
-  f4 \appoggiatura a32 b4
+\relative {
+  f'4 \appoggiatura a32 b4
   \grace { f16 a16 } b2
   \afterGrace b2 { f16[ a16] }
   \appoggiatura a32 b4

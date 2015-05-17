@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.11"
+@c \version "2.19.21"
 
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
@@ -504,8 +504,8 @@ nella lista Scheme,
 
 @lilypond[verbatim,quote]
 voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
-\relative c'' {
-  c1
+\relative {
+  c''1
   \set Score.repeatCommands =
     #(list(list 'volta voltaAdLib) 'start-repeat)
   c4 b d e

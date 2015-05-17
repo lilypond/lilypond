@@ -1,4 +1,4 @@
-\version "2.17.11"
+\version "2.19.21"
 
 
 \header {
@@ -9,7 +9,7 @@ correctly on them.
 "
 }
 
-\relative c' {
-  <c e g>4 r <c e g>2 ~ |
+\relative {
+  <c' e g>4 r <c e g>2 ~ |
   \tuplet 3/2 { <c e g>4 q q } \tuplet 3/2 { q q q } |
 }

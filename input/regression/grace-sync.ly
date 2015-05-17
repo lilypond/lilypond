@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 \header  {
   texidoc = "Grace notes in different voices/@/staves are synchronized."
 }
@@ -6,9 +6,9 @@
 \layout { ragged-right = ##t}
 
 
-\relative c'' <<
+\relative <<
   \context Staff {
-    c2
+    c''2
     \grace  c8
     c4 c4
   }

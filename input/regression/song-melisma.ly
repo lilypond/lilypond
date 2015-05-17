@@ -1,4 +1,4 @@
-\version "2.19.2"
+\version "2.19.21"
 \header {
   texidoc="Festival song synthesis output supports
 melismas.
@@ -7,12 +7,12 @@ melismas.
 \include "festival.ly"
 
 \festival #"song-melisma.xml" { \tempo 4 = 100 }
-\relative c''
+\relative
 {
 <<
   \context Voice = "lala" {
     \time 3/4
-    f4 g8
+    f''4 g8
     \melisma
     f e f
     \melismaEnd

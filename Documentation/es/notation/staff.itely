@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @node Notación de los pentagramas
 @section Notación de los pentagramas
@@ -358,15 +358,15 @@ pero se puede activar con una opción de @code{\paper}.
   \score {
     \new StaffGroup <<
       \new Staff {
-        \relative c'' {
-          c4 c c c
+        \relative {
+          c''4 c c c
           \break
           c4 c c c
         }
       }
       \new Staff {
-        \relative c'' {
-          c4 c c c
+        \relative {
+          c''4 c c c
           \break
           c4 c c c
         }
@@ -602,8 +602,8 @@ Los pentagramas @notation{Ossia} se pueden preparar mediante la
 creación de un pentagrama simultáneo nuevo en la posición adecuada:
 
 @lilypond[verbatim,quote]
-\new Staff \relative c'' {
-  c4 b d c
+\new Staff \relative {
+  c''4 b d c
   <<
     { c4 b d c }
     \new Staff { e4 d f e }
@@ -625,8 +625,8 @@ para alinear el pentagrama de ossia.  Este método es muy conveniente
 cuando se necesitan sólo algunos pentagramas de ossia.
 
 @lilypond[verbatim,quote]
-\new Staff = "main" \relative c'' {
-  c4 b d c
+\new Staff = "main" \relative {
+  c''4 b d c
   <<
     { c4 b d c }
 
@@ -663,8 +663,8 @@ en ejemplo siguiente.
   }
   { \stopStaff s1*6 }
 
-  \new Staff \relative c' {
-    c4 b c2
+  \new Staff \relative {
+    c'4 b c2
     <<
       { e4 f e2 }
       \context Staff = "ossia" {
@@ -698,12 +698,12 @@ sobre @code{\RemoveEmptyStaves}, consulte @ref{Ocultar pentagramas}.
     fontSize = #-3
     \override StaffSymbol.staff-space = #(magstep -3)
     \override StaffSymbol.thickness = #(magstep -3)
-  } \relative c'' {
+  } \relative {
     R1*3
-    c4 e8 d c2
+    c''4 e8 d c2
   }
-  \new Staff \relative c' {
-    c4 b c2
+  \new Staff \relative {
+    c'4 b c2
     e4 f e2
     g4 a g2 \break
     c4 b c2
@@ -773,7 +773,7 @@ alternativa se puede utilizar la instrucción @code{\stopStaff}.
 \new Staff \with {
   \remove "Staff_symbol_engraver"
 }
-\relative c''' { a8 f e16 d c b a2 }
+\relative { a''8 f e16 d c b a2 }
 @end lilypond
 
 Se pueden ocultar los pentagramas que están vacíos mediante la
@@ -794,9 +794,9 @@ separación o una combinación de estos elementos.}
   }
 }
 
-\relative c' <<
+\relative <<
   \new Staff {
-    e4 f g a \break
+    e'4 f g a \break
     b1 \break
     a4 b c2
   }
@@ -1111,12 +1111,12 @@ citada, tal y como se definió con @code{\addQuote}, y una expresión
 musical que indica la duración de la cita.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  a4 gis g gis | b4^"quoted" r8 ais\p a4( f)
+fluteNotes = \relative {
+  a'4 gis g gis | b4^"quoted" r8 ais\p a4( f)
 }
 
-oboeNotes = \relative c'' {
-  c4 cis c b \quoteDuring #"flute" { s1 }
+oboeNotes = \relative {
+  c''4 cis c b \quoteDuring #"flute" { s1 }
 }
 
 \addQuote "flute" { \fluteNotes }
@@ -1135,12 +1135,12 @@ multicompás, se produce una situación de polifonía, lo que no suele
 ser deseable:
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  a4 gis g gis | b4^"quoted" r8 ais\p a4( f)
+fluteNotes = \relative {
+  a'4 gis g gis | b4^"quoted" r8 ais\p a4( f)
 }
 
-oboeNotes = \relative c'' {
-  c4 cis c b \quoteDuring #"flute" { e4 r8 ais b4 a }
+oboeNotes = \relative {
+  c''4 cis c b \quoteDuring #"flute" { e4 r8 ais b4 a }
 }
 
 \addQuote "flute" { \fluteNotes }
@@ -1165,8 +1165,8 @@ clarinetNotes = \relative c'' {
   b4 ais a ais | cis4^"quoted" r8 bis\p b4( f)
 }
 
-oboeNotes = \relative c'' {
-  c4 cis c b \quoteDuring #"clarinet" { s1 }
+oboeNotes = \relative {
+  c''4 cis c b \quoteDuring #"clarinet" { s1 }
 }
 
 \addQuote "clarinet" { \clarinetNotes }
@@ -1197,13 +1197,13 @@ música que se cita se imprimen, mediante la propiedad de contexto
 @code{quotedEventTypes}.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  a2 g2 |
+fluteNotes = \relative {
+  a'2 g2 |
   b4\<^"quoted" r8 ais a4\f( c->)
  }
 
-oboeNotes = \relative c'' {
-  c2. b4 |
+oboeNotes = \relative {
+  c''2. b4 |
   \quoteDuring #"flute" { s1 }
 }
 
@@ -1348,8 +1348,8 @@ determinando cómo se imprimen las notas guía en relación a la otra
 voz.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  r2. c4 | d8 c d e fis2 | g2 d |
+fluteNotes = \relative {
+  r2. c''4 | d8 c d e fis2 | g2 d |
 }
 
 oboeNotes = \relative c'' {
@@ -1384,8 +1384,8 @@ declarar explícitamente, pues en caso contrario toda la expresión musical
 pertenecería al contexto @code{CueVoice}.}
 
 @lilypond[verbatim,quote]
-oboeNotes = \relative c'' {
-  r2 r8 d16(\f f e g f a)
+oboeNotes = \relative {
+  r2 r8 d''16(\f f e g f a)
   g8 g16 g g2.
 }
 \addQuote "oboe" { \oboeNotes }
@@ -1408,8 +1408,8 @@ notas guía requieren un cambio de clave, puede hacerse manualmente
 pero la clave original se debe restaurar al final de las notas guía.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  r2. c4 d8 c d e fis2 g2 d2
+fluteNotes = \relative {
+  r2. c''4 d8 c d e fis2 g2 d2
 }
 
 bassoonNotes = \relative c {
@@ -1437,8 +1437,8 @@ automáticamente la clave original una vez que ha finalizado la serie
 de notas guía.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  r2. c4 d8 c d e fis2 g2 d2
+fluteNotes = \relative {
+  r2. c''4 d8 c d e fis2 g2 d2
 }
 
 bassoonNotes = \relative c {
@@ -1472,10 +1472,10 @@ Esto es útil para toma citas de un instrumento que está en un registro
 completamente diferente.
 
 @lilypond[verbatim,quote]
-piccoloNotes = \relative c''' {
+piccoloNotes = \relative {
   \clef "treble^8"
   R1
-  c8 c c e g2
+  c'''8 c c e g2
   c4 g g2
 }
 
@@ -1514,8 +1514,8 @@ instrumento fuente, pueden marcarse para su inclusión selectiva dentro
 de la partitura; véase @ref{Uso de etiquetas}.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  r2. c4 d8 c d e fis2 g2 d2
+fluteNotes = \relative {
+  r2. c''4 d8 c d e fis2 g2 d2
 }
 
 bassoonNotes = \relative c {

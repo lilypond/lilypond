@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "If right hand stems have accidentals, optical spacing
@@ -6,8 +6,8 @@ correction is still applied, but only if the stem directions are
 different."
 }
 
-\relative c' {
+\relative {
   \time 2/4
-  c8 cis''
+  c'8 cis''
   cis8 cis,,
 }

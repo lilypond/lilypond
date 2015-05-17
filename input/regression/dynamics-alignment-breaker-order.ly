@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "@code{\\breakDynamicSpan} work whether it is placed together 
@@ -6,7 +6,7 @@ with the start or the end of a spanner.  Both lines should be identical.
 "
 }
 
-\relative c {
+\relative {
   c1\< c''
   % break directly before and after \> :
   c,1\breakDynamicSpan\>\breakDynamicSpan 

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 %% This should really be 2.15.0, because the glissando code
 %% hasn't been backported -- this is a git-only test at this point
 
@@ -8,6 +8,6 @@
 
 }
 
-\relative c' {
-  c1 \glissando d1 \glissando e1
+\relative {
+  c'1 \glissando d1 \glissando e1
 }

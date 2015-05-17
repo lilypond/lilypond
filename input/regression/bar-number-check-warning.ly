@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (_ "Barcheck failed got ~a expect ~a") 3 15)
 
@@ -10,8 +10,8 @@ bar number is correct.
 
 }
 
-\relative c'' {
-  c1 | 
+\relative {
+  c''1 | 
   \barNumberCheck #2 % OK
   c1 |
   \barNumberCheck #15 % Warning

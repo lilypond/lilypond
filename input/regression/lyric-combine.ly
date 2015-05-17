@@ -1,5 +1,5 @@
 
-\version "2.17.11"
+\version "2.19.21"
 
 \header{
 
@@ -26,7 +26,7 @@ m = \relative c'' {
     b
 }
 
-noise = \repeat unfold 6  \relative c'' { g16 g g g }
+noise = \repeat unfold 6  \relative { g'16 g g g }
 
 textI = \lyricmode {
     la2 __ la -- la __ la la la la la

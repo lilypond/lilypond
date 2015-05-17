@@ -1,5 +1,5 @@
 
-\version "2.17.6"
+\version "2.19.21"
 \header { texidoc = "Each clef has its own accidental placing
 rules, which can be adjusted using @code{sharp-positions}
 and @code{flat-positions}." }
@@ -7,11 +7,11 @@ and @code{flat-positions}." }
 #(set-global-staff-size 16)
 
 
-\relative cis' {
+\relative {
 
 				% \clef french % same as octaviated bass
   \clef violin
-  \key cis \major cis1  \key ces \major ces
+  \key cis \major cis'1  \key ces \major ces
   \clef soprano
   \key cis \major cis \key ces \major ces \break
   \clef mezzosoprano

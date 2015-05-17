@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 \header{
   texidoc="
 A sharp sign after a double sharp sign, as well as a flat sign
@@ -7,7 +7,7 @@ natural sign.
 "
 }
 
-thenotes =  \relative cis' {
+thenotes =  \relative {
   \time 4/4
   gisis'4 gis geses ges |
 }

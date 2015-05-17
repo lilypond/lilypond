@@ -3,7 +3,7 @@
   texidoc = "The note markup function may be used to make metronome
  markings. It works for a variety of flag, dot and duration settings."
 }
-\version "2.17.12"
+\version "2.19.21"
 
 mrkp =
 \markup {
@@ -50,9 +50,9 @@ mrkp =
 }
 
 \score {
-  \relative c''
+  \relative
   {
-    c4^\markup {
+    c''4^\markup {
             \column {
                     \mrkp
                     \override #'(style . mensural) \mrkp

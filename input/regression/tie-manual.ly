@@ -11,16 +11,16 @@ You can leave a Tie alone by introducing a non-pair value
 
 }
 
-\version "2.17.6"
+\version "2.19.21"
 
 \layout {
   ragged-right = ##t
 }
 
 
-\relative c'' {
+\relative {
   
-  <b d f g>~
+  <b' d f g>~
 
   
   \once \override TieColumn.tie-configuration =

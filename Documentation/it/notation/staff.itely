@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @c Translators: Federico Bruni
 @c Translation checkers:
@@ -358,15 +358,15 @@ in @code{\paper}.
   \score {
     \new StaffGroup <<
       \new Staff {
-        \relative c'' {
-          c4 c c c
+        \relative {
+          c''4 c c c
           \break
           c4 c c c
         }
       }
       \new Staff {
-        \relative c'' {
-          c4 c c c
+        \relative {
+          c''4 c c c
           \break
           c4 c c c
         }
@@ -590,8 +590,8 @@ I righi @notation{ossia} si possono creare aggiungendo un nuovo rigo
 simultaneo nel punto giusto:
 
 @lilypond[verbatim,quote]
-\new Staff \relative c'' {
-  c4 b d c
+\new Staff \relative {
+  c''4 b d c
   <<
     { c4 b d c }
     \new Staff { e4 d f e }
@@ -613,8 +613,8 @@ il rigo ossia.  Questo metodo conviene quando sono necessari solo pochi
 righi ossia.
 
 @lilypond[verbatim,quote]
-\new Staff = "main" \relative c'' {
-  c4 b d c
+\new Staff = "main" \relative {
+  c''4 b d c
   <<
     { c4 b d c }
 
@@ -646,8 +646,8 @@ esempio.
   }
   { \stopStaff s1*6 }
 
-  \new Staff \relative c' {
-    c4 b c2
+  \new Staff \relative {
+    c'4 b c2
     <<
       { e4 f e2 }
       \context Staff = "ossia" {
@@ -679,12 +679,12 @@ su @code{\Staff \RemoveEmptyStaves} si trovano in @ref{Hiding staves}.
     \remove "Time_signature_engraver"
     \hide Clef
     \magnifyStaff #2/3
-  } \relative c'' {
+  } \relative {
     R1*3
-    c4 e8 d c2
+    c''4 e8 d c2
   }
-  \new Staff \relative c' {
-    c4 b c2
+  \new Staff \relative {
+    c'4 b c2
     e4 f e2
     g4 a g2 \break
     c4 b c2
@@ -752,7 +752,7 @@ si può usare @code{\stopStaff}.
 \new Staff \with {
   \remove "Staff_symbol_engraver"
 }
-\relative c''' { a8 f e16 d c b a2 }
+\relative { a''8 f e16 d c b a2 }
 @end lilypond
 
 
@@ -773,9 +773,9 @@ elementi.}
   }
 }
 
-\relative c' <<
+\relative <<
   \new Staff {
-    e4 f g a \break
+    e'4 f g a \break
     b1 \break
     a4 b c2
   }
@@ -1085,12 +1085,12 @@ definito da @code{\addQuote}, e un'espressione musicale per la durata
 della citazione.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  a4 gis g gis | b4^"quoted" r8 ais\p a4( f)
+fluteNotes = \relative {
+  a'4 gis g gis | b4^"quoted" r8 ais\p a4( f)
 }
 
-oboeNotes = \relative c'' {
-  c4 cis c b \quoteDuring #"flute" { s1 }
+oboeNotes = \relative {
+  c''4 cis c b \quoteDuring #"flute" { s1 }
 }
 
 \addQuote "flute" { \fluteNotes }
@@ -1108,12 +1108,12 @@ di pause spaziatrici o multiple, la citazione apparirà in forma polifonica
 e potrebbe causare risultati indesiderati.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  a4 gis g gis | b4^"quoted" r8 ais\p a4( f)
+fluteNotes = \relative {
+  a'4 gis g gis | b4^"quoted" r8 ais\p a4( f)
 }
 
-oboeNotes = \relative c'' {
-  c4 cis c b \quoteDuring #"flute" { e4 r8 ais b4 a }
+oboeNotes = \relative {
+  c''4 cis c b \quoteDuring #"flute" { e4 r8 ais b4 a }
 }
 
 \addQuote "flute" { \fluteNotes }
@@ -1137,8 +1137,8 @@ clarinetNotes = \relative c'' {
   b4 ais a ais | cis4^"quoted" r8 bis\p b4( f)
 }
 
-oboeNotes = \relative c'' {
-  c4 cis c b \quoteDuring #"clarinet" { s1 }
+oboeNotes = \relative {
+  c''4 cis c b \quoteDuring #"clarinet" { s1 }
 }
 
 \addQuote "clarinet" { \clarinetNotes }
@@ -1167,13 +1167,13 @@ presenti nel frammento citato.  È possibile scegliere quali di questi oggetti
 far apparire usando la proprietà di contesto @code{quotedEventTypes}.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  a2 g2 |
+fluteNotes = \relative {
+  a'2 g2 |
   b4\<^"quoted" r8 ais a4\f( c->)
  }
 
-oboeNotes = \relative c'' {
-  c2. b4 |
+oboeNotes = \relative {
+  c''2. b4 |
   \quoteDuring #"flute" { s1 }
 }
 
@@ -1311,8 +1311,8 @@ corrisponde alla prima e alla seconda voce rispettivamente, determinando
 come le notine appaiono in relazione all'altra voce.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  r2. c4 | d8 c d e fis2 | g2 d |
+fluteNotes = \relative {
+  r2. c''4 | d8 c d e fis2 | g2 d |
 }
 
 oboeNotes = \relative c'' {
@@ -1345,8 +1345,8 @@ esplicitamente, altrimenti l'intera espressione musicale appartiene al
 contesto @code{CueVoice}.}
 
 @lilypond[verbatim,quote]
-oboeNotes = \relative c'' {
-  r2 r8 d16(\f f e g f a)
+oboeNotes = \relative {
+  r2 r8 d''16(\f f e g f a)
   g8 g16 g g2.
 }
 \addQuote "oboe" { \oboeNotes }
@@ -1369,8 +1369,8 @@ il ripristino della chiave originale dovrà essere fatto manualmente al termine
 delle citazioni.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  r2. c4 d8 c d e fis2 g2 d2
+fluteNotes = \relative {
+  r2. c''4 d8 c d e fis2 g2 d2
 }
 
 bassoonNotes = \relative c {
@@ -1396,8 +1396,8 @@ per le citazioni in corpo più piccolo ma mostrerà automaticamente la chiave or
 citazioni sono finite.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  r2. c4 d8 c d e fis2 g2 d2
+fluteNotes = \relative {
+  r2. c''4 d8 c d e fis2 g2 d2
 }
 
 bassoonNotes = \relative c {
@@ -1430,10 +1430,10 @@ per rappresentare il Do centrale in intonazione reale.  È utile nel caso di cit
 da uno strumento che ha un registro completamente diverso.
 
 @lilypond[verbatim,quote]
-piccoloNotes = \relative c''' {
+piccoloNotes = \relative {
   \clef "treble^8"
   R1
-  c8 c c e g2
+  c'''8 c c e g2
   c4 g g2
 }
 
@@ -1471,8 +1471,8 @@ possono essere contrassegnate per includerle in modo selettivo nella
 partitura; si veda @ref{Using tags}.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  r2. c4 d8 c d e fis2 g2 d2
+fluteNotes = \relative {
+  r2. c''4 d8 c d e fis2 g2 d2
 }
 
 bassoonNotes = \relative c {

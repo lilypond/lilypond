@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (_ "already have slur"))
@@ -10,16 +10,16 @@
 
 \paper { ragged-right = ##t }
 
-\relative c' {
+\relative {
   \key fis \major
-  c1(
+  c'1(
   \break
   a2 b4 c)
 }
 
-\relative c' {
+\relative {
   \key fis \major
-  c1(
+  c'1(
   \break
   a2( b4 c)
 %   ^ extra SlurEvent

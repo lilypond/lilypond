@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 
@@ -11,9 +11,9 @@
 
 \layout { ragged-right = ##t}
 
-\relative c'' {
+\relative {
   \time 6/8
-  c8. c16 c16 c16
+  c''8. c16 c16 c16
   c8. c16 c16 c16
 }
 

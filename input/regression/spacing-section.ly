@@ -11,10 +11,10 @@ the 4/16, and a 16th in the second section takes as much space as a
 {
   ragged-right = ##t
   }
-\version "2.16.0"
-\relative c' {
+\version "2.19.21"
+\relative {
   \time 2/4
-  c4 c8 c 
+  c'4 c8 c 
   c8 c c4 c16[ c c8] c4
 
   \newSpacingSection

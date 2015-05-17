@@ -1,4 +1,4 @@
-\version "2.19.2"
+\version "2.19.21"
 
 \header {
   texidoc = "Voices from different cues must not be tied together.  In
@@ -10,13 +10,13 @@ since only one @code{CueVoice} context is created
 "
 }
 
-cueI = \relative c'' {
-  a1 ~ | 1 | a |
+cueI = \relative {
+  a'1 ~ | 1 | a |
 }
 \addQuote "cueI" { \cueI }
 
-cueII = \relative c' {
-  R1 | e | a |
+cueII = \relative {
+  R1 | e' | a |
 }
 \addQuote "cueII" { \cueII }
 

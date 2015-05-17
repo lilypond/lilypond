@@ -2,16 +2,16 @@
     texidoc = "Ledger lines are shortened when they are very close. This ensures
 that ledger lines stay separate."
 }
-\version "2.16.0"
+\version "2.19.21"
 
 \layout {
     ragged-right = ##t
 }
 
-\relative c' {
+\relative {
 \time 2/4 
 
-c4
+c'4
 b
 c4
 b

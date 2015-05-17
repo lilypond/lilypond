@@ -1,14 +1,14 @@
 
 
-\version "2.17.6"
+\version "2.19.21"
 \header {
   texidoc = "Clusters behave well across line breaks."
 }
 
 \layout { ragged-right = ##t }
 
-fragment = \relative c' {
-  <e d'>4
+fragment = \relative {
+  <e' d'>4
   <g a>4 
   <e a>4
 }

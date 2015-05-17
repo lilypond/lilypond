@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.20"
+@c \version "2.19.21"
 
 @node Rhythms
 @section Rhythms
@@ -435,8 +435,8 @@ dots cannot be used to denote the rhythm.  Ties should also be
 used when note values cross larger subdivisions of the measure:
 
 @lilypond[verbatim,quote]
-\relative c' {
-  r8 c~ 2 r4 |
+\relative {
+  r8 c'~ 2 r4 |
   r8^"not" c2~ 8 r4
 }
 @end lilypond
@@ -1617,10 +1617,10 @@ may be necessary to insert beams manually, as the duration scaling will
 affect the autobeaming rules.
 
 @lilypond[quote,verbatim]
-\relative c' <<
+\relative <<
   \new Staff {
     \time 3/4
-    c4 c c |
+    c'4 c c |
     c4 c c |
   }
   \new Staff {
@@ -1663,10 +1663,10 @@ moving the @code{Timing_translator} and the
 
 % Now each staff has its own time signature.
 
-\relative c' <<
+\relative <<
   \new Staff {
     \time 3/4
-    c4 c c |
+    c'4 c c |
     c4 c c |
   }
   \new Staff {
@@ -2136,8 +2136,8 @@ enclosing context will apply.
   \set Staff.beatStructure = #'(2 3 2)
   <<
     \new Voice = one {
-      \relative c'' {
-        a8 a a a a a a
+      \relative {
+        a'8 a a a a a a
       }
     }
     \new Voice = two {
@@ -3560,8 +3560,8 @@ functions take a defined piece of music as an argument and generate a
 multi-measure rest or @code{\skip} exactly as long as the piece.
 
 @lilypond[verbatim,quote]
-MyCadenza = \relative c' {
-  c4 d8 e f g g4
+MyCadenza = \relative {
+  c'4 d8 e f g g4
   f2 g4 g
 }
 

@@ -5,14 +5,14 @@
 
 }
 
-\version "2.16.0"
+\version "2.19.21"
 \paper { ragged-right = ##t } 
 
 \new Staff
-    \partcombine  \relative c'' {
-	bes2(
+    \partcombine  \relative {
+	bes'2(
 	 a4)
 	}
-     \relative c' {
-	r2 cis4
+     \relative {
+	r2 cis'4
     }

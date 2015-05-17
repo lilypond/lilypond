@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (_ "cannot fit the first page turn onto a single page.  Consider setting first-page-number to an even number."))
 
@@ -17,7 +17,7 @@ should appear on 3 pages.
   }
 
   \score {
-    \relative c' {
+    \relative {
       a b c d a b c d \break
       c d e f c d e f \break
       d e f g d e f g

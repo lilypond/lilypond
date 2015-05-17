@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 
@@ -6,8 +6,8 @@
 
 }
 
-\new Staff \relative c' {
-  c1\<
+\new Staff \relative {
+  c'1\<
   \mark "Very long mark"
   c4\> c c c\!
 }

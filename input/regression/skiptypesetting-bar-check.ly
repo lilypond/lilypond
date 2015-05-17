@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (ly:translate-cpp-warning-scheme "barcheck failed at: %s") "3/4")
 
@@ -8,8 +8,8 @@ texidoc = "skipTypesetting doesn't affect bar checks."
 
 }
 
-\relative c' {
-  c4
+\relative {
+  c'4
   \set Score.skipTypesetting = ##t
   c4 c4
   |

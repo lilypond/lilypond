@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.21"
 
 @c Translators: Till Paala
 
@@ -377,15 +377,15 @@ mit einer Option in der @code{\paper}-Umgebung angeschalten.
   \score {
     \new StaffGroup <<
       \new Staff {
-        \relative c'' {
-          c4 c c c
+        \relative {
+          c''4 c c c
           \break
           c4 c c c
         }
       }
       \new Staff {
-        \relative c'' {
-          c4 c c c
+        \relative {
+          c''4 c c c
           \break
           c4 c c c
         }
@@ -620,8 +620,8 @@ gleichzeitige Notensysteme an der entsprechenden Position
 erstellt werden:
 
 @lilypond[verbatim,quote]
-\new Staff \relative c'' {
-  c4 b d c
+\new Staff \relative {
+  c''4 b d c
   <<
     { c4 b d c }
     \new Staff { e4 d f e }
@@ -645,8 +645,8 @@ ein, um den Ossia-Abschnitt auszurichten.  Diese Methode
 bietet sich an, wenn nur einige Ossia-Systeme benötigt werden.
 
 @lilypond[verbatim,quote]
-\new Staff = main \relative c'' {
-  c4 b d c
+\new Staff = main \relative {
+  c''4 b d c
   <<
     { c4 b d c }
 
@@ -684,8 +684,8 @@ Stücke setzt.
   }
   { \stopStaff s1*6 }
 
-  \new Staff \relative c' {
-    c4 b c2
+  \new Staff \relative {
+    c'4 b c2
     <<
       { e4 f e2 }
       \context Staff = ossia {
@@ -719,12 +719,12 @@ Mehr Information zu @code{\Staff \RemoveEmptyStaves} findet sich in
     fontSize = #-3
     \override StaffSymbol.staff-space = #(magstep -3)
     \override StaffSymbol.thickness = #(magstep -3)
-  } \relative c'' {
+  } \relative {
     R1*3
-    c4 e8 d c2
+    c''4 e8 d c2
   }
-  \new Staff \relative c' {
-    c4 b c2
+  \new Staff \relative {
+    c'4 b c2
     e4 f e2
     g4 a g2 \break
     c4 b c2
@@ -794,7 +794,7 @@ eingesetzt werden.
 \new Staff \with {
   \remove "Staff_symbol_engraver"
 }
-\relative c''' { a8 f e16 d c b a2 }
+\relative { a''8 f e16 d c b a2 }
 @end lilypond
 
 Leere Systeme können versteckt werden, wenn der
@@ -815,9 +815,9 @@ der drei enthält.}
   }
 }
 
-\relative c' <<
+\relative <<
   \new Staff {
-    e4 f g a \break
+    e'4 f g a \break
     b1 \break
     a4 b c2
   }
@@ -1139,12 +1139,12 @@ Argumente: die Bezeichnung der zitierten Stimme, wie vorher mit
 für die Dauer des Zitates.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  a4 gis g gis | b4^"quoted" r8 ais\p a4( f)
+fluteNotes = \relative {
+  a'4 gis g gis | b4^"quoted" r8 ais\p a4( f)
 }
 
-oboeNotes = \relative c'' {
-  c4 cis c b \quoteDuring #"flute" { s1 }
+oboeNotes = \relative {
+  c''4 cis c b \quoteDuring #"flute" { s1 }
 }
 
 \addQuote "flute" { \fluteNotes }
@@ -1163,12 +1163,12 @@ unsichtbare Noten oder Ganztaktpausen etwa Noten enthält, wird eine
 polyphone Stelle begonnen, was meistens nicht erwünscht ist:
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  a4 gis g gis | b4^"quoted" r8 ais\p a4( f)
+fluteNotes = \relative {
+  a'4 gis g gis | b4^"quoted" r8 ais\p a4( f)
 }
 
-oboeNotes = \relative c'' {
-  c4 cis c b \quoteDuring #"flute" { e4 r8 ais b4 a }
+oboeNotes = \relative {
+  c''4 cis c b \quoteDuring #"flute" { e4 r8 ais b4 a }
 }
 
 \addQuote "flute" { \fluteNotes }
@@ -1193,8 +1193,8 @@ clarinetNotes = \relative c'' {
   b4 ais a ais | cis4^"quoted" r8 bis\p b4( f)
 }
 
-oboeNotes = \relative c'' {
-  c4 cis c b \quoteDuring #"clarinet" { s1 }
+oboeNotes = \relative {
+  c''4 cis c b \quoteDuring #"clarinet" { s1 }
 }
 
 \addQuote "clarinet" { \clarinetNotes }
@@ -1223,13 +1223,13 @@ auszuwählen, welche Objekte der zitierten Noten dargestllt werden.
 Das geschieht mit der @code{quotedEventTypes}-Kontexteigenschaft.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  a2 g2 |
+fluteNotes = \relative {
+  a'2 g2 |
   b4\<^"quoted" r8 ais a4\f( c->)
  }
 
-oboeNotes = \relative c'' {
-  c2. b4 |
+oboeNotes = \relative {
+  c''2. b4 |
   \quoteDuring #"flute" { s1 }
 }
 
@@ -1370,8 +1370,8 @@ womit die zitierten Noten entweder als erste oder als zweite Stimme
 in einem System gesetzt werden.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  r2. c4 | d8 c d e fis2 | g2 d |
+fluteNotes = \relative {
+  r2. c''4 | d8 c d e fis2 | g2 d |
 }
 
 oboeNotes = \relative c'' {
@@ -1402,8 +1402,8 @@ erstellt werden, weil sonst der gesamte musikalische Ausdruck zum
 @code{CueVoice}-Kontext gehören würde.}
 
 @lilypond[verbatim,quote]
-oboeNotes = \relative c'' {
-  r2 r8 d16(\f f e g f a)
+oboeNotes = \relative {
+  r2 r8 d''16(\f f e g f a)
   g8 g16 g g2.
 }
 \addQuote "oboe" { \oboeNotes }
@@ -1427,8 +1427,8 @@ aber der originale Schlüssel muss auch manuell am Ende der Stichnoten
 wieder hergestellt werden.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  r2. c4 d8 c d e fis2 g2 d2
+fluteNotes = \relative {
+  r2. c''4 d8 c d e fis2 g2 d2
 }
 
 bassoonNotes = \relative c {
@@ -1457,8 +1457,8 @@ Schlüsselwechsel anzeigt, den man für die Stichnoten braucht.  Der
 originale Schlüssel wird automatisch wieder hergesetllt.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  r2. c4 d8 c d e fis2 g2 d2
+fluteNotes = \relative {
+  r2. c''4 d8 c d e fis2 g2 d2
 }
 
 bassoonNotes = \relative c {
@@ -1492,10 +1492,10 @@ man Stichnoten von einem Instrument mit einem vollständig anderen
 Register benutzt:
 
 @lilypond[verbatim,quote]
-piccoloNotes = \relative c''' {
+piccoloNotes = \relative {
   \clef "treble^8"
   R1
-  c8 c c e g2
+  c'''8 c c e g2
   c4 g g2
 }
 
@@ -1534,8 +1534,8 @@ können mit Marken versehen werden, um sie selektiv einzufügen,
 siehe @ref{Marken benutzen}.
 
 @lilypond[verbatim,quote]
-fluteNotes = \relative c'' {
-  r2. c4 d8 c d e fis2 g2 d2
+fluteNotes = \relative {
+  r2. c''4 d8 c d e fis2 g2 d2
 }
 
 bassoonNotes = \relative c {

@@ -5,9 +5,9 @@
 
   % https://code.google.com/p/lilypond/issues/detail?id=3091
 }
-\version "2.16.0"
+\version "2.19.21"
 \score {
-  \relative c' {
+  \relative {
     % This first b~ tie should be honoured in the MIDI output:
     a2. b4~
     % i.e. this b8 must not be sounded:

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.12"
+@c \version "2.19.21"
 
 
 @c Translators: Yoshiki Sawada
@@ -1028,7 +1028,7 @@ increased by one.  Default: @code{#f}.
     tagline = ##f
   }
   \score {
-    \relative c'' { c1 \break c1 \break c1 }
+    \relative { c''1 \break c1 \break c1 }
   }
 }
 @end lilypond
@@ -1396,9 +1396,9 @@ c4 c c c |
 @lilypond[quote,ragged-right,verbatim]
 \new Voice \with {
   \remove "Forbid_line_break_engraver"
-} \relative c'' {
+} \relative {
   <<
-    { c2. \tuplet 3/2 { c4 c c } c2. | }
+    { c''2. \tuplet 3/2 { c4 c c } c2. | }
     { s1 | \break s1 | }
   >>
 }
@@ -1762,7 +1762,7 @@ LilyPond は明示的な改ページである
   ragged-bottom = ##t
 }
 
-music = \relative c'' { c8 c c c }
+music = \relative { c''8 c c c }
 
 \score {
   \new Staff {
@@ -1797,7 +1797,7 @@ music = \relative c'' { c8 c c c }
 通常、改行/改ページ情報は音符入力部分に直接入力します。
 
 @example
-music = \relative c'' @{ c4 c c c @}
+music = \relative @{ c''4 c c c @}
 
 \score @{
   \new Staff @{
@@ -1816,7 +1816,7 @@ music = \relative c'' @{ c4 c c c @}
 その他の改行/改ページ情報だけを保持します。
 
 @lilypond[quote,verbatim]
-music = \relative c'' { c4 c c c }
+music = \relative { c''4 c c c }
 
 \score {
   \new Staff <<
@@ -1847,7 +1847,7 @@ This pattern becomes especially helpful when overriding
 他の有用だが長いプロパティを上書きするときに、非常に役に立ちます。
 
 @lilypond[quote,verbatim]
-music = \relative c'' { c4 c c c }
+music = \relative { c''4 c c c }
 
 \score {
   \new Staff <<
@@ -2983,8 +2983,8 @@ c16[ c c8]
 
 @lilypond[verbatim,line-width=12\cm]
 \score {
-  \relative c'' {
-    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+  \relative {
+    g'4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
     g4 e e2 | f4 d d2 | c4 e g g | c,1 |
     d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
     g4 e e2 | f4 d d2 | c4 e g g | c,1 |
@@ -2994,8 +2994,8 @@ c16[ c c8]
 
 @lilypond[verbatim,line-width=12\cm]
 \score {
-  \relative c'' {
-    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+  \relative {
+    g'4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
     g4 e e2 | f4 d d2 | c4 e g g | c,1 |
     d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
     g4 e e2 | f4 d d2 | c4 e g g | c,1 |
@@ -3678,8 +3678,8 @@ e4 c g-\tweak X-offset #-2.7 -\tweak Y-offset #2.5 \f c
 
 @lilypond[verbatim,quote]
 \score {
-  \relative c'' {
-    g4 e e2 |
+  \relative {
+    g'4 e e2 |
     f4 d d2 |
     c4 d e f |
     g4 g g2 |
@@ -3697,8 +3697,8 @@ e4 c g-\tweak X-offset #-2.7 -\tweak Y-offset #2.5 \f c
 
 @lilypond[verbatim,quote]
 \score {
-  \relative c'' {
-    g4 e e2 |
+  \relative {
+    g'4 e e2 |
     f4 d d2 |
     c4 d e f |
     g4 g g2 |

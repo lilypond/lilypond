@@ -1,16 +1,16 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header{ texidoc = "Sans serif style tab clefs are supported by @code{\\clef moderntab}.
                     This alternative clef supports four- to seven-stringed instruments
                     and is scaled automatically."
        }
 
-bass = \relative c, {
-  c4 d e f
+bass = \relative {
+  c,4 d e f
   e4 d c2
 }
 
-guitar = \relative c {
+guitar = \relative {
   c4 d e f
   e4 d c2
 }

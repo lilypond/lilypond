@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 \header {
   texidoc = "Span bars can be turned on/@/off on a staff-by-staff basis."
 }
@@ -10,9 +10,9 @@
   ragged-right =##t 
 }
 
-\relative c' \new StaffGroup <<
+\relative \new StaffGroup <<
   \new Staff {
-    c1
+    c'1
     \once \override Staff.BarLine.allow-span-bar = ##f
     c1 c1 c1
     \bar "|."

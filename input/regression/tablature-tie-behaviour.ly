@@ -1,4 +1,4 @@
-\version "2.19.2"
+\version "2.19.21"
 
 \header{ texidoc = "In tablature, notes that are tied to are invisible
                      except after a line break or within a second volta;
@@ -8,14 +8,14 @@
                     invisible completely, even after line breaks."
         }
 
-firstpart = \relative c {
+firstpart = \relative {
   f2 ~ 4   e
   g8 g ~ g g ~ g g~ g g ~
   1
 }
 
-secondpart = \relative c' {
-  c1 ~ \break c2 ~ 2
+secondpart = \relative {
+  c'1 ~ \break c2 ~ 2
 }
 
 thirdpart = \relative c' {
