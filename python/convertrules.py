@@ -3743,38 +3743,6 @@ def conv(str):
                   + after_id, r'\1-\2', str)
     return str
 
-@rule ((2, 19, 21), r"""\relative x''' { y ... -> \relative { z''' ...""")
-def conv(str):
-    # If the file contains a language switch to a language where the
-    # name of c is not "c", we can't reliably convert.
-    m = re.search (r'\\language\s(?!\s*#?"(?:nederlands|deutsch|english|norsk|suomi|svenska))"', str)
-    if True: # not m:
-        def subst(m):
-            oct = (len (re.findall ("'", m.group (1) + m.group (4)))
-                      - len (re.findall (",", m.group (1) + m.group (4))))
-            if (re.search (m.group (1)[0] + r".{7,}" + m.group (3)[0],
-                          "c d e f g a bh")):
-                oct = oct - 1
-            elif (re.search (m.group (3)[0] + r".{7,}" + m.group (1)[0],
-                            "c d e f g a bh")):
-                oct = oct + 1
-            return m.expand (r"\\relative\2\3" + oct * "'" + (-oct) * ",")
-        str = re.sub (r"\\relative\s+([a-z]+[',]*)"
-                      + r"(\s+(?:@?\{|<<?|"
-                      + r"\\(?:new|context)\s+[a-zA-Z]+(?:\s*=\s*"
-                      + matchstring + r")?\s)"
-                      + r"(?:@?\{|<<?|\s|"
-                      + r"%.*\n|"
-                      + r"\\(?:new|context)\s+[a-zA-Z]+(?:\s*=\s*"
-                      + matchstring + r")?\s|"
-                      + r"\\clef\s+(?:[a-z]+\s|" + matchstring + ")|"
-                      + r"\\key\s+[a-z]+\s*\\[a-z]+\s|"
-                      + r"\\time\s+[0-9]+/[0-9]+\s|"
-                      + r"\||[rsR](?:[0-9]+\.*(?:\*[0-9]+)?)?"
-                      + r")*)([a-h][a-z]*)([',]*)",
-                      subst, str)
-    return str
-
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
