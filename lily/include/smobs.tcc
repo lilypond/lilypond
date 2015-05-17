@@ -135,13 +135,7 @@ void Smob_base<Super>::init ()
 
   if (&Super::free_smob != &Smob_base<Super>::free_smob)
     scm_set_smob_free (smob_tag_, Super::free_smob);
-  // Old GCC versions get their type lattice for pointers-to-members
-  // tangled up to a degree where we need to typecast _both_ covariant
-  // types in order to be able to compare them.  The other comparisons
-  // are for static member functions and thus are ordinary function
-  // pointers which work without those contortions.
-  if (static_cast<SCM (Super::*)()>(&Super::mark_smob) !=
-      static_cast<SCM (Super::*)()>(&Smob_base<Super>::mark_smob))
+  if (&Super::mark_smob != &Smob_base<Super>::mark_smob)
     scm_set_smob_mark (smob_tag_, Super::mark_trampoline);
   scm_set_smob_print (smob_tag_, Super::print_trampoline);
   if (&Super::equal_p != &Smob_base<Super>::equal_p)
