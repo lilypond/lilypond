@@ -27,9 +27,10 @@
 class Unpure_pure_call : public Smob1<Unpure_pure_call>
 {
 public:
-  LY_DECLARE_SMOB_PROC (2, 0, 1, (SCM self, SCM arg1, SCM arg2, SCM rest))
+  LY_DECLARE_SMOB_PROC (&Unpure_pure_call::call, 2, 0, 1)
+  SCM call (SCM arg1, SCM arg2, SCM rest)
   {
-    return scm_apply_0 (Unpure_pure_call::unsmob (self)->scm1 (),
+    return scm_apply_0 (scm1 (),
                         scm_call_2 (ly_lily_module_constant ("drop-right"),
                                     scm_cons2 (arg1, arg2, rest),
                                     scm_from_int (2)));

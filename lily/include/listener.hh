@@ -101,11 +101,10 @@ public:
   Listener (SCM callback, SCM target)
     : callback_ (callback), target_ (target) { }
 
-  void listen (SCM ev) const { scm_call_2 (callback_, target_, ev); }
-
-  LY_DECLARE_SMOB_PROC (1, 0, 0, (SCM self, SCM ev))
+  LY_DECLARE_SMOB_PROC (&Listener::listen, 1, 0, 0)
+  SCM listen (SCM ev)
   {
-    Listener::unsmob (self)->listen (ev);
+    scm_call_2 (callback_, target_, ev);
     return SCM_UNSPECIFIED;
   }
 
@@ -180,9 +179,10 @@ class Callback_wrapper : public Simple_smob<Callback_wrapper>
   Callback_wrapper (void (*trampoline) (SCM, SCM)) : trampoline_ (trampoline)
   { } // Private constructor, use only in make_smob
 public:
-  LY_DECLARE_SMOB_PROC (2, 0, 0, (SCM self, SCM target, SCM ev))
+  LY_DECLARE_SMOB_PROC (&Callback_wrapper::call, 2, 0, 0)
+  SCM call (SCM target, SCM ev)
   {
-    unsmob (self)->trampoline_ (target, ev);
+    trampoline_ (target, ev);
     return SCM_UNSPECIFIED;
   }
   // Callback wrappers are for an unchanging entity, so we do the Lisp
