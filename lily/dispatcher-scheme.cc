@@ -41,6 +41,21 @@ LY_DEFINE (ly_connect_dispatchers, "ly:connect-dispatchers",
   return SCM_UNSPECIFIED;
 }
 
+LY_DEFINE (ly_disconnect_dispatchers, "ly:disconnect-dispatchers",
+           2, 0, 0, (SCM to, SCM from),
+           "Stop the dispatcher @var{to} listening to events from @var{from}.")
+{
+  Dispatcher *t = unsmob<Dispatcher> (to);
+  Dispatcher *f = unsmob<Dispatcher> (from);
+
+  LY_ASSERT_SMOB (Dispatcher, to, 1);
+  LY_ASSERT_SMOB (Dispatcher, from, 2);
+
+  t->unregister_as_listener (f);
+
+  return SCM_UNSPECIFIED;
+}
+
 LY_DEFINE (ly_add_listener, "ly:add-listener",
            2, 0, 1, (SCM callback, SCM disp, SCM cl),
            "Add the single-argument procedure @var{callback} as listener"
