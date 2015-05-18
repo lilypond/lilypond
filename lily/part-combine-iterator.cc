@@ -97,7 +97,7 @@ private:
   void chords_together ();
   void solo1 ();
   void solo2 ();
-  void apart (bool silent);
+  void apart ();
   void unisono (bool silent, int newpart);
 };
 
@@ -272,7 +272,7 @@ Part_combine_iterator::chords_together ()
 }
 
 void
-Part_combine_iterator::apart (bool silent)
+Part_combine_iterator::apart ()
 {
   if (state_ == APART)
     return;
@@ -367,7 +367,7 @@ Part_combine_iterator::process (Moment m)
       else if (scm_is_eq (tag, ly_symbol2scm ("apart"))
                || scm_is_eq (tag, ly_symbol2scm ("apart-silence"))
                || scm_is_eq (tag, ly_symbol2scm ("apart-spanner")))
-        apart (scm_is_eq (tag, ly_symbol2scm ("apart-silence")));
+        apart ();
       else if (scm_is_eq (tag, ly_symbol2scm ("unisono")))
         {
           // Continue to use the most recently used part because we might have
