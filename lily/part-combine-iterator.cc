@@ -53,13 +53,6 @@ protected:
   virtual bool ok () const;
 
 private:
-  /* used by try_process */
-  void set_busy (SCM);
-  bool busy_;
-  bool notice_busy_;
-
-  bool try_process (Music_iterator *i, Moment m);
-
   Music_iterator *first_iter_;
   Music_iterator *second_iter_;
   Moment start_moment_;
@@ -81,8 +74,6 @@ private:
   // For states in which it matters, this is the relevant part,
   // e.g. 1 for Solo I, 2 for Solo II.
   int chosen_part_;
-
-  int last_playing_;
 
   /*
     TODO: this is getting off hand...
@@ -108,15 +99,6 @@ Part_combine_iterator::do_quit ()
     first_iter_->quit ();
   if (second_iter_)
     second_iter_->quit ();
-
-  // Add listeners to all contexts except Devnull.
-  for (int i = 0; i < NUM_OUTLETS; i++)
-    {
-      Context *c = handles_[i].get_context ();
-      if (c->is_alias (ly_symbol2scm ("Voice")))
-        c->event_source ()->remove_listener (GET_LISTENER (Part_combine_iterator, set_busy), ly_symbol2scm ("music-event"));
-      handles_[i].set_context (0);
-    }
 }
 
 Part_combine_iterator::Part_combine_iterator ()
@@ -128,10 +110,6 @@ Part_combine_iterator::Part_combine_iterator ()
   split_list_ = SCM_EOL;
   state_ = APART;
   chosen_part_ = 1;
-  last_playing_ = 0;
-
-  busy_ = false;
-  notice_busy_ = false;
 }
 
 void
@@ -297,8 +275,6 @@ Part_combine_iterator::construct_children ()
       /* find context below c: otherwise we may create new staff for each voice */
       c = c->find_create_context (type, outlet_names_[i], SCM_EOL);
       handles_[i].set_context (c);
-      if (c->is_alias (ly_symbol2scm ("Voice")))
-        c->event_source ()->add_listener (GET_LISTENER (Part_combine_iterator, set_busy), ly_symbol2scm ("music-event"));
     }
 
   SCM lst = get_music ()->get_property ("elements");
@@ -310,34 +286,6 @@ Part_combine_iterator::construct_children ()
   second_iter_ = unsmob<Music_iterator> (get_iterator (unsmob<Music> (scm_cadr (lst))));
   Context *shared = handles_[CONTEXT_SHARED].get_context ();
   set_context (shared);
-}
-
-void
-Part_combine_iterator::set_busy (SCM se)
-{
-  if (!notice_busy_)
-    return;
-
-  Stream_event *e = unsmob<Stream_event> (se);
-
-  if (e->in_event_class ("note-event") || e->in_event_class ("cluster-note-event"))
-    busy_ = true;
-}
-
-/*
-  Processes a moment in an iterator, and returns whether any new music
-  was reported.
-*/
-bool
-Part_combine_iterator::try_process (Music_iterator *i, Moment m)
-{
-  busy_ = false;
-  notice_busy_ = true;
-
-  i->process (m);
-
-  notice_busy_ = false;
-  return busy_;
 }
 
 void
@@ -372,12 +320,12 @@ Part_combine_iterator::process (Moment m)
         {
           // Continue to use the most recently used part because we might have
           // killed mmrests in the other part.
-          unisono (false, (last_playing_ == 2) ? 2 : 1);
+          unisono (false, (chosen_part_ == 2) ? 2 : 1);
         }
       else if (scm_is_eq (tag, ly_symbol2scm ("unisilence")))
         {
           // as for unisono
-          unisono (true, (last_playing_ == 2) ? 2 : 1);
+          unisono (true, (chosen_part_ == 2) ? 2 : 1);
         }
       else if (scm_is_eq (tag, ly_symbol2scm ("silence1")))
         unisono (true, 1);
@@ -400,16 +348,10 @@ Part_combine_iterator::process (Moment m)
     }
 
   if (first_iter_->ok ())
-    {
-      if (try_process (first_iter_, m))
-        last_playing_ = 1;
-    }
+    first_iter_->process (m);
 
   if (second_iter_->ok ())
-    {
-      if (try_process (second_iter_, m))
-        last_playing_ = 2;
-    }
+    second_iter_->process (m);
 }
 
 IMPLEMENT_CTOR_CALLBACK (Part_combine_iterator);
