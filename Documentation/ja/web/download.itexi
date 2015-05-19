@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 8e9d9bb49f057ab81be830a5ac16714490130393
+    Translation of GIT committish: 211937747d4adbae18d6ce41f88dffbb3ca04a5f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c Translators: Yoshiki Sawada
+@c Translators: Masamichi Hosoda, Yoshiki Sawada
 
 @include included/generating-output.itexi
 
@@ -23,7 +23,7 @@ LilyPond をダウンロードする前に、@ref{テキスト入力} を読ん�
 
 @divClass{heading-center}
 @ifclear web_version
-  @c yes, we want verisonDevel here, since the online links
+  @c yes, we want versionDevel here, since the online links
   @c for @version won't be up yet!
   @heading Downloads for LilyPond @versionDevel
 
@@ -42,6 +42,7 @@ LilyPond をダウンロードする前に、@ref{テキスト入力} を読ん�
 
 @divClass{column-left-top}
 @subheading ユーザ向け
+@c For users
 
 @itemize
 
@@ -49,7 +50,7 @@ LilyPond をダウンロードする前に、@ref{テキスト入力} を読ん�
 @c ref is duplicated to avoid underlining ref as image.
 @ref{Unix, @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}}
-@ref{Unix, Unix (Linux や FreeBSD)}
+@ref{Unix, Unix (GNU/Linux や FreeBSD)}
 
 @item
 @ref{MacOS X, @sourceimage{logo-macosx,,,}}
@@ -65,6 +66,7 @@ LilyPond をダウンロードする前に、@ref{テキスト入力} を読ん�
 
 @divClass{column-right-top}
 @subheading 開発者向け
+@c For developers
 
 @itemize
 
@@ -84,26 +86,32 @@ LilyPond をダウンロードする前に、@ref{テキスト入力} を読ん�
 
 @divEnd
 
-
-@divClass{column-center-bottom}
+@divClass{column-center-middle-color2}
 
 @subheading ソフトウェア ライセンス
+@c Software License
 
 LilyPond は @ref{GPL, GNU General Public License} に基づいて
 公開されています。
 @divEnd
 
 
-@divClass{color1}
+@divClass{column-center-bottom}
 
 @subheading スポンサー
+@c Sponsors
+
 通信帯域を提供してくれている @uref{http://www.vt.edu/, Virgina Tech} と
 @uref{http://www.linuxaudio.org/, linuxaudio.org} に深謝します。
 
 @sourceimage{VTlogo_ITF,,,}
 @sourceimage{lao_banner_06_on_white_demo,,,}
 
+@divEnd
+
+@divClass{column-center-bottom}
 @subheading 法律用語
+@c Legalese
 
 @divClass{legal}
 すべてのロゴと製品イメージには著作権があり、商標登録されています。
@@ -144,23 +152,23 @@ LilyPond は @ref{GPL, GNU General Public License} に基づいて
 @subheading 一般パッケージ？それともディストリビューション専用パッケージ？
 @c Generic Packages or Distribution-Specific Packages?
 
-多くのディストリビューションは、通常パッケージに LilyPond を含めています。@c
-そのようなバージョンは一般パッケージよりも@c
-容易にインストール/アンインストールできますが、@c
-古いバージョンである可能性があります。@c
-一般パッケージを使いたければ、@c
-お使いのディストリビューションのパッケージ マネージャを用いて、@c
-システムから公式バージョンをアンインストールしてください。@c
-お使いのディストリビューションのパッケージ マネージャの使い方については、@c
-そのディストリビューションのドキュメントを参照してください。
+多くのディストリビューションは、通常パッケージに LilyPond を含めていますが、@c
+現在の安定バージョンより、かなり古いことがあります。@c
+こういった古いパッケージをインストールする方が簡単かもしれませんが、@c
+我々の一般パッケージを使うことを @emph{強く} お勧めします。@c
+この場合、LilyPond エディタが@c
+正しいバージョンを使っていることを確認してください。
+@ref{より簡単な編集手段} を見てください。
 
 @divEnd
 
 
 @divClass{column-left-top}
 @subheading 一般パッケージ
+@c Generic Packages
 
 @subsubheading ダウンロード
+@c Download
 
 @itemize
 
@@ -172,12 +180,12 @@ LilyPond は @ref{GPL, GNU General Public License} に基づいて
 @ifset web_version
   @downloadStableLinuxNormal
 @end ifset
-
-(迷っているのなら、こちらを使ってください)
+32bit システム
 
 @item
 @sourceimage{logo-linux,,,}
 @downloadStableLinuxBig
+64bit システム
 
 @item
 @sourceimage{logo-linux,,,}
@@ -186,15 +194,18 @@ LilyPond は @ref{GPL, GNU General Public License} に基づいて
 @item
 @sourceimage{logo-freebsd,,,}
 @downloadStableFreeBSDNormal
+32bit システム
 
 @item
 @sourceimage{logo-freebsd,,,}
 @downloadStableFreeBSDBig
+64bit システム
 
 @end itemize
 
 
 @subsubheading インストール
+@c Install
 
 シェルで、以下を入力してください:
 
@@ -204,6 +215,7 @@ sh lilypond-@versionStable{}-OS-TYPE.sh
 @end example
 
 @subsubheading アンインストール
+@c Uninstall
 
 シェルで、以下を入力してください:
 
@@ -212,6 +224,7 @@ uninstall-lilypond
 @end example
 
 @subsubheading ヘルプを表示する
+@c Help
 
 シェルで、以下を入力してください:
 
@@ -222,55 +235,19 @@ sh lilypond-@versionStable{}-OS-TYPE.sh --help
 @divEnd
 
 
+
 @divClass{column-right-top}
 @subheading ファイルをコンパイルする
+@c Compiling a file
 
 @lilypadCommandLine
 
 @divEnd
 
 
-@divClass{column-left-top}
-@subheading ディストリビューション専用パッケージ
-@c Distribution-specific Packages
-
-これらのバージョンをインストール、あるいはアップグレードする場合、@c
-お使いのディストリビューションのパッケージ マネージャを使ってください。
-
-@itemize
-
-@item
-@sourceimage{logo-fedora,,,}
-@uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447,
-Fedora: LilyPond 2.14.2}
-
-@item
-@sourceimage{logo-ubuntu,,,}
-@uref{http://packages.ubuntu.com/search?keywords=lilypond,
-Ubuntu: LilyPond 2.14.2}
-
-@item
-@sourceimage{logo-slackware,,,}
-@uref{http://www.johannes-schoepfer.de/lilypond/,
-Slackware: LilyPond 2.14.2}
-
-@item
-@sourceimage{logo-debian,,,}
-@uref{http://packages.debian.org/search?keywords=lilypond,
-Debian: LilyPond 2.12.3}
-
-@item
-@sourceimage{logo-suse,,,}
-@uref{http://software.opensuse.org/search?baseproject=openSUSE%3A11.2&p=1&q=lilypond,
-openSUSE: LilyPond 2.12.3}
-
-@end itemize
-
-@divEnd
-
-
 @divClass{column-center-bottom}
 @subheading 法律用語
+@c Legalese
 
 @divClass{legal}
 すべてのロゴと商品イメージには著作権があり、商標登録されています。
@@ -293,8 +270,10 @@ openSUSE: LilyPond 2.12.3}
 
 @divClass{column-left-top}
 @subheading パッケージ
+@c Packages
 
 @subsubheading ダウンロード
+@c Download
 
 @itemize
 
@@ -303,42 +282,37 @@ openSUSE: LilyPond 2.12.3}
 @downloadStableDarwinNormal
 Intel CPU の MacOS X 10.4 以上用 (迷っているのなら、こちらを使ってください)
 
-MacOS X 10.7 Lion はまだサポートしていません。
 
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinPPC
 G3 と G4 CPU の MacOS X 10.4 以上用 (古い Apple コンピュータ)
 
-MacOS X 10.7 Lion はまだサポートしていません。
 
 @end itemize
 
 @subsubheading インストール
+@c Install
 
 ダウンロードしたファイルをダブルクリックして、@c
 それをお好みの場所にドラッグしてください。
 
 @subsubheading アンインストール
+@c Uninstall
 
 LilyPond.app フォルダを削除してください。
 
 @divEnd
 
+
 @divClass{column-right-top}
-@subheading ファイルをコンパイルする
-
-@lilypadOSX
-
-@divEnd
-
-
-@divClass{column-left-top}
 @subheading コマンドラインから実行する
+@c Running on the command-line
 
 @warning{GUI 環境の方を好むのであれば、以下の説明は無視してください。}
 
 @subsubheading MacOS X のコマンドライン
+@c MacOS X on the command line
 
 lilypond スクリプトを実行する最も簡便な方法は、@c
 あなた自身の @qq{ヘルパー} スクリプトをセットすることです。
@@ -397,6 +371,7 @@ export PATH=$PATH:~/bin
 
 
 @subsubheading 個々のスクリプトを呼び出す
+@c Invoking individual scripts
 
 スクリプト
 -- @command{lilypond-book}, @command{convert-ly}, @command{abc2ly},
@@ -419,8 +394,18 @@ export PATH=$PATH:~/bin
 @divEnd
 
 
+@divClass{column-center-top}
+@subheading ファイルをコンパイルする
+@c Compiling a file
+
+@lilypadOSX
+
+@divEnd
+
+
 @divClass{column-center-bottom}
 @subheading 法律用語
+@c Legalese
 
 @divClass{legal}
 すべてのロゴと商品イメージには著作権があり、商標登録されています。
@@ -442,19 +427,22 @@ export PATH=$PATH:~/bin
 
 @divClass{column-left-top}
 @subheading パッケージ
+@c Packages
 
 @subsubheading ダウンロード
+@c Download
 
 @itemize
 
 @item
 @sourceimage{logo-windows,,,}
 @downloadStableWindows
-Windows ME, NT, 2000, XP, Vista それに 7 用
+Windows 2000, XP, Vista, Windows 7 それに 8 用
 
 @end itemize
 
 @subsubheading インストール
+@c Install
 
 @enumerate
 
@@ -469,6 +457,7 @@ Windows ME, NT, 2000, XP, Vista それに 7 用
 @end enumerate
 
 @subsubheading アンインストール
+@c Uninstall
 
 アンインストールする方法は 2 つあります --
 
@@ -489,19 +478,13 @@ LilyPond までスクロールして、@qq{削除} ボタンをクリックし�
 
 
 @divClass{column-right-top}
-@subheading ファイルをコンパイルする
-
-@lilypadWindows
-
-@divEnd
-
-
-@divClass{column-left-top}
 @subheading コマンドラインから実行する
+@c Running on the command-line
 
 @warning{GUI 環境の方を好むのであれば、以下の説明は無視してください。}
 
 @subsubheading Windows のコマンドライン
+@c Windows on the command line
 
 LilyPond を実行する最も簡便な方法は、@c
 LilyPond 実行可能のファイルを保持しているフォルダを、@c
@@ -509,7 +492,6 @@ LilyPond 実行可能のファイルを保持しているフォルダを、@c
 
 
 @enumerate
-
 @item
 コントロール パネルの @qq{システム} を開き、@c
 @qq{詳細設定} タブを選択し、@qq{環境変数} ボタンをクリックします。
@@ -533,6 +515,7 @@ LilyPond 実行可能のファイルを保持しているフォルダを、@c
 @end enumerate
 
 @subsubheading 個々の実行可能ファイルを呼び出す
+@c Invoking individual executable files
 
 lilypond, lilypond-book, convert-ly などの LilyPond 実行可能ファイルを@c
 コマンドラインから呼び出すことによって、実行することができます:
@@ -544,8 +527,18 @@ lilypond test.ly
 @divEnd
 
 
+@divClass{column-center-top}
+@subheading ファイルをコンパイルする
+@c Compiling a file
+
+@lilypadWindows
+
+@divEnd
+
+
 @divClass{column-center-bottom}
 @subheading 法律用語
+@c Legalese
 
 @divClass{legal}
 すべてのロゴと製品イメージには著作権があり、商標登録されています。
@@ -576,15 +569,17 @@ lilypond test.ly
 @downloadStableSource{}
 
 新旧すべてのバージョンは、@c
-@uref{http://download.linuxaudio.org/lilypond/binaries/,ダウンロード サイト}
+@uref{http://download.linuxaudio.org/lilypond/source/?C=N;O=D,
+download site}
 でリストアップされています。
 
 @divEnd
 
 @divClass{column-right-bottom}
 @subheading コンパイル方法
+@c Compiling instructions
 
-コンパイル方法は @rcontrib{Compiling LilyPond} に記載されています。
+コンパイル方法は @rcontrib{Compiling} に記載されています。
 
 @divEnd
 
@@ -599,6 +594,7 @@ lilypond test.ly
 
 @divClass{column-center-top}
 @subheading すべてのバージョン
+@c All versions
 
 新旧すべてのバージョンは、@c
 @uref{http://download.linuxaudio.org/lilypond/binaries/,ダウンロード サイト}

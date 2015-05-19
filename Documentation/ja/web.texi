@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 8e9d9bb49f057ab81be830a5ac16714490130393
+    Translation of GIT committish: 211937747d4adbae18d6ce41f88dffbb3ca04a5f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -13,15 +13,11 @@
 @documentlanguage ja
 @afourpaper
 
-@c `Web' was imported 2009-08-05 with git commit b938d71...
-@c @macro copyrightDeclare
-@c Copyright @copyright{} 2009--2015 by the authors.
-@c @end macro
-
 @set FDL
 @set web
 @include macros.itexi
 @include weblinks.itexi
+
 
 @c don't remove this comment.
 @ignore
@@ -32,10 +28,19 @@
 @omflanguage Japanese
 @end ignore
 
-@c Translators: Yoshiki Sawada, Yoshinobu Ishizaki
+@c Translators: Masamichi Hosoda, Yoshiki Sawada, Yoshinobu Ishizaki
+
+@c `Web' was born 2003-03-30 with this commit:
+@c Initial revision
+@c author: Han-Wen Nienhuys
+@c commit: d189a2119004c2f75da2020ea2ed36d817582fc5
+
+@c @macro copyrightDeclare
+@c Copyright @copyright{} 2003--2015 by the authors.
+@c @end macro
 
 @copying
-Copyright @copyright{} 2009--2015 by the authors.
+Copyright @copyright{} 2003--2015 by the authors.
 
 @c next line is necessary for broken pre-4.13 texinfo's
 @c install-info, so leave it there until we officially
@@ -119,8 +124,6 @@ LilyPond バージョン @version{} 用
 @c @im ageId{cmws,web-snippet-alpha.png,Catchy Musical Web Snippet}
 
 @divId{quickSummary}
-@subheading LilyPond って？
-
 LilyPond は、可能な限り高品位な楽譜を生み出すことを目的とする、@c
 オープン ソースの楽譜作成プログラムです。@c
 このフリー ソフトウェアは、伝統的な彫版の楽譜の美しさを@c
@@ -135,9 +138,6 @@ LilyPond はフリーソフトウェアであり、@uref{http://gnu.org,GNU プ�
 @divEnd
 @divEnd
 
-@divClass{separator}
-@divEnd
-
 
 @divId{news}
 
@@ -150,18 +150,35 @@ LilyPond はフリーソフトウェアであり、@uref{http://gnu.org,GNU プ�
 
 @divEnd
 
+
 @ifclear web_version
   @c do nothing
 @end ifclear
 @ifset web_version
-  @c make the box:
-@divId{wildCardBox}
+  @c make the side bar:
+@divId{homePageSideBar}
+@subheading 安定版
+
+@c TODO: javascript to detect OS and suggest download?
+
+@ref{ダウンロード, ダウンロード @versionStable}
+
+@ref{マニュアル, マニュアル @versionStable}
+
+@subheading 開発版
+
+@ref{開発, ダウンロード @versionDevel}
+
+@ref{開発, マニュアル @versionDevel}
+
 @subheading Pondings
-@divId{wildCardText}
+@divId{pondingsText}
 
 @divEnd
+
 @divEnd
 @end ifset
+
 
 @html
 
@@ -186,32 +203,10 @@ LilyPond はフリーソフトウェアであり、@uref{http://gnu.org,GNU プ�
   var index = Math.floor(Math.random() * tweets.length);
   var tweet = tweets[index];
   var text = tweet.childNodes[0];
-  document.getElementById("wildCardText").innerHTML = text.nodeValue;
+  document.getElementById("pondingsText").innerHTML = text.nodeValue;
 </script>
 
 @end html
-
-@ifset web_version
-  @c make the box:
-@divId{latestVersion}
-@subheading クイック リンク
-
-@c TODO: javascript to detect OS and suggest download?
-
-@subsubheading 安定版
-
-@ref{ダウンロード, ダウンロード @versionStable}
-
-@ref{マニュアル, マニュアル @versionStable}
-
-@subsubheading 開発版
-
-@ref{開発, ダウンロード @versionDevel}
-
-@ref{開発, マニュアル @versionDevel}
-
-@divEnd
-@end ifset
 
 
 @ifnottex
@@ -269,6 +264,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
   @docLink{\base\.pdf,\base\.pdf,\webLink\}
 @end macro
 
+
 @macro docLinksBare{name,base,refLink,split,big,bigsize,pdf,pdfsize}
 
 @divClass{keep-bullets}
@@ -292,6 +288,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @end macro
 
+
 @c don't add any extra spaces in this macro -gp
 @macro ifWebLinks{webLink,normalLink}
 @ifclear web_version
@@ -309,8 +306,12 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @divClass{heading-center}
 @divClass{contactBox}
 If you are aware of any other \topic\ which could be listed here,
-please let us know by following the instructions on
-@ref{Bug reports}.
+please let us know by writing a message to the bug-lilypond
+mailing list. If you're not subscribed yet you can do so on the list's
+@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond,info page}
+or post directly through the
+@uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
+gmane lilypond.bugs web interface}.
 
 @divEnd
 @divEnd

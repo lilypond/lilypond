@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: d5647c5fd1c38d4124d2374725b923f4901f3661
+    Translation of GIT committish: 211937747d4adbae18d6ce41f88dffbb3ca04a5f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -106,12 +106,11 @@ translations should be in macros.itexi.
 @end cartouche
 @end macro
 
+
 @macro lilyTitlePage{TITLE}
 @c  This produces the unified index
 @syncodeindex fn cp
 @syncodeindex vr cp
-
-
 
 
 @c   ***** Copyright stuff *****
@@ -124,10 +123,6 @@ GNU フリー文書利用許諾契約書バージョン 1.1 またはフリー �
 @end quotation
 @end copying
 @end ifset
-
-
-
-
 
 @ifclear FDL
 @copying
@@ -190,7 +185,7 @@ LilyPond バージョン @version{} 用
 @end macro
 
 @c Due to a bug in texi2html (texi2html.pl CVS versions <= 1.245)
-@c the macro must not be empty.
+@c the next macro must not be empty.
 
 @macro endpredefined
 @c
@@ -778,7 +773,7 @@ The @qq{X image} is not a registered trademark.  It was created by
 placed under the GNU Free Documentation License version 1.2 or later.
 We found the image on
 @uref{http://commons.wikimedia.org/wiki/File:Mac_OS_X_Userbox_X.png,
-this Wikipedia Commons page}.
+this Wikimedia Commons page}.
 
 @end macro
 
@@ -789,7 +784,7 @@ trademark.  It was created by
 placed under the GNU Free Documentation License version 1.2.  We
 found the image on
 @uref{http://commons.wikimedia.org/wiki/Category:Microsoft_Windows_logos,
-this Wikipedia Commons page}.
+this Wikimedia Commons page}.
 
 @end macro
 
