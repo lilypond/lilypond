@@ -682,7 +682,7 @@ mensural notation or coloratio sections in white mensural notation.
 Because note head style does not influence flag count, in
 this style a semiminima should be notated as @code{a8*2}, not
 @code{a4}, otherwise it will look like a minima.
-The multiplyer can be different if coloratio is used e.g. to notate
+The multiplier can be different if coloratio is used e.g. to notate
 triplets.
 
 Use @code{semipetrucci} style to draw half-colored
@@ -763,29 +763,21 @@ scope for mensural notation).
 @cindex rests, ancient
 
 Use the @code{style} property of grob @code{Rest} to select
-ancient rests.  Supported styles are @code{classical},
-@code{neomensural}, and @code{mensural}.  @code{classical} differs
-from the @code{default} style only in that the quarter rest looks
-like a horizontally mirrored 8th rest.  The @code{mensural} and
-the @code{neomensural} styles mimic the appearance of rests in
-manuscripts and prints up to the 16th century.
+ancient rests.  Supported ancient styles are
+@code{neomensural}, and @code{mensural}.
 
-The following example demonstrates the @code{mensural} and
-@code{neomensural} styles:
+The following example demonstrates these styles:
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 \set Score.skipBars = ##t
-\override Rest.style = #'classical
-r\longa^"classical" r\breve r1 r2 r4 r8 r16 s \break
 \override Rest.style = #'mensural
 r\longa^"mensural" r\breve r1 r2 r4 r8 r16 s \break
 \override Rest.style = #'neomensural
 r\longa^"neomensural" r\breve r1 r2 r4 r8 r16
 @end lilypond
 
-There are no 32th and 64th rests specifically for the mensural or
-neo-mensural style.  Instead, the rests from the default style will be
-taken.
+There are no 32nd and 64th rests specifically for the mensural or
+neo-mensural styles.  Rests from the default style are used.
 
 @seealso
 Music Glossary:
@@ -811,8 +803,11 @@ using pitched rests.
 @cindex key signature
 
 The @code{mensural} style provides a sharp and a flat sign
-different from the default style.  If called for, the natural sign
-will be taken from the @code{vaticana} style.
+different from the default style.  Mensural notation rarely used a natural
+sign: instead the appropriate sharp or flat is used.  For example, a B
+natural in the key of F major would be indicated with a sharp.  However,
+if specifically called for, the natural sign is taken from the @code{vaticana}
+style.
 
 @lilypond[quote,ragged-right,staffsize=26]
 \markup {
@@ -935,17 +930,6 @@ head.  The length of a flexa can be set by the note head property
 
 For example,
 
-@c @example
-@c \set Score.timing = ##f
-@c \set Score.defaultBarType = "-"
-@c \override NoteHead.style = #'neomensural
-@c \override Staff.TimeSignature.style = #'neomensural
-@c \clef "petrucci-g"
-@c \[ c'\maxima g \]
-@c \[ d\longa c\breve f e d \]
-@c \[ c'\maxima d'\longa \]
-@c \[ e'1 a g\breve \]
-@c @end example
 @lilypond[quote,ragged-right,verbatim]
 \score {
   \relative c' {
@@ -955,11 +939,11 @@ For example,
     \override Staff.TimeSignature.style = #'mensural
     \clef "petrucci-g"
     \[ c'\maxima g \]
-    \[ d\longa
+    \[ d'\longa
        \override NoteHead.ligature-flexa = ##t
        \once \override NoteHead.flexa-width = #3.2
        c\breve f e d \]
-    \[ c'\maxima d\longa \]
+    \[ c\maxima d\longa \]
     \[ e1 a, g\breve \]
   }
   \layout {
@@ -973,8 +957,7 @@ For example,
 @end lilypond
 
 Without replacing @code{Ligature_bracket_engraver} with
-@code{Mensural_ligature_engraver}, the same music transcribes
-to the following
+@code{Mensural_ligature_engraver}, the same music looks as follows:
 
 @lilypond[quote,ragged-right]
 \relative c' {
@@ -984,11 +967,11 @@ to the following
   \override Staff.TimeSignature.style = #'mensural
   \clef "petrucci-g"
   \[ c'\maxima g \]
-  \[ d\longa
+  \[ d'\longa
      \override NoteHead.ligature-flexa = ##t
      \once \override NoteHead.flexa-width = #3.2
      c\breve f e d \]
-  \[ c'\maxima d\longa \]
+  \[ c\maxima d\longa \]
   \[ e1 a, g\breve \]
 }
 @end lilypond
@@ -1002,7 +985,7 @@ Notation Reference:
 @ref{Ligatures}.
 
 @knownissues
-Horizontal spacing of ligatures is poor.
+Horizontal spacing of ligatures may be poor.
 Accidentals may collide with previous notes.
 
 
