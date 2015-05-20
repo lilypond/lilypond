@@ -2877,9 +2877,8 @@ spirLyr = \lyricmode {
 @node Ancient and modern from one source
 @unnumberedsubsubsec Ancient and modern from one source
 
-@c TODO Add text
-@c Here among others the snippets about reducing note length
-TBC
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{using-tags-to-produce-mensural-and-modern-music-from-the-same-source.ly}
 
 @c @seealso
 @c ... and reference to other sections ...
