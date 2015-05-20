@@ -63,7 +63,7 @@ für die Note @qq{H} steht.  Die Benutzung deutscher
 Notenbezeichnungen mit der Unterscheidung von b und h ist
 auch möglich, siehe @ref{Notenbezeichnungen in anderen Sprachen}.
 Die Notenbezeichnungen @code{c} bis @code{b}
-werden in der Oktave unter dem zweigestrichenen C
+werden in der Oktave unter dem eingestrichenen C
 gesetzt.
 
 @c don't use c' here.

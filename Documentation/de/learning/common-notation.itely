@@ -169,7 +169,7 @@ Versetzungszeichen, nicht die wirklichen Tonhöhen! Diese Besonderheit
 scheint am Anfang oft verwirrend, so dass sie hier etwas
 genauer betrachtet wird.
 
-LilyPond unterscheidet strickt zwischen dem musikalischen Inhalt
+LilyPond unterscheidet strikt zwischen dem musikalischen Inhalt
 und dem Satz (Layout). Die Alteration (@notation{B},
 @notation{Kreuz} oder @notation{Auflösungszeichen}) einer Note gehört
 zur Tonhöhe dazu und ist deshalb musikalischer
