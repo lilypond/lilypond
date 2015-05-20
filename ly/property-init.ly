@@ -10,8 +10,9 @@
 %% (palm mute, harmonics, dead notes, ...)
 defaultNoteHeads =
 #(define-music-function (parser location) ()
-   (_i "Revert to the default note head style.")
-   (revert-head-style '(NoteHead TabNoteHead)))
+  (_i "Revert to the default note head style.")
+  (context-spec-music
+   (revert-head-style '(NoteHead TabNoteHead)) 'Bottom))
 
 accidentalStyle =
 #(define-music-function
@@ -224,8 +225,9 @@ glissando = #(make-music 'GlissandoEvent)
 
 harmonicsOn =
 #(define-music-function (parser location) ()
-   (_i "Set the default note head style to a diamond-shaped style.")
-   (override-head-style '(NoteHead TabNoteHead) 'harmonic))
+  (_i "Set the default note head style to a diamond-shaped style.")
+  (context-spec-music
+   (override-head-style '(NoteHead TabNoteHead) 'harmonic) 'Bottom))
 harmonicsOff = \defaultNoteHeads
 harmonicNote =
 #(define-music-function (parser location note) (ly:music?)
@@ -394,8 +396,9 @@ defaultTimeSignature = \revert Staff.TimeSignature.style
 
 palmMuteOn =
 #(define-music-function (parser location) ()
-   (_i "Set the default note head style to a triangle-shaped style.")
-   (override-head-style 'NoteHead 'do))
+  (_i "Set the default note head style to a triangle-shaped style.")
+  (context-spec-music
+   (override-head-style 'NoteHead 'do) 'Bottom))
 palmMuteOff = \defaultNoteHeads
 palmMute =
 #(define-music-function (parser location note) (ly:music?)
@@ -732,8 +735,9 @@ allowVoltaHook =
 
 xNotesOn =
 #(define-music-function (parser location) ()
-   (_i "Set the default note head style to a cross-shaped style.")
-   (override-head-style '(TabNoteHead NoteHead) 'cross))
+  (_i "Set the default note head style to a cross-shaped style.")
+  (context-spec-music
+   (override-head-style '(TabNoteHead NoteHead) 'cross) 'Bottom))
 xNotesOff = \defaultNoteHeads
 xNote =
 #(define-music-function (parser location note) (ly:music?)
