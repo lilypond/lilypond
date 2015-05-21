@@ -511,9 +511,7 @@ given through @var{ratio}.")
   #{
     \set harmonicDots = ##t
     \temporary \override TabNoteHead.stencil = #(tab-note-head::print-custom-fret-label (ratio->fret ratio))
-    \temporary \override NoteHead.Y-extent = #(ly:make-unpure-pure-container ly:grob::stencil-height
-                                       (lambda (grob start end)
-                                               (ly:grob::stencil-height grob)))
+    \temporary \override NoteHead.Y-extent = #(ly:make-unpure-pure-container ly:grob::stencil-height)
     \temporary \override NoteHead.stencil = #(lambda (grob) (ly:grob-set-property! grob 'style 'harmonic-mixed)
                                             (ly:note-head::print grob))
     #(make-harmonic

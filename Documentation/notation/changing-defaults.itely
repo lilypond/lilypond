@@ -4573,9 +4573,12 @@ the accidentals.  In the second measure, with unpure-pure containers,
 the spacing engine knows the width of the note heads and avoids the
 collision by lengthening the line accordingly.
 
-Usually for simple calculations nearly-identical functions for both the
-@q{unpure} and @q{pure} parts can be used, by only changing the number
-of arguments passed to, and the scope of, the function.
+Usually for simple calculations nearly-identical functions for
+both the @q{unpure} and @q{pure} parts can be used, by only
+changing the number of arguments passed to, and the scope of, the
+function.  This use case is frequent enough that
+@code{ly:make-unpure-pure-container} constructs such a second
+function by default when called with only one function argument.
 
 @warning{If a function is labeled as @q{pure} and it turns out not to
 be, the results can be unexpected.}
