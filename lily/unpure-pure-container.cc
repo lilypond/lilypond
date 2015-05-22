@@ -19,8 +19,6 @@
 */
 #include "unpure-pure-container.hh"
 
-#include "grob.hh"
-
 // Reroutes a call to the contained function after dropping last two
 // arguments.  Used for applying an "unpure" function in a "pure"
 // context.
