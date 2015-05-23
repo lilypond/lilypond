@@ -83,9 +83,7 @@ private:
   void substitute_both (Outlet_type to1,
                         Outlet_type to2);
   bool is_active_outlet (const Context *c) const;
-  void kill_mmrest_in_inactive_outlets ();
-  /* parameter is really Outlet_type */
-  void kill_mmrest (int in);
+  void kill_mmrest (Context *c);
   void chords_together ();
   void solo1 ();
   void solo2 ();
@@ -180,15 +178,8 @@ bool Part_combine_iterator::is_active_outlet (const Context *c) const
   return false;
 }
 
-void Part_combine_iterator::kill_mmrest_in_inactive_outlets ()
-{
-  for (int j = 0; j < NUM_OUTLETS; j++)
-    if (!is_active_outlet (handles_[j].get_context ()))
-      kill_mmrest (j);
-}
-
 void
-Part_combine_iterator::kill_mmrest (int in)
+Part_combine_iterator::kill_mmrest (Context *c)
 {
 
   if (!mmrest_event_)
@@ -200,7 +191,7 @@ Part_combine_iterator::kill_mmrest (int in)
       mmrest_event_->unprotect ();
     }
 
-  handles_[in].get_context ()->event_source ()->broadcast (mmrest_event_);
+  c->event_source ()->broadcast (mmrest_event_);
 }
 
 void
@@ -314,6 +305,10 @@ Part_combine_iterator::process (Moment m)
   if (start_moment_.main_part_.is_infinity () && start_moment_ < 0)
     start_moment_ = now;
 
+  Context *prev_active_outlets[NUM_PARTS];
+  for (size_t i = 0; i < NUM_PARTS; i++)
+    prev_active_outlets[i] = iterators_[i]->get_outlet ();
+
   for (; scm_is_pair (split_list_); split_list_ = scm_cdr (split_list_))
     {
       splitm = unsmob<Moment> (scm_caar (split_list_));
@@ -321,10 +316,6 @@ Part_combine_iterator::process (Moment m)
         break;
 
       SCM tag = scm_cdar (split_list_);
-
-      Context *outletsBefore[NUM_PARTS];
-      for (size_t i = 0; i < NUM_PARTS; i++)
-        outletsBefore[i] = iterators_[i]->get_outlet ();
 
       if (scm_is_eq (tag, ly_symbol2scm ("chords")))
         chords_together ();
@@ -357,18 +348,29 @@ Part_combine_iterator::process (Moment m)
                      + (scm_is_symbol (tag) ? ly_symbol2string (tag) : string ("not a symbol"));
           programming_error (s);
         }
-
-      for (size_t i = 0; i < NUM_PARTS; i++)
-        if (iterators_[i]->get_outlet () != outletsBefore[i])
-          {
-            kill_mmrest_in_inactive_outlets ();
-            break;
-          }
     }
 
+  bool any_outlet_changed = false;
   for (size_t i = 0; i < NUM_PARTS; i++)
-    if (iterators_[i]->ok ())
-      iterators_[i]->process (m);
+    {
+      if (iterators_[i]->ok ())
+        iterators_[i]->process (m);
+
+      if (prev_active_outlets[i] != iterators_[i]->get_outlet ())
+          any_outlet_changed = true;
+    }
+
+  if (any_outlet_changed)
+    {
+      // Kill multi-measure rests in outlets that were previously active and
+      // are no longer active.
+      for (size_t i = 0; i < NUM_PARTS; i++)
+        {
+          Context *c = prev_active_outlets[i];
+          if (c && !is_active_outlet (c))
+              kill_mmrest (c);
+        }
+    }
 }
 
 IMPLEMENT_CTOR_CALLBACK (Part_combine_iterator);
