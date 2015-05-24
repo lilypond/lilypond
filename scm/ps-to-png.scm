@@ -97,39 +97,35 @@
           (multi-page? (> page-count 1))
           (output-file (if multi-page? pngn png1))
 
-          (gs-variable-options
-           (if is-eps
-               "-dEPSCrop"
-               (format #f "-dDEVICEWIDTHPOINTS=~,2f -dDEVICEHEIGHTPOINTS=~,2f"
-                       page-width page-height)))
-          (cmd (ly:format "~a\
- ~a\
- ~a\
- -dGraphicsAlphaBits=4\
- -dTextAlphaBits=4\
- -dNOPAUSE\
- -sDEVICE=~a\
- -sOutputFile=~S\
- -r~a\
- ~S\
- -c quit"
-                          (search-gs)
-                          (if be-verbose "" "-q")
-                          gs-variable-options
-                          pixmap-format
-                          output-file
-                          (* anti-alias-factor resolution) tmp-name))
-          (status 0)
+          (*unspecified* (if #f #f))
+          (cmd
+           (remove (lambda (x) (eq? x *unspecified*))
+                   (list
+                    (search-gs)
+                    (if (ly:get-option 'verbose) *unspecified* "-q")
+                    (if (or (ly:get-option 'gs-load-fonts)
+                            (ly:get-option 'gs-load-lily-fonts)
+                            (eq? PLATFORM 'windows))
+                        "-dNOSAFER"
+                        "-dSAFER")
+
+                    (if is-eps
+                        "-dEPSCrop"
+                        (ly:format "-dDEVICEWIDTHPOINTS=~$" page-width))
+                    (if is-eps
+                        *unspecified*
+                        (ly:format "-dDEVICEHEIGHTPOINTS=~$" page-height))
+                    "-dGraphicsAlphaBits=4"
+                    "-dTextAlphaBits=4"
+                    "-dNOPAUSE"
+                    "-dBATCH"
+                    (ly:format "-sDEVICE=~a" pixmap-format)
+                    (string-append "-sOutputFile=" output-file)
+                    (ly:format "-r~a" (* anti-alias-factor resolution))
+                    (string-append "-f" tmp-name))))
           (files '()))
 
-     ;; The wrapper on windows cannot handle `=' signs,
-     ;; gs has a workaround with #.
-     (if (eq? PLATFORM 'windows)
-         (begin
-           (set! cmd (re-sub "=" "#" cmd))
-           (set! cmd (re-sub "-dSAFER " "" cmd))))
-
-     (set! status (my-system be-verbose #f cmd))
+     (ly:system cmd)
 
      (set! files
            (if multi-page?
@@ -138,11 +134,6 @@
                   (format #f "~a-page~a.png" base-name (1+ n)))
                 (iota page-count))
                (list (format #f "~a.png" base-name))))
-
-     (if (not (= 0 status))
-         (begin
-           (for-each delete-file files)
-           (exit 1)))
 
      (if (and rename-page-1 multi-page?)
          (begin
