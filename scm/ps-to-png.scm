@@ -95,7 +95,14 @@
           (pngn (format #f "~a-page%d.~a" base-name extension))
           (page-count (ps-page-count tmp-name))
           (multi-page? (> page-count 1))
-          (output-file (if multi-page? pngn png1))
+
+          ;; Escape `%' (except `page%d') for ghostscript
+          (base-name-gs (string-join
+                         (string-split base-name #\%)
+                         "%%"))
+          (png1-gs (format #f "~a.~a" base-name-gs extension))
+          (pngn-gs (format #f "~a-page%d.~a" base-name-gs extension))
+          (output-file (if multi-page? pngn-gs png1-gs))
 
           (*unspecified* (if #f #f))
           (cmd
