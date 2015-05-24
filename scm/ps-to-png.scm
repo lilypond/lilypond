@@ -31,31 +31,8 @@
 
 (define-public _ gettext)
 
-(define PLATFORM
-  (string->symbol
-   (string-downcase
-    (car (string-tokenize (utsname:sysname (uname)) char-set:letter)))))
-
 (define (re-sub re sub string)
   (regexp-substitute/global #f re string 'pre sub 'post))
-
-(define (search-executable names)
-  (define (helper path lst)
-    (if (null? (cdr lst))
-        (car lst)
-        (if (search-path path (car lst)) (car lst)
-            (helper path (cdr lst)))))
-
-  (let ((path (parse-path (getenv "PATH"))))
-    (helper path names)))
-
-(define (search-gs)
-  (search-executable '("gs-nox" "gs-8.15" "gs")))
-
-(define (gulp-port port max-length)
-  (let ((str (make-string max-length)))
-    (read-string!/partial str port 0 max-length)
-    str))
 
 (define-public (gulp-file file-name . max-size)
   (ly:gulp-file file-name (if (pair? max-size) (car max-size))))
