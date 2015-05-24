@@ -31,6 +31,8 @@ public:
   int print_smob (SCM, scm_print_state *);
   SCM get_signature () { return scm1 (); }
   SCM get_function () { return scm2 (); }
+  SCM call (SCM args);
+  LY_DECLARE_SMOB_PROC (&Music_function::call, 0, 0, 1);
 };
 
 #endif /* MUSIC_FUNCTION_HH */
