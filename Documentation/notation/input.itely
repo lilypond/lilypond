@@ -1283,7 +1283,7 @@ left/bottom edge and zero implies the mark is centered on the edge.
 is the context in which the grob being footnoted is created.  It
 may be omitted if the grob is in a bottom context, e.g. a
 @code{Voice} context.
- 
+
 @item GrobName
 specifies a type of grob to mark (like @samp{Flag}).  If it is
 specified, the footnote is not attached to a music expression in
@@ -2781,8 +2781,8 @@ To create a MIDI output file from a LilyPond input file, insert a
 @}
 @end example
 
-@warning{ A @code{\score} block that, as well as the music, contains
-only a @code{\midi} block (i.e. @emph{without} the @code{\layout}
+@warning{ A @code{@bs{}score} block that, as well as the music, contains
+only a @code{@bs{}midi} block (i.e. @emph{without} the @code{@bs{}layout}
 block), will only produce MIDI output files.  No notation will be
 printed.}
 
