@@ -42,6 +42,16 @@
        (set! (ly:music-property m 'origin) location)
        m)))
 
+(define (music-function-call-error parser loc fun m)
+  (let* ((sig (ly:music-function-signature fun))
+         (pred (if (pair? (car sig)) (caar sig) (car sig))))
+    (ly:parser-error parser
+                     (format #f (_ "~a function cannot return ~a")
+                             (type-name pred)
+                             (value->lily-string m parser))
+                     loc)
+    (and (pair? (car sig)) (cdar sig))))
+
 ;; Music function: Apply function and check return value.
 ;; args are in reverse order, rest may specify additional ones
 ;;
@@ -61,14 +71,9 @@
           (if (ly:music? m)
               (set! (ly:music-property m 'origin) loc))
           m)
-        (begin
-          (if good
-              (ly:parser-error parser
-                               (format #f (_ "~a function cannot return ~a")
-                                       (type-name pred)
-                                       (value->lily-string m parser))
-                               loc))
-          (and (pair? (car sig)) (cdar sig))))))
+        (if good
+            (music-function-call-error parser loc fun m)
+            (and (pair? (car sig)) (cdar sig))))))
 
 (define-ly-syntax (argument-error parser location n pred arg)
   (ly:parser-error
