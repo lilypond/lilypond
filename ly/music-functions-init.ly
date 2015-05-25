@@ -104,7 +104,7 @@ form of a spanner event, @var{property} may also have the form
 @samp{Grob.property} for specifying a directed tweak.")
   (if (ly:music? item)
       (if (eq? (ly:music-property item 'span-direction) START)
-          #{ \tweak #property #(value-for-spanner-piece arg) #item #}
+          (tweak property (value-for-spanner-piece arg) item)
           (begin
             (ly:music-warning item (_ "not a spanner"))
             item))
@@ -472,7 +472,7 @@ to the preceding note or rest as a post-event with @code{-}.")
                'automatically-numbered (not mark)
                'text (or mark (make-null-markup))
                'footnote-text footnote)))
-     #{ \once \tweak footnote-music #mus #item #}))
+     (once (tweak 'footnote-music mus item))))
 
 grace =
 #(def-grace-function startGraceMusic stopGraceMusic
@@ -531,7 +531,7 @@ If @var{item} is a symbol list of form @code{GrobName} or
 @code{Context.GrobName}, the result is an override for the grob name
 specified by it.  If @var{item} is a music expression, the result is
 the same music expression with an appropriate tweak applied to it.")
-   #{ \tweak transparent ##t #item #})
+   (tweak 'transparent #t item))
 
 inStaffSegno =
 #(define-music-function () ()
@@ -878,12 +878,10 @@ appropriate tweak applied.")
             ; a grob name, produce a directed tweak.  Otherwise, create
             ; an ordinary tweak.
             (if (symbol? (car prop-path))
-                #{
-                  \tweak #prop-path #(offsetter (second prop-path) offsets) #item
-                #}
-                #{
-                  \tweak #(second prop-path) #(offsetter (second prop-path) offsets) #item
-                #})
+                (tweak prop-path (offsetter (second prop-path) offsets) item)
+                (tweak (second prop-path)
+                       (offsetter (second prop-path) offsets)
+                       item))
             item))
       ; In case of an override, grob property path is Context.Grob.property.
       (let ((prop-path (check-grob-path
@@ -908,7 +906,7 @@ If @var{item} is a symbol list of form @code{GrobName} or
 @code{Context.GrobName}, the result is an override for the grob name
 specified by it.  If @var{item} is a music expression, the result is
 the same music expression with an appropriate tweak applied to it.")
-   #{ \tweak stencil ##f #item #})
+   (tweak 'stencil #f item))
 
 once =
 #(define-music-function (music) (ly:music?)
@@ -1464,7 +1462,7 @@ appropriate tweak applied.")
        (if (>= total-found 2)
            (helper siblings offsets)
            (offset-control-points (car offsets)))))
-   #{ \once \tweak control-points #shape-curve #item #})
+   (once (tweak 'control-points shape-curve item)))
 
 shiftDurations =
 #(define-music-function (dur dots arg)
@@ -1514,11 +1512,10 @@ spacingTweaks =
 #(define-music-function (parameters) (list?)
    (_i "Set the system stretch, by reading the 'system-stretch property of
 the `parameters' assoc list.")
-   #{
-     \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-     #(list (cons 'alignment-extra-space (cdr (assoc 'system-stretch parameters)))
-             (cons 'system-Y-extent (cdr (assoc 'system-Y-extent parameters))))
-   #})
+   (overrideProperty
+    '(Score NonMusicalPaperColumn line-break-system-details)
+    (list (cons 'alignment-extra-space (cdr (assoc 'system-stretch parameters)))
+          (cons 'system-Y-extent (cdr (assoc 'system-Y-extent parameters))))))
 
 styledNoteHeads =
 #(define-music-function (style heads music)
