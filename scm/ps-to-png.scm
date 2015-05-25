@@ -48,20 +48,25 @@
         (if exit-on-error (exit 1))))
   status)
 
-(define (scale-down-image be-verbose factor file)
-  (define (with-pbm)
-    (let* ((status 0)
-           (old (string-append file ".old")))
+(define (scale-down-image factor file)
+  (let* ((old (string-append file ".old"))
+         ;; Netpbm commands (pngtopnm, pnmscale, pnmtopng)
+         ;; outputs only standard output instead of a file.
+         ;; So we need pipe and redirection.
+         ;; However, ly:system can't handle them.
+         ;; Therefore, we use /bin/sh for handling them.
+         ;; FIXME: MinGW (except Cygwin) doesn't have /bin/sh.
+         (cmd
+          (list
+           "/bin/sh"
+           "-c"
+           (ly:format
+            "pngtopnm \"~a\" | pnmscale -reduce ~a | pnmtopng -compression 9 > \"~a\""
+            old factor file))))
 
-      (rename-file file old)
-      (my-system
-       be-verbose #t
-       (format #f
-               "pngtopnm \"~a\" | pnmscale -reduce ~a 2>/dev/null | pnmtopng -compression 9 2>/dev/null > \"~a\""
-               old factor file))
-      (delete-file old)))
-
-  (with-pbm))
+    (rename-file file old)
+    (ly:system cmd)
+    (delete-file old)))
 
 (define-public (ps-page-count ps-name)
   (let* ((byte-count 10240)
@@ -152,5 +157,5 @@
 
      (if (not (= 1 anti-alias-factor))
          (for-each
-          (lambda (f) (scale-down-image be-verbose anti-alias-factor f)) files))
+          (lambda (f) (scale-down-image anti-alias-factor f)) files))
      files)))
