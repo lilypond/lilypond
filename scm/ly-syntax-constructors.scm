@@ -53,8 +53,9 @@
   (let* ((sig (ly:music-function-signature fun))
          (pred (if (pair? (car sig)) (caar sig) (car sig)))
          (good (proper-list? args))
-         (m (and good (apply (ly:music-function-extract fun)
-                             parser loc (reverse! args rest)))))
+         (m (and good (with-fluids ((%parser parser) (%location loc))
+                                   (apply (ly:music-function-extract fun)
+                                          (reverse! args rest))))))
     (if (and good (pred m))
         (begin
           (if (ly:music? m)

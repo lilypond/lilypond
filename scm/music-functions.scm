@@ -1052,7 +1052,7 @@ actually fully cloned."
 (defmacro-public define-syntax-function (type args signature . body)
   "Helper macro for `ly:make-music-function'.
 Syntax:
-  (define-syntax-function result-type? (parser location arg1 arg2 ...) (arg1-type arg2-type ...)
+  (define-syntax-function result-type? (arg1 arg2 ...) (arg1-type arg2-type ...)
     ...function body...)
 
 argX-type can take one of the forms @code{predicate?} for mandatory
@@ -1067,21 +1067,28 @@ parameter of different type.
 predicates, to be used in case of a type error in arguments or
 result."
 
+  (define (has-parser/location? arg where)
+    (let loop ((arg arg))
+      (if (list? arg)
+          (any loop arg)
+          (memq arg where))))
   (define (currying-lambda args doc-string? body)
     (if (and (pair? args)
              (pair? (car args)))
         (currying-lambda (car args) doc-string?
                          `((lambda ,(cdr args) ,@body)))
-        `(lambda ,args
-           ,(format #f "~a\n~a" (cddr args) (or doc-string? ""))
-           ,@body)))
-
-  (set! signature (map (lambda (pred)
-                         (if (pair? pred)
-                             `(cons ,(car pred)
-                                    ,(and (pair? (cdr pred)) (cadr pred)))
-                             pred))
-                       (cons type signature)))
+        (let* ((compatibility? (if (list? args)
+                                   (= (length args) (+ 2 (length signature)))
+                                   (and (pair? args) (pair? (cdr args))
+                                        (eq? (car args) 'parser))))
+               (realargs (if compatibility? (cddr args) args)))
+          `(lambda ,realargs
+             ,(format #f "~a\n~a" realargs (or doc-string? ""))
+             ,@(if (and compatibility?
+                        (has-parser/location? body (take args 2)))
+                   `((let ((,(car args) (*parser*)) (,(cadr args) (*location*)))
+                       ,@body))
+                   body)))))
 
   (let ((docstring
          (and (pair? body) (pair? (cdr body))
@@ -1096,13 +1103,18 @@ result."
     ;; When the music function definition contains an i10n doc string,
     ;; (_i "doc string"), keep the literal string only
     `(ly:make-music-function
-      (list ,@signature)
+      (list ,@(map (lambda (pred)
+                     (if (pair? pred)
+                         `(cons ,(car pred)
+                                ,(and (pair? (cdr pred)) (cadr pred)))
+                         pred))
+                   (cons type signature)))
       ,(currying-lambda args docstring (if docstring (cdr body) body)))))
 
 (defmacro-public define-music-function rest
   "Defining macro returning music functions.
 Syntax:
-  (define-music-function (parser location arg1 arg2 ...) (arg1-type? arg2-type? ...)
+  (define-music-function (arg1 arg2 ...) (arg1-type? arg2-type? ...)
     ...function body...)
 
 argX-type can take one of the forms @code{predicate?} for mandatory
@@ -1122,7 +1134,7 @@ set to the @code{location} parameter."
 (defmacro-public define-scheme-function rest
   "Defining macro returning Scheme functions.
 Syntax:
-  (define-scheme-function (parser location arg1 arg2 ...) (arg1-type? arg2-type? ...)
+  (define-scheme-function (arg1 arg2 ...) (arg1-type? arg2-type? ...)
     ...function body...)
 
 argX-type can take one of the forms @code{predicate?} for mandatory
@@ -1150,7 +1162,7 @@ the return value."
 (defmacro-public define-event-function rest
   "Defining macro returning event functions.
 Syntax:
-  (define-event-function (parser location arg1 arg2 ...) (arg1-type? arg2-type? ...)
+  (define-event-function (arg1 arg2 ...) (arg1-type? arg2-type? ...)
     ...function body...)
 
 argX-type can take one of the forms @code{predicate?} for mandatory
