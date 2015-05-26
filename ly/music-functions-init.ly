@@ -84,7 +84,7 @@ afterGrace =
 %% music identifiers not allowed at top-level,
 %% so this is a music-function instead.
 allowPageTurn =
-#(define-music-function (location parser) ()
+#(define-music-function (parser location) ()
    (_i "Allow a page turn. May be used at toplevel (ie between scores or
 markups), or inside a score.")
    (make-music 'EventChord
@@ -830,7 +830,7 @@ musicMap =
 %% noPageBreak and noPageTurn are music functions (not music indentifiers),
 %% because music identifiers are not allowed at top-level.
 noPageBreak =
-#(define-music-function (location parser) ()
+#(define-music-function (parser location) ()
    (_i "Forbid a page break.  May be used at toplevel (i.e., between scores or
 markups), or inside a score.")
    (make-music 'EventChord
@@ -840,7 +840,7 @@ markups), or inside a score.")
                                            'break-permission '()))))
 
 noPageTurn =
-#(define-music-function (location parser) ()
+#(define-music-function (parser location) ()
    (_i "Forbid a page turn.  May be used at toplevel (i.e., between scores or
 markups), or inside a score.")
    (make-music 'EventChord
@@ -982,7 +982,7 @@ with subproperties given as well.")
 %% pageBreak and pageTurn are music functions (iso music indentifiers),
 %% because music identifiers are not allowed at top-level.
 pageBreak =
-#(define-music-function (location parser) ()
+#(define-music-function (parser location) ()
    (_i "Force a page break.  May be used at toplevel (i.e., between scores or
 markups), or inside a score.")
    (make-music 'EventChord
@@ -995,7 +995,7 @@ markups), or inside a score.")
                                            'break-permission 'force))))
 
 pageTurn =
-#(define-music-function (location parser) ()
+#(define-music-function (parser location) ()
    (_i "Force a page turn between two scores or top-level markups.")
    (make-music 'EventChord
                'page-marker #t
@@ -1198,7 +1198,7 @@ that they share a staff with stems directed downward.")
     #{ \with { \voiceTwo \override DynamicLineSpanner.direction = #DOWN } #} ))
 
 partcombineForce =
-#(define-music-function (location parser type once) (boolean-or-symbol? boolean?)
+#(define-music-function (parser location type once) (boolean-or-symbol? boolean?)
    (_i "Override the part-combiner.")
    (make-music 'EventChord
                'elements (list (make-music 'PartCombineForceEvent
