@@ -74,8 +74,8 @@ from @var{port} and return the corresponding Scheme music expression.
             (ly:parser-error parser (_ "error in #{ ... #}")))
         result))
     (list embedded-lilypond
-          'parser lily-string filename line
+          (list *parser*) lily-string filename line
           (cons 'list (reverse! closures))
-          'location)))
+          (list *location*))))
 
 (read-hash-extend #\{ read-lily-expression)

@@ -146,15 +146,15 @@ protected_ly_parse_scm (Parse_start *ps)
 }
 
 SCM
-protected_ly_eval_scm (Parse_start *ps)
+protected_ly_eval_scm (void *ps)
 {
   /*
     Catch #t : catch all Scheme level errors.
    */
   return scm_internal_catch (SCM_BOOL_T,
                              catch_protected_eval_body,
-                             (void *) ps,
-                             &parse_handler, (void *) ps);
+                             ps,
+                             &parse_handler, ps);
 }
 
 bool parse_protect_global = true;
@@ -178,8 +178,14 @@ ly_eval_scm (SCM form, Input i, bool safe, Lily_parser *parser)
 {
   Parse_start ps (form, i, safe, parser);
 
-  SCM ans = parse_protect_global ? protected_ly_eval_scm (&ps)
-            : internal_ly_eval_scm (&ps);
+  SCM ans = scm_c_with_fluids
+    (scm_list_2 (ly_lily_module_constant ("%parser"),
+                 ly_lily_module_constant ("%location")),
+     scm_list_2 (parser->self_scm (),
+                 i.smobbed_copy ()),
+     parse_protect_global ? protected_ly_eval_scm
+     : catch_protected_eval_body, (void *) &ps);
+
   scm_remember_upto_here_1 (form);
   return ans;
 }

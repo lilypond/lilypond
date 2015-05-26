@@ -43,6 +43,21 @@
    (string-downcase
     (car (string-tokenize (utsname:sysname (uname)) char-set:letter)))))
 
+;; We don't use (srfi srfi-39) (parameter objects) here because that
+;; does not give us a name/handle to the underlying fluids themselves.
+
+(define %parser (make-fluid))
+(define %location (make-fluid))
+;; No public setters: should not get overwritten in action
+(define-public (*parser*) (fluid-ref %parser))
+(define-public (*location*) (fluid-ref %location))
+
+;; It would be nice to convert occurences of parser/location to
+;; (*parser*)/(*location*) using the syncase module but it is utterly
+;; broken in GUILE 1 and would require changing a lot of unrelated
+;; innocuous constructs which just happen to fall apart with
+;; inscrutable error messages.
+
 ;;
 ;; Session-handling variables and procedures.
 ;;
