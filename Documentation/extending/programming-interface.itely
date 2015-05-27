@@ -63,11 +63,8 @@ code.  The Scheme reader actually is changed for accommodating
 LilyPond code blocks and can deal with embedded Scheme expressions
 starting with @code{$} and@w{ }@code{#}.
 
-@cindex parser (function argument)
-@cindex location
-
 The reader extracts the LilyPond code block and generates a runtime
-call to the LilyPond @code{parser} to interpret the LilyPond code.
+call to the LilyPond parser to interpret the LilyPond code.
 Scheme expressions embedded in the LilyPond code are evaluated in the
 lexical environment of the LilyPond code block, so all local variables
 and function parameters available at the point the LilyPond code block
@@ -77,10 +74,8 @@ are not accessible as Scheme variables, i.e. prefixed
 with@tie{}@code{#}, but they are accessible as LilyPond variables, i.e.
 prefixed with@tie{}@code{\}.
 
-If @code{location} (see @ref{Scheme functions}) refers to a valid
-input location (which it usually does inside of music/@/Scheme
-functions), all music generated inside the code block has its
-@samp{origin} set to @code{location}.
+All music generated inside the code block has its
+@samp{origin} set to the current input location.
 
 A LilyPond code block may contain anything that you can use on the
 right side of an assignment.  In addition, an empty LilyPond block
@@ -123,15 +118,6 @@ function =
 where
 
 @multitable @columnfractions .33 .66
-@item @code{parser}
-@tab needs to be literally @code{parser} in order to give LilyPond code
-blocks (@code{#@{}@dots{}@code{#@}}) access to the parser.
-
-@item @code{location}
-@tab needs to be literally @code{location} in order to provide access
-to the input location object, which is used to provide error messages
-with file names and line numbers.
-
 @item @code{@var{argN}}
 @tab @var{n}th argument
 
@@ -148,7 +134,7 @@ don't follow it with a default value, @code{#f} is used as the default.
 Default values are not verified with @emph{predicate?} at either
 definition or run time: it is your responsibility to deal with the
 values you specify.  Default values that happen to be music expressions
-are copied while setting @code{origin} to the @code{location} parameter.
+are copied while setting @code{origin} to the current input location.
 
 @item @code{@var{body}}
 @tab A sequence of Scheme forms evaluated in order, the last one being
@@ -1537,4 +1523,3 @@ This chapter covers the various tools provided by LilyPond to help
 Scheme programmers get information into and out of the music streams.
 
 TODO -- figure out what goes in here and how to organize it
-

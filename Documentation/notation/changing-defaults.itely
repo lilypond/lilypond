@@ -4636,13 +4636,8 @@ reference arguments
 (eg. @samp{#arg1}).
 @end multitable
 
-The @code{parser} and @code{location} arguments are mandatory, and
-are used in some advanced situations as described in the
-@q{Extending} manual (see @rextend{Music functions}).  For
-substitution functions, just be sure to include them.
-
-The list of type predicates is also required.  Some of the most
-common type predicates used in music functions are:
+The list of type predicates is required.  Some of the most common
+type predicates used in music functions are:
 
 @example
 boolean?
