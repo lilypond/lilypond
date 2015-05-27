@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @c Translators: Till Paala
 
@@ -4315,7 +4315,7 @@ Funktionen ist:
 @example
 Funktion =
 #(define-music-function
-     (parser location @var{Arg1} @var{Arg2} @dots{})
+     (@var{Arg1} @var{Arg2} @dots{})
      (@var{Typ1?} @var{Typ2?} @dots{})
    #@{
      @var{@dots{}Noten@dots{}}
@@ -4398,7 +4398,7 @@ das Verschieben von @code{TextScript} erleichtert:
 @lilypond[quote,verbatim,ragged-right]
 padText =
 #(define-music-function
-     (parser location padding)
+     (padding)
      (number?)
    #{
      \once \override TextScript.padding = #padding
@@ -4419,7 +4419,7 @@ als Argumente für musikalische Funktionen eingesetzt werden:
 @lilypond[quote,verbatim,ragged-right]
 custosNote =
 #(define-music-function
-     (parser location note)
+     (note)
      (ly:music?)
    #{
      \tweak NoteHead.stencil #ly:text-interface::print
@@ -4438,7 +4438,7 @@ werden:
 @lilypond[quote,verbatim,ragged-right]
 tempoPadded =
 #(define-music-function
-     (parser location padding tempotext)
+     (padding tempotext)
      (number? markup?)
    #{
      \once \override Score.MetronomeMark.padding = #padding

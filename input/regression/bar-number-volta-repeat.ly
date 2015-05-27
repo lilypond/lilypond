@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.19.22"
 
 \header {
   texidoc = "Bar numbers can automatically reset at volta repeats.
@@ -6,7 +6,7 @@
 }
 
 musicWithBarNumberCheck =
-#(define-music-function (parser location n)
+#(define-music-function (n)
   (integer?)
 #{
   \relative {

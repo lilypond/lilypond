@@ -7,9 +7,9 @@ demonstrate a @code{\\myBar} function, which works similar to
 @code{\\bar}, but is implemented completely in Scheme."
 
 }
-\version "2.17.5"
+\version "2.19.22"
 
-myBar = #(define-music-function (parser location bar-type) (string?)
+myBar = #(define-music-function (bar-type) (string?)
           (context-spec-music
            (context-spec-music (make-property-set 'whichBar bar-type) 'Timing)
            'Score))

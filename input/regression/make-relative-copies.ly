@@ -1,4 +1,4 @@
-\version "2.18.0"
+\version "2.19.22"
 
 \header {
   texidoc = "@code{make-relative} has to copy its argument expressions
@@ -14,7 +14,7 @@ identical."
 }
 
 reltranspose =
-#(define-music-function (parser location from to music)
+#(define-music-function (from to music)
   (ly:pitch? ly:pitch? ly:music?)
   (make-relative (music) music
    #{ \transpose #from #to $music #}))

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 
 @node Pitches
@@ -2845,7 +2845,7 @@ The following work-around can be used: define a function that locally changes
 the accidental style to @code{forget}:
 
 @lilypond[verbatim,quote]
-forget = #(define-music-function (parser location music) (ly:music?) #{
+forget = #(define-music-function (music) (ly:music?) #{
   \accidentalStyle forget
   #music
   \accidentalStyle modern

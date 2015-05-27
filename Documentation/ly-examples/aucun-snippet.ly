@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.19.22"
 \include "example-header.ily"
 
 \paper {
@@ -130,7 +130,7 @@ global = {
 }
 
 %%%%%%%%% MACRO FOR MAKING SLASHES THROUGH STEMS %%%%%%%%%%
-MakeSlash = #(define-music-function (parser location angle len-left len-right
+MakeSlash = #(define-music-function (angle len-left len-right
 thick y-factor offset)
                                     (number? number? number? number? number?
 pair?)

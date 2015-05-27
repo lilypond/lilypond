@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @node Interfaces for programmers
 @chapter Interfaces for programmers
@@ -51,7 +51,7 @@ LilyPond code blocks look like
 Here is a trivial example:
 
 @lilypond[verbatim,quote]
-ritpp = #(define-event-function (parser location) ()
+ritpp = #(define-event-function () ()
   #{ ^"rit." \pp #}
 )
 
@@ -114,7 +114,7 @@ The general form for defining scheme functions is:
 @example
 function =
 #(define-scheme-function
-     (parser location @var{arg1} @var{arg2} @dots{})
+     (@var{arg1} @var{arg2} @dots{})
      (@var{type1?} @var{type2?} @dots{})
    @var{body})
 @end example
@@ -262,7 +262,7 @@ sure that this special value (the only value satisfying the predicate
 @example
 noPointAndClick =
 #(define-void-function
-     (parser location)
+     ()
      ()
    (ly:set-option 'point-and-click #f))
 @dots{}
@@ -311,7 +311,7 @@ The general form for defining music functions is:
 @example
 function =
 #(define-music-function
-     (parser location @var{arg1} @var{arg2} @dots{})
+     (@var{arg1} @var{arg2} @dots{})
      (@var{type1?} @var{type2?} @dots{})
    @var{body})
 @end example
@@ -387,7 +387,7 @@ using a @code{pair?} variable:
 @example
 manualBeam =
 #(define-music-function
-     (parser location beg-end)
+     (beg-end)
      (pair?)
    #@{
      \once \override Beam.positions = #beg-end
@@ -406,7 +406,7 @@ music expression:
 @lilypond[quote,verbatim,ragged-right]
 manualBeam =
 #(define-music-function
-     (parser location beg end)
+     (beg end)
      (number? number?)
    #{
      \once \override Beam.positions = #(cons beg end)
@@ -455,7 +455,7 @@ set on exit.
 
 @example
 crossStaff =
-#(define-music-function (parser location notes) (ly:music?)
+#(define-music-function (notes) (ly:music?)
   (_i "Create cross-staff stems")
   #@{
   \temporary \override Stem.cross-staff = #cross-staff-connect
@@ -476,7 +476,7 @@ addition to simple substitution,
 @lilypond[quote,verbatim,ragged-right]
 AltOn =
 #(define-music-function
-     (parser location mag)
+     (mag)
      (number?)
    #{
      \override Stem.length = #(* 7.0 mag)
@@ -501,7 +501,7 @@ This example may be rewritten to pass in music expressions,
 @lilypond[quote,verbatim,ragged-right]
 withAlt =
 #(define-music-function
-     (parser location mag music)
+     (mag music)
      (number? ly:music?)
    #{
      \override Stem.length = #(* 7.0 mag)
@@ -535,7 +535,7 @@ without arguments,
 @example
 displayBarNum =
 #(define-music-function
-     (parser location)
+     ()
      ()
    (if (eq? #t (ly:get-option 'display-bar-numbers))
        #@{ \once \override Score.BarNumber.break-visibility = ##f #@}
@@ -572,7 +572,7 @@ to write dynamics commands, those are usually attached without direction
 indicator, like @code{c'\pp}.  Here is a way to write arbitrary
 dynamics:
 @lilypond[quote,verbatim,ragged-right]
-dyn=#(define-event-function (parser location arg) (markup?)
+dyn=#(define-event-function (arg) (markup?)
          (make-dynamic-script arg))
 \relative { c'\dyn pfsss }
 @end lilypond
@@ -1239,7 +1239,7 @@ restrict the modifications to a single music block.  Notice how
 @lilypond[quote,verbatim]
 desaturate =
 #(define-music-function
-   (parser location music) (ly:music?)
+   (music) (ly:music?)
    #{
      \applyContext
      #(lambda (context)

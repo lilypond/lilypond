@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.19.22"
 
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (_ "already have phrasing slur"))
@@ -12,7 +12,7 @@ slur will not be generated.  However, one can can create a second slur with
 a different spanner-id."
 }
 
-sp=#(define-event-function (parser location n e) (index? ly:event?)
+sp=#(define-event-function (n e) (index? ly:event?)
      (set! (ly:music-property e 'spanner-id) (format "sp~a" n))
      e)
 

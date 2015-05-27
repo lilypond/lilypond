@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.19.22"
 
 \header{
   texidoc= "Test optional music function arguments.
@@ -13,13 +13,13 @@ the rest is skipped."
 % Just like \relative, but defaulting to f as reference, making the
 % first note of the music the same as if written as absolute pitch
 ablative =
-#(define-music-function (parser location ref music)
+#(define-music-function (ref music)
   ((ly:pitch? #{ f #}) ly:music?)
   #{ \relative $ref $music #})
 
 % Let's take a duration and four pitches, defaulting to 2 c' d' e'
 zap = 
-#(define-music-function (parser location dur a b c d)
+#(define-music-function (dur a b c d)
   ((ly:duration? #{ 2 #}) (ly:pitch? #{ c' #})
    (ly:pitch? #{ d' #}) (ly:pitch? #{ e' #})
    ly:music?) #{ $a $dur $b $c ^\markup{!} $d  #})

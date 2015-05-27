@@ -1,5 +1,5 @@
 
-\version "2.19.12"
+\version "2.19.22"
 
 \layout {
   indent = #0
@@ -61,7 +61,7 @@ sfpp = #(make-dynamic-script "sfpp")
 sffp = #(make-dynamic-script "sffp")
 sffpp = #(make-dynamic-script "sffpp")
 
-beam = #(define-music-function (parser location left right) (number? number?)
+beam = #(define-music-function (left right) (number? number?)
 	(cond ((and (= left 0) (> right 0))
 			#{
 				\set stemRightBeamCount = #right
@@ -80,32 +80,32 @@ beam = #(define-music-function (parser location left right) (number? number?)
 	)
 )
 
-fraction = #(define-music-function (parser location music) (ly:music?)
+fraction = #(define-music-function (music) (ly:music?)
 	#{ \tweak text #tuplet-number::calc-fraction-text #music #})
 
-triangle = #(define-music-function (parser location music) (ly:music?)
+triangle = #(define-music-function (music) (ly:music?)
 	#{ \once \set shapeNoteStyles = ##(do do do do do do do) #music #})
 
-semicircle = #(define-music-function (parser location music) (ly:music?)
+semicircle = #(define-music-function (music) (ly:music?)
 	#{ \once \set shapeNoteStyles = ##(re re re re re re re) #music #})
 
-blackdiamond = #(define-music-function (parser location music) (ly:music?)
+blackdiamond = #(define-music-function (music) (ly:music?)
 	#{ \once \set shapeNoteStyles = ##(mi mi mi mi mi mi mi) #music #})
 
-tiltedtriangle = #(define-music-function (parser location music) (ly:music?)
+tiltedtriangle = #(define-music-function (music) (ly:music?)
 	#{ \once \set shapeNoteStyles = ##(fa fa fa fa fa fa fa) #music #})
 
-square = #(define-music-function (parser location music) (ly:music?)
+square = #(define-music-function (music) (ly:music?)
 	#{ \once \set shapeNoteStyles = ##(la la la la la la la) #music #})
 
-wedge = #(define-music-function (parser location music) (ly:music?)
+wedge = #(define-music-function (music) (ly:music?)
 	#{ \once \set shapeNoteStyles = ##(ti ti ti ti ti ti ti) #music #})
 
-harmonic = #(define-music-function (parser location music) (ly:music?)
+harmonic = #(define-music-function (music) (ly:music?)
 	#{ \once \set shapeNoteStyles = ##(harmonic harmonic harmonic harmonic harmonic harmonic harmonic) #music #})
 
-cross = #(define-music-function (parser location music) (ly:music?)
+cross = #(define-music-function (music) (ly:music?)
 	#{ \once \set shapeNoteStyles = ##(cross cross cross cross cross cross cross) #music #})
 
-white = #(define-music-function (parser location music) (ly:music?)
+white = #(define-music-function (music) (ly:music?)
 	#{ \once \override NoteHead.duration-log = #1 #music #})

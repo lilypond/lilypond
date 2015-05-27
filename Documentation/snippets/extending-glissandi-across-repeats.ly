@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.22"
 
 \header {
   lsrtags = "staff-notation, tweaks-and-overrides"
@@ -24,7 +24,7 @@ corresponding grace notes in all other voices.
   doctitle = "Extending glissandi across repeats"
 } % begin verbatim
 
-repeatGliss = #(define-music-function (parser location grace)
+repeatGliss = #(define-music-function (grace)
   (ly:pitch?)
   #{
     % the next two lines ensure the glissando is long enough

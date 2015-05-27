@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.22"
 
 \header {
   lsrtags = "repeats"
@@ -17,7 +17,7 @@ Isolated percents can also be printed.
 } % begin verbatim
 
 makePercent =
-#(define-music-function (parser location note) (ly:music?)
+#(define-music-function (note) (ly:music?)
    "Make a percent repeat the same length as NOTE."
    (make-music 'PercentEvent
                'length (ly:music-length note)))

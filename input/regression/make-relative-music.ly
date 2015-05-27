@@ -1,4 +1,4 @@
-\version "2.19.0"
+\version "2.19.22"
 
 \header {
   texidoc = "@code{make-relative} can make relativization on music
@@ -10,7 +10,7 @@ expressions.  This regtest defines an example function
 }
 
 withOctave =
-#(define-music-function (parser location music)
+#(define-music-function (music)
   (ly:music?)
   (make-relative
    (music) music

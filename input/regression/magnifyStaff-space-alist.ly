@@ -1,4 +1,4 @@
-\version "2.19.11"
+\version "2.19.22"
 
 \header {
   texidoc = "@code{space-alist} values should be scaled along
@@ -13,7 +13,7 @@ with notation size when using the @code{\magnifyStaff} command."
 }
 
 example =
-#(define-music-function (parser location mag) (positive?)
+#(define-music-function (mag) (positive?)
    #{
      \new Staff \with {
        \magnifyStaff #mag

@@ -15,7 +15,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.16.0"
+\version "2.19.22"
 
 %%  A stringTuning is a list of pitches ordered by string number
 %%  from 1 to N.
@@ -27,7 +27,7 @@
 %% lowest string number
 
 stringTuning =
-#(define-scheme-function (parser location chord)
+#(define-scheme-function (chord)
    (ly:music?)
    (_i "Convert @var{chord} to a string tuning.
 @var{chord} must be in absolute pitches and should have the highest
@@ -38,11 +38,11 @@ string number (generally the lowest pitch) first.")
 defaultStringTunings = #'()
 
 makeDefaultStringTuning =
-#(define-void-function (parser location symbol pitches) (symbol? list?)
+#(define-void-function (symbol pitches) (symbol? list?)
    (_i "This defines a string tuning @var{symbol} via a list of @var{pitches}.
 The @var{symbol} also gets registered in @code{defaultStringTunings}
 for documentation purposes.")
-   (ly:parser-define! parser symbol pitches)
+   (ly:parser-define! (*parser*) symbol pitches)
    (set! defaultStringTunings (acons symbol pitches defaultStringTunings)))
 
 %% guitar tunings

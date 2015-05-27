@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @node Scheme-Übung
 @chapter Scheme-Übung
@@ -1343,7 +1343,7 @@ keine speziellen Überprüfungen nötig sind, bevor ein anderes
 Element vor die @code{articulations}-Eigenschaft gesetzt wird.
 
 @example
-doubleSlur = #(define-music-function (parser location note) (ly:music?)
+doubleSlur = #(define-music-function (note) (ly:music?)
          "Return: @{ note ( note ) @}.
          `note' is supposed to be a single note."
          (let ((note2 (ly:music-deep-copy note)))
@@ -1543,7 +1543,7 @@ Funktion umgewandelt (hierzu gehört etwas syntaktischer Zuckerguß und
 eine Deklaration des Typs ihres einzigen @qq{wirklichen} Arguments:
 
 @example
-addAccent = #(define-music-function (parser location note-event)
+addAccent = #(define-music-function (note-event)
                                      (ly:music?)
   "Add an accent ArticulationEvent to the articulations of `note-event',
   which is supposed to be a NoteEvent expression."
@@ -1588,7 +1588,7 @@ TODO Find a simple example
 
 
 @lilypond[quote,verbatim,ragged-right]
-padText = #(define-music-function (parser location padding) (number?)
+padText = #(define-music-function (padding) (number?)
 #{
   \once \override TextScript.padding = #padding
 #})
@@ -1609,7 +1609,7 @@ Es kann auch benutzt werden, um Befehle zu erstellen:
 @c It is - 'padding still works
 
 @lilypond[quote,verbatim,ragged-right]
-tempoPadded = #(define-music-function (parser location padding tempotext)
+tempoPadded = #(define-music-function (padding tempotext)
   (number? markup?)
 #{
   \once \override Score.MetronomeMark.padding = #padding
@@ -1627,7 +1627,7 @@ tempoPadded = #(define-music-function (parser location padding tempotext)
 Sogar ganze Musikausdrücke können eingefügt werden:
 
 @lilypond[quote,verbatim,ragged-right]
-pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
+pattern = #(define-music-function (x y) (ly:music? ly:music?)
 #{
   #x e8 a b $y b a e
 #})

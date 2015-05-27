@@ -11,7 +11,7 @@
 @c Translators: Griechisch Erika, Harmath Dénes
 
 @c -*- coding: utf-8; mode: texinfo; -*-
-@c \version "2.19.21"
+@c \version "2.19.22"
 @node Alapfogalmak
 @chapter Alapfogalmak
 @translationof Fundamental concepts
@@ -3065,7 +3065,7 @@ can think of these as functions).
 
 @lilypond[quote,verbatim,ragged-right]
 padText =
-#(define-music-function (parser location padding) (number?)
+#(define-music-function (padding) (number?)
   #{
     \once \override TextScript.padding = #padding
   #})

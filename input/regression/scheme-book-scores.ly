@@ -1,4 +1,4 @@
-\version "2.17.11"
+\version "2.19.22"
 
 \header {
 
@@ -31,8 +31,8 @@ informations from top- and booklevel stack correctly."
             (set! pitch (modulo (1+ pitch) 7)))))
 
 oneNoteScore =
-#(define-void-function (parser location) ()
-   (add-one-note-score parser))
+#(define-void-function () ()
+   (add-one-note-score (*parser*)))
 
 %%%
 

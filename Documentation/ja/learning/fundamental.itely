@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -3170,7 +3170,7 @@ LilyPond は非静的な置き換えも処理できます (それらを関数と
 @lilypond[quote,verbatim,ragged-right]
 padText =
 #(define-music-function
-     (parser location padding)
+     (padding)
      (number?)
    #{
      \once \override TextScript.padding = #padding

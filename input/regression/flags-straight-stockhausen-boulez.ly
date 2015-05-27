@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.22"
 
 \header {
 texidoc = "Flags can be drawn straight in the style used by
@@ -7,7 +7,7 @@ Stockhausen and Boulez.
 }
 
 
-stemLength = #(define-music-function (parser location length) (number?)
+stemLength = #(define-music-function (length) (number?)
   "Set the length of the next stem explicitly."
   #{
     \once \override Stem.length-fraction = #length

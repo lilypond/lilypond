@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.22"
 \header{
   texidoc="
 Note head shapes may be set from several choices.
@@ -17,7 +17,7 @@ dimensions.
 }
 
 pattern =
-#(define-music-function (parser location name style) (markup? ly:context-mod?)
+#(define-music-function (name style) (markup? ly:context-mod?)
 #{ <<
   s1^#name
   \new Voice \with #style {
@@ -31,7 +31,7 @@ pattern =
 >> #})
 
 patternStyle =
-#(define-music-function (parser location style) (symbol?)
+#(define-music-function (style) (symbol?)
   #{
      \pattern #(symbol->string style) \with {
        \override NoteHead.style = #style

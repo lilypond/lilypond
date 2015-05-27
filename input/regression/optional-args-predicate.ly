@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.22"
 
 \header{
   texidoc= "Test predicate-based optional music function argument skipping."
@@ -6,13 +6,13 @@
 
 \layout { ragged-right = ##t }
 
-test=#(define-scheme-function (parser location str int frac exp)
+test=#(define-scheme-function (str int frac exp)
        ((string? "def1") (integer? "def2") (number-pair? "def3") list?)
        (if (not (equal? (list str int frac) exp))
-	(ly:parser-error parser
+	(ly:parser-error (*parser*)
 	 (format #f "Expected ~a, got ~a.\n" exp
 	  (list str int frac))
-	 location)))
+	 (*location*))))
 
 \test "a" #3 #'(3 . 4) #'("a" 3 (3 . 4))
 \test "a" #3 #'("a" 3 "def3")

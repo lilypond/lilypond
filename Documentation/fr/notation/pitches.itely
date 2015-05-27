@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @c Translators: Frédéric Chiasson
 @c Translation checkers: Valentin Villenave, Jean-Charles Malahieude
@@ -2814,7 +2814,7 @@ L'astuce suivante, qui définit temporairement le recours au style
 @code{forget}, permet d'obtenir quelque chose de présentable.
 
 @lilypond[verbatim,quote]
-forget = #(define-music-function (parser location music) (ly:music?) #{
+forget = #(define-music-function (music) (ly:music?) #{
   \accidentalStyle forget
   #music
   \accidentalStyle modern

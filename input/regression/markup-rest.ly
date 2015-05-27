@@ -1,4 +1,4 @@
-\version "2.17.19"
+\version "2.19.22"
 
 \header {
   texidoc = "The rest markup function works for a variety of style, dot and
@@ -6,7 +6,7 @@ duration settings."
 }
 
 showSimpleRest =
-#(define-scheme-function (parser location dots) (string?)
+#(define-scheme-function (dots) (string?)
    (make-override-markup
      (cons 'baseline-skip 7)
      (make-column-markup
@@ -45,7 +45,7 @@ showSimpleRest =
            kievan)))))
 
 showMultiMeasureRests =
-#(define-scheme-function (parser location)()
+#(define-scheme-function ()()
    (make-override-markup
      (cons 'baseline-skip 7)
      (make-column-markup

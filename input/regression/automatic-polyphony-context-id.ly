@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.22"
 
 \header {
   texidoc = "The bottom-level contexts in polyphony shorthand are
@@ -10,7 +10,7 @@ This snippet will fail to compile if either voice has an invalid
 }
 
 assertContextId =
-#(define-music-function (parser location id) (string?)
+#(define-music-function (id) (string?)
    (let ((music (make-music 'ApplyContext
                             'procedure
                             (lambda (ctx)

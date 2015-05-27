@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.22"
 
 \header {
   lsrtags = "expressive-marks, really-cool, scheme-language, text"
@@ -23,7 +23,7 @@ normally printed, using some Scheme code.
 } % begin verbatim
 
 hairpinWithCenteredText =
-#(define-music-function (parser location text) (markup?)
+#(define-music-function (text) (markup?)
   #{
     \once \override Voice.Hairpin.after-line-breaking =
       #(lambda (grob)

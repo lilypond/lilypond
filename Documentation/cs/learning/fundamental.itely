@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 @c Translators: Pavel Fric
 
 @node Základní pojmy
@@ -3289,7 +3289,7 @@ kann sie sich als Funktionen vorstellen.
 @lilypond[quote,verbatim,ragged-right]
 padText =
 #(define-music-function
-     (parser location padding)
+     (padding)
      (number?)
    #{
      \once \override TextScript.padding = $padding

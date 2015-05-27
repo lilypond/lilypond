@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -2676,7 +2676,7 @@ musicB = {
 局部的に臨時記号スタイルを @code{forget} に変更する関数を定義します:
 
 @lilypond[verbatim,quote]
-forget = #(define-music-function (parser location music) (ly:music?) #{
+forget = #(define-music-function (music) (ly:music?) #{
   \accidentalStyle forget
   #music
   \accidentalStyle modern

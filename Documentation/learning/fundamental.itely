@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @node Fundamental concepts
 @chapter Fundamental concepts
@@ -3071,7 +3071,7 @@ can think of these as functions).
 @lilypond[quote,verbatim,ragged-right]
 padText =
 #(define-music-function
-     (parser location padding)
+     (padding)
      (number?)
    #{
      \once \override TextScript.padding = #padding

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.22"
 
 \header {
   lsrtags = "ancient-notation, vocal-music"
@@ -25,7 +25,7 @@ is usually referred to as @code{transcription}.
   doctitle = "Using tags to produce mensural and modern music from the same source"
 } % begin verbatim
 
-menrest = #(define-music-function (parser location note)
+menrest = #(define-music-function (note)
   (ly:music?)
 #{
     \tag #'mens $(make-music 'RestEvent note)

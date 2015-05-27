@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @node General input and output
 @chapter General input and output
@@ -1763,7 +1763,7 @@ in the table of contents of an opera:
 }
 
 tocAct =
-#(define-music-function (parser location text) (markup?)
+#(define-music-function (text) (markup?)
    (add-toc-item! 'tocActMarkup text))
 @end verbatim
 
@@ -1778,7 +1778,7 @@ tocAct =
 }
 
 tocAct =
-#(define-music-function (parser location text) (markup?)
+#(define-music-function (text) (markup?)
    (add-toc-item! 'tocActMarkup text))
 
 \book {

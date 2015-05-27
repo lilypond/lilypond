@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.22"
 
 \header {
   lsrtags = "editorial-annotations, fretted-strings, scheme-language, text, tweaks-and-overrides"
@@ -18,7 +18,7 @@ series of notes is supposed to be played all on the same string.
 } % begin verbatim
 
 stringNumberSpanner =
-  #(define-music-function (parser location StringNumber) (string?)
+  #(define-music-function (StringNumber) (string?)
     #{
       \override TextSpanner.style = #'solid
       \override TextSpanner.font-size = #-5

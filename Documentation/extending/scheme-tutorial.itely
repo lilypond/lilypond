@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @node Scheme tutorial
 @chapter Scheme tutorial
@@ -1331,7 +1331,7 @@ property, it is useful to know that an unset property is read out as
 put another element at the front of the @code{articulations} property.
 
 @example
-doubleSlur = #(define-music-function (parser location note) (ly:music?)
+doubleSlur = #(define-music-function (note) (ly:music?)
          "Return: @{ note ( note ) @}.
          `note' is supposed to be a single note."
          (let ((note2 (ly:music-deep-copy note)))
@@ -1507,7 +1507,7 @@ function (a matter of some syntactic sugar and a declaration of the type
 of its sole @q{real} argument).
 
 @example
-addAccent = #(define-music-function (parser location note-event)
+addAccent = #(define-music-function (note-event)
                                      (ly:music?)
   "Add an accent ArticulationEvent to the articulations of `note-event',
   which is supposed to be a NoteEvent expression."
@@ -1552,7 +1552,7 @@ TODO Find a simple example
 
 @ignore
 @lilypond[quote,verbatim,ragged-right]
-padText = #(define-music-function (parser location padding) (number?)
+padText = #(define-music-function (padding) (number?)
 #{
   \once \override TextScript.padding = #padding
 #})
@@ -1575,7 +1575,7 @@ We can use it to create new commands:
 
 
 @lilypond[quote,verbatim,ragged-right]
-tempoPadded = #(define-music-function (parser location padding tempotext)
+tempoPadded = #(define-music-function (padding tempotext)
   (number? markup?)
 #{
   \once \override Score.MetronomeMark.padding = #padding
@@ -1594,7 +1594,7 @@ tempoPadded = #(define-music-function (parser location padding tempotext)
 Even music expressions can be passed in:
 
 @lilypond[quote,verbatim,ragged-right]
-pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
+pattern = #(define-music-function (x y) (ly:music? ly:music?)
 #{
   #x e8 a b #y b a e
 #})

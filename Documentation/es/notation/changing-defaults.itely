@@ -8,7 +8,7 @@ Translation of GIT committish: a43fe59b0205af99f84532935b103d0c064b4526
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @node Cambiar los valores por omisión
 @chapter Cambiar los valores por omisión
@@ -4774,7 +4774,7 @@ de LilyPond.  La forma general de estas funciones es
 @example
 funcion =
 #(define-music-function
-     (parser location @var{arg1} @var{arg2} @dots{})
+     (@var{arg1} @var{arg2} @dots{})
      (@var{type1?} @var{type2?} @dots{})
    #@{
      @var{@dots{}música@dots{}}
@@ -4854,7 +4854,7 @@ del relleno de un elemento de inscripción de texto TextScript:
 @lilypond[quote,verbatim,ragged-right]
 padText =
 #(define-music-function
-     (parser location padding)
+     (padding)
      (number?)
    #{
      \once \override TextScript.padding = #padding
@@ -4875,7 +4875,7 @@ para los argumentos de las funciones musicales:
 @lilypond[quote,verbatim,ragged-right]
 custosNote =
 #(define-music-function
-     (parser location note)
+     (note)
      (ly:music?)
    #{
      \tweak NoteHead.stencil #ly:text-interface::print
@@ -4893,7 +4893,7 @@ Se pueden definir funciones de sustitución con más de un argumento:
 @lilypond[quote,verbatim,ragged-right]
 tempoPadded =
 #(define-music-function
-     (parser location padding tempotext)
+     (padding tempotext)
      (number? markup?)
    #{
      \once \override Score.MetronomeMark.padding = #padding

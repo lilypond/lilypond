@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.22"
 
 \header {
   lsrtags = "scheme-language, tweaks-and-overrides"
@@ -37,7 +37,7 @@ With 2.16.2 it is possible to put the proposed function,
             tweaks)))))
 
 customScripts =
-#(define-music-function (parser location settings)(list?)
+#(define-music-function (settings)(list?)
 #{
   \override Script.before-line-breaking =
     #(custom-script-tweaks settings)

@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.19.22"
 
 \header {
   texidoc = "Music events can be extracted from a score with event
@@ -15,7 +15,7 @@ listeners."
 
 st =
 #(define-music-function
-  (parser location text)
+  (text)
   (string?)
 #{
   \override TextSpanner.bound-details.left.text = $text

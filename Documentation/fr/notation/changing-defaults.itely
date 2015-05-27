@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Gilles Thibault
@@ -4907,7 +4907,7 @@ forme
 @example
 fonction =
 #(define-music-function
-     (parser location @var{arg1} @var{arg2}@dots{})
+     (@var{arg1} @var{arg2}@dots{})
      (@var{type1?} @var{type2?}@dots{})
    #@{
      @var{@dots{}musique@dots{}}
@@ -4989,7 +4989,7 @@ simplifier le réglage du décalage d'une annotation (un
 @lilypond[quote,verbatim,ragged-right]
 padText =
 #(define-music-function
-     (parser location padding)
+     (padding)
      (number?)
    #{
      \once \override TextScript.padding = #padding
@@ -5010,7 +5010,7 @@ fonction, y compris une expression musicale :
 @lilypond[quote,verbatim,ragged-right]
 custosNote =
 #(define-music-function
-     (parser location note)
+     (note)
      (ly:music?)
    #{
      \tweak NoteHead.stencil #ly:text-interface::print
@@ -5028,7 +5028,7 @@ Une fonction de substitution peut traiter plusieurs arguments :
 @lilypond[quote,verbatim,ragged-right]
 tempoPadded =
 #(define-music-function
-     (parser location padding tempotext)
+     (padding tempotext)
      (number? markup?)
    #{
      \once \override Score.MetronomeMark.padding = #padding

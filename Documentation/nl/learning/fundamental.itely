@@ -12,7 +12,7 @@
 @c Translation checker:
 @c Translation checker committish:
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @node Fundamentele concepten
 @translationof Fundamental concepts
@@ -3088,7 +3088,7 @@ can think of these as functions).
 @lilypond[quote,verbatim,ragged-right]
 padText =
 #(define-music-function
-     (parser location padding)
+     (padding)
      (number?)
    #{
      \once \override TextScript.padding = #padding

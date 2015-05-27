@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 
 @c Translators: Yoshiki Sawada
@@ -1656,7 +1656,7 @@ book のページ数が 10 から 99 までの範囲であるのなら、ゲー�
 }
 
 tocAct =
-#(define-music-function (parser location text) (markup?)
+#(define-music-function (text) (markup?)
    (add-toc-item! 'tocActMarkup text))
 @end verbatim
 
@@ -1671,7 +1671,7 @@ tocAct =
 }
 
 tocAct =
-#(define-music-function (parser location text) (markup?)
+#(define-music-function (text) (markup?)
    (add-toc-item! 'tocActMarkup text))
 
 \book {

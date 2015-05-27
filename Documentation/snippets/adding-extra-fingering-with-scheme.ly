@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.22"
 
 \header {
   lsrtags = "scheme-language"
@@ -22,7 +22,7 @@ of the music for you.
 } % begin verbatim
 
 addScript =
-#(define-music-function (parser location script music)
+#(define-music-function (script music)
    (ly:event? ly:music?)
    (map-some-music
     (lambda (mus)

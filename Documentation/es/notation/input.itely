@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @node Entrada y salida generales
 @chapter Entrada y salida generales
@@ -1872,7 +1872,7 @@ nombres de los actos de una ópera en el índice general:
 }
 
 tocAct =
-#(define-music-function (parser location text) (markup?)
+#(define-music-function (text) (markup?)
    (add-toc-item! 'tocActMarkup text))
 @end verbatim
 
@@ -1887,7 +1887,7 @@ tocAct =
 }
 
 tocAct =
-#(define-music-function (parser location text) (markup?)
+#(define-music-function (text) (markup?)
    (add-toc-item! 'tocActMarkup text))
 
 \book {

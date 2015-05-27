@@ -9,7 +9,7 @@
   $Id: bagpipe.ly,v 1.12 2006/03/16 14:39:46 hanwen Exp $
 %}
 
-\version "2.19.16"
+\version "2.19.22"
 
 % Notes of the scale of the Great Highland Bagpipe. Extra high notes for bombarde.
 % Flat notes used mainly in some modern music.
@@ -92,10 +92,10 @@ marchTime = {
 }
 
 % Add appropriate tweaks needed for piping grace notes to look great.
-stemspace = #(define-music-function (parser location extent) (pair?) #{
+stemspace = #(define-music-function (extent) (pair?) #{
   \once \override Staff.Stem.X-extent = #extent
 #})
-pgrace = #(define-music-function (parser location notes) (ly:music?) #{
+pgrace = #(define-music-function (notes) (ly:music?) #{
   \override Score.GraceSpacing.spacing-increment = #0
   \override Score.Stem.beamlet-max-length-proportion = #'(0.5 . 0.5)
   \small \grace $notes \normalsize

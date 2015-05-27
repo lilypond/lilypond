@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @node Changing defaults
 @chapter Changing defaults
@@ -4610,7 +4610,7 @@ code is easy.  The general form of these functions is
 @example
 function =
 #(define-music-function
-     (parser location @var{arg1} @var{arg2} @dots{})
+     (@var{arg1} @var{arg2} @dots{})
      (@var{type1?} @var{type2?} @dots{})
    #@{
      @var{@dots{}music@dots{}}
@@ -4688,7 +4688,7 @@ setting the padding of a TextScript:
 @lilypond[quote,verbatim,ragged-right]
 padText =
 #(define-music-function
-     (parser location padding)
+     (padding)
      (number?)
    #{
      \once \override TextScript.padding = #padding
@@ -4709,7 +4709,7 @@ as notes for arguments to music functions:
 @lilypond[quote,verbatim,ragged-right]
 custosNote =
 #(define-music-function
-     (parser location note)
+     (note)
      (ly:music?)
    #{
      \tweak NoteHead.stencil #ly:text-interface::print
@@ -4727,7 +4727,7 @@ Substitution functions with multiple arguments can be defined:
 @lilypond[quote,verbatim,ragged-right]
 tempoPadded =
 #(define-music-function
-     (parser location padding tempotext)
+     (padding tempotext)
      (number? markup?)
    #{
      \once \override Score.MetronomeMark.padding = #padding

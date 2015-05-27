@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @node Modifica dell'output
 @chapter Modifica dell'output
@@ -4217,7 +4217,7 @@ mpdolce =
 
 inst =
 #(define-music-function
-     (parser location string)
+     (string)
      (string?)
    #{ <>^\markup \bold \box #string #})
 
@@ -4248,7 +4248,7 @@ mpdolce =
 
 inst =
 #(define-music-function
-     (parser location string)
+     (string)
      (string?)
    #@{ <>^\markup \bold \box #string #@})
 @end example
@@ -4282,7 +4282,7 @@ mpdolce =
 
 inst =
 #(define-music-function
-     (parser location string)
+     (string)
      (string?)
    #{ <>^\markup \bold \box #string #})
 
@@ -4314,7 +4314,7 @@ mpdolce =
 
 inst =
 #(define-music-function
-     (parser location string)
+     (string)
      (string?)
    #@{ <>^\markup \bold \box #string #@})
 
@@ -4344,7 +4344,7 @@ mpdolce =
 
 inst =
 #(define-music-function
-     (parser location string)
+     (string)
      (string?)
    #{ <>^\markup \bold \box #string #})
 
@@ -4391,7 +4391,7 @@ mpdolce =
 
 inst =
 #(define-music-function
-     (parser location string)
+     (string)
      (string?)
    #@{ <>^\markup \bold \box #string #@})
 
@@ -4422,7 +4422,7 @@ mpdolce =
 
 inst =
 #(define-music-function
-     (parser location string)
+     (string)
      (string?)
    #{ <>^\markup \bold \box #string #})
 

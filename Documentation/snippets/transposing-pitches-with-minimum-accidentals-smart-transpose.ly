@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.22"
 
 \header {
   lsrtags = "pitches, scheme-language, workaround"
@@ -74,7 +74,7 @@ In this manner, the most natural enharmonic notes are chosen.
      music))
 
 naturalizeMusic =
-#(define-music-function (parser location m)
+#(define-music-function (m)
    (ly:music?)
    (naturalize m))
 
