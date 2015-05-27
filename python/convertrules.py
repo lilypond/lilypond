@@ -3746,6 +3746,61 @@ def conv(str):
                   + after_id, r'\1-\2', str)
     return str
 
+@rule ((2, 19, 21), r"""\relative x''' { y ... -> \relative { z''' ...""")
+def conv(str):
+    # If the file contains a language switch to a language where the
+    # name of c is not "c", we can't reliably convert.
+    m = re.search (r'\\language\s(?!\s*#?"(?:nederlands|deutsch|english|norsk|suomi|svenska))"', str)
+    if True: # not m:
+        def subst(m):
+            oct = (len (re.findall ("'", m.group (1) + m.group (4)))
+                      - len (re.findall (",", m.group (1) + m.group (4))))
+            if (re.search (m.group (1)[0] + r".{7,}" + m.group (3)[0],
+                          "c d e f g a bh")):
+                oct = oct - 1
+            elif (re.search (m.group (3)[0] + r".{7,}" + m.group (1)[0],
+                            "c d e f g a bh")):
+                oct = oct + 1
+            return m.expand (r"\\relative\2\3" + oct * "'" + (-oct) * ",")
+        str = re.sub (r"\\relative\s+([a-z]+[',]*)"
+                      + r"(\s+(?:@?\{|<<?|"
+                      + r"\\(?:new|context)\s+[a-zA-Z]+(?:\s*=\s*"
+                      + matchstring + r")?\s(?:\s*\\with\s*@?\{"
+                      + brace_matcher (10) + r"@?\})?)"
+                      + r"(?:@?\{|<<?|\s|"
+                      + r"%.*\n|"
+                      + r"\\(?:scaleDurations|times)\s*[0-9]+/[0-9]+\s|"
+                      + r"\\tuplet\s*[0-9]+/[0-9]+\s(?:\s*[0-9]+\.*(?:\*[0-9]+)?\s)?|"
+                      + r"\\(?:new|context)\s+[a-zA-Z]+(?:\s*=\s*"
+                      + matchstring + r")?\s(?:\s*\\with\s*@?\{"
+                      + brace_matcher (10) + r"@?\})?|"
+                      + r"\\clef\s+(?:[a-z]+\s|" + matchstring + ")|"
+                      + r"\\key\s+[a-z]+\s*\\[a-z]+\s|"
+                      + r"\\time(?:" + matcharg + r")?\s+[0-9]+/[0-9]+\s|"
+                      + r"\\compoundMeter" + matcharg + r"\s|"
+                      + r"\||[rsR](?:[0-9]+\.*(?:\*[0-9]+)?)?|"
+                      + r"\\partial\s*[0-9]+\.*(?:\*[0-9]+)?|"
+                      + r"\\voice(?:One|Two|Three|Four)(?:Style)?\s|"
+                      + r"\\oneVoice\s|"
+                      + r"\\(?:dots|dynamic|stem|slur|tie|tuplet|phrasingSlur|textSpanner)(?:Up|Down|Neutral)\s|"
+                      + r"\\repeat\s+[a-z]+\s+[0-9]+\s|"
+                      + r"\\autoBeam(?:On|Off)\s|"
+                      + r"\\chordRepeats" + matcharg + "|"
+                      + r"\\tempo\s+(?:" + matchmarkup
+                      + r"(?:\s*[0-9]+\.*\s*=\s*[0-9]+)?|[0-9]+\.*\s*=\s*[0-9]+)\s|"
+                      # ancient music
+                      + r"\\[][]|"
+                      + r"\\(?:virga|stropha|inclinatum|auctum|descendens|"
+                      + r"ascendens|oriscus|quilisma|deminutum|cavum|linea)\s|"
+                      # Some dubious rules
+                      + r"\\global\s|"
+                      + r"(?:\\once\s*|\\temporary\s*)?"
+                      + r"\\(?:(?:unset|revert|hide|omit|accidentalStyle)\s.*\n|"
+                      + r"(?:set|override)\s[^=]*=" + matcharg + r"\s)"
+                      + r")*)([a-h][a-z]*)([',]*)",
+                      subst, str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
