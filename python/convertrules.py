@@ -3746,6 +3746,22 @@ def conv(str):
                   + after_id, r'\1-\2', str)
     return str
 
+@rule ((2, 19, 22), "(define-xxx-function (parser location ...) -> (define-xxx-function (...)")
+def conv(str):
+    def subst(m):
+        def subsub(m):
+            str = (m.group (1)
+                   + re.sub ('(?<=\s|["\\()])' + m.group (2) + r'(?=\s|["\\()])',
+                             r'(*location*)',
+                             re.sub (r'(?<=\s|["\\()])parser(?=\s|["\\()])',
+                                     r'(*parser*)', m.group (3))))
+            return str
+        return re.sub (r'(\([-a-z]+\s*\(+)parser\s+([-a-z]+)\s*((?:.|\n)*)$',
+                       subsub, m.group (0))
+    str = re.sub (r'\(define-(?:music|event|scheme|void)-function(?=\s|["(])'
+                  + paren_matcher (20) + r'\)', subst, str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
