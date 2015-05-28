@@ -1,4 +1,4 @@
-\version "2.17.11"
+\version "2.19.21"
 
  \header{
 
@@ -7,10 +7,10 @@
 
 \paper {ragged-right = ##f }
 
-\relative c' { 
+\relative { 
   \context StaffGroup << 
     \new Staff  \context Voice { 
-      \tuplet 10/8 {  c8[ c c c c c c c c c] }
+      \tuplet 10/8 {  c'8[ c c c c c c c c c] }
     }
     \new Staff  \context Voice { 
       \tuplet 8/8 {  c8[ c c c c c c c] }

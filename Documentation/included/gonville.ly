@@ -52,10 +52,10 @@ sampleMusic = \relative {
   }
 }
 
-\relative c''
+\relative
 {
   \set Staff.instrumentName = #"Gonv override"
-  c2^\trill c
+  c''2^\trill c
   \override NoteHead.font-family = #'gonville
   \override Script.font-family = #'gonville
   c^\trill c 

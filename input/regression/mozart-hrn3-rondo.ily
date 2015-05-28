@@ -20,7 +20,7 @@ lipbreaker = \relative {
   c[ c c] c[ c c]
 }
 
-rondo = \relative c' {
+rondo = \relative {
   \partial 8
   \time 6/8
   \key c \major

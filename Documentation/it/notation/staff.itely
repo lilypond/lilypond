@@ -942,14 +942,14 @@ Ulteriori dettagli su queste impostazioni si trovano in
 @ref{paper variables for shifts and indents,,@code{@bs{}paper} variables for shifts and indents}.
 
 @lilypond[verbatim,quote,ragged-right]
-\relative c'' {
+\relative {
   <<
     \new Staff \with {
       instrumentName = #"Alto Flute in G"
       shortInstrumentName = #"Flt."
     }
     {
-      f2 g4 f \break
+      f''2 g4 f \break
       g4 f g2
     }
     \new Staff \with {

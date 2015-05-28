@@ -1,4 +1,4 @@
-\version "2.18.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Chord change detection in repeat alternatives
@@ -14,8 +14,8 @@ first alternative.
       \chordmode { \repeat volta 3 { g1 | }
 		   \alternative { {c |}  {c4 g c c |} {g2 c |} } } }
     \new Voice {
-      \relative c'' {
-	\repeat volta 3 { g4 f e d | } 
+      \relative {
+	\repeat volta 3 { g'4 f e d | } 
 	\alternative { {c r r r |} {c g c r |} {b g c2 |} } }
       \bar "|." }
   >>

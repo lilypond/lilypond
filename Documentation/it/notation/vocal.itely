@@ -265,13 +265,13 @@ circostanze speciali) da una melodia associata, usando
 <<
   \new Staff <<
     \time 2/4
-    \new Voice = "one" \relative c'' {
+    \new Voice = "one" \relative {
       \voiceOne
-      c4 b8. a16 g4. r8 a4 ( b ) c2
+      c''4 b8. a16 g4. r8 a4 ( b ) c2
     }
-    \new Voice = "two" \relative c' {
+    \new Voice = "two" \relative {
       \voiceTwo
-       s2 s4. f8 e4 d c2
+       s2 s4. f'8 e4 d c2
     }
   >>
 
@@ -493,13 +493,13 @@ Ecco un esempio che ne dimostra l'utilizzo:
 <<
   \new Staff <<
     \time 2/4
-    \new Voice = "one" \relative c'' {
+    \new Voice = "one" \relative {
       \voiceOne
-      c4 b8. a16 g4. r8 a4 ( b ) c2
+      c''4 b8. a16 g4. r8 a4 ( b ) c2
     }
-    \new Voice = "two" \relative c' {
+    \new Voice = "two" \relative {
       \voiceTwo
-       s2 s4. f8 e8 d4. c2
+       s2 s4. f'8 e8 d4. c2
     }
   >>
 % inizialmente prende le note e le durate da "one"
@@ -1436,8 +1436,8 @@ numero che segue.}
     \new Staff {
       \time 2/4
       \new Voice = "melody" {
-  \relative c'' {
-    \repeat volta 2 { b4 b }
+  \relative {
+    \repeat volta 2 { b'4 b }
     \alternative { { b b } { b c } }
     c4 c
   }
@@ -1483,9 +1483,9 @@ e inserire dei salti manuali.
     \new Staff {
       \time 2/4
       \new Voice = "melody" {
-  \relative c'' {
+  \relative {
     \set melismaBusyProperties = #'()
-    \repeat volta 2 { b4 b ~}
+    \repeat volta 2 { b'4 b ~}
     \alternative { { b b } { b \repeatTie c } }
     \unset melismaBusyProperties
     c4 c
@@ -1520,8 +1520,8 @@ comandi @code{\skip}, come si è visto prima.
     \new Staff {
       \time 2/4
       \new Voice = "melody" {
-  \relative c'' {
-    \repeat volta 2 { b4 b ~}
+  \relative {
+    \repeat volta 2 { b'4 b ~}
     \alternative { { b b } { b \repeatTie c } }
     c4 c
   }
@@ -1553,8 +1553,8 @@ un finale alternativo, questi vanno inseriti a mano.
     \new Staff {
       \time 2/4
       \new Voice = "melody" {
-  \relative c'' {
-    \repeat volta 2 { b4 b ~}
+  \relative {
+    \repeat volta 2 { b'4 b ~}
     \alternative { { b b } { b \repeatTie c } }
     c4 c
   }
@@ -1625,11 +1625,11 @@ contesti specifici:
 \score {
   <<
     \new Voice = "melody" {
-      \relative c' {
+      \relative {
   <<
     {
       \voiceOne
-      e4 e8 e
+      e'4 e8 e
     }
     \new Voice = "splitpart" {
       \voiceTwo
@@ -1897,9 +1897,9 @@ nel far sì che la voce più veloce ignori il melisma, impostando
 
 @lilypond[verbatim,ragged-right,quote]
 <<
-  \relative c' \new Voice = "lahlah" {
+  \relative \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
-    c4
+    c'4
     \slurDotted
     f8.[( g16])
     a4
@@ -1985,9 +1985,9 @@ del contesto del testo impostando la proprietà @code{associatedVoice}:
 
 @lilypond[verbatim,quote]
 <<
-  \relative c' \new Voice = "lahlah" {
+  \relative \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
-    c4
+    c'4
     <<
       \new Voice = "alternative" {
   \voiceOne
@@ -2855,8 +2855,8 @@ Ecco un esempio che illustra come fare.
 @c manually adjusted to suit the imposed line length.  -td
 
 @lilypond[quote,verbatim,ragged-right]
-music = \relative c'' {
-  \repeat unfold 3 { a4 a a a }
+music = \relative {
+  \repeat unfold 3 { a'4 a a a }
 }
 
 dialogue = \lyricmode {

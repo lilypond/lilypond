@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 
@@ -76,7 +76,7 @@
 
 \book {    
   \score {
-    \new Staff \relative c' {
+    \new Staff \relative {
       %% 19: ideally cramped
       %% Calculating page breaks...[6][11][16]
       %%\repeat unfold 19 { a b c d \break }

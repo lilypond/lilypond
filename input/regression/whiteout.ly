@@ -4,15 +4,15 @@
 markup.  "
 
 }
-\version "2.17.6"
+\version "2.19.21"
 
 \paper
 {
   ragged-right = ##t
 }
 
-\relative c'' {
+\relative {
   \override TextScript.layer = #'2
   \override TextScript.extra-offset = #'(2 . 4)
-  c4-\markup  { \whiteout \pad-markup #0.5 foo } c
+  c''4-\markup  { \whiteout \pad-markup #0.5 foo } c
 }

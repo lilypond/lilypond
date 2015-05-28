@@ -558,8 +558,8 @@ A megoldás a @code{\repeat} és a @code{\relative} parancsok felcserélése, a
 következő módon:
 
 @lilypond[quote,verbatim]
-\relative c' {
-  \repeat unfold 2 { c d e f }
+\relative {
+  \repeat unfold 2 { c' d e f }
 }
 @end lilypond
 

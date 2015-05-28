@@ -1,11 +1,11 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Beams do not collide with flags.
 "
 }
 
-\relative c' <<
-  { \voiceOne c'8 r } \\
+\relative <<
+  { \voiceOne c''8 r } \\
   { \voiceThree c,8.[ c'16] }
 >>

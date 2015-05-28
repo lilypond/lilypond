@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.21"
 
 
 
@@ -45,18 +45,18 @@ This file is best viewed outside the collated files document.
 
 \book {
     \score {
-        \relative c'' {
+        \relative {
             \repeat unfold 10 {
-                \repeat unfold 4 {c4}
+                \repeat unfold 4 {c''4}
             }
         }
         \header {piece = "Piece I"}
         \layout {line-width = 13\cm}
     }
     \score {
-        \relative c'' {
+        \relative {
             \repeat unfold 10 {
-                \repeat unfold 4 {c4}
+                \repeat unfold 4 {c''4}
             }
         }
         \header {

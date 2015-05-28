@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 texidoc = "Tremolo works even when a stem is forced in a
@@ -8,7 +8,7 @@ particular direction.
 }
 
 \layout { ragged-right = ##t }
-\relative c 
+\relative 
 {
         \clef bass
 	\stemUp f4 : 32

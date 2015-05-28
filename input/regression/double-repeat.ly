@@ -16,7 +16,7 @@
     \bar ":|.:"
     c1
   }
-  \new Staff \relative c' {
-    \repeat unfold 4 { c1 }
+  \new Staff \relative {
+    \repeat unfold 4 { c'1 }
   }
 >>

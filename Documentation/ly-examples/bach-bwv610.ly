@@ -1,4 +1,4 @@
-\version "2.19.2"
+\version "2.19.21"
 %\include "example-header.ily"
 
 
@@ -119,10 +119,10 @@ alt = {
 }
 
 tenor = {
-   \new Voice \relative c' {
+   \new Voice \relative {
       \global
       \repeat volta 2 {
-         c16 h c8~ 16 h c g a8 g~ 16 g as es
+         c'16 h c8~ 16 h c g a8 g~ 16 g as es
          f16 es f d g as g f es d \tieDown es8~ 16 \tieNeutral f es d
          c16 h c g' c h c c, f8. g16 as!4~
          16 g as b c h c8 d8. c16 h c d h
@@ -159,7 +159,7 @@ left = {
 pedal = {
    \global
    \clef "bass"
-   \relative c {
+   \relative {
       \repeat volta 2 {
          r8 c16 d es d es8~ 16 a, h g c h c8
          r16 g as f g f g8 c,2

@@ -838,11 +838,11 @@ spécifie quant à elle l'espace de temps entre chaque ligne.
 
 \score {
   \new ChoirStaff <<
-    \new Staff \relative c'' {
+    \new Staff \relative {
       \stemUp
-      c'4. d8 e8 f g4
+      c'''4. d8 e8 f g4
     }
-    \new Staff \relative c {
+    \new Staff \relative {
     %% centre les lignes guides verticalement
       \clef bass
       \stemDown

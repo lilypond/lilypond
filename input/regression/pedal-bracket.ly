@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 
@@ -10,10 +10,10 @@ At a line-break, there are no vertical endings.  Pedal changes can
 be placed at spacer rests." }
 
 \score {
-     \relative c'' {
+     \relative {
         \set Staff.pedalSustainStyle = #'bracket
 
-        c4 d <e f b,> \sustainOn b c c, \sustainOff \sustainOn  d8[ c]  e8[
+        c''4 d <e f b,> \sustainOn b c c, \sustainOff \sustainOn  d8[ c]  e8[
             e \sustainOff \sustainOn]  f4 r \sustainOff
             g \sustainOn bes bes, \sustainOff c'
 

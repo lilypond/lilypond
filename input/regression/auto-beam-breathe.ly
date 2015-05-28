@@ -1,13 +1,13 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Automatic beams are ended early if a breathing sign is
 encountered."
 }
 
-\relative c' {
+\relative {
   \time 1/1
-  \repeat unfold 8 c8
+  \repeat unfold 8 c'8
   c8 c
   \breathe
   c8 c c c c

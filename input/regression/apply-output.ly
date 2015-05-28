@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "The @code{\\applyOutput} expression is the most flexible way to
@@ -28,10 +28,10 @@ position.
                 ))))
         ))))
 
-\new Voice \relative c' {
+\new Voice \relative {
   \set autoBeaming = ##f
 
-  <d f g b>8
+  <d' f g b>8
 
   \applyOutput #'Voice #mc-squared
   <d f g b>8

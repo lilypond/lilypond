@@ -1,11 +1,11 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Clefs for cue notes at the start of a score should print the
 standard clef plus a small cue clef after the time/@/key signature."
 }
 
-vI = \relative c'' { \clef "treble" \repeat unfold 40 g4 }
+vI = \relative { \clef "treble" \repeat unfold 40 g'4 }
 \addQuote vIQuote { \vI }
 
 Solo = \relative c'' {

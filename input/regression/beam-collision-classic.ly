@@ -12,9 +12,9 @@
 \new Staff
 {
   % Stockhausen (without hemiolas)
-  \relative c''' {
+  \relative {
     \stemUp
-    a8[ \clef bass es,,,,
+    a''8[ \clef bass es,,,,
 	r8 <b' g'>
 	\clef G
 	gis''']

@@ -1,5 +1,5 @@
 
-\version "2.17.6"
+\version "2.19.21"
 
 \header{
 
@@ -16,7 +16,7 @@ much to correct."
 }
 
 
-\context Voice \relative c {
+\context Voice \relative {
   \override Score.PaperColumn.layer = #1
   \override Score.PaperColumn.stencil = #ly:paper-column::print
 

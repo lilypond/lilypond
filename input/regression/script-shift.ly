@@ -7,11 +7,11 @@ means centered on the stem).
 "
 }
 
-\version "2.19.16"
-\relative c''
+\version "2.19.21"
+\relative
 {
   \override Script.toward-stem-shift = #1.0
-  a4^> c_>
+  a'4^> c_>
 
   \override Script.toward-stem-shift = #0.0
   a4^> c_>

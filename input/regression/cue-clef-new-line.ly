@@ -10,7 +10,7 @@ Cue notes going over a line break should print the standard clef on the new
 line plus an additional cue clef after the time/@/key signature."
 }
 
-vI = \relative c'' { \clef "treble" \repeat unfold 40 g4 }
+vI = \relative { \clef "treble" \repeat unfold 40 g'4 }
 \addQuote vIQuote { \vI }
 
 Solo = \relative {

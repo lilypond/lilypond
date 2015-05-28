@@ -196,9 +196,9 @@ q2 c, |
 これにより持ち越されるイベントはすでに和音 @code{q} に存在しているものだけです。
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \chordRepeats #'(articulation-event)
-  { <a-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
+  { <a'-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
   q2 c, |
 }
 @end lilypond

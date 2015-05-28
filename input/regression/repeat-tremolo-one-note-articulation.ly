@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "A tremolo repeat containing only one note (no sequential music)
@@ -8,8 +8,8 @@
 
 \paper { ragged-right = ##t }
 \score {
-  \new Staff \relative c'' {
-    \repeat tremolo 4 { a16 }
+  \new Staff \relative {
+    \repeat tremolo 4 { a'16 }
     \repeat tremolo 4 { a16\f }
     \repeat tremolo 4 a16
     \repeat tremolo 4 a16\f |

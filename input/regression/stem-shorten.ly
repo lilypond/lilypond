@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   
@@ -14,8 +14,8 @@
 }
 
 
-\relative c'' {
-  \stemDown d c b a g f e
+\relative {
+  \stemDown d'' c b a g f e
   \stemNeutral
   \stemUp a b c d e f g a
   \stemNeutral

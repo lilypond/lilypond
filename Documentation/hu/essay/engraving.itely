@@ -371,22 +371,22 @@ global = {
     \new Staff \with {
       \magnifyStaff #2/3
     }
-    \relative c' {
+    \relative {
       \global
       \set Staff.instrumentName = #"Violin"
-      c8.(\f^> b16 c d) ees8.(^> d16 c b)
+      c'8.(\f^> b16 c d) ees8.(^> d16 c b)
       g8.(^> b16 c ees) g8-.^> r r
       R2.
     }
     \new PianoStaff <<
       \set PianoStaff.instrumentName = #"Piano"
-      \new Staff \relative c' {
+      \new Staff \relative {
         \global
         s2.
-        s4. s8 r8 r16 <c f aes c>
+        s4. s8 r8 r16 <c' f aes c>
         <c f aes c>4.^> <c ees g>8 r r
       }
-      \new Staff \relative c {
+      \new Staff \relative {
         \global
         \clef "bass"
         <<
@@ -464,7 +464,7 @@ How do we actually make formatting decisions?  In other words, which
 of the three configurations should we choose for the following slur?
 
 @lilypond
-\relative c {
+\relative {
   \clef bass
   \once \override Slur.positions = #'(1.5 . 1)
   e8[( f] g[ a b d,)] r4
@@ -504,7 +504,7 @@ has given each one a score in @q{ugly points}.  The first example gets
 15.39 points for grazing one of the noteheads:
 
 @lilypond
-\relative c {
+\relative {
   \clef bass
   \once \override Slur.positions = #'(1.5 . 1)
   e8[(_"15.39" f] g[ a b d,)] r4
@@ -518,7 +518,7 @@ side, plus another 2 points because the slur ascends while the melody
 descends for a total of 13.08 ugly points:
 
 @lilypond
-\relative c {
+\relative {
   \clef bass
   \once \override Slur.positions = #'(2 . 3)
   e8[(_"13.08" f] g[ a b d,)] r4
@@ -682,24 +682,24 @@ measures 28--29, as shown here with Finale first and LilyPond second:
 @lilypond[staffsize=19.5,line-width=14\cm]
 global = { \key g \minor }
 
-partI = \relative c' {
+partI = \relative {
   \voiceOne
-  fis8 d' ees g, fis4 g
+  fis'8 d' ees g, fis4 g
   r8 a16 bes c8 bes16 a d8 r r4
 }
 
-partII = \relative c' {
+partII = \relative {
   \voiceTwo
-  d4 r4 r8 d'16 c bes8 c16 d
+  d'4 r4 r8 d'16 c bes8 c16 d
   ees8 d c ees a, r r4
 }
 
-partIII = \relative c' {
+partIII = \relative {
   \voiceOne
-  r2 r8 d ees g, fis4 g r8 a16 bes c8 bes16 a
+  r2 r8 d' ees g, fis4 g r8 a16 bes c8 bes16 a
 }
 
-partIV = \relative c {
+partIV = \relative {
   \voiceTwo
   d4 r r2
   r8 d ees g, fis4 a
@@ -987,16 +987,16 @@ consider a more complicated musical example:
 
 \new PianoStaff <<
   \new Staff = "RH" <<
-    \new Voice = "I" \relative c''' {
+    \new Voice = "I" \relative {
       \time 3/4
       \voiceOne
-      \tuplet 7/6 { g8 g g g g g g }
+      \tuplet 7/6 { g''8 g g g g g g }
       \oneVoice
       r4 <b,, fis' g bes> r4\fermata
     }
-    \new Voice = "II" \relative c' {
+    \new Voice = "II" \relative {
       \voiceTwo
-      c4
+      c'4
       \tuplet 5/4 {
         <c ees>8 f g
         \change Staff = "LH" \oneVoice
@@ -1273,8 +1273,8 @@ chord has all directions up (right).
 
 @lilypond[quote,ragged-right]
 \score {
-  \relative c' {
-    \stemDown <e g b>4_>-\arpeggio
+  \relative {
+    \stemDown <e' g b>4_>-\arpeggio
     \override Arpeggio.direction = #RIGHT
     \stemUp <e g b>4^>-\arpeggio
   }
@@ -1343,11 +1343,11 @@ note head symbol is changed during the music fragment.
                   ((-2) (make-smaller-markup (make-bold-markup "2")))
                   (else "bla")))))))))
 
-\new Voice \relative c' {
+\new Voice \relative {
   \stemUp
   \set autoBeaming = ##f
   \time 2/4
-  <d f g>4
+  <d' f g>4
   \once \override NoteHead.stencil = #note-head::brew-ez-stencil
   \once \override NoteHead.font-size = #-7
   \once \override NoteHead.font-family = #'sans
@@ -1562,9 +1562,9 @@ LilyPond, version @version{}:
 @lilypond[staffsize=14.3,line-width=15.9\cm]
 global = {\key g \minor}
 
-partI = \relative c' {
+partI = \relative {
   \voiceOne
-  fis8 d' ees g, fis4 g
+  fis'8 d' ees g, fis4 g
   r8 a16 bes c8 bes16 a d8 r r4
   r2 r8 d16 ees f8 ees16 d
   ees4 ~ 16 d c bes a4 r8 ees'16 d
@@ -1573,9 +1573,9 @@ partI = \relative c' {
   a2 g\fermata \bar "|."
 }
 
-partII = \relative c' {
+partII = \relative {
   \voiceTwo
-  d4 r4 r8 d'16 c bes8 c16 d
+  d'4 r4 r8 d'16 c bes8 c16 d
   ees8 d c ees a, r r4
   r8 fis16 g a8 g16 fis g2 ~
   2 r8 d' ees g,
@@ -1583,16 +1583,16 @@ partII = \relative c' {
   bes4. <g b>8 <a c> r <d, g> r
   <ees g>4 <d fis> d2
 }
-partIII = \relative c' {
+partIII = \relative {
   \voiceOne
-  r2 r8 d ees g, fis4 g r8 a16 bes c8 bes16 a
+  r2 r8 d' ees g, fis4 g r8 a16 bes c8 bes16 a
   bes2 ~ 8 b16 a g8 a16 b
   c4 r r2
   R1
   r8 d ees g, fis4 g
   r8 a16 bes c8 bes16 a b2
 }
-partIV = \relative c {
+partIV = \relative {
   \voiceTwo
   d4 r r2
   r8 d ees g, fis4 a

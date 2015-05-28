@@ -8,7 +8,7 @@
 
 }
 
-\version "2.17.11"
+\version "2.19.21"
 
 \paper {
   ragged-right = ##t  
@@ -16,7 +16,7 @@
 }
 
 
-\relative c'' {
+\relative {
   \override TupletNumber.text = #tuplet-number::calc-fraction-text
 
   \override TupletBracket.edge-text = #(cons
@@ -24,7 +24,7 @@
 					     #:arrow-head X LEFT #f)
 					  (markup #:arrow-head X RIGHT #f))
   \tuplet 19/11 {
-    c4 c4 c4 c4
+    c''4 c4 c4 c4
     \bar "-" \break
     c4 c4 c4 c4
     c4 c4 c4 c4

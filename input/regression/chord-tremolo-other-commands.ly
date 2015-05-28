@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "
@@ -11,9 +11,9 @@ right = \relative c'' {
   s2
 }
 
-left = \relative c' {
+left = \relative {
   % This tremolo contains just two notes (but three lilypond events/commands!)
-  \repeat tremolo 4 { f,16 \change Staff = "right" f'} 
+  \repeat tremolo 4 { f16 \change Staff = "right" f'} 
 }
 
 \score {

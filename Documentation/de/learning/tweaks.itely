@@ -3873,10 +3873,10 @@ einem entfernten Objekt gezeigt:
 
 @lilypond[quote,verbatim,ragged-right]
 \score {
-  \relative c'' {
+  \relative {
     % Visible tempo marking
     \tempo 4=120
-    a4 a a
+    a'4 a a
     \once \override Score.MetronomeMark.transparent = ##t
     % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
@@ -3892,10 +3892,10 @@ einem entfernten Objekt gezeigt:
 
 @lilypond[quote,verbatim,ragged-right]
 \score {
-  \relative c'' {
+  \relative {
     % Visible tempo marking
     \tempo 4=120
-    a4 a a
+    a'4 a a
     \once \override Score.MetronomeMark.stencil = ##f
     % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
@@ -4053,9 +4053,9 @@ inst =
      (string?)
     #{ <>^\markup \bold \box #string #})
 
-\relative c'' {
+\relative {
   \tempo 4=50
-  a4.\mpdolce d8 cis4--\glissando a |
+  a'4.\mpdolce d8 cis4--\glissando a |
   b4 bes a2 |
   \inst "Clarinet"
   cis4.\< d8 e4 fis |
@@ -4101,9 +4101,9 @@ Noten (in der Datei @file{music.ly}).
 @example
 \include "definitions.ily"
 
-\relative c'' @{
+\relative @{
   \tempo 4=50
-  a4.\mpdolce d8 cis4--\glissando a |
+  a'4.\mpdolce d8 cis4--\glissando a |
   b4 bes a2 |
   \inst "Clarinet"
   cis4.\< d8 e4 fis |
@@ -4126,9 +4126,9 @@ inst =
      (string?)
    #{ <>^\markup \bold \box #string #})
 
-\relative c'' {
+\relative {
   \tempo 4=50
-  a4.\mpdolce d8 cis4--\glissando a |
+  a'4.\mpdolce d8 cis4--\glissando a |
   b4 bes a2 |
   \inst "Clarinet"
   cis4.\< d8 e4 fis |
@@ -4212,9 +4212,9 @@ inst =
   }
 }
 
-\relative c'' {
+\relative {
   \tempo 4=50
-  a4.\mpdolce d8 cis4--\glissando a |
+  a'4.\mpdolce d8 cis4--\glissando a |
   b4 bes a2 |
   \inst "Clarinet"
   cis4.\< d8 e4 fis |
@@ -4292,9 +4292,9 @@ inst =
   }
 }
 
-\relative c'' {
+\relative {
   \tempo 4=50
-  a4.\mpdolce d8 cis4--\glissando a |
+  a'4.\mpdolce d8 cis4--\glissando a |
   b4 bes a2 |
   \inst "Clarinet"
   cis4.\< d8 e4 fis |
@@ -4521,7 +4521,7 @@ zu ihrer Position innerhalb der Tonleiter gesetzt.
        ((0) (x11-color 'violet ))  ; for B
        )))
 
-\relative c' {
+\relative {
   % Arrange to obtain color from color-notehead procedure
   \override NoteHead.color = #color-notehead
   a2 b | c2 d | e2 f | g2 a |

@@ -1,5 +1,5 @@
 
-\version "2.17.11"
+\version "2.19.21"
 
 \header {
     texidoc=" Tuplets may be nested."
@@ -10,9 +10,9 @@
   indent = 0.0
 }
 
-\relative c'' {
+\relative {
   \tuplet 3/4 {
-    \tuplet 3/2 { c8[ c c] }
+    \tuplet 3/2 { c''8[ c c] }
     \tuplet 3/2 { c8[ c c] }
     \tuplet 3/2 { c8[ c c] }
   }

@@ -15,7 +15,7 @@
     >>
     \new GrandStaff <<
       \new Staff \relative { a'^\< a a a a a a a a a a a\! }
-      \new Staff \relative c'' { \repeat unfold 12 a4 }
+      \new Staff \relative { \repeat unfold 12 a'4 }
     >>
     \new GrandStaff <<
       \new Staff \relative { a'4 a a a s1 a4 a a a }

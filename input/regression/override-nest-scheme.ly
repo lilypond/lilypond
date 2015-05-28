@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "A sublist of grob property lists may be overridden within a callback.
@@ -6,11 +6,11 @@
   of the right bound of the glissando spanner."
 }
 
-\relative c' {
+\relative {
   \override Glissando.after-line-breaking =
     #(lambda (grob)
        (ly:grob-set-nested-property! grob '(bound-details right Y) 3))
-  c1 \glissando
+  c'1 \glissando
   d1
 }
 

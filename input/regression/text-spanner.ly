@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.21"
 \header {
     texidoc= "Text spanners should not repeat start text when broken."
 }
@@ -7,10 +7,10 @@
     ragged-right = ##t 
 }
 
-\relative c'' {
+\relative {
     \set crescendoText = #"cresc."
     \set crescendoSpanner = #'text
-    c1\< c \break
+    c''1\< c \break
     c1 c\! \break
 }
 

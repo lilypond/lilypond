@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header { texidoc = "If the 'whiteout property of a
 grob is set to #t, that part of all objects in lower
@@ -8,7 +8,7 @@ Tie but not the StaffSymbol.
 "
 }
 
-\relative c' {
+\relative {
   \time 3/4
   \override Staff.StaffSymbol.layer = #4
   \once \override Tie.layer = #2

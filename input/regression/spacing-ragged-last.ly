@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 
@@ -12,5 +12,5 @@
   ragged-last = ##t
 }
 
-\relative c'' \new Staff { \repeat unfold 20 { c1 } }
+\relative \new Staff { \repeat unfold 20 { c''1 } }
 

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "By default, we start with page 1, which is on the right hand side
@@ -17,6 +17,6 @@ number to 2 in order to avoid a bad page turn."
 
 \book {
   \score {
-    \relative c' {\repeat unfold 60 {a b c d}}
+    \relative {\repeat unfold 60 {a b c d}}
   }
 }

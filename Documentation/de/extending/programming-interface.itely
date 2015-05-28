@@ -1396,10 +1396,10 @@ neu ausgerichtet wird.
              (eq? (car (last-pair siblings)) grob))
      (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
 
-\relative c'' {
+\relative {
   \override Tie.after-line-breaking =
   #my-callback
-  c1 ~ \break c2 ~ 2
+  c''1 ~ \break c2 ~ 2
 }
 @end lilypond
 

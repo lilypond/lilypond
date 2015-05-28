@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc="Some classic examples of broken beams, all taken from
@@ -10,9 +10,9 @@ Scriabin Op. 11, No. 1.
   ragged-right = ##t
 }
 
-music = \relative c'' {
+music = \relative {
   \override Beam.breakable = ##t
-  r2. f8[ c \break
+  r2. f''8[ c \break
   e c f,] r8 r4 a'8[ e \break
   g d g,] r8 r4 f'8[ a, \break
   e' g, bes] r8 r4 <a' a,>8 [ d, \break

@@ -220,8 +220,8 @@ specific for this particular type of ligature.  By default, the
 above the ligature.
 
 @lilypond[quote,ragged-right,verbatim]
-\relative c'' {
-  \[ g c, a' f d' \]
+\relative {
+  \[ g' c, a' f d' \]
   a g f
   \[ e f a g \]
 }
@@ -375,9 +375,9 @@ entering the chant, as the following excerpt demonstrates:
 @lilypond[quote,ragged-right,verbatim]
 \score {
   <<
-    \new MensuralVoice = "discantus" \relative c'' {
+    \new MensuralVoice = "discantus" \relative {
       \hide Score.BarNumber {
-        c1\melisma bes a g\melismaEnd
+        c''1\melisma bes a g\melismaEnd
         f\breve
         \[ f1\melisma a c\breve d\melismaEnd \]
         c\longa
@@ -876,10 +876,10 @@ defined as a convenient shorthand:
 
 @lilypond[quote,verbatim]
 ficta = { \once \set suggestAccidentals = ##t }
-\score { \relative c''
+\score { \relative
   \new MensuralVoice  {
     \once \set suggestAccidentals = ##t
-    bes4 a2 g2 \ficta fis8 \ficta e! fis2 g1
+    bes'4 a2 g2 \ficta fis8 \ficta e! fis2 g1
   }
 }
 @end lilypond
@@ -932,13 +932,13 @@ For example,
 
 @lilypond[quote,ragged-right,verbatim]
 \score {
-  \relative c' {
+  \relative {
     \set Score.timing = ##f
     \set Score.defaultBarType = "-"
     \override NoteHead.style = #'petrucci
     \override Staff.TimeSignature.style = #'mensural
     \clef "petrucci-g"
-    \[ c'\maxima g \]
+    \[ c''\maxima g \]
     \[ d'\longa
        \override NoteHead.ligature-flexa = ##t
        \once \override NoteHead.flexa-width = #3.2
@@ -960,13 +960,13 @@ Without replacing @code{Ligature_bracket_engraver} with
 @code{Mensural_ligature_engraver}, the same music looks as follows:
 
 @lilypond[quote,ragged-right]
-\relative c' {
+\relative {
   \set Score.timing = ##f
   \set Score.defaultBarType = "-"
   \override NoteHead.style = #'petrucci
   \override Staff.TimeSignature.style = #'mensural
   \clef "petrucci-g"
-  \[ c'\maxima g \]
+  \[ c''\maxima g \]
   \[ d'\longa
      \override NoteHead.ligature-flexa = ##t
      \once \override NoteHead.flexa-width = #3.2
@@ -1612,9 +1612,9 @@ code}
 @lilypond[staffsize=26,line-width=1.5\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Punctum
-    \[ b \]
+    \[ b' \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1626,9 +1626,9 @@ code}
 @lilypond[staffsize=26,line-width=1.5\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Punctum
-    \[ \cavum b \]
+    \[ \cavum b' \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1640,9 +1640,9 @@ code}
 @lilypond[staffsize=26,line-width=1.5\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Punctum
-    \[ \linea b \]
+    \[ \linea b' \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1655,9 +1655,9 @@ code}
 @lilypond[staffsize=26,line-width=2.5\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Punctum Auctum Ascendens
-    \[ \auctum \ascendens b \]
+    \[ \auctum \ascendens b' \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1670,9 +1670,9 @@ code}
 @lilypond[staffsize=26,line-width=2.5\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Punctum Auctum Descendens
-    \[ \auctum \descendens b \]
+    \[ \auctum \descendens b' \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1685,9 +1685,9 @@ code}
 @lilypond[staffsize=26,line-width=1.5\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Punctum Inclinatum
-    \[ \inclinatum b \]
+    \[ \inclinatum b' \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1700,9 +1700,9 @@ code}
 @lilypond[staffsize=26,line-width=2.5\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Punctum Inclinatum Auctum
-    \[ \inclinatum \auctum b \]
+    \[ \inclinatum \auctum b' \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1715,9 +1715,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Punctum Inclinatum Parvum
-    \[ \inclinatum \deminutum b \]
+    \[ \inclinatum \deminutum b' \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1730,9 +1730,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Virga
-    \[ \virga b \]
+    \[ \virga b' \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1751,9 +1751,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Clivis vel Flexa
-    \[ b \flexa g \]
+    \[ b' \flexa g \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1767,9 +1767,9 @@ code}
 @lilypond[staffsize=26,line-width=2.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Clivis Aucta Descendens
-    \[ b \flexa \auctum \descendens g \]
+    \[ b' \flexa \auctum \descendens g \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1782,9 +1782,9 @@ code}
 @lilypond[staffsize=26,line-width=2.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Clivis Aucta Ascendens
-    \[ b \flexa \auctum \ascendens g \]
+    \[ b' \flexa \auctum \ascendens g \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1797,9 +1797,9 @@ code}
 @lilypond[staffsize=26,line-width=2.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Cephalicus
-    \[ b \flexa \deminutum g \]
+    \[ b' \flexa \deminutum g \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1812,9 +1812,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Podatus vel Pes
-    \[ g \pes b \]
+    \[ g' \pes b \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1827,9 +1827,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Pes Auctus Descendens
-    \[ g \pes \auctum \descendens b \]
+    \[ g' \pes \auctum \descendens b \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1842,9 +1842,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Pes Auctus Ascendens
-    \[ g \pes \auctum \ascendens b \]
+    \[ g' \pes \auctum \ascendens b \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1857,9 +1857,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Epiphonus
-    \[ g \pes \deminutum b \]
+    \[ g' \pes \deminutum b \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1872,9 +1872,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Pes Initio Debilis
-    \[ \deminutum g \pes b \]
+    \[ \deminutum g' \pes b \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1887,9 +1887,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Pes Auctus Descendens Initio Debilis
-    \[ \deminutum g \pes \auctum \descendens b \]
+    \[ \deminutum g' \pes \auctum \descendens b \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1909,9 +1909,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Torculus
-    \[ a \pes b \flexa g \]
+    \[ a' \pes b \flexa g \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1924,9 +1924,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Torculus Auctus Descendens
-    \[ a \pes b \flexa \auctum \descendens g \]
+    \[ a' \pes b \flexa \auctum \descendens g \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1939,9 +1939,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Torculus Deminutus
-    \[ a \pes b \flexa \deminutum g \]
+    \[ a' \pes b \flexa \deminutum g \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1954,9 +1954,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Torculus Initio Debilis
-    \[ \deminutum a \pes b \flexa g \]
+    \[ \deminutum a' \pes b \flexa g \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1969,9 +1969,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Torculus Auctus Descendens Initio Debilis
-    \[ \deminutum a \pes b \flexa \auctum \descendens g \]
+    \[ \deminutum a' \pes b \flexa \auctum \descendens g \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1984,9 +1984,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Torculus Deminutus Initio Debilis
-    \[ \deminutum a \pes b \flexa \deminutum g \]
+    \[ \deminutum a' \pes b \flexa \deminutum g \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -1999,9 +1999,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Porrectus
-    \[ a \flexa g \pes b \]
+    \[ a' \flexa g \pes b \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -2014,9 +2014,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Porrectus Auctus Descendens
-    \[ a \flexa g \pes \auctum \descendens b \]
+    \[ a' \flexa g \pes \auctum \descendens b \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -2029,9 +2029,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Porrectus Deminutus
-    \[ a \flexa g \pes \deminutum b \]
+    \[ a' \flexa g \pes \deminutum b \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -2044,9 +2044,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Climacus
-    \[ \virga b \inclinatum a \inclinatum g \]
+    \[ \virga b' \inclinatum a \inclinatum g \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -2059,9 +2059,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Climacus Auctus
-    \[ \virga b \inclinatum a \inclinatum \auctum g \]
+    \[ \virga b' \inclinatum a \inclinatum \auctum g \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -2074,9 +2074,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Climacus Deminutus
-    \[ \virga b \inclinatum a \inclinatum \deminutum g \]
+    \[ \virga b' \inclinatum a \inclinatum \deminutum g \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -2089,9 +2089,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Scandicus
-    \[ g \pes a \virga b \]
+    \[ g' \pes a \virga b \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -2104,9 +2104,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Scandicus Auctus Descendens
-    \[ g \pes a \pes \auctum \descendens b \]
+    \[ g' \pes a \pes \auctum \descendens b \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -2119,9 +2119,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Scandicus Deminutus
-    \[ g \pes a \pes \deminutum b \]
+    \[ g' \pes a \pes \deminutum b \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -2141,9 +2141,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Quilisma
-    \[ g \pes \quilisma a \pes b \]
+    \[ g' \pes \quilisma a \pes b \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -2156,9 +2156,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Quilisma Pes Auctus Descendens
-    \[ g \quilisma a \pes \auctum \descendens b \]
+    \[ g' \quilisma a \pes \auctum \descendens b \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -2171,9 +2171,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Oriscus
-    \[ \oriscus b \]
+    \[ \oriscus b' \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -2186,9 +2186,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Pes Quassus
-    \[ \oriscus g \pes \virga b \]
+    \[ \oriscus g' \pes \virga b \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -2201,9 +2201,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Pes Quassus Auctus Descendens
-    \[ \oriscus g \pes \auctum \descendens b \]
+    \[ \oriscus g' \pes \auctum \descendens b \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -2216,9 +2216,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Salicus
-    \[ g \oriscus a \pes \virga b \]
+    \[ g' \oriscus a \pes \virga b \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -2231,9 +2231,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Salicus Auctus Descendens
-    \[ g \oriscus a \pes \auctum \descendens b \]
+    \[ g' \oriscus a \pes \auctum \descendens b \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -2246,9 +2246,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Stropha
-    \[ \stropha b \]
+    \[ \stropha b' \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -2261,9 +2261,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Stropha Aucta
-    \[ \stropha \auctum b \]
+    \[ \stropha \auctum b' \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -2276,9 +2276,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Bistropha
-    \[ \stropha b \stropha b \]
+    \[ \stropha b' \stropha b \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -2291,9 +2291,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Tristropha
-    \[ \stropha b \stropha b \stropha b \]
+    \[ \stropha b' \stropha b \stropha b \]
   }
 \layout { \neumeDemoLayout }}
 @end lilypond
@@ -2306,9 +2306,9 @@ code}
 @lilypond[staffsize=26,line-width=1.0\cm]
 \include "gregorian.ly"
 \score {
-  \relative c'' {
+  \relative {
     % Trigonus
-    \[ \stropha b \stropha b \stropha a \]
+    \[ \stropha b' \stropha b \stropha a \]
   }
   \layout { \neumeDemoLayout }
 }
@@ -2783,11 +2783,11 @@ when needed with the corresponding @code{\undo \hide Stem}.
 
 @lilypond[verbatim,ragged-right]
 \include "gregorian.ly"
-chant = \relative c' {
+chant = \relative {
   \clef "G_8"
   \set Score.timing = ##f
   \hide Stem
-  c\breve \hide NoteHead  c c c c c
+  c'\breve \hide NoteHead  c c c c c
   \undo \hide NoteHead
   \undo \hide Stem \stemUp c4 b4 a
   \hide Stem c2 c4  \divisioMaior
@@ -2836,10 +2836,10 @@ adjustments are necessary, this can be easily done with
 @code{s} @q{notes}.
 
 @lilypond[verbatim,quote]
-spiritus = \relative c' {
+spiritus = \relative {
   \time 1/4
   \override Lyrics.LyricText.X-extent  = #'(0 . 3)
-  d4 \tuplet 3/2 { f8 a g } g a a4 g f8 e
+  d'4 \tuplet 3/2 { f8 a g } g a a4 g f8 e
   d4 f8 g g8 d f g a g f4 g8 a a4  s
   \tuplet 3/2 { g8 f d } e f g a g4
 }

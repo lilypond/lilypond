@@ -5,7 +5,7 @@
 notes and a canceling clef after the cue notes."
 }
 
-vI = \relative c'' { \clef "treble" \repeat unfold 16 g4 }
+vI = \relative { \clef "treble" \repeat unfold 16 g'4 }
 \addQuote vIQuote { \vI }
 
 Solo = \relative {

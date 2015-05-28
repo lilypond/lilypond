@@ -7,14 +7,14 @@
 }
 
 
-\version "2.17.11"
+\version "2.19.21"
 \paper {
   ragged-right = ##T
 }
 
-\new Staff \relative c' {
+\new Staff \relative {
   \set Score.skipTypesetting = ##t
-  \tuplet 3/2 { c8 c c } \tuplet 3/2 { c c c }
+  \tuplet 3/2 { c'8 c c } \tuplet 3/2 { c c c }
   \tuplet 3/2 { c c c } \tuplet 3/2 { c c c}
   \set Score.skipTypesetting = ##f
   d1 \break

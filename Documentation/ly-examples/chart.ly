@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 \include "example-header.ily"
 
 \include "predefined-guitar-fretboards.ly"
@@ -12,9 +12,9 @@ global = {
   \numericTimeSignature
 }
 
-melody = \relative c' {
+melody = \relative {
   \global
-  d4
+  d'4
   g4 b8( a) g4 fis
   e e e e
   a c8( b) a4 g

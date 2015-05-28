@@ -1,5 +1,5 @@
 
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
 
@@ -12,7 +12,7 @@ Asymmetric slurs are created by setting @code{eccentricity}."
     ragged-right = ##t
 }
 
-baseWalk =  \relative c {
+baseWalk =  \relative {
     \time 6/4
     \stemDown
     \slurUp

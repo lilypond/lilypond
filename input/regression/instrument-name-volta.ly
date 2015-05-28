@@ -1,13 +1,13 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Moving the @code{Volta_engraver} to the @code{Staff}
 context does not affect @code{InstrumentName} alignment."
 }
 
-testMusik =  \relative c'' {
+testMusik =  \relative {
   \repeat volta 2 {
-    c1 \break
+    c''1 \break
   } \alternative {
     { c1 \break }
     { c1 \break }
@@ -15,10 +15,10 @@ testMusik =  \relative c'' {
 }
 
 \score {
-  \new Staff \relative c' {
+  \new Staff \relative {
     \set Staff.shortInstrumentName = #"Instr."
     \repeat volta 2 {
-      c1 \break
+      c'1 \break
     }
     \alternative {
       { c1 \break }

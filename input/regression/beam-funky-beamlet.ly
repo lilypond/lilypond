@@ -1,5 +1,5 @@
 
-\version "2.17.6"
+\version "2.19.21"
 \header {
 
   texidoc=" Funky kneed beams with beamlets also work. The beamlets
@@ -10,9 +10,9 @@ should be pointing to the note head.
 
 \layout { ragged-right = ##t}
 
-\relative c' {
+\relative {
   \once \override Stem.direction = #UP
-  c16
+  c'16
   \once \override Stem.direction = #DOWN
 
   c''8 c,,16

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (_ "More alternatives than repeats.  Junking excess alternatives"))
 
@@ -11,9 +11,9 @@ If they don't barlines should still be shown.
 
 %%  no alts.
 
-\context Voice \relative c'' {
+\context Voice \relative {
   %% repeat non aligning with barlines.
-  \repeat volta 3 { c^"3x 0alt" d e }
+  \repeat volta 3 { c''^"3x 0alt" d e }
   %% less alts than body
   \repeat volta 4 { c^"4x 2alt" d } \alternative { e f }
   %% more alts than body

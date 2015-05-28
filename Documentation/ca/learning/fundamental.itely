@@ -886,12 +886,12 @@ ignoreu tot el que no entengueu.
 @c The following should appear as music without code
 @c The three voice styles should be defined in -init
 @lilypond[quote,ragged-right]
-\new Staff \relative c'' {
+\new Staff \relative {
   \key aes \major
   <<
     {  % Veu u
       \voiceOneStyle
-      c2 aes4. bes8
+      c''2 aes4. bes8
     }
   \\  % Veu dos
     { \voiceTwoStyle
@@ -1061,18 +1061,18 @@ indicacions de dinàmica:
 @end lilypond
 
 @lilypond[quote,ragged-right,verbatim]
-\relative c' {
+\relative {
   \voiceOne
-  c4 d8~ 8 e4( f | g4 a) b-> c |
+  c'4 d8~ 8 e4( f | g4 a) b-> c |
   \oneVoice
   c,4 d8~ 8 e4( f | g4 a) b-> c |
 }
 @end lilypond
 
 @lilypond[quote,ragged-right,verbatim]
-\relative c' {
+\relative {
   \voiceTwo
-  c4 d8~ 8 e4( f | g4 a) b-> c |
+  c'4 d8~ 8 e4( f | g4 a) b-> c |
   \oneVoice
   c,4 d8~ 8 e4( f | g4 a) b-> c |
 }
@@ -1093,10 +1093,10 @@ melodia principal està ara dins d'un context d'una sola veu, fent
 que es pugui traçar una lligadura per sobre d'elles.
 
 @lilypond[quote,ragged-right,verbatim]
-\new Staff \relative c' {
+\new Staff \relative {
   \voiceOneStyle
   % Aquesta secció és homofònica
-  c16^( d e f
+  c'16^( d e f
   % Comença una secció simultània de tres veus
   <<
     % Continua la veu principal en paral·lel
@@ -1156,11 +1156,11 @@ notes espaiadores per passar per sobre de les seccions on una veu
 està en silenci, com per exemple:
 
 @lilypond[quote,ragged-right,verbatim]
-\new Staff \relative c' <<
+\new Staff \relative <<
   % Inicia la primera veu
   \new Voice {
     \voiceOne
-    c16^( d e f g4 f e | d2 e) |
+    c'16^( d e f g4 f e | d2 e) |
   }
   % Inicia la segona veu
   \new Voice {
@@ -1259,10 +1259,10 @@ mitjançant @code{\lyricsto@{@}}, usant el nom assignat a la veu.
 @lilypond[quote,verbatim]
 <<
   \new Voice = "una" {
-    \relative c'' {
+    \relative {
       \autoBeamOff
       \time 2/4
-      c4 b8. a16 | g4. f8 | e4 d | c2 |
+      c''4 b8. a16 | g4. f8 | e4 d | c2 |
     }
   }
   \new Lyrics \lyricsto "una" {
@@ -1808,13 +1808,13 @@ etiquetat, però no el segon, perquè hem omès el nom del context.
 
 @lilypond[quote,verbatim,ragged-right]
 <<
-  \new Staff \relative c'' {
+  \new Staff \relative {
     \set Staff.instrumentName = #"Soprano"
-    c2 c
+    c''2 c
   }
-  \new Staff \relative c' {
+  \new Staff \relative {
     \set instrumentName = #"Alto"  % Incorrecte!
-    d2 d
+    d'2 d
   }
 >>
 @end lilypond
@@ -1859,9 +1859,9 @@ Així, això desactivarà els bequadres addicionals a un pentagrama:
   \new Staff \relative {
     aeses'2 aes
   }
-  \new Staff \relative c'' {
+  \new Staff \relative {
     \set Staff.extraNatural = ##f
-    aeses2 aes
+    aeses'2 aes
   }
 >>
 @end lilypond
@@ -1874,9 +1874,9 @@ i això els desactivarà a tots els pentagrames:
   \new Staff \relative {
     aeses'2 aes
   }
-  \new Staff \relative c'' {
+  \new Staff \relative {
     \set Score.extraNatural = ##f
-    aeses2 aes
+    aeses'2 aes
   }
 >>
 @end lilypond
@@ -2124,15 +2124,15 @@ partir d'aquesta única veu:
   \new Voice \with {
     \consists "Ambitus_engraver"
   } {
-    \relative c'' {
+    \relative {
       \voiceOne
-      c4 a b g
+      c''4 a b g
     }
   }
   \new Voice {
-    \relative c' {
+    \relative {
       \voiceTwo
-      c4 e d f
+      c'4 e d f
     }
   }
 >>
@@ -2149,15 +2149,15 @@ pentagrama:
 }
 <<
   \new Voice {
-    \relative c'' {
+    \relative {
       \voiceOne
-      c4 a b g
+      c''4 a b g
     }
   }
   \new Voice {
-    \relative c' {
+    \relative {
       \voiceTwo
-      c4 e d f
+      c'4 e d f
     }
   }
 >>
@@ -2485,18 +2485,18 @@ musicaBaix = \relative {
 
 lletraBaix = \lletraSoprano
 
-upper = \relative a' {
+upper = \relative {
   \clef "treble"
   \global
-  r4 <a d fis>2 <a e' a>4 |
+  r4 <a' d fis>2 <a e' a>4 |
   <d fis d'>4. <d fis d'>8 <a d a'>2 |
   <g cis g'>4 <a d fis> <a cis e>2 |
 }
 
-lower = \relative c, {
+lower = \relative {
   \clef "bass"
   \global
-  <d d'>4 <d d'>2 <cis cis'>4 |
+  <d, d'>4 <d d'>2 <cis cis'>4 |
   <b b'>4. <b' b'>8 <fis fis'>2 |
   <e e'>4 <d d'> <a' a'>2 |
 }
@@ -2715,17 +2715,17 @@ musicaBaix = \relative {
   r4 d'2 cis4 | b4. b8 fis2 | e4 d a'2 |
 }
 lletraBaix = \lletraSoprano
-upper = \relative a' {
+upper = \relative {
   \clef "treble"
   \global
-  r4 <a d fis>2 <a e' a>4 |
+  r4 <a' d fis>2 <a e' a>4 |
   <d fis d'>4. <d fis d'>8 <a d a'>2 |
   <g cis g'>4 <a d fis> <a cis e>2 |
 }
-lower = \relative c, {
+lower = \relative {
   \clef "bass"
   \global
-  <d d'>4 <d d'>2 <cis cis'>4 |
+  <d, d'>4 <d d'>2 <cis cis'>4 |
   <b b'>4. <b' b'>8 <fis fis'>2 |
   <e e'>4 <d d'> <a' a'>2 |
 }
@@ -3137,9 +3137,9 @@ fthenp =_\markup {
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
 }
 
-violí = \relative c'' {
+violí = \relative {
   \repeat volta 2 {
-    c4._\dolce b8 a8 g a b |
+    c''4._\dolce b8 a8 g a b |
     \padText
     c4.^"hi there!" d8 e' f g d |
     c,4.\fthenp b8 c4 c-. |
@@ -3161,9 +3161,9 @@ reescrit sense cap identificador.  Trobareu que és molt més
 difícil de llegir, sobretot l'última línia.
 
 @example
-violí = \relative c'' @{
+violí = \relative @{
   \repeat volta 2 @{
-    c4._\markup @{ \italic \bold dolce @} b8 a8 g a b |
+    c''4._\markup @{ \italic \bold dolce @} b8 a8 g a b |
     \once \override TextScript.padding = #5.0
     c4.^"hi there!" d8 e' f g d |
     c,4.\markup @{
@@ -3299,7 +3299,7 @@ Aquesta instrucció estableix el valor de la propietat
 anterior, arribem al següent resultat
 
 @lilypond[quote,ragged-right]
-\transpose f c' \relative c {
+\transpose f c' \relative {
   \time 2/4
   \set Score.skipBars = ##t
   R2*3 |

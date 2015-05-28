@@ -1,4 +1,4 @@
-\version "2.17.15"
+\version "2.19.21"
 
 \header {
   texidoc = "Percent repeats are also centered when there is a grace note in a parallel staff. "
@@ -8,7 +8,7 @@
   ragged-right =##t
 }
 
-\relative c' <<
-  \new Staff { \repeat percent 3 c1} 
+\relative <<
+  \new Staff { \repeat percent 3 c'1} 
   \new Staff { c1 c \grace b8 c1  }
 >>

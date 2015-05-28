@@ -1,14 +1,14 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "@code{\\partial} works with polymetric staves."
 }
 
 \score {
-  \relative c' <<
+  \relative <<
     \new Staff {
       \partial 4
-      c4 |
+      c'4 |
       c4 c c c |
     }
     \new Staff {

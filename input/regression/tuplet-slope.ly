@@ -15,15 +15,15 @@ The bracket direction is determined by the dominating stem direction.
   ragged-right = ##t 
 }
 
-\version "2.17.11"
+\version "2.19.21"
 
 \new Voice {
-  \relative c'' {
-    \tuplet 3/2 { c4 d e}
+  \relative {
+    \tuplet 3/2 { c''4 d e}
     \tuplet 3/2 { c4 d e}
   }
   
-  \relative c' {
+  \relative {
     \tuplet 5/4 { a'4 as g fis f }
     \tuplet 5/4 { fis4 e es d des }
     \tuplet 5/4 { fis,4 e es d des }

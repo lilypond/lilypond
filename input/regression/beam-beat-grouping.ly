@@ -7,13 +7,13 @@ signature. "
 \layout {
   ragged-right = ##t
   }
-\version "2.16.0"
+\version "2.19.21"
 
 
-\relative c'' {
+\relative {
   \time 5/16
   \set beatStructure = #'(2 3)
-  c8[^"(2+3)" c16 c8]
+  c''8[^"(2+3)" c16 c8]
   \set beatStructure = #'(3 2)
   c8[^"(3+2)" c16 c8]
 }

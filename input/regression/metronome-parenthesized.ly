@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header{
   texidoc="
@@ -6,9 +6,9 @@ Using an empty text in the metronome marks, one can generate parenthesized tempo
 "
 }
 
-\relative c'' {
+\relative {
   \tempo 4=60
-  c1
+  c''1
   \tempo "" 4=80
   c1
 }

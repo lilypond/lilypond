@@ -178,13 +178,13 @@ triplumWords = \lyricmode {
 	si que m'ès -- tuet fai -- re _ chan -- _ _ çon
 }
 
-triplumNotes = \relative c' {
+triplumNotes = \relative {
   \clef "treble_8"
 	%\set Staff.midiInstrument = "flute"
 %	\global
 	\override StemTremolo.beam-thickness = #.125
 	\override StemTremolo.slope = #1.0
-  f8 f4 e8 d c f f f | % 1
+  f'8 f4 e8 d c f f f | % 1
 	% the \scaleDurations command below makes 5 notes last the
 	% duration of a dotted quarter
 	e8 c4 \scaleDurations 3/2 {	\tuplet 5/4{e16[ d e d e]} } e8 f4 | % 2

@@ -1,4 +1,4 @@
-\version "2.19.2"
+\version "2.19.21"
 \header {
 
   texidoc = "
@@ -14,9 +14,9 @@
 
 
 <<
-  \relative c' \new Voice = "bla" {
+  \relative \new Voice = "bla" {
     \autoBeamOff
-    c4( c16 d c b)  c4
+    c'4( c16 d c b)  c4
     d16[ e f g]
     
   }

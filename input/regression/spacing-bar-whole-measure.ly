@@ -3,19 +3,19 @@
   
   }
 
-\version "2.17.6"
+\version "2.19.21"
 
 \layout{
   ragged-right=##t
 }
 
-\new Staff \relative c' {
+\new Staff \relative {
   \override Score.NonMusicalPaperColumn.stencil = #ly:paper-column::print
   \override Score.NonMusicalPaperColumn.layer = #1
   
   \time 4/4
   s1
-  c2. c4
+  c'2. c4
   \time 3/4
   s2.
   c2.

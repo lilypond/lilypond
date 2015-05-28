@@ -1,4 +1,4 @@
-\version "2.17.5"
+\version "2.19.21"
 
 \header {
 
@@ -9,9 +9,9 @@
 
 \layout { ragged-right= ##t }
 
-\relative c' {
+\relative {
   \repeat volta 2 {
-    c1
+    c'1
   }
   \repeat volta 2 {
     \grace {c8 } c4

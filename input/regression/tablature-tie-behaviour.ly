@@ -18,9 +18,9 @@ secondpart = \relative {
   c'1 ~ \break c2 ~ 2
 }
 
-thirdpart = \relative c' {
+thirdpart = \relative {
     \repeat volta 2 {
-    < c\3 e\2 g\1 >4 < c\3 e\2 g\1 > ~ < c\3 e\2 g\1 >\laissezVibrer r
+    < c'\3 e\2 g\1 >4 < c\3 e\2 g\1 > ~ < c\3 e\2 g\1 >\laissezVibrer r
     c4. d8 e2 ~
    }
    \alternative { { e2 r } { e2\repeatTie e2^\fermata } }

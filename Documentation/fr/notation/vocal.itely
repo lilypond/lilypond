@@ -260,13 +260,13 @@ circonstances, une mélodie associée, grâce aux commandes
 <<
   \new Staff <<
     \time 2/4
-    \new Voice = "one" \relative c'' {
+    \new Voice = "one" \relative {
       \voiceOne
-      c4 b8. a16 g4. r8 a4 ( b ) c2
+      c''4 b8. a16 g4. r8 a4 ( b ) c2
     }
-    \new Voice = "two" \relative c' {
+    \new Voice = "two" \relative {
       \voiceTwo
-       s2 s4. f8 e4 d c2
+       s2 s4. f'8 e4 d c2
     }
   >>
 
@@ -486,13 +486,13 @@ Voici un exemple de cette manière de procéder :
 <<
   \new Staff <<
     \time 2/4
-    \new Voice = "one" \relative c'' {
+    \new Voice = "one" \relative {
       \voiceOne
-      c4 b8. a16 g4. r8 a4 ( b ) c2
+      c''4 b8. a16 g4. r8 a4 ( b ) c2
     }
-    \new Voice = "two" \relative c' {
+    \new Voice = "two" \relative {
       \voiceTwo
-       s2 s4. f8 e8 d4. c2
+       s2 s4. f'8 e8 d4. c2
     }
   >>
 % takes durations and alignment from notes in "one" initially
@@ -1440,8 +1440,8 @@ note quelle qu'en soit la durée.}
     \new Staff {
       \time 2/4
       \new Voice = "melody" {
-        \relative c'' {
-          \repeat volta 2 { b4 b }
+        \relative {
+          \repeat volta 2 { b'4 b }
           \alternative { { b b } { b c } }
           c4 c
         }
@@ -1486,9 +1486,9 @@ temporairement la détection automatique de mélismes et insérer des
     \new Staff {
       \time 2/4
       \new Voice = "melody" {
-        \relative c'' {
+        \relative {
           \set melismaBusyProperties = #'()
-          \repeat volta 2 { b4 b ~}
+          \repeat volta 2 { b'4 b ~}
           \alternative { { b b } { b \repeatTie c } }
           \unset melismaBusyProperties
           c4 c
@@ -1523,8 +1523,8 @@ insérer des blancs :
     \new Staff {
       \time 2/4
       \new Voice = "melody" {
-        \relative c'' {
-          \repeat volta 2 { b4 b ~}
+        \relative {
+          \repeat volta 2 { b'4 b ~}
           \alternative { { b b } { b \repeatTie c } }
           c4 c
         }
@@ -1556,8 +1556,8 @@ doivent être insérées manuellement :
     \new Staff {
       \time 2/4
       \new Voice = "melody" {
-        \relative c'' {
-          \repeat volta 2 { b4 b ~}
+        \relative {
+          \repeat volta 2 { b'4 b ~}
           \alternative { { b b } { b \repeatTie c } }
           c4 c
         }
@@ -1630,11 +1630,11 @@ d'une fois sur l'autre :
 \score {
   <<
     \new Voice = "melody" {
-      \relative c' {
+      \relative {
         <<
           {
             \voiceOne
-            e4 e8 e
+            e'4 e8 e
           }
           \new Voice = "splitpart" {
             \voiceTwo
@@ -1912,9 +1912,9 @@ laquelle elle s'appliquera :
 
 @lilypond[verbatim,ragged-right,quote]
 <<
-  \relative c' \new Voice = "lahlah" {
+  \relative \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
-    c4
+    c'4
     \slurDotted
     f8.[( g16])
     a4
@@ -2009,9 +2009,9 @@ modifie la propriété @code{associatedVoice}.  Dans cet exemple,
 
 @lilypond[verbatim,quote]
 <<
-  \relative c' \new Voice = "lahlah" {
+  \relative \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
-    c4
+    c'4
     <<
       \new Voice = "alternative" {
         \voiceOne
@@ -2907,8 +2907,8 @@ Voici une illustration de tout ce que nous venons de voir :
 @c manually adjusted to suit the imposed line length.  -td
 
 @lilypond[quote,verbatim,ragged-right]
-music = \relative c'' {
-  \repeat unfold 3 { a4 a a a }
+music = \relative {
+  \repeat unfold 3 { a'4 a a a }
 }
 
 dialogue = \lyricmode {

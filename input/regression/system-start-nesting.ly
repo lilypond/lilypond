@@ -2,17 +2,17 @@
   created with the @code{systemStartDelimiterHierarchy} property."
 }
 
-\version "2.17.15"
+\version "2.19.21"
 
 \paper {
   ragged-right = ##t
 }
 
 \new StaffGroup
-\relative c' <<
+\relative <<
   \set StaffGroup.systemStartDelimiterHierarchy
     = #'(SystemStartSquare (SystemStartBracket a (SystemStartSquare b)) d)
-  \new Staff { c1 }
+  \new Staff { c'1 }
   \new Staff { c1 }
   \new Staff { c1 }
   \new Staff { c1 }

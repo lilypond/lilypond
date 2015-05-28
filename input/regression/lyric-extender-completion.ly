@@ -1,4 +1,4 @@
-\version "2.19.2"
+\version "2.19.21"
 
 \header {
 
@@ -8,7 +8,7 @@
 
 <<
 
-\new Staff \relative c' {
+\new Staff \relative {
   \new Voice = "upper" {
     \voiceTwo
     g'1( |

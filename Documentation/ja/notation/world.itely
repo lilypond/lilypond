@@ -209,9 +209,9 @@
 
 @lilypond[quote,verbatim]
 \include "arabic.ly"
-\relative do' {
+\relative {
   \set Staff.extraNatural = ##f
-  dod dob dosd \dwn dob dobsb dodsd do do
+  dod' dob dosd \dwn dob dobsb dodsd do do
 }
 @end lilypond
 
@@ -411,13 +411,13 @@ nawa は以下のように示すことができます:
 @lilypond[quote,verbatim]
 \include "arabic.ly"
 \score {
-  \relative re' {
+  \relative {
     \set Staff.extraNatural = ##f
     \set Staff.autoBeaming = ##f
     \key re \bayati
     \time 10/8
 
-    re4 re'8 re16 [misb re do] sisb [la sisb do] re4 r8
+    re'4 re'8 re16 [misb re do] sisb [la sisb do] re4 r8
     re16 [misb do re] sisb [do] la [sisb sol8] la [sisb] do [re] misb
     fa4 fa16 [misb] misb8. [re16] re8 [misb] re  [do] sisb
     do4 sisb8 misb16 [re do sisb] la [do sisb la] la4 r8

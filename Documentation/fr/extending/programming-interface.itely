@@ -1380,11 +1380,11 @@ desaturate =
         (for-each revert-color '(NoteHead Stem Beam)))
    #})
 
-\relative g' {
+\relative {
   \override NoteHead.color = #darkblue
   \override Stem.color = #darkblue
   \override Beam.color = #darkblue
-  g8 a b c
+  g'8 a b c
   \desaturate { d c b a }
   g b d b g2
 }
@@ -1498,11 +1498,11 @@ et dans le fichier @file{define-grobs.scm} --, pourra accéder à la
 valeur usuelle de la propriété :
 
 @example
-\relative c'' @{
+\relative @{
   \override Flag.X-offset = #(lambda (flag)
     (let ((default (ly:flag::calc-x-offset flag)))
       (* default 4.0)))
-  c4. d8 a4. g8
+  c''4. d8 a4. g8
 @}
 @end example
 
@@ -1634,10 +1634,10 @@ rehaussé.
               (eq? (car (last-pair siblings)) grob))
          (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
 
-\relative c'' {
+\relative {
   \override Tie.after-line-breaking =
   #my-callback
-  c1 ~ \break
+  c''1 ~ \break
   c2 ~ 2
 }
 @end lilypond

@@ -930,10 +930,10 @@ was man als Variable definieren kann:
 
 @lilypond[quote,verbatim]
 ficta = { \once \set suggestAccidentals = ##t }
-\score { \relative c''
+\score { \relative
   \new MensuralVoice  {
 	\once \set suggestAccidentals = ##t
-  bes4 a2 g2 \ficta fis8 \ficta e! fis2 g1
+  bes'4 a2 g2 \ficta fis8 \ficta e! fis2 g1
   }
 }
 @end lilypond
@@ -2839,10 +2839,10 @@ gemacht):
 
 @lilypond[verbatim,ragged-right]
 \include "gregorian.ly"
-chant = \relative c' {
+chant = \relative {
   \clef "G_8"
   \set Score.timing = ##f
-  c\breve \hide NoteHead  c c c c c
+  c'\breve \hide NoteHead  c c c c c
   \undo \hide NoteHead
   \override Stem.transparent = ##f \stemUp c4 b4 a
   \hide Stem c2 c4  \divisioMaior
@@ -2895,10 +2895,10 @@ können sie mit unsichtbaren (@code{s})-Noten vorgenommen
 werden.
 
 @lilypond[verbatim,quote]
-spiritus = \relative c' {
+spiritus = \relative {
   \time 1/4
   \override Lyrics.LyricText.X-extent  = #'(0 . 3)
-  d4 \tuplet 3/2 { f8 a g } g a a4 g f8 e
+  d'4 \tuplet 3/2 { f8 a g } g a a4 g f8 e
   d4 f8 g g8 d f g a g f4 g8 a a4  s
   \tuplet 3/2 { g8 f d } e f g a g4
 }

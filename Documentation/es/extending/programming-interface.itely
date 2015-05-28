@@ -1375,11 +1375,11 @@ para esa propiedad, y que puede verse en el manual de referencia
 interna o en el archivo 'define-grobs.scm':
 
 @example
-\relative c'' @{
+\relative @{
   \override Flag.X-offset = #(lambda (flag)
     (let ((default (ly:flag::calc-x-offset flag)))
       (* default 4.0)))
-  c4. d8 a4. g8
+  c''4. d8 a4. g8
 @}
 @end example
 
@@ -1533,10 +1533,10 @@ arriba.
               (eq? (car (last-pair siblings)) grob))
          (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
 
-\relative c'' {
+\relative {
   \override Tie.after-line-breaking =
   #my-callback
-  c1 ~ \break
+  c''1 ~ \break
   c2 ~ 2
 }
 @end lilypond

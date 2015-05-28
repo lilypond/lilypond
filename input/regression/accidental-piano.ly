@@ -6,14 +6,14 @@ accidental."
 
 }
 
-\version "2.17.15"
+\version "2.19.21"
 
 \layout
 {
     ragged-right = ##t
 }
     
-\new PianoStaff \relative c' <<
+\new PianoStaff \relative <<
     \accidentalStyle piano
     \new Staff { ges'4 ges4 }
     \new Staff { r8 gis r8 gis }

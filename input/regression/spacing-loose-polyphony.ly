@@ -7,7 +7,7 @@ correctly in polyphonic music.
 }
 
 \new PianoStaff <<
-  \new Staff \relative c' {
+  \new Staff \relative {
     \tuplet 3/2 { g'4 a2 }
   }
   \new Staff \relative {

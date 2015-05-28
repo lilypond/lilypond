@@ -1,10 +1,10 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Clefs for cue notes should not influence the printed key signature."
 }
 
-vI = \relative c'' { \clef "treble" \repeat unfold 40 g4 }
+vI = \relative { \clef "treble" \repeat unfold 40 g'4 }
 \addQuote vIQuote { \vI }
 \score {
   \new Staff {

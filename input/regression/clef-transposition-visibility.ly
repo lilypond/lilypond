@@ -1,4 +1,4 @@
-\version "2.17.18"
+\version "2.19.21"
 
 \header {
 
@@ -12,11 +12,11 @@ These settings also need to apply to clefs on new lines."
 \layout { ragged-right = ##t  }
 
 
-\relative c' {
+\relative {
   \override Staff.ClefModifier.break-visibility = #all-invisible
 
   \clef "treble_8"
-  c2 c |
+  c'2 c |
   c c | \break
   c \clef "tenor" c |
   \revert Staff.ClefModifier.break-visibility

@@ -1,12 +1,12 @@
 
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "Stem length and stem-begin-position can be set manually.
 "
 }
 
-\relative c' {
+\relative {
   \autoBeamOff
   \stemUp
   a8 aes''8

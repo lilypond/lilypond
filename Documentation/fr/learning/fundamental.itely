@@ -865,12 +865,12 @@ que vous ne comprendriez pas.
 @c The following should appear as music without code
 @c The three voice styles should be defined in -init
 @lilypond[quote,ragged-right]
-\new Staff \relative c'' {
+\new Staff \relative {
   \key aes \major
   <<
     {  % Voice one
       \voiceOneStyle
-      c2 aes4. bes8
+      c''2 aes4. bes8
     }
   \\  % Voice two
     { \voiceTwoStyle
@@ -1037,18 +1037,18 @@ annotations, liaisons de prolongation ou de phrasé, et sur les nuances.
 @end lilypond
 
 @lilypond[quote,ragged-right,verbatim]
-\relative c' {
+\relative {
   \voiceOne
-  c4 d8~ 8 e4( f | g4 a) b-> c |
+  c'4 d8~ 8 e4( f | g4 a) b-> c |
   \oneVoice
   c,4 d8~ 8 e4( f | g4 a) b-> c |
 }
 @end lilypond
 
 @lilypond[quote,ragged-right,verbatim]
-\relative c' {
+\relative {
   \voiceTwo
-  c4 d8~ 8 e4( f | g4 a) b-> c |
+  c'4 d8~ 8 e4( f | g4 a) b-> c |
   \oneVoice
   c,4 d8~ 8 e4( f | g4 a) b-> c |
 }
@@ -1068,10 +1068,10 @@ maintenant dans un seul contexte de voix, ce qui permet d'ajouter une
 liaison de phrasé à l'ensemble.
 
 @lilypond[quote,ragged-right,verbatim]
-\new Staff \relative c' {
+\new Staff \relative {
   \voiceOneStyle
   % The following notes are homophonic
-  c16^( d e f
+  c'16^( d e f
   % Start simultaneous section of three voices
   <<
     % Continue the main voice in parallel
@@ -1131,11 +1131,11 @@ silences invisibles pour sauter les moments où il n'y a rien dans cette
 voix.
 
 @lilypond[quote,ragged-right,verbatim]
-\new Staff \relative c' <<
+\new Staff \relative <<
   % Initiate first voice
   \new Voice {
     \voiceOne
-    c16^( d e f g4 f e | d2 e2) |
+    c'16^( d e f g4 f e | d2 e2) |
   }
   % Initiate second voice
   \new Voice {
@@ -1237,10 +1237,10 @@ la voix en question.
 @lilypond[quote,verbatim]
 <<
   \new Voice = "one" {
-    \relative c'' {
+    \relative {
       \autoBeamOff
       \time 2/4
-      c4 b8. a16 | g4. f8 | e4 d | c2 |
+      c''4 b8. a16 | g4. f8 | e4 d | c2 |
     }
   }
   \new Lyrics \lyricsto "one" {
@@ -1782,13 +1782,13 @@ contexte n'a pas été spécifié.
 
 @lilypond[quote,verbatim,ragged-right]
 <<
-  \new Staff \relative c'' {
+  \new Staff \relative {
     \set Staff.instrumentName = #"Soprano"
-    c4 c
+    c''4 c
  }
-  \new Staff \relative c' {
+  \new Staff \relative {
   \set instrumentName = #"Alto"  % Wrong!
-  d4 d
+  d'4 d
  }
 >>
 @end lilypond
@@ -1832,9 +1832,9 @@ Voici comment supprimer les bécarres supplémentaires pour une portée :
   \new Staff \relative {
     aeses'2 aes
   }
-  \new Staff \relative c'' {
+  \new Staff \relative {
     \set Staff.extraNatural = ##f
-    aeses2 aes
+    aeses'2 aes
   }
 >>
 @end lilypond
@@ -1847,9 +1847,9 @@ et pour toutes les portées :
   \new Staff \relative {
     aeses'2 aes
   }
-  \new Staff \relative c'' {
+  \new Staff \relative {
     \set Score.extraNatural = ##f
-    aeses2 aes
+    aeses'2 aes
   }
 >>
 @end lilypond
@@ -2092,15 +2092,15 @@ tessiture de cette voix sera calculée :
   \new Voice \with {
     \consists "Ambitus_engraver"
   } {
-    \relative c'' {
+    \relative {
       \voiceOne
-      c4 a b g
+      c''4 a b g
     }
   }
   \new Voice {
-    \relative c' {
+    \relative {
       \voiceTwo
-      c4 e d f
+      c'4 e d f
     }
   }
 >>
@@ -2117,15 +2117,15 @@ les notes de toutes les voix de la portée :
 }
 <<
   \new Voice {
-    \relative c'' {
+    \relative {
       \voiceOne
-      c4 a b g
+      c''4 a b g
     }
   }
   \new Voice {
-    \relative c' {
+    \relative {
       \voiceTwo
-      c4 e d f
+      c'4 e d f
     }
   }
 >>
@@ -2451,18 +2451,18 @@ bassMusic = \relative {
 }
 bassWords = \sopranoWords
 
-upper = \relative a' {
+upper = \relative {
   \clef "treble"
   \global
-  r4 <a d fis>2 <a e' a>4 |
+  r4 <a' d fis>2 <a e' a>4 |
   <d fis d'>4. <d fis d'>8 <a d a'>2 |
   <g cis g'>4 <a d fis> <a cis e>2 |
 }
 
-lower = \relative c, {
+lower = \relative {
   \clef "bass"
   \global
-  <d d'>4 <d d'>2 <cis cis'>4 |
+  <d, d'>4 <d d'>2 <cis cis'>4 |
   <b b'>4. <b' b'>8 <fis fis'>2 |
   <e e'>4 <d d'> <a' a'>2 |
 }
@@ -2687,17 +2687,17 @@ bassMusic = \relative {
   r4 d'2 cis4 | b4. b8 fis2 | e4 d a'2 |
 }
 bassWords = \sopranoWords
-upper = \relative a' {
+upper = \relative {
   \clef "treble"
   \global
-  r4 <a d fis>2 <a e' a>4 |
+  r4 <a' d fis>2 <a e' a>4 |
   <d fis d'>4. <d fis d'>8 <a d a'>2 |
   <g cis g'>4 <a d fis> <a cis e>2 |
 }
-lower = \relative c, {
+lower = \relative {
   \clef "bass"
   \global
-  <d d'>4 <d d'>2 <cis cis'>4 |
+  <d, d'>4 <d d'>2 <cis cis'>4 |
   <b b'>4. <b' b'>8 <fis fis'>2 |
   <e e'>4 <d d'> <a' a'>2 |
 }
@@ -3101,9 +3101,9 @@ fthenp =_\markup {
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
 }
 
-violin = \relative c'' {
+violin = \relative {
   \repeat volta 2 {
-    c4._\dolce b8 a8 g a b |
+    c''4._\dolce b8 a8 g a b |
     \centerText
     c4.^"hi there!" d8 e f g d |
     c4.\fthenp b8 c4 c-. |
@@ -3124,9 +3124,9 @@ précédent sans aucun identificateur.  C'est beaucoup plus laborieux à
 lire, et particulièrement la dernière ligne.
 
 @example
-violin = \relative c'' @{
+violin = \relative @{
   \repeat volta 2 @{
-    c4._\markup @{ \italic \bold dolce @} b8 a8 g a b |
+    c''4._\markup @{ \italic \bold dolce @} b8 a8 g a b |
     \once \override TextScript.self-alignment-X = #CENTER
     c4.^"hi there!" d8 e f g d |
     c4._\markup @{

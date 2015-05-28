@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "
@@ -11,9 +11,9 @@
   indent = 0\cm
 }
 
-\relative c' {
+\relative {
   \set Staff.shortInstrumentName = "foo"
-  f1 | f1 | f1 |
+  f'1 | f1 | f1 |
   f1\< | f1 | f1\! |
 }
 

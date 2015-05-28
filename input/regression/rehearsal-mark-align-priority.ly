@@ -4,11 +4,11 @@
   the alignment depends on which symbols are visible."
 }
 
-\version "2.17.6"
+\version "2.19.21"
   
-\relative c' {
+\relative {
   \override Score.RehearsalMark.break-align-symbols = #'(clef key-signature staff-bar)
-  c1
+  c'1
   \clef "bass"
   \mark "clef"
   \noBreak

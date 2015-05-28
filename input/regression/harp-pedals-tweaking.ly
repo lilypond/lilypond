@@ -1,16 +1,16 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "Harp pedals can be tweaked through the size, thickness and 
 harp-pedal-details properties of TextScript."
 }
 
-\relative c'' {
+\relative {
   \override Score.PaperColumn.keep-inside-line = ##f
   \override Voice.TextScript.harp-pedal-details.box-width = #1
   \once \override Voice.TextScript.size = #1.5
   \once \override Voice.TextScript.thickness = #7
-  c1^\markup \harp-pedal #"o^ovo-|vovo-o^"
+  c''1^\markup \harp-pedal #"o^ovo-|vovo-o^"
   c1^\markup \override #'(harp-pedal-details . (
                   (box-width . 0.6)
                   (box-height . 0.3)

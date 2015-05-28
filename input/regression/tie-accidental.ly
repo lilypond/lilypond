@@ -4,16 +4,16 @@
 " }
 
 
-\version "2.17.6"
+\version "2.19.21"
 
 \paper {
   debug-tie-scoring = ##t
   ragged-right = ##t
 }
 
-\relative c'' {
+\relative {
   \override Tie.layer = #2
-  a ~ <fis a>
+  a' ~ <fis a>
 }
 
 % EOF

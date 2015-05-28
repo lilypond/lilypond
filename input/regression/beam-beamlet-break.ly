@@ -3,14 +3,14 @@
   beamlets on the same height."
 
 }
-\version "2.17.6"
+\version "2.19.21"
 
 \paper {
   raggedright = ##t
 }
 
-\relative c' {
+\relative {
   \time 1/4
   \override Beam.breakable = ##t
-  r16 r16. c32[ c16 \break c8. ] r16
+  r16 r16. c'32[ c16 \break c8. ] r16
 }

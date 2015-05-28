@@ -1,4 +1,4 @@
-\version "2.19.3"
+\version "2.19.21"
 
 \header {
   texidoc = "Tuplet numbers will maintain a constant distance from
@@ -10,9 +10,9 @@ kneed beams when offset horizontally."
   ragged-right = ##f
 }
 
-\relative c' {
+\relative {
   \tuplet 3/2 4 {
-    c8 g''' a
+    c'8 g''' a
     \once \offset X-offset 2 TupletNumber
     c,,, g''' a
     \once \offset X-offset #-2 TupletNumber

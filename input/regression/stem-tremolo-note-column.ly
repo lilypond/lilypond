@@ -1,12 +1,12 @@
-\version "2.17.6"
+\version "2.19.21"
 \header{
   texidoc="Stem tremolos count in a note column's horizontal skyline.
 "
 }
 
 
-\relative c'' {
+\relative {
   \autoBeamOff
   \override NoteHead.stencil = #(ly:make-stencil '() '(0 . 0) '(0 . 0))
-  \repeat unfold 8 { b8:32 }
+  \repeat unfold 8 { b'8:32 }
 }

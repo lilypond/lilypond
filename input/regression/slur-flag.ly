@@ -1,12 +1,12 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Slurs take flag extents into account.
 "
 }
 
-\relative c'' {
+\relative {
   \stemUp
   \slurUp
-  b8( c)
+  b'8( c)
 }

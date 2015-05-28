@@ -15,9 +15,9 @@
 }
 
 {
-  \new Voice \relative c'' { 
+  \new Voice \relative { 
     \voiceOne
-    g8-. a-. b-. c-. 
+    g'8-. a-. b-. c-. 
     a-. b-. c-. d-. 
     b8[-. a-. g b] 
     e,-. f-. g-. a-. 
@@ -29,9 +29,9 @@
       \stemDown
       e,-. d-. c-. b-. a-. g-.    
     }
-    \relative c'' {
+    \relative {
       \stemUp		 
-      d-> c-> b-> a-> g-> f-> e-> d->
+      d''-> c-> b-> a-> g-> f-> e-> d->
       d'
       d-. c-. b-. a-. g-. f-. e-. d-. 
     }  

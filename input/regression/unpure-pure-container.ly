@@ -1,5 +1,5 @@
 
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "unpure-pure containers take two arguments: an unpure property and
@@ -14,9 +14,9 @@ of 8.
 "
 }
 
-\relative c'' {
+\relative {
   \stemUp \autoBeamOff
-  d,8 eis'
+  d'8 eis'
   \once \override Flag.Y-offset =
     #(ly:make-unpure-pure-container ly:flag::calc-y-offset 8)
   d,8 eis'!

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "The @code{barNumberVisibility} property controls at what
@@ -6,8 +6,8 @@ intervals bar numbers are printed.
 "
 }
 
-music = \relative c' {
-  \repeat unfold 3 { c2 \bar "" \break \repeat unfold 5 c2 }
+music = \relative {
+  \repeat unfold 3 { c'2 \bar "" \break \repeat unfold 5 c2 }
 }
 
 {

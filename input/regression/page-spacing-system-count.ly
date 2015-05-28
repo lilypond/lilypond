@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Page layout and stretching work with system-count enabled."
@@ -14,9 +14,9 @@
 \book {
   \score {
     <<
-      \relative c'' { \repeat unfold 10 c1 }
-      \relative c'' { \repeat unfold 10 c1 }
-      \relative c'' { \repeat unfold 10 c1 }
+      \relative { \repeat unfold 10 c''1 }
+      \relative { \repeat unfold 10 c''1 }
+      \relative { \repeat unfold 10 c''1 }
     >>
   }
 }

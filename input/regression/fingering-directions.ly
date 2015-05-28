@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Fingering directions in directed and undirected contexts."
@@ -7,11 +7,11 @@
 \layout { ragged-right= ##t }
 
 {
-  \relative c''
+  \relative
   \new Voice {
     \tempo "\\voiceTwo"
     \voiceTwo
-    c2^5 <c^5>
+    c''2^5 <c^5>
     c_5 <c_5>
     c-5 <c-5>
     \tempo "\\oneVoice"

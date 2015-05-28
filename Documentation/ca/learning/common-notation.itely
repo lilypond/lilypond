@@ -1245,11 +1245,11 @@ lletra a les notes.
 @c but the example is long enough to avoid looking strange.
 @lilypond[verbatim,quote,noragged-right]
 <<
-  \relative c' {
+  \relative {
     \key g \major
     \time 3/4
     \partial 4
-    d4 | g4 g a8( b) | g4 g b8( c) |
+    d'4 | g4 g a8( b) | g4 g b8( c) |
     d4 d e | c2
   }
   \addlyrics {
@@ -1304,20 +1304,20 @@ del @notation{Judas Macabeu} de Haendel:
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key f \major
     \time 6/8
     \partial 8
-    c8 | c8([ bes]) a a([ g]) f | f'4. b, | c4.~ 4
+    c''8 | c8([ bes]) a a([ g]) f | f'4. b, | c4.~ 4
   }
   \addlyrics {
     Let | flee -- cy flocks the | hills a -- | dorn, __
   }
-  \relative c' {
+  \relative {
     \key f \major
     \time 6/8
     \partial 8
-    r8 | r4. r4 c8 | a'8([ g]) f f([ e]) d | e8([ d]) c bes'4
+    r8 | r4. r4 c'8 | a'8([ g]) f f([ e]) d | e8([ d]) c bes'4
   }
   \addlyrics {
     Let | flee -- cy flocks the | hills a -- dorn,

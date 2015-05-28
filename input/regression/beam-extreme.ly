@@ -1,5 +1,5 @@
 
-\version "2.17.11"
+\version "2.19.21"
 \header{
 texidoc="
 Beams should behave reasonably well, even under extreme circumstances.
@@ -14,9 +14,9 @@ under normal circumstances, these beams would get knees.  Here
   ragged-right = ##t
 }
 
-extreme = \relative c'' {
+extreme = \relative {
   \stemNeutral
-   g8[ c c,]
+   g'8[ c c,]
    c16[ c'' a f]
   \stemUp 
    c,,32[ c'' a f]

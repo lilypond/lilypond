@@ -1,4 +1,4 @@
-\version "2.17.11"
+\version "2.19.21"
 \header {
 
   texidoc = "Tuplet brackets' outside staff priority can be
@@ -6,10 +6,10 @@ set.  Brackets, by default, carry their numbers with them."
 
 }
 
-\relative c'' {
+\relative {
   \override TupletBracket.avoid-scripts = ##f
   % Plain old tuplet
-  \tuplet 3/2 { a8 r a }
+  \tuplet 3/2 { a'8 r a }
   % With nothing set, collisions abound both horizontally and
   % vertically
   \tuplet 3/2 { a8^\espressivo r a^\espressivo }

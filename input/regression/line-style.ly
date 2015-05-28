@@ -1,14 +1,14 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "Cover all line styles available."  
 }
 
-\relative c'' {
+\relative {
   \override Glissando.breakable = ##t
 
   s2
-  d2 \glissando d'2
+  d''2 \glissando d'2
   \override Glissando.style = #'dashed-line
   d,2 \glissando d'2
   \override Glissando.style = #'dotted-line

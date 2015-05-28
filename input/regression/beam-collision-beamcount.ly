@@ -1,4 +1,4 @@
-\version "2.17.15"
+\version "2.19.21"
 \header {
   texidoc = "Manual beams do not collide with notes."
 }
@@ -8,17 +8,17 @@
   indent = #0.0
 }
 
-\relative c' \new Staff {
+\relative \new Staff {
 
   <<
     \new Voice {
       \voiceOne
-      \repeat unfold 4 { c8[ c] }
+      \repeat unfold 4 { c'8[ c] }
     }
-    \new Voice \relative c'' {
+    \new Voice \relative {
       \voiceThree
       \autoBeamOff
-      b r a r
+      b' r a r
       g r f r
     } 
   >>
@@ -30,10 +30,10 @@
       \voiceOne
       \repeat unfold 4 { c16[ c] }
     }
-    \new Voice \relative c'' {
+    \new Voice \relative {
       \voiceThree
       \autoBeamOff
-      b r a r
+      b' r a r
       g r f r
     } 
   >>

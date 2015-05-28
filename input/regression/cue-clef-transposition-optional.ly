@@ -5,7 +5,7 @@
 by using parentheses or brackets around the transposition number."
 }
 
-vI = \relative c'' { \clef "treble" \repeat unfold 40 g4 }
+vI = \relative { \clef "treble" \repeat unfold 40 g'4 }
 \addQuote vIQuote { \vI }
 
 Solo = \relative {

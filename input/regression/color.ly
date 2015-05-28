@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header{
   texidoc = "Each grob can have a color assigned to it.
@@ -8,11 +8,11 @@ Use the @code{\\override} and @code{\\revert} expressions to set the
 
 \paper { ragged-right = ##t }
 
-\relative c' {
+\relative {
   \override Accidental.color = #darkgreen
   \override Beam.color = #cyan
   \override NoteHead.color = #darkyellow
-  c4
+  c'4
   \override NoteHead.color = #red
   f
   \override NoteHead.color = #darkmagenta

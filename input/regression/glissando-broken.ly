@@ -2,13 +2,13 @@
   texidoc = "If broken, Glissandi anticipate on the pitch of the next line."
   
 }
-\version "2.17.6"
+\version "2.19.21"
 \paper {
   ragged-right = ##T }
 
-\relative c'' {
+\relative {
   \override Glissando.breakable = ##t 
-  d1 \glissando |
+  d''1 \glissando |
   \break
   c,1
 }

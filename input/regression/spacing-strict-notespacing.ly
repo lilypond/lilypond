@@ -9,7 +9,7 @@ time.  This may cause collisions.  "
 }
 
 
-\version "2.17.28"
+\version "2.19.21"
 
 \paper {
   ragged-right = ##t
@@ -21,12 +21,12 @@ time.  This may cause collisions.  "
   }
 }
 
-\relative c''
+\relative
 <<
   \override Score.SpacingSpanner.strict-note-spacing = ##t 
   \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
   \new Staff {
-    c8[ c \clef alto c c \grace { d16 }  c8 c]  c4 c2
+    c''8[ c \clef alto c c \grace { d16 }  c8 c]  c4 c2
     \grace { c16 c16 }
     c2 }
   \new Staff {

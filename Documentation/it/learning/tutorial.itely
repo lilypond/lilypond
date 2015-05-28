@@ -415,10 +415,10 @@ L' @notation{indicazione di tempo} e l' @notation{indicazione metronomica} si
 impostano col comando @code{\tempo}:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \time 3/4
   \tempo "Andante"
-  a4 a a
+  a'4 a a
   \time 6/8
   \tempo 4. = 96
   a4. a
@@ -467,11 +467,11 @@ La @notation{chiave} si imposta con il comando @code{\clef}:
 Ecco un piccolo esempio che mostra tutti questi elementi insieme:
 
 @lilypond[verbatim,quote]
-\relative c, {
+\relative {
   \clef "bass"
   \time 3/4
   \tempo "Andante" 4 = 120
-  c2 e8 c'
+  c,2 e8 c'
   g'2.
   f4 e d
   c4 c, r

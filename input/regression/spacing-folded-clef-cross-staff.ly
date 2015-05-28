@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 \header {
     texidoc = "Clefs are also folded under cross staff constructs."
 }
@@ -7,10 +7,10 @@
 
 \context PianoStaff <<
   \new Staff = "up"
-  \relative c'' <<
+  \relative <<
     {
       \stemDown
-      f16[ \change Staff = down \stemUp
+      f''16[ \change Staff = down \stemUp
       \clef treble g,]
 
     } \\
