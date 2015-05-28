@@ -274,7 +274,7 @@ Part_combine_iterator::construct_children ()
 
   for (int i = 0; i < NUM_OUTLETS; i++)
     {
-      SCM type = (i == CONTEXT_NULL) ? ly_symbol2scm ("Devnull") : ly_symbol2scm ("Voice");
+      SCM type = (i == CONTEXT_NULL) ? ly_symbol2scm ("NullVoice") : ly_symbol2scm ("Voice");
       /* find context below c: otherwise we may create new staff for each voice */
       c = c->find_create_context (type, outlet_names_[i], SCM_EOL);
       handles_[i].set_context (c);
