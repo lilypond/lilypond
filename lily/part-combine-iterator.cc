@@ -63,6 +63,7 @@ private:
 
   enum Status
   {
+    INITIAL,
     APART,
     TOGETHER,
     SOLO,
@@ -108,7 +109,7 @@ Part_combine_iterator::Part_combine_iterator ()
   for (size_t i = 0; i < NUM_PARTS; i++)
     iterators_[i] = 0;
   split_list_ = SCM_EOL;
-  state_ = APART;
+  state_ = INITIAL;
   chosen_part_ = 1;
 }
 
@@ -280,18 +281,8 @@ Part_combine_iterator::construct_children ()
     }
 
   SCM lst = get_music ()->get_property ("elements");
-
-  Context *one = handles_[CONTEXT_ONE].get_context ();
-  set_context (one);
   iterators_[0] = unsmob<Music_iterator> (get_iterator (unsmob<Music> (scm_car (lst))));
-
-  Context *two = handles_[CONTEXT_TWO].get_context ();
-  set_context (two);
   iterators_[1] = unsmob<Music_iterator> (get_iterator (unsmob<Music> (scm_cadr (lst))));
-
-  // (Explain the purpose of switching to the shared context.)
-  Context *shared = handles_[CONTEXT_SHARED].get_context ();
-  set_context (shared);
 }
 
 void
