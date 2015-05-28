@@ -1152,12 +1152,19 @@ parenthesize =
           two-context-settings
           shared-context-settings)
 
-   (let ((pc-music (make-part-combine-music
-                     parser (list part1 part2) direction chord-range)))
+   (let* ((pc-music (make-part-combine-music
+                     parser (list part1 part2) direction chord-range))
+          (L1 (ly:music-length part1))
+          (L2 (ly:music-length part2))
+          ;; keep the contexts alive for the full duration
+          (skip (make-skip-music (make-duration-of-length
+                                  (if (ly:moment<? L1 L2) L2 L1)))))
      #{ \context Staff <<
-          \context Voice = "one" \with #one-context-settings {}
-          \context Voice = "two" \with #two-context-settings {}
-          \context Voice = "shared" \with #shared-context-settings {}
+          \context Voice = "one" \with #one-context-settings { #skip }
+          \context Voice = "two" \with #two-context-settings { #skip }
+          \context Voice = "shared" \with #shared-context-settings { #skip }
+          \context Voice = "solo" { #skip }
+          \context NullVoice = "null" { #skip }
           #pc-music
           #(make-part-combine-marks
             default-part-combine-mark-state-machine

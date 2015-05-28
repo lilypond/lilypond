@@ -25,15 +25,11 @@
 #include "music-sequence.hh"
 #include "warn.hh"
 
-enum Outlet_type
-{
-  CONTEXT_ONE, CONTEXT_TWO,
-  CONTEXT_SHARED, CONTEXT_SOLO,
-  CONTEXT_NULL, NUM_OUTLETS
-};
-
-static const char *outlet_names_[NUM_OUTLETS]
-  = {"one", "two", "shared", "solo", "null"};
+static const char *const CONTEXT_ONE = "one";
+static const char *const CONTEXT_TWO = "two";
+static const char *const CONTEXT_SHARED = "shared";
+static const char *const CONTEXT_SOLO = "solo";
+static const char *const CONTEXT_NULL = "null";
 
 class Part_combine_iterator : public Music_iterator
 {
@@ -76,13 +72,8 @@ private:
   // e.g. 1 for Solo I, 2 for Solo II.
   int chosen_part_;
 
-  /*
-    TODO: this is getting off hand...
-  */
-  Context_handle handles_[NUM_OUTLETS];
-
-  void substitute_both (Outlet_type to1,
-                        Outlet_type to2);
+  void substitute_one (Music_iterator *iter, const char *voice_id);
+  void substitute_both (const char *part1_voice_id, const char *part2_voice_id);
   bool is_active_outlet (const Context *c) const;
   void kill_mmrest (Context *c);
   void chords_together ();
@@ -157,17 +148,42 @@ Part_combine_iterator::ok () const
 }
 
 void
-Part_combine_iterator::substitute_both (Outlet_type to1,
-                                        Outlet_type to2)
+Part_combine_iterator::substitute_one (Music_iterator *iter,
+                                       const char *voice_id)
+{
+  Context *c = iter->get_outlet ();
+  if (!c)
+    {
+      programming_error ("no context");
+      return;
+    }
+  c = c->get_parent_context ();
+  if (!c)
+    {
+      programming_error ("no parent context");
+      return;
+    }
+  c = find_context_below (c, ly_symbol2scm("Voice"), voice_id);
+  if (!c)
+    {
+      string s = "can not find Voice context: ";
+      s += voice_id;
+      programming_error (s);
+      return;
+    }
+  iter->substitute_outlet (iter->get_outlet (), c);
+}
+
+void
+Part_combine_iterator::substitute_both (const char *part1_voice_id,
+                                        const char *part2_voice_id)
 {
   // TODO: There is no good reason to tie the parts together here.
   // Factor out per-part stuff into a new class of iterator which
   // reads a part-specific list similar to the existing combined
   // "split-list".
-  iterators_[0]->substitute_outlet (iterators_[0]->get_outlet (),
-                                    handles_[to1].get_context ());
-  iterators_[1]->substitute_outlet (iterators_[1]->get_outlet (),
-                                    handles_[to2].get_context ());
+  substitute_one(iterators_[0], part1_voice_id);
+  substitute_one(iterators_[1], part2_voice_id);
 }
 
 bool Part_combine_iterator::is_active_outlet (const Context *c) const
@@ -204,8 +220,8 @@ Part_combine_iterator::unisono (bool silent, int newpart)
     return;
   else
     {
-      Outlet_type c1 = (newpart == 2) ? CONTEXT_NULL : CONTEXT_SHARED;
-      Outlet_type c2 = (newpart == 2) ? CONTEXT_SHARED : CONTEXT_NULL;
+      const char *c1 = (newpart == 2) ? CONTEXT_NULL : CONTEXT_SHARED;
+      const char *c2 = (newpart == 2) ? CONTEXT_SHARED : CONTEXT_NULL;
       substitute_both (c1, c2);
 
       state_ = newstate;
@@ -269,16 +285,6 @@ Part_combine_iterator::construct_children ()
 {
   start_moment_ = get_outlet ()->now_mom ();
   split_list_ = get_music ()->get_property ("split-list");
-
-  Context *c = get_outlet ();
-
-  for (int i = 0; i < NUM_OUTLETS; i++)
-    {
-      SCM type = (i == CONTEXT_NULL) ? ly_symbol2scm ("NullVoice") : ly_symbol2scm ("Voice");
-      /* find context below c: otherwise we may create new staff for each voice */
-      c = c->find_create_context (type, outlet_names_[i], SCM_EOL);
-      handles_[i].set_context (c);
-    }
 
   SCM lst = get_music ()->get_property ("elements");
   iterators_[0] = unsmob<Music_iterator> (get_iterator (unsmob<Music> (scm_car (lst))));
