@@ -3298,12 +3298,15 @@ def brace_matcher (n):
     return r"[^{}]*?(?:{"*n+r"[^{}]*?"+r"}[^{}]*?)*?"*n
 
 matchstring = r'"(?:[^"\\]|\\.)*"'
-matcharg = (r"\s+(?:[$#]['`]?\s*(?:[a-zA-Z]\S*|" + matchstring + r"|\("
-            + paren_matcher(20) + r"\))|" + matchstring + r"|\\[a-z_A-Z]+)")
-matchmarkup = (r'(?:\\markup\s*(?:{' + brace_matcher (20) +r'}|' +
+matcharg = (r"\s+(?:[$#]['`]?\s*(?:[a-zA-Z][^ \t\n()\\]*|" + matchstring
+            + r"|#?\(" + paren_matcher(20) + r"\)|"
+            + r"-?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)|"
+            + r"#(?:[tf]|\\.|@?\{" + brace_matcher (10) + r"#@?\}))|"
+            + matchstring + r"|\\[a-z_A-Z]+|[0-9]+(?:/[0-9]+)?|-[0-9]+)")
+matchmarkup = (r'(?:\\markup\s*(?:@?\{' + brace_matcher (20) +r'\}|' +
                matchstring + r'|(?:\\[a-z_A-Z][a-z_A-Z-]*(?:' + matcharg +
-               r')*?\s*)*(?:' + matchstring + "|{" + brace_matcher (20) +
-               "}))|" + matchstring + ")")
+               r')*?\s*)*(?:' + matchstring + r"|@?\{" + brace_matcher (20) +
+               r"\}))|" + matchstring + ")")
 
 @rule((2, 15, 25), r"\(auto)?Footnote(Grob)? -> \footnote")
 def conv (str):
@@ -3665,7 +3668,7 @@ def conv(str):
 
 @rule((2, 17, 27), r'''\stringTuning \notemode -> \stringTuning''')
 def conv(str):
-    str = re.sub (r"\\stringTuning\s*\\notemode(\s*)@?\{\s*(.*?)\s*@?}",
+    str = re.sub (r"\\stringTuning\s*\\notemode(\s*)@?\{\s*(.*?)\s*@?\}",
                   r"\\stringTuning\1\2", str)
     if re.search (r'[^-\w]staff-padding[^-\w]', str):
         stderr_write (NOT_SMART % "staff-padding")
