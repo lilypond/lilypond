@@ -223,14 +223,14 @@ elementary piece of music, a @notation{scale}, in which every note
 is within just one staff space of the previous note.
 
 @lilypond[verbatim,quote]
-% set the starting point to middle C
 \relative {
   c' d e f
   g a b c
 }
 @end lilypond
 
-The initial note is @notation{middle C}.  Each successive note is
+The initial note is @notation{middle C}, denoted by @code{c'}.
+Each successive note is
 placed closest to the previous note -- in other words, the first
 @code{c} is the closest C to middle C.  This is followed by the
 closest D to the previous note.  We can create melodies which have
@@ -244,17 +244,14 @@ larger intervals, still using only @code{\relative} mode:
 @end lilypond
 
 @noindent
-It is not necessary for the first note of the melody to start on
-the note which specifies the starting pitch.  In the previous
-example, the first note -- the @code{d} -- is the closest D to
-middle C.
+In the previous example, the first note -- the @code{d'} with one
+@code{'}-mark -- is the D in the octave starting from middle C
+and going up to B.
 
 By adding (or removing) quotes @code{'} or commas @code{,} from
-the @q{@w{@code{@bs{}relative c'}}} command, we can change the
-starting octave:
+the first note, we can change the starting octave:
 
 @lilypond[verbatim,quote]
-% one octave above middle C
 \relative {
   e'' c a c
 }
@@ -270,7 +267,7 @@ above the B, and an A, G or F will be assumed to be below.
 
 @lilypond[verbatim,quote]
 \relative {
-  b' c  % c is 1 staff space up, so is the c above
+  b' c % c is 1 staff space up, so is the c above
   b d  % d is 2 up or 5 down, so is the d above
   b e  % e is 3 up or 4 down, so is the e above
   b a  % a is 6 up or 1 down, so is the a below
@@ -573,7 +570,7 @@ The braces should be surrounded by a space unless they are at the
 beginning or end of a line to avoid ambiguities.
 
 A LilyPond command followed by a simple expression in braces (such
-as @q{@w{@code{@bs{}relative c' @{ @dots{} @}}}}) also counts as a
+as @q{@w{@code{@bs{}relative @{ @dots{} @}}}}) also counts as a
 single music expression.
 
 @cindex comments
@@ -683,11 +680,13 @@ online version.
 @cindex files, tips for constructing
 
 LilyPond input must be surrounded by @code{@{ @}} marks or a
-@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}, as we saw in
+@q{@w{@code{@bs{}relative @{ @dots{} @}}}}, as we saw in
 @ref{Working on input files}.  For the rest of this manual, most
 examples will omit this.  To replicate the examples, you may copy
-and paste the displayed input, but you @strong{must} add the
-@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}} like this:
+and paste the displayed input, but to put the pitches in the same
+octaves as seen in the manual you @strong{must} add a particular
+form of @code{@bs{}relative} with an explicit starting pitch
+@code{c''} like this:
 
 @example
 \relative c'' @{

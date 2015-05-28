@@ -759,7 +759,7 @@ the note immediately preceding it, or to the first note of the
 preceding chord.  So in
 
 @example
-\relative c' @{ noteA << < noteB noteC > \\ noteD >> noteE @}
+\relative @{ noteA << < noteB noteC > \\ noteD >> noteE @}
 @end example
 
 @noindent
@@ -774,13 +774,13 @@ voices are widely separated, is to place a @code{\relative}
 command at the start of each voice:
 
 @example
-\relative c' @{ noteA @dots{} @}
+\relative @{ noteA @dots{} @}
 <<
-  \relative c'' @{ < noteB noteC > @dots{} @}
+  \relative @{ < noteB noteC > @dots{} @}
 \\
-  \relative g' @{ noteD @dots{} @}
+  \relative @{ noteD @dots{} @}
 >>
-\relative c' @{ noteE @dots{} @}
+\relative @{ noteE @dots{} @}
 @end example
 
 Let us finally analyze the voices in a more complex piece of music.
@@ -1310,8 +1310,8 @@ keyTime = { \key c \major \time 4/4 \partial 4 }
 
 SopMusic   = \relative { c'4 | e4. e8 g4  g    | a4   a   g  }
 AltoMusic  = \relative { c'4 | c4. c8 e4  e    | f4   f   e  }
-TenorMusic = \relative  { e4 | g4. g8 c4.   b8 | a8 b c d e4 }
-BassMusic  = \relative  { c4 | c4. c8 c4  c    | f8 g a b c4 }
+TenorMusic = \relative {  e4 | g4. g8 c4.   b8 | a8 b c d e4 }
+BassMusic  = \relative {  c4 | c4. c8 c4  c    | f8 g a b c4 }
 
 VerseOne =
   \lyricmode { E -- | ter -- nal fa -- ther, | strong to save, }
@@ -2213,7 +2213,7 @@ section for the soprano @code{sopranoMusic} and the section for
 the cello @code{celloMusic}.  While we're doing this, let's rename
 @code{text} to be @code{sopranoLyrics}.  Remember to rename both
 instances of all these names -- both the initial definition (the
-@code{melody = \relative c' @{ } part) and the name's use (in the
+@code{melody = \relative @{ } part) and the name's use (in the
 @code{\score} section).
 
 While we're doing this, let's change the cello part's staff --

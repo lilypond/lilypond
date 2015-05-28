@@ -175,20 +175,20 @@ absolute octave mode.  Which choices are meaningful?
 Identifying middle C with @code{c'} is quite basic, so finding
 octaves of @code{c} tends to be straightforward.  If your music
 starts with @code{gis} above @code{c'''}, you'd write something
-like @code{\relative @{ gis''' @dots{} @}}
+like @code{\relative c''' @{ gis' @dots{} @}}
 
 @item an octave of the first note inside
-Writing @code{\relative @{ gis''' @dots{} @}} makes it easy to
+Writing @code{\relative gis''' @{ gis @dots{} @}} makes it easy to
 determine the absolute pitch of the first note inside.
 
 @item no explicit starting pitch
-This (namely writing @code{\relative @{ gis''' @dots{} @}}) can be
-viewed as a compact version of the previous option: the first note
-inside is written in absolute pitch itself.  This happens to be
-equivalent to choosing @code{f} as the reference pitch.
+The form @code{\relative @{ gis''' @dots{} @}}) serves
+as a compact version of the previous option: the first note
+inside is written in absolute pitch itself.  (This happens to be
+equivalent to choosing @code{f} as the reference pitch.)
 @end table
 
-The documentation will usually employ the first option.
+The documentation will usually employ the last option.
 @end itemize
 
 Here is the relative mode shown in action:
@@ -223,7 +223,8 @@ large intervals:
 @end lilypond
 
 When @code{\relative} blocks are nested, the innermost
-@code{\relative} block applies.
+@code{\relative} block starts with its own reference pitch
+independently of the outer @code{\relative}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -298,9 +299,6 @@ that each interval contains.
 }
 @end lilypond
 
-One consequence of these rules is that the first note inside
-@code{@w{\relative f}} music is interpreted just the same as
-if it was written in absolute pitch mode.
 
 @seealso
 Music Glossary:

@@ -1345,12 +1345,10 @@ of another variable, giving a way of shortening the input if a
 section of music is repeated many times.
 
 @lilypond[verbatim,quote]
-tripletA = \tuplet 3/2 { c,8 e g }
+tripletA = \relative { \tuplet 3/2 { c'8 e g } }
 barA = { \tripletA \tripletA \tripletA \tripletA }
 
-\relative c'' {
-  \barA \barA
-}
+{ \barA \barA }
 @end lilypond
 
 Variables may be used for many other types of objects in
@@ -1513,7 +1511,7 @@ inner relative sections are independent:
 
 To use absolute mode inside of @code{\relative}, put the absolute
 music inside @code{\fixed c @{ @dots{} @}} and the absolute pitches
-will not be part of the relative music:
+will not affect the octaves of the relative music:
 
 @lilypond[verbatim,quote]
 \relative {
