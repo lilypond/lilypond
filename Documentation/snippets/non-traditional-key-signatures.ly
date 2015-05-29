@@ -4,8 +4,8 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.19.7
-\version "2.19.7"
+%% Note: this file works from version 2.19.21
+\version "2.19.21"
 
 \header {
   lsrtags = "contemporary-notation, pitches, really-cool, staff-notation, version-specific"
@@ -43,10 +43,10 @@ whole-tone scale:
 
 
 
-\relative c' {
+\relative {
   \set Staff.keyAlterations = #`((6 . ,FLAT)
                                  (5 . ,FLAT)
                                  (3 . ,SHARP))
-  c4 d e fis
+  c'4 d e fis
   aes4 bes c2
 }
