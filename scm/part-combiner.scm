@@ -299,24 +299,6 @@ LilyPond version 2.8 and earlier."
      global)
     context-list))
 
-(define-public (make-part-combine-music music-list direction chord-range)
-  (let* ((m (make-music 'PartCombineMusic))
-         (m1 (make-non-relative-music (context-spec-music (first music-list) 'Voice "one")))
-         (m2  (make-non-relative-music  (context-spec-music (second music-list) 'Voice "two")))
-         (listener (ly:parser-lookup 'partCombineListener))
-         (evs2 (recording-group-emulate m2 listener))
-         (evs1 (recording-group-emulate m1 listener)))
-
-    (set! (ly:music-property m 'elements) (list m1 m2))
-    (set! (ly:music-property m 'direction) direction)
-    (set! (ly:music-property m 'split-list)
-          (if (and (assoc "one" evs1) (assoc "two" evs2))
-              (determine-split-list (reverse! (assoc-get "one" evs1) '())
-                                    (reverse! (assoc-get "two" evs2) '())
-                                    chord-range)
-              '()))
-    m))
-
 (define-public (determine-split-list evl1 evl2 chord-range)
   "@var{evl1} and @var{evl2} should be ascending. @var{chord-range} is a pair of numbers (min . max) defining the distance in steps between notes that may be combined into a chord or unison."
   (let* ((pc-debug #f)
@@ -802,6 +784,85 @@ the mark when there are no spanners active.
     (for-each handle-split split-list)
     (commit-segment)
     (make-sequential-music (reverse! full-seq))))
+
+(define-public default-part-combine-context-change-state-machine-one
+  ;; (current-state . ((split-state-event . (output-voice next-state)) ...))
+  '((Initial . ((apart         . (one    . Initial))
+                (apart-silence . (one    . Initial))
+                (apart-spanner . (one    . Initial))
+                (chords        . (shared . Initial))
+                (silence1      . (shared . Initial))
+                (silence2      . (null   . Demoted))
+                (solo1         . (solo   . Initial))
+                (solo2         . (null   . Demoted))
+                (unisono       . (shared . Initial))
+                (unisilence    . (shared . Initial))))
+
+    ;; After a part has been used as the exclusive input for a
+    ;; passage, we want to use it by default for unisono/unisilence
+    ;; passages because Part_combine_iterator might have killed
+    ;; multi-measure rests in the other part.  Here we call such a
+    ;; part "promoted".  Part one begins promoted.
+    (Demoted . ((apart         . (one    . Demoted))
+                (apart-silence . (one    . Demoted))
+                (apart-spanner . (one    . Demoted))
+                (chords        . (shared . Demoted))
+                (silence1      . (shared . Initial))
+                (silence2      . (null   . Demoted))
+                (solo1         . (solo   . Initial))
+                (solo2         . (null   . Demoted))
+                (unisono       . (null   . Demoted))
+                (unisilence    . (null   . Demoted))))))
+
+(define-public default-part-combine-context-change-state-machine-two
+  ;; (current-state . ((split-state-event . (output-voice next-state)) ...))
+  '((Initial . ((apart         . (two    . Initial))
+                (apart-silence . (two    . Initial))
+                (apart-spanner . (two    . Initial))
+                (chords        . (shared . Initial))
+                (silence1      . (null   . Initial))
+                (silence2      . (shared . Promoted))
+                (solo1         . (null   . Initial))
+                (solo2         . (solo   . Promoted))
+                (unisono       . (null   . Initial))
+                (unisilence    . (null   . Initial))))
+
+    ;; See the part-one state machine for the meaning of "promoted".
+    (Promoted . ((apart         . (two    . Promoted))
+                 (apart-silence . (two    . Promoted))
+                 (apart-spanner . (two    . Promoted))
+                 (chords        . (shared . Promoted))
+                 (silence1      . (null   . Initial))
+                 (silence2      . (shared . Promoted))
+                 (solo1         . (null   . Initial))
+                 (solo2         . (solo   . Promoted))
+                 (unisono       . (shared . Promoted))
+                 (unisilence    . (shared . Promoted))))))
+
+(define-public (make-part-combine-context-changes state-machine split-list)
+  "Generate a sequence of part combiner context changes from a split list"
+
+  (define (get-state state-name)
+    (assq-ref state-machine state-name))
+
+  (let ((change-list '())
+        (prev-voice #f)
+        (state (get-state 'Initial)))
+
+    (define (handle-split split)
+      (let* ((moment (car split))
+             (action (assq-ref state (cdr split))))
+        (if action
+            (let ((voice (car action))
+                  (next-state-name (cdr action)))
+              (if (not (eq? voice prev-voice))
+                  (begin
+                    (set! change-list (cons (cons moment voice) change-list))
+                    (set! prev-voice voice)))
+              (set! state (get-state next-state-name))))))
+
+    (for-each handle-split split-list)
+    (reverse! change-list)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

@@ -26,12 +26,6 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
-static const char *const CONTEXT_ONE = "one";
-static const char *const CONTEXT_TWO = "two";
-static const char *const CONTEXT_SHARED = "shared";
-static const char *const CONTEXT_SOLO = "solo";
-static const char *const CONTEXT_NULL = "null";
-
 class Part_combine_iterator : public Music_iterator
 {
 public:
@@ -53,34 +47,10 @@ private:
   static const size_t NUM_PARTS = 2;
   Music_iterator *iterators_[NUM_PARTS];
 
-  SCM split_list_;
-
   Stream_event *mmrest_event_;
 
-  enum Status
-  {
-    INITIAL,
-    APART,
-    TOGETHER,
-    SOLO,
-    UNISONO,
-    UNISILENCE,
-  };
-  Status state_;
-
-  // For states in which it matters, this is the relevant part,
-  // e.g. 1 for Solo I, 2 for Solo II.
-  int chosen_part_;
-
-  void substitute_one (Music_iterator *iter, const char *voice_id);
-  void substitute_both (const char *part1_voice_id, const char *part2_voice_id);
   bool is_active_outlet (const Context *c) const;
   void kill_mmrest (Context *c);
-  void chords_together ();
-  void solo1 ();
-  void solo2 ();
-  void apart ();
-  void unisono (bool silent, int newpart);
 };
 
 const size_t Part_combine_iterator::NUM_PARTS;
@@ -99,9 +69,6 @@ Part_combine_iterator::Part_combine_iterator ()
 
   for (size_t i = 0; i < NUM_PARTS; i++)
     iterators_[i] = 0;
-  split_list_ = SCM_EOL;
-  state_ = INITIAL;
-  chosen_part_ = 1;
 }
 
 void
@@ -147,45 +114,6 @@ Part_combine_iterator::ok () const
   return false;
 }
 
-void
-Part_combine_iterator::substitute_one (Music_iterator *iter,
-                                       const char *voice_id)
-{
-  Context *c = iter->get_outlet ();
-  if (!c)
-    {
-      programming_error ("no context");
-      return;
-    }
-  c = c->get_parent_context ();
-  if (!c)
-    {
-      programming_error ("no parent context");
-      return;
-    }
-  c = find_context_below (c, ly_symbol2scm("Voice"), voice_id);
-  if (!c)
-    {
-      string s = "can not find Voice context: ";
-      s += voice_id;
-      programming_error (s);
-      return;
-    }
-  iter->substitute_outlet (iter->get_outlet (), c);
-}
-
-void
-Part_combine_iterator::substitute_both (const char *part1_voice_id,
-                                        const char *part2_voice_id)
-{
-  // TODO: There is no good reason to tie the parts together here.
-  // Factor out per-part stuff into a new class of iterator which
-  // reads a part-specific list similar to the existing combined
-  // "split-list".
-  substitute_one(iterators_[0], part1_voice_id);
-  substitute_one(iterators_[1], part2_voice_id);
-}
-
 bool Part_combine_iterator::is_active_outlet (const Context *c) const
 {
   for (size_t i = 0; i < NUM_PARTS; i++)
@@ -211,79 +139,8 @@ Part_combine_iterator::kill_mmrest (Context *c)
 }
 
 void
-Part_combine_iterator::unisono (bool silent, int newpart)
-{
-  Status newstate = (silent) ? UNISILENCE : UNISONO;
-
-  if ((newstate == state_) and (newpart == chosen_part_))
-    return;
-  else
-    {
-      const char *c1 = (newpart == 2) ? CONTEXT_NULL : CONTEXT_SHARED;
-      const char *c2 = (newpart == 2) ? CONTEXT_SHARED : CONTEXT_NULL;
-      substitute_both (c1, c2);
-
-      state_ = newstate;
-      chosen_part_ = newpart;
-    }
-}
-
-void
-Part_combine_iterator::solo1 ()
-{
-  if ((state_ == SOLO) && (chosen_part_ == 1))
-    return;
-  else
-    {
-      state_ = SOLO;
-      chosen_part_ = 1;
-      substitute_both (CONTEXT_SOLO, CONTEXT_NULL);
-    }
-}
-
-void
-Part_combine_iterator::solo2 ()
-{
-  if ((state_ == SOLO) and (chosen_part_ == 2))
-    return;
-  else
-    {
-      state_ = SOLO;
-      chosen_part_ = 2;
-      substitute_both (CONTEXT_NULL, CONTEXT_SOLO);
-    }
-}
-
-void
-Part_combine_iterator::chords_together ()
-{
-  if (state_ == TOGETHER)
-    return;
-  else
-    {
-      state_ = TOGETHER;
-
-      substitute_both (CONTEXT_SHARED, CONTEXT_SHARED);
-    }
-}
-
-void
-Part_combine_iterator::apart ()
-{
-  if (state_ == APART)
-    return;
-  else
-    {
-      state_ = APART;
-      substitute_both (CONTEXT_ONE, CONTEXT_TWO);
-    }
-}
-
-void
 Part_combine_iterator::construct_children ()
 {
-  split_list_ = get_music ()->get_property ("split-list");
-
   SCM lst = get_music ()->get_property ("elements");
   iterators_[0] = unsmob<Music_iterator> (get_iterator (unsmob<Music> (scm_car (lst))));
   iterators_[1] = unsmob<Music_iterator> (get_iterator (unsmob<Music> (scm_cadr (lst))));
@@ -292,56 +149,12 @@ Part_combine_iterator::construct_children ()
 void
 Part_combine_iterator::process (Moment m)
 {
-  Moment *splitm = 0;
-
   Context *prev_active_outlets[NUM_PARTS];
-  for (size_t i = 0; i < NUM_PARTS; i++)
-    prev_active_outlets[i] = iterators_[i]->get_outlet ();
-
-  for (; scm_is_pair (split_list_); split_list_ = scm_cdr (split_list_))
-    {
-      splitm = unsmob<Moment> (scm_caar (split_list_));
-      if (splitm && *splitm > m)
-        break;
-
-      SCM tag = scm_cdar (split_list_);
-
-      if (scm_is_eq (tag, ly_symbol2scm ("chords")))
-        chords_together ();
-      else if (scm_is_eq (tag, ly_symbol2scm ("apart"))
-               || scm_is_eq (tag, ly_symbol2scm ("apart-silence"))
-               || scm_is_eq (tag, ly_symbol2scm ("apart-spanner")))
-        apart ();
-      else if (scm_is_eq (tag, ly_symbol2scm ("unisono")))
-        {
-          // Continue to use the most recently used part because we might have
-          // killed mmrests in the other part.
-          unisono (false, (chosen_part_ == 2) ? 2 : 1);
-        }
-      else if (scm_is_eq (tag, ly_symbol2scm ("unisilence")))
-        {
-          // as for unisono
-          unisono (true, (chosen_part_ == 2) ? 2 : 1);
-        }
-      else if (scm_is_eq (tag, ly_symbol2scm ("silence1")))
-        unisono (true, 1);
-      else if (scm_is_eq (tag, ly_symbol2scm ("silence2")))
-        unisono (true, 2);
-      else if (scm_is_eq (tag, ly_symbol2scm ("solo1")))
-        solo1 ();
-      else if (scm_is_eq (tag, ly_symbol2scm ("solo2")))
-        solo2 ();
-      else if (scm_is_symbol (tag))
-        {
-          string s = "Unknown split directive: "
-                     + (scm_is_symbol (tag) ? ly_symbol2string (tag) : string ("not a symbol"));
-          programming_error (s);
-        }
-    }
-
   bool any_outlet_changed = false;
   for (size_t i = 0; i < NUM_PARTS; i++)
     {
+      prev_active_outlets[i] = iterators_[i]->get_outlet ();
+
       if (iterators_[i]->ok ())
         iterators_[i]->process (m);
 

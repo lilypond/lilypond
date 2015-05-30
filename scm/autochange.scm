@@ -28,17 +28,16 @@
                                           (if change-moment
                                               change-moment
                                               now)
-                                          (if (< dir 0) "down" "up")) acc))
+                                          (if (< dir 0) 'down 'up)) acc))
               (generate-split-list
                (if pitch #f (if change-moment change-moment now))
                dir
                (cdr event-list) acc)))))
 
   (let* ((m (make-music 'AutoChangeMusic))
-         (m1 (make-non-relative-music (context-spec-music music 'Voice "one")))
-         (context-list (recording-group-emulate music
+         (m1 (context-spec-music (make-non-relative-music music) 'Voice ""))
+         (context-list (recording-group-emulate m1
                                                 (ly:parser-lookup 'partCombineListener)))
-         (evs (car context-list))
          (rev (reverse! (cdar context-list)))
          (split (reverse! (generate-split-list
                            #f
@@ -46,6 +45,6 @@
                            rev
                            '())
                           '())))
-    (set! (ly:music-property m 'element) music)
-    (set! (ly:music-property m 'split-list) split)
+    (set! (ly:music-property m 'element) m1)
+    (set! (ly:music-property m 'context-change-list) split)
     m))

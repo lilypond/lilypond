@@ -68,6 +68,7 @@ cautionary accidental.")
      (change-to-type ,symbol? "Type of the context to change to.")
      (class ,symbol? "The class name of an event class.")
      (context ,ly:context? "The context to which an event is sent.")
+     (context-change-list ,list? "Context changes for @code{\\autochange} or @code{\\partcombine}.")
      (context-id ,string? "Name of context.")
      (context-type ,symbol?  "Type of context.")
      (create-new ,boolean? "Create a fresh context.")
@@ -184,7 +185,6 @@ Options are @code{'text} and @code{'hairpin}.")
      (span-text ,markup? "The displayed text for dynamic text
 spanners (e.g., cresc.)")
      (spanner-id ,string? "Identifier to distinguish concurrent spanners.")
-     (split-list ,list? "Splitting moments for part combiner.")
      (start-callback ,procedure? "Function to compute the negative length
 of starting grace notes.  This property can only be defined as initializer
 in @file{scm/@/define-music-types.scm}.")

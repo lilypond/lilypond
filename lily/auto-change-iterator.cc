@@ -18,61 +18,24 @@
 */
 
 #include "change-iterator.hh"
-#include "context.hh"
-#include "direction.hh"
-#include "international.hh"
-#include "music.hh"
-#include "music-wrapper-iterator.hh"
+#include "change-sequence-iterator.hh"
 
-class Auto_change_iterator : public Music_wrapper_iterator
+class Auto_change_iterator : public Change_sequence_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
+  Auto_change_iterator () {}
 
-  Auto_change_iterator ();
-
-protected:
-  virtual void construct_children ();
-  virtual void process (Moment);
 private:
-  SCM split_list_;
+  virtual void change_to (const string &id);
 };
 
 void
-Auto_change_iterator::process (Moment m)
+Auto_change_iterator::change_to (const string &id)
 {
-  Moment *splitm = 0;
-
-  for (; scm_is_pair (split_list_); split_list_ = scm_cdr (split_list_))
-    {
-      splitm = unsmob<Moment> (scm_caar (split_list_));
-      if (*splitm > m)
-        break;
-
-      // N.B. change_to() returns an error message. Silence is the legacy
-      // behavior here, but maybe that should be changed.
-      Change_iterator::change_to (*child_iter_,
-                                  ly_symbol2scm ("Staff"),
-                                  ly_scm2string (scm_cdar (split_list_)));
-    }
-
-  Music_wrapper_iterator::process (m);
-}
-
-Auto_change_iterator::Auto_change_iterator ()
-{
-  split_list_ = SCM_EOL;
-}
-
-void
-Auto_change_iterator::construct_children ()
-{
-  split_list_ = get_music ()->get_property ("split-list");
-
-  Context *voice = get_outlet()->find_create_context (ly_symbol2scm ("Voice"),
-                                                      "", SCM_EOL);
-  set_context (voice);
-  Music_wrapper_iterator::construct_children ();
+  // N.B. change_to() returns an error message. Silence is the legacy
+  // behavior here, but maybe that should be changed.
+  Change_iterator::change_to (*child_iter_, ly_symbol2scm ("Staff"), id);
 }
 
 IMPLEMENT_CTOR_CALLBACK (Auto_change_iterator);

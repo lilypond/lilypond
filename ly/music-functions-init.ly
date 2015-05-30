@@ -1209,12 +1209,42 @@ parenthesize =
           two-context-settings
           shared-context-settings)
 
-   (let* ((pc-music (make-part-combine-music (list part1 part2) direction chord-range))
+   (let* ((pc-music (make-music 'PartCombineMusic))
+          (m1 (context-spec-music (make-non-relative-music part1) 'Voice "one"))
+          (m2 (context-spec-music (make-non-relative-music part2) 'Voice "two"))
+          (listener (ly:parser-lookup 'partCombineListener))
+          (evs2 (recording-group-emulate m2 listener))
+          (evs1 (recording-group-emulate m1 listener))
+          (split-list
+           (if (and (assoc "one" evs1) (assoc "two" evs2))
+               (determine-split-list (reverse! (assoc-get "one" evs1) '())
+                                     (reverse! (assoc-get "two" evs2) '())
+                                     chord-range)
+               '()))
           (L1 (ly:music-length part1))
           (L2 (ly:music-length part2))
           ;; keep the contexts alive for the full duration
           (skip (make-skip-music (make-duration-of-length
                                   (if (ly:moment<? L1 L2) L2 L1)))))
+
+     (set! (ly:music-property pc-music 'elements)
+           (list (make-music
+                  'PartCombinePartMusic
+                  'element m1
+                  'context-change-list
+                  (make-part-combine-context-changes
+                   default-part-combine-context-change-state-machine-one
+                   split-list))
+                 (make-music
+                  'PartCombinePartMusic
+                  'element m2
+                  'context-change-list
+                  (make-part-combine-context-changes
+                   default-part-combine-context-change-state-machine-two
+                   split-list))))
+
+     (set! (ly:music-property pc-music 'direction) direction)
+
      #{ \context Staff <<
           \context Voice = "one" \with #one-context-settings { #skip }
           \context Voice = "two" \with #two-context-settings { #skip }
@@ -1223,8 +1253,7 @@ parenthesize =
           \context NullVoice = "null" { #skip }
           #pc-music
           #(make-part-combine-marks
-            default-part-combine-mark-state-machine
-            (ly:music-property pc-music 'split-list))
+            default-part-combine-mark-state-machine split-list)
         >> #} ))
 
 partcombine =
