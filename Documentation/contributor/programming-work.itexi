@@ -2558,22 +2558,24 @@ this will display OBJ through GUILE.
 @subsection Music functions and GUILE debugging
 
 Ian Hulin was trying to do some debugging in music functions, and
-came up with the following question
+came up with the following question (edited and adapted to current
+versions):
 
 HI all,
 I'm working on the Guile Debugger Stuff, and would like to try
 debugging a music function definition such as:
 
 @example
-conditionalMark = #(define-music-function (parser location) ()
-    #@{ \tag #'instrumental-part @{\mark \default@}  #@} )
+conditionalMark =
+#(define-music-function () ()
+  #@{ \tag instrumental-part @{\mark \default@} #@} )
 @end example
 
-It appears conditionalMark does not get set up as an
+It appears @code{conditionalMark} does not get set up as an
 equivalent of a Scheme
 
 @example
-(define conditionalMark = define-music-function(parser location () ...
+(define conditionalMark = define-music-function () () ...
 @end example
 
 @noindent
@@ -2587,25 +2589,54 @@ although something gets defined because Scheme apparently recognizes
 later on in the file without signalling any Guile errors.
 
 However the breakpoint trap is never encountered as
-define-music-function passed things on to ly:make-music-function,
-which is really C++ code ly_make_music_function, so Guile never
-finds out about the breakpoint.
+@code{define-music-function} passed things on to
+@code{ly:make-music-function}, which is really C++ code
+@code{ly_make_music_function}, so Guile never finds out about the
+breakpoint.
 
-Han-Wen answered as follows:
 
-You can see the definition by doing
+The answer in the mailing list archive at that time was less than
+helpful.  The question already misidentifies the purpose of
+@code{ly:make-music-function} which is only called once at the
+time of @emph{defining} @code{conditionalMark} but is not involved
+in its later @emph{execution}.
+
+Here is the real deal:
+
+A music function is not the same as a GUILE function.  It boxes
+both a proper Scheme function (with argument list and body from
+the @code{define-music-function} definition) along with a call
+signature representing the @emph{types} of both function and
+arguments.
+
+Those components can be reextracted using
+@code{ly:music-function-extract} and
+@code{ly:music-function-signature}, respectively.
+
+When LilyPond's parser encounters a music function call in its
+input, it reads, interprets, and verifies the arguments
+individually according to the call signature and @emph{then} calls
+the proper Scheme function.
+
+While it is actually possible these days to call a music function
+@emph{as if} it were a Scheme function itself, this pseudo-call
+uses its own wrapping code matching the argument list @emph{as a
+whole} to the call signature, substituting omitted optional
+arguments with defaults and verifying the result type.
+
+So putting a breakpoint on the music function itself will still
+not help with debugging uses of the function using LilyPond
+syntax.
+
+However, either calling mechanism ultimately calls the proper
+Scheme function stored as part of the music function, and that is
+where the breakpoint belongs:
 
 @example
-#(display conditionalMark)
+#(set-break! (ly:music-function-extract conditionalMark))
 @end example
 
-noindent
-inside the @file{.ly} file.
-
-The breakpoint failing may have to do with the call sequence.  See
-@file{parser.yy}, run_music_function().  The function is called directly from
-C++, without going through the GUILE evaluator, so I think that is why
-there is no debugger trap.
+will work for either calling mechanism.
 
 @node Articulations on EventChord
 @subsection Articulations on EventChord
