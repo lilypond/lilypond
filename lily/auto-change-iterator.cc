@@ -39,7 +39,6 @@ protected:
 private:
   SCM split_list_;
   Direction where_dir_;
-  Moment start_moment_;
 
   Context_handle up_;
   Context_handle down_;
@@ -50,15 +49,12 @@ Auto_change_iterator::process (Moment m)
 {
   Music_wrapper_iterator::process (m);
 
-  Moment now = get_outlet ()->now_mom ();
   Moment *splitm = 0;
-  if (start_moment_.main_part_.is_infinity () && start_moment_ < 0)
-    start_moment_ = now;
 
   for (; scm_is_pair (split_list_); split_list_ = scm_cdr (split_list_))
     {
       splitm = unsmob<Moment> (scm_caar (split_list_));
-      if ((*splitm + start_moment_) > now)
+      if (*splitm > m)
         break;
 
       SCM tag = scm_cdar (split_list_);
@@ -87,7 +83,6 @@ void
 Auto_change_iterator::construct_children ()
 {
   split_list_ = get_music ()->get_property ("split-list");
-  start_moment_ = get_outlet ()->now_mom ();
 
   SCM props = get_outlet ()->get_property ("trebleStaffProperties");
   Context *up = get_outlet ()->find_create_context (ly_symbol2scm ("Staff"),

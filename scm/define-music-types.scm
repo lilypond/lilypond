@@ -733,6 +733,7 @@ to absolute notation.  For example, transposed music.")
         (to-relative-callback . ,ly:relative-octave-music::no-relative-callback)
         (iterator-ctor . ,ly:music-wrapper-iterator::constructor)
         (length-callback . ,ly:music-wrapper::length-callback)
+        (start-callback . ,ly:music-wrapper::start-callback)
         (types . (music-wrapper-music unrelativable-music))
         ))
 

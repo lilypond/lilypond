@@ -51,7 +51,6 @@ protected:
 private:
   static const size_t NUM_PARTS = 2;
   Music_iterator *iterators_[NUM_PARTS];
-  Moment start_moment_;
 
   SCM split_list_;
 
@@ -283,7 +282,6 @@ Part_combine_iterator::apart ()
 void
 Part_combine_iterator::construct_children ()
 {
-  start_moment_ = get_outlet ()->now_mom ();
   split_list_ = get_music ()->get_property ("split-list");
 
   SCM lst = get_music ()->get_property ("elements");
@@ -294,13 +292,7 @@ Part_combine_iterator::construct_children ()
 void
 Part_combine_iterator::process (Moment m)
 {
-  Moment now = get_outlet ()->now_mom ();
   Moment *splitm = 0;
-
-  /* This is needed if construct_children was called before iteration
-     started */
-  if (start_moment_.main_part_.is_infinity () && start_moment_ < 0)
-    start_moment_ = now;
 
   Context *prev_active_outlets[NUM_PARTS];
   for (size_t i = 0; i < NUM_PARTS; i++)
@@ -309,7 +301,7 @@ Part_combine_iterator::process (Moment m)
   for (; scm_is_pair (split_list_); split_list_ = scm_cdr (split_list_))
     {
       splitm = unsmob<Moment> (scm_caar (split_list_));
-      if (splitm && *splitm + start_moment_ > now)
+      if (splitm && *splitm > m)
         break;
 
       SCM tag = scm_cdar (split_list_);
