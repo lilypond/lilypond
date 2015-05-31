@@ -1040,10 +1040,9 @@ actually fully cloned."
 
 (defmacro-public def-grace-function (start stop . docstring)
   "Helper macro for defining grace music"
-  `(define-music-function (parser location music) (ly:music?)
+  `(define-music-function (music) (ly:music?)
      ,@docstring
      (make-music 'GraceMusic
-                 'origin location
                  'element (make-music 'SequentialMusic
                                       'elements (list (ly:music-deep-copy ,start)
                                                       music
