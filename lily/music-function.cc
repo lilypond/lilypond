@@ -79,7 +79,6 @@ with_loc (SCM arg, Fluid &loc, bool clone = true)
 SCM
 Music_function::call (SCM rest)
 {
-  Fluid parser (ly_lily_module_constant ("%parser"));
   Fluid location (ly_lily_module_constant ("%location"));
 
   // (car (ly:music-signature self_scm())) is the return type, skip it
@@ -143,10 +142,10 @@ Music_function::call (SCM rest)
 
       if (scm_is_false (scm_call_1 (pred, arg)))
         {
-          scm_apply_0 (ly_lily_module_constant ("argument-error"),
-                       scm_list_5 (parser, location,
-                                   scm_from_int (scm_ilength (args)),
-                                   pred, arg));
+          scm_call_4 (ly_lily_module_constant ("argument-error"),
+                      location,
+                      scm_from_int (scm_ilength (args)),
+                      pred, arg);
           SCM val = scm_car (get_signature ());
           val = scm_is_pair (val) ? scm_cdr (val) : SCM_BOOL_F;
           return with_loc (val, location);
@@ -169,7 +168,6 @@ Music_function::call (SCM rest)
   if (scm_is_true (scm_call_1 (pred, res)))
     return with_loc (res, location, false);
 
-  return scm_call_4 (ly_lily_module_constant ("music-function-call-error"),
-                     parser, location,
-                     self_scm (), res);
+  return scm_call_3 (ly_lily_module_constant ("music-function-call-error"),
+                     location, self_scm (), res);
 }

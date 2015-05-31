@@ -194,11 +194,11 @@ Lily_parser::parser_error (Input const *i, Lily_parser *parser, SCM *, const str
   scm_apply_0 (proc, args)
 /* Syntactic Sugar. */
 #define MAKE_SYNTAX(name, location, ...)				\
-	LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant (name), scm_list_n (parser->self_scm (), parser->lexer_->override_input (location).smobbed_copy (), ##__VA_ARGS__, SCM_UNDEFINED))
+	LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant (name), scm_list_n (parser->lexer_->override_input (location).smobbed_copy (), ##__VA_ARGS__, SCM_UNDEFINED))
 #define START_MAKE_SYNTAX(name, ...)					\
 	scm_list_n (ly_lily_module_constant (name) , ##__VA_ARGS__, SCM_UNDEFINED)
 #define FINISH_MAKE_SYNTAX(start, location, ...)			\
-	LOWLEVEL_MAKE_SYNTAX (scm_car (start), scm_cons2 (parser->self_scm (), parser->lexer_->override_input (location).smobbed_copy (), scm_append_x (scm_list_2 (scm_cdr (start), scm_list_n (__VA_ARGS__, SCM_UNDEFINED)))))
+	LOWLEVEL_MAKE_SYNTAX (scm_car (start), scm_cons (parser->lexer_->override_input (location).smobbed_copy (), scm_append_x (scm_list_2 (scm_cdr (start), scm_list_n (__VA_ARGS__, SCM_UNDEFINED)))))
 
 SCM get_next_unique_context_id ();
 SCM get_next_unique_lyrics_context_id ();
@@ -2571,7 +2571,7 @@ music_property_def:
 		if (SCM_UNBNDP ($1))
 			$$ = MAKE_SYNTAX ("void-music", @1);
 		else
-			$$ = LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("property-operation"), scm_cons2 (parser->self_scm (), @$.smobbed_copy (), $1));
+			$$ = LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("property-operation"), scm_cons (@$.smobbed_copy (), $1));
 	}
 	;
 
@@ -3691,12 +3691,19 @@ Lily_parser::set_yydebug (bool x)
 SCM
 Lily_parser::do_yyparse ()
 {
-        SCM retval = SCM_UNDEFINED;
-	yyparse (this, &retval);
-        return retval;
+	return scm_c_with_fluid (ly_lily_module_constant ("%parser"),
+				 self_scm (),
+				 do_yyparse_trampoline,
+				 static_cast <void *>(this));
 }
 
-
+SCM
+Lily_parser::do_yyparse_trampoline (void *parser)
+{
+	SCM retval = SCM_UNDEFINED;
+	yyparse (static_cast <Lily_parser *>(parser), &retval);
+	return retval;
+}
 
 
 

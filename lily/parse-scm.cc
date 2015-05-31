@@ -178,11 +178,9 @@ ly_eval_scm (SCM form, Input i, bool safe, Lily_parser *parser)
 {
   Parse_start ps (form, i, safe, parser);
 
-  SCM ans = scm_c_with_fluids
-    (scm_list_2 (ly_lily_module_constant ("%parser"),
-                 ly_lily_module_constant ("%location")),
-     scm_list_2 (parser->self_scm (),
-                 i.smobbed_copy ()),
+  SCM ans = scm_c_with_fluid
+    (ly_lily_module_constant ("%location"),
+     i.smobbed_copy (),
      parse_protect_global ? protected_ly_eval_scm
      : catch_protected_eval_body, (void *) &ps);
 

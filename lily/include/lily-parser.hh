@@ -31,6 +31,8 @@
 */
 class Lily_parser : public Smob<Lily_parser>
 {
+  SCM do_yyparse ();
+  static SCM do_yyparse_trampoline (void *parser);
 public:
   int print_smob (SCM, scm_print_state *);
   SCM mark_smob ();
@@ -55,7 +57,6 @@ public:
 
   void clear ();
   void do_init_file ();
-  SCM do_yyparse ();
   void include_string (const string &ly_code);
   void parse_file (const string &init, const string &name, const string &out_name);
   void parse_string (const string &ly_code);
