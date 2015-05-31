@@ -1030,6 +1030,9 @@ Example:
   B = { d d | e e | }
   C = { e e | f f | }
 @end verbatim
+
+The last bar checks in a sequence are not copied to the result in
+order to facilitate ending the last entry at non-bar boundaries.
 ")
    (define voice-count (length voice-ids))
    (define (bar-check? m)
@@ -1050,7 +1053,7 @@ Example:
              "Store the previously built sequence into the current voice and
 change to the following voice."
              (set-car! current-voices
-                       (cons (reverse! current-sequence)
+                       (cons current-sequence
                              (car current-voices)))
              (set! current-sequence '())
              (set! current-voices (cdr current-voices)))
@@ -1067,9 +1070,21 @@ change to the following voice."
                                (if (bar-check? m) (change-voice))))))
                      lst)
            (if (pair? current-sequence) (change-voice))
-           ;; un-circularize `voices' and reorder the voices
-           (set! voices (map reverse!
-                             (list-head voices voice-count)))
+           ;; Un-circularize voices
+           (set! voices (list-head voices voice-count))
+
+           ;; Remove trailing bar checks to facilitate ending a
+           ;; sequence on a non-bar, reverse partial sequences and sequences
+           (set! voices (map!
+                         (lambda (l)
+                           (map! reverse!
+                                 (reverse!
+                                  (if (and (pair? l) (pair? (car l))
+                                           (bar-check? (caar l)))
+                                      (cons (cdar l) (cdr l))
+                                      l))))
+                         voices))
+
            ;; check sequence length
            (apply for-each (lambda seqs
                              (define (seq-len seq)
