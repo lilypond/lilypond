@@ -30,6 +30,10 @@ public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   DECLARE_CLASSNAME (Change_iterator);
 
+  // returns an error message (empty on success)
+  static string change_to (Music_iterator &it,
+                           SCM to_type, const string &to_id);
+
 private:
   void error (const string&);
 };

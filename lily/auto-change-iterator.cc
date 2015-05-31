@@ -17,6 +17,7 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "change-iterator.hh"
 #include "context.hh"
 #include "direction.hh"
 #include "international.hh"
@@ -38,63 +39,11 @@ protected:
 private:
   SCM split_list_;
   Direction where_dir_;
-  void change_to (Music_iterator *, SCM, const string&);
   Moment start_moment_;
 
   Context_handle up_;
   Context_handle down_;
 };
-
-void
-Auto_change_iterator::change_to (Music_iterator *it, SCM to_type_sym,
-                                 const string &to_id)
-{
-  Context *current = it->get_outlet ();
-  Context *last = 0;
-
-  /*
-    Cut & Paste from Change_iterator (ugh).
-
-    TODO: abstract this function
-  */
-
-  /* find the type  of translator that we're changing.
-
-  If \translator Staff = bass, then look for Staff = *
-  */
-  while (current && !current->is_alias (to_type_sym))
-    {
-      last = current;
-      current = current->get_parent_context ();
-    }
-
-  if (current && current->id_string () == to_id)
-    {
-      string msg;
-      msg += _f ("cannot change, already in translator: %s", to_id);
-    }
-
-  if (current)
-    {
-      if (last)
-        {
-          Context *dest
-            = it->get_outlet ()->find_create_context (to_type_sym, to_id, SCM_EOL);
-
-          send_stream_event (last, "ChangeParent", get_music ()->origin (),
-                             ly_symbol2scm ("context"), dest->self_scm ());
-        }
-      else
-        {
-          /*
-            We could change the current translator's id, but that would make
-            errors hard to catch
-
-          */
-          ;
-        }
-    }
-}
 
 void
 Auto_change_iterator::process (Moment m)
@@ -119,9 +68,11 @@ Auto_change_iterator::process (Moment m)
         {
           where_dir_ = d;
           string to_id = (d >= 0) ? "up" : "down";
-          change_to (child_iter_,
-                     ly_symbol2scm ("Staff"),
-                     to_id);
+          // N.B. change_to() returns an error message. Silence is the legacy
+          // behavior here, but maybe that should be changed.
+          Change_iterator::change_to (*child_iter_,
+                                      ly_symbol2scm ("Staff"),
+                                      to_id);
         }
     }
 }

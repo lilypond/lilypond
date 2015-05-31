@@ -116,26 +116,11 @@ get_voice_to_lyrics (Context *lyrics)
   if (!scm_is_symbol (voice_type))
     return 0;
 
-  Context *parent = lyrics;
-  Context *voice = 0;
-  while (parent && !voice)
-    {
-      voice = find_context_below (parent, voice_type, nm);
-      parent = parent->get_parent_context ();
-    }
-
+  Context *voice = find_context_near (lyrics, voice_type, nm);
   if (voice)
     return voice;
 
-  parent = lyrics;
-  voice = 0;
-  while (parent && !voice)
-    {
-      voice = find_context_below (parent, voice_type, "");
-      parent = parent->get_parent_context ();
-    }
-
-  return voice;
+  return find_context_near (lyrics, voice_type, "");
 }
 
 Grob *

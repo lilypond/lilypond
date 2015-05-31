@@ -265,12 +265,8 @@ Lyric_combine_music_iterator::find_voice ()
       && (!music_context_ || ly_scm2string (voice_name) != music_context_->id_string ())
       && scm_is_symbol (voice_type))
     {
-      Context *t = get_outlet ();
-      while (t && t->get_parent_context ())
-        t = t->get_parent_context ();
-
-      string name = ly_scm2string (voice_name);
-      return find_context_below (t, voice_type, name);
+      return find_context_below (find_top_context (get_outlet ()),
+                                 voice_type, ly_scm2string (voice_name));
     }
 
   return 0;

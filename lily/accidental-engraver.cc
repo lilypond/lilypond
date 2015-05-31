@@ -199,10 +199,7 @@ check_pitch_against_rules (Pitch const &pitch, Context *origin,
       */
       else if (scm_is_symbol (rule))
         {
-          Context *dad = origin;
-          while (dad && !dad->is_alias (rule))
-            dad = dad->get_parent_context ();
-
+          Context *dad = find_context_above (origin, rule);
           if (dad)
             origin = dad;
         }

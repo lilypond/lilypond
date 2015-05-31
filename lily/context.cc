@@ -578,9 +578,26 @@ Context::disconnect_from_parent ()
   daddy_context_ = 0;
 }
 
-/*
-  ID == "" means accept any ID.
-*/
+Context *
+find_context_above (Context *where, SCM type)
+{
+  while (where && !where->is_alias (type))
+    where = where->get_parent_context ();
+
+  return where;
+}
+
+Context *
+find_context_above_by_parent_type (Context *where, SCM parent_type)
+{
+  for (Context *child = 0; where;
+       child = where, where = where->get_parent_context ())
+    if (where->is_alias (parent_type))
+      return child;
+
+  return 0;
+}
+
 Context *
 find_context_below (Context *where,
                     SCM type, const string &id)
@@ -601,6 +618,29 @@ find_context_below (Context *where,
     }
 
   return found;
+}
+
+Context *
+find_context_near (Context *where,
+                   SCM type, const string &id)
+{
+  for ( ; where; where = where->get_parent_context ())
+    {
+      Context *found = find_context_below (where, type, id);
+      if (found)
+        return found;
+    }
+
+  return 0;
+}
+
+Context *
+find_top_context (Context *where)
+{
+  Context *top = where;
+  for ( ; where; where = where->get_parent_context())
+    top = where;
+  return top;
 }
 
 SCM

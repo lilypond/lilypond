@@ -144,8 +144,32 @@ public:
 void apply_property_operations (Context *tg, SCM pre_init_ops);
 void execute_pushpop_property (Context *trg, SCM prop, SCM eltprop, SCM val);
 
+// Search for a context of the given type starting from the given context and
+// moving toward the root of the tree.  If the starting context matches, it is
+// returned.
+Context *find_context_above (Context *where, SCM type_sym);
+
+// Search for a context of the given type starting from the given context and
+// moving toward the root of the tree.  If found, return its child that was
+// found on the way there.
+Context *find_context_above_by_parent_type (Context *where, SCM parent_type);
+
+// Search for a context of the given type and ID starting from the given
+// context and moving toward the leaves of the tree.  If the starting context
+// matches, it is returned.  An empty ID matches any context of the given type.
 Context *find_context_below (Context *where,
                              SCM type_sym, const string &id);
+
+// Search for a context of the given type and ID starting with the given
+// context, then searching its descendants, then its parent's descendants, etc.
+// An empty ID matches any context of the given type.
+Context *find_context_near (Context *where,
+                            SCM type_sym, const string &id);
+
+// Search for the top context (i.e. the ancestor with no parent) starting with
+// the given context.
+Context *find_top_context (Context *where);
+
 bool melisma_busy (Context *);
 
 Context *get_voice_to_lyrics (Context *lyrics);

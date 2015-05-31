@@ -44,66 +44,58 @@ Change_iterator::error (const string &reason)
   get_music ()->origin ()->warning (warn1);
 }
 
+string
+Change_iterator::change_to (Music_iterator &it,
+                            SCM to_type,
+                            const string &to_id)
+{
+  string result; // error message
+
+  // Find the context that should have its parent changed.
+  Context *last = find_context_above_by_parent_type (it.get_outlet (), to_type);
+  if (last)
+    {
+      // Find the new parent.
+      Context *dest = find_context_near (it.get_outlet (), to_type, to_id);
+      if (dest)
+        {
+          send_stream_event (last, "ChangeParent", it.get_music ()->origin (),
+                             ly_symbol2scm ("context"), dest->self_scm ());
+        }
+      else
+        /* FIXME: constant error message.  */
+        it.get_music ()->origin ()->warning (_ ("cannot find context to switch to"));
+    }
+  else if (it.get_outlet ()->is_alias (to_type))
+    {
+      // No enclosing context was found because the iterator's immediate
+      // context is the kind that was sought.
+      /* We could change the current translator's id, but that would make
+         errors hard to catch.
+
+         last->translator_id_string () = get_change
+         ()->change_to_id_string (); */
+      result = _f ("not changing to same context type: %s", ly_symbol2string (to_type).c_str ());
+    }
+  else
+    /* FIXME: uncomprehensable message */
+    result = _ ("none of these in my family");
+
+  return result;
+}
+
 /*
   move to construct_children ?
 */
 void
 Change_iterator::process (Moment m)
 {
-  Context *current = get_outlet ();
-  Context *last = 0;
-
   SCM to_type = get_music ()->get_property ("change-to-type");
   string to_id = ly_scm2string (get_music ()->get_property ("change-to-id"));
 
-  /* find the type  of translator that we're changing.
-
-  If \translator Staff = bass, then look for Staff = *
-  */
-  while (current && !current->is_alias (to_type))
-    {
-      last = current;
-      current = current->get_parent_context ();
-    }
-
-  if (current && current->id_string () == to_id)
-    {
-      string msg;
-      msg += _f ("cannot change, already in translator: %s", to_id);
-    }
-
-  if (current)
-    if (last)
-      {
-        Context *dest = 0;
-        Context *where = get_outlet ();
-        while (!dest && where)
-          {
-            dest = find_context_below (where, to_type, to_id);
-            where = where->get_parent_context ();
-          }
-
-        if (dest)
-          {
-            send_stream_event (last, "ChangeParent", get_music ()->origin (),
-                               ly_symbol2scm ("context"), dest->self_scm ());
-          }
-        else
-          /* FIXME: constant error message.  */
-          get_music ()->origin ()->warning (_ ("cannot find context to switch to"));
-      }
-    else
-      {
-        /* We could change the current translator's id, but that would make
-           errors hard to catch.
-
-           last->translator_id_string () = get_change
-           ()->change_to_id_string (); */
-        error (_f ("not changing to same context type: %s", ly_symbol2string (to_type).c_str ()));
-      }
-  else
-    /* FIXME: uncomprehensable message */
-    error (_ ("none of these in my family"));
+  string msg = change_to (*this, to_type, to_id);
+  if (!msg.empty ())
+    error (msg);
 
   Simple_music_iterator::process (m);
 }

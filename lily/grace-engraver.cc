@@ -120,10 +120,7 @@ Grace_engraver::consider_change_grace_settings ()
           if (!scm_is_pair (sym))
             sym = scm_list_1 (sym);
 
-          Context *c = context ();
-          while (c && !c->is_alias (context_name))
-            c = c->get_parent_context ();
-
+          Context *c = find_context_above (context (), context_name);
           if (c)
             {
               SCM cell = Grob_property_info (c, grob).push (sym, val);
