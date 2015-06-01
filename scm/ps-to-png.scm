@@ -27,26 +27,11 @@
  (lily)
  )
 
-;; FIXME: use backend-library for duplicates and stubs; lilypond-ps2png.scm is no more
-
-(define-public _ gettext)
-
 (define (re-sub re sub string)
   (regexp-substitute/global #f re string 'pre sub 'post))
 
 (define-public (gulp-file file-name . max-size)
   (ly:gulp-file file-name (if (pair? max-size) (car max-size))))
-
-;; copy of ly:system. ly:* not available via lilypond-ps2png.scm
-(define (my-system be-verbose exit-on-error cmd)
-  (define status 0)
-  (ly:debug (_ "Invoking `~a'...\n") cmd)
-  (set! status (system cmd))
-  (if (not (= status 0))
-      (begin
-        (ly:error (_ "~a exited with status: ~S") "GS" status)
-        (if exit-on-error (exit 1))))
-  status)
 
 (define (scale-down-image factor file)
   (let* ((old (string-append file ".old"))
