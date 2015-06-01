@@ -33,6 +33,24 @@
 (define-public (gulp-file file-name . max-size)
   (ly:gulp-file file-name (if (pair? max-size) (car max-size))))
 
+(define (search-pngtopam)
+  (search-executable
+   (if (eq? PLATFORM 'windows)
+       '("pngtopam.exe" "pngtopnm.exe")
+       '("pngtopam" "pngtopnm"))))
+
+(define (search-pamscale)
+  (search-executable
+   (if (eq? PLATFORM 'windows)
+       '("pamscale.exe" "pnmscale.exe")
+       '("pamscale" "pnmscale"))))
+
+(define (search-pnmtopng)
+  (search-executable
+   (if (eq? PLATFORM 'windows)
+       '("pnmtopng.exe")
+       '("pnmtopng"))))
+
 (define (scale-down-image factor file)
   (let* ((old (string-append file ".old"))
          ;; Netpbm commands (pngtopnm, pnmscale, pnmtopng)
