@@ -100,8 +100,8 @@ described in @ref{Articulations and ornamentations}.
 The bowing commands, @code{\upbow} and @code{\downbow}, are used
 with slurs as follows:
 
-@lilypond[verbatim,quote,relative=2]
-c4(\downbow d) e(\upbow f)
+@lilypond[verbatim,quote]
+\relative { c''4(\downbow d) e(\upbow f) }
 @end lilypond
 
 @noindent
@@ -114,11 +114,11 @@ Alternatively, string indications may be printed using
 markup commands; articulation scripts may also indicate
 open strings.
 
-@lilypond[verbatim,quote,relative=2]
-a4 \open
+@lilypond[verbatim,quote,fragment]
+a'4 \open
 \romanStringNumbers
-a\2
-a2^\markup { \small "sul A" }
+a'\2
+a'2^\markup { \small "sul A" }
 @end lilypond
 
 
@@ -154,21 +154,23 @@ Natural harmonics can be notated in several ways.  A diamond-shaped
 note head generally means to touch the string where you would stop
 the note if it were not a diamond.
 
-@lilypond[verbatim,quote,relative=2]
-d4 e4.
-\harmonicsOn
-d8 e e
-d4 e4.
-\harmonicsOff
-d8 e e
+@lilypond[verbatim,quote]
+\relative d'' {
+  d4 e4.
+  \harmonicsOn
+  d8 e e
+  d4 e4.
+  \harmonicsOff
+  d8 e e
+}
 @end lilypond
 
 Alternatively a normal note head is shown at the pitch to be
 sounded together with a small circle to indicate it should be
 played as a harmonic:
 
-@lilypond[verbatim,quote,relative=2]
-d2^\flageolet d_\flageolet
+@lilypond[verbatim,quote,fragment]
+d''2^\flageolet d''_\flageolet
 @end lilypond
 
 A smaller circle may be created, see the snippet list in
@@ -188,10 +190,12 @@ Artificial harmonics indicated with @code{\harmonic} do not show the
 dots.  The context property @code{harmonicDots} should be set if
 dots are required.
 
-@lilypond[verbatim,quote,relative=1]
-<e a\harmonic>2.  <c g'\harmonic>4
-\set harmonicDots = ##t
-<e a\harmonic>2.  <c g'\harmonic>4
+@lilypond[verbatim,quote]
+\relative e' {
+  <e a\harmonic>2.  <c g'\harmonic>4
+  \set harmonicDots = ##t
+  <e a\harmonic>2.  <c g'\harmonic>4
+}
 @end lilypond
 
 @warning{@code{@bs{}harmonic} @strong{must} be placed inside a
@@ -219,11 +223,13 @@ A @notation{snap pizzicato} (also known as @qq{Bartok pizz}) is a
 type of pizzicato where the string is deliberately plucked upwards
 (rather than sideways) such that it hits the fingerboard.
 
-@lilypond[verbatim,quote,relative=1]
-c4\snappizzicato
-<c' e g>4\snappizzicato
-<c' e g>4^\snappizzicato
-<c, e g>4_\snappizzicato
+@lilypond[verbatim,quote]
+\relative {
+  c'4\snappizzicato
+  <c' e g>4\snappizzicato
+  <c' e g>4^\snappizzicato
+  <c, e g>4_\snappizzicato
+}
 @end lilypond
 
 

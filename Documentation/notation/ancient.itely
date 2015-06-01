@@ -430,10 +430,10 @@ mensural C clef
 @code{mensural-c3}, @code{mensural-c4},@*
 @code{mensural-c5}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \clef "mensural-c2"
   \override NoteHead.style = #'mensural
-  c1
+  c'1
 @end lilypond
 
 @item
@@ -441,10 +441,10 @@ mensural F clef
 @tab
 @code{mensural-f}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \clef "mensural-f"
   \override NoteHead.style = #'mensural
-  c1
+  c'1
 @end lilypond
 
 @item
@@ -452,10 +452,10 @@ mensural G clef
 @tab
 @code{mensural-g}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \clef "mensural-g"
   \override NoteHead.style = #'mensural
-  c1
+  c'1
 @end lilypond
 
 @item
@@ -465,10 +465,10 @@ black mensural C clef
 @code{blackmensural-c3}, @code{blackmensural-c4},@*
 @code{blackmensural-c5}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \clef "blackmensural-c2"
   \override NoteHead.style = #'mensural
-  c1
+  c'1
 @end lilypond
 
 @item
@@ -477,8 +477,8 @@ neomensural C clef
 @code{neomensural-c1}, @code{neomensural-c2},@*
 @code{neomensural-c3}, @code{neomensural-c4}
 @tab
-@lilypond[relative=1,notime]
-  \clef "neomensural-c2" c1
+@lilypond[fragment,notime]
+  \clef "neomensural-c2" c'1
 @end lilypond
 
 @item
@@ -489,10 +489,10 @@ petrucci style C clefs, for use on different staff lines
 @code{petrucci-c3}, @code{petrucci-c4},@*
 @code{petrucci-c5}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \clef "petrucci-c2"
   \override NoteHead.style = #'mensural
-  c1
+  c'1
 @end lilypond
 
 @item
@@ -502,10 +502,10 @@ petrucci style F clefs, for use on different staff lines
 @code{petrucci-f3}, @code{petrucci-f4},@*
 @code{petrucci-f5}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \clef "petrucci-f3"
   \override NoteHead.style = #'mensural
-  c1
+  c'1
 @end lilypond
 
 @item
@@ -513,10 +513,10 @@ petrucci style G clef
 @tab
 @code{petrucci-g}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \clef "petrucci-g"
   \override NoteHead.style = #'mensural
-  c1
+  c'1
 @end lilypond
 @end multitable
 
@@ -596,8 +596,8 @@ to select ancient time signatures.  Supported styles are
 @code{neomensural} style.  The following examples show the
 differences in style:
 
-@lilypond[ragged-right,relative=1,quote]
-{
+@lilypond[ragged-right,quote]
+\relative c' {
   \textLengthOn
 
   \time 2/2
@@ -729,13 +729,15 @@ Use the @code{flag-style} property of grob @code{Stem} to
 select ancient flags.  Besides the @code{default} flag style,
 only the @code{mensural} style is supported.
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-\override Flag.style = #'mensural
-\override Stem.thickness = #1.0
-\override NoteHead.style = #'mensural
-\autoBeamOff
-c8 d e f c16 d e f c32 d e f s8
-c'8 d e f c16 d e f c32 d e f
+@lilypond[quote,fragment,ragged-right,verbatim]
+\relative c' {
+  \override Flag.style = #'mensural
+  \override Stem.thickness = #1.0
+  \override NoteHead.style = #'mensural
+  \autoBeamOff
+  c8 d e f c16 d e f c32 d e f s8
+  c'8 d e f c16 d e f c32 d e f
+}
 @end lilypond
 
 Note that the innermost flare of each mensural flag is
@@ -862,10 +864,12 @@ switched on by setting @code{suggestAccidentals} to true.
 
 @funindex suggestAccidentals
 
-@lilypond[verbatim,relative=1]
-fis gis
-\set suggestAccidentals = ##t
-ais bis
+@lilypond[verbatim]
+\relative {
+  fis' gis
+  \set suggestAccidentals = ##t
+  ais bis
+}
 @end lilypond
 
 This will treat @emph{every} subsequent accidental as
@@ -1086,14 +1090,14 @@ Editio Vaticana style do clef
 @code{vaticana-do1}, @code{vaticana-do2},@*
 @code{vaticana-do3}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'vaticana.punctum
   \clef "vaticana-do2"
-  c
+  c'
 @end lilypond
 
 @item
@@ -1101,14 +1105,14 @@ Editio Vaticana style fa clef
 @tab
 @code{vaticana-fa1}, @code{vaticana-fa2}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'vaticana.punctum
   \clef "vaticana-fa2"
-  c
+  c'
 @end lilypond
 
 @item
@@ -1117,14 +1121,14 @@ Editio Medicaea style do clef
 @code{medicaea-do1}, @code{medicaea-do2},@*
 @code{medicaea-do3}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'medicaea.punctum
   \clef "medicaea-do2"
-  c
+  c'
 @end lilypond
 
 @item
@@ -1132,14 +1136,14 @@ Editio Medicaea style fa clef
 @tab
 @code{medicaea-fa1}, @code{medicaea-fa2}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'medicaea.punctum
   \clef "medicaea-fa2"
-  c
+  c'
 @end lilypond
 
 @item
@@ -1148,14 +1152,14 @@ hufnagel style do clef
 @code{hufnagel-do1}, @code{hufnagel-do2},@*
 @code{hufnagel-do3}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-do2"
-  c
+  c'
 @end lilypond
 
 @item
@@ -1163,14 +1167,14 @@ hufnagel style fa clef
 @tab
 @code{hufnagel-fa1}, @code{hufnagel-fa2}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-fa2"
-  c
+  c'
 @end lilypond
 
 @item
@@ -1178,13 +1182,13 @@ hufnagel style combined do/fa clef
 @tab
 @code{hufnagel-do-fa}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-do-fa"
-  c
+  c'
 @end lilypond
 @end multitable
 
@@ -2437,10 +2441,10 @@ Kievan notation that were used in Galicia to notate Rusyn plainchant.
 There is only one clef used in Kievan notation (the Tse-fa-ut Clef).
 It is used to indicate the position of @code{c}:
 
-@lilypond[quote,relative=1,notime,verbatim]
+@lilypond[quote,fragment,notime,verbatim]
   \clef "kievan-do"
   \kievanOn
-  c
+  c'
 @end lilypond
 
 @seealso
@@ -2508,11 +2512,11 @@ in Kievan notation.  The sharp sign is not used in Synodal music
 but may occur in earlier manuscripts.  It has been included
 primarily for the sake of compatibility.
 
-@lilypond[quote,relative=1,notime,verbatim]
+@lilypond[quote,fragment,notime,verbatim]
 \clef "kievan-do"
 \override Accidental.glyph-name-alist =
  #alteration-kievan-glyph-name-alist
-bes' dis,
+bes' dis'
 @end lilypond
 
 @seealso
@@ -2532,10 +2536,10 @@ A decorative figure is commonly placed at the end of a piece of
 Kievan notation, which may be called the Kievan final bar line.
 It can be invoked as @code{\bar "k"}.
 
-@lilypond[quote,relative=1,notime,verbatim]
+@lilypond[quote,fragment,notime,verbatim]
   \kievanOn
   \clef "kievan-do"
-  c \bar "k"
+  c' \bar "k"
 @end lilypond
 
 @seealso

@@ -970,8 +970,8 @@ formed by the concept of music expressions: by combining small
 fragments of music into larger ones, more complex music can be
 expressed.  For example
 
-@lilypond[quote,verbatim,fragment,relative=1]
-f4
+@lilypond[quote,verbatim,fragment]
+f'4
 @end lilypond
 
 @noindent

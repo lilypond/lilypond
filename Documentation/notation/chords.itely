@@ -68,11 +68,13 @@ absolute pitches are one octave higher than in note mode.
 
 Chord mode and note mode can be mixed in sequential music:
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
-<c e g>2 <g b d>
-\chordmode { c2 f }
-<c e g>2 <g' b d>
-\chordmode { f2 g }
+@lilypond[verbatim,quote,ragged-right]
+\relative {
+  <c' e g>2 <g b d>
+  \chordmode { c2 f }
+  <c e g>2 <g' b d>
+  \chordmode { f2 g }
+}
 @end lilypond
 
 @seealso
@@ -434,7 +436,7 @@ chordmusic = \relative {
 Rests passed to a @code{ChordNames} context will cause the
 @code{noChordSymbol} markup to be displayed.
 
-@lilypond[verbatim, quote, relative=1]
+@lilypond[verbatim,quote]
 <<
   \new ChordNames \chordmode {
     c1

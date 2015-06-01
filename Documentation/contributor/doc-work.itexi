@@ -401,13 +401,7 @@ Most LilyPond examples throughout the documentation can be produced
 with:
 
 @example
-@@lilypond[verbatim,quote,relative=1]
-@end example
-
-or
-
-@example
-@@lilypond[verbatim,quote,relative=2]
+@@lilypond[verbatim,quote]
 @end example
 
 If using @code{\book@{@}} in your example then you must also
@@ -453,8 +447,8 @@ Please avoid using extra spacing either after or within the
 @code{@@lilypond} parameters.
 
 @example
-not:          @@lilypond [verbatim, quote, relative=1]
-but instead:  @@lilypond[verbatim,quote,relative=1]
+not:          @@lilypond [verbatim, quote, fragment]
+but instead:  @@lilypond[verbatim,quote,fragment]
 @end example
 
 @item

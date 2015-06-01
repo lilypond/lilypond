@@ -373,11 +373,11 @@ staff based on the first note named in the chord construct.
 Whenever a voice switches to another staff, a line connecting the
 notes can be printed automatically:
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,verbatim]
 \new PianoStaff <<
   \new Staff = "one" {
     \showStaffSwitch
-    c1
+    c'1
     \change Staff = "two"
     b2 a
   }
@@ -487,13 +487,15 @@ produced: @notation{sustain}, @notation{sostenuto}
 (@notation{sos.}), and @notation{una corda} (@notation{U.C.}).
 Sustain pedals are also found on vibraphones and celestas.
 
-@lilypond[quote,verbatim,relative=2]
-c4\sustainOn d e g
-<c, f a>1\sustainOff
-c4\sostenutoOn e g c,
-<bes d f>1\sostenutoOff
-c4\unaCorda d e g
-<d fis a>1\treCorde
+@lilypond[quote,verbatim]
+\relative {
+  c''4\sustainOn d e g
+  <c, f a>1\sustainOff
+  c4\sostenutoOn e g c,
+  <bes d f>1\sostenutoOff
+  c4\unaCorda d e g
+  <d fis a>1\treCorde
+}
 @end lilypond
 
 @cindex pedal indication styles
@@ -512,15 +514,17 @@ There are three styles of pedal indications: text, bracket, and mixed.
 The sustain pedal and the una corda pedal use the text style by default
 while the sostenuto pedal uses mixed by default.
 
-@lilypond[quote,verbatim,relative=2]
-c4\sustainOn g c2\sustainOff
-\set Staff.pedalSustainStyle = #'mixed
-c4\sustainOn g c d
-d\sustainOff\sustainOn g, c2\sustainOff
-\set Staff.pedalSustainStyle = #'bracket
-c4\sustainOn g c d
-d\sustainOff\sustainOn g, c2
-\bar "|."
+@lilypond[quote,verbatim]
+\relative {
+  c''4\sustainOn g c2\sustainOff
+  \set Staff.pedalSustainStyle = #'mixed
+  c4\sustainOn g c d
+  d\sustainOff\sustainOn g, c2\sustainOff
+  \set Staff.pedalSustainStyle = #'bracket
+  c4\sustainOn g c d
+  d\sustainOff\sustainOn g, c2
+  \bar "|."
+}
 @end lilypond
 
 The placement of the pedal commands matches the physical movement of the
@@ -641,20 +645,20 @@ is controlled by a single pedal.  From the player's left to right, the
 pedals are D, C, and B on the left and E, F, G, and A on the right.
 The position of the pedals may be indicated with text marks:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \textLengthOn
-cis1_\markup \concat \vcenter {
+cis''1_\markup \concat \vcenter {
   [D \flat C \sharp B|E \sharp F \sharp G A \flat] }
-c!1_\markup \concat \vcenter {
+c''!1_\markup \concat \vcenter {
   [ C \natural ] }
 @end lilypond
 
 or pedal diagrams:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \textLengthOn
-cis1_\markup { \harp-pedal #"^v-|vv-^" }
-c!1_\markup { \harp-pedal #"^o--|vv-^" }
+cis''1_\markup { \harp-pedal #"^v-|vv-^" }
+c''!1_\markup { \harp-pedal #"^o--|vv-^" }
 @end lilypond
 
 The @code{\harp-pedal} command accepts a string of characters, where

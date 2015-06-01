@@ -253,12 +253,14 @@ color of the note head:
 @cindex color property, example
 @cindex NoteHead, example of overriding
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-c4 d
-\override NoteHead.color = #red
-e4 f |
-\override NoteHead.color = #green
-g4 a b c |
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  c'4 d
+  \override NoteHead.color = #red
+  e4 f |
+  \override NoteHead.color = #green
+  g4 a b c |
+}
 @end lilypond
 
 
@@ -289,14 +291,16 @@ of the note head to the default value for the final two notes:
 @cindex color property, example
 @cindex NoteHead, example of overriding
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-c4 d
-\override NoteHead.color = #red
-e4 f |
-\override NoteHead.color = #green
-g4 a
-\revert NoteHead.color
-b4 c |
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  c'4 d
+  \override NoteHead.color = #red
+  e4 f |
+  \override NoteHead.color = #green
+  g4 a
+  \revert NoteHead.color
+  b4 c |
+}
 @end lilypond
 
 
@@ -317,26 +321,30 @@ note like this:
 @cindex color property, example
 @cindex NoteHead, example of overriding
 
-@lilypond[quote,verbatim,relative=1]
-c4 d
-\override NoteHead.color = #red
-e4 f |
-\once \override NoteHead.color = #green
-g4 a
-\revert NoteHead.color
-b c |
+@lilypond[quote,verbatim]
+\relative {
+  c'4 d
+  \override NoteHead.color = #red
+  e4 f |
+  \once \override NoteHead.color = #green
+  g4 a
+  \revert NoteHead.color
+  b c |
+}
 @end lilypond
 
 The @code{\once} prefix may also be used in front of many
 predefined commands to limit their effect to one musical moment:
 
-@lilypond[quote,verbatim,relative=1]
-c4( d)
-\once \slurDashed
-e4( f) |
-g4( a)
-\once \hideNotes
-b( c) |
+@lilypond[quote,verbatim]
+\relative {
+  c'4( d)
+  \once \slurDashed
+  e4( f) |
+  g4( a)
+  \once \hideNotes
+  b( c) |
+}
 @end lilypond
 
 However, predefined commands of the form @code{\@dots{}Neutral},
@@ -382,11 +390,13 @@ middle note head (the E) in a C major chord.  Let's first see what
 @cindex font-size property, example
 @cindex NoteHead, example of overriding
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-<c e g>4
-\once \override NoteHead.font-size = #-3
-<c e g>4
-<c e g>4
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  <c' e g>4
+  \once \override NoteHead.font-size = #-3
+  <c e g>4
+  <c e g>4
+}
 @end lilypond
 
 We see the override affects @emph{all} the note heads in the chord.
@@ -407,9 +417,11 @@ a chord would be changed in this way:
 @cindex font-size property, example
 @cindex @code{\tweak}, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-<c e g>4
-<c \tweak font-size #-3 e g>4
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  <c' e g>4
+  <c \tweak font-size #-3 e g>4
+}
 @end lilypond
 
 Note that the syntax of @code{\tweak} is different from that of the
@@ -429,8 +441,8 @@ a series of articulations, as shown here:
 @cindex color property, example
 @cindex @code{\tweak}, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-a4^"Black"
+@lilypond[quote,fragment,ragged-right,verbatim]
+a'4^"Black"
   -\tweak color #red ^"Red"
   -\tweak color #green _"Green"
 @end lilypond
@@ -450,10 +462,10 @@ directly from the following event.  It is still possible to use
 the layout object, provided that LilyPond can trace its origin back to
 the original event:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-<\tweak Accidental.color #red   cis4
- \tweak Accidental.color #green es
- g>
+@lilypond[quote,fragment,ragged-right,verbatim]
+<\tweak Accidental.color #red   cis''4
+ \tweak Accidental.color #green es''
+ g''>
 @end lilypond
 
 This long form of the @code{\tweak} command can be described as
@@ -486,13 +498,15 @@ printed in red on the first short tuplet bracket.
 @cindex direction property, example
 @cindex color property, example
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-\tweak direction #up
-\tuplet 3/4 {
-  \tweak color #red
-  \tuplet 3/2 { c8[ c c] }
-  \tuplet 3/2 { c8[ c c] }
-  \tuplet 3/2 { c8[ c c] }
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  \tweak direction #up
+  \tuplet 3/4 {
+    \tweak color #red
+    \tuplet 3/2 { c8[ c c] }
+    \tuplet 3/2 { c8[ c c] }
+    \tuplet 3/2 { c8[ c c] }
+  }
 }
 @end lilypond
 
@@ -505,15 +519,17 @@ appearance may be modified in the usual way with
 @cindex transparent property, example
 @cindex TupletNumber, example of overriding
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
-\tuplet 3/2 { c8[ c c] }
-\once \override TupletNumber.text = #tuplet-number::calc-fraction-text
-\tuplet 3/2 {
-  c8[ c]
-  c8[ c]
-  \once \override TupletNumber.transparent = ##t
-  \tuplet 3/2 { c8[ c c] }
-  \tuplet 3/2 { c8[ c c] }
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  \tuplet 3/2 { c'8[ c c] }
+  \once \override TupletNumber.text = #tuplet-number::calc-fraction-text
+  \tuplet 3/2 {
+    c8[ c]
+    c8[ c]
+    \once \override TupletNumber.transparent = ##t
+    \tuplet 3/2 { c8[ c c] }
+    \tuplet 3/2 { c8[ c c] }
+  }
 }
 @end lilypond
 
@@ -626,12 +642,12 @@ music:
 
 @c Mozart, Die Zauberflöte Nr.7 Duett
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8 bes[( g]) g |
+  \relative {
+    r4 bes'8 bes[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
   }
@@ -711,14 +727,14 @@ close to it.}  Let's do that:
 @cindex Slur example of overriding
 @cindex thickness property, example
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
+  \relative {
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur.thickness = #5.0
-    r4 bes8 bes[( g]) g |
+    r4 bes'8 bes[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
   }
@@ -780,12 +796,12 @@ repositioned as follows:
 @cindex Slur, example of overriding
 @cindex thickness property, example
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8
+  \relative {
+    r4 bes'8
     % Increase thickness of immediately following slur only
     \once \override Slur.thickness = #5.0
     bes8[( g]) g |
@@ -820,12 +836,12 @@ the slurs begin:
 @cindex Slur, example of overriding
 @cindex thickness property, example
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8
+  \relative {
+    r4 bes'8
     % Increase thickness of immediately following slur only
     \once \override Slur.thickness = #5.0
     bes[( g]) g |
@@ -848,12 +864,12 @@ after the second slur:
 @cindex Slur, example of overriding
 @cindex thickness property, example
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8
+  \relative {
+    r4 bes'8
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur.thickness = #5.0
     bes[( g]) g |
@@ -955,12 +971,12 @@ like so:
 @cindex LyricText, example of overriding
 @cindex @code{\addlyrics}, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8 bes[( g]) g |
+  \relative {
+    r4 bes'8 bes[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
   }
@@ -1125,11 +1141,11 @@ the implied Context, @code{Voice}:
 @cindex BarLine, example of overriding
 @cindex stencil property, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override BarLine.stencil = ##f
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1150,11 +1166,11 @@ it by adding the correct context:
 @cindex BarLine, example of overriding
 @cindex stencil property, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.BarLine.stencil = ##f
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1165,11 +1181,11 @@ property to @code{#f} is such a frequent operation that there is a
 shorthand for it called @code{\omit}:
 @funindex \omit
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \omit Staff.BarLine
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1183,9 +1199,9 @@ correct processing.  For example, errors will be generated if the
 @code{point-stencil} function, which sets the stencil to an object
 with zero size:
 
-@lilypond[quote,verbatim,relative=2]
-{
-  c4 c
+@lilypond[quote,verbatim]
+\relative {
+  c''4 c
   \once \override NoteHead.stencil = #point-stencil
   c4 c
 }
@@ -1212,11 +1228,11 @@ required, as always, to precede the value itself in the
 @cindex BarLine, example of overriding
 @cindex break-visibility property, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.BarLine.break-visibility = ##(#f #f #f)
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1245,11 +1261,11 @@ transparent is:
 @cindex TimeSignature, example of overriding
 @cindex transparent property, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.TimeSignature.transparent = ##t
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1261,11 +1277,11 @@ frequent operation, so we have a shorthand for it called
 @code{\hide}:
 @funindex \hide
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \hide Staff.TimeSignature
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1283,11 +1299,11 @@ instead:
 @cindex TimeSignature, example of overriding
 @cindex stencil property, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \omit Staff.TimeSignature
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1327,11 +1343,11 @@ we write:
 @cindex BarLine, example of overriding
 @cindex color property, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.BarLine.color = #white
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1361,11 +1377,11 @@ converts X11 color symbols into the list of internal values like this:
 @cindex BarLine, example of overriding
 @cindex color property, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.BarLine.color = #(x11-color 'white)
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1392,11 +1408,11 @@ and to white it should be @code{(rgb-color 1 1 1)}:
 @cindex BarLine, example of overriding
 @cindex color property, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.BarLine.color = #(rgb-color 1 1 1)
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1417,8 +1433,8 @@ various shades of grey:
 @cindex color property, example
 @cindex x11-color, example of using
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.StaffSymbol.color = #(x11-color 'grey30)
   \override Staff.TimeSignature.color = #(x11-color 'grey60)
@@ -1426,7 +1442,7 @@ various shades of grey:
   \override Voice.NoteHead.color = #(x11-color 'grey85)
   \override Voice.Stem.color = #(x11-color 'grey85)
   \override Staff.BarLine.color = #(x11-color 'grey10)
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1458,7 +1474,7 @@ how to introduce a new temporary staff, as in an @rglos{ossia}.
 @cindex alignAboveContext property, example
 @cindex @code{\with}, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1485,7 +1501,7 @@ we simply set the stencil of each to @code{#f}, as follows:
 @cindex Clef, example of overriding
 @cindex TimeSignature, example of overriding
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1548,7 +1564,7 @@ So we could replace the example above with
 @cindex Clef, example of overriding
 @cindex TimeSignature, example of overriding
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1573,7 +1589,7 @@ It turns out that we can also employ the shorthands @code{\hide}
 and @code{\omit} for setting the @code{transparent} property and
 clearing the @code{stencil} here, leading to the result
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1637,7 +1653,7 @@ Let's try it in our ossia example:
 @cindex TimeSignature, example of overriding
 @cindex fontSize property, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1703,7 +1719,7 @@ objects in proportion.  It is used like this:
 @cindex staff-space property, example
 @cindex stencil property, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1810,11 +1826,11 @@ under @q{Text2}.
 
 @cindex markup example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-c2^"Text1"
-c2^"Text2" |
-c2^"Text3"
-c2^"Text4" |
+@lilypond[quote,fragment,ragged-right,verbatim]
+c''2^"Text1"
+c''2^"Text2" |
+c''2^"Text3"
+c''2^"Text4" |
 @end lilypond
 
 Staves are also positioned, by default, as closely together as
@@ -1878,14 +1894,14 @@ finally a bar with both slurs reverted back to the default behavior.
 @cindex Slur, example of overriding
 @cindex direction property, example
 
-@lilypond[quote,verbatim,relative=2]
-a4( g) c( a) |
+@lilypond[quote,fragment,verbatim]
+a'4( g') c''( a') |
 \override Slur.direction = #DOWN
-a4( g) c( a) |
+a'4( g') c''( a') |
 \override Slur.direction = #UP
-a4( g) c( a) |
+a'4( g') c''( a') |
 \revert Slur.direction
-a4( g) c( a) |
+a'4( g') c''( a') |
 @end lilypond
 
 Here we have used the constants @code{DOWN} and @code{UP}.
@@ -1952,9 +1968,9 @@ effect of the other commands (which are implemented using
 Or, if just a single layout object needs to be forced up or down, the
 direction indicators, @code{^} or @code{_}, may be used:
 
-@lilypond[quote,verbatim,relative=2]
-a4( g) c( a) |
-a4^( g) c_( a) |
+@lilypond[quote,fragment,verbatim]
+a'4( g') c''( a') |
+a'4^( g') c''_( a') |
 @end lilypond
 
 @node Fingering
@@ -1978,12 +1994,14 @@ specifying @code{DOWN} and @code{UP}:
 @cindex Fingering, example of overriding
 @cindex direction property, example
 
-@lilypond[quote,verbatim,relative=2]
-c4-5 a-3 f-1 c'-5 |
-\override Fingering.direction = #DOWN
-c4-5 a-3 f-1 c'-5 |
-\override Fingering.direction = #UP
-c4-5 a-3 f-1 c'-5 |
+@lilypond[quote,verbatim]
+\relative {
+  c''4-5 a-3 f-1 c'-5 |
+  \override Fingering.direction = #DOWN
+  c4-5 a-3 f-1 c'-5 |
+  \override Fingering.direction = #UP
+  c4-5 a-3 f-1 c'-5 |
+}
 @end lilypond
 
 However, overriding the @code{direction} property is not the
@@ -1994,10 +2012,12 @@ example using this method:
 
 @cindex fingering example
 
-@lilypond[quote,verbatim,relative=2]
-c4-5 a-3 f-1 c'-5 |
-c4_5 a_3 f_1 c'_5 |
-c4^5 a^3 f^1 c'^5 |
+@lilypond[quote,verbatim]
+\relative {
+  c''4-5 a-3 f-1 c'-5 |
+  c4_5 a_3 f_1 c'_5 |
+  c4^5 a^3 f^1 c'^5 |
+}
 @end lilypond
 
 The @code{direction} property is ignored for chords, but the
@@ -2007,10 +2027,12 @@ notes of a chord, as shown:
 
 @cindex fingering example
 
-@lilypond[quote,verbatim,relative=2]
-<c-5 g-3>4
-<c-5 g-3 e-2>4
-<c-5 g-3 e-2 c-1>4
+@lilypond[quote,verbatim]
+\relative {
+  <c''-5 g-3>4
+  <c-5 g-3 e-2>4
+  <c-5 g-3 e-2 c-1>4
+}
 @end lilypond
 
 @noindent
@@ -2019,10 +2041,12 @@ individual fingering numbers above or below:
 
 @cindex fingering example
 
-@lilypond[quote,verbatim,relative=2]
-<c-5 g-3 e-2 c-1>4
-<c^5 g_3 e_2 c_1>4
-<c^5 g^3 e^2 c_1>4
+@lilypond[quote,verbatim]
+\relative {
+  <c''-5 g-3 e-2 c-1>4
+  <c^5 g_3 e_2 c_1>4
+  <c^5 g^3 e^2 c_1>4
+}
 @end lilypond
 
 Even greater control over the placement of fingering of the
@@ -2060,22 +2084,24 @@ Here are a few examples:
 @cindex @code{\set}, example of using
 @cindex fingeringOrientations property, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-\set fingeringOrientations = #'(left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
-\set fingeringOrientations = #'(left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4 |
-\set fingeringOrientations = #'(up left down)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
-\set fingeringOrientations = #'(up left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4 |
-\set fingeringOrientations = #'(right)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  \set fingeringOrientations = #'(left)
+  <f'-2>4
+  <c-1 e-2 g-3 b-5>4
+  \set fingeringOrientations = #'(left)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4 |
+  \set fingeringOrientations = #'(up left down)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4
+  \set fingeringOrientations = #'(up left)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4 |
+  \set fingeringOrientations = #'(right)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4
+}
 @end lilypond
 
 @noindent
@@ -2084,23 +2110,25 @@ could be reduced.  The default value can be seen from the
 @code{Fingering} object in the IR to be @w{@code{-5}}, so let's
 try @w{@code{-7}}:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-\override Fingering.font-size = #-7
-\set fingeringOrientations = #'(left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
-\set fingeringOrientations = #'(left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4 |
-\set fingeringOrientations = #'(up left down)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
-\set fingeringOrientations = #'(up left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4 |
-\set fingeringOrientations = #'(right)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  \override Fingering.font-size = #-7
+  \set fingeringOrientations = #'(left)
+  <f'-2>4
+  <c-1 e-2 g-3 b-5>4
+  \set fingeringOrientations = #'(left)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4 |
+  \set fingeringOrientations = #'(up left down)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4
+  \set fingeringOrientations = #'(up left)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4 |
+  \set fingeringOrientations = #'(right)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4
+}
 @end lilypond
 
 @node Outside-staff objects
@@ -2195,7 +2223,7 @@ these.
 @cindex TextSpanner, example of overriding
 @cindex bound-details property, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+@lilypond[quote,fragment,ragged-right,verbatim]
 % Set details for later Text Spanner
 \override TextSpanner.bound-details.left.text
     = \markup { \small \bold Slower }
@@ -2203,18 +2231,18 @@ these.
 \dynamicUp
 % Start Ottava Bracket
 \ottava #1
-c'4 \startTextSpan
+c''4 \startTextSpan
 % Add Dynamic Text and hairpin
-c4\pp\<
-c4
+c''4\pp\<
+c''4
 % Add Text Script
-c4^Text |
-c4 c
+c''4^Text |
+c''4 c''
 % Add Dynamic Text and terminate hairpin
-c4\ff c \stopTextSpan |
+c''4\ff c'' \stopTextSpan |
 % Stop Ottava Bracket
 \ottava #0
-c,4 c c c |
+c'4 c' c' c' |
 @end lilypond
 
 This example also shows how to create Text Spanners --
@@ -2245,7 +2273,7 @@ in the @code{Staff} context:
 @cindex TextSpanner, example of overriding
 @cindex bound-details property, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+@lilypond[quote,fragment,ragged-right,verbatim]
 % Set details for later Text Spanner
 \override TextSpanner.bound-details.left.text
     = \markup { \small \bold Slower }
@@ -2255,19 +2283,19 @@ in the @code{Staff} context:
 \once \override Staff.OttavaBracket.outside-staff-priority = #340
 % Start Ottava Bracket
 \ottava #1
-c'4 \startTextSpan
+c''4 \startTextSpan
 % Add Dynamic Text
-c4\pp
+c''4\pp
 % Add Dynamic Line Spanner
-c4\<
+c''4\<
 % Add Text Script
-c4^Text |
-c4 c
+c''4^Text |
+c''4 c''
 % Add Dynamic Text
-c4\ff c \stopTextSpan |
+c''4\ff c'' \stopTextSpan |
 % Stop Ottava Bracket
 \ottava #0
-c,4 c c c |
+c'4 c' c' c' |
 @end lilypond
 
 Note that some of these objects, in particular bar numbers,
@@ -2292,14 +2320,16 @@ can be set to a numerical value to cause it to be placed along with
 other outside-staff objects according to that value.  Here's an
 example showing the effect of the two methods:
 
-@lilypond[quote,verbatim,relative=2]
-c4( c^\markup { \tiny \sharp } d4.) c8 |
-c4(
-\once \override TextScript.avoid-slur = #'inside
-\once \override TextScript.outside-staff-priority = ##f
-c4^\markup { \tiny \sharp } d4.) c8 |
-\once \override Slur.outside-staff-priority = #500
-c4( c^\markup { \tiny \sharp } d4.) c8 |
+@lilypond[quote,verbatim]
+\relative c'' {
+  c4( c^\markup { \tiny \sharp } d4.) c8 |
+  c4(
+    \once \override TextScript.avoid-slur = #'inside
+    \once \override TextScript.outside-staff-priority = ##f
+    c4^\markup { \tiny \sharp } d4.) c8 |
+  \once \override Slur.outside-staff-priority = #500
+    c4( c^\markup { \tiny \sharp } d4.) c8 |
+}
 @end lilypond
 
 Changing the @code{outside-staff-priority} can also be used to
@@ -2314,12 +2344,12 @@ in the IR or in the tables above, and increase the priority of
 @cindex TextScript, example of overriding
 @cindex outside-staff-priority property, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-c2^"Text1"
-c2^"Text2" |
+@lilypond[quote,fragment,ragged-right,verbatim]
+c''2^"Text1"
+c''2^"Text2" |
 \once \override TextScript.outside-staff-priority = #500
-c2^"Text3"
-c2^"Text4" |
+c''2^"Text3"
+c''2^"Text4" |
 @end lilypond
 
 This certainly lifts @qq{Text3} above @qq{Text4} but it also lifts it
@@ -2345,12 +2375,12 @@ as far as laying out the music is concerned.  The @code{\textLengthOn}
 command reverses this behavior, causing the notes to be spaced
 out as far as is necessary to accommodate the text:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim]
 \textLengthOn  % Cause notes to space out to accommodate text
-c2^"Text1"
-c2^"Text2" |
-c2^"Text3"
-c2^"Text4" |
+c''2^"Text1"
+c''2^"Text2" |
+c''2^"Text3"
+c''2^"Text4" |
 @end lilypond
 
 The command to revert to the default behavior is
@@ -2371,25 +2401,27 @@ example to show how markup text interacts with such notes.
 @cindex TextScript, example of overriding
 @cindex outside-staff-priority property, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-% This markup is short enough to fit without collision
-c2^"Tex" c'' |
-R1 |
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  % This markup is short enough to fit without collision
+  c''2^"Tex" c'' |
+  R1 |
 
-% This is too long to fit, so it is displaced upwards
-c,,2^"Text" c'' |
-R1 |
+  % This is too long to fit, so it is displaced upwards
+  c,,2^"Text" c'' |
+  R1 |
 
-% Turn off collision avoidance
-\once \override TextScript.outside-staff-priority = ##f
-c,,2^"Long Text   " c'' |
-R1 |
+  % Turn off collision avoidance
+  \once \override TextScript.outside-staff-priority = ##f
+  c,,2^"Long Text   " c'' |
+  R1 |
 
-% Turn off collision avoidance
-\once \override TextScript.outside-staff-priority = ##f
-\textLengthOn        % and turn on textLengthOn
-c,,2^"Long Text   "  % Spaces at end are honored
-c''2 |
+  % Turn off collision avoidance
+  \once \override TextScript.outside-staff-priority = ##f
+  \textLengthOn        % and turn on textLengthOn
+  c,,2^"Long Text   "  % Spaces at end are honored
+  c''2 |
+}
 @end lilypond
 
 @node Dynamics placement
@@ -2406,13 +2438,15 @@ all within-staff objects such as phrasing slurs and bar numbers.
 This can give quite acceptable results, as this example
 shows:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-\clef "bass"
-\key aes \major
-\time 9/8
-\dynamicUp
-bes4.~\f\< \( bes4 bes8 des4\ff\> c16 bes\! |
-ees,2.~\)\mf ees4 r8 |
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  \clef "bass"
+  \key aes \major
+  \time 9/8
+  \dynamicUp
+  bes4.~\f\< \( bes4 bes8 des4\ff\> c16 bes\! |
+  ees,2.~\)\mf ees4 r8 |
+}
 @end lilypond
 
 However, if the notes and attached dynamics are close
@@ -2421,9 +2455,9 @@ by displacing later dynamic markings further away, but this may
 not be the optimum placement, as this rather artificial example
 shows:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim,fragment]
 \dynamicUp
-a4\f b\mf a\mp b\p
+\relative { a'4\f b\mf a\mp b\p }
 @end lilypond
 
 @noindent
@@ -2476,11 +2510,11 @@ Let's see if this works in our previous example:
 @cindex extra-spacing-width property, example
 
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim,fragment]
 \dynamicUp
 % Extend width by 1 staff space
 \override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
-a4\f b\mf a\mp b\p
+\relative { a'4\f b\mf a\mp b\p }
 @end lilypond
 
 @noindent
@@ -2989,8 +3023,8 @@ above or below notes.
 @cindex Script, example of overriding
 @cindex padding property, example
 
-@lilypond[quote,fragment,relative=1,verbatim]
-c2\fermata
+@lilypond[quote,fragment,verbatim]
+c'2\fermata
 \override Script.padding = #3
 b2\fermata
 @end lilypond
@@ -2998,15 +3032,15 @@ b2\fermata
 @cindex MetronomeMark, example of overriding
 @cindex padding property, example
 
-@lilypond[quote,fragment,relative=1,verbatim]
+@lilypond[quote,fragment,verbatim]
 % This will not work, see below
 \override MetronomeMark.padding = #3
 \tempo 4 = 120
-c1 |
+c'1 |
 % This works
 \override Score.MetronomeMark.padding = #3
 \tempo 4 = 80
-d1 |
+d'1 |
 @end lilypond
 
 Note in the second example how important it is to figure out what
@@ -3085,9 +3119,9 @@ example taken from the previous section:
 @cindex DynamicLineSpanner, example of overriding
 @cindex staff-padding property, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim]
 \override DynamicLineSpanner.staff-padding = #3
-a4\f b\mf a\p b\mp
+\relative { a'4\f b\mf a\p b\mp }
 @end lilypond
 
 
@@ -3101,11 +3135,11 @@ right edge with the reference point of the parent note:
 @cindex StringNumber, example of overriding
 @cindex self-alignment-X property, example
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=3]
+@lilypond[quote,fragment,ragged-right,verbatim]
 \voiceOne
-<a\2>
+<a''\2>
 \once \override StringNumber.self-alignment-X = #RIGHT
-<a\2>
+<a''\2>
 @end lilypond
 
 @node The staff-position property
@@ -3121,8 +3155,8 @@ handling between notes and between notes and rests is done only
 for notes and rests that occur at the same time.  Here's an
 example of a collision of this type:
 
-@lilypond[quote,verbatim,fragment,ragged-right, relative=1]
-<< { c4 c c c } \\ { R1 } >>
+@lilypond[quote,verbatim,ragged-right]
+<< \relative { c'4 c c c } \\ { R1 } >>
 @end lilypond
 
 The best solution here is to move the multimeasure rest down, since the
@@ -3134,9 +3168,9 @@ to move it, say, four half-staff spaces down to @w{@code{-8}}.
 @cindex MultiMeasureRest, example of overriding
 @cindex staff-position property, example
 
-@lilypond[quote,verbatim,fragment,ragged-right, relative=1]
+@lilypond[quote,verbatim,ragged-right]
 <<
-  { c4 c c c }
+  \relative { c'4 c c c }
   \\
   \override MultiMeasureRest.staff-position = #-8
   { R1 }
@@ -3163,10 +3197,10 @@ the left, and 1.8 staff space downwards:
 @cindex Fingering, example of overriding
 @cindex extra-offset property, example
 
-@lilypond[quote,relative=1,verbatim]
-f4-5
+@lilypond[quote,fragment,verbatim]
+f'4-5
 \once \override Fingering.extra-offset = #'(-0.3 . -1.8)
-f4-5
+f'4-5
 @end lilypond
 
 
@@ -3186,8 +3220,8 @@ manually.
 
 Here's an example in which the phrasing slur and slur collide:
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
-a8 \( ( a'16 ) a \)
+@lilypond[quote,verbatim,ragged-right]
+\relative { a'8 \( ( a'16 ) a \) }
 @end lilypond
 
 @cindex PhrasingSlur, example of overriding
@@ -3200,9 +3234,9 @@ centre line and the right end to 4.5 above, and LilyPond will
 select the phrasing slur from the candidates it has found with its
 end points closest to these:
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+@lilypond[quote,verbatim,fragment,ragged-right]
 \once \override PhrasingSlur.positions = #'(2.5 . 4.5)
-a8 \( ( a'16 ) a \)
+a'8 \( ( a''16 ) a'' \)
 @end lilypond
 
 This is an improvement, but why not lower the right end of the slur
@@ -3216,23 +3250,23 @@ do this, see @ruser{Modifying ties and slurs}.
 Here's a further example.  We see that the beams
 collide with the ties:
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
+@lilypond[quote,verbatim,ragged-right]
 {
   \time 4/2
   <<
-    { c1~ 2. e8 f }
+    \relative { c'1~ 2. e8 f }
     \\
-    {
-      e'8 e e e
+    \relative {
+      e''8 e e e
       e e e e
       f2 g
     }
   >>
   <<
-    { c,,1~ 2. e8 f }
+    \relative { c'1~ 2. e8 f }
     \\
-    {
-      e'8 e e e
+    \relative {
+      e''8 e e e
       e e e e
       f2 g
     }
@@ -3248,24 +3282,24 @@ say, 1:
 @cindex Beam, example of overriding
 @cindex positions property, example
 
-@lilypond[quote,verbatim,ragged-right,relative=1]
+@lilypond[quote,verbatim,ragged-right]
 {
   \time 4/2
   <<
-    { c1~ 2. e8 f }
+    \relative { c'1~ 2. e8 f }
     \\
-    {
+    \relative {
       \override Beam.positions = #'(-1 . -1)
-      e'8 e e e
+      e''8 e e e
       e e e e
       f2 g
     }
   >>
   <<
-    { c,,1~ 2. e8 f }
+    \relative { c'1~ 2. e8 f }
     \\
-    {
-      e'8 e e e
+    \relative {
+      e''8 e e e
       e e e e
       f2 g
       \revert Beam.positions
@@ -3890,8 +3924,8 @@ voices using ties.  Normally, only notes in the same voice can be
 connected with ties.  By using two voices, with the tied notes in one
 of them
 
-@lilypond[quote,fragment,relative=2]
-<< { b8~ 8\noBeam } \\ { b8[ g] } >>
+@lilypond[quote]
+<< { b'8~ 8\noBeam } \\ { b'8[ g'] } >>
 @end lilypond
 
 @noindent
@@ -3904,15 +3938,15 @@ appears to cross voices:
 @cindex @code{\omit}, example
 @cindex example of @code{\omit}
 
-@lilypond[quote,fragment,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
   {
     \once \omit Stem
     \once \omit Flag
-    b8~ 8\noBeam
+    b'8~ 8\noBeam
   }
 \\
-  { b8[ g] }
+  { b'8[ g'] }
 >>
 @end lilypond
 

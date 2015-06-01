@@ -1060,9 +1060,9 @@ would cause all note heads within the following staff to be
 colored red, but in fact it results in two staves with the note
 heads remaining the default black in the lower staff.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \override Staff.NoteHead.color = #red
-\new Staff { a }
+\new Staff { a' }
 @end lilypond
 
 This is because a @code{Staff} context does not exist when the
@@ -1071,10 +1071,10 @@ is applied to it, but then the @code{\new Staff} command creates
 another, separate, staff into which the notes are placed.  The
 correct code to color all note heads red is
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 \new Staff {
   \override Staff.NoteHead.color = #red
-  a
+  a'
 }
 @end lilypond
 

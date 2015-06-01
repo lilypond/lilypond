@@ -691,15 +691,13 @@ online version.
 
 LilyPond input must be surrounded by @code{@{ @}} marks or a
 @q{@w{@code{@bs{}relative @{ @dots{} @}}}}, as we saw in
-@ref{Working on input files}.  For the rest of this manual, most
-examples will omit this.  To replicate the examples, you may copy
-and paste the displayed input, but to put the pitches in the same
-octaves as seen in the manual you @strong{must} add a particular
-form of @code{@bs{}relative} with an explicit starting pitch
-@code{c''} like this:
+@ref{Working on input files}.  For the rest of this manual,
+some short examples will omit this.  To replicate these examples,
+you can copy displayed input, but paste it between @code{@{}
+and @code{@}} in your input file.
 
 @example
-\relative c'' @{
+@{
   @dots{}example goes here@dots{}
 @}
 @end example

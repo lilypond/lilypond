@@ -384,10 +384,10 @@ Lyrics can be aligned under a melody automatically by specifying
 the named Voice context containing the melody with
 @code{\lyricsto}:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
-  \new Voice = "melody" {
-    a1 a4. a8 a2
+  \new Voice = "melody" \relative {
+    a'1 a4. a8 a2
   }
   \new Lyrics \lyricsto "melody" {
     These are the words
@@ -519,10 +519,10 @@ associated voice.
 
 Here are two examples:
 
-@lilypond[relative=1,verbatim,quote]
+@lilypond[verbatim,quote]
 <<
-  \new Voice = "melody" {
-    c'2 a f f e e
+  \new Voice = "melody" \relative {
+    c''2 a f f e e
   }
   \new Lyrics \lyricmode {
     c4. -- a -- f -- f -- e2. -- e
@@ -559,11 +559,11 @@ This technique is useful when writing dialogue over music, see
 To change syllable alignment, simply override the @code{self-alignment-X}
 property:
 
-@lilypond[relative=1,verbatim,quote]
+@lilypond[verbatim,quote]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
-    c2 e4 g2 f
+    c'2 e4 g2 f
   }
   \new Lyrics \lyricmode {
     \override LyricText.self-alignment-X = #LEFT
@@ -594,10 +594,11 @@ spaces between the syllables, you can surround the phrase with
 quotes or use a @code{_} character.  Alternatively, you can use
 the tilde symbol (@code{~}) to get a lyric tie.
 
-@lilypond[quote,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 {
-  { \autoBeamOff
-    r8 b c fis, fis c' b e,
+  \relative {
+    \autoBeamOff
+    r8 b' c fis, fis c' b e,
   }
   \addlyrics
   {
@@ -646,11 +647,11 @@ There are five ways in which melismata can be indicated:
 Melismata are created automatically over notes which are tied
 together:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
-    f4 g2 ~ |
+    f''4 g2 ~ |
     4 e2 ~ |
     8
   }
@@ -665,11 +666,11 @@ Melismata can be created automatically from the music by placing
 slurs over the notes of each melisma.  This is the usual way of
 entering lyrics:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
-    f4 g8 ( f e f )
+    f''4 g8 ( f e f )
     e8 ( d e2 )
   }
   \new Lyrics \lyricsto "melody" {
@@ -685,12 +686,12 @@ Notes are considered a melisma if they are manually beamed,
 providing automatic beaming is switched off.  See
 @ref{Setting automatic beam behavior}.
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
     \autoBeamOff
-    f4 g8[ f e f]
+    f''4 g8[ f e f]
     e2.
   }
   \new Lyrics \lyricsto "melody" {
@@ -706,11 +707,11 @@ than eighth notes.
 An unslurred group of notes will be treated as a melisma if they
 are bracketed between @code{\melisma} and @code{\melismaEnd}.
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
-    f4 g8
+    f''4 g8
     \melisma
     f e f
     \melismaEnd
@@ -727,11 +728,11 @@ A melisma can be defined entirely in the lyrics by entering a
 single underscore character, @code{_}, for every extra note that has
 to be added to the melisma.
 
-@lilypond[verbatim, quote, relative=2]
+@lilypond[verbatim, quote]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
-    f4 g8 f e f
+    f''4 g8 f e f
     e8 d e2
   }
   \new Lyrics \lyricsto "melody" {
@@ -746,12 +747,12 @@ It is possible to have ties, slurs and manual beams in the melody
 without their indicating melismata.  To do this, set
 @code{melismaBusyProperties}:
 
-@lilypond[relative=1,verbatim,quote]
+@lilypond[verbatim,quote]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
     \set melismaBusyProperties = #'()
-    c4 d ( e )
+    c'4 d ( e )
     g8 [ f ] f4 ~ 4
   }
   \new Lyrics \lyricsto "melody" {
@@ -774,12 +775,12 @@ If a melisma is required during a passage in which
 placing a single underscore in the lyrics for each note which
 should be included in the melisma:
 
-@lilypond[relative=1,verbatim,quote]
+@lilypond[verbatim,quote]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
     \set melismaBusyProperties = #'()
-    c4 d ( e )
+    c'4 d ( e )
     g8 [ f ] ~ 4 ~ f
   }
   \new Lyrics \lyricsto "melody" {
@@ -1096,8 +1097,8 @@ Notation Reference:
 To increase the spacing between lyrics, set the
 @code{minimum-distance} property of @code{LyricSpace}.
 
-@lilypond[relative=1,verbatim,quote,ragged-right]
-{
+@lilypond[verbatim,quote,ragged-right]
+\relative c' {
   c c c c
   \override Lyrics.LyricSpace.minimum-distance = #1.0
   c c c c
@@ -1757,9 +1758,9 @@ words = \lyricmode { la __ la __ }
 
 Stanza numbers can be added by setting @code{stanza}, e.g.,
 
-@lilypond[quote,ragged-right,verbatim,relative=2]
-\new Voice {
-  \time 3/4 g2 e4 a2 f4 g2.
+@lilypond[quote,ragged-right,verbatim]
+\new Voice \relative {
+  \time 3/4 g'2 e4 a2 f4 g2.
 } \addlyrics {
   \set stanza = #"1. "
   Hi, my name is Bert.
@@ -1842,9 +1843,9 @@ the line, just like instrument names.  They are created by setting
 @code{vocalName}.  A short version may be entered as
 @code{shortVocalName}.
 
-@lilypond[ragged-right,quote,verbatim,relative=2]
-\new Voice {
-  \time 3/4 g2 e4 a2 f4 g2.
+@lilypond[ragged-right,quote,verbatim]
+\new Voice \relative {
+  \time 3/4 g'2 e4 a2 f4 g2.
 } \addlyrics {
   \set vocalName = #"Bert "
   Hi, my name is Bert.
@@ -2573,16 +2574,18 @@ usually printed above the staff at the start of every section
 applying to that character.  This can be done with markup.  Often a
 specific font is used for this purpose.
 
-@lilypond[quote,verbatim,relative=1]
-\clef "G_8"
-c4^\markup \fontsize #1 \smallCaps Kaspar
-c c c
-\clef "bass"
-a4^\markup \fontsize #1 \smallCaps Melchior
-a a a
-\clef "G_8"
-c4^\markup \fontsize #1 \smallCaps Kaspar
-c c c
+@lilypond[quote,verbatim]
+\relative c' {
+  \clef "G_8"
+  c4^\markup \fontsize #1 \smallCaps Kaspar
+  c c c
+  \clef "bass"
+  a4^\markup \fontsize #1 \smallCaps Melchior
+  a a a
+  \clef "G_8"
+  c4^\markup \fontsize #1 \smallCaps Kaspar
+  c c c
+}
 @end lilypond
 
 Alternatively, if there are many character changes, it may be easier
@@ -2772,10 +2775,12 @@ moment.
 
 For short interjections a simple markup suffices.
 
-@lilypond[quote,verbatim,relative=2]
-a4^\markup { \smallCaps { Alex - } \italic { He's gone } } a a a
-a4 a a^\markup { \smallCaps { Bethan - } \italic Where? } a
-a4 a a a
+@lilypond[quote,verbatim]
+\relative {
+  a'4^\markup { \smallCaps { Alex - } \italic { He's gone } } a a a
+  a4 a a^\markup { \smallCaps { Bethan - } \italic Where? } a
+  a4 a a a
+}
 @end lilypond
 
 For longer phrases it may be necessary to expand the music to make
@@ -2955,34 +2960,38 @@ To remove bar lines from just a section of music treat it as a
 cadenza.  If the section is long you may need to insert dummy
 bar lines with @code{\bar ""} to show where the line should break.
 
-@lilypond[verbatim,quote,relative=2]
-a4 b c2 |
-\cadenzaOn
-a4 b c2
-a4 b c2
-\bar ""
-a4 b c2
-a4 b c2
-\cadenzaOff
-a4 b c2 |
-a4 b c2 |
+@lilypond[verbatim,quote]
+\relative a' {
+  a4 b c2 |
+  \cadenzaOn
+  a4 b c2
+  a4 b c2
+  \bar ""
+  a4 b c2
+  a4 b c2
+  \cadenzaOff
+  a4 b c2 |
+  a4 b c2 |
+}
 @end lilypond
 
 Rests or pauses in chants can be indicated by modified bar lines.
 
-@lilypond[verbatim, quote,relative=2]
-a4
-\cadenzaOn
-b c2
-a4 b c2
-\bar "'"
-a4 b c2
-a4 b c2
-\bar ";"
-a4 b c2
-\bar "!"
-a4 b c2
-\bar "||"
+@lilypond[verbatim, quote]
+\relative a' {
+  a4
+  \cadenzaOn
+  b c2
+  a4 b c2
+  \bar "'"
+  a4 b c2
+  a4 b c2
+  \bar ";"
+  a4 b c2
+  \bar "!"
+  a4 b c2
+  \bar "||"
+}
 @end lilypond
 
 Alternatively, the notation used in Gregorian chant for pauses or

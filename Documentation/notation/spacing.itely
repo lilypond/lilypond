@@ -1407,20 +1407,24 @@ consecutive lines have similar density.
 To manually force a line break at a bar line, use the
 @code{\break} command:
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
-c4 c c c | \break
-c4 c c c |
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  c4 c c c | \break
+  c4 c c c |
+}
 @end lilypond
 
 By default, a @code{\break} in the middle of a measure is ignored,
 and a warning is printed.  To force a line break in the middle of
 a measure, add an invisible bar line with @w{@samp{\bar ""}}:
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
-c4 c c
-\bar "" \break
-c |
-c4 c c c |
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  c4 c c
+  \bar "" \break
+  c |
+  c4 c c c |
+}
 @end lilypond
 
 A @code{\break} occurring at a bar line is also ignored if the
@@ -1446,10 +1450,12 @@ Similarly, line breaks are normally forbidden when beams cross bar
 lines.  This behavior can be changed by setting
 @code{\override Beam.breakable = ##t}:
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
-\override Beam.breakable = ##t
-c2. c8[ c | \break
-c8 c] c2. |
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  \override Beam.breakable = ##t
+  c2. c8[ c | \break
+  c8 c] c2. |
+}
 @end lilypond
 
 The @code{\noBreak} command forbids a line break at the bar line
@@ -2636,30 +2642,34 @@ is, if two outside-staff grobs are competing for the same space, the one
 with the lower @code{outside-staff-priority} will be placed closer to
 the staff.
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
-c4_"Text"\pp
-r2.
-\once \override TextScript.outside-staff-priority = #1
-c4_"Text"\pp % this time the text will be closer to the staff
-r2.
-% by setting outside-staff-priority to a non-number,
-% we disable the automatic collision avoidance
-\once \override TextScript.outside-staff-priority = ##f
-\once \override DynamicLineSpanner.outside-staff-priority = ##f
-c4_"Text"\pp % now they will collide
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  c4_"Text"\pp
+  r2.
+  \once \override TextScript.outside-staff-priority = #1
+  c4_"Text"\pp % this time the text will be closer to the staff
+  r2.
+  % by setting outside-staff-priority to a non-number,
+  % we disable the automatic collision avoidance
+  \once \override TextScript.outside-staff-priority = ##f
+  \once \override DynamicLineSpanner.outside-staff-priority = ##f
+  c4_"Text"\pp % now they will collide
+}
 @end lilypond
 
 The vertical padding around outside-staff objects
 can be controlled with @code{outside-staff-padding}.
 
-@lilypond[quote,ragged-right,relative=2,verbatim,staffsize=18]
-\once \override TextScript.outside-staff-padding = #0
-a4-"outside-staff-padding = #0"
-\once \override TextScript.outside-staff-padding = #3
-d-"outside-staff-padding = #3"
-c-"default outside-staff-padding"
-b-"default outside-staff-padding"
-R1
+@lilypond[quote,ragged-right,verbatim,staffsize=18]
+\relative {
+  \once \override TextScript.outside-staff-padding = #0
+  a'4-"outside-staff-padding = #0"
+  \once \override TextScript.outside-staff-padding = #3
+  d-"outside-staff-padding = #3"
+  c-"default outside-staff-padding"
+  b-"default outside-staff-padding"
+  R1
+}
 @end lilypond
 
 
@@ -2671,11 +2681,13 @@ As shown in the example below, setting @code{outside-staff-horizontal-padding}
 increases the horizontal spacing required, and in this case moves the text up
 to prevent it from getting too close to the ledger lines.
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
-c4^"Word" c c''2
-R1
-\once \override TextScript.outside-staff-horizontal-padding = #1
-c,,4^"Word" c c''2
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  c''4^"Word" c c''2
+  R1
+  \once \override TextScript.outside-staff-horizontal-padding = #1
+  c,,4^"Word" c c''2
+}
 @end lilypond
 
 @seealso
@@ -2713,10 +2725,12 @@ For example, the following piece contains lots of half, quarter, and
 8th notes; the eighth note is followed by 1 note head width (NHW).
 The quarter note is followed by 2 NHW, the half by 3 NHW, etc.
 
-@lilypond[quote,verbatim,relative=1]
-c2 c4. c8
-c4. c8 c4. c8
-c8 c c4 c c
+@lilypond[quote,verbatim]
+\relative c' {
+  c2 c4. c8
+  c4. c8 c4. c8
+  c8 c c4 c c
+}
 @end lilypond
 
 Normally, @code{spacing-increment} is set to 1.2 staff space, which is
@@ -2756,8 +2770,8 @@ followed by a space that is proportional to their duration relative to
 the common shortest note.  So if we were to add only a few 16th notes
 to the example above, they would be followed by half a NHW:
 
-@lilypond[quote,verbatim,relative=2]
-c2 c4. c8 | c4. c16[ c] c4. c8 | c8 c c4 c c
+@lilypond[quote,verbatim]
+\relative { c''2 c4. c8 | c4. c16[ c] c4. c8 | c8 c c4 c c }
 @end lilypond
 
 
@@ -2773,13 +2787,13 @@ example shows these corrections, once with default settings, and
 once with exaggerated corrections:
 
 @lilypond[quote,ragged-right]
-{
-  c'4 e''4 e'4 b'4 |
-  b'4 e''4 b'4 e''4 |
+\fixed c' {
+  c4 e'4 e4 b4 |
+  b4 e'4 b4 e'4 |
   \override Staff.NoteSpacing.stem-spacing-correction = #1.5
   \override Staff.StaffSpacing.stem-spacing-correction = #1.5
-  c'4 e''4 e'4 b'4 |
-  b'4 e''4 b'4 e''4 |
+  c4 e'4 e4 b4 |
+  b4 e'4 b4 e'4 |
 }
 @end lilypond
 
@@ -2826,13 +2840,15 @@ In the following example, the time signature change introduces a new
 section, and hence the 16ths notes are automatically spaced slightly
 wider.
 
-@lilypond[relative=1,verbatim,quote]
-\time 2/4
-c4 c8 c
-c8 c c4 c16[ c c8] c4
-\newSpacingSection
-\time 4/16
-c16[ c c8]
+@lilypond[verbatim,quote]
+\relative c' {
+  \time 2/4
+  c4 c8 c
+  c8 c c4 c16[ c c8] c4
+  \newSpacingSection
+  \time 4/16
+  c16[ c c8]
+}
 @end lilypond
 
 The @code{\newSpacingSection} command creates a new
@@ -2844,15 +2860,17 @@ command itself.  They will then affect the spacing of all the following
 music until the properties are changed in a new spacing section, for
 example,
 
-@lilypond[relative=1,verbatim,quote]
-\time 4/16
-c16[ c c8]
-\newSpacingSection
-\override Score.SpacingSpanner.spacing-increment = #2
-c16[ c c8]
-\newSpacingSection
-\revert Score.SpacingSpanner.spacing-increment
-c16[ c c8]
+@lilypond[verbatim,quote]
+\relative c' {
+  \time 4/16
+  c16[ c c8]
+  \newSpacingSection
+  \override Score.SpacingSpanner.spacing-increment = #2
+  c16[ c c8]
+  \newSpacingSection
+  \revert Score.SpacingSpanner.spacing-increment
+  c16[ c c8]
+}
 @end lilypond
 
 
@@ -2935,9 +2953,10 @@ property can only be changed at the beginning of a score,
 When @code{strict-note-spacing} is set, notes are spaced without
 regard for clefs, bar lines, and grace notes,
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \override Score.SpacingSpanner.strict-note-spacing = ##t
-\new Staff { c8[ c \clef alto c \grace { c16 c } c8 c c]  c32[ c] }
+\new Staff \relative {
+  c''8[ c \clef alto c \grace { c16 c } c8 c c]  c32[ c] }
 @end lilypond
 
 @seealso
@@ -3471,9 +3490,11 @@ will take up more space than one system with the volta repeats and
 another system without.  For example, dynamics that @q{stick out} of
 a system can be moved closer to the staff:
 
-@lilypond[verbatim,quote,relative=1]
-e4 c g\f c
-e4 c g-\tweak X-offset #-2.7 \f c
+@lilypond[verbatim,quote]
+\relative e' {
+  e4 c g\f c
+  e4 c g-\tweak X-offset #-2.7 \f c
+}
 @end lilypond
 
 @item
