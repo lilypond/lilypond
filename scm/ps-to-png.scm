@@ -57,18 +57,17 @@
          ;; outputs only standard output instead of a file.
          ;; So we need pipe and redirection.
          ;; However, ly:system can't handle them.
-         ;; Therefore, we use /bin/sh for handling them.
-         ;; FIXME: MinGW (except Cygwin) doesn't have /bin/sh.
+         ;; Therefore, we use ly:system-with-shell.
          (cmd
-          (list
-           "/bin/sh"
-           "-c"
-           (ly:format
-            "pngtopnm \"~a\" | pnmscale -reduce ~a | pnmtopng -compression 9 > \"~a\""
-            old factor file))))
+          (ly:format
+           "~a \"~a\" | ~a -reduce ~a | ~a -compression 9 > \"~a\""
+           (search-pngtopam) old
+           (search-pamscale) factor
+           (search-pnmtopng)
+           file)))
 
     (rename-file file old)
-    (ly:system cmd)
+    (ly:system-with-shell cmd)
     (delete-file old)))
 
 (define-public (ps-page-count ps-name)
