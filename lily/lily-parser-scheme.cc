@@ -291,21 +291,32 @@ LY_DEFINE (ly_parser_output_name, "ly:parser-output-name",
 
 LY_DEFINE (ly_parser_error, "ly:parser-error",
            2, 1, 0, (SCM parser, SCM msg, SCM input),
-           "Display an error message and make the parser fail.")
+           "Display an error message and make the parser fail."
+           "  When @var{parser} is @code{##f}, raise a suitable other error.")
 {
-  LY_ASSERT_SMOB (Lily_parser, parser, 1);
+  if (scm_is_true (parser))
+    LY_ASSERT_SMOB (Lily_parser, parser, 1);
   Lily_parser *p = unsmob<Lily_parser> (parser);
 
   LY_ASSERT_TYPE (scm_is_string, msg, 2);
   string s = ly_scm2string (msg);
 
   Input *i = unsmob<Input> (input);
-  if (i)
-    p->parser_error (*i, s);
+  if (p)
+    {
+      if (i)
+        p->parser_error (*i, s);
+      else
+        p->parser_error (s);
+    }
   else
-    p->parser_error (s);
-
-  return parser;
+    {
+      if (i)
+        i->non_fatal_error (s);
+      else
+        scm_misc_error ("ly:parser-error", "~A", scm_list_1 (msg));
+    }
+  return SCM_UNSPECIFIED;
 }
 
 LY_DEFINE (ly_parser_clear_error, "ly:parser-clear-error",

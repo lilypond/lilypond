@@ -89,10 +89,11 @@ expression."
   (define (pitch= pitch1 pitch2)
     (and (= (ly:pitch-notename pitch1) (ly:pitch-notename pitch2))
          (= (ly:pitch-alteration pitch1) (ly:pitch-alteration pitch2))))
-  (let ((result (rassoc ly-pitch (ly:parser-lookup parser 'pitchnames) pitch=)))
-    (if result
-        (car result)
-        #f)))
+  (let* ((pitches (if parser (ly:parser-lookup parser 'pitchnames)
+                      (assoc-get (string->symbol default-language)
+                                 language-pitch-names '())))
+         (result (rassoc ly-pitch pitches pitch=)))
+    (and result (car result))))
 
 (define-public (octave->lily-string pitch)
   (let ((octave (ly:pitch-octave pitch)))
