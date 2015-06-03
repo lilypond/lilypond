@@ -197,14 +197,15 @@ Installed Files:
 @subsection Scheme function usage
 
 Scheme functions can be called pretty much anywhere where a Scheme
-expression starting with @code{#} can be written.  You call a scheme
-function by writing its name preceded by @code{\}, followed by its
-arguments.  Once an optional argument predicate does not match an
-argument, LilyPond skips this and all following optional arguments,
-replacing them with their specified default, and @q{backs up} the
-argument that did not match to the place of the next mandatory argument.
-Since the backed up argument needs to go somewhere, optional arguments
-are not actually considered optional unless followed by a mandatory
+expression starting with @code{#} can be written.  You call a
+scheme function from LilyPond by writing its name preceded by
+@code{\}, followed by its arguments.  Once an optional argument
+predicate does not match an argument, LilyPond skips this and all
+following optional arguments, replacing them with their specified
+default, and @q{backs up} the argument that did not match to the
+place of the next mandatory argument.  Since the backed up
+argument needs to go somewhere, optional arguments are not
+actually considered optional unless followed by a mandatory
 argument.
 
 There is one exception: if you write @code{\default} in the place of an
@@ -223,6 +224,14 @@ Since it is a bad idea to return values that can be misinterpreted in
 some context, you should use normal scheme functions only for those
 cases where you always return a useful value, and use void scheme
 functions (@pxref{Void scheme functions}) otherwise.
+
+For convenience, scheme functions may also be called directly from
+Scheme bypassing the LilyPond parser.  Their name can be used like
+the name of an ordinary function.  Typechecking of the arguments
+and skipping optional arguments will happen in the same manner as
+when called from within LilyPond, with the Scheme value
+@code{*unspecified*} taking the role of the @code{\default}
+reserved word for explicitly skipping optional arguments.
 
 @node Void scheme functions
 @subsection Void scheme functions

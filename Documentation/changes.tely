@@ -62,6 +62,18 @@ which scares away people.
 @end ignore
 
 @item
+LilyPond functions defined with @code{define-music-function},
+@code{define-event-function}, @code{define-scheme-function} and
+@code{define-void-function} can now be directly called from Scheme
+as if they were genuine Scheme procedures.  Argument checking and
+matching will still be performed in the same manner as when
+calling the function through LilyPond input.  This includes the
+insertion of defaults for optional arguments not matching their
+predicates.  Instead of using @code{\default} in the actual
+argument list for explicitly skipping a sequence of optional
+arguments, @code{*unspecified*} can be employed.
+
+@item
 The definition of LilyPond functions with
 @code{define-music-function}, @code{define-event-function},
 @code{define-scheme-function} and @code{define-void-function} no
