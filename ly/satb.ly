@@ -138,12 +138,7 @@
 SATB =
 <<
   \make-one-voice-vocal-staff "Solo" "treble"
-  \new ChoirStaff
-  \with {
-    \override VerticalAxisGroup.remove-empty = ##t
-    \override VerticalAxisGroup.remove-first = ##t
-  }
-  <<
+  \new ChoirStaff <<
     \make-one-voice-vocal-staff "Descant" "treble"
     \make-one-voice-vocal-staff "Women" "treble"
     #(if TwoVoicesPerStaff
@@ -168,6 +163,14 @@ SATB =
 Piano = \make-pianostaff
 
 \tagGroup #'(print play)
+
+\layout {
+  \context {
+    \Staff
+    \override VerticalAxisGroup.remove-empty = ##t
+    \override VerticalAxisGroup.remove-first = ##t
+  }
+}
 
 \score {
   \keepWithTag #'print

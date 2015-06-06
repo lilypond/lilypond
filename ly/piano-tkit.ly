@@ -32,8 +32,6 @@ make-pianostaff =
       #(if PianoShortInstrumentName
            PianoShortInstrumentName
            "")
-    \override VerticalAxisGroup.remove-empty = ##t
-    \override VerticalAxisGroup.remove-first = ##t
   }
   <<
     \make-one-voice-staff ##f "PianoRH" "treble" ""
