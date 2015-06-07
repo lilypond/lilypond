@@ -18,7 +18,7 @@
 # ligature -> fraseringsbue
 # parameter -> parameter
 # rest -> pause
-# score -> partitur
+# score -> partitur (husk det hedder partitureT)
 # skip -> hop eller udelad
 # slur -> legatobue
 # snippet -> kodestykke (kodestump?)
@@ -33,7 +33,7 @@ msgstr ""
 "Project-Id-Version: lilypond 2.19.16\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2015-02-28 14:31+0000\n"
-"PO-Revision-Date: 2015-04-12 21:00+0200\n"
+"PO-Revision-Date: 2015-05-06 21:00+0200\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -1698,7 +1698,7 @@ msgstr "ukendt tilvalg: »%s«"
 #: getopt-long.cc:167
 #, c-format
 msgid "invalid argument `%s' to option `%s'"
-msgstr "ugyldigt paramter »%s« til tilvalg »%s«"
+msgstr "ugyldigt parameter »%s« til tilvalg »%s«"
 
 #: warn.cc:56
 #, c-format
