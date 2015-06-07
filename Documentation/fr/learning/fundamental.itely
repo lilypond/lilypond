@@ -197,7 +197,7 @@ pour effet, lorsqu'elles interviennent, de produire une sortie
 imprimable et un fichier MIDI.  Nous nous y intéressons plus
 particulièrement dans le manuel de notation, aux chapitres
 @ruser{Mise en forme de la partition} et
-@ruser{Création de fichiers MIDI}.
+@ruser{Génération de fichiers MIDI}.
 
 @cindex partitions multiples
 @cindex book,  bloc implicite
