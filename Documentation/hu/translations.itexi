@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Fri May  8 16:25:29 UTC 2015
+@emph{Last updated Sun Jun  7 18:13:42 UTC 2015
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -107,11 +107,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #25fe1f">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+partially
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -212,7 +212,7 @@ partially
 @item
 1 Első lecke
 @*
-2578
+2586
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -229,7 +229,7 @@ partially (44 %)
 @ifhtml
 
 @html
-<span style="background-color: #fff23f">partially</span>
+<span style="background-color: #ffea40">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -239,7 +239,7 @@ partially
 @item
 2 Elemi kottaírás
 @*
-4453
+4465
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -256,7 +256,7 @@ partially (37 %)
 @ifhtml
 
 @html
-<span style="background-color: #b2fe32">partially</span>
+<span style="background-color: #c0ff34">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -266,7 +266,7 @@ partially
 @item
 3 Alapfogalmak
 @*
-11192
+11173
 @tab Griechisch Erika
 @*
 Harmath Dénes
@@ -285,7 +285,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #acff31">partially</span>
+<span style="background-color: #c0ff34">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -295,7 +295,7 @@ partially
 @item
 4 A kimenet finomhangolása
 @*
-16574
+16567
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -312,7 +312,7 @@ no
 @ifhtml
 
 @html
-<span style="background-color: #e8fe39">partially</span>
+<span style="background-color: #efff3a">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -322,7 +322,7 @@ partially
 @item
 A Sablonok
 @*
-803
+825
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -339,7 +339,7 @@ no
 @ifhtml
 
 @html
-<span style="background-color: #ffc746">partially</span>
+<span style="background-color: #ffc546">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -469,7 +469,7 @@ partially
 @item
 3 A @command{lilypond-book} használata
 @*
-4217
+4212
 @tab Harmath Dénes
 @tab 
 @tab 

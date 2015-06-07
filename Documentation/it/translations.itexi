@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Ultimo aggiornamento Fri May  8 16:25:29 UTC 2015
+@emph{Ultimo aggiornamento Sun Jun  7 18:13:42 UTC 2015
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -30,7 +30,7 @@ Cambiamenti in LilyPond
 @item
 Section titles
 @*
-1591
+1717
 @tab Federico Bruni
 @tab 
 @tab 
@@ -47,7 +47,7 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parzialmente</span>
+<span style="background-color: #39ff22">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -150,7 +150,7 @@ sì
 @item
 1 Tutorial
 @*
-2578
+2586
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -167,17 +167,17 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #40fe23">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @item
 2 Notazione comunemente utilizzata
 @*
-4453
+4465
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -194,7 +194,7 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #4efe25">parzialmente</span>
+<span style="background-color: #68ff28">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -204,7 +204,7 @@ parzialmente
 @item
 3 Concetti fondamentali
 @*
-11192
+11173
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -221,7 +221,7 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parzialmente</span>
+<span style="background-color: #40fe23">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -231,7 +231,7 @@ parzialmente
 @item
 4 Modifica dell'output
 @*
-16574
+16567
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -248,7 +248,7 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parzialmente</span>
+<span style="background-color: #2cff20">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -258,7 +258,7 @@ parzialmente
 @item
 A Modelli
 @*
-803
+825
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -275,11 +275,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #33ff21">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @end multitable
@@ -378,7 +378,7 @@ sì
 @item
 1.1 Altezze
 @*
-5202
+5198
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -395,11 +395,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #54ff26">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -422,7 +422,7 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parzialmente</span>
+<span style="background-color: #2cff20">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -432,7 +432,7 @@ parzialmente
 @item
 1.3 Segni di espressione
 @*
-1844
+1841
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -486,7 +486,7 @@ sì
 @item
 1.5 Note simultanee
 @*
-2807
+2929
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -503,11 +503,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #33ff21">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -530,7 +530,7 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">parzialmente</span>
+<span style="background-color: #4efe25">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -567,7 +567,7 @@ sì
 @item
 1.8 Testo
 @*
-2820
+2852
 @tab Federico Bruni
 @tab 
 @tab 
@@ -638,11 +638,11 @@ sì
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sì</span>
+<span style="background-color: #33ff21">parzialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sì
+parzialmente
 @end ifnothtml
 @tab pre-GDP
 @end multitable
@@ -768,7 +768,7 @@ parzialmente
 @item
 3 Eseguire @command{lilypond-book}
 @*
-4217
+4212
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -795,7 +795,7 @@ sì
 @item
 4 Programmi esterni
 @*
-2830
+2826
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 
@@ -822,7 +822,7 @@ sì
 @item
 5 Consigli su come scrivere i file
 @*
-2798
+2793
 @tab Federico Bruni
 @tab Luca Rossetto Casel
 @tab 

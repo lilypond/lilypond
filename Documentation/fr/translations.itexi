@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Fri May  8 16:25:29 UTC 2015
+@emph{Dernière mise à jour Sun Jun  7 18:13:42 UTC 2015
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -210,7 +210,7 @@ oui
 @item
 1 Tutoriel Scheme
 @*
-6335
+6331
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -237,7 +237,7 @@ oui
 @item
 2 Interfaces pour programmeurs
 @*
-5756
+5673
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -336,7 +336,7 @@ oui
 @item
 1 Tutoriel
 @*
-2578
+2586
 @tab Nicolas Grandclaude
 @*
 Ludovic Sardain
@@ -371,7 +371,7 @@ oui
 @item
 2 Bases de notation musicale
 @*
-4453
+4465
 @tab Nicolas Grandclaude
 @*
 Ludovic Sardain
@@ -406,7 +406,7 @@ oui
 @item
 3 Concepts fondamentaux
 @*
-11192
+11173
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -435,7 +435,7 @@ oui
 @item
 4 Retouche de partition
 @*
-16574
+16567
 @tab Valentin Villenave
 @*
 Nicolas Klutchnikoff
@@ -468,7 +468,7 @@ oui
 @item
 A Modèles
 @*
-803
+825
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -594,8 +594,10 @@ oui
 @item
 1.1 Hauteurs
 @*
-5202
+5198
 @tab Frédéric Chiasson
+@*
+Jean-Charles Malahieude
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -656,7 +658,7 @@ oui
 @item
 1.3 Signes d'interprétation
 @*
-1844
+1841
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -718,7 +720,7 @@ oui
 @item
 1.5 Notes simultanées
 @*
-2807
+2929
 @tab Frédéric Chiasson
 @*
 Valentin Villenave
@@ -807,7 +809,7 @@ oui
 @item
 1.8 Texte
 @*
-2820
+2852
 @tab Jean-Charles Malahieude
 @tab Valentin Villenave
 @*
@@ -983,7 +985,7 @@ oui
 @item
 2.5 Percussions
 @*
-804
+799
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1101,7 +1103,7 @@ oui
 @item
 2.9 Notations anciennes
 @*
-5522
+5518
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1157,7 +1159,7 @@ oui
 @item
 3 Généralités en matière d'entrée et sortie
 @*
-10644
+11069
 @tab Jean-Charles Malahieude
 @*
 Valentin Villenave
@@ -1215,7 +1217,7 @@ oui
 @item
 5 Modification des réglages prédéfinis
 @*
-15428
+15413
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1424,7 +1426,7 @@ oui
 @item
 3 Association musique-texte avec @command{lilypond-book}
 @*
-4217
+4212
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1451,7 +1453,7 @@ oui
 @item
 4 Programmes externes
 @*
-2830
+2826
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1478,7 +1480,7 @@ oui
 @item
 5 Suggestions pour la saisie de fichiers LilyPond
 @*
-2798
+2793
 @tab Ludovic Sardain
 @*
 Jean-Charles Malahieude

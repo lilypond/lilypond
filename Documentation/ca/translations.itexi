@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualitzat el Fri May  8 16:25:29 UTC 2015
+@emph{Actualitzat el Sun Jun  7 18:13:42 UTC 2015
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -84,7 +84,7 @@ si
 @item
 1 Tutorial
 @*
-2578
+2586
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -101,17 +101,17 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">si</span>
+<span style="background-color: #40fe23">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-si
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
 2 Notació corrent
 @*
-4453
+4465
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -128,7 +128,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">parcialment</span>
+<span style="background-color: #68ff28">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -138,7 +138,7 @@ parcialment
 @item
 3 Conceptes fonamentals
 @*
-11192
+11173
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -155,7 +155,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parcialment</span>
+<span style="background-color: #47ff24">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -165,7 +165,7 @@ parcialment
 @item
 4 Ajustament de la sortida
 @*
-16574
+16567
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -182,7 +182,7 @@ parcialment (98 %)
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">parcialment</span>
+<span style="background-color: #39ff22">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -192,7 +192,7 @@ parcialment
 @item
 A Plantilles
 @*
-803
+825
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -209,7 +209,7 @@ parcialment (99 %)
 @ifhtml
 
 @html
-<span style="background-color: #dbff38">parcialment</span>
+<span style="background-color: #efff3a">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -339,7 +339,7 @@ parcialment
 @item
 3 Suggeriments per escriure fitxers d'entrada
 @*
-2798
+2793
 @tab Walter Garcia-Fontes
 @tab 
 @tab 

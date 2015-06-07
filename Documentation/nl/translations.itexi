@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Meest recente update Fri May  8 16:25:29 UTC 2015
+@emph{Meest recente update Sun Jun  7 18:13:42 UTC 2015
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -84,24 +84,24 @@ ja
 @item
 1 Leerboek
 @*
-2578
+2586
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">gedeeltelijk (48 %)</span>
+<span style="background-color: #dfef77">gedeeltelijk (47 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-gedeeltelijk (48 %)
+gedeeltelijk (47 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">gedeeltelijk</span>
+<span style="background-color: #47ff24">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -111,7 +111,7 @@ gedeeltelijk
 @item
 2 Algemene muzieknotatie
 @*
-4453
+4465
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
@@ -128,7 +128,7 @@ gedeeltelijk (38 %)
 @ifhtml
 
 @html
-<span style="background-color: #83fe2c">gedeeltelijk</span>
+<span style="background-color: #97ff2f">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -138,7 +138,7 @@ gedeeltelijk
 @item
 3 Fundamentele concepten
 @*
-11192
+11173
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
@@ -155,7 +155,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">gedeeltelijk</span>
+<span style="background-color: #54ff26">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -165,7 +165,7 @@ gedeeltelijk
 @item
 4 Tweaking output
 @*
-16574
+16567
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
@@ -182,7 +182,7 @@ gedeeltelijk (95 %)
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">gedeeltelijk</span>
+<span style="background-color: #68ff28">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -192,7 +192,7 @@ gedeeltelijk
 @item
 A Templates
 @*
-803
+825
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
@@ -209,7 +209,7 @@ gedeeltelijk (99 %)
 @ifhtml
 
 @html
-<span style="background-color: #dbff38">gedeeltelijk</span>
+<span style="background-color: #efff3a">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
