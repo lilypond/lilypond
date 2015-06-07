@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ec074a41f03cf4cd3b914daa1359dd6e0fb2012d
+    Translation of GIT committish: 53cff5245f682708a6c77d580f418ece2923c2e4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -25,7 +25,7 @@ LilyPond.
 * Titres et entêtes::
 * Travail sur des fichiers texte::
 * Contrôle des sorties::
-* Sortie MIDI::
+* Génération de fichiers MIDI::
 * Extraction d'informations musicales::
 @end menu
 
@@ -2822,49 +2822,121 @@ Consultez le site de l'auteur pour de plus amples informations ainsi
 qu'à propos des conditions d'utilisation.
 
 
-@node Sortie MIDI
-@section Sortie MIDI
-@translationof MIDI output
+@node Génération de fichiers MIDI
+@section Génération de fichiers MIDI
+@translationof Creating MIDI output
 
 @cindex son
 @cindex MIDI
 
-MIDI (Musical Instrument Digital Interface) constitue un standard en
-matière de connexion et de contrôle des instruments électroniques.  Un
-fichier MIDI contient une série de notes réparties dans différentes
-pistes.  Il ne s'agit en rien d'un fichier sonore ; il vous faudra un
-logiciel capable de traduire ces séries de notes en sons réels.
+LilyPond peut produire des fichiers conformes au standard MIDI (Musical
+Instrument Digital Interface), ce qui permet de vérifier le rendu à
+l'oreille grace à un logiciel ou un périphérique sachant interpréter le
+MIDI.  L'écoute du rendu en MIDI permet de contrôler aisément ce que
+vous avez saisi : octaves et altérations erronées heurteront votre
+oreille avertie !
 
-Vous pouvez convertir vos partition en fichier MIDI de manière à
-entendre ce que vous avez saisi.  Ceci vous permet de contrôler aisément
-ce que vous avez saisi : octaves et altérations erronées heurteront
-votre oreille avertie grâce au MIDI.
-
-Le fichier MIDI généré par LilyPond est relativement brut.  Vous pouvez
-cependant obtenir un meilleur rendu avec @ref{Le script Articulate}.
-
-Dans une sortie MIDI, LilyPond alloue un canal à chaque portée, tout en
-réservant le canal 10 aux percussions.  Dans la mesure ou un
-périphérique MIDI ne comprend que 16 canaux, un fichier MIDI qui
-comportera plus de quinze portées verra le même canal réutilisé.
+Les fichiers MIDI, contrairement aux fichiers AAC, MP3 ou Vorbis, ne
+contiennent pas de son et nécessitent donc le recours à un logiciel
+supplémentaire pour les écouter.
 
 @menu
-* Création de fichiers MIDI::
-* Instrument MIDI::
-* Contenu de la sortie MIDI::
-* Répétitions et MIDI::
+* Notation prise en compte dans le MIDI::
+* Notation non prise en compte dans le MIDI::
+* Le bloc MIDI::
 * Gestion des nuances en MIDI::
-* MIDI et percussions::
-* Le script Articulate::
+* Gestion des instruments MIDI::
+* Gestion des répétitions en MIDI::
+* Amélioration du rendu MIDI::
 @end menu
 
+@node Notation prise en compte dans le MIDI
+@subsection Notation prise en compte dans le MIDI
+@translationof Supported notation for MIDI
 
-@node Création de fichiers MIDI
-@subsection Création de fichiers MIDI
-@translationof Creating MIDI files
+@cindex MIDI, éléments pris en compte
+
+LilyPond retranscrit par défaut dans un fichier MIDI les éléments de
+notation suivant :
+
+@itemize
+@item les marques de respiration,
+@item les accords nommés,
+@item les crescendos et decrescendos s'étendant sur plusieurs notes --
+le volume s'ajuste linéairement entre les deux extrêmes,
+@item les indications de nuance, de @code{ppppp} à @code{fffff}, y compris
+@code{mp}, @code{mf} et @code{sf},
+@item les microtonalités mais @emph{pas} sous forme d'accord ; leur
+rendu nécessite cependant un lecteur qui prenne en charge la
+modulation,
+@item les paroles,
+@item les hauteurs,
+@item le rythme sous forme de durée de note, y compris les n-olets,
+@item les articulations « simples » comme staccato, staccatissimo,
+accent, marcato et portato,
+@item les changements de tempo indiqués par un @code{\tempo},
+@item les liaisons de tenue,
+@item les tremolos, excepté ceux utilisant la syntaxe
+« @code{:}[@var{nombre}] ».
+@end itemize
+
+En combinaison avec le script @file{articulate}, d'autres éléments
+seront aussi reportés en MIDI :
+
+@itemize
+@item les appogiatures -- celles-ci prendront la moitié de la valeur,
+dépourvue de point, de la note qui les suit --  par exemple,
+
+@example
+\appoggiatura c8 d2.
+@end example
+
+@noindent
+le do (noté @code{c}) prendra la valeur d'une noire.
+
+@item les ornements (mordants, trilles et groupettos, etc.),
+@item rallentando, accelerando, ritardando et a tempo,
+@item les liaisons y compris de phrasé,
+@item les tenutos.
+@end itemize
+
+@noindent
+Voir @ref{Amélioration du rendu MIDI}.
+
+
+@node Notation non prise en compte dans le MIDI
+@subsection Notation non prise en compte dans le MIDI
+@translationof Unsupported notation for MIDI
+
+@cindex MIDI, éléments non pris en comte
+
+Certains éléments de notation ne peuvent être retranscits dans un
+fichier MIDI :
+
+@itemize
+@item les articulations autres que staccato, staccatissimo, accent, marcato
+et portato,
+@item les crescendos et decrescendos sur @emph{une seule} note,
+@item les points d'orgue,
+@item la basse chiffrée,
+@item les glissandos,
+@item les chutes ou sauts,
+@item les accords en microtonalité,
+@item le rythme indiqué sous forme d'annotation, comme « swing »,
+@item les changements de tempo indiqués sous forme d'annotation (sans
+@code{\tempo}),
+@item les trémolos indiqués par la syntaxe « @code{:}[@var{nombre}] ».
+@end itemize
+
+
+@node Le bloc MIDI
+@subsection Le bloc MIDI
+@translationof The MIDI block
+
+@cindex MIDI, le bloc
 
 LilyPond générera un fichier MIDI dès que vous ajouterez un bloc
-@code{\midi} au sein du bloc @code{\score} :
+@code{\midi}, même vide, au sein du bloc @code{\score} :
 
 @example
 \score @{
@@ -2874,59 +2946,242 @@ LilyPond générera un fichier MIDI dès que vous ajouterez un bloc
 @}
 @end example
 
-Lorsque le bloc @code{\score} contient uniquement un bloc @code{\midi}
-(autrement dit pas de bloc @code{\layout}), LilyPond produira uniquement
-la sortie MIDI -- aucun support visuel ne sera généré.
+@warning{Lorsque le bloc @code{@bs{}score} contient uniquement un bloc
+@code{@bs{}midi} (autrement dit pas de bloc @code{@bs{}layout}),
+LilyPond produira uniquement la sortie MIDI -- aucun support visuel ne
+sera généré.}
+
+L'extension par défaut des fichiers MIDI générés (@code{.midi}) peut se
+modifier en ligne de commadne :
+
+@example
+lilypond -dmidi-extension=mid MonFichier.ly
+@end example
+
+Une autre manière de procéder consiste à placer la ligne suivante au
+début de votre fichier source, avant l'ouverture de tout bloc
+@code{\book}, @code{\bookpart} ou @code{\score} -- voir
+@ref{Structure de fichier} :
+
+@example
+#(ly:set-option 'midi-extension "mid")
+@end example
+
+@seealso
+Manuel de notation :
+@ref{Structure de fichier}.
+
+Fichiers d'initialisation :
+@file{scm/midi.scm}.
+
+@knownissues
+Le standard MIDI dispose de 15 canaux plus un (le numéro 10) affecté aux
+percussions.  Les portées sont assignées l'une après l'autre à un canal.
+Dans la mesure où une partition comporte plus de 15 portées, les portées
+au-delà de la quinzième partageront un même canal MIDI, sans toutefois
+l'écraser.  Ceci peut entraîner des conflits au niveau des canaux en
+raison des propriétés MIDI, notamment l'instrument utilisé.
+
+@node Gestion des nuances en MIDI
+@subsection Gestion des nuances en MIDI
+@translationof Controlling MIDI dynamics
+
+@cindex MIDI, gestion des nuances
+
+Le volume général de la sortie MIDI peut se définir, ainsi que ses
+modulations, en fonction des indications de nuance et les volumes
+relatifs entre les différents instruments.
+
+Les indications de nuance se traduisent automatiquement en niveau de
+volume dans l'amplitude disponible en MIDI alors que crescendos et
+diminuendos auront une progression linéaire entre les extrêmes.
+
+@menu
+* Indication des nuances en MIDI::
+* Réglage du volume en MIDI::
+* Réglage de propriétés dans le bloc MIDI::
+@end menu
+
+
+@node Indication des nuances en MIDI
+@unnumberedsubsubsec Indication des nuances en MIDI
+@translationof Dynamic marks in MIDI
+
+@cindex MIDI, indications de nuance
+
+Les indications de nuance, de @code{ppppp} à @code{fffff} -- y compris
+@code{mp}, @code{mf} et @code{sf} -- ont des valeurs prédéfinies.  Ce
+coefficient est alors appliqué pour corriger le volume général de façon
+à obtenir le niveau sonore qui sera retranscrit dans le fichier de
+sortie pour la nuance considérée.  Nous allons, par défaut, de 0,25 pour
+un @notation{ppppp} à 0,95 pour un @notation{fffff}.  Les
+correspondances entre nuance et fraction de volume sont répertoriées
+dans le fichier @file{scm/midi.scm}.
+
+@snippets
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{creating-custom-dynamics-in-midi-output.ly}
+
+@seealso
+Fichiers d'initialisation :
+@file{ly/script-init.ly},
+@file{scm/midi.scm}.
+
+Morceaux choisis :
+@rlsr{MIDI}.
+
+Référence des propriétés internes :
+@rinternals{Dynamic_performer}.
+
+@node Réglage du volume en MIDI
+@unnumberedsubsubsec Réglage du volume en MIDI
+@translationof Setting MIDI volume
+
+@cindex MIDI, réglage du volume
+
+Les valeurs extrêmes du volume MIDI des nuances se contrôlent à l'aide
+des propriétés @code{midiMinimumVolume} et @code{midiMaximumVolume} qui
+agissent au niveau @code{Score}.  Ces propriétés sont effectives dès
+lors qu'une nuance est indiquée ; une nuance de départ explicite est donc
+requise pour que le volume soit ajusté dès le début de la partition.
+Vous pouvez alors modifier la fraction correspondant à chaque nuance à
+l'aide de la formule
+
+@example
+midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fraction
+@end example
+
+Voici comment ajuster les nuances tout en limitant l'amplitude du volume
+entre 0,2 et 0,5 :
 
 @example
 \score @{
-  @var{@dots{}musique@dots{}}
+  <<
+    \new Staff @{
+      \set Staff.midiInstrument = #"flute"
+      @var{@dots{} music @dots{}}
+    @}
+    \new Staff @{
+      \set Staff.midiInstrument = #"clarinet"
+      @var{@dots{} music @dots{}}
+    @}
+  >>
+  \midi @{
+    \context @{
+      \Score
+      midiMinimumVolume = #0.2
+      midiMaximumVolume = #0.5
+    @}
+  @}
+@}
+@end example
+
+La définition de l'amplitude du volume MIDI au niveau d'un contexte
+@code{Staff} -- grace aux propriétés @code{midiMinimumVolume} et
+@code{midiMaximumVolume} -- permet en quelque sorte d'égaliser un
+instrument MIDI.
+
+@example
+\score @{
+  \new Staff @{
+    \set Staff.midiInstrument = #"flute"
+    \set Staff.midiMinimumVolume = #0.7
+    \set Staff.midiMaximumVolume = #0.9
+    @var{@dots{} musique @dots{}}
+  @}
   \midi @{ @}
 @}
 @end example
 
-Hauteurs, durées, liaisons de prolongation, nuances et changements de
-tempo seront interprétés et traduits en événements MIDI.  Les
-indications de nuances, crescendos et decrescendos sont traduits en
-niveau de volume ; les indications sous la forme d'une fraction
-déterminée du volume disponible, et crescendos et decrescendos sous la
-forme d'une progression linéaire entre les deux extrêmes.
-
-Le tempo initial ainsi que ses changements sont normalement indiqués au
-fil de la notation à l'aide de la commande @code{\tempo} ; ils seront
-retranscrits dans le fichier MIDI.
-
-Si le bloc @code{\midi} est la plupart du temps laissé vide, il peut
-contenir des aménagements pour certains contextes, la définition de
-contextes particuliers ou du code permettant de déterminer la valeur de
-certaines propriétés.  L'exemple suivant détermine le tempo initial du
-fichier MIDI tout en se passant de son indication sur la partition
-imprimée :
+Dans le cas d'une partition à plusieurs portées et différents
+instruments, les volumes relatifs entre les différents instruments se
+gèrent individuellement :
 
 @example
 \score @{
-  @var{@dots{}music@dots{}}
+  <<
+    \new Staff @{
+      \set Staff.midiInstrument = #"flute"
+      \set Staff.midiMinimumVolume = #0.7
+      \set Staff.midiMaximumVolume = #0.9
+      @var{@dots{} music @dots{}}
+    @}
+    \new Staff @{
+      \set Staff.midiInstrument = #"clarinet"
+      \set Staff.midiMinimumVolume = #0.3
+      \set Staff.midiMaximumVolume = #0.6
+      @var{@dots{} music @dots{}}
+    @}
+  >>
+  \midi @{ @}
+@}
+@end example
+
+La clarinette de cet exemple jouera relativement moins fort que la
+flûte.
+
+En l'absence de tout réglage des propriétés de volume, LilyPond
+appliquera cependant un léger degré d'égalisation pour certains
+instruments -- voir @file{scm/midi.scm}.
+
+@snippets
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{replacing-default-midi-instrument-equalization.ly}
+
+@seealso
+Fichiers d'initialisation :
+@file{scm/midi.scm}.
+
+Manuel de notation :
+@ref{Mise en forme de la partition}.
+
+Référence des propriétés internes :
+@rinternals{Dynamic_performer}.
+
+@knownissues
+Les modifications apportées au volume MIDI n'interviennent que sur
+l'attaque d'une note, en conséquence de quoi crescendos et decrescendos
+n'affecteront pas le volume s'ils se produisent sur une même et unique
+note.
+
+
+@node Réglage de propriétés dans le bloc MIDI
+@unnumberedsubsubsec Réglage de propriétés dans le bloc MIDI
+@translationof Setting MIDI block properties
+
+Le bloc @code{\midi}  peut contenir des aménagements pour certains
+contextes, la définition de contextes particuliers ou du code permettant
+de déterminer la valeur de certaines propriétés.
+
+@example
+\score @{
+  @var{@dots{} music @dots{}}
   \midi @{
     \tempo 4 = 72
   @}
 @}
 @end example
 
-Notez bien que @code{\tempo} est une commande chargée de définir des
-propriétés en cours d'interprétation de la musique.  Intervenant dans le
-cadre de définitions d'une sortie, comme ici un bloc @code{\midi}, elle
-est réinterprétée comme une modification de contexte.
+Le tempo est ici réglé à 72 noires par minute. Une indication de tempo
+inscrite dans le bloc @code{\midi} ne sera pas reportée sur la partition
+imprimable.  Cependant, tout @code{\tempo} mentionné dans le bloc
+@code{\score} sera répercuté dans la sortie MIDI.
+
+Placée au sein d'un bloc @code{\midi}, la commande @code{\tempo}
+détermine des propriétés lors de la phase d'interprétation de la musique
+et dans le contexte de définition des sorties.  Elle est alors
+considérée comme une modification de contexte.
 
 @cindex MIDI, définition de contexte
+@cindex contexte, définition en MIDI
 
 La syntaxe permettant de définir un contexte pour le @code{\midi} est en
 tout point identique à celle que vous utilisez dans le bloc
-@code{\layout}, à ceci près que le « graveur » est remplacé par un
-« interprète » (@emph{performer} en anglais).
+@code{\layout} :
 
 @example
 \score @{
-  @var{@dots{}music@dots{}}
+  @var{@dots{} musique @dots{}}
   \midi @{
     \context @{
       \Voice
@@ -2936,10 +3191,10 @@ tout point identique à celle que vous utilisez dans le bloc
 @}
 @end example
 
-@noindent
-supprimera les effets de nuance dans la sortie MIDI.  Les modules
-chargés de traduire la musique en son s'appellent des « interprètes » --
-@emph{performers} en anglais.
+Ces quelques lignes ont pour effet de supprimer l'application des
+nuances à la sortie MIDI.  Vous aurez noté que les modules de traduction
+de LilyPond en matière de son s'appelent @emph{performers} -- des
+« interprètes ».
 
 @snippets
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -2963,665 +3218,192 @@ Référence des propriétés internes :
 @rinternals{Dynamic_performer}.
 
 @knownissues
-Certains systèmes d'exploitation requièrent que les fichiers MIDI
-portent l'extension @code{.mid}.  Si besoin est, placez la ligne
-suivante au début de votre fichier source, avant l'ouverture de tout
-bloc @code{\book}, @code{\bookpart} ou @code{\score} :
-
-@example
-#(ly:set-option 'midi-extension "mid")
-@end example
-
-Cette ligne déterminera @code{.midi} comme extension par défaut pour les
-fichiers MIDI.
-
-Vous pouvez aussi le faire en ligne de commande :
-
-@example
-lilypond … -dmidi-extension=mid MonFichier.ly
-@end example
-
-Un changement de volume ne peut intervenir que sur le démarrage d'une
-note.  C'est la raison pour laquelle la succession d'un crescendo et
-d'un diminuendo ne peut se produire sur une même note.
-
 Certains lecteurs MIDI ne rendent pas correctement les changements de
 tempo.
 
 Les modifications de @code{midiInstrument} ou autres options MIDI en
-début de portée peuent se retrouver dédoublées dans la sortie MIDI.
+début de portée pevuent se retrouver dédoublées dans la sortie MIDI.
 
-
-@node Instrument MIDI
-@subsection Instrument MIDI
-@translationof MIDI Instruments
+@node Gestion des instruments MIDI
+@subsection Gestion des instruments MIDI
+@translationof Using MIDI Instruments
 
 @cindex instrument, nom d'
 @cindex MIDI, instruments
 @funindex Staff.midiInstrument
 
-L'instrument MIDI affecté à un canal particulier est déterminé par la
-propriété @code{Staff.midiInstrument}.  Vous pouvez choisir l'un des
-instruments répertoriés à l'annexe @ref{Instruments MIDI}.
+L'instrument MIDI est déterminé par la propriété @code{midiInstrument},
+au sein d'un contexte @code{Staff}.
 
 @example
-\new Staff @{
-  \set Staff.midiInstrument = #"glockenspiel"
-  @var{@dots{}notes@dots{}}
+\score @{
+  \new Staff @{
+    \set Staff.midiInstrument = #"glockenspiel"
+    @var{@dots{} music @dots{}}
+  @}
+  \midi @{ @}
 @}
 @end example
 
+ou
+
 @example
-\new Staff \with @{midiInstrument = #"cello"@} @{
-  @var{@dots{}notes@dots{}}
+\score @{
+  \new Staff \with @{midiInstrument = #"cello"@} @{
+    @var{@dots{} music @dots{}}
+  @}
+  \midi @{ @}
 @}
 @end example
 
 Lorsque l'instrument choisi ne correspond pas exactement à l'une des
 dénominations consacrées, LilyPond le replacera par un piano de concert
-(@code{"acoustic grand"}).
+(@code{"acoustic grand"}) -- voir @ref{Instruments MIDI}.
 
 @seealso
+Manuel d'initiation :
+@rlearning{Autres sources de documentation}.
+
 Manuel de notation :
-@ref{Instruments MIDI}.
+@ref{Instruments MIDI},
+@ref{Mise en forme de la partition}.
 
 Référence des propriétés internes :
 @rinternals{Dynamic_performer}.
 
-
-@node Contenu de la sortie MIDI
-@subsection Contenu de la sortie MIDI
-@translationof What goes into the MIDI output?
-
-@c TODO Check grace notes - timing is suspect?
-
-@menu
-* Éléments pris en compte dans le MIDI::
-* Éléments non pris en compte dans le MIDI::
-@end menu
-
-
-@node Éléments pris en compte dans le MIDI
-@unnumberedsubsubsec Éléments pris en compte dans le MIDI
-@translationof Supported in MIDI
-
-@cindex hauteurs en MIDI
-@cindex MIDI, hauteurs
-@cindex quart de ton en MIDI
-@cindex MIDI, quart de ton
-@cindex microtonalité en MIDI
-@cindex MIDI, microtonalité
-@cindex accords nommés en MIDI
-@cindex MIDI, accords nommés
-@cindex Rythme en MIDI
-@cindex MIDI, Rythme
-@cindex articulations et MIDI
-@cindex MIDI et articulations
-@cindex trilles et MIDI
-@cindex MIDI et trilles
-@c TODO etc
-
-Un fichier MIDI généré par LilyPond comprendra les éléments de notation
-suivants :
-
-@itemize
-@item
-les hauteurs ;
-
-@item
-les microtonalités -- voir @ref{Altérations}.  Leur rendu nécessite
-cependant un lecteur qui prenne en charge la modulation ;
-
-@item
-les accords nommés ;
-
-@item
-le rythme en tant que durée de note, y compris les n-olets ;
-
-@item
-les trémolos, exceptés ceux utilisant la syntaxe
-@qq{@code{:}[@var{nombre}]} ;
-
-@item
-les liaisons de prolongation ;
-
-@item
-les indications de nuance ;
-
-@item
-les crescendos et decrescendos s'étalant sur plusieurs notes ;
-
-@item
-les changements de tempo indiqués par un @code{\tempo} ;
-
-@item
-les paroles,
-
-@item
-les articulations simples : staccato, staccatissimo, accent, marcato,
-portato,
-
-@item
-les respirations.
-@end itemize
-
-Si vous utilisez @ref{Le script Articulate}, d'autres éléments seront
-alors inclus :
-
-@itemize
-@item liaisons d'articulation ou de phrasé,
-@item ornements (mordants, trilles et groupettos, etc.),
-@item rallentando, accelerando, ritard. et a tempo.
-@end itemize
-
-@seealso
-Manuel de notation :
-@ref{Altérations},
-@ref{Signes de respiration},
-@ref{Signes d'interprétation}.
-
 Fichiers d'initialisation :
-@file{ly/articulate.ly}.
+@file{scm/midi.scm}.
+
+@knownissues
+Les percussions gérées par un contexte @code{DrumStaff} sont d'affectées
+directement au canal 10 qui leur est réservé. Certains instruments, tels
+le xylophone, le marimba, le vibraphone ou les timbales, se traitent
+cependant comme des instruments « classiques » puisqu'ils sont capables
+d'émettre des hauteurs différentes ; leurs notation relève donc d'un
+contexte @code{Staff} standard, et non d'un @code{DrumStaff} pour
+pouvoir être rendus correctement en MIDI.  Une liste complète des
+percussions affectées au canal 10 (@code{channel 10 drum-kits}) est
+disponible dans le fichier @file{scm/midi.scm} -- voir
+@rlearning{Autres sources de documentation}.
 
 
-@node Éléments non pris en compte dans le MIDI
-@unnumberedsubsubsec Éléments non pris en compte dans le MIDI
-@translationof Unsupported in MIDI
-
-@c TODO index as above
-
-LilyPond ne peut générer d'événement MIDI pour les éléments suivant,
-même avec @ref{Le script Articulate} :
-
-@itemize
-@item
-le rythme indiqué sous forme d'annotation (par ex. @emph{swing}) ;
-
-@item
-les changements de tempo indiqués sous forme d'annotation (sans
-@code{\tempo}) ;
-
-@item
-les points d'orgue ;
-
-@item
-les autres articulations ;
-
-@item
-les liaisons d'articulation et de phrasé ;
-
-@item
-les crescendos ou decrescendos sur une seule note ;
-
-@item
-les trémolos indiqués par la syntaxe @qq{@code{:}[@var{nombre}]} ;
-
-@item
-la basse chiffrée ;
-
-@item
-les accords en microtonalité.
-
-@item
-les glissandos, chutes et sauts.
-@end itemize
-
-@seealso
-Fichiers d'initialisation :
-@file{ly/articulate.ly}.
-
-
-@node Répétitions et MIDI
-@subsection Répétitions et MIDI
-@translationof Repeats in MIDI
+@node Gestion des répétitions en MIDI
+@subsection Gestion des répétitions en MIDI
+@translationof Using repeats with MIDI
 
 @cindex reprises développées
 @cindex MIDI et reprises
 @funindex \unfoldRepeats
 
-Au prix de quelques réglages, les reprises de toutes sortes peuvent être
-rendues dans le fichier MIDI.  Il suffit pour cela de recourir à la
-fonction @code{\unfoldRepeats}, qui développe toutes les reprises.  En
-d'autre termes, @code{\unfoldRepeats} transforme toutes les reprises
-en reprises de type @code{unfold}.
+Les reprises de toutes sortes peuvent être rendues dans le fichier MIDI.
+Il suffit pour cela de recourir à la fonction @code{\unfoldRepeats}, qui
+développe toutes les reprises.
 
+@example
+\score @{
+  \unfoldRepeats @{
+    \repeat tremolo 8 @{ c'32 e' @}
+    \repeat percent 2 @{ c''8 d'' @}
+    \repeat volta 2 @{ c'4 d' e' f' @}
+    \alternative @{
+      @{ g' a' a' g' @}
+      @{ f' e' d' c' @}
+    @}
+  @}
+  \midi @{ @}
+@}
+@end example
 
-@lilypond[quote,verbatim]
-\unfoldRepeats {
-  \repeat tremolo 8 {c'32 e' }
-  \repeat percent 2 { c''8 d'' }
-  \repeat volta 2 {c'4 d' e' f'}
-  \alternative {
-    { g' a' a' g' }
-    {f' e' d' c' }
-  }
-}
-\bar "|."
-@end lilypond
+Lorsque l'on veut utiliser @code{\unfoldRepeats} seulement pour le rendu
+MIDI, il faut établir @b{deux} blocs @code{\score} : un pour le MIDI,
+avec des reprises explicites, et l'autre pour la partition, avec des
+reprises notées sous forme de barres de reprise, de trémolo ou de
+symboles de pourcentage. Par exemple
+
+@example
+\score @{
+  @var{@dots{} musique @dots{}}
+  \layout @{ @}
+@}
+\score @{
+  \unfoldRepeats @var{@dots{} musique @dots{}}
+  \midi @{ @}
+@}
+@end example
 
 Dans une partition comportant plusieurs voix, le développement des
 reprises ne sera effectif en MIDI qu'à la condition que ces reprises
 soient mentionnée correctement dans @strong{toutes} les voix.
 
-Lorsque l'on veut utiliser @code{\unfoldRepeats} seulement pour le rendu
-MIDI, il faut établir deux blocs @code{\score} : un pour le MIDI, avec
-des reprises explicites, et l'autre pour la partition, avec des reprises
-notées sous forme de barres de reprise, de trémolo ou de symboles de
-pourcentage. Par exemple
-
-@example
-\score @{
-  @var{@dots{}musique@dots{}}
-  \layout @{ @dots{}  @}
-@}
-\score @{
-  \unfoldRepeats @var{@dots{}musique@dots{}}
-  \midi @{ @dots{} @}
-@}
-@end example
-
 @seealso
 Manuel de notation :
-@ref{Mise en forme de la partition}.
-
-Fichiers d'initialisation :
-@file{ly/articulate.ly}.
+@ref{Répétitions et reprises}.
 
 
-@node Gestion des nuances en MIDI
-@subsection Gestion des nuances en MIDI
-@translationof Controlling MIDI dynamics
+@node Amélioration du rendu MIDI
+@subsection Amélioration du rendu MIDI
+@translationof Enhancing MIDI output
 
-Les nuances MIDI sont générées par le @code{Dynamic_performer}, affecté
-par défaut au contexte @code{Voice}.  Vous pouvez contrôler à la fois le
-volume général, celui des indications de nuance ainsi que celui des
-différents instruments.
+Le fichier MIDI généré par LilyPond est relativement brut.  Il peut
+toutefois être amélioré en affectant des instruments MIDI, en réglant
+des propriétés au sein du bloc @code{\midi} ou en utilisant le script
+@file{articulate}.
 
 @menu
-* Indications de nuance::
-* Amplitude du volume en MIDI::
-* Égalisation de plusieurs instruments (i)::
-* Égalisation de plusieurs instruments (ii)::
+* Le script articulate::
 @end menu
 
 
-@node Indications de nuance
-@unnumberedsubsubsec Indications de nuance
-@translationof Dynamic marks
+@node Le script articulate
+@unnumberedsubsubsec Le script @file{articulate}
+@translationof The articulate script
 
-Les indications de nuances sont transcrites en fraction du volume MIDI.
-Nous allons, par défaut, de 0,25 pour un @notation{ppppp} à 0,95 pour un
-@notation{fffff}.  Les correspondances entre nuance et fraction de
-volume sont répertoriées dans le fichier @file{../scm/midi.scm} --
-consultez la rubrique @rlearning{Autres sources de documentation} si
-vous ne savez comment le localiser.  Vous pouvez modifier ou étendre ce
-jeu grâce à une fonction qui prendra en argument une indication de
-nuance et renverra la fraction désirée, puis en affectant cette fonction
-à @code{Score.dynamicAbsoluteVolumeFunction}.
+@cindex MIDI, instruments
+@cindex articulate, script
+@funindex Staff.midiInstrument
 
-Prenons un exemple.  Votre partition comporte un  @notation{rinforzando}
-que vous avez indiqué par @code{\rfz}.  Cette indication de nuance
-n'étant pas répertoriée dans le jeu par défaut, elle ne produira aucun
-effet en MIDI.  Il en sera d'ailleurs de même pour toute indication
-créée de toute pièce à l'aide de l'instruction
-@w{@code{make-dynamic-script}}.  Voici comment procéder pour ajuster le
-volume MIDI de ce @notation{rinforzando} que le compositeur a indiqué.
-La fonction Scheme définit une fraction de 0,9 en cas de @notation{rfz},
-et demande d'utiliser la fonction par défaut dans les autre cas.
-
-@lilypond[verbatim,quote]
-#(define (myDynamics dynamic)
-    (if (equal? dynamic "rfz")
-      0.9
-      (default-dynamic-absolute-volume dynamic)))
-
-\score {
-  \new Staff {
-    \set Staff.midiInstrument = #"cello"
-    \set Score.dynamicAbsoluteVolumeFunction = #myDynamics
-    \new Voice {
-      \relative {
-        a'4\pp b c-\rfz
-      }
-    }
-  }
-  \layout {}
-  \midi {}
-}
-@end lilypond
-
-Si vous étiez amené à devoir modifier l'intégralité du jeu des
-correspondances, nous vous conseillons d'utiliser la procédure
-@command{default-dynamic-absolute-volume} contenue dans le fichier
-@file{../scm/midi.scm} ainsi que la table d'association comme base.
-Le dernier exemple de cette partie illustre la manière de procéder.
-
-@seealso
-Manuel de notation :
-@ref{Signes d'interprétation},
-@ref{Mise en forme de la partition}.
-
-Fichiers d'initialisation :
-@file{scm/midi.scm}.
-
-Référence des propriétés internes :
-@rinternals{Dynamic_performer}.
-
-
-@node Amplitude du volume en MIDI
-@unnumberedsubsubsec Amplitude du volume en MIDI
-@translationof Overall MIDI volume
-
-Les valeurs extrêmes du volume MIDI des nuances se contrôlent à l'aide
-des propriétés @code{midiMinimumVolume} et @code{midiMaximumVolume} qui
-agissent au niveau @code{Score}.  Ces propriétés sont effectives dès
-lors qu'une nuance est indiquée ; une nuance de départ explicite est donc
-requise pour que le volume soit ajusté dès le début de la partition.
-Vous pouvez alors modifier la fraction correspondant à chaque nuance à
-l'aide de la formule
-
-@example
-midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fraction
-@end example
-
-Voici comment ajuster les nuances tout en limitant l'amplitude du volume
-entre 0,2 et 0,5 :
-
-@lilypond[verbatim,quote]
-\score {
-  <<
-    \new Staff {
-      \key g \major
-      \time 2/2
-      \set Staff.midiInstrument = #"flute"
-      \new Voice \relative {
-        r2 g''\mp g fis~
-        4 g8 fis e2~
-        4 d8 cis d2
-      }
-    }
-    \new Staff {
-      \key g \major
-      \set Staff.midiInstrument = #"clarinet"
-      \new Voice \relative {
-        b'1\p a2. b8 a
-        g2. fis8 e
-        fis2 r
-      }
-    }
-  >>
-  \layout {}
-  \midi {
-    \tempo 2 = 72
-    \context {
-      \Score
-      midiMinimumVolume = #0.2
-      midiMaximumVolume = #0.5
-    }
-  }
-}
-@end lilypond
-
-@seealso
-Manuel de notation :
-@ref{Mise en forme de la partition}.
-
-Référence des propriétés internes :
-@rinternals{Dynamic_performer}.
-
-
-@node Égalisation de plusieurs instruments (i)
-@unnumberedsubsubsec Égalisation de plusieurs instruments (i)
-@translationof Equalizing different instruments (i)
-
-La définition de l'amplitude du volume MIDI au niveau d'un contexte
-@code{Staff} permet de gérer les volumes relatifs entre les différents
-instruments.  Ceci constitue en quelque sorte un égaliseur, ce qui
-permet d'améliorer notablement la qualité de la sortie MIDI.
-
-La clarinette de l'exemple suivant jouera relativement moins fort que la
-flûte.  Rappelez-vous que pour que cela fonctionne correctement, la
-première note de chacun des instruments doit être affublée d'une
-indication de nuance.
-
-@lilypond[verbatim,quote]
-\score {
-  <<
-    \new Staff {
-      \key g \major
-      \time 2/2
-      \set Staff.midiInstrument = #"flute"
-      \set Staff.midiMinimumVolume = #0.7
-      \set Staff.midiMaximumVolume = #0.9
-      \new Voice \relative {
-        r2 g''\mp g fis~
-        4 g8 fis e2~
-        4 d8 cis d2
-      }
-    }
-    \new Staff {
-      \key g \major
-      \set Staff.midiInstrument = #"clarinet"
-      \set Staff.midiMinimumVolume = #0.3
-      \set Staff.midiMaximumVolume = #0.6
-      \new Voice \relative {
-        b'1\p a2. b8 a
-        g2. fis8 e
-        fis2 r
-      }
-    }
-  >>
-  \layout {}
-  \midi {
-    \tempo 2 = 72
-  }
-}
-@end lilypond
-
-@seealso
-Manuel de notation :
-@ref{Mise en forme de la partition}.
-
-
-@node Égalisation de plusieurs instruments (ii)
-@unnumberedsubsubsec Égalisation de plusieurs instruments (ii)
-@translationof Equalizing different instruments (ii)
-
-Lorsque les propriétés volume minimum et maximum n'ont pas été définies,
-LilyPond appliquera par défaut une légère égalisation pour quelques
-instruments.  Les instrument concernés ainsi que le niveau d'égalisation
-sont répertoriés dans une table @notation{instrument-equalizer-alist}
-du fichier @file{../scm/midi.scm}.
-
-Vous pouvez remplacer l'égaliseur basique en définissant une nouvelle
-procédure Scheme @code{instrumentEqualizer} au sein du contexte
-@code{Score}.  Cette procédure prend en unique argument le nom d'un
-instrument MIDI et renverra une paire de fractions correspondant au
-minimum et maximum de volume alloué à cet instrument.  Cette
-substitution fonctionne selon le même principe que celui que nous avons
-vu en début de chapitre avec @code{dynamicAbsoluteVolumeFunction}.
-L'égaliseur par défaut, @notation{default-instrument-equalizer}, est
-défini dans le fichier @file{../scm/midi.scm} ; son analyse vous
-aidera à construire votre propre procédure.
-
-Nous allons, dans l'exemple suivant, régler le volume relatif de la
-flûte et de la clarinette -- au même niveau que dans le précédent.
-
-@lilypond[verbatim,quote]
-#(define my-instrument-equalizer-alist '())
-
-#(set! my-instrument-equalizer-alist
-  (append
-    '(
-      ("flute" . (0.7 . 0.9))
-      ("clarinet" . (0.3 . 0.6)))
-    my-instrument-equalizer-alist))
-
-#(define (my-instrument-equalizer s)
-  (let ((entry (assoc s my-instrument-equalizer-alist)))
-    (if entry
-      (cdr entry))))
-
-\score {
-  <<
-    \new Staff {
-      \key g \major
-      \time 2/2
-      \set Score.instrumentEqualizer = #my-instrument-equalizer
-      \set Staff.midiInstrument = #"flute"
-      \new Voice \relative {
-        r2 g''\mp g fis~
-        4 g8 fis e2~
-        4 d8 cis d2
-      }
-    }
-    \new Staff {
-      \key g \major
-      \set Staff.midiInstrument = #"clarinet"
-      \new Voice \relative {
-        b'1\p a2. b8 a
-        g2. fis8 e
-        fis2 r
-      }
-    }
-  >>
-  \layout { }
-  \midi {
-    \tempo 2 = 72
-  }
-}
-@end lilypond
-
-@seealso
-Fichiers d'initialisation :
-@file{scm/midi.scm}.
-
-Référence des propriétés internes :
-@rinternals{Dynamic_performer}.
-
-@ignore
-@c Delete when satisfied this is adequately covered elsewhere -td
-
-@n ode Microtones in MIDI
-@s ubsection Microtones in MIDI
-
-@cindex microtones in MIDI
-
-Microtones consisting of half sharps and half flats are exported
-to the MIDI file and render correctly in MIDI players which support
-pitch bending.  See @ref{Note names in other languages}.  Here is
-an example showing all the half sharps and half flats.  It can be
-copied out and compiled to test microtones in your MIDI player.
-
-@lilypond[verbatim,quote]
-\score {
-  \relative {
-    c'4 cih cis cisih
-    d4 dih ees eeh
-    e4 eih f fih
-    fis4 fisih g gih
-    gis4 gisih a aih
-    bes4 beh b bih
-  }
-  \layout {}
-  \midi {}
-}
-@end lilypond
-@end ignore
-
-
-@node MIDI et percussions
-@subsection MIDI et percussions
-@translationof Percussion in MIDI
-
-La notation pour percussions recourt généralement à un contexte
-particulier -- le @code{DrumStaff} -- qui permet d'affecter directement
-les instruments concernés au canal 10 qui leur est réservé.
-
-Certains instruments, tels le xylophone, le marimba, le vibraphone ou
-les timbales, se traitent cependant comme des instruments « classiques »
-puisqu'ils sont capables d'émettre des hauteurs différentes ; leurs
-notation relève donc d'un contexte @code{Staff} standard, et non d'un
-@code{DrumStaff} pour pouvoir être rendus correctement en MIDI.
-
-D'autres percussions, bien que n'émettant qu'un seul son et inclus dans
-le standard @emph{general MIDI}, comme le tom mélodique ou le tambour
-taiko, ne sont pas attachés au canal 10.  Ces instruments doivent donc
-être saisi dans un contexte @code{Staff}, en utilisant la hauteur
-appropriée.
-
-De nombreux instruments de la famille des percussions, les castagnettes
-par exemple,  n'existent pas dans le standard @emph{general MIDI}.
-L'alternative, bien que peu satisfaisante, consiste à leur attribuer le
-son le plus proche dans la banque standard.
-
-@c TODO Expand with examples, and any other issues
-
-@seealso
-Manuel de notation :
-@ref{Percussions},
-@ref{Mise en forme de la partition}.
-
-Référence des propriétés internes :
-@rinternals{Dynamic_performer}.
-
-@knownissues
-Le standard @emph{general MIDI} ne dispose pas du @emph{rim shot} ;
-LilyPond lui substitue un @emph{sidestick}.
-
-
-@node Le script Articulate
-@subsection Le script Articulate
-@translationof The Articulate script
-
-Vous obtiendrez un rendu MIDI plus @qq{réaliste} grâce au script
-@code{articulate}.  Celui-ci va tout faire pour d'une part prendre en
-compte les articulations (liaisons, staccato etc.) -- en ajoutant un
-blanc aux notes raccourcies -- et, d'autre part, développer les trilles
-ou groupettos ainsi que tenir compte des éventuels rallentando et
-accelerando.
-
-L'utilisation du script @code{articulate} se fait en deux temps.  Vous
-devez dans un premier temps inclure son fichier d'initialisation en
-ajoutant en tête de votre fichier la ligne
+L'utilisation du script @file{articulate} se fait après avoir ajouté en
+tête de fichier la commande @code{\include} appropriée :
 
 @example
 \include "articulate.ly"
 @end example
 
-puis, dans le bloc @code{\score}, indiquer que toutes les répétitions
-seront développées et appliquer la commande à votre musique :
+Le script créera une sortie MIDI dont les notes seront échelonées de
+sorte à tenir compte de toute articulation ou changement de tempo.  La
+sortie imprimable sera toutefois modifiée en profondeur, pour refléter
+littéralement la sortie MIDI.
 
 @example
-\unfoldRepeats \articulate <<
-  tout le reste du bloc contenant la partition@dots{}
->>
+\score @{
+  \articulate <<
+    @var{@dots{} musique @dots{}}
+  >>
+  \midi @{ @}
+@}
 @end example
 
-Une fois votre fichier modifié de la sorte, vous constaterez que la
-version imprimable aura été modifiée en profondeur.  Le bloc
-@code{\midi} produira par contre un fichier MIDI de bien meilleure
-qualité.
-
-Bien que cela ne gène en rien le fonctionnement du script
-@code{articulate}, lui adjoindre la commande @code{\unfoldRepeats} comme
-illustré ci-dessus permettra le rendu d'un certain nombre
-d'articulations tels les trilles.
+Le script @file{articulate} tient compte des abréviations telles que les
+trilles ou groupettos.  L'intégralité des éléments traités est
+répertoriée dans le script lui-même -- voir @file{ly/articulate.ly}.
 
 @seealso
+Manuel d'initiation :
+@rlearning{Autres sources de documentation}.
+
 Manuel de notation :
 @ref{Mise en forme de la partition}.
 
 Fichiers d'initialisation :
 @file{ly/articulate.ly}.
 
-Référence des propriétés internes :
-@rinternals{UnfoldedRepeatedMusic}.
-
-@knownissues
-Dans la mesure où le script @code{articulate} tend à raccourcir les
-accords, certaines musiques, notamment pour l'orgue, paraîtront de moins
-bonne qualité.
+@warning{Dans la mesure où le script @file{articulate} tend à raccourcir
+les accords, certaines musiques, notamment pour l'orgue, paraîtront de
+moins bonne qualité.  Les notes dépourvues d'articulation peuvent aussi
+se voir raccourcies ; pour pallier cet inconvénient, le recours à la
+fonction @code{@bs{}articulate} devrait ne concerner que de courts
+fragments, sauf à modifier les valeurs des variables contenues dans le
+script @file{articulate}.}
 
 
 @node Extraction d'informations musicales

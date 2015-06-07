@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 868bbbb78276796f43a1c72621fdb3a3a14d2555
+    Translation of GIT committish: 53cff5245f682708a6c77d580f418ece2923c2e4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -924,16 +924,16 @@ deux voix séparées apparaissent, avec des hampes dont la direction est
 gérée automatiquement.  Vous pouvez aussi identifier et faire
 ressortir les solos et parties @emph{a due}.
 
-Voici la syntaxe qui permet de combiner des parties@tie{}:
+Voici la syntaxe qui permet de combiner des parties :
 
 @example
 \partcombine @var{expression_musicale_1} @var{expression_musicale_2}
 @end example
 
 L'exemple suivant illustre les fonctionnalités élémentaires du
-combinateur de parties@tie{}: positionner les parties sur une portée,
-gérer la direction des hampes et de la polyphonie.  Les identifiants
-sont les mêmes pour la combinaison et les parties séparées.
+combinateur de parties : positionner les parties sur une portée, gérer
+la direction des hampes et de la polyphonie.  Les identifiants sont les
+mêmes pour la combinaison et les parties séparées.
 
 @lilypond[quote,verbatim]
 instrumentOne = \relative {
@@ -964,15 +964,47 @@ alors qu'elles ont été spécifiées deux fois (une fois dans chacune des
 parties).  La direction des hampes et des liaisons de tenue ou de phrasé
 est gérée automatiquement, selon qu'il s'agisse d'un solo ou d'un
 unisson.  La première partie, dont le contexte s'appellera @code{one},
-aura toujours ses hampes dirigées vers le haut et sera notée @qq{Solo},
+aura toujours ses hampes dirigées vers le haut et sera notée « Solo »,
 alors que la deuxième, appelée @code{two}, aura des hampes vers le bas
-et sera notée @qq{Solo@tie{}II}.  Les parties à l'unisson seront
-par défaut estampillées d'un @qq{a2}.
+et sera notée « Solo II ».  Les parties à l'unisson seront par défaut
+estampillées d'un « a2 ».
+
+Par défaut, le combinateur fusionnera deux notes de même hauteur en une
+note @notation{a due}, regroupera en accord les notes de même rythme et
+dont l'intervalle est inférieur à une neuvième, enfin isolera les notes
+séparées de plus d'une neuvième (ou si les voix se croisent) dans des
+voix distinctes.  Ceci peut s'adapter à l'aide d'une paire de nombres
+fournie en argument optionnel à la commande @code{\partcombine} : le
+premier nombre spécifie l'intervalle à partir duquel les notes seront
+combinées (0 par défaut) et le second celui à partir duquel les notes
+seront placées dans des voix séparées.  Un second élément de cette paire
+à zéro obligera le combinateur à séparer les notes dès la seconde ; s'il
+est à un, elles seront séparées à partir de la tierce, et ainsi de
+suite.
+
+@lilypond[quote,verbatim]
+instrumentOne = \relative {
+  a4 b c d |
+  e f g a |
+  b c d e |
+}
+
+instrumentTwo = \relative {
+  c'4 c c c |
+  c c c c |
+  c c c c |
+}
+
+<<
+  \new Staff \partcombine \instrumentOne \instrumentTwo
+  \new Staff \partcombine #'(2 . 3) \instrumentOne \instrumentTwo
+>>
+@end lilypond
 
 LilyPond interprète dans un contexte @code{Voice} chacun des arguments
 fournis à @code{\partcombine}.  Si vous travaillez avec des octaves
 relatives, spécifiez @code{\relative} dans chacune des expressions
-musicales, comme ceci@tie{}:
+musicales, comme ceci :
 
 @example
 \partcombine
@@ -1006,7 +1038,7 @@ l'unisson.  Dans la mesure où @code{\partcombine} considère les notes
 séparément, combiner des notes en accord ou indiquer un solo ne serait
 pas optimal en pareil cas.  LilyPond dispose alors de certaines
 commandes qui permettent d'influencer le comportement de la fonction
-@code{\partcombine}@tie{}:
+@code{\partcombine} :
 
 Les commandes se terminant par @code{@dots{}Once} n'affectent que la
 note qui les suit directement dans l'expression musicale.
@@ -1023,15 +1055,15 @@ notes en accords.
 
 @item
 @code{\partcombineUnisono} et @code{\partcombineUnisonoOnce} combinent
-les voix en un @qq{unisson}.
+les voix en un « unisson ».
 
 @item
 @code{\partcombineSoloI} et @code{\partcombineSoloIOnce} affichent
-exclusivement la première voix et l'affublent d'un @qq{Solo}.
+exclusivement la première voix et l'affublent d'un « Solo ».
 
 @item
 @code{\partcombineSoloII} et @code{\partcombineSoloIIOnce} affichent
-exclusivement la deuxième voix et l'affublent d'un @qq{Solo}.
+exclusivement la deuxième voix et l'affublent d'un « Solo ».
 
 @item
 @code{\partcombineAutomatic} et @code{\partcombineAutomaticOnce}
@@ -1114,7 +1146,7 @@ plus d'une fois par mesure.
 @code{\partcombine} n'examine que l'attaque des notes.  Il n'est donc
 pas en mesure de déterminer si une note attaquée précédemment est encore
 jouée ou non, ce qui peut engendrer quelques problèmes, entre autres des
-indications de @qq{Solo} ou @qq{Unison} incorrectement placées.
+indications de « Solo » ou « Unison » incorrectement placées.
 
 @code{\partcombine} conserve les objets étendus (liaisons, soufflets,
 etc.) dans la même voix de sorte à éviter qu'ils soient improprement ou

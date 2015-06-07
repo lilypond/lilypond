@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 3c907f2dd5ba3dd91e30454922d8361225ca28d5
+    Translation of GIT committish: 53cff5245f682708a6c77d580f418ece2923c2e4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -590,7 +590,7 @@ b1^\markup { \smaller da }
 b1-\markup { \magnify #0.6  camera }
 @end lilypond
 
-Vous pouvez l'augementer ou la diminuer par rapport à la taille globale
+Vous pouvez l'augmenter ou la diminuer par rapport à la taille globale
 de portée :
 
 @lilypond[quote,verbatim,relative=2]
@@ -606,6 +606,15 @@ taille de portée globale :
 b1_\markup { \abs-fontsize #20 Sinfonia }
 b1^\markup { \abs-fontsize #8 da }
 b1-\markup { \abs-fontsize #14 camera }
+@end lilypond
+
+Lorsque le texte comporte des espaces, mieux vaut le borner par des
+guillemets informatiques ; s'en suivra une meilleure adéquation entre la
+taille des espaces et celle des autres caractères :
+
+@lilypond[quote,verbatim]
+\markup \fontsize #6 \bold { Sinfonia da camera }
+\markup \fontsize #6 \bold { "Sinfonia da camera" }
 @end lilypond
 
 @cindex indice

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: fab824ac128346465690246f7a42ce1e8b42db8d
+    Translation of GIT committish: 53cff5245f682708a6c77d580f418ece2923c2e4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -55,7 +55,7 @@ rubriques @ref{Gravure de lignes rythmiques} et
 @ref{Initialisation de nouvelles portées}.
 
 @item Le rendu MIDI des percussions fait l'objet d'une rubrique
-dédiée : @ref{MIDI et percussions}.
+dédiée : @ref{Gestion des instruments MIDI}.
 
 @end itemize
 
@@ -63,7 +63,7 @@ dédiée : @ref{MIDI et percussions}.
 Manuel de notation :
 @ref{Gravure de lignes rythmiques},
 @ref{Initialisation de nouvelles portées},
-@ref{MIDI et percussions}.
+@ref{Gestion des instruments MIDI}.
 
 Morceaux choisis :
 @rlsr{Percussion}.
@@ -100,7 +100,7 @@ Il s'agit en fait d'un raccourci pour
 
 Chaque instrument de percussion peut avoir, dans le fichier LilyPond, un
 nom complet et un nom raccourci.  Ces noms sont inventoriés à l'annexe
-@ref{Notes utilisées en percussion}.
+@ref{Gestion des instruments MIDI}.
 
 @cindex clef, percussion
 @cindex percussion, clef
@@ -123,11 +123,11 @@ autre clef.
 Certains instruments à percussion connaissent quelques problèmes quant à
 leur prise en charge au niveau de la génération de fichiers MIDI ;
 de plus amples informations sont disponibles à la rubrique
-@ref{MIDI et percussions}.
+@ref{Gestion des instruments MIDI}.
 
 @seealso
 Manuel de notation :
-@ref{MIDI et percussions},
+@ref{Gestion des instruments MIDI},
 @ref{Notes utilisées en percussion}.
 
 Fichiers d'initialisation :
@@ -197,11 +197,8 @@ portées classiques.  Cette possibilité est abordée dans d'autres parties
 du manuel.
 
 @seealso
-@c TODO: possibly link to an alternate section of NR 3.5, if
-@c "percussion in MIDI" gets a separate subsubsection for
-@c pitched percussion sounds.  -gp
 Manuel de notation :
-@ref{MIDI et percussions}.
+@ref{Gestion des instruments MIDI}.
 
 Morceaux choisis :
 @rlsr{Percussion}.

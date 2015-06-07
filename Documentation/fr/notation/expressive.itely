@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: ece268fa66e2576c01f33a4a6e1806f44c9f8fa8
+    Translation of GIT committish: 53cff5245f682708a6c77d580f418ece2923c2e4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -508,7 +508,7 @@ Manuel d'initiation :
 Manuel de notation :
 @ref{Direction et positionnement},
 @ref{Personnalisation des indications de nuance},
-@ref{Contenu de la sortie MIDI},
+@ref{Amélioration du rendu MIDI},
 @ref{Gestion des nuances en MIDI}.
 
 Morceaux choisis :
@@ -647,7 +647,7 @@ L'utilisation des fontes en mode @emph{markup} est abordée au chapitre
 Manuel de notation :
 @ref{Mise en forme du texte},
 @ref{Sélection de la fonte et de la taille},
-@ref{Contenu de la sortie MIDI},
+@ref{Amélioration du rendu MIDI},
 @ref{Gestion des nuances en MIDI}.
 
 Morceaux choisis :
