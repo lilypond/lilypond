@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 77fbc43a8e9b5e0a9b897c8278eaeac02d62d3dc
+%% Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
   texidocfr = "
 La commande @code{\\key} détermine la propriété @code{keyAlterations} d'un
 contexte @code{Staff}.

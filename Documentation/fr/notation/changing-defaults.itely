@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 53cff5245f682708a6c77d580f418ece2923c2e4
+    Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -4870,8 +4870,12 @@ d'espacement de la largeur des têtes de note ; les collisions sont
 alors évitées du fait de l'espace réservé à chacune des têtes.
 
 Lorsqu'il s'agit de calculs simples, les fonctions, tant pour la partie
-@qq{pure} que pour la partie @qq{impure}, peuvent être identiques au
+« pure » que pour la partie « impure », peuvent être identiques au
 détail près du nombre d'arguments utilisés ou du domaine d'intervention.
+Ce cas de figure étant relativement répandu,
+@code{ly:make-unpure-pure-container} construira d'elle même cette
+deuxième lorsqu'il ne sera fait appel qu'à une seule fonction en
+argument.
 
 @warning{Le fait de qualifier une fonction de @qq{pure} alors qu'elle ne
 l'est pas peut générer des résultats imprévisibles.}
@@ -4933,14 +4937,8 @@ fonction musicale ou de musique faisant partie d'une liste) pour
 référencer les arguments (par ex. @samp{#arg1}).
 @end multitable
 
-Les arguments @code{parser} et @code{location} sont obligatoires ;
-ils sont utilisés dans certaines situations évoluées, comme indiqué dans
-le manuel d'extension des fonctionnalités à au chapitre
-@rextend{Fonctions musicales}.  Assurez-vous bien de ne pas les omettre
-dans vos fonctions de substitution.
-
-La liste des types de prédicat est elle aussi obligatoire.  Voici
-quelques uns des types de prédicat les plus utilisés dans les fonctions
+La liste des types de prédicat est aussi obligatoire.  Voici quelques
+uns des types de prédicat les plus utilisés dans les fonctions
 musicales :
 
 @example

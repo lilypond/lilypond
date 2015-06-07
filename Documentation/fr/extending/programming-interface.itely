@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: e8c4826ed3fca952984600bcce60b53e76aff5d2
+    Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -72,11 +72,8 @@ Les blocs de code LilyPond peuvent s'utiliser partout où vous pouvez
 pour accepter des blocs de code LilyPond ; il est capable de traiter des
 expressions Scheme intégrées débutant par @code{$} ou @code{#}.
 
-@cindex parser (fonction argument)
-@cindex location
-
 Le lecteur Scheme extrait le bloc de code LilyPond et déclenche un appel
-à l'analyseur grammatical de LilyPond (le @code{parser}) qui réalise en
+à l'analyseur grammatical de LilyPond (le @emph{parser}) qui réalise en
 temps réel l'interprétation de ce bloc de code LilyPond.  Toute
 expression Scheme imbriquée est exécutée dans l'environnement lexical du
 bloc de code LilyPond, de telle sorte que vous avez accès aux variables
@@ -87,11 +84,8 @@ ne sont pas accessibles en tant que variables Scheme (préfixées par
 un @code{#}) mais en tant que variables LilyPond (préfixées par
 un @code{\}).
 
-Lorsque l'emplacement (@code{location} -- voir @ref{Fonctions Scheme})
-fait référence à un endroit valide dans la source -- ce qui est en
-général le cas au sein de fonctions musicales ou Scheme --, toute la
-musique générée au sein de ce bloc de code voit son @code{origine}
-établie à cet @emph{emplacement}.
+Toute la musique générée au sein de ce bloc de code voit son
+@code{origine} établie à cet @emph{emplacement}.
 
 Un bloc de code LilyPond peut contenir tout ce que vous pourriez mettre
 à droite de l'assignation.  Par ailleurs, un bloc LilyPond vide
@@ -109,7 +103,7 @@ séquentielle.
 Les @emph{fonctions Scheme} sont des procédures Scheme chargées de créer
 des expressions Scheme à partir de code rédigé selon la syntaxe de
 LilyPond.  Elles peuvent être appelées en de nombreux endroits, à l'aide
-d'un @code{#}, où spécifier une valeur en syntaxe Scheme est autorisé.
+d'un @code{#}, où spécifier une valeur en syntaxe Scheme est autorisé.
 Bien que Scheme dispose de fonctions en propre, nous nous intéresserons,
 au fil des paragraphes qui suivent, aux fonctions @emph{syntaxiques},
 autrement dit des fonctions qui reçoivent des arguments libellés dans la
@@ -141,18 +135,8 @@ fonction =
 où
 
 @multitable @columnfractions .33 .66
-@item @code{parser}
-@tab doit être littéralement @code{parser}, de telle sorte que
-l'analyseur grammatical puisse accéder aux blocs de code LilyPond
-(@code{#@{}@dots{}@code{#@}}).
-
-@item @code{location}
-@tab doit être littéralement @code{location}, de telle sorte que soit
-accessible l'emplacement de l'objet dans la source, aux fins de
-transmettre aux messages d'erreur les fichier et numéro de ligne.
-
 @item @code{@var{argN}}
-@tab @var{n}ième argument
+@tab @var{n}-ième argument
 
 @item @code{@var{typeN?}}
 @tab un @emph{type de prédicat} Scheme pour lequel @code{@var{argN}}
@@ -170,7 +154,7 @@ fournir sa valeur par défaut, celle-ci sera considérée comme
 vérifiées ni au moment de la définition, ni à l'exécution ; il est
 de votre ressort de gérer les valeurs que vous spécifiez.  Une valeur
 par défaut constituée d'une expression musicale est recopiée dès la
-définition de @code{origin} vers le paramètre @code{location}.
+définition de @code{origin} à l'emplacement courant du code.
 
 @item @code{@var{corps}}
 @tab une séquence de formules Scheme évaluées dans l'ordre, la dernière
@@ -183,7 +167,7 @@ de code LilyPond, enchâssés dans des accolades et @emph{hashes} --
 arguments de la fonction -- par exemple @w{@samp{#(cons arg1 arg2)}}.
 Dans le cas où une expression Scheme introduite par @code{#} ne vous
 permet pas de parvenir à vos fins, vous pourriez devoir revenir à une
-expression Scheme « immédiate » à l'aide d'un @code{$}, comme
+expression Scheme « immédiate » à l'aide d'un @code{$}, comme
 @samp{$music}.
 
 Lorsque votre fonction retourne une expression musicale, lui est
@@ -238,7 +222,7 @@ Fichiers d'initialisation :
 @translationof Scheme function usage
 
 Vous pouvez appeler une fonction Scheme pratiquement partout où une
-expression Scheme derrière un @code{#} peut prendre place.  Vous appelez
+expression Scheme derrière un @code{#} peut prendre place.  Vous appelez
 une fonction Scheme en faisant précéder son nom d'un @code{\}, et en le
 faisant suivre de ses arguments.  Lorsqu'un prédicat d'argument
 optionnel ne correspond pas à un argument, LilyPond l'ignore ainsi que
@@ -366,7 +350,7 @@ fonction =
 
 @noindent
 de manière similaire aux @ref{Définition de fonctions Scheme, fonctions
-Scheme}.  La plupart du temps, le @code{corps} sera constitué d'un
+Scheme}.  La plupart du temps, le @var{corps} sera constitué d'un
 @ref{Blocs de code LilyPond, bloc de code Lilypond}.
 
 Les différents types des prédicat sont recensés à l'annexe
@@ -404,7 +388,7 @@ toléré.
 Lorsqu'une fonction musicale -- contrairement à une fonction
 événementielle -- renvoie une expression de type postévénement, LilyPond
 requiert son introduction par un indicateur de positionnement -- à
-savoir @code{-}, @code{^} ou @code{_} -- de telle sorte que le
+savoir @code{-}, @code{^} ou @code{_} -- de telle sorte que le
 postévénement produit par l'appel à cette fonction s'intègre
 correctement dans l'expression environnante.
 

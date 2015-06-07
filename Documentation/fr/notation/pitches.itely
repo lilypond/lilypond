@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 53cff5245f682708a6c77d580f418ece2923c2e4
+    Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -86,26 +86,41 @@ chaque @code{,} baisse la note d'une octave.
 @lilypond[verbatim,quote]
 {
   \clef treble
-  c'4 c'' e' g
-  d''4 d' d c
+  c'4 e' g' c''
+  c'4 g b c'
   \clef bass
-  c,4 c,, e, g
-  d,,4 d, d c
+  c,4 e, g, c
+  c,4 g,, b,, c,
 }
 @end lilypond
 
-@funindex absolute
-@funindex \absolute
+@funindex fixed
+@funindex \fixed
 
-Une musique peut être déclarée explicitement comme étant en notation
-absolue à l'aide de la commande @code{\absolute} :
+Les indications d'octave communes peuvent ne se mentionner qu'une fois,
+en faisant suivre l'instruction @code{\fixed}, placée avant la musique,
+d'une hauteur de référence.  Les hauteurs d'une section @code{\fixed} ne
+nécessitent des @code{'} ou @code{,} que lorsqu'elles se trouvent
+au-dessus ou au-dessous de l'octave de la hauteur de référence.
 
-@example
-\absolute @var{expression_musicale}
-@end example
+@lilypond[verbatim,quote]
+{
+  \fixed c' {
+    \clef treble
+    c4 e g c'
+    c4 g, b, c
+  }
+  \clef bass
+  \fixed c, {
+    c4 e g c'
+    c4 g, b, c
+  }
+}
+@end lilypond
 
-sera interprété en mode d'octaves absolues quel que soit le contexte où
-elle apparait.
+Les hauteurs d'une expression musicale venant après un @code{\fixed} ne
+seront en rien affectées par un éventuel @code{\relative} qui la
+contiendrait.
 
 @seealso
 Glossaire musicologique :
@@ -170,21 +185,21 @@ Un @code{c'} identifiant le do placé entre les portées d'un piano,
 il est de fait aisé de déterminer d'autres octaves de @code{c}.
 Pour une musique qui commencerait par un sol dièse (@code{gis}) au
 dessus du do suraigu (@code{c'''}), vous écririez quelque chose
-comme @code{\relative @{ gis''' @dots{} @}}
+comme @code{\relative c''' @{ gis' @dots{} @}}
 
 @item une octave de la première note de l'expression
-Écrire @code{\relative @{ gis''' @dots{} @}} permet de
+Écrire @code{\relative gis'' @{ gis @dots{} @}} permet de
 déterminer facilement la hauteur absolue de la première note de
 l'expression.
 
 @item pas de hauteur de référence explicite
-Ceci (écrire @code{\relative @{ gis''' @dots{} @}}) peut se voir
+La fromulation @code{\relative @{ gis''' @dots{} @}}) peut se voir
 comme une version abrégée de l'option précédente : la première
 note de l'expression est écrite en octave absolue.  Cette option
 est équivalente à prendre un @code{f} comme hauteur de référence.
 @end table
 
-La documentation de LilyPond utilise en règle générale la première
+La documentation de LilyPond utilise en règle générale la dernière
 option.
 @end itemize
 
@@ -219,8 +234,9 @@ de notes peut tout à fait couvrir un intervalle important.
 }
 @end lilypond
 
-Lorsque plusieurs blocs @code{\relative} sont imbriqués, c'est la
-dernière clause @code{\relative} qui est prise en compte.
+Lorsque plusieurs blocs @code{\relative} sont imbriqués, le bloc
+@code{\relative} inclus dispose de soa propre haueur de référence
+indépendamment de celui qui l'englobe.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -294,10 +310,6 @@ et la quinte diminuée de seulement six demi-tons.
   b2 feses
 }
 @end lilypond
-
-L'une des conséquences de toutes ces règles est que la première note
-rencontrée dans un fragment balisé par @code{\relative  f} sera
-interprétée tout comme si elle avait été saisie en mode absolu.
 
 @seealso
 Glossaire musicologique :
@@ -506,33 +518,33 @@ sont les suivants :
 et les suffixes d'altération correspondants :
 
 @quotation
-@multitable {@code{nederlands}} {-s/--sharp} {-ess/-es} {-ss/-x/--sharpsharp} {-essess/-eses}
+@multitable {@code{nederlands}} {-@code{s}/-@code{-sharp}} {-@code{ess}/-@code{es}} {-@code{ss}/-@code{x}/-@code{-sharpsharp}} {-@code{essess}/-@code{eses}}
 @headitem Langue
   @tab dièse @tab bémol @tab double dièse @tab double bémol
 @item @code{nederlands}
-  @tab -is @tab -es @tab -isis @tab -eses
+  @tab -@code{is} @tab -@code{es} @tab -@code{isis} @tab -@code{eses}
 @item @code{catalan}
-  @tab -d/-s @tab -b @tab -dd/-ss @tab -bb
+  @tab -@code{d}/-@code{s} @tab -@code{b} @tab -@code{dd}/-@code{ss} @tab -@code{bb}
 @item @code{deutsch}
-  @tab -is @tab -es @tab -isis @tab -eses
+  @tab -@code{is} @tab -@code{es} @tab -@code{isis} @tab -@code{eses}
 @item @code{english}
-  @tab -s/--sharp @tab -f/--flat @tab -ss/-x/--sharpsharp
-    @tab -ff/--flatflat
+  @tab -@code{s}/-@code{-sharp} @tab -@code{f}/-@code{-flat} @tab -@code{ss}/-@code{x}/-@code{-sharpsharp}
+    @tab -@code{ff}/-@code{-flatflat}
 @item @code{espanol} ou @code{español}
-  @tab -s @tab -b @tab -ss/-x @tab -bb
-@item @code{italiano} ou @code{français}
-  @tab -d @tab -b @tab -dd @tab -bb
+  @tab -@code{s} @tab -@code{b} @tab -@code{ss}/-@code{x} @tab -@code{bb}
+@item @code{italiano} or @code{français}
+  @tab -@code{d} @tab -@code{b} @tab -@code{dd} @tab -@code{bb}
 @item @code{norsk}
-  @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
-    @tab -essess/-eses
+  @tab -@code{iss}/-@code{is} @tab -@code{ess}/-@code{es} @tab -@code{ississ}/-@code{isis}
+    @tab -@code{essess}/-@code{eses}
 @item @code{portugues}
-  @tab -s @tab -b @tab -ss @tab -bb
+  @tab -@code{s} @tab -@code{b} @tab -@code{ss} @tab -@code{bb}
 @item @code{suomi}
-  @tab -is @tab -es @tab -isis @tab -eses
+  @tab -@code{is} @tab -@code{es} @tab -@code{isis} @tab -@code{eses}
 @item @code{svenska}
-  @tab -iss @tab -ess @tab -ississ @tab -essess
+  @tab -@code{iss} @tab -@code{ess} @tab -@code{ississ} @tab -@code{essess}
 @item @code{vlaams}
-  @tab -k @tab -b @tab -kk @tab -bb
+  @tab -@code{k} @tab -@code{b} @tab -@code{kk} @tab -@code{bb}
 @end multitable
 @end quotation
 

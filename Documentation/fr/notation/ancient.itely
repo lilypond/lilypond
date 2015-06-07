@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 53cff5245f682708a6c77d580f418ece2923c2e4
+    Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -804,21 +804,13 @@ pas prévues pour être appliquées à la notation mensurale.
 @cindex anciens silences
 
 La propriété @code{style} de l'objet @code{Rest} permet d'obtenir des
-silences de type ancien.  Vous disposez des styles @code{classical},
-@code{neomensural} et @code{mensural}.  Le style @code{classical} ne se
-distingue du style @code{default} que par le soupir (demi-soupir en
-miroir). Le style @code{neomensural} convient tout à fait à l'incipit
-lors de la transcription de musique mensurale.  Le style
-@code{mensural}, enfin, imite la gravure des silences dans certaines
-éditions du XVIe siècle.
-
-L'exemple suivant illustre les styles @code{mensural} et
+silences de type ancien.  Vous disposez des styles @code{mensural} et
 @code{neomensural}.
+
+En voici une illustration.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 \set Score.skipBars = ##t
-\override Rest.style = #'classical
-r\longa^"classical" r\breve r1 r2 r4 r8 r16 s \break
 \override Rest.style = #'mensural
 r\longa^"mensural" r\breve r1 r2 r4 r8 r16 s \break
 \override Rest.style = #'neomensural
@@ -856,8 +848,11 @@ utilisez en pareil cas des @qq{notes silencieuses}.
 @cindex anciennes altérations
 
 Le style @code{mensural} dispose d'un dièse et d'un bémol différents du
-style par défaut ; en cas de besoin, le bécarre sera emprunté au
-style @code{vaticana}.
+style par défaut.  La notation mensurale n'utilise que très rarement le
+bécarre ; sont utilisés plutôt le dièse ou le bémol.  Par exemple, un si
+bécarre en fa majeur sera indiqué par la présence d'un dièse. Si
+toutefois il était requis, le bécarre sera emprunté au style
+@code{vaticana}.
 
 @lilypond[quote,ragged-right,staffsize=26]
 \markup {
@@ -988,17 +983,6 @@ flexe se gère par la propriété de tête de note @code{flexa-width}.
 
 Par exemple,
 
-@c @example
-@c \set Score.timing = ##f
-@c \set Score.defaultBarType = "-"
-@c \override NoteHead.style = #'neomensural
-@c \override Staff.TimeSignature.style = #'neomensural
-@c \clef "petrucci-g"
-@c \[ c'\maxima g \]
-@c \[ d\longa c\breve f e d \]
-@c \[ c'\maxima d'\longa \]
-@c \[ e'1 a g\breve \]
-@c @end example
 @lilypond[quote,ragged-right,verbatim]
 \score {
   \relative {
@@ -1054,7 +1038,7 @@ Manuel de notation :
 @ref{Ligatures}.
 
 @knownissues
-L'espacement horizontal n'est pas des meilleurs.
+L'espacement horizontal peut laisser à désirer.
 Les altérations peuvent se chevaucher avec les notes précédentes.
 
 
@@ -2967,9 +2951,8 @@ spirLyr = \lyricmode {
 @unnumberedsubsubsec Éditions ancienne et moderne à partir d'une même source
 @translationof Ancient and modern from one source
 
-@c TODO Add text
-@c Here among others the snippets about reducing note length
-@emph{En cours de rédaction}
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{using-tags-to-produce-mensural-and-modern-music-from-the-same-source.ly}
 
 @c @seealso
 @c ... and reference to other sections ...

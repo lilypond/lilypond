@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1d859642df3a961f6675a70387069cbaa56d8ce9
+   Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -261,19 +261,18 @@ quarte.  Commençons par saisir une partition très simple, à savoir une
 gamme.
 
 @lilypond[verbatim,quote]
-% set the starting point to middle C
 \relative {
   c' d e f
   g a b c
 }
 @end lilypond
 
-La note de départ est le @notation{do central}.  Chacune des notes qui
-suivent est placée à l'octave la plus proche de la note précédente --
-en d'autres termes, le premier @code{c} est le do central, entre la
-clef de sol et la clef de fa, puis est suivi par le @notation{ré} le
-plus proche, et ainsi de suite.  On peut bien sûr créer des mélodies
-avec de plus grands intervalles, toujours avec le mode
+La note de départ est le @notation{do central}, indiqué par @code{c'}.
+Chacune des notes qui suivent est placée à l'octave la plus proche de la
+note précédente -- en d'autres termes, le premier @code{c} est le do
+central, entre la clef de sol et la clef de fa, puis est suivi par le
+@notation{ré} le plus proche, et ainsi de suite.  On peut bien sûr créer
+des mélodies avec de plus grands intervalles, toujours avec le mode
 @code{\relative} :
 
 @lilypond[verbatim,quote]
@@ -284,17 +283,13 @@ avec de plus grands intervalles, toujours avec le mode
 @end lilypond
 
 @noindent
-Remarquez que cet exemple ne commence plus sur le @notation{do
-central} : la première note -- le @code{d} -- est le ré qui en est
-le plus proche.
+La première note de cet exemple -- le @code{d'} avec une seule
+apostrophe -- est le ré de l'octave commençant par le do central.
 
-Dans l'exemple suivant, on remplace @code{c'} dans la commande
-@w{@code{@bs{}relative c'}} par @code{c''}, afin de calculer l'octave de
-la première note par rapport au do situé une octave au-dessus du do
-central :
+L'ajout (ou la suppression) d'postrophes ou de virgules à la première
+note permet de modifier l'octave de départ :
 
 @lilypond[verbatim,quote]
-% one octave above middle C
 \relative {
   e'' c a c
 }
@@ -312,7 +307,7 @@ plus à une quarte descendante du si.
 
 @lilypond[verbatim,quote]
 \relative {
-  b' c  % c is 1 staff space up, so is the c above
+  b' c % c is 1 staff space up, so is the c above
   b d  % d is 2 up or 5 down, so is the d above
   b e  % e is 3 up or 4 down, so is the e above
   b a  % a is 6 up or 1 down, so is the a below
@@ -640,7 +635,7 @@ tout comme les parenthèses @code{()} en mathématiques.  Pour éviter
 toute ambiguïté, il est préférable d'entourer ces accolades d'espaces ou
 de retours à la ligne.
 
-Un appel de fonction -- @w{@code{@bs{}relative c' @{ @dots{} @}}} par
+Un appel de fonction -- @w{@code{@bs{}relative @{ @dots{} @}}} par
 exemple -- compte également comme une seule expression musicale.
 
 @item
@@ -756,12 +751,13 @@ particularités de la domcumentation en ligne.
 
 Comme nous l'avons vu dans @ref{Travail sur les fichiers d'entrée}, un
 code LilyPond doit être encadré par des accolades @{ @} ou bien par
-@w{@code{\relative c'' @{ @dots{} @}}}.  Cependant, dans la suite de ce
+@w{@code{\relative @{ @dots{} @}}}.  Cependant, dans la suite de ce
 manuel, la plupart des exemples ne feront pas apparaître ces signes.
 
 Pour reproduire les exemples, vous pouvez copier et coller le code
-affiché, mais @strong{à condition} d'ajouter
-@code{@w{\relative c'' @{ @}}} de la façon suivante :
+affiché, mais @strong{à condition} d'y ajouter la formulation
+particulière de @code{\relative} avec mention explicite de la hauteur de
+départ, comme ici :
 
 @example
 \relative c'' @{
@@ -771,11 +767,11 @@ affiché, mais @strong{à condition} d'ajouter
 
 Pourquoi avoir omis les accolades ?  La plupart des exemples de ce
 manuel peuvent être insérés au milieu d'un morceau de musique plus
-long.  Il n'y a donc aucune raison d'ajouter @code{@w{\relative c'' @{
-@}}} à ces exemples -- en effet, il n'est pas possible d'insérer une
-expression @code{\relative} à l'intérieur d'une autre expression
-@code{\relative}.  Si nous mettions tous nos exemples dans une
-expression @code{\relative}, vous ne pourriez plus copier un bref
+long.  Il n'y a donc aucune raison d'ajouter « @code{@w{\relative c'' @{
+@dots{} @}}} » à ces exemples -- en effet, il n'est pas possible
+d'insérer une expression @code{\relative} à l'intérieur d'une autre
+expression @code{\relative}.  Si nous mettions tous nos exemples dans
+une expression @code{\relative}, vous ne pourriez plus copier un bref
 exemple de la documentation pour le coller dans vos pièces.
 
 
@@ -797,10 +793,10 @@ Essayez sur cette image :
 }
 @end lilypond
 
-En copiant-collant le code à partir du commentaire @qq{ly snippet}
+En copiant-collant le code à partir du commentaire « ly snippet »
 vers un fichier test, vous aurez un modèle de base pour faire vos
 expériences.  Pour obtenir une gravure à l'identique, copiez tout le
-code à partir de @qq{Start cut-&-pastable section}.
+code à partir de « Start cut-&-pastable section ».
 
 @c No longer in the text in English, but should we really
 @c remove this? --jm

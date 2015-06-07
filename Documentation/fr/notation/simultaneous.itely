@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 53cff5245f682708a6c77d580f418ece2923c2e4
+    Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -71,7 +71,7 @@ simple note.
 @end lilypond
 
 Certaines notes, au sein même d'un accord, peuvent être affectées d'une
-articulation ou d'un ornement@tie{}:
+articulation ou d'un ornement :
 
 @lilypond[verbatim,quote,relative=2]
 <a c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4
@@ -168,7 +168,7 @@ des @ref{Clusters}.
 
 Dans le but de vous épargner de la saisie, LilyPond dispose d'un
 raccourci -- symbolisé par la lettre @code{q} -- qui a pour effet de
-répéter le dernier accord saisi@tie{}:
+répéter le dernier accord saisi :
 
 @lilypond[verbatim,quote,relative=2]
 <a c e>1 q <f a c>2 q
@@ -186,7 +186,7 @@ dupliquée.
 Dans la mesure où le symbole de répétition d'accord enregistre la
 structure du dernier accord construit, il est tout à fait possible de
 l'utiliser même après une succession de notes individuelles et de
-silences@tie{}:
+silences :
 
 @lilypond[verbatim,quote,relative=2]
 <a c e>1 c'4 q2 r8 q8 |
@@ -197,9 +197,11 @@ Le symbole de répétition d'accord ne prend en charge que les hauteurs,
 en aucun cas les nuances, articulations ou ornementations, qu'elles
 aient été attachées aux notes le composant ou à l'ensemble.
 
-@lilypond[verbatim,quote,relative=2]
-<a-. c\prall e>1\sfz c4 q2 r8 q8 |
-q2 c, |
+@lilypond[verbatim,quote]
+\relative {
+  <a'-. c\prall e>1\sfz c'4 q2 r8 q8 |
+  q2 c, |
+}
 @end lilypond
 
 Le seul moyen de les reproduire consiste à utiliser explicitement la
@@ -217,7 +219,7 @@ seraient absents de l'accord construit par un @code{q}.
 
 Comme vous pouvez le constater, l'utilisation de @code{\chordRepeats} au
 sein d'un bloc @code{\relative} ne produit pas le résultat
-escompté@tie{}: les événements de l'accord expansés sont identiques à la
+escompté : les événements de l'accord expansés sont identiques à la
 saisie traditionnelle d'un accord, ce qui a pour conséquence que l'octave
 affectée par @code{\relative} repose sur le contexte en cours.
 
@@ -229,19 +231,18 @@ cas présent, l'intégralité du bloc @code{\relative} intérieur n'affecte
 en rien ce qui l'entoure, ce qui explique la spécification d'octave
 attachée à la dernière note :
 
-@c Without \new Voice, implicit voice creation does the dumbest thing.
 @lilypond[verbatim,quote]
 \new Voice
-\relative c'' {
+\relative {
   \chordRepeats #'(articulation-event)
   \relative
   { <a'-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
-  q2 c |
+  q2 c'' |
 }
 @end lilypond
 
 Les interactions avec @code{\relative} ne se produisent que lors d'un
-appel explicite de @code{\chordRepeats}@tie{}: l'expansion implicite en
+appel explicite de @code{\chordRepeats} : l'expansion implicite en
 début de saisie intervient à un moment où toutes les instances de
 @code{\relative} ont déjà été interprétées.
 
@@ -266,7 +267,7 @@ particulier, elle sera placée sur une seule portée.  Dans le cas
 contraire, les éléments d'une expression simultanée seront placés sur
 des portées distinctes.
 
-Voici deux exemples d'expression simultanée sur une même portée@tie{}:
+Voici deux exemples d'expression simultanée sur une même portée :
 
 @lilypond[quote,verbatim,relative=2]
 \new Voice {  % explicit single voice
@@ -327,7 +328,7 @@ désactivé par une clause
 @end example
 
 Ceci n'aura pas pour seule conséquence que ce message ne sera plus
-émis@tie{}; les procédures d'évitement de collision de quelqu'ordre que
+émis ; les procédures d'évitement de collision de quelqu'ordre que
 ce soit seront désactivées, ce qui peut conduire à quelques effets
 inattendus (voir aussi @emph{Problèmes connus et avertissements} à la
 rubrique @ref{Résolution des collisions}).
@@ -372,7 +373,7 @@ L'apparence d'un cluster sera extrêmement resserrée s'il ne comporte au
 moins deux accords.
 
 Dans la mesure où un cluster ne possède pas de hampe, il n'y a aucun
-moyen d'en connaître la durée@tie{}; cependant la longueur du signe
+moyen d'en connaître la durée ; cependant la longueur du signe
 imprimé dépend directement de la durée affectée aux accords qui le
 définissent.
 
@@ -417,7 +418,7 @@ portées.
 @subsubsubheading{Instanciation explicite des voix}
 
 La manière la plus facile d'entrer des fragments avec plus d'une voix
-sur une portée est la suivante@tie{}:
+sur une portée est la suivante :
 
 @lilypond[quote,relative=3,verbatim]
 \new Staff <<
@@ -441,7 +442,7 @@ réglages par défaut.
 @subsubsubheading{Polyphonie temporaire}
 
 Un fragment temporairement polyphonique se construit de la manière
-suivante@tie{}:
+suivante :
 
 @example
 << @{ \voiceOne ... @}
@@ -456,7 +457,7 @@ perdurera après ce fragment.  Les autres expressions entre doubles
 chevrons seront assignées à des voix temporaires distinctes.  C'est la
 raison pour laquelle les paroles qui suivaient la voix avant la
 polyphonie continueront à le faire durant ce passage polyphonique et
-après lui@tie{}:
+après lui :
 
 @lilypond[quote, verbatim, relative=2]
 <<
@@ -539,7 +540,7 @@ les contextes de voix de manière explicite.  Voir à ce sujet
 @subsubsubheading{Ordre des voix}
 
 L'ordre dans lequel doivent apparaître les voix d'une construction
-simultanée suit le schéma suivant@tie{}:
+simultanée suit le schéma suivant :
 
 @example
 Voix 1 : la plus haute
@@ -552,9 +553,9 @@ etc.
 @end example
 
 Cette présentation en entonnoir peut sembler quelque peu
-contre-intuitive@tie{}; elle simplifie cependant grandement le processus
+contre-intuitive ; elle simplifie cependant grandement le processus
 de mise en forme.  Vous noterez que les hampes des voix au numéro impair
-vont vers le haut, celles des voix paires vers le bas@tie{}:
+vont vers le haut, celles des voix paires vers le bas :
 
 @lilypond[quote,verbatim]
 \new Staff <<
@@ -582,7 +583,7 @@ Lorsque l'on doit saisir des fragments de musique parallèle qui ont le
 même rythme, on peut les combiner dans un contexte de voix unique et par
 voie de conséquence former des accords.  Il suffit pour cela de les
 regrouper dans une construction de musique simultanée simple au sein
-d'une voix explicite@tie{}:
+d'une voix explicite :
 
 @lilypond[quote,relative=2,verbatim]
 \new Voice <<
@@ -633,7 +634,7 @@ Morceaux choisis :
 @funindex \voiceNeutralStyle
 
 Opter pour des couleurs et des têtes de notes spécifiques selon la voix
-permet de les identifier plus facilement@tie{}:
+permet de les identifier plus facilement :
 
 @lilypond[quote,relative=2,verbatim]
 <<
@@ -727,7 +728,7 @@ première mesure, ainsi qu'au premier temps de la deuxième mesure.
 
 Cependant, vous pouvez fusionner une tête de blanche avec une tête de
 croche -- jamais avec une noire.  Les têtes du premier temps de la
-première mesure ont bien fusionné@tie{}:
+première mesure ont bien fusionné :
 
 @lilypond[quote,verbatim,relative=2]
 <<
@@ -747,7 +748,7 @@ première mesure ont bien fusionné@tie{}:
 @end lilypond
 
 De même, vous pouvez fusionner les têtes de notes pointées et
-non pointées comme au troisième temps de la première mesure@tie{}:
+non pointées comme au troisième temps de la première mesure :
 
 @lilypond[quote,relative=2,verbatim]
 <<
@@ -772,7 +773,7 @@ Lorsque trois notes ou plus s'agglutinent dans un même empilement,
 notes qui devraient l'être.  Pour obtenir une fusion optimale, appliquez
 un décalage (@code{\shift}) à la note qui ne devrait pas fusionner.
 Ici, on applique un @code{\shiftOn} pour décaler le @notation{sol} de
-l'empilement@tie{}; le rendement de @code{\mergeDifferentlyHeadedOn} est
+l'empilement ; le rendement de @code{\mergeDifferentlyHeadedOn} est
 alors comme il faut.
 
 @lilypond[quote,relative=2,verbatim]
@@ -1133,7 +1134,7 @@ Référence des propriétés internes :
 @knownissues
 Les différentes commandes @code{\partcombine@dots{}} ne prennent en
 charge que deux voix.  De la même manière, le combinateur n'est pas
-conçu pour travailler avec des paroles@tie{}; il s'arrête dès qu'il est
+conçu pour travailler avec des paroles ; il s'arrête dès qu'il est
 explicitement fait appel à l'une des voix pour y attacher des paroles.
 
 @code{\partcombine@dots{}} ne peut s'inscrire ni dans un bloc
@@ -1205,7 +1206,7 @@ les mesures doivent être de longueur identique.}
 Vous pouvez travailler en mode relatif.  Notez cependant que la commande
 @code{\relative} n'apparaît pas au sein du bloc @code{\parallelMusic}.
 Le calcul des hauteurs relatives s'effectue voix par voix, et non au fil
-des lignes saisies@tie{}; en d'autres termes, les notes de la
+des lignes saisies ; en d'autres termes, les notes de la
 @code{voiceA} ignorent tout de celles de la @code{voiceB}.
 
 @lilypond[quote,verbatim]
@@ -1228,7 +1229,7 @@ des lignes saisies@tie{}; en d'autres termes, les notes de la
 @end lilypond
 
 Ceci fonctionne bien avec la musique pour piano.  L'exemple suivant
-affecte quatre mesures à quatre variables@tie{}:
+affecte quatre mesures à quatre variables :
 
 @lilypond[quote,verbatim]
 global = {

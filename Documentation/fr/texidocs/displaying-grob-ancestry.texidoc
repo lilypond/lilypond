@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 324ff94afc62c7011b7377f24392f95391ed3b84
+%% Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
   texidocfr = "
 Lorsque l'on manipule des rappels d'objet (@emph{grob callbacks}), il
 peut être intéressant d'en maîtriser les « ascendants ».  La plupart des

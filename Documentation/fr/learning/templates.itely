@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 1d859642df3a961f6675a70387069cbaa56d8ce9
+    Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -184,7 +184,9 @@ modifiables :
 
 Une partie de soliste s'ajoute à l'aide de la variable
 @code{DescantMusic}, à laquelle s'appliqueront les paroles contenues
-dans la variable @code{DescantLyrics}.
+dans la variable @code{DescantLyrics}.  De la même manière, une partie
+de solo peut s'ajouter au-dessus du chœur en alimentant les variables
+@code{SoloMusic} et @code{SoloLyrics}.
 
 Comme pour n'importe quelle partition, vous pouver y ajouter des blocs
 @code{\header} et @code{\paper}.  Un bloc @code{\layout} devra quant à

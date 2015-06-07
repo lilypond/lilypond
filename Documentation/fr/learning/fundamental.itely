@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 1d859642df3a961f6675a70387069cbaa56d8ce9
+    Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -800,13 +800,13 @@ des différentes voix sont espacées, consiste à placer une commande
 @code{\relative} au début de chacune des voix :
 
 @example
-\relative c' @{ noteA @dots{} @}
+\relative @{ noteA @dots{} @}
 <<
-  \relative c'' @{ < noteB noteC > @dots{} @}
+  \relative @{ < noteB noteC > @dots{} @}
 \\
-  \relative g' @{ noteD @dots{} @}
+  \relative @{ noteD @dots{} @}
 >>
-\relative c' @{ noteE @dots{} @}
+\relative @{ noteE @dots{} @}
 @end example
 
 Pour finir, analysons le principe d'utilisation des voix dans une pièce
@@ -2289,7 +2289,7 @@ celle pour le violoncelle @code{violoncelleMusique}.  Tant qu'on y est,
 renommons @code{texte} en @code{sopranoParoles}.  Attention à bien
 renommer les deux occurrences de chacune de ces dénominations :
 c'est-à-dire la définition de départ, où l'on trouve
-@code{melodie = \relative c' @{ }, et l'endroit où cette dénomination
+@code{melodie = \relative @{ }, et l'endroit où cette dénomination
 est utilisée, dans la section @code{\score}.
 
 Et puis, toujours tant qu'on y est, mettons le violoncelle en clé de fa,
