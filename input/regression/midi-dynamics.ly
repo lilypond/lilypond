@@ -5,14 +5,14 @@
 
 }
 
-\version "2.16.0"
+\version "2.19.21"
 
 \score {
-  \relative c' {
+  \relative {
 
     \set midiMinimumVolume = #0.0
     \set midiMaximumVolume = #1.0
-    c\ff c\pppp
+    c'\ff c\pppp
     c\ff\> c c c c\!\pppp
 
     c\< c c c c\! \ff

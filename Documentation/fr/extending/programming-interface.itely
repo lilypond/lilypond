@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Gilles Thibault
@@ -60,7 +60,7 @@ Les blocs de code LilyPond ressemblent à
 En voici un exemple basique :
 
 @lilypond[verbatim,quote]
-ritpp = #(define-event-function (parser location) ()
+ritpp = #(define-event-function () ()
   #{ ^"rit." \pp #}
 )
 
@@ -132,7 +132,7 @@ D'une manière générale, une fonction Scheme se définit ainsi :
 @example
 fonction =
 #(define-scheme-function
-     (parser location @var{arg1} @var{arg2}@dots{})
+     (@var{arg1} @var{arg2}@dots{})
      (@var{type1?} @var{type2?}@dots{})
    @var{corps})
 @end example
@@ -304,7 +304,7 @@ valeur spéciale -- la seule valeur qui satisfasse au prédicat
 @example
 noPointAndClick =
 #(define-void-function
-     (parser location)
+     ()
      ()
    (ly:set-option 'point-and-click #f))
 @dots{}
@@ -359,7 +359,7 @@ Une fonction musicale se définit ainsi :
 @example
 fonction =
 #(define-music-function
-     (parser location @var{arg1} @var{arg2}@dots{})
+     (@var{arg1} @var{arg2}@dots{})
      (@var{type1?} @var{type2?}@dots{})
    @var{corps})
 @end example
@@ -449,7 +449,7 @@ l'aide d'une variable @code{pair?} :
 @example
 manualBeam =
 #(define-music-function
-     (parser location beg-end)
+     (beg-end)
      (pair?)
    #@{
      \once \override Beam.positions = #beg-end
@@ -467,7 +467,7 @@ pourra alors être inclus dans l'expression musicale :
 @lilypond[quote,verbatim,ragged-right]
 manualBeam =
 #(define-music-function
-     (parser location beg end)
+     (beg end)
      (number? number?)
    #{
      \once \override Beam.positions = #(cons beg end)
@@ -519,7 +519,7 @@ auraient retrouvé leurs valeurs par défaut à la sortie de la fonction.
 
 @example
 crossStaff =
-#(define-music-function (parser location notes) (ly:music?)
+#(define-music-function (notes) (ly:music?)
   (_i "Create cross-staff stems")
   #@{
   \temporary \override Stem.cross-staff = #cross-staff-connect
@@ -541,7 +541,7 @@ une part de programmation en Scheme.
 @lilypond[quote,verbatim,ragged-right]
 AltOn =
 #(define-music-function
-     (parser location mag)
+     (mag)
      (number?)
    #{
      \override Stem.length = #(* 7.0 mag)
@@ -567,7 +567,7 @@ s'applique à une expression musicale :
 @lilypond[quote,verbatim,ragged-right]
 withAlt =
 #(define-music-function
-     (parser location mag music)
+     (mag music)
      (number? ly:music?)
    #{
      \override Stem.length = #(* 7.0 mag)
@@ -602,7 +602,7 @@ fonction sans argument comme ici,
 @example
 displayBarNum =
 #(define-music-function
-     (parser location)
+     ()
      ()
    (if (eq? #t (ly:get-option 'display-bar-numbers))
        #@{ \once \override Score.BarNumber.break-visibility = ##f #@}
@@ -649,7 +649,7 @@ dans @code{c'\pp}.  Voici de quoi vous permettre de mentionner n'importe
 quelle nuance :
 
 @lilypond[quote,verbatim,ragged-right]
-dyn=#(define-event-function (parser location arg) (markup?)
+dyn=#(define-event-function (arg) (markup?)
          (make-dynamic-script arg))
 \relative { c'\dyn pfsss }
 @end lilypond
@@ -1362,7 +1362,7 @@ comment @code{ly:context-pushpop-property} est utilisé à la fois pour un
 @lilypond[quote,verbatim]
 desaturate =
 #(define-music-function
-   (parser location music) (ly:music?)
+   (music) (ly:music?)
    #{
      \applyContext
      #(lambda (context)
@@ -1380,11 +1380,11 @@ desaturate =
         (for-each revert-color '(NoteHead Stem Beam)))
    #})
 
-\relative g' {
+\relative {
   \override NoteHead.color = #darkblue
   \override Stem.color = #darkblue
   \override Beam.color = #darkblue
-  g8 a b c
+  g'8 a b c
   \desaturate { d c b a }
   g b d b g2
 }
@@ -1498,11 +1498,11 @@ et dans le fichier @file{define-grobs.scm} --, pourra accéder à la
 valeur usuelle de la propriété :
 
 @example
-\relative c'' @{
+\relative @{
   \override Flag.X-offset = #(lambda (flag)
     (let ((default (ly:flag::calc-x-offset flag)))
       (* default 4.0)))
-  c4. d8 a4. g8
+  c''4. d8 a4. g8
 @}
 @end example
 
@@ -1634,10 +1634,10 @@ rehaussé.
               (eq? (car (last-pair siblings)) grob))
          (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
 
-\relative c'' {
+\relative {
   \override Tie.after-line-breaking =
   #my-callback
-  c1 ~ \break
+  c''1 ~ \break
   c2 ~ 2
 }
 @end lilypond

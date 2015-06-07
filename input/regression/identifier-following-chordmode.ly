@@ -7,10 +7,10 @@ modifier."
 
 }
 
-\version "2.19.21"
+\version "2.19.22"
 
 myDisplayMusic =
-#(define-void-function (parser location music)
+#(define-void-function (music)
  (ly:music?)
  (display-scheme-music music (current-error-port)))
 

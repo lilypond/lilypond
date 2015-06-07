@@ -4,8 +4,8 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.19.2
-\version "2.19.2"
+%% Note: this file works from version 2.19.21
+\version "2.19.21"
 
 \header {
   lsrtags = "rhythms, simultaneous-notes, tweaks-and-overrides"
@@ -27,13 +27,13 @@ in that voice, the tie appears to cross voices.
 } % begin verbatim
 
 
-\relative c'' {
+\relative {
   \time 2/4
   <<
     {
       \once \hide Stem
       \once \override Stem.length = #8
-      b8 ~ 8\noBeam
+      b'8 ~ 8\noBeam
       \once \hide Stem
       \once \override Stem.length = #8
       g8 ~ 8\noBeam

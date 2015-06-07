@@ -11,7 +11,7 @@
 @c Translators: Griechisch Erika, Harmath Dénes
 
 @c -*- coding: utf-8; mode: texinfo; -*-
-@c \version "2.19.21"
+@c \version "2.19.22"
 @node Alapfogalmak
 @chapter Alapfogalmak
 @translationof Fundamental concepts
@@ -774,12 +774,12 @@ Leginkább viszont akkor van szükségünk többszörös szólamokra, amikor a h
 @c The following should appear as music without code
 @c The three voice styles should be defined in -init
 @lilypond[quote,ragged-right]
-\new Staff \relative c'' {
+\new Staff \relative {
   \key aes \major
   <<
     {  % 1. szólam
       \voiceOneStyle
-      c2 aes4. bes8
+      c''2 aes4. bes8
     }
   \\  % 2. szólam
     { \voiceTwoStyle
@@ -952,10 +952,10 @@ The red diamond-shaped notes demonstrate that the main melody is now in a single
 permitting a phrasing slur to be drawn over them.
 
 @lilypond[quote,ragged-right,verbatim]
-\new Staff \relative c' {
+\new Staff \relative {
   \voiceOneStyle
   % A következő hangok monofónok
-  c16^( d e f
+  c'16^( d e f
   % Szimultán rész három szólammal
   <<
     % Continue the main voice in parallel
@@ -1009,11 +1009,11 @@ Létrehozhatunk többszörösen beágyazott polifón szerkezetet is, és ha a sz
 A szólamokat akkor érdemes így írni, ha a zene csak egy kis része polifón. Viszont amikor az egész ötvonalas kotta nagyrésze polifón, egyszerűbb, ha többszörös szólamokat  használunk mindenütt, --  ritkított hangokkal, hogy átlépjük azokat a részeket, ahol a szólamok  üresek. Az alábbi példa ezt mutatja:
 
 @lilypond[quote,ragged-right,verbatim]
-\new Staff \relative c' <<
+\new Staff \relative <<
   % Initiate first voice
   \new Voice {
     \voiceOne
-    c16^( d e f g4 f e | d2 e2) |
+    c'16^( d e f g4 f e | d2 e2) |
   }
   % Initiate second voice
   \new Voice {
@@ -1094,10 +1094,10 @@ hozzárendelhetjük a szöveget a megfelelő szólamhoz.
 
 @lilypond[quote,verbatim,fragment]
 <<
-  \new Voice = "one" \relative c'' {
+  \new Voice = "one" \relative {
     \autoBeamOff
     \time 2/4
-    c4 b8. a16 g4. f8 e4 d c2
+    c''4 b8. a16 g4. f8 e4 d c2
   }
   \new Lyrics \lyricsto "one" {
     No more let sins and sor -- rows grow.
@@ -1805,13 +1805,13 @@ because we omitted the context name.
 
 @lilypond[quote,verbatim,ragged-right]
 <<
-  \new Staff \relative c'' {
+  \new Staff \relative {
     \set Staff.instrumentName = #"Soprano"
-    c4 c
+    c''4 c
  }
-  \new Staff \relative c' {
+  \new Staff \relative {
   \set instrumentName = #"Alto"  % Wrong!
-  d4 d
+  d'4 d
  }
 >>
 @end lilypond
@@ -1853,9 +1853,9 @@ So this turns off extra naturals in one staff:
   \new Staff \relative {
     ais'4 aes
   }
-  \new Staff \relative c'' {
+  \new Staff \relative {
     \set Staff.extraNatural = ##f
-    ais4 aes
+    ais'4 aes
   }
 >>
 @end lilypond
@@ -1868,9 +1868,9 @@ and this turns them off in all staves:
   \new Staff \relative {
     ais'4 aes
   }
-  \new Staff \relative c'' {
+  \new Staff \relative {
     \set Score.extraNatural = ##f
-    ais4 aes
+    ais'4 aes
   }
 >>
 @end lilypond
@@ -2097,14 +2097,14 @@ range from that voice only:
   \new Voice \with {
     \consists "Ambitus_engraver"
   }
-  \relative c'' {
+  \relative {
     \voiceOne
-    c a b g
+    c'' a b g
   }
   \new Voice
-  \relative c' {
+  \relative {
     \voiceTwo
-    c e d f
+    c' e d f
   }
 >>
 @end lilypond
@@ -2120,14 +2120,14 @@ the notes in all the voices on that staff:
   }
   <<
   \new Voice
-  \relative c'' {
+  \relative {
     \voiceOne
-    c a b g
+    c'' a b g
   }
   \new Voice
-  \relative c' {
+  \relative {
     \voiceTwo
-    c e d f
+    c' e d f
   }
 >>
 @end lilypond
@@ -2435,17 +2435,17 @@ bassMusic = \relative {
   r4 d'2 cis4 | b4. b8 fis2 | e4 d a'2 |
 }
 bassWords = \sopranoWords
-upper = \relative a' {
+upper = \relative {
   \clef "treble"
   \global
-  r4 <a d fis>2 <a e' a>4
+  r4 <a' d fis>2 <a e' a>4
   <d fis d'>4. <d fis d'>8 <a d a'>2
   <g cis g'>4 <a d fis> <a cis e>2
 }
-lower = \relative c, {
+lower = \relative {
   \clef "bass"
   \global
-  <d d'>4 <d d'>2 <cis cis'>4
+  <d, d'>4 <d d'>2 <cis cis'>4
   <b b'>4. <b' b'>8 <fis fis'>2
   <e e'>4 <d d'> <a' a'>2
 }
@@ -2664,17 +2664,17 @@ bassMusic = \relative {
   r4 d'2 cis4 | b4. b8 fis2 | e4 d a'2 |
 }
 bassWords = \sopranoWords
-upper = \relative a' {
+upper = \relative {
   \clef "treble"
   \global
-  r4 <a d fis>2 <a e' a>4
+  r4 <a' d fis>2 <a e' a>4
   <d fis d'>4. <d fis d'>8 <a d a'>2
   <g cis g'>4 <a d fis> <a cis e>2
 }
-lower = \relative c, {
+lower = \relative {
   \clef "bass"
   \global
-  <d d'>4 <d d'>2 <cis cis'>4
+  <d, d'>4 <d d'>2 <cis cis'>4
   <b b'>4. <b' b'>8 <fis fis'>2
   <e e'>4 <d d'> <a' a'>2
 }
@@ -3007,9 +3007,9 @@ macros, or user-defined commands) for tweaks:
 dolce = \markup { \italic \bold dolce }
 padText = { \once \override TextScript.padding = #5.0 }
 fthenp=_\markup { \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p }
-violin = \relative c'' {
+violin = \relative {
   \repeat volta 2 {
-    c4._\dolce b8 a8 g a b
+    c''4._\dolce b8 a8 g a b
     \padText
     c4.^"hi there!" d8 e' f g d
     c,4.\fthenp b8 c4 c-.
@@ -3031,9 +3031,9 @@ variables.  It's a lot harder to read, especially
 the last line.
 
 @example
-violin = \relative c'' @{
+violin = \relative @{
   \repeat volta 2 @{
-    c4._\markup @{ \italic \bold dolce @} b8 a8 g a b
+    c''4._\markup @{ \italic \bold dolce @} b8 a8 g a b
     \once \override TextScript.padding = #5.0
     c4.^"hi there!" d8 e' f g d
     c,4.\markup @{ \dynamic f \italic \small @{ 2nd @}
@@ -3056,7 +3056,7 @@ can think of these as functions).
 
 @lilypond[quote,verbatim,ragged-right]
 padText =
-#(define-music-function (parser location padding) (number?)
+#(define-music-function (padding) (number?)
   #{
     \once \override TextScript.padding = #padding
   #})
@@ -3161,7 +3161,7 @@ This command sets the property @code{skipBars} in the
 this option to the music above, leads to the following result
 
 @lilypond[quote,ragged-right]
-\transpose f c' \relative c {
+\transpose f c' \relative {
   \time 2/4
   \set Score.skipBars = ##t
   R2*3

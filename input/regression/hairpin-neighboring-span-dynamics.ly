@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "Bound padding for hairpins also applies before following
@@ -7,9 +7,9 @@ is not scaled down.
 "
 }
 
-\relative c' {
+\relative {
   \override Hairpin.to-barline = ##f
-  c2\>
+  c'2\>
   \dimTextDim
   c2\>
   \dimHairpin

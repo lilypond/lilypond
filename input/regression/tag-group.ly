@@ -1,4 +1,4 @@
-\version "2.19.14"
+\version "2.19.22"
 
 \header {
   texidoc = "The operation of @code{\\keepWithTag} can be made more
@@ -28,7 +28,7 @@ music =
 >>
 
 demo =
-#(define-music-function (parser location syms m)
+#(define-music-function (syms m)
   (symbol-list? ly:music?)
   #{
     \new Score <<
@@ -40,7 +40,7 @@ demo =
 #(set-global-staff-size 16)
 
 demoline =
-#(define-scheme-function (parser location m1 m2) (ly:music? ly:music?)
+#(define-scheme-function (m1 m2) (ly:music? ly:music?)
   #{
     \markup \column { \fill-line { \null \score { #m1 } \score { #m2 } \null }
                       \vspace #1 }

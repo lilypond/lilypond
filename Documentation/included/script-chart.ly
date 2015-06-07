@@ -1,4 +1,4 @@
-\version "2.17.30"
+\version "2.19.22"
 
 \header {
   texidoc ="@cindex Feta scripts
@@ -185,9 +185,9 @@ This chart shows all articulations, or scripts, that the feta font contains.
 
 
 scriptStaff =
-#(define-music-function (parser location scripts) (list?)
+#(define-music-function (scripts) (list?)
    (make-scripts-staff scripts))
 
 scriptStaffAncient =
-#(define-music-function (parser location scripts) (list?)
+#(define-music-function (scripts) (list?)
    (make-scripts-staff-ancient scripts))

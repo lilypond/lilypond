@@ -15,7 +15,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.16.0"
+\version "2.19.22"
 
 % chord-shape-table is a hash-table of chord shapes
 % in the form of diagram-descriptions that can be
@@ -30,7 +30,7 @@
 % chord-shape-table
 
 addChordShape =
-#(define-void-function (parser location key-symbol tuning shape-definition)
+#(define-void-function (key-symbol tuning shape-definition)
    (symbol? pair? string-or-pair?)
    (_i "Add chord shape @var{shape-definition} to the @var{chord-shape-table}
 hash with the key @code{(cons @var{key-symbol} @var{tuning})}.")
@@ -62,7 +62,7 @@ table @code{rest}."
 
 storePredefinedDiagram =
 #(define-void-function
-   (parser location fretboard-table chord tuning diagram-definition)
+   (fretboard-table chord tuning diagram-definition)
    (hash-table? ly:music? pair? string-or-pair?)
   (_i "Add predefined fret diagram defined by @var{diagram-definition}
   for the chord pitches @var{chord} and the stringTuning @var{tuning}.")

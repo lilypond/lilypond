@@ -20,6 +20,7 @@
 */
 
 #include "scale.hh"
+#include "protected-scm.hh"
 
 
 /*
@@ -53,24 +54,24 @@ LY_DEFINE (ly_make_scale, "ly:make-scale",
 
   SCM_ASSERT_TYPE (type_ok, steps, SCM_ARG1, __FUNCTION__, "vector of rational");
 
-  Scale *s = new Scale (tones);
-
-  SCM retval = s->self_scm ();
-  s->unprotect ();
-
-  return retval;
+  return (new Scale (tones))->unprotect ();
 }
+
+Scale *default_global_scale = 0;
+Protected_scm default_global_scale_scm (SCM_BOOL_F);
+
+// TODO: This is somewhat fishy: pitches protect their scale via a
+// mark_smob hook.  But since pitches are of Simple_smob variety, they
+// are unknown to GUILE unless a smobbed_copy has been created.  So
+// changing the default scale might cause some existing pitches to
+// lose their scale's protection.
 
 LY_DEFINE (ly_default_scale, "ly:default-scale",
            0, 0, 0, (),
            "Get the global default scale.")
 {
-  return default_global_scale
-         ? default_global_scale->self_scm ()
-         : SCM_BOOL_F;
+  return default_global_scale_scm;
 }
-
-Scale *default_global_scale = 0;
 
 LY_DEFINE (ly_set_default_scale, "ly:set-default-scale",
            1, 0, 0, (SCM scale),
@@ -83,11 +84,8 @@ LY_DEFINE (ly_set_default_scale, "ly:set-default-scale",
 {
   LY_ASSERT_SMOB (Scale, scale, 1);
 
-  Scale *s = Scale::unsmob (scale);
-  if (default_global_scale)
-    default_global_scale->unprotect ();
-  default_global_scale = s;
-  s->protect ();
+  default_global_scale_scm = scale;
+  default_global_scale = unsmob<Scale> (scale);
 
   return SCM_UNSPECIFIED;
 }

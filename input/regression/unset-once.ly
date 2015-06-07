@@ -1,4 +1,4 @@
-\version "2.17.15"
+\version "2.19.21"
 
 \header {
 
@@ -6,9 +6,9 @@
 value for just one timestep and then return to the previous value."
 
 }
-\relative c' {
+\relative {
   \set fingeringOrientations = #'(left)
-  <e-1>1 |
+  <e'-1>1 |
   \once \unset fingeringOrientations
   <e-1>-"default" |
   <e-1>-"left" |

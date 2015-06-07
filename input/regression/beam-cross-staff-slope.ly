@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 \header {
     texidoc = "Cross staff  (kneed) beams do not cause extreme slopes."
 }
@@ -7,10 +7,10 @@
 
 \context PianoStaff <<
   \new Staff = "up"
-  \relative c'' <<
+  \relative <<
     {
       \stemDown
-      f16( d b \change Staff = down \stemUp
+      f''16( d b \change Staff = down \stemUp
       \clef treble g ~ < g e>8)
       
       e[ \change Staff = up

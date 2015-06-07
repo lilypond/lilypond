@@ -1,5 +1,5 @@
 
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
 
@@ -13,8 +13,8 @@ has a @code{minimum-length} of 5."
   line-width = 40.0\mm
 }
 
-\relative c' {
+\relative {
   \override Tie.minimum-length = #5
-  f2. f16  f  f  f ~ | \break
+  f'2. f16  f  f  f ~ | \break
   f1
 }

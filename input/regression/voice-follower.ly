@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 
 \header { texidoc= "
@@ -13,11 +13,11 @@ can be printed automatically. This is enabled if the property
   ragged-right = ##t 
 }
 
-\relative c'
+\relative
 \context PianoStaff <<
   \set PianoStaff.followVoice = ##t
   \new Staff = "one" \context Voice {
-    c1
+    c'1
     \change Staff=two
     b2 a
   }

@@ -22,12 +22,14 @@
 #include "international.hh"
 #include "scm-hash.hh"
 #include "warn.hh"
+#include "protected-scm.hh"
 
 /*
   should delete these after exit.
 */
 
 Scheme_hash_table *global_translator_dict = 0;
+Protected_scm global_translator_dict_scm;
 
 LY_DEFINE (get_all_translators, "ly:get-all-translators", 0, 0, 0, (),
            "Return a list of all translator objects that may be"
@@ -45,12 +47,13 @@ void
 add_translator (Translator *t)
 {
   if (!global_translator_dict)
-    global_translator_dict = new Scheme_hash_table;
+    {
+      global_translator_dict = new Scheme_hash_table;
+      global_translator_dict_scm = global_translator_dict->unprotect ();
+    }
 
   SCM k = ly_symbol2scm (t->class_name ());
-  global_translator_dict->set (k, t->self_scm ());
-
-  t->unprotect ();
+  global_translator_dict->set (k, t->unprotect ());
 }
 
 Translator *
@@ -66,6 +69,6 @@ get_translator (SCM sym)
       return 0;
     }
 
-  return Translator::unsmob (v);
+  return unsmob<Translator> (v);
 }
 

@@ -323,7 +323,7 @@ c1\!
 Eine Crescendo-Klammer, die mit @code{\!} beendet wird, endet an der rechten
 Seite der Note, welcher @code{\!} zugeordnet ist.  In dem Fall, dass es durch
 den Beginn eines anderen @notation{crescendo}- oder @notation{decrescendo}-Zeichens
-beendet wird, endet es in der Mitt der Note, welche das nächste @code{\<}
+beendet wird, endet es in der Mitte der Note, welche das nächste @code{\<}
 oder @code{\>} angehängt hat.  Die nächste Klammer beginnt dann am rechten
 Rand der selben Note anstatt dem normalerweise linken Rand, wenn die
 vorherige Klammer mit @code{\!} beendet worden wäre.

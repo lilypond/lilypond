@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
 
@@ -12,9 +12,9 @@
   ragged-right = ##t
 }
 
-\relative c'' \context Staff {
+\relative \context Staff {
   \set autoBeaming = ##f
-  a8[ a8 a8 a8]
+  a'8[ a8 a8 a8]
   a8 a8 a8 a8
 }
 

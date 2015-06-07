@@ -1,4 +1,4 @@
-\version "2.19.2"
+\version "2.19.21"
 \header
 {
   texidoc = "Melismata are triggered by manual beams.  Notes in a
@@ -12,9 +12,9 @@
 
 <<
   \new Staff
-  \relative c'' {
+  \relative {
     \set Staff.autoBeaming = ##f
-    g4 d8[ b8 d8 g8]  g4
+    g'4 d8[ b8 d8 g8]  g4
   }
   \new Lyrics \lyricsto "" { bla blaa -- bla }
 >>

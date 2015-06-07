@@ -1,13 +1,13 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "For volte, the style of double repeats can be set
   using @code{doubleRepeatType}."
 }
 
-\relative c' {
+\relative {
   \repeat volta 1 {
-    c1
+    c'1
   }
   \mark "default"
   \repeat volta 1 {

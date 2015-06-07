@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header{
   texidoc="
@@ -7,8 +7,8 @@ The tempo command supports text markup and/@/or `duration=count'.  Using
 "
 }
 
-\relative c'' {
-  \tempo "Allegro" c1
+\relative {
+  \tempo "Allegro" c''1
   \tempo "Allegro" c1
   $(make-event-chord (list (make-music 'TempoChangeEvent
                                         'text "blah")))

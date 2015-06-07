@@ -16,13 +16,13 @@ entire groups of notes.  This behavior can be modified to subdivide the
 beams into sub-groups by setting the property @code{subdivideBeams}.
 When set, multiple beams will be subdivided at intervals defined by the
 current value of @code{baseMoment} by reducing the multiple beams to
-just one beam between the sub-groups. Note that @code{baseMoment}
-defaults to one over the denominator of the current time signature if
-not set explicitly. It must be set to a fraction giving the duration of
-the beam sub-group using the @code{ly:make-moment} function, as shown
-in this snippet. Also, when @code{baseMoment} is changed,
-@code{beatStructure} should also be changed to match the new
-@code{baseMoment}:
+the number of beams that indicates the length of the sub-group. Note
+that @code{baseMoment} defaults to one over the denominator of the
+current time signature if not set explicitly. It must be set to a
+fraction giving the duration of the beam sub-group using the
+@code{ly:make-moment} function, as shown in this snippet. Also, when
+@code{baseMoment} is changed, @code{beatStructure} should also be
+changed to match the new @code{baseMoment}:
 
 "
   doctitle = "Subdividing beams"

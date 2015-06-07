@@ -42,9 +42,16 @@ All_font_metrics::get_index_to_charcode_map (const string &filename,
 
 All_font_metrics::All_font_metrics (const string &path)
 {
+#if HAVE_PANGO_FT2
+  pango_dict_ = new Scheme_hash_table;
+#endif
+
   otf_dict_ = new Scheme_hash_table;
+  smobify_self ();
+  otf_dict_->unprotect ();
 
 #if HAVE_PANGO_FT2
+  pango_dict_->unprotect ();
   PangoFontMap *pfm = pango_ft2_font_map_new ();
 
   pango_ft2_fontmap_ = PANGO_FT2_FONT_MAP (pfm);
@@ -52,8 +59,6 @@ All_font_metrics::All_font_metrics (const string &path)
   pango_dpi_ = PANGO_RESOLUTION;
   pango_ft2_font_map_set_resolution (pango_ft2_fontmap_,
                                      pango_dpi_, pango_dpi_);
-
-  pango_dict_ = new Scheme_hash_table;
 #endif
 
   search_path_.parse_path (path);
@@ -61,16 +66,21 @@ All_font_metrics::All_font_metrics (const string &path)
 
 All_font_metrics::~All_font_metrics ()
 {
-  otf_dict_->unprotect ();
-
 #if HAVE_PANGO_FT2
-  pango_dict_->unprotect ();
   g_object_unref (pango_ft2_fontmap_);
 #endif
 }
 
-All_font_metrics::All_font_metrics (All_font_metrics const &)
+SCM
+All_font_metrics::mark_smob ()
 {
+#if HAVE_PANGO_FT2
+  if (pango_dict_)
+    scm_gc_mark (pango_dict_->self_scm ());
+#endif
+  if (otf_dict_)
+    return otf_dict_->self_scm ();
+  return SCM_UNDEFINED;
 }
 
 #if HAVE_PANGO_FT2
@@ -103,7 +113,7 @@ All_font_metrics::find_pango_font (PangoFontDescription const *description,
                                    scm_from_double (1.0));
     }
   g_free (pango_fn);
-  return derived_unsmob<Pango_font> (val);
+  return unsmob<Pango_font> (val);
 }
 
 #endif
@@ -128,15 +138,15 @@ All_font_metrics::find_otf (const string &name)
 
       debug_output ("]", false);
 
-      Font_metric::unsmob (val)->file_name_ = file_name;
+      unsmob<Font_metric> (val)->file_name_ = file_name;
       SCM name_string = ly_string2scm (name);
-      Font_metric::unsmob (val)->description_ = scm_cons (name_string,
+      unsmob<Font_metric> (val)->description_ = scm_cons (name_string,
                                                      scm_from_double (1.0));
       otf_dict_->set (sname, val);
-      Font_metric::unsmob (val)->unprotect ();
+      unsmob<Font_metric> (val)->unprotect ();
     }
 
-  return derived_unsmob<Open_type_font> (val);
+  return unsmob<Open_type_font> (val);
 }
 
 Font_metric *
@@ -151,5 +161,3 @@ All_font_metrics::find_font (const string &name)
 
   return f;
 }
-
-All_font_metrics *all_fonts_global;

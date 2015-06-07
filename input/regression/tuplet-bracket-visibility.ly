@@ -1,4 +1,4 @@
-\version "2.17.11"
+\version "2.19.21"
 
 \header {
   texidoc = "The default behavior of tuplet-bracket visibility is to print a bracket
@@ -20,8 +20,8 @@ unless there is a beam of the same length as the tuplet.  Overriding
 "
 }
 
-music = \relative c'' {
-  \tuplet 3/2 { c16[ d e } f8]
+music = \relative {
+  \tuplet 3/2 { c''16[ d e } f8]
   \tuplet 3/2 { c8 d e }
   \tuplet 3/2 { c4 d e }
 }

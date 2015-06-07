@@ -6,13 +6,13 @@
 
 }
 
-\version "2.17.11"
+\version "2.19.21"
 
-\relative c''
+\relative
 <<
   \override  Score.SpacingSpanner.uniform-stretching = ##t 
   \new Staff {
-    c16[ c c c c c c c c c16]
+    c''16[ c c c c c c c c c16]
   }
   \new Staff {
     \tuplet 7/6 { c16 c c cis c c c }

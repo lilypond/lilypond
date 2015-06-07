@@ -1,5 +1,5 @@
 
-\version "2.17.11"
+\version "2.19.21"
 \header{
   
   texidoc="
@@ -19,8 +19,8 @@ direction as the bracket. The endings can be adjusted with
 \layout { ragged-right= ##t }
 
 
-\context Voice \relative c'' {
-  \tuplet 3/2 { a8 b c }
+\context Voice \relative {
+  \tuplet 3/2 { a'8 b c }
   \tuplet 3/2 { r8  b[ f] }
   \override TupletBracket.bracket-flare = #'(0.5 . 0.5)
   \tuplet 3/2 { r8 b r8 }

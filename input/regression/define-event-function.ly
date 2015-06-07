@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.19.22"
 
 \header{
 
@@ -11,7 +11,7 @@ opposed to music functions, a direction indicator is not required."
 \layout { ragged-right = ##t }
 
 dynScript =
-#(define-event-function (parser location text) (markup?)
+#(define-event-function (text) (markup?)
    (make-dynamic-script text))
 
 \relative {

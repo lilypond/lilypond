@@ -1,10 +1,10 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Scripts right of a chord avoid dots."
 }
 
-\relative c' {
+\relative {
   \set fingeringOrientations = #'(right)
-  <c-\rightHandFinger #1 >4.. <d-3 f>4. r8.
+  <c'-\rightHandFinger #1 >4.. <d-3 f>4. r8.
 }

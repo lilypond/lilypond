@@ -3,14 +3,14 @@
 
   texidoc = "accidentals may be folded under preceding notes."
   }
-\version "2.16.0"
+\version "2.19.21"
 
 \paper {
   ragged-right = ##t
   }
 
-\relative c''' {
-  \stemUp c4...*1/2
+\relative {
+  \stemUp c'''4...*1/2
 
   ceses,,!
   eses!

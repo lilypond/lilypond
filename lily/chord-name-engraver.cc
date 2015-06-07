@@ -96,7 +96,7 @@ Chord_name_engraver::process_music ()
             {
               Stream_event *n = notes_[i];
               SCM p = n->get_property ("pitch");
-              if (!Pitch::is_smob (p))
+              if (!unsmob<Pitch> (p))
                 continue;
 
               if (to_boolean (n->get_property ("bass")))
@@ -106,7 +106,7 @@ Chord_name_engraver::process_music ()
                   SCM oct = n->get_property ("octavation");
                   if (scm_is_number (oct))
                     {
-                      Pitch orig = Pitch::unsmob (p)->transposed (Pitch (-scm_to_int (oct), 0));
+                      Pitch orig = unsmob<Pitch> (p)->transposed (Pitch (-scm_to_int (oct), 0));
                       pitches = scm_cons (orig.smobbed_copy (), pitches);
                     }
                   else

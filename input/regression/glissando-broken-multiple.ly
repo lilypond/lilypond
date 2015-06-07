@@ -2,15 +2,15 @@
   texidoc = "When broken, glissandi can span multiple lines."
 
 }
-\version "2.17.6"
+\version "2.19.21"
 \paper {
   ragged-right = ##t
 }
 
-\relative c'' {
+\relative {
   \override Glissando.breakable = ##t
   \override Glissando.after-line-breaking = ##t
-  d1\glissando
+  d''1\glissando
   \break s1
   \break s1
   \break s1

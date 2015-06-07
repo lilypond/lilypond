@@ -30,13 +30,6 @@ public:
   Stream_event ();
   VIRTUAL_COPY_CONSTRUCTOR (Stream_event, Stream_event);
 
-  static Stream_event *unsmob (SCM s) {
-    return dynamic_cast <Stream_event *> (Prob::unsmob (s));
-  }
-  static bool is_smob (SCM s) {
-    return Prob::is_smob (s) && unsmob (s);
-  }
-
   Stream_event (SCM event_class, SCM immutable_props = SCM_EOL);
   Stream_event (SCM class_name, Input *);
 

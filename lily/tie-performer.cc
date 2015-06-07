@@ -128,8 +128,8 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
 
           SCM p1 = left_mus->get_property ("pitch");
           SCM p2 = right_mus->get_property ("pitch");
-          if (Pitch::is_smob (p1) && Pitch::is_smob (p2)
-              && Pitch::unsmob (p1)->tone_pitch () == Pitch::unsmob (p2)->tone_pitch ())
+          if (unsmob<Pitch> (p1) && unsmob<Pitch> (p2)
+              && unsmob<Pitch> (p1)->tone_pitch () == unsmob<Pitch> (p2)->tone_pitch ())
             {
               found = true;
               // (*it).moment_ already stores the end of the tied note!

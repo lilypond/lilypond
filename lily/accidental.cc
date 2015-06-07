@@ -48,16 +48,16 @@ MAKE_SCHEME_CALLBACK (Accidental_interface, horizontal_skylines, 1);
 SCM
 Accidental_interface::horizontal_skylines (SCM smob)
 {
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
   if (!me->is_live ())
     return Skyline_pair ().smobbed_copy ();
 
-  Stencil *my_stencil = Stencil::unsmob (me->get_property ("stencil"));
+  Stencil *my_stencil = unsmob<Stencil> (me->get_property ("stencil"));
   if (!my_stencil)
     return Skyline_pair ().smobbed_copy ();
 
   Skyline_pair *sky =
-    Skyline_pair::unsmob
+    unsmob<Skyline_pair>
       (Stencil::skylines_from_stencil
         (my_stencil->smobbed_copy (), 0.0, Y_AXIS));
 
@@ -90,8 +90,8 @@ MAKE_SCHEME_CALLBACK (Accidental_interface, height, 1);
 SCM
 Accidental_interface::height (SCM smob)
 {
-  Grob *me = Grob::unsmob (smob);
-  Grob *tie = Grob::unsmob (me->get_object ("tie"));
+  Grob *me = unsmob<Grob> (smob);
+  Grob *tie = unsmob<Grob> (me->get_object ("tie"));
 
   if (tie
       && !to_boolean (me->get_property ("forced"))
@@ -105,8 +105,8 @@ MAKE_SCHEME_CALLBACK (Accidental_interface, remove_tied, 1);
 SCM
 Accidental_interface::remove_tied (SCM smob)
 {
-  Grob *me = Grob::unsmob (smob);
-  Grob *tie = Grob::unsmob (me->get_object ("tie"));
+  Grob *me = unsmob<Grob> (smob);
+  Grob *tie = unsmob<Grob> (me->get_object ("tie"));
 
   if (tie
       && !to_boolean (me->get_property ("forced"))
@@ -121,7 +121,7 @@ MAKE_SCHEME_CALLBACK (Accidental_interface, print, 1);
 SCM
 Accidental_interface::print (SCM smob)
 {
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
 
   return get_stencil (me);
 }

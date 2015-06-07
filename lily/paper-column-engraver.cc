@@ -98,7 +98,7 @@ Paper_column_engraver::make_columns ()
 void
 Paper_column_engraver::initialize ()
 {
-  system_ = derived_unsmob<System> (get_property ("rootSystem"));
+  system_ = unsmob<System> (get_property ("rootSystem"));
   make_columns ();
 
   system_->set_bound (LEFT, command_column_);
@@ -214,7 +214,7 @@ Paper_column_engraver::process_music ()
   if (start_of_measure)
     {
       Moment mlen = Moment (measure_length (context ()));
-      Grob *column = Grob::unsmob (get_property ("currentCommandColumn"));
+      Grob *column = unsmob<Grob> (get_property ("currentCommandColumn"));
       if (column)
         column->set_property ("measure-length", mlen.smobbed_copy ());
       else
@@ -239,7 +239,7 @@ Paper_column_engraver::stop_translation_timestep ()
 
       if (!elem->get_parent (X_AXIS))
         elem->set_parent (col, X_AXIS);
-      if (!Grob::is_smob (elem->get_object ("axis-group-parent-X")))
+      if (!unsmob<Grob> (elem->get_object ("axis-group-parent-X")))
         elem->set_object ("axis-group-parent-X", col->self_scm ());
 
       if (Accidental_placement::has_interface (elem)
@@ -280,7 +280,7 @@ Paper_column_engraver::stop_translation_timestep ()
 
   SCM mpos = get_property ("measurePosition");
   SCM barnum = get_property ("internalBarNumber");
-  if (Moment::is_smob (mpos)
+  if (unsmob<Moment> (mpos)
       && scm_is_integer (barnum))
     {
       SCM where = scm_cons (barnum,

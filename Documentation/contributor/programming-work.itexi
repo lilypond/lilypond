@@ -913,17 +913,21 @@ The GNU debugger, gdb, is the principal tool for debugging C++ code.
 @subheading Compiling LilyPond for use with gdb
 
 In order to use gdb with LilyPond, it is necessary to compile
-LilyPond with debugging information.  This is accomplished by running
-the following commands in the main LilyPond source directory.
+LilyPond with debugging information.  This is the current default
+mode of compilation.  Often debugging becomes more complicated
+when the compiler has optimised variables and function calls away.
+In that case it may be helpful to run the following command in the
+main LilyPond source directory:
 
 @example
-./configure  --disable-optimising
+./configure --disable-optimising
 make
 @end example
 
-This will create a version of LilyPond containing debugging
-information that will allow the debugger to tie the source code
-to the compiled code.
+This will create a version of LilyPond with minimal optimization
+which will allow the debugger to access all variables and step
+through the source code in-order.  It may not accurately reproduce
+bugs encountered with the optimized version, however.
 
 You should not do @var{make install} if you want to use a debugger
 with LilyPond.  The @var{make install} command will strip debugging
@@ -1204,8 +1208,15 @@ number of different platforms:
 
 In order for the Graphviz tool to work, config.make must be modified.
 It is probably a good idea to first save a copy of config.make under
-a different name.  Then, edit config.make by removing every occurrence
-of @option{-DNDEBUG}.
+a different name.
+
+In order to have the required functionality available, LilyPond
+needs to be compiled with the option @option{-DDEBUG}.  You can
+achieve this by configuring with
+
+@example
+./configure --enable-checking
+@end example
 
 @item Rebuilding LilyPond
 
@@ -1253,10 +1264,10 @@ dot -Tpdf graphviz.log > graphviz.pdf
 
 The pdf file can then be viewed with any pdf viewer.
 
-When compiled without @option{-DNDEBUG}, lilypond may run slower
-than normal.  The original configuration can be restored by either
-renaming the saved copy of @code{config.make} or rerunning
-@code{configure}.  Then rebuild lilypond with
+When compiled with @option{-DDEBUG}, lilypond may run slower
+than normal.  The original configuration can be restored by rerunning
+@code{./configure} with @option{--disable-checking}.  Then
+rebuild lilypond with
 
 @example
 make -C lily clean && make -C lily
@@ -2149,7 +2160,7 @@ Test whether the type of @var{s} is [type].
 often than not, the code checks Lilypond specific C++-implemented
 types using
 
-@subsubheading [Type *] Type::unsmob (SCM s)
+@subsubheading [Type *] unsmob<Type> (SCM s)
 
 This tries converting a Scheme object to a pointer of the desired
 kind.  If the Scheme object is of the wrong type, a pointer value

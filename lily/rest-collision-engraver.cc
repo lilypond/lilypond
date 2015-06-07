@@ -57,8 +57,8 @@ Rest_collision_engraver::process_acknowledged ()
 
   for (SCM s = get_property ("busyGrobs"); scm_is_pair (s); s = scm_cdr (s))
     {
-      Grob *g = Grob::unsmob (scm_cdar (s));
-      Moment *m = Moment::unsmob (scm_caar (s));
+      Grob *g = unsmob<Grob> (scm_cdar (s));
+      Moment *m = unsmob<Moment> (scm_caar (s));
       if (!g || !m)
         continue;
 

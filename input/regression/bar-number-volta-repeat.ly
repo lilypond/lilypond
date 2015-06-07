@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.22"
 
 \header {
   texidoc = "Bar numbers can automatically reset at volta repeats.
@@ -6,13 +6,13 @@
 }
 
 musicWithBarNumberCheck =
-#(define-music-function (parser location n)
+#(define-music-function (n)
   (integer?)
 #{
-  \relative c' {
+  \relative {
     \override Score.BarNumber.break-visibility = ##(#t #t #t)
     \repeat volta 28 {
-     c1 |
+     c'1 |
      c |
      c |
     }

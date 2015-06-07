@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.22"
 \header {
 texidoc = "Breve, whole and half rests moving outside the staff should get
 ledger lines."
@@ -8,7 +8,7 @@ ledger lines."
 \paper { ragged-right = ##t }
 
 rPos =
-#(define-music-function (parser location y) (number?)
+#(define-music-function (y) (number?)
   #{ \override Rest.staff-position = #y #})
 
 {

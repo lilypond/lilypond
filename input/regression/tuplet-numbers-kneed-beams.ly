@@ -1,4 +1,4 @@
-\version "2.19.3"
+\version "2.19.21"
 
 \header {
   texidoc = "Tuplet numbers are positioned next to kneed beams."
@@ -12,7 +12,7 @@
 top = \change Staff = "1"
 bottom = \change Staff = "2"
 
-music = \relative c {
+music = \relative {
   \time 3/4
   \override Beam.auto-knee-gap = 1
   \tuplet 3/2 4 {

@@ -1,4 +1,4 @@
-\version "2.19.2"
+\version "2.19.22"
 \header {
 
   texidoc = "The @code{\\removeWithTag} and @code{\\keepWithTag}
@@ -16,7 +16,7 @@ music =
 >>
 
 demo =
-#(define-music-function (parser location fun syms m)
+#(define-music-function (fun syms m)
   (ly:music-function? symbol-list? ly:music?)
   #{
     \new Staff

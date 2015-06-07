@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "If using integers, the tie will vertically tuned for
@@ -6,9 +6,9 @@ staff line avoidance. If using a floating point number, this is taken
 as the exact location."
 }
 
-\relative c'' {
+\relative {
   \override Tie.staff-position = #3
-  d4 ~
+  d''4 ~
   \override Tie.staff-position = #3.0
   d ~
   d

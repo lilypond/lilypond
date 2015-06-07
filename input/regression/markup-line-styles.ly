@@ -1,4 +1,4 @@
-\version "2.17.10"
+\version "2.19.22"
 
 \header {
   texidoc = "The markup-commands @code{\\draw-dashed-line} and
@@ -7,7 +7,7 @@
 }
 
 test =
-#(define-scheme-function (parser location x-nmbr y-nmbr)(number? number?)
+#(define-scheme-function (x-nmbr y-nmbr)(number? number?)
  (let* ((lst (map
                (lambda (x)
                  (let* ((x-lngth (if (positive? x-nmbr)

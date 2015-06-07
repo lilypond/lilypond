@@ -56,9 +56,9 @@ Keep_alive_together_engraver::finalize ()
         continue;
 
       SCM live_scm = Grob_array::make_array ();
-      Grob_array *live = Grob_array::unsmob (live_scm);
+      Grob_array *live = unsmob<Grob_array> (live_scm);
       SCM dead_scm = Grob_array::make_array ();
-      Grob_array *dead = Grob_array::unsmob (dead_scm);
+      Grob_array *dead = unsmob<Grob_array> (dead_scm);
 
       for (vsize j = 0; j < group_spanners_.size (); ++j)
         {

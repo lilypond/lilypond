@@ -464,10 +464,10 @@ La commande @code{\tempo} permet de stipuler aussi bien le @emph{tempo}
 que le métronome :
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \time 3/4
   \tempo "Andante"
-  a4 a a
+  a'4 a a
   \time 6/8
   \tempo 4. = 96
   a4. a

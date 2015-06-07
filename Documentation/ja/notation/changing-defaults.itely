@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -4562,7 +4562,7 @@ smartSquareLineCircleSpace = {
 @example
 function =
 #(define-music-function
-     (parser location @var{arg1} @var{arg2} @dots{})
+     (@var{arg1} @var{arg2} @dots{})
      (@var{type1?} @var{type2?} @dots{})
    #@{
      @var{@dots{}music@dots{}}
@@ -4638,7 +4638,7 @@ symbol?
 @lilypond[quote,verbatim,ragged-right]
 padText =
 #(define-music-function
-     (parser location padding)
+     (padding)
      (number?)
    #{
      \once \override TextScript.padding = $padding
@@ -4658,7 +4658,7 @@ padText =
 @lilypond[quote,verbatim,ragged-right]
 custosNote =
 #(define-music-function
-     (parser location note)
+     (note)
      (ly:music?)
    #{
      \tweak NoteHead.stencil #ly:text-interface::print
@@ -4676,16 +4676,16 @@ custosNote =
 @lilypond[quote,verbatim,ragged-right]
 tempoPadded =
 #(define-music-function
-     (parser location padding tempotext)
+     (padding tempotext)
      (number? markup?)
    #{
      \once \override Score.MetronomeMark.padding = $padding
      \tempo \markup { \bold #tempotext }
    #})
 
-\relative c'' {
+\relative {
   \tempo \markup { "Low tempo" }
-  c4 d e f g1
+  c''4 d e f g1
   \tempoPadded #4.0 "High tempo"
   g4 f e d c1
 }

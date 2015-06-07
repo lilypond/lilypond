@@ -9,19 +9,19 @@ to 1.5 staff space."
 }
 
 
-\version "2.17.6"
+\version "2.19.21"
 \layout{
   ragged-right = ##t 
 }
 
 
-\relative c'' {
+\relative {
   \override Score.NonMusicalPaperColumn.stencil = #ly:paper-column::print
   \override Score.NonMusicalPaperColumn.layer = #2
   
   \time 2/4
   \stemDown
   s2
-  e4 s4 
+  e''4 s4 
   e,4 s4
 }

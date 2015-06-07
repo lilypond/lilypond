@@ -1,10 +1,10 @@
-%\version "2.19.19"
+%\version "2.19.22"
 
 \include "lyrics-tkit.ly"
 \include "staff-tkit.ly"
 
 make-one-voice-vocal-staff =
-#(define-music-function (parser location name clef)
+#(define-music-function (name clef)
    (voice-prefix? string?)
 
    "Make a staff with one voice and lyrics beneath
@@ -25,7 +25,7 @@ make-one-voice-vocal-staff =
      (make-music 'SequentialMusic 'void #t)))
 
 make-two-voice-vocal-staff =
-#(define-music-function (parser location name clef v1name v2name)
+#(define-music-function (name clef v1name v2name)
    (voice-prefix? string? voice-prefix? voice-prefix?)
 
    "Make a vocal staff with two voices and lyrics above and below
@@ -58,8 +58,7 @@ make-two-voice-vocal-staff =
 
 make-two-vocal-staves-with-stanzas =
 #(define-music-function
-  (parser location
-    upperName upperClef lowerName lowerClef
+  (upperName upperClef lowerName lowerClef
     v1name v2name v3name v4name verses)
   (voice-prefix? string? voice-prefix? string?
     voice-prefix? voice-prefix? voice-prefix? voice-prefix? list?)

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @node Concetti fondamentali
 @chapter Concetti fondamentali
@@ -837,12 +837,12 @@ ignora quel che non capisci.
 @c The following should appear as music without code
 @c The three voice styles should be defined in -init
 @lilypond[quote,ragged-right]
-\new Staff \relative c'' {
+\new Staff \relative {
   \key aes \major
   <<
     {  % Prima voce
       \voiceOneStyle
-      c2 aes4. bes8
+      c''2 aes4. bes8
     }
   \\  % Seconda voce
     { \voiceTwoStyle
@@ -1003,18 +1003,18 @@ markup, legature di valore, legature di portamento, e dinamica:
 @end lilypond
 
 @lilypond[quote,ragged-right,verbatim]
-\relative c' {
+\relative {
   \voiceOne
-  c4 d8~ 8 e4( f | g4 a) b-> c |
+  c'4 d8~ 8 e4( f | g4 a) b-> c |
   \oneVoice
   c,4 d8~ 8 e4( f | g4 a) b-> c |
 }
 @end lilypond
 
 @lilypond[quote,ragged-right,verbatim]
-\relative c' {
+\relative {
   \voiceTwo
-  c4 d8~ 8 e4( f | g4 a) b-> c |
+  c'4 d8~ 8 e4( f | g4 a) b-> c |
   \oneVoice
   c,4 d8~ 8 e4( f | g4 a) b-> c |
 }
@@ -1033,10 +1033,10 @@ principale si trova ora nel contesto di una voce singola, e questo fa
 sì che sia possibile disegnare una legatura di frase sopra di esse.
 
 @lilypond[quote,ragged-right,verbatim]
-\new Staff \relative c' {
+\new Staff \relative {
   \voiceOneStyle
   % This section is homophonic
-  c16^( d e f
+  c'16^( d e f
   % Start simultaneous section of three voices
   <<
     % Continue the main voice in parallel
@@ -1096,11 +1096,11 @@ usando le note spaziatrici per saltare le parti in cui una delle voci è muta,
 come nel seguente esempio:
 
 @lilypond[quote,ragged-right,verbatim]
-\new Staff \relative c' <<
+\new Staff \relative <<
   % Initiate first voice
   \new Voice {
     \voiceOne
-    c16^( d e f g4 f e | d2 e) |
+    c'16^( d e f g4 f e | d2 e) |
   }
   % Initiate second voice
   \new Voice {
@@ -1195,10 +1195,10 @@ il nome assegnato alla voce.
 @lilypond[quote,verbatim]
 <<
   \new Voice = "one" {
-    \relative c'' {
+    \relative {
       \autoBeamOff
       \time 2/4
-      c4 b8. a16 | g4. f8 | e4 d | c2 |
+      c''4 b8. a16 | g4. f8 | e4 d | c2 |
     }
   }
   \new Lyrics \lyricsto "one" {
@@ -1730,13 +1730,13 @@ perché abbiamo omesso il nome del contesto.
 
 @lilypond[quote,verbatim,ragged-right]
 <<
-  \new Staff \relative c'' {
+  \new Staff \relative {
     \set Staff.instrumentName = #"Soprano"
-    c2 c
+    c''2 c
  }
-  \new Staff \relative c' {
+  \new Staff \relative {
     \set instrumentName = #"Alto"  % Wrong!
-    d2 d
+    d'2 d
  }
 >>
 @end lilypond
@@ -1776,9 +1776,9 @@ Quindi in questo modo si disattiva il bequadro su un rigo:
   \new Staff \relative {
     aeses'2 aes
  }
-  \new Staff \relative c'' {
+  \new Staff \relative {
     \set Staff.extraNatural = ##f
-    aeses2 aes
+    aeses'2 aes
  }
 >>
 @end lilypond
@@ -1791,9 +1791,9 @@ e in questo modo si disattiva in tutti i righi:
   \new Staff \relative {
     aeses'2 aes
  }
-  \new Staff \relative c'' {
+  \new Staff \relative {
     \set Score.extraNatural = ##f
-    aeses2 aes
+    aeses'2 aes
  }
 >>
 @end lilypond
@@ -2026,15 +2026,15 @@ di quella voce soltanto:
   \new Voice \with {
     \consists "Ambitus_engraver"
   } {
-    \relative c'' {
+    \relative {
       \voiceOne
-      c4 a b g
+      c''4 a b g
     }
   }
   \new Voice {
-    \relative c' {
+    \relative {
       \voiceTwo
-      c4 e d f
+      c'4 e d f
     }
   }
 >>
@@ -2050,15 +2050,15 @@ l'intervallo di tutte le note in tutte le voci di quel pentagramma:
 }
 <<
   \new Voice {
-    \relative c'' {
+    \relative {
       \voiceOne
-      c4 a b g
+      c''4 a b g
     }
   }
   \new Voice {
-    \relative c' {
+    \relative {
       \voiceTwo
-      c4 e d f
+      c'4 e d f
     }
   }
 >>
@@ -2381,18 +2381,18 @@ bassMusic = \relative {
 }
 bassWords = \sopranoWords
 
-upper = \relative a' {
+upper = \relative {
   \clef "treble"
   \global
-  r4 <a d fis>2 <a e' a>4 |
+  r4 <a' d fis>2 <a e' a>4 |
   <d fis d'>4. <d fis d'>8 <a d a'>2 |
   <g cis g'>4 <a d fis> <a cis e>2 |
 }
 
-lower = \relative c, {
+lower = \relative {
   \clef "bass"
   \global
-  <d d'>4 <d d'>2 <cis cis'>4 |
+  <d, d'>4 <d d'>2 <cis cis'>4 |
   <b b'>4. <b' b'>8 <fis fis'>2 |
   <e e'>4 <d d'> <a' a'>2 |
 }
@@ -2616,17 +2616,17 @@ bassMusic = \relative {
   r4 d'2 cis4 | b4. b8 fis2 | e4 d a'2 |
 }
 bassWords = \sopranoWords
-upper = \relative a' {
+upper = \relative {
   \clef "treble"
   \global
-  r4 <a d fis>2 <a e' a>4 |
+  r4 <a' d fis>2 <a e' a>4 |
   <d fis d'>4. <d fis d'>8 <a d a'>2 |
   <g cis g'>4 <a d fis> <a cis e>2 |
 }
-lower = \relative c, {
+lower = \relative {
   \clef "bass"
   \global
-  <d d'>4 <d d'>2 <cis cis'>4 |
+  <d, d'>4 <d d'>2 <cis cis'>4 |
   <b b'>4. <b' b'>8 <fis fis'>2 |
   <e e'>4 <d d'> <a' a'>2 |
 }
@@ -3027,9 +3027,9 @@ fthenp =_\markup {
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
 }
 
-violin = \relative c'' {
+violin = \relative {
   \repeat volta 2 {
-    c4._\dolce b8 a8 g a b |
+    c''4._\dolce b8 a8 g a b |
     \padText
     c4.^"hi there!" d8 e' f g d |
     c,4.\fthenp b8 c4 c-. |
@@ -3051,9 +3051,9 @@ precedente senza alcuna variabile.  È molto difficile da leggere,
 soprattutto l'ultima linea.
 
 @example
-violin = \relative c'' @{
+violin = \relative @{
   \repeat volta 2 @{
-    c4._\markup @{ \italic \bold dolce @} b8 a8 g a b |
+    c''4._\markup @{ \italic \bold dolce @} b8 a8 g a b |
     \once \override TextScript.padding = #5.0
     c4.^"hi there!" d8 e' f g d |
     c,4.\markup @{
@@ -3075,7 +3075,7 @@ immaginare come una funzione).
 @lilypond[quote,verbatim,ragged-right]
 padText =
 #(define-music-function
-     (parser location padding)
+     (padding)
      (number?)
    #{
      \once \override TextScript.padding = #padding
@@ -3183,7 +3183,7 @@ Questo comando imposta la proprietà @code{skipBars} nel contesto
 opzione alla musica precedente, si arriva al seguente risultato
 
 @lilypond[quote,ragged-right]
-\transpose f c' \relative c {
+\transpose f c' \relative {
   \time 2/4
   \set Score.skipBars = ##t
   R2*3 |

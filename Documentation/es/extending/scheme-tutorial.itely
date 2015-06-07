@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @node Tutorial de Scheme
 @appendix Tutorial de Scheme
@@ -1431,7 +1431,7 @@ que pongamos otro elemento delante de la propiedad
 
 
 @example
-doubleSlur = #(define-music-function (parser location note) (ly:music?)
+doubleSlur = #(define-music-function (note) (ly:music?)
          "Return: @{ note ( note ) @}.
          `note' is supposed to be a single note."
          (let ((note2 (ly:music-deep-copy note)))
@@ -1616,7 +1616,7 @@ musical (es cuestión de un poco de aderezo sintáctico y una
 declaración del tipo de su único argumento @q{real}).
 
 @example
-addAccent = #(define-music-function (parser location note-event)
+addAccent = #(define-music-function (note-event)
                                      (ly:music?)
   "Add an accent ArticulationEvent to the articulations of `note-event',
   which is supposed to be a NoteEvent expression."
@@ -1660,7 +1660,7 @@ TODO Find a simple example
 
 @ignore
 @lilypond[quote,verbatim,ragged-right]
-padText = #(define-music-function (parser location padding) (number?)
+padText = #(define-music-function (padding) (number?)
 #{
   \once \override TextScript.padding = #padding
 #})
@@ -1683,16 +1683,16 @@ Lo podemos usar para crear instrucciones nuevas:
 
 
 @lilypond[quote,verbatim,ragged-right]
-tempoPadded = #(define-music-function (parser location padding tempotext)
+tempoPadded = #(define-music-function (padding tempotext)
   (number? markup?)
 #{
   \once \override Score.MetronomeMark.padding = #padding
   \tempo \markup { \bold #tempotext }
 #})
 
-\relative c'' {
+\relative {
   \tempo \markup { "Low tempo" }
-  c4 d e f g1
+  c''4 d e f g1
   \tempoPadded #4.0 "High tempo"
   g4 f e d c1
 }
@@ -1702,7 +1702,7 @@ tempoPadded = #(define-music-function (parser location padding tempotext)
 Incluso se le pueden pasar expresiones musicales:
 
 @lilypond[quote,verbatim,ragged-right]
-pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
+pattern = #(define-music-function (x y) (ly:music? ly:music?)
 #{
   #x e8 a b #y b a e
 #})

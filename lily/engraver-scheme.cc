@@ -31,7 +31,7 @@ LY_DEFINE (ly_engraver_make_grob, "ly:engraver-make-grob",
   LY_ASSERT_TYPE (ly_is_symbol, grob_name, 2);
   LY_ASSERT_TYPE (ly_is_grob_cause, cause, 3);
 
-  Grob *g = Engraver::unsmob (engraver)->
+  Grob *g = unsmob<Engraver> (engraver)->
             internal_make_grob (grob_name, cause,
                                 ly_symbol2string (grob_name).c_str (),
                                 "scheme", 0, "scheme");
@@ -49,8 +49,8 @@ LY_DEFINE (ly_engraver_announce_end_grob, "ly:engraver-announce-end-grob",
   LY_ASSERT_SMOB (Grob, grob, 2);
   LY_ASSERT_TYPE (ly_is_grob_cause, cause, 3);
 
-  Engraver::unsmob (engraver)->
-  announce_end_grob (Grob::unsmob (grob), cause);
+  unsmob<Engraver> (engraver)->
+  announce_end_grob (unsmob<Grob> (grob), cause);
 
   return SCM_UNSPECIFIED;
 }

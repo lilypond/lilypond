@@ -27,6 +27,6 @@ LY_DEFINE (ly_lexer_keywords, "ly:lexer-keywords",
 {
   LY_ASSERT_SMOB (Lily_lexer, lexer, 1);
 
-  Lily_lexer *lex = Lily_lexer::unsmob (lexer);
+  Lily_lexer *lex = unsmob<Lily_lexer> (lexer);
   return lex->keyword_list ();
 }

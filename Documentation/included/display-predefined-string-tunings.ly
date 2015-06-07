@@ -1,4 +1,4 @@
-\version "2.17.11"
+\version "2.19.22"
 
 #(define (filter-instrument instrument-name tuning-alist)
    (filter (lambda (entry)
@@ -21,7 +21,7 @@
 			    pitches)))))
 
 displayInstrumentDefaultTunings =
-#(define-music-function (parser location instrument) (string?)
+#(define-music-function (instrument) (string?)
    (let* ((filtered-instruments (filter-instrument instrument defaultStringTunings))
           (display-elements (map chord-display filtered-instruments)))
      (make-music 'SequentialMusic 'elements display-elements)))

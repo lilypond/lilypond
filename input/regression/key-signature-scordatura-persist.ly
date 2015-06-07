@@ -1,4 +1,4 @@
-\version "2.19.7"
+\version "2.19.21"
 
 \header {
   texidoc = "When a custom key signature has entries which are
@@ -10,10 +10,10 @@ octave defined in @code{keyAlterations}.
 "
 }
 
-\relative c' {
+\relative {
   \set Staff.keyAlterations = #`(((0 . 3) . ,SHARP)
                                ((0 . 5) . ,FLAT)
                                ((0 . 6) . ,FLAT))
-  fis fis as bes
+  fis' fis as bes
   fis' as, as bes
 }

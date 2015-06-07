@@ -173,6 +173,7 @@ AC_DEFUN(STEPMAKE_COMPILE_BEFORE, [
     CXXFLAGS=${CXXFLAGS-$CFLAGS}
     LDFLAGS=${LDFLAGS-""}
     optimise_b=yes
+    checks_b=no
     profile_b=no
     debug_b=yes
     pipe_b=yes
@@ -181,6 +182,11 @@ AC_DEFUN(STEPMAKE_COMPILE_BEFORE, [
     [AS_HELP_STRING([--enable-debugging],
                     [compile with debugging info.  Default: on])],
     [debug_b=$enableval])
+
+    AC_ARG_ENABLE(checking,
+    [AS_HELP_STRING([--enable-checking],
+                    [compile with expensive run-time checks.  Default: off])],
+    [checks_b=$enableval])
 
     AC_ARG_ENABLE(optimising,
     [AS_HELP_STRING([--enable-optimising],
@@ -198,9 +204,17 @@ AC_DEFUN(STEPMAKE_COMPILE_BEFORE, [
     [pipe_b=$enableval])
 
     if test "$optimise_b" = yes; then
-	AC_DEFINE(NDEBUG)
-	DEFINES="$DEFINES -DNDEBUG"
 	OPTIMIZE=" -O2 -finline-functions"
+	# following two lines are compatibility while Patchy has not
+	# yet learnt about --enable-checking.  But once it has, we
+	# don't want -DDEBUG twice, so we omit it here if it is going
+	# to get added anyway later.
+    elif test "$checks_b" != yes; then
+	DEFINES="$DEFINES -DDEBUG"
+    fi
+
+    if test "$checks_b" = yes; then
+	DEFINES="$DEFINES -DDEBUG"
     fi
 
     if test $profile_b = yes; then

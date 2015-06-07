@@ -1,11 +1,11 @@
-\version "2.17.11"
+\version "2.19.21"
 
 \header {
   texidoc = "@code{TupletBracket} grobs avoid @code{StringNumber} grobs.
 "
 }
 
-\relative d'' {
+\relative {
  \override TupletBracket.direction = #UP
- \tuplet 3/2 { d4 <a\4>8 }
+ \tuplet 3/2 { d''4 <a\4>8 }
 }

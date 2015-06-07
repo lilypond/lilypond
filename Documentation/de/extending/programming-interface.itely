@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @c Translators: Till Paala
 
@@ -95,7 +95,7 @@ Die übliche Form zur Definition von Scheme-Funktionen ist:
 @example
 function =
 #(define-scheme-function
-     (parser location @var{Arg1} @var{Arg2} @dots{})
+     (@var{Arg1} @var{Arg2} @dots{})
      (@var{Typ1?} @var{Typ2?} @dots{})
    @var{body})
 @end example
@@ -261,7 +261,7 @@ Prädikat @code{void?} erfüllt) wiedergegeben wird.
 @example
 noPointAndClick =
 #(define-void-function
-     (parser location)
+     ()
      ()
    (ly:set-option 'point-and-click #f))
 ...
@@ -311,7 +311,7 @@ Die allgemeine Form zur Definition musikalischer Funktionen ist:
 @example
 function =
 #(define-music-function
-     (parser location @var{Arg1} @var{Arg2} @dots{})
+     (@var{Arg1} @var{Arg2} @dots{})
      (@var{Typ1?} @var{Typ2?} @dots{})
    @var{body})
 @end example
@@ -403,7 +403,7 @@ mit der Variable @code{pair?} weitergeleitet werden:
 @example
 manualBeam =
 #(define-music-function
-     (parser location beg-end)
+     (beg-end)
      (pair?)
    #@{
      \once \override Beam.positions = #beg-end
@@ -422,7 +422,7 @@ augenommen werden:
 @lilypond[quote,verbatim,ragged-right]
 manualBeam =
 #(define-music-function
-     (parser location beg end)
+     (beg end)
      (number? number?)
    #{
      \once \override Beam.positions = #(cons beg end)
@@ -444,7 +444,7 @@ auch Scheme-Programmcode enthalten:
 @lilypond[quote,verbatim,ragged-right]
 AltOn =
 #(define-music-function
-     (parser location mag)
+     (mag)
      (number?)
    #{
      \override Stem.length = #(* 7.0 mag)
@@ -470,7 +470,7 @@ zu integrieren:
 @lilypond[quote,verbatim,ragged-right]
 withAlt =
 #(define-music-function
-     (parser location mag music)
+     (mag music)
      (number? ly:music?)
    #{
      \override Stem.length = #(* 7.0 mag)
@@ -505,7 +505,7 @@ musikalische Funktion ohne Argumente zu erstellen:
 @example
 displayBarNum =
 #(define-music-function
-     (parser location)
+     ()
      ()
    (if (eq? #t (ly:get-option 'display-bar-numbers))
        #@{ \once \override Score.BarNumber.break-visibility = ##f #@}
@@ -552,7 +552,7 @@ angehängt, wie @code{c'\pp}.  Das Folgende ist eine Möglichkeit, beliebige
 Dynamikbefehle zu schreiben:
 
 @lilypond[quote,verbatim,ragged-right]
-dyn=#(define-event-function (parser location arg) (markup?)
+dyn=#(define-event-function (arg) (markup?)
          (make-dynamic-script arg))
 \relative { c'\dyn pfsss }
 @end lilypond
@@ -1396,10 +1396,10 @@ neu ausgerichtet wird.
              (eq? (car (last-pair siblings)) grob))
      (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
 
-\relative c'' {
+\relative {
   \override Tie.after-line-breaking =
   #my-callback
-  c1 ~ \break c2 ~ 2
+  c''1 ~ \break c2 ~ 2
 }
 @end lilypond
 

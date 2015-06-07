@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.22"
 
 %% defined later, in a closure
 #(define-public (add-toc-item! markup-symbol text)
@@ -58,7 +58,7 @@ Usage: @code{\\markuplist \\table-of-contents}" )
                          (toc-items)))))
 
 tocItem =
-#(define-music-function (parser location text) (markup?)
+#(define-music-function (text) (markup?)
    "Add a line to the table of content, using the @code{tocItemMarkup} paper
 variable markup"
    (add-toc-item! 'tocItemMarkup text))

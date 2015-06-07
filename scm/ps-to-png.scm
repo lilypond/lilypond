@@ -31,31 +31,8 @@
 
 (define-public _ gettext)
 
-(define PLATFORM
-  (string->symbol
-   (string-downcase
-    (car (string-tokenize (utsname:sysname (uname)) char-set:letter)))))
-
 (define (re-sub re sub string)
   (regexp-substitute/global #f re string 'pre sub 'post))
-
-(define (search-executable names)
-  (define (helper path lst)
-    (if (null? (cdr lst))
-        (car lst)
-        (if (search-path path (car lst)) (car lst)
-            (helper path (cdr lst)))))
-
-  (let ((path (parse-path (getenv "PATH"))))
-    (helper path names)))
-
-(define (search-gs)
-  (search-executable '("gs-nox" "gs-8.15" "gs")))
-
-(define (gulp-port port max-length)
-  (let ((str (make-string max-length)))
-    (read-string!/partial str port 0 max-length)
-    str))
 
 (define-public (gulp-file file-name . max-size)
   (ly:gulp-file file-name (if (pair? max-size) (car max-size))))
@@ -71,20 +48,25 @@
         (if exit-on-error (exit 1))))
   status)
 
-(define (scale-down-image be-verbose factor file)
-  (define (with-pbm)
-    (let* ((status 0)
-           (old (string-append file ".old")))
+(define (scale-down-image factor file)
+  (let* ((old (string-append file ".old"))
+         ;; Netpbm commands (pngtopnm, pnmscale, pnmtopng)
+         ;; outputs only standard output instead of a file.
+         ;; So we need pipe and redirection.
+         ;; However, ly:system can't handle them.
+         ;; Therefore, we use /bin/sh for handling them.
+         ;; FIXME: MinGW (except Cygwin) doesn't have /bin/sh.
+         (cmd
+          (list
+           "/bin/sh"
+           "-c"
+           (ly:format
+            "pngtopnm \"~a\" | pnmscale -reduce ~a | pnmtopng -compression 9 > \"~a\""
+            old factor file))))
 
-      (rename-file file old)
-      (my-system
-       be-verbose #t
-       (format #f
-               "pngtopnm \"~a\" | pnmscale -reduce ~a 2>/dev/null | pnmtopng -compression 9 2>/dev/null > \"~a\""
-               old factor file))
-      (delete-file old)))
-
-  (with-pbm))
+    (rename-file file old)
+    (ly:system cmd)
+    (delete-file old)))
 
 (define-public (ps-page-count ps-name)
   (let* ((byte-count 10240)
@@ -118,41 +100,44 @@
           (pngn (format #f "~a-page%d.~a" base-name extension))
           (page-count (ps-page-count tmp-name))
           (multi-page? (> page-count 1))
-          (output-file (if multi-page? pngn png1))
 
-          (gs-variable-options
-           (if is-eps
-               "-dEPSCrop"
-               (format #f "-dDEVICEWIDTHPOINTS=~,2f -dDEVICEHEIGHTPOINTS=~,2f"
-                       page-width page-height)))
-          (cmd (ly:format "~a\
- ~a\
- ~a\
- -dGraphicsAlphaBits=4\
- -dTextAlphaBits=4\
- -dNOPAUSE\
- -sDEVICE=~a\
- -sOutputFile=~S\
- -r~a\
- ~S\
- -c quit"
-                          (search-gs)
-                          (if be-verbose "" "-q")
-                          gs-variable-options
-                          pixmap-format
-                          output-file
-                          (* anti-alias-factor resolution) tmp-name))
-          (status 0)
+          ;; Escape `%' (except `page%d') for ghostscript
+          (base-name-gs (string-join
+                         (string-split base-name #\%)
+                         "%%"))
+          (png1-gs (format #f "~a.~a" base-name-gs extension))
+          (pngn-gs (format #f "~a-page%d.~a" base-name-gs extension))
+          (output-file (if multi-page? pngn-gs png1-gs))
+
+          (*unspecified* (if #f #f))
+          (cmd
+           (remove (lambda (x) (eq? x *unspecified*))
+                   (list
+                    (search-gs)
+                    (if (ly:get-option 'verbose) *unspecified* "-q")
+                    (if (or (ly:get-option 'gs-load-fonts)
+                            (ly:get-option 'gs-load-lily-fonts)
+                            (eq? PLATFORM 'windows))
+                        "-dNOSAFER"
+                        "-dSAFER")
+
+                    (if is-eps
+                        "-dEPSCrop"
+                        (ly:format "-dDEVICEWIDTHPOINTS=~$" page-width))
+                    (if is-eps
+                        *unspecified*
+                        (ly:format "-dDEVICEHEIGHTPOINTS=~$" page-height))
+                    "-dGraphicsAlphaBits=4"
+                    "-dTextAlphaBits=4"
+                    "-dNOPAUSE"
+                    "-dBATCH"
+                    (ly:format "-sDEVICE=~a" pixmap-format)
+                    (string-append "-sOutputFile=" output-file)
+                    (ly:format "-r~a" (* anti-alias-factor resolution))
+                    (string-append "-f" tmp-name))))
           (files '()))
 
-     ;; The wrapper on windows cannot handle `=' signs,
-     ;; gs has a workaround with #.
-     (if (eq? PLATFORM 'windows)
-         (begin
-           (set! cmd (re-sub "=" "#" cmd))
-           (set! cmd (re-sub "-dSAFER " "" cmd))))
-
-     (set! status (my-system be-verbose #f cmd))
+     (ly:system cmd)
 
      (set! files
            (if multi-page?
@@ -161,11 +146,6 @@
                   (format #f "~a-page~a.png" base-name (1+ n)))
                 (iota page-count))
                (list (format #f "~a.png" base-name))))
-
-     (if (not (= 0 status))
-         (begin
-           (for-each delete-file files)
-           (exit 1)))
 
      (if (and rename-page-1 multi-page?)
          (begin
@@ -177,5 +157,5 @@
 
      (if (not (= 1 anti-alias-factor))
          (for-each
-          (lambda (f) (scale-down-image be-verbose anti-alias-factor f)) files))
+          (lambda (f) (scale-down-image anti-alias-factor f)) files))
      files)))

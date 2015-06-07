@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 \header {
 
 texidoc = "Several automatic accidental rules
@@ -29,9 +29,9 @@ Both scores should show the same accidentals.
 \layout { ragged-right = ##t }
 
 \score {
-  \relative c'' {
+  \relative {
     \accidentalStyle dodecaphonic
-    gis4 a g gisis
+    gis'4 a g gisis
     \accidentalStyle neo-modern
     gis8 a gis gis g' gis gis,, a'
     \accidentalStyle neo-modern-cautionary
@@ -43,10 +43,10 @@ Both scores should show the same accidentals.
 }
 
 \score {
-  \relative c'' {
+  \relative {
     \set Staff.autoAccidentals = #'()
     \set Staff.autoCautionaries = #'()
-    gis!4 a! g! gisis!
+    gis'!4 a! g! gisis!
     gis!8 a gis! gis g'! gis! gis,,! a'
     eis! fis! eis? eis g?2
     \key e \major

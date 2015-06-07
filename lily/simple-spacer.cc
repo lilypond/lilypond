@@ -380,7 +380,7 @@ get_column_description (vector<Grob *> const &cols, vsize col_index, bool line_s
   for (SCM s = Spaceable_grob::get_minimum_distances (col);
        scm_is_pair (s); s = scm_cdr (s))
     {
-      Grob *other = Grob::unsmob (scm_caar (s));
+      Grob *other = unsmob<Grob> (scm_caar (s));
       vsize j = binary_search (cols, other, Paper_column::less_than, col_index);
       if (j != VPOS)
         {

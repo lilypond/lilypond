@@ -105,15 +105,15 @@ Completion_rest_engraver::listen_rest (Stream_event *ev)
 Moment
 Completion_rest_engraver::next_moment (Rational const &note_len)
 {
-  Moment *e = Moment::unsmob (get_property ("measurePosition"));
-  Moment *l = Moment::unsmob (get_property ("measureLength"));
+  Moment *e = unsmob<Moment> (get_property ("measurePosition"));
+  Moment *l = unsmob<Moment> (get_property ("measureLength"));
   if (!e || !l || !to_boolean (get_property ("timing")))
     {
       return Moment (0, 0);
     }
 
   Moment result = *l - *e;
-  Moment const *unit = Moment::unsmob (get_property ("completionUnit"));
+  Moment const *unit = unsmob<Moment> (get_property ("completionUnit"));
 
   if (unit)
     {
@@ -152,7 +152,7 @@ Item *
 Completion_rest_engraver::make_rest (Stream_event *ev)
 {
   Item *rest = make_item ("Rest", ev->self_scm ());
-  if (Pitch *p = Pitch::unsmob (ev->get_property ("pitch")))
+  if (Pitch *p = unsmob<Pitch> (ev->get_property ("pitch")))
     {
       int pos = p->steps ();
       SCM c0 = get_property ("middleCPosition");
@@ -188,7 +188,7 @@ Completion_rest_engraver::process_music ()
     }
   else
     {
-      orig = Duration::unsmob (rest_events_[0]->get_property ("duration"));
+      orig = unsmob<Duration> (rest_events_[0]->get_property ("duration"));
       rest_dur = *orig;
       SCM factor = get_property ("completionFactor");
       if (ly_is_procedure (factor))

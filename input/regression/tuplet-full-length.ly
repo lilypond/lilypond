@@ -5,19 +5,19 @@
 start of the next non-tuplet note.  "
 
 }
-\version "2.17.11"
+\version "2.19.21"
 
 \paper { ragged-right = ##t
   indent = 0.0
 }
 
-\relative c'' \new Voice \with {
+\relative \new Voice \with {
   \remove  Forbid_line_break_engraver
   \override Beam.breakable = ##t
 }
 {
   \set tupletFullLength = ##t
-  c4
+  c''4
   \tuplet 3/2 { c8[ c c] }
   \tuplet 3/2 { c8[ c \bar "-" \break c] }
   << \tuplet 3/2 { c8[ c c]  }

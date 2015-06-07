@@ -1,4 +1,4 @@
-\version "2.18.0"
+\version "2.19.22"
 
 \header {
 
@@ -15,7 +15,7 @@ number should be centered."
 #(set-global-staff-size 35)
 
 clefVariations =
-#(define-music-function (parser location type)(string?)
+#(define-music-function (type)(string?)
    #{
      \once \omit Staff.Clef s4
      \override Staff.Clef.full-size-change = ##t

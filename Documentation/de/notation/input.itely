@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @c Translators: Till Paala
 
@@ -613,10 +613,10 @@ einer @bs{}@code{score}-Umgebung verwenden wollen.}
 }
 
 \score {
-  \new Staff \relative g, {
+  \new Staff \relative {
     \clef bass
     \key g \major
-    \repeat unfold 2 { g16( d' b') a b d, b' d, } |
+    \repeat unfold 2 { g,16( d' b') a b d, b' d, } |
     \repeat unfold 2 { g,16( e' c') b c e, c' e, } |
   }
   \header {
@@ -625,7 +625,7 @@ einer @bs{}@code{score}-Umgebung verwenden wollen.}
 }
 
 \score {
-  \new Staff \relative b {
+  \new Staff \relative {
     \clef bass
     \key g \major
     \partial 16 b16 |
@@ -1631,7 +1631,7 @@ einer Oper in das Inhaltsverzeichnis aufzunehmen:
 }
 
 tocAct =
-#(define-music-function (parser location text) (markup?)
+#(define-music-function (text) (markup?)
    (add-toc-item! 'tocActMarkup text))
 @end verbatim
 
@@ -1646,7 +1646,7 @@ tocAct =
 }
 
 tocAct =
-#(define-music-function (parser location text) (markup?)
+#(define-music-function (text) (markup?)
    (add-toc-item! 'tocActMarkup text))
 
 \book {

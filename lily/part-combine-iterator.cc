@@ -25,15 +25,11 @@
 #include "music-sequence.hh"
 #include "warn.hh"
 
-enum Outlet_type
-{
-  CONTEXT_ONE, CONTEXT_TWO,
-  CONTEXT_SHARED, CONTEXT_SOLO,
-  CONTEXT_NULL, NUM_OUTLETS
-};
-
-static const char *outlet_names_[NUM_OUTLETS]
-  = {"one", "two", "shared", "solo", "null"};
+static const char *const CONTEXT_ONE = "one";
+static const char *const CONTEXT_TWO = "two";
+static const char *const CONTEXT_SHARED = "shared";
+static const char *const CONTEXT_SOLO = "solo";
+static const char *const CONTEXT_NULL = "null";
 
 class Part_combine_iterator : public Music_iterator
 {
@@ -53,15 +49,8 @@ protected:
   virtual bool ok () const;
 
 private:
-  /* used by try_process */
-  void set_busy (SCM);
-  bool busy_;
-  bool notice_busy_;
-
-  bool try_process (Music_iterator *i, Moment m);
-
-  Music_iterator *first_iter_;
-  Music_iterator *second_iter_;
+  static const size_t NUM_PARTS = 2;
+  Music_iterator *iterators_[NUM_PARTS];
   Moment start_moment_;
 
   SCM split_list_;
@@ -70,6 +59,7 @@ private:
 
   enum Status
   {
+    INITIAL,
     APART,
     TOGETHER,
     SOLO,
@@ -82,18 +72,10 @@ private:
   // e.g. 1 for Solo I, 2 for Solo II.
   int chosen_part_;
 
-  int last_playing_;
-
-  /*
-    TODO: this is getting off hand...
-  */
-  Context_handle handles_[NUM_OUTLETS];
-
-  void substitute_both (Outlet_type to1,
-                        Outlet_type to2);
-  void kill_mmrest_in_inactive_outlets ();
-  /* parameter is really Outlet_type */
-  void kill_mmrest (int in);
+  void substitute_one (Music_iterator *iter, const char *voice_id);
+  void substitute_both (const char *part1_voice_id, const char *part2_voice_id);
+  bool is_active_outlet (const Context *c) const;
+  void kill_mmrest (Context *c);
   void chords_together ();
   void solo1 ();
   void solo2 ();
@@ -101,46 +83,34 @@ private:
   void unisono (bool silent, int newpart);
 };
 
+const size_t Part_combine_iterator::NUM_PARTS;
+
 void
 Part_combine_iterator::do_quit ()
 {
-  if (first_iter_)
-    first_iter_->quit ();
-  if (second_iter_)
-    second_iter_->quit ();
-
-  // Add listeners to all contexts except Devnull.
-  for (int i = 0; i < NUM_OUTLETS; i++)
-    {
-      Context *c = handles_[i].get_context ();
-      if (c->is_alias (ly_symbol2scm ("Voice")))
-        c->event_source ()->remove_listener (GET_LISTENER (Part_combine_iterator, set_busy), ly_symbol2scm ("music-event"));
-      handles_[i].set_context (0);
-    }
+  for (size_t i = 0; i < NUM_PARTS; i++)
+    if (iterators_[i])
+      iterators_[i]->quit ();
 }
 
 Part_combine_iterator::Part_combine_iterator ()
 {
   mmrest_event_ = 0;
 
-  first_iter_ = 0;
-  second_iter_ = 0;
+  for (size_t i = 0; i < NUM_PARTS; i++)
+    iterators_[i] = 0;
   split_list_ = SCM_EOL;
-  state_ = APART;
+  state_ = INITIAL;
   chosen_part_ = 1;
-  last_playing_ = 0;
-
-  busy_ = false;
-  notice_busy_ = false;
 }
 
 void
 Part_combine_iterator::derived_mark () const
 {
-  if (first_iter_)
-    scm_gc_mark (first_iter_->self_scm ());
-  if (second_iter_)
-    scm_gc_mark (second_iter_->self_scm ());
+  for (size_t i = 0; i < NUM_PARTS; i++)
+    if (iterators_[i])
+      scm_gc_mark (iterators_[i]->self_scm ());
+
   if (mmrest_event_)
     scm_gc_mark (mmrest_event_->self_scm ());
 }
@@ -149,8 +119,9 @@ void
 Part_combine_iterator::derived_substitute (Context *f,
                                            Context *t)
 {
-  if (first_iter_)
-    first_iter_->substitute_outlet (f, t);
+  // (Explain why just iterators_[0].)
+  if (iterators_[0])
+    iterators_[0]->substitute_outlet (f, t);
 }
 
 Moment
@@ -158,48 +129,74 @@ Part_combine_iterator::pending_moment () const
 {
   Moment p;
   p.set_infinite (1);
-  if (first_iter_->ok ())
-    p = min (p, first_iter_->pending_moment ());
 
-  if (second_iter_->ok ())
-    p = min (p, second_iter_->pending_moment ());
+  for (size_t i = 0; i < NUM_PARTS; i++)
+    if (iterators_[i]->ok ())
+      p = min (p, iterators_[i]->pending_moment ());
+
   return p;
 }
 
 bool
 Part_combine_iterator::ok () const
 {
-  return first_iter_->ok () || second_iter_->ok ();
+  for (size_t i = 0; i < NUM_PARTS; i++)
+    if (iterators_[i]->ok ())
+      return true;
+
+  return false;
 }
 
 void
-Part_combine_iterator::substitute_both (Outlet_type to1,
-                                        Outlet_type to2)
+Part_combine_iterator::substitute_one (Music_iterator *iter,
+                                       const char *voice_id)
 {
-  first_iter_->substitute_outlet (first_iter_->get_outlet (),
-                                  handles_[to1].get_context ());
-  second_iter_->substitute_outlet (second_iter_->get_outlet (),
-                                   handles_[to2].get_context ());
-}
-
-void Part_combine_iterator::kill_mmrest_in_inactive_outlets ()
-{
-  for (int j = 0; j < NUM_OUTLETS; j++)
+  Context *c = iter->get_outlet ();
+  if (!c)
     {
-      Context *c = handles_[j].get_context ();
-
-      if (first_iter_->get_outlet () == c)
-        continue;
-
-      if (second_iter_->get_outlet () == c)
-        continue;
-
-      kill_mmrest (j);
+      programming_error ("no context");
+      return;
     }
+  c = c->get_parent_context ();
+  if (!c)
+    {
+      programming_error ("no parent context");
+      return;
+    }
+  c = find_context_below (c, ly_symbol2scm("Voice"), voice_id);
+  if (!c)
+    {
+      string s = "can not find Voice context: ";
+      s += voice_id;
+      programming_error (s);
+      return;
+    }
+  iter->substitute_outlet (iter->get_outlet (), c);
 }
 
 void
-Part_combine_iterator::kill_mmrest (int in)
+Part_combine_iterator::substitute_both (const char *part1_voice_id,
+                                        const char *part2_voice_id)
+{
+  // TODO: There is no good reason to tie the parts together here.
+  // Factor out per-part stuff into a new class of iterator which
+  // reads a part-specific list similar to the existing combined
+  // "split-list".
+  substitute_one(iterators_[0], part1_voice_id);
+  substitute_one(iterators_[1], part2_voice_id);
+}
+
+bool Part_combine_iterator::is_active_outlet (const Context *c) const
+{
+  for (size_t i = 0; i < NUM_PARTS; i++)
+    if (iterators_[i] && (iterators_[i]->get_outlet () == c))
+      return true;
+
+  return false;
+}
+
+void
+Part_combine_iterator::kill_mmrest (Context *c)
 {
 
   if (!mmrest_event_)
@@ -211,7 +208,7 @@ Part_combine_iterator::kill_mmrest (int in)
       mmrest_event_->unprotect ();
     }
 
-  handles_[in].get_context ()->event_source ()->broadcast (mmrest_event_);
+  c->event_source ()->broadcast (mmrest_event_);
 }
 
 void
@@ -223,8 +220,8 @@ Part_combine_iterator::unisono (bool silent, int newpart)
     return;
   else
     {
-      Outlet_type c1 = (newpart == 2) ? CONTEXT_NULL : CONTEXT_SHARED;
-      Outlet_type c2 = (newpart == 2) ? CONTEXT_SHARED : CONTEXT_NULL;
+      const char *c1 = (newpart == 2) ? CONTEXT_NULL : CONTEXT_SHARED;
+      const char *c2 = (newpart == 2) ? CONTEXT_SHARED : CONTEXT_NULL;
       substitute_both (c1, c2);
 
       state_ = newstate;
@@ -289,55 +286,9 @@ Part_combine_iterator::construct_children ()
   start_moment_ = get_outlet ()->now_mom ();
   split_list_ = get_music ()->get_property ("split-list");
 
-  Context *c = get_outlet ();
-
-  for (int i = 0; i < NUM_OUTLETS; i++)
-    {
-      SCM type = (i == CONTEXT_NULL) ? ly_symbol2scm ("Devnull") : ly_symbol2scm ("Voice");
-      /* find context below c: otherwise we may create new staff for each voice */
-      c = c->find_create_context (type, outlet_names_[i], SCM_EOL);
-      handles_[i].set_context (c);
-      if (c->is_alias (ly_symbol2scm ("Voice")))
-        c->event_source ()->add_listener (GET_LISTENER (Part_combine_iterator, set_busy), ly_symbol2scm ("music-event"));
-    }
-
   SCM lst = get_music ()->get_property ("elements");
-  Context *one = handles_[CONTEXT_ONE].get_context ();
-  set_context (one);
-  first_iter_ = Music_iterator::unsmob (get_iterator (Music::unsmob (scm_car (lst))));
-  Context *two = handles_[CONTEXT_TWO].get_context ();
-  set_context (two);
-  second_iter_ = Music_iterator::unsmob (get_iterator (Music::unsmob (scm_cadr (lst))));
-  Context *shared = handles_[CONTEXT_SHARED].get_context ();
-  set_context (shared);
-}
-
-void
-Part_combine_iterator::set_busy (SCM se)
-{
-  if (!notice_busy_)
-    return;
-
-  Stream_event *e = Stream_event::unsmob (se);
-
-  if (e->in_event_class ("note-event") || e->in_event_class ("cluster-note-event"))
-    busy_ = true;
-}
-
-/*
-  Processes a moment in an iterator, and returns whether any new music
-  was reported.
-*/
-bool
-Part_combine_iterator::try_process (Music_iterator *i, Moment m)
-{
-  busy_ = false;
-  notice_busy_ = true;
-
-  i->process (m);
-
-  notice_busy_ = false;
-  return busy_;
+  iterators_[0] = unsmob<Music_iterator> (get_iterator (unsmob<Music> (scm_car (lst))));
+  iterators_[1] = unsmob<Music_iterator> (get_iterator (unsmob<Music> (scm_cadr (lst))));
 }
 
 void
@@ -351,16 +302,17 @@ Part_combine_iterator::process (Moment m)
   if (start_moment_.main_part_.is_infinity () && start_moment_ < 0)
     start_moment_ = now;
 
+  Context *prev_active_outlets[NUM_PARTS];
+  for (size_t i = 0; i < NUM_PARTS; i++)
+    prev_active_outlets[i] = iterators_[i]->get_outlet ();
+
   for (; scm_is_pair (split_list_); split_list_ = scm_cdr (split_list_))
     {
-      splitm = Moment::unsmob (scm_caar (split_list_));
+      splitm = unsmob<Moment> (scm_caar (split_list_));
       if (splitm && *splitm + start_moment_ > now)
         break;
 
       SCM tag = scm_cdar (split_list_);
-
-      Context *outletsBefore[] = { first_iter_->get_outlet (),
-                                   second_iter_->get_outlet () };
 
       if (scm_is_eq (tag, ly_symbol2scm ("chords")))
         chords_together ();
@@ -372,12 +324,12 @@ Part_combine_iterator::process (Moment m)
         {
           // Continue to use the most recently used part because we might have
           // killed mmrests in the other part.
-          unisono (false, (last_playing_ == 2) ? 2 : 1);
+          unisono (false, (chosen_part_ == 2) ? 2 : 1);
         }
       else if (scm_is_eq (tag, ly_symbol2scm ("unisilence")))
         {
           // as for unisono
-          unisono (true, (last_playing_ == 2) ? 2 : 1);
+          unisono (true, (chosen_part_ == 2) ? 2 : 1);
         }
       else if (scm_is_eq (tag, ly_symbol2scm ("silence1")))
         unisono (true, 1);
@@ -393,22 +345,28 @@ Part_combine_iterator::process (Moment m)
                      + (scm_is_symbol (tag) ? ly_symbol2string (tag) : string ("not a symbol"));
           programming_error (s);
         }
-
-      if ((first_iter_->get_outlet () != outletsBefore[0])
-          || (second_iter_->get_outlet () != outletsBefore[1]))
-        kill_mmrest_in_inactive_outlets ();
     }
 
-  if (first_iter_->ok ())
+  bool any_outlet_changed = false;
+  for (size_t i = 0; i < NUM_PARTS; i++)
     {
-      if (try_process (first_iter_, m))
-        last_playing_ = 1;
+      if (iterators_[i]->ok ())
+        iterators_[i]->process (m);
+
+      if (prev_active_outlets[i] != iterators_[i]->get_outlet ())
+          any_outlet_changed = true;
     }
 
-  if (second_iter_->ok ())
+  if (any_outlet_changed)
     {
-      if (try_process (second_iter_, m))
-        last_playing_ = 2;
+      // Kill multi-measure rests in outlets that were previously active and
+      // are no longer active.
+      for (size_t i = 0; i < NUM_PARTS; i++)
+        {
+          Context *c = prev_active_outlets[i];
+          if (c && !is_active_outlet (c))
+              kill_mmrest (c);
+        }
     }
 }
 

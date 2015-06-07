@@ -102,7 +102,7 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item *> bounds,
         continue;
 
       if (!stem)
-        stem = Grob::unsmob (head->get_object ("stem"));
+        stem = unsmob<Grob> (head->get_object ("stem"));
 
       Real p = Staff_symbol_referencer::get_position (head);
       Interval y ((p - 1) * 0.5 * staff_space,
@@ -211,7 +211,7 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item *> bounds,
               boxes.push_back (Box (x, y));
             }
 
-          Grob *acc = Grob::unsmob (heads[i]->get_object ("accidental-grob"));
+          Grob *acc = unsmob<Grob> (heads[i]->get_object ("accidental-grob"));
           if (acc)
             acc->get_property ("after-line-breaking"); /* trigger tie-related suicide */
 
@@ -380,7 +380,7 @@ Tie_formatting_problem::from_semi_ties (vector<Grob *> const &semi_ties, Directi
   for (vsize i = 0; i < semi_ties.size (); i++)
     {
       Tie_specification spec;
-      Item *head = Item::unsmob (semi_ties[i]->get_object ("note-head"));
+      Item *head = unsmob<Item> (semi_ties[i]->get_object ("note-head"));
 
       if (!head)
         programming_error ("LV tie without head?!");
@@ -655,7 +655,7 @@ Tie_formatting_problem::score_aptitude (Tie_configuration *conf,
           if (!spec.note_head_drul_[d])
             continue;
 
-          Grob *stem = Grob::unsmob (spec.note_head_drul_[d]->get_object ("stem"));
+          Grob *stem = unsmob<Grob> (spec.note_head_drul_[d]->get_object ("stem"));
           if (stem
               && Stem::is_normal_stem (stem))
             stems[d] = stem;

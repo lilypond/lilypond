@@ -3,7 +3,7 @@
   $Id$
 %}
 
-\version "2.17.30"
+\version "2.19.22"
 
 %
 % Declare memorable shortcuts for special unicode characters
@@ -37,12 +37,12 @@ iij = \lyricmode { iĳ }
 
 % Add unicode 2123 (versicle) as prefix to lyrics.
 versus =
-#(define-music-function (parser location music) (ly:music?)
+#(define-music-function (music) (ly:music?)
    (add-prefix-to-lyrics "℣" music))
 
 % Add unicode 211F (response) as prefix to lyrics.
 responsum =
-#(define-music-function (parser location music) (ly:music?)
+#(define-music-function (music) (ly:music?)
    (add-prefix-to-lyrics "℟" music))
 
 %
@@ -151,7 +151,7 @@ circulus = #(make-articulation "circulus")
 % it is applied by one.
 %
 augmentum =
-#(define-music-function (parser location expr) (ly:music?)
+#(define-music-function (expr) (ly:music?)
    (shift-duration-log expr 0 1))
 
 %

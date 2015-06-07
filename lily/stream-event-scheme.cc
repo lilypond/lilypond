@@ -23,7 +23,7 @@ LY_DEFINE (ly_stream_event_p, "ly:stream-event?",
            1, 0, 0, (SCM obj),
            "Is @code{@var{obj}} a @code{Stream_event} object?")
 {
-  return scm_from_bool (Stream_event::is_smob (obj));
+  return scm_from_bool (unsmob<Stream_event> (obj));
 }
 
 LY_DEFINE (ly_make_stream_event, "ly:make-stream-event",
@@ -49,7 +49,7 @@ LY_DEFINE (ly_event_property, "ly:event-property",
            "  If @var{sym} is undefined, return @var{val} or"
            " @code{'()} if @var{val} is not specified.")
 {
-  LY_ASSERT_SMOB (Stream_event, sev, 1)
+  LY_ASSERT_SMOB (Stream_event, sev, 1);
   return ly_prob_property (sev, sym, val);
 }
 
@@ -68,7 +68,7 @@ LY_DEFINE (ly_event_deep_copy, "ly:event-deep-copy",
            "Copy @var{m} and all sub expressions of@tie{}@var{m}.")
 {
   SCM copy = m;
-  if (Stream_event *ev = Stream_event::unsmob (m))
+  if (Stream_event *ev = unsmob<Stream_event> (m))
     {
       ev = ev->clone ();
       copy = ev->unprotect ();

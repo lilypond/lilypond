@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
     texidoc = "Create compound time signatures. The argument is a Scheme list
@@ -15,10 +15,10 @@ as @code{\\compoundMeter #'((3 2 8))} or shorter
 
 
 
-\relative c' {
+\relative {
   \override Staff.TimeSignature.break-visibility = ##(#f #t #t)
   \compoundMeter #'(1 2 3 4 8)
-  \repeat unfold 10 c8 \repeat unfold 20 c16 \break
+  \repeat unfold 10 c'8 \repeat unfold 20 c16 \break
 
   \time 3/4
   \repeat unfold 6 c8 \repeat unfold 12 c16 \break

@@ -184,9 +184,11 @@ However, the chord repetition symbol does not retain any dynamics,
 articulation or ornamentation within, or attached to, the previous
 chord.
 
-@lilypond[verbatim,quote,relative=2]
-<a-. c\prall e>1\sfz c'4 q2 r8 q8 |
-q2 c, |
+@lilypond[verbatim,quote]
+\relative {
+  <a'-. c\prall e>1\sfz c'4 q2 r8 q8 |
+  q2 c, |
+}
 @end lilypond
 
 To have some of them retained, the @code{\chordRepeats} function can be
@@ -195,9 +197,9 @@ be called explicitly with an extra argument specifying a list of
 present on the @code{q} chord itself.
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \chordRepeats #'(articulation-event)
-  { <a-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
+  { <a'-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
   q2 c, |
 }
 @end lilypond
@@ -214,14 +216,12 @@ In that case, the whole content of the inner @code{\relative} does not
 affect the outer one; hence the different octave entry of the final note
 in this example.
 
-@c Without \new Voice, implicit voice creation does the dumbest thing.
 @lilypond[verbatim,quote]
-\new Voice
-\relative c'' {
+\relative {
   \chordRepeats #'(articulation-event)
   \relative
   { <a'-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
-  q2 c |
+  q2 c'' |
 }
 @end lilypond
 

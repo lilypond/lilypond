@@ -40,7 +40,7 @@ using namespace std;
 Input *
 Score::origin () const
 {
-  return Input::unsmob (input_location_);
+  return unsmob<Input> (input_location_);
 }
 
 Score::Score ()
@@ -83,7 +83,7 @@ Score::Score (Score const &s)
   smobify_self ();
   input_location_ = s.origin ()->smobbed_copy ();
 
-  Music *m = Music::unsmob (s.music_);
+  Music *m = unsmob<Music> (s.music_);
   if (m)
     {
       Music *mclone = m->clone ();
@@ -139,7 +139,7 @@ Score::book_rendering (Output_def *layoutbook,
 
       /* TODO: fix or junk --no-layout.  */
       SCM context = ly_run_translator (music_, scaled);
-      if (Global_context::unsmob (context))
+      if (unsmob<Global_context> (context))
         {
           SCM s = ly_format_output (context);
 
@@ -155,12 +155,12 @@ Score::book_rendering (Output_def *layoutbook,
 void
 Score::set_music (SCM music)
 {
-  if (Music::is_smob (music_))
+  if (unsmob<Music> (music_))
     {
-      Music::unsmob (music)->origin ()->error (_ ("already have music in score"));
-      Music::unsmob (music_)->origin ()->error (_ ("this is the previous music"));
+      unsmob<Music> (music)->origin ()->error (_ ("already have music in score"));
+      unsmob<Music> (music_)->origin ()->error (_ ("this is the previous music"));
     }
-  Music *m = Music::unsmob (music);
+  Music *m = unsmob<Music> (music);
   if (m && to_boolean (m->get_property ("error-found")))
     {
       m->origin ()->error (_ ("errors found, ignoring music expression"));

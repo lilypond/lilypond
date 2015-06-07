@@ -52,7 +52,7 @@ Staff_symbol_referencer::get_staff_symbol (Grob *me)
     return me;
 
   SCM st = me->get_object ("staff-symbol");
-  return Grob::unsmob (st);
+  return unsmob<Grob> (st);
 }
 
 Real
@@ -138,7 +138,7 @@ MAKE_SCHEME_CALLBACK (Staff_symbol_referencer, callback, 1);
 SCM
 Staff_symbol_referencer::callback (SCM smob)
 {
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
 
   SCM pos = me->get_property ("staff-position");
   Real off = 0.0;

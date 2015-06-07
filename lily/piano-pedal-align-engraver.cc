@@ -238,7 +238,7 @@ Piano_pedal_align_engraver::finalize ()
       if (pedal_info_[i].line_spanner_)
         {
           SCM cc = get_property ("currentCommandColumn");
-          Item *c = Item::unsmob (cc);
+          Item *c = unsmob<Item> (cc);
           pedal_info_[i].line_spanner_->set_bound (RIGHT, c);
 
           pedal_info_[i].clear ();

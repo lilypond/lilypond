@@ -32,7 +32,7 @@ template <class Super>
 SCM
 Smob_base<Super>::mark_trampoline (SCM arg)
 {
-  Super *ptr = Super::unsmob (arg);
+  Super *ptr = unsmob<Super> (arg);
   if (ptr)
     return ptr->mark_smob ();
   return SCM_UNDEFINED;
@@ -42,7 +42,7 @@ template <class Super>
 int
 Smob_base<Super>::print_trampoline (SCM arg, SCM port, scm_print_state *p)
 {
-  Super *ptr = Super::unsmob (arg);
+  Super *ptr = unsmob<Super> (arg);
   if (ptr)
     return ptr->print_smob (port, p);
   return 0;
@@ -135,13 +135,7 @@ void Smob_base<Super>::init ()
 
   if (&Super::free_smob != &Smob_base<Super>::free_smob)
     scm_set_smob_free (smob_tag_, Super::free_smob);
-  // Old GCC versions get their type lattice for pointers-to-members
-  // tangled up to a degree where we need to typecast _both_ covariant
-  // types in order to be able to compare them.  The other comparisons
-  // are for static member functions and thus are ordinary function
-  // pointers which work without those contortions.
-  if (static_cast<SCM (Super::*)()>(&Super::mark_smob) !=
-      static_cast<SCM (Super::*)()>(&Smob_base<Super>::mark_smob))
+  if (&Super::mark_smob != &Smob_base<Super>::mark_smob)
     scm_set_smob_mark (smob_tag_, Super::mark_trampoline);
   scm_set_smob_print (smob_tag_, Super::print_trampoline);
   if (&Super::equal_p != &Smob_base<Super>::equal_p)
@@ -157,11 +151,6 @@ void Smob_base<Super>::init ()
       scm_c_export (Super::type_p_name_, NULL);
     }
   ly_add_type_predicate ((void *) is_smob, smob_name_.c_str ());
-  if (Super::smob_proc_signature_ >= 0)
-    scm_set_smob_apply (smob_tag_,
-                        (scm_t_subr)Super::smob_proc,
-                        Super::smob_proc_signature_ >> 8,
-                        (Super::smob_proc_signature_ >> 4)&0xf,
-                        Super::smob_proc_signature_ & 0xf);
+  Super::smob_proc_init (smob_tag_);
 }
 #endif

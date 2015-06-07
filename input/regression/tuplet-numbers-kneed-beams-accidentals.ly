@@ -1,4 +1,4 @@
-\version "2.19.3"
+\version "2.19.21"
 
 \header {
   texidoc = "Tuplet numbers associated with kneed beams will
@@ -13,7 +13,7 @@ avoid accidentals."
 top = \change Staff = "1"
 bottom = \change Staff = "2"
 
-music = \relative c {
+music = \relative {
   \override Beam.auto-knee-gap = 1
   \tuplet 5/4 4 {
     c16[ \top g'' e' \bottom fis,, \top c']

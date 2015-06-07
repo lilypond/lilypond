@@ -1,5 +1,5 @@
 
-\version "2.17.11"
+\version "2.19.21"
 
 \header {
     texidoc = "Broken nested tuplets avoid each other correctly.
@@ -14,13 +14,13 @@
 \score {
   \new Staff
   <<
-    \relative c'' {
+    \relative {
       \override Score.Beam.breakable = ##t
 
       r2
 
       \tuplet 3/4 {
-        \tuplet 3/2 { c8[ c c] }
+        \tuplet 3/2 { c''8[ c c] }
         \tuplet 3/2 { c8[ c c] }
         \tuplet 3/2 { c8[ c c] }
       }

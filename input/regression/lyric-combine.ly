@@ -17,9 +17,9 @@ lyrics ignore any other rhythms in the piece."
 
 
 
-m = \relative c'' {
+m = \relative {
     \autoBeamOff
-    g8( a)  r8 \tuplet 3/2 { g'8( f e) } r8 \grace {  d16[ c b] } e4
+    g'8( a)  r8 \tuplet 3/2 { g'8( f e) } r8 \grace {  d16[ c b] } e4
     \textLengthOff
     d8.^"melisma" 	\melisma c16
     \melismaEnd

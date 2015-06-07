@@ -43,6 +43,8 @@
 class Protected_scm
 {
   SCM object_;
+  static SCM list_;
+  static SCM last_;
   Protected_scm (Protected_scm const &);
 public:
   Protected_scm ();

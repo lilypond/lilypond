@@ -95,7 +95,7 @@ get_voice_to_lyrics (Context *lyrics)
   bool searchForVoice = to_boolean (lyrics->get_property ("searchForVoice"));
 
   SCM avc = lyrics->get_property ("associatedVoiceContext");
-  if (Context *c = Context::unsmob (avc))
+  if (Context *c = unsmob<Context> (avc))
     return c;
 
   SCM voice_name = lyrics->get_property ("associatedVoice");
@@ -145,8 +145,8 @@ get_current_note_head (Context *voice)
   for (SCM s = voice->get_property ("busyGrobs");
        scm_is_pair (s); s = scm_cdr (s))
     {
-      Grob *g = Grob::unsmob (scm_cdar (s));;
-      Moment *end_mom = Moment::unsmob (scm_caar (s));
+      Grob *g = unsmob<Grob> (scm_cdar (s));;
+      Moment *end_mom = unsmob<Moment> (scm_caar (s));
       if (!end_mom || !g)
         {
           programming_error ("busyGrobs invalid");
@@ -156,7 +156,7 @@ get_current_note_head (Context *voice)
       // It's a bit irritating that we just have the length and
       // duration of the Grob.
       Moment end_from_now =
-        get_event_length (Stream_event::unsmob (g->get_property ("cause")), now)
+        get_event_length (unsmob<Stream_event> (g->get_property ("cause")), now)
         + now;
       // We cannot actually include more than a single grace note
       // using busyGrobs on ungraced lyrics since a grob ending on

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (_ "More alternatives than repeats.  Junking excess alternatives"))
@@ -14,8 +14,8 @@ get to the number of repeats.
 Unfolded behavior:"
 }
 
-\context Voice \relative c'' {
-  \repeat unfold 3 { c^"3x 0a" d }
+\context Voice \relative {
+  \repeat unfold 3 { c''^"3x 0a" d }
   %% less alts than body
   \repeat unfold 4 { c^"4x 0a" d } \alternative { e f }
   %% more alts than body

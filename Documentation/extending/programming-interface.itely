@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @node Interfaces for programmers
 @chapter Interfaces for programmers
@@ -51,7 +51,7 @@ LilyPond code blocks look like
 Here is a trivial example:
 
 @lilypond[verbatim,quote]
-ritpp = #(define-event-function (parser location) ()
+ritpp = #(define-event-function () ()
   #{ ^"rit." \pp #}
 )
 
@@ -63,11 +63,8 @@ code.  The Scheme reader actually is changed for accommodating
 LilyPond code blocks and can deal with embedded Scheme expressions
 starting with @code{$} and@w{ }@code{#}.
 
-@cindex parser (function argument)
-@cindex location
-
 The reader extracts the LilyPond code block and generates a runtime
-call to the LilyPond @code{parser} to interpret the LilyPond code.
+call to the LilyPond parser to interpret the LilyPond code.
 Scheme expressions embedded in the LilyPond code are evaluated in the
 lexical environment of the LilyPond code block, so all local variables
 and function parameters available at the point the LilyPond code block
@@ -77,10 +74,8 @@ are not accessible as Scheme variables, i.e. prefixed
 with@tie{}@code{#}, but they are accessible as LilyPond variables, i.e.
 prefixed with@tie{}@code{\}.
 
-If @code{location} (see @ref{Scheme functions}) refers to a valid
-input location (which it usually does inside of music/@/Scheme
-functions), all music generated inside the code block has its
-@samp{origin} set to @code{location}.
+All music generated inside the code block has its
+@samp{origin} set to the current input location.
 
 A LilyPond code block may contain anything that you can use on the
 right side of an assignment.  In addition, an empty LilyPond block
@@ -114,7 +109,7 @@ The general form for defining scheme functions is:
 @example
 function =
 #(define-scheme-function
-     (parser location @var{arg1} @var{arg2} @dots{})
+     (@var{arg1} @var{arg2} @dots{})
      (@var{type1?} @var{type2?} @dots{})
    @var{body})
 @end example
@@ -123,15 +118,6 @@ function =
 where
 
 @multitable @columnfractions .33 .66
-@item @code{parser}
-@tab needs to be literally @code{parser} in order to give LilyPond code
-blocks (@code{#@{}@dots{}@code{#@}}) access to the parser.
-
-@item @code{location}
-@tab needs to be literally @code{location} in order to provide access
-to the input location object, which is used to provide error messages
-with file names and line numbers.
-
 @item @code{@var{argN}}
 @tab @var{n}th argument
 
@@ -148,7 +134,7 @@ don't follow it with a default value, @code{#f} is used as the default.
 Default values are not verified with @emph{predicate?} at either
 definition or run time: it is your responsibility to deal with the
 values you specify.  Default values that happen to be music expressions
-are copied while setting @code{origin} to the @code{location} parameter.
+are copied while setting @code{origin} to the current input location.
 
 @item @code{@var{body}}
 @tab A sequence of Scheme forms evaluated in order, the last one being
@@ -262,7 +248,7 @@ sure that this special value (the only value satisfying the predicate
 @example
 noPointAndClick =
 #(define-void-function
-     (parser location)
+     ()
      ()
    (ly:set-option 'point-and-click #f))
 @dots{}
@@ -311,7 +297,7 @@ The general form for defining music functions is:
 @example
 function =
 #(define-music-function
-     (parser location @var{arg1} @var{arg2} @dots{})
+     (@var{arg1} @var{arg2} @dots{})
      (@var{type1?} @var{type2?} @dots{})
    @var{body})
 @end example
@@ -387,7 +373,7 @@ using a @code{pair?} variable:
 @example
 manualBeam =
 #(define-music-function
-     (parser location beg-end)
+     (beg-end)
      (pair?)
    #@{
      \once \override Beam.positions = #beg-end
@@ -406,7 +392,7 @@ music expression:
 @lilypond[quote,verbatim,ragged-right]
 manualBeam =
 #(define-music-function
-     (parser location beg end)
+     (beg end)
      (number? number?)
    #{
      \once \override Beam.positions = #(cons beg end)
@@ -455,7 +441,7 @@ set on exit.
 
 @example
 crossStaff =
-#(define-music-function (parser location notes) (ly:music?)
+#(define-music-function (notes) (ly:music?)
   (_i "Create cross-staff stems")
   #@{
   \temporary \override Stem.cross-staff = #cross-staff-connect
@@ -476,7 +462,7 @@ addition to simple substitution,
 @lilypond[quote,verbatim,ragged-right]
 AltOn =
 #(define-music-function
-     (parser location mag)
+     (mag)
      (number?)
    #{
      \override Stem.length = #(* 7.0 mag)
@@ -501,7 +487,7 @@ This example may be rewritten to pass in music expressions,
 @lilypond[quote,verbatim,ragged-right]
 withAlt =
 #(define-music-function
-     (parser location mag music)
+     (mag music)
      (number? ly:music?)
    #{
      \override Stem.length = #(* 7.0 mag)
@@ -535,7 +521,7 @@ without arguments,
 @example
 displayBarNum =
 #(define-music-function
-     (parser location)
+     ()
      ()
    (if (eq? #t (ly:get-option 'display-bar-numbers))
        #@{ \once \override Score.BarNumber.break-visibility = ##f #@}
@@ -572,7 +558,7 @@ to write dynamics commands, those are usually attached without direction
 indicator, like @code{c'\pp}.  Here is a way to write arbitrary
 dynamics:
 @lilypond[quote,verbatim,ragged-right]
-dyn=#(define-event-function (parser location arg) (markup?)
+dyn=#(define-event-function (arg) (markup?)
          (make-dynamic-script arg))
 \relative { c'\dyn pfsss }
 @end lilypond
@@ -1239,7 +1225,7 @@ restrict the modifications to a single music block.  Notice how
 @lilypond[quote,verbatim]
 desaturate =
 #(define-music-function
-   (parser location music) (ly:music?)
+   (music) (ly:music?)
    #{
      \applyContext
      #(lambda (context)
@@ -1257,11 +1243,11 @@ desaturate =
         (for-each revert-color '(NoteHead Stem Beam)))
    #})
 
-\relative g' {
+\relative {
   \override NoteHead.color = #darkblue
   \override Stem.color = #darkblue
   \override Beam.color = #darkblue
-  g8 a b c
+  g'8 a b c
   \desaturate { d c b a }
   g b d b g2
 }
@@ -1367,11 +1353,11 @@ calling the function that is the usual callback for that property, which
 can by found in the Internals Reference or the file 'define-grobs.scm':
 
 @example
-\relative c'' @{
+\relative @{
   \override Flag.X-offset = #(lambda (flag)
     (let ((default (ly:flag::calc-x-offset flag)))
       (* default 4.0)))
-  c4. d8 a4. g8
+  c''4. d8 a4. g8
 @}
 @end example
 
@@ -1494,10 +1480,10 @@ of the broken tie is repositioned.
               (eq? (car (last-pair siblings)) grob))
          (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
 
-\relative c'' {
+\relative {
   \override Tie.after-line-breaking =
   #my-callback
-  c1 ~ \break
+  c''1 ~ \break
   c2 ~ 2
 }
 @end lilypond
@@ -1537,4 +1523,3 @@ This chapter covers the various tools provided by LilyPond to help
 Scheme programmers get information into and out of the music streams.
 
 TODO -- figure out what goes in here and how to organize it
-

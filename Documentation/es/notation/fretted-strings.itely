@@ -309,9 +309,9 @@ forma predeterminada.  Lo mismo rige para la casilla de segunda vez de
 una repetición.
 
 @lilypond[quote,ragged-right,verbatim]
-ties = \relative c' {
+ties = \relative {
   \repeat volta 2 {
-    e2. f4~
+    e'2. f4~
     2 g2~
   }
   \alternative {
@@ -349,9 +349,9 @@ La instrucción @code{\hideSplitTiedTabNotes} cancela el comportamiento
 de imprimir los números de traste entre paréntesis:
 
 @lilypond[quote,ragged-right,verbatim]
-ties = \relative c' {
+ties = \relative {
   \repeat volta 2 {
-    e2. f4~
+    e'2. f4~
     2 g2~ }
   \alternative {
     { g4 f2. }
@@ -1761,10 +1761,10 @@ o armónicos.  Los armónicos se suelen explicar de forma más completa
 con un marcado de texto.
 
 @lilypond[quote,ragged-right,verbatim]
-\relative c' {
+\relative {
   \clef "treble_8"
   \override Staff.NoteHead.style = #'harmonic-mixed
-  d^\markup { \italic { \fontsize #-2 { "harm. 12" }}} <g b>1
+  d'^\markup { \italic { \fontsize #-2 { "harm. 12" }}} <g b>1
 }
 @end lilypond
 

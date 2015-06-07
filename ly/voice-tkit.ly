@@ -1,9 +1,9 @@
-%\version "2.19.19"
+%\version "2.19.22"
 
 \include "base-tkit.ly"
 
 make-voice =
-#(define-music-function (parser location name) (voice-prefix?)
+#(define-music-function (name) (voice-prefix?)
    (define music (make-id name "Music"))
    (if music
        #{

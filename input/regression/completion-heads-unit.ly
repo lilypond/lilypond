@@ -1,4 +1,4 @@
-\version "2.17.11"
+\version "2.19.21"
 
 \header {
 texidoc = "
@@ -17,7 +17,7 @@ Note head completion may be broken into sub-bar units by setting the
   }
 }
 
-\context Staff \relative f {
+\context Staff \relative {
   \time 9/8
   \set completionUnit = #(ly:make-moment 3/8)
   g'1.. r2

@@ -968,14 +968,14 @@ valores del sangrado, @code{indent}, y del sangrado corto,
 consulte @ref{Variables de paper para desplazamientos y sangrados,,Variables de @code{@bs{}paper} para desplazamientos y sangrados}.
 
 @lilypond[verbatim,quote,ragged-right]
-\relative c'' {
+\relative {
   <<
     \new Staff \with {
       instrumentName = #"Alto Flute in G"
       shortInstrumentName = #"Flt."
     }
     {
-      f2 g4 f \break
+      f''2 g4 f \break
       g4 f g2
     }
     \new Staff \with {

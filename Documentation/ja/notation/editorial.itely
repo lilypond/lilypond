@@ -640,11 +640,11 @@ altered:
 
 \score {
   \new ChoirStaff <<
-    \new Staff \relative c'' {
+    \new Staff \relative {
       \stemUp
-      c4. d8 e8 f g4
+      c''4. d8 e8 f g4
     }
-    \new Staff \relative c {
+    \new Staff \relative {
       \clef bass
       \stemDown
       c4 g' f e

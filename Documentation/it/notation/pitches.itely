@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
@@ -2840,7 +2840,7 @@ Si può usare il seguente espediente: si definisce una funzione che
 imposti localmente lo stile delle alterazioni su @code{forget}:
 
 @lilypond[verbatim,quote]
-forget = #(define-music-function (parser location music) (ly:music?) #{
+forget = #(define-music-function (music) (ly:music?) #{
   \accidentalStyle forget
   #music
   \accidentalStyle modern

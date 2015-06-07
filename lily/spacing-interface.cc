@@ -67,7 +67,7 @@ Spacing_interface::skylines (Grob *me, Grob *right_col)
           if (g && Separation_item::has_interface (g) && g->get_column () == columns[d])
             {
               SCM sky_scm = g->get_property ("horizontal-skylines");
-              Skyline_pair *sky = Skyline_pair::unsmob (sky_scm);
+              Skyline_pair *sky = unsmob<Skyline_pair> (sky_scm);
 
               extract_grob_set (g, "elements", elts);
               Grob *ycommon = common_refpoint_of_array (elts, g, Y_AXIS);
@@ -108,7 +108,7 @@ Spacing_interface::right_column (Grob *me)
   if (!me->is_live ())
     return 0;
 
-  Grob_array *a = Grob_array::unsmob (me->get_object ("right-items"));
+  Grob_array *a = unsmob<Grob_array> (me->get_object ("right-items"));
   Item *mincol = 0;
   int min_rank = INT_MAX;
   for (vsize i = 0; a && i < a->size (); i++)

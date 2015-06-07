@@ -47,11 +47,11 @@ evaluate_with_simple_closure (SCM delayed_argument,
                               int start,
                               int end)
 {
-  if (Simple_closure *sc = Simple_closure::unsmob (expr))
+  if (Simple_closure *sc = unsmob<Simple_closure> (expr))
     {
       SCM inside = sc->expression ();
-      SCM proc = !pure && Unpure_pure_container::is_smob (scm_car (inside))
-        ? Unpure_pure_container::unsmob (scm_car (inside))->unpure_part ()
+      SCM proc = !pure && unsmob<Unpure_pure_container> (scm_car (inside))
+        ? unsmob<Unpure_pure_container> (scm_car (inside))->unpure_part ()
         : scm_car (inside);
       SCM args = scm_cons (delayed_argument,
                            evaluate_args (delayed_argument, scm_cdr (inside),
@@ -66,11 +66,11 @@ evaluate_with_simple_closure (SCM delayed_argument,
     return expr;
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("quote")))
     return scm_cadr (expr);
-  else if (Unpure_pure_container::is_smob (scm_car (expr))
+  else if (unsmob<Unpure_pure_container> (scm_car (expr))
            || ly_is_procedure (scm_car (expr)))
     {
-      SCM proc = !pure && Unpure_pure_container::is_smob (scm_car (expr))
-        ? Unpure_pure_container::unsmob (scm_car (expr))->unpure_part ()
+      SCM proc = !pure && unsmob<Unpure_pure_container> (scm_car (expr))
+        ? unsmob<Unpure_pure_container> (scm_car (expr))->unpure_part ()
         : scm_car (expr);
       SCM args = evaluate_args (delayed_argument, scm_cdr (expr), pure, start, end);
       if (scm_is_eq (args, SCM_UNSPECIFIED))
@@ -109,7 +109,7 @@ LY_DEFINE (ly_eval_simple_closure, "ly:eval-simple-closure",
   bool pure = (scm_is_number (scm_start) && scm_is_number (scm_end));
   int start = robust_scm2int (scm_start, 0);
   int end = robust_scm2int (scm_end, 0);
-  SCM expr = Simple_closure::unsmob (closure)->expression ();
+  SCM expr = unsmob<Simple_closure> (closure)->expression ();
   return evaluate_with_simple_closure (delayed, expr, pure, start, end);
 }
 

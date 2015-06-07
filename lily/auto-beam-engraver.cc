@@ -395,7 +395,7 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
       return;
     }
 
-  int durlog = Duration::unsmob (ev->get_property ("duration"))->duration_log ();
+  int durlog = unsmob<Duration> (ev->get_property ("duration"))->duration_log ();
 
   if (durlog <= 2)
     {
@@ -411,10 +411,10 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
   if (!is_same_grace_state (beam_start_location_, now))
     return;
 
-  Duration *stem_duration = Duration::unsmob (ev->get_property ("duration"));
+  Duration *stem_duration = unsmob<Duration> (ev->get_property ("duration"));
   Moment dur = stem_duration->get_length ();
 
-  //Moment dur = Duration::unsmob (ev->get_property ("duration"))->get_length ();
+  //Moment dur = unsmob<Duration> (ev->get_property ("duration"))->get_length ();
   Moment measure_now = measure_position (context ());
   bool recheck_needed = false;
 

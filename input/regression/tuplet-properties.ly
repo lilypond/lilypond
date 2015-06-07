@@ -1,4 +1,4 @@
-\version "2.17.30"
+\version "2.19.21"
 
 \header {
   texidoc = "Tuplet bracket formatting supports numerous options,
@@ -6,9 +6,9 @@ for instance, bracketed (B) and non-bracketed (NB).
 "
 }
 
-\context Voice \relative c'' {
+\context Voice \relative {
 
-  \tuplet 3/2 { c'8 c,, c }
+  \tuplet 3/2 { c'''8 c,, c }
   \tuplet 3/2 { c'8 c'' c,, }
 
   \tuplet 3/2 { c8[^"NB" c c] }

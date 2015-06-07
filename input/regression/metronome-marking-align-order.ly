@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "Metronome marks respect symbol order in
@@ -16,12 +16,12 @@ measure.
   ragged-right = ##t
 }
 
-\relative c' {
+\relative {
   \override Staff.KeySignature.break-align-anchor-alignment = #LEFT
   \override Score.MetronomeMark.break-align-symbols = #'(time-signature key-signature)
   \key c \minor
   \tempo "Time"
-  c1 
+  c'1 
   \key as \major
   \tempo "Key"
   c1

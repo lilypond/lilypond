@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.22"
 
 \header {
   lsrtags = "automatic-notation, really-cool, scheme-language"
@@ -99,8 +99,8 @@ modified to inser all collected scores so far to the book.
             (set! pitch (modulo (1+ pitch) 7)))))
 
 oneNoteScore =
-#(define-music-function (parser location) ()
-   (add-one-note-score parser)
+#(define-music-function () ()
+   (add-one-note-score (*parser*))
    (make-music 'Music 'void #t))
 
 %%%

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 
 @node Pitches
@@ -79,25 +79,38 @@ octave.
 @lilypond[verbatim,quote]
 {
   \clef treble
-  c'4 c'' e' g
-  d''4 d' d c
+  c'4 e' g' c''
+  c'4 g b c'
   \clef bass
-  c,4 c,, e, g
-  d,,4 d, d c
+  c,4 e, g, c
+  c,4 g,, b,, c,
 }
 @end lilypond
 
-@funindex absolute
-@funindex \absolute
-Music can be marked explicitly as being in absolute octave
-notation by preceding it with @code{\absolute}:
+@funindex fixed
+@funindex \fixed
+Common octave marks can be entered just once on a reference pitch
+after @code{\fixed} placed before the music.  Pitches inside
+@code{\fixed} only need @code{'} or@tie{}@code{,} marks
+when they are above or below the octave of the reference pitch.
 
-@example
-\absolute @var{musicexpr}
-@end example
+@lilypond[verbatim,quote]
+{
+  \fixed c' {
+    \clef treble
+    c4 e g c'
+    c4 g, b, c
+  }
+  \clef bass
+  \fixed c, {
+    c4 e g c'
+    c4 g, b, c
+  }
+}
+@end lilypond
 
-will be interpreted in absolute octave entry mode regardless of
-the context it appears in.
+Pitches in the music expression following @code{\fixed} are
+unaffected by any enclosing @code{\relative}, discussed next.
 
 @seealso
 Music Glossary:
@@ -162,20 +175,20 @@ absolute octave mode.  Which choices are meaningful?
 Identifying middle C with @code{c'} is quite basic, so finding
 octaves of @code{c} tends to be straightforward.  If your music
 starts with @code{gis} above @code{c'''}, you'd write something
-like @code{\relative @{ gis''' @dots{} @}}
+like @code{\relative c''' @{ gis' @dots{} @}}
 
 @item an octave of the first note inside
-Writing @code{\relative @{ gis''' @dots{} @}} makes it easy to
+Writing @code{\relative gis''' @{ gis @dots{} @}} makes it easy to
 determine the absolute pitch of the first note inside.
 
 @item no explicit starting pitch
-This (namely writing @code{\relative @{ gis''' @dots{} @}}) can be
-viewed as a compact version of the previous option: the first note
-inside is written in absolute pitch itself.  This happens to be
-equivalent to choosing @code{f} as the reference pitch.
+The form @code{\relative @{ gis''' @dots{} @}}) serves
+as a compact version of the previous option: the first note
+inside is written in absolute pitch itself.  (This happens to be
+equivalent to choosing @code{f} as the reference pitch.)
 @end table
 
-The documentation will usually employ the first option.
+The documentation will usually employ the last option.
 @end itemize
 
 Here is the relative mode shown in action:
@@ -210,7 +223,8 @@ large intervals:
 @end lilypond
 
 When @code{\relative} blocks are nested, the innermost
-@code{\relative} block applies.
+@code{\relative} block starts with its own reference pitch
+independently of the outer @code{\relative}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -285,9 +299,6 @@ that each interval contains.
 }
 @end lilypond
 
-One consequence of these rules is that the first note inside
-@code{@w{\relative f}} music is interpreted just the same as
-if it was written in absolute pitch mode.
 
 @seealso
 Music Glossary:
@@ -508,33 +519,33 @@ In addition to note names, accidental suffixes may
 also vary depending on the language:
 
 @quotation
-@multitable {@code{nederlands}} {-s/--sharp} {-ess/-es} {-ss/-x/--sharpsharp} {-essess/-eses}
+@multitable {@code{nederlands}} {-@code{s}/-@code{-sharp}} {-@code{ess}/-@code{es}} {-@code{ss}/-@code{x}/-@code{-sharpsharp}} {-@code{essess}/-@code{eses}}
 @headitem Language
   @tab sharp @tab flat @tab double sharp @tab double flat
 @item @code{nederlands}
-  @tab -is @tab -es @tab -isis @tab -eses
+  @tab -@code{is} @tab -@code{es} @tab -@code{isis} @tab -@code{eses}
 @item @code{catalan}
-  @tab -d/-s @tab -b @tab -dd/-ss @tab -bb
+  @tab -@code{d}/-@code{s} @tab -@code{b} @tab -@code{dd}/-@code{ss} @tab -@code{bb}
 @item @code{deutsch}
-  @tab -is @tab -es @tab -isis @tab -eses
+  @tab -@code{is} @tab -@code{es} @tab -@code{isis} @tab -@code{eses}
 @item @code{english}
-  @tab -s/--sharp @tab -f/--flat @tab -ss/-x/--sharpsharp
-    @tab -ff/--flatflat
+  @tab -@code{s}/-@code{-sharp} @tab -@code{f}/-@code{-flat} @tab -@code{ss}/-@code{x}/-@code{-sharpsharp}
+    @tab -@code{ff}/-@code{-flatflat}
 @item @code{espanol} or @code{español}
-  @tab -s @tab -b @tab -ss/-x @tab -bb
+  @tab -@code{s} @tab -@code{b} @tab -@code{ss}/-@code{x} @tab -@code{bb}
 @item @code{italiano} or @code{français}
-  @tab -d @tab -b @tab -dd @tab -bb
+  @tab -@code{d} @tab -@code{b} @tab -@code{dd} @tab -@code{bb}
 @item @code{norsk}
-  @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
-    @tab -essess/-eses
+  @tab -@code{iss}/-@code{is} @tab -@code{ess}/-@code{es} @tab -@code{ississ}/-@code{isis}
+    @tab -@code{essess}/-@code{eses}
 @item @code{portugues}
-  @tab -s @tab -b @tab -ss @tab -bb
+  @tab -@code{s} @tab -@code{b} @tab -@code{ss} @tab -@code{bb}
 @item @code{suomi}
-  @tab -is @tab -es @tab -isis @tab -eses
+  @tab -@code{is} @tab -@code{es} @tab -@code{isis} @tab -@code{eses}
 @item @code{svenska}
-  @tab -iss @tab -ess @tab -ississ @tab -essess
+  @tab -@code{iss} @tab -@code{ess} @tab -@code{ississ} @tab -@code{essess}
 @item @code{vlaams}
-  @tab -k @tab -b @tab -kk @tab -bb
+  @tab -@code{k} @tab -@code{b} @tab -@code{kk} @tab -@code{bb}
 @end multitable
 @end quotation
 
@@ -2834,7 +2845,7 @@ The following work-around can be used: define a function that locally changes
 the accidental style to @code{forget}:
 
 @lilypond[verbatim,quote]
-forget = #(define-music-function (parser location music) (ly:music?) #{
+forget = #(define-music-function (music) (ly:music?) #{
   \accidentalStyle forget
   #music
   \accidentalStyle modern

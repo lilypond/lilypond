@@ -306,9 +306,9 @@ Bindestriche über einen Zeilenumbruch werden standardmäßig in Klammern
 gesetzt.  Das gilt auch für die zweite Klammer einer Wiederholung.
 
 @lilypond[quote,ragged-right,verbatim]
-ties = \relative c' {
+ties = \relative {
   \repeat volta 2 {
-    e2. f4~
+    e'2. f4~
     2 g2~
   }
   \alternative {
@@ -346,9 +346,9 @@ Der Befehl @code{\hideSplitTiedTabNotes} hebt das Verhalten auf, dass
 Bundnummern in Klammern gesetzt werden:
 
 @lilypond[quote,ragged-right,verbatim]
-ties = \relative c' {
+ties = \relative {
   \repeat volta 2 {
-    e2. f4~
+    e'2. f4~
     2 g2~ }
   \alternative {
     { g4 f2. }
@@ -1750,10 +1750,10 @@ oder Flageoletttöne anzuzeigen.  Flageoletttöne werden normalerweise
 mit einem Text erklärt.
 
 @lilypond[quote,ragged-right,verbatim]
-\relative c' {
+\relative {
   \clef "treble_8"
   \override Staff.NoteHead.style = #'harmonic-mixed
-  d^\markup { \italic { \fontsize #-2 { "harm. 12" }}} <g b>1
+  d'^\markup { \italic { \fontsize #-2 { "harm. 12" }}} <g b>1
 }
 @end lilypond
 

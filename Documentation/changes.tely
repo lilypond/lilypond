@@ -62,6 +62,34 @@ which scares away people.
 @end ignore
 
 @item
+The definition of LilyPond functions with
+@code{define-music-function}, @code{define-event-function},
+@code{define-scheme-function} and @code{define-void-function} no
+longer requires specification of @code{parser} and @code{location}
+arguments.  Current parser and input location are part of the
+current dynamic state and can be accessed with the function calls
+@code{(*parser*)} and @code{(*location*)} when required.
+
+LilyPond makes a best-faith attempt of recognizing legacy use of
+@code{parser} and @code{location} arguments and will provide
+backwards-compatible semantics for some time.
+
+@item
+In the "english" notename language, the long notenames for pitches
+with accidentals now contain a hyphen for better readability.  You
+now have to write
+@example
+\key a-flat \major
+@end example
+instead of the previous
+@example
+\key aflat \major
+@end example
+
+Double accidentals do not get another hyphen, so the Dutch
+@code{cisis} has the long English notename @code{c-sharpsharp}.
+
+@item
 The visual style of tremolo slashes (shape, style and slope)
 is now more finely controlled.
 @lilypond[quote,relative=2]

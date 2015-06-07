@@ -55,11 +55,11 @@ general_pushpop_property (Context *context,
 bool
 typecheck_grob (SCM symbol, SCM value)
 {
-  if (Unpure_pure_container *upc = Unpure_pure_container::unsmob (value))
+  if (Unpure_pure_container *upc = unsmob<Unpure_pure_container> (value))
     return typecheck_grob (symbol, upc->unpure_part ())
       && typecheck_grob (symbol, upc->pure_part ());
   return ly_is_procedure (value)
-    || Simple_closure::is_smob (value)
+    || unsmob<Simple_closure> (value)
     || type_check_assignment (symbol, value, ly_symbol2scm ("backend-type?"));
 }
 
@@ -124,8 +124,8 @@ Grob_property_info::find ()
   SCM res = SCM_UNDEFINED;
   if (Context *c = context_->where_defined (symbol_, &res))
     if (c != context_)
-      return Grob_property_info (c, symbol_, Grob_properties::unsmob (res));
-  props_  = Grob_properties::unsmob (res);
+      return Grob_property_info (c, symbol_, unsmob<Grob_properties> (res));
+  props_  = unsmob<Grob_properties> (res);
   return *this;
 }
 
@@ -136,7 +136,7 @@ Grob_property_info::check ()
     return true;
   SCM res = SCM_UNDEFINED;
   if (context_->here_defined (symbol_, &res))
-    props_ = Grob_properties::unsmob (res);
+    props_ = unsmob<Grob_properties> (res);
   return props_;
 }
 
@@ -165,7 +165,7 @@ Grob_property_info::create ()
       || !g->here_defined (symbol_, &current_context_val))
     return false;
 
-  Grob_properties *def = Grob_properties::unsmob (current_context_val);
+  Grob_properties *def = unsmob<Grob_properties> (current_context_val);
 
   if (!def)
     {
@@ -180,7 +180,7 @@ Grob_property_info::create ()
   // any, they will be factored in when `updated' is being called.
   SCM props = Grob_properties (def->alist_, def->alist_).smobbed_copy ();
   context_->set_property (symbol_, props);
-  props_ = Grob_properties::unsmob (props);
+  props_ = unsmob<Grob_properties> (props);
   return props_;
 }
 

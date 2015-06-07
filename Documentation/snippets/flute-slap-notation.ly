@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.22"
 
 \header {
   lsrtags = "contemporary-notation, winds"
@@ -19,7 +19,7 @@ glyph.
 } % begin verbatim
 
 slap =
-#(define-music-function (parser location music) (ly:music?)
+#(define-music-function (music) (ly:music?)
 #{
   \override NoteHead.stencil =
   #(lambda (grob)

@@ -364,7 +364,7 @@ MAKE_SCHEME_CALLBACK (Spanner, set_spacing_rods, 1);
 SCM
 Spanner::set_spacing_rods (SCM smob)
 {
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
   SCM num_length = me->get_property ("minimum-length");
   SCM broken_length = me->get_property ("minimum-length-after-break");
   if (scm_is_number (num_length)
@@ -437,7 +437,7 @@ MAKE_SCHEME_CALLBACK (Spanner, calc_normalized_endpoints, 1);
 SCM
 Spanner::calc_normalized_endpoints (SCM smob)
 {
-  Spanner *me = Spanner::unsmob (smob);
+  Spanner *me = unsmob<Spanner> (smob);
   SCM result = SCM_EOL;
 
   Spanner *orig = dynamic_cast<Spanner *> (me->original ());
@@ -484,7 +484,7 @@ MAKE_SCHEME_CALLBACK (Spanner, bounds_width, 1);
 SCM
 Spanner::bounds_width (SCM grob)
 {
-  Spanner *me = Spanner::unsmob (grob);
+  Spanner *me = unsmob<Spanner> (grob);
 
   Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
 
@@ -500,7 +500,7 @@ MAKE_SCHEME_CALLBACK (Spanner, kill_zero_spanned_time, 1);
 SCM
 Spanner::kill_zero_spanned_time (SCM grob)
 {
-  Spanner *me = Spanner::unsmob (grob);
+  Spanner *me = unsmob<Spanner> (grob);
   /*
     Remove the line or hairpin at the start of the line.  For
     piano voice indicators, it makes no sense to have them at

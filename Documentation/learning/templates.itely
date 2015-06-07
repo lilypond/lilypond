@@ -175,8 +175,10 @@ changed:
 @end lilypond
 
 A descant may be added by defining values for the variable
-@code{DescantMusic} and descant lyrics may be provided by
-defining values for @code{DescantLyrics}.
+@code{DescantMusic} and descant lyrics may be provided by defining
+values for @code{DescantLyrics}.  In a similar way a solo part may be
+added above the grouped choir staves by defining values for
+@code{SoloMusic} and @code{SoloLyrics}.
 
 @code{\header} and @code{\paper} blocks may be added as normal.
 A @code{\layout} block may be provided as the value of the

@@ -313,9 +313,9 @@ Ties over a line break are parenthesized by default.  The same holds for
 the second alternative of a repeat.
 
 @lilypond[quote,ragged-right,verbatim]
-ties = \relative c' {
+ties = \relative {
   \repeat volta 2 {
-    e2. f4~
+    e'2. f4~
     2 g2~
   }
   \alternative {
@@ -353,9 +353,9 @@ The command @code{\hideSplitTiedTabNotes} cancels the behavior of
 engraving fret numbers in parentheses:
 
 @lilypond[quote,ragged-right,verbatim]
-ties = \relative c' {
+ties = \relative {
   \repeat volta 2 {
-    e2. f4~
+    e'2. f4~
     2 g2~ }
   \alternative {
     { g4 f2. }
@@ -1740,10 +1740,10 @@ harmonics.  Harmonics are normally further explained with a
 text markup.
 
 @lilypond[quote,ragged-right,verbatim]
-\relative c' {
+\relative {
   \clef "treble_8"
   \override Staff.NoteHead.style = #'harmonic-mixed
-  d^\markup { \italic { \fontsize #-2 { "harm. 12" }}} <g b>1
+  d'^\markup { \italic { \fontsize #-2 { "harm. 12" }}} <g b>1
 }
 @end lilypond
 

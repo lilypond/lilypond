@@ -75,7 +75,7 @@ Event dispatching:
 void
 Dispatcher::dispatch (SCM sev)
 {
-  Stream_event *ev = Stream_event::unsmob (sev);
+  Stream_event *ev = unsmob<Stream_event> (sev);
   SCM class_list = ev->get_property ("class");
   if (!scm_is_pair (class_list))
     {
@@ -235,7 +235,7 @@ Dispatcher::internal_add_listener (SCM callback, SCM ev_class, int priority)
       for (SCM disp = dispatchers_; scm_is_pair (disp); disp = scm_cdr (disp))
         {
           int priority = scm_to_int (scm_cdar (disp));
-          Dispatcher *d = Dispatcher::unsmob (scm_caar (disp));
+          Dispatcher *d = unsmob<Dispatcher> (scm_caar (disp));
           d->internal_add_listener (GET_LISTENER (Dispatcher, dispatch).smobbed_copy (),
                                     ev_class, priority);
         }
@@ -264,7 +264,7 @@ Dispatcher::remove_listener (Listener l, SCM ev_class)
   SCM dummy = scm_cons (SCM_EOL, list);
   SCM e = dummy;
   while (scm_is_pair (scm_cdr (e)))
-    if (*Listener::unsmob (scm_cdadr (e)) == l && first)
+    if (*unsmob<Listener> (scm_cdadr (e)) == l && first)
       {
         scm_set_cdr_x (e, scm_cddr (e));
         first = false;
@@ -282,7 +282,7 @@ Dispatcher::remove_listener (Listener l, SCM ev_class)
       /* Unregister with all dispatchers. */
       for (SCM disp = dispatchers_; scm_is_pair (disp); disp = scm_cdr (disp))
         {
-          Dispatcher *d = Dispatcher::unsmob (scm_caar (disp));
+          Dispatcher *d = unsmob<Dispatcher> (scm_caar (disp));
           d->remove_listener (GET_LISTENER (Dispatcher, dispatch), ev_class);
         }
       listen_classes_ = scm_delq_x (ev_class, listen_classes_);

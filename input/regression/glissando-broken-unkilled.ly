@@ -1,14 +1,14 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "Broken glissandi anticipate the pitch on the next line."
 }
 
 \score {
- \relative c' {
+ \relative {
    \override Glissando.after-line-breaking = ##t
    \override Glissando.breakable = ##t
-   c1\glissando
+   c'1\glissando
    \break
    c'1
    \break
@@ -22,10 +22,10 @@
 }
 
 \score {
- \relative c' {
+ \relative {
    \override Glissando.after-line-breaking = ##t
    \override Glissando.breakable = ##t
-   c1\glissando
+   c'1\glissando
    \break
    c'1
    \break

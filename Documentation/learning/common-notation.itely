@@ -1178,11 +1178,11 @@ far about aligning lyrics to notes.
 @c but the example is long enough to avoid looking strange.
 @lilypond[verbatim,quote,noragged-right]
 <<
-  \relative c' {
+  \relative {
     \key g \major
     \time 3/4
     \partial 4
-    d4 | g4 g a8( b) | g4 g b8( c) |
+    d'4 | g4 g a8( b) | g4 g b8( c) |
     d4 d e | c2
   }
   \addlyrics {
@@ -1234,20 +1234,20 @@ example from Handel's @notation{Judas Maccabæus}:
 
 @lilypond[verbatim,quote]
 <<
-  \relative c'' {
+  \relative {
     \key f \major
     \time 6/8
     \partial 8
-    c8 | c8([ bes]) a a([ g]) f | f'4. b, | c4.~ 4
+    c''8 | c8([ bes]) a a([ g]) f | f'4. b, | c4.~ 4
   }
   \addlyrics {
     Let flee -- cy flocks the hills a -- dorn, __
   }
-  \relative c' {
+  \relative {
     \key f \major
     \time 6/8
     \partial 8
-    r8 | r4. r4 c8 | a'8([ g]) f f([ e]) d | e8([ d]) c bes'4
+    r8 | r4. r4 c'8 | a'8([ g]) f f([ e]) d | e8([ d]) c bes'4
   }
   \addlyrics {
     Let flee -- cy flocks the hills a -- dorn,
@@ -1345,12 +1345,10 @@ of another variable, giving a way of shortening the input if a
 section of music is repeated many times.
 
 @lilypond[verbatim,quote]
-tripletA = \tuplet 3/2 { c,8 e g }
+tripletA = \relative { \tuplet 3/2 { c'8 e g } }
 barA = { \tripletA \tripletA \tripletA \tripletA }
 
-\relative c'' {
-  \barA \barA
-}
+{ \barA \barA }
 @end lilypond
 
 Variables may be used for many other types of objects in
@@ -1467,9 +1465,21 @@ of quote @code{'} marks.  Consider this fragment from Mozart:
 }
 @end lilypond
 
-All these quotes makes the input less readable and they are a source
-of errors.  With @code{\relative}, the previous example is much
-easier to read and type:
+@funindex \fixed
+Common octave marks can be indicated just once, using the command
+@code{\fixed} followed by a reference pitch:
+
+@lilypond[verbatim,quote]
+\fixed c'' {
+  \key a \major
+  \time 6/8
+  cis8. d16 cis8 e4 e8 |
+  b,8. cis16 b,8 d4 d8 |
+}
+@end lilypond
+
+With @code{\relative}, the previous example needs no octave marks
+because this melody moves in steps no larger than three staff positions:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1499,13 +1509,15 @@ inner relative sections are independent:
 \relative { c'4 \relative { f'' g } c }
 @end lilypond
 
-@funindex \absolute
-If you are using absolute music inside of relative, you'll need to
-mark the absolute music explicitly with @code{\absolute} to stop
-it from becoming part of the relative music:
+To use absolute mode inside of @code{\relative}, put the absolute
+music inside @code{\fixed c @{ @dots{} @}} and the absolute pitches
+will not affect the octaves of the relative music:
 
 @lilypond[verbatim,quote]
-\relative { c'4 \absolute { f'' g'' } c }
+\relative {
+  c'4 \fixed c { f'' g'' } c |
+  c4 \fixed c'' { f g } c
+}
 @end lilypond
 
 @node After the tutorial

@@ -826,7 +826,7 @@ Lily_lexer::pop_extra_token ()
 		return -1;
 
   /* produce requested token */
-	yylloc = *Input::unsmob (scm_caar (extra_tokens_));
+	yylloc = *unsmob<Input> (scm_caar (extra_tokens_));
 	int type = scm_to_int (scm_cadar (extra_tokens_));
 	yylval = scm_cddar (extra_tokens_);
 	extra_tokens_ = scm_cdr (extra_tokens_);
@@ -913,7 +913,7 @@ Lily_lexer::scan_escaped_word (const string &str)
 		return i;
 
 	SCM sid = lookup_identifier (str);
-	if (Music *m = Music::unsmob (sid))
+	if (Music *m = unsmob<Music> (sid))
 	{
 		m->set_spot (override_input (here_input ()));
 	}
@@ -933,7 +933,7 @@ int
 Lily_lexer::scan_shorthand (const string &str)
 {
 	SCM sid = lookup_identifier (str);
-	if (Music *m = Music::unsmob (sid))
+	if (Music *m = unsmob<Music> (sid))
 	{
 		m->set_spot (override_input (here_input ()));
 	}
@@ -952,7 +952,7 @@ Lily_lexer::scan_shorthand (const string &str)
 int
 Lily_lexer::scan_scm_id (SCM sid)
 {
-	if (Music_function *fun = Music_function::unsmob (sid))
+	if (Music_function *fun = unsmob<Music_function> (sid))
 	{
 		int funtype = SCM_FUNCTION;
 
@@ -1013,7 +1013,7 @@ Lily_lexer::scan_bare_word (const string &str)
 
 		if (scm_is_pair (handle)) {
 			yylval = scm_cdr (handle);
-			if (Pitch::is_smob (yylval))
+			if (unsmob<Pitch> (yylval))
 	                    return (YYSTATE == notes) ? NOTENAME_PITCH : TONICNAME_PITCH;
 			else if (scm_is_symbol (yylval))
 			    return DRUM_PITCH;
@@ -1095,9 +1095,9 @@ Lily_lexer::eval_scm (SCM readerdata, Input hi, char extra_token)
 			     p = scm_cdr (p))
 			{
 				SCM v = scm_car (p);
-				if (Music *m = Music::unsmob (v))
+				if (Music *m = unsmob<Music> (v))
 				{
-					if (!Input::is_smob (m->get_property ("origin")))
+					if (!unsmob<Input> (m->get_property ("origin")))
 						m->set_spot (override_input (here_input ()));
 				}
 
@@ -1120,9 +1120,9 @@ Lily_lexer::eval_scm (SCM readerdata, Input hi, char extra_token)
 			sval = SCM_UNSPECIFIED;
 	}
 
-	if (Music *m = Music::unsmob (sval))
+	if (Music *m = unsmob<Music> (sval))
 	{
-		if (!Input::is_smob (m->get_property ("origin")))
+		if (!unsmob<Input> (m->get_property ("origin")))
 			m->set_spot (override_input (here_input ()));
 	}
 

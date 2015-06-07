@@ -4,13 +4,13 @@
 collision."
 
 }
-\version "2.16.0"
+\version "2.19.21"
 \paper {
   ragged-right = ##t
 }
   
-\relative c''' {
-  \stemDown b8[ r b]
+\relative {
+  \stemDown b''8[ r b]
   \stemUp b,,8[ r b] 
 }
 

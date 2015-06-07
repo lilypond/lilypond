@@ -249,13 +249,13 @@ For more details, see @ref{Automatic syllable durations}.
 <<
   \new Staff <<
     \time 2/4
-    \new Voice = "one" \relative c'' {
+    \new Voice = "one" \relative {
       \voiceOne
-      c4 b8. a16 g4. r8 a4 ( b ) c2
+      c''4 b8. a16 g4. r8 a4 ( b ) c2
     }
-    \new Voice = "two" \relative c' {
+    \new Voice = "two" \relative {
       \voiceTwo
-       s2 s4. f8 e4 d c2
+       s2 s4. f'8 e4 d c2
     }
   >>
 
@@ -477,13 +477,13 @@ Here is an example demonstrating its use:
 <<
   \new Staff <<
     \time 2/4
-    \new Voice = "one" \relative c'' {
+    \new Voice = "one" \relative {
       \voiceOne
-      c4 b8. a16 g4. r8 a4 ( b ) c2
+      c''4 b8. a16 g4. r8 a4 ( b ) c2
     }
-    \new Voice = "two" \relative c' {
+    \new Voice = "two" \relative {
       \voiceTwo
-       s2 s4. f8 e8 d4. c2
+       s2 s4. f'8 e8 d4. c2
     }
   >>
 % takes durations and alignment from notes in "one" initially
@@ -1417,8 +1417,8 @@ value, irrespective of the value of the following number.}
     \new Staff {
       \time 2/4
       \new Voice = "melody" {
-        \relative c'' {
-          \repeat volta 2 { b4 b }
+        \relative {
+          \repeat volta 2 { b'4 b }
           \alternative { { b b } { b c } }
           c4 c
         }
@@ -1464,9 +1464,9 @@ melismata over the volta section and insert manual skips.
     \new Staff {
       \time 2/4
       \new Voice = "melody" {
-        \relative c'' {
+        \relative {
           \set melismaBusyProperties = #'()
-          \repeat volta 2 { b4 b ~}
+          \repeat volta 2 { b'4 b ~}
           \alternative { { b b } { b \repeatTie c } }
           \unset melismaBusyProperties
           c4 c
@@ -1501,8 +1501,8 @@ be inserted manually, as before.
     \new Staff {
       \time 2/4
       \new Voice = "melody" {
-        \relative c'' {
-          \repeat volta 2 { b4 b ~}
+        \relative {
+          \repeat volta 2 { b'4 b ~}
           \alternative { { b b } { b \repeatTie c } }
           c4 c
         }
@@ -1534,8 +1534,8 @@ alternative sections these must be inserted manually.
     \new Staff {
       \time 2/4
       \new Voice = "melody" {
-        \relative c'' {
-          \repeat volta 2 { b4 b ~}
+        \relative {
+          \repeat volta 2 { b'4 b ~}
           \alternative { { b b } { b \repeatTie c } }
           c4 c
         }
@@ -1606,11 +1606,11 @@ attaching lyrics to those specific contexts:
 \score {
   <<
     \new Voice = "melody" {
-      \relative c' {
+      \relative {
         <<
           {
             \voiceOne
-            e4 e8 e
+            e'4 e8 e
           }
           \new Voice = "splitpart" {
             \voiceTwo
@@ -1866,9 +1866,9 @@ voice ignore the melisma.  This is done by setting
 
 @lilypond[verbatim,ragged-right,quote]
 <<
-  \relative c' \new Voice = "lahlah" {
+  \relative \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
-    c4
+    c'4
     \slurDotted
     f8.[( g16])
     a4
@@ -1955,9 +1955,9 @@ within the lyrics by setting the @code{associatedVoice} property:
 
 @lilypond[verbatim,quote]
 <<
-  \relative c' \new Voice = "lahlah" {
+  \relative \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
-    c4
+    c'4
     <<
       \new Voice = "alternative" {
         \voiceOne
@@ -2798,8 +2798,8 @@ Here is an example illustrating how this might be done.
 @c manually adjusted to suit the imposed line length.  -td
 
 @lilypond[quote,verbatim,ragged-right]
-music = \relative c'' {
-  \repeat unfold 3 { a4 a a a }
+music = \relative {
+  \repeat unfold 3 { a'4 a a a }
 }
 
 dialogue = \lyricmode {

@@ -985,7 +985,7 @@ Now run the @code{./configure} script.  To avoid complications with
 automatic font detection, add
 
 @example
---with-ncsb-dir=/opt/local/share/ghostscript/fonts
+--with-fonts-dir=/opt/local/share/ghostscript/fonts
 @end example
 
 

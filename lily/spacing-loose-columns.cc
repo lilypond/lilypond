@@ -60,8 +60,8 @@ set_loose_columns (System *which, Column_x_positions const *posns)
           if (!loose->get_system ())
             break;
 
-          Paper_column *le = derived_unsmob<Paper_column> (scm_car (between));
-          Paper_column *re = derived_unsmob<Paper_column> (scm_cdr (between));
+          Paper_column *le = unsmob<Paper_column> (scm_car (between));
+          Paper_column *re = unsmob<Paper_column> (scm_cdr (between));
 
           if (! (le && re))
             break;
@@ -135,8 +135,8 @@ set_loose_columns (System *which, Column_x_positions const *posns)
           Paper_column *loose_col = dynamic_cast<Paper_column *> (clique[j]);
           Paper_column *next_col = dynamic_cast<Paper_column *> (clique[j + 1]);
 
-          Grob *spacing = Grob::unsmob (clique_col->get_object ("spacing"));
-          if (Grob *grace_spacing = Grob::unsmob (clique_col->get_object ("grace-spacing")))
+          Grob *spacing = unsmob<Grob> (clique_col->get_object ("spacing"));
+          if (Grob *grace_spacing = unsmob<Grob> (clique_col->get_object ("grace-spacing")))
             {
               spacing = grace_spacing;
             }

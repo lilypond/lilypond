@@ -80,8 +80,8 @@ is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
 
   */
 
-  Item *r_neighbor = Item::unsmob (col->get_object ("right-neighbor"));
-  Item *l_neighbor = Item::unsmob (col->get_object ("left-neighbor"));
+  Item *r_neighbor = unsmob<Item> (col->get_object ("right-neighbor"));
+  Item *l_neighbor = unsmob<Item> (col->get_object ("left-neighbor"));
 
   if (!l_neighbor || !r_neighbor)
     return false;
@@ -220,8 +220,8 @@ Spacing_spanner::prune_loose_columns (Grob *me,
 
       if (loose)
         {
-          Grob *right_neighbor = Grob::unsmob (c->get_object ("right-neighbor"));
-          Grob *left_neighbor = Grob::unsmob (c->get_object ("left-neighbor"));
+          Grob *right_neighbor = unsmob<Grob> (c->get_object ("right-neighbor"));
+          Grob *left_neighbor = unsmob<Grob> (c->get_object ("left-neighbor"));
 
           /*
             Either object can be non existent, if the score ends
@@ -283,7 +283,7 @@ Spacing_spanner::set_explicit_neighbor_columns (vector<Grob *> const &cols)
                   min_right_rank = right_rank;
                 }
 
-              Grob *old_left_neighbor = Grob::unsmob (right_col->get_object ("left-neighbor"));
+              Grob *old_left_neighbor = unsmob<Grob> (right_col->get_object ("left-neighbor"));
               if (!old_left_neighbor || left_rank > Paper_column::get_rank (old_left_neighbor))
                 right_col->set_object ("left-neighbor", left_col->self_scm ());
             }
@@ -305,9 +305,9 @@ Spacing_spanner::set_implicit_neighbor_columns (vector<Grob *> const &cols)
       if (!Paper_column::is_breakable (it) && !Paper_column::is_musical (it))
         continue;
 
-      if (i && !Grob::is_smob (cols[i]->get_object ("left-neighbor")))
+      if (i && !unsmob<Grob> (cols[i]->get_object ("left-neighbor")))
         cols[i]->set_object ("left-neighbor", cols[i - 1]->self_scm ());
-      if (i + 1 < cols.size () && !Grob::is_smob (cols[i]->get_object ("right-neighbor")))
+      if (i + 1 < cols.size () && !unsmob<Grob> (cols[i]->get_object ("right-neighbor")))
         cols[i]->set_object ("right-neighbor", cols[i + 1]->self_scm ());
     }
 }

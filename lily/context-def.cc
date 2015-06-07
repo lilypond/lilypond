@@ -50,7 +50,7 @@ Context_def::Context_def ()
 Input *
 Context_def::origin () const
 {
-  return Input::unsmob (input_location_);
+  return unsmob<Input> (input_location_);
 }
 
 Context_def::Context_def (Context_def const &s)
@@ -235,7 +235,7 @@ Context_def::internal_path_to_acceptable_context (SCM type_sym,
 
   vector<Context_def *> accepteds;
   for (SCM s = accepted; scm_is_pair (s); s = scm_cdr (s))
-    if (Context_def *t = Context_def::unsmob (find_context_def (odef,
+    if (Context_def *t = unsmob<Context_def> (find_context_def (odef,
                                                                scm_car (s))))
       accepteds.push_back (t);
 
@@ -398,7 +398,7 @@ LY_DEFINE (ly_context_def_lookup, "ly:context-def-lookup",
            " @samp{property-ops}, @samp{context-name}, @samp{group-type}.")
 {
   LY_ASSERT_SMOB (Context_def, def, 1);
-  Context_def *cd = Context_def::unsmob (def);
+  Context_def *cd = unsmob<Context_def> (def);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
   SCM res = cd->lookup (sym);
@@ -422,9 +422,9 @@ LY_DEFINE (ly_context_def_modify, "ly:context-def-modify",
   LY_ASSERT_SMOB (Context_def, def, 1);
   LY_ASSERT_SMOB (Context_mod, mod, 2);
 
-  Context_def *cd = Context_def::unsmob (def)->clone ();
+  Context_def *cd = unsmob<Context_def> (def)->clone ();
 
-  for (SCM s = Context_mod::unsmob (mod)->get_mods ();
+  for (SCM s = unsmob<Context_mod> (mod)->get_mods ();
        scm_is_pair (s);
        s = scm_cdr (s))
     cd->add_context_mod (scm_car (s));

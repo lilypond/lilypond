@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc ="Hairpin crescendi may be dashed. "
@@ -6,7 +6,7 @@
 }
 
 
-\relative c' {
+\relative {
   \override Hairpin.style = #'dashed-line
-  f2\< g c1 d4\> b a gis\! }     
+  f'2\< g c1 d4\> b a gis\! }     
 

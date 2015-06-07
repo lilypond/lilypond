@@ -67,14 +67,14 @@ find_scaled_font (Output_def *mod, Font_metric *f, Real m)
   SCM sizes = scm_hashq_ref (font_table, f->self_scm (), SCM_EOL);
   SCM handle = scm_assoc (scm_from_double (lookup_mag), sizes);
   if (scm_is_pair (handle))
-    return Font_metric::unsmob (scm_cdr (handle));
+    return unsmob<Font_metric> (scm_cdr (handle));
 
   SCM val = Modified_font_metric::make_scaled_font_metric (f, lookup_mag);
 
   sizes = scm_acons (scm_from_double (lookup_mag), val, sizes);
-  Font_metric::unsmob (val)->unprotect ();
+  unsmob<Font_metric> (val)->unprotect ();
   scm_hashq_set_x (font_table, f->self_scm (), sizes);
-  return Font_metric::unsmob (val);
+  return unsmob<Font_metric> (val);
 }
 
 Font_metric *
@@ -88,7 +88,7 @@ find_pango_font (Output_def *layout, SCM descr, Real factor)
   SCM size_key = scm_from_double (factor);
   SCM handle = scm_assoc (size_key, sizes);
   if (scm_is_pair (handle))
-    return Font_metric::unsmob (scm_cdr (handle));
+    return unsmob<Font_metric> (scm_cdr (handle));
 
   PangoFontDescription *description
     = pango_font_description_from_string (scm_i_string_chars (descr));
@@ -117,7 +117,7 @@ scale_output_def (Output_def *o, Real amount)
   SCM proc = ly_lily_module_constant ("scale-layout");
   SCM new_pap = scm_call_2 (proc, o->self_scm (), scm_from_double (amount));
 
-  o = Output_def::unsmob (new_pap);
+  o = unsmob<Output_def> (new_pap);
   o->protect ();
   return o;
 }

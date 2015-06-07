@@ -11,12 +11,12 @@ beam. This is in disagreement with the current algorithm."
 
 \layout { ragged-right = ##t} 
 
-\relative c'
+\relative
 {
   \override Beam.auto-knee-gap = #7
   \set subdivideBeams = ##t	     
   \time 8/8
-  c,16[  g'''16  
+  c16[  g'''16  
 	 c,,,16  g'''16 
 	 c,,,16  g'''16 	     	     
 	 c,,,16  g'''16 ]

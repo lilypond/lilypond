@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
   texidoc = "@code{\\tempo} marks are aligned with the time signature
@@ -16,9 +16,9 @@ with the preceding bar line.
   line-width = 50\mm
 }
 
-\relative c' {
+\relative {
   \tempo "T-first"
-  c1
+  c'1
   \mark \default
   \tempo "T-note"
   c1 \break

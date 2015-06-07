@@ -13,11 +13,11 @@ morgenliedBeam = \relative \new Voice {
   c16 b c e g <e b'> |
 }
 
-rachmaninovBeams = \relative c' \new Voice {
+rachmaninovBeams = \relative \new Voice {
   \voiceOne
   \time 4/4
   \key c \minor
-  <c' e c'>8[ <g c g'> <c f> <ees, ees'>] ~
+  <c'' e c'>8[ <g c g'> <c f> <ees, ees'>] ~
   <ees ees'>8[ <c c'> <des des'> <d d'>]
 }
 

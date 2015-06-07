@@ -54,7 +54,7 @@ MAKE_SCHEME_CALLBACK (Semi_tie, calc_control_points, 1)
 SCM
 Semi_tie::calc_control_points (SCM smob)
 {
-  Grob *me = Grob::unsmob (smob);
+  Grob *me = unsmob<Grob> (smob);
   (void) me->get_property ("direction");
 
   if (Semi_tie_column::has_interface (me->get_parent (Y_AXIS)))
@@ -73,7 +73,7 @@ Semi_tie::calc_control_points (SCM smob)
 int
 Semi_tie::get_position (Grob *me)
 {
-  Grob *h = Grob::unsmob (me->get_object ("note-head"));
+  Grob *h = unsmob<Grob> (me->get_object ("note-head"));
   return (int) rint (Staff_symbol_referencer::get_position (h));
 }
 

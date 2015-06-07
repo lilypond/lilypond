@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.19.22"
 #(use-modules (srfi srfi-13)
               (ice-9 format))
 
@@ -27,7 +27,7 @@
    (make-column-markup (string-split str #\NewLine)))
 
 test =
-#(define-void-function (parser location harmless strings)
+#(define-void-function (harmless strings)
   ((string?) pair?)
   (let ((input (car strings))
 	(output (cdr strings))
@@ -36,7 +36,7 @@ test =
     (if harmless
      (ly:progress "Test unequal: ~a.\nin  = ~a\nout = ~a\n"
       harmless input output)
-     (ly:input-warning location "Test unequal: BUG.\nin  = ~a\nout = ~a\n"
+     (ly:input-warning (*location*) "Test unequal: BUG.\nin  = ~a\nout = ~a\n"
       input output)))))
 
 %%%

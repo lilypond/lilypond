@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.22"
 
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (_ "Test warning\n"))
@@ -15,8 +15,8 @@ are commented out. Comment them in to check the output manually.
 %%%% message functions of the Input class:
 #(display "\nMessage functions of the Input class:\n" (current-error-port))
 
-messageTest = #(define-music-function (parser location) ()
-   (ly:input-message location "Test ly:input-message" )
+messageTest = #(define-music-function () ()
+   (ly:input-message (*location*) "Test ly:input-message" )
    (make-music 'Music))
 
 {

@@ -4,10 +4,10 @@
 finishing the grace section."
 
 }
-\version "2.16.0"
+\version "2.19.21"
 
-\relative c''' {
+\relative {
   \voiceOne
-  c4
+  c'''4
   \grace d8 c4
 }

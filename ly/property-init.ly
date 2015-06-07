@@ -1,6 +1,6 @@
 % property-init.ly
 
-\version "2.17.24"
+\version "2.19.22"
 
 %% for dashed slurs, phrasing slurs, and ties
 #(define (make-simple-dash-definition dash-fraction dash-period)
@@ -9,13 +9,14 @@
 %% common definition for all note head styles reverting
 %% (palm mute, harmonics, dead notes, ...)
 defaultNoteHeads =
-#(define-music-function (parser location) ()
-   (_i "Revert to the default note head style.")
-   (revert-head-style '(NoteHead TabNoteHead)))
+#(define-music-function () ()
+  (_i "Revert to the default note head style.")
+  (context-spec-music
+   (revert-head-style '(NoteHead TabNoteHead)) 'Bottom))
 
 accidentalStyle =
 #(define-music-function
-   (parser location style) (symbol-list?)
+   (style) (symbol-list?)
    (_i "Set accidental style to symbol list @var{style} in the form
 @samp{piano-cautionary}.  If @var{style} has a form like
 @samp{Staff.piano-cautionary}, the settings are applied to that
@@ -25,8 +26,8 @@ piano styles, which use @samp{GrandStaff} as a context." )
     ((1) (set-accidental-style (car style)))
     ((2) (set-accidental-style (cadr style) (car style)))
     (else
-     (ly:parser-error parser (_ "not an accidental style")
-      location)
+     (ly:parser-error (*parser*) (_ "not an accidental style")
+      (*location*))
      (make-music 'Music))))
 
 %% arpeggios
@@ -91,7 +92,7 @@ balloonLengthOff = {
 
 defineBarLine =
 #(define-void-function
-   (parser location bar glyph-list) (string? list?)
+   (bar glyph-list) (string? list?)
    (_i "Define bar line settings for bar line @var{bar}.
      The list @var{glyph-list} must have three entries which define
      the appearance at the end of line, at the beginning of the next line,
@@ -223,12 +224,13 @@ glissando = #(make-music 'GlissandoEvent)
 %% harmonics
 
 harmonicsOn =
-#(define-music-function (parser location) ()
-   (_i "Set the default note head style to a diamond-shaped style.")
-   (override-head-style '(NoteHead TabNoteHead) 'harmonic))
+#(define-music-function () ()
+  (_i "Set the default note head style to a diamond-shaped style.")
+  (context-spec-music
+   (override-head-style '(NoteHead TabNoteHead) 'harmonic) 'Bottom))
 harmonicsOff = \defaultNoteHeads
 harmonicNote =
-#(define-music-function (parser location note) (ly:music?)
+#(define-music-function (note) (ly:music?)
    (_i "Print @var{note} with a diamond-shaped note head.")
    (style-note-heads 'NoteHead 'harmonic note))
 
@@ -277,7 +279,7 @@ improvisationOff = {
 %% incipit
 
 incipit =
-#(define-music-function (parser location incipit-music) (ly:music?)
+#(define-music-function (incipit-music) (ly:music?)
   (_i "Output @var{incipit-music} before the main staff as an indication of
     its appearance in the original music.")
   #{
@@ -393,12 +395,13 @@ defaultTimeSignature = \revert Staff.TimeSignature.style
 %% palm mutes
 
 palmMuteOn =
-#(define-music-function (parser location) ()
-   (_i "Set the default note head style to a triangle-shaped style.")
-   (override-head-style 'NoteHead 'do))
+#(define-music-function () ()
+  (_i "Set the default note head style to a triangle-shaped style.")
+  (context-spec-music
+   (override-head-style 'NoteHead 'do) 'Bottom))
 palmMuteOff = \defaultNoteHeads
 palmMute =
-#(define-music-function (parser location note) (ly:music?)
+#(define-music-function (note) (ly:music?)
    (_i "Print @var{note} with a triangle-shaped note head.")
    (style-note-heads 'NoteHead 'do note))
 
@@ -412,7 +415,7 @@ phrasingSlurNeutral = \revert PhrasingSlur.direction
 
 % dash-patterns (make-simple-dash-definition defined at top of file)
 phrasingSlurDashPattern =
-#(define-music-function (parser location dash-fraction dash-period)
+#(define-music-function (dash-fraction dash-period)
    (number? number?)
    (_i "Set up a custom style of dash pattern for @var{dash-fraction} ratio of
 line to space repeated at @var{dash-period} interval for phrasing slurs.")
@@ -437,20 +440,20 @@ phrasingSlurSolid =
 %% point and click
 
 pointAndClickOn  =
-#(define-void-function (parser location) ()
+#(define-void-function () ()
    (_i "Enable generation of code in final-format (e.g. pdf) files to reference the
 originating lilypond source statement;
 this is helpful when developing a score but generates bigger final-format files.")
    (ly:set-option 'point-and-click #t))
 
 pointAndClickOff =
-#(define-void-function (parser location) ()
+#(define-void-function () ()
    (_i "Suppress generating extra code in final-format (e.g. pdf) files to point
 back to the lilypond source statement.")
    (ly:set-option 'point-and-click #f))
 
 pointAndClickTypes =
-#(define-void-function (parser location types) (symbol-list-or-symbol?)
+#(define-void-function (types) (symbol-list-or-symbol?)
   (_i "Set a type or list of types (such as @code{#'note-event}) for which point-and-click info is generated.")
   (ly:set-option 'point-and-click types))
 
@@ -499,7 +502,7 @@ slurNeutral    = \revert Slur.direction
 
 % dash-patterns (make-simple-dash-definition defined at top of file)
 slurDashPattern =
-#(define-music-function (parser location dash-fraction dash-period)
+#(define-music-function (dash-fraction dash-period)
   (number? number?)
   (_i "Set up a custom style of dash pattern for @var{dash-fraction}
 ratio of line to space repeated at @var{dash-period} interval for slurs.")
@@ -654,7 +657,7 @@ tieNeutral = \revert Tie.direction
 
 % dash-patterns (make-simple-dash-definition defined at top of file)
 tieDashPattern =
-#(define-music-function (parser location dash-fraction dash-period)
+#(define-music-function (dash-fraction dash-period)
   (number? number?)
   (_i "Set up a custom style of dash pattern for @var{dash-fraction}
 ratio of line to space repeated at @var{dash-period} interval for ties.")
@@ -725,18 +728,19 @@ voiceNeutralStyle = {
 %% volta brackets
 
 allowVoltaHook =
-#(define-void-function (parser location bar) (string?)
+#(define-void-function (bar) (string?)
                        (allow-volta-hook bar))
 
 %% x notes
 
 xNotesOn =
-#(define-music-function (parser location) ()
-   (_i "Set the default note head style to a cross-shaped style.")
-   (override-head-style '(TabNoteHead NoteHead) 'cross))
+#(define-music-function () ()
+  (_i "Set the default note head style to a cross-shaped style.")
+  (context-spec-music
+   (override-head-style '(TabNoteHead NoteHead) 'cross) 'Bottom))
 xNotesOff = \defaultNoteHeads
 xNote =
-#(define-music-function (parser location note) (ly:music?)
+#(define-music-function (note) (ly:music?)
    (_i "Print @var{note} with a cross-shaped note head.")
    (style-note-heads '(TabNoteHead NoteHead) 'cross note))
 

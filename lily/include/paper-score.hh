@@ -39,13 +39,6 @@ public:
 
   DECLARE_CLASSNAME (Paper_score);
 
-  static Paper_score *unsmob (SCM ps) {
-    return dynamic_cast <Paper_score *> (Music_output::unsmob (ps));
-  }
-  static bool is_smob (SCM ps) {
-    return Music_output::is_smob (ps) && unsmob (ps);
-  }
-
   Output_def *layout () const;
   System *root_system () const;
 

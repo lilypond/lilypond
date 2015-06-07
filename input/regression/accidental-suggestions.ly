@@ -7,15 +7,15 @@ denoting Musica Ficta."
  
 }
 
-\version "2.17.25"
+\version "2.19.21"
 \paper {
   ragged-right = ##t
 }
 
-\relative c'' {
+\relative {
   \time 2/4 
   \set suggestAccidentals = ##t 
-  cis^> gis'-!
+  cis''^> gis'-!
   \override AccidentalSuggestion.parenthesized = ##t
   cis,_"paren" gis'
 

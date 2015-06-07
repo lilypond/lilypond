@@ -5,7 +5,7 @@
 %
 % This file is in the public domain.
 %% Note: this file works from version 2.19.0
-\version "2.19.0"
+\version "2.19.22"
 
 \header {
   lsrtags = "pitches, real-music, really-cool, scheme-language"
@@ -23,7 +23,7 @@ Planets.
 
 
 rhythm =
-#(define-music-function (parser location p) (ly:pitch?)
+#(define-music-function (p) (ly:pitch?)
    "Make the rhythm in Mars (the Planets) at the given pitch"
   #{ \tuplet 3/2 { $p 8 8 8 } 4 4 8 8 4 #})
 

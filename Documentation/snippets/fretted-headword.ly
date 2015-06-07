@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.22"
 
 \header {
   lsrtags = "headword"
@@ -30,7 +30,7 @@ ssnod = \set stringNumberOrientations = #'(down)
 ssnor = \set stringNumberOrientations = #'(right)
 
 % define fingering offset
-FO = #(define-music-function (parser location offsetX offsetY) (number? number?)
+FO = #(define-music-function (offsetX offsetY) (number? number?)
 #{
   \once \override Voice.Fingering.extra-offset = #(cons offsetX offsetY)
 #})

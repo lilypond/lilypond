@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.22"
 
 \header {
 texidoc = "Figured bass supports numbers with slashes through
@@ -25,7 +25,7 @@ bassfigures = \figuremode {
 #(define (adjust-slash-stencil-default num forward stencil mag)
     stencil)
 
-unsetExceptions = #(define-void-function (parser location) ()
+unsetExceptions = #(define-void-function () ()
 ;  (set! horizontal-slash-interval horizontal-slash-interval-default)
 ;  (set! adjust-slash-stencil adjust-slash-stencil-default)
 )

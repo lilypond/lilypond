@@ -36,7 +36,7 @@ Prob::equal_p (SCM sa, SCM sb)
      equality; e.g., that two probs are equal iff they can be
      distinguished by calls to ly:prob-property.
   */
-  Prob *probs[2] = {Prob::unsmob (sa), Prob::unsmob (sb)};
+  Prob *probs[2] = {unsmob<Prob> (sa), unsmob<Prob> (sb)};
   SCM props[2][2];
   int i;
 
@@ -62,7 +62,7 @@ Prob::equal_p (SCM sa, SCM sb)
           SCM aval = scm_cdar (aprop);
           SCM bval = scm_cdar (bprop);
           if (!scm_is_eq (scm_caar (aprop), scm_caar (bprop))
-              || (!(Input::is_smob (aval) && Input::is_smob (bval))
+              || (!(unsmob<Input> (aval) && unsmob<Input> (bval))
                   && !ly_is_equal (aval, bval)))
             return SCM_BOOL_F;
         }
@@ -141,7 +141,7 @@ Prob::print_smob (SCM port, scm_print_state *)
 SCM
 Prob::internal_get_property (SCM sym) const
 {
-#ifndef NDEBUG
+#ifdef DEBUG
   if (profile_property_accesses)
     note_property_access (&prob_property_lookup_table, sym);
 #endif

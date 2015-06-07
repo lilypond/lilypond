@@ -100,7 +100,7 @@ Grace_engraver::consider_change_grace_settings ()
           SCM grob = scm_cadr (elt);
           SCM cell = scm_cddr (elt);
 
-          Grob_property_info (Context::unsmob (context), grob).matched_pop (cell);
+          Grob_property_info (unsmob<Context> (context), grob).matched_pop (cell);
         }
       grace_settings_ = SCM_EOL;
     }

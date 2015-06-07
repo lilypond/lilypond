@@ -1,10 +1,10 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "Here only left-margin is given, right-margin will remain default."
 }
 
-someNotes = \relative c' { \repeat unfold 40 { c4 d e f } }
+someNotes = \relative { \repeat unfold 40 { c'4 d e f } }
 
 \paper {
   #(set-paper-size (ly:get-option 'paper-size))

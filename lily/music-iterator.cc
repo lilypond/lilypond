@@ -85,7 +85,7 @@ Music_iterator::get_static_get_iterator (Music *m)
   if (ly_is_procedure (ctor))
     {
       iter = scm_call_0 (ctor);
-      p = Music_iterator::unsmob (iter);
+      p = unsmob<Music_iterator> (iter);
     }
   else
     {
@@ -149,7 +149,7 @@ SCM
 Music_iterator::get_iterator (Music *m) const
 {
   SCM ip = get_static_get_iterator (m);
-  Music_iterator *p = Music_iterator::unsmob (ip);
+  Music_iterator *p = unsmob<Music_iterator> (ip);
 
   p->init_context (m, get_outlet ());
 

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @node Changing defaults
 @chapter Changing defaults
@@ -4573,9 +4573,12 @@ the accidentals.  In the second measure, with unpure-pure containers,
 the spacing engine knows the width of the note heads and avoids the
 collision by lengthening the line accordingly.
 
-Usually for simple calculations nearly-identical functions for both the
-@q{unpure} and @q{pure} parts can be used, by only changing the number
-of arguments passed to, and the scope of, the function.
+Usually for simple calculations nearly-identical functions for
+both the @q{unpure} and @q{pure} parts can be used, by only
+changing the number of arguments passed to, and the scope of, the
+function.  This use case is frequent enough that
+@code{ly:make-unpure-pure-container} constructs such a second
+function by default when called with only one function argument.
 
 @warning{If a function is labeled as @q{pure} and it turns out not to
 be, the results can be unexpected.}
@@ -4607,7 +4610,7 @@ code is easy.  The general form of these functions is
 @example
 function =
 #(define-music-function
-     (parser location @var{arg1} @var{arg2} @dots{})
+     (@var{arg1} @var{arg2} @dots{})
      (@var{type1?} @var{type2?} @dots{})
    #@{
      @var{@dots{}music@dots{}}
@@ -4633,13 +4636,8 @@ reference arguments
 (eg. @samp{#arg1}).
 @end multitable
 
-The @code{parser} and @code{location} arguments are mandatory, and
-are used in some advanced situations as described in the
-@q{Extending} manual (see @rextend{Music functions}).  For
-substitution functions, just be sure to include them.
-
-The list of type predicates is also required.  Some of the most
-common type predicates used in music functions are:
+The list of type predicates is required.  Some of the most common
+type predicates used in music functions are:
 
 @example
 boolean?
@@ -4685,7 +4683,7 @@ setting the padding of a TextScript:
 @lilypond[quote,verbatim,ragged-right]
 padText =
 #(define-music-function
-     (parser location padding)
+     (padding)
      (number?)
    #{
      \once \override TextScript.padding = #padding
@@ -4706,7 +4704,7 @@ as notes for arguments to music functions:
 @lilypond[quote,verbatim,ragged-right]
 custosNote =
 #(define-music-function
-     (parser location note)
+     (note)
      (ly:music?)
    #{
      \tweak NoteHead.stencil #ly:text-interface::print
@@ -4724,16 +4722,16 @@ Substitution functions with multiple arguments can be defined:
 @lilypond[quote,verbatim,ragged-right]
 tempoPadded =
 #(define-music-function
-     (parser location padding tempotext)
+     (padding tempotext)
      (number? markup?)
    #{
      \once \override Score.MetronomeMark.padding = #padding
      \tempo \markup { \bold #tempotext }
    #})
 
-\relative c'' {
+\relative {
   \tempo \markup { "Low tempo" }
-  c4 d e f g1
+  c''4 d e f g1
   \tempoPadded #4.0 "High tempo"
   g4 f e d c1
 }

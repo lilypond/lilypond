@@ -127,7 +127,7 @@ MAKE_SCHEME_CALLBACK (Skyline_pair, skyline, 2);
 SCM
 Skyline_pair::skyline (SCM smob, SCM dir_scm)
 {
-  Skyline_pair *sp = Skyline_pair::unsmob (smob);
+  Skyline_pair *sp = unsmob<Skyline_pair> (smob);
   Direction dir = robust_scm2dir (dir_scm, UP);
 
   if (dir == CENTER)

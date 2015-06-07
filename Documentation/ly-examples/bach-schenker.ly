@@ -15,7 +15,7 @@
 
 I = \once \override NoteColumn.ignore-collision = ##t
 
-\version "2.17.30"
+\version "2.19.21"
 
 staffPiano = \new PianoStaff {
   \set Score.timing = ##f
@@ -24,14 +24,14 @@ staffPiano = \new PianoStaff {
     \new Staff = "RH" { % Right hand
       \clef treble
       \key g \major
-      \relative c'' {
+      \relative {
 	\override Staff.NoteCollision.merge-differently-headed = ##t
 	<<
 	  {
 	    \override Beam.positions = #'(8 . 8)
 	    \hide NoteHead
 	    \override NoteHead.duration-log = #1
-	    s1 b8[^\markup {
+	    s1 b'8[^\markup {
 	      \override #'(baseline-skip . 0.5)
               % Add color to markup in top staff
               \column { \with-color #red \small { ^ 3 } }

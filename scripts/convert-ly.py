@@ -262,15 +262,13 @@ def do_one_file (infile_name):
     else:
         input = sys.stdin.read ()
 
-    from_version = None
     to_version = None
-    if global_options.from_version:
-        from_version = global_options.from_version
-    else:
-        guess = guess_lilypond_version (input)
-        if not guess:
-            raise UnknownVersion ()
-        from_version = str_to_tuple (guess)
+    org_version = None
+    guess = guess_lilypond_version (input)
+    org_version = guess and str_to_tuple (guess)
+    from_version = global_options.from_version or org_version
+    if not from_version:
+        raise UnknownVersion ()
 
     if global_options.to_version:
         to_version = global_options.to_version
@@ -293,7 +291,7 @@ def do_one_file (infile_name):
             # the same if two conversion rules cancelled out
             if result == input:
                 # make no (actual) change to the version number
-                last = from_version
+                last = org_version or from_version
             else:
                 last = last_change
                 # If the last update was to an unstable version

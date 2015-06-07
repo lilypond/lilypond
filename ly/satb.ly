@@ -11,7 +11,8 @@
   context structure for a score arrangement consisting
   of the following staves:
 
-  Descant Staff
+  Solo Staff (outside Choir grouping)
+  Descant Staff (within Choir grouping)
   Women Staff (single voice on one staff)
   Soprano and Alto (optionally on two Staves or one Staff each)
   Multiple verses (up to 9)
@@ -33,6 +34,7 @@
   \header { ... }
   Key = { ... }
   Time = { ... }
+  SoloMusic = \relative { ... }
   DescantMusic = \relative { ... }
   DescantLyrics = \lyricmode { ... }
   WomenMusic = \relative { ... }
@@ -92,6 +94,7 @@
      "Piano"
      "PianoLH"
      "PianoRH"
+     "Solo"
      "Soprano"
      "Tenor"
      "Women"
@@ -128,9 +131,13 @@
   satb-lyrics-postfixes
   satb-lyrics-variable-names)
 
+%% override the usual default value
+#(if (not SoloShortInstrumentName)
+       (set! SoloShortInstrumentName ""))
 
 SATB =
-{
+<<
+  \make-one-voice-vocal-staff "Solo" "treble"
   \new ChoirStaff
   \with {
     \override VerticalAxisGroup.remove-empty = ##t
@@ -156,7 +163,7 @@ SATB =
       #} )
     \make-one-voice-vocal-staff "Men" "bass"
   >>
-}
+>>
 
 Piano = \make-pianostaff
 

@@ -1,5 +1,5 @@
 % Lily was here -- automatically converted by ../../../scripts/midi2ly.py from out-www/rest.midi
-\version "2.16.0"
+\version "2.19.21"
 
 \layout {
   \context {
@@ -43,10 +43,10 @@ trackA = <<
 >>
 
 
-trackBchannelA = \relative c {
+trackBchannelA = \relative {
   r4 
   \set Staff.instrumentName = "trackB:voiceA"
-  a r4 a 
+  a, r4 a 
   | % 2
   
 }

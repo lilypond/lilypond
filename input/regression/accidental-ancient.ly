@@ -6,13 +6,13 @@ are collected here.
 "
 }
 
-\version "2.17.6"
+\version "2.19.21"
 
-\relative c'' {
+\relative {
       \time 3/4
       % FIXME: standard vs default, alteration-FOO vs FOO-alteration
       \override Staff.Accidental.glyph-name-alist = #standard-alteration-glyph-name-alist
-      cis^\markup { \typewriter default } c ces  
+      cis''^\markup { \typewriter default } c ces  
 
       \override Staff.Accidental.glyph-name-alist = #alteration-hufnagel-glyph-name-alist
       cis^\markup { \typewriter hufnagel } c ces  

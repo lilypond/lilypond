@@ -208,9 +208,9 @@ supplémentaire qui recense les @var{types d'événement} à répéter et qui
 seraient absents de l'accord construit par un @code{q}.
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \chordRepeats #'(articulation-event)
-  { <a-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
+  { <a'-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
   q2 c, |
 }
 @end lilypond

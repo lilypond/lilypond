@@ -19,17 +19,16 @@
 */
 #include "unpure-pure-container.hh"
 
-#include "grob.hh"
-
 // Reroutes a call to the contained function after dropping last two
 // arguments.  Used for applying an "unpure" function in a "pure"
 // context.
 class Unpure_pure_call : public Smob1<Unpure_pure_call>
 {
 public:
-  LY_DECLARE_SMOB_PROC (2, 0, 1, (SCM self, SCM arg1, SCM arg2, SCM rest))
+  LY_DECLARE_SMOB_PROC (&Unpure_pure_call::call, 2, 0, 1)
+  SCM call (SCM arg1, SCM arg2, SCM rest)
   {
-    return scm_apply_0 (Unpure_pure_call::unsmob (self)->scm1 (),
+    return scm_apply_0 (scm1 (),
                         scm_call_2 (ly_lily_module_constant ("drop-right"),
                                     scm_cons2 (arg1, arg2, rest),
                                     scm_from_int (2)));
@@ -62,7 +61,7 @@ LY_DEFINE (ly_unpure_pure_container_unpure_part, "ly:unpure-pure-container-unpur
            "Return the unpure part of @var{pc}.")
 {
   LY_ASSERT_SMOB (Unpure_pure_container, pc, 1);
-  return Unpure_pure_container::unsmob (pc)->unpure_part ();
+  return unsmob<Unpure_pure_container> (pc)->unpure_part ();
 }
 
 LY_DEFINE (ly_unpure_pure_container_pure_part, "ly:unpure-pure-container-pure-part",
@@ -70,7 +69,7 @@ LY_DEFINE (ly_unpure_pure_container_pure_part, "ly:unpure-pure-container-pure-pa
            "Return the pure part of @var{pc}.")
 {
   LY_ASSERT_SMOB (Unpure_pure_container, pc, 1);
-  return Unpure_pure_container::unsmob (pc)->pure_part ();
+  return unsmob<Unpure_pure_container> (pc)->pure_part ();
 }
 
 int

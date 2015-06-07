@@ -1,7 +1,7 @@
 \version "2.19.21"
 
-instrument = \relative c' {
-  \repeat unfold 40 { c8 }
+instrument = \relative {
+  \repeat unfold 40 { c'8 }
 }
 \addQuote "instrQuote" \instrument
 

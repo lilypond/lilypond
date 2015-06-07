@@ -1,4 +1,4 @@
-\version "2.19.16"
+\version "2.19.21"
 
 #(define (glissando::calc-extra-dy grob)
    (let* ((original (ly:grob-original grob))
@@ -25,7 +25,7 @@ upper= \relative c' {
   < gis\4 d'\3 fis\2 >2 < b'\2\harmonic e\harmonic >2\fermata
 }
 
-lower= \relative c {
+lower= \relative {
   \set fingeringOrientations = #'(left)
 
   \partial 4. s4.

@@ -94,7 +94,7 @@ Span_bar_stub_engraver::process_acknowledged ()
       programming_error ("At least one vertical axis group needs to be created in the first time step.");
       return;
     }
-  Grob *vertical_alignment = Grob::get_root_vertical_alignment (Grob::unsmob (scm_caar (axis_groups_)));
+  Grob *vertical_alignment = Grob::get_root_vertical_alignment (unsmob<Grob> (scm_caar (axis_groups_)));
   if (!vertical_alignment) // we are at the beginning of a score, so no need for stubs
     return;
 
@@ -113,8 +113,8 @@ Span_bar_stub_engraver::process_acknowledged ()
       vector<bool> keep_extent;
       for (SCM s = axis_groups_; scm_is_pair (s); s = scm_cdr (s))
         {
-          Context *c = Context::unsmob (scm_cdar (s));
-          Grob *g = Grob::unsmob (scm_caar (s));
+          Context *c = unsmob<Context> (scm_cdar (s));
+          Grob *g = unsmob<Grob> (scm_caar (s));
           if (!c || !g)
             continue;
           if (c->is_removable ())
@@ -163,8 +163,8 @@ Span_bar_stub_engraver::stop_translation_timestep ()
   SCM axis_groups = SCM_EOL;
   for (SCM s = axis_groups_; scm_is_pair (s); s = scm_cdr (s))
     {
-      Context *c = Context::unsmob (scm_cdar (s));
-      Grob *g = Grob::unsmob (scm_caar (s));
+      Context *c = unsmob<Context> (scm_cdar (s));
+      Grob *g = unsmob<Grob> (scm_caar (s));
       if (!c || !g)
         continue;
       if (c->is_removable ())

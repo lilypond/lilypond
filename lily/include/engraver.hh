@@ -65,12 +65,6 @@ public:
      override other ctor
   */
   TRANSLATOR_DECLARATIONS (Engraver);
-  static Engraver *unsmob (SCM eng) {
-    return dynamic_cast<Engraver *> (Translator::unsmob (eng));
-  }
-  static bool is_smob (SCM eng) {
-    return Translator::is_smob (eng) && unsmob (eng);
-  }
 };
 
 #define make_item(x, cause) internal_make_item (ly_symbol2scm (x), cause, x, __FILE__, __LINE__, __FUNCTION__)

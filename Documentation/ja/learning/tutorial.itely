@@ -431,10 +431,10 @@ A, G, F である場合は B の下に置かれます。
 @code{\tempo} コマンドでセットすることができます:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \time 3/4
   \tempo "Andante"
-  a4 a a
+  a'4 a a
   \time 6/8
   \tempo 4. = 96
   a4. a
@@ -482,11 +482,11 @@ A, G, F である場合は B の下に置かれます。
 以上の要素をすべて集めたちょっとした例をお見せします:
 
 @lilypond[verbatim,quote]
-\relative c, {
+\relative {
   \clef "bass"
   \time 3/4
   \tempo "Andante" 4 = 120
-  c2 e8 c'
+  c,2 e8 c'
   g'2.
   f4 e d
   c4 c, r

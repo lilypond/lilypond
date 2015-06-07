@@ -1,4 +1,4 @@
-\version "2.17.30"
+\version "2.19.21"
 \header {
 
   texidoc="In feathered beams, stems in knees reach up to the feathered part correctly.
@@ -8,11 +8,11 @@
 
 \layout { ragged-right = ##t}
 
-\relative c' {
+\relative {
   \override Beam.grow-direction = #-1
 %  \hide Beam
   \override Stem.direction = #UP
-  c32[
+  c'32[
   \override Stem.direction = #DOWN
 
   c''32 c32

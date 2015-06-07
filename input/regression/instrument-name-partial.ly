@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.21"
 \header {
   texidoc = "Instrument names are also printed on  partial starting measures."
 }
@@ -8,7 +8,7 @@
 
 
 
-\relative c'' { \set Staff.instrumentName = "foo" \partial 4 c4 c1 }
+\relative { \set Staff.instrumentName = "foo" \partial 4 c''4 c1 }
 
 
 

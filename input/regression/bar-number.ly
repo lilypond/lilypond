@@ -1,5 +1,5 @@
 
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
 
@@ -16,9 +16,9 @@ be increased.
   ragged-right = ##t
 }
 
-\relative c'' {
+\relative {
   \override Score.BarNumber.break-visibility = #all-visible
-  \partial 4 c4 
+  \partial 4 c''4 
   c1 c c
   \set Score.currentBarNumber = #99999
   \override Score.BarNumber.padding = #3

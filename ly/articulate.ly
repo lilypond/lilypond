@@ -119,7 +119,7 @@
 %  * Add Mordents (reported by Patrick Karl)
 %
 
-\version "2.17.11"
+\version "2.19.22"
 
 #(use-modules (srfi srfi-1))
 #(use-modules (srfi srfi-11))
@@ -866,7 +866,7 @@
 
 % At last ... here's the music function that applies all the above to a
 % score.
-articulate = #(define-music-function (parser location music)
+articulate = #(define-music-function (music)
                (ly:music?)
                "Adjust times of note to add tenuto, staccato and
                 normal articulations.
@@ -878,7 +878,7 @@ articulate = #(define-music-function (parser location music)
                 (lambda ()
                  (music-map
                   ac:articulate-chord
-                  (ac:unfoldMusic (event-chord-wrap! music parser))))
+                  (ac:unfoldMusic (event-chord-wrap! music (*parser*)))))
                 (lambda ()
                  (or (= ac:stealForward 0)
                   (begin
@@ -891,11 +891,11 @@ articulate = #(define-music-function (parser location music)
 % Special handling for a gruppetto after a trill.
 afterGrace =
 #(define-music-function
-  (parser location main grace)
+  (main grace)
   (ly:music? ly:music?)
 
-  (set! main (event-chord-wrap! main parser))
-  (set! grace (event-chord-wrap! grace parser))
+  (set! main (event-chord-wrap! main (*parser*)))
+  (set! grace (event-chord-wrap! grace (*parser*)))
   (let*
    ((main-length (ly:music-length main))
     (grace-orig-length (ly:music-length grace))
@@ -918,10 +918,10 @@ afterGrace =
 % Somewhere around the end of the 19th, start of 20th century the rules
 % changed, but my main interest is early music.
 appoggiatura =
-#(define-music-function (parser location grace main)
+#(define-music-function (grace main)
   (ly:music? ly:music?)
-  (set! grace (event-chord-wrap! grace parser))
-  (set! main (event-chord-wrap! main parser))
+  (set! grace (event-chord-wrap! grace (*parser*)))
+  (set! main (event-chord-wrap! main (*parser*)))
   (let* ((maindur (ly:music-length main))
          (grace-orig-len (ly:music-length grace))
          (main-orig-len (ly:music-length main))

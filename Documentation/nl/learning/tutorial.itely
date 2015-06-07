@@ -416,10 +416,10 @@ De @notation{tempo indication} en @notation{metronome mark} worden
 gezet met het @code{\tempo}-commando:
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \time 3/4
   \tempo "Andante"
-  a4 a a
+  a'4 a a
   \time 6/8
   \tempo 4. = 96
   a4. a
@@ -467,12 +467,12 @@ Hier is een klein voorbeeld dat al deze onderdelen samen
 toont:
 
 @lilypond[verbatim,quote]
-\relative c, {
+\relative {
   \clef "bass"
   \time 3/4
   \tempo "Andante" 4 = 120
   \clef "bass"
-  c2 e8 c'
+  c,2 e8 c'
   g'2.
   f4 e d
   c4 c, r

@@ -1202,8 +1202,8 @@ Standard zurückgesetzt werden:
 
 @lilypond[quote,verbatim]
 \score{
-  \relative c' {
-    \repeat unfold 8 { c8 } |
+  \relative {
+    \repeat unfold 8 { c'8 } |
     \overrideTimeSignatureSettings
       4/4        % timeSignatureFraction
       1/4        % baseMomentFraction
@@ -1746,9 +1746,9 @@ Zahl den Nenner des Bruches darstellt, während die vorherkommenden
 Zahlen die Zähler sind.
 
 @lilypond[quote,verbatim]
-\relative c' {
+\relative {
   \compoundMeter #'((2 2 2 8))
-  \repeat unfold 6 c8 \repeat unfold 12 c16
+  \repeat unfold 6 c'8 \repeat unfold 12 c16
 }
 @end lilypond
 
@@ -1757,14 +1757,14 @@ werden (von Klammern abgegrenzt).  Automatische Balken werden
 entsprechend der Werte angepasst.
 
 @lilypond[quote,verbatim]
-\relative c' {
+\relative {
   \compoundMeter #'((1 4) (3 8))
-  \repeat unfold 5 c8 \repeat unfold 10 c16
+  \repeat unfold 5 c'8 \repeat unfold 10 c16
 }
 
-\relative c' {
+\relative {
   \compoundMeter #'((1 2 3 8) (3 4))
-  \repeat unfold 12 c8
+  \repeat unfold 12 c'8
 }
 @end lilypond
 
@@ -2169,10 +2169,10 @@ niedrigere befindet.
     }
   }
   \new Voice  = two {
-    \relative c' {
+    \relative {
       \voiceTwo
       \set Voice.beatStructure = #'(1 3 3)
-      f8 f f f f f f
+      f'8 f f f f f f
     }
   }
 >>

@@ -215,7 +215,7 @@ void ly_check_name (const string &cxx, const string &fname);
 #define set_object(x, y) internal_set_object (ly_symbol2scm (x), y)
 #define del_property(x) internal_del_property (ly_symbol2scm (x))
 
-#ifndef NDEBUG
+#ifdef DEBUG
 /*
   TODO: include modification callback support here, perhaps
   through intermediate Grob::instrumented_set_property( .. __LINE__ ).
@@ -235,23 +235,28 @@ void ly_check_name (const string &cxx, const string &fname);
       }                                                                 \
   }
 
+template <class T>
+T *unsmob (SCM var);
+
 void ly_wrong_smob_arg (bool pred (SCM), SCM var, int number, const char *fun);
+
+// Do not call this directly.
+// Use LY_ASSERT_SMOB() which supplies the function name automatically.
+template <class T>
+inline T *ly_assert_smob (SCM var, int number, const char *fun)
+{
+  T *smob = unsmob<T> (var);
+  if (smob)
+    return smob;
+
+  ly_wrong_smob_arg (T::is_smob, var, number, fun);
+  return 0;
+}
 
 // Could be just implemented using LY_ASSERT_TYPE, but this variant
 // saves a slight amount of code
 
 #define LY_ASSERT_SMOB(klass, var, number)                              \
-  {                                                                     \
-    if (!klass::is_smob (var))                                          \
-      ly_wrong_smob_arg (klass::is_smob, var, number, __FUNCTION__);    \
-  }
-
-// This variant is for the case where klass::unsmob might actually be
-// situated in a base class of klass
-#define LY_ASSERT_DERIVED_SMOB(klass, var, number)                      \
-  {                                                                     \
-    if (!derived_unsmob<klass> (var))                                   \
-      ly_wrong_smob_arg (klass::is_smob, var, number, __FUNCTION__);    \
-  }
+  ly_assert_smob<klass> (var, number, __FUNCTION__)
 
 #endif /* LILY_GUILE_MACROS_HH */

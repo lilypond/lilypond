@@ -181,7 +181,7 @@ Dynamic_align_engraver::set_spanner_bounds (Spanner *line, bool end)
             bound = spanners[0]->get_bound (d);
           else
             {
-              bound = Grob::unsmob (get_property ("currentMusicalColumn"));
+              bound = unsmob<Grob> (get_property ("currentMusicalColumn"));
               programming_error ("started DynamicLineSpanner but have no left bound");
             }
 

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (_ "systems run off the page due to improper paper settings, setting default values"))
@@ -9,7 +9,7 @@
 
 #(set-default-paper-size "a4")
 
-someNotes = \relative c' { \repeat unfold 40 { c4 d e f } }
+someNotes = \relative { \repeat unfold 40 { c'4 d e f } }
 
 \paper {
   left-margin = 20 \mm

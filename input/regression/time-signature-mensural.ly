@@ -1,4 +1,4 @@
-\version "2.19.16"
+\version "2.19.21"
 
 \header {
   texidoc = "This test covers the mensural and neomensural time signature styles."
@@ -12,8 +12,8 @@
 
 \layout { indent = 0 }
 
-testMusic = \relative f' {
-    \time 4/4 \partial 4 f4
+testMusic = \relative {
+    \time 4/4 \partial 4 f'4
     \time 2/2 \partial 4 f4
     \time 6/4 \partial 4 f4
     \time 6/8 \partial 4 f4

@@ -1,4 +1,4 @@
-\version "2.19.12"
+\version "2.19.21"
 
 forcedLastBreak =  {} %%  { \break } if needed to match original breaks
 
@@ -50,7 +50,7 @@ half way in measure 13 has been forgotten.
 }
 
 
-sarabandeA =  \context Voice  \relative c {
+sarabandeA =  \context Voice  \relative {
   \override Staff.NoteCollision.merge-differently-dotted = ##t
 
 

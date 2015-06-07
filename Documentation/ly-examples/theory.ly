@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 \include "example-header.ily"
 
 #(ly:set-option 'point-and-click #f)
@@ -10,7 +10,7 @@ global = {
     \key c \major
 }
 
-cf = \relative c {
+cf = \relative {
   \clef bass
   \global
   c4 c' b a |

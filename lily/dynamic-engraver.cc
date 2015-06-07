@@ -209,12 +209,12 @@ Dynamic_engraver::stop_translation_timestep ()
   if (finished_spanner_ && !finished_spanner_->get_bound (RIGHT))
     finished_spanner_
     ->set_bound (RIGHT,
-                 Grob::unsmob (get_property ("currentMusicalColumn")));
+                 unsmob<Grob> (get_property ("currentMusicalColumn")));
 
   if (current_spanner_ && !current_spanner_->get_bound (LEFT))
     current_spanner_
     ->set_bound (LEFT,
-                 Grob::unsmob (get_property ("currentMusicalColumn")));
+                 unsmob<Grob> (get_property ("currentMusicalColumn")));
   script_ = 0;
   script_event_ = 0;
   accepted_spanevents_drul_.set (0, 0);
@@ -267,7 +267,7 @@ Dynamic_engraver::acknowledge_note_column (Grob_info info)
       */
       Grob *x_parent = (heads.size ()
                         ? info.grob ()
-                        : Grob::unsmob (info.grob ()->get_object ("rest")));
+                        : unsmob<Grob> (info.grob ()->get_object ("rest")));
       if (x_parent)
         script_->set_parent (x_parent, X_AXIS);
     }

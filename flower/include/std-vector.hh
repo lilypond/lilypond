@@ -25,7 +25,7 @@
 /*
   leads to dubious crashes - libstdc++  bug?
 */
-#ifndef NDEBUG
+#ifdef DEBUG
 #define _GLIBCXX_DEBUG 1
 #endif
 #endif

@@ -1,10 +1,10 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "All checks can be avoided by setting check-consistency to ##f in \paper."
 }
 
-someNotes = \relative c' { \repeat unfold 40 { c4 d e f } }
+someNotes = \relative { \repeat unfold 40 { c'4 d e f } }
 
 \paper {
   left-margin = 20 \mm

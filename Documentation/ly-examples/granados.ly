@@ -1,4 +1,4 @@
-\version "2.17.30"
+\version "2.19.21"
 \include "example-header.ily"
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -30,10 +30,10 @@ global = {
   \override NoteColumn.ignore-collision = ##t
 }
 
-upperVoiceOne = \relative c'' {
+upperVoiceOne = \relative {
   \voiceOne
   \hide TupletBracket
-  <aes f'>8\([ \tuplet 5/4{g'32( aes g f g]) }
+  <aes' f'>8\([ \tuplet 5/4{g'32( aes g f g]) }
     <es aes>8[ \tuplet 5/4{<d bes'>32( c' bes aes bes]) }
     <es, aes es'>8 <d fis b d>\) | % end m. 1
   %--------------------------------------------------%
@@ -51,9 +51,9 @@ upperVoiceOne = \relative c'' {
   \ottava #1 <es es'>16 <f f'> <d d'> \appoggiatura f8 <es es'>16\)
 }
 
-upperVoiceTwo = \relative c'' {
+upperVoiceTwo = \relative {
   \voiceTwo
-  s8 c8\< <bes, f'>[ <bes aes'> c' <bes, d fis>\!]
+  s8 c''8\< <bes, f'>[ <bes aes'> c' <bes, d fis>\!]
   s32 s32_\appassmolto s8. \voiceOne r8 <bes'' es bes'>-> s4
   \override Stem.cross-staff = ##t
   \override Stem.length = #28
@@ -61,11 +61,11 @@ upperVoiceTwo = \relative c'' {
   s8 \voiceTwo g,8 aes4 s4
 }
 
-middleVoiceOne = \relative c' {
+middleVoiceOne = \relative {
   \override Stem.cross-staff = ##t
   \override Stem.length = #32
   \override Flag.style = #'no-flag
-  d!8\noBeam s8 s8 s8_\crmolto s4  % 1
+  d'!8\noBeam s8 s8 s8_\crmolto s4  % 1
   s4 <g bes\arpeggio>8[ <es' g>] \voiceOne e,8( dis16 e) | % 2
   \revert Stem.length
   \revert Stem.cross-staff
@@ -74,19 +74,19 @@ middleVoiceOne = \relative c' {
   %s2.  % beginning m. 3
 }
 
-middleVoiceTwo = \relative c' {
+middleVoiceTwo = \relative {
   s2. | % 1
   \override Stem.cross-staff = ##t
   \override Stem.length = #24
   \override Flag.style = #'no-flag
-  s2 \voiceTwo e!4 | % 2
+  s2 \voiceTwo e'!4 | % 2
   s4 \voiceTwo <bes c es f>8 <f' aes es'>16 d' <bes, f' aes c>8 <bes' fis'> | % 3
 }
 
-lowerVoiceOne = \relative c, {
+lowerVoiceOne = \relative {
   \override Staff.NoteCollision.merge-differently-headed = ##t
   \override Staff.NoteCollision.merge-differently-dotted = ##t
-  bes8 \csm \stemDown <bes'' c es>8 s2
+  bes,,8 \csm \stemDown <bes'' c es>8 s2
   \csl \stemUp
   \set subdivideBeams = ##t
   \set baseMoment = #(ly:make-moment 1/16)
@@ -97,9 +97,9 @@ lowerVoiceOne = \relative c, {
   bes,,8 \csm \stemDown <bes'' c es>8 s2
 }
 
-lowerVoiceTwo = \relative c, {
+lowerVoiceTwo = \relative {
   \voiceTwo
-  bes2.
+  bes,,2.
   \csh
   \once \override Beam.damping = #+inf.0
   <bes'' es g>8 \csl \slurUp

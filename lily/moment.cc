@@ -71,8 +71,8 @@ Moment::as_scheme () const
 SCM
 Moment::equal_p (SCM a, SCM b)
 {
-  Moment *m1 = Moment::unsmob (a);
-  Moment *m2 = Moment::unsmob (b);
+  Moment *m1 = unsmob<Moment> (a);
+  Moment *m2 = unsmob<Moment> (b);
 
   return (*m1 == *m2) ? SCM_BOOL_T : SCM_BOOL_F;
 }
@@ -186,7 +186,7 @@ operator << (ostream &os, Moment const &m)
 Moment
 robust_scm2moment (SCM m, Moment d)
 {
-  Moment *p = Moment::unsmob (m);
+  Moment *p = unsmob<Moment> (m);
   if (!p)
     return d;
   else
@@ -196,5 +196,5 @@ robust_scm2moment (SCM m, Moment d)
 bool
 moment_less (SCM a, SCM b)
 {
-  return *Moment::unsmob (a) < *Moment::unsmob (b);
+  return *unsmob<Moment> (a) < *unsmob<Moment> (b);
 }

@@ -1,9 +1,9 @@
-%\version "2.19.19"
+%\version "2.19.22"
 
 \include "staff-tkit.ly"
 
 make-pianostaff =
-#(define-music-function (parser location) ()
+#(define-music-function () ()
 
 (if (not PianoRHMidiInstrument)
        (set! PianoRHMidiInstrument

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.22"
 
 \header {
   lsrtags = "staff-notation, vocal-music"
@@ -27,7 +27,7 @@ can be cued, but they cannot overlap each other in time.
 
 cueWhile =
 #(define-music-function
-   (parser location instrument name dir music)
+   (instrument name dir music)
    (string? string? ly:dir? ly:music?)
    #{
      \cueDuring $instrument #dir {

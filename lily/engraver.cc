@@ -52,12 +52,12 @@ Grob_info
 Engraver::make_grob_info (Grob *e, SCM cause)
 {
   /* TODO: Remove Music code when it's no longer needed */
-  if (Music *m = Music::unsmob (cause))
+  if (Music *m = unsmob<Music> (cause))
     {
       cause = m->to_event ()->unprotect ();
     }
   if (scm_is_null (e->get_property ("cause"))
-      && (Stream_event::is_smob (cause) || Grob::is_smob (cause)))
+      && (unsmob<Stream_event> (cause) || unsmob<Grob> (cause)))
     e->set_property ("cause", cause);
 
   return Grob_info (this, e);
@@ -86,7 +86,7 @@ Engraver::Engraver ()
 {
 }
 
-#ifndef NDEBUG
+#ifdef DEBUG
 static SCM creation_callback = SCM_EOL;
 LY_DEFINE (ly_set_grob_creation_callback, "ly:set-grob-creation-callback",
            1, 0, 0, (SCM cb),
@@ -112,7 +112,7 @@ Engraver::internal_make_grob (SCM symbol,
                               int line,
                               char const *fun)
 {
-#ifdef NDEBUG
+#ifndef DEBUG
   (void)file;
   (void)line;
   (void)fun;
@@ -135,7 +135,7 @@ Engraver::internal_make_grob (SCM symbol,
   assert (grob);
   announce_grob (grob, cause);
 
-#ifndef NDEBUG
+#ifdef DEBUG
   if (ly_is_procedure (creation_callback))
     scm_apply_0 (creation_callback,
                  scm_list_n (grob->self_scm (), scm_from_utf8_string (file),
@@ -174,7 +174,7 @@ Engraver::internal_make_spanner (SCM x, SCM cause, char const *name,
 bool
 ly_is_grob_cause (SCM obj)
 {
-  return Grob::is_smob (obj) || Stream_event::is_smob (obj) || scm_is_null (obj);
+  return unsmob<Grob> (obj) || unsmob<Stream_event> (obj) || scm_is_null (obj);
 }
 
 #include "translator.icc"

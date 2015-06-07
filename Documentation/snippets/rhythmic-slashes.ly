@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.22"
 
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
@@ -35,7 +35,7 @@ rs = {
 }
 
 % Function to print a specified number of slashes
-comp = #(define-music-function (parser location count) (integer?)
+comp = #(define-music-function (count) (integer?)
   #{
     \override Rest.stencil = #ly:percent-repeat-item-interface::beat-slash
     \override Rest.thickness = #0.48

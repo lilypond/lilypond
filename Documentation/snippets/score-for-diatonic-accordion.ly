@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.22"
 
 \header {
   lsrtags = "real-music, specific-notation, template"
@@ -186,7 +186,7 @@ staffAccordionMel =
 }
 
 AltOn =
-#(define-music-function (parser location mag) (number?)
+#(define-music-function (mag) (number?)
   #{ \override Stem.length = #(* 7.0 mag)
       \override NoteHead.font-size =
 #(inexact->exact (* (/ 6.0 (log 2.0)) (log mag))) #})

@@ -10,9 +10,9 @@ rests and then a solo."
 
 \layout { ragged-right = ##t }
 
-mI = \relative c'' {
+mI = \relative {
   \set Score.partCombineTextsOnNote = ##t
-  g4 \partcombineSoloI r4 c2 |
+  g'4 \partcombineSoloI r4 c2 |
   \partcombineSoloII R1*2 |
 }
 mII = \relative {

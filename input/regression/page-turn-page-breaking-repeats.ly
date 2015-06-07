@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 
 \header {
   texidoc = "The page-turn engraver will not count potential page
@@ -23,7 +23,7 @@ long gap at the beginning or at the end of the repeat.
   }
 
   \score {
-    \relative c' {
+    \relative {
       \set Score.skipBars = ##t
       % this should be kept on one page
       \repeat volta 2 {

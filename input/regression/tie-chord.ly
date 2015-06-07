@@ -11,7 +11,7 @@ each system."
 
 }
 
-\version "2.19.21"
+\version "2.19.22"
 
 \paper {
   indent = #0.0
@@ -21,7 +21,7 @@ each system."
 
 
 generateTiePattern
-= #(define-music-function (parser location is-long chords) (boolean? ly:music?)
+= #(define-music-function (is-long chords) (boolean? ly:music?)
 
     "
 

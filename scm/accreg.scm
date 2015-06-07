@@ -55,7 +55,7 @@ for examples."
                                  (ly:assoc-get 'reedbanks register))))))))
 
      (define-public ,set-symbol
-       (define-music-function (parser position register)
+       (define-music-function (register)
          (string?)
          ,(format #f "Equivalent to @code{<>^\\markup \\~a@var{REGISTER}}."
                   set-symbol)

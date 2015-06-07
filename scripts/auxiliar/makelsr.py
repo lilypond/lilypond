@@ -251,6 +251,7 @@ def copy_ly (srcdir, name, tags):
     s = strip_white_spaces_re.sub ('', s)
     s = final_empty_lines_re.sub ('\n', s)
     s = escape_backslashes_in_header (s)
+    s = s.replace ("\r\n", "\n")
     sys.stderr.write ("makelsr.py: writing %s\n" % dest)
     open (dest, 'w').write (s)
 

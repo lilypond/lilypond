@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.22"
 
 \header {
   texidoc = "Music events can be extracted from a score with event
@@ -15,7 +15,7 @@ listeners."
 
 st =
 #(define-music-function
-  (parser location text)
+  (text)
   (string?)
 #{
   \override TextSpanner.bound-details.left.text = $text
@@ -31,7 +31,7 @@ vlnone = \new Staff {
     #CENTER
   \override TextSpanner.bound-details.right.text =
     \markup { \draw-line #'(0 . -1) }
-\relative c' {
+\relative {
   \key d \major
   \tempo 4 = 96
 

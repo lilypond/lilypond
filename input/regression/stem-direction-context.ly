@@ -5,12 +5,12 @@
 
 }
 
-\version "2.17.6"
-\relative c'' \new Voice \with {
+\version "2.19.21"
+\relative \new Voice \with {
      \consists "Melody_engraver"
      \override Stem.neutral-direction = #'()
 } {
-  c4 b c b
+  c''4 b c b
   c c c c
   b a b a
 } 

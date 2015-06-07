@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.22"
 
 \header{
   texidoc= "Test backup of predicate-based optional music function arguments.
@@ -16,12 +16,12 @@ separate arguments."
 
 \layout { ragged-right = ##t }
 
-test=#(define-void-function (parser location expect . rest)
+test=#(define-void-function (expect . rest)
        (list? (string? "def1") (integer? "def2") (fraction? "def3") integer?)
        (if (not (equal? expect rest))
-	(ly:parser-error parser
+	(ly:parser-error (*parser*)
 	 (format #f "Expected ~s, got ~s.\n" expect rest)
-	 location)))
+	 (*location*))))
 
 twice=2
 

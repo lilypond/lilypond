@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.22"
 
 \header {
   lsrtags = "expressive-marks, text, workaround"
@@ -27,7 +27,7 @@ commands such as @code{\\dynamicUp} or @code{\\dynamicDown}.
 } % begin verbatim
 
 paren =
-#(define-event-function (parser location dyn) (ly:event?)
+#(define-event-function (dyn) (ly:event?)
    (make-dynamic-script
     #{ \markup \concat {
          \normal-text \italic \fontsize #2 (

@@ -10,5 +10,5 @@
 <<
   \relative { e''16[ f] }
   \\
-  \relative c''' { \autoBeamOff g b }
+  \relative { \autoBeamOff g'' b }
 >>

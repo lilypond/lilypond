@@ -817,8 +817,8 @@ Skyline::get_touching_point (SCM skyline_scm, SCM other_skyline_scm, SCM horizon
       horizon_padding = scm_to_double (horizon_padding_scm);
     }
 
-  Skyline *skyline = Skyline::unsmob (skyline_scm);
-  Skyline *other_skyline = Skyline::unsmob (other_skyline_scm);
+  Skyline *skyline = unsmob<Skyline> (skyline_scm);
+  Skyline *other_skyline = unsmob<Skyline> (other_skyline_scm);
   return scm_from_double (skyline->touching_point (*other_skyline, horizon_padding));
 }
 
@@ -835,8 +835,8 @@ Skyline::get_distance (SCM skyline_scm, SCM other_skyline_scm, SCM horizon_paddi
       horizon_padding = scm_to_double (horizon_padding_scm);
     }
 
-  Skyline *skyline = Skyline::unsmob (skyline_scm);
-  Skyline *other_skyline = Skyline::unsmob (other_skyline_scm);
+  Skyline *skyline = unsmob<Skyline> (skyline_scm);
+  Skyline *other_skyline = unsmob<Skyline> (other_skyline_scm);
   return scm_from_double (skyline->distance (*other_skyline, horizon_padding));
 }
 
@@ -844,14 +844,14 @@ MAKE_SCHEME_CALLBACK (Skyline, get_max_height, 1)
 SCM
 Skyline::get_max_height (SCM skyline_scm)
 {
-  return scm_from_double (Skyline::unsmob (skyline_scm)->max_height ());
+  return scm_from_double (unsmob<Skyline> (skyline_scm)->max_height ());
 }
 
 MAKE_SCHEME_CALLBACK (Skyline, get_max_height_position, 1)
 SCM
 Skyline::get_max_height_position (SCM skyline_scm)
 {
-  return scm_from_double (Skyline::unsmob (skyline_scm)->max_height_position ());
+  return scm_from_double (unsmob<Skyline> (skyline_scm)->max_height_position ());
 }
 
 MAKE_SCHEME_CALLBACK (Skyline, get_height, 2)
@@ -859,14 +859,14 @@ SCM
 Skyline::get_height (SCM skyline_scm, SCM x_scm)
 {
   Real x = robust_scm2double (x_scm, 0.0);
-  return scm_from_double (Skyline::unsmob (skyline_scm)->height (x));
+  return scm_from_double (unsmob<Skyline> (skyline_scm)->height (x));
 }
 
 LY_DEFINE (ly_skyline_empty_p, "ly:skyline-empty?",
            1, 0, 0, (SCM sky),
            "Return whether @var{sky} is empty.")
 {
-  Skyline *s = Skyline::unsmob (sky);
+  Skyline *s = unsmob<Skyline> (sky);
   LY_ASSERT_SMOB (Skyline, sky, 1);
   return scm_from_bool (s->is_empty ());
 }

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @c Translators: Till Paala
 
@@ -63,7 +63,7 @@ für die Note @qq{H} steht.  Die Benutzung deutscher
 Notenbezeichnungen mit der Unterscheidung von b und h ist
 auch möglich, siehe @ref{Notenbezeichnungen in anderen Sprachen}.
 Die Notenbezeichnungen @code{c} bis @code{b}
-werden in der Oktave unter dem zweigestrichenen C
+werden in der Oktave unter dem eingestrichenen C
 gesetzt.
 
 @c don't use c' here.
@@ -2658,7 +2658,7 @@ Die folgende Notlösung kann benutzt werden: Man definiert eine Funktion,
 die den Versetzungszeichenstil kurzzeitig auf @code{forget} umschaltet:
 
 @lilypond[verbatim,quote]
-forget = #(define-music-function (parser location music) (ly:music?) #{
+forget = #(define-music-function (music) (ly:music?) #{
   \accidentalStyle forget
   #music
   \accidentalStyle modern

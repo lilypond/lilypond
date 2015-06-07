@@ -47,8 +47,8 @@ Input::print_smob (SCM port, scm_print_state *)
 SCM
 Input::equal_p (SCM sa, SCM sb)
 {
-  Input *a = unsmob (sa);
-  Input *b = unsmob (sb);
+  Input *a = unsmob<Input> (sa);
+  Input *b = unsmob<Input> (sb);
   if (a->get_source_file () == b->get_source_file ()
       && a->start () == b->start ()
       && a->end () == b->end ())

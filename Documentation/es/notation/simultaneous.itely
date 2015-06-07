@@ -202,9 +202,9 @@ que los eventos de ese tipo ya estén presentes en el propio acorde
 @code{q}.
 
 @lilypond[verbatim,quote]
-\relative c'' {
+\relative {
   \chordRepeats #'(articulation-event)
-  { <a-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
+  { <a'-. c\prall e>1\sfz c'4 q2 r8 q8-. } |
   q2 c, |
 }
 @end lilypond

@@ -989,14 +989,14 @@ Einzugs (@code{indent} und @code{short-indent}) vergrößert werden.
 Zu Einzelheiten siehe @ref{paper-Variablen für Verschiebungen und Einrückungen,,@code{@bs{}paper}-Variablen für Verschiebungen und Einrückungen}.
 
 @lilypond[verbatim,quote,ragged-right]
-\relative c'' {
+\relative {
   <<
     \new Staff \with {
       instrumentName = #"Alto Flute in G"
       shortInstrumentName = #"Flt."
     }
     {
-      f2 g4 f \break
+      f''2 g4 f \break
       g4 f g2
     }
     \new Staff \with {
@@ -1487,7 +1487,7 @@ um die klingenden Töne des Quelleninstruments zu produzieren.
 Um Stichnoten anders zu transponieren, muss @code{\transposedCueDuring}
 benutzt werden.  Dieser Befehl braucht ein zusätzliches Argument, um
 (in absolutem Modus) die gedruckte Tonhöhe vorzugeben, mit der das
-das zweigestrichene C dargestellt werden soll.  Das ist nützlich, wenn
+das eingestrichene C dargestellt werden soll.  Das ist nützlich, wenn
 man Stichnoten von einem Instrument mit einem vollständig anderen
 Register benutzt:
 

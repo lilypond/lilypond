@@ -25,7 +25,7 @@ LY_DEFINE (ly_item_p, "ly:item?",
            1, 0, 0, (SCM g),
            "Is @var{g} an @code{Item} object?")
 {
-  Grob *me = Grob::unsmob (g);
+  Grob *me = unsmob<Grob> (g);
   bool b = dynamic_cast<Item *> (me);
   return ly_bool2scm (b);
 }
@@ -37,7 +37,7 @@ LY_DEFINE (ly_item_break_dir, "ly:item-break-dir",
            " @code{1}@tie{}beginning of line.")
 {
   LY_ASSERT_SMOB (Item, it, 1);
-  Item *me = Item::unsmob (it);
+  Item *me = unsmob<Item> (it);
   return scm_from_int (me->break_status_dir ());
 }
 
@@ -47,7 +47,7 @@ LY_DEFINE (ly_item_get_column, "ly:item-get-column",
            " associated with this @code{Item}.")
 {
   LY_ASSERT_SMOB (Item, it, 1);
-  Item *me = Item::unsmob (it);
+  Item *me = unsmob<Item> (it);
 
   if (Paper_column *col = me->get_column ())
     return col->self_scm ();

@@ -97,12 +97,10 @@
 
   CALLING INTERFACE
 
-  Common public methods to C++ smob objects:
+  Common global functions for accessing C++ smob objects:
 
-  - unsmob (SCM x) - unpacks X and returns pointer to the C++ object,
-    or 0 if it has the wrong type.  This can be used as a boolean
-    condition at C++ level.
-  - smob_p (SCM x) returns #t or #f at Scheme level.
+  - unsmob<T> (SCM x) - unpack X and return a pointer to the C++ object,
+    or 0 if it has the wrong type.
 
   IMPLEMENTATION
 
@@ -153,11 +151,11 @@ class Smob_base
   static Scm_init scm_init_;
   static void init (void);
   static string smob_name_;
+protected:
   static Super *unchecked_unsmob (SCM s)
   {
     return reinterpret_cast<Super *> (SCM_SMOB_DATA (s));
   }
-protected:
   // reference scm_init_ in smob_tag which is sure to be called.  The
   // constructor, in contrast, may not be called at all in classes
   // like Smob1.
@@ -185,6 +183,7 @@ private:
   static SCM equal_p (SCM, SCM);
   int print_smob (SCM, scm_print_state *);
   static int print_trampoline (SCM, SCM, scm_print_state *);
+  static void smob_proc_init (scm_t_bits) { };
 
   // type_p_name_ can be overriden in the Super class with a static
   // const char [] string.  This requires both a declaration in the
@@ -200,27 +199,42 @@ private:
   static const int type_p_name_ = 0;
 
   // LY_DECLARE_SMOB_PROC is used in the Super class definition for
-  // making a smob callable like a function.  Declaration has to be
-  // public.  It may be either be completed with a semicolon in which
-  // case a definition of the member function smob_proc has to be done
-  // outside of the class body, or the semicolon is left off and an
-  // inline function body is added immediately below.  It would be
-  // nice if this were a non-static member function but it would seem
-  // tricky to do the required trampolining for unsmobbing the first
-  // argument of the callback and using it as a this pointer.
-#define LY_DECLARE_SMOB_PROC(REQ, OPT, VAR, ARGLIST)                    \
-  static const int smob_proc_signature_ = ((REQ)<<8)|((OPT)<<4)|(VAR);  \
-  static SCM smob_proc ARGLIST
+  // making a smob callable like a function.  Its first argument is a
+  // function member pointer constant, to a function taking the
+  // correct number of SCM arguments and returning SCM.  The function
+  // itself has to be defined separately.
 
-  // a separate LY_DEFINE_SMOB_PROC seems sort of pointless as it
-  // would just result in SCM CLASS::smob_proc ARGLIST
-  //
-  // The default case without function functionality is recognized by
-  // smob_proc_signature being -1.
-  static const int smob_proc = 0;
-  static const int smob_proc_signature_ = -1;
+#define LY_DECLARE_SMOB_PROC(PMF, REQ, OPT, VAR)                        \
+  static void smob_proc_init (scm_t_bits smob_tag)                      \
+  {                                                                     \
+    scm_set_smob_apply (smob_tag,                                       \
+                        (scm_t_subr)smob_trampoline<PMF>,               \
+                        REQ, OPT, VAR);                                 \
+  }
 
-public:
+  // Well, function template argument packs are a C++11 feature.  So
+  // we just define a bunch of trampolines manually.
+  template <SCM (Super::*pmf)(void)>
+  static SCM smob_trampoline (SCM self)
+  {
+    return (Super::unchecked_unsmob (self)->*pmf)();
+  }
+  template <SCM (Super::*pmf)(SCM)>
+  static SCM smob_trampoline (SCM self, SCM arg1)
+  {
+    return (Super::unchecked_unsmob (self)->*pmf)(arg1);
+  }
+  template <SCM (Super::*pmf)(SCM, SCM)>
+  static SCM smob_trampoline (SCM self, SCM arg1, SCM arg2)
+  {
+    return (Super::unchecked_unsmob (self)->*pmf)(arg1, arg2);
+  }
+  template <SCM (Super::*pmf)(SCM, SCM, SCM)>
+  static SCM smob_trampoline (SCM self, SCM arg1, SCM arg2, SCM arg3)
+  {
+    return (Super::unchecked_unsmob (self)->*pmf)(arg1, arg2, arg3);
+  }
+
   static bool is_smob (SCM s)
   {
     return SCM_SMOB_PREDICATE (smob_tag (), s);
@@ -229,18 +243,18 @@ public:
   {
     return is_smob (s) ? SCM_BOOL_T : SCM_BOOL_F;
   }
-  static Super *unsmob (SCM s)
-  {
-    return is_smob (s) ? Super::unchecked_unsmob (s) : 0;
-  }
+
+  template <class T>
+  friend T *unsmob (SCM s);
+
+  template <class T>
+  friend T *ly_assert_smob (SCM s, int number, const char *fun);
 };
 
-// derived_unsmob includes a dynamic_cast:
-
 template <class T>
-inline T *derived_unsmob (SCM arg)
+inline T *unsmob (SCM s)
 {
-  return dynamic_cast<T *> (T::unsmob (arg));
+  return T::is_smob (s) ? dynamic_cast<T *> (T::unchecked_unsmob (s)) : 0;
 }
 
 // Simple smobs
@@ -333,7 +347,7 @@ public:
 // least some, so they are apparently not protected in spite of being
 // included in the GC scans.  So it would appear that scanning smobs
 // is not equivalent to marking them.  Ugh.
-#if !defined(NDEBUG) && !GUILEV2
+#if defined(DEBUG) && !GUILEV2
 #define ASSERT_LIVE_IS_ALLOWED(arg)                                     \
   do {                                                                  \
     static parsed_dead pass_here;                                       \

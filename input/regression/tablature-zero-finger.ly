@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 #(ly:set-option 'warning-as-error #f)
 #(ly:expect-warning (_ "No open string for pitch ~a") "#<Pitch f >")
 
@@ -10,7 +10,7 @@ a warning message and set the requested pitch in the tablature.
 "
 }
 
-mymusic = \relative c {
+mymusic = \relative {
   \set minimumFret = #1
   <d-0 d'-2 f-3 a-1>1
   <f-0>

@@ -101,11 +101,10 @@ public:
   Listener (SCM callback, SCM target)
     : callback_ (callback), target_ (target) { }
 
-  void listen (SCM ev) const { scm_call_2 (callback_, target_, ev); }
-
-  LY_DECLARE_SMOB_PROC (1, 0, 0, (SCM self, SCM ev))
+  LY_DECLARE_SMOB_PROC (&Listener::listen, 1, 0, 0)
+  SCM listen (SCM ev)
   {
-    Listener::unsmob (self)->listen (ev);
+    scm_call_2 (callback_, target_, ev);
     return SCM_UNSPECIFIED;
   }
 
@@ -123,7 +122,7 @@ public:
 
   static SCM equal_p (SCM a, SCM b)
   {
-    return *Listener::unsmob (a) == *Listener::unsmob (b)
+    return *unchecked_unsmob (a) == *unchecked_unsmob (b)
       ? SCM_BOOL_T : SCM_BOOL_F;
   }
 };
@@ -158,8 +157,8 @@ class Callback_wrapper : public Simple_smob<Callback_wrapper>
   template <class T, void (T::*callback)(SCM)>
   static void trampoline (SCM target, SCM ev)
   {
-    T *t = derived_unsmob<T> (target);
-    LY_ASSERT_DERIVED_SMOB (T, target, 1);
+    T *t = unsmob<T> (target);
+    LY_ASSERT_SMOB (T, target, 1);
 
     (t->*callback) (ev);
   }
@@ -169,20 +168,21 @@ class Callback_wrapper : public Simple_smob<Callback_wrapper>
     // The same, but for callbacks for translator listeners which get
     // the unpacked event which, in turn, gets protected previously
 
-    T *t = derived_unsmob<T> (target);
-    LY_ASSERT_DERIVED_SMOB (T, target, 1);
+    T *t = unsmob<T> (target);
+    LY_ASSERT_SMOB (T, target, 1);
     LY_ASSERT_SMOB (Stream_event, event, 2);
 
     t->protect_event (event);
-    (t->*callback) (Stream_event::unsmob (event));
+    (t->*callback) (unsmob<Stream_event> (event));
   }
 
   Callback_wrapper (void (*trampoline) (SCM, SCM)) : trampoline_ (trampoline)
   { } // Private constructor, use only in make_smob
 public:
-  LY_DECLARE_SMOB_PROC (2, 0, 0, (SCM self, SCM target, SCM ev))
+  LY_DECLARE_SMOB_PROC (&Callback_wrapper::call, 2, 0, 0)
+  SCM call (SCM target, SCM ev)
   {
-    unsmob (self)->trampoline_ (target, ev);
+    trampoline_ (target, ev);
     return SCM_UNSPECIFIED;
   }
   // Callback wrappers are for an unchanging entity, so we do the Lisp

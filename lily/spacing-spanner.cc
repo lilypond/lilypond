@@ -58,7 +58,7 @@ MAKE_SCHEME_CALLBACK (Spacing_spanner, set_springs, 1);
 SCM
 Spacing_spanner::set_springs (SCM smob)
 {
-  Spanner *me = Spanner::unsmob (smob);
+  Spanner *me = unsmob<Spanner> (smob);
 
   /*
     can't use get_system () ? --hwn.
@@ -89,7 +89,7 @@ MAKE_SCHEME_CALLBACK (Spacing_spanner, calc_common_shortest_duration, 1);
 SCM
 Spacing_spanner::calc_common_shortest_duration (SCM grob)
 {
-  Spanner *me = Spanner::unsmob (grob);
+  Spanner *me = unsmob<Spanner> (grob);
 
   vector<Grob *> cols (get_columns (me));
 
@@ -106,7 +106,7 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
     {
       if (Paper_column::is_musical (cols[i]))
         {
-          Moment *when = Moment::unsmob (cols[i]->get_property ("when"));
+          Moment *when = unsmob<Moment> (cols[i]->get_property ("when"));
 
           /*
             ignore grace notes for shortest notes.
@@ -115,7 +115,7 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
             continue;
 
           SCM st = cols[i]->get_property ("shortest-starter-duration");
-          Moment this_shortest = *Moment::unsmob (st);
+          Moment this_shortest = *unsmob<Moment> (st);
           assert (this_shortest.to_bool ());
           shortest_in_measure = min (shortest_in_measure, this_shortest.main_part_);
         }
@@ -161,7 +161,7 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
 
   SCM bsd = me->get_property ("base-shortest-duration");
   Rational d = Rational (1, 8);
-  if (Moment *m = Moment::unsmob (bsd))
+  if (Moment *m = unsmob<Moment> (bsd))
     d = m->main_part_;
 
   if (max_idx != VPOS)
@@ -237,7 +237,7 @@ set_column_rods (vector<Grob *> const &cols, Real padding)
       if (Separation_item::is_empty (r) && (!rb || Separation_item::is_empty (rb)))
         continue;
 
-      Skyline_pair *skys = Skyline_pair::unsmob (r->get_property ("horizontal-skylines"));
+      Skyline_pair *skys = unsmob<Skyline_pair> (r->get_property ("horizontal-skylines"));
       overhangs[i] = skys ? (*skys)[RIGHT].max_height () : 0.0;
 
       if (0 == i) continue;
@@ -354,7 +354,7 @@ Spacing_spanner::musical_column_spacing (Grob *me,
           if (found_matching_column && Note_spacing::has_interface (wish))
             {
               Real inc = options->increment_;
-              Grob *gsp = Grob::unsmob (left_col->get_object ("grace-spacing"));
+              Grob *gsp = unsmob<Grob> (left_col->get_object ("grace-spacing"));
               if (gsp && Paper_column::when_mom (left_col).grace_part_)
                 {
                   Spacing_options grace_opts;
@@ -447,7 +447,7 @@ Spacing_spanner::fills_measure (Grob *me, Item *left, Item *col)
   Moment dt
     = Paper_column::when_mom (next) - Paper_column::when_mom (col);
 
-  Moment *len = Moment::unsmob (left->get_property ("measure-length"));
+  Moment *len = unsmob<Moment> (left->get_property ("measure-length"));
   if (!len)
     return false;
 

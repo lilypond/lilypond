@@ -1047,6 +1047,12 @@ Otherwise, return #f."
                                          (music 'ContextSpeccedMusic
                                                 context-id "shared"
                                                 context-type 'Voice)
+                                         (music 'ContextSpeccedMusic
+                                                context-id "solo"
+                                                context-type 'Voice)
+                                         (music 'ContextSpeccedMusic
+                                                context-id "null"
+                                                context-type 'NullVoice)
                                          ?pc-music))))
    (with-music-match
     (?pc-music (music 'PartCombineMusic))

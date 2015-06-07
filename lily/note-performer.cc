@@ -54,15 +54,15 @@ Note_performer::process_music ()
 
   Pitch transposing;
   SCM prop = get_property ("instrumentTransposition");
-  if (Pitch::is_smob (prop))
-    transposing = *Pitch::unsmob (prop);
+  if (unsmob<Pitch> (prop))
+    transposing = *unsmob<Pitch> (prop);
 
   for (vsize i = 0; i < note_evs_.size (); i++)
     {
       Stream_event *n = note_evs_[i];
       SCM pit = n->get_property ("pitch");
 
-      if (Pitch *pitp = Pitch::unsmob (pit))
+      if (Pitch *pitp = unsmob<Pitch> (pit))
         {
           SCM articulations = n->get_property ("articulations");
           Stream_event *tie_event = 0;
@@ -70,7 +70,7 @@ Note_performer::process_music ()
           int velocity = 0;
           for (SCM s = articulations; scm_is_pair (s); s = scm_cdr (s))
             {
-              Stream_event *ev = Stream_event::unsmob (scm_car (s));
+              Stream_event *ev = unsmob<Stream_event> (scm_car (s));
               if (!ev)
                 continue;
 

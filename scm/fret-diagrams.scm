@@ -109,11 +109,12 @@ to end-point."
                   (car this-list)
                 ;; fret
                   (- (second this-list) base-fret)
-                ;; finger
-                  (if (or (null? (cddr this-list))
-                        (not (number? (caddr this-list))))
-                      '()
-                      (third this-list))
+                ;; finger-number or markup
+                  (if (and (not (null? (cddr this-list)))
+                           (or (markup? (caddr this-list))
+                               (number? (caddr this-list))))
+                      (third this-list)
+                      '())
                 ;; inverted
                   (dot-is-inverted this-list)
                 ;; parenthesis

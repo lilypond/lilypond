@@ -48,13 +48,6 @@ public:
   virtual Moment now_mom () const;
   virtual Context *get_default_interpreter (const string &context_id = "");
 
-  static Global_context *unsmob (SCM x) {
-    return dynamic_cast<Global_context *> (Context::unsmob (x));
-  }
-  static bool is_smob (SCM x) {
-    return Context::is_smob (x) && unsmob (x);
-  }
-
   Moment previous_moment () const;
 protected:
   Moment prev_mom_;

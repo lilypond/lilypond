@@ -31,13 +31,6 @@ public:
   ~Performance ();
   DECLARE_CLASSNAME (Performance);
 
-  static Performance *unsmob (SCM p) {
-    return dynamic_cast <Performance *> (Music_output::unsmob (p));
-  }
-  static bool is_smob (SCM p) {
-    return Music_output::is_smob (p) && unsmob (p);
-  }
-
   void add_element (Audio_element *p);
   virtual void process ();
   void remap_grace_durations ();

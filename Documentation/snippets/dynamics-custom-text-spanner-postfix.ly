@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.22"
 
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
@@ -22,13 +22,13 @@ next note.
 % Two functions for (de)crescendo spanners where you can explicitly give the
 % spanner text.
 mycresc =
-#(define-music-function (parser location mymarkup) (markup?)
+#(define-music-function (mymarkup) (markup?)
    (make-music 'CrescendoEvent
                'span-direction START
                'span-type 'text
                'span-text mymarkup))
 mydecresc =
-#(define-music-function (parser location mymarkup) (markup?)
+#(define-music-function (mymarkup) (markup?)
    (make-music 'DecrescendoEvent
                'span-direction START
                'span-type 'text

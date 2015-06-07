@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.21"
 \header {
   texidoc = "@cindex Midi Volume Equaliser
 The full orchestra plays a note, where groups stop one after
@@ -20,75 +20,75 @@ Override, see scm/midi.scm:
 
 %}
 
-flauti =  \relative c' {
+flauti =  \relative {
   \set Staff.midiInstrument = #"flute"
 
-  c1\f R1*10
+  c'1\f R1*10
 }
 
-oboi =  \relative c' {
+oboi =  \relative {
   \set Staff.midiInstrument = #"oboe"
 
-  R1*1 c1\f R1*9
+  R1*1 c'1\f R1*9
 }
 
-clarinetti =  \relative c' {
+clarinetti =  \relative {
   \set Staff.midiInstrument = #"clarinet"
 
-  R1*2 c1\f R1*8
+  R1*2 c'1\f R1*8
 }
 
-fagotti =  \relative c' {
+fagotti =  \relative {
   \set Staff.midiInstrument = #"bassoon"
 
   \clef bass
-  R1*3 c1\f R1*7
+  R1*3 c'1\f R1*7
 }
 
-corni =  \relative c' {
+corni =  \relative {
   \set Staff.midiInstrument = #"french horn"
 
-  R1*4 c1\f R1*6
+  R1*4 c'1\f R1*6
 }
 
-trombe =  \relative c' {
+trombe =  \relative {
   \set Staff.midiInstrument = #"trumpet"
 
   \clef bass
-  R1*5 c1\f R1*5
+  R1*5 c'1\f R1*5
 }
 
-timpani =  \relative c' {
+timpani =  \relative {
   \set Staff.midiInstrument = #"timpani"
 
-  R1*6 c1\f R1*4
+  R1*6 c'1\f R1*4
 }
 
-violinoI =  \relative c' {
+violinoI =  \relative {
   \set Staff.midiInstrument = #"violin"
 
-  R1*7 c1\f R1*3
+  R1*7 c'1\f R1*3
 }
 
-violinoII =  \relative c' {
+violinoII =  \relative {
   \set Staff.midiInstrument = #"violin"
   
-  R1*8 c1\f R1*2
+  R1*8 c'1\f R1*2
 }
 
-viola =  \relative c' {
+viola =  \relative {
   \set Staff.midiInstrument = #"viola"
 
   \clef alto
-  R1*9 c1\f R1*1
+  R1*9 c'1\f R1*1
 }
 
-violoncello =  \relative c' {
+violoncello =  \relative {
   \set Staff.midiInstrument = #"cello"
 				%\set Staff.midiInstrument = #"contrabass"
   
   \clef bass
-  R1*10 c1\f
+  R1*10 c'1\f
 }
 
 

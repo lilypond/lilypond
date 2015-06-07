@@ -1,4 +1,4 @@
-%\version "2.19.19"
+%\version "2.19.22"
 
 \include "voice-tkit.ly"
 
@@ -18,7 +18,7 @@
 
 
 make-one-voice-staff =
-#(define-music-function (parser location show-instrName name clef dynamic-direction)
+#(define-music-function (show-instrName name clef dynamic-direction)
    ((boolean? #t) voice-prefix? string? (up-or-down? ""))
 
    "Make a staff with one voice (no lyrics)
@@ -73,7 +73,7 @@ make-one-voice-staff =
 
 
 make-two-voice-staff =
-#(define-music-function (parser location name clef v1name v2name)
+#(define-music-function (name clef v1name v2name)
    (voice-prefix? string? voice-prefix? voice-prefix?)
 
    "Make a vocal staff with two voices

@@ -76,7 +76,7 @@ Output_def::mark_smob ()
 void
 assign_context_def (Output_def * m, SCM transdef)
 {
-  Context_def *tp = Context_def::unsmob (transdef);
+  Context_def *tp = unsmob<Context_def> (transdef);
   assert (tp);
 
   if (tp)
@@ -90,7 +90,7 @@ assign_context_def (Output_def * m, SCM transdef)
 SCM
 find_context_def (Output_def const *m, SCM name)
 {
-  Context_def *cd = Context_def::unsmob (m->lookup_variable (name));
+  Context_def *cd = unsmob<Context_def> (m->lookup_variable (name));
   return cd ? cd->self_scm () : SCM_EOL;
 }
 

@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.21"
 
 \header {
 
@@ -12,9 +12,9 @@
   ragged-right = ##T
 }
 
-\relative c'' {
+\relative {
   \override Score.SpacingSpanner.shortest-duration-space = #3.0
-  c4-\bendAfter #+5
+  c''4-\bendAfter #+5
   c4-\bendAfter #+4
   c4-\bendAfter #+3
   c4-\bendAfter #+2

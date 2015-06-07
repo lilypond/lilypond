@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.19.22"
 
 \header
 {
@@ -12,7 +12,7 @@ of the resulting object is set accordingly."
 }
 
 dynScript =
-#(define-music-function (parser location text) (string?)
+#(define-music-function (text) (string?)
    (make-dynamic-script text))
 
 \relative {

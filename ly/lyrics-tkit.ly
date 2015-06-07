@@ -1,4 +1,4 @@
-%\version "2.19.19"
+%\version "2.19.22"
 
 %%% The function used by the built-in templates to
 %   build a lyrics context and associate it with a voice.
@@ -7,7 +7,7 @@
 
 make-one-stanza =
 #(define-music-function
-  (parser location pos staffPrefix voicePrefix altVoicePrefix lyrics)
+  (pos staffPrefix voicePrefix altVoicePrefix lyrics)
   ((above-or-below? #f)
    voice-prefix?
    voice-prefix?

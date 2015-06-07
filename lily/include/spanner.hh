@@ -52,13 +52,6 @@ public:
   DECLARE_SCHEME_CALLBACK (bounds_width, (SCM));
   DECLARE_SCHEME_CALLBACK (kill_zero_spanned_time, (SCM));
 
-  static Spanner *unsmob (SCM s) {
-    return dynamic_cast <Spanner *> (Grob::unsmob (s));
-  }
-  static bool is_smob (SCM s) {
-    return Grob::is_smob (s) && unsmob (s);
-  }
-
   vector<Spanner *> broken_intos_;
 
   vsize get_break_index () const;

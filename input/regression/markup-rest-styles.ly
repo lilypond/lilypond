@@ -1,4 +1,4 @@
-\version "2.17.9"
+\version "2.19.22"
 
 \header {
   texidoc = "@code{\\rest-by-number} and @code{\\rest} support
@@ -6,7 +6,7 @@ all rest styles."
 }
 
 showRestStyles =
-#(define-scheme-function (parser location)()
+#(define-scheme-function ()()
    (make-override-markup
      (cons 'baseline-skip 7)
      (make-column-markup
