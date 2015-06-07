@@ -1,8 +1,12 @@
-%% Translation of GIT committish: c5f6541667b71037c4965b482a8161628c7cc485
+%% Translation of GIT committish: 3bcb9ffb9e2ecd44866e51fe712ffec181775ecf
   texidocfr = "
-Les « incipits » peuvent faire partie de l'objet @code{InstrumentName},
-tout en définissant de manière indépendante le nom de l'instrument et
-l'incipit.
+Dans le cadre de la transcription de musique mensurale, un « incipit »
+en début de pièce permet d'indiquer tonalité et tempo originaux.  Les
+musiciens sont maintenant habitués aux barres de mesure, ce qui n'était
+pas le cas à l'époque.  Dans une forme de compromis, les barres de
+mesures sont souvent imprimées entre les portées, mise en forme que l'on
+appelle « lignes de mensuration ».
+
 
 "
   doctitlefr = "Incipit"

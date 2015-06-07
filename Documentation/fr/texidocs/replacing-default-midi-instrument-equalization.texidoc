@@ -1,0 +1,14 @@
+%% Translation of GIT committish: 3bcb9ffb9e2ecd44866e51fe712ffec181775ecf
+  texidocfr = "
+L'égaliseur basique peut être modifié par la définition d'une nouvelle
+procédure Scheme @code{instrumentEqualizer} au sein du contexte
+@code{Score}.  Cette procédure prend en unique argument le nom d'un
+instrument MIDI et renverra une paire de fractions correspondant au
+minimum et maximum de volume alloué à cet instrument.
+
+Dans l'exemple suivant sont réglés les volumes relatifs de la flûte
+et de la clarinette.
+
+"
+
+  doctitle = "Réglage de l'égalisation par défaut des instruments MIDI"

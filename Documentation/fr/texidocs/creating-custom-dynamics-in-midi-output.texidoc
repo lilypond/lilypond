@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 3bcb9ffb9e2ecd44866e51fe712ffec181775ecf
+  texidocfr = "
+L'exemple suivant illustre la manière de créer une indication de nuance,
+absente de la liste par défaut, et de lui assigner une valeur spécifique
+utile à la sortie MIDI.
+
+L'indication de nuance @code{\\rfz} (@notation{rinforzando}) se voit
+attribué une valeur de @code{0.9}.
+
+"
+
+  doctitlefr = "Création de nuance particulière pour la sortie MIDI"
