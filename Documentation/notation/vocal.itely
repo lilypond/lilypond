@@ -1365,8 +1365,11 @@ To position them correctly use @code{alignBelowContext}:
 @cindex repeating lyrics with alternative endings
 @cindex alternative endings and lyrics
 
-If the words of the repeated section are the same, exactly the
-same structure can be used for both the lyrics and music.
+If the words of the repeated section are the same, and none of the
+@code{\alternative} blocks start with a rest, exactly the same
+structure can be used for both the lyrics and music.  This has the
+advantage that @code{\unfoldRepeats} will expand both music and
+lyrics correctly.
 
 @lilypond[quote,verbatim]
 \score {
@@ -1396,7 +1399,8 @@ same structure can be used for both the lyrics and music.
 @cindex skipping notes in lyrics
 @cindex lyrics, skipping notes
 
-But when the repeated section has different words, a repeat
+But when the repeated section has different words, or when one
+of the @code{\alternative} blocks starts with a rest, a repeat
 construct cannot be used around the words and @code{\skip} commands
 have to be inserted manually to skip over the notes in the
 alternative sections which do not apply.
