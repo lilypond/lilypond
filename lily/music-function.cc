@@ -85,73 +85,59 @@ Music_function::call (SCM rest)
   // (car (ly:music-signature self_scm())) is the return type, skip it
   SCM signature = scm_cdr (get_signature ());
 
-  // In order to keep the loop structure and particularly the handling
-  // of terminating conditions reasonably straightforward and avoid
-  // scattering the code around, we don't use a separate loop when
-  // skipping optional arguments.  Instead we use "skipping" to
-  // indicate whether we are currently filling in optional arguments
-  // from their defaults.
-  bool skipping = false;
-
   // The main loop just processes the signature in sequence, and the
   // resulting actual arguments are accumulated in reverse order in args
 
   SCM args = SCM_EOL;
 
-  for (; scm_is_pair (signature); signature = scm_cdr (signature))
+  while (scm_is_pair (rest) && scm_is_pair (signature))
     {
+      SCM arg = scm_car (rest);
       SCM pred = scm_car (signature);
-
-      if (scm_is_pair (pred))
+      if (!scm_is_pair (pred))
         {
-          // If the predicate is not a function but a pair, it
-          // signifies an optional argument.  This is not quite the
-          // form declared to define-music-function (which is always
-          // a proper list) but a pair of predicate function and
-          // default value.
-
-          if (!skipping)
+          // non-optional argument
+          if (scm_is_false (scm_call_1 (pred, arg)))
             {
-              if (!scm_is_pair (rest))
-                scm_wrong_num_args (self_scm ());
-
-              SCM arg = scm_car (rest);
-              if (scm_is_true (scm_call_1 (scm_car (pred), arg)))
-                {
-                  args = scm_cons (arg, args);
-                  rest = scm_cdr (rest);
-                  continue;
-                }
-              skipping = true;
-              // Remove at most one tentative "\default"
-              if (scm_is_eq (SCM_UNSPECIFIED, arg))
-                rest = scm_cdr (rest);
+              Syntax::argument_error (scm_oneplus (scm_length (args)),
+                                      pred, arg);
+              SCM val = scm_car (get_signature ());
+              val = scm_is_pair (val) ? scm_cdr (val) : SCM_BOOL_F;
+              return with_loc (val, location);
             }
-          args = scm_cons (with_loc (scm_cdr (pred), location), args);
+        }
+      // If the predicate is not a function but a pair, it
+      // signifies an optional argument.  This is not quite the
+      // form declared to define-music-function (which is always
+      // a proper list) but a pair of predicate function and
+      // default value.
+      //
+      // Fall through to default argument processing when optional
+      // argument predicate matches
+      else if (scm_is_false (scm_call_1 (scm_car (pred), arg)))
+        {
+          // optional argument, non-match
+          // *unspecified* is the same as an explicit \default: skip it
+          if (scm_is_eq (arg, SCM_UNSPECIFIED))
+            rest = scm_cdr (rest);
+          // Replace this and all following optional arguments with
+          // their defaults:
+          do {
+            args = scm_cons (with_loc (scm_cdr (pred), location), args);
+            signature = scm_cdr (signature);
+            if (!scm_is_pair (signature))
+              break;
+            pred = scm_car (signature);
+          } while (scm_is_pair (pred));
           continue;
         }
-
-      // We have a mandatory argument here.
-      skipping = false;
-
-      if (!scm_is_pair (rest))
-        scm_wrong_num_args (self_scm ());
-
-      SCM arg = scm_car (rest);
-      rest = scm_cdr (rest);
+      // Normal processing of accepted argument
+      signature = scm_cdr (signature);
       args = scm_cons (arg, args);
-
-      if (scm_is_false (scm_call_1 (pred, arg)))
-        {
-          Syntax::argument_error (scm_length (args),
-                                  pred, arg);
-          SCM val = scm_car (get_signature ());
-          val = scm_is_pair (val) ? scm_cdr (val) : SCM_BOOL_F;
-          return with_loc (val, location);
-        }
+      rest = scm_cdr (rest);
     }
 
-  if (scm_is_pair (rest))
+  if (scm_is_pair (rest) || scm_is_pair (signature))
     scm_wrong_num_args (self_scm ());
 
   SCM res = scm_apply_0 (get_function (), scm_reverse_x (args, SCM_EOL));
