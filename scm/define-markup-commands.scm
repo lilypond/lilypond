@@ -707,6 +707,7 @@ Rotate object with @var{ang} degrees around its center.
 (define-markup-command (whiteout layout props arg)
   (markup?)
   #:category other
+  #:properties ((thickness 3))
   "
 @cindex adding a white background to text
 
@@ -716,10 +717,30 @@ Provide a white background for @var{arg}.
 \\markup {
   \\combine
     \\filled-box #'(-1 . 10) #'(-3 . 4) #1
-    \\whiteout whiteout
+    \\override #'(thickness . 1.5) \\whiteout whiteout
 }
 @end lilypond"
-  (stencil-whiteout (interpret-markup layout props arg)))
+  (stencil-whiteout
+    (interpret-markup layout props arg)
+      (* thickness
+        (ly:output-def-lookup layout 'line-thickness))))
+  
+(define-markup-command (whiteout-box layout props arg)
+  (markup?)
+  #:category other
+  "
+@cindex adding a rounded rectangular white background to text
+
+Provide a rounded rectangular white background for @var{arg}.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\combine
+    \\filled-box #'(-1 . 10) #'(-3 . 4) #1
+    \\whiteout-box whiteout-box
+}
+@end lilypond"
+  (stencil-whiteout-box (interpret-markup layout props arg)))
 
 (define-markup-command (pad-markup layout props amount arg)
   (number? markup?)

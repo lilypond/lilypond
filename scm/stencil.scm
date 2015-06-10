@@ -685,18 +685,67 @@ box, remains the same."
    (ly:stencil-extent stencil X)
    (ly:stencil-extent stencil Y)))
 
-(define-public (stencil-whiteout stencil)
+(define*-public (stencil-whiteout
+                 stil #:optional (thickness 0.3) (color white)
+                 (angle-increments 16) (radial-increments 1))
+  "This function works by creating a series of white or @var{color}
+stencils radially offset from the original stencil with angles from
+0 to 2*pi, at an increment of @code{angle-inc}, and with radii
+from @code{radial-inc} to @var{thickness}.  @var{thickness} is how big
+the white outline is in staff-spaces.  @var{radial-increments} is how
+many copies of the white stencil we make on our way out to thickness.
+@var{angle-increments} is how many copies of the white stencil
+we make between 0 and 2*pi."
+  (if (or (not (positive? angle-increments))
+          (not (positive? radial-increments)))
+      (begin
+       (ly:warning "Both angle-increments and radial-increments must be positive numbers.")
+       stil)
+      (let* ((2pi 6.283185307)
+             (angle-inc (/ 2pi angle-increments))
+             (radial-inc (/ thickness radial-increments)))
+
+        (define (circle-plot ang dec radius original-stil new-stil)
+          ;; ang (angle) and dec (decrement) are in radians, not degrees
+          (if (<= ang 0)
+              new-stil
+              (circle-plot (- ang dec) dec radius original-stil
+                (ly:stencil-add
+                 new-stil
+                 (ly:stencil-translate original-stil
+                   (cons
+                    (* radius (cos ang))
+                    (* radius (sin ang))))))))
+
+        (define (radial-plot radius original-stil new-stil)
+          (if (<= radius 0)
+              new-stil
+              (ly:stencil-add new-stil
+                (radial-plot
+                 (- radius radial-inc)
+                 original-stil
+                 (circle-plot 2pi angle-inc
+                   radius original-stil empty-stencil)))))
+
+        (let ((whiteout-expr
+                (ly:stencil-expr
+                 (stencil-with-color
+                  (radial-plot thickness stil empty-stencil)
+                  color))))
+          (ly:stencil-add
+            (ly:make-stencil
+              `(delay-stencil-evaluation ,(delay whiteout-expr)))
+            stil)))))
+
+(define-public (stencil-whiteout-box stencil)
   (let*
       ((x-ext (ly:stencil-extent stencil X))
-       (y-ext (ly:stencil-extent stencil Y))
-
-       )
+       (y-ext (ly:stencil-extent stencil Y)))
 
     (ly:stencil-add
      (stencil-with-color (ly:round-filled-box x-ext y-ext 0.0)
                          white)
-     stencil)
-    ))
+     stencil)))
 
 (define-public (arrow-stencil-maker start? end?)
   "Return a function drawing a line from current point to @code{destination},

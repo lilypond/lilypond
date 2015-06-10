@@ -141,15 +141,38 @@ Grob::get_print_stencil () const
       retval = *m;
       bool transparent = to_boolean (get_property ("transparent"));
 
+      /* Process whiteout before color and grob-cause to prevent colored */
+      /* whiteout background and larger file sizes with \pointAndClickOn. */
+      /* A grob has to be visible, otherwise the whiteout property has no effect. */
+      /* Calls the scheme procedure stencil-whiteout in scm/stencils.scm */
+      if (!transparent && (scm_is_number (get_property("whiteout"))
+                           || to_boolean (get_property ("whiteout"))))
+        {
+          SCM wh_proc = ly_lily_module_constant ("stencil-whiteout");
+          Real thickness = robust_scm2double (get_property("whiteout"), 3.0)
+               * layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
+          retval = *unsmob<Stencil> (scm_call_2 (wh_proc,
+                                                 retval.smobbed_copy (),
+                                                 scm_from_double (thickness)));
+        }
+
+      /* Calls the scheme procedure stencil-whiteout-box in scm/stencils.scm */
+      if (!transparent && to_boolean (get_property ("whiteout-box")))
+        {
+          SCM wh_proc = ly_lily_module_constant ("stencil-whiteout-box");
+          retval = *unsmob<Stencil> (scm_call_1 (wh_proc,
+                                                 retval.smobbed_copy ()));
+        }
+
       if (transparent)
         retval = Stencil (m->extent_box (), SCM_EOL);
       else
         {
-          SCM expr = m->expr ();
-          expr = scm_list_3 (ly_symbol2scm ("grob-cause"),
-                             self_scm (), expr);
+          SCM expr = scm_list_3 (ly_symbol2scm ("grob-cause"),
+                                 self_scm (),
+                                 retval.expr ());
 
-          retval = Stencil (m->extent_box (), expr);
+          retval = Stencil (retval.extent_box (), expr);
         }
 
       SCM rot = get_property ("rotation");
@@ -171,17 +194,6 @@ Grob::get_print_stencil () const
                                  retval.expr ());
 
           retval = Stencil (retval.extent_box (), expr);
-        }
-
-      /* process whiteout */
-      /* a grob has to be visible, otherwise the whiteout property has no effect */
-      if (!transparent && to_boolean (get_property ("whiteout")))
-        {
-          /* Call the scheme procedure stencil-whiteout in scm/stencils.scm */
-          /* to add a round-filled-box stencil to the stencil list */
-          retval
-            = *unsmob<Stencil> (scm_call_1 (ly_lily_module_constant ("stencil-whiteout"),
-                                           retval.smobbed_copy ()));
         }
 
       SCM id = get_property ("id");
@@ -828,6 +840,7 @@ ADD_INTERFACE (Grob,
                "transparent "
                "vertical-skylines "
                "whiteout "
+               "whiteout-box "
               );
 
 /****************************************************************
