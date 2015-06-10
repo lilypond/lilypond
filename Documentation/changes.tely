@@ -90,6 +90,18 @@ legacy use of @code{parser} and @code{location} arguments,
 providing backwards-compatible semantics for some time.
 
 @item
+The @code{whiteout} grob property and @code{\whiteout} markup command
+now create a white background built from multiple displaced copies of
+the glyph in order to approximate the contours of its outline.
+The previous rounded box white background can be achieved with the
+new @code{whiteout-box} grob property and @code{\whiteout-box} markup
+command.  Setting the @code{whiteout} property to a number now sets
+the thickness of the white outline as a multiple of staff-line
+thickness.  Similarly, overriding the @code{thickness} property of
+the @code{\whiteout} markup command sets the thickness of the white
+outline it produces.
+
+@item
 In the "english" notename language, the long notenames for pitches
 with accidentals now contain a hyphen for better readability.  You
 now have to write

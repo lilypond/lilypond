@@ -40,7 +40,8 @@
       \italic Norsk
       \super "2"
       " "
-      \raise #3.0 \whiteout-box white-out
+      \raise #3.0 \whiteout white-out
+      \raise #3.0 \whiteout-box white-out-box
       \circle \dynamic p
       \with-color #green Green
       \dynamic sfzp
