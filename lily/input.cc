@@ -92,12 +92,11 @@ Input::message_location () const
 {
   return (source_file_) ? location_string () : "";
 }
+
 void
 Input::error (const string &s) const
 {
-  ::non_fatal_error (message_string (s), message_location ());
-  // UGH, fix naming or usage (use non_fatal_error in most places, instead)
-  // exit (1);
+  ::error (message_string (s), message_location ());
 }
 
 void
