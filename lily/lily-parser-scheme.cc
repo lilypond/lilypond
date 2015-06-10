@@ -138,58 +138,59 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 }
 
 LY_DEFINE (ly_parser_lexer, "ly:parser-lexer",
-           1, 0, 0, (SCM parser_smob),
-           "Return the lexer for @var{parser-smob}.")
+           0, 1, 0, (SCM parser),
+           "Return the lexer for @var{parser}, defaulting to current parser")
 {
-  Lily_parser *parser = unsmob<Lily_parser> (parser_smob);
-  return parser->lexer_->self_scm ();
+  if (SCM_UNBNDP (parser))
+    parser = scm_fluid_ref (ly_lily_module_constant ("%parser"));
+  Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 1);
+  return p->lexer_->self_scm ();
 }
 
 LY_DEFINE (ly_parser_clone, "ly:parser-clone",
-           1, 2, 0, (SCM parser_smob, SCM closures, SCM location),
-           "Return a clone of @var{parser-smob}.  An association list"
+           0, 2, 0, (SCM closures, SCM location),
+           "Return a clone of current parser.  An association list"
            " of port positions to closures can be specified in @var{closures}"
            " in order to have @code{$} and @code{#} interpreted in their original"
            " lexical environment.  If @var{location} is a valid location,"
            " it becomes the source of all music expressions inside.")
 {
-  LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
-  Lily_parser *parser = unsmob<Lily_parser> (parser_smob);
+  SCM parser = scm_fluid_ref (ly_lily_module_constant("%parser"));
+  Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
+
   if (SCM_UNBNDP (closures))
     closures = SCM_EOL;
   else
     LY_ASSERT_TYPE (ly_is_list, closures, 2);
-  Lily_parser *clone = new Lily_parser (*parser, closures, location);
+  Lily_parser *clone = new Lily_parser (*p, closures, location);
 
   return clone->unprotect ();
 }
 
 LY_DEFINE (ly_parser_define_x, "ly:parser-define!",
-           3, 0, 0, (SCM parser_smob, SCM symbol, SCM val),
-           "Bind @var{symbol} to @var{val} in @var{parser-smob}'s module.")
+           2, 0, 0, (SCM symbol, SCM val),
+           "Bind @var{symbol} to @var{val} in current parser's module.")
 {
+  SCM parser = scm_fluid_ref (ly_lily_module_constant ("%parser"));
+  Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
 
-  LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
-  Lily_parser *parser = unsmob<Lily_parser> (parser_smob);
+  LY_ASSERT_TYPE (ly_is_symbol, symbol, 1);
 
-  LY_ASSERT_TYPE (ly_is_symbol, symbol, 2);
-
-  parser->lexer_->set_identifier (scm_symbol_to_string (symbol), val);
+  p->lexer_->set_identifier (scm_symbol_to_string (symbol), val);
   return SCM_UNSPECIFIED;
 }
 
 LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
-           2, 0, 0, (SCM parser_smob, SCM symbol),
-           "Look up @var{symbol} in @var{parser-smob}'s module."
+           1, 0, 0, (SCM symbol),
+           "Look up @var{symbol} in current parser's module."
            "  Return @code{'()} if not defined.")
 {
-  LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
+  SCM parser = scm_fluid_ref (ly_lily_module_constant ("%parser"));
+  Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
 
-  Lily_parser *parser = unsmob<Lily_parser> (parser_smob);
+  LY_ASSERT_TYPE (ly_is_symbol, symbol, 1);
 
-  LY_ASSERT_TYPE (ly_is_symbol, symbol, 2);
-
-  SCM val = parser->lexer_->lookup_identifier (ly_symbol2string (symbol));
+  SCM val = p->lexer_->lookup_identifier (ly_symbol2string (symbol));
   if (!SCM_UNBNDP (val))
     return val;
   else
@@ -247,28 +248,29 @@ LY_DEFINE (ly_parse_string_expression, "ly:parse-string-expression",
 }
 
 LY_DEFINE (ly_parser_include_string, "ly:parser-include-string",
-           2, 0, 0, (SCM parser_smob, SCM ly_code),
+           1, 0, 0, (SCM ly_code),
            "Include the string @var{ly-code} into the input stream"
-           " for @var{parser-smob}.  Can only be used in immediate"
+           " for current parser.  Can only be used in immediate"
            " Scheme expressions (@code{$} instead of @code{#}).")
 {
-  LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
-  Lily_parser *parser = unsmob<Lily_parser> (parser_smob);
-  LY_ASSERT_TYPE (scm_is_string, ly_code, 2);
+  SCM parser = scm_fluid_ref (ly_lily_module_constant ("%parser"));
+  Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
 
-  parser->include_string (ly_scm2string (ly_code));
+  LY_ASSERT_TYPE (scm_is_string, ly_code, 1);
+
+  p->include_string (ly_scm2string (ly_code));
 
   return SCM_UNSPECIFIED;
 }
 
 LY_DEFINE (ly_parser_set_note_names, "ly:parser-set-note-names",
-           2, 0, 0, (SCM parser, SCM names),
-           "Replace current note names in @var{parser}."
+           1, 0, 0, (SCM names),
+           "Replace current note names in parser."
            "  @var{names} is an alist of symbols.  This only has effect"
            " if the current mode is notes.")
 {
-  LY_ASSERT_SMOB (Lily_parser, parser, 1);
-  Lily_parser *p = unsmob<Lily_parser> (parser);
+  SCM parser = scm_fluid_ref (ly_lily_module_constant ("%parser"));
+  Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
 
   if (p->lexer_->is_note_state ())
     {
@@ -280,25 +282,27 @@ LY_DEFINE (ly_parser_set_note_names, "ly:parser-set-note-names",
 }
 
 LY_DEFINE (ly_parser_output_name, "ly:parser-output-name",
-           1, 0, 0, (SCM parser),
-           "Return the base name of the output file.")
+           0, 1, 0, (SCM parser),
+           "Return the base name of the output file.  If @code{parser} is left off, use currently active parser.")
 {
-  LY_ASSERT_SMOB (Lily_parser, parser, 1);
-  Lily_parser *p = unsmob<Lily_parser> (parser);
+  if (SCM_UNBNDP (parser))
+    parser = scm_fluid_ref (ly_lily_module_constant ("%parser"));
+
+  Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 1);
 
   return ly_string2scm (p->output_basename_);
 }
 
 LY_DEFINE (ly_parser_error, "ly:parser-error",
-           2, 1, 0, (SCM parser, SCM msg, SCM input),
-           "Display an error message and make the parser fail."
-           "  When @var{parser} is @code{##f}, raise a suitable other error.")
+           1, 1, 0, (SCM msg, SCM input),
+           "Display an error message and make current parser fail."
+           " Without a current parser, trigger an ordinary error.")
 {
-  if (scm_is_true (parser))
-    LY_ASSERT_SMOB (Lily_parser, parser, 1);
+  SCM parser = scm_fluid_ref (ly_lily_module_constant ("%parser"));
+
   Lily_parser *p = unsmob<Lily_parser> (parser);
 
-  LY_ASSERT_TYPE (scm_is_string, msg, 2);
+  LY_ASSERT_TYPE (scm_is_string, msg, 1);
   string s = ly_scm2string (msg);
 
   Input *i = unsmob<Input> (input);
@@ -320,11 +324,13 @@ LY_DEFINE (ly_parser_error, "ly:parser-error",
 }
 
 LY_DEFINE (ly_parser_clear_error, "ly:parser-clear-error",
-           1, 0, 0, (SCM parser),
-           "Clear the error flag for the parser.")
+           0, 1, 0, (SCM parser),
+           "Clear error flag for @var{parser}, defaulting to current parser.")
 {
-  LY_ASSERT_SMOB (Lily_parser, parser, 1);
-  Lily_parser *p = unsmob<Lily_parser> (parser);
+  if (SCM_UNBNDP (parser))
+    parser = scm_fluid_ref (ly_lily_module_constant ("%parser"));
+
+  Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 1);
 
   p->error_level_ = 0;
   p->lexer_->error_level_ = 0;
@@ -333,11 +339,12 @@ LY_DEFINE (ly_parser_clear_error, "ly:parser-clear-error",
 }
 
 LY_DEFINE (ly_parser_has_error_p, "ly:parser-has-error?",
-           1, 0, 0, (SCM parser),
-           "Does @var{parser} have an error flag?")
+           0, 1, 0, (SCM parser),
+           "Does @var{parser} (defaulting to current parser) have an error flag?")
 {
-  LY_ASSERT_SMOB (Lily_parser, parser, 1);
-  Lily_parser *p = unsmob<Lily_parser> (parser);
+  if (SCM_UNBNDP (parser))
+    parser = scm_fluid_ref (ly_lily_module_constant ("%parser"));
+  Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 1);
 
   return scm_from_bool (p->error_level_ || p->lexer_->error_level_);
 }
