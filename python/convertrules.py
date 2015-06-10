@@ -3746,9 +3746,17 @@ def conv(str):
                   + after_id, r'\1-\2', str)
     return str
 
-@rule ((2, 19, 22), """(define-xxx-function (parser location ...) -> (define-xxx-function (...)
+@rule ((2, 19, 22), """whiteout -> whiteout-box
+(define-xxx-function (parser location ...) -> (define-xxx-function (...)
 (xxx ... parser ...) -> (xxx ... ...)""")
 def conv(str):
+    # whiteout -> whiteout-box
+    str = re.sub (r"\\whiteout(?![a-z_-])", r"\\whiteout-box", str)
+    str = re.sub (r"\b\.whiteout(?![a-z_-])\b", r".whiteout-box", str)
+    str = re.sub (r"#'whiteout(?![a-z_-])\b", r"#'whiteout-box", str)
+    str = re.sub (r"\bstencil-whiteout\b", r"stencil-whiteout-box", str)
+    
+    # (define-xxx-function (parser location ...) -> (define-xxx-function (...)
     def subst(m):
         def subsub(m):
             str = (m.group (1)
@@ -3762,6 +3770,7 @@ def conv(str):
     str = re.sub (r'\(define-(?:music|event|scheme|void)-function(?=\s|["(])'
                   + paren_matcher (20) + r'\)', subst, str)
 
+    # (xxx ... parser ...) -> (xxx ... ...)
     def repl (m):
         return m.group (1) + inner (m.group (2))
     def inner (str):
