@@ -189,14 +189,14 @@ Lily_parser::clear ()
 void
 Lily_parser::parser_error (const string &s)
 {
-  lexer_->here_input ().error (_ (s.c_str ()));
+  lexer_->here_input ().non_fatal_error (_ (s.c_str ()));
   error_level_ = 1;
 }
 
 void
 Lily_parser::parser_error (Input const &i, const string &s)
 {
-  i.error (s);
+  i.non_fatal_error (s);
   error_level_ = 1;
 }
 

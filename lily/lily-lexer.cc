@@ -299,7 +299,7 @@ Lily_lexer::LexerError (char const *s)
     {
       error_level_ |= 1;
       Input spot (*lexloc_);
-      spot.error (s);
+      spot.non_fatal_error (s);
     }
 }
 
