@@ -467,11 +467,11 @@ draws the span bar variant, i.e. without the segno sign."
 (define (make-kievan-bar-line grob extent)
   "Draw a kievan bar line."
   (let* ((font (ly:grob-default-font grob))
-         (stencil (stencil-whiteout
+         (stencil (stencil-whiteout-box
                    (ly:font-get-glyph font "scripts.barline.kievan"))))
 
     ;; the kievan bar line has no staff lines underneath,
-    ;; so we whiteout them and move the grob to a higher layer
+    ;; so we whiteout-box them and move the grob to a higher layer
     (ly:grob-set-property! grob 'layer 1)
     stencil))
 

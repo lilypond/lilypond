@@ -836,10 +836,10 @@ with optional arrows of @code{max-size} on start and end controlled by
                           (make-simple-markup (simple-format #f "~a: NaN/inf" name))))
         (let ((text-stencil (interpret-markup
                              layout text-props
-                             (markup #:whiteout #:simple name)))
+                             (markup #:whiteout-box #:simple name)))
               (dim-stencil (interpret-markup
                             layout text-props
-                            (markup #:whiteout
+                            (markup #:whiteout-box
                                     #:simple (cond
                                               ((interval-empty? extent)
                                                "empty")

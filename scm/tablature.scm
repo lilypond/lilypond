@@ -33,7 +33,7 @@
   (let ((style (ly:grob-property grob 'style)))
 
     (case style
-      ((cross slash) (stencil-whiteout (ly:note-head::print grob)))
+      ((cross slash) (stencil-whiteout-box (ly:note-head::print grob)))
       (else (tab-note-head::print grob)))))
 
 ;; definitions for the "moderntab" clef:

@@ -902,8 +902,8 @@ and duration-log @var{log}."
     (set! rp (ly:make-stencil (ly:stencil-expr rp)
                               rp-x-extent
                               (ly:stencil-extent rp Y)))
-    (list (stencil-whiteout lp)
-          (stencil-whiteout rp))))
+    (list (stencil-whiteout-box lp)
+          (stencil-whiteout-box rp))))
 
 (define-public (parentheses-item::y-extent grob) (ly:grob::stencil-height grob))
 
