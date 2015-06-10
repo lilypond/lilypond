@@ -4,7 +4,7 @@
 markup.  "
 
 }
-\version "2.19.21"
+\version "2.19.22"
 
 \paper
 {
@@ -14,5 +14,5 @@ markup.  "
 \relative {
   \override TextScript.layer = #'2
   \override TextScript.extra-offset = #'(2 . 4)
-  c''4-\markup  { \whiteout \pad-markup #0.5 foo } c
+  c''4-\markup  { \whiteout-box \pad-markup #0.5 foo } c
 }

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @c Translators: Till Paala
 
@@ -572,8 +572,8 @@ Objekten im Notensystem zusammenstoßen.
 \override Tie.layer = #-2
 \override Staff.TimeSignature.layer = #-1
 \override Staff.KeySignature.layer = #-1
-\override Staff.TimeSignature.whiteout = ##t
-\override Staff.KeySignature.whiteout = ##t
+\override Staff.TimeSignature.whiteout-box = ##t
+\override Staff.KeySignature.whiteout-box = ##t
 b2 b~
 \time 3/4
 \key a \major
