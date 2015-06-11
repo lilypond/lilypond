@@ -954,7 +954,13 @@ overrideProperty =
    (_i "Set the grob property specified by @var{grob-property-path} to
 @var{value}.  @var{grob-property-path} is a symbol list of the form
 @code{Context.GrobName.property} or @code{GrobName.property}, possibly
-with subproperties given as well.")
+with subproperties given as well.
+
+As opposed to @code{\\override} which overrides the context-dependent
+defaults with which a grob is created, this command uses
+@code{Output_property_engraver} at the grob acknowledge stage.  This
+may be necessary for overriding values set after the initial grob
+creation.")
    (let ((p (check-grob-path grob-property-path (*location*)
                              #:default 'Bottom
                              #:min 3)))
