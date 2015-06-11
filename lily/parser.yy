@@ -400,34 +400,34 @@ toplevel_expression:
 	}
 	| book_block {
 		SCM proc = parser->lexer_->lookup_identifier ("toplevel-book-handler");
-		scm_call_2 (proc, parser->self_scm (), $1);
+		scm_call_1 (proc, $1);
 	}
 	| bookpart_block {
 		SCM proc = parser->lexer_->lookup_identifier ("toplevel-bookpart-handler");
-		scm_call_2 (proc, parser->self_scm (), $1);
+		scm_call_1 (proc, $1);
 	}
 	| BOOK_IDENTIFIER {
 		SCM proc = parser->lexer_->lookup_identifier
 			(unsmob<Book>($1)->paper_
 			 ? "toplevel-book-handler"
 			 : "toplevel-bookpart-handler");
-		scm_call_2 (proc, parser->self_scm (), $1);
+		scm_call_1 (proc, $1);
 	}
 	| score_block {
 		SCM proc = parser->lexer_->lookup_identifier ("toplevel-score-handler");
-		scm_call_2 (proc, parser->self_scm (), $1);
+		scm_call_1 (proc, $1);
 	}
 	| composite_music {
 		SCM proc = parser->lexer_->lookup_identifier ("toplevel-music-handler");
-		scm_call_2 (proc, parser->self_scm (), $1);
+		scm_call_1 (proc, $1);
 	}
 	| full_markup {
 		SCM proc = parser->lexer_->lookup_identifier ("toplevel-text-handler");
-		scm_call_2 (proc, parser->self_scm (), scm_list_1 ($1));
+		scm_call_1 (proc, scm_list_1 ($1));
 	}
 	| full_markup_list {
 		SCM proc = parser->lexer_->lookup_identifier ("toplevel-text-handler");
-		scm_call_2 (proc, parser->self_scm (), $1);
+		scm_call_1 (proc, $1);
 	}
 	| SCM_TOKEN {
 		// Evaluate and ignore #xxx, as opposed to \xxx
@@ -443,11 +443,11 @@ toplevel_expression:
 		if (scm_is_pair (out))
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("toplevel-text-handler");
-			scm_call_2 (proc, parser->self_scm (), out);
+			scm_call_1 (proc, out);
 		} else if (unsmob<Score> ($1))
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("toplevel-score-handler");
-			scm_call_2 (proc, parser->self_scm (), $1);
+			scm_call_1 (proc, $1);
 		} else if (Output_def * od = unsmob<Output_def> ($1)) {
 			SCM id = SCM_EOL;
 
@@ -749,7 +749,7 @@ context_def_spec_body:
 			}
 			if (unsmob<Music> ($2)) {
 				SCM proc = parser->lexer_->lookup_identifier ("context-mod-music-handler");
-				$2 = scm_call_2 (proc, parser->self_scm (), $2);
+				$2 = scm_call_1 (proc, $2);
 			}
 			if (Context_mod *cm = unsmob<Context_mod> ($2)) {
 				for (SCM m = cm->get_mods (); scm_is_pair (m); m = scm_cdr (m)) {
@@ -803,7 +803,7 @@ book_body:
 	}
 	| book_body composite_music {
 		SCM proc = parser->lexer_->lookup_identifier ("book-music-handler");
-		scm_call_3 (proc, parser->self_scm (), $1, $2);
+		scm_call_2 (proc, $1, $2);
 	}
 	| book_body full_markup {
 		SCM proc = parser->lexer_->lookup_identifier ("book-text-handler");
@@ -884,7 +884,7 @@ bookpart_body:
 	}
 	| bookpart_body composite_music {
 		SCM proc = parser->lexer_->lookup_identifier ("bookpart-music-handler");
-		scm_call_3 (proc, parser->self_scm (), $1, $2);
+		scm_call_2 (proc, $1, $2);
 	}
 	| bookpart_body full_markup {
 		SCM proc = parser->lexer_->lookup_identifier ("bookpart-text-handler");
@@ -995,7 +995,7 @@ score_items:
 		} else if (!unsmob<Score> ($$)) {
 			if (unsmob<Music> ($2)) {
 				SCM scorify = ly_lily_module_constant ("scorify-music");
-				$2 = scm_call_2 (scorify, $2, parser->self_scm ());
+				$2 = scm_call_1 (scorify, $2);
 			}
 			if (unsmob<Score> ($2))
 			{
@@ -1144,8 +1144,7 @@ output_def_body:
 		{
 			SCM proc = parser->lexer_->lookup_identifier
 				("output-def-music-handler");
-			scm_call_3 (proc, parser->self_scm (),
-				    $1, $2);
+			scm_call_2 (proc, $1, $2);
 		} else if (!scm_is_eq ($2, SCM_UNSPECIFIED))
 			parser->parser_error (@2, _("bad expression type"));
 		$$ = $1;
@@ -1171,8 +1170,7 @@ output_def_body:
 
 			SCM proc = parser->lexer_->lookup_identifier
 				     ("output-def-music-handler");
-			scm_call_3 (proc, parser->self_scm (),
-				    $1, $3);
+			scm_call_2 (proc, $1, $3);
 		}
 		$$ = $1;
 	}
@@ -1353,7 +1351,7 @@ context_modification:
 	{
 		if (unsmob<Music> ($2)) {
 			SCM proc = parser->lexer_->lookup_identifier ("context-mod-music-handler");
-			$2 = scm_call_2 (proc, parser->self_scm (), $2);
+			$2 = scm_call_1 (proc, $2);
 		}
 		if (unsmob<Context_mod> ($2))
 			$$ = $2;
@@ -1397,7 +1395,7 @@ context_mod_list:
 			;
 		else if (unsmob<Music> ($2)) {
 			SCM proc = parser->lexer_->lookup_identifier ("context-mod-music-handler");
-			$2 = scm_call_2 (proc, parser->self_scm (), $2);
+			$2 = scm_call_1 (proc, $2);
 		}
 		if (unsmob<Context_mod> ($2))
 			unsmob<Context_mod> ($$)->add_context_mods
