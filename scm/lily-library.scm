@@ -197,17 +197,17 @@ This supports historic use of @code{Completion_heads_engraver} to split
 (define-public (scorify-music music)
   "Preprocess @var{music}."
   (ly:make-score
-   (fold (lambda (f m) (f m parser))
+   (fold (lambda (f m) (f m))
          music
          toplevel-music-functions)))
 
-(define (get-current-filename parser book)
+(define (get-current-filename book)
   "return any suffix value for output filename allowing for settings by
 calls to bookOutputName function"
   (or (paper-variable book 'output-filename)
       (ly:parser-output-name)))
 
-(define (get-current-suffix parser book)
+(define (get-current-suffix book)
   "return any suffix value for output filename allowing for settings by calls to
 bookoutput function"
   (let ((book-output-suffix (paper-variable book 'output-suffix)))
@@ -217,13 +217,13 @@ bookoutput function"
 
 (define-public current-outfile-name #f)  ; for use by regression tests
 
-(define (get-outfile-name parser book)
+(define (get-outfile-name book)
   "return current filename for generating backend output files"
   ;; user can now override the base file name, so we have to use
   ;; the file-name concatenated with any potential output-suffix value
   ;; as the key to out internal a-list
-  (let* ((base-name (get-current-filename parser book))
-         (output-suffix (get-current-suffix parser book))
+  (let* ((base-name (get-current-filename book))
+         (output-suffix (get-current-suffix book))
          (alist-key (format #f "~a~a" base-name output-suffix))
          (counter-alist (ly:parser-lookup 'counter-alist))
          (output-count (assoc-get alist-key counter-alist 0))
@@ -247,17 +247,17 @@ bookoutput function"
     (set! current-outfile-name result)
     result))
 
-(define (print-book-with parser book process-procedure)
+(define (print-book-with book process-procedure)
   (let* ((paper (ly:parser-lookup '$defaultpaper))
          (layout (ly:parser-lookup '$defaultlayout))
-         (outfile-name (get-outfile-name parser book)))
+         (outfile-name (get-outfile-name book)))
     (process-procedure book paper layout outfile-name)))
 
 (define-public (print-book-with-defaults book)
-  (print-book-with parser book ly:book-process))
+  (print-book-with book ly:book-process))
 
 (define-public (print-book-with-defaults-as-systems book)
-  (print-book-with parser book ly:book-process-to-systems))
+  (print-book-with book ly:book-process-to-systems))
 
 ;; Add a score to the current bookpart, book or toplevel
 (define-public (add-score score)
@@ -269,24 +269,24 @@ bookoutput function"
     ((ly:parser-lookup 'book-score-handler)
      (ly:parser-lookup '$current-book) score))
    (else
-    ((ly:parser-lookup 'toplevel-score-handler) parser score))))
+    ((ly:parser-lookup 'toplevel-score-handler) score))))
 
 (define-public paper-variable
   (let
       ((get-papers
-        (lambda (parser book)
+        (lambda (book)
           (append (if (and book (ly:output-def? (ly:book-paper book)))
                       (list (ly:book-paper book))
                       '())
                   (ly:parser-lookup '$papers)
                   (list (ly:parser-lookup '$defaultpaper))))))
     (make-procedure-with-setter
-     (lambda (parser book symbol)
+     (lambda (book symbol)
        (any (lambda (p) (ly:output-def-lookup p symbol #f))
-            (get-papers parser book)))
-     (lambda (parser book symbol value)
+            (get-papers book)))
+     (lambda (book symbol value)
        (ly:output-def-set-variable!
-        (car (get-papers parser book))
+        (car (get-papers book))
         symbol value)))))
 
 (define-public (add-text text)

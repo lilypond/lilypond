@@ -65,7 +65,7 @@ from @var{port} and return the corresponding Scheme music expression.
                                        (set! closures
                                              (cons `(cons ,p (lambda () ,expr))
                                                    closures)))))))))))
-    (define (embedded-lilypond parser lily-string filename line
+    (define (embedded-lilypond lily-string filename line
                                closures location)
       (let* ((clone (ly:parser-clone closures location))
              (result (ly:parse-string-expression clone lily-string
@@ -74,7 +74,7 @@ from @var{port} and return the corresponding Scheme music expression.
             (ly:parser-error (_ "error in #{ ... #}")))
         result))
     (list embedded-lilypond
-          (list *parser*) lily-string filename line
+          lily-string filename line
           (cons 'list (reverse! closures))
           (list *location*))))
 

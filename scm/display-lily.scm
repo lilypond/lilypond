@@ -41,7 +41,7 @@
 `display-methods' property of the music type entry found in the
 `music-name-to-property-table' hash table.  Print methods previously
 defined for that music type are lost.
-Syntax: (define-display-method MusicType (expression parser)
+Syntax: (define-display-method MusicType (expression)
           ...body...))"
   `(let ((type-props (hashq-ref music-name-to-property-table
                                 ',music-type '()))
@@ -107,7 +107,7 @@ display method will be called."
                                           music-type '())
                                'display-methods))
              (result-string (and procs (any (lambda (proc)
-                                              (proc expr parser))
+                                              (proc expr))
                                             procs))))
         (if result-string
             (format #f "~a~a~a"
