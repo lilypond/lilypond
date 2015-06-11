@@ -26,7 +26,7 @@ piano styles, which use @samp{GrandStaff} as a context." )
     ((1) (set-accidental-style (car style)))
     ((2) (set-accidental-style (cadr style) (car style)))
     (else
-     (ly:parser-error (*parser*) (_ "not an accidental style")
+     (ly:parser-error (_ "not an accidental style")
       (*location*))
      (make-music 'Music))))
 

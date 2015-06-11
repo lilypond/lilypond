@@ -141,27 +141,25 @@ This supports historic use of @code{Completion_heads_engraver} to split
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; parser <-> output hooks.
 
-(define-public (collect-bookpart-for-book parser book-part)
+(define-public (collect-bookpart-for-book book-part)
   "Toplevel book-part handler."
   (define (add-bookpart book-part)
-    (ly:parser-define!
-     parser 'toplevel-bookparts
-     (cons book-part (ly:parser-lookup parser 'toplevel-bookparts))))
+    (ly:parser-define! 'toplevel-bookparts
+     (cons book-part (ly:parser-lookup 'toplevel-bookparts))))
   ;; If toplevel scores have been found before this \bookpart,
   ;; add them first to a dedicated bookpart
-  (if (pair? (ly:parser-lookup parser 'toplevel-scores))
+  (if (pair? (ly:parser-lookup 'toplevel-scores))
       (begin
         (add-bookpart (ly:make-book-part
-                       (ly:parser-lookup parser 'toplevel-scores)))
-        (ly:parser-define! parser 'toplevel-scores (list))))
+                       (ly:parser-lookup 'toplevel-scores)))
+        (ly:parser-define! 'toplevel-scores (list))))
   (add-bookpart book-part))
 
-(define-public (collect-scores-for-book parser score)
-  (ly:parser-define!
-   parser 'toplevel-scores
-   (cons score (ly:parser-lookup parser 'toplevel-scores))))
+(define-public (collect-scores-for-book score)
+  (ly:parser-define! 'toplevel-scores
+   (cons score (ly:parser-lookup 'toplevel-scores))))
 
-(define-public (collect-music-aux score-handler parser music)
+(define-public (collect-music-aux score-handler music)
   (define (music-property symbol)
     (ly:music-property music symbol #f))
   (cond ((music-property 'page-marker)
@@ -182,23 +180,21 @@ This supports historic use of @code{Completion_heads_engraver} to split
         ((not (music-property 'void))
          ;; a regular music expression: make a score with this music
          ;; void music is discarded
-         (score-handler (scorify-music music parser)))))
+         (score-handler (scorify-music music)))))
 
-(define-public (collect-music-for-book parser music)
+(define-public (collect-music-for-book music)
   "Top-level music handler."
   (collect-music-aux (lambda (score)
-                       (collect-scores-for-book parser score))
-                     parser
+                       (collect-scores-for-book score))
                      music))
 
-(define-public (collect-book-music-for-book parser book music)
+(define-public (collect-book-music-for-book book music)
   "Book music handler."
   (collect-music-aux (lambda (score)
                        (ly:book-add-score! book score))
-                     parser
                      music))
 
-(define-public (scorify-music music parser)
+(define-public (scorify-music music)
   "Preprocess @var{music}."
   (ly:make-score
    (fold (lambda (f m) (f m parser))
@@ -208,15 +204,15 @@ This supports historic use of @code{Completion_heads_engraver} to split
 (define (get-current-filename parser book)
   "return any suffix value for output filename allowing for settings by
 calls to bookOutputName function"
-  (or (paper-variable parser book 'output-filename)
-      (ly:parser-output-name parser)))
+  (or (paper-variable book 'output-filename)
+      (ly:parser-output-name)))
 
 (define (get-current-suffix parser book)
   "return any suffix value for output filename allowing for settings by calls to
 bookoutput function"
-  (let ((book-output-suffix (paper-variable parser book 'output-suffix)))
+  (let ((book-output-suffix (paper-variable book 'output-suffix)))
     (if (not (string? book-output-suffix))
-        (ly:parser-lookup parser 'output-suffix)
+        (ly:parser-lookup 'output-suffix)
         book-output-suffix)))
 
 (define-public current-outfile-name #f)  ; for use by regression tests
@@ -229,7 +225,7 @@ bookoutput function"
   (let* ((base-name (get-current-filename parser book))
          (output-suffix (get-current-suffix parser book))
          (alist-key (format #f "~a~a" base-name output-suffix))
-         (counter-alist (ly:parser-lookup parser 'counter-alist))
+         (counter-alist (ly:parser-lookup 'counter-alist))
          (output-count (assoc-get alist-key counter-alist 0))
          (result base-name))
     ;; Allow all ASCII alphanumerics, including accents
@@ -246,35 +242,34 @@ bookoutput function"
     (if (> output-count 0)
         (set! result (format #f "~a-~a" result output-count)))
 
-    (ly:parser-define!
-     parser 'counter-alist
+    (ly:parser-define! 'counter-alist
      (assoc-set! counter-alist alist-key (1+ output-count)))
     (set! current-outfile-name result)
     result))
 
 (define (print-book-with parser book process-procedure)
-  (let* ((paper (ly:parser-lookup parser '$defaultpaper))
-         (layout (ly:parser-lookup parser '$defaultlayout))
+  (let* ((paper (ly:parser-lookup '$defaultpaper))
+         (layout (ly:parser-lookup '$defaultlayout))
          (outfile-name (get-outfile-name parser book)))
     (process-procedure book paper layout outfile-name)))
 
-(define-public (print-book-with-defaults parser book)
+(define-public (print-book-with-defaults book)
   (print-book-with parser book ly:book-process))
 
-(define-public (print-book-with-defaults-as-systems parser book)
+(define-public (print-book-with-defaults-as-systems book)
   (print-book-with parser book ly:book-process-to-systems))
 
 ;; Add a score to the current bookpart, book or toplevel
-(define-public (add-score parser score)
+(define-public (add-score score)
   (cond
-   ((ly:parser-lookup parser '$current-bookpart)
-    ((ly:parser-lookup parser 'bookpart-score-handler)
-     (ly:parser-lookup parser '$current-bookpart) score))
-   ((ly:parser-lookup parser '$current-book)
-    ((ly:parser-lookup parser 'book-score-handler)
-     (ly:parser-lookup parser '$current-book) score))
+   ((ly:parser-lookup '$current-bookpart)
+    ((ly:parser-lookup 'bookpart-score-handler)
+     (ly:parser-lookup '$current-bookpart) score))
+   ((ly:parser-lookup '$current-book)
+    ((ly:parser-lookup 'book-score-handler)
+     (ly:parser-lookup '$current-book) score))
    (else
-    ((ly:parser-lookup parser 'toplevel-score-handler) parser score))))
+    ((ly:parser-lookup 'toplevel-score-handler) parser score))))
 
 (define-public paper-variable
   (let
@@ -283,8 +278,8 @@ bookoutput function"
           (append (if (and book (ly:output-def? (ly:book-paper book)))
                       (list (ly:book-paper book))
                       '())
-                  (ly:parser-lookup parser '$papers)
-                  (list (ly:parser-lookup parser '$defaultpaper))))))
+                  (ly:parser-lookup '$papers)
+                  (list (ly:parser-lookup '$defaultpaper))))))
     (make-procedure-with-setter
      (lambda (parser book symbol)
        (any (lambda (p) (ly:output-def-lookup p symbol #f))
@@ -294,16 +289,15 @@ bookoutput function"
         (car (get-papers parser book))
         symbol value)))))
 
-(define-public (add-text parser text)
-  (add-score parser (list text)))
+(define-public (add-text text)
+  (add-score (list text)))
 
-(define-public (add-music parser music)
+(define-public (add-music music)
   (collect-music-aux (lambda (score)
-                       (add-score parser score))
-                     parser
+                       (add-score score))
                      music))
 
-(define-public (context-mod-from-music parser music)
+(define-public (context-mod-from-music music)
   (let ((warn #t) (mods (ly:make-context-mod)))
     (let loop ((m music))
       (if (music-is-of-type? m 'layout-instruction-event)
@@ -351,7 +345,7 @@ bookoutput function"
                          (set! warn #f)))))))))
     mods))
 
-(define-public (context-defs-from-music parser output-def music)
+(define-public (context-defs-from-music output-def music)
   (let ((warn #t))
     (let loop ((m music) (mods #f))
       ;; The parser turns all sets, overrides etc into something

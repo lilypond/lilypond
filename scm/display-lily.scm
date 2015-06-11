@@ -99,7 +99,7 @@ display method will be called."
                            (scheme-expr->lily-string val))))
                (ly:music-property expr 'tweaks))))
 
-(define-public (music->lily-string expr parser)
+(define-public (music->lily-string expr)
   "Print @var{expr}, a music expression, in LilyPond syntax."
   (if (ly:music? expr)
       (let* ((music-type (ly:music-property expr 'name))

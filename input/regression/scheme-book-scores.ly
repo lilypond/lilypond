@@ -21,13 +21,13 @@ informations from top- and booklevel stack correctly."
                           'elements (list (make-music 'NoteEvent
                                             'duration (ly:make-duration 2 0 1/1)
                                             'pitch scmpitch))))
-                 (score (scorify-music music parser))
+                 (score (scorify-music music))
                  (layout (ly:output-def-clone $defaultlayout))
                  (desc (markup #:large #:line ((ly:format "Score with a ~a"
-                                (note-name->lily-string scmpitch parser))))))
+                                (note-name->lily-string scmpitch))))))
             (ly:score-add-output-def! score layout)
-            (add-text parser desc)
-            (add-score parser score))
+            (add-text desc)
+            (add-score score))
             (set! pitch (modulo (1+ pitch) 7)))))
 
 oneNoteScore =

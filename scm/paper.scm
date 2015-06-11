@@ -107,7 +107,7 @@
   "Set the default staff size, where SZ is thought to be in PT."
   (let* ((current-mod (current-module))
          (parser (eval 'parser current-mod))
-         (pap (ly:parser-lookup parser '$defaultpaper))
+         (pap (ly:parser-lookup '$defaultpaper))
          (in-layout? (or (module-defined? current-mod 'is-paper)
                          (module-defined? current-mod 'is-layout)))
 

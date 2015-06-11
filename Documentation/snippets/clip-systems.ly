@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.22"
 
 \header {
   lsrtags = "paper-and-layout"
@@ -88,7 +88,7 @@ origScore = \score {
       \markup { from-2.0.1-to-4.0.1-clip.eps }
       \markup {
         \epsfile #X #30.0 #(format #f "~a-1-from-2.0.1-to-4.0.1-clip.eps"
-                            (ly:parser-output-name parser)) }
+                            (ly:parser-output-name)) }
     }
   }
 }

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.22"
 
 #(use-modules (scm graphviz))
 
@@ -22,7 +22,7 @@
 #(define (whitelist-grob sym)
   (set! grob-whitelist (cons sym grob-whitelist)))
 
-#(define graph (make-empty-graph (ly:parser-output-name parser)))
+#(define graph (make-empty-graph (ly:parser-output-name)))
 
 #(define (grob-name g)
   (let* ((meta (ly:grob-property g 'meta))

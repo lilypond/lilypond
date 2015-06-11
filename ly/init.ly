@@ -4,7 +4,7 @@
 #(if (and #t (defined? 'set-debug-cell-accesses!))
   (set-debug-cell-accesses! 5000))
 
-\version "2.16.0"
+\version "2.19.22"
 
 #(if (guile-v2)
   (use-modules (ice-9 curried-definitions)))
@@ -17,10 +17,10 @@
    ;; function has not actually started.  A parser clone, in contrast,
    ;; can run and complete synchronously and shares the module with
    ;; the current parser.
-   (ly:parser-parse-string (ly:parser-clone (*parser*))
+   (ly:parser-parse-string (ly:parser-clone)
     "\\include \"declarations-init.ly\"")))
 
-#(note-names-language (*parser*) default-language)
+#(note-names-language default-language)
 
 #(define toplevel-scores (list))
 #(define toplevel-bookparts (list))
@@ -37,7 +37,7 @@
 #(use-modules (ice-9 pretty-print))
 
 $(if (ly:get-option 'include-settings)
-  (ly:parser-include-string (*parser*)
+  (ly:parser-include-string
     (format #f "\\include \"~a\"" (ly:get-option 'include-settings))))
 
 \maininput
@@ -75,7 +75,7 @@ $(if (ly:get-option 'include-settings)
             (set! toplevel-scores (list))
             (book-handler (*parser*) book)))))
 
-#(if (eq? expect-error (ly:parser-has-error? (*parser*)))
-  (ly:parser-clear-error (*parser*))
+#(if (eq? expect-error (ly:parser-has-error?))
+  (ly:parser-clear-error)
   (if expect-error
-   (ly:parser-error (*parser*) (_ "expected error, but none found"))))
+   (ly:parser-error (_ "expected error, but none found"))))

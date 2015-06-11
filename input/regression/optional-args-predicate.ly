@@ -9,7 +9,7 @@
 test=#(define-scheme-function (str int frac exp)
        ((string? "def1") (integer? "def2") (number-pair? "def3") list?)
        (if (not (equal? (list str int frac) exp))
-	(ly:parser-error (*parser*)
+	(ly:parser-error
 	 (format #f "Expected ~a, got ~a.\n" exp
 	  (list str int frac))
 	 (*location*))))

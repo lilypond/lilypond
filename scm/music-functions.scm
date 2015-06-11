@@ -229,13 +229,13 @@ which often can be read back in order to generate an equivalent expression."
 (use-modules (srfi srfi-39)
              (scm display-lily))
 
-(define*-public (display-lily-music expr parser #:optional (port (current-output-port))
+(define*-public (display-lily-music expr #:optional (port (current-output-port))
                                     #:key force-duration)
   "Display the music expression using LilyPond syntax"
   (memoize-clef-names supported-clefs)
   (parameterize ((*indent* 0)
                  (*omit-duration* #f))
-                (display (music->lily-string expr parser) port)
+                (display (music->lily-string expr) port)
                 (newline port)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -406,7 +406,7 @@ beats to be distinguished."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; property setting music objs.
 
-(define-safe-public (check-grob-path path #:optional parser location
+(define-safe-public (check-grob-path path #:optional location
                                      #:key
                                      (start 0)
                                      default
@@ -476,7 +476,7 @@ respectively."
           res
           (begin
             (if parser
-                (ly:parser-error parser
+                (ly:parser-error
                                  (format #f (_ "bad grob property path ~a")
                                          path)
                                  location))
@@ -1300,8 +1300,8 @@ then revert skipTypesetting."
  the 'length property of the music is
  overridden to speed up compiling."
   (let*
-      ((show-last (ly:parser-lookup parser 'showLastLength))
-       (show-first (ly:parser-lookup parser 'showFirstLength))
+      ((show-last (ly:parser-lookup 'showLastLength))
+       (show-first (ly:parser-lookup 'showFirstLength))
        (show-last-length (and (ly:music? show-last)
                               (ly:music-length show-last)))
        (show-first-length (and (ly:music? show-first)
@@ -1353,7 +1353,7 @@ then revert skipTypesetting."
   (list
    (lambda (music parser) (expand-repeat-chords!
                            (cons 'rhythmic-event
-                                 (ly:parser-lookup parser '$chord-repeat-events))
+                                 (ly:parser-lookup '$chord-repeat-events))
                            music))
    (lambda (music parser) (expand-repeat-notes! music))
    (lambda (music parser) (voicify-music music))
@@ -1361,7 +1361,7 @@ then revert skipTypesetting."
    (lambda (x parser) (music-map precompute-music-length x))
    (lambda (music parser)
 
-     (music-map (quote-substitute (ly:parser-lookup parser 'musicQuotes))  music))
+     (music-map (quote-substitute (ly:parser-lookup 'musicQuotes))  music))
 
    ;; switch-on-debugging
    (lambda (x parser) (music-map cue-substitute x))
@@ -1984,7 +1984,7 @@ recursing into matches themselves."
          (any (lambda (t) (music-is-of-type? m t)) type))
        (lambda (m) (music-is-of-type? m type)))))
 
-(define*-public (event-chord-wrap! music #:optional parser)
+(define*-public (event-chord-wrap! music #:optional)
   "Wrap isolated rhythmic events and non-postevent events in
 @var{music} inside of an @code{EventChord}.  If the optional
 @var{parser} argument is given, chord repeats @samp{q} are expanded
@@ -2009,7 +2009,7 @@ yourself."
    (if parser
        (expand-repeat-chords!
         (cons 'rhythmic-event
-              (ly:parser-lookup parser '$chord-repeat-events))
+              (ly:parser-lookup '$chord-repeat-events))
         music)
        music)))
 

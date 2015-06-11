@@ -44,10 +44,10 @@
 (define (music-function-call-error loc fun m)
   (let* ((sig (ly:music-function-signature fun))
          (pred (if (pair? (car sig)) (caar sig) (car sig))))
-    (ly:parser-error (*parser*)
+    (ly:parser-error
                      (format #f (_ "~a function cannot return ~a")
                              (type-name pred)
-                             (value->lily-string m (*parser*)))
+                             (value->lily-string m))
                      loc)
     (and (pair? (car sig)) (cdar sig))))
 
@@ -76,7 +76,6 @@
 
 (define-ly-syntax (argument-error location n pred arg)
   (ly:parser-error
-   (*parser*)
    (format #f
            (_ "wrong type for argument ~a.  Expecting ~a, found ~s")
            n (type-name pred) (music->make-music arg))
