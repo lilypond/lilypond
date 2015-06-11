@@ -933,6 +933,33 @@ ottava =
    (make-music 'OttavaMusic
                'ottava-number octave))
 
+#(ly:expect-warning
+  (ly:translate-cpp-warning-scheme "identifier name is a keyword: `%s'")
+  "override")
+override =
+#(define-music-function (grob-property-path value)
+   (symbol-list? scheme?)
+   (_i "Set the grob property specified by @var{grob-property-path} to
+@var{value}.  @var{grob-property-path} is a symbol list of the form
+@code{Context.GrobName.property} or @code{GrobName.property}, possibly
+with subproperties given as well.  Because @code{\\override} is a
+reserved word with special syntax in LilyPond input, this music
+function will generally only be accessible from Scheme.")
+   (let ((p (check-grob-path grob-property-path (*parser*) (*location*)
+                             #:default 'Bottom
+                             #:min 3)))
+     (if p
+         (context-spec-music
+          (make-music 'OverrideProperty
+                      'symbol (cadr p)
+                      'origin (*location*)
+                      'grob-value value
+                      'grob-property-path (cddr p)
+                      'pop-first #t)
+          (car p))
+         (make-music 'Music))))
+
+
 overrideTimeSignatureSettings =
 #(define-music-function
    (time-signature base-moment beat-structure beam-exceptions)
@@ -1301,6 +1328,31 @@ usually contains spacers or multi-measure rests.")
    (make-music 'QuoteMusic
                'element main-music
                'quoted-music-name what))
+
+#(ly:expect-warning
+  (ly:translate-cpp-warning-scheme "identifier name is a keyword: `%s'")
+  "revert")
+revert =
+#(define-music-function (grob-property-path)
+   (symbol-list?)
+   (_i "Revert the grob property specified by @var{grob-property-path} to
+its previous value.  @var{grob-property-path} is a symbol list of the form
+@code{Context.GrobName.property} or @code{GrobName.property}, possibly
+with subproperties given as well.  Because @code{\\revert} is a
+reserved word with special syntax in LilyPond input, this music
+function will generally only be accessible from Scheme.")
+   (let ((p (check-grob-path grob-property-path (*parser*) (*location*)
+                             #:default 'Bottom
+                             #:min 3)))
+     (if p
+         (context-spec-music
+          (make-music 'RevertProperty
+                      'symbol (cadr p)
+                      'origin (*location*)
+                      'grob-property-path (cddr p))
+          (car p))
+         (make-music 'Music))))
+
 
 relative =
 #(define-music-function (pitch music)
