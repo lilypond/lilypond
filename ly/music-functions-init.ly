@@ -119,10 +119,10 @@ form of a spanner event, @var{property} may also have the form
                  (member 'spanner-interface
                          (assoc-get 'interfaces
                                     (assoc-get 'meta description))))
-            #{
-              \override #item . #property =
-              #(value-for-spanner-piece arg)
-            #}
+            (override (append item (if (symbol? property)
+                                       (list property)
+                                       property))
+                      (value-for-spanner-piece arg))
             (begin
               (ly:input-warning (*location*) (_ "not a spanner name, `~a'") name)
               (make-music 'Music))))))
@@ -890,9 +890,7 @@ appropriate tweak applied.")
                                      property)) (*location*)
                          #:default 'Bottom #:min 3 #:max 3)))
         (if prop-path
-            #{
-              \override #prop-path = #(offsetter (third prop-path) offsets)
-            #}
+            (override prop-path (offsetter (third prop-path) offsets))
             (make-music 'Music)))))
 
 omit =
@@ -1772,15 +1770,7 @@ property (inside of an alist) is tweaked.")
                           value
                           (ly:music-property item 'tweaks))))
          item)
-       ;; We could just throw this at \override and let it sort this
-       ;; out on its own, but this way we should get better error
-       ;; diagnostics.
-       (let ((p (check-grob-path
-                 (append item (if (symbol? prop) (list prop) prop)) (*location*)
-                 #:default 'Bottom #:min 3)))
-         (if p
-             #{ \override #p = #value #}
-             (make-music 'Music)))))
+       (override (append item (if (symbol? prop) (list prop) prop)) value)))
 
 undo =
 #(define-music-function (music)
