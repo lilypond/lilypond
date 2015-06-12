@@ -50,6 +50,8 @@ COUR_OTFS = $(addprefix $(outdir)/,NimbusMonL-ReguObli.otf \
 				   NimbusMonL-Regu.otf \
 				   NimbusMonL-Bold.otf)
 
+LILYPOND_FONTS_CONF = $(outdir)/lilypond-fonts.conf
+
 LOG_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.log)
 LISP_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.lisp)
 ENC_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.enc)
@@ -88,14 +90,15 @@ ALL_GEN_FILES = $(ENC_FILES) \
 		$(COUR_OTFS) \
 		$(OTF_FILES) \
 		$(SVG_FILES) \
-		$(WOFF_FILES)
+		$(WOFF_FILES) \
+		$(LILYPOND_FONTS_CONF)
 
 # PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 
 INSTALLATION_DIR = $(local_lilypond_datadir)/fonts/source
 INSTALLATION_FILES = $(MF_FILES)
 
-INSTALLATION_OUT_SUFFIXES = 1 2
+INSTALLATION_OUT_SUFFIXES = 1 2 3
 
 INSTALLATION_OUT_DIR1 = $(local_lilypond_datadir)/fonts/otf
 INSTALLATION_OUT_FILES1 = $(OTF_FILES) \
@@ -103,6 +106,9 @@ INSTALLATION_OUT_FILES1 = $(OTF_FILES) \
 
 INSTALLATION_OUT_DIR2 = $(local_lilypond_datadir)/fonts/svg
 INSTALLATION_OUT_FILES2 = $(SVG_FILES) $(WOFF_FILES)
+
+INSTALLATION_OUT_DIR3 = $(local_lilypond_datadir)/fonts
+INSTALLATION_OUT_FILES3 = $(LILYPOND_FONTS_CONF)
 
 export MFINPUTS := .:$(MFINPUTS)
 
