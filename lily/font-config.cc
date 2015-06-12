@@ -49,6 +49,17 @@ init_fontconfig ()
   else
     debug_output (_f ("Adding font directory: %s", dir.c_str ()));
 
+  string conf (lilypond_datadir + "/fonts/lilypond-fonts.conf");
+
+  if (!FcConfigParseAndLoad (font_config_global,
+                             (FcChar8 *)conf.c_str (),
+                             FcFalse))
+    error (_f ("failed adding fontconfig configuration file: %s",
+               conf.c_str ()));
+  else
+    debug_output (_f ("Adding fontconfig configuration file: %s",
+                      conf.c_str ()));
+
   debug_output (_ ("Building font database..."));
 
   FcConfigBuildFonts (font_config_global);
