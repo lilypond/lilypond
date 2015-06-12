@@ -178,7 +178,7 @@ Two more commands you have not previously seen are
 shown they will cause LilyPond to produce a printed output and a
 MIDI output respectively.  They are described fully in the
 Notation Reference -- @ruser{Score layout}, and
-@ruser{Creating MIDI files}.
+@ruser{Creating MIDI output}.
 
 @cindex scores, multiple
 @cindex book block, implicit
