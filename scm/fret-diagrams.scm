@@ -261,6 +261,9 @@ with magnification @var{mag} of the string @var{text}."
               (if (> fretval maxfret) (set! maxfret fretval))
               (if (< fretval minfret) (set! minfret fretval))
               (updatemax (cdr fret-list)))))
+      ;; take frets of 'barre-settings into account
+      (if (not (null? barre-list))
+          (set! minfret (apply min minfret (map last barre-list))))
       (if (or (> maxfret my-fret-count) (> capo-fret 1))
           (set! fret-range
                 (cons minfret
