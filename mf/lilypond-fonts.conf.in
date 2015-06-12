@@ -1,4 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
 <fontconfig>
+
+  <!-- Define LilyPond default fonts -->
+
+  <alias binding="strong">
+    <family>LilyPond Serif</family>
+    <prefer>
+      <family>Century Schoolbook L</family>
+      <family>DejaVu Serif</family>
+    </prefer>
+    <default>
+      <family>serif</family>
+    </default>
+  </alias>
+
+  <alias binding="strong">
+    <family>LilyPond Sans Serif</family>
+    <prefer>
+      <family>Nimbus Sans L</family>
+      <family>DejaVu Sans</family>
+    </prefer>
+    <default>
+      <family>sans-serif</family>
+    </default>
+  </alias>
+
+  <alias binding="strong">
+    <family>LilyPond Monospace</family>
+    <prefer>
+      <family>Nimbus Mono L</family>
+      <family>DejaVu Sans Mono</family>
+    </prefer>
+    <default>
+      <family>monospace</family>
+    </default>
+  </alias>
+
 </fontconfig>
