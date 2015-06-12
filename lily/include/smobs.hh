@@ -213,7 +213,12 @@ private:
   }
 
   // Well, function template argument packs are a C++11 feature.  So
-  // we just define a bunch of trampolines manually.
+  // we just define a bunch of trampolines manually.  It turns out
+  // that GUILE 1.8.8 cannot actually make callable structures with
+  // more than 3 arguments anyway.  That's surprising, to say the
+  // least, but in emergency situations one can always use a "rest"
+  // argument and take it apart manually.
+
   template <SCM (Super::*pmf)(void)>
   static SCM smob_trampoline (SCM self)
   {
