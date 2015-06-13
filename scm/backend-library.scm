@@ -283,9 +283,6 @@
      (module-remove! output-module x))
    missing-stencil-list))
 
-(define (filter-out pred? lst)
-  (filter (lambda (x) (not (pred? x))) lst))
-
 (define-public (font-name-split font-name)
   "Return @code{(FONT-NAME . DESIGN-SIZE)} from @var{font-name} string
 or @code{#f}."
@@ -319,12 +316,12 @@ definition."
 
   (let* ((font-list (ly:paper-fonts paper))
          (pango-fonts (filter ly:pango-font? font-list))
-         (other-fonts (filter-out ly:pango-font? font-list))
+         (other-fonts (remove ly:pango-font? font-list))
          (other-font-names (map ly:font-name other-fonts))
          (pango-only-fonts
-          (filter-out (lambda (x)
-                        (member (pango-font-name x) other-font-names))
-                      pango-fonts)))
+          (remove (lambda (x)
+                    (member (pango-font-name x) other-font-names))
+                  pango-fonts)))
 
     (define (font-load-command font)
       (let* ((font-name (ly:font-name font))
