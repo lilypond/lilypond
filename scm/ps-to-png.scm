@@ -52,7 +52,10 @@
        '("pnmtopng"))))
 
 (define (scale-down-image factor file)
-  (let* ((old (string-append file ".old"))
+  (let* ((port-tmp1 (make-tmpfile))
+         (tmp1-name (port-filename port-tmp1))
+         (port-tmp2 (make-tmpfile))
+         (tmp2-name (port-filename port-tmp2))
          ;; Netpbm commands (pngtopnm, pnmscale, pnmtopng)
          ;; outputs only standard output instead of a file.
          ;; So we need pipe and redirection.
@@ -61,14 +64,16 @@
          (cmd
           (ly:format
            "~a \"~a\" | ~a -reduce ~a | ~a -compression 9 > \"~a\""
-           (search-pngtopam) old
+           (search-pngtopam) tmp1-name
            (search-pamscale) factor
            (search-pnmtopng)
-           file)))
+           tmp2-name)))
 
-    (rename-file file old)
+    (copy-binary-file file tmp1-name)
     (ly:system-with-shell cmd)
-    (delete-file old)))
+    (copy-binary-file tmp2-name file)
+    (delete-file tmp1-name)
+    (delete-file tmp2-name)))
 
 (define-public (ps-page-count ps-name)
   (let* ((byte-count 10240)
