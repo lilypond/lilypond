@@ -69,10 +69,14 @@
            (search-pnmtopng)
            tmp2-name)))
 
+    (ly:debug (_ "Copying `~a' to `~a'...") file tmp1-name)
     (copy-binary-file file tmp1-name)
     (ly:system-with-shell cmd)
+    (ly:debug (_ "Copying `~a' to `~a'...") tmp2-name file)
     (copy-binary-file tmp2-name file)
+    (ly:debug (_ "Deleting `~a'...") tmp1-name)
     (delete-file tmp1-name)
+    (ly:debug (_ "Deleting `~a'...") tmp2-name)
     (delete-file tmp2-name)))
 
 (define-public (ps-page-count ps-name)
