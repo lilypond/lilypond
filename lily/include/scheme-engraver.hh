@@ -26,9 +26,10 @@
 
 class Scheme_engraver : public Engraver
 {
-public:
   void init_from_scheme (SCM definition);
-  TRANSLATOR_DECLARATIONS_NO_LISTENER (Scheme_engraver);
+public:
+  TRANSLATOR_FAMILY_DECLARATIONS (Scheme_engraver);
+  Scheme_engraver (SCM definition);
 
 protected:
   ~Scheme_engraver ();
@@ -68,8 +69,6 @@ private:
   // Alist of listened-symbol . scheme-function
   SCM listeners_alist_;
 
-  // We dont use this, but need it for the documentation boilerplate.
-  static Protected_scm listener_list_;
   SCM per_instance_listeners_;
 };
 

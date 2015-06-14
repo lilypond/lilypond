@@ -170,7 +170,6 @@ Translator_group::create_child_translator (SCM sev)
         type = get_translator (definition);
       else if (ly_is_pair (definition))
         {
-          type = get_translator (ly_symbol2scm ("Scheme_engraver"));
           is_scheme = true;
         }
       else if (ly_is_procedure (definition))
@@ -179,17 +178,15 @@ Translator_group::create_child_translator (SCM sev)
           // an argument and evaluates to an a-list scheme engraver
           // definition.
           definition = scm_call_1 (definition, cs);
-          type = get_translator (ly_symbol2scm ("Scheme_engraver"));
           is_scheme = true;
         }
 
-      if (!type)
+      if (!is_scheme && !type)
         warning (_f ("cannot find: `%s'", ly_symbol2string (scm_car (s)).c_str ()));
       else
         {
-          Translator *instance = type->clone ();
-          if (is_scheme)
-            dynamic_cast<Scheme_engraver *> (instance)->init_from_scheme (definition);
+          Translator *instance = is_scheme ? new Scheme_engraver (definition)
+            : type->clone ();
 
           SCM str = instance->self_scm ();
 

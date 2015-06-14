@@ -25,7 +25,7 @@
 
 #include "translator.icc"
 
-Scheme_engraver::Scheme_engraver ()
+Scheme_engraver::Scheme_engraver (SCM definition)
 {
   stop_translation_timestep_function_ = SCM_EOL;
   start_translation_timestep_function_ = SCM_EOL;
@@ -39,6 +39,8 @@ Scheme_engraver::Scheme_engraver ()
 
   must_be_last_ = false;
   per_instance_listeners_ = SCM_EOL;
+
+  init_from_scheme (definition);
 }
 
 Scheme_engraver::~Scheme_engraver ()
@@ -194,17 +196,4 @@ Scheme_engraver::derived_mark () const
 ADD_ACKNOWLEDGER (Scheme_engraver, grob);
 ADD_END_ACKNOWLEDGER (Scheme_engraver, grob);
 
-ADD_TRANSLATOR (Scheme_engraver,
-                /* doc */
-                "Implement engravers in Scheme.  Interprets arguments to"
-                " @code{\\consists} as callbacks.",
-
-                /* create */
-                "",
-
-                /* read */
-                "",
-
-                /* write */
-                ""
-               );
+ADD_TRANSLATOR_FAMILY (Scheme_engraver);
