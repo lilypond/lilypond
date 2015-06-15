@@ -327,6 +327,8 @@
 \context {
   \Voice			% We want all the actual performers
   \name ChordNames
+  \alias Staff			% Catch Staff-level overrides like
+				% \key, \transposition
   \consists "Staff_performer"
 }
 

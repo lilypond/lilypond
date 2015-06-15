@@ -499,6 +499,8 @@ printing of a single line of lyrics."
 \context {
   \type "Engraver_group"
   \name "ChordNames"
+  \alias Staff			% Catch Staff-level overrides like
+				% \key, \transposition
   \description "Typesets chord names."
 
   \consists "Output_property_engraver"
