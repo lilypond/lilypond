@@ -377,8 +377,8 @@ Morceaux choisis :
 @unnumberedsubsubsec Contextes de musique mensurale
 @translationof Mensural contexts
 
-@cindex MensuralVoiceContext
-@cindex MensuralStaffContext
+@cindex MensuralVoice
+@cindex MensuralStaff
 
 Les contextes @code{MensuralVoice} et @code{MensuralStaff} permettent de
 graver des chants dans le style mesuré.  Ces contextes initialisent les
@@ -904,8 +904,8 @@ la note.
 
 @cindex altération et musica ficta
 @cindex musica ficta
-@cindex MensuralVoiceContext
-@cindex MensuralStaffContext
+@cindex MensuralVoice
+@cindex MensuralStaff
 
 La reproduction de ces altérations suggérées est assurée par l'activation
 de la fonction @code{suggestAccidentals}.
@@ -1077,11 +1077,11 @@ Manuel de notation :
 @unnumberedsubsubsec Contextes du chant grégorien
 @translationof Gregorian chant contexts
 
-@cindex VaticanaVoiceContext
-@cindex VaticanaStaffContext
+@cindex VaticanaVoice
+@cindex VaticanaStaff
 
-Les contextes prédéfinis @code{VaticanaVoiceContext} et
-@code{VaticanaStaffContext} permettent de graver le chant grégorien
+Les contextes prédéfinis @code{VaticanaVoice} et
+@code{VaticanaStaff} permettent de graver le chant grégorien
 dans le style des éditions vaticanes.  Ces contextes initialisent
 les propriétés de tous les autres contextes et objets graphiques à des
 valeurs adéquates, de telle sorte que vous pouvez tout de suite vous
@@ -2448,8 +2448,8 @@ s'intégrer avec d'autres préfixes dans n'importe quel ordre.
 @unnumberedsubsubsec Contextes de notation kiévienne
 @translationof Kievan contexts
 
-@cindex KievanVoiceContext
-@cindex KievanStaffContext
+@cindex KievanVoice
+@cindex KievanStaff
 
 Tout comme pour les notations grégorienne et mensurale, les contextes
 prédéfinis @code{KievanVoice} et @code{KievanStaff} permettent de

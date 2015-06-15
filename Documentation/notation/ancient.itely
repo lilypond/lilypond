@@ -363,8 +363,8 @@ Internals Reference:
 @node Mensural contexts
 @unnumberedsubsubsec Mensural contexts
 
-@cindex MensuralVoiceContext
-@cindex MensuralStaffContext
+@cindex MensuralVoice
+@cindex MensuralStaff
 
 The predefined @code{MensuralVoice} and @code{MensuralStaff}
 contexts can be used to engrave a piece in mensural style.  These
@@ -1022,11 +1022,11 @@ Notation Reference:
 @node Gregorian chant contexts
 @unnumberedsubsubsec Gregorian chant contexts
 
-@cindex VaticanaVoiceContext
-@cindex VaticanaStaffContext
+@cindex VaticanaVoice
+@cindex VaticanaStaff
 
-The predefined @code{VaticanaVoiceContext} and
-@code{VaticanaStaffContext} can be used to engrave a piece of
+The predefined @code{VaticanaVoice} and
+@code{VaticanaStaff} can be used to engrave a piece of
 Gregorian chant in the style of the Editio Vaticana.  These contexts
 initialize all relevant context properties and grob properties to
 proper values, so you can immediately go ahead entering the chant, as
@@ -2394,8 +2394,8 @@ with head prefixes in arbitrary order.
 @node Kievan contexts
 @unnumberedsubsubsec Kievan contexts
 
-@cindex KievanVoiceContext
-@cindex KievanStaffContext
+@cindex KievanVoice
+@cindex KievanStaff
 
 As with Mensural and Gregorian notation, the predefined
 @code{KievanVoice} and @code{KievanStaff} contexts can be used

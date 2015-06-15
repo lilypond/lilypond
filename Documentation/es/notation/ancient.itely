@@ -373,8 +373,8 @@ Referencia de funcionamiento interno:
 @unnumberedsubsubsec Contextos de la música mensural
 @translationof Mensural contexts
 
-@cindex MensuralVoiceContext
-@cindex MensuralStaffContext
+@cindex MensuralVoice
+@cindex MensuralStaff
 
 Los contextos predefinidos de voz @code{MensuralVoice} y de pauta
 @code{MensuralStaff} se pueden usar para grabar una pieza en estilo
@@ -1083,11 +1083,11 @@ Referencia de la notación:
 @unnumberedsubsubsec Contextos del canto gregoriano
 @translationof Gregorian chant contexts
 
-@cindex VaticanaVoiceContext
-@cindex VaticanaStaffContext
+@cindex VaticanaVoice
+@cindex VaticanaStaff
 
-El contexto predefinido de voz @code{VaticanaVoiceContext} y el de
-pauta @code{VaticanaStaffContext} se pueden utilizar para grabar una
+El contexto predefinido de voz @code{VaticanaVoice} y el de
+pauta @code{VaticanaStaff} se pueden utilizar para grabar una
 pieza de canto gregoriano en el estilo de la Editio Vaticana.  Estos
 contextos establecen a unos valores iniciales adecuados todas las
 propiedades relevantes de los contextos y de los objetos gráficos, de
@@ -2457,8 +2457,8 @@ arbitrario.
 @unnumberedsubsubsec Contextos del canto kievano
 @translationof Kievan contexts
 
-@cindex KievanVoiceContext
-@cindex KievanStaffContext
+@cindex KievanVoice
+@cindex KievanStaff
 
 De la misma manera que con las notaciones mensural y gregoriana,
 pueden usarse los contextos predefinidos @code{KievanVoice} y

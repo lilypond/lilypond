@@ -398,8 +398,8 @@ Notationsreferenz:
 @unnumberedsubsubsec Mensural-Kontexte
 @translationof Mensural contexts
 
-@cindex MensuralVoiceContext
-@cindex MensuralStaffContext
+@cindex MensuralVoice
+@cindex MensuralStaff
 
 @funindex MensuralVoice
 @funindex MensuralStaff
@@ -1097,8 +1097,8 @@ Notationreferenz:
 @unnumberedsubsubsec Gregorianische Gesangs-Kontexte
 @translationof Gregorian chant contexts
 
-@cindex VaticanaVoiceContext
-@cindex VaticanaStaffContext
+@cindex VaticanaVoice
+@cindex VaticanaStaff
 
 @funindex VaticanaVoice
 @funindex VaticanaStaff
@@ -2526,8 +2526,8 @@ Präfixen in arbiträrer Reihenfolge notiert werden kann.
 @unnumberedsubsubsec Kiever Kontexte
 @translationof Kievan contexts
 
-@funindex KievanVoiceContext
-@funindex KievanStaffContext
+@funindex KievanVoice
+@funindex KievanStaff
 
 Wie auch für die Mensural- und Gregorianische Notation können die Kontexte
 @code{KievanVoice} and @code{KievanStaff} eingesetzt werdne, um
