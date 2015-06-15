@@ -325,16 +325,9 @@
 }
 
 \context {
-  \type "Performer_group"
-  \consists "Staff_performer"
-  \accepts ChordNameVoice
-  \defaultchild ChordNameVoice
+  \Voice			% We want all the actual performers
   \name ChordNames
-}
-
-\context {
-  \Voice
-  \name ChordNameVoice
+  \consists "Staff_performer"
 }
 
 \context {
