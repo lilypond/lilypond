@@ -48,12 +48,6 @@ Translator::Translator (Context *c)
   smobify_self ();
 }
 
-Translator::Translator (Translator const &)
-  : Smob<Translator> ()
-{
-  smobify_self ();
-}
-
 Moment
 Translator::now_mom () const
 {
@@ -154,7 +148,7 @@ Translator::static_translator_description (const char *grobs,
                                            const char *desc,
                                            SCM listener_list,
                                            const char *read,
-                                           const char *write) const
+                                           const char *write)
 {
   SCM static_properties = SCM_EOL;
 

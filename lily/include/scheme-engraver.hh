@@ -41,7 +41,7 @@ class Scheme_engraver : Preinit_Scheme_engraver, public Engraver
 {
 public:
   TRANSLATOR_FAMILY_DECLARATIONS (Scheme_engraver);
-  Scheme_engraver (SCM definition);
+  Scheme_engraver (SCM definition, Context *c);
 
 protected:
   ~Scheme_engraver ();
@@ -60,9 +60,6 @@ private:
   }
 
   SCM init_acknowledgers (SCM alist);
-  // For now no description.  In future, something derived from the
-  // definition might make sense.
-  SCM translator_description () const { return SCM_EOL; }
 
   bool must_be_last_;
 };

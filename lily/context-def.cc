@@ -294,7 +294,7 @@ Context_def::get_translator_names (SCM user_mod) const
       else if (scm_is_eq (tag, ly_symbol2scm ("remove"))
                && (scm_is_pair (arg)
                    || ly_is_procedure (arg)
-                   || get_translator (arg)))
+                   || get_translator_creator (arg)))
         l1 = scm_delete_x (arg, l1);
     }
 
