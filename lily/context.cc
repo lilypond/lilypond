@@ -93,8 +93,7 @@ Context::Context ()
 
   smobify_self ();
 
-  Scheme_hash_table *tab = new Scheme_hash_table;
-  properties_scm_ = tab->unprotect ();
+  properties_scm_ = Scheme_hash_table::make_smob ();
   event_source_ = new Dispatcher ();
   event_source_->unprotect ();
   events_below_ = new Dispatcher ();

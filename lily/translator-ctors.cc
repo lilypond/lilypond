@@ -28,14 +28,14 @@
   should delete these after exit.
 */
 
-Scheme_hash_table *global_translator_dict = 0;
-Protected_scm global_translator_dict_scm;
+Protected_scm global_translator_dict;
 
 LY_DEFINE (get_all_translators, "ly:get-all-translators", 0, 0, 0, (),
            "Return a list of all translator objects that may be"
            " instantiated.")
 {
-  SCM l = global_translator_dict ? global_translator_dict->to_alist () : SCM_EOL;
+  Scheme_hash_table *dict = unsmob<Scheme_hash_table> (global_translator_dict);
+  SCM l = dict ? dict->to_alist () : SCM_EOL;
 
   for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
     scm_set_car_x (s, scm_cdar (s));
@@ -46,22 +46,24 @@ LY_DEFINE (get_all_translators, "ly:get-all-translators", 0, 0, 0, (),
 void
 add_translator (Translator *t)
 {
-  if (!global_translator_dict)
+  Scheme_hash_table *dict = unsmob<Scheme_hash_table> (global_translator_dict);
+  if (!dict)
     {
-      global_translator_dict = new Scheme_hash_table;
-      global_translator_dict_scm = global_translator_dict->unprotect ();
+      global_translator_dict = Scheme_hash_table::make_smob ();
+      dict = unsmob<Scheme_hash_table> (global_translator_dict);
     }
 
   SCM k = ly_symbol2scm (t->class_name ());
-  global_translator_dict->set (k, t->unprotect ());
+  dict->set (k, t->unprotect ());
 }
 
 Translator *
 get_translator (SCM sym)
 {
   SCM v = SCM_BOOL_F;
-  if (global_translator_dict)
-    global_translator_dict->try_retrieve (sym, &v);
+  Scheme_hash_table *dict = unsmob<Scheme_hash_table> (global_translator_dict);
+  if (dict)
+    dict->try_retrieve (sym, &v);
 
   if (scm_is_false (v))
     {
@@ -71,4 +73,3 @@ get_translator (SCM sym)
 
   return unsmob<Translator> (v);
 }
-

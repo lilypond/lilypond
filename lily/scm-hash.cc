@@ -19,69 +19,19 @@
 
 #include "scm-hash.hh"
 
-#include <cstdio>
-#include <algorithm>
-
-
-/*
-  Return: number of objects.
-*/
-SCM
-copy_handle (void *closure, SCM handle)
-{
-  SCM tab = (SCM) closure;
-  scm_hashq_set_x (tab, scm_car (handle), scm_cdr (handle));
-  return tab;
-}
-
-static void
-copy_scm_hashes (SCM dest, SCM src)
-{
-  scm_internal_hash_for_each_handle ((scm_t_hash_handle_fn) &copy_handle,
-                                     dest, src);
-}
-
-Scheme_hash_table::Scheme_hash_table ()
-{
-  hash_tab_ = SCM_EOL;
-  smobify_self ();
-  hash_tab_ = scm_c_make_hash_table (119);
-}
-
-Scheme_hash_table::Scheme_hash_table (Scheme_hash_table const &src)
-  : Smob<Scheme_hash_table> ()
-{
-  hash_tab_ = SCM_EOL;
-  smobify_self ();
-  copy (src);
-}
-
-void
-Scheme_hash_table::copy (Scheme_hash_table const &src)
-{
-  if (&src == this)
-    return;
-
-  hash_tab_ = scm_c_make_hash_table (SCM_HASHTABLE_N_ITEMS (src.hash_tab_));
-  copy_scm_hashes (hash_tab_, src.hash_tab_);
-}
-
-Scheme_hash_table::~Scheme_hash_table ()
-{
-}
+#include <cassert>
 
 SCM
-Scheme_hash_table::mark_smob () const
+Scheme_hash_table::make_smob ()
 {
-  scm_gc_mark (hash_tab_);
-  return SCM_EOL;
+  return Smob1::make_smob (scm_c_make_hash_table (119));
 }
 
 int
 Scheme_hash_table::print_smob (SCM p, scm_print_state *) const
 {
   scm_puts ("#<Scheme_hash_table  ", p);
-  scm_display (hash_tab_, p);
+  scm_display (hash_tab (), p);
   scm_puts ("> ", p);
   return 1;
 }
@@ -90,7 +40,7 @@ bool
 Scheme_hash_table::try_retrieve (SCM k, SCM *v)
 {
 
-  SCM handle = scm_hashq_get_handle (hash_tab_, k);
+  SCM handle = scm_hashq_get_handle (hash_tab (), k);
   if (scm_is_pair (handle))
     {
       *v = scm_cdr (handle);
@@ -103,14 +53,14 @@ Scheme_hash_table::try_retrieve (SCM k, SCM *v)
 bool
 Scheme_hash_table::contains (SCM k) const
 {
-  return scm_is_pair (scm_hashq_get_handle (hash_tab_, k));
+  return scm_is_pair (scm_hashq_get_handle (hash_tab (), k));
 }
 
 void
 Scheme_hash_table::set (SCM k, SCM v)
 {
   assert (scm_is_symbol (k));
-  SCM handle = scm_hashq_create_handle_x (hash_tab_, k, SCM_UNDEFINED);
+  SCM handle = scm_hashq_create_handle_x (hash_tab (), k, SCM_UNDEFINED);
   scm_set_cdr_x (handle, v);
 }
 
@@ -119,13 +69,13 @@ Scheme_hash_table::get (SCM k) const
 {
   /* SCM_UNSPECIFIED will stick out like a sore thumb, hopefully.
   */
-  return scm_hashq_ref (hash_tab_, k, SCM_UNSPECIFIED);
+  return scm_hashq_ref (hash_tab (), k, SCM_UNSPECIFIED);
 }
 
 void
 Scheme_hash_table::remove (SCM k)
 {
-  scm_hashq_remove_x (hash_tab_, k);
+  scm_hashq_remove_x (hash_tab (), k);
 }
 
 static SCM
@@ -141,5 +91,5 @@ SCM
 Scheme_hash_table::to_alist () const
 {
   return scm_internal_hash_fold ((scm_t_hash_fold_fn) &collect_handles,
-                                 NULL, SCM_EOL, hash_tab_);
+                                 NULL, SCM_EOL, hash_tab ());
 }
