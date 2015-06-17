@@ -190,15 +190,36 @@ Lily_parser::parser_error (Input const *i, Lily_parser *parser, SCM *, const str
 - Don't use lily module, create a new module instead.
 - delay application of the function
 */
-#define LOWLEVEL_MAKE_SYNTAX(proc, args)	\
-  scm_apply_0 (proc, args)
+
+static SCM
+syntax_call (void *arg)
+{
+	SCM sarg = reinterpret_cast <SCM> (arg);
+	return scm_apply_0 (scm_car (sarg), scm_cdr (sarg));
+}
+
+#define LOWLEVEL_MAKE_SYNTAX(location, args)				\
+	scm_c_with_fluid						\
+		(ly_lily_module_constant ("%location"),			\
+		 parser->lexer_->override_input (location).smobbed_copy (), \
+		 syntax_call,						\
+		 reinterpret_cast <void*> (args))
+
 /* Syntactic Sugar. */
 #define MAKE_SYNTAX(name, location, ...)				\
-	LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant (name), scm_list_n (parser->lexer_->override_input (location).smobbed_copy (), ##__VA_ARGS__, SCM_UNDEFINED))
+	LOWLEVEL_MAKE_SYNTAX (location,					\
+			      scm_list_n (ly_lily_module_constant (name), \
+					  ##__VA_ARGS__, SCM_UNDEFINED))
+
 #define START_MAKE_SYNTAX(name, ...)					\
-	scm_list_n (ly_lily_module_constant (name) , ##__VA_ARGS__, SCM_UNDEFINED)
+	scm_list_n (ly_lily_module_constant (name),			\
+		    ##__VA_ARGS__, SCM_UNDEFINED)
+
 #define FINISH_MAKE_SYNTAX(start, location, ...)			\
-	LOWLEVEL_MAKE_SYNTAX (scm_car (start), scm_cons (parser->lexer_->override_input (location).smobbed_copy (), scm_append_x (scm_list_2 (scm_cdr (start), scm_list_n (__VA_ARGS__, SCM_UNDEFINED)))))
+	LOWLEVEL_MAKE_SYNTAX (location,					\
+			      scm_append_x				\
+			      (scm_list_2 (start, scm_list_n		\
+					   (__VA_ARGS__, SCM_UNDEFINED))))
 
 SCM get_next_unique_context_id ();
 SCM get_next_unique_lyrics_context_id ();

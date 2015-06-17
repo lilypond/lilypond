@@ -20,35 +20,25 @@
 (defmacro define-ly-syntax (args . body)
   `(define-public ,args ,@body))
 
-;; A ly-syntax constructor takes one extra parameter,
-;; location. This is mainly used for reporting errors and
-;; warnings. This function is a syntactic sugar which uses the
-;; location arg to set the origin of the returned music object; this
-;; behaviour is usually desired
+;; A ly-syntax constructor can access location data as (*location*).
+;; This is mainly used for reporting errors and warnings. This
+;; function is a syntactic sugar which uses (*location*) to set the
+;; origin of the returned music object; this behaviour is usually
+;; desired.
 (defmacro define-ly-syntax-loc (args . body)
   `(define-public ,args
      (let ((m ,(cons 'begin body)))
-       (set! (ly:music-property m 'origin) ,(second args))
-       m)))
-;; Like define-ly-syntax-loc, but adds location
-;; parameter. Useful for simple constructors that don't need to
-;; report errors.
-(defmacro define-ly-syntax-simple (args . body)
-  `(define-public ,(cons* (car args)
-                          'location
-                          (cdr args))
-     (let ((m ,(cons 'begin body)))
-       (set! (ly:music-property m 'origin) location)
+       (set! (ly:music-property m 'origin) (*location*))
        m)))
 
-(define (music-function-call-error loc fun m)
+(define (music-function-call-error fun m)
   (let* ((sig (ly:music-function-signature fun))
          (pred (if (pair? (car sig)) (caar sig) (car sig))))
     (ly:parser-error
                      (format #f (_ "~a function cannot return ~a")
                              (type-name pred)
                              (value->lily-string m))
-                     loc)
+                     (*location*))
     (and (pair? (car sig)) (cdar sig))))
 
 ;; Music function: Apply function and check return value.
@@ -58,59 +48,58 @@
 ;; and no fallback value had been available.  In this case,
 ;; we don't call the function but rather return the general
 ;; fallback.
-(define-ly-syntax (music-function loc fun args . rest)
+(define-ly-syntax (music-function fun args . rest)
   (let* ((sig (ly:music-function-signature fun))
          (pred (if (pair? (car sig)) (caar sig) (car sig)))
          (good (proper-list? args))
-         (m (and good (with-fluids ((%location loc))
-                                   (apply (ly:music-function-extract fun)
-                                          (reverse! args rest))))))
+         (m (and good (apply (ly:music-function-extract fun)
+                             (reverse! args rest)))))
     (if (and good (pred m))
         (begin
           (if (ly:music? m)
-              (set! (ly:music-property m 'origin) loc))
+              (set! (ly:music-property m 'origin) (*location*)))
           m)
         (if good
-            (music-function-call-error loc fun m)
+            (music-function-call-error fun m)
             (and (pair? (car sig)) (cdar sig))))))
 
-(define-ly-syntax (argument-error location n pred arg)
+(define-ly-syntax (argument-error n pred arg)
   (ly:parser-error
    (format #f
            (_ "wrong type for argument ~a.  Expecting ~a, found ~s")
            n (type-name pred) (music->make-music arg))
-   location))
+   (*location*)))
 
-(define-ly-syntax-simple (void-music)
+(define-ly-syntax-loc (void-music)
   (make-music 'Music))
 
-(define-ly-syntax-simple (sequential-music mlist)
+(define-ly-syntax-loc (sequential-music mlist)
   (make-sequential-music mlist))
 
-(define-ly-syntax-simple (simultaneous-music mlist)
+(define-ly-syntax-loc (simultaneous-music mlist)
   (make-simultaneous-music mlist))
 
-(define-ly-syntax-simple (event-chord mlist)
+(define-ly-syntax-loc (event-chord mlist)
   (make-music 'EventChord
               'elements mlist))
 
-(define-ly-syntax-simple (unrelativable-music mus)
+(define-ly-syntax-loc (unrelativable-music mus)
   (make-music 'UnrelativableMusic
               'element mus))
 
-(define-ly-syntax-simple (context-change type id)
+(define-ly-syntax-loc (context-change type id)
   (make-music 'ContextChange
               'change-to-type type
               'change-to-id id))
 
-(define-ly-syntax (tempo location text . rest)
+(define-ly-syntax (tempo text . rest)
   (let* ((unit (and (pair? rest)
                     (car rest)))
          (count (and unit
                      (cadr rest)))
          (range-tempo? (pair? count))
          (tempo-change (make-music 'TempoChangeEvent
-                                   'origin location
+                                   'origin (*location*)
                                    'text text
                                    'tempo-unit unit
                                    'metronome-count count))
@@ -132,7 +121,7 @@
         (make-sequential-music (list tempo-change tempo-set))
         tempo-change)))
 
-(define-ly-syntax-simple (repeat type num body alts)
+(define-ly-syntax-loc (repeat type num body alts)
   (make-repeat type num body alts))
 
 (define (script-to-mmrest-text music)
@@ -143,25 +132,23 @@ into a @code{MultiMeasureTextEvent}."
       (make-music 'MultiMeasureTextEvent music)
       music))
 
-(define-ly-syntax (multi-measure-rest location duration articulations)
+(define-ly-syntax-loc (multi-measure-rest duration articulations)
   (make-music 'MultiMeasureRestMusic
               'articulations (map script-to-mmrest-text articulations)
-              'duration duration
-              'origin location))
+              'duration duration))
 
-(define-ly-syntax (repetition-chord location duration articulations)
+(define-ly-syntax-loc (repetition-chord duration articulations)
   (make-music 'EventChord
               'duration duration
-              'elements articulations
-              'origin location))
+              'elements articulations))
 
-(define-ly-syntax-simple (context-specification type id ops create-new mus)
+(define-ly-syntax-loc (context-specification type id ops create-new mus)
   (let ((csm (context-spec-music mus type id)))
     (set! (ly:music-property csm 'property-operations) ops)
     (if create-new (set! (ly:music-property csm 'create-new) #t))
     csm))
 
-(define-ly-syntax (composed-markup-list location commands markups)
+(define-ly-syntax (composed-markup-list commands markups)
   ;; `markups' being a list of markups, eg (markup1 markup2 markup3),
   ;; and `commands' a list of commands with their scheme arguments, in reverse order,
   ;; eg: ((italic) (raise 4) (bold)), maps the commands on each markup argument, eg:
@@ -188,7 +175,7 @@ into a @code{MultiMeasureTextEvent}."
                       (make-map-markup-commands-markup-list
                        compose complex) completed))))))))
 
-(define-ly-syntax (property-operation location ctx music-type symbol . args)
+(define-ly-syntax (property-operation ctx music-type symbol . args)
   (let* ((props (case music-type
                   ((PropertySet) (list 'value (car args)))
                   ((PropertyUnset) '())
@@ -204,12 +191,12 @@ into a @code{MultiMeasureTextEvent}."
                   (else (ly:error (_ "Invalid property operation ~a") music-type))))
          (m (apply make-music music-type
                    'symbol symbol
-                   'origin location
+                   'origin (*location*)
                    props)))
     (make-music 'ContextSpeccedMusic
                 'element m
                 'context-type ctx
-                'origin location)))
+                'origin (*location*))))
 
 (define (get-first-context-id! mus)
   "Find the name of a ContextSpeccedMusic, possibly naming it"
@@ -232,7 +219,7 @@ into a @code{MultiMeasureTextEvent}."
   (set! unique-counter (1+ unique-counter))
   (call-with-output-string (lambda (p) (format p "uniqueContext~s" unique-counter))))
 
-(define-ly-syntax-simple (lyric-event text duration)
+(define-ly-syntax-loc (lyric-event text duration)
   (make-lyric-event text duration))
 
 (define (lyric-combine-music sync sync-type music loc)
@@ -247,10 +234,10 @@ into a @code{MultiMeasureTextEvent}."
               'associated-context-type sync-type
               'origin loc))
 
-(define-ly-syntax (lyric-combine location voice typ music)
-  (lyric-combine-music voice typ music location))
+(define-ly-syntax (lyric-combine voice typ music)
+  (lyric-combine-music voice typ music (*location*)))
 
-(define-ly-syntax (add-lyrics location music addlyrics-list)
+(define-ly-syntax (add-lyrics music addlyrics-list)
   (let* ((existing-voice-name (get-first-context-id! music))
          (voice-name (if (string? existing-voice-name)
                          existing-voice-name

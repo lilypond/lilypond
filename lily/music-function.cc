@@ -168,6 +168,6 @@ Music_function::call (SCM rest)
   if (scm_is_true (scm_call_1 (pred, res)))
     return with_loc (res, location, false);
 
-  return scm_call_3 (ly_lily_module_constant ("music-function-call-error"),
-                     location, self_scm (), res);
+  return scm_call_2 (ly_lily_module_constant ("music-function-call-error"),
+                     self_scm (), res);
 }
