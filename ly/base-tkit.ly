@@ -1,4 +1,4 @@
-%\version "2.19.19"
+%\version "2.19.22"
 
 %%% These are the general utility functions and storage
 %   used by the built-in templates and the template kits
@@ -8,7 +8,7 @@
 
 #(define (get-id str)
    "Return the identifier with the value str"
-   (ly:parser-lookup parser (string->symbol str)))
+   (ly:parser-lookup (string->symbol str)))
 
 #(define (make-id a b)
   "Return the identifier formed from concatenating the
@@ -34,8 +34,8 @@
    (for-each
       (lambda (id)
         (define sym (string->symbol id))
-          (if (null? (ly:parser-lookup parser sym))
-            (ly:parser-define! parser sym #f)))
+          (if (null? (ly:parser-lookup sym))
+            (ly:parser-define! sym #f)))
       ids))
 
 % Define the lists used to hold the names and

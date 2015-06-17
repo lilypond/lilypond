@@ -99,7 +99,6 @@ Lily_parser::print_smob (SCM port, scm_print_state *)
 void
 Lily_parser::parse_file (const string &init, const string &name, const string &out_name)
 {
-  lexer_->set_identifier (ly_symbol2scm ("parser"), self_scm ());
   output_basename_ = out_name;
 
   lexer_->main_input_name_ = name;
@@ -125,11 +124,6 @@ Lily_parser::parse_file (const string &init, const string &name, const string &o
     }
   while (!lexer_->is_clean ());
 
-  /*
-    Don't mix cyclic pointers with weak tables.
-  */
-  lexer_->set_identifier (ly_symbol2scm ("parser"),
-                          SCM_EOL);
   ly_reexport_module (scm_current_module ());
 
   scm_set_current_module (mod);
@@ -145,10 +139,9 @@ Lily_parser::parse_string (const string &ly_code)
   lexer_->new_input (lexer_->main_input_name_, ly_code, sources_);
 
   SCM mod = lexer_->set_current_scope ();
-  SCM parser = lexer_->lookup_identifier_symbol (ly_symbol2scm ("parser"));
-  lexer_->set_identifier (ly_symbol2scm ("parser"), self_scm ());
+
   do_yyparse ();
-  lexer_->set_identifier (ly_symbol2scm ("parser"), parser);
+
   scm_set_current_module (mod);
 
   error_level_ = error_level_ | lexer_->error_level_;
@@ -165,12 +158,10 @@ Lily_parser::parse_string_expression (const string &ly_code, const string &filen
       lexer_->get_source_file ()->set_line (0, line);
     }
   SCM mod = lexer_->set_current_scope ();
-  SCM parser = lexer_->lookup_identifier_symbol (ly_symbol2scm ("parser"));
-  lexer_->set_identifier (ly_symbol2scm ("parser"), self_scm ());
+
   lexer_->push_extra_token (Input (), EMBEDDED_LILY);
   SCM result = do_yyparse ();
 
-  lexer_->set_identifier (ly_symbol2scm ("parser"), parser);
   scm_set_current_module (mod);
 
   error_level_ = error_level_ | lexer_->error_level_;

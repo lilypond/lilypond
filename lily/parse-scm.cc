@@ -98,11 +98,6 @@ internal_ly_eval_scm (Parse_start *ps)
           module = scm_gc_protect_object (scm_call_0 (function));
         }
 
-      // We define the parser so trusted Scheme functions can
-      // access the real namespace underlying the parser.
-      if (ps->parser_)
-        scm_module_define (module, ly_symbol2scm ("parser"),
-                           ps->parser_->self_scm ());
       return scm_eval (ps->form_, module);
     }
   return scm_primitive_eval (ps->form_);

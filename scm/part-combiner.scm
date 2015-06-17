@@ -299,11 +299,11 @@ LilyPond version 2.8 and earlier."
      global)
     context-list))
 
-(define-public (make-part-combine-music parser music-list direction chord-range)
+(define-public (make-part-combine-music music-list direction chord-range)
   (let* ((m (make-music 'PartCombineMusic))
          (m1 (make-non-relative-music (context-spec-music (first music-list) 'Voice "one")))
          (m2  (make-non-relative-music  (context-spec-music (second music-list) 'Voice "two")))
-         (listener (ly:parser-lookup parser 'partCombineListener))
+         (listener (ly:parser-lookup 'partCombineListener))
          (evs2 (recording-group-emulate m2 listener))
          (evs1 (recording-group-emulate m1 listener)))
 
@@ -805,13 +805,13 @@ the mark when there are no spanners active.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define-public (add-quotable parser name mus)
+(define-public (add-quotable name mus)
   (let* ((tab (eval 'musicQuotes (current-module)))
          (voicename (get-next-unique-voice-name))
          ;; recording-group-emulate returns an assoc list (reversed!), so
          ;; hand it a proper unique context name and extract that key:
          (ctx-spec (context-spec-music mus 'Voice voicename))
-         (listener (ly:parser-lookup parser 'partCombineListener))
+         (listener (ly:parser-lookup 'partCombineListener))
          (context-list (reverse (recording-group-emulate ctx-spec listener)))
          (raw-voice (assoc voicename context-list))
          (quote-contents (if (pair? raw-voice) (cdr raw-voice) '())))

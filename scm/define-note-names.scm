@@ -968,7 +968,7 @@
  '((espanol español)
    (italiano français)))
 
-(define-public (note-names-language parser str)
+(define-public (note-names-language str)
   (_ "Select note names language.")
   (let ((alist (assoc-get (string->symbol str)
                           language-pitch-names
@@ -977,5 +977,5 @@
         (begin
           (ly:debug (_ "Using `~a' note names...") str)
           (set! pitchnames alist)
-          (ly:parser-set-note-names parser alist))
+          (ly:parser-set-note-names alist))
         (ly:warning (_ "Could not find language `~a'.  Ignoring.") str))))

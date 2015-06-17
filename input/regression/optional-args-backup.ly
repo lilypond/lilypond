@@ -19,7 +19,7 @@ separate arguments."
 test=#(define-void-function (expect . rest)
        (list? (string? "def1") (integer? "def2") (fraction? "def3") integer?)
        (if (not (equal? expect rest))
-	(ly:parser-error (*parser*)
+	(ly:parser-error
 	 (format #f "Expected ~s, got ~s.\n" expect rest)
 	 (*location*))))
 

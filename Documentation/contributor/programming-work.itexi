@@ -1134,18 +1134,17 @@ in has been declared.  For example, if you are working on routines
 called by @var{print-book-with} in @file{lily-library.scm}:
 
 @example
-(define (print-book-with parser book process-procedure)
-  (let* ((paper (ly:parser-lookup parser '$defaultpaper))
-	 (layout (ly:parser-lookup parser '$defaultlayout))
-	 (outfile-name (get-outfile-name parser)))
+(define (print-book-with book process-procedure)
+  (let* ((paper (ly:parser-lookup '$defaultpaper))
+         (layout (ly:parser-lookup '$defaultlayout))
+         (outfile-name (get-outfile-name book)))
     (process-procedure book paper layout outfile-name)))
 
-(define-public (print-book-with-defaults parser book)
-  (print-book-with parser book ly:book-process))
+(define-public (print-book-with-defaults book)
+  (print-book-with book ly:book-process))
 
-(define-public (print-book-with-defaults-as-systems parser book)
-  (print-book-with parser book ly:book-process-to-systems))
-
+(define-public (print-book-with-defaults-as-systems book)
+  (print-book-with book ly:book-process-to-systems))
 @end example
 
 At this point in the code you could add this to set a breakpoint at

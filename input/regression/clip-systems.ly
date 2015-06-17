@@ -19,7 +19,7 @@ The result will be files named
 
 }
 
-\version "2.19.21"
+\version "2.19.22"
 
 #(ly:set-option 'clip-systems)
 #(define output-suffix "1")
@@ -78,7 +78,7 @@ origScore = \score{
   \score {
     \lyrics {
       \markup { from-2.0.1-to-4.0.1-clip.eps }
-      \markup { \epsfile #X #30.0 #(format #f "~a-1-from-2.0.1-to-4.0.1-clip.eps" (ly:parser-output-name parser)) }
+      \markup { \epsfile #X #30.0 #(format #f "~a-1-from-2.0.1-to-4.0.1-clip.eps" (ly:parser-output-name)) }
     }
   }
 }

@@ -55,7 +55,7 @@ addQuote =
 #(define-void-function (name music) (string? ly:music?)
    (_i "Define @var{music} as a quotable music expression named
 @var{name}")
-   (add-quotable (*parser*) name music))
+   (add-quotable name music))
 
 %% keep these two together
 afterGraceFraction = #(cons 6 8)
@@ -63,7 +63,7 @@ afterGrace =
 #(define-music-function (main grace) (ly:music? ly:music?)
    (_i "Create @var{grace} note(s) after a @var{main} music expression.")
    (let ((main-length (ly:music-length main))
-         (fraction  (ly:parser-lookup (*parser*) 'afterGraceFraction)))
+         (fraction  (ly:parser-lookup 'afterGraceFraction)))
      (make-simultaneous-music
       (list
        main
@@ -108,7 +108,7 @@ form of a spanner event, @var{property} may also have the form
           (begin
             (ly:music-warning item (_ "not a spanner"))
             item))
-      (let* ((p (check-grob-path item (*parser*) (*location*)
+      (let* ((p (check-grob-path item (*location*)
                                  #:default 'Bottom
                                  #:min 2
                                  #:max 2))
@@ -177,7 +177,7 @@ assertBeamSlope =
 autochange =
 #(define-music-function (music) (ly:music?)
    (_i "Make voices that switch between staves automatically")
-   (make-autochange-music (*parser*) music))
+   (make-autochange-music music))
 
 
 
@@ -238,13 +238,13 @@ bendAfter =
 bookOutputName =
 #(define-void-function (newfilename) (string?)
    (_i "Direct output for the current book block to @var{newfilename}.")
-   (set! (paper-variable (*parser*) #f 'output-filename) newfilename))
+   (set! (paper-variable #f 'output-filename) newfilename))
 
 bookOutputSuffix =
 #(define-void-function (newsuffix) (string?)
    (_i "Set the output filename suffix for the current book block to
 @var{newsuffix}.")
-   (set! (paper-variable (*parser*) #f 'output-suffix) newsuffix))
+   (set! (paper-variable #f 'output-suffix) newsuffix))
 
 %% \breathe is defined as a music function rather than an event identifier to
 %% ensure it gets useful input location information: as an event identifier,
@@ -352,7 +352,7 @@ displayLilyMusic =
 to @var{port}, defaulting to the console.")
    (let ((port (or port (current-output-port))))
      (newline port)
-     (display-lily-music music (*parser*) port))
+     (display-lily-music music port))
    music)
 
 displayMusic =
@@ -399,7 +399,7 @@ eventChords =
    (_i "Compatibility function wrapping @code{EventChord} around
 isolated rhythmic events occuring since version 2.15.28, after
 expanding repeat chords @samp{q}.")
-   (event-chord-wrap! music (*parser*)))
+   (event-chord-wrap! music))
 
 featherDurations=
 #(define-music-function (factor argument) (ly:moment? ly:music?)
@@ -590,7 +590,7 @@ key =
 If both are null, just generate @code{KeyChangeEvent}.")
    (cond ((null? tonic) (make-music 'KeyChangeEvent))
          ((null? pitch-alist)
-          (ly:parser-error (*parser*) (_ "second argument must be pitch list")
+          (ly:parser-error (_ "second argument must be pitch list")
                            (*location*))
           (make-music 'SequentialMusic 'void #t))
          (else
@@ -626,13 +626,13 @@ label =
 language =
 #(define-void-function (language) (string?)
    (_i "Set note names for language @var{language}.")
-   (note-names-language (*parser*) language))
+   (note-names-language language))
 
 languageSaveAndChange =
 #(define-void-function (language) (string?)
   (_i "Store the previous pitchnames alist, and set a new one.")
   (set! previous-pitchnames pitchnames)
-  (note-names-language (*parser*) language))
+  (note-names-language language))
 
 languageRestore =
 #(define-void-function () ()
@@ -640,7 +640,7 @@ languageRestore =
    (if previous-pitchnames
        (begin
         (set! pitchnames previous-pitchnames)
-        (ly:parser-set-note-names (*parser*) pitchnames))
+        (ly:parser-set-note-names pitchnames))
       (ly:input-warning (*location*) (_ "No other language was defined previously. Ignoring."))))
 
 
@@ -870,8 +870,7 @@ appropriate tweak applied.")
       (let ((prop-path (check-grob-path
                          (if (symbol? property)
                              (list property)
-                             property)
-                         (*parser*) (*location*)
+                             property) (*location*)
                          #:start 1 #:default #t #:min 2 #:max 2)))
         (if prop-path
             ; If the head of the grob property path is a symbol--i.e.,
@@ -888,8 +887,7 @@ appropriate tweak applied.")
                          (append item
                                  (if (symbol? property)
                                      (list property)
-                                     property))
-                         (*parser*) (*location*)
+                                     property)) (*location*)
                          #:default 'Bottom #:min 3 #:max 3)))
         (if prop-path
             #{
@@ -957,7 +955,7 @@ overrideProperty =
 @var{value}.  @var{grob-property-path} is a symbol list of the form
 @code{Context.GrobName.property} or @code{GrobName.property}, possibly
 with subproperties given as well.")
-   (let ((p (check-grob-path grob-property-path (*parser*) (*location*)
+   (let ((p (check-grob-path grob-property-path (*location*)
                              #:default 'Bottom
                              #:min 3)))
      (if p
@@ -1137,7 +1135,7 @@ change to the following voice."
          ;;
          ;; bind voice identifiers to the voices
          (for-each (lambda (voice-id voice)
-                     (ly:parser-define! (*parser*) voice-id voice))
+                     (ly:parser-define! voice-id voice))
                    voice-ids voices)
          (ly:music-warning music
                            (_ "ignoring parallel music without barchecks")))))
@@ -1159,14 +1157,12 @@ parenthesize =
        (set! (ly:music-property arg 'parenthesize) #t))
    arg)
 
-#(define (make-directed-part-combine-music
-          parser direction chord-range part1 part2
+#(define (make-directed-part-combine-music direction chord-range part1 part2
           one-context-settings
           two-context-settings
           shared-context-settings)
 
-   (let* ((pc-music (make-part-combine-music
-                     parser (list part1 part2) direction chord-range))
+   (let* ((pc-music (make-part-combine-music (list part1 part2) direction chord-range))
           (L1 (ly:music-length part1))
           (L2 (ly:music-length part2))
           ;; keep the contexts alive for the full duration
@@ -1192,7 +1188,7 @@ a music expression containing simultaneous voices, where @var{part1}
 and @var{part2} are combined into one voice where appropriate.
 Optional @var{chord-range} sets the distance in steps between notes
 that may be combined into a chord or unison.")
-   (make-directed-part-combine-music (*parser*) #f chord-range part1 part2
+   (make-directed-part-combine-music #f chord-range part1 part2
     #{ \with { \voiceOne \override DynamicLineSpanner.direction = #UP } #}
     #{ \with { \voiceTwo \override DynamicLineSpanner.direction = #DOWN } #}
     #{ #} ))
@@ -1202,7 +1198,7 @@ partcombineUp =
    ((number-pair? '(0 . 8)) ly:music? ly:music?)
    (_i "Take the music in @var{part1} and @var{part2} and typeset so
 that they share a staff with stems directed upward.")
-   (make-directed-part-combine-music (*parser*) UP chord-range part1 part2
+   (make-directed-part-combine-music UP chord-range part1 part2
     #{ \with { \voiceOne \override DynamicLineSpanner.direction = #UP } #}
     #{ \with { \voiceThree \override DynamicLineSpanner.direction = #UP } #}
     #{ \with { \voiceOne \override DynamicLineSpanner.direction = #UP } #} ))
@@ -1212,7 +1208,7 @@ partcombineDown =
    ((number-pair? '(0 . 8)) ly:music? ly:music?)
    (_i "Take the music in @var{part1} and @var{part2} and typeset so
 that they share a staff with stems directed downward.")
-   (make-directed-part-combine-music (*parser*) DOWN chord-range part1 part2
+   (make-directed-part-combine-music DOWN chord-range part1 part2
     #{ \with { \voiceFour \override DynamicLineSpanner.direction = #DOWN } #}
     #{ \with { \voiceTwo \override DynamicLineSpanner.direction = #DOWN } #}
     #{ \with { \voiceTwo \override DynamicLineSpanner.direction = #DOWN } #} ))
@@ -1541,7 +1537,7 @@ tagGroup =
    (_i "Define a tag group comprising the symbols in the symbol list
 @var{tags}.  Tag groups must not overlap.")
    (let ((err (define-tag-group tags)))
-     (if err (ly:parser-error (*parser*) err (*location*)))))
+     (if err (ly:parser-error err (*location*)))))
 
 temporary =
 #(define-music-function (music)
@@ -1705,7 +1701,7 @@ convenient.
 @var{prop} can contain additional elements in which case a nested
 property (inside of an alist) is tweaked.")
    (if (ly:music? item)
-       (let ((p (check-grob-path prop (*parser*) (*location*)
+       (let ((p (check-grob-path prop (*location*)
                                  #:start 1
                                  #:default #t
                                  #:min 2)))
@@ -1722,8 +1718,7 @@ property (inside of an alist) is tweaked.")
        ;; out on its own, but this way we should get better error
        ;; diagnostics.
        (let ((p (check-grob-path
-                 (append item (if (symbol? prop) (list prop) prop))
-                 (*parser*) (*location*)
+                 (append item (if (symbol? prop) (list prop) prop)) (*location*)
                  #:default 'Bottom #:min 3)))
          (if p
              #{ \override #p = #value #}

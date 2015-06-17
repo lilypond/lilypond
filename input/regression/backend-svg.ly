@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.22"
 %{
 #(ly:set-option 'backend 'svg)
 #(set! output-count 1)
@@ -7,7 +7,7 @@
 \include "typography-demo.ly"
 
 
-#(define outname (ly:parser-output-name parser))
+#(define outname (ly:parser-output-name))
 
 #(ly:set-option 'backend 'eps)
 

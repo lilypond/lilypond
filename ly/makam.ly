@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.19.22"
 
 %{
 
@@ -117,7 +117,7 @@ makamPitchNames = #`(
 
 %% set pitch names.
 pitchnames = \makamPitchNames
-#(ly:parser-set-note-names parser makamPitchNames)
+#(ly:parser-set-note-names makamPitchNames)
 
 #(define eksikMirroredSlashedFlat
   (if (defined? 'eksikMirroredSlashedFlat)

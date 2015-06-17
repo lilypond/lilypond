@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.17.25"
+\version "2.19.22"
 
 %% named durations
 breve = #(ly:make-duration -1 0)
@@ -28,7 +28,7 @@ maxima = #(ly:make-duration -3 0)
 
 %% default note names are dutch
 #(set! default-language "nederlands")
-#(note-names-language parser default-language)
+#(note-names-language default-language)
 
 \include "drumpitch-init.ly"
 \include "chord-modifiers-init.ly"

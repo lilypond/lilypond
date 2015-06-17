@@ -15,10 +15,10 @@
                                   (char=? (peek-char port) #\]))
                              (read-char port))
                           (display c out))))))
-    `(let* ((parser-clone (ly:parser-clone parser))
+    `(let* ((parser-clone (ly:parser-clone))
             (input-str (string-trim-both ,lily-string))
             (music (ly:parse-string-expression parser-clone input-str))
-            (result-str (string-trim-both (music->lily-string music parser-clone))))
+            (result-str (string-trim-both (music->lily-string music))))
        (cons input-str result-str))))
 
 #(read-hash-extend #\[ parse-lily-and-compute-lily-string) %{ ] %}

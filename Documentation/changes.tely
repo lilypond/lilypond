@@ -74,17 +74,20 @@ argument list for explicitly skipping a sequence of optional
 arguments, @code{*unspecified*} can be employed.
 
 @item
-The definition of LilyPond functions with
-@code{define-music-function}, @code{define-event-function},
-@code{define-scheme-function} and @code{define-void-function} no
-longer requires specification of @code{parser} and @code{location}
-arguments.  Current parser and input location are part of the
-current dynamic state and can be accessed with the function calls
-@code{(*parser*)} and @code{(*location*)} when required.
+Current input location and parser are now stored in GUILE fluids
+and can be referenced via the function calls @code{(*location*)}
+and @code{(*parser*)}.  Consequently, a lot of functions
+previously taking an explicit @code{parser} argument no longer do
+so.
 
-LilyPond makes a best-faith attempt of recognizing legacy use of
-@code{parser} and @code{location} arguments and will provide
-backwards-compatible semantics for some time.
+Functions defined with @code{define-music-function},
+@code{define-event-function}, @code{define-scheme-function} and
+@code{define-void-function} no longer use @code{parser} and
+@code{location} arguments.
+
+With those particular definitions, LilyPond will try to recognize
+legacy use of @code{parser} and @code{location} arguments,
+providing backwards-compatible semantics for some time.
 
 @item
 In the "english" notename language, the long notenames for pitches

@@ -229,13 +229,13 @@ which often can be read back in order to generate an equivalent expression."
 (use-modules (srfi srfi-39)
              (scm display-lily))
 
-(define*-public (display-lily-music expr parser #:optional (port (current-output-port))
+(define*-public (display-lily-music expr #:optional (port (current-output-port))
                                     #:key force-duration)
   "Display the music expression using LilyPond syntax"
   (memoize-clef-names supported-clefs)
   (parameterize ((*indent* 0)
                  (*omit-duration* #f))
-                (display (music->lily-string expr parser) port)
+                (display (music->lily-string expr) port)
                 (newline port)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -406,7 +406,7 @@ beats to be distinguished."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; property setting music objs.
 
-(define-safe-public (check-grob-path path #:optional parser location
+(define-safe-public (check-grob-path path #:optional location
                                      #:key
                                      (start 0)
                                      default
@@ -475,11 +475,10 @@ respectively."
                    (<= min (length res))))
           res
           (begin
-            (if parser
-                (ly:parser-error parser
-                                 (format #f (_ "bad grob property path ~a")
-                                         path)
-                                 location))
+            (ly:parser-error
+             (format #f (_ "bad grob property path ~a")
+                     path)
+             location)
             #f)))))
 
 (define-public (make-grob-property-set grob gprop val)
@@ -1287,7 +1286,7 @@ then revert skipTypesetting."
     (context-spec-music (make-property-set 'skipTypesetting (not bool))
                         'Score))))
 
-(define (skip-as-needed music parser)
+(define (skip-as-needed music)
   "Replace MUSIC by
  << {  \\set skipTypesetting = ##f
  LENGTHOF(\\showFirstLength)
@@ -1300,8 +1299,8 @@ then revert skipTypesetting."
  the 'length property of the music is
  overridden to speed up compiling."
   (let*
-      ((show-last (ly:parser-lookup parser 'showLastLength))
-       (show-first (ly:parser-lookup parser 'showFirstLength))
+      ((show-last (ly:parser-lookup 'showLastLength))
+       (show-first (ly:parser-lookup 'showFirstLength))
        (show-last-length (and (ly:music? show-last)
                               (ly:music-length show-last)))
        (show-first-length (and (ly:music? show-first)
@@ -1351,24 +1350,21 @@ then revert skipTypesetting."
 
 (define-session-public toplevel-music-functions
   (list
-   (lambda (music parser) (expand-repeat-chords!
-                           (cons 'rhythmic-event
-                                 (ly:parser-lookup parser '$chord-repeat-events))
-                           music))
-   (lambda (music parser) (expand-repeat-notes! music))
-   (lambda (music parser) (voicify-music music))
-   (lambda (x parser) (music-map music-check-error x))
-   (lambda (x parser) (music-map precompute-music-length x))
-   (lambda (music parser)
-
-     (music-map (quote-substitute (ly:parser-lookup parser 'musicQuotes))  music))
+   (lambda (music) (expand-repeat-chords!
+                    (cons 'rhythmic-event
+                          (ly:parser-lookup '$chord-repeat-events))
+                    music))
+   expand-repeat-notes!
+   voicify-music
+   (lambda (x) (music-map music-check-error x))
+   (lambda (x) (music-map precompute-music-length x))
+   (lambda (music)
+     (music-map (quote-substitute (ly:parser-lookup 'musicQuotes))  music))
 
    ;; switch-on-debugging
-   (lambda (x parser) (music-map cue-substitute x))
+   (lambda (x) (music-map cue-substitute x))
 
-   (lambda (x parser)
-     (skip-as-needed x parser)
-     )))
+   skip-as-needed))
 
 ;;;;;;;;;;
 ;;; general purpose music functions
@@ -1984,12 +1980,10 @@ recursing into matches themselves."
          (any (lambda (t) (music-is-of-type? m t)) type))
        (lambda (m) (music-is-of-type? m type)))))
 
-(define*-public (event-chord-wrap! music #:optional parser)
+(define*-public (event-chord-wrap! music)
   "Wrap isolated rhythmic events and non-postevent events in
-@var{music} inside of an @code{EventChord}.  If the optional
-@var{parser} argument is given, chord repeats @samp{q} are expanded
-using the default settings.  Otherwise, you need to cater for them
-yourself."
+@var{music} inside of an @code{EventChord}.  Chord repeats @samp{q}
+are expanded using the default settings of the parser."
   (map-some-music
    (lambda (m)
      (cond ((music-is-of-type? m 'event-chord)
@@ -2006,12 +2000,11 @@ yourself."
                   (set! (ly:music-property m 'articulations) '()))
               (make-event-chord (cons m arts))))
            (else #f)))
-   (if parser
-       (expand-repeat-chords!
-        (cons 'rhythmic-event
-              (ly:parser-lookup parser '$chord-repeat-events))
-        music)
-       music)))
+   (expand-repeat-chords!
+    (cons 'rhythmic-event
+          (ly:parser-lookup '$chord-repeat-events))
+    music)
+   music))
 
 (define-public (event-chord-notes event-chord)
   "Return a list of all notes from @var{event-chord}."

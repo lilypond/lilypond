@@ -3746,7 +3746,8 @@ def conv(str):
                   + after_id, r'\1-\2', str)
     return str
 
-@rule ((2, 19, 22), "(define-xxx-function (parser location ...) -> (define-xxx-function (...)")
+@rule ((2, 19, 22), """(define-xxx-function (parser location ...) -> (define-xxx-function (...)
+(xxx ... parser ...) -> (xxx ... ...)""")
 def conv(str):
     def subst(m):
         def subsub(m):
@@ -3760,7 +3761,61 @@ def conv(str):
                        subsub, m.group (0))
     str = re.sub (r'\(define-(?:music|event|scheme|void)-function(?=\s|["(])'
                   + paren_matcher (20) + r'\)', subst, str)
-    return str
+
+    def repl (m):
+        return m.group (1) + inner (m.group (2))
+    def inner (str):
+        str = re.sub (r"(\((?:" +
+                      r"ly:parser-lexer|" +
+                      r"ly:parser-clone|" +
+                      r"ly:parser-output-name|" +
+                      r"ly:parser-error|" +
+                      r"ly:parser-define!|" +
+                      r"ly:parser-lookup|" +
+                      r"ly:parser-has-error\?|" +
+                      r"ly:parser-clear-error|" +
+                      r"ly:parser-set-note-names|" +
+                      r"ly:parser-include-string|" +
+                      r"note-names-language|" +
+                      r"display-lily-music|" +
+                      r"music->lily-string|" +
+                      r"note-name->lily-string|" +
+                      r"value->lily-string|"
+                      r"check-grob-path|" +
+                      r"event-chord-wrap!|" +
+                      r"collect-bookpart-for-book|" +
+                      r"collect-scores-for-book|" +
+                      r"collect-music-aux|" +
+                      r"collect-book-music-for-book|" +
+                      r"scorify-music|" +
+                      r"collect-music-for-book|" +
+                      r"collect-book-music-for-book|" +
+                      r"toplevel-book-handler|" +
+                      r"default-toplevel-book-handler|" +
+                      r"print-book-with-defaults|" +
+                      r"toplevel-music-handler|" +
+                      r"toplevel-score-handler|" +
+                      r"toplevel-text-handler|" +
+                      r"toplevel-bookpart-handler|" +
+                      r"book-music-handler|" +
+                      r"context-mod-music-handler|" +
+                      r"bookpart-music-handler|" +
+                      r"output-def-music-handler|" +
+                      r"print-book-with-defaults-as-systems|" +
+                      r"add-score|" +
+                      r"add-text|" +
+                      r"add-music|" +
+                      r"make-part-combine-music|" +
+                      r"make-directed-part-combine-music|" +
+                      r"add-quotable|" +
+                      r"paper-variable|" +
+                      r"make-autochange-music|" +
+                      r"context-mod-from-music|" +
+                      r"context-defs-from-music)" +
+                      r'(?=\s|[()]))(' + paren_matcher (20) + ")"
+                      r"(?:\s+parser(?=\s|[()])|\s*\(\*parser\*\))", repl, str)
+        return str
+    return inner (str)
 
 # Guidelines to write rules (please keep this at the end of this file)
 #

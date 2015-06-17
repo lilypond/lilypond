@@ -878,7 +878,7 @@ articulate = #(define-music-function (music)
                 (lambda ()
                  (music-map
                   ac:articulate-chord
-                  (ac:unfoldMusic (event-chord-wrap! music (*parser*)))))
+                  (ac:unfoldMusic (event-chord-wrap! music))))
                 (lambda ()
                  (or (= ac:stealForward 0)
                   (begin
@@ -894,8 +894,8 @@ afterGrace =
   (main grace)
   (ly:music? ly:music?)
 
-  (set! main (event-chord-wrap! main (*parser*)))
-  (set! grace (event-chord-wrap! grace (*parser*)))
+  (set! main (event-chord-wrap! main))
+  (set! grace (event-chord-wrap! grace))
   (let*
    ((main-length (ly:music-length main))
     (grace-orig-length (ly:music-length grace))
@@ -920,8 +920,8 @@ afterGrace =
 appoggiatura =
 #(define-music-function (grace main)
   (ly:music? ly:music?)
-  (set! grace (event-chord-wrap! grace (*parser*)))
-  (set! main (event-chord-wrap! main (*parser*)))
+  (set! grace (event-chord-wrap! grace))
+  (set! main (event-chord-wrap! main))
   (let* ((maindur (ly:music-length main))
          (grace-orig-len (ly:music-length grace))
          (main-orig-len (ly:music-length main))

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.22"
 
 @c Note: keep this node named so that `info lilypond-book' brings you here.
 @node lilypond-book
@@ -1180,7 +1180,7 @@ output file.
                (format #f "~a, section, 1, @{~a@}, ~a" page text label))))
              (formatted-toc-items (map format-line (toc-items)))
              (whole-string (string-join formatted-toc-items ",\n"))
-             (output-name (ly:parser-output-name parser))
+             (output-name (ly:parser-output-name))
              (outfilename (format "~a.toc" output-name))
              (outfile (open-output-file outfilename)))
         (if (output-port? outfile)
