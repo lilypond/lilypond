@@ -18,7 +18,7 @@
 ;; TODO: use separate module for syntax
 ;; constructors. Also create wrapper around the constructor?
 (defmacro define-ly-syntax (args . body)
-  `(define-public ,args ,@body))
+  `(define ,args ,@body))
 
 ;; A ly-syntax constructor can access location data as (*location*).
 ;; This is mainly used for reporting errors and warnings. This
@@ -26,7 +26,7 @@
 ;; origin of the returned music object; this behaviour is usually
 ;; desired.
 (defmacro define-ly-syntax-loc (args . body)
-  `(define-public ,args
+  `(define ,args
      (let ((m ,(cons 'begin body)))
        (set! (ly:music-property m 'origin) (*location*))
        m)))
