@@ -2494,43 +2494,6 @@ context_prop_spec:
 	}
 	;
 
-simple_music_property_def:
-	OVERRIDE grob_prop_path '=' scalar {
-		if (SCM_UNBNDP ($2))
-			$$ = SCM_UNDEFINED;
-		else {
-			$$ = scm_list_5 (scm_car ($2),
-					 ly_symbol2scm ("OverrideProperty"),
-					 scm_cadr ($2),
-					 $4,
-					 scm_cddr ($2));
-		}
-	}
-	| REVERT simple_revert_context revert_arg {
-		$$ = scm_list_4 ($2,
-				 ly_symbol2scm ("RevertProperty"),
-				 scm_car ($3),
-				 scm_cdr ($3));
-	}
-	| SET context_prop_spec '=' scalar {
-		if (SCM_UNBNDP ($2))
-			$$ = SCM_UNDEFINED;
-		else
-			$$ = scm_list_4 (scm_car ($2),
-					 ly_symbol2scm ("PropertySet"),
-					 scm_cadr ($2),
-					 $4);
-	}
-	| UNSET context_prop_spec {
-		if (SCM_UNBNDP ($2))
-			$$ = SCM_UNDEFINED;
-		else
-			$$ = scm_list_3 (scm_car ($2),
-					 ly_symbol2scm ("PropertyUnset"),
-					 scm_cadr ($2));
-	}
-	;
-
 
 // This is all quite awkward for the sake of substantial backward
 // compatibility while at the same time allowing a more "natural" form
@@ -2565,11 +2528,43 @@ simple_revert_context:
 	;
 
 music_property_def:
-	simple_music_property_def {
-		if (SCM_UNBNDP ($1))
-			$$ = MAKE_SYNTAX ("void-music", @1);
+	OVERRIDE grob_prop_path '=' scalar {
+		if (SCM_UNBNDP ($2))
+			$$ = MAKE_SYNTAX ("void-music", @$);
+		else {
+			$$ = MAKE_SYNTAX ("property-operation", @$,
+					  scm_car ($2),
+					  ly_symbol2scm ("OverrideProperty"),
+					  scm_cadr ($2),
+					  $4,
+					  scm_cddr ($2));
+		}
+	}
+	| REVERT simple_revert_context revert_arg {
+		$$ = MAKE_SYNTAX ("property-operation", @$,
+				  $2,
+				  ly_symbol2scm ("RevertProperty"),
+				  scm_car ($3),
+				  scm_cdr ($3));
+	}
+	| SET context_prop_spec '=' scalar {
+		if (SCM_UNBNDP ($2))
+			$$ = MAKE_SYNTAX ("void-music", @$);
 		else
-			$$ = LOWLEVEL_MAKE_SYNTAX (ly_lily_module_constant ("property-operation"), scm_cons (@$.smobbed_copy (), $1));
+			$$ = MAKE_SYNTAX ("property-operation", @$,
+					  scm_car ($2),
+					  ly_symbol2scm ("PropertySet"),
+					  scm_cadr ($2),
+					  $4);
+	}
+	| UNSET context_prop_spec {
+		if (SCM_UNBNDP ($2))
+			$$ = MAKE_SYNTAX ("void-music", @$);
+		else
+			$$ = MAKE_SYNTAX ("property-operation", @$,
+					  scm_car ($2),
+					  ly_symbol2scm ("PropertyUnset"),
+					  scm_cadr ($2));
 	}
 	;
 
