@@ -70,7 +70,7 @@ from @var{port} and return the corresponding Scheme music expression.
              (result (ly:parse-string-expression clone lily-string
                                                  filename line)))
         (if (ly:parser-has-error? clone)
-            (ly:parser-error (_ "error in #{ ... #}")))
+            (ly:parser-error (_ "error in #{ ... #}") (*location*)))
         result))
     (list embedded-lilypond
           lily-string filename line
