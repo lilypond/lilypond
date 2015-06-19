@@ -177,9 +177,25 @@ assertBeamSlope =
 autochange =
 #(define-music-function (music) (ly:music?)
    (_i "Make voices that switch between staves automatically")
-   (make-autochange-music music))
-
-
+   (let ;; keep the contexts alive for the full duration
+       ((skip (make-skip-music (make-duration-of-length 
+                                (ly:music-length music)))))
+     #{
+       <<
+         \context Staff = "up" <<
+           #(make-autochange-music music)
+           \new Voice { #skip }
+         >>
+         \context Staff = "down" \with {
+           clefGlyph = "clefs.F"
+           clefPosition = 2
+           middleCPosition = 6
+           middleCClefPosition = 6
+         } {
+           \new Voice { #skip }
+         }
+       >>
+     #} ))
 
 balloonGrobText =
 #(define-music-function (grob-name offset text)

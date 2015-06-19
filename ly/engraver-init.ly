@@ -695,10 +695,6 @@ automatically when an output definition (a @code{\\score} or
   chordNameExceptionsPartial = #partialJazzExceptions
   noChordSymbol = #(make-simple-markup "N.C.")
 
-  bassStaffProperties = #'((assign clefGlyph "clefs.F")
-  (assign clefPosition 2)
-  (assign middleCPosition 6)
-  (assign middleCClefPosition 6))
   %% tablature:
   stringOneTopmost = ##t
   highStringOne = ##t

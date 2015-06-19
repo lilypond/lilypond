@@ -176,9 +176,6 @@ own as a subdivided section.")
 called to produce the formatting for a @code{BassFigure} grob.  It
 takes a list of @code{BassFigureEvent}s, a context, and the grob to
 format.")
-     (bassStaffProperties ,list? "An alist of property settings to
-apply for the down staff of @code{PianoStaff}.  Used by
-@code{\\autochange}.")
      (beamExceptions ,list? "An alist of exceptions to autobeam rules
 that normally end on beats.")
      (beamHalfMeasure ,boolean? "Whether to allow a beam to begin
@@ -630,9 +627,6 @@ position, bar number, etc.?  Switch off for cadenzas.")
      (topLevelAlignment ,boolean? "If true, the @var{Vertical_align_engraver}
 will create a @var{VerticalAlignment}; otherwise, it will create a
 @var{StaffGrouper}")
-     (trebleStaffProperties ,list? "An alist of property settings to
-apply for the up staff of @code{PianoStaff}.  Used by
-@code{\\autochange}.")
      (tupletFullLength ,boolean? "If set, the tuplet is printed up to
 the start of the next note.")
      (tupletFullLengthNote ,boolean? "If set, end at the next note,

@@ -32,21 +32,17 @@ public:
   Auto_change_iterator ();
 
 protected:
-  virtual void do_quit ();
   virtual void construct_children ();
   virtual void process (Moment);
-  vector<Pitch> pending_pitch (Moment) const;
 private:
   SCM split_list_;
   Direction where_dir_;
-
-  Context_handle up_;
-  Context_handle down_;
 };
 
 void
 Auto_change_iterator::process (Moment m)
 {
+  // TODO: It seems strange that this occurs before consulting the split list.
   Music_wrapper_iterator::process (m);
 
   Moment *splitm = 0;
@@ -62,6 +58,9 @@ Auto_change_iterator::process (Moment m)
 
       if (d && d != where_dir_)
         {
+          // TODO: The function of where_dir_ in choosing the direction should
+          // be built into split-list generation so that this iterator merely
+          // effects a sequence of context changes.
           where_dir_ = d;
           string to_id = (d >= 0) ? "up" : "down";
           // N.B. change_to() returns an error message. Silence is the legacy
@@ -84,28 +83,10 @@ Auto_change_iterator::construct_children ()
 {
   split_list_ = get_music ()->get_property ("split-list");
 
-  SCM props = get_outlet ()->get_property ("trebleStaffProperties");
-  Context *up = get_outlet ()->find_create_context (ly_symbol2scm ("Staff"),
-                                                    "up", props);
-
-  props = get_outlet ()->get_property ("bassStaffProperties");
-  Context *down = get_outlet ()->find_create_context (ly_symbol2scm ("Staff"),
-                                                      "down", props);
-
-  up_.set_context (up);
-  down_.set_context (down);
-
-  Context *voice = up->find_create_context (ly_symbol2scm ("Voice"),
-                                            "", SCM_EOL);
+  Context *voice = get_outlet()->find_create_context (ly_symbol2scm ("Voice"),
+                                                      "", SCM_EOL);
   set_context (voice);
   Music_wrapper_iterator::construct_children ();
-}
-
-void
-Auto_change_iterator::do_quit ()
-{
-  up_.set_context (0);
-  down_.set_context (0);
 }
 
 IMPLEMENT_CTOR_CALLBACK (Auto_change_iterator);

@@ -1123,6 +1123,20 @@ Otherwise, return #f."
                          (*omit-duration* #t))
                         (music->lily-string (ly:music-property expr 'element)))))
 
+;; \autochange
+(define-extra-display-method SimultaneousMusic (expr)
+  (with-music-match (expr (music 'SimultaneousMusic
+                                 elements ((music 'ContextSpeccedMusic
+                                                  context-id "up"
+                                                  context-type 'Staff
+                                                  element (music 'SimultaneousMusic elements (?ac-music)))
+                                           (music 'ContextSpeccedMusic
+                                                  context-id "down"
+                                                  context-type 'Staff))))
+                    (with-music-match (?ac-music (music 'AutoChangeMusic))
+                                      (format #f "~a"
+                                              (music->lily-string ?ac-music)))))
+
 ;; \addlyrics
 (define-extra-display-method SimultaneousMusic (expr)
   (with-music-match (expr (music 'SimultaneousMusic
