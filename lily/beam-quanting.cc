@@ -373,7 +373,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
       for (set<Grob *>::const_iterator it (colliding_stems.begin ()); it != colliding_stems.end (); it++)
         {
           Grob *s = *it;
-          Real x = (s->extent (common[X_AXIS], X_AXIS) - x_pos[LEFT] + x_span_).center ();
+          Real x = (robust_relative_extent (s, common[X_AXIS], X_AXIS) - x_pos[LEFT] + x_span_).center ();
 
           Direction stem_dir = get_grob_direction (*it);
           Interval y;

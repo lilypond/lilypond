@@ -914,7 +914,7 @@ Stem::offset_callback (SCM smob)
   if (rests.size ())
     {
       Grob *rest = rests.back ();
-      Real r = rest->extent (rest, X_AXIS).center ();
+      Real r = robust_relative_extent (rest, rest, X_AXIS).center ();
       return scm_from_double (r);
     }
 

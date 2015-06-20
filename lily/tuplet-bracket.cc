@@ -634,8 +634,11 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
       // Check for number-on-bracket collisions
       Grob *number = unsmob<Grob> (tuplets[i]->get_object ("tuplet-number"));
       if (number)
-        points.push_back (Offset (number->extent (commonx, X_AXIS).center () - x0,
-                                  number->extent (commony, Y_AXIS)[dir]));
+        {
+          Interval x_ext = robust_relative_extent (number, commonx, X_AXIS);
+          Interval y_ext = robust_relative_extent (number, commony, Y_AXIS);
+          points.push_back (Offset (x_ext.center () - x0, y_ext[dir]));
+        }
     }
 
   if (to_boolean (me->get_property ("avoid-scripts"))
@@ -654,8 +657,10 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
           if (unsmob<Grob> (scripts[i]->get_object ("slur")))
             continue;
 
-          Interval script_x (scripts[i]->extent (commonx, X_AXIS));
-          Interval script_y (scripts[i]->extent (commony, Y_AXIS));
+          Interval script_x
+            = robust_relative_extent (scripts[i], commonx, X_AXIS);
+          Interval script_y
+            = robust_relative_extent (scripts[i], commony, Y_AXIS);
 
           points.push_back (Offset (script_x.center () - x0,
                                     script_y[dir]));
