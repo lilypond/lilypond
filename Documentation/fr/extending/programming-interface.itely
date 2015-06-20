@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
+    Translation of GIT committish: f7a3d8cf31367398a1955c50d3c42216d8940989
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -223,15 +223,15 @@ Fichiers d'initialisation :
 
 Vous pouvez appeler une fonction Scheme pratiquement partout où une
 expression Scheme derrière un @code{#} peut prendre place.  Vous appelez
-une fonction Scheme en faisant précéder son nom d'un @code{\}, et en le
-faisant suivre de ses arguments.  Lorsqu'un prédicat d'argument
-optionnel ne correspond pas à un argument, LilyPond l'ignore ainsi que
-tous les arguments optionnels qui suivent, les remplaçant par leur
-valeur par défaut, et « sauvegarde » en tant que prochain argument
-obligatoire l'argument qui ne correspondait pas.  Dans la mesure où
-l'argument sauvegardé doit servir, les argument optionnels ne sont en
-fait pas considérés comme optionnels, sauf à être suivis d'un argument
-obligatoire.
+une fonction Scheme à partir de LilyPond en faisant précéder son nom
+d'un @code{\}, et en le faisant suivre de ses arguments.  Lorsqu'un
+prédicat d'argument optionnel ne correspond pas à un argument, LilyPond
+l'ignore ainsi que tous les arguments optionnels qui suivent, les
+remplaçant par leur valeur par défaut, et « sauvegarde » en tant que
+prochain argument obligatoire l'argument qui ne correspondait pas.  Dans
+la mesure où l'argument sauvegardé doit servir, les argument optionnels
+ne sont en fait pas considérés comme optionnels, sauf à être suivis d'un
+argument obligatoire.
 
 Une exception cependant à cette règle : le fait de donner un
 @code{\default} en tant qu'argument optionnel aura pour résultat que cet
@@ -253,6 +253,15 @@ Dans la mesure où il n'est pas bon de renvoyer une valeur qui pourrait
 utiliser des fonctions Scheme normales uniquement dans les cas où vous
 renvoyez toujours une valeur utile, et une fonction fantôme -- voir
 @ref{Fonctions Scheme fantômes} -- dans le cas contraire.
+
+Pour des raisons de commodité, il est possible de faire appel à des
+fonctions Scheme directement en Scheme, courcircuitant ainsi l'analyseur
+de LilyPond.  Leur nom s'utilise comme n'importe quel nom de fonction.
+Le contrôle de typologie des arguments et l'omission des arguments
+optionnels seront traîtés de la même manière que lorsque l'appel est
+fait à partir de LilyPond, la valeur Scheme @code{*unspecified*} ayant
+le rôle du mot réservé @code{\default} pour omettre explicitement les
+arguments optionnels.
 
 
 @node Fonctions Scheme fantômes

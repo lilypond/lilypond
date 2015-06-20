@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
+    Translation of GIT committish: f7a3d8cf31367398a1955c50d3c42216d8940989
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1392,8 +1392,11 @@ seront repoussées sous la dernière portée.  L'instruction
 @cindex reprise avec alternative et paroles
 @cindex alternative et paroles
 
-Les paroles d'un fragment répété, lorsqu'elles sont identiques, peuvent
-adopter la même construction que la musique :
+Les paroles d'un fragment répété, lorsqu'elles sont identiques et
+qu'aucune alternative ne débute par un silence, peuvent adopter la même
+construction que la musique.  Ceci permet par ailleurs une expansion
+correcte à la fois de la musique et des paroles lors de l'utilisation de
+@code{\unfoldRepeats}.
 
 @lilypond[quote,verbatim]
 \score {
@@ -1420,7 +1423,8 @@ adopter la même construction que la musique :
 @end lilypond
 
 Cette identité de structure n'est toutefois pas possible lorsque les
-paroles sont différentes.  Des instructions @code{\skip} devront venir
+paroles sont différentes ou que l'un des blocs @code{\alternative}
+débute par un silence.  Des instructions @code{\skip} devront venir
 s'insérer dans les paroles pour « sauter » les notes des alternatives
 qui ne les concernent pas.
 

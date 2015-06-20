@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 3c907f2dd5ba3dd91e30454922d8361225ca28d5
+    Translation of GIT committish: f7a3d8cf31367398a1955c50d3c42216d8940989
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -279,7 +279,7 @@ twinkle
 \chordmode { c:dim f:maj7 }
 @end lilypond
 
-@item @code{\context ChordNames}
+@item @code{\new ChordNames}
 @tab imprimer les chiffrages d'accords
 @tab
 @lilypond[relative=2]

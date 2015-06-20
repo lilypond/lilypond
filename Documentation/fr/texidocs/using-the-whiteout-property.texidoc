@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 8eae9a75fb3ec1d0b6633103c8a652608c8fa630
+%% Translation of GIT committish: f7a3d8cf31367398a1955c50d3c42216d8940989
   texidocfr = "
 Tout objet graphique peut s'imprimer sur un fond blanc afin de masquer
 une partie des objets qu'il recouvre.  Ceci trouve toute son utilité
@@ -10,7 +10,7 @@ masqués par le fond blanc.
 Dans l'exemple ci-dessous, la liaison est en collision avec la
 métrique ; la situation est améliorée dès lors que la portion de liaison
 qui traverse la métrique est masquée par l'affectation de la propriété
-@code{whiteout} à l'objet @code{TimeSignature}.  Pour ce faire,
+@code{whiteout-box} à l'objet @code{TimeSignature}.  Pour ce faire,
 @code{TimeSignature} est déplacé sur un calque au-dessus de celui de
 @code{Tie} -- il reste sur le calque par défaut (1) --, puis le
 @code{StaffSymbol} est placé sur un calque supérieur à celui de
