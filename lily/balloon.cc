@@ -88,8 +88,8 @@ Balloon_interface::print_spanner (SCM smob)
 SCM
 Balloon_interface::internal_balloon_print (Grob *me, Grob *p, Offset off)
 {
-  Box b (p->extent (p, X_AXIS),
-         p->extent (p, Y_AXIS));
+  Box b (robust_relative_extent (p, p, X_AXIS),
+         robust_relative_extent (p, p, Y_AXIS));
   Real padding = robust_scm2double (me->get_property ("padding"), .1);
   b.widen (padding, padding);
 
