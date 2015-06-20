@@ -107,7 +107,7 @@ Book::~Book ()
 
 
 SCM
-Book::mark_smob ()
+Book::mark_smob () const
 {
   if (paper_)
     scm_gc_mark (paper_->self_scm ());

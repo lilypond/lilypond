@@ -32,7 +32,7 @@ public:
   static SCM make_smob (SCM arg1 = SCM_UNDEFINED) {
     SCM_RETURN_NEWSMOB (Smob_base<Super>::smob_tag (), SCM_UNPACK (arg1));
   }
-  SCM mark_smob () { return scm1 (); };
+  SCM mark_smob () const { return scm1 (); };
   static Super *unchecked_unsmob (SCM s) {
     return reinterpret_cast<Super *> (SCM_UNPACK (s));
   }
@@ -52,7 +52,7 @@ public:
                          SCM_UNPACK (arg1),
                          SCM_UNPACK (arg2));
   }
-  SCM mark_smob ()
+  SCM mark_smob () const
   {
     scm_gc_mark (scm2 ());
     return scm1 ();
@@ -80,7 +80,7 @@ public:
                          SCM_UNPACK (arg2),
                          SCM_UNPACK (arg3));
   }
-  SCM mark_smob ()
+  SCM mark_smob () const
   {
     scm_gc_mark (scm3 ());
     scm_gc_mark (scm2 ());

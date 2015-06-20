@@ -63,7 +63,7 @@ Output_def::~Output_def ()
 
 
 SCM
-Output_def::mark_smob ()
+Output_def::mark_smob () const
 {
   /* FIXME: why is this necessary?
      all paper_ should be protected by themselves. */

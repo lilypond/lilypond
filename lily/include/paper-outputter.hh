@@ -33,7 +33,7 @@
 class Paper_outputter : public Smob<Paper_outputter>
 {
 public:
-  SCM mark_smob ();
+  SCM mark_smob () const;
   virtual ~Paper_outputter ();
 private:
   SCM output_module_;

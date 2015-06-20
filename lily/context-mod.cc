@@ -46,7 +46,7 @@ Context_mod::print_smob (SCM port, scm_print_state *)
 }
 
 SCM
-Context_mod::mark_smob ()
+Context_mod::mark_smob () const
 {
   return mods_;
 }

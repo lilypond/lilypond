@@ -48,7 +48,7 @@ class All_font_metrics : public Smob<All_font_metrics>
 
   All_font_metrics (All_font_metrics const &);
 public:
-  SCM mark_smob ();
+  SCM mark_smob () const;
 
   Index_to_charcode_map const *get_index_to_charcode_map (const string &filename,
                                                           int face_index,

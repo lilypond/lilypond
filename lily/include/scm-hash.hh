@@ -47,7 +47,7 @@ class Scheme_hash_table : public Smob<Scheme_hash_table>
 {
 public:
   int print_smob (SCM, scm_print_state *);
-  SCM mark_smob ();
+  SCM mark_smob () const;
   virtual ~Scheme_hash_table ();
   bool try_retrieve (SCM key, SCM *val);
   bool contains (SCM key) const;

@@ -62,7 +62,7 @@ Paper_outputter::~Paper_outputter ()
 
 
 SCM
-Paper_outputter::mark_smob ()
+Paper_outputter::mark_smob () const
 {
   scm_gc_mark (output_module_);
   return file_;

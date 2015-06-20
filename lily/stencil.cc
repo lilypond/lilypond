@@ -39,7 +39,7 @@ Stencil::Stencil (Box b, SCM func)
 }
 
 SCM
-Stencil::mark_smob ()
+Stencil::mark_smob () const
 {
   return expr_;
 }

@@ -72,7 +72,7 @@ Scheme_hash_table::~Scheme_hash_table ()
 }
 
 SCM
-Scheme_hash_table::mark_smob ()
+Scheme_hash_table::mark_smob () const
 {
   scm_gc_mark (hash_tab_);
   return SCM_EOL;

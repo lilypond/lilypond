@@ -26,7 +26,7 @@
 class Page_marker : public Smob<Page_marker>
 {
 public:
-  SCM mark_smob ();
+  SCM mark_smob () const;
   static const char type_p_name_[];
   virtual ~Page_marker ();
 private:

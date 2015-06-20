@@ -189,7 +189,7 @@ Translator::static_translator_description (const char *grobs,
   SMOBS
 */
 SCM
-Translator::mark_smob ()
+Translator::mark_smob () const
 {
   derived_mark ();
   return SCM_EOL;

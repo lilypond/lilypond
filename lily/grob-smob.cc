@@ -26,7 +26,7 @@
 const char Grob::type_p_name_[] = "ly:grob?";
 
 SCM
-Grob::mark_smob ()
+Grob::mark_smob () const
 {
   ASSERT_LIVE_IS_ALLOWED (self_scm ());
 

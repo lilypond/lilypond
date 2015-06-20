@@ -35,7 +35,7 @@ class Lily_lexer : public Smob<Lily_lexer>, public Includable_lexer
 {
 public:
   int print_smob (SCM, scm_print_state *);
-  SCM mark_smob ();
+  SCM mark_smob () const;
   static const char type_p_name_[];
   virtual ~Lily_lexer ();
 private:

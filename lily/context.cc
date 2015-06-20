@@ -717,7 +717,7 @@ Context::print_smob (SCM port, scm_print_state *)
 }
 
 SCM
-Context::mark_smob ()
+Context::mark_smob () const
 {
   scm_gc_mark (context_list_);
   scm_gc_mark (aliases_);

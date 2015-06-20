@@ -42,7 +42,7 @@ Music_output::derived_mark () const
 const char Music_output::type_p_name_[] = "ly:music-output?";
 
 SCM
-Music_output::mark_smob ()
+Music_output::mark_smob () const
 {
   derived_mark ();
   return SCM_EOL;

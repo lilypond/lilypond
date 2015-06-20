@@ -65,7 +65,7 @@ Smob_base<Super>::register_ptr (Super *p)
 // Defaults, should not actually get called
 template <class Super>
 SCM
-Smob_base<Super>::mark_smob ()
+Smob_base<Super>::mark_smob () const
 {
   return SCM_UNSPECIFIED;
 }

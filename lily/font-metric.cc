@@ -95,7 +95,7 @@ Font_metric::derived_mark () const
 }
 
 SCM
-Font_metric::mark_smob ()
+Font_metric::mark_smob () const
 {
   derived_mark ();
   return description_;

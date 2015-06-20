@@ -62,7 +62,7 @@ Score::~Score ()
 const char Score::type_p_name_[] = "ly:score?";
 
 SCM
-Score::mark_smob ()
+Score::mark_smob () const
 {
   scm_gc_mark (header_);
   for (vsize i = defs_.size (); i--;)

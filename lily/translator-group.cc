@@ -356,7 +356,7 @@ Translator_group::print_smob (SCM port, scm_print_state *)
 }
 
 SCM
-Translator_group::mark_smob ()
+Translator_group::mark_smob () const
 {
   derived_mark ();
   scm_gc_mark (protected_events_);

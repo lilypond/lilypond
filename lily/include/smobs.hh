@@ -177,7 +177,7 @@ private:
   // Most default functions are do-nothings.  void init() will
   // recognize their address when not overriden and will then refrain
   // altogether from passing the the respective callbacks to GUILE.
-  SCM mark_smob (void);
+  SCM mark_smob (void) const;
   static SCM mark_trampoline (SCM); // Used for calling mark_smob
   static size_t free_smob (SCM obj);
   static SCM equal_p (SCM, SCM);

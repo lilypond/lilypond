@@ -108,7 +108,7 @@ public:
     return SCM_UNSPECIFIED;
   }
 
-  SCM mark_smob ()
+  SCM mark_smob () const
   {
     scm_gc_mark (callback_);
     return target_;

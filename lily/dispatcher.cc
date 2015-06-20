@@ -41,7 +41,7 @@ Dispatcher::Dispatcher ()
 }
 
 SCM
-Dispatcher::mark_smob ()
+Dispatcher::mark_smob () const
 {
   scm_gc_mark (dispatchers_);
   scm_gc_mark (listen_classes_);

@@ -33,7 +33,7 @@
 */
 struct Context_def : public Smob<Context_def>
 {
-  SCM mark_smob ();
+  SCM mark_smob () const;
   int print_smob (SCM, scm_print_state *);
   static const char type_p_name_[];
   virtual ~Context_def ();

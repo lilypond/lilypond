@@ -97,7 +97,7 @@ Context_def::print_smob (SCM port, scm_print_state *)
 }
 
 SCM
-Context_def::mark_smob ()
+Context_def::mark_smob () const
 {
   ASSERT_LIVE_IS_ALLOWED (self_scm ());
 

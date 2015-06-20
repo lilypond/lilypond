@@ -97,7 +97,7 @@ public:
   typedef void (Translator::*Grob_info_callback) (Grob_info);
   typedef void (Translator::*Callback) (void);
   int print_smob (SCM, scm_print_state *);
-  SCM mark_smob ();
+  SCM mark_smob () const;
   static const char type_p_name_[];
   virtual ~Translator ();
 private:

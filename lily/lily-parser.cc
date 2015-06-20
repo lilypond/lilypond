@@ -77,7 +77,7 @@ Lily_parser::~Lily_parser ()
 }
 
 SCM
-Lily_parser::mark_smob ()
+Lily_parser::mark_smob () const
 {
   scm_gc_mark (closures_);
   return (lexer_) ? lexer_->self_scm () : SCM_EOL;

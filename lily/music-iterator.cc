@@ -193,7 +193,7 @@ Music_iterator::get_music () const
 const char Music_iterator::type_p_name_[] = "ly:iterator?";
 
 SCM
-Music_iterator::mark_smob ()
+Music_iterator::mark_smob () const
 {
   derived_mark ();
   /*

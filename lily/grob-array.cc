@@ -52,7 +52,7 @@ Grob_array::array () const
 }
 
 SCM
-Grob_array::mark_smob ()
+Grob_array::mark_smob () const
 {
 #if 0  /* see System::derived_mark () const */
   for (vsize i = 0; i < grobs_.size (); i++)

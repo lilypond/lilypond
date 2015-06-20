@@ -43,7 +43,7 @@ Page_marker::~Page_marker ()
 const char Page_marker::type_p_name_[] = "ly:page-marker?";
 
 SCM
-Page_marker::mark_smob ()
+Page_marker::mark_smob () const
 {
   scm_gc_mark (symbol_);
   scm_gc_mark (permission_);

@@ -34,7 +34,7 @@ class Font_metric : public Smob<Font_metric>
 {
 public:
   int print_smob (SCM, scm_print_state *);
-  SCM mark_smob ();
+  SCM mark_smob () const;
   static const char type_p_name_[];
   virtual ~Font_metric ();
 private:

@@ -113,7 +113,7 @@ Prob::derived_mark () const
 }
 
 SCM
-Prob::mark_smob ()
+Prob::mark_smob () const
 {
   ASSERT_LIVE_IS_ALLOWED (self_scm ());
 

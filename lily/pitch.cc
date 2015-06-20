@@ -221,7 +221,7 @@ Pitch::down_to (int notename)
 const char Pitch::type_p_name_[] = "ly:pitch?";
 
 SCM
-Pitch::mark_smob ()
+Pitch::mark_smob () const
 {
   return scale_->self_scm ();
 }

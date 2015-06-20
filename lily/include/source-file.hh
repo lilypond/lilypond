@@ -39,7 +39,7 @@ class Source_file : public Smob<Source_file>
 {
 public:
   int print_smob (SCM, scm_print_state *);
-  SCM mark_smob ();
+  SCM mark_smob () const;
   static const char type_p_name_[];
   virtual ~Source_file ();
 private:

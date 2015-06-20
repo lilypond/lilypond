@@ -66,7 +66,7 @@ typecheck_grob (SCM symbol, SCM value)
 class Grob_properties : public Simple_smob<Grob_properties>
 {
 public:
-  SCM mark_smob ();
+  SCM mark_smob () const;
   static const char type_p_name_[];
 private:
   friend class Grob_property_info;
@@ -97,7 +97,7 @@ private:
 const char Grob_properties::type_p_name_[] = "ly:grob-properties?";
 
 SCM
-Grob_properties::mark_smob ()
+Grob_properties::mark_smob () const
 {
   scm_gc_mark (alist_);
   scm_gc_mark (based_on_);

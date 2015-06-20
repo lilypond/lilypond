@@ -28,7 +28,7 @@ Input dummy_input_global;
 const char Input::type_p_name_[] = "ly:input-location?";
 
 SCM
-Input::mark_smob ()
+Input::mark_smob () const
 {
   if (Source_file *sf = get_source_file ())
     return sf->self_scm ();

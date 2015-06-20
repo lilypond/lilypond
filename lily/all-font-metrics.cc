@@ -72,7 +72,7 @@ All_font_metrics::~All_font_metrics ()
 }
 
 SCM
-All_font_metrics::mark_smob ()
+All_font_metrics::mark_smob () const
 {
 #if HAVE_PANGO_FT2
   if (pango_dict_)

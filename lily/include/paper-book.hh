@@ -30,7 +30,7 @@
 class Paper_book : public Smob<Paper_book>
 {
 public:
-  SCM mark_smob ();
+  SCM mark_smob () const;
   static const char type_p_name_[];
   virtual ~Paper_book ();
 private:
