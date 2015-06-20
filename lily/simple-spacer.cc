@@ -195,7 +195,8 @@ Simple_spacer::expand_line ()
   if (inv_hooke == 0.0) /* avoid division by zero. If springs are infinitely stiff */
     inv_hooke = 1e-6;   /* then report a very large stretching force */
 
-  assert (cur_len <= line_len_);
+  if (cur_len > (1 + 1e-6) * line_len_)
+    programming_error ("misuse of expand_line");
   return (line_len_ - cur_len) / inv_hooke + force_;
 }
 
@@ -219,8 +220,8 @@ Simple_spacer::compress_line ()
 
   fits_ = true;
 
-  assert (line_len_ <= cur_len);
-
+  if (line_len_ > (1 + 1e-6) * cur_len)
+    programming_error ("misuse of compress_line");
   vector<Spring> sorted_springs = springs_;
   sort (sorted_springs.begin (), sorted_springs.end (), greater<Spring> ());
 
@@ -248,7 +249,9 @@ Simple_spacer::compress_line ()
           /*
             Paranoia check.
           */
-          assert (fabs (configuration_length (cur_force) - cur_len) < 1e-6);
+          if (fabs (configuration_length (cur_force) - cur_len) > 1e-6 * cur_len)
+            programming_error (to_string ("mis-predicted force, %.6f ~= %.6f",
+                                          cur_len, configuration_length(cur_force)));
           return cur_force;
         }
 
