@@ -34,7 +34,7 @@ class Lily_parser : public Smob<Lily_parser>
   SCM do_yyparse ();
   static SCM do_yyparse_trampoline (void *parser);
 public:
-  int print_smob (SCM, scm_print_state *);
+  int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
   static const char type_p_name_[];
   virtual ~Lily_parser ();

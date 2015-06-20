@@ -27,7 +27,7 @@ class Simple_closure : public Smob1<Simple_closure>
 {
 public:
   SCM expression() const { return scm1 (); }
-  int print_smob (SCM, scm_print_state *);
+  int print_smob (SCM, scm_print_state *) const;
   static const char type_p_name_[];
 };
 

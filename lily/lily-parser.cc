@@ -84,7 +84,7 @@ Lily_parser::mark_smob () const
 }
 
 int
-Lily_parser::print_smob (SCM port, scm_print_state *)
+Lily_parser::print_smob (SCM port, scm_print_state *) const
 {
   scm_puts ("#<Lily_parser ", port);
   if (lexer_)

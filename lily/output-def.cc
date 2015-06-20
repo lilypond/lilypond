@@ -95,7 +95,7 @@ find_context_def (Output_def const *m, SCM name)
 }
 
 int
-Output_def::print_smob (SCM p, scm_print_state *)
+Output_def::print_smob (SCM p, scm_print_state *) const
 {
   scm_puts ("#< ", p);
   scm_puts (class_name (), p);

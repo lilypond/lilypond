@@ -212,7 +212,7 @@ Music_iterator::mark_smob () const
 }
 
 int
-Music_iterator::print_smob (SCM port, scm_print_state *)
+Music_iterator::print_smob (SCM port, scm_print_state *) const
 {
   char s[1000];
 

@@ -102,7 +102,7 @@ Font_metric::mark_smob () const
 }
 
 int
-Font_metric::print_smob (SCM port, scm_print_state *)
+Font_metric::print_smob (SCM port, scm_print_state *) const
 {
   scm_puts ("#<", port);
   scm_puts (class_name (), port);

@@ -181,7 +181,7 @@ private:
   static SCM mark_trampoline (SCM); // Used for calling mark_smob
   static size_t free_smob (SCM obj);
   static SCM equal_p (SCM, SCM);
-  int print_smob (SCM, scm_print_state *);
+  int print_smob (SCM, scm_print_state *) const;
   static int print_trampoline (SCM, SCM, scm_print_state *);
   static void smob_proc_init (scm_t_bits) { };
 

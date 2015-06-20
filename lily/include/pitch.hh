@@ -36,7 +36,7 @@ class Pitch : public Simple_smob<Pitch>
 {
 public:
   static SCM equal_p (SCM, SCM);
-  int print_smob (SCM, scm_print_state *);
+  int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
   static const char type_p_name_[];
 private:

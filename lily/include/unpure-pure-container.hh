@@ -39,7 +39,7 @@ public:
       return Smob2<Unpure_pure_container>::make_smob (a, a);
     return Smob2<Unpure_pure_container>::make_smob (a, b);
   }
-  int print_smob (SCM, scm_print_state *);
+  int print_smob (SCM, scm_print_state *) const;
 };
 
 #endif /* UNPURE_PURE_CONTAINER_HH */

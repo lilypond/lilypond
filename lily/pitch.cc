@@ -227,7 +227,7 @@ Pitch::mark_smob () const
 }
 
 int
-Pitch::print_smob (SCM port, scm_print_state *)
+Pitch::print_smob (SCM port, scm_print_state *) const
 {
   scm_puts ("#<Pitch ", port);
   scm_display (ly_string2scm (to_string ()), port);

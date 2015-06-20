@@ -140,7 +140,7 @@ const char Duration::type_p_name_[] = "ly:duration?";
 
 
 int
-Duration::print_smob (SCM port, scm_print_state *)
+Duration::print_smob (SCM port, scm_print_state *) const
 {
   scm_puts ("#<Duration ", port);
   scm_display (ly_string2scm (to_string ()), port);

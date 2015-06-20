@@ -49,7 +49,7 @@ Music_output::mark_smob () const
 }
 
 int
-Music_output::print_smob (SCM p, scm_print_state *)
+Music_output::print_smob (SCM p, scm_print_state *) const
 {
   scm_puts ("#<", p);
   scm_puts (class_name (), p);

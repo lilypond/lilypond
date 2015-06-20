@@ -51,7 +51,7 @@ class Translator_group : public Smob<Translator_group>
 {
 public:
   SCM mark_smob () const;
-  int print_smob (SCM, scm_print_state *);
+  int print_smob (SCM, scm_print_state *) const;
   static const char type_p_name_[];
   virtual ~Translator_group ();
 private:

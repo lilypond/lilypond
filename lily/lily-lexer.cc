@@ -382,7 +382,7 @@ Lily_lexer::mark_smob () const
 }
 
 int
-Lily_lexer::print_smob (SCM port, scm_print_state *)
+Lily_lexer::print_smob (SCM port, scm_print_state *) const
 {
   scm_puts ("#<Lily_lexer ", port);
   scm_display (scopes_, port);

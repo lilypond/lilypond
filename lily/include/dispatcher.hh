@@ -27,7 +27,7 @@
 class Dispatcher : public Smob<Dispatcher>
 {
 public:
-  int print_smob (SCM, scm_print_state *);
+  int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
   static const char type_p_name_[];
   virtual ~Dispatcher ();

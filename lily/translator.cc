@@ -221,7 +221,7 @@ Translator::derived_mark () const
 }
 
 int
-Translator::print_smob (SCM port, scm_print_state *)
+Translator::print_smob (SCM port, scm_print_state *) const
 {
   scm_puts ("#<Translator ", port);
   scm_puts (class_name (), port);

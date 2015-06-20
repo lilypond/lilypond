@@ -27,7 +27,7 @@ const char Music_function::type_p_name_[] = "ly:music-function?";
 
 /* Print a textual represenation of the smob to a given port.  */
 int
-Music_function::print_smob (SCM port, scm_print_state *)
+Music_function::print_smob (SCM port, scm_print_state *) const
 {
   scm_puts ("#<Music function ", port);
   scm_write (get_function (), port);

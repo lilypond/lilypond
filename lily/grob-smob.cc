@@ -50,7 +50,7 @@ Grob::mark_smob () const
 }
 
 int
-Grob::print_smob (SCM port, scm_print_state *)
+Grob::print_smob (SCM port, scm_print_state *) const
 {
   scm_puts ("#<Grob ", port);
   scm_puts ((char *) name ().c_str (), port);

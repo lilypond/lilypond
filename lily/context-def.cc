@@ -85,7 +85,7 @@ Context_def::~Context_def ()
 const char Context_def::type_p_name_[] = "ly:context-def?";
 
 int
-Context_def::print_smob (SCM port, scm_print_state *)
+Context_def::print_smob (SCM port, scm_print_state *) const
 {
   scm_puts ("#<Context_def ", port);
   scm_display (context_name_, port);

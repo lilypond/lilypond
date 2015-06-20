@@ -49,7 +49,7 @@ Dispatcher::mark_smob () const
 }
 
 int
-Dispatcher::print_smob (SCM p, scm_print_state *)
+Dispatcher::print_smob (SCM p, scm_print_state *) const
 {
   scm_puts ("#<Dispatcher ", p);
   scm_write (scm_call_1 (ly_lily_module_constant ("hash-table->alist"),

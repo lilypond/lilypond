@@ -124,7 +124,7 @@ Prob::mark_smob () const
 }
 
 int
-Prob::print_smob (SCM port, scm_print_state *)
+Prob::print_smob (SCM port, scm_print_state *) const
 {
   scm_puts ("#<", port);
   scm_puts ("Prob: ", port);

@@ -88,7 +88,7 @@ Smob_base<Super>::equal_p (SCM, SCM)
 
 template <class Super>
 int
-Smob_base<Super>::print_smob (SCM p, scm_print_state *)
+Smob_base<Super>::print_smob (SCM p, scm_print_state *) const
 {
   scm_puts ("#<", p);
   scm_puts (smob_name_.c_str (), p);

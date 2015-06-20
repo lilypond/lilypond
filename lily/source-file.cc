@@ -371,7 +371,7 @@ Source_file::mark_smob () const
 }
 
 int
-Source_file::print_smob (SCM port, scm_print_state *)
+Source_file::print_smob (SCM port, scm_print_state *) const
 {
   scm_puts ("#<Source_file ", port);
   scm_puts (name_.c_str (), port);

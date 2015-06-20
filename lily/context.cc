@@ -692,7 +692,7 @@ Context::now_mom () const
 }
 
 int
-Context::print_smob (SCM port, scm_print_state *)
+Context::print_smob (SCM port, scm_print_state *) const
 {
   scm_puts ("#<", port);
   scm_puts (class_name (), port);

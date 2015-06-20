@@ -346,7 +346,7 @@ Translator_group::~Translator_group ()
 const char Translator_group::type_p_name_[] = "ly:translator-group?";
 
 int
-Translator_group::print_smob (SCM port, scm_print_state *)
+Translator_group::print_smob (SCM port, scm_print_state *) const
 {
   scm_puts ("#<Translator_group ", port);
   scm_puts (class_name (), port);

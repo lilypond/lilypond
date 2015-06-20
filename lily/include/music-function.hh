@@ -28,9 +28,9 @@ class Music_function : public Smob2<Music_function>
 {
 public:
   static const char type_p_name_[];
-  int print_smob (SCM, scm_print_state *);
-  SCM get_signature () { return scm1 (); }
-  SCM get_function () { return scm2 (); }
+  int print_smob (SCM, scm_print_state *) const;
+  SCM get_signature () const { return scm1 (); }
+  SCM get_function () const { return scm2 (); }
   SCM call (SCM args);
   LY_DECLARE_SMOB_PROC (&Music_function::call, 0, 0, 1);
 };

@@ -62,7 +62,7 @@ Grob_array::mark_smob () const
 }
 
 int
-Grob_array::print_smob (SCM port, scm_print_state *)
+Grob_array::print_smob (SCM port, scm_print_state *) const
 {
   scm_puts ("#<Grob_array", port);
   for (vsize i = 0; i < size (); i++)

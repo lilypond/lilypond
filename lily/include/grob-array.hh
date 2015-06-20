@@ -27,7 +27,7 @@
 class Grob_array : public Simple_smob<Grob_array>
 {
 public:
-  int print_smob (SCM, scm_print_state *);
+  int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
   static const char type_p_name_[];
 private:
@@ -41,7 +41,7 @@ public:
   void set_ordered (bool b) { ordered_ = b; }
   Item *item (vsize i);
   Spanner *spanner (vsize i);
-  Grob *grob (vsize i) { return grobs_.at (i); }
+  Grob *grob (vsize i) const { return grobs_.at (i); }
   vsize size () const { return grobs_.size (); }
   bool empty () const;
   void remove_duplicates ();

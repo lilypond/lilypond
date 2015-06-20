@@ -33,7 +33,7 @@ typedef std::map<FT_UInt, FT_ULong> Index_to_charcode_map;
 class Font_metric : public Smob<Font_metric>
 {
 public:
-  int print_smob (SCM, scm_print_state *);
+  int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
   static const char type_p_name_[];
   virtual ~Font_metric ();

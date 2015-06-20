@@ -48,7 +48,7 @@ const char Moment::type_p_name_[] = "ly:moment?";
 
 
 int
-Moment::print_smob (SCM port, scm_print_state *)
+Moment::print_smob (SCM port, scm_print_state *) const
 {
   scm_puts ("#<Mom ", port);
   string str = to_string ();

@@ -32,7 +32,7 @@ class Context : public Smob<Context>
 {
 public:
   SCM mark_smob () const;
-  int print_smob (SCM, scm_print_state *);
+  int print_smob (SCM, scm_print_state *) const;
   static const char type_p_name_[];
   virtual ~Context ();
 private:

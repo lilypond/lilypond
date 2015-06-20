@@ -34,7 +34,7 @@
 class Prob : public Smob<Prob>
 {
 public:
-  int print_smob (SCM, scm_print_state *);
+  int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
   static SCM equal_p (SCM, SCM);
   static const char type_p_name_[];

@@ -79,7 +79,7 @@ Scheme_hash_table::mark_smob () const
 }
 
 int
-Scheme_hash_table::print_smob (SCM p, scm_print_state *)
+Scheme_hash_table::print_smob (SCM p, scm_print_state *) const
 {
   scm_puts ("#<Scheme_hash_table  ", p);
   scm_display (hash_tab_, p);

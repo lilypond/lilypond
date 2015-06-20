@@ -37,7 +37,7 @@ Input::mark_smob () const
 }
 
 int
-Input::print_smob (SCM port, scm_print_state *)
+Input::print_smob (SCM port, scm_print_state *) const
 {
   string str = "#<location " + location_string () + ">";
   scm_puts (str.c_str (), port);

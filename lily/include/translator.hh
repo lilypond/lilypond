@@ -96,7 +96,7 @@ public:
   // as the timing of Engraver is exercised from within Translator
   typedef void (Translator::*Grob_info_callback) (Grob_info);
   typedef void (Translator::*Callback) (void);
-  int print_smob (SCM, scm_print_state *);
+  int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
   static const char type_p_name_[];
   virtual ~Translator ();

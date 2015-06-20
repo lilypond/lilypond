@@ -38,7 +38,7 @@ using namespace std;
 class Source_file : public Smob<Source_file>
 {
 public:
-  int print_smob (SCM, scm_print_state *);
+  int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
   static const char type_p_name_[];
   virtual ~Source_file ();

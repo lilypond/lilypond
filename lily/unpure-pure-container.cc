@@ -73,7 +73,7 @@ LY_DEFINE (ly_unpure_pure_container_pure_part, "ly:unpure-pure-container-pure-pa
 }
 
 int
-Unpure_pure_container::print_smob (SCM port, scm_print_state *)
+Unpure_pure_container::print_smob (SCM port, scm_print_state *) const
 {
   scm_puts ("#<unpure-pure-container ", port);
   scm_display (unpure_part (), port);
