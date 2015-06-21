@@ -150,6 +150,8 @@ Interval
 Axis_group_interface::part_of_line_pure_height (Grob *me, bool begin, int start, int end)
 {
   Spanner *sp = dynamic_cast<Spanner *> (me);
+  if (!sp)
+    return Interval (0, 0);
   SCM cache_symbol = begin
                      ? ly_symbol2scm ("begin-of-line-pure-height")
                      : ly_symbol2scm ("rest-of-line-pure-height");
