@@ -1729,7 +1729,7 @@ altoTwo = \relative { d'2 g4( fis8 g) }
 aligner = \relative { b'8( c d c) d( d d d) }
 words = \lyricmode { la __ la __ }
 
-\new ChoirStaff <<
+\new ChoirStaff \with {\accepts NullVoice } <<
   \new Staff \soprano
   \new NullVoice = "aligner" \aligner
   \new Lyrics \lyricsto "aligner" \words

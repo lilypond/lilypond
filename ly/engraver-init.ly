@@ -578,7 +578,6 @@ automatically when an output definition (a @code{\\score} or
   \accepts "Lyrics"
   \accepts "MensuralStaff"
   \accepts "NoteNames"
-  \accepts "NullVoice"
   \accepts "PetrucciStaff"
   \accepts "PianoStaff"
   \accepts "RhythmicStaff"
