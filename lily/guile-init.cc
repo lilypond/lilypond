@@ -72,9 +72,9 @@ void
 ly_c_init_guile ()
 {
   Guile_user::module.import ();
-  Syntax::module.boot ();
   Lily::module.boot ();
   scm_c_call_with_current_module (Lily::module, ly_init_ly_module, 0);
+  Syntax::module.import ();
   Display::module.import ();
   scm_c_use_module ("lily");
 }

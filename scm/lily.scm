@@ -575,7 +575,6 @@ messages into errors.")
     "auto-beam.scm"
     "chord-name.scm"
     "bezier-tools.scm"
-    "ly-syntax-constructors.scm"
 
     "define-context-properties.scm"
     "translation-functions.scm"

@@ -98,7 +98,7 @@ namespace Lily {
 }
 
 namespace Syntax {
-  Scm_module module ("ly-syntax");
+  Scm_module module ("scm ly-syntax-constructors");
 
   Variable add_lyrics ("add-lyrics");
   Variable argument_error ("argument-error");
