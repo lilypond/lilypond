@@ -19,16 +19,10 @@
   #:use-module (lily)
   #:use-module (srfi srfi-1))
 
-;; A ly-syntax constructor can access location data as (*location*).
-;; This is mainly used for reporting errors and warnings. This
-;; function is a syntactic sugar which uses (*location*) to set the
-;; origin of the returned music object; this behaviour is usually
-;; desired.
-(defmacro define-loc (args . body)
-  `(define-public ,args
-     (let ((m ,(cons 'begin body)))
-       (set! (ly:music-property m 'origin) (*location*))
-       m)))
+;; Sets music origin to (*location*)
+(define (here! m)
+  (set! (ly:music-property m 'origin) (*location*))
+  m)
 
 (define-public (music-function-call-error fun m)
   (let* ((sig (ly:music-function-signature fun))
@@ -54,10 +48,7 @@
          (m (and good (apply (ly:music-function-extract fun)
                              (reverse! args rest)))))
     (if (and good (pred m))
-        (begin
-          (if (ly:music? m)
-              (set! (ly:music-property m 'origin) (*location*)))
-          m)
+        (if (ly:music? m) (here! m) m)
         (if good
             (music-function-call-error fun m)
             (and (pair? (car sig)) (cdar sig))))))
@@ -69,27 +60,27 @@
            n (type-name pred) (music->make-music arg))
    (*location*)))
 
-(define-loc (void-music)
-  (make-music 'Music))
+(define-public (void-music)
+  (here! (make-music 'Music)))
 
-(define-loc (sequential-music mlist)
-  (make-sequential-music mlist))
+(define-public (sequential-music mlist)
+  (here! (make-sequential-music mlist)))
 
-(define-loc (simultaneous-music mlist)
-  (make-simultaneous-music mlist))
+(define-public (simultaneous-music mlist)
+  (here! (make-simultaneous-music mlist)))
 
-(define-loc (event-chord mlist)
-  (make-music 'EventChord
-              'elements mlist))
+(define-public (event-chord mlist)
+  (here! (make-music 'EventChord
+                     'elements mlist)))
 
-(define-loc (unrelativable-music mus)
-  (make-music 'UnrelativableMusic
-              'element mus))
+(define-public (unrelativable-music mus)
+  (here! (make-music 'UnrelativableMusic
+                     'element mus)))
 
-(define-loc (context-change type id)
-  (make-music 'ContextChange
-              'change-to-type type
-              'change-to-id id))
+(define-public (context-change type id)
+  (here! (make-music 'ContextChange
+                     'change-to-type type
+                     'change-to-id id)))
 
 (define-public (tempo text . rest)
   (let* ((unit (and (pair? rest)
@@ -97,11 +88,10 @@
          (count (and unit
                      (cadr rest)))
          (range-tempo? (pair? count))
-         (tempo-change (make-music 'TempoChangeEvent
-                                   'origin (*location*)
-                                   'text text
-                                   'tempo-unit unit
-                                   'metronome-count count))
+         (tempo-change (here! (make-music 'TempoChangeEvent
+                                          'text text
+                                          'tempo-unit unit
+                                          'metronome-count count)))
          (tempo-set
           (and unit
                (context-spec-music
@@ -120,8 +110,8 @@
         (make-sequential-music (list tempo-change tempo-set))
         tempo-change)))
 
-(define-loc (repeat type num body alts)
-  (make-repeat type num body alts))
+(define-public (repeat type num body alts)
+  (here! (make-repeat type num body alts)))
 
 (define (script-to-mmrest-text music)
   "Extract @code{'direction} and @code{'text} from @var{music}, and transform
@@ -131,21 +121,21 @@ into a @code{MultiMeasureTextEvent}."
       (make-music 'MultiMeasureTextEvent music)
       music))
 
-(define-loc (multi-measure-rest duration articulations)
-  (make-music 'MultiMeasureRestMusic
-              'articulations (map script-to-mmrest-text articulations)
-              'duration duration))
+(define-public (multi-measure-rest duration articulations)
+  (here! (make-music 'MultiMeasureRestMusic
+                     'articulations (map script-to-mmrest-text articulations)
+                     'duration duration)))
 
-(define-loc (repetition-chord duration articulations)
-  (make-music 'EventChord
-              'duration duration
-              'elements articulations))
+(define-public (repetition-chord duration articulations)
+  (here! (make-music 'EventChord
+                     'duration duration
+                     'elements articulations)))
 
-(define-loc (context-specification type id ops create-new mus)
+(define-public (context-specification type id ops create-new mus)
   (let ((csm (context-spec-music mus type id)))
     (set! (ly:music-property csm 'property-operations) ops)
     (if create-new (set! (ly:music-property csm 'create-new) #t))
-    csm))
+    (here! csm)))
 
 (define-public (composed-markup-list commands markups)
   ;; `markups' being a list of markups, eg (markup1 markup2 markup3),
@@ -188,14 +178,12 @@ into a @code{MultiMeasureTextEvent}."
                        (list 'grob-property-path (car args))
                        (list 'grob-property-path args)))
                   (else (ly:error (_ "Invalid property operation ~a") music-type))))
-         (m (apply make-music music-type
-                   'symbol symbol
-                   'origin (*location*)
-                   props)))
-    (make-music 'ContextSpeccedMusic
-                'element m
-                'context-type ctx
-                'origin (*location*))))
+         (m (here! (apply make-music music-type
+                          'symbol symbol
+                          props))))
+    (here! (make-music 'ContextSpeccedMusic
+                       'element m
+                       'context-type ctx))))
 
 (define (get-first-context-id! mus)
   "Find the name of a ContextSpeccedMusic, possibly naming it"
@@ -213,8 +201,8 @@ into a @code{MultiMeasureTextEvent}."
                 '()))
         '())))
 
-(define-loc (lyric-event text duration)
-  (make-lyric-event text duration))
+(define-public (lyric-event text duration)
+  (here! (make-lyric-event text duration)))
 
 (define (lyric-combine-music sync sync-type music loc)
   ;; CompletizeExtenderEvent is added following the last lyric in MUSIC
