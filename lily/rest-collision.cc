@@ -36,6 +36,7 @@ using namespace std;
 #include "grob.hh"
 #include "unpure-pure-container.hh"
 #include "warn.hh"
+#include "lily-imports.hh"
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Rest_collision, force_shift_callback_rest, 2, 1, "");
 SCM
@@ -75,7 +76,7 @@ Rest_collision::add_column (Grob *me, Grob *p)
       chain_offset_callback (rest,
                              Unpure_pure_container::make_smob
                              (Rest_collision::force_shift_callback_rest_proc,
-                              ly_lily_module_constant ("pure-chain-offset-callback")),
+                              Lily::pure_chain_offset_callback),
                              Y_AXIS);
     }
 }

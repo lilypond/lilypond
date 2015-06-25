@@ -33,6 +33,7 @@
 #include "program-option.hh"
 #include "international.hh"
 #include "warn.hh"
+#include "lily-imports.hh"
 
 static void
 replace_special_characters (string &str, SCM props)
@@ -89,7 +90,7 @@ Text_interface::interpret_string (SCM layout_smob,
   SCM encoding = ly_chain_assoc_get (ly_symbol2scm ("font-encoding"),
                                      props,
                                      SCM_BOOL_F);
-  SCM music_encodings = ly_lily_module_constant ("all-music-font-encodings");
+  SCM music_encodings = Lily::all_music_font_encodings;
 
   bool is_music = scm_is_true (scm_memq (encoding, music_encodings));
   return fm->text_stencil (layout, str, is_music).smobbed_copy ();
@@ -183,8 +184,7 @@ Text_interface::is_markup (SCM x)
 bool
 Text_interface::is_markup_list (SCM x)
 {
-  SCM music_list_p = ly_lily_module_constant ("markup-list?");
-  return scm_is_true (scm_call_1 (music_list_p, x));
+  return scm_is_true (Lily::markup_list_p (x));
 }
 
 ADD_INTERFACE (Text_interface,

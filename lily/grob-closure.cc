@@ -1,6 +1,7 @@
 #include "grob.hh"
 #include "simple-closure.hh"
 #include "unpure-pure-container.hh"
+#include "lily-imports.hh"
 
 SCM
 axis_offset_symbol (Axis a)
@@ -44,12 +45,10 @@ add_offset_callback (Grob *g, SCM proc, Axis a)
   else if (Simple_closure *sc = unsmob<Simple_closure> (data))
     data = sc->expression ();
 
-  SCM plus = ly_lily_module_constant ("+");
-
   if (ly_is_procedure (proc))
     proc = Simple_closure::make_smob (scm_list_1 (proc));
 
-  SCM expr = scm_list_3 (plus, proc, data);
+  SCM expr = scm_list_3 (Guile_user::plus, proc, data);
   g->set_property (axis_offset_symbol (a), Simple_closure::make_smob (expr));
 }
 

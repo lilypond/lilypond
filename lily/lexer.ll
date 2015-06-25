@@ -71,6 +71,7 @@ using namespace std;
 #include "std-string.hh"
 #include "version.hh"
 #include "warn.hh"
+#include "lily-imports.hh"
 
 /*
 RH 7 fix (?)
@@ -688,9 +689,9 @@ BOM_UTF8	\357\273\277
 		for (; scm_is_pair(s); s = scm_cdr(s)) {
 		  SCM predicate = scm_car(s);
 
-		  if (predicate == ly_lily_module_constant ("markup-list?"))
+		  if (predicate == Lily::markup_list_p)
 		    push_extra_token (here_input (), EXPECT_MARKUP_LIST);
-		  else if (predicate == ly_lily_module_constant ("markup?"))
+		  else if (predicate == Lily::markup_p)
 		    push_extra_token (here_input (), EXPECT_MARKUP);
 		  else
 		    push_extra_token (here_input (), EXPECT_SCM, predicate);
@@ -966,9 +967,9 @@ Lily_lexer::scan_scm_id (SCM sid)
 			cs = SCM_CAR (cs);
 		}
 
-		if (scm_is_eq (cs, ly_lily_module_constant ("ly:music?")))
+		if (scm_is_eq (cs, Lily::ly_music_p))
 			funtype = MUSIC_FUNCTION;
-		else if (scm_is_eq (cs, ly_lily_module_constant ("ly:event?")))
+		else if (scm_is_eq (cs, Lily::ly_event_p))
 			funtype = EVENT_FUNCTION;
 		else if (ly_is_procedure (cs))
 			funtype = SCM_FUNCTION;
@@ -1327,15 +1328,13 @@ scan_fraction (string frac)
 SCM
 lookup_markup_command (string s)
 {
-	SCM proc = ly_lily_module_constant ("lookup-markup-command");
-	return scm_call_1 (proc, ly_string2scm (s));
+	return Lily::lookup_markup_command (ly_string2scm (s));
 }
 
 SCM
 lookup_markup_list_command (string s)
 {
-	SCM proc = ly_lily_module_constant ("lookup-markup-list-command");
-	return scm_call_1 (proc, ly_string2scm (s));
+	return Lily::lookup_markup_list_command (ly_string2scm (s));
 }
 
 /* Shut up lexer warnings.  */

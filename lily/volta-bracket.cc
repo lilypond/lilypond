@@ -32,6 +32,7 @@ using namespace std;
 #include "directional-element-interface.hh"
 #include "lookup.hh"
 #include "tuplet-bracket.hh"
+#include "lily-imports.hh"
 
 /*
   this is too complicated. Yet another version of side-positioning,
@@ -137,8 +138,8 @@ Volta_bracket_interface::modify_edge_height (Spanner *me)
   else
     str = "|";
 
-  no_vertical_end |= ly_scm2bool (scm_call_1 (ly_lily_module_constant ("volta-bracket::calc-hook-visibility"),
-                                             ly_string2scm (str)));
+  no_vertical_end |= ly_scm2bool (Lily::volta_bracket_calc_hook_visibility
+                                  (ly_string2scm (str)));
 
   if (no_vertical_end || no_vertical_start)
     {

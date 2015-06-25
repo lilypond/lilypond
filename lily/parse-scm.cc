@@ -28,6 +28,7 @@ using namespace std;
 #include "main.hh"
 #include "paper-book.hh"
 #include "source-file.hh"
+#include "lily-imports.hh"
 
 /* Pass string to scm parser, read one expression.
    Return result value and #chars read.
@@ -94,8 +95,7 @@ internal_ly_eval_scm (Parse_start *ps)
       static SCM module = SCM_BOOL_F;
       if (scm_is_false (module))
         {
-          SCM function = ly_lily_module_constant ("make-safe-lilypond-module");
-          module = scm_gc_protect_object (scm_call_0 (function));
+          module = scm_gc_protect_object (Lily::make_safe_lilypond_module ());
         }
 
       return scm_eval (ps->form_, module);
@@ -175,7 +175,7 @@ ly_eval_scm (SCM form, Input i, bool safe, Lily_parser *parser)
   Parse_start ps (form, i, safe, parser);
 
   SCM ans = scm_c_with_fluid
-    (ly_lily_module_constant ("%location"),
+    (Lily::f_location,
      i.smobbed_copy (),
      parse_protect_global ? protected_ly_eval_scm
      : catch_protected_eval_body, (void *) &ps);

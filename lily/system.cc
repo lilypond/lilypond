@@ -40,6 +40,7 @@
 #include "text-interface.hh"
 #include "warn.hh"
 #include "unpure-pure-container.hh"
+#include "lily-imports.hh"
 
 System::System (System const &src)
   : Spanner (src)
@@ -327,8 +328,8 @@ System::internal_get_note_heights_in_range (vsize start, vsize end, bool foot)
       if (!Text_interface::is_markup (footnote_markup))
         continue;
 
-      SCM props = scm_call_1 (ly_lily_module_constant ("layout-extract-page-properties"),
-                              pscore_->layout ()->self_scm ());
+      SCM props =
+        Lily::layout_extract_page_properties (pscore_->layout ()->self_scm ());
 
       SCM footnote_stl = Text_interface::interpret_markup (pscore_->layout ()->self_scm (),
                                                            props, footnote_markup);

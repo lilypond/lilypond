@@ -31,6 +31,8 @@
 #include "program-option.hh"
 #include "page-marker.hh"
 #include "ly-module.hh"
+#include "lily-imports.hh"
+
 
 Paper_book::Paper_book ()
 {
@@ -116,12 +118,9 @@ Paper_book::output_aux (SCM output_channel,
   long page_nb = 0;
   if (scm_is_pair (performances_))
     {
-      SCM proc = ly_lily_module_constant ("write-performances-midis");
-
-      scm_call_3 (proc,
-                  performances (),
-                  output_channel,
-                  scm_from_long (*first_performance_number));
+      Lily::write_performances_midis (performances (),
+                                      output_channel,
+                                      scm_from_long (*first_performance_number));
       *first_performance_number += scm_ilength (performances_);
     }
 
@@ -228,11 +227,9 @@ Paper_book::classic_output_aux (SCM output,
 {
   if (scm_is_pair (performances_))
     {
-      SCM proc = ly_lily_module_constant ("write-performances-midis");
-      scm_call_3 (proc,
-                  performances (),
-                  output,
-                  scm_from_long (*first_performance_number));
+      Lily::write_performances_midis (performances (),
+                                      output,
+                                      scm_from_long (*first_performance_number));
       *first_performance_number += scm_ilength (performances_);
     }
 
@@ -433,10 +430,8 @@ Paper_book::get_system_specs ()
     }
 
   SCM page_properties
-    = scm_call_1 (ly_lily_module_constant ("layout-extract-page-properties"),
-                  paper_->self_scm ());
+    = Lily::layout_extract_page_properties (paper_->self_scm ());
 
-  SCM interpret_markup_list = ly_lily_module_constant ("interpret-markup-list");
   SCM header = SCM_EOL;
   SCM labels = SCM_EOL;
   for (SCM s = scm_reverse (scores_); scm_is_pair (s); s = scm_cdr (s))
@@ -497,10 +492,9 @@ Paper_book::get_system_specs ()
         }
       else if (Text_interface::is_markup_list (scm_car (s)))
         {
-          SCM texts = scm_call_3 (interpret_markup_list,
-                                  paper_->self_scm (),
-                                  page_properties,
-                                  scm_car (s));
+          SCM texts = Lily::interpret_markup_list (paper_->self_scm (),
+                                                   page_properties,
+                                                   scm_car (s));
           Prob *first = 0;
           Prob *last = 0;
           for (SCM list = texts; scm_is_pair (list); list = scm_cdr (list))

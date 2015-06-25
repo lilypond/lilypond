@@ -29,6 +29,7 @@ using namespace std;
 #include "parse-scm.hh"
 #include "string-convert.hh"
 #include "warn.hh"
+#include "lily-imports.hh"
 
 bool debug_skylines;
 bool debug_property_callbacks;
@@ -136,7 +137,6 @@ static string
 get_help_string ()
 {
   SCM alist = ly_hash2alist (option_hash);
-  SCM converter = ly_lily_module_constant ("scm->string");
 
   vector<string> opts;
 
@@ -147,7 +147,7 @@ get_help_string ()
       string opt_spec = String_convert::char_string (' ', INDENT)
                         + ly_symbol2string (sym)
                         + " ("
-                        + ly_scm2string (scm_call_1 (converter, val))
+                        + ly_scm2string (Lily::scm_to_string (val))
                         + ")";
 
       if (opt_spec.length () + SEPARATION > HELP_INDENT)

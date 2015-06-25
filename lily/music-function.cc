@@ -22,6 +22,7 @@
 #include "input.hh"
 #include "music.hh"
 #include "fluid.hh"
+#include "lily-imports.hh"
 
 const char Music_function::type_p_name_[] = "ly:music-function?";
 
@@ -79,7 +80,7 @@ with_loc (SCM arg, Fluid &loc, bool clone = true)
 SCM
 Music_function::call (SCM rest)
 {
-  Fluid location (ly_lily_module_constant ("%location"));
+  Fluid location (Lily::f_location);
 
   // (car (ly:music-signature self_scm())) is the return type, skip it
   SCM signature = scm_cdr (get_signature ());
@@ -142,10 +143,9 @@ Music_function::call (SCM rest)
 
       if (scm_is_false (scm_call_1 (pred, arg)))
         {
-          scm_call_4 (ly_lily_module_constant ("argument-error"),
-                      location,
-                      scm_from_int (scm_ilength (args)),
-                      pred, arg);
+          Lily::argument_error (location,
+                                scm_from_int (scm_ilength (args)),
+                                pred, arg);
           SCM val = scm_car (get_signature ());
           val = scm_is_pair (val) ? scm_cdr (val) : SCM_BOOL_F;
           return with_loc (val, location);
@@ -168,6 +168,5 @@ Music_function::call (SCM rest)
   if (scm_is_true (scm_call_1 (pred, res)))
     return with_loc (res, location, false);
 
-  return scm_call_2 (ly_lily_module_constant ("music-function-call-error"),
-                     self_scm (), res);
+  return Lily::music_function_call_error (self_scm (), res);
 }

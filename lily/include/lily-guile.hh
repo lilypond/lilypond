@@ -47,8 +47,6 @@ string ly_scm_write_string (SCM s);
 SCM ly_deep_copy (SCM);
 SCM ly_truncate_list (int k, SCM lst);
 
-extern SCM global_lily_module;
-
 string gulp_file_to_string (const string &fn, bool must_exist, int size);
 
 SCM ly_string2scm (string const &s);

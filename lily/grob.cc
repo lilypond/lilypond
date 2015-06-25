@@ -38,6 +38,7 @@
 #include "system.hh"
 #include "unpure-pure-container.hh"
 #include "warn.hh"
+#include "lily-imports.hh"
 
 
 Grob *
@@ -148,20 +149,18 @@ Grob::get_print_stencil () const
       if (!transparent && (scm_is_number (get_property("whiteout"))
                            || to_boolean (get_property ("whiteout"))))
         {
-          SCM wh_proc = ly_lily_module_constant ("stencil-whiteout");
           Real thickness = robust_scm2double (get_property("whiteout"), 3.0)
                * layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
-          retval = *unsmob<Stencil> (scm_call_2 (wh_proc,
-                                                 retval.smobbed_copy (),
-                                                 scm_from_double (thickness)));
+          retval = *unsmob<Stencil>
+            (Lily::stencil_whiteout (retval.smobbed_copy (),
+                                     scm_from_double (thickness)));
         }
 
       /* Calls the scheme procedure stencil-whiteout-box in scm/stencils.scm */
       if (!transparent && to_boolean (get_property ("whiteout-box")))
         {
-          SCM wh_proc = ly_lily_module_constant ("stencil-whiteout-box");
-          retval = *unsmob<Stencil> (scm_call_1 (wh_proc,
-                                                 retval.smobbed_copy ()));
+          retval = *unsmob<Stencil>
+            (Lily::stencil_whiteout_box (retval.smobbed_copy ()));
         }
 
       if (transparent)

@@ -28,6 +28,7 @@
 #include "music-sequence.hh"
 #include "score.hh"
 #include "warn.hh"
+#include "lily-imports.hh"
 
 /*
   Music is anything that has (possibly zero) duration and supports
@@ -269,7 +270,7 @@ Music::to_event () const
     programming_error ("Not a music type");
 
   Stream_event *e = new Stream_event
-    (scm_call_1 (ly_lily_module_constant ("ly:make-event-class"), class_name),
+    (Lily::ly_make_event_class (class_name),
      mutable_property_alist_);
   Moment length = get_length ();
   if (length.to_bool ())
@@ -308,8 +309,7 @@ Music::send_to_context (Context *c)
 Music *
 make_music_by_name (SCM sym)
 {
-  SCM make_music_proc = ly_lily_module_constant ("make-music");
-  SCM rv = scm_call_1 (make_music_proc, sym);
+  SCM rv = Lily::make_music (sym);
 
   /* UGH. */
   Music *m = unsmob<Music> (rv);

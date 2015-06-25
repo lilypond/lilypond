@@ -27,6 +27,7 @@
 #include "output-def.hh"
 #include "staff-symbol-referencer.hh"
 #include "rational.hh"
+#include "lily-imports.hh"
 
 struct Key_signature_interface
 {
@@ -87,11 +88,10 @@ Key_signature_interface::print (SCM smob)
         me->warning (_ ("alteration not found"));
       else
         {
-          SCM proc = ly_lily_module_constant ("key-signature-interface::alteration-positions");
-
           pos.set_empty ();
           Stencil column;
-          for (SCM pos_list = scm_call_3 (proc, scm_car (s), c0s, smob);
+          for (SCM pos_list = Lily::key_signature_interface_alteration_positions
+                 (scm_car (s), c0s, smob);
                scm_is_pair (pos_list); pos_list = scm_cdr (pos_list))
             {
               int p = scm_to_int (scm_car (pos_list));

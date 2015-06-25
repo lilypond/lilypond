@@ -25,13 +25,11 @@
 // Fluid is a wrapper class for cached storage of GUILE fluids.
 // You use it like
 //
-//   Fluid parser (ly_lily_module_constant ("%parser"));
+//   Fluid parser (Lily::f_parser);
 //
 // and when you first access `parser' as an SCM value, its value is
-// fetched from the respective fluid (in this case `%parser') and
-// cached for future accesses.  Be sure to use ly_lily_module_constant
-// for the argument in order to have the SCM for the fluid itself only
-// looked up once per run.
+// fetched from the respective fluid (in this case `%parser', cf
+// lily/lily-imports.cc) and cached for future accesses.
 //
 // Since fluids act as implicit function parameters, it can only be
 // meaningfully employed for variables of automatic

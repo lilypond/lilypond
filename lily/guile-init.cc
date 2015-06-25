@@ -22,6 +22,7 @@
 #include "main.hh"
 #include "warn.hh"
 #include "smobs.hh"
+#include "lily-imports.hh"
 
 /*
   INIT
@@ -47,7 +48,7 @@ void add_scm_init_func (void (*f) ())
   scm_init_funcs_->push_back (f);
 }
 
-void
+SCM
 ly_init_ly_module (void *)
 {
   // Start up type system first.
@@ -64,13 +65,15 @@ ly_init_ly_module (void *)
     }
 
   scm_primitive_load_path (scm_from_ascii_string ("lily.scm"));
+  return SCM_UNDEFINED;
 }
-
-SCM global_lily_module;
 
 void
 ly_c_init_guile ()
 {
-  global_lily_module = scm_c_define_module ("lily", ly_init_ly_module, 0);
+  Guile_user::module.import ();
+  Lily::module.boot ();
+  scm_c_call_with_current_module (Lily::module, ly_init_ly_module, 0);
+  Display::module.import ();
   scm_c_use_module ("lily");
 }

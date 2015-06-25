@@ -24,6 +24,7 @@
 #include "moment.hh"
 #include "music.hh"
 #include "simple-music-iterator.hh"
+#include "lily-imports.hh"
 
 class Partial_iterator : public Simple_music_iterator
 {
@@ -53,9 +54,8 @@ Partial_iterator::process (Moment m)
       // measurePosition when initializing.
 
       Context *timing = unsmob<Context>
-                        (scm_call_2 (ly_lily_module_constant ("ly:context-find"),
-                                     get_outlet ()->self_scm (),
-                                     ly_symbol2scm ("Timing")));
+        (Lily::ly_context_find (get_outlet ()->self_scm (),
+                                ly_symbol2scm ("Timing")));
 
       if (!timing)
         programming_error ("missing Timing in \\partial");
@@ -92,9 +92,7 @@ Partial_iterator::finalization (SCM ctx, SCM length)
   LY_ASSERT_SMOB (Context, ctx, 1);
   LY_ASSERT_SMOB (Moment, length, 2);
   Context *timing = unsmob<Context>
-    (scm_call_2 (ly_lily_module_constant ("ly:context-find"),
-                 ctx,
-                 ly_symbol2scm ("Timing")));
+    (Lily::ly_context_find (ctx, ly_symbol2scm ("Timing")));
   if (!timing) {
     programming_error ("missing Timing in \\partial");
     return SCM_UNSPECIFIED;

@@ -23,6 +23,7 @@
 #include "translator-group.hh"
 #include "global-context.hh"
 #include "moment.hh"
+#include "lily-imports.hh"
 
 void
 Timing_translator::stop_translation_timestep ()
@@ -47,9 +48,8 @@ Timing_translator::stop_translation_timestep ()
 void
 Timing_translator::initialize ()
 {
-  Context *timing = unsmob<Context> (scm_call_2 (ly_lily_module_constant ("ly:context-find"),
-                                                context ()->self_scm (),
-                                                ly_symbol2scm ("Timing")));
+  Context *timing = unsmob<Context>
+    (Lily::ly_context_find (context ()->self_scm (), ly_symbol2scm ("Timing")));
   if (timing != context ())
     {
       context ()->add_alias (ly_symbol2scm ("Timing"));
@@ -100,17 +100,15 @@ Timing_translator::initialize ()
       // since it does not track changes of the variable.  However,
       // this is still better than nothing, and we already complained
       // via a programming_error
-      timeSignatureSettings = ly_lily_module_constant ("default-time-signature-settings");
+      timeSignatureSettings = Lily::default_time_signature_settings;
     }
   context ()->set_property ("timeSignatureSettings", timeSignatureSettings);
 
   SCM beamExceptions = timing->get_property ("beamExceptions");
   if (!scm_is_pair (beamExceptions))
     {
-      beamExceptions =
-        scm_call_2 (ly_lily_module_constant ("beam-exceptions"),
-                    timeSignatureFraction,
-                    timeSignatureSettings);
+      beamExceptions = Lily::beam_exceptions (timeSignatureFraction,
+                                              timeSignatureSettings);
     }
   context ()->set_property ("beamExceptions", beamExceptions);
 
@@ -119,9 +117,8 @@ Timing_translator::initialize ()
     {
       baseMoment =
         Moment (ly_scm2rational
-                (scm_call_2 (ly_lily_module_constant ("base-length"),
-                             timeSignatureFraction,
-                             timeSignatureSettings))).smobbed_copy ();
+                (Lily::base_length (timeSignatureFraction,
+                                    timeSignatureSettings))).smobbed_copy ();
     }
   context ()->set_property ("baseMoment", baseMoment);
 
@@ -129,10 +126,9 @@ Timing_translator::initialize ()
   if (!scm_is_pair (beatStructure))
     {
       beatStructure =
-        scm_call_3 (ly_lily_module_constant ("beat-structure"),
-                    ly_rational2scm (unsmob<Moment> (baseMoment)->main_part_),
-                    timeSignatureFraction,
-                    timeSignatureSettings);
+        Lily::beat_structure (ly_rational2scm (unsmob<Moment> (baseMoment)->main_part_),
+                              timeSignatureFraction,
+                              timeSignatureSettings);
     }
   context ()->set_property ("beatStructure", beatStructure);
 

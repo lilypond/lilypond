@@ -40,6 +40,7 @@ using namespace std;
 #include "source-file.hh"
 #include "version.hh"
 #include "warn.hh"
+#include "lily-imports.hh"
 
 /*
   symbols/strings.
@@ -436,8 +437,7 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
       && ly_is_procedure (type)
       && scm_is_false (scm_call_1 (type, val)))
     {
-      SCM typefunc = ly_lily_module_constant ("type-name");
-      SCM type_name = scm_call_1 (typefunc, type);
+      SCM type_name = Lily::type_name (type);
 
       warning (_f ("type check for `%s' failed; value `%s' must be of type `%s'",
                    ly_symbol2string (sym).c_str (),
@@ -672,8 +672,7 @@ alist_to_hashq (SCM alist)
 SCM
 ly_hash2alist (SCM tab)
 {
-  SCM func = ly_lily_module_constant ("hash-table->alist");
-  return scm_call_1 (func, tab);
+  return Lily::hash_table_to_alist (tab);
 }
 
 /*

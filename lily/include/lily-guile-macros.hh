@@ -100,28 +100,6 @@ inline SCM ly_symbol2scm (char const *x) { return scm_from_utf8_symbol ((x)); }
 #endif
 
 /*
-  we don't have to protect the result; it's already part of the
-  exports list of the module.
-*/
-
-#define ly_lily_module_constant(x)                                      \
-  ({                                                                    \
-    static SCM cached;                                                  \
-    /* We store this one locally, since G++ -O2 fucks up else */        \
-    SCM value = cached;                                                 \
-    if (__builtin_constant_p ((x)))                                     \
-      {                                                                 \
-        if (!SCM_UNPACK (cached))                                       \
-          value = cached =                                              \
-            scm_variable_ref (scm_c_module_lookup (global_lily_module, (x))); \
-      }                                                                 \
-    else                                                                \
-      value =                                                           \
-        scm_variable_ref (scm_c_module_lookup (global_lily_module, (x))); \
-    value;                                                              \
-  })
-
-/*
   Adds the NAME as a Scheme function, and a variable to store the SCM
   version of the function in the static variable NAME_proc
 */

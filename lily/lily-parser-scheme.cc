@@ -30,6 +30,7 @@
 #include "program-option.hh"
 #include "sources.hh"
 #include "warn.hh"
+#include "lily-imports.hh"
 
 LY_DEFINE (ly_parse_file, "ly:parse-file",
            1, 0, 0, (SCM name),
@@ -141,7 +142,7 @@ LY_DEFINE (ly_parser_lexer, "ly:parser-lexer",
            "Return the lexer for @var{parser}, defaulting to current parser")
 {
   if (SCM_UNBNDP (parser))
-    parser = scm_fluid_ref (ly_lily_module_constant ("%parser"));
+    parser = scm_fluid_ref (Lily::f_parser);
   Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 1);
   return p->lexer_->self_scm ();
 }
@@ -154,7 +155,7 @@ LY_DEFINE (ly_parser_clone, "ly:parser-clone",
            " lexical environment.  If @var{location} is a valid location,"
            " it becomes the source of all music expressions inside.")
 {
-  SCM parser = scm_fluid_ref (ly_lily_module_constant("%parser"));
+  SCM parser = scm_fluid_ref (Lily::f_parser);
   Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
 
   if (SCM_UNBNDP (closures))
@@ -170,7 +171,7 @@ LY_DEFINE (ly_parser_define_x, "ly:parser-define!",
            2, 0, 0, (SCM symbol, SCM val),
            "Bind @var{symbol} to @var{val} in current parser's module.")
 {
-  SCM parser = scm_fluid_ref (ly_lily_module_constant ("%parser"));
+  SCM parser = scm_fluid_ref (Lily::f_parser);
   Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
 
   LY_ASSERT_TYPE (ly_is_symbol, symbol, 1);
@@ -184,7 +185,7 @@ LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
            "Look up @var{symbol} in current parser's module."
            "  Return @code{'()} if not defined.")
 {
-  SCM parser = scm_fluid_ref (ly_lily_module_constant ("%parser"));
+  SCM parser = scm_fluid_ref (Lily::f_parser);
   Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
 
   LY_ASSERT_TYPE (ly_is_symbol, symbol, 1);
@@ -252,7 +253,7 @@ LY_DEFINE (ly_parser_include_string, "ly:parser-include-string",
            " for current parser.  Can only be used in immediate"
            " Scheme expressions (@code{$} instead of @code{#}).")
 {
-  SCM parser = scm_fluid_ref (ly_lily_module_constant ("%parser"));
+  SCM parser = scm_fluid_ref (Lily::f_parser);
   Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
 
   LY_ASSERT_TYPE (scm_is_string, ly_code, 1);
@@ -268,7 +269,7 @@ LY_DEFINE (ly_parser_set_note_names, "ly:parser-set-note-names",
            "  @var{names} is an alist of symbols.  This only has effect"
            " if the current mode is notes.")
 {
-  SCM parser = scm_fluid_ref (ly_lily_module_constant ("%parser"));
+  SCM parser = scm_fluid_ref (Lily::f_parser);
   Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
 
   if (p->lexer_->is_note_state ())
@@ -285,7 +286,7 @@ LY_DEFINE (ly_parser_output_name, "ly:parser-output-name",
            "Return the base name of the output file.  If @code{parser} is left off, use currently active parser.")
 {
   if (SCM_UNBNDP (parser))
-    parser = scm_fluid_ref (ly_lily_module_constant ("%parser"));
+    parser = scm_fluid_ref (Lily::f_parser);
 
   Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 1);
 
@@ -297,7 +298,7 @@ LY_DEFINE (ly_parser_error, "ly:parser-error",
            "Display an error message and make current parser fail."
            " Without a current parser, trigger an ordinary error.")
 {
-  SCM parser = scm_fluid_ref (ly_lily_module_constant ("%parser"));
+  SCM parser = scm_fluid_ref (Lily::f_parser);
 
   Lily_parser *p = unsmob<Lily_parser> (parser);
 
@@ -327,7 +328,7 @@ LY_DEFINE (ly_parser_clear_error, "ly:parser-clear-error",
            "Clear error flag for @var{parser}, defaulting to current parser.")
 {
   if (SCM_UNBNDP (parser))
-    parser = scm_fluid_ref (ly_lily_module_constant ("%parser"));
+    parser = scm_fluid_ref (Lily::f_parser);
 
   Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 1);
 
@@ -342,7 +343,7 @@ LY_DEFINE (ly_parser_has_error_p, "ly:parser-has-error?",
            "Does @var{parser} (defaulting to current parser) have an error flag?")
 {
   if (SCM_UNBNDP (parser))
-    parser = scm_fluid_ref (ly_lily_module_constant ("%parser"));
+    parser = scm_fluid_ref (Lily::f_parser);
   Lily_parser *p = LY_ASSERT_SMOB (Lily_parser, parser, 1);
 
   return scm_from_bool (p->error_level_ || p->lexer_->error_level_);

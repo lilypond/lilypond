@@ -27,6 +27,7 @@
 #include "international.hh"
 #include "performer-group.hh"
 #include "warn.hh"
+#include "lily-imports.hh"
 
 /* Perform a staff. Individual notes should have their instrument
   (staff-wide) set, so we override play_element ()
@@ -199,8 +200,7 @@ Staff_performer::set_instrument (int channel, const string &voice)
   announce_element (Audio_element_info (instrument_, 0));
   Audio_staff *audio_staff = get_audio_staff (voice);
   audio_staff->add_audio_item (instrument_);
-  SCM proc = ly_lily_module_constant ("percussion?");
-  SCM drums = scm_call_1 (proc, ly_symbol2scm (instrument_string_.c_str ()));
+  SCM drums = Lily::percussion_p (ly_symbol2scm (instrument_string_.c_str ()));
   audio_staff->percussion_ = to_boolean (drums);
 }
 

@@ -29,6 +29,7 @@ using namespace std;
 #include "side-position-interface.hh"
 
 #include "translator.icc"
+#include "lily-imports.hh"
 
 class Clef_engraver : public Engraver
 {
@@ -162,8 +163,7 @@ Clef_engraver::inspect_clef_properties ()
       || !ly_is_equal (transposition, prev_transposition_)
       || to_boolean (force_clef))
     {
-      apply_on_children (context (),
-                         ly_lily_module_constant ("invalidate-alterations"));
+      apply_on_children (context (), Lily::invalidate_alterations);
 
       set_glyph ();
       if (scm_is_true (prev_cpos_) || to_boolean (get_property ("firstClef")))

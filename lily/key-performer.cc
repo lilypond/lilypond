@@ -22,6 +22,7 @@
 #include "performer.hh"
 #include "stream-event.hh"
 #include "warn.hh"
+#include "lily-imports.hh"
 
 #include "translator.icc"
 
@@ -57,9 +58,8 @@ Key_performer::process_music ()
   if (key_ev_)
     {
       SCM pitchlist = key_ev_->get_property ("pitch-alist");
-      SCM proc = ly_lily_module_constant ("alterations-in-key");
 
-      SCM acc = scm_call_1 (proc, pitchlist);
+      SCM acc = Lily::alterations_in_key (pitchlist);
 
       Pitch key_do (0,
                     scm_to_int (scm_caar (pitchlist)),

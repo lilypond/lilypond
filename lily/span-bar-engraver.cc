@@ -20,6 +20,7 @@
 #include "item.hh"
 #include "engraver.hh"
 #include "pointer-group-interface.hh"
+#include "lily-imports.hh"
 
 /**
 
@@ -85,7 +86,7 @@ Span_bar_engraver::stop_translation_timestep ()
       SCM vis = bars_[0]->get_property ("break-visibility");
       if (ly_is_equal (spanbar_->get_property ("break-visibility"), vis))
         spanbar_->set_property ("break-visibility", vis);
-      scm_call_1 (ly_lily_module_constant ("span-bar::notify-grobs-of-my-existence"), spanbar_->self_scm ());
+      Lily::span_bar_notify_grobs_of_my_existence (spanbar_->self_scm ());
       spanbar_ = 0;
     }
   bars_.resize (0);

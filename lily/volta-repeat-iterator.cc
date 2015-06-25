@@ -20,6 +20,7 @@
 #include "music.hh"
 #include "sequential-iterator.hh"
 #include "context.hh"
+#include "lily-imports.hh"
 
 class Volta_repeat_iterator : public Sequential_iterator
 {
@@ -137,7 +138,7 @@ Volta_repeat_iterator::next_element (bool side_effect)
                   if (to_boolean (get_outlet ()->get_property ("timing")))
                     {
                       for (SCM p = alt_restores_; scm_is_pair (p); p = scm_cdr (p))
-                        scm_apply_0 (ly_lily_module_constant ("ly:context-set-property!"),
+                        scm_apply_0 (Lily::ly_context_set_property_x,
                                      scm_car (p));
                     }
                 }

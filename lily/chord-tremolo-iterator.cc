@@ -21,6 +21,7 @@
 #include "chord-tremolo-iterator.hh"
 
 #include "repeated-music.hh"
+#include "lily-imports.hh"
 
 Chord_tremolo_iterator::Chord_tremolo_iterator ()
 {
@@ -29,9 +30,7 @@ Chord_tremolo_iterator::Chord_tremolo_iterator ()
 SCM
 Chord_tremolo_iterator::get_music_list () const
 {
-  Music *mus = get_music ();
-  SCM proc = ly_lily_module_constant ("tremolo::get-music-list");
-  return scm_call_1 (proc, mus->self_scm ());
+  return Lily::tremolo_get_music_list (get_music ()->self_scm ());
 }
 
 IMPLEMENT_CTOR_CALLBACK (Chord_tremolo_iterator);

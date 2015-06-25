@@ -37,6 +37,7 @@ using namespace std;
 #include "scm-hash.hh"
 #include "string-convert.hh"
 #include "warn.hh"
+#include "lily-imports.hh"
 
 
 Paper_outputter::Paper_outputter (SCM port, const string &format)
@@ -52,8 +53,7 @@ Paper_outputter::Paper_outputter (SCM port, const string &format)
     Enable errors for undefined stencil routines if
      -dwarning-as-error is specified; else enable warnings.
   */
-  SCM proc = ly_lily_module_constant ("backend-testing");
-  scm_call_1 (proc, output_module_);
+  Lily::backend_testing (output_module_);
 }
 
 Paper_outputter::~Paper_outputter ()
@@ -126,7 +126,6 @@ Paper_outputter::close ()
         expressions so that we start fresh with the next \book
         block.  --pmccarty
       */
-      SCM proc = ly_lily_module_constant ("remove-stencil-warnings");
-      scm_call_1 (proc, output_module_);
+      Lily::remove_stencil_warnings (output_module_);
     }
 }

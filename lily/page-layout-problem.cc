@@ -33,6 +33,7 @@
 #include "skyline-pair.hh"
 #include "system.hh"
 #include "text-interface.hh"
+#include "lily-imports.hh"
 
 /*
  Returns the number of footnotes associated with a given line.
@@ -140,8 +141,7 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, int counter, Paper_book 
     number_footnote_table = SCM_EOL;
   SCM numbering_function = paper->c_variable ("footnote-numbering-function");
   SCM layout = paper->self_scm ();
-  SCM props = scm_call_1 (ly_lily_module_constant ("layout-extract-page-properties"),
-                          paper->self_scm ());
+  SCM props = Lily::layout_extract_page_properties (layout);
   Real padding = robust_scm2double (paper->c_variable ("footnote-padding"), 0.0);
   Real number_raise = robust_scm2double (paper->c_variable ("footnote-number-raise"), 0.0);
 
@@ -232,8 +232,7 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, int counter, Paper_book 
                 if (orig->is_broken ())
                   footnote_markup = orig->broken_intos_[0]->get_property ("footnote-text");
 
-              SCM props = scm_call_1 (ly_lily_module_constant ("layout-extract-page-properties"),
-                                      paper->self_scm ());
+              SCM props = Lily::layout_extract_page_properties (paper->self_scm ());
 
               SCM footnote_stl = Text_interface::interpret_markup (paper->self_scm (),
                                                                    props, footnote_markup);
@@ -324,8 +323,7 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, int counter, Paper_book 
 Stencil
 Page_layout_problem::get_footnote_separator_stencil (Output_def *paper)
 {
-  SCM props = scm_call_1 (ly_lily_module_constant ("layout-extract-page-properties"),
-                          paper->self_scm ());
+  SCM props = Lily::layout_extract_page_properties (paper->self_scm ());
 
   SCM markup = paper->c_variable ("footnote-separator-markup");
 

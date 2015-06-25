@@ -28,6 +28,7 @@
 #include "program-option.hh"
 #include "string-convert.hh"
 #include "warn.hh"
+#include "lily-imports.hh"
 
 #define PITCH_WHEEL_CENTER 0x2000
 #define PITCH_WHEEL_SEMITONE 0X1000
@@ -84,8 +85,7 @@ Midi_instrument::to_string () const
   Byte program_byte = 0;
   bool found = false;
 
-  SCM proc = ly_lily_module_constant ("midi-program");
-  SCM program = scm_call_1 (proc, ly_symbol2scm (audio_->str_.c_str ()));
+  SCM program = Lily::midi_program (ly_symbol2scm (audio_->str_.c_str ()));
   found = (scm_is_true (program));
   if (found)
     program_byte = (Byte) scm_to_int (program);

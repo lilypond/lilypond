@@ -24,6 +24,7 @@
 #include "music.hh"
 #include "music-wrapper-iterator.hh"
 #include "stream-event.hh"
+#include "lily-imports.hh"
 
 /*
   Iterates \times, by sending TupletSpanEvents at the start/end of each
@@ -62,9 +63,8 @@ private:
 Music *
 Tuplet_iterator::create_event (Direction d)
 {
-  SCM ev_scm = scm_call_2 (ly_lily_module_constant ("make-span-event"),
-                           ly_symbol2scm ("TupletSpanEvent"),
-                           scm_from_int (d));
+  SCM ev_scm = Lily::make_span_event (ly_symbol2scm ("TupletSpanEvent"),
+                                      scm_from_int (d));
 
   Music *mus = get_music ();
 

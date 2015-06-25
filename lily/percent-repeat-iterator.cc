@@ -22,6 +22,7 @@
 #include "input.hh"
 #include "repeated-music.hh"
 #include "sequential-iterator.hh"
+#include "lily-imports.hh"
 
 class Percent_repeat_iterator : public Sequential_iterator
 {
@@ -59,9 +60,7 @@ Percent_repeat_iterator::get_music_list () const
     event_type = "DoublePercentEvent";
   else
     {
-      slash_count
-        = scm_call_1 (ly_lily_module_constant ("calc-repeat-slash-count"),
-                      child->self_scm ());
+      slash_count = Lily::calc_repeat_slash_count (child->self_scm ());
       event_type = "RepeatSlashEvent";
     }
 

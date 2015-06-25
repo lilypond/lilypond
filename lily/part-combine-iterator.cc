@@ -24,6 +24,7 @@
 #include "music-iterator.hh"
 #include "music-sequence.hh"
 #include "warn.hh"
+#include "lily-imports.hh"
 
 static const char *const CONTEXT_ONE = "one";
 static const char *const CONTEXT_TWO = "two";
@@ -201,8 +202,7 @@ Part_combine_iterator::kill_mmrest (Context *c)
   if (!mmrest_event_)
     {
       mmrest_event_ = new Stream_event
-        (scm_call_1 (ly_lily_module_constant ("ly:make-event-class"),
-                     ly_symbol2scm ("multi-measure-rest-event")));
+        (Lily::ly_make_event_class (ly_symbol2scm ("multi-measure-rest-event")));
       mmrest_event_->set_property ("duration", SCM_EOL);
       mmrest_event_->unprotect ();
     }

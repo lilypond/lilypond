@@ -23,6 +23,7 @@
 #include "modified-font-metric.hh"
 #include "pango-font.hh"
 #include "all-font-metrics.hh"
+#include "lily-imports.hh"
 
 Real
 output_scale (Output_def *od)
@@ -114,8 +115,7 @@ find_pango_font (Output_def *layout, SCM descr, Real factor)
 Output_def *
 scale_output_def (Output_def *o, Real amount)
 {
-  SCM proc = ly_lily_module_constant ("scale-layout");
-  SCM new_pap = scm_call_2 (proc, o->self_scm (), scm_from_double (amount));
+  SCM new_pap = Lily::scale_layout (o->self_scm (), scm_from_double (amount));
 
   o = unsmob<Output_def> (new_pap);
   o->protect ();

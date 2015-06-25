@@ -55,6 +55,7 @@ using namespace std;
 #include "string-convert.hh"
 #include "version.hh"
 #include "warn.hh"
+#include "lily-imports.hh"
 
 /*
  * Global options that can be overridden through command line.
@@ -532,8 +533,8 @@ main_with_guile (void *, int, char **)
   // SCM result = scm_call_1 (
   // 			   scm_variable_ref (call_with_error_handling),
   // 			   scm_call_1 (ly_lily_module_constant ("lilypond-main"), files));
-  SCM result = scm_call_1 (ly_lily_module_constant ("lilypond-main"), files);
-  (void) result;
+
+  Lily::lilypond_main (files);
 
   /* Unreachable.  */
   exit (0);

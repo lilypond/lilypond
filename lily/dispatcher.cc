@@ -21,6 +21,7 @@
 #include "input.hh"
 #include "international.hh"
 #include "warn.hh"
+#include "lily-imports.hh"
 
 const char Dispatcher::type_p_name_[] = "ly:dispatcher?";
 
@@ -52,8 +53,7 @@ int
 Dispatcher::print_smob (SCM p, scm_print_state *) const
 {
   scm_puts ("#<Dispatcher ", p);
-  scm_write (scm_call_1 (ly_lily_module_constant ("hash-table->alist"),
-                         listeners_), p);
+  scm_write (Lily::hash_table_to_alist (listeners_), p);
   scm_puts (">", p);
   return 1;
 }
@@ -242,7 +242,7 @@ Dispatcher::internal_add_listener (SCM callback, SCM ev_class, int priority)
       listen_classes_ = scm_cons (ev_class, listen_classes_);
     }
   SCM entry = scm_cons (scm_from_int (priority), callback);
-  list = scm_merge (list, scm_list_1 (entry), ly_lily_module_constant ("car<"));
+  list = scm_merge (list, scm_list_1 (entry), Lily::car_less);
   scm_set_cdr_x (handle, list);
 }
 

@@ -41,8 +41,7 @@
 	do {								\
 		if (scm_is_eq (value, SCM_UNSPECIFIED))			\
 			break;						\
-		SCM s = scm_call_1 (ly_lily_module_constant ("value->lily-string"), \
-				    value);				\
+		SCM s = Display::value_to_lily_string (value);		\
 		char *p = scm_to_locale_string (s);			\
 		fputs (p, file);					\
 		free (p);						\
@@ -139,6 +138,7 @@ using namespace std;
 #include "score.hh"
 #include "text-interface.hh"
 #include "warn.hh"
+#include "lily-imports.hh"
 
 void
 Lily_parser::parser_error (Input const *i, Lily_parser *parser, SCM *, const string &s)
@@ -200,7 +200,7 @@ syntax_call (void *arg)
 
 #define LOWLEVEL_MAKE_SYNTAX(location, args)				\
 	scm_c_with_fluid						\
-		(ly_lily_module_constant ("%location"),			\
+		(Lily::f_location,					\
 		 parser->lexer_->override_input (location).smobbed_copy (), \
 		 syntax_call,						\
 		 reinterpret_cast <void*> (args))
@@ -208,11 +208,11 @@ syntax_call (void *arg)
 /* Syntactic Sugar. */
 #define MAKE_SYNTAX(name, location, ...)				\
 	LOWLEVEL_MAKE_SYNTAX (location,					\
-			      scm_list_n (ly_lily_module_constant (name), \
+			      scm_list_n (Lily::name,			\
 					  ##__VA_ARGS__, SCM_UNDEFINED))
 
 #define START_MAKE_SYNTAX(name, ...)					\
-	scm_list_n (ly_lily_module_constant (name),			\
+	scm_list_n (Lily::name,						\
 		    ##__VA_ARGS__, SCM_UNDEFINED)
 
 #define FINISH_MAKE_SYNTAX(start, location, ...)			\
@@ -551,8 +551,8 @@ embedded_scm_arg:
 
 scm_function_call:
 	SCM_FUNCTION function_arglist {
-		$$ = MAKE_SYNTAX ("music-function", @$,
-					 $1, $2);
+		$$ = MAKE_SYNTAX (music_function, @$,
+				  $1, $2);
 	}
 	;
 
@@ -575,7 +575,7 @@ embedded_lilypond:
 		// for empty rules, and the only token in the whole
 		// production, EMBEDDED_LILY, is synthetic and also
 		// contains no source location.
-		$$ = MAKE_SYNTAX ("void-music", @$);
+		$$ = MAKE_SYNTAX (void_music, @$);
 	}
 	| identifier_init_nonumber
 	| embedded_lilypond_number
@@ -608,7 +608,7 @@ embedded_lilypond:
 			$3 = scm_cons ($2, $3);
 		if (unsmob<Music> ($1))
 			$3 = scm_cons ($1, $3);
-		$$ = MAKE_SYNTAX ("sequential-music", @$, $3);
+		$$ = MAKE_SYNTAX (sequential_music, @$, $3);
 	}
 	| error {
 		parser->error_level_ = 1;
@@ -1015,8 +1015,7 @@ score_items:
 			}
 		} else if (!unsmob<Score> ($$)) {
 			if (unsmob<Music> ($2)) {
-				SCM scorify = ly_lily_module_constant ("scorify-music");
-				$2 = scm_call_1 (scorify, $2);
+				$2 = Lily::scorify_music ($2);
 			}
 			if (unsmob<Score> ($2))
 			{
@@ -1202,13 +1201,13 @@ output_def_body:
 
 tempo_event:
 	TEMPO steno_duration '=' tempo_range	{
-		$$ = MAKE_SYNTAX ("tempo", @$, SCM_EOL, $2, $4);
+		$$ = MAKE_SYNTAX (tempo, @$, SCM_EOL, $2, $4);
 	}
 	| TEMPO scalar steno_duration '=' tempo_range	{
-		$$ = MAKE_SYNTAX ("tempo", @$, $2, $3, $5);
+		$$ = MAKE_SYNTAX (tempo, @$, $2, $3, $5);
 	}
 	| TEMPO scalar {
-		$$ = MAKE_SYNTAX ("tempo", @$, $2);
+		$$ = MAKE_SYNTAX (tempo, @$, $2);
 	} %prec ':'
 	;
 
@@ -1251,7 +1250,7 @@ pitch_as_music:
                 if (!unsmob<Music> ($$))
 		{
                         parser->parser_error (@1, _ ("music expected"));
-			$$ = MAKE_SYNTAX ("void-music", @$);
+			$$ = MAKE_SYNTAX (void_music, @$);
 		}
 	}
 	;
@@ -1318,29 +1317,29 @@ music_assign:
 repeated_music:
 	REPEAT simple_string unsigned_number music
 	{
-		$$ = MAKE_SYNTAX ("repeat", @$, $2, $3, $4, SCM_EOL);
+		$$ = MAKE_SYNTAX (repeat, @$, $2, $3, $4, SCM_EOL);
 	}
 	| REPEAT simple_string unsigned_number music ALTERNATIVE braced_music_list
 	{
-		$$ = MAKE_SYNTAX ("repeat", @$, $2, $3, $4, $6);
+		$$ = MAKE_SYNTAX (repeat, @$, $2, $3, $4, $6);
 	}
 	;
 
 sequential_music:
 	SEQUENTIAL braced_music_list {
-		$$ = MAKE_SYNTAX ("sequential-music", @$, $2);
+		$$ = MAKE_SYNTAX (sequential_music, @$, $2);
 	}
 	| braced_music_list {
-		$$ = MAKE_SYNTAX ("sequential-music", @$, $1);
+		$$ = MAKE_SYNTAX (sequential_music, @$, $1);
 	}
 	;
 
 simultaneous_music:
 	SIMULTANEOUS braced_music_list {
-		$$ = MAKE_SYNTAX ("simultaneous-music", @$, $2);
+		$$ = MAKE_SYNTAX (simultaneous_music, @$, $2);
 	}
 	| DOUBLE_ANGLE_OPEN music_list DOUBLE_ANGLE_CLOSE	{
-		$$ = MAKE_SYNTAX ("simultaneous-music", @$, scm_reverse_x ($2, SCM_EOL));
+		$$ = MAKE_SYNTAX (simultaneous_music, @$, scm_reverse_x ($2, SCM_EOL));
 	}
 	;
 
@@ -1433,14 +1432,14 @@ context_prefix:
                 SCM mods = SCM_EOL;
                 if (ctxmod)
                         mods = ctxmod->get_mods ();
-		$$ = START_MAKE_SYNTAX ("context-specification", $2, $3, mods, SCM_BOOL_F);
+		$$ = START_MAKE_SYNTAX (context_specification, $2, $3, mods, SCM_BOOL_F);
 	}
 	| NEWCONTEXT symbol optional_id optional_context_mod {
                 Context_mod *ctxmod = unsmob<Context_mod> ($4);
                 SCM mods = SCM_EOL;
                 if (ctxmod)
                         mods = ctxmod->get_mods ();
-		$$ = START_MAKE_SYNTAX ("context-specification", $2, $3, mods, SCM_BOOL_T);
+		$$ = START_MAKE_SYNTAX (context_specification, $2, $3, mods, SCM_BOOL_T);
 	}
 	;
 
@@ -1474,11 +1473,11 @@ basic_music:
 	| repeated_music
 	| music_bare
 	| LYRICSTO simple_string lyric_mode_music {
-		$$ = MAKE_SYNTAX ("lyric-combine", @$, $2, SCM_EOL, $3);
+		$$ = MAKE_SYNTAX (lyric_combine, @$, $2, SCM_EOL, $3);
 	}
 	| LYRICSTO symbol '=' simple_string lyric_mode_music
 	{
-		$$ = MAKE_SYNTAX ("lyric_combine", @$, $3, $2, $4);
+		$$ = MAKE_SYNTAX (lyric_combine, @$, $3, $2, $4);
 	}
 	;
 
@@ -1494,7 +1493,7 @@ contexted_basic_music:
 		Input i;
 		i.set_location (@1, @2);
 		$$ = FINISH_MAKE_SYNTAX ($1, i, $2);
-		$$ = MAKE_SYNTAX ("add-lyrics", @$, $$, scm_reverse_x ($3, SCM_EOL));
+		$$ = MAKE_SYNTAX (add_lyrics, @$, $$, scm_reverse_x ($3, SCM_EOL));
 	} %prec COMPOSITE
 	| context_prefix contextable_music
 	{
@@ -1511,7 +1510,7 @@ composite_music:
 	| contexted_basic_music
 	| basic_music new_lyrics
 	{
-		$$ = MAKE_SYNTAX ("add-lyrics", @$, $1, scm_reverse_x ($2, SCM_EOL));
+		$$ = MAKE_SYNTAX (add_lyrics, @$, $1, scm_reverse_x ($2, SCM_EOL));
 	} %prec COMPOSITE
 	;
 
@@ -1600,8 +1599,7 @@ symbol_list_rev:
 symbol_list_part:
 	symbol_list_element
 	{
-		SCM sym_l_p = ly_lily_module_constant ("symbol-list?");
-		$$ = try_string_variants (sym_l_p, $1);
+		$$ = try_string_variants (Lily::symbol_list_p, $1);
 		if (SCM_UNBNDP ($$)) {
 			parser->parser_error (@1, _("not a symbol"));
 			$$ = SCM_EOL;
@@ -2214,8 +2212,8 @@ function_arglist_skip_backup:
 
 music_function_call:
 	MUSIC_FUNCTION function_arglist {
-		$$ = MAKE_SYNTAX ("music-function", @$,
-					 $1, $2);
+		$$ = MAKE_SYNTAX (music_function, @$,
+				  $1, $2);
 	}
 	;
 
@@ -2248,7 +2246,7 @@ mode_changed_music:
 	mode_changing_head grouped_music_list {
 		if (scm_is_eq ($1, ly_symbol2scm ("chords")))
 		{
-		  $$ = MAKE_SYNTAX ("unrelativable-music", @$, $2);
+		  $$ = MAKE_SYNTAX (unrelativable_music, @$, $2);
 		}
 		else
 		{
@@ -2261,10 +2259,10 @@ mode_changed_music:
                 SCM mods = SCM_EOL;
                 if (ctxmod)
                         mods = ctxmod->get_mods ();
-		$$ = MAKE_SYNTAX ("context-specification", @$, $1, SCM_EOL, mods, SCM_BOOL_T, $3);
+		$$ = MAKE_SYNTAX (context_specification, @$, $1, SCM_EOL, mods, SCM_BOOL_T, $3);
 		if (scm_is_eq ($1, ly_symbol2scm ("ChordNames")))
 		{
-		  $$ = MAKE_SYNTAX ("unrelativable-music", @$, $$);
+		  $$ = MAKE_SYNTAX (unrelativable_music, @$, $$);
 		}
 		parser->lexer_->pop_state ();
 	}
@@ -2330,7 +2328,7 @@ mode_changing_head_with_context:
 
 context_change:
 	CHANGE symbol '=' simple_string  {
-		$$ = MAKE_SYNTAX ("context-change", @$, $2, $4);
+		$$ = MAKE_SYNTAX (context_change, @$, $2, $4);
 	}
 	;
 
@@ -2551,9 +2549,9 @@ simple_revert_context:
 music_property_def:
 	OVERRIDE grob_prop_path '=' scalar {
 		if (SCM_UNBNDP ($2))
-			$$ = MAKE_SYNTAX ("void-music", @$);
+			$$ = MAKE_SYNTAX (void_music, @$);
 		else {
-			$$ = MAKE_SYNTAX ("property-operation", @$,
+			$$ = MAKE_SYNTAX (property_operation, @$,
 					  scm_car ($2),
 					  ly_symbol2scm ("OverrideProperty"),
 					  scm_cadr ($2),
@@ -2562,7 +2560,7 @@ music_property_def:
 		}
 	}
 	| REVERT simple_revert_context revert_arg {
-		$$ = MAKE_SYNTAX ("property-operation", @$,
+		$$ = MAKE_SYNTAX (property_operation, @$,
 				  $2,
 				  ly_symbol2scm ("RevertProperty"),
 				  scm_car ($3),
@@ -2570,9 +2568,9 @@ music_property_def:
 	}
 	| SET context_prop_spec '=' scalar {
 		if (SCM_UNBNDP ($2))
-			$$ = MAKE_SYNTAX ("void-music", @$);
+			$$ = MAKE_SYNTAX (void_music, @$);
 		else
-			$$ = MAKE_SYNTAX ("property-operation", @$,
+			$$ = MAKE_SYNTAX (property_operation, @$,
 					  scm_car ($2),
 					  ly_symbol2scm ("PropertySet"),
 					  scm_cadr ($2),
@@ -2580,9 +2578,9 @@ music_property_def:
 	}
 	| UNSET context_prop_spec {
 		if (SCM_UNBNDP ($2))
-			$$ = MAKE_SYNTAX ("void-music", @$);
+			$$ = MAKE_SYNTAX (void_music, @$);
 		else
-			$$ = MAKE_SYNTAX ("property-operation", @$,
+			$$ = MAKE_SYNTAX (property_operation, @$,
 					  scm_car ($2),
 					  ly_symbol2scm ("PropertyUnset"),
 					  scm_cadr ($2));
@@ -2618,8 +2616,7 @@ symbol:
 	{
 		// This is a bit of overkill but makes the same
 		// routine responsible for all symbol interpretations.
-		$$ = try_string_variants (ly_lily_module_constant ("symbol?"),
-					  $1);
+		$$ = try_string_variants (Guile_user::symbol_p, $1);
 		if (SCM_UNBNDP ($$))
 		{
 			parser->parser_error (@1, (_ ("symbol expected")));
@@ -2660,13 +2657,13 @@ event_chord:
 	| CHORD_REPETITION optional_notemode_duration post_events {
 		Input i;
 		i.set_location (@1, @3);
-		$$ = MAKE_SYNTAX ("repetition-chord", i,
+		$$ = MAKE_SYNTAX (repetition_chord, i,
 				  $2, scm_reverse_x ($3, SCM_EOL));
 	} %prec ':'
 	| MULTI_MEASURE_REST optional_notemode_duration post_events {
 		Input i;
 		i.set_location (@1, @3);
-		$$ = MAKE_SYNTAX ("multi-measure-rest", i, $2,
+		$$ = MAKE_SYNTAX (multi_measure_rest, i, $2,
 				  scm_reverse_x ($3, SCM_EOL));
 	} %prec ':'
 	| tempo_event
@@ -2695,11 +2692,11 @@ note_chord_element:
 chord_body:
 	ANGLE_OPEN chord_body_elements ANGLE_CLOSE
 	{
-		$$ = MAKE_SYNTAX ("event-chord", @$, scm_reverse_x ($2, SCM_EOL));
+		$$ = MAKE_SYNTAX (event_chord, @$, scm_reverse_x ($2, SCM_EOL));
 	}
 	| FIGURE_OPEN figure_list FIGURE_CLOSE
 	{
-		$$ = MAKE_SYNTAX ("event-chord", @$, scm_reverse_x ($2, SCM_EOL));
+		$$ = MAKE_SYNTAX (event_chord, @$, scm_reverse_x ($2, SCM_EOL));
 	}
 	;
 
@@ -2772,8 +2769,8 @@ music_function_chord_body:
 
 event_function_event:
 	EVENT_FUNCTION function_arglist {
-		$$ = MAKE_SYNTAX ("music-function", @$,
-					 $1, $2);
+		$$ = MAKE_SYNTAX (music_function, @$,
+				  $1, $2);
 	}
 	;
 
@@ -3279,9 +3276,9 @@ pitch_or_music:
 
 			SCM elts = ly_append2 ($1, scm_reverse_x ($2, SCM_EOL));
 
-			$$ = MAKE_SYNTAX ("event-chord", @1, elts);
+			$$ = MAKE_SYNTAX (event_chord, @1, elts);
 		} else if (!unsmob<Pitch> ($1))
-			$$ = MAKE_SYNTAX ("event-chord", @1, $1);
+			$$ = MAKE_SYNTAX (event_chord, @1, $1);
 		// A mere pitch drops through.
 	} %prec ':'
 	;
@@ -3325,7 +3322,7 @@ lyric_element:
 
 lyric_element_music:
 	lyric_element optional_notemode_duration post_events {
-		$$ = MAKE_SYNTAX ("lyric-event", @$, $1, $2);
+		$$ = MAKE_SYNTAX (lyric_event, @$, $1, $2);
 		if (scm_is_pair ($3))
 			unsmob<Music> ($$)->set_property
 				("articulations", scm_reverse_x ($3, SCM_EOL));
@@ -3532,11 +3529,11 @@ full_markup:
 
 markup_top:
 	markup_list {
-		$$ = scm_list_2 (ly_lily_module_constant ("line-markup"),  $1);
+		$$ = scm_list_2 (Lily::line_markup,  $1);
 	}
 	| markup_head_1_list simple_markup
 	{
-		$$ = scm_car (MAKE_SYNTAX ("composed-markup-list",
+		$$ = scm_car (MAKE_SYNTAX (composed_markup_list,
 					   @2, $1, scm_list_1 ($2)));
 	}
 	| simple_markup	{
@@ -3588,14 +3585,14 @@ markup_uncomposed_list:
 			sc->add_output_def (od);
 			od->unprotect ();
 		}
-		$$ = scm_list_1 (scm_list_2 (ly_lily_module_constant ("score-lines-markup-list"), $4));
+		$$ = scm_list_1 (scm_list_2 (Lily::score_lines_markup_list, $4));
 		parser->lexer_->pop_state ();
 	}
 	;
 
 markup_composed_list:
 	markup_head_1_list markup_uncomposed_list {
-		$$ = MAKE_SYNTAX ("composed-markup-list",
+		$$ = MAKE_SYNTAX (composed_markup_list,
 				  @2, $1, $2);
 	}
 	;
@@ -3671,7 +3668,7 @@ simple_markup:
 			sc->add_output_def (od);
 			od->unprotect ();
 		}
-		$$ = scm_list_2 (ly_lily_module_constant ("score-markup"), $4);
+		$$ = scm_list_2 (Lily::score_markup, $4);
 		parser->lexer_->pop_state ();
 	}
 	| MARKUP_FUNCTION markup_command_basic_arguments {
@@ -3686,7 +3683,7 @@ simple_markup:
 markup:
 	markup_head_1_list simple_markup
 	{
-		$$ = scm_car (MAKE_SYNTAX ("composed-markup-list",
+		$$ = scm_car (MAKE_SYNTAX (composed_markup_list,
 					   @2, $1, scm_list_1 ($2)));
 	}
 	| simple_markup	{
@@ -3705,7 +3702,7 @@ Lily_parser::set_yydebug (bool x)
 SCM
 Lily_parser::do_yyparse ()
 {
-	return scm_c_with_fluid (ly_lily_module_constant ("%parser"),
+	return scm_c_with_fluid (Lily::f_parser,
 				 self_scm (),
 				 do_yyparse_trampoline,
 				 static_cast <void *>(this));
@@ -3811,7 +3808,7 @@ SCM check_scheme_arg (Lily_parser *parser, Input loc,
 			return args;
 	}
 	scm_set_cdr_x (scm_last_pair (args), SCM_EOL);
-	MAKE_SYNTAX ("argument-error", loc, scm_length (args), pred,
+	MAKE_SYNTAX (argument_error, loc, scm_length (args), pred,
 		     SCM_UNBNDP (disp) ? arg : disp);
 	scm_set_cdr_x (scm_last_pair (args), SCM_BOOL_F);
 	return args;
@@ -3916,12 +3913,12 @@ make_music_from_simple (Lily_parser *parser, Input loc, SCM simple)
 		return simple;
 	} else if (parser->lexer_->is_lyric_state ()) {
 		if (Text_interface::is_markup (simple))
-			return MAKE_SYNTAX ("lyric-event", loc, simple,
+			return MAKE_SYNTAX (lyric_event, loc, simple,
 					    parser->default_duration_.smobbed_copy ());
 	} else if (parser->lexer_->is_chord_state ()) {
 		if (unsmob<Pitch> (simple))
 			return MAKE_SYNTAX
-				("event-chord",
+				(event_chord,
 				 loc,
 				 make_chord_elements (loc, simple,
 						      parser->default_duration_.smobbed_copy (),
@@ -3972,8 +3969,7 @@ make_chord_step (SCM step_scm, Rational alter)
 SCM
 make_chord_elements (Input loc, SCM pitch, SCM dur, SCM modification_list)
 {
-	SCM chord_ctor = ly_lily_module_constant ("construct-chord-elements");
-	SCM res = scm_call_3 (chord_ctor, pitch, dur, modification_list);
+	SCM res = Lily::construct_chord_elements (pitch, dur, modification_list);
 	for (SCM s = res; scm_is_pair (s); s = scm_cdr (s))
 	{
 		unsmob<Music> (scm_car (s))->set_spot (loc);

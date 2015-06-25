@@ -30,6 +30,7 @@
 #include "scm-hash.hh"
 #include "translator-group.hh"
 #include "warn.hh"
+#include "lily-imports.hh"
 
 bool
 Context::is_removable () const
@@ -491,9 +492,7 @@ be called from any other place than the send_stream_event macro.
 void
 Context::internal_send_stream_event (SCM type, Input *origin, SCM props[])
 {
-  Stream_event *e = new Stream_event
-    (scm_call_1 (ly_lily_module_constant ("ly:make-event-class"), type),
-     origin);
+  Stream_event *e = new Stream_event (Lily::ly_make_event_class (type), origin);
   for (int i = 0; props[i]; i += 2)
     {
       e->set_property (props[i], props[i + 1]);

@@ -22,6 +22,7 @@
 #include "warn.hh"
 #include "main.hh"
 #include "protected-scm.hh"
+#include "lily-imports.hh"
 
 SCM
 ly_make_module (bool safe)
@@ -31,14 +32,16 @@ ly_make_module (bool safe)
     {
       /* Look up (evaluate) Scheme make-module function and call it */
 
-      SCM maker = ly_lily_module_constant ("make-module");
-      mod = scm_call_0 (maker);
+      mod = Guile_user::make_module ();
       /*
         Look up and call Guile module-export-all! or, when using
         Guile V1.8, the compatible shim defined in lily.scm.
       */
-      SCM module_export_all_x = ly_lily_module_constant ("module-export-all!");
-      scm_call_1 (module_export_all_x, mod);
+#if GUILEV2
+      Guile_user::module_export_all_x (mod);
+#else
+      Lily::module_export_all_x (mod);
+#endif
 
       /*
         Evaluate Guile module "the-root-module",
@@ -46,15 +49,14 @@ ly_make_module (bool safe)
         N.B. this used to be "the-scm-module" and is deprecated in
         Guile V1.9/2.0
       */
-      SCM scm_module = ly_lily_module_constant ("the-root-module");
-      ly_use_module (mod, scm_module);
-      ly_use_module (mod, global_lily_module);
+
+      ly_use_module (mod, Guile_user::the_root_module);
+      ly_use_module (mod, Lily::module);
     }
   else
     {
       /* Evaluate and call make-safe-lilypond-module */
-      SCM proc = ly_lily_module_constant ("make-safe-lilypond-module");
-      mod = scm_call_0 (proc);
+      mod = Lily::make_safe_lilypond_module ();
     }
 
   return mod;
@@ -68,19 +70,12 @@ ly_use_module (SCM mod, SCM used)
     TODO - Replace inline evaluations (interpreted)
     with guile API calls if these become available.
   */
-  SCM scm_module_use = ly_symbol2scm ("module-use!");
-  SCM scm_module_public_interface = ly_symbol2scm ("module-public-interface");
-  SCM iface = scm_list_2 (scm_module_public_interface, used);
   /*
     Set up to interpret
     '(module_use! <mod> (module-public-interface <used>))'
   */
-  SCM expr = scm_list_3 (scm_module_use, mod, iface);
-  /*
-    Now return SCM value, this is the result of interpreting
-    '(eval (module-use! <mod> (module-public-interface <used>)) "lily")'
-  */
-  return scm_eval (expr, global_lily_module);
+  return Guile_user::module_use_x (mod,
+                                   Guile_user::module_public_interface (used));
 }
 
 #define FUNC_NAME __FUNCTION__
@@ -120,11 +115,7 @@ LY_DEFINE (ly_module_2_alist, "ly:module->alist",
 void
 ly_export (SCM module, SCM namelist)
 {
-  static SCM export_function;
-  if (!export_function)
-    export_function = scm_permanent_object (scm_c_lookup ("module-export!"));
-
-  scm_call_2 (SCM_VARIABLE_REF (export_function), module, namelist);
+  Guile_user::module_export_x (module, namelist);
 }
 
 void

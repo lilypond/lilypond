@@ -141,6 +141,8 @@ class Rhythmic_music_iterator;
 class Scale;
 class Scheme_hash_table;
 class Scheme_engraver;
+class Scm_module;
+class Scm_variable;
 class Score;
 class Score_engraver;
 class Score_performer;
