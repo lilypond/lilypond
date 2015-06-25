@@ -29,9 +29,8 @@ public:
   SCM call (SCM arg1, SCM arg2, SCM rest)
   {
     return scm_apply_0 (scm1 (),
-                        scm_call_2 (ly_lily_module_constant ("drop-right"),
-                                    scm_cons2 (arg1, arg2, rest),
-                                    scm_from_int (2)));
+                        scm_list_head (scm_cons2 (arg1, arg2, rest),
+                                       scm_length (rest)));
   }
 };
 
