@@ -101,6 +101,11 @@ namespace Lily {
   extern Variable type_name;
   extern Variable volta_bracket_calc_hook_visibility;
   extern Variable write_performances_midis;
+}
+
+namespace Syntax {
+  extern Scm_module module;
+  typedef Module_variable<module> Variable;
 
   extern Variable add_lyrics;
   extern Variable argument_error;

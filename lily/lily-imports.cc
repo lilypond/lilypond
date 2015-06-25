@@ -95,6 +95,10 @@ namespace Lily {
   Variable type_name ("type-name");
   Variable volta_bracket_calc_hook_visibility ("volta-bracket::calc-hook-visibility");
   Variable write_performances_midis ("write-performances-midis");
+}
+
+namespace Syntax {
+  Scm_module module ("ly-syntax");
 
   Variable add_lyrics ("add-lyrics");
   Variable argument_error ("argument-error");

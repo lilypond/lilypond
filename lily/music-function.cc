@@ -143,8 +143,8 @@ Music_function::call (SCM rest)
 
       if (scm_is_false (scm_call_1 (pred, arg)))
         {
-          Lily::argument_error (scm_length (args),
-                                pred, arg);
+          Syntax::argument_error (scm_length (args),
+                                  pred, arg);
           SCM val = scm_car (get_signature ());
           val = scm_is_pair (val) ? scm_cdr (val) : SCM_BOOL_F;
           return with_loc (val, location);
@@ -167,5 +167,5 @@ Music_function::call (SCM rest)
   if (scm_is_true (scm_call_1 (pred, res)))
     return with_loc (res, location, false);
 
-  return Lily::music_function_call_error (self_scm (), res);
+  return Syntax::music_function_call_error (self_scm (), res);
 }

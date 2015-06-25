@@ -208,11 +208,11 @@ syntax_call (void *arg)
 /* Syntactic Sugar. */
 #define MAKE_SYNTAX(name, location, ...)				\
 	LOWLEVEL_MAKE_SYNTAX (location,					\
-			      scm_list_n (Lily::name,			\
+			      scm_list_n (Syntax::name,			\
 					  ##__VA_ARGS__, SCM_UNDEFINED))
 
 #define START_MAKE_SYNTAX(name, ...)					\
-	scm_list_n (Lily::name,						\
+	scm_list_n (Syntax::name,					\
 		    ##__VA_ARGS__, SCM_UNDEFINED)
 
 #define FINISH_MAKE_SYNTAX(start, location, ...)			\

@@ -15,10 +15,13 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-;; TODO: use separate module for syntax
-;; constructors. Also create wrapper around the constructor?
+(define ly-syntax-module (resolve-module '(ly-syntax)))
+
 (defmacro define-ly-syntax (args . body)
-  `(define ,args ,@body))
+  (if (pair? args)
+      `(module-define! ,ly-syntax-module ',(car args)
+                       (lambda ,(cdr args) ,@body))
+      `(module-define! ,ly-syntax-module ',args ,@body)))
 
 ;; A ly-syntax constructor can access location data as (*location*).
 ;; This is mainly used for reporting errors and warnings. This
@@ -26,7 +29,7 @@
 ;; origin of the returned music object; this behaviour is usually
 ;; desired.
 (defmacro define-ly-syntax-loc (args . body)
-  `(define ,args
+  `(define-ly-syntax ,args
      (let ((m ,(cons 'begin body)))
        (set! (ly:music-property m 'origin) (*location*))
        m)))
@@ -40,6 +43,8 @@
              (value->lily-string m))
      (*location*))
     (and (pair? (car sig)) (cdar sig))))
+
+(define-ly-syntax music-function-call-error music-function-call-error)
 
 ;; Music function: Apply function and check return value.
 ;; args are in reverse order, rest may specify additional ones
