@@ -41,9 +41,8 @@
 	do {								\
 		if (scm_is_eq (value, SCM_UNSPECIFIED))			\
 			break;						\
-		SCM s = scm_call_2 (ly_lily_module_constant ("value->lily-string"), \
-				    value,				\
-				    parser->self_scm ());		\
+		SCM s = scm_call_1 (ly_lily_module_constant ("value->lily-string"), \
+				    value);				\
 		char *p = scm_to_locale_string (s);			\
 		fputs (p, file);					\
 		free (p);						\
