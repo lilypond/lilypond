@@ -100,6 +100,7 @@ SCM ly_assoc_prepend_x (SCM alist, SCM key, SCM val);
 
 inline bool ly_is_list (SCM x) { return scm_is_true (scm_list_p (x)); }
 inline bool ly_cheap_is_list (SCM x) { return scm_is_pair (x) || scm_is_null (x); }
+inline bool ly_is_module (SCM x) { return SCM_MODULEP (x); }
 inline bool ly_is_procedure (SCM x) { return scm_is_true (scm_procedure_p (x)); }
 inline bool ly_is_port (SCM x) { return scm_is_true (scm_port_p (x)); }
 

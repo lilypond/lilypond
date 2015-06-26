@@ -29,8 +29,6 @@ SCM ly_module_lookup (SCM module, SCM sym);
 SCM ly_modules_lookup (SCM modules, SCM sym, SCM);
 SCM ly_module_symbols (SCM mod);
 void ly_reexport_module (SCM mod);
-inline bool ly_is_module (SCM x) { return SCM_MODULEP (x); }
-
 SCM ly_use_module (SCM mod, SCM used);
 
 /* For backward compatability with Guile 1.8 */
