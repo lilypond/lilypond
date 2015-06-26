@@ -18,9 +18,9 @@
 */
 
 #include "lily-guile.hh"
+#include "ly-module.hh"
 #include "warn.hh"
 #include "main.hh"
-#include "std-string.hh"
 #include "protected-scm.hh"
 
 SCM

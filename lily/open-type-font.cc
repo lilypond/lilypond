@@ -27,7 +27,6 @@ using namespace std;
 #include FT_TRUETYPE_TABLES_H
 
 #include "dimensions.hh"
-#include "freetype.hh"
 #include "international.hh"
 #include "modified-font-metric.hh"
 #include "warn.hh"

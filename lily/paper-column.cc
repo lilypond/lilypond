@@ -25,7 +25,6 @@
 #include "font-interface.hh"
 #include "grob-array.hh"
 #include "lookup.hh"
-#include "lookup.hh"
 #include "moment.hh"
 #include "output-def.hh"
 #include "paper-score.hh"

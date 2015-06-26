@@ -17,8 +17,6 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "dot-column.hh"
-
 #include <cstdio>
 #include <cmath>
 #include <map>

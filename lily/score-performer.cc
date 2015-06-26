@@ -30,7 +30,6 @@
 #include "string-convert.hh"
 #include "warn.hh"
 #include "audio-staff.hh"
-#include "audio-item.hh"
 
 ADD_TRANSLATOR_GROUP (Score_performer,
                       /* doc */

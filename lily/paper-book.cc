@@ -30,7 +30,7 @@
 #include "warn.hh"
 #include "program-option.hh"
 #include "page-marker.hh"
-
+#include "ly-module.hh"
 
 Paper_book::Paper_book ()
 {

@@ -32,7 +32,7 @@ using namespace std;
 #include "performance.hh"
 #include "paper-score.hh"
 #include "page-marker.hh"
-
+#include "ly-module.hh"
 
 Book::Book ()
 {

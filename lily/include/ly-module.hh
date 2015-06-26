@@ -31,11 +31,5 @@ SCM ly_module_symbols (SCM mod);
 void ly_reexport_module (SCM mod);
 SCM ly_use_module (SCM mod, SCM used);
 
-/* For backward compatability with Guile 1.8 */
-#if !HAVE_GUILE_HASH_FUNC
-typedef SCM (*scm_t_hash_fold_fn) (GUILE_ELLIPSIS);
-typedef SCM (*scm_t_hash_handle_fn) (GUILE_ELLIPSIS);
-#endif
-
 #endif /* LY_MODULE_HH */
 

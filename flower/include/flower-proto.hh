@@ -26,8 +26,6 @@ typedef unsigned char Byte;
 typedef long long I64;
 class String_convert;
 
-#include "std-string.hh"
-
 #include "real.hh"
 using namespace std;
 

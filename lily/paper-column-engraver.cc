@@ -18,7 +18,6 @@
 */
 
 #include "paper-column-engraver.hh"
-#include "system.hh"
 #include "international.hh"
 #include "accidental-placement.hh"
 #include "accidental-interface.hh"

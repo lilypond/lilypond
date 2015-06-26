@@ -13,8 +13,6 @@
 #include "spanner.hh"
 #include "international.hh"
 #include "item.hh"
-#include "misc.hh"
-#include "item.hh"
 #include "program-option.hh"
 #include "profile.hh"
 #include "simple-closure.hh"

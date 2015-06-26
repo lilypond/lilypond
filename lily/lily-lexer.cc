@@ -35,6 +35,7 @@ using namespace std;
 #include "warn.hh"
 #include "program-option.hh"
 #include "lily-parser.hh"
+#include "ly-module.hh"
 
 static Keyword_ent the_key_tab[]
 =

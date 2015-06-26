@@ -17,13 +17,12 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "output-def.hh"
-
 #include "context-def.hh"
 #include "file-path.hh"
 #include "global-context.hh"
 #include "international.hh"
 #include "interval.hh"
+#include "ly-module.hh"
 #include "main.hh"
 #include "output-def.hh"
 #include "scm-hash.hh"

@@ -116,8 +116,6 @@ Time_signature_engraver::stop_translation_timestep ()
   time_cause_ = SCM_EOL;
 }
 
-#include "translator.icc"
-
 ADD_TRANSLATOR (Time_signature_engraver,
                 /* doc */
                 "Create a @ref{TimeSignature} whenever"

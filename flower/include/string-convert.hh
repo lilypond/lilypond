@@ -10,6 +10,7 @@
 using namespace std;
 
 #include "flower-proto.hh"
+#include "std-string.hh"
 
 /** The functor string_convert handles all conversions to/from string
     (some time, anyway).  The class is quite empty from data view.  */

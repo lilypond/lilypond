@@ -24,8 +24,6 @@
 // included from smobs.hh, but other template expansion systems might
 // make it feasible to compile this only a single time.
 
-#include "lily-guile-macros.hh"
-#include "smobs.hh"
 #include <typeinfo>
 
 template <class Super>

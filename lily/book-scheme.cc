@@ -22,7 +22,6 @@
 #include "output-def.hh"
 #include "score.hh"
 #include "paper-book.hh"
-#include "ly-module.hh"
 
 LY_DEFINE (ly_make_book, "ly:make-book",
            2, 0, 1, (SCM paper, SCM header, SCM scores),

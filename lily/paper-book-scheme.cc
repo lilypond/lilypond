@@ -18,7 +18,6 @@
 */
 
 #include "paper-book.hh"
-#include "ly-module.hh"
 #include "output-def.hh"
 
 LY_DEFINE (ly_paper_book_pages, "ly:paper-book-pages",

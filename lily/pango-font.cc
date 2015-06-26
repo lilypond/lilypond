@@ -35,6 +35,7 @@
 #include "file-name.hh"
 #include "international.hh"
 #include "lookup.hh"            // debugging
+#include "ly-module.hh"
 #include "main.hh"
 #include "string-convert.hh"
 #include "warn.hh"

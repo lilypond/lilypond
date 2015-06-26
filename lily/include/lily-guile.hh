@@ -37,7 +37,6 @@
 #include "guile-compatibility.hh"
 #include "interval.hh"
 #include "lily-guile-macros.hh"
-#include "ly-module.hh"
 #include "std-vector.hh"
 
 /** Conversion functions follow the GUILE naming convention, i.e.
@@ -203,8 +202,6 @@ inline SCM ly_car (SCM x) { return SCM_CAR (x); }
 inline SCM ly_cdr (SCM x) { return SCM_CDR (x); }
 inline bool ly_is_pair (SCM x) { return SCM_I_CONSP (x); }
 
-#include "std-vector.hh"
-
 template<class T>
 SCM
 ly_cxx_vector_to_list (vector<T> const &src)
@@ -218,5 +215,11 @@ ly_cxx_vector_to_list (vector<T> const &src)
 
 SCM ly_offsets2scm (vector<Offset> os);
 vector<Offset> ly_scm2offsets (SCM s);
+
+/* For backward compatability with Guile 1.8 */
+#if !HAVE_GUILE_HASH_FUNC
+typedef SCM (*scm_t_hash_fold_fn) (GUILE_ELLIPSIS);
+typedef SCM (*scm_t_hash_handle_fn) (GUILE_ELLIPSIS);
+#endif
 
 #endif /* LILY_GUILE_HH */

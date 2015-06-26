@@ -23,6 +23,7 @@
 #include <math.h>
 
 #include "flower-proto.hh"
+#include "std-string.hh"
 #include "drul-array.hh"
 
 /* A T interval.  This represents the closed interval [left,right].
