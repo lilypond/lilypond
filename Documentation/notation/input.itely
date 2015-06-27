@@ -2688,6 +2688,8 @@ require additional software to produce sound from them.
 * Controlling MIDI dynamics::
 * Using MIDI instruments::
 * Using repeats with MIDI::
+* MIDI channel mapping::
+* Context properties for MIDI effects::
 * Enhancing MIDI output::
 @end menu
 
@@ -2718,6 +2720,10 @@ and portato
 @item Tremolos that are @emph{not} entered with a
 @q{@code{:}[@var{number}]} value
 @end itemize
+
+Panning, balance, expression, reverb and chorus effects can also be
+controlled by setting context properties,
+see @ref{Context properties for MIDI effects}.
 
 When combined with the @file{articulate} script the following,
 additional musical notation can be output to MIDI;
@@ -3019,10 +3025,6 @@ block;
 This example removes the effect of dynamics from the MIDI output.  Note:
 LilyPond's translation modules used for sound are called @q{performers}.
 
-@snippets
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-midi-output-to-one-channel-per-voice.ly}
-
 @seealso
 Learning Manual:
 @rlearning{Other sources of information}.
@@ -3152,6 +3154,214 @@ unfolded repeats for correct MIDI output.
 @seealso
 Notation Reference:
 @ref{Repeats}.
+
+
+@node MIDI channel mapping
+@subsection MIDI channel mapping
+
+@cindex MIDI Channels
+@cindex MIDI Tracks
+@funindex midiChannelMapping
+
+When generating a MIDI file from a score, LilyPond will automatically
+assign every note in the score to a MIDI channel, the one on which it
+should be played when it is sent to a MIDI device.  A MIDI channel has
+a number of controls available to select, for example, the instrument
+to be used to play the notes on that channel, or to request the MIDI
+device to apply various effects to the sound produced on the channel.
+At all times, every control on a MIDI channel can have only a single
+value assigned to it (which can be modified, however, for example,
+to switch to another instrument in the middle of a score).
+
+The MIDI standard supports only 16 channels per MIDI device.  This
+limit on the number of channels also limits the number of different
+instruments which can be played at the same time.
+
+LilyPond creates separate MIDI tracks for each staff, (or discrete
+instrument or voice, depending on the value of
+@code{Score.midiChannelMapping}), and also for each lyrics context.
+There is no limit to the number of tracks.
+
+To work around the limited number of MIDI channels, LilyPond supports
+a number of different modes for MIDI channel allocation, selected using
+the @code{Score.midiChannelMapping} context property.  In each case,
+if more MIDI channels than the limit are required, the allocated
+channel numbers wrap around back to 0, possibly causing the incorrect
+assignment of instruments to some notes.  This context property can be
+set to one of the following values:
+
+@table @var
+
+@item @code{'staff}
+
+Allocate a separate MIDI channel to each staff in the score (this is
+the default).  All notes in all voices contained within each staff will
+share the MIDI channel of their enclosing staff, and all are encoded
+in the same MIDI track.
+
+The limit of 16 channels is applied to the total number of staff and
+lyrics contexts, even though MIDI lyrics do not take up a MIDI channel.
+
+@item @code{'instrument}
+
+Allocate a separate MIDI channel to each distinct MIDI instrument
+specified in the score.  This means that all the notes played with the
+same MIDI instrument will share the same MIDI channel (and track), even
+if the notes come from different voices or staves.
+
+In this case the lyrics contexts do not count towards the MIDI channel
+limit of 16 (as they will not be assigned to a MIDI instrument), so
+this setting may allow a better allocation of MIDI channels when the
+number of staves and lyrics contexts in a score exceeds 16.
+
+@item @code{'voice}
+
+Allocate a separate MIDI channel to each voice in the score that has a
+unique name among the voices in its enclosing staff.  Voices in
+different staves are always assigned separate MIDI channels, but any two
+voices contained within the same staff will share the same MIDI channel
+if they have the same name.  Because @code{midiInstrument} and the
+several MIDI controls for effects are properties of the staff context,
+they cannot be set separately for each voice.  The first voice will be
+played with the instrument and effects specified for the staff, and
+voices with a different name from the first will be assigned the default
+instrument and effects.
+
+Note: different instruments and/or effects can be assigned to several
+voices on the same staff by moving the @code{Staff_performer} from the
+@code{Staff} to the @code{Voice} context, and leaving
+@code{midiChannelMapping} to default to @code{'staff} or set to
+@code{'instrument}; see the snippet below.
+
+@end table
+
+For example, the default MIDI channel mapping of a score can be changed
+to the @code{'instrument} setting as shown:
+
+@example
+\score @{
+  ...music...
+  \midi @{
+    \context @{
+      \Score
+      midiChannelMapping = #'instrument
+    @}
+  @}
+@}
+@end example
+
+@snippets
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{changing-midi-output-to-one-channel-per-voice.ly}
+
+
+@node Context properties for MIDI effects
+@subsection Context properties for MIDI effects
+
+@cindex Effects in MIDI
+@cindex Pan position in MIDI
+@cindex Stereo balance in MIDI
+@cindex Balance in MIDI
+@cindex Expression in MIDI
+@cindex Reverb in MIDI
+@cindex Chorus level in MIDI
+@funindex midiPanPosition
+@funindex midiBalance
+@funindex midiExpression
+@funindex midiReverbLevel
+@funindex midiChorusLevel
+
+The following context properties can be used to apply various MIDI
+effects to notes played on the MIDI channel associated with the
+current staff, MIDI instrument or voice (depending on the value of the
+@code{Score.midiChannelMapping} context property and the context in
+which the @code{Staff_performer} is located; see
+@ref{MIDI channel mapping}).
+
+Changing these context properties will affect all notes played on the
+channel after the change, however some of the effects may even apply
+also to notes which are already playing (depending on the
+implementation of the MIDI output device).
+
+The following context properties are supported:
+
+@table @var
+
+@item @code{Staff.midiPanPosition}
+
+The pan position controls how the sound on a MIDI channel is
+distributed between left and right stereo outputs.  The context
+property accepts a number between -1.0 (@code{#LEFT}) and 1.0
+(@code{#RIGHT}); the value -1.0 will put all sound power to the left
+stereo output (keeping the right output silent), the value 0.0
+(@code{#CENTER}) will distribute the sound evenly between the left and
+right stereo outputs, and the value 1.0 will move all sound to the
+right stereo output.  Values between -1.0 and 1.0 can be used to obtain
+mixed distributions between left and right stereo outputs.
+
+@item @code{Staff.midiBalance}
+
+The stereo balance of a MIDI channel.  Similarly to the pan position,
+this context property accepts a number between -1.0 (@code{#LEFT}) and
+1.0 (@code{#RIGHT}).  It varies the relative volume sent to the two
+stereo speakers without affecting the distribution of the stereo
+signals.
+
+@item @code{Staff.midiExpression}
+
+Expression level (as a fraction of the maximum available level) to
+apply to a MIDI channel.  A MIDI device combines the MIDI channel's
+expression level with a voice's current dynamic level (controlled using
+constructs such as @code{\p} or @code{\ff}) to obtain the total volume
+of each note within the voice.  The expression control could be used, for
+example, to implement crescendo or decrescendo effects over single
+sustained notes (not supported automatically by LilyPond).
+
+@c Issue 4059 contains an attached snippet which shows how this might
+@c be done, but this is too large and complex for the NR, even as a
+@c referenced snippet.  It could be added to the LSR.
+
+The expression level ranges from 0.0 (no expression, meaning zero
+volume) to 1.0 (full expression).
+
+@item @code{Staff.midiReverbLevel}
+
+Reverb level (as a fraction of the maximum available level) to apply
+to a MIDI channel.  This property accepts numbers between 0.0 (no
+reverb) and 1.0 (full effect).
+
+@item @code{Staff.midiChorusLevel}
+
+Chorus level (as a fraction of the maximum available level) to apply to
+a MIDI channel.  This property accepts numbers between 0.0 (no chorus
+effect) and 1.0 (full effect).
+
+@end table
+
+
+@knownissues
+
+As MIDI files do not contain any actual audio data, changes in these
+context properties translate only to requests for changing MIDI channel
+controls in the outputted MIDI files.  Whether a particular MIDI device
+(such as a software MIDI player) can actually handle any of these
+requests in a MIDI file is entirely up to the implementation of the
+device: a device may choose to ignore some or all of these requests.
+Also, how a MIDI device will interpret different values for these
+controls (generally, the MIDI standard fixes the behavior only at the
+endpoints of the value range available for each control), and whether a
+change in the value of a control will affect notes already playing on
+that MIDI channel or not, is also specific to the MIDI device
+implementation.
+
+When generating MIDI files, LilyPond will simply transform the
+fractional values within each range linearly into values in a
+corresponding (7-bit, or 14-bit for MIDI channel controls which support
+fine resolution) integer range (0-127 or 0-32767, respectively),
+rounding fractional values towards the nearest integer away from zero.
+The converted integer values are stored as-is in the generated MIDI
+file.  Please consult the documentation of your MIDI device for
+information about how the device interprets these values.
 
 
 @node Enhancing MIDI output
