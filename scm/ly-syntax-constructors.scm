@@ -35,10 +35,10 @@
   (let* ((sig (ly:music-function-signature fun))
          (pred (if (pair? (car sig)) (caar sig) (car sig))))
     (ly:parser-error
-                     (format #f (_ "~a function cannot return ~a")
-                             (type-name pred)
-                             (value->lily-string m))
-                     (*location*))
+     (format #f (_ "~a function cannot return ~a")
+             (type-name pred)
+             (value->lily-string m))
+     (*location*))
     (and (pair? (car sig)) (cdar sig))))
 
 ;; Music function: Apply function and check return value.
