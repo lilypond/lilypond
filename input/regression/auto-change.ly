@@ -13,7 +13,7 @@ note. When central C is reached, staff is not yet switched (by default).
 
 \context PianoStaff <<
   \context Staff = "up" {
-    \autochange  \new Voice << \relative { g4 c e d c r4 a g } >>
+    \autochange  \new Voice << \relative { g4 c e d c8 r r4 a g } >>
   }
   \context Staff = "down" {
     \clef bass 

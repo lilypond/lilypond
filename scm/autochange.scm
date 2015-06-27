@@ -30,7 +30,7 @@
                                               now)
                                           (if (< dir 0) "down" "up")) acc))
               (generate-split-list
-               (if pitch #f now)
+               (if pitch #f (if change-moment change-moment now))
                dir
                (cdr event-list) acc)))))
 
