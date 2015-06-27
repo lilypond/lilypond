@@ -204,20 +204,17 @@ into a @code{MultiMeasureTextEvent}."
 (define-public (lyric-event text duration)
   (here! (make-lyric-event text duration)))
 
-(define (lyric-combine-music sync sync-type music loc)
+(define-public (lyric-combine sync sync-type music)
   ;; CompletizeExtenderEvent is added following the last lyric in MUSIC
   ;; to signal to the Extender_engraver that any pending extender should
   ;; be completed if the lyrics end before the associated voice.
   (append! (ly:music-property music 'elements)
            (list (make-music 'CompletizeExtenderEvent)))
-  (make-music 'LyricCombineMusic
-              'element music
-              'associated-context sync
-              'associated-context-type sync-type
-              'origin loc))
-
-(define-public (lyric-combine voice typ music)
-  (lyric-combine-music voice typ music (*location*)))
+  (here!
+   (make-music 'LyricCombineMusic
+               'element music
+               'associated-context sync
+               'associated-context-type sync-type)))
 
 (define-public (add-lyrics music addlyrics-list)
   (let* ((existing-voice-name (get-first-context-id! music))
@@ -232,14 +229,15 @@ into a @code{MultiMeasureTextEvent}."
                                 'context-id voice-name
                                 'origin (ly:music-property music 'origin))))
          (voice-type (ly:music-property voice 'context-type))
-         (lyricstos (map (lambda (mus)
-                           (let* ((loc (ly:music-property mus 'origin))
-                                  (lyr (lyric-combine-music
-                                        voice-name voice-type mus loc)))
-                             (make-music 'ContextSpeccedMusic
-                                         'create-new #t
-                                         'context-type 'Lyrics
-                                         'element lyr
-                                         'origin loc)))
-                         addlyrics-list)))
+         (lyricstos (map
+                     (lambda (mus)
+                       (with-location
+                        (ly:music-property mus 'origin)
+                        (here! (make-music 'ContextSpeccedMusic
+                                           'create-new #t
+                                           'context-type 'Lyrics
+                                           'element
+                                           (lyric-combine
+                                            voice-name voice-type mus)))))
+                     addlyrics-list)))
     (make-simultaneous-music (cons voice lyricstos))))
