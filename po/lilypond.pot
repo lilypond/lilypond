@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.21\n"
+"Project-Id-Version: lilypond 2.19.22\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2015-05-24 13:11+0100\n"
+"POT-Creation-Date: 2015-06-28 14:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -161,7 +161,7 @@ msgstr ""
 
 #: convertrules.py:82 convertrules.py:1856 convertrules.py:2032
 #: convertrules.py:2175 convertrules.py:2506 convertrules.py:2801
-#: convertrules.py:3151 convertrules.py:3385 convertrules.py:3697
+#: convertrules.py:3151 convertrules.py:3388 convertrules.py:3700
 msgid "bump version for release"
 msgstr ""
 
@@ -771,15 +771,15 @@ msgid ""
 "handled.\n"
 msgstr ""
 
-#: convertrules.py:3369
+#: convertrules.py:3372
 msgid "beamExceptions controls whole-measure beaming."
 msgstr ""
 
-#: convertrules.py:3606
+#: convertrules.py:3609
 msgid "Flag.transparent and Flag.color inherit from Stem"
 msgstr ""
 
-#: convertrules.py:3672
+#: convertrules.py:3675
 msgid ""
 "Staff-padding now controls the distance to the baseline, not the nearest "
 "point."
@@ -1036,17 +1036,17 @@ msgstr ""
 msgid "Processing `%s'... "
 msgstr ""
 
-#: convert-ly.py:368
+#: convert-ly.py:366
 #, python-format
 msgid "%s: Unable to open file"
 msgstr ""
 
-#: convert-ly.py:374
+#: convert-ly.py:372
 #, python-format
 msgid "%s: Unable to determine version.  Skipping"
 msgstr ""
 
-#: convert-ly.py:380
+#: convert-ly.py:378
 #, python-format
 msgid ""
 "%s: Invalid version string `%s' \n"
@@ -1054,7 +1054,7 @@ msgid ""
 "`2.8.12'"
 msgstr ""
 
-#: convert-ly.py:386
+#: convert-ly.py:384
 #, python-format
 msgid "There was %d error."
 msgid_plural "There were %d errors."
@@ -1668,7 +1668,7 @@ msgstr ""
 msgid "accidental typesetting list must begin with context-name: %s"
 msgstr ""
 
-#: accidental-engraver.cc:210
+#: accidental-engraver.cc:207
 #, c-format
 msgid "procedure or context-name expected for accidental rule, found %s"
 msgstr ""
@@ -1695,11 +1695,6 @@ msgstr ""
 msgid "no heads for arpeggio found?"
 msgstr ""
 
-#: auto-change-iterator.cc:74 change-iterator.cc:72
-#, c-format
-msgid "cannot change, already in translator: %s"
-msgstr ""
-
 #: axis-group-engraver.cc:149
 msgid "Axis_group_engraver: vertical group already has a parent"
 msgstr ""
@@ -1712,12 +1707,12 @@ msgstr ""
 msgid "removing this vertical group"
 msgstr ""
 
-#: axis-group-interface.cc:714
+#: axis-group-interface.cc:716
 #, c-format
 msgid "\"%s\" is not a valid outside-staff-placement-directive"
 msgstr ""
 
-#: axis-group-interface.cc:786
+#: axis-group-interface.cc:788
 msgid "an outside-staff object should have a direction, defaulting to up"
 msgstr ""
 
@@ -1747,11 +1742,11 @@ msgid "beam was started here"
 msgstr ""
 
 #. We are completely screwed.
-#: beam-quanting.cc:839
+#: beam-quanting.cc:850
 msgid "no viable initial configuration found: may not find good beam slope"
 msgstr ""
 
-#: beam.cc:181
+#: beam.cc:183
 msgid "removing beam with no stems"
 msgstr ""
 
@@ -1761,22 +1756,24 @@ msgid "cannot change `%s' to `%s'"
 msgstr ""
 
 #. FIXME: constant error message.
-#: change-iterator.cc:93
+#: change-iterator.cc:67
 msgid "cannot find context to switch to"
 msgstr ""
 
+#. No enclosing context was found because the iterator's immediate
+#. context is the kind that was sought.
 #. We could change the current translator's id, but that would make
 #. errors hard to catch.
 #.
 #. last->translator_id_string () = get_change
 #. ()->change_to_id_string ();
-#: change-iterator.cc:102
+#: change-iterator.cc:78
 #, c-format
 msgid "not changing to same context type: %s"
 msgstr ""
 
 #. FIXME: uncomprehensable message
-#: change-iterator.cc:106
+#: change-iterator.cc:82
 msgid "none of these in my family"
 msgstr ""
 
@@ -1907,12 +1904,12 @@ msgstr ""
 msgid "flag stroke `%s' not found"
 msgstr ""
 
-#: font-config-scheme.cc:151 font-config.cc:53
+#: font-config-scheme.cc:151 font-config.cc:48
 #, c-format
 msgid "failed adding font directory: %s"
 msgstr ""
 
-#: font-config-scheme.cc:153 font-config.cc:55
+#: font-config-scheme.cc:153 font-config.cc:50
 #, c-format
 msgid "Adding font directory: %s"
 msgstr ""
@@ -1931,7 +1928,17 @@ msgstr ""
 msgid "Initializing FontConfig..."
 msgstr ""
 
-#: font-config.cc:58
+#: font-config.cc:57
+#, c-format
+msgid "failed adding fontconfig configuration file: %s"
+msgstr ""
+
+#: font-config.cc:60
+#, c-format
+msgid "Adding fontconfig configuration file: %s"
+msgstr ""
+
+#: font-config.cc:63
 msgid "Building font database..."
 msgstr ""
 
@@ -2000,7 +2007,7 @@ msgstr ""
 msgid "%d: %s"
 msgstr ""
 
-#: grob.cc:481
+#: grob.cc:493
 #, c-format
 msgid "ignored infinite %s-offset"
 msgstr ""
@@ -2039,7 +2046,7 @@ msgstr ""
 msgid "(search path: `%s')"
 msgstr ""
 
-#: input.cc:138 source-file.cc:180 source-file.cc:195
+#: input.cc:137 source-file.cc:180 source-file.cc:195
 msgid "position unknown"
 msgstr ""
 
@@ -2149,19 +2156,19 @@ msgstr ""
 msgid "Processing `%s'"
 msgstr ""
 
-#: lily-parser-scheme.cc:209
+#: lily-parser-scheme.cc:210
 msgid ""
 "ly:parser-parse-string is only valid with a new parser.  Use ly:parser-"
 "include-string instead."
 msgstr ""
 
-#: lily-parser-scheme.cc:240
+#: lily-parser-scheme.cc:241
 msgid ""
 "ly:parse-string-expression is only valid with a new parser.  Use ly:parser-"
 "include-string instead."
 msgstr ""
 
-#: lily-parser.cc:107
+#: lily-parser.cc:106
 msgid "Parsing..."
 msgstr ""
 
@@ -2174,7 +2181,7 @@ msgstr ""
 msgid "argument of \\lyricsto should contain Lyrics context"
 msgstr ""
 
-#: lyric-combine-music-iterator.cc:347
+#: lyric-combine-music-iterator.cc:343
 #, c-format
 msgid "cannot find %s `%s'"
 msgstr ""
@@ -2715,7 +2722,7 @@ msgstr ""
 msgid "Preprocessing graphical objects..."
 msgstr ""
 
-#: parse-scm.cc:128
+#: parse-scm.cc:124
 msgid "GUILE signaled an error for the expression beginning here"
 msgstr ""
 
@@ -2872,15 +2879,15 @@ msgstr ""
 msgid "Aborting"
 msgstr ""
 
-#: score.cc:160
+#: score.cc:161
 msgid "already have music in score"
 msgstr ""
 
-#: score.cc:161
+#: score.cc:163
 msgid "this is the previous music"
 msgstr ""
 
-#: score.cc:166
+#: score.cc:169
 msgid "errors found, ignoring music expression"
 msgstr ""
 
@@ -3091,115 +3098,115 @@ msgstr ""
 msgid "giving up"
 msgstr ""
 
-#: parser.yy:463 parser.yy:847 parser.yy:928 parser.yy:1150
+#: parser.yy:483 parser.yy:867 parser.yy:948 parser.yy:1169
 msgid "bad expression type"
 msgstr ""
 
-#: parser.yy:759 parser.yy:1361 parser.yy:1406
+#: parser.yy:779 parser.yy:1379 parser.yy:1424
 msgid "not a context mod"
 msgstr ""
 
-#: parser.yy:954
+#: parser.yy:974
 msgid "Missing music in \\score"
 msgstr ""
 
-#: parser.yy:991
+#: parser.yy:1011
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
 
-#: parser.yy:1027
+#: parser.yy:1047
 msgid "Spurious expression in \\score"
 msgstr ""
 
-#: parser.yy:1057
+#: parser.yy:1077
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1234
+#: parser.yy:1252
 msgid "music expected"
 msgstr ""
 
-#: parser.yy:1244 parser.yy:1278
+#: parser.yy:1262 parser.yy:1296
 msgid "unexpected post-event"
 msgstr ""
 
-#: parser.yy:1286
+#: parser.yy:1304
 msgid "Ignoring non-music expression"
 msgstr ""
 
-#: parser.yy:1587
+#: parser.yy:1605
 msgid "not a symbol"
 msgstr ""
 
-#: parser.yy:2337 parser.yy:2451 parser.yy:2464 parser.yy:2473
+#: parser.yy:2355 parser.yy:2469 parser.yy:2482 parser.yy:2491
 msgid "bad grob property path"
 msgstr ""
 
-#: parser.yy:2431
+#: parser.yy:2449
 msgid "only \\consists and \\remove take non-string argument."
 msgstr ""
 
-#: parser.yy:2492
+#: parser.yy:2510
 msgid "bad context property path"
 msgstr ""
 
-#: parser.yy:2593
+#: parser.yy:2606
 msgid "simple string expected"
 msgstr ""
 
-#: parser.yy:2611
+#: parser.yy:2624
 msgid "symbol expected"
 msgstr ""
 
-#: parser.yy:2747
+#: parser.yy:2760
 msgid "not a rhythmic event"
 msgstr ""
 
-#: parser.yy:2797
+#: parser.yy:2810
 msgid "post-event expected"
 msgstr ""
 
-#: parser.yy:2806 parser.yy:2811
+#: parser.yy:2819 parser.yy:2824
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:2887
+#: parser.yy:2900
 msgid "expecting string or post-event as script definition"
 msgstr ""
 
-#: parser.yy:2991
+#: parser.yy:3004
 msgid "not an articulation"
 msgstr ""
 
-#: parser.yy:3063 parser.yy:3106
+#: parser.yy:3076 parser.yy:3119
 msgid "not a duration"
 msgstr ""
 
-#: parser.yy:3127
+#: parser.yy:3140
 msgid "bass number expected"
 msgstr ""
 
-#: parser.yy:3219
+#: parser.yy:3232
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:3258
+#: parser.yy:3271
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:3301
+#: parser.yy:3314
 msgid "markup outside of text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3306
+#: parser.yy:3319
 msgid "unrecognized string, not in text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3458 parser.yy:3467
+#: parser.yy:3471 parser.yy:3480
 msgid "not an unsigned integer"
 msgstr ""
 
-#: parser.yy:3541
+#: parser.yy:3554
 msgid "not a markup"
 msgstr ""
 
@@ -3309,34 +3316,34 @@ msgstr ""
 msgid "`~a' failed (~a)\n"
 msgstr ""
 
-#: backend-library.scm:92
+#: backend-library.scm:108
 #, scheme-format
 msgid "Converting to `~a'...\n"
 msgstr ""
 
 #. Do not try to guess the name of the png file,
 #. GS produces PNG files like BASE-page%d.png.
-#: backend-library.scm:102
+#: backend-library.scm:118
 #, scheme-format
 msgid "Converting to ~a..."
 msgstr ""
 
-#: backend-library.scm:118
+#: backend-library.scm:134
 #, scheme-format
 msgid "Copying to `~a'...\n"
 msgstr ""
 
-#: backend-library.scm:184
+#: backend-library.scm:200
 #, scheme-format
 msgid "Deleting `~a'...\n"
 msgstr ""
 
-#: backend-library.scm:203
+#: backend-library.scm:219
 #, scheme-format
 msgid "Writing header field `~a' to `~a'..."
 msgstr ""
 
-#: backend-library.scm:252
+#: backend-library.scm:268
 #, scheme-format
 msgid "missing stencil expression `~S'"
 msgstr ""
@@ -3397,46 +3404,46 @@ msgstr ""
 msgid "Undefined parent event class `~S'"
 msgstr ""
 
-#: define-markup-commands.scm:1062
+#: define-markup-commands.scm:1083
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:2886
+#: define-markup-commands.scm:2907
 #, scheme-format
 msgid "Cannot find glyph ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3362
+#: define-markup-commands.scm:3383
 #, scheme-format
 msgid "no brace found for point size ~S "
 msgstr ""
 
-#: define-markup-commands.scm:3363
+#: define-markup-commands.scm:3384
 #, scheme-format
 msgid "defaulting to ~S pt"
 msgstr ""
 
-#: define-markup-commands.scm:3615
+#: define-markup-commands.scm:3636
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3826
+#: define-markup-commands.scm:3847
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
 
-#: define-music-types.scm:794
+#: define-music-types.scm:795
 #, scheme-format
 msgid "symbol expected: ~S"
 msgstr ""
 
-#: define-music-types.scm:797
+#: define-music-types.scm:798
 #, scheme-format
 msgid "cannot find music object: ~S"
 msgstr ""
 
-#: define-music-types.scm:817
+#: define-music-types.scm:818
 #, scheme-format
 msgid "bad make-music argument: ~S"
 msgstr ""
@@ -3556,103 +3563,103 @@ msgstr ""
 msgid "Error in beam quanting.  Expected ~S 0, found ~S."
 msgstr ""
 
-#: lily-library.scm:350
+#: lily-library.scm:344
 msgid "Music unsuitable for context-mod"
 msgstr ""
 
-#: lily-library.scm:405
+#: lily-library.scm:399
 #, scheme-format
 msgid "Cannot find context-def \\~a"
 msgstr ""
 
-#: lily-library.scm:421
+#: lily-library.scm:415
 msgid "Music unsuitable for output-def"
 msgstr ""
 
-#: lily-library.scm:921
+#: lily-library.scm:915
 msgid ""
 "Find the index between @var{start} and @var{end} (an integer)\n"
 "which produces the closest match to @var{target-val} if\n"
 "applied to function @var{getter}."
 msgstr ""
 
-#: lily-library.scm:1015
+#: lily-library.scm:1009
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr ""
 
-#: lily-library.scm:1040
+#: lily-library.scm:1034
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
 
-#: lily.scm:75
+#: lily.scm:90
 msgid "call-after-session used after session start"
 msgstr ""
 
-#: lily.scm:93
+#: lily.scm:108
 msgid "define-session used after session start"
 msgstr ""
 
-#: lily.scm:399
+#: lily.scm:414
 msgid "Using (ice-9 curried-definitions) module\n"
 msgstr ""
 
-#: lily.scm:402
+#: lily.scm:417
 msgid "Guile 1.8\n"
 msgstr ""
 
-#: lily.scm:459
+#: lily.scm:474
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:886
+#: lily.scm:901
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:887
+#: lily.scm:902
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:948
+#: lily.scm:963
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:951
+#: lily.scm:966
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:973 lily.scm:1062
+#: lily.scm:988 lily.scm:1077
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:1053
+#: lily.scm:1068
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
 
-#: lily.scm:1072 ps-to-png.scm:66
+#: lily.scm:1087
 #, scheme-format
 msgid "Invoking `~a'...\n"
 msgstr ""
 
-#: ly-syntax-constructors.scm:66
+#: ly-syntax-constructors.scm:38
 #, scheme-format
 msgid "~a function cannot return ~a"
 msgstr ""
 
-#: ly-syntax-constructors.scm:76
+#: ly-syntax-constructors.scm:69
 #, scheme-format
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr ""
 
-#: ly-syntax-constructors.scm:200
+#: ly-syntax-constructors.scm:191
 #, scheme-format
 msgid "Invalid property operation ~a"
 msgstr ""
@@ -3710,53 +3717,53 @@ msgstr ""
 msgid "More alternatives than repeats.  Junking excess alternatives"
 msgstr ""
 
-#: music-functions.scm:480
+#: music-functions.scm:479
 #, scheme-format
 msgid "bad grob property path ~a"
 msgstr ""
 
-#: music-functions.scm:779
+#: music-functions.scm:778
 msgid "Bad chord repetition"
 msgstr ""
 
-#: music-functions.scm:884
+#: music-functions.scm:883
 #, scheme-format
 msgid "music expected: ~S"
 msgstr ""
 
-#: music-functions.scm:1226
+#: music-functions.scm:1236
 #, scheme-format
 msgid "cannot find quoted music: `~S'"
 msgstr ""
 
-#: music-functions.scm:1366
+#: music-functions.scm:1373
 msgid "Add @var{octave-shift} to the octave of @var{pitch}."
 msgstr ""
 
-#: music-functions.scm:1429
+#: music-functions.scm:1436
 #, scheme-format
 msgid "Unknown octaveness type: ~S "
 msgstr ""
 
-#: music-functions.scm:1430
+#: music-functions.scm:1437
 msgid "Defaulting to 'any-octave."
 msgstr ""
 
-#: music-functions.scm:1822
+#: music-functions.scm:1829
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr ""
 
-#: music-functions.scm:2040
+#: music-functions.scm:2044
 msgid "Missing duration"
 msgstr ""
 
-#: music-functions.scm:2549
+#: music-functions.scm:2553
 #, scheme-format
 msgid "not a symbol list: ~a"
 msgstr ""
 
-#: music-functions.scm:2552
+#: music-functions.scm:2556
 #, scheme-format
 msgid "conflicting tag group ~a"
 msgstr ""
@@ -3785,23 +3792,23 @@ msgstr ""
 msgid "cannot find SVG font ~S"
 msgstr ""
 
-#: paper.scm:122
+#: paper.scm:121
 msgid "set-global-staff-size: not in toplevel scope"
 msgstr ""
 
-#: paper.scm:322
+#: paper.scm:321
 #, scheme-format
 msgid "This is not a \\layout {} object, ~S"
 msgstr ""
 
-#: paper.scm:330
+#: paper.scm:329
 #, scheme-format
 msgid "Unknown paper size: ~a"
 msgstr ""
 
 #. TODO: should raise (generic) exception with throw, and catch
 #. that in parse-scm.cc
-#: paper.scm:349
+#: paper.scm:348
 msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
 msgstr ""
 
@@ -3815,18 +3822,23 @@ msgstr ""
 msgid "supported clefs: ~a"
 msgstr ""
 
-#: parser-ly-from-scheme.scm:74
+#: parser-ly-from-scheme.scm:73
 msgid "error in #{ ... #}"
 msgstr ""
 
-#: part-combiner.scm:828
+#: part-combiner.scm:833
 #, scheme-format
 msgid "quoted music `~a' is empty"
 msgstr ""
 
-#: ps-to-png.scm:70
+#: ps-to-png.scm:72 ps-to-png.scm:75
 #, scheme-format
-msgid "~a exited with status: ~S"
+msgid "Copying `~a' to `~a'..."
+msgstr ""
+
+#: ps-to-png.scm:77 ps-to-png.scm:79
+#, scheme-format
+msgid "Deleting `~a'..."
 msgstr ""
 
 #: to-xml.scm:190
