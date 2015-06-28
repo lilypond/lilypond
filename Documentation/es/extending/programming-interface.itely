@@ -1341,12 +1341,12 @@ p. ej.:
 
 Las propiedades pueden fijarse también a un procedimiento de Scheme,
 
-@lilypond[fragment,verbatim,quote,relative=2]
+@lilypond[fragment,verbatim,quote]
 \override Stem.thickness = #(lambda (grob)
     (if (= UP (ly:grob-property grob 'direction))
         2.0
         7.0))
-c b a g b a g b
+\relative { c'' b a g b a g b }
 @end lilypond
 
 @noindent

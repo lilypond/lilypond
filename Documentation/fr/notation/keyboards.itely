@@ -404,11 +404,11 @@ Lorsqu'une voix change de portée, il est possible d'imprimer
 automatiquement une ligne reliant les notes, en faisant appel à la
 commande @code{\showStaffSwitch} :
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,verbatim]
 \new PianoStaff <<
   \new Staff = "one" {
     \showStaffSwitch
-    c1
+    c'1
     \change Staff = "two"
     b2 a
   }
@@ -517,13 +517,15 @@ pédale de @notation{sourdine} (@emph{una corda} ou @emph{U.C.}) et une
 pédale @notation{tonale} (@emph{sostenuto} ou @emph{sos.}).  La pédale
 @emph{sustain} se rencontre aussi sur les vibraphones et celestas.
 
-@lilypond[quote,verbatim,relative=2]
-c4\sustainOn d e g
-<c, f a>1\sustainOff
-c4\sostenutoOn e g c,
-<bes d f>1\sostenutoOff
-c4\unaCorda d e g
-<d fis a>1\treCorde
+@lilypond[quote,verbatim]
+\relative {
+  c''4\sustainOn d e g
+  <c, f a>1\sustainOff
+  c4\sostenutoOn e g c,
+  <bes d f>1\sostenutoOff
+  c4\unaCorda d e g
+  <d fis a>1\treCorde
+}
 @end lilypond
 
 @cindex pédale, styles d'indications de
@@ -544,15 +546,17 @@ deux.  @code{text} est le style de notation par défaut pour les pédales
 de tenue ou de sourdine --- le traditionnel @qq{*Ped.}.  La pédale
 tonale, en revanche, utilise @code{mixed} par défaut.
 
-@lilypond[quote,verbatim,relative=2]
-c4\sustainOn g c2\sustainOff
-\set Staff.pedalSustainStyle = #'mixed
-c4\sustainOn g c d
-d\sustainOff\sustainOn g, c2\sustainOff
-\set Staff.pedalSustainStyle = #'bracket
-c4\sustainOn g c d
-d\sustainOff\sustainOn g, c2
-\bar "|."
+@lilypond[quote,verbatim]
+\relative {
+  c''4\sustainOn g c2\sustainOff
+  \set Staff.pedalSustainStyle = #'mixed
+  c4\sustainOn g c d
+  d\sustainOff\sustainOn g, c2\sustainOff
+  \set Staff.pedalSustainStyle = #'bracket
+  c4\sustainOn g c d
+  d\sustainOff\sustainOn g, c2
+  \bar "|."
+}
 @end lilypond
 
 Le placement des commandes de pédale correspond au mouvement de la
@@ -693,10 +697,10 @@ c!1_\markup \concat \vcenter {
 
 ou bien sous forme de diagramme :
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \textLengthOn
-cis1_\markup { \harp-pedal #"^v-|vv-^" }
-c!1_\markup { \harp-pedal #"^o--|vv-^" }
+cis''1_\markup { \harp-pedal #"^v-|vv-^" }
+c''!1_\markup { \harp-pedal #"^o--|vv-^" }
 @end lilypond
 
 Bémol si la pédale est relâchée (ou en haut), bécarre si elle est

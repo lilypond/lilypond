@@ -16,12 +16,8 @@
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
-- unless you have a really good reason, use either
+- unless you have a really good reason, use
     @lilypond[verbatim,quote]
-  or
-    @lilypond[verbatim,quote,relative=2]
-
-  Don't use any other relative=X commands.
 
 - use "aes" and "ees" instead of "as" and "es".  I know it's not
   correct Dutch naming, but let's not confuse people with this
@@ -128,8 +124,8 @@ Nederlands.  Om andere namen te gebruiken voor
 @notation{verplaatsingstekens}, zie @ruser{Note names in
 other languages}.
 
-@lilypond[verbatim,quote,relative=2]
-cis4 ees fisis, aeses
+@lilypond[verbatim,quote]
+\relative { cis''4 ees fisis, aeses }
 @end lilypond
 
 @cindex toonsoort, zetten van
@@ -196,9 +192,11 @@ horen.
 
 In dit voorbeeld:
 
-@lilypond[verbatim,quote,relative=2]
-\key d \major
-cis4 d e fis
+@lilypond[verbatim,quote]
+\relative {
+  \key d \major
+  cis''4 d e fis
+}
 @end lilypond
 
 @noindent
@@ -212,9 +210,11 @@ veelmeer @qq{er is hier een noot met toonhoogte B-stamtoon.}
 In de toonsoort van A-mol majeur, krijgt hij bij het printen
 @emph{toch} een toevallig teken:
 
-@lilypond[verbatim,quote,relative=2]
-\key aes \major
-aes4 c b c
+@lilypond[verbatim,quote]
+\relative {
+  \key aes \major
+  aes'4 c b c
+}
 @end lilypond
 
 Als het bovenstaand voorbeeld verwarrend is, ga dan eens na:
@@ -262,8 +262,8 @@ Een @notation{overbinding} maak je door het toevoegen van
 een tilde @code{~} aan de eerste noot die overgebonden
 wordt.
 
-@lilypond[verbatim,quote,relative=2]
-g4~ 4 c2~ | 4~ 8 a~ 2 |
+@lilypond[verbatim,quote]
+\relative { g'4~ 4 c2~ | 4~ 8 a~ 2 | }
 @end lilypond
 
 @subheading Legatobogen
@@ -275,8 +275,8 @@ Een @notation{legatoboog} is een kromme, getrokken over een
 aantal noten.  De beginnoot en eindnoot worden gemarkeerd
 met respectievelijk @code{(} en @code{)}.
 
-@lilypond[verbatim,quote,relative=2]
-d4( c16) cis( d e c cis d) e( d4)
+@lilypond[verbatim,quote]
+\relative { d''4( c16) cis( d e c cis d) e( d4) }
 @end lilypond
 
 @subheading Fraseringsbogen
@@ -289,8 +289,8 @@ worden ingevoerd met @code{\(} en @code{\)}.  Je een
 tegelijkertijd gebruiken, maar je kunt geen gelijktijdige
 legatobogen of gelijktijdige fraseringsbogen gebruiken.
 
-@lilypond[verbatim,quote,relative=2]
-g4\( g8( a) b( c) b4\)
+@lilypond[verbatim,quote]
+\relative { g'4\( g8( a) b( c) b4\) }
 @end lilypond
 
 @smallspace
@@ -309,8 +309,8 @@ toonhoogte.  Legatobogen geven de speelwijze of
 gebruikt over grotere nootgroepen.  Legatobogen en
 overbindingen kunnen worden genest.
 
-@lilypond[verbatim,quote,relative=2]
-c4~( c8 d~ 4 e)
+@lilypond[verbatim,quote]
+\relative { c''4(~ c8 d~ 4 e) }
 @end lilypond
 
 
@@ -339,9 +339,11 @@ Algemene @notation{articulaties} kunnen worden toegevoegd
 aan een noot met een streepje @code{-} en een enkel
 karakter:
 
-@lilypond[verbatim,quote,relative=2]
-c4-^ c-+ c-- c-!
-c4-> c-. c2-_
+@lilypond[verbatim,quote]
+\relative {
+  c''4-^ c-+ c-- c-!
+  c4-> c-. c2-_
+}
 @end lilypond
 
 @subheading Vingerzetting
@@ -357,8 +359,8 @@ Op soortgelijke manier wordt een @notation{vingerzetting}
 aan een noot toegevoegd met een streepje (@code{-}) en het
 cijfer dat moet worden geprint:
 
-@lilypond[verbatim,quote,relative=2]
-c4-3 e-5 b-2 a-1
+@lilypond[verbatim,quote]
+\relative { c''4-3 e-5 b-2 a-1 }
 @end lilypond
 
 Je kunt meerdere articulaties bij dezelfde noot gebruiken.
@@ -369,8 +371,8 @@ streepje (@code{-}) te vervangen door @code{^} (boven) or
 beter om LilyPond de richting van de articulaties te laten
 uitzoeken.
 
-@lilypond[verbatim,quote,relative=2]
-c4_-^1 d^. f^4_2-> e^-_+
+@lilypond[verbatim,quote]
+\relative { c''4_-^1 d^. f^4_2-> e^-_+ }
 @end lilypond
 
 @subheading Dynamiek
@@ -398,8 +400,8 @@ Terminologie: @rglos{dynamics}, @rglos{crescendo},
 @notation{Dynamische} tekens maak je door het teken (met een
 backslash) aan de noot toe te voegen:
 
-@lilypond[verbatim,quote,relative=2]
-c4\ff c\mf c\p c\pp
+@lilypond[verbatim,quote]
+\relative { c''4\ff c\mf c\p c\pp }
 @end lilypond
 
 
@@ -409,8 +411,8 @@ dynamische teken, bijvoorbeeld @code{\f}, beïndigt de
 (de)crescendo maar je kunt ook het commando @code{\!}
 gebruiken:
 
-@lilypond[verbatim,quote,relative=2]
-c4\< c\ff\> c c\!
+@lilypond[verbatim,quote]
+\relative { c''4\< c\ff\> c c\! }
 @end lilypond
 
 
@@ -435,16 +437,16 @@ Notatiehandleiding:
 
 Je kunt tekst aan je muziek toevoegen door:
 
-@lilypond[verbatim,quote,relative=2]
-c2^"espr" a_"legato"
+@lilypond[verbatim,quote,fragment]
+c''2^"espr" a'_"legato"
 @end lilypond
 
 Extra formattering kan worden toegevoegd met het
 @code{\markup}-commando:
 
-@lilypond[verbatim,quote,relative=2]
-c2^\markup { \bold espr }
-a2_\markup {
+@lilypond[verbatim,quote,fragment]
+c''2^\markup { \bold espr }
+a'2_\markup {
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
 }
 @end lilypond
@@ -478,8 +480,8 @@ Terminologie: @rglos{beam}.
 
 Alle @notation{waardestrepen} worden automatisch getekend:
 
-@lilypond[verbatim,quote,relative=2]
-a8[ ais] d[ ees r d] c16 b a8
+@lilypond[verbatim,quote]
+\relative { a'8[ ais] d[ ees r d] c16 b a8 }
 @end lilypond
 
 Als de automatische waardestrepen je niet bevallen, kun je
@@ -496,11 +498,13 @@ zetten voor een bepaald stuk muziek, gebruik je het commando
 @code{\autoBeamOff} om de automatische waardestrepen uit te
 zetten en @code{\autoBeamOn} om ze weer aan te zetten.
 
-@lilypond[verbatim,quote,relative=2]
-\autoBeamOff
-a8 c b4 d8. c16 b4 |
-\autoBeamOn
-a8 c b4 d8. c16 b4 |
+@lilypond[verbatim,quote]
+\relative {
+  \autoBeamOff
+  a'8 c b4 d8. c16 b4 |
+  \autoBeamOn
+  a8 c b4 d8. c16 b4 |
+}
 @end lilypond
 
 
@@ -530,9 +534,11 @@ sleutelwoord @code{\partial}.  Het wordt gevolgd door een
 nootlengte: @code{\partial 4} is een opmaat van een kwart en
 @code{\partial 8} een achtste.
 
-@lilypond[verbatim,quote,relative=2]
-\partial 8 f8 |
-c2 d |
+@lilypond[verbatim,quote]
+\relative {
+  \partial 8 f''8 |
+  c2 d |
+}
 @end lilypond
 
 @c Note bene: duolen, triolen, kwartolen etc. worden anti-metrische
@@ -555,11 +561,13 @@ stuk muziek wordt vermenigvuldigd met de fractie.  Een triol
 maakt dat de noten 2/3 van hun lengte duren, dus een
 @notation{triool} heeft als fractie 2/3
 
-@lilypond[verbatim,quote,relative=2]
-\tuplet 3/2 { f8 g a }
-\tuplet 3/2 { c8 r c }
-\tuplet 3/2 { f,8 g16[ a g a] }
-\tuplet 3/2 { d4 a8 }
+@lilypond[verbatim,quote]
+\relative {
+  \tuplet 3/2 { f''8 g a }
+  \tuplet 3/2 { c8 r c }
+  \tuplet 3/2 { f,8 g16[ a g a] }
+  \tuplet 3/2 { d4 a8 }
+}
 @end lilypond
 
 @subheading Versieringen
@@ -585,10 +593,12 @@ commando, hoewel ze ook gemaakt kunenn worden door een het
 sleutelwoord @code{\appoggiatura} of @code{\acciaccatura}
 voor een muziekuitdrukking te zetten
 
-@lilypond[verbatim,quote,relative=2]
-c2 \grace { a32 b } c2 |
-c2 \appoggiatura b16 c2 |
-c2 \acciaccatura b16 c2 |
+@lilypond[verbatim,quote]
+\relative {
+  c''2 \grace { a32 b } c2 |
+  c2 \appoggiatura b16 c2 |
+  c2 \acciaccatura b16 c2 |
+}
 @end lilypond
 
 
@@ -643,8 +653,8 @@ Een noot tussen accolades zetten maakt er een
 een samengestelde muziekuitdrukking gemaakt die twee noten
 bevat:
 
-@lilypond[verbatim,quote,relative=2]
-{ a4 g4 }
+@lilypond[verbatim,quote]
+\relative { a'4 g4 }
 @end lilypond
 
 Een groep muziekuitdrukkingen (bijv. noten) tussen accolades
@@ -652,8 +662,8 @@ zetten betekent dat ze een sequentie zijn (d.w.z. de ene
 volgt op de vorige).  Het resultaat is een nieuwe
 muziekuitdrukking:
 
-@lilypond[verbatim,quote,relative=2]
-{ { a4 g } f4 g }
+@lilypond[verbatim,quote]
+\relative { { a'4 g } f4 g }
 @end lilypond
 
 @subheading Analogie: wiskundige uitdrukkingen
@@ -717,13 +727,11 @@ sequenties (die allemaal enkele noten bevatten) simultaan
 samengesteld:
 
 @lilypond[verbatim,quote]
-\relative {
-  <<
-    { a'2 g }
-    { f2 e }
-    { d2 b }
-  >>
-}
+<<
+  \relative { a'2 g }
+  \relative { f'2 e }
+  \relative { d'2 b }
+>>
 @end lilypond
 
 Merk op dat we elk niveau van de invoer met een ander aantal
@@ -788,12 +796,10 @@ muziek dat een op een notebalk hoort gemarkeerd door er
 met @code{<<} en @code{>>}:
 
 @lilypond[verbatim,quote]
-\relative {
-  <<
-    \new Staff { \clef "treble" c''4 }
-    \new Staff { \clef "bass" c,,4 }
-  >>
-}
+<<
+  \new Staff { \clef "treble" c''4 }
+  \new Staff { \clef "bass" c4 }
+>>
 @end lilypond
 
 Het commando @code{\new} opent een @q{notatiecontext.}  Een
@@ -823,12 +829,10 @@ instrumenten veel meer voorkomen dan polyritmische
 partituren.
 
 @lilypond[verbatim,quote]
-\relative {
-  <<
-    \new Staff { \clef "treble" \key d \major \time 3/4 c''4 }
-    \new Staff { \clef "bass" c,,4 }
-  >>
-}
+<<
+  \new Staff { \clef "treble" \key d \major \time 3/4 c''4 }
+  \new Staff { \clef "bass" c4 }
+>>
 @end lilypond
 
 
@@ -916,8 +920,8 @@ zetten.  Merk op dat alle noten in een accoord dezelfde
 lengte moeten hebben, en dat die lengte na de afsluitende
 haak komt.
 
-@lilypond[verbatim,quote,relative=2]
-r4 <c e g> <c f a>2
+@lilypond[verbatim,quote]
+\relative { r4 <c'' e g> <c f a>2 }
 @end lilypond
 
 Beschouw accoorden als vrijwel identiek aan enkele noten:

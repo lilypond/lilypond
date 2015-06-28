@@ -79,8 +79,8 @@
 
 基本的な譜コンテキストは @code{Staff} です:
 
-@lilypond[verbatim,quote,relative=2]
-\new Staff { c4 d e f }
+@lilypond[verbatim,quote]
+\new Staff \relative { c''4 d e f }
 @end lilypond
 
 @code{DrumStaff} コンテキストは、一般的なドラム セットのための 5 線譜を@c
@@ -100,15 +100,15 @@
 (ピッチは無視されますが) 演奏時間が保持されます。@c
 詳細は @ref{Showing melody rhythms} を参照してください。
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new RhythmicStaff { c4 d e f }
 @end lilypond
 
 @code{TabStaff} は、標準のギター チューニングの 6 弦のタブ譜を作成します。@c
 詳細は @ref{Default tablatures} を参照してください。
 
-@lilypond[verbatim,quote,relative=2]
-\new TabStaff { c4 d e f }
+@lilypond[verbatim,quote]
+\new TabStaff \relative { c''4 d e f }
 @end lilypond
 
 古代音楽の記譜法のために 2 つの譜コンテキストが用意されています:
@@ -119,8 +119,8 @@
 現代グレゴリア聖歌を記譜するための譜を作成します。@c
 これは小節線を譜刻しません。
 
-@lilypond[verbatim,quote,relative=2]
-\new GregorianTranscriptionStaff { c4 d e f e d }
+@lilypond[verbatim,quote]
+\new GregorianTranscriptionStaff \relative { c''4 d e f e d }
 @end lilypond
 
 新たに単一譜コンテキストを定義する場合があります。@c
@@ -183,38 +183,38 @@
 コンテキストが指定されていない場合、デフォルトのプロパティが使用されます:
 グループは垂直の線で始まり、小節線はつながりません。
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 <<
-  \new Staff { c1 c }
-  \new Staff { c1 c }
+  \new Staff \relative { c''1 c }
+  \new Staff \relative { c''1 c }
 >>
 @end lilypond
 
 @code{StaffGroup} コンテキストでは、グループは角括弧で始まり、@c
 小節線はすべての譜を貫いて刻譜されます。
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new StaffGroup <<
-  \new Staff { c1 c }
-  \new Staff { c1 c }
+  \new Staff \relative { c''1 c }
+  \new Staff \relative { c''1 c }
 >>
 @end lilypond
 
 @code{ChoirStaff} では、グループは角括弧で始まりますが、小節線はつながりません。
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new ChoirStaff <<
-  \new Staff { c1 c }
-  \new Staff { c1 c }
+  \new Staff \relative { c''1 c }
+  \new Staff \relative { c''1 c }
 >>
 @end lilypond
 
 @code{GrandStaff} では、グループは波括弧で始まり、小節線はすべての譜を貫きます。
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new GrandStaff <<
-  \new Staff { c1 c }
-  \new Staff { c1 c }
+  \new Staff \relative { c''1 c }
+  \new Staff \relative { c''1 c }
 >>
 @end lilypond
 
@@ -222,11 +222,11 @@
 例外として楽器名を刻譜することができます。@c
 詳細は @ref{Instrument names} を参照してください。
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new PianoStaff <<
   \set PianoStaff.instrumentName = #"Piano"
-  \new Staff { c1 c }
-  \new Staff { c1 c }
+  \new Staff \relative { c''1 c }
+  \new Staff \relative { \clef bass c1 c }
 >>
 @end lilypond
 
@@ -430,10 +430,12 @@ turned on with a @code{\paper} option.
 @code{\stopStaff} コマンドと @code{\startStaff} コマンドを使って、@c
 楽譜内の任意の場所で譜線を停止あるいは (再) 開始させることができます。
 
-@lilypond[verbatim,quote,relative=2]
-\stopStaff f4 d \startStaff g, e
-f'4 d \stopStaff g, e
-f'4 d \startStaff g, e
+@lilypond[verbatim,quote]
+\relative {
+  \stopStaff f''4 d \startStaff g, e
+  f'4 d \stopStaff g, e
+  f'4 d \startStaff g, e
+}
 @end lilypond
 +
 @predefined
@@ -447,14 +449,16 @@ f'4 d \startStaff g, e
 
 譜線の本数を変更することができます:
 
-@lilypond[verbatim,quote,relative=2]
-f4 d \stopStaff
-\override Staff.StaffSymbol.line-count = #2
-\startStaff g, e |
+@lilypond[verbatim,quote]
+\relative {
+  f''4 d \stopStaff
+  \override Staff.StaffSymbol.line-count = #2
+  \startStaff g, e |
 
-f'4 d \stopStaff
-\revert Staff.StaffSymbol.line-count
-\startStaff g, e |
+  f'4 d \stopStaff
+  \revert Staff.StaffSymbol.line-count
+  \startStaff g, e |
+}
 @end lilypond
 
 各譜線の位置を変更することもできます。@c
@@ -463,13 +467,15 @@ f'4 d \stopStaff
 1 つの値に対して 1 本の譜線が譜刻されるので、@c
 1 つのオーバライドで譜線の位置と本数を変更することができます。
 
-@lilypond[verbatim,quote,relative=2]
-f4 d \stopStaff
-\override Staff.StaffSymbol.line-positions = #'(1 3 5 -1 -3)
-\startStaff g, e |
-f'4 d \stopStaff
-\override Staff.StaffSymbol.line-positions = #'(8 6.5 -6 -8 -0.5)
-\startStaff g, e
+@lilypond[verbatim,quote]
+\relative {
+  f''4 d \stopStaff
+  \override Staff.StaffSymbol.line-positions = #'(1 3 5 -1 -3)
+  \startStaff g, e |
+  f'4 d \stopStaff
+  \override Staff.StaffSymbol.line-positions = #'(8 6.5 -6 -8 -0.5)
+  \startStaff g, e |
+}
 @end lilypond
 
 新しい譜線に対応して、@c
@@ -480,42 +486,46 @@ f'4 d \stopStaff
 デフォルトでは、加線 (訳者注: ledger line, 譜の上下に突き出た符頭と符幹に@c
 付けられる短い譜線) と符幹の太さも影響を受けます。@c
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Staff \with {
   \override StaffSymbol.thickness = #3
+} \relative {
+  f''4 d g, e
 }
-{ f4 d g, e }
 @end lilypond
 
 しかしながら、加線の太さを譜線の太さから独立して設定することができます。@c
 2 つの値は譜線の太さと譜線の間隔に掛け算され、@c
 それらを加算した値が加線の太さになります。
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Staff \with {
   \override StaffSymbol.thickness = #2
   \override StaffSymbol.ledger-line-thickness = #'(0.5 . 0.4)
+} \relative {
+  f'''4 a, a,, f
 }
-{ f'4 a, a,, f }
 @end lilypond
 
 加線の垂直方向の位置を変更することができます:
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Staff \with {
   \override StaffSymbol.ledger-positions = #'(-3 -2 -1 2 5 6)
+} \relative {
+  f'''4 a, a,, f
 }
-{ f'4 a, a,, f }
 @end lilypond
 
 符頭の位置と加線を持つ他の符頭との関係に応じて、@c
 符頭の上または下に追加の加線を配置することできます。
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Staff \with {
   \override StaffSymbol.ledger-extra = #4
+} \relative {
+  f'''4 a, d, f,
 }
-{ f'4 a, d, f, }
 @end lilypond
 
 譜の内部に加線を表示させることもできます。@c
@@ -536,11 +546,12 @@ d4 e f g
 
 譜線の間隔を変えることができます。この設定は加線の間隔にも影響を与えます。
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Staff \with {
   \override StaffSymbol.staff-space = #1.5
+} \relative {
+  f'''4 d, g, e,
 }
-{ f'4 d, g, e, }
 @end lilypond
 
 @snippets
@@ -895,27 +906,29 @@ d4 e f g
 @code{shortInstrumentName} の値がそれに続くすべての@c
 行の譜に対して使用されます。
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \new Staff \with {
   instrumentName = #"Violin "
   shortInstrumentName = #"Vln. "
+} \relative {
+  c'4.. g'16 c4.. g'16 \break | c1 |
 }
-{ c4.. g'16 c4.. g'16 \break | c1 }
 @end lilypond
 
 @cindex instrument names, complex (複雑な楽器名)
 
 @code{\markup} を用いて、より複雑な楽器名を作成することができます:
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Staff \with {
   instrumentName = \markup {
     \column { "Clarinetti"
       \line { "in B" \smaller \flat }
     }
   }
+} \relative {
+  c''4 c,16 d e f g2
 }
-{ c4 c,16 d e f g2 }
 @end lilypond
 
 @cindex instrument names, centering (楽器名を中央揃えする)
@@ -925,20 +938,20 @@ d4 e f g
 複数行にわたる楽器名を中央揃えするには、@c
 @code{\center-column} を用いる必要があります:
 
-@lilypond[verbatim,quote,indent=1.5\cm,relative=2]
+@lilypond[verbatim,quote,indent=1.5\cm]
 <<
   \new Staff \with {
     instrumentName = #"Flute"
-  }
-  { f2 g4 f }
+  } \relative {
+    f''2 g4 f
+}
   \new Staff \with {
     instrumentName = \markup {
       \center-column { "Clarinet"
         \line { "in B" \smaller \flat }
       }
     }
-  }
-  { c4 b c2 }
+  } \relative { c''4 b c2 }
 >>
 @end lilypond
 
@@ -951,26 +964,22 @@ d4 e f g
 を参照してください。
 
 @lilypond[verbatim,quote,ragged-right]
-\relative {
-  <<
-    \new Staff \with {
-      instrumentName = #"Alto Flute in G"
-      shortInstrumentName = #"Flt."
-    }
-    {
-      f''2 g4 f \break
-      g4 f g2
-    }
-    \new Staff \with {
-      instrumentName = #"Clarinet"
-      shortInstrumentName = #"Clar."
-    }
-    {
-      c,4 b c2 \break
-      c2 b4 c
-    }
-  >>
-}
+<<
+  \new Staff \with {
+    instrumentName = #"Alto Flute in G"
+    shortInstrumentName = #"Flt."
+  } \relative {
+    f''2 g4 f \break
+    g4 f g2
+  }
+  \new Staff \with {
+    instrumentName = #"Clarinet"
+    shortInstrumentName = #"Clar."
+  } \relative {
+    c''4 b c2 \break
+    c2 b4 c
+  }
+>>
 
 \layout {
   indent = 3.0\cm
@@ -1249,15 +1258,17 @@ LilyPond がクラッシュする可能性さえあります。
 合図音符をフォーマットする最も簡単な方法は、@c
 パートの中で明示的に @code{CueVoice} コンテキストを作成することです。
 
-@lilypond[verbatim,relative=1]
-R1
-<<
-  { e2\rest r4. e8 }
-  \new CueVoice {
-    \stemUp d'8^"flute" c d e fis2
-  }
->>
-d,4 r a r
+@lilypond[verbatim]
+\relative {
+  R1
+  <<
+    { e'2\rest r4. e8 }
+    \new CueVoice {
+      \stemUp d'8^"flute" c d e fis2
+    }
+  >>
+  d,4 r a r
+}
 @end lilypond
 
 音部記号の変更が必要で、合図音符に適切なサイズの音部記号を譜刻する場合、@c
@@ -1266,28 +1277,32 @@ d,4 r a r
 その後、@code{\cueClefUnset} コマンドを用いて、@c
 オリジナルの音部記号 -- 再度、適切なサイズにされた -- に戻すことができます。
 
-@lilypond[verbatim,noragged-right,relative=1]
-\clef "bass"
-R1
-<<
-  { e2\rest r4. \cueClefUnset e,8 }
-  \new CueVoice {
-    \cueClef "treble" \stemUp d''8^"flute" c d e fis2
-  }
->>
-d,,4 r a r
+@lilypond[verbatim,noragged-right]
+\relative {
+  \clef "bass"
+  R1
+  <<
+    { e'2\rest r4. \cueClefUnset e,8 }
+    \new CueVoice {
+      \cueClef "treble" \stemUp d''8^"flute" c d e fis2
+    }
+  >>
+  d,,4 r a r
+}
 @end lilypond
 
 必要があれば、@code{CueVoice} 無しで
 @code{\cueClef} コマンドと @code{\cueClefUnset} コマンドを用いることもできます。
 
-@lilypond[verbatim,noragged-right,relative=1]
-\clef "bass"
-R1
-\cueClef "treble"
-d'8^"flute" c d e fis2
-\cueClefUnset
-d,,4 r a r
+@lilypond[verbatim,noragged-right]
+\relative {
+  \clef "bass"
+  R1
+  \cueClef "treble"
+  d''8^"flute" c d e fis2
+  \cueClefUnset
+  d,,4 r a r
+}
 @end lilypond
 
 もっと複雑な合図音符

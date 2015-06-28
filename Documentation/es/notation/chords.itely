@@ -80,11 +80,13 @@ alturas absolutas son una octava más agudas que en el modo de notas.
 Se pueden mezclar los modos de acorde y de nota en la música
 secuencial:
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
-<c e g>2 <g b d>
-\chordmode { c2 f }
-<c e g>2 <g' b d>
-\chordmode { f2 g }
+@lilypond[verbatim,quote,ragged-right]
+\relative {
+  <c' e g>2 <g b d>
+  \chordmode { c2 f }
+  <c e g>2 <g' b d>
+  \chordmode { f2 g }
+}
 @end lilypond
 
 @seealso
@@ -486,7 +488,7 @@ Los silencios pasados a un contexto @code{ChordNames} hacen que se
 imprima el elemento de marcado @code{noChordSymbol} (símbolo de N.C.,
 Sin Acorde).
 
-@lilypond[verbatim, quote, relative=1]
+@lilypond[verbatim,quote]
 <<
   \new ChordNames \chordmode {
     c1

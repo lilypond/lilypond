@@ -114,10 +114,10 @@ construction de type accord @code{<>}.
 @warning{Les numéros de corde @strong{doivent} être définis dans une
 construction de type accord même s'il n'y a qu'une seule note.}
 
-@lilypond[verbatim,quote,relative=0]
+@lilypond[verbatim,quote,fragment]
 \clef "treble_8"
 c4\5 e\4 g2\3
-<c,\5 e\4 g\3>1
+<c\5 e\4 g\3>1
 @end lilypond
 
 Quand les indications de doigté et de numéro de corde sont attachées à
@@ -139,11 +139,12 @@ Les numéros de corde peuvent aussi, comme traditionnellement pour les
 cordes non frettées, s'imprimer en chiffres romains placés sous la
 portée plutôt qu'en surplomb.
 
-@lilypond[verbatim,quote,relative=2]
-c2\2
+@lilypond[verbatim,quote,fragment]
+\clef "treble_8"
+c'2\2
 a\3
 \romanStringNumbers
-c\2
+c'\2
 \set stringNumberOrientations = #'(down)
 a\3
 \arabicStringNumbers
@@ -1657,14 +1658,14 @@ l'instruction @code{\rightHandFinger} suivie d'un nombre.
 dans un accord, une espace @strong{doit} précéder la fermeture de la
 construction par un @code{>}.}
 
-@lilypond[quote,verbatim,relative=0]
+@lilypond[quote,verbatim,fragment]
 \clef "treble_8"
 c4\rightHandFinger #1
 e\rightHandFinger #2
 g\rightHandFinger #3
-c\rightHandFinger #4
-<c,\rightHandFinger #1 e\rightHandFinger #2
- g\rightHandFinger #3 c\rightHandFinger #4 >1
+c'\rightHandFinger #4
+<c\rightHandFinger #1 e\rightHandFinger #2
+ g\rightHandFinger #3 c'\rightHandFinger #4 >1
 @end lilypond
 
 Pour plus de clarté, vous pouvez traduire ou abréger la commande
@@ -1722,14 +1723,16 @@ GuitarTex.
 
 Cet exemple montre comment indiquer les positions et les barrés :
 
-@lilypond[quote,ragged-right,verbatim,relative=0]
-\clef "treble_8"
-b16 d g b e
-\textSpannerDown
-\override TextSpanner.bound-details.left.text = #"XII "
-g16\startTextSpan
-b16 e g e b g\stopTextSpan
-e16 b g d
+@lilypond[quote,ragged-right,verbatim,fragment]
+\relative {
+  \clef "treble_8"
+  b,16 d g b e
+  \textSpannerDown
+  \override TextSpanner.bound-details.left.text = #"XII "
+  g16\startTextSpan
+  b16 e g e b g\stopTextSpan
+  e16 b g d
+}
 @end lilypond
 
 @seealso

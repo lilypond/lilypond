@@ -54,23 +54,29 @@ Un acorde se forma encerrando un conjunto de notas entre @code{<} y
 @code{>}.  Un acorde puede ir seguido de una duración,
 como si fueran simples notas.
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1 <a c e>2 <f a c e>4 <a c>8. <g c e>16
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1 <a c e>2 <f a c e>4 <a c>8. <g c e>16
+}
 @end lilypond
 
 Los acordes también pueden ir seguidos de articulaciones, de nuevo como
 si fueran simples notas.
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1\fermata <a c e>2-> <f a c e>4\prall <a c>8.^! <g c e>16-.
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1\fermata <a c e>2-> <f a c e>4\prall <a c>8.^! <g c e>16-.
+}
 @end lilypond
 
 Las notas dentro del propio acorde también pueden ir seguidas
 de articulaciones y ornamentos.
 
-@lilypond[verbatim,quote,relative=2]
-<a c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4
-<a-+ c-->8. <g\fermata c e\turn>16
+@lilypond[verbatim,quote]
+\relative {
+  <a' c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4
+  <a-+ c-->8. <g\fermata c e\turn>16
+}
 @end lilypond
 
 Sin embargo, algunos elementos de notación tales como las
@@ -78,9 +84,11 @@ expresiones de matices dinámicos, los reguladores y las ligaduras
 de expresión, se deben unir al acorde y no a las notas que
 integran el mismo, pues en caso contrario no se imprimirán.
 
-@lilypond[verbatim,quote,relative=2]
-<a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>)
-<a c e>\< <a c e> <a c e>\!
+@lilypond[verbatim,quote]
+\relative {
+  <a'\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>)
+  <a c e>\< <a c e> <a c e>\!
+}
 @end lilypond
 
 @cindex acordes vacíos
@@ -95,10 +103,12 @@ se puede combinar con ellos (para ver posibilidades más complejas de
 combinaciones de estos elementos, consulte
 @ref{Expresiones simultáneas}):
 
-@lilypond[verbatim,quote,relative=2]
-\grace { g8( a b }
-<> ) \p \< -. -\markup \italic "sempre staccato"
-\repeat unfold 4 { c4 e }  c1\f
+@lilypond[verbatim,quote]
+\relative {
+  \grace { g'8( a b }
+  <> ) \p \< -. -\markup \italic "sempre staccato"
+  \repeat unfold 4 { c4 e }  c1\f
+}
 @end lilypond
 
 @cindex relativo, acordes en altura
@@ -111,8 +121,10 @@ la altura de la última nota que vino antes del acorde.
 El resto de las notas del acorde son relativas a la nota anterior
 @emph{dentro del mismo acorde}.
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1 <f a c> <a c e> <f' a c> <b, e b,>
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1 <f a c> <a c e> <f' a c> <b, e b,>
+}
 @end lilypond
 
 Para ver más información sobre los acordes, consulte @ref{Notación de acordes}.
@@ -164,16 +176,20 @@ Culsters o racimos; véase @ref{Racimos (clusters)}.
 Para reducir el tecleo, se puede usar una abreviatura de repetición
 del acorde anterior.  El símbolo de repetición de acordes es @code{q}:
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1 q <f a c>2 q
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1 q <f a c>2 q
+}
 @end lilypond
 
 Como en los acordes normales, el símbolo de repetición de acordes
 puede usarse con duraciones, articulaciones, elementos de marcado, ligaduras
 de expresión, barras, etc., pues sólo se duplican las notas del acorde precedente.
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1\p^"text" q2\<( q8)[-! q8.]\! q16-1-2-3 q8\prall
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1\p^"text" q2\<( q8)[-! q8.]\! q16-1-2-3 q8\prall
+}
 @end lilypond
 
 El símbolo de repetición de acordes
@@ -181,9 +197,11 @@ siempre recuerda la última ocurrencia de un acorde,
 por lo que es posible repetir el acorde más reciente
 incluso si se han escrito en medio otras notas que no están en un acorde, o silencios.
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1 c'4 q2 r8 q8 |
-q2 c, |
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1 c'4 q2 r8 q8 |
+  q2 c, |
+}
 @end lilypond
 
 Sin embargo, el símbolo de repetición de acordes no retiene los
@@ -261,15 +279,19 @@ se sitúan en pentagramas distintos.
 Los ejemplos siguientes muestran expresiones simultáneas sobre un solo
 pentagrama:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 \new Voice {  % explicit single voice
-  << { a4 b g2 } { d4 g c,2 } >>
+  << \relative { a'4 b g2 }
+     \relative { d'4 g c,2 } >>
 }
 @end lilypond
 
-@lilypond[quote,verbatim,relative=2]
-% single first note
-a << { a4 b g } { d4 g c, } >>
+@lilypond[quote,verbatim]
+\relative {
+  % single first note
+  a' << \relative { a'4 b g }
+       \relative { d'4 g c, } >>
+}
 @end lilypond
 
 Esto puede ser de utilidad si las secciones simultáneas tienen
@@ -279,8 +301,10 @@ articulaciones y cambios de propiedades que están dentro de @emph{un
 solo} contexto @samp{Voice} se recolectan y se representan en el orden
 musical:
 
-@lilypond[quote,verbatim,relative=2]
-<a c>4-.  <>-. << c a >>  << { c-. <c a> } { a s-. } >>
+@lilypond[quote,verbatim]
+\relative {
+  <a' c>4-.  <>-. << c a >>  << { c-. <c a> } { a s-. } >>
+}
 @end lilypond
 
 Tratar de poner más de una plica o barra de corchea, o distintas
@@ -290,9 +314,10 @@ de más de una voz.
 El ejemplo siguiente muestra cómo las expresiones simultáneas pueden
 generar varios pentagramas de forma implícita:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 % no single first note
-<< { a4 b g2 } { d4 g2 c,4 } >>
+<< \relative { a'4 b g2 }
+   \relative { d'4 g2 c,4 } >>
 @end lilypond
 
 Aquí no hay problema en tener distintas duraciones porque se
@@ -338,8 +363,8 @@ Un «cluster» o racimo indica que se deben tocar simultáneamente un
 conjunto de notas consecutivas.  Se escriben aplicando la función
 @code{\makeClusters} a una secuencia de acordes, p.ej.:
 
-@lilypond[quote,relative=2,verbatim]
-\makeClusters { <g b>2 <c g'> }
+@lilypond[quote,verbatim]
+\relative \makeClusters { <g' b>2 <c g'> }
 @end lilypond
 
 Se pueden mezclar en el mismo pentagrama notas normales y clusters,
@@ -407,12 +432,12 @@ La estructura básica necesaria para obtener varias voces
 independientes en un mismo pentagrama se ilustra en el ejemplo
 siguiente:
 
-@lilypond[quote,relative=3,verbatim]
+@lilypond[quote,verbatim]
 \new Staff <<
   \new Voice = "first"
-    { \voiceOne r8 r16 g e8. f16 g8[ c,] f e16 d }
+    \relative { \voiceOne r8 r16 g'' e8. f16 g8[ c,] f e16 d }
   \new Voice= "second"
-    { \voiceTwo d16 c d8~ 16 b c8~ 16 b c8~ 16 b8. }
+    \relative { \voiceTwo d''16 c d8~ 16 b c8~ 16 b c8~ 16 b8. }
 >>
 @end lilypond
 
@@ -448,10 +473,10 @@ los ángulos se asignan a distintas voces temporales.  Esto permite
 asignar la letra de forma continua a una voz antes, durante y después
 de la sección polifónica:
 
-@lilypond[quote, verbatim, relative=2]
-<<
+@lilypond[quote,verbatim]
+\relative <<
   \new Voice = "melody" {
-    a4
+    a'4
     <<
       {
         \voiceOne
@@ -487,11 +512,11 @@ los nombres fijos @code{"1"}, @code{"2"}, etc.
 
 El primer ejemplo podría haberse tipografiado de la manera siguiente:
 
-@lilypond[quote,relative=3,verbatim]
+@lilypond[quote,verbatim]
 <<
-  { r8 r16 g e8. f16 g8[ c,] f e16 d }
+  \relative { r8 r16 g'' e8. f16 g8[ c,] f e16 d }
   \\
-  { d16 c d8~ 16 b c8~ 16 b c8~ 16 b8. }
+  \relative { d''16 c d8~ 16 b c8~ 16 b c8~ 16 b8. }
 >>
 @end lilypond
 
@@ -507,13 +532,13 @@ ser la voz tres, que tiene las plicas hacia arriba tal y como
 queremos.  Se usan silencios de separación para evitar la aparición de
 silencios duplicados.
 
-@lilypond[quote,relative=3,verbatim]
+@lilypond[quote,verbatim]
 <<
-  { r8 g g  g g f16 ees f8 d }
+  \relative { r8 g'' g  g g f16 ees f8 d }
   \\
-  { ees,8 r ees r d r d r }
+  \relative { ees'8 r ees r d r d r }
   \\
-  { d'8 s c s bes s a s }
+  \relative { d''8 s c s bes s a s }
 >>
 @end lilypond
 
@@ -569,10 +594,10 @@ combinar en un solo contexto de voz, formando así acordes.  Para
 conseguirlo, las incorporamos dentro de una construcción de música
 simultánea, dentro de una voz creada explícitamente:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 \new Voice <<
-  { e4 f8 d e16 f g8 d4 }
-  { c4 d8 b c16 d e8 b4 }
+  \relative { e''4 f8 d e16 f g8 d4 }
+  \relative { c''4 d8 b c16 d e8 b4 }
 >>
 @end lilypond
 
@@ -617,15 +642,15 @@ Fragmentos de código:
 Se pueden aplicar colores y formas distintos a las voces para permitir
 identificarlas fácilmente:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  { \voiceOneStyle d4 c2 b4 }
+  \relative { \voiceOneStyle d''4 c2 b4 }
   \\
-  { \voiceTwoStyle e,2 e }
+  \relative { \voiceTwoStyle e'2 e }
   \\
-  { \voiceThreeStyle b2. c4 }
+  \relative { \voiceThreeStyle b2. c4 }
   \\
-  { \voiceFourStyle g'2 g }
+  \relative { \voiceFourStyle g'2 g }
 >>
 @end lilypond
 
@@ -689,18 +714,20 @@ verticalmente.  El ejemplo siguiente muestra tres circunstancias
 distintas, sobre los pulsos 1 y 3 en el primer compás y sobre el pulso
 1 del segundo compás, donde la combinación automática falla.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
-  {
-    c8 d e d c d c4
+  \relative {
+    c''8 d e d c d c4
     g'2 fis
-  } \\ {
-    c2 c8. b16 c4
+  } \\
+  \relative {
+    c''2 c8. b16 c4
     e,2 r
-  } \\ {
+  } \\
+  \relative {
     \oneVoice
     s1
-    e8 a b c d2
+    e'8 a b c d2
   }
 >>
 @end lilypond
@@ -709,19 +736,21 @@ Las cabezas de notas diferentes se pueden combinar como se muestra
 más abajo.  En este ejemplo las cabezas del pulso 1 del primer
 compás sí se combinan:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
-  {
+  \relative {
     \mergeDifferentlyHeadedOn
-    c8 d e d c d c4
+    c''8 d e d c d c4
     g'2 fis
-  } \\ {
-    c2 c8. b16 c4
+  } \\
+  \relative {
+    c''2 c8. b16 c4
     e,2 r
-  } \\ {
+  } \\
+  \relative {
     \oneVoice
     s1
-    e8 a b c d2
+    e'8 a b c d2
   }
 >>
 @end lilypond
@@ -732,20 +761,22 @@ sería difícil poder distinguirlas.
 También se pueden combinar cabezas con puntillos diferentes, como se
 muestra en el tercer pulso del primer compás:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  {
+  \relative {
     \mergeDifferentlyHeadedOn
     \mergeDifferentlyDottedOn
-    c8 d e d c d c4
+    c''8 d e d c d c4
     g'2 fis
-  } \\ {
-    c2 c8. b16 c4
+  } \\
+  \relative {
+    c''2 c8. b16 c4
     e,2 r
-  } \\ {
+  } \\
+  \relative {
     \oneVoice
     s1
-    e8 a b c d2
+    e'8 a b c d2
   }
 >>
 @end lilypond
@@ -760,21 +791,23 @@ a la nota que no se debe combinar.  Aquí, se aplica @code{\shiftOn}
 para mover el sol agudo fuera de la columna, y entonces
 @code{\mergeDifferentlyHeadedOn} hace su trabajo correctamente.
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  {
+  \relative {
     \mergeDifferentlyHeadedOn
     \mergeDifferentlyDottedOn
-    c8 d e d c d c4
+    c''8 d e d c d c4
     \shiftOn
     g'2 fis
-  } \\ {
-    c2 c8. b16 c4
+  } \\
+  \relative {
+    c''2 c8. b16 c4
     e,2 r
-  } \\ {
+  } \\
+  \relative {
     \oneVoice
     s1
-    e8 a b c d2
+    e'8 a b c d2
   }
 >>
 @end lilypond
@@ -877,11 +910,11 @@ El uso de @code{\override NoteColumn.ignore-collision = ##t} hace
 que las notas con distinta cabeza en voces diferentes se mezclen
 incorrectamente.
 
-@lilypond[quote,relative=1,verbatim]
+@lilypond[quote,verbatim,fragment]
 \mergeDifferentlyHeadedOn
-<< { c16 a' b a } \\ { c,2 } >>
+<< \relative { c'16 a' b a } \\ \relative { c'2 } >>
 \override NoteColumn.ignore-collision = ##t
-<< { c16 a' b a } \\ { c,2 } >>
+<< \relative { c'16 a' b a } \\ \relative { c'2 } >>
 @end lilypond
 
 @ignore

@@ -1153,9 +1153,9 @@ exemple, en lisant le code qui suit, à ce que toutes les têtes de note
 soient en rouge, alors que le résultat nous présente deux portées et que
 les notes, placées sur la portée inférieure, restent en noir.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \override Staff.NoteHead.color = #red
-\new Staff { a }
+\new Staff { a' }
 @end lilypond
 
 Étant donné qu'aucun contexte @code{Staff} n'existe lorsque la
@@ -1165,10 +1165,10 @@ appliquer la directive considérée.  Survient alors la commande
 contenir les notes qui suivent.  Voici la syntaxe correcte pour obtenir
 ces notes en rouge :
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 \new Staff {
   \override Staff.NoteHead.color = #red
-  a
+  a'
 }
 @end lilypond
 

@@ -59,32 +59,40 @@ zwischen spitze Klammern (@code{<} und @code{>}) gesetzt werden.
 Auf einen Akkord kann eine Dauer-Angabe folgen, genauso wie bei
 einfachen Noten.
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1 <a c e>2 <f a c e>4 <a c>8. <g c e>16
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1 <a c e>2 <f a c e>4 <a c>8. <g c e>16
+}
 @end lilypond
 
 Akkorde können auch von Artikulationen gefolgt werden, genau wie
 auch einfache Noten.
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1\fermata <a c e>2-> <f a c e>4\prall <a c>8.^! <g c e>16-.
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1\fermata <a c e>2-> <f a c e>4\prall <a c>8.^! <g c e>16-.
+}
 @end lilypond
 
 Die Noten innerhalb der Akkorde konnen auch von Artikulationen oder
 Ornamenten gefolgt werden.
 
-@lilypond[verbatim,quote,relative=2]
-<a c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4
-<a-+ c-->8. <g\fermata c e\turn>16
+@lilypond[verbatim,quote]
+\relative {
+  <a' c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4
+  <a-+ c-->8. <g\fermata c e\turn>16
+}
 @end lilypond
 
 Manche Notationselemente, wie etwa Dynamik, Crescendo-Klammern und
 Legatobögen müssen an den gesamten Akkord gehängt werden und nicht
 an einzelne Noten, damit sie ausgegeben werden.
 
-@lilypond[verbatim,quote,relative=2]
-<a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>)
-<a c e>\< <a c e> <a c e>\!
+@lilypond[verbatim,quote]
+\relative {
+  <a'\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>)
+  <a c e>\< <a c e> <a c e>\!
+}
 @end lilypond
 
 Ein Akkord ist sozusagen ein Container für die Noten, ihre Artikulationen
@@ -95,10 +103,12 @@ Note oder der folgende Akkord und werden damit kombiniert (für
 komplexere Möglichkeiten, derartige Elemente zu kombinieren, siehe
 @ref{Gleichzeitige Ausdrücke}.
 
-@lilypond[verbatim,quote,relative=2]
-\grace { g8( a b }
-<> ) \p \< -. -\markup \italic "sempre staccato"
-\repeat unfold 4 { c4 e }  c1\f
+@lilypond[verbatim,quote]
+\relative {
+  \grace { g'8( a b }
+  <> ) \p \< -. -\markup \italic "sempre staccato"
+  \repeat unfold 4 { c4 e }  c1\f
+}
 @end lilypond
 
 @cindex relative Tonhöhe, Akkorde
@@ -110,8 +120,10 @@ vorherigen Akkordes, oder mit der Tonhöhe der letzten Note vor dem
 Akkord (wenn kein Akkord vorhergeht).  Alle anderen Noten innerhalb
 des Akkordes sind relativ zu der Note vorher innerhalb des selben Akkordes.
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1 <f a c> <a c e> <f' a c> <b, e b,>
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1 <f a c> <a c e> <f' a c> <b, e b,>
+}
 @end lilypond
 
 Mehr Information über Akkorden findet sich in @ref{Notation von Akkorden}.
@@ -163,8 +175,10 @@ Cluster, siehe @ref{Cluster}.
 Um Schreibarbeit zu ersparen, kann ein Zeichen benutzt werden, um den
 vorhergehenden Akkord zu wiederholen.  Das Symbol hierzu ist @code{q}:
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1 q <f a c>2 q
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1 q <f a c>2 q
+}
 @end lilypond
 
 Genauso wie normale Akkorde kann auch das Akkord-Wiederholungssymbol
@@ -172,8 +186,10 @@ in Verbindung mit Tondauern, Artikulationen, Beschriftungen, Legatobögen,
 Balken usw. benutzt werden, weil nur die Tonhöhen des vorangehenden
 Akkordes wiederholgt werden.
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1\p^"text" q2\<( q8)[-! q8.]\! q16-1-2-3 q8\prall
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1\p^"text" q2\<( q8)[-! q8.]\! q16-1-2-3 q8\prall
+}
 @end lilypond
 
 Das Akkordwiederholungssymbol erinnert sich an das letzte Vorkommen
@@ -181,9 +197,11 @@ eines Akkordes, sodass man den letzten Akkord wiederholen kann, auch
 wenn in der Zwischenzeit nicht-Akkord-Noten oder -Pause auftetreten
 sind.
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1 c'4 q2 r8 q8 |
-q2 c, |
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1 c'4 q2 r8 q8 |
+  q2 c, |
+}
 @end lilypond
 
 Das Akkord-Wiederholungssymbol behält keine Dynamikzeichen, Artikulationen
@@ -262,15 +280,19 @@ Systemen gesetzt.
 Das nächste Beispiel zeigt simultane Konstruktionen auf einem
 System:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 \new Voice {  % explicit single voice
-  << { a4 b g2 } { d4 g c,2 } >>
+  << \relative { a'4 b g2 }
+     \relative { d'4 g c,2 } >>
 }
 @end lilypond
 
-@lilypond[quote,verbatim,relative=2]
-% single first note
-a << { a4 b g } { d4 g c, } >>
+@lilypond[quote,verbatim]
+\relative {
+  % single first note
+  a' << \relative { a'4 b g }
+       \relative { d'4 g c, } >>
+}
 @end lilypond
 
 Dass kann benutzt werden, wenn die simultanen Abschnitte einen
@@ -280,8 +302,10 @@ Fehlermeldungen.  Noten, Artikulationen und Eigenschaftsänderungen
 in einer @emph{einzelnen} @samp{Voice} werden gesammelt und
 in musikalischer Reihenfolge gesetzt:
 
-@lilypond[quote,verbatim,relative=2]
-<a c>4-.  <>-. << c a >>  << { c-. <c a> } { a s-. } >>
+@lilypond[quote,verbatim]
+\relative {
+  <a' c>4-.  <>-. << c a >>  << { c-. <c a> } { a s-. } >>
+}
 @end lilypond
 
 Mehrfache Hälse oder Balken oder unterschiedliche Notendauern
@@ -291,9 +315,10 @@ Einsatz von mehreren Stimmen.
 Das nächste Beispiel zeigt, wie ein simultaner Ausdruck implizit
 mehrere Systeme erstellt:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 % no single first note
-<< { a4 b g2 } { d4 g2 c,4 } >>
+<< \relative { a'4 b g2 }
+   \relative { d'4 g2 c,4 } >>
 @end lilypond
 
 In diesem Fall stellt der unterschiedliche Rhythmus kein Problem dar,
@@ -339,8 +364,8 @@ Zusammenfassung einer ganzen Anzahl von Noten.  Sie werden notiert,
 indem die Funktion @code{\makeClusters} auf eine Reihe von Akkorden
 angewendet wird:
 
-@lilypond[quote,relative=2,verbatim]
-\makeClusters { <g b>2 <c g'> }
+@lilypond[quote,verbatim]
+\relative \makeClusters { <g' b>2 <c g'> }
 @end lilypond
 
 Normale Noten und Cluster können zusammen im selben System notiert
@@ -413,12 +438,12 @@ Die grundlegende Struktur, die man benötigt, um mehrere
 unabhängige Stimmen in einem Notensystem zu setzen,
 ist im Beispiel unten dargestellt:
 
-@lilypond[quote,relative=3,verbatim]
+@lilypond[quote,verbatim]
 \new Staff <<
   \new Voice = "first"
-    { \voiceOne r8 r16 g e8. f16 g8[ c,] f e16 d }
+    \relative { \voiceOne r8 r16 g'' e8. f16 g8[ c,] f e16 d }
   \new Voice= "second"
-    { \voiceTwo d16 c d8~ 16 b c8~ 16 b c8~ 16 b8. }
+    \relative { \voiceTwo d''16 c d8~ 16 b c8~ 16 b c8~ 16 b8. }
 >>
 @end lilypond
 
@@ -453,10 +478,10 @@ der eckigen Klammern werden anderen Stimmennummern zugewiesen.
 Damit lassen sich auch Gesangstexte einer durchgehenden Stimme
 vor, während und nach dem polyphonen Abschnitt zuweisen:
 
-@lilypond[quote, verbatim, relative=2]
-<<
+@lilypond[quote,verbatim]
+\relative <<
   \new Voice = "melody" {
-    a4
+    a'4
     <<
       {
         \voiceOne
@@ -495,11 +520,11 @@ erstellt und haben die festen Bezeichnungen @code{"1"},
 
 Das erste Beispiel könnte also auch wie folgt notiert werden:
 
-@lilypond[quote,relative=3,verbatim]
+@lilypond[quote,verbatim]
 <<
-  { r8 r16 g e8. f16 g8[ c,] f e16 d }
+  \relative { r8 r16 g'' e8. f16 g8[ c,] f e16 d }
   \\
-  { d16 c d8~ 16 b c8~ 16 b c8~ 16 b8. }
+  \relative { d''16 c d8~ 16 b c8~ 16 b c8~ 16 b8. }
 >>
 @end lilypond
 
@@ -516,13 +541,13 @@ notiert, damit sie die Eigenschaften von @code{voiceThree}
 zugewiesen bekommt.  Unsichtbare Pause werden eingesetzt, damit
 keine doppelten Pausen ausgegeben werden.
 
-@lilypond[quote,relative=3,verbatim]
+@lilypond[quote,verbatim]
 <<
-  { r8 g g  g g f16 ees f8 d }
+  \relative { r8 g'' g  g g f16 ees f8 d }
   \\
-  { ees,8 r ees r d r d r }
+  \relative { ees'8 r ees r d r d r }
   \\
-  { d'8 s c s bes s a s }
+  \relative { d''8 s c s bes s a s }
 >>
 @end lilypond
 
@@ -578,10 +603,10 @@ sich Akkorde ergeben.  Um das zu erreichen, müssen sie einfach
 von spitzen Klammern innerhalb einer expliziten Stimme
 umgeben werden:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 \new Voice <<
-  { e4 f8 d e16 f g8 d4 }
-  { c4 d8 b c16 d e8 b4 }
+  \relative { e''4 f8 d e16 f g8 d4 }
+  \relative { c''4 d8 b c16 d e8 b4 }
 >>
 @end lilypond
 
@@ -629,15 +654,15 @@ Schnipsel:
 Stimmen können unterschiedliche Farben erhalten, um einfach
 erkennbar zu sein:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  { \voiceOneStyle d4 c2 b4 }
+  \relative { \voiceOneStyle d''4 c2 b4 }
   \\
-  { \voiceTwoStyle e,2 e }
+  \relative { \voiceTwoStyle e'2 e }
   \\
-  { \voiceThreeStyle b2. c4 }
+  \relative { \voiceThreeStyle b2. c4 }
   \\
-  { \voiceFourStyle g'2 g }
+  \relative { \voiceFourStyle g'2 g }
 >>
 @end lilypond
 
@@ -705,18 +730,20 @@ folgende Beispiel zeigt drei unterschiedliche Situationen, auf
 Taktposition 1 und 3 in Takt 1 und Taktposition 1 in Takt 2, wo das
 automatische Verschmelzen nicht funktioniert.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
-  {
-    c8 d e d c d c4
+  \relative {
+    c''8 d e d c d c4
     g'2 fis
-  } \\ {
-    c2 c8. b16 c4
+  } \\
+  \relative {
+    c''2 c8. b16 c4
     e,2 r
-  } \\ {
+  } \\
+  \relative {
     \oneVoice
     s1
-    e8 a b c d2
+    e'8 a b c d2
   }
 >>
 @end lilypond
@@ -726,19 +753,21 @@ werden, mit der Ausnahme von Halben- und Viertelnotenköpfen, wie
 im Beispiel unten gezeigt.  Hier werden die Notenköpfe auf Taktposition
 1 im ersten Takt verschmolzen:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
-  {
+  \relative {
     \mergeDifferentlyHeadedOn
-    c8 d e d c d c4
+    c''8 d e d c d c4
     g'2 fis
-  } \\ {
-    c2 c8. b16 c4
+  } \\
+  \relative {
+    c''2 c8. b16 c4
     e,2 r
-  } \\ {
+  } \\
+  \relative {
     \oneVoice
     s1
-    e8 a b c d2
+    e'8 a b c d2
   }
 >>
 @end lilypond
@@ -746,20 +775,22 @@ im Beispiel unten gezeigt.  Hier werden die Notenköpfe auf Taktposition
 Auch Köpfe mit unterschiedlichen Punktierungen wie auf Taktposition
 3 im ersten Takt können verschmolzen werden:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  {
+  \relative {
     \mergeDifferentlyHeadedOn
     \mergeDifferentlyDottedOn
-    c8 d e d c d c4
+    c''8 d e d c d c4
     g'2 fis
-  } \\ {
-    c2 c8. b16 c4
+  } \\
+  \relative {
+    c''2 c8. b16 c4
     e,2 r
-  } \\ {
+  } \\
+  \relative {
     \oneVoice
     s1
-    e8 a b c d2
+    e'8 a b c d2
   }
 >>
 @end lilypond
@@ -777,21 +808,23 @@ Kolumne zu entfernen.  Jetzt funktioniert
 @code{\mergeDifferentlyHeadedOn} (verschmelze Noten mit unterschiedlichen
 Köpfen) so wie es soll.
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  {
+  \relative {
     \mergeDifferentlyHeadedOn
     \mergeDifferentlyDottedOn
-    c8 d e d c d c4
+    c''8 d e d c d c4
     \shiftOn
     g'2 fis
-  } \\ {
-    c2 c8. b16 c4
+  } \\
+  \relative {
+    c''2 c8. b16 c4
     e,2 r
-  } \\ {
+  } \\
+  \relative {
     \oneVoice
     s1
-    e8 a b c d2
+    e'8 a b c d2
   }
 >>
 @end lilypond
@@ -892,11 +925,11 @@ Die Benutzung von @code{\override NoteColumn.ignore-collision = ##t}
 führt dazu, dass Noten mit unterschiedlichen Köpfen in unterschiedlichen
 Stimmen falsch verschmolzen werden.
 
-@lilypond[quote,relative=1,verbatim]
+@lilypond[quote,verbatim,fragment]
 \mergeDifferentlyHeadedOn
-<< { c16 a' b a } \\ { c,2 } >>
+<< \relative { c'16 a' b a } \\ \relative { c'2 } >>
 \override NoteColumn.ignore-collision = ##t
-<< { c16 a' b a } \\ { c,2 } >>
+<< \relative { c'16 a' b a } \\ \relative { c'2 } >>
 @end lilypond
 
 @ignore

@@ -69,21 +69,25 @@ Notendauern bis hin zu 128steln sind unterstützt. Kürzere Notenwerte können
 auch notiert werden, können allerdings nur als Noten mit Balken auftreten.
 
 @c Two 64th notes are needed to obtain beams
-@lilypond[quote,verbatim,relative=2]
-\time 8/1
-c\longa c\breve c1 c2
-c4 c8 c16 c32 c64 c128 c128
+@lilypond[quote,verbatim]
+\relative {
+  \time 8/1
+  c''\longa c\breve c1 c2
+  c4 c8 c16 c32 c64 c128 c128
+}
 @end lilypond
 
 Hier die selben Notendauern ohne die Balken.
 
 @c not strictly "writing rhythms"; more of a "displaying" thing,
 @c but it's ok here.  -gp
-@lilypond[quote,verbatim,relative=2]
-\time 8/1
-\autoBeamOff
-c\longa c\breve c1 c2
-c4 c8 c16 c32 c64 c128 c128
+@lilypond[quote,verbatim]
+\relative {
+  \time 8/1
+  \autoBeamOff
+  c''\longa c\breve c1 c2
+  c4 c8 c16 c32 c64 c128 c128
+}
 @end lilypond
 
 Eine Note mit der vierfachen Dauer einer Brevis kann mit dem
@@ -99,8 +103,8 @@ Wenn die Dauer hinter einer Notenbezeichnung nicht angegeben ist,
 wird die Dauer der vorhergehenden Note eingesetzt.  Der Standardwert
 für die erste Note ist eine Viertel.
 
-@lilypond[quote,verbatim,relative=2]
-a a a2 a a4 a a1 a
+@lilypond[quote,verbatim]
+\relative { a' a a2 a a4 a a1 a }
 @end lilypond
 
 @funindex .
@@ -114,8 +118,8 @@ Um punktierte Notendauern zu erhalten, muss einfach nur ein Punkt
 (@code{.}) hinter die Zahl der Dauer gesetzt werden.  Zwei Punkte
 ergeben eine doppelte Punktierung, usw.
 
-@lilypond[quote,verbatim,relative=2]
-a4 b c4. b8 a4. b4.. c8.
+@lilypond[quote,verbatim]
+\relative { a'4 b c4. b8 a4. b4.. c8. }
 @end lilypond
 
 Manche Notenlängen können nicht mit binären Dauern und Punkten
@@ -240,9 +244,11 @@ ausgegeben werden, siehe @ref{Richtung und Platzierung}.
 
 N-tolen können ineinander geschachtelt werden:
 
-@lilypond[quote,verbatim,relative=2]
-\autoBeamOff
-c4 \tuplet 5/4 { f8 e f \tuplet 3/2 { e[ f g] } } f4
+@lilypond[quote,verbatim]
+\relative {
+  \autoBeamOff
+  c''4 \tuplet 5/4 { f8 e f \tuplet 3/2 { e[ f g] } } f4
+}
 @end lilypond
 
 Wenn man die Eigenschaften von N-tolen verändern will, die zum
@@ -349,16 +355,18 @@ Skalierungsfaktoren übernommen.
 Im nächsten Beispiel nehmen die drei ersten Noten genau zwei Schläge ein,
 aber es wird keine Triolenklammer über ihnen ausgegeben.
 
-@lilypond[quote,relative=2,verbatim]
-\time 2/4
-% Alter durations to triplets
-a4*2/3 gis a
-% Normal durations
-a4 a
-% Double the duration of chord
-<a d>4*2
-% Duration of quarter, appears like sixteenth
-b16*4 c4
+@lilypond[quote,verbatim]
+\relative {
+  \time 2/4
+  % Alter durations to triplets
+  a'4*2/3 gis a
+  % Normal durations
+  a4 a
+  % Double the duration of chord
+  <a d>4*2
+  % Duration of quarter, appears like sixteenth
+  b16*4 c4
+}
 @end lilypond
 
 Die Dauer von unsichtbaren Pausen kann auch mit einem Faktor
@@ -504,8 +512,8 @@ So genannte @notation{laissez vibrer}-Bögen werden verwendet um anzuzeigen, das
 man die Musik ausklingen lassen soll. Sie werden in der Klavier-, Harfen-,
 anderer Saiteninstrument- und Schlagzeugnotation verwendet. Sie können folgendermaßen notiert werden:
 
-@lilypond[quote,verbatim,relative=1]
-<c f g>1\laissezVibrer
+@lilypond[quote,verbatim,fragment]
+<c' f' g'>1\laissezVibrer
 @end lilypond
 
 @cindex ties, placement
@@ -568,16 +576,18 @@ Durch Veränderung der Eigenschaften @var{whiteout} (weiß malen) und
 @var{layer} (Ebene) kann verhindert werden, dass Bindebögen mit anderen
 Objekten im Notensystem zusammenstoßen.
 
-@lilypond[verbatim,quote,ragged-right,relative=2]
-\override Tie.layer = #-2
-\override Staff.TimeSignature.layer = #-1
-\override Staff.KeySignature.layer = #-1
-\override Staff.TimeSignature.whiteout-box = ##t
-\override Staff.KeySignature.whiteout-box = ##t
-b2 b~
-\time 3/4
-\key a \major
-b r4
+@lilypond[verbatim,quote,ragged-right]
+\relative {
+  \override Tie.layer = #-2
+  \override Staff.TimeSignature.layer = #-1
+  \override Staff.KeySignature.layer = #-1
+  \override Staff.TimeSignature.whiteout = ##t
+  \override Staff.KeySignature.whiteout = ##t
+  b'2 b~
+  \time 3/4
+  \key a \major
+  b r4
+}
 @end lilypond
 
 @predefined
@@ -667,7 +677,7 @@ vordefinierten Befehle:
 
 @c \time 16/1 is used to avoid spurious bar lines
 @c and long tracts of empty measures
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 \new Staff {
   % These two lines are just to prettify this example
   \time 16/1
@@ -702,8 +712,8 @@ Note befinden würde.  Damit wird die manuelle Formatierung von mehrstimmiger Mu
 sehr viel einfacher, da die Formatierungsfunktion zur automatischen
 Auflösung von Zusammenstößen diese Pausen nicht mit einbezieht.
 
-@lilypond[quote,verbatim,relative=2]
-a4\rest d4\rest
+@lilypond[quote,verbatim]
+\relative { a'4\rest d4\rest }
 @end lilypond
 
 @snippets
@@ -764,10 +774,10 @@ anderen Situationen, z. B. innerhalb eines Liedtextes, muss
 der Befehl @code{\skip} benutzt werden.  @code{\skip} benötigt eine
 explizite Dauerangabe.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
   {
-    a2 \skip2 a2 a2
+    a'2 \skip2 a'2 a'2
   }
   \new Lyrics {
     \lyricmode {
@@ -780,14 +790,14 @@ explizite Dauerangabe.
 Weil @code{\skip} ein Befehl ist, wirkt er sich nicht auf die Dauer
 der folgenden Noten aus, anders als@tie{}@code{s}.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
   {
-    \repeat unfold 8 { a4 }
+    \repeat unfold 8 { a'4 }
   }
   {
-    a4 \skip 2 a |
-    s2 a
+    a'4 \skip 2 a' |
+    s2 a'
   }
 >>
 @end lilypond
@@ -795,16 +805,16 @@ der folgenden Noten aus, anders als@tie{}@code{s}.
 Die Platzhalterpause mit @code{s} erstellt @code{Staff}- und
 @code{Voice}-Kontext, wenn es erforderlich ist, genauso wie Noten und Pausen.
 
-@lilypond[quote,verbatim,relative=2]
-s1 s s
+@lilypond[quote,verbatim]
+{ s1 s s }
 @end lilypond
 
 Der Überspringungsbefehl (@code{\skip}) ist einfach ein leerer Platzhalter.
 Durch ihn wird überhaupt nichts gesetzt, auch keine transparenten Objekte.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 % This is valid input, but does nothing
-\skip 1 \skip1 \skip 1
+{ \skip 1 \skip1 \skip 1 }
 @end lilypond
 
 @seealso
@@ -867,7 +877,7 @@ R4*5*4 |
 Eine Ganztaktpause wird abhängig von der Taktart entweder als
 Ganze oder Brevis-Pause gesetzt, zentriert im Takt.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \time 4/4
 R1 |
 \time 6/4
@@ -939,7 +949,7 @@ müssen auf das richtige Objekt gerichtet werden, damit sie
 nicht ignoriert werden.  Siehe auch das folgende Beispiel.
 }
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 % This fails, as the wrong object name is specified
 \override TextScript.padding = #5
 R1^"wrong"
@@ -1067,14 +1077,16 @@ Zeile geschieht, wird eine warnende Taktangabe am Ende der Zeile
 ausgegeben.  Dieses Verhalten kann verändert werden, siehe
 @ref{Sichtbarkeit von Objekten}.
 
-@lilypond[quote,verbatim,relative=2]
-\time 2/4
-c2 c
-\break
-c c
-\break
-\time 4/4
-c c c c
+@lilypond[quote,verbatim]
+\relative c'' {
+  \time 2/4
+  c2 c
+  \break
+  c c
+  \break
+  \time 4/4
+  c c c c
+}
 @end lilypond
 
 @funindex \numericTimeSignature
@@ -1088,18 +1100,20 @@ c c c c
 Das Symbol für die Taktarten 2/2 und 4/4 kann in ein Zahlensymbol
 umgewandelt werden:
 
-@lilypond[quote,verbatim,relative=2]
-% Default style
-\time 4/4 c1
-\time 2/2 c1
-% Change to numeric style
-\numericTimeSignature
-\time 4/4 c1
-\time 2/2 c1
-% Revert to default style
-\defaultTimeSignature
-\time 4/4 c1
-\time 2/2 c1
+@lilypond[quote,verbatim]
+\relative c'' {
+  % Default style
+  \time 4/4 c1
+  \time 2/2 c1
+  % Change to numeric style
+  \numericTimeSignature
+  \time 4/4 c1
+  \time 2/2 c1
+  % Revert to default style
+  \defaultTimeSignature
+  \time 4/4 c1
+  \time 2/2 c1
+}
 @end lilypond
 
 Symbole für Modus und Proprietas der mensuralen Notation
@@ -1301,50 +1315,62 @@ Referenz der Interna:
 
 Eine Metronomanweisung wird wie folgt erstellt:
 
-@lilypond[verbatim,quote,relative=1]
-\tempo 4 = 120
-c2 d
-e4. d8 c2
+@lilypond[verbatim,quote]
+\relative {
+  \tempo 4 = 120
+  c'2 d
+  e4. d8 c2
+}
 @end lilypond
 
 Metronombezeichnungen können auch für einen Zahlenbereich notiert werden:
 
-@lilypond[verbatim,quote,relative=1]
-\tempo 4 = 40 - 46
-c4. e8 a4 g
-b,2 d4 r
+@lilypond[verbatim,quote]
+\relative {
+  \tempo 4 = 40 - 46
+  c'4. e8 a4 g
+  b,2 d4 r
+}
 @end lilypond
 
 Anstelle dessen kann auch Text als Argument angegeben werden:
 
-@lilypond[verbatim,quote,relative=2]
-\tempo "Allegretto"
-c4 e d c
-b4. a16 b c4 r4
+@lilypond[verbatim,quote]
+\relative {
+  \tempo "Allegretto"
+    c''4 e d c
+    b4. a16 b c4 r4
+}
 @end lilypond
 
 Wenn eine Metronombezeichnung und Text kombiniert wird, wird
 die Metronombezeichnung automatisch in Klammern gesetzt:
 
-@lilypond[verbatim,quote,relative=2]
-\tempo "Allegro" 4 = 160
-g4 c d e
-d4 b g2
+@lilypond[verbatim,quote]
+\relative {
+  \tempo "Allegro" 4 = 160
+  g'4 c d e
+  d4 b g2
+}
 @end lilypond
 
 Der Text kann ein beliebiges Textbeschriftungsobjekt sein:
 
-@lilypond[verbatim,quote,relative=2]
-\tempo \markup { \italic Faster } 4 = 132
-a8-. r8 b-. r gis-. r a-. r
+@lilypond[verbatim,quote]
+\relative {
+  \tempo \markup { \italic Faster } 4 = 132
+  a'8-. r8 b-. r gis-. r a-. r
+}
 @end lilypond
 
 Eine Metronombezeichnung in Klammern ohne Text kann erstellt
 werden, indem eine leere Zeichenkette hinzugefügt wird:
 
-@lilypond[verbatim,quote,relative=2]
-\tempo "" 8 = 96
-d4 g e c
+@lilypond[verbatim,quote]
+\relative {
+  \tempo "" 8 = 96
+  d''4 g e c
+}
 @end lilypond
 
 
@@ -1415,10 +1441,12 @@ e8 | a4 c8 b c4 |
 Die @var{Dauer} kan ein beliebiger Wert kleiner als der vollständige
 Takt sein.
 
-@lilypond[quote,verbatim,relative=1]
-\time 3/4
-\partial 4.
-r4 e8 | a4 c8 b c4 |
+@lilypond[quote,verbatim]
+\relative {
+  \time 3/4
+  \partial 4.
+  r4 e'8 | a4 c8 b c4 |
+}
 @end lilypond
 
 @code{\partial @var{Dauer}} kann auch folgendermaßen geschrieben werden:
@@ -1506,13 +1534,15 @@ das nicht gewollt und kann @qq{ausgeschaltet} werden mit dem Befehl
 @code{\cadenzaOn}, um dann wieder zum normalen Verhalten mit
 @code{\cadenzaOff} zurückzukehren.
 
-@lilypond[verbatim,relative=2,quote]
-c4 d e d
-\cadenzaOn
-c4 c d8[ d d] f4 g4.
-\cadenzaOff
-\bar "|"
-d4 e d c
+@lilypond[verbatim,quote]
+\relative c'' {
+  c4 d e d
+  \cadenzaOn
+  c4 c d8[ d d] f4 g4.
+  \cadenzaOff
+  \bar "|"
+  d4 e d c
+}
 @end lilypond
 
 Taktnummerierung wird am Ende der Kadenz wieder aufgenommen:
@@ -1546,14 +1576,16 @@ cis4 d cis! d
 Automatische Bebalkung wird durch @code{\cadenzeOn} ausgestellt.  Darum müssen
 alle Balken in Kadenzen manuell eingegeben werden (siehe @ref{Manuelle Balken}).
 
-@lilypond[verbatim,relative=2,quote]
-\repeat unfold 8 { c8 }
-\cadenzaOn
-cis8 c c c c
-\bar"|"
-c8 c c
-\cadenzaOff
-\repeat unfold 8 { c8 }
+@lilypond[verbatim,quote]
+\relative {
+  \repeat unfold 8 { c''8 }
+  \cadenzaOn
+  cis8 c c c c
+  \bar"|"
+  c8 c c
+  \cadenzaOff
+  \repeat unfold 8 { c8 }
+}
 @end lilypond
 
 Diese vordefinierten Befehle wirken sich auf alle Systeme in der
@@ -1823,15 +1855,16 @@ aufgeteilt werden, indem man den @code{Rest_engraver}mit dem
 Noten und Pausen, die über die Taktlinie dauern, aufgeteilt; Noten
 werden auch übergebunden.
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,verbatim]
 \new Voice \with {
   \remove "Note_heads_engraver"
   \consists "Completion_heads_engraver"
   \remove "Rest_engraver"
   \consists "Completion_rest_engraver"
 }
-
-{ c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 r1*2 }
+\relative {
+  c'2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 r1*2
+}
 @end lilypond
 
 Dieser Engraver teilt alle Noten und Pausen
@@ -1882,12 +1915,12 @@ erreicht man mit einem Rhythmus-Notensystem. Alle Tonhöhen werden
 auf eine Linie reduziert und das System hat auch nur eine einzige
 Linie.
 
-@lilypond[quote,relative=1,verbatim]
+@lilypond[quote,verbatim]
 <<
   \new RhythmicStaff {
-    \new Voice = "myRhythm" {
+    \new Voice = "myRhythm" \relative {
       \time 4/4
-      c4 e8 f g2
+      c'4 e8 f g2
       r4 g g f
       g1
     }
@@ -1985,9 +2018,11 @@ LilyPond setzt Balken (engl. beam) automatisch.
 @funindex \autoBeamOff
 @funindex autoBeamOff
 
-@lilypond[quote,verbatim,relative=2]
-\time 2/4 c8 c c c
-\time 6/8 c8 c c c8. c16 c8
+@lilypond[quote,verbatim]
+\relative c'' {
+  \time 2/4 c8 c c c
+  \time 6/8 c8 c c c8. c16 c8
+}
 @end lilypond
 
 Wenn diese automatischen Entscheidungen nicht gut genug sind, können
@@ -1999,12 +2034,14 @@ Wenn automatische Bebalkung nicht benötigt wird, kann sie mit dem Befehl @code{
 aufgehoben werden und mit dem Befehl @code{\autoBeamOn} wieder
 eingeschaltet werden.
 
-@lilypond[quote,relative=1,verbatim]
-c4 c8 c8. c16 c8. c16 c8
-\autoBeamOff
-c4 c8 c8. c16 c8.
-\autoBeamOn
-c16 c8
+@lilypond[quote,verbatim]
+\relative c' {
+  c4 c8 c8. c16 c8. c16 c8
+  \autoBeamOff
+  c4 c8 c8. c16 c8.
+  \autoBeamOn
+  c16 c8
+}
 @end lilypond
 
 @cindex Melismen, Balken
@@ -2272,15 +2309,17 @@ Wenn die Taktart geändert wird, werden neue Standardwerte für
 definiert wird, werden die automatischen Bebalkungsregeln für den
 @code{Timing}-Kontext auf den Standard zurückgesetzt.
 
-@lilypond[quote,verbatim,relative=2]
-\time 6/8
-\repeat unfold 6 { a8 }
-% group (4 + 2)
-\set Timing.beatStructure = #'(4 2)
-\repeat unfold 6 { a8 }
-% go back to default behavior
-\time 6/8
-\repeat unfold 6 { a8 }
+@lilypond[quote,verbatim]
+\relative a' {
+  \time 6/8
+  \repeat unfold 6 { a8 }
+  % group (4 + 2)
+  \set Timing.beatStructure = #'(4 2)
+  \repeat unfold 6 { a8 }
+  % go back to default behavior
+  \time 6/8
+  \repeat unfold 6 { a8 }
+}
 @end lilypond
 
 Die automatischen Standardeinstellungen für die Bebalkung einer
@@ -2294,15 +2333,15 @@ versucht, den Takt in zwei Hälfen zu teilen, wenn nur Achtelnoten vorkommen.
 Die @code{beamExceptions}-Regel kann die @code{beatStructure}-Einstellung
 überschreiben, wenn @code{beamExceptions} nicht zurückgesetzt wird:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \time 4/4
 \set Timing.baseMoment = #(ly:make-moment 1/8)
 \set Timing.beatStructure = #'(3 3 2)
 % This won't beam (3 3 2) because of beamExceptions
-\repeat unfold 8 {c8} |
+\repeat unfold 8 {c''8} |
 % This will beam (3 3 2) because we clear beamExceptions
 \set Timing.beamExceptions = #'()
-\repeat unfold 8 {c8}
+\repeat unfold 8 {c''8}
 @end lilypond
 
 Auf gleiche Art werden Achtelnoten im 3/4-Takt über den ganzen Takt hin
@@ -2326,11 +2365,13 @@ entsteht im 3/8-Takt.  Dieses Verhalten wird durch
 die Eigenschaft @code{beamHalfMeasure} bestimmt, welche sich nur auf
 Takte mit einer 3 im Zähler auswirkt:
 
-@lilypond[quote,verbatim,relative=2]
-\time 3/4
-r4. a8 a a |
-\set Timing.beamHalfMeasure = ##f
-r4. a8 a a |
+@lilypond[quote,verbatim]
+\relative a' {
+  \time 3/4
+  r4. a8 a a |
+  \set Timing.beamHalfMeasure = ##f
+  r4. a8 a a |
+}
 @end lilypond
 
 @subsubheading @i{Wie die automatische Bebalkung funktioniert}
@@ -2449,7 +2490,7 @@ werden, sodass die gewünschte Bebalkung immer benützt wird.  Veränderungen
 der automatischen Bebalkungsregeln für eine Taktart sind in
 @ref{Taktangabe} beschrieben.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
   \new Staff {
     \overrideTimeSignatureSettings
@@ -2458,11 +2499,11 @@ der automatischen Bebalkungsregeln für eine Taktart sind in
       #'(1 5)           % beatStructure
       #'()		% beamExceptions
     \time 3/4
-    \repeat unfold 6 { a8 }
+    \repeat unfold 6 { a'8 }
   }
   \new Staff {
     \time 3/4
-    \repeat unfold 6 { a8 }
+    \repeat unfold 6 { a'8 }
   }
 >>
 @end lilypond
@@ -2486,8 +2527,8 @@ nicht dem der Musik gesetzt.
 Manuell definierte Balken werden mit den Zeichen @code{[} und
 @code{]} (AltGr+8 bzw. 9) markiert.
 
-@lilypond[quote,relative=1,verbatim]
-r4 r8[ g' a r] r g[ | a] r
+@lilypond[quote,verbatim]
+\relative { r4 r8[ g' a r] r g[ | a] r }
 @end lilypond
 
 @cindex manuelle Balken, Richtung zuweisen
@@ -2496,8 +2537,8 @@ r4 r8[ g' a r] r g[ | a] r
 
 Die Richtung von Balken kann mit den Richtungszeichen verändert werden:
 
-@lilypond[quote,relative=2,verbatim]
-c8^[ d e] c,_[ d e f g]
+@lilypond[quote,verbatim]
+\relative { c''8^[ d e] c,_[ d e f g] }
 @end lilypond
 
 @funindex \noBeam
@@ -2514,12 +2555,14 @@ Balken von Verzierungsnoten und normale Balken können gleichzeitig
 gesetzt werden.  Unbebalkte Verzierungen werden nicht innerhalb von
 normalen Balken gesetzt.
 
-@lilypond[quote,verbatim,relative=2]
-c4 d8[
-\grace { e32 d c d }
-e8] e[ e
-\grace { f16 }
-e8 e]
+@lilypond[quote,verbatim]
+\relative {
+  c''4 d8[
+  \grace { e32 d c d }
+  e8] e[ e
+  \grace { f16 }
+  e8 e]
+}
 @end lilypond
 
 @funindex stemLeftBeamCount
@@ -2535,14 +2578,16 @@ Im folgenden Beispiel hat das letzte @code{f} nur einen Balken
 an seiner linken Seite (der als Achtelbalken der gesamten
 Gruppe gewertet wird).
 
-@lilypond[quote,relative=2,verbatim]
-a8[ r16 f g a]
-a8[ r16
-\set stemLeftBeamCount = #2
-\set stemRightBeamCount = #1
-f16
-\set stemLeftBeamCount = #1
-g16 a]
+@lilypond[quote,verbatim]
+\relative a' {
+  a8[ r16 f g a]
+  a8[ r16
+  \set stemLeftBeamCount = #2
+  \set stemRightBeamCount = #1
+  f16
+  \set stemLeftBeamCount = #1
+  g16 a]
+}
 @end lilypond
 
 @snippets
@@ -2604,16 +2649,18 @@ verlängert.  Die ersten vier 32-Noten beschleunigen stufenweise
 das Tempo, während die darauffolgenden vier 32-Noten ein
 gleichmäßiges Tempo haben.
 
-@lilypond[relative=1,verbatim,quote]
-\override Beam.grow-direction = #LEFT
-\featherDurations #(ly:make-moment 2/1)
-{ c16[ c c c c c c c] }
-\override Beam.grow-direction = #RIGHT
-\featherDurations #(ly:make-moment 2/3)
-{ c32[ d e f] }
-% revert to non-feathered beams
-\override Beam.grow-direction = #'()
-{ g32[ a b c] }
+@lilypond[verbatim,quote]
+\relative c' {
+  \override Beam.grow-direction = #LEFT
+  \featherDurations #(ly:make-moment 2/1)
+  { c16[ c c c c c c c] }
+  \override Beam.grow-direction = #RIGHT
+  \featherDurations #(ly:make-moment 2/3)
+  { c32[ d e f] }
+  % revert to non-feathered beams
+  \override Beam.grow-direction = #'()
+  { g32[ a b c] }
+}
 @end lilypond
 
 @noindent
@@ -2670,8 +2717,8 @@ Die einfachen, automatisch eingefügten Taktstriche können mit dem
 @code{\bar}-Befehl geändert werden.  Eine doppelter Taktstrich etwa
 wird normalerweise am Ende eines Stückes gesetzt:
 
-@lilypond[quote,relative=1,verbatim]
-e4 d c2 \bar "|."
+@lilypond[quote,verbatim]
+\relative { e'4 d c2 \bar "|." }
 @end lilypond
 
 Es ist kein Fehler, wenn die letzte Note in einem Takt nicht
@@ -2732,23 +2779,27 @@ des originalen Taktstriches nicht verändert.
 Manuell können zwei einfache Taktstriche und zusätzlich fünf Arten
 eines doppelten Taktstriches gesetzt werden:
 
-@lilypond[quote,relative=1,verbatim]
-f1 \bar "|"
-f1 \bar "."
-g1 \bar "||"
-a1 \bar ".|"
-b1 \bar ".."
-c1 \bar "|.|"
-d1 \bar "|."
-e1
+@lilypond[quote,verbatim]
+\relative {
+  f'1 \bar "|"
+  f1 \bar "."
+  g1 \bar "||"
+  a1 \bar ".|"
+  b1 \bar ".."
+  c1 \bar "|.|"
+  d1 \bar "|."
+  e1
+}
 @end lilypond
 
 Zusätzlich gibt es noch punktierte und gestrichelte Taktstriche:
 
-@lilypond[quote,relative=1,verbatim]
-f1 \bar ";"
-g1 \bar "!"
-a1
+@lilypond[quote,verbatim]
+\relative {
+  f'1 \bar ";"
+  g1 \bar "!"
+  a1
+}
 @end lilypond
 
 @noindent
@@ -2787,20 +2838,22 @@ Für @emph{segno}-Zeichen innerhalb des Systems gibt es drei
 Taktstricharten, die sich in ihrem Verhalten an Zeilenumbrüchen
 unterscheiden:
 
-@lilypond[quote,relative=2,verbatim]
-c4 c c c
-\bar "S"
-c4 c c c \break
-\bar "S"
-c4 c c c
-\bar "S-|"
-c4 c c c \break
-\bar "S-|"
-c4 c c c
-\bar "S-S"
-c4 c c c \break
-\bar "S-S"
-c1
+@lilypond[quote,verbatim]
+\relative c'' {
+  c4 c c c
+  \bar "S"
+  c4 c c c \break
+  \bar "S"
+  c4 c c c
+  \bar "S-|"
+  c4 c c c \break
+  \bar "S-|"
+  c4 c c c
+  \bar "S-S"
+  c4 c c c \break
+  \bar "S-S"
+  c1
+}
 @end lilypond
 
 @cindex Wiederholungen
@@ -2816,43 +2869,47 @@ genauso wie @code{"|:"} verhält, außer bei Zeilenumbrüchen, wo ein
 doppelter Taktstrich am Ende der Zeile ausgegeben wird und ein
 öffnender Wiederholungsstrich am Anfang der nächsten Zeile.
 
-@lilypond[quote,relative=2,verbatim]
-c4 c c c
-\bar ".|:-||"
-c4 c c c \break
-\bar ".|:-||"
-c4 c c c
+@lilypond[quote,verbatim]
+\relative c'' {
+  c4 c c c
+  \bar ".|:-||"
+  c4 c c c \break
+  \bar ".|:-||"
+  c4 c c c
+}
 @end lilypond
 
 Für Kombinationen von Wiederholungen mit dem segno-Zeichen gibt
 es sechs verschiedene Variationen:
 
-@lilypond[quote,relative=2,verbatim]
-c4 c c c
-\bar ":|.S"
-c4 c c c \break
-\bar ":|.S"
-c4 c c c
-\bar ":|.S-S"
-c4 c c c \break
-\bar ":|.S-S"
-c4 c c c
-\bar "S.|:-S"
-c4 c c c \break
-\bar "S.|:-S"
-c4 c c c
-\bar "S.|:"
-c4 c c c \break
-\bar "S.|:"
-c4 c c c
-\bar ":|.S.|:"
-c4 c c c \break
-\bar ":|.S.|:"
-c4 c c c
-\bar ":|.S.|:-S"
-c4 c c c \break
-\bar ":|.S.|:-S"
-c1
+@lilypond[quote,verbatim]
+\relative c'' {
+  c4 c c c
+  \bar ":|.S"
+  c4 c c c \break
+  \bar ":|.S"
+  c4 c c c
+  \bar ":|.S-S"
+  c4 c c c \break
+  \bar ":|.S-S"
+  c4 c c c
+  \bar "S.|:-S"
+  c4 c c c \break
+  \bar "S.|:-S"
+  c4 c c c
+  \bar "S.|:"
+  c4 c c c \break
+  \bar "S.|:"
+  c4 c c c
+  \bar ":|.S.|:"
+  c4 c c c \break
+  \bar ":|.S.|:"
+  c4 c c c
+  \bar ":|.S.|:-S"
+  c4 c c c \break
+  \bar ":|.S.|:-S"
+  c1
+}
 @end lilypond
 
 Darüber hinaus wählt der @code{\inStaffSegno}-Befehl eines dieser
@@ -2865,17 +2922,17 @@ Taktstriche sind miteinander verbunden innerhalb einer Gruppe
 (@code{StaffGroup}) oder einem Klaviersystem
 (@code{PianoStaff} bzw. (@code{GrandStaff}).
 
-@lilypond[quote,relative=1,verbatim]
+@lilypond[quote,verbatim]
 <<
   \new StaffGroup <<
-    \new Staff {
-      e4 d
+    \new Staff \relative {
+      e'4 d
       \bar "||"
       f4 e
     }
-    \new Staff { \clef bass c4 g e g }
+    \new Staff \relative { \clef bass c'4 g e g }
   >>
-  \new Staff { \clef bass c2 c2 }
+  \new Staff \relative { \clef bass c'2 c2 }
 >>
 @end lilypond
 
@@ -3128,12 +3185,14 @@ als Argument einsetzen, wenn man das Zeichen manuell setzen will.
 Der Wert, der eingesetzt werden soll, wird in der Eigenschaft
 @code{rehearsalMark} gespeichert.
 
-@lilypond[quote,verbatim,relative=2]
-c1 \mark \default
-c1 \mark \default
-c1 \mark #8
-c1 \mark \default
-c1 \mark \default
+@lilypond[quote,verbatim]
+\relative c'' {
+  c1 \mark \default
+  c1 \mark \default
+  c1 \mark #8
+  c1 \mark \default
+  c1 \mark \default
+}
 @end lilypond
 
 @noindent
@@ -3149,13 +3208,15 @@ Buchstaben in einem Kasten, Buchstaben in einem Kreis).
 \set Score.markFormatter = #format-mark-circle-alphabet
 @end example
 
-@lilypond[quote,verbatim,relative=2]
-\set Score.markFormatter = #format-mark-box-alphabet
-c1 \mark \default
-c1 \mark \default
-c1 \mark #8
-c1 \mark \default
-c1 \mark \default
+@lilypond[quote,verbatim]
+\relative c'' {
+  \set Score.markFormatter = #format-mark-box-alphabet
+  c1 \mark \default
+  c1 \mark \default
+  c1 \mark #8
+  c1 \mark \default
+  c1 \mark \default
+}
 @end lilypond
 
 @cindex Übungszeichen formatieren
@@ -3173,16 +3234,18 @@ folgenden Beispiel ist @code{markFormatter} so definiert, dass
 eine Zahl ausgegeben wird.  Dann wird ein Übungszeichen in einem
 Kasten produziert.
 
-@lilypond[quote,verbatim,relative=2]
-\set Score.markFormatter = #format-mark-numbers
-c1 \mark \default
-c1 \mark \default
-\set Score.markFormatter = #format-mark-box-numbers
-c1 \mark \default
-\set Score.markFormatter = #format-mark-circle-numbers
-c1 \mark \default
-\set Score.markFormatter = #format-mark-circle-letters
-c1
+@lilypond[quote,verbatim]
+\relative c'' {
+  \set Score.markFormatter = #format-mark-numbers
+  c1 \mark \default
+  c1 \mark \default
+  \set Score.markFormatter = #format-mark-box-numbers
+  c1 \mark \default
+  \set Score.markFormatter = #format-mark-circle-numbers
+  c1 \mark \default
+  \set Score.markFormatter = #format-mark-circle-letters
+  c1
+}
 @end lilypond
 
 Die Datei @file{scm/translation-functions.scm} beinhaltet
@@ -3230,11 +3293,13 @@ Musikbuchstaben (wie etwa das Segno-Zeichen) können mit dem Befehl
 @code{\musicglyph} als ein
 @code{\mark}-Zeichen definierte werden:
 
-@lilypond[quote,verbatim,relative=1]
-c1 \mark \markup { \musicglyph #"scripts.segno" }
-c1 \mark \markup { \musicglyph #"scripts.coda" }
-c1 \mark \markup { \musicglyph #"scripts.ufermata" }
-c1
+@lilypond[quote,verbatim]
+\relative c' {
+  c1 \mark \markup { \musicglyph #"scripts.segno" }
+  c1 \mark \markup { \musicglyph #"scripts.coda" }
+  c1 \mark \markup { \musicglyph #"scripts.ufermata" }
+  c1
+}
 @end lilypond
 
 @noindent
@@ -3296,9 +3361,11 @@ Verzierungen, mit dem Befehl @code{\grace} notiert, sind ausgeschriebene
 Ornamente.  Sie werden in einer kleineren Schriftgröße gesetzt und nehmen
 keine logische Zeit im Takt ein.
 
-@lilypond[quote,relative=2,verbatim]
-c4 \grace b16 a4(
-\grace { b16 c16 } a2)
+@lilypond[quote,verbatim]
+\relative {
+  c''4 \grace b16 a4(
+  \grace { b16 c16 } a2)
+}
 @end lilypond
 
 Es gibt drei Arten von Verzierungen:
@@ -3310,13 +3377,15 @@ Schrägstrich durch den Hals, aber ohne Legatobogen notieren.  Diese
 Verzierung wird mit dem Befehl @code{\slashedGrace} notiert und wird
 zwischen Noten notiert, die selber einen Legatobogen haben.
 
-@lilypond[quote,relative=2,verbatim]
-\acciaccatura d8 c4
-\appoggiatura e8 d4
-\acciaccatura { g16 f } e2
-\slashedGrace a,8 g4
-\slashedGrace b16 a4(
-\slashedGrace b8 a2)
+@lilypond[quote,verbatim]
+\relative {
+  \acciaccatura d''8 c4
+  \appoggiatura e8 d4
+  \acciaccatura { g16 f } e2
+  \slashedGrace a,8 g4
+  \slashedGrace b16 a4(
+  \slashedGrace b8 a2)
+}
 @end lilypond
 
 Die Position von Verzierungen ist zwischen Notensystemen
@@ -3339,8 +3408,8 @@ Sie den @code{\afterGrace}-Befehl benutzen.  Er benötigt zwei
 Argumente: die Hauptnote und die Verzierung, die nach der
 Hauptnote folgen soll:
 
-@lilypond[quote,verbatim,relative=2]
-c1 \afterGrace d1 { c16[ d] } c1
+@lilypond[quote,verbatim]
+\relative { c''1 \afterGrace d1 { c16[ d] } c1 }
 @end lilypond
 
 Damit wird die Verzierung mit einem Abstand von der Hauptnote
@@ -3350,18 +3419,18 @@ verändert werden.  Das nächste Beispiel zeigt, wie sich
 der Abstand verändert, wenn der Wert 3/4, 15/16 und 1/2 der
 Hauptnote beträgt.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
-  \new Staff {
-    c1 \afterGrace d1 { c16[ d] } c1
+  \new Staff \relative {
+    c''1 \afterGrace d1 { c16[ d] } c1
   }
-  \new Staff {
+  \new Staff \relative {
     #(define afterGraceFraction (cons 15 16))
-    c1 \afterGrace d1 { c16[ d] } c1
+    c''1 \afterGrace d1 { c16[ d] } c1
   }
-  \new Staff {
+  \new Staff \relative {
     #(define afterGraceFraction (cons 1 2))
-    c1 \afterGrace d1 { c16[ d] } c1
+    c''1 \afterGrace d1 { c16[ d] } c1
   }
 >>
 @end lilypond
@@ -3391,11 +3460,11 @@ Verzierungsausdrucks rückgängig gemacht werden.  In diesem
 Fall wird die Richtung der Hälse geändert und dann wieder der
 Standard eingestellt:
 
-@lilypond[quote,verbatim,relative=2]
-\new Voice {
+@lilypond[quote,verbatim]
+\new Voice \relative {
   \acciaccatura {
     \stemDown
-    f16->
+    f''16->
     \stemNeutral
   }
   g4 e c2
@@ -3459,10 +3528,10 @@ Auch andere Symbole der Systeme, wie Vorzeichen, Taktlinien usw., werden
 synchronisiert. Vorsicht ist geboten, wenn nur in bestimmten Systemen
 Verzierungen vorkommen:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Staff { e4 \bar ".|:" \grace c16 d2. }
-  \new Staff { c4 \bar ".|:" d2. }
+  \new Staff \relative { e''4 \bar ".|:" \grace c16 d2. }
+  \new Staff \relative { c''4 \bar ".|:" d2. }
 >>
 @end lilypond
 

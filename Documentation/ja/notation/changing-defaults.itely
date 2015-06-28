@@ -320,14 +320,14 @@ LilyPond は、適切なコンテキストが存在しないうちに音楽表�
 score を作成するのに用いられます:
 
 @c KEEP LY
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
-  \new Staff {
+  \new Staff \relative {
     % 暗黙的に Voice コンテキストが作成されます
-    c4 c
+    c''4 c
   }
-  \new Staff {
-    d4 d
+  \new Staff \relative {
+    d''4 d
   }
 >>
 @end lilypond
@@ -335,18 +335,16 @@ score を作成するのに用いられます:
 @noindent
 そして、1 つの譜に複数のボイスが配置されます:
 
-@lilypond[quote,verbatim,relative=2]
-<<
-  \new Staff <<
-    \new Voice {
-      \voiceOne
-      c8 c c4 c c
-    }
-    \new Voice {
-      \voiceTwo
-      g4 g g g
-    }
-  >>
+@lilypond[quote,verbatim]
+\new Staff <<
+  \new Voice \relative {
+    \voiceOne
+    c''8 c c4 c c
+  }
+  \new Voice \relative {
+    \voiceTwo
+    g'4 g g g
+  }
 >>
 @end lilypond
 
@@ -363,18 +361,16 @@ score を作成するのに用いられます:
 例え同じ名前を持つコンテキストが存在していたとしても、常に全く新たな@c
 コンテキストを作成します:
 
-@lilypond[quote,verbatim,relative=2]
-<<
-  \new Staff <<
-    \new Voice = "A" {
-      \voiceOne
-      c8 c c4 c c
-    }
-    \new Voice = "A" {
-      \voiceTwo
-      g4 g g g
-    }
-  >>
+@lilypond[quote,verbatim]
+\new Staff <<
+  \new Voice = "A" \relative {
+    \voiceOne
+    c''8 c c4 c c
+  }
+  \new Voice = "A" \relative {
+    \voiceTwo
+    g'4 g g g
+  }
 >>
 @end lilypond
 
@@ -1985,17 +1981,16 @@ R1*2
 (一般に、@code{ChordNames}, @code{Voice}, @code{TabVoice},
 あるいは @code{Lyrics} です)。
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,verbatim]
 \set Score.autoBeaming = ##f
-<<
-  {
-    e8 e e e
-    \set autoBeaming = ##t
-    e8 e e e
-  } \\ {
-    c8 c c c c8 c c c
-  }
->>
+\relative {
+  e''8 e e e
+  \set autoBeaming = ##t
+  e8 e e e
+} \\
+\relative {
+  c''8 c c c c8 c c c
+}
 @end lilypond
 
 変更は @q{オンザフライ} (その場、その時々) で適用されるため、@c
@@ -2008,7 +2003,7 @@ R1*2
 (この場合は、@code{Voice} です) にセットしようと試みても、効果はありません。@c
 なぜなら、@code{skipBars} は @code{Score} コンテキストのプロパティだからです。
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,verbatim]
 R1*2
 \set skipBars = ##t
 R1*2
@@ -2032,18 +2027,17 @@ R1*2
 音楽表記を囲っているコンテキストにセットされたプロパティは、@c
 囲まれているコンテキストの中にある @code{\unset} では変更されません:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,verbatim]
 \set Score.autoBeaming = ##t
-<<
-  {
-    \unset autoBeaming
-    e8 e e e
-    \unset Score.autoBeaming
-    e8 e e e
-  } \\ {
-    c8 c c c c8 c c c
-  }
->>
+\relative {
+  \unset autoBeaming
+  e''8 e e e
+  \unset Score.autoBeaming
+  e8 e e e
+} \\
+\relative {
+  c''8 c c c c8 c c c
+}
 @end lilypond
 
 @code{\set} と同様に、
@@ -2063,11 +2057,11 @@ R1*2
 @code{\set} の前に @code{\once} を置くと、@c
 その設定は単一の時間ステップにだけ適用されます:
 
-@lilypond[quote,verbatim,relative=2]
-c4
+@lilypond[quote,fragment,verbatim]
+c''4
 \once \set fontSize = #4.7
-c4
-c4
+c''4
+c''4
 @end lilypond
 
 利用可能なすべてのコンテキスト プロパティについての完全な記述は、@c
@@ -2112,27 +2106,27 @@ Translation @expansion{} Tunable context properties.
 例えば、@code{Stem} オブジェクトの @code{thickness} プロパティを@c
 オーバライドすることによって、符幹の太さを太くすることができます:
 
-@lilypond[quote,verbatim,relative=2]
-c4 c
+@lilypond[quote,fragment,verbatim]
+c''4 c''
 \override Voice.Stem.thickness = #3.0
-c4 c
+c''4 c''
 @end lilypond
 
 @code{\override} でコンテキストが指定されていない場合、その下にある@c
 コンテキストに適用されます:
 
-@lilypond[quote,verbatim,relative=2]
-{ \override Staff.Stem.thickness = #3.0
-  <<
-    {
-      e4 e
-      \override Stem.thickness = #0.5
-      e4 e
-    } \\ {
-      c4 c c c
-    }
-  >>
-}
+@lilypond[quote,fragment,verbatim]
+\override Staff.Stem.thickness = #3.0
+<<
+  \relative {
+    e''4 e
+    \override Stem.thickness = #0.5
+    e4 e
+  } \\
+  \relative {
+    c''4 c c c
+  }
+>>
 @end lilypond
 
 調整可能なオプションには @q{サブプロパティ} があり、これはプロパティの@c
@@ -2164,32 +2158,33 @@ c4 c
 
 例を示します:
 
-@lilypond[quote,verbatim,relative=2]
-c4
-\override Voice.Stem.thickness = #3.0
-c4 c
-\revert Voice.Stem.thickness
-c4
+@lilypond[quote,verbatim]
+\relative {
+  c''4
+  \override Voice.Stem.thickness = #3.0
+  c4 c
+  \revert Voice.Stem.thickness
+  c4
+}
 @end lilypond
 
 @code{\override} と @code{\revert} の効果は、@c
 その時点から影響を受けるコンテキストの中にある@c
 すべてのグラフィカル オブジェクトに適用されます:
 
-@lilypond[quote,verbatim,relative=2]
-{
-  <<
-    {
-      e4
-      \override Staff.Stem.thickness = #3.0
-      e4 e e
-    } \\ {
-      c4 c c
-      \revert Staff.Stem.thickness
-      c4
-    }
-  >>
-}
+@lilypond[quote,verbatim]
+<<
+  \relative {
+    e''4
+    \override Staff.Stem.thickness = #3.0
+    e4 e e
+  } \\
+  \relative {
+    c''4 c c
+    \revert Staff.Stem.thickness
+    c4
+  }
+>>
 @end lilypond
 
 @funindex \once
@@ -2198,19 +2193,18 @@ c4
 @code{\once} を @code{\override} と共に用いることで、@c
 カレントの時間ステップだけに効果を与えることができます:
 
-@lilypond[quote,verbatim,relative=2]
-{
-  <<
-    {
-      \override Stem.thickness = #3.0
-      e4 e e e
-    } \\ {
-      c4
-      \once \override Stem.thickness = #3.0
-      c4 c c
-    }
-  >>
-}
+@lilypond[quote,verbatim]
+<<
+  \relative c {
+    \override Stem.thickness = #3.0
+    e''4 e e e
+  } \\
+  \relative {
+    c''4
+    \once \override Stem.thickness = #3.0
+    c4 c c
+  }
+>>
 @end lilypond
 
 
@@ -2281,16 +2275,18 @@ graphical objects.  For objects that are created directly from
 an item in the input file, you can use the @code{\tweak} command.
 For example:
 
-@lilypond[relative=2,verbatim,quote]
-< c
-  \tweak color #red
-  d
-  g
-  \tweak duration-log #1
-  a
-> 4
--\tweak padding #8
--^
+@lilypond[verbatim,quote]
+\relative {
+  < c''
+    \tweak color #red
+    d
+    g
+    \tweak duration-log #1
+    a
+  > 4
+  -\tweak padding #8
+  -^
+}
 @end lilypond
 
 
@@ -2316,15 +2312,15 @@ note, and able to modify it.
 
 So, this works:
 
-@lilypond[relative=2,verbatim,quote]
-<\tweak color #red c>4
+@lilypond[verbatim,fragment,quote]
+<\tweak color #red c''>4
 @end lilypond
 
 @noindent
 but this does not:
 
-@lilypond[relative=2,verbatim,quote]
-\tweak color #red c4
+@lilypond[verbatim,fragment,quote]
+\tweak color #red c''4
 @end lilypond
 
 @end ignore
@@ -2353,20 +2349,20 @@ but this does not:
 以下の例では、和音の中にある符頭の 1 つの色を変更し、@c
 さらに他の符頭のタイプを変更しています:
 
-@lilypond[relative=2,verbatim,quote]
-< c
+@lilypond[verbatim,fragment,quote]
+< c''
   \tweak color #red
-  d
-  g
+  d''
+  g''
   \tweak duration-log #1
-  a
+  a''
 > 4
 @end lilypond
 
 @code{\tweak} を用いて、スラーを変更することができます:
 
-@lilypond[verbatim,quote,relative=1]
-c-\tweak thickness #5 ( d e f)
+@lilypond[verbatim,quote]
+\relative { c'-\tweak thickness #5 ( d e f) }
 @end lilypond
 
 
@@ -2379,10 +2375,10 @@ c-\tweak thickness #5 ( d e f)
 オブジェクトは @code{EventChord} の内部にあるイベントによって作成される@c
 からです:
 
-@lilypond[relative=2,verbatim,quote]
-\tweak color #red c4
-\tweak color #red <c e>4
-<\tweak color #red c e>4
+@lilypond[verbatim,fragment,quote]
+\tweak color #red c''4
+\tweak color #red <c'' e''>4
+<\tweak color #red c'' e''>4
 @end lilypond
 
 単純な @code{\tweak} コマンドでは入力から直接作成されないオブジェクトを@c
@@ -2396,10 +2392,10 @@ c-\tweak thickness #5 ( d e f)
 オブジェクト名を明示的に指定した @code{\tweak} コマンドを用いることで@c
 調整することができます:
 
-@lilypond[relative=2,verbatim,quote]
+@lilypond[fragment,verbatim,quote]
 \tweak Stem.color #red
-\tweak Beam.color #green c8 e
-<c e \tweak Accidental.font-size #-3 ges>4
+\tweak Beam.color #green c''8 e''
+<c'' e'' \tweak Accidental.font-size #-3 ges''>4
 @end lilypond
 
 @code{\tweak} コマンドで音部記号や拍子記号を変更することはできません。@c
@@ -2410,14 +2406,14 @@ c-\tweak thickness #5 ( d e f)
 記譜要素の前に複数の @code{\tweak} コマンドを配置することができます
 -- それらはすべて効果を持ちます:
 
-@lilypond[verbatim,quote,relative=1]
-c
--\tweak style #'dashed-line
--\tweak dash-fraction #0.2
--\tweak thickness #3
--\tweak color #red
- \glissando
-f'
+@lilypond[verbatim,fragment,quote]
+c'
+  -\tweak style #'dashed-line
+  -\tweak dash-fraction #0.2
+  -\tweak thickness #3
+  -\tweak color #red
+  \glissando
+f''
 @end lilypond
 
 入力ファイルのあるセクションから生成される音楽の流れ
@@ -2752,11 +2748,13 @@ property (modified with @code{\set}) was created.
 
 方向指示子は、その後にくる音符だけに効果を持ちます:
 
-@lilypond[verbatim,quote,relative=2]
-c2( c)
-c2_( c)
-c2( c)
-c2^( c)
+@lilypond[verbatim,quote]
+\relative {
+  c''2( c)
+  c2_( c)
+  c2( c)
+  c2^( c)
+}
 @end lilypond
 
 @node 方向プロパティ
@@ -2806,13 +2804,15 @@ TrillPitchGroup - not tried
 
 これらの指示子は、キャンセルされるまで効果を持ちます。
 
-@lilypond[verbatim,quote,relative=2]
-c2( c)
-\slurDown
-c2( c)
-c2( c)
-\slurNeutral
-c2( c)
+@lilypond[verbatim,quote]
+\relative {
+  c''2( c)
+  \slurDown
+  c2( c)
+  c2( c)
+  \slurNeutral
+  c2( c)
+}
 @end lilypond
 
 多声の音楽では、一般的にオブジェクトの向きを変えるよりも明示的に
@@ -2910,22 +2910,22 @@ Scheme 関数 @code{magstep} を使用することができます。@c
 譜線の本数は、@code{'line-positions} の値リストの中にある要素数によって、@c
 暗黙的に定義されます。}
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote]
 \new Staff \with {
   \override StaffSymbol.line-positions = #'(7 3 0 -4 -6 -7)
 }
-{ a4 e' f b | d1 }
+\relative { a4 e' f b | d1 }
 @end lilypond
 
 譜の幅を変更することができます。@c
 単位は譜スペースです。@c
 譜内部のオブジェクトのスペースは、この設定によって影響を受けません。
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote]
 \new Staff \with {
   \override StaffSymbol.width = #23
 }
-{ a4 e' f b | d1 }
+\relative { a4 e' f b | d1 }
 @end lilypond
 
 
@@ -2989,12 +2989,12 @@ Works not at all for:
 @end ignore
 
 @c KEEP LY
-@lilypond[verbatim,quote,relative=2]
-a~a
-a
+@lilypond[verbatim,quote,fragment]
+a'~ a'
+a'
 % タイの長さを増加させます
 -\tweak minimum-length #5
-~a
+~ a'
 @end lilypond
 
 @c KEEP LY
@@ -3009,26 +3009,30 @@ a1
 @end lilypond
 
 @c KEEP LY
-@lilypond[verbatim,quote,relative=2]
-a \< a a a \!
-% ヘアピンの長さを増加させます
-\override Hairpin.minimum-length = #20
-a \< a a a \!
+@lilypond[verbatim,quote]
+\relative {
+  a' \< a a a \!
+  % ヘアピンの長さを増加させます
+  \override Hairpin.minimum-length = #20
+  a \< a a a \!
+}
 @end lilypond
 
 さらに、このオーバライドはスラーとフレージング スラーの長さを@c
 増加させるためにも使用されます:
 
-@lilypond[verbatim,quote,relative=2]
-a( a)
-a
--\tweak minimum-length #5
-( a)
+@lilypond[verbatim,quote]
+\relative {
+  a'( g)
+  a
+  -\tweak minimum-length #5
+  ( g)
 
-a\( a\)
-a
--\tweak minimum-length #5
-\( a\)
+  a\( g\)
+  a
+  -\tweak minimum-length #5
+  \( g\)
+}
 @end lilypond
 
 いくつかのレイアウト オブジェクトでは、@c
@@ -3042,32 +3046,32 @@ a
 効果を持ちません:
 
 @c KEEP LY
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,fragment,quote]
 % デフォルト
-e \glissando c'
+e' \glissando c''
 
 % 単独では効果を持ちません
 \once \override Glissando.minimum-length = #20
-e, \glissando c'
+e' \glissando c''
 
 % 以下の両方のオーバライドが存在する場合にのみ、効果を持ちます
 \once \override Glissando.minimum-length = #20
 \once \override Glissando.springs-and-rods = #ly:spanner::set-spacing-rods
-e, \glissando c'
+e' \glissando c''
 @end lilypond
 
 @code{Beam} オブジェクトでも同じことが言えます:
 
 @c KEEP LY
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,fragment,quote]
 % 単独では効果を持ちません
 \once \override Beam.minimum-length = #20
-e8 e e e
+e'8 e' e' e'
 
 % 以下の両方のオーバライドが存在する場合にのみ、効果を持ちます
 \once \override Beam.minimum-length = #20
 \once \override Beam.springs-and-rods = #ly:spanner::set-spacing-rods
-e8 e e e
+e'8 e' e' e'
 @end lilypond
 
 @subsubsubheading The @code{to-barline} プロパティ
@@ -3079,10 +3083,12 @@ e8 e e e
 直前の小節線のところで終了させられます。@c
 偽に設定すると、スパナは小節線を越えて、音符のところで終了します:
 
-@lilypond[verbatim,quote,relative=2]
-a \< a a a a \! a a a \break
-\override Hairpin.to-barline = ##f
-a \< a a a a \! a a a
+@lilypond[verbatim,quote]
+\relative {
+  a' \< a a a a \! a a a \break
+  \override Hairpin.to-barline = ##f
+  a \< a a a a \! a a a
+}
 @end lilypond
 
 このプロパティはすべてのスパナに対して効果を持つわけではありません。@c
@@ -3115,11 +3121,11 @@ a \< a a a a \! a a a
 プロパティ階層内で 2 階層下にネストされていますが、@c
 この @code{\override} コマンドは非常にシンプルです:
 
-@lilypond[relative=2,quote,verbatim]
-e2 \glissando b
+@lilypond[quote,fragment,verbatim]
+e''2 \glissando b'
 \once \override Glissando.bound-details.left.Y = #3
 \once \override Glissando.bound-details.right.Y = #-2
-e2 \glissando b
+e''2 \glissando b'
 @end lilypond
 
 @code{Y} プロパティの単位は @code{staff-space} であり、@c
@@ -3284,7 +3290,7 @@ c2 \< c2 c2
 関数は呼び出されず、そのオブジェクトは描画されません。@c
 @code{\rever} でデフォルトの動作に戻すことができます。
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,fragment,verbatim]
 a1 a
 \omit Score.BarLine
 a a
@@ -3303,10 +3309,10 @@ a a a
 @code{#t} にセットされると、そのオブジェクトはスペースを占めたままですが、@c
 不可視になります。
 
-@lilypond[quote,verbatim,relative=2]
-a4 a
+@lilypond[quote,fragment,verbatim]
+a'4 a'
 \once \hide NoteHead
-a a
+a' a'
 @end lilypond
 
 @node オブジェクトを白で描く
@@ -3330,9 +3336,9 @@ a a
 これにより、以下に示すように、@c
 白いオブジェクトの画像が幽霊のように浮かび上がることがあります:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,verbatim]
 \override Staff.Clef.color = #white
-a1
+a'1
 @end lilypond
 
 オブジェクトの描画順序を変更することにより、これを回避することができます。@c
@@ -3359,10 +3365,10 @@ a1
 より小さな値 -- 例えば、@code{-1} -- を与えて、@c
 音部記号を先に描画させる必要があります:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,verbatim]
 \override Staff.Clef.color = #white
 \override Staff.Clef.layer = #-1
-a1
+a'1
 @end lilypond
 
 @node break-visibility を用いる
@@ -3451,14 +3457,16 @@ a1
 以下の例は、小節線の可視性を制御するベクトルの使用方法を示しています:
 
 @c KEEP LY
-@lilypond[quote,verbatim,relative=1,ragged-right]
-f4 g a b
-f4 g a b
-% カレント行の最後で小節線を削除します
-\once \override Score.BarLine.break-visibility = #'#(#f #t #t)
-\break
-f4 g a b
-f4 g a b
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  f'4 g a b
+  f4 g a b
+  % カレント行の最後で小節線を削除します
+  \once \override Score.BarLine.break-visibility = #'#(#f #t #t)
+  \break
+  f4 g a b
+  f4 g a b
+}
 @end lilypond
 
 @code{break-visibility} をオーバライドするために使用される@c
@@ -3499,16 +3507,18 @@ f4 g a b
 B フラット メジャーへの明示的な変更の後に出現する調号は可視のままです。
 
 @c KEEP LY
-@lilypond[quote,verbatim,relative=1,ragged-right]
-\key g \major
-f4 g a b
-% すべての調号を削除しようと試みます
-\override Staff.KeySignature.break-visibility = #all-invisible
-\key bes \major
-f4 g a b
-\break
-f4 g a b
-f4 g a b
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  \key g \major
+  f'4 g a b
+  % すべての調号を削除しようと試みます
+  \override Staff.KeySignature.break-visibility = #all-invisible
+  \key bes \major
+  f4 g a b
+  \break
+  f4 g a b
+  f4 g a b
+}
 @end lilypond
 
 そのような明示的な調号や音部記号の変更の可視性は
@@ -3527,15 +3537,17 @@ f4 g a b
 オブジェクトを削除するには適切な @code{break-visibility}
 をオーバライドする必要があります。
 
-@lilypond[quote,verbatim,relative=1,ragged-right]
-\key g \major
-f4 g a b
-\set Staff.explicitKeySignatureVisibility = #all-invisible
-\override Staff.KeySignature.break-visibility = #all-invisible
-\key bes \major
-f4 g a b \break
-f4 g a b
-f4 g a b
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  \key g \major
+  f'4 g a b
+  \set Staff.explicitKeySignatureVisibility = #all-invisible
+  \override Staff.KeySignature.break-visibility = #all-invisible
+  \key bes \major
+  f4 g a b \break
+  f4 g a b
+  f4 g a b
+}
 @end lilypond
 
 @subsubsubheading 前の調をキャンセルする臨時記号の可視性
@@ -3544,16 +3556,18 @@ f4 g a b
 @code{Staff} コンテキスト プロパティ @code{printKeyCancellation} に
 @code{#f} をセットします:
 
-@lilypond[quote,verbatim,relative=1,ragged-right]
-\key g \major
-f4 g a b
-\set Staff.explicitKeySignatureVisibility = #all-invisible
-\set Staff.printKeyCancellation = ##f
-\override Staff.KeySignature.break-visibility = #all-invisible
-\key bes \major
-f4 g a b \break
-f4 g a b
-f4 g a b
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  \key g \major
+  f'4 g a b
+  \set Staff.explicitKeySignatureVisibility = #all-invisible
+  \set Staff.printKeyCancellation = ##f
+  \override Staff.KeySignature.break-visibility = #all-invisible
+  \key bes \major
+  f4 g a b \break
+  f4 g a b
+  f4 g a b
+}
 @end lilypond
 
 このオーバライドによって、調の変更を示す臨時記号だけが残ります。
@@ -3564,30 +3578,34 @@ f4 g a b
 そのようなケースでは、@code{printKeyCancellation} を @code{#f} に@c
 設定しても効果はありません:
 
-@lilypond[quote,verbatim,relative=1,ragged-right]
-\key g \major
-f4 g a b
-\set Staff.explicitKeySignatureVisibility = #all-invisible
-\set Staff.printKeyCancellation = ##f
-\key c \major
-f4 g a b \break
-f4 g a b
-f4 g a b
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  \key g \major
+  f'4 g a b
+  \set Staff.explicitKeySignatureVisibility = #all-invisible
+  \set Staff.printKeyCancellation = ##f
+  \key c \major
+  f4 g a b \break
+  f4 g a b
+  f4 g a b
+}
 @end lilypond
 
 調を C@tie{}メジャーや A@tie{}マイナーに変更する場合に、@c
 前の調をキャンセルする臨時記号を消すには、@code{KeyCancellation}
 グラフィカル オブジェクトの可視性をオーバライドします:
 
-@lilypond[quote,verbatim,relative=1,ragged-right]
-\key g \major
-f4 g a b
-\set Staff.explicitKeySignatureVisibility = #all-invisible
-\override Staff.KeyCancellation.break-visibility = #all-invisible
-\key c \major
-f4 g a b \break
-f4 g a b
-f4 g a b
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  \key g \major
+  f'4 g a b
+  \set Staff.explicitKeySignatureVisibility = #all-invisible
+  \override Staff.KeyCancellation.break-visibility = #all-invisible
+  \key c \major
+  f4 g a b \break
+  f4 g a b
+  f4 g a b
+}
 @end lilypond
 
 @c TODO Add visibility of cautionary accidentals before notes
@@ -3668,10 +3686,12 @@ d,2 \glissando d'2
 それらをオーバライドすることもできます:
 
 @c TODO Complete
-@lilypond[relative=2,ragged-right,verbatim,quote]
-e2 \glissando f
-\once \override Glissando.bound-details.right.Y = #-2
-e2 \glissando f
+@lilypond[ragged-right,verbatim,quote]
+\relative {
+  e''2 \glissando f
+  \once \override Glissando.bound-details.right.Y = #-2
+  e2 \glissando f
+}
 @end lilypond
 
 グリッサンドの終点の @code{Y} には @code{-2} がセットされています。@c
@@ -3721,10 +3741,10 @@ e2 \glissando f
 レイアウト オブジェクトを回転させることが有用な状況はあまりありません。@c
 以下の例は、有用であるかもしれないシチュエーションの 1 つを示しています:
 
-@lilypond[quote,verbatim,relative=1]
-g4\< e' d' f\!
+@lilypond[quote,fragment,verbatim]
+g4\< e' d'' f''\!
 \override Hairpin.rotation = #'(20 -1 0)
-g,,4\< e' d' f\!
+g4\< e' d'' f''\!
 @end lilypond
 
 @node マークアップを回転させる
@@ -3742,12 +3762,12 @@ g,,4\< e' d' f\!
 セットしています。@c
 そうしなければテキストのいくつかは高く押し上げられてしまいます。
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,fragment,verbatim]
 \override TextScript.outside-staff-priority = ##f
 g4^\markup { \rotate #30 "a G" }
 b^\markup { \rotate #30 "a B" }
-des^\markup { \rotate #30 "a D-Flat" }
-fis^\markup { \rotate #30 "an F-Sharp" }
+des'^\markup { \rotate #30 "a D-Flat" }
+fis'^\markup { \rotate #30 "an F-Sharp" }
 @end lilypond
 
 
@@ -3854,13 +3874,13 @@ fis^\markup { \rotate #30 "an F-Sharp" }
 以下の例は、3 つの音符を示していて、1 つはデフォルト配置の運指記号を持ち、@c
 他の 2 つの運指記号は @code{X-offset} と @code{Y-offset} が変更されています。
 
-@lilypond[verbatim,quote,relative=2]
-a-3
-a
+@lilypond[verbatim,fragment,quote]
+a'-3
+a'
 -\tweak X-offset #0
 -\tweak Y-offset #0
 -3
-a
+a'
 -\tweak X-offset #-1
 -\tweak Y-offset #1
 -3
@@ -3942,7 +3962,7 @@ a
 @code{\tweak} コマンドを用いることで@c
 単一の音符に付けられている複数の注釈を個別に揃えることができます:
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,verbatim,fragment]
 a'
 -\tweak self-alignment-X #-1
 ^"left-aligned"
@@ -3982,8 +4002,8 @@ a'
 以下の例は、運指記号を符頭に近づけるための調整方法を示しています。
 
 @c KEEP LY
-@lilypond[quote,verbatim,relative=2]
-a
+@lilypond[quote,verbatim,fragment]
+a'
 -\tweak self-alignment-X #0.5  % 左方向に移動させます
 -\tweak Y-offset #ly:self-alignment-interface::y-aligned-on-self
 -\tweak self-alignment-Y #-1  % 上方向に移動させます
@@ -4037,26 +4057,26 @@ example shows the difference:
 リハーサル記号と小節番号はオブジェクトの上で水平方向に中央揃えされます:
 
 @c KEEP LY
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
 % リハーサル記号は音部記号の上に中央揃えされます
 \override Score.RehearsalMark.break-align-symbols = #'(clef)
 \key a \major
 \clef treble
 \mark "↓"
-e1
+e'1
 % リハーサル記号は拍子記号の上に中央揃えされます
 \override Score.RehearsalMark.break-align-symbols = #'(time-signature)
 \key a \major
 \clef treble
 \time 3/4
 \mark "↓"
-e2.
+e'2.
 % リハーサル記号はブレス記号の上に中央揃えされます
 \override Score.RehearsalMark.break-align-symbols = #'(breathing-sign)
 \key a \major
 \clef treble
 \time 4/4
-e1
+e'1
 \breathe
 \mark "↓"
 @end lilypond
@@ -4071,20 +4091,20 @@ e1
 小節線が不可視である場合、小節線があるはずの場所に揃えられます。
 
 @c KEEP LY
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
 % リハーサル記号は調号の上に中央揃えされます
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef treble
 \mark "↓"
-e1
+e'1
 % リハーサル記号は音部記号の上に中央揃えされます
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
-\key a \minor
+\key a \major
 \clef bass
 \mark "↓"
-gis,,1
+gis,1
 % リハーサル記号は小節線の上に中央揃えされます
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \set Staff.explicitClefVisibility = #all-invisible
@@ -4092,7 +4112,7 @@ gis,,1
 \key a \major
 \clef treble
 \mark "↓"
-e''1
+e'1
 @end lilypond
 
 以下の例で示すように、@c
@@ -4100,24 +4120,24 @@ e''1
 複数の譜を持つ楽譜では、この設定はすべての譜に適用されます。
 
 @c KEEP LY
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
 % RehearsalMark は KeySignature の上に中央揃えされます
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature)
 \key a \major
 \clef treble
 \time 4/4
 \mark "↓"
-e1
+e'1
 % RehearsalMark は KeySignature の左端に揃えられます
 \once \override Score.KeySignature.break-align-anchor-alignment = #LEFT
 \mark "↓"
 \key a \major
-e
+e'1
 % RehearsalMark は KeySignature の右端に揃えられます
 \once \override Score.KeySignature.break-align-anchor-alignment = #RIGHT
 \key a \major
 \mark "↓"
-e
+e'1
 @end lilypond
 
 また、リハーサル記号を左端に揃えて、@c
@@ -4125,20 +4145,20 @@ e
 単位は譜スペースです:
 
 @c KEEP LY
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
 % リハーサル記号は調号の左端に揃えられて
 % さらに 3.5 譜スペース右にずらされます
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature)
 \once \override Score.KeySignature.break-align-anchor = #3.5
 \key a \major
 \mark "↓"
-e1
+e'1
 % リハーサル記号は調号の左端に揃えられて
 % さらに 2 譜スペース左にずらされます
 \once \override Score.KeySignature.break-align-anchor = #-2
 \key a \major
 \mark "↓"
-e1
+e'1
 @end lilypond
 
 
@@ -4312,38 +4332,40 @@ Web でベジエ曲線が描かれる様子を示すアニメーションを@c
 それでは、上記の例に @code{\once \override} 形式の @code{\shape} を@c
 使ってタイを 0.5 譜スペースだけ上に移動させてみましょう:
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote]
 <<
   {
     \shape #'((0 . 0.5) (0 . 0.5) (0 . 0.5) (0 . 0.5)) Tie
-    e1~ 1
+    e'1~ 1
   }
 \\
-  { r4 <g c,> <g c,> <g c,> }
+  \relative { r4 <g' c,> <g c,> <g c,> }
 >>
 @end lilypond
 
 タイの位置は改善されましたが、中央部分をもっと持ち上げるべきです。@c
 以下の例で @code{\tweak} 形式でそれを行っています:
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote]
 <<
   {
-    e1-\shape #'((0 . 0.5) (0 . 1) (0 . 1) (0 . 0.5)) ~ e
+    e'1-\shape #'((0 . 0.5) (0 . 1) (0 . 1) (0 . 0.5)) ~ e'
   }
 \\
-  { r4 <g c,> <g c,> <g c,> }
+  \relative { r4 <g' c,> <g c,> <g c,> }
 >>
 @end lilypond
 
 同じ方法で制御ポイントを水平方向に移動させることもできて、同じ音楽@c
 タイミングで発生する 2 つの曲線をうまく配置することができます:
 
-@lilypond[verbatim,quote,ragged-right,relative=2]
-c8(\( a) a'4 e c\)
-\shape #'((0.7 . -0.4) (0.5 . -0.4) (0.3 . -0.3) (0 . -0.2)) Slur
-\shape #'((0 . 0) (0 . 0.5) (0 . 0.5) (0 . 0)) PhrasingSlur
-c8(\( a) a'4 e c\)
+@lilypond[verbatim,quote,ragged-right]
+\relative {
+  c''8(\( a) a'4 e c\)
+  \shape #'((0.7 . -0.4) (0.5 . -0.4) (0.3 . -0.3) (0 . -0.2)) Slur
+  \shape #'((0 . 0) (0 . 0.5) (0 . 0.5) (0 . 0)) PhrasingSlur
+  c8(\( a) a'4 e c\)
+}
 @end lilypond
 
 @code{\shape} 関数は改行を跨ぐ曲線の制御ポイントを移動させることも@c
@@ -4352,35 +4374,41 @@ c8(\( a) a'4 e c\)
 片方の曲線は変更する必要がない場合、空のリストを渡します。@c
 以下の例では、1 つのスラーが改行で 2 つに分割されています:
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
-c4( f g c
-\break
-d,4 c' f, c)
+@lilypond[verbatim,quote,ragged-right]
+\relative {
+  c'4( f g c
+  \break
+  d,4 c' f, c)
+}
 @end lilypond
 
 分割されたスラーの形状を変更することで、改行を跨いで続くスラーである@c
 ことがわかりやすくなります:
 
 @c KEEP LY
-@lilypond[verbatim,quote,ragged-right,relative=1]
+@lilypond[verbatim,quote,ragged-right]
 % 片方のスラーを変更する必要がない場合、
 % () を ((0 . 0) (0 . 0) (0 . 0) (0 . 0)) の短縮形として使うことができます
-\shape #'(
-           (( 0 . 0) (0 . 0) (0 . 0) (0 . 1))
-           ((0.5 . 1.5) (1 . 0) (0 . 0) (0 . -1.5))
-         ) Slur
-c4( f g c
-\break
-d,4 c' f, c)
+\relative c' {
+  \shape #'(
+             (( 0 . 0) (0 . 0) (0 . 0) (0 . 1))
+             ((0.5 . 1.5) (1 . 0) (0 . 0) (0 . -1.5))
+           ) Slur
+  c4( f g c
+  \break
+  d,4 c' f, c)
+}
 @end lilypond
 
 S 字曲線が求められた場合は、常に制御ポイントを手動で調節する必要があります
 --- LilyPond が自動的にそのような形状を選択することはありません。
 
-@lilypond[verbatim,quote,relative=2]
-c8( e b-> f d' a e-> g)
-\shape #'((0 . -1) (5.5 . -0.5) (-5.5 . -10.5) (0 . -5.5)) PhrasingSlur
-c8\( e b-> f d' a e-> g\)
+@lilypond[verbatim,quote]
+\relative c'' {
+  c8( e b-> f d' a e-> g)
+  \shape #'((0 . -1) (5.5 . -0.5) (-5.5 . -10.5) (0 . -5.5)) PhrasingSlur
+  c8\( e b-> f d' a e-> g\)
+}
 @end lilypond
 
 @subsubsubheading 制御ポイントの位置を明示的に指定する
@@ -4400,23 +4428,25 @@ X@tie{}座標はタイあるいはスラーを取り付ける音符の参照ポ�
 繰り返しの差し替え部分まで延びるスラーを表示する方法を示しています。
 
 @c KEEP LY
-@lilypond[verbatim,quote,relative=2]
-c1
-\repeat volta 3 { c4 d( e f }
-\alternative {
-  { g2) d }
-  {
-    g2
-    % スラーを作成して、新しい位置に移動させます
-    % <> はスラーを終わらせるための空の和音です
-    -\tweak control-points #'((-2 . 3.8) (-1 . 3.9) (0 . 4) (1 . 3.4)) ( <> )
-    f,
-  }
-  {
-    e'2
-    % スラーを作成して、新しい位置に移動させます
-    -\tweak control-points #'((-2 . 3) (-1 . 3.1) (0 . 3.2) (1 . 2.4)) ( <> )
-    f,
+@lilypond[verbatim,quote]
+\relative {
+  c''1
+  \repeat volta 3 { c4 d( e f }
+  \alternative {
+    { g2) d }
+    {
+      g2
+      % スラーを作成して、新しい位置に移動させます
+      % <> はスラーを終わらせるための空の和音です
+      -\tweak control-points #'((-2 . 3.8) (-1 . 3.9) (0 . 4) (1 . 3.4)) ( <> )
+      f,
+    }
+    {
+      e'2
+      % スラーを作成して、新しい位置に移動させます
+      -\tweak control-points #'((-2 . 3) (-1 . 3.1) (0 . 3.2) (1 . 2.4)) ( <> )
+      f,
+    }
   }
 }
 @end lilypond

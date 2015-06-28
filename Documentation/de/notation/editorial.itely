@@ -157,8 +157,8 @@ Referenz der Interna:
 Fingersatzanweisungen können folgenderweise notiert werden:
 @samp{Note}-@var{Zahl}
 
-@lilypond[verbatim,quote,relative=2]
-c4-1 d-2 f-4 e-3
+@lilypond[verbatim,quote]
+\relative { c''4-1 d-2 f-4 e-3 }
 @end lilypond
 
 Für Fingerwechsel muss eine Textbeschriftung (markup) benutzt werden:
@@ -176,8 +176,8 @@ Mit dem Daumen-Befehl (@code{\thumb}) können die Noten bezeichnet
 werden, die mit dem
 Daumen (etwa auf dem Cello) gespielt werden sollen.
 
-@lilypond[verbatim,quote,relative=2]
-<a_\thumb a'-3>2 <b_\thumb b'-3>
+@lilypond[verbatim,quote]
+\relative { <a'_\thumb a'-3>2 <b_\thumb b'-3> }
 @end lilypond
 
 @cindex Fingersatz: Akkorde
@@ -187,8 +187,10 @@ Fingersätze für Akkorde können auch zu einzelnen Noten
 hinzugefügt werden, indem sie innerhalb der Akkord-Klammer
 direkt an die Noten angefügt werden.
 
-@lilypond[verbatim,quote,relative=2]
-<c-1 e-2 g-3 b-5>2 <d-1 f-2 a-3 c-5>
+@lilypond[verbatim,quote]
+\relative {
+  <c''-1 e-2 g-3 b-5>2 <d-1 f-2 a-3 c-5>
+}
 @end lilypond
 
 Fingersatzanweisungen können manuell oberhalb des Systems gesetzt werden, siehe
@@ -244,26 +246,30 @@ Versteckte (oder unsichtbare oder transparente) Noten können sinnvoll sein,
 wenn man Notation für den Theorieunterricht oder Kompositionsübungen
 erstellen will.
 
-@lilypond[verbatim,quote,relative=2]
-c4 d
-\hideNotes
-e4 f
-\unHideNotes
-g a
-\hideNotes
-b
-\unHideNotes
-c
+@lilypond[verbatim,quote]
+\relative {
+  c''4 d
+  \hideNotes
+  e4 f
+  \unHideNotes
+  g a
+  \hideNotes
+  b
+  \unHideNotes
+  c
+}
 @end lilypond
 
 Notenköpfe, Hälse, Fähnchen und Pausen sind unsichtbar.  Balken sind unsichtbar,
 wenn sie auf einer unsichtbaren Note beginnen.  Objekte, die an unsichtbare
 Noten angehängt werden, sind trotzdem noch sichtbar.
 
-@lilypond[verbatim,quote,relative=2]
-e8(\p f g a)--
-\hideNotes
-e8(\p f g a)--
+@lilypond[verbatim,quote]
+\relative c'' {
+  e8(\p f g a)--
+  \hideNotes
+  e8(\p f g a)--
+}
 @end lilypond
 
 
@@ -308,13 +314,13 @@ Referenz der Interna:
 Einzelnen Objekten können einfach eigene Farben zugewiesen werden.
 Gültige Farben-Bezeichnungen sind aufgelistet in @ref{Liste der Farben}.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,fragment]
 \override NoteHead.color = #red
-c4 c
+c''4 c''
 \override NoteHead.color = #(x11-color 'LimeGreen)
-d
+d''
 \override Stem.color = #blue
-e
+e''
 @end lilypond
 
 Die ganze Farbpalette, die für X11 definiert ist, kann mit der
@@ -328,22 +334,24 @@ die aus mehr als einem Wort bestehen.
 Wenn @code{x11-color} die angegebene Farbbezeichnung nicht kennt, wird
 Schwarz eingesetzt.
 
-@lilypond[verbatim,quote,relative=2]
-\override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
-\set Staff.instrumentName = \markup {
-  \with-color #(x11-color 'navy) "Clarinet"
-}
+@lilypond[verbatim,quote]
+\relative c'' {
+  \override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
+  \set Staff.instrumentName = \markup {
+    \with-color #(x11-color 'navy) "Clarinet"
+  }
 
-gis8 a
-\override Beam.color = #(x11-color "medium turquoise")
-gis a
-\override Accidental.color = #(x11-color 'DarkRed)
-gis a
-\override NoteHead.color = #(x11-color "LimeGreen")
-gis a
-% this is deliberate nonsense; note that the stems remain black
-\override Stem.color = #(x11-color 'Boggle)
-b2 cis
+  gis8 a
+  \override Beam.color = #(x11-color "medium turquoise")
+  gis a
+  \override Accidental.color = #(x11-color 'DarkRed)
+  gis a
+  \override NoteHead.color = #(x11-color "LimeGreen")
+  gis a
+  % this is deliberate nonsense; note that the stems remain black
+  \override Stem.color = #(x11-color 'Boggle)
+  b2 cis
+}
 @end lilypond
 
 @cindex RGB-Farbe
@@ -353,18 +361,20 @@ b2 cis
 Exakte RGB-Farben können mit Hilfe der Scheme-Funktion @code{rgb-color}
 definiert werden.
 
-@lilypond[verbatim,quote,relative=2]
-\override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
-\set Staff.instrumentName = \markup {
-  \with-color #(x11-color 'navy) "Clarinet"
-}
+@lilypond[verbatim,quote]
+\relative c'' {
+  \override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
+  \set Staff.instrumentName = \markup {
+    \with-color #(x11-color 'navy) "Clarinet"
+  }
 
-\override Stem.color = #(rgb-color 0 0 0)
-gis8 a
-\override Stem.color = #(rgb-color 1 1 1)
-gis8 a
-\override Stem.color = #(rgb-color 0 0 0.5)
-gis4 a
+  \override Stem.color = #(rgb-color 0 0 0)
+  gis8 a
+  \override Stem.color = #(rgb-color 1 1 1)
+  gis8 a
+  \override Stem.color = #(rgb-color 0 0 0.5)
+  gis4 a
+}
 @end lilypond
 
 @seealso
@@ -411,19 +421,23 @@ Objekte können in Klammern gesetzt werden, indem vor ihnen der Befehl
 wird, wirkt sich das auf jede Noten im Akkord aus.  Innerhalb von einem
 Akkord gesetzte Befehle wirken sich auf einzelne Noten aus.
 
-@lilypond[verbatim,quote,relative=2]
-c2 \parenthesize d
-c2 \parenthesize <c e g>
-c2 <c \parenthesize e g>
+@lilypond[verbatim,quote]
+\relative {
+  c''2 \parenthesize d
+  c2 \parenthesize <c e g>
+  c2 <c \parenthesize e g>
+}
 @end lilypond
 
 Auch andere Objekte als Noten können in Klammern gesetzt werden.
 Wenn Artikulationszeichen in Klammern gesetzt werden sollen,
 braucht man ein Minuszeichen vor dem @code{\parenthesize}-Befehl.
 
-@lilypond[verbatim,quote,relative=2]
-c2-\parenthesize -. d
-c2 \parenthesize r
+@lilypond[verbatim,quote]
+\relative {
+  c''2-\parenthesize -. d
+  c2 \parenthesize r
+}
 @end lilypond
 
 @seealso
@@ -539,9 +553,9 @@ Notationselemente können bezeichnet und markiert werden, indem um sie eine
 rechteckige Blase gezeichnet wird.  Dies ist vor allem dazu da, Notation
 zu erklären.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Voice \with { \consists "Balloon_engraver" }
-{
+\relative c'' {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
   a8
   \balloonGrobText #'Rest #'(-4 . -4) \markup { "I'm a rest" }

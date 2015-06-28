@@ -355,7 +355,7 @@ scores with many staves:
   }
   \new Staff \relative {
     d''4 d
-}
+  }
 >>
 @end lilypond
 

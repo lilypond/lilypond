@@ -2440,12 +2440,14 @@ showLastLength = R1*5
 スキップするということに注意してください。@c
 くれぐれも注意してください。
 
-@lilypond[quote,relative=2,ragged-right,verbatim]
-c8 d
-\set Score.skipTypesetting = ##t
-e8 e e e e e e e
-\set Score.skipTypesetting = ##f
-c8 d b bes a g c2
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  c''8 d
+  \set Score.skipTypesetting = ##t
+  e8 e e e e e e e
+  \set Score.skipTypesetting = ##f
+  c8 d b bes a g c2
+}
 @end lilypond
 
 多声の音楽では、@code{Score.skipTypesetting} はすべてのボイスと譜に@c

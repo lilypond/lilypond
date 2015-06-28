@@ -1048,8 +1048,8 @@ otra forma podríamos introducir piezas complejas como sinfonías u
 musicales: combinando pequeños fragmentos de música dentro de otros
 más grandes, se puede expresar una música más compleja.  Por ejemplo:
 
-@lilypond[quote,verbatim,fragment,relative=1]
-f4
+@lilypond[quote,verbatim,fragment]
+f'4
 @end lilypond
 
 @noindent

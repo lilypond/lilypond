@@ -67,21 +67,25 @@ breve) e @code{\breve}. La minor durata esprimibile per una nota indipendente è
 di travature.
 
 @c Two 64th notes are needed to obtain beams
-@lilypond[quote,verbatim,relative=2]
-\time 8/1
-c\longa c\breve c1 c2
-c4 c8 c16 c32 c64 c128 c128
+@lilypond[quote,verbatim]
+\relative {
+  \time 8/1
+  c''\longa c\breve c1 c2
+  c4 c8 c16 c32 c64 c128 c128
+}
 @end lilypond
 
 Ecco gli stessi valori con la disposizione automatica delle travature disabilitata.
 
 @c not strictly "writing rhythms"; more of a "displaying" thing,
 @c but it's ok here.  -gp
-@lilypond[quote,verbatim,relative=2]
-\time 8/1
-\autoBeamOff
-c\longa c\breve c1 c2
-c4 c8 c16 c32 c64 c128 c128
+@lilypond[quote,verbatim]
+\relative {
+  \time 8/1
+  \autoBeamOff
+  c''\longa c\breve c1 c2
+  c4 c8 c16 c32 c64 c128 c128
+}
 @end lilypond
 
 Solo nella notazione per musica antica è possibile specificare una nota che
@@ -94,16 +98,18 @@ informazioni si veda @ref{Ancient notation}.
 Se una durata viene omessa, viene mantenuta quella  precedente.  Il valore
 predefinito della prima nota è di un quarto.
 
-@lilypond[quote,verbatim,relative=2]
-a a a2 a a4 a a1 a
+@lilypond[quote,verbatim]
+\relative { a' a a2 a a4 a a1 a }
 @end lilypond
 
 Le durate isolate prendono l'altezza dalla nota o accordo precedenti.
 
-@lilypond[quote,verbatim,relative=2]
-\time 8/1
-c \longa \breve 1 2
-4 8 16 32 64 128 128
+@lilypond[quote,verbatim]
+\relative {
+  \time 8/1
+  c'' \longa \breve 1 2
+  4 8 16 32 64 128 128
+}
 @end lilypond
 
 @cindex note puntate
@@ -117,8 +123,8 @@ Per ottenere note puntate, si inserisce un punto (@code{.}) dopo la
 durata.  Le figure con doppio punto si indicano aggiungendo due
 punti, e così via.
 
-@lilypond[quote,verbatim,relative=2]
-a4 b c4. b8 a4. b4.. c8.
+@lilypond[quote,verbatim]
+\relative { a'4 b c4. b8 a4. b4.. c8. }
 @end lilypond
 
 Alcune durate non possono essere rappresentate soltanto con
@@ -229,8 +235,10 @@ un comando @code{\tuplet} per ogni gruppo è scomodo.  È possibile
 specificare direttamente la durata di un gruppo irregolare prima
 della musica per far sì che i gruppi siano suddivisi automaticamente:
 
-@lilypond[quote,verbatim,relative=2]
-g2 r8 \tuplet 3/2 8 { cis16 d e e f g g f e }
+@lilypond[quote,verbatim]
+\relative {
+  g'2 r8 \tuplet 3/2 8 { cis16 d e e f g g f e }
+}
 @end lilypond
 
 @cindex posizionamento della parentesi quadra del gruppo irregolare
@@ -246,18 +254,22 @@ g2 r8 \tuplet 3/2 8 { cis16 d e e f g g f e }
 Le parentesi dei gruppi irregolari si possono posizionare manualmente sopra
 o sotto il rigo:
 
-@lilypond[quote,verbatim,relative=2]
-\tupletUp \tuplet 3/2 { c8 d e }
-\tupletNeutral \tuplet 3/2 { c8 d e }
-\tupletDown \tuplet 3/2 { f,8 g a }
-\tupletNeutral \tuplet 3/2 { f8 g a }
+@lilypond[quote,verbatim]
+\relative {
+  \tupletUp \tuplet 3/2 { c''8 d e }
+  \tupletNeutral \tuplet 3/2 { c8 d e }
+  \tupletDown \tuplet 3/2 { f,8 g a }
+  \tupletNeutral \tuplet 3/2 { f8 g a }
+}
 @end lilypond
 
 È possibile annidare i gruppi irregolari:
 
-@lilypond[quote,verbatim,relative=2]
-\autoBeamOff
-c4 \tuplet 5/4 { f8 e f \tuplet 3/2 { e[ f g] } } f4
+@lilypond[quote,verbatim]
+\relative {
+  \autoBeamOff
+  c''4 \tuplet 5/4 { f8 e f \tuplet 3/2 { e[ f g] } } f4
+}
 @end lilypond
 
 La modifica di gruppi irregolari annidati che iniziano simultaneamente
@@ -433,15 +445,15 @@ La legatura di valore si inserisce aggiungendo il simbolo tilde (@code{~})
 alla prima di ogni coppia di note legate.  Esso indica che la nota deve
 essere legata alla nota successiva, che deve essere della stessa altezza.
 
-@lilypond[quote,verbatim,relative=2]
-a2~ 4~ 16 r r8
+@lilypond[quote,verbatim]
+{ a'2~ 4~ 16 r r8 }
 @end lilypond
 
 Le legature di valore possono avvantaggiarsi dell'interpretazione dell'
 @q{ultima altezza esplicita} per le durate isolate:
 
-@lilypond[quote,verbatim,relative=2]
-a2~ 4~ 16 r r8
+@lilypond[quote,verbatim]
+{ a'2~ 4~ 16 r r8 }
 @end lilypond
 
 Le legature di valore si usano per unire due note a cavallo di una
@@ -469,10 +481,12 @@ tutte le teste delle note della stessa altezza.  In assenza di altezze corrispon
 non verrà creata alcuna legatura.  Singoli suoni degli accordi possono essere
 legati inserendo la legatura all'interno dell'accordo stesso.
 
-@lilypond[quote,verbatim,relative=1]
-<c e g>2 ~ 2
-<c e g>4~ <c e g c>
-<c~ e g~ b> <c e g b>
+@lilypond[quote,verbatim]
+\relative c' {
+  <c e g>2~ 2 |
+  <c e g>4~ <c e g c>
+    <c~ e g~ b> <c e g b> |
+}
 @end lilypond
 
 @cindex ripetere le legature di valore
@@ -506,8 +520,8 @@ le note non devono essere terminate nettamente.  Si usa nella notazione per
 pianoforte, arpa e altri strumenti a corda e a percussione.  Si inseriscono
 così:
 
-@lilypond[quote,verbatim,relative=1]
-<c f g>1\laissezVibrer
+@lilypond[quote,verbatim,fragment]
+<c' f' g'>1\laissezVibrer
 @end lilypond
 
 @cindex legature di valore, posizionamento
@@ -536,28 +550,32 @@ curva in su o in giù, come è spiegato in @ref{Direction and placement}.
 Le legature di valore possono essere tratteggiate, punteggiate, oppure tracciate secondo una
 successione di tratti continui e tratti interrotti.
 
-@lilypond[quote, verbatim, relative=1]
-\tieDotted
-c2~ 2
-\tieDashed
-c2~ 2
-\tieHalfDashed
-c2~ 2
-\tieHalfSolid
-c2~ 2
-\tieSolid
-c2~ 2
+@lilypond[quote, verbatim]
+\relative c' {
+  \tieDotted
+  c2~ 2
+  \tieDashed
+  c2~ 2
+  \tieHalfDashed
+  c2~ 2
+  \tieHalfSolid
+  c2~ 2
+  \tieSolid
+  c2~ 2
+}
 @end lilypond
 
 Si possono specificare modelli di tratteggiatura personalizzati:
 
-@lilypond[quote, verbatim, relative=1]
-\tieDashPattern #0.3 #0.75
-c2~ 2
-\tieDashPattern #0.7 #1.5
-c2~ 2
-\tieSolid
-c2~ 2
+@lilypond[quote, verbatim]
+\relative c' {
+  \tieDashPattern #0.3 #0.75
+  c2~ 2
+  \tieDashPattern #0.7 #1.5
+  c2~ 2
+  \tieSolid
+  c2~ 2
+}
 @end lilypond
 
 Le definizioni dei modelli di tratteggiatura delle legature di valore hanno la
@@ -567,16 +585,18 @@ ai modelli complessi di tratteggiatura sono trattati in @ref{Slurs}.
 Se le legature collidono con altri oggetti del rigo, si possono sovrascrivere
 le proprietà di formattazione @var{whiteout} e @var{layer}.
 
-@lilypond[verbatim,quote,ragged-right,relative=2]
-\override Tie.layer = #-2
-\override Staff.TimeSignature.layer = #-1
-\override Staff.KeySignature.layer = #-1
-\override Staff.TimeSignature.whiteout-box = ##t
-\override Staff.KeySignature.whiteout-box = ##t
-b2 b~
-\time 3/4
-\key a \major
-b r4
+@lilypond[verbatim,quote,ragged-right]
+\relative {
+  \override Tie.layer = #-2
+  \override Staff.TimeSignature.layer = #-1
+  \override Staff.KeySignature.layer = #-1
+  \override Staff.TimeSignature.whiteout = ##t
+  \override Staff.KeySignature.whiteout = ##t
+  b'2 b~
+  \time 3/4
+  \key a \major
+  b r4
+}
 @end lilypond
 
 @predefined
@@ -695,8 +715,8 @@ permette una precisa formattazione manuale della musica polifonica, dato che
 il formattatore automatico che gestisce le collisioni tra pause non interviene su
 questo tipo di pause.
 
-@lilypond[quote,verbatim,relative=2]
-a4\rest d4\rest
+@lilypond[quote,verbatim]
+\relative { a'4\rest d4\rest }
 @end lilypond
 
 @snippets
@@ -742,9 +762,11 @@ centoventottesimo fino alla maxima (otto volte una semibreve).
 Una pausa invisibile (chiamata anche @q{pausa spaziatrice}) si inserisce come
 come una nota col nome@tie{}@code{s}:
 
-@lilypond[verbatim,quote,relative=2]
-c4 c s c
-s2 c
+@lilypond[verbatim,quote]
+\relative c'' {
+  c4 c s c |
+  s2 c |
+}
 @end lilypond
 
 @cindex testo, \skip
@@ -756,10 +778,10 @@ il testo vocale, si usa il comando @code{\skip} per saltare un valore musicale.
 se il testo desume le proprie durate dalle note presenti in una melodia ad esso
 associata attraverso @code{\addlyrics} o @code{\lyricsto}.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
   {
-    a2 \skip2 a2 a2
+    a'2 \skip2 a'2 a'2
   }
   \new Lyrics {
     \lyricmode {
@@ -772,14 +794,14 @@ associata attraverso @code{\addlyrics} o @code{\lyricsto}.
 Dato che @code{\skip} è un comando, non modifica la durata predefinita delle
 note che seguono, diversamente da@tie{}@code{s}.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
   {
-    \repeat unfold 8 { a4 }
+    \repeat unfold 8 { a'4 }
   }
   {
-    a4 \skip 2 a |
-    s2 a
+    a'4 \skip 2 a' |
+    s2 a'
   }
 >>
 @end lilypond
@@ -788,8 +810,8 @@ note che seguono, diversamente da@tie{}@code{s}.
 Una pausa spaziatrice crea implicitamente i contesti @code{Staff} e @code{Voice}
 se non esistono già, proprio come accade per le note e le pause:
 
-@lilypond[quote,verbatim,relative=2]
-s1 s s
+@lilypond[quote,verbatim]
+{ s1 s s }
 @end lilypond
 
 @code{\skip} si limita a saltare un valore musicale, non crea nessun tipo di
@@ -856,7 +878,7 @@ R4*5*4 |
 Una pausa d'intero appare al centro della misura con la durata di una semibreve
 o di una breve, in base all'indicazione di tempo.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \time 4/4
 R1 |
 \time 6/4
@@ -1036,9 +1058,9 @@ Le pause multiple non considerano le collisioni di pausa.
 
 L'indicazione di tempo si imposta così:
 
-@lilypond[quote,verbatim,relative=2]
-\time 2/4 c2
-\time 3/4 c2.
+@lilypond[quote,verbatim,fragment]
+\time 2/4 c''2
+\time 3/4 c''2.
 @end lilypond
 
 I cambi di indicazione di tempo a metà misura sono trattati in @ref{Upbeats}.
@@ -1051,14 +1073,16 @@ che l'indicazione cambia.  Se il cambio ha luogo alla fine di un rigo,
 appare un'indicazione di tempo di precauzione.  Si può modificare questo
 comportamento predefinito, come è spiegato in @ref{Visibility of objects}.
 
-@lilypond[quote,verbatim,relative=2]
-\time 2/4
-c2 c
-\break
-c c
-\break
-\time 4/4
-c c c c
+@lilypond[quote,verbatim]
+\relative c'' {
+  \time 2/4
+  c2 c
+  \break
+  c c
+  \break
+  \time 4/4
+  c c c c
+}
 @end lilypond
 
 @cindex indicazione di tempo, stile
@@ -1278,51 +1302,63 @@ Guida al funzionamento interno:
 
 Un'indicazione metronomica è semplice da scrivere:
 
-@lilypond[verbatim,quote,relative=1]
-\tempo 4 = 120
-c2 d
-e4. d8 c2
+@lilypond[verbatim,quote]
+\relative {
+  \tempo 4 = 120
+  c'2 d
+  e4. d8 c2
+}
 @end lilypond
 
 Le indicazioni metronomiche si possono rappresentare anche come una gamma
 di due numeri:
 
-@lilypond[verbatim,quote,relative=1]
-\tempo 4 = 40 - 46
-c4. e8 a4 g
-b,2 d4 r
+@lilypond[verbatim,quote]
+\relative {
+  \tempo 4 = 40 - 46
+  c'4. e8 a4 g
+  b,2 d4 r
+}
 @end lilypond
 
 Al loro posto si possono usare delle indicazioni di tempo testuali:
 
-@lilypond[verbatim,quote,relative=2]
-\tempo "Allegretto"
-c4 e d c
-b4. a16 b c4 r4
+@lilypond[verbatim,quote]
+\relative {
+  \tempo "Allegretto"
+    c''4 e d c
+    b4. a16 b c4 r4
+}
 @end lilypond
 
 Un'indicazione metronomica, se combinata con del testo, viene posta
 automaticamente tra parentesi:
 
-@lilypond[verbatim,quote,relative=2]
-\tempo "Allegro" 4 = 160
-g4 c d e
-d4 b g2
+@lilypond[verbatim,quote]
+\relative {
+  \tempo "Allegro" 4 = 160
+  g'4 c d e
+  d4 b g2
+}
 @end lilypond
 
 In generale, il testo può essere qualsiasi oggetto di tipo testuale:
 
-@lilypond[verbatim,quote,relative=2]
-\tempo \markup { \italic Faster } 4 = 132
-a8-. r8 b-. r gis-. r a-. r
+@lilypond[verbatim,quote]
+\relative {
+  \tempo \markup { \italic Faster } 4 = 132
+  a'8-. r8 b-. r gis-. r a-. r
+}
 @end lilypond
 
 È possibile scrivere un'indicazione metronomica tra parentesi e senza testo
 includendo una stringa vuota nell'input:
 
-@lilypond[verbatim,quote,relative=2]
-\tempo "" 8 = 96
-d4 g e c
+@lilypond[verbatim,quote]
+\relative {
+  \tempo "" 8 = 96
+  d''4 g e c
+}
 @end lilypond
 
 @funindex \markLengthOn
@@ -1406,42 +1442,48 @@ Quando si usa @code{\partial} all'inizio di una partitura, la
 @code{@var{durata}} è la lunghezza della musica che precede la
 prima battuta.
 
-@lilypond[quote,verbatim,relative=1]
-\time 3/4
-\partial 4.
-r4 e8 | a4 c8 b c4 |
+@lilypond[quote,verbatim]
+\relative {
+  \time 3/4
+  \partial 4.
+  r4 e'8 | a4 c8 b c4 |
+}
 @end lilypond
 
 Quando si usa @code{\partial} dopo l'inizio di una partitura, la
 @var{durata} è la lunghezza @emph{rimanente} della misura corrente.
 Non crea una battuta con un nuovo numero.
 
-@lilypond[quote,verbatim,relative=1]
-\set Score.barNumberVisibility = #all-bar-numbers-visible
-\override Score.BarNumber.break-visibility =
-          #end-of-line-invisible
-\time 9/8
-d'4.~ 4 d8 d( c) b | c4.~ 4. \bar "||"
-\time 12/8
-\partial 4.
-c8( d) e | f2.~ 4 f8 a,( c) f |
+@lilypond[quote,verbatim]
+\relative {
+  \set Score.barNumberVisibility = #all-bar-numbers-visible
+  \override Score.BarNumber.break-visibility =
+	    #end-of-line-invisible
+  \time 9/8
+  d''4.~ 4 d8 d( c) b | c4.~ 4. \bar "||"
+  \time 12/8
+  \partial 4.
+  c8( d) e | f2.~ 4 f8 a,( c) f |
+}
 @end lilypond
 
 Il comando @code{\partial} è @emph{obbligatorio} quando l'indicazione
 di tempo cambia in mezzo a una misura, ma si può usare anche da solo.
 
-@lilypond[quote,verbatim,relative=1]
-\set Score.barNumberVisibility = #all-bar-numbers-visible
-\override Score.BarNumber.break-visibility =
-          #end-of-line-invisible
-\time 6/8
-\partial 8
-e8 | a4 c8 b[ c b] |
-\partial 4
-r8 e,8 | a4 \bar "||"
-\partial 4
-r8 e8 | a4
-c8 b[ c b] |
+@lilypond[quote,verbatim]
+\relative {
+  \set Score.barNumberVisibility = #all-bar-numbers-visible
+  \override Score.BarNumber.break-visibility =
+	    #end-of-line-invisible
+  \time 6/8
+  \partial 8
+  e'8 | a4 c8 b[ c b] |
+  \partial 4
+  r8 e,8 | a4 \bar "||"
+  \partial 4
+  r8 e8 | a4
+  c8 b[ c b] |
+}
 @end lilypond
 
 Il comando @code{\partial} imposta la proprietà @code{Timing.measurePosition},
@@ -1495,13 +1537,15 @@ la cadenza), un simile comportamento non è desiderabile, e può essere
 @q{disabilitato} col comando @code{\cadenzaOn} e poi @q{riabilitato}
 quando necessario con @code{\cadenzaOff}.
 
-@lilypond[verbatim,relative=2,quote]
-c4 d e d
-\cadenzaOn
-c4 c d8[ d d] f4 g4.
-\cadenzaOff
-\bar "|"
-d4 e d c
+@lilypond[verbatim,quote]
+\relative c'' {
+  c4 d e d
+  \cadenzaOn
+  c4 c d8[ d d] f4 g4.
+  \cadenzaOff
+  \bar "|"
+  d4 e d c
+}
 @end lilypond
 
 La numerazione delle battute riprende dopo la cadenza.
@@ -1540,14 +1584,16 @@ La disposizione automatica delle travature viene disabilitata da
 @code{\cadenzaOn}. Quindi tutte le travature nelle cadenze devono
 essere inserite manualmente.  Si veda @ref{Manual beams}.
 
-@lilypond[verbatim,relative=2,quote]
-\repeat unfold 8 { c8 }
-\cadenzaOn
-cis8 c c c c
-\bar"|"
-c8 c c
-\cadenzaOff
-\repeat unfold 8 { c8 }
+@lilypond[verbatim,quote]
+\relative {
+  \repeat unfold 8 { c''8 }
+  \cadenzaOn
+  cis8 c c c c
+  \bar"|"
+  c8 c c
+  \cadenzaOff
+  \repeat unfold 8 { c8 }
+}
 @end lilypond
 
 Questi comandi predefiniti hanno effetto su tutti i righi di una partitura, anche
@@ -1792,15 +1838,16 @@ sostituendo @code{Rest_engraver} con @code{Completion_rest_engraver}.  Nell'esem
 seguente, le note e le pause che eccedono la durata di battuta vengono divise e
 le note sono anche connesse con legature di valore a cavallo della stanghetta.
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,verbatim]
 \new Voice \with {
   \remove "Note_heads_engraver"
   \consists "Completion_heads_engraver"
   \remove "Rest_engraver"
   \consists "Completion_rest_engraver"
 }
-
-{ c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 r1*2 }
+\relative {
+  c'2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 r1*2
+}
 @end lilypond
 
 Questi incisori dividono tutte le note e le pause in corrispondenza
@@ -1811,12 +1858,12 @@ le legature di valore mostrano esattamente di quanto è ecceduta ogni misura.
 La proprietà @code{completionUnit} imposta la durata preferita per le note
 divise.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 \new Voice \with {
   \remove "Note_heads_engraver"
   \consists "Completion_heads_engraver"
-} {
-  \time 9/8 g\breve. d4. \bar "||"
+} \relative {
+  \time 9/8 g\breve. d''4. \bar "||"
   \set completionUnit = #(ly:make-moment 3 8)
   g\breve. d4.
 }
@@ -1826,13 +1873,13 @@ Questi incisori dividono le note che hanno una durata ridimensionata, come
 quelle dei gruppi irregolari, in note con lo stesso fattore di ridimensionamento
 della nota di input.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 \new Voice \with {
   \remove "Note_heads_engraver"
   \consists "Completion_heads_engraver"
-} {
+} \relative {
   \time 2/4 r4
-  \tuplet 3/2 {g4 a b}
+  \tuplet 3/2 {g'4 a b}
   \scaleDurations 2/3 {g a b}
   g4*2/3 a b
   \tuplet 3/2 {g4 a b}
@@ -1879,12 +1926,12 @@ ridimensionamento delle durate di input.
 ritmico.  Tutte le altezze delle note su tale rigo sono appiattite e
 il rigo stesso ha una sola linea
 
-@lilypond[quote,relative=1,verbatim]
+@lilypond[quote,verbatim]
 <<
   \new RhythmicStaff {
-    \new Voice = "myRhythm" {
+    \new Voice = "myRhythm" \relative {
       \time 4/4
-      c4 e8 f g2
+      c'4 e8 f g2
       r4 g g f
       g1
     }
@@ -1979,9 +2026,11 @@ Le travature sono inserite automaticamente:
 @funindex \autoBeamOff
 @funindex autoBeamOff
 
-@lilypond[quote,verbatim,relative=2]
-\time 2/4 c8 c c c
-\time 6/8 c8 c c c8. c16 c8
+@lilypond[quote,verbatim]
+\relative c'' {
+  \time 2/4 c8 c c c
+  \time 6/8 c8 c c c8. c16 c8
+}
 @end lilypond
 
 Se queste impostazioni automatiche non sono soddisfacenti, si può definire
@@ -1992,12 +2041,14 @@ manualmente se devono estendersi oltre le pause.
 La disposizione automatica delle travature, se non necessaria, può essere
 disabilitata con @code{\autoBeamOff} e riabilitata con @code{\autoBeamOn}:
 
-@lilypond[quote,relative=1,verbatim]
-c4 c8 c8. c16 c8. c16 c8
-\autoBeamOff
-c4 c8 c8. c16 c8.
-\autoBeamOn
-c16 c8
+@lilypond[quote,verbatim]
+\relative c' {
+  c4 c8 c8. c16 c8. c16 c8
+  \autoBeamOff
+  c4 c8 c8. c16 c8.
+  \autoBeamOn
+  c16 c8
+}
 @end lilypond
 
 @cindex melismi, con travature
@@ -2222,13 +2273,15 @@ specificati con travature manuali.  Le misure devono essere separate da
 un controllo di battuta@tie{}@code{|} dato che la funzione non ha altro
 modo per determinare la lunghezza della misura.  Ecco un semplice esempio:
 
-@lilypond[quote,relative=2,verbatim]
-\time 3/16
-\set Timing.beatStructure = #'(2 1)
-\set Timing.beamExceptions =
-  \beamExceptions { 32[ 32] 32[ 32] 32[ 32] }
-c16 c c |
-\repeat unfold 6 { c32 } |
+@lilypond[quote,verbatim]
+\relative c'' {
+  \time 3/16
+  \set Timing.beatStructure = #'(2 1)
+  \set Timing.beamExceptions =
+    \beamExceptions { 32[ 32] 32[ 32] 32[ 32] }
+  c16 c c |
+  \repeat unfold 6 { c32 } |
+}
 @end lilypond
 
 @warning{Il valore di @code{beamExceptions} deve essere una lista @emph{completa}
@@ -2295,11 +2348,13 @@ Situazioni simili si incontrano anche per il tempo 3/8.  Questo comportamento è
 controllato dalla proprietà di contesto @code{beamHalfMeasure}, che ha effetto
 soltanto sulle indicazioni di tempo che hanno 3 come numeratore:
 
-@lilypond[quote,verbatim,relative=2]
-\time 3/4
-r4. a8 a a |
-\set Timing.beamHalfMeasure = ##f
-r4. a8 a a |
+@lilypond[quote,verbatim]
+\relative a' {
+  \time 3/4
+  r4. a8 a a |
+  \set Timing.beamHalfMeasure = ##f
+  r4. a8 a a |
+}
 @end lilypond
 
 @subsubsubheading Come funziona la disposizione automatica delle travature
@@ -2398,17 +2453,17 @@ personalizzata delle travature definita in un rigo precedente.
 Per evitare questo problema si può impostare l'indicazione di tempo su
 un solo rigo.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
   \new Staff {
     \time 3/4
     \set Timing.baseMoment = #(ly:make-moment 1/8)
     \set Timing.beatStructure = #'(1 5)
     \set Timing.beamExceptions = #'()
-    \repeat unfold 6 { a8 }
+    \repeat unfold 6 { a'8 }
   }
   \new Staff {
-    \repeat unfold 6 { a8 }
+    \repeat unfold 6 { a'8 }
   }
 >>
 @end lilypond
@@ -2454,8 +2509,8 @@ del testo piuttosto che da quella musicale.  Tali travature possono essere
 specificate manualmente indicandone l'inizio e la fine con
 @code{[} e @code{]}.
 
-@lilypond[quote,relative=1,verbatim]
-r4 r8[ g' a r] r g[ | a] r
+@lilypond[quote,verbatim]
+\relative { r4 r8[ g' a r] r g[ | a] r }
 @end lilypond
 
 @cindex travature manuali, scorciatoia per impostare la direzione
@@ -2464,8 +2519,8 @@ r4 r8[ g' a r] r g[ | a] r
 La direzione delle travature può essere impostata manualmente attraverso
 gli indicatori di direzione:
 
-@lilypond[quote,relative=2,verbatim]
-c8^[ d e] c,_[ d e f g]
+@lilypond[quote,verbatim]
+\relative { c''8^[ d e] c,_[ d e f g] }
 @end lilypond
 
 @funindex \noBeam
@@ -2474,21 +2529,25 @@ c8^[ d e] c,_[ d e f g]
 Le note individuali possono essere contrassegnate con @code{\noBeam} per impedire
 che vengano inserite in una travatura:
 
-@lilypond[quote,verbatim,relative=2]
-\time 2/4
-c8 c\noBeam c c
+@lilypond[quote,verbatim]
+\relative {
+  \time 2/4
+  c''8 c\noBeam c c
+}
 @end lilypond
 
 Le travature degli abbellimenti e quelle delle note normali possono coesistere
 simultaneamente.  Gli abbellimenti privi di travatura non vengono inseriti
 nella travatura delle note normali.
 
-@lilypond[quote,verbatim,relative=2]
-c4 d8[
-\grace { e32 d c d }
-e8] e[ e
-\grace { f16 }
-e8 e]
+@lilypond[quote,verbatim]
+\relative {
+  c''4 d8[
+  \grace { e32 d c d }
+  e8] e[ e
+  \grace { f16 }
+  e8 e]
+}
 @end lilypond
 
 @funindex stemLeftBeamCount
@@ -2502,14 +2561,16 @@ sola, e la proprietà sarà poi cancellata.  In questo esempio, l'ultima nota @c
 sola travatura a sinistra: la travatura corrispondente alla sottodivisione di un ottavo
 all'interno dell'intero raggruppamento.
 
-@lilypond[quote,relative=2,verbatim]
-a8[ r16 f g a]
-a8[ r16
-\set stemLeftBeamCount = #2
-\set stemRightBeamCount = #1
-f16
-\set stemLeftBeamCount = #1
-g16 a]
+@lilypond[quote,verbatim]
+\relative a' {
+  a8[ r16 f g a]
+  a8[ r16
+  \set stemLeftBeamCount = #2
+  \set stemRightBeamCount = #1
+  f16
+  \set stemLeftBeamCount = #1
+  g16 a]
+}
 @end lilypond
 
 
@@ -2636,8 +2697,8 @@ automaticamente in base all'indicazione di tempo.
 Si possono inserire altri tipi di stanghette col comando @code{\bar}.  Ad
 esempio, di solito si usa una stanghetta finale al termine di un brano:
 
-@lilypond[quote,relative=1,verbatim]
-e4 d c2 \bar "|."
+@lilypond[quote,verbatim]
+\relative { e'4 d c2 \bar "|." }
 @end lilypond
 
 Se l'ultima nota di una misura non termina entro la stanghetta
@@ -2690,45 +2751,51 @@ alterate.
 Sono disponibili per l'inserimento manuale due tipi di stanghette semplici e
 cinque tipi di stanghette doppie:
 
-@lilypond[quote,relative=1,verbatim]
-f1 \bar "|"
-f1 \bar "."
-g1 \bar "||"
-a1 \bar ".|"
-b1 \bar ".."
-c1 \bar "|.|"
-d1 \bar "|."
-e1
+@lilypond[quote,verbatim]
+\relative {
+  f'1 \bar "|"
+  f1 \bar "."
+  g1 \bar "||"
+  a1 \bar ".|"
+  b1 \bar ".."
+  c1 \bar "|.|"
+  d1 \bar "|."
+  e1
+}
 @end lilypond
 
 @noindent
 oltre alle stanghette puntate e tratteggiate:
 
-@lilypond[quote,relative=1,verbatim]
-f1 \bar ";"
-g1 \bar "!"
-a1
+@lilypond[quote,verbatim]
+\relative {
+  f'1 \bar ";"
+  g1 \bar "!"
+  a1
+}
 @end lilypond
 
 @noindent
 e a nove tipi di stanghette per le ripetizioni:
 
-@lilypond[quote,relative=1,verbatim]
-f1 \bar ".|:"
-g1 \bar ":..:"
-a1 \bar ":|.|:"
-b1 \bar ":|.:"
-c1 \bar ":.|.:"
-d1 \bar "[|:"
-e1 \bar ":|][|:"
-f1 \bar ":|]"
-g1 \bar ":|."
-a1
+@lilypond[quote,verbatim]
+\relative {
+  f'1 \bar ".|:"
+  g1 \bar ":..:"
+  a1 \bar ":|.|:"
+  b1 \bar ":|.:"
+  c1 \bar ":.|.:"
+  d1 \bar "[|:"
+  e1 \bar ":|][|:"
+  f1 \bar ":|]"
+  g1 \bar ":|."
+  a1
+}
 @end lilypond
 
 Inoltre, una stanghetta può apparire come un semplice segno di spunta:
-@lilypond[quote,relative=1,verbatim]
-f1 \bar "'" g1
+@lilypond[quote,fragment,verbatim]
+f'1 \bar "'" g'1
 @end lilypond
 Tuttavia,dato che questi segni di spunta sono tipicamente usati nella notazione
 gregoriana, è preferibile usare @code{\divisioMinima}, come è descritto
@@ -2736,8 +2803,8 @@ nella sezione @ref{Divisiones} della parte dedicata al canto gregoriano.
 
 Lilypond supporta la notazione gregoriana russa e fornisce una stanghetta speciale per
 questo tipo di notazione:
-@lilypond[quote,relative=1,verbatim]
-f1 \bar "k"
+@lilypond[quote,fragment,verbatim]
+f'1 \bar "k"
 @end lilypond
 I dettagli di questo tipo di notazione sono spiegati in
 @ref{Typesetting Kievan square notation}.
@@ -2747,20 +2814,22 @@ I dettagli di questo tipo di notazione sono spiegati in
 Per i segni di tipo segno interni al rigo, ci sono tre tipi di stanghette che
 differiscono nel comportamento quando incontrano un'interruzione di linea:
 
-@lilypond[quote,relative=2,verbatim]
-c4 c c c
-\bar "S"
-c4 c c c \break
-\bar "S"
-c4 c c c
-\bar "S-|"
-c4 c c c \break
-\bar "S-|"
-c4 c c c
-\bar "S-S"
-c4 c c c \break
-\bar "S-S"
-c1
+@lilypond[quote,verbatim]
+\relative c'' {
+  c4 c c c
+  \bar "S"
+  c4 c c c \break
+  \bar "S"
+  c4 c c c
+  \bar "S-|"
+  c4 c c c \break
+  \bar "S-|"
+  c4 c c c
+  \bar "S-S"
+  c4 c c c \break
+  \bar "S-S"
+  c1
+}
 @end lilypond
 
 @cindex ritornelli
@@ -2775,42 +2844,46 @@ Inoltre si può specificare @code{".|:-||"}, che è equivalente a
 crea una doppia stanghetta alla fine della linea e una stanghetta
 di inizio ripetizione all'inizio della linea successiva.
 
-@lilypond[quote,relative=2,verbatim]
-c4 c c c
-\bar ".|:-||"
-c4 c c c \break
-\bar ".|:-||"
-c4 c c c
+@lilypond[quote,verbatim]
+\relative c'' {
+  c4 c c c
+  \bar ".|:-||"
+  c4 c c c \break
+  \bar ".|:-||"
+  c4 c c c
+}
 @end lilypond
 
 Esistono sei diverse combinazioni di ripetizioni e indicazioni di segno:
 
-@lilypond[quote,relative=2,verbatim]
-c4 c c c
-\bar ":|.S"
-c4 c c c \break
-\bar ":|.S"
-c4 c c c
-\bar ":|.S-S"
-c4 c c c \break
-\bar ":|.S-S"
-c4 c c c
-\bar "S.|:-S"
-c4 c c c \break
-\bar "S.|:-S"
-c4 c c c
-\bar "S.|:"
-c4 c c c \break
-\bar "S.|:"
-c4 c c c
-\bar ":|.S.|:"
-c4 c c c \break
-\bar ":|.S.|:"
-c4 c c c
-\bar ":|.S.|:-S"
-c4 c c c \break
-\bar ":|.S.|:-S"
-c1
+@lilypond[quote,verbatim]
+\relative c'' {
+  c4 c c c
+  \bar ":|.S"
+  c4 c c c \break
+  \bar ":|.S"
+  c4 c c c
+  \bar ":|.S-S"
+  c4 c c c \break
+  \bar ":|.S-S"
+  c4 c c c
+  \bar "S.|:-S"
+  c4 c c c \break
+  \bar "S.|:-S"
+  c4 c c c
+  \bar "S.|:"
+  c4 c c c \break
+  \bar "S.|:"
+  c4 c c c
+  \bar ":|.S.|:"
+  c4 c c c \break
+  \bar ":|.S.|:"
+  c4 c c c
+  \bar ":|.S.|:-S"
+  c4 c c c \break
+  \bar ":|.S.|:-S"
+  c1
+}
 @end lilypond
 
 Esiste inoltre un comando @code{\inStaffSegno} che crea una stanghetta
@@ -2869,16 +2942,16 @@ un diverso modo di connettere le stanghette tra i righi.
 La parte che segue il segno @code{"-"} non viene usato per costruire
 la stanghetta.
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 \defineBarLine "||-dashedSpan" #'("||" "" "!!")
 
 \new StaffGroup <<
-  \new Staff {
+  \new Staff \relative c'' {
     c1 \bar "||"
     c1 \bar "||-dashedSpan"
     c1
   }
-  \new Staff {
+  \new Staff \relative c'' {
     c1
     c1
     c1
@@ -2916,17 +2989,17 @@ in un rigo viene applicato automaticamente a tutti i righi.
 Le stanghette risultanti sono connesse tra i diversi righi
 di un @code{StaffGroup}, @code{PianoStaff} o @code{GrandStaff}.
 
-@lilypond[quote,relative=1,verbatim]
+@lilypond[quote,verbatim]
 <<
   \new StaffGroup <<
-    \new Staff {
-      e4 d
+    \new Staff \relative {
+      e'4 d
       \bar "||"
       f4 e
     }
-    \new Staff { \clef bass c4 g e g }
+    \new Staff \relative { \clef bass c'4 g e g }
   >>
-  \new Staff { \clef bass c2 c2 }
+  \new Staff \relative { \clef bass c'2 c2 }
 >>
 @end lilypond
 
@@ -2980,11 +3053,13 @@ Il numero viene salvato nella proprietà @code{currentBarNumber}, che
 viene aggiornata automaticamente per ogni misura.  Può anche essere
 impostata a mano:
 
-@lilypond[verbatim,quote,relative=1]
-c1 c c c
-\break
-\set Score.currentBarNumber = #50
-c1 c c c
+@lilypond[verbatim,quote]
+\relative c' {
+  c1 c c c
+  \break
+  \set Score.currentBarNumber = #50
+  c1 c c c
+}
 @end lilypond
 
 @cindex numeri di battuta, disposizione a distanza regolare
@@ -3156,11 +3231,13 @@ Frammenti di codice:
 
 Per creare un segno di chiamata si usa il comando @code{\mark}.
 
-@lilypond[quote,verbatim,relative=2]
-c1 \mark \default
-c1 \mark \default
-c1 \mark \default
-c1 \mark \default
+@lilypond[quote,verbatim]
+\relative c'' {
+  c1 \mark \default
+  c1 \mark \default
+  c1 \mark \default
+  c1 \mark \default
+}
 @end lilypond
 
 @noindent
@@ -3169,12 +3246,14 @@ Il segno viene incrementato automaticamente se si usa @code{\mark
 modo da impostare il segno manualmente.  Il valore da usare viene salvato
 nella proprietà @code{rehearsalMark}.
 
-@lilypond[quote,verbatim,relative=2]
-c1 \mark \default
-c1 \mark \default
-c1 \mark #8
-c1 \mark \default
-c1 \mark \default
+@lilypond[quote,verbatim]
+\relative c'' {
+  c1 \mark \default
+  c1 \mark \default
+  c1 \mark #8
+  c1 \mark \default
+  c1 \mark \default
+}
 @end lilypond
 
 @noindent
@@ -3190,13 +3269,15 @@ cerchio).
 \set Score.markFormatter = #format-mark-circle-alphabet
 @end example
 
-@lilypond[quote,verbatim,relative=2]
-\set Score.markFormatter = #format-mark-box-alphabet
-c1 \mark \default
-c1 \mark \default
-c1 \mark #8
-c1 \mark \default
-c1 \mark \default
+@lilypond[quote,verbatim]
+\relative c'' {
+  \set Score.markFormatter = #format-mark-box-alphabet
+  c1 \mark \default
+  c1 \mark \default
+  c1 \mark #8
+  c1 \mark \default
+  c1 \mark \default
+}
 @end lilypond
 
 @cindex segno di chiamata, formato
@@ -3215,16 +3296,18 @@ seguente, @code{markFormatter} viene prima impostato su una procedura
 predefinita e dopo alcune misure su una procedura che produce un
 numero racchiuso in un quadrato.
 
-@lilypond[quote,verbatim,relative=2]
-\set Score.markFormatter = #format-mark-numbers
-c1 \mark \default
-c1 \mark \default
-\set Score.markFormatter = #format-mark-box-numbers
-c1 \mark \default
-\set Score.markFormatter = #format-mark-circle-numbers
-c1 \mark \default
-\set Score.markFormatter = #format-mark-circle-letters
-c1
+@lilypond[quote,verbatim]
+\relative c'' {
+  \set Score.markFormatter = #format-mark-numbers
+  c1 \mark \default
+  c1 \mark \default
+  \set Score.markFormatter = #format-mark-box-numbers
+  c1 \mark \default
+  \set Score.markFormatter = #format-mark-circle-numbers
+  c1 \mark \default
+  \set Score.markFormatter = #format-mark-circle-letters
+  c1
+}
 @end lilypond
 
 Il file @file{scm/translation-functions.scm} contiene le
@@ -3265,11 +3348,13 @@ stringa.
 I glifi musicali (come il Segno) possono essere posti dentro il
 comando @code{\mark}
 
-@lilypond[quote,verbatim,relative=1]
-c1 \mark \markup { \musicglyph #"scripts.segno" }
-c1 \mark \markup { \musicglyph #"scripts.coda" }
-c1 \mark \markup { \musicglyph #"scripts.ufermata" }
-c1
+@lilypond[quote,verbatim]
+\relative c' {
+  c1 \mark \markup { \musicglyph #"scripts.segno" }
+  c1 \mark \markup { \musicglyph #"scripts.coda" }
+  c1 \mark \markup { \musicglyph #"scripts.ufermata" }
+  c1
+}
 @end lilypond
 
 @noindent
@@ -3332,9 +3417,11 @@ Guida al funzionamento interno:
 Gli abbellimenti sono degli ornamenti musicali che hanno un carattere in corpo
 più piccolo e non alterano la durata della misura.
 
-@lilypond[quote,relative=2,verbatim]
-c4 \grace b16 a4(
-\grace { b16 c16 } a2)
+@lilypond[quote,verbatim]
+\relative {
+  c''4 \grace b16 a4(
+  \grace { b16 c16 } a2)
+}
 @end lilypond
 
 Esistono altri tre tipi di abbellimenti possibili; l'@emph{acciaccatura} -- un
@@ -3345,23 +3432,25 @@ possibile creare un abbellimento con gambo barrato, come l'acciaccatura, ma
 privo di legatura di portamento, in modo da collocarla tra note
 già poste sotto una legatura: si usa il comando @code{\slashedGrace}.
 
-@lilypond[quote,relative=2,verbatim]
-\acciaccatura d8 c4
-\appoggiatura e8 d4
-\acciaccatura { g16 f } e2
-\slashedGrace a,8 g4
-\slashedGrace b16 a4(
-\slashedGrace b8 a2)
+@lilypond[quote,verbatim]
+\relative {
+  \acciaccatura d''8 c4
+  \appoggiatura e8 d4
+  \acciaccatura { g16 f } e2
+  \slashedGrace a,8 g4
+  \slashedGrace b16 a4(
+  \slashedGrace b8 a2)
+}
 @end lilypond
 
 Il posizionamento degli abbellimenti è sincronizzato sui diversi righi.
 Nell'esempio seguente, ci sono due abbellimenti da un sedicesimo ogni
 abbellimento da un ottavo
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Staff { e2 \grace { c16 d e f } e2 }
-  \new Staff { c2 \grace { g8 b } c2 }
+  \new Staff \relative { e''2 \grace { c16 d e f } e2 }
+  \new Staff \relative { c''2 \grace { g8 b } c2 }
 >>
 @end lilypond
 
@@ -3374,8 +3463,8 @@ Se si desidera risolvere una nota su un abbellimento, si usa il
 comando @code{\afterGrace}.  Considera due argomenti: la nota principale e
 gli abbellimenti che la seguono.
 
-@lilypond[quote,verbatim,relative=2]
-c1 \afterGrace d1 { c16[ d] } c1
+@lilypond[quote,verbatim]
+\relative { c''1 \afterGrace d1 { c16[ d] } c1 }
 @end lilypond
 
 In questo modo, gli abbellimenti sono collocati dopo uno spazio corrispondente a
@@ -3384,18 +3473,18 @@ modificata attraverso @code{afterGraceFraction}.  L'esempio seguente mostra
 le diverse spaziature che si ottengono con la frazione predefinita, con 15/16
 e infine con 1/2 della nota principale.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
-  \new Staff {
-    c1 \afterGrace d1 { c16[ d] } c1
+  \new Staff \relative {
+    c''1 \afterGrace d1 { c16[ d] } c1
   }
-  \new Staff {
+  \new Staff \relative {
     #(define afterGraceFraction (cons 15 16))
-    c1 \afterGrace d1 { c16[ d] } c1
+    c''1 \afterGrace d1 { c16[ d] } c1
   }
-  \new Staff {
+  \new Staff \relative {
     #(define afterGraceFraction (cons 1 2))
-    c1 \afterGrace d1 { c16[ d] } c1
+    c''1 \afterGrace d1 { c16[ d] } c1
   }
 >>
 @end lilypond
@@ -3404,10 +3493,10 @@ The space between the main note and the grace note may also be
 specified using spacers.  The following example places the grace
 note after a space lasting 7/8 of the main note.
 
-@lilypond[quote,verbatim,relative=2]
-\new Voice {
+@lilypond[quote,verbatim]
+\new Voice \relative {
   <<
-    { d1^\trill_( }
+    { d''1^\trill_( }
     { s2 s4. \grace { c16 d } }
   >>
   c1)
@@ -3426,11 +3515,11 @@ del blocco @code{\grace}.  Lo stesso vale per le modifiche che ripristinano
 i valori predefiniti.  Nell'esempio seguente la direzione predefinita del
 gambo viene prima sovrascritta e poi ripristinata.
 
-@lilypond[quote,verbatim,relative=2]
-\new Voice {
+@lilypond[quote,verbatim]
+\new Voice \relative {
   \acciaccatura {
     \stemDown
-    f16->
+    f''16->
     \stemNeutral
   }
   g4 e c2
@@ -3494,10 +3583,10 @@ vengono sincronizzati anche altri elementi della notazione del rigo, come le
 armature di chiave, le stanghette, etc.  Fai attenzione quando metti insieme
 righi che hanno degli abbellimenti con righi che non ne hanno.  Ad esempio
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Staff { e4 \bar ".|:" \grace c16 d2. }
-  \new Staff { c4 \bar ".|:" d2. }
+  \new Staff \relative { e''4 \bar ".|:" \grace c16 d2. }
+  \new Staff \relative { c''4 \bar ".|:" d2. }
 >>
 @end lilypond
 
@@ -3505,10 +3594,10 @@ righi che hanno degli abbellimenti con righi che non ne hanno.  Ad esempio
 Si può ovviare a questo problema inserendo degli abbellimenti della durata
 corrispondente negli altri righi.  Riprendendo l'esempio precedente
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Staff { e4 \bar ".|:" \grace c16 d2. }
-  \new Staff { c4 \bar ".|:" \grace s16 d2. }
+  \new Staff \relative { e''4 \bar ".|:" \grace c16 d2. }
+  \new Staff \relative { c''4 \bar ".|:" \grace s16 d2. }
 >>
 @end lilypond
 

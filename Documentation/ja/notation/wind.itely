@@ -287,8 +287,8 @@ C と F をフラットにするためクロス フィンガリングを使う�
 木管楽器のダイアグラムはマークアップとして作成します:
 
 
-@lilypond[verbatim,quote,relative=2]
-c1^\markup {
+@lilypond[verbatim,quote,fragment]
+c''1^\markup {
   \woodwind-diagram #'piccolo #'((lh . (gis))
                                  (cc . (one three))
                                  (rh . (ees)))
@@ -299,9 +299,9 @@ c1^\markup {
 できます:
 
 @c KEEP LY
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,fragment]
 \textLengthOn
-c1^\markup {
+c''1^\markup {
   \center-column {
     "1/4 閉じる"
     \woodwind-diagram #'flute #'((cc . (one1q))
@@ -310,7 +310,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "1/2閉じる"
     \woodwind-diagram #'flute #'((cc . (one1h))
@@ -319,7 +319,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "3/4閉じる"
     \woodwind-diagram #'flute #'((cc . (one3q))
@@ -328,7 +328,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "リング キーを閉じる"
     \woodwind-diagram #'flute #'((cc . (oneR))
@@ -337,7 +337,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "完全に閉じる"
     \woodwind-diagram #'flute #'((cc . (oneF two))
@@ -349,8 +349,8 @@ c1^\markup {
 
 トリルはグレーで示します:
 
-@lilypond[verbatim,quote,relative=2]
-c1^\markup {
+@lilypond[verbatim,quote,fragment]
+c''1^\markup {
   \woodwind-diagram #'bass-clarinet
                     #'((cc . (threeT four))
                        (lh . ())
@@ -361,9 +361,9 @@ c1^\markup {
 様々なトリルを表示させることができます:
 
 @c KEEP LY
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,fragment]
 \textLengthOn
-c1^\markup {
+c''1^\markup {
   \center-column {
     "1/4 閉じるとリング キーを閉じる"
     \woodwind-diagram #'flute #'((cc . (one1qTR))
@@ -372,7 +372,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "リング キーを閉じると完全に閉じる"
     \woodwind-diagram #'flute #'((cc . (oneTR))
@@ -381,7 +381,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "リング キーを閉じるとオープン"
     \woodwind-diagram #'flute #'((cc . (oneRT))
@@ -390,7 +390,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "オープンと完全に閉じる"
     \woodwind-diagram #'flute #'((cc . (oneT))
@@ -399,7 +399,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "1/4 閉じると3/4 閉じる"
     \woodwind-diagram #'flute #'((cc . (one1qT3q))

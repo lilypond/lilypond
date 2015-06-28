@@ -765,9 +765,9 @@ annehmen, dass folgendes Beispiel alle Notenköpfe in dem Notensystem
 rot macht, aber als Resultat hat man zwei Systeme, während die
 Notenköpfe immernoch schwarz im unteren System erscheinen.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \override Staff.NoteHead.color = #red
-\new Staff { a }
+\new Staff { a' }
 @end lilypond
 
 Das liegt daran, dass kein @code{Staff}-Kontext existiert, wenn
@@ -776,10 +776,10 @@ für diesen Befehl erstellt wird.  Dann aber erstellt @code{\new Staff}
 noch ein zusätzliches System, wo die Noten gesetzt werden.  Die
 richtige Schreibweise wäre:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 \new Staff {
   \override Staff.NoteHead.color = #red
-  a
+  a'
 }
 @end lilypond
 

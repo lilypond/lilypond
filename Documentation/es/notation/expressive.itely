@@ -132,9 +132,11 @@ utilizando la sintaxis siguiente:
 La lista de los posibles valores de @code{@var{nombre}} está en
 @ref{Lista de articulaciones}.  Por ejemplo:
 
-@lilypond[verbatim,quote,relative=2]
-c4\staccato c\mordent b2\turn
-c1\fermata
+@lilypond[verbatim,quote]
+\relative {
+  c''4\staccato c\mordent b2\turn
+  c1\fermata
+}
 @end lilypond
 
 @cindex marcato
@@ -156,9 +158,11 @@ especifica la articulación.  Existen abreviaturas predefinidas para el
 salida correspondiente a estas articulaciones aparece de la siguiente
 manera:
 
-@lilypond[verbatim,quote,relative=2]
-c4-^ c-+ c-- c-!
-c4-> c-. c2-_
+@lilypond[verbatim,quote]
+\relative {
+  c''4-^ c-+ c-- c-!
+  c4-> c-. c2-_
+}
 @end lilypond
 
 Las reglas para la colocación predeterminada de las articulaciones se
@@ -176,10 +180,10 @@ Está disponible una instrucción predefinida especial,
 multicompás (y sólo a un silencio multicompás).  La instrucción
 crea un objeto @code{MultiMeasureRestText}.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,fragment]
 \override Script.color = #red
 \override MultiMeasureRestText.color = #blue
-a2\fermata r\fermata
+a'2\fermata r\fermata
 R1\fermataMarkup
 @end lilypond
 
@@ -283,10 +287,12 @@ dinámicas se pueden colocar manualmente por encima o por debajo del
 pentagrama; para ver más detalles, consulte @ref{Dirección y
 posición}.
 
-@lilypond[verbatim,quote,relative=2]
-c2\ppp c\mp
-c2\rfz c^\mf
-c2_\spp c^\ff
+@lilypond[verbatim,quote]
+\relative c'' {
+  c2\ppp c\mp
+  c2\rfz c^\mf
+  c2_\spp c^\ff
+}
 @end lilypond
 
 @cindex regulador
@@ -311,14 +317,16 @@ decrescendo.  Se pueden usar @code{\cr} y @code{\decr} en lugar de
 @code{\<} y @code{\>}.  De forma predeterminada, se tipografían
 reguladores en ángulo cuando se utiliza esta notación.
 
-@lilypond[verbatim,quote,relative=2]
-c2\< c\!
-d2\< d\f
-e2\< e\>
-f2\> f\!
-e2\> e\mp
-d2\> d\>
-c1\!
+@lilypond[verbatim,quote]
+\relative c'' {
+  c2\< c\!
+  d2\< d\f
+  e2\< e\>
+  f2\> f\!
+  e2\> e\mp
+  d2\> d\>
+  c1\!
+}
 @end lilypond
 
 Un regulador terminado mediante @code{\!} finaliza en el borde
@@ -331,8 +339,10 @@ en el borde derecho de la misma nota en lugar del borde
 izquierdo, como sería usual si hubiese terminado con @code{\!}
 previamente.
 
-@lilypond[verbatim,quote,relative=2]
-c1\< | c4 a c\< a | c4 a c\! a\< | c4 a c a\!
+@lilypond[verbatim,quote]
+\relative {
+  c''1\< | c4 a c\< a | c4 a c\! a\< | c4 a c a\!
+}
 @end lilypond
 
 Los reguladores que terminan con indicaciones dinámicas absolutas
@@ -341,8 +351,10 @@ parecida.  Sin embargo, la longitud de la propia indicación
 dinámica puede alterar el punto en que finaliza el regulador
 anterior.
 
-@lilypond[verbatim,quote,relative=2]
-c1\< | c4 a c\mf a | c1\< | c4 a c\ffff a
+@lilypond[verbatim,quote]
+\relative {
+  c''1\< | c4 a c\mf a | c1\< | c4 a c\ffff a
+}
 @end lilypond
 
 @cindex varios matices sobre una nota
@@ -354,9 +366,11 @@ indicaciones dinámicas sobre una sola nota.  Esto es útil
 especialmente para añadir un @notation{crescendo} y un
 @notation{decrescendo} a la misma nota:
 
-@lilypond[verbatim,quote,relative=2]
-c4\< c\! d\> e\!
-<< f1 { s4 s4\< s4\> s4\! } >>
+@lilypond[verbatim,quote]
+\relative {
+  c''4\< c\! d\> e\!
+  << f1 { s4 s4\< s4\> s4\! } >>
+}
 @end lilypond
 
 @cindex espressivo, articulación
@@ -369,9 +383,11 @@ crescendo y un decrescendo sobre la misma nota.  Sin embargo,
 advierta que esta indicación está implementada como una
 articulación, no como una expresión dinámica.
 
-@lilypond[verbatim,quote,relative=2]
-c2 b4 a
-g1\espressivo
+@lilypond[verbatim,quote]
+\relative {
+  c''2 b4 a
+  g1\espressivo
+}
 @end lilypond
 
 @funindex \cresc
@@ -384,11 +400,13 @@ Las indicaciones de crescendo textuales se inician con @code{\cresc}.
 Los decrescendos textuales se inician con @code{\decresc} o con @code{\dim}.
 Se trazan líneas extensoras cuando es necesario.
 
-@lilypond[verbatim,quote,relative=2]
-g8\cresc a b c b c d e\mf |
-f8\decresc e d c e\> d c b |
-a1\dim ~ |
-a2. r4\! |
+@lilypond[verbatim,quote]
+\relative {
+  g'8\cresc a b c b c d e\mf |
+  f8\decresc e d c e\> d c b |
+  a1\dim ~ |
+  a2. r4\! |
+}
 @end lilypond
 
 @funindex \crescTextCresc
@@ -406,18 +424,20 @@ a2. r4\! |
 
 También pueden sustituirse los reguladores gráficos
 por cambios de dinámica textuales:
-@lilypond[verbatim,quote,relative=2]
-\crescTextCresc
-c4\< d e f\! |
-\dimTextDecresc
-g4\> e d c\! |
-\dimTextDecr
-e4\> d c b\! |
-\dimTextDim
-d4\> c b a\! |
-\crescHairpin
-\dimHairpin
-c4\< d\! e\> d\! |
+@lilypond[verbatim,quote]
+\relative c'' {
+  \crescTextCresc
+  c4\< d e f\! |
+  \dimTextDecresc
+  g4\> e d c\! |
+  \dimTextDecr
+  e4\> d c b\! |
+  \dimTextDim
+  d4\> c b a\! |
+  \crescHairpin
+  \dimHairpin
+  c4\< d\! e\> d\! |
+}
 @end lilypond
 
 
@@ -694,10 +714,12 @@ Las @notation{Ligaduras de expresión} se introducen utilizando paréntesis:
 @warning{En música polifónica, las ligaduras de expresión deben
 terminar en la misma voz en la que empiezan.}
 
-@lilypond[verbatim,quote,relative=2]
-f4( g a) a8 b(
-a4 g2 f4)
-<c e>2( <b d>2)
+@lilypond[verbatim,quote]
+\relative {
+  f''4( g a) a8 b(
+  a4 g2 f4)
+  <c e>2( <b d>2)
+}
 @end lilypond
 
 @cindex ligaduras de expresión, posicionamiento manual
@@ -744,14 +766,16 @@ Las ligaduras de expresión pueden ser continuas, discontinuas o de
 puntos.  El estilo predeterminado de las ligaduras de expresión es el
 continuo:
 
-@lilypond[verbatim,quote,relative=1]
-c4( e g2)
-\slurDashed
-g4( e c2)
-\slurDotted
-c4( e g2)
-\slurSolid
-g4( e c2)
+@lilypond[verbatim,quote]
+\relative {
+  c'4( e g2)
+  \slurDashed
+  g4( e c2)
+  \slurDotted
+  c4( e g2)
+  \slurSolid
+  g4( e c2)
+}
 @end lilypond
 
 @cindex ligadura de expresión, mitad continua y mitad discontinua
@@ -766,14 +790,16 @@ semi-discontinuas (la primera mitad discontinua y la segunda mitad
 continua) o semi-continuas (la primera mitad continua y la segunda
 discontinua):
 
-@lilypond[verbatim,quote,relative=1]
-c4( e g2)
-\slurHalfDashed
-g4( e c2)
-\slurHalfSolid
-c4( e g2)
-\slurSolid
-g4( e c2)
+@lilypond[verbatim,quote]
+\relative {
+  c'4( e g2)
+  \slurHalfDashed
+  g4( e c2)
+  \slurHalfSolid
+  c4( e g2)
+  \slurSolid
+  g4( e c2)
+}
 @end lilypond
 
 @cindex ligadura de expresión, definir patrones de discontinuidad
@@ -784,14 +810,16 @@ g4( e c2)
 Se pueden definir patrones de discontinuidad para las ligaduras de
 expresión:
 
-@lilypond[verbatim,quote,relative=1]
-c4( e g2)
-\slurDashPattern #0.7 #0.75
-g4( e c2)
-\slurDashPattern #0.5 #2.0
-c4( e g2)
-\slurSolid
-g4( e c2)
+@lilypond[verbatim,quote]
+\relative {
+  c'4( e g2)
+  \slurDashPattern #0.7 #0.75
+  g4( e c2)
+  \slurDashPattern #0.5 #2.0
+  c4( e g2)
+  \slurSolid
+  g4( e c2)
+}
 @end lilypond
 
 
@@ -856,9 +884,11 @@ Las @notation{ligaduras de fraseo} (o marcas de fraseo) que indican
 una frase musical se escriben usando las instrucciones @code{\(} y
 @code{\)} respectivamente:
 
-@lilypond[verbatim,quote,relative=2]
-c4\( d( e) f(
-e2) d\)
+@lilypond[verbatim,quote]
+\relative {
+  c''4\( d( e) f(
+  e2) d\)
+}
 @end lilypond
 
 @funindex \phrasingSlurUp
@@ -900,14 +930,16 @@ No se pueden tener varias ligaduras de fraseo simultáneas o solapadas.
 Las ligaduras de fraseo pueden ser continuas, de puntos o de rayas.
 El estilo predeterminado para las ligaduras de fraseo es el continuo:
 
-@lilypond[verbatim,quote,relative=1]
-c4\( e g2\)
-\phrasingSlurDashed
-g4\( e c2\)
-\phrasingSlurDotted
-c4\( e g2\)
-\phrasingSlurSolid
-g4\( e c2\)
+@lilypond[verbatim,quote]
+\relative {
+  c'4\( e g2\)
+  \phrasingSlurDashed
+  g4\( e c2\)
+  \phrasingSlurDotted
+  c4\( e g2\)
+  \phrasingSlurSolid
+  g4\( e c2\)
+}
 @end lilypond
 
 @cindex fraseo, ligadura de, mitad continua y mitad discontinua
@@ -923,14 +955,16 @@ semi-discontinuas (la primera mitad discontinua y la segunda mitad
 continua) o semi-continuas (la primera mitad continua y la segunda
 mitad discontinua):
 
-@lilypond[verbatim,quote,relative=1]
-c4\( e g2\)
-\phrasingSlurHalfDashed
-g4\( e c2\)
-\phrasingSlurHalfSolid
-c4\( e g2\)
-\phrasingSlurSolid
-g4\( e c2\)
+@lilypond[verbatim,quote]
+\relative {
+  c'4\( e g2\)
+  \phrasingSlurHalfDashed
+  g4\( e c2\)
+  \phrasingSlurHalfSolid
+  c4\( e g2\)
+  \phrasingSlurSolid
+  g4\( e c2\)
+}
 @end lilypond
 
 @cindex fraseo, ligadura de, definir patrones de discontinuidad
@@ -942,14 +976,16 @@ g4\( e c2\)
 Se pueden definir patrones de discontinuidad para las ligaduras de
 fraseo:
 
-@lilypond[verbatim,quote,relative=1]
-c4\( e g2\)
-\phrasingSlurDashPattern #0.7 #0.75
-g4\( e c2\)
-\phrasingSlurDashPattern #0.5 #2.0
-c4\( e g2\)
-\phrasingSlurSolid
-g4\( e c2\)
+@lilypond[verbatim,quote]
+\relative {
+  c'4\( e g2\)
+  \phrasingSlurDashPattern #0.7 #0.75
+  g4\( e c2\)
+  \phrasingSlurDashPattern #0.5 #2.0
+  c4\( e g2\)
+  \phrasingSlurSolid
+  g4\( e c2\)
+}
 @end lilypond
 
 Las definiciones de patrones de discontinuidad tienen la misma
@@ -996,15 +1032,15 @@ Referencia de funcionamiento interno:
 
 Las respiraciones se introducen utilizando @code{\breathe}:
 
-@lilypond[verbatim,quote,relative=2]
-c2. \breathe d4
+@lilypond[verbatim,quote]
+{ c''2. \breathe d''4 }
 @end lilypond
 
 Las marcas de respiración dan por terminadas las barras automáticas;
 para sobreescribir este comportamiento, consulte @ref{Barras manuales}.
 
-@lilypond[verbatim,quote,relative=2]
-c8 \breathe d e f g2
+@lilypond[verbatim,quote]
+\relative { c''8 \breathe d e f g2 }
 @end lilypond
 
 Están contemplados los indicadores musicales para las marcas de
@@ -1061,13 +1097,15 @@ un signo más o menos (arriba o abajo).  El número indica el intervalo
 de alturas sobre el que se extiende la caída o elevación
 @emph{partiendo de} la nota principal.
 
-@lilypond[verbatim,quote,relative=2]
-c2\bendAfter #+4
-c2\bendAfter #-4
-c2\bendAfter #+6.5
-c2\bendAfter #-6.5
-c2\bendAfter #+8
-c2\bendAfter #-8
+@lilypond[verbatim,quote]
+\relative c'' {
+  c2\bendAfter #+4
+  c2\bendAfter #-4
+  c2\bendAfter #+6.5
+  c2\bendAfter #-6.5
+  c2\bendAfter #+8
+  c2\bendAfter #-8
+}
 @end lilypond
 
 @snippets
@@ -1109,10 +1147,12 @@ siguen un camino lineal: glissandi, arpegios y trinos.
 Se crea un @notation{glissando} añadiendo @code{\glissando} después de
 la nota:
 
-@lilypond[verbatim,quote,relative=2]
-g2\glissando g'
-c2\glissando c,
-\afterGrace f,1\glissando f'16
+@lilypond[verbatim,quote]
+\relative {
+  g'2\glissando g'
+  c2\glissando c,
+  \afterGrace f,1\glissando f'16
+}
 @end lilypond
 
 Un glissando puede conectar notas de un pentagrama a otro:
@@ -1140,20 +1180,22 @@ medio de @code{\glissandoMap}, donde las notas de un acorde se suponen
 numeradas, empezando en cero, en el orden en que aparecen en el código
 de entrada del archivo @file{.ly}.
 
-@lilypond[verbatim,quote,relative=2]
-<c, e>1\glissando g' |
-<c, e>1\glissando |
-<g' b> |
-\break
-\set glissandoMap = #'((0 . 1) (1 . 0))
-<c, g'>1\glissando |
-<d a'> |
-\set glissandoMap = #'((0 . 0) (0 . 1) (0 . 2))
-c1\glissando |
-<d f a> |
-\set glissandoMap = #'((2 . 0) (1 . 0) (0 . 1))
-<f d a'>1\glissando |
-<c c'> |
+@lilypond[verbatim,quote]
+\relative {
+  <c' e>1\glissando g' |
+  <c, e>1\glissando |
+  <g' b> |
+  \break
+  \set glissandoMap = #'((0 . 1) (1 . 0))
+  <c, g'>1\glissando |
+  <d a'> |
+  \set glissandoMap = #'((0 . 0) (0 . 1) (0 . 2))
+  c1\glissando |
+  <d f a> |
+  \set glissandoMap = #'((2 . 0) (1 . 0) (0 . 1))
+  <f d a'>1\glissando |
+  <c c'> |
+}
 @end lilypond
 
 Se pueden crear distintos tipos de glissando.  Para ver más detalles,
@@ -1211,24 +1253,26 @@ Un signo de @notation{acorde arpegiado} (conocido también como acorde
 quebrado) sobre un acorde, se denota adjuntando @code{\arpeggio} al
 acorde:
 
-@lilypond[verbatim,quote,relative=1]
-<c e g c>1\arpeggio
+@lilypond[verbatim,quote]
+\relative { <c' e g c>1\arpeggio }
 @end lilypond
 
 Se pueden escribir distintos tipos de acordes arpegiados.
 @code{\arpeggioNormal} produce la vuelta al arpegio normal:
 
-@lilypond[verbatim,quote,relative=1]
-<c e g c>2\arpeggio
+@lilypond[verbatim,quote]
+\relative {
+  <c' e g c>2\arpeggio
 
-\arpeggioArrowUp
-<c e g c>2\arpeggio
+  \arpeggioArrowUp
+  <c e g c>2\arpeggio
 
-\arpeggioArrowDown
-<c e g c>2\arpeggio
+  \arpeggioArrowDown
+  <c e g c>2\arpeggio
 
-\arpeggioNormal
-<c e g c>2\arpeggio
+  \arpeggioNormal
+  <c e g c>2\arpeggio
+}
 @end lilypond
 
 @cindex arpegiado, acorde, símbolos especiales
@@ -1243,20 +1287,22 @@ Se pueden escribir distintos tipos de acordes arpegiados.
 
 Se pueden crear símbolos especiales de arpegio @emph{con corchete}:
 
-@lilypond[verbatim,quote,relative=1]
-<c e g c>2
+@lilypond[verbatim,quote]
+\relative {
+  <c' e g c>2
 
-\arpeggioBracket
-<c e g c>2\arpeggio
+  \arpeggioBracket
+  <c e g c>2\arpeggio
 
-\arpeggioParenthesis
-<c e g c>2\arpeggio
+  \arpeggioParenthesis
+  <c e g c>2\arpeggio
 
-\arpeggioParenthesisDashed
-<c e g c>2\arpeggio
+  \arpeggioParenthesisDashed
+  <c e g c>2\arpeggio
 
-\arpeggioNormal
-<c e g c>2\arpeggio
+  \arpeggioNormal
+  <c e g c>2\arpeggio
+}
 @end lilypond
 
 Las propiedades de discontinuidad del paréntesis del arpegio se
@@ -1335,35 +1381,41 @@ Los trinos cortos sin línea extensora se imprimen con
 Los @notation{trinos} largos mantenidos, con línea de extensión, se
 hacen con @code{\startTrillSpan} y @code{\stopTrillSpan}:
 
-@lilypond[verbatim,quote,relative=2]
-d1\startTrillSpan
-d1
-c2\stopTrillSpan
-r2
+@lilypond[verbatim,quote]
+\relative {
+  d''1\startTrillSpan
+  d1
+  c2\stopTrillSpan
+  r2
+}
 @end lilypond
 
 Un trino extendido que atraviesa un salto de línea
 recomienza exactamente encima de la primera nota
 de la nueva línea.
 
-@lilypond[ragged-right,verbatim,quote,relative=2]
-d1\startTrillSpan
-\break
-d1
-c2\stopTrillSpan
-r2
+@lilypond[ragged-right,verbatim,quote]
+\relative {
+  d''1\startTrillSpan
+  \break
+  d1
+  c2\stopTrillSpan
+  r2
+}
 @end lilypond
 
 Los trinos extendidos consecutivos funcionan sin necesidad de
 instrucciones @code{\stopTrillSpan} explícitas, porque cada trino
 se convertirá automáticamente en el borde derecho del trino anterior.
 
-@lilypond[verbatim,quote,relative=2]
-d1\startTrillSpan
-d1
-b1\startTrillSpan
-d2\stopTrillSpan
-r2
+@lilypond[verbatim,quote]
+\relative {
+  d''1\startTrillSpan
+  d1
+  b1\startTrillSpan
+  d2\stopTrillSpan
+  r2
+}
 @end lilypond
 
 También se pueden combinar los trinos con notas de adorno.
@@ -1371,10 +1423,12 @@ La sintaxis de esta construcción y el método para colocar
 las notas de adorno con precisión están descritos en
 @ref{Notas de adorno}.
 
-@lilypond[verbatim,quote,relative=2]
-d1~\afterGrace
-d1\startTrillSpan { c32[ d]\stopTrillSpan }
-c2 r2
+@lilypond[verbatim,quote]
+\relative {
+  d''1~\afterGrace
+  d1\startTrillSpan { c32[ d]\stopTrillSpan }
+  c2 r2
+}
 @end lilypond
 
 @cindex trinos de nota explícita
@@ -1388,12 +1442,14 @@ explícitas se pueden tipografiar con la instrucción
 segundo es la nota @emph{trinada}, que se imprime como una cabeza de
 nota, sin plica y entre paréntesis.
 
-@lilypond[verbatim,quote,relative=2]
-\pitchedTrill
-d2\startTrillSpan fis
-d2
-c2\stopTrillSpan
-r2
+@lilypond[verbatim,quote]
+\relative {
+  \pitchedTrill
+  d''2\startTrillSpan fis
+  d2
+  c2\stopTrillSpan
+  r2
+}
 @end lilypond
 
 @cindex trino con nota y alteración
@@ -1403,19 +1459,21 @@ Es necesario añadir manualmente las alteraciones subsiguientes de
 la misma nota dentro del mismo compás.  Sólo se imprime la
 alteración del primer trino con nota, dentro de un compás.
 
-@lilypond[verbatim,quote,relative=2]
-\pitchedTrill
-eis4\startTrillSpan fis
-eis4\stopTrillSpan
-\pitchedTrill
-eis4\startTrillSpan cis
-eis4\stopTrillSpan
-\pitchedTrill
-eis4\startTrillSpan fis
-eis4\stopTrillSpan
-\pitchedTrill
-eis4\startTrillSpan fis!
-eis4\stopTrillSpan
+@lilypond[verbatim,quote]
+\relative {
+  \pitchedTrill
+  eis''4\startTrillSpan fis
+  eis4\stopTrillSpan
+  \pitchedTrill
+  eis4\startTrillSpan cis
+  eis4\stopTrillSpan
+  \pitchedTrill
+  eis4\startTrillSpan fis
+  eis4\stopTrillSpan
+  \pitchedTrill
+  eis4\startTrillSpan fis!
+  eis4\stopTrillSpan
+}
 @end lilypond
 
 

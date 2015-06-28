@@ -349,8 +349,8 @@ Syntax leitet sich von den holländischen Notenbezeichnungen
 ab. Um andere Bezeichnungen für Versetzungszeichen zu
 benutzen, siehe @ref{Notenbezeichnungen in anderen Sprachen}.
 
-@lilypond[verbatim,quote,relative=2]
-ais1 aes aisis aeses
+@lilypond[verbatim,quote,fragment]
+\relative c'' { ais1 aes aisis aeses }
 @end lilypond
 
 Auch die deutschen Varianten @code{as} für @code{aes} und
@@ -382,8 +382,8 @@ Versetzungszeichen für Vierteltöne werden durch Anhängen der Endungen
 Tonhöhenbuchstaben erstellt. Das Beispiel zeigt eine in Vierteltönen
 aufsteigende Serie vom eingestrichenen C.
 
-@lilypond[verbatim,quote,relative=2]
-ceseh1 ces ceh c cih cis cisih
+@lilypond[verbatim,quote,fragment]
+\relative c'' { ceseh1 ces ceh c cih cis cisih }
 @end lilypond
 
 
@@ -562,8 +562,8 @@ Beide Formen werden jedoch akzeptiert.  Genauso gelten auch
 @code{eeses}@tie{}/@tie{}@code{eses}.
 In manchen Sprachen sind nur diese Kurzformen definiert.
 
-@lilypond[verbatim,quote,relative=2]
-a2 as e es a ases e eses
+@lilypond[verbatim,quote,fragment]
+\relative c'' { a2 as e es a ases e eses }
 @end lilypond
 
 
@@ -1134,15 +1134,15 @@ verändern werden kann.
 Der Schlüssel kann verändert werden. Das eingestrichene
 C wird in jedem Beispiel gezeigt:
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
 \clef treble
-c2 c
+c'2 c'
 \clef alto
-c2 c
+c'2 c'
 \clef tenor
-c2 c
+c'2 c'
 \clef bass
-c2 c
+c'2 c'
 @end lilypond
 
 Andere Schlüssel sind u. A.:
@@ -1189,19 +1189,19 @@ andere Ganzzahlen können verwendet werden, wenn es gewünscht wird.
 Die Schlüsselbezeichnung muss in Anführungszeichen gesetzt werden,
 wenn nicht-alphabetische Zeichen enthält, siehe Beispiel:
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
 \clef treble
-c2 c
+c'2 c'
 \clef "treble_8"
-c2 c
+c'2 c'
 \clef "bass^15"
-c2 c
+c'2 c'
 \clef "alto_2"
-c2 c
+c'2 c'
 \clef "G_8"
-c2 c
+c'2 c'
 \clef "F^5"
-c2 c
+c'2 c'
 @end lilypond
 
 Weitere unterstützte Schlüssel sind beschrieben in @ref{Mensurale Schlüssel},
@@ -1307,11 +1307,13 @@ Modusbezeichnungen für Kirchentonarten verwendet werden: @code{\ionian}
 @code{\mixolydian} (Mixolydisch), @code{\lydian} (Lydisch),
 @code{\phrygian} (Phrygisch) und @code{\dorian} (Dorisch).
 
-@lilypond[verbatim,quote,relative=2]
-\key g \major
-fis1
-f
-fis
+@lilypond[verbatim,quote,fragment]
+\relative {
+  \key g \major
+  fis''1
+  f
+  fis
+}
 @end lilypond
 
 @snippets
@@ -1361,18 +1363,20 @@ Referenz der Interna:
 @notation{Oktavierungsklammern} zeigen eine zusätzliche
 Transposition von einer Oktave an:
 
-@lilypond[verbatim,quote,relative=2]
-a2 b
-\ottava #-2
-a2 b
-\ottava #-1
-a2 b
-\ottava #0
-a2 b
-\ottava #1
-a2 b
-\ottava #2
-a2 b
+@lilypond[verbatim,quote]
+\relative a' {
+  a2 b
+  \ottava #-2
+  a2 b
+  \ottava #-1
+  a2 b
+  \ottava #0
+  a2 b
+  \ottava #1
+  a2 b
+  \ottava #2
+  a2 b
+}
 @end lilypond
 
 @snippets
@@ -1467,18 +1471,20 @@ geändert werden.  Ein Klarinettist zum Beispiel kann
 zwischen B- und A-Klarinette wechseln.
 
 @c KEEP LY
-@lilypond[verbatim,quote,relative=2]
-\set Staff.instrumentName = #"Cl (A)"
-\key a \major
-\transposition a
-c d e f
-\textLengthOn
-<>^\markup { B-Klarinette benutzen }
-R1
+@lilypond[verbatim,quote]
+\relative c'' {
+  \set Staff.instrumentName = #"Cl (A)"
+  \key a \major
+  \transposition a
+  c d e f
+  \textLengthOn
+  <>^\markup { B-Klarinette benutzen }
+  R1
 
-\key bes \major
-\transposition bes
-c2 g
+  \key bes \major
+  \transposition bes
+  c2 g
+}
 @end lilypond
 
 
@@ -2781,16 +2787,18 @@ Dieser Abschnitt zeigt, wie man Notenköpfe ändern kann.
 
 Notenköpfe können verändert werden:
 
-@lilypond[verbatim,quote,relative=2]
-c4 b
-\override NoteHead.style = #'cross
-c4 b
-\revert NoteHead.style
-a b
-\override NoteHead.style = #'harmonic
-a b
-\revert NoteHead.style
-c4 d e f
+@lilypond[verbatim,quote]
+\relative c'' {
+  c4 b
+  \override NoteHead.style = #'cross
+  c4 b
+  \revert NoteHead.style
+  a b
+  \override NoteHead.style = #'harmonic
+  a b
+  \revert NoteHead.style
+  c4 d e f
+}
 @end lilypond
 
 Für alle Notenkopfstile siehe @ref{Notenkopfstile}
@@ -2802,22 +2810,26 @@ in Notensystemen als auch in Tabulaturen und können
 benutzt werden, um alle musikalischen Bedeutungen zu
 notieren:
 
-@lilypond[verbatim,quote,relative=2]
-c4 b
-\xNotesOn
- a b c4 b
-\xNotesOff
-c4 d
+@lilypond[verbatim,quote]
+\relative {
+  c''4 b
+  \xNotesOn
+   a b c4 b
+  \xNotesOff
+  c4 d
+}
 @end lilypond
 
 Die Form als musikalische Funktion dieses Befehls kann innerhalb
 und außerhalb von Akkorden benutzt werden, um Notenköpfe mit Kreuzen
 in normalen und Tabulatursystemen zu erstellen:
 
-@lilypond[verbatim,quote,relative=2]
-c4 b
-\xNote { e f }
-c b < g \xNote c f > b
+@lilypond[verbatim,quote]
+\relative {
+  c''4 b
+  \xNote { e f }
+  c b < g \xNote c f > b
+}
 @end lilypond
 
 Als Synonym für @code{\xNote}, @code{\xNotesOn} und @code{\xNotesOff}
@@ -2957,17 +2969,19 @@ Notation war sehr beliebt in amerikanischen Liederbüchern des
 Sacred Harp, Southern Harmony, Funk (Harmonica Sacra), Walker
 und Aiken (Christian Harmony) benutzt werden:
 
-@lilypond[verbatim,quote,relative=2]
-\aikenHeads
-c, d e f g2 a b1 c \break
-\sacredHarpHeads
-c,4 d e f g2 a b1 c \break
-\southernHarmonyHeads
-c,4 d e f g2 a b1 c \break
-\funkHeads
-c,4 d e f g2 a b1 c \break
-\walkerHeads
-c,4 d e f g2 a b1 c \break
+@lilypond[verbatim,quote]
+\relative c'' {
+  \aikenHeads
+  c, d e f g2 a b1 c \break
+  \sacredHarpHeads
+  c,4 d e f g2 a b1 c \break
+  \southernHarmonyHeads
+  c,4 d e f g2 a b1 c \break
+  \funkHeads
+  c,4 d e f g2 a b1 c \break
+  \walkerHeads
+  c,4 d e f g2 a b1 c \break
+}
 @end lilypond
 
 @funindex \key
@@ -3059,11 +3073,11 @@ gesetzt werden, wenn der Spieler eine beliebige Tonhöhe wählen kann
 aber den vorgegebenen Rhythmus spielen soll. Sie können wie folgt
 benutzt werden:
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Voice \with {
   \consists "Pitch_squash_engraver"
-} {
-  e8 e g a a16( bes) a8 g
+} \relative {
+  e''8 e g a a16( bes) a8 g
   \improvisationOn
   e8 ~
   2 ~ 8 f4 f8 ~

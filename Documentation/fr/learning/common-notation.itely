@@ -10,12 +10,8 @@
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
-- unless you have a really good reason, use either
+- unless you have a really good reason, use
     @lilypond[verbatim,quote]
-  or
-    @lilypond[verbatim,quote,relative=2]
-
-  Don't use any other relative=X commands.
 
 - use "aes" and "ees" instead of "as" and "es".  I know it's not
   correct Dutch naming, but let's not confuse people with this
@@ -86,8 +82,8 @@ barre ou @code{\bar "|."} pour la barre finale.  Pour une liste des
 différents styles de barre de mesure, voir
 @ruser{Barres de mesure}.
 
-@lilypond[verbatim,quote,relative=2]
-g1 e1 \bar "||" c2. c'4 \bar "|."
+@lilypond[verbatim,quote]
+\relative { g'1 e1 \bar "||" c2. c'4 \bar "|." }
 @end lilypond
 
 
@@ -116,8 +112,8 @@ suivant en console :
 
 @example
 Avertissement : échec du contrôle de mesure (barcheck) à 1/2
- g1 | e1 | c2. c'
-                  | g4 c g e | c4 r r2 |
+ g'1 | e1 | c2. c'
+                   | g4 c g e | c4 r r2 |
 @end example
 
 Si la durée manquante est évitente au vu du rendu musical de cet exemple
@@ -190,8 +186,8 @@ autres langues disponibles, consultez
 @ruser{Nom des notes dans d'autres langues}.
 @c END DIV
 
-@lilypond[verbatim,quote,relative=2]
-cis1 ees fisis, aeses
+@lilypond[verbatim,quote]
+\relative { cis''1 ees fisis, aeses }
 @end lilypond
 
 
@@ -219,11 +215,13 @@ Glossaire musicologique :
 L'armure est déterminée par la commande @code{\key}, suivie d'une
 hauteur puis de @code{\major} (majeur) ou @code{\minor} (mineur).
 
-@lilypond[verbatim,quote,relative=1]
-\key d \major
-d4 fis a c |
-\bar "||" \key c \minor
-c,4 ees g b |
+@lilypond[verbatim,quote]
+\relative {
+  \key d \major
+  d'4 fis a c |
+  \bar "||" \key c \minor
+  c,4 ees g b |
+}
 @end lilypond
 
 @smallspace
@@ -253,9 +251,11 @@ assignée à une note telle qu'un @code{c} que vous aurez saisi.
 
 Dans cet exemple,
 
-@lilypond[verbatim,quote,relative=2]
-\key d \major
-cis4 d e fis
+@lilypond[verbatim,quote]
+\relative {
+  \key d \major
+  cis''4 d e fis
+}
 @end lilypond
 
 @noindent
@@ -268,9 +268,11 @@ trouve une note dont la hauteur est un si naturel.}  Avec une armure
 de la bémol majeur, ce @code{si} est flanqué d'un bécarre
 accidentel :
 
-@lilypond[verbatim,quote,relative=2]
-\key aes \major
-aes4 c b c
+@lilypond[verbatim,quote]
+\relative {
+  \key aes \major
+  aes'4 c b c
+}
 @end lilypond
 
 Prenons un autre exemple : imaginez-vous devant un piano ; dès
@@ -326,8 +328,8 @@ Pour créer une liaison de prolongation -- parfois aussi appelée
 liaison de tenue --, on ajoute un tilde @code{~} à la première note
 liée.
 
-@lilypond[verbatim,quote,relative=2]
-g4~ g c2~ | c4~ c8 a~ a2 |
+@lilypond[verbatim,quote]
+\relative { g'4~ g c2~ | c4~ c8 a~ a2 | }
 @end lilypond
 
 @cindex isolée, durée
@@ -337,8 +339,8 @@ Lorsque la hauteur ne change pas, ce qui est toujours le cas pour des
 liaisons de tenue, les hauteurs suivantes peuvent être omises auquel cas
 seules les durées successives seront mentionnées :
 
-@lilypond[verbatim,quote,relative=2]
-g4~ 4 c2~ | 4 ~ 8 a8 ~ 2 |
+@lilypond[verbatim,quote]
+\relative { g'4~ 4 c2~ | 4~ 8 a~ 2 | }
 @end lilypond
 
 Ce raccourci se révèle fort utile lors d'une succession de rythmes
@@ -369,8 +371,8 @@ Une liaison d'articulation ou @emph{legato} peut englober
 plusieurs notes.  Les notes de départ et d'arrivée sont suivies
 respectivement d'un signe @code{(} et @code{)}.
 
-@lilypond[verbatim,quote,relative=2]
-d4( c16) cis( d e c cis d) e( d4)
+@lilypond[verbatim,quote]
+\relative { d''4( c16) cis( d e c cis d) e( d4) }
 @end lilypond
 
 
@@ -386,8 +388,8 @@ et @code{\)}.  Il est possible d'avoir en même temps des legatos et des
 phrasés, mais pas plusieurs liaisons de phrasé ou de @emph{legato} à la
 fois.
 
-@lilypond[verbatim,quote,relative=2]
-g4\( g8( a) b( c) b4\)
+@lilypond[verbatim,quote]
+\relative { g'4\( g8( a) b( c) b4\) }
 @end lilypond
 
 @c @ smallspace
@@ -411,8 +413,8 @@ le @emph{legato} indique une articulation de plusieurs notes,
 éventuellement en grand nombre.  Les liaisons de tenue peuvent être
 enchâssées dans un @emph{legato} ou un phrasé.
 
-@lilypond[verbatim,quote,relative=2]
-c4~( c8 d~ 4 e)
+@lilypond[verbatim,quote]
+\relative { c''4(~ c8 d~ 4 e) }
 @end lilypond
 
 @seealso
@@ -447,9 +449,11 @@ Glossaire musicologique :
 Des @notation{articulations} peuvent être ajoutées à une note, au moyen
 d'un tiret @code{-} suivi d'un caractère :
 
-@lilypond[verbatim,quote,relative=2]
-c4-^ c-+ c-- c-!
-c4-> c-. c2-_
+@lilypond[verbatim,quote]
+\relative {
+  c''4-^ c-+ c-- c-!
+  c4-> c-. c2-_
+}
 @end lilypond
 
 
@@ -468,8 +472,8 @@ Glossaire musicologique :
 De même, des indications de doigté peuvent être ajoutées à une note en
 utilisant un tiret (@samp{-}) et le chiffre à écrire :
 
-@lilypond[verbatim,quote,relative=2]
-c4-3 e-5 b-2 a-1
+@lilypond[verbatim,quote]
+\relative { c''4-3 e-5 b-2 a-1 }
 @end lilypond
 
 Articulations et doigtés sont habituellement placés automatiquement,
@@ -479,8 +483,8 @@ articulations sur la même note.  Dans la plupart des cas, cependant,
 il est bon de laisser LilyPond déterminer l'emplacement de
 l'articulation.
 
-@lilypond[verbatim,quote,relative=2]
-c4_-^1 d^. f^4_2-> e^-_+
+@lilypond[verbatim,quote]
+\relative { c''4_-^1 d^. f^4_2-> e^-_+ }
 @end lilypond
 
 
@@ -513,8 +517,8 @@ Glossaire musicologique :
 On obtient un signe de @notation{nuance} en ajoutant à la note les
 lettres du signe, précédées d'un anti-slash @code{\} :
 
-@lilypond[verbatim,quote,relative=2]
-c4\ff c\mf c\p c\pp
+@lilypond[verbatim,quote]
+\relative { c''4\ff c\mf c\p c\pp }
 @end lilypond
 
 @cindex nuances
@@ -529,8 +533,8 @@ commandes @code{\<} et @code{\>}.  Ils se terminent soit par une
 nuance d'arrivée, par exemple @code{\f}, soit par la commande
 @code{\!} :
 
-@lilypond[verbatim,quote,relative=2]
-c4\< c\ff\> c c\!
+@lilypond[verbatim,quote]
+\relative { c''4\< c\ff\> c c\! }
 @end lilypond
 
 @seealso
@@ -553,15 +557,15 @@ Manuel de notation :
 
 On peut ajouter du texte à une partition :
 
-@lilypond[verbatim,quote,relative=2]
-c2^"espr" a_"legato"
+@lilypond[verbatim,quote,fragment]
+c''2^"espr" a'_"legato"
 @end lilypond
 
 Pour mettre en forme du texte, on utilise la commande @code{\markup} :
 
-@lilypond[verbatim,quote,relative=2]
-c2^\markup{ \bold espr}
-a2_\markup{
+@lilypond[verbatim,quote,fragment]
+c''2^\markup { \bold espr }
+a'2_\markup {
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
 }
 @end lilypond
@@ -594,8 +598,8 @@ Glossaire musicologique :
 
 Toutes les barres de ligature sont dessinées automatiquement :
 
-@lilypond[verbatim,quote,relative=2]
-a8 ais d ees r d c16 b a8
+@lilypond[verbatim,quote]
+\relative { a'8 ais d ees r d c16 b a8 }
 @end lilypond
 
 @noindent
@@ -604,19 +608,21 @@ groupées, il est possible de les ligaturer manuellement, en marquant la
 première note à attacher d'un crochet ouvrant @code{[} et la dernière
 d'un crochet fermant @code{]}.
 
-@lilypond[verbatim,quote,relative=2]
-a8[ ais] d[ ees r d] c16 b a8
+@lilypond[verbatim,quote]
+\relative { a'8[ ais] d[ ees r d] c16 b a8 }
 @end lilypond
 
 Pour désactiver les barres de ligature automatiques pour des passages
 entiers, utilisez la commande @code{\autoBeamOff}, et utilisez
 @code{\autoBeamOn} pour les réactiver.
 
-@lilypond[verbatim,quote,relative=2]
-\autoBeamOff
-a8 c b4 d8. c16 b4 |
-\autoBeamOn
-a8 c b4 d8. c16 b4 |
+@lilypond[verbatim,quote]
+\relative {
+  \autoBeamOff
+  a'8 c b4 d8. c16 b4 |
+  \autoBeamOn
+  a8 c b4 d8. c16 b4 |
+}
 @end lilypond
 
 @seealso
@@ -653,9 +659,11 @@ On crée une levée (ou anacrouse) avec la commande @code{\partial},
 suivie d'une durée : @code{\partial 4} produit une levée d'une
 noire et @code{\partial 8} d'une croche.
 
-@lilypond[verbatim,quote,relative=2]
-\partial 8 f8 |
-c2 d |
+@lilypond[verbatim,quote]
+\relative {
+  \partial 8 f''8 |
+  c2 d |
+}
 @end lilypond
 
 
@@ -679,11 +687,13 @@ normalement attribuée à un certain nombre de notes de même valeur. Dans
 le cas de triolets, par exemple, trois notes recouvrent la même durée
 que deux ; un @notation{triolet} portera donc une fraction de 3/2.
 
-@lilypond[verbatim,quote,relative=2]
-\tuplet 3/2 { f8 g a }
-\tuplet 3/2 { c8 r c }
-\tuplet 3/2 { f,8 g16[ a g a] }
-\tuplet 3/2 { d4 a8 }
+@lilypond[verbatim,quote]
+\relative {
+  \tuplet 3/2 { f''8 g a }
+  \tuplet 3/2 { c8 r c }
+  \tuplet 3/2 { f,8 g16[ a g a] }
+  \tuplet 3/2 { d4 a8 }
+}
 @end lilypond
 
 
@@ -712,10 +722,12 @@ Des @notation{notes d'ornement} s'obtiennent en appliquant la commande
 @code{\grace}, @code{\appoggiatura} ou @code{\acciaccatura} à une
 expression musicale :
 
-@lilypond[verbatim,quote,relative=2]
-c2 \grace { a32 b } c2 |
-c2 \appoggiatura b16 c2 |
-c2 \acciaccatura b16 c2 |
+@lilypond[verbatim,quote]
+\relative {
+  c''2 \grace { a32 b } c2 |
+  c2 \appoggiatura b16 c2 |
+  c2 \acciaccatura b16 c2 |
+}
 @end lilypond
 
 @seealso
@@ -762,16 +774,16 @@ Dans les fichiers source LilyPond, la musique est représentée par ce
 qu'on appelle des @emph{expressions musicales}.  En soi, une seule note
 peut constituer une expression musicale :
 
-@lilypond[verbatim,quote,relative=2]
-a4
+@lilypond[verbatim,quote,fragment]
+a'4
 @end lilypond
 
 Mettre un groupe de notes entre accolades crée une nouvelle expression
 musicale, appelée @emph{expression musicale composée}.  En voici un
 exemple avec deux notes :
 
-@lilypond[verbatim,quote,relative=2]
-{ a4 g4 }
+@lilypond[verbatim,quote]
+\relative { a'4 g4 }
 @end lilypond
 
 La mise entre accolades d'une séquence d'expressions musicales -- des
@@ -781,8 +793,8 @@ expression, qui peut elle-même être regroupée séquentiellement avec
 d'autres expressions.  Ici, l'expression de l'exemple précédent est
 combinée à deux notes :
 
-@lilypond[verbatim,quote,relative=2]
-{ { a4 g } f g }
+@lilypond[verbatim,quote]
+\relative { { a'4 g } f g }
 @end lilypond
 
 
@@ -848,13 +860,11 @@ et @code{>>}.  Dans l'exemple suivant, trois expressions (contenant
 chacune deux notes distinctes) sont combinées simultanément.
 
 @lilypond[verbatim,quote]
-\relative {
-  <<
-    { a'2 g }
-    { f2 e }
-    { d2 b }
-  >>
-}
+<<
+  \relative { a'2 g }
+  \relative { f'2 e }
+  \relative { d'2 b }
+>>
 @end lilypond
 
 Notez que nous avons ici indenté chaque niveau du fichier d'entrée
@@ -919,12 +929,10 @@ chaque partie de la musique constituant une portée.  Ces éléments
 @code{>>}, comme ci-dessous.
 
 @lilypond[verbatim,quote]
-\relative {
-  <<
-    \new Staff { \clef "treble" c''4 }
-    \new Staff { \clef "bass" c,,4 }
-  >>
-}
+<<
+  \new Staff { \clef "treble" c''4 }
+  \new Staff { \clef "bass" c4 }
+>>
 @end lilypond
 
 La commande @code{\new} introduit un @qq{contexte de notation}.  Un
@@ -953,12 +961,10 @@ le fait que l'utilisation d'instruments transpositeurs est bien plus
 fréquente que la musique polyrythmique.
 
 @lilypond[verbatim,quote]
-\relative {
-  <<
-    \new Staff { \clef "treble" \key d \major \time 3/4 c''4 }
-    \new Staff { \clef "bass" c,,4 }
-  >>
-}
+<<
+  \new Staff { \clef "treble" \key d \major \time 3/4 c''4 }
+  \new Staff { \clef "bass" c4 }
+>>
 @end lilypond
 
 
@@ -1001,12 +1007,10 @@ maintenant cette expression entière est interprétée dans un contexte
 Voici un bref exemple :
 
 @lilypond[verbatim,quote]
-\relative {
-  \new PianoStaff <<
-    \new Staff { \time 2/4 c''4 e | g g, | }
-    \new Staff { \clef "bass" c,,4 c' | e c | }
-  >>
-}
+\new PianoStaff <<
+  \new Staff \relative { \time 2/4 c''4 e | g g, | }
+  \new Staff \relative { \clef "bass" c4 c' | e c | }
+>>
 @end lilypond
 
 Vous pouvez générer d'autres formes de regroupement, avec
@@ -1042,8 +1046,8 @@ produire des accords simples, c'est-à-dire une superposition de notes
 de même durée, on encadre les hauteurs de notes par des chevrons simples
 @code{<} et @code{>}, et on écrit la durée juste après.
 
-@lilypond[verbatim,quote,relative=2]
-r4 <c e g> <c f a>2
+@lilypond[verbatim,quote]
+\relative { r4 <c'' e g> <c f a>2 }
 @end lilypond
 
 Beaucoup d'éléments de notation que l'on peut attacher à une note
@@ -1052,11 +1056,13 @@ lien, un signe d'articulation, peuvent être également attachés à un
 accord : il faut ajouter ces indications après les hauteurs et la
 durée, donc @emph{à l'extérieur} des chevrons.
 
-@lilypond[verbatim,quote,relative=2]
-r4 <c e g>~ <c f a>2 |
-<c e g>8[ <c f a> <c e g> <c f a>]
-   <c e g>\>[ <c f a> <c f a> <c e g>]\! |
-r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
+@lilypond[verbatim,quote]
+\relative {
+  r4 <c'' e g>~ <c f a>2 |
+  <c e g>8[ <c f a> <c e g> <c f a>]
+    <c e g>8\>[ <c f a> <c f a> <c e g>]\! |
+  r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
+}
 @end lilypond
 
 @seealso

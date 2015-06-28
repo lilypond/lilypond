@@ -100,20 +100,24 @@ où @code{@var{expression_musicale}} représente ce qui doît être répété.
 
 Les reprises courantes, sans alternative, s'indiquent comme ceci :
 
-@lilypond[verbatim,quote,relative=2]
-\repeat volta 2 { c4 d e f }
-c2 d
-\repeat volta 2 { d4 e f g }
+@lilypond[verbatim,quote]
+\relative {
+  \repeat volta 2 { c''4 d e f }
+  c2 d
+  \repeat volta 2 { d4 e f g }
+}
 @end lilypond
 
 Aucun « début » de reprise n'est indiqué par défaut pour la première
 mesure d'un morceau.  Vous pouvez cependant ajouter une barre de reprise
 avec un @code{\bar ".|:"} avant la première note.
 
-@lilypond[verbatim,fragment,quote,relative=2]
-\repeat volta 2 { \bar ".|:" c4 d e f }
-c2 d
-\repeat volta 2 { d4 e f g }
+@lilypond[verbatim,fragment,quote]
+\relative {
+  \repeat volta 2 { \bar ".|:" c''4 d e f }
+  c2 d
+  \repeat volta 2 { d4 e f g }
+}
 @end lilypond
 
 On peut ajouter une fin alternative à l'aide de la commande
@@ -133,25 +137,29 @@ fois.
 
 Voici une simple reprise avec une fin alternative :
 
-@lilypond[verbatim,quote,relative=2]
-\repeat volta 2 { c4 d e f | }
-\alternative {
-  { c2 e | }
-  { f2 g | }
+@lilypond[verbatim,quote]
+\relative {
+  \repeat volta 2 { c''4 d e f | }
+  \alternative {
+    { c2 e | }
+    { f2 g | }
+  }
+  c1
 }
-c1
 @end lilypond
 
 Et une répétition avec plusieurs alternatives :
 
-@lilypond[verbatim,quote,relative=2]
-\repeat volta 3 { c4 d e f | }
-\alternative {
-  { c2 e | }
-  { f2 g | }
-  { a2 g | }
+@lilypond[verbatim,quote]
+\relative {
+  \repeat volta 3 { c''4 d e f | }
+  \alternative {
+    { c2 e | }
+    { f2 g | }
+    { a2 g | }
+  }
+  c1
 }
-c1
 @end lilypond
 
 @warning{Lorsqu'il y a plus d'une alternative, prenez garde à ce
@@ -178,20 +186,21 @@ reprise ne constituent pas des barres de mesure à proprement parler ; il
 n'est donc pas nécessaire de faire appel à la commande @code{\partial}
 ou à des contrôles d'intégrité de mesure.
 
-@lilypond[verbatim,quote,relative=1]
-% no \partial here
-c4 e g  % no bar check here
-% no \partial here
-\repeat volta 4 {
-  e4 |
-  c2 e |
+@lilypond[verbatim,quote]
+\relative { % no \partial here
+  c'4 e g  % no bar check here
   % no \partial here
-  g4 g g  % no bar check here
+  \repeat volta 4 {
+    e4 |
+    c2 e |
+    % no \partial here
+    g4 g g  % no bar check here
+  }
+  % no \partial here
+  g4 |
+  a2 a |
+  g1 |
 }
-% no \partial here
-g4 |
-a2 a |
-g1 |
 @end lilypond
 
 Il est possible de créer des reprises en début de morceau avec une
@@ -199,18 +208,20 @@ levée.  Le cas est similaire à ce que nous venons de voir.  Toutefois,
 l'utilisation d'un @code{\partial} est ici nécessaire pour respecter
 cette entame.
 
-@lilypond[verbatim,quote,relative=1]
-\partial 4  % required
-\repeat volta 4 {
-  e4 |
-  c2 e |
+@lilypond[verbatim,quote]
+\relative {
+  \partial 4  % required
+  \repeat volta 4 {
+    e'4 |
+    c2 e |
+    % no \partial here
+    g4 g g  % no bar check here
+  }
   % no \partial here
-  g4 g g  % no bar check here
+  g4 |
+  a2 a |
+  g1 |
 }
-% no \partial here
-g4 |
-a2 a |
-g1 |
 @end lilypond
 
 @cindex reprise et liaison de prolongation
@@ -243,48 +254,56 @@ automatiquement sélectionné.  L'indication « D.S. » devra cependant être
 
 En dehors de toute reprise :
 
-@lilypond[verbatim,quote,relative=1]
-e1
-\inStaffSegno
-f2 g a b
-c1_"D.S." \bar "|."
+@lilypond[verbatim,quote]
+\relative {
+  e'1
+  \inStaffSegno
+  f2 g a b
+  c1_"D.S." \bar "|."
+}
 @end lilypond
 
 Au début d'une reprise :
 
-@lilypond[verbatim,quote,relative=1]
-e1
-\repeat volta 2 {
-  \inStaffSegno  % start repeat
-  f2 g a b
+@lilypond[verbatim,quote]
+\relative {
+  e'1
+  \repeat volta 2 {
+    \inStaffSegno  % start repeat
+    f2 g a b
+  }
+  c1_"D.S." \bar "|."
 }
-c1_"D.S." \bar "|."
 @end lilypond
 
 En fin de reprise :
 
-@lilypond[verbatim,quote,relative=1]
-e1
-\repeat volta 2 {
+@lilypond[verbatim,quote]
+\relative {
+  e'1
+  \repeat volta 2 {
+    f2 g a b
+    \inStaffSegno  % end repeat
+  }
   f2 g a b
-  \inStaffSegno  % end repeat
+  c1_"D.S." \bar "|."
 }
-f2 g a b
-c1_"D.S." \bar "|."
 @end lilypond
 
 Entre deux reprises :
 
-@lilypond[verbatim,quote,relative=1]
-e1
-\repeat volta 2 {
-  f2 g a b
+@lilypond[verbatim,quote]
+\relative {
+  e'1
+  \repeat volta 2 {
+    f2 g a b
+  }
+  \inStaffSegno  % double repeat
+  \repeat volta 2 {
+    f2 g a b
+  }
+  c1_"D.S." \bar "|."
 }
-\inStaffSegno  % double repeat
-\repeat volta 2 {
-  f2 g a b
-}
-c1_"D.S." \bar "|."
 @end lilypond
 
 Des symboles alternatifs de barre de mesure sont aussi accessibles, dans
@@ -295,17 +314,19 @@ alternative doivent être choisis parmi les types prédéfinis ou
 préalablement créés à l'aide d'une commande @code{\defineBarLine} --
 voir @ref{Barres de mesure}.
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote]
 \defineBarLine ":|.S[" #'(":|." "S[" "")
 \defineBarLine "]" #'("]" "" "")
-e1
-\repeat volta 2 {
-  f2 g a b
-  \once \set Score.endRepeatSegnoType = ":|.S["
-  \inStaffSegno
+\relative {
+  e'1
+  \repeat volta 2 {
+    f2 g a b
+    \once \set Score.endRepeatSegnoType = ":|.S["
+    \inStaffSegno
+  }
+  f2 g \bar "]" a b
+  c1_"D.S." \bar "|."
 }
-f2 g \bar "]" a b
-c1_"D.S." \bar "|."
 @end lilypond
 
 @snippets
@@ -425,11 +446,13 @@ reprises.  On la définit par une suite de commandes de reprise Scheme.
 @item start-repeat
 Pour imprimer une barre de reprise @code{.|:}
 
-@lilypond[verbatim,quote,relative=2]
-c1
-\set Score.repeatCommands = #'(start-repeat)
-d4 e f g
-c1
+@lilypond[verbatim,quote]
+\relative {
+  c''1
+  \set Score.repeatCommands = #'(start-repeat)
+  d4 e f g
+  c1
+}
 @end lilypond
 
 Traditionnellement, on n'imprime pas de signe de reprise en début de
@@ -438,11 +461,13 @@ morceau.
 @item end-repeat
 Pour imprimer une barre de reprise @code{:|.}
 
-@lilypond[verbatim,quote,relative=2]
-c1
-d4 e f g
-\set Score.repeatCommands = #'(end-repeat)
-c1
+@lilypond[verbatim,quote]
+\relative {
+  c''1
+  d4 e f g
+  \set Score.repeatCommands = #'(end-repeat)
+  c1
+}
 @end lilypond
 
 @item (volta @var{nombre}) @dots{} (volta #f)
@@ -450,26 +475,30 @@ Pour obtenir un crochet indiquant le numéro de l'alternative.  Pour que
 le crochet s'imprime effectivement, il faut spécifier explicitement
 l'endroit où il doit se terminer.
 
-@lilypond[verbatim,quote,relative=2]
-f4 g a b
-\set Score.repeatCommands = #'((volta "2"))
-g4 a g a
-\set Score.repeatCommands = #'((volta #f))
-c1
+@lilypond[verbatim,quote]
+\relative {
+  f''4 g a b
+  \set Score.repeatCommands = #'((volta "2"))
+  g4 a g a
+  \set Score.repeatCommands = #'((volta #f))
+  c1
+}
 @end lilypond
 
 @end table
 
 Plusieurs commandes de reprise peuvent intervenir au même moment :
 
-@lilypond[verbatim,quote,relative=2]
-f4 g a b
-\set Score.repeatCommands = #'((volta "2, 5") end-repeat)
-g4 a g a
-c1
-\set Score.repeatCommands = #'((volta #f) (volta "95") end-repeat)
-b1
-\set Score.repeatCommands = #'((volta #f))
+@lilypond[verbatim,quote]
+\relative {
+  f''4 g a b
+  \set Score.repeatCommands = #'((volta "2, 5") end-repeat)
+  g4 a g a
+  c1
+  \set Score.repeatCommands = #'((volta #f) (volta "95") end-repeat)
+  b1
+  \set Score.repeatCommands = #'((volta #f))
+}
 @end lilypond
 
 @cindex alternative et texte
@@ -531,9 +560,11 @@ syntaxe :
 Le contenu de @var{expression_musicale} sera donc expansé autant de fois
 que stipulé par @var{nombre_de_fois}.
 
-@lilypond[verbatim,quote,relative=2]
-\repeat unfold 2 { c4 d e f }
-c1
+@lilypond[verbatim,quote]
+\relative {
+  \repeat unfold 2 { c''4 d e f }
+  c1
+}
 @end lilypond
 
 Dans certains cas, et tout particulièrement dans un contexte
@@ -566,42 +597,48 @@ Si l'on donne trop peu d'alternatives en regard du nombre de fois où le
 passage doit être rejoué, la première alternative sera jouée plusieurs
 fois.
 
-@lilypond[verbatim,quote,relative=2]
-\repeat unfold 4 { c4 d e f }
-\alternative {
-  { c2 g' }
-  { c,2 b }
-  { e2 d }
- }
-c1
+@lilypond[verbatim,quote]
+\relative {
+  \repeat unfold 4 { c''4 d e f }
+  \alternative {
+    { c2 g' }
+    { c,2 b }
+    { e2 d }
+   }
+  c1
+}
 @end lilypond
 
 S'il y a par contre plus d'alternatives que de répétitions, les
 alternatives superflues seront tout simplement ignorées et ne seront pas
 imprimées.
 
-@lilypond[verbatim,quote,relative=2]
-\repeat unfold 2 { c4 d e f }
-\alternative {
-  { c2 g' }
-  { c,2 b }
-  { e2 d }
+@lilypond[verbatim,quote]
+\relative {
+  \repeat unfold 2 { c''4 d e f }
+  \alternative {
+    { c2 g' }
+    { c,2 b }
+    { e2 d }
+  }
+  c1
 }
-c1
 @end lilypond
 
 Vous pouvez imbriquer plusieurs fonctions @code{unfold}, qu'elles
 comportent ou non des fins alternatives :
 
-@lilypond[verbatim,quote,relative=2]
-\repeat unfold 2 {
-  \repeat unfold 2 { c4 d e f }
-  \alternative {
-    { c2 g' }
-    { c,2 b }
+@lilypond[verbatim,quote]
+\relative {
+  \repeat unfold 2 {
+    \repeat unfold 2 { c''4 d e f }
+    \alternative {
+      { c2 g' }
+      { c,2 b }
+    }
   }
+  c1
 }
-c1
 @end lilypond
 
 Une construction en accord peut se répéter à l'aide du symbole @code{q}
@@ -665,35 +702,43 @@ En voici la syntaxe :
 Les séquences inférieures à une mesure sont remplacées par une barre
 oblique.
 
-@lilypond[verbatim,quote,relative=2]
-\repeat percent 4 { c128 d e f }
-\repeat percent 4 { c64 d e f }
-\repeat percent 5 { c32 d e f }
-\repeat percent 4 { c16 d e f }
-\repeat percent 4 { c8 d }
-\repeat percent 4 { c4 }
-\repeat percent 2 { c2 }
+@lilypond[verbatim,quote]
+\relative c'' {
+  \repeat percent 4 { c128 d e f }
+  \repeat percent 4 { c64 d e f }
+  \repeat percent 5 { c32 d e f }
+  \repeat percent 4 { c16 d e f }
+  \repeat percent 4 { c8 d }
+  \repeat percent 4 { c4 }
+  \repeat percent 2 { c2 }
+}
 @end lilypond
 
 Les séquences d'une ou deux mesures sont remplacées par un
 symbole qui ressemble au symbole de pourcentage.
 
-@lilypond[verbatim,quote,relative=2]
-\repeat percent 2 { c4 d e f }
-\repeat percent 2 { c2 d }
-\repeat percent 2 { c1 }
+@lilypond[verbatim,quote]
+\relative c'' {
+  \repeat percent 2 { c4 d e f }
+  \repeat percent 2 { c2 d }
+  \repeat percent 2 { c1 }
+}
 @end lilypond
 
-@lilypond[verbatim,quote,relative=2]
-\repeat percent 3 { c4 d e f | c2 g' }
+@lilypond[verbatim,quote]
+\relative {
+  \repeat percent 3 { c''4 d e f | c2 g' }
+}
 @end lilypond
 
 Les séquences inférieures à la mesure et qui contiennent des durées
 différentes sont remplacées par un double symbole de pourcentage.
 
-@lilypond[verbatim,quote,relative=2]
-\repeat percent 4 { c8. <d f>16 }
-\repeat percent 2 { \tuplet 3/2 { r8 c d } e4 }
+@lilypond[verbatim,quote]
+\relative {
+  \repeat percent 4 { c''8. <d f>16 }
+  \repeat percent 2 { \tuplet 3/2 { r8 c d } e4 }
+}
 @end lilypond
 
 @snippets
@@ -751,10 +796,12 @@ de ligature penchées sont ajoutées à la note en question.
 On peut placer une notation de trémolo entre deux notes, avec la
 commande @code{\repeat} suivie du style trémolo :
 
-@lilypond[quote,verbatim,relative=2]
-\repeat tremolo 8 { c16 d }
-\repeat tremolo 6 { c16 d }
-\repeat tremolo 2 { c16 d }
+@lilypond[quote,verbatim]
+\relative c'' {
+  \repeat tremolo 8 { c16 d }
+  \repeat tremolo 6 { c16 d }
+  \repeat tremolo 2 { c16 d }
+}
 @end lilypond
 
 La syntaxe de @code{\repeat tremolo} requiert expressément deux notes
@@ -788,9 +835,11 @@ il doit être au moins de 8, auquel cas la hampe sera barrée par un
 seul trait de ligature.  Si ce nombre est omis, la dernière valeur sera
 utilisée.
 
-@lilypond[quote,verbatim,relative=2]
-c2:8 c:32
-c: c:
+@lilypond[quote,verbatim]
+\relative {
+  c''2:8 c:32
+  c: c:
+}
 @end lilypond
 
 @snippets

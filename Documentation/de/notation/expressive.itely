@@ -127,9 +127,11 @@ Hierzu wird folgende Syntax benutzt:
 Die möglichen Werte für @var{Bezeichnung} sind aufgelistet in
 @ref{Liste der Artikulationszeichen}.  Ein Beispiel:
 
-@lilypond[verbatim,quote,relative=2]
-c4\staccato c\mordent b2\turn
-c1\fermata
+@lilypond[verbatim,quote]
+\relative {
+  c''4\staccato c\mordent b2\turn
+  c1\fermata
+}
 @end lilypond
 
 @cindex Akzent
@@ -151,9 +153,11 @@ für @notation{marcato},
 und @notation{portato}.  Die ihnen entsprechenden Symbole
 werden also folgendermaßen notiert:
 
-@lilypond[verbatim,quote,relative=2]
-c4-^ c-+ c-- c-!
-c4-> c-. c2-_
+@lilypond[verbatim,quote]
+\relative {
+  c''4-^ c-+ c-- c-!
+  c4-> c-. c2-_
+}
 @end lilypond
 
 Die Regeln für die standardmäßige Platzierung von
@@ -171,10 +175,10 @@ Befehl, @code{fermataMarkup}, wurde definiert, damit man eine Fermate
 an eine Mehrtaktpause anfügen kann (und nur hieran).  Damit wird ein
 @code{MultiMeasureRestText}-Objekt erstellt.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,fragment]
 \override Script.color = #red
 \override MultiMeasureRestText.color = #blue
-a2\fermata r\fermata
+a'2\fermata r\fermata
 R1\fermataMarkup
 @end lilypond
 
@@ -280,10 +284,12 @@ angezeigt, etwa @code{c4\ff}.  Die vordefinierten Befehle lauten:
 Dynamikzeichen können manuell unter- oder oberhalb des Systems
 platziert werden, siehe @ref{Richtung und Platzierung}.
 
-@lilypond[verbatim,quote,relative=2]
-c2\ppp c\mp
-c2\rfz c^\mf
-c2_\spp c^\ff
+@lilypond[verbatim,quote]
+\relative c'' {
+  c2\ppp c\mp
+  c2\rfz c^\mf
+  c2_\spp c^\ff
+}
 @end lilypond
 
 @cindex Crescendo-Klammer
@@ -310,14 +316,16 @@ anstelle von @code{\<} und
 @code{\>} benutzt werden.  Die Befehle ergeben standardmäßig
 Crescendo-Klammern.
 
-@lilypond[verbatim,quote,relative=2]
-c2\< c\!
-d2\< d\f
-e2\< e\>
-f2\> f\!
-e2\> e\mp
-d2\> d\>
-c1\!
+@lilypond[verbatim,quote]
+\relative c'' {
+  c2\< c\!
+  d2\< d\f
+  e2\< e\>
+  f2\> f\!
+  e2\> e\mp
+  d2\> d\>
+  c1\!
+}
 @end lilypond
 
 Eine Crescendo-Klammer, die mit @code{\!} beendet wird, endet an der rechten
@@ -328,8 +336,10 @@ oder @code{\>} angehängt hat.  Die nächste Klammer beginnt dann am rechten
 Rand der selben Note anstatt dem normalerweise linken Rand, wenn die
 vorherige Klammer mit @code{\!} beendet worden wäre.
 
-@lilypond[verbatim,quote,relative=2]
-c1\< | c4 a c\< a | c4 a c\! a\< | c4 a c a\!
+@lilypond[verbatim,quote]
+\relative {
+  c''1\< | c4 a c\< a | c4 a c\! a\< | c4 a c a\!
+}
 @end lilypond
 
 @cindex mehre Dynamikzeichen an einer Note
@@ -339,9 +349,11 @@ Leere Pausenzeichen werden benötigt, um mehrere Zeichen für eine Note
 zu notieren.  Das ist insbesondere nützlich, wenn man @notation{crescendo}
 und @notation{decrescendo} zu der selben Note hinzufügen will:
 
-@lilypond[verbatim,quote,relative=2]
-c4\< c\! d\> e\!
-<< f1 { s4 s4\< s4\> s4\! } >>
+@lilypond[verbatim,quote]
+\relative {
+  c''4\< c\! d\> e\!
+  << f1 { s4 s4\< s4\> s4\! } >>
+}
 @end lilypond
 
 @cindex Espressivo-Artikulation
@@ -353,9 +365,11 @@ Der @code{\espressivo}-Befehl kann eingesetzt werden, um crescendo
 und decrescendo für die selbe Note anzuzeigen.  Dieser Befehl ist
 jedoch als Artikulation, nicht als Dynamikzeichen implementiert.
 
-@lilypond[verbatim,quote,relative=2]
-c2 b4 a
-g1\espressivo
+@lilypond[verbatim,quote]
+\relative {
+  c''2 b4 a
+  g1\espressivo
+}
 @end lilypond
 
 @funindex \cresc
@@ -368,11 +382,13 @@ Mit Text gesetzte Crescendo-Bezeichnungen beginnen mit @code{\cresc}.
 Mit Text gesetzte Decrescendo-Bezeichnungen beginnen mit @code{\decresc}
 oder @code{\dim}.  Fortsetzungslinien werden gesetzt, wenn sie benötigt werden.
 
-@lilypond[verbatim,quote,relative=2]
-g8\cresc a b c b c d e\mf |
-f8\decresc e d c e\> d c b |
-a1\dim ~ |
-a2. r4\! |
+@lilypond[verbatim,quote]
+\relative {
+  g'8\cresc a b c b c d e\mf |
+  f8\decresc e d c e\> d c b |
+  a1\dim ~ |
+  a2. r4\! |
+}
 @end lilypond
  
 
@@ -393,18 +409,20 @@ a2. r4\! |
 Als Text gesetzte Dynamik-Bezeichnungen können auch die Crescendo-Klammern
 ersetzen:
 
-@lilypond[verbatim,quote,relative=2]
-\crescTextCresc
-c4\< d e f\! |
-\dimTextDecresc
-g4\> e d c\! |
-\dimTextDecr
-e4\> d c b\! |
-\dimTextDim
-d4\> c b a\! |
-\crescHairpin
-\dimHairpin
-c4\< d\! e\> d\! |
+@lilypond[verbatim,quote]
+\relative c'' {
+  \crescTextCresc
+  c4\< d e f\! |
+  \dimTextDecresc
+  g4\> e d c\! |
+  \dimTextDecr
+  e4\> d c b\! |
+  \dimTextDim
+  d4\> c b a\! |
+  \crescHairpin
+  \dimHairpin
+  c4\< d\! e\> d\! |
+}
 @end lilypond
 
 Um neue absolute Dynamikzeichen oder Text, der mit ihnen
@@ -657,10 +675,12 @@ hinter den Notenwerten notiert.
 @warning{In polyphoner Musik muss ein Legatobogen in der gleichen
 Stimme beendet werden, in der er begonnen wurde.}
 
-@lilypond[verbatim,quote,relative=2]
-f4( g a) a8 b(
-a4 g2 f4)
-<c e>2( <b d>2)
+@lilypond[verbatim,quote]
+\relative {
+  f''4( g a) a8 b(
+  a4 g2 f4)
+  <c e>2( <b d>2)
+}
 @end lilypond
 
 @cindex Bögen, manuelle Platzierung
@@ -708,14 +728,16 @@ können zwei Bögen gleichzeitig ausgegeben werden.  Siehe auch
 Legatobögen können durchgehend, gepunktet oder gestrichelt dargestellt
 werden.  Standard ist der durchgehende Bogen:
 
-@lilypond[verbatim,quote,relative=1]
-c4( e g2)
-\slurDashed
-g4( e c2)
-\slurDotted
-c4( e g2)
-\slurSolid
-g4( e c2)
+@lilypond[verbatim,quote]
+\relative {
+  c'4( e g2)
+  \slurDashed
+  g4( e c2)
+  \slurDotted
+  c4( e g2)
+  \slurSolid
+  g4( e c2)
+}
 @end lilypond
 
 @funindex \slurHalfDashed
@@ -729,14 +751,16 @@ die zweite Hälfte durchgehend) erstellt werden, oder als
 halb durchgehend (die erste Hälfte durchgehend, die
 zweite Hälfte gestrichelt:
 
-@lilypond[verbatim,quote,relative=1]
-c4( e g2)
-\slurHalfDashed
-g4( e c2)
-\slurHalfSolid
-c4( e g2)
-\slurSolid
-g4( e c2)
+@lilypond[verbatim,quote]
+\relative {
+  c'4( e g2)
+  \slurHalfDashed
+  g4( e c2)
+  \slurHalfSolid
+  c4( e g2)
+  \slurSolid
+  g4( e c2)
+}
 @end lilypond
 
 @funindex \slurDashPattern
@@ -745,14 +769,16 @@ g4( e c2)
 
 Eigene Muster für die Strichelung können definiert werden:
 
-@lilypond[verbatim,quote,relative=1]
-c4( e g2)
-\slurDashPattern #0.7 #0.75
-g4( e c2)
-\slurDashPattern #0.5 #2.0
-c4( e g2)
-\slurSolid
-g4( e c2)
+@lilypond[verbatim,quote]
+\relative {
+  c'4( e g2)
+  \slurDashPattern #0.7 #0.75
+  g4( e c2)
+  \slurDashPattern #0.5 #2.0
+  c4( e g2)
+  \slurSolid
+  g4( e c2)
+}
 @end lilypond
 
 @funindex \slurUp
@@ -816,9 +842,11 @@ Ein Phrasierungsbogen verbindet Noten und wird verwendet, um einen
 musikalischen Ausdruck anzuzeigen. Er wird mit den Befehlen
 @code{\(} und @code{\)} eingegeben.
 
-@lilypond[verbatim,quote,relative=2]
-c4\( d( e) f(
-e2) d\)
+@lilypond[verbatim,quote]
+\relative {
+  c''4\( d( e) f(
+  e2) d\)
+}
 @end lilypond
 
 @funindex \phrasingSlurUp
@@ -858,14 +886,16 @@ erlaubt.
 Phrasierungsbögen können durchgehend, gepunktet oder gestrichelt dargestellt
 werden.  Standard ist der durchgehende Bogen:
 
-@lilypond[verbatim,quote,relative=1]
-c4\( e g2\)
-\phrasingSlurDashed
-g4\( e c2\)
-\phrasingSlurDotted
-c4\( e g2\)
-\phrasingSlurSolid
-g4\( e c2\)
+@lilypond[verbatim,quote]
+\relative {
+  c'4\( e g2\)
+  \phrasingSlurDashed
+  g4\( e c2\)
+  \phrasingSlurDotted
+  c4\( e g2\)
+  \phrasingSlurSolid
+  g4\( e c2\)
+}
 @end lilypond
 
 funindex phrasingSlurHalfDashed
@@ -881,14 +911,16 @@ werden (die erste Hälfte gestrichelt, die zweite Hälfte durchgehend,
 oder halb durchgehend (die erste Hälfte durchgehend, die zweite
 gestrichelt):
 
-@lilypond[verbatim,quote,relative=1]
-c4\( e g2\)
-\phrasingSlurHalfDashed
-g4\( e c2\)
-\phrasingSlurHalfSolid
-c4\( e g2\)
-\phrasingSlurSolid
-g4\( e c2\)
+@lilypond[verbatim,quote]
+\relative {
+  c'4\( e g2\)
+  \phrasingSlurHalfDashed
+  g4\( e c2\)
+  \phrasingSlurHalfSolid
+  c4\( e g2\)
+  \phrasingSlurSolid
+  g4\( e c2\)
+}
 @end lilypond
 
 @funindex \phrasingSlurDashPattern
@@ -897,14 +929,16 @@ g4\( e c2\)
 
 Eigene Strichelmuster für Phrasierungsbögen können definiert werden:
 
-@lilypond[verbatim,quote,relative=1]
-c4\( e g2\)
-\phrasingSlurDashPattern #0.7 #0.75
-g4\( e c2\)
-\phrasingSlurDashPattern #0.5 #2.0
-c4\( e g2\)
-\phrasingSlurSolid
-g4\( e c2\)
+@lilypond[verbatim,quote]
+\relative {
+  c'4\( e g2\)
+  \phrasingSlurDashPattern #0.7 #0.75
+  g4\( e c2\)
+  \phrasingSlurDashPattern #0.5 #2.0
+  c4\( e g2\)
+  \phrasingSlurSolid
+  g4\( e c2\)
+}
 @end lilypond
 
 Strichelmusterdefinitionen für Phrasierungsbögen haben die
@@ -951,15 +985,15 @@ Referenz der Interna:
 
 Atemzeichen werden mit dem Befehl @code{\breathe} eingegeben.
 
-@lilypond[verbatim,quote,relative=2]
-c2. \breathe d4
+@lilypond[verbatim,quote]
+{ c''2. \breathe d''4 }
 @end lilypond
 
 Ein Atemzeichen bezeichnet gleichzeitig das Ende eines automatischen
 Balkens.  Um das Verhalten zu verändern siehe @ref{Manuelle Balken}.
 
-@lilypond[verbatim,quote,relative=2]
-c8 \breathe d e f g2
+@lilypond[verbatim,quote]
+\relative { c''8 \breathe d e f g2 }
 @end lilypond
 
 Musikalische Zeichen für Atemzeichen in Alter Notation, auch
@@ -1014,13 +1048,15 @@ Plus oder Minus (nach oben bzw. nach unten) angezeigt.  Die
 Zahl zeigt die Intervallgröße an, über die sich das Glissando @emph{nach}
 der Note erstreckt.
 
-@lilypond[verbatim,quote,relative=2]
-c2\bendAfter #+4
-c2\bendAfter #-4
-c2\bendAfter #+6.5
-c2\bendAfter #-6.5
-c2\bendAfter #+8
-c2\bendAfter #-8
+@lilypond[verbatim,quote]
+\relative c'' {
+  c2\bendAfter #+4
+  c2\bendAfter #-4
+  c2\bendAfter #+6.5
+  c2\bendAfter #-6.5
+  c2\bendAfter #+8
+  c2\bendAfter #-8
+}
 @end lilypond
 
 @snippets
@@ -1116,25 +1152,27 @@ Ein @notation{Arpeggio} als Zeichen, dass ein Akkord gebrochen gespielt werden s
 kann mit dem Befehl @code{\arpeggio} hinter der
 Akkord-Konstruktion erzeugt werden.
 
-@lilypond[verbatim,quote,relative=1]
-<c e g c>1\arpeggio
+@lilypond[verbatim,quote]
+\relative { <c' e g c>1\arpeggio }
 @end lilypond
 
 Unterschiedliche Arpeggio-Typen können benutzt werden.
 @code{\arpeggioNormal} stellt wieder das normale Verhalten
 her:
 
-@lilypond[verbatim,quote,relative=1]
-<c e g c>2\arpeggio
+@lilypond[verbatim,quote]
+\relative {
+  <c' e g c>2\arpeggio
 
-\arpeggioArrowUp
-<c e g c>2\arpeggio
+  \arpeggioArrowUp
+  <c e g c>2\arpeggio
 
-\arpeggioArrowDown
-<c e g c>2\arpeggio
+  \arpeggioArrowDown
+  <c e g c>2\arpeggio
 
-\arpeggioNormal
-<c e g c>2\arpeggio
+  \arpeggioNormal
+  <c e g c>2\arpeggio
+}
 @end lilypond
 
 @cindex Arpeggio-Symbole, besondere
@@ -1149,20 +1187,22 @@ her:
 
 Besondere Arpeggios mit Klammern können erstellt werden:
 
-@lilypond[verbatim,quote,relative=1]
-<c e g c>2
+@lilypond[verbatim,quote]
+\relative {
+  <c' e g c>2
 
-\arpeggioBracket
-<c e g c>2\arpeggio
+  \arpeggioBracket
+  <c e g c>2\arpeggio
 
-\arpeggioParenthesis
-<c e g c>2\arpeggio
+  \arpeggioParenthesis
+  <c e g c>2\arpeggio
 
-\arpeggioParenthesisDashed
-<c e g c>2\arpeggio
+  \arpeggioParenthesisDashed
+  <c e g c>2\arpeggio
 
-\arpeggioNormal
-<c e g c>2\arpeggio
+  \arpeggioNormal
+  <c e g c>2\arpeggio
+}
 @end lilypond
 
 Die @code{dash}-Eigenschaft der Arpeggioklammern werden von
@@ -1244,22 +1284,26 @@ Längere Triller mit einer Dauer werden mit den Befehlen
 @code{\startTrillSpan} zu
 Beginn und @code{\stopTrillSpan} am Ende erstellt.
 
-@lilypond[verbatim,quote,relative=2]
-d1\startTrillSpan
-d1
-c2\stopTrillSpan
-r2
+@lilypond[verbatim,quote]
+\relative {
+  d''1\startTrillSpan
+  d1
+  c2\stopTrillSpan
+  r2
+}
 @end lilypond
 
 Ein Triller-Strekcer, der über einen Zeilenumbruch geht,
 beginnt genau über der ersten Note auf der neue Zeile erneut.
 
-@lilypond[ragged-right,verbatim,quote,relative=2]
-d1\startTrillSpan
-\break
-d1
-c2\stopTrillSpan
-r2
+@lilypond[ragged-right,verbatim,quote]
+\relative {
+  d''1\startTrillSpan
+  \break
+  d1
+  c2\stopTrillSpan
+  r2
+}
 @end lilypond
 
 Aufeinanderfolgende Trillerstrecker funktieren ohne einen
@@ -1278,10 +1322,12 @@ Triller können auch mit Vorschlägen kombiniert werden.  Die Syntax
 für diese Konstruktion und die Methode, um die Position der Vorschläge
 präzise zu positionieren, wird gezeigt in @ref{Verzierungen}.
 
-@lilypond[verbatim,quote,relative=2]
-d1~\afterGrace
-d1\startTrillSpan { c32[ d]\stopTrillSpan }
-c2 r2
+@lilypond[verbatim,quote]
+\relative {
+  d''1~\afterGrace
+  d1\startTrillSpan { c32[ d]\stopTrillSpan }
+  c2 r2
+}
 @end lilypond
 
 @cindex Triller mit Tonhöhe
@@ -1294,12 +1340,14 @@ mit dem Befehl @code{pitchedTrill} notiert werden.  Das erste
 Argument ist die Hauptnote, das zweite die Note, auf der getrillert
 wird.  Sie wird als Note ohne Hals in Klammern ausgegeben.
 
-@lilypond[verbatim,quote,relative=2]
-\pitchedTrill
-d2\startTrillSpan fis
-d2
-c2\stopTrillSpan
-r2
+@lilypond[verbatim,quote]
+\relative {
+  \pitchedTrill
+  d''2\startTrillSpan fis
+  d2
+  c2\stopTrillSpan
+  r2
+}
 @end lilypond
 
 @cindex Triller mit Tonhöhe und Versetzungszeichen
@@ -1309,19 +1357,21 @@ Aufeinanderfolgende Versetzungszeichen der selben Note im selben
 Takt müssen selbst hinzugefügt werden.  Nur das Versetzungszeichen
 des ersten Trillers mit Tonhöhe innerhalb eines Taktes wird ausgegeben.
 
-@lilypond[verbatim,quote,relative=2]
-\pitchedTrill
-eis4\startTrillSpan fis
-eis4\stopTrillSpan
-\pitchedTrill
-eis4\startTrillSpan cis
-eis4\stopTrillSpan
-\pitchedTrill
-eis4\startTrillSpan fis
-eis4\stopTrillSpan
-\pitchedTrill
-eis4\startTrillSpan fis!
-eis4\stopTrillSpan
+@lilypond[verbatim,quote]
+\relative {
+  \pitchedTrill
+  eis''4\startTrillSpan fis
+  eis4\stopTrillSpan
+  \pitchedTrill
+  eis4\startTrillSpan cis
+  eis4\stopTrillSpan
+  \pitchedTrill
+  eis4\startTrillSpan fis
+  eis4\stopTrillSpan
+  \pitchedTrill
+  eis4\startTrillSpan fis!
+  eis4\stopTrillSpan
+}
 @end lilypond
 
 @predefined

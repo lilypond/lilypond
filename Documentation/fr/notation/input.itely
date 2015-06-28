@@ -2749,12 +2749,14 @@ Ce commutateur agit aussi sur la sortie MIDI.  Notez bien que tous les
 événements seront escamotés, y compris les changements de tempo ou
 d'instrument -- vous voilà prévenu !
 
-@lilypond[quote,relative=2,ragged-right,verbatim]
-c8 d
-\set Score.skipTypesetting = ##t
-e8 e e e e e e e
-\set Score.skipTypesetting = ##f
-c8 d b bes a g c2
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  c''8 d
+  \set Score.skipTypesetting = ##t
+  e8 e e e e e e e
+  \set Score.skipTypesetting = ##f
+  c8 d b bes a g c2
+}
 @end lilypond
 
 Dans le cadre de musique polyphonique, @code{Score.skipTypesetting}

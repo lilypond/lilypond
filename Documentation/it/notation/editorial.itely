@@ -172,14 +172,16 @@ dell'oggetto, il suo valore è 0.  Si veda @rinternals{All layout objects}.
 La proprietà di contesto @code{fontSize} regola la dimensione relativa di
 tutti gli elementi della notazione basati su un glifo in un contesto:
 
-@lilypond[verbatim,quote,relative=2]
-\time 3/4
-d4---5 c8( b a g) |
-\set fontSize = -6
-e'4-- c!8-4( b a g) |
-\set fontSize = 0
-fis4---3 e8( d) fis4 |
-g2.
+@lilypond[verbatim,quote]
+\relative {
+  \time 3/4
+  d''4---5 c8( b a g) |
+  \set fontSize = -6
+  e'4-- c!8-4( b a g) |
+  \set fontSize = 0
+  fis4---3 e8( d) fis4 |
+  g2.
+}
 @end lilypond
 
 Il valore di @code{fontSize} è un numero che indica la dimensione
@@ -244,19 +246,21 @@ Sono anche disponibili le seguenti scorciatoie:
 @item @code{\huge}       @tab @code{\set fontSize = 2} @tab 126%
 @end multitable
 
-@lilypond[verbatim,quote,relative=2]
-\teeny
-c4.-> d8---3
-\tiny
-c4.-> d8---3
-\small
-c4.-> d8---3
-\normalsize
-c4.-> d8---3
-\large
-c4.-> d8---3
-\huge
-c4.-> d8---3
+@lilypond[verbatim,quote]
+\relative c'' {
+  \teeny
+  c4.-> d8---3
+  \tiny
+  c4.-> d8---3
+  \small
+  c4.-> d8---3
+  \normalsize
+  c4.-> d8---3
+  \large
+  c4.-> d8---3
+  \huge
+  c4.-> d8---3
+}
 @end lilypond
 
 @cindex dimensione del tipo di carattere standard (per gli elementi della notazione)
@@ -335,15 +339,17 @@ e @code{\revert}:
 Le indicazioni di diteggiatura si inseriscono con
 @samp{@var{nota}-@var{numero}}:
 
-@lilypond[verbatim,quote,relative=2]
-c4-1 d-2 f-4 e-3
+@lilypond[verbatim,quote]
+\relative { c''4-1 d-2 f-4 e-3 }
 @end lilypond
 
 Si può usare il testo incluso dentro @code{\markup} o tra virgolette per
 indicare un cambio di dito.
 
-@lilypond[verbatim,quote,relative=2]
-c4-1 d-2 f\finger \markup \tied-lyric #"4~3" c\finger "2 - 3"
+@lilypond[verbatim,quote]
+\relative {
+  c''4-1 d-2 f\finger \markup \tied-lyric #"4~3" c\finger "2 - 3"
+}
 @end lilypond
 
 @cindex pollice, indicazione
@@ -354,8 +360,8 @@ c4-1 d-2 f\finger \markup \tied-lyric #"4~3" c\finger "2 - 3"
 Si può aggiungere il simbolo del pollice  per indicare che una nota deve essere
 suonata col pollice (ad esempio, nella musica per violoncello).
 
-@lilypond[verbatim,quote,relative=2]
-<a_\thumb a'-3>2 <b_\thumb b'-3>
+@lilypond[verbatim,quote]
+\relative { <a'_\thumb a'-3>2 <b_\thumb b'-3> }
 @end lilypond
 
 @cindex diteggiatura per accordi
@@ -365,8 +371,10 @@ suonata col pollice (ad esempio, nella musica per violoncello).
 È possibile indicare la diteggiatura di ogni singola nota di un
 accordo specificandola dopo ciascuna altezza.
 
-@lilypond[verbatim,quote,relative=2]
-<c-1 e-2 g-3 b-5>2 <d-1 f-2 a-3 c-5>
+@lilypond[verbatim,quote]
+\relative {
+  <c''-1 e-2 g-3 b-5>2 <d-1 f-2 a-3 c-5>
+}
 @end lilypond
 
 Le indicazioni di diteggiatura possono essere poste sopra o sotto il
@@ -417,26 +425,30 @@ Guida al funzionamento interno:
 Le note nascoste (o invisibili o trasparenti) possono essere utili nella
 preparazione di esercizi di teoria e composizione.
 
-@lilypond[verbatim,quote,relative=2]
-c4 d
-\hideNotes
-e4 f
-\unHideNotes
-g a
-\hideNotes
-b
-\unHideNotes
-c
+@lilypond[verbatim,quote]
+\relative {
+  c''4 d
+  \hideNotes
+  e4 f
+  \unHideNotes
+  g a
+  \hideNotes
+  b
+  \unHideNotes
+  c
+}
 @end lilypond
 
 Questo comando rende invisibili le teste, i gambi e le code delle note, e
 le pause.  Le travature sono invisibili se iniziano su una nota
 nascosta.  Mentre gli oggetti attaccati a note invisibili sono comunque visibili.
 
-@lilypond[verbatim,quote,relative=2]
-e8(\p f g a)--
-\hideNotes
-e8(\p f g a)--
+@lilypond[verbatim,quote]
+\relative c'' {
+  e8(\p f g a)--
+  \hideNotes
+  e8(\p f g a)--
+}
 @end lilypond
 
 
@@ -485,13 +497,13 @@ Guida al funzionamento interno:
 Si possono assegnare dei colori a ciascun oggetto.  I nomi dei colori validi
 sono elencati nella @ref{List of colors}.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,fragment]
 \override NoteHead.color = #red
-c4 c
+c''4 c''
 \override NoteHead.color = #(x11-color 'LimeGreen)
-d
+d''
 \override Stem.color = #blue
-e
+e''
 @end lilypond
 
 
@@ -532,18 +544,20 @@ b2 cis
 
 I colori RGB esatti si specificano con la funzione Scheme @code{rgb-color}.
 
-@lilypond[verbatim,quote,relative=2]
-\override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
-\set Staff.instrumentName = \markup {
-  \with-color #(x11-color 'navy) "Clarinet"
-}
+@lilypond[verbatim,quote]
+\relative c'' {
+  \override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
+  \set Staff.instrumentName = \markup {
+    \with-color #(x11-color 'navy) "Clarinet"
+  }
 
-\override Stem.color = #(rgb-color 0 0 0)
-gis8 a
-\override Stem.color = #(rgb-color 1 1 1)
-gis8 a
-\override Stem.color = #(rgb-color 0 0 0.5)
-gis4 a
+  \override Stem.color = #(rgb-color 0 0 0)
+  gis8 a
+  \override Stem.color = #(rgb-color 1 1 1)
+  gis8 a
+  \override Stem.color = #(rgb-color 0 0 0.5)
+  gis4 a
+}
 @end lilypond
 
 @seealso
@@ -591,18 +605,22 @@ prima dell'evento musicale.  Se precede un accordo, viene messa tra parentesi
 ogni nota dell'accordo.  Si possono mettere tra parentesi anche singole note
 di un accordo.
 
-@lilypond[verbatim,quote,relative=2]
-c2 \parenthesize d
-c2 \parenthesize <c e g>
-c2 <c \parenthesize e g>
+@lilypond[verbatim,quote]
+\relative {
+  c''2 \parenthesize d
+  c2 \parenthesize <c e g>
+  c2 <c \parenthesize e g>
+}
 @end lilypond
 
 Si possono mettere tra parentesi anche oggetti diversi dalle note.  Per le
 articolazioni è necessario usare un trattino prima del comando @code{\parenthesize}.
 
-@lilypond[verbatim,quote,relative=2]
-c2-\parenthesize -. d
-c2 \parenthesize r
+@lilypond[verbatim,quote]
+\relative {
+  c''2-\parenthesize -. d
+  c2 \parenthesize r
+}
 @end lilypond
 
 @seealso

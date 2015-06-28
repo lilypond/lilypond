@@ -111,8 +111,8 @@ orchestral strings.
 -- @code{\upbow} と @code{\downbow} --
 は、以下のようにスラーと一緒に用います:
 
-@lilypond[verbatim,quote,relative=2]
-c4(\downbow d) e(\upbow f)
+@lilypond[verbatim,quote]
+\relative { c''4(\downbow d) e(\upbow f) }
 @end lilypond
 
 @noindent
@@ -156,20 +156,22 @@ a2^\markup { \small "sul A" }
 一般的に、ダイアモンド形の符頭は、@c
 符頭がダイアモンド形ではない場合に押さえる弦に触れることを意味します。
 
-@lilypond[verbatim,quote,relative=2]
-d4 e4.
-\harmonicsOn
-d8 e e
-d4 e4.
-\harmonicsOff
-d8 e e
+@lilypond[verbatim,quote]
+\relative d'' {
+  d4 e4.
+  \harmonicsOn
+  d8 e e
+  d4 e4.
+  \harmonicsOff
+  d8 e e
+}
 @end lilypond
 
 一方、鳴らすピッチに通常の符頭を記譜すると共に、@c
 小さな丸を付けることでハーモニクスとして演奏することを示す方法もあります:
 
-@lilypond[verbatim,quote,relative=2]
-d2^\flageolet d_\flageolet
+@lilypond[verbatim,quote,fragment]
+d''2^\flageolet d''_\flageolet
 @end lilypond
 
 より小さな丸を描くこともできます。@c
@@ -190,10 +192,12 @@ d2^\flageolet d_\flageolet
 符点を付ける必要がある場合は、@c
 コンテキスト プロパティ @code{harmonicDots} を設定します。
 
-@lilypond[verbatim,quote,relative=1]
-<e a\harmonic>2.  <c g'\harmonic>4
-\set harmonicDots = ##t
-<e a\harmonic>2.  <c g'\harmonic>4
+@lilypond[verbatim,quote]
+\relative e' {
+  <e a\harmonic>2.  <c g'\harmonic>4
+  \set harmonicDots = ##t
+  <e a\harmonic>2.  <c g'\harmonic>4
+}
 @end lilypond
 
 @warning{@code{@bs{}harmonic} は、単一の音符しかない場合であっても、@c
@@ -224,9 +228,11 @@ d2^\flageolet d_\flageolet
 故意に弦を上 (フィンガーボードと垂直) に引いて、@c
 弦をフィンガーボードにぶつけます。
 
-@lilypond[verbatim,quote,relative=1]
-c4\snappizzicato
-<c' e g>4\snappizzicato
-<c' e g>4^\snappizzicato
-<c, e g>4_\snappizzicato
+@lilypond[verbatim,quote]
+\relative {
+  c'4\snappizzicato
+  <c' e g>4\snappizzicato
+  <c' e g>4^\snappizzicato
+  <c, e g>4_\snappizzicato
+}
 @end lilypond

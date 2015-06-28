@@ -56,22 +56,28 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 和音は @code{<} と @code{>} で 1 組のピッチを囲むことによって形成されます。@c
 和音の後には -- 普通の音符と同様に -- 演奏時間が続くかもしれません:
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1 <a c e>2 <f a c e>4 <a c>8. <g c e>16
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1 <a c e>2 <f a c e>4 <a c>8. <g c e>16
+}
 @end lilypond
 
 さらに、和音の後には -- 普通の音符と同様に -- アーティキュレーションが@c
 続くかもしれません:
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1\fermata <a c e>2-> <f a c e>4\prall <a c>8.^! <g c e>16-.
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1\fermata <a c e>2-> <f a c e>4\prall <a c>8.^! <g c e>16-.
+}
 @end lilypond
 
 和音の中にある音符自体にもアーティキュレーションや装飾を付けることができます。
 
-@lilypond[verbatim,quote,relative=2]
-<a c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4
-<a-+ c-->8. <g\fermata c e\turn>16
+@lilypond[verbatim,quote]
+\relative {
+  <a' c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4
+  <a-+ c-->8. <g\fermata c e\turn>16
+}
 @end lilypond
 
 しかしながら、いくつかの記譜要素
@@ -79,9 +85,11 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 は和音の中の音符ではなく、和音に付ける必要があります。@c
 そうしなければ、譜刻されません。
 
-@lilypond[verbatim,quote,relative=2]
-<a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>)
-<a c e>\< <a c e> <a c e>\!
+@lilypond[verbatim,quote]
+\relative {
+  <a'\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>)
+  <a c e>\< <a c e> <a c e>\!
+}
 @end lilypond
 
 @c ここから L2100
@@ -95,10 +103,12 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 タイミングで発生して、組み合わされます (そのような要素の複雑な組み合わせ@c
 については @ref{Simultaneous expressions} を参照してください):
 
-@lilypond[verbatim,quote,relative=2]
-\grace { g8( a b }
-<> ) \p \< -. -\markup \italic "sempre staccato"
-\repeat unfold 4 { c4 e }  c1\f
+@lilypond[verbatim,quote]
+\relative {
+  \grace { g'8( a b }
+  <> ) \p \< -. -\markup \italic "sempre staccato"
+  \repeat unfold 4 { c4 e }  c1\f
+}
 @end lilypond
 
 @cindex relative pitch, chords (和音と相対ピッチ)
@@ -110,8 +120,10 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 和音の中にある残りの音符はすべて @emph{同じ和音の中にある}
 前の音符との相対関係になります。
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1 <f a c> <a c e> <f' a c> <b, e b,>
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1 <f a c> <a c e> <f' a c> <b, e b,>
+}
 @end lilypond
 
 和音についての更なる情報は、@ref{Chord notation} を参照してください。
@@ -162,33 +174,41 @@ LilyPond の中で多声部は同じ譜にある複数のボイスを参照し�
 入力の手間を省くために、前の和音を繰り返すための短縮記法があります。@c
 和音を繰り返すためのシンボルは @code{q} です:
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1 q <f a c>2 q
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1 q <f a c>2 q
+}
 @end lilypond
 
 前の和音のピッチが複製されているだけなので、
 通常の和音と同様に、和音の繰り返しのシンボルにも演奏時間、@c
 アーティキュレーション、マークアップ、スラー、連桁などを使うことができます。
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1\p^"text" q2\<( q8)[-! q8.]\! q16-1-2-3 q8\prall
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1\p^"text" q2\<( q8)[-! q8.]\! q16-1-2-3 q8\prall
+}
 @end lilypond
 
 和音繰り返しのシンボルは常に最後の和音を覚えているため、@c
 最後の和音の後に和音ではない音符や休符があったとしても、@c
 和音を繰り返すことができます。
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1 c'4 q2 r8 q8 |
-q2 c, |
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1 c'4 q2 r8 q8 |
+  q2 c, |
+}
 @end lilypond
 
 しかしながら、和音繰り返しのシンボルは前の和音の中にある、あるいは付属している@c
 強弱記号、アーティキュレーション、あるいは装飾を持ち越しません。
 
-@lilypond[verbatim,quote,relative=2]
-<a-. c\prall e>1\sfz c'4 q2 r8 q8 |
-q2 c, |
+@lilypond[verbatim,quote]
+\relative {
+  <a'-. c\prall e>1\sfz c'4 q2 r8 q8 |
+  q2 c, |
+}
 @end lilypond
 
 それらのイベントを持ち越すには、@code{\chordRepeats} 関数を明示的に呼び出し、@c
@@ -257,15 +277,19 @@ q2 c, |
 以下の例は 1 つの譜の上にある同時進行表記を示しています:
 
 @c KEEP LY
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 \new Voice {  % 明らかに単一のボイスです
-  << { a4 b g2 } { d4 g c,2 } >>
+  << \relative { a'4 b g2 }
+     \relative { d'4 g c,2 } >>
 }
 @end lilypond
 
-@lilypond[quote,verbatim,relative=2]
-% 単一の音符で始まります
-a << {a4 b g}  {d4 g c,} >>
+@lilypond[quote,verbatim]
+\relative {
+  % 単一の音符で始まります
+  a' << \relative { a'4 b g }
+       \relative { d'4 g c, } >>
+}
 @end lilypond
 
 これは同時進行するセクションが同一のリズムを持つ場合に役に立ちます。@c
@@ -274,8 +298,10 @@ a << {a4 b g}  {d4 g c,} >>
 @emph{単一の} @samp{Voice} の中にある音符、アーティキュレーション、@c
 それにプロパティの変更は収集され、音楽的な順序で譜刻されます:
 
-@lilypond[quote,verbatim,relative=2]
-<a c>4-.  <>-. << c a >>  << { c-. <c a> } { a s-. } >>
+@lilypond[quote,verbatim]
+\relative {
+  <a' c>4-.  <>-. << c a >>  << { c-. <c a> } { a s-. } >>
+}
 @end lilypond
 
 同時に複数の符幹や連桁、あるいは異なる音符の演奏時間やプロパティが必要な@c
@@ -285,9 +311,10 @@ a << {a4 b g}  {d4 g c,} >>
 以下の例は、同時進行する表記が暗黙的に複数の譜を生成する様子を示しています:
 
 @c KEEP LY
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 % 単一の音符で始まりません
-<< {a4 b g2}  {d4 g2 c,4} >>
+<< \relative { a'4 b g2 }
+   \relative { d'4 g2 c,4 } >>
 @end lilypond
 
 ここでは、リズムが異なっていても問題ありません。@c
@@ -334,8 +361,8 @@ warning: ignoring too many clashing note columns
 を適用することによって入力されます。@c
 例えば以下のように:
 
-@lilypond[quote,relative=2,verbatim]
-\makeClusters { <g b>2 <c g'> }
+@lilypond[quote,verbatim]
+\relative \makeClusters { <g' b>2 <c g'> }
 @end lilypond
 
 通常の音符とクラスタを同じ譜に一緒にして配置することができます
@@ -404,12 +431,12 @@ warning: ignoring too many clashing note columns
 単一の譜の中に複数の独立したボイスを配置するのに必要とされる基本的な構造が@c
 以下の例で示されています:
 
-@lilypond[quote,relative=3,verbatim]
+@lilypond[quote,verbatim]
 \new Staff <<
   \new Voice = "first"
-    { \voiceOne r8 r16 g e8. f16 g8[ c,] f e16 d }
+    \relative { \voiceOne r8 r16 g'' e8. f16 g8[ c,] f e16 d }
   \new Voice= "second"
-    { \voiceTwo d16 c d8~ 16 b c8~ 16 b c8~ 16 b8. }
+    \relative { \voiceTwo d''16 c d8~ 16 b c8~ 16 b c8~ 16 b8. }
 >>
 @end lilypond
 
@@ -441,10 +468,10 @@ warning: ignoring too many clashing note columns
 これと同様に、歌詞は多声セクションの前、最中、後に続いているボイスに@c
 代入されます:
 
-@lilypond[quote, verbatim, relative=2]
-<<
+@lilypond[quote,verbatim]
+\relative <<
   \new Voice = "melody" {
-    a4
+    a'4
     <<
       {
         \voiceOne
@@ -482,11 +509,11 @@ warning: ignoring too many clashing note columns
 
 最初の例は以下のように書き換えることができます:
 
-@lilypond[quote,relative=3,verbatim]
+@lilypond[quote,verbatim]
 <<
-  { r8 r16 g e8. f16 g8[ c,] f e16 d }
+  \relative { r8 r16 g'' e8. f16 g8[ c,] f e16 d }
   \\
-  { d16 c d8~ 16 b c8~ 16 b c8~ 16 b8. }
+  \relative { d''16 c d8~ 16 b c8~ 16 b c8~ 16 b8. }
 >>
 @end lilypond
 
@@ -500,13 +527,13 @@ warning: ignoring too many clashing note columns
 しています。@c
 休符が 2 重に譜刻されることを避けるために、空白休符を使用しています。
 
-@lilypond[quote,relative=3,verbatim]
+@lilypond[quote,verbatim]
 <<
-  { r8 g g  g g f16 ees f8 d }
+  \relative { r8 g'' g  g g f16 ees f8 d }
   \\
-  { ees,8 r ees r d r d r }
+  \relative { ees'8 r ees r d r d r }
   \\
-  { d'8 s c s bes s a s }
+  \relative { d''8 s c s bes s a s }
 >>
 @end lilypond
 
@@ -562,10 +589,10 @@ etc.
 これを実現するには、並行する音楽を明示的にインスタンス化されたボイス内の@c
 同時進行音楽構造の中に置きます:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 \new Voice <<
-  { e4 f8 d e16 f g8 d4 }
-  { c4 d8 b c16 d e8 b4 }
+  \relative { e''4 f8 d e16 f g8 d4 }
+  \relative { c''4 d8 b c16 d e8 b4 }
 >>
 @end lilypond
 
@@ -610,15 +637,15 @@ etc.
 
 ボイス毎に異なる色と形を与えて、容易に見分けられるようにすることができます:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  { \voiceOneStyle d4 c2 b4 }
+  \relative { \voiceOneStyle d''4 c2 b4 }
   \\
-  { \voiceTwoStyle e,2 e }
+  \relative { \voiceTwoStyle e'2 e }
   \\
-  { \voiceThreeStyle b2. c4 }
+  \relative { \voiceThreeStyle b2. c4 }
   \\
-  { \voiceFourStyle g'2 g }
+  \relative { \voiceFourStyle g'2 g }
 >>
 @end lilypond
 
@@ -681,18 +708,20 @@ etc.
 以下の例は 3 つの異なる状態を示しています
 -- 第 1 小節の 1, 3 拍目、それに第 2 小節の 1 拍目で自動マージが失敗しています。
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
-  {
-    c8 d e d c d c4
+  \relative {
+    c''8 d e d c d c4
     g'2 fis
-  } \\ {
-    c2 c8. b16 c4
+  } \\
+  \relative {
+    c''2 c8. b16 c4
     e,2 r
-  } \\ {
+  } \\
+  \relative {
     \oneVoice
     s1
-    e8 a b c d2
+    e'8 a b c d2
   }
 >>
 @end lilypond
@@ -701,39 +730,43 @@ etc.
 -- 例外として、半音符と 4 分音符のマージはできません。@c
 第 1 小節の 1 拍目の符頭がマージされました:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
-  {
+  \relative {
     \mergeDifferentlyHeadedOn
-    c8 d e d c d c4
+    c''8 d e d c d c4
     g'2 fis
-  } \\ {
-    c2 c8. b16 c4
+  } \\
+  \relative {
+    c''2 c8. b16 c4
     e,2 r
-  } \\ {
+  } \\
+  \relative {
     \oneVoice
     s1
-    e8 a b c d2
+    e'8 a b c d2
   }
 >>
 @end lilypond
 
 第 1 小節の 3 拍目のように異なる付点を持つ符頭もマージすることができます:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  {
+  \relative {
     \mergeDifferentlyHeadedOn
     \mergeDifferentlyDottedOn
-    c8 d e d c d c4
+    c''8 d e d c d c4
     g'2 fis
-  } \\ {
-    c2 c8. b16 c4
+  } \\
+  \relative {
+    c''2 c8. b16 c4
     e,2 r
-  } \\ {
+  } \\
+  \relative {
     \oneVoice
     s1
-    e8 a b c d2
+    e'8 a b c d2
   }
 >>
 @end lilypond
@@ -748,21 +781,23 @@ etc.
 最上段にある @notation{g} を列から外し、@c
 @code{\mergeDifferentlyHeadedOn} を正しく機能させています。
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  {
+  \relative {
     \mergeDifferentlyHeadedOn
     \mergeDifferentlyDottedOn
-    c8 d e d c d c4
+    c''8 d e d c d c4
     \shiftOn
     g'2 fis
-  } \\ {
-    c2 c8. b16 c4
+  } \\
+  \relative {
+    c''2 c8. b16 c4
     e,2 r
-  } \\ {
+  } \\
+  \relative {
     \oneVoice
     s1
-    e8 a b c d2
+    e'8 a b c d2
   }
 >>
 @end lilypond
@@ -861,11 +896,11 @@ etc.
 @code{\override NoteColumn.ignore-collision = ##t} を使うと@c
 異なるボイスにある符頭が異なる音符を不適切にマージします。
 
-@lilypond[quote,relative=1,verbatim]
+@lilypond[quote,verbatim,fragment]
 \mergeDifferentlyHeadedOn
-<< { c16 a' b a } \\ { c,2 } >>
+<< \relative { c'16 a' b a } \\ \relative { c'2 } >>
 \override NoteColumn.ignore-collision = ##t
-<< { c16 a' b a } \\ { c,2 } >>
+<< \relative { c'16 a' b a } \\ \relative { c'2 } >>
 @end lilypond
 
 @ignore

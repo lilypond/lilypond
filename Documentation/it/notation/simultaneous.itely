@@ -58,32 +58,40 @@ Un accordo si forma racchiudendo una serie di altezze tra @code{<}
 e @code{>} e può essere seguito da una durata, come accade per le
 semplici note.
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1 <a c e>2 <f a c e>4 <a c>8. <g c e>16
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1 <a c e>2 <f a c e>4 <a c>8. <g c e>16
+}
 @end lilypond
 
 Proprio come per le note, si possono specificare le articolazioni da
 riferire all'accordo.
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1\fermata <a c e>2-> <f a c e>4\prall <a c>8.^! <g c e>16-.
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1\fermata <a c e>2-> <f a c e>4\prall <a c>8.^! <g c e>16-.
+}
 @end lilypond
 
 Si possono specificare abbellimenti e articolazioni per ogni nota che fa parte
 dell'accordo.
 
-@lilypond[verbatim,quote,relative=2]
-<a c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4
-<a-+ c-->8. <g\fermata c e\turn>16
+@lilypond[verbatim,quote]
+\relative {
+  <a' c\prall e>1 <a-> c-^ e>2 <f-. a c-. e-.>4
+  <a-+ c-->8. <g\fermata c e\turn>16
+}
 @end lilypond
 
 Tuttavia, alcuni elementi della notazione, come le dinamiche, le forcelle e le
 legature di portamento, devono essere attaccate all'accordo invece che alle
 sue singole note, altrimenti non appariranno.
 
-@lilypond[verbatim,quote,relative=2]
-<a\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>)
-<a c e>\< <a c e> <a c e>\!
+@lilypond[verbatim,quote]
+\relative {
+  <a'\f c( e>1 <a c) e>\f <a\< c e>( <a\! c e>)
+  <a c e>\< <a c e> <a c e>\!
+}
 @end lilypond
 
 @cindex accordi vuoti
@@ -96,10 +104,12 @@ nel momento musicale della nota o accordo seguenti e si combinerà con
 questi (possibilità più complesse di combinazione sono spiegate in
 @ref{Simultaneous expressions}):
 
-@lilypond[verbatim,quote,relative=2]
-\grace { g8( a b }
-<> ) \p \< -. -\markup \italic "sempre staccato"
-\repeat unfold 4 { c4 e }  c1\f
+@lilypond[verbatim,quote]
+\relative {
+  \grace { g'8( a b }
+  <> ) \p \< -. -\markup \italic "sempre staccato"
+  \repeat unfold 4 { c4 e }  c1\f
+}
 @end lilypond
 
 @cindex altezza relativa, accordi
@@ -111,8 +121,10 @@ che lo precede oppure, se non c'è un accordo precedente, è relativa
 all'altezza dell'ultima nota che precede l'accordo.  Le altezze di tutte le altre note
 dell'accordo sono relative alla nota che le precede @emph{all'interno dell'accordo}.
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1 <f a c> <a c e> <f' a c> <b, e b,>
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1 <f a c> <a c e> <f' a c> <b, e b,>
+}
 @end lilypond
 
 Maggiori informazioni sugli accordi si trovano in @ref{Chord notation}.
@@ -165,8 +177,10 @@ i @ref{Clusters}.
 Per inserire la musica più rapidamente, si può usare una scorciatoia che ripete
 l'accordo precedente.  Il simbolo di ripetizione dell'accordo è @code{q}:
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1 q <f a c>2 q
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1 q <f a c>2 q
+}
 @end lilypond
 
 Come nel caso dei normali accordi, il simbolo di ripetzione dell'accordo si
@@ -174,17 +188,21 @@ può  usare con le durate, le articolazioni, i testi a margine, le legature
 di portamento, le travature, etc. dato che solo le altezze dell'accordo
 precedente vengono duplicate.
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1\p^"text" q2\<( q8)[-! q8.]\! q16-1-2-3 q8\prall
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1\p^"text" q2\<( q8)[-! q8.]\! q16-1-2-3 q8\prall
+}
 @end lilypond
 
 Il simbolo di ripetizione dell'accordo ricorda sempre l'ultimo accordo
 inserito, quindi è possibile inserire l'accordo più recente anche se
 nel frattempo sono state inserite altre note (senza accordi) o pause.
 
-@lilypond[verbatim,quote,relative=2]
-<a c e>1 c'4 q2 r8 q8 |
-q2 c, |
+@lilypond[verbatim,quote]
+\relative {
+  <a' c e>1 c'4 q2 r8 q8 |
+  q2 c, |
+}
 @end lilypond
 
 Tuttavia questo simbolo non conserva le dinamiche, le articolazioni o
@@ -275,8 +293,10 @@ allo stesso gambo causerà degli errori.  Le note, le articolazioni
 e le modifiche delle proprietà in una @emph{singola} voce (@samp{Voice})
 sono raccolte e create secondo l'ordine della musica:
 
-@lilypond[quote,verbatim,relative=2]
-<a c>4-.  <>-. << c a >>  << { c-. <c a> } { a s-. } >>
+@lilypond[quote,verbatim]
+\relative {
+  <a' c>4-.  <>-. << c a >>  << { c-. <c a> } { a s-. } >>
+}
 @end lilypond
 
 Per poter inserire gambi o travature multiple e variare le durate o
@@ -331,8 +351,8 @@ essere rappresentato come un involucro che contiene le note che ne fanno parte. 
 inserisce applicando la funzione @code{\makeClusters} a una sequenza
 di accordi, ad esempio:
 
-@lilypond[quote,relative=2,verbatim]
-\makeClusters { <g b>2 <c g'> }
+@lilypond[quote,verbatim]
+\relative \makeClusters { <g' b>2 <c g'> }
 @end lilypond
 
 Si possono inserire insieme sullo stesso rigo le normali note e i cluster,
@@ -435,10 +455,10 @@ uncinate vengono assegnate a voci temporanee distinte.  Questo permette di
 assegnare il testo a una voce che continua prima, durante e dopo una sezione
 polifonica:
 
-@lilypond[quote, verbatim, relative=2]
-<<
+@lilypond[quote,verbatim]
+\relative <<
   \new Voice = "melody" {
-    a4
+    a'4
     <<
       {
         \voiceOne
@@ -474,11 +494,11 @@ prestabiliti @code{"1"}, @code{"2"}, etc.
 
 Il primo esempio potrebbe essere riscritto nel modo seguente:
 
-@lilypond[quote,relative=3,verbatim]
+@lilypond[quote,verbatim]
 <<
-  { r8 r16 g e8. f16 g8[ c,] f e16 d }
+  \relative { r8 r16 g'' e8. f16 g8[ c,] f e16 d }
   \\
-  { d16 c d8~ 16 b c8~ 16 b c8~ 16 b8. }
+  \relative { d''16 c d8~ 16 b c8~ 16 b c8~ 16 b8. }
 >>
 @end lilypond
 
@@ -492,13 +512,13 @@ Nell'esempio seguente, la voce intermedia ha i gambi in su, dunque viene
 inserita in terza posizione in modo che diventi la terza voce, che ha
 i gambi in su.  Si usano le pause spaziatrici per evitare il raddoppio delle pause ordinarie.
 
-@lilypond[quote,relative=3,verbatim]
+@lilypond[quote,verbatim]
 <<
-  { r8 g g  g g f16 ees f8 d }
+  \relative { r8 g'' g  g g f16 ees f8 d }
   \\
-  { ees,8 r ees r d r d r }
+  \relative { ees'8 r ees r d r d r }
   \\
-  { d'8 s c s bes s a s }
+  \relative { d''8 s c s bes s a s }
 >>
 @end lilypond
 
@@ -554,10 +574,10 @@ con il medesimo ritmo, si possono combinare in un unico contesto
 in un semplice costrutto musicale simultaneo all'interno di una
 voce esplicita:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 \new Voice <<
-  { e4 f8 d e16 f g8 d4 }
-  { c4 d8 b c16 d e8 b4 }
+  \relative { e''4 f8 d e16 f g8 d4 }
+  \relative { c''4 d8 b c16 d e8 b4 }
 >>
 @end lilypond
 
@@ -603,15 +623,15 @@ Frammenti:
 Si possono assegnare colori e forme diverse a ciascuna voce per facilitarne
 l'identificazione:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  { \voiceOneStyle d4 c2 b4 }
+  \relative { \voiceOneStyle d''4 c2 b4 }
   \\
-  { \voiceTwoStyle e,2 e }
+  \relative { \voiceTwoStyle e'2 e }
   \\
-  { \voiceThreeStyle b2. c4 }
+  \relative { \voiceThreeStyle b2. c4 }
   \\
-  { \voiceFourStyle g'2 g }
+  \relative { \voiceFourStyle g'2 g }
 >>
 @end lilypond
 
@@ -676,18 +696,20 @@ spostate verticalmente. L'esempio seguente mostra tre  diverse circostanze,
 sul primo e terzo movimento della prima battuta e sul primo movimento della seconda
 battuta, in cui l'unione automatica delle teste di nota non funziona.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
-  {
-    c8 d e d c d c4
+  \relative {
+    c''8 d e d c d c4
     g'2 fis
-  } \\ {
-    c2 c8. b16 c4
+  } \\
+  \relative {
+    c''2 c8. b16 c4
     e,2 r
-  } \\ {
+  } \\
+  \relative {
     \oneVoice
     s1
-    e8 a b c d2
+    e'8 a b c d2
   }
 >>
 @end lilypond
@@ -696,19 +718,21 @@ Note con teste diverse possono essere unite come è mostrato sotto.  In
 questo esempio le teste delle note nel primo battito della prima battuta
 sono unite:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
-  {
+  \relative {
     \mergeDifferentlyHeadedOn
-    c8 d e d c d c4
+    c''8 d e d c d c4
     g'2 fis
-  } \\ {
-    c2 c8. b16 c4
+  } \\
+  \relative {
+    c''2 c8. b16 c4
     e,2 r
-  } \\ {
+  } \\
+  \relative {
     \oneVoice
     s1
-    e8 a b c d2
+    e'8 a b c d2
   }
 >>
 @end lilypond
@@ -719,20 +743,22 @@ difficile distinguerle.
 Anche le teste di note con diversi punti, come nel terzo movimento della prima
 battuta, possono essere unite:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  {
+  \relative {
     \mergeDifferentlyHeadedOn
     \mergeDifferentlyDottedOn
-    c8 d e d c d c4
+    c''8 d e d c d c4
     g'2 fis
-  } \\ {
-    c2 c8. b16 c4
+  } \\
+  \relative {
+    c''2 c8. b16 c4
     e,2 r
-  } \\ {
+  } \\
+  \relative {
     \oneVoice
     s1
-    e8 a b c d2
+    e'8 a b c d2
   }
 >>
 @end lilypond
@@ -747,21 +773,23 @@ che non deve essere unita.  In questo esempio si usa @code{\shiftOn} per
 spostare il Sol superiore (@notation{g}) fuori dalla colonna e di
 conseguenza @code{\mergeDifferentlyHeadedOn} funziona correttamente.
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  {
+  \relative {
     \mergeDifferentlyHeadedOn
     \mergeDifferentlyDottedOn
-    c8 d e d c d c4
+    c''8 d e d c d c4
     \shiftOn
     g'2 fis
-  } \\ {
-    c2 c8. b16 c4
+  } \\
+  \relative {
+    c''2 c8. b16 c4
     e,2 r
-  } \\ {
+  } \\
+  \relative {
     \oneVoice
     s1
-    e8 a b c d2
+    e'8 a b c d2
   }
 >>
 @end lilypond
@@ -861,11 +889,11 @@ Se si usa @code{\override NoteColumn.ignore-collision = ##t},
 le note con teste diverse che si trovano in voci
 diverse saranno unite in modo non corretto.
 
-@lilypond[quote,relative=1,verbatim]
+@lilypond[quote,verbatim,fragment]
 \mergeDifferentlyHeadedOn
-<< { c16 a' b a } \\ { c,2 } >>
+<< \relative { c'16 a' b a } \\ \relative { c'2 } >>
 \override NoteColumn.ignore-collision = ##t
-<< { c16 a' b a } \\ { c,2 } >>
+<< \relative { c'16 a' b a } \\ \relative { c'2 } >>
 @end lilypond
 
 @ignore

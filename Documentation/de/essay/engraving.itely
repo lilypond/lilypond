@@ -1046,8 +1046,8 @@ gewährleistet durch sog. @emph{music expressions} (Musikausdrücke):
 indem kleine Teile zu größeren kombiniert werden, kann komplexere
 Musik dargestellt werden. So etwa hier:
 
-@lilypond[quote,verbatim,fragment,relative=1]
-f4
+@lilypond[quote,verbatim,fragment]
+f'4
 @end lilypond
 
 @noindent

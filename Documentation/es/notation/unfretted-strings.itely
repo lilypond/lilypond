@@ -112,8 +112,8 @@ Las instrucciones de arco @code{\upbow} (arco arriba) y
 @code{\downbow} (arco abajo) se usan con ligaduras de expresión de la
 siguiente manera:
 
-@lilypond[verbatim,quote,relative=2]
-c4(\downbow d) e(\upbow f)
+@lilypond[verbatim,quote]
+\relative { c''4(\downbow d) e(\upbow f) }
 @end lilypond
 
 @noindent
@@ -160,21 +160,23 @@ formas.  Generalmente, una nota con la cabeza en forma de rombo
 significa tocar (sin apretar) la cuerda en el lugar donde se pisaría
 la nota si no fuese un rombo.
 
-@lilypond[verbatim,quote,relative=2]
-d4 e4.
-\harmonicsOn
-d8 e e
-d4 e4.
-\harmonicsOff
-d8 e e
+@lilypond[verbatim,quote]
+\relative d'' {
+  d4 e4.
+  \harmonicsOn
+  d8 e e
+  d4 e4.
+  \harmonicsOff
+  d8 e e
+}
 @end lilypond
 
 Como posibilidad alternativa está la de mostrar una cabeza normal de
 nota en la altura de la nota que debe sonar, con un pequeño círculo
 que indica que se debe tocar como armónico:
 
-@lilypond[verbatim,quote,relative=2]
-d2^\flageolet d_\flageolet
+@lilypond[verbatim,quote,fragment]
+d''2^\flageolet d''_\flageolet
 @end lilypond
 
 Se puede hacer un círculo de menor tamaño, véase la lista de
@@ -195,10 +197,12 @@ Los armónicos artificiales indicados con @code{\harmonic} no presentan
 los puntillos.  La propiedad de contexto @code{harmonicDots} se debe
 activar si se necesitan los puntillos.
 
-@lilypond[verbatim,quote,relative=1]
-<e a\harmonic>2.  <c g'\harmonic>4
-\set harmonicDots = ##t
-<e a\harmonic>2.  <c g'\harmonic>4
+@lilypond[verbatim,quote]
+\relative e' {
+  <e a\harmonic>2.  <c g'\harmonic>4
+  \set harmonicDots = ##t
+  <e a\harmonic>2.  <c g'\harmonic>4
+}
 @end lilypond
 
 @warning{@code{@bs{}harmonic} @strong{se debe} colocar dentro de una
@@ -227,11 +231,13 @@ El @notation{snap pizzicato} (conocido también como @qq{pizzicato de Bartók}) 
 tipo de pizzicato en el que la cuerda se pulsa hacia arriba (y no lateralmente)
 de forma deliberada, de forma que golpea la madera del diapasón.
 
-@lilypond[verbatim,quote,relative=1]
-c4\snappizzicato
-<c' e g>4\snappizzicato
-<c' e g>4^\snappizzicato
-<c, e g>4_\snappizzicato
+@lilypond[verbatim,quote]
+\relative {
+  c'4\snappizzicato
+  <c' e g>4\snappizzicato
+  <c' e g>4^\snappizzicato
+  <c, e g>4_\snappizzicato
+}
 @end lilypond
 
 

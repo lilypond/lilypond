@@ -381,33 +381,31 @@ contexte par les graveurs ou exécutants.
 Le préfixe @code{\new} non suivi d'un nom s'utilise principalement pour
 créer une partition avec plusieurs portées :
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
-  \new Staff {
+  \new Staff \relative {
     % leave the Voice context to be created implicitly
-    c4 c
+    c''4 c
   }
-  \new Staff {
-    d4 d
-  }
+  \new Staff \relative {
+    d''4 d
+}
 >>
 @end lilypond
 
 @noindent
 et pour regrouper des voix sur une même portée :
 
-@lilypond[quote,verbatim,relative=2]
-<<
-  \new Staff <<
-    \new Voice {
-      \voiceOne
-      c8 c c4 c c
-    }
-    \new Voice {
-      \voiceTwo
-      g4 g g g
-    }
-  >>
+@lilypond[quote,verbatim]
+\new Staff <<
+  \new Voice \relative {
+    \voiceOne
+    c''8 c c4 c c
+  }
+  \new Voice \relative {
+    \voiceTwo
+    g'4 g g g
+  }
 >>
 @end lilypond
 
@@ -422,18 +420,16 @@ situe au niveau de leurs effets :
 La commande @code{\new}, suivie ou non d'un nom, crée un tout
 nouveau contexte même s'il en existe déjà un portant le même nom :
 
-@lilypond[quote,verbatim,relative=2]
-<<
-  \new Staff <<
-    \new Voice = "A" {
-      \voiceOne
-      c8 c c4 c c
-    }
-    \new Voice = "A" {
-      \voiceTwo
-      g4 g g g
-    }
-  >>
+@lilypond[quote,verbatim]
+\new Staff <<
+  \new Voice = "A" \relative {
+    \voiceOne
+    c''8 c c4 c c
+  }
+  \new Voice = "A" \relative {
+    \voiceTwo
+    g'4 g g g
+  }
 >>
 @end lilypond
 
@@ -773,16 +769,16 @@ des graveurs désirés.  Dans l'exemple suivant, on enlève du contexte
 @code{Staff}, la métrique (graveur @code{Time_signature_engraver})
 et la clef (graveur @code{Clef_engraver}).
 
-@lilypond[quote,relative=1,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Staff {
-    f2 g
+  \new Staff \relative {
+    f'2 g
   }
   \new Staff \with {
      \remove "Time_signature_engraver"
      \remove "Clef_engraver"
-  } {
-    f2 g2
+  } \relative {
+    f'2 g2
   }
 >>
 @end lilypond
@@ -1552,8 +1548,8 @@ Fichiers d'initialisation :
 
 Comment, par exemple, déplacer le doigté dans le fragment suivant ?
 
-@lilypond[quote,relative=2,verbatim]
-c-2
+@lilypond[quote,fragment,verbatim]
+c''-2
 @end lilypond
 
 Sur la page de la documentation relative aux doigtés, c'est-à-dire
@@ -1797,8 +1793,8 @@ définition.
 Nous voulions changer la position du chiffre @b{2} dans le fragment
 suivant :
 
-@lilypond[quote,relative=2,verbatim]
-c-2
+@lilypond[quote,fragment,verbatim]
+c''-2
 @end lilypond
 
 Dans la mesure où le @b{2} est placé, verticalement, à proximité de la
@@ -2106,7 +2102,7 @@ mesures vides de notes, en des silences multimesures.  Il s'agit d'un
 objet Scheme, auquel on attribue la valeur booléenne @qq{vrai},
 c'est-à-dire la lettre @code{#t} pour @qq{True} en anglais :
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,verbatim]
 R1*2
 \set Score.skipBars = ##t
 R1*2
@@ -2117,17 +2113,16 @@ cherchera à s'appliquer dans le contexte le plus restreint où elle est
 employée : le plus souvent  @code{ChordNames}, @code{Voice} ou
 @code{Lyrics}.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,verbatim]
 \set Score.autoBeaming = ##f
-<<
-  {
-    e8 e e e
-    \set autoBeaming = ##t
-    e8 e e e
-  } \\ {
-    c8 c c c c8 c c c
-  }
->>
+\relative {
+  e''8 e e e
+  \set autoBeaming = ##t
+  e8 e e e
+} \\
+\relative {
+  c''8 c c c c8 c c c
+}
 @end lilypond
 
 Ce changement étant appliqué @qq{à la volée}, il n'affecte que le second
@@ -2139,7 +2134,7 @@ propriété @code{skipBars}, évoquée plus haut, ne relève pas du contexte
 @code{Voice}, mais du contexte @code{Score} -- le code suivant ne
 fonctionnera pas.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,verbatim]
 R1*2
 \set skipBars = ##t
 R1*2
@@ -2165,18 +2160,17 @@ si et seulement si cette @var{propriété} a été définie dans ce
 doit impérativement affecter le même contexte que la commande
 @code{\set} d'origine, même en cas d'imbrication.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,verbatim]
 \set Score.autoBeaming = ##t
-<<
-  {
-    \unset autoBeaming
-    e8 e e e
-    \unset Score.autoBeaming
-    e8 e e e
-  } \\ {
-    c8 c c c c8 c c c
-  }
->>
+\relative {
+  \unset autoBeaming
+  e''8 e e e
+  \unset Score.autoBeaming
+  e8 e e e
+} \\
+\relative {
+  c''8 c c c c8 c c c
+}
 @end lilypond
 
 Si l'on se trouve dans le contexte le plus restreint, il n'est pas
@@ -2197,11 +2191,11 @@ Pour modifier une propriété de façon à ce que l'accommodement ne
 s'applique qu'une seule fois, il convient d'adjoindre l'instruction
 @code{\once} à la commande @code{\set} :
 
-@lilypond[quote,verbatim,relative=2]
-c4
+@lilypond[quote,fragment,verbatim]
+c''4
 \once \set fontSize = #4.7
-c4
-c4
+c''4
+c''4
 @end lilypond
 
 Ici le changement de taille est annulé aussitôt après la note concernée.
@@ -2249,27 +2243,27 @@ liste Scheme ; on peut les consulter dans le fichier
 Nous pouvons donc par exemple accroître l'épaisseur des hampes en jouant
 sur la propriété @code{thickness} de l'objet @code{stem} :
 
-@lilypond[quote,verbatim,relative=2]
-c4 c
+@lilypond[quote,fragment,verbatim]
+c''4 c''
 \override Voice.Stem.thickness = #3.0
-c4 c
+c''4 c''
 @end lilypond
 
 Lorsqu'aucun contexte n'est spécifié dans une clause @code{\override},
 celle-ci s'appliquera au contexte le plus bas :
 
-@lilypond[quote,verbatim,relative=2]
-{ \override Staff.Stem.thickness = #3.0
-  <<
-    {
-      e4 e
-      \override Stem.thickness = #0.5
-      e4 e
-    } \\ {
-      c4 c c c
-    }
-  >>
-}
+@lilypond[quote,fragment,verbatim]
+\override Staff.Stem.thickness = #3.0
+<<
+  \relative {
+    e''4 e
+    \override Stem.thickness = #0.5
+    e4 e
+  } \\
+  \relative {
+    c''4 c c c
+  }
+>>
 @end lilypond
 
 Certaines @qq{sous-propriétés} sont parfois contenues dans une
@@ -2301,32 +2295,33 @@ La syntaxe de la commande @code{\revert} command est :
 
 Par exemple :
 
-@lilypond[quote,verbatim,relative=2]
-c4
-\override Voice.Stem.thickness = #3.0
-c4 c
-\revert Voice.Stem.thickness
-c4
+@lilypond[quote,verbatim]
+\relative {
+  c''4
+  \override Voice.Stem.thickness = #3.0
+  c4 c
+  \revert Voice.Stem.thickness
+  c4
+}
 @end lilypond
 
 Les effets d'un @code{\override} ou d'un @code{\revert} s'appliquent dès
 l'endroit où ils apparaissent, et à tous les objets dans le contexte
 mentionné :
 
-@lilypond[quote,verbatim,relative=2]
-{
-  <<
-    {
-      e4
-      \override Staff.Stem.thickness = #3.0
-      e4 e e
-    } \\ {
-      c4 c c
-      \revert Staff.Stem.thickness
-      c4
-    }
-  >>
-}
+@lilypond[quote,verbatim]
+<<
+  \relative {
+    e''4
+    \override Staff.Stem.thickness = #3.0
+    e4 e e
+  } \\
+  \relative {
+    c''4 c c
+    \revert Staff.Stem.thickness
+    c4
+  }
+>>
 @end lilypond
 
 @cindex override ponctuel
@@ -2336,19 +2331,18 @@ L'instruction @code{\override} doit être précédée d'un @code{\once} dès
 lors que les effets de l'accommodement ne concernent que l'événement qui
 la suit directement :
 
-@lilypond[quote,verbatim,relative=2]
-{
-  <<
-    {
-      \override Stem.thickness = #3.0
-      e4 e e e
-    } \\ {
-      c4
-      \once \override Stem.thickness = #3.0
-      c4 c c
-    }
-  >>
-}
+@lilypond[quote,verbatim]
+<<
+  \relative c {
+    \override Stem.thickness = #3.0
+    e''4 e e e
+  } \\
+  \relative {
+    c''4
+    \once \override Stem.thickness = #3.0
+    c4 c c
+  }
+>>
 @end lilypond
 
 @ignore
@@ -2492,21 +2486,21 @@ produire au même instant, nous citerons :
 Dans l'exemple suivant, l'une des têtes de note de l'accord est
 colorisée, et l'aspect d'une autre est changé.
 
-@lilypond[relative=2,verbatim,quote]
-< c
+@lilypond[verbatim,fragment,quote]
+< c''
   \tweak color #red
-  d
-  g
+  d''
+  g''
   \tweak duration-log #1
-  a
+  a''
 > 4
 @end lilypond
 
 L'instruction @code{\tweak} permet aussi de modifier l'aspect d'une
 liaison :
 
-@lilypond[verbatim,quote,relative=1]
-c-\tweak thickness #5 ( d e f)
+@lilypond[verbatim,quote]
+\relative { c'-\tweak thickness #5 ( d e f) }
 @end lilypond
 
 La commande @code{\tweak} ne sera pleinement fonctionnelle que si elle
@@ -2534,10 +2528,10 @@ De tels objets créés indirectement ne peuvent être ajustés que par une
 forme développée de la commande @code{\tweak}, autrement dit
 lorsque l'objet est explicitement mentionné :
 
-@lilypond[relative=2,verbatim,quote]
+@lilypond[fragment,verbatim,quote]
 \tweak Stem.color #red
-\tweak Beam.color #green c8 e
-<c e \tweak Accidental.font-size #-3 ges>4
+\tweak Beam.color #green c''8 e''
+<c'' e'' \tweak Accidental.font-size #-3 ges''>4
 @end lilypond
 
 La commande @code{\tweak} ne peut non plus servir à modifier clefs ou
@@ -2548,14 +2542,14 @@ contexte.
 Plusieurs commandes @code{\tweak} en enfilade permettent d'affecter un
 même élément de notation :
 
-@lilypond[verbatim,quote,relative=1]
-c
--\tweak style #'dashed-line
--\tweak dash-fraction #0.2
--\tweak thickness #3
--\tweak color #red
- \glissando
-f'
+@lilypond[verbatim,fragment,quote]
+c'
+  -\tweak style #'dashed-line
+  -\tweak dash-fraction #0.2
+  -\tweak thickness #3
+  -\tweak color #red
+  \glissando
+f''
 @end lilypond
 
 Vous pouvez examiner le flux musical généré par une portion d'un
@@ -2938,11 +2932,13 @@ suivants :
 
 Les indicateurs de positionnement n'affectent que la note qui suit :
 
-@lilypond[verbatim,quote,relative=2]
-c2( c)
-c2_( c)
-c2( c)
-c2^( c)
+@lilypond[verbatim,quote]
+\relative {
+  c''2( c)
+  c2_( c)
+  c2( c)
+  c2^( c)
+}
 @end lilypond
 
 
@@ -2991,13 +2987,15 @@ TrillPitchGroup - not tried
 Notez que ces commandes resteront effectives jusqu'à ce qu'elles soient
 annulées.
 
-@lilypond[verbatim,quote,relative=2]
-c2( c)
-\slurDown
-c2( c)
-c2( c)
-\slurNeutral
-c2( c)
+@lilypond[verbatim,quote]
+\relative {
+  c''2( c)
+  \slurDown
+  c2( c)
+  c2( c)
+  \slurNeutral
+  c2( c)
+}
 @end lilypond
 
 En matière de musique polyphonique, il est souvent plus judicieux
@@ -3127,22 +3125,22 @@ des lignes de la portée.
 défini par le nombre d'éléments dans la liste des valeurs de
 @code{'line-positions}.}
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote]
 \new Staff \with {
   \override StaffSymbol.line-positions = #'(7 3 0 -4 -6 -7)
 }
-{ a4 e' f b | d1 }
+\relative { a4 e' f b | d1 }
 @end lilypond
 
 La largeur d'une portée, exprimée en espace de portée, peut être figée.
 L'espacement des objets inclus dans cette portée ne sera en rien affecté
 par ce réglage.
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote]
 \new Staff \with {
   \override StaffSymbol.width = #23
 }
-{ a4 e' f b | d1 }
+\relative { a4 e' f b | d1 }
 @end lilypond
 
 
@@ -3206,17 +3204,17 @@ Cette propriété est sans effet sur :
 
 @end ignore
 
-@lilypond[verbatim,quote,relative=2]
-a~ a
-a
+@lilypond[verbatim,quote,fragment]
+a'~ a'
+a'
 % increase the length of the tie
 -\tweak minimum-length #5
-~ a
+~ a'
 @end lilypond
 
-@lilypond[verbatim,quote,relative=2]
-a1
-\compressMMRests {
+@lilypond[verbatim,quote]
+\relative \compressMMRests {
+  a'1
   R1*23
   % increase the length of the rest bar
   \once \override MultiMeasureRest.minimum-length = #20
@@ -3225,26 +3223,30 @@ a1
 }
 @end lilypond
 
-@lilypond[verbatim,quote,relative=2]
-a \< a a a \!
-% increase the length of the hairpin
-\override Hairpin.minimum-length = #20
-a \< a a a \!
+@lilypond[verbatim,quote]
+\relative {
+  a' \< a a a \!
+  % increase the length of the hairpin
+  \override Hairpin.minimum-length = #20
+  a \< a a a \!
+}
 @end lilypond
 
 Cette propriété permet aussi de jouer sur l'envergure d'une liaison
 d'articulation ou de phrasé.
 
-@lilypond[verbatim,quote,relative=2]
-a( g)
-a
--\tweak minimum-length #5
-( g)
+@lilypond[verbatim,quote]
+\relative {
+  a'( g)
+  a
+  -\tweak minimum-length #5
+  ( g)
 
-a\( g\)
-a
--\tweak minimum-length #5
-\( g\)
+  a\( g\)
+  a
+  -\tweak minimum-length #5
+  \( g\)
+}
 @end lilypond
 
 Certains objets requièrent un appel explicite à la procédure
@@ -3254,31 +3256,31 @@ prendre pour valeur @code{ly:spanner::set-spacing-rods}. Par exemple, la
 longueur minimale d'un glissando ne pourra être forcée tant que la
 propriété @code{springs-and-rods} n'est pas définie :
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,fragment,quote]
 % default
-e \glissando c'
+e' \glissando c''
 
 % not effective alone
 \once \override Glissando.minimum-length = #20
-e, \glissando c'
+e' \glissando c''
 
 % effective only when both overrides are present
 \once \override Glissando.minimum-length = #20
 \once \override Glissando.springs-and-rods = #ly:spanner::set-spacing-rods
-e, \glissando c'
+e' \glissando c''
 @end lilypond
 
 Il en va de même pour l'objet @code{Beam} (ligature) :
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,fragment,quote]
 % not effective alone
 \once \override Beam.minimum-length = #20
-e8 e e e
+e'8 e' e' e'
 
 % effective only when both overrides are present
 \once \override Beam.minimum-length = #20
 \once \override Beam.springs-and-rods = #ly:spanner::set-spacing-rods
-e8 e e e
+e'8 e' e' e'
 @end lilypond
 
 @strong{@i{La propriété @code{to-barline}}}
@@ -3291,10 +3293,12 @@ précède.  Le fait de désactiver la propriété @code{to-barline} aura pour
 effet de prolonger l'extenseur au delà de la barre de mesure et jusqu'à
 la note qui le borne :
 
-@lilypond[verbatim,quote,relative=2]
-a \< a a a a \! a a a \break
-\override Hairpin.to-barline = ##f
-a \< a a a a \! a a a
+@lilypond[verbatim,quote]
+\relative {
+  a' \< a a a a \! a a a \break
+  \override Hairpin.to-barline = ##f
+  a \< a a a a \! a a a
+}
 @end lilypond
 
 Cette propriété n'est pas opérationnelle pour tous les extenseurs.  Il
@@ -3327,11 +3331,11 @@ propriétés que vous devrez ajuster résident au deuxième niveau dans la
 hiérarchie, mais la syntaxe de la commande @code{\override} nécessaire
 demeure relativement simple :
 
-@lilypond[relative=2,quote,verbatim]
-e2 \glissando b
+@lilypond[quote,fragment,verbatim]
+e''2 \glissando b'
 \once \override Glissando.bound-details.left.Y = #3
 \once \override Glissando.bound-details.right.Y = #-2
-e2 \glissando b
+e''2 \glissando b'
 @end lilypond
 
 La propriété @code{Y} est valorisée en unités de @code{staff-space}, la
@@ -3348,11 +3352,11 @@ terminaisons à cet endroit se gèrent grâce aux sous-clés
 @code{left-broken} et @code{right-broken} de @code{bound-details}, comme
 ci-dessous :
 
-@lilypond[relative=2,ragged-right,verbatim,quote]
+@lilypond[ragged-right,fragment,verbatim,quote]
 \override Glissando.breakable = ##t
 \override Glissando.bound-details.right-broken.Y = #-3
-c1 \glissando \break
-f1
+c''1 \glissando \break
+f''1
 @end lilypond
 
 Les sous-propriétés @code{left} et @code{right} du @code{bound-details}
@@ -3388,10 +3392,10 @@ Il s'agit d'un @emph{markup} qui se poursuivra par l'extenseur. C'est la
 sous-propriété utilisée pour ajouter @i{cresc.}, @i{tr} ou autre texte à
 un extenseur horizontal.
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \override TextSpanner.bound-details.left.text
    = \markup { \small \bold Slower }
-c2\startTextSpan b c a\stopTextSpan
+\relative { c''2\startTextSpan b c a\stopTextSpan }
 @end lilypond
 
 @item stencil-align-dir-y
@@ -3402,13 +3406,14 @@ définie par les sous-propriétés @code{X} et @code{Y}.  L'utilisation de
 @code{stencil-align-dir-y} ou @code{stencil-offset} permettra d'aligner
 le symbole verticalement par rapport au coin de la ligne :
 
-@lilypond[relative=1,quote,verbatim]
+@lilypond[quote,fragment,verbatim]
 \override TextSpanner.bound-details.left.stencil-align-dir-y = #-2
 \override TextSpanner.bound-details.right.stencil-align-dir-y = #UP
 
 \override TextSpanner.bound-details.left.text = #"ggg"
 \override TextSpanner.bound-details.right.text = #"hhh"
-c4^\startTextSpan c c c \stopTextSpan
+
+\relative { c'4^\startTextSpan c c c \stopTextSpan }
 @end lilypond
 
 Vous n'aurez pas manqué de constater qu'une valeur négative place le
@@ -3435,11 +3440,13 @@ vient dès la note suivante.  Autrement dit, il ne s'étendra que sur une
 seule note, ou jusqu'à la prochaine barre de mesure si @code{to-barline}
 a été activé et que survient une barre avant la note suivante.
 
-@lilypond[verbatim,quote,ragged-right,relative=2]
-\endSpanners
-c2 \startTextSpan c2 c2
-\endSpanners
-c2 \< c2 c2
+@lilypond[verbatim,quote,ragged-right]
+\relative c'' {
+  \endSpanners
+  c2 \startTextSpan c2 c2
+  \endSpanners
+  c2 \< c2 c2
+}
 @end lilypond
 
 L'utilisation de @code{\endSpanners} permet de s'affranchir d'insérer un
@@ -3499,7 +3506,7 @@ attribuant la valeur @code{#f} -- aucune fonction ne sera appelée ;
 l'objet ne sera donc pas dessiné.  Le retour au comportement par défaut
 s'opère à l'aide d'un @code{\revert}.
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,fragment,verbatim]
 a1 a
 \override Score.BarLine.stencil = ##f
 a a
@@ -3510,7 +3517,7 @@ a a a
 Cette opération relativement courante fait l'objet du racourci
 @code{\omit} :
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,fragment,verbatim]
 a1 a
 \omit Score.BarLine
 a a
@@ -3531,19 +3538,19 @@ Tout objet de rendu dispose d'une propriété de transparence, qui est par
 défaut définie à @code{#f}.  Le fait de l'activer rendra l'objet
 transparent tout en préservant la place qu'il occupe.
 
-@lilypond[quote,verbatim,relative=2]
-a4 a
+@lilypond[quote,fragment,verbatim]
+a'4 a'
 \once \override NoteHead.transparent = ##t
-a a
+a' a'
 @end lilypond
 
 Cette opération relativement courante fait l'objet du racourci
 @code{\hide} :
 
-@lilypond[quote,verbatim,relative=2]
-a4 a
+@lilypond[quote,fragment,verbatim]
+a'4 a'
 \once \hide NoteHead
-a a
+a' a'
 @end lilypond
 
 
@@ -3567,9 +3574,9 @@ en recouvre d'autres, la couleur de leurs points de jonction dépendra de
 l'ordre dans lequel ils sont dessinés, ce qui peut laisser apparaître
 un fantôme de l'objet blanchi comme ci-dessous :
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,verbatim]
 \override Staff.Clef.color = #white
-a1
+a'1
 @end lilypond
 
 Cet inconvénient peut être évité en modifiant l'ordre dans lequel les
@@ -3589,10 +3596,10 @@ les recouvre.  Pour changer cet état de fait, l'objet @code{Clef} doit
 avoir un @code{layer} de valeur inférieure, disons @w{@code{-1}}, pour
 pouvoir être dessiné avant.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,verbatim]
 \override Staff.Clef.color = #white
 \override Staff.Clef.layer = #-1
-a1
+a'1
 @end lilypond
 
 
@@ -3729,16 +3736,18 @@ fin de ligne.  Dans l'exemple suivant, l'armure est présente même après
 le passage en si bémol majeur malgré l'activation de
 @code{all-invisible} (@emph{tous invisibles}).
 
-@lilypond[quote,verbatim,relative=1,ragged-right]
-\key g \major
-f4 g a b
-% Try to remove all key signatures
-\override Staff.KeySignature.break-visibility = #all-invisible
-\key bes \major
-f4 g a b
-\break
-f4 g a b
-f4 g a b
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  \key g \major
+  f'4 g a b
+  % Try to remove all key signatures
+  \override Staff.KeySignature.break-visibility = #all-invisible
+  \key bes \major
+  f4 g a b
+  \break
+  f4 g a b
+  f4 g a b
+}
 @end lilypond
 
 La visibilité lors de ces changements explicites d'armure ou de clef est
@@ -3755,15 +3764,17 @@ uniquement la visibilité des armures et clefs lors d'un changement
 explicite, et en dehors d'un début de ligne ; il faudra en pareil
 cas forcer la @code{break-visibility} de ces objets pour les supprimer.
 
-@lilypond[quote,verbatim,relative=1,ragged-right]
-\key g \major
-f4 g a b
-\set Staff.explicitKeySignatureVisibility = #all-invisible
-\override Staff.KeySignature.break-visibility = #all-invisible
-\key bes \major
-f4 g a b \break
-f4 g a b
-f4 g a b
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  \key g \major
+  f'4 g a b
+  \set Staff.explicitKeySignatureVisibility = #all-invisible
+  \override Staff.KeySignature.break-visibility = #all-invisible
+  \key bes \major
+  f4 g a b \break
+  f4 g a b
+  f4 g a b
+}
 @end lilypond
 
 @subsubsubheading Visibilité des altérations de précaution
@@ -3772,16 +3783,18 @@ L'impression d'altérations de précaution au moment d'un changement
 explicite de tonalité sera annulée dès lors que vous aurez désactivé la
 propriété @code{printKeyCancellation} du contexte @code{Staff} :
 
-@lilypond[quote,verbatim,relative=1,ragged-right]
-\key g \major
-f4 g a b
-\set Staff.explicitKeySignatureVisibility = #all-invisible
-\set Staff.printKeyCancellation = ##f
-\override Staff.KeySignature.break-visibility = #all-invisible
-\key bes \major
-f4 g a b \break
-f4 g a b
-f4 g a b
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  \key g \major
+  f'4 g a b
+  \set Staff.explicitKeySignatureVisibility = #all-invisible
+  \set Staff.printKeyCancellation = ##f
+  \override Staff.KeySignature.break-visibility = #all-invisible
+  \key bes \major
+  f4 g a b \break
+  f4 g a b
+  f4 g a b
+}
 @end lilypond
 
 Avec de tels réglages particuliers, seules les altérations accidentelles
@@ -3850,26 +3863,30 @@ demandé entre ces deux points.
 L'exemple ci-dessous indique les différents styles de ligne disponibles,
 ainsi que la manière de les spécifier.
 
-@lilypond[relative=2,ragged-right,verbatim,quote]
-d2 \glissando d'2
-\once \override Glissando.style = #'dashed-line
-d,2 \glissando d'2
-\override Glissando.style = #'dotted-line
-d,2 \glissando d'2
-\override Glissando.style = #'zigzag
-d,2 \glissando d'2
-\override Glissando.style = #'trill
-d,2 \glissando d'2
+@lilypond[ragged-right,verbatim,quote]
+\relative {
+  d''2 \glissando d'2
+  \once \override Glissando.style = #'dashed-line
+  d,2 \glissando d'2
+  \override Glissando.style = #'dotted-line
+  d,2 \glissando d'2
+  \override Glissando.style = #'zigzag
+  d,2 \glissando d'2
+  \override Glissando.style = #'trill
+  d,2 \glissando d'2
+}
 @end lilypond
 
 Les points d'ancrage de l'extension sont calculés à la volée pour chaque
 objet graphique, mais rien ne vous empêche de les forcer :
 
 @c TODO Complete
-@lilypond[relative=2,ragged-right,verbatim,quote]
-e2 \glissando f
-\once \override Glissando.bound-details.right.Y = #-2
-e2 \glissando f
+@lilypond[ragged-right,verbatim,quote]
+\relative {
+  e''2 \glissando f
+  \once \override Glissando.bound-details.right.Y = #-2
+  e2 \glissando f
+}
 @end lilypond
 
 La valeur de @code{Y} est ainsi fixée à @w{@code{-2}} en ce qui concerne
@@ -3918,10 +3935,10 @@ L'angle et les coordonnées ne peuvent se déterminer que par tâtonnement.
 Il existe assez peu de situation où faire pivoter un objet de mise en
 forme soit réellement opportun ; en voici une :
 
-@lilypond[quote,verbatim,relative=1]
-g4\< e' d' f\!
+@lilypond[quote,fragment,verbatim]
+g4\< e' d'' f''\!
 \override Hairpin.rotation = #'(20 -1 0)
-g,,4\< e' d' f\!
+g4\< e' d'' f''\!
 @end lilypond
 
 
@@ -3941,12 +3958,12 @@ l'évitement automatique des collisions qui pourrait repousser certains
 textes trop haut.
 
 @c KEEP LY
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,fragment,verbatim]
 \override TextScript.outside-staff-priority = ##f
 g4^\markup { \rotate #30 "un sol" }
 b^\markup { \rotate #30 "un si" }
-des^\markup { \rotate #30 "un ré bémol" }
-fis^\markup { \rotate #30 "un fa dièse" }
+des'^\markup { \rotate #30 "un ré bémol" }
+fis'^\markup { \rotate #30 "un fa dièse" }
 @end lilypond
 
 
@@ -4059,13 +4076,13 @@ note avec indication du doigté tout d'abord avec un positionnement par
 défaut, puis repositionnement par modification successive du
 @code{X-offset} et du @code{Y-offset}.
 
-@lilypond[verbatim,quote,relative=2]
-a-3
-a
+@lilypond[verbatim,fragment,quote]
+a'-3
+a'
 -\tweak X-offset #0
 -\tweak Y-offset #0
 -3
-a
+a'
 -\tweak X-offset #-1
 -\tweak Y-offset #1
 -3
@@ -4145,7 +4162,7 @@ l'aide d'une commande @code{\override}.  Le recours à la commande
 @code{\tweak} permet de traiter séparément plusieurs annotations
 affectées à une même note :
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,verbatim,fragment]
 a'
 -\tweak self-alignment-X #-1
 ^"left-aligned"
@@ -4187,8 +4204,8 @@ un objet sur les deux axes.
 Dans l'exemple ci-dessous, nous ajustons l'indication de doigté de telle
 sorte qu'elle se place au plus près de la tête de note.
 
-@lilypond[quote,verbatim,relative=2]
-a
+@lilypond[quote,verbatim,fragment]
+a'
 -\tweak self-alignment-X #0.5  % move horizontally left
 -\tweak Y-offset #ly:self-alignment-interface::y-aligned-on-self
 -\tweak self-alignment-Y #-1  % move vertically up
@@ -4243,26 +4260,26 @@ nous citerons @code{ambitus}, @code{breathing-sign}, @code{clef},
 Chaque objet possède son propre point de référence par défaut, sur
 lequel viendra s'aligner les indications de repère :
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
 % The rehearsal mark will be aligned to the right edge of the Clef
 \override Score.RehearsalMark.break-align-symbols = #'(clef)
 \key a \major
 \clef treble
 \mark "↓"
-e1
+e'1
 % The rehearsal mark will be aligned to the left edge of the Time Signature
 \override Score.RehearsalMark.break-align-symbols = #'(time-signature)
 \key a \major
 \clef treble
 \time 3/4
 \mark "↓"
-e2.
+e'2.
 % The rehearsal mark will be centered above the Breath Mark
 \override Score.RehearsalMark.break-align-symbols = #'(breathing-sign)
 \key a \major
 \clef treble
 \time 4/4
-e1
+e'1
 \breathe
 \mark "↓"
 @end lilypond
@@ -4276,20 +4293,20 @@ qui soit visible.  Dans le cas où aucun objet de la liste n'est visible,
 l'alignement se fera sur la barre de mesure ou, dans le cas où la barre
 de mesure est invisible, à l'endroit même où la barre prendrait place.
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
 % The rehearsal mark will be aligned to the right edge of the Key Signature
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef treble
 \mark "↓"
-e1
+e'1
 % The rehearsal mark will be aligned to the right edge of the Clef
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef bass
 \mark "↓"
-gis,,1
+gis,1
 % The rehearsal mark will be centered above the Bar Line
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \set Staff.explicitClefVisibility = #all-invisible
@@ -4297,50 +4314,50 @@ gis,,1
 \key a \major
 \clef treble
 \mark "↓"
-e''1
+e'1
 @end lilypond
 
 L'alignement d'un repère sur un objet de notation peut se modifier,
 comme l'illustre l'exemple suivant.  Toutefois, si la partition comporte
 plusieurs portées, ce réglage devra apparaître dans chacune des portées.
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
 % The RehearsalMark will be aligned with the right edge of the Key Signature
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature)
 \key a \major
 \clef treble
 \time 4/4
 \mark "↓"
-e1
+e'1
 % The RehearsalMark will be centered above the Key Signature
 \once \override Score.KeySignature.break-align-anchor-alignment = #CENTER
 \mark "↓"
 \key a \major
-e1
+e'1
 % The RehearsalMark will be aligned with the left edge of the Key Signature
 \once \override Score.KeySignature.break-align-anchor-alignment = #LEFT
 \key a \major
 \mark "↓"
-e1
+e'1
 @end lilypond
 
 Le bord gauche d'un repère peut se décaler arbitrairement sur la gauche
 ou la droite.  La valeur est exprimée en espaces de portée.
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
 % The RehearsalMark will be aligned with the left edge of the Key Signature
 % and then shifted right by 3.5 staff-spaces
 \override Score.RehearsalMark.break-align-symbols = #'(key-signature)
 \once \override Score.KeySignature.break-align-anchor = #3.5
 \key a \major
 \mark "↓"
-e1
+e'1
 % The RehearsalMark will be aligned with the left edge of the Key Signature
 % and then shifted left by 2 staff-spaces
 \once \override Score.KeySignature.break-align-anchor = #-2
 \key a \major
 \mark "↓"
-e1
+e'1
 @end lilypond
 
 
@@ -4480,11 +4497,11 @@ des plus heureuses, même en optant pour un @code{\tieDown}.
 @cindex galbe des liaisons
 @funindex \shape
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote]
 <<
-  { e1~ 1 }
+  { e'1~ 1 }
 \\
-  { r4 <g c,> <g c,> <g c,> }
+  \relative { r4 <g' c,> <g c,> <g c,> }
 >>
 @end lilypond
 
@@ -4526,14 +4543,14 @@ dérogatoire -- recours à @code{\once\override} -- de la fonction
 @code{\shape}, nous pouvons remonter la liaison d'un demi espace
 de portée :
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote]
 <<
   {
     \shape #'((0 . 0.5) (0 . 0.5) (0 . 0.5) (0 . 0.5)) Tie
-    e1~ 1
+    e'1~ 1
   }
 \\
-  { r4 <g c,> <g c,> <g c,> }
+  \relative { r4 <g' c,> <g c,> <g c,> }
 >>
 @end lilypond
 
@@ -4542,13 +4559,13 @@ centrale pourrait être un peu plus relevée, en procédant comme
 ci-dessous, cette fois en utilisant la formulation d'affinage
 -- la forme @code{\tweak} :
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote]
 <<
   {
-    e1-\shape #'((0 . 0.5) (0 . 1) (0 . 1) (0 . 0.5)) ~ e
+    e'1-\shape #'((0 . 0.5) (0 . 1) (0 . 1) (0 . 0.5)) ~ e'
   }
 \\
-  { r4 <g c,> <g c,> <g c,> }
+  \relative { r4 <g' c,> <g c,> <g c,> }
 >>
 @end lilypond
 
@@ -4556,11 +4573,13 @@ L'adaptation du positionnement horizontal des points de contrôle
 se réalise de la même manière, ce qui permet de gérer le galbe de
 deux courbes débutant au même instant musical :
 
-@lilypond[verbatim,quote,ragged-right,relative=2]
-c8(\( a) a'4 e c\)
-\shape #'((0.7 . -0.4) (0.5 . -0.4) (0.3 . -0.3) (0 . -0.2)) Slur
-\shape #'((0 . 0) (0 . 0.5) (0 . 0.5) (0 . 0)) PhrasingSlur
-c8(\( a) a'4 e c\)
+@lilypond[verbatim,quote,ragged-right]
+\relative {
+  c''8(\( a) a'4 e c\)
+  \shape #'((0.7 . -0.4) (0.5 . -0.4) (0.3 . -0.3) (0 . -0.2)) Slur
+  \shape #'((0 . 0) (0 . 0.5) (0 . 0.5) (0 . 0)) PhrasingSlur
+  c8(\( a) a'4 e c\)
+}
 @end lilypond
 
 La fonction @code{\shape} permet aussi d'adapter les points de
@@ -4571,35 +4590,41 @@ retouche, il suffit de lui fournir une liste vide.  Dans l'exemple
 suivant, le saut de ligne laisse à croire qu'il y a non pas une
 seule mais deux liaisons :
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
-c4( f g c
-\break
-d,4 c' f, c)
+@lilypond[verbatim,quote,ragged-right]
+\relative {
+  c'4( f g c
+  \break
+  d,4 c' f, c)
+}
 @end lilypond
 
 Regalber les deux moitiés de la liaison rend plus évident le fait
 qu'elle d'étend par delà le saut de ligne :
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
+@lilypond[verbatim,quote,ragged-right]
 % () may be used as a shorthand for ((0 . 0) (0 . 0) (0 . 0) (0 . 0))
 % if any of the segments does not need to be changed
-\shape #'(
-           (( 0 . 0) (0 . 0) (0 . 0) (0 . 1))
-           ((0.5 . 1.5) (1 . 0) (0 . 0) (0 . -1.5))
-         ) Slur
-c4( f g c
-\break
-d,4 c' f, c)
+\relative c' {
+  \shape #'(
+             (( 0 . 0) (0 . 0) (0 . 0) (0 . 1))
+             ((0.5 . 1.5) (1 . 0) (0 . 0) (0 . -1.5))
+           ) Slur
+  c4( f g c
+  \break
+  d,4 c' f, c)
+}
 @end lilypond
 
 La présence d'une courbe en S requiert obligatoirement d'ajuster
 manuellement les points de contrôle -- LilyPond n'optera jamais
 automatiquement pour un tel galbe.
 
-@lilypond[verbatim,quote,relative=2]
-c8( e b-> f d' a e-> g)
-\shape #'((0 . -1) (5.5 . -0.5) (-5.5 . -10.5) (0 . -5.5)) PhrasingSlur
-c8\( e b-> f d' a e-> g\)
+@lilypond[verbatim,quote]
+\relative c'' {
+  c8( e b-> f d' a e-> g)
+  \shape #'((0 . -1) (5.5 . -0.5) (-5.5 . -10.5) (0 . -5.5)) PhrasingSlur
+  c8\( e b-> f d' a e-> g\)
+}
 @end lilypond
 
 @subsubsubheading Déclaration explicite des points de contrôle
@@ -4622,23 +4647,25 @@ réfèrent à une seul et unique note.  L'exemple suivant illustre
 l'un des moyens d'indiquer une liaison qui se prolonge sur les
 alternatives d'une répétition.
 
-@lilypond[verbatim,quote,relative=2]
-c1
-\repeat volta 3 { c4 d( e f }
-\alternative {
-  { g2) d }
-  {
-    g2
-    % create a slur and move it to a new position
-    % the <> is just an empty chord to carry the slur termination
-    -\tweak control-points #'((-2 . 3.8) (-1 . 3.9) (0 . 4) (1 . 3.4)) ( <> )
-    f,
-  }
-  {
-    e'2
-    % create a slur and move it to a new position
-    -\tweak control-points #'((-2 . 3) (-1 . 3.1) (0 . 3.2) (1 . 2.4)) ( <> )
-    f,
+@lilypond[verbatim,quote]
+\relative {
+  c''1
+  \repeat volta 3 { c4 d( e f }
+  \alternative {
+    { g2) d }
+    {
+      g2
+      % create a slur and move it to a new position
+      % the <> is just an empty chord to carry the slur termination
+      -\tweak control-points #'((-2 . 3.8) (-1 . 3.9) (0 . 4) (1 . 3.4)) ( <> )
+      f,
+    }
+    {
+      e'2
+      % create a slur and move it to a new position
+      -\tweak control-points #'((-2 . 3) (-1 . 3.1) (0 . 3.2) (1 . 2.4)) ( <> )
+      f,
+    }
   }
 }
 @end lilypond
@@ -4680,12 +4707,14 @@ rupture produira les mêmes effets sur chacun des segments.  Dans
 l'exemple ci-dessous, la modification apportée à @code{thickness}
 s'applique aussi bien avant qu'après le saut de ligne.
 
-@lilypond[verbatim,quote,ragged-right,relative=2]
-r2
-\once\override Slur.thickness = 10
-c8( d e f
-\break
-g8 f e d) r2
+@lilypond[verbatim,quote,ragged-right]
+\relative c'' {
+  r2
+  \once\override Slur.thickness = 10
+  c8( d e f
+  \break
+  g8 f e d) r2
+}
 @end lilypond
 
 La commande @code{\alterBroken} permet de modifier indépendamment
@@ -4717,12 +4746,14 @@ annulés par un @code{\revert} suivi de la @var{propriété}.
 Le code ci-dessous applique un @code{\override} indépendant à chacun
 des segments du phrasé de l'exemple précédent :
 
-@lilypond[verbatim,quote,ragged-right,relative=2]
-r2
-\alterBroken thickness #'(10 1) Slur
-c8( d e f
-\break
-g8 f e d) r2
+@lilypond[verbatim,quote,ragged-right]
+\relative c'' {
+  r2
+  \alterBroken thickness #'(10 1) Slur
+  c8( d e f
+  \break
+  g8 f e d) r2
+}
 @end lilypond
 
 La commande @code{\alterBroken} peut s'utiliser avec tout objet étendu,
@@ -4733,12 +4764,14 @@ phrasé dans l'une des sources, en optant pour un tracé pointillé du
 seul segment ajouté.  L'exemple ci-dessous illustre la manière de
 procéder, ici avec la variante @code{\tweak} de la commande :
 
-@lilypond[verbatim,quote,ragged-right,relative=2]
+@lilypond[verbatim,quote,ragged-right]
 % The empty list is conveniently used below, because it is the
 % default setting of dash-definition, resulting in a solid curve.
-c2-\alterBroken dash-definition #'(() ((0 1.0 0.4 0.75))) \(e
-\break
-g2 e\)
+\relative {
+  c''2-\alterBroken dash-definition #'(() ((0 1.0 0.4 0.75))) \(e
+  \break
+  g2 e\)
+}
 @end lilypond
 
 Il est important de considérer que @code{\alterBroken} affectera à

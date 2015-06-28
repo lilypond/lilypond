@@ -105,8 +105,8 @@ beschrieben in
 Die Befehle @code{\upbow} und @code{\downbow} werden mit Legatobögen
 in folgender Weise eingesetzt:
 
-@lilypond[verbatim,quote,relative=2]
-c4(\downbow d) e(\upbow f)
+@lilypond[verbatim,quote]
+\relative { c''4(\downbow d) e(\upbow f) }
 @end lilypond
 
 @noindent
@@ -150,21 +150,23 @@ Flageolett-Töne können auf verschiedene Arten notiert werden.
 ein Ton angezeigt werde, bei dem die Saite berührt wird, wo sie
 sonst abgegriffen würde.
 
-@lilypond[verbatim,quote,relative=2]
-d4 e4.
-\harmonicsOn
-d8 e e
-d4 e4.
-\harmonicsOff
-d8 e e
+@lilypond[verbatim,quote]
+\relative d'' {
+  d4 e4.
+  \harmonicsOn
+  d8 e e
+  d4 e4.
+  \harmonicsOff
+  d8 e e
+}
 @end lilypond
 
 Alternativ kann auch eine normale Noten die Tonhöhe anzeigen, die
 erklingen soll, wobei ein kleiner Kreis angibt, dass es sich um
 einen Flageolett-Ton handelt:
 
-@lilypond[verbatim,quote,relative=2]
-d2^\flageolet d_\flageolet
+@lilypond[verbatim,quote,fragment]
+d''2^\flageolet d''_\flageolet
 @end lilypond
 
 
@@ -178,10 +180,12 @@ einen einen normalen Notenkopf besitzt und die Griffposition des
 Fingers angibt, während die andere in Rautenform die Position des
 leicht aufgesetzten Fingers anzeigt.
 
-@lilypond[verbatim,quote,relative=1]
-<e a\harmonic>2.  <c g'\harmonic>4
-\set harmonicDots = ##t
-<e a\harmonic>2.  <c g'\harmonic>4
+@lilypond[verbatim,quote]
+\relative e' {
+  <e a\harmonic>2.  <c g'\harmonic>4
+  \set harmonicDots = ##t
+  <e a\harmonic>2.  <c g'\harmonic>4
+}
 @end lilypond
 
 @warning{@code{@bs{}harmonic} @strong{muss} innerhalb einer Akkordkonstruktion
@@ -212,9 +216,11 @@ Pizzicato, bei dem man die
 Saite nach oben (und nicht seitlich) zieht, sodass sie beim Schwingen
 das Griffbrett berührt.
 
-@lilypond[verbatim,quote,relative=1]
-c4\snappizzicato
-<c' e g>4\snappizzicato
-<c' e g>4^\snappizzicato
-<c, e g>4_\snappizzicato
+@lilypond[verbatim,quote]
+\relative {
+  c'4\snappizzicato
+  <c' e g>4\snappizzicato
+  <c' e g>4^\snappizzicato
+  <c, e g>4_\snappizzicato
+}
 @end lilypond

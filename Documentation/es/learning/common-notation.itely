@@ -11,12 +11,8 @@
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
-- unless you have a really good reason, use either
+- unless you have a really good reason, use
     @lilypond[verbatim,quote]
-  or
-    @lilypond[verbatim,quote,relative=2]
-
-  Don't use any other relative=X commands.
 
 - use "aes" and "ees" instead of "as" and "es".  I know it's not
   correct Dutch naming, but let's not confuse people with this
@@ -82,8 +78,8 @@ ejemplo @code{\bar "||"} para una doble barra, o @code{\bar "|."}
 para la doble barra final.  Para ver una lista completa de las
 líneas divisorias, consulte @ruser{Barras de compás}.
 
-@lilypond[verbatim,quote,relative=2]
-g1 e1 \bar "||" c2. c'4 \bar "|."
+@lilypond[verbatim,quote]
+\relative { g'1 e1 \bar "||" c2. c'4 \bar "|." }
 @end lilypond
 
 @node Comprobaciones de compás
@@ -159,8 +155,8 @@ nórdicas y germánicas como el alemán y el holandés.  Para utilizar
 otros nombres para las @notation{alteraciones accidentales}, véase
 @ruser{Nombres de las notas en otros idiomas}.
 
-@lilypond[verbatim,quote,relative=2]
-cis4 ees fisis, aeses
+@lilypond[verbatim,quote]
+\relative { cis''4 ees fisis, aeses }
 @end lilypond
 
 @cindex tonalidad, armadura de la, establecer
@@ -236,9 +232,11 @@ automáticamente, y usted deberá introducir aquello que quiera oír.
 
 En el siguiente ejemplo:
 
-@lilypond[verbatim,quote,relative=2]
-\key d \major
-cis4 d e fis
+@lilypond[verbatim,quote]
+\relative {
+  \key d \major
+  cis''4 d e fis
+}
 @end lilypond
 
 @noindent
@@ -251,9 +249,11 @@ tercera línea del pentagrama.}  Más bien significa: @qq{hay una nota
 Si natural.}  En la tonalidad de La bemol mayor, @emph{lleva} una
 alteración accidental:
 
-@lilypond[verbatim,quote,relative=2]
-\key aes \major
-aes4 c b c
+@lilypond[verbatim,quote]
+\relative {
+  \key aes \major
+  aes'4 c b c
+}
 @end lilypond
 
 Si se encuentra confundido por lo anterior, piense en lo siguiente: si
@@ -308,8 +308,8 @@ Glosario musical:
 Una @notation{ligadura de unión} se crea adjuntando un carácter de
 tilde curva @code{~} a la primera nota ligada:
 
-@lilypond[verbatim,quote,relative=2]
-g4~ 4 c2~ | 4~ 8 a~ 2 |
+@lilypond[verbatim,quote]
+\relative { g'4~ 4 c2~ | 4~ 8 a~ 2 | }
 @end lilypond
 
 @node Ligaduras de expresión
@@ -323,8 +323,8 @@ Una @notation{ligadura de expresión} es una curva que se traza
 abarcando varias notas.  Las notas inicial y final se marcan mediante
 @code{(} y @code{)} respectivamente.
 
-@lilypond[verbatim,quote,relative=2]
-d4( c16) cis( d e c cis d) e( d4)
+@lilypond[verbatim,quote]
+\relative { d''4( c16) cis( d e c cis d) e( d4) }
 @end lilypond
 
 @node Ligaduras de fraseo
@@ -341,8 +341,8 @@ haber al mismo tiempo ligaduras de legato y ligaduras de fraseo, pero
 no es posible tener legatos simultáneos o ligaduras de expresión
 simultáneas.
 
-@lilypond[verbatim,quote,relative=2]
-g4\( g8( a) b( c) b4\)
+@lilypond[verbatim,quote]
+\relative { g'4\( g8( a) b( c) b4\) }
 @end lilypond
 
 @smallspace
@@ -366,8 +366,8 @@ indican la @notation{articulación} de las notas, y se pueden utilizar
 sobre grupos mayores de notas.  Las ligaduras de unión y de expresión
 se pueden anidar unas dentro de otras.
 
-@lilypond[verbatim,quote,relative=2]
-c4~( c8 d~ 4 e)
+@lilypond[verbatim,quote]
+\relative { c''4(~ c8 d~ 4 e) }
 @end lilypond
 
 
@@ -402,9 +402,11 @@ Glosario musical:
 Las @notation{articulaciones} más corrientes se pueden añadir a las
 notas utilizando un guión @code{-} seguido de un carácter único:
 
-@lilypond[verbatim,quote,relative=2]
-c4-^ c-+ c-- c-!
-c4-> c-. c2-_
+@lilypond[verbatim,quote]
+\relative {
+  c''4-^ c-+ c-- c-!
+  c4-> c-. c2-_
+}
 @end lilypond
 
 @node Indicaciones de digitación
@@ -422,8 +424,8 @@ Glosario musical:
 De manera similar, las @notation{digitaciones} se pueden añadir a una
 nota utilizando un guión (@code{-}) seguido del dígito deseado:
 
-@lilypond[verbatim,quote,relative=2]
-c4-3 e-5 b-2 a-1
+@lilypond[verbatim,quote]
+\relative { c''4-3 e-5 b-2 a-1 }
 @end lilypond
 
 Las articulaciones y digitaciones normalmente se colocan de forma
@@ -432,8 +434,8 @@ automática, pero puede especificar una dirección mediante @code{^}
 articulaciones sobre la misma nota.  Sin embargo, casi siempre es
 mejor dejar que LilyPond determine la dirección de las articulaciones.
 
-@lilypond[verbatim,quote,relative=2]
-c4_-^1 d^. f^4_2-> e^-_+
+@lilypond[verbatim,quote]
+\relative { c''4_-^1 d^. f^4_2-> e^-_+ }
 @end lilypond
 
 @node Matices dinámicos
@@ -466,8 +468,8 @@ Glosario musical:
 Las expresiones de @notation{matiz} o signos dinámicos se hacen
 añadiendo las marcas (con una barra invertida) a la nota:
 
-@lilypond[verbatim,quote,relative=2]
-c4\ff c\mf c\p c\pp
+@lilypond[verbatim,quote]
+\relative { c''4\ff c\mf c\p c\pp }
 @end lilypond
 
 Los @notation{crescendi} y @notation{decrescendi} comienzan con las
@@ -475,8 +477,8 @@ Los @notation{crescendi} y @notation{decrescendi} comienzan con las
 por ejemplo @code{\f}, dará por terminado el (de)crescendo, o bien se
 puede usar la instrucción @code{\!}:
 
-@lilypond[verbatim,quote,relative=2]
-c4\< c\ff\> c c\!
+@lilypond[verbatim,quote]
+\relative { c''4\< c\ff\> c c\! }
 @end lilypond
 
 
@@ -500,16 +502,16 @@ Referencia de la notación:
 
 Es posible añadir texto a la partitura:
 
-@lilypond[verbatim,quote,relative=2]
-c2^"espr" a_"legato"
+@lilypond[verbatim,quote,fragment]
+c''2^"espr" a'_"legato"
 @end lilypond
 
 Se puede aplicar un formateo adicional mediante la instrucción
 @code{\markup}:
 
-@lilypond[verbatim,quote,relative=2]
-c2^\markup { \bold espr }
-a2_\markup {
+@lilypond[verbatim,quote,fragment]
+c''2^\markup { \bold espr }
+a'2_\markup {
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
 }
 @end lilypond
@@ -544,27 +546,29 @@ Glosario musical:
 
 Todas las @notation{barras} de las figuras se dibujan automáticamente:
 
-@lilypond[verbatim,quote,relative=2]
-a8 ais d ees r d c16 b a8
+@lilypond[verbatim,quote]
+\relative { a'8 ais d ees r d c16 b a8 }
 @end lilypond
 
 Si no le gustan las barras automáticas, pueden forzarse manualmente.
 Marque la primera nota que comprende la barra con @code{[} y la última
 con @code{]}.
 
-@lilypond[verbatim,quote,relative=2]
-a8[ ais] d[ ees r d] c16 b a8
+@lilypond[verbatim,quote]
+\relative { a'8[ ais] d[ ees r d] c16 b a8 }
 @end lilypond
 
 Si quiere desactivar completamente el barrado automático o para una
 sección extensa de música, utilice la instrucción @code{\autoBeamOff}
 para apagarlo y @code{\autoBeamOn} para activarlo de nuevo.
 
-@lilypond[verbatim,quote,relative=2]
-\autoBeamOff
-a8 c b4 d8. c16 b4 |
-\autoBeamOn
-a8 c b4 d8. c16 b4 |
+@lilypond[verbatim,quote]
+\relative {
+  \autoBeamOff
+  a'8 c b4 d8. c16 b4 |
+  \autoBeamOn
+  a8 c b4 d8. c16 b4 |
+}
 @end lilypond
 
 
@@ -601,9 +605,11 @@ Una @notation{anacrusa} se introduce con la palabra clave
 @code{\partial}.  Va seguida de una duración: @code{\partial 4} es
 una anacrusa de negra y @code{\partial 8} de corchea.
 
-@lilypond[verbatim,quote,relative=2]
-\partial 8 f8 |
-c2 d |
+@lilypond[verbatim,quote]
+\relative {
+  \partial 8 f''8 |
+  c2 d |
+}
 @end lilypond
 
 @node Grupos especiales
@@ -627,11 +633,13 @@ partido por el número de notas que normalmente ocupan la misma
 duración.  Para los tresillos hay tres notas en el espacio de dos,
 de manera que los @notation{tresillos} tienen una fracción de 3/2.
 
-@lilypond[verbatim,quote,relative=2]
-\tuplet 3/2 { f8 g a }
-\tuplet 3/2 { c8 r c }
-\tuplet 3/2 { f,8 g16[ a g a] }
-\tuplet 3/2 { d4 a8 }
+@lilypond[verbatim,quote]
+\relative {
+  \tuplet 3/2 { f''8 g a }
+  \tuplet 3/2 { c8 r c }
+  \tuplet 3/2 { f,8 g16[ a g a] }
+  \tuplet 3/2 { d4 a8 }
+}
 @end lilypond
 
 @node Notas de adorno
@@ -659,10 +667,12 @@ Las @notation{notas de adorno} se crean con la instrucción
 expresión musical por la palabra clave @code{\appoggiatura} o
 @code{\acciaccatura}
 
-@lilypond[verbatim,quote,relative=2]
-c2 \grace { a32 b } c2 |
-c2 \appoggiatura b16 c2 |
-c2 \acciaccatura b16 c2 |
+@lilypond[verbatim,quote]
+\relative {
+  c''2 \grace { a32 b } c2 |
+  c2 \appoggiatura b16 c2 |
+  c2 \acciaccatura b16 c2 |
+}
 @end lilypond
 
 
@@ -714,16 +724,16 @@ En los archivos de entrada de LilyPond, la música se representa
 mediante @emph{expresiones musicales}.  Una sola nota es una expresión
 musical:
 
-@lilypond[verbatim,quote,relative=2]
-a4
+@lilypond[verbatim,quote,fragment]
+a'4
 @end lilypond
 
 Al encerrar un grupo de notas dentro de llaves creamos una
 @emph{expresión musical compuesta}.  Aquí hemos creado una expresión
 musical compuesta con dos notas:
 
-@lilypond[verbatim,quote,relative=2]
-{ a4 g4 }
+@lilypond[verbatim,quote]
+\relative { a'4 g4 }
 @end lilypond
 
 Si colocamos un grupo de expresiones musicales (p.ej.: notas) dentro
@@ -731,8 +741,8 @@ de llaves, eso significa que se encuentran en secuencia (es decir,
 cada una sigue a la anterior).  El resultado es otra expresión
 musical:
 
-@lilypond[verbatim,quote,relative=2]
-{ { a4 g } f4 g }
+@lilypond[verbatim,quote]
+\relative { { a'4 g } f4 g }
 @end lilypond
 
 @node Analogía expresiones matemáticas
@@ -797,13 +807,11 @@ una de las cuales contiene dos notas diferentes) se combinan de forma
 simultánea:
 
 @lilypond[verbatim,quote]
-\relative {
-  <<
-    { a'2 g }
-    { f2 e }
-    { d2 b }
-  >>
-}
+<<
+  \relative { a'2 g }
+  \relative { f'2 e }
+  \relative { d'2 b }
+>>
 @end lilypond
 
 Tenga en cuenta que hemos sangrado cada nivel jerárquico de la entrada
@@ -868,12 +876,10 @@ de él.  Estos elementos @code{Staff} se combinan después en paralelo
 con @code{<<} y @code{>>}:
 
 @lilypond[verbatim,quote]
-\relative {
-  <<
-    \new Staff { \clef "treble" c''4 }
-    \new Staff { \clef "bass" c,,4 }
-  >>
-}
+<<
+  \new Staff { \clef "treble" c''4 }
+  \new Staff { \clef "bass" c4 }
+>>
 @end lilypond
 
 La instrucción @code{\new} inaugura un @q{contexto de notación}.  Un
@@ -901,12 +907,10 @@ partituras con instrumentos transpositores son más comunes que las
 partituras polirrítmicas.
 
 @lilypond[verbatim,quote]
-\relative {
-  <<
-    \new Staff { \clef "treble" \key d \major \time 3/4 c''4 }
-    \new Staff { \clef "bass" c,,4 }
-  >>
-}
+<<
+  \new Staff { \clef "treble" \key d \major \time 3/4 c''4 }
+  \new Staff { \clef "bass" c4 }
+>>
 @end lilypond
 
 
@@ -946,12 +950,10 @@ completa se coloca dentro de un @code{PianoStaff}:
 He aquí un pequeño ejemplo:
 
 @lilypond[verbatim,quote]
-\relative {
-  \new PianoStaff <<
-    \new Staff { \time 2/4 c''4 e | g g, | }
-    \new Staff { \clef "bass" c,,4 c' | e c | }
-  >>
-}
+\new PianoStaff <<
+  \new Staff \relative { \time 2/4 c''4 e | g g, | }
+  \new Staff \relative { \clef "bass" c4 c' | e c | }
+>>
 @end lilypond
 
 Otros grupos de pentagramas se declaran mediante @code{\new
@@ -990,8 +992,8 @@ indicar un acorde es encerrar las notas entre ángulos
 tener la misma duración, y que la duración se escribe después del
 ángulo de cierre.
 
-@lilypond[verbatim,quote,relative=2]
-r4 <c e g> <c f a>2
+@lilypond[verbatim,quote]
+\relative { r4 <c'' e g> <c f a>2 }
 @end lilypond
 
 Debemos pensar en los acordes como algo casi equivalente a las notas
@@ -1001,11 +1003,13 @@ adjuntar también a un acorde, y todo debe ir @emph{por fuera} de los
 con acordes.  Tan sólo debe recordar que se escriben por fuera de los
 ángulos.
 
-@lilypond[verbatim,quote,relative=2]
-r4 <c e g>~ <c f a>2 |
-<c e g>8[ <c f a> <c e g> <c f a>]
-  <c e g>8\>[ <c f a> <c f a> <c e g>]\! |
-r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
+@lilypond[verbatim,quote]
+\relative {
+  r4 <c'' e g>~ <c f a>2 |
+  <c e g>8[ <c f a> <c e g> <c f a>]
+    <c e g>8\>[ <c f a> <c f a> <c e g>]\! |
+  r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
+}
 @end lilypond
 
 @seealso

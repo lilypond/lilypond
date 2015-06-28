@@ -279,12 +279,14 @@ ci-dessous change la couleur des têtes de notes :
 @cindex couleur,exemple d'utilisation de la propriété
 @cindex NoteHead, exemple de dérogation
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-c4 d
-\override NoteHead.color = #red
-e4 f |
-\override NoteHead.color = #green
-g4 a b c |
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  c'4 d
+  \override NoteHead.color = #red
+  e4 f |
+  \override NoteHead.color = #green
+  g4 a b c |
+}
 @end lilypond
 
 
@@ -361,13 +363,15 @@ Le préfixe @code{\once} peut s'utiliser avec de nombreuses
 commandes prédéfinies pour en limiter les effets à un seul instant
 musical :
 
-@lilypond[quote,verbatim,relative=1]
-c4( d)
-\once \slurDashed
-e4( f) |
-g4( a)
-\once \hideNotes
-b( c) |
+@lilypond[quote,verbatim]
+\relative {
+  c'4( d)
+  \once \slurDashed
+  e4( f) |
+  g4( a)
+  \once \hideNotes
+  b( c) |
+}
 @end lilypond
 
 Les commandes prédéfinies de la forme @code{\@dots{}Neutral},
@@ -416,11 +420,13 @@ d'abord ce que donnerait @code{\once \override} :
 @cindex font-size, exemple d'utilisation de la propriété
 @cindex NoteHead, exemple de dérogation
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-<c e g>4
-\once \override NoteHead.font-size = #-3
-<c e g>4
-<c e g>4
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  <c' e g>4
+  \once \override NoteHead.font-size = #-3
+  <c e g>4
+  <c e g>4
+}
 @end lilypond
 
 Nous voyons que @code{\override} modifie @strong{toutes} les têtes
@@ -442,9 +448,11 @@ accord peut être modifiée de cette manière :
 @cindex font-size, exemple d'utilisation de la propriété
 @cindex @code{\tweak}, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-<c e g>4
-<c \tweak font-size #-3 e g>4
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  <c' e g>4
+  <c \tweak font-size #-3 e g>4
+}
 @end lilypond
 
 Vous noterez que la syntaxe de @code{\tweak} est différente de
@@ -465,8 +473,8 @@ une série d'articulations, n'en modifier qu'une seule.  Ainsi :
 @cindex couleur, exemple d'utilisation de la propriété
 @cindex @code{\tweak}, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-a4^"Black"
+@lilypond[quote,fragment,ragged-right,verbatim]
+a'4^"Black"
   -\tweak color #red ^"Red"
   -\tweak color #green _"Green"
 @end lilypond
@@ -520,13 +528,15 @@ crochet de triolet court.
 @cindex direction, exemple d'utilisation de la propriété
 @cindex couleur, exemple d'utilisation de la propriété
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-\tweak direction #up
-\tuplet 3/4 {
-  \tweak color #red
-  \tuplet 3/2 { c8[ c c] }
-  \tuplet 3/2 { c8[ c c] }
-  \tuplet 3/2 { c8[ c c] }
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  \tweak direction #up
+  \tuplet 3/4 {
+    \tweak color #red
+    \tuplet 3/2 { c8[ c c] }
+    \tuplet 3/2 { c8[ c c] }
+    \tuplet 3/2 { c8[ c c] }
+  }
 }
 @end lilypond
 
@@ -539,15 +549,17 @@ avec la commande @code{\override} :
 @cindex transparence, exemple d'utilisation de la propriété
 @cindex TupletNumber, exemple de dérogation
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
-\tuplet 3/2 { c8[ c c] }
-\once \override TupletNumber.text = #tuplet-number::calc-fraction-text
-\tuplet 3/2 {
-  c8[ c]
-  c8[ c]
-  \once \override TupletNumber.transparent = ##t
-  \tuplet 3/2 { c8[ c c] }
-  \tuplet 3/2 { c8[ c c] }
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  \tuplet 3/2 { c'8[ c c] }
+  \once \override TupletNumber.text = #tuplet-number::calc-fraction-text
+  \tuplet 3/2 {
+    c8[ c]
+    c8[ c]
+    \once \override TupletNumber.transparent = ##t
+    \tuplet 3/2 { c8[ c c] }
+    \tuplet 3/2 { c8[ c c] }
+  }
 }
 @end lilypond
 
@@ -668,12 +680,12 @@ Prenons un exemple concret tiré d'un morceau de musique connu :
 
 @c Mozart, Die Zauberflöte Nr.7 Duett
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8 bes[( g]) g |
+  \relative {
+    r4 bes'8 bes[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
   }
@@ -756,14 +768,14 @@ proche d'elle. »  Essayons :
 @cindex Slur, exemple de dérogation
 @cindex thickness, exemple d'utilisation de la propriété
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
+  \relative {
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur.thickness = #5.0
-    r4 bes8 bes[( g]) g |
+    r4 bes'8 bes[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
   }
@@ -830,12 +842,12 @@ simplement ignorée.  Il faut donc que la commande introduite par
 @cindex Liaison, exemple de dérogation
 @cindex Épaisseur, exemple d'utilisation de la propriété
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8
+  \relative {
+    r4 bes'8
     % Increase thickness of immediately following slur only
     \once \override Slur.thickness = #5.0
     bes8[( g]) g |
@@ -875,12 +887,12 @@ débute la liaison :
 @cindex thickness, exemple d'utilisation de la propriété
 @cindex épaisseur, exemple d'utilisation
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8
+  \relative {
+    r4 bes'8
     % Increase thickness of immediately following slur only
     \once \override Slur.thickness = #5.0
     bes[( g]) g |
@@ -905,12 +917,12 @@ la seconde liaison la commande @code{\revert}, qui ramène la propriété
 @cindex liaison, exemple de dérogation
 @cindex épaisseur, exemple d'utilisation
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8
+  \relative {
+    r4 bes'8
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur.thickness = #5.0
     bes[( g]) g |
@@ -1022,12 +1034,12 @@ comme ceci :
 @cindex LyricText, exemple de dérogation
 @cindex @code{\addlyrics}, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8 bes[( g]) g |
+  \relative {
+    r4 bes'8 bes[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
   }
@@ -1196,11 +1208,11 @@ encore, le contexte concerné (@code{Voice} en l'occurrence) :
 @cindex BarLine, exemple de dérogation
 @cindex stencil, exemple d'utilisation de la propriété
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override BarLine.stencil = ##f
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1222,11 +1234,11 @@ mentionnant le bon contexte :
 @cindex BarLine, exemple de dérogation
 @cindex stencil, exemple d'utilisation de la propriété
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.BarLine.stencil = ##f
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1240,11 +1252,11 @@ LilyPond dispose d'un raccourci -- @code{\omit} (pour « oublier »)
 @funindex \omit
 @funindex omit
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \omit Staff.BarLine
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1258,9 +1270,9 @@ le cas, par exemple, si vous effacez le @code{stencil} d'un objet
 @code{point-stencil} qui, quant à elle, attribue à l'objet une taille à
 zéro :
 
-@lilypond[quote,verbatim,relative=2]
-{
-  c4 c
+@lilypond[quote,verbatim]
+\relative {
+  c''4 c
   \once \override NoteHead.stencil = #point-stencil
   c4 c
 }
@@ -1327,11 +1339,11 @@ pour rendre la métrique transparente est :
 @cindex TimeSignature, exemple de dérogation
 @cindex transparent, exemple d'utilisation de la propriété
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.TimeSignature.transparent = ##t
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1344,11 +1356,11 @@ effet : @code{\hide} (pour « masquer ».
 
 @funindex \hide
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \hide Staff.TimeSignature
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1410,11 +1422,11 @@ Pour mettre les barres de mesure en blanc, on écrit :
 @cindex BarLine, exemple de dérogation
 @cindex color, exemple d'utilisation de la propriété
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.BarLine.color = #white
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1444,11 +1456,11 @@ valeurs internes comme ceci :
 @cindex BarLine, exemple de dérogation
 @cindex color, exemple d'utilisation de la propriété
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.BarLine.color = #(x11-color 'white)
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1477,11 +1489,11 @@ valeur serait @code{(rgb-color 1 0 0)} ; pour le blanc, ce serait
 @cindex BarLine, exemple de dérogation
 @cindex color, exemple d'utilisation de la propriété
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.BarLine.color = #(rgb-color 1 1 1)
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1501,8 +1513,8 @@ notre exemple différentes nuances de gris :
 @cindex color, exemple d'utilisation de la propriété
 @cindex x11-color, exemple d'utilisation
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.StaffSymbol.color = #(x11-color 'grey30)
   \override Staff.TimeSignature.color = #(x11-color 'grey60)
@@ -1510,7 +1522,7 @@ notre exemple différentes nuances de gris :
   \override Voice.NoteHead.color = #(x11-color 'grey85)
   \override Voice.Stem.color = #(x11-color 'grey85)
   \override Staff.BarLine.color = #(x11-color 'grey10)
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1542,7 +1554,7 @@ nouvelle portée temporaire, du type @rglos{ossia}.
 @cindex alignAboveContext, exemple d'utilisation de la propriété
 @cindex @code{\with}, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1569,7 +1581,7 @@ régler le stencil de chacun sur @code{#f}, comme ceci :
 @cindex TimeSignature, exemple de dérogation
 @funindex \omit
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1632,7 +1644,7 @@ Remplaçons donc l'exemple ci-dessus par celui-ci :
 @cindex Clef, exemple de dérogation
 @cindex TimeSignature, exemple de dérogation
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1658,7 +1670,7 @@ Nous pourrions tout aussi bien utiliser les raccourcis
 @code{transparent} et désactiver le @code{stencil}, ce qui
 donnerait :
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1724,7 +1736,7 @@ Essayons sur l'exemple d'ossia :
 @cindex TimeSignature, exemple de dérogation
 @cindex fontSize, exemple d'utilisation de la propriété
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1795,7 +1807,7 @@ augmente, les objets en question.  Voici comment elle s'utilise :
 @cindex staff-space, exemple d'utilisation de la propriété
 @cindex stencil, exemple d'utilisation de la propriété
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1907,11 +1919,11 @@ en-dessous de @code{Text2}.
 
 @cindex markup, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-c2^"Text1"
-c2^"Text2" |
-c2^"Text3"
-c2^"Text4" |
+@lilypond[quote,fragment,ragged-right,verbatim]
+c''2^"Text1"
+c''2^"Text2" |
+c''2^"Text3"
+c''2^"Text4" |
 @end lilypond
 
 Les portées aussi sont positionnées, par défaut, le plus près possible
@@ -1981,14 +1993,14 @@ où elles adoptent de nouveau le comportement par défaut.
 @cindex Slur, exemple de dérogation
 @cindex direction, exemple d'utilisation de la propriété
 
-@lilypond[quote,verbatim,relative=2]
-a4( g) c( a) |
+@lilypond[quote,fragment,verbatim]
+a'4( g') c''( a') |
 \override Slur.direction = #DOWN
-a4( g) c( a) |
+a'4( g') c''( a') |
 \override Slur.direction = #UP
-a4( g) c( a) |
+a'4( g') c''( a') |
 \revert Slur.direction
-a4( g) c( a) |
+a'4( g') c''( a') |
 @end lilypond
 
 Nous utilisons ici les directions @code{DOWN} et @code{UP}.  Elles
@@ -2058,9 +2070,9 @@ précéder d'un @code{\once}, comme pour toute dérogation.
 Dans le cas où un seul objet de rendu doit déroger à la règle, LilyPond
 dispose des indicateurs de positionnement @code{^} et @code{_} :
 
-@lilypond[quote,verbatim,relative=2]
-a4( g) c( a) |
-a4^( g) c_( a) |
+@lilypond[quote,fragment,verbatim]
+a'4( g') c''( a') |
+a'4^( g') c''_( a') |
 @end lilypond
 
 
@@ -2086,12 +2098,14 @@ les deux suivantes montrent l'effet lorsqu'on indique @code{DOWN} et
 @cindex doigtés, exemple de dérogation
 @cindex direction, exemple d'utilisation de la propriété
 
-@lilypond[quote,verbatim,relative=2]
-c4-5 a-3 f-1 c'-5 |
-\override Fingering.direction = #DOWN
-c4-5 a-3 f-1 c'-5 |
-\override Fingering.direction = #UP
-c4-5 a-3 f-1 c'-5 |
+@lilypond[quote,verbatim]
+\relative {
+  c''4-5 a-3 f-1 c'-5 |
+  \override Fingering.direction = #DOWN
+  c4-5 a-3 f-1 c'-5 |
+  \override Fingering.direction = #UP
+  c4-5 a-3 f-1 c'-5 |
+}
 @end lilypond
 
 Le fait d'intervenir sur la propriété @code{direction} n'est sûrement
@@ -2102,10 +2116,12 @@ l'exemple précédent avec cette méthode :
 
 @cindex doigtés, exemple
 
-@lilypond[quote,verbatim,relative=2]
-c4-5 a-3 f-1 c'-5 |
-c4_5 a_3 f_1 c'_5 |
-c4^5 a^3 f^1 c'^5 |
+@lilypond[quote,verbatim]
+\relative {
+  c''4-5 a-3 f-1 c'-5 |
+  c4_5 a_3 f_1 c'_5 |
+  c4^5 a^3 f^1 c'^5 |
+}
 @end lilypond
 
 La propriété @code{direction} ne fonctionne pas pour les accords alors
@@ -2115,10 +2131,12 @@ au-dessous des notes d'un accord, comme ceci :
 
 @cindex doigtés, exemple
 
-@lilypond[quote,verbatim,relative=2]
-<c-5 g-3>4
-<c-5 g-3 e-2>4
-<c-5 g-3 e-2 c-1>4
+@lilypond[quote,verbatim]
+\relative {
+  <c''-5 g-3>4
+  <c-5 g-3 e-2>4
+  <c-5 g-3 e-2 c-1>4
+}
 @end lilypond
 
 @noindent
@@ -2127,10 +2145,12 @@ le placement de tous ou certains chiffres de doigté, comme ceci :
 
 @cindex doigtés, exemple
 
-@lilypond[quote,verbatim,relative=2]
-<c-5 g-3 e-2 c-1>4
-<c^5 g_3 e_2 c_1>4
-<c^5 g^3 e^2 c_1>4
+@lilypond[quote,verbatim]
+\relative {
+  <c''-5 g-3 e-2 c-1>4
+  <c^5 g_3 e_2 c_1>4
+  <c^5 g^3 e^2 c_1>4
+}
 @end lilypond
 
 On peut aller encore plus loin dans le positionnement des doigtés pour
@@ -2167,22 +2187,24 @@ Voici quelques exemples :
 @cindex @code{\set}, exemple d'utilisation
 @cindex fingeringOrientations, exemple d'utilisation de la propriété
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-\set fingeringOrientations = #'(left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
-\set fingeringOrientations = #'(left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4 |
-\set fingeringOrientations = #'(up left down)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
-\set fingeringOrientations = #'(up left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4 |
-\set fingeringOrientations = #'(right)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  \set fingeringOrientations = #'(left)
+  <f'-2>4
+  <c-1 e-2 g-3 b-5>4
+  \set fingeringOrientations = #'(left)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4 |
+  \set fingeringOrientations = #'(up left down)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4
+  \set fingeringOrientations = #'(up left)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4 |
+  \set fingeringOrientations = #'(right)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4
+}
 @end lilypond
 
 @noindent
@@ -2191,23 +2213,25 @@ toujours réduire la taille de police (@code{font-size}).  La valeur
 par défaut donnée dans la RPI à la page de l'objet
 @code{Fingering} étant @code{-5}, essayons @w{@code{-7}} :
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-\override Fingering.font-size = #-7
-\set fingeringOrientations = #'(left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
-\set fingeringOrientations = #'(left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4 |
-\set fingeringOrientations = #'(up left down)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
-\set fingeringOrientations = #'(up left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4 |
-\set fingeringOrientations = #'(right)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  \override Fingering.font-size = #-7
+  \set fingeringOrientations = #'(left)
+  <f'-2>4
+  <c-1 e-2 g-3 b-5>4
+  \set fingeringOrientations = #'(left)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4 |
+  \set fingeringOrientations = #'(up left down)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4
+  \set fingeringOrientations = #'(up left)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4 |
+  \set fingeringOrientations = #'(right)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4
+}
 @end lilypond
 
 
@@ -2312,7 +2336,7 @@ d'entre eux.
 @cindex TextSpanner, exemple de dérogation
 @cindex bound-details, exemple d'utilisation de la propriété
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+@lilypond[quote,fragment,ragged-right,verbatim]
 % Set details for later Text Spanner
 \override TextSpanner.bound-details.left.text
     = \markup { \small \bold Slower }
@@ -2320,18 +2344,18 @@ d'entre eux.
 \dynamicUp
 % Start Ottava Bracket
 \ottava #1
-c'4 \startTextSpan
+c''4 \startTextSpan
 % Add Dynamic Text and hairpin
-c4\pp\<
-c4
+c''4\pp\<
+c''4
 % Add Text Script
-c4^Text |
-c4 c
+c''4^Text |
+c''4 c''
 % Add Dynamic Text and terminate hairpin
-c4\ff c \stopTextSpan |
+c''4\ff c'' \stopTextSpan |
 % Stop Ottava Bracket
 \ottava #0
-c,4 c c c |
+c'4 c' c' c' |
 @end lilypond
 
 Cet exemple montre comment créer des extensions de texte (@emph{Text
@@ -2364,7 +2388,7 @@ créé dans le contexte @code{Staff} :
 @cindex TextSpanner, exemple de dérogation
 @cindex bound-details, exemple d'utilisation de la propriété
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+@lilypond[quote,fragment,ragged-right,verbatim]
 % Set details for later Text Spanner
 \override TextSpanner.bound-details.left.text
     = \markup { \small \bold Slower }
@@ -2374,19 +2398,19 @@ créé dans le contexte @code{Staff} :
 \once \override Staff.OttavaBracket.outside-staff-priority = #340
 % Start Ottava Bracket
 \ottava #1
-c'4 \startTextSpan
+c''4 \startTextSpan
 % Add Dynamic Text
-c4\pp
+c''4\pp
 % Add Dynamic Line Spanner
-c4\<
+c''4\<
 % Add Text Script
-c4^Text |
-c4 c
+c''4^Text |
+c''4 c''
 % Add Dynamic Text
-c4\ff c \stopTextSpan |
+c''4\ff c'' \stopTextSpan |
 % Stop Ottava Bracket
 \ottava #0
-c,4 c c c |
+c'4 c' c' c' |
 @end lilypond
 
 N'oublions pas que certains objets, tels les numéros de mesure,
@@ -2412,14 +2436,16 @@ particulière à la propriété @code{outside-staff-priority} d'une
 liaison dans le but de regrouper la liaison avec les objets externes.
 L'exemple suivant illustre ces deux différentes méthodes.
 
-@lilypond[quote,verbatim,relative=2]
-c4( c^\markup { \tiny \sharp } d4.) c8 |
-c4(
-\once \override TextScript.avoid-slur = #'inside
-\once \override TextScript.outside-staff-priority = ##f
-c4^\markup { \tiny \sharp } d4.) c8 |
-\once \override Slur.outside-staff-priority = #500
-c4( c^\markup { \tiny \sharp } d4.) c8 |
+@lilypond[quote,verbatim]
+\relative c'' {
+  c4( c^\markup { \tiny \sharp } d4.) c8 |
+  c4(
+    \once \override TextScript.avoid-slur = #'inside
+    \once \override TextScript.outside-staff-priority = ##f
+    c4^\markup { \tiny \sharp } d4.) c8 |
+  \once \override Slur.outside-staff-priority = #500
+    c4( c^\markup { \tiny \sharp } d4.) c8 |
+}
 @end lilypond
 
 Le fait de changer la @code{outside-staff-priority} peut aussi servir à
@@ -2434,12 +2460,12 @@ de « Text3 » jusqu'à une valeur très haute :
 @cindex TextScript, exemple de dérogation
 @cindex outside-staff-priority, exemple d'utilisation de la propriété
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-c2^"Text1"
-c2^"Text2" |
+@lilypond[quote,fragment,ragged-right,verbatim]
+c''2^"Text1"
+c''2^"Text2" |
 \once \override TextScript.outside-staff-priority = #500
-c2^"Text3"
-c2^"Text4" |
+c''2^"Text3"
+c''2^"Text4" |
 @end lilypond
 
 S'il est vrai que cela place « Text3 » au-dessus de « Text4 », ça le
@@ -2468,12 +2494,12 @@ où ce qui est concerné n'entre pas dans la musique.  La commande
 @code{\textLengthOn} inverse ce comportement, faisant en sorte que les
 notes soient espacées autant qu'il le faut pour s'adapter au texte :
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim]
 \textLengthOn  % Cause notes to space out to accommodate text
-c2^"Text1"
-c2^"Text2" |
-c2^"Text3"
-c2^"Text4" |
+c''2^"Text1"
+c''2^"Text2" |
+c''2^"Text3"
+c''2^"Text4" |
 @end lilypond
 
 La commande qui permet de revenir au comportement par défaut est
@@ -2496,25 +2522,27 @@ de note.
 @cindex TextScript, exemple de dérogation
 @cindex outside-staff-priority, exemple d'utilisation de la propriété
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-% This markup is short enough to fit without collision
-c2^"Tex" c'' |
-R1 |
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  % This markup is short enough to fit without collision
+  c''2^"Tex" c'' |
+  R1 |
 
-% This is too long to fit, so it is displaced upwards
-c,,2^"Text" c'' |
-R1 |
+  % This is too long to fit, so it is displaced upwards
+  c,,2^"Text" c'' |
+  R1 |
 
-% Turn off collision avoidance
-\once \override TextScript.outside-staff-priority = ##f
-c,,2^"Long Text   " c'' |
-R1 |
+  % Turn off collision avoidance
+  \once \override TextScript.outside-staff-priority = ##f
+  c,,2^"Long Text   " c'' |
+  R1 |
 
-% Turn off collision avoidance
-\once \override TextScript.outside-staff-priority = ##f
-\textLengthOn        % and turn on textLengthOn
-c,,2^"Long Text   "  % Spaces at end are honored
-c''2 |
+  % Turn off collision avoidance
+  \once \override TextScript.outside-staff-priority = ##f
+  \textLengthOn        % and turn on textLengthOn
+  c,,2^"Long Text   "  % Spaces at end are honored
+  c''2 |
+}
 @end lilypond
 
 
@@ -2532,13 +2560,15 @@ liées et se décalent vers le bas (ou le haut) en fonction des objets de
 la portée comme les liaisons de phrasé ou les numéros de mesure.  Cela
 peut donner d'assez bons résultats, comme le montre cet exemple :
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-\clef "bass"
-\key aes \major
-\time 9/8
-\dynamicUp
-bes4.~\f\< \( bes4 bes8 des4\ff\> c16 bes\! |
-ees,2.~\)\mf ees4 r8 |
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  \clef "bass"
+  \key aes \major
+  \time 9/8
+  \dynamicUp
+  bes4.~\f\< \( bes4 bes8 des4\ff\> c16 bes\! |
+  ees,2.~\)\mf ees4 r8 |
+}
 @end lilypond
 
 De toute façon, si les notes et les nuances qui leur sont liées sont
@@ -2546,9 +2576,9 @@ trop proches, le positionnement automatique évitera les collisions en
 déplaçant davantage les nuances suivantes, mais le résultat peut ne
 pas être très satisfaisant, comme le montre cet exemple artificiel :
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim,fragment]
 \dynamicUp
-a4\f b\mf a\mp b\p
+\relative { a'4\f b\mf a\mp b\p }
 @end lilypond
 
 @noindent
@@ -2605,11 +2635,11 @@ Voyons si ça marche sur notre exemple précédent :
 @cindex DynamicText, exemple de dérogation
 @cindex extra-spacing-width, exemple d'utilisation de la propriété
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim,fragment]
 \dynamicUp
 % Extend width by 1 staff space
 \override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
-a4\f b\mf a\mp b\p
+\relative { a'4\f b\mf a\mp b\p }
 @end lilypond
 
 @noindent
@@ -3152,8 +3182,8 @@ des symboles qui sont imprimés au-dessus ou en dessous des notes.
 @cindex Script, exemple de dérogation
 @cindex padding, exemple d'utilisation de la propriété
 
-@lilypond[quote,fragment,relative=1,verbatim]
-c2\fermata
+@lilypond[quote,fragment,verbatim]
+c'2\fermata
 \override Script.padding = #3
 b2\fermata
 @end lilypond
@@ -3251,9 +3281,9 @@ cet exemple repris de la section précédente :
 @cindex DynamicLineSpanner, exemple de dérogation
 @cindex staff-padding, exemple d'utilisation de la propriété
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim]
 \override DynamicLineSpanner.staff-padding = #3
-a4\f b\mf a\p b\mp
+\relative { a'4\f b\mf a\p b\mp }
 @end lilypond
 
 
@@ -3268,11 +3298,11 @@ droit sur le point de référence de la note parente :
 @cindex StringNumber, exemple de dérogation
 @cindex self-alignment-X, exemple d'utilisation de la propriété
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=3]
+@lilypond[quote,fragment,ragged-right,verbatim]
 \voiceOne
-<a\2>
+<a''\2>
 \once \override StringNumber.self-alignment-X = #RIGHT
-<a\2>
+<a''\2>
 @end lilypond
 
 
@@ -3290,8 +3320,8 @@ les collisions entre notes ou entre notes et silences se produisent sur
 des notes et silences simultanés. Voici un exemple de collision de ce
 type :
 
-@lilypond[quote,verbatim,fragment,ragged-right, relative=1]
-<< { c4 c c c } \\ { R1 } >>
+@lilypond[quote,verbatim,ragged-right]
+<< \relative { c'4 c c c } \\ { R1 } >>
 @end lilypond
 
 Ici, la meilleure solution consiste à déplacer le symbole de pause vers
@@ -3305,9 +3335,9 @@ de quatre demi-intervalles vers le bas, ce qui donne @code{-8}.
 @cindex MultiMeasureRest, exemple de dérogation
 @cindex staff-position, exemple d'utilisation de la propriété
 
-@lilypond[quote,verbatim,fragment,ragged-right, relative=1]
+@lilypond[quote,verbatim,ragged-right]
 <<
-  { c4 c c c }
+  \relative { c'4 c c c }
   \\
   \override MultiMeasureRest.staff-position = #-8
   { R1 }
@@ -3338,10 +3368,10 @@ légèrement vers la gauche et de 1,8 intervalle de lignes vers le bas :
 @cindex Fingering, exemple de dérogation
 @cindex extra-offset, exemple d'utilisation de la propriété
 
-@lilypond[quote,relative=1,verbatim]
-f4-5
+@lilypond[quote,fragment,verbatim]
+f'4-5
 \once \override Fingering.extra-offset = #'(-0.3 . -1.8)
-f4-5
+f'4-5
 @end lilypond
 
 
@@ -3363,8 +3393,8 @@ barres de ligature.
 Voici un exemple où la liaison de phrasé recouvre la liaison
 d'articulation :
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
-a8 \( ( a'16 ) a \)
+@lilypond[quote,verbatim,ragged-right]
+\relative { a'8 \( ( a'16 ) a \) }
 @end lilypond
 
 @cindex PhrasingSlur, exemple de dérogation
@@ -3377,9 +3407,9 @@ gauche à 2,5 espaces de portée au-dessus de la ligne médiane, et
 la droite à 4,5 ; LilyPond choisira la courbe dont les extrémités
 seront les plus approchantes de celle déterminées :
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+@lilypond[quote,verbatim,fragment,ragged-right]
 \once \override PhrasingSlur.positions = #'(2.5 . 4.5)
-a8 \( ( a'16 ) a \)
+a'8 \( ( a''16 ) a'' \)
 @end lilypond
 
 C'est déjà mieux, mais ne pourrait-on pas maintenant abaisser un
@@ -3394,23 +3424,23 @@ voir à ce sujet @ruser{Modification des liaisons}.
 Voici un autre exemple. Comme nous pouvons le constater, les barres de
 ligature chevauchent les liaisons de tenue :
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
+@lilypond[quote,verbatim,ragged-right]
 {
   \time 4/2
   <<
-    { c1~ 2. e8 f }
+    \relative { c'1~ 2. e8 f }
     \\
-    {
-      e'8 e e e
+    \relative {
+      e''8 e e e
       e e e e
       f2 g
     }
   >>
   <<
-    { c,,1~ 2. e8 f }
+    \relative { c'1~ 2. e8 f }
     \\
-    {
-      e'8 e e e
+    \relative {
+      e''8 e e e
       e e e e
       f2 g
     }
@@ -4088,8 +4118,8 @@ temps normal, seules deux notes appartenant à une même voix
 peuvent être ainsi liées.  La solution consiste à utiliser deux voix,
 dont l'une avec les notes liées
 
-@lilypond[quote,fragment,relative=2]
-<< { b8~ 8\noBeam } \\ { b8[ g] } >>
+@lilypond[quote]
+<< { b'8~ 8\noBeam } \\ { b'8[ g'] } >>
 @end lilypond
 
 @noindent

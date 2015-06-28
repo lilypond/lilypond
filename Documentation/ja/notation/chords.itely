@@ -74,11 +74,13 @@
 
 一連の音楽の中で、和音モードと音符モードを切り替えることができます:
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
-<c e g>2 <g b d>
-\chordmode { c2 f }
-<c e g>2 <g' b d>
-\chordmode { f2 g }
+@lilypond[verbatim,quote,ragged-right]
+\relative {
+  <c' e g>2 <g b d>
+  \chordmode { c2 f }
+  <c e g>2 <g' b d>
+  \chordmode { f2 g }
+}
 @end lilypond
 
 @seealso
@@ -481,7 +483,7 @@ C の長三和音を作り出すということに注意してください。
 @code{ChordNames} コンテキストに休符が渡されると、@c
 @code{noChordSymbol} マークアップが表示されます。
 
-@lilypond[verbatim, quote, relative=1]
+@lilypond[verbatim,quote]
 <<
   \new ChordNames \chordmode {
     c1

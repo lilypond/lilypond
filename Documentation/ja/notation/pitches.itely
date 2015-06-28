@@ -336,16 +336,16 @@ LilyPond では、音符名は未加工の入力です
 臨時記号に他の名前を使うには、@c
 @ref{Note names in other languages} を参照してください。
 
-@lilypond[verbatim,quote,relative=2]
-ais1 aes aisis aeses
+@lilypond[verbatim,quote,fragment]
+\relative c'' { ais1 aes aisis aeses }
 @end lilypond
 
 ナチュラルは臨時記号や調号の効果をキャンセルします。@c
 しかしながら、ナチュラルは接尾辞として音符名構文にエンコードされてはいません。@c
 そのため、ナチュラルのピッチは単に音符名で入力されます:
 
-@lilypond[verbatim,quote,relative=2]
-a4 aes a2
+@lilypond[verbatim,quote,fragment]
+\relative c'' { a4 aes a2 }
 @end lilypond
 
 @cindex quarter tones (4 分音)
@@ -355,8 +355,8 @@ a4 aes a2
 4 分音が付け加えられるかもしれません。@c
 以下の一連の C は左から順にピッチが増えていっています:
 
-@lilypond[verbatim,quote,relative=2]
-ceseh1 ces ceh c cih cis cisih
+@lilypond[verbatim,quote,fragment]
+\relative c'' { ceseh1 ces ceh c cih cis cisih }
 @end lilypond
 
 
@@ -379,8 +379,8 @@ ceseh1 ces ceh c cih cis cisih
 譜刻することができます。@c
 これら追加の臨時記号を使ってナチュラル記号を作り出すこともできます。
 
-@lilypond[verbatim,quote,relative=2]
-cis cis cis! cis? c c c! c?
+@lilypond[verbatim,quote,fragment]
+\relative c'' { cis cis cis! cis? c c c! c? }
 @end lilypond
 
 @cindex accidental on tied note (タイで結ばれた音符への臨時記号)
@@ -389,10 +389,12 @@ cis cis cis! cis? c c c! c?
 タイで結ばれた音符に付ける臨時記号は@c
 新しいシステム (訳者: 譜 1 行分のこと) の開始点でのみ譜刻されます:
 
-@lilypond[verbatim,quote,relative=2]
-cis1 ~ 1 ~
-\break
-cis
+@lilypond[verbatim,quote,fragment,ragged-right]
+\relative c'' {
+  cis1~ 1~
+  \break
+  cis
+}
 @end lilypond
 
 
@@ -530,8 +532,8 @@ LilyPond ではどちらの形式も認められます。@c
 @code{eeses}@tie{}/@tie{}@code{eses} にも適用されます。@c
 他の言語ファイルでは短縮名だけが定義されている場合があります。
 
-@lilypond[verbatim,quote,relative=2]
-a2 as e es a ases e eses
+@lilypond[verbatim,quote,fragment]
+\relative c'' { a2 as e es a ases e eses }
 @end lilypond
 
 
@@ -1102,47 +1104,47 @@ motif = \relative { c'8. ees16 fis8. a16 b8. gis16 f8. d16 }
 以下のそれぞれの例の中にある音符はすべてミドル C です。@c
 例の中にある音部名をダブル クォートで囲むことができます (必須ではありません)。
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
 \clef treble
-c2 c
+c'2 c'
 \clef alto
-c2 c
+c'2 c'
 \clef tenor
-c2 c
+c'2 c'
 \clef bass
-c2 c
+c'2 c'
 @end lilypond
 
 他の音部記号もあります:
 
 @c KEEP LY
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
 \clef french
-c2 c
+c'2 c'
 \clef soprano
-c2 c
+c'2 c'
 \clef mezzosoprano
-c2 c
+c'2 c'
 \clef baritone
-c2 c
+c'2 c'
 
 \break
 
 \clef varbaritone
-c2 c
+c'2 c'
 \clef subbass
-c2 c
+c'2 c'
 \clef percussion
-c2 c
+c'2 c'
 
 \break
 
 \clef G   % treble と同義です
-c2 c
+c'2 c'
 \clef F   % bass と同義です
-c2 c
+c'2 c'
 \clef C   % alto と同義です
-c2 c
+c'2 c'
 @end lilypond
 
 @cindex transposing clefs (音部を移調する)
@@ -1160,29 +1162,29 @@ c2 c
 音部名にアルファベット以外の文字が含まれる場合、@c
 音部名をダブル クォートで囲む必要があります。
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
 \clef treble
-c2 c
+c'2 c'
 \clef "treble_8"
-c2 c
+c'2 c'
 \clef "bass^15"
-c2 c
+c'2 c'
 \clef "alto_2"
-c2 c
+c'2 c'
 \clef "G_8"
-c2 c
+c'2 c'
 \clef "F^5"
-c2 c
+c'2 c'
 @end lilypond
 
 数字の引数を括弧や角括弧で囲むことで、オプションのオクターブを@c
 表示させることができます:
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
 \clef "treble_(8)"
-c2 c
+c'2 c'
 \clef "bass^[15]"
-c2 c
+c'2 c'
 @end lilypond
 
 ピッチは数字の引数が括弧で囲まれていない場合と同じです。
@@ -1223,13 +1225,13 @@ c2 c
 別の @code{\override} で @var{ClefModifier} グラフィカル オブジェクトに@c
 適用する必要があります。
 
-@lilypond[fragment,quote,relative=1]
+@lilypond[fragment,quote,verbatim]
 \new Staff \with {
   \override ClefModifier.color = #red
   \override Clef.color = #blue
 }
 
-\clef "treble_8" c4
+\clef "treble_8" c'4
 @end lilypond
 
 
@@ -1300,11 +1302,13 @@ LilyPond では、音符名は未加工の入力です。@c
 @code{\ionian}, @code{\dorian}, @code{\phrygian}, @code{\lydian},
 @code{\mixolydian}, @code{\aeolian} それに @code{\locrian} です。
 
-@lilypond[verbatim,quote,relative=2]
-\key g \major
-fis1
-f
-fis
+@lilypond[verbatim,quote,fragment]
+\relative {
+  \key g \major
+  fis''1
+  f
+  fis
+}
 @end lilypond
 
 新たにモードを定義することができます
@@ -1329,14 +1333,14 @@ freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
 1 つの値だけを渡した場合、その譜ポジションで終了するオクターブの範囲@c
 に臨時記号が配置されます。
 
-@lilypond[verbatim, quote,relative=0]
+@lilypond[verbatim, quote,fragment]
 \override Staff.KeySignature.flat-positions = #'((-5 . 5))
 \override Staff.KeyCancellation.flat-positions = #'((-5 . 5))
-\clef bass \key es\major es g bes d
-\clef treble \bar "||" \key es\major es g bes d
+\clef bass \key es \major es g bes d'
+\clef treble \bar "||" \key es \major es' g' bes' d''
 
 \override Staff.KeySignature.sharp-positions = #'(2)
-\bar "||" \key b\major b fis b2
+\bar "||" \key b \major b' fis' b'2
 @end lilypond
 
 @snippets
@@ -1383,18 +1387,20 @@ freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
 
 @notation{オッターバ囲み} は譜をオクターブ単位で移調します:
 
-@lilypond[verbatim,quote,relative=2]
-a2 b
-\ottava #-2
-a2 b
-\ottava #-1
-a2 b
-\ottava #0
-a2 b
-\ottava #1
-a2 b
-\ottava #2
-a2 b
+@lilypond[verbatim,quote]
+\relative a' {
+  a2 b
+  \ottava #-2
+  a2 b
+  \ottava #-1
+  a2 b
+  \ottava #0
+  a2 b
+  \ottava #1
+  a2 b
+  \ottava #2
+  a2 b
+}
 @end lilypond
 
 @snippets
@@ -2800,16 +2806,18 @@ forget = #(define-music-function (music) (ly:music?) #{
 
 符頭を変更することができます:
 
-@lilypond[verbatim,quote,relative=2]
-c4 b
-\override NoteHead.style = #'cross
-c4 b
-\revert NoteHead.style
-a b
-\override NoteHead.style = #'harmonic
-a b
-\revert NoteHead.style
-c4 d e f
+@lilypond[verbatim,quote]
+\relative c'' {
+  c4 b
+  \override NoteHead.style = #'cross
+  c4 b
+  \revert NoteHead.style
+  a b
+  \override NoteHead.style = #'harmonic
+  a b
+  \revert NoteHead.style
+  c4 d e f
+}
 @end lilypond
 
 すべての符頭スタイルを調べるには、@ref{Note head styles} を参照してください。
@@ -2818,21 +2826,25 @@ c4 d e f
 以下の定義済みコマンドは符頭を譜コンテキストとタブ譜コンテキストで変更し、@c
 何らかの音楽的意味を表すために使用することができます:
 
-@lilypond[verbatim,quote,relative=2]
-c4 b
-\xNotesOn
- a b c4 b
-\xNotesOff
-c4 d
+@lilypond[verbatim,quote]
+\relative {
+  c''4 b
+  \xNotesOn
+   a b c4 b
+  \xNotesOff
+  c4 d
+}
 @end lilypond
 
 この定義済みコマンドの音楽関数は、譜コンテキストやタブ譜コンテキストの@c
 和音の内外で使用して、符頭を×の形にすることができます:
 
-@lilypond[verbatim,quote,relative=2]
-c4 b
-\xNote { e f }
-c b < g \xNote c f > b
+@lilypond[verbatim,quote]
+\relative {
+  c''4 b
+  \xNote { e f }
+  c b < g \xNote c f > b
+}
 @end lilypond
 
 @code{\xNote}, @code{\xNotesOn} それに @code{\xNotesOff} の同義語として
@@ -2842,8 +2854,10 @@ c b < g \xNote c f > b
 
 また、和音の中でのみ使用できるダイアモンド形のための短縮記法があります:
 
-@lilypond[verbatim,quote,relative=2]
-<c f\harmonic>2 <d a'\harmonic>4 <c g'\harmonic>
+@lilypond[verbatim,quote]
+\relative c'' {
+  <c f\harmonic>2 <d a'\harmonic>4 <c g'\harmonic> f\harmonic
+}
 @end lilypond
 
 @predefined
@@ -2973,17 +2987,19 @@ c b < g \xNote c f > b
 Funk (Harmonica Sacra)、Walker、それに Aiken (Christian Harmony) スタイルで@c
 使用されます:
 
-@lilypond[verbatim,quote,relative=2]
-\aikenHeads
-c, d e f g2 a b1 c \break
-\sacredHarpHeads
-c,4 d e f g2 a b1 c \break
-\southernHarmonyHeads
-c,4 d e f g2 a b1 c \break
-\funkHeads
-c,4 d e f g2 a b1 c \break
-\walkerHeads
-c,4 d e f g2 a b1 c \break
+@lilypond[verbatim,quote]
+\relative c'' {
+  \aikenHeads
+  c, d e f g2 a b1 c \break
+  \sacredHarpHeads
+  c,4 d e f g2 a b1 c \break
+  \southernHarmonyHeads
+  c,4 d e f g2 a b1 c \break
+  \funkHeads
+  c,4 d e f g2 a b1 c \break
+  \walkerHeads
+  c,4 d e f g2 a b1 c \break
+}
 @end lilypond
 
 @funindex \key
@@ -3004,21 +3020,22 @@ c,4 d e f g2 a b1 c \break
 マイナーで記述している場合、@c
 符頭の形状を決定する音階ステップはメジャーの場合との相対関係になります:
 
-@lilypond[verbatim,quote,relative=2]
-\key a \minor
-\aikenHeads
-a b c d e2 f g1 a \break
-\aikenHeadsMinor
-a,4 b c d e2 f g1 a \break
-\sacredHarpHeadsMinor
-a,2 b c d \break
-\southernHarmonyHeadsMinor
-a2 b c d \break
-\funkHeadsMinor
-a2 b c d \break
-\walkerHeadsMinor
-a2 b c d \break
-
+@lilypond[verbatim,quote]
+\relative c'' {
+  \key a \minor
+  \aikenHeads
+  a b c d e2 f g1 a \break
+  \aikenHeadsMinor
+  a,4 b c d e2 f g1 a \break
+  \sacredHarpHeadsMinor
+  a,2 b c d \break
+  \southernHarmonyHeadsMinor
+  a2 b c d \break
+  \funkHeadsMinor
+  a2 b c d \break
+  \walkerHeadsMinor
+  a2 b c d \break
+}
 @end lilypond
 
 @predefined
@@ -3074,11 +3091,11 @@ a2 b c d \break
 指定されたリズムに従って演奏する必要があります。@c
 このような符頭は以下のようにして作成することができます:
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Voice \with {
   \consists "Pitch_squash_engraver"
-} {
-  e8 e g a a16( bes) a8 g
+} \relative {
+  e''8 e g a a16( bes) a8 g
   \improvisationOn
   e8 ~
   2 ~ 8 f4 f8 ~

@@ -1506,9 +1506,11 @@ similar.
 Para forzar manualmente un salto de línea sobre la línea divisoria,
 utilice la instrucción @code{\break}:
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
-c4 c c c | \break
-c4 c c c |
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  c4 c c c | \break
+  c4 c c c |
+}
 @end lilypond
 
 De forma predeterminada se ignora cualquier @code{\break} en la mitad
@@ -1516,11 +1518,13 @@ de un compás, y se imprime una advertencia.  Para forzar un salto de
 línea en medio de un compás, añada una barra de compás invisible con
 @w{@samp{\bar ""}}:
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
-c4 c c
-\bar "" \break
-c |
-c4 c c c |
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  c4 c c
+  \bar "" \break
+  c |
+  c4 c c c |
+}
 @end lilypond
 
 También se ignora un @code{\break} que se produce en la línea
@@ -1548,10 +1552,12 @@ cuando hay barras de corchea que cruzan la línea divisoria.  Se
 puede cambiar este comportamiento fijando
 @code{\override Beam.breakable = ##t}:
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
-\override Beam.breakable = ##t
-c2. c8[ c | \break
-c8 c] c2. |
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  \override Beam.breakable = ##t
+  c2. c8[ c | \break
+  c8 c] c2. |
+}
 @end lilypond
 
 La instrucción @code{\noBreak}, prohíbe un salto de línea en
@@ -2878,30 +2884,34 @@ compiten por el mismo espacio, el que tiene la prioridad
 @code{outside-staff-priority} más baja se colocará más próximo al
 pentagrama.
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
-c4_"Text"\pp
-r2.
-\once \override TextScript.outside-staff-priority = #1
-c4_"Text"\pp % this time the text will be closer to the staff
-r2.
-% by setting outside-staff-priority to a non-number,
-% we disable the automatic collision avoidance
-\once \override TextScript.outside-staff-priority = ##f
-\once \override DynamicLineSpanner.outside-staff-priority = ##f
-c4_"Text"\pp % now they will collide
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  c4_"Text"\pp
+  r2.
+  \once \override TextScript.outside-staff-priority = #1
+  c4_"Text"\pp % this time the text will be closer to the staff
+  r2.
+  % by setting outside-staff-priority to a non-number,
+  % we disable the automatic collision avoidance
+  \once \override TextScript.outside-staff-priority = ##f
+  \once \override DynamicLineSpanner.outside-staff-priority = ##f
+  c4_"Text"\pp % now they will collide
+}
 @end lilypond
 
 El relleno vertical que rodea a los objetos fuera del pentagrama
 se puede controlar con @code{outside-staff-padding}.
 
-@lilypond[quote,ragged-right,relative=2,verbatim,staffsize=18]
-\once \override TextScript.outside-staff-padding = #0
-a4-"outside-staff-padding = #0"
-\once \override TextScript.outside-staff-padding = #3
-d-"outside-staff-padding = #3"
-c-"default outside-staff-padding"
-b-"default outside-staff-padding"
-R1
+@lilypond[quote,ragged-right,verbatim,staffsize=18]
+\relative {
+  \once \override TextScript.outside-staff-padding = #0
+  a'4-"outside-staff-padding = #0"
+  \once \override TextScript.outside-staff-padding = #3
+  d-"outside-staff-padding = #3"
+  c-"default outside-staff-padding"
+  b-"default outside-staff-padding"
+  R1
+}
 @end lilypond
 
 De forma predeterminada, los objetos fuera del pentagrama se
@@ -2914,11 +2924,13 @@ incrementa el espacio horicontal necesario, y en este caso mueve
 el texto hacia arriba para evitar que quede demasiado cerca de las
 líneas adicionales.
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
-c4^"Word" c c''2
-R1
-\once \override TextScript.outside-staff-horizontal-padding = #1
-c,,4^"Word" c c''2
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  c''4^"Word" c c''2
+  R1
+  \once \override TextScript.outside-staff-horizontal-padding = #1
+  c,,4^"Word" c c''2
+}
 @end lilypond
 
 @seealso
@@ -2960,10 +2972,12 @@ Por ejemplo, la pieza siguiente contiene numerosas blancas, negras y
 corcheas; la corchea va seguida de un ancho de cabeza de blanca (ACB).
 La negra va seguida de 2 ACB, la blanca por 3 ACB, etc.
 
-@lilypond[quote,verbatim,relative=1]
-c2 c4. c8
-c4. c8 c4. c8
-c8 c c4 c c
+@lilypond[quote,verbatim]
+\relative c' {
+  c2 c4. c8
+  c4. c8 c4. c8
+  c8 c c4 c c
+}
 @end lilypond
 
 Normalmente, el valor de @code{spacing-increment} está establecido en
@@ -3023,13 +3037,13 @@ divisorias.  El ejemplo siguiente muestra estas correcciones, una vez
 con los valores predeterminados y otra con correcciones exageradas:
 
 @lilypond[quote,ragged-right]
-{
-  c'4 e''4 e'4 b'4 |
-  b'4 e''4 b'4 e''4 |
+\fixed c' {
+  c4 e'4 e4 b4 |
+  b4 e'4 b4 e'4 |
   \override Staff.NoteSpacing.stem-spacing-correction = #1.5
   \override Staff.StaffSpacing.stem-spacing-correction = #1.5
-  c'4 e''4 e'4 b'4 |
-  b'4 e''4 b'4 e''4 |
+  c4 e'4 e4 b4 |
+  b4 e'4 b4 e'4 |
 }
 @end lilypond
 
@@ -3079,13 +3093,15 @@ En el ejemplo siguiente, el cambio de compás introduce una sección
 nueva, y por ello las semicorcheas se separan automáticamente
 de manera ligeramente más amplia.
 
-@lilypond[relative=1,verbatim,quote]
-\time 2/4
-c4 c8 c
-c8 c c4 c16[ c c8] c4
-\newSpacingSection
-\time 4/16
-c16[ c c8]
+@lilypond[verbatim,quote]
+\relative c' {
+  \time 2/4
+  c4 c8 c
+  c8 c c4 c16[ c c8] c4
+  \newSpacingSection
+  \time 4/16
+  c16[ c c8]
+}
 @end lilypond
 
 La instrucción @code{\newSpacingSection} crea un nuevo objeto
@@ -3098,15 +3114,17 @@ mismo momento musical que la propia instrucción
 toda la música que venga a continuación hasta que las propiedades
 se cambien en una nueva sección de espaciado, por ejemplo:
 
-@lilypond[relative=1,verbatim,quote]
-\time 4/16
-c16[ c c8]
-\newSpacingSection
-\override Score.SpacingSpanner.spacing-increment = #2
-c16[ c c8]
-\newSpacingSection
-\revert Score.SpacingSpanner.spacing-increment
-c16[ c c8]
+@lilypond[verbatim,quote]
+\relative c' {
+  \time 4/16
+  c16[ c c8]
+  \newSpacingSection
+  \override Score.SpacingSpanner.spacing-increment = #2
+  c16[ c c8]
+  \newSpacingSection
+  \revert Score.SpacingSpanner.spacing-increment
+  c16[ c c8]
+}
 @end lilypond
 
 
@@ -3188,9 +3206,10 @@ puede cambiarse al principio de la partitura:
 Cuando se establece @code{strict-note-spacing}, las notas se separan
 sin tener en cuenta las claves, líneas divisorias ni notas de adorno:
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \override Score.SpacingSpanner.strict-note-spacing = ##t
-\new Staff { c8[ c \clef alto c \grace { c16 c } c8 c c]  c32[ c] }
+\new Staff \relative {
+  c''8[ c \clef alto c \grace { c16 c } c8 c c]  c32[ c] }
 @end lilypond
 
 @seealso
@@ -3754,9 +3773,11 @@ repetición y otro sistema sin ellas.  Por ejemplo, las indicaciones
 dinámicas que se @q{salen} de un sistema se pueden acercar al
 pentagrama:
 
-@lilypond[verbatim,quote,relative=1]
-e4 c g\f c
-e4 c g-\tweak X-offset #-2.7 \f c
+@lilypond[verbatim,quote]
+\relative e' {
+  e4 c g\f c
+  e4 c g-\tweak X-offset #-2.7 \f c
+}
 @end lilypond
 
 @item

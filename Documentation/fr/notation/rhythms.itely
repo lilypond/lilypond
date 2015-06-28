@@ -71,21 +71,25 @@ Des durées plus courtes que la quintuple croche -- 1/128 de ronde --
 sont possibles, à condition de les ligaturer.
 
 @c Two 64th notes are needed to obtain beams
-@lilypond[quote,verbatim,relative=2]
-\time 8/1
-c\longa c\breve c1 c2
-c4 c8 c16 c32 c64 c128 c128
+@lilypond[quote,verbatim]
+\relative {
+  \time 8/1
+  c''\longa c\breve c1 c2
+  c4 c8 c16 c32 c64 c128 c128
+}
 @end lilypond
 
 Voici ces mêmes durées sans la fonction de ligature automatique.
 
 @c not strictly "writing rhythms"; more of a "displaying" thing,
 @c but it's ok here.  -gp
-@lilypond[quote,verbatim,relative=2]
-\time 8/1
-\autoBeamOff
-c\longa c\breve c1 c2
-c4 c8 c16 c32 c64 c128 c128
+@lilypond[quote,verbatim]
+\relative {
+  \time 8/1
+  \autoBeamOff
+  c''\longa c\breve c1 c2
+  c4 c8 c16 c32 c64 c128 c128
+}
 @end lilypond
 
 Une note dont la durée est de quatre brèves s'obtient par la commande
@@ -100,18 +104,20 @@ Si la durée d'une note n'est pas précisée, elle est alors assimilée à la
 durée de la note précédente.  La valeur par défaut pour la première note
 est la noire (@code{4}).
 
-@lilypond[quote,verbatim,relative=2]
-a a a2 a a4 a a1 a
+@lilypond[quote,verbatim]
+\relative { a' a a2 a a4 a a1 a }
 @end lilypond
 
 Lorsque une note ou un accord est suivi d'une succession de durées
 individuelles, celles-ci adopteront la ou les dernières hauteurs
 mentionnées.
 
-@lilypond[quote,verbatim,relative=2]
-\time 8/1
-c \longa \breve 1 2
-4 8 16 32 64 128 128
+@lilypond[quote,verbatim]
+\relative {
+  \time 8/1
+  c'' \longa \breve 1 2
+  4 8 16 32 64 128 128
+}
 @end lilypond
 
 @cindex notes pointées
@@ -126,8 +132,8 @@ Pour obtenir des notes pointées, ajoutez simplement un point
 (@code{.}) au chiffre.  Les notes doublement pointées sont créées de
 la même façon.
 
-@lilypond[quote,verbatim,relative=2]
-a4 b c4. b8 a4. b4.. c8.
+@lilypond[quote,verbatim]
+\relative { a'4 b c4. b8 a4. b4.. c8. }
 @end lilypond
 
 Certaines durées ne peuvent s'obtenir à partir de chiffres et de points,
@@ -224,9 +230,11 @@ Le numérateur de cette fraction sera imprimé au-dessus ou au-dessous des
 notes, parfois avec un crochet.  Le n-olet le plus courant est le
 triolet, dans lequel trois notes occupent la durée de deux.
 
-@lilypond[quote,verbatim,relative=2]
-a2 \tuplet 3/2 { b4 4 4 }
-c4 c \tuplet 3/2 { b4 a g }
+@lilypond[quote,verbatim]
+\relative {
+  a'2 \tuplet 3/2 { b4 4 4 }
+  c4 c \tuplet 3/2 { b4 a g }
+}
 @end lilypond
 
 @cindex regroupement de n-olets
@@ -237,8 +245,10 @@ LilyPond vous permet de stipuler la durée de base d'un n-olet juste
 avant l'expression musicale, de telle sorte que les n-olets seront
 formés automatiquement :
 
-@lilypond[quote,verbatim,relative=2]
-g2 r8 \tuplet 3/2 8 { cis16 d e e f g g f e }
+@lilypond[quote,verbatim]
+\relative {
+  g'2 r8 \tuplet 3/2 8 { cis16 d e e f g g f e }
+}
 @end lilypond
 
 @cindex crochet de n-olet, positionnement
@@ -254,11 +264,13 @@ g2 r8 \tuplet 3/2 8 { cis16 d e e f g g f e }
 Des commandes prédéfinies permettent de déroger au positionnement
 automatique du crochet en surplomb ou au-dessous des notes :
 
-@lilypond[quote,verbatim,relative=2]
-\tupletUp \tuplet 3/2 { c8 d e }
-\tupletNeutral \tuplet 3/2 { c8 d e }
-\tupletDown \tuplet 3/2 { f,8 g a }
-\tupletNeutral \tuplet 3/2 { f8 g a }
+@lilypond[quote,verbatim]
+\relative {
+  \tupletUp \tuplet 3/2 { c''8 d e }
+  \tupletNeutral \tuplet 3/2 { c8 d e }
+  \tupletDown \tuplet 3/2 { f,8 g a }
+  \tupletNeutral \tuplet 3/2 { f8 g a }
+}
 @end lilypond
 
 Les n-olets peuvent être imbriqués ; par exemple,
@@ -352,16 +364,18 @@ cette durée échelonnée est considérée comme valeur par défaut.
 Dans l'exemple suivant, les trois premières notes prennent exactement
 deux temps, mais aucun triolet n'est imprimé.
 
-@lilypond[quote,relative=2,verbatim]
-\time 2/4
-% Alter durations to triplets
-a4*2/3 gis a
-% Normal durations
-a4 a
-% Double the duration of chord
-<a d>4*2
-% Duration of quarter, appears like sixteenth
-b16*4 c4
+@lilypond[quote,verbatim]
+\relative {
+  \time 2/4
+  % Alter durations to triplets
+  a'4*2/3 gis a
+  % Normal durations
+  a4 a
+  % Double the duration of chord
+  <a d>4*2
+  % Duration of quarter, appears like sixteenth
+  b16*4 c4
+}
 @end lilypond
 
 La durée d'un silence invisible ou saut de notes (@emph{skip}) peut
@@ -383,17 +397,19 @@ multipliée en interne par la fraction
 @emph{numérateur}/@emph{dénominateur}.  Voici un exemple illustrant la
 manière de comprimer ou étirer de la musique :
 
-@lilypond[quote,relative=2,verbatim]
-\time 2/4
-% Normal durations
-<c a>4 c8 a
-% Scale music by *2/3
-\scaleDurations 2/3 {
-  <c a f>4. c8 a f
-}
-% Scale music by *2
-\scaleDurations 2/1 {
-  <c' a>4 c8 b
+@lilypond[quote,verbatim]
+\relative {
+  \time 2/4
+  % Normal durations
+  <c'' a>4 c8 a
+  % Scale music by *2/3
+  \scaleDurations 2/3 {
+    <c a f>4. c8 a f
+  }
+  % Scale music by *2
+  \scaleDurations 2/1 {
+    <c' a>4 c8 b
+  }
 }
 @end lilypond
 
@@ -442,15 +458,15 @@ vient s'adjoindre à la première note de chacune des paires de
 notes à lier.  Ceci indique que la note en question sera liée à la
 suivante, qui doit être de la même hauteur.
 
-@lilypond[quote,verbatim,relative=2]
-a2~ 4~ 16 r r8
+@lilypond[quote,verbatim]
+{ a'2~ 4~ 16 r r8 }
 @end lilypond
 
 Les liaisons de tenue peuvent interpréter la « dernière hauteur
 explicite » d'une succession de durées :
 
-@lilypond[quote,verbatim,relative=2]
-a2~ 4~ 16 r r8
+@lilypond[quote,verbatim]
+{ a'2~ 4~ 16 r r8 }
 @end lilypond
 
 Les liaisons de tenue sont utilisées soit lorsque la note dépasse de la
@@ -498,13 +514,16 @@ accords.
 Lorsqu'une mesure @qq{de seconde fois} après une reprise commence sur
 une note liée, la liaison doit être répétée, comme ici :
 
-@lilypond[quote,relative=2,verbatim]
-\repeat volta 2 { c g <c e>2~ }
-\alternative {
-  % First alternative: following note is tied normally
-  { <c e>2. r4 }
-  % Second alternative: following note has a repeated tie
-  { <c e>2\repeatTie d4 c } }
+@lilypond[quote,verbatim]
+\relative {
+  \repeat volta 2 { c'' g <c e>2~ }
+  \alternative {
+    % First alternative: following note is tied normally
+    { <c e>2. r4 }
+    % Second alternative: following note has a repeated tie
+    { <c e>2\repeatTie d4 c }
+  }
+}
 @end lilypond
 
 @cindex laissez vibrer
@@ -549,28 +568,32 @@ amples détails, @ref{Direction et positionnement}.
 Les liaisons de prolongation peuvent s'imprimer sous la forme de ligne
 continue, discontinue ou pointillée.
 
-@lilypond[quote, verbatim, relative=1]
-\tieDotted
-c2~ 2
-\tieDashed
-c2~ 2
-\tieHalfDashed
-c2~ 2
-\tieHalfSolid
-c2~ 2
-\tieSolid
-c2~ 2
+@lilypond[quote, verbatim]
+\relative c' {
+  \tieDotted
+  c2~ 2
+  \tieDashed
+  c2~ 2
+  \tieHalfDashed
+  c2~ 2
+  \tieHalfSolid
+  c2~ 2
+  \tieSolid
+  c2~ 2
+}
 @end lilypond
 
 Il est même possible d'en personnaliser l'allure :
 
-@lilypond[quote, verbatim, relative=1]
-\tieDashPattern #0.3 #0.75
-c2~ 2
-\tieDashPattern #0.7 #1.5
-c2~ 2
-\tieSolid
-c2~ 2
+@lilypond[quote, verbatim]
+\relative c' {
+  \tieDashPattern #0.3 #0.75
+  c2~ 2
+  \tieDashPattern #0.7 #1.5
+  c2~ 2
+  \tieSolid
+  c2~ 2
+}
 @end lilypond
 
 Que ce soit pour une tenue ou un phrasé, le motif d'une ligne
@@ -582,16 +605,18 @@ Dans le cas où une liaison est recouverte par d'autres éléments de la
 portée, une adaptation des propriétés @var{whiteout-box} et @var{layer}
 permet d'obtenir une meilleure lisibilité.
 
-@lilypond[verbatim,quote,ragged-right,relative=2]
-\override Tie.layer = #-2
-\override Staff.TimeSignature.layer = #-1
-\override Staff.KeySignature.layer = #-1
-\override Staff.TimeSignature.whiteout-box = ##t
-\override Staff.KeySignature.whiteout-box = ##t
-b2 b~
-\time 3/4
-\key a \major
-b r4
+@lilypond[verbatim,quote,ragged-right]
+\relative {
+  \override Tie.layer = #-2
+  \override Staff.TimeSignature.layer = #-1
+  \override Staff.KeySignature.layer = #-1
+  \override Staff.TimeSignature.whiteout = ##t
+  \override Staff.KeySignature.whiteout = ##t
+  b'2 b~
+  \time 3/4
+  \key a \major
+  b r4
+}
 @end lilypond
 
 @predefined
@@ -679,7 +704,7 @@ s'indiquent à l'aide de commandes prédéfinies :
 
 @c \time 16/1 is used to avoid spurious bar lines
 @c and long tracts of empty measures
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 \new Staff {
   % These two lines are just to prettify this example
   \time 16/1
@@ -712,8 +737,8 @@ une note suivie de @code{\rest}.  Un silence de même durée sera placé
 en place de musique polyphonique, puisque le formateur automatique de
 collision des silences laissera ces silences tranquilles.
 
-@lilypond[quote,verbatim,relative=2]
-a4\rest d4\rest
+@lilypond[quote,verbatim]
+\relative { a'4\rest d4\rest }
 @end lilypond
 
 @snippets
@@ -759,9 +784,11 @@ Un silence invisible -- que l'on pourrait appeler un @qq{saut} --
 peut être entré comme une note avec le nom de note @code{s} ou avec
 @code{\skip @var{durée}} :
 
-@lilypond[verbatim,quote,relative=2]
-c4 c s c
-s2 c
+@lilypond[verbatim,quote]
+\relative c'' {
+  c4 c s c |
+  s2 c |
+}
 @end lilypond
 
 @cindex paroles, blanc
@@ -775,10 +802,10 @@ considération dès lors que les paroles suivent le rythme des notes de la
 mélodie à laquelle vous les aurez associées à l'aide des commandes
 @code{\addlyrics} ou @code{\lyricsto}.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
   {
-    a2 \skip2 a2 a2
+    a'2 \skip2 a'2 a'2
   }
   \new Lyrics {
     \lyricmode {
@@ -808,16 +835,16 @@ La commande de saut génère simplement une case musicale vide.  Le code
 de saut @code{s} crée tout de même les contextes @code{Staff} et
 @code{Voice} lorsque nécessaire, à l'instar des notes ou des silences :
 
-@lilypond[quote,verbatim,relative=2]
-s1 s s
+@lilypond[quote,verbatim]
+{ s1 s s }
 @end lilypond
 
 Un @code{\skip} ne fait que sauter du temps musical ; il ne produit
 rien du tout, pas même un symbole transparent.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 % This is valid input, but does nothing
-\skip 1 \skip1 \skip 1
+{ \skip 1 \skip1 \skip 1 }
 @end lilypond
 
 @seealso
@@ -852,13 +879,13 @@ Référence des propriétés internes :
 Un silence valant une ou plusieurs mesures entières s'entre avec un
 @code{R} majuscule.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 % Rest measures contracted to single measure
 \compressMMRests {
   R1*4
   R1*24
   R1*4
-  b2^"Tutti" b4 a4
+  b'2^"Tutti" b'4 a'4
 }
 @end lilypond
 
@@ -867,7 +894,7 @@ doit donc correspondre à la longueur de la mesure telle que définie par
 la métrique.  C'est la raison pour laquelle on utilisera aussi des
 points d'augmentation ou des fractions :
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 \compressMMRests {
   \time 2/4
   R1 | R2 |
@@ -884,7 +911,7 @@ Un @code{R} qui s'étend sur une seule mesure s'imprime tantôt comme
 une pause, tantôt comme une brève -- ou @qq{bâton de pause} -- qui
 sera centrée sur la mesure quelle qu'en soit la métrique :
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \time 4/4
 R1 |
 \time 6/4
@@ -900,7 +927,7 @@ Par défaut, un silence multimesure sera répété sur autant de mesures
 que nécessaire.  Il peut aussi n'être imprimé qu'une seule fois,
 surplombé du nombre de mesures vides -- ou @qq{à compter} :
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 % Default behavior
 \time 3/4 r2. | R2.*2 |
 \time 2/4 R2 |
@@ -932,7 +959,7 @@ utilisant la syntaxe @w{@var{note}-@code{markup}} (cf.
 @ref{Mise en forme du texte}).  La variable @code{\fermataMarkup} quant
 à elle permet d'ajouter un point d'orgue :
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 \compressMMRests {
   \time 3/4
   R2.*10^\markup { \italic "ad lib." }
@@ -946,7 +973,7 @@ doivent s'adresser à l'objet concerné, comme vous pouvez le constater
 dans l'exemple suivant.}
 
 @c KEEP LY
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 % Ceci échouera : il y a erreur quant à l'objet spécifié
 \override TextScript.padding = #5
 R1^"pas bon !"
@@ -1060,9 +1087,9 @@ Le chiffre de mesure indique le mètre d'une pièce : une alternance
 régulière de temps forts et de temps faibles.  Il est indiqué par une
 fraction au début de la portée :
 
-@lilypond[quote,verbatim,relative=2]
-\time 2/4 c2
-\time 3/4 c2.
+@lilypond[quote,verbatim,fragment]
+\time 2/4 c''2
+\time 3/4 c''2.
 @end lilypond
 
 Les changements de métrique en cours de mesure sont abordés dans
@@ -1076,14 +1103,16 @@ ligne, une métrique @qq{de précaution} sera imprimée avant de passer à
 la ligne suivante.  Ce comportement par défaut peut être modifié, comme
 indiqué au chapitre @ref{Visibilité des objets}.
 
-@lilypond[quote,verbatim,relative=2]
-\time 2/4
-c2 c
-\break
-c c
-\break
-\time 4/4
-c c c c
+@lilypond[quote,verbatim]
+\relative c'' {
+  \time 2/4
+  c2 c
+  \break
+  c c
+  \break
+  \time 4/4
+  c c c c
+}
 @end lilypond
 
 @cindex métrique, styles
@@ -1097,18 +1126,20 @@ c c c c
 Le symbole de métrique utilisé pour les mesures à 2/2 et 4/4 peut être
 changé pour un style numérique :
 
-@lilypond[quote,verbatim,relative=2]
-% Default style
-\time 4/4 c1
-\time 2/2 c1
-% Change to numeric style
-\numericTimeSignature
-\time 4/4 c1
-\time 2/2 c1
-% Revert to default style
-\defaultTimeSignature
-\time 4/4 c1
-\time 2/2 c1
+@lilypond[quote,verbatim]
+\relative c'' {
+  % Default style
+  \time 4/4 c1
+  \time 2/2 c1
+  % Change to numeric style
+  \numericTimeSignature
+  \time 4/4 c1
+  \time 2/2 c1
+  % Revert to default style
+  \defaultTimeSignature
+  \time 4/4 c1
+  \time 2/2 c1
+}
 @end lilypond
 
 Les métriques anciennes font l'objet d'un
@@ -1300,52 +1331,64 @@ Références des propriétés internes :
 
 Une indication métronomique s'insère tout simplement comme ceci :
 
-@lilypond[verbatim,quote,relative=1]
-\tempo 4 = 120
-c2 d
-e4. d8 c2
+@lilypond[verbatim,quote]
+\relative {
+  \tempo 4 = 120
+  c'2 d
+  e4. d8 c2
+}
 @end lilypond
 
 Lorsque le réglage précis du métronome est laissé à l'appréciation de
 l'exécutant, vous pouvez cependant lui fournir une plage :
 
-@lilypond[verbatim,quote,relative=1]
-\tempo 4 = 40 - 46
-c4. e8 a4 g
-b,2 d4 r
+@lilypond[verbatim,quote]
+\relative {
+  \tempo 4 = 40 - 46
+  c'4. e8 a4 g
+  b,2 d4 r
+}
 @end lilypond
 
 Vous pouvez préférer une indication textuelle :
 
-@lilypond[verbatim,quote,relative=2]
-\tempo "Allegretto"
-c4 e d c
-b4. a16 b c4 r4
+@lilypond[verbatim,quote]
+\relative {
+  \tempo "Allegretto"
+    c''4 e d c
+    b4. a16 b c4 r4
+}
 @end lilypond
 
 Lorsque vous combinez des indications métronomiques sous forme textuelle
 et numérique, l'indication numérique sera placée entre parenthèses :
 
-@lilypond[verbatim,quote,relative=2]
-\tempo "Allegro" 4 = 160
-g4 c d e
-d4 b g2
+@lilypond[verbatim,quote]
+\relative {
+  \tempo "Allegro" 4 = 160
+  g'4 c d e
+  d4 b g2
+}
 @end lilypond
 
 En matière d'indication textuelle, vous pouvez utiliser n'importe quel
 objet de type @emph{markup}, comme ici :
 
-@lilypond[verbatim,quote,relative=2]
-\tempo \markup { \italic Faster } 4 = 132
-a8-. r8 b-. r gis-. r a-. r
+@lilypond[verbatim,quote]
+\relative {
+  \tempo \markup { \italic Faster } 4 = 132
+  a'8-. r8 b-. r gis-. r a-. r
+}
 @end lilypond
 
 Mentionner une indication textuelle vide vous permet de mettre entre
 parenthèses l'indication numérique :
 
-@lilypond[verbatim,quote,relative=2]
-\tempo "" 8 = 96
-d4 g e c
+@lilypond[verbatim,quote]
+\relative {
+  \tempo "" 8 = 96
+  d''4 g e c
+}
 @end lilypond
 
 @funindex \markLengthOn
@@ -1362,7 +1405,7 @@ indications ne se chevauchent ; l'instruction
 ignore les indications de tempo dans les calculs d'espacement
 horizontal.
 
-@lilypond[verbatim,quote,relative=0]
+@lilypond[verbatim,quote]
 \compressMMRests {
   \markLengthOn
   \tempo "Molto vivace"
@@ -1434,42 +1477,48 @@ Lorsque @code{\partial} est utilisé en début de pièce,
 @code{@var{durée}} égale la valeur rythmique précédant la première
 mesure.
 
-@lilypond[quote,verbatim,relative=1]
-\time 3/4
-\partial 4.
-r4 e8 | a4 c8 b c4 |
+@lilypond[quote,verbatim]
+\relative {
+  \time 3/4
+  \partial 4.
+  r4 e'8 | a4 c8 b c4 |
+}
 @end lilypond
 
 Lorsque @code{\partial} est utilisé après le début du morceau,
 @code{@var{durée}} égale la valeur rythmique @strong{restant} dans la
 mesure en cours.  Ceci ne crée pas de nouveau numéro de mesure.
 
-@lilypond[quote,verbatim,relative=1]
-\set Score.barNumberVisibility = #all-bar-numbers-visible
-\override Score.BarNumber.break-visibility =
-          #end-of-line-invisible
-\time 9/8
-d'4.~ 4 d8 d( c) b | c4.~ 4. \bar "||"
-\time 12/8
-\partial 4.
-c8( d) e | f2.~ 4 f8 a,( c) f |
+@lilypond[quote,verbatim]
+\relative {
+  \set Score.barNumberVisibility = #all-bar-numbers-visible
+  \override Score.BarNumber.break-visibility =
+	    #end-of-line-invisible
+  \time 9/8
+  d''4.~ 4 d8 d( c) b | c4.~ 4. \bar "||"
+  \time 12/8
+  \partial 4.
+  c8( d) e | f2.~ 4 f8 a,( c) f |
+}
 @end lilypond
 
 La commande @code{\partial} est @b{obligatoire} lorsque la métrique
 change en cours de mesure, mais peut aussi s'utiliser isolément.
 
-@lilypond[quote,verbatim,relative=1]
-\set Score.barNumberVisibility = #all-bar-numbers-visible
-\override Score.BarNumber.break-visibility =
-          #end-of-line-invisible
-\time 6/8
-\partial 8
-e8 | a4 c8 b[ c b] |
-\partial 4
-r8 e,8 | a4 \bar "||"
-\partial 4
-r8 e8 | a4
-c8 b[ c b] |
+@lilypond[quote,verbatim]
+\relative {
+  \set Score.barNumberVisibility = #all-bar-numbers-visible
+  \override Score.BarNumber.break-visibility =
+	    #end-of-line-invisible
+  \time 6/8
+  \partial 8
+  e'8 | a4 c8 b[ c b] |
+  \partial 4
+  r8 e,8 | a4 \bar "||"
+  \partial 4
+  r8 e8 | a4
+  c8 b[ c b] |
+}
 @end lilypond
 
 La commande @code{\partial} détermine la propriété
@@ -1517,26 +1566,30 @@ dans le cas d'une musique non mesurée -- les cadences par exemple -- et
 peut être désactivé à l'aide de la commande @code{\cadenzaOn}, puis
 réactivé par un @code{\cadenzaOff} à l'endroit approprié.
 
-@lilypond[verbatim,relative=2,quote]
-c4 d e d
-\cadenzaOn
-c4 c d8[ d d] f4 g4.
-\cadenzaOff
-\bar "|"
-d4 e d c
+@lilypond[verbatim,quote]
+\relative c'' {
+  c4 d e d
+  \cadenzaOn
+  c4 c d8[ d d] f4 g4.
+  \cadenzaOff
+  \bar "|"
+  d4 e d c
+}
 @end lilypond
 
 La numérotation reprend dès la fin d'une cadence.
 
-@lilypond[verbatim,relative=2,quote]
-% Show all bar numbers
-\override Score.BarNumber.break-visibility = #all-visible
-c4 d e d
-\cadenzaOn
-c4 c d8[ d d] f4 g4.
-\cadenzaOff
-\bar "|"
-d4 e d c
+@lilypond[verbatim,quote]
+\relative c'' {
+  % Show all bar numbers
+  \override Score.BarNumber.break-visibility = #all-visible
+  c4 d e d
+  \cadenzaOn
+  c4 c d8[ d d] f4 g4.
+  \cadenzaOff
+  \bar "|"
+  d4 e d c
+}
 @end lilypond
 
 Une cadence représente un fragment détaché de la notion de mesure, en
@@ -1549,15 +1602,17 @@ sera valide même après une barre insérée grâce à une instruction
 @code{\bar}.  Toute altération ultérieure devra donc être rappelée
 manuellement -- voir @ref{Altérations}.
 
-@lilypond[verbatim,relative=2,quote]
-c4 d e d
-\cadenzaOn
-cis4 d cis d
-\bar "|"
-% First cis is printed without alteration even if it's after a \bar
-cis4 d cis! d
-\cadenzaOff
-\bar "|"
+@lilypond[verbatim,quote]
+\relative c'' {
+  c4 d e d
+  \cadenzaOn
+  cis4 d cis d
+  \bar "|"
+  % First cis is printed without alteration even if it's after a \bar
+  cis4 d cis! d
+  \cadenzaOff
+  \bar "|"
+}
 @end lilypond
 
 L'instruction @code{\cadenzaOn} désactive les ligatures automatiques ;
@@ -1565,14 +1620,16 @@ elles seront réactivées après un @code{\cadenzaOff}.  Toutes les
 ligatures devront donc être indiquées de manière explicite tout au long
 de la cadence -- voir @ref{Barres de ligature manuelles}).
 
-@lilypond[verbatim,relative=2,quote]
-\repeat unfold 8 { c8 }
-\cadenzaOn
-cis8 c c c c
-\bar"|"
-c8 c c
-\cadenzaOff
-\repeat unfold 8 { c8 }
+@lilypond[verbatim,quote]
+\relative {
+  \repeat unfold 8 { c''8 }
+  \cadenzaOn
+  cis8 c c c c
+  \bar"|"
+  c8 c c
+  \cadenzaOff
+  \repeat unfold 8 { c8 }
+}
 @end lilypond
 
 Ces commandes prédéfinies affecteront toutes les portées de la
@@ -1825,15 +1882,16 @@ alors remplacer le @code{Rest_engraver}.  Dans l'exemple suivant, les
 notes ou silences qui dépassent de la mesure sont divisés et au besoin
 liés.
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,verbatim]
 \new Voice \with {
   \remove "Note_heads_engraver"
   \consists "Completion_heads_engraver"
   \remove "Rest_engraver"
   \consists "Completion_rest_engraver"
 }
-
-{ c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 r1*2 }
+\relative {
+  c'2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 r1*2
+}
 @end lilypond
 
 Ces graveurs divisent toutes les notes et silences qui débordent de la
@@ -1845,12 +1903,12 @@ prolongation montrent exactement la durée des décalages de mesure.
 La propriété @code{completionUnit} détermine la durée de référence pour
 diviser les notes.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 \new Voice \with {
   \remove "Note_heads_engraver"
   \consists "Completion_heads_engraver"
-} {
-  \time 9/8 g\breve. d4. \bar "||"
+} \relative {
+  \time 9/8 g\breve. d''4. \bar "||"
   \set completionUnit = #(ly:make-moment 3 8)
   g\breve. d4.
 }
@@ -1859,13 +1917,13 @@ diviser les notes.
 Ces graveurs découperont les notes de durée altérée, telles celles d'un
 triolet, en notes ayant le même facteur d'échelle que les otes saisies.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 \new Voice \with {
   \remove "Note_heads_engraver"
   \consists "Completion_heads_engraver"
-} {
+} \relative {
   \time 2/4 r4
-  \tuplet 3/2 {g4 a b}
+  \tuplet 3/2 {g'4 a b}
   \scaleDurations 2/3 {g a b}
   g4*2/3 a b
   \tuplet 3/2 {g4 a b}
@@ -1911,12 +1969,12 @@ Au moyen d'une portée rythmique -- @emph{rhythmic staff} en anglais --
 on peut montrer seulement le rythme d'une mélodie : toutes les notes
 sont ramenées à la même hauteur, sur une portée d'une seule ligne.
 
-@lilypond[quote,relative=1,verbatim]
+@lilypond[quote,verbatim]
 <<
   \new RhythmicStaff {
-    \new Voice = "myRhythm" {
+    \new Voice = "myRhythm" \relative {
       \time 4/4
-      c4 e8 f g2
+      c'4 e8 f g2
       r4 g g f
       g1
     }
@@ -2009,9 +2067,11 @@ d'imprimer les ligatures.
 @funindex \autoBeamOff
 @funindex autoBeamOff
 
-@lilypond[quote,verbatim,relative=2]
-\time 2/4 c8 c c c
-\time 6/8 c8 c c c8. c16 c8
+@lilypond[quote,verbatim]
+\relative c'' {
+  \time 2/4 c8 c c c
+  \time 6/8 c8 c c c8. c16 c8
+}
 @end lilypond
 
 Lorsque ce comportement automatisé n'est pas satisfaisant, on peut
@@ -2024,12 +2084,14 @@ Lorsque les ligatures automatiques ne sont pas nécessaires, il suffit de
 désactiver la fonctionnalité par un @code{\autoBeamOff} -- réactivation
 par @code{\autoBeamOn} :
 
-@lilypond[quote,relative=1,verbatim]
-c4 c8 c8. c16 c8. c16 c8
-\autoBeamOff
-c4 c8 c8. c16 c8.
-\autoBeamOn
-c16 c8
+@lilypond[quote,verbatim]
+\relative c' {
+  c4 c8 c8. c16 c8. c16 c8
+  \autoBeamOff
+  c4 c8 c8. c16 c8.
+  \autoBeamOn
+  c16 c8
+}
 @end lilypond
 
 @cindex mélisme et ligature
@@ -2162,27 +2224,31 @@ qui entame un fragment ayant une nouvelle métrique, non au préalable.
 Les nouvelles valeurs affectées à une métrique particulière resteront en
 vigueur et ré-instaurées si cette métrique réapparaît plus tard.
 
-@lilypond[quote,relative=2,verbatim]
-\time 5/16
-c16^"default" c c c c |
-% beamExceptions are unlikely to be defined for 5/16 time,
-% but let's disable them anyway to be sure
-\set Timing.beamExceptions = #'()
-\set Timing.beatStructure = #'(2 3)
-c16^"(2+3)" c c c c |
-\set Timing.beatStructure = #'(3 2)
-c16^"(3+2)" c c c c |
+@lilypond[quote,verbatim]
+\relative c'' {
+  \time 5/16
+  c16^"default" c c c c |
+  % beamExceptions are unlikely to be defined for 5/16 time,
+  % but let's disable them anyway to be sure
+  \set Timing.beamExceptions = #'()
+  \set Timing.beatStructure = #'(2 3)
+  c16^"(2+3)" c c c c |
+  \set Timing.beatStructure = #'(3 2)
+  c16^"(3+2)" c c c c |
+}
 @end lilypond
 
-@lilypond[quote,relative=2,verbatim]
-\time 4/4
-a8^"default" a a a a a a a
-% Disable beamExceptions because they are definitely
-% defined for 4/4 time
-\set Timing.beamExceptions = #'()
-\set Timing.baseMoment = #(ly:make-moment 1/4)
-\set Timing.beatStructure = #'(1 1 1 1)
-a8^"changed" a a a a a a a
+@lilypond[quote,verbatim]
+\relative {
+  \time 4/4
+  a'8^"default" a a a a a a a
+  % Disable beamExceptions because they are definitely
+  % defined for 4/4 time
+  \set Timing.beamExceptions = #'()
+  \set Timing.baseMoment = #(ly:make-moment 1/4)
+  \set Timing.beatStructure = #'(1 1 1 1)
+  a8^"changed" a a a a a a a
+}
 @end lilypond
 
 Les effets de règles de ligature peuvent être restreints à un contexte
@@ -2190,7 +2256,7 @@ particulier.  En l'absence de règle particulière déterminée dans un
 contexte de niveau inférieur, les règles définies au niveau directement
 supérieur s'appliqueront.
 
-@lilypond[quote, verbatim,relative=1]
+@lilypond[quote, verbatim]
 \new Staff {
   \time 7/8
   % No need to disable beamExceptions
@@ -2217,18 +2283,18 @@ Lorsque plusieurs voix cohabitent sur une même portée et que les règles
 de ligature doivent s'appliquer sans distinction, il faut spécifier que
 ces règles affectent le contexte @code{Staff} :
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \time 7/8
 % rhythm 3-1-1-2
 % Change applied to Voice by default --  does not work correctly
 % Because of autogenerated voices, all beating will
 % be at baseMoment (1 . 8)
 \set beatStructure = #'(3 1 1 2)
-<< {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
+<< \relative {a'8 a a a16 a a a a8 a} \\ \relative {f'4. f8 f f f} >>
 
 % Works correctly with context Staff specified
 \set Staff.beatStructure = #'(3 1 1 2)
-<< {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
+<< \relative {a'8 a a a16 a a a a8 a} \\ \relative {f'4. f8 f f f} >>
 @end lilypond
 
 Vous pouvez ajuster la valeur de @code{baseMoment} afin d'obtenir des
@@ -2236,13 +2302,13 @@ ligatures selon vos besoin.  Notez cependant que la valeur de
 @code{beatStructure} devra être en corrélation avec cette nouvelle
 valeur de @code{baseMoment}.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \time 5/8
 % No need to disable beamExceptions
 % as they are not defined for 5/8 time
 \set Timing.baseMoment = #(ly:make-moment 1/16)
 \set Timing.beatStructure = #'(7 3)
-\repeat unfold 10 { a16 }
+\repeat unfold 10 { a'16 }
 @end lilypond
 
 @code{baseMoment} constitue un @strong{moment}, autrement dit une unité
@@ -2270,13 +2336,15 @@ fichier @file{scm/time-signature-settings.scm}.
 Les règles spécifiques autres que celles concernant la terminaison des
 ligatures sont gérées par la propriété  @code{beamExceptions}.
 
-@lilypond[quote,relative=2,verbatim]
-\time 3/16
-\set Timing.beatStructure = #'(2 1)
-\set Timing.beamExceptions =
-  \beamExceptions { 32[ 32] 32[ 32] 32[ 32] }
-c16 c c |
-\repeat unfold 6 { c32 } |
+@lilypond[quote,verbatim]
+\relative c'' {
+  \time 3/16
+  \set Timing.beatStructure = #'(2 1)
+  \set Timing.beamExceptions =
+    \beamExceptions { 32[ 32] 32[ 32] 32[ 32] }
+  c16 c c |
+  \repeat unfold 6 { c32 } |
+}
 @end lilypond
 
 @warning{La propriété @code{beamExceptions} doit répertorier absolument
@@ -2291,15 +2359,17 @@ Lorsqu'intervient un changement de métrique, les valeurs par défaut de
 revenir aux règles de ligature par défaut d'un contexte @code{Timing},
 de spécifier à nouveau la métrique.
 
-@lilypond[quote,verbatim,relative=2]
-\time 6/8
-\repeat unfold 6 { a8 }
-% group (4 + 2)
-\set Timing.beatStructure = #'(4 2)
-\repeat unfold 6 { a8 }
-% go back to default behavior
-\time 6/8
-\repeat unfold 6 { a8 }
+@lilypond[quote,verbatim]
+\relative a' {
+  \time 6/8
+  \repeat unfold 6 { a8 }
+  % group (4 + 2)
+  \set Timing.beatStructure = #'(4 2)
+  \repeat unfold 6 { a8 }
+  % go back to default behavior
+  \time 6/8
+  \repeat unfold 6 { a8 }
+}
 @end lilypond
 
 Les règles de ligature automatique par défaut sont répertoriées, par
@@ -2314,28 +2384,28 @@ pas réinitialiser @code{beamExceptions} lors d'un aménagement de la
 pulsation -- l'élément @code{beatStructure} -- empêchera l'application
 de cette dérogation.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \time 4/4
 \set Timing.baseMoment = #(ly:make-moment 1/8)
 \set Timing.beatStructure = #'(3 3 2)
 % This won't beam (3 3 2) because of beamExceptions
-\repeat unfold 8 {c8} |
+\repeat unfold 8 {c''8} |
 % This will beam (3 3 2) because we clear beamExceptions
 \set Timing.beamExceptions = #'()
-\repeat unfold 8 {c8}
+\repeat unfold 8 {c''8}
 @end lilypond
 
 De la même manière, les croches d'une mesure à 3/4 sont ligaturées sur
 la mesure par défaut.  Ligaturer sur le temps requiert un appel à
 @code{beamExceptions}.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \time 3/4
 % by default we beam in (6) due to beamExceptions
-\repeat unfold 6 {a8} |
+\repeat unfold 6 {a'8} |
 % This will beam (1 1 1) due to default baseMoment and beatStructure
 \set Timing.beamExceptions = #'()
-\repeat unfold 6 {a8}
+\repeat unfold 6 {a'8}
 @end lilypond
 
 Certaines partitions des périodes romantique ou classique font
@@ -2347,11 +2417,13 @@ d'un tel comportement se contrôle à l'aide de la propriété de contexte
 @code{beamHalfMeasure}, qui d'ailleurs ne sera effective que lorsque le
 numérateur de la métrique est un 3.
 
-@lilypond[quote,verbatim,relative=2]
-\time 3/4
-r4. a8 a a |
-\set Timing.beamHalfMeasure = ##f
-r4. a8 a a |
+@lilypond[quote,verbatim]
+\relative a' {
+  \time 3/4
+  r4. a8 a a |
+  \set Timing.beamHalfMeasure = ##f
+  r4. a8 a a |
+}
 @end lilypond
 
 
@@ -2451,17 +2523,17 @@ les aménagements précédemment apportés aux règles de ligature.  Il est
 donc préférable, pour éviter tout désagrément, de ne spécifier la
 métrique que dans une seule portée.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
   \new Staff {
     \time 3/4
     \set Timing.baseMoment = #(ly:make-moment 1/8)
     \set Timing.beatStructure = #'(1 5)
     \set Timing.beamExceptions = #'()
-    \repeat unfold 6 { a8 }
+    \repeat unfold 6 { a'8 }
   }
   \new Staff {
-    \repeat unfold 6 { a8 }
+    \repeat unfold 6 { a'8 }
   }
 >>
 @end lilypond
@@ -2471,7 +2543,7 @@ particulière de telle sorte que ces règles que vous aurez définies
 soient toujours prises en compte.  La modification des règles de
 ligature automatiques est abordée au chapitre @ref{Métrique}.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
   \new Staff {
     \overrideTimeSignatureSettings
@@ -2480,11 +2552,11 @@ ligature automatiques est abordée au chapitre @ref{Métrique}.
       #'(1 5)           % beatStructure
       #'()		% beamExceptions
     \time 3/4
-    \repeat unfold 6 { a8 }
+    \repeat unfold 6 { a'8 }
   }
   \new Staff {
     \time 3/4
-    \repeat unfold 6 { a8 }
+    \repeat unfold 6 { a'8 }
   }
 >>
 @end lilypond
@@ -2517,8 +2589,8 @@ r4 r8[ g' a r] r8 g[ | a] r
 Le positionnement des ligature manuelles se détermine comme pour toute
 indication attachée à une note :
 
-@lilypond[quote,relative=2,verbatim]
-c8^[ d e] c,_[ d e f g]
+@lilypond[quote,verbatim]
+\relative { c''8^[ d e] c,_[ d e f g] }
 @end lilypond
 
 @funindex \noBeam
@@ -2527,21 +2599,25 @@ c8^[ d e] c,_[ d e f g]
 Le fait d'affubler une note particulière d'un @code{\noBeam} aura pour
 effet de l'empêcher d'être ligaturée :
 
-@lilypond[quote,verbatim,relative=2]
-\time 2/4
-c8 c\noBeam c c
+@lilypond[quote,verbatim]
+\relative {
+  \time 2/4
+  c''8 c\noBeam c c
+}
 @end lilypond
 
 Notes d'ornement et normales font l'objet d'un traitement distinct.  Il
 est dont possible de ligaturer ou non des notes d'ornement sans gêner ce
 qui est en place au niveau de la notation normale.
 
-@lilypond[quote,verbatim,relative=2]
-c4 d8[
-\grace { e32 d c d }
-e8] e[ e
-\grace { f16 }
-e8 e]
+@lilypond[quote,verbatim]
+\relative {
+  c''4 d8[
+  \grace { e32 d c d }
+  e8] e[ e
+  \grace { f16 }
+  e8 e]
+}
 @end lilypond
 
 @funindex stemLeftBeamCount
@@ -2557,14 +2633,16 @@ Dans l'exemple qui suit, le dernier @code{fa} n'a de ligature
 supplémentaire que sur sa gauche ; autrement dit, c'est la ligature
 à la croche qui est importante.
 
-@lilypond[quote,relative=2,verbatim]
-a8[ r16 f g a]
-a8[ r16
-\set stemLeftBeamCount = #2
-\set stemRightBeamCount = #1
-f16
-\set stemLeftBeamCount = #1
-g16 a]
+@lilypond[quote,verbatim]
+\relative a' {
+  a8[ r16 f g a]
+  a8[ r16
+  \set stemLeftBeamCount = #2
+  \set stemRightBeamCount = #1
+  f16
+  \set stemLeftBeamCount = #1
+  g16 a]
+}
 @end lilypond
 
 @predefined
@@ -2626,16 +2704,18 @@ la dernière et celles qui les séparent s'allongent peu à peu.  Les
 quatre triples croches qui suivent vont s'accélérant, alors que les
 quatre dernières gardent un tempo régulier.
 
-@lilypond[relative=1,verbatim,quote]
-\override Beam.grow-direction = #LEFT
-\featherDurations #(ly:make-moment 2/1)
-{ c16[ c c c c c c c] }
-\override Beam.grow-direction = #RIGHT
-\featherDurations #(ly:make-moment 2/3)
-{ c32[ d e f] }
-% revert to non-feathered beams
-\override Beam.grow-direction = #'()
-{ g32[ a b c] }
+@lilypond[verbatim,quote]
+\relative c' {
+  \override Beam.grow-direction = #LEFT
+  \featherDurations #(ly:make-moment 2/1)
+  { c16[ c c c c c c c] }
+  \override Beam.grow-direction = #RIGHT
+  \featherDurations #(ly:make-moment 2/3)
+  { c32[ d e f] }
+  % revert to non-feathered beams
+  \override Beam.grow-direction = #'()
+  { g32[ a b c] }
+}
 @end lilypond
 
 @noindent
@@ -2688,8 +2768,8 @@ Il est possible de forcer l'impression d'une barre de mesure spéciale,
 avec la commande @code{\bar} -- c'est d'ailleurs l'habitude en fin de
 morceau, où l'on voit une double barre :
 
-@lilypond[quote,relative=1,verbatim]
-e4 d c2 \bar "|."
+@lilypond[quote,verbatim]
+\relative { e'4 d c2 \bar "|." }
 @end lilypond
 
 Rien ne s'oppose à ce que la dernière note d'une mesure ne s'arrête
@@ -2738,46 +2818,52 @@ une barre normale, seul l'effet visuel en sera modifié.
 Vous disposez de deux types de barres simples et de cinq différentes
 doubles barres :
 
-@lilypond[quote,relative=1,verbatim]
-f1 \bar "|"
-f1 \bar "."
-g1 \bar "||"
-a1 \bar ".|"
-b1 \bar ".."
-c1 \bar "|.|"
-d1 \bar "|."
-e1
+@lilypond[quote,verbatim]
+\relative {
+  f'1 \bar "|"
+  f1 \bar "."
+  g1 \bar "||"
+  a1 \bar ".|"
+  b1 \bar ".."
+  c1 \bar "|.|"
+  d1 \bar "|."
+  e1
+}
 @end lilypond
 
 @noindent
 ainsi que d'une barre en pointillé et d'une discontinue :
 
-@lilypond[quote,relative=1,verbatim]
-f1 \bar ";"
-g1 \bar "!"
-a1
+@lilypond[quote,verbatim]
+\relative {
+  f'1 \bar ";"
+  g1 \bar "!"
+  a1
+}
 @end lilypond
 
 @noindent
 et de neuf types de barre de reprise :
 
-@lilypond[quote,relative=1,verbatim]
-f1 \bar ".|:"
-g1 \bar ":..:"
-a1 \bar ":|.|:"
-b1 \bar ":|.:"
-c1 \bar ":.|.:"
-d1 \bar "[|:"
-e1 \bar ":|][|:"
-f1 \bar ":|]"
-g1 \bar ":|."
-a1
+@lilypond[quote,verbatim]
+\relative {
+  f'1 \bar ".|:"
+  g1 \bar ":..:"
+  a1 \bar ":|.|:"
+  b1 \bar ":|.:"
+  c1 \bar ":.|.:"
+  d1 \bar "[|:"
+  e1 \bar ":|][|:"
+  f1 \bar ":|]"
+  g1 \bar ":|."
+  a1
+}
 @end lilypond
 
 De plus, une barre de mesure peut s'imprimer sous la forme d'une coche :
 
-@lilypond[quote,relative=1,verbatim]
-f1 \bar "'" g1
+@lilypond[quote,fragment,verbatim]
+f'1 \bar "'" g'1
 @end lilypond
 
 On rencontre habituellement ces signes dans le chant grégorien ; nous
@@ -2788,8 +2874,8 @@ chapitre consacré au grégorien.
 Lilypond prend en charge la notation kiévienne, qui dispose d'une
 barre de mesure spécifique :
 
-@lilypond[quote,relative=1,verbatim]
-f1 \bar "k"
+@lilypond[quote,fragment,verbatim]
+f'1 \bar "k"
 @end lilypond
 
 De plus amples détails quant à cette forme de notation sont
@@ -2800,20 +2886,22 @@ fournis à la rubrique @ref{Typographie de notation kiévienne}.
 L'insertion d'un @emph{segno} directement sur la portée s'obtient à
 l'aide de trois types de barre de mesure, comme indiqué ci-dessous :
 
-@lilypond[quote,relative=2,verbatim]
-c4 c c c
-\bar "S"
-c4 c c c \break
-\bar "S"
-c4 c c c
-\bar "S-|"
-c4 c c c \break
-\bar "S-|"
-c4 c c c
-\bar "S-S"
-c4 c c c \break
-\bar "S-S"
-c1
+@lilypond[quote,verbatim]
+\relative c'' {
+  c4 c c c
+  \bar "S"
+  c4 c c c \break
+  \bar "S"
+  c4 c c c
+  \bar "S-|"
+  c4 c c c \break
+  \bar "S-|"
+  c4 c c c
+  \bar "S-S"
+  c4 c c c \break
+  \bar "S-S"
+  c1
+}
 @end lilypond
 
 @cindex répétitions
@@ -2830,43 +2918,47 @@ intervient à un saut de ligne : une double barre sera alors
 imprimée en fin de portée, et la barre de reprise au début de la
 nouvelle.
 
-@lilypond[quote,relative=2,verbatim]
-c4 c c c
-\bar ".|:-||"
-c4 c c c \break
-\bar ".|:-||"
-c4 c c c
+@lilypond[quote,verbatim]
+\relative c'' {
+  c4 c c c
+  \bar ".|:-||"
+  c4 c c c \break
+  \bar ".|:-||"
+  c4 c c c
+}
 @end lilypond
 
 LilyPond dispose de six différents moyens de combiner une barre de
 reprise avec un @emph{segno} :
 
-@lilypond[quote,relative=2,verbatim]
-c4 c c c
-\bar ":|.S"
-c4 c c c \break
-\bar ":|.S"
-c4 c c c
-\bar ":|.S-S"
-c4 c c c \break
-\bar ":|.S-S"
-c4 c c c
-\bar "S.|:-S"
-c4 c c c \break
-\bar "S.|:-S"
-c4 c c c
-\bar "S.|:"
-c4 c c c \break
-\bar "S.|:"
-c4 c c c
-\bar ":|.S.|:"
-c4 c c c \break
-\bar ":|.S.|:"
-c4 c c c
-\bar ":|.S.|:-S"
-c4 c c c \break
-\bar ":|.S.|:-S"
-c1
+@lilypond[quote,verbatim]
+\relative c'' {
+  c4 c c c
+  \bar ":|.S"
+  c4 c c c \break
+  \bar ":|.S"
+  c4 c c c
+  \bar ":|.S-S"
+  c4 c c c \break
+  \bar ":|.S-S"
+  c4 c c c
+  \bar "S.|:-S"
+  c4 c c c \break
+  \bar "S.|:-S"
+  c4 c c c
+  \bar "S.|:"
+  c4 c c c \break
+  \bar "S.|:"
+  c4 c c c
+  \bar ":|.S.|:"
+  c4 c c c \break
+  \bar ":|.S.|:"
+  c4 c c c
+  \bar ":|.S.|:-S"
+  c4 c c c \break
+  \bar ":|.S.|:-S"
+  c1
+}
 @end lilypond
 
 Par ailleurs, la commande @code{\inStaffSegno} crée une barre de mesure
@@ -2928,16 +3020,16 @@ apparence mais au comportement différent en fin de ligne ou en
 matière d'extension.  Ce qui suit le @code{"-"} n'est d'aucune
 utilité dans la construction de la barre.
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 \defineBarLine "||-dashedSpan" #'("||" "" "!!")
 
 \new StaffGroup <<
-  \new Staff {
+  \new Staff \relative c'' {
     c1 \bar "||"
     c1 \bar "||-dashedSpan"
     c1
   }
-  \new Staff {
+  \new Staff \relative c'' {
     c1
     c1
     c1
@@ -2949,17 +3041,17 @@ Par ailleurs, le caractère espace @code{" "} permer de préserver
 de l'espace et ainsi aligner correctement les différents tronçons
 d'une barre d'un seul tenant entre les portées d'un système :
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 \defineBarLine ":|.-wrong" #'(":|." "" "|.")
 \defineBarLine ":|.-right" #'(":|." "" " |.")
 
 \new StaffGroup <<
-  \new Staff {
+  \new Staff \relative c'' {
     c1 \bar ":|.-wrong"
     c1 \bar ":|.-right"
     c1
   }
-  \new Staff {
+  \new Staff \relative c'' {
     c1
     c1
     c1
@@ -2978,17 +3070,17 @@ Les barres de mesure que l'on obtient alors sont d'un seul tenant sur
 les portées d'un @code{StaffGroup}, d'un @code{PianoStaff} ou d'un
 @code{GrandStaff}.
 
-@lilypond[quote,relative=1,verbatim]
+@lilypond[quote,verbatim]
 <<
   \new StaffGroup <<
-    \new Staff {
-      e4 d
+    \new Staff \relative {
+      e'4 d
       \bar "||"
       f4 e
     }
-    \new Staff { \clef bass c4 g e g }
+    \new Staff \relative { \clef bass c'4 g e g }
   >>
-  \new Staff { \clef bass c2 c2 }
+  \new Staff \relative { \clef bass c'2 c2 }
 >>
 @end lilypond
 
@@ -3067,14 +3159,16 @@ visible ou non.  Les valeurs sont rangées dans l'ordre suivant :
 @code{visible en début de ligne}.  Voici comment imprimer partout les
 numéros de mesure :
 
-@lilypond[verbatim,quote,relative=1]
-\override Score.BarNumber.break-visibility = ##(#t #t #t)
-\set Score.currentBarNumber = #11
-% Permit first bar number to be printed
-\bar ""
-c1 | c | c | c
-\break
-c1 | c | c | c
+@lilypond[verbatim,quote]
+\relative c' {
+  \override Score.BarNumber.break-visibility = ##(#t #t #t)
+  \set Score.currentBarNumber = #11
+  % Permit first bar number to be printed
+  \bar ""
+  c1 | c | c | c |
+  \break
+  c1 | c | c | c |
+}
 @end lilypond
 
 @snippets
@@ -3222,11 +3316,13 @@ Morceaux choisis :
 
 Indiquer un repère s'obtient grâce à la commande @code{\mark}.
 
-@lilypond[quote,verbatim,relative=2]
-c1 \mark \default
-c1 \mark \default
-c1 \mark \default
-c1 \mark \default
+@lilypond[quote,verbatim]
+\relative c'' {
+  c1 \mark \default
+  c1 \mark \default
+  c1 \mark \default
+  c1 \mark \default
+}
 @end lilypond
 
 @noindent
@@ -3235,12 +3331,14 @@ automatiquement ; toutefois donner un nombre en argument permet de
 spécifier manuellement le repère en question.  La valeur à utiliser
 est enregistrée dans la propriété @code{rehearsalMark}.
 
-@lilypond[quote,verbatim,relative=2]
-c1 \mark \default
-c1 \mark \default
-c1 \mark #8
-c1 \mark \default
-c1 \mark \default
+@lilypond[quote,verbatim]
+\relative c'' {
+  c1 \mark \default
+  c1 \mark \default
+  c1 \mark #8
+  c1 \mark \default
+  c1 \mark \default
+}
 @end lilypond
 
 @noindent
@@ -3255,13 +3353,15 @@ simple, inclus dans un rectangle ou dans un cercle :
 \set Score.markFormatter = #format-mark-circle-alphabet
 @end example
 
-@lilypond[quote,verbatim,relative=2]
-\set Score.markFormatter = #format-mark-box-alphabet
-c1 \mark \default
-c1 \mark \default
-c1 \mark #8
-c1 \mark \default
-c1 \mark \default
+@lilypond[quote,verbatim]
+\relative c'' {
+  \set Score.markFormatter = #format-mark-box-alphabet
+  c1 \mark \default
+  c1 \mark \default
+  c1 \mark #8
+  c1 \mark \default
+  c1 \mark \default
+}
 @end lilypond
 
 @cindex repère, format
@@ -3279,16 +3379,18 @@ entier) ainsi que le contexte en cours, et retournera un objet de type
 pour une procédure type.  Quelques mesures plus loin, son comportement
 est modifié pour imprimer un repère encadré.
 
-@lilypond[quote,verbatim,relative=2]
-\set Score.markFormatter = #format-mark-numbers
-c1 \mark \default
-c1 \mark \default
-\set Score.markFormatter = #format-mark-box-numbers
-c1 \mark \default
-\set Score.markFormatter = #format-mark-circle-numbers
-c1 \mark \default
-\set Score.markFormatter = #format-mark-circle-letters
-c1
+@lilypond[quote,verbatim]
+\relative c'' {
+  \set Score.markFormatter = #format-mark-numbers
+  c1 \mark \default
+  c1 \mark \default
+  \set Score.markFormatter = #format-mark-box-numbers
+  c1 \mark \default
+  \set Score.markFormatter = #format-mark-circle-numbers
+  c1 \mark \default
+  \set Score.markFormatter = #format-mark-circle-letters
+  c1
+}
 @end lilypond
 
 Le fichier @file{scm/translation-functions.scm} comporte les
@@ -3327,11 +3429,13 @@ définis.  Un @code{\markup} peut néanmoins s'utiliser en argument.
 Un @code{\mark} peut contenir un glyphe musical tel que le signe
 @emph{segno}.
 
-@lilypond[quote,verbatim,relative=1]
-c1 \mark \markup { \musicglyph #"scripts.segno" }
-c1 \mark \markup { \musicglyph #"scripts.coda" }
-c1 \mark \markup { \musicglyph #"scripts.ufermata" }
-c1
+@lilypond[quote,verbatim]
+\relative c' {
+  c1 \mark \markup { \musicglyph #"scripts.segno" }
+  c1 \mark \markup { \musicglyph #"scripts.coda" }
+  c1 \mark \markup { \musicglyph #"scripts.ufermata" }
+  c1
+}
 @end lilypond
 
 @noindent
@@ -3397,9 +3501,11 @@ Les petites notes sont des ornements entièrement écrits.  Leur taille
 est un peu plus petite que celle des notes normales et elles n'occupent
 pas de temps dans la mesure.
 
-@lilypond[quote,relative=2,verbatim]
-c4 \grace b16 a4(
-\grace { b16 c16 } a2)
+@lilypond[quote,verbatim]
+\relative {
+  c''4 \grace b16 a4(
+  \grace { b16 c16 } a2)
+}
 @end lilypond
 
 Les plus courantes sont les acciaccatures, qui doivent se jouer très
@@ -3410,23 +3516,25 @@ aussi, grâce à la fonction @code{\slashedGrace}, d'une petite note
 barrée et dépourvue de liaison, qui viendra s'insérer entre deux notes
 déjà liées.
 
-@lilypond[quote,relative=2,verbatim]
-\acciaccatura d8 c4
-\appoggiatura e8 d4
-\acciaccatura { g16 f } e2
-\slashedGrace a,8 g4
-\slashedGrace b16 a4(
-\slashedGrace b8 a2)
+@lilypond[quote,verbatim]
+\relative {
+  \acciaccatura d''8 c4
+  \appoggiatura e8 d4
+  \acciaccatura { g16 f } e2
+  \slashedGrace a,8 g4
+  \slashedGrace b16 a4(
+  \slashedGrace b8 a2)
+}
 @end lilypond
 
 Les petites notes se placent de façon synchrone entre les différentes
 portées.  Dans l'exemple suivant, il y a deux petites double-croches
 pour chaque petite croche.
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Staff { e2 \grace { c16 d e f } e2 }
-  \new Staff { c2 \grace { g8 b } c2 }
+  \new Staff \relative { e''2 \grace { c16 d e f } e2 }
+  \new Staff \relative { c''2 \grace { g8 b } c2 }
 >>
 @end lilypond
 
@@ -3440,8 +3548,8 @@ note réelle -- et non @emph{avant} comme d'ordinaire.  Cette commande
 requiert deux arguments : la note réelle, et la ou les petites notes qui
 s'y rattachent.
 
-@lilypond[quote,verbatim,relative=2]
-c1 \afterGrace d1 { c16[ d] } c1
+@lilypond[quote,verbatim]
+\relative { c''1 \afterGrace d1 { c16[ d] } c1 }
 @end lilypond
 
 Les petites notes se placent alors aux trois quarts de la durée de la
@@ -3450,18 +3558,18 @@ note réelle.  Cette fraction peut être changée en définissant
 la différence entre le comportement par défaut, à 15/16 et enfin à la
 moitié de la durée de base.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
-  \new Staff {
-    c1 \afterGrace d1 { c16[ d] } c1
+  \new Staff \relative {
+    c''1 \afterGrace d1 { c16[ d] } c1
   }
-  \new Staff {
+  \new Staff \relative {
     #(define afterGraceFraction (cons 15 16))
-    c1 \afterGrace d1 { c16[ d] } c1
+    c''1 \afterGrace d1 { c16[ d] } c1
   }
-  \new Staff {
+  \new Staff \relative {
     #(define afterGraceFraction (cons 1 2))
-    c1 \afterGrace d1 { c16[ d] } c1
+    c''1 \afterGrace d1 { c16[ d] } c1
   }
 >>
 @end lilypond
@@ -3470,10 +3578,10 @@ Des silences invisibles permettent d'ajuster l'espace entre les petites
 notes et la note réelle.  Nous pourrions positionner ces petites notes à
 sept huitièmes de la durée de la note de base :
 
-@lilypond[quote,verbatim,relative=2]
-\new Voice {
+@lilypond[quote,verbatim]
+\new Voice \relative {
   <<
-    { d1^\trill_( }
+    { d''1^\trill_( }
     { s2 s4. \grace { c16 d } }
   >>
   c1)
@@ -3491,11 +3599,11 @@ indiquée @strong{à l'intérieur} de l'expression introduite par
 @code{\grace} ; ces réglages additionnels doivent également être
 désactivés dans cette même expression.
 
-@lilypond[quote,verbatim,relative=2]
-\new Voice {
+@lilypond[quote,verbatim]
+\new Voice \relative {
   \acciaccatura {
     \stemDown
-    f16->
+    f''16->
     \stemNeutral
   }
   g4 e c2
@@ -3556,10 +3664,10 @@ surprenante, car les autres objets de la portée -- barre de mesure,
 armure, etc. -- sont eux aussi synchrones.  Pensez-y lorsque vous
 mêlez des portées comprenant des petites notes et d'autres sans :
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Staff { e4 \bar ".|:" \grace c16 d2. }
-  \new Staff { c4 \bar ".|:" d2. }
+  \new Staff \relative { e''4 \bar ".|:" \grace c16 d2. }
+  \new Staff \relative { c''4 \bar ".|:" d2. }
 >>
 @end lilypond
 
@@ -3568,10 +3676,10 @@ Il est possible de remédier à cela en insérant, sur les autres portées,
 des silences invisibles dans une expression précédée de @code{\grace} et
 correspondant à la durée des petites notes :
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Staff { e4 \bar ".|:" \grace c16 d2. }
-  \new Staff { c4 \bar ".|:" \grace s16 d2. }
+  \new Staff \relative { e''4 \bar ".|:" \grace c16 d2. }
+  \new Staff \relative { c''4 \bar ".|:" \grace s16 d2. }
 >>
 @end lilypond
 

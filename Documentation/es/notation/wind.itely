@@ -283,9 +283,9 @@ c1^ \markup \woodwind-diagram #'piccolo #'((lh . (gis))
 Las llaves pueden estar abiertas, parcialmente cubiertas, con el
 anillo pulsado o totalmente apretadas:
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,fragment]
 \textLengthOn
-c1^\markup {
+c''1^\markup {
   \center-column {
     "one quarter"
     \woodwind-diagram #'flute #'((cc . (one1q))
@@ -294,7 +294,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "one half"
     \woodwind-diagram #'flute #'((cc . (one1h))
@@ -303,7 +303,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "three quarter"
     \woodwind-diagram #'flute #'((cc . (one3q))
@@ -312,7 +312,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "ring"
     \woodwind-diagram #'flute #'((cc . (oneR))
@@ -321,7 +321,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "full"
     \woodwind-diagram #'flute #'((cc . (oneF two))
@@ -333,8 +333,8 @@ c1^\markup {
 
 Los trinos se indican mediante llaves sombreadas:
 
-@lilypond[verbatim,quote,relative=2]
-c1^\markup {
+@lilypond[verbatim,quote,fragment]
+c''1^\markup {
   \woodwind-diagram #'bass-clarinet
                     #'((cc . (threeT four))
                        (lh . ())
@@ -344,9 +344,9 @@ c1^\markup {
 
 Es posible imprimir una amplia variedad de trinos:
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,fragment]
 \textLengthOn
-c1^\markup {
+c''1^\markup {
   \center-column {
     "one quarter to ring"
     \woodwind-diagram #'flute #'((cc . (one1qTR))
@@ -355,7 +355,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "ring to shut"
     \woodwind-diagram #'flute #'((cc . (oneTR))
@@ -364,7 +364,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "ring to open"
     \woodwind-diagram #'flute #'((cc . (oneRT))
@@ -373,7 +373,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "open to shut"
     \woodwind-diagram #'flute #'((cc . (oneT))
@@ -382,7 +382,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "one quarter to three quarters"
     \woodwind-diagram #'flute #'((cc . (one1qT3q))

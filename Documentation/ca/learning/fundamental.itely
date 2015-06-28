@@ -557,8 +557,8 @@ abans d'una barra inserida manualment, i acabar abans que acabi
 la barra (una cosa que potser no sigui molt musical, però és
 possible):
 
-@lilypond[quote,verbatim,ragged-right,relative=2]
-g8\( a b[ c b\) a] g4
+@lilypond[quote,verbatim,ragged-right]
+\relative { g'8\( a b[ c b\) a] g4 }
 @end lilypond
 
 En general, els diversos tipus de claudàtors, i els que es fan
@@ -570,11 +570,13 @@ l'interior d'un grup excedent, una lligadura d'unió que travessa
 dos grups especials, i una lligadura de fraseig que surt de
 l'interior d'un grup excedent (línies 3 i 4).
 
-@lilypond[quote,verbatim,ragged-right,relative=1]
-r16[ g \tuplet 3/2 { r16 e'8] }
-g,16( a \tuplet 3/2 { b16 d) e }
-g,8[( a \tuplet 3/2 { b8 d) e~] } |
-\tuplet 5/4 { e32\( a, b d e } a4.\)
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  r16[ g' \tuplet 3/2 { r16 e'8] }
+  g,16( a \tuplet 3/2 { b16 d) e }
+  g,8[( a \tuplet 3/2 { b8 d) e~] } |
+  \tuplet 5/4 { e32\( a, b d e } a4.\)
+}
 @end lilypond
 
 
@@ -628,9 +630,11 @@ Una sola veu pot contenir moltes notes dins d'un acord, per
 suposat; aleshores, quan, exactament, es necessiten diverses veus?
 En primer lloc observeu aquest exemple de quatre acords:
 
-@lilypond[quote,verbatim,ragged-right,relative=1]
-\key g \major
-<d g>4 <d fis> <d a'> <d g>
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  \key g \major
+  <d' g>4 <d fis> <d a'> <d g>
+}
 @end lilypond
 
 Això es pot expressar utilitzant sols símbols d'acord amb angles
@@ -1435,8 +1439,8 @@ quantitat d'elements de notació que no apareixen explícitament al
 fitxer d'entrada.  Per exemple, compareu l'entrada i la sortida
 del següent exemple:
 
-@lilypond[quote,verbatim,relative=2]
-cis4 cis2. | a4 a2. |
+@lilypond[quote,verbatim]
+\relative { cis''4 cis2. | a4 a2. | }
 @end lilypond
 
 L'entrada és força greu, però a la sortida s'han afegit línies

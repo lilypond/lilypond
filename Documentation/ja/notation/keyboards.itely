@@ -382,11 +382,11 @@
 
 ボイスが他の譜に切り替わる時に、音符を繋げる線を自動的に譜刻することができます:
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,verbatim]
 \new PianoStaff <<
   \new Staff = "one" {
     \showStaffSwitch
-    c1
+    c'1
     \change Staff = "two"
     b2 a
   }
@@ -495,13 +495,15 @@
 それに @notation{ウナ コルダ} (@notation{una corda}, @notation{U.C.}) です。@c
 サステイン ペダルは、ビブラフォンやチェレスタにもあります。
 
-@lilypond[quote,verbatim,relative=2]
-c4\sustainOn d e g
-<c, f a>1\sustainOff
-c4\sostenutoOn e g c,
-<bes d f>1\sostenutoOff
-c4\unaCorda d e g
-<d fis a>1\treCorde
+@lilypond[quote,verbatim]
+\relative {
+  c''4\sustainOn d e g
+  <c, f a>1\sustainOff
+  c4\sostenutoOn e g c,
+  <bes d f>1\sostenutoOff
+  c4\unaCorda d e g
+  <d fis a>1\treCorde
+}
 @end lilypond
 
 @cindex pedal indication styles (ペダル指示スタイル)
@@ -522,15 +524,17 @@ c4\unaCorda d e g
 サステイン ペダルとウナ コルダ ペダルの指示はテキスト スタイルですが、@c
 ソステヌート ペダル指示は混合スタイルです。
 
-@lilypond[quote,verbatim,relative=2]
-c4\sustainOn g c2\sustainOff
-\set Staff.pedalSustainStyle = #'mixed
-c4\sustainOn g c d
-d\sustainOff\sustainOn g, c2\sustainOff
-\set Staff.pedalSustainStyle = #'bracket
-c4\sustainOn g c d
-d\sustainOff\sustainOn g, c2
-\bar "|."
+@lilypond[quote,verbatim]
+\relative {
+  c''4\sustainOn g c2\sustainOff
+  \set Staff.pedalSustainStyle = #'mixed
+  c4\sustainOn g c d
+  d\sustainOff\sustainOn g, c2\sustainOff
+  \set Staff.pedalSustainStyle = #'bracket
+  c4\sustainOn g c d
+  d\sustainOff\sustainOn g, c2
+  \bar "|."
+}
 @end lilypond
 
 ペダル コマンドの配置は、@c
@@ -663,20 +667,20 @@ d\sustainOff\sustainOn g, c2
 右のペダルは E, F, G, それに A です。@c
 ペダルのポジションをテキスト記号で指示することがあります:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \textLengthOn
-cis1_\markup \concat \vcenter {
+cis''1_\markup \concat \vcenter {
   [D \flat C \sharp B|E \sharp F \sharp G A \flat] }
-c!1_\markup \concat \vcenter {
+c''!1_\markup \concat \vcenter {
   [ C \natural ] }
 @end lilypond
 
 あるいはペダル ダイアグラムで指示することもあります:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \textLengthOn
-cis1_\markup { \harp-pedal #"^v-|vv-^" }
-c!1_\markup { \harp-pedal #"^o--|vv-^" }
+cis''1_\markup { \harp-pedal #"^v-|vv-^" }
+c''!1_\markup { \harp-pedal #"^o--|vv-^" }
 @end lilypond
 
 @code{\harp-pedal} コマンドは文字列を受け取ります。@c

@@ -1052,8 +1052,8 @@ structure est construite selon le même concept que les expressions
 musicales : c'est en combinant de petits fragments qu'une musique
 plus complexe peut être représentée.  Par exemple :
 
-@lilypond[quote,verbatim,fragment,relative=1]
-f4
+@lilypond[quote,verbatim,fragment]
+f'4
 @end lilypond
 
 @noindent

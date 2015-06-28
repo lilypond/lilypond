@@ -311,8 +311,8 @@ bois, et tout particulièrement les instruments suivants :
 @noindent
 Les diagrammes sont générés en tant qu'objet de type @emph{markup} :
 
-@lilypond[verbatim,quote,relative=2]
-c1^\markup
+@lilypond[verbatim,quote,fragment]
+c''1^\markup
   \woodwind-diagram #'piccolo #'((lh . (gis))
                                  (cc . (one three))
                                  (rh . (ees)))
@@ -321,9 +321,9 @@ c1^\markup
 Les clés ou trous peuvent être partiellement enfoncés ou bouchés :
 
 @c KEEP LY
-@lilypond[verbatim, quote, relative=2]
+@lilypond[verbatim, quote, fragment]
 \textLengthOn
-c1^\markup {
+c''1^\markup {
   \center-column {
    "quart de trou"
    \woodwind-diagram #'flute #'((cc . (one1q))
@@ -332,7 +332,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
    "demi-trou"
    \woodwind-diagram #'flute #'((cc . (one1h))
@@ -341,7 +341,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
    "trois quarts de trou"
    \woodwind-diagram #'flute #'((cc . (one3q))
@@ -350,7 +350,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
    "anneau"
    \woodwind-diagram #'flute #'((cc . (oneR))
@@ -359,7 +359,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
    "bouché"
    \woodwind-diagram #'flute #'((cc . (oneF two))
@@ -372,8 +372,8 @@ c1^\markup {
 L'indication du doigté permettant de triller s'obtient en grisant une
 position :
 
-@lilypond[verbatim,quote,relative=2]
-c1^\markup {
+@lilypond[verbatim,quote,fragment]
+c''1^\markup {
   \woodwind-diagram #'bass-clarinet
                     #'((cc . (threeT four))
                        (lh . ())
@@ -385,9 +385,9 @@ Certaines combinaisons particulières en matière de trille sont
 possibles :
 
 @c KEEP LY
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,fragment]
 \textLengthOn
-c1^\markup {
+c''1^\markup {
   \center-column {
    "quart de trou et anneau"
    \woodwind-diagram #'flute #'((cc . (one1qTR))
@@ -396,7 +396,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
    "anneau et fermé"
    \woodwind-diagram #'flute #'((cc . (oneTR))
@@ -405,7 +405,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
    "anneau et ouvert"
    \woodwind-diagram #'flute #'((cc . (oneRT))
@@ -414,7 +414,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
    "ouvert et fermé"
    \woodwind-diagram #'flute #'((cc . (oneT))
@@ -423,7 +423,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
    "quart de trou et trois quarts"
    \woodwind-diagram #'flute #'((cc . (one1qT3q))

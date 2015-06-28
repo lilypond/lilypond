@@ -628,8 +628,8 @@ können die Taktarten angewählt werden. Unterstützte Stile sind:
 neomensurale Stil verwendet.  Im folgenden Beispiel sind die
 unterschiedlichen Stile dargestellt.
 
-@lilypond[ragged-right,relative=1,quote]
-{
+@lilypond[ragged-right,quote]
+\relative c' {
   \textLengthOn
 
   \time 2/2
@@ -1164,14 +1164,14 @@ Do-Schlüssel der Editio Vaticana
 @code{vaticana-do1}, @code{vaticana-do2},@*
 @code{vaticana-do3}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'vaticana.punctum
   \clef "vaticana-do2"
-  c
+  c'
 @end lilypond
 
 @item
@@ -1179,14 +1179,14 @@ Fa-Schlüssel der Editio Vaticana
 @tab
 @code{vaticana-fa1}, @code{vaticana-fa2}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'vaticana.punctum
   \clef "vaticana-fa2"
-  c
+  c'
 @end lilypond
 
 @item
@@ -1195,14 +1195,14 @@ Do-Schlüssel der Editio Medicaea
 @code{medicaea-do1}, @code{medicaea-do2},@*
 @code{medicaea-do3}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'medicaea.punctum
   \clef "medicaea-do2"
-  c
+  c'
 @end lilypond
 
 @item
@@ -1210,14 +1210,14 @@ Fa-Schlüssel der Editio Medicaea
 @tab
 @code{medicaea-fa1}, @code{medicaea-fa2}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'medicaea.punctum
   \clef "medicaea-fa2"
-  c
+  c'
 @end lilypond
 
 @item
@@ -1226,14 +1226,14 @@ Hufnagel Do-Schlüssel für den historischen Stil
 @code{hufnagel-do1}, @code{hufnagel-do2},@*
 @code{hufnagel-do3}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-do2"
-  c
+  c'
 @end lilypond
 
 @item
@@ -1241,14 +1241,14 @@ Hufnagel Fa-Schlüssel für den historischen Stil
 @tab
 @code{hufnagel-fa1}, @code{hufnagel-fa2}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-fa2"
-  c
+  c'
 @end lilypond
 
 @item
@@ -1256,13 +1256,13 @@ Kombinierter Do/Fa-Hufnagelschlüssel für den historischen Stil
 @tab
 @code{hufnagel-do-fa}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-do-fa"
-  c
+  c'
 @end lilypond
 
 @end multitable
@@ -2572,10 +2572,10 @@ worden ist.
 Es gibt nur einen Schlüssel in der Kiever Notation (der Tse-fa-ut-Schlüssel).
 Er bezeichnet die Position von @code{c}:
 
-@lilypond[quote,relative=1,notime,verbatim]
+@lilypond[quote,fragment,notime,verbatim]
   \clef "kievan-do"
   \kievanOn
-  c
+  c'
 @end lilypond
 
 @seealso
@@ -2641,11 +2641,11 @@ in der Kiever Notation.  Das Kreuz wird in der Synodalen Musik nicht
 eingesetzt, kann aber in früheren Manuskripten auftreten.  Es wurde
 vor allem der Vollständigkeit halber eingesetzt.
 
-@lilypond[quote,relative=1,notime,verbatim]
+@lilypond[quote,fragment,notime,verbatim]
 \clef "kievan-do"
 \override Accidental.glyph-name-alist =
  #alteration-kievan-glyph-name-alist
-bes' dis,
+bes' dis'
 @end lilypond
 
 @seealso

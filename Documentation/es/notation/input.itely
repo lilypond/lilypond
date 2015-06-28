@@ -2700,12 +2700,14 @@ Esta propiedad se usa también para controlar la salida al archivo
 MIDI.  Observe que pasa por alto todos los eventos, incluidos el tempo
 y los cambios de instrumento.  Está usted advertido.
 
-@lilypond[quote,relative=2,ragged-right,verbatim]
-c8 d
-\set Score.skipTypesetting = ##t
-e8 e e e e e e e
-\set Score.skipTypesetting = ##f
-c8 d b bes a g c2
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  c''8 d
+  \set Score.skipTypesetting = ##t
+  e8 e e e e e e e
+  \set Score.skipTypesetting = ##f
+  c8 d b bes a g c2
+}
 @end lilypond
 
 En música polifónica, @code{Score.skipTypesetting} afecta a todas las

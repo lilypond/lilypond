@@ -1050,9 +1050,9 @@ coloreadas de rojo, pero de hecho el resultado son dos pentagramas,
 permaneciendo el de abajo con las notas en el color negro
 predeterminado.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \override Staff.NoteHead.color = #red
-\new Staff { a }
+\new Staff { a' }
 @end lilypond
 
 Esto es así porque no existe ningún contexto @code{Staff} cuando se
@@ -1062,10 +1062,10 @@ instrucción @code{\new Staff} crea un pentagrama nuevo y distinto, en
 el que se colocan las notas.  El código correcto para colorear todas
 las notas de rojo es
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 \new Staff {
   \override Staff.NoteHead.color = #red
-  a
+  a'
 }
 @end lilypond
 

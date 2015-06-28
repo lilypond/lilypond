@@ -393,10 +393,10 @@ spécifiant à l'aide de la commande @code{\lyricsto} le contexte de voix
 qui contient cette mélodie :
 
 @c KEEP LY
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
-  \new Voice = "melodie" {
-    a1 a4. a8 a2
+  \new Voice = "melodie" \relative {
+    a'1 a4. a8 a2
   }
   \new Lyrics \lyricsto "melodie" {
     Ce sont les mots
@@ -566,11 +566,11 @@ accompagne des dialogues -- voir @ref{Dialogue et musique}.
 Les syllabes seront alignées selon la dérogation apportée à la propriété
 @code{self-alignment-X} :
 
-@lilypond[relative=1,verbatim,quote]
+@lilypond[verbatim,quote]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
-    c2 e4 g2 f
+    c'2 e4 g2 f
   }
   \new Lyrics \lyricmode {
     \override LyricText.self-alignment-X = #LEFT
@@ -603,10 +603,11 @@ mettre entre guillemets, soit utiliser le caractère souligné
 (@code{_}) pour obtenir une espace, ou bien encore utiliser un tilde
 (@code{~}) pour obtenir une liaison entre les syllabes.
 
-@lilypond[quote,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 {
-  { \autoBeamOff
-    r8 b c fis, fis c' b e,
+  \relative {
+    \autoBeamOff
+    r8 b' c fis, fis c' b e,
   }
   \addlyrics
   {
@@ -655,11 +656,11 @@ Vous disposez de cinq méthodes pour indiquer la présence d'un mélisme :
 @item
 Une liaison de prolongation constitue de fait un mélisme :
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
-    f4 g2 ~ |
+    f''4 g2 ~ |
     4 e2 ~ |
     8
   }
@@ -675,11 +676,11 @@ s'étendra de la première à la dernière note couvertes par cette
 liaison.  Il s'agit là de la façon traditionnelle de saisir des
 paroles :
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
-    f4 g8 ( f e f )
+    f''4 g8 ( f e f )
     e8 ( d e2 )
   }
   \new Lyrics \lyricsto "melody" {
@@ -696,12 +697,12 @@ LilyPond considère des notes regroupées par une ligature manuelle comme
 un mélisme, si tant est que la procédure de ligature automatique a été
 désactivée -- voir @ref{Définition des règles de ligature automatique}.
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
     \autoBeamOff
-    f4 g8[ f e f]
+    f''4 g8[ f e f]
     e2.
   }
   \new Lyrics \lyricsto "melody" {
@@ -718,11 +719,11 @@ LilyPond considère un groupe de notes non liées, mais encadrées par
 @code{\melisma} et @code{\melismaEnd}, comme constituant un
 mélisme :
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
-    f4 g8
+    f''4 g8
     \melisma
     f e f
     \melismaEnd
@@ -739,11 +740,11 @@ Vous pouvez indiquer un mélisme directement dans les paroles, à l'aide
 d'un caractère souligné simple @code{_}, pour chaque note faisant partie
 de la vocalise :
 
-@lilypond[verbatim, quote, relative=2]
+@lilypond[verbatim, quote]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
-    f4 g8 f e f
+    f''4 g8 f e f
     e8 d e2
   }
   \new Lyrics \lyricsto "melody" {
@@ -759,12 +760,12 @@ prolongation ou d'articulation et des ligatures apparaissant dans une
 mélodie comme fait générateur d'un mélisme.  Il suffit en ce cas de
 définir @code{melismaBusyProperties} :
 
-@lilypond[relative=1,verbatim,quote]
+@lilypond[verbatim,quote]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
     \set melismaBusyProperties = #'()
-    c4 d ( e )
+    c'4 d ( e )
     g8 [ f ] f4 ~ 4
   }
   \new Lyrics \lyricsto "melody" {
@@ -788,12 +789,12 @@ Lorsque, dans un passage où la propriété @code{melismaBusyProperties}
 est active, survient un mélisme, vous pouvez l'indiquer dans les paroles
 par un simple caractère souligné pour chaque note à inclure :
 
-@lilypond[relative=1,verbatim,quote]
+@lilypond[verbatim,quote]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
     \set melismaBusyProperties = #'()
-    c4 d ( e )
+    c'4 d ( e )
     g8 [ f ] ~ 4 ~ f
   }
   \new Lyrics \lyricsto "melody" {
@@ -1118,8 +1119,8 @@ Manuel de notation :
 La propriété @code{minimum-distance} de l'objet @code{LyricSpace}
 permet d'accroître l'espacement des paroles.
 
-@lilypond[relative=1,verbatim,quote,ragged-right]
-{
+@lilypond[verbatim,quote,ragged-right]
+\relative c' {
   c c c c
   \override Lyrics.LyricSpace.minimum-distance = #1.0
   c c c c
@@ -1789,9 +1790,9 @@ words = \lyricmode { la __ la __ }
 On peut ajouter un numéro aux couplets en définissant la variable
 @code{stanza} :
 
-@lilypond[quote,ragged-right,verbatim,relative=2]
-\new Voice {
-  \time 3/4 g2 e4 a2 f4 g2.
+@lilypond[quote,ragged-right,verbatim]
+\new Voice \relative {
+  \time 3/4 g'2 e4 a2 f4 g2.
 } \addlyrics {
   \set stanza = #"1. "
   Hi, my name is Bert.
@@ -1878,9 +1879,9 @@ au début de chaque ligne comme les noms d'instrument.  Il faut pour cela
 définir @code{vocalName}, et @code{shortVocalName} pour une version
 abrégée.
 
-@lilypond[ragged-right,quote,verbatim,relative=2]
-\new Voice {
-  \time 3/4 g2 e4 a2 f4 g2.
+@lilypond[ragged-right,quote,verbatim]
+\new Voice \relative {
+  \time 3/4 g'2 e4 a2 f4 g2.
 } \addlyrics {
   \set vocalName = #"Bert "
   Hi, my name is Bert.
@@ -2670,16 +2671,18 @@ généralement imprimé en surplomb de la portée, à chaque changement de
 rôle.  L'utilisation d'un @emph{markup} -- dans une fonte réservée à cet
 effet -- vous permettra de générer ces indications :
 
-@lilypond[quote,verbatim,relative=1]
-\clef "G_8"
-c4^\markup \fontsize #1 \smallCaps Kaspar
-c c c
-\clef "bass"
-a4^\markup \fontsize #1 \smallCaps Melchior
-a a a
-\clef "G_8"
-c4^\markup \fontsize #1 \smallCaps Kaspar
-c c c
+@lilypond[quote,verbatim]
+\relative c' {
+  \clef "G_8"
+  c4^\markup \fontsize #1 \smallCaps Kaspar
+  c c c
+  \clef "bass"
+  a4^\markup \fontsize #1 \smallCaps Melchior
+  a a a
+  \clef "G_8"
+  c4^\markup \fontsize #1 \smallCaps Kaspar
+  c c c
+}
 @end lilypond
 
 Dans le cas où les changements de personnage se multiplient, il peut
@@ -2881,10 +2884,12 @@ surviennent.
 Une courte intervention peut se formuler à l'aide d'un simple
 @emph{markup} :
 
-@lilypond[quote,verbatim,relative=2]
-a4^\markup { \smallCaps { Alex - } \italic { He's gone } } a a a
-a4 a a^\markup { \smallCaps { Bethan - } \italic Where? } a
-a4 a a a
+@lilypond[quote,verbatim]
+\relative {
+  a'4^\markup { \smallCaps { Alex - } \italic { He's gone } } a a a
+  a4 a a^\markup { \smallCaps { Bethan - } \italic Where? } a
+  a4 a a a
+}
 @end lilypond
 
 Une intervention un peu plus longue peut nécessiter d'étirer la musique
@@ -3074,35 +3079,39 @@ pensez à y insérer des barres fantômes -- un simple @code{\bar ""}
 -- pour indiquer à LilyPond où serait susceptible de se produire un saut
 de ligne.
 
-@lilypond[verbatim,quote,relative=2]
-a4 b c2 |
-\cadenzaOn
-a4 b c2
-a4 b c2
-\bar ""
-a4 b c2
-a4 b c2
-\cadenzaOff
-a4 b c2 |
-a4 b c2 |
+@lilypond[verbatim,quote]
+\relative a' {
+  a4 b c2 |
+  \cadenzaOn
+  a4 b c2
+  a4 b c2
+  \bar ""
+  a4 b c2
+  a4 b c2
+  \cadenzaOff
+  a4 b c2 |
+  a4 b c2 |
+}
 @end lilypond
 
 Dans la mélodie d'un cantique, les silences ou pauses s'indiquent à
 l'aide de barres de mesure spécifiques :
 
-@lilypond[verbatim, quote,relative=2]
-a4
-\cadenzaOn
-b c2
-a4 b c2
-\bar "'"
-a4 b c2
-a4 b c2
-\bar ";"
-a4 b c2
-\bar "!"
-a4 b c2
-\bar "||"
+@lilypond[verbatim, quote]
+\relative a' {
+  a4
+  \cadenzaOn
+  b c2
+  a4 b c2
+  \bar "'"
+  a4 b c2
+  a4 b c2
+  \bar ";"
+  a4 b c2
+  \bar "!"
+  a4 b c2
+  \bar "||"
+}
 @end lilypond
 
 Vous pouvez accessoirement, bien qu'il s'agisse de notation moderne,

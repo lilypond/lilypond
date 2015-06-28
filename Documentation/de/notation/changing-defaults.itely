@@ -617,16 +617,16 @@ Es folgt ein einfaches Beispiel, in dem der
 @code{Clef_engraver} (Engraver für den Schlüssel) aus dem
 @code{Staff}-Kontext entfernt werden:
 
-@lilypond[quote,relative=1,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Staff {
-    f2 g
+  \new Staff \relative {
+    f'2 g
   }
   \new Staff \with {
      \remove "Time_signature_engraver"
      \remove "Clef_engraver"
-  } {
-    f2 g2
+  } \relative {
+    f'2 g2
   }
 >>
 @end lilypond
@@ -1703,12 +1703,12 @@ Befehl den Kontext @code{Staff} angibt, wirkt er sich nur auf
 das gerade aktuelle Notensystem aus.  Andere Systeme behalten
 ihr normales Aussehen.  Hier ein Beispiel mit diesem Befehl:
 
-@lilypond[quote,verbatim,relative=2]
-c4
+@lilypond[quote,fragment,verbatim]
+c''4
 \override Staff.Stem.thickness = #4.0
-c4
-c4
-c4
+c''4
+c''4
+c''4
 @end lilypond
 
 Der @code{\override}-Befehl verändert die Definitionen von
@@ -1721,11 +1721,11 @@ Kontext ausgelassen werden, wobei dann immer implizit der
 @code{Voice}-Kontext angenommen wird.  Mit einem zusätzlichen
 @code{\once} wirkt sich die Änderung nur einmal aus:
 
-@lilypond[quote,verbatim,relative=2]
-c4
+@lilypond[quote,fragment,verbatim]
+c''4
 \once \override Stem.thickness = #4.0
-c4
-c4
+c''4
+c''4
 @end lilypond
 
 Der @code{\override}-Befehl muss geschrieben sein, bevor das Objekt
@@ -1734,11 +1734,11 @@ ein Bogen verändert werden soll, muss der @code{\override}-Befehl
 schon geschrieben werden, bevor das Objekt begonnen wird.  In dem
 folgenden Beispiel
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,verbatim]
 \override Slur.thickness = #3.0
-c8[( c
+c''8[( c''
 \override Beam.beam-thickness = #0.6
-c8 c])
+c''8 c''])
 @end lilypond
 
 @noindent
@@ -1828,7 +1828,7 @@ Mehrtaktpausen etwa können in einen Takt zusammengefasst werden, wenn die
 Kontexteigenschaft @code{skipBars} (Takte überspringen) auf @code{#t}
 (wahr) gesetzt wird:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,verbatim]
 R1*2
 \set Score.skipBars = ##t
 R1*2
@@ -1839,17 +1839,16 @@ der Befehl auf den gerade aktiven unterstmöglichen Kontext,
 üblicherweise @code{ChordNames}, @code{Voice} oder
 @code{Lyrics}.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,verbatim]
 \set Score.autoBeaming = ##f
-<<
-  {
-    e8 e e e
-    \set autoBeaming = ##t
-    e8 e e e
-  } \\ {
-    c8 c c c c8 c c c
-  }
->>
+\relative {
+  e''8 e e e
+  \set autoBeaming = ##t
+  e8 e e e
+} \\
+\relative {
+  c''8 c c c c8 c c c
+}
 @end lilypond
 
 Die Änderung wird zur Laufzeit während der Musik interpretiert, sodass
@@ -1863,7 +1862,7 @@ keine Auswirkung, weil er sich auf den @code{Voice}-Kontext
 bezieht, die Eigenschaft sich aber im @code{Score}-Kontext
 befindet:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,verbatim]
 R1*2
 \set skipBars = ##t
 R1*2
@@ -1889,18 +1888,17 @@ entfernt werden.  Dieser Befehl macht nur Einstellungen im richtigen
 Kontext rückgängig.  Wenn also im @code{Staff}-Kontext die
 Bebalkung ausgeschaltet wird:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,verbatim]
 \set Score.autoBeaming = ##t
-<<
-  {
-    \unset autoBeaming
-    e8 e e e
-    \unset Score.autoBeaming
-    e8 e e e
-  } \\ {
-    c8 c c c c8 c c c
-  }
->>
+\relative {
+  \unset autoBeaming
+  e''8 e e e
+  \unset Score.autoBeaming
+  e8 e e e
+} \\
+\relative {
+  c''8 c c c c8 c c c
+}
 @end lilypond
 
 Wie für @code{\set} muss das @var{Kontext}-Argument für den untersten
@@ -1920,11 +1918,11 @@ verhalten sich gleich, wenn die gegenwärtige Basis der
 Einstellungen, die nur einmal vorgenommen werden sollen, können
 mit @code{\once} notiert werden, etwa:
 
-@lilypond[quote,verbatim,relative=2]
-c4
+@lilypond[quote,fragment,verbatim]
+c''4
 \once \set fontSize = #4.7
-c4
-c4
+c''4
+c''4
 @end lilypond
 
 Eine vollständige Beschreibung aller vorhandenen Kontexteigenschaften
@@ -2170,15 +2168,15 @@ sodass die Veränderung funktioniert.
 An einem Beispiel demonstriert:  Das funktioniert:
 
 
-@lilypond[relative=2,verbatim,quote]
-<\tweak color #red c>4
+@lilypond[verbatim,fragment,quote]
+<\tweak color #red c''>4
 @end lilypond
 
 @noindent
 und das nicht:
 
-@lilypond[relative=2,verbatim,quote]
-\tweak color #red c4
+@lilypond[verbatim,fragment,quote]
+\tweak color #red c''4
 @end lilypond
 
 @end ignore
@@ -2206,20 +2204,20 @@ gleichen musikalischen Moment auftreten können sind unter Anderem:
 In diesem Beispiel wird die Farbe eines Notenkopfes und die Art eines
 anderen Notenkopfes innerhalb eines Akkordes verändert:
 
-@lilypond[relative=2,verbatim,quote]
-< c
+@lilypond[verbatim,fragment,quote]
+< c''
   \tweak color #red
-  d
-  g
+  d''
+  g''
   \tweak duration-log #1
-  a
+  a''
 > 4
 @end lilypond
 
 @code{\tweak} kann auch benutzt werden, um Bögen zu verändern:
 
-@lilypond[verbatim,quote,relative=1]
-c-\tweak thickness #5 ( d e f)
+@lilypond[verbatim,quote]
+\relative { c'-\tweak thickness #5 ( d e f) }
 @end lilypond
 
 Damit der @code{\tweak}-Befehl funktioniert, muss er direkt vor dem
@@ -2243,10 +2241,10 @@ den Quelltext.
 Derartige indirekt erstellt Layoutobjekte können mit @code{\tweak} verändert
 werden, indem man die ausführliche Form des Befehls einsetzt:
 
-@lilypond[relative=2,verbatim,quote]
+@lilypond[fragment,verbatim,quote]
 \tweak Stem.color #red
-\tweak Beam.color #green c8 e
-<c e \tweak Accidental.font-size #-3 ges>4
+\tweak Beam.color #green c''8 e''
+<c'' e'' \tweak Accidental.font-size #-3 ges''>4
 @end lilypond
 
 @code{\tweak} kann auch nicht verwendet werden,
@@ -2257,14 +2255,14 @@ automatisches Einfügen von zusätzlichen Kontextelementen getrennt.
 Mehrere @code{\tweak}-Befehle können vor ein Notationselement
 gesetzt werden und alle werden interpretiert:
 
-@lilypond[verbatim,quote,relative=1]
-c
--\tweak style #'dashed-line
--\tweak dash-fraction #0.2
--\tweak thickness #3
--\tweak color #red
- \glissando
-f'
+@lilypond[verbatim,fragment,quote]
+c'
+  -\tweak style #'dashed-line
+  -\tweak dash-fraction #0.2
+  -\tweak thickness #3
+  -\tweak color #red
+  \glissando
+f''
 @end lilypond
 
 Der Strom der musikalischen Ereignisse (engl. music stream), der aus
@@ -2637,11 +2635,13 @@ benutzen) normalerweise weggelassen werden.  In diesem Fall wird
 
 Ausrichtungsmarkierer haben nur eine Auswirkung auf die nächste Note:
 
-@lilypond[verbatim,quote,relative=2]
-c2( c)
-c2_( c)
-c2( c)
-c2^( c)
+@lilypond[verbatim,quote]
+\relative {
+  c''2( c)
+  c2_( c)
+  c2( c)
+  c2^( c)
+}
 @end lilypond
 
 
@@ -2681,13 +2681,15 @@ oder @code{CENTER} bedeutet @qq{benutze Standardausrichtung}.
 Diese Ausrichtungsanzeigen wirken sich auf alle Noten aus, bis sie
 rückgängig gemacht werden:
 
-@lilypond[verbatim,quote,relative=2]
-c2( c)
-\slurDown
-c2( c)
-c2( c)
-\slurNeutral
-c2( c)
+@lilypond[verbatim,quote]
+\relative {
+  c''2( c)
+  \slurDown
+  c2( c)
+  c2( c)
+  \slurNeutral
+  c2( c)
+}
 @end lilypond
 
 In polyphoner Musik ist es normalerweise besser, eine explizite
@@ -2791,11 +2793,11 @@ Anzahl der Notenlinien wird implizit definiert durch
 die Anzahl der Elemente in der Liste der Werte von
 @code{'line-positions}.}
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote]
 \new Staff \with {
   \override StaffSymbol.line-positions = #'(7 3 0 -4 -6 -7)
 }
-{ a4 e' f b | d1 }
+\relative { a4 e' f b | d1 }
 @end lilypond
 
 Die Breite eines Notensystems kann verändert werden.  Die Einheit
@@ -2803,11 +2805,11 @@ ist in Notenlinienabständen.  Die Abstände von Objekten
 in diesem Notensystem wird durch diese Einstellung nicht
 beeinflusst.
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote]
 \new Staff \with {
   \override StaffSymbol.width = #23
 }
-{ a4 e' f b | d1 }
+\relative { a4 e' f b | d1 }
 @end lilypond
 
 
@@ -2897,31 +2899,31 @@ auf @code{ly:spanner::set-spacing-rods} gesetzt werden.  Die
 Mindestlänge eines Glissandos etwa wird erst aktiv, wenn
 die @code{springs-and-rods}-Eigenschaft gesetzt ist:
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,fragment,quote]
 % default
-e \glissando c'
+e' \glissando c''
 
 % not effective alone
 \once \override Glissando.minimum-length = #20
-e, \glissando c'
+e' \glissando c''
 
 % effective only when both overrides are present
 \once \override Glissando.minimum-length = #20
 \once \override Glissando.springs-and-rods = #ly:spanner::set-spacing-rods
-e, \glissando c'
+e' \glissando c''
 @end lilypond
 
 Das gilt auch für das @code{Beam}-(Balken-)Objekt:
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,fragment,quote]
 % not effective alone
 \once \override Beam.minimum-length = #20
-e8 e e e
+e'8 e' e' e'
 
 % effective only when both overrides are present
 \once \override Beam.minimum-length = #20
 \once \override Beam.springs-and-rods = #ly:spanner::set-spacing-rods
-e8 e e e
+e'8 e' e' e'
 @end lilypond
 
 @strong{@i{Die @code{to-barline}-Eigenschaft}}
@@ -2935,10 +2937,12 @@ Taktstrich erstreckt.  Wenn die Eigenschaft auf @qq{falsch} gesetzt
 wird, erstrecken sich die Strecker entsprechend über die Taktlinie
 hinüber und enden erst an der entsprechenden Note:
 
-@lilypond[verbatim,quote,relative=2]
-a \< a a a a \! a a a \break
-\override Hairpin.to-barline = ##f
-a \< a a a a \! a a a
+@lilypond[verbatim,quote]
+\relative {
+  a' \< a a a a \! a a a \break
+  \override Hairpin.to-barline = ##f
+  a \< a a a a \! a a a
+}
 @end lilypond
 
 Diese Eigenschaft wirkt sich nicht auf alle Strecker aus.  Im Falle
@@ -2971,11 +2975,11 @@ werden müssen, sind zwei Ebenen in der Objekthierarchie
 tiefer angeordnet, aber die Syntax des @code{\override}-Befehls
 ist ziemlich einfach:
 
-@lilypond[relative=2,quote,verbatim]
-e2 \glissando b
+@lilypond[quote,fragment,verbatim]
+e''2 \glissando b'
 \once \override Glissando.bound-details.left.Y = #3
 \once \override Glissando.bound-details.right.Y = #-2
-e2 \glissando b
+e''2 \glissando b'
 @end lilypond
 
 Die Einheiten für die @code{Y}-Eigenschaft werden in
@@ -2993,11 +2997,11 @@ Im Fall eines Zeilenumbruchs werden die Werte der Endpunkte
 in den Unterlisten @code{left-broken} bzw. @code{right-broken}
 von @code{bound-details} abgelegt.  Zum Beispiel:
 
-@lilypond[relative=2,ragged-right,verbatim,quote]
+@lilypond[ragged-right,fragment,verbatim,quote]
 \override Glissando.breakable = ##t
 \override Glissando.bound-details.right-broken.Y = #-3
-c1 \glissando \break
-f1
+c''1 \glissando \break
+f''1
 @end lilypond
 
 Eine Anzahl weitere Eigenschaft der @code{left}- und
@@ -3038,10 +3042,10 @@ Das ist eine Textbeschriftung, die ausgewertet wird und die
 um @i{cresc.}, @i{tr} oder andere Texte an horizontale
 Strecker zu setzen.
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \override TextSpanner.bound-details.left.text
    = \markup { \small \bold Slower }
-c2\startTextSpan b c a\stopTextSpan
+\relative { c''2\startTextSpan b c a\stopTextSpan }
 @end lilypond
 
 @item stencil-align-dir-y
@@ -3054,13 +3058,14 @@ definiert) zentriert, ausgegeben.  Wenn entweder
 gesetzt werden, wird das Symbol am Rand vertikal entsprechend
 des Endpunktes der Linie verschoben:
 
-@lilypond[relative=1,quote,verbatim]
+@lilypond[quote,fragment,verbatim]
 \override TextSpanner.bound-details.left.stencil-align-dir-y = #-2
 \override TextSpanner.bound-details.right.stencil-align-dir-y = #UP
 
 \override TextSpanner.bound-details.left.text = #"ggg"
 \override TextSpanner.bound-details.right.text = #"hhh"
-c4^\startTextSpan c c c \stopTextSpan
+
+\relative { c'4^\startTextSpan c c c \stopTextSpan }
 @end lilypond
 
 Dabei sollte beachtet werden, dass negative Werte das Objekt
@@ -3089,11 +3094,13 @@ einer Note beendet, oder am nächsten Taktstrich, wenn
 @code{to-barline} auf wahr gesetzt ist und eine Taktlinie
 vor der nächsten Note erscheint.
 
-@lilypond[verbatim,quote,ragged-right,relative=2]
-\endSpanners
-c2 \startTextSpan c2 c2
-\endSpanners
-c2 \< c2 c2
+@lilypond[verbatim,quote,ragged-right]
+\relative c'' {
+  \endSpanners
+  c2 \startTextSpan c2 c2
+  \endSpanners
+  c2 \< c2 c2
+}
 @end lilypond
 
 Wenn man @code{\endSpanners} benutzt, ist es nicht
@@ -3160,7 +3167,7 @@ Funktion aufgerufen und also auch kein Objekt gezeichnet.
 Das Standardverhalten kann mit dem Befehl @code{\revert}
 wieder hergestellt werden.
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,fragment,verbatim]
 a1 a
 \omit Score.BarLine
 a a
@@ -3183,10 +3190,10 @@ die normalerweise auf den Wert @code{#f} gesetzt ist.  Wenn
 sie auf @code{#t} gesetzt wird, nimmt das Objekt immer noch
 den entsprechenden Platz ein, ist aber unsichtbar.
 
-@lilypond[quote,verbatim,relative=2]
-a4 a
+@lilypond[quote,fragment,verbatim]
+a'4 a'
 \once \hide NoteHead
-a a
+a' a'
 @end lilypond
 
 
@@ -3214,9 +3221,9 @@ in welcher die Objekte gesetzt werden.  Es kann also vorkommen,
 dass man die Umrisse des weißen Objektes erahnen kann, wie
 in diesem Beispiel:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,verbatim]
 \override Staff.Clef.color = #white
-a1
+a'1
 @end lilypond
 
 Das kann man vermeiden, indem man die Satzreihenfolge der Objekte
@@ -3238,10 +3245,10 @@ Im oberen Beispiel wird der weiße Schlüssel, der einen Wert von
 (Notenschlüssel) ein niedrigerer Wert, etwa @w{@code{-1}}, gegeben
 werden, sodass es früher gesetzt wird:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,verbatim]
 \override Staff.Clef.color = #white
 \override Staff.Clef.layer = #-1
-a1
+a'1
 @end lilypond
 
 
@@ -3396,16 +3403,18 @@ Zeile angezeigt werden.  Im nächsten Beispiel ist die Tonartangabe
 nach dem expliziten Wechsel zu B-Dur immer noch sichtbar, obwohl
 @code{all-invisible} eingesetzt wurde:
 
-@lilypond[quote,verbatim,relative=1,ragged-right]
-\key g \major
-f4 g a b
-% Try to remove all key signatures
-\override Staff.KeySignature.break-visibility = #all-invisible
-\key bes \major
-f4 g a b
-\break
-f4 g a b
-f4 g a b
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  \key g \major
+  f'4 g a b
+  % Try to remove all key signatures
+  \override Staff.KeySignature.break-visibility = #all-invisible
+  \key bes \major
+  f4 g a b
+  \break
+  f4 g a b
+  f4 g a b
+}
 @end lilypond
 
 Die Sichtbarkeit derartiger expliziter Tonart- und Schlüsseländerungen
@@ -3423,15 +3432,17 @@ die Sichtbarkeit von Tonarten bzw. Schlüssel, die von expliziten
 Schlüssel zu Beginn einer Zeile -- um diese zu beeinflussen, muss
 @code{break-visibility} benutzt werden.
 
-@lilypond[quote,verbatim,relative=1,ragged-right]
-\key g \major
-f4 g a b
-\set Staff.explicitKeySignatureVisibility = #all-invisible
-\override Staff.KeySignature.break-visibility = #all-invisible
-\key bes \major
-f4 g a b \break
-f4 g a b
-f4 g a b
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  \key g \major
+  f'4 g a b
+  \set Staff.explicitKeySignatureVisibility = #all-invisible
+  \override Staff.KeySignature.break-visibility = #all-invisible
+  \key bes \major
+  f4 g a b \break
+  f4 g a b
+  f4 g a b
+}
 @end lilypond
 
 @strong{@emph{Sichtbarkeit von erinnernden Versetzungszeichen}}
@@ -3440,16 +3451,18 @@ Um erinnernde Versetzungszeichen zu entfernen, die nach einer
 expliziten Tonartänderung auftreten, muss die @code{Staff}-Eigenschaft
 @code{printKeyCancellation} auf @code{#f} gesetzt werden:
 
-@lilypond[quote,verbatim,relative=1,ragged-right]
-\key g \major
-f4 g a b
-\set Staff.explicitKeySignatureVisibility = #all-invisible
-\set Staff.printKeyCancellation = ##f
-\override Staff.KeySignature.break-visibility = #all-invisible
-\key bes \major
-f4 g a b \break
-f4 g a b
-f4 g a b
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  \key g \major
+  f'4 g a b
+  \set Staff.explicitKeySignatureVisibility = #all-invisible
+  \set Staff.printKeyCancellation = ##f
+  \override Staff.KeySignature.break-visibility = #all-invisible
+  \key bes \major
+  f4 g a b \break
+  f4 g a b
+  f4 g a b
+}
 @end lilypond
 
 Mit diesen Veränderungen bleiben nur noch die Versetzungszeichen
@@ -3518,16 +3531,18 @@ im gewünschten Linienstil.
 Hier einige Beispiele, welche Linienstile möglich sind
 und wie sie verändert werden können:
 
-@lilypond[relative=2,ragged-right,verbatim,quote]
-d2 \glissando d'2
-\once \override Glissando.style = #'dashed-line
-d,2 \glissando d'2
-\override Glissando.style = #'dotted-line
-d,2 \glissando d'2
-\override Glissando.style = #'zigzag
-d,2 \glissando d'2
-\override Glissando.style = #'trill
-d,2 \glissando d'2
+@lilypond[ragged-right,verbatim,quote]
+\relative {
+  d''2 \glissando d'2
+  \once \override Glissando.style = #'dashed-line
+  d,2 \glissando d'2
+  \override Glissando.style = #'dotted-line
+  d,2 \glissando d'2
+  \override Glissando.style = #'zigzag
+  d,2 \glissando d'2
+  \override Glissando.style = #'trill
+  d,2 \glissando d'2
+}
 @end lilypond
 
 Die Position der Endpunkte des Streckers werden in
@@ -3535,10 +3550,12 @@ Realzeit für jedes graphische Objekt errechnet, aber
 es ist möglich, sie manuell vorzugeben:
 
 @c TODO Complete
-@lilypond[relative=2,ragged-right,verbatim,quote]
-e2 \glissando f
-\once \override Glissando.bound-details.right.Y = #-2
-e2 \glissando f
+@lilypond[ragged-right,verbatim,quote]
+\relative {
+  e''2 \glissando f
+  \once \override Glissando.bound-details.right.Y = #-2
+  e2 \glissando f
+}
 @end lilypond
 
 Der Wert von @code{Y} wird für den rechten Endpunkt auf
@@ -3595,10 +3612,10 @@ Es gibt nur wenige Situationen, in welchen die Drehung eines
 Layout-Objektes sinnvoll ist.  Das folgende Beispiel zeigt
 eine sinnvolle Anwendung:
 
-@lilypond[quote,verbatim,relative=1]
-g4\< e' d' f\!
+@lilypond[quote,fragment,verbatim]
+g4\< e' d'' f''\!
 \override Hairpin.rotation = #'(20 -1 0)
-g,,4\< e' d' f\!
+g4\< e' d'' f''\!
 @end lilypond
 
 
@@ -3617,12 +3634,12 @@ Beispiel wird die @code{outside-staff-priority}-Eigenschaft auf
 werden, wodurch andernfalls einige der Texte zu hoch geschoben werden
 würden.
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,fragment,verbatim]
 \override TextScript.outside-staff-priority = ##f
 g4^\markup { \rotate #30 "a G" }
 b^\markup { \rotate #30 "a B" }
-des^\markup { \rotate #30 "a D-Flat" }
-fis^\markup { \rotate #30 "an F-Sharp" }
+des'^\markup { \rotate #30 "a D-Flat" }
+fis'^\markup { \rotate #30 "an F-Sharp" }
 @end lilypond
 
 
@@ -3735,13 +3752,13 @@ drei Noten mit der Standardposition von Fingersatzanweisungen
 und die Positionen, wenn @code{X-offset} und @code{Y-offset}
 verändert werden.
 
-@lilypond[verbatim,quote,relative=2]
-a-3
-a
+@lilypond[verbatim,fragment,quote]
+a'-3
+a'
 -\tweak X-offset #0
 -\tweak Y-offset #0
 -3
-a
+a'
 -\tweak X-offset #-1
 -\tweak Y-offset #1
 -3
@@ -3823,7 +3840,7 @@ die Werte von @code{self-alignment-X} zu verändern, aber der
 @code{\tweak}-Befehl kann benutzen, um verschiedene Anmerkungen
 an einer einzigen Note auszurichten:
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,verbatim,fragment]
 a'
 -\tweak self-alignment-X #-1
 ^"left-aligned"
@@ -3866,8 +3883,8 @@ werden.
 Das folgende Beispiel zeigt, wie man eine Fingersatzanweisung so
 ausrichtet, dass sie nah am Notenkopf bleibt.
 
-@lilypond[quote,verbatim,relative=2]
-a
+@lilypond[quote,verbatim,fragment]
+a'
 -\tweak self-alignment-X #0.5  % move horizontally left
 -\tweak Y-offset #ly:self-alignment-interface::y-aligned-on-self
 -\tweak self-alignment-Y #-1  % move vertically up
@@ -4113,11 +4130,11 @@ Hier ein Beispiel eines Falles, in dem der Bogen nicht optimal
 erscheint, und wo auch @code{\tieDown} das Problem nicht
 lösen würde.
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote]
 <<
-  { e1~ 1 }
+  { e'1~ 1 }
 \\
-  { r4 <g c,> <g c,> <g c,> }
+  \relative { r4 <g' c,> <g c,> <g c,> }
 >>
 @end lilypond
 

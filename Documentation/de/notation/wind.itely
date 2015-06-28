@@ -311,8 +311,8 @@ Note darzustellen.  Diagramme gibt es für folgende Instrumente:
 @noindent
 Holzbläserdiagramme werden als Beschriftung erstellt:
 
-@lilypond[verbatim,quote,relative=2]
-c1^\markup {
+@lilypond[verbatim,quote,fragment]
+c''1^\markup {
   \woodwind-diagram #'piccolo #'((lh . (gis))
                                  (cc . (one three))
                                  (rh . (ees)))
@@ -322,9 +322,9 @@ c1^\markup {
 Löcher können offen, halboffen, Ring oder geschlossen sein:
 
 @c KEEP LY
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,fragment]
 \textLengthOn
-c1^\markup {
+c''1^\markup {
   \center-column {
     "Ein Viertel"
     \woodwind-diagram #'flute #'((cc . (one1q))
@@ -333,7 +333,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "Eineinhalb"
     \woodwind-diagram #'flute #'((cc . (one1h))
@@ -342,7 +342,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "Drei Viertel"
     \woodwind-diagram #'flute #'((cc . (one3q))
@@ -351,7 +351,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "Ring"
     \woodwind-diagram #'flute #'((cc . (oneR))
@@ -360,7 +360,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "ganz"
     \woodwind-diagram #'flute #'((cc . (oneF two))
@@ -372,8 +372,8 @@ c1^\markup {
 
 Triller werden als schattierte Löcher in den Diagrammen angezeigt:
 
-@lilypond[verbatim,quote,relative=2]
-c1^\markup {
+@lilypond[verbatim,quote,fragment]
+c''1^\markup {
   \woodwind-diagram #'bass-clarinet
                     #'((cc . (threeT four))
                        (lh . ())
@@ -384,9 +384,9 @@ c1^\markup {
 Eine Vielzahl von Trillern ist möglich:
 
 @c KEEP LY
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,fragment]
 \textLengthOn
-c1^\markup {
+c''1^\markup {
   \center-column {
     "ein Viertel zu Ring"
     \woodwind-diagram #'flute #'((cc . (one1qTR))
@@ -395,7 +395,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "Ring zu geschlossen"
     \woodwind-diagram #'flute #'((cc . (oneTR))
@@ -404,7 +404,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "Ring zu geöffnet"
     \woodwind-diagram #'flute #'((cc . (oneRT))
@@ -413,7 +413,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "geöffnet zu geschlossen"
     \woodwind-diagram #'flute #'((cc . (oneT))
@@ -422,7 +422,7 @@ c1^\markup {
   }
 }
 
-c1^\markup {
+c''1^\markup {
   \center-column {
     "ein Viertel zu drei Viertel"
     \woodwind-diagram #'flute #'((cc . (one1qT3q))

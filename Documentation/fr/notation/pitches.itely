@@ -361,8 +361,8 @@ sont obtenus en ajoutant respectivement @code{isis} ou @code{eses} au
 nom de note.  Ce sont les noms de note hollandais.  Pour les autres
 langues, consultez @ref{Nom des notes dans d'autres langues}.
 
-@lilypond[verbatim,quote,relative=2]
-ais1 aes aisis aeses
+@lilypond[verbatim,quote,fragment]
+\relative c'' { ais1 aes aisis aeses }
 @end lilypond
 
 Une hauteur naturelle se saisit comme un simple nom de note, sans
@@ -370,8 +370,8 @@ suffixe.  Un bécarre sera imprimé si besoin est, que ce soit pour
 annuler les effets d'un précédente altération accidentelle ou pour
 déroger à l'armure.
 
-@lilypond[verbatim,quote,relative=2]
-a4 aes a2
+@lilypond[verbatim,quote,fragment]
+\relative c'' { a4 aes a2 }
 @end lilypond
 
 @cindex quarts de ton
@@ -382,8 +382,8 @@ Les demi-bémols et demi-dièses s'écrivent en ajoutant respectivement
 @code{eh} et @code{ih}. Voici une série de dos altérés en hauteurs
 croissantes :
 
-@lilypond[verbatim,quote,relative=2]
-ceseh1 ces ceh c cih cis cisih
+@lilypond[verbatim,quote,fragment]
+\relative c'' { ceseh1 ces ceh c cih cis cisih }
 @end lilypond
 
 Les micro-intervalles sont aussi exportés dans le fichier MIDI.
@@ -403,8 +403,8 @@ point d'exclamation @code{!} après la hauteur de note.  Une altération
 entre parenthèses peut être obtenue en ajoutant un point
 d'interrogation @code{?} après la hauteur de note.
 
-@lilypond[verbatim,quote,relative=2]
-cis cis cis! cis? c c c! c?
+@lilypond[verbatim,quote,fragment]
+\relative c'' { cis cis cis! cis? c c c! c? }
 @end lilypond
 
 @cindex altération et liaison de tenue
@@ -555,8 +555,8 @@ Notez qu'en hollandais, en allemand, en norvégien et en suédois, un
 (ou plus communément @code{asas}).  Dans certains fichiers
 linguistiques, seules ces formes abrégées ont été définies.
 
-@lilypond[verbatim,quote,relative=2]
-a2 as e es a ases e eses
+@lilypond[verbatim,quote,fragment]
+\relative c'' { a2 as e es a ases e eses }
 @end lilypond
 
 @cindex microtonalités
@@ -1096,23 +1096,23 @@ La clef indique quelles lignes de la portée correspondent à quelles
 hauteurs.  En l'absence de commande explicite, LilyPond utilise
 par défaut la clef de sol.
 
-@lilypond[verbatim,quote,relative=1,ragged-right]
-c2 c
+@lilypond[verbatim,quote,fragment,ragged-right]
+c'2 c'
 @end lilypond
 
 La clef se modifie à l'aide de la commande @code{\clef} suivie d'un nom
 approprié.  Pour chacun des exemples suivants est indiquée la position
 du do médium.
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
 \clef treble
-c2 c
+c'2 c'
 \clef alto
-c2 c
+c'2 c'
 \clef tenor
-c2 c
+c'2 c'
 \clef bass
-c2 c
+c'2 c'
 @end lilypond
 
 Les différents noms possibles sont répertoriés à l'annexe
@@ -1145,29 +1145,29 @@ entiers peuvent être utilisés selon les besoins.  L'argument
 @var{clefname} doit être mis entre guillemets lorsqu'il contient des
 caractères supplémentaires.  Par exemple,
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
 \clef treble
-c2 c
+c'2 c'
 \clef "treble_8"
-c2 c
+c'2 c'
 \clef "bass^15"
-c2 c
+c'2 c'
 \clef "alto_2"
-c2 c
+c'2 c'
 \clef "G_8"
-c2 c
+c'2 c'
 \clef "F^5"
-c2 c
+c'2 c'
 @end lilypond
 
 Une indication d'octaviation optionnelle s'obtient en entourant
 l'argument numérique par des parenthèses ou des crochets :
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
 \clef "treble_(8)"
-c2 c
+c'2 c'
 \clef "bass^[15]"
-c2 c
+c'2 c'
 @end lilypond
 
 Les hauteurs seront affichées comme si l'argument numérique
@@ -1178,14 +1178,14 @@ ligne, la nouvelle clef est imprimée à la fois en fin de ligne et au
 début de la suivante.  Vous pouvez toujours supprimer cette « clef de
 précaution ».
 
-@lilypond[verbatim,quote,relative=1]
-\clef treble { c2 c } \break
-\clef bass { c2 c } \break
+@lilypond[verbatim,quote,fragment]
+\clef treble { c'2 c' } \break
+\clef bass { c'2 c' } \break
 \clef alto
   \set Staff.explicitClefVisibility = #end-of-line-invisible
-  { c2 c } \break
+  { c'2 c' } \break
   \unset Staff.explicitClefVisibility
-\clef bass { c2 c } \break
+\clef bass { c'2 c' } \break
 @end lilypond
 
 Lorsqu'une clef a déjà été imprimée et qu'aucune autre clef n'a depuis
@@ -1193,37 +1193,37 @@ Lorsqu'une clef a déjà été imprimée et qu'aucune autre clef n'a depuis
 @code{\clef}.  Forcer la réimpression de la clef s'obtient à l'aide de
 la commande @code{\set Staff.forceClef = ##t}.
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
   \clef treble
-  c1
+  c'1
   \clef treble
-  c1
+  c'1
   \set Staff.forceClef = ##t
-  c1
+  c'1
   \clef treble
-  c1
+  c'1
 @end lilypond
 
 Le symbole imprimé lors d'un changement de clef est plus petit que la
 clef initiale.  La taille peut toutefois être ajustée.
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
   \clef "treble"
-  c1
+  c'1
   \clef "bass"
-  c1
+  c'1
   \clef "treble"
-  c1
+  c'1
   \override Staff.Clef.full-size-change = ##t
   \clef "bass"
-  c1
+  c'1
   \clef "treble"
-  c1
+  c'1
   \revert Staff.Clef.full-size-change
   \clef "bass"
-  c1
+  c'1
   \clef "treble"
-  c1
+  c'1
 @end lilypond
 
 @snippets
@@ -1334,11 +1334,13 @@ Vous pouvez aussi avoir recours aux modes anciens que sont
 @code{\ionian}, @code{\locrian}, @code{\aeolian}, @code{\mixolydian},
 @code{\lydian}, @code{\phrygian} et @code{\dorian}.
 
-@lilypond[verbatim,quote,relative=2]
-\key g \major
-fis1
-f
-fis
+@lilypond[verbatim,quote,fragment]
+\relative {
+  \key g \major
+  fis''1
+  f
+  fis
+}
 @end lilypond
 
 Rien n'empèche de définir d'autres modes, en listant l'altération
@@ -1364,14 +1366,14 @@ le cas où l'entrée est constituée d'une position unique, les
 altérations seront placées à l'intérieur de l'octave finissant à
 cette position sur la portée.
 
-@lilypond[verbatim, quote,relative=0]
+@lilypond[verbatim, quote,fragment]
 \override Staff.KeySignature.flat-positions = #'((-5 . 5))
 \override Staff.KeyCancellation.flat-positions = #'((-5 . 5))
-\clef bass \key es \major es g bes d
-\clef treble \bar "||" \key es \major es g bes d
+\clef bass \key es \major es g bes d'
+\clef treble \bar "||" \key es \major es' g' bes' d''
 
 \override Staff.KeySignature.sharp-positions = #'(2)
-\bar "||" \key b \major b fis b2
+\bar "||" \key b \major b' fis' b'2
 @end lilypond
 
 @snippets
@@ -1420,18 +1422,20 @@ Les marques d'octaviation, @emph{Ottava}, permettent d'introduire une
 transposition spécifique d'une octave pour la portée en cours.  C'est
 la fonction @code{ottava} qui s'en charge.
 
-@lilypond[verbatim,quote,relative=2]
-a2 b
-\ottava #-2
-a2 b
-\ottava #-1
-a2 b
-\ottava #0
-a2 b
-\ottava #1
-a2 b
-\ottava #2
-a2 b
+@lilypond[verbatim,quote]
+\relative a' {
+  a2 b
+  \ottava #-2
+  a2 b
+  \ottava #-1
+  a2 b
+  \ottava #0
+  a2 b
+  \ottava #1
+  a2 b
+  \ottava #2
+  a2 b
+}
 @end lilypond
 
 @snippets
@@ -2941,16 +2945,18 @@ note.
 
 L'apparence des têtes de note peut évoluer au cours de la partition :
 
-@lilypond[verbatim,quote,relative=2]
-c4 b
-\override NoteHead.style = #'cross
-c4 b
-\revert NoteHead.style
-a b
-\override NoteHead.style = #'harmonic
-a b
-\revert NoteHead.style
-c4 d e f
+@lilypond[verbatim,quote]
+\relative c'' {
+  c4 b
+  \override NoteHead.style = #'cross
+  c4 b
+  \revert NoteHead.style
+  a b
+  \override NoteHead.style = #'harmonic
+  a b
+  \revert NoteHead.style
+  c4 d e f
+}
 @end lilypond
 
 Pour une liste exhaustive des styles de tête de note, consultez
@@ -2960,22 +2966,26 @@ Certains instruments utilisent des têtes de note différentes à des
 fins spécifiques -- des croix (style @code{cross}) pour le
 @emph{parlato} des chanteurs ou les notes étouffées des guitares :
 
-@lilypond[verbatim,quote,relative=2]
-c4 b
-\xNotesOn
- a b c4 b
-\xNotesOff
-c4 d
+@lilypond[verbatim,quote]
+\relative {
+  c''4 b
+  \xNotesOn
+   a b c4 b
+  \xNotesOff
+  c4 d
+}
 @end lilypond
 
 Cette commande opère aussi bien sur des notes isolées qu'au sein d'un
 accord, dans une portée traditionnelle ou dans un contexte de
 tablature :
 
-@lilypond[verbatim,quote,relative=2]
-c4 b
-\xNote { e f }
-c b < g \xNote c f > b
+@lilypond[verbatim,quote]
+\relative {
+  c''4 b
+  \xNote { e f }
+  c b < g \xNote c f > b
+}
 @end lilypond
 
 Vous pouvez utiliser, en lieu et place de @code{\xNote},
@@ -2984,8 +2994,10 @@ Vous pouvez utiliser, en lieu et place de @code{\xNote},
 
 Il existe un raccourci pour les notes en losange :
 
-@lilypond[verbatim,quote,relative=2]
-<c f\harmonic>2 <d a'\harmonic>4 <c g'\harmonic> f\harmonic
+@lilypond[verbatim,quote]
+\relative c'' {
+  <c f\harmonic>2 <d a'\harmonic>4 <c g'\harmonic> f\harmonic
+}
 @end lilypond
 
 @predefined
@@ -3114,17 +3126,19 @@ fonction harmonique de cette note dans la gamme.  Ce style de notation
 était très en vogue dans les recueils de chansons américains du XIXe
 siècle.  Voici comment procéder :
 
-@lilypond[verbatim,quote,relative=2]
-\aikenHeads
-c, d e f g2 a b1 c \break
-\sacredHarpHeads
-c,4 d e f g2 a b1 c \break
-\southernHarmonyHeads
-c,4 d e f g2 a b1 c \break
-\funkHeads
-c,4 d e f g2 a b1 c \break
-\walkerHeads
-c,4 d e f g2 a b1 c \break
+@lilypond[verbatim,quote]
+\relative c'' {
+  \aikenHeads
+  c, d e f g2 a b1 c \break
+  \sacredHarpHeads
+  c,4 d e f g2 a b1 c \break
+  \southernHarmonyHeads
+  c,4 d e f g2 a b1 c \break
+  \funkHeads
+  c,4 d e f g2 a b1 c \break
+  \walkerHeads
+  c,4 d e f g2 a b1 c \break
+}
 @end lilypond
 
 Les profils sont déterminés par la hauteur dans la gamme, le premier
@@ -3200,11 +3214,11 @@ allongée (@emph{slash}).  L'interprète jouera alors les notes qu'il
 veut, en respectant toutefois le rythme affiché. Ces têtes de notes sont
 créées ainsi :
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Voice \with {
   \consists "Pitch_squash_engraver"
-} {
-  e8 e g a a16( bes) a8 g
+} \relative {
+  e''8 e g a a16( bes) a8 g
   \improvisationOn
   e8 ~
   2 ~ 8 f4 f8 ~

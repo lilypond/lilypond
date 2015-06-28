@@ -12,12 +12,8 @@
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
-- unless you have a really good reason, use either
+- unless you have a really good reason, use
     @lilypond[verbatim,quote]
-  or
-    @lilypond[verbatim,quote,relative=2]
-
-  Don't use any other relative=X commands.
 
 - use "aes" and "ees" instead of "as" and "es".  I know it's not
   correct Dutch naming, but let's not confuse people with this
@@ -192,9 +188,11 @@ LilyPond は音楽の内容とレイアウトを峻別します。@c
 
 以下の例では:
 
-@lilypond[verbatim,quote,relative=2]
-\key d \major
-cis4 d e fis
+@lilypond[verbatim,quote]
+\relative {
+  \key d \major
+  cis''4 d e fis
+}
 @end lilypond
 
 @noindent
@@ -207,9 +205,11 @@ cis4 d e fis
 そうではなく、@qq{ピッチが B ナチュラルである音符がある} という意味です。@c
 A フラット メジャーの調では、@code{b} には臨時記号が付きます:
 
-@lilypond[verbatim,quote,relative=2]
-\key aes \major
-aes4 c b c
+@lilypond[verbatim,quote]
+\relative {
+  \key aes \major
+  aes'4 c b c
+}
 @end lilypond
 
 混乱してしまいましたか？@c
@@ -255,8 +255,8 @@ aes4 c b c
 @notation{タイ}はタイが始まる最初の音符にチルド @code{~} を@c
 付加することによって作成されます。
 
-@lilypond[verbatim,quote,relative=2]
-g4~ 4 c2~ | 4~ 8 a~ 2 |
+@lilypond[verbatim,quote]
+\relative { g'4~ 4 c2~ | 4~ 8 a~ 2 | }
 @end lilypond
 
 
@@ -267,8 +267,8 @@ g4~ 4 c2~ | 4~ 8 a~ 2 |
 @notation{スラー}は多くの音符に亘って描かれる曲線です。@c
 スラーの開始音符と終了音符にはそれぞれ @code{(} と @code{)} を付加します。
 
-@lilypond[verbatim,quote,relative=2]
-d4( c16) cis( d e c cis d) e( d4)
+@lilypond[verbatim,quote]
+\relative { d''4( c16) cis( d e c cis d) e( d4) }
 @end lilypond
 
 
@@ -282,8 +282,8 @@ d4( c16) cis( d e c cis d) e( d4)
 しかしながら、あなたは複数のスラーを重ねたり、複数のフレージング スラーを@c
 重ねることはできません。
 
-@lilypond[verbatim,quote,relative=2]
-g4\( g8( a) b( c) b4\)
+@lilypond[verbatim,quote]
+\relative { g'4\( g8( a) b( c) b4\) }
 @end lilypond
 
 @smallspace
@@ -300,8 +300,8 @@ g4\( g8( a) b( c) b4\)
 表していて、より大きな音符のグループに対して使用することができます。@c
 スラーとタイはネストさせることができます。
 
-@lilypond[verbatim,quote,relative=2]
-c4~( c8 d~ 4 e)
+@lilypond[verbatim,quote]
+\relative { c''4(~ c8 d~ 4 e) }
 @end lilypond
 
 @seealso
@@ -327,9 +327,11 @@ c4~( c8 d~ 4 e)
 一般的な @notation{アーティキュレーション} はダッシュ @code{-} と単一文字を@c
 使うことで音符に付け加えることができます:
 
-@lilypond[verbatim,quote,relative=2]
-c4-^ c-+ c-- c-!
-c4-> c-. c2-_
+@lilypond[verbatim,quote]
+\relative {
+  c''4-^ c-+ c-- c-!
+  c4-> c-. c2-_
+}
 @end lilypond
 
 
@@ -357,8 +359,8 @@ c-3 e-5 b-2 a-1
 しかしながらたいていの場合は、LilyPond にアーティキュレーションの方向を@c
 決定させるのが一番です。
 
-@lilypond[verbatim,quote,relative=2]
-c4_-^1 d^. f^4_2-> e^-_+
+@lilypond[verbatim,quote]
+\relative { c''4_-^1 d^. f^4_2-> e^-_+ }
 @end lilypond
 
 
@@ -392,8 +394,8 @@ c4_-^1 d^. f^4_2-> e^-_+
 @end ignore
 付きのマークを付け加えることによって作成されます:
 
-@lilypond[verbatim,quote,relative=2]
-c4\ff c\mf c\p c\pp
+@lilypond[verbatim,quote]
+\relative { c''4\ff c\mf c\p c\pp }
 @end lilypond
 
 @notation{クレッシェンド} と @notation{デクレッシェンド} はコマンド @code{\<} と
@@ -401,8 +403,8 @@ c4\ff c\mf c\p c\pp
 次の強弱記号 -- 例えば、@code{\f} -- が (デ)クレッシェンドを終わらせます。@c
 コマンド @code{\!} を使って終わらせることもできます:
 
-@lilypond[verbatim,quote,relative=2]
-c4\< c\ff\> c c\!
+@lilypond[verbatim,quote]
+\relative { c''4\< c\ff\> c c\! }
 @end lilypond
 
 
@@ -426,15 +428,15 @@ c4\< c\ff\> c c\!
 
 テキストをあなたの楽譜に追加することができます:
 
-@lilypond[verbatim,quote,relative=2]
-c2^"espr" a_"legato"
+@lilypond[verbatim,quote,fragment]
+c''2^"espr" a'_"legato"
 @end lilypond
 
 追加のフォーマット指定を @code{\markup} コマンドで追加することができます:
 
-@lilypond[verbatim,quote,relative=2]
-c2^\markup { \bold espr }
-a2_\markup {
+@lilypond[verbatim,quote,fragment]
+c''2^\markup { \bold espr }
+a'2_\markup {
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
 }
 @end lilypond
@@ -468,27 +470,29 @@ a2_\markup {
 
 すべての @notation{連桁} は自動的に描かれます:
 
-@lilypond[verbatim,quote,relative=2]
-a8 ais d ees r d c16 b a8
+@lilypond[verbatim,quote]
+\relative { a'8 ais d ees r d c16 b a8 }
 @end lilypond
 
 あなたが自動連桁を好まない場合、手動で上書きすることもできます。@c
 ある箇所の連桁を修正するには、連桁を付ける最初の音符に @code{[} を、@c
 最後の音符に @code{]} を付け加えます。
 
-@lilypond[verbatim,quote,relative=2]
-a8[ ais] d[ ees r d] c16 b a8
+@lilypond[verbatim,quote]
+\relative { a'8[ ais] d[ ees r d] c16 b a8 }
 @end lilypond
 
 もしあなたが楽譜全体あるいは一部で自動連桁を Off にしたいのなら、@c
 自動連桁を Off にするにはコマンド @code{\autoBeamOff} を、@c
 再度自動連桁を On にするには @code{\autoBeamOn} を使用します。
 
-@lilypond[verbatim,quote,relative=2]
-\autoBeamOff
-a8 c b4 d8. c16 b4 |
-\autoBeamOn
-a8 c b4 d8. c16 b4 |
+@lilypond[verbatim,quote]
+\relative {
+  \autoBeamOff
+  a'8 c b4 d8. c16 b4 |
+  \autoBeamOn
+  a8 c b4 d8. c16 b4 |
+}
 @end lilypond
 
 
@@ -519,9 +523,11 @@ a8 c b4 d8. c16 b4 |
 @code{\partial 4} は 4 分音符のピックアップであり、@c
 @code{\partial 8} は 8 分音符のピックアップです。
 
-@lilypond[verbatim,quote,relative=2]
-\partial 8 f8 |
-c2 d |
+@lilypond[verbatim,quote]
+\relative {
+  \partial 8 f''8 |
+  c2 d |
+}
 @end lilypond
 
 
@@ -541,11 +547,13 @@ c2 d |
 3 連符は 2 つの音符の代わりに 3 つの音符を演奏しますので、@notation{連符}
 の分数は 3/2 となります。
 
-@lilypond[verbatim,quote,relative=2]
-\tuplet 3/2 { f8 g a }
-\tuplet 3/2 { c8 r c }
-\tuplet 3/2 { f,8 g16[ a g a] }
-\tuplet 3/2 { d4 a8 }
+@lilypond[verbatim,quote]
+\relative {
+  \tuplet 3/2 { f''8 g a }
+  \tuplet 3/2 { c8 r c }
+  \tuplet 3/2 { f,8 g16[ a g a] }
+  \tuplet 3/2 { d4 a8 }
+}
 @end lilypond
 
 
@@ -569,10 +577,12 @@ c2 d |
 キーワード @code{\appoggiatura} や @code{\acciaccatura} による接頭音楽表記に@c
 よっても作成されます:
 
-@lilypond[verbatim,quote,relative=2]
-c2 \grace { a32 b } c2 |
-c2 \appoggiatura b16 c2 |
-c2 \acciaccatura b16 c2 |
+@lilypond[verbatim,quote]
+\relative {
+  c''2 \grace { a32 b } c2 |
+  c2 \appoggiatura b16 c2 |
+  c2 \acciaccatura b16 c2 |
+}
 @end lilypond
 
 
@@ -615,15 +625,15 @@ LilyPond の中での多声は同じ譜表上にある複数の声部を参照�
 LilyPond 入力ファイルの中では、音楽は @notation{音楽表記} によって表されます。@c
 単一の音符は 1 つの音楽表記になります:
 
-@lilypond[verbatim,quote,relative=2]
-a4
+@lilypond[verbatim,quote,fragment]
+a'4
 @end lilypond
 
 表記を波括弧で括ることによって @emph{複合音楽表記} が作成されます。@c
 2 つの音符を持つ複合音楽表記を作成しました:
 
-@lilypond[verbatim,quote,relative=2]
-{ a4 g4 }
+@lilypond[verbatim,quote]
+\relative { a'4 g4 }
 @end lilypond
 
 波括弧の中にある音楽表記 (例えば、いくつかの音符) のグループはそれらが@c
@@ -631,8 +641,8 @@ a4
 (つまり、それぞれの音符は前の音符に続くということです)。@c
 もう 1 つ音楽表記の結果を示します:
 
-@lilypond[verbatim,quote,relative=2]
-{ { a4 g } f4 g }
+@lilypond[verbatim,quote]
+\relative { { a'4 g } f4 g }
 @end lilypond
 
 
@@ -694,13 +704,11 @@ a4
 保持しています) が同時進行するように組み合わされています:
 
 @lilypond[verbatim,quote]
-\relative {
-  <<
-    { a'2 g }
-    { f2 e }
-    { d2 b }
-  >>
-}
+<<
+  \relative { a'2 g }
+  \relative { f'2 e }
+  \relative { d'2 b }
+>>
 @end lilypond
 
 入力の各レベルに対して異なる量のスペースをインデントとして与えていることに@c
@@ -761,12 +769,10 @@ LilyPond 入力ファイルは音楽表記によって構築されています�
 これらの @code{Staff} 要素は @code{<<} と @code{>>} で並列に組み合わされます:
 
 @lilypond[verbatim,quote]
-\relative {
-  <<
-    \new Staff { \clef "treble" c''4 }
-    \new Staff { \clef "bass" c,,4 }
-  >>
-}
+<<
+  \new Staff { \clef "treble" c''4 }
+  \new Staff { \clef "bass" c4 }
+>>
 @end lilypond
 
 コマンド @code{\new} は 1 つの @q{記譜コンテキスト} を導入します。@c
@@ -792,12 +798,10 @@ LilyPond 入力ファイルは音楽表記によって構築されています�
 複合リズム (polyrhythmic) の楽譜よりも一般的だからです。
 
 @lilypond[verbatim,quote]
-\relative {
-  <<
-    \new Staff { \clef "treble" \key d \major \time 3/4 c''4 }
-    \new Staff { \clef "bass" c,,4 }
-  >>
-}
+<<
+  \new Staff { \clef "treble" \key d \major \time 3/4 c''4 }
+  \new Staff { \clef "bass" c4 }
+>>
 @end lilypond
 
 @node 譜表グループ
@@ -836,12 +840,10 @@ LilyPond 入力ファイルは音楽表記によって構築されています�
 小さな例を挙げます:
 
 @lilypond[verbatim,quote]
-\relative {
-  \new PianoStaff <<
-    \new Staff { \time 2/4 c''4 e | g g, | }
-    \new Staff { \clef "bass" c,,4 c' | e c | }
-  >>
-}
+\new PianoStaff <<
+  \new Staff \relative { \time 2/4 c''4 e | g g, | }
+  \new Staff \relative { \clef "bass" c4 c' | e c | }
+>>
 @end lilypond
 
 ピアノ譜以外の譜表グループ化はオーケストラ譜向けには @code{\new GrandStaff}
@@ -878,8 +880,8 @@ LilyPond 入力ファイルは音楽表記によって構築されています�
 その演奏時間は山括弧を閉じた後に置かれなければならないということに@c
 注意してください。
 
-@lilypond[verbatim,quote,relative=2]
-r4 <c e g> <c f a>2
+@lilypond[verbatim,quote]
+\relative { r4 <c'' e g> <c f a>2 }
 @end lilypond
 
 和音は単一の音符とほとんど同じであると考えてください:
@@ -888,11 +890,13 @@ r4 <c e g> <c f a>2
 例えば、あなたは連桁やタイなどのマークをコードに組み合わせることができます。@c
 それらは山括弧の外側に置かれなければなりません。
 
-@lilypond[verbatim,quote,relative=2]
-r4 <c e g>~ <c f a>2 |
-<c e g>8[ <c f a> <c e g> <c f a>]
-  <c e g>8\>[ <c f a> <c f a> <c e g>]\! |
-r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
+@lilypond[verbatim,quote]
+\relative {
+  r4 <c'' e g>~ <c f a>2 |
+  <c e g>8[ <c f a> <c e g> <c f a>]
+    <c e g>8\>[ <c f a> <c f a> <c e g>]\! |
+  r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
+}
 @end lilypond
 
 @seealso

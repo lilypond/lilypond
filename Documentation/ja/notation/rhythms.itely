@@ -67,21 +67,25 @@
 それよりも短い音価を指定することも可能ですが、必ず連桁付きの音符となります。
 
 @c Two 64th notes are needed to obtain beams
-@lilypond[quote,verbatim,relative=2]
-\time 8/1
-c\longa c\breve c1 c2
-c4 c8 c16 c32 c64 c128 c128
+@lilypond[quote,verbatim]
+\relative {
+  \time 8/1
+  c''\longa c\breve c1 c2
+  c4 c8 c16 c32 c64 c128 c128
+}
 @end lilypond
 
 同じ例で自動連桁を off にしてみます。
 
 @c not strictly "writing rhythms"; more of a "displaying" thing,
 @c but it's ok here.  -gp
-@lilypond[quote,verbatim,relative=2]
-\time 8/1
-\autoBeamOff
-c\longa c\breve c1 c2
-c4 c8 c16 c32 c64 c128 c128
+@lilypond[quote,verbatim]
+\relative {
+  \time 8/1
+  \autoBeamOff
+  c''\longa c\breve c1 c2
+  c4 c8 c16 c32 c64 c128 c128
+}
 @end lilypond
 
 全音符の 8 倍の演奏時間を持つ音符は
@@ -96,8 +100,8 @@ c4 c8 c16 c32 c64 c128 c128
 演奏時間を省略した場合、前に入力された演奏時間にセットされます。@c
 最初の音符のデフォルト値は 4 分音符です。
 
-@lilypond[quote,verbatim,relative=2]
-a a a2 a a4 a a1 a
+@lilypond[quote,verbatim]
+\relative { a' a a2 a a4 a a1 a }
 @end lilypond
 
 @cindex notes, dotted (付点音符)
@@ -110,8 +114,8 @@ a a a2 a a4 a a1 a
 付点音符の演奏時間を得るには、演奏時間の後にドット (@code{.}) を置きます。@c
 2 重付点音符は 2 つのドットを置き、3 重付点音符は 3 つのドットなどとなります。
 
-@lilypond[quote,verbatim,relative=2]
-a4 b c4. b8 a4. b4.. c8.
+@lilypond[quote,verbatim]
+\relative { a'4 b c4. b8 a4. b4.. c8. }
 @end lilypond
 
 演奏時間の中には 2の倍数の演奏時間とドットだけでは表せないものもあります。@c
@@ -230,9 +234,11 @@ c4 c \tuplet 3/2 { b4 a g }
 
 連符はネストすることができます:
 
-@lilypond[quote,verbatim,relative=2]
-\autoBeamOff
-c4 \tuplet 5/4 { f8 e f \tuplet 3/2 { e[ f g] } } f4
+@lilypond[quote,verbatim]
+\relative {
+  \autoBeamOff
+  c''4 \tuplet 5/4 { f8 e f \tuplet 3/2 { e[ f g] } } f4
+}
 @end lilypond
 
 ネストされた連符の演奏開始点が同時である場合に、それらの連符を変更するには
@@ -475,8 +481,8 @@ a2 ~ 2
 ピアノ、ハープ、他の弦楽器、それに打楽器のための楽譜で使用されます。@c
 L.v. タイは以下のように入力します:
 
-@lilypond[quote,verbatim,relative=1]
-<c f g>1\laissezVibrer
+@lilypond[quote,verbatim,fragment]
+<c' f' g'>1\laissezVibrer
 @end lilypond
 
 @cindex ties, placement (タイの配置)
@@ -537,16 +543,18 @@ c2 ~ 2
 @var{whiteout} レイアウト プロパティと @var{layer} レイアウト プロパティを@c
 オーバライドしてください。
 
-@lilypond[verbatim,quote,ragged-right,relative=2]
-\override Tie.layer = #-2
-\override Staff.TimeSignature.layer = #-1
-\override Staff.KeySignature.layer = #-1
-\override Staff.TimeSignature.whiteout-box = ##t
-\override Staff.KeySignature.whiteout-box = ##t
-b2 b~
-\time 3/4
-\key a \major
-b r4
+@lilypond[verbatim,quote,ragged-right]
+\relative {
+  \override Tie.layer = #-2
+  \override Staff.TimeSignature.layer = #-1
+  \override Staff.KeySignature.layer = #-1
+  \override Staff.TimeSignature.whiteout = ##t
+  \override Staff.KeySignature.whiteout = ##t
+  b'2 b~
+  \time 3/4
+  \key a \major
+  b r4
+}
 @end lilypond
 
 @predefined
@@ -666,8 +674,8 @@ b r4
 これは多声部音楽を手動で精密にフォーマットすることを考慮したものです。@c
 なぜなら、自動休符フォーマットでは多声部音楽の休符の衝突を回避できないからです。
 
-@lilypond[quote,verbatim,relative=2]
-a4\rest d4\rest
+@lilypond[quote,verbatim]
+\relative { a'4\rest d4\rest }
 @end lilypond
 
 @snippets
@@ -714,9 +722,11 @@ a4\rest d4\rest
 不可視の休符 (@q{空白休符} とも呼ばれます) は音符名@tie{}@code{s} を@c
 持つ音符として入力することができます:
 
-@lilypond[verbatim,quote,relative=2]
-c4 c s c
-s2 c
+@lilypond[verbatim,quote]
+\relative c'' {
+  c4 c s c |
+  s2 c |
+}
 @end lilypond
 
 @cindex lyrics, skip (歌詞をスキップする)
@@ -728,10 +738,10 @@ s2 c
 @code{\addlyrics} や @code{\lyricsto} を使っていて、@c
 歌詞が関係するメロディーの音符から演奏時間を得ている場合は無視されます。
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
   {
-    a2 \skip2 a2 a2
+    a'2 \skip2 a'2 a'2
   }
   \new Lyrics {
     \lyricmode {
@@ -744,14 +754,14 @@ s2 c
 @code{\skip} はコマンドであるため、@c
 @code{s} とは異なり後に続く音符のデフォルト演奏時間には影響を与えません。
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
   {
-    \repeat unfold 8 { a4 }
+    \repeat unfold 8 { a'4 }
   }
   {
-    a4 \skip 2 a |
-    s2 a
+    a'4 \skip 2 a' |
+    s2 a'
   }
 >>
 @end lilypond
@@ -832,7 +842,7 @@ R4*5*4 |
 1 小節分の休符は、拍子次第で全休符または二全休符のどちらかとして、@c
 小節の中央に譜刻されます。
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \time 4/4
 R1 |
 \time 6/4
@@ -1017,9 +1027,9 @@ R1^"right"
 
 拍子は以下のようにセットします:
 
-@lilypond[quote,verbatim,relative=2]
-\time 2/4 c2
-\time 3/4 c2.
+@lilypond[quote,verbatim,fragment]
+\time 2/4 c''2
+\time 3/4 c''2.
 @end lilypond
 
 @cindex time signature, visibility of (拍子の可視性)
@@ -1029,14 +1039,16 @@ R1^"right"
 デフォルトの振る舞いを変更することができます。@c
 @ref{Visibility of objects} を参照してください。
 
-@lilypond[quote,verbatim,relative=2]
-\time 2/4
-c2 c
-\break
-c c
-\break
-\time 4/4
-c c c c
+@lilypond[quote,verbatim]
+\relative c'' {
+  \time 2/4
+  c2 c
+  \break
+  c c
+  \break
+  \time 4/4
+  c c c c
+}
 @end lilypond
 
 @cindex time signature style (拍子スタイル)
@@ -1261,50 +1273,62 @@ c c c c
 
 基本的なメトロノーム記号は単純に以下のように記述します:
 
-@lilypond[verbatim,quote,relative=1]
-\tempo 4 = 120
-c2 d
-e4. d8 c2
+@lilypond[verbatim,quote]
+\relative {
+  \tempo 4 = 120
+  c'2 d
+  e4. d8 c2
+}
 @end lilypond
 
 メトロノーム記号を 2 つの数の範囲として譜刻することもできます:
 
-@lilypond[verbatim,quote,relative=1]
-\tempo 4 = 40 - 46
-c4. e8 a4 g
-b,2 d4 r
+@lilypond[verbatim,quote]
+\relative {
+  \tempo 4 = 40 - 46
+  c'4. e8 a4 g
+  b,2 d4 r
+}
 @end lilypond
 
 テキストを持つテンポ指示にすこともできます:
 
-@lilypond[verbatim,quote,relative=2]
-\tempo "Allegretto"
-c4 e d c
-b4. a16 b c4 r4
+@lilypond[verbatim,quote]
+\relative {
+  \tempo "Allegretto"
+    c''4 e d c
+    b4. a16 b c4 r4
+}
 @end lilypond
 
 メトロノーム記号とテキストを組み合わせると、@c
 メトロノーム記号は自動的に括弧で囲まれます:
 
-@lilypond[verbatim,quote,relative=2]
-\tempo "Allegro" 4 = 160
-g4 c d e
-d4 b g2
+@lilypond[verbatim,quote]
+\relative {
+  \tempo "Allegro" 4 = 160
+  g'4 c d e
+  d4 b g2
+}
 @end lilypond
 
 一般に、テキストを任意のマークアップ オブジェクトにすることができます:
 
-@lilypond[verbatim,quote,relative=2]
-\tempo \markup { \italic Faster } 4 = 132
-a8-. r8 b-. r gis-. r a-. r
+@lilypond[verbatim,quote]
+\relative {
+  \tempo \markup { \italic Faster } 4 = 132
+  a'8-. r8 b-. r gis-. r a-. r
+}
 @end lilypond
 
 テキストを伴わないメトロノーム記号を括弧で囲むには、@c
 空の文字列を含めて記述します:
 
-@lilypond[verbatim,quote,relative=2]
-\tempo "" 8 = 96
-d4 g e c
+@lilypond[verbatim,quote]
+\relative {
+  \tempo "" 8 = 96
+  d''4 g e c
+}
 @end lilypond
 
 
@@ -1375,10 +1399,12 @@ e8 | a4 c8 b c4 |
 @var{duration} は、完全な長さを持つ小節より短い演奏時間であれば、@c
 任意の値を取ることができます:
 
-@lilypond[quote,verbatim,relative=1]
-\time 3/4
-\partial 4.
-r4 e8 | a4 c8 b c4 |
+@lilypond[quote,verbatim]
+\relative {
+  \time 3/4
+  \partial 4.
+  r4 e'8 | a4 c8 b c4 |
+}
 @end lilypond
 
 @code{\partial @var{duration}} を以下のように記述することもできます:
@@ -1465,13 +1491,15 @@ r8 e,8 | a4 c8 b[ c b] |
 @code{\cadenzaOn} を用いて @q{スイッチ off} することができます。@c
 @q{スイッチ on} に戻すには、適切な場所で @code{\cadenzaOff} を用います。
 
-@lilypond[verbatim,relative=2,quote]
-c4 d e d
-\cadenzaOn
-c4 c d8[ d d] f4 g4.
-\cadenzaOff
-\bar "|"
-d4 e d c
+@lilypond[verbatim,quote]
+\relative c'' {
+  c4 d e d
+  \cadenzaOn
+  c4 c d8[ d d] f4 g4.
+  \cadenzaOff
+  \bar "|"
+  d4 e d c
+}
 @end lilypond
 
 カデンツァが終わると、小節番号が再開されます。
@@ -1511,14 +1539,16 @@ cis4 d cis! d
 そのため、カデンツァの中に連桁を挿入するには手動で行う必要があります。@c
 @ref{Manual beams} を参照してください。
 
-@lilypond[verbatim,relative=2,quote]
-\repeat unfold 8 { c8 }
-\cadenzaOn
-cis8 c c c c
-\bar"|"
-c8 c c
-\cadenzaOff
-\repeat unfold 8 { c8 }
+@lilypond[verbatim,quote]
+\relative {
+  \repeat unfold 8 { c''8 }
+  \cadenzaOn
+  cis8 c c c c
+  \bar"|"
+  c8 c c
+  \cadenzaOff
+  \repeat unfold 8 { c8 }
+}
 @end lilypond
 
 +These predefined commands affect all staves in the score, even when
@@ -1787,15 +1817,16 @@ c8 c c
 以下の例では、小節線をまたがる音符と休符は分割され、@c
 音符はされにタイで結ばれています。
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,verbatim]
 \new Voice \with {
   \remove "Note_heads_engraver"
   \consists "Completion_heads_engraver"
   \remove "Rest_engraver"
   \consists "Completion_rest_engraver"
 }
-
-{ c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 r1*2 }
+\relative {
+  c'2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 r1*2
+}
 @end lilypond
 
 これらのエングラーバは進行中の音符と休符をすべて小節線のところで分割して、@c
@@ -1843,12 +1874,12 @@ c8 c c
 そのような譜上にある音符のピッチはすべて破棄され、その譜自体は 1 本の@c
 線を持ちます:
 
-@lilypond[quote,relative=1,verbatim]
+@lilypond[quote,verbatim]
 <<
   \new RhythmicStaff {
-    \new Voice = "myRhythm" {
+    \new Voice = "myRhythm" \relative {
       \time 4/4
-      c4 e8 f g2
+      c'4 e8 f g2
       r4 g g f
       g1
     }
@@ -1944,9 +1975,11 @@ c8 c c
 @funindex \autoBeamOff
 @funindex autoBeamOff
 
-@lilypond[quote,verbatim,relative=2]
-\time 2/4 c8 c c c
-\time 6/8 c8 c c c8. c16 c8
+@lilypond[quote,verbatim]
+\relative c'' {
+  \time 2/4 c8 c c c
+  \time 6/8 c8 c c c8. c16 c8
+}
 @end lilypond
 
 自動的に決定される連桁が満足いかないものである場合、@c
@@ -1959,12 +1992,14 @@ c8 c c
 @code{\autoBeamOff} で off にすることができ、@c
 @code{\autoBeamOn} で on にすることができます:
 
-@lilypond[quote,relative=1,verbatim]
-c4 c8 c8. c16 c8. c16 c8
-\autoBeamOff
-c4 c8 c8. c16 c8.
-\autoBeamOn
-c16 c8
+@lilypond[quote,verbatim]
+\relative c' {
+  c4 c8 c8. c16 c8. c16 c8
+  \autoBeamOff
+  c4 c8 c8. c16 c8.
+  \autoBeamOn
+  c16 c8
+}
 @end lilypond
 
 @cindex melismata, with beams (メリスマの連桁)
@@ -2234,11 +2269,13 @@ c16 c c |
 この振る舞いはコンテキスト プロパティ @code{beamHalfMeasure} によって@c
 制御されます -- これは分子が 3 の拍子記号の場合にのみ効果を持ちます:
 
-@lilypond[quote,verbatim,relative=2]
-\time 3/4
-r4. a8 a a |
-\set Timing.beamHalfMeasure = ##f
-r4. a8 a a |
+@lilypond[quote,verbatim]
+\relative a' {
+  \time 3/4
+  r4. a8 a a |
+  \set Timing.beamHalfMeasure = ##f
+  r4. a8 a a |
+}
 @end lilypond
 
 @i{@strong{自動連桁はどのように機能するのか}}
@@ -2353,7 +2390,7 @@ r4. a8 a a |
 常にお望みの連桁を使うこともできます。@c
 ある拍子に対する自動連桁設定を変更する方法は @ref{拍子} で説明しています。
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
   \new Staff {
     \overrideTimeSignatureSettings
@@ -2362,11 +2399,11 @@ r4. a8 a a |
       #'(1 5)           % beatStructure
       #'()		% beamExceptions
     \time 3/4
-    \repeat unfold 6 { a8 }
+    \repeat unfold 6 { a'8 }
   }
   \new Staff {
     \time 3/4
-    \repeat unfold 6 { a8 }
+    \repeat unfold 6 { a'8 }
   }
 >>
 @end lilypond
@@ -2388,8 +2425,8 @@ r4. a8 a a |
 そのような連桁は  @code{[} と @code{]} で開始点と終了点を記すことによって@c
 手動で指定することができます:
 
-@lilypond[quote,relative=1,verbatim]
-r4 r8[ g' a r] r g[ | a] r
+@lilypond[quote,verbatim]
+\relative { r4 r8[ g' a r] r g[ | a] r }
 @end lilypond
 
 @cindex manual beams, direction shorthand for (手動連桁の向きを指定する短縮記譜法)
@@ -2397,8 +2434,8 @@ r4 r8[ g' a r] r g[ | a] r
 
 方向指示子を用いることで、連桁の向きを手動で設定することができます:
 
-@lilypond[quote,relative=2,verbatim]
-c8^[ d e] c,_[ d e f g]
+@lilypond[quote,verbatim]
+\relative { c''8^[ d e] c,_[ d e f g] }
 @end lilypond
 
 @funindex \noBeam
@@ -2407,20 +2444,24 @@ c8^[ d e] c,_[ d e f g]
 連桁でつながれないようにするために、個々の音符には
 @code{\noBeam} が記されるかもしれません:
 
-@lilypond[quote,verbatim,relative=2]
-\time 2/4
-c8 c\noBeam c c
+@lilypond[quote,verbatim]
+\relative {
+  \time 2/4
+  c''8 c\noBeam c c
+}
 @end lilypond
 
 装飾小音符の連桁と通常の音符の連桁は同時進行で発生します。@c
 通常の音符の連桁の途中に、連桁でつながれない装飾小音符は配置されません。
 
-@lilypond[quote,verbatim,relative=2]
-c4 d8[
-\grace { e32 d c d }
-e8] e[ e
-\grace { f16 }
-e8 e]
+@lilypond[quote,verbatim]
+\relative {
+  c''4 d8[
+  \grace { e32 d c d }
+  e8] e[ e
+  \grace { f16 }
+  e8 e]
+}
 @end lilypond
 
 @funindex stemLeftBeamCount
@@ -2435,14 +2476,16 @@ e8 e]
 -- すなわち、グループ全体をつなげている 8 分音符の連桁を持って --
 譜刻されています。
 
-@lilypond[quote,relative=2,verbatim]
-a8[ r16 f g a]
-a8[ r16
-\set stemLeftBeamCount = #2
-\set stemRightBeamCount = #1
-f16
-\set stemLeftBeamCount = #1
-g16 a]
+@lilypond[quote,verbatim]
+\relative a' {
+  a8[ r16 f g a]
+  a8[ r16
+  \set stemLeftBeamCount = #2
+  \set stemRightBeamCount = #1
+  f16
+  \set stemLeftBeamCount = #1
+  g16 a]
+}
 @end lilypond
 
 
@@ -2508,16 +2551,18 @@ ritardando (徐々に緩やかに) や accelerando (次第に速く) を@c
 最初の 4 つの 32 分音符は徐々にスピード アップしますが、@c
 最後の 4 つの 32 分音符は一定のテンポです。
 
-@lilypond[relative=1,verbatim,quote]
-\override Beam.grow-direction = #LEFT
-\featherDurations #(ly:make-moment 2/1)
-{ c16[ c c c c c c c] }
-\override Beam.grow-direction = #RIGHT
-\featherDurations #(ly:make-moment 2/3)
-{ c32[ d e f] }
-% revert to non-feathered beams
-\override Beam.grow-direction = #'()
-{ g32[ a b c] }
+@lilypond[verbatim,quote]
+\relative c' {
+  \override Beam.grow-direction = #LEFT
+  \featherDurations #(ly:make-moment 2/1)
+  { c16[ c c c c c c c] }
+  \override Beam.grow-direction = #RIGHT
+  \featherDurations #(ly:make-moment 2/3)
+  { c32[ d e f] }
+  % revert to non-feathered beams
+  \override Beam.grow-direction = #'()
+  { g32[ a b c] }
+}
 @end lilypond
 
 @noindent
@@ -2571,8 +2616,8 @@ MIDI 出力での演奏時間は正確です。
 @code{\bar} コマンドで他のタイプに変更することができます。@c
 例えば、通常、2 重線の閉じの小節線が楽曲の最後に配置されます:
 
-@lilypond[quote,relative=1,verbatim]
-e4 d c2 \bar "|."
+@lilypond[quote,verbatim]
+\relative { e'4 d c2 \bar "|." }
 @end lilypond
 
 ある小節の最後の音符が、自動的に挿入される小節線の所で終わっていなくても@c
@@ -2629,24 +2674,28 @@ e4 d c2 \bar "|."
 手動で挿入できる小節線として、単線の小節線は 2 種類あり、@c
 2 重線の小節線は 5 種類あります:
 
-@lilypond[quote,relative=1,verbatim]
-f1 \bar "|"
-f1 \bar "."
-g1 \bar "||"
-a1 \bar ".|"
-b1 \bar ".."
-c1 \bar "|.|"
-d1 \bar "|."
-e1
+@lilypond[quote,verbatim]
+\relative {
+  f'1 \bar "|"
+  f1 \bar "."
+  g1 \bar "||"
+  a1 \bar ".|"
+  b1 \bar ".."
+  c1 \bar "|.|"
+  d1 \bar "|."
+  e1
+}
 @end lilypond
 
 @noindent
 さらに、点線と破線の小節線があります:
 
-@lilypond[quote,relative=1,verbatim]
-f1 \bar ";"
-g1 \bar "!"
-a1
+@lilypond[quote,verbatim]
+\relative {
+  f'1 \bar ";"
+  g1 \bar "!"
+  a1
+}
 @end lilypond
 
 @noindent
@@ -2675,20 +2724,22 @@ to use @code{\divisioMinima} there instead, described in the section
 行内のセーニョ記号として、3 タイプの小節線があり、@c
 改行での振る舞いがそれぞれ異なります:
 
-@lilypond[quote,relative=2,verbatim]
-c4 c c c
-\bar "S"
-c4 c c c \break
-\bar "S"
-c4 c c c
-\bar "S-|"
-c4 c c c \break
-\bar "S-|"
-c4 c c c
-\bar "S-S"
-c4 c c c \break
-\bar "S-S"
-c1
+@lilypond[quote,verbatim]
+\relative c'' {
+  c4 c c c
+  \bar "S"
+  c4 c c c \break
+  \bar "S"
+  c4 c c c
+  \bar "S-|"
+  c4 c c c \break
+  \bar "S-|"
+  c4 c c c
+  \bar "S-S"
+  c4 c c c \break
+  \bar "S-S"
+  c1
+}
 @end lilypond
 
 @cindex repeats (繰り返し)
@@ -2706,42 +2757,46 @@ c1
 この小節線は行の終わりに 2 重線の小節線を置き、@c
 次の行の始めに繰り返し開始の小節線を置きます。
 
-@lilypond[quote,relative=2,verbatim]
-c4 c c c
-\bar ".|:-||"
-c4 c c c \break
-\bar ".|:-||"
-c4 c c c
+@lilypond[quote,verbatim]
+\relative c'' {
+  c4 c c c
+  \bar ".|:-||"
+  c4 c c c \break
+  \bar ".|:-||"
+  c4 c c c
+}
 @end lilypond
 
 繰り返しとセーニョ記号の組み合わせは 6 種類あります:
 
-@lilypond[quote,relative=2,verbatim]
-c4 c c c
-\bar ":|.S"
-c4 c c c \break
-\bar ":|.S"
-c4 c c c
-\bar ":|.S-S"
-c4 c c c \break
-\bar ":|.S-S"
-c4 c c c
-\bar "S.|:-S"
-c4 c c c \break
-\bar "S.|:-S"
-c4 c c c
-\bar "S.|:"
-c4 c c c \break
-\bar "S.|:"
-c4 c c c
-\bar ":|.S.|:"
-c4 c c c \break
-\bar ":|.S.|:"
-c4 c c c
-\bar ":|.S.|:-S"
-c4 c c c \break
-\bar ":|.S.|:-S"
-c1
+@lilypond[quote,verbatim]
+\relative c'' {
+  c4 c c c
+  \bar ":|.S"
+  c4 c c c \break
+  \bar ":|.S"
+  c4 c c c
+  \bar ":|.S-S"
+  c4 c c c \break
+  \bar ":|.S-S"
+  c4 c c c
+  \bar "S.|:-S"
+  c4 c c c \break
+  \bar "S.|:-S"
+  c4 c c c
+  \bar "S.|:"
+  c4 c c c \break
+  \bar "S.|:"
+  c4 c c c
+  \bar ":|.S.|:"
+  c4 c c c \break
+  \bar ":|.S.|:"
+  c4 c c c
+  \bar ":|.S.|:-S"
+  c4 c c c \break
+  \bar ":|.S.|:-S"
+  c1
+}
 @end lilypond
 
 さらに、@code{\inStaffSegno} コマンドがあります。@c
@@ -2754,17 +2809,17 @@ c1
 結果として、@code{StaffGroup}, @code{PianoStaff}, あるいは
 @code{GrandStaff} では、小節線は譜をまたがって 1 本に接続されます。
 
-@lilypond[quote,relative=1,verbatim]
+@lilypond[quote,verbatim]
 <<
   \new StaffGroup <<
-    \new Staff {
-      e4 d
+    \new Staff \relative {
+      e'4 d
       \bar "||"
       f4 e
     }
-    \new Staff { \clef bass c4 g e g }
+    \new Staff \relative { \clef bass c'4 g e g }
   >>
-  \new Staff { \clef bass c2 c2 }
+  \new Staff \relative { \clef bass c'2 c2 }
 >>
 @end lilypond
 
@@ -2997,11 +3052,13 @@ c1 | c | c | c
 
 リハーサル記号を譜刻するには、@code{\mark} コマンドを使用します:
 
-@lilypond[quote,verbatim,relative=2]
-c1 \mark \default
-c1 \mark \default
-c1 \mark \default
-c1 \mark \default
+@lilypond[quote,verbatim]
+\relative c'' {
+  c1 \mark \default
+  c1 \mark \default
+  c1 \mark \default
+  c1 \mark \default
+}
 @end lilypond
 
 @noindent
@@ -3009,12 +3066,14 @@ c1 \mark \default
 手動で整数をリハーサル記号にセットすることもできます。@c
 セットした値は @code{rehearsalMark} に保存されます。
 
-@lilypond[quote,verbatim,relative=2]
-c1 \mark \default
-c1 \mark \default
-c1 \mark #8
-c1 \mark \default
-c1 \mark \default
+@lilypond[quote,verbatim]
+\relative c'' {
+  c1 \mark \default
+  c1 \mark \default
+  c1 \mark #8
+  c1 \mark \default
+  c1 \mark \default
+}
 @end lilypond
 
 @noindent
@@ -3029,13 +3088,15 @@ c1 \mark \default
 \set Score.markFormatter = #format-mark-circle-alphabet
 @end example
 
-@lilypond[quote,verbatim,relative=2]
-\set Score.markFormatter = #format-mark-box-alphabet
-c1 \mark \default
-c1 \mark \default
-c1 \mark #8
-c1 \mark \default
-c1 \mark \default
+@lilypond[quote,verbatim]
+\relative c'' {
+  \set Score.markFormatter = #format-mark-box-alphabet
+  c1 \mark \default
+  c1 \mark \default
+  c1 \mark #8
+  c1 \mark \default
+  c1 \mark \default
+}
 @end lilypond
 
 @cindex rehearsal mark format (リハーサル記号のフォーマット)
@@ -3055,16 +3116,18 @@ c1 \mark \default
 以下の例では、@code{markFormatter} には定義済みの手続きがセットされています。@c
 数小節後では、四角で囲まれた番号を作り出す手続きがセットされています。
 
-@lilypond[quote,verbatim,relative=2]
-\set Score.markFormatter = #format-mark-numbers
-c1 \mark \default
-c1 \mark \default
-\set Score.markFormatter = #format-mark-box-numbers
-c1 \mark \default
-\set Score.markFormatter = #format-mark-circle-numbers
-c1 \mark \default
-\set Score.markFormatter = #format-mark-circle-letters
-c1
+@lilypond[quote,verbatim]
+\relative c'' {
+  \set Score.markFormatter = #format-mark-numbers
+  c1 \mark \default
+  c1 \mark \default
+  \set Score.markFormatter = #format-mark-box-numbers
+  c1 \mark \default
+  \set Score.markFormatter = #format-mark-circle-numbers
+  c1 \mark \default
+  \set Score.markFormatter = #format-mark-circle-letters
+  c1
+}
 @end lilypond
 
 ファイル @file{scm/translation-functions.scm} は
@@ -3103,11 +3166,13 @@ c1
 
 音楽的図柄 (セーニョ記号など) を @code{\mark} の中に譜刻することができます:
 
-@lilypond[quote,verbatim,relative=1]
-c1 \mark \markup { \musicglyph #"scripts.segno" }
-c1 \mark \markup { \musicglyph #"scripts.coda" }
-c1 \mark \markup { \musicglyph #"scripts.ufermata" }
-c1
+@lilypond[quote,verbatim]
+\relative c' {
+  c1 \mark \markup { \musicglyph #"scripts.segno" }
+  c1 \mark \markup { \musicglyph #"scripts.coda" }
+  c1 \mark \markup { \musicglyph #"scripts.ufermata" }
+  c1
+}
 @end lilypond
 
 @noindent
@@ -3170,9 +3235,11 @@ c1
 装飾小音符は装飾の音であり、小さなフォントで表示され、@c
 論理的には演奏時間を持ちません。
 
-@lilypond[quote,relative=2,verbatim]
-c4 \grace b16 a4(
-\grace { b16 c16 } a2)
+@lilypond[quote,verbatim]
+\relative {
+  c''4 \grace b16 a4(
+  \grace { b16 c16 } a2)
+}
 @end lilypond
 
 装飾音符には他にも 3 つのタイプがあります。@c
@@ -3191,23 +3258,25 @@ Lilypond はさらに 2 つ特殊なタイプの装飾小音符をサポート�
 @emph{appoggiatura} (一定の比率で主音符から演奏時間をとり、@c
 スラッシュを持たない小さな音符で譜刻されます) です。
 
-@lilypond[quote,relative=2,verbatim]
-\acciaccatura d8 c4
-\appoggiatura e8 d4
-\acciaccatura { g16 f } e2
-\slashedGrace a,8 g4
-\slashedGrace b16 a4(
-\slashedGrace b8 a2)
+@lilypond[quote,verbatim]
+\relative {
+  \acciaccatura d''8 c4
+  \appoggiatura e8 d4
+  \acciaccatura { g16 f } e2
+  \slashedGrace a,8 g4
+  \slashedGrace b16 a4(
+  \slashedGrace b8 a2)
+}
 @end lilypond
 
 装飾小音符の配置は他の譜と同期されます。@c
 以下の例では、8 分の装飾小音符 1 つに対して 2 つの 16 分装飾小音符が@c
 割り当てられています:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Staff { e2 \grace { c16 d e f } e2 }
-  \new Staff { c2 \grace { g8 b } c2 }
+  \new Staff \relative { e''2 \grace { c16 d e f } e2 }
+  \new Staff \relative { c''2 \grace { g8 b } c2 }
 >>
 @end lilypond
 
@@ -3221,8 +3290,8 @@ Lilypond はさらに 2 つ特殊なタイプの装飾小音符をサポート�
 このコマンドは 2 つの引数をとります:
 主音符と主音符の後に続く装飾小音符です。
 
-@lilypond[quote,verbatim,relative=2]
-c1 \afterGrace d1 { c16[ d] } c1
+@lilypond[quote,verbatim]
+\relative { c''1 \afterGrace d1 { c16[ d] } c1 }
 @end lilypond
 
 これは主音符の長さの 3/4 のスペースをとった後に@c
@@ -3232,18 +3301,18 @@ c1 \afterGrace d1 { c16[ d] } c1
 以下の例では、スペースをデフォルト、主音符の 15/16、最後は 1/2 に@c
 設定した結果を示しています。
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
-  \new Staff {
-    c1 \afterGrace d1 { c16[ d] } c1
+  \new Staff \relative {
+    c''1 \afterGrace d1 { c16[ d] } c1
   }
-  \new Staff {
+  \new Staff \relative {
     #(define afterGraceFraction (cons 15 16))
-    c1 \afterGrace d1 { c16[ d] } c1
+    c''1 \afterGrace d1 { c16[ d] } c1
   }
-  \new Staff {
+  \new Staff \relative {
     #(define afterGraceFraction (cons 1 2))
-    c1 \afterGrace d1 { c16[ d] } c1
+    c''1 \afterGrace d1 { c16[ d] } c1
   }
 >>
 @end lilypond
@@ -3253,10 +3322,10 @@ c1 \afterGrace d1 { c16[ d] } c1
 以下の例では、主音符の長さの 7/8 のスペースをとった後に装飾小音符を@c
 配置しています。
 
-@lilypond[quote,verbatim,relative=2]
-\new Voice {
+@lilypond[quote,verbatim]
+\new Voice \relative {
   <<
-    { d1^\trill_( }
+    { d''1^\trill_( }
     { s2 s4. \grace { c16 d } }
   >>
   c1)
@@ -3276,11 +3345,11 @@ c1 \afterGrace d1 { c16[ d] } c1
 以下の例では、装飾小音符の符幹のデフォルトの向きがオーバライドされ、@c
 それから元に戻されています。
 
-@lilypond[quote,verbatim,relative=2]
-\new Voice {
+@lilypond[quote,verbatim]
+\new Voice \relative {
   \acciaccatura {
     \stemDown
-    f16->
+    f''16->
     \stemNeutral
   }
   g4 e c2
@@ -3345,10 +3414,10 @@ c1 \afterGrace d1 { c16[ d] } c1
 装飾小音符を持つ譜と持たない譜を混在させる場合は気をつけて下さい。@c
 例えば:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Staff { e4 \bar ".|:" \grace c16 d2. }
-  \new Staff { c4 \bar ".|:" d2. }
+  \new Staff \relative { e''4 \bar ".|:" \grace c16 d2. }
+  \new Staff \relative { c''4 \bar ".|:" d2. }
 >>
 @end lilypond
 
@@ -3357,10 +3426,10 @@ c1 \afterGrace d1 { c16[ d] } c1
 装飾小音符を挿入することによって修正することができます。@c
 上の例を以下のように修正します:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Staff { e4 \bar ".|:" \grace c16 d2. }
-  \new Staff { c4 \bar ".|:" \grace s16 d2. }
+  \new Staff \relative { e''4 \bar ".|:" \grace c16 d2. }
+  \new Staff \relative { c''4 \bar ".|:" \grace s16 d2. }
 >>
 @end lilypond
 

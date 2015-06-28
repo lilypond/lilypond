@@ -75,8 +75,8 @@ Einzelheiten siehe
 
 Der einfachste Notensystem-Kontext ist @code{Staff}:
 
-@lilypond[verbatim,quote,relative=2]
-\new Staff { c4 d e f }
+@lilypond[verbatim,quote]
+\new Staff \relative { c''4 d e f }
 @end lilypond
 
 @code{DrumStaff} (Perkussionsnotensystem) erstellt ein Notensystem
@@ -99,7 +99,7 @@ eingegebenen Noten dargestellt werden.  Die wirklichen Längen bleiben
 erhalten.  Zu Einzelheiten, siehe
 @ref{Melodierhythmus anzeigen}.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new RhythmicStaff { c4 d e f }
 @end lilypond
 
@@ -107,8 +107,8 @@ erhalten.  Zu Einzelheiten, siehe
 Saiten in der üblichen Gitarrenstimmung.  Zu Einzelheiten siehe
 @ref{Standardtabulaturen}.
 
-@lilypond[verbatim,quote,relative=2]
-\new TabStaff { c4 d e f }
+@lilypond[verbatim,quote]
+\new TabStaff \relative { c''4 d e f }
 @end lilypond
 
 Es gibt zwei Notensysteme, die zur Notation von Alter Musik eingesetzt
@@ -120,8 +120,8 @@ Das @code{GregorianTranscriptionStaff} (System zur Transkription des
 Gregorianischen Chorals) erstellt ein Notensystem, um modernen
 Gregorianischen Choral zu notieren.  Es hat keine Notenlinien.
 
-@lilypond[verbatim,quote,relative=2]
-\new GregorianTranscriptionStaff { c4 d e f e d }
+@lilypond[verbatim,quote]
+\new GregorianTranscriptionStaff \relative { c''4 d e f e d }
 @end lilypond
 
 
@@ -188,40 +188,40 @@ Wenn kein Kontext angegeben ist, wird die Standardeinstellung eingesetzt:
 die Gruppe beginnt mit einer vertikalen Linie und die Taktlinien sind
 nicht verbunden.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 <<
-  \new Staff { c1 c }
-  \new Staff { c1 c }
+  \new Staff \relative { c''1 c }
+  \new Staff \relative { c''1 c }
 >>
 @end lilypond
 
 Im @code{StaffGroup}-Kontext die Gruppe mit einer eckigen Klammer
 begonnen und die Taktlinien durch alle Systeme gezogen.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new StaffGroup <<
-  \new Staff { c1 c }
-  \new Staff { c1 c }
+  \new Staff \relative { c''1 c }
+  \new Staff \relative { c''1 c }
 >>
 @end lilypond
 
 In einem @code{ChoirStaff} (Chorsystem) beginnt die Gruppe mit einer
 eckigen Klammer, aber die Taktlinien sind nicht verbunden.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new ChoirStaff <<
-  \new Staff { c1 c }
-  \new Staff { c1 c }
+  \new Staff \relative { c''1 c }
+  \new Staff \relative { c''1 c }
 >>
 @end lilypond
 
 In einem @code{GrandStaff} (Akkolade) beginnt die Gruppe mit einer
 geschweiften Klammer und die Taktlinien sind durchgezogen.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new GrandStaff <<
-  \new Staff { c1 c }
-  \new Staff { c1 c }
+  \new Staff \relative { c''1 c }
+  \new Staff \relative { c''1 c }
 >>
 @end lilypond
 
@@ -230,11 +230,11 @@ Der @code{PianoStaff}-(Klaviersystem)-Kontext ist identisch mit dem
 die Angabe einer Instrumentbezeichnung.  Zu Einzelheiten siehe
 @ref{Instrumentenbezeichnungen}.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new PianoStaff <<
   \set PianoStaff.instrumentName = #"Piano"
-  \new Staff { c1 c }
-  \new Staff { c1 c }
+  \new Staff \relative { c''1 c }
+  \new Staff \relative { \clef bass c1 c }
 >>
 @end lilypond
 
@@ -314,17 +314,17 @@ diesem Fall erstellt jeder neue, innen liegende Kontext eine neue
 Klammer außerhalb der Klammer der Systemgruppe, in der er sich
 befindet.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new StaffGroup <<
-  \new Staff { c2 c | c2 c }
+  \new Staff \relative { c''2 c | c2 c }
   \new StaffGroup <<
-    \new Staff { g2 g | g2 g }
+    \new Staff \relative { g'2 g | g2 g }
     \new StaffGroup \with {
       systemStartDelimiter = #'SystemStartSquare
     }
     <<
-      \new Staff { e2 e | e2 e }
-      \new Staff { c2 c | c2 c }
+      \new Staff \relative { e'2 e | e2 e }
+      \new Staff \relative { c'2 c | c2 c }
     >>
   >>
 >>
@@ -467,10 +467,12 @@ Die Befehle @code{\stopStaff} und @code{\startStaff} können
 benutzt werden, um ein Notensystem zu stoppen oder (wieder)
 zu beginnen.
 
-@lilypond[verbatim,quote,relative=2]
-\stopStaff f4 d \startStaff g, e
-f'4 d \stopStaff g, e
-f'4 d \startStaff g, e
+@lilypond[verbatim,quote]
+\relative {
+  \stopStaff f''4 d \startStaff g, e
+  f'4 d \stopStaff g, e
+  f'4 d \startStaff g, e
+}
 @end lilypond
 
 @predefined
@@ -487,14 +489,16 @@ gesetzt werden, bevor das System erstellt wird.
 
 Die Anzahl der Notenlinien kann verändert werden:
 
-@lilypond[verbatim,quote,relative=2]
-f4 d \stopStaff
-\override Staff.StaffSymbol.line-count = #2
-\startStaff g, e |
+@lilypond[verbatim,quote]
+\relative {
+  f''4 d \stopStaff
+  \override Staff.StaffSymbol.line-count = #2
+  \startStaff g, e |
 
-f'4 d \stopStaff
-\revert Staff.StaffSymbol.line-count
-\startStaff g, e |
+  f'4 d \stopStaff
+  \revert Staff.StaffSymbol.line-count
+  \startStaff g, e |
+}
 @end lilypond
 
 
@@ -505,13 +509,15 @@ Eine einzelne Linie wird für jeden Wert ausgegeben, sodass
 die Anzahl der Linien sowie ihre Position im Notensystem mit
 einem Befehl geändert werden können.
 
-@lilypond[verbatim,quote,relative=2]
-f4 d \stopStaff
-\override Staff.StaffSymbol.line-positions = #'(1 3 5 -1 -3)
-\startStaff g, e |
-f'4 d \stopStaff
-\override Staff.StaffSymbol.line-positions = #'(8 6.5 -6 -8 -0.5)
-\startStaff g, e
+@lilypond[verbatim,quote]
+\relative {
+  f''4 d \stopStaff
+  \override Staff.StaffSymbol.line-positions = #'(1 3 5 -1 -3)
+  \startStaff g, e |
+  f'4 d \stopStaff
+  \override Staff.StaffSymbol.line-positions = #'(8 6.5 -6 -8 -0.5)
+  \startStaff g, e |
+}
 @end lilypond
 
 die Position des Notenschlüssels und die Position von c' können geändert
@@ -522,11 +528,12 @@ Die Liniendicke der Notenlinien kann verändert werden.  Die Dicke
 der Hilfslinien und Notenhälse wird auch beeinflusst, weil sie
 von der Notenliniendicke abhängen.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Staff \with {
   \override StaffSymbol.thickness = #3
+} \relative {
+  f''4 d g, e
 }
-{ f4 d g, e }
 @end lilypond
 
 Die Dicke der Hilfslinien (engl. ledger lines) kann allerdings auch unabhängig von der
@@ -535,21 +542,23 @@ sind Faktoren, mit denen die Notenlinien-Dicke und der
 Notenlinienabstand multipliziert werden.  Die Addition beider
 Werte ergibt die Dicke der Hilfslinien.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Staff \with {
   \override StaffSymbol.thickness = #2
   \override StaffSymbol.ledger-line-thickness = #'(0.5 . 0.4)
+} \relative {
+  f'''4 a, a,, f
 }
-{ f'4 a, a,, f }
 @end lilypond
 
 Die vertikale Position der Hilfslinien kann verändert werden:
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Staff \with {
   \override StaffSymbol.ledger-positions = #'(-3 -2 -1 2 5 6)
+} \relative {
+  f'''4 a, a,, f
 }
-{ f'4 a, a,, f }
 @end lilypond
 
 Zusätzliche Hilfslinien können auch innerhalb des Systems gesetzt
@@ -571,11 +580,12 @@ d4 e f g
 Der Abstand zwischen Notenlinien kann verändert werden.  Diese
 Einstellung wirkt sich auch auf den Abstand der Hilfslinien aus.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Staff \with {
   \override StaffSymbol.staff-space = #1.5
+} \relative {
+  f'''4 d, g, e,
 }
-{ f'4 d, g, e, }
 @end lilypond
 
 @snippets
@@ -930,12 +940,13 @@ werden.  Der Wert von @code{instrumentName} wird für das erste
 System eingesetzt, der Wert von @code{shortInstrumentName} für
 alle weiteren Systeme.
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \new Staff \with {
   instrumentName = #"Violin "
   shortInstrumentName = #"Vln. "
+} \relative {
+  c'4.. g'16 c4.. g'16 \break | c1 |
 }
-{ c4.. g'16 c4.. g'16 \break | c1 }
 @end lilypond
 
 @cindex Instrumentenbezeichnung, komplexe
@@ -943,15 +954,16 @@ alle weiteren Systeme.
 Mit dem Textbeschriftungsmodus (@code{\markup}) können auch komplizierte
 Instrumentenbezeichnungen erstellt werden:
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Staff \with {
   instrumentName = \markup {
     \column { "Clarinetti"
       \line { "in B" \smaller \flat }
     }
   }
+} \relative {
+  c''4 c,16 d e f g2
 }
-{ c4 c,16 d e f g2 }
 @end lilypond
 
 @cindex Instrumentenbezeichnung, zentriert
@@ -989,26 +1001,22 @@ Einzugs (@code{indent} und @code{short-indent}) vergrößert werden.
 Zu Einzelheiten siehe @ref{paper-Variablen für Verschiebungen und Einrückungen,,@code{@bs{}paper}-Variablen für Verschiebungen und Einrückungen}.
 
 @lilypond[verbatim,quote,ragged-right]
-\relative {
-  <<
-    \new Staff \with {
-      instrumentName = #"Alto Flute in G"
-      shortInstrumentName = #"Flt."
-    }
-    {
-      f''2 g4 f \break
-      g4 f g2
-    }
-    \new Staff \with {
-      instrumentName = #"Clarinet"
-      shortInstrumentName = #"Clar."
-    }
-    {
-      c,4 b c2 \break
-      c2 b4 c
-    }
-  >>
-}
+<<
+  \new Staff \with {
+    instrumentName = #"Alto Flute in G"
+    shortInstrumentName = #"Flt."
+  } \relative {
+    f''2 g4 f \break
+    g4 f g2
+  }
+  \new Staff \with {
+    instrumentName = #"Clarinet"
+    shortInstrumentName = #"Clar."
+  } \relative {
+    c''4 b c2 \break
+    c2 b4 c
+  }
+>>
 
 \layout {
   indent = 3.0\cm
@@ -1302,15 +1310,17 @@ werden, ist das Notenbild unter Umständen sehr schlecht.
 Die einfachste Art, Stichnoten zu erstellen, ist es, einen
 @code{CueVoice}-Kontext in der Stimme zu erstellen.
 
-@lilypond[verbatim,relative=1]
-R1
-<<
-  { e2\rest r4. e8 }
-  \new CueVoice {
-    \stemUp d'8^"flute" c d e fis2
-  }
->>
-d,4 r a r
+@lilypond[verbatim]
+\relative {
+  R1
+  <<
+    { e'2\rest r4. e8 }
+    \new CueVoice {
+      \stemUp d'8^"flute" c d e fis2
+    }
+  >>
+  d,4 r a r
+}
 @end lilypond
 
 Der Befehl @code{\cueClef} kann auch in einem expliziten
@@ -1320,28 +1330,32 @@ Stichnoten ausgegeben.  Der Befehl @code{\cueClefUnset} kann dann
 eingesetzt werden, um wieder zum ursprünglichen Schlüssel zurückzukehren,
 wiederum in der richtigen Größe:
 
-@lilypond[verbatim,noragged-right,relative=1]
-\clef "bass"
-R1
-<<
-  { e2\rest r4. \cueClefUnset e,8 }
-  \new CueVoice {
-    \cueClef "treble" \stemUp d''8^"flute" c d e fis2
-  }
->>
-d,,4 r a r
+@lilypond[verbatim,noragged-right]
+\relative {
+  \clef "bass"
+  R1
+  <<
+    { e'2\rest r4. \cueClefUnset e,8 }
+    \new CueVoice {
+      \cueClef "treble" \stemUp d''8^"flute" c d e fis2
+    }
+  >>
+  d,,4 r a r
+}
 @end lilypond
 
 Die Befehle @code{\cueClef} und @code{\cueClefUnset} können auch ohne
 eine @code{CueVoice}-Umgebung eingesetzt werden:
 
-@lilypond[verbatim,noragged-right,relative=1]
-\clef "bass"
-R1
-\cueClef "treble"
-d'8^"flute" c d e fis2
-\cueClefUnset
-d,,4 r a r
+@lilypond[verbatim,noragged-right]
+\relative {
+  \clef "bass"
+  R1
+  \cueClef "treble"
+  d''8^"flute" c d e fis2
+  \cueClefUnset
+  d,,4 r a r
+}
 @end lilypond
 
 Für kompliziertere Stichnotenbehandlung, etwa mit Transposition,

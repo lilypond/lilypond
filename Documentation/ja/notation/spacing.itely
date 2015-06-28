@@ -1367,9 +1367,11 @@ Feta フォントは 8 つのサイズの音楽シンボルを提供します。
 小節線が引かれる場所で手動で強制的に改行を入れるには、@c
 @code{\break} コマンドを使用します:
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
-c4 c c c | \break
-c4 c c c |
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  c4 c c c | \break
+  c4 c c c |
+}
 @end lilypond
 
 デフォルトでは、小節の途中での @code{\break} は無視され、@c
@@ -1377,11 +1379,13 @@ c4 c c c |
 小節の途中で強制的に改行を入れるには、@c
 @w{@samp{\bar ""}} を用いて不可視の小節線を追加します:
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
-c4 c c
-\bar "" \break
-c |
-c4 c c c |
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  c4 c c
+  \bar "" \break
+  c |
+  c4 c c c |
+}
 @end lilypond
 
 連符が開始する小節と終了する小節が異なる場合などのように、@c
@@ -1408,10 +1412,12 @@ c4 c c c |
 この振る舞いは、@code{\override Beam.breakable = ##t} により、@c
 変更することができます:
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
-\override Beam.breakable = ##t
-c2. c8[ c | \break
-c8 c] c2. |
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  \override Beam.breakable = ##t
+  c2. c8[ c | \break
+  c8 c] c2. |
+}
 @end lilypond
 
 @code{\noBreak} コマンドは、コマンドが配置された小節線での改行を禁止します。
@@ -2896,13 +2902,13 @@ c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
 後半は修正を誇張しています:
 
 @lilypond[quote,ragged-right]
-{
-  c'4 e''4 e'4 b'4 |
-  b'4 e''4 b'4 e''4 |
+\fixed c' {
+  c4 e'4 e4 b4 |
+  b4 e'4 b4 e'4 |
   \override Staff.NoteSpacing.stem-spacing-correction = #1.5
   \override Staff.StaffSpacing.stem-spacing-correction = #1.5
-  c'4 e''4 e'4 b'4 |
-  b'4 e''4 b'4 e''4 |
+  c4 e'4 e4 b4 |
+  b4 e'4 b4 e'4 |
 }
 @end lilypond
 
@@ -2946,13 +2952,15 @@ Essay on automated music engraving:
 拍子記号が新たしいセクションを導入しています。@c
 その結果、16 分音符の間隔が広くなっています。
 
-@lilypond[relative=1,verbatim,quote]
-\time 2/4
-c4 c8 c
-c8 c c4 c16[ c c8] c4
-\newSpacingSection
-\time 4/16
-c16[ c c8]
+@lilypond[verbatim,quote]
+\relative c' {
+  \time 2/4
+  c4 c8 c
+  c8 c c4 c16[ c c8] c4
+  \newSpacingSection
+  \time 4/16
+  c16[ c c8]
+}
 @end lilypond
 
 @code{\newSpacingSection} コマンドは新たに

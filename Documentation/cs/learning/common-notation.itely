@@ -12,12 +12,9 @@
 
 @ignore
 Tutorial guidelines:
-- unless you have a really good reason, use either
-    @l ilypond[quote,verbatim]
-  or
-    @l ilypond[quote,verbatim,fragment,relative=2]
+- unless you have a really good reason, use
+    @lilypond[quote,verbatim]
   (without spaces)
-  Don't use any other relative=X commands.
 
 - use "aes" and "ees" instead of "as" and "aes".  I know it's not
   correct Dutch naming, but let's not confuse people with this until
@@ -116,8 +113,8 @@ Je ovšem možné používat název pro
 @notation{předznamenání} v jiných jazycích.
 Podívejte se na @ruser{Označení not v jiných jazycích}.
 
-@lilypond[verbatim,quote,relative=2]
-cis4 ees fisis, aeses
+@lilypond[verbatim,quote]
+\relative { cis''4 ees fisis, aeses }
 @end lilypond
 
 
@@ -182,9 +179,11 @@ který chcete @emph{slyšet}.
 
 V tomto příkladu
 
-@lilypond[verbatim,quote,relative=2]
-\key d \major
-cis4 d e fis
+@lilypond[verbatim,quote]
+\relative {
+  \key d \major
+  cis''4 d e fis
+}
 @end lilypond
 
 @noindent
@@ -198,9 +197,11 @@ na prostřední linku notové osnovy.} Přesněji řečeno to znamená:
 V tónině As Dur @emph{dostane} předznamenání (posuvku):
 
 
-@lilypond[verbatim,quote,relative=2]
-\key aes \major
-aes4 c b c
+@lilypond[verbatim,quote]
+\relative {
+  \key aes \major
+  aes'4 c b c
+}
 @end lilypond
 
 Zapsat všechna tato předznamenání výslovně, možná znamená o něco
@@ -255,8 +256,8 @@ Slovníček: @rglos{slur}.
 více not. Jeho počáteční a koncová nota se značí
 @q{(} popřípadě @q{)}.
 
-@lilypond[verbatim,quote,relative=2]
-d4( c16) cis( d e c cis d) e( d4)
+@lilypond[verbatim,quote]
+\relative { d''4( c16) cis( d e c cis d) e( d4) }
 @end lilypond
 
 @subheading Frázovací obloučky
@@ -269,8 +270,8 @@ Obloučky, které označují delší jednotky frázování
 tak frázovací obloučky, ale nemůže se současně dát více než právě
 jeden legatový oblouček a jeden frázovací oblouček.
 
-@lilypond[verbatim,quote,relative=2]
-g4\( g8( a) b( c) b4\)
+@lilypond[verbatim,quote]
+\relative { g'4\( g8( a) b( c) b4\) }
 @end lilypond
 
 @sp 1
@@ -287,8 +288,8 @@ Legatové obloučky proti tomu ukazují artikulaci not a mohou být
 zapsány pro větší skupiny not. Ligatury a legatové obloučky mohou
 být naskládány do sebe.
 
-@lilypond[verbatim,quote,relative=2]
-c4~( c8 d~ 4 e)
+@lilypond[verbatim,quote]
+\relative { c''4(~ c8 d~ 4 e) }
 @end lilypond
 
 
@@ -315,9 +316,11 @@ Slovníček:
 Běžná @notation{artikulační znaménka} mohou být zadána pomocí
 doplnění minus (@q{-}) a odpovídajícího znaménka:
 
-@lilypond[verbatim,quote,relative=2]
-c4-^ c-+ c-- c-!
-c4-> c-. c2-_
+@lilypond[verbatim,quote]
+\relative {
+  c''4-^ c-+ c-- c-!
+  c4-> c-. c2-_
+}
 @end lilypond
 
 @subheading Prstoklad
@@ -332,8 +335,8 @@ Slovníček: @rglos{fingering}.
 Stejným způsobem lze přidat označení prstokladu tím,
 že se po minus (@q{-}) zapíše číslo:
 
-@lilypond[verbatim,quote,relative=2]
-c4-3 e-5 b-2 a-1
+@lilypond[verbatim,quote]
+\relative { c''4-3 e-5 b-2 a-1 }
 @end lilypond
 
 Artikulační znaménka a prstoklady jsou obvykle umísťovány
@@ -344,8 +347,8 @@ artikulačních znamének.
 Většinou ale najde LilyPond sám tu nejlepší možnost,
 jak se mají artikulační znaménka umístit.
 
-@lilypond[verbatim,quote,relative=2]
-c4_-^1 d^. f^4_2-> e^-_+
+@lilypond[verbatim,quote]
+\relative { c''4_-^1 d^. f^4_2-> e^-_+ }
 @end lilypond
 
 @subheading Dynamika
@@ -376,8 +379,8 @@ Slovníček:
 Dynamika (značky určující hlasitost) se do díla zadává tím, že se k notě
 připojují značky (s obráceným lomítkem):
 
-@lilypond[verbatim,quote,relative=2]
-c4\ff c\mf c\p c\pp
+@lilypond[verbatim,quote]
+\relative { c''4\ff c\mf c\p c\pp }
 @end lilypond
 
 @notation{Crescendo} a @notation{decrescendo} začínají
@@ -386,8 +389,8 @@ případně @code{\>}.  Další absolutní značka určující hlasitost,
 například @code{\f}, (de)crescendo ukončuje.
 Může se přesně ukončit i příkazem @code{\!}.
 
-@lilypond[verbatim,quote,relative=2]
-c4\< c\ff\> c c\!
+@lilypond[verbatim,quote]
+\relative { c''4\< c\ff\> c c\! }
 @end lilypond
 
 
@@ -413,16 +416,16 @@ Doporučení pro notový zápis:
 
 Text můžete do notového zápisu vložit následujícím způsobem:
 
-@lilypond[verbatim,quote,relative=2]
-c2^"espr" a_"legato"
+@lilypond[verbatim,quote,fragment]
+c''2^"espr" a'_"legato"
 @end lilypond
 
 Dodatečné formátování lze nasadit, když použijete příkaz
 @code{\markup}:
 
-@lilypond[verbatim,quote,relative=2]
-c2^\markup { \bold espr }
-a2_\markup {
+@lilypond[verbatim,quote,fragment]
+c''2^\markup { \bold espr }
+a'2_\markup {
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
 }
 @end lilypond
@@ -452,8 +455,8 @@ Doporučení pro notový zápis:
 
 Všechny @notation{trámce} se zapisují automaticky:
 
-@lilypond[verbatim,quote,relative=2]
-a8 ais d ees r d c16 b a8
+@lilypond[verbatim,quote]
+\relative { a'8 ais d ees r d c16 b a8 }
 @end lilypond
 
 @noindent
@@ -463,8 +466,8 @@ jen jeden trámec, dostane nota, na níž trámec začíná
 @q{[} (AltGr+8), a ta, na níž má končit, dostane
 @q{]} (AltGr+9).
 
-@lilypond[verbatim,quote,relative=2]
-a8[ ais] d[ ees r d] c16 b a8
+@lilypond[verbatim,quote]
+\relative { a'8[ ais] d[ ees r d] c16 b a8 }
 @end lilypond
 
 Když chcete automatické trámce vypnout úplně nebo
@@ -472,11 +475,13 @@ pro delší část, používáte
 příkaz @code{\autoBeamOff}, abyste trámce vypnul,
 a @code{\autoBeamOn}, abyste je opět zapnul.
 
-@lilypond[verbatim,quote,relative=2]
-\autoBeamOff
-a8 c b4 d8. c16 b4 |
-\autoBeamOn
-a8 c b4 d8. c16 b4 |
+@lilypond[verbatim,quote]
+\relative {
+  \autoBeamOff
+  a'8 c b4 d8. c16 b4 |
+  \autoBeamOn
+  a8 c b4 d8. c16 b4 |
+}
 @end lilypond
 
 
@@ -500,9 +505,11 @@ Doporučení pro notový zápis:
 Potom následuje délka předtaktí: @code{\partial 4}
 znamená jednu čtvrťovou notu předtaktí a @code{\partial 8} jednu osminovou notu.
 
-@lilypond[verbatim,quote,relative=2]
-\partial 8 f8 |
-c2 d |
+@lilypond[verbatim,quote]
+\relative {
+  \partial 8 f''8 |
+  c2 d |
+}
 @end lilypond
 
 
@@ -524,11 +531,13 @@ Trvání not se zlomkem znásobuje.
 V jedné triole trvají noty 2/3 jejich zapsané délky,
 takže triola má 2/3 jako svůj zlomek:
 
-@lilypond[verbatim,quote,relative=2]
-\tuplet 3/2 { f8 g a }
-\tuplet 3/2 { c8 r c }
-\tuplet 3/2 { f,8 g16[ a g a] }
-\tuplet 3/2 { d4 a8 }
+@lilypond[verbatim,quote]
+\relative {
+  \tuplet 3/2 { f''8 g a }
+  \tuplet 3/2 { c8 r c }
+  \tuplet 3/2 { f,8 g16[ a g a] }
+  \tuplet 3/2 { d4 a8 }
+}
 @end lilypond
 
 @subheading Ozdoby
@@ -551,10 +560,12 @@ Melodické ozdoby se zadávají příkazem @code{\grace}, ačkoli se také dají
 vytvářet uvozením hudebního výrazu příkazem @code{\appoggiatura} (dlouhý
 příraz, prodleva) a @code{\acciaccatura} (příraz, krátká appogiatura).
 
-@lilypond[verbatim,quote,relative=2]
-c2 \grace { a32 b } c2 |
-c2 \appoggiatura b16 c2 |
-c2 \acciaccatura b16 c2 |
+@lilypond[verbatim,quote]
+\relative {
+  c''2 \grace { a32 b } c2 |
+  c2 \appoggiatura b16 c2 |
+  c2 \acciaccatura b16 c2 |
+}
 @end lilypond
 
 
@@ -600,8 +611,8 @@ Ve zdrojových souborech LilyPondu se hudba znázorňuje
 pomocí @emph{hudebních výrazů}. Jedna nota je jedním hudebním
 výrazem.
 
-@lilypond[verbatim,quote,relative=2]
-a4
+@lilypond[verbatim,quote,fragment]
+a'4
 @end lilypond
 
 Skupina not uvnitř závorek tvoří nový výraz.
@@ -609,8 +620,8 @@ Tento je nyní @emph{složeným hudebním výrazem}.
 Zde byl jeden takový složený hudební výraz
 se dvěmi notami vytvořen:
 
-@lilypond[verbatim,quote,relative=2]
-{ a4 g4 }
+@lilypond[verbatim,quote]
+\relative { a'4 g4 }
 @end lilypond
 
 Když je skupina hudebních výrazů (například not)
@@ -618,8 +629,8 @@ zapsána do složených závorek, znamená to, že jsou
 seřazeny v řadě (tj. každý následuje po předchozím). Výsledkem je další
 hudební výraz.
 
-@lilypond[verbatim,quote,relative=2]
-{ { a4 g } f4 g }
+@lilypond[verbatim,quote]
+\relative { { a'4 g } f4 g }
 @end lilypond
 
 
@@ -680,13 +691,11 @@ Souběžně jsou hudební výrazy spojeny tak, že jsou uzavřeny uvnitř
 tři výrazy (každý obsahuje dvě oddělené noty):
 
 @lilypond[verbatim,quote]
-\relative {
-  <<
-    { a'2 g }
-    { f2 e }
-    { d2 b }
-  >>
-}
+<<
+  \relative { a'2 g }
+  \relative { f'2 e }
+  \relative { d'2 b }
+>>
 @end lilypond
 
 Ještě je třeba poznamenat, že jsme zde pro každou úroveň uvnitř
@@ -750,12 +759,10 @@ osnovu) jsou potom uspořádány souběžně se znaky @code{<<} a
 @code{>>}:
 
 @lilypond[verbatim,quote]
-\relative {
-  <<
-    \new Staff { \clef "treble" c''4 }
-    \new Staff { \clef "bass" c,,4 }
-  >>
-}
+<<
+  \new Staff { \clef "treble" c''4 }
+  \new Staff { \clef "bass" c4 }
+>>
 @end lilypond
 
 Příkaz @code{\new} začíná nové @qq{prostředí notového zápisu}.
@@ -787,12 +794,10 @@ notové zápisy s rozdílnými druhy taktů.
 
 
 @lilypond[verbatim,quote]
-\relative {
-  <<
-    \new Staff { \clef "treble" \key d \major \time 3/4 c''4 }
-    \new Staff { \clef "bass" c,,4 }
-  >>
-}
+<<
+  \new Staff { \clef "treble" \key d \major \time 3/4 c''4 }
+  \new Staff { \clef "bass" c4 }
+>>
 @end lilypond
 
 
@@ -835,12 +840,10 @@ nyní vložen do prostředí @code{PianoStaff}.
 Zde je jeden malý příklad:
 
 @lilypond[verbatim,quote]
-\relative {
-  \new PianoStaff <<
-    \new Staff { \time 2/4 c''4 e | g g, | }
-    \new Staff { \clef "bass" c,,4 c' | e c | }
-  >>
-}
+\new PianoStaff <<
+  \new Staff \relative { \time 2/4 c''4 e | g g, | }
+  \new Staff \relative { \clef "bass" c4 c' | e c | }
+>>
 @end lilypond
 
 Jiné typické skupiny notových osnov je možné vytvořit příkazy
@@ -881,8 +884,8 @@ Dávejte pozor si na to, že všechny noty jednoho akordu
 musejí mít stejnou dobu trvání a že tato doba trvání
 se zapisuje po uzavírajících závorkách.
 
-@lilypond[verbatim,quote,relative=2]
-r4 <c e g> <c f a>2
+@lilypond[verbatim,quote]
+\relative { r4 <c'' e g> <c f a>2 }
 @end lilypond
 
 Akordy jsou v základě rovnocenné s jednoduchými notami:

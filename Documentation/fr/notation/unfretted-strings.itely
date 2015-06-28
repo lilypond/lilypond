@@ -114,8 +114,8 @@ décrites dans @ref{Articulations et ornements}.
 Les indications d'archet, poussé (@code{\upbow}) et tiré
 (@code{\downbow}), peuvent se combiner à des liaisons comme ici :
 
-@lilypond[verbatim,quote,relative=2]
-c4(\downbow d) e(\upbow f)
+@lilypond[verbatim,quote]
+\relative { c''4(\downbow d) e(\upbow f) }
 @end lilypond
 
 @noindent
@@ -126,11 +126,11 @@ dans @ref{Indications du numéro de corde}.
 Alternativement, les indications de corde peuvent se traiter sous forme
 de @emph{markup}, et un script indiquer une corde à vide.
 
-@lilypond[verbatim,quote,relative=2]
-a4 \open
+@lilypond[verbatim,quote,fragment]
+a'4 \open
 \romanStringNumbers
-a\2
-a2^\markup { \small "sul A" }
+a'\2
+a'2^\markup { \small "sul A" }
 @end lilypond
 
 @predefined
@@ -168,21 +168,23 @@ tête de note en forme de losange signifie généralement que vous devez
 effleurer la corde à l'endroit où vous l'auriez pincée si la note avait
 été normale.
 
-@lilypond[verbatim,quote,relative=2]
-d4 e4.
-\harmonicsOn
-d8 e e
-d4 e4.
-\harmonicsOff
-d8 e e
+@lilypond[verbatim,quote]
+\relative d'' {
+  d4 e4.
+  \harmonicsOn
+  d8 e e
+  d4 e4.
+  \harmonicsOff
+  d8 e e
+}
 @end lilypond
 
 Une autre façon de procéder consiste à faire surmonter la note normale
 d'un petit cercle.  Ceci indique que la note écrite doit être jouée en
 harmonique :
 
-@lilypond[verbatim,quote,relative=2]
-d2^\flageolet d_\flageolet
+@lilypond[verbatim,quote,fragment]
+d''2^\flageolet d''_\flageolet
 @end lilypond
 
 Un plus petit cercle peut être créé, comme indiqué dans les exemples de
@@ -235,9 +237,11 @@ Un @notation{snap pizzicato}, aussi appelé @qq{Bartok pizz} est un type
 de pizzicato pour lequel la corde est tirée vers le haut (plutôt que sur
 le côté) de telle sorte qu'elle vienne frapper le manche.
 
-@lilypond[verbatim,quote,relative=1]
-c4\snappizzicato
-<c' e g>4\snappizzicato
-<c' e g>4^\snappizzicato
-<c, e g>4_\snappizzicato
+@lilypond[verbatim,quote]
+\relative {
+  c'4\snappizzicato
+  <c' e g>4\snappizzicato
+  <c' e g>4^\snappizzicato
+  <c, e g>4_\snappizzicato
+}
 @end lilypond

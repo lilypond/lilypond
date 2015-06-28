@@ -157,14 +157,16 @@ Referencia de funcionamiento interno:
 Las instrucciones de digitación se pueden introducir usando
 @samp{@var{nota}-@var{dígito}}:
 
-@lilypond[verbatim,quote,relative=2]
-c4-1 d-2 f-4 e-3
+@lilypond[verbatim,quote]
+\relative { c''4-1 d-2 f-4 e-3 }
 @end lilypond
 
 Para los cambios de dedo se pueden usar elementos de marcado de texto o de cadenas de caracteres.
 
-@lilypond[verbatim,quote,relative=2]
-c4-1 d-2 f\finger \markup \tied-lyric #"4~3" c\finger "2 - 3"
+@lilypond[verbatim,quote]
+\relative {
+  c''4-1 d-2 f\finger \markup \tied-lyric #"4~3" c\finger "2 - 3"
+}
 @end lilypond
 
 @cindex thumb-script
@@ -175,8 +177,8 @@ c4-1 d-2 f\finger \markup \tied-lyric #"4~3" c\finger "2 - 3"
 Puede usar la articulación de pulgar para indicar que una nota se debe
 tocar con el pulgar (p.ej. en música de violoncello).
 
-@lilypond[verbatim,quote,relative=2]
-<a_\thumb a'-3>2 <b_\thumb b'-3>
+@lilypond[verbatim,quote]
+\relative { <a'_\thumb a'-3>2 <b_\thumb b'-3> }
 @end lilypond
 
 @cindex digitación de acordes
@@ -186,8 +188,10 @@ tocar con el pulgar (p.ej. en música de violoncello).
 Las digitaciones para los acordes también se pueden añadir a las notas
 individuales escribiéndolas después de las alturas.
 
-@lilypond[verbatim,quote,relative=2]
-<c-1 e-2 g-3 b-5>2 <d-1 f-2 a-3 c-5>
+@lilypond[verbatim,quote]
+\relative {
+  <c''-1 e-2 g-3 b-5>2 <d-1 f-2 a-3 c-5>
+}
 @end lilypond
 
 Las indicaciones de digitación se pueden situar manualmente encima o
@@ -238,16 +242,18 @@ Referencia de funcionamiento interno:
 Las notas ocultas (o invisibles, o transparentes) pueden ser de
 utilidad en la preparación de ejercicios de teoría o de composición.
 
-@lilypond[verbatim,quote,relative=2]
-c4 d
-\hideNotes
-e4 f
-\unHideNotes
-g a
-\hideNotes
-b
-\unHideNotes
-c
+@lilypond[verbatim,quote]
+\relative {
+  c''4 d
+  \hideNotes
+  e4 f
+  \unHideNotes
+  g a
+  \hideNotes
+  b
+  \unHideNotes
+  c
+}
 @end lilypond
 
 La cabeza, la plica y el corchete de las figuras, así como los
@@ -255,10 +261,12 @@ silencios, son invisibles.  Las barras son invisibles si comienzan en
 una nota oculta.  Los objetos de notación que están anclados a notas
 invisibles, son a pesar de ello visibles.
 
-@lilypond[verbatim,quote,relative=2]
-e8(\p f g a)--
-\hideNotes
-e8(\p f g a)--
+@lilypond[verbatim,quote]
+\relative c'' {
+  e8(\p f g a)--
+  \hideNotes
+  e8(\p f g a)--
+}
 @end lilypond
 
 @predefined
@@ -307,13 +315,13 @@ Referencia de funcionamiento interno:
 Se pueden asignar colores a los objetos individuales.  Los nombres de
 color válidos se encuentran relacionados en la @ref{Lista de colores}.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,fragment]
 \override NoteHead.color = #red
-c4 c
+c''4 c''
 \override NoteHead.color = #(x11-color 'LimeGreen)
-d
+d''
 \override Stem.color = #blue
-e
+e''
 @end lilypond
 
 Se puede acceder al espectro completo de colores definido para X11
@@ -327,22 +335,24 @@ la forma del nombre que tiene varias palabras.
 Si @code{x11-color} no entiende el parámetro, el color predeterminado
 que se devuelve es el negro.
 
-@lilypond[verbatim,quote,relative=2]
-\override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
-\set Staff.instrumentName = \markup {
-  \with-color #(x11-color 'navy) "Clarinet"
-}
+@lilypond[verbatim,quote]
+\relative c'' {
+  \override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
+  \set Staff.instrumentName = \markup {
+    \with-color #(x11-color 'navy) "Clarinet"
+  }
 
-gis8 a
-\override Beam.color = #(x11-color "medium turquoise")
-gis a
-\override Accidental.color = #(x11-color 'DarkRed)
-gis a
-\override NoteHead.color = #(x11-color "LimeGreen")
-gis a
-% this is deliberate nonsense; note that the stems remain black
-\override Stem.color = #(x11-color 'Boggle)
-b2 cis
+  gis8 a
+  \override Beam.color = #(x11-color "medium turquoise")
+  gis a
+  \override Accidental.color = #(x11-color 'DarkRed)
+  gis a
+  \override NoteHead.color = #(x11-color "LimeGreen")
+  gis a
+  % this is deliberate nonsense; note that the stems remain black
+  \override Stem.color = #(x11-color 'Boggle)
+  b2 cis
+}
 @end lilypond
 
 @cindex rgb-color
@@ -354,18 +364,20 @@ b2 cis
 Se pueden especificar colores RGB exactos utilizando la función de
 Scheme @code{rgb-color}.
 
-@lilypond[verbatim,quote,relative=2]
-\override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
-\set Staff.instrumentName = \markup {
-  \with-color #(x11-color 'navy) "Clarinet"
-}
+@lilypond[verbatim,quote]
+\relative c'' {
+  \override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
+  \set Staff.instrumentName = \markup {
+    \with-color #(x11-color 'navy) "Clarinet"
+  }
 
-\override Stem.color = #(rgb-color 0 0 0)
-gis8 a
-\override Stem.color = #(rgb-color 1 1 1)
-gis8 a
-\override Stem.color = #(rgb-color 0 0 0.5)
-gis4 a
+  \override Stem.color = #(rgb-color 0 0 0)
+  gis8 a
+  \override Stem.color = #(rgb-color 1 1 1)
+  gis8 a
+  \override Stem.color = #(rgb-color 0 0 0.5)
+  gis4 a
+}
 @end lilypond
 
 @seealso
@@ -416,19 +428,23 @@ Los objetos se pueden encerrar entre paréntesis anteponiendo
 encierra cada nota dentro de un par de paréntesis.  También se pueden
 poner entre paréntesis las notas individuales de un acorde.
 
-@lilypond[verbatim,quote,relative=2]
-c2 \parenthesize d
-c2 \parenthesize <c e g>
-c2 <c \parenthesize e g>
+@lilypond[verbatim,quote]
+\relative {
+  c''2 \parenthesize d
+  c2 \parenthesize <c e g>
+  c2 <c \parenthesize e g>
+}
 @end lilypond
 
 Los objetos que no son notas también se pueden poner entre paréntesis.
 Para las articulaciones se necesita un guión antes de la instrucción
 @code{\parenthesize}.
 
-@lilypond[verbatim,quote,relative=2]
-c2-\parenthesize -. d
-c2 \parenthesize r
+@lilypond[verbatim,quote]
+\relative {
+  c''2-\parenthesize -. d
+  c2 \parenthesize r
+}
 @end lilypond
 
 @seealso
@@ -536,9 +552,9 @@ un cartel o globo de ayuda rectangular.  El propósito principal de
 esta funcionalidad es la explicación de la notación.
 
 @c KEEP LY
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Voice \with { \consists "Balloon_engraver" }
-{
+\relative c'' {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "Soy una plica" }
   a8
   \balloonGrobText #'Rest #'(-4 . -4) \markup { "Soy un silencio" }
@@ -557,9 +573,9 @@ Los textos de globo no influyen en el espaciado de las notas,
 pero esto puede cambiarse:
 
 @c KEEP LY
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Voice \with { \consists "Balloon_engraver" }
-{
+\relative c'' {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "Soy una plica" }
   a8
   \balloonGrobText #'Rest #'(-4 . -4) \markup { "Soy un silencio" }

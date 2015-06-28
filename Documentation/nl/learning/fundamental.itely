@@ -545,8 +545,8 @@ So, for example, a phrasing slur can start before a manually
 inserted beam and end before the end of the beam -- not very
 musical, perhaps, but possible:
 
-@lilypond[quote,verbatim,ragged-right,relative=2]
-g8\( a b[ c b\) a] g4
+@lilypond[quote,verbatim,ragged-right]
+\relative { g'8\( a b[ c b\) a] g4 }
 @end lilypond
 
 In general, different kinds of brackets, bracket-like constructs,
@@ -556,11 +556,13 @@ a slur extending into a tuplet (line 2), a beam and a slur
 extending into a tuplet, a tie crossing two tuplets, and a
 phrasing slur extending out of a tuplet (lines 3 and 4).
 
-@lilypond[quote,verbatim,ragged-right,relative=1]
-r16[ g \tuplet 3/2 { r16 e'8] }
-g,16( a \tuplet 3/2 { b16 d) e }
-g,8[( a \tuplet 3/2 { b8 d) e~] } |
-\tuplet 5/4 { e32\( a, b d e } a4.\)
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  r16[ g' \tuplet 3/2 { r16 e'8] }
+  g,16( a \tuplet 3/2 { b16 d) e }
+  g,8[( a \tuplet 3/2 { b8 d) e~] } |
+  \tuplet 5/4 { e32\( a, b d e } a4.\)
+}
 @end lilypond
 
 
@@ -612,9 +614,11 @@ A single voice can contain many notes in a chord, of course,
 so when exactly are multiple voices needed?  Look first at
 this example of four chords:
 
-@lilypond[quote,verbatim,ragged-right,relative=1]
-\key g \major
-<d g>4 <d fis> <d a'> <d g>
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  \key g \major
+  <d' g>4 <d fis> <d a'> <d g>
+}
 @end lilypond
 
 This can be expressed using just the single angle bracket chord
@@ -647,22 +651,26 @@ of polyphony.
 Here's how we split the chords above into two voices and add both
 the passing note and a slur:
 
-@lilypond[quote,verbatim,ragged-right,relative=2]
-\key g \major
-%    Voice "1"               Voice "2"
-<< { g4 fis8( g) a4 g } \\ { d4 d d d }  >>
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  \key g \major
+  %    Voice "1"               Voice "2"
+  << { g'4 fis8( g) a4 g } \\ { d4 d d d }  >>
+}
 @end lilypond
 
 Notice how the stems of the second voice now point down.
 
 Here's another simple example:
 
-@lilypond[quote,verbatim,ragged-right,relative=2]
-\key d \minor
-%    Voice "1"             Voice "2"
-<< { r4 g g4. a8 }    \\ { d,2 d4 g }       >> |
-<< { bes4 bes c bes } \\ { g4 g g8( a) g4 } >> |
-<< { a2. r4 }         \\ { fis2. s4 }       >> |
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  \key d \minor
+  %    Voice "1"             Voice "2"
+  << { r4 g' g4. a8 }   \\ { d,2 d4 g }       >> |
+  << { bes4 bes c bes } \\ { g4 g g8( a) g4 } >> |
+  << { a2. r4 }         \\ { fis2. s4 }       >> |
+}
 @end lilypond
 
 It is not necessary to use a separate @code{<< \\ >>} construct
@@ -671,19 +679,20 @@ can help the legibility of the code, but if there are many
 notes in each bar it may be better to split out each voice
 separately, like this:
 
-@lilypond[quote,verbatim,ragged-right,relative=2]
-\key d \minor
-<< {
-  % Voice "1"
-  r4 g g4. a8 |
-  bes4 bes c bes |
-  a2. r4 |
-} \\ {
-  % Voice "2"
-  d,2 d4 g |
-  g4 g g8( a) g4 |
-  fis2. s4 |
-} >>
+@lilypond[quote,verbatim,ragged-right]
+<<
+  \key d \minor
+  \relative { % Voice "1"
+    r4 g' g4. a8 |
+    bes4 bes c bes |
+    a2. r4 |
+  } \\
+  \relative { % Voice "2"
+    d'2 d4 g |
+    g4 g g8( a) g4 |
+    fis2. s4 |
+  }
+>>
 @end lilypond
 
 
@@ -1395,8 +1404,8 @@ appear explicitly in the input file must be added to the
 output.  For example, compare the input and output of the
 following example:
 
-@lilypond[quote,verbatim,relative=2]
-cis4 cis2. | a4 a2. |
+@lilypond[quote,verbatim]
+\relative { cis''4 cis2. | a4 a2. | }
 @end lilypond
 
 The input is rather sparse, but in the output, bar lines,
@@ -1835,17 +1844,19 @@ font size, which affects the size of the note heads (among
 other things) several times.  The change is from the default
 value, not the most recently set value.
 
-@lilypond[quote,verbatim,ragged-right,relative=1]
-c4 d
-% make note heads smaller
-\set fontSize = #-4
-e4 f |
-% make note heads larger
-\set fontSize = #2.5
-g4 a
-% return to default size
-\unset fontSize
-b4 c |
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  c'4 d
+  % make note heads smaller
+  \set fontSize = #-4
+  e4 f |
+  % make note heads larger
+  \set fontSize = #2.5
+  g4 a
+  % return to default size
+  \unset fontSize
+  b4 c |
+}
 @end lilypond
 
 We have now seen how to set the values of several different types of

@@ -2425,12 +2425,14 @@ kontrollieren.  Hiermit werden alle Ereignisse, auch Tempo- und
 Instrumentenwechsel ausgelassen.  Man muss also sehr genau darauf
 achten, dass nichts unerwartetes geschieht.
 
-@lilypond[quote,relative=2,ragged-right,verbatim]
-c8 d
-\set Score.skipTypesetting = ##t
-e8 e e e e e e e
-\set Score.skipTypesetting = ##f
-c8 d b bes a g c2
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  c''8 d
+  \set Score.skipTypesetting = ##t
+  e8 e e e e e e e
+  \set Score.skipTypesetting = ##f
+  c8 d b bes a g c2
+}
 @end lilypond
 
 In polyphoner Notation wirkt sich @code{Score.skipTypesetting} auf

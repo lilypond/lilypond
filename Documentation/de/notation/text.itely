@@ -69,8 +69,8 @@ zeigt.  Derartiger Text kann manuell über oder unter dem
 Notensystem platziert werden, die Syntax hierzu ist beschrieben
 in @ref{Richtung und Platzierung}.
 
-@lilypond[quote,verbatim,relative=2]
-a8^"pizz." g f e a4-"scherz." f
+@lilypond[quote,verbatim]
+\relative { a'8^"pizz." g f e a4-"scherz." f }
 @end lilypond
 
 Diese Syntax ist eine Kurzform, komplexere Formatierungen
@@ -79,9 +79,10 @@ explizit den @code{\markup}-Befehl mit darauf folgenden
 geschweiften Klammern einsetzt, wie beschrieben in
 @ref{Text formatieren}.
 
-@lilypond[quote,verbatim,relative=2]
-a8^\markup { \italic pizz. } g f e
-a4_\markup { \tiny scherz. \bold molto } f
+@lilypond[quote,verbatim]
+\relative {
+  a'8^\markup { \italic pizz. } g f e
+  a4_\markup { \tiny scherz. \bold molto } f }
 @end lilypond
 
 Standardmäßig haben Textbeschriftungen keinen Einfluss auf die
@@ -92,10 +93,12 @@ zweite die Note nach rechts verschiebt.  Das Verhalten wird mit
 dem Befehl @code{\textLengthOn} (Textlänge an) erreicht, rückgängig
 kann es mit dem Befehl @code{\textLengthOff} gemacht werden.
 
-@lilypond[quote,verbatim,relative=2]
-a8^"pizz." g f e
-\textLengthOn
-a4_"scherzando" f
+@lilypond[quote,verbatim]
+\relative {
+  a'8^"pizz." g f e
+  \textLengthOn
+  a4_"scherzando" f
+}
 @end lilypond
 
 Neben Textbeschriftungen können auch Artikulationen an Noten angehängt
@@ -162,10 +165,12 @@ auswirkt.  Solche Objekte, @qq{Strecker} (engl. spanners) genannt,
 können von einer Note bis zu einer anderen mit folgender
 Anweisung erstellt werden:
 
-@lilypond[verbatim,quote,relative=2]
-\override TextSpanner.bound-details.left.text = "rit."
-b1\startTextSpan
-e,\stopTextSpan
+@lilypond[verbatim,quote]
+\relative {
+  \override TextSpanner.bound-details.left.text = "rit."
+  b'1\startTextSpan
+  e,\stopTextSpan
+}
 @end lilypond
 
 @cindex Textstrecker, Formatierung
@@ -178,11 +183,13 @@ Standardeinstellungen wird er kursiv ausgegeben, aber eine andere
 Formatierung kann erreicht werden, indem man @code{\markup}-Blöcke
 einsetzt, wie beschrieben in @ref{Text formatieren}.
 
-@lilypond[quote,relative=2,verbatim]
-\override TextSpanner.bound-details.left.text =
-  \markup { \upright "rit." }
-b1\startTextSpan c
-e,\stopTextSpan
+@lilypond[quote,verbatim]
+\relative {
+  \override TextSpanner.bound-details.left.text =
+    \markup { \upright "rit." }
+  b'1\startTextSpan c
+  e,\stopTextSpan
+}
 @end lilypond
 
 Auch der Stil der Linie kann ähnlich wie der Text mit den Objekteigenschaften
@@ -253,10 +260,12 @@ indem man die Syntax für Zeichen einsetzen, wie beschrieben in
 @c \mark needs to be placed on a separate line (it's not
 @c attached to an object like \markup is). -vv
 
-@lilypond[verbatim,quote,relative=2]
-c4
-\mark "Allegro"
-c c c
+@lilypond[verbatim,quote]
+\relative {
+  c''4
+  \mark "Allegro"
+  c c c
+}
 @end lilypond
 
 Diese Syntax ermöglicht es, beliebigen Text über eine Taktlinie
@@ -264,11 +273,13 @@ zu platzieren, weitere Formatierungsmöglichkeiten sind mit dem
 @code{\markup}-Befehl gegeben, wie beschrieben in
 @ref{Text formatieren}:
 
-@lilypond[quote,verbatim,relative=1]
-<c e>1
-\mark \markup { \italic { colla parte } }
-<d f>2 <e g>
-<c f aes>1
+@lilypond[quote,verbatim]
+\relative {
+  <c' e>1
+  \mark \markup { \italic { colla parte } }
+  <d f>2 <e g>
+  <c f aes>1
+}
 @end lilypond
 
 @noindent
@@ -278,10 +289,12 @@ Symbol mit dem Befehl @code{\musicglyph} angegeben wird, wie
 beschrieben in
 @ref{Musikalische Notation innerhalb einer Textbeschriftung}:
 
-@lilypond[quote,verbatim,relative=2]
-<bes f>2 <aes d>
-\mark \markup { \musicglyph #"scripts.ufermata" }
-<e g>1
+@lilypond[quote,verbatim]
+\relative {
+  <bes' f>2 <aes d>
+  \mark \markup { \musicglyph #"scripts.ufermata" }
+  <e g>1
+}
 @end lilypond
 
 @noindent
@@ -458,14 +471,16 @@ oder weitere Textbefehle befinden, eingeführt mit einem
 Backslash@tie{}(@code{\}).  Derartige Befehle beziehen sich nur auf
 den ersten der folgenden Ausdrücke.
 
-@lilypond[quote,verbatim,relative=2]
-a1-\markup intenso
-a2^\markup { poco \italic più forte  }
-c e1
-d2_\markup { \italic "string. assai" }
-e
-b1^\markup { \bold { molto \italic  agitato } }
-c
+@lilypond[quote,verbatim]
+\relative {
+  a'1-\markup intenso
+  a2^\markup { poco \italic più forte  }
+  c e1
+  d2_\markup { \italic "string. assai" }
+  e
+  b1^\markup { \bold { molto \italic  agitato } }
+  c
+}
 @end lilypond
 
 @cindex Sonderzeichen in Textbeschriftungen
@@ -485,10 +500,12 @@ ausgegeben, wie sie eingeben werden.  Doppelte Anführungsstriche
 können gesetzt werden, indem man ihnen einen Backslash voranstellt.
 
 @c KEEP LY
-@lilypond[quote,verbatim,relative=2]
-a1^"\italic Text..."
-a_\markup { \italic "... setzt \"kursive\" Buchstaben!" }
-a a
+@lilypond[quote,verbatim]
+\relative {
+  a'1^"\italic Text..."
+  a_\markup { \italic "... setzt \"kursive\" Buchstaben!" }
+  a a
+}
 @end lilypond
 
 Damit eine Anzahl von Wörtern als ein einziger Ausdruck behandelt
@@ -499,11 +516,13 @@ sie übereinander gestapelt, mittig und aneinander ausgerichtet
 werden.  Im folgenden Beispiel verhält sich der zweite
 @code{\markup}-Ausdruck genauso wie der erste:
 
-@lilypond[quote,verbatim,relative=2]
-c1^\markup { \center-column { a bbb c } }
-c1^\markup { \center-column { a { bbb c } } }
-c1^\markup { \center-column { a \line { bbb c } } }
-c1^\markup { \center-column { a "bbb c" } }
+@lilypond[quote,verbatim]
+\relative c'' {
+  c1^\markup { \center-column { a bbb c } }
+  c1^\markup { \center-column { a { bbb c } } }
+  c1^\markup { \center-column { a \line { bbb c } } }
+  c1^\markup { \center-column { a "bbb c" } }
+}
 @end lilypond
 
 Textbeschriftung kann auch durch Variablen definiert werden.  Diese
@@ -554,14 +573,16 @@ Syntaxfehler im Textbeschriftungsmodus können sehr verwirrend sein.
 Einfache Änderungen des Schriftartschnitts können im Textbeschriftungsmodus
 vorgenommen werden:
 
-@lilypond[quote,verbatim,relative=2]
-d1^\markup {
-  \bold { Più mosso }
-  \italic { non troppo \underline Vivo }
+@lilypond[quote,verbatim]
+\relative {
+  d''1^\markup {
+    \bold { Più mosso }
+    \italic { non troppo \underline Vivo }
+  }
+  r2 r4 r8
+  d,_\markup { \italic quasi \smallCaps Tromba }
+  f1 d2 r
 }
-r2 r4 r8
-d,_\markup { \italic quasi \smallCaps Tromba }
-f1 d2 r
 @end lilypond
 
 @cindex Schriftgröße
@@ -583,36 +604,44 @@ zur globalen Notensystemgröße:
 
 Sie kann auf eine vordefinierte Größe gesetzt werden:
 
-@lilypond[quote,verbatim,relative=2]
-b1_\markup { \huge Sinfonia }
-b1^\markup { \teeny da }
-b1-\markup { \normalsize camera }
+@lilypond[quote,verbatim]
+\relative b' {
+  b1_\markup { \huge Sinfonia }
+  b1^\markup { \teeny da }
+  b1-\markup { \normalsize camera }
+}
 @end lilypond
 
 Sie kann relativ zum vorherigen Wert gesetzt werden:
 
-@lilypond[quote,verbatim,relative=2]
-b1_\markup { \larger Sinfonia }
-b1^\markup { \smaller da }
-b1-\markup { \magnify #0.6  camera }
+@lilypond[quote,verbatim]
+\relative b' {
+  b1_\markup { \larger Sinfonia }
+  b1^\markup { \smaller da }
+  b1-\markup { \magnify #0.6  camera }
+}
 @end lilypond
 
 Sie kann vergrößert oder verkleinert werden relativ zum Wert, der
 von der globalen Notensystemgröße vorgegeben wird:
 
-@lilypond[quote,verbatim,relative=2]
-b1_\markup { \fontsize #-2 Sinfonia }
-b1^\markup { \fontsize #1 da }
-b1-\markup { \fontsize #3 camera }
+@lilypond[quote,verbatim]
+\relative b' {
+  b1_\markup { \fontsize #-2 Sinfonia }
+  b1^\markup { \fontsize #1 da }
+  b1-\markup { \fontsize #3 camera }
+}
 @end lilypond
 
 Sie kann auch auf eine bestimmte Punktegröße festgelegt werden, unabhängig von
 der globalen Notensystemgröße:
 
-@lilypond[quote,verbatim,relative=2]
-b1_\markup { \abs-fontsize #20 Sinfonia }
-b1^\markup { \abs-fontsize #8 da }
-b1-\markup { \abs-fontsize #14 camera }
+@lilypond[quote,verbatim]
+\relative b' {
+  b1_\markup { \abs-fontsize #20 Sinfonia }
+  b1^\markup { \abs-fontsize #8 da }
+  b1-\markup { \abs-fontsize #14 camera }
+}
 @end lilypond
 
 @cindex hochgestellt
@@ -777,14 +806,16 @@ werden.  Standardmäßig wird ein Textobjekt an seiner linken Ecke
 ausgerichtet, darum wird das erste und zweite Objekt gleichermaßen
 an der linken Ecke ausgerichtet.
 
-@lilypond[quote,verbatim,relative=2]
-d1-\markup { poco }
-f
-d-\markup { \left-align poco }
-f
-d-\markup { \center-align { poco } }
-f
-d-\markup { \right-align poco }
+@lilypond[quote,verbatim]
+\relative {
+  d''1-\markup { poco }
+  f
+  d-\markup { \left-align poco }
+  f
+  d-\markup { \center-align { poco } }
+  f
+  d-\markup { \right-align poco }
+}
 @end lilypond
 
 @funindex \halign
@@ -793,14 +824,16 @@ d-\markup { \right-align poco }
 Die horizontale Ausrichtung kann mit einer Zahl auf einen exakten
 Wert festgelegt werden:
 
-@lilypond[quote,verbatim,relative=2]
-a1-\markup { \halign #-1 poco }
-e'
-a,-\markup { \halign #0 poco }
-e'
-a,-\markup { \halign #0.5 poco }
-e'
-a,-\markup { \halign #2 poco }
+@lilypond[quote,verbatim]
+\relative {
+  a'1-\markup { \halign #-1 poco }
+  e'
+  a,-\markup { \halign #0 poco }
+  e'
+  a,-\markup { \halign #0.5 poco }
+  e'
+  a,-\markup { \halign #2 poco }
+}
 @end lilypond
 
 @noindent
@@ -827,21 +860,23 @@ werden, welcher entweder ein anderes Textelement oder ein
 unsichtbares Objekt sein kann (im Beispiel mit @code{\null} erstellt).
 Der letzte Text im Beispiel hat keinen Anker und wird deshalb auch nicht verschoben.
 
-@lilypond[quote,verbatim,relative=1]
-d2^\markup {
-  Acte I
-  \raise #2 { Scène 1 }
+@lilypond[quote,verbatim]
+\relative {
+  d'2^\markup {
+    Acte I
+    \raise #2 { Scène 1 }
+  }
+  a'
+  g_\markup {
+    \null
+    \lower #4 \bold { Très modéré }
+  }
+  a
+  d,^\markup {
+    \raise #4 \italic { Une forêt. }
+  }
+  a'4 a g2 a
 }
-a'
-g_\markup {
-  \null
-  \lower #4 \bold { Très modéré }
-}
-a
-d,^\markup {
-  \raise #4 \italic { Une forêt. }
-}
-a'4 a g2 a
 @end lilypond
 
 @funindex \general-align
@@ -855,22 +890,24 @@ Einige Befehle können sowohl die horizontale als auch die vertikale
 Ausrichtung von Textobjekten beeinflussen.  Jedes Objekt, das auf
 diese Weise verschoben wird, benötigt einen Anker:
 
-@lilypond[quote,verbatim,relative=1]
-d2^\markup {
-  Acte I
-  \translate #'(-1 . 2) "Scène 1"
+@lilypond[quote,verbatim]
+\relative {
+  d'2^\markup {
+    Acte I
+    \translate #'(-1 . 2) "Scène 1"
+  }
+  a'
+  g_\markup {
+    \null
+    \general-align #Y #3.2 \bold "Très modéré"
+  }
+  a
+  d,^\markup {
+    \null
+    \translate-scaled #'(-1 . 2) \teeny "Une forêt."
+  }
+  a'4 a g2 a
 }
-a'
-g_\markup {
-  \null
-  \general-align #Y #3.2 \bold "Très modéré"
-}
-a
-d,^\markup {
-  \null
-  \translate-scaled #'(-1 . 2) \teeny "Une forêt."
-}
-a'4 a g2 a
 @end lilypond
 
 @cindex mehrzeiliger Text
@@ -1151,8 +1188,8 @@ aber Graphiken direkt in den Quelltext unter Verwendung von
 PostScript-Code notiert.  In diesem Fall kann es nötig sein, die
 Größe der Zeichnung explizit anzugeben, wie im Beispiel unten gezeigt:
 
-@lilypond[quote,verbatim,relative=1]
-c1^\markup {
+@lilypond[quote,verbatim,fragment]
+c'1^\markup {
   \combine
     \epsfile #X #10 #"./context-example.eps"
     \with-dimensions #'(0 . 6) #'(0 . 10)
@@ -1168,7 +1205,7 @@ c1^\markup {
       closepath
       stroke"
   }
-c
+c'
 @end lilypond
 
 Eine ausführliche Liste der Graphik-Befehle findet sich in
@@ -1206,22 +1243,22 @@ werden.
 
 Noten und Versetzungszeichen lassen sich mit @code{\markup} einfügen:
 
-@lilypond[quote,verbatim,relative=2]
-a2 a^\markup {
+@lilypond[quote,verbatim,fragment]
+a'2 a'^\markup {
   \note #"4" #1
   =
   \note-by-number #1 #1 #1.5
 }
-b1_\markup {
+b'1_\markup {
   \natural \semiflat \flat
   \sesquiflat \doubleflat
 }
 \glissando
-a1_\markup {
+a'1_\markup {
   \natural \semisharp \sharp
   \sesquisharp \doublesharp
 }
-\glissando b
+\glissando b'
 @end lilypond
 
 Andere Notationsobjekte können auch eingefügt werden:
@@ -1249,13 +1286,15 @@ von der Notation als ein Textbeschriftungsobjekt eingefügt werden, wie
 unten gezeigt.  Eine vollständige Liste der verfügbaren Symbole findet
 sich in @ref{Die Feta-Schriftart}.
 
-@lilypond[quote,verbatim,relative=2]
-c2
-c'^\markup { \musicglyph #"eight" }
-c,4
-c,8._\markup { \musicglyph #"clefs.G_change" }
-c16
-c2^\markup { \musicglyph #"timesig.neomensural94" }
+@lilypond[quote,verbatim]
+\relative {
+  c''2
+  c'^\markup { \musicglyph #"eight" }
+  c,4
+  c,8._\markup { \musicglyph #"clefs.G_change" }
+  c16
+  c2^\markup { \musicglyph #"timesig.neomensural94" }
+}
 @end lilypond
 
 @noindent
@@ -1266,20 +1305,22 @@ unterschiedlicher Größe zu setzen.
 Der Textbeschriftungsmodus unterstützt auch Diagramme für bestimmte
 Instrumente:
 
-@lilypond[quote,verbatim,relative=2]
-c1^\markup {
-  \fret-diagram-terse #"x;x;o;2;3;2;"
-}
-c^\markup {
-  \harp-pedal #"^-v|--ov^"
-}
-c
-c^\markup {
-  \combine
-    \musicglyph #"accordion.discant"
+@lilypond[quote,verbatim]
+\relative {
+  c''1^\markup {
+    \fret-diagram-terse #"x;x;o;2;3;2;"
+  }
+  c^\markup {
+    \harp-pedal #"^-v|--ov^"
+  }
+  c
+  c^\markup {
     \combine
-      \raise #0.5 \musicglyph #"accordion.dot"
-      \raise #1.5 \musicglyph #"accordion.dot"
+      \musicglyph #"accordion.discant"
+      \combine
+	\raise #0.5 \musicglyph #"accordion.dot"
+	\raise #1.5 \musicglyph #"accordion.dot"
+  }
 }
 @end lilypond
 
@@ -1298,15 +1339,17 @@ Sogar eine ganze Partitur kann in ein Textbeschriftungsobjekt eingefügt
 werden.  In diesem Fall muss die eingefügte @code{\score}-Umgebung
 eine @code{\layout}-Umgebung haben, wie in diesem Beispiel:
 
-@lilypond[quote,verbatim,relative=1]
-c4 d^\markup {
-  \score {
-    \relative { c'4 d e f }
-    \layout { }
+@lilypond[quote,verbatim]
+\relative {
+  c'4 d^\markup {
+    \score {
+      \relative { c'4 d e f }
+      \layout { }
+    }
   }
+  e f |
+  c d e f
 }
-e f |
-c d e f
 @end lilypond
 
 Eine vollständige Liste der Musiksymbol-Befehle findet sich in @ref{Music}.
@@ -1438,8 +1481,8 @@ direkt auf verschiedene nicht textuelle Sonderzeichen der
 @code{feta}-Schriftart zuzugreifen.  Das ist die Standardschriftart
 für Notationselemente in LilyPond.
 
-@lilypond[quote,verbatim,relative=2]
-a1^\markup {
+@lilypond[quote,verbatim,fragment]
+a'1^\markup {
   \vcenter {
     \override #'(font-encoding . fetaBraces)
     \lookup #"brace120"
@@ -1484,14 +1527,14 @@ demonstriert, wie man die verschiedenen Eigenschaften auswählen kann.
 Der Wert, der @code{font-size} übergeben wird, entspricht der geforderten
 Änderung in Bezug auf die Standardschriftgröße.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \override Score.RehearsalMark.font-family = #'typewriter
 \mark \markup "Ouverture"
 \override Voice.TextScript.font-shape = #'italic
 \override Voice.TextScript.font-series = #'bold
-d2.^\markup "Allegro"
+d''2.^\markup "Allegro"
 \override Voice.TextScript.font-size = #-3
-c4^smaller
+c''4^smaller
 @end lilypond
 
 @noindent
@@ -1544,12 +1587,12 @@ Jede Schriftart, die über das Betriebssystem installiert ist und von
 FontConfig erkannt wird, kann in einer Partitur eingefügt werden.  Dazu
 verwendet man folgende Syntax:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \override Staff.TimeSignature.font-name = #"Bitstream Charter"
 \override Staff.TimeSignature.font-size = #2
 \time 3/4
 
-a1_\markup {
+a'1_\markup {
   \override #'(font-name . "Vera Bold")
     { Vera Bold }
 }

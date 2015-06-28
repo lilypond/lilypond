@@ -399,10 +399,10 @@ Las sílabas de la letra se pueden alinear automáticamente bajo las
 notas de una melodía especificando por su nombre el contexto de voz
 que contiene la melodía, con @code{\lyricsto}:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
-  \new Voice = "melody" {
-    a1 a4. a8 a2
+  \new Voice = "melody" \relative {
+    a'1 a4. a8 a2
   }
   \new Lyrics \lyricsto "melody" {
     These are the words
@@ -621,10 +621,11 @@ carácter de guión bajo @code{_}.  De forma alternativa, podemos usar
 el símbolo de tilde curva (@code{~}) para obtener una ligadura de
 texto.
 
-@lilypond[quote,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 {
-  { \autoBeamOff
-    r8 b c fis, fis c' b e,
+  \relative {
+    \autoBeamOff
+    r8 b' c fis, fis c' b e,
   }
   \addlyrics
   {
@@ -678,11 +679,11 @@ Existen cinco formas de indicar los melismas:
 Se crean melismas automáticamente sobre las notas unidas mediante
 ligadura de unión:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
-    f4 g2 ~ |
+    f''4 g2 ~ |
     4 e2 ~ |
     8
   }
@@ -697,11 +698,11 @@ Se pueden crear melismas automáticamente a partir de la música
 escribiendo ligaduras de expresión sobre las notas de cada melisma.
 Ésta es la forma usual de escribir la letra:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
-    f4 g8 ( f e f )
+    f''4 g8 ( f e f )
     e8 ( d e2 )
   }
   \new Lyrics \lyricsto "melody" {
@@ -718,12 +719,12 @@ manualmente mediante barra, siempre y cuando el barrado automático
 esté desactivado.  Véase @ref{Establecer el comportamiento de las
 barras automáticas}.
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
     \autoBeamOff
-    f4 g8[ f e f]
+    f''4 g8[ f e f]
     e2.
   }
   \new Lyrics \lyricsto "melody" {
@@ -739,11 +740,11 @@ de duración más larga que la corchea.
 Un grupo de notas sin ligadura de expresión se trata como un melisma
 si están comprendidas entre @code{\melisma} y @code{\melismaEnd}.
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
-    f4 g8
+    f''4 g8
     \melisma
     f e f
     \melismaEnd
@@ -760,11 +761,11 @@ Se puede definir un melisma enteramente dentro de la letra escribiendo
 un carácter de barra baja suelto, @code{_}, por cada nota adicional
 que se quiere añadir al melisma.
 
-@lilypond[verbatim, quote, relative=2]
+@lilypond[verbatim, quote]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
-    f4 g8 f e f
+    f''4 g8 f e f
     e8 d e2
   }
   \new Lyrics \lyricsto "melody" {
@@ -779,12 +780,12 @@ Es posible tener ligaduras de unión o de expresión y barras manuales
 en la melodía sin que indiquen melisma.  Para hacerlo, ajuste el valor
 de @code{melismaBusyProperties}:
 
-@lilypond[relative=1,verbatim,quote]
+@lilypond[verbatim,quote]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
     \set melismaBusyProperties = #'()
-    c4 d ( e )
+    c'4 d ( e )
     g8 [ f ] f4 ~ 4
   }
   \new Lyrics \lyricsto "melody" {
@@ -808,12 +809,12 @@ Si se requiere un melisma en el transcurso de un pasaje en el que
 una sola barra baja en la letra por cada nota que se debe incluir
 dentro del melisma:
 
-@lilypond[relative=1,verbatim,quote]
+@lilypond[verbatim,quote]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
     \set melismaBusyProperties = #'()
-    c4 d ( e )
+    c'4 d ( e )
     g8 [ f ] ~ 4 ~ f
   }
   \new Lyrics \lyricsto "melody" {
@@ -1134,8 +1135,8 @@ Referencia de la notación:
 Para aumentar la separación entre las líneas de texto, establezca la
 propiedad @code{minimum-distance} de @code{LyricSpace}.
 
-@lilypond[relative=1,verbatim,quote,ragged-right]
-{
+@lilypond[verbatim,quote,ragged-right]
+\relative c' {
   c c c c
   \override Lyrics.LyricSpace.minimum-distance = #1.0
   c c c c
@@ -1833,9 +1834,9 @@ notas de esta forma.
 Los números de los versos se pueden añadir estableciendo
 @code{stanza}, p.ej.,
 
-@lilypond[quote,ragged-right,verbatim,relative=2]
-\new Voice {
-  \time 3/4 g2 e4 a2 f4 g2.
+@lilypond[quote,ragged-right,verbatim]
+\new Voice \relative {
+  \time 3/4 g'2 e4 a2 f4 g2.
 } \addlyrics {
   \set stanza = #"1. "
   Hi, my name is Bert.
@@ -1921,9 +1922,9 @@ comienzo de la línea, igual que los nombres de instrumento.  Se crean
 estableciendo un valor para @code{vocalName}.  Se puede definir una
 versión abreviada como @code{shortVocalName}.
 
-@lilypond[ragged-right,quote,verbatim,relative=2]
-\new Voice {
-  \time 3/4 g2 e4 a2 f4 g2.
+@lilypond[ragged-right,quote,verbatim]
+\new Voice \relative {
+  \time 3/4 g'2 e4 a2 f4 g2.
 } \addlyrics {
   \set vocalName = #"Bert "
   Hi, my name is Bert.
@@ -2682,16 +2683,18 @@ sección correspondiente a dicho personaje.  Esto se puede hacer con
 elementos de marcado.  Con frecuencia se usa un tipo de letra especial
 para este propósito.
 
-@lilypond[quote,verbatim,relative=1]
-\clef "G_8"
-c4^\markup \fontsize #1 \smallCaps Kaspar
-c c c
-\clef "bass"
-a4^\markup \fontsize #1 \smallCaps Melchior
-a a a
-\clef "G_8"
-c4^\markup \fontsize #1 \smallCaps Kaspar
-c c c
+@lilypond[quote,verbatim]
+\relative c' {
+  \clef "G_8"
+  c4^\markup \fontsize #1 \smallCaps Kaspar
+  c c c
+  \clef "bass"
+  a4^\markup \fontsize #1 \smallCaps Melchior
+  a a a
+  \clef "G_8"
+  c4^\markup \fontsize #1 \smallCaps Kaspar
+  c c c
+}
 @end lilypond
 
 Como alternativa, si hay muchos cambios de personajes, puede ser más
@@ -2912,10 +2915,12 @@ ligado a un momento musical en particular.
 
 Para interjecciones cortas, basta un simple elemento de marcado.
 
-@lilypond[quote,verbatim,relative=2]
-a4^\markup { \smallCaps { Alex - } \italic { He's gone } } a a a
-a4 a a^\markup { \smallCaps { Bethan - } \italic Where? } a
-a4 a a a
+@lilypond[quote,verbatim]
+\relative {
+  a'4^\markup { \smallCaps { Alex - } \italic { He's gone } } a a a
+  a4 a a^\markup { \smallCaps { Bethan - } \italic Where? } a
+  a4 a a a
+}
 @end lilypond
 
 Para frases más largas puede ser necesario expandir la música de forma
@@ -3103,35 +3108,39 @@ trátela como si fuera una cadencia.  Si la sección es larga, podría
 necesitar insertar líneas divisorias @qq{mudas} con @code{\bar ""}
 para indicar dónde se debe producir el salto de línea.
 
-@lilypond[verbatim,quote,relative=2]
-a4 b c2 |
-\cadenzaOn
-a4 b c2
-a4 b c2
-\bar ""
-a4 b c2
-a4 b c2
-\cadenzaOff
-a4 b c2 |
-a4 b c2 |
+@lilypond[verbatim,quote]
+\relative a' {
+  a4 b c2 |
+  \cadenzaOn
+  a4 b c2
+  a4 b c2
+  \bar ""
+  a4 b c2
+  a4 b c2
+  \cadenzaOff
+  a4 b c2 |
+  a4 b c2 |
+}
 @end lilypond
 
 Los silencios o pausas en los cánticos pueden indicarse mediante
 barras de compás modificadas.
 
-@lilypond[verbatim, quote,relative=2]
-a4
-\cadenzaOn
-b c2
-a4 b c2
-\bar "'"
-a4 b c2
-a4 b c2
-\bar ";"
-a4 b c2
-\bar "!"
-a4 b c2
-\bar "||"
+@lilypond[verbatim, quote]
+\relative a' {
+  a4
+  \cadenzaOn
+  b c2
+  a4 b c2
+  \bar "'"
+  a4 b c2
+  a4 b c2
+  \bar ";"
+  a4 b c2
+  \bar "!"
+  a4 b c2
+  \bar "||"
+}
 @end lilypond
 
 Como alternativa, se usa a veces la notación del canto gregoriano para

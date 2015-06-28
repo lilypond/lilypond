@@ -1008,9 +1008,9 @@ si potrebbe pensare che il seguente codice colori di rosso tutte le teste
 delle note nel rigo, ma in realtà produce due righi, di cui il più basso
 conserva il colore nero predefinito per le teste delle note.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \override Staff.NoteHead.color = #red
-\new Staff { a }
+\new Staff { a' }
 @end lilypond
 
 Questo accade perché non esiste un contesto @code{Staff} quando viene
@@ -1019,10 +1019,10 @@ l'override viene applicato ad esso.  Ma poi il comando @code{\new Staff} crea
 un altro rigo separato nel quale vengono inserite le note.  Il codice
 corretto per colorare le teste di tutte le note è
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 \new Staff {
   \override Staff.NoteHead.color = #red
-  a
+  a'
 }
 @end lilypond
 

@@ -167,14 +167,16 @@ c4-1 d-2 f-4 e-3
 
 指の変更のためにマークアップ テキストや文字列が使用されることもあります。
 
-@lilypond[verbatim,quote,relative=2]
-c4-1 d-2 f-4 e-3
+@lilypond[verbatim,quote]
+\relative { c''4-1 d-2 f-4 e-3 }
 @end lilypond
 
 指の入れ替えのためにマークアップ テキストを使うこともできます。
 
-@lilypond[verbatim,quote,relative=2]
-c4-1 d-2 f\finger \markup \tied-lyric #"4~3" c\finger "2 - 3"
+@lilypond[verbatim,quote]
+\relative {
+  c''4-1 d-2 f\finger \markup \tied-lyric #"4~3" c\finger "2 - 3"
+}
 @end lilypond
 
 @cindex thumb-script (サム-スクリプト)
@@ -186,8 +188,8 @@ c4-1 d-2 f\finger \markup \tied-lyric #"4~3" c\finger "2 - 3"
 サム-スクリプト (thumb-script) を付け加えることができます
 (例えば、チェロ音楽で)。
 
-@lilypond[verbatim,quote,relative=2]
-<a_\thumb a'-3>2 <b_\thumb b'-3>
+@lilypond[verbatim,quote]
+\relative { <a'_\thumb a'-3>2 <b_\thumb b'-3> }
 @end lilypond
 
 @cindex fingering chords (和音の運指法)
@@ -197,8 +199,10 @@ c4-1 d-2 f\finger \markup \tied-lyric #"4~3" c\finger "2 - 3"
 和音の個々の音符の後に運指を付け加えることによって、@c
 和音に対する運指法を付け加えることができます。
 
-@lilypond[verbatim,quote,relative=2]
-<c-1 e-2 g-3 b-5>2 <d-1 f-2 a-3 c-5>
+@lilypond[verbatim,quote]
+\relative {
+  <c''-1 e-2 g-3 b-5>2 <d-1 f-2 a-3 c-5>
+}
 @end lilypond
 
 運指指示の配置を手動で譜の上または下にすることができます。@c
@@ -251,26 +255,30 @@ c4-1 d-2 f\finger \markup \tied-lyric #"4~3" c\finger "2 - 3"
 隠された (または不可視、透明の) 音符は、preparing theory や作曲の演習の際に@c
 有用です。
 
-@lilypond[verbatim,quote,relative=2]
-c4 d
-\hideNotes
-e4 f
-\unHideNotes
-g a
-\hideNotes
-b
-\unHideNotes
-c
+@lilypond[verbatim,quote]
+\relative {
+  c''4 d
+  \hideNotes
+  e4 f
+  \unHideNotes
+  g a
+  \hideNotes
+  b
+  \unHideNotes
+  c
+}
 @end lilypond
 
 符頭、符幹、旗、それに休符は不可視です。@c
 連桁は、隠された音符から始まる場合は、不可視です。
 不可視の音符に取り付けられたオブジェクトは可視のままです。
 
-@lilypond[verbatim,quote,relative=2]
-e8(\p f g a)--
-\hideNotes
-e8(\p f g a)--
+@lilypond[verbatim,quote]
+\relative c'' {
+  e8(\p f g a)--
+  \hideNotes
+  e8(\p f g a)--
+}
 @end lilypond
 
 
@@ -319,13 +327,13 @@ Notation Reference:
 個々のオブジェクトに色を割り振ることができます。@c
 有効なカラー名は @ref{List of colors} でリストアップされています。
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,fragment]
 \override NoteHead.color = #red
-c4 c
+c''4 c''
 \override NoteHead.color = #(x11-color 'LimeGreen)
-d
+d''
 \override Stem.color = #blue
-e
+e''
 @end lilypond
 
 
@@ -342,22 +350,24 @@ X11 のために定義された色の全範囲にアクセスすることがで�
 その色はデフォルトの黒になります。
 
 @c KEEP LY
-@lilypond[verbatim,quote,relative=2]
-\override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
-\set Staff.instrumentName = \markup {
-  \with-color #(x11-color 'navy) "Clarinet"
-}
+@lilypond[verbatim,quote]
+\relative c'' {
+  \override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
+  \set Staff.instrumentName = \markup {
+    \with-color #(x11-color 'navy) "Clarinet"
+  }
 
-gis8 a
-\override Beam.color = #(x11-color "medium turquoise")
-gis a
-\override Accidental.color = #(x11-color 'DarkRed)
-gis a
-\override NoteHead.color = #(x11-color "LimeGreen")
-gis a
-% 以下は意図的に意味をなさない色を指定しています。符幹が黒のままであることに注意してください
-\override Stem.color = #(x11-color 'Boggle)
-b2 cis
+  gis8 a
+  \override Beam.color = #(x11-color "medium turquoise")
+  gis a
+  \override Accidental.color = #(x11-color 'DarkRed)
+  gis a
+  \override NoteHead.color = #(x11-color "LimeGreen")
+  gis a
+  % 以下は意図的に意味をなさない色を指定しています。符幹が黒のままであることに注意してください
+  \override Stem.color = #(x11-color 'Boggle)
+  b2 cis
+}
 @end lilypond
 
 @cindex rgb-color
@@ -369,18 +379,20 @@ b2 cis
 Scheme 関数 @code{rgb-color} を用いることによって、@c
 厳密な RGB カラーを指定することができます。
 
-@lilypond[verbatim,quote,relative=2]
-\override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
-\set Staff.instrumentName = \markup {
-  \with-color #(x11-color 'navy) "Clarinet"
-}
+@lilypond[verbatim,quote]
+\relative c'' {
+  \override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
+  \set Staff.instrumentName = \markup {
+    \with-color #(x11-color 'navy) "Clarinet"
+  }
 
-\override Stem.color = #(rgb-color 0 0 0)
-gis8 a
-\override Stem.color = #(rgb-color 1 1 1)
-gis8 a
-\override Stem.color = #(rgb-color 0 0 0.5)
-gis4 a
+  \override Stem.color = #(rgb-color 0 0 0)
+  gis8 a
+  \override Stem.color = #(rgb-color 1 1 1)
+  gis8 a
+  \override Stem.color = #(rgb-color 0 0 0.5)
+  gis4 a
+}
 @end lilypond
 
 @seealso
@@ -433,19 +445,23 @@ Web 向けでは、ノーマル カラーを使用することを推奨します
 和音の音符それぞれに括弧が付けられます。@c
 和音内部の音符に個別に括弧を付けることもできます。
 
-@lilypond[verbatim,quote,relative=2]
-c2 \parenthesize d
-c2 \parenthesize <c e g>
-c2 <c \parenthesize e g>
+@lilypond[verbatim,quote]
+\relative {
+  c''2 \parenthesize d
+  c2 \parenthesize <c e g>
+  c2 <c \parenthesize e g>
+}
 @end lilypond
 
 音符ではないオブジェクトにも括弧を付けることができます。@c
 アーティキュレーションに対して括弧をつける場合、@c
 @code{\parenthesize} コマンドの前にハイフンが必要です。
 
-@lilypond[verbatim,quote,relative=2]
-c2-\parenthesize -. d
-c2 \parenthesize r
+@lilypond[verbatim,quote]
+\relative {
+  c''2-\parenthesize -. d
+  c2 \parenthesize r
+}
 @end lilypond
 
 @seealso
@@ -550,9 +566,9 @@ c2 \parenthesize r
 記譜要素に四角いバルーンで印を付けて、テキストを付け加えることができます。@c
 この機能の主目的は記譜法を説明することです。
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Voice \with { \consists "Balloon_engraver" }
-{
+\relative c'' {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
   a8
   \balloonGrobText #'Rest #'(-4 . -4) \markup { "I'm a rest" }

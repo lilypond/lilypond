@@ -356,8 +356,8 @@ si ottengono aggiungendo @code{isis} o @code{eses}.  Questa sintassi è
 desunta dalla notazione olandese.  Per usare altri nomi
 per le alterazioni, si veda @ref{Note names in other languages}.
 
-@lilypond[verbatim,quote,relative=2]
-ais1 aes aisis aeses
+@lilypond[verbatim,quote,fragment]
+\relative c'' { ais1 aes aisis aeses }
 @end lilypond
 
 Un bequadro cancella l'effetto di un'alterazione o di un'armatura
@@ -365,8 +365,8 @@ di chiave.  Tuttavia, nella sintassi di Lilypond, non occorre specificare i
 bequadri mediante l'aggiunta di un particolare suffisso: un'altezza naturale
 è indicata con il semplice nome della nota:
 
-@lilypond[verbatim,quote,relative=2]
-a4 aes a2
+@lilypond[verbatim,quote,fragment]
+\relative c'' { a4 aes a2 }
 @end lilypond
 
 @cindex quarto di tono
@@ -376,8 +376,8 @@ a4 aes a2
 È possibile indicare alterazioni di quarti di tono. Ecco una serie di Do
 con altezza crescente:
 
-@lilypond[verbatim,quote,relative=2]
-ceseh1 ces ceh c cih cis cisih
+@lilypond[verbatim,quote,fragment]
+\relative c'' { ceseh1 ces ceh c cih cis cisih }
 @end lilypond
 
 
@@ -400,8 +400,8 @@ dopo l'altezza.  Un'alterazione di cortesia (ovvero un'alterazione compresa
 tra parentesi) si ottiene aggiungendo il punto interrogativo@tie{}@code{?} dopo
 l'altezza.  Questi segni possono essere usati anche per produrre dei bequadri.
 
-@lilypond[verbatim,quote,relative=2]
-cis cis cis! cis? c c c! c?
+@lilypond[verbatim,quote,fragment]
+\relative c'' { cis cis cis! cis? c c c! c? }
 @end lilypond
 
 @cindex alterazione e legatura di valore
@@ -410,10 +410,12 @@ cis cis cis! cis? c c c! c?
 Se una nota è prolungata attraverso una legatura di valore, l'alterazione
 viene ripetuta solo all'inizio di un nuovo sistema:
 
-@lilypond[verbatim,quote,relative=2,ragged-right]
-cis1~ 1~
-\break
-cis
+@lilypond[verbatim,quote,fragment,ragged-right]
+\relative c'' {
+  cis1~ 1~
+  \break
+  cis
+}
 @end lilypond
 
 
@@ -553,8 +555,8 @@ forme sono accettate in LilyPond.  Analogalmente, sia @code{es} che
 @code{eeses}@tie{}/@tie{}@code{eses}.  Talvolta solo questi nomi
 contratti sono definiti nei corrispondenti file della lingua.
 
-@lilypond[verbatim,quote,relative=2]
-a2 as e es a ases e eses
+@lilypond[verbatim,quote,fragment]
+\relative c'' { a2 as e es a ases e eses }
 @end lilypond
 
 
@@ -1122,22 +1124,22 @@ Questa sezione tratta il modo di modificare l'aspetto delle altezze delle note.
 Senza un comando esplicito, la chiave predefinita in LilyPond è la chiave
 di violino (o di @emph{Sol}).
 
-@lilypond[verbatim,quote,relative=1,ragged-right]
-c2 c
+@lilypond[verbatim,quote,fragment,ragged-right]
+c'2 c'
 @end lilypond
 
 Per cambiare la chiave si usa il comando @code{\clef} seguito dal nome della
 chiave.  In tutti gli esempi seguenti viene mostrato il @emph{Do centrale}.
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
 \clef treble
-c2 c
+c'2 c'
 \clef alto
-c2 c
+c'2 c'
 \clef tenor
-c2 c
+c'2 c'
 \clef bass
-c2 c
+c'2 c'
 @end lilypond
 
 L'elenco completo di tutti i nomi di chiave possibili si trova in @ref{Clef styles}.
@@ -1165,29 +1167,29 @@ superiore, mentre@tie{}@code{_15} e@tie{}@code{^15} traspongono di due ottave.
 È possibile usare altri numeri interi, se necessario.  I nomi di chiave
 contenenti caratteri non alfabetici devono essere racchiusi tra virgolette
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
 \clef treble
-c2 c
+c'2 c'
 \clef "treble_8"
-c2 c
+c'2 c'
 \clef "bass^15"
-c2 c
+c'2 c'
 \clef "alto_2"
-c2 c
+c'2 c'
 \clef "G_8"
-c2 c
+c'2 c'
 \clef "F^5"
-c2 c
+c'2 c'
 @end lilypond
 
 L'ottavazione opzionale si può ottenere racchiudendo l'argomento numerico
 tra parentesi tonde o quadre:
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
 \clef "treble_(8)"
-c2 c
+c'2 c'
 \clef "bass^[15]"
-c2 c
+c'2 c'
 @end lilypond
 
 Le altezze vengono mostrate come se l'argomento numerico fosse
@@ -1198,14 +1200,14 @@ nuova chiave viene ripetuto alla fine della linea precedente, come chiave
 di @emph{avviso}, e all'inizio di quella successiva.  Tale chiave di
 @emph{precauzione} può essere soppressa.
 
-@lilypond[verbatim,quote,relative=1]
-\clef treble { c2 c } \break
-\clef bass { c2 c } \break
+@lilypond[verbatim,quote,fragment]
+\clef treble { c'2 c' } \break
+\clef bass { c'2 c' } \break
 \clef alto
   \set Staff.explicitClefVisibility = #end-of-line-invisible
-  { c2 c } \break
+  { c'2 c' } \break
   \unset Staff.explicitClefVisibility
-\clef bass { c2 c } \break
+\clef bass { c'2 c' } \break
 @end lilypond
 
 Una chiave che è già stata visualizzata non viene ristampata se viene
@@ -1213,37 +1215,37 @@ ripetuto lo stesso comando @code{\clef} e verrà quindi ignorata.
 Si può cambiare tale comportamento predefinito col comando
 @code{\set Staff.forceClef = ##t}.
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
   \clef treble
-  c1
+  c'1
   \clef treble
-  c1
+  c'1
   \set Staff.forceClef = ##t
-  c1
+  c'1
   \clef treble
-  c1
+  c'1
 @end lilypond
 
 When there is a manual clef change, the glyph of the changed clef
 will be smaller than normal.  This behaviour can be overridden.
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
   \clef "treble"
-  c1
+  c'1
   \clef "bass"
-  c1
+  c'1
   \clef "treble"
-  c1
+  c'1
   \override Staff.Clef.full-size-change = ##t
   \clef "bass"
-  c1
+  c'1
   \clef "treble"
-  c1
+  c'1
   \revert Staff.Clef.full-size-change
   \clef "bass"
-  c1
+  c'1
   \clef "treble"
-  c1
+  c'1
 @end lilypond
 
 @snippets
@@ -1276,13 +1278,13 @@ I numeri di ottavazione assegnati alle chiavi sono trattati come oggetti grafici
 separati.  Quindi qualsiasi @code{\override} all'oggetto @var{Clef} dovrà essere
 applicato, con un altro @code{\override}, all'oggetto @var{ClefModifier}.
 
-@lilypond[fragment,quote,verbatim,relative=1]
+@lilypond[fragment,quote,verbatim]
 \new Staff \with {
   \override Clef.color = #blue
   \override ClefModifier.color = #red
 }
 
-\clef "treble_8" c4
+\clef "treble_8" c'4
 @end lilypond
 
 
@@ -1350,11 +1352,13 @@ dei modi, chiamati anche @notation{modi ecclesiastici}:
 @code{\ionian}, @code{\dorian}, @code{\phrygian}, @code{\lydian},
 @code{\mixolydian}, @code{\aeolian} e @code{\locrian}.
 
-@lilypond[verbatim,quote,relative=2]
-\key g \major
-fis1
-f
-fis
+@lilypond[verbatim,quote,fragment]
+\relative {
+  \key g \major
+  fis''1
+  f
+  fis
+}
 @end lilypond
 
 Si possono definire ulteriori modi elencando le alterazioni per ogni
@@ -1379,14 +1383,14 @@ le alterazioni.  Se viene specificata una sola posizione, le
 alterazioni vengono collocate entro l'ottava che finisce in quella
 posizione del rigo.
 
-@lilypond[verbatim, quote,relative=0]
+@lilypond[verbatim, quote,fragment]
 \override Staff.KeySignature.flat-positions = #'((-5 . 5))
 \override Staff.KeyCancellation.flat-positions = #'((-5 . 5))
-\clef bass \key es \major es g bes d
-\clef treble \bar "||" \key es \major es g bes d
+\clef bass \key es \major es g bes d'
+\clef treble \bar "||" \key es \major es' g' bes' d''
 
 \override Staff.KeySignature.sharp-positions = #'(2)
-\bar "||" \key b \major b fis b2
+\bar "||" \key b \major b' fis' b'2
 @end lilypond
 
 
@@ -1436,18 +1440,20 @@ Guida al funzionamento interno:
 I @notation{segni di ottavazione} introducono un'ulteriore trasposizione di
 ottava nel rigo:
 
-@lilypond[verbatim,quote,relative=2]
-a2 b
-\ottava #-2
-a2 b
-\ottava #-1
-a2 b
-\ottava #0
-a2 b
-\ottava #1
-a2 b
-\ottava #2
-a2 b
+@lilypond[verbatim,quote]
+\relative a' {
+  a2 b
+  \ottava #-2
+  a2 b
+  \ottava #-1
+  a2 b
+  \ottava #0
+  a2 b
+  \ottava #1
+  a2 b
+  \ottava #2
+  a2 b
+}
 @end lilypond
 
 @snippets
@@ -2963,16 +2969,18 @@ Questa sezione suggerisce i modi in cui modificare la testa di una nota.
 
 L'aspetto delle teste delle note può essere modificato:
 
-@lilypond[verbatim,quote,relative=2]
-c4 b
-\override NoteHead.style = #'cross
-c4 b
-\revert NoteHead.style
-a b
-\override NoteHead.style = #'harmonic
-a b
-\revert NoteHead.style
-c4 d e f
+@lilypond[verbatim,quote]
+\relative c'' {
+  c4 b
+  \override NoteHead.style = #'cross
+  c4 b
+  \revert NoteHead.style
+  a b
+  \override NoteHead.style = #'harmonic
+  a b
+  \revert NoteHead.style
+  c4 d e f
+}
 @end lilypond
 
 L'elenco di tutti gli stili per le teste di nota è in @ref{Note head styles}.
@@ -2982,22 +2990,26 @@ intenzioni musicali.  I seguenti comandi generici predefiniti modificano
 la testa della nota nei contesti del rigo e dell'intavolatura e possono
 essere usati per rappresentare qualsiasi significato musicale:
 
-@lilypond[verbatim,quote,relative=2]
-c4 b
-\xNotesOn
- a b c4 b
-\xNotesOff
-c4 d
+@lilypond[verbatim,quote]
+\relative {
+  c''4 b
+  \xNotesOn
+   a b c4 b
+  \xNotesOff
+  c4 d
+}
 @end lilypond
 
 Questo comando può essere usato all'interno e all'esterno degli accordi per
 generare teste barrate sia nel contesto del rigo che in
 quello dell'intavolatura:
 
-@lilypond[verbatim,quote,relative=2]
-c4 b
-\xNote { e f }
-c b < g \xNote c f > b
+@lilypond[verbatim,quote]
+\relative {
+  c''4 b
+  \xNote { e f }
+  c b < g \xNote c f > b
+}
 @end lilypond
 
 Potete utilizzare, al posto di @code{\xNote}, @code{\xNotesOn} e
@@ -3007,8 +3019,10 @@ tra i chitarristi.
 
 Esiste anche una scorciatoia simile per le forme a diamante:
 
-@lilypond[verbatim,quote,relative=2]
-<c f\harmonic>2 <d a'\harmonic>4 <c g'\harmonic> f\harmonic
+@lilypond[verbatim,quote]
+\relative c'' {
+  <c f\harmonic>2 <d a'\harmonic>4 <c g'\harmonic> f\harmonic
+}
 @end lilypond
 
 @predefined
@@ -3133,17 +3147,19 @@ era comune nei canzonieri americani del diciannovesimo secolo.
 Gli stili possibili sono Sacred Harp, Southern Harmony,
 Funk (Harmonica Sacra), Walker e Aiken (Christian Harmony):
 
-@lilypond[verbatim,quote,relative=2]
-\aikenHeads
-c, d e f g2 a b1 c \break
-\sacredHarpHeads
-c,4 d e f g2 a b1 c \break
-\southernHarmonyHeads
-c,4 d e f g2 a b1 c \break
-\funkHeads
-c,4 d e f g2 a b1 c \break
-\walkerHeads
-c,4 d e f g2 a b1 c \break
+@lilypond[verbatim,quote]
+\relative c'' {
+  \aikenHeads
+  c, d e f g2 a b1 c \break
+  \sacredHarpHeads
+  c,4 d e f g2 a b1 c \break
+  \southernHarmonyHeads
+  c,4 d e f g2 a b1 c \break
+  \funkHeads
+  c,4 d e f g2 a b1 c \break
+  \walkerHeads
+  c,4 d e f g2 a b1 c \break
+}
 @end lilypond
 
 @funindex \key
@@ -3164,21 +3180,22 @@ scala è determinata dal comando @code{\key}.  Se si scrive in
 tonalità minore, il grado della scala può essere determinato
 in base alla relativa maggiore:
 
-@lilypond[verbatim,quote,relative=2]
-\key a \minor
-\aikenHeads
-a b c d e2 f g1 a \break
-\aikenHeadsMinor
-a,4 b c d e2 f g1 a \break
-\sacredHarpHeadsMinor
-a,2 b c d \break
-\southernHarmonyHeadsMinor
-a2 b c d \break
-\funkHeadsMinor
-a2 b c d \break
-\walkerHeadsMinor
-a2 b c d \break
-
+@lilypond[verbatim,quote]
+\relative c'' {
+  \key a \minor
+  \aikenHeads
+  a b c d e2 f g1 a \break
+  \aikenHeadsMinor
+  a,4 b c d e2 f g1 a \break
+  \sacredHarpHeadsMinor
+  a,2 b c d \break
+  \southernHarmonyHeadsMinor
+  a2 b c d \break
+  \funkHeadsMinor
+  a2 b c d \break
+  \walkerHeadsMinor
+  a2 b c d \break
+}
 @end lilypond
 
 
@@ -3235,11 +3252,11 @@ L'improvvisazione viene talvolta indicata con teste tagliate:
 l'esecutore può scegliere qualsiasi nota ma deve seguire il ritmo
 indicato.  Si possono creare queste teste:
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Voice \with {
   \consists "Pitch_squash_engraver"
-} {
-  e8 e g a a16( bes) a8 g
+} \relative {
+  e''8 e g a a16( bes) a8 g
   \improvisationOn
   e8 ~
   2 ~ 8 f4 f8 ~

@@ -1528,9 +1528,11 @@ densité.
 Vous pouvez cependant insérer l'instruction @code{\break} à l'endroit où
 vous le jugez utile pour « forcer » le passage à la ligne suivante :
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
-c4 c c c | \break
-c4 c c c |
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  c4 c c c | \break
+  c4 c c c |
+}
 @end lilypond
 
 Par défaut, un saut de ligne ne saurait intervenir au beau milieu d'une
@@ -1539,11 +1541,13 @@ cas.  Si d'aventure vous voulez forcer un saut de ligne en l'absence de
 barre de mesure, vous devrez auparavant insérer une barre invisible -- à
 l'aide de @code{\bar ""}.
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
-c4 c c
-\bar "" \break
-c |
-c4 c c c |
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  c4 c c
+  \bar "" \break
+  c |
+  c4 c c c |
+}
 @end lilypond
 
 LilyPond ignorera un @code{\break} placé sur une barre à la fin d'une
@@ -1569,10 +1573,12 @@ Selon le même principe, un saut de ligne ne peut intervenir alors qu'une
 ligature s'étend sur deux mesures consécutives.  Il faut en ce cas là
 introduire la dérogation @w{@code{\override Beam.breakable = ##t}}.
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
-\override Beam.breakable = ##t
-c2. c8[ c | \break
-c8 c] c2. |
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  \override Beam.breakable = ##t
+  c2. c8[ c | \break
+  c8 c] c2. |
+}
 @end lilypond
 
 L'instruction opposée, @code{\noBreak}, interdira toute tentative de
@@ -2817,31 +2823,35 @@ lorsque deux objets devraient se placer au même endroit, celui dont la
 @code{outside-staff-priority} est la plus faible sera disposé au plus
 près de la portée.
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
-c4_"Text"\pp
-r2.
-\once \override TextScript.outside-staff-priority = #1
-c4_"Text"\pp % this time the text will be closer to the staff
-r2.
-% by setting outside-staff-priority to a non-number,
-% we disable the automatic collision avoidance
-\once \override TextScript.outside-staff-priority = ##f
-\once \override DynamicLineSpanner.outside-staff-priority = ##f
-c4_"Text"\pp % now they will collide
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  c4_"Text"\pp
+  r2.
+  \once \override TextScript.outside-staff-priority = #1
+  c4_"Text"\pp % this time the text will be closer to the staff
+  r2.
+  % by setting outside-staff-priority to a non-number,
+  % we disable the automatic collision avoidance
+  \once \override TextScript.outside-staff-priority = ##f
+  \once \override DynamicLineSpanner.outside-staff-priority = ##f
+  c4_"Text"\pp % now they will collide
+}
 @end lilypond
 
 Le décalage vertical entre des objets extérieurs à la portée se contrôle
 par la propriété @code{outside-staff-padding}.
 
 @c KEEP LY
-@lilypond[quote,ragged-right,relative=2,verbatim,staffsize=18]
-\once \override TextScript.outside-staff-padding = #0
-a'4-"outside-staff-padding = #0"
-\once \override TextScript.outside-staff-padding = #3
-d-"outside-staff-padding = #3"
-c-"outside-staff-padding par défaut"
-b-"outside-staff-padding par défaut"
-R1
+@lilypond[quote,ragged-right,verbatim,staffsize=18]
+\relative {
+  \once \override TextScript.outside-staff-padding = #0
+  a'4-"outside-staff-padding = #0"
+  \once \override TextScript.outside-staff-padding = #3
+  d-"outside-staff-padding = #3"
+  c-"outside-staff-padding par défaut"
+  b-"outside-staff-padding par défaut"
+  R1
+}
 @end lilypond
 
 Par défaut, les objets extérieurs à la portée sont positionnés en
@@ -2853,11 +2863,13 @@ d'accroître l'espace horizontal requis et repoussera verticalement un
 objet pour éviter qu'il ne soit trop proche d'ventuelles lignes
 supplémentaires.
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
-c4^"Word" c c''2
-R1
-\once \override TextScript.outside-staff-horizontal-padding = #1
-c,,4^"Word" c c''2
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  c''4^"Word" c c''2
+  R1
+  \once \override TextScript.outside-staff-horizontal-padding = #1
+  c,,4^"Word" c c''2
+}
 @end lilypond
 
 @seealso
@@ -2899,10 +2911,12 @@ de croches.  La croche est suivie d'un espace de la largeur d'une tête
 de note ; pour la noire , cet espace est de deux têtes ; il
 est de trois pour la blanche.
 
-@lilypond[quote,verbatim,relative=1]
-c2 c4. c8
-c4. c8 c4. c8
-c8 c c4 c c
+@lilypond[quote,verbatim]
+\relative c' {
+  c2 c4. c8
+  c4. c8 c4. c8
+  c8 c c4 c c
+}
 @end lilypond
 
 @code{spacing-increment} est normalement défini à 1,2 espace de
@@ -2944,8 +2958,8 @@ proportionnel à la durée témoin.  Si donc nous ajoutions quelques
 doubles croches à l'exemple précédent, elles seraient suivies d'une
 demie largeur de tête :
 
-@lilypond[quote,verbatim,relative=2]
-c2 c4. c8 | c4. c16[ c] c4. c8 | c8 c c4 c c
+@lilypond[quote,verbatim]
+\relative { c''2 c4. c8 | c4. c16[ c] c4. c8 | c8 c c4 c c }
 @end lilypond
 
 Dans notre @emph{Essai sur la gravure musicale automatisée}, nous avons
@@ -2959,13 +2973,13 @@ mesure.  L'exemple suivant montre ces adaptations, tout d'abord selon
 les réglages par défaut, puis avec des corrections forcées.
 
 @lilypond[quote,ragged-right]
-{
-  c'4 e''4 e'4 b'4 |
-  b'4 e''4 b'4 e''4 |
+\fixed c' {
+  c4 e'4 e4 b4 |
+  b4 e'4 b4 e'4 |
   \override Staff.NoteSpacing.stem-spacing-correction = #1.5
   \override Staff.StaffSpacing.stem-spacing-correction = #1.5
-  c'4 e''4 e'4 b'4 |
-  b'4 e''4 b'4 e''4 |
+  c4 e'4 e4 b4 |
+  b4 e'4 b4 e'4 |
 }
 @end lilypond
 
@@ -3033,15 +3047,17 @@ amendements doivent intervenir au même moment que la commande
 @code{\newSpacingSection} ; ils produiront leurs effets jusqu'à ce
 qu'ils soient à nouveau modifiés par une nouvelle section, comme ici :
 
-@lilypond[relative=1,verbatim,quote]
-\time 4/16
-c16[ c c8]
-\newSpacingSection
-\override Score.SpacingSpanner.spacing-increment = #2
-c16[ c c8]
-\newSpacingSection
-\revert Score.SpacingSpanner.spacing-increment
-c16[ c c8]
+@lilypond[verbatim,quote]
+\relative c' {
+  \time 4/16
+  c16[ c c8]
+  \newSpacingSection
+  \override Score.SpacingSpanner.spacing-increment = #2
+  c16[ c c8]
+  \newSpacingSection
+  \revert Score.SpacingSpanner.spacing-increment
+  c16[ c c8]
+}
 @end lilypond
 
 @seealso
@@ -3125,9 +3141,10 @@ L'activation du commutateur @code{strict-note-spacing} permet d'espacer
 les notes sans tenir compte des clefs, barres de mesure ou notes
 d'ornement qui pourraient apparaître :
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \override Score.SpacingSpanner.strict-note-spacing = ##t
-\new Staff { c8[ c \clef alto c \grace { c16 c } c8 c c]  c32[ c] }
+\new Staff \relative {
+  c''8[ c \clef alto c \grace { c16 c } c8 c c]  c32[ c] }
 @end lilypond
 
 @seealso
@@ -3696,9 +3713,11 @@ diminue d'autant l'espace disponible que si seul le premier ne
 comportait l'indication.  Autre exemple, les indications de nuance qui
 se @qq{détachent} d'un système peuvent être rapprochées de la portée :
 
-@lilypond[verbatim,quote,relative=1]
-e4 c g\f c
-e4 c g-\tweak X-offset #-2.7 \f c
+@lilypond[verbatim,quote]
+\relative e' {
+  e4 c g\f c
+  e4 c g-\tweak X-offset #-2.7 \f c
+}
 @end lilypond
 
 @item

@@ -70,8 +70,8 @@
 そのような指示は、@ref{Direction and placement} で説明する構文を用いて、@c
 手動で譜の上または下に配置することができます。
 
-@lilypond[quote,verbatim,relative=2]
-a8^"pizz." g f e a4-"scherz." f
+@lilypond[quote,verbatim]
+\relative { a'8^"pizz." g f e a4-"scherz." f }
 @end lilypond
 
 この構文は実際には短縮記法です。@c
@@ -79,9 +79,10 @@ a8^"pizz." g f e a4-"scherz." f
 @code{\markup} ブロックを用いて明示的に、@c
 より複雑なテキスト フォーマットを音符に付け加えることができます。
 
-@lilypond[quote,verbatim,relative=2]
-a8^\markup { \italic pizz. } g f e
-a4_\markup { \tiny scherz. \bold molto } f
+@lilypond[quote,verbatim]
+\relative {
+  a'8^\markup { \italic pizz. } g f e
+  a4_\markup { \tiny scherz. \bold molto } f }
 @end lilypond
 
 デフォルトでは、テキスト指示は音符の間隔に影響を与えません。@c
@@ -89,10 +90,12 @@ a4_\markup { \tiny scherz. \bold molto } f
 以下の例では、最初のテキスト文字列は音符の間隔に影響を与えていませんが、@c
 2 番目のテキスト文字列は影響を与えています。
 
-@lilypond[quote,verbatim,relative=2]
-a8^"pizz." g f e
-\textLengthOn
-a4_"scherzando" f
+@lilypond[quote,verbatim]
+\relative {
+  a'8^"pizz." g f e
+  \textLengthOn
+  a4_"scherzando" f
+}
 @end lilypond
 
 テキスト スクリプトだけでなく、@c
@@ -156,10 +159,12 @@ a4_"scherzando" f
 以下の構文を用いることで、@c
 ある音符から他の音符までの範囲に作成することができます:
 
-@lilypond[verbatim,quote,relative=2]
-\override TextSpanner.bound-details.left.text = "rit."
-b1\startTextSpan
-e,\stopTextSpan
+@lilypond[verbatim,quote]
+\relative {
+  \override TextSpanner.bound-details.left.text = "rit."
+  b'1\startTextSpan
+  e,\stopTextSpan
+}
 @end lilypond
 
 @noindent
@@ -168,11 +173,13 @@ e,\stopTextSpan
 しかしながら、@ref{テキストをフォーマットする} で記述されているように、@c
 @code{\markup} ブロックを用いることで他の書体にすることができます。
 
-@lilypond[quote,relative=2,verbatim]
-\override TextSpanner.bound-details.left.text =
-  \markup { \upright "rit." }
-b1\startTextSpan c
-e,\stopTextSpan
+@lilypond[quote,verbatim]
+\relative {
+  \override TextSpanner.bound-details.left.text =
+    \markup { \upright "rit." }
+  b'1\startTextSpan c
+  e,\stopTextSpan
+}
 @end lilypond
 
 テキスト文字列と同様に、@c
@@ -242,10 +249,12 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @c \mark needs to be placed on a separate line (it's not
 @c attached to an object like \markup is). -vv
 
-@lilypond[verbatim,quote,relative=2]
-c4
-\mark "Allegro"
-c c c
+@lilypond[verbatim,quote]
+\relative {
+  c''4
+  \mark "Allegro"
+  c c c
+}
 @end lilypond
 
 この構文を用いることで、@c
@@ -254,11 +263,13 @@ c c c
 @code{\markup} ブロックを用いてより複雑なテキスト フォーマットを@c
 付け加えることもできます:
 
-@lilypond[quote,verbatim,relative=1]
-<c e>1
-\mark \markup { \italic { colla parte } }
-<d f>2 <e g>
-<c f aes>1
+@lilypond[quote,verbatim]
+\relative {
+  <c' e>1
+  \mark \markup { \italic { colla parte } }
+  <d f>2 <e g>
+  <c f aes>1
+}
 @end lilypond
 
 @noindent
@@ -266,10 +277,12 @@ c c c
 この構文で適切なシンボル名を指定することによって、@c
 特殊な記号 -- コーダ、セーニョ、フェルマータなど -- を譜刻することが可能です:
 
-@lilypond[quote,verbatim,relative=2]
-<bes f>2 <aes d>
-\mark \markup { \musicglyph #"scripts.ufermata" }
-<e g>1
+@lilypond[quote,verbatim]
+\relative {
+  <bes' f>2 <aes d>
+  \mark \markup { \musicglyph #"scripts.ufermata" }
+  <e g>1
+}
 @end lilypond
 
 @noindent
@@ -464,10 +477,12 @@ c
 ダブル クォーテーション自体は、@c
 それ自体の前にバックスラッシュを置くことによって譜刻されます。
 
-@lilypond[quote,verbatim,relative=2]
-a1^"\italic markup..."
-a_\markup { \italic "... prints \"italic\" letters!" }
-a a
+@lilypond[quote,verbatim]
+\relative {
+  a'1^"\italic markup..."
+  a_\markup { \italic "... prints \"italic\" letters!" }
+  a a
+}
 @end lilypond
 
 表記をばらばらなものとして扱うには、@c
@@ -480,11 +495,13 @@ a a
 以下の例では、@c
 2 番目の @code{\markup} 表記は 1 番目の表記と同じように扱われています:
 
-@lilypond[quote,verbatim,relative=2]
-c1^\markup { \center-column { a bbb c } }
-c1^\markup { \center-column { a { bbb c } } }
-c1^\markup { \center-column { a \line { bbb c } } }
-c1^\markup { \center-column { a "bbb c" } }
+@lilypond[quote,verbatim]
+\relative c'' {
+  c1^\markup { \center-column { a bbb c } }
+  c1^\markup { \center-column { a { bbb c } } }
+  c1^\markup { \center-column { a \line { bbb c } } }
+  c1^\markup { \center-column { a "bbb c" } }
+}
 @end lilypond
 
 マークアップを変数に格納することができます。@c
@@ -561,36 +578,44 @@ f1 d2 r
 
 フォント サイズをあらかじめ定義されているサイズに設定することができます:
 
-@lilypond[quote,verbatim,relative=2]
-b1_\markup { \huge Sinfonia }
-b1^\markup { \teeny da }
-b1-\markup { \normalsize camera }
+@lilypond[quote,verbatim]
+\relative b' {
+  b1_\markup { \huge Sinfonia }
+  b1^\markup { \teeny da }
+  b1-\markup { \normalsize camera }
+}
 @end lilypond
 
 フォント サイズを前の値との相対関係で設定することができます:
 
-@lilypond[quote,verbatim,relative=2]
-b1_\markup { \larger Sinfonia }
-b1^\markup { \smaller da }
-b1-\markup { \magnify #0.6  camera }
+@lilypond[quote,verbatim]
+\relative b' {
+  b1_\markup { \larger Sinfonia }
+  b1^\markup { \smaller da }
+  b1-\markup { \magnify #0.6  camera }
+}
 @end lilypond
 
 フォント サイズをグローバル譜サイズによって設定されている値で拡大あるいは縮小させる@c
 ことができます:
 
-@lilypond[quote,verbatim,relative=2]
-b1_\markup { \fontsize #-2 Sinfonia }
-b1^\markup { \fontsize #1 da }
-b1-\markup { \fontsize #3 camera }
+@lilypond[quote,verbatim]
+\relative b' {
+  b1_\markup { \fontsize #-2 Sinfonia }
+  b1^\markup { \fontsize #1 da }
+  b1-\markup { \fontsize #3 camera }
+}
 @end lilypond
 
 さらに、フォント サイズをグローバル譜サイズとは無関係に、固定ポイント サイズに設定する@c
 ことができます:
 
-@lilypond[quote,verbatim,relative=2]
-b1_\markup { \abs-fontsize #20 Sinfonia }
-b1^\markup { \abs-fontsize #8 da }
-b1-\markup { \abs-fontsize #14 camera }
+@lilypond[quote,verbatim]
+\relative b' {
+  b1_\markup { \abs-fontsize #20 Sinfonia }
+  b1^\markup { \abs-fontsize #8 da }
+  b1-\markup { \abs-fontsize #14 camera }
+}
 @end lilypond
 
 @cindex subscript (下付き文字)
@@ -754,14 +779,16 @@ b1-\markup { \abs-fontsize #14 camera }
 以下の例では、@c
 最初のマークアップと 2 番目のマークアップの揃えられ方はまったく同じです。
 
-@lilypond[quote,verbatim,relative=2]
-d1-\markup { poco }
-f
-d-\markup { \left-align poco }
-f
-d-\markup { \center-align { poco } }
-f
-d-\markup { \right-align poco }
+@lilypond[quote,verbatim]
+\relative {
+  d''1-\markup { poco }
+  f
+  d-\markup { \left-align poco }
+  f
+  d-\markup { \center-align { poco } }
+  f
+  d-\markup { \right-align poco }
+}
 @end lilypond
 
 @funindex \halign
@@ -769,14 +796,16 @@ d-\markup { \right-align poco }
 
 水平方向の揃え方は、数値を使って、微調整することができます:
 
-@lilypond[quote,verbatim,relative=2]
-a1-\markup { \halign #-1 poco }
-e'
-a,-\markup { \halign #0 poco }
-e'
-a,-\markup { \halign #0.5 poco }
-e'
-a,-\markup { \halign #2 poco }
+@lilypond[quote,verbatim]
+\relative {
+  a'1-\markup { \halign #-1 poco }
+  e'
+  a,-\markup { \halign #0 poco }
+  e'
+  a,-\markup { \halign #0.5 poco }
+  e'
+  a,-\markup { \halign #2 poco }
+}
 @end lilypond
 
 @noindent
@@ -807,21 +836,23 @@ a,-\markup { \halign #2 poco }
 以下の例では 2 つのケースを示しています。@c
 最後のマークアップはアンカ ポイントを持たず、それゆえ移動されません。
 
-@lilypond[quote,verbatim,relative=1]
-d2^\markup {
-  Acte I
-  \raise #2 { Scène 1 }
+@lilypond[quote,verbatim]
+\relative {
+  d'2^\markup {
+    Acte I
+    \raise #2 { Scène 1 }
+  }
+  a'
+  g_\markup {
+    \null
+    \lower #4 \bold { Très modéré }
+  }
+  a
+  d,^\markup {
+    \raise #4 \italic { Une forêt. }
+  }
+  a'4 a g2 a
 }
-a'
-g_\markup {
-  \null
-  \lower #4 \bold { Très modéré }
-}
-a
-d,^\markup {
-  \raise #4 \italic { Une forêt. }
-}
-a'4 a g2 a
 @end lilypond
 
 @funindex \general-align
@@ -836,22 +867,24 @@ a'4 a g2 a
 そのようなコマンドで移動させるオブジェクトの前には@c
 アンカ ポイントを置く必要があります:
 
-@lilypond[quote,verbatim,relative=1]
-d2^\markup {
-  Acte I
-  \translate #'(-1 . 2) "Scène 1"
+@lilypond[quote,verbatim]
+\relative {
+  d'2^\markup {
+    Acte I
+    \translate #'(-1 . 2) "Scène 1"
+  }
+  a'
+  g_\markup {
+    \null
+    \general-align #Y #3.2 \bold "Très modéré"
+  }
+  a
+  d,^\markup {
+    \null
+    \translate-scaled #'(-1 . 2) \teeny "Une forêt."
+  }
+  a'4 a g2 a
 }
-a'
-g_\markup {
-  \null
-  \general-align #Y #3.2 \bold "Très modéré"
-}
-a
-d,^\markup {
-  \null
-  \translate-scaled #'(-1 . 2) \teeny "Une forêt."
-}
-a'4 a g2 a
 @end lilypond
 
 @cindex multi-line markup (複数行にわたるマークアップ)
@@ -1129,8 +1162,8 @@ Flute quartet keeps very uneven time."
 このような機能を使う場合、以下で示すように、@c
 描画サイズを明示的に指定することを推奨します:
 
-@lilypond[quote,verbatim,relative=1]
-c1^\markup {
+@lilypond[quote,verbatim,fragment]
+c'1^\markup {
   \combine
     \epsfile #X #10 #"./context-example.eps"
     \with-dimensions #'(0 . 6) #'(0 . 10)
@@ -1146,7 +1179,7 @@ c1^\markup {
       closepath
       stroke"
   }
-c
+c'
 @end lilypond
 
 @ref{Graphic} にグラフィック特有のコマンドの徹底したリストがあります。
@@ -1181,37 +1214,39 @@ c
 
 音符と臨時記号はマークアップ コマンドを用いて入力することができます:
 
-@lilypond[quote,verbatim,relative=2]
-a2 a^\markup {
+@lilypond[quote,verbatim,fragment]
+a'2 a'^\markup {
   \note #"4" #1
   =
   \note-by-number #1 #1 #1.5
 }
-b1_\markup {
+b'1_\markup {
   \natural \semiflat \flat
   \sesquiflat \doubleflat
 }
 \glissando
-a1_\markup {
+a'1_\markup {
   \natural \semisharp \sharp
   \sesquisharp \doublesharp
 }
-\glissando b
+\glissando b'
 @end lilypond
 
 他の記譜オブジェクトもマークアップ モードの中で譜刻することができます:
 
-@lilypond[quote,verbatim,relative=1]
-g1 bes
-ees\finger \markup \tied-lyric #"4~1"
-fis_\markup { \dynamic rf }
-bes^\markup {
-  \beam #8 #0.1 #0.5
-}
-cis
-d-\markup {
-  \markalphabet #8
-  \markletter #8
+@lilypond[quote,verbatim]
+\relative {
+  g1 bes
+  ees\finger \markup \tied-lyric #"4~1"
+  fis_\markup { \dynamic rf }
+  bes^\markup {
+    \beam #8 #0.1 #0.5
+  }
+  cis
+  d-\markup {
+    \markalphabet #8
+    \markletter #8
+  }
 }
 @end lilypond
 
@@ -1221,13 +1256,15 @@ d-\markup {
 @ref{The Feta font} に、@c
 音楽シンボルと音楽シンボル名の徹底したリストがあります。
 
-@lilypond[quote,verbatim,relative=2]
-c2
-c'^\markup { \musicglyph #"eight" }
-c,4
-c,8._\markup { \musicglyph #"clefs.G_change" }
-c16
-c2^\markup { \musicglyph #"timesig.neomensural94" }
+@lilypond[quote,verbatim]
+\relative {
+  c''2
+  c'^\markup { \musicglyph #"eight" }
+  c,4
+  c,8._\markup { \musicglyph #"clefs.G_change" }
+  c16
+  c2^\markup { \musicglyph #"timesig.neomensural94" }
+}
 @end lilypond
 
 @noindent
@@ -1237,20 +1274,22 @@ c2^\markup { \musicglyph #"timesig.neomensural94" }
 
 さらに、マークアップ モードは特定の楽器のためのダイアグラムをサポートします:
 
-@lilypond[quote,verbatim,relative=2]
-c1^\markup {
-  \fret-diagram-terse #"x;x;o;2;3;2;"
-}
-c^\markup {
-  \harp-pedal #"^-v|--ov^"
-}
-c
-c^\markup {
-  \combine
-    \musicglyph #"accordion.discant"
+@lilypond[quote,verbatim]
+\relative {
+  c''1^\markup {
+    \fret-diagram-terse #"x;x;o;2;3;2;"
+  }
+  c^\markup {
+    \harp-pedal #"^-v|--ov^"
+  }
+  c
+  c^\markup {
     \combine
-      \raise #0.5 \musicglyph #"accordion.dot"
-      \raise #1.5 \musicglyph #"accordion.dot"
+      \musicglyph #"accordion.discant"
+      \combine
+	\raise #0.5 \musicglyph #"accordion.dot"
+	\raise #1.5 \musicglyph #"accordion.dot"
+  }
 }
 @end lilypond
 
@@ -1268,15 +1307,17 @@ c^\markup {
 ネストされる @code{\score} ブロックには
 @code{\layout} ブロックを含める必要があります:
 
-@lilypond[quote,verbatim,relative=1]
-c4 d^\markup {
-  \score {
-    \relative { c'4 d e f }
-    \layout { }
+@lilypond[quote,verbatim]
+\relative {
+  c'4 d^\markup {
+    \score {
+      \relative { c'4 d e f }
+      \layout { }
+    }
   }
+  e f |
+  c d e f
 }
-e f |
-c d e f
 @end lilypond
 
 @ref{Music} に、音楽記譜法関連のコマンドの徹底したリストがあります。
@@ -1406,8 +1447,8 @@ FontConfig はシステムで利用可能なフォントを検出するために
 さまざまな LilyPond @code{feta} 非テキスト フォントを@c
 マークアップ モードの中で直接使用することが可能になります:
 
-@lilypond[quote,verbatim,relative=2]
-a1^\markup {
+@lilypond[quote,verbatim,fragment]
+a'1^\markup {
   \vcenter {
     \override #'(font-encoding . fetaBraces)
     \lookup #"brace120"
@@ -1446,14 +1487,14 @@ a1^\markup {
 デフォルト サイズから変更する場合、@c
 @code{font-size} に提供する値が必要となります。
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \override Score.RehearsalMark.font-family = #'typewriter
 \mark \markup "Ouverture"
 \override Voice.TextScript.font-shape = #'italic
 \override Voice.TextScript.font-series = #'bold
-d2.^\markup "Allegro"
+d''2.^\markup "Allegro"
 \override Voice.TextScript.font-size = #-3
-c4^smaller
+c''4^smaller
 @end lilypond
 
 @noindent
@@ -1507,12 +1548,12 @@ c4^smaller
 FontConfig に認識されている任意のフォントを@c
 楽譜の中で使用することができます:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \override Staff.TimeSignature.font-name = #"Bitstream Charter"
 \override Staff.TimeSignature.font-size = #2
 \time 3/4
 
-a1_\markup {
+a'1_\markup {
   \override #'(font-name . "Vera Bold")
     { Vera Bold }
 }

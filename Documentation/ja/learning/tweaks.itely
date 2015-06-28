@@ -258,12 +258,14 @@ Scheme モードについての更なる情報は @rextend{LilyPond Scheme synta
 @cindex color property, example (color プロパティの例)
 @cindex NoteHead, example of overriding (NoteHead をオーバライドする例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-c4 d
-\override NoteHead.color = #red
-e4 f |
-\override NoteHead.color = #green
-g4 a b c |
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  c'4 d
+  \override NoteHead.color = #red
+  e4 f |
+  \override NoteHead.color = #green
+  g4 a b c |
+}
 @end lilypond
 
 
@@ -296,14 +298,16 @@ g4 a b c |
 @cindex color property, example (color プロパティの例)
 @cindex NoteHead, example of overriding (NoteHead をオーバライドする例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-c4 d
-\override NoteHead.color = #red
-e4 f |
-\override NoteHead.color = #green
-g4 a
-\revert NoteHead.color
-b4 c |
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  c'4 d
+  \override NoteHead.color = #red
+  e4 f |
+  \override NoteHead.color = #green
+  g4 a
+  \revert NoteHead.color
+  b4 c |
+}
 @end lilypond
 
 
@@ -323,14 +327,16 @@ b4 c |
 @cindex color property, example (color プロパティの例)
 @cindex NoteHead, example of overriding (NoteHead をオーバライドする例)
 
-@lilypond[quote,verbatim,relative=1]
-c4 d
-\override NoteHead.color = #red
-e4 f |
-\once \override NoteHead.color = #green
-g4 a
-\revert NoteHead.color
-b c |
+@lilypond[quote,verbatim]
+\relative {
+  c'4 d
+  \override NoteHead.color = #red
+  e4 f |
+  \once \override NoteHead.color = #green
+  g4 a
+  \revert NoteHead.color
+  b c |
+}
 @end lilypond
 
 @code{\once} 接頭辞をさまざまな定義済みコマンドの前に置くことで、@c
@@ -393,11 +399,13 @@ C メジャー コードの中にある真ん中の音符 (ミドル E) の符�
 @cindex font-size property, example (font-size プロパティの例)
 @cindex NoteHead, example of overriding (NoteHead をオーバライドする例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-<c e g>4
-\once \override NoteHead.font-size = #-3
-<c e g>4
-<c e g>4
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  <c' e g>4
+  \once \override NoteHead.font-size = #-3
+  <c e g>4
+  <c e g>4
+}
 @end lilypond
 
 このオーバライドは和音の中にある@emph{すべて}の符頭に影響を与えています。@c
@@ -416,9 +424,11 @@ C メジャー コードの中にある真ん中の音符 (ミドル E) の符�
 @cindex font-size property, example (font-size プロパティの例)
 @cindex @code{\tweak}, example (@code{\tweak} の例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-<c e g>4
-<c \tweak font-size #-3 e g>4
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  <c' e g>4
+  <c \tweak font-size #-3 e g>4
+}
 @end lilypond
 
 @code{\tweak} の構文は @code{\override} コマンドの構文とは@c
@@ -440,8 +450,8 @@ C メジャー コードの中にある真ん中の音符 (ミドル E) の符�
 @cindex color property, example (color プロパティの例)
 @cindex @code{\tweak}, example (@code{\tweak} の例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-a4^"Black"
+@lilypond[quote,fragment,ragged-right,verbatim]
+a'4^"Black"
   -\tweak color #red ^"Red"
   -\tweak color #green _"Green"
 @end lilypond
@@ -463,10 +473,10 @@ a4^"Black"
 オブジェクト名を指定して LilyPond がそれらのオブジェクトの起源を@c
 追跡できるようにすることで、@code{\tweak} で調整することができます:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-<\tweak Accidental.color #red   cis4
- \tweak Accidental.color #green es
- g>
+@lilypond[quote,fragment,ragged-right,verbatim]
+<\tweak Accidental.color #red   cis''4
+ \tweak Accidental.color #green es''
+ g''>
 @end lilypond
 
 この長い形式の @code{\tweak} コマンドは以下のように記述することができます:
@@ -500,13 +510,15 @@ a4^"Black"
 @cindex direction property, example (direction プロパティの例)
 @cindex color property, example (color プロパティの例)
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-\tweak direction #up
-\tuplet 3/4 {
-  \tweak color #red
-  \tuplet 3/2 { c8[ c c] }
-  \tuplet 3/2 { c8[ c c] }
-  \tuplet 3/2 { c8[ c c] }
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  \tweak direction #up
+  \tuplet 3/4 {
+    \tweak color #red
+    \tuplet 3/2 { c8[ c c] }
+    \tuplet 3/2 { c8[ c c] }
+    \tuplet 3/2 { c8[ c c] }
+  }
 }
 @end lilypond
 
@@ -518,15 +530,17 @@ a4^"Black"
 @cindex transparent property, example (transparent プロパティの例)
 @cindex TupletNumber, example of overriding (TupletNumber をオーバライドする例)
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
-\tuplet 3/2 { c8[ c c] }
-\once \override TupletNumber.text = #tuplet-number::calc-fraction-text
-\tuplet 3/2 {
-  c8[ c]
-  c8[ c]
-  \once \override TupletNumber.transparent = ##t
-  \tuplet 3/2 { c8[ c c] }
-  \tuplet 3/2 { c8[ c c] }
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  \tuplet 3/2 { c'8[ c c] }
+  \once \override TupletNumber.text = #tuplet-number::calc-fraction-text
+  \tuplet 3/2 {
+    c8[ c]
+    c8[ c]
+    \once \override TupletNumber.transparent = ##t
+    \tuplet 3/2 { c8[ c c] }
+    \tuplet 3/2 { c8[ c c] }
+  }
 }
 @end lilypond
 
@@ -588,12 +602,12 @@ a4^"Black"
 
 @c Mozart, Die Zauberflöte Nr.7 Duett
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8 bes[( g]) g |
+  \relative {
+    r4 bes'8 bes[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
   }
@@ -682,14 +696,14 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 @cindex Slur example of overriding (Slur をオーバライドする例)
 @cindex thickness property, example (thickness プロパティの例)
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
+  \relative {
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur.thickness = #5.0
-    r4 bes8 bes[( g]) g |
+    r4 bes'8 bes[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
   }
@@ -758,12 +772,12 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 @cindex thickness property, example (thickness プロパティの例)
 
 @c KEEP LY
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8
+  \relative {
+    r4 bes'8
     % 直後にあるスラーのみを太くします
     \once \override Slur.thickness = #5.0
     bes8[( g]) g |
@@ -797,12 +811,12 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 @cindex thickness property, example (thickness プロパティの例)
 
 @c KEEP LY
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8
+  \relative {
+    r4 bes'8
     % 直後にあるスラーのみを太くします
     \once \override Slur.thickness = #5.0
     bes[( g]) g |
@@ -826,12 +840,12 @@ Slur へのリンクを選択すると、Slur のプロパティがリスト ア
 @cindex thickness property, example (thickness プロパティの例)
 
 @c KEEP LY
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8
+  \relative {
+    r4 bes'8
     % 以後のスラーの太さを 1.2 から 5.0 に増やします
     \override Slur.thickness = #5.0
     bes[( g]) g |
@@ -947,12 +961,12 @@ LilyPond に読み込まれます。@c
 @cindex LyricText, example of overriding (Lyric をオーバライドする例)
 @cindex @code{\addlyrics}, example (@code{\addlyrics} の例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8 bes[( g]) g |
+  \relative {
+    r4 bes'8 bes[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
   }
@@ -1130,11 +1144,11 @@ LilyPond に読み込まれます。@c
 @cindex BarLine, example of overriding (BarLine をオーバライドする例)
 @cindex stencil property, example (stencil プロパティの例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override BarLine.stencil = ##f
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1161,11 +1175,11 @@ LilyPond に読み込まれます。@c
 @cindex BarLine, example of overriding (BarLine をオーバライドする例)
 @cindex stencil property, example (stencil プロパティの例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.BarLine.stencil = ##f
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1176,11 +1190,11 @@ LilyPond に読み込まれます。@c
 短くしたコマンド @code{\omit} が用意されています:
 @funindex \omit
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \omit Staff.BarLine
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1196,9 +1210,9 @@ LilyPond に読み込まれます。@c
 この場合、@code{point-stencil} を使ってサイズが 0 のステンシル (型、型紙) を@c
 オブジェクトにセットします:
 
-@lilypond[quote,verbatim,relative=2]
-{
-  c4 c
+@lilypond[quote,verbatim]
+\relative {
+  c''4 c
   \once \override NoteHead.stencil = #point-stencil
   c4 c
 }
@@ -1230,11 +1244,11 @@ LilyPond に読み込まれます。@c
 @cindex BarLine, example of overriding (BarLine をオーバライドする例)
 @cindex break-visibility property, example (break-visibility プロパティの例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.BarLine.break-visibility = ##(#f #f #f)
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1269,11 +1283,11 @@ LilyPond に読み込まれます。@c
 @cindex TimeSignature, example of overriding (TimeSignature をオーバライドする例)
 @cindex transparent property, example (transparent プロパティの例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.TimeSignature.transparent = ##t
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1284,11 +1298,11 @@ LilyPond に読み込まれます。@c
 短くしたコマンド @code{\hide} が用意されています:
 @funindex \hide
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \hide Staff.TimeSignature
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1305,11 +1319,11 @@ LilyPond に読み込まれます。@c
 @cindex TimeSignature, example of overriding (TimeSignature をオーバライドする例)
 @cindex stencil property, example (stencil プロパティの例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \omit Staff.TimeSignature
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1350,11 +1364,11 @@ LilyPond に読み込まれます。@c
 @cindex BarLine, example of overriding (BarLine をオーバライドする例)
 @cindex color property, example (color プロパティの例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.BarLine.color = #white
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1385,11 +1399,11 @@ LilyPond に読み込まれます。@c
 @cindex BarLine, example of overriding (BarLine をオーバライドする例)
 @cindex color property, example (color プロパティの例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.BarLine.color = #(x11-color 'white)
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1415,11 +1429,11 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
 @cindex BarLine, example of overriding (BarLine をオーバライドする例)
 @cindex color property, example (color プロパティの例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.BarLine.color = #(rgb-color 1 1 1)
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1441,8 +1455,8 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
 @cindex color property, example (color プロパティの例)
 @cindex x11-color, example of using (x11-color の使用例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.StaffSymbol.color = #(x11-color 'grey30)
   \override Staff.TimeSignature.color = #(x11-color 'grey60)
@@ -1450,7 +1464,7 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
   \override Voice.NoteHead.color = #(x11-color 'grey85)
   \override Voice.Stem.color = #(x11-color 'grey85)
   \override Staff.BarLine.color = #(x11-color 'grey10)
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1485,7 +1499,7 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
 @cindex alignAboveContext property, example (alignAboveContext プロパティの例)
 @cindex @code{\with}, example (@code{\with} の例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1512,7 +1526,7 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
 @cindex Clef, example of overriding (Clef をオーバライドする例)
 @cindex TimeSignature, example of overriding (TimeSignature をオーバライドする例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1575,7 +1589,7 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
 @cindex TimeSignature, example of overriding (TimeSignature をオーバライドする例)
 
 @c KEEP LY
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1600,7 +1614,7 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
 短縮形 @code{\hide} と @code{\omit} を使うことができ、結果として@c
 以下のようになります:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1670,7 +1684,7 @@ RGB 値を内部カラーに変換する @code{rgb-color} 関数です。@c
 @cindex fontSize property, example (fontSize プロパティの例)
 
 @c KEEP LY
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1738,7 +1752,7 @@ LilyPond では距離と長さは一般に譜スペース -- 譜の中の隣り�
 @cindex staff-space property, example (staff-space プロパティの例)
 @cindex stencil property, example (stencil プロパティの例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1846,11 +1860,11 @@ LilyPond が持つ譜外部オブジェクトの垂直位置のルールは、@c
 
 @cindex markup example (マークアップの例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-c2^"Text1"
-c2^"Text2" |
-c2^"Text3"
-c2^"Text4" |
+@lilypond[quote,fragment,ragged-right,verbatim]
+c''2^"Text1"
+c''2^"Text2" |
+c''2^"Text3"
+c''2^"Text4" |
 @end lilypond
 
 デフォルトでは、譜も互いにできるだけ近くなるよう配置されます
@@ -2011,12 +2025,14 @@ a4 g c a |
 @cindex Fingering, example of overriding (Fingering をオーバライドする例)
 @cindex direction property, example (direction プロパティの例)
 
-@lilypond[quote,verbatim,relative=2]
-c4-5 a-3 f-1 c'-5 |
-\override Fingering.direction = #DOWN
-c4-5 a-3 f-1 c'-5 |
-\override Fingering.direction = #UP
-c4-5 a-3 f-1 c'-5 |
+@lilypond[quote,verbatim]
+\relative {
+  c''4-5 a-3 f-1 c'-5 |
+  \override Fingering.direction = #DOWN
+  c4-5 a-3 f-1 c'-5 |
+  \override Fingering.direction = #UP
+  c4-5 a-3 f-1 c'-5 |
+}
 @end lilypond
 
 しかしながら、@code{direction} プロパティをオーバライドすることは、@c
@@ -2027,10 +2043,12 @@ c4-5 a-3 f-1 c'-5 |
 
 @cindex fingering example (運指法記号の例)
 
-@lilypond[quote,verbatim,relative=2]
-c4-5 a-3 f-1 c'-5 |
-c4_5 a_3 f_1 c'_5 |
-c4^5 a^3 f^1 c'^5 |
+@lilypond[quote,verbatim]
+\relative {
+  c''4-5 a-3 f-1 c'-5 |
+  c4_5 a_3 f_1 c'_5 |
+  c4^5 a^3 f^1 c'^5 |
+}
 @end lilypond
 
 @code{direction} プロパティは和音では無視されますが、@c
@@ -2040,10 +2058,12 @@ c4^5 a^3 f^1 c'^5 |
 
 @cindex fingering example (運指法記号の例)
 
-@lilypond[quote,verbatim,relative=2]
-<c-5 g-3>4
-<c-5 g-3 e-2>4
-<c-5 g-3 e-2 c-1>4
+@lilypond[quote,verbatim]
+\relative {
+  <c''-5 g-3>4
+  <c-5 g-3 e-2>4
+  <c-5 g-3 e-2 c-1>4
+}
 @end lilypond
 
 @noindent
@@ -2052,10 +2072,12 @@ c4^5 a^3 f^1 c'^5 |
 
 @cindex fingering example (運指法記号の例)
 
-@lilypond[quote,verbatim,relative=2]
-<c-5 g-3 e-2 c-1>4
-<c^5 g_3 e_2 c_1>4
-<c^5 g^3 e^2 c_1>4
+@lilypond[quote,verbatim]
+\relative {
+  <c''-5 g-3 e-2 c-1>4
+  <c^5 g_3 e_2 c_1>4
+  <c^5 g^3 e^2 c_1>4
+}
 @end lilypond
 
 @code{\set fingeringOrientations} コマンドを使うことによって和音の中に@c
@@ -2092,22 +2114,24 @@ LilyPond はこれらの制約を受け取り、
 @cindex @code{\set}, example of using (@code{\set} の使用例)
 @cindex fingeringOrientations property, example (fingeringOrientations プロパティの例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-\set fingeringOrientations = #'(left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
-\set fingeringOrientations = #'(left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4 |
-\set fingeringOrientations = #'(up left down)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
-\set fingeringOrientations = #'(up left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4 |
-\set fingeringOrientations = #'(right)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  \set fingeringOrientations = #'(left)
+  <f'-2>4
+  <c-1 e-2 g-3 b-5>4
+  \set fingeringOrientations = #'(left)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4 |
+  \set fingeringOrientations = #'(up left down)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4
+  \set fingeringOrientations = #'(up left)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4 |
+  \set fingeringOrientations = #'(right)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4
+}
 @end lilypond
 
 @noindent
@@ -2116,23 +2140,25 @@ LilyPond はこれらの制約を受け取り、
 デフォルト値は内部リファレンスの @code{Fingering} オブジェクトのページから
 @w{@code{-5}} であることがわかるので、@w{@code{-7}} にセットしてみましょう:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-\override Fingering.font-size = #-7
-\set fingeringOrientations = #'(left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
-\set fingeringOrientations = #'(left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4 |
-\set fingeringOrientations = #'(up left down)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
-\set fingeringOrientations = #'(up left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4 |
-\set fingeringOrientations = #'(right)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  \override Fingering.font-size = #-7
+  \set fingeringOrientations = #'(left)
+  <f'-2>4
+  <c-1 e-2 g-3 b-5>4
+  \set fingeringOrientations = #'(left)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4 |
+  \set fingeringOrientations = #'(up left down)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4
+  \set fingeringOrientations = #'(up left)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4 |
+  \set fingeringOrientations = #'(right)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4
+}
 @end lilypond
 
 
@@ -2217,7 +2243,7 @@ LilyPond はこれらの制約を受け取り、
 @cindex bound-details property, example (bound-details プロパティの例)
 
 @c KEEP LY
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+@lilypond[quote,fragment,ragged-right,verbatim]
 % 以降のテキスト スパナの詳細を設定します
 \override TextSpanner.bound-details.left.text
     = \markup { \small \bold Slower }
@@ -2225,18 +2251,18 @@ LilyPond はこれらの制約を受け取り、
 \dynamicUp
 % オッターバ囲みの開始
 \ottava #1
-c'4 \startTextSpan
+c''4 \startTextSpan
 % 強弱テキストとヘアピンを付け加えます
-c4\pp\<
-c4
+c''4\pp\<
+c''4
 % テキスト スクリプトを付け加えます
-c4^Text |
-c4 c
+c''4^Text |
+c''4 c''
 % 強弱テキストを付け加え、強弱ヘアピンを終わらせます
-c4\ff c \stopTextSpan |
+c''4\ff c'' \stopTextSpan |
 % オッターバ囲みを終わらせます
 \ottava #0
-c,4 c c c |
+c'4 c' c' c' |
 @end lilypond
 
 この例はテキスト スパナ -- 音楽の上に置かれる延長線付きのテキスト -- の@c
@@ -2268,7 +2294,7 @@ c,4 c c c |
 @cindex bound-details property, example (bound-details プロパティの例)
 
 @c KEEP LY
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+@lilypond[quote,fragment,ragged-right,verbatim]
 % 以降のテキスト スパナの詳細を設定します
 \override TextSpanner.bound-details.left.text
     = \markup { \small \bold Slower }
@@ -2278,19 +2304,19 @@ c,4 c c c |
 \once \override Staff.OttavaBracket.outside-staff-priority = #340
 % オッターバ囲みの開始
 \ottava #1
-c'4 \startTextSpan
+c''4 \startTextSpan
 % 強弱テキストを付け加えます
-c4\pp
+c''4\pp
 % 強弱の線スパナを付け加えます
-c4\<
+c''4\<
 % テキスト スクリプトを付け加えます
-c4^Text |
-c4 c
+c''4^Text |
+c''4 c''
 % 強弱テキストを付け加えます
-c4\ff c \stopTextSpan |
+c''4\ff c'' \stopTextSpan |
 % オッターバ囲みを終わらせます
 \ottava #0
-c,4 c c c |
+c'4 c' c' c' |
 @end lilypond
 
 これらのオブジェクトのいくつか
@@ -2319,14 +2345,16 @@ c,4 c c c |
 @code{outside-staff-priority} 値に従って配置することができます。@c
 ここで、2 つの方法の効果を示す例を挙げます:
 
-@lilypond[quote,verbatim,relative=2]
-c4( c^\markup { \tiny \sharp } d4.) c8 |
-c4(
-\once \override TextScript.avoid-slur = #'inside
-\once \override TextScript.outside-staff-priority = ##f
-c4^\markup { \tiny \sharp } d4.) c8 |
-\once \override Slur.outside-staff-priority = #500
-c4( c^\markup { \tiny \sharp } d4.) c8 |
+@lilypond[quote,verbatim]
+\relative c'' {
+  c4( c^\markup { \tiny \sharp } d4.) c8 |
+  c4(
+    \once \override TextScript.avoid-slur = #'inside
+    \once \override TextScript.outside-staff-priority = ##f
+    c4^\markup { \tiny \sharp } d4.) c8 |
+  \once \override Slur.outside-staff-priority = #500
+    c4( c^\markup { \tiny \sharp } d4.) c8 |
+}
 @end lilypond
 
 @code{outside-staff-priority} は、個々のオブジェクトの垂直方向の配置を@c
@@ -2340,12 +2368,12 @@ c4( c^\markup { \tiny \sharp } d4.) c8 |
 @cindex TextScript, example of overriding (TextScript をオーバライドする例)
 @cindex outside-staff-priority property, example (outside-staff-priority プロパティの例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-c2^"Text1"
-c2^"Text2" |
+@lilypond[quote,fragment,ragged-right,verbatim]
+c''2^"Text1"
+c''2^"Text2" |
 \once \override TextScript.outside-staff-priority = #500
-c2^"Text3"
-c2^"Text4" |
+c''2^"Text3"
+c''2^"Text4" |
 @end lilypond
 
 これはたしかに @qq{Text3} を @qq{Text4} の上に配置しています。@c
@@ -2375,12 +2403,12 @@ c2^"Text4" |
 テキストの配置に便宜をはかる必要がある限り、音符の間隔を広げます:
 
 @c KEEP LY
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim]
 \textLengthOn  % 音符の間隔を広げてテキストに揃えます
-c2^"Text1"
-c2^"Text2" |
-c2^"Text3"
-c2^"Text4" |
+c''2^"Text1"
+c''2^"Text2" |
+c''2^"Text3"
+c''2^"Text4" |
 @end lilypond
 
 デフォルトの動作に戻すためのコマンドは @code{\textLengthOff} です。@c
@@ -2399,25 +2427,27 @@ c2^"Text4" |
 @cindex outside-staff-priority property, example (outside-staff-priority プロパティの例)
 
 @c KEEP LY
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-% このマークアップは短いため衝突は起きません
-c2^"Tex" c'' |
-R1 |
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  % このマークアップは短いため衝突は起きません
+  c''2^"Tex" c'' |
+  R1 |
 
-% このマークアップは長くて納まりきらないため、上に押し上げられます
-c,,2^"Text" c'' |
-R1 |
+  % このマークアップは長くて納まりきらないため、上に押し上げられます
+  c,,2^"Text" c'' |
+  R1 |
 
-% 衝突回避を OFF にします
-\once \override TextScript.outside-staff-priority = ##f
-c,,2^"Long Text   " c'' |
-R1 |
+  % 衝突回避を OFF にします
+  \once \override TextScript.outside-staff-priority = ##f
+  c,,2^"Long Text   " c'' |
+  R1 |
 
-% 衝突回避を OFF にします
-\once \override TextScript.outside-staff-priority = ##f
-\textLengthOn        % そして textLengthOn を ON にします
-c,,2^"Long Text   "  % 後ろにスペースが付け加えられます
-c''2 |
+  % 衝突回避を OFF にします
+  \once \override TextScript.outside-staff-priority = ##f
+  \textLengthOn        % そして textLengthOn を ON にします
+  c,,2^"Long Text   "  % 後ろにスペースが付け加えられます
+  c''2 |
+}
 @end lilypond
 
 
@@ -2437,13 +2467,15 @@ c''2 |
 このことは、以下の例のように、@c
 到底受け入れられない結果を生み出す可能性があります:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-\clef "bass"
-\key aes \major
-\time 9/8
-\dynamicUp
-bes4.~\f\< \( bes4 bes8 des4\ff\> c16 bes\! |
-ees,2.~\)\mf ees4 r8 |
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  \clef "bass"
+  \key aes \major
+  \time 9/8
+  \dynamicUp
+  bes4.~\f\< \( bes4 bes8 des4\ff\> c16 bes\! |
+  ees,2.~\)\mf ees4 r8 |
+}
 @end lilypond
 
 しかしながら、音符とそれに付けられた強弱記号が互いに近い場合、@c
@@ -2845,8 +2877,8 @@ LilyPond はまずスラーが取り得る位置のリストを生成し、そ�
 @cindex Script, example of overriding (Script をオーバライドする例)
 @cindex padding property, example (padding プロパティの例)
 
-@lilypond[quote,fragment,relative=1,verbatim]
-c2\fermata
+@lilypond[quote,fragment,verbatim]
+c'2\fermata
 \override Script.padding = #3
 b2\fermata
 @end lilypond
@@ -2855,15 +2887,15 @@ b2\fermata
 @cindex padding property, example (padding プロパティの例)
 
 @c KEEP LY
-@lilypond[quote,fragment,relative=1,verbatim]
+@lilypond[quote,fragment,verbatim]
 % これは機能しません。この下を見てください
 \override MetronomeMark.padding = #3
 \tempo 4 = 120
-c1 |
+c'1 |
 % これは機能します
 \override Score.MetronomeMark.padding = #3
 \tempo 4 = 80
-d1 |
+d'1 |
 @end lilypond
 
 2 番目の例では、ある特定のオブジェクトを扱うのはどのコンテキストなのかを@c
@@ -2951,13 +2983,13 @@ sesquisharp = \markup { \sesquisharp }
 @cindex staff-padding property, example (staff-padding プロパティの例)
 
 @c KEEP LY
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim]
 \dynamicUp
 % 幅を 1 単位広げます
 \override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
 % 強弱記号を譜から 2 単位上のベース ラインに揃えます
 \override DynamicLineSpanner.staff-padding = #2
-a4\f b\mf c\mp b\p
+\relative { a'4\f b\mf c\mp b\p }
 @end lilypond
 
 
@@ -2973,11 +3005,11 @@ a4\f b\mf c\mp b\p
 @cindex StringNumber, example of overriding (StringNumber をオーバライドする例)
 @cindex self-alignment-X property, example (self-alignment-X プロパティの例)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=3]
+@lilypond[quote,fragment,ragged-right,verbatim]
 \voiceOne
-<a\2>
+<a''\2>
 \once \override StringNumber.self-alignment-X = #RIGHT
-<a\2>
+<a''\2>
 @end lilypond
 
 
@@ -2995,8 +3027,8 @@ LilyPond がそれと衝突するかもしれない音符を突き止めるの�
 同時に起こる音符と休符に対してのみ行われるからです。@c
 以下に、このタイプの衝突の例を挙げます:
 
-@lilypond[quote,verbatim,fragment,ragged-right, relative=1]
-<< { c4 c c c } \\ { R1 } >>
+@lilypond[quote,verbatim,ragged-right]
+<< \relative { c'4 c c c } \\ { R1 } >>
 @end lilypond
 
 ここでの最良の解決策は、複数小節に亘る休符を下へ移動させることです。@c
@@ -3011,9 +3043,9 @@ LilyPond がそれと衝突するかもしれない音符を突き止めるの�
 @cindex MultiMeasureRest, example of overriding (MultiMeasureRest をオーバライドする例)
 @cindex staff-position property, example (staff-position プロパティの例)
 
-@lilypond[quote,verbatim,fragment,ragged-right, relative=1]
+@lilypond[quote,verbatim,ragged-right]
 <<
-  { c4 c c c }
+  \relative { c'4 c c c }
   \\
   \override MultiMeasureRest.staff-position = #-8
   { R1 }
@@ -3066,8 +3098,8 @@ f4-5
 
 ここで、フレージング スラーとスラーが衝突している例を示します:
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
-a8 \( ( a'16 ) a \)
+@lilypond[quote,verbatim,ragged-right]
+\relative { a'8 \( ( a'16 ) a \) }
 @end lilypond
 
 @cindex PhrasingSlur, example of overriding (PhrasingSlur をオーバライドする例)
@@ -3079,9 +3111,9 @@ a8 \( ( a'16 ) a \)
 設定すると、LilyPond は候補の中から両端の位置が最も設定に近いフレージング
 スラーを選択します:
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+@lilypond[quote,verbatim,fragment,ragged-right]
 \once \override PhrasingSlur.positions = #'(2.5 . 4.5)
-a8 \( ( a'16 ) a \)
+a'8 \( ( a''16 ) a'' \)
 @end lilypond
 
 これで改善されました。@c
@@ -3793,8 +3825,8 @@ lhMusic = \relative {
 通常、タイで結べるのは同じボイスの中にある 2 つ音符だけです。@c
 2 つのボイスを使い、そのうちの 1 つにタイで結んだ音符を置きます:
 
-@lilypond[quote,fragment,relative=2]
-<< { b8~ 8\noBeam } \\ { b8[ g] } >>
+@lilypond[quote]
+<< { b'8~ 8\noBeam } \\ { b'8[ g'] } >>
 @end lilypond
 
 @noindent

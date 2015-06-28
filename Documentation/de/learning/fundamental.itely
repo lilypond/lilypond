@@ -686,9 +686,11 @@ Eine einzelne Stimme kann natürlich auch vielen Noten in einem Akkord
 enthalten -- wann also braucht man dann mehrere Stimmen? Schauen wir
 uns zuerst dieses Beispiel mit vier Akkorden an:
 
-@lilypond[quote,verbatim,ragged-right,relative=1]
-\key g \major
-<d g>4 <d fis> <d a'> <d g>
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  \key g \major
+  <d' g>4 <d fis> <d a'> <d g>
+}
 @end lilypond
 
 Das kann ausgedrückt werden, indem man die einfachen spitzen Klammern
@@ -722,10 +724,12 @@ polyphone Stellen vorkommen.
 So sieht es aus, wenn die Akkorde in zwei Stimmen aufgeteilt werden
 und zur Durchgangsnote noch ein Bogen hinzugefügt wird:
 
-@lilypond[quote,verbatim,ragged-right,relative=2]
-\key g \major
-%    Voice "1"               Voice "2"
-<< { g4 fis8( g) a4 g } \\ { d4 d d d }  >>
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  \key g \major
+  %    Voice "1"               Voice "2"
+  << { g'4 fis8( g) a4 g } \\ { d4 d d d }  >>
+}
 @end lilypond
 
 Beachten Sie, dass die Hälse der zweiten Stimme nun nach unten zeigen.
@@ -746,19 +750,20 @@ Noten pro Takt kann es die Quelldatei besser lesbar machen, aber
 wenn in einem Takt viele Noten vorkommen, kann man die gesamten Stimmen
 separat schreiben, wie hier:
 
-@lilypond[quote,verbatim,ragged-right,relative=2]
-\key d \minor
-<< {
-  % Voice "1"
-  r4 g g4. a8 |
-  bes4 bes c bes |
-  a2. r4 |
-} \\ {
-  % Voice "2"
-  d,2 d4 g |
-  g4 g g8( a) g4 |
-  fis2. s4 |
-} >>
+@lilypond[quote,verbatim,ragged-right]
+<<
+  \key d \minor
+  \relative { % Voice "1"
+    r4 g' g4. a8 |
+    bes4 bes c bes |
+    a2. r4 |
+  } \\
+  \relative { % Voice "2"
+    d'2 d4 g |
+    g4 g g8( a) g4 |
+    fis2. s4 |
+  }
+>>
 @end lilypond
 
 Dieses Beispiel hat nur zwei Stimmen, aber die gleiche Konstruktion kann
@@ -1498,8 +1503,8 @@ hinzugefügt werden,
 die im Quellcode gar nicht explizit vorkommen.  Vergleichen Sie
 etwa den Quellcode und die Notenausgabe des folgenden Beispiels:
 
-@lilypond[quote,verbatim,relative=2]
-cis4 cis2. | a4 a2. |
+@lilypond[quote,verbatim]
+\relative { cis''4 cis2. | a4 a2. | }
 @end lilypond
 
 Der Quellcode ist sehr kurz und knapp, während in der
@@ -1993,17 +1998,19 @@ wir als Beispiel, die Schriftgröße mehrmals zu ändern, was sich unter anderem
 auf die Notenköpfe auswirkt.  Die Änderung bezieht sich immer auf den Standard,
 nicht vom letzten gesetzten Wert.
 
-@lilypond[quote,verbatim,ragged-right,relative=1]
-c4 d
-% make note heads smaller
-\set fontSize = #-4
-e4 f |
-% make note heads larger
-\set fontSize = #2.5
-g4 a
-% return to default size
-\unset fontSize
-b4 c |
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  c'4 d
+  % make note heads smaller
+  \set fontSize = #-4
+  e4 f |
+  % make note heads larger
+  \set fontSize = #2.5
+  g4 a
+  % return to default size
+  \unset fontSize
+  b4 c |
+}
 @end lilypond
 
 Wir haben jetzt gesehen, wie sich die Werte von unterschiedlichen

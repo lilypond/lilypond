@@ -265,12 +265,14 @@ hi ha un exemple senzill per canviar el color d'un cap:
 @cindex color, propietat, exemple
 @cindex NoteHead, exemple de sobreescriptura
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-c4 d
-\override NoteHead.color = #red
-e4 f |
-\override NoteHead.color = #green
-g4 a b c |
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  c'4 d
+  \override NoteHead.color = #red
+  e4 f |
+  \override NoteHead.color = #green
+  g4 a b c |
+}
 @end lilypond
 
 
@@ -303,14 +305,16 @@ dues últimes notes:
 @cindex color, propietat, exemple
 @cindex NoteHead, exemple de sobreescriptura
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-c4 d
-\override NoteHead.color = #red
-e4 f |
-\override NoteHead.color = #green
-g4 a
-\revert NoteHead.color
-b4 c |
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  c'4 d
+  \override NoteHead.color = #red
+  e4 f |
+  \override NoteHead.color = #green
+  g4 a
+  \revert NoteHead.color
+  b4 c |
+}
 @end lilypond
 
 
@@ -334,14 +338,16 @@ següent:
 @cindex color, propietat, exemple
 @cindex NoteHead, exemple de sobreescriptura
 
-@lilypond[quote,verbatim,relative=1]
-c4 d
-\override NoteHead.color = #red
-e4 f |
-\once \override NoteHead.color = #green
-g4 a
-\revert NoteHead.color
-b c |
+@lilypond[quote,verbatim]
+\relative {
+  c'4 d
+  \override NoteHead.color = #red
+  e4 f |
+  \once \override NoteHead.color = #green
+  g4 a
+  \revert NoteHead.color
+  b c |
+}
 @end lilypond
 
 El prefix @code{\once} també es pot usar davant de moltes
@@ -404,11 +410,13 @@ lloc, vegem el que faria @code{\once \override}:
 @cindex font-size, propiedad, ejemplo
 @cindex NoteHead, exemple de sobreescriptura
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-<c e g>4
-\once \override NoteHead.font-size = #-3
-<c e g>4
-<c e g>4
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  <c' e g>4
+  \once \override NoteHead.font-size = #-3
+  <c e g>4
+  <c e g>4
+}
 @end lilypond
 
 Veiem que la sobreescriptura amb override afecta a @emph{tots} els
@@ -430,9 +438,11 @@ intermèdia es canviaria de la forma següent:
 @cindex font-size, propietat, exemple
 @cindex @code{\tweak}, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-<c e g>4
-<c \tweak font-size #-3 e g>4
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  <c' e g>4
+  <c \tweak font-size #-3 e g>4
+}
 @end lilypond
 
 Observeu que la sintaxi de @code{\tweak} no és igual que la de
@@ -453,8 +463,8 @@ una d'una sèrie d'articulacions, com es mostra aquí:
 @cindex color, propietat, exemple
 @cindex @code{\tweak}, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-a4^"Black"
+@lilypond[quote,fragment,ragged-right,verbatim]
+a'4^"Black"
   -\tweak color #red ^"Red"
   -\tweak color #green _"Green"
 @end lilypond
@@ -478,10 +488,10 @@ mitjançant el nomenament explícit de l'objecte de presentació,
 sempre i quan el LilyPond pugui rastrejar el seu origen fins
 l'esdeveniment original:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-<\tweak Accidental.color #red   cis4
- \tweak Accidental.color #green es
- g>
+@lilypond[quote,fragment,ragged-right,verbatim]
+<\tweak Accidental.color #red   cis''4
+ \tweak Accidental.color #green es''
+ g''>
 @end lilypond
 
 Aquesta forma extensa de l'ordre @code{\tweak} es pot
@@ -515,13 +525,15 @@ treset curt.
 @cindex direction, propietat, exemple
 @cindex color, propietat, exemple
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-\tweak direction #up
-\tuplet 3/4 {
-  \tweak color #red
-  \tuplet 3/2 { c8[ c c] }
-  \tuplet 3/2 { c8[ c c] }
-  \tuplet 3/2 { c8[ c c] }
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  \tweak direction #up
+  \tuplet 3/4 {
+    \tweak color #red
+    \tuplet 3/2 { c8[ c c] }
+    \tuplet 3/2 { c8[ c c] }
+    \tuplet 3/2 { c8[ c c] }
+  }
 }
 @end lilypond
 
@@ -534,15 +546,17 @@ es pot modificar de la forma usual mitjançant ordres
 @cindex transparent, propietat, exemple
 @cindex TupletNumber, exemple de sobreescriptura
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
-\tuplet 3/2 { c8[ c c] }
-\once \override TupletNumber.text = #tuplet-number::calc-fraction-text
-\tuplet 3/2 {
-  c8[ c]
-  c8[ c]
-  \once \override TupletNumber.transparent = ##t
-  \tuplet 3/2 { c8[ c c] }
-  \tuplet 3/2 { c8[ c c] }
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  \tuplet 3/2 { c'8[ c c] }
+  \once \override TupletNumber.text = #tuplet-number::calc-fraction-text
+  \tuplet 3/2 {
+    c8[ c]
+    c8[ c]
+    \once \override TupletNumber.transparent = ##t
+    \tuplet 3/2 { c8[ c c] }
+    \tuplet 3/2 { c8[ c c] }
+  }
 }
 @end lilypond
 
@@ -603,12 +617,12 @@ Utilitzem un exemple concret amb un senzill fragment de música real:
 
 @c Mozart, duo, núm. 7 de La Flauta Màgica
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8 bes[( g]) g |
+  \relative {
+    r4 bes'8 bes[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
   }
@@ -698,14 +712,14 @@ a prop d'ella.} Fem-lo així:
 @cindex Slur, exemple de sobreescriptura
 @cindex thickness, propietat, exemple
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
+  \relative {
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur.thickness = #5.0
-    r4 bes8 bes[( g]) g |
+    r4 bes'8 bes[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
   }
@@ -771,12 +785,12 @@ lligadura, simplement s'ignora.  Així dons l'ordre que porta
 @cindex Slur, exemple de sobreescriptura
 @cindex thickness, propietat, exemple
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8
+  \relative {
+    r4 bes'8
     % Increase thickness of immediately following slur only
     \once \override Slur.thickness = #5.0
     bes8[( g]) g |
@@ -812,12 +826,12 @@ les lligadures:
 @cindex Slur, exemple de sobreescriptura
 @cindex thickness, propietat, exemple
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8
+  \relative {
+    r4 bes'8
     % Increase thickness of immediately following slur only
     \once \override Slur.thickness = #5.0
     bes[( g]) g |
@@ -841,12 +855,12 @@ lligadura:
 @cindex Slur, exemple de sobreesriptura
 @cindex thickness, propietat, exemple
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8
+  \relative {
+    r4 bes'8
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur.thickness = #5.0
     bes[( g]) g |
@@ -967,12 +981,12 @@ d'afectar, d'aquesta forma:
 @cindex LyricText, exemple de sobreescriptura
 @cindex @code{\addlyrics}, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8 bes[( g]) g |
+  \relative {
+    r4 bes'8 bes[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
   }
@@ -1142,11 +1156,11 @@ establir de forma que no imprimeixi res ajustant el seu valor a
 @cindex BarLine, exemple de sobreescriptura
 @cindex stencil, propietat, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override BarLine.stencil = ##f
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1170,11 +1184,11 @@ corregir-lo escrivint el context correcte:
 @cindex BarLine, exemple de sobreescriptura
 @cindex stencil, propietat, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.BarLine.stencil = ##f
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1186,11 +1200,11 @@ existeix una abreviatura per a ella, anomenada
 @code{\omit} (ometre):
 @funindex \omit
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \omit Staff.BarLine
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1205,9 +1219,9 @@ el cas, podem en comptes d'això utilitzar la funció
 @code{point-stencil}, que estableix el segell a un objecte amb
 mida nul·la:
 
-@lilypond[quote,verbatim,relative=2]
-{
-  c4 c
+@lilypond[quote,verbatim]
+\relative {
+  c''4 c
   \once \override NoteHead.stencil = #point-stencil
   c4 c
 }
@@ -1237,11 +1251,11 @@ cal, com sempre, per precedir el valor en sí dins de l'ordre
 @cindex BarLine, exemple de sobreescriptura
 @cindex break-visibility, propietat, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.BarLine.break-visibility = ##(#f #f #f)
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1273,11 +1287,11 @@ indicació de compàs és:
 @cindex TimeSignature, exemple de sobreescriptura
 @cindex transparent, propietat, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.TimeSignature.transparent = ##t
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1289,11 +1303,11 @@ una operació força freqüent, de manera que tenim una abreviatura
 anomenada @code{\hide} (amagar):
 @funindex \hide
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \hide Staff.TimeSignature
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1311,11 +1325,11 @@ indicació de compàs s'ha d'establir al valor @code{#f}:
 @cindex TimeSignature, exemple de sobreescriptura
 @cindex stencil, propietat, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \omit Staff.TimeSignature
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1357,11 +1371,11 @@ línies divisòries de color blanc, escrivim:
 @cindex BarLine, exemple de sobreescriptura
 @cindex color, propietat, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.BarLine.color = #white
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1391,11 +1405,11 @@ llista de valors interns d'aquests colors:
 @cindex BarLine, exemple de sobreescriptura
 @cindex color, propietat, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.BarLine.color = #(x11-color 'white)
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1423,11 +1437,11 @@ ha de ser @code{(rgb-color 1 1 1)}:
 @cindex BarLine, exemplo de sobreescriptura
 @cindex color, propietat, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.BarLine.color = #(rgb-color 1 1 1)
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1448,8 +1462,8 @@ diverses gradacions de gris:
 @cindex color property, exemple
 @cindex x11-color, exemple d'utilització
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.StaffSymbol.color = #(x11-color 'grey30)
   \override Staff.TimeSignature.color = #(x11-color 'grey60)
@@ -1457,7 +1471,7 @@ diverses gradacions de gris:
   \override Voice.NoteHead.color = #(x11-color 'grey85)
   \override Voice.Stem.color = #(x11-color 'grey85)
   \override Staff.BarLine.color = #(x11-color 'grey10)
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1489,7 +1503,7 @@ introduir un pentagrama temporal, com a un @rglos{ossia}.
 @cindex alignAboveContext, propietat, exemple
 @cindex @code{\with}, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1516,7 +1530,7 @@ segell de cadascú d'ells a @code{#f}, com segueix:
 @cindex Clef, exemple de sobreescriptura
 @cindex TimeSignature, exemple de sobreescriptura
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1579,7 +1593,7 @@ Així doncs, podem reemplaçar l'exemple anterior amb
 @cindex Clef, exemple de sobreescriptura
 @cindex TimeSignature, exemple de sobreesriptura
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1676,7 +1690,7 @@ Provem-lo en el nostre exemple de l'ossia:
 @cindex TimeSignature, exemple de sobreescriptura
 @cindex fontSize, propietat, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1747,7 +1761,7 @@ S'usa de la següent forma:
 @cindex staff-space, propietat, exemple
 @cindex stencil, propietat, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1862,11 +1876,11 @@ pentagrama, ajustat per sota de @q{Text2}.
 
 @cindex markup, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-c2^"Text1"
-c2^"Text2" |
-c2^"Text3"
-c2^"Text4" |
+@lilypond[quote,fragment,ragged-right,verbatim]
+c''2^"Text1"
+c''2^"Text2" |
+c''2^"Text3"
+c''2^"Text4" |
 @end lilypond
 
 Els pentagrames també es posicionen, de forma predeterminada, tan
@@ -2041,12 +2055,14 @@ següents l'efecte d'especificar @code{DOWN} i @code{UP}:
 @cindex Fingering, exemple de sobreescriptura
 @cindex direction, propietat, exemple
 
-@lilypond[quote,verbatim,relative=2]
-c4-5 a-3 f-1 c'-5 |
-\override Fingering.direction = #DOWN
-c4-5 a-3 f-1 c'-5 |
-\override Fingering.direction = #UP
-c4-5 a-3 f-1 c'-5 |
+@lilypond[quote,verbatim]
+\relative {
+  c''4-5 a-3 f-1 c'-5 |
+  \override Fingering.direction = #DOWN
+  c4-5 a-3 f-1 c'-5 |
+  \override Fingering.direction = #UP
+  c4-5 a-3 f-1 c'-5 |
+}
 @end lilypond
 
 Tot i així, la sobreescriptura de la propietat @code{direction} no
@@ -2058,10 +2074,12 @@ Aquest és l'exemple anterior utilitzant aquest mètode:
 @cindex fingering, exemple
 @cindex digitación, exemple
 
-@lilypond[quote,verbatim,relative=2]
-c4-5 a-3 f-1 c'-5 |
-c4_5 a_3 f_1 c'_5 |
-c4^5 a^3 f^1 c'^5 |
+@lilypond[quote,verbatim]
+\relative {
+  c''4-5 a-3 f-1 c'-5 |
+  c4_5 a_3 f_1 c'_5 |
+  c4^5 a^3 f^1 c'^5 |
+}
 @end lilypond
 
 La propietat @code{direction} s'ignora per als acords, però els
@@ -2072,10 +2090,12 @@ sobre i a sota de les notes d'un acord, com es mostra aquí:
 @cindex fingering, exemple
 @cindex digitación, exemple
 
-@lilypond[quote,verbatim,relative=2]
-<c-5 g-3>4
-<c-5 g-3 e-2>4
-<c-5 g-3 e-2 c-1>4
+@lilypond[quote,verbatim]
+\relative {
+  <c''-5 g-3>4
+  <c-5 g-3 e-2>4
+  <c-5 g-3 e-2 c-1>4
+}
 @end lilypond
 
 @noindent
@@ -2085,10 +2105,12 @@ digitació estan per sobre o per sota:
 @cindex fingering, exemple
 @cindex digitación, exemple
 
-@lilypond[quote,verbatim,relative=2]
-<c-5 g-3 e-2 c-1>4
-<c^5 g_3 e_2 c_1>4
-<c^5 g^3 e^2 c_1>4
+@lilypond[quote,verbatim]
+\relative {
+  <c''-5 g-3 e-2 c-1>4
+  <c^5 g_3 e_2 c_1>4
+  <c^5 g^3 e^2 c_1>4
+}
 @end lilypond
 
 És possible exercir un control encara més gran sobre la
@@ -2118,22 +2140,24 @@ Aquí podem veure alguns exemples:
 @cindex @code{\set}, exemple d'utilització
 @cindex fingeringOrientations, propietat, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-\set fingeringOrientations = #'(left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
-\set fingeringOrientations = #'(left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4 |
-\set fingeringOrientations = #'(up left down)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
-\set fingeringOrientations = #'(up left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4 |
-\set fingeringOrientations = #'(right)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  \set fingeringOrientations = #'(left)
+  <f'-2>4
+  <c-1 e-2 g-3 b-5>4
+  \set fingeringOrientations = #'(left)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4 |
+  \set fingeringOrientations = #'(up left down)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4
+  \set fingeringOrientations = #'(up left)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4 |
+  \set fingeringOrientations = #'(right)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4
+}
 @end lilypond
 
 @noindent
@@ -2142,23 +2166,25 @@ Si la digitació sembla una mica atapeïda, es pot reduir la mida
 @code{Fingering} del RFI que és @w{@code{-5}}, així que provarem
 @w{@code{-7}}:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-\override Fingering.font-size = #-7
-\set fingeringOrientations = #'(left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
-\set fingeringOrientations = #'(left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4 |
-\set fingeringOrientations = #'(up left down)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
-\set fingeringOrientations = #'(up left)
-<f-2>4
-<c-1 e-2 g-3 b-5>4 |
-\set fingeringOrientations = #'(right)
-<f-2>4
-<c-1 e-2 g-3 b-5>4
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  \override Fingering.font-size = #-7
+  \set fingeringOrientations = #'(left)
+  <f'-2>4
+  <c-1 e-2 g-3 b-5>4
+  \set fingeringOrientations = #'(left)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4 |
+  \set fingeringOrientations = #'(up left down)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4
+  \set fingeringOrientations = #'(up left)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4 |
+  \set fingeringOrientations = #'(right)
+  <f-2>4
+  <c-1 e-2 g-3 b-5>4
+}
 @end lilypond
 
 
@@ -2260,7 +2286,7 @@ Heus ací un exemple que mostra la situació predeterminada d'alguns d'ells.
 @cindex TextSpanner, exemple de sobreesriptura
 @cindex bound-details, propietat, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+@lilypond[quote,fragment,ragged-right,verbatim]
 % Set details for later Text Spanner
 \override TextSpanner.bound-details.left.text
     = \markup { \small \bold Slower }
@@ -2268,18 +2294,18 @@ Heus ací un exemple que mostra la situació predeterminada d'alguns d'ells.
 \dynamicUp
 % Start Ottava Bracket
 \ottava #1
-c'4 \startTextSpan
+c''4 \startTextSpan
 % Add Dynamic Text and hairpin
-c4\pp\<
-c4
+c''4\pp\<
+c''4
 % Add Text Script
-c4^Text |
-c4 c
+c''4^Text |
+c''4 c''
 % Add Dynamic Text and terminate hairpin
-c4\ff c \stopTextSpan |
+c''4\ff c'' \stopTextSpan |
 % Stop Ottava Bracket
 \ottava #0
-c,4 c c c |
+c'4 c' c' c' |
 @end lilypond
 
 Aquest exemple també mostra com crear textos amb extensió (Text
@@ -2311,7 +2337,7 @@ dins del context de @code{Staff}:
 @cindex TextSpanner, exemple de sobreescriptura
 @cindex bound-details, propietat, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+@lilypond[quote,fragment,ragged-right,verbatim]
 % Set details for later Text Spanner
 \override TextSpanner.bound-details.left.text
     = \markup { \small \bold Slower }
@@ -2321,19 +2347,19 @@ dins del context de @code{Staff}:
 \once \override Staff.OttavaBracket.outside-staff-priority = #340
 % Start Ottava Bracket
 \ottava #1
-c'4 \startTextSpan
+c''4 \startTextSpan
 % Add Dynamic Text
-c4\pp
+c''4\pp
 % Add Dynamic Line Spanner
-c4\<
+c''4\<
 % Add Text Script
-c4^Text |
-c4 c
+c''4^Text |
+c''4 c''
 % Add Dynamic Text
-c4\ff c \stopTextSpan |
+c''4\ff c'' \stopTextSpan |
 % Stop Ottava Bracket
 \ottava #0
-c,4 c c c |
+c'4 c' c' c' |
 @end lilypond
 
 Observeu que alguns d'aquests objectes, concretament els números de
@@ -2362,14 +2388,16 @@ valor numèric per fer que es col·loqui en línia amb altres objectes
 fora del pentagrama d'acord amb aquest valor.  Heus ací un exemple
 que mostra l'efecte dels dos mètodes:
 
-@lilypond[quote,verbatim,relative=2]
-c4( c^\markup { \tiny \sharp } d4.) c8 |
-c4(
-\once \override TextScript.avoid-slur = #'inside
-\once \override TextScript.outside-staff-priority = ##f
-c4^\markup { \tiny \sharp } d4.) c8 |
-\once \override Slur.outside-staff-priority = #500
-c4( c^\markup { \tiny \sharp } d4.) c8 |
+@lilypond[quote,verbatim]
+\relative c'' {
+  c4( c^\markup { \tiny \sharp } d4.) c8 |
+  c4(
+    \once \override TextScript.avoid-slur = #'inside
+    \once \override TextScript.outside-staff-priority = ##f
+    c4^\markup { \tiny \sharp } d4.) c8 |
+  \once \override Slur.outside-staff-priority = #500
+    c4( c^\markup { \tiny \sharp } d4.) c8 |
+}
 @end lilypond
 
 Els canvis a @code{outside-staff-priority} també es pode usar per
@@ -2384,12 +2412,12 @@ de dalt, i augmentar la prioritat de @qq{Text3} fins un valor superior:
 @cindex TextScript, exemple de sobreescriptura
 @cindex outside-staff-priority, propietat, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-c2^"Text1"
-c2^"Text2" |
+@lilypond[quote,fragment,ragged-right,verbatim]
+c''2^"Text1"
+c''2^"Text2" |
 \once \override TextScript.outside-staff-priority = #500
-c2^"Text3"
-c2^"Text4" |
+c''2^"Text3"
+c''2^"Text4" |
 @end lilypond
 
 Això, certament, eleva a @qq{Text3} per sobre de @qq{Text4} però
@@ -2417,12 +2445,12 @@ música.  L'ordre @code{\textLengthOn} inverteix aquest
 comportament, fent que les notes portin tant d'espai com sigui
 necessari per acomodar el text:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim]
 \textLengthOn  % Cause notes to space out to accommodate text
-c2^"Text1"
-c2^"Text2" |
-c2^"Text3"
-c2^"Text4" |
+c''2^"Text1"
+c''2^"Text2" |
+c''2^"Text3"
+c''2^"Text4" |
 @end lilypond
 
 L'ordre per tornar al comportament predeterminat és
@@ -2445,25 +2473,27 @@ notes.
 @cindex TextScript, exemple de sobreescriptura
 @cindex outside-staff-priority, propietat, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-% This markup is short enough to fit without collision
-c2^"Tex" c'' |
-R1 |
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  % This markup is short enough to fit without collision
+  c''2^"Tex" c'' |
+  R1 |
 
-% This is too long to fit, so it is displaced upwards
-c,,2^"Text" c'' |
-R1 |
+  % This is too long to fit, so it is displaced upwards
+  c,,2^"Text" c'' |
+  R1 |
 
-% Turn off collision avoidance
-\once \override TextScript.outside-staff-priority = ##f
-c,,2^"Long Text   " c'' |
-R1 |
+  % Turn off collision avoidance
+  \once \override TextScript.outside-staff-priority = ##f
+  c,,2^"Long Text   " c'' |
+  R1 |
 
-% Turn off collision avoidance
-\once \override TextScript.outside-staff-priority = ##f
-\textLengthOn        % and turn on textLengthOn
-c,,2^"Long Text   "  % Spaces at end are honored
-c''2 |
+  % Turn off collision avoidance
+  \once \override TextScript.outside-staff-priority = ##f
+  \textLengthOn        % and turn on textLengthOn
+  c,,2^"Long Text   "  % Spaces at end are honored
+  c''2 |
+}
 @end lilypond
 
 @node Posicionament dels matisos dinàmics
@@ -2482,13 +2512,15 @@ de tots els objects dins-del-pentagrama tals com lligadures de
 fraseig i números de compàs.  Això pot oferir resultats força
 acceptables, com mostra aquest exemple:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-\clef "bass"
-\key aes \major
-\time 9/8
-\dynamicUp
-bes4.~\f\< \( bes4 bes8 des4\ff\> c16 bes\! |
-ees,2.~\)\mf ees4 r8 |
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  \clef "bass"
+  \key aes \major
+  \time 9/8
+  \dynamicUp
+  bes4.~\f\< \( bes4 bes8 des4\ff\> c16 bes\! |
+  ees,2.~\)\mf ees4 r8 |
+}
 @end lilypond
 
 Tot i així, si les notes i les seves indicacions dinàmiques
@@ -2497,9 +2529,9 @@ col·lisions desplaçant les marques dinàmiques posteriors més
 lluny, tot i que pot no ser el lloc òptim, com mostra l'exemple
 següent més aviat artificial:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim,fragment]
 \dynamicUp
-a4\f b\mf a\mp b\p
+\relative { a'4\f b\mf a\mp b\p }
 @end lilypond
 
 @noindent
@@ -2558,11 +2590,11 @@ Vegem si funciona en el nostre exemple anterior:
 @cindex DynamicText, exemple de sobreescriptura
 @cindex extra-spacing-width, propietat, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim,fragment]
 \dynamicUp
 % Extend width by 1 staff space
 \override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
-a4\f b\mf a\mp b\p
+\relative { a'4\f b\mf a\mp b\p }
 @end lilypond
 
 @noindent
@@ -3113,8 +3145,8 @@ les notes.
 @cindex Script, exemple de sobreescriptura
 @cindex padding, propietat, exemple
 
-@lilypond[quote,fragment,relative=1,verbatim]
-c2\fermata
+@lilypond[quote,fragment,verbatim]
+c'2\fermata
 \override Script.padding = #3
 b2\fermata
 @end lilypond
@@ -3122,15 +3154,15 @@ b2\fermata
 @cindex MetronomeMark, exemple de sobreescriptura
 @cindex padding, propietat, exemple
 
-@lilypond[quote,fragment,relative=1,verbatim]
+@lilypond[quote,fragment,verbatim]
 % This will not work, see below
 \override MetronomeMark.padding = #3
 \tempo 4 = 120
-c1 |
+c'1 |
 % This works
 \override Score.MetronomeMark.padding = #3
 \tempo 4 = 80
-d1 |
+d'1 |
 @end lilypond
 
 Observeu que al segon exemple la gran importància que té saber
@@ -3216,9 +3248,9 @@ indicacions de matís a l'exemple de la secció anterior:
 @cindex DynamicLineSpanner, exemple de sobreescriptura
 @cindex staff-padding, propietat, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim]
 \override DynamicLineSpanner.staff-padding = #3
-a4\f b\mf a\p b\mp
+\relative { a'4\f b\mf a\p b\mp }
 @end lilypond
 
 
@@ -3234,11 +3266,11 @@ l'alineament del límit dret amb el punt de referència de la nota
 @cindex StringNumber, exemple de sobreescriptura
 @cindex self-alignment-X, propietat, exemple
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=3]
+@lilypond[quote,fragment,ragged-right,verbatim]
 \voiceOne
-<a\2>
+<a''\2>
 \once \override StringNumber.self-alignment-X = #RIGHT
-<a\2>
+<a''\2>
 @end lilypond
 
 @node La propietat staff-position (posició al pentagrama)
@@ -3255,8 +3287,8 @@ en realitat tota la gestió de col·lisions entre notes i silencis
 es fa solament per a notes i silencis que passen al mateix
 moment.  Heus ací un exemple de col·lisió d'aquest tipus:
 
-@lilypond[quote,verbatim,fragment,ragged-right, relative=1]
-<< { c4 c c c } \\ { R1 } >>
+@lilypond[quote,verbatim,ragged-right]
+<< \relative { c'4 c c c } \\ { R1 } >>
 @end lilypond
 
 La millor solució aquí és moure el silenci multi-compàs cap avall,
@@ -3270,9 +3302,9 @@ pentagrama, al valor @w{@code{-8}}.
 @cindex MultiMeasureRest, exemple de sobreesriptura
 @cindex staff-position, propietat, exemple
 
-@lilypond[quote,verbatim,fragment,ragged-right, relative=1]
+@lilypond[quote,verbatim,ragged-right]
 <<
-  { c4 c c c }
+  \relative { c'4 c c c }
   \\
   \override MultiMeasureRest.staff-position = #-8
   { R1 }
@@ -3328,8 +3360,8 @@ corxera.
 Heus ací un exemple en al qual les lligadures de fraseig i
 d'expressió xoquen entre sí:
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
-a8 \( ( a'16 ) a \)
+@lilypond[quote,verbatim,ragged-right]
+\relative { a'8 \( ( a'16 ) a \) }
 @end lilypond
 
 @cindex PhrasingSlur, exemple de sobreesriptura
@@ -3343,9 +3375,9 @@ dret de 4,5 també cap a munt, i el LilyPond seleccionaria la
 lligadura de fraseig d'entre les candidates que ha trobat amb els
 seus extrems més propers a ells:
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+@lilypond[quote,verbatim,fragment,ragged-right]
 \once \override PhrasingSlur.positions = #'(2.5 . 4.5)
-a8 \( ( a'16 ) a \)
+a'8 \( ( a''16 ) a'' \)
 @end lilypond
 
 Això suposa una millora, però perquè no baixar una mica l'extrem
@@ -4049,8 +4081,8 @@ poden connectar mitjançant lligadures d'unió dues notes que
 estiguin en la mateixa veu.  Usant dues veus, amb les notes
 lligades en una d'elles:
 
-@lilypond[quote,fragment,relative=2]
-<< { b8~ 8\noBeam } \\ { b8[ g] } >>
+@lilypond[quote]
+<< { b'8~ 8\noBeam } \\ { b'8[ g'] } >>
 @end lilypond
 
 @noindent

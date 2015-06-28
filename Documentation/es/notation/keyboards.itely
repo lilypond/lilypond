@@ -393,11 +393,11 @@ construcción del acorde.
 Cuando una voz cambia a otro pentagrama, se puede imprimir
 automáticamente una línea que conecte las notas:
 
-@lilypond[quote,verbatim,relative=1]
+@lilypond[quote,verbatim]
 \new PianoStaff <<
   \new Staff = "one" {
     \showStaffSwitch
-    c1
+    c'1
     \change Staff = "two"
     b2 a
   }
@@ -518,13 +518,15 @@ producir el sonido: el pedal de mantenimiento (pedal
 de mantenimiento como el pedal derecho del piano se encuentran también
 en el vibráfono y en la celesta.
 
-@lilypond[quote,verbatim,relative=2]
-c4\sustainOn d e g
-<c, f a>1\sustainOff
-c4\sostenutoOn e g c,
-<bes d f>1\sostenutoOff
-c4\unaCorda d e g
-<d fis a>1\treCorde
+@lilypond[quote,verbatim]
+\relative {
+  c''4\sustainOn d e g
+  <c, f a>1\sustainOff
+  c4\sostenutoOn e g c,
+  <bes d f>1\sostenutoOff
+  c4\unaCorda d e g
+  <d fis a>1\treCorde
+}
 @end lilypond
 
 @cindex pedal, estilos de indicación
@@ -544,15 +546,17 @@ mixta.  El pedal derecho y el pedal de una corda utilizan el estilo
 textual de forma predeterminada, mientras que el pedal sostenuto
 utiliza el método mixto de forma predeterminada.
 
-@lilypond[quote,verbatim,relative=2]
-c4\sustainOn g c2\sustainOff
-\set Staff.pedalSustainStyle = #'mixed
-c4\sustainOn g c d
-d\sustainOff\sustainOn g, c2\sustainOff
-\set Staff.pedalSustainStyle = #'bracket
-c4\sustainOn g c d
-d\sustainOff\sustainOn g, c2
-\bar "|."
+@lilypond[quote,verbatim]
+\relative {
+  c''4\sustainOn g c2\sustainOff
+  \set Staff.pedalSustainStyle = #'mixed
+  c4\sustainOn g c d
+  d\sustainOff\sustainOn g, c2\sustainOff
+  \set Staff.pedalSustainStyle = #'bracket
+  c4\sustainOn g c d
+  d\sustainOff\sustainOn g, c2
+  \bar "|."
+}
 @end lilypond
 
 La colocación de las instrucciones de pedal se corresponden con el
@@ -685,20 +689,20 @@ los pedales son Re, Do y Si a la izquierda y Mi, Fa, Sol y La a la
 derecha.  La posición de los pedales se puede indicar con indicaciones
 textuales:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \textLengthOn
-cis1_\markup \concat \vcenter {
+cis''1_\markup \concat \vcenter {
   [D \flat C \sharp B|E \sharp F \sharp G A \flat] }
-c!1_\markup \concat \vcenter {
+c''!1_\markup \concat \vcenter {
   [ C \natural ] }
 @end lilypond
 
 o mediante diagramas de pedal:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \textLengthOn
-cis1_\markup { \harp-pedal #"^v-|vv-^" }
-c!1_\markup { \harp-pedal #"^o--|vv-^" }
+cis''1_\markup { \harp-pedal #"^v-|vv-^" }
+c''!1_\markup { \harp-pedal #"^o--|vv-^" }
 @end lilypond
 
 La instrucción @code{\harp-pedal} acepta una cadena de caracteres en

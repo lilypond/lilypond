@@ -154,15 +154,17 @@ L'ajustement de la propriété @code{font-size} à l'aide des commandes
 @code{\tweak} ou @code{\override} permet de retailler un objet de rendu
 particulier :
 
-@lilypond[quote,verbatim,relative=1]
-% resize a note head
-<f \tweak font-size -4 b e>-5
-% resize a fingering
-bes-\tweak font-size 0 -3
-% resize an accidental
-\once \override Accidental.font-size = -4 bes!-^
-% resize an articulation
-\once \override Script.font-size = 4 bes!-^
+@lilypond[quote,verbatim]
+\relative {
+  % resize a note head
+  <f' \tweak font-size -4 b e>-5
+  % resize a fingering
+  bes-\tweak font-size 0 -3
+  % resize an accidental
+  \once \override Accidental.font-size = -4 bes!-^
+  % resize an articulation
+  \once \override Script.font-size = 4 bes!-^
+}
 @end lilypond
 
 @lilypond[verbatim,quote,relative=2]
@@ -196,14 +198,16 @@ La propriété @code{fontSize} d'un contexte a pour effet de définir la
 taille proportionnelle de tout élément de notation basé sur un
 glyphe dans ce contexte :
 
-@lilypond[verbatim,quote,relative=2]
-\time 3/4
-d4---5 c8( b a g) |
-\set fontSize = -6
-e'4-- c!8-4( b a g) |
-\set fontSize = 0
-fis4---3 e8( d) fis4 |
-g2.
+@lilypond[verbatim,quote]
+\relative {
+  \time 3/4
+  d''4---5 c8( b a g) |
+  \set fontSize = -6
+  e'4-- c!8-4( b a g) |
+  \set fontSize = 0
+  fis4---3 e8( d) fis4 |
+  g2.
+}
 @end lilypond
 
 La valeur de @code{fontSize} est un nombre indiquant la taille
@@ -245,19 +249,19 @@ rendu.  Ceci peut être source de confusion lorsque des propriétés
 @code{font-size} individuelles sont réglées alors que
 @code{fontSize} est déjà fixé :
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,fragment]
 % the default font-size for NoteHead is 0
 % the default font-size for Fingering is -5
-c4-3
+c''4-3
 
 \set fontSize = -3
 % the effective font size for NoteHead is now -3
 % the effective font size for Fingering is now -8
-c4-3
+c''4-3
 
 \override Fingering.font-size = 0
 % the effective font size for Fingering is now -3
-c4-3
+c''4-3
 @end lilypond
 
 LilyPond dispose d'un certain nombre de raccourcis :
@@ -272,19 +276,21 @@ LilyPond dispose d'un certain nombre de raccourcis :
 @item @code{\huge}       @tab @code{\set fontSize = 2} @tab 126 %
 @end multitable
 
-@lilypond[verbatim,quote,relative=2]
-\teeny
-c4.-> d8---3
-\tiny
-c4.-> d8---3
-\small
-c4.-> d8---3
-\normalsize
-c4.-> d8---3
-\large
-c4.-> d8---3
-\huge
-c4.-> d8---3
+@lilypond[verbatim,quote]
+\relative c'' {
+  \teeny
+  c4.-> d8---3
+  \tiny
+  c4.-> d8---3
+  \small
+  c4.-> d8---3
+  \normalsize
+  c4.-> d8---3
+  \large
+  c4.-> d8---3
+  \huge
+  c4.-> d8---3
+}
 @end lilypond
 
 @cindex standard, taille des notes
@@ -363,16 +369,18 @@ et @code{\revert} :
 Les doigtés peuvent être indiqués comme suit :
 @var{note}-@var{chiffre_du_doigt}
 
-@lilypond[verbatim,quote,relative=2]
-c4-1 d-2 f-4 e-3
+@lilypond[verbatim,quote]
+\relative { c''4-1 d-2 f-4 e-3 }
 @end lilypond
 
 Pour les substitutions de doigts, on a recours à une indication
 textuelle (commande @code{\markup}) de doigté
 (commande @code{\finger}).
 
-@lilypond[verbatim,quote,relative=2]
-c4-1 d-2 f\finger \markup \tied-lyric #"4~3" c\finger "2 - 3"
+@lilypond[verbatim,quote]
+\relative {
+  c''4-1 d-2 f\finger \markup \tied-lyric #"4~3" c\finger "2 - 3"
+}
 @end lilypond
 
 @cindex pouce, doigté
@@ -384,8 +392,8 @@ La commande @code{\thumb} peut être utilisée pour indiquer, par exemple
 dans une partition de violoncelle, si une note doit être jouée avec le
 pouce (@emph{thumb} en anglais).
 
-@lilypond[verbatim,quote,relative=2]
-<a_\thumb a'-3>2 <b_\thumb b'-3>
+@lilypond[verbatim,quote]
+\relative { <a'_\thumb a'-3>2 <b_\thumb b'-3> }
 @end lilypond
 
 @cindex doigtés des accords
@@ -394,8 +402,10 @@ pouce (@emph{thumb} en anglais).
 Les doigtés des accords peuvent être saisis note par note,
 en les indiquant après chaque hauteur de note.
 
-@lilypond[verbatim,quote,relative=2]
-<c-1 e-2 g-3 b-5>2 <d-1 f-2 a-3 c-5>
+@lilypond[verbatim,quote]
+\relative {
+  <c''-1 e-2 g-3 b-5>2 <d-1 f-2 a-3 c-5>
+}
 @end lilypond
 
 Les indications de doigtés peuvent se placer au-dessus ou en dessous de
@@ -445,16 +455,18 @@ Référence des propriétés internes :
 Les notes masquées -- ou invisibles ou encore transparentes -- sont
 utiles dans le cadre d'exercices de théorie ou de composition.
 
-@lilypond[verbatim,quote,relative=2]
-c4 d
-\hideNotes
-e4 f
-\unHideNotes
-g a
-\hideNotes
-b
-\unHideNotes
-c
+@lilypond[verbatim,quote]
+\relative {
+  c''4 d
+  \hideNotes
+  e4 f
+  \unHideNotes
+  g a
+  \hideNotes
+  b
+  \unHideNotes
+  c
+}
 @end lilypond
 
 Têtes de note, hampes, crochets et silences sont invisibles.  Une
@@ -462,10 +474,12 @@ ligature sera invisible si elle démarre sur une note invisible.
 Les objets de notation attachés à une note invisible ne seront pas
 masqués pour autant.
 
-@lilypond[verbatim,quote,relative=2]
-e8(\p f g a)--
-\hideNotes
-e8(\p f g a)--
+@lilypond[verbatim,quote]
+\relative c'' {
+  e8(\p f g a)--
+  \hideNotes
+  e8(\p f g a)--
+}
 @end lilypond
 
 @predefined
@@ -513,13 +527,13 @@ Des objets peuvent être colorisés individuellement.  Une listes des
 noms des couleurs disponibles se trouvent à l'annexe
 @ref{Liste des couleurs}.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,fragment]
 \override NoteHead.color = #red
-c4 c
+c''4 c''
 \override NoteHead.color = #(x11-color 'LimeGreen)
-d
+d''
 \override Stem.color = #blue
-e
+e''
 @end lilypond
 
 L'intégralité de la palette des couleurs définies pour X11 est
@@ -534,22 +548,24 @@ Lorsque la fonction @code{x11-color} ne trouve pas le paramètre fourni,
 elle revient à la couleur par défaut, le noir.  Le problème ressort de
 façon évidente au vu de la partition finale.
 
-@lilypond[verbatim,quote,relative=2]
-\override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
-\set Staff.instrumentName = \markup {
-  \with-color #(x11-color 'navy) "Clarinet"
-}
+@lilypond[verbatim,quote]
+\relative c'' {
+  \override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
+  \set Staff.instrumentName = \markup {
+    \with-color #(x11-color 'navy) "Clarinet"
+  }
 
-gis8 a
-\override Beam.color = #(x11-color "medium turquoise")
-gis a
-\override Accidental.color = #(x11-color 'DarkRed)
-gis a
-\override NoteHead.color = #(x11-color "LimeGreen")
-gis a
-% this is deliberate nonsense; note that the stems remain black
-\override Stem.color = #(x11-color 'Boggle)
-b2 cis
+  gis8 a
+  \override Beam.color = #(x11-color "medium turquoise")
+  gis a
+  \override Accidental.color = #(x11-color 'DarkRed)
+  gis a
+  \override NoteHead.color = #(x11-color "LimeGreen")
+  gis a
+  % this is deliberate nonsense; note that the stems remain black
+  \override Stem.color = #(x11-color 'Boggle)
+  b2 cis
+}
 @end lilypond
 
 @cindex rgb-color
@@ -565,18 +581,20 @@ les composantes de la couleur exacte au format rouge-vert-bleu
 (@emph{RGB}) -- chacune étant exprimée en en fraction de 256 (le 0.5 de
 l'exemple suivant correspond à 128).
 
-@lilypond[verbatim,quote,relative=2]
-\override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
-\set Staff.instrumentName = \markup {
-  \with-color #(x11-color 'navy) "Clarinet"
-}
+@lilypond[verbatim,quote]
+\relative c'' {
+  \override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
+  \set Staff.instrumentName = \markup {
+    \with-color #(x11-color 'navy) "Clarinet"
+  }
 
-\override Stem.color = #(rgb-color 0 0 0)
-gis8 a
-\override Stem.color = #(rgb-color 1 1 1)
-gis8 a
-\override Stem.color = #(rgb-color 0 0 0.5)
-gis4 a
+  \override Stem.color = #(rgb-color 0 0 0)
+  gis8 a
+  \override Stem.color = #(rgb-color 1 1 1)
+  gis8 a
+  \override Stem.color = #(rgb-color 0 0 0.5)
+  gis4 a
+}
 @end lilypond
 
 @seealso
@@ -627,19 +645,23 @@ préfixe un accord, chaque note le composant se présentera entre
 parenthèses.  Vous pouvez aussi mettre individuellement entre
 parenthèses les notes d'un accord.
 
-@lilypond[verbatim,quote,relative=2]
-c2 \parenthesize d
-c2 \parenthesize <c e g>
-c2 <c \parenthesize e g>
+@lilypond[verbatim,quote]
+\relative {
+  c''2 \parenthesize d
+  c2 \parenthesize <c e g>
+  c2 <c \parenthesize e g>
+}
 @end lilypond
 
 Les objets autres que des notes peuvent aussi être entre parenthèses.
 En ce qui concerne les articulations, l'instruction @code{\parenthesize}
 doit cependant être précédée d'un tiret.
 
-@lilypond[verbatim,quote,relative=2]
-c2-\parenthesize -. d
-c2 \parenthesize r
+@lilypond[verbatim,quote]
+\relative {
+  c''2-\parenthesize -. d
+  c2 \parenthesize r
+}
 @end lilypond
 
 @seealso
@@ -749,9 +771,9 @@ notation.
 
 En voici un exemple :
 @c KEEP LY
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Voice \with { \consists "Balloon_engraver" }
-{
+\relative c'' {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "Je suis une hampe" }
   a8
   \balloonGrobText #'Rest #'(-4 . -4) \markup { "Je suis un silence" }
@@ -772,9 +794,9 @@ Les info-bulles n'ont aucune influence sur l'espacement des notes ; on
 peut toutefois le gérer ainsi :
 
 @c KEEP LY
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Voice \with { \consists "Balloon_engraver" }
-{
+\relative c'' {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "Je suis une hampe" }
   a8
   \balloonGrobText #'Rest #'(-4 . -4) \markup { "Je suis un silence" }

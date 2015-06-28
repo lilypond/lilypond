@@ -80,11 +80,13 @@ mode notes traditionnel.
 Mode notes et mode accords peuvent tout à fait cohabiter dans une
 séquence musicale :
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
-<c e g>2 <g b d>
-\chordmode { c2 f }
-<c e g>2 <g' b d>
-\chordmode { f2 g }
+@lilypond[verbatim,quote,ragged-right]
+\relative {
+  <c' e g>2 <g b d>
+  \chordmode { c2 f }
+  <c e g>2 <g' b d>
+  \chordmode { f2 g }
+}
 @end lilypond
 
 @seealso
@@ -450,7 +452,7 @@ chordmusic = \relative {
 L'apparition de silences dans un contexte @code{ChordNames} déclenchera
 l'impression d'un @emph{markup} @code{noChordSymbol}.
 
-@lilypond[verbatim, quote, relative=1]
+@lilypond[verbatim,quote]
 <<
   \new ChordNames \chordmode {
     c1

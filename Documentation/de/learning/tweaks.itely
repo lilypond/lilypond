@@ -258,12 +258,14 @@ zu ändern:
 @cindex NoteHead, Beispiel für override
 @cindex Notenkopf, Beispiel für Veränderung
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-c4 d
-\override NoteHead.color = #red
-e4 f |
-\override NoteHead.color = #green
-g4 a b c |
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  c'4 d
+  \override NoteHead.color = #red
+  e4 f |
+  \override NoteHead.color = #green
+  g4 a b c |
+}
 @end lilypond
 
 
@@ -295,14 +297,16 @@ wieder auf den Standardwert für die letzten zwei Noten gesetzt.
 @cindex NoteHead, Beispiel für override
 @cindex Notenkopf, Beispiel für Veränderung
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-c4 d
-\override NoteHead.color = #red
-e4 f |
-\override NoteHead.color = #green
-g4 a
-\revert NoteHead.color
-b4 c |
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  c'4 d
+  \override NoteHead.color = #red
+  e4 f |
+  \override NoteHead.color = #green
+  g4 a
+  \revert NoteHead.color
+  b4 c |
+}
 @end lilypond
 
 @strong{\once-Präfix}
@@ -374,11 +378,13 @@ werden.  Schauen wir zuerst, was wir mit
 @cindex NoteHead, Beispiel für override
 @cindex Notenkopf, Beispiel für Veränderung
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-<c e g>4
-\once \override NoteHead.font-size = #-3
-<c e g>4
-<c e g>4
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  <c' e g>4
+  \once \override NoteHead.font-size = #-3
+  <c e g>4
+  <c e g>4
+}
 @end lilypond
 
 Wie man sehen kann, beeinflusst @code{override} @emph{alle}
@@ -401,9 +407,11 @@ mittlere Note eines Akkordes auf diese Weise ändern:
 @cindex Schriftgröße, Beispiel
 @cindex @code{\tweak}-Beispiel
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-<c e g>4
-<c \tweak font-size #-3 e g>4
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  <c' e g>4
+  <c \tweak font-size #-3 e g>4
+}
 @end lilypond
 
 Beachten Sie, dass die Syntax des @code{\tweak}-Befehls sich
@@ -425,8 +433,8 @@ Beispiel zu sehen ist.
 @cindex Farb-Eigenschaft, Beispiel
 @cindex @code{\tweak}-Beispiel
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-a4^"Black"
+@lilypond[quote,fragment,ragged-right,verbatim]
+a'4^"Black"
   -\tweak color #red ^"Red"
   -\tweak color #green _"Green"
 @end lilypond
@@ -486,13 +494,15 @@ gesetzt wird.
 @cindex color-Eigenschaft, Beispiel
 @cindex direction-Eigenschaft, Beispiel
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-\tweak direction #up
-\tuplet 3/4 {
-  \tweak color #red
-  \tuplet 3/2 { c8[ c c] }
-  \tuplet 3/2 { c8[ c c] }
-  \tuplet 3/2 { c8[ c c] }
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  \tweak direction #up
+  \tuplet 3/4 {
+    \tweak color #red
+    \tuplet 3/2 { c8[ c c] }
+    \tuplet 3/2 { c8[ c c] }
+    \tuplet 3/2 { c8[ c c] }
+  }
 }
 @end lilypond
 
@@ -509,15 +519,17 @@ beginnen, kann ihr Aussehen auf die übliche Art mit dem
 
 @c NOTE Tuplet brackets collide if notes are high on staff
 @c See issue 509
-@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
-\tuplet 3/2 { c8[ c c] }
-\once \override TupletNumber.text = #tuplet-number::calc-fraction-text
-\tuplet 3/2 {
-  c8[ c]
-  c8[ c]
-  \once \override TupletNumber.transparent = ##t
-  \tuplet 3/2 { c8[ c c] }
-  \tuplet 3/2 { c8[ c c] }
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  \tuplet 3/2 { c'8[ c c] }
+  \once \override TupletNumber.text = #tuplet-number::calc-fraction-text
+  \tuplet 3/2 {
+    c8[ c]
+    c8[ c]
+    \once \override TupletNumber.transparent = ##t
+    \tuplet 3/2 { c8[ c c] }
+    \tuplet 3/2 { c8[ c c] }
+  }
 }
 @end lilypond
 
@@ -591,12 +603,12 @@ Komposition demonstriert werden. Hier das Beispiel:
 
 @c Mozart, Die Zauberflöte Nr. 7 Duett
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8 bes[( g]) g |
+  \relative {
+    r4 bes'8 bes[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
   }
@@ -693,14 +705,14 @@ Legatobogen und nahe bei ihm.} Also etwa so:
 @cindex thickness-Eigenschaft, Beispiel
 @cindex Dicke-Eigenschaft, Beispiel
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
+  \relative {
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur.thickness = #5.0
-    r4 bes8 bes[( g]) g |
+    r4 bes'8 bes[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
   }
@@ -809,12 +821,12 @@ Note gestellt, an welcher der Bogen beginnt:
 @cindex Legatobogen, Beispiel zur Veränderung
 @cindex thickness-Eigenschaft, Beispiel
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8
+  \relative {
+    r4 bes'8
     % Increase thickness of immediately following slur only
     \once \override Slur.thickness = #5.0
     bes[( g]) g |
@@ -837,12 +849,12 @@ dessen später den @code{\revert}-Befehl einsetzen, um die
 @cindex Legatobogen, Beispiel zur Veränderung
 @cindex thickness-Eigenschaft, Beispiel
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8
+  \relative {
+    r4 bes'8
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur.thickness = #5.0
     bes[( g]) g |
@@ -967,12 +979,12 @@ bezieht, etwa so:
 @cindex kursiv, Beispiel
 @cindex @code{\addlyrics}, Beispiel
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8 bes[( g]) g |
+  \relative {
+    r4 bes'8 bes[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
   }
@@ -1224,9 +1236,9 @@ die @code{stencil}-Eigenschaft des @code{NoteHead}-Objekts auf
 dessen die @code{point-stencil}-Funktion benutzt werden, welche
 den Stencil auf ein Objekt mit der Größe Null setzt:
 
-@lilypond[quote,verbatim,relative=2]
-{
-  c4 c
+@lilypond[quote,verbatim]
+\relative {
+  c''4 c
   \once \override NoteHead.stencil = #point-stencil
   c4 c
 }
@@ -1291,11 +1303,11 @@ machen, ist also:
 @cindex Taktart, Beispiel zur Veränderung
 @cindex transparent-Eigenschaft, Beispiel
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.TimeSignature.transparent = ##t
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1357,11 +1369,11 @@ weiß zu setzen, können Sie schreiben:
 @cindex Taktlinie, Beispiel zur Veränderung
 @cindex color-Eigenschaft, Beispiel
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.BarLine.color = #white
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1392,11 +1404,11 @@ in interne Werte konvertiert:
 @cindex Taktlinie, Beispiel zur Veränderung
 @cindex color-Eigenschaft, Beispiel
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.BarLine.color = #(x11-color 'white)
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1422,11 +1434,11 @@ würde sein: @code{(rgb-color 1 1 1)}.
 @cindex Taktlinie, Beispiel zur Veränderung
 @cindex color-Eigenschaft, Beispiel
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.BarLine.color = #(rgb-color 1 1 1)
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1452,8 +1464,8 @@ verschiede Grauschattierungen erhalten:
 @cindex NoteHead, Beispiel zur Veränderung
 @cindex Notenkopf, Beispiel zur Veränderung
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.StaffSymbol.color = #(x11-color 'grey30)
   \override Staff.TimeSignature.color = #(x11-color 'grey60)
@@ -1461,7 +1473,7 @@ verschiede Grauschattierungen erhalten:
   \override Voice.NoteHead.color = #(x11-color 'grey85)
   \override Voice.Stem.color = #(x11-color 'grey85)
   \override Staff.BarLine.color = #(x11-color 'grey10)
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -2044,10 +2056,12 @@ Standardmäßig wird der Fingersatz automatisch entweder
 
 @cindex Fingersatz-Beispiel
 
-@lilypond[quote,verbatim,relative=2]
-<c-5 g-3>4
-<c-5 g-3 e-2>4
-<c-5 g-3 e-2 c-1>4
+@lilypond[quote,verbatim]
+\relative {
+  <c''-5 g-3>4
+  <c-5 g-3 e-2>4
+  <c-5 g-3 e-2 c-1>4
+}
 @end lilypond
 
 @noindent
@@ -2056,10 +2070,12 @@ nach oben oder unten zu zwingen:
 
 @cindex Fingersatz-Beispiel
 
-@lilypond[quote,verbatim,relative=2]
-<c-5 g-3 e-2 c-1>4
-<c^5 g_3 e_2 c_1>4
-<c^5 g^3 e^2 c_1>4
+@lilypond[quote,verbatim]
+\relative {
+  <c''-5 g-3 e-2 c-1>4
+  <c^5 g_3 e_2 c_1>4
+  <c^5 g^3 e^2 c_1>4
+}
 @end lilypond
 
 Noch bessere Kontrolle über die Positionierung von Fingersatz für
@@ -2356,12 +2372,12 @@ Tabelle oben festgestellt werden und dann die Priorität für
 @cindex TextScript, Beispiel zur Veränderung
 @cindex outside-staff-priority-Eigenschaft, Beispiel
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-c2^"Text1"
-c2^"Text2" |
+@lilypond[quote,fragment,ragged-right,verbatim]
+c''2^"Text1"
+c''2^"Text2" |
 \once \override TextScript.outside-staff-priority = #500
-c2^"Text3"
-c2^"Text4" |
+c''2^"Text3"
+c''2^"Text4" |
 @end lilypond
 
 Damit wird zwar @qq{Text3} ganz richtig über @qq{Text4}
@@ -2387,12 +2403,12 @@ zugestanden.  Der @code{\textLengthOn}-Befehl ändert
 dieses Verhalten, so dass die Noten gespreizt werden, wenn
 die Breite des Textes es erfordert:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim]
 \textLengthOn  % Cause notes to space out to accommodate text
-c2^"Text1"
-c2^"Text2" |
-c2^"Text3"
-c2^"Text4" |
+c''2^"Text1"
+c''2^"Text2" |
+c''2^"Text3"
+c''2^"Text4" |
 @end lilypond
 
 Dieses Verhalten wird mit dem @code{\textLengthOff}-Befehl
@@ -2413,25 +2429,27 @@ eine Textbeschriftung mit diesen Noten reagiert:
 @cindex Textbeschriftung, Beispiel zur Veränderung
 @cindex outside-staff-priority-Eigenschaft, Beispiel
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-% This markup is short enough to fit without collision
-c2^"Tex" c'' |
-R1 |
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  % This markup is short enough to fit without collision
+  c''2^"Tex" c'' |
+  R1 |
 
-% This is too long to fit, so it is displaced upwards
-c,,2^"Text" c'' |
-R1 |
+  % This is too long to fit, so it is displaced upwards
+  c,,2^"Text" c'' |
+  R1 |
 
-% Turn off collision avoidance
-\once \override TextScript.outside-staff-priority = ##f
-c,,2^"Long Text   " c'' |
-R1 |
+  % Turn off collision avoidance
+  \once \override TextScript.outside-staff-priority = ##f
+  c,,2^"Long Text   " c'' |
+  R1 |
 
-% Turn off collision avoidance
-\once \override TextScript.outside-staff-priority = ##f
-\textLengthOn        % and turn on textLengthOn
-c,,2^"Long Text   "  % Spaces at end are honored
-c''2 |
+  % Turn off collision avoidance
+  \once \override TextScript.outside-staff-priority = ##f
+  \textLengthOn        % and turn on textLengthOn
+  c,,2^"Long Text   "  % Spaces at end are honored
+  c''2 |
+}
 @end lilypond
 
 
@@ -2860,8 +2878,8 @@ zu verkleinern), die über oder unter den Noten gesetzt werden.
 @cindex Verschiebungs-Eigenschaft, Beispiel
 @cindex padding (Verschiebuns-Eigenschaft), Beispiel
 
-@lilypond[quote,fragment,relative=1,verbatim]
-c2\fermata
+@lilypond[quote,fragment,verbatim]
+c'2\fermata
 \override Script.padding = #3
 b2\fermata
 @end lilypond
@@ -2870,15 +2888,15 @@ b2\fermata
 @cindex Verschiebungs-Eigenschaft, Beispiel
 @cindex padding (Verschiebuns-Eigenschaft), Beispiel
 
-@lilypond[quote,fragment,relative=1,verbatim]
+@lilypond[quote,fragment,verbatim]
 % This will not work, see below
 \override MetronomeMark.padding = #3
 \tempo 4 = 120
-c1 |
+c'1 |
 % This works
 \override Score.MetronomeMark.padding = #3
 \tempo 4 = 80
-d1 |
+d'1 |
 @end lilypond
 
 Im zweiten Beispiel können Sie sehen, wie wichtig es ist den richtigen
@@ -3010,8 +3028,8 @@ für Noten und Pausen funktioniert nur für Noten bzw. Pausen, die
 zur selben Zeit auftreten.  Hier ein typisches Beispiel für eine
 Kollision dieser Art:
 
-@lilypond[quote,verbatim,fragment,ragged-right, relative=1]
-<< { c4 c c c } \\ { R1 } >>
+@lilypond[quote,verbatim,ragged-right]
+<< \relative { c'4 c c c } \\ { R1 } >>
 @end lilypond
 
 Die beste Lösung ist es, die Ganztaktpause nach unten zu
@@ -3028,9 +3046,9 @@ d.h. vier halbe Notenlinienabstände weiter nach unten:
 @cindex Ganztaktpausen, Beispiel zur Veränderung
 @cindex staff-position-Eigenschaft, Beispiel
 
-@lilypond[quote,verbatim,fragment,ragged-right, relative=1]
+@lilypond[quote,verbatim,ragged-right]
 <<
-  { c4 c c c }
+  \relative { c'4 c c c }
   \\
   \override MultiMeasureRest.staff-position = #-8
   { R1 }

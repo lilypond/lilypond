@@ -78,8 +78,8 @@ Il @notation{rigo musicale} si crea con i comandi @code{\new} o
 
 Il contesto di base del rigo è @code{Staff}:
 
-@lilypond[verbatim,quote,relative=2]
-\new Staff { c4 d e f }
+@lilypond[verbatim,quote]
+\new Staff \relative { c''4 d e f }
 @end lilypond
 
 Il contesto @code{DrumStaff} crea un rigo di cinque linee impostato
@@ -98,7 +98,7 @@ con un nome.  Ulteriori dettagli in @ref{Percussion staves}.
 soltanto i valori ritmici dell'input.  Le durate reali vengono
 mantenute.  Ulteriori dettagli in @ref{Showing melody rhythms}.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new RhythmicStaff { c4 d e f }
 @end lilypond
 
@@ -106,8 +106,8 @@ mantenute.  Ulteriori dettagli in @ref{Showing melody rhythms}.
 nell'accordatura standard per chitarra.  Ulteriori dettagli
 in @ref{Default tablatures}.
 
-@lilypond[verbatim,quote,relative=2]
-\new TabStaff { c4 d e f }
+@lilypond[verbatim,quote]
+\new TabStaff \relative { c''4 d e f }
 @end lilypond
 
 Ci sono due contesti del rigo specifici per la notazione di musica
@@ -117,8 +117,8 @@ in @ref{Pre-defined contexts}.
 Il contesto @code{GregorianTranscriptionStaff} crea un rigo per
 il canto gregoriano moderno.  Non mostra le stanghette delle battute.
 
-@lilypond[verbatim,quote,relative=2]
-\new GregorianTranscriptionStaff { c4 d e f e d }
+@lilypond[verbatim,quote]
+\new GregorianTranscriptionStaff \relative { c''4 d e f e d }
 @end lilypond
 
 Si possono creare nuovi contesti per un singolo rigo, come è spiegato
@@ -179,40 +179,40 @@ l'inizio del sistema.
 Se non si specifica alcun contesto, vengono usate le proprietà predefinite:
 il gruppo inizia con una linea verticale e le stanghette non sono collegate.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 <<
-  \new Staff { c1 c }
-  \new Staff { c1 c }
+  \new Staff \relative { c''1 c }
+  \new Staff \relative { c''1 c }
 >>
 @end lilypond
 
 Nel contesto @code{StaffGroup}, il gruppo inizia con una parentesi quadra e le
 stanghette attraversano tutti i righi.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new StaffGroup <<
-  \new Staff { c1 c }
-  \new Staff { c1 c }
+  \new Staff \relative { c''1 c }
+  \new Staff \relative { c''1 c }
 >>
 @end lilypond
 
 Nel contesto @code{ChoirStaff}, il gruppo inizia con una parentesi quadra, ma le
 stanghette non sono collegate.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new ChoirStaff <<
-  \new Staff { c1 c }
-  \new Staff { c1 c }
+  \new Staff \relative { c''1 c }
+  \new Staff \relative { c''1 c }
 >>
 @end lilypond
 
 Nel contesto @code{GrandStaff}, il gruppo inizia con una parentesi graffa  e
 le stanghette sono collegate da rigo a rigo.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new GrandStaff <<
-  \new Staff { c1 c }
-  \new Staff { c1 c }
+  \new Staff \relative { c''1 c }
+  \new Staff \relative { c''1 c }
 >>
 @end lilypond
 
@@ -220,11 +220,11 @@ Il contesto @code{PianoStaff} è identico a @code{GrandStaff}, con l'unica
 differenza che permette di mostrare il nome dello strumento direttamente.  Ulteriori
 dettagli in @ref{Instrument names}.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new PianoStaff <<
   \set PianoStaff.instrumentName = #"Piano"
-  \new Staff { c1 c }
-  \new Staff { c1 c }
+  \new Staff \relative { c''1 c }
+  \new Staff \relative { \clef bass c1 c }
 >>
 @end lilypond
 
@@ -296,17 +296,17 @@ I contesti dei gruppi di righi possono essere annidati fino a qualsiasi
 livello.  In questo caso, ogni contesto inferiore crea una nuova parentesi
 accanto alla parentesi del gruppo superiore.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new StaffGroup <<
-  \new Staff { c2 c | c2 c }
+  \new Staff \relative { c''2 c | c2 c }
   \new StaffGroup <<
-    \new Staff { g2 g | g2 g }
+    \new Staff \relative { g'2 g | g2 g }
     \new StaffGroup \with {
       systemStartDelimiter = #'SystemStartSquare
     }
     <<
-      \new Staff { e2 e | e2 e }
-      \new Staff { c2 c | c2 c }
+      \new Staff \relative { e'2 e | e2 e }
+      \new Staff \relative { c'2 c | c2 c }
     >>
   >>
 >>
@@ -429,10 +429,12 @@ I comandi @code{\stopStaff} e @code{\startStaff} servono a fermare o
 (ri)avviare le linee del rigo, per impedire che appaiano in un punto
 della partitura.
 
-@lilypond[verbatim,quote,relative=2]
-\stopStaff f4 d \startStaff g, e
-f'4 d \stopStaff g, e
-f'4 d \startStaff g, e
+@lilypond[verbatim,quote]
+\relative {
+  \stopStaff f''4 d \startStaff g, e
+  f'4 d \stopStaff g, e
+  f'4 d \startStaff g, e
+}
 @end lilypond
 
 @predefined
@@ -447,14 +449,16 @@ il rigo sia (ri)avviato.
 
 Si può cambiare il numero di linee del rigo:
 
-@lilypond[verbatim,quote,relative=2]
-f4 d \stopStaff
-\override Staff.StaffSymbol.line-count = #2
-\startStaff g, e |
+@lilypond[verbatim,quote]
+\relative {
+  f''4 d \stopStaff
+  \override Staff.StaffSymbol.line-count = #2
+  \startStaff g, e |
 
-f'4 d \stopStaff
-\revert Staff.StaffSymbol.line-count
-\startStaff g, e |
+  f'4 d \stopStaff
+  \revert Staff.StaffSymbol.line-count
+  \startStaff g, e |
+}
 @end lilypond
 
 Si può cambiare anche la posizione di ogni linea del rigo.  Un elenco di
@@ -464,13 +468,15 @@ per le altre.  La linea del rigo appare solo se è presente il suo valore,
 quindi questo comando permette di variare anche il numero delle linee,
 oltre alla loro posizione.
 
-@lilypond[verbatim,quote,relative=2]
-f4 d \stopStaff
-\override Staff.StaffSymbol.line-positions = #'(1 3 5 -1 -3)
-\startStaff g, e |
-f'4 d \stopStaff
-\override Staff.StaffSymbol.line-positions = #'(8 6.5 -6 -8 -0.5)
-\startStaff g, e
+@lilypond[verbatim,quote]
+\relative {
+  f''4 d \stopStaff
+  \override Staff.StaffSymbol.line-positions = #'(1 3 5 -1 -3)
+  \startStaff g, e |
+  f'4 d \stopStaff
+  \override Staff.StaffSymbol.line-positions = #'(8 6.5 -6 -8 -0.5)
+  \startStaff g, e |
+}
 @end lilypond
 
 Per conservare le tipiche direzioni dei gambi (nella metà inferiore del
@@ -483,22 +489,24 @@ alle nuove linee.  Si veda @ref{Clef}.
 Si può modificare lo spessore della linea del rigo.  Per impostazione predefinita,
 questa modifica ha effetto anche sui tagli addizionali e sui gambi.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Staff \with {
   \override StaffSymbol.thickness = #3
+} \relative {
+  f''4 d g, e
 }
-{ f4 d g, e }
 @end lilypond
 
 È anche possibile impostare lo spessore dei tagli addizionali in modo
 indipendente dalle linee del rigo.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Staff \with {
   \override StaffSymbol.thickness = #2
   \override StaffSymbol.ledger-line-thickness = #'(0.5 . 0.4)
+} \relative {
+  f'''4 a, a,, f
 }
-{ f'4 a, a,, f }
 @end lilypond
 
 @noindent
@@ -508,22 +516,24 @@ nuovo valore dello spessore del taglio addizionale.
 
 Si possono modificare le posizioni verticali dei tagli addizionali:
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Staff \with {
   \override StaffSymbol.ledger-positions = #'(-3 -2 -1 2 5 6)
+} \relative {
+  f'''4 a, a,, f
 }
-{ f'4 a, a,, f }
 @end lilypond
 
 Si possono far apparire ulteriori tagli addizionali sopra o sotto le
 teste delle note, a seconda della posizione corrente relativa alle
 altre teste, anch'esse con i propri tagli addizionali.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Staff \with {
   \override StaffSymbol.ledger-extra = #4
+} \relative {
+  f'''4 a, d, f,
 }
-{ f'4 a, d, f, }
 @end lilypond
 
 Si possono far apparire i tagli addizionali anche dentro il rigo quando servono
@@ -532,23 +542,26 @@ tagli addizionali quando la proprietà @code{ledger-position} è impostata e
 quando non lo è.  Nell'esempio il comando @code{\stopStaff} serve ad annullare
 il comando @code{\override} per l'oggetto @code{StaffSymbol}.
 
-@lilypond[verbatim,quote,relative=1]
-\override Staff.StaffSymbol.line-positions = #'(-8 0 2 4)
-d4 e f g
-\stopStaff
-\startStaff
-\override Staff.StaffSymbol.ledger-positions = #'(-8 -6 (-4 -2) 0)
-d4 e f g
+@lilypond[verbatim,quote]
+\relative d' {
+  \override Staff.StaffSymbol.line-positions = #'(-8 0 2 4)
+  d4 e f g
+  \stopStaff
+  \startStaff
+  \override Staff.StaffSymbol.ledger-positions = #'(-8 -6 (-4 -2) 0)
+  d4 e f g
+}
 @end lilypond
 
 Si può cambiare la distanza tra le linee del rigo.  Tale modifica ha
 effetto anche sulla spaziatura della linea.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Staff \with {
   \override StaffSymbol.staff-space = #1.5
+} \relative {
+  f'''4 d, g, e,
 }
-{ f'4 d, g, e, }
 @end lilypond
 
 @snippets
@@ -885,12 +898,13 @@ nei contesti @code{Staff}, @code{PianoStaff}, @code{StaffGroup}, @code{GrandStaf
 e @code{ChoirStaff}.  Il valore di @code{instrumentName} viene usato per il
 primo rigo e quello di @code{shortInstrumentName} per tutti i righi successivi.
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
+@lilypond[verbatim,quote,ragged-right]
 \new Staff \with {
   instrumentName = #"Violin "
   shortInstrumentName = #"Vln. "
+} \relative {
+  c'4.. g'16 c4.. g'16 \break | c1 |
 }
-{ c4.. g'16 c4.. g'16 \break | c1 }
 @end lilypond
 
 @cindex nomi degli strumenti, complessi
@@ -898,15 +912,16 @@ primo rigo e quello di @code{shortInstrumentName} per tutti i righi successivi.
 
 Si può usare @code{\markup} per creare nomi più complessi:
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote]
 \new Staff \with {
   instrumentName = \markup {
     \column { "Clarinetti"
       \line { "in B" \smaller \flat }
     }
   }
+} \relative {
+  c''4 c,16 d e f g2
 }
-{ c4 c,16 d e f g2 }
 @end lilypond
 
 @cindex nomi degli strumenti, centrare
@@ -916,20 +931,20 @@ sia quello normale che quello abbreviato, vengono centrati automaticamente.
 Per allineare al centro i nomi degli strumenti che vanno a capo, occorre
 usare @code{\center-column}:
 
-@lilypond[verbatim,quote,indent=1.5\cm,relative=2]
+@lilypond[verbatim,quote,indent=1.5\cm]
 <<
   \new Staff \with {
     instrumentName = #"Flute"
-  }
-  { f2 g4 f }
+  } \relative {
+    f''2 g4 f
+}
   \new Staff \with {
     instrumentName = \markup {
       \center-column { "Clarinet"
         \line { "in B" \smaller \flat }
       }
     }
-  }
-  { c4 b c2 }
+  } \relative { c''4 b c2 }
 >>
 @end lilypond
 
@@ -942,26 +957,22 @@ Ulteriori dettagli su queste impostazioni si trovano in
 @ref{paper variables for shifts and indents,,@code{@bs{}paper} variables for shifts and indents}.
 
 @lilypond[verbatim,quote,ragged-right]
-\relative {
-  <<
-    \new Staff \with {
-      instrumentName = #"Alto Flute in G"
-      shortInstrumentName = #"Flt."
-    }
-    {
-      f''2 g4 f \break
-      g4 f g2
-    }
-    \new Staff \with {
-      instrumentName = #"Clarinet"
-      shortInstrumentName = #"Clar."
-    }
-    {
-      c,4 b c2 \break
-      c2 b4 c
-    }
-  >>
-}
+<<
+  \new Staff \with {
+    instrumentName = #"Alto Flute in G"
+    shortInstrumentName = #"Flt."
+  } \relative {
+    f''2 g4 f \break
+    g4 f g2
+  }
+  \new Staff \with {
+    instrumentName = #"Clarinet"
+    shortInstrumentName = #"Clar."
+  } \relative {
+    c''4 b c2 \break
+    c2 b4 c
+  }
+>>
 
 \layout {
   indent = 3.0\cm
@@ -1244,15 +1255,17 @@ terzine annidate potrebbe produrre una notazione mediocre.
 Il modo più semplice per formattare le notine è creare esplicitamente un
 contesto @code{CueVoice} all'interno della parte.
 
-@lilypond[verbatim,relative=1]
-R1
-<<
-  { e2\rest r4. e8 }
-  \new CueVoice {
-    \stemUp d'8^"flute" c d e fis2
-  }
->>
-d,4 r a r
+@lilypond[verbatim]
+\relative {
+  R1
+  <<
+    { e'2\rest r4. e8 }
+    \new CueVoice {
+      \stemUp d'8^"flute" c d e fis2
+    }
+  >>
+  d,4 r a r
+}
 @end lilypond
 
 Si può usare il comando @code{\cueClef} all'interno di un contesto
@@ -1261,28 +1274,32 @@ questo modo la chiave apparirà nella dimensione giusta per le notine.
 Si può poi usare il comando @code{\cueClefUnset} per tornare alla chiave
 originale, di nuovo nella dimensione giusta.
 
-@lilypond[verbatim,noragged-right,relative=1]
-\clef "bass"
-R1
-<<
-  { e2\rest r4. \cueClefUnset e,8 }
-  \new CueVoice {
-    \cueClef "treble" \stemUp d''8^"flute" c d e fis2
-  }
->>
-d,,4 r a r
+@lilypond[verbatim,noragged-right]
+\relative {
+  \clef "bass"
+  R1
+  <<
+    { e'2\rest r4. \cueClefUnset e,8 }
+    \new CueVoice {
+      \cueClef "treble" \stemUp d''8^"flute" c d e fis2
+    }
+  >>
+  d,,4 r a r
+}
 @end lilypond
 
 I comandi @code{\cueClef} e @code{\cueClefUnset} si possono usare anche
 senza un esplicito contesto @code{CueVoice}.
 
-@lilypond[verbatim,noragged-right,relative=1]
-\clef "bass"
-R1
-\cueClef "treble"
-d'8^"flute" c d e fis2
-\cueClefUnset
-d,,4 r a r
+@lilypond[verbatim,noragged-right]
+\relative {
+  \clef "bass"
+  R1
+  \cueClef "treble"
+  d''8^"flute" c d e fis2
+  \cueClefUnset
+  d,,4 r a r
+}
 @end lilypond
 
 Per posizionamenti complessi delle notine, per esempio includere la

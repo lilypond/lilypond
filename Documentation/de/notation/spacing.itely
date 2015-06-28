@@ -1370,9 +1370,11 @@ weit gespreizt wirken und aufeinander folgende Seiten einen
 Einen manuellen Zeilenumbruch fügt man mit dem Befehl @code{\break}
 ein:
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
-c4 c c c | \break
-c4 c c c |
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  c4 c c c | \break
+  c4 c c c |
+}
 @end lilypond
 
 Normalerweise wird ein @code{\break} in der Mitte eines Takes ignoriert
@@ -1381,11 +1383,13 @@ Taktes zu erzwingen, können Sie mit @code{\bar ""} eine
 unsichtbare Taktlinie hinzufügen, die dann den Zeilenumbruch
 erlaubt.
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
-c4 c c
-\bar "" \break
-c |
-c4 c c c |
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  c4 c c
+  \bar "" \break
+  c |
+  c4 c c c |
+}
 @end lilypond
 
 Ein @code{\break} an einem Taktstrich wird auch ignoriert, wenn der letzte
@@ -1411,10 +1415,12 @@ Genauso werden normalerweise Zeilenumbrüche auch verhindert, wenn Balken
 über die Taktenden hinausragen.  Dieses Verhalten kann verändert werden,
 indem man @code{\override Beam.breakable = ##t} einstellt:
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
-\override Beam.breakable = ##t
-c2. c8[ c | \break
-c8 c] c2. |
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  \override Beam.breakable = ##t
+  c2. c8[ c | \break
+  c8 c] c2. |
+}
 @end lilypond
 
 Mit dem Befehl @code{\noBreak} wird ein Zeilenumbruch an dem
@@ -2767,17 +2773,19 @@ des Systems um den gleichen Platz streiten, wird das mit dem
 geringeren Wert von @code{outside-staff-priority} näher an das
 entsprechende Notensystem gesetzt.
 
-@lilypond[quote,ragged-right,relative=2,verbatim]
-c4_"Text"\pp
-r2.
-\once \override TextScript.outside-staff-priority = #1
-c4_"Text"\pp % this time the text will be closer to the staff
-r2.
-% by setting outside-staff-priority to a non-number,
-% we disable the automatic collision avoidance
-\once \override TextScript.outside-staff-priority = ##f
-\once \override DynamicLineSpanner.outside-staff-priority = ##f
-c4_"Text"\pp % now they will collide
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  c4_"Text"\pp
+  r2.
+  \once \override TextScript.outside-staff-priority = #1
+  c4_"Text"\pp % this time the text will be closer to the staff
+  r2.
+  % by setting outside-staff-priority to a non-number,
+  % we disable the automatic collision avoidance
+  \once \override TextScript.outside-staff-priority = ##f
+  \once \override DynamicLineSpanner.outside-staff-priority = ##f
+  c4_"Text"\pp % now they will collide
+}
 @end lilypond
 
 Der Platz, der zwischen einem Objekt außerhalb des Systems und
@@ -2921,13 +2929,13 @@ mit den Standardwerten und dann mit größeren Werten, damit man sie
 besser sieht:
 
 @lilypond[quote,ragged-right]
-{
-  c'4 e''4 e'4 b'4 |
-  b'4 e''4 b'4 e''4 |
+\fixed c' {
+  c4 e'4 e4 b4 |
+  b4 e'4 b4 e'4 |
   \override Staff.NoteSpacing.stem-spacing-correction = #1.5
   \override Staff.StaffSpacing.stem-spacing-correction = #1.5
-  c'4 e''4 e'4 b'4 |
-  b'4 e''4 b'4 e''4 |
+  c4 e'4 e4 b4 |
+  b4 e'4 b4 e'4 |
 }
 @end lilypond
 

@@ -455,10 +455,10 @@ clave de Fa, mensural
 @tab
 @code{mensural-f}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \clef "mensural-f"
   \override NoteHead.style = #'mensural
-  c1
+  c'1
 @end lilypond
 
 @item
@@ -466,10 +466,10 @@ clave de Sol, mensural
 @tab
 @code{mensural-g}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \clef "mensural-g"
   \override NoteHead.style = #'mensural
-  c1
+  c'1
 @end lilypond
 
 @item
@@ -479,10 +479,10 @@ clave de Do, mensural negra
 @code{blackmensural-c3}, @code{blackmensural-c4},@*
 @code{blackmensural-c5}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \clef "blackmensural-c2"
   \override NoteHead.style = #'mensural
-  c1
+  c'1
 @end lilypond
 
 @item
@@ -491,8 +491,8 @@ clave de Do, neomensural
 @code{neomensural-c1}, @code{neomensural-c2},@*
 @code{neomensural-c3}, @code{neomensural-c4}
 @tab
-@lilypond[relative=1,notime]
-  \clef "neomensural-c2" c1
+@lilypond[fragment,notime]
+  \clef "neomensural-c2" c'1
 @end lilypond
 
 @item
@@ -503,10 +503,10 @@ de la pauta (el ejemplo muestra la clave de Do en segunda)
 @code{petrucci-c3}, @code{petrucci-c4},@*
 @code{petrucci-c5}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \clef "petrucci-c2"
   \override NoteHead.style = #'mensural
-  c1
+  c'1
 @end lilypond
 
 @item
@@ -517,10 +517,10 @@ distintas líneas de la pauta
 @code{petrucci-f3}, @code{petrucci-f4},@*
 @code{petrucci-f5}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \clef "petrucci-f3"
   \override NoteHead.style = #'mensural
-  c1
+  c'1
 @end lilypond
 
 @item
@@ -528,10 +528,10 @@ clave de Sol en el estilo de Petrucci
 @tab
 @code{petrucci-g}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \clef "petrucci-g"
   \override NoteHead.style = #'mensural
-  c1
+  c'1
 @end lilypond
 @end multitable
 
@@ -615,8 +615,8 @@ y @code{mensural}.  La tabla anterior utiliza el estilo
 @code{neomensural}.  Los ejemplos siguientes muestran las diferencias
 que existen entre los estilos:
 
-@lilypond[ragged-right,relative=1,quote]
-{
+@lilypond[ragged-right,quote]
+\relative c' {
   \textLengthOn
 
   \time 2/2
@@ -755,13 +755,15 @@ Utilice la propiedad @code{flag-style} del elemento gráfico
 Aparte del estilo de corchete por defecto @code{default}, sólo está
 contemplado el estilo @code{mensural}
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-\override Flag.style = #'mensural
-\override Stem.thickness = #1.0
-\override NoteHead.style = #'mensural
-\autoBeamOff
-c8 d e f c16 d e f c32 d e f s8
-c'8 d e f c16 d e f c32 d e f
+@lilypond[quote,fragment,ragged-right,verbatim]
+\relative c' {
+  \override Flag.style = #'mensural
+  \override Stem.thickness = #1.0
+  \override NoteHead.style = #'mensural
+  \autoBeamOff
+  c8 d e f c16 d e f c32 d e f s8
+  c'8 d e f c16 d e f c32 d e f
+}
 @end lilypond
 
 Observe que la bandera más interna de cada uno de los corchetes
@@ -903,10 +905,12 @@ estableciendo @code{suggestAccidentals} al valor verdadero.
 
 @funindex suggestAccidentals
 
-@lilypond[verbatim,relative=1]
-fis gis
-\set suggestAccidentals = ##t
-ais bis
+@lilypond[verbatim]
+\relative {
+  fis' gis
+  \set suggestAccidentals = ##t
+  ais bis
+}
 @end lilypond
 
 Esto hará que se traten @emph{todas} las alteraciones siguientes como
@@ -1150,14 +1154,14 @@ Clave de Do, estilo Editio Vaticana
 @code{vaticana-do1}, @code{vaticana-do2},@*
 @code{vaticana-do3}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'vaticana.punctum
   \clef "vaticana-do2"
-  c
+  c'
 @end lilypond
 
 @item
@@ -1165,14 +1169,14 @@ Clave de Fa, estilo Editio Vaticana
 @tab
 @code{vaticana-fa1}, @code{vaticana-fa2}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'vaticana.punctum
   \clef "vaticana-fa2"
-  c
+  c'
 @end lilypond
 
 @item
@@ -1181,14 +1185,14 @@ Clave de Do, estilo Editio Medicaea
 @code{medicaea-do1}, @code{medicaea-do2},@*
 @code{medicaea-do3}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'medicaea.punctum
   \clef "medicaea-do2"
-  c
+  c'
 @end lilypond
 
 @item
@@ -1196,14 +1200,14 @@ Clave de Fa, estilo Editio Medicaea
 @tab
 @code{medicaea-fa1}, @code{medicaea-fa2}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'medicaea.punctum
   \clef "medicaea-fa2"
-  c
+  c'
 @end lilypond
 
 @item
@@ -1212,14 +1216,14 @@ Clave de Do, estilo hufnagel
 @code{hufnagel-do1}, @code{hufnagel-do2},@*
 @code{hufnagel-do3}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-do2"
-  c
+  c'
 @end lilypond
 
 @item
@@ -1227,14 +1231,14 @@ Clave de Fa, estilo hufnagel
 @tab
 @code{hufnagel-fa1}, @code{hufnagel-fa2}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \override Staff.StaffSymbol.line-count = #4
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-fa2"
-  c
+  c'
 @end lilypond
 
 @item
@@ -1242,13 +1246,13 @@ Clave combinada de Do y Fa, estilo hufnagel
 @tab
 @code{hufnagel-do-fa}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \override Staff.StaffSymbol.color = #red
   \override Staff.LedgerLineSpanner.color = #red
   \hide Voice.Stem
   \override NoteHead.style = #'hufnagel.punctum
   \clef "hufnagel-do-fa"
-  c
+  c'
 @end lilypond
 @end multitable
 
@@ -2502,10 +2506,10 @@ en Galitzia para la notación del canto llano ruteno.
 En la notación kievana solamente se utiliza una clave (la clave
 Tse-fa-ut).  Se utiliza para indicar la posición del Do:
 
-@lilypond[quote,relative=1,notime,verbatim]
+@lilypond[quote,fragment,notime,verbatim]
   \clef "kievan-do"
   \kievanOn
-  c
+  c'
 @end lilypond
 
 @seealso
@@ -2577,11 +2581,11 @@ el becuadro en la notación kievana.  El símbolo del sostenido no se
 utiliza en la música sinodal pero puede aparecer en manuscritos más
 antiguos.  Se ha incluido principalmente a efectos de compatibilidad.
 
-@lilypond[quote,relative=1,notime,verbatim]
+@lilypond[quote,fragment,notime,verbatim]
 \clef "kievan-do"
 \override Accidental.glyph-name-alist =
  #alteration-kievan-glyph-name-alist
-bes' dis,
+bes' dis'
 @end lilypond
 
 @seealso
@@ -2602,10 +2606,10 @@ Normalmente se coloca una figura decorativa al final de una pieza de
 notación kievana, que puede denominarse como «doble barra final del
 canto kievano».  Se puede invocar como @code{\bar "k"}.
 
-@lilypond[quote,relative=1,notime,verbatim]
+@lilypond[quote,fragment,notime,verbatim]
   \kievanOn
   \clef "kievan-do"
-  c \bar "k"
+  c' \bar "k"
 @end lilypond
 
 @seealso

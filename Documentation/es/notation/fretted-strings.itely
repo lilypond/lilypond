@@ -109,10 +109,10 @@ Referencia de la notación:
 Se puede indicar la cuerda en que se debe tocar una nota añadiendo
 @code{\}@tie{}@var{número} a una nota.
 
-@lilypond[verbatim,quote,relative=0]
+@lilypond[verbatim,quote,fragment]
 \clef "treble_8"
 c4\5 e\4 g2\3
-<c,\5 e\4 g\3>1
+<c\5 e\4 g\3>1
 @end lilypond
 
 Cuando se usan al mismo tiempo digitaciones e indicaciones del número
@@ -122,7 +122,7 @@ dentro de un acorde explícito: aplicado a acordes completos o notas
 individuales @emph{fuera} de acordes, las digitaciones se colocan
 usando un mecanismo distinto.
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
 \clef "treble_8"
 g4\3-0
 g-0\3
@@ -1662,14 +1662,14 @@ usando @code{\rightHandFinger} seguido de un número.
 escribir al final un espacio seguido de un ángulo de cierre @code{>} o
 similar.}
 
-@lilypond[quote,verbatim,relative=0]
+@lilypond[quote,verbatim,fragment]
 \clef "treble_8"
 c4\rightHandFinger #1
 e\rightHandFinger #2
 g\rightHandFinger #3
-c\rightHandFinger #4
-<c,\rightHandFinger #1 e\rightHandFinger #2
- g\rightHandFinger #3 c\rightHandFinger #4 >1
+c'\rightHandFinger #4
+<c\rightHandFinger #1 e\rightHandFinger #2
+ g\rightHandFinger #3 c'\rightHandFinger #4 >1
 @end lilypond
 
 Por brevedad, se puede escribir @code{\rightHandFinger} como algo más
@@ -1728,14 +1728,16 @@ experiencia, un tipografiador como GuitarTeX.
 Este ejemplo muestra cómo incluir indicaciones de posición y cejilla
 de guitarra:
 
-@lilypond[quote,ragged-right,verbatim,relative=0]
-\clef "treble_8"
-b16 d g b e
-\textSpannerDown
-\override TextSpanner.bound-details.left.text = #"XII "
-g16\startTextSpan
-b16 e g e b g\stopTextSpan
-e16 b g d
+@lilypond[quote,ragged-right,verbatim,fragment]
+\relative {
+  \clef "treble_8"
+  b,16 d g b e
+  \textSpannerDown
+  \override TextSpanner.bound-details.left.text = #"XII "
+  g16\startTextSpan
+  b16 e g e b g\stopTextSpan
+  e16 b g d
+}
 @end lilypond
 
 @seealso

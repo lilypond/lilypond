@@ -672,11 +672,11 @@ Es gibt fünf Arten, auf die ein Melisma angezeigt werden kann:
 @item
 Melismen werden automatisch zu Noten erstellt, die übergebunden sind:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
-    f4 g2 ~ |
+    f''4 g2 ~ |
     4 e2 ~ |
     8
   }
@@ -691,11 +691,11 @@ Melismen können automatisch aus den Noten erstellt werden, indem man Legatobög
 über den Noten eines Melismas notiert.  Auf diese Weise wird Gesangstext
 üblicherweise notiert:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
-    f4 g8 ( f e f )
+    f''4 g8 ( f e f )
     e8 ( d e2 )
   }
   \new Lyrics \lyricsto "melody" {
@@ -712,12 +712,12 @@ Noten werden als ein Melisma betrachtet, wenn sie manuell mit einem Balken
 versehen werden, vorausgesetzt, dass die automatische Bebalkung ausgeschaltet
 ist. Siehe @ref{Einstellung von automatischen Balken}.
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
     \autoBeamOff
-    f4 g8[ f e f]
+    f''4 g8[ f e f]
     e2.
   }
   \new Lyrics \lyricsto "melody" {
@@ -734,11 +734,11 @@ Eine Gruppe von Noten ohne Legatobogen werden als Melisma betrachtet,
 wenn sie zwischen @code{\melisma} und @code{\melismaEnd} eingeschlossen
 sind:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
-    f4 g8
+    f''4 g8
     \melisma
     f e f
     \melismaEnd
@@ -755,11 +755,11 @@ Ein Melisma kann auch ausschließlich im Gesangstext notiert werden, indem man
 einzlene Unterstriche (@code{_}) für jede Note eingibt, die zum Melisma
 hinzugefügt werden soll.
 
-@lilypond[verbatim, quote, relative=2]
+@lilypond[verbatim, quote]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
-    f4 g8 f e f
+    f''4 g8 f e f
     e8 d e2
   }
   \new Lyrics \lyricsto "melody" {
@@ -774,12 +774,12 @@ Man kann durchaus auch Binde- und Legatobögen sowie manuelle Balken
 benutzen, ohne dass sie Melismen bezeichnen, wenn
 @code{melismaBusyProperties} aufgerufen wird:
 
-@lilypond[relative=1,verbatim,quote]
+@lilypond[verbatim,quote]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
     \set melismaBusyProperties = #'()
-    c4 d ( e )
+    c'4 d ( e )
     g8 [ f ] f4 ~ 4
   }
   \new Lyrics \lyricsto "melody" {
@@ -802,12 +802,12 @@ Wenn ein Melisma während einer Passage benötigt wird, in der
 einzelnen Unterstrich im Gesangstext für jede Note des Melismas
 angegeben werden:
 
-@lilypond[relative=1,verbatim,quote]
+@lilypond[verbatim,quote]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
     \set melismaBusyProperties = #'()
-    c4 d ( e )
+    c'4 d ( e )
     g8 [ f ] ~ 4 ~ f
   }
   \new Lyrics \lyricsto "melody" {
@@ -1132,8 +1132,8 @@ Um den Abstand zwischen Silben zu vergrößern, kann die
 @code{minimum-distance}-Eigenschaft des
 @code{LyricSpace}-Objekts gesetzt werden:
 
-@lilypond[relative=1,verbatim,quote,ragged-right]
-{
+@lilypond[verbatim,quote,ragged-right]
+\relative c' {
   c c c c
   \override Lyrics.LyricSpace.minimum-distance = #1.0
   c c c c
@@ -1712,9 +1712,9 @@ anhängt:
 
 Strophennummerierung kann hinzugefügt werden:
 
-@lilypond[quote,ragged-right,verbatim,relative=2]
-\new Voice {
-  \time 3/4 g2 e4 a2 f4 g2.
+@lilypond[quote,ragged-right,verbatim]
+\new Voice \relative {
+  \time 3/4 g'2 e4 a2 f4 g2.
 } \addlyrics {
   \set stanza = #"1. "
   Hi, my name is Bert.
@@ -1800,9 +1800,9 @@ der Zeile gesetzt, ähnlich wie eine Instrumentenbezeichnung.  Sie
 werden mit der @code{vocalName}-Eigenschaft erstellt.  Eine Kurzversion
 kann mit @code{shortVocalName} definiert werden.
 
-@lilypond[ragged-right,quote,verbatim,relative=2]
-\new Voice {
-  \time 3/4 g2 e4 a2 f4 g2.
+@lilypond[ragged-right,quote,verbatim]
+\new Voice \relative {
+  \time 3/4 g'2 e4 a2 f4 g2.
 } \addlyrics {
   \set vocalName = #"Bert "
   Hi, my name is Bert.
@@ -2537,16 +2537,18 @@ Abschnitt von der Figur gesungen werden soll.  Das kann man mit
 Textbeschriftungen vornehmen.  Oft wird eine bestimmte Schriftart
 hierfür benutzt.
 
-@lilypond[quote,verbatim,relative=1]
-\clef "G_8"
-c4^\markup \fontsize #1 \smallCaps Kaspar
-c c c
-\clef "bass"
-a4^\markup \fontsize #1 \smallCaps Melchior
-a a a
-\clef "G_8"
-c4^\markup \fontsize #1 \smallCaps Kaspar
-c c c
+@lilypond[quote,verbatim]
+\relative c' {
+  \clef "G_8"
+  c4^\markup \fontsize #1 \smallCaps Kaspar
+  c c c
+  \clef "bass"
+  a4^\markup \fontsize #1 \smallCaps Melchior
+  a a a
+  \clef "G_8"
+  c4^\markup \fontsize #1 \smallCaps Kaspar
+  c c c
+}
 @end lilypond
 
 Wenn sehr viele Figurenwechsel vorkommen, kann es auch einfacher
@@ -2764,10 +2766,12 @@ Dialoge zur Musik wird üblicherweise über den Notensystemen gesetzt,
 meistens in kursiver Schrift, wobei der Beginn der Phrasen mit einem
 musikalischen Moment verklammert ist.
 
-@lilypond[quote,verbatim,relative=2]
-a4^\markup { \smallCaps { Alex - } \italic { He's gone } } a a a
-a4 a a^\markup { \smallCaps { Bethan - } \italic Where? } a
-a4 a a a
+@lilypond[quote,verbatim]
+\relative {
+  a'4^\markup { \smallCaps { Alex - } \italic { He's gone } } a a a
+  a4 a a^\markup { \smallCaps { Bethan - } \italic Where? } a
+  a4 a a a
+}
 @end lilypond
 
 Für längere Abschnitt kann es nötig sein, die Noten zu dehnen, damit
@@ -2952,34 +2956,38 @@ als Kadenz notiert werdne.  Wenn der Abschnitt lang ist, müssen
 unsichtbare Taktstriche mit @code{\bar ""} eingefügt werden, wo
 Zeilenumbrüche stattfinden sollen.
 
-@lilypond[verbatim,quote,relative=2]
-a4 b c2 |
-\cadenzaOn
-a4 b c2
-a4 b c2
-\bar ""
-a4 b c2
-a4 b c2
-\cadenzaOff
-a4 b c2 |
-a4 b c2 |
+@lilypond[verbatim,quote]
+\relative a' {
+  a4 b c2 |
+  \cadenzaOn
+  a4 b c2
+  a4 b c2
+  \bar ""
+  a4 b c2
+  a4 b c2
+  \cadenzaOff
+  a4 b c2 |
+  a4 b c2 |
+}
 @end lilypond
 
 Pausen können als modifizierte Taktlinien notiert werden:
 
-@lilypond[verbatim, quote,relative=2]
-a4
-\cadenzaOn
-b c2
-a4 b c2
-\bar "'"
-a4 b c2
-a4 b c2
-\bar ";"
-a4 b c2
-\bar "!"
-a4 b c2
-\bar "||"
+@lilypond[verbatim, quote]
+\relative a' {
+  a4
+  \cadenzaOn
+  b c2
+  a4 b c2
+  \bar "'"
+  a4 b c2
+  a4 b c2
+  \bar ";"
+  a4 b c2
+  \bar "!"
+  a4 b c2
+  \bar "||"
+}
 @end lilypond
 
 Alternativ werden die Pausenzeichen der Notation des Gregorianischen Chorals
