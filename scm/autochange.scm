@@ -4,7 +4,7 @@
 ;; autochange.scm - fairly related to part combining.
 
 (define-public (make-autochange-music music)
-  (define (generate-split-list change-moment event-list acc)
+  (define (generate-split-list change-moment prev-dir event-list acc)
     (if (null? event-list)
         acc
         (let* ((now-tun (caar event-list))
@@ -15,19 +15,23 @@
                               evs))
                (pitch (if (pair? notes)
                           (ly:event-property (car notes) 'pitch)
-                          #f)))
+                          #f))
+               (dir (if pitch (sign (ly:pitch-steps pitch)) 0)))
           ;; tail recursive.
-          (if (and pitch (not (= (ly:pitch-steps pitch) 0)))
+          (if (and (not (= dir 0))
+                   (not (= dir prev-dir)))
               (generate-split-list #f
+                                   dir
                                    (cdr event-list)
                                    (cons (cons
 
                                           (if change-moment
                                               change-moment
                                               now)
-                                          (sign (ly:pitch-steps pitch))) acc))
+                                          (if (< dir 0) "down" "up")) acc))
               (generate-split-list
                (if pitch #f now)
+               dir
                (cdr event-list) acc)))))
 
   (let* ((m (make-music 'AutoChangeMusic))
@@ -38,6 +42,7 @@
          (rev (reverse! (cdar context-list)))
          (split (reverse! (generate-split-list
                            #f
+                           0
                            rev
                            '())
                           '())))

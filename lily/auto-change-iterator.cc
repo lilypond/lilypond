@@ -36,15 +36,11 @@ protected:
   virtual void process (Moment);
 private:
   SCM split_list_;
-  Direction where_dir_;
 };
 
 void
 Auto_change_iterator::process (Moment m)
 {
-  // TODO: It seems strange that this occurs before consulting the split list.
-  Music_wrapper_iterator::process (m);
-
   Moment *splitm = 0;
 
   for (; scm_is_pair (split_list_); split_list_ = scm_cdr (split_list_))
@@ -53,28 +49,18 @@ Auto_change_iterator::process (Moment m)
       if (*splitm > m)
         break;
 
-      SCM tag = scm_cdar (split_list_);
-      Direction d = to_dir (tag);
-
-      if (d && d != where_dir_)
-        {
-          // TODO: The function of where_dir_ in choosing the direction should
-          // be built into split-list generation so that this iterator merely
-          // effects a sequence of context changes.
-          where_dir_ = d;
-          string to_id = (d >= 0) ? "up" : "down";
-          // N.B. change_to() returns an error message. Silence is the legacy
-          // behavior here, but maybe that should be changed.
-          Change_iterator::change_to (*child_iter_,
-                                      ly_symbol2scm ("Staff"),
-                                      to_id);
-        }
+      // N.B. change_to() returns an error message. Silence is the legacy
+      // behavior here, but maybe that should be changed.
+      Change_iterator::change_to (*child_iter_,
+                                  ly_symbol2scm ("Staff"),
+                                  ly_scm2string (scm_cdar (split_list_)));
     }
+
+  Music_wrapper_iterator::process (m);
 }
 
 Auto_change_iterator::Auto_change_iterator ()
 {
-  where_dir_ = CENTER;
   split_list_ = SCM_EOL;
 }
 
