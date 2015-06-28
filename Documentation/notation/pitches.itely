@@ -1894,12 +1894,10 @@ musicB = {
 
 @funindex modern-cautionary
 
-This rule is similar to @code{modern}, but the @q{extra}
-accidentals (the ones not typeset by @code{default}) are typeset
-as cautionary accidentals.  They are by default printed with
-parentheses, but they can also be printed in reduced size by
-defining the @code{cautionary-style} property of
-@code{AccidentalSuggestion}.
+This rule is similar to @code{modern}, but the @q{extra} accidentals
+are printed as cautionary accidentals (with parentheses).  They can also
+be printed at a different size by overriding
+@code{AccidentalCautionary}'s @code{font-size} property.
 
 @lilypond[quote]
 musicA = {
@@ -2267,8 +2265,10 @@ musicB = {
 
 @funindex neo-modern-cautionary
 
-This rule is similar to @code{neo-modern}, but the extra
-accidentals are printed as cautionary accidentals.
+This rule is similar to @code{neo-modern}, but the @q{extra} accidentals
+are printed as cautionary accidentals (with parentheses).  They can also
+be printed at a different size by overriding
+@code{AccidentalCautionary}'s @code{font-size} property.
 
 @lilypond[quote]
 musicA = {
