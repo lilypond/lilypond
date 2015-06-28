@@ -634,7 +634,8 @@ In LilyPond-invoerbestanden wordt muziek gerepresenteerd
 door @emph{muziekuitdrukkingen}.  Een enkele noot is een
 muziekuitdrukking:
 
-@lilypond[verbatim,quote,relative=2] a4
+@lilypond[verbatim,quote,fragment]
+a'4
 @end lilypond
 
 Een noot tussen accolades zetten maakt er een

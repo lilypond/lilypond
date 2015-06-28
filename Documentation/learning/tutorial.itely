@@ -214,6 +214,16 @@ Music Glossary: @rglos{pitch}, @rglos{interval},
 @rglos{scale}, @rglos{middle C}, @rglos{octave},
 @rglos{accidental}.
 
+LilyPond uses lower-case letters for pitches.  The letters
+@code{c} through@tie{}@code{b} denote pitches in the
+@q{small octave} below @notation{middle C}.  Added @code{'}
+or@tie{}@code{,} suffixes indicate higher or lower octaves.
+Here is a scale starting on @notation{middle C}, and an arpeggio:
+
+@lilypond[verbatim,quote]
+{ c' d' e' f' g' a' b' c'' g c' e' g' c'' e'' g'' c''' }
+@end lilypond
+
 The easiest way to enter notes is by using @code{\relative} mode.
 In this mode, the octave is chosen automatically by assuming the
 following note is always to be placed closest to the previous
@@ -693,17 +703,6 @@ form of @code{@bs{}relative} with an explicit starting pitch
   @dots{}example goes here@dots{}
 @}
 @end example
-
-Why omit the braces?  Most examples in this manual can be inserted
-into the middle of a longer piece of music.  For these examples,
-it does not make sense to add
-@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}} -- you should not
-place a @code{\relative} inside another @code{\relative}!  If we
-included @q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}} around
-every example, you would not be able to copy a small documentation
-example and paste it inside a longer piece of your own.  Most
-people want to add material to an existing piece, so we format the
-manual this way.
 
 Also, remember that every LilyPond file should have a
 @code{\version} statement.  Because the examples in the manuals

@@ -1419,13 +1419,13 @@ above the music.  More information on titling can be found in
 @cindex pitches, absolute values
 @cindex absolute note names
 
-So far we have always used @code{\relative} to define pitches.
+So far we have used @code{\relative} to define pitches.
 This is usually the fastest way to enter most music.  Without
 @code{\relative}, pitches are interpreted in absolute mode.
 
 In this mode, LilyPond treats all pitches as absolute values.  A
-@code{c'} will always mean middle C, a @code{b} will always mean
-the note one step below middle C, and a @code{g,} will always mean
+@code{c'} will always mean middle@tie{}C, a @code{b} will always mean
+the note one step below middle@tie{}C, and a @code{g,} will always mean
 the note on the bottom staff of the bass clef.
 
 @lilypond[verbatim,quote]

@@ -410,14 +410,7 @@ or
 @@lilypond[verbatim,quote,relative=2]
 @end example
 
-If using any combination of @code{\header@{@}}, @code{\score@{@}} or
-@code{\layout@{@}} in your example, then you must omit the
-@code{relative} variable and either use absolute entry mode or an
-explicit @code{\relative@{@}} construction.
-
-If using @code{\book@{@}} in your example then you must also omit the
-@code{relative} variable and either use absolute entry mode or an
-explicit @code{\relative@{@}} construction.  However, you must also
+If using @code{\book@{@}} in your example then you must also
 include the @code{papersize=X} variable, where @code{X} is a defined
 paper size from within @file{scm/paper.scm}.  This is to avoid the
 default @code{a4} paper size being used and leaving too much unnecessary
