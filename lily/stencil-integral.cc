@@ -34,7 +34,6 @@ when this transforms a point (x,y), the point is written as matrix:
 */
 
 #include <pango/pango-matrix.h>
-#include <complex>
 #include "box.hh"
 #include "bezier.hh"
 #include "dimensions.hh"
@@ -60,7 +59,9 @@ using namespace std;
 
 Real QUANTIZATION_UNIT = 0.2;
 
-void create_path_cap (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings, PangoMatrix trans, Offset pt, Real rad, Real slope, Direction d);
+void create_path_cap (vector<Box> &boxes,
+                      vector<Drul_array<Offset> > &buildings,
+                      PangoMatrix trans, Offset pt, Real rad, Offset dir);
 
 struct Transform_matrix_and_expression
 {
@@ -147,14 +148,13 @@ get_path_list (SCM l)
   return SCM_BOOL_F;
 }
 
-Real
-perpendicular_slope (Real s)
+// Gets an orthogonal vector with same size to orig, pointing left
+// (in the complex domain, a multiplication by i)
+
+Offset
+get_normal (Offset orig)
 {
-  if (s == 0.0)
-    return infinity_f;
-  if (s == infinity_f)
-    return 0.0;
-  return -1.0 / s;
+  return Offset (-orig[Y_AXIS], orig[X_AXIS]);
 }
 
 //// END UTILITY FUNCTIONS
@@ -180,7 +180,7 @@ make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings
   Real x1 = robust_scm2double (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
   Real y1 = robust_scm2double (scm_car (expr), 0.0);
-  Real slope = x1 == x0 ? infinity_f : (y1 - y0) / (x1 - x0);
+
   //////////////////////
   if (x1 < x0)
     {
@@ -189,11 +189,13 @@ make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings
     }
   Offset left (x0, y0);
   Offset right (x1, y1);
+  Offset dir = (right - left).direction ();
   Direction d = DOWN;
   do
     {
-      Offset inter_l = get_point_in_y_direction (left, perpendicular_slope (slope), thick / 2, d);
-      Offset inter_r = get_point_in_y_direction (right, perpendicular_slope (slope), thick / 2, d);
+      Offset outward = d * get_normal ((thick / 2) * dir);
+      Offset inter_l = left + outward;
+      Offset inter_r = right + outward;
       pango_matrix_transform_point (&trans, &inter_l[X_AXIS], &inter_l[Y_AXIS]);
       pango_matrix_transform_point (&trans, &inter_r[X_AXIS], &inter_r[Y_AXIS]);
       if ((inter_l[X_AXIS] == inter_r[X_AXIS]) || (inter_l[Y_AXIS] == inter_r[Y_AXIS]))
@@ -207,11 +209,7 @@ make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings
         buildings.push_back (Drul_array<Offset> (inter_l, inter_r));
       else
         {
-          Offset inter_l = get_point_in_y_direction (left, perpendicular_slope (slope), thick / 2, d);
-          Offset inter_r = get_point_in_y_direction (right, perpendicular_slope (slope), thick / 2, d);
-          pango_matrix_transform_point (&trans, &inter_l[X_AXIS], &inter_l[Y_AXIS]);
-          pango_matrix_transform_point (&trans, &inter_r[X_AXIS], &inter_r[Y_AXIS]);
-          Real length = sqrt (((inter_l[X_AXIS] - inter_r[X_AXIS]) * (inter_l[X_AXIS] - inter_r[X_AXIS])) + ((inter_l[Y_AXIS] - inter_r[Y_AXIS]) * (inter_l[Y_AXIS] - inter_r[Y_AXIS])));
+          Real length = (inter_l - inter_r).length ();
 
           vsize passes = (vsize) ((length * 2) + 1);
           vector<Offset> points;
@@ -220,7 +218,7 @@ make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings
             {
               Offset pt (linear_map (x0, x1, 0, passes, i),
                          linear_map (y0, y1, 0, passes, i));
-              Offset inter = get_point_in_y_direction (pt, perpendicular_slope (slope), thick / 2, d);
+              Offset inter = pt + outward;
               pango_matrix_transform_point (&trans, &inter[X_AXIS], &inter[Y_AXIS]);
               points.push_back (inter);
             }
@@ -241,19 +239,17 @@ make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings
       create_path_cap (boxes,
                        buildings,
                        trans,
-                       Offset (x0, y0),
+                       left,
                        thick / 2,
-                       perpendicular_slope (slope),
-                       Direction (sign (slope)));
+                       -dir);
 
       // end line cap
       create_path_cap (boxes,
                        buildings,
                        trans,
-                       Offset (x1, y1),
+                       right,
                        thick / 2,
-                       perpendicular_slope (slope),
-                       Direction (sign (-slope)));
+                       dir);
     }
 }
 
@@ -278,10 +274,8 @@ make_partial_ellipse_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &bui
   end = M_PI * end / 180;
   if (end == start)
     end += (2 * M_PI);
-  complex<Real> sunit = polar (1.0, start);
-  complex<Real> eunit = polar (1.0, end);
-  Offset sp (real (sunit) * x_rad, imag (sunit) * y_rad);
-  Offset ep (real (eunit) * x_rad, imag (eunit) * y_rad);
+  Offset sp (cos (start) * x_rad, sin (start) * y_rad);
+  Offset ep (cos (end) * x_rad, sin (end) * y_rad);
   //////////////////////
   Drul_array<vector<Offset> > points;
   Direction d = DOWN;
@@ -291,11 +285,8 @@ make_partial_ellipse_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &bui
       for (vsize i = 0; i < 1 + (vsize) quantization; i++)
         {
           Real ang = linear_map (start, end, 0, quantization, i);
-          complex<Real> coord = polar (1.0, ang);
-          Offset pt (real (coord) * x_rad,
-                     imag (coord) * y_rad);
-          Real slope = pt[Y_AXIS] / pt[X_AXIS];
-          Offset inter = get_point_in_y_direction (pt, perpendicular_slope (slope), th / 2, d);
+          Offset pt (cos (ang) * x_rad, sin (ang) * y_rad);
+          Offset inter = pt + d * get_normal ((th/2) * pt.direction ());
           pango_matrix_transform_point (&trans, &inter[X_AXIS], &inter[Y_AXIS]);
           points[d].push_back (inter);
         }
@@ -327,30 +318,22 @@ make_partial_ellipse_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &bui
   if (th > 0.0)
     {
       // beg line cap
-      complex<Real> coord = polar (1.0, start);
-      Offset pt (real (coord) * x_rad,
-                 imag (coord) * y_rad);
-      Real slope = pt[Y_AXIS] / pt[X_AXIS];
+      Offset pt (cos (start) * x_rad, sin (start) * y_rad);
       create_path_cap (boxes,
                        buildings,
                        trans,
                        pt,
                        th / 2,
-                       perpendicular_slope (slope),
-                       Direction (sign (slope)));
+                       -get_normal (pt));
 
       // end line cap
-      coord = polar (1.0, start);
-      pt = Offset (real (coord) * x_rad,
-                   imag (coord) * y_rad);
-      slope = pt[Y_AXIS] / pt[X_AXIS];
+      pt = Offset (cos (end) * x_rad, sin (end) * y_rad);
       create_path_cap (boxes,
                        buildings,
                        trans,
                        pt,
                        th / 2,
-                       perpendicular_slope (slope),
-                       Direction (sign (-slope)));
+                       get_normal (pt));
     }
 }
 
@@ -379,26 +362,18 @@ make_round_filled_box_boxes (vector<Box> &boxes, PangoMatrix trans, SCM expr)
 }
 
 void
-create_path_cap (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings, PangoMatrix trans, Offset pt, Real rad, Real slope, Direction d)
+create_path_cap (vector<Box> &boxes,
+                 vector<Drul_array<Offset> > &buildings,
+                 PangoMatrix trans, Offset pt, Real rad, Offset dir)
 {
-  Real angle = atan (slope) * 180 / M_PI;
-  Real other = angle > 180 ? angle - 180 : angle + 180;
-  if (angle < other)
-    {
-      Real holder = other;
-      other = angle;
-      angle = holder;
-    }
-  other = (slope >= 0 && d == DOWN) || (slope < 0 && d == UP)
-          ? other + 360.0
-          : other;
+  Real angle = dir.angle_degrees ();
   PangoMatrix new_trans (trans);
   pango_matrix_translate (&new_trans, pt[X_AXIS], pt[Y_AXIS]);
   make_partial_ellipse_boxes (boxes, buildings, new_trans,
                               scm_list_n (scm_from_double (rad),
                                           scm_from_double (rad),
-                                          scm_from_double (angle),
-                                          scm_from_double (other),
+                                          scm_from_double (angle-90),
+                                          scm_from_double (angle+90),
                                           scm_from_double (0.0),
                                           SCM_BOOL_F,
                                           SCM_BOOL_F,
@@ -448,17 +423,20 @@ make_draw_bezier_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildin
                           / QUANTIZATION_UNIT);
   do
     {
-      Offset first = get_point_in_y_direction (curve.control_[0], perpendicular_slope (curve.slope_at_point (0.0)), th / 2, d);
+      Offset first = curve.control_[0]
+        + d * get_normal ((th / 2) * curve.dir_at_point (0.0));
       pango_matrix_transform_point (&trans, &first[X_AXIS], &first[Y_AXIS]);
       points[d].push_back (first);
       for (vsize i = 1; i < (vsize) quantization; i++)
         {
           Real pt = (i * 1.0) / quantization;
-          Offset inter = get_point_in_y_direction (curve.curve_point (pt), perpendicular_slope (curve.slope_at_point (pt)), th / 2, d);
+          Offset inter = curve.curve_point (pt)
+            + d * get_normal ((th / 2) *curve.dir_at_point (pt));
           pango_matrix_transform_point (&trans, &inter[X_AXIS], &inter[Y_AXIS]);
           points[d].push_back (inter);
         }
-      Offset last = get_point_in_y_direction (curve.control_[3], curve.slope_at_point (1.0), th / 2, d);
+      Offset last = curve.control_[3]
+        + d * get_normal ((th / 2) * curve.dir_at_point (1.0));
       pango_matrix_transform_point (&trans, &last[X_AXIS], &last[Y_AXIS]);
       points[d].push_back (last);
     }
@@ -476,35 +454,23 @@ make_draw_bezier_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildin
       boxes.push_back (b);
     }
 
-  // beg line cap
   if (th >= 0)
     {
-      Real slope = curve.slope_at_point (0.0);
-      d = Direction (sign (slope == 0.0 || abs (slope) == infinity_f
-                           ? curve.slope_at_point (0.0001)
-                           : slope));
-
+      // beg line cap
       create_path_cap (boxes,
                        buildings,
                        trans,
                        curve.control_[0],
                        th / 2,
-                       perpendicular_slope (curve.slope_at_point (0.0)),
-                       d);
+                       -curve.dir_at_point (0.0));
 
       // end line cap
-      slope = curve.slope_at_point (1.0);
-      d = Direction (sign (slope == 0.0 || abs (slope) == infinity_f
-                           ? curve.slope_at_point (0.9999)
-                           : slope));
-
       create_path_cap (boxes,
                        buildings,
                        trans,
                        curve.control_[3],
                        th / 2,
-                       perpendicular_slope (curve.slope_at_point (1.0)),
-                       d);
+                       curve.dir_at_point (1.0));
     }
 }
 

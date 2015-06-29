@@ -140,8 +140,9 @@ Bezier::curve_point (Real t) const
   return o;
 }
 
-Real
-Bezier::slope_at_point (Real t) const
+// The return value is normalized unless zero or indefinite.
+Offset
+Bezier::dir_at_point (Real t) const
 {
   Offset second_order[3];
   Offset third_order[2];
@@ -152,10 +153,7 @@ Bezier::slope_at_point (Real t) const
   for (vsize i = 0; i < 2; i++)
     third_order[i] = ((second_order[i + 1] - second_order[i]) * t) + second_order[i];
 
-  if (third_order[1][X_AXIS] - third_order[0][X_AXIS] == 0)
-    return infinity_f;
-
-  return (third_order[1][Y_AXIS] - third_order[0][Y_AXIS]) / (third_order[1][X_AXIS] - third_order[0][X_AXIS]);
+  return (third_order[1] - third_order[0]).direction ();
 }
 
 /*
