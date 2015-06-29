@@ -90,8 +90,7 @@ Offset::angle_degrees () const
 Real
 Offset::length () const
 {
-  return sqrt (sqr (coordinate_a_[X_AXIS])
-               + sqr (coordinate_a_[Y_AXIS]));
+  return hypot (coordinate_a_[X_AXIS], coordinate_a_[Y_AXIS]);
 }
 
 bool
@@ -107,6 +106,17 @@ Offset
 Offset::direction () const
 {
   Offset d = *this;
+  if (isinf (d[X_AXIS]))
+    {
+      if (!isinf (d[Y_AXIS]))
+        return Offset ((d[X_AXIS] > 0.0 ? 1.0 : -1.0), 0.0);
+    }
+  else if (isinf (d[Y_AXIS]))
+    return Offset (0.0, (d[Y_AXIS] > 0.0 ? 1.0 : -1.0));
+  else if (d[X_AXIS] == 0.0 && d[Y_AXIS] == 0.0)
+    return d;
+  // The other cases propagate or produce NaN as appropriate.
+
   d /= length ();
   return d;
 }
