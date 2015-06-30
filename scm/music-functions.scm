@@ -2003,8 +2003,7 @@ are expanded using the default settings of the parser."
    (expand-repeat-chords!
     (cons 'rhythmic-event
           (ly:parser-lookup '$chord-repeat-events))
-    music)
-   music))
+    music)))
 
 (define-public (event-chord-notes event-chord)
   "Return a list of all notes from @var{event-chord}."
