@@ -254,7 +254,9 @@ make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings
 }
 
 void
-make_partial_ellipse_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings, PangoMatrix trans, SCM expr)
+make_partial_ellipse_boxes (vector<Box> &boxes,
+                            vector<Drul_array<Offset> > &buildings,
+                            PangoMatrix trans, SCM expr)
 {
   Real x_rad = robust_scm2double (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
@@ -307,11 +309,12 @@ make_partial_ellipse_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &bui
 
   if (connect || fill)
     {
-      make_draw_line_boxes (boxes, buildings, trans, scm_list_5 (scm_from_double (th),
-                                                                 scm_from_double (sp[X_AXIS]),
-                                                                 scm_from_double (sp[Y_AXIS]),
-                                                                 scm_from_double (ep[X_AXIS]),
-                                                                 scm_from_double (ep[Y_AXIS])),
+      make_draw_line_boxes (boxes, buildings, trans,
+                            scm_list_5 (scm_from_double (th),
+                                        scm_from_double (sp[X_AXIS]),
+                                        scm_from_double (sp[Y_AXIS]),
+                                        scm_from_double (ep[X_AXIS]),
+                                        scm_from_double (ep[Y_AXIS])),
                             false);
     }
 
@@ -381,7 +384,9 @@ create_path_cap (vector<Box> &boxes,
 }
 
 void
-make_draw_bezier_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings, PangoMatrix trans, SCM expr)
+make_draw_bezier_boxes (vector<Box> &boxes,
+                        vector<Drul_array<Offset> > &buildings,
+                        PangoMatrix trans, SCM expr)
 {
   Real th = robust_scm2double (scm_car (expr), 0.0);
   expr = scm_cdr (expr);
@@ -477,7 +482,8 @@ make_draw_bezier_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildin
 /*
   converts a path into lists of 4 (line) or 8 (curve) absolute coordinates
   for example:
-  '(moveto 1 2 lineto 3 4 rlineto -1 -1 curveto 3 3 5 5 6 6 rcurveto -1 -1 -1 -1 -1 -1 closepath)
+  '(moveto 1 2 lineto 3 4 rlineto -1 -1 curveto
+    3 3 5 5 6 6 rcurveto -1 -1 -1 -1 -1 -1 closepath)
   becomes
   '((1 2 3 4)
     (3 4 2 3)
@@ -590,7 +596,8 @@ all_commands_to_absolute_and_group (SCM expr)
         }
       else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("closepath")))
         {
-          if ((current[X_AXIS] != start[X_AXIS]) || (current[Y_AXIS] != start[Y_AXIS]))
+          if ((current[X_AXIS] != start[X_AXIS])
+              || (current[Y_AXIS] != start[Y_AXIS]))
             {
               out = scm_cons (scm_list_4 (scm_from_double (current[X_AXIS]),
                                           scm_from_double (current[Y_AXIS]),
@@ -612,7 +619,9 @@ all_commands_to_absolute_and_group (SCM expr)
 }
 
 void
-internal_make_path_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings, PangoMatrix trans, SCM expr, bool use_building)
+internal_make_path_boxes (vector<Box> &boxes,
+                          vector<Drul_array<Offset> > &buildings,
+                          PangoMatrix trans, SCM expr, bool use_building)
 {
   SCM blot = scm_car (expr);
   expr = scm_cdr (expr);
@@ -628,13 +637,17 @@ internal_make_path_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &build
 }
 
 void
-make_path_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings, PangoMatrix trans, SCM expr)
+make_path_boxes (vector<Box> &boxes,
+                 vector<Drul_array<Offset> > &buildings,
+                 PangoMatrix trans, SCM expr)
 {
   return internal_make_path_boxes (boxes, buildings, trans, scm_cons (scm_car (expr), get_path_list (scm_cdr (expr))), false);
 }
 
 void
-make_polygon_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings, PangoMatrix trans, SCM expr)
+make_polygon_boxes (vector<Box> &boxes,
+                    vector<Drul_array<Offset> > &buildings,
+                    PangoMatrix trans, SCM expr)
 {
   SCM coords = get_number_list (scm_car (expr));
   expr = scm_cdr (expr);
@@ -650,11 +663,14 @@ make_polygon_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings, 
       first = false;
     }
   l = scm_cons (ly_symbol2scm ("closepath"), l);
-  internal_make_path_boxes (boxes, buildings, trans, scm_cons (blot_diameter, scm_reverse_x (l, SCM_EOL)), true);
+  internal_make_path_boxes (boxes, buildings, trans,
+                            scm_cons (blot_diameter, scm_reverse_x (l, SCM_EOL)), true);
 }
 
 void
-make_named_glyph_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings, PangoMatrix trans, SCM expr)
+make_named_glyph_boxes (vector<Box> &boxes,
+                        vector<Drul_array<Offset> > &buildings,
+                        PangoMatrix trans, SCM expr)
 {
   SCM fm_scm = scm_car (expr);
   Font_metric *fm = unsmob<Font_metric> (fm_scm);
@@ -672,7 +688,8 @@ make_named_glyph_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildin
   // Bbox is the best approximation of the width based on how it would be
   // calculated in open-type-font.cc if it were based on real extents
   Box bbox = open_fm->get_unscaled_indexed_char_dimensions (gidx);
-  bbox.scale (dynamic_cast<Modified_font_metric *>(fm)->get_magnification () * open_fm->design_size () / open_fm->get_units_per_EM ());
+  bbox.scale (dynamic_cast<Modified_font_metric *> (fm)->get_magnification ()
+              * open_fm->design_size () / open_fm->get_units_per_EM ());
   // Real bbox is the real bbox of the object
   Box real_bbox = open_fm->get_glyph_outline_bbox (gidx);
 
@@ -687,13 +704,18 @@ make_named_glyph_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildin
        s = scm_cdr (s))
     {
       scm_to_int (scm_length (scm_car (s))) == 4
-      ? make_draw_line_boxes (boxes, buildings, trans, scm_cons (scm_from_double (0), scm_car (s)), false)
-      : make_draw_bezier_boxes (boxes, buildings, trans, scm_cons (scm_from_double (0), scm_car (s)));
+      ? make_draw_line_boxes (boxes, buildings, trans,
+                              scm_cons (scm_from_double (0), scm_car (s)),
+                              false)
+      : make_draw_bezier_boxes (boxes, buildings, trans,
+                                scm_cons (scm_from_double (0), scm_car (s)));
     }
 }
 
 void
-make_glyph_string_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings, PangoMatrix trans, SCM expr)
+make_glyph_string_boxes (vector<Box> &boxes,
+                         vector<Drul_array<Offset> > &buildings,
+                         PangoMatrix trans, SCM expr)
 {
   SCM fm_scm = scm_car (expr);
   Font_metric *fm = unsmob<Font_metric> (fm_scm);
@@ -763,10 +785,13 @@ make_glyph_string_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildi
 
           Real scale_factor = max (xlen, ylen);
           // the three operations below move the stencil from its original coordinates to current coordinates
-          pango_matrix_translate (&transcopy, kerned_bbox[X_AXIS][LEFT], kerned_bbox[Y_AXIS][DOWN] - real_bbox[Y_AXIS][DOWN]);
-          pango_matrix_translate (&transcopy, real_bbox[X_AXIS][LEFT], real_bbox[Y_AXIS][DOWN]);
+          pango_matrix_translate (&transcopy, kerned_bbox[X_AXIS][LEFT],
+                                  kerned_bbox[Y_AXIS][DOWN] - real_bbox[Y_AXIS][DOWN]);
+          pango_matrix_translate (&transcopy, real_bbox[X_AXIS][LEFT],
+                                  real_bbox[Y_AXIS][DOWN]);
           pango_matrix_scale (&transcopy, scale_factor, scale_factor);
-          pango_matrix_translate (&transcopy, -bbox[X_AXIS][LEFT], -bbox[Y_AXIS][DOWN]);
+          pango_matrix_translate (&transcopy, -bbox[X_AXIS][LEFT],
+                                  -bbox[Y_AXIS][DOWN]);
         }
       //////////////////////
       for (SCM s = outline;
@@ -774,8 +799,11 @@ make_glyph_string_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildi
            s = scm_cdr (s))
         {
           scm_to_int (scm_length (scm_car (s))) == 4
-          ? make_draw_line_boxes (boxes, buildings, transcopy, scm_cons (scm_from_double (0), scm_car (s)), false)
-          : make_draw_bezier_boxes (boxes, buildings, transcopy, scm_cons (scm_from_double (0), scm_car (s)));
+          ? make_draw_line_boxes (boxes, buildings, transcopy,
+                                  scm_cons (scm_from_double (0), scm_car (s)),
+                                  false)
+          : make_draw_bezier_boxes (boxes, buildings, transcopy,
+                                    scm_cons (scm_from_double (0), scm_car (s)));
         }
     }
 }
@@ -786,7 +814,9 @@ make_glyph_string_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildi
 */
 
 void
-stencil_dispatcher (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings, PangoMatrix trans, SCM expr)
+stencil_dispatcher (vector<Box> &boxes,
+                    vector<Drul_array<Offset> > &buildings,
+                    PangoMatrix trans, SCM expr)
 {
   if (not scm_is_pair (expr))
     return;
@@ -802,7 +832,9 @@ stencil_dispatcher (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings, 
       SCM x1 = scm_car (expr);
       expr = scm_cdr (expr);
       SCM x2 = scm_car (expr);
-      make_draw_line_boxes (boxes, buildings, trans, scm_list_5 (th, scm_from_double (0.0), scm_from_double (0.0), x1, x2), true);
+      make_draw_line_boxes (boxes, buildings, trans,
+                            scm_list_5 (th, scm_from_double (0.0),
+                                        scm_from_double (0.0), x1, x2), true);
     }
   else if (scm_is_eq (scm_car (expr), ly_symbol2scm ("circle")))
     {
@@ -880,7 +912,8 @@ stencil_traverser (PangoMatrix trans, SCM expr)
       vector<Transform_matrix_and_expression> out;
       for (SCM s = scm_cdr (expr); scm_is_pair (s); s = scm_cdr (s))
         {
-          vector<Transform_matrix_and_expression> res = stencil_traverser (trans, scm_car (s));
+          vector<Transform_matrix_and_expression> res =
+            stencil_traverser (trans, scm_car (s));
           out.insert (out.end (), res.begin (), res.end ());
         }
       return out;
