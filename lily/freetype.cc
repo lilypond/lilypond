@@ -159,32 +159,14 @@ ly_FT_get_glyph_outline (FT_Face const &face, size_t signed_idx)
           Real y1 = outline->points[j].y;
           Real y2 = outline->points[j + 1].y;
 
-          Real qx2 = x0 + x2 - (2 * x1);
-          Real qx1 = (2 * x1) - (2 * x0);
-          Real qx0 = x0;
-
-          Real qy2 = y0 + y2 - (2 * y1);
-          Real qy1 = (2 * y1) - (2 * y0);
-          Real qy0 = y0;
-
-          Real cx0 = qx0;
-          Real cx1 = qx0 + (qx1 / 3);
-          Real cx2 = qx0 + (2 * qx1 / 3) + (qx2 / 3);
-          Real cx3 = qx0 + qx1 + qx2;
-
-          Real cy0 = qy0;
-          Real cy1 = qy0 + (qy1 / 3);
-          Real cy2 = qy0 + (2 * qy1 / 3) + (qy2 / 3);
-          Real cy3 = qy0 + qy1 + qy2;
-
-          out = scm_cons (scm_list_n (scm_from_double (cx0),
-                                      scm_from_double (cy0),
-                                      scm_from_double (cx1),
-                                      scm_from_double (cy1),
-                                      scm_from_double (cx2),
-                                      scm_from_double (cy2),
-                                      scm_from_double (cx3),
-                                      scm_from_double (cy3),
+          out = scm_cons (scm_list_n (scm_from_double (x0),
+                                      scm_from_double (y0),
+                                      scm_from_double ((x0 + 2*x1)/3),
+                                      scm_from_double ((y0 + 2*y1)/3),
+                                      scm_from_double ((2*x1 + x2)/3),
+                                      scm_from_double ((2*y1 + y2)/3),
+                                      scm_from_double (x2),
+                                      scm_from_double (y2),
                                       SCM_UNDEFINED),
                           out);
           lastpos = Offset (outline->points[j + 1].x, outline->points[j + 1].y);
