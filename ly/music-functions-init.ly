@@ -824,7 +824,7 @@ transpose from @var{around} to @var{to}.")
 
 mark =
 #(define-music-function
-   (label) ((scheme? '()))
+   (label) ((number-or-markup?))
   "Make the music for the \\mark command."
   (let* ((set (and (integer? label)
                    (context-spec-music (make-property-set 'rehearsalMark label)
@@ -835,7 +835,7 @@ mark =
     (if set
         (make-sequential-music (list set ev))
         (begin
-          (set! (ly:music-property ev 'label) label)
+          (if label (set! (ly:music-property ev 'label) label))
           ev))))
 
 musicMap =

@@ -140,17 +140,11 @@ Mark_engraver::process_music ()
           if (!scm_is_number (m))
             m = get_property ("rehearsalMark");
 
-          if (scm_is_integer (m)
-              && scm_is_true (scm_exact_p (m)))
-            {
-              int mark_count = scm_to_int (m);
-              mark_count++;
-              context ()->set_property ("rehearsalMark",
-                                        scm_from_int (mark_count));
-            }
-
           if (scm_is_number (m))
-            m = scm_call_2 (proc, m, context ()->self_scm ());
+            {
+              context ()->set_property ("rehearsalMark", scm_oneplus (m));
+              m = scm_call_2 (proc, m, context ()->self_scm ());
+            }
           else
             /* FIXME: constant error message.  */
             warning (_ ("rehearsalMark must have integer value"));
