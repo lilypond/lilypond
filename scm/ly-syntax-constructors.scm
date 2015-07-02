@@ -219,11 +219,6 @@ into a @code{MultiMeasureTextEvent}."
                 '()))
         '())))
 
-(define unique-counter -1)
-(define (get-next-unique-voice-name)
-  (set! unique-counter (1+ unique-counter))
-  (call-with-output-string (lambda (p) (format p "uniqueContext~s" unique-counter))))
-
 (define-ly-syntax-loc (lyric-event text duration)
   (make-lyric-event text duration))
 

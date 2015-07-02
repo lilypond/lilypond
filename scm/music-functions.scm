@@ -545,6 +545,14 @@ in @var{grob}."
       (Voice Slur direction ,DOWN))
     general-grace-settings))
 
+;; Getting a unique context id name
+
+(define-session unique-counter -1)
+(define-safe-public (get-next-unique-voice-name)
+  (set! unique-counter (1+ unique-counter))
+  (format #f "uniqueContext~s" unique-counter))
+
+
 (define-safe-public (make-voice-props-set n)
   (make-sequential-music
    (append
