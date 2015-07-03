@@ -29,7 +29,7 @@ Tie_specification::from_grob (Grob *tie)
       has_manual_dir_ = true;
     }
 
-  position_ = Tie::get_position (tie);
+  position_ = Tie::get_position_generic (tie);
   SCM pos_scm = tie->get_property ("staff-position");
   if (scm_is_number (pos_scm))
     {

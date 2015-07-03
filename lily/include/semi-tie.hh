@@ -31,7 +31,11 @@ struct Semi_tie
   DECLARE_SCHEME_CALLBACK (calc_control_points, (SCM));
   static bool less (Grob *const &s1,
                     Grob *const &s2);
-  static int get_position (Grob *);
+  static int get_column_rank (Item *);
+  static int get_position (Item *);
+  static Item *head (Item *);
+  // return the head if it is present on the given side
+  static Item *head (Item *, Direction d);
 };
 
 #endif /* SEMI_TIE_HH */

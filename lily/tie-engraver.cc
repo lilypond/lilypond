@@ -75,7 +75,7 @@ class Tie_engraver : public Engraver
   Stream_event *event_;
   vector<Grob *> now_heads_;
   vector<Head_event_tuple> heads_to_tie_;
-  vector<Grob *> ties_;
+  vector<Spanner *> ties_;
 
   Spanner *tie_column_;
   bool tie_notehead (Grob *h, bool enharmonic);
@@ -87,7 +87,7 @@ protected:
   DECLARE_ACKNOWLEDGER (note_head);
   DECLARE_TRANSLATOR_LISTENER (tie);
   void process_music ();
-  void typeset_tie (Grob *);
+  void typeset_tie (Spanner *);
   void report_unterminated_tie (Head_event_tuple const &);
   bool has_autosplit_end (Stream_event *event);
 public:
@@ -176,7 +176,7 @@ Tie_engraver::tie_notehead (Grob *h, bool enharmonic)
            : ly_is_equal (p1, p2))
           && (!Tie_engraver::has_autosplit_end (left_ev)))
         {
-          Grob *p = heads_to_tie_[i].tie_;
+          Spanner *p = heads_to_tie_[i].tie_;
           Moment end = heads_to_tie_[i].end_moment_;
 
           Stream_event *cause = heads_to_tie_[i].tie_event_
@@ -367,23 +367,22 @@ Tie_engraver::stop_translation_timestep ()
 }
 
 void
-Tie_engraver::typeset_tie (Grob *her)
+Tie_engraver::typeset_tie (Spanner *her)
 {
-  if (! (Tie::head (her, LEFT) && Tie::head (her, RIGHT)))
-    warning (_ ("lonely tie"));
+  Grob *left_head = Tie::head (her, LEFT);
+  Grob *right_head = Tie::head (her, RIGHT);
 
-  Drul_array<Grob *> new_head_drul;
-  new_head_drul[LEFT] = Tie::head (her, LEFT);
-  new_head_drul[RIGHT] = Tie::head (her, RIGHT);
-  for (LEFT_and_RIGHT (d))
+  if (!left_head || !right_head)
     {
-      if (!Tie::head (her, d))
-        new_head_drul[d] = Tie::head (her, (Direction) - d);
+      warning (_ ("lonely tie"));
+      if (!left_head)
+        left_head = right_head;
+      else
+        right_head = left_head;
     }
 
-  Spanner *sp = dynamic_cast<Spanner *> (her);
-  sp->set_bound (LEFT, new_head_drul[LEFT]);
-  sp->set_bound (RIGHT, new_head_drul[RIGHT]);
+  her->set_bound (LEFT, left_head);
+  her->set_bound (RIGHT, right_head);
 }
 
 ADD_ACKNOWLEDGER (Tie_engraver, note_head);

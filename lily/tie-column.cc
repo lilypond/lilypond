@@ -35,7 +35,7 @@
 using namespace std;
 
 void
-Tie_column::add_tie (Grob *tc, Grob *tie)
+Tie_column::add_tie (Grob *tc, Spanner *tie)
 {
   Spanner *me = dynamic_cast<Spanner *> (tc);
 

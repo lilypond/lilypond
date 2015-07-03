@@ -30,6 +30,7 @@
 #include "paper-column.hh"
 #include "pointer-group-interface.hh"
 #include "rhythmic-head.hh"
+#include "semi-tie.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
@@ -43,54 +44,30 @@
 bool
 Tie::less (Grob *const &s1, Grob *const &s2)
 {
-  return Tie::get_position (s1) < Tie::get_position (s2);
+  return get_position_generic (s1) < get_position_generic (s2);
 }
 
 void
-Tie::set_head (Grob *me, Direction d, Grob *h)
+Tie::set_head (Spanner *me, Direction d, Grob *h)
 {
-  dynamic_cast<Spanner *> (me)->set_bound (d, h);
+  me->set_bound (d, h);
 }
 
-Grob *
-Tie::head (Grob *me, Direction d)
+Item *
+Tie::head (Spanner *me, Direction d)
 {
-  if (is_direction (me->get_property ("head-direction")))
-    {
-      Direction hd = to_dir (me->get_property ("head-direction"));
-
-      return (hd == d)
-             ? unsmob<Grob> (me->get_object ("note-head"))
-             : 0;
-    }
-
-  Item *it = dynamic_cast<Spanner *> (me)->get_bound (d);
-  if (Note_head::has_interface (it))
-    return it;
-  else
-    return 0;
+  Item *it = me->get_bound (d);
+  return Note_head::has_interface (it) ? it : 0;
 }
 
 int
-Tie::get_column_rank (Grob *me, Direction d)
+Tie::get_column_rank (Spanner *me, Direction d)
 {
-  Grob *col = 0;
-  Spanner *span = dynamic_cast<Spanner *> (me);
-  if (!span)
-    col = dynamic_cast<Item *> (me)->get_column ();
-  else
-    {
-      Grob *h = head (me, d);
-      if (!h)
-        h = span->get_bound (d);
-
-      col = dynamic_cast<Item *> (h)->get_column ();
-    }
-  return Paper_column::get_rank (col);
+  return Paper_column::get_rank (me->get_bound (d)->get_column ());
 }
 
 int
-Tie::get_position (Grob *me)
+Tie::get_position (Spanner *me)
 {
   for (LEFT_and_RIGHT (d))
     {
@@ -106,6 +83,21 @@ Tie::get_position (Grob *me)
   */
   programming_error ("Tie without heads.  Suicide");
   me->suicide ();
+  return 0;
+}
+
+int
+Tie::get_position_generic (Grob *me) // TODO: do away with this
+{
+  Spanner *spanner = dynamic_cast<Spanner *> (me);
+  if (spanner)
+    return get_position (spanner);
+
+  Item *item = dynamic_cast<Item *> (me);
+  if (item)
+    return Semi_tie::get_position (item);
+
+  programming_error ("grob is neither a tie nor a semi-tie");
   return 0;
 }
 
@@ -125,15 +117,18 @@ Tie::get_default_dir (Grob *me)
   Drul_array<Grob *> stems;
   for (LEFT_and_RIGHT (d))
     {
-      Grob *one_head = head (me, d);
-      if (!one_head && dynamic_cast<Spanner *> (me))
-        one_head = Tie::head (dynamic_cast<Spanner *> (me)->broken_neighbor (d), d);
+      Grob *one_head = 0;
+      if (Spanner *spanner = dynamic_cast<Spanner *> (me))
+        {
+          one_head = head (spanner, d);
+          if (!one_head)
+            one_head = head (spanner->broken_neighbor (d), d);
+        }
+      else if (Item *item = dynamic_cast<Item *> (me))
+        one_head = Semi_tie::head (item);
 
       Grob *stem = one_head ? Rhythmic_head::get_stem (one_head) : 0;
-      if (stem)
-        stem = Stem::is_invisible (stem) ? 0 : stem;
-
-      stems[d] = stem;
+      stems[d] = (stem && !Stem::is_invisible (stem)) ? stem : 0;
     }
 
   if (stems[LEFT] && stems[RIGHT])
@@ -141,13 +136,17 @@ Tie::get_default_dir (Grob *me)
       if (get_grob_direction (stems[LEFT]) == UP
           && get_grob_direction (stems[RIGHT]) == UP)
         return DOWN;
+
+      // And why not return UP if both stems are DOWN?
+
+      // And when stems conflict, why fall directly through to using
+      // neutral-direction without considering get_position (me)?
     }
-  else if (stems[LEFT] || stems[RIGHT])
-    {
-      Grob *s = stems[LEFT] ? stems[LEFT] : stems[RIGHT];
-      return -get_grob_direction (s);
-    }
-  else if (int p = get_position (me))
+  else if (stems[LEFT])
+    return -get_grob_direction (stems[LEFT]);
+  else if (stems[RIGHT])
+    return -get_grob_direction (stems[RIGHT]);
+  else if (int p = get_position_generic (me))
     return Direction (sign (p));
 
   return to_dir (me->get_property ("neutral-direction"));
@@ -175,9 +174,8 @@ Tie::calc_direction (SCM smob)
 }
 
 SCM
-Tie::get_default_control_points (Grob *me_grob)
+Tie::get_default_control_points (Spanner *me)
 {
-  Spanner *me = dynamic_cast<Spanner *> (me_grob);
   Grob *common = me;
   common = me->get_bound (LEFT)->common_refpoint (common, X_AXIS);
   common = me->get_bound (RIGHT)->common_refpoint (common, X_AXIS);
@@ -218,7 +216,7 @@ MAKE_SCHEME_CALLBACK (Tie, calc_control_points, 1);
 SCM
 Tie::calc_control_points (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  Spanner *me = LY_ASSERT_SMOB(Spanner, smob, 1);
 
   Grob *yparent = me->get_parent (Y_AXIS);
   if ((Tie_column::has_interface (yparent)

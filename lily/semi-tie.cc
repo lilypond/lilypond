@@ -22,6 +22,7 @@
 #include "semi-tie.hh"
 #include "directional-element-interface.hh"
 #include "grob.hh"
+#include "paper-column.hh"
 #include "tie.hh"
 #include "warn.hh"
 #include "staff-symbol-referencer.hh"
@@ -71,16 +72,33 @@ Semi_tie::calc_control_points (SCM smob)
 }
 
 int
-Semi_tie::get_position (Grob *me)
+Semi_tie::get_column_rank (Item *me)
 {
-  Grob *h = unsmob<Grob> (me->get_object ("note-head"));
-  return (int) rint (Staff_symbol_referencer::get_position (h));
+  return Paper_column::get_rank (me->get_column ());
+}
+
+int
+Semi_tie::get_position (Item *me)
+{
+  return (int) rint (Staff_symbol_referencer::get_position (head (me)));
 }
 
 bool
 Semi_tie::less (Grob *const &s1,
                 Grob *const &s2)
 {
-  return get_position (s1) < get_position (s2);
+  return Tie::get_position_generic (s1) < Tie::get_position_generic (s2);
 }
 
+Item *
+Semi_tie::head (Item *me)
+{
+  return unsmob<Item> (me->get_object ("note-head"));
+}
+
+Item *
+Semi_tie::head (Item *me, Direction d)
+{
+  SCM head_dir = me->get_property ("head-direction");
+  return (is_direction (head_dir) && (to_dir (head_dir) == d)) ? head (me) : 0;
+}

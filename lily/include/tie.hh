@@ -27,16 +27,17 @@
 class Tie
 {
 public:
-  static void set_head (Grob *, Direction, Grob *head);
+  static void set_head (Spanner *, Direction, Grob *head);
   DECLARE_GROB_INTERFACE ();
-  static Grob *head (Grob *, Direction);
-  static int get_column_rank (Grob *, Direction);
-  static int get_position (Grob *);
+  static Item *head (Spanner *, Direction);
+  static int get_column_rank (Spanner *, Direction);
+  static int get_position (Spanner *);
+  static int get_position_generic (Grob *);
   static Direction get_default_dir (Grob *);
   static SCM get_control_points (Grob *, Grob *,
                                  Tie_configuration const &,
                                  Tie_details const &);
-  static SCM get_default_control_points (Grob *);
+  static SCM get_default_control_points (Spanner *);
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));

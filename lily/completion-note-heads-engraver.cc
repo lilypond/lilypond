@@ -59,7 +59,7 @@ class Completion_heads_engraver : public Engraver
   vector<Item *> notes_;
   vector<Item *> prev_notes_;
   // Must remember notes for explicit ties.
-  vector<Grob *> ties_;
+  vector<Spanner *> ties_;
   vector<Stream_event *> note_events_;
   Spanner *tie_column_;
   Moment note_end_mom_;
@@ -271,7 +271,7 @@ Completion_heads_engraver::process_music ()
 void
 Completion_heads_engraver::make_tie (Grob *left, Grob *right)
 {
-  Grob *p = make_spanner ("Tie", SCM_EOL);
+  Spanner *p = make_spanner ("Tie", SCM_EOL);
   Tie::set_head (p, LEFT, left);
   Tie::set_head (p, RIGHT, right);
   announce_end_grob (p, SCM_EOL);

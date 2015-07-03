@@ -29,6 +29,7 @@
 #include "misc.hh"
 #include "note-head.hh"
 #include "rhythmic-head.hh"
+#include "semi-tie.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
@@ -342,7 +343,8 @@ Tie_formatting_problem::from_ties (vector<Grob *> const &ties)
 
       for (vsize i = 0; i < ties.size (); i++)
         {
-          Item *it = dynamic_cast<Spanner *> (ties[i])->get_bound (d);
+          Spanner *tie = dynamic_cast<Spanner *> (ties[i]);
+          Item *it = tie->get_bound (d);
           if (it->break_status_dir ())
             it = it->get_column ();
 
@@ -354,13 +356,14 @@ Tie_formatting_problem::from_ties (vector<Grob *> const &ties)
 
   for (vsize i = 0; i < ties.size (); i++)
     {
+      Spanner *tie = dynamic_cast<Spanner *> (ties[i]);
       Tie_specification spec;
-      spec.from_grob (ties[i]);
+      spec.from_grob (tie);
 
       for (LEFT_and_RIGHT (d))
         {
-          spec.note_head_drul_[d] = Tie::head (ties[i], d);
-          spec.column_ranks_[d] = Tie::get_column_rank (ties[i], d);
+          spec.note_head_drul_[d] = Tie::head (tie, d);
+          spec.column_ranks_[d] = Tie::get_column_rank (tie, d);
         }
       specifications_.push_back (spec);
     }
@@ -379,8 +382,9 @@ Tie_formatting_problem::from_semi_ties (vector<Grob *> const &semi_ties, Directi
   int column_rank = -1;
   for (vsize i = 0; i < semi_ties.size (); i++)
     {
+      Item *semi_tie = dynamic_cast<Item *> (semi_ties[i]);
       Tie_specification spec;
-      Item *head = unsmob<Item> (semi_ties[i]->get_object ("note-head"));
+      Item *head = Semi_tie::head (semi_tie);
 
       if (!head)
         programming_error ("LV tie without head?!");
@@ -390,10 +394,10 @@ Tie_formatting_problem::from_semi_ties (vector<Grob *> const &semi_ties, Directi
           spec.position_ = int (Staff_symbol_referencer::get_position (head));
         }
 
-      spec.from_grob (semi_ties[i]);
+      spec.from_grob (semi_tie);
 
       spec.note_head_drul_[head_dir] = head;
-      column_rank = Tie::get_column_rank (semi_ties[i], head_dir);
+      column_rank = Semi_tie::get_column_rank (semi_tie);
       spec.column_ranks_ = Drul_array<int> (column_rank, column_rank);
       heads.push_back (head);
       specifications_.push_back (spec);
