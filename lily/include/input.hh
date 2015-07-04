@@ -73,4 +73,12 @@ protected:
 
 extern Input dummy_input_global;
 
+// The parser calls syntax functions with a lot of arguments
+SCM with_location (SCM loc, SCM proc);
+SCM with_location (SCM loc, SCM proc, SCM);
+SCM with_location (SCM loc, SCM proc, SCM, SCM);
+SCM with_location (SCM loc, SCM proc, SCM, SCM, SCM);
+SCM with_location (SCM loc, SCM proc, SCM, SCM, SCM, SCM);
+SCM with_location (SCM loc, SCM proc, SCM, SCM, SCM, SCM, SCM);
+
 #endif // INPUT_HH
