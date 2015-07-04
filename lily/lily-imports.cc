@@ -22,6 +22,7 @@
 namespace Guile_user {
   Scm_module module ("guile-user");
 
+  Variable apply ("apply");
   Variable plus ("+");
   Variable make_module ("make-module");
 #if GUILEV2

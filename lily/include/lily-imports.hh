@@ -26,6 +26,7 @@ namespace Guile_user {
   extern Scm_module module;
   typedef Module_variable<module> Variable;
 
+  extern Variable apply;
   extern Variable plus;
   extern Variable make_module;
 #if GUILEV2
