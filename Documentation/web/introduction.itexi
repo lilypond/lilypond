@@ -1372,10 +1372,6 @@ research and reverse engineering by tweaking existing .enc files and
 loading them using the 4.55 demo version.
 
 @item
-@uref{http://www.musescore.org,MuseScore}, a score editor, has
-incomplete LilyPond export but is being actively developed.
-
-@item
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
 a score editor based on the @uref{http://www.cairographics.org,Cairo}
 library, it has experimental support for exporting to LilyPond.
@@ -1437,15 +1433,27 @@ editor.
 for KDE 3.5 and lilypond-KDE4 for KDE 4.1 only.
 
 @item
+@uref{http://lilycomp.sourceforge.net, LilyComp} is a graphical note
+entry program, acting much like a number-pad which produces LilyPond
+notes.
+
+@item
+@uref{http://www.musescore.org,MuseScore}, a score editor.  LilyPond
+export was dropped in version 2.0 but earlier versions are still
+available for download at
+@uref{http://sourceforge.net/projects/mscore/files/mscore/,Sourceforge}.
+
+@item
 @uref{http://noteedit.berlios.de,NoteEdit}, which imported
 @uref{http://www.makemusic.com/musicxml,MusicXML}, has been forked into
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 and @uref{http://canorus.org,Canorus}.
 
 @item
-@uref{http://lilycomp.sourceforge.net, LilyComp} is a graphical note
-entry program, acting much like a number-pad which produces LilyPond
-notes.
+@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond},
+an OpenOffice.org extension that converts LilyPond files it into images
+within OpenOffice.org documents.  Although this is no longer being
+developed, it appears to still work with version 4.
 
 @item
 @uref{https://launchpad.net/rumor/,Rumor}, a realtime monophonic
