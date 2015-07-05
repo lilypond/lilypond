@@ -39,7 +39,7 @@ GLOBAL_CXX = 'GC++'
 CXX = 'C++'
 verbose_p = 0
 indent_p = 1
-REQUIRED_ASTYLE_VERSION = "Artistic Style Version 2.02"
+PREFERRED_ASTYLE_VERSION = "Artistic Style Version 2.04"
 
 
 rules = {
@@ -50,7 +50,7 @@ rules = {
     ],
     CXX:
     [
-    # space before parenthesis open
+    # space before parenthesis open; astyle -xd does this except for foo().
     ('([\w\)\]])\(', '\\1 ('),
     # delete inline double spaces
     ('(\S)  +', '\\1 '),
@@ -338,6 +338,10 @@ def nitpick_file (outdir, file):
         indent_file (fixt)
 
 def indent_file (file):
+  # Astyle aborts on unrecognized options,
+  # so wait until everyone has 2.04 before considering:
+  # --attach-namespaces --indent-namespaces \
+  # --max-code-length=80 --pad-first-paren-out \
     astyle = '''astyle\
   --options=none --quiet -n \
   --style=gnu --indent=spaces=2 \
@@ -361,6 +365,7 @@ fixcc [OPTION]... FILE...
 Options:
  --help
  --lazy   skip astyle, if no changes
+ --sloppy accept any astyle version
  --verbose
  --test
 
@@ -383,6 +388,8 @@ def do_options ():
             indent_p = 0
         elif o == '--outdir':
             outdir = a
+        elif o == '--sloppy':
+            PREFERRED_ASTYLE_VERSION = "Artistic Style"
         elif o == '--verbose':
             verbose_p = 1
         elif o == '--test':
@@ -399,7 +406,7 @@ def check_astyle_version():
     cmd = "astyle --version"
     process = subprocess.Popen(cmd, shell=True, stderr=subprocess.PIPE)
     stdout, stderr = process.communicate()
-    if REQUIRED_ASTYLE_VERSION in stderr:
+    if PREFERRED_ASTYLE_VERSION in stderr:
         return True
     return False
 
@@ -410,11 +417,13 @@ socketdir = '/tmp/fixcc'
 socketname = 'fixcc%d' % os.getpid ()
 
 def main ():
-    if not check_astyle_version():
-        print "Error: we require %s" % REQUIRED_ASTYLE_VERSION
-        print "Sorry, no higher (or lower) versions allowed"
-        sys.exit(1)
     files = do_options ()
+    if not check_astyle_version():
+        print "Warning: try to use %s." % PREFERRED_ASTYLE_VERSION
+        print "Please limit use of this version to files with changed code."
+        if len(files) > 4:
+            print "Too many files with this version.  See `astyle --help`"
+            sys.exit(1)
     if outdir and not os.path.isdir (outdir):
         os.makedirs (outdir)
     for i in files:
