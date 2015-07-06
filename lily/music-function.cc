@@ -143,8 +143,7 @@ Music_function::call (SCM rest)
 
       if (scm_is_false (scm_call_1 (pred, arg)))
         {
-          Lily::argument_error (location,
-                                scm_from_int (scm_ilength (args)),
+          Lily::argument_error (scm_length (args),
                                 pred, arg);
           SCM val = scm_car (get_signature ());
           val = scm_is_pair (val) ? scm_cdr (val) : SCM_BOOL_F;
