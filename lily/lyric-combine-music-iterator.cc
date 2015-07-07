@@ -161,7 +161,8 @@ Lyric_combine_music_iterator::run_always () const
 bool
 Lyric_combine_music_iterator::ok () const
 {
-  return lyric_iter_ && lyric_iter_->ok ();
+  return lyric_iter_ && lyric_iter_->ok ()
+    && !(music_context_ && music_context_->is_removable ());
 }
 
 void

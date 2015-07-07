@@ -96,7 +96,10 @@ get_voice_to_lyrics (Context *lyrics)
 
   SCM avc = lyrics->get_property ("associatedVoiceContext");
   if (Context *c = unsmob<Context> (avc))
-    return c;
+    {
+      if (!c->is_removable ())
+        return c;
+    }
 
   SCM voice_name = lyrics->get_property ("associatedVoice");
   string nm = lyrics->id_string ();
