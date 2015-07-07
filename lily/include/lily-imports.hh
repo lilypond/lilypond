@@ -119,6 +119,7 @@ namespace Syntax {
   extern Variable multi_measure_rest;
   extern Variable music_function;
   extern Variable music_function_call_error;
+  extern Variable partial_music_function;
   extern Variable property_operation;
   extern Variable repeat;
   extern Variable repetition_chord;

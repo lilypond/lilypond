@@ -57,6 +57,7 @@ static Keyword_ent the_key_tab[]
   {"description", DESCRIPTION},
   {"drummode", DRUMMODE},
   {"drums", DRUMS},
+  {"etc", ETC},
   {"figuremode", FIGUREMODE},
   {"figures", FIGURES},
   {"header", HEADER},

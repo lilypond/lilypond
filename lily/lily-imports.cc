@@ -112,6 +112,7 @@ namespace Syntax {
   Variable multi_measure_rest ("multi-measure-rest");
   Variable music_function ("music-function");
   Variable music_function_call_error ("music-function-call-error");
+  Variable partial_music_function ("partial-music-function");
   Variable property_operation ("property-operation");
   Variable repeat ("repeat");
   Variable repetition_chord ("repetition-chord");

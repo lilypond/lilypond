@@ -60,6 +60,16 @@
            n (type-name pred) (music->make-music arg))
    (*location*)))
 
+(define-public (partial-music-function fun args)
+  (let* ((sig (ly:music-function-signature fun))
+         (args (and (list args) (reverse! args))))
+    (and args
+         (ly:make-music-function
+          (cons (car sig) (list-tail (cdr sig) (length args)))
+          (lambda rest
+            (apply (ly:music-function-extract fun)
+                   (append args rest)))))))
+
 (define-public (void-music)
   (ly:set-origin! (make-music 'Music)))
 

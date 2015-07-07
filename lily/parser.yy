@@ -265,6 +265,7 @@ int yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser);
 %token DESCRIPTION "\\description"
 %token DRUMMODE "\\drummode"
 %token DRUMS "\\drums"
+%token ETC "\\etc"
 %token FIGUREMODE "\\figuremode"
 %token FIGURES "\\figures"
 %token HEADER "\\header"
@@ -693,6 +694,25 @@ identifier_init_nonumber:
         | embedded_scm
 	| full_markup_list
         | context_modification
+	| partial_function ETC
+	;
+
+partial_function:
+	MUSIC_FUNCTION function_arglist_partial
+	{
+		$$ = MAKE_SYNTAX (partial_music_function, @$,
+				  $1, $2);
+	}
+	| EVENT_FUNCTION function_arglist_partial
+	{
+		$$ = MAKE_SYNTAX (partial_music_function, @$,
+				  $1, $2);
+	}
+	| SCM_FUNCTION function_arglist_partial
+	{
+		$$ = MAKE_SYNTAX (partial_music_function, @$,
+				  $1, $2);
+	}
 	;
 
 context_def_spec_block:
@@ -2001,6 +2021,56 @@ function_arglist_skip_nonbackup:
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip_nonbackup
 	{
 		$$ = scm_cons (loc_on_music (@3, $1), $3);
+	}
+	;
+
+// Partial function arglists are returned just in their incomplete
+// state: when combined with the music function, the missing parts of
+// the signature can be reconstructed
+//
+// To serve as a partial arglist, the argument list must absolutely
+// _not_ be in "skipping optional arguments" mode since then there is
+// some backup token that has nowhere to go before \etc.
+//
+// So we can skim off an arbitrary number of arguments from the end of
+// the argument list.  The argument list remaining afterwards has to
+// be in not-skipping-optional-arguments mode.
+
+function_arglist_partial:
+	EXPECT_SCM function_arglist_optional
+	{
+		$$ = $2;
+	}
+	| EXPECT_SCM function_arglist_partial_optional
+	{
+		$$ = $2;
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup
+	{
+		$$ = $3;
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_partial
+	{
+		$$ = $3;
+	}
+	;
+
+function_arglist_partial_optional:
+	EXPECT_SCM function_arglist_optional
+	{
+		$$ = $2;
+	}
+	| EXPECT_SCM function_arglist_partial_optional
+	{
+		$$ = $2;
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup
+	{
+		$$ = $3;
+	}
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_partial_optional
+	{
+		$$ = $3;
 	}
 	;
 
