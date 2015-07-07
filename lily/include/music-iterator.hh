@@ -75,6 +75,9 @@ private:
 
 public:
   Moment music_get_length () const;
+  // music_start_mom () is calculated relative to the time where the
+  // iterator occurs in the music stream, so it will usually be
+  // non-zero only for expressions starting with grace notes.
   Moment music_start_mom () const;
   Music_iterator ();
   void report_event (Music *);
@@ -89,6 +92,8 @@ public:
   virtual Moment pending_moment () const;
   virtual bool ok () const;
   virtual bool run_always () const;
+  // process is called with a time relative to the iterator start, so
+  // usually the last processed moment is the same as music_get_length.
   virtual void process (Moment until);
   virtual void derived_mark () const;
   virtual void construct_children ();
