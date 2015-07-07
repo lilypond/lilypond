@@ -82,36 +82,33 @@ Simultaneous_music_iterator::construct_children ()
     }
 }
 
-// If there are non-run-always iterators and all of them die, take the
-// rest of them along.
+// If we have some iterators with definite next moment and no of them
+// remain after processing, we take the iterators with indefinite next
+// moment along.  That makes sure that no Lyric_combine_music_iterator
+// will outstay its welcome (issue 2010).
+
 void
 Simultaneous_music_iterator::process (Moment until)
 {
-  bool had_good = false;
-  bool had_bad = false;
   SCM *proc = &children_list_;
+  bool finite = !pending_moment ().main_part_.is_infinity ();
   while (scm_is_pair (*proc))
     {
       Music_iterator *i = unsmob<Music_iterator> (scm_car (*proc));
-      bool run_always = i->run_always ();
-      if (run_always || i->pending_moment () == until)
+      if (i->run_always () || i->pending_moment () == until)
         i->process (until);
       if (!i->ok ())
         {
-          if (!run_always)
-            had_bad = true;
           i->quit ();
           *proc = scm_cdr (*proc);
         }
       else
         {
-          if (!run_always)
-            had_good = true;
           proc = SCM_CDRLOC (*proc);
         }
     }
-  // If there were non-run-always iterators and all of them died, take
-  // the rest of the run-always iterators along with them.  They have
+  // If there were definite-ended iterators and all of them died, take
+  // the rest of the iterators along with them.  They have
   // likely lost their reference iterators.  Basing this on the actual
   // music contexts is not reliable since something like
   // \new Voice = blah {
@@ -121,7 +118,7 @@ Simultaneous_music_iterator::process (Moment until)
   // }
   // cannot wait for the death of context blah before ending the
   // simultaneous iterator.
-  if (had_bad && !had_good)
+  if (finite && pending_moment ().main_part_.is_infinity ())
     {
       for (SCM p = children_list_; scm_is_pair (p); p = scm_cdr (p))
         unsmob<Music_iterator> (scm_car (p))->quit ();
