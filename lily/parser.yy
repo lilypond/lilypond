@@ -695,23 +695,56 @@ identifier_init_nonumber:
 	| full_markup_list
         | context_modification
 	| partial_function ETC
+	{
+		$$ = MAKE_SYNTAX (partial_music_function, @$,
+				  scm_reverse_x (scm_car ($1), SCM_EOL),
+				  scm_reverse_x (scm_cdr ($1), SCM_EOL));
+	}
 	;
 
+// Partial functions
 partial_function:
 	MUSIC_FUNCTION function_arglist_partial
 	{
-		$$ = MAKE_SYNTAX (partial_music_function, @$,
-				  $1, $2);
+		$$ = scm_cons (scm_list_1 ($1), scm_list_1 ($2));
 	}
 	| EVENT_FUNCTION function_arglist_partial
 	{
-		$$ = MAKE_SYNTAX (partial_music_function, @$,
-				  $1, $2);
+		$$ = scm_cons (scm_list_1 ($1), scm_list_1 ($2));
 	}
 	| SCM_FUNCTION function_arglist_partial
 	{
-		$$ = MAKE_SYNTAX (partial_music_function, @$,
-				  $1, $2);
+		$$ = scm_cons (scm_list_1 ($1), scm_list_1 ($2));
+	}
+	| MUSIC_FUNCTION EXPECT_SCM function_arglist_optional partial_function
+	{
+		$$ = scm_cons (scm_cons ($1, scm_car ($4)),
+			       scm_cons ($3, scm_cdr ($4)));
+	}
+	| EVENT_FUNCTION EXPECT_SCM function_arglist_optional partial_function
+	{
+		$$ = scm_cons (scm_cons ($1, scm_car ($4)),
+			       scm_cons ($3, scm_cdr ($4)));
+	}
+	| SCM_FUNCTION EXPECT_SCM function_arglist_optional partial_function
+	{
+		$$ = scm_cons (scm_cons ($1, scm_car ($4)),
+			       scm_cons ($3, scm_cdr ($4)));
+	}
+	| MUSIC_FUNCTION EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup partial_function
+	{
+		$$ = scm_cons (scm_cons ($1, scm_car ($5)),
+			       scm_cons ($4, scm_cdr ($5)));
+	}
+	| EVENT_FUNCTION EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup partial_function
+	{
+		$$ = scm_cons (scm_cons ($1, scm_car ($5)),
+			       scm_cons ($4, scm_cdr ($5)));
+	}
+	| SCM_FUNCTION EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup partial_function
+	{
+		$$ = scm_cons (scm_cons ($1, scm_car ($5)),
+			       scm_cons ($4, scm_cdr ($5)));
 	}
 	;
 

@@ -60,15 +60,39 @@
            n (type-name pred) (music->make-music arg))
    (*location*)))
 
-(define-public (partial-music-function fun args)
-  (let* ((sig (ly:music-function-signature fun))
-         (args (and (list args) (reverse! args))))
-    (and args
+;; Used for chaining several music functions together.  `final'
+;; contains the last argument and still needs typechecking.
+(define (music-function-chain fun args final)
+  (let* ((siglast (last (ly:music-function-signature fun)))
+         (pred? (if (pair? siglast) (car siglast) siglast)))
+    (if (pred? final)
+        (music-function fun (cons final args))
+        (begin
+          (argument-error (1+ (length args)) pred? final)
+          ;; call music function just for the error return value
+          (music-function fun #f)))))
+
+(define-public (partial-music-function fun-list arg-list)
+  (let* ((good (every list? arg-list))
+         (sig (ly:music-function-signature (car fun-list))))
+    (and good
          (ly:make-music-function
-          (cons (car sig) (list-tail (cdr sig) (length args)))
+          (cons (car sig) (list-tail (cdr sig) (length (car arg-list))))
           (lambda rest
-            (apply (ly:music-function-extract fun)
-                   (append args rest)))))))
+            ;; Every time we use music-function, it destructively
+            ;; reverses its list of arguments.  Changing the calling
+            ;; convention would be non-trivial since we do error
+            ;; propagation to the reversed argument list by making it
+            ;; a non-proper list.  So we just create a fresh copy of
+            ;; all argument lists for each call.  We also want to
+            ;; avoid reusing any music expressions without copying and
+            ;; want to let them point to the location of the music
+            ;; function call rather than its definition.
+            (let ((arg-list (ly:music-deep-copy arg-list (*location*))))
+              (fold music-function-chain
+                    (music-function (car fun-list)
+                                    (reverse! rest (car arg-list)))
+                    (cdr fun-list) (cdr arg-list))))))))
 
 (define-public (void-music)
   (ly:set-origin! (make-music 'Music)))
