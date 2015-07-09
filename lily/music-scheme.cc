@@ -20,6 +20,8 @@
 #include "music.hh"
 
 #include "duration.hh"
+#include "input.hh"
+#include "lily-imports.hh"
 #include "program-option.hh"
 #include "warn.hh"
 
@@ -115,30 +117,55 @@ LY_DEFINE (ly_music_list_p, "ly:music-list?",
 }
 
 LY_DEFINE (ly_music_deep_copy, "ly:music-deep-copy",
-           1, 0, 0, (SCM m),
+           1, 1, 0, (SCM m, SCM origin),
            "Copy @var{m} and all sub expressions of@tie{}@var{m}."
            " @var{m} may be an arbitrary type; cons cells and music"
-           " are copied recursively.")
+           " are copied recursively.  If @var{origin} is given,"
+           " it is used as the origin for one level of music by calling"
+           " @code{ly:set-origin!} on the copy.")
 {
-  if (unsmob<Music> (m))
-      return unsmob<Music> (m)->clone ()->unprotect ();
-  if (scm_is_pair (m))
-    {
-      SCM copy = SCM_EOL;
-      do
-        {
-          copy = scm_cons (ly_music_deep_copy (scm_car (m)), copy);
-          m = scm_cdr (m);
-        }
-      while (scm_is_pair (m));
-      // Oh, come on, GUILE.  Why do you require the second argument
-      // of scm_reverse_x to be a proper list?  That makes no sense.
-      // return scm_reverse_x (copy, ly_music_deep_copy (m));
-      SCM last_cons = copy;
-      copy = scm_reverse_x (copy, SCM_EOL);
-      scm_set_cdr_x (last_cons, ly_music_deep_copy (m));
-      return copy;
-    }
+  m = music_deep_copy (m);
+
+  if (SCM_UNBNDP (origin))
+    return m;
+
+  if (Music *mus = unsmob<Music> (origin))
+      origin = mus->get_property ("origin");
+
+  if (scm_is_false (origin) || scm_is_null (origin))
+    return m;
+
+  LY_ASSERT_SMOB (Input, origin, 2);
+
+  set_origin (m, origin);
+  return m;
+}
+
+LY_DEFINE (ly_set_origin_x, "ly:set-origin!",
+           1, 1, 0, (SCM m, SCM origin),
+           "This sets the origin given in @var{origin} to @var{m}. "
+           " @var{m} will typically be a music expression or a list"
+           " of music.  List structures are searched recursively,"
+           " but recursion stops at the changed music expressions"
+           " themselves. "
+           " @var{origin} is generally of type @code{ly:input-location?},"
+           " defaulting to @code{(*location*)}.  Other valid values for"
+           " @code{origin} are a music expression which is then used as"
+           " the source of location information, or @code{#f}"
+           " or @code{'()} in which case no action is performed. "
+           " The return value is @var{m} itself.")
+{
+  if (SCM_UNBNDP (origin))
+    origin = scm_fluid_ref (Lily::f_location);
+  else if (Music *mus = unsmob<Music> (origin))
+    origin = mus->get_property ("origin");
+
+  if (scm_is_false (origin) || scm_is_null (origin))
+    return m;
+
+  LY_ASSERT_SMOB (Input, origin, 2);
+
+  set_origin (m, origin);
   return m;
 }
 
@@ -268,4 +295,3 @@ LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
     }
   return scm_reverse_x (newlist, SCM_EOL);
 }
-

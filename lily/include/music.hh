@@ -70,7 +70,9 @@ protected:
 };
 
 Music *make_music_by_name (SCM sym);
-SCM ly_music_deep_copy (SCM);
+SCM music_deep_copy (SCM m);
+void set_origin (SCM m, SCM origin);
+
 SCM ly_camel_case_2_lisp_identifier (SCM name_sym);
 
 extern SCM ly_music_p_proc;

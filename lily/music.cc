@@ -68,7 +68,7 @@ Music::derived_mark () const
 SCM
 Music::copy_mutable_properties () const
 {
-  return ly_music_deep_copy (mutable_property_alist_);
+  return music_deep_copy (mutable_property_alist_);
 }
 
 void
@@ -328,4 +328,41 @@ Music::duration_length_callback (SCM m)
   if (d)
     mom = d->get_length ();
   return mom.smobbed_copy ();
+}
+
+SCM
+music_deep_copy (SCM m)
+{
+  if (Music *mus = unsmob<Music> (m))
+      return mus->clone ()->unprotect ();
+  if (scm_is_pair (m))
+    {
+      SCM copy = SCM_EOL;
+      do
+        {
+          copy = scm_cons (music_deep_copy (scm_car (m)), copy);
+          m = scm_cdr (m);
+        }
+      while (scm_is_pair (m));
+      // Oh, come on, GUILE.  Why do you require the second argument
+      // of scm_reverse_x to be a proper list?  That makes no sense.
+      // return scm_reverse_x (copy, music_deep_copy (m));
+      SCM last_cons = copy;
+      copy = scm_reverse_x (copy, SCM_EOL);
+      scm_set_cdr_x (last_cons, music_deep_copy (m));
+      return copy;
+    }
+  return m;
+}
+
+void
+set_origin (SCM m, SCM origin)
+{
+  while (scm_is_pair (m))
+    {
+      set_origin (scm_car (m), origin);
+      m = scm_cdr (m);
+    }
+  if (Music *mus = unsmob<Music> (m))
+    mus->set_property ("origin", origin);
 }
