@@ -20,33 +20,38 @@
   #:use-module (srfi srfi-1))
 
 (define-public (music-function-call-error fun m)
-  (let* ((sig (ly:music-function-signature fun))
-         (pred (if (pair? (car sig)) (caar sig) (car sig))))
+  (let* ((sigcar (car (ly:music-function-signature fun)))
+         (pred? (if (pair? sigcar) (car sigcar) sigcar)))
     (ly:parser-error
      (format #f (_ "~a function cannot return ~a")
-             (type-name pred)
+             (type-name pred?)
              (value->lily-string m))
      (*location*))
-    (and (pair? (car sig)) (cdar sig))))
+    (and (pair? sigcar)
+         (if (ly:music? (cdr sigcar))
+             (ly:music-deep-copy (cdr sigcar) (*location*))
+             (cdr sigcar)))))
 
 ;; Music function: Apply function and check return value.
-;; args are in reverse order, rest may specify additional ones
+;; args are in reverse order.
 ;;
 ;; If args is not a proper list, an error has been flagged earlier
 ;; and no fallback value had been available.  In this case,
 ;; we don't call the function but rather return the general
 ;; fallback.
-(define-public (music-function fun args . rest)
-  (let* ((sig (ly:music-function-signature fun))
-         (pred (if (pair? (car sig)) (caar sig) (car sig)))
-         (good (proper-list? args))
-         (m (and good (apply (ly:music-function-extract fun)
-                             (reverse! args rest)))))
-    (if (and good (pred m))
-        (if (ly:music? m) (ly:set-origin! m) m)
-        (if good
-            (music-function-call-error fun m)
-            (and (pair? (car sig)) (cdar sig))))))
+(define-public (music-function fun args)
+  (let* ((sigcar (car (ly:music-function-signature fun)))
+         (pred? (if (pair? sigcar) (car sigcar) sigcar))
+         (good (list? args))
+         (m (and good (apply (ly:music-function-extract fun) (reverse! args)))))
+    (if good
+        (if (pred? m)
+            (if (ly:music? m) (ly:set-origin! m) m)
+            (music-function-call-error fun m))
+        (and (pair? sigcar)
+             (if (ly:music (cdr sigcar))
+                 (ly:music-deep-copy (cdr sigcar) (*location*))
+                 (cdr sigcar))))))
 
 (define-public (argument-error n pred arg)
   (ly:parser-error
