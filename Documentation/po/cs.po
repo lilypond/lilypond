@@ -13032,7 +13032,7 @@ msgstr "Obsah"
 #~ msgstr "Unterstützung für Generalbass"
 
 #~ msgid "Typesetting mensural music"
-#~ msgstr "Mesurale Musik setzen"
+#~ msgstr "Mensurale Musik setzen"
 
 #~ msgid "Mensural contexts"
 #~ msgstr "Mensural-Kontexte"

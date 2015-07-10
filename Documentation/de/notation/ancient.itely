@@ -27,7 +27,7 @@
 @menu
 * Überblick über die unterstützten Stile::
 * Alte Notation -- Allgemeines::
-* Mesurale Musik setzen::
+* Mensurale Musik setzen::
 * Gregorianischen Choral setzen::
 * Kiever Quadratnotation setzen::
 * Musiksatz Alter Musik in der Praxis -- Szenarien und Lösungen::
@@ -376,8 +376,8 @@ Notationsreferenz:
 
 
 @c {{{1 Typesetting mensural music
-@node Mesurale Musik setzen
-@subsection Mesurale Musik setzen
+@node Mensurale Musik setzen
+@subsection Mensurale Musik setzen
 @translationof Typesetting mensural music
 
 @menu
