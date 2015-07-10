@@ -23,13 +23,11 @@
 (define (mm-rest-child-list music)
   "Generate events for multimeasure rests,
 to be used by the sequential-iterator"
-  (let ((location (ly:music-property music 'location)))
-    (list (make-music 'BarCheck
-                      'origin location)
-          (make-music 'MultiMeasureRestEvent
-                      (ly:music-deep-copy music))
-          (make-music 'BarCheck
-                      'origin location))))
+  (ly:set-origin! (list (make-music 'BarCheck)
+                        (make-music 'MultiMeasureRestEvent
+                                    (ly:music-deep-copy music))
+                        (make-music 'BarCheck))
+                  music))
 
 (define (make-unfolded-set music)
   (let ((n (ly:music-property music 'repeat-count))

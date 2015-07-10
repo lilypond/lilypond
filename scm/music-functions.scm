@@ -718,11 +718,6 @@ duration is replaced with the specified @var{duration}."
   (define (keep-element? m)
     (any (lambda (t) (music-is-of-type? m t))
          event-types))
-  (define origin (ly:music-property repeat-chord 'origin #f))
-  (define (set-origin! l)
-    (if origin
-        (for-each (lambda (m) (set! (ly:music-property m 'origin) origin)) l))
-    l)
 
   (for-each
    (lambda (field)
@@ -736,16 +731,17 @@ duration is replaced with the specified @var{duration}."
   ;; now treat the elements
   (set! (ly:music-property repeat-chord 'elements)
         (let ((elts
-               (set-origin! (ly:music-deep-copy
-                             (filter keep-element?
-                                     (ly:music-property original-chord
-                                                        'elements))))))
+               (ly:music-deep-copy (filter keep-element?
+                                           (ly:music-property original-chord
+                                                              'elements))
+                                   repeat-chord)))
           (for-each
            (lambda (m)
              (let ((arts (ly:music-property m 'articulations)))
                (if (pair? arts)
                    (set! (ly:music-property m 'articulations)
-                         (set-origin! (filter! keep-element? arts))))
+                         (ly:set-origin! (filter! keep-element? arts)
+                                         repeat-chord)))
                (if (ly:duration? (ly:music-property m 'duration))
                    (set! (ly:music-property m 'duration) duration))
                (if (ly:music-property m 'cautionary #f)
@@ -760,7 +756,7 @@ duration is replaced with the specified @var{duration}."
     (if (pair? arts)
         (set! (ly:music-property repeat-chord 'articulations)
               (append!
-               (set-origin! (ly:music-deep-copy arts))
+               (ly:music-deep-copy arts repeat-chord)
                (ly:music-property repeat-chord 'articulations)))))
   repeat-chord)
 

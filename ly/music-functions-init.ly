@@ -1163,18 +1163,17 @@ change to the following voice."
        (and (or split-elt split-elts)
             (map
              (lambda (e es)
-               (apply music-clone music
-                      (append
-                       ;; reassigning the origin of the parent only
-                       ;; makes sense if the first expression in the
-                       ;; result is from a distributed origin
-                       (let ((origin
-                              (if (ly:music? elt)
-                                  (and (ly:music? e) (ly:music-property e 'origin #f))
-                                  (and (pair? es) (ly:music-property (car es) 'origin #f)))))
-                         (if origin (list 'origin origin) '()))
-                       (if (ly:music? e) (list 'element e) '())
-                       (if (pair? es) (list 'elements es) '()))))
+               (let ((m (ly:music-deep-copy music
+                       ;;; reassigning the origin of the parent only
+                       ;;; makes sense if the first expression in the
+                       ;;; result is from a distributed origin
+                                            (or (and (ly:music? e) e)
+                                                (and (pair? es) (car es))))))
+                 (if (ly:music? e)
+                     (set! (ly:music-property m 'element) e))
+                 (if (pair? es)
+                     (set! (ly:music-property m 'elements) es))
+                 m))
              (or split-elt (circular-list #f))
              (or split-elts (circular-list #f))))))
    (let ((voices (recurse-and-split music)))

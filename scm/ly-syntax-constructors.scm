@@ -19,11 +19,6 @@
   #:use-module (lily)
   #:use-module (srfi srfi-1))
 
-;; Sets music origin to (*location*)
-(define (here! m)
-  (set! (ly:music-property m 'origin) (*location*))
-  m)
-
 (define-public (music-function-call-error fun m)
   (let* ((sig (ly:music-function-signature fun))
          (pred (if (pair? (car sig)) (caar sig) (car sig))))
@@ -48,7 +43,7 @@
          (m (and good (apply (ly:music-function-extract fun)
                              (reverse! args rest)))))
     (if (and good (pred m))
-        (if (ly:music? m) (here! m) m)
+        (if (ly:music? m) (ly:set-origin! m) m)
         (if good
             (music-function-call-error fun m)
             (and (pair? (car sig)) (cdar sig))))))
@@ -61,26 +56,26 @@
    (*location*)))
 
 (define-public (void-music)
-  (here! (make-music 'Music)))
+  (ly:set-origin! (make-music 'Music)))
 
 (define-public (sequential-music mlist)
-  (here! (make-sequential-music mlist)))
+  (ly:set-origin! (make-sequential-music mlist)))
 
 (define-public (simultaneous-music mlist)
-  (here! (make-simultaneous-music mlist)))
+  (ly:set-origin! (make-simultaneous-music mlist)))
 
 (define-public (event-chord mlist)
-  (here! (make-music 'EventChord
-                     'elements mlist)))
+  (ly:set-origin! (make-music 'EventChord
+                              'elements mlist)))
 
 (define-public (unrelativable-music mus)
-  (here! (make-music 'UnrelativableMusic
-                     'element mus)))
+  (ly:set-origin! (make-music 'UnrelativableMusic
+                              'element mus)))
 
 (define-public (context-change type id)
-  (here! (make-music 'ContextChange
-                     'change-to-type type
-                     'change-to-id id)))
+  (ly:set-origin! (make-music 'ContextChange
+                              'change-to-type type
+                              'change-to-id id)))
 
 (define-public (tempo text . rest)
   (let* ((unit (and (pair? rest)
@@ -88,10 +83,10 @@
          (count (and unit
                      (cadr rest)))
          (range-tempo? (pair? count))
-         (tempo-change (here! (make-music 'TempoChangeEvent
-                                          'text text
-                                          'tempo-unit unit
-                                          'metronome-count count)))
+         (tempo-change (ly:set-origin! (make-music 'TempoChangeEvent
+                                                   'text text
+                                                   'tempo-unit unit
+                                                   'metronome-count count)))
          (tempo-set
           (and unit
                (context-spec-music
@@ -111,7 +106,7 @@
         tempo-change)))
 
 (define-public (repeat type num body alts)
-  (here! (make-repeat type num body alts)))
+  (ly:set-origin! (make-repeat type num body alts)))
 
 (define (script-to-mmrest-text music)
   "Extract @code{'direction} and @code{'text} from @var{music}, and transform
@@ -122,20 +117,20 @@ into a @code{MultiMeasureTextEvent}."
       music))
 
 (define-public (multi-measure-rest duration articulations)
-  (here! (make-music 'MultiMeasureRestMusic
-                     'articulations (map script-to-mmrest-text articulations)
-                     'duration duration)))
+  (ly:set-origin! (make-music 'MultiMeasureRestMusic
+                              'articulations (map script-to-mmrest-text articulations)
+                              'duration duration)))
 
 (define-public (repetition-chord duration articulations)
-  (here! (make-music 'EventChord
-                     'duration duration
-                     'elements articulations)))
+  (ly:set-origin! (make-music 'EventChord
+                              'duration duration
+                              'elements articulations)))
 
 (define-public (context-specification type id ops create-new mus)
   (let ((csm (context-spec-music mus type id)))
     (set! (ly:music-property csm 'property-operations) ops)
     (if create-new (set! (ly:music-property csm 'create-new) #t))
-    (here! csm)))
+    (ly:set-origin! csm)))
 
 (define-public (composed-markup-list commands markups)
   ;; `markups' being a list of markups, eg (markup1 markup2 markup3),
@@ -178,12 +173,12 @@ into a @code{MultiMeasureTextEvent}."
                        (list 'grob-property-path (car args))
                        (list 'grob-property-path args)))
                   (else (ly:error (_ "Invalid property operation ~a") music-type))))
-         (m (here! (apply make-music music-type
-                          'symbol symbol
-                          props))))
-    (here! (make-music 'ContextSpeccedMusic
-                       'element m
-                       'context-type ctx))))
+         (m (ly:set-origin! (apply make-music music-type
+                                   'symbol symbol
+                                   props))))
+    (ly:set-origin! (make-music 'ContextSpeccedMusic
+                                'element m
+                                'context-type ctx))))
 
 (define (get-first-context-id! mus)
   "Find the name of a ContextSpeccedMusic, possibly naming it"
@@ -202,7 +197,7 @@ into a @code{MultiMeasureTextEvent}."
         '())))
 
 (define-public (lyric-event text duration)
-  (here! (make-lyric-event text duration)))
+  (ly:set-origin! (make-lyric-event text duration)))
 
 (define-public (lyric-combine sync sync-type music)
   ;; CompletizeExtenderEvent is added following the last lyric in MUSIC
@@ -210,7 +205,7 @@ into a @code{MultiMeasureTextEvent}."
   ;; be completed if the lyrics end before the associated voice.
   (append! (ly:music-property music 'elements)
            (list (make-music 'CompletizeExtenderEvent)))
-  (here!
+  (ly:set-origin!
    (make-music 'LyricCombineMusic
                'element music
                'associated-context sync
@@ -233,11 +228,11 @@ into a @code{MultiMeasureTextEvent}."
                      (lambda (mus)
                        (with-location
                         (ly:music-property mus 'origin)
-                        (here! (make-music 'ContextSpeccedMusic
-                                           'create-new #t
-                                           'context-type 'Lyrics
-                                           'element
-                                           (lyric-combine
-                                            voice-name voice-type mus)))))
+                        (ly:set-origin! (make-music 'ContextSpeccedMusic
+                                                    'create-new #t
+                                                    'context-type 'Lyrics
+                                                    'element
+                                                    (lyric-combine
+                                                     voice-name voice-type mus)))))
                      addlyrics-list)))
     (make-simultaneous-music (cons voice lyricstos))))
