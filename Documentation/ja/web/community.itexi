@@ -205,7 +205,7 @@ LilyPond のことを知る最も簡単な方法は、@c
 我々のコミュニティのニュース レター LilyPond レポートを読むことです。
 
 @example
-@uref{http://news.lilynet.net}
+@uref{http://web.archive.org/web/20110325004849/http://news.lilynet.net}
 @end example
 
 @subsubheading リリース メーリング リスト: @code{info-lilypond@@gnu.org}

@@ -205,7 +205,7 @@ The easiest way to keep touch is by reading our community
 newsletter, the LilyPond Report:
 
 @example
-@uref{http://news.lilynet.net}
+@uref{http://web.archive.org/web/20110325004849/http://news.lilynet.net}
 @end example
 
 @subsubheading 发行版邮件列表: @code{info-lilypond@@gnu.org}

@@ -199,7 +199,7 @@ Nejjednodušší cestou, jak zůstat ve spojení, je četba zpravodaje
 našeho společenství: LilyPond Reportu (v angličtině).
 
 @example
-@uref{http://news.lilynet.net}
+@uref{http://web.archive.org/web/20110325004849/http://news.lilynet.net}
 @end example 
 
 @subsubheading Poštovní seznam pro nové verze: @code{info-lilypond@@gnu.org}
