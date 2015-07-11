@@ -3826,6 +3826,12 @@ def conv(str):
         return str
     return inner (str)
 
+@rule ((2, 19, 24), "music-has-type -> music-is-of-type?")
+def conv (str):
+    str = re.sub (r'(?<=\s|["\\()])' + "music-has-type" + r'(?=\s|["\\()])',
+                  "music-is-of-type?", str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

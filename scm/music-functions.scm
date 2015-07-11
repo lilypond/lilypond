@@ -953,9 +953,6 @@ NUMBER is 0-base, i.e., Voice=1 (upstems) has number 0.
        mus))
 
 
-(define-public (music-has-type music type)
-  (memq type (ly:music-property music 'types)))
-
 (define-public (music-clone music . music-properties)
   "Clone @var{music} and set properties according to
 @var{music-properties}, a list of alternating property symbols and
@@ -1908,7 +1905,7 @@ Entries that conform with the current key signature are not invalidated."
 
 (define-public (pitch-of-note event-chord)
   (let ((evs (filter (lambda (x)
-                       (music-has-type x 'note-event))
+                       (music-is-of-type? x 'note-event))
                      (ly:music-property event-chord 'elements))))
 
     (and (pair? evs)
