@@ -1836,14 +1836,53 @@ property (inside of an alist) is tweaked.")
                                  #:start 1
                                  #:default #t
                                  #:min 2)))
-         (if p
-             (set! (ly:music-property item 'tweaks)
-                   (acons (cond ((pair? (cddr p)) p)
-                                ((symbol? (car p))
-                                 (cons (car p) (cadr p)))
-                                (else (cadr p)))
-                          value
-                          (ly:music-property item 'tweaks))))
+         (cond ((not p))
+               ;; p now contains at least two elements.  The first
+               ;; element is #t when no grob has been explicitly
+               ;; specified, otherwise it is a grob name.
+               ((music-is-of-type? item 'context-specification)
+                ;; This is essentially dealing with the case
+                ;; \tweak color #red \tweak font-size #3 NoteHead
+                ;; namely when stacked tweaks end in a symbol list
+                ;; rather than a music expression.
+                ;;
+                ;; We have a tweak here to convert into an override,
+                ;; so we need to know the grob to apply it to.  That's
+                ;; easy if we have a directed tweak, and otherwise we
+                ;; need to find the symbol in the expression itself.
+                (let* ((elt (ly:music-property item 'element))
+                       (seq (if (music-is-of-type? elt 'sequential-music)
+                                elt
+                                (make-sequential-music (list elt))))
+                       (elts (ly:music-property seq 'elements))
+                       (symbol (if (symbol? (car p))
+                                   (car p)
+                                   (and (pair? elts)
+                                        (ly:music-property (car elts)
+                                                           'symbol)))))
+                  (if (symbol? symbol)
+                      (begin
+                        (set! (ly:music-property seq 'elements)
+                              (cons (make-music 'OverrideProperty
+                                                'symbol symbol
+                                                'grob-property-path (cdr p)
+                                                'pop-first #t
+                                                'grob-value value
+                                                'origin (*location*))
+                                    elts))
+                        (set! (ly:music-property item 'element) seq))
+                      (begin
+                        (ly:parser-error (_ "Cannot \\tweak")
+                                         (*location*))
+                        (ly:music-message item (_ "untweakable"))))))
+               (else
+                (set! (ly:music-property item 'tweaks)
+                      (acons (cond ((pair? (cddr p)) p)
+                                   ((symbol? (car p))
+                                    (cons (car p) (cadr p)))
+                                   (else (cadr p)))
+                             value
+                             (ly:music-property item 'tweaks)))))
          item)
        (propertyOverride (append item (if (symbol? prop) (list prop) prop)) value)))
 
