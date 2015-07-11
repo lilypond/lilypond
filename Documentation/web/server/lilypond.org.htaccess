@@ -37,7 +37,6 @@ RedirectMatch ^/documentation/$ /doc
 #
 RedirectMatch ^/bugs	/bug-reports
 #RedirectMatch ^/bugs	http://code.google.com/p/lilypond/issues/list
-RedirectMatch ^/wiki	http://wiki.lilynet.net
 # the new website already has an /authors
 #RedirectMatch ^/authors /doc/Documentation/topdocs/AUTHORS
 # the new website has news on the main page
