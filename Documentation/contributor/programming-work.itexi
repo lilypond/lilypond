@@ -1375,7 +1375,7 @@ scripts/auxiliar/update-with-convert-ly.sh
 If you did an out-of-tree build, pass in the relative path:
 
 @example
-BUILD_DIR=../build-lilypond/ scripts/auxiliar/update-with-convert-ly.sh
+LILYPOND_BUILD_DIR=../build-lilypond/ scripts/auxiliar/update-with-convert-ly.sh
 @end example
 
 

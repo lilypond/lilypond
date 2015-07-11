@@ -8,22 +8,22 @@ fi
 
 ### get the directories
 TOP_SRC_DIR=`pwd`
-if [ -z $BUILD_DIR ]; then
-  BUILD_DIR=.
+if [ -z $LILYPOND_BUILD_DIR ]; then
+  LILYPOND_BUILD_DIR=.
 fi
 
 ### make sure convert-ly is up-to-date
-cd $BUILD_DIR
+cd $LILYPOND_BUILD_DIR
 make python-modules
 cd $TOP_SRC_DIR
 
 ### update manuals
 find Documentation/ -path 'Documentation/snippets' -prune -o -name out -prune \
   -o -name 'out-*' -prune -o -name '*.itely' -print \
-  | xargs $BUILD_DIR/out/bin/convert-ly -e -d "$@"
+  | xargs $LILYPOND_BUILD_DIR/out/bin/convert-ly -e -d "$@"
 
 ### update .ly files
 # don't look in . otherwise it'll find stuff in build/ !
 find Documentation/ input/ ly/ -name out -prune -o -name 'out-*' -prune \
   -o \( -name '*.ly' -o -name '*.ily' \) -print \
-  | xargs $BUILD_DIR/out/bin/convert-ly -e -d "$@"
+  | xargs $LILYPOND_BUILD_DIR/out/bin/convert-ly -e -d "$@"
