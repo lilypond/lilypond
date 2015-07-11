@@ -42,8 +42,7 @@ public:
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_control_points, (SCM));
-  static bool less (Grob *const &s1,
-                    Grob *const &s2);
+  static bool less (Grob *s1, Grob *s2);
 };
 
 #endif // TIE_HH

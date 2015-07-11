@@ -84,10 +84,16 @@ Semi_tie::get_position (Item *me)
 }
 
 bool
-Semi_tie::less (Grob *const &s1,
-                Grob *const &s2)
+Semi_tie::less (Grob *g1, Grob *g2)
 {
-  return Tie::get_position_generic (s1) < Tie::get_position_generic (s2);
+  Item *i1 = dynamic_cast<Item *> (g1);
+  Item *i2 = dynamic_cast<Item *> (g2);
+  if (i1 && i2) {
+    return get_position (i1) < get_position (i2);
+  }
+
+  programming_error ("grob is not a semi-tie");
+  return false;
 }
 
 Item *

@@ -42,9 +42,16 @@
 #include "semi-tie-column.hh"
 
 bool
-Tie::less (Grob *const &s1, Grob *const &s2)
+Tie::less (Grob *g1, Grob *g2)
 {
-  return get_position_generic (s1) < get_position_generic (s2);
+  Spanner *s1 = dynamic_cast<Spanner *> (g1);
+  Spanner *s2 = dynamic_cast<Spanner *> (g2);
+  if (s1 && s2) {
+    return get_position (s1) < get_position (s2);
+  }
+
+  programming_error ("grob is not a tie");
+  return false;
 }
 
 void
