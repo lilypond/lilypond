@@ -959,7 +959,7 @@ override =
 with subproperties given as well.  Because @code{\\override} is a
 reserved word with special syntax in LilyPond input, this music
 function will generally only be accessible from Scheme.")
-   (let ((p (check-grob-path grob-property-path (*parser*) (*location*)
+   (let ((p (check-grob-path grob-property-path (*location*)
                              #:default 'Bottom
                              #:min 3)))
      (if p
@@ -1384,7 +1384,7 @@ its previous value.  @var{grob-property-path} is a symbol list of the form
 with subproperties given as well.  Because @code{\\revert} is a
 reserved word with special syntax in LilyPond input, this music
 function will generally only be accessible from Scheme.")
-   (let ((p (check-grob-path grob-property-path (*parser*) (*location*)
+   (let ((p (check-grob-path grob-property-path (*location*)
                              #:default 'Bottom
                              #:min 3)))
      (if p
