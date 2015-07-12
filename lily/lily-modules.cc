@@ -68,21 +68,21 @@ void
 Scm_module::import ()
 {
   assert (SCM_UNBNDP (module_));
-  SCM interface = scm_c_resolve_module (name_);
+  SCM intrface = scm_c_resolve_module (name_);
   // Using only the public interface is a voluntary form of access
   // control in GUILE.  It would be cumbersome to do so until
   // Guile_user itself is imported.
   if (SCM_MODULEP (Guile_user::module.module_))
-    interface = Guile_user::module_public_interface (interface);
+    intrface = Guile_user::module_public_interface (intrface);
   for (Variable_record *p = variables_; p;)
     {
       Variable_record *next = p->next_;
-      p->var_->import (interface, p->name_);
+      p->var_->import (intrface, p->name_);
       delete p;
       p = next;
     }
   variables_ = 0;
-  module_ = interface;
+  module_ = intrface;
 }
 
 void
