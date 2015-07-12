@@ -126,8 +126,7 @@ expression."
 ;;; post events
 ;;;
 
-(define (post-event? m)
-  (music-is-of-type? m 'post-event))
+(define post-event? (music-type-predicate 'post-event))
 
 (define* (event-direction->lily-string event #:optional (required #t))
   (let ((direction (ly:music-property event 'direction)))
@@ -418,7 +417,7 @@ Otherwise, return #f."
          (chord-repeat (ly:music-property chord 'duration)))
     (call-with-values
         (lambda ()
-          (partition (lambda (m) (music-is-of-type? m 'rhythmic-event))
+          (partition (music-type-predicate 'rhythmic-event)
                      elements))
       (lambda (chord-elements other-elements)
         (cond ((pair? chord-elements)

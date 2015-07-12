@@ -1859,10 +1859,10 @@ unsets already in @var{music} cause a warning.  Non-property-related music is ig
      (let
          ((lst
            (fold-some-music
-            (lambda (m) (or (music-is-of-type? m 'layout-instruction-event)
-                            (music-is-of-type? m 'context-specification)
-                            (music-is-of-type? m 'apply-context)
-                            (music-is-of-type? m 'time-signature-music)))
+            (music-type-predicate '(layout-instruction-event
+                                    context-specification
+                                    apply-context
+                                    time-signature-music))
             (lambda (m overrides)
               (case (ly:music-property m 'name)
                 ((OverrideProperty)

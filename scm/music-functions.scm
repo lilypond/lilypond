@@ -747,9 +747,7 @@ duration is replaced with the specified @var{duration}."
   ;; articulations on individual events since they can't actually get
   ;; into a repeat chord given its input syntax.
 
-  (define (keep-element? m)
-    (any (lambda (t) (music-is-of-type? m t))
-         event-types))
+  (define keep-element? (music-type-predicate event-types))
 
   (for-each
    (lambda (field)
@@ -2006,12 +2004,7 @@ not recursing into matches themselves."
   "Return a flat list of all music with @var{type} (either a single
 type symbol or a list of alternatives) inside of @var{music}, not
 recursing into matches themselves."
-  (extract-music
-   music
-   (if (cheap-list? type)
-       (lambda (m)
-         (any (lambda (t) (music-is-of-type? m t)) type))
-       (lambda (m) (music-is-of-type? m type)))))
+  (extract-music music (music-type-predicate type)))
 
 (define*-public (event-chord-wrap! music)
   "Wrap isolated rhythmic events and non-postevent events in
