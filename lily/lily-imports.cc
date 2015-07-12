@@ -81,6 +81,8 @@ namespace Lily {
 #endif
   Variable f_parser ("%parser");
   Variable percussion_p ("percussion?");
+  Variable property_override ("propertyOverride");
+  Variable property_set ("propertySet");
   Variable pure_chain_offset_callback ("pure-chain-offset-callback");
   Variable remove_stencil_warnings ("remove-stencil-warnings");
   Variable scale_layout ("scale-layout");

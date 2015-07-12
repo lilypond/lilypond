@@ -87,6 +87,8 @@ namespace Lily {
 #endif
   extern Variable f_parser;
   extern Variable percussion_p;
+  extern Variable property_override;
+  extern Variable property_set;
   extern Variable pure_chain_offset_callback;
   extern Variable remove_stencil_warnings;
   extern Variable scale_layout;
