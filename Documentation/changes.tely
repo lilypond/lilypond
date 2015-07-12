@@ -62,6 +62,21 @@ which scares away people.
 @end ignore
 
 @item
+Music (and scheme and void) functions and markup commands that
+just supply the final parameters to a chain of music and function
+and markup command calls, respectively, can now be defined in the
+form of just writing the expression cut short with @code{\etc}.
+@lilypond[verbatim,quote]
+bold-red-markup = \markup \bold \with-color #red \etc
+highlight = \tweak font-size 3 \tweak color #red \etc
+
+\markup \bold-red "text"
+\markuplist \column-lines \bold-red { One Two }
+
+{ c' \highlight d' e'2-\highlight -! }
+@end lilypond
+
+@item
 LilyPond functions defined with @code{define-music-function},
 @code{define-event-function}, @code{define-scheme-function} and
 @code{define-void-function} can now be directly called from Scheme
