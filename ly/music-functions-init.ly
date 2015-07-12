@@ -119,7 +119,7 @@ form of a spanner event, @var{property} may also have the form
                  (member 'spanner-interface
                          (assoc-get 'interfaces
                                     (assoc-get 'meta description))))
-            (override (append item (if (symbol? property)
+            (propertyOverride (append item (if (symbol? property)
                                        (list property)
                                        property))
                       (value-for-spanner-piece arg))
@@ -906,7 +906,7 @@ appropriate tweak applied.")
                                      property)) (*location*)
                          #:default 'Bottom #:min 3 #:max 3)))
         (if prop-path
-            (override prop-path (offsetter (third prop-path) offsets))
+            (propertyOverride prop-path (offsetter (third prop-path) offsets))
             (make-music 'Music)))))
 
 omit =
@@ -946,33 +946,6 @@ ottava =
    (_i "Set the octavation.")
    (make-music 'OttavaMusic
                'ottava-number octave))
-
-#(ly:expect-warning
-  (ly:translate-cpp-warning-scheme "identifier name is a keyword: `%s'")
-  "override")
-override =
-#(define-music-function (grob-property-path value)
-   (symbol-list? scheme?)
-   (_i "Set the grob property specified by @var{grob-property-path} to
-@var{value}.  @var{grob-property-path} is a symbol list of the form
-@code{Context.GrobName.property} or @code{GrobName.property}, possibly
-with subproperties given as well.  Because @code{\\override} is a
-reserved word with special syntax in LilyPond input, this music
-function will generally only be accessible from Scheme.")
-   (let ((p (check-grob-path grob-property-path (*location*)
-                             #:default 'Bottom
-                             #:min 3)))
-     (if p
-         (context-spec-music
-          (make-music 'OverrideProperty
-                      'symbol (cadr p)
-                      'origin (*location*)
-                      'grob-value value
-                      'grob-property-path (cddr p)
-                      'pop-first #t)
-          (car p))
-         (make-music 'Music))))
-
 
 overrideTimeSignatureSettings =
 #(define-music-function
@@ -1349,6 +1322,81 @@ print @var{secondary-note} as a stemless note head in parentheses.")
                            trill-events)))))
      main-note))
 
+propertyOverride =
+#(define-music-function (grob-property-path value)
+   (symbol-list? scheme?)
+   (_i "Set the grob property specified by @var{grob-property-path} to
+@var{value}.  @var{grob-property-path} is a symbol list of the form
+@code{Context.GrobName.property} or @code{GrobName.property}, possibly
+with subproperties given as well.  This music function is mostly intended
+for use from Scheme as a substitute for the built-in @code{\\override}
+command.")
+   (let ((p (check-grob-path grob-property-path (*location*)
+                             #:default 'Bottom
+                             #:min 3)))
+     (if p
+         (context-spec-music
+          (make-music 'OverrideProperty
+                      'symbol (cadr p)
+                      'origin (*location*)
+                      'grob-value value
+                      'grob-property-path (cddr p)
+                      'pop-first #t)
+          (car p))
+         (make-music 'Music))))
+
+propertyRevert =
+#(define-music-function (grob-property-path)
+   (symbol-list?)
+   (_i "Revert the grob property specified by @var{grob-property-path} to
+its previous value.  @var{grob-property-path} is a symbol list of the form
+@code{Context.GrobName.property} or @code{GrobName.property}, possibly
+with subproperties given as well.  This music function is mostly intended
+for use from Scheme as a substitute for the built-in @code{\\revert}
+command.")
+   (let ((p (check-grob-path grob-property-path (*location*)
+                             #:default 'Bottom
+                             #:min 3)))
+     (if p
+         (context-spec-music
+          (make-music 'RevertProperty
+                      'symbol (cadr p)
+                      'origin (*location*)
+                      'grob-property-path (cddr p))
+          (car p))
+         (make-music 'Music))))
+
+propertySet =
+#(define-music-function (property-path value)
+   (symbol-list-or-symbol? scheme?)
+   (_i "Set the context property specified by @var{property-path} to
+@var{value}.  This music function is mostly intended for use from
+Scheme as a substitute for the built-in @code{\\set} command.")
+   (let ((p (check-context-path property-path (*location*))))
+     (if p
+         (context-spec-music
+          (make-music 'PropertySet
+                      'symbol (cadr p)
+                      'value value
+                      'origin (*location*))
+          (car p))
+         (make-music 'Music))))
+
+propertyUnset =
+#(define-music-function (property-path)
+   (symbol-list-or-symbol?)
+   (_i "Unset the context property specified by @var{property-path}.
+This music function is mostly intended for use from Scheme as a
+substitute for the built-in @code{\\unset} command.")
+   (let ((p (check-context-path property-path (*location*))))
+     (if p
+         (context-spec-music
+          (make-music 'PropertyUnset
+                      'symbol (cadr p)
+                      'origin (*location*))
+          (car p))
+         (make-music 'Music))))
+
 pushToTag =
 #(define-music-function (tag more music)
    (symbol? ly:music? ly:music?)
@@ -1370,30 +1418,6 @@ usually contains spacers or multi-measure rests.")
    (make-music 'QuoteMusic
                'element main-music
                'quoted-music-name what))
-
-#(ly:expect-warning
-  (ly:translate-cpp-warning-scheme "identifier name is a keyword: `%s'")
-  "revert")
-revert =
-#(define-music-function (grob-property-path)
-   (symbol-list?)
-   (_i "Revert the grob property specified by @var{grob-property-path} to
-its previous value.  @var{grob-property-path} is a symbol list of the form
-@code{Context.GrobName.property} or @code{GrobName.property}, possibly
-with subproperties given as well.  Because @code{\\revert} is a
-reserved word with special syntax in LilyPond input, this music
-function will generally only be accessible from Scheme.")
-   (let ((p (check-grob-path grob-property-path (*location*)
-                             #:default 'Bottom
-                             #:min 3)))
-     (if p
-         (context-spec-music
-          (make-music 'RevertProperty
-                      'symbol (cadr p)
-                      'origin (*location*)
-                      'grob-property-path (cddr p))
-          (car p))
-         (make-music 'Music))))
 
 
 relative =
@@ -1814,7 +1838,7 @@ property (inside of an alist) is tweaked.")
                           value
                           (ly:music-property item 'tweaks))))
          item)
-       (override (append item (if (symbol? prop) (list prop) prop)) value)))
+       (propertyOverride (append item (if (symbol? prop) (list prop) prop)) value)))
 
 undo =
 #(define-music-function (music)
