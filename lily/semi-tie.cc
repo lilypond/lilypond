@@ -68,6 +68,7 @@ Semi_tie::calc_control_points (SCM smob)
       me->suicide ();
     }
 
+  // TODO: Even if me->suicide() was called?
   return me->get_property_data ("control-points");
 }
 
