@@ -717,6 +717,26 @@ partial_function:
 	{
 		$$ = scm_acons ($1, $2, SCM_EOL);
 	}
+	| OVERRIDE grob_prop_path '='
+	{
+		if (SCM_UNBNDP ($2))
+			$$ = scm_list_1 (SCM_BOOL_F);
+		else
+			$$ = scm_cons
+				(scm_list_3 (Syntax::property_override_function,
+					     scm_cdr ($2), scm_car ($2)),
+				 SCM_EOL);
+	}
+	| SET context_prop_spec '='
+	{
+		if (SCM_UNBNDP ($2))
+			$$ = scm_list_1 (SCM_BOOL_F);
+		else
+			$$ = scm_cons
+				(scm_list_3 (Syntax::property_set_function,
+					     scm_cadr ($2), scm_car ($2)),
+				 SCM_EOL);
+	}
 	| MUSIC_FUNCTION EXPECT_SCM function_arglist_optional partial_function
 	{
 		$$ = scm_acons ($1, $3, $4);
@@ -728,6 +748,26 @@ partial_function:
 	| SCM_FUNCTION EXPECT_SCM function_arglist_optional partial_function
 	{
 		$$ = scm_acons ($1, $3, $4);
+	}
+	| OVERRIDE grob_prop_path '=' partial_function
+	{
+		if (SCM_UNBNDP ($2))
+			$$ = scm_list_1 (SCM_BOOL_F);
+		else
+			$$ = scm_cons
+				(scm_list_3 (Syntax::property_override_function,
+					     scm_cdr ($2), scm_car ($2)),
+				 $4);
+	}
+	| SET context_prop_spec '=' partial_function
+	{
+		if (SCM_UNBNDP ($2))
+			$$ = scm_list_1 (SCM_BOOL_F);
+		else
+			$$ = scm_cons
+				(scm_list_3 (Syntax::property_set_function,
+					     scm_cadr ($2), scm_car ($2)),
+				 $4);
 	}
 	| MUSIC_FUNCTION EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup partial_function
 	{
