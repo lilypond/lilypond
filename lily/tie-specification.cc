@@ -1,5 +1,8 @@
 #include "tie-formatting-problem.hh"
 #include "grob.hh"
+#include "item.hh"
+#include "semi-tie.hh"
+#include "spanner.hh"
 #include "tie.hh"
 #include "libc-extension.hh"
 #include "tie-specification.hh"
@@ -22,6 +25,8 @@ Tie_specification::Tie_specification ()
 void
 Tie_specification::from_grob (Grob *tie)
 {
+  // In this method, Tie and Semi_tie require the same logic with different
+  // types.  It might be clearer to use a template.
   tie_grob_ = tie;
   if (scm_is_number (tie->get_property_data ("direction")))
     {
@@ -29,7 +34,16 @@ Tie_specification::from_grob (Grob *tie)
       has_manual_dir_ = true;
     }
 
-  position_ = Tie::get_position_generic (tie);
+  if (Spanner *spanner = dynamic_cast<Spanner *> (tie))
+    position_ = Tie::get_position (spanner);
+  else if (Item *item = dynamic_cast<Item *> (tie))
+    position_ = Semi_tie::get_position (item);
+  else
+    {
+      programming_error ("grob is neither a tie nor a semi-tie");
+      position_ = 0;
+    }
+
   SCM pos_scm = tie->get_property ("staff-position");
   if (scm_is_number (pos_scm))
     {

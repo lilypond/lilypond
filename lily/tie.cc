@@ -93,21 +93,6 @@ Tie::get_position (Spanner *me)
   return 0;
 }
 
-int
-Tie::get_position_generic (Grob *me) // TODO: do away with this
-{
-  Spanner *spanner = dynamic_cast<Spanner *> (me);
-  if (spanner)
-    return get_position (spanner);
-
-  Item *item = dynamic_cast<Item *> (me);
-  if (item)
-    return Semi_tie::get_position (item);
-
-  programming_error ("grob is neither a tie nor a semi-tie");
-  return 0;
-}
-
 /*
   Default:  Put the tie oppositie of the stem [Wanske p231]
 
