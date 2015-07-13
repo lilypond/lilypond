@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: f7a3d8cf31367398a1955c50d3c42216d8940989
+    Translation of GIT committish: e8fd54aac6821d27c14b911a00f009a150e5fa50
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1757,7 +1757,7 @@ altoTwo = \relative { d'2 g4( fis8 g) }
 aligner = \relative { b'8( c d c) d( d d d) }
 words = \lyricmode { la __ la __ }
 
-\new ChoirStaff <<
+\new ChoirStaff \with { \accepts NullVoice } <<
   \new Staff \soprano
   \new NullVoice = "aligner" \aligner
   \new Lyrics \lyricsto "aligner" \words

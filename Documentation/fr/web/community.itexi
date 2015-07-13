@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: e692f41399fc6953aa800c99a8dbe7f59a9a064a
+    Translation of GIT committish: e8fd54aac6821d27c14b911a00f009a150e5fa50
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -194,11 +194,11 @@ intéresser d'autres utilisateurs.
 @subsubheading Autres langues
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
-Liste de diffusion hispanophone}
-
 @uref{http://www.lilypondforum.de/,
 Forum germanophone}
+
+@uref{http://www.lilypondforum.nl/,
+Forum hollandais}
 
 @uref{http://groups.google.com/group/lilypond-brasil,
 Groupe des utilisateurs brésiliens}
@@ -206,23 +206,21 @@ Groupe des utilisateurs brésiliens}
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
 Liste de diffusion francophone}
 
-@uref{http://www.lilypondforum.nl/,
-Forum hollandais}
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
+Liste de diffusion hispanophone}
 @end quotation
 
 @divEnd
 
 
 @divClass{column-right-top}
-@subheading Se tenir informé
+@subheading LilyPond Report
 
-@subsubheading LilyPond Report
-
-Le LilyPond Report est le bulletin de la communauté.  À lire pour savoir
-ce qui se passe.
+Le @emph{blog} de la communauté LilyPond, au titre de « Scores of
+Beauty », est une ressource de grande valeur.
 
 @example
-@uref{http://news.lilynet.net}
+@uref{http://lilypondblog.org}
 @end example
 
 @subsubheading Liste de diffusion des versions : @code{info-lilypond@@gnu.org}
@@ -248,13 +246,13 @@ archive3}
 
 
 @divClass{column-right-bottom}
-@subheading Contacter les développeurs
+@subheading Contacter les développeurs ou les traducteurs
 
 @subsubheading Liste de diffusion des développeurs : @code{lilypond-devel@@gnu.org}
 
-C'est sur cette liste que se tiennent la plupart des discussions ayant
-trait au développement.  C'est aussi à cette liste que doivent être
-adressés les patchs.
+C'est sur cette liste que se tiennent les discussions ayant trait au
+développement.  C'est aussi à cette liste que peuvent être adressés les
+patchs.
 
 @quotation
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel,
@@ -274,8 +272,9 @@ poster sur lilypond-devel à l'aide de gmane}
 
 @subsubheading Liste de diffusion des bogues : @code{bug-lilypond@@gnu.org}
 
-Cette liste @strong{anglophone} est tout spécialement consacrée aux
-discussions à propos des bogues ou limitations.
+Cette liste @strong{anglophone} est tout spécialement consacrée
+signalements et discussions à propos des bogues ou limitations.  Elle
+n'est pas destinée à recevoir des patches.
 
 @quotation
 @uref{http://lists.gnu.org/mailman/listinfo/bug-lilypond,
@@ -294,15 +293,16 @@ archive3}.
 @warning{Les directives à suivre pour poster un message sur cette
 liste sont répertoriées dans @ref{Signalement de bogue}.}
 
-@divEnd
 
+@subheading Liste de diffusion des traductions : @code{translations@@lilynet.org}
 
-@divClass{column-right-bottom}
-@subheading Courriels sensibles
+C'est sur cette liste que se tiennent les discussions ayant trait aux
+traductions des manuels.  Merci de n'y adresser aucun patche.
 
-Lorsque cela touche la sphère privée, contactez Graham Percival qui, en
-tant qu'administrateur du projet, en discutera avec les personnes
-appropriées.
+@quotation
+@uref{http://lilypond-translations.3384276.n2.nabble.com/,
+Translation mailing list archive}
+@end quotation
 
 @divEnd
 

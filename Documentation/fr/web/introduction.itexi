@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 29fa30fae237f7011932dc59c2a4e3e720913a27
+    Translation of GIT committish: e8fd54aac6821d27c14b911a00f009a150e5fa50
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1490,10 +1490,6 @@ fichiers @code{.enc} existant et en les chargeant avec la version de
 démonstration 4.55.
 
 @item
-@uref{http://musescore.org,MuseScore} est un éditeur de partition. Il
-exporte dans une certaine mesure au format LilyPond.
-
-@item
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
 basé sur la bibliothèque @uref{http://cairographics.org, Cairo}, dispose
 d'une fonction expérimentale d'export pour LilyPond.
@@ -1564,10 +1560,21 @@ KDE 4.1.
 créé en tant que greffon de l'éditeur @uref{http://www.jedit.org,jEdit}.
 
 @item
+@uref{http://musescore.org,MuseScore} est un éditeur de partition. Il
+exporte dans une certaine mesure au format LilyPond.
+
+@item
 @uref{http://noteedit.berlios.de,NoteEdit}, qui importait
 @uref{http://www.makemusic.com/musicxml, MusicXML}, s'est scindé en
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 et @uref{http://canorus.org,Canorus}.
+
+@item
+@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond},
+extension pour OpenOffice.org convertit des fichiers LilyPond en image
+au sein de documents OpenOffice.org.  Bien qu'elle ne soit plus
+activement dévoloppée, cette extension semble encore fonctionnelle avec
+la version 4.
 
 @item
 @uref{http://launchpad.net/rumor/,Rumor}, un convertisseur monophonique

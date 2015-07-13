@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
+    Translation of GIT committish: e8fd54aac6821d27c14b911a00f009a150e5fa50
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1881,10 +1881,9 @@ musicB = {
 @funindex modern-cautionary
 
 Cette règle est équivalente à @code{modern}, mais les bécarres de
-précaution (absents dans la règle @code{default}) sont imprimés de façon
-particulière : soit plus petit, soit (par défaut) entre parenthèses
--- il est possible de le définir au moyen de la propriété
-@code{cautionary-style} de l'objet @code{AccidentalSuggestion}.
+précaution (absents dans la règle @code{default}) sont imprimés entre
+parenthèses.  Ils peuvent aussi adopter une taille différent, au moyen
+de la propriété @code{font-size} de l'objet @code{AccidentalSuggestion}.
 
 @lilypond[quote]
 musicA = {
@@ -2246,7 +2245,9 @@ musicB = {
 @funindex neo-modern-cautionary
 
 Identique au style @code{neo-modern}, mais les altérations de précaution
-sont imprimées différemment.
+sont imprimées entre parenthèses.  Elles peuvent aussi adopter une
+taille différent, au moyen de la propriété @code{font-size} de l'objet
+@code{AccidentalSuggestion}.
 
 @lilypond[quote]
 musicA = {

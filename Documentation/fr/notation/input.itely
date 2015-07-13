@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
+    Translation of GIT committish: e8fd54aac6821d27c14b911a00f009a150e5fa50
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2847,6 +2847,8 @@ supplémentaire pour les écouter.
 * Gestion des nuances en MIDI::
 * Gestion des instruments MIDI::
 * Gestion des répétitions en MIDI::
+* Affectation des canaux MIDI::
+* Propriétés de contextes et effets MIDI::
 * Amélioration du rendu MIDI::
 @end menu
 
@@ -2880,6 +2882,10 @@ accent, marcato et portato,
 « @code{:}[@var{nombre}] ».
 @end itemize
 
+Spatialisation, balance, expression, réverbération et chorus peuvent se
+contrôler à l'aide de propriétés de contexte -- voir
+@ref{Propriétés de contextes et effets MIDI}.
+
 En combinaison avec le script @file{articulate}, d'autres éléments
 seront aussi reportés en MIDI :
 
@@ -2910,7 +2916,7 @@ Voir @ref{Amélioration du rendu MIDI}.
 
 @cindex MIDI, éléments non pris en comte
 
-Certains éléments de notation ne peuvent être retranscits dans un
+Certains éléments de notation ne peuvent être retranscrits dans un
 fichier MIDI :
 
 @itemize
@@ -2952,7 +2958,7 @@ LilyPond produira uniquement la sortie MIDI -- aucun support visuel ne
 sera généré.}
 
 L'extension par défaut des fichiers MIDI générés (@code{.midi}) peut se
-modifier en ligne de commadne :
+modifier en ligne de commande :
 
 @example
 lilypond -dmidi-extension=mid MonFichier.ly
@@ -3196,10 +3202,6 @@ nuances à la sortie MIDI.  Vous aurez noté que les modules de traduction
 de LilyPond en matière de son s'appelent @emph{performers} -- des
 « interprètes ».
 
-@snippets
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{changing-midi-output-to-one-channel-per-voice.ly}
-
 @seealso
 Manuel d'initiation :
 @rlearning{Autres sources de documentation}.
@@ -3222,7 +3224,7 @@ Certains lecteurs MIDI ne rendent pas correctement les changements de
 tempo.
 
 Les modifications de @code{midiInstrument} ou autres options MIDI en
-début de portée pevuent se retrouver dédoublées dans la sortie MIDI.
+début de portée peuvent se retrouver dédoublées dans la sortie MIDI.
 
 @node Gestion des instruments MIDI
 @subsection Gestion des instruments MIDI
@@ -3257,7 +3259,7 @@ ou
 @end example
 
 Lorsque l'instrument choisi ne correspond pas exactement à l'une des
-dénominations consacrées, LilyPond le replacera par un piano de concert
+dénominations consacrées, LilyPond le remplacera par un piano de concert
 (@code{"acoustic grand"}) -- voir @ref{Instruments MIDI}.
 
 @seealso
@@ -3275,11 +3277,11 @@ Fichiers d'initialisation :
 @file{scm/midi.scm}.
 
 @knownissues
-Les percussions gérées par un contexte @code{DrumStaff} sont d'affectées
+Les percussions gérées par un contexte @code{DrumStaff} sont affectées
 directement au canal 10 qui leur est réservé. Certains instruments, tels
 le xylophone, le marimba, le vibraphone ou les timbales, se traitent
 cependant comme des instruments « classiques » puisqu'ils sont capables
-d'émettre des hauteurs différentes ; leurs notation relève donc d'un
+d'émettre des hauteurs différentes ; leur notation relève donc d'un
 contexte @code{Staff} standard, et non d'un @code{DrumStaff} pour
 pouvoir être rendus correctement en MIDI.  Une liste complète des
 percussions affectées au canal 10 (@code{channel 10 drum-kits}) est
@@ -3338,6 +3340,224 @@ soient mentionnée correctement dans @strong{toutes} les voix.
 @seealso
 Manuel de notation :
 @ref{Répétitions et reprises}.
+
+
+
+@node Affectation des canaux MIDI
+@subsection Affectation des canaux MIDI
+@translationof MIDI channel mapping
+
+@cindex MIDI, canaux
+@cindex MIDI, pistes
+@funindex midiChannelMapping
+
+Lorsque LilyPond génère un fichier MIDI à partir d'une partition, chaque
+note contenue dans cette partition sera automatiquement assignée à un
+canal MIDI, celui sur lequel elle devrait être jouée quand elle est
+transmise à un périphérique MIDI.  Chaque canal MIDI dispose d'un
+certain nombre de contrôles pour, par exemple, sélectionner l'instrument
++qui jouera les notes de ce canal ou bien demander au périphérique MIDI
+d'appliquer différents effets au son produit sur ce canal.  En tout état
+de cause, chaque contrôle d'un canal MIDI ne peut se voir affecté que
+d'une seule valeur à la fois -- celle-ci peut toutefois être modifiée
+pour, par exemple, changer d'instrument au milieu du morceau.
+
+Le standard MIDI ne dispose que de 16 canaux par périphérique MIDI.
+Cette limite du nombre de canaux entraîne une limitation du nombre
+d'instruments pouvant jouer de concert.
+
+LilyPond crée une piste MIDI séparée pour chaque portée (ou chaque
+instrument ou voix selon la valeur de @code{Score.midiChannelMapping})
+ainsi que pour chaque contexte de paroles.  Il n'y a pas de limite au
+nombre de pistes.
+
+Afin de contourner la limitation du nombre de canaux MIDI, LilyPond
+dispose de différents modes d'allocation d'un canal MIDI grâce à la
+propriété de contexte @code{Score.midiChannelMapping}.  Dans tous les
+cas, lorsque la limite au nombre de canaux est atteinte, LilyPond repart
+du canal 0, ce qui peut affecter des notes au mauvais instrument.  Cette
+propriété de contexte peut prendre les valeurs suivantes :
+
+@table @var
+
+@item @code{'staff}
+
+Allocation d'un canal MIDI particulier à chacune des portées de la
+partition (option par défaut).  Toutes les notes de toutes les voix
+d'une même portée partageront le canal MIDI affecté à la portée qui les
+englobe, et toutes seront encodées dans la même piste.
+
+La limite des 16 canaux s'applique au nombre total de portées augmenté
+des contextes de paroles même si les paroles MIDI n'occupent pas de
+canal MIDI.
+
+@item @code{'instrument}
+
+Allocation d'un canal MIDI particulier à chaque instrument MIDI tel que
+spécifié dans la partition.  En d'autre termes, des notes jouées par un
+même instrument MIDI partageront le même canal MIDI (et la même piste),
+même si elles proviennent de voix ou portées différentes.
+
+Dans ce cas particulier, les contextes de paroles ne sont pas pris en
+compte dans la limite des 16 canaux, puisqu'ils ne sont pas assignés à
+un instrument MIDI, ce qui permet une meilleure allocation des canaux
+MIDI lorsque le nombre de portées et de contextes de paroles dépasse 16.
+
+@item @code{'voice}
+
+Allocation d'un canal MIDI particulier à chaque voix de la partition
+portant un nom unique parmi les voix de la portée considérée.  Des voix
+appartenant à des portées différentes seront toujours affectées à des
+canaux MIDI différents, mais deux voix partageant la même portée
+partageront le même canal MIDI dès lors qu'elles porteront le même nom.
+Dans la mesure où @code{midiInstrument} et les différents contrôles
+d'effets MIDI sont des propriétés affectant le contexte de portée, ils
+ne peuvent se déterminer individuellement pour une voix.  La première
+voix adoptera l'instrument et les effets spécifiés pour cette portée, et
+les voix dénommées différemment de la première se verront attribué
+l'instrument et le effets par défaut.
+
+Note : l'affectation d'instruments ou d'effets différents aux
+differentes voix d'une même portée s'obtient dès lors que le
+@code{Staff_performer} est déplacé du contexte @code{Staff} au contexte
+@code{Voice} tout en maintenant le @code{midiChannelMapping} dans le
+contexte @code{'staff} ou en le réglant sur @code{'instrument}.
+
+@end table
+
+Par exemple, l'affectation par défaut des canaux MIDI d'une partition
+peut être réglée sur @code{'instrument} comme ceci :
+
+@example
+\score @{
+  ...musique...
+  \midi @{
+    \context @{
+      \Score
+      midiChannelMapping = #'instrument
+    @}
+  @}
+@}
+@end example
+
+@snippets
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{changing-midi-output-to-one-channel-per-voice.ly}
+
+
+@node Propriétés de contextes et effets MIDI
+@subsection Propriétés de contextes et effets MIDI
+@translationof Context properties for MIDI effects
+
+@cindex effets MIDI
+@cindex pan, MIDI
+@cindex spatialisation (pan), MIDI
+@cindex stéréo MIDI, balance
+@cindex balance MIDI
+@cindex expression MIDI
+@cindex reverb MIDI
+@cindex chorus MIDI
+@funindex midiPanPosition
+@funindex midiBalance
+@funindex midiExpression
+@funindex midiReverbLevel
+@funindex midiChorusLevel
+
+Les différentes propriétés de contexte qui suivent permettnt d'appliquer
+différents effets MIDI aux notes contenues dans le canal MIDI associé à
+la portée courante, à l'instrument ou à la voix, selon la valeur
+affectée à la propriété de contexte @code{Score.midiChannelMapping} et
+le contexte dans lequel le @code{Staff_performer} réside -- voir
+@ref{Affectation des canaux MIDI}.
+
+Une adaptation de ces propriétés de contexte affectera toutes les notes
+jouées sur ce canal dès leur modification.  Certains effets pourront
+même s'appliquer sur des notes déjà en cours, selon l'implémentation du
+périphérique de sortie MIDI.
+
+LilyPond dispose des propriétés de contexte suivantes :
+
+@table @var
+
+@item @code{Staff.midiPanPosition}
+
+La spatialisation (@emph{pan position}) contrôle le positionnement d'un
+canal MIDI entre les sorties stéréo droite et gauche.  Cette propriété
+de contexte prend en argument une valeur entre -1.0 (@code{#LEFT})
+et 1.0 (@code{#RIGHT}). Une valeur de -1.0 enverra toute la puissance
+sonore sur le haut-parleur gauche (le droit sera silencieux), une
+vaaleur de 0.0 (@code{#CENTER}) distribuera équitablement le son entre
+les jaut-parleurs de gauche et de droite, et une valeur de 1.0 enverra
+tout le son sur le haut-parleur de droite.  Des valeurs entre -1.0 et
+1.0 permettent d'obtenir une répartition du son entre les sorties
+gauche et droite d'un équipement stéréophonique.
+
+
+@item @code{Staff.midiBalance}
+
+La balance stéréo d'un canal MIDI.  Tout comme la spatialisation, cette
+propriété de contexte prend en argument une valeur comprise entre -1.0
+(@code{#LEFT}) et 1.0 (@code{#RIGHT}).  Elle permet de faire varier le
+volume relatif envoyé aux deux haut-parleurs stéréo sans pour autant
+affecter la distribution des signaux stéréo.
+
+@item @code{Staff.midiExpression}
+
+Le niveau d'expression, en tant que fraction du niveau maximum de volume
+disponible, à appliquer à un canal MIDI.  Un périphérique MIDI combine
+le niveau d'expression des canaux MIDI et le niveau de nuance de la voix
+en cours (tel que défini par @code{\p} ou @code{\ff}) afin d'obtenir le
+volume total de chacune des notes de la voix.  Un contrôle de
+l'expression permet, par exemple, d'implémenter des effets de crescendo
+ou decrescendo sur une note tenue, ce que LilyPond ne sait pas faire
+automatiquement.
+
+@c Issue 4059 contains an attached snippet which shows how this might
+@c be done, but this is too large and complex for the NR, even as a
+@c referenced snippet.  It could be added to the LSR.
+
+Le niveau d'expression varie entre 0.0 (sans expression, autrement dit
+volume à zéro) et 1.0 (volume au maximum).
+
+@item @code{Staff.midiReverbLevel}
+
+Le niveau de réverbération, en tant que fraction du niveau maximum
+disponible, à appliquer à un canal MIDI.  Cette propriété prend en
+argument une valeur entre 0.0 (pas d'écho) et 1.0 (effet maximal).
+
+@item @code{Staff.midiChorusLevel}
+
+Le niveau de chœur, en tant que fraction du niveau maximum disponible, à
+appliquer à un canal MIDI.  Cette propriété prend en argument une valeur
+entre 0.0 (pas de chorus) et 1.0 (effet maximal).
+
+@end table
+
+@knownissues
+
+Dans la mesure où les fichiers MIDI ne comportent effectivement aucune
+donnée audio, les modifications des propriétés de contexte ne se
+traduisent qu'en requêtes de changement des contrôles du canal MIDI
+lorsque ces fichiers MIDI sont joués.  La manière dont un périphérique
+MIDI particulier, tel un synthétiseur MIDI logiciel, gérera ces
+requêtes incluses dans un fichier MIDI dépend complètement de
+l'implémentation du périphérique : certains d'entre eux pourront
+simplement ignorer plusieurs, voire toutes ces requêtes.  Par ailleurs,
+la manière dont un périphérique MIDI interprète les différentes valeurs
+de ces contrôles (en règle générale, le standard MIDI ne fixe le
+comportement qu'aux valeurs extrêmes de l'amplitude disponible pour
+chacun des contrôles) et leur modification alors qu'une note sur un
+canal est tenue, dépend de l'implémentation particulière à ce
+périphérique.
+
+Lors de la génération d'un fichier MIDI, LilyPond transforme simplement
+les valeurs fractionnaires dans l'amplitude linéaire en valeurs entières
+correspondantes (de 0 à 127 et sur 7 octets, ou de 0 à 32767 et sur 14
+octets pour les contrôles MIDI supportant une résolution fine). Ces
+valeurs entières converties sont  stockées telles quelles dans le
+fichier MIDI généré.  Pour plus d'information sur la manière dont un
+périphérique MIDI interprète ces valeurs, se reporter à sa
+documentation.
 
 
 @node Amélioration du rendu MIDI

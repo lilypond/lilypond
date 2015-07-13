@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 3bcb9ffb9e2ecd44866e51fe712ffec181775ecf
+%% Translation of GIT committish: e8fd54aac6821d27c14b911a00f009a150e5fa50
   texidocfr = "
 L'égaliseur basique peut être modifié par la définition d'une nouvelle
 procédure Scheme @code{instrumentEqualizer} au sein du contexte
@@ -11,4 +11,4 @@ et de la clarinette.
 
 "
 
-  doctitle = "Réglage de l'égalisation par défaut des instruments MIDI"
+  doctitlefr = "Réglage de l'égalisation par défaut des instruments MIDI"
