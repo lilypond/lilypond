@@ -32,8 +32,6 @@ struct Semi_tie
   static int get_column_rank (Item *);
   static int get_position (Item *);
   static Item *head (Item *);
-  // return the head if it is present on the given side
-  static Item *head (Item *, Direction d);
 };
 
 #endif /* SEMI_TIE_HH */

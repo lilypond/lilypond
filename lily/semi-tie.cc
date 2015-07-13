@@ -55,21 +55,22 @@ MAKE_SCHEME_CALLBACK (Semi_tie, calc_control_points, 1)
 SCM
 Semi_tie::calc_control_points (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  Item *me = LY_ASSERT_SMOB(Item, smob, 1);
+
   (void) me->get_property ("direction");
 
-  if (Semi_tie_column::has_interface (me->get_parent (Y_AXIS)))
+  Grob *yparent = me->get_parent (Y_AXIS);
+  if (Semi_tie_column::has_interface (yparent))
     {
-      me->get_parent (Y_AXIS)->get_property ("positioning-done");
-    }
-  else
-    {
-      programming_error ("lv tie without Semi_tie_column.  Killing lv tie.");
-      me->suicide ();
+      /* trigger positioning. */
+      yparent->get_property ("positioning-done");
+
+      return me->get_property_data ("control-points");
     }
 
-  // TODO: Even if me->suicide() was called?
-  return me->get_property_data ("control-points");
+  programming_error ("lv tie without Semi_tie_column.  Killing lv tie.");
+  me->suicide ();
+  return SCM_EOL;
 }
 
 int
@@ -101,11 +102,4 @@ Item *
 Semi_tie::head (Item *me)
 {
   return unsmob<Item> (me->get_object ("note-head"));
-}
-
-Item *
-Semi_tie::head (Item *me, Direction d)
-{
-  SCM head_dir = me->get_property ("head-direction");
-  return (is_direction (head_dir) && (to_dir (head_dir) == d)) ? head (me) : 0;
 }
