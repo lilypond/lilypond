@@ -63,22 +63,23 @@
 
 ;; Used for chaining several music functions together.  `final'
 ;; contains the last argument and still needs typechecking.
-(define (music-function-chain fun args final)
-  (let* ((siglast (last (ly:music-function-signature fun)))
+(define (music-function-chain call final)
+  (let* ((fun (car call))
+         (siglast (last (ly:music-function-signature fun)))
          (pred? (if (pair? siglast) (car siglast) siglast)))
     (if (pred? final)
-        (music-function fun (cons final args))
+        (music-function fun (cons final (cdr call)))
         (begin
-          (argument-error (1+ (length args)) pred? final)
+          (argument-error (length call) pred? final)
           ;; call music function just for the error return value
           (music-function fun #f)))))
 
-(define-public (partial-music-function fun-list arg-list)
-  (let* ((good (every list? arg-list))
-         (sig (ly:music-function-signature (car fun-list))))
+(define-public (partial-music-function call-list)
+  (let* ((good (every list? call-list))
+         (sig (ly:music-function-signature (caar call-list))))
     (and good
          (ly:make-music-function
-          (cons (car sig) (list-tail (cdr sig) (length (car arg-list))))
+          (cons (car sig) (list-tail sig (length (car call-list))))
           (lambda rest
             ;; Every time we use music-function, it destructively
             ;; reverses its list of arguments.  Changing the calling
@@ -89,11 +90,11 @@
             ;; avoid reusing any music expressions without copying and
             ;; want to let them point to the location of the music
             ;; function call rather than its definition.
-            (let ((arg-list (ly:music-deep-copy arg-list (*location*))))
+            (let ((call-list (ly:music-deep-copy call-list (*location*))))
               (fold music-function-chain
-                    (music-function (car fun-list)
-                                    (reverse! rest (car arg-list)))
-                    (cdr fun-list) (cdr arg-list))))))))
+                    (music-function (caar call-list)
+                                    (reverse! rest (cdar call-list)))
+                    (cdr call-list))))))))
 
 (define-public (void-music)
   (ly:set-origin! (make-music 'Music)))
