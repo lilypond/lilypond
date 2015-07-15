@@ -32,31 +32,81 @@ public:
   Percent_repeat_iterator ();
 protected:
   virtual SCM get_music_list () const;
+  virtual void construct_children ();
+  virtual void next_element (bool);
+  virtual void derived_mark () const;
+private:
+  SCM child_list_;
+  int starting_bar_;
 };
 
 IMPLEMENT_CTOR_CALLBACK (Percent_repeat_iterator);
 
 Percent_repeat_iterator::Percent_repeat_iterator ()
+  : child_list_ (SCM_UNDEFINED), starting_bar_ (-1)
 {
+}
+
+void
+Percent_repeat_iterator::derived_mark () const
+{
+  scm_gc_mark (child_list_);
+}
+
+void
+Percent_repeat_iterator::construct_children ()
+{
+  Music *mus = get_music ();
+
+  Music *child = Repeated_music::body (mus);
+  child_list_ = scm_list_1 (child->self_scm ());
+
+  Sequential_iterator::construct_children ();
+
+  descend_to_bottom_context ();
+  if (!measure_position (get_outlet ()).main_part_)
+    starting_bar_ =
+      robust_scm2int (get_outlet ()->get_property ("internalBarNumber"), 0);
 }
 
 SCM
 Percent_repeat_iterator::get_music_list () const
 {
+  return child_list_;
+}
+
+// Arrive here when child processing has been completed.  At that
+// point of time, we can determine what kind of percent expression we
+// are dealing with and extend the child list just in time before the
+// next iterator is getting fetched.
+void
+Percent_repeat_iterator::next_element (bool side_effect)
+{
+  // Do nothing if we already did our processing here.
+  if (!scm_is_pair (child_list_))
+    {
+      Sequential_iterator::next_element (side_effect);
+      return;
+    }
+
   Music *mus = get_music ();
 
   Music *child = Repeated_music::body (mus);
   SCM length = child->get_length ().smobbed_copy ();
+
+  int current_bar = -1;
+  if (!measure_position (get_outlet ()).main_part_)
+    current_bar =
+      robust_scm2int (get_outlet ()->get_property ("internalBarNumber"), 0);
+
   SCM child_list = SCM_EOL;
-  Moment measure_len = measure_length (get_outlet ());
-  Moment music_len = robust_scm2moment (length, Moment (0));
 
   string event_type;
   SCM slash_count = SCM_EOL;
 
-  if (measure_len == music_len)
+  if (starting_bar_ >= 0 && current_bar == starting_bar_ + 1)
     event_type = "PercentEvent";
-  else if (measure_len * Moment (2) == music_len)
+  else if (starting_bar_ >=0 && current_bar == starting_bar_ + 2)
     event_type = "DoublePercentEvent";
   else
     {
@@ -80,7 +130,8 @@ Percent_repeat_iterator::get_music_list () const
       child_list = scm_cons (percent->unprotect (), child_list);
     }
 
-  child_list = scm_cons (child->self_scm (), child_list);
+  scm_set_cdr_x (child_list_, child_list);
+  child_list_ = SCM_EOL;
 
-  return child_list;
+  Sequential_iterator::next_element (side_effect);
 }
