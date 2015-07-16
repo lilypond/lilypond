@@ -985,9 +985,11 @@ Otherwise, return #f."
 
 (define-display-method ApplyOutputEvent (applyoutput)
   (let ((proc (ly:music-property applyoutput 'procedure))
-        (ctx  (ly:music-property applyoutput 'context-type)))
-    (format #f "\\applyOutput #'~a #~a"
+        (ctx  (ly:music-property applyoutput 'context-type))
+        (grob (ly:music-property applyoutput 'symbol)))
+    (format #f "\\applyOutput ~a~@[.~a~] #~a"
             ctx
+            (and (symbol? grob) grob)
             (or (procedure-name proc)
                 (with-output-to-string
                   (lambda ()

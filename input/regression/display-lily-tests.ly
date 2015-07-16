@@ -227,6 +227,7 @@ stderr of this run."
 
 %% \applyOutput
 \test ##[ \applyOutput Foo #(lambda (arg) (list)) #]
+\test ##[ \applyOutput Foo.NoteHead #(lambda (arg) (list)) #]
 %% \applyContext
 \test ##[ \applyContext #(lambda (arg) (list)) #]
 
