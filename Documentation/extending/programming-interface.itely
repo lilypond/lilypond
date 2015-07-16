@@ -1272,17 +1272,22 @@ desaturate =
 
 The most versatile way of tuning an object is @code{\applyOutput} which
 works by inserting an event into the specified context
-(@rinternals{ApplyOutputEvent}).  Its syntax is
+(@rinternals{ApplyOutputEvent}).  Its syntax is either
 @example
 \applyOutput @var{Context} @var{proc}
+@end example
+or
+@example
+\applyOutput @var{Context}.@var{Grob} @var{proc}
 @end example
 
 @noindent
 where @code{@var{proc}} is a Scheme function, taking three arguments.
 
 When interpreted, the function @code{@var{proc}} is called for
-every layout object found in the context @code{@var{Context}} at
-the current time step, with the following arguments:
+every layout object (with grob name @var{Grob} if specified) found
+in the context @code{@var{Context}} at the current time step, with
+the following arguments:
 @itemize
 @item the layout object itself,
 @item the context where the layout object was created, and
@@ -1301,12 +1306,11 @@ note-heads on the center-line and next to it:
 
 @lilypond[quote,verbatim,ragged-right]
 #(define (blanker grob grob-origin context)
-   (if (and (memq 'note-head-interface (ly:grob-interfaces grob))
-            (< (abs (ly:grob-property grob 'staff-position)) 2))
+   (if (< (abs (ly:grob-property grob 'staff-position)) 2)
        (set! (ly:grob-property grob 'transparent) #t)))
 
 \relative {
-  a'4 e8 <<\applyOutput Voice #blanker a c d>> b2
+  a'4 e8 <<\applyOutput Voice.NoteHead #blanker a c d>> b2
 }
 @end lilypond
 
@@ -1314,8 +1318,8 @@ To have @var{function} interpreted at the @code{Score} or @code{Staff}
 level use these forms
 
 @example
-\applyOutput Score #@var{function}
-\applyOutput Staff #@var{function}
+\applyOutput Score@dots{}
+\applyOutput Staff@dots{}
 @end example
 
 
