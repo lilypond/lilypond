@@ -56,6 +56,10 @@ Output_property_engraver::acknowledge_grob (Grob_info inf)
     {
       Stream_event *o = props_[i];
       Context *d = inf.context ();
+      SCM grob = o->get_property ("symbol");
+      if (scm_is_symbol (grob)
+          && ly_symbol2string (grob) != inf.grob ()->name ())
+        continue;
       SCM proc = o->get_property ("procedure");
       scm_call_3 (proc,
 		  inf.grob ()->self_scm (),

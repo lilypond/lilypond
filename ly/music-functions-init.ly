@@ -152,11 +152,18 @@ applyMusic =
    (func music))
 
 applyOutput =
-#(define-music-function (ctx proc) (symbol? procedure?)
-   (_i "Apply function @code{proc} to every layout object in context @code{ctx}")
-   (make-music 'ApplyOutputEvent
-               'procedure proc
-               'context-type ctx))
+#(define-music-function (target proc) (symbol-list-or-symbol? procedure?)
+   (_i "Apply function @code{proc} to every layout object matched by
+@var{target} which takes the form @code{Context} or @code{Context.Grob}.")
+   (let ((p (check-grob-path target (*location*) #:max 2)))
+     (if p
+         (make-music 'ApplyOutputEvent
+                     'procedure proc
+                     'context-type (car p)
+                     (if (pair? (cdr p))
+                         (list (cons 'symbol (cadr p)))
+                         '()))
+         (make-music 'Music))))
 
 appoggiatura =
 #(def-grace-function startAppoggiaturaMusic stopAppoggiaturaMusic
