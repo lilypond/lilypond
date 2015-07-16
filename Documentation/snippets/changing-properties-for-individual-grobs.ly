@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.24"
 
 \header {
   lsrtags = "really-cool, scheme-language, tweaks-and-overrides"
@@ -33,6 +33,6 @@ arguments.
 
 \relative c' {
   <d f g b>2
-  \applyOutput #'Voice #mc-squared
+  \applyOutput Voice #mc-squared
   <d f g b>2
 }

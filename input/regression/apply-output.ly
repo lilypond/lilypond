@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.19.24"
 
 \header {
   texidoc = "The @code{\\applyOutput} expression is the most flexible way to
@@ -33,6 +33,6 @@ position.
 
   <d' f g b>8
 
-  \applyOutput #'Voice #mc-squared
+  \applyOutput Voice #mc-squared
   <d f g b>8
 }

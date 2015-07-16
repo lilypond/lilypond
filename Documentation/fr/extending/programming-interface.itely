@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.22"
+@c \version "2.19.24"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Gilles Thibault
@@ -1429,7 +1429,7 @@ sur la ligne médiane ou bien directement à son contact.
        (set! (ly:grob-property grob 'transparent) #t)))
 
 \relative {
-  a'4 e8 <<\applyOutput #'Voice #blanker a c d>> b2
+  a'4 e8 <<\applyOutput Voice #blanker a c d>> b2
 }
 @end lilypond
 
@@ -1438,8 +1438,8 @@ La @var{procédure} sera interprétée au niveau @code{Score}
 des syntaxes
 
 @example
-\applyOutput #'Score #@var{procédure}
-\applyOutput #'Staff #@var{procédure}
+\applyOutput Score #@var{procédure}
+\applyOutput Staff #@var{procédure}
 @end example
 
 

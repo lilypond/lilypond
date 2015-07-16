@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.22"
+@c \version "2.19.24"
 
 @node Interfaces for programmers
 @chapter Interfaces for programmers
@@ -1306,7 +1306,7 @@ note-heads on the center-line and next to it:
        (set! (ly:grob-property grob 'transparent) #t)))
 
 \relative {
-  a'4 e8 <<\applyOutput #'Voice #blanker a c d>> b2
+  a'4 e8 <<\applyOutput Voice #blanker a c d>> b2
 }
 @end lilypond
 
@@ -1314,8 +1314,8 @@ To have @var{function} interpreted at the @code{Score} or @code{Staff}
 level use these forms
 
 @example
-\applyOutput #'Score #@var{function}
-\applyOutput #'Staff #@var{function}
+\applyOutput Score #@var{function}
+\applyOutput Staff #@var{function}
 @end example
 
 
