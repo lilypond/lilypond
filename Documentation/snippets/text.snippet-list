@@ -22,6 +22,7 @@ multi-measure-rest-markup.ly
 ottava-text.ly
 outputting-the-version-number.ly
 piano-template-with-centered-lyrics.ly
+printing-bar-numbers-with-changing-regular-intervals.ly
 printing-marks-at-the-end-of-a-line.ly
 printing-marks-on-every-staff.ly
 printing-text-from-right-to-left.ly
