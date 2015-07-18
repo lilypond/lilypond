@@ -494,7 +494,7 @@ to the preceding note or rest as a post-event with @code{-}.")
                'automatically-numbered (not mark)
                'text (or mark (make-null-markup))
                'footnote-text footnote)))
-     (once (tweak 'footnote-music mus item))))
+     (once (propertyTweak 'footnote-music mus item))))
 
 grace =
 #(def-grace-function startGraceMusic stopGraceMusic
@@ -553,7 +553,7 @@ If @var{item} is a symbol list of form @code{GrobName} or
 @code{Context.GrobName}, the result is an override for the grob name
 specified by it.  If @var{item} is a music expression, the result is
 the same music expression with an appropriate tweak applied to it.")
-   (tweak 'transparent #t item))
+   (propertyTweak 'transparent #t item))
 
 inStaffSegno =
 #(define-music-function () ()
@@ -924,7 +924,7 @@ If @var{item} is a symbol list of form @code{GrobName} or
 @code{Context.GrobName}, the result is an override for the grob name
 specified by it.  If @var{item} is a music expression, the result is
 the same music expression with an appropriate tweak applied to it.")
-   (tweak 'stencil #f item))
+   (propertyTweak 'stencil #f item))
 
 once =
 #(define-music-function (music) (ly:music?)
@@ -932,7 +932,7 @@ once =
 in @var{music}.  This will complain about music with an actual
 duration.  As a special exception, if @var{music} contains
 @samp{tweaks} it will be silently ignored in order to allow for
-@code{\\once \\tweak} to work as both one-time override and proper
+@code{\\once \\propertyTweak} to work as both one-time override and proper
 tweak.")
    (if (not (pair? (ly:music-property music 'tweaks)))
        (for-some-music
@@ -1388,6 +1388,38 @@ Scheme as a substitute for the built-in @code{\\set} command.")
           (car p))
          (make-music 'Music))))
 
+propertyTweak =
+#(define-music-function (prop value item)
+   (symbol-list-or-symbol? scheme? symbol-list-or-music?)
+   (_i "Add a tweak to the following @var{item}, usually music.
+This generally behaves like @code{\\tweak} but will turn into an
+@code{\\override} when @var{item} is a symbol list.
+
+In that case, @var{item} specifies the grob path to override.  This is
+mainly useful when using @code{\\propertyTweak} as as a component for
+building other functions like @code{\\omit}.  It is not the default
+behavior for @code{\\tweak} since many input strings in
+@code{\\lyricmode} can serve equally as music or as symbols which
+causes surprising behavior when tweaking lyrics using the less
+specific semantics of @code{\\propertyTweak}.
+
+@var{prop} can contain additional elements in which case a nested
+property (inside of an alist) is tweaked.")
+   ;; Why not instead make the parser treat strings preferably as
+   ;; music in lyrics mode rather than as symbol?  Because then
+   ;;
+   ;; \tweak text "whatever" mylyrics
+   ;;
+   ;; will try putting a lyric event with text "whatever" in the text
+   ;; property of lyrics.  So we want expressions allowing both
+   ;; strings and lyrics to deliver strings: more complex conversions
+   ;; should only be attempted when the simple uses don't match the
+   ;; given predicate.
+   (if (ly:music? item)
+       (tweak prop value item)
+       (propertyOverride (append item (if (symbol? prop) (list prop) prop))
+                         value)))
+
 propertyUnset =
 #(define-music-function (property-path)
    (symbol-list-or-symbol?)
@@ -1588,7 +1620,7 @@ appropriate tweak applied.")
        (if (>= total-found 2)
            (helper siblings offsets)
            (offset-control-points (car offsets)))))
-   (once (tweak 'control-points shape-curve item)))
+   (once (propertyTweak 'control-points shape-curve item)))
 
 shiftDurations =
 #(define-music-function (dur dots arg)
@@ -1807,10 +1839,10 @@ command without explicit @samp{tuplet-span}, use
        #{ \unset tupletSpannerDuration #}))
 
 tweak =
-#(define-music-function (prop value item)
-   (symbol-list-or-symbol? scheme? symbol-list-or-music?)
-   (_i "Add a tweak to the following @var{item}, usually music.
-Layout objects created by @var{item} get their property @var{prop}
+#(define-music-function (prop value music)
+   (symbol-list-or-symbol? scheme? ly:music?)
+   (_i "Add a tweak to the following @var{music}.
+Layout objects created by @var{music} get their property @var{prop}
 set to @var{value}.  If @var{prop} has the form @samp{Grob.property}, like with
 @example
 \\tweak Accidental.color #red cis'
@@ -1819,71 +1851,61 @@ an indirectly created grob (@samp{Accidental} is caused by
 @samp{NoteHead}) can be tweaked; otherwise only directly created grobs
 are affected.
 
-As a special case, @var{item} may be a symbol list specifying a grob
-path, in which case @code{\\override} is called on it instead of
-creating tweaked music.  This is mainly useful when using
-@code{\\tweak} as as a component for building other functions.
-
-If this use case would call for @code{\\once \\override} rather than a
-plain @code{\\override}, writing @code{\\once \\tweak @dots{}} can be
-convenient.
-
 @var{prop} can contain additional elements in which case a nested
 property (inside of an alist) is tweaked.")
-   (if (ly:music? item)
-       (let ((p (check-grob-path prop (*location*)
-                                 #:start 1
-                                 #:default #t
-                                 #:min 2)))
-         (cond ((not p))
-               ;; p now contains at least two elements.  The first
-               ;; element is #t when no grob has been explicitly
-               ;; specified, otherwise it is a grob name.
-               ((music-is-of-type? item 'context-specification)
-                ;; This is essentially dealing with the case
-                ;; \tweak color #red \tweak font-size #3 NoteHead
-                ;; namely when stacked tweaks end in a symbol list
-                ;; rather than a music expression.
-                ;;
-                ;; We have a tweak here to convert into an override,
-                ;; so we need to know the grob to apply it to.  That's
-                ;; easy if we have a directed tweak, and otherwise we
-                ;; need to find the symbol in the expression itself.
-                (let* ((elt (ly:music-property item 'element))
-                       (seq (if (music-is-of-type? elt 'sequential-music)
-                                elt
-                                (make-sequential-music (list elt))))
-                       (elts (ly:music-property seq 'elements))
-                       (symbol (if (symbol? (car p))
-                                   (car p)
-                                   (and (pair? elts)
-                                        (ly:music-property (car elts)
-                                                           'symbol)))))
-                  (if (symbol? symbol)
-                      (begin
-                        (set! (ly:music-property seq 'elements)
-                              (cons (make-music 'OverrideProperty
-                                                'symbol symbol
-                                                'grob-property-path (cdr p)
-                                                'pop-first #t
-                                                'grob-value value
-                                                'origin (*location*))
-                                    elts))
-                        (set! (ly:music-property item 'element) seq))
-                      (begin
-                        (ly:parser-error (_ "Cannot \\tweak")
-                                         (*location*))
-                        (ly:music-message item (_ "untweakable"))))))
-               (else
-                (set! (ly:music-property item 'tweaks)
-                      (acons (cond ((pair? (cddr p)) p)
-                                   ((symbol? (car p))
-                                    (cons (car p) (cadr p)))
-                                   (else (cadr p)))
-                             value
-                             (ly:music-property item 'tweaks)))))
-         item)
-       (propertyOverride (append item (if (symbol? prop) (list prop) prop)) value)))
+   (let ((p (check-grob-path prop (*location*)
+                             #:start 1
+                             #:default #t
+                             #:min 2)))
+     (cond ((not p))
+           ;; p now contains at least two elements.  The first
+           ;; element is #t when no grob has been explicitly
+           ;; specified, otherwise it is a grob name.
+           ((music-is-of-type? music 'context-specification)
+            ;; This is essentially dealing with the case
+            ;; \tweak color #red \propertyTweak font-size #3 NoteHead
+            ;; namely when stacked tweaks end in a symbol list
+            ;; rather than a music expression.
+            ;;
+            ;; We have a tweak here to convert into an override,
+            ;; so we need to know the grob to apply it to.  That's
+            ;; easy if we have a directed tweak, and otherwise we
+            ;; need to find the symbol in the expression itself.
+            (let* ((elt (ly:music-property music 'element))
+                   (seq (if (music-is-of-type? elt 'sequential-music)
+                            elt
+                            (make-sequential-music (list elt))))
+                   (elts (ly:music-property seq 'elements))
+                   (symbol (if (symbol? (car p))
+                               (car p)
+                               (and (pair? elts)
+                                    (ly:music-property (car elts)
+                                                       'symbol)))))
+              (if (symbol? symbol)
+                  (begin
+                    (set! (ly:music-property seq 'elements)
+                          (cons (make-music 'OverrideProperty
+                                            'symbol symbol
+                                            'grob-property-path (cdr p)
+                                            'pop-first #t
+                                            'grob-value value
+                                            'origin (*location*))
+                                elts))
+                    (set! (ly:music-property music 'element) seq))
+                  (begin
+                    (ly:parser-error (_ "Cannot \\tweak")
+                                     (*location*))
+                    (ly:music-message music (_ "untweakable"))))))
+           (else
+            (set! (ly:music-property music 'tweaks)
+                  (acons (cond ((pair? (cddr p)) p)
+                               ((symbol? (car p))
+                                (cons (car p) (cadr p)))
+                               (else (cadr p)))
+                         value
+                         (ly:music-property music 'tweaks)))))
+     music))
+
 
 undo =
 #(define-music-function (music)
