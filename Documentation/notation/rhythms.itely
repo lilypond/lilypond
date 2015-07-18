@@ -3080,16 +3080,16 @@ automatically for every measure.  It may also be set manually:
 @funindex barNumberVisibility
 @funindex BarNumber
 
-Bar numbers can be typeset at regular intervals instead of just at
-the beginning of every line.  To do this the default behavior
-must be overridden to permit bar numbers to be printed at places
-other than the start of a line.  This is controlled by the
-@code{break-visibility} property of @code{BarNumber}.  This takes
-three values which may be set to @code{#t} or @code{#f} to specify
-whether the corresponding bar number is visible or not.  The order
-of the three values is @code{end of line visible}, @code{middle of
-line visible}, @code{beginning of line visible}.  In the following
-example bar numbers are printed at all possible places:
+Bar numbers can be typeset at regular intervals instead of just at the
+beginning of every line.  To do this the default behavior must be
+overridden to permit bar numbers to be printed at places other than the
+start of a line.  This is controlled by the @code{break-visibility}
+property of @code{BarNumber}.  This takes three values which may be set
+to @code{#t} or @code{#f} to specify whether the corresponding bar
+number is visible or not.  The order of the three values is
+@code{end of line visible}, @code{middle of line visible},
+@code{beginning of line visible}.  In the following example bar numbers
+are printed at all possible places:
 
 @lilypond[verbatim,quote]
 \relative c' {
@@ -3109,6 +3109,9 @@ example bar numbers are printed at all possible places:
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-bar-numbers-at-regular-intervals.ly}
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{printing-bar-numbers-with-changing-regular-intervals.ly}
 
 @cindex measure number, format
 @cindex bar number, format
