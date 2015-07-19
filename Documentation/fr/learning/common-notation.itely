@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
+   Translation of GIT committish: 9bdebf27dc4be7cf34976e3f44d9395d611305db
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1534,10 +1534,10 @@ sur les titres à la section
 @cindex hauteurs, valeurs absolues
 @cindex noms de note absolus
 
-Jusqu'ici nous n'avons utilisé que le mode @code{\relative} pour
-définir les hauteurs de notes.  Si c'est souvent le moyen le plus
-simple de saisir la musique au clavier, il existe une autre façon de
-procéder : le mode de hauteurs absolues.
+Jusqu'ici nous avons utilisé le mode @code{\relative} pour définir les
+hauteurs de notes.  Si c'est souvent le moyen le plus simple de saisir
+la musique au clavier, il existe une autre façon de procéder : le mode
+de hauteurs absolues.
 
 Si vous omettez la commande @code{\relative}, LilyPond considérera
 toutes les hauteurs comme des hauteurs absolues.  Un @code{c'} désigne
@@ -1555,24 +1555,8 @@ la portée en clé de fa.
 
 Voici une gamme sur quatre octaves :
 
-@lilypond[verbatim,quote]
-{
-  \clef "bass"
-  c,4 d, e, f, |
-  g,4 a, b, c |
-  d4 e f g |
-  a4 b c' d' |
-  \clef "treble"
-  e'4 f' g' a' |
-  b'4 c'' d'' e'' |
-  f''4 g'' a'' b'' |
-  c'''1 |
-}
-@end lilypond
-
-Comme vous pouvez le voir, il faut beaucoup d'apostrophes pour écrire
-de la musique dans un registre aigu, comme le montre cet extrait de
-Mozart.
+Il faut beaucoup d'apostrophes pour écrire de la musique dans un
+registre aigu, comme le montre cet extrait de Mozart.
 
 @lilypond[verbatim,quote]
 {

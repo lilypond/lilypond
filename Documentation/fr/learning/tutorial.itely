@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
+   Translation of GIT committish: 9bdebf27dc4be7cf34976e3f44d9395d611305db
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -251,6 +251,16 @@ Glossaire musicologique :
 @rglosnamed{middle C,do central},
 @rglos{octave},
 @rglosnamed{accidental,altération}.
+
+LilyPond utilise des lettres minusculmes pour indiquer les hauteurs.
+Les lettres @code{c} à @code{b} indiquent des hauteurs dans l'octave
+basse -- celle sous le @notation{do medium}.  Leur adjoindre un @code{'}
+ou un @code{,} indique une octave supérieure ou inférieure.  Voici une
+gamme commençant sur le @notation{do médium} ainsi qu'un arpège :
+
+@lilypond[verbatim,quote]
+{ c' d' e' f' g' a' b' c'' g c' e' g' c'' e'' g'' c''' }
+@end lilypond
 
 Le moyen le plus simple d'entrer des notes est d'utiliser le mode
 d'octaves relatives, ou mode @code{\relative}.  Dans ce mode, l'octave
@@ -752,27 +762,23 @@ particularités de la domcumentation en ligne.
 Comme nous l'avons vu dans @ref{Travail sur les fichiers d'entrée}, un
 code LilyPond doit être encadré par des accolades @{ @} ou bien par
 @w{@code{\relative @{ @dots{} @}}}.  Cependant, dans la suite de ce
-manuel, la plupart des exemples ne feront pas apparaître ces signes.
+manuel, certains exemples courts ne feront pas apparaître ces signes.
 
 Pour reproduire les exemples, vous pouvez copier et coller le code
-affiché, mais @strong{à condition} d'y ajouter la formulation
-particulière de @code{\relative} avec mention explicite de la hauteur de
-départ, comme ici :
+affiché, mais @strong{à condition} de le placer entre @code{@{} et
+@code{@}} comme ici :
 
 @example
 \relative c'' @{
-  ...collez ici votre exemple...
+  @dots{}collez ici votre exemple@dots{}
 @}
 @end example
 
-Pourquoi avoir omis les accolades ?  La plupart des exemples de ce
-manuel peuvent être insérés au milieu d'un morceau de musique plus
-long.  Il n'y a donc aucune raison d'ajouter « @code{@w{\relative c'' @{
-@dots{} @}}} » à ces exemples -- en effet, il n'est pas possible
-d'insérer une expression @code{\relative} à l'intérieur d'une autre
-expression @code{\relative}.  Si nous mettions tous nos exemples dans
-une expression @code{\relative}, vous ne pourriez plus copier un bref
-exemple de la documentation pour le coller dans vos pièces.
+Rappelez-vous aussi que tout fichier LilyPond devrait contenir une
+mention @code{\version}.  La plupart des exemples de ce manuel étant des
+extraits, non des fichiers indépendants, ils sont dépourvus de cette
+ligne @code{\version}.  C'est cependant un bonne habitude que de
+toujours inclure cette mention de version dans vos fichiers.
 
 
 @node Exemples cliquables

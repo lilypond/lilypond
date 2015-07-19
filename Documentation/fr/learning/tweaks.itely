@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
+    Translation of GIT committish: 9bdebf27dc4be7cf34976e3f44d9395d611305db
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -319,14 +319,16 @@ des deux dernières notes à leur valeur par défaut :
 @cindex couleur,exemple d'utilisation de la propriété
 @cindex NoteHead, exemple de dérogation
 
-@lilypond[quote,verbatim,relative=1]
-c4 d
-\override NoteHead.color = #red
-e4 f |
-\override NoteHead.color = #green
-g4 a
-\revert NoteHead.color
-b4 c |
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  c'4 d
+  \override NoteHead.color = #red
+  e4 f |
+  \override NoteHead.color = #green
+  g4 a
+  \revert NoteHead.color
+  b4 c |
+}
 @end lilypond
 
 
@@ -349,14 +351,16 @@ d'une seule note :
 @cindex couleur,exemple d'utilisation de la propriété
 @cindex NoteHead, exemple de dérogation
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-c4 d
-\override NoteHead.color = #red
-e4 f |
-\once \override NoteHead.color = #green
-g4 a
-\revert NoteHead.color
-b c |
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  c'4 d
+  \override NoteHead.color = #red
+  e4 f |
+  \once \override NoteHead.color = #green
+  g4 a
+  \revert NoteHead.color
+  b c |
+}
 @end lilypond
 
 Le préfixe @code{\once} peut s'utiliser avec de nombreuses
@@ -494,10 +498,10 @@ sur de tels objets indirectement créés peut se faire en nommant
 explicitement l'objet de rendu, si tant est que LilyPond puisse remonter
 jusqu'à l'événement originel :
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-<\tweak Accidental.color #red   cis4
- \tweak Accidental.color #green es
-                                  g>
+@lilypond[quote,fragment,ragged-right,verbatim]
+<\tweak Accidental.color #red   cis''4
+ \tweak Accidental.color #green es''
+ g''>
 @end lilypond
 
 Cette forme développée de la commande @code{\tweak} correspond à :
@@ -1302,11 +1306,11 @@ valeur elle-même.
 @cindex BarLine, exemple de dérogation
 @cindex break-visibility exemple d'utilisation de la propriété
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,fragment,ragged-right,verbatim]
+\relative {
   \time 12/16
   \override Staff.BarLine.break-visibility = #'#(#f #f #f)
-  c4 b8 c d16 c d8 |
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1377,11 +1381,11 @@ métriques la valeur @code{#f} :
 @cindex TimeSignature, exemple de dérogation
 @cindex stencil, exemple d'utilisation de la propriété
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-{
+@lilypond[quote,fragment,ragged-right,verbatim]
+\relative {
   \time 12/16
-  \override Staff.TimeSignature.stencil = ##f
-  c4 b8 c d16 c d8 |
+  \omit Staff.TimeSignature.stencil
+  c''4 b8 c d16 c d8 |
   g,8 a16 b8 c d4 e16 |
   e8
 }
@@ -1665,10 +1669,9 @@ Remplaçons donc l'exemple ci-dessus par celui-ci :
 }
 @end lilypond
 
-Nous pourrions tout aussi bien utiliser les raccourcis
-@code{\hide} et @code{\omit} pour activer la propriété
-@code{transparent} et désactiver le @code{stencil}, ce qui
-donnerait :
+Nous pourrions tout aussi bien utiliser les raccourcis @code{\hide} et
+@code{\omit} pour activer la propriété @code{transparent} et désactiver
+le @code{stencil}, ce qui donnerait :
 
 @lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
@@ -2209,9 +2212,9 @@ Voici quelques exemples :
 
 @noindent
 Si les indications de doigtés paraissent un peu serrées, on peut
-toujours réduire la taille de police (@code{font-size}).  La valeur
-par défaut donnée dans la RPI à la page de l'objet
-@code{Fingering} étant @code{-5}, essayons @w{@code{-7}} :
+toujours réduire la taille de police (@code{font-size}).  La valeur par
+défaut donnée dans la RPI à la page de l'objet @code{Fingering} étant
+@code{-5}, essayons @w{@code{-7}} :
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
@@ -3191,15 +3194,15 @@ b2\fermata
 @cindex MetronomeMark, exemple de dérogation
 @cindex padding, exemple d'utilisation de la propriété
 
-@lilypond[quote,fragment,relative=1,verbatim]
+@lilypond[quote,fragment,verbatim]
 % This will not work, see below:
 \override MetronomeMark.padding = #3
 \tempo 4=120
-c1 |
+c'1 |
 % This works:
 \override Score.MetronomeMark.padding = #3
 \tempo 4=80
-d1 |
+d'1 |
 @end lilypond
 
 Vous remarquerez dans le second exemple à quel point il est important de
@@ -3456,24 +3459,24 @@ au-dessous de la ligne médiane mais, disons, à 1 :
 @cindex Beam, exemple de dérogation
 @cindex positions, exemple d'utilisation de la propriété
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
+@lilypond[quote,verbatim,fragment,ragged-right]
 {
   \time 4/2
   <<
-    { c1~ 2. e'8 f' }
+    \relative { c'1~ 2. e8 f }
     \\
-    {
+    \relative {
       \override Beam.positions = #'(-1 . -1)
-      e'8 e e e
+      e''8 e e e
       e e e e
       f2 g
     }
   >>
   <<
-    { c,,1~ 2. e'8 f' }
+    \relative { c'1~ 2. e8 f }
     \\
-    {
-      e'8 e e e
+    \relative {
+      e''8 e e e
       e e e e
       f2 g
       \revert Beam.positions
@@ -4112,11 +4115,11 @@ lhMusic = \relative {
 @unnumberedsubsubsec Liaison entre plusieurs voix
 @translationof Tying notes across voices
 
-Voici un exemple qui montre comment créer une liaison de
-prolongation entre des notes appartenant à des voix différentes.  En
-temps normal, seules deux notes appartenant à une même voix
-peuvent être ainsi liées.  La solution consiste à utiliser deux voix,
-dont l'une avec les notes liées
+Voici un exemple qui montre comment créer une liaison de prolongation
+entre des notes appartenant à des voix différentes.  En temps normal,
+seules deux notes appartenant à une même voix peuvent être ainsi liées.
+La solution consiste à utiliser deux voix, dont l'une avec les notes
+liées
 
 @lilypond[quote]
 << { b'8~ 8\noBeam } \\ { b'8[ g'] } >>
@@ -4132,15 +4135,15 @@ voix ; on a alors l'impression que la liaison couvre les deux voix.
 
 @funindex \omit
 
-@lilypond[quote,fragment,relative=2,verbatim]
+@lilypond[quote,fragment,verbatim]
 <<
   {
     \once \omit Stem
     \once \omit Flag
-    b8~ 8\noBeam
+    b'8~ 8\noBeam
   }
 \\
-  { b[ g8] }
+  { b'[ g8] }
 >>
 @end lilypond
 

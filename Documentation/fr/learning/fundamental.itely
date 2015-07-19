@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: f7a3d8cf31367398a1955c50d3c42216d8940989
+    Translation of GIT committish: 9bdebf27dc4be7cf34976e3f44d9395d611305db
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -666,12 +666,14 @@ Notez que les hampes de la seconde voix sont dirigées vers le bas.
 
 Autre exemple :
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
-\key d \minor
-%    Voice "1"             Voice "2"
-<< { r4 g g4. a8 }    \\ { d,2 d4 g }       >> |
-<< { bes4 bes c bes } \\ { g4 g g8( a) g4 } >> |
-<< { a2. r4 }         \\ { fis2. s4 }       >> |
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  \key d \minor
+  %    Voice "1"             Voice "2"
+  << { r4 g' g4. a8 }   \\ { d,2 d4 g }       >> |
+  << { bes4 bes c bes } \\ { g4 g g8( a) g4 } >> |
+  << { a2. r4 }         \\ { fis2. s4 }       >> |
+}
 @end lilypond
 
 Le recours à une construction @code{<< \\ >>} particulière à chaque
