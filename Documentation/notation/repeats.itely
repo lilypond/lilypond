@@ -778,6 +778,26 @@ Internals Reference:
 @rinternals{Double_percent_repeat_engraver},
 @rinternals{Slash_repeat_engraver}.
 
+@knownissues
+Percent repeats will not contain anything else apart from the percent
+sign itself; in particular, timing changes will not be repeated.
+
+@lilypond[quote,verbatim,relative=2]
+\repeat percent 3 { \time 5/4 c2. 2 \time 4/4 2 2 }
+@end lilypond
+
+@noindent
+Any meter changes or @code{\partial} commands need to occur in parallel
+passages @emph{outside} of any percent repeat, e.g in a separate
+timing track.
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  \repeat percent 3 { c2. 2 2 2 }
+  \repeat unfold 3 { \time 5/4 s4*5 \time 4/4 s1 }
+>>
+@end lilypond
+
 
 @node Tremolo repeats
 @unnumberedsubsubsec Tremolo repeats
