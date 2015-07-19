@@ -722,7 +722,10 @@ the clip systems feature, see @ruser{Extracting fragments of music}.
 @cindex LibreOffice.org
 
 LilyPond notation can be added to OpenOffice.org and LibreOffice with
-@uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond}.
+@uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond}, an
+OpenOffice.org extension that converts LilyPond files into images within
+OpenOffice.org documents.  Although this is no longer being developed,
+it appears to still work with version 4.
 
 
 @node Inserting LilyPond output into other programs
