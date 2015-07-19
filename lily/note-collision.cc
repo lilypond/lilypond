@@ -392,7 +392,7 @@ Note_collision_interface::calc_positioning_done (SCM smob)
     }
 
   vector<Grob *> done;
-  Real left_most = 1e6;
+  Real left_most = 0.0;
 
   vector<Real> amounts;
   for (; scm_is_pair (hand); hand = scm_cdr (hand))
@@ -402,8 +402,6 @@ Note_collision_interface::calc_positioning_done (SCM smob)
 
       done.push_back (s);
       amounts.push_back (amount);
-      if (amount < left_most)
-        left_most = amount;
     }
   for (; scm_is_pair (autos); autos = scm_cdr (autos))
     {
