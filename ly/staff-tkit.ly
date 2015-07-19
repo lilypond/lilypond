@@ -39,32 +39,26 @@ make-one-voice-staff =
        \with {
          instrumentName = \markup \smallCaps {
            #(if show-instrName
-                (if instrName
-                     #{ #instrName #}
-                     #{ #name #} )
-                #{ "" #} )
+                (if instrName instrName name)
+                "")
          }
          shortInstrumentName = \markup \smallCaps {
            #(if show-instrName
-                (if shortInstrName
-                     #{ #shortInstrName #}
-                     (if instrName
-                         #{ #(substring instrName 0 1) #}
-                         #{ #(substring name 0 1) #} ))
-                     #{ "" #} )
+                (cond
+                 (shortInstrName shortInstrName)
+                 (instrName (substring instrName 0 1))
+                 (else (substring name 0 1)))
+                "")
          }
-         midiInstrument =
-           #(if midiName
-                #{ #midiName #}
-                #{ "clarinet" #} )
-         #(if dynUp
-              #{ \dynamicUp #}
-              (if dynDown
-                  #{ \dynamicDown #}
-                  #{ \dynamicNeutral #} ))
+         midiInstrument = #(if midiName midiName "clarinet")
+         #(cond
+           (dynUp dynamicUp)
+           (dynDown dynamicDown)
+           (else dynamicNeutral))
+
        }
        {
-         #(if Key #{ \Key #} )
+         #(if Key Key)
          \clef #clef
          \make-voice #name
        }
@@ -103,36 +97,32 @@ make-two-voice-staff =
                  #{ \markup \smallCaps #instrName #}
                  #{ \markup \right-column \smallCaps {
                   #(if v1music
-                       (if v1InstrName
-                           v1InstrName
-                           v1name)
+                       (if v1InstrName v1InstrName v1name)
                        "")
                   #(if v2music
-                       (if v2InstrName
-                           v2InstrName
-                           v2name)
-                       "") } #} )
+                       (if v2InstrName v2InstrName v2name)
+                       "")
+                 } #} )
              shortInstrumentName =
                #(if shortInstrName
                   #{ \markup \smallCaps #shortInstrName #}
                   #{ \markup \right-column \smallCaps {
                     #(if v1music
-                         (if v1ShortInstrName
-                             v1ShortInstrName
-                             (if v1InstrName
-                                 (substring v1InstrName 0 1)
-                                 (substring v1name 0 1)))
+                         (cond
+                          (v1ShortInstrName v1ShortInstrName)
+                          (v1InstrName (substring v1InstrName 0 1))
+                          (else (substring v1name 0 1)))
                          "")
                     #(if v2music
-                         (if v2ShortInstrName
-                             v2ShortInstrName
-                             (if v2InstrName
-                                 (substring v2InstrName 0 1)
-                                 (substring v2name 0 1)))
-                         "") } #} )
+                         (cond
+                          (v2ShortInstrName v2ShortInstrName)
+                          (v2InstrName (substring v2InstrName 0 1))
+                          (else (substring v2name 0 1)))
+                         "")
+                  } #} )
            }
            <<
-             #(if Key #{ \Key #} )
+             #(if Key Key)
              \clef #clef
 
              #(if v1music
@@ -142,14 +132,12 @@ make-two-voice-staff =
                    \consists "Staff_performer"
                    \dynamicUp
                    midiInstrument =
-                     #(if v1midiName
-                          #{ #v1midiName #}
-                          #{ "clarinet" #})
+                     #(if v1midiName v1midiName "clarinet")
                  }
                  <<
-                   #(if KeepAlive #{ \KeepAlive #} )
-                   #(if Time #{ \Time #} )
-                   #(if v2music #{ \voiceOne #} #{ \oneVoice #} )
+                   #(if KeepAlive KeepAlive)
+                   #(if Time Time)
+                   #(if v2music voiceOne oneVoice)
                    #v1music
                  >>
                #} )
@@ -161,14 +149,12 @@ make-two-voice-staff =
                    \consists "Staff_performer"
                    \dynamicDown
                    midiInstrument =
-                     #(if v2midiName
-                          #{ #v2midiName #}
-                          #{ "clarinet" #})
+                     #(if v2midiName v2midiName "clarinet")
                  }
                  <<
-                   #(if KeepAlive #{ \KeepAlive #} )
-                   #(if Time #{ \Time #} )
-                   #(if v1music #{ \voiceTwo #} #{ \oneVoice #} )
+                   #(if KeepAlive KeepAlive)
+                   #(if Time Time)
+                   #(if v1music voiceTwo oneVoice)
                    #v2music
                  >>
                #} )
