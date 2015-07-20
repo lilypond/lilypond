@@ -489,7 +489,7 @@ Grob::extent (Grob *refp, Axis a) const
     if(!isinf (offset))
       real_ext.translate(offset);
     else
-      this->warning(_f ("ignored infinite %s-offset",
+      warning(_f ("ignored infinite %s-offset",
                         a == X_AXIS ? "X" : "Y"));
 
   return real_ext;
@@ -765,7 +765,7 @@ Grob::name () const
   SCM meta = get_property ("meta");
   SCM nm = scm_assq (ly_symbol2scm ("name"), meta);
   nm = (scm_is_pair (nm)) ? scm_cdr (nm) : SCM_EOL;
-  return scm_is_symbol (nm) ? ly_symbol2string (nm) : this->class_name ();
+  return scm_is_symbol (nm) ? ly_symbol2string (nm) : class_name ();
 }
 
 ADD_INTERFACE (Grob,

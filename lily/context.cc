@@ -70,7 +70,7 @@ Context::add_context (Context *child)
                               scm_cons (child->self_scm (), SCM_EOL));
 
   child->daddy_context_ = this;
-  this->events_below_->register_as_listener (child->events_below_);
+  events_below_->register_as_listener (child->events_below_);
 }
 
 Context::Context ()
@@ -315,7 +315,7 @@ Context::create_context_from_event (SCM sev)
                 ly_symbol2scm ("UnsetProperty"));
 
   new_context->events_below_->register_as_listener (new_context->event_source_);
-  this->add_context (new_context);
+  add_context (new_context);
 
   new_context->unprotect ();
 
@@ -414,7 +414,7 @@ Context::get_default_interpreter (const string &context_id)
       if (!t)
         {
           warning (_f ("cannot find or create: `%s'", name.c_str ()));
-          t = unsmob<Context_def> (this->definition_);
+          t = unsmob<Context_def> (definition_);
         }
       if (scm_is_symbol (t->get_default_child (SCM_EOL)))
         {
@@ -572,8 +572,8 @@ Context::remove_context (SCM)
 void
 Context::disconnect_from_parent ()
 {
-  daddy_context_->events_below_->unregister_as_listener (this->events_below_);
-  daddy_context_->context_list_ = scm_delq_x (this->self_scm (), daddy_context_->context_list_);
+  daddy_context_->events_below_->unregister_as_listener (events_below_);
+  daddy_context_->context_list_ = scm_delq_x (self_scm (), daddy_context_->context_list_);
   daddy_context_ = 0;
 }
 

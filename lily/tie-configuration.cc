@@ -170,7 +170,7 @@ Ties_configuration::complete_tie_card (vsize i) const
   string s;
   s += to_string ("%d (%.2f) %c: ", (*this)[i].position_, (*this)[i].delta_y_,
                   ((*this)[i].dir_ == UP ? 'u' : 'd'))
-       + (*this)[i].card () + (*this).tie_card (i);
+       + (*this)[i].card () + tie_card (i);
 
   /*
     this is a little awkward, but we must decide where to put

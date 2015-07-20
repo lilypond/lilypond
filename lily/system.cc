@@ -181,7 +181,7 @@ System::do_break_substitution_and_fixup_refpoints ()
 
   handle_broken_dependencies ();
 
-  /* Because the this->get_property (all-elements) contains items in 3
+  /* Because the get_property (all-elements) contains items in 3
      versions, handle_broken_dependencies () will leave duplicated
      items in all-elements.  Strictly speaking this is harmless, but
      it leads to duplicated symbols in the output.  uniq makes sure
@@ -550,7 +550,7 @@ System::post_processing ()
 
   vector<Grob *> all_elts_sorted (all_elements_->array ());
   uniquify (all_elts_sorted);
-  this->get_stencil ();
+  get_stencil ();
   for (vsize i = all_elts_sorted.size (); i--;)
     {
       Grob *g = all_elts_sorted[i];
@@ -637,14 +637,14 @@ System::get_paper_system ()
         }
     }
 
-  Grob *left_bound = this->get_bound (LEFT);
+  Grob *left_bound = get_bound (LEFT);
   SCM prop_init = left_bound->get_property ("line-break-system-details");
   Prob *pl = make_paper_system (prop_init);
   paper_system_set_stencil (pl, sys_stencil);
 
   /* information that the page breaker might need */
-  Grob *right_bound = this->get_bound (RIGHT);
-  pl->set_property ("vertical-skylines", this->get_property ("vertical-skylines"));
+  Grob *right_bound = get_bound (RIGHT);
+  pl->set_property ("vertical-skylines", get_property ("vertical-skylines"));
   pl->set_property ("page-break-permission", right_bound->get_property ("page-break-permission"));
   pl->set_property ("page-turn-permission", right_bound->get_property ("page-turn-permission"));
   pl->set_property ("page-break-penalty", right_bound->get_property ("page-break-penalty"));
@@ -665,7 +665,7 @@ System::get_paper_system ()
     }
 
   pl->set_property ("staff-refpoint-extent", ly_interval2scm (staff_refpoints));
-  pl->set_property ("system-grob", this->self_scm ());
+  pl->set_property ("system-grob", self_scm ());
 
   return pl->unprotect ();
 }

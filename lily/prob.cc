@@ -192,5 +192,5 @@ Prob::name () const
   if (scm_is_symbol (nm))
     return ly_symbol2string (nm);
   else
-    return this->class_name ();
+    return class_name ();
 }

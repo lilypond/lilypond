@@ -426,5 +426,5 @@ Midi_control_function_value_change::to_string () const
 char const *
 Midi_item::name () const
 {
-  return this->class_name ();
+  return class_name ();
 }

@@ -188,7 +188,7 @@ BOM_UTF8	\357\273\277
    /* Use the trailing context feature. Otherwise, the BOM will not be
       found if the file starts with an identifier definition. */
 <INITIAL,chords,lyrics,figures,notes>{BOM_UTF8}/.* {
-  if (this->lexloc_->line_number () != 1 || this->lexloc_->column_number () != 0)
+  if (lexloc_->line_number () != 1 || lexloc_->column_number () != 0)
     {
       LexerWarning (_ ("stray UTF-8 BOM encountered").c_str ());
       // exit (1);
@@ -244,7 +244,7 @@ BOM_UTF8	\357\273\277
 	s = s.substr (0, s.rfind ('\"'));
 
 	yy_pop_state ();
-	this->here_input().get_source_file ()->name_ = s;
+	here_input().get_source_file ()->name_ = s;
 	message (_f ("Renaming input to: `%s'", s.c_str ()));
 	progress_indication ("\n");
 	scm_module_define (scm_car (scopes_),
@@ -258,7 +258,7 @@ BOM_UTF8	\357\273\277
 	sscanf (YYText (), "%d", &i);
 
 	yy_pop_state ();
-	this->here_input ().get_source_file ()->set_line (here_input ().start (), i);
+	here_input ().get_source_file ()->set_line (here_input ().start (), i);
 }
 
 <version>{ANY_CHAR} 	{

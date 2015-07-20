@@ -43,10 +43,10 @@
    ok () -- events left ?
 
    pending_mom () -- time tag of the next event to be processed.
-   PRECONDITION: this->ok () holds.
+   PRECONDITION: ok () holds.
 
    process (M) -- process all at M (Precondition: no events exist
-   before M, this->ok () holds).  Side-effects:
+   before M, ok () holds).  Side-effects:
 
    * This removes all events at M from the pending queue.
 
