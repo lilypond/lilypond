@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
+   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
 
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  For details, see the Contributors'
+   Guide, node Updating translation committishes..
 @end ignore
 
 @c \version "2.19.22"
@@ -43,7 +43,7 @@ partition.
 En pratique, cette procédure comporte quatre étapes.  Dans un premier
 temps, des distances élastiques @emph{(springs)} sont déterminées sur la
 base des durées.  Sont alors calculées différentes possibilités de saut
-de ligne, chacune se voyant attribuer un @qq{coefficient de laideur},
+de ligne, chacune se voyant attribuer un « coefficient de laideur »,
 puis est estimée la hauteur de chaque système.  LilyPond opte enfin pour
 la combinaison entre sauts de page et de ligne qui offre la meilleure
 occupation de l'espace, tant horizontalement que verticalement.
@@ -201,8 +201,8 @@ fonctions Scheme.  Voici l'équivalent de l'exemple précédent :
 @seealso
 Manuel de notation :
 @ref{Format du papier et adaptation automatique},
+@ref{Le bloc layout},
 @ref{Titrages personnalisés}.
-@ref{Le bloc layout}.
 
 Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
@@ -362,8 +362,8 @@ correspondant au format par défaut -- papier A4 -- pour lequel
 
 @seealso
 Manuel de notation :
-@ref{Variables d'espacement vertical fixe},
-@ref{Variables d'espacement horizontal}.
+@ref{Variables d'espacement horizontal},
+@ref{Variables d'espacement vertical fixe}.
 
 Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly},
@@ -1050,11 +1050,11 @@ valeur par défaut est de @code{2}.
 
 @seealso
 Manuel de notation :
-@ref{Sauts de page},
+@ref{Minimisation des sauts de page},
 @ref{Optimisation des sauts de page},
 @ref{Optimisation des tournes},
-@ref{Minimisation des sauts de page},
-@ref{Présentation en rouleau}.
+@ref{Présentation en rouleau},
+@ref{Sauts de page}.
 
 Fichiers d'initialisation :
 @file{ly/paper-defaults-init.ly}.
@@ -2052,7 +2052,7 @@ de portées particulier.  Les propriétés qui leur sont attachées sont
 abordées en fin de section.
 
 Le nom de ces propriétés, sauf @code{staff-affinity}, suit le schéma
-@code{@var{item1}-@var{item2}-spacing} -- @code{@var{item1}} et
+@w{@code{@var{item1}-@var{item2}-spacing}} -- @code{@var{item1}} et
 @code{@var{item2}} étant les éléments à espacer.  Notez bien que
 @code{@var{item2}} n'est pas forcément placé au-dessous : c'est le
 cas pour la propriété @code{nonstaff-relatedstaff-spacing} qui spécifie
@@ -2252,23 +2252,12 @@ la valeur de @code{staff-affinity} est égale à @code{CENTER}, la valeur
 de @code{nonstaff-relatedstaff-spacing} servira à centrer la ligne de
 non-portée entre les deux portées adjacentes même si une autre
 non-portée est présente (quelque soit le côté).  Le positionnement
-d'une ligne de non-portée dépend donc à la fois des portées tout
-comme des autres lignes de non-portée adjacentes.  L'affectation
-d'une faible valeur à la propriété @code{stretchability} de l'un
-de ces types d'espacement les avantagera ; leur affecter une
-grande valeur aura pour conséquence de diminuer leur influence.
-
-@c FIXME
-@c traduction approximative des dernières phrases, qui manquent de
-@c précision : QUI EST AVANTAGÉ OU NON ?
-@ignore
-  This means that the placement of a non-staff line depends
-on both the surrounding staves and the surrounding non-staff lines.
-Setting the @code{stretchability} of one of these types of spacing to
-a small value will make that spacing dominate.  Setting the
-@code{stretchability} to a large value will make that spacing have
-little effect.
-@end ignore
+d'une ligne de non-portée dépend donc à la fois des portées qui
+l'entourent tout comme des autres lignes de non-portée adjacentes.
+L'affectation d'une faible valeur à la propriété @code{stretchability}
+de l'un de ces types d'espacement l'avantagera ; lui affecter une
+valeur élevée aura pour conséquence de diminuer l'influence de
+l'espacement considéré.
 
 @item nonstaff-nonstaff-spacing
 Il s'agit de la distance entre deux lignes de non-portée selon
@@ -2312,8 +2301,8 @@ regroupement a été ajustée au niveau de son propre
 
 @seealso
 Manuel de notation :
-@ref{Variables d'espacement vertical fluctuant},
-@ref{Modification de listes associatives}.
+@ref{Modification de listes associatives},
+@ref{Variables d'espacement vertical fluctuant}.
 
 Fichiers d'initialisation :
 @file{ly/engraver-init.ly},
@@ -2330,7 +2319,7 @@ Référence des propriétés internes :
 @translationof Spacing of ungrouped staves
 
 Les @code{Staff}, @code{DrumStaff}, @code{TabStaff} entre autres sont
-des contextes de @qq{portée} pouvant contenir plusieurs voix, mais pas
+des contextes de « portée » pouvant contenir plusieurs voix, mais pas
 une portée.
 
 L'espacement de ces @i{portées isolées} est géré par les propriétés
@@ -3002,7 +2991,7 @@ Référence des propriétés internes :
 @knownissues
 Il n'existe pas de mécanisme simple et efficace qui permette de
 forcer manuellement l'espacement.  La solution ci-dessous permet
-cependant @qq{d'aérer} artificiellement une partition ; il vous
+cependant « d'aérer » artificiellement une partition ; il vous
 suffit d'ajuster la valeur du décalage @emph{(padding)} autant que de
 besoin.
 
@@ -3511,7 +3500,7 @@ réduire cet espace à zéro.
 Les éléments non musicaux tels que métrique, armure, clef et
 altérations, posent problème lorsqu'on travaille en notation
 proportionnelle.  Bien qu'aucune notion de durée ne leur soit
-attachée, ces éléments @qq{consomment} de l'espace.  Différentes
+attachée, ces éléments « consomment » de l'espace.  Différentes
 approches permettent cependant de gérer ce problème.
 
 Éviter les problèmes d'espacement avec l'armure est chose aisée :

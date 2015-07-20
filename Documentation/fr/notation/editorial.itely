@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
+   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
 
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  For details, see the Contributors'
+   Guide, node Updating translation committishes..
 @end ignore
 
 @c \version "2.19.21"
@@ -167,21 +167,6 @@ particulier :
 }
 @end lilypond
 
-@lilypond[verbatim,quote,relative=2]
-\huge
-c4.-> d8---3
-\large
-c4.-> d8---3
-\normalsize
-c4.-> d8---3
-\small
-c4.-> d8---3
-\tiny
-c4.-> d8---3
-\teeny
-c4.-> d8---3
-@end lilypond
-
 La valeur par défaut de @code{font-size} est mentionnée, pour chaque
 objet de rendu, dans la référence des propriétés internes.  La propriété
 @code{font-size} ne peut intervenir que pour les objets qui utilisent
@@ -318,10 +303,10 @@ de la portée.  À une portée de 20 points correspond une police de
 
 @seealso
 Manuel de notation :
-@ref{Sélection de la fonte et de la taille},
 @ref{Définition de la taille de portée},
 @ref{Mise en forme d'une citation},
-@ref{Portées d'ossia}.
+@ref{Portées d'ossia},
+@ref{Sélection de la fonte et de la taille}.
 
 Fichiers d'initialisation :
 @file{ly/music-functions-init.ly},
@@ -374,8 +359,7 @@ Les doigtés peuvent être indiqués comme suit :
 @end lilypond
 
 Pour les substitutions de doigts, on a recours à une indication
-textuelle (commande @code{\markup}) de doigté
-(commande @code{\finger}).
+textuelle (commande @code{\markup}) de doigté (commande @code{\finger}).
 
 @lilypond[verbatim,quote]
 \relative {
@@ -492,9 +476,9 @@ Manuel d'initiation :
 @rlearning{Visibilité et couleur des objets}.
 
 Manuel de notation :
+@ref{Masquage de portées},
 @ref{Silences invisibles},
-@ref{Visibilité des objets},
-@ref{Masquage de portées}.
+@ref{Visibilité des objets}.
 
 Morceaux choisis :
 @rlsrnamed{Editorial annotations,Annotations éditoriales}.
@@ -599,8 +583,8 @@ l'exemple suivant correspond à 128).
 
 @seealso
 Manuel de notation :
-@ref{Liste des couleurs},
-@ref{La commande d'affinage (tweak)}.
+@ref{La commande d'affinage (tweak)},
+@ref{Liste des couleurs}.
 
 Morceaux choisis :
 @rlsrnamed{Editorial annotations,Annotations éditoriales}.
@@ -783,12 +767,12 @@ En voici un exemple :
 @end lilypond
 
 Vous disposez de deux fonctions musicales, @code{balloonGrobText} et
-@code{balloonText}.  @code{balloonGrobText} prend en argument
-l'objet graphique à agrémenter et s'utilise comme
-@code{\once \override}.  @code{balloonText}, quant à lui, s'utilise
-comme une simple articulation et fonctionne comme @code{\tweak} pour
-attacher du texte à l'une des notes d'un accord.  Les autres arguments
-sont le décalage et le texte de la bulle.
+@code{balloonText}.  @code{balloonGrobText} prend en argument l'objet
+graphique à agrémenter et s'utilise comme @code{\once \override}.
+@code{balloonText}, quant à lui, s'utilise comme une simple articulation
+et fonctionne comme @code{\tweak} pour attacher du texte à l'une des
+notes d'un accord.  Les autres arguments sont le décalage et le texte de
+la bulle.
 
 Les info-bulles n'ont aucune influence sur l'espacement des notes ; on
 peut toutefois le gérer ainsi :
@@ -836,12 +820,12 @@ Vous pouvez tracer des lignes entre les portées, synchronisées avec
 les notes.
 
 LilyPond a recours à deux graveurs distincts afin d'afficher le
-quadrillage :  le @code{Grid_point_engraver} se charge de
-déterminer l'envergure du crochet, alors que le
-@code{Grid_line_span_engraver} se consacrera au tracé des lignes.
-Les lignes sont par défaut centrées horizontalement sous les notes et
-alignées sur la gauche des têtes.  La propriété @code{gridInterval}
-spécifie quant à elle l'espace de temps entre chaque ligne.
+quadrillage :  le @code{Grid_point_engraver} se charge de déterminer
+l'envergure du crochet, alors que le @code{Grid_line_span_engraver} se
+consacrera au tracé des lignes.  Les lignes sont par défaut centrées
+horizontalement sous les notes et alignées sur la gauche des têtes.  La
+propriété @code{gridInterval} spécifie quant à elle l'espace de temps
+entre chaque ligne.
 
 @c KEEP LY
 @lilypond[verbatim,quote]
@@ -862,7 +846,7 @@ spécifie quant à elle l'espace de temps entre chaque ligne.
   \new ChoirStaff <<
     \new Staff \relative {
       \stemUp
-      c'''4. d8 e8 f g4
+      c''4. d8 e8 f g4
     }
     \new Staff \relative {
     %% centre les lignes guides verticalement
@@ -900,6 +884,7 @@ Référence des propriétés internes :
 @cindex crochets de phrasé
 @cindex analyse musicologique
 @cindex crochet de regroupement de notes
+@cindex musicologie, crochets d'analyse
 
 @funindex Horizontal_bracket_engraver
 @funindex \startGroup

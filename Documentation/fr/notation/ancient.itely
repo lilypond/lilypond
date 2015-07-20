@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: f7a3d8cf31367398a1955c50d3c42216d8940989
+   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
 
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  For details, see the Contributors'
+   Guide, node Updating translation committishes..
 @end ignore
 
 
@@ -75,15 +75,15 @@ Glossaire musicologique :
 @rglos{mensural notation}.
 
 Manuel de notation :
-@ref{Têtes de note anciennes},
 @ref{Altérations et armures anciennes},
-@ref{Silences anciens},
 @ref{Clefs grégoriennes},
 @ref{Crochets anciens},
-@ref{Métriques anciennes},
-@ref{Guidons},
 @ref{Divisions},
-@ref{Ligatures}.
+@ref{Guidons},
+@ref{Ligatures},
+@ref{Métriques anciennes},
+@ref{Silences anciens},
+@ref{Têtes de note anciennes}.
 
 
 @node Formes de notation ancienne prises en charge
@@ -883,10 +883,10 @@ Glossaire musicologique :
 @rglos{key signature}.
 
 Manuel de notation :
-@ref{Hauteurs},
 @ref{Altérations},
 @ref{Altérations accidentelles automatiques},
-@ref{Armure}.
+@ref{Armure},
+@ref{Hauteurs}.
 
 Référence des propriétés internes :
 @rinternals{KeySignature}.
@@ -1038,8 +1038,8 @@ Glossaire musicologique :
 @rglos{ligature}.
 
 Manuel de notation :
-@ref{Neumes et ligatures grégoriennes},
-@ref{Ligatures}.
+@ref{Ligatures},
+@ref{Neumes et ligatures grégoriennes}.
 
 @knownissues
 L'espacement horizontal peut laisser à désirer.
@@ -1073,8 +1073,8 @@ Glossaire musicologique :
 @rglos{ligature}.
 
 Manuel de notation :
-@ref{Ligatures mensurales},
-@ref{Ligatures}.
+@ref{Ligatures},
+@ref{Ligatures mensurales}.
 
 
 @node Contextes du chant grégorien
@@ -1303,10 +1303,10 @@ Glossaire musicologique :
 @rglos{key signature}.
 
 Manuel de notation :
-@ref{Hauteurs},
 @ref{Altérations},
 @ref{Altérations accidentelles automatiques},
-@ref{Armure}.
+@ref{Armure},
+@ref{Hauteurs}.
 
 Référence des propriétés internes :
 @rinternals{KeySignature}.
@@ -1581,7 +1581,7 @@ Neumes liquescents
 Autre grande catégorie de notes que l'on trouve en grégorien, les neumes
 liquescents.  Ils s'utilisent dans certaines circonstances, quand
 l'articulation d'une syllabe avec la suivante se fait par une
-@qq{consonne liquide}, sur la dernière note du groupe : M (omnis,
+« consonne liquide », sur la dernière note du groupe : M (omnis,
 summo), L, N, Y (ejus), NG (sanctus), W (autem, laudat). Ces consonnes
 ou semi-consonnes sont chantées à la hauteur correspondante, comme le
 seraient des voyelles, mais le chant est entravé par leur prononciation.
@@ -1590,7 +1590,7 @@ que rien ne l'interdise) et tombent toujours à la fin d'une ligature.
 
 Les neumes liquescents peuvent se présenter graphiquement de deux façons
 différentes et relativement interchangeables : une note plus
-petite, ou une @qq{bascule} verticale de la note principale.  La
+petite, ou une « bascule » verticale de la note principale.  La
 première option s'obtient en créant un @code{pes} ou une @code{flexa}
 puis une modification de l'aspect de la deuxième note :
 @code{\[ a \pes \deminutum b \]}.  La seconde option consiste à
@@ -2370,7 +2370,7 @@ LilyPond}
 @end multitable
 
 @predefined
-LilyPond dispose des préfixes suivants :
+LilyPond dispose des préfixes suivants :
 @funindex \virga
 @code{\virga},
 @funindex \stropha
@@ -2417,14 +2417,14 @@ Glossaire musicologique :
 @rglos{ligature}.
 
 Manuel de notation :
-@ref{Ligatures mensurales},
-@ref{Ligatures}.
+@ref{Ligatures},
+@ref{Ligatures mensurales}.
 
 @knownissues
 Lorsqu'un @code{\augmentum} apparaît dans une ligature en fin de
 portée, son placement vertical peut être erroné.  Pour y remédier,
-ajoutez un silence invisible, @code{s8} par exemple, comme dernière note de
-cette portée.
+ajoutez un silence invisible, @code{s8} par exemple, comme dernière note
+de cette portée.
 
 L'@code{\augmentum} devrait être implémenté en tant que préfixe plutôt
 qu'en tant que fonction unaire, afin qu'@code{\augmentum} puisse
@@ -2812,8 +2812,7 @@ clause @code{\hide BarLine} vous permettra d'en afficher une au besoin.
 
 Dans de nombreuses transcriptions, le récitatif fait apparaître une
 brève au lieu de la répétition d'une même note.  Le texte psalmodié se
-présente alors sous la forme d'une unique syllabe alignée à
-gauche :
+présente alors sous la forme d'une unique syllabe alignée à gauche :
 
 @lilypond[verbatim,ragged-right]
 \include "gregorian.ly"

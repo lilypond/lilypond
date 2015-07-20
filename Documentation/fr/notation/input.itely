@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: e8fd54aac6821d27c14b911a00f009a150e5fa50
+   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
 
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  For details, see the Contributors'
+   Guide, node Updating translation committishes..
 @end ignore
 
 @c \version "2.19.22"
@@ -752,9 +752,9 @@ supprimés manuellement :
 
 @seealso
 Manuel de notation :
-@ref{Structure de fichier},
 @ref{Mise en forme par défaut des titrages subalternes},
-@ref{Mise en forme personnalisée des titrages}.
+@ref{Mise en forme personnalisée des titrages},
+@ref{Structure de fichier}.
 
 
 @node Mise en forme par défaut des titrages subalternes
@@ -1776,8 +1776,8 @@ le point de référence, sous la forme d'un symbole Scheme, comme par
 exemple @code{#'firstScore},
 
 @item
-un @qq{emporte-pièce} afin d'estimer la longueur totale du
-@emph{markup}, et
+un « emporte-pièce » afin d'estimer la longueur totale du @emph{markup},
+et
 
 @item
 un texte de remplacement au cas où la référence ne serait pas retrouvée.
@@ -2414,8 +2414,8 @@ Manuel d'initiation :
 @rlearning{Organisation du code source avec des variables}.
 
 Manuel de notation :
-@ref{Regroupement automatique de parties},
-@ref{Insertion de fichiers LilyPond}.
+@ref{Insertion de fichiers LilyPond},
+@ref{Regroupement automatique de parties}.
 
 @knownissues
 L'application d'un @code{\relative} à une expression musicale
@@ -2452,8 +2452,8 @@ styles, comme indiqué au chapitre @rlearning{Feuilles de style}.
 
 @seealso
 Manuel d'initiation :
-@rlearning{Organisation du code source avec des variables},
-@rlearning{Feuilles de style}.
+@rlearning{Feuilles de style},
+@rlearning{Organisation du code source avec des variables}.
 
 Manuel de notation :
 @ref{Insertion de fichiers LilyPond}.
@@ -3209,8 +3209,8 @@ Manuel d'initiation :
 @rlearning{Autres sources de documentation}.
 
 Manuel de notation :
-@ref{Signes d'interprétation},
-@ref{Mise en forme de la partition}.
+@ref{Mise en forme de la partition},
+@ref{Signes d'interprétation}.
 
 Fichiers d'initialisation :
 @file{ly/performer-init.ly}.

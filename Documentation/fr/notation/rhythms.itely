@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: f7a3d8cf31367398a1955c50d3c42216d8940989
+   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
 
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  For details, see the Contributors'
+   Guide, node Updating translation committishes..
 @end ignore
 
 @c \version "2.19.22"
@@ -63,8 +63,8 @@ Dans les modes de notes, d'accords et de paroles, les durées sont
 écrites avec des chiffres et des points : les durées sont indiquées
 par leur valeur fractionnaire par rapport à la durée d'une ronde.  Une
 noire, par exemple, qui équivaut à un 1/4 de ronde -- @emph{quarter
-note} en anglais -- s'écrit @code{4}, alors qu'une blanche --
-@emph{half-note}, 1/2 ronde -- s'écrit @code{2}.  Pour des notes plus
+note} en anglais -- s'écrit @code{4}, alors qu'une blanche --
+@emph{half-note}, 1/2 ronde -- s'écrit @code{2}.  Pour des notes plus
 longues qu'une ronde, vous devrez utiliser les commandes @code{\longa}
 pour une longue, et @code{\breve} pour une brève, aussi appelée carrée.
 Des durées plus courtes que la quintuple croche -- 1/128 de ronde --
@@ -185,10 +185,10 @@ Glossaire musicologique :
 
 Manuel de notation :
 @ref{Barres de ligature automatiques},
-@ref{Liaisons de prolongation},
-@ref{Hampes},
 @ref{Écriture du rythme},
 @ref{Écriture des silences},
+@ref{Hampes},
+@ref{Liaisons de prolongation},
 @ref{Musique vocale},
 @ref{Notations anciennes},
 @ref{Notation proportionnelle}.
@@ -329,9 +329,9 @@ Manuel d'initiation :
 @rlearning{Méthodes de retouche}.
 
 Manuel de notation :
-@ref{Gestion du temps},
 @ref{Changement d'échelle des durées},
 @ref{Direction et positionnement},
+@ref{Gestion du temps},
 @ref{La commande d'affinage (tweak)},
 @ref{Notation polymétrique}.
 
@@ -352,8 +352,8 @@ Références des propriétés internes :
 @cindex durées, échelonnement
 
 La durée des notes, silences ou accords peut se modifier en lui
-adjoignant une fraction @var{N/D}, donnant @qq{@code{*}@var{N/D}} -- ou
-@qq{@code{*}@var{N}} si @var{D=1}.  Ceci ne modifiera en rien
+adjoignant une fraction @var{N/D}, donnant « @code{*}@var{N/D} » -- ou
+« @code{*}@var{N} » si @var{D=1}.  Ceci ne modifiera en rien
 l'apparence des notes ou silences produits, mais affectera le
 positionnement de l'objet dans la mesure, ainsi que le rendu MIDI. Cette
 fraction peut elle-même être multipliée, ce qui donne quelque chose du
@@ -420,8 +420,8 @@ voir @ref{Notation polymétrique}.
 @seealso
 Manuel de notation :
 @ref{N-olets},
-@ref{Silences invisibles},
-@ref{Notation polymétrique}.
+@ref{Notation polymétrique},
+@ref{Silences invisibles}.
 
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
@@ -497,10 +497,12 @@ a aucune, aucune liaison n'est créée.  Il est également possible de lier
 partiellement deux accords, en mettant les liaisons à l'intérieur des
 accords.
 
-@lilypond[quote,verbatim,relative=1]
-<c e g>~ 2
-<c e g>4~ <c e g c>
-<c~ e g~ b> <c e g b>
+@lilypond[quote,verbatim]
+\relative c' {
+  <c e g>2~ 2 |
+  <c e g>4~ <c e g c>
+    <c~ e g~ b> <c e g b> |
+}
 @end lilypond
 
 @cindex liaison de tenue et répétition
@@ -511,7 +513,7 @@ accords.
 @funindex \repeatTie
 @funindex repeatTie
 
-Lorsqu'une mesure @qq{de seconde fois} après une reprise commence sur
+Lorsqu'une mesure « de seconde fois » après une reprise commence sur
 une note liée, la liaison doit être répétée, comme ici :
 
 @lilypond[quote,verbatim]
@@ -537,8 +539,8 @@ le piano, la harpe et certains instruments de percussion.  Elles
 indiquent à l'instrumentiste de laisser sonner la note ou l'accord au
 lieu de l'étouffer.  Elles s'indiquent de la manière suivante :
 
-@lilypond[quote,verbatim,relative=1]
- <c f g>1\laissezVibrer
+@lilypond[quote,verbatim,fragment]
+ <c' f' g'>1\laissezVibrer
 @end lilypond
 
 @cindex liaisons de prolongation, positionnement
@@ -644,12 +646,12 @@ Glossaire musicologique :
 @rglos{laissez vibrer}.
 
 Manuel de notation :
-@ref{Liaisons d'articulation},
-@ref{Découpage automatique des notes}.
+@ref{Découpage automatique des notes},
+@ref{Liaisons d'articulation}.
 
 Morceaux choisis :
-@rlsrnamed{Expressive marks, Signes d'interprétation},
-@rlsrnamed{Rhythms, Rythme}.
+@rlsrnamed{Rhythms, Rythme},
+@rlsrnamed{Expressive marks, Signes d'interprétation}.
 
 Référence des propriétés internes :
 @rinternals{LaissezVibrerTie},
@@ -819,14 +821,14 @@ Gardez à l'esprit que @code{\skip} est une commande, et de ce fait
 n'affectera en rien la durée des notes qui suivent, contrairement à
 un @code{s}.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
   {
-    \repeat unfold 8 {a4}
+    \repeat unfold 8 { a'4 }
   }
   {
-    a4 \skip 2 a |
-    s2 a
+    a'4 \skip 2 a' |
+    s2 a'
   }
 >>
 @end lilypond
@@ -908,7 +910,7 @@ points d'augmentation ou des fractions :
 @end lilypond
 
 Un @code{R} qui s'étend sur une seule mesure s'imprime tantôt comme
-une pause, tantôt comme une brève -- ou @qq{bâton de pause} -- qui
+une pause, tantôt comme une brève -- ou « bâton de pause » -- qui
 sera centrée sur la mesure quelle qu'en soit la métrique :
 
 @lilypond[quote,verbatim,fragment]
@@ -925,7 +927,7 @@ R1*2 |
 
 Par défaut, un silence multimesure sera répété sur autant de mesures
 que nécessaire.  Il peut aussi n'être imprimé qu'une seule fois,
-surplombé du nombre de mesures vides -- ou @qq{à compter} :
+surplombé du nombre de mesures vides -- ou « à compter » :
 
 @lilypond[quote,verbatim,fragment]
 % Default behavior
@@ -1024,10 +1026,10 @@ Glossaire musicologique :
 @rglosnamed{multi-measure rest,silence multimesures}.
 
 Manuel de notation :
+@ref{Commentaires textuels},
 @ref{Durées},
-@ref{Texte},
 @ref{Mise en forme du texte},
-@ref{Commentaires textuels}.
+@ref{Texte}.
 
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
@@ -1304,8 +1306,8 @@ Glossaire musicologique :
 
 Manuel de notation :
 @ref{Définition des règles de ligature automatique},
-@ref{Métriques anciennes},
-@ref{Gestion du temps}.
+@ref{Gestion du temps},
+@ref{Métriques anciennes}.
 
 Installed Files:
 @file{scm/time-signature-settings.scm}.
@@ -1441,8 +1443,8 @@ Glossaire musicologique :
 @rglosnamed{metronome mark,marque de métronome}.
 
 Manuel de notation :
-@ref{Mise en forme du texte},
-@ref{Génération de fichiers MIDI}.
+@ref{Génération de fichiers MIDI},
+@ref{Mise en forme du texte}.
 
 Morceaux choisis :
 @rlsrnamed{Staff notation,Notation sur la portée}.
@@ -1473,9 +1475,8 @@ commande est
 \partial @var{durée}
 @end example
 
-Lorsque @code{\partial} est utilisé en début de pièce,
-@code{@var{durée}} égale la valeur rythmique précédant la première
-mesure.
+Lorsque @code{\partial} est utilisé en début de pièce, @var{durée} égale
+la valeur rythmique précédant la première mesure.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -1648,10 +1649,10 @@ Glossaire musicologique :
 @rglosnamed{cadenza,cadence}.
 
 Manuel de notation :
-@ref{Visibilité des objets},
-@ref{Notation polymétrique},
+@ref{Altérations},
 @ref{Barres de ligature manuelles},
-@ref{Altérations}.
+@ref{Notation polymétrique},
+@ref{Visibilité des objets}.
 
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
@@ -1668,8 +1669,8 @@ Morceaux choisis :
 @knownissues
 Sauts de ligne ou de page ne peuvent intervenir qu'au niveau d'une barre
 de mesure.  Si votre musique non mesurée s'étend sur plus d'une ligne, il
-vous faudra insérer des barres de mesure @qq{invisibles} pour indiquer
-où des sauts de ligne peuvent prendre place :
+vous faudra insérer des barres de mesure « invisibles » pour indiquer où
+des sauts de ligne peuvent prendre place :
 
 @example
 \bar ""
@@ -1841,10 +1842,10 @@ Glossaire musicologique :
 @rglosnamed{meter,métrique}.
 
 Manuel de notation :
+@ref{Changement d'échelle des durées},
 @ref{Barres de ligature automatiques},
 @ref{Barres de ligature manuelles},
-@ref{Métrique},
-@ref{Changement d'échelle des durées}.
+@ref{Métrique}.
 
 Morceaux choisis :
 @rlsrnamed{Rhythms, Rythme}.
@@ -1936,8 +1937,8 @@ Glossaire musicologique :
 @rglosnamed{tie,liaison de tenue}.
 
 Manuel d'initiation :
-@rlearning{Tout savoir sur les graveurs},
-@rlearning{Ajout et suppression de graveurs}.
+@rlearning{Ajout et suppression de graveurs},
+@rlearning{Tout savoir sur les graveurs}.
 
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.
@@ -1957,6 +1958,7 @@ seront divisés sans être mis à l'échelle -- on aura donc
 ce comportement, peut être désactivée (valorisée à @code{#f}) pour
 autoriser les notes ou silences divisés à adopter le facteur d'échelle
 des durées saisies.
+
 
 @node Gravure de lignes rythmiques
 @unnumberedsubsubsec Gravure de lignes rythmiques
@@ -2572,12 +2574,12 @@ ligature automatiques est abordée au chapitre @ref{Métrique}.
 @funindex ]
 @funindex [
 
-Dans certaines situations, il peut s'avérer nécessaire de
-supplanter l'algorithme de regroupement automatique des notes, par
-exemple pour prolonger une ligature par-dessus un silence ou une barre
-de mesure, ou bien pour suivre le rythme des paroles plutôt que celui
-des notes.  Le début et la fin de la ligature sont alors indiqués
-respectivement par @code{[} et @code{]}.
+Dans certaines situations, il peut s'avérer nécessaire de supplanter
+l'algorithme de regroupement automatique des notes, par exemple pour
+prolonger une ligature par-dessus un silence ou une barre de mesure, ou
+bien pour suivre le rythme des paroles plutôt que celui des notes.  Le
+début et la fin de la ligature sont alors indiqués respectivement par
+@code{[} et @code{]}.
 
 @lilypond[quote,relative=1,verbatim]
 r4 r8[ g' a r] r8 g[ | a] r
@@ -3105,9 +3107,9 @@ automatique est @code{"|"}.  Vous pouvez en changer à tout moment grâce
 
 @seealso
 Manuel de notation :
-@ref{Sauts de ligne},
+@ref{Regroupement de portées},
 @ref{Répétitions et reprises},
-@ref{Regroupement de portées}.
+@ref{Sauts de ligne}.
 
 Fichiers d'initialisation :
 @file{scm/bar-line.scm}.
@@ -3135,11 +3137,13 @@ ligne, sauf la première.  Ce nombre est stocké par la propriété
 @code{currentBarNumber} qui sera mise à jour à chaque mesure.  Vous
 pouvez aussi le définir de manière arbitraire :
 
-@lilypond[verbatim,quote,fragment,relative=1]
-c1 c c c
-\break
-\set Score.currentBarNumber = #50
-c1 c c c
+@lilypond[verbatim,quote]
+\relative c' {
+  c1 c c c
+  \break
+  \set Score.currentBarNumber = #50
+  c1 c c c
+}
 @end lilypond
 
 @cindex numéro de mesure à intervalle régulier
@@ -3152,8 +3156,8 @@ qu'en tête de chaque ligne.  Pour y arriver, il faudra dans un premier
 temps annuler le comportement par défaut afin que les numéros puissent
 être imprimés ailleurs qu'en début de ligne.  Tout ceci est contrôlé par
 la propriété @code{break-visibility} du @code{BarNumber}.  Elle se
-compose de trois commutateurs -- définis à @qq{vrai} (@code{#t}) ou
-@qq{faux} (@code{#f}) -- pour spécifier si le numéro de mesure est
+compose de trois commutateurs -- définis à « vrai » (@code{#t}) ou
+« faux » (@code{#f}) -- pour spécifier si le numéro de mesure est
 visible ou non.  Les valeurs sont rangées dans l'ordre suivant :
 @code{visible en fin de ligne}, @code{visible en cours de ligne} et
 @code{visible en début de ligne}.  Voici comment imprimer partout les
@@ -3177,6 +3181,9 @@ numéros de mesure :
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-bar-numbers-at-regular-intervals.ly}
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{printing-bar-numbers-with-changing-regular-intervals.ly}
 
 @cindex numéro de mesure, formatage
 @cindex formatage du numéro de mesure
@@ -3454,9 +3461,9 @@ formatage.
 
 @seealso
 Manuel de notation :
+@ref{Alignement des objets},
 @ref{La fonte Feta},
-@ref{Mise en forme du texte},
-@ref{Alignement des objets}.
+@ref{Mise en forme du texte}.
 
 Fichiers d'initialisation :
 @file{scm/translation-functions.scm}.
@@ -3632,8 +3639,8 @@ Glossaire musicologique :
 @rglosnamed{appoggiatura,appogiature}.
 
 Manuel de notation :
-@ref{Changement d'échelle des durées},
-@ref{Barres de ligature manuelles}.
+@ref{Barres de ligature manuelles},
+@ref{Changement d'échelle des durées}.
 
 Fichiers d'initialisation :
 @file{ly/grace-init.ly}.
@@ -3705,13 +3712,13 @@ petites notes.  Par exemple,
 c'8 \acciaccatura @{ c'8[ d' e' f' g'] @}
 @end example
 
-deviendrait :
+deviendrait
 
 @example
 c'8 \acciaccatura @{ c'16[ d' e' f' g'] @}
 @end example
 
-ou bien modifier explicitement l'échelle des durées :
+ou bien modifier explicitement l'échelle des durées :
 
 @example
 c'8 \acciaccatura @{ \scaleDurations 1/2 @{ c'8[ d' e' f' g'] @} @}
@@ -3842,8 +3849,8 @@ sept doubles croches.
 
 @seealso
 Manuel de notation :
-@ref{Numéros de mesure},
-@ref{Musique sans métrique}
+@ref{Musique sans métrique},
+@ref{Numéros de mesure}.
 
 Morceaux choisis :
 @rlsrnamed{Rhythms,Rythme}.

@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 53cff5245f682708a6c77d580f418ece2923c2e4
+   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
 
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  For details, see the Contributors'
+   Guide, node Updating translation committishes..
 @end ignore
 
 @c \version "2.19.21"
@@ -23,7 +23,7 @@ Ce chapitre traite des différents aspects de la notation que l'on
 rencontre particulièrement avec les instruments qui ont recours à
 plusieurs portées, tels que ceux disposant de claviers, la harpe ou
 le vibraphone.  Pour les besoins du discours, et pour simplifier, nous
-parlerons ici de @qq{clavier} bien que le recours à des portées
+parlerons ici de « clavier » bien que le recours à des portées
 multiples concerne aussi des instruments qui en sont dépourvus.
 
 @menu
@@ -142,20 +142,20 @@ qui passent d'une voix à l'autre, comme le montre
 
 @seealso
 Manuel d'initiation :
-@rlearning{Exemple concret},
-@rlearning{Autres utilisations des retouches}.
+@rlearning{Autres utilisations des retouches},
+@rlearning{Exemple concret}.
 
 Manuel de notation :
-@ref{Regroupement de portées},
-@ref{Noms d'instrument},
-@ref{Résolution des collisions},
-@ref{Saisie de musique en parallèle},
-@ref{Doigtés},
-@ref{Liste des signes d'articulation},
-@ref{Quadrillage temporel},
-@ref{Liaisons de prolongation},
 @ref{Arpèges},
-@ref{Répétitions en trémolo}.
+@ref{Doigtés},
+@ref{Liaisons de prolongation},
+@ref{Liste des signes d'articulation},
+@ref{Noms d'instrument},
+@ref{Quadrillage temporel},
+@ref{Regroupement de portées},
+@ref{Répétitions en trémolo},
+@ref{Résolution des collisions},
+@ref{Saisie de musique en parallèle}.
 
 Morceaux choisis :
 @rlsrnamed{Keyboards, Claviers}.
@@ -267,9 +267,9 @@ Manuel d'initiation :
 @rlearning{Correction des collisions d'objets}.
 
 Manuel de notation :
-@ref{Hampes},
 @ref{Barres de ligature automatiques},
-@ref{Conservation d'un contexte}.
+@ref{Conservation d'un contexte},
+@ref{Hampes}.
 
 Morceaux choisis :
 @rlsrnamed{Keyboards,Claviers}.
@@ -543,7 +543,7 @@ pédale @notation{tonale} (@emph{sostenuto} ou @emph{sos.}).  La pédale
 Trois styles sont à votre disposition pour imprimer les indications de
 pédale : sous forme de texte, de crochet, ou une combinaison des
 deux.  @code{text} est le style de notation par défaut pour les pédales
-de tenue ou de sourdine --- le traditionnel @qq{*Ped.}.  La pédale
+de tenue ou de sourdine --- le traditionnel « *Ped. ».  La pédale
 tonale, en revanche, utilise @code{mixed} par défaut.
 
 @lilypond[quote,verbatim]
@@ -663,10 +663,10 @@ d'autres chapitres, tels que :
 
 @seealso
 Manuel de notation :
-@ref{Répétitions en trémolo},
-@ref{Glissando},
 @ref{Arpèges},
-@ref{Harmoniques}.
+@ref{Glissando},
+@ref{Harmoniques},
+@ref{Répétitions en trémolo}.
 
 
 @node Pédales de harpe
@@ -687,11 +687,11 @@ et mi, fa, sol, la pour la grande harpe. Les trois premières pédales
 sont réservées au pied gauche, les quatre dernières au pied droit.  Leur
 position peut être indiquée par une marque textuelle :
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \textLengthOn
-cis1_\markup \concat \vcenter {
+cis''1_\markup \concat \vcenter {
   [D \flat C \sharp B|E \sharp F \sharp G A \flat] }
-c!1_\markup \concat \vcenter {
+c''!1_\markup \concat \vcenter {
   [ C \natural ]}
 @end lilypond
 
@@ -715,4 +715,5 @@ précéder un symbole par un @code{o} permet de l'inscrire dans un cercle.
 @seealso
 Manuel de notation :
 @ref{Commentaires textuels},
-@ref{Instrument Specific Markup}.
+@rusernamed{Instrument Specific Markup,
+Markups spécifiques aux instruments (en anglais)}.

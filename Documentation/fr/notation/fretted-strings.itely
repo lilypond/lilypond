@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
+   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
 
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  For details, see the Contributors'
+   Guide, node Updating translation committishes..
 @end ignore
 
 @c \version "2.19.21"
@@ -88,14 +88,14 @@ chapitre @ref{Résolution des collisions}.
 
 @seealso
 Manuel de notation :
+@ref{Arpèges},
+@ref{Clefs},
 @ref{Doigtés},
 @ref{Liaisons de prolongation},
-@ref{Résolution des collisions},
-@ref{Noms d'instrument},
-@ref{Saisie de musique en parallèle},
-@ref{Arpèges},
 @ref{Liste des signes d'articulation},
-@ref{Clefs}.
+@ref{Noms d'instrument},
+@ref{Résolution des collisions},
+@ref{Saisie de musique en parallèle}.
 
 
 @node Indications du numéro de corde
@@ -127,7 +127,7 @@ interviennent au sein d'une construction d'accord : le positionnement
 des doigtés est géré différemment selon qu'ils s'appliquent à l'accord
 entier ou à des notes isolées indépendantes d'un accord.
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,fragment]
 \clef "treble_8"
 g4\3-0
 g-0\3
@@ -263,8 +263,8 @@ Quand aucune corde n'est précisée, LilyPond choisit automatiquement la
 corde pour laquelle la position est la moins élevée, avec une préférence
 pour une corde à vide.  Vous pouvez préférer qu'une note donnée soit
 jouée sur une corde particulière, auquel cas l'affectation directe du
-numéro de corde suffit.  L'absence d'indication des numéros de
-corde en notation traditionnelle se gère au niveau des stencils.  Il est
+numéro de corde suffit.  L'absence d'indication des numéros de corde en
+notation traditionnelle se gère au niveau des stencils.  Il est
 cependant plus facile de jouer sur la propriété @code{minimumFret}, dont
 la valeur par défaut est fixée à 0, ce qui correspond aux cordes à vide.
 
@@ -412,8 +412,8 @@ ties = \relative {
 @funindex \harmonicByFret
 @funindex \harmonicByRatio
 
-Les indications de sons harmoniques ainsi que les glissandos
-peuvent être ajoutés aux tablatures.
+Les indications de sons harmoniques ainsi que les glissandos peuvent
+être ajoutés aux tablatures.
 
 @lilypond[verbatim,quote]
 \layout { \omit Voice.StringNumber }
@@ -516,9 +516,9 @@ ratioHarmonics = {
 
 @seealso
 Manuel de notation :
+@ref{Glissando},
 @ref{Hampes},
 @ref{Harmoniques},
-@ref{Glissando},
 @ref{Répétition d'accords},
 @ref{Répétitions explicites}.
 
@@ -540,7 +540,7 @@ Afin que @code{\partcombine} fonctionne avec des tablatures, on doit
 ajouter au contexte @code{TabStaff} des voix fantômes :
 
 @lilypond[quote,ragged-right,verbatim]
-melodia = \partcombine { e4 g g g }{ e4 e e e }
+melodia = \partcombine { e4 g g g } { e4 e e e }
 <<
   \new TabStaff <<
     \new TabVoice = "one" s1
@@ -560,7 +560,7 @@ harmoniques et aux glissandos.
 @unnumberedsubsubsec Tablatures personnalisées
 @translationof Custom tablatures
 
-@cindex tablatures personnalisées
+@cindex personnalisation de tablatures
 @cindex banjo, tablature
 @cindex mandoline, tablature
 @cindex guitare basse, tablature
@@ -624,7 +624,7 @@ Les hauteurs fournies s'expriment impérativement en mode absolu -- voir
 élevé (généralement la note la plus basse) est mentionnée en premier.
 
 Nous pouvons ainsi définir par exemple l'accordage d'un instrument à
-quatre cordes accordées do sol ré la, et en anglais :
+quatre cordes accordées do sol ré la, soit en anglais
 @code{a''}, @code{d''}, @code{g'}, et @code{c'} :
 
 @lilypond[quote,verbatim]
@@ -725,9 +725,9 @@ Cette clef moderne prend en charge les tablatures de quatre à sept cordes.
 
 @seealso
 Manuel de notation :
+@ref{Fonctions Scheme},
 @ref{Hauteurs avec octave absolue},
-@ref{Tablatures prédéfinies},
-@ref{Fonctions Scheme}.
+@ref{Tablatures prédéfinies}.
 
 Fichiers d'initialisation :
 @file{ly/string-tunings-init.ly},
@@ -759,12 +759,12 @@ hauteurs, comme le ukulele.
 On peut ajouter des diagrammes d'accord au-dessus de n'importe quelle
 note, en tant qu'objets @code{\markup}.  Ces objets contiennent toutes
 les informations du diagramme d'accord.  Il y a pour les définir trois
-interfaces @qq{diagramme d'accord} (@emph{fret-diagram} en
-anglais) : @var{standard}, @var{terse} et @var{verbose}.
-Ces trois interfaces produiront des diagrammes similaires mais
-permettent des niveaux de personnalisation différents.  Des détails à
-propos des interfaces de type @code{\markup}
-peuvent être trouvés à l'annexe @ref{Instrument Specific Markup}.
+interfaces @qq{diagramme d'accord} (@emph{fret-diagram} en anglais) :
+@var{standard}, @var{terse} et @var{verbose}.  Ces trois interfaces
+produiront des diagrammes similaires mais permettent des niveaux de
+personnalisation différents.  Des détails à propos des interfaces de
+type @code{\markup} peuvent être trouvés à l'annexe
+@ref{Instrument Specific Markup}.
 
 Dans l'interface standard des diagrammes d'accord, on indiquera le
 numéro de corde et le numéro de case pour chaque point placé sur une corde.
@@ -1031,7 +1031,7 @@ dans le diagramme d'accord.
 >>
 @end lilypond
 
-Les indications de doigté et de barré peuvent être décrits dans
+Les indications de doigté et de barré peuvent être décrites dans
 l'interface @code{fret-diagram-verbose}.  Particularité propre à
 l'interface @code{fret-diagram-verbose} : l'indication de capodastre
 dans le diagramme d'accord.  L'indication de capodastre est une petite
@@ -1113,27 +1113,33 @@ and color of dots.
 @lilypond[verbatim,ragged-right,quote]
 \new Voice {
   \clef "treble_8"
-  d^\markup \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-2;"
-  d d d
-  fis^\markup \override #'(size . 0.75) {
-    \override #'(finger-code . below-string) {
-      \fret-diagram-verbose #'((place-fret 6 2 1) (barre 6 1 2)
-                               (place-fret 5 4 3)
-                               (place-fret 4 4 4)
-                               (place-fret 3 3 2)
-                               (place-fret 2 2 1)
-                               (place-fret 1 2 1))
-    }
+  d4^\markup {
+    \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-2;"
   }
-  fis fis fis
-  c^\markup \override #'(dot-radius . 0.35) {
-    \override #'(finger-code . in-dot) {
-      \override #'(dot-color . white) {
-        \fret-diagram-terse #"x;3-1-(;5-2;5-3;5-4;3-1-);"
+  d4 d d
+  fis^\markup {
+    \override #'(size . 0.75) {
+      \override #'(finger-code . below-string) {
+        \fret-diagram-verbose #'((place-fret 6 2 1) (barre 6 1 2)
+                                 (place-fret 5 4 3)
+                                 (place-fret 4 4 4)
+                                 (place-fret 3 3 2)
+                                 (place-fret 2 2 1)
+                                 (place-fret 1 2 1))
       }
     }
   }
-  c c c
+  fis4 fis fis
+  c^\markup {
+    \override #'(dot-radius . 0.35) {
+      \override #'(finger-code . in-dot) {
+        \override #'(dot-color . white) {
+          \fret-diagram-terse #"x;3-1-(;5-2;5-3;5-4;3-1-);"
+        }
+      }
+    }
+  }
+  c4 c c
 }
 @end lilypond
 @end ignore
@@ -1146,10 +1152,9 @@ and color of dots.
 
 La disposition graphique d'un diagramme d'accord peut être modifiée
 suivant les préférences de l'utilisateur grâce aux propriétés de
-l'interface @code{fret-diagram-interface}.
-Des détails se trouvent dans @rinternals{fret-diagram-interface}.  Pour
-un diagramme d'accord, les propriétés de l'interface dépendent de
-@code{Voice.TextScript}.
+l'interface @code{fret-diagram-interface}.  Des détails se trouvent dans
+@rinternals{fret-diagram-interface}.  Pour un diagramme d'accord, les
+propriétés de l'interface dépendent de @code{Voice.TextScript}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1160,7 +1165,8 @@ un diagramme d'accord, les propriétés de l'interface dépendent de
 
 @seealso
 Manuel de notation :
-@ref{Instrument Specific Markup}.
+@rusernamed{Instrument Specific Markup,
+Markups spécifiques aux instruments (en anglais)}.
 
 Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées}.
@@ -1363,7 +1369,7 @@ mychords = \chordmode {
 @end lilypond
 
 On peut enregistrer différents diagrammes pour un même accord en les
-définissant à des octaves différentes.   Notez qu'il faut un intervalle
+définissant à des octaves différentes.  Notez qu'il faut un intervalle
 de deux octaves, le premier servant à la transposition.
 
 @lilypond[verbatim, ragged-right, quote]
@@ -1397,14 +1403,13 @@ mychords = \chordmode {
 @funindex \storePredefinedDiagram
 
 En plus des  diagrammes d'accord, LilyPond possède une liste interne de
-carrures d'accord.
-Les carrures d'accords sont des diagrammes d'accord qui peuvent être
-transposés le long du manche.  Les carrures d'accords peuvent être
-ajoutées à la liste interne et être ensuite utilisées pour définir des
-accords prédéfinis.  Puisqu'elles sont transposables le long du
-manche, les carrures d'accord ne contiennent généralement pas de corde
-à vide.  Tout comme les diagrammes d'accord, les carrures d'accord sont
-définies grâce aux interfaces @code{fret-diagram-terse} ou
+carrures d'accord.  Les carrures d'accords sont des diagrammes d'accord
+qui peuvent être transposés le long du manche.  Les carrures d'accords
+peuvent être ajoutées à la liste interne et être ensuite utilisées pour
+définir des accords prédéfinis.  Puisqu'elles sont transposables le long
+du manche, les carrures d'accord ne contiennent généralement pas de
+corde à vide.  Tout comme les diagrammes d'accord, les carrures d'accord
+sont définies grâce aux interfaces @code{fret-diagram-terse} ou
 @code{fret-diagram-verbose}.
 
 
@@ -1462,14 +1467,14 @@ d'accord donné, les propriétés de l'interface dépendent de
 
 @seealso
 Manuel de notation :
-@ref{Tablatures personnalisées},
-@ref{Tablatures automatiques},
 @ref{Généralités sur le mode accords},
+@ref{Tablatures automatiques},
+@ref{Tablatures personnalisées},
 @ref{Tablatures prédéfinies}.
 
 Fichiers d'initialisation :
 @file{ly/predefined-guitar-fretboards.ly}, @*
-@file{ly/predefined-guitar-ninth-fretboards.ly},
+@file{ly/predefined-guitar-ninth-fretboards.ly}, @*
 @file{ly/predefined-ukulele-fretboards.ly},@*
 @file{ly/predefined-mandolin-fretboards.ly}.
 
@@ -1489,8 +1494,8 @@ Référence des propriétés internes :
 @cindex automatique, diagramme de fret
 @cindex automatique, diagramme d'accord
 
-Les diagrammes d'accord peuvent être créés automatiquement ; il
-suffit d'affecter les notes à un contexte @code{FretBoards}.  Si aucun
+Les diagrammes d'accord peuvent être créés automatiquement ; il suffit
+d'affecter les notes à un contexte @code{FretBoards}.  Si aucun
 diagramme prédéfini n'est disponible pour les notes entrées avec
 l'accordage actuel (@code{stringTunings}), les cordes et cases
 correspondant aux notes seront automatiquement calculées.
@@ -1584,6 +1589,8 @@ fret.
 >>
 @end lilypond
 
+@funindex minimumFret
+
 La propriété @code{minimumFret} permet de définir la case minimale qui
 servira à calculer les cordes et les cases du contexte @code{FretBoard}.
 
@@ -1609,9 +1616,8 @@ servira à calculer les cordes et les cases du contexte @code{FretBoard}.
 
 Les cordes et les cases du contexte @code{FretBoards} sont liées à la
 propriété @code{stringTunings}, qui a là même signification que dans le
-contexte @code{TabStaff}.
-Voir @ref{Tablatures personnalisées} pour plus d'information sur la
-propriété @code{stringTunings}.
+contexte @code{TabStaff}.  Voir @ref{Tablatures personnalisées} pour
+plus d'information sur la propriété @code{stringTunings}.
 
 La disposition graphique d'un diagramme d'accord peut être modifiée
 suivant les préférences de l'utilisateur au travers des propriétés de
@@ -1834,7 +1840,7 @@ Morceaux choisis :
 @cindex chord, power
 
 Les @emph{power chords} -- terme anglais signifiant littéralement
-@qq{accords de puissance} -- s'indiquent aussi bien en mode accord que
+« accords de puissance » -- s'indiquent aussi bien en mode accord que
 dans une construction en accord :
 
 @lilypond[quote,ragged-right,verbatim]

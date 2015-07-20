@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: e8fd54aac6821d27c14b911a00f009a150e5fa50
+   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
 
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  For details, see the Contributors'
+   Guide, node Updating translation committishes..
 @end ignore
 
 @c \version "2.19.21"
@@ -94,8 +94,8 @@ Manuel d'initiation :
 @rlearning{Écriture de chants simples}.
 
 Manuel de notation :
-@ref{Introduction au formatage de texte},
 @ref{Ambitus},
+@ref{Introduction au formatage de texte},
 @ref{Mise en forme d'une partition chorale}.
 
 Morceaux choisis :
@@ -526,11 +526,11 @@ mélismes puisqu'il n'y a pas de voix associée.
 
 Voici deux illustrations de cette technique :
 
-@lilypond[relative=1,verbatim,quote]
+@lilypond[verbatim,quote]
 <<
   \new Voice = "melody" {
     \time 3/4
-    c'2 a f f e e
+    c''2 a f f e e
   }
   \new Lyrics \lyricmode {
     c4. -- a -- f -- f -- e2. -- e
@@ -599,9 +599,9 @@ Référence des propriétés internes :
 @funindex _
 
 Pour attribuer plus d'une syllabe à une même note, vous pouvez soit les
-mettre entre guillemets, soit utiliser le caractère souligné
-(@code{_}) pour obtenir une espace, ou bien encore utiliser un tilde
-(@code{~}) pour obtenir une liaison entre les syllabes.
+mettre entre guillemets, soit utiliser le caractère souligné (@code{_})
+pour obtenir une espace, ou bien encore utiliser un tilde (@code{~})
+pour obtenir une liaison entre les syllabes.
 
 @lilypond[quote,ragged-right,verbatim]
 {
@@ -819,8 +819,8 @@ Manuel d'initiation :
 
 Manuel de notation :
 @ref{Alignement des paroles sur la mélodie},
-@ref{Durée automatique des syllabes},
 @ref{Définition des règles de ligature automatique},
+@ref{Durée automatique des syllabes},
 @ref{Rythme différent selon le couplet}.
 
 Référence des propriétés internes :
@@ -1105,8 +1105,8 @@ Manuel d'initiation :
 @rlearning{Modèles pour ensemble vocal}.
 
 Manuel de notation :
-@ref{Ordonnancement des contextes},
-@ref{Création et référencement d'un contexte}.
+@ref{Création et référencement d'un contexte},
+@ref{Ordonnancement des contextes}.
 
 
 @node Positionnement horizontal des syllabes
@@ -1661,16 +1661,15 @@ d'une fois sur l'autre :
 }
 @end lilypond
 
-Il n'est pas rare, en musique chorale, qu'une voix se divise
-pendant plusieurs mesures.  Bien qu'une construction du type
-@code{<< @{@dots{}@} \\ @{@dots{}@} >>}, où deux expressions
-musicales (ou plus) séparées par des doubles obliques inversées
-peuvent sembler être le moyen adéquat de définir cette division,
-@strong{toutes} les expressions qu'elle contient seront assignées à
-de @strong{nouveaux contextes de voix}, ce qui aura pour effet
-qu'aucune parole ne leur sera affectée -- les paroles sont
-attachées au contexte de voix initial.  Il vaut mieux construire
-ce passage comme une polyphonie temporaire -- voir
+Il n'est pas rare, en musique chorale, qu'une voix se divise pendant
+plusieurs mesures.  Bien qu'une construction du type @code{<<
+@{@dots{}@} \\ @{@dots{}@} >>}, où deux expressions musicales (ou plus)
+séparées par des doubles obliques inversées peuvent sembler être le
+moyen adéquat de définir cette division, @strong{toutes} les expressions
+qu'elle contient seront assignées à de @strong{nouveaux contextes de
+voix}, ce qui aura pour effet qu'aucune parole ne leur sera affectée --
+les paroles sont attachées au contexte de voix initial.  Il vaut mieux
+construire ce passage comme une polyphonie temporaire -- voir
 @ref{Polyphonie sur une portée}.
 
 
@@ -2270,12 +2269,12 @@ Manuel d'initiation :
 @rlearning{Chansons}.
 
 Manuel de notation :
-@ref{Vue d'ensemble de la musique vocale},
+@ref{Couplets},
 @ref{Gravure des accords},
 @ref{Gravure des portées},
 @ref{Instruments utilisant des portées multiples},
 @ref{Positionnement vertical des paroles},
-@ref{Couplets}.
+@ref{Vue d'ensemble de la musique vocale}.
 
 Morceaux choisis :
 @rlsrnamed{Vocal music,Musique vocale}.
@@ -2388,9 +2387,9 @@ Manuel d'initiation :
 
 Manuel de notation :
 @ref{Ordonnancement des contextes},
+@ref{Polyphonie sur une portée},
 @ref{Regroupement de portées},
-@ref{Têtes de note à forme variable},
-@ref{Polyphonie sur une portée}.
+@ref{Têtes de note à forme variable}.
 
 Morceaux choisis :
 @rlsrnamed{Vocal music,Musique vocale}.
@@ -2480,15 +2479,15 @@ du chœur.
 
 @seealso
 Manuel de notation :
-@ref{Modification de l'espacement},
+@ref{Définition de la taille de portée},
+@ref{Espacement vertical},
 @ref{Mise en évidence de l'espacement},
-@ref{Réduction du nombre de pages de la partition},
 @ref{Mise en forme de la page},
 @ref{Mise en forme de la partition},
-@ref{Séparation des systèmes},
-@ref{Définition de la taille de portée},
+@ref{Modification de l'espacement},
+@ref{Réduction du nombre de pages de la partition},
 @ref{Sauts},
-@ref{Espacement vertical}.
+@ref{Séparation des systèmes}.
 
 Référence des propriétés internes :
 @rinternals{VerticalAxisGroup},
@@ -2616,6 +2615,7 @@ Glossaire musicologique :
 
 Manuel de notation :
 @ref{Ajout de texte},
+@ref{Écriture de parties séparées},
 @ref{Imbrication de regroupements de portées},
 @ref{Instruments transpositeurs},
 @ref{Masquage de portées},
@@ -2623,8 +2623,7 @@ Manuel de notation :
 @ref{Notes de bas de page},
 @ref{Regroupement de portées},
 @ref{Séparation des systèmes},
-@ref{Transposition},
-@ref{Écriture de parties séparées}.
+@ref{Transposition}.
 
 Morceaux choisis :
 @rlsrnamed{Vocal music,Musique vocale}.
@@ -2720,8 +2719,8 @@ Manuel d'initiation:
 @rlearning{Organisation du code source avec des variables}.
 
 Manuel de notation :
-@ref{Texte},
-@ref{Commandes pour markup}.
+@ref{Commandes pour markup},
+@ref{Texte}.
 
 
 @node Citation-repère
@@ -2833,9 +2832,9 @@ Glossaire musicologique :
 
 Manuel de notation :
 @ref{Alignement des objets},
+@ref{Citation d'autres voix},
 @ref{Direction et positionnement},
 @ref{Mise en forme d'une citation},
-@ref{Citation d'autres voix},
 @ref{Utilisation de fonctions musicales}.
 
 Morceaux choisis :
@@ -3287,11 +3286,11 @@ Manuel d'initiation :
 @rlearning{Modèles pour ensemble vocal}.
 
 Manuel de notation :
-@ref{Notations anciennes},
 @ref{Barres de mesure},
 @ref{Modification des greffons de contexte},
-@ref{Typographie du chant grégorien},
 @ref{Musique sans métrique},
+@ref{Notations anciennes},
+@ref{Typographie du chant grégorien},
 @ref{Visibilité des objets}.
 
 
@@ -3451,8 +3450,8 @@ présenté à la rubrique @rlearning{Psalmodie}.
 
 @seealso
 Manuel d'initiation :
-@rlearning{Psalmodie},
-@rlearning{Modèles pour ensemble vocal}.
+@rlearning{Modèles pour ensemble vocal},
+@rlearning{Psalmodie}.
 
 Manuel de notation :
 @ref{Fontes},

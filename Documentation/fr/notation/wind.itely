@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 4467a72a98fb582466ee4d5944ec8454b4b77fc6
+   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
 
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  For details, see the Contributors'
+   Guide, node Updating translation committishes..
 @end ignore
 
 @c \version "2.19.16"
@@ -112,15 +112,15 @@ Voir le chapitre @ref{Articulations et ornements}.
 
 @seealso
 Manuel de notation :
-@ref{Signes de respiration},
-@ref{Liaisons d'articulation},
 @ref{Articulations et ornements},
-@ref{Liste des signes d'articulation},
-@ref{Répétitions en trémolo},
-@ref{Instruments transpositeurs},
-@ref{Glissando},
-@ref{Notes d'ornement},
 @ref{Chutes et sauts},
+@ref{Glissando},
+@ref{Instruments transpositeurs},
+@ref{Liaisons d'articulation},
+@ref{Liste des signes d'articulation},
+@ref{Notes d'ornement},
+@ref{Répétitions en trémolo},
+@ref{Signes de respiration},
 @ref{Têtes de note spécifiques}.
 
 Morceaux choisis :

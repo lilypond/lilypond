@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 53cff5245f682708a6c77d580f418ece2923c2e4
+   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
 
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  For details, see the Contributors'
+   Guide, node Updating translation committishes..
 @end ignore
 
 @c \version "2.19.21"
@@ -152,9 +152,11 @@ l'articulation désirée.  C'est entre autres le cas pour
 @notation{staccatissimo}, @notation{accent}, @notation{staccato}, et
 @notation{portato}, comme l'illustre l'exemple ci-dessous.
 
-@lilypond[verbatim,quote,relative=2]
-c4-^  c-+  c--  c-!
-c4->  c-.  c2-_
+@lilypond[verbatim,quote]
+\relative {
+  c''4-^  c-+  c--  c-!
+  c4->  c-.  c2-_
+}
 @end lilypond
 
 Même si LilyPond place automatiquement ces symboles, selon les règles
@@ -168,11 +170,10 @@ propriétés de ces objets sont abordées plus en détail au chapitre
 
 Une articulation peut se rattacher aussi bien à un silence qu'à une
 note, mais @strong{pas à un silence multimesures}.  Il existe cependant
-un cas particulier : le point d'orgue -- ou point d'arrêt --
-attaché à un silence valant l'intégralité de la mesure.  LilyPond
-dispose à cet effet de la commande @code{\fermataMarkup}, qui créera un
-objet @code{MultiMeasureRestText} rattaché à ce @qq{silence
-multimesures}.
+un cas particulier : le point d'orgue -- ou point d'arrêt -- attaché à
+un silence valant l'intégralité de la mesure.  LilyPond dispose à cet
+effet de la commande @code{\fermataMarkup}, qui créera un objet
+@code{MultiMeasureRestText} rattaché à ce « silence multimesures ».
 
 @lilypond[verbatim,quote,fragment]
 \override Script.color = #red
@@ -426,8 +427,8 @@ changement de nuance :
 }
 @end lilypond
 
-Pour créer des indications de nuance qui restent alignées
-avec les nuances habituelles, reportez-vous au chapitre
+Pour créer des indications de nuance qui restent alignées avec les
+nuances habituelles, reportez-vous au chapitre
 @ref{Personnalisation des indications de nuance}.
 
 @cindex nuances, positionnement vertical
@@ -437,6 +438,7 @@ avec les nuances habituelles, reportez-vous au chapitre
 
 Le positionnement vertical des nuances est géré par le
 @rinternals{DynamicLineSpanner}.
+
 @funindex \dynamicUp
 @funindex dynamicUp
 @funindex \dynamicDown
@@ -524,10 +526,10 @@ Manuel d'initiation :
 @rlearning{Articulations et nuances}.
 
 Manuel de notation :
-@ref{Direction et positionnement},
-@ref{Personnalisation des indications de nuance},
 @ref{Amélioration du rendu MIDI},
-@ref{Gestion des nuances en MIDI}.
+@ref{Direction et positionnement},
+@ref{Gestion des nuances en MIDI},
+@ref{Personnalisation des indications de nuance}.
 
 Morceaux choisis :
 @rlsrnamed{Expressive marks,Signes d'interprétation}.
@@ -568,9 +570,8 @@ moltoF = \markup { molto \dynamic f }
 @funindex dynamic
 
 Vous pouvez créer des indications de nuance éditoriales (entre
-parenthèses ou crochets) grâce aux étiquettes (@emph{mode
-markup}) ; la syntaxe en est abordée au chapitre
-@ref{Mise en forme du texte}.
+parenthèses ou crochets) grâce aux étiquettes (@emph{mode markup}) ; la
+syntaxe en est abordée au chapitre @ref{Mise en forme du texte}.
 
 @lilypond[verbatim,quote]
 roundF = \markup {
@@ -663,10 +664,10 @@ L'utilisation des fontes en mode @emph{markup} est abordée au chapitre
 
 @seealso
 Manuel de notation :
-@ref{Mise en forme du texte},
-@ref{Sélection de la fonte et de la taille},
 @ref{Amélioration du rendu MIDI},
-@ref{Gestion des nuances en MIDI}.
+@ref{Gestion des nuances en MIDI},
+@ref{Mise en forme du texte},
+@ref{Sélection de la fonte et de la taille}.
 
 Morceaux choisis :
 @rlsrnamed{Expressive marks,Signes d'interprétation}.
@@ -1370,21 +1371,25 @@ un simple @code{\trill} ; voir @ref{Articulations et ornements}.
 Les trilles plus longs sont délimités par @code{\startTrillSpan} et
 @code{\stopTrillSpan} :
 
-@lilypond[verbatim,quote,relative=2]
-d1\startTrillSpan
-d1
-c2\stopTrillSpan r2
+@lilypond[verbatim,quote]
+\relative {
+  d''1\startTrillSpan
+  d1
+  c2\stopTrillSpan r2
+}
 @end lilypond
 
 Lorsqu'un saut de ligne intervient alors qu'une prolongation de trille
 est présente, l'indication de trille et sa prolongation sont rappelées
 sur la première note de la nouvelle ligne :
 
-@lilypond[ragged-right,verbatim,quote,relative=2]
-d1\startTrillSpan
-\break
-d1
-c2\stopTrillSpan r2
+@lilypond[ragged-right,verbatim,quote]
+\relative {
+  d''1\startTrillSpan
+  \break
+  d1
+  c2\stopTrillSpan r2
+}
 @end lilypond
 
 Lorsque des trilles interviennent sur une succession de hauteurs
@@ -1392,11 +1397,13 @@ différentes, point n'est besoin d'expliciter la commande
 @code{\stopTrillSpan} puisque l'apparition d'un nouveau trille
 interrompt de fait celui qui le précédait :
 
-@lilypond[verbatim,quote,relative=2]
-d1\startTrillSpan
-d1
-b1\startTrillSpan
-d2\stopTrillSpan r2
+@lilypond[verbatim,quote]
+\relative {
+  d''1\startTrillSpan
+  d1
+  b1\startTrillSpan
+  d2\stopTrillSpan r2
+}
 @end lilypond
 
 Dans l'exemple suivant, un trille se combine avec des notes d'ornement.
@@ -1404,10 +1411,12 @@ La syntaxe d'une telle construction ainsi que le moyen de positionner
 les notes d'ornement avec précision est expliquée au chapitre
 @ref{Notes d'ornement}.
 
-@lilypond[verbatim,quote,relative=2]
-d1~\afterGrace
-d1\startTrillSpan { c32[ d]\stopTrillSpan }
-e2 r2
+@lilypond[verbatim,quote]
+\relative {
+  d''1~\afterGrace
+  d1\startTrillSpan { c32[ d]\stopTrillSpan }
+  e2 r2
+}
 @end lilypond
 
 @cindex trilles avec hauteur explicite
@@ -1417,13 +1426,15 @@ e2 r2
 
 Les trilles qui font intervenir une hauteur précise peuvent être
 indiqués par la commande @code{pitchedTrill}.  Le premier argument est
-la note réelle ; le second est une hauteur qui sera imprimée comme
-une tête de note noire entre parenthèses.
+la note réelle ; le second est une hauteur qui sera imprimée comme une
+tête de note noire entre parenthèses.
 
-@lilypond[verbatim,quote,relative=2]
-\pitchedTrill
-e2\startTrillSpan fis
-d2 c2\stopTrillSpan
+@lilypond[verbatim,quote]
+\relative {
+  \pitchedTrill
+  e''2\startTrillSpan fis
+  d2 c2\stopTrillSpan
+}
 @end lilypond
 
 @cindex trilles avec hauteur explicite et altération

@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
+   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
 
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  For details, see the Contributors'
+   Guide, node Updating translation committishes..
 @end ignore
 
 @c \version "2.19.21"
@@ -138,15 +138,15 @@ Glossaire musicologique :
 @rglosnamed{staves,portées}.
 
 Manuel de notation :
-@ref{Création et référencement d'un contexte},
-@ref{Portées de percussion},
-@ref{Gravure de lignes rythmiques},
-@ref{Tablatures par défaut},
-@ref{Contextes prédéfinis},
-@ref{Symbole de la portée},
-@ref{Contextes du chant grégorien},
 @ref{Contextes de musique mensurale},
-@ref{Définition de nouveaux contextes}.
+@ref{Contextes du chant grégorien},
+@ref{Contextes prédéfinis},
+@ref{Création et référencement d'un contexte},
+@ref{Définition de nouveaux contextes},
+@ref{Gravure de lignes rythmiques},
+@ref{Portées de percussion},
+@ref{Symbole de la portée},
+@ref{Tablatures par défaut}.
 
 Morceaux choisis :
 @rlsrnamed{Staff notation, Notation sur la portée}.
@@ -271,8 +271,8 @@ Glossaire musicologique :
 @rglosnamed{grand staff,système}.
 
 Manuel de notation :
-@ref{Noms d'instrument},
-@ref{Définition de nouveaux contextes}.
+@ref{Définition de nouveaux contextes},
+@ref{Noms d'instrument}.
 
 Morceaux choisis :
 @rlsrnamed{Staff notation, Notation sur la portée}.
@@ -327,9 +327,9 @@ l'explique @ref{Définition de nouveaux contextes}.
 
 @seealso
 Manuel de notation :
-@ref{Regroupement de portées},
+@ref{Définition de nouveaux contextes},
 @ref{Noms d'instrument},
-@ref{Définition de nouveaux contextes}.
+@ref{Regroupement de portées}.
 
 Morceaux choisis :
 @rlsrnamed{Staff notation,Notation sur la portée}.
@@ -472,7 +472,7 @@ Vous pouvez modifier le nombre de lignes d'une portée :
 Le positionnement de chacune des lignes de la portée est modifiable.
 Une liste de nombres détermine le positionnement de chaque ligne.
 Le @code{0} correspond à la ligne médiane d'une portée habituelle, pour
-laquelle la liste est donc @code{(-4@tie{}-2@tie{}0@tie{}2@tie{}4)}.
+laquelle la liste est donc @code{(-4 -2 0 2 4)}.
 Une ligne sera donc imprimée pour chaque valeur exprimée ; le nombre de
 lignes, ainsi que leur position dans la portée, peut donc se modifier à
 l'aide d'une seule commande.
@@ -741,8 +741,8 @@ Glossaire musicologique :
 
 Manuel d'initiation :
 @rlearning{Expressions musicales imbriquées},
-@rlearning{Taille des objets},
-@rlearning{Longueur et épaisseur des objets}.
+@rlearning{Longueur et épaisseur des objets},
+@rlearning{Taille des objets}.
 
 Manuel de notation :
 @ref{Masquage de portées}.
@@ -847,11 +847,11 @@ Manuel d'initiation:
 @rlearning{Visibilité et couleur des objets}.
 
 Manuel de notation :
-@ref{Modification des réglages par défaut d'un contexte},
-@ref{Symbole de la portée},
-@ref{Portées d'ossia},
 @ref{Dictée à trous},
+@ref{Modification des réglages par défaut d'un contexte},
+@ref{Portées d'ossia},
 @ref{Silences invisibles},
+@ref{Symbole de la portée},
 @ref{Visibilité des objets}.
 
 Morceaux choisis :
@@ -1048,8 +1048,8 @@ setFlute = {
 
 @seealso
 Manuel de notation :
-@ref{Variables d'indentation et de décalage},
-@ref{Modification des greffons de contexte}.
+@ref{Modification des greffons de contexte},
+@ref{Variables d'indentation et de décalage}.
 
 Morceaux choisis :
 @rlsrnamed{Staff notation,Notation sur la portée}.
@@ -1520,10 +1520,10 @@ d'information, reportez-vous au chapitre @ref{Noms d'instrument}.
 @seealso
 Manuel de notation :
 @ref{Citation d'autres voix},
+@ref{Citation-repère},
+@ref{Clefs},
 @ref{Instruments transpositeurs},
 @ref{Noms d'instrument},
-@ref{Clefs},
-@ref{Citation-repère},
 @ref{Utilisation de balises}.
 
 Morceaux choisis :

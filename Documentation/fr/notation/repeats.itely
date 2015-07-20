@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 53cff5245f682708a6c77d580f418ece2923c2e4
+   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
 
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  For details, see the Contributors'
+   Guide, node Updating translation committishes..
 @end ignore
 
 @c \version "2.19.21"
@@ -233,12 +233,14 @@ cette entame.
 
 Des liaisons de tenue peuvent être ajoutées à toute alternative :
 
-@lilypond[verbatim,quote,relative=2]
-c1
-\repeat volta 2 { c4 d e f ~ }
-\alternative {
-  { f2 d }
-  { f2\repeatTie f, }
+@lilypond[verbatim,quote]
+\relative {
+  c''1
+  \repeat volta 2 { c4 d e f~ }
+  \alternative {
+    { f2 d }
+    { f2\repeatTie f, }
+  }
 }
 @end lilypond
 
@@ -353,9 +355,9 @@ Glossaire musicologique :
 
 Manuel de notation :
 @ref{Barres de mesure},
+@ref{Gestion du temps},
 @ref{Modification des greffons de contexte},
-@ref{Modification des liaisons},
-@ref{Gestion du temps}.
+@ref{Modification des liaisons}.
 
 Fichiers d'initialisation :
 @file{ly/engraver-init.ly}.
@@ -584,13 +586,15 @@ a'4 b c | a'4 b c
 
 Une répétition expansée peut aussi avoir une fin alternative :
 
-@lilypond[verbatim,quote,relative=2]
-\repeat unfold 2 { g4 f e d }
-\alternative {
-  { c2 g' }
-  { cis,2 b }
+@lilypond[verbatim,quote]
+\relative {
+  \repeat unfold 2 { c''4 d e f }
+  \alternative {
+    { c2 g' }
+    { c,2 b }
+  }
+  c1
 }
-c1
 @end lilypond
 
 Si l'on donne trop peu d'alternatives en regard du nombre de fois où le

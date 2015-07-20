@@ -1,10 +1,10 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
+   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
 
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  For details, see the Contributors'
+   Guide, node Updating translation committishes..
 @end ignore
 
 @c \version "2.19.21"
@@ -440,7 +440,8 @@ portées.
 @funindex \oneVoice
 @funindex oneVoice
 
-@subsubsubheading{Instanciation explicite des voix}
+
+@subsubsubheading Instanciation explicite des voix
 
 La manière la plus facile d'entrer des fragments avec plus d'une voix
 sur une portée est la suivante :
@@ -464,7 +465,8 @@ quelque peu décalées, tout comme leurs silences, afin d'éviter les
 collisions.  La commande @code{\oneVoice} permet de retrouver les
 réglages par défaut.
 
-@subsubsubheading{Polyphonie temporaire}
+
+@subsubsubheading Polyphonie temporaire
 
 Un fragment temporairement polyphonique se construit de la manière
 suivante :
@@ -511,7 +513,7 @@ après lui :
 Vous remarquerez que les commandes @code{\voiceOne} et @code{\voiceTwo}
 permettent d'obtenir des réglages différents pour chacune des voix.
 
-@subsubsubheading{La construction avec un double antislash}
+@subsubsubheading La construction avec un double antislash
 
 @cindex couches
 @cindex calques
@@ -562,7 +564,8 @@ les contextes de voix de manière explicite.  Voir à ce sujet
 @rlearning{Contextes et graveurs} et
 @rlearning{Instanciation explicite des voix}.
 
-@subsubsubheading{Ordre des voix}
+
+@subsubsubheading Ordre des voix
 
 L'ordre dans lequel doivent apparaître les voix d'une construction
 simultanée suit le schéma suivant :
@@ -602,7 +605,7 @@ vont vers le haut, celles des voix paires vers le bas :
 @warning{Paroles et objets étendus (liaisons, soufflets etc.) ne peuvent
 passer d'une voix à l'autre.}
 
-@subsubsubheading{Identité rythmique}
+@subsubsubheading Identité rythmique
 
 Lorsque l'on doit saisir des fragments de musique parallèle qui ont le
 même rythme, on peut les combiner dans un contexte de voix unique et par
@@ -1134,6 +1137,7 @@ instrumentTwo = \relative {
 @subsubsubheading Utilisation de @code{\partcombine} et paroles
 
 @cindex \partcombine et paroles
+@cindex parloes et \partcombine
 
 La commande @code{\partcombine} n'est pas conçue pour traiter des
 paroles ; si l'une des voix est explicitement nommée, afin de lui

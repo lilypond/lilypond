@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 53cff5245f682708a6c77d580f418ece2923c2e4
+   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
 
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  For details, see the Contributors'
+   Guide, node Updating translation committishes..
 @end ignore
 
 @c \version "2.19.21"
@@ -119,9 +119,9 @@ Manuel d'initiation :
 @rlearning{Positionnement des objets}.
 
 Manuel de notation :
-@ref{Mise en forme du texte},
+@ref{Articulations et ornements},
 @ref{Direction et positionnement},
-@ref{Articulations et ornements}.
+@ref{Mise en forme du texte}.
 
 Morceaux choisis :
 @rlsrnamed{Text,Texte}.
@@ -212,9 +212,9 @@ Les détails concernant la syntaxe à utiliser sont expliqués au chapitre
 
 @seealso
 Manuel de notation :
-@ref{Styles de ligne},
+@ref{Mise en forme du texte},
 @ref{Nuances},
-@ref{Mise en forme du texte}.
+@ref{Styles de ligne}.
 
 Morceaux choisis :
 @rlsrnamed{Text,Texte},
@@ -324,9 +324,9 @@ de la ligne suivante.
 @seealso
 Manuel de notation :
 @ref{Indications de repère},
+@ref{La fonte Feta},
 @ref{Mise en forme du texte},
-@ref{Notation musicale dans du texte formaté},
-@ref{La fonte Feta}.
+@ref{Notation musicale dans du texte formaté}.
 
 Morceaux choisis:
 @rlsrnamed{Text,Texte}.
@@ -401,8 +401,8 @@ détail au chapitre @ref{Texte avec sauts de page}.
 @seealso
 Manuel de notation :
 @ref{Mise en forme du texte},
-@ref{Structure de fichier},
 @ref{Plusieurs partitions dans un même ouvrage},
+@ref{Structure de fichier},
 @ref{Texte avec sauts de page}.
 
 Morceaux choisis :
@@ -756,10 +756,10 @@ Pour savoir comment personnaliser des fontes, reportez-vous au chapitre
 
 @seealso
 Manuel de notation :
-@ref{Font},
-@ref{Personnalisation des indications de nuance},
+@rusernamed{Font,Fonte},
+@ref{Fontes},
 @ref{Indications de reprise manuelles},
-@ref{Fontes}.
+@ref{Personnalisation des indications de nuance}.
 
 Fichiers d'initialisation :
 @file{scm/define-markup-commands.scm}.
@@ -1035,7 +1035,7 @@ Manuel d'initiation :
 @rlearning{Déplacement d'objets}.
 
 Manuel de notation :
-@ref{Align},
+@rusernamed{Align,Alignement},
 @ref{Indications textuelles}.
 
 Fichiers d'initialisation :
@@ -1219,10 +1219,10 @@ de graphisme.
 
 @seealso
 Manuel de notation :
-@ref{Align},
+@rusernamed{Align,Alignement},
 @ref{Annotations éditoriales},
 @ref{Dimensions},
-@ref{Graphic}.
+@rusernamed{Graphic,Graphique}.
 
 Fichiers d'initialisation :
 @file{scm/define-markup-commands.scm},
@@ -1358,8 +1358,8 @@ sont répertoriées à l'annexe @ref{Music}.
 
 @seealso
 Manuel de notation :
-@ref{Music},
 @ref{La fonte Feta},
+@rusernamed{Music,Musique},
 @ref{Tout savoir sur les fontes}.
 
 Fichiers d'initialisation :
@@ -1583,7 +1583,7 @@ Manuel de notation :
 @ref{Notation musicale dans du texte formaté},
 @ref{Rotation des objets},
 @ref{Sélection de la fonte et de la taille},
-@ref{Font}.
+@rusernamed{Font,Fonte}.
 
 
 @node Attribution d'une fonte en particulier
@@ -1621,8 +1621,8 @@ lilypond -dshow-available-fonts toto
 
 @seealso
 Manuel de notation :
-@ref{Tout savoir sur les fontes},
-@ref{Choix des fontes par défaut}.
+@ref{Choix des fontes par défaut},
+@ref{Tout savoir sur les fontes}.
 
 Morceaux choisis :
 @rlsrnamed{Text,Texte}.
@@ -1671,7 +1671,7 @@ portées.  Pour plus d'explications sur les fontes, relisez
 
 @seealso
 Manuel de notation :
-@ref{Tout savoir sur les fontes},
 @ref{Attribution d'une fonte en particulier},
+@rusernamed{Font,Fonte},
 @ref{Sélection de la fonte et de la taille},
-@ref{Font}.
+@ref{Tout savoir sur les fontes}.

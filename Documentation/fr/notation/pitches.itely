@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: e8fd54aac6821d27c14b911a00f009a150e5fa50
+   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
 
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes.
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  For details, see the Contributors'
+   Guide, node Updating translation committishes.
 @end ignore
 
 @c \version "2.19.22"
@@ -413,10 +413,12 @@ d'interrogation @code{?} après la hauteur de note.
 Lorsqu'une note est prolongée par une liaison de tenue, l'altération ne
 sera réimprimée que s'il y a un saut de ligne.
 
-@lilypond[verbatim,quote,relative=2,ragged-right]
-cis1 ~ 1 ~
-\break
-cis
+@lilypond[verbatim,quote,fragment,ragged-right]
+\relative c'' {
+  cis1 ~ 1 ~
+  \break
+  cis
+}
 @end lilypond
 
 @snippets
@@ -813,11 +815,11 @@ Pour plus d'information à ce sujet, consultez
 
 @seealso
 Manuel de notation :
-@ref{Octaves relatives},
 @ref{Instruments transpositeurs},
 @ref{Inversion},
-@ref{Transformations modales},
-@ref{Rétrogradation}.
+@ref{Octaves relatives},
+@ref{Rétrogradation},
+@ref{Transformations modales}.
 
 Morceaux choisis :
 @rlsrnamed{Pitches, Hauteurs}.
@@ -877,8 +879,8 @@ moins d'avoir été préalablement inclus explicitement dans un bloc
 
 @seealso
 Manuel de notation :
-@ref{Transformations modales},
 @ref{Rétrogradation},
+@ref{Transformations modales},
 @ref{Transposition}.
 
 
@@ -1232,10 +1234,10 @@ clef initiale.  La taille peut toutefois être ajustée.
 
 @seealso
 Manuel de notation :
-@ref{Notations anciennes},
 @ref{Clefs anciennes},
 @ref{Clefs grégoriennes},
 @ref{Mise en forme d'une citation},
+@ref{Notations anciennes},
 @ref{Tablatures par défaut},
 @ref{Tablatures personnalisées}.
 
@@ -1356,15 +1358,14 @@ freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
 }
 @end lilypond
 
-Les altérations à la clef peuvent s'imprimer à des octaves
-différents de leur position traditionnelle ou à plusieurs octaves,
-à l'aide des propriétés @code{flat-positions} et
-@code{sharp-positions} de l'objet @code{KeySignature}.  Les
-entrées fourniees à ces propriétés définissent l'amplitude des
-positions sur la portée où les altérations seront imprimées.  Dans
-le cas où l'entrée est constituée d'une position unique, les
-altérations seront placées à l'intérieur de l'octave finissant à
-cette position sur la portée.
+Les altérations à la clef peuvent s'imprimer à des octaves différents de
+leur position traditionnelle ou à plusieurs octaves, à l'aide des
+propriétés @code{flat-positions} et @code{sharp-positions} de l'objet
+@code{KeySignature}.  Les entrées fourniees à ces propriétés définissent
+l'amplitude des positions sur la portée où les altérations seront
+imprimées.  Dans le cas où l'entrée est constituée d'une position
+unique, les altérations seront placées à l'intérieur de l'octave
+finissant à cette position sur la portée.
 
 @lilypond[verbatim, quote,fragment]
 \override Staff.KeySignature.flat-positions = #'((-5 . 5))
@@ -3009,9 +3010,9 @@ Il existe un raccourci pour les notes en losange :
 
 @seealso
 Manuel de notation :
-@ref{Styles de tête de note},
+@ref{Indication des harmoniques et notes étouffées},
 @ref{Notes en accords},
-@ref{Indication des harmoniques et notes étouffées}.
+@ref{Styles de tête de note}.
 
 Morceaux choisis :
 @rlsrnamed{Pitches,Hauteurs}.
