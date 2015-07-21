@@ -121,7 +121,10 @@ namespace Syntax {
   extern Variable music_function_call_error;
   extern Variable partial_markup;
   extern Variable partial_music_function;
-  extern Variable property_operation;
+  extern Variable property_override;
+  extern Variable property_revert;
+  extern Variable property_set;
+  extern Variable property_unset;
   extern Variable repeat;
   extern Variable repetition_chord;
   extern Variable sequential_music;

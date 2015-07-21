@@ -2639,29 +2639,21 @@ music_property_def:
 	OVERRIDE grob_prop_path '=' scalar {
 		if (SCM_UNBNDP ($2))
 			$$ = MAKE_SYNTAX (void_music, @$);
-		else {
-			$$ = MAKE_SYNTAX (property_operation, @$,
+		else
+			$$ = MAKE_SYNTAX (property_override, @$,
 					  scm_car ($2),
-					  ly_symbol2scm ("OverrideProperty"),
-					  scm_cadr ($2),
-					  $4,
-					  scm_cddr ($2));
-		}
+					  scm_cdr ($2),
+					  $4);
 	}
 	| REVERT simple_revert_context revert_arg {
-		$$ = MAKE_SYNTAX (property_operation, @$,
-				  $2,
-				  ly_symbol2scm ("RevertProperty"),
-				  scm_car ($3),
-				  scm_cdr ($3));
+		$$ = MAKE_SYNTAX (property_revert, @$, $2, $3);
 	}
 	| SET context_prop_spec '=' scalar {
 		if (SCM_UNBNDP ($2))
 			$$ = MAKE_SYNTAX (void_music, @$);
 		else
-			$$ = MAKE_SYNTAX (property_operation, @$,
+			$$ = MAKE_SYNTAX (property_set, @$,
 					  scm_car ($2),
-					  ly_symbol2scm ("PropertySet"),
 					  scm_cadr ($2),
 					  $4);
 	}
@@ -2669,9 +2661,8 @@ music_property_def:
 		if (SCM_UNBNDP ($2))
 			$$ = MAKE_SYNTAX (void_music, @$);
 		else
-			$$ = MAKE_SYNTAX (property_operation, @$,
+			$$ = MAKE_SYNTAX (property_unset, @$,
 					  scm_car ($2),
-					  ly_symbol2scm ("PropertyUnset"),
 					  scm_cadr ($2));
 	}
 	;

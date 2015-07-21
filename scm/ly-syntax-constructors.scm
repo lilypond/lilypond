@@ -213,26 +213,38 @@ into a @code{MultiMeasureTextEvent}."
     (set-object-property! chain 'markup-signature (list markup?))
     chain))
 
-(define-public (property-operation ctx music-type symbol . args)
-  (let* ((props (case music-type
-                  ((PropertySet) (list 'value (car args)))
-                  ((PropertyUnset) '())
-                  ((OverrideProperty) (list 'grob-value (car args)
-                                            'grob-property-path (if (list? (cadr args))
-                                                                    (cadr args)
-                                                                    (cdr args))
-                                            'pop-first #t))
-                  ((RevertProperty)
-                   (if (list? (car args))
-                       (list 'grob-property-path (car args))
-                       (list 'grob-property-path args)))
-                  (else (ly:error (_ "Invalid property operation ~a") music-type))))
-         (m (ly:set-origin! (apply make-music music-type
-                                   'symbol symbol
-                                   props))))
-    (ly:set-origin! (make-music 'ContextSpeccedMusic
-                                'element m
-                                'context-type ctx))))
+(define-public (property-set context property value)
+  (ly:set-origin! (context-spec-music
+                   (ly:set-origin!
+                    (make-music 'PropertySet
+                                'symbol property
+                                'value value))
+                   context)))
+
+(define-public (property-unset context property)
+  (ly:set-origin! (context-spec-music
+                   (ly:set-origin!
+                    (make-music 'PropertyUnset
+                                'symbol property))
+                   context)))
+
+(define-public (property-override context path value)
+  (ly:set-origin! (context-spec-music
+                   (ly:set-origin!
+                    (make-music 'OverrideProperty
+                                'symbol (car path)
+                                'grob-property-path (cdr path)
+                                'grob-value value
+                                'pop-first #t))
+                   context)))
+
+(define-public (property-revert context path)
+  (ly:set-origin! (context-spec-music
+                   (ly:set-origin!
+                    (make-music 'RevertProperty
+                                'symbol (car path)
+                                'grob-property-path (cdr path)))
+                   context)))
 
 (define (get-first-context-id! mus)
   "Find the name of a ContextSpeccedMusic, possibly naming it"

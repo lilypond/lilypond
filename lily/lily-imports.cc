@@ -114,7 +114,10 @@ namespace Syntax {
   Variable music_function_call_error ("music-function-call-error");
   Variable partial_markup ("partial-markup");
   Variable partial_music_function ("partial-music-function");
-  Variable property_operation ("property-operation");
+  Variable property_override ("property-override");
+  Variable property_revert ("property-revert");
+  Variable property_set ("property-set");
+  Variable property_unset ("property-unset");
   Variable repeat ("repeat");
   Variable repetition_chord ("repetition-chord");
   Variable sequential_music ("sequential-music");
