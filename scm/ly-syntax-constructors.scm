@@ -246,6 +246,16 @@ into a @code{MultiMeasureTextEvent}."
                                 'grob-property-path (cdr path)))
                    context)))
 
+(define-public property-override-function
+  (ly:make-music-function
+   (list (cons ly:music? (void-music)) symbol? symbol-list? scheme?)
+   property-override))
+
+(define-public property-set-function
+  (ly:make-music-function
+   (list (cons ly:music? (void-music)) symbol? symbol? scheme?)
+   property-set))
+
 (define (get-first-context-id! mus)
   "Find the name of a ContextSpeccedMusic, possibly naming it"
   (let ((id (ly:music-property mus 'context-id)))
