@@ -8,7 +8,7 @@ don't fit anywhere else.
 * Meta-policy for this document::
 * Environment variables::
 * Meisters::
-* Automated testing with Patchy::
+* Managing Staging and Master branches with Patchy::
 * Administrative mailing list::
 * Grand Organization Project (GOP)::
 * Grand LilyPond Input Syntax Standardization (GLISS)::
@@ -137,15 +137,20 @@ Currently: Francisco
 @end itemize
 
 
-@node Automated testing with Patchy
-@section Automated testing with Patchy
+@node Managing Staging and Master branches with Patchy
+@section Managing Staging and Master branches with Patchy
+
+@ignore
+The script 'test-patches.py' no longer works with code.google.com since
+Google changed their authentication method.
+@end ignore
 
 @menu
 * Overview of Patchy::
 * Patchy requirements::
 * Installing Patchy::
 * Configuring Patchy::
-* Running the scripts::
+* Running the script::
 * Automating Patchy::
 * Troubleshooting Patchy::
 @end menu
@@ -153,38 +158,16 @@ Currently: Francisco
 @node Overview of Patchy
 @subsection Overview of Patchy
 
-Patchy is a set of Python scripts used for testing patches or testing &
-pushing new commits added to @code{remote/origin/staging} to
-@code{remote/origin/master}.
+No programmatic skill is required to run Patchy; although knowledge of
+compiling LilyPond and its documentation along with understanding how to
+configure the @var{PATH} environment of your computer is required.  See
+@ref{Working with source code}.
 
-No programmatic skill is required to run either of the scripts; although
-knowledge of compiling LilyPond and its documentation along with
-understanding how to configure the @var{PATH} environment of your
-computer is required.  See @ref{Working with source code}.
-
-The two scripts that are used for each function are:
-
-@itemize
-@item
-@code{test-patches.py}. This script tests issues labelled as
-@qq{Patch-New} on the LilyPond issue tracker.  Part of the testing
-process involves running the regression tests, so this script always
-requires some human intervention in order to visually check for any
-differences that may be present after a successful test has occurred.
-
-@item
-@code{lilypond-patchy-staging.py}.  This script checks for any new
-commits in @code{remote/origin/staging}, makes sure that the new HEAD
-compiles along with all the LilyPond documentation.  Then finally
-pushing to @code{remote/origin/master}.  This script can be run and left
+The script @code{lilypond-patchy-staging.py} checks for any new commits
+in @code{remote/origin/staging}, makes sure that the new HEAD compiles
+along with all the LilyPond documentation.  Then finally pushing to
+@code{remote/origin/master}.  This script can be run and left
 unattended, requiring no human intervention.
-
-@end itemize
-
-Both of the scripts can be run independently of each other and it is not
-necessary to be able to run both.  So if you wanted to contribute to
-LilyPond development, for example by @emph{just} testing patches then
-this would still be a helpful contribution to LilyPond's development.
 
 Patchy can also be configured to send emails after each successful (or
 unsuccessful) operation.  This is not a requirement and is turned off
@@ -196,39 +179,6 @@ by default.
 
 @node Patchy requirements
 @subsection Patchy requirements
-
-@subsubsubheading Testing new patches
-
-@itemize
-
-@item
-A full local copy of the source code.  See
-@ref{Working with source code}.
-
-@item
-All the software needed for compiling LilyPond @emph{and} the
-documentation.  Although being able to build the full set of LilyPond's
-manuals is not mandatory for testing (most) patches, part of the patch
-testing process requires that the regression tests are run and it is
-this that requires the software normally used for compiling
-documentation.  See @ref{Compiling}.
-
-@item
-Commit access is @emph{not} required to test patches, but a valid login
-to @uref{http://code.google.com/} @emph{is}.
-
-@noindent
-Note that a google account does not need to be a Gmail account; you can
-use @emph{any} email address for your google account when you sign up.
-
-@warning{In order for @code{patchy} to work as expected, your Google
-Account Settings must have the @q{Access for less secure apps} set to
-@q{Allowed}.  This is normally the default setting.}
-
-@end itemize
-
-
-@subsubsubheading Testing & pushing new commits
 
 @itemize
 
@@ -286,20 +236,8 @@ Make sure the environment variables @var{LILYPOND_GIT} and
 @ref{Environment variables}.
 
 @item
-To save being prompted for your login and password to
-@uref{http://code.google.com/} when testing patches. create a
-@emph{plain-text} file in your Patchy user's @code{$HOME} directory
-called @code{.lilypond-project-hosting-login} containing your login and
-password, each on a separate line.
-
-@example
-joe_smith123@@gmail.com
-mYp455w0rd!
-@end example
-
-@item
-Manually run either the @code{test-patches.py} or
-@code{lilypond-patchy-staging.py} scripts and when prompted:
+Manually run either the @code{lilypond-patchy-staging.py} script and
+when prompted:
 
 @smallexample
 Warning: using default config; please edit /home/joe/.lilypond-patchy-config
@@ -351,23 +289,14 @@ build_dir = /tmp/lilypond-autobuild/
 
 @end itemize
 
-Each completed patch test will also generate its own directory in
-@file{/tmp/...} labelled with the tracker issue number prefixed by
-@code{show-}.
-@example
-\tmp\show-3446
-@end example
-
-Both the scripts create clones of @code{staging} and @code{master}
+The script creates a clones of @code{staging} and @code{master}
 branches (prefixed with @code{test-}) with a third branch, called
 @code{test-master-lock} used as a check to protect against two or more
 instances of Patchy being run locally at the same time.
 
 
-@node Running the scripts
-@subsection Running the scripts
-
-@subsubsubheading Testing & pushing new commits
+@node Running the script
+@subsection Running the script
 
 @code{lilypond-patchy-staging.py} is run @emph{without} any arguments.
 It then checks to see if @code{remote/origin/staging} is
@@ -416,204 +345,6 @@ tests fail, do not try to push your own fixes but report the failures to
 the Developers List <lilypond-devel@@gnu.org> for advice.}
 
 
-@subsubsubheading Testing new patches
-
-When run without any argument, @code{test-patches.py} will check
-@uref{http://code.google.com/p/lilypond/issues/list} for all tracker
-issues that are marked with the label @code{Patch-new}.  It then scrapes
-the issue, looking for the last Rietveld URL entered.  It then downloads
-the patch file and applies it to @code{test-master}.
-
-Here is an example where two tracker issues labeled as @code{Patch-new}
-were detected:
-
-@smallexample
-...
-issues [4007, 4008]
-Trying issue 4007
-Found url: http://codereview.appspot.com/112210043
-Found patch: 4007,/home/joe/lilypond-git/issue112210043_1.diff,
-Trying issue 4008
-Found url: http://codereview.appspot.com/115770043
-Found patch: 4008,/home/joe/lilypond-git/issue115770043_1.diff,
-Fetching, cloning, compiling master.
-...
-@end smallexample
-
-If run no tracker items with the @var{Patch-New} label are found it will
-report:
-
-@example
-issues []
-@end example
-
-The script can also be run using the tracker issue number(s) as an
-argument regardless if the @var{Patch-New} label has been assigned;
-
-@example
-test-patches.py 4006
-@end example
-
-or
-
-@example
-test-patches.py 4006 3992 4020
-@end example
-
-The script then checks to see if any previously
-@code{make test-baseline}s have been generated and if the commit ID of
-@code{remote/origin/master} is different from that previously completed
-test.
-
-@noindent
-If no previous @code{make test-baseline} test is discovered or if the
-commit ID of @code{remote/origin/master} has changed, then a new
-@code{make test-baseline} will run first automatically before the patch
-is tested:
-
-This shows when the commit ID has changed:
-
-@smallexample
-...
-(UTC) Begin LilyPond compile, previous commit at 	3f92dcb2c81dcd2755542b57a0a5f2039f29a211
-Merged master, now at:	4726764cb591f622e7893407db0e7d42bcde90d9
-	Success:		./autogen.sh --noconfigure
-	Success:		/tmp/lilypond-autobuild/configure --disable-optimising
-	Success:		nice make clean
-	Success:		nice make -j3 CPU_COUNT=3
-	Success:		nice make test-baseline -j3 CPU_COUNT=3
-	Success:		nice make doc -j3 CPU_COUNT=3
-	Success:		nice make doc-clean
-...
-@end smallexample
-
-@noindent
-If a previous regression test @emph{is} discovered @emph{and} if the
-commit ID of @code{remote/origin/master} has not changed, then the patch
-will be tested against the previous @code{make test-baseline} without
-the need to re-generate a new one:
-
-@smallexample
-...
-issues [4009]
-Trying issue 4009
-Found url: http://codereview.appspot.com/110540043
-Found patch: 4009,/home/joe/lilypond-extra/patches/issue110540043_1.diff,
-Fetching, cloning, compiling master.
-(UTC) Begin LilyPond compile, previous commit at 	4726764cb591f622e7893407db0e7d42bcde90d9
-	Success:		No new commits in master
-Using test baseline from previous build.
-...
-@end smallexample
-
-The patch is then applied and a @code{make} and @code{make check} are
-run.  A full @code{make doc} is also run if the
-@file{.lilypond-patchy-config} file has been edited accordingly;
-
-@smallexample
-...
-Issue 4009:
-Issue 4009: Testing patch issue110540043_1.diff
-	Success:		git apply --index /home/joe/lilypond-git/issue112210043_1.diff
-	Success:		./autogen.sh --noconfigure
-	Success:		/tmp/lilypond-autobuild/configure --disable-optimising
-	Success:		nice make clean
-	Success:		nice make -j3 CPU_COUNT=3
-	Success:		nice make check -j3 CPU_COUNT=3
-	Success:		nice make doc -j3 CPU_COUNT=3
-...
-@end smallexample
-
-Once all the tests have run (successfully or not), the script will clean
-up from the previous patch and, if required, start testing the next
-issue;
-
-@smallexample
-...
-Issue 4007: Cleaning up
-	Success:		nice make test-clean
-	Success:		nice make doc-clean
-	Success:		nice make clean
-	Success:		git reset --hard
-Issue 4007: Done.
-Issue 4008:
-Issue 4008: Testing patch issue115770043_1_diff
-	Success:		git apply --index /home/joe/lilypond-git/issue115770043_1.diff
-	Success:		./autogen.sh --noconfigure
-...
-@end smallexample
-
-and so on.
-
-@subsubsubheading Checking the regression test results
-
-Assuming the patch passed all the @code{make} tests, the regression
-differences will be located in the @file{/test-results/} directory
-within the build location for the patch issue number;
-
-@example
-/tmp/show-4007/test-results/
-@end example
-
-Open @file{index.html} in a browser of your choice to view any
-differences.
-
-@noindent
-Alternatively if the Firefox browser is installed, then the regression
-test results can be opened by calling the appropriate
-@file{show-regtests-} file located in the auto-compile log location;
-
-@example
-sh ~/lilypond-auto-compile-results/show-regtests-4007
-@end example
-
-See @ref{Regression tests}.
-
-@subsubsubheading Reporting test results
-
-Once a patch has been tested and the regression tests have been
-manually checked, the tracker can be updated manually by editing the
-tracker issue directly in the web browser or by using two additional
-python scripts that are included as part of the Patchy suite.
-
-@unnumberedsubsubsec For patches that have passed
-
-Use the @code{accept-patch.py} script and run it with the Google issue
-tracker number (not the Rietveld issue number) as an argument;
-
-@example
-accept-patch.py 4007
-@end example
-
-This will automatically update the tracker issue with the phrase
-@qq{Patchy the autobot says: passes tests.}.
-
-@noindent
-It is also possible to add additional information to the default
-message by adding a second argument within double-quote marks.
-
-@example
-accept-patch.py 4007 "This also includes a full documentation build."
-@end example
-
-The tracker issue's label is then changed automatically to
-@qq{Patch-review}.
-
-@unnumberedsubsubsec Patches that have failed
-
-Use the @code{reject-patch.py} script and run it with the Google issue
-tracker number (not the Rietveld issue number) as an argument but you
-@emph{must} also include a second argument, in double-quotes, stating
-the reason the patch has been rejected;
-
-@example
-reject-patch.py 4007 "Fails the 'make check' test."
-@end example
-
-Once the @code{reject-patch.py} script has been run, the tracker issue's
-label is changed automatically to @qq{Patch-Needs_work}.
-
-
 @node Automating Patchy
 @subsection Automating Patchy
 
@@ -655,26 +386,6 @@ crontab -u patchy /home/patchy/lilypond-patchy.cron
 The following is a list of the most common messages that the scripts
 may report with explanations.
 
-@itemize
-
-@item
-@example
-issues []
-@end example
-
-@itemize
-
-@item
-There are currently no tracker issues with the @code{Patch-New} status.
-
-@item
-If specific tracker issue number has been used as an argument when
-running @code{test-patches.py}, then the issue contains no URL to
-Rietveld.
-
-@end itemize
-
-@item
 @smallexample
 this Git revision has already been pushed by an operator other than this Patchy.
 @end smallexample
@@ -686,76 +397,25 @@ Another, remote, machine has already tested and pushed the new commits
 in staging.
 
 @item
-You may also see this on your local machine if the auto-build files
-have been deleted and this computer has previously already pushed the
-listed commit ID to @code{master}.
+You may also see this if the auto-build files have been deleted and this
+computer has previously already pushed the listed commit ID to
+@code{master}.
 
 @end itemize
 
-
-
-@item
-@smallexample
-Git revision has not changed but checksum of test baseline has, must rebuild.
-@end smallexample
-
-This occurs when Patchy detects that the commit ID has not changed
-since the last test but it cannot locate the last
-@code{make test-baseline} (usually because it has been deleted or moved)
-and so a new @code{test-baseline} is rebuilt.
-
-@item
-@example
-Last patch for issue xxxx already tested or under testing
-by another Patchy instance, skipping.
-@end example
-
-@itemize
-
-@item
-There is another instance of Patchy running on your computer that is
-testing the same tracker issue.
-
-@item
-A previous test attempt was unsuccessful for some reason and the scripts
-were not able to tidy up after themselves (for example if you manually
-halt the testing process by killing it or closing the terminal you may
-have been running the script in).
-
-@noindent
-There is a hidden file located in the @code{$HOME} directory of the user
-running Patchy called @code{.lilypond-patchy-cache} that records the
-current patches that are being tested, have been tested and the commit
-ID of @code{remote/origin/master} since the last test.  It will contain
-a line like this:
-
-@example
-[3995]
-issue105560044_120001_diff = testing
-@end example
-
-for any issue that it thinks is still in the process of being tested.
-
-@noindent
-Manually remove this entry and re-run the script.
-
-@end itemize
-
-@item
 @example
 test-master-lock and PID entry exist but previous Patchy
 run (PID xxxxx) died, resetting test-master-lock anyway.
 @end example
 
-@item
-A previous test attempt was unsuccessful for some reason and the scripts
-were not able to tidy up after themselves (for example if you manually
-halt the testing process by killing it or closing the terminal you may
-have been running the script in).  The @code{test-master-lock} branch
-was therefore not able to be deleted cleanly however, nothing needs to
-be done the scripts will rebuild any tests it needs to.
+@noindent
+A previous attempt was unsuccessful for some reason and the scripts were
+not able to tidy up after themselves (for example if you manually halt
+the process by killing it or closing the terminal you may have been
+running the script in).  The @code{test-master-lock} branch was
+therefore not able to be deleted cleanly however, nothing needs to be
+done the scripts will rebuild any tests it needs to.
 
-@item
 @example
 fatal: A branch named 'test-master-lock' already exists.
 @end example
@@ -785,7 +445,6 @@ It may be wise to also manually delete @code{test-master} and
 
 @end itemize
 
-@item
 @example
 *** FAILED STEP ***
         merge from staging
@@ -796,23 +455,7 @@ It may be wise to also manually delete @code{test-master} and
 This occurs when trying to run @code{lilypond-patchy-staging.py} when
 another instance of either script is already running locally.
 
-@item
-@example
-Warning: something went wrong; omitting patch for issue 3976
-@end example
 
-@itemize
-
-@item
-The Rietveld URL as listed in the tracker is incorrect (e.g. missing or
-incorrect issue number
-
-@item
-The patch on Rietveld is too large to download
-
-@end itemize
-
-@end itemize
 
 
 @node Administrative mailing list
