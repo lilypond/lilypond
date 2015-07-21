@@ -57,11 +57,24 @@ Scm_module::boot_init (void *arg)
   self->variables_ = 0;
 }
 
+static SCM
+call_trampoline (void *self)
+{
+  // One more indirection since void * can only be safely cast to
+  // pointers to data rather than pointers to function.
+  (*static_cast <void (**)()> (self)) ();
+  return SCM_UNDEFINED;
+}
+
 void
-Scm_module::boot ()
+Scm_module::boot (void (*init) ())
 {
   assert (SCM_UNBNDP (module_));
   module_ = scm_c_define_module (name_, boot_init, static_cast <void *> (this));
+  // Can't wrap the following in the scm_c_define_module call since
+  // the init code may need module_ operative.
+  if (init)
+    scm_c_call_with_current_module (module_, call_trampoline, static_cast <void *> (&init));
 }
 
 void

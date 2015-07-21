@@ -32,7 +32,7 @@ class Scm_module
   Variable_record *variables_;
   static void boot_init (void *);
 public:
-  void boot ();
+  void boot (void (*init)() = 0);
   void import ();
   void register_variable (const char *name, Scm_variable *var);
 

@@ -48,8 +48,8 @@ void add_scm_init_func (void (*f) ())
   scm_init_funcs_->push_back (f);
 }
 
-SCM
-ly_init_ly_module (void *)
+void
+ly_init_ly_module ()
 {
   // Start up type system first.
   Scm_init::init ();
@@ -65,15 +65,13 @@ ly_init_ly_module (void *)
     }
 
   scm_primitive_load_path (scm_from_ascii_string ("lily.scm"));
-  return SCM_UNDEFINED;
 }
 
 void
 ly_c_init_guile ()
 {
   Guile_user::module.import ();
-  Lily::module.boot ();
-  scm_c_call_with_current_module (Lily::module, ly_init_ly_module, 0);
+  Lily::module.boot (ly_init_ly_module);
   Syntax::module.import ();
   Display::module.import ();
   scm_c_use_module ("lily");
