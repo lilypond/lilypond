@@ -17,7 +17,8 @@
 
 (define-module (scm ly-syntax-constructors)
   #:use-module (lily)
-  #:use-module (srfi srfi-1))
+  #:use-module (srfi srfi-1)
+  #:use-module (scm display-lily))
 
 (define-public (music-function-call-error fun m)
   (let* ((sigcar (car (ly:music-function-signature fun)))
