@@ -717,14 +717,6 @@ partial_function:
 	{
 		$$ = scm_acons ($1, $2, SCM_EOL);
 	}
-	| OVERRIDE grob_prop_path '='
-	{
-		$$ = scm_acons (Lily::property_override, scm_list_1 ($2), SCM_EOL);
-	}
-	| SET context_prop_spec '='
-	{
-		$$ = scm_acons (Lily::property_set, scm_list_1 ($2), SCM_EOL);
-	}
 	| MUSIC_FUNCTION EXPECT_SCM function_arglist_optional partial_function
 	{
 		$$ = scm_acons ($1, $3, $4);
@@ -736,14 +728,6 @@ partial_function:
 	| SCM_FUNCTION EXPECT_SCM function_arglist_optional partial_function
 	{
 		$$ = scm_acons ($1, $3, $4);
-	}
-	| OVERRIDE grob_prop_path '=' partial_function
-	{
-		$$ = scm_acons (Lily::property_override, scm_list_1 ($2), $4);
-	}
-	| SET context_prop_spec '=' partial_function
-	{
-		$$ = scm_acons (Lily::property_set, scm_list_1 ($2), $4);
 	}
 	| MUSIC_FUNCTION EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup partial_function
 	{
