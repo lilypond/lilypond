@@ -18,7 +18,9 @@
 */
 
 #include "lily-modules.hh"
+#include "international.hh"
 #include "lily-imports.hh"
+#include "warn.hh"
 
 struct Scm_module::Variable_record
 {
@@ -46,15 +48,9 @@ Scm_module::boot_init (void *arg)
 {
   Scm_module *self = static_cast<Scm_module *> (arg);
 
-  // Establish variables first
-  for (Variable_record *p = self->variables_; p;)
-    {
-      Variable_record *next = p->next_;
-      p->var_->boot (p->name_);
-      delete p;
-      p = next;
-    }
-  self->variables_ = 0;
+  // Establish variables
+  for (Variable_record *p = self->variables_; p; p = p->next_)
+    p->var_->boot (p->name_);
 }
 
 static SCM
@@ -75,6 +71,18 @@ Scm_module::boot (void (*init) ())
   // the init code may need module_ operative.
   if (init)
     scm_c_call_with_current_module (module_, call_trampoline, static_cast <void *> (&init));
+  // Verify that every Variable has a definition, either because of
+  // getting initialized with a value at definition or because of the
+  // init call providing one.
+  for (Variable_record *p = variables_; p; )
+    {
+      Variable_record *next = p->next_;
+      if (SCM_UNBNDP (*p->var_))
+        error (_f ("Uninitialized variable `%s' in module (%s)", p->name_, name_));
+      delete p;
+      p = next;
+    }
+  variables_ = 0;
 }
 
 void
