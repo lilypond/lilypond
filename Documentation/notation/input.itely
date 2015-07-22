@@ -2599,12 +2599,13 @@ it skips all events, including tempo and instrument changes.  You have
 been warned.
 
 @lilypond[quote,ragged-right,verbatim]
-\relative {
-  c''8 d
+\relative c' {
+  c1
   \set Score.skipTypesetting = ##t
-  e8 e e e e e e e
+  \tempo 4 = 80
+  c4 c c c
   \set Score.skipTypesetting = ##f
-  c8 d b bes a g c2
+  d4 d d d
 }
 @end lilypond
 
