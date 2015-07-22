@@ -2292,29 +2292,41 @@ list or if there is a type-mismatch, @var{arg} will be returned."
   "Apply @var{offsets} to the default values of @var{property} of @var{grob}.
 Offsets are restricted to immutable properties and values of type @code{number},
 @code{number-pair}, or @code{number-pair-list}."
-  (define (self grob)
+  (define (worker self container-part grob . rest)
     (let* ((immutable (ly:grob-basic-properties grob))
-           ; We need to search the basic-properties alist for our property to
-           ; obtain values to offset.  Our search is complicated by the fact that
-           ; calling the music function `offset' as an override conses a pair to
-           ; the head of the alist.  This pair must be discounted.  The closure it
-           ; contains is named `self' so it can be easily recognized.  If `offset'
-           ; is called as a tweak, the basic-property alist is unaffected.
+           ;; We need to search the basic-properties alist for our
+           ;; property to obtain values to offset.  Our search is
+           ;; complicated by the fact that calling the music function
+           ;; `offset' as an override conses a pair to the head of the
+           ;; alist.  This pair must be discounted.  The closure it
+           ;; contains is named `self' so it can be easily recognized.
+           ;; If `offset' is called as a tweak, the basic-property
+           ;; alist is unaffected.
            (target (find-value-to-offset property self immutable))
-           ; if target is a procedure, we need to apply it to our grob to calculate
-           ; values to offset.
-           (vals
-             (if (procedure? target)
-                 (target grob)
-                 target))
+           ;; if target is a procedure, we need to apply it to our
+           ;; grob to calculate values to offset.
+           (vals (cond ((procedure? target) (target grob))
+                       ;; Argument lists for a pure procedure pulled
+                       ;; from an unpure-pure-container may be
+                       ;; different from a normal procedure, so we
+                       ;; need a different code path and calling
+                       ;; convention for procedures pulled from an
+                       ;; container as opposed to from the property
+                       ((ly:unpure-pure-container? target)
+                        (let ((part (container-part target)))
+                          (if (procedure? part)
+                              (apply part grob rest)
+                              part)))
+                       (else target)))
            (can-type-be-offset?
-             (or (number? vals)
-                 (number-pair? vals)
-                 (number-pair-list? vals))))
+            (or (number? vals)
+                (number-pair? vals)
+                (number-pair-list? vals))))
 
       (if can-type-be-offset?
-          ; '(+inf.0 . -inf.0) would offset to itself.  This will be confusing to a
-          ; user unaware of the default value of the property, so issue a warning.
+          ;; '(+inf.0 . -inf.0) would offset to itself.  This will be
+          ;; confusing to a user unaware of the default value of the
+          ;; property, so issue a warning.
           (if (equal? empty-interval vals)
               (ly:warning "default '~a of ~a is ~a and can't be offset"
                 property grob vals)
@@ -2324,8 +2336,8 @@ Offsets are restricted to immutable properties and values of type @code{number},
                            (ly:spanner-broken-into orig)
                            '()))
                      (total-found (length siblings))
-                     ; Since there is some flexibility in input syntax,
-                     ; structure of `offsets' is normalized.
+                     ;; Since there is some flexibility in input
+                     ;; syntax, structure of `offsets' is normalized.
                      (offsets
                        (if (or (not (pair? offsets))
                                (number-pair? offsets)
@@ -2335,7 +2347,7 @@ Offsets are restricted to immutable properties and values of type @code{number},
                            offsets)))
 
                 (define (helper sibs offs)
-                  ; apply offsets to the siblings of broken spanners
+                  ;; apply offsets to the siblings of broken spanners
                   (if (pair? offs)
                       (if (eq? (car sibs) grob)
                           (offset-multiple-types vals (car offs))
@@ -2346,12 +2358,19 @@ Offsets are restricted to immutable properties and values of type @code{number},
                     (helper siblings offsets)
                     (offset-multiple-types vals (car offsets)))))
 
-              (begin
-                (ly:warning "the property '~a of ~a cannot be offset" property grob)
-                vals))))
-    ; return the closure named `self'
-    self)
-
+          (begin
+            (ly:warning "the property '~a of ~a cannot be offset" property grob)
+            vals))))
+  ;; return the container named `self'.  The container self-reference
+  ;; seems like chasing its own tail but gets dissolved by
+  ;; define/lambda separating binding and referencing of "self".
+  (define self (ly:make-unpure-pure-container
+                (lambda (grob)
+                  (worker self ly:unpure-pure-container-unpure-part grob))
+                (lambda (grob . rest)
+                  (apply worker self ly:unpure-pure-container-pure-part
+                         grob rest))))
+  self)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; \magnifyMusic and \magnifyStaff
