@@ -250,6 +250,7 @@ Languages in this order.
 * harmonics::
 * harmony::
 * hemiola::
+* high bass clef::
 * homophony::
 * hook::
 * hymn meter::
@@ -1230,7 +1231,8 @@ FI: bassoavain.
 A clef setting with middle C on the first top ledger line.
 
 @seealso
-@ref{F clef}.
+@ref{F clef},
+@ref{high bass clef}.
 
 
 @node beam
@@ -4291,6 +4293,42 @@ and is therefore a polymeter (second definition) of considerable antiquity.
 
 @seealso
 @ref{mensural notation}, @ref{meter}, @ref{polymeter}, @ref{proportion}.
+
+@node high bass clef
+@section high bass clef
+
+ES: ?,
+I: ?,
+F: ?,
+D: hoher Bassschlüssel,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+Beginning in 18th century the high bass clef used in French Horn parts
+for the lowest pitches.  This usage of the F clef was then passed down
+from the French Horn to the Basset Horn and then to the Bass Clarinet.
+It looks identical to the standard bass clef, but is pitched an octave
+higher -- octavation indicators on clefs appeared at the beginning of
+the 20th Century.
+
+In LilyPond, the most straightforward way to make a high bass clef is to
+print the modern version @code{\clef "baas^8"} but without the @code{8};
+
+@lilypond[quote,verbatim,relative=1]
+<<
+  \new Staff {
+    \clef treble { g4 b d' g' }
+  }
+  \new Staff \with { \omit ClefModifier }
+  { \clef "bass^8" { g4 b d' g' } }
+>>
+@end lilypond
+
+
+@seealso
+@ref{F clef}, @ref{bass clef}.
 
 
 @node homophony
