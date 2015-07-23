@@ -1102,6 +1102,41 @@ oboeNotes = \relative {
 }
 @end lilypond
 
+If an @code{\unfoldRepeat} command in a music expression is required to
+be printed when using @code{\quoteDuring}, then it too must also contain
+its own @code{\unfoldRepeat} command;
+
+@lilypond[verbatim,quote]
+fluteNotes = \relative {
+  \repeat volta 2 { a'4 gis g gis }
+}
+
+oboeNotesDW = \relative {
+  \repeat volta 2 \quoteDuring #"incorrect" { s1 }
+}
+
+oboeNotesW = \relative {
+  \repeat volta 2 \quoteDuring #"correct" { s1 }
+}
+
+
+\addQuote "incorrect" { \fluteNotes }
+
+\addQuote "correct" { \unfoldRepeats \fluteNotes }
+
+\score {
+  \unfoldRepeats
+  <<
+    \new Staff \with { instrumentName = "Flute" }
+    \fluteNotes
+    \new Staff \with { instrumentName = "Oboe (incorrect)" }
+    \oboeNotesDW
+    \new Staff \with { instrumentName = "Oboe (correct)" }
+    \oboeNotesW
+  >>
+}
+@end lilypond
+
 The @code{\quoteDuring} command uses the @code{\transposition} settings
 of both quoted and quoting parts to produce notes for the quoting part
 that have the same sounding pitch as those in the quoted part.
