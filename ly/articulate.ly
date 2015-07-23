@@ -108,6 +108,10 @@
 % * accidentals for trills and turns
 
 % CHANGELOG
+%  * David Kastrup: remove redefinitions of \afterGrace and \appoggiatura
+%    and let their actions be performed when \articulate is called by
+%    recognizing and replacing LilyPond's default code for these constructs.
+%    Cf issue 4517 in LilyPond's tracker.
 %  * David Kastrup: basic 2.15.28 compatibility by using event-chord-wrap!
 %    This should really be done by rewriting the code more thoroughly.
 %  * From Iain Nicol: appoggiatura timings were out; add staccatissimo; fix
@@ -878,7 +882,7 @@ articulate = #(define-music-function (music)
                 (lambda ()
                  (music-map
                   ac:articulate-chord
-                  (ac:unfoldMusic (event-chord-wrap! music))))
+                  (ac:startup-replacements music)))
                 (lambda ()
                  (or (= ac:stealForward 0)
                   (begin
@@ -886,16 +890,81 @@ articulate = #(define-music-function (music)
                    (set! ac:stealForward 0)))
                  (set! ac:eventsBackward '()))))
 
+#(define (ac:startup-replacements music)
+   (fold (lambda (f m) (f m))
+	 music
+	 (list
+	  event-chord-wrap!
+	  ac:replace-aftergrace
+	  ac:replace-appoggiatura
+	  ac:unfoldMusic)))
+
+#(define (ac:replace-aftergrace music)
+   (map-some-music
+    (lambda (expr)
+      (with-music-match
+       (expr (music 'SimultaneousMusic
+		    elements (?before-grace
+			      (music 'SequentialMusic
+				     elements ((music 'SkipMusic)
+					       (music 'GraceMusic
+						      element ?grace))))))
+       (ac:aftergrace ?before-grace ?grace)))
+    music))
+
+#(define (ac:replace-appoggiatura music)
+   ;; appoggiature are ugly to deal with since they require a main
+   ;; note following them.  We only try dealing with this followership
+   ;; in sequential music
+   (map-some-music
+    (lambda (m)
+      (if (eq? 'SequentialMusic (ly:music-property m 'name))
+	  (pair-for-each
+	   (lambda (elts)
+	     (let ((expr (car elts))
+		   (main (and (pair? (cdr elts)) (cadr elts))))
+	       (and main
+		    ;;stolen from define-music-display-methods
+		    (with-music-match
+		     (expr (music
+			    'GraceMusic
+			    element (music
+				     'SequentialMusic
+				     elements (?start
+					       ?music
+					       ?stop))))
+		     ;; we check whether ?start and ?stop look like
+		     ;; startAppoggiaturaMusic stopAppoggiaturaMusic
+		     (and (with-music-match (?start (music
+						     'SequentialMusic
+						     elements ((music
+								'EventChord
+								elements
+								((music
+								  'SlurEvent
+								  span-direction START))))))
+					    #t)
+			  (with-music-match (?stop (music
+						    'SequentialMusic
+						    elements ((music
+							       'EventChord
+							       elements
+							       ((music
+								 'SlurEvent
+								 span-direction STOP))))))
+					    #t)
+			  (let* ((app (ac:appoggiatura ?music main))
+				 (apps (ly:music-property app 'elements)))
+			    (set-car! elts (car apps))
+			    (set-car! (cdr elts) (cadr apps))
+			    #f))))))
+	   (ly:music-property m 'elements)))
+      #f)
+    music))
 
 % Override \afterGrace to be in terms of audio, not spacing.
 % Special handling for a gruppetto after a trill.
-afterGrace =
-#(define-music-function
-  (main grace)
-  (ly:music? ly:music?)
-
-  (set! main (event-chord-wrap! main))
-  (set! grace (event-chord-wrap! grace))
+#(define (ac:aftergrace main grace)
   (let*
    ((main-length (ly:music-length main))
     (grace-orig-length (ly:music-length grace))
@@ -917,11 +986,7 @@ afterGrace =
 % or 1/3 if the note is dotted (i.e., half the undotted equivalent time)
 % Somewhere around the end of the 19th, start of 20th century the rules
 % changed, but my main interest is early music.
-appoggiatura =
-#(define-music-function (grace main)
-  (ly:music? ly:music?)
-  (set! grace (event-chord-wrap! grace))
-  (set! main (event-chord-wrap! main))
+#(define (ac:appoggiatura grace main)
   (let* ((maindur (ly:music-length main))
          (grace-orig-len (ly:music-length grace))
          (main-orig-len (ly:music-length main))
@@ -939,4 +1004,3 @@ appoggiatura =
      (append (ly:music-property main 'elements)
       (list (make-music 'SlurEvent 'span-direction 1))))
      (make-sequential-music (list grace main))))
-
