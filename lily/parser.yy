@@ -4087,14 +4087,12 @@ make_duration (SCM d, int dots)
 SCM
 make_chord_step (SCM step_scm, Rational alter)
 {
-        int step = scm_to_int (step_scm);
+	Pitch m (0, scm_to_int (step_scm) - 1, alter);
 
-	if (step == 7)
-		alter += FLAT_ALTERATION;
+	// Notename/octave are normalized
+	if (m.get_notename () == 6)
+		m = m.transposed (Pitch (0, 0, FLAT_ALTERATION));
 
-	while (step < 0)
-		step += 7;
-	Pitch m ((step -1) / 7, (step - 1) % 7, alter);
 	return m.smobbed_copy ();
 }
 
