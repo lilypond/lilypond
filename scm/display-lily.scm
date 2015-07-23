@@ -248,7 +248,7 @@ Generate binding forms by looking for ?var symbol in pattern."
                                  (cdr prop-elements))))
                  elements-list))))
 
-(define-macro (with-music-match music-expr+pattern . body)
+(defmacro-public with-music-match (music-expr+pattern . body)
   "If `music-expr' matches `pattern', call `body'.  `pattern' should look like:
   '(music <MusicType>
      property value
