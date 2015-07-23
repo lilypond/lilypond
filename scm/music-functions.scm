@@ -2006,7 +2006,7 @@ type symbol or a list of alternatives) inside of @var{music}, not
 recursing into matches themselves."
   (extract-music music (music-type-predicate type)))
 
-(define*-public (event-chord-wrap! music)
+(define-public (event-chord-wrap! music)
   "Wrap isolated rhythmic events and non-postevent events in
 @var{music} inside of an @code{EventChord}.  Chord repeats @samp{q}
 are expanded using the default settings of the parser."
@@ -2026,10 +2026,11 @@ are expanded using the default settings of the parser."
                   (set! (ly:music-property m 'articulations) '()))
               (make-event-chord (cons m arts))))
            (else #f)))
-   (expand-repeat-chords!
-    (cons 'rhythmic-event
-          (ly:parser-lookup '$chord-repeat-events))
-    music)))
+   (expand-repeat-notes!
+    (expand-repeat-chords!
+     (cons 'rhythmic-event
+           (ly:parser-lookup '$chord-repeat-events))
+     music))))
 
 (define-public (event-chord-notes event-chord)
   "Return a list of all notes from @var{event-chord}."
