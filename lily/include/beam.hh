@@ -75,7 +75,6 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_beaming, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_stem_shorten, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
-  DECLARE_SCHEME_CALLBACK (calc_positions, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_normal_stems, (SCM));
   DECLARE_SCHEME_CALLBACK (set_stem_lengths, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));

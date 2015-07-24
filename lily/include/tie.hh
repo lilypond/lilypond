@@ -38,7 +38,6 @@ public:
                                  Tie_details const &);
   static SCM get_default_control_points (Spanner *);
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_control_points, (SCM));
   static bool less (Grob *s1, Grob *s2);

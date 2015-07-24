@@ -31,7 +31,6 @@ public:
   static void add_element (Grob *me, Grob *add);
   static SCM break_align_order (Item *me);
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM element));
-  DECLARE_SCHEME_CALLBACK (self_align_callback, (SCM element));
 };
 
 struct Break_aligned_interface

@@ -66,7 +66,6 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_default_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (offset_callback, (SCM element));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
-  DECLARE_SCHEME_CALLBACK (calc_beaming, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_length, (SCM));
   DECLARE_SCHEME_CALLBACK (pure_calc_length, (SCM, SCM, SCM));
   DECLARE_SCHEME_CALLBACK (calc_stem_begin_position, (SCM));
