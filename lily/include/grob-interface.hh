@@ -22,21 +22,22 @@
 
 #include "lily-guile.hh"
 
-#define DECLARE_GROB_INTERFACE() \
-  static SCM interface_symbol_;    \
-  static bool has_interface (Grob*)
+class Grob;
 
-#define ADD_INTERFACE(cl, b, c)                         \
-  SCM cl::interface_symbol_; \
+// TODO: remove DECLARE_GROB_INTERFACE
+#define DECLARE_GROB_INTERFACE() \
+  static bool has_interface (Grob *g)
+
+// TODO: remove cl::has_interface and use ::has_interface directly
+#define ADD_INTERFACE(cl, b, c)                                 \
+  Grob_interface<cl> cl ## _interface_initializer;              \
+  template <> char const *Grob_interface<cl>::cxx_name_ (#cl);  \
+  template <> char const *Grob_interface<cl>::description_ (b); \
+  template <> char const *Grob_interface<cl>::variables_ (c);   \
   bool cl::has_interface (Grob *me)                             \
   {                                                             \
-    return me->internal_has_interface (interface_symbol_);      \
-  }                                                             \
-  void cl ## _init_ifaces ()                                    \
-  {                                                             \
-    cl::interface_symbol_ = add_interface (#cl, b, c);          \
-  }                                                             \
-  ADD_SCM_INIT_FUNC (cl ## ifaces, cl ## _init_ifaces);
+    return ::has_interface<cl> (me);                            \
+  }
 
 SCM add_interface (char const *cxx_name,
                    char const *descr,
@@ -45,6 +46,34 @@ SCM add_interface (char const *cxx_name,
 SCM ly_add_interface (SCM, SCM, SCM);
 void internal_add_interface (SCM, SCM, SCM);
 SCM ly_all_grob_interfaces ();
+
+template <class Interface>
+class Grob_interface
+{
+public:
+  Grob_interface ()
+  {
+    add_scm_init_func (Grob_interface::init);
+  }
+
+private:
+  static void init ()
+  {
+    interface_symbol_ = ::add_interface (cxx_name_, description_, variables_);
+  }
+
+  template <class T>
+  friend bool has_interface(Grob *);
+
+private:
+  static SCM interface_symbol_;
+  static char const *cxx_name_;
+  static char const *description_;
+  static char const *variables_;
+};
+
+template <class Interface>
+SCM Grob_interface<Interface>::interface_symbol_;
 
 #endif /* INTERFACE_HH */
 

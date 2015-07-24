@@ -107,7 +107,7 @@ Note_column::dir (Grob *me)
         return (Direction)sign (head_positions_interval (me).center ());
     }
 
-  if (has_interface (me))
+  if (Note_column::has_interface (me))
     programming_error ("Note_column without heads and stem");
   else
     programming_error ("dir() given grob without Note_column interface");

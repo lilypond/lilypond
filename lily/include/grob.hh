@@ -175,6 +175,12 @@ public:
   static SCM internal_skylines_from_element_stencils (SCM, Axis);
 };
 
+template <class T>
+inline bool has_interface(Grob *g)
+{
+  return g && g->internal_has_interface (Grob_interface<T>::interface_symbol_);
+}
+
 /* unification */
 void uniquify (vector <Grob *> &);
 

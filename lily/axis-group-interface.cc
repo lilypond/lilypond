@@ -101,7 +101,7 @@ Axis_group_interface::relative_maybe_bound_group_extent (vector<Grob *> const &e
       Grob *se = elts[i];
       if (!to_boolean (se->get_property ("cross-staff")))
         {
-          Interval dims = (bound && has_interface (se)
+          Interval dims = (bound && Axis_group_interface::has_interface (se)
                            ? generic_bound_extent (se, common, a)
                            : se->extent (common, a));
           if (!dims.is_empty ())
@@ -599,7 +599,7 @@ Axis_group_interface::get_children (Grob *me, vector<Grob *> *found)
 {
   found->push_back (me);
 
-  if (!has_interface (me))
+  if (!Axis_group_interface::has_interface (me))
     return;
 
   extract_grob_set (me, "elements", elements);
