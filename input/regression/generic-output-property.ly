@@ -1,5 +1,5 @@
 
-\version "2.16.0"
+\version "2.19.24"
 
 \header{
   texidoc="
@@ -12,12 +12,12 @@ setting the @code{extra-offset} of a grob.
 
 
 \relative c''{
-  \applyOutput #'Bottom #(outputproperty-compatibility
+  \applyOutput Bottom #(outputproperty-compatibility
 		 (make-type-checker 'note-head-interface)
 		 'extra-offset '(2 . 3))
   c2
   c
-  \applyOutput #'Score #(outputproperty-compatibility (make-type-checker 'mark-interface) 'extra-offset '(-1 . 4))
+  \applyOutput Score #(outputproperty-compatibility (make-type-checker 'mark-interface) 'extra-offset '(-1 . 4))
   \mark A
   d1
   \mark \default

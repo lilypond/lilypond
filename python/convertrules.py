@@ -3826,10 +3826,12 @@ def conv(str):
         return str
     return inner (str)
 
-@rule ((2, 19, 24), "music-has-type -> music-is-of-type?")
+@rule ((2, 19, 24), r"""music-has-type -> music-is-of-type?
+\applyOutput #'Context -> \applyOutput Context""")
 def conv (str):
     str = re.sub (r'(?<=\s|["\\()])' + "music-has-type" + r'(?=\s|["\\()])',
                   "music-is-of-type?", str)
+    str = re.sub (r"(\\applyOutput\s+)#'([a-zA-Z])", r"\1\2", str)
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)

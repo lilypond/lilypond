@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.22"
+@c \version "2.19.24"
 
 @c Translators: Till Paala
 
@@ -396,8 +396,8 @@ Damit aber die Funktion auf @code{Score}- oder @code{Staff}-Ebene
 interpretiert wird, muss folgende Form benutzt werden:
 
 @example
-\applyOutput #'Score #@var{Funktion}
-\applyOutput #'Staff #@var{Funktion}
+\applyOutput Score #@var{Funktion}
+\applyOutput Staff #@var{Funktion}
 @end example
 
 @end itemize

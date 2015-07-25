@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.19.24"
 
 \header {
   texidoc = "The @code{\\applyOutput} expression is the most flexible way to
@@ -10,29 +10,22 @@ position.
 }
 
 #(define (mc-squared gr org cur)
-  (let*
-    (
-      (ifs (ly:grob-interfaces gr))
-      (sp (ly:grob-property gr 'staff-position))
-      )
-    (if (memq 'note-head-interface ifs)
-      (begin
-        (ly:grob-set-property! gr 'stencil
-          (grob-interpret-markup gr
-            (make-raise-markup -0.5
-              (case sp
-                ((-5) (make-simple-markup "m"))
-                ((-3) (make-simple-markup "c "))
-                ((-2) (make-smaller-markup (make-bold-markup "2")))
-                (else (make-simple-markup "bla"))
-                ))))
-        ))))
+   (let ((sp (ly:grob-property gr 'staff-position)))
+     (ly:grob-set-property!
+      gr 'stencil
+      (grob-interpret-markup gr
+			     #{ \markup \raise #-0.5
+				#(case sp
+				   ((-5) "m")
+				   ((-3) "c ")
+				   ((-2) #{ \markup \teeny \bold 2 #})
+				   (else "bla")) #}))))
 
 \new Voice \relative {
   \set autoBeaming = ##f
 
   <d' f g b>8
 
-  \applyOutput #'Voice #mc-squared
+  \applyOutput Voice.NoteHead #mc-squared
   <d f g b>8
 }

@@ -211,7 +211,7 @@ Der einfachste Weg in Kontakt zu bleiben ist es, den Newsletter
 unserer Gemeinschaft zu lesen, den LilyPond Report (auf Englisch).
 
 @example
-@uref{http://news.lilynet.net}
+@uref{http://web.archive.org/web/20110325004849/http://news.lilynet.net}
 @end example
 
 @subsubheading Mailingliste für neue Versionen: @code{info-lilypond@@gnu.org}

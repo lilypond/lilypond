@@ -177,7 +177,7 @@ Piano = \make-pianostaff
   #(if have-music
        #{ << \SATB \Piano >> #}
        #{ { } #} )
-  \layout { $(if Layout #{ \Layout #} ) }
+  \layout { $(if Layout Layout) }
 }
 
 

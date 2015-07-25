@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.19.22"
+@c \version "2.19.24"
 
 @node Interfaces para programadores
 @chapter Interfaces para programadores
@@ -1314,7 +1314,7 @@ cabezas de las notas que están sobre la línea central y junto a ella:
        (set! (ly:grob-property grob 'transparent) #t)))
 
 \relative {
-  a'4 e8 <<\applyOutput #'Voice #blanker a c d>> b2
+  a'4 e8 <<\applyOutput Voice #blanker a c d>> b2
 }
 @end lilypond
 
@@ -1322,8 +1322,8 @@ Para que @var{función} se interprete en los niveles de @code{Score} o de @code{
 utilice estas formas:
 
 @example
-\applyOutput #'Score #@var{función}
-\applyOutput #'Staff #@var{función}
+\applyOutput Score #@var{función}
+\applyOutput Staff #@var{función}
 @end example
 
 

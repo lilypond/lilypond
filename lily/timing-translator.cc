@@ -96,10 +96,6 @@ Timing_translator::initialize ()
   if (!scm_is_pair (timeSignatureSettings))
     {
       programming_error ("missing timeSignatureSettings");
-      // A memoized constant is not the prettiest thing as a fallback
-      // since it does not track changes of the variable.  However,
-      // this is still better than nothing, and we already complained
-      // via a programming_error
       timeSignatureSettings = Lily::default_time_signature_settings;
     }
   context ()->set_property ("timeSignatureSettings", timeSignatureSettings);

@@ -244,10 +244,7 @@ avoid problems when using multiple, parallel contexts.
 constructs.
 
 @item
-The @code{NullVoice} context is now @q{below} @code{Score}.
-
-@item
-A new command @code{\tagGroup} has now been added.  This compliments
+A new command @code{\tagGroup} has now been added.  This complements
 the existing @code{\keepWithTag} and @code{\removeWithTag} commands.
 For Example:
 

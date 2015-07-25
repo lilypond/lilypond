@@ -42,9 +42,16 @@
 #include "semi-tie-column.hh"
 
 bool
-Tie::less (Grob *const &s1, Grob *const &s2)
+Tie::less (Grob *g1, Grob *g2)
 {
-  return get_position_generic (s1) < get_position_generic (s2);
+  Spanner *s1 = dynamic_cast<Spanner *> (g1);
+  Spanner *s2 = dynamic_cast<Spanner *> (g2);
+  if (s1 && s2) {
+    return get_position (s1) < get_position (s2);
+  }
+
+  programming_error ("grob is not a tie");
+  return false;
 }
 
 void
@@ -86,21 +93,6 @@ Tie::get_position (Spanner *me)
   return 0;
 }
 
-int
-Tie::get_position_generic (Grob *me) // TODO: do away with this
-{
-  Spanner *spanner = dynamic_cast<Spanner *> (me);
-  if (spanner)
-    return get_position (spanner);
-
-  Item *item = dynamic_cast<Item *> (me);
-  if (item)
-    return Semi_tie::get_position (item);
-
-  programming_error ("grob is neither a tie nor a semi-tie");
-  return 0;
-}
-
 /*
   Default:  Put the tie oppositie of the stem [Wanske p231]
 
@@ -112,20 +104,14 @@ Tie::get_position_generic (Grob *me) // TODO: do away with this
   (what about linebreaks? )
 */
 Direction
-Tie::get_default_dir (Grob *me)
+Tie::get_default_dir (Spanner *me)
 {
   Drul_array<Grob *> stems;
   for (LEFT_and_RIGHT (d))
     {
-      Grob *one_head = 0;
-      if (Spanner *spanner = dynamic_cast<Spanner *> (me))
-        {
-          one_head = head (spanner, d);
-          if (!one_head)
-            one_head = head (spanner->broken_neighbor (d), d);
-        }
-      else if (Item *item = dynamic_cast<Item *> (me))
-        one_head = Semi_tie::head (item);
+      Grob *one_head = head (me, d);
+      if (!one_head)
+        one_head = head (me->broken_neighbor (d), d);
 
       Grob *stem = one_head ? Rhythmic_head::get_stem (one_head) : 0;
       stems[d] = (stem && !Stem::is_invisible (stem)) ? stem : 0;
@@ -146,7 +132,7 @@ Tie::get_default_dir (Grob *me)
     return -get_grob_direction (stems[LEFT]);
   else if (stems[RIGHT])
     return -get_grob_direction (stems[RIGHT]);
-  else if (int p = get_position_generic (me))
+  else if (int p = get_position (me))
     return Direction (sign (p));
 
   return to_dir (me->get_property ("neutral-direction"));
@@ -156,6 +142,8 @@ MAKE_SCHEME_CALLBACK (Tie, calc_direction, 1);
 SCM
 Tie::calc_direction (SCM smob)
 {
+  // In this method, Tie and Semi_tie require the same logic with different
+  // types.  It might be clearer to use a template.
   Grob *me = unsmob<Grob> (smob);
   Grob *yparent = me->get_parent (Y_AXIS);
   if ((Tie_column::has_interface (yparent)
@@ -169,8 +157,10 @@ Tie::calc_direction (SCM smob)
 
       return me->get_property_data ("direction");
     }
-  else
-    return scm_from_int (Tie::get_default_dir (me));
+
+  programming_error ("no Tie_column or Semi_tie_column.  Killing grob.");
+  me->suicide ();
+  return scm_from_int (CENTER);
 }
 
 SCM

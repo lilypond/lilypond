@@ -208,7 +208,7 @@ La manera más fácil de estar en contacto es leer el boletín de nuestra
 comunidad, el Informe LilyPond:
 
 @example
-@uref{http://news.lilynet.net}
+@uref{http://web.archive.org/web/20110325004849/http://news.lilynet.net}
 @end example
 
 @subsubheading Lista de correo de lanzamientos: @code{info-lilypond@@gnu.org}

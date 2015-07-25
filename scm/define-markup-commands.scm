@@ -529,18 +529,24 @@ only works in the PDF backend.
          (x-ext (ly:stencil-extent arg-stencil X))
          (y-ext (ly:stencil-extent arg-stencil Y)))
     (ly:stencil-add
-     (ly:make-stencil
-      `(delay-stencil-evaluation
-        ,(delay (let* ((table (ly:output-def-lookup layout 'label-page-table))
-                       (page-number (if (list? table)
-                                        (assoc-get label table)
-                                        #f)))
-                  (list 'page-link page-number
-                        `(quote ,x-ext) `(quote ,y-ext)))))
-      x-ext
-      y-ext)
-     arg-stencil)))
-
+      (ly:make-stencil
+       `(delay-stencil-evaluation
+         ,(delay (let* ((table (ly:output-def-lookup layout 'label-page-table))
+                        (table-page-number
+                          (if (list? table)
+                              (assoc-get label table)
+                              #f))
+                        (first-page-number
+                          (ly:output-def-lookup layout 'first-page-number))
+                        (current-page-number
+                          (if table-page-number
+                              (1+ (- table-page-number first-page-number))
+                              #f)))
+                 (list 'page-link current-page-number
+                       `(quote ,x-ext) `(quote ,y-ext)))))
+       x-ext
+       y-ext)
+      arg-stencil)))
 
 (define-markup-command (beam layout props width slope thickness)
   (number? number? number?)

@@ -719,7 +719,7 @@ a k průchodnému tónu je ještě přidán legatový oblouček:
 @lilypond[quote,verbatim,ragged-right]
 \relative {
   \key g \major
-  %    Voice "1"               Voice "2"
+  %    Voice = "1"             Voice = "2"
   << { g'4 fis8( g) a4 g } \\ { d4 d d d }  >>
 }
 @end lilypond
@@ -730,7 +730,7 @@ Tady je jiný jednoduchý příklad:
 
 @lilypond[quote,verbatim,ragged-right,relative=2]
 \key d \minor
-%    Voice "1"             Voice "2"
+%    Voice = "1"           Voice = "2"
 << { r4 g g4. a8 }    \\ { d,2 d4 g }       >>
 << { bes4 bes c bes } \\ { g4 g g8( a) g4 } >>
 << { a2. r4 }         \\ { fis2. s4 }       >>
@@ -745,12 +745,12 @@ jako zde:
 @lilypond[quote,verbatim,ragged-right]
 <<
   \key d \minor
-  \relative { % Voice "1"
+  \relative { % Voice = "1"
     r4 g' g4. a8 |
     bes4 bes c bes |
     a2. r4 |
   } \\
-  \relative { % Voice "2"
+  \relative { % Voice = "2"
     d'2 d4 g |
     g4 g g8( a) g4 |
     fis2. s4 |
@@ -770,7 +770,7 @@ ligatur, značek pro dynamiku atd. tak, jak se patří.
 \new Staff \relative {
   % Main voice
   c'16 d e f
-  %    Voice "1"     Voice "2"                Voice "3"
+  %    Voice = "1"   Voice = "2"              Voice = "3"
   << { g4 f e } \\ { r8 e4 d c8~ } >> |
   << { d2 e }   \\ { c8 b16 a b8 g~ 2 } \\ { s4 b c2 } >> |
 }

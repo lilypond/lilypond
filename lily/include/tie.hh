@@ -32,8 +32,7 @@ public:
   static Item *head (Spanner *, Direction);
   static int get_column_rank (Spanner *, Direction);
   static int get_position (Spanner *);
-  static int get_position_generic (Grob *);
-  static Direction get_default_dir (Grob *);
+  static Direction get_default_dir (Spanner *);
   static SCM get_control_points (Grob *, Grob *,
                                  Tie_configuration const &,
                                  Tie_details const &);
@@ -42,8 +41,7 @@ public:
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_control_points, (SCM));
-  static bool less (Grob *const &s1,
-                    Grob *const &s2);
+  static bool less (Grob *s1, Grob *s2);
 };
 
 #endif // TIE_HH

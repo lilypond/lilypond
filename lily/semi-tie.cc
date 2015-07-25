@@ -55,20 +55,22 @@ MAKE_SCHEME_CALLBACK (Semi_tie, calc_control_points, 1)
 SCM
 Semi_tie::calc_control_points (SCM smob)
 {
-  Grob *me = unsmob<Grob> (smob);
+  Item *me = LY_ASSERT_SMOB(Item, smob, 1);
+
   (void) me->get_property ("direction");
 
-  if (Semi_tie_column::has_interface (me->get_parent (Y_AXIS)))
+  Grob *yparent = me->get_parent (Y_AXIS);
+  if (Semi_tie_column::has_interface (yparent))
     {
-      me->get_parent (Y_AXIS)->get_property ("positioning-done");
-    }
-  else
-    {
-      programming_error ("lv tie without Semi_tie_column.  Killing lv tie.");
-      me->suicide ();
+      /* trigger positioning. */
+      yparent->get_property ("positioning-done");
+
+      return me->get_property_data ("control-points");
     }
 
-  return me->get_property_data ("control-points");
+  programming_error ("lv tie without Semi_tie_column.  Killing lv tie.");
+  me->suicide ();
+  return SCM_EOL;
 }
 
 int
@@ -84,21 +86,20 @@ Semi_tie::get_position (Item *me)
 }
 
 bool
-Semi_tie::less (Grob *const &s1,
-                Grob *const &s2)
+Semi_tie::less (Grob *g1, Grob *g2)
 {
-  return Tie::get_position_generic (s1) < Tie::get_position_generic (s2);
+  Item *i1 = dynamic_cast<Item *> (g1);
+  Item *i2 = dynamic_cast<Item *> (g2);
+  if (i1 && i2) {
+    return get_position (i1) < get_position (i2);
+  }
+
+  programming_error ("grob is not a semi-tie");
+  return false;
 }
 
 Item *
 Semi_tie::head (Item *me)
 {
   return unsmob<Item> (me->get_object ("note-head"));
-}
-
-Item *
-Semi_tie::head (Item *me, Direction d)
-{
-  SCM head_dir = me->get_property ("head-direction");
-  return (is_direction (head_dir) && (to_dir (head_dir) == d)) ? head (me) : 0;
 }

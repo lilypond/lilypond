@@ -1870,7 +1870,6 @@
 
     (RepeatTieColumn
      . (
-        (direction . ,ly:tie::calc-direction)
         (head-direction . ,ly:semi-tie-column::calc-head-direction)
         (positioning-done . ,ly:semi-tie-column::calc-positioning-done)
         (X-extent . #f)

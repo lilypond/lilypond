@@ -1,4 +1,4 @@
-\version "2.19.22"
+\version "2.19.24"
 #(use-modules (srfi srfi-13)
               (ice-9 format))
 
@@ -226,7 +226,8 @@ stderr of this run."
 \test ##[ \revert StaffGrouper.staff-staff-spacing.basic-distance #]    % nested properties
 
 %% \applyOutput
-\test ##[ \applyOutput #'Foo #(lambda (arg) (list)) #]
+\test ##[ \applyOutput Foo #(lambda (arg) (list)) #]
+\test ##[ \applyOutput Foo.NoteHead #(lambda (arg) (list)) #]
 %% \applyContext
 \test ##[ \applyContext #(lambda (arg) (list)) #]
 

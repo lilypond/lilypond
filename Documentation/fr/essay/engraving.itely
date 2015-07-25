@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.24"
 
 @c Translators: Jean-Charles Malahieude, John Mandereau, Gauvain Pocentek
 
@@ -1547,11 +1547,11 @@ musical :
   <d f g>4
   \once \override NoteHead.style = #'cross
   <d f g>4
-  \applyOutput #'Voice #mc-squared
+  \applyOutput Voice #mc-squared
   <d f g>4
   <<
     { d8[ es-( fis^^ g] fis2-) }
-    \repeat unfold 5 { \applyOutput #'Voice #mc-squared s8 }
+    \repeat unfold 5 { \applyOutput Voice #mc-squared s8 }
   >>
 }
 @end lilypond
