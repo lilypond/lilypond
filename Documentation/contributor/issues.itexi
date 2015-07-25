@@ -7,9 +7,7 @@ miscellaneous development tasks.
 
 @menu
 * Introduction to issues::
-* Bug Squad overview::
-* Bug Squad setup::
-* Bug Squad checklists::
+* The Bug Squad::
 * Issue classification::
 * Adding issues to the tracker::
 * Patch handling::
@@ -20,57 +18,56 @@ miscellaneous development tasks.
 @node Introduction to issues
 @section Introduction to issues
 
-@warning{Unless otherwise specified, all the tasks in this chapter
-are @qq{simple} tasks: they can be done by a normal user with
-nothing more than a web browser, email, and lilypond.}
+@warning{All the tasks in this chapter require no programming skills and
+can be done by anyone with a web browser, an email client and the
+ability to run LilyPond.}
 
-@qq{Issues} isn't just a politically-correct term for @qq{bug}.
-We use the same tracker for feature requests, code TODOs and
-patches, so the term @qq{bug} wouldn't be accurate.  Despite the
-difference between @qq{issue} and @qq{bug}, we call our team of
-contributors who organize issues the @emph{Bug Squad}.
+The term @q{issues} refers not just to software bugs but also includes
+feature requests, documentation additions and corrections as well as any
+other general code @q{TODOs} that need to be kept track of.
 
-The Bug Squad is mainly composed of non-programmers -- their job
-is to @emph{organize} issues, not solve them.  Their duties
-include removing false bug reports, ensuring that any real bug
-report contains enough information for developers, and checking
-that a developer's fix actually resolves the problem.
 
-New volunteers for the Bug Squad should contact the
+@node The Bug Squad
+@section The Bug Squad
+
+@menu
+* Bug Squad setup::
+* Bug Squad checklists::
+@end menu
+
+To help keep track and organize all issues are a group of tireless
+volunteers collectively known as the @emph{Bug Squad}.  Composed mainly
+of non-programmers, the Bug Squad's responsibilities include:
+
+@itemize
+
+@item
+Monitoring the LilyPond Bugs mailing list looking for any issues
+reported by other users ensuring that they are accurate and contain
+enough information for the developers to work with, preferably with
+@rweb{Tiny examples} and if applicable, screenshots.
+
+@item
+Adding new issues to the @emph{issue tracker} or updating existing
+issues with new information.
+
+@item
+Verifying issues in the @emph{issue tracker} that have been marked
+as @q{fixed}; making sure either that the fix works or (in the case of
+Documentation for example) has at least been commited to the code base.
+
+@end itemize
+
+The @ref{Meisters, Bug Meister} also helps check the current
+@ref{Regression tests} and highlights any significant changes (or
+problems) since the previous LilyPond release.
+
+If you would like to be part of the Bug Squad, please contact the
 @ref{Meisters, Bug Meister}.
 
-@node Bug Squad overview
-@section Bug Squad overview
-
-The Bug Squad are volunteers who progress issue tracking using the
-Google Issue tracker at
-
-@example
-@uref{http://code.google.com/p/lilypond/issues/list}
-@end example
-
-Bug Squad members have 2 primary responsiblities:
-
-@enumerate
-
-@item
-Monitoring the LilyPond Bugs mailing list and adding to the
-tracker any new issues reported there.
-
-@item
-Verifying issues that are claimed fixed by a developer, to ensure
-that the fix works, and is actually in the code base.
-
-@end enumerate
-
-It's also part of the Bug Squad's responsibility to check that
-the Regression Tests don't show up any problems in the latest
-release.  The Bug Meister currently does this.
-
-All of this is explained in more detail in the following sections.
 
 @node Bug Squad setup
-@section Bug Squad setup
+@subsection Bug Squad setup
 
 We highly recommend that you configure your email to use effective
 sorting; this can reduce your workload @emph{immensely}.  The
@@ -164,7 +161,7 @@ should go into a separate @code{bug-current} folder.
 
 
 @node Bug Squad checklists
-@section Bug Squad checklists
+@subsection Bug Squad checklists
 
 When you do Bug Squad work, start at the top of this page and work
 your way down.  Stop when you've done 20 minutes.
@@ -183,13 +180,13 @@ please forward such emails to the @code{bug-lilypond} list so that
 the currently-active Bug Squad member(s) can handle the message.
 
 
-@subsubheading Daily schedule
+@subsubheading Daily schedule as of July 2015
 
 @example
-Monday: Eluze
-Tuesday: Federico Bruni
-Wednesday: Marek Klein
-Thursday: Eluze
+Monday: Federico Bruni
+Tuesday: Simon Albrecht
+Wednesday: Simon Albrecht
+Thursday: Colin Campbell
 Friday: Ralph Palmer
 Saturday: Colin Campbell
 Sunday:
