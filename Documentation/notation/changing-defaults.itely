@@ -4758,6 +4758,39 @@ custosNote =
 \relative { c'4 d e f \custosNote g }
 @end lilypond
 
+@funindex \etc
+Both of those functions are simple single expressions where only
+the last element of a function call or override is missing.  For
+those particular function definitions, there is a simpler
+alternative syntax, namely just writing out the constant part of
+the expression and replacing its final missing element with
+@code{\etc}:
+
+@lilypond[quote,verbatim,ragged-right]
+padText =
+  \once \override TextScript.padding = \etc
+
+\relative {
+  c''4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" b a b
+  \padText #2.6
+  c4^"piu mosso" b a b
+}
+@end lilypond
+
+@lilypond[quote,verbatim,ragged-right]
+custosNote =
+  \tweak NoteHead.stencil #ly:text-interface::print
+  \tweak NoteHead.text
+     \markup \musicglyph #"custodes.mensural.u0"
+  \tweak Stem.stencil ##f
+  \etc
+
+\relative { c'4 d e f \custosNote g }
+@end lilypond
+
+
 Substitution functions with multiple arguments can be defined:
 
 @lilypond[quote,verbatim,ragged-right]
