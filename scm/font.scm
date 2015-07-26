@@ -249,6 +249,11 @@ used.  This is used to select the proper design size for the text fonts.
 ; "emmentaler", "sans-serif", and "monospace", respectively. All fonts are
 ; still accesible through the usual scheme symbols: 'feta, 'roman, 'sans, and
 ; 'typewriter.
+;
+; Note that 'LilyPond Serif', 'LilyPond Sans Serif' and 'Lilypond Monospace'
+; are aliases that are defined in mf/lilypond-fonts.conf.in (source file)
+; or fonts/lilypond-fonts.conf (installed file).
+
 (define*-public (set-global-fonts #:key 
   (music "emmentaler")
   (brace "emmentaler")

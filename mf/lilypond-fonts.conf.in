@@ -2,7 +2,11 @@
 <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
 <fontconfig>
 
-  <!-- Define LilyPond default fonts -->
+  <!--
+  Define LilyPond default fonts. Where a character doesn't exist in the
+  first font listed, the next font listed will be used instead for that
+  character. Also see scm/font.scm.
+  -->
 
   <alias binding="strong">
     <family>LilyPond Serif</family>
