@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.23\n"
+"Project-Id-Version: lilypond 2.19.24\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2015-07-12 14:00+0100\n"
+"POT-Creation-Date: 2015-07-26 11:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2122,16 +2122,16 @@ msgstr ""
 msgid "Wrong kind of "
 msgstr ""
 
-#: lily-lexer.cc:250
+#: lily-lexer.cc:251
 msgid "include files are not allowed in safe mode"
 msgstr ""
 
-#: lily-lexer.cc:277
+#: lily-lexer.cc:278
 #, c-format
 msgid "identifier name is a keyword: `%s'"
 msgstr ""
 
-#: lily-lexer.cc:298 lily-lexer.cc:311
+#: lily-lexer.cc:299 lily-lexer.cc:312
 #, c-format
 msgid "%s:EOF"
 msgstr ""
@@ -2177,11 +2177,11 @@ msgstr ""
 msgid "Not drawing a box with negative dimension, %.2f by %.2f."
 msgstr ""
 
-#: lyric-combine-music-iterator.cc:203
+#: lyric-combine-music-iterator.cc:204
 msgid "argument of \\lyricsto should contain Lyrics context"
 msgstr ""
 
-#: lyric-combine-music-iterator.cc:343
+#: lyric-combine-music-iterator.cc:344
 #, c-format
 msgid "cannot find %s `%s'"
 msgstr ""
@@ -2493,7 +2493,7 @@ msgstr ""
 msgid "placing below"
 msgstr ""
 
-#: note-collision.cc:512
+#: note-collision.cc:510
 msgid "this Voice needs a \\voiceXx or \\shiftXx setting"
 msgstr ""
 
@@ -3098,115 +3098,115 @@ msgstr ""
 msgid "giving up"
 msgstr ""
 
-#: parser.yy:484 parser.yy:868 parser.yy:949 parser.yy:1169
+#: parser.yy:476 parser.yy:907 parser.yy:988 parser.yy:1208
 msgid "bad expression type"
 msgstr ""
 
-#: parser.yy:780 parser.yy:1379 parser.yy:1424
+#: parser.yy:819 parser.yy:1418 parser.yy:1463
 msgid "not a context mod"
 msgstr ""
 
-#: parser.yy:975
+#: parser.yy:1014
 msgid "Missing music in \\score"
 msgstr ""
 
-#: parser.yy:1012
+#: parser.yy:1051
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
 
-#: parser.yy:1047
+#: parser.yy:1086
 msgid "Spurious expression in \\score"
 msgstr ""
 
-#: parser.yy:1077
+#: parser.yy:1116
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1252
+#: parser.yy:1291
 msgid "music expected"
 msgstr ""
 
-#: parser.yy:1262 parser.yy:1296
+#: parser.yy:1301 parser.yy:1335
 msgid "unexpected post-event"
 msgstr ""
 
-#: parser.yy:1304
+#: parser.yy:1343
 msgid "Ignoring non-music expression"
 msgstr ""
 
-#: parser.yy:1604
+#: parser.yy:1643
 msgid "not a symbol"
 msgstr ""
 
-#: parser.yy:2354 parser.yy:2468 parser.yy:2481 parser.yy:2490
+#: parser.yy:2443 parser.yy:2557 parser.yy:2570 parser.yy:2579
 msgid "bad grob property path"
 msgstr ""
 
-#: parser.yy:2448
+#: parser.yy:2537
 msgid "only \\consists and \\remove take non-string argument."
 msgstr ""
 
-#: parser.yy:2509
+#: parser.yy:2598
 msgid "bad context property path"
 msgstr ""
 
-#: parser.yy:2605
+#: parser.yy:2694
 msgid "simple string expected"
 msgstr ""
 
-#: parser.yy:2622
+#: parser.yy:2711
 msgid "symbol expected"
 msgstr ""
 
-#: parser.yy:2758
+#: parser.yy:2847
 msgid "not a rhythmic event"
 msgstr ""
 
-#: parser.yy:2808
+#: parser.yy:2897
 msgid "post-event expected"
 msgstr ""
 
-#: parser.yy:2817 parser.yy:2822
+#: parser.yy:2906 parser.yy:2911
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:2898
+#: parser.yy:2987
 msgid "expecting string or post-event as script definition"
 msgstr ""
 
-#: parser.yy:3002
+#: parser.yy:3091
 msgid "not an articulation"
 msgstr ""
 
-#: parser.yy:3074 parser.yy:3117
+#: parser.yy:3163 parser.yy:3206
 msgid "not a duration"
 msgstr ""
 
-#: parser.yy:3138
+#: parser.yy:3227
 msgid "bass number expected"
 msgstr ""
 
-#: parser.yy:3230
+#: parser.yy:3319
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:3269
+#: parser.yy:3358
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:3312
+#: parser.yy:3401
 msgid "markup outside of text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3317
+#: parser.yy:3406
 msgid "unrecognized string, not in text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3469 parser.yy:3478
+#: parser.yy:3558 parser.yy:3567
 msgid "not an unsigned integer"
 msgstr ""
 
-#: parser.yy:3552
+#: parser.yy:3654
 msgid "not a markup"
 msgstr ""
 
@@ -3404,46 +3404,46 @@ msgstr ""
 msgid "Undefined parent event class `~S'"
 msgstr ""
 
-#: define-markup-commands.scm:1083
+#: define-markup-commands.scm:1089
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:2907
+#: define-markup-commands.scm:2913
 #, scheme-format
 msgid "Cannot find glyph ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3383
+#: define-markup-commands.scm:3389
 #, scheme-format
 msgid "no brace found for point size ~S "
 msgstr ""
 
-#: define-markup-commands.scm:3384
+#: define-markup-commands.scm:3390
 #, scheme-format
 msgid "defaulting to ~S pt"
 msgstr ""
 
-#: define-markup-commands.scm:3636
+#: define-markup-commands.scm:3642
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3847
+#: define-markup-commands.scm:3853
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
 
-#: define-music-types.scm:795
+#: define-music-types.scm:803
 #, scheme-format
 msgid "symbol expected: ~S"
 msgstr ""
 
-#: define-music-types.scm:798
+#: define-music-types.scm:806
 #, scheme-format
 msgid "cannot find music object: ~S"
 msgstr ""
 
-#: define-music-types.scm:818
+#: define-music-types.scm:826
 #, scheme-format
 msgid "bad make-music argument: ~S"
 msgstr ""
@@ -3649,17 +3649,17 @@ msgstr ""
 msgid "Invoking `~a'...\n"
 msgstr ""
 
-#: ly-syntax-constructors.scm:31
+#: ly-syntax-constructors.scm:27
 #, scheme-format
 msgid "~a function cannot return ~a"
 msgstr ""
 
-#: ly-syntax-constructors.scm:59
+#: ly-syntax-constructors.scm:60
 #, scheme-format
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr ""
 
-#: ly-syntax-constructors.scm:180
+#: ly-syntax-constructors.scm:229
 #, scheme-format
 msgid "Invalid property operation ~a"
 msgstr ""
@@ -3703,67 +3703,72 @@ msgstr ""
 msgid "negative replication count; ignoring"
 msgstr ""
 
-#: music-functions.scm:311
+#: music-functions.scm:319
 #, scheme-format
 msgid "invalid tremolo repeat count: ~a"
 msgstr ""
 
-#: music-functions.scm:340
+#: music-functions.scm:348
 #, scheme-format
 msgid "unknown repeat type `~S': must be volta, unfold, percent, or tremolo"
 msgstr ""
 
-#: music-functions.scm:344
+#: music-functions.scm:352
 msgid "More alternatives than repeats.  Junking excess alternatives"
 msgstr ""
 
-#: music-functions.scm:479
+#: music-functions.scm:487
 #, scheme-format
 msgid "bad grob property path ~a"
 msgstr ""
 
-#: music-functions.scm:786
+#: music-functions.scm:511
+#, scheme-format
+msgid "bad context property ~a"
+msgstr ""
+
+#: music-functions.scm:812
 msgid "Bad chord repetition"
 msgstr ""
 
-#: music-functions.scm:891
+#: music-functions.scm:917
 #, scheme-format
 msgid "music expected: ~S"
 msgstr ""
 
-#: music-functions.scm:1244
+#: music-functions.scm:1267
 #, scheme-format
 msgid "cannot find quoted music: `~S'"
 msgstr ""
 
-#: music-functions.scm:1381
+#: music-functions.scm:1404
 msgid "Add @var{octave-shift} to the octave of @var{pitch}."
 msgstr ""
 
-#: music-functions.scm:1444
+#: music-functions.scm:1467
 #, scheme-format
 msgid "Unknown octaveness type: ~S "
 msgstr ""
 
-#: music-functions.scm:1445
+#: music-functions.scm:1468
 msgid "Defaulting to 'any-octave."
 msgstr ""
 
-#: music-functions.scm:1837
+#: music-functions.scm:1860
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr ""
 
-#: music-functions.scm:2051
+#: music-functions.scm:2069
 msgid "Missing duration"
 msgstr ""
 
-#: music-functions.scm:2560
+#: music-functions.scm:2578
 #, scheme-format
 msgid "not a symbol list: ~a"
 msgstr ""
 
-#: music-functions.scm:2563
+#: music-functions.scm:2581
 #, scheme-format
 msgid "conflicting tag group ~a"
 msgstr ""
@@ -3826,7 +3831,7 @@ msgstr ""
 msgid "error in #{ ... #}"
 msgstr ""
 
-#: part-combiner.scm:833
+#: part-combiner.scm:894
 #, scheme-format
 msgid "quoted music `~a' is empty"
 msgstr ""
