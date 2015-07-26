@@ -63,9 +63,10 @@ which scares away people.
 
 @item
 Music (and scheme and void) functions and markup commands that
-just supply the final parameters to a chain of music and function
-and markup command calls, respectively, can now be defined in the
-form of just writing the expression cut short with @code{\etc}.
+just supply the final parameters to a chain of overrides, music
+function and markup command calls can now be defined in the form
+of just writing the expression cut short with @code{\etc}.
+
 @lilypond[verbatim,quote]
 bold-red-markup = \markup \bold \with-color #red \etc
 highlight = \tweak font-size 3 \tweak color #red \etc
