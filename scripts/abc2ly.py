@@ -1203,6 +1203,9 @@ def try_parse_bar (str,state):
         clear_bar_acc(state)
         close_beam_state(state)
 
+    if str[:1] == '}':
+        close_beam_state(state)
+
     if bs <> None or state.next_bar != '':
         if state.parsing_tuplet:
             state.parsing_tuplet =0
