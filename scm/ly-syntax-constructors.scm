@@ -246,14 +246,23 @@ into a @code{MultiMeasureTextEvent}."
                                 'grob-property-path (cdr path)))
                    context)))
 
+;; The signature here is slightly fishy since the "fallback return
+;; value" is not actually music but #f.  This used to be (void-music)
+;; but triggered "Parsed object should be dead" warnings for music
+;; objects outside of the current parser session/module.  The called
+;; functions always deliver music and are used from the parser in a
+;; manner where only the last argument is provided from outside the
+;; parser, and its predicate "scheme?" is always true.  So the
+;; fallback value will never get used and its improper type is no
+;; issue.
 (define-public property-override-function
   (ly:make-music-function
-   (list (cons ly:music? (void-music)) symbol? symbol-list? scheme?)
+   (list (cons ly:music? #f) symbol? symbol-list? scheme?)
    property-override))
 
 (define-public property-set-function
   (ly:make-music-function
-   (list (cons ly:music? (void-music)) symbol? symbol? scheme?)
+   (list (cons ly:music? #f) symbol? symbol? scheme?)
    property-set))
 
 (define (get-first-context-id! mus)
