@@ -18,7 +18,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.19.22"
+\version "2.19.25"
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -182,27 +182,26 @@ assertBeamSlope =
    (make-grob-property-override 'Beam 'positions (check-slope-callbacks comp)))
 
 autochange =
-#(define-music-function (music) (ly:music?)
-   (_i "Make voices that switch between staves automatically")
-   (let ;; keep the contexts alive for the full duration
-       ((skip (make-skip-music (make-duration-of-length 
-                                (ly:music-length music)))))
-     #{
-       <<
-         \context Staff = "up" <<
-           #(make-autochange-music music)
-           \new Voice { #skip }
-         >>
-         \context Staff = "down" \with {
-           clefGlyph = "clefs.F"
-           clefPosition = 2
-           middleCPosition = 6
-           middleCClefPosition = 6
-         } {
-           \new Voice { #skip }
-         }
-       >>
-     #} ))
+#(define-music-function (pitch clef-1 clef-2 music)
+  ((ly:pitch? (ly:make-pitch 0 0)) (ly:context-mod?)(ly:context-mod?) ly:music?)
+  (_i "Make voices that switch between staves automatically.  As an option the
+pitch where to switch staves may be specified.  The clefs for the staves are
+optional as well.  Setting clefs  works only for implicitly instantiated
+staves.")
+  (let ;; keep the contexts alive for the full duration
+       ((skip (make-skip-music (make-duration-of-length
+                                     (ly:music-length music)))))
+    #{
+      <<
+        \context Staff = "up" $(or clef-1 #{ \with { \clef "treble" } #})
+          <<
+          #(make-autochange-music pitch music)
+          \new Voice { #skip }
+          >>
+        \context Staff = "down" $(or clef-2 #{ \with { \clef "bass" } #})
+          \new Voice { #skip }
+      >>
+    #}))
 
 balloonGrobText =
 #(define-music-function (grob-name offset text)

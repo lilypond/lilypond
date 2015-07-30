@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.25"
 
 @node Keyboard and other multi-staff instruments
 @section Keyboard and other multi-staff instruments
@@ -287,6 +287,21 @@ in advance.
     d'4 r a g
   }
 }
+@end lilypond
+
+@noindent
+It is possible to specify other pitches for the turning point.
+If the staves are not instantiated explicitly, other clefs may be used.
+
+@lilypond[quote,verbatim]
+music = {
+  g8 b a c' b8 d' c'8 e'
+  d'8 r f' g' a'2
+}
+
+\autochange d' \music
+\autochange b \with { \clef soprano } \music
+\autochange d' \with { \clef alto } \with { \clef tenor } \music
 @end lilypond
 
 @cindex relative music and autochange

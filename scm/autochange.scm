@@ -1,9 +1,25 @@
-
+;;;; This file is part of LilyPond, the GNU music typesetter.
+;;;;
+;;;; Copyright (C) 2000--2015  Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;;                  Jan Nieuwenhuizen <janneke@gnu.org>
+;;;;
+;;;; LilyPond is free software: you can redistribute it and/or modify
+;;;; it under the terms of the GNU General Public License as published by
+;;;; the Free Software Foundation, either version 3 of the License, or
+;;;; (at your option) any later version.
+;;;;
+;;;; LilyPond is distributed in the hope that it will be useful,
+;;;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;;;; GNU General Public License for more details.
+;;;;
+;;;; You should have received a copy of the GNU General Public License
+;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; autochange.scm - fairly related to part combining.
 
-(define-public (make-autochange-music music)
+(define-public (make-autochange-music ref-pitch music)
   (define (generate-split-list change-moment prev-dir event-list acc)
     (if (null? event-list)
         acc
@@ -16,7 +32,10 @@
                (pitch (if (pair? notes)
                           (ly:event-property (car notes) 'pitch)
                           #f))
-               (dir (if pitch (sign (ly:pitch-steps pitch)) 0)))
+               (dir (if pitch
+                        (sign
+                          (- (ly:pitch-steps pitch) (ly:pitch-steps ref-pitch)))
+                        0)))
           ;; tail recursive.
           (if (and (not (= dir 0))
                    (not (= dir prev-dir)))
@@ -24,7 +43,6 @@
                                    dir
                                    (cdr event-list)
                                    (cons (cons
-
                                           (if change-moment
                                               change-moment
                                               now)
@@ -36,8 +54,9 @@
 
   (let* ((m (make-music 'AutoChangeMusic))
          (m1 (context-spec-music (make-non-relative-music music) 'Voice ""))
-         (context-list (recording-group-emulate m1
-                                                (ly:parser-lookup 'partCombineListener)))
+         (context-list
+           (recording-group-emulate m1
+                                    (ly:parser-lookup 'partCombineListener)))
          (rev (reverse! (cdar context-list)))
          (split (reverse! (generate-split-list
                            #f
