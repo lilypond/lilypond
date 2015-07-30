@@ -666,8 +666,8 @@ The octave of notes may also be checked with the
 checks that the interval between the previous note and the
 @code{@var{controlpitch}} is within a fourth (i.e., the normal
 calculation of relative mode).  If this check fails, a warning is
-printed, but the previous note is not changed.  Future notes are
-relative to the @code{@var{controlpitch}}.
+printed.  While the previous note itself is not changed, future
+notes are relative to the corrected value.
 
 @lilypond[verbatim,quote]
 \relative {
