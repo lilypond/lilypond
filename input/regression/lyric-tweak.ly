@@ -1,11 +1,9 @@
 \header
 {
-  texidoc = "The @code{\\tweak} function can be used in Lyrics.  Where
-confusion of lyric words with grob names is possible, explicit use of
-@code{\\markup} can be used for resolving the ambiguity."
+  texidoc = "The @code{\\tweak} function can be used in Lyrics."
 }
 
-\version "2.17.6"
+\version "2.19.25"
 \paper {
   ragged-right = ##t
 }
@@ -13,8 +11,8 @@ confusion of lyric words with grob names is possible, explicit use of
 \new Lyrics \lyricmode
 {
   \markup \raise #1 \rotate #30 One 4
-  \tweak extra-offset #'(0 . 2) \markup fish,
+  \tweak extra-offset #'(0 . 2) fish,
   \markup \raise #1 \rotate #-30 two fish,
-  \tweak color #red \markup red fish,
-  \tweak color #blue \markup blue fish.
+  \tweak color #red red fish,
+  \tweak color #blue blue fish.
 }
