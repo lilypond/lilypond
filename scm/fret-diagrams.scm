@@ -672,10 +672,37 @@ fret-diagram overall parameters."
                 ((or (eq? finger '())(eq? finger-code 'none))
                  positioned-dot)
                 ((eq? finger-code 'in-dot)
-                 (let ((finger-label
-                        (centered-stencil
-                         (sans-serif-stencil
-                          layout props dot-label-font-mag finger))))
+                 (let* ((finger-stil
+                          (if (not (null? finger))
+                              (sans-serif-stencil
+                                 layout props dot-label-font-mag finger)
+                              empty-stencil))
+                        (finger-stil-length
+                          (interval-length (ly:stencil-extent finger-stil X)))
+                        (finger-stil-height
+                          (interval-length (ly:stencil-extent finger-stil Y)))
+                        (dot-stencil-radius
+                          (/ (interval-length (ly:stencil-extent dot-stencil Y))
+                             2))
+                        (scale-factor
+                          (/ dot-stencil-radius
+                             ;; Calculate the radius of the circle through the
+                             ;; corners of the box containing the finger-stil.
+                             ;; Give it a little padding. The value, (* 2 th),
+                             ;; is my choice
+                             (+
+                               (sqrt
+                                  (+ (expt (/ finger-stil-length 2) 2)
+                                     (expt (/ finger-stil-height 2) 2)))
+                                (* 2 th))))
+                        (finger-label
+                         (centered-stencil
+                          (ly:stencil-scale
+                           (sans-serif-stencil
+                            layout props
+                            dot-label-font-mag
+                            finger)
+                           scale-factor scale-factor))))
                    (ly:stencil-translate
                     (ly:stencil-add
                      final-dot-stencil
