@@ -50,7 +50,7 @@
             (if (ly:music? m) (ly:set-origin! m) m)
             (music-function-call-error fun m))
         (and (pair? sigcar)
-             (if (ly:music (cdr sigcar))
+             (if (ly:music? (cdr sigcar))
                  (ly:music-deep-copy (cdr sigcar) (*location*))
                  (cdr sigcar))))))
 
