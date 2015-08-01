@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.25"
 
 @node Templates
 @appendix Templates
@@ -32,19 +32,27 @@ beautiful printed scores!
 @node Built-in templates
 @appendixsec Built-in templates
 
-A template, suitable for a range of choral music, is built into
-LilyPond.  This may be used to create simple choral music, with or
-without piano accompaniment, in two or four staves.  Unlike other
-templates, this template is @q{built-in}, which means it does not
-need to be copied and edited:  instead it is simply 
-@code{\include}'d in the input file.
+Some templates, suitable for a range of choral music, are built into
+LilyPond.  These may be used to create simple choral music, with or
+without piano accompaniment, in two, four or eight staves.  Unlike
+other templates, these templates are @q{built-in}, which means they do
+not need to be copied and edited:  instead they are simply
+@code{@bs{}include}'d in the input file.
 
-@warning {Unlike most included files, this built-in template must be
-@code{\include}'d at the @emph{end} of the input file.}
+@warning {Unlike most included files, these built-in templates must be
+@code{@bs{}include}'d at the @emph{end} of the input file.}
 
 The required music expressions are entered by defining values for
-specific variables.  These definition must come before the
-@code{\include}'d file.
+specific variables.  These definitions must come before the
+@code{@bs{}include}'d file.
+
+@menu
+* SATB template::
+* SSAATTBB template::
+@end menu
+
+@node SATB template
+@appendixsubsec SATB template
 
 The music may be set out with one or two voices per staff by setting
 @code{TwoVoicesPerStaff} to @code{##f} or @code{##t} respectively.
@@ -174,6 +182,9 @@ changed:
   \include "satb.ly"
 @end lilypond
 
+although rather than do this it might be easier to use the
+@code{ssaattbb.ly} template, see @ref{SSAATTBB template}.
+
 A descant may be added by defining values for the variable
 @code{DescantMusic} and descant lyrics may be provided by defining
 values for @code{DescantLyrics}.  In a similar way a solo part may be
@@ -181,25 +192,150 @@ added above the grouped choir staves by defining values for
 @code{SoloMusic} and @code{SoloLyrics}.
 
 @code{\header} and @code{\paper} blocks may be added as normal.
-A @code{\layout} block may be provided as the value of the
-@code{Layout} variable:
+A @code{\layout} block may be provided as usual at top level, and
+the contents will be combined with (but will not override) the default
+settings provided in the template.  Alternatively, all the default
+settings provided by the template can be discarded by defining a
+@code{Layout} variable containing @emph{all} the required settings:
 
 @example
 Layout = \layout @{ ... @}
 @end example
 
 The complete set of variables which may be changed can be seen by
-examining the file @file{ly/satb.ly}.
+examining the file @file{ly/satb.ly}, see
+@ref{Other sources of information}.
 
 @seealso
 Learning Manual:
 @ref{Organizing pieces with variables},
 @ref{Vocal ensembles templates},
-@ref{Extending the templates}.
+@ref{Extending the templates},
+@ref{Other sources of information}.
 
 @knownissues
+The setting of the @code{TwoVoicesPerStaff} variable applies for the
+entire duration of the score: it cannot be given different values at
+different times.
+
 More complex arrangements of SATB choral music are not possible with
-these simple built-in templates.
+this simple built-in template.
+
+
+@node SSAATTBB template
+@appendixsubsec SSAATTBB template
+
+All the variables defined for the SATB template, with the exception of
+the @code{VerseXxx} variables, are also available for the SSAATTBB
+template, see @ref{SATB template}.  In addition, music and lyrics for
+first and second voices in any or all of the four parts may be specified
+by providing values for @code{SopranoOneMusic}, @code{SopranoTwoMusic},
+etc, with lyrics in @code{SopranoOneLyrics} and @code{SopranoTwoLyrics},
+etc.  Up to four additional stanzas may be defined for all the voice
+parts by using the variables @code{SopranoOneLyricsOne}, with the others
+defined in an analogous way.
+
+Setting @code{TwoVoicesPerStaff} to @code{##t} will cause @emph{all}
+voice parts to be placed on single staves as divisi voices.  If
+@code{TwoVoicesPerStaff} is left to default or set to @code{##f} then
+individual voice parts may be set on one or two staves according to
+the setting of @code{SopranoTwoVoicesPerStaff},
+@code{MenTwoVoicesPerStaff}, etc.
+
+As an example, suppose we have a piece for soprano and alto which begins
+with all voices in unison, progresses to a section with two parts,
+soprano and alto, and ends with a four-part section.  This would be
+coded like this:
+
+@lilypond[verbatim,quote]
+Time = { s1 \break s1 \break }
+WomenMusic = \relative { a'4 a a a }
+WomenLyrics = \lyricmode { Wo -- men ly -- rics }
+SopranoMusic = \relative { s1 | c''4 c c c8 c }
+SopranoLyrics = \lyricmode{ So -- pra -- no ly -- rics }
+AltoMusic = \relative { s1 | g'4 g g g }
+AltoLyrics = \lyricmode { Al -- to ly -- rics }
+SopranoOneMusic = \relative { s1 | s1 |e''4 e e e }
+SopranoOneLyrics = \lyricmode { Sop One ly -- rics }
+SopranoTwoMusic = \relative { s1 | s1 | c''4 c c c }
+SopranoTwoLyrics = \lyricmode { Sop Two ly -- rics }
+AltoOneMusic = \relative { s1 | s1 | g'4 g g g8 g }
+AltoOneLyrics = \lyricmode { Al -- to One ly -- rics }
+AltoTwoMusic = \relative { s1 | s1 | e'4 e e e8 e }
+AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
+\layout { ragged-right = ##t }
+\include "ssaattbb.ly"
+@end lilypond
+
+Male voices may be added in an analogous way.
+
+To change the layout so that the divisi soprano voices use a shared
+staff, we simply set @code{SopranoTwoVoicesPerStaff} to ##t, leaving
+all other variables unchanged, like this:
+
+@lilypond[verbatim,quote]
+SopranoTwoVoicesPerStaff = ##t
+Time = { s1 \break s1 \break }
+WomenMusic = \relative { a'4 a a a }
+WomenLyrics = \lyricmode { Wo -- men ly -- rics }
+SopranoMusic = \relative { s1 | c''4 c c c8 c }
+SopranoLyrics = \lyricmode{ So -- pra -- no ly -- rics }
+AltoMusic = \relative { s1 | g'4 g g g }
+AltoLyrics = \lyricmode { Al -- to ly -- rics }
+SopranoOneMusic = \relative { s1 | s1 |e''4 e e e }
+SopranoOneLyrics = \lyricmode { Sop One ly -- rics }
+SopranoTwoMusic = \relative { s1 | s1 | c''4 c c c }
+SopranoTwoLyrics = \lyricmode { Sop Two ly -- rics }
+AltoOneMusic = \relative { s1 | s1 | g'4 g g g8 g }
+AltoOneLyrics = \lyricmode { Al -- to One ly -- rics }
+AltoTwoMusic = \relative { s1 | s1 | e'4 e e e8 e }
+AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
+\layout { ragged-right = ##t }
+\include "ssaattbb.ly"
+@end lilypond
+
+or, to make all paired voices share a single staff, set
+@code{TwoVoicesPerStaff} to ##t:
+
+@lilypond[verbatim,quote]
+TwoVoicesPerStaff = ##t
+Time = { s1 \break s1 \break }
+WomenMusic = \relative { a'4 a a a }
+WomenLyrics = \lyricmode { Wo -- men ly -- rics }
+SopranoMusic = \relative { s1 | c''4 c c c8 c }
+SopranoLyrics = \lyricmode{ So -- pra -- no ly -- rics }
+AltoMusic = \relative { s1 | g'4 g g g }
+AltoLyrics = \lyricmode { Al -- to ly -- rics }
+SopranoOneMusic = \relative { s1 | s1 |e''4 e e e }
+SopranoOneLyrics = \lyricmode { Sop One ly -- rics }
+SopranoTwoMusic = \relative { s1 | s1 | c''4 c c c }
+SopranoTwoLyrics = \lyricmode { Sop Two ly -- rics }
+AltoOneMusic = \relative { s1 | s1 | g'4 g g g8 g }
+AltoOneLyrics = \lyricmode { Al -- to One ly -- rics }
+AltoTwoMusic = \relative { s1 | s1 | e'4 e e e8 e }
+AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
+\layout { ragged-right = ##t }
+\include "ssaattbb.ly"
+@end lilypond
+
+The complete set of variables which may be changed can be seen by
+examining the file @file{ly/ssaattbb.ly}, see
+@ref{Other sources of information}.
+
+@seealso
+Learning Manual:
+@ref{Organizing pieces with variables},
+@ref{Vocal ensembles templates},
+@ref{Extending the templates},
+@ref{Other sources of information}.
+
+@knownissues
+The setting of the various @code{...TwoVoicesPerStaff} variables apply
+for the entire duration of the score: they cannot be given different
+values at different times.
+
+More complex arrangements of 8-part choral music are not possible with
+this simple built-in template.
 
 
 @node Single staff templates
