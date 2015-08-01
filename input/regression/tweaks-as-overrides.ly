@@ -1,11 +1,11 @@
-\version "2.19.24"
+\version "2.19.25"
 
 \header {
-  texidoc = "@code{\\tweak} commands can be used to effect overrides
-when given a symbol list as argument.  Such overrides can be the
-target of another tweak, with the tweaks accumulating.  This example
-should show the starting chord with blue, cross-styled note heads
-and a red stem."
+  texidoc = "Overrides can be the target of a @code{\\tweak}, with the
+tweaks accumulating as override.  The main application is for stacking
+commands implemented in terms of @code{\\propertyTweak}.  This example
+should show the starting chord with blue, cross-styled note heads and
+a red stem."
 }
 
 \layout { ragged-right = ##t }
@@ -13,6 +13,6 @@ and a red stem."
 {
   \once \tweak Stem.color #red
   \tweak color #blue
-  \tweak style #'cross NoteHead
+  \override NoteHead.style = #'cross
   <c' e'>2 c'2
 }
