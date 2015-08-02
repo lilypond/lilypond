@@ -178,9 +178,10 @@ and slurs and beams are sloped, automatically!
 
 Put fragments of music into texts without cutting and pasting
 pictures.  Integrate music into @LaTeX{} or HTML seamlessly, or add
-music to OpenOffice.org/LibreOffice with OOoLilyPond.  Plugins are
-also available to allow LilyPond code in various blogs and wikis, making
-online collaboration possible.
+music to OpenOffice.org and LibreOffice with
+@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond}.
+Plugins are also available to allow LilyPond code in various blogs and
+wikis, making online collaboration possible.
 
 
 @subsubheading Accessibility
