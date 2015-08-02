@@ -37,17 +37,6 @@
 (define-public DOWN -1)
 (define-public CENTER 0)
 
-(define-safe-public DOUBLE-FLAT-QTS -4)
-(define-safe-public THREE-Q-FLAT-QTS -3)
-(define-safe-public FLAT-QTS -2)
-(define-safe-public SEMI-FLAT-QTS -1)
-(define-safe-public NATURAL-QTS 0)
-(define-safe-public SEMI-SHARP-QTS 1)
-(define-safe-public SHARP-QTS 2)
-(define-safe-public THREE-Q-SHARP-QTS 3)
-(define-safe-public DOUBLE-SHARP-QTS 4)
-(define-safe-public SEMI-TONE-QTS 2)
-
 (define-safe-public DOUBLE-FLAT  -1)
 (define-safe-public THREE-Q-FLAT -3/4)
 (define-safe-public FLAT -1/2)
