@@ -788,10 +788,9 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts \
 @node Independent includes
 @section Independent @code{include}s
 
-Some people have written large (and useful!) code that can be
-shared between projects.  This code might eventually make its way
-into LilyPond itself, but until that happens, you must download
-and @code{\include} them manually.
+Some users have produced files that can be @code{\include}d with
+LilyPond to produce certain effects and those listed below are part of
+the LilyPond distribution.  Also see @ruser{Working with input files}.
 
 @menu
 * MIDI articulation::
@@ -801,24 +800,12 @@ and @code{\include} them manually.
 @node MIDI articulation
 @subsection MIDI articulation
 
-LilyPond can be used to produce MIDI output, for
-@qq{proof-hearing} what has been written.  However, only dynamics,
-explicit tempo markings, and the notes and durations themselves
-are produced in the output.
+@cindex MIDI
+@cindex Articulate project
 
-The @emph{articulate} project is one attempt to get more of the
-information in the score into MIDI.  It works by shortening
-notes not under slurs, to @q{articulate} the notes.  The amount of
-shortening depends on any articulation markings attached to a
-note: staccato halves the note value, tenuto gives a note its full
-duration, and so on.  The script also realises trills and turns,
-and could be extended to expand other ornaments such as mordents.
-
-@example
-@uref{http://@/www@/.nicta@/.com@/.au/@/people/@/chubbp/@/articulate}
-@end example
-
-@knownissues
-Its main limitation is that it can only affect things it knows
-about: anything that is merely textual markup (instead of a note
-property) is still ignored.
+The @uref{http://www.nicta.com.au/articulate,Articulate} project is an
+attempt to enhance LilyPond's MIDI output and works by adjusting note
+lengths (that are not under slurs) according to the articulation
+markings attached to them.  For example, a @q{staccato} halves the note
+value, @q{tenuto} gives a note its full duration and so on.  See
+@ruser{Enhancing MIDI output}.
