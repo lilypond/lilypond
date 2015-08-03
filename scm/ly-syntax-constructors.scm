@@ -310,14 +310,16 @@ into a @code{MultiMeasureTextEvent}."
                                 'origin (ly:music-property music 'origin))))
          (voice-type (ly:music-property voice 'context-type))
          (lyricstos (map
-                     (lambda (mus)
+                     (lambda (mus+mods)
                        (with-location
-                        (ly:music-property mus 'origin)
+                        (ly:music-property (car mus+mods) 'origin)
                         (ly:set-origin! (make-music 'ContextSpeccedMusic
                                                     'create-new #t
                                                     'context-type 'Lyrics
+                                                    'property-operations (cdr mus+mods)
                                                     'element
                                                     (lyric-combine
-                                                     voice-name voice-type mus)))))
+                                                     voice-name voice-type
+                                                     (car mus+mods))))))
                      addlyrics-list)))
     (make-simultaneous-music (cons voice lyricstos))))

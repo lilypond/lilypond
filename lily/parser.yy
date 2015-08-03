@@ -1523,11 +1523,19 @@ context_prefix:
 	;
 
 new_lyrics:
-	ADDLYRICS lyric_mode_music {
-		$$ = scm_list_1 ($2);
+	ADDLYRICS optional_context_mod lyric_mode_music {
+		Context_mod *ctxmod = unsmob<Context_mod> ($2);
+		SCM mods = SCM_EOL;
+		if (ctxmod)
+			mods = ctxmod->get_mods ();
+		$$ = scm_acons ($3, mods, SCM_EOL);
 	}
-	| new_lyrics ADDLYRICS lyric_mode_music {
-		$$ = scm_cons ($3, $1);
+	| new_lyrics ADDLYRICS optional_context_mod lyric_mode_music {
+		Context_mod *ctxmod = unsmob<Context_mod> ($3);
+		SCM mods = SCM_EOL;
+		if (ctxmod)
+			mods = ctxmod->get_mods ();
+		$$ = scm_acons ($4, mods, $1);
 	}
 	;
 
