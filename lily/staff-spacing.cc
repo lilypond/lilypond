@@ -55,7 +55,7 @@ Staff_spacing::optical_correction (Grob *me, Grob *g, Interval bar_height)
       Direction d = get_grob_direction (stem);
       if (Stem::is_normal_stem (stem) && d == DOWN)
         {
-          Interval stem_posns = stem->pure_height (stem, 0, INT_MAX);
+          Interval stem_posns = stem->pure_y_extent (stem, 0, INT_MAX);
 
           stem_posns.intersect (bar_height);
 

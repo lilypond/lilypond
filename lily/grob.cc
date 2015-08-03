@@ -496,7 +496,7 @@ Grob::extent (Grob *refp, Axis a) const
 }
 
 Interval
-Grob::pure_height (Grob *refp, int start, int end)
+Grob::pure_y_extent (Grob *refp, int start, int end)
 {
   SCM iv_scm = get_pure_property ("Y-extent", start, end);
   Interval iv = robust_scm2interval (iv_scm, Interval ());
@@ -518,7 +518,7 @@ Grob::pure_height (Grob *refp, int start, int end)
 Interval
 Grob::maybe_pure_extent (Grob *refp, Axis a, bool pure, int start, int end)
 {
-  return (pure && a == Y_AXIS) ? pure_height (refp, start, end) : extent (refp, a);
+  return (pure && a == Y_AXIS) ? pure_y_extent (refp, start, end) : extent (refp, a);
 }
 
 Interval_t<int>

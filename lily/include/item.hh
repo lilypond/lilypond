@@ -52,7 +52,7 @@ public:
   virtual Paper_column *get_column () const;
   virtual void handle_prebroken_dependencies ();
   virtual Interval_t<int> spanned_rank_interval () const;
-  virtual Interval pure_height (Grob *ref, int start, int end);
+  virtual Interval pure_y_extent (Grob *ref, int start, int end);
   virtual void cache_pure_height (Interval height);
   DECLARE_GROB_INTERFACE ();
 protected:

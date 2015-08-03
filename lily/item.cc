@@ -224,7 +224,7 @@ Item::derived_mark () const
 }
 
 Interval
-Item::pure_height (Grob *g, int start, int end)
+Item::pure_y_extent (Grob *g, int start, int end)
 {
   if (cached_pure_height_valid_)
     return cached_pure_height_ + pure_relative_y_coordinate (g, start, end);
@@ -232,7 +232,7 @@ Item::pure_height (Grob *g, int start, int end)
      assuming that Items' pure_heights do not depend on 'start' or 'end'.
   */
 
-  cache_pure_height (Grob::pure_height (this, start, end));
+  cache_pure_height (Grob::pure_y_extent (this, start, end));
   return cached_pure_height_ + pure_relative_y_coordinate (g, start, end);
 }
 

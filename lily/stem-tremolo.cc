@@ -172,7 +172,7 @@ Stem_tremolo::pure_height (SCM smob, SCM, SCM)
   if (!beam)
     return ly_interval2scm (s1.extent (Y_AXIS));
 
-  Interval ph = stem->pure_height (stem, 0, INT_MAX);
+  Interval ph = stem->pure_y_extent (stem, 0, INT_MAX);
   Stem_info si = Stem::get_stem_info (stem);
   ph[-dir] = si.shortest_y_;
   int beam_count = Stem::beam_multiplicity (stem).length () + 1;
@@ -298,16 +298,16 @@ Stem_tremolo::y_offset (Grob *me, bool pure)
 
   if (pure && beam)
     {
-      Interval ph = stem->pure_height (stem, 0, INT_MAX);
+      Interval ph = stem->pure_y_extent (stem, 0, INT_MAX);
       Stem_info si = Stem::get_stem_info (stem);
       ph[-dir] = si.shortest_y_;
 
-      return (ph - dir * max (beam_count, 1) * beam_translation)[dir] - dir * 0.5 * me->pure_height (me, 0, INT_MAX).length ();
+      return (ph - dir * max (beam_count, 1) * beam_translation)[dir] - dir * 0.5 * me->pure_y_extent (me, 0, INT_MAX).length ();
     }
 
   Real end_y
     = (pure
-       ? stem->pure_height (stem, 0, INT_MAX)[dir]
+       ? stem->pure_y_extent (stem, 0, INT_MAX)[dir]
        : stem->extent (stem, Y_AXIS)[dir])
       - dir * max (beam_count, 1) * beam_translation
       - Stem::beam_end_corrective (stem);

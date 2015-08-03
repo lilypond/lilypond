@@ -284,7 +284,7 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
 
           if (g->pure_is_visible (start, visibility_end))
             {
-              Interval dims = g->pure_height (common, start, end);
+              Interval dims = g->pure_y_extent (common, start, end);
               if (!dims.is_empty ())
                 {
                   if (rank_span[LEFT] <= start)
@@ -346,7 +346,7 @@ Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
           && !(to_boolean (g->get_property ("cross-staff"))
                && Stem::has_interface (g)))
         {
-          Interval dims = g->pure_height (common, start, end);
+          Interval dims = g->pure_y_extent (common, start, end);
           if (!dims.is_empty ())
             r.unite (dims);
         }

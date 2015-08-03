@@ -450,7 +450,7 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
 
       int st = Paper_column::get_rank (c[0]);
       int end = Paper_column::get_rank (c.back ());
-      Interval iv (pure_height (this, st, end));
+      Interval iv (pure_y_extent (this, st, end));
       system->set_property ("pure-Y-extent", ly_interval2scm (iv));
 
       system->set_bound (LEFT, c[0]);

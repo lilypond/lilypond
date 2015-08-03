@@ -99,7 +99,7 @@ Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 
   for (vsize i = 0; i < encompasses.size (); i++)
     {
-      Interval d = encompasses[i]->pure_height (parent, start, end);
+      Interval d = encompasses[i]->pure_y_extent (parent, start, end);
       if (!d.is_empty ())
         {
           for (DOWN_and_UP (downup))
@@ -271,7 +271,7 @@ Slur::pure_outside_slur_callback (SCM grob, SCM start_scm, SCM end_scm, SCM offs
 
   Real offset = robust_scm2double (offset_scm, 0.0);
   Direction dir = get_grob_direction (script);
-  return scm_from_double (offset + dir * slur->pure_height (slur, start, end).length () / 4);
+  return scm_from_double (offset + dir * slur->pure_y_extent (slur, start, end).length () / 4);
 }
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Slur, outside_slur_callback, 2, 1, "");

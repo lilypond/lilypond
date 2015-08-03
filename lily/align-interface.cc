@@ -93,7 +93,7 @@ get_skylines (Grob *g,
   else
     {
       assert (a == Y_AXIS);
-      Interval extent = g->pure_height (g, start, end);
+      Interval extent = g->pure_y_extent (g, start, end);
 
       // This is a hack to get better accuracy on the pure-height of VerticalAlignment.
       // It's quite common for a treble clef to be the highest element of one system

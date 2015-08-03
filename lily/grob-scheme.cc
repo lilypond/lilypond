@@ -120,7 +120,7 @@ LY_DEFINE (ly_grob_pure_height, "ly:grob-pure-height",
   if (SCM_UNBNDP (val))
     val = SCM_EOL;
 
-  Interval retval = sc->pure_height (ref, scm_to_int (beg), scm_to_int (end));
+  Interval retval = sc->pure_y_extent (ref, scm_to_int (beg), scm_to_int (end));
 
   return ly_interval2scm (retval);
 }

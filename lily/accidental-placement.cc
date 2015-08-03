@@ -371,7 +371,7 @@ build_heads_skyline (vector<Grob *> const &heads_and_stems,
   vector<Box> head_extents;
   for (vsize i = heads_and_stems.size (); i--;)
     head_extents.push_back (Box (heads_and_stems[i]->extent (common[X_AXIS], X_AXIS),
-                                 heads_and_stems[i]->pure_height (common[Y_AXIS], 0, INT_MAX)));
+                                 heads_and_stems[i]->pure_y_extent (common[Y_AXIS], 0, INT_MAX)));
 
   return Skyline (head_extents, Y_AXIS, LEFT);
 }

@@ -157,7 +157,7 @@ Separation_item::boxes (Grob *me, Grob *left)
           && !Note_head::has_interface (il))
         continue;
 
-      Interval y (il->pure_height (ycommon, 0, very_large));
+      Interval y (il->pure_y_extent (ycommon, 0, very_large));
       Interval x (il->extent (pc, X_AXIS));
 
       Interval extra_width = robust_scm2interval (elts[i]->get_property ("extra-spacing-width"),
