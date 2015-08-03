@@ -716,24 +716,30 @@ This section shows methods to integrate text and music, different than
 the automated method with @command{lilypond-book}.
 
 @menu
-* Many quotes from a large score::
-* Inserting LilyPond output into OpenOffice and LibreOffice::
-* Inserting LilyPond output into other programs::
+* LuaTex::
+* OpenOffice and LibreOffice::
+* Other programs::
 @end menu
 
-@node Many quotes from a large score
-@unnumberedsubsec Many quotes from a large score
 
-If you need to quote many fragments from a large score, you can also use
-the clip systems feature, see @ruser{Extracting fragments of music}.
+@node LuaTex
+@subsection LuaTex
+
+@cindex LuaTex
+@cindex lyluatex
+
+As well as @code{lilypond-book} to integrate LilyPond output,
+there is an alternative program that can be used when using LuaTex
+called
+@uref{https://github.com/jperon/lyluatex/blob/master/README.en.md,lyluatex}.
 
 
-@node Inserting LilyPond output into OpenOffice and LibreOffice
-@unnumberedsubsec Inserting LilyPond output into OpenOffice and
-LibreOffice
+@node OpenOffice and LibreOffice
+@subsection OpenOffice and LibreOffic
 
 @cindex OpenOffice.org
 @cindex LibreOffice.org
+@cindex OOoLilyPond
 
 LilyPond notation can be added to OpenOffice.org and LibreOffice with
 @uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond}, an
@@ -742,17 +748,17 @@ OpenOffice.org documents.  Although this is no longer being developed,
 it appears to still work with version 4.
 
 
-@node Inserting LilyPond output into other programs
-@unnumberedsubsec Inserting LilyPond output into other programs
+@node Other programs
+@subsection Other programs
 
-To insert LilyPond output in other programs, use @code{lilypond}
-instead of @code{lilypond-book}.  Each example must be created
-individually and added to the document; consult the documentation for
-that program.  Most programs will be able to insert LilyPond output in
-@file{PNG}, @file{EPS}, or @file{PDF} formats.
+Other programs that can handle @file{PNG}, @file{EPS}, or @file{PDF}
+formats should use @code{lilypond} instead of @code{lilypond-book}.
+Each LilyPond output file must be created and inserted separately.
+Consult the program's own documentation on how to insert files from
+other sources.
 
-To reduce the white space around your LilyPond score, use the following
-options;
+To help reduce the white space around your LilyPond score, use the
+following options;
 
 @example
 \paper@{
@@ -764,25 +770,36 @@ options;
   scoreTitleMarkup = ##f
 @}
 
-@{ c1 @}
+@var{@dots{} music @dots{}}
 @end example
 
-To produce useful image files:
+@noindent
+To produce @file{EPS} images;
 
 @example
-EPS
-
 lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts myfile.ly
-
-PNG
-
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png myfile.ly
-
-A transparent PNG
-
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts \
-  -dpixmap-format=pngalpha --png myfile.ly
 @end example
+
+@noindent
+To produce @file{PNG} images;
+
+@example
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png myfile.ly
+@end example
+
+@noindent
+For transparent @file{PNG} images
+
+@smallexample
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts -dpixmap-format=pngalpha --png myfile.ly
+@end smallexample
+
+@cindex fragments, music
+@cindex quoting, music fragments
+@cindex music fragments, quotin
+
+If you need to quote many fragments from a large score, you can also use
+the clip systems feature, see @ruser{Extracting fragments of music}.
 
 
 @node Independent includes
