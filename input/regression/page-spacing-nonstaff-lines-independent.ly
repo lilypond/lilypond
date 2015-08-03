@@ -1,4 +1,4 @@
-\version "2.19.2"
+\version "2.19.25"
 
 \header {
   texidoc = "Spacing rules between Staves coexist with rules affecting
@@ -9,10 +9,10 @@ staves is larger than the @code{padding} for associated lyrics."
 <<
   \new Staff { c''2 c }
   \addlyrics { high \skip2 }
-  \new Staff = "bass" \new Voice = "b" { \clef bass c2 c' }
-  \new Lyrics \with {
+  \new Staff = "bass" { \clef bass c2 c' }
+  \addlyrics \with {
     alignAboveContext = "bass"
-  } \lyricsto "b" { bass \skip2 }
+  } { bass \skip2 }
 >>
 \layout {
   \context {
