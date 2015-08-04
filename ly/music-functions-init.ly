@@ -844,6 +844,37 @@ mark =
           (if label (set! (ly:music-property ev 'label) label))
           ev))))
 
+markupMap =
+#(define-music-function (path markupfun music)
+   (symbol-list-or-symbol? markup-function? ly:music?)
+   (_i "This applies the given markup function @var{markupfun} to all markup
+music properties matching @var{path} in @var{music}.
+
+For example,
+@example
+\\new Voice @{ g'2 c'' @}
+\\addlyrics @{
+  \\markupMap LyricEvent.text
+             \\markup \\with-color #red \\etc
+             @{ Oh yes! @}
+@}
+@end example
+")
+   (let* ((p (check-music-path path (*location*)))
+          (name (and p (car p)))
+          (prop (and p (cadr p))))
+     (if p
+         (for-some-music
+          (lambda (m)
+            (if (or (not name) (eq? (ly:music-property m 'name) name))
+                (let ((text (ly:music-property m prop)))
+                  (if (markup? text)
+                      (set! (ly:music-property m prop)
+                            (list markupfun text)))))
+            #f)
+          music)))
+   music)
+
 musicMap =
 #(define-music-function (proc mus) (procedure? ly:music?)
    (_i "Apply @var{proc} to @var{mus} and all of the music it contains.")
