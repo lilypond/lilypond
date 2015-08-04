@@ -513,6 +513,29 @@ error (using optionally @code{location})."
            location)
           #f))))
 
+(define-safe-public (check-music-path path #:optional location #:key default)
+  "Check a music property path specification @var{path}, a symbol
+list (or a single symbol), for validity and possibly complete it.
+Returns the completed specification, or @code{#f} when rising an
+error (using optionally @code{location})."
+  (let* ((path (if (symbol? path) (list path) path)))
+    ;; A Guile 1.x bug specific to optargs precludes moving the
+    ;; defines out of the let
+    (define (property? s)
+      (object-property s 'music-type?))
+    (define (unspecial? s)
+      (not (property? s)))
+    (or (case (length path)
+          ((1) (and (property? (car path)) (cons default path)))
+          ((2) (and (unspecial? (car path)) (property? (cadr path)) path))
+          (else #f))
+        (begin
+          (ly:parser-error
+           (format #f (_ "bad music property ~a")
+                   path)
+           location)
+          #f))))
+
 (define-public (make-grob-property-set grob gprop val)
   "Make a @code{Music} expression that sets @var{gprop} to @var{val} in
 @var{grob}.  Does a pop first, i.e., this is not an override."
