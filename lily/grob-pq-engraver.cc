@@ -22,6 +22,8 @@
 #include "grob.hh"
 #include "warn.hh"
 
+#include "translator.icc"
+
 struct Grob_pq_entry
 {
   Grob *grob_;
@@ -146,7 +148,6 @@ Grob_pq_engraver::start_translation_timestep ()
     context ()->set_property ("busyGrobs", busy);
 }
 
-#include "translator.icc"
 ADD_ACKNOWLEDGER (Grob_pq_engraver, grob);
 ADD_TRANSLATOR (Grob_pq_engraver,
                 /* doc */

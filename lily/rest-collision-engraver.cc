@@ -32,6 +32,8 @@
 #include "stream-event.hh"
 #include "warn.hh"
 
+#include "translator.icc"
+
 class Rest_collision_engraver : public Engraver
 {
 protected:
@@ -91,8 +93,6 @@ Rest_collision_engraver::stop_translation_timestep ()
 {
   rest_collision_ = 0;
 }
-
-#include "translator.icc"
 
 ADD_TRANSLATOR (Rest_collision_engraver,
                 /* doc */

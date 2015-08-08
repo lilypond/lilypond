@@ -27,6 +27,8 @@
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
 
+#include "translator.icc"
+
 /**
    Make arpeggios that span multiple staves.  Catch arpeggios, and span a
    Span_arpeggio over them if we find more than two arpeggios.
@@ -122,8 +124,6 @@ Span_arpeggio_engraver::stop_translation_timestep ()
   arpeggios_.clear ();
   note_columns_.clear ();
 }
-
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Span_arpeggio_engraver, arpeggio);
 ADD_ACKNOWLEDGER (Span_arpeggio_engraver, note_column);

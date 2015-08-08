@@ -22,6 +22,8 @@
 #include "engraver.hh"
 #include "staff-symbol.hh"
 
+#include "translator.icc"
+
 class Ledger_line_engraver : public Engraver
 {
   Spanner *span_;
@@ -117,8 +119,6 @@ Ledger_line_engraver::acknowledge_ledgered (Grob_info s)
 {
   ledgered_grobs_.push_back (s.grob ());
 }
-
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Ledger_line_engraver, ledgered);
 ADD_ACKNOWLEDGER (Ledger_line_engraver, staff_symbol);

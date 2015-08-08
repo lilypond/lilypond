@@ -27,6 +27,8 @@
 #include "warn.hh"
 #include "axis-group-interface.hh"
 
+#include "translator.icc"
+
 /*
   TODO:
 
@@ -245,8 +247,6 @@ Piano_pedal_align_engraver::finalize ()
         }
     }
 }
-
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Piano_pedal_align_engraver, note_column);
 ADD_ACKNOWLEDGER (Piano_pedal_align_engraver, piano_pedal_bracket);

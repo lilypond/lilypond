@@ -22,6 +22,8 @@
 #include "pointer-group-interface.hh"
 #include "lily-imports.hh"
 
+#include "translator.icc"
+
 /**
 
 Make bars that span multiple "staves". Catch bars, and span a
@@ -91,8 +93,6 @@ Span_bar_engraver::stop_translation_timestep ()
     }
   bars_.resize (0);
 }
-
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Span_bar_engraver, bar_line);
 ADD_TRANSLATOR (Span_bar_engraver,

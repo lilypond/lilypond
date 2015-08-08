@@ -23,6 +23,8 @@
 #include "axis-group-interface.hh"
 #include "item.hh"
 
+#include "translator.icc"
+
 class Collision_engraver : public Engraver
 {
   Item *col_;
@@ -75,8 +77,6 @@ Collision_engraver::Collision_engraver ()
 {
   col_ = 0;
 }
-
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Collision_engraver, note_column);
 

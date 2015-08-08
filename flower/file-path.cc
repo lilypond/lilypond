@@ -39,13 +39,14 @@
 #define PATHSEP ':'
 #endif
 
+#include <algorithm>
+
 vector<string>
 File_path::directories () const
 {
   return dirs_;
 }
 
-#include <algorithm>
 void
 File_path::parse_path (const string &p)
 {
