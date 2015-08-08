@@ -116,12 +116,6 @@ string_copy (const string &s)
   return dest;
 }
 
-int
-string_compare (string const &a, string const &b)
-{
-  return a.compare (b);
-}
-
 #include "std-vector.hh"
 
 vector<string>

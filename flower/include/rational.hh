@@ -20,6 +20,7 @@
 #ifndef RATIONAL_HH
 #define RATIONAL_HH
 
+#include "compare.hh"
 #include "flower-proto.hh"
 #include "std-string.hh"
 #include <limits.h>

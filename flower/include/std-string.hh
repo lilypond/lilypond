@@ -20,7 +20,6 @@
 #ifndef STD_STRING_HH
 #define STD_STRING_HH
 
-#include "compare.hh"
 #include "flower-proto.hh"
 
 #if 0
@@ -54,9 +53,5 @@ __attribute__ ((format (printf, 1, 2)));
 string &replace_all (string *str, string const &find, string const &replace);
 string &replace_all (string *str, char find, char replace);
 char *string_copy (const string &s);
-
-int string_compare (string const &, string const &);
-
-INSTANTIATE_COMPARE (string const &, string_compare);
 
 #endif /* STD_STRING_HH */
