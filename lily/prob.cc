@@ -23,6 +23,7 @@
 #include "input.hh"
 #include "profile.hh"
 
+using std::string;
 
 const char Prob::type_p_name_[] = "ly:prob?";
 

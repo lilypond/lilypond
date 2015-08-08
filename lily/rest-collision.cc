@@ -38,6 +38,8 @@ using namespace std;
 #include "warn.hh"
 #include "lily-imports.hh"
 
+using std::vector;
+
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Rest_collision, force_shift_callback_rest, 2, 1, "");
 SCM
 Rest_collision::force_shift_callback_rest (SCM rest, SCM offset)

@@ -34,6 +34,8 @@
 #include "warn.hh"
 #include "constrained-breaking.hh"
 
+using std::vector;
+
 Paper_score::Paper_score (Output_def *layout)
 {
   layout_ = layout;

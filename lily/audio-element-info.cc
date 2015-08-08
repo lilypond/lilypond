@@ -22,6 +22,8 @@
 #include "translator-group.hh"
 #include "context.hh"
 
+using std::vector;
+
 Audio_element_info::Audio_element_info (Audio_element *s, Stream_event *r)
 {
   elem_ = s;

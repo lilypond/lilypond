@@ -32,6 +32,8 @@
 
 #include "translator.icc"
 
+using std::vector;
+
 class Chord_name_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Chord_name_engraver);

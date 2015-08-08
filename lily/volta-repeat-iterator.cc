@@ -22,6 +22,8 @@
 #include "context.hh"
 #include "lily-imports.hh"
 
+using std::string;
+
 class Volta_repeat_iterator : public Sequential_iterator
 {
 public:

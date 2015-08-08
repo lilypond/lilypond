@@ -26,6 +26,8 @@ using namespace std;
 #include "main.hh"
 #include "program-option.hh"
 
+using std::string;
+
 Modified_font_metric::Modified_font_metric (Font_metric *fm,
                                             Real magnification)
 {

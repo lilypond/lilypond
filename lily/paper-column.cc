@@ -39,6 +39,9 @@
 #include "text-interface.hh"
 #include "warn.hh"
 
+using std::string;
+using std::vector;
+
 Grob *
 Paper_column::clone () const
 {

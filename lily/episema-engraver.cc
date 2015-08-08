@@ -27,6 +27,8 @@
 
 #include "translator.icc"
 
+using std::vector;
+
 class Episema_engraver : public Engraver
 {
 public:

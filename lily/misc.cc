@@ -22,6 +22,9 @@
 #include "offset.hh"
 #include "warn.hh"
 
+using std::string;
+using std::vector;
+
 /*
   Return the 2-log, rounded down
 */

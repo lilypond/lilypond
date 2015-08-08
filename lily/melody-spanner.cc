@@ -22,6 +22,8 @@
 #include "grob.hh"
 #include "pointer-group-interface.hh"
 
+using std::vector;
+
 /*
   TODO: this could be either item or spanner. For efficiency reasons,
   let's take item for now.

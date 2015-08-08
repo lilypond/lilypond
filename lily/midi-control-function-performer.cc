@@ -31,6 +31,8 @@
 
 #include "translator.icc"
 
+using std::string;
+
 /**
    MIDI control function performer.  Announces "set property" events on MIDI
    context properties.

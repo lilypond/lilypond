@@ -30,6 +30,8 @@
 #include "stencil.hh"
 #include "warn.hh"
 
+using std::vector;
+
 void
 Separation_item::add_item (Grob *s, Item *i)
 {

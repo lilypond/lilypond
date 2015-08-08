@@ -25,6 +25,7 @@
 #include "string-convert.hh"
 #include "warn.hh"
 
+using std::vector;
 
 Stencil::Stencil ()
 {

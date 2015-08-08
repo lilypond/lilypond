@@ -28,6 +28,8 @@
 
 #include "translator.icc"
 
+using std::vector;
+
 class Instrument_name_engraver : public Engraver
 {
 public:

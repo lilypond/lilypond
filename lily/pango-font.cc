@@ -45,6 +45,8 @@
 #if HAVE_PANGO_FT2
 #include "stencil.hh"
 
+using std::string;
+
 Pango_font::Pango_font (PangoFT2FontMap *fontmap,
                         PangoFontDescription const *description,
                         Real output_scale)

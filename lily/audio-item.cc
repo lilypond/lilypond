@@ -22,6 +22,8 @@
 #include "midi-item.hh"
 #include "audio-column.hh"
 
+using std::string;
+
 Audio_instrument::Audio_instrument (string instrument_string)
 {
   str_ = instrument_string;

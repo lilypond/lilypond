@@ -29,6 +29,8 @@
 
 #include "translator.icc"
 
+using std::vector;
+
 struct Rhythmic_tuple
 {
   Grob_info info_;

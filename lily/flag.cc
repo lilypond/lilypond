@@ -29,6 +29,8 @@
 #include "stencil.hh"
 #include "warn.hh"
 
+using std::string;
+
 class Flag
 {
 public:

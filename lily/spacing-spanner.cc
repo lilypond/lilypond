@@ -39,6 +39,8 @@
 #include "system.hh"
 #include "warn.hh"
 
+using std::vector;
+
 vector<Grob *>
 Spacing_spanner::get_columns (Grob *me_grob)
 {

@@ -32,6 +32,8 @@ gettext (char const *s)
 #include <libintl.h>
 #endif
 
+using std::string;
+
 string
 _ (char const *ch)
 {

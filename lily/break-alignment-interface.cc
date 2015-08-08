@@ -29,6 +29,9 @@
 #include "side-position-interface.hh"
 #include "warn.hh"
 
+using std::string;
+using std::vector;
+
 /*
   This is tricky: we cannot modify 'elements, since callers are
   iterating the same list. Reordering the list in-place, or resetting

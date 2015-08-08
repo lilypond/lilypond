@@ -33,7 +33,6 @@
 #include <sstream>
 #else
 #include <strstream>
-#define istringstream(x) istrstream (x, length ())
 #endif
 using namespace std;
 
@@ -41,6 +40,16 @@ using namespace std;
 #include "international.hh"
 #include "misc.hh"
 #include "warn.hh"
+
+#if HAVE_SSTREAM
+using std::istringstream;
+#else
+#define istringstream(x) std::istrstream (x, length ())
+#endif
+
+using std::istream;
+using std::string;
+using std::vector;
 
 void
 Source_file::load_stdin ()

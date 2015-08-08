@@ -24,6 +24,7 @@
 #include <cmath>
 
 using namespace std;
+using std::vector;
 
 /*
   Een beter milieu begint bij uzelf. Hergebruik!

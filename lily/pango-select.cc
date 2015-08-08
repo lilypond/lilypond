@@ -23,6 +23,8 @@
 #include "output-def.hh"
 #include "pango-font.hh"
 
+using std::string;
+
 PangoFontDescription *
 properties_to_pango_description (SCM chain, Real text_size)
 {

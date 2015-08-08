@@ -28,6 +28,8 @@
 
 #include "translator.icc"
 
+using std::vector;
+
 class Concurrent_hairpin_engraver : public Engraver
 {
 public:

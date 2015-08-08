@@ -25,6 +25,8 @@ using namespace std;
 #include "system.hh"
 #include "grob-array.hh"
 
+using std::vector;
+
 static SCM break_criterion;
 void
 set_break_subsititution (SCM criterion)
