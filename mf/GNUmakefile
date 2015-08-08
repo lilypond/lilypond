@@ -50,7 +50,8 @@ COUR_OTFS = $(addprefix $(outdir)/,NimbusMonL-ReguObli.otf \
 				   NimbusMonL-Regu.otf \
 				   NimbusMonL-Bold.otf)
 
-LILYPOND_FONTS_CONF = $(outdir)/lilypond-fonts.conf
+LILYPOND_FONTS_CONF = $(outdir)/00-lilypond-fonts.conf \
+		      $(outdir)/99-lilypond-fonts.conf
 
 LOG_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.log)
 LISP_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.lisp)
