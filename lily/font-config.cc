@@ -38,7 +38,41 @@ init_fontconfig ()
   debug_output (_ ("Initializing FontConfig..."));
 
   /* TODO: Find a way for Fontconfig to update its cache, if needed. */
-  font_config_global = FcInitLoadConfig ();
+  FcConfig *font_config_dummy = FcInitLoadConfig ();
+
+  /* Create an empty configuration */
+  font_config_global = FcConfigCreate ();
+
+  /* fontconfig conf files */
+  vector<string> confs;
+
+  /* LilyPond local fontconfig conf file 00
+     This file is loaded *before* fontconfig's default conf. */
+  confs.push_back (lilypond_datadir + "/fonts/00-lilypond-fonts.conf");
+
+  /* fontconfig's default conf file */
+  void *default_conf = FcConfigFilename (NULL);
+  confs.push_back (static_cast<char*>(default_conf));
+  FcStrFree(static_cast<FcChar8*>(default_conf));
+
+  /* LilyPond local fontconfig conf file 99
+     This file is loaded *after* fontconfig's default conf. */
+  confs.push_back (lilypond_datadir + "/fonts/99-lilypond-fonts.conf");
+
+  /* Load fontconfig conf files */
+  for (vector<string>::const_iterator it = confs.begin ();
+       it != confs.end ();
+       it++)
+    {
+      if (!FcConfigParseAndLoad (font_config_global,
+                                 (FcChar8 *)it->c_str (),
+                                 FcFalse))
+        error (_f ("failed to add fontconfig configuration file `%s'",
+                   it->c_str ()));
+      else
+        debug_output (_f ("Adding fontconfig configuration file: %s",
+                          it->c_str ()));
+    }
 
   /* Extra trailing slash suddenly breaks fontconfig (fc-cache 2.5.0)
      on windows.  */
@@ -48,17 +82,6 @@ init_fontconfig ()
     error (_f ("failed adding font directory: %s", dir.c_str ()));
   else
     debug_output (_f ("Adding font directory: %s", dir.c_str ()));
-
-  string conf (lilypond_datadir + "/fonts/lilypond-fonts.conf");
-
-  if (!FcConfigParseAndLoad (font_config_global,
-                             (FcChar8 *)conf.c_str (),
-                             FcFalse))
-    error (_f ("failed adding fontconfig configuration file: %s",
-               conf.c_str ()));
-  else
-    debug_output (_f ("Adding fontconfig configuration file: %s",
-                      conf.c_str ()));
 
   debug_output (_ ("Building font database..."));
 
