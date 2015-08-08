@@ -72,8 +72,8 @@ Script_column::row_before_line_breaking (SCM smob)
       /*
         Don't want to consider scripts horizontally next to notes.
       */
-      if (Accidental_placement::has_interface (sc)
-          || Arpeggio::has_interface (sc))
+      if (has_interface<Accidental_placement> (sc)
+          || has_interface<Arpeggio> (sc))
         {
           affect_all_grobs.push_back (sc);
         }

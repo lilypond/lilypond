@@ -1232,7 +1232,7 @@ Page_layout_problem::filter_dead_elements (vector<Grob *> const &input)
   vector<Grob *> output;
   for (vsize i = 0; i < input.size (); ++i)
     {
-      if (Hara_kiri_group_spanner::has_interface (input[i]))
+      if (has_interface<Hara_kiri_group_spanner> (input[i]))
         Hara_kiri_group_spanner::consider_suicide (input[i]);
 
       if (input[i]->is_live ())

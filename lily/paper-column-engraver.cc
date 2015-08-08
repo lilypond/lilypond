@@ -241,10 +241,10 @@ Paper_column_engraver::stop_translation_timestep ()
       if (!unsmob<Grob> (elem->get_object ("axis-group-parent-X")))
         elem->set_object ("axis-group-parent-X", col->self_scm ());
 
-      if (Accidental_placement::has_interface (elem)
-          || Arpeggio::has_interface (elem))
+      if (has_interface<Accidental_placement> (elem)
+          || has_interface<Arpeggio> (elem))
         Separation_item::add_conditional_item (col, elem);
-      else if (!Accidental_interface::has_interface (elem))
+      else if (!has_interface<Accidental_interface> (elem))
         Separation_item::add_item (col, elem);
     }
   items_.clear ();

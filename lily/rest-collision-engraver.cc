@@ -62,7 +62,7 @@ Rest_collision_engraver::process_acknowledged ()
       if (!g || !m)
         continue;
 
-      if (Rhythmic_head::has_interface (g) && (*m) > now)
+      if (has_interface<Rhythmic_head> (g) && (*m) > now)
         {
           Grob *column = g->get_parent (X_AXIS);
           if (!column)
@@ -70,7 +70,7 @@ Rest_collision_engraver::process_acknowledged ()
 
           // Only include rests that start now. Include notes that started any time.
           Paper_column *paper_column = dynamic_cast<Item *> (column)->get_column ();
-          if (!Rest::has_interface (g) || !paper_column || Paper_column::when_mom (paper_column) == now)
+          if (!has_interface<Rest> (g) || !paper_column || Paper_column::when_mom (paper_column) == now)
             {
               columns.insert (column);
               rest_count += Note_column::has_rests (column);

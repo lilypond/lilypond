@@ -351,7 +351,7 @@ Spacing_spanner::musical_column_spacing (Grob *me,
           /*
             This is probably a waste of time in the case of polyphonic
             music.  */
-          if (found_matching_column && Note_spacing::has_interface (wish))
+          if (found_matching_column && has_interface<Note_spacing> (wish))
             {
               Real inc = options->increment_;
               Grob *gsp = unsmob<Grob> (left_col->get_object ("grace-spacing"));
@@ -489,7 +489,7 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
         {
           Item *spacing_grob = dynamic_cast<Item *> (wishes[i]);
 
-          if (!spacing_grob || !Staff_spacing::has_interface (spacing_grob))
+          if (!spacing_grob || !has_interface<Staff_spacing> (spacing_grob))
             continue;
 
           /*

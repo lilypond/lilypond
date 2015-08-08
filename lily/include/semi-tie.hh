@@ -25,7 +25,6 @@
 
 struct Semi_tie
 {
-  DECLARE_GROB_INTERFACE ();
 
   DECLARE_SCHEME_CALLBACK (calc_control_points, (SCM));
   static bool less (Grob *s1, Grob *s2);

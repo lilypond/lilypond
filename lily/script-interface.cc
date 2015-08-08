@@ -131,7 +131,6 @@ Script_interface::print (SCM smob)
 
 struct Text_script
 {
-  DECLARE_GROB_INTERFACE ();
 };
 
 ADD_INTERFACE (Text_script,

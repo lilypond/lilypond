@@ -35,7 +35,6 @@
 struct Ottava_bracket
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_GROB_INTERFACE ();
 };
 
 /*
@@ -61,7 +60,7 @@ Ottava_bracket::print (SCM smob)
       Item *b = me->get_bound (d);
       broken[d] = (b->break_status_dir () != CENTER);
 
-      if (Note_column::has_interface (b))
+      if (has_interface<Note_column> (b))
         {
           extract_grob_set (b, "note-heads", heads);
           common = common_refpoint_of_array (heads, common, X_AXIS);
@@ -94,7 +93,7 @@ Ottava_bracket::print (SCM smob)
       Item *b = me->get_bound (d);
 
       Interval ext;
-      if (Note_column::has_interface (b))
+      if (has_interface<Note_column> (b))
         {
           extract_grob_set (b, "note-heads", heads);
           for (vsize i = 0; i < heads.size (); i++)

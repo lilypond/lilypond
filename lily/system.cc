@@ -414,7 +414,7 @@ System::vertical_skyline_elements (SCM smob)
   vector<Grob *> vertical_skyline_grobs;
   extract_grob_set (me_grob, "elements", my_elts);
   for (vsize i = 0; i < my_elts.size (); i++)
-    if (System_start_delimiter::has_interface (my_elts[i]))
+    if (has_interface<System_start_delimiter> (my_elts[i]))
       vertical_skyline_grobs.push_back (my_elts[i]);
 
   System *me = dynamic_cast<System *> (me_grob);
@@ -429,7 +429,7 @@ System::vertical_skyline_elements (SCM smob)
   extract_grob_set (align, "elements", elts);
 
   for (vsize i = 0; i < elts.size (); i++)
-    if (Hara_kiri_group_spanner::has_interface (elts[i]))
+    if (has_interface<Hara_kiri_group_spanner> (elts[i]))
       vertical_skyline_grobs.push_back (elts[i]);
 
   SCM grobs_scm = Grob_array::make_array ();
@@ -763,7 +763,7 @@ System::get_vertical_alignment (SCM smob)
   extract_grob_set (me, "elements", elts);
   Grob *ret = 0;
   for (vsize i = 0; i < elts.size (); i++)
-    if (Align_interface::has_interface (elts[i]))
+    if (has_interface<Align_interface> (elts[i]))
       {
         if (ret)
           me->programming_error ("found multiple vertical alignments in this system");
@@ -792,7 +792,7 @@ System::get_extremal_staff (Direction dir, Interval const &iv)
   vsize end = (dir == UP) ? elts.size () : VPOS;
   for (vsize i = start; i != end; i += dir)
     {
-      if (Hara_kiri_group_spanner::has_interface (elts[i]))
+      if (has_interface<Hara_kiri_group_spanner> (elts[i]))
         Hara_kiri_group_spanner::consider_suicide (elts[i]);
 
       Interval intersection = elts[i]->extent (this, X_AXIS);
@@ -822,7 +822,7 @@ System::get_neighboring_staff (Direction dir, Grob *vertical_axis_group, Interva
       if (elts[i] == vertical_axis_group)
         return out;
 
-      if (Hara_kiri_group_spanner::has_interface (elts[i]))
+      if (has_interface<Hara_kiri_group_spanner> (elts[i]))
         Hara_kiri_group_spanner::consider_suicide (elts[i]);
 
       bounds.intersect (elts[i]->spanned_rank_interval ());
@@ -917,7 +917,7 @@ System::calc_pure_relevant_grobs (SCM smob)
 
   for (vsize i = 0; i < elts.size (); ++i)
     {
-      if (!Axis_group_interface::has_interface (elts[i]))
+      if (!has_interface<Axis_group_interface> (elts[i]))
         {
           relevant_grobs.push_back (elts[i]);
 

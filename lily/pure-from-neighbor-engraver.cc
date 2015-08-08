@@ -46,7 +46,7 @@ Pure_from_neighbor_engraver::Pure_from_neighbor_engraver ()
 void
 Pure_from_neighbor_engraver::acknowledge_item (Grob_info i)
 {
-  if (!Pure_from_neighbor_interface::has_interface (i.item ()))
+  if (!has_interface<Pure_from_neighbor_interface> (i.item ()))
     pure_relevants_.push_back (i.item ());
 }
 

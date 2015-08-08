@@ -30,7 +30,6 @@
 
 struct Figured_bass_continuation
 {
-  DECLARE_GROB_INTERFACE ();
 
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));

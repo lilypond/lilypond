@@ -26,7 +26,6 @@
 struct Line_interface
 {
   static Stencil line (Grob *me, Offset from, Offset to);
-  DECLARE_GROB_INTERFACE ();
   static Stencil make_zigzag_line (Grob *me,
                                    Offset from,
                                    Offset to);

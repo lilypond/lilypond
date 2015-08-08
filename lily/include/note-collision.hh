@@ -44,6 +44,5 @@ public:
   static Drul_array<vector<Grob *> > get_clash_groups (Grob *me);
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM smob));
   static void add_column (Grob *me, Grob *ncol);
-  DECLARE_GROB_INTERFACE ();
 };
 #endif // COLLISION_HH

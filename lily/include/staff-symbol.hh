@@ -40,6 +40,5 @@ public:
   static Interval line_span (Grob *);
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (height, (SCM));
-  DECLARE_GROB_INTERFACE ();
 };
 #endif // STAFF_SYMBOL_HH

@@ -108,7 +108,7 @@ is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
   for (vsize i = elts.size (); i--;)
     {
       Grob *g = elts[i];
-      if (g && Break_alignment_interface::has_interface (g))
+      if (has_interface<Break_alignment_interface> (g))
         {
           extract_grob_set (g, "elements", gelts);
           for (vsize j = gelts.size (); j--;)
@@ -150,7 +150,7 @@ Spacing_spanner::set_distances_for_loose_col (Grob *me, Grob *c,
               || Spacing_interface::right_column (sp) != rc)
             continue;
 
-          if (Note_spacing::has_interface (sp))
+          if (has_interface<Note_spacing> (sp))
             {
               /*
                 The note spacing should be taken from the musical
@@ -161,7 +161,7 @@ Spacing_spanner::set_distances_for_loose_col (Grob *me, Grob *c,
 
               dists[d] = max (dists[d], spring.min_distance ());
             }
-          else if (Staff_spacing::has_interface (sp))
+          else if (has_interface<Staff_spacing> (sp))
             {
               Spring spring = Staff_spacing::get_spacing (sp, rc, 0.0);
 

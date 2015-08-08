@@ -334,7 +334,7 @@ Slur_configuration::score_extra_encompass (Slur_score_state const &state)
   // we find forbidden attachments
   vector<Offset> forbidden_attachments;
   for (vsize i = 0; i < state.extra_encompass_infos_.size (); i++)
-    if (Tie::has_interface (state.extra_encompass_infos_[i].grob_))
+    if (has_interface<Tie> (state.extra_encompass_infos_[i].grob_))
       {
         Grob *t = state.extra_encompass_infos_[i].grob_;
         Grob *common_x = Grob::get_vertical_axis_group (t);

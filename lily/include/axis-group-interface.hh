@@ -69,7 +69,6 @@ class Axis_group_interface
   static SCM calc_common (Grob *, Axis);
   static Real minimum_distance (Grob *, Grob *, Axis);
   static SCM calc_maybe_pure_staff_staff_spacing (Grob *, bool, int, int);
-  DECLARE_GROB_INTERFACE ();
 };
 
 #endif /* AXIS_GROUP_INTERFACE_HH */

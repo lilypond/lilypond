@@ -64,7 +64,7 @@ Spacing_interface::skylines (Grob *me, Grob *right_col)
             if (Item *piece = g->find_prebroken_piece (break_dirs[d]))
               g = piece;
 
-          if (g && Separation_item::has_interface (g) && g->get_column () == columns[d])
+          if (has_interface<Separation_item> (g) && g->get_column () == columns[d])
             {
               SCM sky_scm = g->get_property ("horizontal-skylines");
               Skyline_pair *sky = unsmob<Skyline_pair> (sky_scm);
@@ -144,9 +144,9 @@ get_note_columns (vector<Grob *> const &elts)
 
   for (vsize i = 0; i < elts.size (); i++)
     {
-      if (Note_column::has_interface (elts[i]))
+      if (has_interface<Note_column> (elts[i]))
         ret.push_back (dynamic_cast<Item *> (elts[i]));
-      else if (Separation_item::has_interface (elts[i]))
+      else if (has_interface<Separation_item> (elts[i]))
         {
           extract_grob_set (elts[i], "elements", more_elts);
           vector<Item *> ncs = get_note_columns (more_elts);

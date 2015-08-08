@@ -158,7 +158,7 @@ get_current_note_head (Context *voice)
       // here.  Not with this mechanism.
       if ((*end_mom == end_from_now)
           && dynamic_cast<Item *> (g)
-          && Note_head::has_interface (g))
+          && has_interface<Note_head> (g))
         {
           return g;
         }

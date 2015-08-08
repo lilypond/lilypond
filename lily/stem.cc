@@ -266,9 +266,9 @@ Stem::add_head (Grob *me, Grob *n)
 {
   n->set_object ("stem", me->self_scm ());
 
-  if (Note_head::has_interface (n))
+  if (has_interface<Note_head> (n))
     Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-heads"), n);
-  else if (Rest::has_interface (n))
+  else if (has_interface<Rest> (n))
     Pointer_group_interface::add_grob (me, ly_symbol2scm ("rests"), n);
 }
 

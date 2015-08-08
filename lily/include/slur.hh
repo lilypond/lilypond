@@ -41,7 +41,6 @@ public:
   DECLARE_SCHEME_CALLBACK (pure_outside_slur_callback, (SCM, SCM, SCM, SCM));
   DECLARE_SCHEME_CALLBACK (outside_slur_cross_staff, (SCM, SCM));
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
-  DECLARE_GROB_INTERFACE ();
   static Bezier get_curve (Grob *me);
 };
 

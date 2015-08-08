@@ -50,7 +50,6 @@ public:
 
   DECLARE_SCHEME_CALLBACK (set_springs, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_common_shortest_duration, (SCM));
-  DECLARE_GROB_INTERFACE ();
 };
 
 #endif /* SPACING_SPANNER_HH */

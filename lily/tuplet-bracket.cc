@@ -64,7 +64,7 @@ get_x_bound_item (Grob *me_grob, Direction hdir, Direction my_dir)
 {
   Spanner *me = dynamic_cast<Spanner *> (me_grob);
   Item *g = me->get_bound (hdir);
-  if (Note_column::has_interface (g)
+  if (has_interface<Note_column> (g)
       && Note_column::get_stem (g)
       && Note_column::dir (g) == my_dir)
     g = Note_column::get_stem (g);

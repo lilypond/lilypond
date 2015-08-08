@@ -24,20 +24,11 @@
 
 class Grob;
 
-// TODO: remove DECLARE_GROB_INTERFACE
-#define DECLARE_GROB_INTERFACE() \
-  static bool has_interface (Grob *g)
-
-// TODO: remove cl::has_interface and use ::has_interface directly
 #define ADD_INTERFACE(cl, b, c)                                 \
   Grob_interface<cl> cl ## _interface_initializer;              \
   template <> char const *Grob_interface<cl>::cxx_name_ (#cl);  \
   template <> char const *Grob_interface<cl>::description_ (b); \
-  template <> char const *Grob_interface<cl>::variables_ (c);   \
-  bool cl::has_interface (Grob *me)                             \
-  {                                                             \
-    return ::has_interface<cl> (me);                            \
-  }
+  template <> char const *Grob_interface<cl>::variables_ (c);
 
 SCM add_interface (char const *cxx_name,
                    char const *descr,

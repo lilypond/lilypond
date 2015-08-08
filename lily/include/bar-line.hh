@@ -26,7 +26,6 @@
 class Bar_line
 {
 public:
-  DECLARE_GROB_INTERFACE ();
 
   static bool non_empty_barline (Grob *me);
 };

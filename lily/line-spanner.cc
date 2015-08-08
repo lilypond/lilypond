@@ -43,12 +43,11 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_left_bound_info_and_text, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_right_bound_info, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_bound_info, (SCM, Direction));
-  DECLARE_GROB_INTERFACE ();
 };
 
 Spanner *parent_spanner (Grob *g)
 {
-  if (Spanner::has_interface (g))
+  if (has_interface<Spanner> (g))
     return dynamic_cast<Spanner *> (g);
   return parent_spanner (g->get_parent (Y_AXIS));
 }
@@ -110,7 +109,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
                          ? columns[0] : columns.back ();
         }
 
-      Real x_coord = (Paper_column::has_interface (bound_grob)
+      Real x_coord = (has_interface<Paper_column> (bound_grob)
                       ? Axis_group_interface::generic_bound_extent (bound_grob, commonx, X_AXIS)
                       : robust_relative_extent (bound_grob, commonx, X_AXIS)).linear_combination (attach);
 

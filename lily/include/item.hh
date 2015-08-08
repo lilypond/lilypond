@@ -54,7 +54,6 @@ public:
   virtual Interval_t<int> spanned_rank_interval () const;
   virtual Interval pure_y_extent (Grob *ref, int start, int end);
   virtual void cache_pure_height (Interval height);
-  DECLARE_GROB_INTERFACE ();
 protected:
   virtual void discretionary_processing ();
   void copy_breakable_items ();

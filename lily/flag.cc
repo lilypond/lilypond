@@ -38,7 +38,6 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_y_offset, (SCM));
   DECLARE_SCHEME_CALLBACK (pure_calc_y_offset, (SCM, SCM, SCM));
   DECLARE_SCHEME_CALLBACK (calc_x_offset, (SCM));
-  DECLARE_GROB_INTERFACE ();
 
   static SCM internal_calc_y_offset (SCM smob, bool pure);
 };

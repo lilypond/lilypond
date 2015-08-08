@@ -228,7 +228,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
       for (vsize i = 0; i < items.size (); i++)
         {
           Item *it = dynamic_cast<Item *> (items[i]);
-          if (!Note_column::has_interface (it))
+          if (!has_interface<Note_column> (it))
             continue;
           if (d == RIGHT && it->get_column () != rcolumn)
             continue;

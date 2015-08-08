@@ -26,7 +26,6 @@
 struct Kievan_ligature
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_GROB_INTERFACE ();
 };
 
 #endif /* KIEVAN_LIGATURE_HH */

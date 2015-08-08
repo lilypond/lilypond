@@ -261,7 +261,7 @@ Stem_tremolo::calc_direction (SCM smob)
    */
   Grob *maybe_nc = stem->get_parent (X_AXIS)->get_parent (X_AXIS);
   bool whole_note = Stem::duration_log (stem) <= 0;
-  if (whole_note && Note_collision_interface::has_interface (maybe_nc))
+  if (whole_note && has_interface<Note_collision_interface> (maybe_nc))
     {
       Drul_array<bool> avoid_me (false, false);
       vector<int> all_nhps = Note_collision_interface::note_head_positions (maybe_nc);

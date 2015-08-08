@@ -263,7 +263,7 @@ Break_alignable_interface::self_align_callback (SCM grob)
 {
   Grob *me = unsmob<Grob> (grob);
   Item *alignment = dynamic_cast<Item *> (me->get_parent (X_AXIS));
-  if (!Break_alignment_interface::has_interface (alignment))
+  if (!has_interface<Break_alignment_interface> (alignment))
     return scm_from_int (0);
 
   SCM symbol_list = me->get_property ("break-align-symbols");

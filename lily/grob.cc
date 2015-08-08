@@ -391,7 +391,7 @@ Grob::pure_relative_y_coordinate (Grob const *refp, int start, int end)
   if (Grob *p = get_parent (Y_AXIS))
     {
       Real trans = 0;
-      if (Align_interface::has_interface (p) && !dim_cache_[Y_AXIS].offset_)
+      if (has_interface<Align_interface> (p) && !dim_cache_[Y_AXIS].offset_)
         trans = Align_interface::get_pure_child_y_translation (p, this, start, end);
 
       return off + trans + p->pure_relative_y_coordinate (refp, start, end);
@@ -638,7 +638,7 @@ get_maybe_root_vertical_alignment (Grob *g, Grob *maybe)
 {
   if (!g)
     return maybe;
-  if (Align_interface::has_interface (g))
+  if (has_interface<Align_interface> (g))
     return get_maybe_root_vertical_alignment (g->get_parent (Y_AXIS), g);
   return get_maybe_root_vertical_alignment (g->get_parent (Y_AXIS), maybe);
 
@@ -657,8 +657,8 @@ Grob::get_vertical_axis_group (Grob *g)
     return 0;
   if (!g->get_parent (Y_AXIS))
     return 0;
-  if (Axis_group_interface::has_interface (g)
-      && Align_interface::has_interface (g->get_parent (Y_AXIS)))
+  if (has_interface<Axis_group_interface> (g)
+      && has_interface<Align_interface> (g->get_parent (Y_AXIS)))
     return g;
   return get_vertical_axis_group (g->get_parent (Y_AXIS));
 
@@ -965,11 +965,11 @@ robust_relative_extent (Grob *me, Grob *refpoint, Axis a)
 bool
 Grob::check_cross_staff (Grob *commony)
 {
-  if (Align_interface::has_interface (commony))
+  if (has_interface<Align_interface> (commony))
     return true;
 
   for (Grob *g = this; g && g != commony; g = g->get_parent (Y_AXIS))
-    if (Align_interface::has_interface (g))
+    if (has_interface<Align_interface> (g))
       return true;
 
   return false;

@@ -137,7 +137,6 @@ public:
 
   /* interfaces */
   bool internal_has_interface (SCM intf);
-  DECLARE_GROB_INTERFACE ();
 
   /* offsets */
   void translate_axis (Real, Axis);

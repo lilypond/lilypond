@@ -35,7 +35,6 @@ public:
                                  vector<Grob *> *real_acc);
 
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM));
-  DECLARE_GROB_INTERFACE ();
 };
 #endif /* ACCIDENTAL_PLACEMENT_HH */
 

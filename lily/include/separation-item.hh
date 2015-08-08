@@ -27,7 +27,6 @@
 
 struct Separation_item
 {
-  DECLARE_GROB_INTERFACE ();
   DECLARE_SCHEME_CALLBACK (calc_skylines, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
 

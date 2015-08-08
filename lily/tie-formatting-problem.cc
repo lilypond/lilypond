@@ -99,7 +99,7 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item *> bounds,
   for (vsize i = 0; i < bounds.size (); i++)
     {
       Grob *head = bounds[i];
-      if (!Note_head::has_interface (head))
+      if (!has_interface<Note_head> (head))
         continue;
 
       if (!stem)

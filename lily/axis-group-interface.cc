@@ -101,7 +101,7 @@ Axis_group_interface::relative_maybe_bound_group_extent (vector<Grob *> const &e
       Grob *se = elts[i];
       if (!to_boolean (se->get_property ("cross-staff")))
         {
-          Interval dims = (bound && Axis_group_interface::has_interface (se)
+          Interval dims = (bound && has_interface<Axis_group_interface> (se)
                            ? generic_bound_extent (se, common, a)
                            : se->extent (common, a));
           if (!dims.is_empty ())
@@ -330,7 +330,7 @@ Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
      reasonably safe to assume that if our parent is a VerticalAlignment,
      we can assume additivity and cache things nicely. */
   Grob *p = me->get_parent (Y_AXIS);
-  if (p && Align_interface::has_interface (p))
+  if (has_interface<Align_interface> (p))
     return Axis_group_interface::sum_partial_pure_heights (me, start, end);
 
   Grob *common = unsmob<Grob> (me->get_object ("pure-Y-common"));
@@ -344,7 +344,7 @@ Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
       if (rank_span[LEFT] <= end && rank_span[RIGHT] >= start
           && g->pure_is_visible (start, end)
           && !(to_boolean (g->get_property ("cross-staff"))
-               && Stem::has_interface (g)))
+               && has_interface<Stem> (g)))
         {
           Interval dims = g->pure_y_extent (common, start, end);
           if (!dims.is_empty ())
@@ -443,7 +443,7 @@ Axis_group_interface::generic_group_extent (Grob *me, Axis a)
   /* trigger the callback to do skyline-spacing on the children */
   if (a == Y_AXIS)
     for (vsize i = 0; i < elts.size (); i++)
-      if (!(Stem::has_interface (elts[i])
+      if (!(has_interface<Stem> (elts[i])
             && to_boolean (elts[i]->get_property ("cross-staff"))))
         (void) elts[i]->get_property ("vertical-skylines");
 
@@ -535,7 +535,7 @@ Axis_group_interface::calc_pure_y_common (SCM smob)
 
   extract_grob_set (me, "pure-relevant-grobs", elts);
   Grob *common = common_refpoint_of_array (elts, me, Y_AXIS);
-  if (common != me && Align_interface::has_interface (common))
+  if (common != me && has_interface<Align_interface> (common))
     {
       me->programming_error("My pure_y_common is a VerticalAlignment,"
                             " which might contain several staves.");
@@ -599,7 +599,7 @@ Axis_group_interface::get_children (Grob *me, vector<Grob *> *found)
 {
   found->push_back (me);
 
-  if (!Axis_group_interface::has_interface (me))
+  if (!has_interface<Axis_group_interface> (me))
     return;
 
   extract_grob_set (me, "elements", elements);

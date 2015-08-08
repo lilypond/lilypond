@@ -40,7 +40,6 @@ public:
   static void add_element (Grob *, Grob *);
   static int get_count (Grob *, Grob *);
 
-  DECLARE_GROB_INTERFACE ();
 
   static Real get_pure_child_y_translation (Grob *, Grob *child, int start, int end);
 
