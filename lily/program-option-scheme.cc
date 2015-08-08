@@ -31,6 +31,9 @@ using namespace std;
 #include "warn.hh"
 #include "lily-imports.hh"
 
+using std::string;
+using std::vector;
+
 bool debug_skylines;
 bool debug_property_callbacks;
 bool debug_page_breaking_scoring;

@@ -6,6 +6,8 @@
 #include "yaffut.hh"
 #include "config.hh"
 
+using std::string;
+
 TEST (File_path, Find)
 {
   char const *extensions[] = {"ly", "", 0};

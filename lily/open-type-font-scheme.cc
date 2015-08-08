@@ -20,6 +20,8 @@
 #include "modified-font-metric.hh"
 #include "open-type-font.hh"
 
+using std::string;
+
 LY_DEFINE (ly_font_sub_fonts, "ly:font-sub-fonts", 1, 0, 0,
            (SCM font),
            "Given the font metric @var{font} of an OpenType font, return the"

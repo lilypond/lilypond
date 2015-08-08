@@ -31,6 +31,8 @@
 
 #include "translator.icc"
 
+using std::vector;
+
 struct Finger_tuple
 {
   Grob *head_;

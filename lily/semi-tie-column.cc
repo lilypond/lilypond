@@ -29,6 +29,8 @@
 #include "item.hh"
 #include "tie-formatting-problem.hh"
 
+using std::vector;
+
 ADD_INTERFACE (Semi_tie_column,
                "The interface for a column of l.v. (laissez vibrer) ties.",
 

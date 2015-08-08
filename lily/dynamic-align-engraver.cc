@@ -31,6 +31,9 @@
 
 #include "translator.icc"
 
+using std::set;
+using std::vector;
+
 class Dynamic_align_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Dynamic_align_engraver);

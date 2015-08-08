@@ -40,6 +40,9 @@ using namespace std;
 #include "version.hh"
 #include "warn.hh"
 
+using std::string;
+using std::vector;
+
 /* Declaration of log function(s) */
 SCM ly_progress (SCM, SCM);
 

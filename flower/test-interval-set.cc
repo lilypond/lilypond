@@ -22,6 +22,7 @@
 #include "yaffut.hh"
 
 using namespace std;
+using std::vector;
 
 FUNC (interval_set_union)
 {

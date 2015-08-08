@@ -28,6 +28,9 @@
 
 #include "translator.icc"
 
+using std::string;
+using std::vector;
+
 Translator::~Translator ()
 {
 }

@@ -25,6 +25,8 @@
 #include "translator.icc"
 #include "warn.hh"
 
+using std::vector;
+
 class Drum_note_performer : public Performer
 {
 public:

@@ -34,6 +34,8 @@
 #include "stem.hh"
 #include "warn.hh"
 
+using std::vector;
+
 /*
   The reference stem is used to determine on which side of the beam to place
   the tuplet number when it is positioned independently of a bracket.  (The number

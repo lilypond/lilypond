@@ -28,6 +28,9 @@ using namespace std;
 #include "pointer-group-interface.hh"
 #include "paper-column.hh"
 
+using std::map;
+using std::vector;
+
 struct Ledger_line_spanner
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM));

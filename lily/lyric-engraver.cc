@@ -27,6 +27,8 @@
 
 #include "translator.icc"
 
+using std::string;
+
 /**
    Generate texts for lyric syllables.  We only do one lyric at a time.
    Multiple copies of this engraver should be used to do multiple voices.

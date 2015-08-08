@@ -26,6 +26,8 @@
 
 #include <cmath>
 
+using std::string;
+
 Pitch::Pitch (int o, int n, Rational a)
 {
   notename_ = n;

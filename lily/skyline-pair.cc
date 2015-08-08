@@ -22,6 +22,8 @@
 
 #include "international.hh"
 
+using std::vector;
+
 Skyline_pair::Skyline_pair ()
   : skylines_ (Skyline (DOWN), Skyline (UP))
 {

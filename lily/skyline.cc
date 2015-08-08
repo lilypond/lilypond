@@ -22,6 +22,10 @@
 #include <deque>
 #include <cstdio>
 
+using std::deque;
+using std::list;
+using std::vector;
+
 /* A skyline is a sequence of non-overlapping buildings: something like
    this:
                    _______

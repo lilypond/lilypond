@@ -25,6 +25,8 @@
 
 #include "translator.icc"
 
+using std::vector;
+
 class Repeat_tie_engraver : public Engraver
 {
   Stream_event *event_;

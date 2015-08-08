@@ -57,6 +57,9 @@ when this transforms a point (x,y), the point is written as matrix:
 #include "spanner.hh"
 using namespace std;
 
+using std::string;
+using std::vector;
+
 Real QUANTIZATION_UNIT = 0.2;
 
 void create_path_cap (vector<Box> &boxes,

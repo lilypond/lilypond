@@ -31,6 +31,9 @@
 #include "tie.hh"
 #include "warn.hh"
 
+using std::string;
+using std::vector;
+
 Bezier
 avoid_staff_line (Slur_score_state const &state,
                   Bezier bez)

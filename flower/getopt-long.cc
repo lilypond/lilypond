@@ -36,6 +36,8 @@ gettext (char const *s)
 #include <libintl.h>
 #endif
 
+using std::string;
+
 long
 Getopt_long::get_argument_index ()
 {

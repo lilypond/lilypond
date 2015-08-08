@@ -31,6 +31,8 @@
 #include "stream-event.hh"
 #include "warn.hh"
 
+using std::vector;
+
 static Pitch *
 accidental_pitch (Grob *acc)
 {

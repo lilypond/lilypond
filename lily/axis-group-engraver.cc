@@ -29,6 +29,8 @@
 
 #include "translator.icc"
 
+using std::vector;
+
 /**
    Put stuff in a Spanner with an Axis_group_interface.
    Use as last element of a context.

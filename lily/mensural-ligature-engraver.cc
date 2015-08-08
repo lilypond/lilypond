@@ -35,6 +35,8 @@
 
 #include "translator.icc"
 
+using std::vector;
+
 /*
  * TODO: accidentals are aligned with the first note;
  * they must appear ahead.

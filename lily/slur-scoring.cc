@@ -44,6 +44,9 @@
 #include "stem.hh"
 #include "warn.hh"
 
+using std::string;
+using std::vector;
+
 /*
   TODO:
 

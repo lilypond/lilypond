@@ -21,6 +21,7 @@
 #include "source-file.hh"
 #include "std-string.hh"
 
+using std::string;
 
 /* Dummy input location for use if real one is missing.  */
 Input dummy_input_global;

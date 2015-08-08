@@ -26,6 +26,8 @@
 #include "warn.hh"
 #include "misc.hh"
 
+using std::string;
+
 SCM add_interface (char const *cxx_name,
                    char const *descr,
                    char const *vars)

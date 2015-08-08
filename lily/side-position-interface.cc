@@ -48,6 +48,10 @@ using namespace std;
 #include "warn.hh"
 #include "unpure-pure-container.hh"
 
+using std::set;
+using std::string;
+using std::vector;
+
 void
 Side_position_interface::add_support (Grob *me, Grob *e)
 {

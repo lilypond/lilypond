@@ -34,6 +34,8 @@
 
 #include "translator.icc"
 
+using std::vector;
+
 class Stem_engraver : public Engraver
 {
   Grob *stem_;

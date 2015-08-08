@@ -28,6 +28,8 @@
 
 #include "translator.icc"
 
+using std::vector;
+
 /*
  * This class implements an engraver for custos symbols.
  *

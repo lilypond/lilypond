@@ -28,6 +28,8 @@
 
 #include "translator.icc"
 
+using std::vector;
+
 /**
    typeset directions that are  plain text.
 */

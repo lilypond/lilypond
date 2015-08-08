@@ -25,6 +25,8 @@
 
 #include "translator.icc"
 
+using std::vector;
+
 class Collision_engraver : public Engraver
 {
   Item *col_;

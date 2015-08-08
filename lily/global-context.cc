@@ -30,6 +30,8 @@ using namespace std;
 #include "output-def.hh"
 #include "warn.hh"
 
+using std::string;
+
 Global_context::Global_context (Output_def *o)
   : Context ()
 {
