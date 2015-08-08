@@ -41,18 +41,4 @@
     </default>
   </alias>
 
-  <!--
-      Reject bitmap fonts
-      from fontconfig 70-no-bitmaps.conf
-      LilyPond can not use bitmap fonts.
-  -->
-
-  <selectfont>
-    <rejectfont>
-      <pattern>
-	<patelt name="scalable"><bool>false</bool></patelt>
-      </pattern>
-    </rejectfont>
-  </selectfont>
-
 </fontconfig>

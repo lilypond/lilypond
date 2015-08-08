@@ -251,8 +251,8 @@ used.  This is used to select the proper design size for the text fonts.
 ; 'typewriter.
 ;
 ; Note that 'LilyPond Serif', 'LilyPond Sans Serif' and 'Lilypond Monospace'
-; are aliases that are defined in mf/lilypond-fonts.conf.in (source file)
-; or fonts/lilypond-fonts.conf (installed file).
+; are aliases that are defined in mf/00-lilypond-fonts.conf.in (source file)
+; or fonts/00-lilypond-fonts.conf (installed file).
 
 (define*-public (set-global-fonts #:key 
   (music "emmentaler")
