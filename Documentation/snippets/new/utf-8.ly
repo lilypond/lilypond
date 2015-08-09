@@ -24,14 +24,14 @@ You may have to install additional fonts.
 
 Red Hat Fedora
 
-    taipeifonts fonts-xorg-truetype ttfonts-ja fonts-arabic \
-   ttfonts-zh_CN fonts-ja fonts-hebrew
+	linux-libertine-fonts (Latin, Cyrillic, Hebrew)
+	ipa-mincho-fonts ipa-gothic-fonts (Japanese)
 
-Debian GNU/Linux
+Debian GNU/Linux, Ubuntu
 
-   apt-get install emacs-intl-fonts xfonts-intl-.* \
-  ttf-kochi-gothic ttf-kochi-mincho \
-  xfonts-bolkhov-75dpi xfonts-cronyx-100dpi xfonts-cronyx-75dpi
+	fonts-linuxlibertine (Latin, Cyrillic, Hebrew)
+	fonts-ipafont (Japanese)
+
 %}
 
 % Font settings for Cyrillic and Hebrew
