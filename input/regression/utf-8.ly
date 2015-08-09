@@ -29,6 +29,17 @@ will render Bulgarian (Cyrillic), Hebrew, Japanese and Portuguese.
 
 }
 
+% Font settings for Cyrillic and Hebrew
+% Linux Libertine fonts contain Cyrillic and Hebrew glyphs.
+\paper {
+  #(define fonts
+    (set-global-fonts
+     #:roman "Linux Libertine O"
+     #:sans "Linux Biolinum O"
+     #:typewriter "Linux Libertine Mono O"
+   ))
+}
+
 % Cyrillic font
 bulgarian = \lyricmode {
   Жълтата дюля беше щастлива, че пухът, който цъфна, замръзна като гьон.
