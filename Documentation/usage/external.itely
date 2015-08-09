@@ -735,7 +735,7 @@ called
 
 
 @node OpenOffice and LibreOffice
-@subsection OpenOffice and LibreOffic
+@subsection OpenOffice and LibreOffice
 
 @cindex OpenOffice.org
 @cindex LibreOffice.org
@@ -796,7 +796,7 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts -dpixmap-format=pn
 
 @cindex fragments, music
 @cindex quoting, music fragments
-@cindex music fragments, quotin
+@cindex music fragments, quoting
 
 If you need to quote many fragments from a large score, you can also use
 the clip systems feature, see @ruser{Extracting fragments of music}.
