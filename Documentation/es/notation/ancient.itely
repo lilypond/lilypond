@@ -2472,6 +2472,14 @@ sus valores adecuados, de manera que pueda ponerse manos a la obra
 inmediatamente con la introducción del propio canto:
 
 @lilypond[quote,ragged-right,verbatim]
+% Font settings for Cyrillic
+\paper {
+  #(define fonts
+    (set-global-fonts
+     #:roman "Linux Libertine O"
+   ))
+}
+
 \score {
   <<
     \new KievanVoice = "melody" \relative c' {
@@ -2655,6 +2663,14 @@ El ejemplo siguiente muestra el uso de las ligaduras del canto
 kievano:
 
 @lilypond[quote,ragged-right,verbatim]
+% Font settings for Cyrillic
+\paper {
+  #(define fonts
+    (set-global-fonts
+     #:roman "Linux Libertine O"
+   ))
+}
+
 \score {
   <<
     \new KievanVoice = "melody" \relative c' {

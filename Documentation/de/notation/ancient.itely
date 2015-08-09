@@ -2536,6 +2536,14 @@ die benötigten Kontexteigenschaften und Grob-Eigenschaften mit den
 richtigen Werten, sodass man sofort den Choral notieren kann:
 
 @lilypond[quote,ragged-right,verbatim]
+% Font settings for Cyrillic
+\paper {
+  #(define fonts
+    (set-global-fonts
+     #:roman "Linux Libertine O"
+   ))
+}
+
 \score {
   <<
     \new KievanVoice = "melody" \transpose c c' {
