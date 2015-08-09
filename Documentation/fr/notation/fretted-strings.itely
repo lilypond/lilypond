@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
+   Translation of GIT committish: a5b7cd343ce48d2e6f8e3f0e13881d2525209d98
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1034,20 +1034,22 @@ dans le diagramme d'accord.
 Les indications de doigté et de barré peuvent être décrites dans
 l'interface @code{fret-diagram-verbose}.  Particularité propre à
 l'interface @code{fret-diagram-verbose} : l'indication de capodastre
-dans le diagramme d'accord.  L'indication de capodastre est une petite
-ligne transversale aux cordes.  La case avec le capodastre est la case
-la plus basse du diagramme d'accord.
+dans le diagramme d'accord. L'indication de capodastre est une petite
+ligne transversale aux cordes. La case avec le capodastre est la case la
+plus basse du diagramme d'accord.
 
 Les points d'indication de doigté peuvent se colorier ou être mis
 entre parenthèses ; la couleur des parenthèses est indépendante de
 celle du point.
+
+Des @emph{markups} peuvent par ailleurs venir s'insérer dans les points.
 
 @c \override is necessary to make fingering visible
 @lilypond[quote, verbatim]
 <<
     \new ChordNames {
       \chordmode {
-        f1 g c c
+        f1 g c c b
       }
     }
   \new Staff {
@@ -1083,7 +1085,7 @@ celle du point.
         (place-fret 2 5 3)
       )
     }
-    \override Voice.TextScript.size = 1.5
+    \override Voice.TextScript.size = 1.4
     <c g c' e' g'>1^\markup {
       \fret-diagram-verbose #'(
         (place-fret 6 3 1 red parenthesized default-paren-color)
@@ -1092,6 +1094,24 @@ celle du point.
         (place-fret 3 5 3 blue)
         (place-fret 2 5 4 blue)
         (place-fret 1 3 1 inverted)
+      )
+    }
+    \override Voice.TextScript.size = 1.5
+    <b, fis b dis' fis'>1^\markup {
+      \override #'(fret-diagram-details . ((finger-code . in-dot)))
+      \fret-diagram-verbose #`(
+        (place-fret 5 2 1)
+        (place-fret 4 4 "fis" red)
+        (place-fret 3 4 "b" red)
+        (place-fret
+          2 4
+          ,#{ \markup
+                \concat {
+                  \vcenter "d"
+                  \fontsize #-5
+                  \musicglyph #"accidentals.sharp"} #}
+          red)
+        (place-fret 1 2 1)
       )
     }
   }

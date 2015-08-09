@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: f7a3d8cf31367398a1955c50d3c42216d8940989
+   Translation of GIT committish: a5b7cd343ce48d2e6f8e3f0e13881d2525209d98
 
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  For details, see the Contributors'
+   Guide, node Updating translation committishes..
 @end ignore
 
 @c \version "2.19.24"
@@ -1395,18 +1395,23 @@ desaturate =
 La manière la plus souple d'affiner un objet consiste à utiliser la
 commande @code{\applyOutput}.  Celle-ci va insérer un événement
 (@rinternals{ApplyOutputEvent}) dans le contexte spécifié.  Elle répond
-à la syntaxe
+aussi bien à la syntaxe
 @example
 \applyOutput @var{Contexte} @var{procédure}
+@end example
+que
+@example
+\applyOutput @var{Contexte}.@var{Grob} @var{procédure}
 @end example
 
 @noindent
 où @code{@var{procédure}} est une fonction Scheme à trois arguments.
 
 Lors de l'interprétation de cette commande, la fonction
-@code{@var{procédure}} est appelée pout tout objet de rendu appartenant
-au contexte @code{@var{Contexte}} à cet instant précis, avec les
-arguments suivants :
+@code{@var{procédure}} est appelée pout tout objet de rendu (nommé
+@var{Grob} si celui-ci est spécifié) appartenant au contexte
+@code{@var{Contexte}} à cet instant précis, avec les arguments
+suivants :
 @itemize
 @item l'objet de rendu en lui-même,
 @item le contexte au sein duquel cet objet est créé,
@@ -1424,22 +1429,20 @@ sur la ligne médiane ou bien directement à son contact.
 
 @lilypond[quote,verbatim,ragged-right]
 #(define (blanker grob grob-origin context)
-   (if (and (memq 'note-head-interface (ly:grob-interfaces grob))
-            (< (abs (ly:grob-property grob 'staff-position)) 2))
+   (if (< (abs (ly:grob-property grob 'staff-position)) 2)
        (set! (ly:grob-property grob 'transparent) #t)))
 
 \relative {
-  a'4 e8 <<\applyOutput Voice #blanker a c d>> b2
+  a'4 e8 <<\applyOutput Voice.NoteHead #blanker a c d>> b2
 }
 @end lilypond
 
-La @var{procédure} sera interprétée au niveau @code{Score}
-(partition) ou @code{Staff} (portée) dès lors que vous utiliserez l'une
-des syntaxes
+La @var{procédure} sera interprétée au niveau @code{Score} (partition)
+ou @code{Staff} (portée) dès lors que vous utiliserez l'une des syntaxes
 
 @example
-\applyOutput Score #@var{procédure}
-\applyOutput Staff #@var{procédure}
+\applyOutput Score@dots{}
+\applyOutput Staff@dots{}
 @end example
 
 

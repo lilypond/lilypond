@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
+   Translation of GIT committish: a5b7cd343ce48d2e6f8e3f0e13881d2525209d98
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -669,9 +669,9 @@ imprimée, ayant pour syntaxe
 @code{@var{hauteur_référence}} étant spécifiée en mode absolu.  Cette
 commande vérifie que l'intervalle entre la note qui précède et
 @code{@var{hauteur_référence}} est inférieur à la quinte comme il se
-doit en mode relatif.  Dans le cas contraire, un message sera émis et la
-note précédente ne sera pas modifiée.  Les notes suivantes seront, par
-contre, positionnées relativement à @code{@var{hauteur_référence}}.
+doit en mode relatif.  Dans le cas contraire, un message sera émis.
+Bien que la note précédente ne sera pas modifiée,  les notes suivantes
+seront positionnées relativement à la valeur corrigée.
 
 @lilypond[verbatim,quote]
 \relative {

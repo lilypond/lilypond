@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d084673892e96cf36b6511e3b6e9a30c407fbd42
+   Translation of GIT committish: a5b7cd343ce48d2e6f8e3f0e13881d2525209d98
 
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  For details, see the Contributors'
+   Guide, node Updating translation committishes..
 @end ignore
 
 @c \version "2.19.21"
@@ -148,16 +148,17 @@ En ce qui concerne l'environnement GNOME 2 et les lecteur de PDF
 associés, la succession de commandes suivante permet de régler le
 système pour la gestion des URI par @samp{textedit:}
 
-@example
+@smallexample
 gconftool-2 -t string -s /desktop/gnome/url-handlers/textedit/command "lilypond-invoke-editor %s"
 gconftool-2 -s /desktop/gnome/url-handlers/textedit/needs_terminal false -t bool
 gconftool-2 -t bool -s /desktop/gnome/url-handlers/textedit/enabled true
-@end example
+@end smallexample
 
 Après ces invocations,
 @example
 gnome-open textedit:///etc/issue:1:0:0
 @end example
+
 @noindent
 devrait appeler @file{lilypond-invoke-editor} pour ouvrir les fichiers.
 
@@ -221,8 +222,8 @@ suivantes :
 # Pour les liens Textedit
 /usr/local/bin/lilypond-invoke-editor Cx -> sanitized_helper,
 @end example
-@noindent
 
+@noindent
 puis lancer la commande
 
 @example
@@ -408,8 +409,8 @@ propre répertoire (par exemple @file{~/site-lisp/}) à votre
 En ce qui concerne @uref{http://@/www@/.vim@/.org,Vim}, LilyPond fournit
 tout le nécessaire pour gérer la coloration syntaxique et l'indentation.
 Le mode spécifique à Vim doit être indiqué dans le fichier
-@file{$HOME/.vimrc}.  Localisez ce fichier, ou créez-le, et
-ajoutez-y les trois lignes suivantes :
+@file{$HOME/.vimrc}.  Localisez ce fichier, ou créez-le, et ajoutez-y
+les trois lignes suivantes :
 
 @example
 filetype off
@@ -568,11 +569,10 @@ ajoutez une indication de phrasé ou de pédale.
 dialecte XML pour représenter la notation musicale.
 
 @command{musicxml2ly} extrait, à partir d'un fichier MusicXML, les
-notes, articulations, structure de la partition, paroles, etc.
-et les écrit dans un fichier @file{.ly}.  Il se lance en ligne de
-commande.
+notes, articulations, structure de la partition, paroles, etc. et les
+écrit dans un fichier @file{.ly}.  Il se lance ainsi en ligne de
+commande :
 
-Pour le lancer en ligne de commande, procédez ainsi :
 @example
 musicxml2ly [@var{option}]@dots{} @var{fichier-xml}
 @end example
@@ -650,9 +650,8 @@ description est disponible sur le
 @uref{http://@/www@/.walshaw@/.plus@/.com/@/abc/@/learn@/.html,site
 d'ABC}.
 
-@command{abc2ly} traduit du format ABC au format LilyPond.
-
-Pour le lancer en ligne de commande, procédez ainsi :
+@command{abc2ly} traduit du format ABC au format LilyPond.  Pour le
+lancer en ligne de commande, procédez ainsi :
 
 @example
 abc2ly [@var{option}]@dots{} @var{fichier-abc}
@@ -696,9 +695,7 @@ De la même manière,
 placera le texte suivant le mot-clé « slyrics » dans une ligne de
 paroles.
 
-
 @knownissues
-
 Le standard ABC n'est pas si « standard » que cela.  Pour des
 fonctionnalités étendues, comme la polyphonie, existent différentes
 conventions.
@@ -718,6 +715,7 @@ ne le fait pas.
 @warning{Ce programme ne bénéficie d'aucune maintenance.  Il est
 susceptible d'être supprimé des versions futures de LilyPond.}
 
+@cindex Enigma Transport Format
 @cindex ETF
 @cindex enigma
 @cindex Finale
@@ -776,44 +774,49 @@ et musique, en laissant de côté l'automatisation grâce à
 @command{lilypond-book}.
 
 @menu
-* Extraction de plusieurs fragments d'une grande partition::
-* Insertion du résultat de LilyPond dans OpenOffice et LibreOffice::
-* Insertion du résultat de LilyPond dans d'autres programmes::
+* LuaTex::
+* OpenOffice et LibreOffice::
+* Autres programmes::
 @end menu
 
 
-@node Extraction de plusieurs fragments d'une grande partition
-@unnumberedsubsec Extraction de plusieurs fragments d'une grande partition
-@translationof Many quotes from a large score
+@node LuaTex
+@subsection LuaTex
+@translationof LuaTex
 
-Si d'aventure vous deviez recopier un certain nombre d'extraits d'une
-même partition, vous pouvez recourir à @qq{l'emporte pièce} -- la
-fonction @emph{clip systems} -- comme indiqué au chapitre
-@ruser{Extraction de fragments musicaux}.
+@cindex LuaTex
+@cindex lyluatex
+
+Tout comme avec @code{lilypond-book}, les utilisateurs de LuaTex peuvent
+intégrer le résultat de LilyPond dans leurs documents à l'aide de
+l'extension
+@uref{https://github.com/jperon/lyluatex/blob/master/README.md,lyluatex}.
 
 
-@node Insertion du résultat de LilyPond dans OpenOffice et LibreOffice
-@unnumberedsubsec Insertion du résultat de LilyPond dans OpenOffice et LibreOffice
-@translationof Inserting LilyPond output into OpenOffice and LibreOffice
+@node OpenOffice et LibreOffice
+@unnumberedsubsec OpenOffice et LibreOffice
+@translationof OpenOffice and LibreOffice
 
 @cindex OpenOffice.org
 @cindex LibreOffice.org
+@cindex OOoLilyPond
 
 @uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond} permet
 d'insérer directement des partitions LilyPond dans OpenOffice ou
-LibreOffice.
+LibreOffice.  Bien que son développement soit suspendu, cette extension
+est opérationnelle avec la version 4 des deux suites.
 
 
-@node Insertion du résultat de LilyPond dans d'autres programmes
-@unnumberedsubsec Insertion du résultat de LilyPond dans d'autres programmes
-@translationof Inserting LilyPond output into other programs
+@node Autres programmes
+@unnumberedsubsec Autres programmes
+@translationof Other programs
 
-Dans le cas où vous cherchez à insérer le résultat de LilyPond dans
-d'autres programmes, utilisez @command{lilypond} plutôt que
-@command{lilypond-book}.  Chaque extrait devra être généré séparément
-avant d'être inséré dans votre document.  De très nombreux programmes
-sont capables de contenir le résultat de LilyPond, que ce soit au format
-@file{PNG}, @file{EPS} ou @file{PDF}.
+Pour les nombreux programmes qui sont capables de contenir des images,
+que ce soit au format @file{PNG}, @file{EPS} ou @file{PDF}, mieux vaut
+utiliser @command{lilypond} que @command{lilypond-book}.  Chaque extrait
+devra être généré séparément avant d'être inséré dans votre document.
+Consultez la documentation du logiciel en question quant à l'insertion
+de fichiers provenant d'autres sources.
 
 Les options suivantes vous permettront de réduire notablement les
 contours de l'image LilyPond :
@@ -828,36 +831,48 @@ contours de l'image LilyPond :
   scoreTitleMarkup = ##f
 @}
 
-@{ c1 @}
+@var{@dots{} musique @dots{}}
 @end example
 
-En procédant comme ci-après, vous obtiendrez des fichiers images :
+@noindent
+En procédant comme ci-après, vous obtiendrez des images @file{EPS} :
 
 @example
-EPS
-
 lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts monfichier.ly
-
-PNG
-
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png monfichier.ly
-
-PNG avec transparence
-
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts \
-  -dpixmap-format=pngalpha --png monfichier.ly
 @end example
+
+@noindent
+des images @file{PNG} :
+
+@example
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png monfichier.ly
+@end example
+
+@noindent
+ou bien des images @file{PNG} avec transparence :
+
+@smallexample
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts -dpixmap-format=pngalpha --png myfile.ly
+@end smallexample
+
+@cindex fragments musicaux
+@cindex recopie d'extraits
+@cindex extraits, recopie
+
+Si d'aventure vous deviez recopier un certain nombre d'extraits d'une
+même partition, vous pouvez recourir à « l'emporte pièce » -- la
+fonction @emph{clip systems} -- comme indiqué au chapitre
+@ruser{Extraction de fragments musicaux}.
 
 
 @node Inclusion du travail des autres
 @section Inclusion du travail des autres
 @translationof Independent includes
 
-Certains ont écrit des lignes et des lignes de code -- souvent bien
-utiles -- qui peuvent servir à différents projets.  En attendant le jour
-où elles pourraient faire partie intégrante de LilyPond, vous pouvez
-toujours les télécharger et les utiliser avec la commande
-@code{\include}.
+Certains utilisateurs ont, pour obtenir des effets particuliers, écrit
+des fichiers qu'il est toujours possible d'intégrer à LilyPond avec
+l'instruction @code{\include}.  Plusieurs sont même désormais inclus
+dans le programme.  Voir aussi @ruser{Travail sur des fichiers texte}.
 
 @menu
 * MIDI et articulations::
@@ -868,27 +883,13 @@ toujours les télécharger et les utiliser avec la commande
 @subsection MIDI et articulations
 @translationof MIDI articulation
 
-LilyPond sait produire des fichiers MIDI, principalement dans le but de
-« contrôle qualité » -- heureux détenteurs d'une oreille absolue -- de
-ce qui a été saisi.  Ne seront toutefois reproduits, en plus des notes
-et durées, que les nuances et tempos explicites.
+@cindex MIDI
+@cindex le projet @emph{Articulate}
 
-Le projet @emph{articulate} (site en anglais) s'est donné pour objectif
-de reproduire plus d'informations dans le MIDI.  Les notes qui ne sont
-pas liées sont ainsi raccourcies dans le but « d'articuler ».  Ce
-raccourcissement dépend de l'articulation appliquée à la note : un
-@emph{staccato} raccourcira la note de moitié, un @emph{tenuto} lui
-gardera sa durée entière@dots{}  Ce script réalise aussi les trilles et
-@emph{grupettos} et compte bien traiter d'autres ornements tels que les
-mordants.
-
-@example
-@uref{http://@/www@/.nicta@/.com@/.au/@/people/@/chubbp/@/articulate}
-@end example
-@noindent
-
-@knownissues
-
-Ce projet ne peut traiter que ce qu'il connaît : tout ce qui peut
-ressembler à un @emph{markup} -- et donc pas à la propriété d'une note
--- sera ignoré.
+Le projet @uref{http://www.nicta.com.au/people/chubbp/articulate,
+@emph{articulate}} (site en anglais) s'est donné pour objectif
+d'améliorer la sortie MIDI de LilyPond.  Les notes qui ne sont pas liées
+sont ainsi raccourcies dans le but « d'articuler ».  Ce raccourcissement
+dépend de l'articulation appliquée à la note : un @emph{staccato}
+raccourcira la note de moitié, un @emph{tenuto} lui gardera sa durée
+entière…  Voir @ruser{Amélioration du rendu MIDI}.

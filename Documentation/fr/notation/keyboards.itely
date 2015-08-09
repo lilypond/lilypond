@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
+   Translation of GIT committish: a5b7cd343ce48d2e6f8e3f0e13881d2525209d98
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.25"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
@@ -317,6 +317,22 @@ qui les suivront. Ainsi :
     d'4 r a g
   }
 }
+@end lilypond
+
+@noindent
+Il est tout à fait possible de déterminer une autre hauteur charnière.
+Dès lors qu'aucune portée n'a été spécifiquement instanciée, d'autres
+clefs peuvent être utilisées.
+
+@lilypond[quote,verbatim]
+music = {
+  g8 b a c' b8 d' c'8 e'
+  d'8 r f' g' a'2
+}
+
+\autochange d' \music
+\autochange b \with { \clef soprano } \music
+\autochange d' \with { \clef alto } \with { \clef tenor } \music
 @end lilypond
 
 @cindex mode relatif et autochange

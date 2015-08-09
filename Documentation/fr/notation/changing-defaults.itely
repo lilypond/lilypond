@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d2ea58ea9cfccb38dd495cca4a04757a7474fc5e
+   Translation of GIT committish: a5b7cd343ce48d2e6f8e3f0e13881d2525209d98
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -5089,6 +5089,39 @@ custosNote =
      \tweak Stem.stencil ##f
      #note
    #})
+
+\relative { c'4 d e f \custosNote g }
+@end lilypond
+
+@funindex \etc
+
+Ces fonctions sont toutes deux des expressions uniques simples dans
+lesquelles seul le dernier élément d'un appel à une fonction ou une
+dérogation est absent.  Dans ce cas particulier de définition d'une
+fonction, une syntaxe alternative et plus simple autorise à se cantonner
+à écrire la partie constant de l'expression et remplacer son dernier
+élément, absent, par @code{\etc} :
+
+@lilypond[quote,verbatim,ragged-right]
+padText =
+  \once \override TextScript.padding = \etc
+
+\relative {
+  c''4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" b a b
+  \padText #2.6
+  c4^"piu mosso" b a b
+}
+@end lilypond
+
+@lilypond[quote,verbatim,ragged-right]
+custosNote =
+  \tweak NoteHead.stencil #ly:text-interface::print
+  \tweak NoteHead.text
+     \markup \musicglyph #"custodes.mensural.u0"
+  \tweak Stem.stencil ##f
+  \etc
 
 \relative { c'4 d e f \custosNote g }
 @end lilypond

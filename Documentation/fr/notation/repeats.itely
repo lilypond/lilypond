@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
+   Translation of GIT committish: a5b7cd343ce48d2e6f8e3f0e13881d2525209d98
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -778,6 +778,28 @@ Référence des propriétés internes :
 @rinternals{PercentRepeatedMusic}.
 @rinternals{Double_percent_repeat_engraver},
 @rinternals{Slash_repeat_engraver}.
+
+@knownissues
+Les répétitions en pourcent ne peuvent contenir rien d'autre que
+le signe pourcent lui-même ; en particulier, les changements de
+métrique ne seront pas répété.
+
+@lilypond[quote,verbatim,relative=2]
+\repeat percent 3 { \time 5/4 c2. 2 \time 4/4 2 2 }
+@end lilypond
+
+@noindent
+Tout changement de métrique ou insertion d'une commande @code{\partial}
+devra impérativement se traîter sous forme de construction parallèle,
+@b{en dehors} de la répétition en pourcentage :
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  \repeat percent 3 { c2. 2 2 2 }
+  \repeat unfold 3 { \time 5/4 s4*5 \time 4/4 s1 }
+>>
+@end lilypond
+
 
 
 @node Répétitions en trémolo
