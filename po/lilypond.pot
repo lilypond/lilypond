@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.24\n"
+"Project-Id-Version: lilypond 2.19.25\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2015-07-26 11:43+0100\n"
+"POT-Creation-Date: 2015-08-09 12:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -889,41 +889,41 @@ msgstr ""
 msgid "Unable to find instrument for ID=%s\n"
 msgstr ""
 
-#: abc2ly.py:1386 convert-ly.py:85 lilypond-book.py:122 midi2ly.py:1044
+#: abc2ly.py:1389 convert-ly.py:85 lilypond-book.py:122 midi2ly.py:1044
 #, python-format
 msgid "%s [OPTION]... FILE"
 msgstr ""
 
-#: abc2ly.py:1387
+#: abc2ly.py:1390
 #, python-format
 msgid ""
 "abc2ly converts ABC music files (see\n"
 "%s) to LilyPond input.\n"
 msgstr ""
 
-#: abc2ly.py:1395 convert-ly.py:92 etf2ly.py:1208 lilypond-book.py:231
+#: abc2ly.py:1398 convert-ly.py:92 etf2ly.py:1208 lilypond-book.py:231
 #: midi2ly.py:1095 musicxml2ly.py:2590 main.cc:184
 msgid "show version number and exit"
 msgstr ""
 
-#: abc2ly.py:1398 convert-ly.py:96 etf2ly.py:1204 lilypond-book.py:140
+#: abc2ly.py:1401 convert-ly.py:96 etf2ly.py:1204 lilypond-book.py:140
 #: midi2ly.py:1062 musicxml2ly.py:2572 main.cc:163
 msgid "show this help and exit"
 msgstr ""
 
-#: abc2ly.py:1401 etf2ly.py:1209 midi2ly.py:1071
+#: abc2ly.py:1404 etf2ly.py:1209 midi2ly.py:1071
 msgid "write output to FILE"
 msgstr ""
 
-#: abc2ly.py:1404
+#: abc2ly.py:1407
 msgid "be strict about success"
 msgstr ""
 
-#: abc2ly.py:1407
+#: abc2ly.py:1410
 msgid "preserve ABC's notion of beams"
 msgstr ""
 
-#: abc2ly.py:1410
+#: abc2ly.py:1413
 msgid "suppress progress messages"
 msgstr ""
 
@@ -931,7 +931,7 @@ msgstr ""
 #. "Report bugs in English via %s",
 #. or if there is a LilyPond users list or forum in your language
 #. "Report bugs in English via %s or in YOUR_LANG via URI"
-#: abc2ly.py:1413 convert-ly.py:157 etf2ly.py:1218 lilypond-book.py:258
+#: abc2ly.py:1416 convert-ly.py:157 etf2ly.py:1218 lilypond-book.py:258
 #: midi2ly.py:1107 musicxml2ly.py:2674 main.cc:318
 #, c-format, python-format
 msgid "Report bugs via %s"
@@ -2136,6 +2136,11 @@ msgstr ""
 msgid "%s:EOF"
 msgstr ""
 
+#: lily-modules.cc:81
+#, c-format
+msgid "Uninitialized variable `%s' in module (%s)"
+msgstr ""
+
 #: lily-parser-scheme.cc:80
 #, c-format
 msgid "Changing working directory to: `%s'"
@@ -3098,115 +3103,115 @@ msgstr ""
 msgid "giving up"
 msgstr ""
 
-#: parser.yy:476 parser.yy:907 parser.yy:988 parser.yy:1208
+#: parser.yy:476 parser.yy:947 parser.yy:1028 parser.yy:1248
 msgid "bad expression type"
 msgstr ""
 
-#: parser.yy:819 parser.yy:1418 parser.yy:1463
+#: parser.yy:859 parser.yy:1458 parser.yy:1503
 msgid "not a context mod"
 msgstr ""
 
-#: parser.yy:1014
+#: parser.yy:1054
 msgid "Missing music in \\score"
 msgstr ""
 
-#: parser.yy:1051
+#: parser.yy:1091
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
 
-#: parser.yy:1086
+#: parser.yy:1126
 msgid "Spurious expression in \\score"
 msgstr ""
 
-#: parser.yy:1116
+#: parser.yy:1156
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1291
+#: parser.yy:1331
 msgid "music expected"
 msgstr ""
 
-#: parser.yy:1301 parser.yy:1335
+#: parser.yy:1341 parser.yy:1375
 msgid "unexpected post-event"
 msgstr ""
 
-#: parser.yy:1343
+#: parser.yy:1383
 msgid "Ignoring non-music expression"
 msgstr ""
 
-#: parser.yy:1643
+#: parser.yy:1691
 msgid "not a symbol"
 msgstr ""
 
-#: parser.yy:2443 parser.yy:2557 parser.yy:2570 parser.yy:2579
+#: parser.yy:2491 parser.yy:2605 parser.yy:2618 parser.yy:2627
 msgid "bad grob property path"
 msgstr ""
 
-#: parser.yy:2537
+#: parser.yy:2585
 msgid "only \\consists and \\remove take non-string argument."
 msgstr ""
 
-#: parser.yy:2598
+#: parser.yy:2646
 msgid "bad context property path"
 msgstr ""
 
-#: parser.yy:2694
+#: parser.yy:2733
 msgid "simple string expected"
 msgstr ""
 
-#: parser.yy:2711
+#: parser.yy:2750
 msgid "symbol expected"
 msgstr ""
 
-#: parser.yy:2847
+#: parser.yy:2886
 msgid "not a rhythmic event"
 msgstr ""
 
-#: parser.yy:2897
+#: parser.yy:2936
 msgid "post-event expected"
 msgstr ""
 
-#: parser.yy:2906 parser.yy:2911
+#: parser.yy:2945 parser.yy:2950
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:2987
+#: parser.yy:3026
 msgid "expecting string or post-event as script definition"
 msgstr ""
 
-#: parser.yy:3091
+#: parser.yy:3130
 msgid "not an articulation"
 msgstr ""
 
-#: parser.yy:3163 parser.yy:3206
+#: parser.yy:3202 parser.yy:3245
 msgid "not a duration"
 msgstr ""
 
-#: parser.yy:3227
+#: parser.yy:3266
 msgid "bass number expected"
 msgstr ""
 
-#: parser.yy:3319
+#: parser.yy:3358
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:3358
+#: parser.yy:3397
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:3401
+#: parser.yy:3440
 msgid "markup outside of text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3406
+#: parser.yy:3445
 msgid "unrecognized string, not in text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3558 parser.yy:3567
+#: parser.yy:3597 parser.yy:3606
 msgid "not an unsigned integer"
 msgstr ""
 
-#: parser.yy:3654
+#: parser.yy:3693
 msgid "not a markup"
 msgstr ""
 
@@ -3448,16 +3453,16 @@ msgstr ""
 msgid "bad make-music argument: ~S"
 msgstr ""
 
-#: define-note-names.scm:972
+#: define-note-names.scm:1000
 msgid "Select note names language."
 msgstr ""
 
-#: define-note-names.scm:978
+#: define-note-names.scm:1006
 #, scheme-format
 msgid "Using `~a' note names..."
 msgstr ""
 
-#: define-note-names.scm:981
+#: define-note-names.scm:1009
 #, scheme-format
 msgid "Could not find language `~a'.  Ignoring."
 msgstr ""
@@ -3563,32 +3568,32 @@ msgstr ""
 msgid "Error in beam quanting.  Expected ~S 0, found ~S."
 msgstr ""
 
-#: lily-library.scm:344
+#: lily-library.scm:333
 msgid "Music unsuitable for context-mod"
 msgstr ""
 
-#: lily-library.scm:399
+#: lily-library.scm:388
 #, scheme-format
 msgid "Cannot find context-def \\~a"
 msgstr ""
 
-#: lily-library.scm:415
+#: lily-library.scm:404
 msgid "Music unsuitable for output-def"
 msgstr ""
 
-#: lily-library.scm:915
+#: lily-library.scm:904
 msgid ""
 "Find the index between @var{start} and @var{end} (an integer)\n"
 "which produces the closest match to @var{target-val} if\n"
 "applied to function @var{getter}."
 msgstr ""
 
-#: lily-library.scm:1009
+#: lily-library.scm:998
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr ""
 
-#: lily-library.scm:1034
+#: lily-library.scm:1023
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
@@ -3657,11 +3662,6 @@ msgstr ""
 #: ly-syntax-constructors.scm:60
 #, scheme-format
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
-msgstr ""
-
-#: ly-syntax-constructors.scm:229
-#, scheme-format
-msgid "Invalid property operation ~a"
 msgstr ""
 
 #: markup-macros.scm:331
@@ -3759,16 +3759,16 @@ msgstr ""
 msgid "unknown accidental style: ~S"
 msgstr ""
 
-#: music-functions.scm:2069
+#: music-functions.scm:2070
 msgid "Missing duration"
 msgstr ""
 
-#: music-functions.scm:2578
+#: music-functions.scm:2598
 #, scheme-format
 msgid "not a symbol list: ~a"
 msgstr ""
 
-#: music-functions.scm:2581
+#: music-functions.scm:2601
 #, scheme-format
 msgid "conflicting tag group ~a"
 msgstr ""
