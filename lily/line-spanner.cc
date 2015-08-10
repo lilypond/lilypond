@@ -168,7 +168,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
                 VerticalAxisGroup of a staff) that extends over the break.
               */
               Spanner *next_bound_parent_on_this_line
-                = next_bound_parent->broken_neighbor (other_dir (dir));
+                = next_bound_parent->broken_neighbor (-dir);
 
               if (next_bound_parent_on_this_line)
                 {

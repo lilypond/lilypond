@@ -49,26 +49,9 @@ enum Direction
 };
 
 inline Direction
-other_dir (Direction const d)
+operator - (Direction d)
 {
-  return (Direction) (-d);
-}
-
-inline Direction
-operator - (Direction const d)
-{
-  return other_dir (d);
-}
-
-// to be deleted soon (after coping with issues 2491 and 2493
-inline Direction
-flip (Direction *i)
-{
-  if (*i == (Direction)1)
-    *i = (Direction) - 1;
-  else if (*i == (Direction) - 1)
-    *i = (Direction)1;
-  return *i;
+  return Direction (- static_cast<int> (d)); // cast avoids recursion
 }
 
 #define UP_and_DOWN(d) \
@@ -91,7 +74,5 @@ template<class T> T minmax (Direction d, T a, T b)
   else
     return min (a, b);
 }
-
-// String direction_string (Direction, Axis);
 
 #endif // DIRECTION_HH
