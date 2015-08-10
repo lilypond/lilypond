@@ -50,6 +50,8 @@ COUR_OTFS = $(addprefix $(outdir)/,NimbusMonL-ReguObli.otf \
 				   NimbusMonL-Regu.otf \
 				   NimbusMonL-Bold.otf)
 
+TEXGYRE_OTFS = $(addprefix $(TEXGYRE_DIR)/,$(TEXGYRE_FILES))
+
 LILYPOND_FONTS_CONF = $(outdir)/00-lilypond-fonts.conf \
 		      $(outdir)/99-lilypond-fonts.conf
 
@@ -103,7 +105,7 @@ INSTALLATION_OUT_SUFFIXES = 1 2 3
 
 INSTALLATION_OUT_DIR1 = $(local_lilypond_datadir)/fonts/otf
 INSTALLATION_OUT_FILES1 = $(OTF_FILES) \
-			  $(NCSB_OTFS) $(HELV_OTFS) $(COUR_OTFS)
+			  $(NCSB_OTFS) $(HELV_OTFS) $(COUR_OTFS) $(TEXGYRE_OTFS)
 
 INSTALLATION_OUT_DIR2 = $(local_lilypond_datadir)/fonts/svg
 INSTALLATION_OUT_FILES2 = $(SVG_FILES) $(WOFF_FILES)
