@@ -268,9 +268,36 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
     return Line_interface::make_line (blotdiameter, points[0], points[1]);
 
   /* shrink polygon in size by 0.5 * blotdiameter */
+
+  // first we need to determine the orientation of the polygon in
+  // order to decide whether shrinking means moving the polygon to the
+  // left or to the right of the outline.  We do that by calculating
+  // (double) the oriented area of the polygon.  We first determine the
+  // center and do the area calculations relative to it.
+  // Mathematically, the result is not affected by this shift, but
+  // numerically a lot of cancellation is going on and this keeps its
+  // effects in check.
+
+  Offset center;
+  for (vsize i = 0; i < points.size (); i++)
+    center += points[i];
+  center /= points.size ();
+
+  Real area = 0.0;
+  Offset last = points.back () - center;
+
+  for (vsize i = 0; i < points.size (); i++)
+    {
+      Offset here = points[i] - center;
+      area += cross_product (last, here);
+      last = here;
+    }
+
+  bool ccw = area >= 0.0;  // true if whole shape is counterclockwise oriented
+
   vector<Offset> shrunk_points;
   shrunk_points.resize (points.size ());
-  bool ccw = 1; // true, if three adjacent points are counterclockwise ordered
+
   for (vsize i = 0; i < points.size (); i++)
     {
       int i0 = i;
@@ -279,39 +306,43 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
       Offset p0 = points[i0];
       Offset p1 = points[i1];
       Offset p2 = points[i2];
-      Offset p10 = p0 - p1;
+      Offset p01 = p1 - p0;
       Offset p12 = p2 - p1;
-      if (p10.length () != 0.0)
-        {
-          // recompute ccw
-          Real phi = p10.arg ();
-          // rotate (p2 - p0) by (-phi)
-          Offset q = complex_multiply (p2 - p0, complex_exp (Offset (1.0, -phi)));
+      Offset inward0 = Offset(-p01[Y_AXIS], p01[X_AXIS]).direction ();
+      Offset inward2 = Offset(-p12[Y_AXIS], p12[X_AXIS]).direction ();
 
-          if (q[Y_AXIS] > 0)
-            ccw = 1;
-          else if (q[Y_AXIS] < 0)
-            ccw = 0;
-          else {} // keep ccw unchanged
-        }
-      else {} // keep ccw unchanged
-      Offset p10n = (1.0 / p10.length ()) * p10; // normalize length to 1.0
-      Offset p12n = (1.0 / p12.length ()) * p12;
-      Offset p13n = 0.5 * (p10n + p12n);
-      Offset p14n = 0.5 * (p10n - p12n);
-      Offset p13;
-      Real d = p13n.length () * p14n.length (); // distance p3n to line (p1..p0)
-      if (d < epsilon)
-        // special case: p0, p1, p2 are on a single line => build
-        // vector orthogonal to (p2-p0) of length 0.5 blotdiameter
+      if (!ccw)
         {
-          p13[X_AXIS] = p10[Y_AXIS];
-          p13[Y_AXIS] = -p10[X_AXIS];
-          p13 = (0.5 * blotdiameter / p13.length ()) * p13;
+          inward0 = -inward0;
+          inward2 = -inward2;
         }
-      else
-        p13 = (0.5 * blotdiameter / d) * p13n;
-      shrunk_points[i1] = p1 + ((ccw) ? p13 : -p13);
+
+      Offset middle = 0.5*(inward0 + inward2);
+
+      // "middle" now is a vector in the right direction for the
+      // shrinkage.  Its size needs to be large enough that the
+      // projection on either of the inward vectors has a size of 1.
+
+      Real proj = dot_product (middle, inward0);
+
+      // What's the size of proj?  Assuming that we have a corner
+      // angle of phi where 0 corresponds to a continuing line, the
+      // length of middle is 0.5 |(1+cos phi, sin phi)| = cos (phi/2),
+      // so its projection has length
+      // cos^2 (phi/2) = 0.5 + 0.5 cos (phi).
+      // We don't really want to move inwards more than 3 blob
+      // diameters corresponding to 6 blob radii.  So
+      // cos (phi/2) = 1/6 gives phi ~ 161, meaning that a 20 degree
+      // corner necessitates moving 3 blob diameters from the corner
+      // in order to stay inside the lines.  Ruler and circle agree.
+      // 0.03 is close enough to 1/36.  Basically we want to keep the
+      // shape from inverting from pulling too far inward.
+      // 3 diameters is pretty much a handwaving guess.
+
+      if (abs (proj) < 0.03)
+        proj = proj < 0 ? -0.03 : 0.03;
+
+      shrunk_points[i1] = p1 + (0.5 * blotdiameter / proj) * middle;
     }
 
   /* build scm expression and bounding box */
