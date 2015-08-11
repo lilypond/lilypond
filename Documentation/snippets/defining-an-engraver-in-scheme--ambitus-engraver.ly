@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.19.7"
+\version "2.18.0"
 
 \header {
   lsrtags = "contexts-and-engravers"
@@ -294,23 +294,23 @@ position of middle C and key signature from @var{translator}'s context."
      (let ((ambitus #f))
        ;; when music is processed: make the ambitus object, if not already built
        (make-engraver
-	((process-music translator)
-	 (if (not ambitus)
-	     (set! ambitus (make-ambitus translator))))
-	;; set the ambitus clef and key signature state
-	((stop-translation-timestep translator)
-	 (if ambitus
-	     (initialize-ambitus-state ambitus translator)))
-	;; when a note-head grob is built, update the ambitus notes
-	(acknowledgers
+    ((process-music translator)
+     (if (not ambitus)
+         (set! ambitus (make-ambitus translator))))
+    ;; set the ambitus clef and key signature state
+    ((stop-translation-timestep translator)
+     (if ambitus
+         (initialize-ambitus-state ambitus translator)))
+    ;; when a note-head grob is built, update the ambitus notes
+    (acknowledgers
           ((note-head-interface engraver grob source-engraver)
-	   (if ambitus
-	       (update-ambitus-notes ambitus grob))))
-	;; finally, typeset the ambitus according to its upper and lower notes
-	;; (if any).
-	((finalize translator)
-	 (if ambitus
-	     (typeset-ambitus ambitus translator)))))))
+       (if ambitus
+           (update-ambitus-notes ambitus grob))))
+    ;; finally, typeset the ambitus according to its upper and lower notes
+    ;; (if any).
+    ((finalize translator)
+     (if ambitus
+         (typeset-ambitus ambitus translator)))))))
 
 %%%
 %%% Example
