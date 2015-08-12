@@ -88,11 +88,8 @@ Stencil
 Lookup::rotated_box (Real slope, Real width, Real thick, Real blot)
 {
   vector<Offset> pts;
-  Offset rot (1, slope);
+  Offset rot = Offset (1, slope).direction ();
 
-  thick -= 2 * blot;
-  width -= 2 * blot;
-  rot /= sqrt (1 + slope * slope);
   pts.push_back (Offset (0, -thick / 2) * rot);
   pts.push_back (Offset (width, -thick / 2) * rot);
   pts.push_back (Offset (width, thick / 2) * rot);
