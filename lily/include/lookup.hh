@@ -24,25 +24,25 @@
 #include "stencil.hh"
 #include "std-vector.hh"
 
-struct Lookup
+namespace Lookup
 {
-  static Stencil bracket (Axis a, Interval iv, Real thick, Real protrude, Real blot);
-  static Stencil circle (Real rad, Real thick, bool filled);
-  static Stencil rotated_box (Real slope, Real width, Real thick, Real blot);
-  static Stencil round_filled_polygon (vector<Offset> const &points, Real blotdiameter);
-  static Stencil frame (Box b, Real thick, Real blot);
-  static Stencil slur (Bezier controls, Real cthick, Real thick,
+  Stencil bracket (Axis a, Interval iv, Real thick, Real protrude, Real blot);
+  Stencil circle (Real rad, Real thick, bool filled);
+  Stencil rotated_box (Real slope, Real width, Real thick, Real blot);
+  Stencil round_filled_polygon (vector<Offset> const &points, Real blotdiameter);
+  Stencil frame (Box b, Real thick, Real blot);
+  Stencil slur (Bezier controls, Real cthick, Real thick,
                        SCM dash_definition);
-  static Stencil bezier_sandwich (Bezier top_curve, Bezier bottom_curve,
+  Stencil bezier_sandwich (Bezier top_curve, Bezier bottom_curve,
                                   Real thickness);
-  static Stencil beam (Real slope, Real width, Real thick, Real blot);
-  static Stencil blank (Box b);
-  static Stencil filled_box (Box b);
-  static Stencil round_filled_box (Box b, Real blotdiameter);
-  static Stencil repeat_slash (Real w, Real slope, Real th);
-  static Stencil horizontal_line (Interval w, Real th);
-  static Stencil triangle (Interval iv, Real thick, Real protrude);
-  static Stencil points_to_line_stencil (Real thick, vector<Offset> const &points);
+  Stencil beam (Real slope, Real width, Real thick, Real blot);
+  Stencil blank (Box b);
+  Stencil filled_box (Box b);
+  Stencil round_filled_box (Box b, Real blotdiameter);
+  Stencil repeat_slash (Real w, Real slope, Real th);
+  Stencil horizontal_line (Interval w, Real th);
+  Stencil triangle (Interval iv, Real thick, Real protrude);
+  Stencil points_to_line_stencil (Real thick, vector<Offset> const &points);
 };
 
 #endif // LOOKUP_HH

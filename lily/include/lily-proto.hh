@@ -86,7 +86,6 @@ class Ligature_engraver;
 class Lily_lexer;
 class Lily_parser;
 class Listener;
-class Lookup;
 class Lyric_combine_music;
 class Lyric_combine_music_iterator;
 class Lyric_engraver;
