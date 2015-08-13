@@ -230,10 +230,18 @@ Lookup::round_filled_box (Box b, Real blotdiameter)
  * blotdiameter along all edges of the polygon (which is what the
  * postscript routine in the backend effectively does, but on the
  * shrinked polygon). --jr
+ *
+ * An extra parameter "extroversion" has been added since staying just
+ * inside of a polygon will reduce its visual size when tracing a
+ * rounded path.  If extroversion is zero, the polygon is just traced
+ * as-is.  If it is -1 (the default) the drawing will stay just within
+ * the given polygon.  If it is 1, the traced line will stay just
+ * outside of the given polygon.
  */
 Stencil
 Lookup::round_filled_polygon (vector<Offset> const &points,
-                              Real blotdiameter)
+                              Real blotdiameter,
+                              Real extroversion)
 {
   /* TODO: Maybe print a warning if one of the above limitations
      applies to the given polygon.  However, this is quite complicated
@@ -257,101 +265,114 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
     return Stencil ();
   if (points.size () == 1)
     {
-      Stencil circ = circle (0.5 * blotdiameter, 0, true);
+      Stencil circ = circle (0.5 * (1.0 + extroversion) * blotdiameter, 0, true);
       circ.translate (points[0]);
       return circ;
     }
   if (points.size () == 2)
-    return Line_interface::make_line (blotdiameter, points[0], points[1]);
-
-  /* shrink polygon in size by 0.5 * blotdiameter */
-
-  // first we need to determine the orientation of the polygon in
-  // order to decide whether shrinking means moving the polygon to the
-  // left or to the right of the outline.  We do that by calculating
-  // (double) the oriented area of the polygon.  We first determine the
-  // center and do the area calculations relative to it.
-  // Mathematically, the result is not affected by this shift, but
-  // numerically a lot of cancellation is going on and this keeps its
-  // effects in check.
-
-  Offset center;
-  for (vsize i = 0; i < points.size (); i++)
-    center += points[i];
-  center /= points.size ();
-
-  Real area = 0.0;
-  Offset last = points.back () - center;
-
-  for (vsize i = 0; i < points.size (); i++)
-    {
-      Offset here = points[i] - center;
-      area += cross_product (last, here);
-      last = here;
-    }
-
-  bool ccw = area >= 0.0;  // true if whole shape is counterclockwise oriented
+    return Line_interface::make_line ((1.0 + extroversion) * blotdiameter, points[0], points[1]);
 
   vector<Offset> shrunk_points;
-  shrunk_points.resize (points.size ());
 
-  for (vsize i = 0; i < points.size (); i++)
+  if (extroversion == 0.0)
     {
-      int i0 = i;
-      int i1 = (i + 1) % points.size ();
-      int i2 = (i + 2) % points.size ();
-      Offset p0 = points[i0];
-      Offset p1 = points[i1];
-      Offset p2 = points[i2];
-      Offset p01 = p1 - p0;
-      Offset p12 = p2 - p1;
-      Offset inward0 = Offset(-p01[Y_AXIS], p01[X_AXIS]).direction ();
-      Offset inward2 = Offset(-p12[Y_AXIS], p12[X_AXIS]).direction ();
+      shrunk_points = points;
+    }
+  else
+    {
+      /* shrink polygon in size by 0.5 * blotdiameter */
 
-      if (!ccw)
+      // first we need to determine the orientation of the polygon in
+      // order to decide whether shrinking means moving the polygon to the
+      // left or to the right of the outline.  We do that by calculating
+      // (double) the oriented area of the polygon.  We first determine the
+      // center and do the area calculations relative to it.
+      // Mathematically, the result is not affected by this shift, but
+      // numerically a lot of cancellation is going on and this keeps its
+      // effects in check.
+
+      Offset center;
+      for (vsize i = 0; i < points.size (); i++)
+        center += points[i];
+      center /= points.size ();
+
+      Real area = 0.0;
+      Offset last = points.back () - center;
+
+      for (vsize i = 0; i < points.size (); i++)
         {
-          inward0 = -inward0;
-          inward2 = -inward2;
+          Offset here = points[i] - center;
+          area += cross_product (last, here);
+          last = here;
         }
 
-      Offset middle = 0.5*(inward0 + inward2);
+      bool ccw = area >= 0.0;  // true if whole shape is counterclockwise oriented
 
-      // "middle" now is a vector in the right direction for the
-      // shrinkage.  Its size needs to be large enough that the
-      // projection on either of the inward vectors has a size of 1.
+      shrunk_points.resize (points.size ());
 
-      Real proj = dot_product (middle, inward0);
+      for (vsize i = 0; i < points.size (); i++)
+        {
+          int i0 = i;
+          int i1 = (i + 1) % points.size ();
+          int i2 = (i + 2) % points.size ();
+          Offset p0 = points[i0];
+          Offset p1 = points[i1];
+          Offset p2 = points[i2];
+          Offset p01 = p1 - p0;
+          Offset p12 = p2 - p1;
+          Offset inward0 = Offset(-p01[Y_AXIS], p01[X_AXIS]).direction ();
+          Offset inward2 = Offset(-p12[Y_AXIS], p12[X_AXIS]).direction ();
 
-      // What's the size of proj?  Assuming that we have a corner
-      // angle of phi where 0 corresponds to a continuing line, the
-      // length of middle is 0.5 |(1+cos phi, sin phi)| = cos (phi/2),
-      // so its projection has length
-      // cos^2 (phi/2) = 0.5 + 0.5 cos (phi).
-      // We don't really want to move inwards more than 3 blob
-      // diameters corresponding to 6 blob radii.  So
-      // cos (phi/2) = 1/6 gives phi ~ 161, meaning that a 20 degree
-      // corner necessitates moving 3 blob diameters from the corner
-      // in order to stay inside the lines.  Ruler and circle agree.
-      // 0.03 is close enough to 1/36.  Basically we want to keep the
-      // shape from inverting from pulling too far inward.
-      // 3 diameters is pretty much a handwaving guess.
+          if (!ccw)
+            {
+              inward0 = -inward0;
+              inward2 = -inward2;
+            }
 
-      if (abs (proj) < 0.03)
-        proj = proj < 0 ? -0.03 : 0.03;
+          Offset middle = 0.5*(inward0 + inward2);
 
-      shrunk_points[i1] = p1 + (0.5 * blotdiameter / proj) * middle;
+          // "middle" now is a vector in the right direction for the
+          // shrinkage.  Its size needs to be large enough that the
+          // projection on either of the inward vectors has a size of 1.
+
+          Real proj = dot_product (middle, inward0);
+
+          // What's the size of proj?  Assuming that we have a corner
+          // angle of phi where 0 corresponds to a continuing line, the
+          // length of middle is 0.5 |(1+cos phi, sin phi)| = cos (phi/2),
+          // so its projection has length
+          // cos^2 (phi/2) = 0.5 + 0.5 cos (phi).
+          // We don't really want to move inwards more than 3 blob
+          // diameters corresponding to 6 blob radii.  So
+          // cos (phi/2) = 1/6 gives phi ~ 161, meaning that a 20 degree
+          // corner necessitates moving 3 blob diameters from the corner
+          // in order to stay inside the lines.  Ruler and circle agree.
+          // 0.03 is close enough to 1/36.  Basically we want to keep the
+          // shape from inverting from pulling too far inward.
+          // 3 diameters is pretty much a handwaving guess.
+
+          if (abs (proj) < 0.03)
+            proj = proj < 0 ? -0.03 : 0.03;
+
+          shrunk_points[i1] = p1 - (0.5 * blotdiameter / proj) * middle
+                          * extroversion;
+        }
     }
 
   /* build scm expression and bounding box */
   SCM shrunk_points_scm = SCM_EOL;
   Box box;
+  Box shrunk_box;
   for (vsize i = 0; i < shrunk_points.size (); i++)
     {
       SCM x = scm_from_double (shrunk_points[i][X_AXIS]);
       SCM y = scm_from_double (shrunk_points[i][Y_AXIS]);
       shrunk_points_scm = scm_cons (x, scm_cons (y, shrunk_points_scm));
       box.add_point (points[i]);
+      shrunk_box.add_point (shrunk_points[i]);
     }
+  shrunk_box.widen (0.5*blotdiameter, 0.5*blotdiameter);
+  box.unite (shrunk_box);
   SCM polygon_scm = scm_list_n (ly_symbol2scm ("polygon"),
                                 ly_quote_scm (shrunk_points_scm),
                                 scm_from_double (blotdiameter),
@@ -359,7 +380,6 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
                                 SCM_UNDEFINED);
 
   Stencil polygon = Stencil (box, polygon_scm);
-  shrunk_points.clear ();
   return polygon;
 }
 

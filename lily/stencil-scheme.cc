@@ -413,14 +413,23 @@ LY_DEFINE (ly_round_filled_box, "ly:round-filled-box",
 }
 
 LY_DEFINE (ly_round_filled_polygon, "ly:round-filled-polygon",
-           2, 0, 0,
-           (SCM points, SCM blot),
+           2, 1, 0,
+           (SCM points, SCM blot, SCM extroversion),
            "Make a @code{Stencil} object that prints a black polygon with"
            " corners at the points defined by @var{points} (list of coordinate"
-           " pairs) and roundness @var{blot}.")
+           " pairs) and roundness @var{blot}.  Optional"
+           "@var{extroversion} shifts the outline outward, with the"
+           "default of@tie{}@code{-1.0} keeping the outer boundary of"
+           "the outline just inside of the polygon.")
 {
   SCM_ASSERT_TYPE (scm_ilength (points) > 0, points, SCM_ARG1, __FUNCTION__, "list of coordinate pairs");
   LY_ASSERT_TYPE (scm_is_number, blot, 2);
+  Real ext = -1;
+  if (!SCM_UNBNDP (extroversion))
+    {
+      LY_ASSERT_TYPE (scm_is_number, extroversion, 3);
+      ext = scm_to_double (extroversion);
+    }
   vector<Offset> pts;
   for (SCM p = points; scm_is_pair (p); p = scm_cdr (p))
     {
@@ -434,7 +443,8 @@ LY_DEFINE (ly_round_filled_polygon, "ly:round-filled-polygon",
           // TODO: Print out warning
         }
     }
-  return Lookup::round_filled_polygon (pts, scm_to_double (blot)).smobbed_copy ();
+  return Lookup::round_filled_polygon (pts, scm_to_double (blot), ext)
+    .smobbed_copy ();
 }
 
 LY_DEFINE (ly_register_stencil_expression, "ly:register-stencil-expression",
