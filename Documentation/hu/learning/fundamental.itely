@@ -550,7 +550,8 @@ A fenti példa leírható egyszerű, kúpos („kacsacsőr”) zárójelekkel, @
 egy nyolcad, melyet egy másik G nyolcad követ. Ebben esetben két hangunk van, 
 mely ugyanakkor kezdődik, de különböző hanghosszúságú: a negyed D és a nyolcad FISZ. 
 Hogy írjuk ezt le? Nem írhatjuk akkordként, hiszen egy akkordban minden hang azonos 
-hosszúságú és nem írhatjuk egymást követő hangokként sem, hiszen egy időben kell kezdődniük a hangoknak. Ilyenkor van szükségünk két szólamra.
+hosszúságú és nem írhatjuk egymást követő hangokként sem, hiszen egy időben kell 
+kezdődniük a hangoknak. Ilyenkor van szükségünk két szólamra.
 
 
 
@@ -560,7 +561,8 @@ Nézzük, hogy néz ez ki a LilyPond szintaxisában.
 @funindex \\
 
 A legegyszerűbb módja olyan részek rögzítésének, amelyek több mint egy hangot 
-tartalmaznak egy szólamban, hogy szekvenciát @code{@{...@}} használunk és ezt kombináljuk a szögletes zárójelekkel @code{<<...>>}.
+tartalmaznak egy szólamban, hogy szekvenciát @code{@{...@}} használunk és ezt 
+kombináljuk a szögletes zárójelekkel @code{<<...>>}.
 Az ilyen a részeket @code{\\} segítségével kell elválasztani ahhoz, hogy különböző szólamként jelenjenek meg. 
 Az elválasztó jelek nélkül a hangok egyetlen szólamként szerepelnének, ami általában hibát okoz. 
 Ez a technika használható olyan daraboknál melyek leginkább monofonikusak és néhány részük polifón.
@@ -589,7 +591,8 @@ Vegyük észre, hogy a második hang szárai lefele mutatnak.
 
 Nem szükséges, hogy minden ütemet elválasszunk a  @code{<< \\ >>} segítségével.  
 Olyan zenék esetén, ahol csak néhány hang van minden ütemben, ez a felépítés 
-segíti a kód olvashatóságát, de ha már sok hang van, akkor jobb, ha a hangokat külön-külön jegyezzük le, például így:
+segíti a kód olvashatóságát, de ha már sok hang van, akkor jobb, ha a
+hangokat külön-külön jegyezzük le, például így:
 
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
@@ -768,7 +771,17 @@ A fenti példánál a legfelső hangjegy szárai felfelé mutatnak, az alsóké 
 Ez az első jelölés, amire szükségünk van több szólam lejegyzése során. 
 
 
-Leginkább viszont akkor van szükségünk többszörös szólamokra, amikor a hangok ugyanakkor kezdődnek ugyan, de különböző hosszúságúak. Nézzük azt a hangot, ami első ütem harmadik ütésekor kezdődik. Az ASZ egy pontozott negyed, az alatta levő F egy pontozatlan negyed,  a DESZ pedig egy fél hang.  Ezek nem írhatók le akkordként, hiszen akkord esetén minden hang azonos hosszúságú. Nem írhatóak le egymást követő hangokként sem, hiszen egy időben kell kezdődniük. Az ütemnek ebben a részében három szólamra van szükségünk, és normál esetben az egész ütem három szólamú, ahogy az alábbi példa mutatja, ahol különböző hangjegyfejeket használunk különböző színekkel a három szólamhoz. Szeretnénk ismét kihangsúlyozni, hogy az alábbi példa mögötti kódot később elmagyarázzuk, most csak hagyjuk figyelmen kívül azokat a részeket, amik nem érthetőek. 
+Leginkább viszont akkor van szükségünk többszörös szólamokra, amikor a hangok
+ugyanakkor kezdődnek ugyan, de különböző hosszúságúak. Nézzük azt a hangot,
+ami első ütem harmadik ütésekor kezdődik. Az ASZ egy pontozott negyed, az
+alatta levő F egy pontozatlan negyed,  a DESZ pedig egy fél hang. 
+Ezek nem írhatók le akkordként, hiszen akkord esetén minden hang azonos hosszúságú.
+Nem írhatóak le egymást követő hangokként sem, hiszen egy időben kell kezdődniük.
+Az ütemnek ebben a részében három szólamra van szükségünk, és normál esetben az
+egész ütem három szólamú, ahogy az alábbi példa mutatja, ahol különböző hangjegyfejeket
+használunk különböző színekkel a három szólamhoz. Szeretnénk ismét kihangsúlyozni, hogy
+az alábbi példa mögötti kódot később elmagyarázzuk, most csak hagyjuk figyelmen kívül
+azokat a részeket, amik nem érthetőek. 
 
 
 @c The following should appear as music without code
@@ -820,7 +833,11 @@ Gépeljük be a három szólam első ütemét:
 @cindex stem up
 
 
-A szárak iránya automatikusan hozzárendelődik a szólamokhoz, a páratlan-sorszámú szólamoknál felfelé, a párosoknál lefelé. Az első és második szólamhoz tartozó hangok szárai megfelelőek, de a harmadik szólamban a száraknak lefelé kellene állniuk. Ezt úgy javíthatjuk, hogy a harmadik szólamot átugorjuk (üresen hagyjuk) és a negyedik szólamba helyezzük az eredetileg harmadik szólamot. Ezt egyszerűen megtehetjük a @code{\\} segítségével:
+A szárak iránya automatikusan hozzárendelődik a szólamokhoz, a páratlan-sorszámú szólamoknál
+felfelé, a párosoknál lefelé. Az első és második szólamhoz tartozó hangok szárai megfelelőek,
+de a harmadik szólamban a száraknak lefelé kellene állniuk. Ezt úgy javíthatjuk, hogy a
+harmadik szólamot átugorjuk (üresen hagyjuk) és a negyedik szólamba helyezzük az eredetileg harmadik szólamot. 
+Ezt egyszerűen megtehetjük a @code{\\} segítségével:
 
 
 @lilypond[quote,verbatim,fragment,ragged-right]
@@ -846,7 +863,8 @@ A hangok megtervezéséhez a LilyPond lehetővé teszi, hogy hangok illetve akko
 
 
 @seealso
-Notation Reference: @ruser{Multiple voices}.
+A kottaírás kézikönyve:
+@ruser{Multiple voices}.
 
 
 @node Szólamok kézi létrehozása
@@ -1069,7 +1087,8 @@ vagy ugyanazt az eltolást adjuk meg, akkor a @qq{Too many clashing note columns
 
 
 @seealso
-Notation Reference: @ruser{Multiple voices}.
+A kottaírás kézikönyve:
+@ruser{Multiple voices}.
 
 
 @node Szólamok és vokális zene
@@ -1414,7 +1433,8 @@ refrainwordsB = \lyricmode {
 
 
 @seealso
-Notation Reference: @ruser{Vocal music}.
+A kottaírás kézikönyve:
+@ruser{Vocal music}.
 
 
 @node Kontextusok és ábrázolók
@@ -1506,7 +1526,8 @@ preceding word with no hyphen or underscore, e.g.,
 
 
 @seealso
-Notation Reference: @ruser{A kontextus fogalma}.
+A kottaírás kézikönyve:
+@ruser{A kontextus fogalma}.
 
 
 @node Kontextusok létrehozása
@@ -1628,7 +1649,8 @@ use in the section on lyrics, see @ref{Szólamok és vokális zene}.
 
 
 @seealso
-Notation Reference: @ruser{Kontextusok létrehozása}.
+A kottaírás kézikönyve:
+@ruser{Kontextusok létrehozása}.
 
 
 @node Az ábrázoló fogalma
@@ -2022,7 +2044,7 @@ instances of contexts by statements in a @code{\with} block, and by
 
 
 @seealso
-Notation Reference:
+A kottaírás kézikönyve:
 @ruser{Changing context default settings}.
 @ruser{The set command}.
 
@@ -2187,7 +2209,8 @@ same way.
 
 
 @seealso
-Notation Reference: @ruser{Modifying context plug-ins},
+A kottaírás kézikönyve:
+@ruser{Modifying context plug-ins},
 @ruser{Changing context default settings}.
 
 

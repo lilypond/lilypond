@@ -1,0 +1,131 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c This file is part of web/community.itexi and
+@c contributor/introduction.itely
+
+@macro helpusNeed
+@subheading We need you!
+
+Thank you for your interest in helping us --- we would love to see
+you get involved!  Your contribution will help a large group of users
+make beautifully typeset music.
+
+Even working on small tasks can have a big impact: taking care of
+them allows experienced developers work on advanced tasks, instead
+of spending time on those simple tasks.
+
+For a multi-faceted project like LilyPond, sometimes it's tough to know
+where to begin.  In addition to the avenues proposed below, you can send
+an e-mail to the
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-devel, lilypond-devel@@gnu.org}
+mailing list, and we'll help you to get started.
+
+@end macro
+
+
+@macro helpusSimple
+@subheading Simple tasks
+
+@strong{No programming skills} required!
+
+@itemize
+@item
+Mailing list support: answer questions from fellow users.
+
+@item
+Bug reporting: help users create proper @rweb{Bug reports}, and/or
+join the Bug Squad to organize @rcontrib{Issues}.
+
+@item
+Documentation: small changes can be proposed by following the
+guidelines for @rcontrib{Documentation suggestions}.
+
+@item
+LilyPond Snippet Repository (LSR): create and fix snippets
+following the guidelines in
+@rcontrib{Adding and editing snippets}.
+
+@item
+Discussions, reviews, and testing: the developers often ask for
+feedback about new documentation, potential syntax changes, and
+testing new features.  Please contribute to these discussions!
+
+@end itemize
+
+@end macro
+
+
+@macro helpusAdvanced
+@subheading Advanced tasks
+
+These jobs generally require that you have the source code and can
+compile LilyPond.
+
+@warning{We suggest that contributors using Windows or MacOS X do
+@strong{not} attempt to set up their own development environment;
+instead, use Lilydev as discussed in @rcontrib{Quick start}.}
+
+Contributors using Linux or FreeBSD may also use Lilydev, but if
+they prefer their own development environment, they should read
+@rcontrib{Working with source code}, and @rcontrib{Compiling}.
+
+Begin by reading @rcontrib{Summary for experienced developers}.
+
+@itemize
+@item
+Documentation: for large changes, see
+@rcontrib{Documentation work}.
+
+@item
+Website: the website is built from the normal documentation
+source.  See the info about documentation, and also
+@rcontrib{Website work}.
+
+@item
+Translations: see @rcontrib{Translating the documentation}, and
+@rcontrib{Translating the website}.
+
+@item
+Bugfixes or new features: read @rcontrib{Programming work}.
+
+@end itemize
+
+@end macro
+
+@ignore
+@macro helpusProjects
+@subheading Projects
+
+
+@subsubheading Grand LilyPond Input Syntax Standardization
+
+Website:
+@rcontrib{Grand LilyPond Input Syntax Standardization (GLISS)}.
+
+GLISS will stabilize the (non-tweak) input syntax for the upcoming
+LilyPond 3.0.  After updating to 3.0, the input syntax for
+untweaked music will remain stable for the foreseeable future.
+
+We will have an extensive discussion period to determine the final
+input specification.
+
+@warning{GLISS will start shortly after 2.16 is released.}
+
+@subsubheading Grand Organizing Project
+
+Website: @rcontrib{Grand Organization Project (GOP)}.
+
+GOP will be our big recruiting drive for new contributors.  We
+desperately need to spread the development duties (including
+@qq{simple tasks} which require no programming or interaction with
+source code!) over more people.  We also need to document
+knowledge from existing developers so that it does not get lost.
+
+Unlike most @qq{Grand Projects}, GOP is not about adding huge new
+features or completely redesigning things.  Rather, it is aimed at
+giving us a much more stable foundation so that we can move ahead
+with larger tasks in the future.
+
+@end macro
+
+@end ignore
+
