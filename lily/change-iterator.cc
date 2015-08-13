@@ -78,7 +78,7 @@ Change_iterator::change_to (Music_iterator &it,
       result = _f ("not changing to same context type: %s", ly_symbol2string (to_type).c_str ());
     }
   else
-    /* FIXME: uncomprehensable message */
+    /* FIXME: incomprehensible message */
     result = _ ("none of these in my family");
 
   return result;

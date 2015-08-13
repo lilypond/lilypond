@@ -154,7 +154,7 @@ def get_option_parser ():
     p.add_option ('--left-padding',
                   metavar=_ ("PAD"),
                   dest="padding_mm",
-                  help=_ ("pad left side of music to align music inspite of uneven bar numbers (in mm)"),
+                  help=_ ("pad left side of music to align music in spite of uneven bar numbers (in mm)"),
                   type="float",
                   default=3.0)
 

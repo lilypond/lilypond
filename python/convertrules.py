@@ -2818,7 +2818,7 @@ def conv(str):
     if re.search(r'\\oldaddlyrics', str):
         stderr_write (NOT_SMART % "oldaddlyrics")
         stderr_write (_ ("oldaddlyrics is no longer supported. \n \
-        Use addlyrics or lyrsicsto instead.\n"))
+        Use addlyrics or lyricsto instead.\n"))
         stderr_write (UPDATE_MANUALLY)
         raise FatalConversionError ()
     return str
