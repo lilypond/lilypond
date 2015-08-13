@@ -76,14 +76,8 @@ scoreTitleMarkup = \markup { \column {
 #(define (book-first-page? layout props)
    "Return #t iff the current page number, got from @code{props}, is the
 book first one."
-   (define (ancestor layout)
-     "Return the topmost layout ancestor"
-     (let ((parent (ly:output-def-parent layout)))
-       (if (not (ly:output-def? parent))
-           layout
-           (ancestor parent))))
    (= (chain-assoc-get 'page:page-number props -1)
-      (ly:output-def-lookup (ancestor layout) 'first-page-number)))
+      (book-first-page layout props)))
 
 #(define (book-last-page? layout props)
    "Return #t iff the current page number, got from @code{props}, is the

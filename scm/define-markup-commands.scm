@@ -509,6 +509,16 @@ in the PDF backend.
 
     (ly:stencil-add (ly:make-stencil link-expr xextent yextent) stil)))
 
+(define-public (book-first-page layout props)
+  "Return the @code{'first-page-number} of the entire book"
+  (define (ancestor layout)
+    "Return the topmost layout ancestor"
+    (let ((parent (ly:output-def-parent layout)))
+      (if (not (ly:output-def? parent))
+          layout
+          (ancestor parent))))
+  (ly:output-def-lookup (ancestor layout) 'first-page-number))
+
 (define-markup-command (with-link layout props label arg)
   (symbol? markup?)
   #:category other
@@ -536,8 +546,7 @@ only works in the PDF backend.
                           (if (list? table)
                               (assoc-get label table)
                               #f))
-                        (first-page-number
-                          (ly:output-def-lookup layout 'first-page-number))
+                        (first-page-number (book-first-page layout props))
                         (current-page-number
                           (if table-page-number
                               (1+ (- table-page-number first-page-number))
