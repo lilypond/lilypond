@@ -90,11 +90,6 @@ lilypond_omfdir = $(local_package_omfdir)
 webdir = $(lilypond_docdir)/html
 vimdir = $(lilypond_datadir)/vim
 
-
-NCSB_SOURCE_FILES = @NCSB_SOURCE_FILES@
-NCSB_DIR = @NCSB_DIR@
-HELV_SOURCE_FILES = @HELV_SOURCE_FILES@
-COUR_SOURCE_FILES = @COUR_SOURCE_FILES@
 TEXGYRE_DIR = @TEXGYRE_DIR@
 TEXGYRE_FILES = @TEXGYRE_FILES@
 
