@@ -1274,11 +1274,39 @@ contexts.  Therefore, we modify the @code{Staff} definition with the
 @}
 @end example
 
+@funindex \inherit-acceptability
+Often when reusing an existing context definition, the resulting
+context can be used anywhere where the original context would have
+been useful.
+
+@example
+\layout @{
+  @dots{}
+  \inherit-acceptability @var{to} @var{from}
+@}
+@end example
+
+@noindent
+will arrange to have contexts of type @var{to} accepted by all
+contexts also accepting @var{from}.  For example, using
+
+@example
+\layout @{
+  @dots{}
+  \inherit-acceptability "ImproVoice" "Voice"
+@}
+@end example
+
+@noindent
+will add an @code{\accepts} for @code{ImproVoice} to both
+@code{Staff} and @code{RhythmicStaff} definitions.
+
 @funindex \denies
 The opposite of @code{\accepts} is @code{\denies},
 which is sometimes needed when reusing existing context definitions.
 
-Putting both into a @code{\layout} block, like
+Arranging the required pieces into a @code{\layout} block leaves
+us with
 
 @example
 \layout @{
@@ -1286,10 +1314,7 @@ Putting both into a @code{\layout} block, like
     \name ImproVoice
     @dots{}
   @}
-  \context @{
-    \Staff
-    \accepts "ImproVoice"
-  @}
+  \inherit-acceptability "ImproVoice" "Voice"
 @}
 @end example
 
