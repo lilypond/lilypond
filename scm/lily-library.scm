@@ -1022,3 +1022,10 @@ print a warning and set an optional @var{default}."
    (ly:format "~a:1" input-file-name)
    (_ "no \\version statement found, please add~afor future compatibility")
    (format #f "\n\n\\version ~s\n\n" (lilypond-version))))
+
+(define-public (output-module? module)
+  "Returns @code{#t} if @var{module} belongs to an output module
+usually carrying context definitions (@code{\\midi} or
+@code{\\layout})."
+  (or (module-ref module 'is-midi #f)
+      (module-ref module 'is-layout #f)))
