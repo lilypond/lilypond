@@ -35,21 +35,6 @@ OTF_TABLES = $(STAFF_SIZES:%=$(outdir)/feta%.otf-table) \
 SVG_FILES = $(OTF_FILES:%.otf=%.svg)
 WOFF_FILES = $(OTF_FILES:%.otf=%.woff)
 
-NCSB_OTFS = $(addprefix $(outdir)/,CenturySchL-Ital.otf \
-				   CenturySchL-BoldItal.otf \
-				   CenturySchL-Roma.otf \
-				   CenturySchL-Bold.otf)
-
-HELV_OTFS = $(addprefix $(outdir)/,NimbusSanL-ReguItal.otf \
-				   NimbusSanL-BoldItal.otf \
-				   NimbusSanL-Regu.otf \
-				   NimbusSanL-Bold.otf)
-
-COUR_OTFS = $(addprefix $(outdir)/,NimbusMonL-ReguObli.otf \
-				   NimbusMonL-BoldObli.otf \
-				   NimbusMonL-Regu.otf \
-				   NimbusMonL-Bold.otf)
-
 TEXGYRE_OTFS = $(addprefix $(TEXGYRE_DIR)/,$(TEXGYRE_FILES))
 
 LILYPOND_FONTS_CONF = $(outdir)/00-lilypond-fonts.conf \
@@ -88,9 +73,6 @@ $(outdir)/emmentaler-%.genpe: $(buildscript-dir)/gen-emmentaler-scripts
 	$< --dir=$(outdir) --design-size=$(patsubst emmentaler-%.genpe,%,$(notdir $@))
 
 ALL_GEN_FILES = $(ENC_FILES) \
-		$(NCSB_OTFS) \
-		$(HELV_OTFS) \
-		$(COUR_OTFS) \
 		$(OTF_FILES) \
 		$(SVG_FILES) \
 		$(WOFF_FILES) \
@@ -105,7 +87,7 @@ INSTALLATION_OUT_SUFFIXES = 1 2 3
 
 INSTALLATION_OUT_DIR1 = $(local_lilypond_datadir)/fonts/otf
 INSTALLATION_OUT_FILES1 = $(OTF_FILES) \
-			  $(NCSB_OTFS) $(HELV_OTFS) $(COUR_OTFS) $(TEXGYRE_OTFS)
+			  $(TEXGYRE_OTFS)
 
 INSTALLATION_OUT_DIR2 = $(local_lilypond_datadir)/fonts/svg
 INSTALLATION_OUT_FILES2 = $(SVG_FILES) $(WOFF_FILES)
@@ -181,37 +163,3 @@ local-clean:
 
 $(outdir)/fonts.conf:
 	echo '<fontconfig><dir>'$(shell cd $(outdir); pwd)'</dir></fontconfig>' > $@
-
-
-$(outdir)/CenturySchL-Roma.otf: $(NCSB_SOURCE_FILES) \
-	      $(auxscript-dir)/pfx2ttf.fontforge
-	$(foreach i, $(basename $(NCSB_SOURCE_FILES)), \
-		$(FONTFORGE) -script $(auxscript-dir)/pfx2ttf.fontforge \
-			$(i).pfb $(i).afm $(outdir)/ && ) true
-
-$(addprefix $(outdir)/,CenturySchL-Ital.otf \
-	CenturySchL-Bold.otf \
-	CenturySchL-BoldItal.otf): $(outdir)/CenturySchL-Roma.otf
-	$(UPDATE_TARGET)
-
-$(outdir)/NimbusSanL-Regu.otf: $(HELV_SOURCE_FILES) \
-	      $(auxscript-dir)/pfx2ttf.fontforge
-	$(foreach i, $(basename $(HELV_SOURCE_FILES)), \
-		$(FONTFORGE) -script $(auxscript-dir)/pfx2ttf.fontforge \
-			$(i).pfb $(i).afm $(outdir)/ && ) true
-
-$(addprefix $(outdir)/,NimbusSanL-ReguItal.otf \
-	NimbusSanL-Bold.otf \
-	NimbusSanL-BoldItal.otf): $(outdir)/NimbusSanL-Regu.otf
-	$(UPDATE_TARGET)
-
-$(outdir)/NimbusMonL-Regu.otf: $(COUR_SOURCE_FILES) \
-	      $(auxscript-dir)/pfx2ttf-mono.fontforge
-	$(foreach i, $(basename $(COUR_SOURCE_FILES)), \
-		$(FONTFORGE) -script $(auxscript-dir)/pfx2ttf-mono.fontforge \
-			$(i).pfb $(i).afm $(outdir)/ && ) true
-
-$(addprefix $(outdir)/,NimbusMonL-ReguObli.otf \
-	NimbusMonL-Bold.otf \
-	NimbusMonL-BoldObli.otf): $(outdir)/NimbusMonL-Regu.otf
-	$(UPDATE_TARGET)
