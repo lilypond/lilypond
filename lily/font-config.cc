@@ -38,7 +38,7 @@ init_fontconfig ()
   debug_output (_ ("Initializing FontConfig..."));
 
   /* TODO: Find a way for Fontconfig to update its cache, if needed. */
-  FcConfig *font_config_dummy = FcInitLoadConfig ();
+  FcInitLoadConfig ();
 
   /* Create an empty configuration */
   font_config_global = FcConfigCreate ();
