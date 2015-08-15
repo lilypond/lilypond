@@ -38,6 +38,12 @@ AC_ARG_WITH(fonts-dir,
     [NCSB_DIR=$withval],
     [NCSB_DIR=""])
 
+AC_ARG_WITH(texgyre-dir,
+    [AS_HELP_STRING([--with-texgyre-dir=DIR],
+		    [location of TeX Gyre fonts.])],
+    [TEXGYRE_DIR=$withval],
+    [TEXGYRE_DIR=""])
+
 reloc_b=no
 AC_ARG_ENABLE(relocation,
     [AS_HELP_STRING([--enable-relocation],
@@ -159,6 +165,49 @@ if test "$NCSB_DIR" = "" -o "$MISSING_COUR_SOURCE_FILES" != "$INCOMPLETE_COUR_SO
   fi
   if test "$INCOMPLETE_COUR_SOURCE_FILES" != ""; then
     STEPMAKE_ADD_ENTRY(REQUIRED,'(these files do not contain Cyrillic characters: $INCOMPLETE_COUR_SOURCE_FILES)')
+  fi
+else
+  AC_MSG_RESULT(yes)
+fi
+
+AC_MSG_CHECKING([for TeX Gyre fonts OTF files])
+AC_SUBST(TEXGYRE_DIR)
+AC_SUBST(TEXGYRE_FILES)
+if test "$TEXGYRE_DIR" = ""; then
+  if test "$FCLIST" != ""; then
+    TEXGYRE_FILE=`$FCLIST "TeX Gyre Schola:fontformat=CFF" file | head -n 1`
+    if test "$TEXGYRE_FILE" != ""; then
+      TEXGYRE_FILE=`echo $TEXGYRE_FILE | sed 's/\(:.*\)$//g'`
+      TEXGYRE_FILE=`$PYTHON "$srcdir/scripts/auxiliar/readlink.py" $TEXGYRE_FILE`
+      TEXGYRE_DIR=`AS_DIRNAME($TEXGYRE_FILE)`
+    fi
+  fi
+fi
+if test "$TEXGYRE_DIR" != "" ;  then
+  for f in texgyreschola-regular.otf texgyreschola-italic.otf \
+           texgyreschola-bold.otf texgyreschola-bolditalic.otf \
+           texgyreheros-regular.otf texgyreheros-italic.otf \
+           texgyreheros-bold.otf texgyreheros-bolditalic.otf \
+           texgyrecursor-regular.otf texgyrecursor-italic.otf \
+           texgyrecursor-bold.otf texgyrecursor-bolditalic.otf; do
+    if test ! -f "$TEXGYRE_DIR/$f"; then
+      MISSING_TEXGYRE_FILES="$MISSING_TEXGYRE_FILES $f"
+    else
+      TEXGYRE_FILES="$TEXGYRE_FILES $f"
+    fi
+  done
+fi
+if test "$TEXGYRE_DIR" = "" -o "$MISSING_TEXGYRE_FILES" != ""; then
+  AC_MSG_RESULT(no)
+  STEPMAKE_ADD_ENTRY(REQUIRED,TeX Gyre fonts OTF)
+  if test "$TEXGYRE_DIR" = ""; then
+    if test "$FCLIST" = ""; then
+      STEPMAKE_ADD_ENTRY(REQUIRED,'(install the fc-list utility from FontConfig, or use --with-texgyre-dir)')
+    else
+      STEPMAKE_ADD_ENTRY(REQUIRED,'(make sure the fc-list utility can see them, e.g. \`sudo apt-get install fonts-texgyre\', or use --with-texgyre-dir)')
+    fi
+  else
+    STEPMAKE_ADD_ENTRY(REQUIRED,'(these files are missing: $MISSING_TEXGYRE_FILES)')
   fi
 else
   AC_MSG_RESULT(yes)
