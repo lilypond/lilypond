@@ -37,7 +37,8 @@ using namespace std;
 
 Performance::Performance (bool ports)
   : midi_ (0),
-    ports_ (ports)
+    ports_ (ports),
+    header_ (SCM_EOL)
 {
 }
 
@@ -47,7 +48,27 @@ Performance::~Performance ()
 }
 
 void
-Performance::output (Midi_stream &midi_stream) const
+Performance::derived_mark () const
+{
+  scm_gc_mark (header_);
+}
+
+SCM
+Performance::get_header () const
+{
+  return header_;
+}
+
+void
+Performance::set_header (SCM module)
+{
+  assert (ly_is_module (module));
+  header_ = module;
+}
+
+void
+Performance::output (Midi_stream &midi_stream,
+                     const string &performance_name) const
 {
   int tracks_ = audio_staffs_.size ();
 
@@ -64,6 +85,21 @@ Performance::output (Midi_stream &midi_stream) const
   for (vsize i = 0; i < audio_staffs_.size (); i++)
     {
       Audio_staff *s = audio_staffs_[i];
+      if (Audio_control_track_staff *c =
+          dynamic_cast<Audio_control_track_staff *>(s))
+        {
+          // The control track, created by Control_track_performer, should
+          // contain a placeholder for the name of the MIDI sequence as its
+          // initial audio element.  Fill in the name of the sequence to
+          // this element before outputting MIDI.
+          assert (!c->audio_items_.empty ());
+          Audio_text *text =
+            dynamic_cast<Audio_text *>(c->audio_items_.front ());
+          assert (text != 0);
+          assert (text->type_ == Audio_text::TRACK_NAME);
+          assert (text->text_string_ == "control track");
+          text->text_string_ = performance_name;
+        }
       debug_output ("[" + ::to_string (i), true);
       s->output (midi_stream, i, ports_, moment_to_ticks (start_mom));
       debug_output ("]", false);
@@ -77,7 +113,7 @@ Performance::add_element (Audio_element *p)
 }
 
 void
-Performance::write_output (string out) const
+Performance::write_output (string out, const string &performance_name) const
 {
   if (out == "-")
     out = "lelie.midi";
@@ -89,7 +125,7 @@ Performance::write_output (string out) const
   Midi_stream midi_stream (out);
   message (_f ("MIDI output to `%s'...", out));
 
-  output (midi_stream);
+  output (midi_stream, performance_name);
   progress_indication ("\n");
 }
 

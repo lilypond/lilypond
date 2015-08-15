@@ -52,11 +52,15 @@ Control_track_performer::add_text (Audio_text::Type text_type, const string &str
 void
 Control_track_performer::initialize ()
 {
-  control_track_ = new Audio_staff;
+  control_track_ = new Audio_control_track_staff;
   announce_element (Audio_element_info (control_track_, 0));
 
   string id_string = String_convert::pad_to (gnu_lilypond_version_string (), 30);
 
+  // The first audio element in the control track is a placeholder for the
+  // name of the MIDI sequence.  The actual name is stored in the element
+  // later before outputting the track (in Performance::output, see
+  // performance.cc).
   add_text (Audio_text::TRACK_NAME, "control track");
   add_text (Audio_text::TEXT, "creator: ");
   add_text (Audio_text::TEXT, id_string);

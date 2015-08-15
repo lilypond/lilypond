@@ -229,7 +229,18 @@ Book::process_score (SCM s, Paper_book *output_paper_book, Output_def *layout)
           Music_output *output = unsmob<Music_output> (scm_car (outputs));
 
           if (Performance *perf = dynamic_cast<Performance *> (output))
-            output_paper_book->add_performance (perf->self_scm ());
+            {
+              output_paper_book->add_performance (perf->self_scm ());
+              // Associate the performance with a \header block (if there is
+              // one in effect in the scope of the current score), to make the
+              // header metadata accessible when outputting the performance.
+              if (ly_is_module (score->get_header ()))
+                perf->set_header (score->get_header ());
+              else if (ly_is_module (output_paper_book->header_))
+                perf->set_header (output_paper_book->header_);
+              else if (ly_is_module (output_paper_book->header_0_))
+                perf->set_header (output_paper_book->header_0_);
+            }
           else if (Paper_score *pscore = dynamic_cast<Paper_score *> (output))
             {
               if (ly_is_module (score->get_header ()))
