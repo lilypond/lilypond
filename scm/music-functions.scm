@@ -637,18 +637,23 @@ in @var{grob}."
           (make-grob-property-revert 'NoteColumn 'horizontal-shift)))))
 
 
-(define-safe-public (context-spec-music m context #:optional id)
-  "Add \\context CONTEXT = ID to M."
+(define-safe-public (context-spec-music m context #:optional id mods)
+  "Add \\context @var{context} = @var{id} \\with @var{mods} to @var{m}."
   (let ((cm (make-music 'ContextSpeccedMusic
                         'element m
                         'context-type context)))
     (if (string? id)
         (set! (ly:music-property cm 'context-id) id))
+    (if mods
+        (set! (ly:music-property cm 'property-operations)
+              (if (ly:context-mod? mods)
+                  (ly:get-context-mods mods)
+                  mods)))
     cm))
 
-(define-public (descend-to-context m context)
+(define-safe-public (descend-to-context m context #:optional id mods)
   "Like @code{context-spec-music}, but only descending."
-  (let ((cm (context-spec-music m context)))
+  (let ((cm (context-spec-music m context id mods)))
     (ly:music-set-property! cm 'descend-only #t)
     cm))
 
