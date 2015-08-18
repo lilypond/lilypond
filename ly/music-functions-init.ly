@@ -189,19 +189,17 @@ pitch where to switch staves may be specified.  The clefs for the staves are
 optional as well.  Setting clefs  works only for implicitly instantiated
 staves.")
   (let ;; keep the contexts alive for the full duration
-       ((skip (make-skip-music (make-duration-of-length
-                                     (ly:music-length music)))))
-    #{
-      <<
-        \context Staff = "up" $(or clef-1 #{ \with { \clef "treble" } #})
-          <<
-          #(make-autochange-music pitch music)
-          \new Voice { #skip }
-          >>
-        \context Staff = "down" $(or clef-2 #{ \with { \clef "bass" } #})
-          \new Voice { #skip }
-      >>
-    #}))
+       ((skip (make-duration-of-length (ly:music-length music)))
+        (clef-1 (or clef-1 #{ \with { \clef "treble" } #}))
+        (clef-2 (or clef-2 #{ \with { \clef "bass" } #})))
+    (make-simultaneous-music
+     (list
+      (descend-to-context (make-autochange-music pitch music) 'Staff
+                          "up" clef-1)
+      (context-spec-music (make-skip-music skip) 'Staff
+                          "up" clef-1)
+      (context-spec-music (make-skip-music skip) 'Staff
+                          "down" clef-2)))))
 
 balloonGrobText =
 #(define-music-function (grob-name offset text)
