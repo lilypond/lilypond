@@ -169,7 +169,7 @@ Audio_span_dynamic::render ()
       // The dynamic spanner does not end with an explicit dynamic script
       // event.  Adjust the end volume by at most 1/4 of the available
       // volume range in this case.
-      dynamics_.back ()->volume_ = max (min (start_v + grow_dir_ * (max_volume_ - min_volume_) * 0.25, max_volume_), min_volume_);
+      dynamics_.back ()->volume_ = std::max (std::min (start_v + grow_dir_ * (max_volume_ - min_volume_) * 0.25, max_volume_), min_volume_);
     }
 
   Real delta_v = dynamics_.back ()->volume_ - dynamics_[0]->volume_;

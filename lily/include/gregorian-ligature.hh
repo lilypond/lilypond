@@ -27,7 +27,7 @@ class Grob;
 class Gregorian_ligature
 {
 public:
-  static string prefixes_to_str (Grob *);
+  static std::string prefixes_to_str (Grob *);
 };
 
 /*

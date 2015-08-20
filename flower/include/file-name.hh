@@ -29,18 +29,18 @@ std::string get_working_directory ();
 class File_name
 {
 public:
-  string root_;
-  string dir_;
-  string base_;
-  string ext_;
+  std::string root_;
+  std::string dir_;
+  std::string base_;
+  std::string ext_;
 
-  File_name (string = "");
+  File_name (std::string = "");
 
   bool is_absolute () const;
-  string to_string () const;
+  std::string to_string () const;
   File_name canonicalized () const;
-  string dir_part () const;
-  string file_part () const;
+  std::string dir_part () const;
+  std::string file_part () const;
 };
 
 #endif /* FILE_NAME */

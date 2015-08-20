@@ -154,7 +154,7 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
 
   int
   lo = 0;
-  int hi = max ((int) fm->count () - 1, 2);
+  int hi = std::max ((int) fm->count () - 1, 2);
 
   /* do a binary search for each Y, not very efficient, but passable?  */
   Box b;

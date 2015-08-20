@@ -56,11 +56,11 @@ private:
   bool percussion_;
   bool merge_unisons_;
   vsize index_;
-  vector<Audio_item *> items_;
+  std::vector<Audio_item *> items_;
   PQueue<Midi_note_event> stop_note_queue;
   int last_tick_;
 
-  vector<Midi_item *> midi_events_;
+  std::vector<Midi_item *> midi_events_;
 };
 
 #endif // MIDI_WALKER_HH

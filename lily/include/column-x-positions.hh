@@ -25,10 +25,10 @@
 
 struct Column_x_positions
 {
-  vector<Grob *> cols_;
-  vector<Grob *> loose_cols_;
+  std::vector<Grob *> cols_;
+  std::vector<Grob *> loose_cols_;
 
-  vector<Real> config_;
+  std::vector<Real> config_;
   Real force_;
   bool satisfies_constraints_;
 

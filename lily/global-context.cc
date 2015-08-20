@@ -20,7 +20,6 @@
 #include "global-context.hh"
 
 #include <cstdio>
-using namespace std;
 
 #include "context-def.hh"
 #include "dispatcher.hh"

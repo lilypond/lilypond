@@ -33,7 +33,7 @@ struct Audio_staff : public Audio_element
 
   bool percussion_;
   bool merge_unisons_;
-  vector<Audio_item *> audio_items_;
+  std::vector<Audio_item *> audio_items_;
 };
 
 // Subtype to identify a staff that represents the "control track" of a MIDI

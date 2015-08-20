@@ -230,7 +230,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
         }
     }
 
-  vector_sort (*scripts, less<Finger_tuple> ());
+  vector_sort (*scripts, std::less<Finger_tuple> ());
 
   bool up_p = scm_is_true (scm_c_memq (ly_symbol2scm ("up"), orientations));
   bool down_p = scm_is_true (scm_c_memq (ly_symbol2scm ("down"), orientations));

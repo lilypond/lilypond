@@ -18,7 +18,6 @@
 */
 
 #include <cctype>
-using namespace std;
 
 #include "engraver.hh"
 

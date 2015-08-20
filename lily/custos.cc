@@ -26,7 +26,6 @@
 
 #include <cstdio>
 #include <cmath> // rint
-using namespace std;
 
 #include "custos.hh"
 #include "direction.hh"

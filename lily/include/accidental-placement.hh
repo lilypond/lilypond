@@ -29,10 +29,10 @@ public:
   DECLARE_SCHEME_CALLBACK (alignment_callback, (SCM element));
   static void add_accidental (Grob *, Grob *, bool, long);
 
-  static vector<Grob *> get_relevant_accidentals (vector<Grob *> const &elts, Grob *left);
+  static std::vector<Grob *> get_relevant_accidentals (std::vector<Grob *> const &elts, Grob *left);
   static void split_accidentals (Grob *accs,
-                                 vector<Grob *> *break_reminder,
-                                 vector<Grob *> *real_acc);
+                                 std::vector<Grob *> *break_reminder,
+                                 std::vector<Grob *> *real_acc);
 
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM));
 };

@@ -6,7 +6,6 @@
 
 #include <cstring>
 #include <cstdlib>
-using namespace std;
 
 /* for qsort */
 bool tab_less (Keyword_ent const &p1, Keyword_ent const &p2)

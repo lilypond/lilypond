@@ -173,7 +173,7 @@ Beaming_pattern::beamify (Beaming_options const &options)
             int importance = infos_[i + 1].rhythmic_importance_;
             int count = (importance < 0 && options.subdivide_beams_) 
                         ? subdivide_beam_count
-                        : min (min (infos_[i].count (non_flag_dir),
+                        : std::min (std::min (infos_[i].count (non_flag_dir),
                                         infos_[i + non_flag_dir].count (-non_flag_dir)),
                                    infos_[i - non_flag_dir].count (non_flag_dir));
 
@@ -317,7 +317,7 @@ Beaming_pattern::unbeam_invisible_stems ()
   for (vsize i = 1; i < infos_.size (); i++)
     if (infos_[i].invisible_)
       {
-        int b = min (infos_[i].count (LEFT), infos_[i - 1].count (LEFT));
+        int b = std::min (infos_[i].count (LEFT), infos_[i - 1].count (LEFT));
         infos_[i].beam_count_drul_[LEFT] = b;
         infos_[i].beam_count_drul_[RIGHT] = b;
       }
@@ -326,7 +326,7 @@ Beaming_pattern::unbeam_invisible_stems ()
     for (vsize i = infos_.size () - 1; i--;)
       if (infos_[i].invisible_)
         {
-          int b = min (infos_[i].count (LEFT), infos_[i + 1].count (LEFT));
+          int b = std::min (infos_[i].count (LEFT), infos_[i + 1].count (LEFT));
           infos_[i].beam_count_drul_[LEFT] = b;
           infos_[i].beam_count_drul_[RIGHT] = b;
         }
@@ -357,7 +357,7 @@ Beaming_pattern::start_moment (int i) const
 Moment
 Beaming_pattern::end_moment (int i) const
 {
-  Duration dur (2 + max (beamlet_count (i, LEFT),
+  Duration dur (2 + std::max (beamlet_count (i, LEFT),
                          beamlet_count (i, RIGHT)),
                 0);
 
@@ -396,7 +396,7 @@ Beaming_pattern::split_pattern (int i)
   new_pattern = new Beaming_pattern ();
   for (vsize j = i + 1; j < infos_.size (); j++)
     {
-      count = max (beamlet_count (j, LEFT), beamlet_count (j, RIGHT));
+      count = std::max (beamlet_count (j, LEFT), beamlet_count (j, RIGHT));
       new_pattern->add_stem (start_moment (j),
                              count,
                              invisibility (j),

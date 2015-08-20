@@ -177,7 +177,7 @@ Hairpin::print (SCM smob)
                 {
                   Spanner *span_elt = dynamic_cast<Spanner *> (chp[i]);
                   if (span_elt->get_bound (RIGHT)->break_status_dir () == LEFT)
-                    broken_bound_padding = max (broken_bound_padding,
+                    broken_bound_padding = std::max (broken_bound_padding,
                                                 robust_scm2double (span_elt->get_property ("broken-bound-padding"), 0.0));
                 }
               x_points[d] -= d * broken_bound_padding;

@@ -127,9 +127,9 @@ Simple_spacer::add_rod (int l, int r, Real dist)
 
       return;
     }
-  force_ = max (force_, block_force);
+  force_ = std::max (force_, block_force);
   for (int i = l; i < r; i++)
-    springs_[i].set_blocking_force (max (block_force, springs_[i].blocking_force ()));
+    springs_[i].set_blocking_force (std::max (block_force, springs_[i].blocking_force ()));
 }
 
 Real
@@ -225,7 +225,7 @@ Simple_spacer::compress_line ()
   if (line_len_ > (1 + 1e-6) * cur_len)
     programming_error ("misuse of compress_line");
   vector<Spring> sorted_springs = springs_;
-  sort (sorted_springs.begin (), sorted_springs.end (), greater<Spring> ());
+  sort (sorted_springs.begin (), sorted_springs.end (), std::greater<Spring> ());
 
   /* inv_hooke is the total flexibility of currently-active springs */
   double inv_hooke = 0;
@@ -269,7 +269,7 @@ Simple_spacer::compress_line ()
 void
 Simple_spacer::add_spring (Spring const &sp)
 {
-  force_ = max (force_, sp.blocking_force ());
+  force_ = std::max (force_, sp.blocking_force ());
   springs_.push_back (sp);
 }
 
@@ -291,7 +291,7 @@ Simple_spacer::force_penalty (bool ragged) const
      but according to the amount of whitespace that is present after the end
      of the line. */
   if (ragged)
-    return max (0.0, line_len_ - configuration_length (0.0));
+    return std::max (0.0, line_len_ - configuration_length (0.0));
 
   /* Use a convex compression penalty. */
   Real f = force_;

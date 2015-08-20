@@ -20,7 +20,6 @@
 #include "engraver.hh"
 
 #include <cctype>
-using namespace std;
 
 #include "duration.hh"
 #include "item.hh"

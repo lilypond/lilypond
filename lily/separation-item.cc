@@ -64,7 +64,7 @@ Separation_item::set_distance (Item *l, Item *r, Real padding)
       rod.add_to_cols ();
     }
 
-  return max (dist, 0.0);
+  return std::max (dist, 0.0);
 }
 
 bool

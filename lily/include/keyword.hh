@@ -34,7 +34,7 @@ struct Keyword_ent
 */
 struct Keyword_table
 {
-  vector<Keyword_ent> table_;
+  std::vector<Keyword_ent> table_;
 
   Keyword_table (Keyword_ent *);
   vsize lookup (char const *s) const;

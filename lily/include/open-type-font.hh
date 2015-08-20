@@ -48,22 +48,22 @@ public:
   SCM glyph_list () const;
   SCM get_glyph_outline (size_t signed_idx) const;
   Box get_glyph_outline_bbox (size_t signed_idx) const;
-  string get_otf_table (const string &tag) const;
-  static SCM make_otf (const string&);
-  string font_name () const;
+  std::string get_otf_table (const std::string &tag) const;
+  static SCM make_otf (const std::string&);
+  std::string font_name () const;
   ~Open_type_font ();
-  Offset attachment_point (const string&) const;
+  Offset attachment_point (const std::string&) const;
   size_t count () const;
   Box get_indexed_char_dimensions (size_t) const;
   Box get_unscaled_indexed_char_dimensions (size_t) const;
-  size_t name_to_index (string) const;
+  size_t name_to_index (std::string) const;
   size_t index_to_charcode (size_t) const;
   void derived_mark () const;
   SCM sub_fonts () const;
   Real design_size () const;
 };
 
-string get_otf_table (FT_Face face, const string &tag);
-FT_Face open_ft_face (const string&, FT_Long idx);
+std::string get_otf_table (FT_Face face, const std::string &tag);
+FT_Face open_ft_face (const std::string&, FT_Long idx);
 
 #endif /* OPEN_TYPE_FONT_HH */

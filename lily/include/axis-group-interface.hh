@@ -47,10 +47,10 @@ class Axis_group_interface
   DECLARE_SCHEME_CALLBACK (calc_pure_staff_staff_spacing, (SCM, SCM, SCM));
   DECLARE_SCHEME_CALLBACK (calc_pure_relevant_grobs, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_pure_y_common, (SCM));
-  static SCM internal_calc_pure_relevant_grobs (Grob *, const string&);
-  static Interval relative_group_extent (vector<Grob *> const &list,
+  static SCM internal_calc_pure_relevant_grobs (Grob *, const std::string&);
+  static Interval relative_group_extent (std::vector<Grob *> const &list,
                                          Grob *common, Axis);
-  static Interval relative_maybe_bound_group_extent (vector<Grob *> const &list,
+  static Interval relative_maybe_bound_group_extent (std::vector<Grob *> const &list,
                                                      Grob *common, Axis, bool);
   static Interval relative_pure_height (Grob *me, int start, int end);
   static Interval combine_pure_heights (Grob *me, SCM, int, int);
@@ -64,7 +64,7 @@ class Axis_group_interface
   static void add_element (Grob *me, Grob *);
   static void set_axes (Grob *, Axis, Axis);
   static bool has_axis (Grob *, Axis);
-  static void get_children (Grob *, vector<Grob *> *);
+  static void get_children (Grob *, std::vector<Grob *> *);
   static Interval staff_extent (Grob *me, Grob *ref, Axis, Grob *staff, Axis);
   static SCM calc_common (Grob *, Axis);
   static Real minimum_distance (Grob *, Grob *, Axis);

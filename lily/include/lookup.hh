@@ -29,7 +29,7 @@ struct Lookup
   static Stencil bracket (Axis a, Interval iv, Real thick, Real protrude, Real blot);
   static Stencil circle (Real rad, Real thick, bool filled);
   static Stencil rotated_box (Real slope, Real width, Real thick, Real blot);
-  static Stencil round_filled_polygon (vector<Offset> const &points, Real blotdiameter);
+  static Stencil round_filled_polygon (std::vector<Offset> const &points, Real blotdiameter);
   static Stencil frame (Box b, Real thick, Real blot);
   static Stencil slur (Bezier controls, Real cthick, Real thick,
                        SCM dash_definition);
@@ -42,7 +42,7 @@ struct Lookup
   static Stencil repeat_slash (Real w, Real slope, Real th);
   static Stencil horizontal_line (Interval w, Real th);
   static Stencil triangle (Interval iv, Real thick, Real protrude);
-  static Stencil points_to_line_stencil (Real thick, vector<Offset> const &points);
+  static Stencil points_to_line_stencil (Real thick, std::vector<Offset> const &points);
 };
 
 #endif // LOOKUP_HH

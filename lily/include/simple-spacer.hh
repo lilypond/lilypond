@@ -36,7 +36,7 @@ public:
   Real range_ideal_len (int l, int r) const;
   Real range_stiffness (int l, int r, bool stretch) const;
   Real configuration_length (Real) const;
-  vector<Real> spring_positions () const;
+  std::vector<Real> spring_positions () const;
 
   void set_force (Real force);
   Real force () const;
@@ -49,7 +49,7 @@ private:
   Real compress_line ();
   Real rod_force (int l, int r, Real dist);
 
-  vector<Spring> springs_;
+  std::vector<Spring> springs_;
   Real line_len_;
   Real force_;
   bool ragged_;
@@ -57,12 +57,12 @@ private:
 };
 
 /* returns a vector of dimensions breaks.size () * breaks.size () */
-vector<Real> get_line_forces (vector<Grob *> const &columns,
+std::vector<Real> get_line_forces (std::vector<Grob *> const &columns,
                               Real line_len,
                               Real indent,
                               bool ragged);
 
-Column_x_positions get_line_configuration (vector<Grob *> const &columns,
+Column_x_positions get_line_configuration (std::vector<Grob *> const &columns,
                                            Real line_len,
                                            Real indent,
                                            bool ragged);

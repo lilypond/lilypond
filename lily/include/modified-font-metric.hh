@@ -26,14 +26,14 @@
 struct Modified_font_metric : public Font_metric
 {
 public:
-  Stencil text_stencil (Output_def *output_state, const string&, bool) const;
+  Stencil text_stencil (Output_def *output_state, const std::string&, bool) const;
   Real get_magnification () const;
 
   static SCM make_scaled_font_metric (Font_metric *fm, Real magnification);
   size_t count () const;
   Offset get_indexed_wxwy (size_t) const;
-  Offset attachment_point (const string&) const;
-  size_t name_to_index (string) const;
+  Offset attachment_point (const std::string&) const;
+  size_t name_to_index (std::string) const;
   size_t index_to_charcode (size_t) const;
   Font_metric *original_font () const;
 
@@ -43,7 +43,7 @@ protected:
 
   Modified_font_metric (Font_metric *fm, Real magnification);
   SCM sub_fonts () const;
-  string font_name () const;
+  std::string font_name () const;
   Real design_size () const;
   void derived_mark () const;
   Box get_indexed_char_dimensions (size_t) const;

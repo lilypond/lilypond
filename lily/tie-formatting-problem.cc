@@ -284,7 +284,7 @@ Tie_formatting_problem::set_chord_outline (vector<Item *> bounds,
   for (vsize i = 0; i < bounds.size (); i++)
     ranks.push_back (bounds[i]->get_column ()->get_rank ());
 
-  vector_sort (ranks, less<int> ());
+  vector_sort (ranks, std::less<int> ());
   uniq (ranks);
 
   for (vsize i = 0; i < ranks.size (); i++)
@@ -481,7 +481,7 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
     }
 
   if (y_tune
-      && max (fabs (get_head_extent (columns[LEFT], LEFT, Y_AXIS)[dir] - y),
+      && std::max (fabs (get_head_extent (columns[LEFT], LEFT, Y_AXIS)[dir] - y),
               fabs (get_head_extent (columns[RIGHT], RIGHT, Y_AXIS)[dir] - y)) < 0.25
       && !Staff_symbol_referencer::on_line (details_.staff_symbol_referencer_, pos))
     {
@@ -577,7 +577,7 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
             continue;
 
           conf->attachment_x_[d]
-            = d * min (d * conf->attachment_x_[d],
+            = d * std::min (d * conf->attachment_x_[d],
                        d * (get_stem_extent (conf->column_ranks_[d], d, X_AXIS)[-d] - d * details_.stem_gap_));
         }
     }
@@ -625,7 +625,7 @@ Tie_formatting_problem::score_aptitude (Tie_configuration *conf,
     }
 
   {
-    Real relevant_dist = max (fabs (curve_y - tie_y) - 0.5, 0.0);
+    Real relevant_dist = std::max (fabs (curve_y - tie_y) - 0.5, 0.0);
     Real p = details_.vertical_distance_penalty_factor_ * convex_amplifier (1.0, 0.9, relevant_dist);
     if (ties_conf)
       ties_conf->add_tie_score (p, tie_idx, "vdist");

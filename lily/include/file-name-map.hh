@@ -22,7 +22,7 @@
 
 #include "std-string.hh"
 
-string map_file_name (const string &s);
+std::string map_file_name (const std::string &s);
 
 #endif /* FILE_NAME_MAP_HH */
 

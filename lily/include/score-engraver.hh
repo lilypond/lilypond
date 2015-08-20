@@ -26,7 +26,7 @@ class Score_engraver : public Engraver_group
 {
   System *system_;
 
-  vector<Grob *> elems_;
+  std::vector<Grob *> elems_;
   Paper_score *pscore_;
 
   void typeset_all ();

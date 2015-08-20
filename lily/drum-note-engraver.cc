@@ -18,7 +18,6 @@
 */
 
 #include <cctype>
-using namespace std;
 
 #include "item.hh"
 #include "duration.hh"

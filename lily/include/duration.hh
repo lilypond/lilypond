@@ -33,7 +33,7 @@ struct Duration : public Simple_smob<Duration>
   Duration ();
   Duration (int, int);
   Duration (Rational, bool scale);
-  string to_string () const;
+  std::string to_string () const;
 
   Duration compressed (Rational) const;
   Rational get_length () const;

@@ -18,7 +18,6 @@
 */
 
 #include <glib.h>
-using namespace std;
 
 #include "international.hh"
 #include "warn.hh"

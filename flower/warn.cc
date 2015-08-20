@@ -25,7 +25,6 @@
 #include "std-vector.hh"
 #include "international.hh"
 
-using namespace std;
 using std::string;
 using std::vector;
 

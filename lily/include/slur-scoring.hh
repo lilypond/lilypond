@@ -90,15 +90,15 @@ struct Slur_score_state
   bool has_same_beam_;
 
   Real musical_dy_;
-  vector<Grob *> columns_;
-  vector<Encompass_info> encompass_infos_;
-  vector<Extra_collision_info> extra_encompass_infos_;
+  std::vector<Grob *> columns_;
+  std::vector<Encompass_info> encompass_infos_;
+  std::vector<Extra_collision_info> extra_encompass_infos_;
 
   Direction dir_;
   Slur_score_parameters parameters_;
   Drul_array<Bound_info> extremes_;
   Drul_array<Offset> base_attachments_;
-  vector<Slur_configuration *> configurations_;
+  std::vector<Slur_configuration *> configurations_;
   Real staff_space_;
   Real line_thickness_;
   Real thickness_;
@@ -111,14 +111,14 @@ struct Slur_score_state
   void fill (Grob *);
   Direction slur_direction () const;
 
-  vector<Offset> generate_avoid_offsets () const;
+  std::vector<Offset> generate_avoid_offsets () const;
   Drul_array<Bound_info> get_bound_info () const;
   void generate_curves () const;
-  vector<Slur_configuration *> enumerate_attachments (Drul_array<Real> end_ys) const;
+  std::vector<Slur_configuration *> enumerate_attachments (Drul_array<Real> end_ys) const;
   Drul_array<Offset> get_base_attachments () const;
   Drul_array<Real> get_y_attachment_range () const;
   Encompass_info get_encompass_info (Grob *col) const;
-  vector<Extra_collision_info> get_extra_encompass_infos () const;
+  std::vector<Extra_collision_info> get_extra_encompass_infos () const;
   Real move_away_from_staffline (Real y, Grob *on_staff) const;
 
   Interval breakable_bound_extent (Direction) const;

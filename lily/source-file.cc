@@ -34,7 +34,6 @@
 #else
 #include <strstream>
 #endif
-using namespace std;
 
 #include "file-name-map.hh"
 #include "international.hh"
@@ -82,7 +81,7 @@ gulp_file (const string &filename, int desired_size)
   int read_count = real_size;
 
   if (desired_size > 0)
-    read_count = min (read_count, desired_size);
+    read_count = std::min (read_count, desired_size);
 
   rewind (f);
 
@@ -175,8 +174,8 @@ Source_file::get_istream ()
       else
         {
           istream_ = new istringstream ("");
-          istream_->setstate (ios::eofbit);
-          //      istream_->set (ios::eofbit);
+          istream_->setstate (std::ios::eofbit);
+          //      istream_->set (std::ios::eofbit);
         }
     }
   return istream_;
@@ -330,7 +329,7 @@ Source_file::get_line (char const *pos_str0) const
   /* this will find the '\n' character at the end of our line */
   vsize lo = lower_bound (newline_locations_,
                           pos_str0,
-                          less<char const *> ());
+                          std::less<char const *> ());
 
   /* the return value will be indexed from 1 */
   return lo + 1 + line_offset_;
