@@ -95,7 +95,7 @@ if test "$TEXGYRE_DIR" = "" -o "$MISSING_TEXGYRE_FILES" != ""; then
     if test "$FCLIST" = ""; then
       STEPMAKE_ADD_ENTRY(REQUIRED,'(install the fc-list utility from FontConfig, or use --with-texgyre-dir)')
     else
-      STEPMAKE_ADD_ENTRY(REQUIRED,'(make sure the fc-list utility can see them, e.g. \`sudo apt-get install fonts-texgyre\', or use --with-texgyre-dir)')
+      STEPMAKE_ADD_ENTRY(REQUIRED,"(make sure the fc-list utility can see them, e.g. 'sudo apt-get install fonts-texgyre', or use --with-texgyre-dir)")
     fi
   else
     STEPMAKE_ADD_ENTRY(REQUIRED,'(these files are missing: $MISSING_TEXGYRE_FILES)')
