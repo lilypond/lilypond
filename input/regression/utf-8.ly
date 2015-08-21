@@ -34,9 +34,9 @@ will render Bulgarian (Cyrillic), Hebrew, Japanese and Portuguese.
 \paper {
   #(define fonts
     (set-global-fonts
-     #:roman "Linux Libertine O"
-     #:sans "Linux Biolinum O"
-     #:typewriter "Linux Libertine Mono O"
+     #:roman "Linux Libertine O,serif"
+     #:sans "Linux Biolinum O,sans-serif"
+     #:typewriter "Linux Libertine Mono O,monospace"
    ))
 }
 
