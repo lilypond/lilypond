@@ -2467,7 +2467,7 @@ lancer dans la saisie de votre chant, comme ci-dessous :
 \paper {
   #(define fonts
     (set-global-fonts
-     #:roman "Linux Libertine O"
+     #:roman "Linux Libertine O,serif"
    ))
 }
 
@@ -2653,7 +2653,7 @@ Voici comment générer des ligatures en notation kiévienne :
 \paper {
   #(define fonts
     (set-global-fonts
-     #:roman "Linux Libertine O"
+     #:roman "Linux Libertine O,serif"
    ))
 }
 

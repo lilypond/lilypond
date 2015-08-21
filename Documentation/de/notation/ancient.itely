@@ -2540,7 +2540,7 @@ richtigen Werten, sodass man sofort den Choral notieren kann:
 \paper {
   #(define fonts
     (set-global-fonts
-     #:roman "Linux Libertine O"
+     #:roman "Linux Libertine O,serif"
    ))
 }
 

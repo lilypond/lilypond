@@ -2412,7 +2412,7 @@ values, so you can immediately go ahead entering the chant:
 \paper {
   #(define fonts
     (set-global-fonts
-     #:roman "Linux Libertine O"
+     #:roman "Linux Libertine O,serif"
    ))
 }
 
@@ -2590,7 +2590,7 @@ The following example demonstrates the use of Kievan ligatures:
 \paper {
   #(define fonts
     (set-global-fonts
-     #:roman "Linux Libertine O"
+     #:roman "Linux Libertine O,serif"
    ))
 }
 

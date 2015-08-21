@@ -2476,7 +2476,7 @@ inmediatamente con la introducción del propio canto:
 \paper {
   #(define fonts
     (set-global-fonts
-     #:roman "Linux Libertine O"
+     #:roman "Linux Libertine O,serif"
    ))
 }
 
@@ -2667,7 +2667,7 @@ kievano:
 \paper {
   #(define fonts
     (set-global-fonts
-     #:roman "Linux Libertine O"
+     #:roman "Linux Libertine O,serif"
    ))
 }
 
