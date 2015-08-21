@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish:  ebe492ca408fb0d9abf80b94c56197eef8dc2f09
+    Translation of GIT committish:  5b6ddab894b3065c35c72ef8048b8c6edbe684ac
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes.
 @end ignore
 
-@c Translators: Till Paala
+@c Translators: Till Paala, Michael Gerdau
 
 @node Handbücher
 @unnumbered Handbücher
@@ -37,7 +37,7 @@
 @itemize
 
 @item
-@ref{Text-Eingabe}:
+@ref{Texteingabe}:
 LilyPond ist ein @strong{textbasiertes} Notensatzprogramm.  Wenn
 Sie mit diesem Konzept nicht vertraut sind, lesen Sie darüber bitte
 jetzt!
@@ -53,8 +53,6 @@ eine sanfte @qq{unbedingt lesen!} Einführung in LilyPond.
 die passenden Übersetzungen in vielen anderen Sprachen gegeben.
 @details{Glossar}
 
-
-
 @item
 @ifWebLinks{@manualStableEssaySplitNoName-de,@ressaynamed{Top,Aufsatz}}
 @emph{(optional)} Hintergrundinformation über den Notensatzprozess und die
@@ -66,13 +64,13 @@ die passenden Übersetzungen in vielen anderen Sprachen gegeben.
 @divEnd
 
 @divClass{column-left-top}
-@subheading Normale Benutzung
+@subheading Regelmäßig benötigt
 
 @itemize
 
 @item
 @ifWebLinks{@manualStableNotationSplitNoName-de,@rusernamed{Top,Notation}}
-eine Syntaxreferenz.
+Syntaxreferenz.
 @details{Notation}
 
 @item
@@ -91,7 +89,7 @@ kurze Tricks, Tipps und Beispiele.
 
 
 @divClass{column-right-top}
-@subheading Unregelmäßige Benutzung
+@subheading Seltener benötigt
 
 @itemize
 
@@ -102,6 +100,7 @@ Häufig gestellte Fragen.
 @item
 @ref{Top,Web}:
 Dieses Dokument.
+@details{Web}
 
 @item
 @ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Änderungen}}
@@ -109,9 +108,9 @@ Was ist neu?
 @details{Änderungen}
 
 @item
-@ifWebLinks{@manualStableExtendingSplitNoName-de,@rextendnamed{Top,Erweitert}}
+@ifWebLinks{@manualStableExtendingSplitNoName-de,@rextendnamed{Top,Erweitern}}
 clevere Anpassungen.
-@details{Erweitert}
+@details{Erweitern}
 
 @item
 @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Interna}}
@@ -141,6 +140,11 @@ der Übersetzungsstatus für nicht Nicht-Englischsprachige.
 Beispiele, Tricks und Tipps, von LilyPond-Benutzern erstellt.
 
 @item
+@uref{http://benlemon.me/blog/music/lilypond/operation-lilypond/,Video Tutorials}:
+Der LilyPond Anwender Ben Lemon hat eine Reihe Video Tutorials in seinem
+Blog veröffentlicht.  Sie wenden sich an Neulinge.
+
+@item
 @ref{Entwicklung}:
 Handbücher für die Entwicklerversion.
 
@@ -152,25 +156,36 @@ Diese Handbücher sind unter der GNU Free Documentation License herausgegeben.
 
 @divEnd
 
+@divClass{column-center-bottom}
+@subheading Format der Handbücher
+
+Die LilyPond Handbücher liegen generell in drei Formaten vor: geteiltes HTML, großes HTML und
+PDF.  Geteiltes HTML eignet sich besonders Online gelesen zu werden.  Großes HTML (und einige sind
+sehr groß) beinhaltet das gesamte Handbuch in einer einzigen Seite.  PDF ist zum Download und
+dem Offline Lesen vorgesehen.  Sie gelangen zu diesen 3 Formaten indem Sie den Links
+@code{details of} folgen und dann dem Namen des Handbuchs.
+
+@divEnd
+
 @divEnd
 
 
 @divClass{hide}
 @menu
-* Einführung::
-* Glossar::
-* Aufsatz::
-* Notation::
-* Benutzung::
-* Schnipsel::
-* FAQ::
-* Web::
-* Änderungen::
-* Erweitert::
-* Interna::
-* Übersetzt::
-* Alles::
-* FDL::
+* Einführung::             Einführung.
+* Glossar::                Glossar.
+* Aufsatz::                Aufsatz.
+* Notation::               Referenz.
+* Benutzung::              Benutzung.
+* Schnipsel::              Schnipsel.
+* FAQ::                    FAQ.
+* Web::                    Web.
+* Änderungen::             NEWS.
+* Erweitern::              Programmierung.
+* Interna::                Interna.
+* Übersetzt::              Übersetzt.
+* Alles::                  Alle Handbücher
+* FDL::                    Lizenz.
 @end menu
 
 @divEnd
@@ -204,8 +219,8 @@ weitere Informationen zu erhalten.
 @docLinks{Einführung, learning,
   @rlearningnamed{Top,Einführung},
   @manualStableLearningSplit-de,
-  @manualStableLearningBig-de, 1.5 MB,
-  @manualStableLearningPdf-de, 3 MB}
+  @manualStableLearningBig-de, 3 MB,
+  @manualStableLearningPdf-de, 5 MB}
 
 @divEnd
 
@@ -259,8 +274,8 @@ Auflösung hat.}
 @docLinks{Aufsatz, essay,
   @ressaynamed{Top,Aufsatz},
   @manualStableEssaySplit-de,
-  @manualStableEssayBig-de, 2 MB,
-  @manualStableEssayPdf-de, 2.5 MB}
+  @manualStableEssayBig-de, 1 MB,
+  @manualStableEssayPdf-de, 2 MB}
 
 @divEnd
 
@@ -286,8 +301,8 @@ englische Musikterminologie (siehe Glossar) bekannt sein.}
 @docLinks{Notation, notation,
   @rusernamed{Top,Notation},
   @manualStableNotationSplit-de,
-  @manualStableNotationBig-de, 7 MB,
-  @manualStableNotationPdf-de, 18 MB}
+  @manualStableNotationBig-de, 9 MB,
+  @manualStableNotationPdf-de, 35 MB}
 
 @divEnd
 
@@ -297,7 +312,7 @@ englische Musikterminologie (siehe Glossar) bekannt sein.}
 @translationof Usage
 
 @divClass{column-left-top}
-@subheading Handbuch zur Benutzung
+@subheading Benutzerhandbuch
 
 Dieses Buch erklärt, wie die Programme ausgeführt werden, wie man
 LilyPond-Notation in andere Programme integrieren kann und macht
@@ -313,7 +328,7 @@ in Angriff nimmt.
   @rprogramnamed{Top,Benutzung},
   @manualStableUsageSplit-de,
   @manualStableUsageBig-de, 400 KB,
-  @manualStableUsagePdf-de, 600 KB}
+  @manualStableUsagePdf-de, 650 KB}
 
 @divEnd
 
@@ -338,7 +353,7 @@ Schipsel sind in der Datei @file{Documentation/snippets/new/} im
 Quellverzeichnis von LilyPond gespeichert.
 
 Die Schnipsel-Listen für jeden Abschnitt der Notationsreferenz
-sind auch verlinkt vom @strong{Siehe auch}-Absatz.
+sind auch verlinkt vom @strong{Siehe auch} Absatz.
 @divEnd
 
 @divClass{column-right-bottom}
@@ -346,8 +361,8 @@ sind auch verlinkt vom @strong{Siehe auch}-Absatz.
 @docLinks{Schnipsel, snippets,
   @rlsrnamed{Top,Schnipsel},
   @manualStableSnippetsSplit,
-  @manualStableSnippetsBig, 2.5 MB,
-  @manualStableSnippetsPdf, 8 MB}
+  @manualStableSnippetsBig, 1.5 MB,
+  @manualStableSnippetsPdf, 12.5 MB}
 
 @divEnd
 
@@ -362,7 +377,7 @@ sind auch verlinkt vom @strong{Siehe auch}-Absatz.
 @subsubheading Wo sind die graphischen Menüs, Werkzeugleisten und Notenblatt?
 
 LilyPond erfordert es, dass Noten als Text eingegeben werden.
-Lesen Sie bitte über unsere @ref{Text-Eingabe}.
+Lesen Sie bitte über unsere @ref{Texteingabe}.
 
 
 @subsubheading Es gibt sehr viel Dokumentation! Muss ich das alles
@@ -427,11 +442,10 @@ Programm.
 @docLinksBare{Web, web,
   @ref{Top,Web},
   @manualDevelWebSplit-de,
-  @manualDevelWebBig-de, 1 MB,
-  @manualDevelWebPdf, 2 MB}
+  @manualDevelWebBig-de, 2.5 MB,
+  @manualDevelWebPdf, 3.5 MB}
 
 @divEnd
-
 
 
 @node Änderungen
@@ -451,14 +465,14 @@ Eigenschaften in LilyPond seit der vorigen stabilen Version.
 @docLinks{Änderungen, changes,
   @rchangesnamed{Top,Änderungen},
   @manualStableChangesSplit,
-  @manualStableChangesBig, 6 KB,
-  @manualStableChangesPdf, 200 KB}
+  @manualStableChangesBig, 90 KB,
+  @manualStableChangesPdf, 80 KB}
 
 @divEnd
 
 
-@node Erweitert
-@unnumberedsec Erweitert
+@node Erweitern
+@unnumberedsec Erweitern
 @translationof Extending
 
 @divClass{column-left-top}
@@ -473,8 +487,8 @@ Dieses Handbuch erklärt, wie man Erweiterungen für LilyPond schreibt.
 @docLinks{Erweitert, extending,
   @rextendnamed{Top,Erweitert},
   @manualStableExtendingSplit-de,
-  @manualStableExtendingBig-de, 200 KB,
-  @manualStableExtendingPdf-de, 400 KB}
+  @manualStableExtendingBig-de, 300 KB,
+  @manualStableExtendingPdf-de, 500 KB}
 
 @divEnd
 
@@ -507,8 +521,8 @@ erklärt.  Jeder Abschnitt der Notationsreferenz hat einen
 @docLinks{Interna, internals,
   @rinternalsnamed{Top,Interna},
   @manualStableInternalsSplit,
-  @manualStableInternalsBig, 2.5 MB,
-  @manualStableInternalsPdf, 2.8 MB}
+  @manualStableInternalsBig, 3 MB,
+  @manualStableInternalsPdf, 4 MB}
 
 @divEnd
 
@@ -551,10 +565,13 @@ erhältlich.
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading Alte stabile Versionen
+@subheading Frühere stabile Versionen
 
 @divClass{keep-bullets}
 @itemize
+
+@item @uref{http://lilypond.org/doc/v2.16/Documentation/web/manuals.de.html,
+LilyPond 2.16 Dokumentation} (auf deutsch)
 
 @item @uref{http://lilypond.org/doc/v2.14/Documentation/web/manuals.de.html,
 LilyPond 2.14 Dokumentation} (auf deutsch)

@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish:  e5a609e373eae846857f9a6d70a402a3d42b7d94
+    Translation of GIT committish:  5b6ddab894b3065c35c72ef8048b8c6edbe684ac
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes.
 @end ignore
 
-@c Translators: Till Paala
+@c Translators: Till Paala, Michael Gerdau
 
 @node Einleitung
 @unnumbered Einleitung
@@ -18,14 +18,19 @@
 
 @imageFloat{flat-design,png,right}
 
-LilyPond entstand, als zwei Musiker über das tote und unbeseelte Aussehen von computererstellten Notendrucken hinausgehen wollten.  Alle Musiker wollen schöne Noten lesen, warum also sollten Programmierer kein Programm schreiben können, das schönere Orchesterstimmen setzen kann?
+LilyPond entstand, als zwei Musiker über das tote und unbeseelte Aussehen
+von computererstellten Notendrucken hinausgehen wollten.  Musiker wollen
+schöne Noten lesen, warum also sollten Programmierer kein Programm schreiben
+können, das schönere Orchesterstimmen setzen kann?
 
-Das Resultat ist ein System, welches Musiker von den Details des
-Notensatzlayouts befreit, sodass sie sich darauf konzentrieren
-können, Musik zu machen.  LilyPond arbeitet mit ihnen zusammen,
-um Notensatz professioneller Qualität zu erstellen, welche nach
-dem ganzen Erfahrungsschatz und den Traditionen des klassischen
-Notensatzes gesetzt werden.
+Das Resultat ist ein Programm, das schönen Notensatz erzeugt und dabei
+der Tradition und dem ganzen Erfahrungsschatz des klassischen Notensatzes folgt.
+Es kümmert sich programmatisch um alle Feinheiten des Layouts, damit
+Komponisten, Setzer und Verleger sich auf die @emph{Musik} konzentrieren
+können.  Musiker sollen sich auf das @emph{Spielen} und nicht das @emph{Lesen}
+der Musik konzentrieren.
+
+
 @divEnd
 
 @divClass{link-headings}
@@ -52,7 +57,6 @@ Notensatzes gesetzt werden.
 
 @divClass{column-right-top}
 @subheading Lilypond im Einsatz
-
 @itemize
 
 @item
@@ -66,11 +70,10 @@ Notensatzes gesetzt werden.
 
 @divClass{column-center-bottom}
 @subheading Wie LilyPond funktioniert
-
 @itemize
 
 @item
-@ref{Text-Eingabe}: Ihr schreibt Noten als @emph{Text}?!
+@ref{Texteingabe}: Ihr schreibt Noten als @emph{Text}?!
 
 @item
 @ref{Leichteres Editieren}: Andere Möglichkeiten, mit LilyPond zu arbeiten.
@@ -91,7 +94,7 @@ Notensatzes gesetzt werden.
 * Hintergrund::                  Computational aesthetics.
 * Produktionen::                 Real-life use of LilyPond.
 * Rezensionen::                  What do people say about it?
-* Text-Eingabe::                 You write music as text?!
+* Texteingabe::                 You write music as text?!
 * Leichteres Editieren::         Andere Wege, mit LilyPond zu arbeiten.
 @end menu
 @divEnd
@@ -101,13 +104,10 @@ Notensatzes gesetzt werden.
 @node Eigenschaften
 @unnumberedsec Eigenschaften
 @translationof Features
-
-
-
 @divClass{column-center-top}
-@subheading Eleganz
 
-@subsubheading Hervorragender klassischer Notensatz
+
+@subheading Hervorragender klassischer Notensatz
 
 @imageFloat{flat-design,png,right}
 
@@ -123,38 +123,69 @@ elegante Aussehen wie die besten gestochenen klassischen
 Partituren.  Dazu mehr in unserem @ref{Aufsatz}.
 
 
-@subsubheading Effektive Layout-Einstellungen
+@divEnd
+
+@divClass{column-center-top}
+@subheading Texteingabe
+
+@subsubheading Alles ist explizit
+
+LilyPond verarbeitet Texteingaben, die alle Informationen bzgl. des
+@emph{Inhalts} ihrer Partitur enthalten und kann leicht durch Menschen
+oder andere Programme gelesen werden.  Es gibt keine in irgendwelchen
+Menus versteckten Eigenschaften und kein binäres Dateiformat.
+
+Weitere Informationen zu diesem Konzept unter @ref{Texteingabe}.
+
+
+@subsubheading Optimierungen sind robust und nachvollziehbar
+
+Wenn Sie irgendwelche Layoutänderungen vornehmen, so sind diese
+Optimierungen für jeden in der Eingabedatei sichtbar und damit
+sind diese Anpassungen jederzeit nachvollziehbar.  Versehentlich
+eingefügte Fehler können so leicht rückgängig gemacht werden, ohne
+dabei auf die Gnade einer @emph{Undo} Funktion angewiesen zu sein.
+
+
+@subsubheading Textdateien sind wenig fehleranfällig und zukunftssicher
+
+Textdateien sind in Bezug auf Datenverfälschung ausgesprochen robust.
+Dazu sind sie direkt lesbar und daher jederzeit verständlich, auch
+ohne die Verwendung des Programms, mit dem sie mal erzeugt wurden.
+
+
+@subsubheading Setzen Sie Versionskontrolle zur Verwaltung ihrer Partituren ein
+
+Textdateien eignen sich hervorragend zur Verwaltung durch ein Versionsmanagement System.
+Machen Sie das und erfahren unendliches und selektives Undo/Redo und erhalten die
+vollständige Änderungshistorie ihrer Werke.  Versionskontrolle erleichtert
+dazu neue (kollaborative) Arbeitsweisen.
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading Benutzbarkeit
+
+@imageFloat{lilypond-book,png,right}
+
+
+@subsubheading Effektive Layout Einstellungen
 
 Verbringen Sie weniger Zeit damit, den Notensatz nachträglich zu
-verändern: LilyPond formatiert die Noten von Anfang an richtig.
+optimieren; LilyPond formatiert die Noten von Anfang an richtig.
 Die Platzaufteilung und die richtigen Zeilen-
 und Seitenumbrüche werden von selber errechnet, um ein dichtes und gleichmäßiges
 Notenbild zu erzeugen.  Zusammenstöße zwischen Gesangstext, Noten
 und Akkorden werden aufgelöst und alle Bögen sind automatisch
 richtig gekrümmt!
 
-@divEnd
-
-@divClass{color2}
-@subheading Einfach in der Benutzung
-
-@imageFloat{lilypond-book,png,right}
-
-
-@subsubheading Text-basierte Eingabe
-
-LilyPond nimmt ASCII-Texteingabe, welche Sie mit Ihrem
-Lieblingstexteditor erstellen können, schnell und bequem.  Die Eingabe enthält alle
-Information, sodass man keine komplexen Befehlssequenzen erinnern
-muss.  Speichern Sie die Eingabe einfach in einer Textdatei
-für spätere Verwendung.
 
 @subsubheading Kombinieren Sie Noten und Text
 
 Sie können Notenfragmente in einen Text einfügen, ohne Bilder auszuschneiden
 und einzufügen.  Mit LilyPond lassen sich Noten in @LaTeX{} oder HTML
-nahtlos einfügen und mit OOoLilyPond auch in OpenOffice.org-Dokumente
-integrieren.  Es gibt auch Plugins, mit denen LilyPond-Code für verschiedene
+nahtlos einfügen und mit @uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond} auch in OpenOffice.org und LibreOffice Dokumente
+integrieren.  Es gibt auch Plugins, mit denen LilyPond Code für verschiedene
 Blogs und Wikis ermöglicht wird, sodass auch eine Zusammenarbeit online
 möglich wird.
 
@@ -163,28 +194,87 @@ möglich wird.
 Text-basierte Eingabe ermöglicht das Schreiben von Partituren auch
 für Leute mit schweren physischen Behinderungen.  Benutzer mit
 motorischen Behinderungen, die Tastatur oder Maus nicht benutzen
-können, können mit einem Spracherkennungsprogramm LilyPond-Dateien
+können, können mit einem Spracherkennungsprogramm LilyPond Dateien
 bearbeiten.  Sogar vollkommen blinde Benutzer können mit
 Screenreader LilyPond-Dateien erstellen -- vollkommen unmöglich
 mit graphisch-basierten Notationsprogrammen.
 
+@subsubheading Editor Vielfalt
 
-@subsubheading Erweiterbares Design
+Diverse Entwickler, selbst aktive LilyPond Anwender, haben spezielle Werkzeuge entwickelt
+um das Editieren von LilyPond Dateien schneller und effizienter zu gestalten; Sie
+sind nicht auf ein bestimmter Benutzerinterface festgelegt sondern können aus einer
+Vielzahl unterschiedlicher Werkzeuge wählen.  So können sie daheim einen LilyPond Editor
+mit allem drum und dran verwenden und unterwegs den Minieditor ihres Mobiltelefons.
+Einige Beispiele finden Sie unter @ref{Leichteres Editieren}.
+@c TODO: Change this when the new pages have been written and pushed
 
-Alle Einstellungen können verändert werden, um Ihrem persönlichen
-typographischen Geschmack zu entsprechen.  Wenn Ihnen das immer
-noch nicht reicht, gibt es immer noch die eingebaute Scriptsprache
-@qq{Scheme}, ein Dialekt des mächtigen LISP.  Einstellungen, Variablen
-und Funktionen sind alle in einem ausführlichen Programmhandbuch
-dokumentiert.
 
 @divEnd
 
-@divClass{color3}
+@divClass{column-center-top}
+
+@subheading Erweiterbares Design
+
+@subsubheading Einfache Verwaltung von Formatvorlagen
+
+Alle Layout Einstellungen an ihre persönlichen typographischen Vorstellungen
+angepasst werden.  Sie können sehr einfach Formatvorlagen schreiben, die
+buchstäblich jede von LilyPond's Voreinstellungen verändern.  So erstellte
+Formatvorlagen sind ihrerseits wieder Textdateien und können jeweils in einer
+eigenen Datei abgelegt werden.  Das ermöglicht ein extrem einfaches Wechseln
+zwischen vollkommen unterschiedlichem Notensatz einfach durch Austausch dieser
+Formatvorlagen.
+Sie möchten die Partitur auf A4 Papier drucken sowie die Noten mit einem Beamer
+ein System pro Seite projezieren?  LilyPond's Layout Engine erzeugt beides aus
+ein und derselben Eingabedatei.
+
+@subsubheading Fügen Sie eigene Funktionen hinzu
+
+Wenn das noch nicht reichen sollte, dann gibt es immer noch die eingebaute
+Skriptsprache Scheme.  Mit ihr kann auf LilyPond's Layout Engine in exakt
+der gleichen Weise zugegriffen werden, wie LilyPond es intern selbst tut.
+Es ist damit ein @emph{extrem} mächtiges Werkzeug.
+Einstellungen, Variablen und Funktionen sind alle im umfangreichen
+Programm Referenz Handbuch dokumentiert.
+
+@subsubheading Verarbeiten Sie Partituren programmgesteuert
+
+LilyPond Eingabedateien können von externen Programmen oder Skripten editiert oder
+sogar in Gänze erzeugt werden.  Das kann z.B. für algorithmisches Komponieren genutzt werden.
+Oder Sie Verarbeiten den musikalischen Inhalt zu Analysezwecke oder verwalten musikalische
+Fragmente in einer Datenbank.  Die Möglichkeiten sind nur durch ihre Phantasie begrenzt.
+
+
+@subsubheading Entwickeln Sie neue Werkzeuge unter Verwendung von LilyPond
+
+LilyPond is kein monolithisches GUI Programm sondern ein Kommandozeilen Progrmm.
+Daher kann es auch von anderen Programmen verwendet werden.  So kann z.B. eine
+Webanwendung mit LilyPond's Notensatzfähikeiten erweitert werden.  Tatsächlich
+existieren verschiedene Online Werkzeuge, die LiylPond verwenden.
+
+@c (TBD: Add a link to the new @ref{Applications} page.
+
+
+@divEnd
+
+@divClass{column-center-top}
 
 @subheading Umgebung
 
 @imageFloat{frescobaldi-lilypond-editor-small,png,right}
+
+
+
+@subsubheading Hervorragende Unterstützung
+
+LilyPond gibt es für alle verbreiteten Betriebssysteme: GNU/Linux, MacOS X und
+Windows.  LilyPond hat eine ausführliche Dokumentation und
+hunderte von Beispieldateien.  Es gibt eine aktive
+Benutzergemeinschaft, die Fragen auf der LilyPond-Mailliste und in
+einem deutschsprachigen Forum beantwortet, während das
+Entwicklungsteam es ermöglicht, dass Probleme schnell gelöst werden.
+
 
 @subsubheading Freie Software
 
@@ -198,32 +288,14 @@ verändern und zu kopieren.  Stören Sie sich an einem Fehler oder
 brauchen Sie dringend eine neue Funktion?  Schreiben Sie sie
 einfach selber, oder bezahlen Sie jemanden, der es für Sie tut.
 
-
-@subsubheading Hervorragende Unterstützung
-
-LilyPond gibt es für alle verbreiteten Betriebssysteme: GNU/Linux, MacOS X und
-Windows.  LilyPond hat eine ausführliche Dokumentation und
-hunderte von Beispieldateien.  Es gibt eine aktive
-Benutzergemeinschaft, die Fragen auf der LilyPond-Mailliste und in
-einem deutschsprachigen Forum beantwortet, während das
-Entwicklungsteam es ermöglicht, dass Probleme schnell gelöst werden.
-
-
-@subsubheading Erweiterte Editoren
-
-Einige Entwickler, die selber aktive LilyPond-Benutzer sind, haben auch
-spezielle Werkzeuge geschrieben, die dabei helfen sollen, LilyPond-Dateien
-schneller und effektiver zu erstellen und zu editieren.  Für einige
-Beispiele siehe @ref{Leichteres Editieren}.
-
 @divEnd
 @divClass{column-center-bottom}
 @subheading Was jetzt?
 
-Sind Sie noch nicht überzeugt?  Dann schauen Sie sich einige konkrete
-@ref{Beispiele} an. Wenn Sie sich schon entschlossen haben,
+Sie sind noch nicht überzeugt?  Dann schauen Sie sich einige konkrete
+@ref{Beispiele} an. Wenn Sie sich bereits entschlossen haben,
 LilyPond auszuprobieren, lesen Sie zuerst über unsere
-@ref{Text-Eingabe}.
+@ref{Texteingabe}.
 @divEnd
 
 
@@ -232,19 +304,26 @@ LilyPond auszuprobieren, lesen Sie zuerst über unsere
 @unnumberedsec Beispiele
 @translationof Examples
 
-LilyPond ist ist ein sehr mächtiges und flexibles Werkzeug, dass Notensatz der unterschiedlichsten Art handhaben kann.  Sehen Sie sich unsere Beispiele an und lassen Sie sich inspirieren!
+@divClass{column-center-top}
 
-@newsItem
-@subsubheading Klassische Musik
+@subheading Beautiful examples
+
+LilyPond ist ist ein sehr mächtiges und flexibles Werkzeug, dass Notensatz
+der unterschiedlichsten Art handhaben kann.  Sehen Sie sich unsere Beispiele an und lassen Sie sich inspirieren!
+
+@divEnd
+
+@divClass{column-center-middle-color2}
+@subheading Klassische Musik
 
 Dieses Orgelpräludium von J. S. Bach ist ein recht typisches
 Notensatzprojekt mit LilyPond.
 
 @exampleImage{bach-bwv610}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Komplexe Notation
+@divClass{column-center-middle-color2}
+@subheading Komplexe Notation
 
 Dieses Beispiel aus @emph{Goyescas} von Enrique Granados zeigt
 einige der fortgeschrittenen Notensatzfunktionen, unter Anderem
@@ -252,31 +331,31 @@ Balken zwischen Notenzeilen, Hälse über die Notenzeilen hinweg und
 Stimmfolgestriche.
 
 @exampleImage{granados}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Alte Musik
+@divClass{column-center-middle-color2}
+@subheading Alte Musik
 
 LilyPond hat Unterstützung für verschiedene Notationsarten der
 Alten Musik, wie etwa dieser Abschnitt eines Gregorianischen
 Chorals.
 
 @exampleImage{ancient-headword}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Moderne Musik
+@divClass{column-center-middle-color2}
+@subheading Moderne Musik
 
 Zeitgenössische Komponisten werden feststellen, dass LilyPond sich
 sehr gut dazu eignet, außergewöhnliche Notation darzustellen.
 Hier ein Ausschnitt aus @emph{Čáry} von Trevor Bača für Bassflöte Solo.
 
 @exampleImage{cary}
-@newsEnd
+@divEnd
 
 
-@newsItem
-@subsubheading Effiziente, flexible Erstellung von Aufführungsmaterial
+@divClass{column-center-middle-color2}
+@subheading Effiziente, flexible Erstellung von Aufführungsmaterial
 
 Verschiedenes Aufführungsmaterial kann aus dem selben Quellcode
 erstellt werden.  Hier ein Ausschnitt aus Händels @emph{Giulio
@@ -289,10 +368,10 @@ Nicolas Sceaux}, als Partitur, Klavierauszug und eine Geigenstimme.
 
 @exampleImage{sesto-violin}
 
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Tabulatur
+@divClass{column-center-middle-color2}
+@subheading Tabulatur
 
 LilyPond unterstützt Tabulatur-Notation, die an ein beliebiges
 Instrument angepasst werden kann, dass Tabulatur-Notation einsetzt.
@@ -300,20 +379,29 @@ Das Tabulatur-System wird automatisch anhand der Noten erstellt,
 die man für das fünflinige Notensystem notiert hat.
 
 @exampleImage{tab-example}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Schenker-Graphen
+@divClass{column-center-middle-color2}
+@subheading Schenker Graphen
 
 Das Standardnotenbild kann sehr stark verändert werden.  Hier eine eindrucksvolle Schenker-Analyse, von Kris Schaffer mit LilyPond erstellt
 für einen Artikel im @uref{http://www.linuxjournal.com/article/8364 , Linux Journal}.
 Die Farben wurden zur Verdeutlichung hinzugefügt.
 
 @exampleImage{bach-schenker}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Vokalmusik
+@divClass{column-center-middle-color2}
+@subheading Individuelle Ausgabe
+
+Ein kurzer Auszug aus Stockhausen's Klavierstück II zeigt die
+Fähigkeiten von Lilypond eine individuelle Ausgabe zu erzeugen.
+
+@exampleImage{Stockhausen_Klavierstueck2}
+@divEnd
+
+@divClass{column-center-middle-color2}
+@subheading Vokalmusik
 
 LilyPond eignet sich hervorragend, um Vokalmusik aller Arten zu
 notieren, von Hymnen bis zu einer Oper.  Hier eine
@@ -326,20 +414,20 @@ mit Schlüsseln im Vaticana-Stil, durchgestrichene Notenhälse für
 plicierte Noten und Ligaturklammern über bestimmten Notengruppen.
 
 @exampleImage{aucun-snippet}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Anwendung für die Musikerziehung
+@divClass{column-center-middle-color2}
+@subheading Anwendung in der Musikerziehung
 
 LilyPond eignet sich perfekt für eine Anwendung in der
 Musikerziehung.  Hier ein Beispiel einer einfachen
 Kontrapunktaufgabe.
 
 @exampleImage{theory}
-@newsEnd
+@divEnd
 
-@newsItem
-@subsubheading Popmusik
+@divClass{column-center-middle-color2}
+@subheading Popmusik
 
 Es ist einfach, ein Liedblatt mit Melodie, Text und Akkorden sowie
 Griffsymbolen zu erstellen.  In diesem Beispiel sind einige der
@@ -347,9 +435,9 @@ vordefinierten Griffdiagramme eingesetzt, aber sie können vollständig
 angepasst werden, um fast jeder Situation gerecht zu werden.
 
 @exampleImage{chart}
-@newsEnd
+@divEnd
 
-@newsItem
+@divClass{column-center-middle-color2}
 @subsubheading Große Projekte
 
 LilyPond eignet sich großartig für große Projekte wie Opern oder Werke für großes Symphonieorchester.  Zusätzlich ermöglicht die
@@ -357,8 +445,7 @@ texbasierte Eingabe größere Barrierefreiheit -- das folgende
 Beispiel wurde von Hu Haipeng, einem blinden Komponisten, zur Verfügung gestellt.
 
 @exampleImage{orchestra}
-@newsEnd
-
+@divEnd
 
 @divClass{column-center-bottom}
 @subheading Was jetzt?
@@ -366,7 +453,7 @@ Beispiel wurde von Hu Haipeng, einem blinden Komponisten, zur Verfügung gestell
 Noch immer nicht überzeugt?  LilyPond ist Open Source und
 garantiert Ihnen @ref{Freiheit}.  Wenn Sie sich schon entschlossen
 haben, LilyPond auszuprobieren, lesen zuerst über unsere
-@ref{Text-Eingabe}.
+@ref{Texteingabe}.
 @divEnd
 
 
@@ -388,9 +475,9 @@ ein Programm zum erstellen schönen Notensatzes zu erwerben.
 
 
 @c @divClass{column-left-top}
-@divClass{color2}
+@divClass{column-center-middle-color2}
 @divClass{keep-bullets}
-@subheading Was für Nutzen haben die Benutzer?
+@subheading Was für einen Nutzen haben die Anwender?
 
 @itemize
 
@@ -434,7 +521,7 @@ oder zu kopieren.
 
 
 @c @divClass{column-right-top}
-@divClass{color3}
+@divClass{column-center-middle-color3}
 @divClass{keep-bullets}
 @subheading Warum @qq{geben} die Entwickler von LilyPond ihre Arbeit umsonst her?
 
@@ -489,7 +576,7 @@ Noch immer nicht überzeugt?  Lesen Sie unseren ausführlichen
 Aufsatz über unsere Notensatzphilosophie in @ref{Hintergrund}.
 Wenn Sie sich schon entschlossen
 haben, LilyPond auszuprobieren, lesen zuerst über unsere
-@ref{Text-Eingabe}.
+@ref{Texteingabe}.
 @divEnd
 
 
@@ -498,15 +585,17 @@ haben, LilyPond auszuprobieren, lesen zuerst über unsere
 @translationof Background
 
 @divClass{column-center-top}
-@subheading Aufzatz zu den Hintergründen
+@subheading Aufsatz zu den Hintergründen
 
 Wir haben einen ausführlichen Aufsatz geschrieben, der die
 Computerästhetik beschreibt: die Kunst, Schönheit mit dem
 Computer zu erstellen.
 
-Wenn Sie nur eine kurze Einführung in LilyPond suchen, ist der
-Aufsatz wahrscheinlich zu viel Material für Sie.  Wenn Sie ihn
-jetzt lesen wollen, gehen sie zu @ref{Aufsatz}.
+Darin beschreiben wir ausführlich unsere grundlegenden Ideen.  Wegen seines
+Umfangs liegt er als eigenständiges @q{Handbuch} vor.  Wenn Sie ihn
+jetzt lesen wollen, gehen sie zu @ref{Aufsatz}.  Wenn Sie indessen lediglich
+an einer kurzen Einführung in LilyPond interessiert sein sollten,
+dann können sie das auch auf später verschieben.
 @divEnd
 
 @divClass{column-center-bottom}
@@ -516,13 +605,23 @@ Noch immer nicht überzeugt? Lesen Sie über einige der
 @ref{Productions} unserer Benutzer und schauen Sie sich die Noten
 an.  Wenn Sie sich schon entschlossen
 haben, LilyPond auszuprobieren, lesen zuerst über unsere
-@ref{Text-Eingabe}.
+@ref{Texteingabe}.
 @divEnd
 
 
 @node Produktionen
 @unnumberedsec Produktionen
 @translationof Productions
+
+@divClass{column-left-top}
+
+@subheading Produktionen die LilyPond verwenden
+
+Hier lesen Sie von Leuten, die LilyPond in ihren realen Produktionen
+einsetzen, sei es für Aufführungen ihrer Musik oder zur Erzeugung
+der druckreifen Veröffentlichungen.
+
+@divEnd
 
 @divClass{column-left-top}
 @subheading Konzerte
@@ -534,10 +633,52 @@ Welt eingesetzt.  Einige Highlights:
 @itemize
 
 @item
-Mussorgskijs @emph{Bilder einer Ausstellung}, neu orchestriert und
+@uref{http://www.aurelienbello.com/,Aurélien Bello} hat Richard Strauss's @emph{Der Rosenkavalier}
+für vier Sänger und dreizehnstimmiges Kammerorchester arrangiert.  Hierbei handelt es
+sich um eine Auftragsarbeit der Berliner Philharmoniker, deren Mitglieder dieses Werk am
+@uref{http://www.festspielhaus.de/veranstaltung/der-kleine-rosenkavalier-02-04-2015-1100/,2. und 6. April 2015}
+im Festspielhaus Baden-Baden sowie am
+@uref{http://www.berliner-philharmoniker.de/konzerte/kalender/details/21070/,26.April 2015}
+in der @emph{Philharmonie (großer Saal)} Berlin zur Auführung brachten.  Wir sind hocherfreut.
+daß derart hochrangige Musiker aus mit LilyPond gesetzten Noten spielen -- uns wurde
+berichtet, sie sind mit den Noten sehr zufrieden.
+
+Aurélien hat ebenfalls @emph{Der Ring des Nibelungen} von Richard Wagner
+zu einer
+@uref{http://www.rsb-online.de/content/konzerte/wagnerzyklus-10-13/wagner-fuer-kinder/index_ger.html,100-minütigen Fassung für Kinder}.
+neu orchestriert.  Geschrieben für ein Standard Sinfonie Orchester jedoch mit verkleinertem Sängerensemble
+wurde das Werk vom @emph{Radio-Sinfonieorchester Berlin} im April 2014 im Atze Musiktheater Berlin aufgeführt.
+Der Dirigent war Heiko Matthias Förster.
+
+@item
+Joe Smeets hat die Noten für das Kinderbuch @emph{Zing Mee}
+(@emph{Sing' mit}) von Annie M.G., erschienen bei Querido -- ISBN
+9789045106205:
+@uref{http://www.queridokinderenjeugdboeken.nl/web/Boek.htm?dbid=18954&typeofpage=134707, www.queridokinderenjeugdboeken.nl} gesetzt;
+Chornoten für die Holländische Übersetzung von Benjamin Britten's
+@emph{Saint Nicolas}, aufgeführt vom @emph{Muziektheater Hollands Diep} in
+2011;
+@uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft, www.muziektheaterhollandsdiep.nl}.
+Er hat ebenfalls die Partitur und Einzelstimmen für ein Arrangement von
+Mussorgsk’s @emph{Boris Godounov} für Bläserquartett, Klavier und Schlagzeug verfasst.
+Es wurde ebenfalls durch das @emph{Muziektheater Hollands Diep} in 2014 aufgeführt.
+
+@item
+Eine kritische Fassung von Tommaso Traetta's @emph{Enea nel Lazio (1760)},
+Opernzyklus in vier Teilen, Libretto von Vittorio Amedeo Cigna-Santi:
+@uref{http://www.academia.edu/1987651/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_1_4_, Teil Eins}
+@uref{http://www.academia.edu/1994533/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_2_4_, Teil Zwei}
+@uref{http://www.academia.edu/1994558/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_3_4_, Teil Drei}
+@uref{http://www.academia.edu/1996242/Enea_nel_Lazio_opera_riformata_prima_lazione_poi_le_parole_-_Partitura_4_4_, Teil Vier}
+Verfasst von
+@uref{http://unito.academia.edu/LucaRossettoCasel, Luca Rossetto Casel}
+für seine Doktorarbeit.
+
+@item
+Mussorgskis @emph{Bilder einer Ausstellung}, neu orchestriert und
 dirigiert von @uref{http://www.aurelienbello.com/,Aurélien Bello}
 mit der @uref{http://www.junge-philharmonie-brandenburg.de/,Jungen Philharmonie Brandenburg}
-am 10. Oktober 2011 und als Wiederholung am 15.--16. April 2012.
+am 10. Oktober 2011 und als Wiederholung am 15.-16. April 2012.
 
 @item
 @uref{http://www.kierenmacmillan.info/, Kieren MacMillan}, Komponist und
@@ -550,11 +691,10 @@ Chrysalis Duo}, @emph{thrafsmata}aufgeführt im Juli 2011 vom
 @uref{http://www.pnme.org/CurrentSeason/PreviousSeasons.html, Pittsburgh
 New Music Ensemble}.
 
-
 @item
 @emph{Anonymous Student Compliment or Complaint}, von
 @uref{http://www.mikesolomon.org, Mike Solomon}, Gewinner des
-@uref{http://leftcoastensemble.org/contest, 2011 Left Coast Composition Contest},
+@uref{http://leftcoastensemble.org, 2011 Left Coast Composition Contest},
 an dem 172 Kompositionen aus 22 Ländern teilgenommen haben.
 Andere Werke bspw.: Norman (age 1) für Soloklarinette, aufgeührt an auf dem
 Electroacoustic Music Festival (FEMF) der
@@ -569,8 +709,8 @@ Siehe @uref{http://www.ascarlatti2010.net, Alessandro Scarlatti 2010},
 zur Feier des 350. Geburtstages des Komponisten.
 
 @item
-@uref{http://www.mercurybaroque.org/02/02109.aspx, Mercury Baroque}s
-Aufführung von Lullys @emph{Armide} am 15--16 Mai 2009 in Houston,
+@uref{http://www.mercurybaroque.org, Mercury Baroque}s
+Aufführung von Lullys @emph{Armide} am 15.-16. Mai 2009 in Houston,
 Texas (Notensatz von @uref{http://nicolas.sceaux.free.fr/,
 Nicolas Sceaux}).
 
@@ -578,7 +718,8 @@ Nicolas Sceaux}).
 Instrumentale Ausschnitte von Rameaus @emph{Hippolyte et Aricie} in
 der St. James Church in Manhattan am 8. Mai 2009  von Frederick
 Renz und seinem Ensemble @uref{http://www.earlymusicny.org/,
-Early Music New York} (Notensatz von Nicolas Sceaux).
+Early Music New York} (Notensatz von
+@uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}).
 
 @item
 @emph{Affaire étrangère}, eine Oper von
@@ -619,8 +760,7 @@ qualitativ hochwertige Partituren von Kirchenmusik, sowohl zum
 direkten Download als auch auf Papier erhältlich.
 
 @item
-@uref{http://shadylane.fr/, The Shady Lane
-Publishing},
+@uref{http://shadylane.fr/, The Shady Lane Publishing},
 ein @qq{Mikro-Notenverlag}, der es sich zum Ziel gesetzt hat,
 eine neue Musikökonomie zu unterstützen, die den Musikern und
 Musikliebhabern näher steht.
@@ -631,14 +771,15 @@ Musikliebhabern näher steht.
 
 @divEnd
 
+@contactUsAbout{concerts or sheet music}
 
 @divClass{column-center-bottom}
 @subheading Was jetzt?
 
-Immer noch nicht überzeugt?  Lesen Sie einige der @ref{Rezensionen}
+Immer noch nicht überzeugt?  Lesen Sie einige der @ref{Rezensionen}
 unserer Benutzer.  Wenn Sie sich schon entschlossen
 haben, LilyPond auszuprobieren, lesen zuerst über unsere
-@ref{Text-Eingabe}.
+@ref{Texteingabe}.
 @divEnd
 
 @c TRANSLATORS, so far it's mostly from
@@ -647,6 +788,12 @@ haben, LilyPond auszuprobieren, lesen zuerst über unsere
 @node Rezensionen
 @unnumberedsec Rezensionen
 @translationof Reviews
+
+@divClass{column-center-top}
+@subheading Was sagen Andere über LilyPond?
+
+@divEnd
+
 
 @divClass{column-left-top}
 @subheading Publizierte Artikel
@@ -755,12 +902,12 @@ Ein französischer Artikel über LilyPond Version 2.6 erscheint auf
 @item
 Oktober 2004
 
-Die Editoren von Computer!Totaal, einer holländischen
+Die Redakteure von Computer!Totaal, einer holländischen
 Computerzeitschrift,
 @uref{http://lilypond.org/website/pdf/computer-totaal.jpeg,
 beschreiben LilyPond} in der Ausgabe Oktober 2004 als: @qq{Wunderbare
-freie (Open Source) Software [..] Die Partituren von LilyPond
-sind ausnahmslos schön [..] ein sehr mächtiges System das fast alles
+freie (Open Source) Software [@dots{}] Die Partituren von LilyPond
+sind ausnahmslos schön [@dots{}] ein sehr mächtiges System das fast alles
 tun kann.}
 
 @item
@@ -787,7 +934,7 @@ Februar 2004
 
 Der Jazz-Sänger Gail Selkirk schreibt über
 @uref{http://www.songbirdofswing.com/editorial_page/lilypond/,
-Diving into LilyPond}.  @qq{... man kann Liedblätter oder volle
+Diving into LilyPond}.  @qq{@dots{} man kann Liedblätter oder volle
 Orchsterpartituren erstellen, und das Ergebnis kann einen
 erstaunen.}
 @uref{http://www.computermusic.co.uk/, Computer Music Special},
@@ -844,10 +991,10 @@ Nummer CMS06.
   Arbeit. Ich habe noch nie etwas gesehen, das dem Satz nahekommt, den ich
   mit LilyPond erhalte. Ich bin vollkommen überzeugt, dass meine
   Publikationsanforderungen über alle Erwartungen erfüllt werden,
-  da ich dieses Programm verwenden kann. [...] sozusagen unveränderter
-  Notensatz von LilyPond [...] sieht besser aus als alle  @qq{professionellen}
+  da ich dieses Programm verwenden kann. [@dots{}] sozusagen unveränderter
+  Notensatz von LilyPond [@dots{}] sieht besser aus als alle  @qq{professionellen}
   Publikationen der letzten Zeit, mit denen ich ihn verglichen habe (so ungefähr
-  alle Warner Bros.-Noten und sogar viele der @qq{traditionellen Notenhäuser}). [...]
+  alle Warner Bros.-Noten und sogar viele der @qq{traditionellen Notenhäuser}). [@dots{}]
   }
 
 @qq{Das sollen erstmal Finale/Sibelius/Igor/usw. erreichen!!!!}
@@ -890,7 +1037,7 @@ dem auch nur nahe kommen kann.}
 @divClass{testimonial-item}
 @subsubheading David Bobroff, Bassposaunist, Iceland Symphonieorchester
 
-@qq{Ich finde LilyPond einfach toll [..]  Je mehr ich darüber lerne,
+@qq{Ich finde LilyPond einfach toll [@dots{}]  Je mehr ich darüber lerne,
 desto mehr mag ich es!}
 @divEnd
 
@@ -898,7 +1045,7 @@ desto mehr mag ich es!}
 @divClass{testimonial-item}
 @subsubheading Vaylor Trucks, E-Gitarrenspieler (Ja, @uref{http://www.allmanbrothersband.com/modules.php?op=modload&name=userpage&file=content&page_id=12, verwandt mit})
 
-@qq{Ich bin total beeindruckt von LilyPond [..]}
+@qq{Ich bin total beeindruckt von LilyPond [@dots{}]}
 
 @qq{DAS IST DAS BESTE PROGRAMM ALLER ZEITEN!!!}
 
@@ -912,7 +1059,7 @@ desto mehr mag ich es!}
 @qq{Ich hatte so eine Hassliebe zu ihm entwickelt. Liebe, weil
   das erste Notenblatt, das ich gesehen hatte, so gut aussah. Die
   Beschreibung lügt, wenn es um die Schönheit von LilyPond
-  geht -- das ist viel zu bescheiden! [...] da LilyPond immer besser
+  geht -- das ist viel zu bescheiden! [@dots{}] da LilyPond immer besser
   wird und ich mich mehr damit auseinander setze, wie Sachen in
   Scheme gemacht werden, habe ich viel weniger Frustrationen. Auf
   jeden Fall wollte ich sagen: Danke, dass ihr LilyPond anbietet, es
@@ -956,26 +1103,26 @@ Aussehen des Notendrucks zu erreichen, das ich will, besonders wenn es sich
 nicht um "Standardlösungen" handelt.}
 @divEnd
 
-
-
 @divEnd
 
+@contactUsAbout{news articles or testimonals}
 
 @divClass{column-center-bottom}
 @subheading Was jetzt?
 
-Lesen Sie über unsere @ref{Text-Eingabe}.
+Lesen Sie über unsere @ref{Texteingabe}.
 @divEnd
 
 
 
-@node Text-Eingabe
-@unnumberedsec Text-Eingabe
+@node Texteingabe
+@unnumberedsec Texteingabe
 @translationof Text input
 
 @c TRANSLATORS, so far it's mostly from
 @c http://lilypond.org/web/switch/howto
 
+@divClass{column-center-top}
 @subheading Musik @qq{kompilieren}
 
 @imageClickable{nereid-shot-small,png, (Klick zum Vergrößern), nereid-shot,png, right}
@@ -1063,12 +1210,15 @@ funktioniert als Einführung und Beginn für das Arbeiten mit LilyPond;
 hier werden viele Fragen beantwortet, bevor man sie überhaupt
 stellen konnte!
 
-Lesen Sie bitte das Handbuch zum Lernen bevor Sie sich über
-Fehler beschweren! Neue Benutzer denken manchmal, dass LilyPond
-nicht richtig funktioniert, während das Programm in Wirklichkeit
-genau das tut, wozu es geschrieben worden ist.
+Bisweilen sind Meulinge von manchen Verhaltensweisen von LilyPond unnötig
+verwirrt.  Bitte lesen Sie dieses Handbuch bevor Sie anzweifeln,
+daß LilyPond fehlerfrei arbeitet.
 
 Weitere Information findet sich unter @ref{Handbücher}
+
+Der LilyPond Anwender Ben Lemon hat eine ganze Reihe von
+@uref{http://benlemon.me/blog/music/lilypond/operation-lilypond/,Video Tutorials}
+in seinem Blog hinterlegt, die sich speziell an Neulinge wenden.
 
 
 @subsubheading Einfachere Editionsumgebungen
@@ -1087,7 +1237,7 @@ stellen tatsächliche eine GUI zur Verfügung, mit der man graphisch
 eine Partitur editieren kann.  Mehr Information finden Sie unter
 @ref{Leichteres Editieren}.
 
-
+@divEnd
 
 @divClass{column-center-bottom}
 @subheading Was jetzt?
@@ -1112,32 +1262,9 @@ In particular, don't link to:
 
 @end ignore
 
-
 @divClass{column-center-top}
-@subheading LilyPondTool
-
-@imageClickable{lilypondtool-2.12-screenshot-400wide,png,
-  (Klick zum Vergrößern),lilypondtool-2.12-screenshot,png,right}
-
-@sourceimage{logo-linux,,,}
-@sourceimage{logo-freebsd,,,}
-@sourceimage{logo-macosx,,,}
-@sourceimage{logo-windows,,,}
-
-@uref{http://lilypondtool.organum.hu}
-
-Als Plugin für den @uref{http://www.jedit.org,jEdit}-Texteditor
-erstellt, ist das LilyPondTool das textbasierte Werkzeug mit den
-meisten Eigenschaften, um LilyPond-Partituren zu setzen und zu
-editieren.  Hierzu gehören ein Document Wizard um neue Dateien
-(auch mit Gesangstexten) einfacher zu erstellen und ein eingebetteter
-PDF-Betrachter mit fortschrittlicher Unterstützung für
-point-and-click.
-
-@divEnd
-
-@divClass{column-center-top}
-@subheading Frescobaldi
+@subheading Front-end Applications
+@subsubheading Frescobaldi
 
 @imageClickable{frescobaldi-lilypond-editor-small,png,
   (Klick zum Vergrößern),frescobaldi-lilypond-editor,png,right}
@@ -1148,19 +1275,22 @@ point-and-click.
 
 @uref{http://www.frescobaldi.org}
 
-Frescobaldi ist ein leichter, aber sehr mächtiger LilyPond-Musik- und -Texteditor
-mit eingebauter PDF-Vorschau.  Er ist einfach zu benutzen und läuft auf allen
-gängigen Betriebssystemen (GNU/Linux, Mac OS X und Windows).
+Frescobaldi ist ein leichtgewichtiger (im Sinne von @q{installiert nur wenig zusätzliche Software}),
+aber sehr mächtiger LilyPond Musik- und Texteditor mit vielen für die Arbeit mit
+LilyPond nützlichen Fähigkeiten.  Herausragend ist die beidseitige Verknüpfung zwischen
+dem LilyPond Code und der dargestellten Musik durch @q{point-and-click} mit der Maus.
+Ferner gibt es Partiturassistenten, eingebautes LilyPond Handbuch, Syntaxhighlighting
+sowie automatische Befehlsvervollständigung.  Frescobaldi wurde in Python geschrieben,
+verwendet PyQt4 für das GUI und ist auf allen gängigen Betriebssystemen verfügbar
+(GNU/Linux, Mac OS X and Windows).
 
-@divEnd
-
-@divClass{column-center-top}
-@subheading Denemo
+@subsubheading Denemo
 
 @imageClickable{screenshot-denemo-small,png,
   (Klick zum Vergrößern),screenshot-denemo,png,right}
 
 @sourceimage{logo-linux,,,}
+@sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
 @uref{http://denemo.org}
@@ -1179,6 +1309,44 @@ Textansicht markiert, wenn man von dort aus druckt.
 @divEnd
 
 @divClass{column-center-top}
+@subheading Browserbasierte Editoren
+
+@subsubheading LilyBin
+@uref{http://lilybin.com}
+
+Ein webbasierter LilyPond Editor, in dem man die Noten direkt online
+setzen kann, ohne LilyPond vorher installieren zu müssen.
+
+@subsubheading Tunefl
+@uref{http://www.tunefl.com}
+
+Mit tunefl können Sie kleine Partituren direkt online setzen, ohne
+LilyPond lokal installieren zu müssen.  Es unterstützt alle Fähigkeiten
+des Programms über ein bequemes Webinterface.
+
+@divEnd
+
+@divClass{column-center-top}
+@subheading IDE Plug-ins
+
+@subsubheading Elysium
+
+@sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+
+@uref{http://elysium.thsoft.hu}
+
+Elysium ist eine LilyPond IDE für Eclipse mit integrierter paralleler
+Sicht auf Quelle und erzeugte Noten.  Ferner verfügt es über schnelles
+visuelle und akkustische Rückmeldung, ohne daß dazu der Kontext gewechselt
+werden müßte.  Schließlich verfügt es über eine ganze Reihe von Assistenten,
+die von vorgefertigten Templates getrieben werden.
+
+@divEnd
+
+@divClass{column-center-top}
 @subheading Texteditoren
 
 @sourceimage{logo-linux,,,}
@@ -1186,8 +1354,8 @@ Textansicht markiert, wenn man von dort aus druckt.
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 
+@subsubheading Emacs
 @uref{http://www.gnu.org/software/emacs/}
-
 Emacs ist ein Texteditor mit sprachensensitiven Eigenschaften
 für sehr viele Computersprachen.  Emacs ist ein sehr stark
 erweiterbarer Editor, welcher auch als Integrierte
@@ -1197,23 +1365,28 @@ mit LilyPond-Dateien zur Verfügung stellt.  Einer unserer Entwickler
 hat auch einen Hauptmodus für Emacs,
 @uref{http://nicolas.sceaux.free.fr/lilypond/lyqi.html,lyqi} geschrieben.
 
-@uref{http://www.vim.org}
+Wenn Sie bisher nicht bereits mit Emacs vertraut sind, dann bevorzugen
+sie möglicherweise einen anderen Editor um LilyPond Dateien zu schreiben.
 
+Nähere Informationen zum Einrichten von Emacs finden Sie unter
+@rprogram{Unterstützung von Texteditoren}.
+
+@subsubheading Vim
+@uref{http://www.vim.org}
 Vim ist ein minimaler Texteditor und eine Erweiterung des älteren
 Unix-Editors @command{vi}.  Er ist auch erweiterbar und konfigurierbar.
 
-Allgemein gilt, dass Sie wahrscheinlich zu einem anderen Editor
-greifen werden, wenn Sie nicht schon von Anfang an mit Emacs oder
-Vim vertraut sind.
+Wenn Sie bisher nicht bereits mit Vim vertraut sind, dann bevorzugen
+sie möglicherweise einen anderen Editor um LilyPond Dateien zu schreiben.
 
-Weiter Information zum Einstellen von Emacs und Vim findet sich unter
+Nähere Informationen zum Einrichten von Vim finden SIe unter
 @rprogram{Unterstützung von Texteditoren}.
 
-
 @sourceimage{logo-macosx,,,}
+@subsubheading TeXShop
 @uref{http://www.uoregon.edu/~koch/texshop}
 
-Der TexShop-Editor für MacOS@tie{}X kann erweitert werden, sodass
+Der TeXShop-Editor für MacOS@tie{}X kann erweitert werden, sodass
 er LilyPond, @command{lilypond-book} und @command{convert-ly}
 vom Editor aus ausführen kann.  Hierzu wird eine Erweiterung
 eingesetzt, die man hier erhält:
@@ -1224,40 +1397,47 @@ eingesetzt, die man hier erhält:
 
 @divEnd
 
-
 @divClass{column-center-top}
-@subheading Andere Programme können LilyPond-Doce exportieren
-
+@subheading Weitere Programme die LilyPond Code exportieren können
 
 @subsubheading Score, Tab- und MIDI-Editoren:
 
 @itemize
+
 @item
-@uref{http://canorus.org,Canorus} kann nach LilyPond exportieren, ist allerdings noch im Beta-Stadium.  Testpersonen sind willkommen.
+@uref{http://www.jezra.net/projects/bwwtolily,bwwtolily} versucht eine
+@code{.bww} oder @code{.bmw} Datei nach LilyPond zu konvertieren.  Auch wenn
+nicht jeder Schnörkel korrekt konvertiert wird (das gilt besonders für solche
+mit @q{piobaireachd} [was immer das ist -- Anm. des Übersetzers]), jedoch werden
+diese zumindest aufgeführt.
+
+@item
+@uref{http://canorus.org,Canorus} kann nach LilyPond exportieren, ist
+allerdings noch im Beta-Stadium.  Tester sind willkommen.
+
+@item
+@uref{http://enc2ly.sourceforge.net/en/,Enc2ly} ist ein GNU/Linux Programm
+zur Konvertierung von Encore Dateien in LilyPond Dateien.
+
+@item
+@uref{https://github.com/hanwen/go-enc2ly,go-enc2ly} ist ein in Go geschriebenes
+Werkzeug um Encore Dateien in LilyPond zu konvertieren.  Es wurde unter Verwendung
+von Felipe Castro's Forschung und @q{Reverse Engineering} geschrieben. Hierzu wurden
+existierende .enc Dateien modifiziert und in die 4.55 Demo Version importiert.
 
 @item
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
 auf der @uref{http://cairographics.org, Cairo}-Bibliothek basierend,
-hat experimentelle Unterstützung für LilyPond-Export.
-
-@uref{http://www.tuxguitar.com.ar/,TuxGuitar}, ein Tabulator-Editor und
--Spieler, stellt neben Tabulatur auch eine Partiturvorschau zur
-Verfügung und kann nach LilyPond exportieren.
-
-@item
-@uref{http://musescore.org,MuseScore} hat unvollständigen Export für LilyPond,
-wird aber aktiv entwickelt.
+hat experimentelle Unterstützung für LilyPond Export.
 
 @item
 @uref{http://www.holmessoft.co.uk/homepage/software/NWC2LY/index.htm,
-NW2LY} ist ein C#-Programm, das
-@c @uref{http://www.noteworthysoftware.com/}
-NoteWorthy-Lieder nach LilyPond
+NW2LY} ist ein C#-Programm, das NoteWorthy Composer Werke nach LilyPond
 konvertieren kann.
 
 @item
-@uref{https://github.com/ciconia/ripple/blob/master/README.markdown,
-Ripple} ist ein Programm, mit dem man Partituren und Stimmen erstellen
+@uref{https://github.com/ciconia/ripple/blob/master/README.markdown,Ripple}
+ist ein Programm, mit dem man Partituren und Stimmen erstellen
 kann.  Es enthält auch einen Modus, in dem man unterschiedliche
 musikalische Werke untereinander mischen und zu einer Partitur oder
 einer Stimme zusammenfügen kann.
@@ -1266,15 +1446,6 @@ einer Stimme zusammenfügen kann.
 @uref{http://www.rosegardenmusic.com,Rosegarden}, ein Audio- und MIDI-Sequenzierer,
 der auch einen Noteneditor für einzelne Systeme unterstützt.
 
-@item
-@uref{https://launchpad.net/rumor/,Rumor},
-ein monophoner Echtzeitkonverter von MIDI nach LilyPond.
-
-@item
-@uref{http://www.tuxguitar.com.ar/,TuxGuitar}, ein Tabulatureditor
-mit mehrfachen Spuren und Spieler, enthält eine Vorschau der Noten
-und kann nach LilyPond exportieren.
-
 @end itemize
 
 @subsubheading Algorithmische Code-Generatoren
@@ -1282,40 +1453,73 @@ und kann nach LilyPond exportieren.
 @itemize
 
 @item
-@uref{http://strasheela.sourceforge.net, Strasheela} ist @qq{a
-highly expressive constraint-based music composition system}.
+@uref{http://www.projectabjad.org/,Abjad}, a
+@uref{http://www.python.org/,Python} API zur formalisierten Partitur Kontrolle.
+Es wurde geschrieben um Komponisten dabei zu helfen, komplexe LilyPond
+Werke interativ und schrittweise zu erzeugen.
 
 @item
-@uref{http://common-lisp.net/project/fomus/,FOMUS}, eine LISP-Bibliothek,
-mit der Notation für Computermusik-Programmumgebungen generiert wird.
+@uref{http://common-lisp.net/project/fomus/,FOMUS}, (FOrmat MUSic) ist ein
+Kompositionswerkzeug für Computermusik Komponisten.  Geschrieben in LISP
+läuft es in einer ganzen Reihe von Interpretern
+Portierung nach C++.
+
+@item
+@uref{http://strasheela.sourceforge.net, Strasheela} ist eine Umgebung
+auf Basis der @uref{http://www.mozart-oz.org/, Mozart/Oz}
+constraint basierten Programmiersprache.
 
 @end itemize
 @divEnd
 
-
 @divClass{column-center-top}
 
-@subheading Weitere, nicht aktiv entwickelte Programme
+@subheading Weitere, nicht mehr aktiv entwickelte Programme
 
 @itemize
 
 @item
-@uref{http://lilykde.googlecode.com/,LilyKDE} wurde durch
-@uref{http://www.frescobaldi.org/,Frescobaldi} ersetzt und existiert als
-LilyKDE3 für KDE 3.5 und lilypond-KDE4 für KDE 4.1.
+@uref{https://sourceforge.net/projects/lily4jedit,LilyPondTool} war
+ein Plugin für den @uref{http://www.jedit.org,jEdit} Text Editor.
 
 @item
-@uref{http://noteedit.berlios.de,NoteEdit}, mit dem man
-@uref{http://www.musicxml.com/xml.html,MusicXML} importieren kann, wird
-als Fork unter
-@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
-und @uref{http://canorus.org,Canorus} weiterentwickelt.
-
+@uref{http://lilykde.googlecode.com/,LilyKDE} wurde durch
+@uref{http://www.frescobaldi.org/,Frescobaldi} ersetzt. Es existiert
+nur noch als LilyKDE3 für KDE 3.5 und lilypond-KDE4 für KDE 4.1.
 
 @item
 @uref{http://lilycomp.sourceforge.net, LilyComp} ist ein graphisches
-Notationsprogramm, das wie ein Zahlenblock funktioniert, mit dem man
-LilyPond-Notation erstellen kann.
+Notationsprogramm, das wie ein Ziffernblock funktioniert, mit dem man
+LilyPond Notation erstellen kann.
+
+@item
+@uref{http://www.musescore.org,MuseScore}, ein Notationsprogramm.
+Der LilyPond Export wurde in Version 2.0 entfernt, aber frühere
+Versionen sind noch auf
+@uref{http://sourceforge.net/projects/mscore/files/mscore/,Sourceforge}.
+verfügbar.
+
+@item
+@uref{http://noteedit.berlios.de,NoteEdit}, konnte
+@uref{http://www.makemusic.com/musicxml,MusicXML} importieren.
+Ableger existieren als
+@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
+und @uref{http://canorus.org,Canorus}.
+
+@item
+@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond},
+ist eine OpenOffice.org Erweiterung die LilyPond Dateien in Grafiken
+in OpenOffice.org Dokumenten umwandelt.  Es wird zwarnicht mehr weiterentwickelt,
+scheint aber noch mit Version 4 zu laufen.
+
+@item
+@uref{https://launchpad.net/rumor/,Rumor},
+ein monophoner Echtzeitkonverter von MIDI nach LilyPond.
+
+@item
+@uref{http://sourceforge.net/projects/tuxguitar/,TuxGuitar}, ein Tabulator Editor
+und Spieler, stellt neben Tabulatur auch eine Partiturvorschau zur
+Verfügung und kann nach LilyPond exportieren.
 
 @end itemize
 
@@ -1325,9 +1529,9 @@ LilyPond-Notation erstellen kann.
 @divClass{column-center-bottom}
 @subheading Was jetzt?
 
-Sie sind jetzt bereit, @ref{Download, LilyPond herunterzuladen}.
+Sind Sie jetzt bereit, @ref{Download, LilyPond herunterzuladen}.
 
-Sind Sie noch immer nicht überzeugt?  Viele Komponisten, Musiker
+Sie sind noch immer nicht überzeugt?  Viele Komponisten, Musiker
 und Dirigenten haben gelernt, wie man Noten in unserem Eingabeformat
 schreibt.  Erfahrene Benutzer haben sogar berichtet, dass sie
 eine volle Partitur in LilyPond schneller notieren können als mit
@@ -1341,7 +1545,8 @@ klassischen Notensatzkunst im unserem @ref{Hintergrund} erklärt.
 @subheading Legales
 
 @divClass{legal}
-Alle Logos und Produktabbildungen erkennen Copyright und Trademark an.
+Alle Logos und Produktabbildungen werden unter ausdrücklicher Anerkennug des Copyright und Trademark
+der Rechteinhaber verwendet.
 
 @logoLegalLinux
 

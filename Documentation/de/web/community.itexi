@@ -1,14 +1,15 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish:  a0077273ac8bf29ae472c8712bc78a02d138f898
+    Translation of GIT committish:  5b6ddab894b3065c35c72ef8048b8c6edbe684ac
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes.
 @end ignore
 
-@c Translators: Till Paala
+@c Translators: Till Paala, Michael Gerdau
 
+@include included/acknowledge.itexi
 @include included/authors.itexi
 @include included/helpus.itexi
 
@@ -25,10 +26,10 @@
 
 @item
 @ref{Kontakt}: hier erhalten Sie Hilfe, können diskutieren und
-in in Kontakt mit der Gemeinschaft bleiben.
+in Kontakt mit der Gemeinschaft bleiben.
 
 @item
-@ref{Minimalbeispiele}: sie werden @emph{sehr stark} empfohlen,
+@ref{Minimalbeispiele}: sie werden @emph{dringend} empfohlen,
 wenn man über LilyPond diskutieren will.
 
 @item
@@ -38,7 +39,7 @@ wenn man über LilyPond diskutieren will.
 @divEnd
 
 @divClass{column-left-bottom}
-@subheading LilyPond besser machen
+@subheading LilyPond verbessern
 
 @itemize
 
@@ -52,11 +53,14 @@ wenn man über LilyPond diskutieren will.
 @ref{Entwicklung}: für Mitarbeiter und Tester.
 
 @item
-@ref{GSoC 2012}: Liste der Projekte für den Google Summer of Code.
+@ref{Google Summer of Code}: Projektideen für den Google Summer of Code (GSoC).
 
 @item
 @ref{Autoren}: die Menschen, die LilyPond zu dem gemacht haben,
-was es jetzt ist.
+was es heute ist.
+
+@item
+@ref{Danksagungen}: Projekte und Institutionen, die LilyPond unterstützen
 
 @end itemize
 @divEnd
@@ -81,7 +85,6 @@ uns geschrieben wurde.
 
 @divEnd
 
-
 @divClass{hide}
 @menu
 * Kontakt::
@@ -90,8 +93,9 @@ uns geschrieben wurde.
 * Helfen Sie uns::
 * Sponsoren::
 * Entwicklung::
-* GSoC 2012::
+* Google Summer of Code::
 * Autoren::
+* Danksagungen::
 * Veröffentlichungen::
 * Ältere Neuigkeiten::
 * Abstellkammer::
@@ -107,9 +111,9 @@ uns geschrieben wurde.
 @divClass{column-left-bottom}
 @subheading Benutzergruppen und Hilfe
 
-@subsubheading Mailingliste der Benutzer: @code{lilypond-user@@gnu.org}
+@subsubheading Benutzer Mailingliste: @code{lilypond-user@@gnu.org}
 
-Diese Mailingliste ist der hauptsächliche Ort, wo Benutzer diskutieren
+Diese Mailingliste ist der zentrale Ort, an dem Benutzer diskutieren
 und einander helfen.  Die Sprache der Liste ist Englisch.  Zu deutschsprachiger Hilfe, siehe unten.
 
 @quotation
@@ -124,7 +128,7 @@ Archiv2}
 Archiv3}
 
 @uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.general,
-mit gmaine an lilypond-user schicken}
+mit gmane an lilypond-user schicken}
 @end quotation
 
 @warning{Wenn Sie Fragen stellen (immer auf Englisch) benutzen
@@ -133,10 +137,10 @@ Sie bitte @ref{Minimalbeispiele}!}
 
 @subsubheading LilyPond-Schnipsel-Depot
 
-Das LilyPond-Schnipsel-Depot (LSR) ist eine große Sammlung durch die Benutzer
-erstellter Beispiele, die frei kopiert und in eigenen Werken benutzt werden
-dürfen.  Schauen Sie, was andere Leute konstruiert haben und schreiben Sie
-eigene Beispiele!
+Das LilyPond-Schnipsel-Depot (LSR - LilyPond Snippet Repository) ist eine große Sammlung durch Anwender
+erstellter Beispiele, die frei kopiert und in eigenen Werken verwendet werden
+dürfen.  Schauen Sie, was andere Leute konstruiert haben und fügen Sie ggf.
+eigene Schnipsel hinzu!
 
 @example
 @uref{http://lsr.di.unimi.it}
@@ -145,9 +149,10 @@ eigene Beispiele!
 Besonders lehrreiche Beispiele aus dem LSR werden in unsere offizielle
 Dokumentation eingefügt, in @ref{Schnipsel}.
 
+
 @subsubheading IRC
 
-Etwas Unterstützung können Sie auch auf unserem IRC-Kanal erhalten:
+Unterstützung können Sie auch auf unserem IRC-Kanal erhalten:
 
 @example
 @uref{irc://irc.freenode.net/lilypond, #lilypond@@irc.freenode.net}
@@ -182,42 +187,35 @@ Mailingliste gestellt wird.
 
 @subsubheading Andere Sprachen
 
+@quotation
 @uref{http://www.lilypondforum.de/,
 Deutsches LilyPond-Forum}
-
-@quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
-Spanische Mailingliste}
-
-@uref{http://groups.google.com/group/lilypond-brasil,
-Portugiesische Gruppe}
 
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
 Französische Mailingliste}
 
-@uref{http://www.lilypondforum.nl/,
-Holländisches Forum}
-@end quotation
+@uref{http://groups.google.com/group/lilypond-brasil,
+Portugiesischsprachige Gruppe}
 
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
+Spanische Mailingliste}
+@end quotation
 @divEnd
 
 
 @divClass{column-right-top}
-@subheading Bleiben Sie informiert
+@subheading Der LilyPond Blog
 
-@subsubheading LilyPond Report
-
-Der einfachste Weg in Kontakt zu bleiben ist es, den Newsletter
-unserer Gemeinschaft zu lesen, den LilyPond Report (auf Englisch).
+Folgen sie unserem community blog, @q{Scores of Beauty}:
 
 @example
-@uref{http://web.archive.org/web/20110325004849/http://news.lilynet.net}
+@uref{http://lilypondblog.org}
 @end example
 
 @subsubheading Mailingliste für neue Versionen: @code{info-lilypond@@gnu.org}
 
-Diese Mailingliste ist sehr wenig aktiv und kann nur gelesen werden:
-hier wird über neue Versionen von LilyPond informiert.
+Diese Mailingliste hat ein sehr geringes Mailaufkommen und kann nur gelesen werden. Sie dient
+der Ankündigung neuer Versionen.
 
 @quotation
 @uref{http://lists.gnu.org/mailman/listinfo/info-lilypond,
@@ -238,12 +236,12 @@ Archiv3}
 
 
 @divClass{column-right-bottom}
-@subheading Diskussionen der Entwickler
+@subheading Diskussionen der Entwickler und Übersetzer
 
 @subsubheading Entwickler-Mailingliste: @code{lilypond-devel@@gnu.org}
 
-Die meisten Diskussionen von Entwicklern finden auf dieser Liste
-statt.  Änderungen sollten hier hin geschickt werden.
+Diskussionen der Entwicklern finden auf dieser Liste
+statt.  Patches können ebenfalls hier hin geschickt werden.
 
 @quotation
 @uref{http://mail.gnu.org/mailman/listinfo/lilypond-devel,
@@ -263,7 +261,8 @@ mit gmane an lilypond-devel schicken}
 
 @subsubheading Mailingliste für Fehler: @code{bug-lilypond@@gnu.org}
 
-Fehlermeldungen und Diskussionen finden hier statt.
+Fehlermeldungen und Diskussionen finden hier statt, jedoch bitte keine Patches
+an diese Liste senden.
 
 @quotation
 @uref{http://mail.gnu.org/mailman/listinfo/bug-lilypond,
@@ -282,14 +281,16 @@ Archiv3}
 @warning{Bevor Sie eine Nachricht an die Fehler-Liste schreiben,
 lesen Sie bitte unsere Richtlinien für @ref{Fehlerberichte}.}
 
-@divEnd
 
-@divClass{column-right-bottom}
-@subheading Private E-Mails
+@subsubheading Mailingliste für Übersetzungen: @code{translations@@lilynet.org}
 
-Private Angelegenheiten sollten an Graham Percival
-(den Projektmanager) gerichtet werden, der dann die
-Betroffen einbezieht.
+Jegliche Diskussionen über Übersetzungen der LilyPond Handbücher sollte auf dieser Liste stattfinden,
+jedoch bitte keine Patches an diese Liste senden.
+
+@quotation
+@uref{http://lilypond-translations.3384276.n2.nabble.com/,
+Translation mailing list archive}
+@end quotation
 
 @divEnd
 
@@ -322,9 +323,9 @@ einkreisen und Ihnen helfen.
 
 @item
 Die effiziente Analyse eines Problems erfordert ohnehin eine
-Reduktion auf das wesentliche.  Kippen Sie umfangreiches Material
-in der Liste ab, so scheint Ihnen die Lösung Ihres Problems keine
-eigene Mühe wert.
+Reduktion auf das Wesentliche.  Wenn Sie umfangreiches Material an die
+Liste schicken, dann erwecken Sie den Eindruck, dass Ihnen die Lösung
+Ihres Problems keine eigene Mühe wert ist.
 
 @item
 Ein Minimalbeispiel zu erstellen hilft Ihnen zu verstehen, was
@@ -355,13 +356,14 @@ Probleme können in weniger als einem einzigen Takt gezeigt werden.
 
 @item
 Wenn Sie versuchen, ein Beispiel zu erstellen, versuchen Sie
-zuerst, Abschnitt Ihrer Datei auszukommentieren @w{(@code{%}
+zuerst, Abschnitte Ihrer Datei auszukommentieren @w{(@code{%}
 oder @code{%@{ @dots{} %@}})}.  Wenn Sie etwas auskommentieren
-können, und das Problem immer noch gezeigt wird, entfernen Sie die
+können, und das Problem immer noch vorhanden ist, entfernen Sie die
 auskommentierten Abschnitte.
 
 @item
-Vermeiden Sie komplizierte Noten, Tonarten, Schlüssel oder Taktarten, es sei denn Ihr Problem hat mit ihnen etwas zu tun.
+Vermeiden Sie komplizierte Noten, Tonarten, Schlüssel oder Taktarten,
+es sei denn Ihr Problem hat mit ihnen etwas zu tun.
 
 @item
 Benutzen Sie nicht @code{\override} oder @code{\set}, es sei denn,
@@ -473,11 +475,11 @@ Hier ein Beispiel eines guten bug reports:
 @divEnd
 
 @divClass{column-right-bottom}
-@subheading 3. Schritt:  Einsenden eines Fehlerberichtes
+@subheading 3. Schritt: Einsenden eines Fehlerberichtes
 
 Wenn Sie sichergestellt haben, dass der Fehler noch nicht
 bekannt ist und einen Fehlerbericht erstellt haben, senden sie
-ihn bitte uns zu!
+ihn bitte an uns!
 
 @divClass{keep-bullets}
 @itemize
@@ -489,7 +491,7 @@ ganz gewöhnlich eine E-Mail schicken.
 
 @item
 Wenn Sie nicht Mitglied der Liste sind, können Sie trotzdem
-einen Fehlerbericht über die
+einen Fehlerbericht über das
 @uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,
 gmane lilypond.bugs web interface} schicken.
 
@@ -512,11 +514,11 @@ Fehlerberichtes hinzu.
 @divClass{column-center-bottom}
 @subheading 4. Schritt: Auf Antwort warten
 
-Wenn Ihr Fehlerbericht an die Liste versandt wurde, untersucht
-unser Fehlerbeseitiger (engl. bug squad) den Bericht.  Sie werden
+Wenn Ihr Fehlerbericht an die Liste versandt wurde, untersuchen
+unsere Fehlerbeseitiger (engl. bug squad) den Bericht.  Sie werden
 eventuell nach mehr Information gefragt.  Sie werden informiert,
-wann der Bericht um Tracker hinzugefüt wird.  Warten Sie
-bitte vier Tage, da uns nur eine geringe Zahl an Helfern zur Verfügung stehen.
+wann der Bericht im Tracker hinzugefüt wird.  Warten Sie bitte vier Tage,
+da uns für diese Tätigkeit nur eine geringe Zahl an Helfern zur Verfügung stehen.
 
 Wenn ein Fehler dem Tracker hinzugefügt wurde, können Sie ihn kommentieren,
 um mehr Information hinzuzufügen.  Sie können den Fehler auch markieren,
@@ -566,7 +568,7 @@ demonstrieren.
 
 @divClass{keep-bullets}
 @divClass{column-left-top}
-@subheading Materielle Hilfe
+@subheading Kopfgelder/Prämien
 
 In der Vergangenheit
 
@@ -659,9 +661,11 @@ Implementation, Vereinfachung, Dokumentation und Fehlerbeseitigung.
 @end ifset
 
 
-@warning{Hier handelt es sich um nicht stabile Entwicklerversionen.
+@c we normally don't allow named references, but in this case
+@c it's good to emphasize the "stable" part.  -gp
+@warning{Hier handelt es sich um @emph{möglicherweise instabile} Entwicklerversionen.
 Wenn Sie nicht genau wissen, wie man LilyPond installiert und
-benutzt, empfehlen wir ausdrücklich, die @ref{Download, stabilen Download}-Versionen
+benutzt, empfehlen wir ausdrücklich, die @ref{Download, stabile Download}-Version
 zu benutzen und die @ref{Handbücher, stabilen Handbücher} zu lesen.}
 
 @divEnd
@@ -670,7 +674,7 @@ zu benutzen und die @ref{Handbücher, stabilen Handbücher} zu lesen.}
 @subheading Veröffentlichungsnummern
 
 Es gibt zwei Veröffentlichungsreihen für LilyPond: stabile Versionen
-und die unstabilen Entwicklerversionen.  Stabile Versionen haben eine
+und die instabilen Entwicklerversionen.  Stabile Versionen haben eine
 gerade zweite Versionsnummer (also etwa 2.8, 2.10, 2.12).
 Entwicklerversionen haben eine ungerade zweite Versionsnummer
 (also 2.7, 2.9, 2.11).
@@ -733,7 +737,7 @@ geschrieben (nur auf Englisch).
 
 
 @divClass{column-center-top}
-@subheading Regressionsteste
+@subheading Regressionstests
 
 @divClass{keep-bullets}
 
@@ -741,23 +745,23 @@ geschrieben (nur auf Englisch).
 
 @itemize
 @item
-@uref{../../input/regression/collated-files.html, Regressionsteste}:
-Die Regressionsteste dieser Version.
+@uref{../../input/regression/collated-files.html, Regressionstests}:
+Die Regressionstests dieser Version.
 (@uref{../../input/regression/collated-files.pdf, PDF-Version})
 
 @item
-@uref{../../input/regression/musicxml/collated-files.html, MusicXML-Teste}:
-musicXML-Regressionsteste dieser Version.
+@uref{../../input/regression/musicxml/collated-files.html, MusicXML-Tests}:
+musicXML-Regressionstests dieser Version.
 (@uref{../../input/regression/musicxml/collated-files.pdf, PDF-Version})
 
 @item
-@uref{../../input/regression/abc2ly/collated-files.html, abc2ly-Teste}:
-abc2ly-Teste dieser Version.
+@uref{../../input/regression/abc2ly/collated-files.html, abc2ly-Tests}:
+abc2ly-Tests dieser Version.
 (@uref{../../input/regression/abc2ly/collated-files.pdf, PDF-Version})
 
 @item
-@uref{../../input/regression/lilypond-book/collated-files.html, lilypond-book-Teste}:
-lilypond-book-Teste dieser Version.
+@uref{../../input/regression/lilypond-book/collated-files.html, lilypond-book-Tests}:
+lilypond-book-Tests dieser Version.
 (@uref{../../input/regression/lilypond-book/collated-files.pdf, PDF-Version})
 @end itemize
 
@@ -787,9 +791,7 @@ lilypond-book-Teste dieser Version.
 
 @item @regtestStableLilypondBook (@regtestStableLilypondBookPdf{})
 @end itemize
-
 @end ifset
-
 
 
 @subsubheading Alle Versionen
@@ -798,7 +800,7 @@ lilypond-book-Teste dieser Version.
 @item @uref{http://lilypond.org/test, Vergleiche zweier Versionen}:
 
 @item @uref{http://lilypond.org/download/binaries/test-output/,
-Archiv aller Regressionsteste}
+Archiv aller Regressionstests}
 
 @end itemize
 
@@ -812,12 +814,13 @@ Archiv aller Regressionsteste}
 
 @ifclear web_version
 @warning{Diese Handbücher sind für LilyPond @version{}; die neuesten
-Handbücher finden sich auf @url{http://lilypond.org}.}
+Handbücher finden sich unter @url{http://lilypond.org}.}
 @end ifclear
 
 @divClass{normal-table}
 @multitable @columnfractions .3 .3 .3
 @headitem Einleitung
+
 @item
 @docLinkSplit{Lernen,learning,@manualDevelLearningSplit-de}
 @tab
@@ -838,8 +841,10 @@ Handbücher finden sich auf @url{http://lilypond.org}.}
 @docLinkBig{Aufsatz,essay,@manualDevelEssayBig-de}
 @tab
 @docLinkPdf{Aufsatz,essay,@manualDevelEssayPdf-de}
+@end multitable
 
-@headitem Häufig benutzte Handbücher
+@multitable @columnfractions .3 .3 .3
+@headitem Häufig benötigte Handbücher
 
 @item
 @docLinkSplit{Notation,notation,@manualDevelNotationSplit-de}
@@ -861,9 +866,10 @@ Handbücher finden sich auf @url{http://lilypond.org}.}
 @docLinkBig{Schnipsel,snippets,@manualDevelSnippetsBig}
 @tab
 @docLinkPdf{Schnipsel,snippets,@manualDevelSnippetsPdf}
+@end multitable
 
-
-@headitem Seltenere Handbücher
+@multitable @columnfractions .3 .3 .3
+@headitem Seltener benötigte Handbücher
 
 @item
 @docLinkSplit{Webseite,web,@manualDevelWebSplit-de}
@@ -892,181 +898,181 @@ Handbücher finden sich auf @url{http://lilypond.org}.}
 @docLinkBig{Interna,internals,@manualDevelInternalsBig}
 @tab
 @docLinkPdf{Interna,internals,@manualDevelInternalsPdf}
+@end multitable
 
 @ifset web_version
+@multitable @columnfractions .3
 @headitem Zum Herunterladen
 
 @item
 @doctarballDevel
+@end multitable
 @end ifset
 
-@end multitable
 
 @divEnd
 @divEnd
 
 
-@node GSoC 2012
-@unnumberedsec GSoC (Google Summer of Code) 2012
-@translationof GSoC 2012
+
+
+@node Google Summer of Code
+@unnumberedsec Google Summer of Code
+@translationof Google Summer of Code
 
 @divClass{column-center-top}
 @subheading Was ist Google Summer of Code?
 
-Google Summer of Code ist ein globales Programm,
-das Studenten Stipendien offeriert, um an Open-Source-Projekten während
-der Sommerferien zu arbeiten.
+Google Summer of Code ist ein globales Programm, bei dem Google Studenten
+Stipendien offeriert, um in den Sommerferien an Open-Source-Projekten zu arbeiten.
 
-Das LilyPond-Team hat beschlossen, dass sich hier eine ausgezeichnete Möglichkeit
-bietet neue Mitarbeiter zu finden und Studenten, die sich schon an LilyPond beteiligen, weiter einzubinden. Einer unserer Mitarbeiter wurde für den
-Sommer 2012 als Teil des @uref{http://www.gnu.org/, GNU-Projekts} angenommen;
-wir hoffen, dass wir auch in kommenden Jahren an dem Programm teilnehmen können.
+Es ist dies eine ausgezeichnete Gelegenheit neue Entwickler zu finden und diejenigen,
+die bereits an LilyPond mitwirken zu motivieren, ihr Engagement zu vertiefen.
+Einer unserer Entwickler wurde für den Sommer 2012 als Teil des @uref{http://www.gnu.org/, GNU-Projekts} angenommen;
+wir hoffen, dass auch in kommenden Jahren Entwickler für LilyPond an dem Programm teilnehmen können.
 
 @divEnd
 
 @divClass{column-center-bottom}
-@subheading Unsere Ideenliste 2012
+@subheading Unsere Ideenliste
 
-Unten befindet sich eine Liste mit empfohlenen Projekten für GSoC-Stundenten für
-den Sommer 2012.  Wenn auch die Anmeldefrist vorbei ist, lassen wir die Informationen
-trotzdem online, weil sie als Anregung für alle LilyPond-Entwickler dienen
-können.   Einige Mitglieder des Entwicklungsteams helfen gerne Freiwilligen,
-die sich an diese Projekte wagen wollen.
+Unten befindet sich eine Liste mit vorgeschlagenen Projekten für GSoC-Stundenten für
+den Sommer 2012.  Wir haben sie hier aufbewahrt, damit sie zukünftigen GSoC Interessenten
+als Anregung dienen mag.
 
-Es gibt natürlich viel mehr, was an LilyPond verbessert werden kann, darunter
-auch sehr kleine Projekte.  Eine vollständige Liste aller bekannten Probleme
-findet sich @uref{http://code.google.com/p/lilypond/issues/list, hier}.
+Natürlich gibt es noch sehr viele andere Aufgaben, um LilyPond weiter zu
+verbessern und das LilyPond Entwicklerteam wird jederzeit jede/n gern unterstützen,
+die/der Aufgaben wie jene unten aufgeführten angehen möchte.
 
+Eine vollständige Liste aller aktuell offenen Punkte findet sich
+@uref{http://code.google.com/p/lilypond/issues/list, hier}.
+
+@divEnd
+
+@divClass{column-center-middle-color3}
 @subheading Stichnoten
 
-Lösen Sie Probleme mit der Synchronisation von Verzierungen (Vorschläge usw.),
-zusammen mit der darunter liegenden Architektur (siehe
-@uref{http://code.google.com/p/lilypond/issues/detail?id=34,
-Nummer 34 in unserem Tracker}).  Verzierungen bringen das Zeitmaß von LilyPond
-durcheinander, weil sie sozusagen in der Zeit rückwärts gehen.  Dadurch
-entstehen seltsame Effekte, besonders wenn in einem Notensystem eine
-Verzierung auftritt und im zweiten nicht.
+Beseitigen Sie Probleme bei der Synchronisation von Vorschlagsnoten.  Vorschlagsnoten
+können das Zeitmaß von LilyPond durcheinander bringen und so unerwartete Effekte hervorrufen.
+Das tritt besonders dann auf, wenn viele Notensysteme verwendet werden und einige Vorschlagsnoten
+haben und andere nicht.
 
 @strong{Schwierigkeit:} mittel
-
 @strong{Erfordernisse:} C++, MIDI
-
-@strong{Empfohlen:} Bekannt mit den Interna von LilyPond
-
+@strong{Empfohlen:} mit den Interna von LilyPond vertraut sein
 @strong{Mentoren:} Mike Solomon, Carl Sorensen
 
+@divEnd
+
+@divClass{column-center-middle-color3}
 @subheading MusicXML
 
-Hinzufügen von erweiterter Unterstützung für den Export von MusicXML und
-Verbesserung des Imports, zusätzlich Tests, die die Funktionen überprüfen.
-Abhängig von der zur Verfügung stehenden Zeit kann etwas oder alles der
-folgenden Punkte implementiert werden:
+Verbesserung der MusicXML Import- und Exportfunktionen:
 
 @divClass{keep-bullets}
 @itemize
 
 @item
-Der Export soll grundlegende Funktionen wie den MIDI-Export können (d. h.
-die Benutzung von eigenen Exportklassen, abgeleitet von der Übersetzerklasse.)
+Der Export sollte ähnlich wie der MIDI Export wenigstens die Musik an sich exportieren können (d.h.
+die Benutzung eine dezidierter Exportklassen, abgeleitet von der translator class.)
 
 @item
-Der XML-Baum soll aus dem grundlegenden musikalischen Inhalt erstellt werden,
-hinzu kommt eine Verbindung von musikalischem Ereignis zu XML-Tag.
+Der XML-Baum der Musik an sich muss erzeugt,
+Verbindungen zwischen den music events und den XML Tags hergestellt werden.
 
 @item
 Alle LilyPond-Engraver sollen ihre Arbeit verrichten.
 
 @item
-Alle Ausgabe-Objekte (also alle Stencils/Gruppen von Stencils) sollen der
+Alle Ausgabe-Objekte (also alle Stencil/Gruppen von Stencils) sollen der
 Musik zugeordnet werden (und damit auch dem XML-Tag im XML-Baum).
 
 @item
-Ein XML-Ausgabebackend soll hinzugefügt werden, welches die Layoutinformationen
-für jedes Ausgabe-Objekt den XML-Tags hinzufügen kann.
+Ein XML-Ausgabebackend soll hinzugefügt werden. Dieses fügt die Layoutinformationen
+für jedes Ausgabe-Objekt den XML-Tags hinzu.
 
 @end itemize
 @divEnd
 
-Das Ziel wird als erreicht angesehen, wenn eine (vorher festgelegte) Partitur
-von MusicXML importiert und dann wieder exportiert werden kann, ohne dass
-ungewollter Datenverlust eintritt.
-
 @strong{Schwierigkeit:} mittel
-
-@strong{Erfordernisse:} MusicXML, Python, grundlegene Kenntnis von LilyPond
-
+@strong{Erfordernisse:} MusicXML, Python, grundlegende Kenntnisse in LilyPond
 @strong{Mentoren:} Reinhold Kainhofer, Mike Solomon
 
-Kenntnis anderer Notensatzprogramme (zum Testen) wäre ein netter Bonus.
+Kenntnis anderer Notensatzprogramme (zum Testen) wäre hilfreich.
 
+@divEnd
+
+@divClass{column-center-middle-color3}
 @subheading Binde- und Legatobögen verbessern
 
 Die Standardform von Binde- und Legatobögen ist oft nicht zufriedenstellend.
-Überbindungen von enharmonischen Tönen (etwa @code{@{ cis'~ des' @}}) werden
-nicht unterstützt, auch Überbindungen, die von Schlüssel- oder Systemwechsel
-unterprochen werden, sind schlecht unterstützt.  Das Projekt beinhaltet das
-Sammeln und Sortieren von Beispielen schlechter Ausgabe, das feststellen der
-richtigen Formatierung und das Schreiben das dazu notwendigen Codes.
+Durch Schlüssel- oder Systemwechsel unterbrochene Bögen werden nicht gut behandelt.
+Teil der Aufgabe wäre es, Beispiele von unschöner Ausgabe zu sammeln und zu gruppieren
+um dann zu entscheiden, welche Ausgabe stattdessen gewünscht wäre. Schließlich
+muß der dazu notwendige Programmcode geschrieben werden.
 
 @strong{Schwierigkeit:} schwer
-
 @strong{Erfordernisse:} C++, Erfahrung mit Heuristiken
-
-@strong{Empfohlene Kenntnisse:} LilyPond-Kenntniss, Sinn für Ästhetik
-
+@strong{Empfohlene Kenntnisse:} LilyPond-Kenntnisse, Sinn für Ästhetik
 @strong{Mentor:} Mike Solomon
 
-@subheading Eine besondere Variante bestimmter Glyphen hinzufügen
+@divEnd
 
-Zusätzliche Varianten von Glyphen schaffen für Situationen wie auf der Linie,
-zwischen den Linien, kürzere und schmalere Varianten für z. B. Versetzungszeichen,
-zusammen mit einer Infrastruktur, die das unterstützt.  Ein Beispiel ist die
-Breve der Alten Notation, deren Notenkopf in zwei Varianten vorkommt, mit
-kleinerem und größerem Loch.
+@divClass{column-center-middle-color3}
+@subheading Hinzufügen von Glyphenvarianten
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+Hinzufügen von Glyphenvarianten zur Darstellen @q{auf} und @q{zwischen} Notenlinien.
+
+@item
+Kürzere und schmalere Varianten der gleichen Glyphe, z.B. Vorzeichen.
+Ein weiteres spezielles Beispiel wäre ein Breve Notenkopf für @q{Alte Musik}.
+Hier wäre zwei Varianten mit kleinem bzw. größerem @q{Loch} denkbar.
+
+@end itemize
+@divEnd
 
 @strong{Schwierigkeit:} leicht
-
 @strong{Erfordernisse:} MetaFont, C++, gutes Auge für Details
-
-@strong{Empfohlene Kenntnisse:} grundlegene LilyPond-Kenntnis
-
+@strong{Empfohlene Kenntnisse:} grundlegene LilyPond Kenntnis
 @strong{Mentor:} Werner Lemberg
 
-@subheading Bebalkung verbessern
 
-Die Standardpositionen von normaler Bebalkung, Bebalkung über Systeme hinweg,
-unterbrochene und Knie-Bebaklung sollte verbessert werden.  Balken sollten
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Balkenpositionierung verbessern
+
+Die Standardpositionierung von normalen Balken, Balken über Systeme hinweg,
+unterbrochene und Knie-Balken sollte verbessert werden.  Balken sollten
 sich am Kontext und benachbarten Noten orientieren (siehe
 @uref{http://icking-music-archive.org/lists/sottisier/sottieng.pdf,
 Abschnitt 2.2}).  Wenn möglich, sollte die Rechenzeit für die Bebalkung
 verkürzt werden.
 
 @strong{Schwierigkeit:} mittel
-
 @strong{Erfordernisse:} C++, Erfahrung mit Heuristiken
-
 @strong{Empfohlene Kenntnisse:} Sinn für Ästhetik
-
 @strong{Mentoren:} Mike Solomon, Carl Sorensen
-
-
-@subheading Kompilationswarnungen aufräumen
-
-Aufräumen von Kompilationswarnungen, statischer Codeanalyse und Valgrind-Warnungen.
-Werkzeuge zur automatischen Analyse von Code (Warnungen in @code{g++} und
-@code{clang}) und Analysewerkzeuge wie die Valgrind-memory-leak-detection und
-callgrind code profiler stellen wertvolle Informationen über mögliche Probleme
-im C++-Code zu Verfügung.  Wenn man diese Warnungen aufräumt, könnte man auch
-automatisch alle Patche zurückweisen, die neue Warnungen mit sich bringen würden.
-
-@strong{Schwierigkeit:} mittel
-
-@strong{Erfordernisse:} C++
-
-@strong{Mentoren:} Joe Neeman, Reinhold Kainhofer
 
 @divEnd
 
+@divClass{column-center-middle-color3}
+@subheading Kompilationswarnungen aufräumen
+
+Werkzeuge zur automatisierten Codeanalyse wie @q{valgrind memory leak detection} oder
+@q{callgrind code profiler} liefern wertvolle Information über möglicher
+Defizite in unserem C++ code.  Eine Bereinigung der Warnungen würde uns erlauben
+automatisiert Patches, die zusätzliche Warnungen erzeugen, abzulehnen.
+
+@strong{Schwierigkeit:} mittel
+@strong{Erfordernisse:} C++
+@strong{Mentoren:} Joe Neeman, Reinhold Kainhofer
+
+@divEnd
 
 
 @node Autoren
@@ -1074,7 +1080,7 @@ automatisch alle Patche zurückweisen, die neue Warnungen mit sich bringen würd
 @translationof Authors
 
 @divClass{column-left-top}
-@subheading Current Development Team
+@subheading Aktuelles Entwicklungsteam
 
 @divClass{keep-bullets}
 @developersCurrent
@@ -1082,7 +1088,7 @@ automatisch alle Patche zurückweisen, die neue Warnungen mit sich bringen würd
 @divEnd
 
 @divClass{column-right-top}
-@subheading Previous Development Team
+@subheading Früheres Entwicklungsteam
 
 @divClass{keep-bullets}
 @developersPrevious
@@ -1091,22 +1097,22 @@ automatisch alle Patche zurückweisen, die neue Warnungen mit sich bringen würd
 
 
 @divClass{column-center-top}
-@subheading Current Contributors
+@subheading Aktuelle Mitarbeiter
 
 @divClass{keep-bullets}
-@subsubheading Programming
+@subsubheading Programmierung
 
 @coreCurrent
 
-@subsubheading Font
+@subsubheading Schriftarten
 
 @fontCurrent
 
-@subsubheading Documentation
+@subsubheading Dokumentation
 
 @docCurrent
 
-@subsubheading Bug squad
+@subsubheading Fehler Bereinigung
 
 @bugsquadCurrent
 
@@ -1114,7 +1120,7 @@ automatisch alle Patche zurückweisen, die neue Warnungen mit sich bringen würd
 
 @supportCurrent
 
-@subsubheading Translation
+@subsubheading Übersetzung
 
 @translationsCurrent
 
@@ -1123,18 +1129,18 @@ automatisch alle Patche zurückweisen, die neue Warnungen mit sich bringen würd
 
 
 @divClass{column-center-bottom}
-@subheading Previous Contributors
+@subheading Frühere Mitarbeiter
 
 @divClass{keep-bullets}
-@subsubheading Programming
+@subsubheading Programmierung
 
 @corePrevious
 
-@subsubheading Font
+@subsubheading Schriftarten
 
 @fontPrevious
 
-@subsubheading Documentation
+@subsubheading Dokumentation
 
 @docPrevious
 
@@ -1147,13 +1153,24 @@ automatisch alle Patche zurückweisen, die neue Warnungen mit sich bringen würd
 
 @supportPrevious
 
-@subsubheading Translation
+@subsubheading Übersetzung
 
 @translationsPrevious
 
 @divEnd
 @divEnd
 
+@node Danksagungen
+@unnumberedsec Danksagungen
+@translationof Acknowledgements
+
+@divClass{column-center-top}
+@subheading Danksagungen
+
+@divClass{keep-bullets}
+@acknowledgementsCurrent
+@divEnd
+@divEnd
 
 
 @node Veröffentlichungen
@@ -1181,7 +1198,7 @@ automatisch alle Patche zurückweisen, die neue Warnungen mit sich bringen würd
 @divEnd
 @divEnd
 
-@contactUsAbout{wissenschaftliche Aufsätzen}
+@contactUsAbout{wissenschaftliche Aufsätze}
 
 
 @node Ältere Neuigkeiten
@@ -1207,6 +1224,7 @@ automatisch alle Patche zurückweisen, die neue Warnungen mit sich bringen würd
 @subheading Ankündigungen
 
 Ankündigungen und Neuigkeiten nach Version:
+@uref{http://lilypond.org/doc/v2.16/Documentation/web/index#Lilypond-2_002e16_002e0-released_0021-August-24_002c-2012-1,v2.16},
 @uref{http://lilypond.org/doc/v2.14/Documentation/web/index#LilyPond-2_002e14_002e0-released_0021-June-6_002c-2011,v2.14},
 @miscLink{announce-v2.12,v2.12},
 @miscLink{announce-v2.10,v2.10},
@@ -1220,6 +1238,7 @@ Ankündigungen und Neuigkeiten nach Version:
 @miscLink{ANNOUNCE-0.1,v0.1}
 
 Ausführliche Liste der Änderungn nach Version:
+@uref{http://lilypond.org/doc/v2.16/Documentation/changes/index.html,v2.16},
 @uref{http://lilypond.org/doc/v2.14/Documentation/changes/index.html,v2.14},
 @uref{http://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS,v2.12},
 @uref{http://lilypond.org/doc/v2.10/Documentation/topdocs/NEWS,v2.10},
@@ -1236,7 +1255,24 @@ Ausführliche Liste der Änderungn nach Version:
 @divEnd
 
 @divClass{column-center-bottom}
-@subheading Änderungslog
+@subheading Thanks
+
+Thanks to developers, contributors, bug hunters and suggestions for
+@miscLink{THANKS-2.16,v2.16},
+@miscLink{THANKS-2.14,v2.14},
+@miscLink{THANKS-2.12,v2.12},
+@miscLink{THANKS-2.10,v2.10},
+@miscLink{THANKS-2.8,v2.8},
+@miscLink{THANKS-2.6,v2.6},
+@miscLink{THANKS-2.4,v2.4},
+@miscLink{THANKS-2.2,v2.2},
+@miscLink{THANKS-2.0,v2.0},
+@miscLink{THANKS-1.8,v1.8}
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Änderungslogs
 
 Änderungslog für Entwickler nach Version:
 @miscLink{ChangeLog-2.10,v2.10},

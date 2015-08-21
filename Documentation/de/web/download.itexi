@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @ignore
-    Translation of GIT committish: e5a609e373eae846857f9a6d70a402a3d42b7d94
+    Translation of GIT committish: 5b6ddab894b3065c35c72ef8048b8c6edbe684ac
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes.
 @end ignore
 
-@c Translators: Till Paala
+@c Translators: Till Paala, Michael Gerdau
 
 @include included/generating-output.itexi
 
@@ -15,7 +15,7 @@
 @warning{LilyPond ist ein @strong{textbasiertes} Notationsprogramm,
 es ähnelt eher einer Programmiersprache als einem graphischen
 Programm zum Notensatz.  Bevor Sie LilyPond herunterladen, lesen
-Sie bitte über unsere @ref{Text-Eingabe}.}
+Sie bitte über unsere @ref{Texteingabe}.}
 @end macro
 
 @node Download
@@ -26,7 +26,7 @@ Sie bitte über unsere @ref{Text-Eingabe}.}
 @ifclear web_version
   @c yes, we want verisonDevel here, since the online links
   @c for @version won't be up yet!
-  @heading Downloads for LilyPond @versionDevel
+  @heading Downloads für LilyPond @versionDevel
 
 Links für die stabile Version von LilyPond finden sich auf
 @uref{http://lilypond.org, lilypond.org}
@@ -42,7 +42,7 @@ Links für die stabile Version von LilyPond finden sich auf
 @divClass{link-headings}
 
 @divClass{column-left-top}
-@subheading Für Benutzer
+@subheading Für Anwender
 
 @itemize
 
@@ -77,24 +77,23 @@ für Paketersteller
 alte Versionen
 
 @item @ref{Entwicklung}:
-die letze unstabile Version
+die aktuelle instabile Version
 
 @end itemize
 @divEnd
 
 @divEnd
 
-
-@divClass{column-center-bottom}
+@divClass{column-center-middle-color2}
 
 @subheading Programmlizenz
 
-LilyPond wird under der
-@ref{GPL, GNU General Public License} publiziert.
+LilyPond wird unter der
+@ref{GPL, GNU General Public License} veröffentlicht.
 @divEnd
 
 
-@divClass{color1}
+@divClass{column-center-bottom}
 
 @subheading Sponsoren
 
@@ -105,10 +104,14 @@ Bandbreite bezahlen.
 @sourceimage{VTlogo_ITF,,,}
 @sourceimage{lao_banner_06_on_white_demo,,,}
 
+@divEnd
+
+@divClass{column-center-bottom}
 @subheading Legales
 
 @divClass{legal}
-Alle Logos und Produktabbildungen erkennen Copyright und Trademark an.
+Alle Logos und Produktabbildungen werden unter ausdrücklicher Anerkennug des Copyright und Trademark
+der Rechteinhaber verwendet.
 
 @logoLegalLinux
 
@@ -146,12 +149,11 @@ Alle Logos und Produktabbildungen erkennen Copyright und Trademark an.
 @subheading Generische Pakete oder distributionsabhängige Pakete?
 
 Viele Distributionen enthalten LilyPond in ihrem normalen
-Paket-System.  Diese Versionen sind einfacher zu installieren und
-auch wieder zu entfernen als die generischen Pakete, aber sie können
-älter sein.  Wenn Sie unsere generischen Pakete benutzen wollen,
-entfernen Sie zunächst die offizielle Version aus ihrem System mit
-dem Paketmanager Ihrer Distribution.  Lesen Sie die Dokumentation
-Ihrer Distribution, wie Sie den Paketmanager einsetzen.
+Packet-System.  Oft sind diese Versionen @emph{erheblich} älter, als die
+das aktuelle stabile Version.  Diese alten Packete sind meist einfacher zu installieren und
+auch wieder zu entfernen, jedoch empfehlen wir im Falle von veralteten Packeten @emph{dringend}
+die Verwendung unserer generischen Packete.  Achten sie in dem Falle auch darauf,
+daß ihr LilyPond Editor die korrekte Version verwendet.  Siehe auch @ref{Leichteres Editieren}.
 
 @divEnd
 
@@ -171,12 +173,12 @@ Ihrer Distribution, wie Sie den Paketmanager einsetzen.
 @ifset web_version
   @downloadStableLinuxNormal
 @end ifset
-
-(Wenn Sie Zweifel haben, dann diese)
+32bit Systeme.
 
 @item
 @sourceimage{logo-linux,,,}
 @downloadStableLinuxBig
+64bit Systeme.
 
 @item
 @sourceimage{logo-linux,,,}
@@ -185,10 +187,12 @@ Ihrer Distribution, wie Sie den Paketmanager einsetzen.
 @item
 @sourceimage{logo-freebsd,,,}
 @downloadStableFreeBSDNormal
+32bit Systeme.
 
 @item
 @sourceimage{logo-freebsd,,,}
 @downloadStableFreeBSDBig
+64bit Systeme.
 
 @end itemize
 
@@ -222,49 +226,10 @@ sh lilypond-@versionStable{}-OS-TYPE.sh --help
 
 
 
-
 @divClass{column-right-top}
-@subheading Eine Datei kompilieren
+@subheading Eine Datei übersetzen
 
 @lilypadCommandLine
-
-@divEnd
-
-
-@divClass{column-left-top}
-@subheading Distributionspezifische Pakete
-
-Benutzen Sie bitte den Paketmanager Ihrer Distribution um diese
-Versionen zu installieren oder zu aktualisieren.
-
-@itemize
-
-@item
-@sourceimage{logo-fedora,,,}
-@uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447,
-Fedora: LilyPond 2.14.2}
-
-@item
-@sourceimage{logo-ubuntu,,,}
-@uref{http://packages.ubuntu.com/search?keywords=lilypond,
-Ubuntu: LilyPond 2.14.2}
-
-@item
-@sourceimage{logo-slackware,,,}
-@uref{http://www.johannes-schoepfer.de/lilypond/,
-Slackware: LilyPond 2.14.2}
-
-@item
-@sourceimage{logo-debian,,,}
-@uref{http://packages.debian.org/search?keywords=lilypond,
-Debian: LilyPond 2.12.3}
-
-@item
-@sourceimage{logo-suse,,,}
-@uref{http://download.opensuse.org/repositories/openSUSE:/Factory:/Contrib/standard/,
-openSUSE: LilyPond 2.12.2}
-
-@end itemize
 
 @divEnd
 
@@ -273,7 +238,8 @@ openSUSE: LilyPond 2.12.2}
 @subheading Legales
 
 @divClass{legal}
-Alle Logos und Produktabbildungen erkennen Copyright und Trademark an.
+Alle Logos und Produktabbildungen werden unter ausdrücklicher Anerkennug des Copyright und Trademark
+der Rechteinhaber verwendet.
 
 @logoLegalLinux
 
@@ -300,12 +266,16 @@ Alle Logos und Produktabbildungen erkennen Copyright und Trademark an.
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinNormal
-Für MacOS X 10.4 und höher auf Intel-Prozessoren (wenn Sie Zweifel haben, benutzen Sie diese Version).
+Für MacOS X 10.4 oder höher auf Intel-Prozessoren (wenn Sie Zweifel haben,
+benutzen Sie diese Version).
+
 
 @item
 @sourceimage{logo-macosx,,,}
 @downloadStableDarwinPPC
-Für MacOS X 10.4 oder höher auf G3 und G4 Prozessoren (alte Apple-Computer).
+Für MacOS X 10.4 oder höher auf G3 und G4 Prozessoren (alte
+Apple-Computer).
+
 
 @end itemize
 
@@ -322,19 +292,10 @@ Entfernen Sie den LilyPond.app-Ordner.
 
 
 @divClass{column-right-top}
-@subheading Eine Datei kompilieren
-
-@lilypadOSX
-
-@divEnd
-
-
-@divClass{column-left-top}
 @subheading Benutzung auf der Kommandozeile
 
-@warning{Wenn Sie mit der GUI zufrieden sind, dann ignorieren Sie
+@warning{Wenn Sie mit der GUI Hinweisen weiter unten zufrieden sind, dann ignorieren Sie
 bitte diese Anweisungen.}
-
 
 @subsubheading MacOS X auf der Kommandozeile
 
@@ -384,7 +345,7 @@ chmod u+x lilypond
 @item
 Jetzt müssen Sie das Verzeichnis zu Ihrem Pfad hinzufügen.  Verändern
 (oder erstellen) Sie eine Datei mit dem Namen @code{.profile} in
-Ihrem home-Verzeichnis, sodass sie beinhaltet:
+Ihrem home-Verzeichnis, sodaß sie beinhaltet:
 
 @example
 export PATH=$PATH:~/bin
@@ -397,8 +358,8 @@ Diese Datei sollte mit einer leeren Zeile schließen.
 
 @subsubheading Einzelne Skripte aufrufen
 
-Die Skripte  -- wie @command{lilypond-book}, @command{convert-ly},
-@command{abc2ly} und auch @command{lilypond} selber -- sind in
+Die Skripte --- wie @command{lilypond-book}, @command{convert-ly},
+@command{abc2ly} und auch @command{lilypond} selber --- sind in
 einer @code{.app}-Datei für MacOS@tie{}X enthalten.
 
 Skripte können auch von der Kommandozeile aus aufgerufen werden,
@@ -416,11 +377,20 @@ Das gilt auch für alle anderen Skripte in diesem Verzeichnis, wie
 @divEnd
 
 
+@divClass{column-center-top}
+@subheading Eine Datei übersetzen
+
+@lilypadOSX
+
+@divEnd
+
+
 @divClass{column-center-bottom}
 @subheading Legales
 
 @divClass{legal}
-Alle Logos und Produktabbildungen erkennen Copyright und Trademark an.
+Alle Logos und Produktabbildungen werden unter ausdrücklicher Anerkennug des Copyright und Trademark
+der Rechteinhaber verwendet.
 
 @logoLegalMacOSX
 
@@ -446,7 +416,7 @@ Alle Logos und Produktabbildungen erkennen Copyright und Trademark an.
 @item
 @sourceimage{logo-windows,,,}
 @downloadStableWindows
-Für Windows 2000, XP, Vista, and Windows 7.
+Für Windows 2000, XP, Vista, Windows 7 und 8.
 
 @end itemize
 
@@ -486,17 +456,9 @@ Eintrag LilyPond und wählen die Option Entfernen.  Klicken Sie auf
 
 
 @divClass{column-right-top}
-@subheading Compiling a file
-
-@lilypadWindows
-
-@divEnd
-
-
-@divClass{column-left-top}
 @subheading Benutzung auf der Kommandozeile
 
-@warning{Wenn Sie mit der GUI zufrieden sind, dann ignorieren Sie
+@warning{Wenn Sie mit der GUI Hinweisen weiter unten zufrieden sind, dann ignorieren Sie
 bitte diese Anweisungen.}
 
 @subsubheading Windows auf der Kommandozeile
@@ -540,11 +502,20 @@ lilypond test.ly
 @divEnd
 
 
+@divClass{column-center-top}
+@subheading Eine Datei Übersetzen
+
+@lilypadWindows
+
+@divEnd
+
+
 @divClass{column-center-bottom}
 @subheading Legales
 
 @divClass{legal}
-Alle Logos und Produktabbildungen erkennen Copyright und Trademark an.
+Alle Logos und Produktabbildungen werden unter ausdrücklicher Anerkennug des Copyright und Trademark
+der Rechteinhaber verwendet.
 
 @logoLegalWindows
 
