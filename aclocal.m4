@@ -42,7 +42,8 @@ AC_DEFUN(STEPMAKE_GET_VERSION, [
 
     if test -z "$_ver"; then
         ## If empty, try date [fontforge]
-        eval _ver=\"\`("$1" --version || "$1" -V) 2>&1 | grep '[0-9]\{6,8\}' \
+        eval _ver=\"\`("$1" --version || "$1" -V) 2>&1 \
+	    | grep '\(^\|[^0-9a-f]\)[0-9]\{6,8\}\([^0-9a-f]\|$\)' \
 	    | head -n 1 \
 	    | sed -e 's/^[^.0-9]*//' -e 's/[^.0-9]*$//'\`\"
     fi
