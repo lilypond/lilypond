@@ -21,6 +21,7 @@
 #define VIRTUAL_METHODS_HH
 
 #include <typeinfo>
+using namespace std;
 
 /*
 Virtual copy constructor.  Make up for C++'s lack of a standard

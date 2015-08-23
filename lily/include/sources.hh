@@ -26,13 +26,13 @@
 class Sources
 {
   Sources (Sources const &);  // Do not define!  Not copyable!
-  std::vector<Source_file *> sourcefiles_;
+  vector<Source_file *> sourcefiles_;
 
 public:
   Sources ();
   ~Sources ();
 
-  Source_file *get_file (std::string file_name, std::string const &currentpath);
+  Source_file *get_file (string file_name, string const &currentpath);
   void add (Source_file *sourcefile);
   void set_path (File_path *);
 

@@ -41,6 +41,7 @@
 #include "spanner.hh"
 
 #include <cmath>                // rint
+using namespace std;
 
 #include "beam.hh"
 #include "directional-element-interface.hh"
@@ -94,7 +95,7 @@ Stem::get_beaming (Grob *me, Direction d)
   SCM lst = index_get_cell (pair, d);
 
   int len = scm_ilength (lst);
-  return std::max (len, 0);
+  return max (len, 0);
 }
 
 Interval
@@ -154,7 +155,7 @@ Stem::set_stem_positions (Grob *me, Real se)
 
           height[-d] = (height[d] - d
                         * (0.5 * beam_thickness
-                           + beam_translation * std::max (0, (beam_count - 1))
+                           + beam_translation * max (0, (beam_count - 1))
                            + stemlet_length));
         }
       else if (!stemlet && beam)
@@ -259,7 +260,7 @@ Stem::note_head_positions (Grob *me, bool filter)
       ps.push_back (p);
     }
 
-  vector_sort (ps, std::less<int> ());
+  vector_sort (ps, less<int> ());
   return ps;
 }
 
@@ -344,8 +345,8 @@ Stem::internal_pure_height (Grob *me, bool calc_beam)
       for (vsize i = 0; i < my_stems.size (); i++)
         {
           coords.push_back (my_stems[i]->pure_relative_y_coordinate (common, 0, INT_MAX));
-          min_pos = std::min (min_pos, coords[i]);
-          max_pos = std::max (max_pos, coords[i]);
+          min_pos = min (min_pos, coords[i]);
+          max_pos = max (max_pos, coords[i]);
         }
       for (vsize i = 0; i < heights.size (); i++)
         {
@@ -430,7 +431,7 @@ Stem::internal_calc_stem_end_position (Grob *me, bool calc_beam)
     {
       SCM sshorten = ly_assoc_get (ly_symbol2scm ("stem-shorten"), details, SCM_EOL);
       SCM scm_shorten = scm_is_pair (sshorten)
-                        ? robust_list_ref (std::max (duration_log (me) - 2, 0), sshorten) : SCM_EOL;
+                        ? robust_list_ref (max (duration_log (me) - 2, 0), sshorten) : SCM_EOL;
       Real shorten_property = 2 * robust_scm2double (scm_shorten, 0);
       /*  change in length between full-size and shortened stems is executed gradually.
           "transition area" = stems between full-sized and fully-shortened.
@@ -442,14 +443,14 @@ Stem::internal_calc_stem_end_position (Grob *me, bool calc_beam)
           (but not greater than 1/2 and not smaller than 1/4).
           value 6 is heuristic; it determines the suggested transition slope steepnesas.
           */
-      Real shortening_step = std::min (std::max (0.25, (shorten_property / 6)), 0.5);
+      Real shortening_step = min (max (0.25, (shorten_property / 6)), 0.5);
       /*  Shortening of unflagged stems should begin on the first stem that sticks
           more than 1 staffspace (2 units) out of the staff.
           Shortening of flagged stems begins in the same moment as unflagged ones,
           but not earlier than on the middle line note.
           */
-      Real which_step = (std::min (1.0, quarter_stem_length - (2 * staff_rad) - 2.0)) + abs (hp[dir]);
-      Real shorten = std::min (std::max (0.0, (shortening_step * which_step)), shorten_property);
+      Real which_step = (min (1.0, quarter_stem_length - (2 * staff_rad) - 2.0)) + abs (hp[dir]);
+      Real shorten = min (max (0.0, (shortening_step * which_step)), shorten_property);
 
       length -= shorten;
     }
@@ -483,7 +484,7 @@ Stem::internal_calc_stem_end_position (Grob *me, bool calc_beam)
           if (dir == UP)
             minlen += beam_trans;
         }
-      length = std::max (length, minlen + 1.0);
+      length = max (length, minlen + 1.0);
     }
 
   Real stem_end = dir ? hp[dir] + dir * length : 0;
@@ -743,7 +744,7 @@ Stem::internal_height (Grob *me, bool calc_beam)
 
   Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
 
-  Interval stem_y = Interval (std::min (y1, y2), std::max (y2, y1)) * half_space;
+  Interval stem_y = Interval (min (y1, y2), max (y2, y1)) * half_space;
 
   return stem_y;
 }
@@ -884,7 +885,7 @@ Stem::print (SCM smob)
 
   Real half_space = Staff_symbol_referencer::staff_space (me) * 0.5;
 
-  Interval stem_y = Interval (std::min (y1, y2), std::max (y2, y1)) * half_space;
+  Interval stem_y = Interval (min (y1, y2), max (y2, y1)) * half_space;
 
   stem_y[dir] -= beam_end_corrective (me);
 
@@ -1048,7 +1049,7 @@ Stem::calc_stem_info (SCM smob)
                               /* stem only extends to center of beam */
                               - 0.5 * beam_thickness;
 
-  ideal_length = std::max (ideal_length, ideal_minimum_length);
+  ideal_length = max (ideal_length, ideal_minimum_length);
 
   /* Convert to Y position, calculate for dir == UP */
   Real note_start
@@ -1078,9 +1079,9 @@ Stem::calc_stem_info (SCM smob)
     {
       /* Highest beam of (UP) beam must never be lower than middle
          staffline */
-      ideal_y = std::max (ideal_y, 0.0);
+      ideal_y = max (ideal_y, 0.0);
       /* Lowest beam of (UP) beam must never be lower than second staffline */
-      ideal_y = std::max (ideal_y, (-staff_space
+      ideal_y = max (ideal_y, (-staff_space
                                - beam_thickness + height_of_my_beams));
     }
 
@@ -1096,7 +1097,7 @@ Stem::calc_stem_info (SCM smob)
           * length_fraction)
        : 0.0);
 
-  Real minimum_length = std::max (minimum_free, height_of_my_trem)
+  Real minimum_length = max (minimum_free, height_of_my_trem)
                         + height_of_my_beams
                         /* stem only extends to center of beam */
                         - 0.5 * beam_thickness;

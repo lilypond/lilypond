@@ -119,7 +119,7 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
           SCM st = cols[i]->get_property ("shortest-starter-duration");
           Moment this_shortest = *unsmob<Moment> (st);
           assert (this_shortest.to_bool ());
-          shortest_in_measure = std::min (shortest_in_measure, this_shortest.main_part_);
+          shortest_in_measure = min (shortest_in_measure, this_shortest.main_part_);
         }
       else if (!shortest_in_measure.is_infinity ()
                && Paper_column::is_breakable (cols[i]))
@@ -167,7 +167,7 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
     d = m->main_part_;
 
   if (max_idx != VPOS)
-    d = std::min (d, durations[max_idx]);
+    d = min (d, durations[max_idx]);
 
   return Moment (d).smobbed_copy ();
 }
@@ -246,7 +246,7 @@ set_column_rods (vector<Grob *> const &cols, Real padding)
 
       /* min rather than max because stickout will be negative if the right-hand column
          sticks out a lot to the left */
-      Real stickout = std::min (skys ? (*skys)[LEFT].max_height () : 0.0,
+      Real stickout = min (skys ? (*skys)[LEFT].max_height () : 0.0,
                            Separation_item::conditional_skyline (r, cols[i - 1]).max_height ());
 
       Real prev_distances = 0.0;
@@ -263,7 +263,7 @@ set_column_rods (vector<Grob *> const &cols, Real padding)
           Item *lb = l->find_prebroken_piece (RIGHT);
 
           Real dist = Separation_item::set_distance (l, r, padding);
-          distances[i] = std::max (distances[i], dist - prev_distances);
+          distances[i] = max (distances[i], dist - prev_distances);
 
           if (lb)
             {
@@ -272,7 +272,7 @@ set_column_rods (vector<Grob *> const &cols, Real padding)
               // right than the unbroken version, by extending farther and/or
               // nesting more closely;
               if (j == i - 1) // check this, the first time we see each lb.
-                overhangs[j] = std::max (overhangs[j],
+                overhangs[j] = max (overhangs[j],
                                     lb->extent (lb, X_AXIS)[RIGHT]
                                     + distances[i] - dist);
             }
@@ -283,7 +283,7 @@ set_column_rods (vector<Grob *> const &cols, Real padding)
 
           prev_distances += distances[j];
         }
-      overhangs[i] = std::max (overhangs[i],
+      overhangs[i] = max (overhangs[i],
                           overhangs[i - 1] - distances[i]);
     }
 }
@@ -420,7 +420,7 @@ Spacing_spanner::musical_column_spacing (Grob *me,
       if (Paper_column::is_extraneous_column_from_ligature (left_col))
         spring.set_distance (spring.min_distance ());
       else
-        spring.set_distance (std::max (left_col->extent (left_col, X_AXIS)[RIGHT],
+        spring.set_distance (max (left_col->extent (left_col, X_AXIS)[RIGHT],
                                   spring.min_distance ()));
 
       spring.set_inverse_stretch_strength (1.0);

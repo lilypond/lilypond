@@ -39,14 +39,14 @@ public:
   void add_element (Audio_element *p);
   virtual void process ();
   void remap_grace_durations ();
-  void output (Midi_stream &midi_stream, const std::string &performance_name) const;
+  void output (Midi_stream &midi_stream, const string &performance_name) const;
   void output_header_track (Midi_stream &midi_stream) const;
 
   void print () const;
-  void write_output (std::string filename, const std::string &performance_name) const;
+  void write_output (string filename, const string &performance_name) const;
 
-  std::vector<Audio_staff *> audio_staffs_;
-  std::vector<Audio_element *> audio_elements_;
+  vector<Audio_staff *> audio_staffs_;
+  vector<Audio_element *> audio_elements_;
   Output_def *midi_;
   bool ports_;
   SCM header_;

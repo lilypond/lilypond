@@ -55,6 +55,7 @@ when this transforms a point (x,y), the point is written as matrix:
 #include "skyline.hh"
 #include "skyline-pair.hh"
 #include "spanner.hh"
+using namespace std;
 
 using std::string;
 using std::vector;
@@ -186,8 +187,8 @@ make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings
   //////////////////////
   if (x1 < x0)
     {
-      std::swap (x0, x1);
-      std::swap (y0, y1);
+      swap (x0, x1);
+      swap (y0, y1);
     }
   Offset left (x0, y0);
   Offset right (x1, y1);
@@ -280,7 +281,7 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
   Offset ep (cos (end) * x_rad, sin (end) * y_rad);
   //////////////////////
   Drul_array<vector<Offset> > points;
-  int quantization = std::max (1, (int) (((x_rad * trans.xx) + (y_rad * trans.yy)) * M_PI / QUANTIZATION_UNIT));
+  int quantization = max (1, (int) (((x_rad * trans.xx) + (y_rad * trans.yy)) * M_PI / QUANTIZATION_UNIT));
   for (DOWN_and_UP (d))
     {
       for (vsize i = 0; i < 1 + (vsize) quantization; i++)
@@ -777,7 +778,7 @@ make_glyph_string_boxes (vector<Box> &boxes,
         {
           assert (abs (xlen - ylen) < 10e-3);
 
-          Real scale_factor = std::max (xlen, ylen);
+          Real scale_factor = max (xlen, ylen);
           // the three operations below move the stencil from its original coordinates to current coordinates
           pango_matrix_translate (&transcopy, kerned_bbox[X_AXIS][LEFT],
                                   kerned_bbox[Y_AXIS][DOWN] - real_bbox[Y_AXIS][DOWN]);

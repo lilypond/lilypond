@@ -25,6 +25,7 @@
 #include <cstring> /* strdup, strchr */
 #include <cctype>
 
+using namespace std;
 
 #include "dimensions.hh"
 #include "direction.hh"

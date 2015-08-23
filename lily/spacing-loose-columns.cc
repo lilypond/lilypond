@@ -175,8 +175,8 @@ set_loose_columns (System *which, Column_x_positions const *posns)
             }
 
           Real loose_col_horizontal_length = loose_col->extent (loose_col, X_AXIS).length ();
-          base_note_space = std::max (base_note_space, loose_col_horizontal_length);
-          tight_note_space = std::max (tight_note_space, loose_col_horizontal_length);
+          base_note_space = max (base_note_space, loose_col_horizontal_length);
+          tight_note_space = max (tight_note_space, loose_col_horizontal_length);
 
           clique_spacing.push_back (base_note_space);
           clique_tight_spacing.push_back (tight_note_space);
@@ -195,7 +195,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
           sum_tight_spacing += clique_tight_spacing[j];
           sum_spacing += clique_spacing[j];
         }
-      Real scale_factor = std::max (0.0, std::min (1.0, (permissible_distance - left_padding - sum_tight_spacing) / (sum_spacing - sum_tight_spacing)));
+      Real scale_factor = max (0.0, min (1.0, (permissible_distance - left_padding - sum_tight_spacing) / (sum_spacing - sum_tight_spacing)));
       for (vsize j = clique.size () - 2; j > 0; j--)
         {
           Paper_column *clique_col = dynamic_cast<Paper_column *> (clique[j]);

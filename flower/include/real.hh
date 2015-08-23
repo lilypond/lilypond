@@ -23,6 +23,7 @@
 #include <algorithm>
 #include <climits>
 #include <cmath>
+using namespace std;
 
 typedef double Real;
 extern const Real infinity_f;

@@ -23,6 +23,7 @@
 #include <cmath>
 #include <ctime>
 
+using namespace std;
 
 #include "dimensions.hh"
 #include "file-name.hh"

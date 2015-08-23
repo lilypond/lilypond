@@ -63,7 +63,7 @@ protected:
   SCM default_child_;
   SCM aliases_;
   Translator_group *implementation_;
-  std::string id_string_;
+  string id_string_;
 
   /* Events reported in the context is sent to this dispatcher. */
   Dispatcher *event_source_;
@@ -83,7 +83,7 @@ protected:
   void unset_property_from_event (SCM);
 
 public:
-  std::string id_string () const { return id_string_; }
+  string id_string () const { return id_string_; }
   SCM children_contexts () const { return context_list_; }
   SCM default_child_context_name () const;
 
@@ -108,21 +108,21 @@ public:
   void instrumented_set_property (SCM, SCM, const char *, int, const char *);
   void internal_set_property (SCM var_sym, SCM value);
 
-  Context *create_context (Context_def *, const std::string&, SCM);
+  Context *create_context (Context_def *, const string&, SCM);
   void create_context_from_event (SCM);
   void acknowledge_infant (SCM);
   void remove_context (SCM);
   void change_parent (SCM);
   void disconnect_from_parent ();
   void check_removal ();
-  std::string context_name () const;
+  string context_name () const;
   SCM context_name_symbol () const;
   Global_context *get_global_context () const;
 
   virtual Context *get_score_context () const;
   virtual Output_def *get_output_def () const;
   virtual Moment now_mom () const;
-  virtual Context *get_default_interpreter (const std::string &context_id = "");
+  virtual Context *get_default_interpreter (const string &context_id = "");
 
   bool is_alias (SCM) const;
   void add_alias (SCM);
@@ -131,10 +131,10 @@ public:
   bool is_removable () const;
 
   Context *find_create_context (SCM context_name,
-                                const std::string &id, SCM ops);
-  Context *create_unique_context (SCM context_name, const std::string &context_id,
+                                const string &id, SCM ops);
+  Context *create_unique_context (SCM context_name, const string &context_id,
                                   SCM ops);
-  std::vector<Context_def *> path_to_acceptable_context (SCM alias) const;
+  vector<Context_def *> path_to_acceptable_context (SCM alias) const;
 };
 
 /*
@@ -158,13 +158,13 @@ Context *find_context_above_by_parent_type (Context *where, SCM parent_type);
 // context and moving toward the leaves of the tree.  If the starting context
 // matches, it is returned.  An empty ID matches any context of the given type.
 Context *find_context_below (Context *where,
-                             SCM type_sym, const std::string &id);
+                             SCM type_sym, const string &id);
 
 // Search for a context of the given type and ID starting with the given
 // context, then searching its descendants, then its parent's descendants, etc.
 // An empty ID matches any context of the given type.
 Context *find_context_near (Context *where,
-                            SCM type_sym, const std::string &id);
+                            SCM type_sym, const string &id);
 
 // Search for the top context (i.e. the ancestor with no parent) starting with
 // the given context.

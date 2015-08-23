@@ -6,6 +6,7 @@
 #define YAFFUT_MAIN
 #include "yaffut.hh"
 
+using namespace std;
 using std::vector;
 
 template<typename T>
@@ -13,8 +14,8 @@ void
 print (vector<T> v)
 {
   for (vsize i = 0; i < v.size (); i++)
-    std::cout << "v[" << i << "] = " << v[i] << std::endl;
-  std::cout << std::endl;
+    cout << "v[" << i << "] = " << v[i] << endl;
+  cout << endl;
 }
 
 FUNC (vector_erase)
@@ -63,7 +64,7 @@ FUNC (vector_sorting)
   v.sort (default_compare);
 #else
   //sort (v.begin (), v.end ());
-  vector_sort (v, std::less<int> ());
+  vector_sort (v, less<int> ());
 #endif
   EQUAL (v[0], 0);
   EQUAL (v[1], 1);
@@ -136,7 +137,7 @@ FUNC (parray_uniq)
   v.push_back (0);
   v.push_back (1);
   v.push_back (0);
-  vector_sort (v, std::less<int> ());
+  vector_sort (v, less<int> ());
   uniq (v);
   EQUAL (v.size (), vsize (2));
 }
@@ -147,6 +148,6 @@ FUNC (vector_search)
   v.push_back (0);
   v.push_back (1);
   v.push_back (2);
-  vsize i = binary_search (v, 1, std::less<int> ());
+  vsize i = binary_search (v, 1, less<int> ());
   EQUAL (i, vsize (1));
 }

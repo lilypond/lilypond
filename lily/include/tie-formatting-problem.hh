@@ -30,20 +30,20 @@
 #include <map>
 #include <set>
 
-typedef std::map< Tuple<int, 4>, Tie_configuration *> Tie_configuration_map;
+typedef map< Tuple<int, 4>, Tie_configuration *> Tie_configuration_map;
 
 struct Tie_configuration_variation
 {
-  std::vector<std::pair<int, Tie_configuration *> > index_suggestion_pairs_;
+  vector<pair<int, Tie_configuration *> > index_suggestion_pairs_;
   void add_suggestion (int index, Tie_configuration *suggestion)
   {
-    index_suggestion_pairs_.push_back (std::make_pair (index, suggestion));
+    index_suggestion_pairs_.push_back (make_pair (index, suggestion));
   }
 };
 
-typedef std::map < Tuple<int, 2>, Skyline> Chord_outline_map;
-typedef std::map < Tuple<int, 2>, Box> Column_extent_map;
-typedef std::map <int, Slice> Position_extent_map;
+typedef map < Tuple<int, 2>, Skyline> Chord_outline_map;
+typedef map < Tuple<int, 2>, Box> Column_extent_map;
+typedef map <int, Slice> Position_extent_map;
 
 class Tie_formatting_problem
 {
@@ -52,9 +52,9 @@ class Tie_formatting_problem
   Column_extent_map head_extents_;
   Position_extent_map head_positions_;
 
-  std::set<int> dot_positions_;
+  set<int> dot_positions_;
   Interval dot_x_;
-  std::vector<Tie_specification> specifications_;
+  vector<Tie_specification> specifications_;
   bool use_horizontal_spacing_;
 
   Tie_configuration_map possibilities_;
@@ -65,9 +65,9 @@ class Tie_formatting_problem
   Tie_configuration *get_configuration (int position, Direction dir, Drul_array<int> cols, bool tune_y) const;
   Tie_configuration *generate_configuration (int position, Direction dir, Drul_array<int> cols, bool tune_y) const;
 
-  std::vector<Tie_configuration_variation> generate_collision_variations (Ties_configuration const &ties) const;
-  std::vector<Tie_configuration_variation> generate_extremal_tie_variations (Ties_configuration const &ties) const;
-  std::vector<Tie_configuration_variation> generate_single_tie_variations (Ties_configuration const &ties) const;
+  vector<Tie_configuration_variation> generate_collision_variations (Ties_configuration const &ties) const;
+  vector<Tie_configuration_variation> generate_extremal_tie_variations (Ties_configuration const &ties) const;
+  vector<Tie_configuration_variation> generate_single_tie_variations (Ties_configuration const &ties) const;
 
   void score_configuration (Tie_configuration *) const;
   Real score_aptitude (Tie_configuration *, Tie_specification const &,
@@ -80,7 +80,7 @@ class Tie_formatting_problem
   Slice head_positions_slice (int) const;
   Ties_configuration generate_base_chord_configuration ();
   Ties_configuration find_best_variation (Ties_configuration const &base,
-                                          std::vector<Tie_configuration_variation> const &vars);
+                                          vector<Tie_configuration_variation> const &vars);
 
 public:
   Tie_details details_;
@@ -97,11 +97,11 @@ public:
   Ties_configuration generate_optimal_configuration ();
   Ties_configuration generate_ties_configuration (Ties_configuration const &);
 
-  void from_ties (std::vector<Grob *> const &ties);
+  void from_ties (vector<Grob *> const &ties);
   void from_tie (Grob *tie);
-  void from_semi_ties (std::vector<Grob *> const &, Direction head_dir);
-  void set_chord_outline (std::vector<Item *>, Direction);
-  void set_column_chord_outline (std::vector<Item *>, Direction, int rank);
+  void from_semi_ties (vector<Grob *> const &, Direction head_dir);
+  void set_chord_outline (vector<Item *>, Direction);
+  void set_column_chord_outline (vector<Item *>, Direction, int rank);
   void set_manual_tie_configuration (SCM);
   Interval get_attachment (Real, Drul_array<int>) const;
   Grob *common_x_refpoint () const;

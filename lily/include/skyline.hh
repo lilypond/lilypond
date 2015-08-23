@@ -53,12 +53,12 @@ class Skyline : public Simple_smob<Skyline>
 public:
   static const char type_p_name_[];
 private:
-  std::list<Building> buildings_;
+  list<Building> buildings_;
   Direction sky_;
 
-  void internal_merge_skyline (std::list<Building> *, std::list<Building> *,
-                               std::list<Building> *result) const;
-  std::list<Building> internal_build_skyline (std::list<Building> *) const;
+  void internal_merge_skyline (list<Building> *, list<Building> *,
+                               list<Building> *result) const;
+  list<Building> internal_build_skyline (list<Building> *) const;
   Real internal_distance (Skyline const &, Real horizon_padding, Real *touch_point) const;
   Real internal_distance (Skyline const &, Real *touch_point) const;
   void normalize ();
@@ -67,12 +67,12 @@ private:
 public:
   Skyline ();
   Skyline (Direction sky);
-  Skyline (std::vector<Box> const &bldgs, Axis a, Direction sky);
-  Skyline (std::vector<Drul_array<Offset> > const &bldgs, Axis a, Direction sky);
-  Skyline (std::vector<Skyline_pair> const &skypairs, Direction sky);
+  Skyline (vector<Box> const &bldgs, Axis a, Direction sky);
+  Skyline (vector<Drul_array<Offset> > const &bldgs, Axis a, Direction sky);
+  Skyline (vector<Skyline_pair> const &skypairs, Direction sky);
   Skyline (Box const &b, Axis a, Direction sky);
 
-  std::vector<Offset> to_points (Axis) const;
+  vector<Offset> to_points (Axis) const;
   void merge (Skyline const &);
   void insert (Box const &, Axis);
   void print () const;

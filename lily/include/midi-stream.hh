@@ -21,6 +21,7 @@
 #define MIDI_STREAM_HH
 
 #include <cstdio>
+using namespace std;
 
 #include <string.h>
 #include "std-string.hh"
@@ -28,15 +29,15 @@
 
 struct Midi_stream
 {
-  Midi_stream (const std::string &file_name_string);
+  Midi_stream (const string &file_name_string);
   ~Midi_stream ();
 
-  void write (const std::string&);
+  void write (const string&);
   void write (Midi_chunk const &);
   void open ();
 
   FILE *out_file_;
-  std::string file_name_string_;
+  string file_name_string_;
 };
 
 #endif // MIDI_STREAM_HH

@@ -34,7 +34,7 @@ SCM add_interface (char const *cxx_name,
 {
   string suffix ("-interface");
   string lispy_name = camel_case_to_lisp_identifier (cxx_name);
-  vsize end = std::max (int (0), int (lispy_name.length () - suffix.length ()));
+  vsize end = max (int (0), int (lispy_name.length () - suffix.length ()));
   if (lispy_name.substr (end) != suffix)
     lispy_name += suffix;
 

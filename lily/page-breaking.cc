@@ -251,9 +251,9 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break, Prob_bre
   paper_height_ = robust_scm2double (pb->paper_->c_variable ("paper-height"), 1.0);
   ragged_ = to_boolean (pb->paper_->c_variable ("ragged-bottom"));
   ragged_last_ = to_boolean (pb->paper_->c_variable ("ragged-last-bottom"));
-  systems_per_page_ = std::max (0, robust_scm2int (pb->paper_->c_variable ("systems-per-page"), 0));
-  max_systems_per_page_ = std::max (0, robust_scm2int (pb->paper_->c_variable ("max-systems-per-page"), 0));
-  min_systems_per_page_ = std::max (0, robust_scm2int (pb->paper_->c_variable ("min-systems-per-page"), 0));
+  systems_per_page_ = max (0, robust_scm2int (pb->paper_->c_variable ("systems-per-page"), 0));
+  max_systems_per_page_ = max (0, robust_scm2int (pb->paper_->c_variable ("max-systems-per-page"), 0));
+  min_systems_per_page_ = max (0, robust_scm2int (pb->paper_->c_variable ("min-systems-per-page"), 0));
   orphan_penalty_ = robust_scm2int (pb->paper_->c_variable ("orphan-penalty"), 100000);
 
   Stencil footnote_separator = Page_layout_problem::get_footnote_separator_stencil (pb->paper_);
@@ -927,7 +927,7 @@ Page_breaking::set_current_breakpoints (vsize start,
 
           dems_and_indices.push_back (pair<Real, vsize> (dem, i));
         }
-      vector_sort (dems_and_indices, std::less<pair<Real, vsize> > ());
+      vector_sort (dems_and_indices, less<pair<Real, vsize> > ());
 
       vector<Line_division> best_5_configurations;
       for (vsize i = 0; i < 5; i++)
@@ -1031,9 +1031,9 @@ Page_breaking::line_divisions_rec (vsize system_count,
       others_min += min_sys[i];
       others_max += max_sys[i];
     }
-  others_max = std::min (others_max, (int) system_count);
-  int real_min = std::max ((int) min_sys[my_index], (int) system_count - others_max);
-  int real_max = std::min ((int) max_sys[my_index], (int) system_count - others_min);
+  others_max = min (others_max, (int) system_count);
+  int real_min = max ((int) min_sys[my_index], (int) system_count - others_max);
+  int real_max = min ((int) max_sys[my_index], (int) system_count - others_min);
 
   if (real_min > real_max || real_min < 0)
     {
@@ -1073,7 +1073,7 @@ Page_breaking::compute_line_heights ()
       Real a = shape.begin_[UP];
       Real b = shape.rest_[UP];
       bool title = cur.title_;
-      Real refpoint_hanging = std::max (prev_hanging_begin + a, prev_hanging_rest + b);
+      Real refpoint_hanging = max (prev_hanging_begin + a, prev_hanging_rest + b);
 
       if (i > 0)
         {
@@ -1086,14 +1086,14 @@ Page_breaking::compute_line_heights ()
           Real min_dist = title
                           ? prev.title_min_distance_
                           : prev.min_distance_;
-          refpoint_hanging = std::max (refpoint_hanging + padding,
+          refpoint_hanging = max (refpoint_hanging + padding,
                                   prev_refpoint_hanging - prev.refpoint_extent_[DOWN]
                                   + cur.refpoint_extent_[UP] + min_dist);
         }
 
       Real hanging_begin = refpoint_hanging - shape.begin_[DOWN];
       Real hanging_rest = refpoint_hanging - shape.rest_[DOWN];
-      Real hanging = std::max (hanging_begin, hanging_rest);
+      Real hanging = max (hanging_begin, hanging_rest);
       cur.tallness_ = hanging - prev_hanging;
       prev_hanging = hanging;
       prev_hanging_begin = hanging_begin;
@@ -1449,7 +1449,7 @@ Page_breaking::finalize_spacing_result (vsize configuration, Page_spacing_result
     {
       Real f = res.force_[i];
 
-      page_demerits += std::min (f * f, BAD_SPACING_PENALTY);
+      page_demerits += min (f * f, BAD_SPACING_PENALTY);
     }
 
   /* for a while we tried averaging page and line forces across pages instead
@@ -1483,7 +1483,7 @@ Page_breaking::space_systems_on_1_page (vector<Line_details> const &lines, Real 
     }
 
   ret.systems_per_page_.push_back (lines.size ());
-  ret.force_.push_back (ragged ? std::min (space.force_, 0.0) : space.force_);
+  ret.force_.push_back (ragged ? min (space.force_, 0.0) : space.force_);
   ret.penalty_ = line_count_penalty (line_count) + lines.back ().page_penalty_ + lines.back ().turn_penalty_;
   ret.system_count_status_ |= line_count_status (line_count);
 
@@ -1657,8 +1657,8 @@ Page_breaking::min_whitespace_at_top_of_page (Line_details const &line) const
                                           ly_symbol2scm ("padding"));
 
   // FIXME: take into account the height of the header
-  Real translate = std::max (line.shape_.begin_[UP], line.shape_.rest_[UP]);
-  return std::max (0.0, std::max (padding, min_distance - translate));
+  Real translate = max (line.shape_.begin_[UP], line.shape_.rest_[UP]);
+  return max (0.0, max (padding, min_distance - translate));
 }
 
 Real
@@ -1676,8 +1676,8 @@ Page_breaking::min_whitespace_at_bottom_of_page (Line_details const &line) const
                                           ly_symbol2scm ("padding"));
 
   // FIXME: take into account the height of the footer
-  Real translate = std::min (line.shape_.begin_[DOWN], line.shape_.rest_[DOWN]);
-  return std::max (0.0, std::max (padding, min_distance + translate));
+  Real translate = min (line.shape_.begin_[DOWN], line.shape_.rest_[DOWN]);
+  return max (0.0, max (padding, min_distance + translate));
 }
 
 int

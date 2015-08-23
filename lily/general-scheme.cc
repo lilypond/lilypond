@@ -24,6 +24,7 @@
 #include <ctype.h>
 #include <cstring>  /* memset */
 #include <glib.h>
+using namespace std;
 
 #include "dimensions.hh"
 #include "file-name.hh"

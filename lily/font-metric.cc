@@ -21,6 +21,7 @@
 
 #include <cmath>
 #include <cctype>
+using namespace std;
 
 #include "dimensions.hh"
 #include "modified-font-metric.hh"

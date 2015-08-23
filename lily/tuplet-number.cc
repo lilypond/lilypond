@@ -342,7 +342,7 @@ count_beams_not_touching_stem (SCM beaming)
         ++count;
     }
 
-  return std::max (0, count - 1);
+  return max (0, count - 1);
 }
 
 MAKE_SCHEME_CALLBACK (Tuplet_number, calc_y_offset, 1);
@@ -418,8 +418,8 @@ Tuplet_number::calc_y_offset (SCM smob)
                   : staff_ext_y[DOWN] > ref_stem_ext[UP];
       if (move)
         {
-          Interval ledger_domain = Interval (std::min (staff_ext_y[UP], ref_stem_ext[UP]),
-                                             std::max (staff_ext_y[DOWN], ref_stem_ext[DOWN]));
+          Interval ledger_domain = Interval (min (staff_ext_y[UP], ref_stem_ext[UP]),
+                                             max (staff_ext_y[DOWN], ref_stem_ext[DOWN]));
           Interval num_y (me->extent (commony, Y_AXIS));
           num_y.translate (y_offset);
           Interval num_ledger_overlap (num_y);

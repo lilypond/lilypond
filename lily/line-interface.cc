@@ -124,9 +124,9 @@ Stencil
 Line_interface::make_dashed_line (Real thick, Offset from, Offset to,
                                   Real dash_period, Real dash_fraction)
 {
-  dash_fraction = std::min (std::max (dash_fraction, 0.0), 1.0);
+  dash_fraction = min (max (dash_fraction, 0.0), 1.0);
   Real on = dash_fraction * dash_period + thick;
-  Real off = std::max (0.0, dash_period - on);
+  Real off = max (0.0, dash_period - on);
 
   SCM at = scm_list_n (ly_symbol2scm ("dashed-line"),
                        scm_from_double (thick),
@@ -220,7 +220,7 @@ Line_interface::line (Grob *me, Offset from, Offset to)
           ? 0.0
           : robust_scm2double (me->get_property ("dash-fraction"), 0.4);
 
-      fraction = std::min (std::max (fraction, 0.0), 1.0);
+      fraction = min (max (fraction, 0.0), 1.0);
       Real period = Staff_symbol_referencer::staff_space (me)
                     * robust_scm2double (me->get_property ("dash-period"), 1.0);
 
@@ -230,7 +230,7 @@ Line_interface::line (Grob *me, Offset from, Offset to)
       Real len = (to - from).length ();
 
       int n = (int) rint ((len - period * fraction) / period);
-      n = std::max (0, n);
+      n = max (0, n);
       if (n > 0)
         {
           /*

@@ -25,6 +25,7 @@
 #include <cstring>
 #include <cerrno>
 #include <cstdio>
+using namespace std;
 
 #include <unistd.h>
 #include <sys/types.h>

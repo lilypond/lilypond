@@ -22,9 +22,10 @@
 
 #include "std-vector.hh"
 
+using namespace std;
 
 template<class T>
-class Link_array : public std::vector<T *>
+class Link_array : public vector<T *>
 {
 
 };

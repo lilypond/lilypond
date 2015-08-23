@@ -35,7 +35,7 @@ public:
   virtual void announce_element (Audio_element_info);
 
 protected:
-  std::vector<Audio_element_info> announce_infos_;
+  vector<Audio_element_info> announce_infos_;
   virtual void acknowledge_audio_elements ();
 };
 

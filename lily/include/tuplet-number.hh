@@ -33,7 +33,7 @@ struct Tuplet_number
 
   static Real calc_offset (Spanner *me, Axis a); // not used
 
-  static Grob *select_reference_stem (Grob *me, std::vector<Grob *> const &cols);
+  static Grob *select_reference_stem (Grob *me, vector<Grob *> const &cols);
   static Drul_array<Grob *> adjacent_note_columns (Grob *me, Grob *ref_stem);
   static bool knee_position_against_beam (Grob *me, Grob *ref_stem);
 };

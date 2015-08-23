@@ -33,11 +33,11 @@ protected:
       event_name_ (event_name) {}
 
   // protected so that subclasses can see them
-  std::vector<Stream_event *> start_events_;
-  std::vector<Stream_event *> stop_events_;
-  std::vector<Grob *> slurs_;
-  std::vector<Grob *> end_slurs_;
-  std::vector<Grob_info> objects_to_acknowledge_;
+  vector<Stream_event *> start_events_;
+  vector<Stream_event *> stop_events_;
+  vector<Grob *> slurs_;
+  vector<Grob *> end_slurs_;
+  vector<Grob_info> objects_to_acknowledge_;
   const char* double_property_name_;
   const char* grob_name_;
   const char* object_name_;
@@ -57,8 +57,8 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
 
-  bool can_create_slur (const std::string&, vsize, vsize *, Stream_event *);
-  void create_slur (const std::string &spanner_id, Stream_event *ev_cause, Grob *g_cause, Direction dir, bool left_broken);
+  bool can_create_slur (const string&, vsize, vsize *, Stream_event *);
+  void create_slur (const string &spanner_id, Stream_event *ev_cause, Grob *g_cause, Direction dir, bool left_broken);
   bool try_to_end (Stream_event *ev);
 
   virtual void set_melisma (bool);

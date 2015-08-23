@@ -102,7 +102,7 @@ public:
   bool is_live () const;
 
   /* naming. */
-  std::string name () const;
+  string name () const;
 
   /* Properties */
   SCM get_property_alist_chain (SCM) const;
@@ -118,8 +118,8 @@ public:
   void internal_set_property (SCM sym, SCM val);
 
   /* messages */
-  void warning (const std::string&) const;
-  void programming_error (const std::string&) const;
+  void warning (const string&) const;
+  void programming_error (const string&) const;
 
   /* class hierarchy */
   virtual System *get_system () const;
@@ -181,12 +181,12 @@ inline bool has_interface(Grob *g)
 }
 
 /* unification */
-void uniquify (std::vector <Grob *> &);
+void uniquify (vector <Grob *> &);
 
 /* refpoints */
 Grob *common_refpoint_of_list (SCM elt_list, Grob *, Axis a);
-Grob *common_refpoint_of_array (std::vector<Grob *> const &, Grob *, Axis a);
-Grob *common_refpoint_of_array (std::set<Grob *> const &, Grob *, Axis a);
+Grob *common_refpoint_of_array (vector<Grob *> const &, Grob *, Axis a);
+Grob *common_refpoint_of_array (set<Grob *> const &, Grob *, Axis a);
 System *get_root_system (Grob *me);
 
 /* extents */
