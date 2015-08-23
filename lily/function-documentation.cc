@@ -37,9 +37,6 @@ using namespace std;
 #include "stream-event.hh"
 #include "unpure-pure-container.hh"
 
-using std::map;
-using std::string;
-
 static SCM doc_hash_table;
 
 void

@@ -61,9 +61,6 @@ using namespace std;
 #include "stem-tremolo.hh"
 #include "warn.hh"
 
-using std::string;
-using std::vector;
-
 void
 Stem::set_beaming (Grob *me, int beam_count, Direction d)
 {

@@ -26,8 +26,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 class Stanza_number_align_engraver : public Engraver
 {
 public:

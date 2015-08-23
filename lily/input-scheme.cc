@@ -20,8 +20,6 @@
 #include "std-string.hh"
 #include "input.hh"
 
-using std::string;
-
 LY_DEFINE (ly_input_warning, "ly:input-warning", 2, 0, 1, (SCM sip, SCM msg, SCM rest),
            "Print @var{msg} as a GNU compliant warning message, pointing"
            " to the location in @var{sip}.  @var{msg} is interpreted"

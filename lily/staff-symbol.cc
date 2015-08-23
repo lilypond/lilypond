@@ -28,8 +28,6 @@
 #include "staff-symbol-referencer.hh"
 #include "spanner.hh"
 
-using std::vector;
-
 MAKE_SCHEME_CALLBACK (Staff_symbol, print, 1);
 
 SCM

@@ -24,8 +24,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 class Balloon_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Balloon_engraver);

@@ -24,8 +24,6 @@
 #include "tie-formatting-problem.hh"
 #include "bezier.hh"
 
-using std::string;
-
 int
 Tie_configuration::compare (Tie_configuration const &a,
                             Tie_configuration const &b)

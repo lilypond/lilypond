@@ -35,8 +35,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 struct Script_tuple
 {
   Stream_event *event_;

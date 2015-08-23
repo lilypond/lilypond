@@ -19,8 +19,6 @@
 
 #include "item.hh"
 
-using std::string;
-
 struct Clef_modifier
 {
   DECLARE_SCHEME_CALLBACK (calc_parent_alignment, (SCM));

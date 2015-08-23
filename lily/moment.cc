@@ -21,8 +21,6 @@
 
 #include "warn.hh"
 
-using std::string;
-
 Moment::Moment ()
 {
 }

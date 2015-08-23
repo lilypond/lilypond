@@ -29,8 +29,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 class Footnote_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Footnote_engraver);

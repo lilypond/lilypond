@@ -32,8 +32,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 struct Spacings
 {
   Item *staff_spacing_;

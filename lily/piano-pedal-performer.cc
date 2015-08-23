@@ -26,9 +26,6 @@
 
 #include "translator.icc"
 
-using std::string;
-using std::vector;
-
 enum Pedal_type {SOSTENUTO, SUSTAIN, UNA_CORDA, NUM_PEDAL_TYPES};
 
 /**

@@ -36,7 +36,7 @@
 using namespace std;
 
 typedef size_t ssize;
-#define NPOS std::string::npos
+#define NPOS string::npos
 
 string to_string (const string&);
 string to_string (char c, int n = 1);

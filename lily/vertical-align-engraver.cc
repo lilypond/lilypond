@@ -29,9 +29,6 @@
 
 #include "translator.icc"
 
-using std::string;
-using std::vector;
-
 class Vertical_align_engraver : public Engraver
 {
   Spanner *valign_;

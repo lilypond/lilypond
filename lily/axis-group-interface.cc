@@ -40,11 +40,6 @@
 #include "warn.hh"
 #include "unpure-pure-container.hh"
 
-using std::multimap;
-using std::pair;
-using std::string;
-using std::vector;
-
 static bool
 pure_staff_priority_less (Grob *const &g1, Grob *const &g2);
 

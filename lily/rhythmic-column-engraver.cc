@@ -27,8 +27,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 /*
   this engraver  glues together stems, rests and note heads into a NoteColumn
   grob.

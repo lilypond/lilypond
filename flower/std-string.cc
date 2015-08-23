@@ -21,9 +21,6 @@
 #include "string-convert.hh"
 #include "std-vector.hh"
 
-using std::string;
-using std::vector;
-
 string
 to_string (const string &s)
 {

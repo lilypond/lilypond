@@ -29,8 +29,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 /**
    The name says it all: make multi measure rests
 */

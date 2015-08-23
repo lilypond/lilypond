@@ -32,9 +32,6 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
-using std::string;
-using std::vector;
-
 bool
 Context::is_removable () const
 {

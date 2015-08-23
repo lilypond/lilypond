@@ -21,7 +21,6 @@
 #include "item.hh"
 #include "spanner.hh"
 
-using std::vector;
 
 Item *
 Grob_array::item (vsize i)

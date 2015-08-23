@@ -41,8 +41,6 @@
 #include "warn.hh"
 #include "semi-tie-column.hh"
 
-using std::string;
-
 bool
 Tie::less (Grob *g1, Grob *g2)
 {

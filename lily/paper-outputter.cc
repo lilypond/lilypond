@@ -39,7 +39,6 @@ using namespace std;
 #include "warn.hh"
 #include "lily-imports.hh"
 
-using std::string;
 
 Paper_outputter::Paper_outputter (SCM port, const string &format)
 {

@@ -30,8 +30,6 @@ using namespace std;
 #include "string-convert.hh"
 #include "warn.hh"
 
-using std::string;
-
 Midi_stream::Midi_stream (const string &file_name)
 {
   file_name_string_ = file_name;

@@ -21,8 +21,6 @@
 #include "dot-configuration.hh"
 #include "skyline.hh"
 
-using std::vector;
-
 Dot_formatting_problem::~Dot_formatting_problem ()
 {
   delete best_;

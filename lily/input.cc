@@ -29,8 +29,6 @@ using namespace std;
 #include "sources.hh"
 #include "warn.hh"
 
-using std::string;
-
 Input::Input (Input const &i)
 {
   source_file_ = i.source_file_;

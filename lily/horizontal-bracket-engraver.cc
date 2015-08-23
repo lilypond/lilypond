@@ -28,8 +28,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 class Horizontal_bracket_engraver : public Engraver
 {
 public:

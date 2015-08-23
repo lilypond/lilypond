@@ -34,8 +34,6 @@
 
 #include "translator.icc"
 
-using std::set;
-
 class Rest_collision_engraver : public Engraver
 {
 protected:

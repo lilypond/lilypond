@@ -59,8 +59,6 @@
 #include "paper-column.hh"
 #include "moment.hh"
 
-using std::vector;
-
 static Item *
 get_x_bound_item (Grob *me_grob, Direction hdir, Direction my_dir)
 {

@@ -47,10 +47,6 @@ using namespace std;
 #include "warn.hh"
 #include "string-convert.hh"
 
-using std::set;
-using std::string;
-using std::vector;
-
 Real
 get_detail (SCM alist, SCM sym, Real def)
 {

@@ -31,8 +31,6 @@
 #include "stem.hh"
 #include "warn.hh"
 
-using std::vector;
-
 MAKE_SCHEME_CALLBACK (Stem_tremolo, calc_slope, 1)
 SCM
 Stem_tremolo::calc_slope (SCM smob)

@@ -35,8 +35,6 @@
 #include "scm-hash.hh"
 #include "warn.hh"
 
-using std::vector;
-
 void
 translator_each (SCM list, Translator_method method)
 {

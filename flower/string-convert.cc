@@ -14,8 +14,6 @@ using namespace std;
 #include "rational.hh"
 #include "std-vector.hh"
 
-using std::string;
-
 /**
    A safe length for stringconversion buffers.
 

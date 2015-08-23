@@ -32,8 +32,6 @@
 #include "system.hh"
 #include "warn.hh"
 
-using std::vector;
-
 MAKE_SCHEME_CALLBACK (Align_interface, align_to_minimum_distances, 1);
 SCM
 Align_interface::align_to_minimum_distances (SCM smob)

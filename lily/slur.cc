@@ -43,9 +43,6 @@
 #include "unpure-pure-container.hh"
 #include "international.hh"
 
-using std::string;
-using std::vector;
-
 MAKE_SCHEME_CALLBACK (Slur, calc_direction, 1)
 SCM
 Slur::calc_direction (SCM smob)

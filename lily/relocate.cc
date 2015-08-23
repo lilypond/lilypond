@@ -43,9 +43,6 @@
 #include <winbase.h>
 #endif
 
-using std::string;
-using std::vector;
-
 #define FRAMEWORKDIR ".."
 
 int

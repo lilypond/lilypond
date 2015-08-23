@@ -25,8 +25,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 class Laissez_vibrer_engraver : public Engraver
 {
   Stream_event *event_;

@@ -23,8 +23,6 @@
 
 #include "interval.tcc"
 
-using std::string;
-
 template<>
 Rational
 Interval_t<Rational>::infinity ()

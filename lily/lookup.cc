@@ -34,8 +34,6 @@ using namespace std;
 #include "main.hh"
 #include "lily-guile.hh"
 
-using std::vector;
-
 Stencil
 Lookup::beam (Real slope, Real width, Real thick, Real blot)
 {

@@ -24,8 +24,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 struct Grob_pq_entry
 {
   Grob *grob_;

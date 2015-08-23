@@ -24,8 +24,6 @@
 #include "pointer-group-interface.hh"
 #include "stem.hh"
 
-using std::vector;
-
 class Beam_collision_engraver : public Engraver
 {
 protected:

@@ -19,8 +19,6 @@
 
 #include "smobs.hh"
 
-using std::vector;
-
 class Undead : public Simple_smob<Undead>
 {
 public:

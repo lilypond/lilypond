@@ -31,8 +31,6 @@
 
 #include "translator.icc"
 
-using std::string;
-
 void
 Slur_proto_engraver::derived_mark () const
 {

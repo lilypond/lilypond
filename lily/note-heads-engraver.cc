@@ -33,8 +33,6 @@ using namespace std;
 
 #include "translator.icc"
 
-using std::vector;
-
 class Note_heads_engraver : public Engraver
 {
   vector<Stream_event *> note_evs_;

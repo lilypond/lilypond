@@ -34,8 +34,6 @@
 
 #include "translator.icc"
 
-using std::string;
-
 /**
 
 This acknowledges repeated music with "tremolo" style.  It typesets

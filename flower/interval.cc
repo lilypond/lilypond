@@ -21,8 +21,6 @@
 
 #include "interval.tcc"
 
-using std::string;
-
 template<>
 Real
 Interval_t<Real>::infinity ()
