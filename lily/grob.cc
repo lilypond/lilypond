@@ -157,10 +157,14 @@ Grob::get_print_stencil () const
         }
 
       /* Calls the scheme procedure stencil-whiteout-box in scm/stencils.scm */
-      if (!transparent && to_boolean (get_property ("whiteout-box")))
+      if (!transparent && (scm_is_number (get_property("whiteout-box"))
+                           || to_boolean (get_property ("whiteout-box"))))
         {
+          Real thickness = robust_scm2double (get_property("whiteout-box"), 0.0)
+               * layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
           retval = *unsmob<Stencil>
-            (Lily::stencil_whiteout_box (retval.smobbed_copy ()));
+            (Lily::stencil_whiteout_box (retval.smobbed_copy (),
+                                     scm_from_double (thickness)));
         }
 
       if (transparent)

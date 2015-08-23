@@ -743,19 +743,23 @@ Provide a white background for @var{arg}.
 (define-markup-command (whiteout-box layout props arg)
   (markup?)
   #:category other
+  #:properties ((thickness 0))
   "
-@cindex adding a rounded rectangular white background to text
+@cindex adding a rectangular white background to text
 
-Provide a rounded rectangular white background for @var{arg}.
+Provide a rectangular white background for @var{arg}.
 
 @lilypond[verbatim,quote]
 \\markup {
   \\combine
     \\filled-box #'(-1 . 10) #'(-3 . 4) #1
-    \\whiteout-box whiteout-box
+    \\override #'(thickness . 1.5) \\whiteout-box whiteout-box
 }
 @end lilypond"
-  (stencil-whiteout-box (interpret-markup layout props arg)))
+  (stencil-whiteout-box
+    (interpret-markup layout props arg)
+      (* thickness
+        (ly:output-def-lookup layout 'line-thickness))))
 
 (define-markup-command (pad-markup layout props amount arg)
   (number? markup?)
