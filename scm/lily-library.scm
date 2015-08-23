@@ -786,6 +786,12 @@ as rectangular coordinates @ode{(x-length . y-length)}."
 (define-public (string-startswith s prefix)
   (equal? prefix (substring s 0 (min (string-length s) (string-length prefix)))))
 
+(define-public (remove-whitespace strg)
+"Remove characters satisfying @code{char-whitespace?} from string @var{strg}"
+  (string-delete
+    strg
+    char-whitespace?))
+
 (define-public (string-encode-integer i)
   (cond
    ((= i  0) "o")

@@ -132,6 +132,7 @@ spacing after the divider).
            stencils)))
 
 ;; Parse the harp pedal definition string into list of directions (-1/0/1), #\o and #\|
+;; Whitespace is removed from definition string before the procedure applies.
 (define (harp-pedals-parse-string definition-string)
   "Parse a harp pedals diagram string and return a list containing 1, 0, -1, #\\o or #\\|"
   (map (lambda (c)
@@ -141,7 +142,7 @@ spacing after the divider).
            ((#\-) 0)
            ((#\| #\o) c)
            (else c)))
-       (string->list definition-string)))
+       (string->list (remove-whitespace definition-string))))
 
 
 ;; Analyze the pedal-list: Return (pedalcount . (divider positions))
