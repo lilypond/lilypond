@@ -158,7 +158,8 @@ Stem_engraver::acknowledge_rhythmic_head (Grob_info gi)
   Stem::add_head (stem_, gi.grob ());
 
   if (Stem::is_normal_stem (stem_)
-      && Stem::duration_log (stem_) > 2)
+      && Stem::duration_log (stem_) > 2
+      && !(unsmob<Grob> (stem_->get_object ("flag"))))
     {
       Item *flag = make_item ("Flag", stem_->self_scm ());
       flag->set_parent (stem_, X_AXIS);
