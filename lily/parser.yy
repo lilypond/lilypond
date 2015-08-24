@@ -692,7 +692,7 @@ identifier_init_nonumber:
 	| pitch_or_music
 	| FRACTION
 	| string
-        | embedded_scm
+	| embedded_scm
 	| partial_markup
 	| full_markup_list
         | context_modification
@@ -1282,10 +1282,10 @@ tempo_event:
 	TEMPO steno_duration '=' tempo_range	{
 		$$ = MAKE_SYNTAX (tempo, @$, SCM_EOL, $2, $4);
 	}
-	| TEMPO scalar steno_duration '=' tempo_range	{
+	| TEMPO text steno_duration '=' tempo_range	{
 		$$ = MAKE_SYNTAX (tempo, @$, $2, $3, $5);
 	}
-	| TEMPO scalar {
+	| TEMPO text {
 		$$ = MAKE_SYNTAX (tempo, @$, $2);
 	} %prec ':'
 	;
@@ -2716,15 +2716,25 @@ music_property_def:
 	;
 
 string:
-	STRING {
-		$$ = $1;
-	}
+	STRING
 	| full_markup
 	;
 
-simple_string: STRING {
-		$$ = $1;
+text:
+	STRING
+	| full_markup
+	| embedded_scm_bare
+	{
+		if (Text_interface::is_markup ($1)) {
+			$$ = $1;
+		} else {
+			parser->parser_error (@1, (_ ("markup expected")));
+			$$ = scm_string (SCM_EOL);
+		}
 	}
+	;
+
+simple_string: STRING
 	| embedded_scm_bare
 	{
 		if (scm_is_string ($1)) {
