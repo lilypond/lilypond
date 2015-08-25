@@ -43,14 +43,27 @@ public:
   Spanner *spanner (vsize i);
   Grob *grob (vsize i) const { return grobs_.at (i); }
   vsize size () const { return grobs_.size (); }
-  bool empty () const;
+  bool empty () const { return grobs_.empty (); }
   void remove_duplicates ();
-  void clear ();
+  void clear () { grobs_.clear (); }
   void add (Grob *x) { grobs_.push_back (x); }
-  void set_array (vector<Grob *> const &src);
-  vector<Grob *> &array_reference ();
-  vector<Grob *> const &array () const;
+  void set_array (vector<Grob *> const &src) { grobs_ = src; }
+  vector<Grob *> &array_reference () { return grobs_; }
+  vector<Grob *> const &array () const { return grobs_; }
   static SCM make_array ();
+
+  // Remove grobs that do not satisfy the predicate, leaving the order
+  // unchanged.
+  void filter (bool (*predicate) (const Grob *));
+
+  // Run a function on all grobs in this array.  If the function returns null,
+  // remove the original grob, reducing the size of the array.  If the function
+  // returns a Grob, replace the original grob with the returned Grob.
+  void filter_map (Grob * (*map_fun) (Grob *));
+
+  // Like src.filter_map (f), but store the result in this array instead of
+  // mutating the input.
+  void filter_map_assign (const Grob_array &src, Grob * (*map_fun) (Grob *));
 };
 
 

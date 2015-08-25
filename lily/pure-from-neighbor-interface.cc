@@ -41,13 +41,8 @@ Pure_from_neighbor_interface::calc_pure_relevant_grobs (SCM smob)
   vector<Grob *> new_elts;
   new_elts.insert (new_elts.end (), elts.begin (), elts.end ());
 
-  SCM neighbors_scm = me->get_object ("neighbors");
-  if (unsmob<Grob_array> (neighbors_scm))
-    {
-      vector<Grob *> &arr
-        = unsmob<Grob_array> (neighbors_scm)->array_reference ();
-      arr = new_elts;
-    }
+  if (Grob_array *a = unsmob<Grob_array> (me->get_object ("neighbors")))
+    a->set_array (new_elts);
 
   return Axis_group_interface::internal_calc_pure_relevant_grobs (me, "neighbors");
 }

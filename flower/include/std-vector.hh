@@ -68,56 +68,7 @@ typedef size_t vsize;
 #define VPOS ((vsize) -1)
 #endif
 
-#if HAVE_STL_DATA_METHOD
 #include <vector>
-#else /* !HAVE_STL_DATA_METHOD */
-#define vector __flower_vector
-#include <vector>
-#undef vector
-
-namespace std
-{
-
-/* Interface without pointer arithmetic (iterator) semantics.  */
-template<typename T, typename A = std::allocator<T> >
-class vector : public __flower_vector<T, A>
-{
-public:
-  typedef typename __flower_vector<T>::iterator iterator;
-  typedef typename __flower_vector<T>::const_iterator const_iterator;
-
-  vector<T, A> () : __flower_vector<T, A> ()
-  {
-  }
-
-  vector<T, A> (size_t n) : __flower_vector<T, A> (n)
-  {
-  }
-
-  vector<T, A> (vector<T, A> const &v) : __flower_vector<T, A> (v)
-  {
-  }
-
-  vector<T, A> (const_iterator b, const_iterator e) : __flower_vector<T, A> (b, e)
-  {
-  }
-
-  T *
-  data ()
-  {
-    return &(*this)[0];
-  }
-
-  T const *
-  data () const
-  {
-    return &(*this)[0];
-  }
-};
-
-} /* namespace std */
-
-#endif /* !HAVE_STL_DATA_METHOD */
 
 template<typename T>
 T const &

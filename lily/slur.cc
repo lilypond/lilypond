@@ -219,13 +219,8 @@ Slur::replace_breakable_encompass_objects (Grob *me)
         new_encompasses.push_back (g);
     }
 
-  SCM encompass_scm = me->get_object ("encompass-objects");
-  if (unsmob<Grob_array> (encompass_scm))
-    {
-      vector<Grob *> &arr
-        = unsmob<Grob_array> (encompass_scm)->array_reference ();
-      arr = new_encompasses;
-    }
+  if (Grob_array *a = unsmob<Grob_array> (me->get_object ("encompass-objects")))
+    a->set_array (new_encompasses);
 }
 
 Bezier
