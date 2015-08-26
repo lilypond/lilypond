@@ -150,6 +150,7 @@
   \accepts "FiguredBass"
   \accepts "GrandStaff"
   \accepts "Lyrics"
+  \accepts "OneStaff"
   \accepts "PianoStaff"
   \accepts "RhythmicStaff"
   \accepts "Staff"
@@ -385,6 +386,7 @@ together, never separately."
   \accepts "FretBoards"
   \accepts "GrandStaff"
   \accepts "Lyrics"
+  \accepts "OneStaff"
   \accepts "PianoStaff"
   \accepts "RhythmicStaff"
   \accepts "Staff"
@@ -395,6 +397,35 @@ together, never separately."
 side, grouping the staves together.  The bar lines of the contained
 staves are connected vertically.  @code{StaffGroup} only consists of
 a collection of staves, with a bracket in front and spanning bar lines."
+}
+
+\context {
+  \type "Engraver_group"
+  \name "OneStaff"
+  \accepts "ChordNames"
+  \accepts "DrumStaff"
+  \accepts "Dynamics"
+  \accepts "FiguredBass"
+  \accepts "FretBoards"
+  \accepts "GregorianTranscriptionStaff"
+  \accepts "KievanStaff"
+  \accepts "Lyrics"
+  \accepts "MensuralStaff"
+  \accepts "NoteNames"
+  \accepts "PetrucciStaff"
+  \accepts "RhythmicStaff"
+  \accepts "Staff"
+  \accepts "TabStaff"
+  \accepts "VaticanaStaff"
+  \defaultchild "Staff"
+  \consists "Axis_group_engraver"
+
+  \description "Provides a common axis for the contained staves,
+making all of them appear in the same vertical space.  This can be
+useful for typesetting staves of different types in immediate succession
+or for temporarily changing the character of one staff or overlaying
+it with a different one.  Often used with @code{\\stopStaff} and
+@code{\\startStaff} for best results."
 }
 
 \context {
@@ -580,6 +611,7 @@ automatically when an output definition (a @code{\\score} or
   \accepts "Lyrics"
   \accepts "MensuralStaff"
   \accepts "NoteNames"
+  \accepts "OneStaff"
   \accepts "PetrucciStaff"
   \accepts "PianoStaff"
   \accepts "RhythmicStaff"
