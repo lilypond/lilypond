@@ -571,6 +571,7 @@ automatically when an output definition (a @code{\\score} or
   \accepts "ChordNames"
   \accepts "Devnull"
   \accepts "DrumStaff"
+  \accepts "Dynamics"
   \accepts "FiguredBass"
   \accepts "FretBoards"
   \accepts "GrandStaff"

@@ -238,6 +238,7 @@
   \accepts ChordNames
   \accepts Devnull
   \accepts DrumStaff
+  \accepts Dynamics
   \accepts FiguredBass
   \accepts GrandStaff
   \accepts GregorianTranscriptionStaff
