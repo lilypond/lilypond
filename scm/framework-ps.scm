@@ -459,7 +459,7 @@
       (if val
           (format port "/~a (~a)\n" field (metadata-encode (markup->string val (list header)))))))
   (display "[ " port)
-  (metadata-lookup-output 'pdfcomposer 'composer "Author")
+  (metadata-lookup-output 'pdfauthor 'author "Author")
   (format port "/Creator (LilyPond ~a)\n" (lilypond-version))
   (metadata-lookup-output 'pdftitle 'title "Title")
   (metadata-lookup-output 'pdfsubject 'subject "Subject")
