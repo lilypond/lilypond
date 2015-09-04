@@ -53,12 +53,15 @@ private:
   Moment stop_moment_;
 
   bool bar_seen_;
+  // Ugh, this is a kludge - need this for multi-measure-rest-grace.ly
   Item *last_command_item_;
   Spanner *last_rest_;
   Spanner *mmrest_;
 
-  vector<Spanner *> numbers_;
-  vector<Spanner *> last_numbers_;
+  // text_[0] is a MultiMeasureRestNumber grob
+  // the rest are optional MultiMeasureRestText grobs
+  vector<Spanner *> text_;
+  vector<Spanner *> last_text_;
 };
 
 Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
@@ -105,8 +108,8 @@ Multi_measure_rest_engraver::process_music ()
       mmrest_ = make_spanner ("MultiMeasureRest", rest_ev_->self_scm ());
 
       Spanner *sp
-        = make_spanner ("MultiMeasureRestNumber", rest_ev_->self_scm ());
-      numbers_.push_back (sp);
+      = make_spanner ("MultiMeasureRestNumber", rest_ev_->self_scm ());
+      text_.push_back (sp);
 
       if (text_events_.size ())
         {
@@ -114,14 +117,14 @@ Multi_measure_rest_engraver::process_music ()
             {
               Stream_event *e = text_events_[i];
               Spanner *sp
-                = make_spanner ("MultiMeasureRestText", e->self_scm ());
+              = make_spanner ("MultiMeasureRestText", e->self_scm ());
               SCM t = e->get_property ("text");
               SCM dir = e->get_property ("direction");
               sp->set_property ("text", t);
               if (is_direction (dir))
                 sp->set_property ("direction", dir);
 
-              numbers_.push_back (sp);
+              text_.push_back (sp);
             }
 
           /*
@@ -130,28 +133,28 @@ Multi_measure_rest_engraver::process_music ()
           for (DOWN_and_UP (d))
             {
               Grob *last = 0;
-              for (vsize i = 0; i < numbers_.size (); i++)
+              for (vsize i = 0; i < text_.size (); i++)
                 {
                   if (scm_is_eq (scm_from_int (d),
-                                 numbers_[i]->get_property ("direction")))
+                                 text_[i]->get_property ("direction")))
                     {
                       if (last)
-                        Side_position_interface::add_support (numbers_[i], last);
-                      last = numbers_[i];
+                        Side_position_interface::add_support (text_[i], last);
+                      last = text_[i];
                     }
                 }
             }
         }
 
-      for (vsize i = 0; i < numbers_.size (); i++)
+      for (vsize i = 0; i < text_.size (); i++)
         {
-          Side_position_interface::add_support (numbers_[i], mmrest_);
-          numbers_[i]->set_parent (mmrest_, Y_AXIS);
-          numbers_[i]->set_parent (mmrest_, X_AXIS);
+          Side_position_interface::add_support (text_[i], mmrest_);
+          text_[i]->set_parent (mmrest_, Y_AXIS);
+          text_[i]->set_parent (mmrest_, X_AXIS);
         }
 
       start_measure_
-        = scm_to_int (get_property ("internalBarNumber"));
+      = scm_to_int (get_property ("internalBarNumber"));
     }
 
   bar_seen_ = bar_seen_ || scm_is_string (get_property ("whichBar"));
@@ -168,8 +171,6 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
   if (bar_seen_)
     {
       Grob *cmc = unsmob<Grob> (get_property ("currentCommandColumn"));
-
-      /* Ugh, this is a kludge - need this for multi-measure-rest-grace.ly  */
       last_command_item_ = dynamic_cast<Item *> (cmc);
     }
 
@@ -178,15 +179,15 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
       if (last_rest_)
         {
           add_bound_item (last_rest_, last_command_item_);
-          for (vsize i = 0; i < last_numbers_.size (); i++)
-            add_bound_item (last_numbers_[i], last_command_item_);
+          for (vsize i = 0; i < last_text_.size (); i++)
+            add_bound_item (last_text_[i], last_command_item_);
         }
 
       if (mmrest_)
         {
           add_bound_item (mmrest_, last_command_item_);
-          for (vsize i = 0; i < numbers_.size (); i++)
-            add_bound_item (numbers_[i], last_command_item_);
+          for (vsize i = 0; i < text_.size (); i++)
+            add_bound_item (text_[i], last_command_item_);
 
           last_command_item_ = 0;
         }
@@ -196,7 +197,7 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
   if (last_rest_)
     {
       last_rest_ = 0;
-      last_numbers_.clear ();
+      last_text_.clear ();
     }
 
   text_events_.clear ();
@@ -217,7 +218,7 @@ Multi_measure_rest_engraver::start_translation_timestep ()
       && mp.main_part_ == Rational (0))
     {
       last_rest_ = mmrest_;
-      last_numbers_ = numbers_;
+      last_text_ = text_;
 
       int cur = scm_to_int (get_property ("internalBarNumber"));
       int num = cur - start_measure_;
@@ -229,10 +230,10 @@ Multi_measure_rest_engraver::start_translation_timestep ()
       last_rest_->set_property ("measure-count", scm_from_int (num));
 
       mmrest_ = 0;
-      numbers_.clear ();
+      text_.clear ();
 
-      Grob *last = last_numbers_.size () ? last_numbers_[0] : 0;
-      if (last && scm_is_null (last->get_property ("text")))
+      Grob *g = last_text_.size () ? last_text_[0] : 0;
+      if (g && scm_is_null (g->get_property ("text")))
         {
           SCM thres = get_property ("restNumberThreshold");
           int t = 1;
@@ -240,12 +241,12 @@ Multi_measure_rest_engraver::start_translation_timestep ()
             t = scm_to_int (thres);
 
           if (num <= t)
-            last->suicide ();
+            g->suicide ();
           else
             {
               SCM text
-                = scm_number_to_string (scm_from_int (num), scm_from_int (10));
-              last->set_property ("text", text);
+              = scm_number_to_string (scm_from_int (num), scm_from_int (10));
+              g->set_property ("text", text);
             }
         }
     }
