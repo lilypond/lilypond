@@ -44,22 +44,23 @@ protected:
   DECLARE_TRANSLATOR_LISTENER (multi_measure_text);
 
 private:
+  void add_bound_item_to_grobs (Item *);
+  void clear_lapsed_events (const Moment &now);
+
+private:
   Stream_event *rest_ev_;
   vector<Stream_event *> text_events_;
   int start_measure_;
-  Rational last_main_moment_;
   Moment stop_moment_;
 
-  bool bar_seen_;
+  bool first_time_;
   // Ugh, this is a kludge - need this for multi-measure-rest-grace.ly
   Item *last_command_item_;
-  Spanner *last_rest_;
   Spanner *mmrest_;
 
   // text_[0] is a MultiMeasureRestNumber grob
   // the rest are optional MultiMeasureRestText grobs
   vector<Spanner *> text_;
-  vector<Spanner *> last_text_;
 };
 
 Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
@@ -69,10 +70,9 @@ Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
   /*
     For the start of a score.
   */
-  bar_seen_ = true;
+  first_time_ = true;
   start_measure_ = 0;
   mmrest_ = 0;
-  last_rest_ = 0;
   rest_ev_ = 0;
 }
 
@@ -83,11 +83,14 @@ Multi_measure_rest_engraver::listen_multi_measure_rest (Stream_event *ev)
   /* FIXME: Should use ASSIGN_EVENT_ONCE. Can't do that yet because of
      the kill-mm-rests hack in part-combine-iterator. */
   rest_ev_ = ev;
-  stop_moment_ = now_mom () + get_event_length (rest_ev_, now_mom ());
+  const Moment now (now_mom ());
+  stop_moment_ = now + get_event_length (rest_ev_, now);
   /*
   if (ASSIGN_EVENT_ONCE (rest_ev_, ev))
     stop_moment_ = now_mom () + get_event_length (rest_ev_);
   */
+
+  clear_lapsed_events (now);
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Multi_measure_rest_engraver, multi_measure_text);
@@ -98,32 +101,50 @@ Multi_measure_rest_engraver::listen_multi_measure_text (Stream_event *ev)
 }
 
 void
+Multi_measure_rest_engraver::add_bound_item_to_grobs (Item *item)
+{
+  add_bound_item (mmrest_, item);
+  for (vsize i = 0; i < text_.size (); ++i)
+    add_bound_item (text_[i], item);
+}
+
+void
+Multi_measure_rest_engraver::clear_lapsed_events (const Moment &now)
+{
+  if (now.main_part_ >= stop_moment_.main_part_)
+    {
+      rest_ev_ = 0;
+      text_events_.clear ();
+    }
+}
+
+void
 Multi_measure_rest_engraver::process_music ()
 {
-  Moment mp (robust_scm2moment (get_property ("measurePosition"), Moment (0)));
+  const bool measure_end
+  = scm_is_string (get_property ("whichBar"))
+    && (robust_scm2moment (get_property ("measurePosition"),
+                           Moment (0)).main_part_ == Rational (0));
 
-  Moment now = now_mom ();
-  if (mmrest_
-      && now.main_part_ != last_main_moment_
-      && mp.main_part_ == Rational (0))
+  if (measure_end || first_time_)
     {
-      last_rest_ = mmrest_;
-      last_text_ = text_;
+      last_command_item_ = unsmob<Item> (get_property ("currentCommandColumn"));
+    }
 
+  // Finalize the current grobs.
+  if (measure_end && mmrest_)
+    {
+      // Set the measure count now that it is known.
       int cur = scm_to_int (get_property ("internalBarNumber"));
       int num = cur - start_measure_;
+      SCM num_scm (scm_from_int (num));
 
-      /*
-        We can't plug a markup directly into the grob, since the
-        measure-count determines the formatting of the mmrest.
-      */
-      last_rest_->set_property ("measure-count", scm_from_int (num));
+      mmrest_->set_property ("measure-count", num_scm);
 
-      mmrest_ = 0;
-      text_.clear ();
-
-      Grob *g = last_text_.size () ? last_text_[0] : 0;
-      if (g && scm_is_null (g->get_property ("text")))
+      assert (!text_.empty ());
+      Grob *g = text_[0];
+      assert (g);
+      if (scm_is_null (g->get_property ("text")))
         {
           SCM thres = get_property ("restNumberThreshold");
           int t = 1;
@@ -135,16 +156,20 @@ Multi_measure_rest_engraver::process_music ()
           else
             {
               SCM text
-              = scm_number_to_string (scm_from_int (num), scm_from_int (10));
+              = scm_number_to_string (num_scm, scm_from_int (10));
               g->set_property ("text", text);
             }
         }
+
+      if (last_command_item_)
+        add_bound_item_to_grobs (last_command_item_);
+
+      mmrest_ = 0;
+      text_.clear ();
     }
 
-  last_main_moment_ = now.main_part_;
-
-  if (rest_ev_ && !mmrest_
-      && stop_moment_ > now_mom ())
+  // Create new grobs if a rest event is (still) active.
+  if (rest_ev_ && !mmrest_)
     {
       mmrest_ = make_spanner ("MultiMeasureRest", rest_ev_->self_scm ());
 
@@ -194,51 +219,25 @@ Multi_measure_rest_engraver::process_music ()
           text_[i]->set_parent (mmrest_, X_AXIS);
         }
 
+      text_events_.clear ();
+
       start_measure_
       = scm_to_int (get_property ("internalBarNumber"));
-    }
 
-  bar_seen_ = bar_seen_ || scm_is_string (get_property ("whichBar"));
-  if (bar_seen_)
-    {
-      Grob *cmc = unsmob<Grob> (get_property ("currentCommandColumn"));
-      last_command_item_ = dynamic_cast<Item *> (cmc);
-    }
-
-  if (last_command_item_ && (mmrest_ || last_rest_))
-    {
-      if (last_rest_)
+      if (last_command_item_)
         {
-          add_bound_item (last_rest_, last_command_item_);
-          for (vsize i = 0; i < last_text_.size (); i++)
-            add_bound_item (last_text_[i], last_command_item_);
-        }
-
-      if (mmrest_)
-        {
-          add_bound_item (mmrest_, last_command_item_);
-          for (vsize i = 0; i < text_.size (); i++)
-            add_bound_item (text_[i], last_command_item_);
-
+          add_bound_item_to_grobs (last_command_item_);
           last_command_item_ = 0;
         }
     }
 
-  if (last_rest_)
-    {
-      last_rest_ = 0;
-      last_text_.clear ();
-    }
-
-  text_events_.clear ();
-  bar_seen_ = false;
+  first_time_ = false;
 }
 
 void
 Multi_measure_rest_engraver::start_translation_timestep ()
 {
-  if (now_mom ().main_part_ >= stop_moment_.main_part_)
-    rest_ev_ = 0;
+  clear_lapsed_events (now_mom ());
 }
 
 ADD_TRANSLATOR (Multi_measure_rest_engraver,
@@ -257,7 +256,8 @@ ADD_TRANSLATOR (Multi_measure_rest_engraver,
                 "internalBarNumber "
                 "restNumberThreshold "
                 "currentCommandColumn "
-                "measurePosition ",
+                "measurePosition "
+                "whichBar ",
 
                 /* write */
                 ""
