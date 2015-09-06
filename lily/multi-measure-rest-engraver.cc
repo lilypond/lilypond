@@ -39,9 +39,7 @@ public:
 
 protected:
   void process_music ();
-  void stop_translation_timestep ();
   void start_translation_timestep ();
-  virtual void finalize ();
   DECLARE_TRANSLATOR_LISTENER (multi_measure_rest);
   DECLARE_TRANSLATOR_LISTENER (multi_measure_text);
 
@@ -102,6 +100,49 @@ Multi_measure_rest_engraver::listen_multi_measure_text (Stream_event *ev)
 void
 Multi_measure_rest_engraver::process_music ()
 {
+  Moment mp (robust_scm2moment (get_property ("measurePosition"), Moment (0)));
+
+  Moment now = now_mom ();
+  if (mmrest_
+      && now.main_part_ != last_main_moment_
+      && mp.main_part_ == Rational (0))
+    {
+      last_rest_ = mmrest_;
+      last_text_ = text_;
+
+      int cur = scm_to_int (get_property ("internalBarNumber"));
+      int num = cur - start_measure_;
+
+      /*
+        We can't plug a markup directly into the grob, since the
+        measure-count determines the formatting of the mmrest.
+      */
+      last_rest_->set_property ("measure-count", scm_from_int (num));
+
+      mmrest_ = 0;
+      text_.clear ();
+
+      Grob *g = last_text_.size () ? last_text_[0] : 0;
+      if (g && scm_is_null (g->get_property ("text")))
+        {
+          SCM thres = get_property ("restNumberThreshold");
+          int t = 1;
+          if (scm_is_number (thres))
+            t = scm_to_int (thres);
+
+          if (num <= t)
+            g->suicide ();
+          else
+            {
+              SCM text
+              = scm_number_to_string (scm_from_int (num), scm_from_int (10));
+              g->set_property ("text", text);
+            }
+        }
+    }
+
+  last_main_moment_ = now.main_part_;
+
   if (rest_ev_ && !mmrest_
       && stop_moment_ > now_mom ())
     {
@@ -158,16 +199,6 @@ Multi_measure_rest_engraver::process_music ()
     }
 
   bar_seen_ = bar_seen_ || scm_is_string (get_property ("whichBar"));
-}
-
-void
-Multi_measure_rest_engraver::stop_translation_timestep ()
-{
-  /* We cannot do this earlier, as breakableSeparationItem is not yet
-     there.
-
-     Actually, we no longer use breakableSeparationItem -- should this be moved?
-     -- jneem */
   if (bar_seen_)
     {
       Grob *cmc = unsmob<Grob> (get_property ("currentCommandColumn"));
@@ -193,7 +224,6 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
         }
     }
 
-  Moment mp (robust_scm2moment (get_property ("measurePosition"), Moment (0)));
   if (last_rest_)
     {
       last_rest_ = 0;
@@ -209,54 +239,6 @@ Multi_measure_rest_engraver::start_translation_timestep ()
 {
   if (now_mom ().main_part_ >= stop_moment_.main_part_)
     rest_ev_ = 0;
-
-  Moment mp (robust_scm2moment (get_property ("measurePosition"), Moment (0)));
-
-  Moment now = now_mom ();
-  if (mmrest_
-      && now.main_part_ != last_main_moment_
-      && mp.main_part_ == Rational (0))
-    {
-      last_rest_ = mmrest_;
-      last_text_ = text_;
-
-      int cur = scm_to_int (get_property ("internalBarNumber"));
-      int num = cur - start_measure_;
-
-      /*
-        We can't plug a markup directly into the grob, since the
-        measure-count determines the formatting of the mmrest.
-      */
-      last_rest_->set_property ("measure-count", scm_from_int (num));
-
-      mmrest_ = 0;
-      text_.clear ();
-
-      Grob *g = last_text_.size () ? last_text_[0] : 0;
-      if (g && scm_is_null (g->get_property ("text")))
-        {
-          SCM thres = get_property ("restNumberThreshold");
-          int t = 1;
-          if (scm_is_number (thres))
-            t = scm_to_int (thres);
-
-          if (num <= t)
-            g->suicide ();
-          else
-            {
-              SCM text
-              = scm_number_to_string (scm_from_int (num), scm_from_int (10));
-              g->set_property ("text", text);
-            }
-        }
-    }
-
-  last_main_moment_ = now.main_part_;
-}
-
-void
-Multi_measure_rest_engraver::finalize ()
-{
 }
 
 ADD_TRANSLATOR (Multi_measure_rest_engraver,
