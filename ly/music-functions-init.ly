@@ -29,8 +29,6 @@
 #(use-modules (srfi srfi-1)
               (ice-9 optargs))
 
-%% TODO: using define-music-function in a .scm causes crash.
-
 absolute =
 #(define-music-function (music)
    (ly:music?)
