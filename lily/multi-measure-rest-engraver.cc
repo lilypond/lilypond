@@ -46,34 +46,32 @@ protected:
 private:
   void add_bound_item_to_grobs (Item *);
   void clear_lapsed_events (const Moment &now);
+  bool grobs_initialized () const { return mmrest_; }
+  void initialize_grobs ();
+  void reset_grobs ();
+  void set_measure_count (int n);
 
 private:
-  Stream_event *rest_ev_;
   vector<Stream_event *> text_events_;
-  int start_measure_;
-  Moment stop_moment_;
-
-  bool first_time_;
-  // Ugh, this is a kludge - need this for multi-measure-rest-grace.ly
-  Item *last_command_item_;
-  Spanner *mmrest_;
-
   // text_[0] is a MultiMeasureRestNumber grob
   // the rest are optional MultiMeasureRestText grobs
   vector<Spanner *> text_;
+  Stream_event *rest_ev_;
+  Spanner *mmrest_;
+  Moment stop_moment_;
+  int start_measure_;
+  // Ugh, this is a kludge - need this for multi-measure-rest-grace.ly
+  Item *last_command_item_;
+  bool first_time_;
 };
 
 Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
+  : rest_ev_ (0),
+    mmrest_ (0),
+    start_measure_ (0),
+    last_command_item_ (0),
+    first_time_ (true)
 {
-  last_command_item_ = 0;
-
-  /*
-    For the start of a score.
-  */
-  first_time_ = true;
-  start_measure_ = 0;
-  mmrest_ = 0;
-  rest_ev_ = 0;
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Multi_measure_rest_engraver, multi_measure_rest);
@@ -119,6 +117,88 @@ Multi_measure_rest_engraver::clear_lapsed_events (const Moment &now)
 }
 
 void
+Multi_measure_rest_engraver::initialize_grobs ()
+{
+  mmrest_ = make_spanner ("MultiMeasureRest", rest_ev_->self_scm ());
+  text_.push_back (make_spanner ("MultiMeasureRestNumber",
+                                 rest_ev_->self_scm ()));
+
+  if (text_events_.size ())
+    {
+      for (vsize i = 0; i < text_events_.size (); i++)
+        {
+          Stream_event *e = text_events_[i];
+          Spanner *sp = make_spanner ("MultiMeasureRestText", e->self_scm ());
+          SCM t = e->get_property ("text");
+          SCM dir = e->get_property ("direction");
+          sp->set_property ("text", t);
+          if (is_direction (dir))
+            sp->set_property ("direction", dir);
+
+          text_.push_back (sp);
+        }
+
+      /*
+        Stack different scripts.
+      */
+      for (DOWN_and_UP (d))
+        {
+          SCM dir = scm_from_int (d);
+          Grob *last = 0;
+          for (vsize i = 0; i < text_.size (); i++)
+            {
+              if (scm_is_eq (dir, text_[i]->get_property ("direction")))
+                {
+                  if (last)
+                    Side_position_interface::add_support (text_[i], last);
+                  last = text_[i];
+                }
+            }
+        }
+    }
+
+  for (vsize i = 0; i < text_.size (); i++)
+    {
+      Side_position_interface::add_support (text_[i], mmrest_);
+      text_[i]->set_parent (mmrest_, Y_AXIS);
+      text_[i]->set_parent (mmrest_, X_AXIS);
+    }
+}
+
+void
+Multi_measure_rest_engraver::reset_grobs ()
+{
+  text_.clear ();
+  mmrest_ = 0;
+}
+
+void
+Multi_measure_rest_engraver::set_measure_count (int n)
+{
+  SCM n_scm = scm_from_int (n);
+  assert (mmrest_);
+  mmrest_->set_property ("measure-count", n_scm);
+
+  Grob *g = text_[0]; // the MultiMeasureRestNumber
+  assert (g);
+  if (scm_is_null (g->get_property ("text")))
+    {
+      SCM thres = get_property ("restNumberThreshold");
+      int t = 1;
+      if (scm_is_number (thres))
+        t = scm_to_int (thres);
+
+      if (n <= t)
+        g->suicide ();
+      else
+        {
+          SCM text = scm_number_to_string (n_scm, scm_from_int (10));
+          g->set_property ("text", text);
+        }
+    }
+}
+
+void
 Multi_measure_rest_engraver::process_music ()
 {
   const bool measure_end
@@ -129,106 +209,31 @@ Multi_measure_rest_engraver::process_music ()
   if (measure_end || first_time_)
     {
       last_command_item_ = unsmob<Item> (get_property ("currentCommandColumn"));
-    }
 
-  // Finalize the current grobs.
-  if (measure_end && mmrest_)
-    {
-      // Set the measure count now that it is known.
-      int cur = scm_to_int (get_property ("internalBarNumber"));
-      int num = cur - start_measure_;
-      SCM num_scm (scm_from_int (num));
-
-      mmrest_->set_property ("measure-count", num_scm);
-
-      assert (!text_.empty ());
-      Grob *g = text_[0];
-      assert (g);
-      if (scm_is_null (g->get_property ("text")))
+      // Finalize the current grobs.
+      if (grobs_initialized ())
         {
-          SCM thres = get_property ("restNumberThreshold");
-          int t = 1;
-          if (scm_is_number (thres))
-            t = scm_to_int (thres);
-
-          if (num <= t)
-            g->suicide ();
-          else
-            {
-              SCM text
-              = scm_number_to_string (num_scm, scm_from_int (10));
-              g->set_property ("text", text);
-            }
+          int curr_measure = scm_to_int (get_property ("internalBarNumber"));
+          set_measure_count (curr_measure - start_measure_);
+          if (last_command_item_)
+            add_bound_item_to_grobs (last_command_item_);
+          reset_grobs ();
         }
-
-      if (last_command_item_)
-        add_bound_item_to_grobs (last_command_item_);
-
-      mmrest_ = 0;
-      text_.clear ();
     }
 
   // Create new grobs if a rest event is (still) active.
-  if (rest_ev_ && !mmrest_)
+  if (!grobs_initialized () && rest_ev_)
     {
-      mmrest_ = make_spanner ("MultiMeasureRest", rest_ev_->self_scm ());
-
-      Spanner *sp
-      = make_spanner ("MultiMeasureRestNumber", rest_ev_->self_scm ());
-      text_.push_back (sp);
-
-      if (text_events_.size ())
-        {
-          for (vsize i = 0; i < text_events_.size (); i++)
-            {
-              Stream_event *e = text_events_[i];
-              Spanner *sp
-              = make_spanner ("MultiMeasureRestText", e->self_scm ());
-              SCM t = e->get_property ("text");
-              SCM dir = e->get_property ("direction");
-              sp->set_property ("text", t);
-              if (is_direction (dir))
-                sp->set_property ("direction", dir);
-
-              text_.push_back (sp);
-            }
-
-          /*
-            Stack different scripts.
-          */
-          for (DOWN_and_UP (d))
-            {
-              Grob *last = 0;
-              for (vsize i = 0; i < text_.size (); i++)
-                {
-                  if (scm_is_eq (scm_from_int (d),
-                                 text_[i]->get_property ("direction")))
-                    {
-                      if (last)
-                        Side_position_interface::add_support (text_[i], last);
-                      last = text_[i];
-                    }
-                }
-            }
-        }
-
-      for (vsize i = 0; i < text_.size (); i++)
-        {
-          Side_position_interface::add_support (text_[i], mmrest_);
-          text_[i]->set_parent (mmrest_, Y_AXIS);
-          text_[i]->set_parent (mmrest_, X_AXIS);
-        }
-
+      initialize_grobs ();
       text_events_.clear ();
-
-      start_measure_
-      = scm_to_int (get_property ("internalBarNumber"));
 
       if (last_command_item_)
         {
           add_bound_item_to_grobs (last_command_item_);
           last_command_item_ = 0;
         }
+
+      start_measure_ = scm_to_int (get_property ("internalBarNumber"));
     }
 
   first_time_ = false;
