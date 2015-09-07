@@ -1593,7 +1593,7 @@ verwendet man folgende Syntax:
 \time 3/4
 
 a'1_\markup {
-  \override #'(font-name . "Vera Bold")
+  \override #'(font-name . "Bitstream Vera Sans Bold")
     { Vera Bold }
 }
 @end lilypond
