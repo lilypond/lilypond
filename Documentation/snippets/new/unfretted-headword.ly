@@ -117,7 +117,7 @@ ViolinSolo = \relative c' {
   \voiceOne
 
   \set Score.markFormatter     =  #format-mark-box-numbers
-  \override Score.VoltaBracket.font-name                  = #"sans"
+  \override Score.VoltaBracket.font-name                  = #"LilyPond Sans Serif"
   \override Score.VoltaBracket.extra-offset               = #'(0 . 1)
   \override SpacingSpanner.uniform-stretching         = ##t
 
