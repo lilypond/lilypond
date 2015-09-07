@@ -1541,6 +1541,12 @@ a'1_\markup {
 @cindex listing available fonts
 @cindex available fonts, listing
 
+@var{font-name} can be described using a comma-separated list of @q{fonts}
+and a white-space separated list of @q{styles}.
+As long as the @q{font} in the list is installed
+and contains requested glyph, it will be used,
+otherwise the @emph{next} font in the list will be used instead.
+
 @funindex show-available-fonts
 
 Running lilypond with the following option displays a list of all
