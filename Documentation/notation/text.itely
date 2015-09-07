@@ -1451,18 +1451,18 @@ value must be determined by trial and error.  These glyphs are all
 left braces; right braces may be obtained by rotation, see
 @ref{Rotating objects}.
 
-Three families of text fonts are made available: the @emph{roman}
-(serif) font, that defaults to New Century Schoolbook, the
-@emph{sans} font and the monospaced @emph{typewriter} font -- these
-last two families are determined by the Pango installation.
-
-@warning{There are no default fonts associated with the @emph{sans}
-and @emph{typewriter} font-families.  An input file that specifies
-either of these can lead to different output on different computers.
-To ensure consistent output among multiple platforms, fonts must be
-specified by name, and those fonts must be available on any system
-that processes the file.  See @ref{Single entry fonts} and
-@ref{Entire document fonts}.}
+Three families of text fonts are made available:
+@itemize
+@item
+The @emph{roman} (serif) font,
+which defaults to LilyPond Serif (an alias of TeX Gyre Schola).
+@item
+The @emph{sans} font,
+which defaults to LilyPond Sans Serif (an alias of TeX Gyre Heros).
+@item
+The @emph{typewriter} (monospaced) font,
+which defaults to LilyPond Monospace (an alias of TeX Gyre Cursor).
+@end itemize
 
 Each family may include different shapes and series.  The following
 example demonstrates the ability to select alternate families, shapes,
