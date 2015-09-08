@@ -2050,8 +2050,8 @@ are equivalent if the current bottom context is @code{Voice}.
 
 
 @cindex \once
-Preceding a @code{\set} command by @code{\once} makes the
-setting apply to only a single time-step:
+Preceding a @code{\set} or @code{\unset} command by @code{\once}
+makes the setting apply to only a single time-step:
 
 @lilypond[quote,fragment,verbatim]
 c''4
@@ -2181,7 +2181,7 @@ grobs in the affected context from the current time forward:
 @funindex \once
 @cindex overriding for only one moment
 
-@code{\once} can be used with @code{\override}
+@code{\once} can be used with @code{\override} or @code{\revert}
 to affect only the current time step:
 
 @lilypond[quote,verbatim]

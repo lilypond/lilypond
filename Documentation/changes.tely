@@ -62,6 +62,24 @@ which scares away people.
 @end ignore
 
 @item
+All of @code{\override}, @code{\revert}, @code{\set}, and
+@code{\unset} now work with the @code{\once} prefix for making
+one-time settings.
+@lilypond[quote,verbatim]
+\relative {
+  c'4 d
+  \override NoteHead.color = #red
+  e4 f |
+  \once \override NoteHead.color = #green
+  g4 a
+  \once \revert NoteHead.color
+  b c |
+  \revert NoteHead.color
+  f2 c |
+}
+@end lilypond
+
+@item
 When outputting MIDI, LilyPond will now store the @code{title}
 defined in a score's @code{\header} block (or, if there is no
 such definition on the @code{\score} level, the first such
