@@ -22,6 +22,15 @@ ignoreMelismaOff = \unset ignoreMelismata
   line-width = #(* mm 140)
   system-system-spacing.basic-distance = #10.3
   ragged-bottom = ##t 
+
+  % Font settings for Cyrillic and Hebrew
+  % Linux Libertine fonts contain Cyrillic and Hebrew glyphs.
+  #(define fonts
+    (set-global-fonts
+     #:roman "Linux Libertine O,serif"
+     #:sans "Linux Biolinum O,sans-serif"
+     #:typewriter "Linux Libertine Mono O,monospace"
+   ))
 }
 
 modernAccidentals = {

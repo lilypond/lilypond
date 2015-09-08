@@ -62,6 +62,19 @@ which scares away people.
 @end ignore
 
 @item
+When outputting MIDI, LilyPond will now store the @code{title}
+defined in a score's @code{\header} block (or, if there is no
+such definition on the @code{\score} level, the first such
+definition found in a @code{\header} block of the score's
+enclosing @code{\bookpart}, @code{\book}, or top-level scope)
+as the name of the MIDI sequence in the MIDI file.  Optionally,
+the name of the MIDI sequence can be overridden using the new
+@code{midititle} @code{\header} field independently of
+@code{title} (for example, in case @code{title} contains markup
+code which does not render as plain text in a satisfactory way
+automatically).
+
+@item
 Music (and scheme and void) functions and markup commands that
 just supply the final parameters to a chain of overrides, music
 function and markup command calls can now be defined in the form

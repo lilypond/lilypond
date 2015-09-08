@@ -26,6 +26,8 @@
 #include "staff-symbol.hh"
 #include "system-start-delimiter.hh"
 
+#include "translator.icc"
+
 struct Bracket_nesting_node
 {
 public:
@@ -226,8 +228,6 @@ System_start_delimiter_engraver::acknowledge_system_start_delimiter (Grob_info i
 {
   nesting_->add_support (inf.grob ());
 }
-
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER (System_start_delimiter_engraver, staff_symbol);
 ADD_ACKNOWLEDGER (System_start_delimiter_engraver, system_start_delimiter);

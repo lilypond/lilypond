@@ -14,5 +14,3 @@ local-uninstall:
 	-rmdir $(DESTDIR)$(local_lilypond_datadir)/tex
 
 all: $(INSTALLATION_FILES)
-
-local-WWW-1: $(outdir)/lilypond.map

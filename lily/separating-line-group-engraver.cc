@@ -78,7 +78,7 @@ Separating_line_group_engraver::acknowledge_item (Grob_info i)
 {
   Item *it = i.item ();
 
-  if (Note_spacing::has_interface (it))
+  if (has_interface<Note_spacing> (it))
     {
       current_spacings_.note_spacings_.push_back (it);
       return;

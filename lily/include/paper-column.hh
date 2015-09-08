@@ -50,7 +50,6 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
 
-  DECLARE_GROB_INTERFACE ();
   static int get_rank (Grob const *);
   static bool is_musical (Grob *);
   static Moment when_mom (Grob *);

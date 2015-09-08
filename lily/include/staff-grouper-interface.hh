@@ -25,7 +25,6 @@
 class Staff_grouper_interface
 {
 public:
-  DECLARE_GROB_INTERFACE ();
 
   static bool maybe_pure_within_group (Grob *, Grob *child, bool, int, int);
 };

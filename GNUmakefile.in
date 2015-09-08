@@ -253,14 +253,18 @@ $(tree-share-prefix)/mf-link-tree: $(tree-share-prefix)/lilypond-force
 	-rm -f $(tree-share-prefix)/fonts/otf/* &&  \
 	rm -f $(tree-share-prefix)/fonts/svg/* &&  \
 	rm -f $(tree-share-prefix)/fonts/fonts.conf &&  \
-	rm -f $(tree-share-prefix)/fonts/lilypond-fonts.conf &&  \
+	rm -f $(tree-share-prefix)/fonts/00-lilypond-fonts.conf &&  \
+	rm -f $(tree-share-prefix)/fonts/99-lilypond-fonts.conf &&  \
 	rm -f $(tree-share-prefix)/fonts/tfm/* &&  \
 	rm -f $(tree-share-prefix)/fonts/type1/* &&  \
 		cd $(tree-share-prefix)/fonts/otf && \
-		ln -s ../../../../../../mf/$(outconfbase)/*.otf .
+		ln -s ../../../../../../mf/$(outconfbase)/*.otf . && \
+		$(foreach i,$(addprefix $(TEXGYRE_DIR)/,$(TEXGYRE_FILES)), \
+			ln -s $i . && ) true
 	-cd $(tree-share-prefix)/fonts && \
 		ln -s ../../../../../mf/$(outconfbase)/fonts.conf . && \
-		ln -s ../../../../../mf/$(outconfbase)/lilypond-fonts.conf .
+		ln -s ../../../../../mf/$(outconfbase)/00-lilypond-fonts.conf . && \
+		ln -s ../../../../../mf/$(outconfbase)/99-lilypond-fonts.conf .
 	-cd $(tree-share-prefix)/fonts/svg && \
 		ln -s ../../../../../../mf/$(outconfbase)/*.svg .
 	-cd $(tree-share-prefix)/fonts/svg && \

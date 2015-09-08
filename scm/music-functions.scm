@@ -513,6 +513,29 @@ error (using optionally @code{location})."
            location)
           #f))))
 
+(define-safe-public (check-music-path path #:optional location #:key default)
+  "Check a music property path specification @var{path}, a symbol
+list (or a single symbol), for validity and possibly complete it.
+Returns the completed specification, or @code{#f} when rising an
+error (using optionally @code{location})."
+  (let* ((path (if (symbol? path) (list path) path)))
+    ;; A Guile 1.x bug specific to optargs precludes moving the
+    ;; defines out of the let
+    (define (property? s)
+      (object-property s 'music-type?))
+    (define (unspecial? s)
+      (not (property? s)))
+    (or (case (length path)
+          ((1) (and (property? (car path)) (cons default path)))
+          ((2) (and (unspecial? (car path)) (property? (cadr path)) path))
+          (else #f))
+        (begin
+          (ly:parser-error
+           (format #f (_ "bad music property ~a")
+                   path)
+           location)
+          #f))))
+
 (define-public (make-grob-property-set grob gprop val)
   "Make a @code{Music} expression that sets @var{gprop} to @var{val} in
 @var{grob}.  Does a pop first, i.e., this is not an override."
@@ -614,18 +637,23 @@ in @var{grob}."
           (make-grob-property-revert 'NoteColumn 'horizontal-shift)))))
 
 
-(define-safe-public (context-spec-music m context #:optional id)
-  "Add \\context CONTEXT = ID to M."
+(define-safe-public (context-spec-music m context #:optional id mods)
+  "Add \\context @var{context} = @var{id} \\with @var{mods} to @var{m}."
   (let ((cm (make-music 'ContextSpeccedMusic
                         'element m
                         'context-type context)))
     (if (string? id)
         (set! (ly:music-property cm 'context-id) id))
+    (if mods
+        (set! (ly:music-property cm 'property-operations)
+              (if (ly:context-mod? mods)
+                  (ly:get-context-mods mods)
+                  mods)))
     cm))
 
-(define-public (descend-to-context m context)
+(define-safe-public (descend-to-context m context #:optional id mods)
   "Like @code{context-spec-music}, but only descending."
-  (let ((cm (context-spec-music m context)))
+  (let ((cm (context-spec-music m context id mods)))
     (ly:music-set-property! cm 'descend-only #t)
     cm))
 

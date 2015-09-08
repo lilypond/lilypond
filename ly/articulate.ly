@@ -29,10 +29,10 @@
 % is much scope for improvement.
 
 % See: http://nicta.com.au/people/chubbp/articulate for additional
-
 % information about how the articulate function works.
 
 %%% Supported items:
+% Articulations on a single note (staccato, staccatissimo, portato, tenuto).
 % Slurs and phrasing slurs.
 % Ornaments (i.e. mordents, trills, turns).
 % Rallentando, accelerando, ritard and 'a tempo'.
@@ -41,20 +41,28 @@
 % Manual for a more detailed list of supported items.
 
 %%% Technical Details:
-% * Any note not under a slur or phrasing mark, and not marked with an
-% explicit articulation, is shortened by ac:normalFactor (default 7/8)
-% * Any note marked staccato is shortened by ac:staccatoFactor.
-% (default 1/2).
-% * Any note marked tenuto gets its full value.
+% * Any note not under a slur or phrasing slur, and not marked with an
+%   explicit articulation, is shortened by ac:normalFactor (default 7/8).
+%   (Shortening a note means replacing the note with a note of a smaller
+%   duration, and a rest to make up for the difference between the durations
+%   of the original and the shortened note.)
+% * Notes marked with articulations are shortened by factors specific to the
+%   articulation as follows:
+%     staccato       not under a slur: ac:staccatoFactor (default 1/2)
+%                    under a slur: ac:portatoFactor (default 3/4)
+%     staccatissimo  ac:staccatissimoFactor (default 1/4)
+%     portato        ac:portatoFactor (default 3/4)
+%     tenuto         ac:tenutoFactor (default 1/1 - by default, notes marked
+%                                     tenuto are not shortened)
 % * Appogiaturas are made to take half the value of the note following,
-% without taking dots into account (so in \appoggiatura c8 d2. the c
-% will take the time of a crotchet).
+%   without taking dots into account (so in \appoggiatura c8 d2. the c
+%   will take the time of a crotchet).
 % * Trills and turns are expanded. The algorithm tries to choose notes
-% within the time of the current tempo that lead to each twiddle being
-% around 1/8 seconds; this can be adjusted with the ac:maxTwiddleTime
-% variable.
+%   within the time of the current tempo that lead to each twiddle being
+%   around 1/8 seconds; this can be adjusted with the ac:maxTwiddleTime
+%   variable.
 % * Rall, poco rall and a tempo are observed. It'd be fairly trivial to
-% make accel. and stringendo and so on work too.
+%   make accel. and stringendo and so on work too.
 
 %
 %%%USAGE
@@ -92,7 +100,6 @@
 % * Cope with more ornaments/articulations.
 %    inverted-turns, etc.
 %   -- accent needs better control of dynamics.
-%   -- Articulations: mezzo-staccato, portato.
 %   -- Handling of generic ornaments (in lily, `\stopped'; in
 %               most early music:  ornament this note (trill, turn
 %               or mordent as the player wishes))
@@ -108,6 +115,9 @@
 % * accidentals for trills and turns
 
 % CHANGELOG
+%  * Heikki Tauriainen: handle also the \portato articulation (both as an
+%    explicit articulation, and as the articulation to use for slurred
+%    notes marked \staccato).
 %  * David Kastrup: remove redefinitions of \afterGrace and \appoggiatura
 %    and let their actions be performed when \articulate is called by
 %    recognizing and replacing LilyPond's default code for these constructs.
@@ -138,6 +148,10 @@
 
 % How much to compress notes marked staccatissimo.
 #(define ac:staccatissimoFactor '(1 . 4))
+
+% Shortening factor for notes marked portato (or slurred notes marked
+% staccato).
+#(define ac:portatoFactor '(3 . 4))
 
 % And tenuto (if we ever implement time stealing, this should be >1.0)
 #(define ac:tenutoFactor '(1 . 1))
@@ -527,9 +541,9 @@
    (unfold-repeats music)))
 
 % If there's an articulation, use it.
-% If in a slur, use (1 . 1) instead.
+% If in a slur, use (1 . 1) instead (unless the note is marked staccato,
+% in which case use ac:portatoFactor).
 % Treat phrasing slurs as slurs, but allow explicit articulation.
-% (Maybe should treat staccato under a phrasing slur as mezzo-staccato?)
 %
 % Expect an EventChord.
 %
@@ -540,108 +554,114 @@
 %  ac:articulate-chord applies the actions to each NoteEvent in
 %               the EventChord.
 #(define (ac:getactions music)
-  (let  loop ((factor ac:normalFactor)
-              (newelements '())
-              (es (ly:music-property music 'elements))
-              (actions '()))
-   (if (null? es)
-    (begin
-     (set! (ly:music-property music 'elements) (reverse newelements))
-     (if
-      (not (any (lambda (m) (music-is-of-type? m 'rhythmic-event))
-                newelements))
-      actions
-      (append
-       (let ((st ac:stealForward))
-        (if (= st 0)
-         '()
-         (begin
-          (set! ac:stealForward 0)
-          (list 'steal st))))
+  (let ((at-end-of-slur #f))
+   (let  loop ((factor ac:normalFactor)
+               (newelements '())
+               (es (ly:music-property music 'elements))
+               (actions '()))
+    (if (null? es)
+     (begin
+      (set! (ly:music-property music 'elements) (reverse newelements))
+      (if
+       (not (any (lambda (m) (music-is-of-type? m 'rhythmic-event))
+                 newelements))
        actions
-       (cond
-        (ac:inTrill '(trill))
-        ((and (eq? factor ac:normalFactor) (or ac:inSlur ac:inPhrasingSlur))
-         (list 'articulation  '(1 . 1)))
-        (else (list 'articulation  factor))))))
-    ; else part
-    (let ((e (car es))
-          (tail (cdr es)))
-     (case (ly:music-property e 'name)
-
-      ((BeamEvent) ; throw away beam events, or they'll be duplicated by turn or trill
-       (loop factor newelements tail actions))
-
-      ((LineBreakEvent FingeringEvent MarkEvent BreathingEvent TieEvent SkipEvent RestEvent) ; pass through some events.
-       (loop (cons 1 1) (cons e newelements) tail actions))
-
-      ((ArticulationEvent)
-       (let ((articname (ly:music-property e 'articulation-type)))
-        ; TODO: add more here
+       (append
+        (let ((st ac:stealForward))
+         (if (= st 0)
+          '()
+          (begin
+           (set! ac:stealForward 0)
+           (list 'steal st))))
+        actions
         (cond
-         ((string= articname "staccato")
-          (loop ac:staccatoFactor newelements tail actions))
-         ((string= articname "staccatissimo")
-          (loop ac:staccatissimoFactor newelements tail actions))
-         ((string= articname "tenuto")
-          (loop ac:tenutoFactor newelements tail actions))
-         ((string= articname "mordent")
-          (loop (cons 1 1) newelements tail (cons 'mordent actions)))
-         ((string= articname "prall")
-          (loop (cons 1 1) newelements tail (cons 'prall actions)))
-         ((string= articname "trill")
-          (loop (cons 1 1) newelements tail (cons 'trill actions)))
-         ((string= articname "turn")
-          (loop (cons 1 1) newelements tail (cons 'turn actions)))
-         (else (loop factor (cons e newelements) tail actions)))))
+         (ac:inTrill '(trill))
+         ((and (eq? factor ac:normalFactor) (or ac:inSlur ac:inPhrasingSlur))
+          (list 'articulation  '(1 . 1)))
+         ((and (eq? factor ac:staccatoFactor) (or ac:inSlur at-end-of-slur))
+          (list 'articulation ac:portatoFactor))
+         (else (list 'articulation  factor))))))
+     ; else part
+     (let ((e (car es))
+           (tail (cdr es)))
+      (case (ly:music-property e 'name)
 
-      ((TextScriptEvent)
-       (let ((t (ly:music-property e 'text)))
-        (if (not (string? t))
-         (loop factor (cons e newelements) tail actions)
-         (begin
-          (cond
-           ((or
-             (string= t "rall")
-             (string= t "Rall")
-             (string= t "rit.")
-             (string= t "rall."))
-            (loop factor (cons e newelements) tail (cons 'rall actions)))
-           ((or
-             (string= t "accelerando")
-             (string= t "accel")
-             (string= t "accel."))
-            (loop factor (cons e newelements) tail (cons 'accel actions)))
-           ((or
-             (string= t "poco accel."))
-            (loop factor (cons e newelements) tail (cons 'pocoAccel actions)))
-           ((or
-             (string= t "poco rall.")
-             (string= t "poco rit."))
-            (loop factor (cons e newelements) tail (cons 'pocoRall actions)))
-           ((or (string= t "a tempo")
-             (string= t "tempo I"))
-          (loop factor (cons e newelements) tail (cons 'aTempo actions)))
-           (else (loop factor (cons e newelements) tail actions)))))))
+       ((BeamEvent) ; throw away beam events, or they'll be duplicated by turn or trill
+        (loop factor newelements tail actions))
 
-      ((SlurEvent)
-       (let ((direction (ly:music-property e 'span-direction)))
-        (set! ac:inSlur (eq? direction -1))
-        (loop factor newelements tail actions)))
+       ((LineBreakEvent FingeringEvent MarkEvent BreathingEvent TieEvent SkipEvent RestEvent) ; pass through some events.
+        (loop (cons 1 1) (cons e newelements) tail actions))
 
-      ((TrillSpanEvent)
-       (let ((direction (ly:music-property e 'span-direction)))
-        (set! ac:inTrill (eq? direction -1))
-        (if ac:inTrill
-         (loop factor newelements tail (cons 'trill actions))
-         (loop factor (cons e newelements) tail actions))))
+       ((ArticulationEvent)
+        (let ((articname (ly:music-property e 'articulation-type)))
+         ; TODO: add more here
+         (cond
+          ((string= articname "staccato")
+           (loop ac:staccatoFactor newelements tail actions))
+          ((string= articname "staccatissimo")
+           (loop ac:staccatissimoFactor newelements tail actions))
+          ((string= articname "portato")
+           (loop ac:portatoFactor newelements tail actions))
+          ((string= articname "tenuto")
+           (loop ac:tenutoFactor newelements tail actions))
+          ((string= articname "mordent")
+           (loop (cons 1 1) newelements tail (cons 'mordent actions)))
+          ((string= articname "prall")
+           (loop (cons 1 1) newelements tail (cons 'prall actions)))
+          ((string= articname "trill")
+           (loop (cons 1 1) newelements tail (cons 'trill actions)))
+          ((string= articname "turn")
+           (loop (cons 1 1) newelements tail (cons 'turn actions)))
+          (else (loop factor (cons e newelements) tail actions)))))
 
-      ((PhrasingSlurEvent)
-       (let ((direction (ly:music-property e 'span-direction)))
-        (set! ac:inPhrasingSlur (eq? direction -1))
-        (loop factor newelements tail actions)))
+       ((TextScriptEvent)
+        (let ((t (ly:music-property e 'text)))
+         (if (not (string? t))
+          (loop factor (cons e newelements) tail actions)
+          (begin
+           (cond
+            ((or
+              (string= t "rall")
+              (string= t "Rall")
+              (string= t "rit.")
+              (string= t "rall."))
+             (loop factor (cons e newelements) tail (cons 'rall actions)))
+            ((or
+              (string= t "accelerando")
+              (string= t "accel")
+              (string= t "accel."))
+             (loop factor (cons e newelements) tail (cons 'accel actions)))
+            ((or
+              (string= t "poco accel."))
+             (loop factor (cons e newelements) tail (cons 'pocoAccel actions)))
+            ((or
+              (string= t "poco rall.")
+              (string= t "poco rit."))
+             (loop factor (cons e newelements) tail (cons 'pocoRall actions)))
+            ((or (string= t "a tempo")
+              (string= t "tempo I"))
+           (loop factor (cons e newelements) tail (cons 'aTempo actions)))
+            (else (loop factor (cons e newelements) tail actions)))))))
 
-      (else (loop factor (cons e newelements) tail actions)))))))
+       ((SlurEvent)
+        (let ((direction (ly:music-property e 'span-direction)))
+         (set! ac:inSlur (eq? direction -1))
+         (set! at-end-of-slur (eq? direction 1))
+         (loop factor newelements tail actions)))
+
+       ((TrillSpanEvent)
+        (let ((direction (ly:music-property e 'span-direction)))
+         (set! ac:inTrill (eq? direction -1))
+         (if ac:inTrill
+          (loop factor newelements tail (cons 'trill actions))
+          (loop factor (cons e newelements) tail actions))))
+
+       ((PhrasingSlurEvent)
+        (let ((direction (ly:music-property e 'span-direction)))
+         (set! ac:inPhrasingSlur (eq? direction -1))
+         (loop factor newelements tail actions)))
+
+       (else (loop factor (cons e newelements) tail actions))))))))
 
 
 

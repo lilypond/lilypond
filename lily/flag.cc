@@ -38,7 +38,6 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_y_offset, (SCM));
   DECLARE_SCHEME_CALLBACK (pure_calc_y_offset, (SCM, SCM, SCM));
   DECLARE_SCHEME_CALLBACK (calc_x_offset, (SCM));
-  DECLARE_GROB_INTERFACE ();
 
   static SCM internal_calc_y_offset (SCM smob, bool pure);
 };
@@ -187,7 +186,7 @@ Flag::internal_calc_y_offset (SCM smob, bool pure)
     = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 
   Interval stem_extent = pure
-                         ? stem->pure_height (stem, 0, INT_MAX)
+                         ? stem->pure_y_extent (stem, 0, INT_MAX)
                          : stem->extent (stem, Y_AXIS);
 
   return scm_from_double (stem_extent.is_empty ()

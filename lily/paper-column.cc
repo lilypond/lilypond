@@ -203,7 +203,7 @@ Paper_column::break_align_width (Grob *me, SCM align_syms)
           (me, ly_symbol2scm ("elements"),
            (scm_is_eq (align_sym, ly_symbol2scm ("staff-bar"))
             ? Bar_line::non_empty_barline
-            : Break_alignment_interface::has_interface));
+            : has_interface<Break_alignment_interface>));
       else
         {
           extract_grob_set (me, "elements", elts);
@@ -440,7 +440,7 @@ Paper_column::is_extraneous_column_from_ligature (Grob *me)
   bool has_notehead = false;
   for (vsize i = 0; i < elts.size (); i++)
     {
-      if (Rhythmic_head::has_interface (elts[i]))
+      if (has_interface<Rhythmic_head> (elts[i]))
         {
           has_notehead = true;
           if (dynamic_cast<Item *> (elts[i])->get_column () == me)

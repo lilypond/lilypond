@@ -27,7 +27,6 @@ public:
   DECLARE_SCHEME_CALLBACK (finalis, (SCM));
   DECLARE_SCHEME_CALLBACK (offset_callback, (SCM element));
 
-  DECLARE_GROB_INTERFACE ();
 };
 
 #endif // BREATHING_SIGN_HH

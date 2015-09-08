@@ -80,7 +80,7 @@ Dynamic_align_engraver::create_line_spanner (Grob *cause)
 void
 Dynamic_align_engraver::acknowledge_end_dynamic (Grob_info info)
 {
-  if (Spanner::has_interface (info.grob ()))
+  if (has_interface<Spanner> (info.grob ()))
     ended_.push_back (info.spanner ());
 
   /* If the break flag is set, store the current spanner and let new dynamics
@@ -141,7 +141,7 @@ Dynamic_align_engraver::acknowledge_dynamic (Grob_info info)
     }
 
   create_line_spanner (info.grob ());
-  if (Spanner::has_interface (info.grob ()))
+  if (has_interface<Spanner> (info.grob ()))
     {
       started_.push_back (info.spanner ());
       current_dynamic_spanner_ = info.spanner ();

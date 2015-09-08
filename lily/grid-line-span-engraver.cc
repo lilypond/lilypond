@@ -21,6 +21,8 @@
 #include "item.hh"
 #include "grid-line-interface.hh"
 
+#include "translator.icc"
+
 class Grid_line_span_engraver : public Engraver
 {
   Item *spanline_;
@@ -68,7 +70,6 @@ Grid_line_span_engraver::stop_translation_timestep ()
   lines_.resize (0);
 }
 
-#include "translator.icc"
 ADD_ACKNOWLEDGER (Grid_line_span_engraver, grid_point);
 ADD_TRANSLATOR (Grid_line_span_engraver,
                 /* doc */

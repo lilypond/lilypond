@@ -161,7 +161,7 @@ Slur_score_state::get_bound_info () const
   for (LEFT_and_RIGHT (d))
     {
       extremes[d].bound_ = slur_->get_bound (d);
-      if (Note_column::has_interface (extremes[d].bound_))
+      if (has_interface<Note_column> (extremes[d].bound_))
         {
           extremes[d].note_column_ = extremes[d].bound_;
           extremes[d].stem_ = Note_column::get_stem (extremes[d].note_column_);
@@ -285,7 +285,7 @@ Slur_score_state::fill (Grob *me)
                      ly_symbol2scm ("inside"))
           && minmax (dir_, encompass_place, y_place) == encompass_place
           && (!extra_encompass_infos_[i].grob_->internal_has_interface (ly_symbol2scm ("key-signature-interface"))
-              && !Clef::has_interface (extra_encompass_infos_[i].grob_)
+              && !has_interface<Clef> (extra_encompass_infos_[i].grob_)
               && !extra_encompass_infos_[i].grob_->internal_has_interface (ly_symbol2scm ("time-signature-interface"))))
         {
           for (LEFT_and_RIGHT (d))
@@ -627,7 +627,7 @@ Slur_score_state::generate_avoid_offsets () const
   extract_grob_set (slur_, "encompass-objects", extra_encompasses);
   for (vsize i = 0; i < extra_encompasses.size (); i++)
     {
-      if (Slur::has_interface (extra_encompasses[i]))
+      if (has_interface<Slur> (extra_encompasses[i]))
         {
           Grob *small_slur = extra_encompasses[i];
           Bezier b = Slur::get_curve (small_slur);
@@ -756,7 +756,7 @@ Slur_score_state::get_extra_encompass_infos () const
   vector<Extra_collision_info> collision_infos;
   for (vsize i = encompasses.size (); i--;)
     {
-      if (Slur::has_interface (encompasses[i]))
+      if (has_interface<Slur> (encompasses[i]))
         {
           Spanner *small_slur = dynamic_cast<Spanner *> (encompasses[i]);
           Bezier b = Slur::get_curve (small_slur);
@@ -797,12 +797,12 @@ Slur_score_state::get_extra_encompass_infos () const
           Grob *g = encompasses [i];
           Interval xe = g->extent (common_[X_AXIS], X_AXIS);
           Interval ye = g->extent (common_[Y_AXIS], Y_AXIS);
-          if (Dots::has_interface (g))
+          if (has_interface<Dots> (g))
             ye.widen (0.2);
 
           Real xp = 0.0;
           Real penalty = parameters_.extra_object_collision_penalty_;
-          if (Accidental_interface::has_interface (g))
+          if (has_interface<Accidental_interface> (g))
             {
               penalty = parameters_.accidental_collision_;
 

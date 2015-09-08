@@ -31,7 +31,6 @@ class System_start_delimiter
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
 
-  DECLARE_GROB_INTERFACE ();
   static void try_collapse (Grob *);
   static Stencil staff_bracket (Grob *, Real);
   static Stencil old_staff_bracket (Grob *, Real);

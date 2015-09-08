@@ -34,7 +34,6 @@ public:
   DECLARE_SCHEME_CALLBACK (height, (SCM));
   DECLARE_SCHEME_CALLBACK (remove_tied, (SCM));
 
-  DECLARE_GROB_INTERFACE ();
   static SCM get_stencil (Grob *me);
 };
 

@@ -26,7 +26,6 @@
 
 struct Enclosing_bracket
 {
-  DECLARE_GROB_INTERFACE ();
 
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));

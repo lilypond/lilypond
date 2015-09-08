@@ -165,7 +165,7 @@ Beaming_pattern::beamify (Beaming_options const &options)
   for (int i = 0; i < 2; i++)
     for (vsize i = 1; i < infos_.size () - 1; i++)
       {
-        Direction non_flag_dir = other_dir (flag_directions[i]);
+        Direction non_flag_dir = -flag_directions[i];
         if (non_flag_dir)
           {
             int importance = infos_[i + 1].rhythmic_importance_;

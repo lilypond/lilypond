@@ -42,7 +42,6 @@ public:
 
   static Axis get_axis (Grob *);
   static void set_axis (Grob *, Axis);
-  DECLARE_GROB_INTERFACE ();
   static void add_support (Grob *, Grob *);
   static void recursive_add_support (Grob *, Grob *);
   static void add_staff_support (Grob *);

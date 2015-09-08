@@ -58,7 +58,6 @@ public:
   static Real internal_calc_stem_end_position (Grob *, bool);
   static Real internal_calc_stem_begin_position (Grob *, bool);
 
-  DECLARE_GROB_INTERFACE ();
   static void set_spacing_hints (Grob *);
   static Grob *flag (Grob *);
 

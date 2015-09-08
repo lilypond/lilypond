@@ -57,7 +57,6 @@ public:
   static int normal_stem_count (Grob *);
   static Grob *first_normal_stem (Grob *);
   static Grob *last_normal_stem (Grob *);
-  DECLARE_GROB_INTERFACE ();
   static void add_stem (Grob *, Grob *);
   static bool is_cross_staff (Grob *);
   static bool is_knee (Grob *);

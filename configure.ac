@@ -32,11 +32,11 @@ AC_ARG_ENABLE(guile2,
 		    [highly experimental GUILE 2 support.  Default: off])],
     [GUILEv2=$enableval])
 
-AC_ARG_WITH(fonts-dir,
-    [AS_HELP_STRING([--with-fonts-dir=DIR],
-		    [location of URW++ fonts.])],
-    [NCSB_DIR=$withval],
-    [NCSB_DIR=""])
+AC_ARG_WITH(texgyre-dir,
+    [AS_HELP_STRING([--with-texgyre-dir=DIR],
+		    [location of TeX Gyre fonts.])],
+    [TEXGYRE_DIR=$withval],
+    [TEXGYRE_DIR=""])
 
 reloc_b=no
 AC_ARG_ENABLE(relocation,
@@ -61,104 +61,44 @@ AC_SUBST(LINK_GXX_STATICALLY)
 STEPMAKE_COMPILE
 
 AC_CHECK_PROG(FCLIST, fc-list, fc-list)
-AC_MSG_CHECKING([for Century Schoolbook L PFB files])
-AC_SUBST(NCSB_SOURCE_FILES)
-AC_SUBST(NCSB_DIR)
-if test "$NCSB_DIR" = ""; then
+AC_MSG_CHECKING([for TeX Gyre fonts OTF files])
+AC_SUBST(TEXGYRE_DIR)
+AC_SUBST(TEXGYRE_FILES)
+if test "$TEXGYRE_DIR" = ""; then
   if test "$FCLIST" != ""; then
-    NCSB_FILE=`$FCLIST "Century Schoolbook L:foundry=urw:fontformat=Type 1:lang=ru" file \
-              | head -n 1`
-    if test "$NCSB_FILE" != ""; then
-      NCSB_FILE=`echo $NCSB_FILE | sed 's/\(:.*\)$//g'`
-      NCSB_FILE=`$PYTHON "$srcdir/scripts/auxiliar/readlink.py" $NCSB_FILE`
-      NCSB_DIR=`AS_DIRNAME($NCSB_FILE)`
+    TEXGYRE_FILE=`$FCLIST "TeX Gyre Schola:fontformat=CFF" file | head -n 1`
+    if test "$TEXGYRE_FILE" != ""; then
+      TEXGYRE_FILE=`echo $TEXGYRE_FILE | sed 's/\(:.*\)$//g'`
+      TEXGYRE_FILE=`$PYTHON "$srcdir/scripts/auxiliar/readlink.py" $TEXGYRE_FILE`
+      TEXGYRE_DIR=`AS_DIRNAME($TEXGYRE_FILE)`
     fi
   fi
 fi
-if test "$NCSB_DIR" != "" ;  then
-  for f in c059013l.pfb c059016l.pfb c059033l.pfb c059036l.pfb; do
-    if test ! -f "$NCSB_DIR/$f"; then
-      MISSING_NCSB_SOURCE_FILES="$f $MISSING_NCSB_SOURCE_FILES"
+if test "$TEXGYRE_DIR" != "" ;  then
+  for f in texgyreschola-regular.otf texgyreschola-italic.otf \
+           texgyreschola-bold.otf texgyreschola-bolditalic.otf \
+           texgyreheros-regular.otf texgyreheros-italic.otf \
+           texgyreheros-bold.otf texgyreheros-bolditalic.otf \
+           texgyrecursor-regular.otf texgyrecursor-italic.otf \
+           texgyrecursor-bold.otf texgyrecursor-bolditalic.otf; do
+    if test ! -f "$TEXGYRE_DIR/$f"; then
+      MISSING_TEXGYRE_FILES="$MISSING_TEXGYRE_FILES $f"
     else
-      if test "`grep Cyrillic "$NCSB_DIR/$f"`" = ""; then
-        INCOMPLETE_NCSB_SOURCE_FILES="$f $INCOMPLETE_NCSB_SOURCE_FILES"
-      else
-        NCSB_SOURCE_FILES="$NCSB_DIR/$f $NCSB_SOURCE_FILES"
-      fi
+      TEXGYRE_FILES="$TEXGYRE_FILES $f"
     fi
   done
 fi
-if test "$NCSB_DIR" = "" -o "$MISSING_NCSB_SOURCE_FILES" != "$INCOMPLETE_NCSB_SOURCE_FILES"; then
+if test "$TEXGYRE_DIR" = "" -o "$MISSING_TEXGYRE_FILES" != ""; then
   AC_MSG_RESULT(no)
-  STEPMAKE_ADD_ENTRY(REQUIRED,International Century Schoolbook L fonts)
-  if test "$NCSB_DIR" = ""; then
+  STEPMAKE_ADD_ENTRY(REQUIRED,TeX Gyre fonts OTF)
+  if test "$TEXGYRE_DIR" = ""; then
     if test "$FCLIST" = ""; then
-      STEPMAKE_ADD_ENTRY(REQUIRED,'(install the fc-list utility from FontConfig, or use --with-fonts-dir)')
+      STEPMAKE_ADD_ENTRY(REQUIRED,'(install the fc-list utility from FontConfig, or use --with-texgyre-dir)')
     else
-      STEPMAKE_ADD_ENTRY(REQUIRED,'(make sure the fc-list utility can see them, or use --with-fonts-dir)')
+      STEPMAKE_ADD_ENTRY(REQUIRED,"(make sure the fc-list utility can see them, e.g. 'sudo apt-get install fonts-texgyre', or use --with-texgyre-dir)")
     fi
-  fi
-  if test "$MISSING_NCSB_SOURCE_FILES" != ""; then
-    STEPMAKE_ADD_ENTRY(REQUIRED,'(these files are missing: $MISSING_NCSB_SOURCE_FILES)')
-  fi
-  if test "$INCOMPLETE_NCSB_SOURCE_FILES" != ""; then
-    STEPMAKE_ADD_ENTRY(REQUIRED,'(these files do not contain Cyrillic characters: $INCOMPLETE_NCSB_SOURCE_FILES)')
-  fi
-else
-  AC_MSG_RESULT(yes)
-fi
-
-AC_MSG_CHECKING([for Nimbus Sans L (Helvetica) PFB files])
-AC_SUBST(HELV_SOURCE_FILES)
-if test "$NCSB_DIR" != "" ;  then
-  for f in n019003l.pfb n019004l.pfb n019023l.pfb n019024l.pfb; do
-    if test ! -f "$NCSB_DIR/$f"; then
-      MISSING_HELV_SOURCE_FILES="$f $MISSING_HELV_SOURCE_FILES"
-    else
-      if test "`grep Cyrillic "$NCSB_DIR/$f"`" = ""; then
-        INCOMPLETE_HELV_SOURCE_FILES="$f $INCOMPLETE_HELV_SOURCE_FILES"
-      else
-        HELV_SOURCE_FILES="$NCSB_DIR/$f $HELV_SOURCE_FILES"
-      fi
-    fi
-  done
-fi
-if test "$NCSB_DIR" = "" -o "$MISSING_HELV_SOURCE_FILES" != "$INCOMPLETE_HELV_SOURCE_FILES"; then
-  AC_MSG_RESULT(no)
-  STEPMAKE_ADD_ENTRY(REQUIRED,International Nimbus Sans L fonts)
-  if test "$MISSING_HELV_SOURCE_FILES" != ""; then
-    STEPMAKE_ADD_ENTRY(REQUIRED,'(these files are missing: $MISSING_HELV_SOURCE_FILES)')
-  fi
-  if test "$INCOMPLETE_HELV_SOURCE_FILES" != ""; then
-    STEPMAKE_ADD_ENTRY(REQUIRED,'(these files do not contain Cyrillic characters: $INCOMPLETE_HELV_SOURCE_FILES)')
-  fi
-else
-  AC_MSG_RESULT(yes)
-fi
-
-AC_MSG_CHECKING([for Nimbus Mono L (Courier) PFB files])
-AC_SUBST(COUR_SOURCE_FILES)
-if test "$NCSB_DIR" != "" ;  then
-  for f in n022003l.pfb n022004l.pfb n022023l.pfb n022024l.pfb; do
-    if test ! -f "$NCSB_DIR/$f"; then
-      MISSING_COUR_SOURCE_FILES="$f $MISSING_COUR_SOURCE_FILES"
-    else
-      if test "`grep Cyrillic "$NCSB_DIR/$f"`" = ""; then
-        INCOMPLETE_COUR_SOURCE_FILES="$f $INCOMPLETE_COUR_SOURCE_FILES"
-      else
-        COUR_SOURCE_FILES="$NCSB_DIR/$f $COUR_SOURCE_FILES"
-      fi
-    fi
-  done
-fi
-if test "$NCSB_DIR" = "" -o "$MISSING_COUR_SOURCE_FILES" != "$INCOMPLETE_COUR_SOURCE_FILES"; then
-  AC_MSG_RESULT(no)
-  STEPMAKE_ADD_ENTRY(REQUIRED,International Nimbus Mono L fonts)
-  if test "$MISSING_COUR_SOURCE_FILES" != ""; then
-    STEPMAKE_ADD_ENTRY(REQUIRED,'(these files are missing: $MISSING_COUR_SOURCE_FILES)')
-  fi
-  if test "$INCOMPLETE_COUR_SOURCE_FILES" != ""; then
-    STEPMAKE_ADD_ENTRY(REQUIRED,'(these files do not contain Cyrillic characters: $INCOMPLETE_COUR_SOURCE_FILES)')
+  else
+    STEPMAKE_ADD_ENTRY(REQUIRED,'(these files are missing: $MISSING_TEXGYRE_FILES)')
   fi
 else
   AC_MSG_RESULT(yes)

@@ -8,14 +8,14 @@ You may have to install additional fonts.
 
 Red Hat Fedora
 
-    taipeifonts fonts-xorg-truetype ttfonts-ja fonts-arabic \
-	 ttfonts-zh_CN fonts-ja fonts-hebrew
+	linux-libertine-fonts (Latin, Cyrillic, Hebrew)
+	ipa-mincho-fonts ipa-gothic-fonts (Japanese)
 
-Debian GNU/Linux
+Debian GNU/Linux, Ubuntu
 
-   apt-get install emacs-intl-fonts xfonts-intl-.* \
-	ttf-kochi-gothic ttf-kochi-mincho \
-	xfonts-bolkhov-75dpi xfonts-cronyx-100dpi xfonts-cronyx-75dpi
+	fonts-linuxlibertine (Latin, Cyrillic, Hebrew)
+	fonts-ipafont (Japanese)
+
 %}
 
 \header {
@@ -27,6 +27,17 @@ will render Bulgarian (Cyrillic), Hebrew, Japanese and Portuguese.
 
 "
 
+}
+
+% Font settings for Cyrillic and Hebrew
+% Linux Libertine fonts contain Cyrillic and Hebrew glyphs.
+\paper {
+  #(define fonts
+    (set-global-fonts
+     #:roman "Linux Libertine O,serif"
+     #:sans "Linux Biolinum O,sans-serif"
+     #:typewriter "Linux Libertine Mono O,monospace"
+   ))
 }
 
 % Cyrillic font

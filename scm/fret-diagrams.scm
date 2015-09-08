@@ -44,7 +44,15 @@ to end-point."
 
 (define (get-numeric-from-key keystring)
   "Get the numeric value from a key of the form k:val"
-  (string->number (substring keystring 2 (string-length keystring))))
+  (let* ((entry (substring keystring 2 (string-length keystring)))
+         (numeric-entry (string->number entry)))
+    ;; throw an error, if `entry' can't be transformed into a number
+    (if numeric-entry
+        numeric-entry
+        (ly:error
+          "Unhandled entry in fret-diagram \"~a\" in \"~a\""
+          entry
+          keystring))))
 
 (define (numerify mylist)
   "Convert string values to numeric or character"
@@ -245,7 +253,11 @@ with magnification @var{mag} of the string @var{text}."
              ((or (eq? my-code 'open)(eq? my-code 'mute))
               (set! xo-list (cons* my-item xo-list)))
              ((eq? my-code 'barre)
-              (set! barre-list (cons* (cdr my-item) barre-list)))
+              (if (every number? (cdr my-item))
+                  (set! barre-list (cons* (cdr my-item) barre-list))
+                  (ly:error
+                    "barre-indications should contain only numbers: ~a"
+                    (cdr my-item))))
              ((eq? my-code 'capo)
               (set! capo-fret (cadr my-item)))
              ((eq? my-code 'place-fret)
@@ -923,7 +935,9 @@ a fret-indication list with the appropriate values"
          (output-list '())
          (new-props '())
          (details (merge-details 'fret-diagram-details props '()))
-         (items (string-split definition-string #\;)))
+         ;; remove whitespace-characters from definition-string
+         (cleared-string (remove-whitespace definition-string))
+         (items (string-split cleared-string #\;)))
     (let parse-item ((myitems items))
       (if (not (null? (cdr myitems)))
           (let ((test-string (car myitems)))
@@ -959,7 +973,15 @@ a fret-indication list with the appropriate values"
                        (set! details
                              (acons 'dot-position dot-position details))))
               (else
-               (let ((this-list (string-split test-string #\-)))
+               (let* ((this-list (string-split test-string #\-))
+                      (fret-number (string->number (car this-list))))
+                 ;; If none of the above applies, `fret-number' needs to be a
+                 ;; number. Throw an error, if not.
+                 (if (not fret-number)
+                   (ly:error
+                     "Unhandled entry in fret-diagrams \"~a\" in \"~a\""
+                     (car this-list)
+                     test-string))
                  (if (string->number (cadr this-list))
                      (set! output-list
                            (cons-fret
@@ -968,11 +990,11 @@ a fret-indication list with the appropriate values"
                      (if (equal? (cadr this-list) "x" )
                          (set! output-list
                                (cons-fret
-                                (list 'mute (string->number (car this-list)))
+                                (list 'mute fret-number)
                                 output-list))
                          (set! output-list
                                (cons-fret
-                                (list 'open (string->number (car this-list)))
+                                (list 'open fret-number)
                                 output-list)))))))
             (parse-item (cdr myitems)))))
     ;; add the modified details

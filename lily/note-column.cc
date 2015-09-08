@@ -98,7 +98,7 @@ Direction
 Note_column::dir (Grob *me)
 {
   Grob *stem = unsmob<Grob> (me->get_object ("stem"));
-  if (stem && Stem::has_interface (stem))
+  if (has_interface<Stem> (stem))
     return get_grob_direction (stem);
   else
     {
@@ -107,7 +107,7 @@ Note_column::dir (Grob *me)
         return (Direction)sign (head_positions_interval (me).center ());
     }
 
-  if (has_interface (me))
+  if (has_interface<Note_column> (me))
     programming_error ("Note_column without heads and stem");
   else
     programming_error ("dir() given grob without Note_column interface");
@@ -131,7 +131,7 @@ void
 Note_column::add_head (Grob *me, Grob *h)
 {
   bool both = false;
-  if (Rest::has_interface (h))
+  if (has_interface<Rest> (h))
     {
       extract_grob_set (me, "note-heads", heads);
       if (heads.size ())
@@ -139,7 +139,7 @@ Note_column::add_head (Grob *me, Grob *h)
       else
         me->set_object ("rest", h->self_scm ());
     }
-  else if (Note_head::has_interface (h))
+  else if (has_interface<Note_head> (h))
     {
       if (unsmob<Grob> (me->get_object ("rest")))
         both = true;
@@ -205,7 +205,7 @@ Note_column::accidentals (Grob *me)
   if (!acc)
     return 0;
 
-  if (Accidental_placement::has_interface (acc->get_parent (X_AXIS)))
+  if (has_interface<Accidental_placement> (acc->get_parent (X_AXIS)))
     return acc->get_parent (X_AXIS);
 
   /* compatibility. */

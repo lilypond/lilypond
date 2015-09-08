@@ -52,7 +52,7 @@ Rest_collision::force_shift_callback_rest (SCM rest, SCM offset)
   if (scm_is_number (offset))
     rest_grob->translate_axis (scm_to_double (offset), Y_AXIS);
 
-  if (Note_column::has_interface (parent) && Note_column::has_rests (parent))
+  if (has_interface<Note_column> (parent) && Note_column::has_rests (parent))
     {
       Grob *collision = unsmob<Grob> (parent->get_object ("rest-collision"));
 
@@ -109,7 +109,7 @@ Rest_collision::calc_positioning_done (SCM smob)
   for (vsize i = 0; i < elts.size (); i++)
     {
       Grob *e = elts[i];
-      if (Note_column::has_interface (e))
+      if (has_interface<Note_column> (e))
         {
           if (unsmob<Grob> (e->get_object ("rest")))
             rests.push_back (e);

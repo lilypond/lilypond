@@ -228,7 +228,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
       for (vsize i = 0; i < items.size (); i++)
         {
           Item *it = dynamic_cast<Item *> (items[i]);
-          if (!Note_column::has_interface (it))
+          if (!has_interface<Note_column> (it))
             continue;
           if (d == RIGHT && it->get_column () != rcolumn)
             continue;
@@ -265,7 +265,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
           if (!hp.is_empty ())
             {
               Real ss = Staff_symbol_referencer::staff_space (stem);
-              stem_posns[d] = stem->pure_height (stem, 0, INT_MAX) * (2 / ss);
+              stem_posns[d] = stem->pure_y_extent (stem, 0, INT_MAX) * (2 / ss);
               head_posns[d].unite (hp);
             }
         }

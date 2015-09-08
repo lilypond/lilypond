@@ -26,6 +26,8 @@
 #include "pure-from-neighbor-interface.hh"
 #include "engraver.hh"
 
+#include "translator.icc"
+
 class Pure_from_neighbor_engraver : public Engraver
 {
   vector<Grob *> pure_relevants_;
@@ -46,7 +48,7 @@ Pure_from_neighbor_engraver::Pure_from_neighbor_engraver ()
 void
 Pure_from_neighbor_engraver::acknowledge_item (Grob_info i)
 {
-  if (!Pure_from_neighbor_interface::has_interface (i.item ()))
+  if (!has_interface<Pure_from_neighbor_interface> (i.item ()))
     pure_relevants_.push_back (i.item ());
 }
 
@@ -133,8 +135,6 @@ Pure_from_neighbor_engraver::finalize ()
   need_pure_heights_from_neighbors_.clear ();
   pure_relevants_.clear ();
 }
-
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Pure_from_neighbor_engraver, item);
 ADD_ACKNOWLEDGER (Pure_from_neighbor_engraver, pure_from_neighbor);

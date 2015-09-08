@@ -32,7 +32,6 @@ struct Spacing_interface
   static Drul_array<Skyline> skylines (Grob *me, Grob *right_col);
   static Grob *extremal_break_aligned_grob (Grob *me, Direction, Direction, Interval *);
 
-  DECLARE_GROB_INTERFACE ();
 };
 
 #endif /* SPACING_INTERFACE_HH */

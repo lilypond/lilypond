@@ -28,7 +28,6 @@ class Tie
 {
 public:
   static void set_head (Spanner *, Direction, Grob *head);
-  DECLARE_GROB_INTERFACE ();
   static Item *head (Spanner *, Direction);
   static int get_column_rank (Spanner *, Direction);
   static int get_position (Spanner *);

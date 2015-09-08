@@ -2475,6 +2475,17 @@ He aquí un ejemplo que muestra texto cirílico, hebreo y portugués:
 
 @lilypond[quote]
 %c No verbatim here as the code does not display correctly in PDF
+% Font settings for Cyrillic and Hebrew
+% Linux Libertine fonts contain Cyrillic and Hebrew glyphs.
+\paper {
+  #(define fonts
+    (set-global-fonts
+     #:roman "Linux Libertine O,serif"
+     #:sans "Linux Biolinum O,sans-serif"
+     #:typewriter "Linux Libertine Mono O,monospace"
+   ))
+}
+
 % Cyrillic
 bulgarian = \lyricmode {
   Жълтата дюля беше щастлива, че пухът, който цъфна, замръзна като гьон.

@@ -33,7 +33,6 @@ class Balloon_interface
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (print_spanner, (SCM));
-  DECLARE_GROB_INTERFACE ();
 
   static SCM internal_balloon_print (Grob *me, Grob *p, Offset off);
 };

@@ -172,7 +172,7 @@ Stem_tremolo::pure_height (SCM smob, SCM, SCM)
   if (!beam)
     return ly_interval2scm (s1.extent (Y_AXIS));
 
-  Interval ph = stem->pure_height (stem, 0, INT_MAX);
+  Interval ph = stem->pure_y_extent (stem, 0, INT_MAX);
   Stem_info si = Stem::get_stem_info (stem);
   ph[-dir] = si.shortest_y_;
   int beam_count = Stem::beam_multiplicity (stem).length () + 1;
@@ -261,7 +261,7 @@ Stem_tremolo::calc_direction (SCM smob)
    */
   Grob *maybe_nc = stem->get_parent (X_AXIS)->get_parent (X_AXIS);
   bool whole_note = Stem::duration_log (stem) <= 0;
-  if (whole_note && Note_collision_interface::has_interface (maybe_nc))
+  if (whole_note && has_interface<Note_collision_interface> (maybe_nc))
     {
       Drul_array<bool> avoid_me (false, false);
       vector<int> all_nhps = Note_collision_interface::note_head_positions (maybe_nc);
@@ -298,16 +298,16 @@ Stem_tremolo::y_offset (Grob *me, bool pure)
 
   if (pure && beam)
     {
-      Interval ph = stem->pure_height (stem, 0, INT_MAX);
+      Interval ph = stem->pure_y_extent (stem, 0, INT_MAX);
       Stem_info si = Stem::get_stem_info (stem);
       ph[-dir] = si.shortest_y_;
 
-      return (ph - dir * max (beam_count, 1) * beam_translation)[dir] - dir * 0.5 * me->pure_height (me, 0, INT_MAX).length ();
+      return (ph - dir * max (beam_count, 1) * beam_translation)[dir] - dir * 0.5 * me->pure_y_extent (me, 0, INT_MAX).length ();
     }
 
   Real end_y
     = (pure
-       ? stem->pure_height (stem, 0, INT_MAX)[dir]
+       ? stem->pure_y_extent (stem, 0, INT_MAX)[dir]
        : stem->extent (stem, Y_AXIS)[dir])
       - dir * max (beam_count, 1) * beam_translation
       - Stem::beam_end_corrective (stem);

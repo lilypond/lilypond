@@ -32,7 +32,6 @@
 struct Key_signature_interface
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_GROB_INTERFACE ();
 };
 
 /*

@@ -31,7 +31,6 @@ struct Horizontal_bracket
   static Stencil make_enclosing_bracket (Grob *me, Grob *refpoint,
                                          vector<Grob *> grobs,
                                          Axis a, Direction dir);
-  DECLARE_GROB_INTERFACE ();
 };
 
 #endif /* HORIZONTAL_BRACKET_HH */

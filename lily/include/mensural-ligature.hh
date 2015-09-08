@@ -45,7 +45,6 @@ struct Mensural_ligature
 {
   DECLARE_SCHEME_CALLBACK (brew_ligature_primitive, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_GROB_INTERFACE ();
 };
 
 #endif /* MENSURAL_LIGATURE_HH */

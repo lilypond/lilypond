@@ -313,7 +313,7 @@ extract_heads_and_stems (vector<Accidental_placement_entry *> const &apes)
           Grob *head = acc->get_parent (Y_AXIS);
           Grob *col = head->get_parent (X_AXIS);
 
-          if (Note_column::has_interface (col))
+          if (has_interface<Note_column> (col))
             note_cols.push_back (col);
           else
             ret.push_back (head);
@@ -327,7 +327,7 @@ extract_heads_and_stems (vector<Accidental_placement_entry *> const &apes)
   for (vsize i = note_cols.size (); i--;)
     {
       Grob *c = note_cols[i]->get_parent (X_AXIS);
-      if (Note_collision_interface::has_interface (c))
+      if (has_interface<Note_collision_interface> (c))
         {
           extract_grob_set (c, "elements", columns);
           concat (note_cols, columns);
@@ -371,7 +371,7 @@ build_heads_skyline (vector<Grob *> const &heads_and_stems,
   vector<Box> head_extents;
   for (vsize i = heads_and_stems.size (); i--;)
     head_extents.push_back (Box (heads_and_stems[i]->extent (common[X_AXIS], X_AXIS),
-                                 heads_and_stems[i]->pure_height (common[Y_AXIS], 0, INT_MAX)));
+                                 heads_and_stems[i]->pure_y_extent (common[Y_AXIS], 0, INT_MAX)));
 
   return Skyline (head_extents, Y_AXIS, LEFT);
 }

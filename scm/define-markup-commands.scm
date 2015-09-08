@@ -509,6 +509,16 @@ in the PDF backend.
 
     (ly:stencil-add (ly:make-stencil link-expr xextent yextent) stil)))
 
+(define-public (book-first-page layout props)
+  "Return the @code{'first-page-number} of the entire book"
+  (define (ancestor layout)
+    "Return the topmost layout ancestor"
+    (let ((parent (ly:output-def-parent layout)))
+      (if (not (ly:output-def? parent))
+          layout
+          (ancestor parent))))
+  (ly:output-def-lookup (ancestor layout) 'first-page-number))
+
 (define-markup-command (with-link layout props label arg)
   (symbol? markup?)
   #:category other
@@ -536,8 +546,7 @@ only works in the PDF backend.
                           (if (list? table)
                               (assoc-get label table)
                               #f))
-                        (first-page-number
-                          (ly:output-def-lookup layout 'first-page-number))
+                        (first-page-number (book-first-page layout props))
                         (current-page-number
                           (if table-page-number
                               (1+ (- table-page-number first-page-number))
@@ -734,19 +743,23 @@ Provide a white background for @var{arg}.
 (define-markup-command (whiteout-box layout props arg)
   (markup?)
   #:category other
+  #:properties ((thickness 0))
   "
-@cindex adding a rounded rectangular white background to text
+@cindex adding a rectangular white background to text
 
-Provide a rounded rectangular white background for @var{arg}.
+Provide a rectangular white background for @var{arg}.
 
 @lilypond[verbatim,quote]
 \\markup {
   \\combine
     \\filled-box #'(-1 . 10) #'(-3 . 4) #1
-    \\whiteout-box whiteout-box
+    \\override #'(thickness . 1.5) \\whiteout-box whiteout-box
 }
 @end lilypond"
-  (stencil-whiteout-box (interpret-markup layout props arg)))
+  (stencil-whiteout-box
+    (interpret-markup layout props arg)
+      (* thickness
+        (ly:output-def-lookup layout 'line-thickness))))
 
 (define-markup-command (pad-markup layout props amount arg)
   (number? markup?)
@@ -3495,18 +3508,10 @@ Supported flag-styles are @code{default}, @code{old-straight-flag},
            (thickness-offset (cons 0 (* -1 thickness dir)))
            (spacing (* -1 flag-spacing factor dir))
            (start (cons (- half-stem-thickness) (* half-stem-thickness dir)))
-           ;; The points of a round-filled-polygon need to be given in
-           ;; clockwise order, otherwise the polygon will be enlarged by
-           ;; blot-size*2!
-           (points (if stem-up
-                       (list start
-                             flag-end
-                             (offset-add flag-end thickness-offset)
-                             (offset-add start thickness-offset))
-                       (list start
-                             (offset-add start thickness-offset)
-                             (offset-add flag-end thickness-offset)
-                             flag-end)))
+           (points (list start
+                         flag-end
+                         (offset-add flag-end thickness-offset)
+                         (offset-add start thickness-offset)))
            (stencil (ly:round-filled-polygon points half-stem-thickness))
            ;; Log for 1/8 is 3, so we need to subtract 3
            (flag-stencil (buildflags stencil (- log 3) stencil spacing)))

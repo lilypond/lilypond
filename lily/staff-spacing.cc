@@ -44,7 +44,7 @@ using namespace std;
 Real
 Staff_spacing::optical_correction (Grob *me, Grob *g, Interval bar_height)
 {
-  if (!g || !Note_column::has_interface (g))
+  if (!g || !has_interface<Note_column> (g))
     return 0;
 
   Grob *stem = Note_column::get_stem (g);
@@ -55,7 +55,7 @@ Staff_spacing::optical_correction (Grob *me, Grob *g, Interval bar_height)
       Direction d = get_grob_direction (stem);
       if (Stem::is_normal_stem (stem) && d == DOWN)
         {
-          Interval stem_posns = stem->pure_height (stem, 0, INT_MAX);
+          Interval stem_posns = stem->pure_y_extent (stem, 0, INT_MAX);
 
           stem_posns.intersect (bar_height);
 

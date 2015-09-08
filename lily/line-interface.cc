@@ -30,7 +30,7 @@ Line_interface::make_arrow (Offset begin, Offset end,
                             Real thick,
                             Real length, Real width)
 {
-  Real angle = (end - begin).arg ();
+  Offset dir = (end - begin).direction ();
   vector<Offset> points;
 
   points.push_back (Offset (0, 0));
@@ -38,7 +38,7 @@ Line_interface::make_arrow (Offset begin, Offset end,
   points.push_back (Offset (-length, -width));
 
   for (vsize i = 0; i < points.size (); i++)
-    points[i] = points[i] * complex_exp (Offset (0, angle)) + end;
+    points[i] = points[i] * dir + end;
 
   return Lookup::round_filled_polygon (points, thick);
 }
@@ -95,7 +95,7 @@ Line_interface::make_zigzag_line (Grob *me,
   Real l = robust_scm2double (me->get_property ("zigzag-length"), 1) * w;
   Real h = l > w / 2 ? sqrt (l * l - w * w / 4) : 0;
 
-  Offset rotation_factor = complex_exp (Offset (0, dz.arg ()));
+  Offset rotation_factor = dz.direction ();
 
   Offset points[3];
   points[0] = Offset (0, -h / 2);

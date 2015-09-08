@@ -536,14 +536,19 @@ have to be referenced, for example, when changing staves with
 @code{\lyricsto} commands, or when adding further musical events to
 an earlier context.
 
-There is an exception to this general rule: just one of the
-@code{Voice} contexts in a @code{Staff} context or in a
-@code{<<@dots{}>>} construct will always persist to the end of the
-enclosing @code{Staff} context or @code{<<@dots{}>>} construct, even
-though there may be periods when it has nothing to do.  The context
-to persist in this way will be the first one encountered in the
-first enclosed @code{@{@dots{}@}} construct, ignoring any in enclosed
-@code{<<@dots{}>>} constructs.
+There is an exception to this general rule: inside of an
+@code{@{@dots{}@}} construct (sequential music), the construct's
+notion of the ``current context'' will descend whenever an element
+of the sequence ends in a subcontext of the previous current
+context.  This avoids spurious creation of implicit contexts in a
+number of situations but means that the first context descended
+into will be kept alive until the end of the expression.
+
+In contrast, the contexts of a @code{<<@dots{}>>} construct's
+(simultaneous music) expression are not carried forth, so
+enclosing a context creating command in an extra pair of
+@code{<<@dots{}>>} will keep the context from persisting through
+all of the enclosing @code{@{@dots{}@}} sequence.
 
 Any context can be kept alive by ensuring it has something to do at
 every musical moment.  @code{Staff} contexts are kept alive by
@@ -1274,11 +1279,39 @@ contexts.  Therefore, we modify the @code{Staff} definition with the
 @}
 @end example
 
+@funindex \inherit-acceptability
+Often when reusing an existing context definition, the resulting
+context can be used anywhere where the original context would have
+been useful.
+
+@example
+\layout @{
+  @dots{}
+  \inherit-acceptability @var{to} @var{from}
+@}
+@end example
+
+@noindent
+will arrange to have contexts of type @var{to} accepted by all
+contexts also accepting @var{from}.  For example, using
+
+@example
+\layout @{
+  @dots{}
+  \inherit-acceptability "ImproVoice" "Voice"
+@}
+@end example
+
+@noindent
+will add an @code{\accepts} for @code{ImproVoice} to both
+@code{Staff} and @code{RhythmicStaff} definitions.
+
 @funindex \denies
 The opposite of @code{\accepts} is @code{\denies},
 which is sometimes needed when reusing existing context definitions.
 
-Putting both into a @code{\layout} block, like
+Arranging the required pieces into a @code{\layout} block leaves
+us with
 
 @example
 \layout @{
@@ -1286,10 +1319,7 @@ Putting both into a @code{\layout} block, like
     \name ImproVoice
     @dots{}
   @}
-  \context @{
-    \Staff
-    \accepts "ImproVoice"
-  @}
+  \inherit-acceptability "ImproVoice" "Voice"
 @}
 @end example
 

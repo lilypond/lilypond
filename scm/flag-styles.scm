@@ -90,17 +90,10 @@ All lengths are scaled according to the font size of the note."
            (thickness-offset (cons 0 (* -1 thickness dir)))
            (spacing (* -1 flag-spacing factor dir ))
            (start (cons (- half-stem-thickness) (* half-stem-thickness dir)))
-           ;; The points of a round-filled-polygon need to be given in clockwise
-           ;; order, otherwise the polygon will be enlarged by blot-size*2!
-           (points (if stem-up
-                       (list start
-                             flag-end
-                             (offset-add flag-end thickness-offset)
-                             (offset-add start thickness-offset))
-                       (list start
-                             (offset-add start thickness-offset)
-                             (offset-add flag-end thickness-offset)
-                             flag-end)))
+           (points (list start
+                         flag-end
+                         (offset-add flag-end thickness-offset)
+                         (offset-add start thickness-offset)))
            (stencil (ly:round-filled-polygon points half-stem-thickness))
            ;; Log for 1/8 is 3, so we need to subtract 3
            (flag-stencil (buildflag stencil (- log 3) stencil spacing))

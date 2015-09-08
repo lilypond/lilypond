@@ -22,7 +22,6 @@
 struct Clef_modifier
 {
   DECLARE_SCHEME_CALLBACK (calc_parent_alignment, (SCM));
-  DECLARE_GROB_INTERFACE ();
 };
 
 MAKE_SCHEME_CALLBACK (Clef_modifier, calc_parent_alignment, 1)

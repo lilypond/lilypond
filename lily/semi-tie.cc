@@ -60,7 +60,7 @@ Semi_tie::calc_control_points (SCM smob)
   (void) me->get_property ("direction");
 
   Grob *yparent = me->get_parent (Y_AXIS);
-  if (Semi_tie_column::has_interface (yparent))
+  if (has_interface<Semi_tie_column> (yparent))
     {
       /* trigger positioning. */
       yparent->get_property ("positioning-done");
@@ -89,13 +89,20 @@ bool
 Semi_tie::less (Grob *g1, Grob *g2)
 {
   Item *i1 = dynamic_cast<Item *> (g1);
-  Item *i2 = dynamic_cast<Item *> (g2);
-  if (i1 && i2) {
-    return get_position (i1) < get_position (i2);
-  }
+  if (!i1)
+    {
+      g1->programming_error ("grob is not a semi-tie");
+      return false;
+    }
 
-  programming_error ("grob is not a semi-tie");
-  return false;
+  Item *i2 = dynamic_cast<Item *> (g2);
+  if (!i2)
+    {
+      g2->programming_error ("grob is not a semi-tie");
+      return true;
+    }
+
+  return get_position (i1) < get_position (i2);
 }
 
 Item *

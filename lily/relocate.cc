@@ -39,6 +39,10 @@
 #include "version.hh"
 #include "warn.hh"
 
+#ifdef __MINGW32__
+#include <winbase.h>
+#endif
+
 #define FRAMEWORKDIR ".."
 
 int
@@ -102,10 +106,6 @@ prepend_env_path (char const *key, string value)
     warning (_f ("no such directory: %s for %s", value, key));
   return -1;
 }
-
-#ifdef __MINGW32__
-#include <winbase.h>
-#endif
 
 static void
 prefix_relocation (const string &prefix)

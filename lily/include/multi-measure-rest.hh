@@ -26,7 +26,6 @@
 class Multi_measure_rest
 {
 public:
-  DECLARE_GROB_INTERFACE ();
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (height, (SCM));
   DECLARE_SCHEME_CALLBACK (percent, (SCM));

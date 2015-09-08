@@ -309,14 +309,14 @@ check_meshing_chords (Grob *me,
     {
       Grob *d = unsmob<Grob> (head_up->get_object ("dot"));
       Grob *parent = d->get_parent (X_AXIS);
-      if (Dot_column::has_interface (parent))
+      if (has_interface<Dot_column> (parent))
         Side_position_interface::add_support (parent, head_down);
     }
   else if (Rhythmic_head::dot_count (head_down))
     {
       Grob *d = unsmob<Grob> (head_down->get_object ("dot"));
       Grob *parent = d->get_parent (X_AXIS);
-      if (Dot_column::has_interface (parent))
+      if (has_interface<Dot_column> (parent))
         {
           Grob *stem = unsmob<Grob> (head_up->get_object ("stem"));
           // Loop over all heads on an up-pointing-stem to see if dots
@@ -433,7 +433,7 @@ Note_collision_interface::get_clash_groups (Grob *me)
   for (vsize i = 0; i < elements.size (); i++)
     {
       Grob *se = elements[i];
-      if (Note_column::has_interface (se))
+      if (has_interface<Note_column> (se))
         {
           if (!Note_column::dir (se))
             se->programming_error ("note-column has no direction");

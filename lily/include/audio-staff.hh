@@ -36,4 +36,10 @@ struct Audio_staff : public Audio_element
   vector<Audio_item *> audio_items_;
 };
 
+// Subtype to identify a staff that represents the "control track" of a MIDI
+// sequence (created by Control_track_performer).
+struct Audio_control_track_staff : public Audio_staff
+{
+};
+
 #endif // AUDIO_STAFF_HH

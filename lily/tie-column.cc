@@ -40,7 +40,7 @@ Tie_column::add_tie (Grob *tc, Spanner *tie)
   Spanner *me = dynamic_cast<Spanner *> (tc);
 
   if (tie->get_parent (Y_AXIS)
-      && Tie_column::has_interface (tie->get_parent (Y_AXIS)))
+      && has_interface<Tie_column> (tie->get_parent (Y_AXIS)))
     return;
 
   if (!me->get_bound (LEFT)

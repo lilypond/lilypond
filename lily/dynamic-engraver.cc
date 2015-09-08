@@ -179,11 +179,11 @@ Dynamic_engraver::process_music ()
         }
       if (finished_spanner_)
         {
-          if (Hairpin::has_interface (finished_spanner_))
+          if (has_interface<Hairpin> (finished_spanner_))
             Pointer_group_interface::add_grob (finished_spanner_,
                                                ly_symbol2scm ("adjacent-spanners"),
                                                current_spanner_);
-          if (Hairpin::has_interface (current_spanner_))
+          if (has_interface<Hairpin> (current_spanner_))
             Pointer_group_interface::add_grob (current_spanner_,
                                                ly_symbol2scm ("adjacent-spanners"),
                                                finished_spanner_);

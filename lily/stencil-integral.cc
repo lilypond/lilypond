@@ -190,8 +190,7 @@ make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings
   Offset left (x0, y0);
   Offset right (x1, y1);
   Offset dir = (right - left).direction ();
-  Direction d = DOWN;
-  do
+  for (DOWN_and_UP (d))
     {
       Offset outward = d * get_normal ((thick / 2) * dir);
       Offset inter_l = left + outward;
@@ -231,7 +230,6 @@ make_draw_line_boxes (vector<Box> &boxes, vector<Drul_array<Offset> > &buildings
             }
         }
     }
-  while (flip (&d) != DOWN);
 
   if (thick > 0.0)
     {
@@ -280,9 +278,8 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
   Offset ep (cos (end) * x_rad, sin (end) * y_rad);
   //////////////////////
   Drul_array<vector<Offset> > points;
-  Direction d = DOWN;
   int quantization = max (1, (int) (((x_rad * trans.xx) + (y_rad * trans.yy)) * M_PI / QUANTIZATION_UNIT));
-  do
+  for (DOWN_and_UP (d))
     {
       for (vsize i = 0; i < 1 + (vsize) quantization; i++)
         {
@@ -293,17 +290,15 @@ make_partial_ellipse_boxes (vector<Box> &boxes,
           points[d].push_back (inter);
         }
     }
-  while (flip (&d) != DOWN);
 
   for (vsize i = 0; i < points[DOWN].size () - 1; i++)
     {
       Box b;
-      do
+      for (DOWN_and_UP (d))
         {
           b.add_point (points[d][i]);
           b.add_point (points[d][i + 1]);
         }
-      while (flip (&d) != DOWN);
       boxes.push_back (b);
     }
 
@@ -421,12 +416,11 @@ make_draw_bezier_boxes (vector<Box> &boxes,
   pango_matrix_transform_point (&trans, &temp3[X_AXIS], &temp3[Y_AXIS]);
   //////////////////////
   Drul_array<vector<Offset> > points;
-  Direction d = DOWN;
   int quantization = int (((temp1 - temp0).length ()
                            + (temp2 - temp1).length ()
                            + (temp3 - temp2).length ())
                           / QUANTIZATION_UNIT);
-  do
+  for (DOWN_and_UP (d))
     {
       Offset first = curve.control_[0]
         + d * get_normal ((th / 2) * curve.dir_at_point (0.0));
@@ -445,17 +439,15 @@ make_draw_bezier_boxes (vector<Box> &boxes,
       pango_matrix_transform_point (&trans, &last[X_AXIS], &last[Y_AXIS]);
       points[d].push_back (last);
     }
-  while (flip (&d) != DOWN);
 
   for (vsize i = 0; i < points[DOWN].size () - 1; i++)
     {
       Box b;
-      do
+      for (DOWN_and_UP (d))
         {
           b.add_point (points[d][i]);
           b.add_point (points[d][i + 1]);
         }
-      while (flip (&d) != DOWN);
       boxes.push_back (b);
     }
 

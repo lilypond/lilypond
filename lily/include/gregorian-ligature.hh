@@ -27,7 +27,6 @@ class Grob;
 class Gregorian_ligature
 {
 public:
-  DECLARE_GROB_INTERFACE ();
   static string prefixes_to_str (Grob *);
 };
 

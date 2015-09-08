@@ -1232,7 +1232,7 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
     return scm_from_double (0.0);
   Grob *beam = unsmob<Grob> (stem->get_object ("beam"));
   if (!beam
-      || !Beam::has_interface (beam)
+      || !has_interface<Beam> (beam)
       || !Beam::normal_stem_count (beam))
     return scm_from_double (0.0);
 

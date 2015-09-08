@@ -30,7 +30,6 @@ struct Tuplet_number
   DECLARE_SCHEME_CALLBACK (calc_x_offset, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_y_offset, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
-  DECLARE_GROB_INTERFACE ();
 
   static Real calc_offset (Spanner *me, Axis a); // not used
 

@@ -305,7 +305,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
         edge_dirs_ = Drul_array<Direction> (stem_infos_[0].dir_,
                                             stem_infos_.back ().dir_);
 
-      is_xstaff_ = Align_interface::has_interface (common[Y_AXIS]);
+      is_xstaff_ = has_interface<Align_interface> (common[Y_AXIS]);
       is_knee_ |= dirs_found[DOWN] && dirs_found[UP];
 
       staff_radius_ = Staff_symbol_referencer::staff_radius (beams[i]);
@@ -343,7 +343,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
           if (!collisions[j]->is_live ())
             continue;
 
-          if (Beam::has_interface (collisions[j]) && Beam::is_cross_staff (collisions[j]))
+          if (has_interface<Beam> (collisions[j]) && Beam::is_cross_staff (collisions[j]))
             continue;
 
           Box b;
@@ -364,7 +364,7 @@ void Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> y
             add_collision (b[X_AXIS][d], b[Y_AXIS], width_factor);
 
           Grob *stem = unsmob<Grob> (collisions[j]->get_object ("stem"));
-          if (stem && Stem::has_interface (stem) && Stem::is_normal_stem (stem))
+          if (has_interface<Stem> (stem) && Stem::is_normal_stem (stem))
             {
               colliding_stems.insert (stem);
             }

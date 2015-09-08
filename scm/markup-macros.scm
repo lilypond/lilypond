@@ -236,11 +236,11 @@ interpreted, returns a list of stencils instead of a single one"
 ;;;;;;;;;;;;;;;;;;;;;;
 ;;; markup type predicates
 
-(define (markup-function? x)
+(define-public (markup-function? x)
   (and (markup-command-signature x)
        (not (object-property x 'markup-list-command))))
 
-(define (markup-list-function? x)
+(define-public (markup-list-function? x)
   (and (markup-command-signature x)
        (object-property x 'markup-list-command)))
 

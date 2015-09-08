@@ -2408,6 +2408,14 @@ all relevant context properties and grob properties to proper
 values, so you can immediately go ahead entering the chant:
 
 @lilypond[quote,ragged-right,verbatim]
+% Font settings for Cyrillic
+\paper {
+  #(define fonts
+    (set-global-fonts
+     #:roman "Linux Libertine O,serif"
+   ))
+}
+
 \score {
   <<
     \new KievanVoice = "melody" \relative c' {
@@ -2578,6 +2586,14 @@ by setting the @code{padding} property of the @code{KievanLigature}.
 The following example demonstrates the use of Kievan ligatures:
 
 @lilypond[quote,ragged-right,verbatim]
+% Font settings for Cyrillic
+\paper {
+  #(define fonts
+    (set-global-fonts
+     #:roman "Linux Libertine O,serif"
+   ))
+}
+
 \score {
   <<
     \new KievanVoice = "melody" \relative c' {

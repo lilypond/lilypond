@@ -11,7 +11,7 @@
   <alias binding="strong">
     <family>LilyPond Serif</family>
     <prefer>
-      <family>Century Schoolbook L</family>
+      <family>TeX Gyre Schola</family>
       <family>DejaVu Serif</family>
     </prefer>
     <default>
@@ -22,7 +22,7 @@
   <alias binding="strong">
     <family>LilyPond Sans Serif</family>
     <prefer>
-      <family>Nimbus Sans L</family>
+      <family>TeX Gyre Heros</family>
       <family>DejaVu Sans</family>
     </prefer>
     <default>
@@ -33,26 +33,12 @@
   <alias binding="strong">
     <family>LilyPond Monospace</family>
     <prefer>
-      <family>Nimbus Mono L</family>
+      <family>TeX Gyre Cursor</family>
       <family>DejaVu Sans Mono</family>
     </prefer>
     <default>
       <family>monospace</family>
     </default>
   </alias>
-
-  <!--
-      Reject bitmap fonts
-      from fontconfig 70-no-bitmaps.conf
-      LilyPond can not use bitmap fonts.
-  -->
-
-  <selectfont>
-    <rejectfont>
-      <pattern>
-	<patelt name="scalable"><bool>false</bool></patelt>
-      </pattern>
-    </rejectfont>
-  </selectfont>
 
 </fontconfig>

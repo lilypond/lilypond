@@ -29,6 +29,8 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
+#include "translator.icc"
+
 /* Perform a staff. Individual notes should have their instrument
   (staff-wide) set, so we override play_element ()
 */
@@ -76,8 +78,6 @@ private:
 map<string, int> Staff_performer::static_channel_map_;
 int Staff_performer::channel_count_ = 0;
 int Staff_performer::staff_performer_count_ = 0;
-
-#include "translator.icc"
 
 ADD_TRANSLATOR (Staff_performer,
                 /* doc */

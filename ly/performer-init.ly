@@ -238,6 +238,7 @@
   \accepts ChordNames
   \accepts Devnull
   \accepts DrumStaff
+  \accepts Dynamics
   \accepts FiguredBass
   \accepts GrandStaff
   \accepts GregorianTranscriptionStaff
@@ -246,6 +247,7 @@
   \accepts MensuralStaff
   \accepts NoteNames
   \accepts NullVoice
+  \accepts OneStaff
   \accepts PetrucciStaff
   \accepts PianoStaff
   \accepts RhythmicStaff
@@ -311,6 +313,7 @@
   \accepts DrumStaff
   \accepts GrandStaff
   \accepts Lyrics
+  \accepts OneStaff
   \accepts PianoStaff
   \accepts RhythmicStaff
   \accepts Staff
@@ -342,12 +345,34 @@
   \accepts FretBoards
   \accepts GrandStaff
   \accepts Lyrics
+  \accepts OneStaff
   \accepts PianoStaff
   \accepts RhythmicStaff
   \accepts Staff
   \accepts StaffGroup
   \accepts TabStaff
   \defaultchild Staff
+}
+
+\context {
+  \type "Performer_group"
+  \name "OneStaff"
+  \accepts "ChordNames"
+  \accepts "DrumStaff"
+  \accepts "Dynamics"
+  \accepts "FiguredBass"
+  \accepts "FretBoards"
+  \accepts "GregorianTranscriptionStaff"
+  \accepts "KievanStaff"
+  \accepts "Lyrics"
+  \accepts "MensuralStaff"
+  \accepts "NoteNames"
+  \accepts "PetrucciStaff"
+  \accepts "RhythmicStaff"
+  \accepts "Staff"
+  \accepts "TabStaff"
+  \accepts "VaticanaStaff"
+  \defaultchild "Staff"
 }
 
 \context {

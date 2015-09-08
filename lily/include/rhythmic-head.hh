@@ -32,7 +32,6 @@ public:
   static Item *get_dots (Grob *);
   static int dot_count (Grob *);
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
-  DECLARE_GROB_INTERFACE ();
 };
 
 #endif // RHYTHMIC_HEAD_HH

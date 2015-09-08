@@ -272,7 +272,7 @@ Tuplet_number::calc_x_offset (SCM smob)
 
   for (LEFT_and_RIGHT (d))
     {
-      if (Note_column::has_interface (bounds[d])
+      if (has_interface<Note_column> (bounds[d])
           && Note_column::get_stem (bounds[d]))
         bounds[d] = Note_column::get_stem (bounds[d]);
       bound_poss[d] = Axis_group_interface::generic_bound_extent (bounds[d], commonx, X_AXIS)[-d];

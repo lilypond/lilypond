@@ -1119,7 +1119,10 @@ Otherwise, return #f."
                                  elements ((music 'ContextSpeccedMusic
                                                   context-id "up"
                                                   context-type 'Staff
-                                                  element (music 'SimultaneousMusic elements (?ac-music)))
+                                                  element ?ac-music)
+                                           (music 'ContextSpeccedMusic
+                                                  context-id "up"
+                                                  context-type 'Staff)
                                            (music 'ContextSpeccedMusic
                                                   context-id "down"
                                                   context-type 'Staff))))

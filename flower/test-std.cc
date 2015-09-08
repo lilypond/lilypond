@@ -1,9 +1,3 @@
-#define STD_VECTOR 1
-
-#if !STD_VECTOR
-#define Array flower_vector
-#endif
-
 #define HAVE_BOOST_LAMBDA 1
 #include "std-vector.hh"
 
@@ -11,10 +5,6 @@
 
 #define YAFFUT_MAIN
 #include "yaffut.hh"
-
-#if !STD_VECTOR
-#define vector flower_vector
-#endif
 
 using namespace std;
 
@@ -26,17 +16,6 @@ print (vector<T> v)
     cout << "v[" << i << "] = " << v[i] << endl;
   cout << endl;
 }
-
-#if !STD_VECTOR
-template<typename T>
-void
-print (Link_array<T> v)
-{
-  for (vsize i = 0; i < v.size (); i++)
-    cout << "v[" << i << "] = " << *v[i] << endl;
-  cout << endl;
-}
-#endif
 
 FUNC (vector_erase)
 {
@@ -118,11 +97,7 @@ FUNC (vector_insert)
 
 FUNC (parray_concat)
 {
-#if !STD_VECTOR
-  Link_array<int> u, v;
-#else
   vector<int *> u, v;
-#endif
   int a[5] = { 0, 1, 2, 3, 4 };
   u.push_back (&a[0]);
   u.push_back (&a[1]);

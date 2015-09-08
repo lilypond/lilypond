@@ -18,11 +18,24 @@
 */
 
 #include <cstring>
+#include <map>
 using namespace std;
 
 #include "std-string.hh"
 #include "lily-guile.hh"
 #include "warn.hh"
+
+/* type predicates. */
+#include "global-context.hh"
+#include "input.hh"
+#include "item.hh"
+#include "music.hh"
+#include "music-function.hh"
+#include "paper-score.hh"
+#include "performance.hh"
+#include "spanner.hh"
+#include "stream-event.hh"
+#include "unpure-pure-container.hh"
 
 static SCM doc_hash_table;
 
@@ -64,8 +77,6 @@ LY_DEFINE (ly_get_all_function_documentation, "ly:get-all-function-documentation
   return doc_hash_table;
 }
 
-#include <map>
-
 map<void *, string> type_names;
 
 void
@@ -86,18 +97,6 @@ predicate_to_typename (void *ptr)
   else
     return type_names[ptr];
 }
-
-/* type predicates. */
-#include "global-context.hh"
-#include "input.hh"
-#include "item.hh"
-#include "music.hh"
-#include "music-function.hh"
-#include "paper-score.hh"
-#include "performance.hh"
-#include "spanner.hh"
-#include "stream-event.hh"
-#include "unpure-pure-container.hh"
 
 void
 init_func_doc ()

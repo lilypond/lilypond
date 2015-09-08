@@ -99,7 +99,7 @@ Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 
   for (vsize i = 0; i < encompasses.size (); i++)
     {
-      Interval d = encompasses[i]->pure_height (parent, start, end);
+      Interval d = encompasses[i]->pure_y_extent (parent, start, end);
       if (!d.is_empty ())
         {
           for (DOWN_and_UP (downup))
@@ -204,7 +204,7 @@ Slur::replace_breakable_encompass_objects (Grob *me)
     {
       Grob *g = extra_objects[i];
 
-      if (Separation_item::has_interface (g))
+      if (has_interface<Separation_item> (g))
         {
           extract_grob_set (g, "elements", breakables);
           for (vsize j = 0; j < breakables.size (); j++)
@@ -271,7 +271,7 @@ Slur::pure_outside_slur_callback (SCM grob, SCM start_scm, SCM end_scm, SCM offs
 
   Real offset = robust_scm2double (offset_scm, 0.0);
   Direction dir = get_grob_direction (script);
-  return scm_from_double (offset + dir * slur->pure_height (slur, start, end).length () / 4);
+  return scm_from_double (offset + dir * slur->pure_y_extent (slur, start, end).length () / 4);
 }
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Slur, outside_slur_callback, 2, 1, "");
@@ -409,7 +409,7 @@ Slur::auxiliary_acknowledge_extra_object (Grob_info const &info,
   else
     slur = slurs[0];
 
-  if (Tie::has_interface (e)
+  if (has_interface<Tie> (e)
       || scm_is_eq (avoid, ly_symbol2scm ("inside")))
     {
       for (vsize i = slurs.size (); i--;)
@@ -478,7 +478,7 @@ Slur::calc_cross_staff (SCM smob)
      so we can ignore them here */
   vector<Grob *> non_sep_extras;
   for (vsize i = 0; i < extras.size (); i++)
-    if (!Separation_item::has_interface (extras[i]))
+    if (!has_interface<Separation_item> (extras[i]))
       non_sep_extras.push_back (extras[i]);
 
   Grob *common = common_refpoint_of_array (cols, me, Y_AXIS);

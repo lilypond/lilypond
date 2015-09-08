@@ -19,6 +19,7 @@
 
 #include "std-string.hh"
 #include "string-convert.hh"
+#include "std-vector.hh"
 
 string
 to_string (const string &s)
@@ -115,14 +116,6 @@ string_copy (const string &s)
 
   return dest;
 }
-
-int
-string_compare (string const &a, string const &b)
-{
-  return a.compare (b);
-}
-
-#include "std-vector.hh"
 
 vector<string>
 string_split (string str, char c)

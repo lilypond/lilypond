@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+
+  <!--
+      Reject bitmap fonts
+      from fontconfig 70-no-bitmaps.conf
+      LilyPond can not use bitmap fonts.
+  -->
+
+  <selectfont>
+    <rejectfont>
+      <pattern>
+	<patelt name="scalable"><bool>false</bool></patelt>
+      </pattern>
+    </rejectfont>
+  </selectfont>
+
+</fontconfig>

@@ -737,15 +737,17 @@ we make between 0 and 2*pi."
               `(delay-stencil-evaluation ,(delay whiteout-expr)))
             stil)))))
 
-(define-public (stencil-whiteout-box stencil)
+(define*-public (stencil-whiteout-box stencil
+                 #:optional (thickness 0) (blot 0) (color white))
+  "@var{thickness} is how far in staff-spaces the white outline
+extends past the extents of @var{stencil}."
   (let*
-      ((x-ext (ly:stencil-extent stencil X))
-       (y-ext (ly:stencil-extent stencil Y)))
+   ((x-ext (interval-widen (ly:stencil-extent stencil X) thickness))
+    (y-ext (interval-widen (ly:stencil-extent stencil Y) thickness)))
 
-    (ly:stencil-add
-     (stencil-with-color (ly:round-filled-box x-ext y-ext 0.0)
-                         white)
-     stencil)))
+   (ly:stencil-add
+    (stencil-with-color (ly:round-filled-box x-ext y-ext blot) color)
+    stencil)))
 
 (define-public (arrow-stencil-maker start? end?)
   "Return a function drawing a line from current point to @code{destination},

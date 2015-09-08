@@ -27,6 +27,8 @@
 #include "pointer-group-interface.hh"
 #include "engraver.hh"
 
+#include "translator.icc"
+
 /*
   The Span_bar_stub_engraver creates SpanBarStub grobs in the contexts
   that a grouping context contains.  For example, if a PianoStaff contains
@@ -173,8 +175,6 @@ Span_bar_stub_engraver::stop_translation_timestep ()
     }
   axis_groups_ = axis_groups;
 }
-
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Span_bar_stub_engraver, span_bar);
 ADD_ACKNOWLEDGER (Span_bar_stub_engraver, hara_kiri_group_spanner);

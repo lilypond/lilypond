@@ -30,7 +30,6 @@
 class Staff_symbol_referencer
 {
 public:
-  DECLARE_GROB_INTERFACE ();
   static bool ugly_hack (Grob *);
   static void set_position (Grob *, Real);
   static void pure_set_position (Grob *, Real);

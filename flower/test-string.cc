@@ -1,15 +1,9 @@
-#define STD_VECTOR 1
-
 #define HAVE_BOOST_LAMBDA 1
 #include "std-vector.hh"
 
 #include <iostream>
 
 #include "yaffut.hh"
-
-#if !STD_VECTOR
-#define vector flower_vector
-#endif
 
 using namespace std;
 

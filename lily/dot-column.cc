@@ -95,12 +95,12 @@ Dot_column::calc_positioning_done (SCM smob)
          Rest collisions should wait after line breaking.
       */
       Interval y;
-      if (Rest::has_interface (s))
+      if (has_interface<Rest> (s))
         {
           base_x.unite (s->extent (commonx, X_AXIS));
           continue;
         }
-      else if (Stem::has_interface (s))
+      else if (has_interface<Stem> (s))
         {
           Real y1 = Stem::head_positions (s)[-get_grob_direction (s)];
           Real y2 = y1 + get_grob_direction (s) * 7;
@@ -110,7 +110,7 @@ Dot_column::calc_positioning_done (SCM smob)
 
           stems.insert (s);
         }
-      else if (Note_head::has_interface (s))
+      else if (has_interface<Note_head> (s))
         y = Interval (-1.1, 1.1);
       else
         {
@@ -200,7 +200,7 @@ Dot_column::calc_positioning_done (SCM smob)
       Grob *note = dots[i]->get_parent (Y_AXIS);
       if (note)
         {
-          if (Note_head::has_interface (note))
+          if (has_interface<Note_head> (note))
             dp.dir_ = to_dir (dp.dot_->get_property ("direction"));
 
           dp.x_extent_ = note->extent (commonx, X_AXIS);
@@ -252,7 +252,7 @@ Dot_column::add_head (Grob *me, Grob *head)
       // correct X-offset of the dots for horizontal collision avoidance.
       // The translation here is undone in calc_positioning_done, where we
       // do the X-offset properly.
-      if (Rest::has_interface (head))
+      if (has_interface<Rest> (head))
         d->translate_axis (head->extent (head, X_AXIS).length (), X_AXIS);
       else
         d->set_property ("X-offset", Grob::x_parent_positioning_proc);

@@ -137,7 +137,6 @@ public:
 
   /* interfaces */
   bool internal_has_interface (SCM intf);
-  DECLARE_GROB_INTERFACE ();
 
   /* offsets */
   void translate_axis (Real, Axis);
@@ -148,7 +147,7 @@ public:
   /* extents */
   Interval extent (Grob *refpoint, Axis) const;
   void flush_extent_cache (Axis);
-  virtual Interval pure_height (Grob *refpoint, int start_col, int end_col);
+  virtual Interval pure_y_extent (Grob *refpoint, int start, int end);
   Interval maybe_pure_extent (Grob *refpoint, Axis, bool pure, int start, int end);
 
   /* refpoints */
@@ -174,6 +173,12 @@ public:
   static SCM internal_skylines_from_element_stencils (Grob *me, Axis a, bool pure, int beg, int end);
   static SCM internal_skylines_from_element_stencils (SCM, Axis);
 };
+
+template <class T>
+inline bool has_interface(Grob *g)
+{
+  return g && g->internal_has_interface (Grob_interface<T>::interface_symbol_);
+}
 
 /* unification */
 void uniquify (vector <Grob *> &);

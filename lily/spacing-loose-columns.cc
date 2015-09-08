@@ -155,7 +155,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
             {
               Spring spring = Spacing_spanner::note_spacing (spacing, loose_col,
                                                              next_col, &options);
-              if (Note_spacing::has_interface (spacing))
+              if (has_interface<Note_spacing> (spacing))
                 spring = Note_spacing::get_spacing (spacing, next_col,
                                                     spring, options.increment_);
 

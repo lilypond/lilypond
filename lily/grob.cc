@@ -157,10 +157,14 @@ Grob::get_print_stencil () const
         }
 
       /* Calls the scheme procedure stencil-whiteout-box in scm/stencils.scm */
-      if (!transparent && to_boolean (get_property ("whiteout-box")))
+      if (!transparent && (scm_is_number (get_property("whiteout-box"))
+                           || to_boolean (get_property ("whiteout-box"))))
         {
+          Real thickness = robust_scm2double (get_property("whiteout-box"), 0.0)
+               * layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
           retval = *unsmob<Stencil>
-            (Lily::stencil_whiteout_box (retval.smobbed_copy ()));
+            (Lily::stencil_whiteout_box (retval.smobbed_copy (),
+                                     scm_from_double (thickness)));
         }
 
       if (transparent)
@@ -391,7 +395,7 @@ Grob::pure_relative_y_coordinate (Grob const *refp, int start, int end)
   if (Grob *p = get_parent (Y_AXIS))
     {
       Real trans = 0;
-      if (Align_interface::has_interface (p) && !dim_cache_[Y_AXIS].offset_)
+      if (has_interface<Align_interface> (p) && !dim_cache_[Y_AXIS].offset_)
         trans = Align_interface::get_pure_child_y_translation (p, this, start, end);
 
       return off + trans + p->pure_relative_y_coordinate (refp, start, end);
@@ -496,7 +500,7 @@ Grob::extent (Grob *refp, Axis a) const
 }
 
 Interval
-Grob::pure_height (Grob *refp, int start, int end)
+Grob::pure_y_extent (Grob *refp, int start, int end)
 {
   SCM iv_scm = get_pure_property ("Y-extent", start, end);
   Interval iv = robust_scm2interval (iv_scm, Interval ());
@@ -518,7 +522,7 @@ Grob::pure_height (Grob *refp, int start, int end)
 Interval
 Grob::maybe_pure_extent (Grob *refp, Axis a, bool pure, int start, int end)
 {
-  return (pure && a == Y_AXIS) ? pure_height (refp, start, end) : extent (refp, a);
+  return (pure && a == Y_AXIS) ? pure_y_extent (refp, start, end) : extent (refp, a);
 }
 
 Interval_t<int>
@@ -638,7 +642,7 @@ get_maybe_root_vertical_alignment (Grob *g, Grob *maybe)
 {
   if (!g)
     return maybe;
-  if (Align_interface::has_interface (g))
+  if (has_interface<Align_interface> (g))
     return get_maybe_root_vertical_alignment (g->get_parent (Y_AXIS), g);
   return get_maybe_root_vertical_alignment (g->get_parent (Y_AXIS), maybe);
 
@@ -657,8 +661,8 @@ Grob::get_vertical_axis_group (Grob *g)
     return 0;
   if (!g->get_parent (Y_AXIS))
     return 0;
-  if (Axis_group_interface::has_interface (g)
-      && Align_interface::has_interface (g->get_parent (Y_AXIS)))
+  if (has_interface<Axis_group_interface> (g)
+      && has_interface<Align_interface> (g->get_parent (Y_AXIS)))
     return g;
   return get_vertical_axis_group (g->get_parent (Y_AXIS));
 
@@ -965,11 +969,11 @@ robust_relative_extent (Grob *me, Grob *refpoint, Axis a)
 bool
 Grob::check_cross_staff (Grob *commony)
 {
-  if (Align_interface::has_interface (commony))
+  if (has_interface<Align_interface> (commony))
     return true;
 
   for (Grob *g = this; g && g != commony; g = g->get_parent (Y_AXIS))
-    if (Align_interface::has_interface (g))
+    if (has_interface<Align_interface> (g))
       return true;
 
   return false;

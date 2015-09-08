@@ -32,7 +32,6 @@ struct Ledger_line_spanner
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
-  DECLARE_GROB_INTERFACE ();
 };
 
 static void
@@ -339,7 +338,6 @@ ADD_INTERFACE (Ledger_line_spanner,
 
 struct Ledgered_interface
 {
-  DECLARE_GROB_INTERFACE ();
 };
 
 ADD_INTERFACE (Ledgered_interface,

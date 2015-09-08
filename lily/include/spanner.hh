@@ -76,7 +76,6 @@ public:
   static bool less (Spanner *const &, Spanner *const &);
   virtual Grob *find_broken_piece (System *) const;
   virtual void derived_mark () const;
-  DECLARE_GROB_INTERFACE ();
   virtual System *get_system () const;
 
   SCM get_cached_pure_property (SCM sym, int start, int end);

@@ -185,7 +185,7 @@ Hairpin::print (SCM smob)
         }
       else
         {
-          if (Text_interface::has_interface (b))
+          if (has_interface<Text_interface> (b))
             {
               if (!e.is_empty ())
                 x_points[d] = e[-d] - d * padding;
@@ -214,7 +214,7 @@ Hairpin::print (SCM smob)
 
               if (neighbor_found)
                 {
-                  if (Hairpin::has_interface (adjacent))
+                  if (has_interface<Hairpin> (adjacent))
                     {
                       /*
                         Handle back-to-back hairpins with a circle in the middle
@@ -237,7 +237,7 @@ Hairpin::print (SCM smob)
               else
                 {
                   if (d == RIGHT // end at the left edge of a rest
-                      && Note_column::has_interface (b)
+                      && has_interface<Note_column> (b)
                       && Note_column::has_rests (b))
                     x_points[d] = e[-d];
                   else

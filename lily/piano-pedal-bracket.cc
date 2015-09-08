@@ -26,7 +26,6 @@
 struct Piano_pedal_bracket
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_GROB_INTERFACE ();
 };
 
 MAKE_SCHEME_CALLBACK (Piano_pedal_bracket, print, 1);

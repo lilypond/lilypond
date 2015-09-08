@@ -29,8 +29,6 @@
 #(use-modules (srfi srfi-1)
               (ice-9 optargs))
 
-%% TODO: using define-music-function in a .scm causes crash.
-
 absolute =
 #(define-music-function (music)
    (ly:music?)
@@ -189,19 +187,17 @@ pitch where to switch staves may be specified.  The clefs for the staves are
 optional as well.  Setting clefs  works only for implicitly instantiated
 staves.")
   (let ;; keep the contexts alive for the full duration
-       ((skip (make-skip-music (make-duration-of-length
-                                     (ly:music-length music)))))
-    #{
-      <<
-        \context Staff = "up" $(or clef-1 #{ \with { \clef "treble" } #})
-          <<
-          #(make-autochange-music pitch music)
-          \new Voice { #skip }
-          >>
-        \context Staff = "down" $(or clef-2 #{ \with { \clef "bass" } #})
-          \new Voice { #skip }
-      >>
-    #}))
+       ((skip (make-duration-of-length (ly:music-length music)))
+        (clef-1 (or clef-1 #{ \with { \clef "treble" } #}))
+        (clef-2 (or clef-2 #{ \with { \clef "bass" } #})))
+    (make-simultaneous-music
+     (list
+      (descend-to-context (make-autochange-music pitch music) 'Staff
+                          "up" clef-1)
+      (context-spec-music (make-skip-music skip) 'Staff
+                          "up" clef-1)
+      (context-spec-music (make-skip-music skip) 'Staff
+                          "down" clef-2)))))
 
 balloonGrobText =
 #(define-music-function (grob-name offset text)
@@ -843,6 +839,37 @@ mark =
         (begin
           (if label (set! (ly:music-property ev 'label) label))
           ev))))
+
+markupMap =
+#(define-music-function (path markupfun music)
+   (symbol-list-or-symbol? markup-function? ly:music?)
+   (_i "This applies the given markup function @var{markupfun} to all markup
+music properties matching @var{path} in @var{music}.
+
+For example,
+@example
+\\new Voice @{ g'2 c'' @}
+\\addlyrics @{
+  \\markupMap LyricEvent.text
+             \\markup \\with-color #red \\etc
+             @{ Oh yes! @}
+@}
+@end example
+")
+   (let* ((p (check-music-path path (*location*)))
+          (name (and p (car p)))
+          (prop (and p (cadr p))))
+     (if p
+         (for-some-music
+          (lambda (m)
+            (if (or (not name) (eq? (ly:music-property m 'name) name))
+                (let ((text (ly:music-property m prop)))
+                  (if (markup? text)
+                      (set! (ly:music-property m prop)
+                            (list markupfun text)))))
+            #f)
+          music)))
+   music)
 
 musicMap =
 #(define-music-function (proc mus) (procedure? ly:music?)

@@ -104,7 +104,7 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
 {
   Grob *him = me->get_parent (a);
   Interval he;
-  if (Paper_column::has_interface (him))
+  if (has_interface<Paper_column> (him))
       /*
         PaperColumn extents aren't reliable (they depend on size and alignment
         of PaperColumn's children), so we align on NoteColumn instead.
@@ -115,7 +115,7 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
   else
     {
       if (to_boolean (me->get_property ("X-align-on-main-noteheads"))
-          && Note_column::has_interface (him))
+          && has_interface<Note_column> (him))
         he = Note_column::calc_main_extent(him);
       else
         he = him->extent (him, a);

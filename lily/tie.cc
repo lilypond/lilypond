@@ -45,13 +45,20 @@ bool
 Tie::less (Grob *g1, Grob *g2)
 {
   Spanner *s1 = dynamic_cast<Spanner *> (g1);
-  Spanner *s2 = dynamic_cast<Spanner *> (g2);
-  if (s1 && s2) {
-    return get_position (s1) < get_position (s2);
-  }
+  if (!s1)
+    {
+      g1->programming_error ("grob is not a tie");
+      return false;
+    }
 
-  programming_error ("grob is not a tie");
-  return false;
+  Spanner *s2 = dynamic_cast<Spanner *> (g2);
+  if (!s2)
+    {
+      g2->programming_error ("grob is not a tie");
+      return true;
+    }
+
+  return get_position (s1) < get_position (s2);
 }
 
 void
@@ -64,7 +71,7 @@ Item *
 Tie::head (Spanner *me, Direction d)
 {
   Item *it = me->get_bound (d);
-  return Note_head::has_interface (it) ? it : 0;
+  return has_interface<Note_head> (it) ? it : 0;
 }
 
 int
@@ -146,8 +153,8 @@ Tie::calc_direction (SCM smob)
   // types.  It might be clearer to use a template.
   Grob *me = unsmob<Grob> (smob);
   Grob *yparent = me->get_parent (Y_AXIS);
-  if ((Tie_column::has_interface (yparent)
-       || Semi_tie_column::has_interface (yparent))
+  if ((has_interface<Tie_column> (yparent)
+       || has_interface<Semi_tie_column> (yparent))
       && unsmob<Grob_array> (yparent->get_object ("ties"))
       //      && unsmob<Grob_array> (yparent->get_object ("ties"))->size () > 1
      )
@@ -209,8 +216,8 @@ Tie::calc_control_points (SCM smob)
   Spanner *me = LY_ASSERT_SMOB(Spanner, smob, 1);
 
   Grob *yparent = me->get_parent (Y_AXIS);
-  if ((Tie_column::has_interface (yparent)
-       || Semi_tie_column::has_interface (yparent))
+  if ((has_interface<Tie_column> (yparent)
+       || has_interface<Semi_tie_column> (yparent))
       && unsmob<Grob_array> (yparent->get_object ("ties")))
     {
       extract_grob_set (yparent, "ties", ties);

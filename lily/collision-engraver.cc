@@ -23,6 +23,8 @@
 #include "axis-group-interface.hh"
 #include "item.hh"
 
+#include "translator.icc"
+
 class Collision_engraver : public Engraver
 {
   Item *col_;
@@ -51,7 +53,7 @@ Collision_engraver::process_acknowledged ()
 void
 Collision_engraver::acknowledge_note_column (Grob_info i)
 {
-  if (Note_column::has_interface (i.grob ()))
+  if (has_interface<Note_column> (i.grob ()))
     {
       /*should check Y axis? */
       if (Note_column::has_rests (i.grob ()) || i.grob ()->get_parent (X_AXIS))
@@ -75,8 +77,6 @@ Collision_engraver::Collision_engraver ()
 {
   col_ = 0;
 }
-
-#include "translator.icc"
 
 ADD_ACKNOWLEDGER (Collision_engraver, note_column);
 

@@ -74,7 +74,6 @@ public:
   int spanner_count () const;
 
   void break_into_pieces (vector<Column_x_positions> const &);
-  DECLARE_GROB_INTERFACE ();
 
   vector<Item *> broken_col_range (Item const *, Item const *) const;
   vector<Grob *> used_columns () const;

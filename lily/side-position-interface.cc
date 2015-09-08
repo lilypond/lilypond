@@ -65,7 +65,7 @@ get_support_set (Grob *me)
 
   for (vsize i = 0; i < proto_support.size (); i++)
     {
-      if (Accidental_placement::has_interface (proto_support[i]))
+      if (has_interface<Accidental_placement> (proto_support[i]))
         {
           Grob *accs = proto_support[i];
           for (SCM acs = accs->get_object ("accidental-grobs"); scm_is_pair (acs);
@@ -252,7 +252,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
         continue; // so 'me' may not move in response to 'e'
 
       if (a == Y_AXIS
-          && Stem::has_interface (e))
+          && has_interface<Stem> (e))
         {
           // If called as 'pure' we may not force a stem to set its direction,
           if (pure && !is_direction (e->get_property_data ("direction")))
@@ -283,7 +283,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
                          : e->maybe_pure_coordinate (common[Y_AXIS], Y_AXIS, pure, start, end);
                Skyline_pair copy = *unsmob<Skyline_pair> (sp);
                if (a == Y_AXIS
-                   && Stem::has_interface (e)
+                   && has_interface<Stem> (e)
                    && to_boolean (me->get_maybe_pure_property ("add-stem-support", pure, start, end)))
                  copy[dir].set_minimum_height (copy[dir].max_height ());
                copy.shift (a == X_AXIS ? yc : xc);
@@ -381,7 +381,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
           staff_span.widen (1);
           if (staff_span.contains (position)
               /* If we are between notehead and staff, quantize for ledger lines. */
-              || (Note_head::has_interface (head)
+              || (has_interface<Note_head> (head)
                   && dir * position < 0))
             {
               total_off += (rounded - position) * 0.5 * ss;

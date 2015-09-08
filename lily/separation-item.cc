@@ -129,7 +129,7 @@ Separation_item::boxes (Grob *me, Grob *left)
       vector<Grob *> other_elts; // for now only arpeggios
       for (vsize i = 0; i < read_only_elts.size (); i++)
         {
-          if (Accidental_placement::has_interface (read_only_elts[i]))
+          if (has_interface<Accidental_placement> (read_only_elts[i]))
             accidental_elts.push_back (read_only_elts[i]);
           else
             other_elts.push_back (read_only_elts[i]);
@@ -153,11 +153,11 @@ Separation_item::boxes (Grob *me, Grob *left)
          bounds all of them). However, we can't exclude an axis-group that
          adds to its childrens' stencil. Currently, this is just TrillPitchGroup;
          hence the check for note-head-interface. */
-      if (Axis_group_interface::has_interface (il)
-          && !Note_head::has_interface (il))
+      if (has_interface<Axis_group_interface> (il)
+          && !has_interface<Note_head> (il))
         continue;
 
-      Interval y (il->pure_height (ycommon, 0, very_large));
+      Interval y (il->pure_y_extent (ycommon, 0, very_large));
       Interval x (il->extent (pc, X_AXIS));
 
       Interval extra_width = robust_scm2interval (elts[i]->get_property ("extra-spacing-width"),
