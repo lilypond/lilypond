@@ -1,7 +1,7 @@
-
 \version "2.19.21"
-\header{
-texidoc = "Broken crescendi should be open on one side."
+
+\header {
+  texidoc = "When a hairpin is broken, the broken parts should be open at the ‘breaking point’."
 }
 
 \layout {
@@ -9,7 +9,11 @@ texidoc = "Broken crescendi should be open on one side."
 }
 
 
-\relative { 
-  c''1 \< \break c1\!  \> \break c1\!
+\relative {
+   c''1 \< \break
+   c
+   c\> \break
+   c
+   c\!
 }
 
