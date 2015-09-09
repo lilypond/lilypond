@@ -1616,15 +1616,11 @@ control-point.  If @var{item} is a string, the result is
 @code{\\once\\override} for the specified grob type.  If @var{item} is
 a music expression, the result is the same music expression with an
 appropriate tweak applied.")
-   (define (shape-curve grob)
+   (define (shape-curve grob coords)
      (let* ((orig (ly:grob-original grob))
             (siblings (if (ly:spanner? grob)
                           (ly:spanner-broken-into orig) '()))
-            (total-found (length siblings))
-            (function (assoc-get 'control-points
-                                 (reverse (ly:grob-basic-properties grob))))
-            (coords (function grob)))
-
+            (total-found (length siblings)))
        (define (offset-control-points offsets)
          (if (null? offsets)
              coords
@@ -1647,7 +1643,9 @@ appropriate tweak applied.")
        (if (>= total-found 2)
            (helper siblings offsets)
            (offset-control-points (car offsets)))))
-   (once (propertyTweak 'control-points shape-curve item)))
+   (once (propertyTweak 'control-points
+                        (grob-transformer 'control-points shape-curve)
+                        item)))
 
 shiftDurations =
 #(define-music-function (dur dots arg)
