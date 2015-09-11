@@ -25,7 +25,7 @@
 
   #(define fonts
     (make-pango-font-tree "Times New Roman"
-                          "Nimbus Sans"
+                          "Nimbus Sans,Nimbus Sans L"
                           "Luxi Mono"
 
 ;;     "Helvetica"
