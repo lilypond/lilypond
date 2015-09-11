@@ -1576,7 +1576,9 @@ It is possible to change the fonts to be used as the default fonts in
 the @emph{roman}, @emph{sans} and @emph{typewriter} font families by
 specifying them, in that order, as shown in the example below, which
 automatically scales the fonts with the value set for the global staff
-size.  For an explanation of fonts, see @ref{Fonts explained}.
+size. Similar to @ref{Single entry fonts}, it can be described using a
+comma-separated list of @q{fonts}. However, font @q{styles} can not be
+described. For an explanation of fonts, see @ref{Fonts explained}.
 
 @cindex font families, setting
 @cindex fonts, changing for entire document
