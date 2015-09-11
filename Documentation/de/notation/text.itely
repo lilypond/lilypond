@@ -1643,7 +1643,7 @@ Schriftarten in @ref{Was sind Schriftarten}.
   myStaffSize = #20
   #(define fonts
     (make-pango-font-tree "Times New Roman"
-                          "Nimbus Sans"
+                          "Nimbus Sans,Nimbus Sans L"
                           "Luxi Mono"
                            (/ myStaffSize 20)))
 }

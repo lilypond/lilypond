@@ -1590,7 +1590,7 @@ del rigo.  I tipi di carattere  sono spiegati in @ref{Fonts explained}.
 \paper  {
   #(define fonts
     (make-pango-font-tree "Times New Roman"
-                          "Nimbus Sans"
+                          "Nimbus Sans,Nimbus Sans L"
                           "Luxi Mono"
                           (/ staff-height pt 20)))
 }
