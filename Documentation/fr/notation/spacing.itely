@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
+   Translation of GIT committish: cee6cea4ed55eb4fa1f9d83c997ebc19744a6e1a
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -76,7 +76,7 @@ cependant rien : certains termes techniques ont une histoire
 particulière selon leur langue d'origine.  Ainsi le vocable anglais
 @emph{Ragged} signifie en lambeau, en loques ; dans l'univers
 typographique, un maître français voit un alignement à gauche -- il dira
-@qq{au fer à gauche} -- alors que son homologue anglophone constate un
+« au fer à gauche » -- alors que son homologue anglophone constate un
 @emph{ragged-right} -- donc du vide à droite.}
 
 
@@ -486,7 +486,7 @@ référence} de deux éléments, qui évite tout risque de collision en
 l'absence de dilatation ou compression.  Le point de référence d'un
 titre ou d'un @emph{markup} est son sommet, celui d'un système est le
 centre vertical du @code{StaffSymbol} le plus proche -- même lorsqu'une
-ligne de @qq{non-portée} viendrait à s'intercaler.  Une
+ligne de « non-portée » viendrait à s'intercaler.  Une
 @code{basic-distance} inférieure à @code{padding} ou
 @code{minimum-distance} sera sans effet, dans la mesure où l'espacement
 résultant ne saurait être inférieur à @code{padding} ou
@@ -503,7 +503,7 @@ inférieur au @code{padding}.
 @c TODO: explain skylines somewhere and xref to it from here.
 
 @item
-@code{padding} @emph{(décalage)} -- la grandeur minimale de @qq{blanc}
+@code{padding} @emph{(décalage)} -- la grandeur minimale de « blanc »
 qui sépare deux éléments, exprimée en hauteur de portée.  On peut le
 voir comme la hauteur minimale d'un rectangle vide qui devrait s'étendre
 sur toute la largeur des deux éléments.
@@ -977,7 +977,7 @@ par défaut).
 @item page-breaking-system-system-spacing
 @funindex page-breaking-system-system-spacing
 
-Cette variable permet de @qq{tromper} l'algorithme de gestion des sauts
+Cette variable permet de « tromper » l'algorithme de gestion des sauts
 de page quant à la valeur de @code{system-system-spacing}.  Ainsi,
 lorsque @code{page-breaking-system-system-spacing #'padding} a une
 valeur nettement supérieure à @code{system-system-spacing #'padding},
@@ -1811,7 +1811,7 @@ LilyPond, pour déterminer où placer un saut de page, utilise par défaut
 la fonction @code{ly:optimal-breaking}.  Celle-ci tend à trouver une
 rupture qui évite d'obtenir à la fois une page trop dense ou exagérément
 aérée.  Contrairement à la fonction @code{ly:page-turn-breaking}, elle
-n'a aucune notion de ce qu'est une @qq{tourne}.
+n'a aucune notion de ce qu'est une « tourne ».
 
 @seealso
 Morceaux choisis :
@@ -1897,7 +1897,7 @@ d'une portée polyphonique dont l'une des parties contiendrait des
 silences.  Lorsqu'il rencontre un fragment suffisamment long ne
 contenant aucune note, il insère un @code{\allowPageTurn} à la barre
 terminant ce fragment, à moins qu'il ne rencontre en chemin une
-@qq{barre spéciale} -- telle une double barre -- auquel cas il y
+« barre spéciale » -- telle une double barre -- auquel cas il y
 déposera le @code{\allowPageTurn}.
 
 @funindex minimumPageTurnLength
@@ -2791,7 +2791,7 @@ Vous savez de manière intuitive qu'un certain nombre d'objets en
 matière de notation musicale appartiennent à la portée, et que
 d'autres se placent en dehors de la portée.  Entre autres objets
 externes, nous avons les marques repères, les textes et les
-nuances ; nous les appellerons @qq{objets extérieurs à la portée}.
+nuances ; nous les appellerons « objets extérieurs à la portée ».
 La règle adoptée par LilyPond pour positionner verticalement ces
 objets extérieurs consiste à les placer au plus près de la portée
 tout en prenant garde d'éviter qu'il y ait chevauchement.
@@ -3463,7 +3463,7 @@ rubrique @ref{Changement d'espacement en cours de partition}.
 Intéressons-nous maintenant au @code{Separating_line_group_engraver},
 qui est désactivé pour la plupart des partitions en notation
 proportionnelle.  Voici ce qui apparaît dans une partition
-traditionnelle : il y a toujours un @qq{espace préservé} juste
+traditionnelle : il y a toujours un « espace préservé » juste
 avant la première note de chaque portée.
 
 @lilypond[quote,verbatim,ragged-right]
@@ -3696,11 +3696,11 @@ se répartir sur deux pages.
 
 @item
 Éviter ou réduire les objets qui augmentent la hauteur des systèmes.
-Par exemple, un crochet de reprise ou d'alternative consomme de
-l'espace.  Le fait de les reporter sur plusieurs systèmes regroupés
-diminue d'autant l'espace disponible que si seul le premier ne
-comportait l'indication.  Autre exemple, les indications de nuance qui
-se @qq{détachent} d'un système peuvent être rapprochées de la portée :
+Par exemple, un crochet d'alternative en fin de reprise consomme de
+l'espace. Dans le cas où il s'étend sur deux systèmes, il occupera
+plus d'espace que si seul le premier comportait l'indication.  Autre
+exemple, les indications de nuance qui se « détachent » d'un système
+peuvent être rapprochées de la portée :
 
 @lilypond[verbatim,quote]
 \relative e' {
@@ -3731,7 +3731,7 @@ l'espacement par défaut :
 Par contre, le fait de modifier la valeur de la propriété
 @code{common-shortest-duration} en passant de @code{1/4} à @code{1/2}
 -- bien que la noire soit la durée la plus courante, nous prenons une
-valeur plus longue -- donnera un effet @qq{resserré} à la musique :
+valeur plus longue -- donnera un effet « resserré » à la musique :
 
 @lilypond[verbatim,quote]
 \score {

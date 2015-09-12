@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: e692f41399fc6953aa800c99a8dbe7f59a9a064a
+    Translation of GIT committish: cee6cea4ed55eb4fa1f9d83c997ebc19744a6e1a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -493,7 +493,9 @@ fichiers exécutables de LilyPond, comme suit :
 [@var{chemins déjà définis}];@var{RÉP}\LilyPond\usr\bin
 @end example
 
-@warning{@var{RÉP} sera en règle générale @code{C:@bs{}Program Files}.}
+@warning{@var{RÉP} sera en règle générale @code{C:@bs{}Program Files
+(x86)} pour un système 64 bits et @code{C:@bs{}Program Files} pour du
+32 bits.}
 
 @noindent
 puis cliquez le bouton « OK » pour fermer la fenêtre.
