@@ -3534,7 +3534,8 @@ Supported flag-styles are @code{default}, @code{old-straight-flag},
            (flag-stencil (buildflags stencil (- log 3) stencil spacing)))
       flag-stencil))
 
-  (let* ((font (ly:paper-get-font layout (cons '((font-encoding . fetaMusic))
+  (let* ((font (ly:paper-get-font layout (cons '((font-encoding . fetaMusic)
+                                                 (font-name . #f))
                                                props)))
          (size-factor (magstep font-size))
          (blot (ly:output-def-lookup layout 'blot-diameter))
@@ -3750,7 +3751,9 @@ A rest or multi-measure-rest symbol.
 
   (let* ((font
           (ly:paper-get-font layout
-                             (cons '((font-encoding . fetaMusic)) props)))
+                             (cons '((font-encoding . fetaMusic)
+                                     (font-name . #f))
+                                   props)))
          (rest-glyph-name
           (let ((result
                  (get-glyph-name font
