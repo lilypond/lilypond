@@ -1075,9 +1075,9 @@ Example:
     d d | e e | f f |
   }
 <==>
-  A = { c c | d d | }
-  B = { d d | e e | }
-  C = { e e | f f | }
+  A = { c c | d d }
+  B = { d d | e e }
+  C = { e e | f f }
 @end verbatim
 
 The last bar checks in a sequence are not copied to the result in

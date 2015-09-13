@@ -106,16 +106,9 @@ System::typeset_grob (Grob *elem)
 void
 System::derived_mark () const
 {
-  if (!all_elements_->empty ())
-    {
-      Grob **ptr = &all_elements_->array_reference ()[0];
-      Grob **end = ptr + all_elements_->size ();
-      while (ptr < end)
-        {
-          scm_gc_mark ((*ptr)->self_scm ());
-          ptr++;
-        }
-    }
+  const vector <Grob *> &arr = all_elements_->array ();
+  for (vsize i = arr.size (); i--;)
+    scm_gc_mark (arr[i]->self_scm ());
 
   if (pscore_)
     scm_gc_mark (pscore_->self_scm ());

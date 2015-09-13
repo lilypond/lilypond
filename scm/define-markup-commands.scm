@@ -1740,11 +1740,7 @@ the line width, where @var{X} is the number of staff spaces.
 Print two markups on top of each other.
 
 Note: @code{\\combine} cannot take a list of markups enclosed in
-curly braces as an argument; the follow example will not compile:
-
-@example
-\\combine @{ a list @}
-@end example
+curly braces as an argument; for this purpose use @code{\\overlay} instead.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -1758,6 +1754,27 @@ curly braces as an argument; the follow example will not compile:
   (let* ((s1 (interpret-markup layout props arg1))
          (s2 (interpret-markup layout props arg2)))
     (ly:stencil-add s1 s2)))
+
+(define-markup-command (overlay layout props args)
+  (markup-list?)
+  #:category align
+  "
+@cindex merging text
+
+Takes a list of markups combining them.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\fontsize #5
+  \\override #'(thickness . 2)
+  \\overlay {
+    \\draw-line #'(0 . 4)
+    \\arrow-head #Y #DOWN ##f
+    \\translate #'(0 . 4)\\arrow-head #Y #UP ##f
+  }
+}
+@end lilypond"
+  (apply ly:stencil-add (interpret-markup-list layout props args)))
 
 ;;
 ;; TODO: should extract baseline-skip from each argument somehow..

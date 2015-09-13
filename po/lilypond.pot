@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.26\n"
+"Project-Id-Version: lilypond 2.19.27\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2015-08-27 10:48+0100\n"
+"POT-Creation-Date: 2015-09-12 12:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2007,7 +2007,7 @@ msgstr ""
 msgid "%d: %s"
 msgstr ""
 
-#: grob.cc:492
+#: grob.cc:496
 #, c-format
 msgid "ignored infinite %s-offset"
 msgstr ""
@@ -2931,7 +2931,7 @@ msgstr ""
 msgid "cannot end %s"
 msgstr ""
 
-#: slur.cc:436
+#: slur.cc:431
 #, c-format
 msgid "Ignoring grob for slur: %s.  avoid-slur not set?"
 msgstr ""
@@ -2966,12 +2966,12 @@ msgstr ""
 msgid "weird stem size, check for narrow beams"
 msgstr ""
 
-#: system.cc:202
+#: system.cc:195
 #, c-format
 msgid "Element count %d"
 msgstr ""
 
-#: system.cc:513
+#: system.cc:506
 #, c-format
 msgid "Grob count %d"
 msgstr ""
@@ -3409,31 +3409,31 @@ msgstr ""
 msgid "Undefined parent event class `~S'"
 msgstr ""
 
-#: define-markup-commands.scm:1098
+#: define-markup-commands.scm:1102
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:2922
+#: define-markup-commands.scm:2926
 #, scheme-format
 msgid "Cannot find glyph ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3398
+#: define-markup-commands.scm:3402
 #, scheme-format
 msgid "no brace found for point size ~S "
 msgstr ""
 
-#: define-markup-commands.scm:3399
+#: define-markup-commands.scm:3403
 #, scheme-format
 msgid "defaulting to ~S pt"
 msgstr ""
 
-#: define-markup-commands.scm:3643
+#: define-markup-commands.scm:3647
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3854
+#: define-markup-commands.scm:3858
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
@@ -3581,19 +3581,19 @@ msgstr ""
 msgid "Music unsuitable for output-def"
 msgstr ""
 
-#: lily-library.scm:904
+#: lily-library.scm:910
 msgid ""
 "Find the index between @var{start} and @var{end} (an integer)\n"
 "which produces the closest match to @var{target-val} if\n"
 "applied to function @var{getter}."
 msgstr ""
 
-#: lily-library.scm:998
+#: lily-library.scm:1004
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr ""
 
-#: lily-library.scm:1023
+#: lily-library.scm:1029
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""

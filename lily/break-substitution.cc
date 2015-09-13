@@ -148,34 +148,6 @@ again:
 }
 
 /*
-  Perform substitution on GROB_LIST using a constant amount of stack.
-*/
-vector<Grob *> temporary_substition_array;
-void
-substitute_grob_array (Grob_array *grob_arr, Grob_array *new_arr)
-{
-  vector<Grob *> &old_grobs (grob_arr->array_reference ());
-  vector<Grob *> *new_grobs (new_arr == grob_arr
-                             ? & temporary_substition_array
-                             : &new_arr->array_reference ());
-
-  new_grobs->resize (old_grobs.size ());
-  Grob **array = (Grob **) new_grobs->data ();
-  Grob **ptr = array;
-  for (vsize i = 0; i < old_grobs.size (); i++)
-    {
-      Grob *orig = old_grobs[i];
-      Grob *new_grob = substitute_grob (orig);
-      if (new_grob)
-        *ptr++ = new_grob;
-    }
-
-  new_grobs->resize (ptr - array);
-  if (new_arr == grob_arr)
-    new_arr->set_array (*new_grobs);
-}
-
-/*
   We don't do
 
   forall b in broken-childs:
@@ -470,8 +442,8 @@ substitute_object_alist (SCM alist, SCM dest)
               : Grob_array::make_array ();
 
           Grob_array *new_arr = unsmob<Grob_array> (newval);
-
-          substitute_grob_array (orig, new_arr);
+          // TODO: What if new_arr is null?
+          new_arr->filter_map_assign (*orig, substitute_grob);
           val = newval;
         }
       else
@@ -516,7 +488,8 @@ Spanner::substitute_one_mutable_property (SCM sym,
                 newval = Grob_array::make_array ();
                 sc->set_object (sym, newval);
               }
-            substitute_grob_array (grob_array, unsmob<Grob_array> (newval));
+            Grob_array *new_arr = unsmob<Grob_array> (newval);
+            new_arr->filter_map_assign (*grob_array, substitute_grob);
           }
         else
           {

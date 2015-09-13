@@ -29,6 +29,6 @@ Voice context and overriding the @code{neutral-direction} of Stem.
     \Voice
     \consists "Melody_engraver"
     \autoBeamOff
-    \stemNeutral
+    \override Stem.neutral-direction = #'()
   }
 }

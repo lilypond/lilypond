@@ -39,18 +39,6 @@ Grob_array::Grob_array ()
   ordered_ = true;
 }
 
-vector<Grob *> &
-Grob_array::array_reference ()
-{
-  return grobs_;
-}
-
-vector<Grob *> const &
-Grob_array::array () const
-{
-  return grobs_;
-}
-
 SCM
 Grob_array::mark_smob () const
 {
@@ -82,12 +70,6 @@ Grob_array::make_array ()
 }
 
 void
-Grob_array::clear ()
-{
-  grobs_.clear ();
-}
-
-void
 Grob_array::remove_duplicates ()
 {
   assert (!ordered_);
@@ -95,16 +77,43 @@ Grob_array::remove_duplicates ()
   uniquify (grobs_);
 }
 
-bool
-Grob_array::empty () const
+void
+Grob_array::filter (bool (*predicate) (const Grob *))
 {
-  return grobs_.empty ();
+  vsize new_size = 0;
+  for (vsize i = 0; i < grobs_.size (); ++i)
+    if (predicate (grobs_[i]))
+      grobs_[new_size++] = grobs_[i];
+  grobs_.resize (new_size);
+  // could call grobs_.shrink_to_fit () with C++11
 }
 
 void
-Grob_array::set_array (vector<Grob *> const &src)
+Grob_array::filter_map (Grob * (*map_fun) (Grob *))
 {
-  grobs_ = src;
+  vsize new_size = 0;
+  for (vsize i = 0; i < grobs_.size (); ++i)
+    if (Grob *grob = map_fun (grobs_[i]))
+      grobs_[new_size++] = grob;
+  grobs_.resize (new_size);
+  // could call grobs_.shrink_to_fit () with C++11
+}
+
+void
+Grob_array::filter_map_assign (const Grob_array &src,
+                               Grob * (*map_fun) (Grob *))
+{
+  if (&src != this)
+    {
+      grobs_.resize (0);
+      grobs_.reserve (src.grobs_.size ());
+      for (vsize i = 0; i < src.grobs_.size (); i++)
+        if (Grob *grob = map_fun (src.grobs_[i]))
+          grobs_.push_back (grob);
+      // could call grobs_.shrink_to_fit () with C++11
+    }
+  else
+    filter_map (map_fun);
 }
 
 const char Grob_array::type_p_name_[] = "ly:grob-array?";

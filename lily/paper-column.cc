@@ -390,6 +390,11 @@ Paper_column::print (SCM p)
   return t.smobbed_copy ();
 }
 
+static bool grob_is_live (const Grob *g)
+{
+  return g && g->is_live ();
+}
+
 /*
   This is all too hairy. We use bounded-by-me to make sure that some
   columns are kept "alive". Unfortunately, when spanners are suicided,
@@ -404,21 +409,8 @@ Paper_column::before_line_breaking (SCM grob)
 {
   Grob *me = unsmob<Grob> (grob);
 
-  SCM bbm = me->get_object ("bounded-by-me");
-  Grob_array *ga = unsmob<Grob_array> (bbm);
-  if (!ga)
-    return SCM_UNSPECIFIED;
-
-  vector<Grob *> &array (ga->array_reference ());
-
-  for (vsize i = array.size (); i--;)
-    {
-      Grob *g = array[i];
-
-      if (!g || !g->is_live ())
-        /* UGH . potentially quadratic. */
-        array.erase (array.begin () + i);
-    }
+  if (Grob_array *ga = unsmob<Grob_array> (me->get_object ("bounded-by-me")))
+    ga->filter (grob_is_live);
 
   return SCM_UNSPECIFIED;
 }
