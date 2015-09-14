@@ -797,7 +797,7 @@ add_grobs_of_one_priority (Grob *me,
           last_end[dir] = x_extent[RIGHT];
 
           Skyline_pair *v_orig = unsmob<Skyline_pair> (elt->get_property ("vertical-skylines"));
-          if (v_orig->is_empty ())
+          if (!v_orig || v_orig->is_empty ())
             continue;
 
           // Find the riders associated with this grob, and merge their
