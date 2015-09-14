@@ -472,20 +472,42 @@ file with all pages (systems) including fonts.  Used as default by
 @code{-dno-print-pages}.
 
 @item
-@tab @code{svg}
-@tab Scalable Vector Graphics.  This creates a single SVG file,
-without embedded fonts, for every page of output.  It is recommended to
-install the Century Schoolbook fonts, included with your LilyPond
-installation, for optimal rendering.  Under UNIX, simply copy these
-fonts from the LilyPond directory (typically
-@file{/usr/share/lilypond/VERSION/fonts/otf/}) to @file{~/.fonts/}.
-There is also an option @code{svg-woff} (below) for use of woff font
-files in the SVG backend.
-
-@item
 @tab @code{scm}
 @tab Dump of the raw, internal Scheme-based drawing commands.
 
+@item
+@tab @code{svg}
+@tab Scalable Vector Graphics.
+This creates a single SVG file for every page of output.
+Font information is not embedded so the SVG viewer will require
+the fonts be available for optimal rendering.
+It is recommended that you do not use @q{font aliases}
+or @q{font lists} in case your SVG viewer is not able to handle them.
+Also see the @code{svg-woff} option.
+@end multitable
+
+@noindent
+@strong{Note for svg backend:}
+LilyPond's default fonts (@code{LilyPond Serif}, @code{LilyPond Sans Serif}
+and @code{LilyPond Monospace}) are just @emph{local} font aliases;
+so when using the @code{svg} backend command it is required that
+you explicitly set the default fonts;
+
+@quotation
+@verbatim
+\paper  {
+  #(define fonts
+    (make-pango-font-tree "TeX Gyre Schola"
+                          "TeX Gyre Heros"
+                          "TeX Gyre Cursor"
+                          (/ staff-height pt 20)))
+}
+@end verbatim
+@end quotation
+
+Also see @ruser{Entire document fonts}.
+
+@multitable @columnfractions .33 .16 .51
 @item @code{check-internal-types}
 @tab @code{#f}
 @tab Check every property assignment for types.
@@ -752,6 +774,11 @@ size increases in PDF files.
 @item @code{svg-woff}
 @tab @code{#f}
 @tab Use woff font files in SVG backend.
+By using the woff file properly,
+you do not have to install the fonts which are used by SVG files
+to SVG viewer environment.
+However, LilyPond does not contain woff font file for text.
+woff font file is required.
 
 @item @code{trace-memory-frequency}
 @tab @code{#f}
