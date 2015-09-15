@@ -252,7 +252,25 @@ Context::set_property_from_event (SCM sev)
       ok = type_check_assignment (sym, val, ly_symbol2scm ("translation-type?"));
 
       if (ok)
-        set_property (sym, val);
+        {
+          if (to_boolean (ev->get_property ("once")))
+            {
+              if (Global_context *g = get_global_context ())
+                {
+                  SCM old_val = SCM_UNDEFINED;
+                  if (here_defined (sym, &old_val))
+                    g->add_finalization (scm_list_4 (ly_context_set_property_x_proc,
+                                                     self_scm (),
+                                                     sym,
+                                                     old_val));
+                  else
+                    g->add_finalization (scm_list_3 (ly_context_unset_property_proc,
+                                                     self_scm (),
+                                                     sym));
+                }
+            }
+          set_property (sym, val);
+        }
     }
 }
 
@@ -262,8 +280,28 @@ Context::unset_property_from_event (SCM sev)
   Stream_event *ev = unsmob<Stream_event> (sev);
 
   SCM sym = ev->get_property ("symbol");
-  type_check_assignment (sym, SCM_EOL, ly_symbol2scm ("translation-type?"));
-  unset_property (sym);
+  bool ok = type_check_assignment (sym, SCM_EOL, ly_symbol2scm ("translation-type?"));
+
+  if (ok)
+    {
+      if (to_boolean (ev->get_property ("once")))
+        {
+          if (Global_context *g = get_global_context ())
+            {
+              SCM old_val = SCM_UNDEFINED;
+              if (here_defined (sym, &old_val))
+                g->add_finalization (scm_list_4 (ly_context_set_property_x_proc,
+                                                 self_scm (),
+                                                 sym,
+                                                 old_val));
+              else
+                g->add_finalization (scm_list_3 (ly_context_unset_property_proc,
+                                                 self_scm (),
+                                                 sym));
+            }
+        }
+      unset_property (sym);
+    }
 }
 
 /*

@@ -20,6 +20,7 @@
 #include "context.hh"
 #include "dispatcher.hh"
 #include "engraver-group.hh"
+#include "global-context.hh"
 #include "grob.hh"
 #include "grob-properties.hh"
 #include "paper-score.hh"
@@ -30,19 +31,48 @@ void
 Engraver_group::override (SCM sev)
 {
   Stream_event *ev = unsmob<Stream_event> (sev);
+  SCM sym = ev->get_property ("symbol");
+  Grob_property_info gpi (context (), sym);
 
-  Grob_property_info (context (), ev->get_property ("symbol"))
-    .push (ev->get_property ("property-path"),
-           ev->get_property ("value"));
+  if (to_boolean (ev->get_property ("once")))
+    {
+      SCM token = gpi.temporary_override (ev->get_property ("property-path"),
+                                          ev->get_property ("value"));
+      if (scm_is_pair (token))
+        if (Global_context *g = context ()->get_global_context ())
+          {
+            g->add_finalization (scm_list_4 (ly_context_matched_pop_property_proc,
+                                             context ()->self_scm (),
+                                             sym,
+                                             token));
+          }
+    }
+  else
+    gpi.push (ev->get_property ("property-path"),
+              ev->get_property ("value"));
 }
 
 void
 Engraver_group::revert (SCM sev)
 {
   Stream_event *ev = unsmob<Stream_event> (sev);
+  SCM sym = ev->get_property ("symbol");
+  Grob_property_info gpi (context (), sym);
 
-  Grob_property_info (context (), ev->get_property ("symbol"))
-    .pop (ev->get_property ("property-path"));
+  if (to_boolean (ev->get_property ("once")))
+    {
+      SCM token = gpi.temporary_revert (ev->get_property ("property-path"));
+      if (scm_is_pair (token))
+        if (Global_context *g = context ()->get_global_context ())
+          {
+            g->add_finalization (scm_list_4 (ly_context_matched_pop_property_proc,
+                                             context ()->self_scm (),
+                                             sym,
+                                             token));
+          }
+    }
+  else
+    gpi.pop (ev->get_property ("property-path"));
 }
 
 void

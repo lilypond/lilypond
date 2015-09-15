@@ -199,5 +199,8 @@ SCM assq_tail (SCM key, SCM alist, SCM alist_end);
 SCM assoc_tail (SCM key, SCM alist, SCM alist_end);
 SCM evict_from_alist (SCM, SCM, SCM);
 SCM nalist_to_alist (SCM nalist, int nested);
+extern SCM ly_context_set_property_x_proc;
+extern SCM ly_context_unset_property_proc;
+extern SCM ly_context_matched_pop_property_proc;
 
 #endif /* CONTEXT_HH */

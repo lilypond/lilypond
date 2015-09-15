@@ -35,25 +35,11 @@ Property_iterator::process (Moment mom)
 {
   Context *o = get_outlet ();
   Music *m = get_music ();
-  bool once = to_boolean (m->get_property ("once"));
-  SCM symbol = m->get_property ("symbol");
-  SCM previous_value = SCM_UNDEFINED;
-  if (once)
-    o->here_defined (symbol, &previous_value);
 
   send_stream_event (o, "SetProperty", m->origin (),
-                     ly_symbol2scm ("symbol"), symbol,
-                     ly_symbol2scm ("value"), m->get_property ("value"));
-
-  /* For \once \set install a finalization hook to reset the property to the
-   * previous value after the timestep */
-  if (once)
-    {
-      Global_context *tg = get_outlet ()->get_global_context ();
-      tg->add_finalization (scm_list_4 (once_finalization_proc,
-                                        o->self_scm (), m->self_scm (),
-                                        previous_value));
-    }
+                     ly_symbol2scm ("symbol"), m->get_property ("symbol"),
+                     ly_symbol2scm ("value"), m->get_property ("value"),
+                     ly_symbol2scm ("once"), m->get_property ("once"));
 
   Simple_music_iterator::process (mom);
 }
@@ -63,47 +49,12 @@ Property_unset_iterator::process (Moment mom)
 {
   Context *o = get_outlet ();
   Music *m = get_music ();
-  bool once = to_boolean (m->get_property ("once"));
-  SCM symbol = m->get_property ("symbol");
-  SCM previous_value = SCM_UNDEFINED;
-  if (once)
-    o->here_defined (symbol, &previous_value);
 
   send_stream_event (o, "UnsetProperty", m->origin (),
-                     ly_symbol2scm ("symbol"), symbol);
-
-  /* For \once \unset install a finalization hook to reset the property to the
-   * previous value after the timestep */
-  if (once && !SCM_UNBNDP (previous_value))
-    {
-      Global_context *tg = get_outlet ()->get_global_context ();
-      tg->add_finalization (scm_list_4 (Property_iterator::once_finalization_proc,
-                                        o->self_scm (), m->self_scm (),
-                                        previous_value));
-    }
+                     ly_symbol2scm ("symbol"), m->get_property ("symbol"),
+                     ly_symbol2scm ("once"), m->get_property ("once"));
 
   Simple_music_iterator::process (mom);
-}
-
-MAKE_SCHEME_CALLBACK (Property_iterator, once_finalization, 3);
-SCM
-Property_iterator::once_finalization (SCM ctx, SCM music, SCM previous_value)
-{
-  Music *m = unsmob<Music> (music);
-  Context *c = unsmob<Context> (ctx);
-
-  // Do not use UnsetProperty, which sets the default, but rather
-  // cache the value before the \once \set command and restore it now
-  send_stream_event (c, "SetProperty", m->origin (),
-                     ly_symbol2scm ("symbol"), m->get_property ("symbol"),
-                     ly_symbol2scm ("value"), previous_value);
-
-  return SCM_UNSPECIFIED;
-}
-
-void
-Property_iterator::do_quit ()
-{
 }
 
 bool
@@ -140,9 +91,10 @@ Push_property_iterator::process (Moment m)
     {
       SCM grob_property_path = get_property_path (get_music ());
       SCM val = get_music ()->get_property ("grob-value");
+      SCM once = get_music ()->get_property ("once");
 
       if (to_boolean (get_music ()->get_property ("pop-first"))
-          && !to_boolean (get_music ()->get_property ("once")))
+          && !to_boolean (once))
         send_stream_event (get_outlet (), "Revert", get_music ()->origin (),
                            ly_symbol2scm ("symbol"), sym,
                            ly_symbol2scm ("property-path"), grob_property_path);
@@ -150,58 +102,28 @@ Push_property_iterator::process (Moment m)
       send_stream_event (get_outlet (), "Override", get_music ()->origin (),
                          ly_symbol2scm ("symbol"), sym,
                          ly_symbol2scm ("property-path"), grob_property_path,
+                         ly_symbol2scm ("once"), once,
                          ly_symbol2scm ("value"), val);
     }
   Simple_music_iterator::process (m);
 }
 
-MAKE_SCHEME_CALLBACK (Push_property_iterator, once_finalization, 2);
-SCM
-Push_property_iterator::once_finalization (SCM ctx, SCM music)
+void
+Pop_property_iterator::process (Moment mom)
 {
-  Music *mus = unsmob<Music> (music);
-  Context *c = unsmob<Context> (ctx);
+  Music *m = get_music ();
+  SCM sym = m->get_property ("symbol");
 
-  SCM sym = mus->get_property ("symbol");
-  if (check_grob (mus, sym))
+  if (check_grob (m, sym))
     {
-      SCM grob_property_path = get_property_path (mus);
+      SCM grob_property_path = get_property_path (m);
 
-      send_stream_event (c, "Revert", mus->origin (),
+      send_stream_event (get_outlet (), "Revert", m->origin (),
                          ly_symbol2scm ("symbol"), sym,
+                         ly_symbol2scm ("once"), m->get_property ("once"),
                          ly_symbol2scm ("property-path"), grob_property_path);
     }
-  return SCM_UNSPECIFIED;
-}
-
-void
-Push_property_iterator::do_quit ()
-{
-  if (to_boolean (get_music ()->get_property ("once")))
-    {
-      SCM trans = get_outlet ()->self_scm ();
-      SCM music = get_music ()->self_scm ();
-
-      Global_context *tg = get_outlet ()->get_global_context ();
-      tg->add_finalization (scm_list_3 (once_finalization_proc,
-                                        trans, music));
-    }
-}
-
-void
-Pop_property_iterator::process (Moment m)
-{
-  SCM sym = get_music ()->get_property ("symbol");
-
-  if (check_grob (get_music (), sym))
-    {
-      SCM grob_property_path = get_property_path (get_music ());
-
-      send_stream_event (get_outlet (), "Revert", get_music ()->origin (),
-                         ly_symbol2scm ("symbol"), sym,
-                         ly_symbol2scm ("property-path"), grob_property_path);
-    }
-  Simple_music_iterator::process (m);
+  Simple_music_iterator::process (mom);
 }
 
 IMPLEMENT_CTOR_CALLBACK (Pop_property_iterator);
