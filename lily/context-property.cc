@@ -82,7 +82,11 @@ private:
   // cooked_from_ is the value of alist_ from which the expansion has
   // been done
   SCM cooked_from_;
-  // nested_ is a count of nested overrides in alist_
+  // nested_ is a count of nested overrides in alist_ Or rather: of
+  // entries that must not appear in the cooked list and are
+  // identified by having a "key" that is not a symbol.  Temporary
+  // overrides and reverts also meet that description and have a
+  // nominal key of #t/#f and a value of the original cons cell.
   int nested_;
 
   Grob_properties (SCM alist, SCM based_on) :
@@ -247,7 +251,7 @@ Grob_property_info::matched_pop (SCM cell)
     {
       if (scm_is_eq (scm_car (p), cell))
         {
-          if (scm_is_pair (scm_car (cell)))
+          if (!scm_is_symbol (key))
             props_->nested_--;
           props_->alist_ = partial_list_copy (current_alist, p, scm_cdr (p));
           return;
