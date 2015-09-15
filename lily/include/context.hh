@@ -195,6 +195,8 @@ void set_context_property_on_children (Context *trans, SCM sym, SCM val);
 SCM nested_property_alist (SCM alist, SCM prop_path, SCM value);
 SCM nested_create_alist (SCM prop_path, SCM value);
 SCM partial_list_copy (SCM alist, SCM tail, SCM newtail);
+SCM assq_tail (SCM key, SCM alist, SCM alist_end);
+SCM assoc_tail (SCM key, SCM alist, SCM alist_end);
 SCM evict_from_alist (SCM, SCM, SCM);
 SCM nalist_to_alist (SCM nalist, int nested);
 
