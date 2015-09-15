@@ -1,7 +1,7 @@
 \header {
   texidoc = "This file demonstrates how to load different (postscript)
 fonts.  The file @file{font.scm} shows how to define the scheme-function
-@code{make-century-schoolbook-tree}."
+@code{make-default-fonts-tree}."
 }
 
 \version "2.16.0"
@@ -12,7 +12,7 @@ fonts.  The file @file{font.scm} shows how to define the scheme-function
       (baseline-skip . 2)
       (word-space . 0.6)))
 
-  #(set! fonts (make-century-schoolbook-tree 1.0))
+  #(set! fonts (make-default-fonts-tree 1.0))
 }
 
 \layout {
