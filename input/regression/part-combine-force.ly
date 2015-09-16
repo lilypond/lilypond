@@ -1,14 +1,14 @@
 
 \header {
   texidoc ="Overrides for the part-combiner. All functions like
-  @code{\\partcombineApart} and @code{\\partcombineApartOnce} are
+  @code{\\partcombineApart} and @code{\\once \partcombineApart} are
   internally implemented using a dedicated @code{partCombineForced}
   context property."
 }
 
 \layout { ragged-right = ##t }
 
-\version "2.19.21"
+\version "2.19.29"
 
 mI = \relative {
 	e'4 e c2 |

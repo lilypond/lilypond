@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.29"
 
 @c Translators: Till Paala
 
@@ -1050,28 +1050,28 @@ Note eines musikalischen Ausdrucks.
 
 @itemize
 @item
-@code{\partcombineApart} und @code{\partcombineApartOnce}
+@code{\partcombineApart} und @code{\once \partcombineApart}
 erhalten die Noten als zwei unterschiedliche Stimmen, auch wenn sie als Akkord
 oder Unisono kombiniert werden könnten.
 
 @item
-@code{\partcombineChords} und @code{\partcombineChordsOnce}
+@code{\partcombineChords} und @code{\once \partcombineChords}
 kombinieren die Noten als Akkord.
 
 @item
-@code{\partcombineUnisono} und @code{\partcombineUnisonoOnce}
+@code{\partcombineUnisono} und @code{\once \partcombineUnisono}
 kombinieren beide Stimmen als Unisono.
 
 @item
-@code{\partcombineSoloI} und @code{\partcombineSoloIOnce}
+@code{\partcombineSoloI} und @code{\once \partcombineSoloI}
 setzen nur Stimme eins und markieren sie als @qq{Solo}.
 
 @item
-@code{\partcombineSoloII} und @code{\partcombineSoloIIOnce}
+@code{\partcombineSoloII} und @code{\once \partcombineSoloII}
 setzen nur Stimme zwei und markieren sie als @qq{Solo}.
 
 @item
-@code{\partcombineAutomatic} und @code{\partcombineAutomaticOnce}
+@code{\partcombineAutomatic} und @code{\once \partcombineAutomatic}
 beenden die Wirkung der Befehle oben und stellt das
 normale Verhalten des Kombinationsmechanismus wieder her.
 
@@ -1083,7 +1083,7 @@ instrumentOne = \relative c' {
   \partcombineAutomatic e2^"auto" e |
   \partcombineChords e'2^"chord" e |
   \partcombineAutomatic c2^"auto" c |
-  \partcombineApart c2^"apart" \partcombineChordsOnce e^"chord once" |
+  \partcombineApart c2^"apart" \once \partcombineChords e^"chord once" |
   c2 c |
 }
 instrumentTwo = \relative {

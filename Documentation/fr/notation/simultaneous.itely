@@ -7,7 +7,7 @@
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.29"
 
 @c Translators: Frédéric Chiasson, Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
@@ -1082,28 +1082,28 @@ note qui les suit directement dans l'expression musicale.
 
 @itemize
 @item
-@code{\partcombineApart} et @code{\partcombineApartOnce} maintiennent
+@code{\partcombineApart} et @code{\once \partcombineApart} maintiennent
 les notes dans des voix séparées même si elles peuvent se combiner en
 accord ou en unisson.
 
 @item
-@code{\partcombineChords} et @code{\partcombineChordsOnce} combinent les
+@code{\partcombineChords} et @code{\once \partcombineChords} combinent les
 notes en accords.
 
 @item
-@code{\partcombineUnisono} et @code{\partcombineUnisonoOnce} combinent
+@code{\partcombineUnisono} et @code{\once \partcombineUnisono} combinent
 les voix en un « unisson ».
 
 @item
-@code{\partcombineSoloI} et @code{\partcombineSoloIOnce} affichent
+@code{\partcombineSoloI} et @code{\once \partcombineSoloI} affichent
 exclusivement la première voix et l'affublent d'un « Solo ».
 
 @item
-@code{\partcombineSoloII} et @code{\partcombineSoloIIOnce} affichent
+@code{\partcombineSoloII} et @code{\once \partcombineSoloII} affichent
 exclusivement la deuxième voix et l'affublent d'un « Solo ».
 
 @item
-@code{\partcombineAutomatic} et @code{\partcombineAutomaticOnce}
+@code{\partcombineAutomatic} et @code{\once \partcombineAutomatic}
 annulent les effets des dérogations précédentes et activent le
 comportement standard de la fonction @code{\partcombine}.
 @end itemize
@@ -1114,7 +1114,7 @@ instrumentOne = \relative c' {
   \partcombineAutomatic e2^"auto" e |
   \partcombineChords e'2^"chord" e |
   \partcombineAutomatic c2^"auto" c |
-  \partcombineApart c2^"apart" \partcombineChordsOnce e^"chord once" |
+  \partcombineApart c2^"apart" \once \partcombineChords e^"chord once" |
   c2 c |
 }
 instrumentTwo = \relative {

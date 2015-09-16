@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.29"
 
 
 @c Translators: Yoshiki Sawada
@@ -1032,28 +1032,28 @@ instrumentTwo = \relative {
 
 @itemize
 @item
-@code{\partcombineApart} と @code{\partcombineApartOnce} は@c
+@code{\partcombineApart} と @code{\once \partcombineApart} は@c
 音符を 2 つの別個のボイスとして譜刻します
 -- たとえ和音やユニゾンにできる場合であっても分けて譜刻します。
 
 @item
-@code{\partcombineChords} と @code{\partcombineChordsOnce} は@c
+@code{\partcombineChords} と @code{\once \partcombineChords} は@c
 音符を組み合わせて、和音として譜刻します。
 
 @item
-@code{\partcombineUnisono} と @code{\partcombineUnisonoOnce} は@c
+@code{\partcombineUnisono} と @code{\once \partcombineUnisono} は@c
 音符を組み合わせて、@qq{ユニゾン} として譜刻します。
 
 @item
-@code{\partcombineSoloI} と @code{\partcombineSoloIOnce} は@c
+@code{\partcombineSoloI} と @code{\once \partcombineSoloI} は@c
 ボイス 1 だけを譜刻して、@qq{Solo} のマークを付けます。
 
 @item
-@code{\partcombineSoloII} と @code{\partcombineSoloIIOnce} は@c
+@code{\partcombineSoloII} と @code{\once \partcombineSoloII} は@c
 ボイス 2 だけを譜刻して、@qq{Solo} のマークを付けます。
 
 @item
-@code{\partcombineAutomatic} と @code{\partcombineAutomaticOnce}は@c
+@code{\partcombineAutomatic} と @code{\once \partcombineAutomatic}は@c
 上記のコマンドの効果を終わらせ、標準の @code{\partcombine} に戻します。
 @end itemize
 
@@ -1063,7 +1063,7 @@ instrumentOne = \relative c' {
   \partcombineAutomatic e2^"auto" e |
   \partcombineChords e'2^"chord" e |
   \partcombineAutomatic c2^"auto" c |
-  \partcombineApart c2^"apart" \partcombineChordsOnce e^"chord once" |
+  \partcombineApart c2^"apart" \once \partcombineChords e^"chord once" |
   c2 c |
 }
 instrumentTwo = \relative {

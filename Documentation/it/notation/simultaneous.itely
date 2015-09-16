@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.29"
 
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
@@ -1012,28 +1012,28 @@ nota successiva dell'espressione musicale.
 
 @itemize
 @item
-@code{\partcombineApart} e @code{\partcombineApartOnce} mantengono le
+@code{\partcombineApart} e @code{\once \partcombineApart} mantengono le
 note su due voci distinte, anche se potrebbero essere combinate in un
 accordo o in un unisono.
 
 @item
-@code{\partcombineChords} e @code{\partcombineChordsOnce} uniscono le
+@code{\partcombineChords} e @code{\once \partcombineChords} uniscono le
 note in un accordo.
 
 @item
-@code{\partcombineUnisono} e @code{\partcombineUnisonoOnce} uniscono
+@code{\partcombineUnisono} e @code{\once \partcombineUnisono} uniscono
 entrambe le voci come @qq{unisono}.
 
 @item
-@code{\partcombineSoloI} e @code{\partcombineSoloIOnce} stampano soltanto
+@code{\partcombineSoloI} e @code{\once \partcombineSoloI} stampano soltanto
 la prima voce e la contrassegnano come un @qq{Solo}.
 
 @item
-@code{\partcombineSoloII} o @code{\partcombineSoloIIOnce} stampano soltanto
+@code{\partcombineSoloII} o @code{\once \partcombineSoloII} stampano soltanto
 la seconda voce e la contrassegnano come un @qq{Solo}.
 
 @item
-@code{\partcombineAutomatic} e @code{\partcombineAutomaticOnce} terminano
+@code{\partcombineAutomatic} e @code{\once \partcombineAutomatic} terminano
 le funzioni dei comandi precedenti e ripristinano il funzionamento
 predefinito di @code{\partcombine}.
 @end itemize
@@ -1044,7 +1044,7 @@ instrumentOne = \relative c' {
   \partcombineAutomatic e2^"automatico" e |
   \partcombineChords e'2^"accordo" e |
   \partcombineAutomatic c2^"automatico" c |
-  \partcombineApart c2^"separato" \partcombineChordsOnce e^"accordo una volta sola" |
+  \partcombineApart c2^"separato" \once \partcombineChords e^"accordo una volta sola" |
   c2 c |
 }
 instrumentTwo = \relative {
