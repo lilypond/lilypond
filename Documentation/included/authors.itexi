@@ -57,9 +57,6 @@ Bug meister
 @uref{http://www.philholmes.net}
 Build unentangler, Bug squad member
 
-@item Ian Hulin:
-Core developer
-
 @item David Kastrup:
 @email{dak@@gnu.org},
 hard core developer, user and programming interfaces, bug squashing and
@@ -68,9 +65,6 @@ swamp drainage.
 @item Werner Lemberg,
 @email{wl@@gnu.org},
 Fonts, bug squasher
-
-@item Joe Neeman:
-Core developer
 
 @item Han-Wen Nienhuys:
 @email{hanwen@@xs4all.nl},
@@ -85,10 +79,6 @@ Main author
 
 @item Mark Polesky:
 Documentation, Code cleanup
-
-@item Mike Solomon:
-@email{mike@@mikesolomon.org},
-Core developer, Frog meister
 
 @item Carl Sorensen:
 @email{c_sorensen@@byu.edu},
@@ -121,6 +111,9 @@ Support guru
 @email{bordage.bertrand@@gmail.com},
 Core developer, font designer
 
+@item Ian Hulin:
+Core developer
+
 @item Reinhold Kainhofer:
 @email{reinhold@@kainhofer.com},
 @uref{http://reinhold.kainhofer.com},
@@ -131,6 +124,9 @@ Build meister
 
 @item Jonathan Kulp:
 Assistant documentation editor
+
+@item Joe Neeman:
+Core developer
 
 @item John Mandereau:
 @email{john.mandereau@@free.fr},
@@ -151,6 +147,10 @@ Core developer
 @uref{http://www.juergen-reuter.de},
 Ancient notation
 
+@item Mike Solomon:
+@email{mike@@mikesolomon.org},
+Core developer, Frog meister
+
 @item Erik Sandberg:
 Bug meister
 
@@ -170,20 +170,18 @@ LSR editor and Bug squad member
 
 @c use commas not colons
 
+Federico Bruni,
 Dan Eble,
-Rutger Hofmann,
 Marc Hohl,
-Felix Janda,
-Thomas Klausner,
+Masamichi Hosoda,
 James Lowe,
-Andrew Main,
 Thomas Morley,
+Paul Morris,
 David Nalesnik,
 Keith OHara,
 Benkő Pál,
 Julien Rioux,
 Devon Schudy,
-Adam Spiers,
 Heikki Tauriainen
 
 @c no comma for last entry
@@ -196,7 +194,9 @@ Heikki Tauriainen
 
 @c use commas not colons
 
+Masamichi Hosoda,
 Abraham Lee
+
 
 @c no comma for last entry
 
@@ -227,11 +227,10 @@ Martin Tarenskeen
 
 @c use commas not colons
 
+Simon Albrecht,
 Federico Bruni,
 Colin Campbell,
-Eluze,
 Phil Holmes,
-Marek Klein,
 Ralph Palmer
 
 @c no comma for last entry
@@ -247,11 +246,13 @@ Simon Albrecht,
 Colin Campbell,
 Eluze,
 Marc Hohl,
+Phil Holmes,
 Marek Klein,
 Alex Loomis,
 Kieren MacMillan,
+Thomas Morley,
 Tim McNamara,
-Paul Morris
+Paul Morris,
 David Nalesnik,
 Urs Liska,
 Ralph Palmer,
@@ -313,18 +314,22 @@ Yuval Harel,
 Andrew Hawryluk,
 Christian Hitz,
 Karin Hoethker,
+Rutger Hofmann,
 Marc Hohl,
 Bernard Hurley,
 Yoshinobu Ishizaki,
 Chris Jackson,
+Felix Janda,
 David Jedlinsky,
 Heikki Junes,
 Michael Käppler,
+Thomas Klausner,
 Marek Klein,
 Michael Krause,
 Jean-Baptiste Lamy,
 Jonatan Liljedahl,
 Peter Lutek,
+Andrew Main,
 Kieren MacMillan,
 Hendrik Maryns,
 Thomas Morgan,
@@ -376,6 +381,7 @@ Tom Cato Amundsen,
 Marc Hohl,
 Chris Jackson,
 Alexander Kobel,
+Abraham Lee,
 Keith OHara,
 Carsten Steger,
 Arno Waschk,
