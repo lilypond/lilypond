@@ -68,7 +68,7 @@ Repeat_tie_engraver::acknowledge_note_head (Grob_info inf)
 
   if (!semi_tie_column_)
     {
-      semi_tie_column_ = make_item ("RepeatTieColumn", event_->self_scm ());
+      semi_tie_column_ = make_item ("RepeatTieColumn", SCM_EOL);
     }
 
   SCM cause = event_->self_scm ();
