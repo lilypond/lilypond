@@ -32,6 +32,7 @@ Entry point for the parser."
          (inversion #f)
          (lead-mod #f)
          (explicit-11 #f)
+         (explicit-2/4 #f)
          (start-additions #t))
 
     (define (interpret-inversion chord mods)
@@ -66,8 +67,9 @@ Entry point for the parser."
       "Interpret additions.  TODO: should restrict modifier use?"
       (cond ((null? mods) chord)
             ((ly:pitch? (car mods))
-             (if (= (pitch-step (car mods)) 11)
-                 (set! explicit-11 #t))
+             (case (pitch-step (car mods))
+               ((11) (set! explicit-11 #t))
+               ((2 4) (set! explicit-2/4 #t)))
              (interpret-additions (cons (car mods) (remove-step (pitch-step (car mods)) chord))
                                   (cdr mods)))
             ((procedure? (car mods))
@@ -141,6 +143,10 @@ the bass specified.
           (if start-additions
               (interpret-additions base-chord flat-mods)
               (interpret-removals base-chord flat-mods)))
+    ;; if sus has been given neither 2 or 4, we add 4.
+    (if (and (eq? lead-mod sus-modifier)
+             (not explicit-2/4))
+        (set! complete-chord (cons (ly:make-pitch 0 4 0) complete-chord)))
     (set! complete-chord (sort complete-chord ly:pitch<?))
     ;; If natural 11 + natural 3 is present, but not given explicitly,
     ;; we remove the 11.
