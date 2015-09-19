@@ -910,7 +910,7 @@ Musikglossar:
 Handbuch zum Lernen:
 @rlearning{Mehrere Noten auf einmal},
 @rlearning{Voice enthält Noten},
-@rlearning{Beispiele aus dem Leben}.
+@rlearning{Beispiel aus dem Leben}.
 
 Schnipsel:
 @rlsr{Simultaneous notes}.
@@ -1045,7 +1045,7 @@ oder eine Stimme als Solo anzuzeigen ist darum nicht ideal, weil die
 Grund kann die @code{\partcombine}-Funktion mit folgenden Befehlen verändert
 werden:
 
-Befehle, die auf @code{@dots Once} enden, gelten nur für die nächste
+Befehle, die auf @code{@dots{} Once} enden, gelten nur für die nächste
 Note eines musikalischen Ausdrucks.
 
 @itemize
@@ -1277,7 +1277,7 @@ global = {
 
 @seealso
 Handbuch zum Lernen:
-@rlearning{Stücke durch Bezeichner organisieren}.
+@rlearning{Stücke durch Variablen organisieren}.
 
 Schnipsel:
 @rlsr{Simultaneous notes}.

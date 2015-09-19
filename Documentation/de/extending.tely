@@ -46,7 +46,7 @@ Copyright @copyright{} 2003--2015 bei den Autoren.
 @ifnottex
 
 @menu
-* Scheme-Übung::                Programmieren innerhalb von LilyPond.
+* Scheme-Tutorium::                Programmieren innerhalb von LilyPond.
 * Schnittstellen für Programmierer::     Wie man mit Scheme kommunizieren kann.
 * LilyPond Scheme-Schnittstellen::     Information in die Noten senden und aus den Noten erhalten.
 

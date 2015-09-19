@@ -388,7 +388,7 @@ die globalen Einstellungen für das ganze @qq{Buch}.  Wenn mehr
 als eine derartige Definition desselben Typs auf oberster Ebene
 angegeben wird, hat die spätere Vorrang.  Für Einzelheiten, wie dadurch
 die @code{\layout}-Umgebung beeinflusst wird, siehe
-@ref{Die \layout-Umgebung}.
+@ref{Die layout-Umgebung}.
 
 @item
 Ein direkter Scheme-Ausdruck, wie etwa
@@ -555,7 +555,7 @@ Handbuch zum Lernen:
 @rlearning{Wie eine LilyPond-Eingabe-Datei funktioniert}.
 
 Notationsreferenz:
-@ref{The \layout block}.
+@ref{Die layout-Umgebung}.
 
 
 @node Titel
@@ -1857,7 +1857,7 @@ ohne dass man Änderungen an den Noten vornehmen muss.
 
 Wenn Notenabschnitt in Variablen definiert werden, können sie
 an unterschiedlichen Stellen in der Partitur eingesetzt werden,
-siehe auch @rlearning{Stücke durch Bezeichner organisieren}.  Zum
+siehe auch @rlearning{Stücke durch Variablen organisieren}.  Zum
 Beispiel enthält eine Vokalpartitur für ein @notation{a cappella}
 Stück oft einen Klavierauszug, der das Einüben einfacher macht.
 Der Klavierauszug enthält die gleichen Noten, sodass man sie nur
@@ -2092,7 +2092,7 @@ das ursprüngliche @code{\test} seine Bedeutung behält.
 
 @seealso
 Handbuch zum Lernen:
-@rlearning{Stücke durch Bezeichner organisieren}.
+@rlearning{Stücke durch Variablen organisieren}.
 
 Notationsreferenz:
 @ref{Automatische Kombination von Stimmen},
@@ -2131,13 +2131,13 @@ Partitur unterschiedliche Editionen zu erstellen bzw. Standardeinstellungen
 für eine ganze Anzahl von Partituren wiederzuverwenden, indem man einfach
 die entsprechende Einstellungsdatei angibt.
 
-Diese Technik funktioniert auch gut für globale Formatierungen, wie behandelt
-in @rlearning{Globale Formatierung}.
+Diese Technik funktioniert auch gut für Formatvorlagen, wie
+in @rlearning{Formatvorlagen} behandelt.
 
 @seealso
 Handbuch zum Lernen:
-@rlearning{Stücke durch Bezeichner organisieren},
-@rlearning{Globale Formatierung}.
+@rlearning{Stücke durch Variablen organisieren},
+@rlearning{Formatvorlagen}.
 
 Notationsreferenz:
 @ref{LilyPond-Dateien einfügen}.
@@ -2466,7 +2466,7 @@ Das Standardausgabeformat für gedruckte Partituren ist PDF (Portable
 Document Forma) und PS (PostScript).  SVG (Scalable Vector
 Graphics), EPS (Encapsulated PostScript) und PNG (Portable
 Network Graphics) gibt es auch als Ausgabeformate über die
-Kommandozeile.  Siehe @rprogram{Optionen auf der Kommandozeile für lilypond}.
+Kommandozeile.  Siehe @rprogram{Grundlegende Optionen auf der Kommandozeile für LilyPond}.
 
 
 @node Die Notationsschriftart verändern

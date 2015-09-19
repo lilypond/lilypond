@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: e5a609e373eae846857f9a6d70a402a3d42b7d94
+    Translation of GIT committish: 8819d7cb0ba2ab359e4aa2276695afb9c1957c42
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -11,11 +11,11 @@
 @include included/generating-output.itexi
 
 @c \version "2.19.21"
-@c Translators: Till Paala, Reinhold Kainhofer
+@c Translators: Till Paala, Reinhold Kainhofer, Michael Gerdau
 @c Translation checkers: Hajo Bäß
 
-@node Übung
-@chapter Übung
+@node Tutorium
+@chapter Tutorium
 @translationof Tutorial
 
 Dieses Kapitel stellt dem Leser das grundlegende Arbeiten mit LilyPond
@@ -23,14 +23,13 @@ vor.
 
 @menu
 * Eine Quelldatei übersetzen::
-* Arbeiten an Eingabe-Dateien::
-* Mit Fehlern umgehen::
-* Wie die Handbücher gelesen werden sollen::
+* Wie werden Eingabe-Dateien geschrieben::
+* Fehlerbehandlung::
+* Wie die Handbücher gelesen werden sollten::
 @end menu
 
-
 @node Eine Quelldatei übersetzen
-@subsection Eine Quelldatei übersetzen
+@section Eine Quelldatei übersetzen
 @translationof Compiling a file
 
 Dieser Abschnitt führt in die @qq{Kompilation} ein -- den
@@ -57,8 +56,12 @@ haben) um eine Ausgabedatei zu erstellen.
 @cindex Großbuchstaben
 @cindex Kleinbuchstaben
 
+@menu
+* Ausgabe erzeugen::
+@end menu
+
 @qq{Kompilation} ist der Begriff, der benutzt wird, um eine
-Lilypond-Eingabedatei mit dem Programm LilyPond in eine
+LilyPond-Eingabedatei mit dem Programm LilyPond in eine
 Notenausgabe umzuwandeln.  Ausgabedateien sind in erster Linie
 PDF-Dateien (zum Anschauen und Drucken), MIDI (zum Abspielen)
 und PNG (für die Benutzung auf Internetseiten).  Die Eingabedateien
@@ -93,7 +96,7 @@ weggelassen werden. Es kann sein, dass in diesem Handbuch
 die Klammern in manchen Beispielen fehlen, aber man sollte
 immer daran denken, sie in den eigenen Dateien zu benutzen!
 Mehr Informationen zu der Darstellung der Beispiele in diesem
-Handbuch gibt der Abschnitt @ref{Wie die Handbücher gelesen werden sollen}.}
+Handbuch gibt der Abschnitt @ref{Wie die Handbücher gelesen werden sollten}.}
 
 Zusätzlich unterscheidet LilyPond @strong{Groß- und Kleinschreibung}.
 @w{@samp{ @{ c d e @}}} ist zulässiger Code,
@@ -101,7 +104,9 @@ Zusätzlich unterscheidet LilyPond @strong{Groß- und Kleinschreibung}.
 
 @smallspace
 
-@subheading Ansicht des Ergebnisses
+@node Ausgabe erzeugen
+@unnumberedsubsubsec Ausgabe erzeugen
+@translationof Producing output
 
 @cindex PDF-Datei
 @cindex Noten anzeigen
@@ -146,9 +151,6 @@ die auf dem System zur Verfügung stehen, untersucht. Aber nach
 diesem ersten Mal läuft LilyPond sehr viel schneller.}
 
 
-
-
-
 @node MacOS X
 @subsection MacOS X
 @translationof MacOS X
@@ -177,7 +179,6 @@ diesem ersten Mal läuft LilyPond sehr viel schneller.}
 @lilypadCommandLine
 
 
-
 @node Wie werden Eingabe-Dateien geschrieben
 @section Wie werden Eingabe-Dateien geschrieben
 @translationof How to write input files
@@ -191,13 +192,22 @@ bei den ersten Anfängen, eine LilyPond-Eingabedatei zu schreiben.
 @end menu
 
 
-
 @node Einfache Notation
 @subsection Einfache Notation
 @translationof Simple notation
 
 @cindex einfache Notation
 @cindex Notation, einfach
+
+@menu
+* Tonhöhen::
+* Tondauern (Rhythmen)::
+* Pausen::
+* Taktartangabe::
+* Tempobezeichnung::
+* Notenschlüssel::
+* Alles zusammen::
+@end menu
 
 LilyPond fügt einige Bestandteile des Notenbildes automatisch hinzu. Im
 nächsten Beispiel sind nur vier Tonhöhen angegeben, aber LilyPond setzt
@@ -213,7 +223,10 @@ trotzdem einen Schlüssel, eine Taktangabe und Notendauern.
 Diese Einstellungen können verändert werden, aber in den meisten Fällen
 sind die automatischen Werte durchaus brauchbar.
 
-@subheading Tonhöhen
+
+@node Tonhöhen
+@unnumberedsubsubsec Tonhöhen
+@translationof Pitches
 
 @cindex Tonhöhen
 @cindex relativer Modus
@@ -232,16 +245,28 @@ Glossar: @rglos{pitch}, @rglos{interval},
 @rglos{scale}, @rglos{middle C}, @rglos{octave},
 @rglos{accidental}.
 
+In LilyPond werden Tonhöhen generell mit Kleinbuchstaben eingegeben.
+Die Buchstaben @code{c} bis@tie{}@code{b} bezeichnen Tonhöhen in der
+@q{Oktave} unterhalb des @notation{mittleren C}.  Das Anhängen von
+@code{'} oder@tie{}@code{,} an die Noten markieren eine höhere oder
+niedrigere Oktave.
+Hier ist eine Tonleiter, beginnend auf dem @notation{mittleren C},
+gefolgt von einem Arpeggio:
+
+@lilypond[verbatim,quote]
+{ c' d' e' f' g' a' b' c'' g c' e' g' c'' e'' g'' c''' }
+@end lilypond
+
 @c Addition for German users about pitch naming conventions
-Die Tonhöhen werden mit Kleinbuchstaben eingegeben, die den Notennamen
-entsprechen. Es ist jedoch wichtig zu wissen, dass LilyPond in seiner
-Standardeinstellung die englischen Notennamen verwendet. Bis auf eine
-Ausnahme entsprechen sie den deutschen, deshalb wird die Voreinstellung
-von LilyPond für diese Übung beibehalten. Die @emph{Ausnahme} ist das h -- in
-LilyPond muss man anstelle dessen b schreiben! Das deutsche b dagegen
-wird als bes notiert, ein his dagegen würde bis geschrieben. Siehe auch
-@ruser{Versetzungszeichen} und @ruser{Notenbezeichnungen in anderen Sprachen}, hier
-wird beschrieben,
+Wie oben beschrieben werden Tonhöhen werden mit Kleinbuchstaben eingegeben,
+die den Notennamen entsprechen. Es ist jedoch wichtig zu wissen, dass
+LilyPond in seiner Standardeinstellung die englischen Notennamen verwendet.
+Bis auf eine Ausnahme entsprechen sie den deutschen, deshalb wird die
+Voreinstellung von LilyPond für dieses Tutorium beibehalten. Die @emph{Ausnahme}
+ist das h -- in LilyPond muss man anstelle dessen b schreiben! Das
+deutsche b dagegen wird als bes notiert, ein his dagegen würde bis
+geschrieben. Siehe auch @ruser{Versetzungszeichen} und
+@ruser{Notenbezeichnungen in anderen Sprachen}, hier wird beschrieben,
 wie sich die deutschen Notennamen benutzen lassen.
 @c end addition
 
@@ -254,9 +279,7 @@ Note gesetzt. Fangen
 wir unser erstes Notationsbeispiel mit einer @notation{Tonleiter} an, wo also
 die nächste Note immer nur eine Notenlinie über der vorherigen steht.
 
-@c KEEP LY
 @lilypond[verbatim,quote]
-% Beginnpunkt auf das mittlere C setzen
 \relative {
   c' d e f
   g a b c
@@ -279,18 +302,15 @@ gebildet werden:
 @end lilypond
 
 @noindent
-Es ist nicht notwendig, dass die erste Note der Melodie mit der
-Note beginnt, die die erste Tonhöhe angibt.
-Die erste Note (das @q{D}) des vorigen Beispiels ist das nächste D
-vom eingestrichenen C aus gerechnet.
+Die erste Note des vorherigen Beispiels -- das @code{d'} mit einem
+angehängten @code{'} -- ist das D in der Oktave beginnend beim mittleren
+C bis hin zum darüber liegenden H.
 
 Indem man Apostrophe @code{'} (Taste Shift+#) oder Kommata @code{,}
-zu dem @w{@code{\relative c' @{}} hinzufügt oder entfernt, kann die
-Oktave der ersten Tonhöhe verändert werden:
+zur ersten Note hinzufügt (oder entfernt), kann die Oktave der ersten
+Note verändert werden:
 
-@c KEEP LY
 @lilypond[verbatim,quote]
-% zweigestrichenes C
 \relative {
   e'' c a c
 }
@@ -334,15 +354,17 @@ direkt hinter dem Notennamen wird die Oktave um eins erhöht, mit einem Komma @c
 @end lilypond
 
 @noindent
-Um eine Notenhöhe um zwei (oder mehr!) Oktaven zu verändern,
-werden sukzessive @code{''} oder @code{,,} benutzt -- es muss
+Um eine Tonhöhe um zwei (oder mehr!) Oktaven zu verändern,
+werden mehrfache @code{''} oder @code{,,} benutzt -- es muss
 sich dabei wirklich um zwei einzelne Apostrophen und nicht um das
 Anführungszeichen @code{"}@tie{} (Taste Shift+2) handeln!
 
+@node Tondauern (Rhythmen)
+@unnumberedsubsubsec Tondauern (Rhythmen)
+@translationof Durations (rhythms)
 
-@subheading Tondauern (Rhythmen)
-
-@cindex Notendauern
+@cindex Tondauer
+@cindex Notendauer
 @cindex Dauern
 @cindex Rhythmus
 @cindex Ganze Noten
@@ -384,8 +406,9 @@ angegeben werden.
 }
 @end lilypond
 
-
-@subheading Pausen
+@node Pausen
+@unnumberedsubsubsec Pausen
+@translationof Rests
 
 @cindex Pausen
 @cindex schreiben von Pausen
@@ -402,7 +425,9 @@ Bezeichnung ist @code{r}@tie{}:
 @end lilypond
 
 
-@subheading Taktangabe
+@node Taktartangabe
+@unnumberedsubsubsec Taktartangabe
+@translationof Time signature
 
 @cindex Taktart
 
@@ -411,8 +436,8 @@ Bezeichnung ist @code{r}@tie{}:
 
 Glossar: @rglos{time signature}.
 
-Die @notation{Taktart} kann mit dem
-@code{\time}-Befehl definiert werden:
+Die @notation{Taktart} wird mit dem
+@code{\time}-Befehl gesetzt:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -425,8 +450,9 @@ Die @notation{Taktart} kann mit dem
 }
 @end lilypond
 
-
-@subheading Tempobezeichnung
+@node Tempobezeichnung
+@unnumberedsubsubsec Tempobezeichnung
+@translationof Tempo marks
 
 @cindex Tempobezeichnung
 @cindex Metronom-Angabe
@@ -436,8 +462,8 @@ Die @notation{Taktart} kann mit dem
 
 Glossar: @rglos{tempo indication}, @rglos{metronome}.
 
-Die @notation{Tempobezeichnung} und die @notation{Metronom-Angabe} können
-mit dem @code{\tempo}-Befehl gesetzt werden:
+Die @notation{Tempobezeichnung} und die @notation{Metronom-Angabe} werden
+mit dem @code{\tempo}-Befehl gesetzt:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -454,7 +480,9 @@ mit dem @code{\tempo}-Befehl gesetzt werden:
 @end lilypond
 
 
-@subheading Notenschlüssel
+@node Notenschlüssel
+@unnumberedsubsubsec Notenschlüssel
+@translationof Clef
 
 @cindex Schlüssel
 @cindex Alt
@@ -467,8 +495,8 @@ mit dem @code{\tempo}-Befehl gesetzt werden:
 
 Glossar: @rglos{clef}.
 
-Der @notation{Notenschlüssel} kann mit dem @code{\clef}-Befehl
-gesetzt werden:
+Der @notation{Notenschlüssel} wird mit dem @code{\clef}-Befehl
+gesetzt:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -484,7 +512,9 @@ gesetzt werden:
 @end lilypond
 
 
-@subheading Alles zusammen
+@node Alles zusammen
+@unnumberedsubsubsec Alles zusammen
+@translationof All together
 
 Hier ist ein kleines Beispiel, dass all diese Definitionen beinhaltet:
 
@@ -520,21 +550,25 @@ Notationsreferenz: @ruser{Tonhöhen setzen},
 @cindex Ausdrücke
 @cindex Großbuchstaben
 @cindex Kleinbuchstaben
+@cindex Versionierung
+@cindex Version
+@cindex Versionsnummer
 
+@funindex \version
 @funindex { ... }
 @funindex %
 @funindex %@{ ... %@}
 
 
 LilyPonds Quelldateien ähneln Dateien in den meisten
-Programmiersprachen: Sie enthalten eine Versionsbezeichnung,
+Programmiersprachen:  Sie enthalten eine Versionsbezeichnung,
 es ist auf Groß- und Kleinschreibung
-zu achten und Leerzeichen werden ignoriert. Ausdrücke werden
-mit geschweiften Klammern @w{@code{@{ @}}} eingeklammert und Kommentare
+zu achten und Leerzeichen werden ignoriert.  Ausdrücke werden
+mit geschweiften Klammern @w{@code{@{ @}}} eingeklammert und
 mit dem Prozentzeichen @code{%} auskommentiert
 oder mit @w{@code{%@{ @dots{} %@}}} umgeben.
 
-Wenn das jetzt unverständlich erscheint, sind hier die  Erklärungen:
+Wenn das jetzt unverständlich erscheint, sind hier die Erklärungen:
 
 @itemize
 @item
@@ -548,12 +582,12 @@ Beispiel:
 \version "@w{@version{}}"
 @end example
 
-Üblicherweise wird die Versionsbezeichnung oben in die Datei
+Üblicherweise wird die Versionsbezeichnung ganz oben in die Datei
 geschrieben.
 
-Die Versionsbezeichnung ist aus zwei Gründen sehr wichtig: 1. kann
+Die Versionsbezeichnung ist aus zwei Gründen wichtig:  1. kann
 man mit ihrer Hilfe automatische Aktualisierungen der Eingabedateien
-vornehmen, wenn sich die LilyPond-Syntax ändern sollte. 2. wird
+vornehmen, wenn sich die LilyPond-Syntax ändern sollte.  2. wird
 hier die Version von LilyPond beschrieben, die nötig ist, um die
 Datei zu kompilieren.
 
@@ -591,7 +625,7 @@ Leerzeichen @emph{sind} jedoch nötig, um viele syntaktische Elemente
 voneinander zu trennen.  Leerzeichen können also immer @emph{hinzugefügt}
 werden, aber sie dürfen nicht @emph{entfernt} werden.  Da fehlende
 Leerzeichen sehr seltsame Fehlermeldungen hervorrufen können, wird
-es nahe gelegt, immer ein Leerzeichen vor und nach jedem syntaktischen
+es nahe gelegt, immer ein Leerzeichen vor und nach jedem syntaktischen
 Element, etwa vor und nach geschweiften Klammern, einzufügen.
 
 @item @strong{Ausdrücke:}
@@ -654,31 +688,31 @@ mögliche Anwendung von Kommentaren:
 @end itemize
 
 
-@node Mit Fehlern umgehen
-@section Mit Fehlern umgehen
+@node Fehlerbehandlung
+@section Fehlerbehandlung
 @translationof Dealing with errors
 
-@cindex Fehlerlösung
+@cindex Fehlerbehandlung
 
-Manchmal erstellt LlilyPond nicht das Notenbild, das Sie erwarten.  Dieser
+Manchmal erstellt LilyPond nicht das Notenbild, das Sie erwarten.  Dieser
 Abschnitt stellt einige Links zur Verfügung, um Ihnen bei der Problemlösung
 möglicher Schwierigkeiten zu helfen.
 
 
 @menu
-* Allgemeine Fehlerlösungstipps::
+* Allgemeine Fehlerbehandlungstipps::
 * Einige häufige Fehler::
 @end menu
 
-@node Allgemeine Fehlerlösungstipps
-@subsection Allgemeine Fehlerlösungstipps
+@node Allgemeine Fehlerbehandlungstipps
+@subsection Allgemeine Fehlerbehandlungstipps
 @translationof General troubleshooting tips
 
-Fehlerlösung für LilyPond-Probleme kann eine große Herausforderung für Menschen
+Fehlerbehandlung für LilyPond-Probleme kann eine große Herausforderung für Menschen
 darstellen, die an eine graphische Benutzeroberfläche gewohnt sind, weil
 ungültige Eingabedateien erstellt werden können.  Wenn das geschieht, ist
 eine logische Herangehensweise der beste Weg, das Problem zu identifizieren
-und zu lsöen.  Einige Richtlinien, wie Sie diese Problemlösung erlernen
+und zu Lösen.  Einige Richtlinien, wie Sie diese Problemlösung erlernen
 können, finden sich in @rprogram{Troubleshooting}.
 
 
@@ -695,12 +729,12 @@ Fehlermeldungen der Log-Datei hat.  Sie werden näher erklärt in
 
 
 
-@node Wie die Handbücher gelesen werden sollen
-@section Wie die Handbücher gelesen werden sollen
+@node Wie die Handbücher gelesen werden sollten
+@section Wie die Handbücher gelesen werden sollten
 @translationof How to read the manuals
 
-Dieser Abschnitt zeigt, wie die Dokumentation effizient gelesen
-werden kann und erklärt auch einige nützliche Interaktionseigenschaften
+Dieser Abschnitt erklärt, wie die Dokumentation effizient gelesen
+werden kann und behandelt auch einige nützliche Interaktionseigenschaften
 der Online-Version.
 
 @menu
@@ -714,6 +748,7 @@ der Online-Version.
 @subsection Ausgelassenes Material
 @translationof Omitted material
 
+
 @cindex Handbuch, Lesen
 @cindex Wie soll das Handbuch gelesen werden
 @cindex Lesen des Handbuchs
@@ -726,39 +761,23 @@ der Online-Version.
 @cindex Hinweise zur Konstruktion von Dateien
 
 LilyPond-Code muss immer von @code{@{ @}} Zeichen oder einem
-@w{@code{@bs{}relative c'' @{ @dots{} @}}} umgeben sein, wie
-gezeigt in @ref{Arbeiten an Eingabe-Dateien}.
+@q{@w{@code{@bs{}relative @{ @dots{} @}}}} umgeben sein, wie
+in @ref{Arbeiten an Eingabe-Dateien} gezeigt.
 Im Rest dieses Handbuchs werden die meisten Beispiel allerdings darauf
 verzichten. Um sie zu reproduzieren, können Sie den entsprechenden
-Quellcode kopieren und in eine Textdatei einfügen, aber Sie
-@strong{müssen} dabei
-@w{@code{@bs{}relative c'' @{ @dots{} @}}} einfügen, wie hier gezeigt:
+Quellcode kopieren und in eine Textdatei zwischen @code{@{}
+und @code{@}} einfügen.
 
 @example
-\relative c'' @{
+@{
   @dots{}hier das Beispiel@dots{}
 @}
 @end example
 
-Warum werden die Klammern hier meist weggelassen?  Die meisten
-der Beispiele können in ein längeres Musikstück hineinkopiert
-werden, und dann ist es natürlich nicht sinnvoll, wenn auch noch
-@w{@code{@bs{}relative c'' @{ @dots{} @}}} dazukommt; ein @code{\relative} darf
-nicht innerhalb eines anderen @code{\relative} gesetzt werden,
-deshalb wird es hier weggelassen, damit die Beispiele auch innerhalb
-eines anderen Kontextes funktionieren.  Wenn bei jedem
-Beispiel @w{@code{@bs{}relative c'' @{ @dots{} @}}} eingesetzt würde,
-könnten Sie die kleinen Beispiele der Dokumentation
-nicht einfach zu Ihrem eigenen Notentext hinzufügen.
-Die meisten Benutzer wollen
-Noten zu einer schon bestehenden Datei irgendwo in der Mitte
-hinzufügen, deshalb wurde der relative Modus für die Beispiele
-im Handbuch weggelassen.
-
 Denken Sie auch daran, dass jede LilyPond-Datei eine Versionsbezeichnung
 mit dem @code{\version}-Befehl haben sollte.  Weil die Beispiele in den
 Handbüchern Schnipsel und keine vollständigen Dateien sind, fehlt hier
-die Versionsbezeichnung. Sie sollten sie aber immer in Ihre eigenen
+die Versionsbezeichnung.  Sie sollten sie aber immer in Ihre eigenen
 Dateien einfügen.
 
 
@@ -793,6 +812,7 @@ cut-&-pastable section} bis ganz zum Ende der Datei.
 
 
 @ignore
+This is item 825
 
 @n ode Navigation mit der Tastatur
 @s ubsection Navigation mit der Tastatur
@@ -823,7 +843,7 @@ fallen, spätere Abschnitte zu verstehen.}
 
 @item
 @strong{Bevor Sie @emph{irgendetwas} ausprobieren}: Lesen Sie die
-Abschnitte @ref{Übung} und @ref{Übliche Notation}.  Wenn
+Abschnitte @ref{Tutorium} und @ref{Übliche Notation}.  Wenn
 Sie auf musikalische Fachbegriffen stoßen, die Sie nicht kennen,
 schauen Sie diese im @rglosnamed{Top, Glossar} nach.
 
@@ -836,7 +856,7 @@ in der
 
 @item
 @strong{Bevor Sie versuchen, die Standardnotation zu verändern}:
-Lesen Sie @ref{Die Ausgabe verändern} im Handbuch zum Lernen.
+Lesen Sie @ref{Die Ausgabe verbessern} im Handbuch zum Lernen.
 
 @item
 @strong{Bevor Sie sich an ein größeres Projekt machen}: Lesen
@@ -845,4 +865,3 @@ Sie den Abschnitt
 in der Programmbenutzung.
 
 @end itemize
-

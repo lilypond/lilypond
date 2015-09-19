@@ -19,7 +19,7 @@
 Fortgeschrittene Anpassungen können mithilfe der Programmiersprache
 Scheme vorgenommen werden.  Wenn Sie Scheme nicht kennen, gibt
 es eine grundlegende Einleitung in LilyPonds
-@ref{Scheme-Übung}.
+@ref{Scheme-Tutorium}.
 
 @menu
 * LilyPond-Codeabschnitte::
@@ -183,12 +183,12 @@ vermeiden sollte, wenn man eine bestimmmte Verwendung beabsichtigt
 und nicht nur eine Funktion für die allgemeine Verwendung schreibt.
 
 Eine Liste der möglichen vordefinierten Typenprädikte findet sich in
-@ruser{Vordefinierte Typenprädikate}.
+@ruser{Vordefinierte Typprädikate}.
 
 @seealso
 
 Notationsreferenz
-@ruser{Vordefinierte Typenprädikate}.
+@ruser{Vordefinierte Typprädikate}.
 
 Installierte Dateien:
 @file{lily/music-scheme.cc},
@@ -322,12 +322,12 @@ In der Mehrzahl der Fälle ist @var{body} ein LilyPond-Codeabschnitt (siehe
 @ref{LilyPond-Codeabschnitte}.
 
 Eine Liste der möglichen Typenprädikate findet sich in
-@ruser{Vordefinierte Typenprädikate}.
+@ruser{Vordefinierte Typprädikate}.
 
 @seealso
 
 Notationsreferenz:
-@ruser{Vordefinierte Typenprädikate}.
+@ruser{Vordefinierte Typprädikate}.
 
 Installierte Dateien:
 @file{lily/music-scheme.cc},

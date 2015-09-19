@@ -69,8 +69,8 @@ Dieser Abschnitt behandelt Seitenlayout-Optionen innerhalb der @code{\paper}-Umg
 
 
 @node Die paper-Umgebung
-@subsection Die @code{\paper}-Umgebung
-@translationof The \paper block
+@subsection Die @code{@bs{}paper}-Umgebung
+@translationof The paper block
 
 @cindex Papiergröße
 @cindex Größe, Papier
@@ -105,7 +105,7 @@ in @ref{Eigene Kopf und Fußzeilen sowie Titel}.
 
 Die meisten @code{\paper}-Variablen funktionieren nur innerhalb der
 @code{\paper}-Umgebung.  Die wenigen, die auch in der @code{\layout}-Umgebung
-funktionieren, finden sich in @ref{Die \layout-Umgebung}.
+funktionieren, finden sich in @ref{Die layout-Umgebung}.
 
 Außer wenn anders angegeben, werden alle @code{\paper}-Variablen, die
 Abständen auf der Seite antsprechen, in Millimetern gemessen, es sei denn,
@@ -145,7 +145,7 @@ der obigen Definition ist:
 Notationsreferenz
 @ref{Papierformat und automatische Skalierung},
 @ref{Eigene Kopf und Fußzeilen sowie Titel},
-@ref{Die \layout-Umgebung}.
+@ref{Die layout-Umgebung,,Die @code{@bs{}layout}-Umgebung}.
 
 Installierte Dateien:
 @file{ly/paper-defaults-init.ly}.
@@ -299,8 +299,8 @@ Installierte Dateien:
 
 
 @node Vertikale paper-Variablen mit festen Abständen
-@unnumberedsubsubsec Vertikale @code{\paper}-Variablen mit festen Abständen
-@translationof Fixed vertical spacing \paper variables
+@subsection Vertikale @code{@bs{}paper}-Variablen mit festen Abständen
+@translationof Fixed vertical spacing paper variables
 
 @warning{Einige @code{@bs{}paper}-Dimensionen werden automatisch nach
 Papierformat skaliert, was zu ungewolltem Verhalten führen kann.  Siehe
@@ -369,8 +369,8 @@ Randeinstellung für die Ränder oben und unten.
 
 
 @node Vertikale paper-Variablen mit flexiblen Abständen
-@unnumberedsubsubsec Vertikale @code{\paper}-Variablen mit flexiblen Abständen
-@translationof Flexible vertical spacing \paper variables
+@subsection Vertikale @code{@bs{}paper}-Variablen mit flexiblen Abständen
+@translationof Flexible vertical spacing paper variables
 
 In den meisten Fällen bietet es sich an, dass die vertikalen
 Abstände zwischen bestimmten Objekten (wie Ränder, Titel,
@@ -391,7 +391,7 @@ werden, und nicht innerhalb der @code{\paper}-Umgebung.  Siehe auch
 
 @menu
 * Struktur der Alisten für flexible vertikale Abstände::
-* Liste der flexiblen vertikalen Abstandsvariablen in \paper::
+* Liste der flexiblen vertikalen Abstandsvariablen in paper::
 @end menu
 
 
@@ -488,9 +488,9 @@ vollständig neu definiert:
 @end example
 
 
-@node Liste der flexiblen vertikalen Abstandsvariablen in \paper
-@unnumberedsubsubsec Liste der flexiblen vertikalen Abstandsvariablen in @code{\paper}
-@translationof List of flexible vertical spacing \paper variables
+@node Liste der flexiblen vertikalen Abstandsvariablen in paper
+@unnumberedsubsubsec Liste der flexiblen vertikalen Abstandsvariablen in @code{@bs{}paper}
+@translationof List of flexible vertical spacing paper variables
 
 Die Bezeichnungen dieser Variablen entsprechen dem Format
 @code{@var{obere}-@var{untere}-platzierung}, wobei @code{@var{obere}}
@@ -572,8 +572,8 @@ Schnipsel:
 
 
 @node paper-Variablen für horizontale Abstände
-@unnumberedsubsubsec \paper-Variablen für horizontale Abstände
-@translationof Horizontal spacing \paper variables
+@subsection @code{@bs{}paper}-Variablen für horizontale Abstände
+@translationof Horizontal spacing paper variables
 
 @warning{Einige @code{@bs{}paper}-Dimensionen werden automatische
 entsprechend dem Papierformat skaliert und können deshalb ungewollte
@@ -587,8 +587,8 @@ Resultate haben.  Siehe @ref{Automatische Skalierung auf ein Papierformat}.}
 
 
 @node paper-Variablen für Breite und Ränder
-@unnumberedsubsubsec \paper-Variablen für Breite und Ränder
-@translationof \paper variables for widths and margins
+@unnumberedsubsubsec @code{@bs{}paper}-Variablen für Breite und Ränder
+@translationof paper variables for widths and margins
 
 Standardwerte (vor der Skalierung), die hier nicht aufgelistet
 sind, finden sich in @file{ly/paper-defaults-init.ly}.
@@ -693,8 +693,8 @@ Randeinstellung für die Ränder oben und unten.
 
 
 @node paper-Variablen für zweiseitigen Satz
-@unnumberedsubsubsec @code{\paper}-Variablen für zweiseitigen Satz
-@translationof \paper variables for two-sided mode
+@unnumberedsubsubsec @code{@bs{}paper}-Variablen für zweiseitigen Satz
+@translationof paper variables for two-sided mode
 
 Standardwerte (vor der Skalierung) sind definiert in
 @file{ly/paper-defaults-init.ly}.
@@ -748,8 +748,8 @@ Installierte Dateien:
 
 
 @node paper-Variablen für Verschiebungen und Einrückungen
-@unnumberedsubsubsec @code{\paper}-Variablen für Verschiebungen und Einrückungen 
-@translationof \paper variables for shifts and indents
+@unnumberedsubsubsec @code{@bs{}paper}-Variablen für Verschiebungen und Einrückungen
+@translationof paper variables for shifts and indents
 
 
 Standardwerte (vor der Skalierung), die hier nicht aufgeführt sind,
@@ -794,8 +794,8 @@ Schnipsel:
 
 
 @node Andere paper-Variablen
-@subsection Andere @code{\paper}-Variablen
-@translationof Other \paper variables
+@subsection Andere @code{@bs{}paper}-Variablen
+@translationof Other paper variables
 
 @menu
 * paper-Variablen für den Zeilenumbruch::
@@ -806,8 +806,8 @@ Schnipsel:
 
 
 @node paper-Variablen für den Zeilenumbruch
-@unnumberedsubsubsec @code{\paper}-Variablen für den Zeilenumbruch
-@translationof \paper variables for line breaking
+@unnumberedsubsubsec @code{@bs{}paper}-Variablen für den Zeilenumbruch
+@translationof paper variables for line breaking
 @c TODO: Mention that ly:optimal-breaking is on by default? -mp
 
 @table @code
@@ -849,8 +849,8 @@ Notationsreferenz:
 
 
 @node paper-Variablen für den Seitenumbruch
-@unnumberedsubsubsec @code{\paper}-Variablen für den Seitenumbruch
-@translationof \paper variables for page breaking
+@unnumberedsubsubsec @code{@bs{}paper}-Variablen für den Seitenumbruch
+@translationof paper variables for page breaking
 
 Standardwerte, die hier nicht aufgelistet sind, finden sich in
 @file{ly/paper-defaults-init.ly}
@@ -919,8 +919,8 @@ Installierte Dateien:
 
 
 @node paper-Variablen für Seitenzahlen
-@unnumberedsubsubsec @code{\paper}-Variablen für Seitenzahlen
-@translationof \paper variables for page numbering
+@unnumberedsubsubsec @code{@bs{}paper}-Variablen für Seitenzahlen
+@translationof paper variables for page numbering
 
 Standardwerte, die hier nicht aufgelistet sind, finden sich in
 @file{ly/paper-defaults-init.ly}
@@ -970,8 +970,8 @@ auf der rechten Seite mit Seite 1 beginnen.
 
 
 @node Verschiedene paper-Variablen
-@unnumberedsubsubsec Verschiedene @code{\paper}-Variablen
-@translationof Miscellaneous \paper variables
+@unnumberedsubsubsec Verschiedene @code{@bs{}paper}-Variablen
+@translationof Miscellaneous paper variables
 @table @code
 
 @item page-spacing-weight
@@ -1038,14 +1038,14 @@ Zeile.
 @translationof Score layout
 
 @menu
-* Die \layout-Umgebung
+* Die layout-Umgebung::
 * Die Notensystemgröße einstellen::
 @end menu
 
 
-@node Die \layout-Umgebung
-@subsection Die @code{\layout}-Umgebung
-@translationof The \layout block
+@node Die layout-Umgebung
+@subsection Die @code{@bs{}layout}-Umgebung
+@translationof The layout block
 
 @cindex Partitur, Layout
 @cindex Layout, Partitur

@@ -23,7 +23,7 @@ großen Anzahl von @qq{Schaltern und Knöpfen} kontrolliert werden.
 Sie werden als @qq{Eigenschaften} (engl. properties)  bezeichnet.
 Eine kurze Einführung und Übung, wie man auf diese Eigenschaften
 zugreifen kann und sie verändern kann, findet sich im Handbuch
-zum Lernen, siehe @rlearning{Die Ausgabe verändern}.  Das Kapitel
+zum Lernen, siehe @rlearning{Die Ausgabe verbessern}.  Das Kapitel
 sollte zuerst gelesen werden.  In diesem Kapitel werden die gleichen
 Themen behandelt, aber der Schwerpunkt liegt eher auf einer technischen
 Darstellung.
@@ -44,7 +44,7 @@ Intern benutzt LilyPond Scheme (ein LISP-Dialekt), um eine Infrastruktur
 zur Verfügung zu stellen.  Wenn Layoutentscheidungen verändert werden
 sollen, müssen auf die programminternen Prozesse zugegriffen werden,
 wozu Scheme-Code benötigt wird.  Scheme-Abschnitte werden in einer
-LilyPond-Quelldatei mit einer Raute@tie{}@code{#} begonnen.@footnote{@rextend{Scheme-Übung} enthält eine kurze Übung, wie
+LilyPond-Quelldatei mit einer Raute@tie{}@code{#} begonnen.@footnote{@rextend{Scheme-Tutorium} enthält eine kurze Übung, wie
 man Zahlen, Listen, Zeichenketten und Symbole in Scheme notiert.}
 
 
@@ -67,7 +67,7 @@ verändern kann.
 
 @menu
 * Was sind Kontexte?::
-* Kontexte erstellen::
+* Kontexte erstellen und referenzieren::
 * Kontexte am Leben halten::
 * Umgebungs-Plugins verändern::
 * Die Standardeinstellungen von Kontexten ändern::
@@ -247,9 +247,9 @@ wenn Stichnoten gesetzt werden.
 Ausgabe von Akkordsymbolen.
 
 
-@node Kontexte erstellen
-@subsection Kontexte erstellen
-@translationof Creating contexts
+@node Kontexte erstellen und referenzieren
+@subsection Kontexte erstellen und referenzieren
+@translationof Creating and referencing contexts
 
 In Partituren mit einer Stimme und einem System werden die Kontexte
 normalerweise automatisch erstellt.  In komplizierteren Partituren
@@ -1016,7 +1016,7 @@ Notationsreferenz:
 @ref{Unterste Kontexte -- Stimmen},
 @ref{Der set-Befehl},
 @ref{Der override-Befehl},
-@ref{Die \layout-Umgebung}.
+@ref{Die layout-Umgebung}.
 
 
 @node Neue Kontexte definieren
@@ -3661,7 +3661,7 @@ Aussehen des Notenbildes zu polieren.
 
 @seealso
 Handbuch zum Lernen:
-@rlearning{Die Ausgabe verändern},
+@rlearning{Die Ausgabe verbessern},
 @rlearning{Mehr Information}.
 
 Notationsreferenz:

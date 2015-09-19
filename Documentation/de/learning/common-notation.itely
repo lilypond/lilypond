@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 
 @ignore
-    Translation of GIT committish: e5a609e373eae846857f9a6d70a402a3d42b7d94
+    Translation of GIT committish: 8819d7cb0ba2ab359e4aa2276695afb9c1957c42
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,15 +10,20 @@
 
 @c \version "2.19.21"
 
-@ignore
-Tutorial guidelines:
-- unless you have a really good reason, use
-    @lilypond[quote,verbatim]
-  (without spaces)
+@c Translators: ???, Michael Gerdau
 
-- use "aes" and "ees" instead of "as" and "aes".  I know it's not
-  correct Dutch naming, but let's not confuse people with this until
-  we get to the Basic notation chapter.
+@ignore
+Tutorial guidelines:  (different from policy.txt!)
+- unless you have a really good reason, use
+    @lilypond[verbatim,quote]
+
+- use "aes" and "ees" instead of "as" and "es".  I know it's not
+  correct Dutch naming, but let's not confuse people with this
+  until we get to the Basic notation chapter.
+
+- Add "Music Glossary: @rglos{foo}" to the *top* of the relevant
+  portions of the tutorial.
+
 - addition for German users to the pitches chapter about naming of pitches.
 @end ignore
 
@@ -29,7 +34,7 @@ Tutorial guidelines:
 
 Dieser Abschnitt erklärt, wie wunderschöner Notensatz erstellt
 werden kann, der die am häufigsten vorkommenden Notationssymbole
-enthält.  Der Abschnitt baut auf der @ref{Übung} auf.
+enthält.  Der Abschnitt baut auf der @ref{Tutorium} auf.
 
 
 @menu
@@ -48,8 +53,8 @@ Dieses Kapitel lehrt grundlegende Bestandteile der Notation,
 die für eine Stimme auf einem System gebraucht werden.
 
 @menu
-* Taktüberprüfung
-* Versetzungszeichen und Tonartbezeichnung (Vorzeichen)::
+* Taktstriche und Taktüberprüfung::
+* Tonhöhen und Tonartbezeichnungen (Vorzeichen)::
 * Bindebögen und Legatobögen::
 * Artikulationszeichen und Lautstärke::
 * Text hinzufügen::
@@ -58,34 +63,88 @@ die für eine Stimme auf einem System gebraucht werden.
 @end menu
 
 
-@node Taktüberprüfung
-@subsection Taktüberprüfung
+@node Taktstriche und Taktüberprüfung
+@subsection Taktstriche und Taktüberprüfung
+@translationof Bar lines and bar checks
+
+@menu
+* Taktstriche::
+* Taktüberprüfungen::
+@end menu
+
+@node Taktstriche
+@unnumberedsubsubsec Taktstriche
+@translationof Bar lines
+
+
+Normale (einfache) Taktstriche werden von LilyPond automatisch eingefügt und
+müssen daher nicht extra angegeben werden.  Andere Arten von Taktstrichen können
+mittels @code{\bar} eingeben werden, z.B. @code{\bar "||"} für einen doppelten Taktstrich,
+oder @code{\bar "|."} für einen Schlusstaktstrich.  Eine vollständige Liste aller
+möglichen Taktstriche findet sich unter @ruser{Taktstriche}.
+
+@lilypond[verbatim,quote]
+\relative { g'1 e1 \bar "||" c2. c'4 \bar "|." }
+@end lilypond
+
+@node Taktüberprüfungen
+@unnumberedsubsubsec Taktüberprüfungen
 @translationof Bar checks
+
 
 Wenn sie auch nicht zwingend vorgeschrieben sind, so sollten Taktüberprüfungen
 in der Eingabedatei benutzt werden, um zu zeigen, wo Taktstriche
 normalerweise sein sollten.  Sie werden mit dem @qq{Pipe}-Symbol
 ( @code{|}) notiert (Taste AltGr + <).  Mithilfe der Taktüberprüfungen
-kann das Programm sicherstellen, dass die eingegebenen Notenlängen auch
-volle Takte an den richtigen Stellen ergeben.  Taktüberprüfungen erleichtern
+kann das Programm sicherstellen, dass die eingegebenen Notenlängen jeweils
+volle Takte ergeben.  Taktüberprüfungen erleichtern
 auch das Lesen des Eingabetextes, weil sie Ordnung in den Text bringen.
 
-@lilypond[verbatim,quote,relative=2]
-g1 | e1 | c2. c'4 | g4 c g e | c4 r r2 |
+@c This example deliberately produces a warning
+@lilypond[verbatim,quote]
+\relative {
+  g'1 | e1 | c2. c' | g4 c g e | c4 r r2 |
+}
 @end lilypond
+
+Wenn du den Code in obigem Beispiel übersetzt, dann sollte in der Konsole
+die folgende Warnung erscheinen:
+
+@example
+Warnung: Taktüberprüfung gescheitert bei: 1/2
+ g'1 | e1 | c2. c'
+                   | g4 c g e | c4 r r2 |
+@end example
+
+In diesem einfachen Beispiel ist die fehlende Längenangabe offensichtlich
+deutlich im erzeugten Notenbild zu erkennen,  aber die Konsolenausgabe ist
+ein noch direkter Hinweis auf das fehlende @code{4} in Takt 3.
 
 @seealso
 Notationsreferenz:
 @ruser{Takt- und Taktzahlüberprüfung}.
 
 
-@node Versetzungszeichen und Tonartbezeichnung (Vorzeichen)
-@subsection Versetzungszeichen und Tonartbezeichnung (Vorzeichen)
-@translationof Accidentals and key signatures
+@node Tonhöhen und Tonartbezeichnungen (Vorzeichen)
+@subsection Tonhöhen und Tonartbezeichnungen (Vorzeichen)
+@translationof Pitches and key signatures
 
-@subheading Versetzungszeichen
+@menu
+* Tonhöhenveränderungen::
+* Tonartbezeichnungen (Vorzeichen)::
+* Warnung bzgl. Tonartbezeichnungen und Tonhöhen::
+@end menu
+
+@warning{Neue Anwender missverstehen meist, wie LilyPond Tonartbezeichnungen
+verwendet -- bitte lesen sie die entsprechende Warnung am Fuße dieser Seite.}
+
+@node Tonhöhenveränderungen
+@unnumberedsubsubsec Tonhöhenveränderungen
+@translationof Pitch alterations
+
+
 @cindex Versetzungszeichen
-@cindex Akzidentien
+@cindex Auflösungszeichen
 @cindex Kreuz
 @cindex Doppelkreuz
 @cindex B
@@ -96,9 +155,11 @@ Notationsreferenz:
 @funindex eses
 @funindex isis
 
-
 Glossar: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
 @rglos{double flat}, @rglos{accidental}.
+
+Notennamen bezeichnen in LilyPond Tonhöhen.  So bedeutet z.B. @code{c}
+immer ein C ohne jedes Vorzeichen, unabhängig von der gerade eingestellten Tonart.
 
 Ein @notation{Kreuz}-Versetzungszeichen@footnote{In der Umgangssprache
 werden die Versetzungszeichen häufig auch Vorzeichen genannt. In
@@ -118,10 +179,13 @@ Sprachen zu benutzen, siehe @ruser{Notenbezeichnungen in anderen Sprachen}.
 \relative { cis''4 ees fisis, aeses }
 @end lilypond
 
+@cindex Tonart, Einstellen der
 
-@subheading Tonartbezeichnungen (Vorzeichen)
+@node Tonartbezeichnungen (Vorzeichen)
+@unnumberedsubsubsec Tonartbezeichnungen (Vorzeichen)
+@translationof Key signatures
 
-@cindex Tonart, Einstellung von
+
 @cindex Vorzeichen
 @cindex Dur
 @cindex Moll
@@ -139,45 +203,41 @@ Sprachen zu benutzen, siehe @ruser{Notenbezeichnungen in anderen Sprachen}.
 Glossar: @rglos{key signature}, @rglos{major},
 @rglos{minor}.
 
-Die @notation{Tonart} eines Stückes wird erstellt mit dem
-Befehl @code{\key}, gefolgt von einer Notenbezeichnung und
-@code{\major} (für Dur) oder @code{\minor}
-(für Moll).
+Die @notation{Tonart} eines Stückes wird mit dem Befehl
+@code{\key}, gefolgt von einer Notenbezeichnung und
+@code{\major} (für Dur) oder @code{\minor} (für Moll) eingestellt.
 
-@lilypond[verbatim,quote,relative=2]
-\key d \major
-a1 |
-\key c \minor
-a1 |
+@lilypond[verbatim,quote]
+\relative {
+  \key d \major
+  d'4 fis a c |
+  \bar "||" \key c \minor
+  c,4 ees g b |
+}
 @end lilypond
 
 @smallspace
 
-@subheading Warnung: Tonartbezeichnungen und Tonhöhen
+@node Warnung bzgl. Tonartbezeichnungen und Tonhöhen
+@unnumberedsubsubsec Warnung bzgl. Tonartbezeichnungen und Tonhöhen
+@translationof Warning key signatures and pitches
 
 Glossar: @rglos{accidental}, @rglos{key signature},
 @rglos{pitch}, @rglos{flat}, @rglos{natural}, @rglos{sharp},
 @rglos{transposition}, @rglos{Pitch names}.
 
-Um zu bestimmen, ob vor einer bestimmten Note ein Versetzungszeichen
-erscheinen soll, untersucht LilyPond die Notenhöhen und die
-Tonart. Die Tonart beeinflusst nur die @emph{gedruckten}
-Versetzungszeichen, nicht die wirklichen Tonhöhen! Diese Besonderheit
-scheint am Anfang oft verwirrend, so dass sie hier etwas
-genauer betrachtet wird.
+LilyPond unterscheidet zwischen dem musikalischen Inhalt
+und dem Satz (Layout).  Eine Eingabe wie @code{d4 e fis2}
+bestimmt die Tonhöhen und Dauer von Noten, also den musikalischen
+Inhalt..  Die @notation{Tonart} ist dagegen Teil der gedruckten
+Darstellung.  Die Tonart bestimmt die Regeln, nach denen die Noten
+ausgedruckt werden.  LilyPond vergleicht jede eingegebene Tonhöhe
+mit der Tonart und entscheidet dann ob und ggf. welches
+@notation{Versetzungszeichen} gedruckt werden muss.
 
-LilyPond unterscheidet strikt zwischen dem musikalischen Inhalt
-und dem Satz (Layout). Die Alteration (@notation{B},
-@notation{Kreuz} oder @notation{Auflösungszeichen}) einer Note gehört
-zur Tonhöhe dazu und ist deshalb musikalischer
-Inhalt. Ob ein Versetzungszeichen (also ein @emph{gedrucktes} Kreuz, b
-oder Auflösungszeichen) auch vor der Note erscheint, hängt vom Kontext,
-also vom Layout ab. Das Layout gehorcht bestimmten Regeln, und
-Versetzungszeichen
-werden automatisch nach diesen Regeln gesetzt. Die Versetzungszeichen im
-fertigen Notenbild sind nach den Regeln des Notensatzes gesetzt. Deshalb
-wird automatisch entschieden, wo sie erscheinen, und man muss
-den Ton eingeben, den man @emph{hören} will.
+Der Befehl @code{\key} stellt die @notation{Tonart} ein. Diese
+beeinflusst die gedruckte Darstellung der Noten, bewirkt jedoch
+@emph{keine} Änderung der Tonhöhen von eingegebenen Noten wie etwa @code{c}.
 
 In diesem Beispiel
 
@@ -206,16 +266,14 @@ In der Tonart As-Dur @emph{bekommt} sie ein Versetzungszeichen:
 }
 @end lilypond
 
-Wenn das alles sehr verwirrend erscheint, muss man sich nur vorstellen,
-dass man auf einer Klaviatur spielt: Wenn man eine schwarze Taste drücken
-würde, @emph{muss} man auch @w{@code{-is}} oder @w{@code{-es}} an die
+Jedes mal wenn sie eine Tonhöhe eingeben, die auf dem Klavier zu einer schwarzen
+Taste gehört, @emph{müssen} sie auch @w{@code{-is}} oder @w{@code{-es}} an die
 Note anhängen.
 
 Alle diese Versetzungszeichen ausdrücklich zu schreiben, bedeutet vielleicht
 etwas mehr Schreibarbeit, hat aber den großen Vorteil, dass
-@notation{Transpositionen} sehr viel einfacher gemacht wird
-und der Druck von Versetzungszeichen nach
-unterschiedlichen Regeln erfolgen kann. Siehe
+@notation{Transpositionen} sehr viel einfacher sind und der Ausdruck
+von Versetzungszeichen nach unterschiedlichen Regeln erfolgen kann. Siehe
 @ruser{Automatische Versetzungszeichen} für einige Beispiele, wie Vorzeichen
 anhand von unterschiedlichen Regeln ausgegeben werden können.
 
@@ -243,31 +301,63 @@ Notationsreferenz:
 @funindex \( ... \)
 
 
-@subheading Bindebögen
+@menu
+* Bindebögen::
+* Legatobögen::
+* Phrasierungsbögen::
+* Achtung Bindebögen sind nicht Legatobögen::
+@end menu
+
+@node Bindebögen
+@unnumberedsubsubsec Bindebögen
+@translationof Ties
 
 Glossar: @rglos{tie}.
 
-Ein @notation{Bindebogen} wird geschrieben, indem man eine Tilde @code{~}
-an die erste der zu verbindenden Noten hängt.
+Man schreibt einen @notation{Bindebogen}, indem man eine Tilde @code{~}
+an die erste der beiden zu verbindenden Noten hängt.
 
-@lilypond[verbatim,quote,relative=2]
-g4~ 4 c2~ | 4~ 8 a~ 2
+@lilypond[verbatim,quote]
+\relative { g'4~ g c2~ | c4~ c8 a~ a2 | }
 @end lilypond
 
+@cindex bloße Dauer
+@cindex Dauer, bloße
 
-@subheading Legatobögen
+Wenn sich die Tonhöhe nicht ändert, was bei Noten, die mit Bindebögen
+verbunden sind immer der Fall ist, kann für die folgenden Noten auf die
+Angabe der Tonhöhe verzichtet werden. Es braucht lediglich die bloße Dauer
+angegeben zu werden:
+
+@lilypond[verbatim,quote]
+\relative { g'4~ 4 c2~ | 4~ 8 a~ 2 | }
+@end lilypond
+
+Diese verkürzte Schreibweise ist immer dann nützlich, wenn sich zwar der
+Rhythmus, nicht jedoch die Tonhöhe ändert. Man sollte jedoch beachten, dass
+eine bloße Tonhöhe gefolgt von einem Leerzeichen und dann einer bloßen Dauer
+als eine einzige Note interpretiert wird. Mit anderen Worten, @code{c4 a 8 8}
+würde als @code{c4 a8 a8} und nicht als @code{c4 a4 a8 a8} verstanden werden.
+Schreiben sie stattdessen @code{c4 a4 8 8 }.
+
+@node Legatobögen
+@unnumberedsubsubsec Legatobögen
+@translationof Slurs
+
 
 Glossar: @rglos{slur}.
 
 Ein @notation{Legatobogen} ist ein Bogen, der sich über mehrere Noten
-erstreckt. Seine
-Beginn- und Endnote werden mit @q{(} beziehungsweise @q{)} markiert.
+erstreckt. Seine Beginn- und Endnote werden mit einem angehängten @q{(}
+beziehungsweise @q{)} markiert.
 
 @lilypond[verbatim,quote]
 \relative { d''4( c16) cis( d e c cis d) e( d4) }
 @end lilypond
 
-@subheading Phrasierungsbögen
+@node Phrasierungsbögen
+@unnumberedsubsubsec Phrasierungsbögen
+@translationof Phrasing slurs
 
 Glossar: @rglos{slur}, @rglos{phrasing}.
 
@@ -282,10 +372,13 @@ geben.
 \relative { g'4\( g8( a) b( c) b4\) }
 @end lilypond
 
-@sp 1
+@smallspace
 
 @cindex Binde- versus Legatobogen
-@subheading Warnung: Bindebögen sind nicht Legatobögen
+
+@node Achtung Bindebögen sind nicht Legatobögen
+@unnumberedsubsubsec Achtung Bindebögen sind nicht Legatobögen
+@translationof Warnings slurs vs. ties
 
 Glossar: @rglos{articulation}, @rglos{slur}, @rglos{tie}.
 
@@ -312,7 +405,16 @@ Notationsreferenz:
 @subsection Artikulationszeichen und Lautstärke
 @translationof Articulation and dynamics
 
-@subheading Artikulationszeichen
+@menu
+* Artikulationszeichen::
+* Fingersätze::
+* Dynamik::
+@end menu
+
+@node Artikulationszeichen
+@unnumberedsubsubsec Artikulationszeichen
+@translationof Articulations
+
 
 @cindex Artikulation
 @cindex Akzente
@@ -331,7 +433,10 @@ Glossar:
 }
 @end lilypond
 
-@subheading Fingersatz
+@node Fingersätze
+@unnumberedsubsubsec Fingersätze
+@translationof Fingerings
+
 
 @cindex Fingersatz
 
@@ -359,7 +464,10 @@ Möglichkeit, wie die Artikulationen platziert werden sollen.
 \relative { c''4_-^1 d^. f^4_2-> e^-_+ }
 @end lilypond
 
-@subheading Dynamik
+@node Dynamik
+@unnumberedsubsubsec Dynamik
+@translationof Dynamics
+
 
 @cindex Dynamik
 @cindex Crescendo
@@ -396,7 +504,7 @@ die Note hängt:
 Befehl @code{\<}
 beziehungsweise @code{\>} begonnen.  Das nächste absolute
 Dynamik-Zeichen, etwa @code{\f}, beendet das (De)Crescendo.
-Auch mit dem Befehl @code{\!} kann es explizit beendet werden.
+Mit dem Befehl @code{\!} kann es explizit beendet werden.
 
 @lilypond[verbatim,quote]
 \relative { c''4\< c\ff\> c c\! }
@@ -420,7 +528,7 @@ Notationsreferenz:
 @cindex Textbeschriftung
 @cindex markup
 
-@funindex  \markup
+@funindex \markup
 @funindex markup
 
 Text können Sie auf folgende Art in die Partitur einfügen:
@@ -468,7 +576,6 @@ Alle @notation{Balken} werden automatisch gesetzt:
 \relative { a'8 ais d ees r d c16 b a8 }
 @end lilypond
 
-@noindent
 Wenn diese automatisch gesetzten Balken nicht gewollt sind,
 können sie manuell geändert werden. Wenn nur ein Balken
 hier und da korrigiert werde muss, erhält die Note, an der der Balken
@@ -504,9 +611,19 @@ Notationsreferenz:
 @subsection Zusätzliche rhythmische Befehle
 @translationof Advanced rhythmic commands
 
-@subheading Auftakt
+@menu
+* Auftakt::
+* N-tolen::
+* Verzierungen::
+@end menu
+
+@node Auftakt
+@unnumberedsubsubsec Auftakt
+@translationof Partial measure
+
 
 @cindex Auftakt
+
 @funindex \partial
 @funindex partial
 
@@ -521,24 +638,27 @@ heißt eine Viertelnote Auftakt und @code{\partial 8} eine Achtelnote.
 }
 @end lilypond
 
+@node N-tolen
+@unnumberedsubsubsec N-tolen
+@translationof Tuplets
 
-@subheading Andere rhythmische Aufteilungen
 
 @cindex N-tolen
 @cindex Triolen
 @cindex Rhythmische Aufteilungen
 
-@funindex \times
-@funindex times
+@funindex \tuplet
+@funindex tuplet
 
 Glossar: @rglos{note value}, @rglos{triplet}.
 
 @notation{Triolen} und @notation{N-tolen} werden mit dem
-@code{\times}-Befehl erzeugt. Er braucht
-zwei Argumente: einen Bruch und die Noten, auf die er sich bezieht.
-Die Dauer des Abschnittes wird mit dem Bruch multipliziert.
-In einer Triole dauern die Noten 2/3 ihrer normalen Länge,
-also hat eine Triole 2/3 als Bruch:
+@code{\tuplet}-Befehl erzeugt. Er braucht zwei Argumente:
+einen Bruch und die Noten, auf die er sich bezieht.
+Der Bruch ist die Anzahl der N-tolen Noten geteilt durch die Anzahl
+der Noten, die normalerweise in der gleichen Zeit erklingen würden.
+Für eine Triole wären das drei Noten statt zwei, also bekommen
+@notation{Triolen} den Bruch 3/2:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -549,7 +669,10 @@ also hat eine Triole 2/3 als Bruch:
 }
 @end lilypond
 
-@subheading Verzierungen
+@node Verzierungen
+@unnumberedsubsubsec Verzierungen
+@translationof Grace notes
+
 
 @cindex Verzierungen
 @cindex Vorschlag
@@ -565,7 +688,7 @@ also hat eine Triole 2/3 als Bruch:
 Glossar: @rglos{grace notes}, @rglos{acciaccatura},
 @rglos{appoggiatura}.
 
-Verzierungen werden mit dem Befehl @code{\grace}
+@notation{Verzierungen} werden mit dem Befehl @code{\grace}
 eingegeben, Vorhalte durch den Befehl @code{\appoggiatura}
 und Vorschläge mit @code{\acciaccatura}.
 
@@ -595,9 +718,8 @@ für verschiedene Instrumente oder für ein Instrument (z. B. Klavier)
 und in Akkorden.
 
 Polyphonie nennt man in der Musik das Vorkommen von mehr als einer
-Stimme
-in einem Stück. Polyphonie bzw. Mehrstimmigkeit heißt für LilyPond allerdings
-das Vorkommen von mehr als einer Stimme pro System.
+Stimme in einem Stück. Polyphonie bzw. Mehrstimmigkeit heißt für
+LilyPond allerdings das Vorkommen von mehr als einer Stimme pro System.
 
 @menu
 * Musikalische Ausdrücke erklärt::
@@ -616,7 +738,13 @@ das Vorkommen von mehr als einer Stimme pro System.
 @cindex Ausdruck, musikalischer
 @cindex zusammengesetzter musikalischer Ausdruck
 
-In LilyPond-Quelldateien wird Musik durch  @emph{musikalische
+@menu
+* Analogie mathematische Ausdrücke::
+* Gleichzeitige musikalische Ausdrücke mehrere Notensysteme::
+* Gleichzeitige musikalische Ausdrücke ein Notensystem::
+@end menu
+
+In LilyPond-Quelldateien wird Musik durch @emph{musikalische
 Ausdrücke} dargestellt. Eine einzelne Note ist ein musikalischer
 Ausdruck.
 
@@ -643,13 +771,15 @@ musikalischer Ausdruck.
 @end lilypond
 
 
-@subheading Analogie: mathematische Ausdrücke
+@node Analogie mathematische Ausdrücke
+@unnumberedsubsubsec Analogie mathematische Ausdrücke
+@translationof Analogy mathematical expressions
+
 
 Die Anordnung von Ausrücken funktioniert ähnlich wie mathematische
-Gleichungen. Eine längere Gleichung entsteht durch die
-Kombination kleinerer Gleichungen. Solche Gleichungen
-werden auch Ausdruck genannt und ihre Definition ist
-rekursiv, sodass beliebig komplexe und lange Ausdrücke
+Formeln. Eine längere Formel entsteht durch die Kombination kleinerer
+Formeln. Solche Formeln werden auch Ausdruck genannt und ihre
+Definition ist rekursiv, sodass beliebig komplexe und lange Ausdrücke
 erstellt werden können. So etwa hier:
 
 @example
@@ -671,7 +801,9 @@ Ausdrücke können auch musikalische Ausdrücke beliebig tief verschachtelt
 werden. Das wird benötigt für komplexe Musik mit vielen Stimmen.
 
 
-@subheading Gleichzeitige musikalische Ausdrücke: mehrere Notensysteme
+@node Gleichzeitige musikalische Ausdrücke mehrere Notensysteme
+@unnumberedsubsubsec Gleichzeitige musikalische Ausdrücke mehrere Notensysteme
+@translationof Simultaneous music expressions multiple staves
 
 @cindex mehrere Systeme
 @cindex Notensysteme, mehrere
@@ -680,7 +812,9 @@ werden. Das wird benötigt für komplexe Musik mit vielen Stimmen.
 @cindex parallele Ausdrücke
 @cindex Ausdrücke, parallel
 @cindex relative Noten und simultane Musik
+@cindex relative Noten und parallele Ausdrücke
 @cindex gleichzeitige Noten und relativer Modus
+@cindex parallele Ausdrücke und relative Noten
 
 @funindex <<
 @funindex >>
@@ -713,13 +847,15 @@ spielt es keine Rolle, wie viele Leerzeichen am Anfang einer Zeile sind,
 aber für Menschen ist es eine große Hilfe, sofort zu sehen, welche
 Teile des Quelltextes zusammen gehören.
 
-@warning{Jede Note ist relativ zu der vorhergehenden in der
-Datei, nicht relativ zu dem zweigestrichenen C (@code{c''}), das im
-@code{@bs{}relative}-Befehl angegeben ist. Die Klammern haben darauf
-keinen Einfluss.}
+@warning{Jede Note ist relativ zu der vorhergehenden in der Datei,
+und nur die erste Note ist relativ zu dem zweigestrichenen C (@code{c''}),
+das im @code{@bs{}relative}-Befehl angegeben ist.}
 
 
-@subheading Gleichzeitige musikalische Ausdrücke: ein Notensystem
+@node Gleichzeitige musikalische Ausdrücke ein Notensystem
+@unnumberedsubsubsec Gleichzeitige musikalische Ausdrücke ein Notensystem
+@translationof Simultaneous music expressions single staff
+
 
 Um die Anzahl der Notensysteme zu bestimmen, analysiert
 LilyPond den Anfang des ersten Ausdrucks. Wenn sich hier
@@ -732,10 +868,9 @@ folgende Beispiel beginnt mit einer Note:
 @lilypond[verbatim,quote]
 \relative {
   c''2 <<c e>> |
-  << { e f } { c <<b d>> } >> |
+  << { e2 f } { c2 <<b d>> } >> |
 }
 @end lilypond
-
 
 @node Mehrere Notensysteme
 @subsection Mehrere Notensysteme
@@ -804,14 +939,12 @@ Tonart der anderen Systeme. Dieses Verhalten ist darin begründet,
 dass Partituren mit transponierenden Instrumenten häufiger sind
 als Partituren mit unterschiedlichen Taktarten.
 
-
 @lilypond[verbatim,quote]
 <<
   \new Staff { \clef "treble" \key d \major \time 3/4 c''4 }
   \new Staff { \clef "bass" c4 }
 >>
 @end lilypond
-
 
 @node Notensysteme gruppieren
 @subsection Notensysteme gruppieren
@@ -910,11 +1043,13 @@ So können Markierungen wie Balken oder Bögen mit
 den Akkorden kombiniert werden. Sie müssen jedoch außerhalb der
 spitzen Klammern gesetzt werden.
 
-@lilypond[verbatim,quote,relative=2]
-r4 <c e g>~ <c f a>2 |
-<c e g>8[ <c f a> <c e g> <c f a>]
-<c e g>8\>[ <c f a> <c f a> <c e g>]\! |
-r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
+@lilypond[verbatim,quote]
+\relative {
+  r4 <c'' e g>~ <c f a>2 |
+  <c e g>8[ <c f a> <c e g> <c f a>]
+    <c e g>8\>[ <c f a> <c f a> <c e g>]\! |
+  r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
+}
 @end lilypond
 
 @seealso
@@ -956,11 +1091,6 @@ Notationsreferenz:
 @section Lieder
 @translationof Songs
 
-@cindex Gesangstext, schreiben
-
-@funindex \addlyrics
-@funindex addlyrics
-
 In diesem Kapitel wird in die Kombination von Musik mit
 Text eingeführt und die Erstellung einfacher Song-Blätter
 gezeigt.
@@ -979,6 +1109,7 @@ gezeigt.
 @cindex Text
 @cindex Lieder
 @cindex Liedtext
+@cindex Gesangstext, schreiben
 
 @funindex \addlyrics
 @funindex addlyrics
@@ -1008,22 +1139,15 @@ wird eingegeben, indem jede Silbe durch ein Leerzeichen getrennt wird.
     d''4 b8 c4 a8 | d4 b8 g4
   }
   \addlyrics {
-    Girls and boys come | out to play,
+    Girls and boys come out to play,
   }
 >>
 @end lilypond
 
-@warning{Es ist sehr wichtig, dass die letzte Silbe duch ein Leerzeichen
-oder eine neue Zeile von der abschließenden geschweiften Klammer
-getrennt ist. Wenn dies nicht der Fall ist, wird die Klammer als Teil
-der Silbe interpretiert, was zu einem seltsamen Fehler führt.  Siehe auch
-@rprogram{Apparent error in ../ly/init.ly}.}
-
 Sowohl die Noten als auch der Text sind jeweils in geschweifte
 Klammern eingefasst, und der gesamte Ausdruck ist zwischen
-@w{@code{<< ... >>}} positioniert. Damit wird garantiert, dass
+@w{@code{<<@dots{}>>}} positioniert. Damit wird garantiert, dass
 Text und Noten gleichzeitig gesetzt werden.
-
 
 @node Text an einer Melodie ausrichten
 @subsection Text an einer Melodie ausrichten
@@ -1053,32 +1177,19 @@ notiert aus:
     a4 b8 c b a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come | out to play,
-    The | moon doth shine as | bright as day; |
+    Girls and boys come out to play,
+    The moon doth shine as bright as day;
   }
 >>
 @end lilypond
 
-Wenn dieser Code des obrigen Beispiels kompiliert wird, sollten derartige
-Warnungen in der Ausgabe auf der Konsole/in der Log-Datei auftauchen:
-
-@example
-test.ly:10:29: Warnung: Taktüberprüfung gescheitert bei: 5/8
-    The | moon doth shine as
-                             | bright as day; |
-test.ly:10:46: Warnung: Taktüberprüfung gescheitert bei: 3/8
-    The | moon doth shine as | bright as day;
-                                              |
-@end example
-
-Das ist ein gutes Beispiel für den Nutzen von Taktüberprüfungen.  Wenn man
-sich die Noten genauer anschaut, wird klar, dass die neue Textzeile nicht
-korrekt an den Noten ausgerichtet ist.  Das Wort @notation{shine} sollte
-zu zwei Noten gesungen werden, nicht nur zu einer.  Das nennt man ein
-@notation{Melisma}, eine Silbe Text zu mehreren Noten.  Es gibt mehrere
-Möglichkeiten, eine Silbe über mehrere Noten zu verlängern.  Die einfachste
-ist es, einen Legatobogen um die betroffenen Noten zu setzen, zu
-Einzelheiten siehe @ref{Bindebögen und Legatobögen}.
+Wenn man sich die Noten genauer anschaut, wird klar, dass die neue
+Textzeile nicht korrekt an den Noten ausgerichtet ist.  Das Wort
+@notation{shine} sollte zu zwei Noten gesungen werden, nicht nur zu einer.
+Das nennt man ein @notation{Melisma}, eine Silbe Text zu mehreren Noten.
+Es gibt mehrere Möglichkeiten, eine Silbe über mehrere Noten zu verlängern.
+Die einfachste ist es, einen Legatobogen um die betroffenen Noten zu setzen,
+zu Einzelheiten siehe @ref{Bindebögen und Legatobögen}.
 
 @lilypond[verbatim,quote]
 <<
@@ -1089,8 +1200,8 @@ Einzelheiten siehe @ref{Bindebögen und Legatobögen}.
     a4 b8 c( b) a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come | out to play,
-    The | moon doth shine as | bright as day; |
+    Girls and boys come out to play,
+    The moon doth shine as bright as day;
   }
 >>
 @end lilypond
@@ -1112,8 +1223,8 @@ für Gesang entspricht. Für Einzelheiten siehe
     a4 b8 c([ b]) a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come | out to play,
-    The | moon doth shine as | bright as day; |
+    Girls and boys come out to play,
+    The moon doth shine as bright as day;
   }
 >>
 @end lilypond
@@ -1131,8 +1242,8 @@ für jede Note, die übersprungen werden soll, ein Unterstrich
     a4 b8 c[ b] a | d4 b8 g4. |
   }
   \addlyrics {
-    Girls and boys come | out to play,
-    The | moon doth shine _ as | bright as day; |
+    Girls and boys come out to play,
+    The moon doth shine _ as bright as day;
   }
 >>
 @end lilypond
@@ -1154,8 +1265,8 @@ aus Purcells @notation{Dido and Æneas}:
     c4.( bes8 a4. g8 fis4.) g8 | fis1
   }
   \addlyrics {
-    When I am | laid,
-    am | laid __ in | earth,
+    When I am laid,
+    am laid __ in earth,
   }
 >>
 @end lilypond
@@ -1180,8 +1291,8 @@ zeigt, mit denen Text an den Noten ausgerichtet werden kann:
     d4 d e | c2
   }
   \addlyrics {
-    A -- | way in a __ | man -- ger,
-    no __ | crib for a | bed, __
+    A -- way in a __ man -- ger,
+    no __ crib for a bed,
   }
 >>
 @end lilypond
@@ -1207,7 +1318,7 @@ in Figaros Arie @notation{Largo al factotum} gesungen werden muss.
     c'4.~ 8 d b | c8([ d]) b c d b | c8
   }
   \addlyrics {
-    Lar -- go_al fac -- | to -- tum del -- la cit -- | tà
+    Lar -- go_al fac -- to -- tum del -- la cit -- tà
   }
 >>
 @end lilypond
@@ -1238,7 +1349,7 @@ aus Händels @notation{Judas Maccabäus}:
     c''8 | c8([ bes]) a a([ g]) f | f'4. b, | c4.~ 4
   }
   \addlyrics {
-    Let | flee -- cy flocks the | hills a -- | dorn, __
+    Let flee -- cy flocks the hills a -- dorn, __
   }
   \relative {
     \key f \major
@@ -1247,7 +1358,7 @@ aus Händels @notation{Judas Maccabäus}:
     r8 | r4. r4 c'8 | a'8([ g]) f f([ e]) d | e8([ d]) c bes'4
   }
   \addlyrics {
-    Let | flee -- cy flocks the | hills a -- dorn,
+    Let flee -- cy flocks the hills a -- dorn,
   }
 >>
 @end lilypond
@@ -1255,7 +1366,7 @@ aus Händels @notation{Judas Maccabäus}:
 Aber Partituren, die komplizierter als dieses Beispiel sind,
 werden besser notiert, indem man die Systemstruktur von den
 Noten und dem Gesangstext durch Variablen trennt. Die Benutzung
-von Variablen wird erklärt im Abschnitt @ref{Stücke durch Bezeichner organisieren}.
+von Variablen wird erklärt im Abschnitt @ref{Stücke durch Variablen organisieren}.
 
 
 @seealso
@@ -1267,20 +1378,20 @@ Notationsreferenz:
 @section Letzter Schliff
 @translationof Final touches
 
-Das ist das letzte Kapitel der Übung. Hier soll demonstriert werden,
+Das ist das letzte Kapitel des Tutoriums. Hier soll demonstriert werden,
 wie man den letzten Schliff an einfachen Stücken anbringen kann.
 Gleichzeitig dient es als Einleitung zum Rest des Handbuches.
 
 @menu
-* Stücke durch Bezeichner organisieren::
+* Stücke durch Variablen organisieren::
 * Titel hinzufügen::
 * Absolute Notenbezeichnungen::
-* Nach der Übung::
+* Nach dem Tutorium::
 @end menu
 
 
-@node Stücke durch Bezeichner organisieren
-@subsection Stücke durch Bezeichner organisieren
+@node Stücke durch Variablen organisieren
+@subsection Stücke durch Variablen organisieren
 @translationof Organizing pieces with variables
 
 @cindex Variable
@@ -1309,23 +1420,24 @@ Der Inhalt des musikalischen Ausdrucks @code{bezeichneteMusik} kann
 dann später wieder benutzt werden, indem man einen Backslash davor setzt
 (@code{\bezeichneteMusik}), genau wie bei jedem LilyPond-Befehl.
 
-@c KEEP LY
 @lilypond[quote,verbatim]
-Geige = \new Staff
-  { \relative {
+violin = \new Staff {
+  \relative {
     a'4 b c b
   }
 }
-Cello = \new Staff
-  { \relative {
+
+cello = \new Staff {
+  \relative {
     \clef "bass"
     e2 d
   }
 }
+
 {
   <<
-    \Geige
-    \Cello
+    \violin
+    \cello
   >>
 }
 @end lilypond
@@ -1341,23 +1453,20 @@ können sogar eingesetzt werden, um später in der Datei eine neue
 Variable zu erstellen. Damit kann die Schreibarbeit erleichtert
 werden, wenn Notengruppen sich oft wiederholen.
 
-@c KEEP LY
 @lilypond[verbatim,quote]
-trioleA = \tuplet 3/2 { c,8 e g }
-TaktA = { \trioleA \trioleA \trioleA \trioleA }
+tripletA = \relative { \tuplet 3/2 { c'8 e g } }
+barA = { \tripletA \tripletA \tripletA \tripletA }
 
-\relative c'' {
-  \TaktA \TaktA
-}
+{ \barA \barA }
 @end lilypond
 
 Man kann diese Variablen auch für viele andere Objekte
 verwenden, etwa:
 
 @example
-Breite = 4.5\cm
-Name = "Tim"
-aFünfPapier = \paper @{ paperheight = 21.0 \cm @}
+width = 4.5\cm
+name = "Wendy"
+aFivePaper = \paper @{ paperheight = 21.0 \cm @}
 @end example
 
 Abhängig vom Kontext kann solch ein Bezeichner in verschiedenen
@@ -1366,15 +1475,14 @@ Benutzung der eben definierten Bezeichner:
 
 @example
 \paper @{
-  \aFünfPapier
-  line-width = \Breite
+  \aFivePaper
+  line-width = \width
 @}
 
 @{
-  c4^\Name
+  c4^\name
 @}
 @end example
-
 
 
 @node Titel hinzufügen
@@ -1384,7 +1492,6 @@ Benutzung der eben definierten Bezeichner:
 @cindex Titel
 @cindex header
 @cindex Kopf
-@cindex Titelei
 
 @funindex \header
 @funindex header
@@ -1410,7 +1517,7 @@ außerhalb der musikalischen Ausdrücke, meistens wird die
 
 Wenn die Datei übersetzt wird, werden Titel- und Komponisteneinträge
 über der Musik ausgegeben. Mehr Information über die Titelei findet
-sich im Abschnitt @ruser{Titel erstellen}.
+sich im Abschnitt @ruser{Titel Kopf und Fußzeilen erstellen}.
 
 
 @node Absolute Notenbezeichnungen
@@ -1422,16 +1529,15 @@ sich im Abschnitt @ruser{Titel erstellen}.
 @cindex absolute Werte für Tonhöhen
 @cindex Tonhöhen, absolute Werte
 
-Bis jetzt haben wir immer @code{\relative} benutzt, um Tonhöhen zu
-bestimmen. Das ist die einfachste Eingabeweise für die meiste Musik.
-Es gibt aber noch eine andere Möglichkeit, Tonhöhen darzustellen: durch
-absolute Bezeichnung.
+Bis jetzt haben wir @code{\relative} benutzt, um Tonhöhen zu
+bestimmen. Für gewöhnlich ist das die schnellste Methode, Musik einzugeben.
+Ohne @code{\relative} werden Tonhöhen als absolute Angaben interpretiert.
 
-Wenn man das @code{\relative} weglässt, werden alle Tonhöhen von LilyPond
-als absolute Werte interpretiert. Ein @code{c'} ist dann also immer das
-eingestrichene C, ein @code{b} ist immer das kleine h unter dem
-eingestrichenen C, und ein @code{g,} ist immer das große G -- also die
-Note auf der letzten Linie im Bass-Schlüssel.
+In diesem Modus werden alle Tonhöhen von LilyPond als absolute Werte
+interpretiert. Ein @code{c'} ist dann also immer das eingestrichene C, ein
+@code{b} ist immer das kleine h unter dem eingestrichenen C, und ein
+@code{g,} ist immer das große G -- also die Note auf der unteren Linie
+im Bass-Schlüssel.
 
 @lilypond[verbatim,quote]
 {
@@ -1441,26 +1547,8 @@ Note auf der letzten Linie im Bass-Schlüssel.
 }
 @end lilypond
 
-Hier eine Tonleiter über vier Oktaven:
-
-@lilypond[verbatim,quote]
-{
-  \clef "bass"
-  c,4 d, e, f, |
-  g,4 a, b, c |
-  d4 e f g |
-  a4 b c' d' |
-  \clef "treble"
-  e'4 f' g' a' |
-  b'4 c'' d'' e'' |
-  f''4 g'' a'' b'' |
-  c'''1 |
-}
-@end lilypond
-
-Wie leicht zu sehen ist, muss man sehr viele Apostrophe schreiben,
-wenn die Melodie im Sopranschlüssel notiert ist. Siehe etwa dieses
-Fragment von Mozart:
+Das Schreiben einer Melodie im Violinschlüssel erfordert eine Vielzahl
+von Apostrophen @code{'}, wie z.B. in diesem Fragment von Mozart:
 
 @lilypond[verbatim,quote]
 {
@@ -1471,9 +1559,22 @@ Fragment von Mozart:
 }
 @end lilypond
 
-Alle diese Apostrophe machen den Quelltext schlecht lesbar und sind
-eine mögliche Fehlerquelle. Mit dem  @code{\relative}-Befehl ist das Beispiel
-sehr viel einfacher zu lesen:
+@funindex \fixed
+Gemeinsame Oktavierungsmarkierungen können einmalig mit dem Befehl
+@code{\fixed}, gefolgt von einer Bezugstonhöhe, bestimmt werden:
+
+@lilypond[verbatim,quote]
+\fixed c'' {
+  \key a \major
+  \time 6/8
+  cis8. d16 cis8 e4 e8 |
+  b,8. cis16 b,8 d4 d8 |
+}
+@end lilypond
+
+Im Modus @code{\relative} benötigt das vorherige Beispiel überhaupt keine
+Oktavierungsmarkierungen, denn die Melodie enthält keine Intervalle, die
+größer wären als eine Quarte:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1492,21 +1593,42 @@ nicht so deutlich und deshalb auch nicht so einfach zu finden.
 
 Trotz allem ist der absolute Modus gut für Musik mit sehr großen
 Sprüngen und vor allem für computergenerierte LilyPond-Dateien.
+Wenn man Melodiefragmente kopiert und einfügt, dann behält sie im
+absoluten Modus die originale Oktavlage.
+
+Bisweilen ist Musik komplexer aufgebaut.  Schachtelt man @code{\relative}
+ineinander, dann sind der innere und äußere Bereich unabhängig voneinander:
+
+@lilypond[verbatim,quote]
+\relative { c'4 \relative { f'' g } c }
+@end lilypond
+
+Möchte man den absoluten Modus innerhalb von @code{\relative} verwenden,
+dann gehört die absolute Musik innerhalb @code{\fixed c @{ @dots{} @}}
+gepackt und deren Tonhöhen beeinflussen dann nicht die Oktavlage der
+relativen Musik:
+
+@lilypond[verbatim,quote]
+\relative {
+  c'4 \fixed c { f'' g'' } c |
+  c4 \fixed c'' { f g } c
+}
+@end lilypond
 
 
-@node Nach der Übung
-@subsection Nach der Übung
+@node Nach dem Tutorium
+@subsection Nach dem Tutorium
 @translationof After the tutorial
 
-Wenn Sie diese Übung absolviert haben, sollten Sie am
+Wenn Sie dieses Tutorium absolviert haben, sollten Sie am
 besten ein paar Stücke selber notieren. Beginnen Sie mit
 den @ref{Vorlagen} und fügen Sie einfach Ihre Noten
-dazu. Wenn Sie irgendetwas brauchen, das nicht in der
-Übung besprochen wurde, schauen Sie sich den Abschnitt Alles
- über die Notation an, angefangen mit @ruser{Musikalische Notation}.
+dazu. Wenn Sie irgendetwas brauchen, das nicht im
+Tutorium besprochen wurde, schauen Sie sich den Abschnitt Alles
+über die Notation an, angefangen mit @ruser{Musikalische Notation}.
 Wenn Sie für ein Instrument oder Ensemble Noten schreiben
 wollen, für das es keine Vorlage gibt, schauen Sie
-sich @ref{Erweiterung der Beispiele} an.
+sich @ref{Erweiterung der Vorlagen} an.
 
 Wenn Sie ein paar kurze Stücke notiert haben, lesen Sie
 den Rest des Handbuchs zum Lernen (Kapitel 3--5). Natürlich können
@@ -1516,7 +1638,7 @@ von LilyPond beherrschen. Sie können die weiteren Kapitel auch
 überfliegen und dann darauf wieder zurückkommen, wenn
 Sie einige Erfahrungen im Notieren gewonnen haben.
 
-In dieser Übung, genauso wie im gesamten Handbuch zum Lernen,
+In diesem Tutorium, genauso wie im gesamten Handbuch zum Lernen,
 befindet sich ein Abschnitt @strong{Siehe auch} am Ende jedes
 Abschnittes, wo sich Verweise auf andere Abschnitte befinden.
 Diesen Verweisen sollten Sie nicht beim ersten Durchlesen
@@ -1531,4 +1653,3 @@ Information über LilyPond, so dass Neulinge sich nicht sofort
 zurecht finden. Wenn Sie auch nur ein paar Minuten in diesem
 Abschnitt lesen, können Sie sich Stunden frustrierendes Suchen
 an der falschen Stelle ersparen!
-

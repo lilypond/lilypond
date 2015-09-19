@@ -10,8 +10,8 @@
 
 @c \version "2.19.22"
 
-@node Scheme-Übung
-@chapter Scheme-Übung
+@node Scheme-Tutorium
+@chapter Scheme-Tutorium
 @translationof Scheme tutorial
 
 
@@ -1364,7 +1364,7 @@ doubleSlur = #(define-music-function (note) (ly:music?)
 Am einfachsten können Artikulationszeichen zu Noten
 hinzugefügt werden, indem man zwei musikalische Funktionen
 in einen Kontext einfügt, wie erklärt in
-@ruser{Kontexte erstellen}.  Hier soll jetzt eine musikalische
+@ruser{Kontexte erstellen und referenzieren}.  Hier soll jetzt eine musikalische
 Funktion entwickelt werden, die das vornimmt.  Daraus ergibt sich
 der zusätzliche Vorteil, dass diese musikalische Funktion eingesetzt
 werden kann, um eine Artikulation (wie etwa eine Fingersatzanweisung)
@@ -1576,7 +1576,7 @@ Wir haben gesehen wie LilyPond-Eingabe massiv beeinflusst
 werden kann, indem Befehle wie etwa
 @code{\override TextScript.extra-offset = ( 1 . -1)}
 benutzt werden.  Aber es wurde gezeigt, dass Scheme noch
-mächtiger ist.  Eine bessere Erklärung findet sich in der@ref{Scheme-Übung} und in
+mächtiger ist.  Eine bessere Erklärung findet sich in der@ref{Scheme-Tutorium} und in
 @ruser{Schnittstellen für Programmierer}.
 
 Scheme kann auch in einfachen @code{\override}-Befehlen

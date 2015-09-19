@@ -326,7 +326,7 @@ Tonhöhe dann im Notenbild dargestellt wird. Eine
 einfache Tonhöhe wie etwa@tie{}@code{c} bedeutet also
 immer das eingestrichene C ohne Versetzungszeichen, egal
 was für Vorzeichen/Tonart oder Schlüssel gesetzt sind.
-Mehr Information dazu in @rlearning{Versetzungszeichen und Tonartbezeichnung (Vorzeichen)}.}
+Mehr Information dazu in @rlearning{Tonhöhen und Tonartbezeichnungen (Vorzeichen)}.}
 
 @cindex Notenbezeichnungen, Deutsch
 @cindex Notenbezeichnungen, Holländisch
@@ -440,7 +440,7 @@ Glossar:
 @rglos{quarter tone}.
 
 Handbuch zum Lernen:
-@rlearning{Versetzungszeichen und Tonartbezeichnung (Vorzeichen)}.
+@rlearning{Tonhöhen und Tonartbezeichnungen (Vorzeichen)}.
 
 Notationsreferenz:
 @ref{Automatische Versetzungszeichen},
@@ -629,7 +629,7 @@ Dieser Abschnitt zeigt, wie man Tonhöhen beeinflusst.
 
 @menu
 * Oktavenüberprüfung::
-* Transposition::
+* Transponieren::
 * Umkehrung::
 * Krebs::
 * Modale Transformierungen::
@@ -714,8 +714,8 @@ Referenz der Interna:
 @rinternals{RelativeOctaveCheck}.
 
 
-@node Transposition
-@unnumberedsubsubsec Transposition
+@node Transponieren
+@unnumberedsubsubsec Transponieren
 @translationof Transpose
 
 @cindex Transposition
@@ -901,7 +901,7 @@ indem sie in eine @code{\relative}-Umgebung eingeschlossen werden.}
 Notationsreferenz:
 @ref{Modale Transformierungen},
 @ref{Krebs},
-@ref{Transposition}.
+@ref{Transponieren}.
 
 
 @node Krebs
@@ -935,7 +935,7 @@ ersetllt werden, indem man @ref{Automatic note splitting} aktiviert.
 Notationsreferenz:
 @ref{Modale Transformierungen},
 @ref{Umkehrung},
-@ref{Transposition}.
+@ref{Transponieren}.
 
 
 
@@ -1083,7 +1083,7 @@ motif = \relative { c'8. ees16 fis8. a16 b8. gis16 f8. d16 }
 Notationsreferenz:
 @ref{Umkehrung},
 @ref{Krebs},
-@ref{Transposition}.
+@ref{Transponieren}.
 
 
 @node Tonhöhen anzeigen lassen
@@ -1253,7 +1253,7 @@ Tonhöhe dann im Notenbild dargestellt wird. Eine
 einfache Tonhöhe wie etwa@tie{}@code{c} bedeutet also
 immer das eingestrichene C ohne Versetzungszeichen, egal
 was für Vorzeichen/Tonart oder Schlüssel gesetzt sind.
-Mehr Information dazu in @rlearning{Versetzungszeichen und Tonartbezeichnung (Vorzeichen)}.}
+Mehr Information dazu in @rlearning{Tonhöhen und Tonartbezeichnungen (Vorzeichen)}.}
 
 Die Vorzeichen zeigen die Tonart an, in welcher ein Stück notiert ist.
 Es handelt sich um eine Anzahl von Alterationszeichen (Kreuzen oder
@@ -1331,7 +1331,7 @@ Glossar:
 @rglos{scordatura}.
 
 Handbuch zum Lernen:
-@rlearning{Versetzungszeichen und Tonartbezeichnung (Vorzeichen)}.
+@rlearning{Tonhöhen und Tonartbezeichnungen (Vorzeichen)}.
 
 Schnipsel:
 @rlsr{Pitches}.
@@ -1495,7 +1495,7 @@ Glossar:
 
 Notationsreferenz:
 @ref{Andere Stimmen zitieren},
-@ref{Transposition}.
+@ref{Transponieren}.
 
 Schnipsel:
 @rlsr{Pitches}.

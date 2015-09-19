@@ -71,7 +71,7 @@ Gruppen von Systemen zu erstellen.
 @notation{Notensysteme} (engl. @notation{staff}, Pl. @notation{staves})
 werden mit dem @code{\new} oder @code{\context}-Befehl erstellt.  Zu
 Einzelheiten siehe
-@ref{Kontexte erstellen}.
+@ref{Kontexte erstellen und referenzieren}.
 
 Der einfachste Notensystem-Kontext ist @code{Staff}:
 
@@ -136,7 +136,7 @@ Glossar:
 @rglos{staves}.
 
 Notationsreferenz:
-@ref{Kontexte erstellen},
+@ref{Kontexte erstellen und referenzieren},
 @ref{Schlagzeugsysteme},
 @ref{Melodierhythmus anzeigen},
 @ref{Standardtabulaturen},
