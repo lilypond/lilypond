@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Sun Jun  7 18:13:42 UTC 2015
+@emph{Last updated Sat Sep 19 15:34:10 UTC 2015
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -107,7 +107,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially</span>
+<span style="background-color: #2cff20">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -212,18 +212,18 @@ partially
 @item
 1 Első lecke
 @*
-2586
+2507
 @tab Harmath Dénes
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially (44 %)</span>
+<span style="background-color: #dfef77">partially (47 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially (44 %)
+partially (47 %)
 @end ifnothtml
 @tab 
 @ifhtml
@@ -239,7 +239,7 @@ partially
 @item
 2 Elemi kottaírás
 @*
-4465
+4453
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -256,7 +256,7 @@ partially (37 %)
 @ifhtml
 
 @html
-<span style="background-color: #c0ff34">partially</span>
+<span style="background-color: #dbff38">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -285,7 +285,7 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #c0ff34">partially</span>
+<span style="background-color: #c7ff35">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -312,7 +312,7 @@ no
 @ifhtml
 
 @html
-<span style="background-color: #efff3a">partially</span>
+<span style="background-color: #fcff3c">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -322,7 +322,7 @@ partially
 @item
 A Sablonok
 @*
-825
+1236
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -339,7 +339,7 @@ no
 @ifhtml
 
 @html
-<span style="background-color: #ffc546">partially</span>
+<span style="background-color: #ffad4a">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -469,7 +469,7 @@ partially
 @item
 3 A @command{lilypond-book} használata
 @*
-4212
+4211
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -562,7 +562,7 @@ partially
 @item
 Bevezetés
 @*
-5777
+5816
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -589,7 +589,7 @@ partially
 @item
 Letöltés
 @*
-1147
+1158
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -643,7 +643,7 @@ partially
 @item
 Közösség
 @*
-2997
+3004
 @tab Harmath Dénes
 @tab 
 @tab 
@@ -660,7 +660,7 @@ partially (94 %)
 @ifhtml
 
 @html
-<span style="background-color: #dbff38">partially</span>
+<span style="background-color: #efff3a">partially</span>
 @end html
 @end ifhtml
 @ifnothtml

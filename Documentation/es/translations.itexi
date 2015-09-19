@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualizado en Sun Jun  7 18:13:42 UTC 2015
+@emph{Actualizado en Sat Sep 19 15:34:10 UTC 2015
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -30,7 +30,7 @@ Registro de cambios de LilyPond
 @item
 Títulos de sección
 @*
-1717
+2022
 @tab Francisco Vila
 @tab 
 @tab 
@@ -47,7 +47,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #ff7855">parcialmente</span>
+<span style="background-color: #ff7656">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -297,7 +297,7 @@ parcialmente
 @item
 1 Interfaces para programadores
 @*
-5673
+5752
 @tab Francisco Vila
 @tab 
 @tab 
@@ -314,7 +314,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">parcialmente</span>
+<span style="background-color: #6fff29">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -390,7 +390,7 @@ sí
 @item
 1 Tutorial
 @*
-2586
+2507
 @tab Francisco Vila
 @tab 
 @tab 
@@ -407,7 +407,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">parcialmente</span>
+<span style="background-color: #4efe25">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -417,7 +417,7 @@ parcialmente
 @item
 2 Notación corriente
 @*
-4465
+4453
 @tab Francisco Vila
 @tab 
 @tab 
@@ -434,7 +434,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">parcialmente</span>
+<span style="background-color: #97ff2f">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -461,7 +461,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">parcialmente</span>
+<span style="background-color: #54ff26">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -488,7 +488,7 @@ parcialmente (98 %)
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">parcialmente</span>
+<span style="background-color: #54ff26">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -498,24 +498,24 @@ parcialmente
 @item
 A Plantillas
 @*
-825
+1236
 @tab Francisco Vila
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">parcialmente (99 %)</span>
+<span style="background-color: #dfef77">parcialmente (97 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-parcialmente (99 %)
+parcialmente (97 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #efff3a">parcialmente</span>
+<span style="background-color: #ffdf42">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -618,7 +618,7 @@ sí
 @item
 1.1 Alturas
 @*
-5198
+5203
 @tab Francisco Vila
 @tab 
 @tab 
@@ -635,7 +635,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">parcialmente</span>
+<span style="background-color: #83fe2c">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -645,7 +645,7 @@ parcialmente
 @item
 1.2 Duraciones
 @*
-6874
+6873
 @tab Francisco Vila
 @tab 
 @tab 
@@ -662,7 +662,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">parcialmente</span>
+<span style="background-color: #97ff2f">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -689,7 +689,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parcialmente</span>
+<span style="background-color: #76fe2a">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -699,7 +699,7 @@ parcialmente
 @item
 1.4 Repeticiones
 @*
-1181
+1294
 @tab Francisco Vila
 @tab 
 @tab 
@@ -716,7 +716,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">parcialmente</span>
+<span style="background-color: #acff31">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -743,7 +743,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">parcialmente</span>
+<span style="background-color: #68ff28">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -753,7 +753,7 @@ parcialmente
 @item
 1.6 Notación de los pentagramas
 @*
-2373
+2399
 @tab Francisco Vila
 @tab 
 @tab 
@@ -770,7 +770,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">parcialmente</span>
+<span style="background-color: #8aff2d">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -797,7 +797,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #c0ff34">parcialmente</span>
+<span style="background-color: #fcff3c">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -824,11 +824,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #6fff29">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -861,7 +861,7 @@ sí
 @item
 2.1 Música vocal
 @*
-4941
+4975
 @tab Francisco Vila
 @tab 
 @tab 
@@ -878,7 +878,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">parcialmente</span>
+<span style="background-color: #54ff26">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -888,7 +888,7 @@ parcialmente
 @item
 2.2 Teclados y otros instrumentos de varios pentagramas
 @*
-888
+912
 @tab Francisco Vila
 @tab 
 @tab 
@@ -905,11 +905,11 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #40fe23">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -932,7 +932,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #39ff22">parcialmente</span>
+<span style="background-color: #83fe2c">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -942,7 +942,7 @@ parcialmente
 @item
 2.4 Instrumentos de cuerda con trastes
 @*
-2707
+2716
 @tab Francisco Vila
 @tab 
 @tab 
@@ -959,7 +959,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parcialmente</span>
+<span style="background-color: #33ff21">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1013,7 +1013,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parcialmente</span>
+<span style="background-color: #39ff22">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1040,7 +1040,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">parcialmente</span>
+<span style="background-color: #2cff20">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1094,7 +1094,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">parcialmente</span>
+<span style="background-color: #54ff26">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1131,7 +1131,7 @@ parcialmente
 @item
 3 Entrada y salida generales
 @*
-11069
+12374
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1148,7 +1148,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #97ff2f">parcialmente</span>
+<span style="background-color: #b2fe32">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1158,7 +1158,7 @@ parcialmente
 @item
 4 Problemas de espaciado
 @*
-10886
+10884
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1175,7 +1175,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #6fff29">parcialmente</span>
+<span style="background-color: #7dff2b">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1185,7 +1185,7 @@ parcialmente
 @item
 5 Cambiar los valores por omisión
 @*
-15413
+15577
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1202,7 +1202,7 @@ parcialmente (99 %)
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parcialmente</span>
+<span style="background-color: #5bff27">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1349,7 +1349,7 @@ parcialmente (95 %)
 @ifhtml
 
 @html
-<span style="background-color: #62ff28">parcialmente</span>
+<span style="background-color: #68ff28">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1386,7 +1386,7 @@ parcialmente
 @item
 3 Ejecución de @command{lilypond-book}
 @*
-4212
+4211
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1413,7 +1413,7 @@ parcialmente
 @item
 4 Programas externos
 @*
-2826
+2786
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1430,7 +1430,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parcialmente</span>
+<span style="background-color: #9eff30">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1533,7 +1533,7 @@ sí
 @item
 Introducción
 @*
-5777
+5816
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1550,7 +1550,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #a5ff31">parcialmente</span>
+<span style="background-color: #acff31">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1560,7 +1560,7 @@ parcialmente
 @item
 Descarga
 @*
-1147
+1158
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1614,7 +1614,7 @@ sí
 @item
 Comunidad
 @*
-2997
+3004
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1631,7 +1631,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #6fff29">parcialmente</span>
+<span style="background-color: #83fe2c">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml

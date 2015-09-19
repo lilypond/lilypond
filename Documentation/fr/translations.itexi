@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Sun Jun  7 18:13:42 UTC 2015
+@emph{Dernière mise à jour Sat Sep 19 15:34:10 UTC 2015
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -237,7 +237,7 @@ oui
 @item
 2 Interfaces pour programmeurs
 @*
-5673
+5752
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -336,7 +336,7 @@ oui
 @item
 1 Tutoriel
 @*
-2586
+2507
 @tab Nicolas Grandclaude
 @*
 Ludovic Sardain
@@ -371,7 +371,7 @@ oui
 @item
 2 Bases de notation musicale
 @*
-4465
+4453
 @tab Nicolas Grandclaude
 @*
 Ludovic Sardain
@@ -468,7 +468,7 @@ oui
 @item
 A Modèles
 @*
-825
+1236
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -594,7 +594,7 @@ oui
 @item
 1.1 Hauteurs
 @*
-5198
+5203
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -625,7 +625,7 @@ oui
 @item
 1.2 Rythme
 @*
-6874
+6873
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -689,7 +689,7 @@ oui
 @item
 1.4 Répétitions et reprises
 @*
-1181
+1294
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -753,7 +753,7 @@ oui
 @item
 1.6 Notation sur la portée
 @*
-2373
+2399
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -867,7 +867,7 @@ oui
 @item
 2.1 Musique vocale
 @*
-4941
+4975
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -896,7 +896,7 @@ oui
 @item
 2.2 Instruments utilisant des portées multiples
 @*
-888
+912
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -958,7 +958,7 @@ oui
 @item
 2.4 Instruments à cordes frettées
 @*
-2707
+2716
 @tab Matthieu Jacquot
 @tab Jean-Charles Malahieude
 @tab 
@@ -1159,7 +1159,7 @@ oui
 @item
 3 Généralités en matière d'entrée et sortie
 @*
-11069
+12374
 @tab Jean-Charles Malahieude
 @*
 Valentin Villenave
@@ -1188,7 +1188,7 @@ oui
 @item
 4 Gestion de l'espace
 @*
-10886
+10884
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -1217,7 +1217,7 @@ oui
 @item
 5 Modification des réglages prédéfinis
 @*
-15413
+15577
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1426,7 +1426,7 @@ oui
 @item
 3 Association musique-texte avec @command{lilypond-book}
 @*
-4212
+4211
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1453,7 +1453,7 @@ oui
 @item
 4 Programmes externes
 @*
-2826
+2786
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1579,7 +1579,7 @@ oui
 @item
 Introduction
 @*
-5777
+5816
 @tab Gauvain Pocentek
 @*
 Jean-Charles Malahieude
@@ -1610,7 +1610,7 @@ oui
 @item
 Téléchargement
 @*
-1147
+1158
 @tab Jean-Charles Malahieude
 @*
 John Mandereau
@@ -1666,7 +1666,7 @@ oui
 @item
 Communauté
 @*
-2997
+3004
 @tab Jean-Charles Malahieude
 @*
 John Mandereau

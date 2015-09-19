@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Naposledy obnoveno Sun Jun  7 18:13:42 UTC 2015
+@emph{Naposledy obnoveno Sat Sep 19 15:34:10 UTC 2015
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -84,24 +84,24 @@ ano
 @item
 1 Cvičení
 @*
-2586
+2507
 @tab Pavel Fric
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">částečně (47 %)</span>
+<span style="background-color: #dfef77">částečně (50 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-částečně (47 %)
+částečně (50 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">částečně</span>
+<span style="background-color: #5bff27">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -111,7 +111,7 @@ ano
 @item
 2 Běžný notový zápis
 @*
-4465
+4453
 @tab Pavel Fric
 @tab 
 @tab 
@@ -128,7 +128,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #97ff2f">částečně</span>
+<span style="background-color: #c0ff34">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -155,7 +155,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">částečně</span>
+<span style="background-color: #6fff29">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -182,7 +182,7 @@ ano
 @ifhtml
 
 @html
-<span style="background-color: #b9ff33">částečně</span>
+<span style="background-color: #d4ff37">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -192,24 +192,24 @@ ano
 @item
 A Předlohy
 @*
-825
+1236
 @tab Pavel Fric
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">částečně (67 %)</span>
+<span style="background-color: #dfef77">částečně (75 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-částečně (67 %)
+částečně (75 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #ffca45">částečně</span>
+<span style="background-color: #ffaf4a">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -285,7 +285,7 @@ ano
 @item
 Úvod
 @*
-5777
+5816
 @tab Pavel Fric
 @tab 
 @tab 
@@ -312,7 +312,7 @@ ano
 @item
 Stažení
 @*
-1147
+1158
 @tab Pavel Fric
 @tab 
 @tab 
@@ -366,7 +366,7 @@ ano
 @item
 Společenství
 @*
-2997
+3004
 @tab  Pavel Fric
 @tab 
 @tab 
@@ -383,7 +383,7 @@ Společenství
 @ifhtml
 
 @html
-<span style="background-color: #e8fe39">částečně</span>
+<span style="background-color: #f6fe3b">částečně</span>
 @end html
 @end ifhtml
 @ifnothtml
