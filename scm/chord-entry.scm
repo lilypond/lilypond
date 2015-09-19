@@ -33,6 +33,7 @@ Entry point for the parser."
          (lead-mod #f)
          (explicit-11 #f)
          (explicit-2/4 #f)
+         (omit-3 #f)
          (start-additions #t))
 
     (define (interpret-inversion chord mods)
@@ -69,7 +70,8 @@ Entry point for the parser."
             ((ly:pitch? (car mods))
              (case (pitch-step (car mods))
                ((11) (set! explicit-11 #t))
-               ((2 4) (set! explicit-2/4 #t)))
+               ((2 4) (set! explicit-2/4 #t))
+               ((3) (set! omit-3 #f)))
              (interpret-additions (cons (car mods) (remove-step (pitch-step (car mods)) chord))
                                   (cdr mods)))
             ((procedure? (car mods))
@@ -131,8 +133,10 @@ the bass specified.
              (ly:pitch?  (car flat-mods))
              (not (eq? lead-mod sus-modifier)))
         (begin
-          (if (= (pitch-step (car flat-mods)) 11)
-              (set! explicit-11 #t))
+          (cond ((= (pitch-step (car flat-mods)) 11)
+                 (set! explicit-11 #t))
+                ((equal? (ly:make-pitch 0 4 0) (car flat-mods))
+                 (set! omit-3 #t)))
           (set! base-chord
                 (stack-thirds (car flat-mods) the-canonical-chord))
           (set! flat-mods (cdr flat-mods))))
@@ -156,6 +160,10 @@ the bass specified.
              (= 0 (ly:pitch-alteration (get-step 11 complete-chord)))
              (= 0 (ly:pitch-alteration (get-step 3 complete-chord))))
         (set! complete-chord (remove-step 11 complete-chord)))
+    ;; if omit-3 has been set (and not reset by an explicit 3
+    ;; somewhere), we remove the 3
+    (if omit-3
+        (set! complete-chord (remove-step 3 complete-chord)))
     ;; must do before processing inversion/bass, since they are
     ;; not relative to the root.
     (set! complete-chord (map (lambda (x) (ly:pitch-transpose x root))
