@@ -92,6 +92,19 @@ LY_DEFINE (ly_context_pushpop_property, "ly:context-pushpop-property",
   return SCM_UNSPECIFIED;
 }
 
+LY_DEFINE (ly_context_matched_pop_property, "ly:context-matched-pop-property",
+           3, 0, 0, (SCM context, SCM grob, SCM cell),
+           "This undoes a particular @code{\\override},"
+           " @code{\\once \\override} or @code{\\once \\revert}"
+           " when given the specific alist pair to undo.")
+{
+  Context *tg = LY_ASSERT_SMOB (Context, context, 1);
+  LY_ASSERT_TYPE (ly_is_symbol, grob, 2);
+  Grob_property_info (tg, grob).matched_pop (cell);
+  return SCM_UNSPECIFIED;
+}
+
+
 LY_DEFINE (ly_context_property, "ly:context-property",
            2, 1, 0, (SCM context, SCM sym, SCM def),
            "Return the value for property @var{sym} in @var{context}."

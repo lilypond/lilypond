@@ -809,7 +809,8 @@ Otherwise, return #f."
             (new-line->lily-string))))
 
 (define-display-method PropertyUnset (expr)
-  (format #f "\\unset ~a~a~a"
+  (format #f "~a\\unset ~a~a~a"
+          (if (ly:music-property expr 'once #f) "\\once " "")
           (if (eqv? (*current-context*) 'Bottom)
               ""
               (format #f "~a . " (*current-context*)))
@@ -839,8 +840,11 @@ Otherwise, return #f."
 (define-display-method RevertProperty (expr)
   (let* ((symbol (ly:music-property expr 'symbol))
          (properties (ly:music-property expr 'grob-property-path
-                                        (list (ly:music-property expr 'grob-property)))))
-    (format #f "\\revert ~{~a~^.~}~a"
+                                        (list (ly:music-property expr
+                                                                 'grob-property))))
+         (once (ly:music-property expr 'once #f)))
+    (format #f "~a\\revert ~{~a~^.~}~a"
+            (if once "\\once " "")
             (if (eqv? (*current-context*) 'Bottom)
                 (cons symbol properties)
                 (cons* (*current-context*) symbol properties))

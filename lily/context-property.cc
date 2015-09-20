@@ -82,7 +82,11 @@ private:
   // cooked_from_ is the value of alist_ from which the expansion has
   // been done
   SCM cooked_from_;
-  // nested_ is a count of nested overrides in alist_
+  // nested_ is a count of nested overrides in alist_ Or rather: of
+  // entries that must not appear in the cooked list and are
+  // identified by having a "key" that is not a symbol.  Temporary
+  // overrides and reverts also meet that description and have a
+  // nominal key of #t/#f and a value of the original cons cell.
   int nested_;
 
   Grob_properties (SCM alist, SCM based_on) :
@@ -234,6 +238,59 @@ Grob_property_info::push (SCM grob_property_path, SCM new_value)
   return SCM_EOL;
 }
 
+// Used for \once \override, returns a token for matched_pop
+SCM
+Grob_property_info::temporary_override (SCM grob_property_path, SCM new_value)
+{
+  SCM cell = push (grob_property_path, new_value);
+  if (!scm_is_pair (cell))
+    return cell;
+  if (scm_is_symbol (scm_car (cell)))
+    props_->nested_++;
+  cell = scm_cons (SCM_BOOL_T, cell);
+  props_->alist_ = scm_cons (cell, scm_cdr (props_->alist_));
+  return cell;
+}
+
+// Used for \once \revert, returns a token for matched_pop
+SCM
+Grob_property_info::temporary_revert (SCM grob_property_path)
+{
+  if (!check ())
+    return SCM_EOL;
+
+  SCM current_alist = props_->alist_;
+  SCM daddy = props_->based_on_;
+  SCM tail = SCM_EOL;
+
+  if (!scm_is_pair (grob_property_path)
+      || !scm_is_symbol (scm_car (grob_property_path)))
+    {
+      programming_error ("Grob property path should be list of symbols.");
+      return SCM_EOL;
+    }
+
+  if (scm_is_pair (scm_cdr (grob_property_path)))
+    {
+      tail = assoc_tail (grob_property_path, current_alist, daddy);
+      if (scm_is_false (tail))
+        return SCM_EOL;
+    }
+  else
+    {
+      tail = assq_tail (scm_car (grob_property_path), current_alist, daddy);
+      if (scm_is_false (tail))
+        return SCM_EOL;
+      ++props_->nested_;
+    }
+
+  SCM cell = scm_cons (SCM_BOOL_F, scm_car (tail));
+  props_->alist_ = partial_list_copy (current_alist, tail,
+                                      scm_cons (cell, scm_cdr (tail)));
+  return cell;
+}
+
+
 void
 Grob_property_info::matched_pop (SCM cell)
 {
@@ -247,7 +304,18 @@ Grob_property_info::matched_pop (SCM cell)
     {
       if (scm_is_eq (scm_car (p), cell))
         {
-          if (scm_is_pair (scm_car (cell)))
+          SCM key = scm_car (cell);
+          if (scm_is_false (key))
+            {
+              // temporary revert, reactivate
+              cell = scm_cdr (cell);
+              if (scm_is_symbol (scm_car (cell)))
+                props_->nested_--;
+              props_->alist_ = partial_list_copy (current_alist, p,
+                                                  scm_cons (cell, scm_cdr (p)));
+              return;
+            }
+          if (!scm_is_symbol (key))
             props_->nested_--;
           props_->alist_ = partial_list_copy (current_alist, p, scm_cdr (p));
           return;
@@ -337,7 +405,7 @@ apply_property_operations (Context *tg, SCM pre_init_ops)
       else if (scm_is_eq (type, ly_symbol2scm ("assign")))
         tg->set_property (scm_car (entry), scm_cadr (entry));
       else if (scm_is_eq (type, ly_symbol2scm ("apply")))
-	scm_apply_1 (scm_car (entry), tg->self_scm (), scm_cdr (entry));
+        scm_apply_1 (scm_car (entry), tg->self_scm (), scm_cdr (entry));
       else if (scm_is_eq (type, ly_symbol2scm ("unset")))
         tg->unset_property (scm_car (entry));
     }

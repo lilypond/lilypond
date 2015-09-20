@@ -310,9 +310,9 @@ of the note head to the default value for the final two notes:
 @funindex \once
 @funindex once
 
-Both the @code{\override} and the @code{\set} commands may be prefixed
-by @code{\once}.  This causes the following @code{\override} or
-@code{\set} command to be effective only during the current musical
+@code{\override}, @code{\revert}. @code{\set}, and @code{\unset}
+commands may be prefixed with @code{\once}.  This causes such a
+command to be effective only during the current musical
 moment before the property reverts back to its previous value (this can
 be different from the default if another @code{\override} is still in
 effect).  Using the same example, we can change the color of a single
@@ -328,8 +328,10 @@ note like this:
   e4 f |
   \once \override NoteHead.color = #green
   g4 a
-  \revert NoteHead.color
+  \once \revert NoteHead.color
   b c |
+  \revert NoteHead.color
+  f2 c |
 }
 @end lilypond
 
@@ -346,12 +348,6 @@ predefined commands to limit their effect to one musical moment:
   b( c) |
 }
 @end lilypond
-
-However, predefined commands of the form @code{\@dots{}Neutral},
-@code{\@dots{}Off} and @code{\un@dots{}} use @code{\revert} internally
-rather than @code{\override} so prefixing these with @code{\once} has no
-effect.
-
 
 @node The overrideProperty command
 @unnumberedsubsubsec The @code{@bs{}overrideProperty} command
