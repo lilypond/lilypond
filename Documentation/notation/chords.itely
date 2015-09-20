@@ -258,7 +258,8 @@ larger value is interpreted as 13.
 @end lilypond
 
 @noindent
-Note that both @code{c:5} and @code{c} produce a C major triad.
+As a special exception, @code{c:5} produces a @q{power chord} only
+consisting of root and fifth.
 
 Since an unaltered 11 does not sound good when combined with an
 unaltered 13, the 11 is removed from a @code{:13} chord (unless it
