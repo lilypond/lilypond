@@ -323,14 +323,15 @@ initial @code{^}.
 @funindex sus
 
 The modifier @code{sus} can be added to the modifier string to
-create suspended chords.  This removes the 3rd step from the chord.
-Append either @code{2} or @code{4} to add the 2nd or 4th step to the
-chord.  @code{sus} is equivalent to @code{^3}; @code{sus4} is
-equivalent to @code{.4^3}.
+create suspended chords.  This removes the 3rd step from the
+chord.  Append either @code{2} or @code{4} to add the 2nd or 4th
+step to the chord.  When @code{sus} is followed by either a 2nd or
+4th step, it is equivalent to @code{^3}, otherwise to @code{sus4},
+namely @code{5.4}.
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
-  c1:5 c:sus2 c:sus4 c:5.4
+  c1:sus c:sus2 c:sus4 c:5.4
 }
 @end lilypond
 
