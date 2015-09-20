@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.28"
 
 
 @node Chord notation
@@ -279,7 +279,7 @@ the major seventh.
 
 @lilypond[quote,verbatim]
 \chordmode {
-  c1:5.6 c:3.7.8 c:3.6.13
+  c1:3.5.6 c:3.7.8 c:3.6.13
 }
 @end lilypond
 
@@ -287,7 +287,7 @@ Added steps can be as high as desired.
 
 @lilypond[quote,verbatim]
 \chordmode {
-  c4:5.15 c:5.20 c:5.25 c:5.30
+  c4:3.5.15 c:3.5.20 c:3.5.25 c:3.5.30
 }
 @end lilypond
 
@@ -329,7 +329,7 @@ equivalent to @code{.4^3}.
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
-  c1:sus c:sus2 c:sus4 c:5.4^3
+  c1:5 c:sus2 c:sus4 c:5.4
 }
 @end lilypond
 
@@ -375,7 +375,7 @@ simply produces the augmented chord, since @code{5+} is
 interpreted last.
 
 @lilypond[quote,ragged-right,verbatim]
-\chordmode { c1:5.5-.5+ }
+\chordmode { c1:3.5.5-.5+ }
 @end lilypond
 
 

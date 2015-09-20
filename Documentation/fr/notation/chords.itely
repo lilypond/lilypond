@@ -8,7 +8,7 @@
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.28"
 
 @c Translators: Valentin Villenave,Jean-Charles Malahieude
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
@@ -293,7 +293,7 @@ que si l'on y ajoute une septième, celle-ci sera minorée et non majeure.
 
 @lilypond[quote,verbatim]
 \chordmode {
-  c1:5.6 c:3.7.8 c:3.6.13
+  c1:3.5.6 c:3.7.8 c:3.6.13
 }
 @end lilypond
 
@@ -301,7 +301,7 @@ Les notes ajoutées peuvent monter aussi haut que de besoin.
 
 @lilypond[quote,verbatim]
 \chordmode {
-  c4:5.15 c:5.20 c:5.25 c:5.30
+  c4:3.5.15 c:3.5.20 c:3.5.25 c:3.5.30
 }
 @end lilypond
 
@@ -342,7 +342,7 @@ quarte.  @code{sus} est équivalent à @code{^3} ; @code{sus4} est
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
-  c1:sus c:sus2 c:sus4 c:5.4^3
+  c1:5 c:sus2 c:sus4 c:5.4
 }
 @end lilypond
 
@@ -388,7 +388,7 @@ dans l'accord suivant, seule la quinte augmentée est prise en compte,
 parce qu'elle est indiquée en dernier :
 
 @lilypond[quote,ragged-right,verbatim]
-\chordmode { c1:5.5-.5+ }
+\chordmode { c1:3.5.5-.5+ }
 @end lilypond
 
 

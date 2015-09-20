@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.16.0"
+@c \version "2.19.28"
 
 @node Tablas del manual sobre notación
 @appendix Tablas del manual sobre notación
@@ -478,10 +478,10 @@ Quinta justa
 @tab
 @code{1.5}
 @tab
-@code{\powerChords c1:1.5}
+@code{\powerChords c1:5}
 @tab
 @lilypond[line-width=2.1\cm,noragged-right,notime]
-\chordmode { \powerChords c1:1.5 }
+\chordmode { \powerChords c1:5 }
 @end lilypond
 
 @item
@@ -491,10 +491,10 @@ Quinta justa, @*octava
 @tab
 @code{1.5.8}
 @tab
-@code{\powerChords c1:1.5.8}
+@code{\powerChords c1:5.8}
 @tab
 @lilypond[line-width=2.1\cm,noragged-right,notime]
-  \chordmode { \powerChords c1:1.5.8 }
+  \chordmode { \powerChords c1:5.8 }
 @end lilypond
 
 @end multitable

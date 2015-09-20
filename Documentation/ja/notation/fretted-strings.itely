@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.28"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -1814,11 +1814,11 @@ LilyPond は、符頭を三角形に変更することで、@c
 ChordsAndSymbols = {
   \chordmode {
     \powerChords
-    e,,1:1.5
-    a,,1:1.5.8
+    e,,1:5
+    a,,1:5.8
     \set minimumFret = #8
-    c,1:1.5
-    f,1:1.5.8
+    c,1:5
+    f,1:5.8
   }
   \set minimumFret = #5
   <a, e>1
@@ -1847,8 +1847,8 @@ ChordsAndSymbols = {
 mixedChords = \chordmode {
   c,1
   \powerChords
-  b,,1:1.5
-  fis,,1:1.5.8
+  b,,1:5
+  fis,,1:5.8
   g,,1:m
 }
 \score {
