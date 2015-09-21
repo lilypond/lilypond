@@ -569,7 +569,7 @@ chords.  Returns a placement-list."
 (define-public (fret-letter-tablature-format
                 context string-number fret-number)
   (let ((labels (ly:context-property context 'fretLabels)))
-    (make-vcenter-markup
+    (make-translate-scaled-markup '(0 . -0.5)
      (cond
       ((= 0 (length labels))
        (string (integer->char (+ fret-number (char->integer #\a)))))
