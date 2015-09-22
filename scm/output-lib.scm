@@ -967,7 +967,53 @@ and duration-log @var{log}."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 
+(define-public (grob::compose-function func data)
+  "This creates a callback entity to be stored in a grob property,
+based on the grob property data @var{data} (which can be plain data, a
+callback itself, or an unpure-pure-container).
 
+Function or unpure-pure-container @var{func} accepts a grob and a
+value and returns another value.  Depending on the type of @var{data},
+@var{func} is used for building a grob callback or an
+unpure-pure-container."
+  (if (or (ly:unpure-pure-container? func)
+          (ly:unpure-pure-container? data))
+      (ly:make-unpure-pure-container
+       (lambda (grob) (ly:unpure-call func grob (ly:unpure-call data grob)))
+       (lambda (grob start end)
+         (ly:pure-call func grob start end
+                       (ly:pure-call data grob start end))))
+      (lambda (grob) (ly:unpure-call func grob (ly:unpure-call data grob)))))
+
+(define*-public (grob::offset-function func data
+                                       #:optional (plus +))
+  "This creates a callback entity to be stored in a grob property,
+based on the grob property data @var{data} (which can be plain data, a
+callback itself, or an unpure-pure-container).
+
+Function @var{func} accepts a grob and returns a value that is added
+to the value resulting from @var{data}.  Optional arguments @var{plus}
+and @var{valid?} default to @code{+} and @code{number?} respectively
+and allow for using a different underlying accumulation/type.
+
+If @var{data} is @code{#f} or @code{'()}, it is not included in the sum."
+  (cond ((or (not data) (null? data))
+         func)
+        ((or (ly:unpure-pure-container func)
+             (ly:unpure-pure-container data))
+         (ly:make-unpure-pure-container
+          (lambda rest
+            (plus (apply ly:unpure-call func rest)
+                  (apply ly:unpure-call data rest)))
+          (lambda rest
+            (plus (apply ly:pure-call func rest)
+                  (apply ly:pure-call data rest)))))
+        ((or (procedure? func)
+             (procedure? data))
+         (lambda rest
+           (plus (apply ly:unpure-call func rest)
+                 (apply ly:unpure-call data rest))))
+        (else (plus func data))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; falls/doits
