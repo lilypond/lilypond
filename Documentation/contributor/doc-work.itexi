@@ -1290,15 +1290,6 @@ Note that you have to find yourself the source files to fix
 cross-references in the generated documentation such as the
 Internals Reference; e.g. you can grep scm/ and lily/.
 
-@c temporary?  how long will kainhofer be used?  -gp
-Also of interest may be the linkdoc checks on kainhofer.com.  Be
-warned that these docs are not completely rebuilt every day, so it
-might not accurately reflect the current state of the docs.
-
-@example
-@uref{http://kainhofer.com/~lilypond/linkdoc/}
-@end example
-
 
 @node General writing
 @subsection General writing
