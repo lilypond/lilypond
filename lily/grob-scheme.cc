@@ -23,7 +23,6 @@
 #include "item.hh"
 #include "output-def.hh"
 #include "paper-score.hh"
-#include "simple-closure.hh"
 #include "system.hh"
 #include "unpure-pure-container.hh"
 #include "warn.hh"              // error ()
@@ -51,7 +50,6 @@ LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
   if (!ly_is_procedure (val)
-      && !unsmob<Simple_closure> (val)
       && !type_check_assignment (sym, val, ly_symbol2scm ("backend-type?")))
     error ("typecheck failed");
 

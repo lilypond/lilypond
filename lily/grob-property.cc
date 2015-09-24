@@ -15,7 +15,6 @@
 #include "item.hh"
 #include "program-option.hh"
 #include "profile.hh"
-#include "simple-closure.hh"
 #include "unpure-pure-container.hh"
 #include "warn.hh"
 #include "protected-scm.hh"
@@ -121,7 +120,6 @@ Grob::internal_set_value_on_alist (SCM *alist, SCM sym, SCM v)
   if (do_internal_type_checking_global)
     {
       if (!ly_is_procedure (v)
-          && !unsmob<Simple_closure> (v)
           && !unsmob<Unpure_pure_container> (v)
           && !scm_is_eq (v, ly_symbol2scm ("calculation-in-progress")))
         type_check_assignment (sym, v, ly_symbol2scm ("backend-type?"));
@@ -149,7 +147,7 @@ Grob::internal_get_property_data (SCM sym) const
   if (do_internal_type_checking_global && scm_is_pair (handle))
     {
       SCM val = scm_cdr (handle);
-      if (!ly_is_procedure (val) && !unsmob<Simple_closure> (val)
+      if (!ly_is_procedure (val)
           && !unsmob<Unpure_pure_container> (val))
         type_check_assignment (sym, val, ly_symbol2scm ("backend-type?"));
 
@@ -181,8 +179,7 @@ Grob::internal_get_property (SCM sym) const
   if (Unpure_pure_container *upc = unsmob<Unpure_pure_container> (val))
     val = upc->unpure_part ();
 
-  if (ly_is_procedure (val)
-      || unsmob<Simple_closure> (val))
+  if (ly_is_procedure (val))
     {
       Grob *me = ((Grob *)this);
       val = me->try_callback_on_alist (&me->mutable_property_alist_, sym, val);
@@ -207,10 +204,6 @@ Grob::internal_get_pure_property (SCM sym, int start, int end) const
       return call_pure_function (val, scm_list_1 (self_scm ()), start, end);
   }
 
-  if (Simple_closure *sc = unsmob<Simple_closure> (val))
-    return evaluate_with_simple_closure (self_scm (),
-                                         sc->expression (),
-                                         true, start, end);
   return val;
 }
 
@@ -238,12 +231,6 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
   SCM value = SCM_EOL;
   if (ly_is_procedure (proc))
     value = scm_call_1 (proc, self_scm ());
-  else if (Simple_closure *sc = unsmob<Simple_closure> (proc))
-    {
-      value = evaluate_with_simple_closure (self_scm (),
-                                            sc->expression (),
-                                            false, 0, 0);
-    }
 
 #ifdef DEBUG
   if (debug_property_callbacks)
@@ -302,7 +289,6 @@ Grob::internal_get_object (SCM sym) const
     {
       SCM val = scm_cdr (s);
       if (ly_is_procedure (val)
-          || unsmob<Simple_closure> (val)
           || unsmob<Unpure_pure_container> (val))
         {
           Grob *me = ((Grob *)this);
@@ -334,12 +320,6 @@ call_pure_function (SCM unpure, SCM args, int start, int end)
     {
       SCM pure = upc->pure_part ();
 
-      if (Simple_closure *sc = unsmob<Simple_closure> (pure))
-        {
-          SCM expr = sc->expression ();
-          return evaluate_with_simple_closure (scm_car (args), expr, true, start, end);
-        }
-
       if (ly_is_procedure (pure))
         return scm_apply_0 (pure,
                             scm_append (scm_list_2 (scm_list_3 (scm_car (args),
@@ -350,15 +330,8 @@ call_pure_function (SCM unpure, SCM args, int start, int end)
       return pure;
     }
 
-  if (Simple_closure *sc = unsmob<Simple_closure> (unpure))
-    {
-      SCM expr = sc->expression ();
-      return evaluate_with_simple_closure (scm_car (args), expr, true, start, end);
-    }
-
   if (!ly_is_procedure (unpure))
     return unpure;
 
   return SCM_BOOL_F;
 }
-

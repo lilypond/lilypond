@@ -1,5 +1,4 @@
 #include "grob.hh"
-#include "simple-closure.hh"
 #include "unpure-pure-container.hh"
 #include "lily-imports.hh"
 
@@ -31,25 +30,9 @@ axis_parent_positioning (Axis a)
 void
 add_offset_callback (Grob *g, SCM proc, Axis a)
 {
-  SCM data = g->get_property_data (axis_offset_symbol (a));
-  if (!scm_is_number (data)
-      && !ly_is_procedure (data)
-      && !unsmob<Simple_closure> (data))
-    {
-      g->set_property (axis_offset_symbol (a), proc);
-      return;
-    }
-
-  if (ly_is_procedure (data) || unsmob<Unpure_pure_container> (data))
-    data = Simple_closure::make_smob (scm_list_1 (data));
-  else if (Simple_closure *sc = unsmob<Simple_closure> (data))
-    data = sc->expression ();
-
-  if (ly_is_procedure (proc))
-    proc = Simple_closure::make_smob (scm_list_1 (proc));
-
-  SCM expr = scm_list_3 (Guile_user::plus, proc, data);
-  g->set_property (axis_offset_symbol (a), Simple_closure::make_smob (expr));
+  SCM sym = axis_offset_symbol (a);
+  SCM data = g->get_property_data (sym);
+  g->set_property (sym, Lily::grob_offset_function (proc, data));
 }
 
 /*
@@ -65,25 +48,7 @@ void
 chain_callback (Grob *g, SCM proc, SCM sym)
 {
   SCM data = g->get_property_data (sym);
-
-  if (ly_is_procedure (data) || unsmob<Unpure_pure_container> (data))
-    data = Simple_closure::make_smob (scm_list_1 (data));
-  else if (Simple_closure *sc = unsmob<Simple_closure> (data))
-    data = sc->expression ();
-  else
-    /*
-      Data may be nonnumber. In that case, it is assumed to be
-      undefined.
-    */
-
-    data = SCM_UNDEFINED;
-
-  SCM expr = scm_list_2 (proc, data);
-  g->set_property (sym,
-
-                   // twice: one as a wrapper for grob property routines,
-                   // once for the actual delayed binding.
-                   Simple_closure::make_smob (Simple_closure::make_smob (expr)));
+  g->set_property (sym, Lily::grob_compose_function (proc, data));
 }
 
 void

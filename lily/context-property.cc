@@ -24,7 +24,6 @@
 #include "international.hh"
 #include "item.hh"
 #include "main.hh"
-#include "simple-closure.hh"
 #include "smobs.hh"
 #include "spanner.hh"
 #include "unpure-pure-container.hh"
@@ -59,7 +58,6 @@ typecheck_grob (SCM symbol, SCM value)
     return typecheck_grob (symbol, upc->unpure_part ())
       && typecheck_grob (symbol, upc->pure_part ());
   return ly_is_procedure (value)
-    || unsmob<Simple_closure> (value)
     || type_check_assignment (symbol, value, ly_symbol2scm ("backend-type?"));
 }
 
