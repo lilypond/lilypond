@@ -54,6 +54,8 @@ namespace Lily {
   Variable car_less ("car<");
   Variable construct_chord_elements ("construct-chord-elements");
   Variable default_time_signature_settings ("default-time-signature-settings");
+  Variable grob_compose_function ("grob::compose-function");
+  Variable grob_offset_function ("grob::offset-function");
   Variable hash_table_to_alist ("hash-table->alist");
   Variable interpret_markup_list ("interpret-markup-list");
   Variable invalidate_alterations ("invalidate-alterations");
