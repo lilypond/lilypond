@@ -967,13 +967,6 @@ and duration-log @var{log}."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 
-(define-public (chain-grob-member-functions grob value . funcs)
-  (for-each
-   (lambda (func)
-     (set! value (func grob value)))
-   funcs)
-
-  value)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
