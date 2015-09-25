@@ -314,24 +314,34 @@ Grob::internal_has_interface (SCM k)
 }
 
 SCM
-call_pure_function (SCM unpure, SCM args, int start, int end)
+call_pure_function (SCM value, SCM args, int start, int end)
 {
-  if (Unpure_pure_container *upc = unsmob<Unpure_pure_container> (unpure))
+  if (Unpure_pure_container *upc = unsmob<Unpure_pure_container> (value))
     {
-      SCM pure = upc->pure_part ();
+      if (upc->is_unchanging ())
+        {
+          // Don't bother forming an Unpure_pure_call here.
+          value = upc->unpure_part ();
 
-      if (ly_is_procedure (pure))
-        return scm_apply_0 (pure,
-                            scm_append (scm_list_2 (scm_list_3 (scm_car (args),
-                                                                scm_from_int (start),
-                                                                scm_from_int (end)),
-                                                    scm_cdr (args))));
+          if (ly_is_procedure (value))
+            return scm_apply_0 (value, args);
+          return value;
+        }
 
-      return pure;
+      value = upc->pure_part ();
+
+      if (ly_is_procedure (value))
+        return scm_apply_3 (value,
+                            scm_car (args),
+                            scm_from_int (start),
+                            scm_from_int (end),
+                            scm_cdr (args));
+
+      return value;
     }
 
-  if (!ly_is_procedure (unpure))
-    return unpure;
+  if (!ly_is_procedure (value))
+    return value;
 
   return SCM_BOOL_F;
 }
