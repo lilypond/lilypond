@@ -3834,6 +3834,17 @@ def conv (str):
     str = re.sub (r"(\\applyOutput\s+)#'([a-zA-Z])", r"\1\2", str)
     return str
 
+@rule ((2, 19, 28), r"c:5.x, c:5^x, c:sus -> c:3.5.x, c:3.5^x, c:5")
+def conv (str):
+    str = re.sub (r":5([.^][1-9])", r":3.5\1", str)
+    # row back for self-defeating forms
+    str = re.sub (r":3\.5((?:\.[0-9]+)*\^(?:[0-9]+\.)*)3\.", r":5\1", str)
+    str = re.sub (r":3\.5((?:\.[0-9]+)*\^?:[0-9]+(?:\.[0-9]+)*)\.3(?![.0-9])", r":5\1", str)
+    str = re.sub (r":3\.5((?:\.[0-9]+)*)\^3(?=\s|\})", r":5\1", str)
+    str = re.sub (r":sus(?=\s|\})", ":5", str)
+    str = re.sub (r":1\.5(?=\s|[.^}])", r":5", str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

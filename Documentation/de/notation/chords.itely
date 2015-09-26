@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.28"
 
 @c Translators: Till Paala
 
@@ -326,7 +326,7 @@ die große.
 
 @lilypond[quote,verbatim]
 \chordmode {
-  c1:5.6 c:3.7.8 c:3.6.13
+  c1:3.5.6 c:3.7.8 c:3.6.13
 }
 @end lilypond
 
@@ -335,7 +335,7 @@ Hinzugefügte Stufen können beliebig groß sein:
 
 @lilypond[quote,verbatim]
 \chordmode {
-  c4:5.15 c:5.20 c:5.25 c:5.30
+  c4:3.5.15 c:3.5.20 c:3.5.25 c:3.5.30
 }
 @end lilypond
 
@@ -380,7 +380,7 @@ einer @code{4} die vierte Stufe hinzugefügt.  @code{sus} entspricht
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
-  c1:sus c:sus2 c:sus4 c:5.4^3
+  c1:5 c:sus2 c:sus4 c:5.4
 }
 @end lilypond
 
@@ -430,7 +430,7 @@ weil @code{5+} zuletzt gelesen wird.
 
 @cindex Cluster
 @lilypond[quote,ragged-right,verbatim]
-\chordmode { c1:5.5-.5+ }
+\chordmode { c1:3.5.5-.5+ }
 @end lilypond
 
 Nur die zweite Umkehrung kann erstellt werden, indem eine
