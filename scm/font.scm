@@ -276,7 +276,7 @@ used.  This is used to select the proper design size for the text fonts.
     (add-pango-fonts n 'typewriter typewrite-str factor)
     n))
 
-(define-public (make-century-schoolbook-tree factor)
+(define-public (make-default-fonts-tree factor)
   (make-pango-font-tree
    "LilyPond Serif"
    "LilyPond Sans Serif"

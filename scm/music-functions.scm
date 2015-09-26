@@ -2317,10 +2317,11 @@ list or if there is a type-mismatch, @var{arg} will be returned."
        arg offsets))
     (else arg)))
 
-(define-public (offsetter property offsets)
-  "Apply @var{offsets} to the default values of @var{property} of @var{grob}.
-Offsets are restricted to immutable properties and values of type @code{number},
-@code{number-pair}, or @code{number-pair-list}."
+(define-public (grob-transformer property func)
+  "Create an override value good for applying @var{func} to either
+pure or unpure values.  @var{func} is called with the respective grob
+as first argument and the default value (after resolving all callbacks)
+as the second."
   (define (worker self container-part grob . rest)
     (let* ((immutable (ly:grob-basic-properties grob))
            ;; We need to search the basic-properties alist for our
@@ -2346,12 +2347,28 @@ Offsets are restricted to immutable properties and values of type @code{number},
                           (if (procedure? part)
                               (apply part grob rest)
                               part)))
-                       (else target)))
-           (can-type-be-offset?
-            (or (number? vals)
-                (number-pair? vals)
-                (number-pair-list? vals))))
+                       (else target))))
+      (func grob vals)))
+  ;; return the container named `self'.  The container self-reference
+  ;; seems like chasing its own tail but gets dissolved by
+  ;; define/lambda separating binding and referencing of "self".
+  (define self (ly:make-unpure-pure-container
+                (lambda (grob)
+                  (worker self ly:unpure-pure-container-unpure-part grob))
+                (lambda (grob . rest)
+                  (apply worker self ly:unpure-pure-container-pure-part
+                         grob rest))))
+  self)
 
+(define-public (offsetter property offsets)
+  "Apply @var{offsets} to the default values of @var{property} of @var{grob}.
+Offsets are restricted to immutable properties and values of type @code{number},
+@code{number-pair}, or @code{number-pair-list}."
+  (define (offset-fun grob vals)
+    (let ((can-type-be-offset?
+           (or (number? vals)
+               (number-pair? vals)
+               (number-pair-list? vals))))
       (if can-type-be-offset?
           ;; '(+inf.0 . -inf.0) would offset to itself.  This will be
           ;; confusing to a user unaware of the default value of the
@@ -2390,16 +2407,7 @@ Offsets are restricted to immutable properties and values of type @code{number},
           (begin
             (ly:warning "the property '~a of ~a cannot be offset" property grob)
             vals))))
-  ;; return the container named `self'.  The container self-reference
-  ;; seems like chasing its own tail but gets dissolved by
-  ;; define/lambda separating binding and referencing of "self".
-  (define self (ly:make-unpure-pure-container
-                (lambda (grob)
-                  (worker self ly:unpure-pure-container-unpure-part grob))
-                (lambda (grob . rest)
-                  (apply worker self ly:unpure-pure-container-pure-part
-                         grob rest))))
-  self)
+  (grob-transformer property offset-fun))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; \magnifyMusic and \magnifyStaff

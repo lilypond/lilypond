@@ -39,6 +39,20 @@
   (display (span-state x) file)
   (display "\n" file))
 
+;; Return the duration of the longest event in the Voice-state.
+(define-method (duration (vs <Voice-state>))
+  (define (duration-max event d1)
+    (let ((d2 (ly:event-property event 'duration #f)))
+      (if d2
+          (if (ly:duration<? d1 d2) d2 d1)
+          d1)))
+
+  (fold duration-max (ly:make-duration 0 0 0) (events vs)))
+
+;; Return the moment that the longest event in the Voice-state ends.
+(define-method (end-moment (vs <Voice-state>))
+  (ly:moment-add (moment vs) (ly:duration-length (duration vs))))
+
 (define-method (note-events (vs <Voice-state>))
   (define (f? x)
     (ly:in-event-class? x 'note-event))
@@ -129,16 +143,32 @@ return the previous voice state."
     (if p (span-state p) '())))
 
 (define (make-voice-states evl)
-  (let ((vec (list->vector (map (lambda (v)
-                                  (make <Voice-state>
-                                    #:moment (caar v)
-                                    #:tuning (cdar v)
-                                    #:events (map car (cdr v))))
-                                evl))))
-    (do ((i 0 (1+ i)))
-        ((= i (vector-length vec)) vec)
-      (slot-set! (vector-ref vec i) 'vector-index i)
-      (slot-set! (vector-ref vec i) 'state-vector vec))))
+  (let* ((states (map (lambda (v)
+                        (make <Voice-state>
+                          #:moment (caar v)
+                          #:tuning (cdar v)
+                          #:events (map car (cdr v))))
+                      (reverse evl))))
+
+    ;; add an entry with no events at the moment the last event ends
+    (if (pair? states)
+        (let ((last-real-event (car states)))
+          (set! states
+                (cons (make <Voice-state>
+                        #:moment (end-moment last-real-event)
+                        #:tuning (tuning last-real-event)
+                        #:events '())
+                      states))))
+
+    ;; TODO: Add an entry at +inf.0 and see if it allows us to remove
+    ;; the many instances of conditional code handling the case that
+    ;; there is no voice state at a given moment.
+
+    (let ((vec (list->vector (reverse! states))))
+      (do ((i 0 (1+ i)))
+          ((= i (vector-length vec)) vec)
+        (slot-set! (vector-ref vec i) 'vector-index i)
+        (slot-set! (vector-ref vec i) 'state-vector vec)))))
 
 (define (make-split-state vs1 vs2)
   "Merge lists VS1 and VS2, containing Voice-state objects into vector

@@ -16,7 +16,12 @@ mus =
 \relative c'' {
         \tempo "Allegro" 8=120-140
         a8 b c d a b c d
-        \override Score.MetronomeMark.font-name = "Times New Roman"
+
+        % A comma is required
+        % for font name "Times New Roman"'s explicit termination.
+        % If there is no comma, Pango interpret "Times New Roman" as
+        % "Times New" family with "Roman" style.
+        \override Score.MetronomeMark.font-name = "Times New Roman,"
         \tempo "Allegro" 8=140
         a b c d a b c d
 }

@@ -14,7 +14,6 @@ chapter.}
 * General build system notes::
 * Doc build::
 * Website build::
-* Building an Ubuntu distro::
 @end menu
 
 
@@ -1447,66 +1446,3 @@ website:
     runs website_post.py
   Then some file copying
 @end example
-
-@node Building an Ubuntu distro
-@section Building an Ubuntu distro
-
-
-Here's the short instruction on how to create lilybuntu iso image
-(Jonathan Kulp did this on a spare drive,
-but he supposes it can be done in a VM too):
-
-@enumerate
-
-@item
-Install ubuntu, reboot.
-@item
-Run all updates, reboot if asked.
-@item
-Enable src repos, refresh package lists.
-@item
-Install LilyPond build deps:
-@example
-sudo apt-get build-dep lilypond
-@end example
-@item
-Install git and autoconf:
-@example
-sudo apt-get install git-core gitk autoconf
-@end example
-
-@item
-Test to see whether everything works fine now:
-@enumerate
-@item
-use @command{lily-git.tcl} to grab source files
-@item
-go to source dir and do
-@example
-"./autogen.sh" ; make ; make doc
-@end example
-@item
-if all compiles, move on to iso creation...
-@end enumerate
-
-@item
-Download & install "remastersys":
-@uref{http://sourceforge.net/projects/remastersys/, http://sourceforge.net/projects/remastersys/}
-@item
-Copy @command{lily-git.tcl} script file into @file{/etc/skel/}.
-@item
-Modify @file{/etc/remastersys.conf} as desired (change @code{.iso} name,
-default live session username, etc).
-@item
-Remove non-essential desktop software as desired.
-@item
-Create iso:
-@example
-sudo remastersys dist
-@end example
-New iso is in @file{/home/remastersys/remastersys/}.
-@item
-Test iso by installing in VM and repeating steps above for
-getting source files and building lp and docs.
-
-@end enumerate

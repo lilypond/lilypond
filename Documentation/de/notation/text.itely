@@ -1593,8 +1593,8 @@ verwendet man folgende Syntax:
 \time 3/4
 
 a'1_\markup {
-  \override #'(font-name . "Vera Bold")
-    { Vera Bold }
+  \override #'(font-name . "Bitstream Vera Sans,sans-serif, Oblique Bold")
+    { Vera Oblique Bold }
 }
 @end lilypond
 
@@ -1643,7 +1643,7 @@ Schriftarten in @ref{Was sind Schriftarten}.
   myStaffSize = #20
   #(define fonts
     (make-pango-font-tree "Times New Roman"
-                          "Nimbus Sans"
+                          "Nimbus Sans,Nimbus Sans L"
                           "Luxi Mono"
                            (/ myStaffSize 20)))
 }

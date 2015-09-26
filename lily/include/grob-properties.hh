@@ -48,6 +48,8 @@ public:
   bool create ();
   SCM updated ();
   SCM push (SCM path, SCM value);
+  SCM temporary_override (SCM path, SCM value);
+  SCM temporary_revert (SCM path);
   void matched_pop (SCM);
   void pop (SCM path);
   void pushpop (SCM path, SCM value)

@@ -39,40 +39,39 @@ public:
 
 protected:
   void process_music ();
-  void stop_translation_timestep ();
   void start_translation_timestep ();
-  virtual void finalize ();
   DECLARE_TRANSLATOR_LISTENER (multi_measure_rest);
   DECLARE_TRANSLATOR_LISTENER (multi_measure_text);
 
 private:
-  Stream_event *rest_ev_;
+  void add_bound_item_to_grobs (Item *);
+  void clear_lapsed_events (const Moment &now);
+  bool grobs_initialized () const { return mmrest_; }
+  void initialize_grobs ();
+  void reset_grobs ();
+  void set_measure_count (int n);
+
+private:
   vector<Stream_event *> text_events_;
-  int start_measure_;
-  Rational last_main_moment_;
-  Moment stop_moment_;
-
-  bool bar_seen_;
-  Item *last_command_item_;
-  Spanner *last_rest_;
+  // text_[0] is a MultiMeasureRestNumber grob
+  // the rest are optional MultiMeasureRestText grobs
+  vector<Spanner *> text_;
+  Stream_event *rest_ev_;
   Spanner *mmrest_;
-
-  vector<Spanner *> numbers_;
-  vector<Spanner *> last_numbers_;
+  Moment stop_moment_;
+  int start_measure_;
+  // Ugh, this is a kludge - need this for multi-measure-rest-grace.ly
+  Item *last_command_item_;
+  bool first_time_;
 };
 
 Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
+  : rest_ev_ (0),
+    mmrest_ (0),
+    start_measure_ (0),
+    last_command_item_ (0),
+    first_time_ (true)
 {
-  last_command_item_ = 0;
-
-  /*
-    For the start of a score.
-  */
-  bar_seen_ = true;
-  start_measure_ = 0;
-  mmrest_ = 0;
-  last_rest_ = 0;
-  rest_ev_ = 0;
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Multi_measure_rest_engraver, multi_measure_rest);
@@ -82,11 +81,14 @@ Multi_measure_rest_engraver::listen_multi_measure_rest (Stream_event *ev)
   /* FIXME: Should use ASSIGN_EVENT_ONCE. Can't do that yet because of
      the kill-mm-rests hack in part-combine-iterator. */
   rest_ev_ = ev;
-  stop_moment_ = now_mom () + get_event_length (rest_ev_, now_mom ());
+  const Moment now (now_mom ());
+  stop_moment_ = now + get_event_length (rest_ev_, now);
   /*
   if (ASSIGN_EVENT_ONCE (rest_ev_, ev))
     stop_moment_ = now_mom () + get_event_length (rest_ev_);
   */
+
+  clear_lapsed_events (now);
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Multi_measure_rest_engraver, multi_measure_text);
@@ -97,165 +99,150 @@ Multi_measure_rest_engraver::listen_multi_measure_text (Stream_event *ev)
 }
 
 void
-Multi_measure_rest_engraver::process_music ()
+Multi_measure_rest_engraver::add_bound_item_to_grobs (Item *item)
 {
-  if (rest_ev_ && !mmrest_
-      && stop_moment_ > now_mom ())
-    {
-      mmrest_ = make_spanner ("MultiMeasureRest", rest_ev_->self_scm ());
-
-      Spanner *sp
-        = make_spanner ("MultiMeasureRestNumber", rest_ev_->self_scm ());
-      numbers_.push_back (sp);
-
-      if (text_events_.size ())
-        {
-          for (vsize i = 0; i < text_events_.size (); i++)
-            {
-              Stream_event *e = text_events_[i];
-              Spanner *sp
-                = make_spanner ("MultiMeasureRestText", e->self_scm ());
-              SCM t = e->get_property ("text");
-              SCM dir = e->get_property ("direction");
-              sp->set_property ("text", t);
-              if (is_direction (dir))
-                sp->set_property ("direction", dir);
-
-              numbers_.push_back (sp);
-            }
-
-          /*
-            Stack different scripts.
-          */
-          for (DOWN_and_UP (d))
-            {
-              Grob *last = 0;
-              for (vsize i = 0; i < numbers_.size (); i++)
-                {
-                  if (scm_is_eq (scm_from_int (d),
-                                 numbers_[i]->get_property ("direction")))
-                    {
-                      if (last)
-                        Side_position_interface::add_support (numbers_[i], last);
-                      last = numbers_[i];
-                    }
-                }
-            }
-        }
-
-      for (vsize i = 0; i < numbers_.size (); i++)
-        {
-          Side_position_interface::add_support (numbers_[i], mmrest_);
-          numbers_[i]->set_parent (mmrest_, Y_AXIS);
-          numbers_[i]->set_parent (mmrest_, X_AXIS);
-        }
-
-      start_measure_
-        = scm_to_int (get_property ("internalBarNumber"));
-    }
-
-  bar_seen_ = bar_seen_ || scm_is_string (get_property ("whichBar"));
+  add_bound_item (mmrest_, item);
+  for (vsize i = 0; i < text_.size (); ++i)
+    add_bound_item (text_[i], item);
 }
 
 void
-Multi_measure_rest_engraver::stop_translation_timestep ()
+Multi_measure_rest_engraver::clear_lapsed_events (const Moment &now)
 {
-  /* We cannot do this earlier, as breakableSeparationItem is not yet
-     there.
-
-     Actually, we no longer use breakableSeparationItem -- should this be moved?
-     -- jneem */
-  if (bar_seen_)
+  if (now.main_part_ >= stop_moment_.main_part_)
     {
-      Grob *cmc = unsmob<Grob> (get_property ("currentCommandColumn"));
-
-      /* Ugh, this is a kludge - need this for multi-measure-rest-grace.ly  */
-      last_command_item_ = dynamic_cast<Item *> (cmc);
+      rest_ev_ = 0;
+      text_events_.clear ();
     }
+}
 
-  if (last_command_item_ && (mmrest_ || last_rest_))
+void
+Multi_measure_rest_engraver::initialize_grobs ()
+{
+  mmrest_ = make_spanner ("MultiMeasureRest", rest_ev_->self_scm ());
+  text_.push_back (make_spanner ("MultiMeasureRestNumber",
+                                 rest_ev_->self_scm ()));
+
+  if (text_events_.size ())
     {
-      if (last_rest_)
+      for (vsize i = 0; i < text_events_.size (); i++)
         {
-          add_bound_item (last_rest_, last_command_item_);
-          for (vsize i = 0; i < last_numbers_.size (); i++)
-            add_bound_item (last_numbers_[i], last_command_item_);
+          Stream_event *e = text_events_[i];
+          Spanner *sp = make_spanner ("MultiMeasureRestText", e->self_scm ());
+          SCM t = e->get_property ("text");
+          SCM dir = e->get_property ("direction");
+          sp->set_property ("text", t);
+          if (is_direction (dir))
+            sp->set_property ("direction", dir);
+
+          text_.push_back (sp);
         }
 
-      if (mmrest_)
+      /*
+        Stack different scripts.
+      */
+      for (DOWN_and_UP (d))
         {
-          add_bound_item (mmrest_, last_command_item_);
-          for (vsize i = 0; i < numbers_.size (); i++)
-            add_bound_item (numbers_[i], last_command_item_);
+          SCM dir = scm_from_int (d);
+          Grob *last = 0;
+          for (vsize i = 0; i < text_.size (); i++)
+            {
+              if (scm_is_eq (dir, text_[i]->get_property ("direction")))
+                {
+                  if (last)
+                    Side_position_interface::add_support (text_[i], last);
+                  last = text_[i];
+                }
+            }
+        }
+    }
 
+  for (vsize i = 0; i < text_.size (); i++)
+    {
+      Side_position_interface::add_support (text_[i], mmrest_);
+      text_[i]->set_parent (mmrest_, Y_AXIS);
+      text_[i]->set_parent (mmrest_, X_AXIS);
+    }
+}
+
+void
+Multi_measure_rest_engraver::reset_grobs ()
+{
+  text_.clear ();
+  mmrest_ = 0;
+}
+
+void
+Multi_measure_rest_engraver::set_measure_count (int n)
+{
+  SCM n_scm = scm_from_int (n);
+  assert (mmrest_);
+  mmrest_->set_property ("measure-count", n_scm);
+
+  Grob *g = text_[0]; // the MultiMeasureRestNumber
+  assert (g);
+  if (scm_is_null (g->get_property ("text")))
+    {
+      SCM thres = get_property ("restNumberThreshold");
+      int t = 1;
+      if (scm_is_number (thres))
+        t = scm_to_int (thres);
+
+      if (n <= t)
+        g->suicide ();
+      else
+        {
+          SCM text = scm_number_to_string (n_scm, scm_from_int (10));
+          g->set_property ("text", text);
+        }
+    }
+}
+
+void
+Multi_measure_rest_engraver::process_music ()
+{
+  const bool measure_end
+  = scm_is_string (get_property ("whichBar"))
+    && (robust_scm2moment (get_property ("measurePosition"),
+                           Moment (0)).main_part_ == Rational (0));
+
+  if (measure_end || first_time_)
+    {
+      last_command_item_ = unsmob<Item> (get_property ("currentCommandColumn"));
+
+      // Finalize the current grobs.
+      if (grobs_initialized ())
+        {
+          int curr_measure = scm_to_int (get_property ("internalBarNumber"));
+          set_measure_count (curr_measure - start_measure_);
+          if (last_command_item_)
+            add_bound_item_to_grobs (last_command_item_);
+          reset_grobs ();
+        }
+    }
+
+  // Create new grobs if a rest event is (still) active.
+  if (!grobs_initialized () && rest_ev_)
+    {
+      initialize_grobs ();
+      text_events_.clear ();
+
+      if (last_command_item_)
+        {
+          add_bound_item_to_grobs (last_command_item_);
           last_command_item_ = 0;
         }
+
+      start_measure_ = scm_to_int (get_property ("internalBarNumber"));
     }
 
-  Moment mp (robust_scm2moment (get_property ("measurePosition"), Moment (0)));
-  if (last_rest_)
-    {
-      last_rest_ = 0;
-      last_numbers_.clear ();
-    }
-
-  text_events_.clear ();
-  bar_seen_ = false;
+  first_time_ = false;
 }
 
 void
 Multi_measure_rest_engraver::start_translation_timestep ()
 {
-  if (now_mom ().main_part_ >= stop_moment_.main_part_)
-    rest_ev_ = 0;
-
-  Moment mp (robust_scm2moment (get_property ("measurePosition"), Moment (0)));
-
-  Moment now = now_mom ();
-  if (mmrest_
-      && now.main_part_ != last_main_moment_
-      && mp.main_part_ == Rational (0))
-    {
-      last_rest_ = mmrest_;
-      last_numbers_ = numbers_;
-
-      int cur = scm_to_int (get_property ("internalBarNumber"));
-      int num = cur - start_measure_;
-
-      /*
-        We can't plug a markup directly into the grob, since the
-        measure-count determines the formatting of the mmrest.
-      */
-      last_rest_->set_property ("measure-count", scm_from_int (num));
-
-      mmrest_ = 0;
-      numbers_.clear ();
-
-      Grob *last = last_numbers_.size () ? last_numbers_[0] : 0;
-      if (last && scm_is_null (last->get_property ("text")))
-        {
-          SCM thres = get_property ("restNumberThreshold");
-          int t = 1;
-          if (scm_is_number (thres))
-            t = scm_to_int (thres);
-
-          if (num <= t)
-            last->suicide ();
-          else
-            {
-              SCM text
-                = scm_number_to_string (scm_from_int (num), scm_from_int (10));
-              last->set_property ("text", text);
-            }
-        }
-    }
-
-  last_main_moment_ = now.main_part_;
-}
-
-void
-Multi_measure_rest_engraver::finalize ()
-{
+  clear_lapsed_events (now_mom ());
 }
 
 ADD_TRANSLATOR (Multi_measure_rest_engraver,
@@ -274,7 +261,8 @@ ADD_TRANSLATOR (Multi_measure_rest_engraver,
                 "internalBarNumber "
                 "restNumberThreshold "
                 "currentCommandColumn "
-                "measurePosition ",
+                "measurePosition "
+                "whichBar ",
 
                 /* write */
                 ""

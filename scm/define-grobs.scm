@@ -38,6 +38,7 @@
         (stencil . ,ly:accidental-interface::print)
         (horizontal-skylines . ,(ly:make-unpure-pure-container ly:accidental-interface::horizontal-skylines))
         (vertical-skylines . ,grob::unpure-vertical-skylines-from-stencil)
+        (X-offset . ,ly:grob::x-parent-positioning)
         (Y-extent . ,accidental-interface::height)
         (meta . ((class . Item)
                  (interfaces . (accidental-interface
@@ -52,6 +53,7 @@
         (glyph-name-alist . ,standard-alteration-glyph-name-alist)
         (parenthesized . #t)
         (stencil . ,ly:accidental-interface::print)
+        (X-offset . ,ly:grob::x-parent-positioning)
         (Y-extent . ,accidental-interface::height)
         (meta . ((class . Item)
                  (interfaces . (accidental-interface
@@ -130,7 +132,7 @@
         (padding . 0.5)
         (side-axis . ,X)
         (stencil . ,ly:accidental-interface::print)
-        (X-offset . ,ly:side-position-interface::x-aligned-side)
+        (X-offset . ,ly:grob::x-parent-positioning)
         (Y-extent . ,accidental-interface::height)
         (meta . ((class . Item)
                  (interfaces . (accidental-interface

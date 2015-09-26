@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.28"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -313,7 +313,7 @@ C の長三和音を作り出すということに注意してください。
 
 @lilypond[quote,verbatim]
 \chordmode {
-  c1:5.6 c:3.7.8 c:3.6.13
+  c1:3.5.6 c:3.7.8 c:3.6.13
 }
 @end lilypond
 
@@ -321,7 +321,7 @@ C の長三和音を作り出すということに注意してください。
 
 @lilypond[quote,verbatim]
 \chordmode {
-  c4:5.15 c:5.20 c:5.25 c:5.30
+  c4:3.5.15 c:3.5.20 c:3.5.25 c:3.5.30
 }
 @end lilypond
 
@@ -365,7 +365,7 @@ C の長三和音を作り出すということに注意してください。
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
-  c1:sus c:sus2 c:sus4 c:5.4^3
+  c1:5 c:sus2 c:sus4 c:5.4
 }
 @end lilypond
 
@@ -409,7 +409,7 @@ C の長三和音を作り出すということに注意してください。
 増和音が作り出されます。
 
 @lilypond[quote,ragged-right,verbatim]
-\chordmode { c1:5.5-.5+ }
+\chordmode { c1:3.5.5-.5+ }
 @end lilypond
 
 第二転回和音を作り出すには、低音を追加するしかありません。@c

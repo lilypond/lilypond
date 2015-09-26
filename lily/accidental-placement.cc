@@ -54,7 +54,6 @@ Accidental_placement::add_accidental (Grob *me, Grob *a, bool stagger, long cont
     return;
 
   a->set_parent (me, X_AXIS);
-  a->set_property ("X-offset", Grob::x_parent_positioning_proc);
   long n = p->get_notename ();
 
   SCM accs = me->get_object ("accidental-grobs");

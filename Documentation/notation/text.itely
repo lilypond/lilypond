@@ -1451,18 +1451,18 @@ value must be determined by trial and error.  These glyphs are all
 left braces; right braces may be obtained by rotation, see
 @ref{Rotating objects}.
 
-Three families of text fonts are made available: the @emph{roman}
-(serif) font, that defaults to New Century Schoolbook, the
-@emph{sans} font and the monospaced @emph{typewriter} font -- these
-last two families are determined by the Pango installation.
-
-@warning{There are no default fonts associated with the @emph{sans}
-and @emph{typewriter} font-families.  An input file that specifies
-either of these can lead to different output on different computers.
-To ensure consistent output among multiple platforms, fonts must be
-specified by name, and those fonts must be available on any system
-that processes the file.  See @ref{Single entry fonts} and
-@ref{Entire document fonts}.}
+Three families of text fonts are made available:
+@itemize
+@item
+The @emph{roman} (serif) font,
+which defaults to LilyPond Serif (an alias of TeX Gyre Schola).
+@item
+The @emph{sans} font,
+which defaults to LilyPond Sans Serif (an alias of TeX Gyre Heros).
+@item
+The @emph{typewriter} (monospaced) font,
+which defaults to LilyPond Monospace (an alias of TeX Gyre Cursor).
+@end itemize
 
 Each family may include different shapes and series.  The following
 example demonstrates the ability to select alternate families, shapes,
@@ -1531,8 +1531,8 @@ FontConfig may be used in a score, using the following syntax:
 \time 3/4
 
 a'1_\markup {
-  \override #'(font-name . "Vera Bold")
-    { Vera Bold }
+  \override #'(font-name . "Bitstream Vera Sans,sans-serif, Oblique Bold")
+    { Vera Oblique Bold }
 }
 @end lilypond
 
@@ -1540,6 +1540,12 @@ a'1_\markup {
 @cindex finding available fonts
 @cindex listing available fonts
 @cindex available fonts, listing
+
+@var{font-name} can be described using a comma-separated list of @q{fonts}
+and a white-space separated list of @q{styles}.
+As long as the @q{font} in the list is installed
+and contains requested glyph, it will be used,
+otherwise the @emph{next} font in the list will be used instead.
 
 @funindex show-available-fonts
 
@@ -1570,7 +1576,9 @@ It is possible to change the fonts to be used as the default fonts in
 the @emph{roman}, @emph{sans} and @emph{typewriter} font families by
 specifying them, in that order, as shown in the example below, which
 automatically scales the fonts with the value set for the global staff
-size.  For an explanation of fonts, see @ref{Fonts explained}.
+size. Similar to @ref{Single entry fonts}, it can be described using a
+comma-separated list of @q{fonts}. However, font @q{styles} can not be
+described. For an explanation of fonts, see @ref{Fonts explained}.
 
 @cindex font families, setting
 @cindex fonts, changing for entire document
@@ -1581,7 +1589,7 @@ size.  For an explanation of fonts, see @ref{Fonts explained}.
 \paper  {
   #(define fonts
     (make-pango-font-tree "Times New Roman"
-                          "Nimbus Sans"
+                          "Nimbus Sans,Nimbus Sans L"
                           "Luxi Mono"
                           (/ staff-height pt 20)))
 }

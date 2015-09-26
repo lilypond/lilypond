@@ -79,7 +79,7 @@
     (setm! 'text-font-size (* 11 factor))
 
     (setm! 'output-scale ss)
-    (setm! 'fonts (make-century-schoolbook-tree factor))
+    (setm! 'fonts (make-default-fonts-tree factor))
     (setm! 'staff-height staff-height)
     (setm! 'staff-space ss)
 

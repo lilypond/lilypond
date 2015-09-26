@@ -154,11 +154,20 @@ nalist_to_alist (SCM nalist, int nested)
   SCM copied = SCM_EOL;
   SCM partials = SCM_EOL;
   // partials is a alist of partial overrides
-  for (;;)
+  while (nested)
     {
       SCM elt = scm_car (nalist);
       nalist = scm_cdr (nalist);
       SCM key = scm_car (elt);
+      if (!scm_is_symbol (key))
+        --nested;
+      if (scm_is_bool (key))
+        {
+          if (scm_is_false (key))
+            continue;
+          elt = scm_cdr (elt);
+          key = scm_car (elt);
+        }
       if (scm_is_pair (key))
         // nested override: record for key in partial
         {
@@ -168,23 +177,20 @@ nalist_to_alist (SCM nalist, int nested)
                                   partials);
           else
             scm_set_cdr_x (pair, scm_cons (elt, scm_cdr (pair)));
-          if (!--nested)
-            break;
+          continue;
+        }
+
+      // plain override: apply any known corresponding partials
+      SCM pair = assq_pop_x (key, &partials);
+      if (scm_is_true (pair))
+        {
+          SCM value = scm_cdr (elt);
+          for (SCM pp = scm_cdr (pair); scm_is_pair (pp); pp = scm_cdr (pp))
+            value = nested_property_alist (value, scm_cdaar (pp), scm_cdar (pp));
+          copied = scm_acons (key, value, copied);
         }
       else
-        // plain override: apply any known corresponding partials
-        {
-          SCM pair = assq_pop_x (key, &partials);
-          if (scm_is_true (pair))
-            {
-              SCM value = scm_cdr (elt);
-              for (SCM pp = scm_cdr (pair); scm_is_pair (pp); pp = scm_cdr (pp))
-                value = nested_property_alist (value, scm_cdaar (pp), scm_cdar (pp));
-              copied = scm_acons (key, value, copied);
-            }
-          else
-            copied = scm_cons (elt, copied);
-        }
+        copied = scm_cons (elt, copied);
     }
   // Now need to work off the remaining partials.  All of them are
   // unique, so we can push them to `copied' after resolving without

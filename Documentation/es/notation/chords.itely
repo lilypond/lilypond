@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.28"
 
 @node Notación de acordes
 @section Notación de acordes
@@ -314,7 +314,7 @@ que se añade a un acorde es la séptima menor, no mayor.
 
 @lilypond[quote,verbatim]
 \chordmode {
-  c1:5.6 c:3.7.8 c:3.6.13
+  c1:3.5.6 c:3.7.8 c:3.6.13
 }
 @end lilypond
 
@@ -322,7 +322,7 @@ Las notas añadidas pueden ser tan agudas como se desee.
 
 @lilypond[quote,verbatim]
 \chordmode {
-  c4:5.15 c:5.20 c:5.25 c:5.30
+  c4:3.5.15 c:3.5.20 c:3.5.25 c:3.5.30
 }
 @end lilypond
 
@@ -364,7 +364,7 @@ al acorde, respectivamente.  @code{sus} equivale a @code{^3};
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
-  c1:sus c:sus2 c:sus4 c:5.4^3
+  c1:5 c:sus2 c:sus4 c:5.4
 }
 @end lilypond
 
@@ -411,7 +411,7 @@ sigue produce simplemente el acorde aumentado, porque @code{5+} se
 interpreta en último lugar.
 
 @lilypond[quote,ragged-right,verbatim]
-\chordmode { c1:5.5-.5+ }
+\chordmode { c1:3.5.5-.5+ }
 @end lilypond
 
 Sólo se puede crear la segunda inversión mediante la adición de un
