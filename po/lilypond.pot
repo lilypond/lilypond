@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.27\n"
+"Project-Id-Version: lilypond 2.19.28\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2015-09-12 12:41+0100\n"
+"POT-Creation-Date: 2015-09-27 12:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1822,12 +1822,12 @@ msgstr ""
 msgid "cannot find or create `%s' called `%s'"
 msgstr ""
 
-#: context.cc:416
+#: context.cc:454
 #, c-format
 msgid "cannot find or create: `%s'"
 msgstr ""
 
-#: context.cc:430
+#: context.cc:468
 #, c-format
 msgid "cannot find or create new Bottom = \"%s\""
 msgstr ""
@@ -2770,7 +2770,7 @@ msgstr ""
 msgid "no such internal option: %s"
 msgstr ""
 
-#: property-iterator.cc:115
+#: property-iterator.cc:66
 #, c-format
 msgid "not a grob name, `%s'"
 msgstr ""
@@ -3383,7 +3383,7 @@ msgstr ""
 msgid "No span bar glyph defined for bar glyph '~a'; ignoring."
 msgstr ""
 
-#: chord-entry.scm:52
+#: chord-entry.scm:54
 #, scheme-format
 msgid "Spurious garbage following chord: ~A"
 msgstr ""
@@ -3413,27 +3413,27 @@ msgstr ""
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:2926
+#: define-markup-commands.scm:2943
 #, scheme-format
 msgid "Cannot find glyph ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3402
+#: define-markup-commands.scm:3419
 #, scheme-format
 msgid "no brace found for point size ~S "
 msgstr ""
 
-#: define-markup-commands.scm:3403
+#: define-markup-commands.scm:3420
 #, scheme-format
 msgid "defaulting to ~S pt"
 msgstr ""
 
-#: define-markup-commands.scm:3647
+#: define-markup-commands.scm:3665
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3858
+#: define-markup-commands.scm:3878
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
@@ -3768,12 +3768,12 @@ msgstr ""
 msgid "Missing duration"
 msgstr ""
 
-#: music-functions.scm:2626
+#: music-functions.scm:2634
 #, scheme-format
 msgid "not a symbol list: ~a"
 msgstr ""
 
-#: music-functions.scm:2629
+#: music-functions.scm:2637
 #, scheme-format
 msgid "conflicting tag group ~a"
 msgstr ""
@@ -3836,7 +3836,7 @@ msgstr ""
 msgid "error in #{ ... #}"
 msgstr ""
 
-#: part-combiner.scm:894
+#: part-combiner.scm:924
 #, scheme-format
 msgid "quoted music `~a' is empty"
 msgstr ""
@@ -3856,40 +3856,40 @@ msgstr ""
 msgid "assertion failed: ~S"
 msgstr ""
 
-#: translation-functions.scm:389
+#: translation-functions.scm:373
 #, scheme-format
 msgid "Negative fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:392
+#: translation-functions.scm:376
 #, scheme-format
 msgid "Missing fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:435
+#: translation-functions.scm:419
 #, scheme-format
 msgid "No open string for pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:450 translation-functions.scm:462
+#: translation-functions.scm:434 translation-functions.scm:446
 #, scheme-format
 msgid "Requested string for pitch requires negative fret: string ~a pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:453
+#: translation-functions.scm:437
 msgid "Ignoring string request and recalculating."
 msgstr ""
 
-#: translation-functions.scm:465
+#: translation-functions.scm:449
 msgid "Ignoring note in tablature."
 msgstr ""
 
-#: translation-functions.scm:490
+#: translation-functions.scm:474
 #, scheme-format
 msgid "No string for pitch ~a (given frets ~a)"
 msgstr ""
 
-#: translation-functions.scm:595
+#: translation-functions.scm:579
 #, scheme-format
 msgid ""
 "No label for fret ~a (on string ~a);\n"
