@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 91532052a38c0643e1b3cfca216d70052febb89a
+    Translation of GIT committish: 8cce5dd067a8a2bab508f5abebc3955db8837bbf
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -506,21 +506,43 @@ utilise par défaut.
 @code{-dno-print-pages}.
 
 @item
-@tab @code{svg}
-@tab Génère du@emph{Scalable Vector Graphics}.  Cette option permet de
-créer un fichier SVG par page, sans incorporation des fontes.  Nous vous
-recommandons d'installer les fontes Century Schoolbook comprises dans le
-paquetage LilyPond afin d'obtenir le meilleur rendu possible. Sous UNIX,
-il suffit de les recopier, à partir du répertoire
-@file{/usr/share/lilypond/VERSION/fonts/otf/}, dans @file{~/.fonts/}.
-Les fichiers @code{SVG} alors générés devraient être lisibles par votre
-éditeur SVG habituel.  L'option @code{svg-woff} -- voir ci-après --
-permet d'utiliser les fontes woff avec le moteur SVG.
-
-@item
 @tab @code{scm}
 @tab Recopie littéralement les commandes Scheme internes de formatage.
 
+@item
+@tab @code{svg}
+@tab Génère du @emph{Scalable Vector Graphics}.  Cette option permet de
+créer un fichier SVG par page.  Dans la mesure où aucune information
+concernant les fontes n'est incorporée,  elles devront être installées
+afin d'obtenir le meilleur rendu possible.  Il est préférable de ne pas
+recourir aux « alias de police » ni aux listes de fontes si le
+visionneur de fichier SVG ne peut le traîter correctement.  L'option
+@code{svg-woff} -- voir ci-après -- permet d'utiliser les fontes woff
+avec le moteur SVG.
+@end multitable
+
+@noindent
+@strong{Note à propos du moteur SVG :}
+Les polices par défaut de LilyPond -- @code{LilyPond Serif},
+@code{LilyPond Sans Serif} et @code{LilyPond Monospace} -- ne sont que
+des alias au niveau local.  Le recours au moteur SVG requiert donc que
+ces polices par défaut soient explicitement définies :
+
+@quotation
+@verbatim
+\paper  {
+  #(define fonts
+    (make-pango-font-tree "TeX Gyre Schola"
+                          "TeX Gyre Heros"
+                          "TeX Gyre Cursor"
+                          (/ staff-height pt 20)))
+}
+@end verbatim
+@end quotation
+
+Voir aussi @ruser{Choix des fontes par défaut}.
+
+@multitable @columnfractions .33 .16 .51
 @item @code{check-internal-types}
 @tab @code{#f}
 @tab Vérifie qu'à chaque propriété est bien affecté un type.
@@ -810,6 +832,11 @@ option accroit notablement la taille des fichiers PDF.
 @item @code{svg-woff}
 @tab @code{#f}
 @tab Utilise, avec le moteur SVG, les fontes @code{woff}.
+Lorsque celles-ci sont utilisées correctement, nul n'est besoin
+d'installer les fontes que les fichiers SVG utiliseront dans
+l'environnement du visionneur.  Néanmoins, LilyPond ne dispose pas de
+fichier de fonte @code{woff} textuelle.  La présence du fichier de fonte
+@code{woff} est un prérequis.
 
 @item @code{trace-memory-frequency}
 @tab @code{#f}

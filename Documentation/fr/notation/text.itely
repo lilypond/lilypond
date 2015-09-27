@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
+   Translation of GIT committish: 8cce5dd067a8a2bab508f5abebc3955db8837bbf
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1513,20 +1513,18 @@ comporte que des accolades ouvrantes.  Pour obtenir une accolade
 fermante, il suffit d'appliquer une rotation au glyphe sélectionné,
 comme indiqué à la rubrique @ref{Rotation des objets}.
 
-Vous disposez de trois familles de fontes textuelles : @emph{roman} pour
-la police sérif ou avec empattement -- fixée par défaut à New Century
-Schoolbook --, une police sans empattement (@emph{sans} sérif) et une à
-chasse fixe (monospace ou @emph{typewriter}) -- les deux dernières étant
-déterminées par l'installation de Pango.
-
-@warning{Aucune police par défaut n'est associée aux familles
-@emph{sans} et @emph{typewriter}.  Lorsque l'une d'elles apparaît dans
-un fichier source, le résultat peut varier d'un ordinateur à l'autre.
-Le résultat sera homogène quelque soit la plateforme dès lors que ces
-polices auront été spécifiées par leur nom et qu'elles sont disponibles
-pour tout système amené à traiter le fichier.  Voir
-@ref{Attribution d'une fonte en particulier} et
-@ref{Choix des fontes par défaut}.}
+Vous disposez de trois familles de fontes textuelles :
+@itemize
+@item
+@emph{roman} pour la police sérif ou avec empattement -- fixée par
+défaut à LilyPond Serif (alias de TeX Gyre Schola),
+@item
+une police sans empattement (@emph{sans} sérif) -- fixée par défaut à
+LilyPond Sans Serif (alias de TeX Gyre Heros) et
+@item
+une police à chasse fixe (monospace ou @emph{typewriter}) -- fixée par
+défaut à LilyPond Monospace (alias de TeX Gyre Cursor).
+@end itemize
 
 Chaque famille dispose en principe de différents styles et niveaux de
 gras.  L'exemple qui suit illustre la manière de changer la famille, le
@@ -1608,6 +1606,12 @@ a'1_\markup {
 @cindex fontes disponibles
 @cindex disponibilité des fontes
 
+@var{font-name} peut se décrire sous la forme d'une liste de polices
+séparées par une virgule, une espace et une liste de styles.  Dès lors
+que la police présente dans la liste est installée et comporte le glyphe
+requis, elle sera utilisée ; c'est la suivante dans la liste qui sera
+utilisée dans le cas contraire.
+
 @funindex show-available-fonts
 
 LilyPond, lancé avec l'option suivante, affiche la liste de toutes
@@ -1640,9 +1644,11 @@ Vous pouvez tout à fait préférer un autre jeu de polices par défaut que
 celui de LilyPond.  Il vous faudra alors spécifier les différentes
 familles, en respectant l'ordre @emph{roman}, @emph{sans empattement} et
 @emph{monospace}, comme dans l'exemple suivant ; ces fontes seront
-automatiquement mises à l'échelle de la taille globale des
-portées.  Pour plus d'explications sur les fontes, relisez
-@ref{Tout savoir sur les fontes}.
+automatiquement mises à l'échelle de la taille globale des portées.
+Tout comme indiqué dans @ref{Attribution d'une fonte en particulier},
+il peut s'agir d'une liste de polices séparées par une virgule, à ceci
+près qu'il n'est pas possible de spécifier de style. Pour plus
+d'explications sur les fontes, relisez @ref{Tout savoir sur les fontes}.
 
 @cindex polices, choix par défaut
 @cindex fontes, choix par défaut

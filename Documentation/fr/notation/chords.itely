@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
+   Translation of GIT committish: 8cce5dd067a8a2bab508f5abebc3955db8837bbf
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -271,8 +271,8 @@ interprétée comme un accord de treizième.
 @end lilypond
 
 @noindent
-Notez bien que @code{c:5} et @code{c} produisent tous deux une triade de
-do majeur.
+De manière exceptionnelle, @code{c:5} produit un @emph{power chord},
+accord formé de la fondamentale et la quinte.
 
 Dans la mesure où un accord de treizième majeure ne sonne pas très bien
 avec la onzième, la onzième est automatiquement enlevée, sauf à l'avoir
@@ -337,12 +337,12 @@ par un point lorsqu'il y en a plus d'une.
 L'ajout du modificateur @code{sus} permet de créer un accord de
 suspension.  Ceci aura pour effet de supprimer la tierce et y ajouter,
 suivant que vous spécifiez @code{2} ou @code{4}, la seconde ou la
-quarte.  @code{sus} est équivalent à @code{^3} ; @code{sus4} est
-équivalent à @code{.4^3}.
+quarte ; @code{sus} est alors équivalent à @code{^3}. @code{sus4} est
+équivalent à @code{5.4}.
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
-  c1:5 c:sus2 c:sus4 c:5.4
+  c1:sus c:sus2 c:sus4 c:5.4
 }
 @end lilypond
 
