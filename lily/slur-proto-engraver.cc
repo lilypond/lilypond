@@ -43,7 +43,7 @@ Slur_proto_engraver::derived_mark () const
 }
 
 void
-Slur_proto_engraver::internal_listen_slur (Stream_event *ev)
+Slur_proto_engraver::listen_slur (Stream_event *ev)
 {
   Direction d = to_dir (ev->get_property ("span-direction"));
   if (d == START)

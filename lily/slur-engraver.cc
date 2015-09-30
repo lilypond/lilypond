@@ -51,7 +51,7 @@ IMPLEMENT_TRANSLATOR_LISTENER (Slur_engraver, slur);
 void
 Slur_engraver::listen_slur (Stream_event *ev)
 {
-  internal_listen_slur (ev);
+  Slur_proto_engraver::listen_slur (ev);
 }
 
 void

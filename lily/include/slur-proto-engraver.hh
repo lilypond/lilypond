@@ -52,7 +52,7 @@ protected:
   DECLARE_END_ACKNOWLEDGER (tie);
   DECLARE_ACKNOWLEDGER (tuplet_number);
 
-  void internal_listen_slur (Stream_event *ev);
+  void listen_slur (Stream_event *ev);
   void acknowledge_extra_object (Grob_info);
   void stop_translation_timestep ();
   void process_music ();
