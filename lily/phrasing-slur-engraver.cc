@@ -38,12 +38,20 @@ protected:
   DECLARE_ACKNOWLEDGER (slur);
 
 public:
+  SCM event_symbol ();
   TRANSLATOR_DECLARATIONS (Phrasing_slur_engraver);
 };
 
 Phrasing_slur_engraver::Phrasing_slur_engraver () :
   Slur_proto_engraver (0, "PhrasingSlur", "phrasing slur", "phrasing-slur-event")
 {
+}
+
+SCM
+Phrasing_slur_engraver::event_symbol ()
+{
+  // Need a string constant for memoization
+  return ly_symbol2scm ("phrasing-slur-event");
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Phrasing_slur_engraver, phrasing_slur);

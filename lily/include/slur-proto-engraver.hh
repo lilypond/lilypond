@@ -42,6 +42,7 @@ protected:
   const char* grob_name_;
   const char* object_name_;
   const char* event_name_;
+  virtual SCM event_symbol () = 0;
 
   DECLARE_ACKNOWLEDGER (inline_accidental);
   DECLARE_ACKNOWLEDGER (fingering);

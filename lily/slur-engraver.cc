@@ -39,12 +39,20 @@ protected:
   DECLARE_TRANSLATOR_LISTENER (slur);
 
 public:
+  SCM event_symbol ();
   TRANSLATOR_DECLARATIONS (Slur_engraver);
 };
 
 Slur_engraver::Slur_engraver () :
   Slur_proto_engraver ("doubleSlurs", "Slur", "slur", "slur-event")
 {
+}
+
+SCM
+Slur_engraver::event_symbol ()
+{
+  // Need a string constant for memoization
+  return ly_symbol2scm ("slur-event");
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Slur_engraver, slur);
