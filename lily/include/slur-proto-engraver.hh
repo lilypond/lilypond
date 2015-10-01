@@ -22,6 +22,7 @@
 
 #include "engraver.hh"
 #include "moment.hh"
+#include <map>
 
 class Slur_proto_engraver : public Engraver
 {
@@ -41,6 +42,9 @@ protected:
   // protected so that subclasses can see them
   std::vector<Event_info> start_events_;
   std::vector<Event_info> stop_events_;
+
+  typedef std::multimap<Stream_event *, Spanner *> Note_slurs;
+  Drul_array<Note_slurs> note_slurs_;
   std::vector<Grob *> slurs_;
   std::vector<Grob *> end_slurs_;
   std::vector<Grob_info> objects_to_acknowledge_;
@@ -66,8 +70,8 @@ protected:
   void process_music ();
 
   bool can_create_slur (const std::string&, vsize, vsize *, Stream_event *);
-  void create_slur (const std::string &spanner_id, Stream_event *ev_cause, Grob *g_cause, Direction dir, bool left_broken);
-  bool try_to_end (Stream_event *ev);
+  void create_slur (const std::string &spanner_id, Event_info evi, Grob *g_cause, Direction dir, bool left_broken);
+  bool try_to_end (Event_info evi);
 
   virtual void set_melisma (bool);
   virtual void finalize ();
