@@ -77,9 +77,11 @@ and ornamentation.
 }
 @end lilypond
 
-However some notation, such as dynamics, hairpins and slurs must be
-attached to the chord, rather than notes within the chord, otherwise
-they will not print.
+However some notation, such as dynamics and hairpins must be
+attached to the chord rather than to notes within the chord,
+otherwise they will not print.  Other notation like fingerings and
+slurs will get placed markedly different when attached to notes
+within a chord rather than to whole chords or single notes.
 
 @lilypond[verbatim,quote]
 \relative {
