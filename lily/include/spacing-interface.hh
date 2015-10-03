@@ -25,8 +25,8 @@
 struct Spacing_interface
 {
   static Real minimum_distance (Grob *me, Grob *right_col);
-  static vector<Item *> right_note_columns (Grob *me);
-  static vector<Item *> left_note_columns (Grob *me);
+  static std::vector<Item *> right_note_columns (Grob *me);
+  static std::vector<Item *> left_note_columns (Grob *me);
   static Item *right_column (Grob *me);
   static Item *left_column (Grob *me);
   static Drul_array<Skyline> skylines (Grob *me, Grob *right_col);

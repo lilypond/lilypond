@@ -47,7 +47,7 @@ replace_special_characters (string &str, SCM props)
   int max_length = 0;
   for (SCM s = replacement_alist; scm_is_pair (s); s = scm_cdr (s))
     {
-      max_length = max (max_length, scm_to_int
+      max_length = std::max (max_length, scm_to_int
                         (scm_string_length (scm_caar (s))));
     }
 

@@ -37,11 +37,11 @@
 class Note_collision_interface
 {
 public:
-  static SCM automatic_shift (Grob *, Drul_array<vector<Grob *> >);
+  static SCM automatic_shift (Grob *, Drul_array<std::vector<Grob *> >);
   static SCM forced_shift (Grob *);
 
-  static vector<int> note_head_positions (Grob *me);
-  static Drul_array<vector<Grob *> > get_clash_groups (Grob *me);
+  static std::vector<int> note_head_positions (Grob *me);
+  static Drul_array<std::vector<Grob *> > get_clash_groups (Grob *me);
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM smob));
   static void add_column (Grob *me, Grob *ncol);
 };

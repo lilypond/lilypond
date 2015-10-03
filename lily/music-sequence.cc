@@ -66,7 +66,7 @@ Music_sequence::maximum_length (SCM l)
       else
         {
           Moment l = m->get_length ();
-          dur = max (dur, l);
+          dur = std::max (dur, l);
         }
     }
 
@@ -153,7 +153,7 @@ Music_sequence::minimum_start (SCM l)
   Moment m;
 
   for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
-    m = min (m, unsmob<Music> (scm_car (s))->start_mom ());
+    m = std::min (m, unsmob<Music> (scm_car (s))->start_mom ());
   return m;
 }
 

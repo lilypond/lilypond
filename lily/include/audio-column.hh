@@ -37,7 +37,7 @@ public:
   void add_audio_item (Audio_item *i);
   Moment when () const;
 
-  vector<Audio_item *> audio_items_;
+  std::vector<Audio_item *> audio_items_;
   Moment when_;
   int ticks () const;
 protected:

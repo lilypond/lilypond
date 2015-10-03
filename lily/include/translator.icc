@@ -52,7 +52,7 @@
   /* end define */
 
 #define DEFINE_ACKNOWLEDGERS(classname) \
-  Drul_array< vector<Acknowledge_information> > classname::acknowledge_static_array_drul_;      \
+  Drul_array< std::vector<Acknowledge_information> > classname::acknowledge_static_array_drul_;      \
   Translator::Grob_info_callback                                        \
   classname::static_get_acknowledger (SCM sym)                          \
   {                                                                     \
@@ -107,11 +107,11 @@
 
 void add_acknowledger (Translator::Grob_info_callback ptr,
                        char const *func_name,
-                       vector<Acknowledge_information> *ack_array);
+                       std::vector<Acknowledge_information> *ack_array);
 
 Translator::Grob_info_callback
 generic_get_acknowledger (SCM sym,
-                          vector<Acknowledge_information> const *ack_array);
+                          std::vector<Acknowledge_information> const *ack_array);
 
 #define ADD_ACKNOWLEDGER(CLASS, NAME)                                   \
   void CLASS ## NAME ## _ack_adder ()                                   \

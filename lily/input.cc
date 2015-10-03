@@ -20,7 +20,6 @@
 #include "input.hh"
 
 #include <cstdio>
-using namespace std;
 
 #include "international.hh"
 #include "lily-imports.hh"

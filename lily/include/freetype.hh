@@ -30,7 +30,7 @@
 void init_freetype ();
 extern FT_Library freetype2_library;
 
-string freetype_error_string (FT_Error code);
+std::string freetype_error_string (FT_Error code);
 
 SCM box_to_scheme_lines (Box b);
 Box ly_FT_get_unscaled_indexed_char_dimensions (FT_Face const &face, size_t signed_idx);

@@ -305,7 +305,7 @@ Beam_engraver::acknowledge_stem (Grob_info info)
   stem->set_property ("duration-log", scm_from_int (durlog));
   Moment stem_location = now - beam_start_mom_ + beam_start_location_;
   beam_info_->add_stem (stem_location,
-                        max (durlog - 2, 0),
+                        std::max (durlog - 2, 0),
                         Stem::is_invisible (stem),
                         stem_duration->factor (),
                         (to_boolean (stem->get_property ("tuplet-start"))));

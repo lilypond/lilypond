@@ -41,21 +41,21 @@ public:
   char const *end () const;
 
   void set (Source_file *, char const *, char const *);
-  void error (const string&) const;
-  void programming_error (const string&) const;
-  void non_fatal_error (const string&) const;
-  void warning (const string&) const;
-  void message (const string&) const;
-  void debug_output (const string&) const;
+  void error (const std::string&) const;
+  void programming_error (const std::string&) const;
+  void non_fatal_error (const std::string&) const;
+  void warning (const std::string&) const;
+  void message (const std::string&) const;
+  void debug_output (const std::string&) const;
   void set_spot (Input const &);
   void step_forward ();
   void set_location (Input const &, Input const &);
 
   Input spot () const;
 
-  string location_string () const;
-  string line_number_string () const;
-  string file_string ()const;
+  std::string location_string () const;
+  std::string line_number_string () const;
+  std::string file_string ()const;
 
   int line_number ()const;
   int column_number ()const;
@@ -67,8 +67,8 @@ public:
   Input (Input const &i);
   Input ();
 protected:
-  string message_location () const;
-  string message_string (const string &msg) const;
+  std::string message_location () const;
+  std::string message_string (const std::string &msg) const;
 };
 
 extern Input dummy_input_global;

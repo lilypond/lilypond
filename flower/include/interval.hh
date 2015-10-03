@@ -35,7 +35,7 @@ struct Interval_t : public Drul_array<T>
   using Drul_array<T>::at;
 
   static T infinity ();
-  static string T_to_string (T arg);
+  static std::string T_to_string (T arg);
   T center () const;
   void translate (T t)
   {
@@ -65,8 +65,8 @@ struct Interval_t : public Drul_array<T>
   void intersect (Interval_t<T> h);
   void add_point (T p)
   {
-    at (LEFT) = min (at (LEFT), p);
-    at (RIGHT) = max (at (RIGHT), p);
+    at (LEFT) = std::min (at (LEFT), p);
+    at (RIGHT) = std::max (at (RIGHT), p);
   }
   T length () const;
 
@@ -120,7 +120,7 @@ struct Interval_t : public Drul_array<T>
   }
 
   Real linear_combination (Real x) const;
-  string to_string () const;
+  std::string to_string () const;
 
   bool contains (T r) const;
   void negate ()

@@ -20,7 +20,6 @@
 #include "note-column.hh"
 
 #include <cmath>                // ceil
-using namespace std;
 
 #include "accidental-placement.hh"
 #include "axis-group-interface.hh"

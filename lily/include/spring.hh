@@ -65,6 +65,6 @@ public:
   bool operator > (Spring const &) const;
 };
 
-Spring merge_springs (vector<Spring> const &springs);
+Spring merge_springs (std::vector<Spring> const &springs);
 
 #endif /* SPRING_HH */

@@ -20,7 +20,6 @@
 #include "performance.hh"
 
 #include <ctime>
-using namespace std;
 
 #include "audio-column.hh"
 #include "audio-item.hh"
@@ -82,7 +81,7 @@ Performance::output (Midi_stream &midi_stream,
   Moment start_mom = 0;
   for (vsize i = 0; i < audio_elements_.size (); i++)
     if (Audio_item *item = dynamic_cast<Audio_item *>(audio_elements_[i]))
-      start_mom = min (start_mom, item->audio_column_->when ());
+      start_mom = std::min (start_mom, item->audio_column_->when ());
 
   for (vsize i = 0; i < audio_staffs_.size (); i++)
     {

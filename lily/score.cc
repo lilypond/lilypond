@@ -21,7 +21,6 @@
 
 #include <cstdio>
 
-using namespace std;
 
 #include "book.hh"
 #include "cpu-timer.hh"

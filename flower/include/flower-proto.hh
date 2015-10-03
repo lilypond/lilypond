@@ -27,7 +27,6 @@ typedef long long I64;
 class String_convert;
 
 #include "real.hh"
-using namespace std;
 
 template<class T> struct Interval_t;
 template<class T> struct PQueue;

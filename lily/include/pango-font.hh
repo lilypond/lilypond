@@ -46,11 +46,11 @@ public:
               Real);
   ~Pango_font ();
 
-  string description_string () const;
+  std::string description_string () const;
   SCM font_file_name () const;
-  void register_font_file (const string &filename, const string &ps_name, int face_index);
+  void register_font_file (const std::string &filename, const std::string &ps_name, int face_index);
 
-  size_t name_to_index (string) const;
+  size_t name_to_index (std::string) const;
   SCM get_glyph_outline (size_t signed_idx) const;
   Box get_glyph_outline_bbox (size_t signed_idx) const;
   Box get_unscaled_indexed_char_dimensions (size_t) const;
@@ -59,7 +59,7 @@ public:
   Stencil pango_item_string_stencil (PangoGlyphItem const *) const;
 
   virtual Stencil text_stencil (Output_def *output_state,
-                                const string &text, bool music) const;
+                                const std::string &text, bool music) const;
   virtual void derived_mark () const;
 };
 

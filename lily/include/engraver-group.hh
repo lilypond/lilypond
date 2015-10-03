@@ -26,7 +26,7 @@
 class Engraver_group : public Translator_group
 {
 protected:
-  vector<Grob_info> announce_infos_;
+  std::vector<Grob_info> announce_infos_;
   Drul_array<SCM> acknowledge_hash_table_drul_;
   void override (SCM);
   void revert (SCM);

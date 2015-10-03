@@ -234,11 +234,11 @@ Align_interface::internal_get_minimum_translations (Grob *me,
 
           Real spec_distance = 0;
           if (Page_layout_problem::read_spacing_spec (spec, &spec_distance, ly_symbol2scm ("minimum-distance")))
-            dy = max (dy, spec_distance);
+            dy = std::max (dy, spec_distance);
           // Consider the likely final spacing when estimating distance between staves of the full score
           if (INT_MAX == end && 0 == start
               && Page_layout_problem::read_spacing_spec (spec, &spec_distance, ly_symbol2scm ("basic-distance")))
-            dy = max (dy, spec_distance);
+            dy = std::max (dy, spec_distance);
 
           if (include_fixed_spacing && Page_layout_problem::is_spaceable (elems[j]) && last_spaceable_element)
             {
@@ -250,21 +250,21 @@ Align_interface::internal_get_minimum_translations (Grob *me,
               Page_layout_problem::read_spacing_spec (spec,
                                                       &spaceable_padding,
                                                       ly_symbol2scm ("padding"));
-              dy = max (dy, (last_spaceable_skyline.distance (skyline[-stacking_dir])
+              dy = std::max (dy, (last_spaceable_skyline.distance (skyline[-stacking_dir])
                              + stacking_dir * (last_spaceable_element_pos - where) + spaceable_padding));
 
               Real spaceable_min_distance = 0;
               if (Page_layout_problem::read_spacing_spec (spec,
                                                           &spaceable_min_distance,
                                                           ly_symbol2scm ("minimum-distance")))
-                dy = max (dy, spaceable_min_distance + stacking_dir * (last_spaceable_element_pos - where));
+                dy = std::max (dy, spaceable_min_distance + stacking_dir * (last_spaceable_element_pos - where));
 
-              dy = max (dy, Page_layout_problem::get_fixed_spacing (last_spaceable_element, elems[j], spaceable_count,
+              dy = std::max (dy, Page_layout_problem::get_fixed_spacing (last_spaceable_element, elems[j], spaceable_count,
                                                                     pure, start, end));
             }
         }
 
-      dy = max (0.0, dy);
+      dy = std::max (0.0, dy);
       down_skyline.raise (-stacking_dir * dy);
       down_skyline.merge (skyline[stacking_dir]);
       where += stacking_dir * dy;

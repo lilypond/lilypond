@@ -40,7 +40,7 @@ private:
 public:
   Input *origin () const;
 
-  vector<Output_def *> defs_;
+  std::vector<Output_def *> defs_;
   bool error_found_;
 
   Score ();

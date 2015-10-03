@@ -524,11 +524,11 @@ Note_collision_interface::automatic_shift (Grob *me,
 
               // check if we cross the opposite-stemmed voices
               if (d * extents[d][i][-d] < d * extent_union[-d][d])
-                offset = max (offset, 0.5);
+                offset = std::max (offset, 0.5);
               if (extents[-d].size ()
                   && extents[d][i][UP] > extents[-d][0][DOWN]
                   && extents[d][i][DOWN] < extents[-d][0][UP])
-                offset = max (offset, 1.0);
+                offset = std::max (offset, 1.0);
             }
           offsets[d].push_back (d * offset);
         }
@@ -595,7 +595,7 @@ Note_collision_interface::note_head_positions (Grob *me)
         out.insert (out.end (), nhp.begin (), nhp.end ());
       }
 
-  vector_sort (out, less<int> ());
+  vector_sort (out, std::less<int> ());
   return out;
 }
 

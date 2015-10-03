@@ -120,7 +120,7 @@
     debugging purposes.  If the class does not define this function,
     the output will be #<Classname> when printing.
 
-  - a static const type_p_name_[] string set to something like
+  - a static const type_p_name_[] std::string set to something like
     "ly:grob?".  When provided, an accordingly named function for
     checking for the given smob type will be available in Scheme.
 
@@ -150,7 +150,7 @@ class Smob_base
   static scm_t_bits smob_tag_;
   static Scm_init scm_init_;
   static void init (void);
-  static string smob_name_;
+  static std::string smob_name_;
 protected:
   static Super *unchecked_unsmob (SCM s)
   {
@@ -186,9 +186,9 @@ private:
   static void smob_proc_init (scm_t_bits) { };
 
   // type_p_name_ can be overriden in the Super class with a static
-  // const char [] string.  This requires both a declaration in the
+  // const char [] std::string.  This requires both a declaration in the
   // class as well as a single instantiation outside.  Using a
-  // template specialization for supplying a different string name
+  // template specialization for supplying a different std::string name
   // right in Smob_base<Super> itself seems tempting, but the C++
   // rules would then require a specialization declaration at the
   // class definition site as well as a specialization instantiation
@@ -330,7 +330,7 @@ public:
 extern bool parsed_objects_should_be_dead;
 class parsed_dead
 {
-  static vector<parsed_dead *> elements;
+  static std::vector<parsed_dead *> elements;
   SCM data;
   SCM readout_one ()
   {
