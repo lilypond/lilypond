@@ -334,9 +334,8 @@ starting note and ending note are marked with @code{(} and
 Music Glossary: @rglos{slur}, @rglos{phrasing}.
 
 Slurs to indicate longer @notation{phrasing} can be entered with
-@code{\(} and @code{\)}.  You can have both @notation{slurs}
-and phrasing slurs at the same time, but you cannot have
-simultaneous slurs or simultaneous phrasing slurs.
+@code{\(} and @code{\)}.  You can have both @notation{slurs} and
+phrasing slurs at the same time.
 
 @lilypond[verbatim,quote]
 \relative { g'4\( g8( a) b( c) b4\) }

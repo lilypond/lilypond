@@ -714,10 +714,20 @@ Slurs may be manually placed above or below the staff; see
 @cindex slur, phrasing
 @cindex slurs, multiple
 @cindex slurs, simultaneous
+@funindex \=
 
-Simultaneous or overlapping slurs are not permitted, but a phrasing
-slur can overlap a slur.  This permits two slurs to be printed at
-once.  For details, see @ref{Phrasing slurs}.
+Simultaneous or overlapping slurs require special attention.  Most
+occurences of outer slurs actually indicate phrasing, and phrasing
+slurs may overlap a regular slur, see @ref{Phrasing slurs}.  When
+multiple regular slurs are needed in a single @code{Voice},
+matching slur starts and ends need to be labelled by preceding
+them with @code{\=} followed by an identifying number or string.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  <c~ f\=1( g\=2( >2 <c e\=1) a\=2) >
+}
+@end lilypond
 
 @cindex slur style
 @cindex slur, solid
@@ -878,7 +888,8 @@ may be manually placed above or below the staff; see
 @cindex phrasing slur, simultaneous
 @cindex phrasing slur, multiple
 
-Simultaneous or overlapping phrasing slurs are not permitted.
+Simultaneous or overlapping phrasing slurs are entered using
+@code{\=} as with regular slurs, see @ref{Slurs}.
 
 @funindex phrasingSlurDashed
 @funindex \phrasingSlurDashed
