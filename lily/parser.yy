@@ -2811,8 +2811,8 @@ note_chord_element:
 		  unsmob<Music> (scm_car (s))->set_property ("duration", dur);
 		es = ly_append2 (es, postevs);
 
-		m-> set_property ("elements", es);
-		m->set_spot (@$);
+		m->set_property ("elements", es);
+		m->set_spot (parser->lexer_->override_input (@$));
 		$$ = m->self_scm ();
 	} %prec ':'
 	;
@@ -2919,7 +2919,7 @@ post_events:
 					$$ = scm_cons (scm_car (p), $$);
 				}
 			} else {
-				m->set_spot (@2);
+				m->set_spot (parser->lexer_->override_input (@2));
 				$$ = scm_cons ($2, $$);
 			}
 		}
