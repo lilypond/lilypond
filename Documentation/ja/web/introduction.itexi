@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 211937747d4adbae18d6ce41f88dffbb3ca04a5f
+    Translation of GIT committish: 76ee88f5adfc7bcd8eff487543e3605e43a93d80
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -198,6 +198,7 @@ LilyPond は最初から正しいフォーマットで出力します。@c
 楽譜の断片をテキストに入れることができます。@c
 @LaTeX{} や HTML に楽譜を垣根無く統合できますし、@c
 OOoLilyPond を使えば OpenOffice.org や LibreOffice に@c
+@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond}で@c
 楽譜を追加することも出来ます。@c
 LilyPond のコードを様々なブログ、Wiki で使用可能にする@c
 プラグインがあり、オンラインでコラボレーションできます。@c
@@ -1471,11 +1472,6 @@ research and reverse engineering by tweaking existing .enc files and
 loading them using the 4.55 demo version.
 
 @item
-@uref{http://www.musescore.org,MuseScore}:
-楽譜エディタで、完全ではありませんが LilyPond コードをエクスポートできます。@c
-活発に開発が行われています。
-
-@item
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
 @uref{http://www.cairographics.org,Cairo} ライブラリをベースにした@c
 楽譜エディタで、試験的に LilyPond へのエクスポートをサポートしています。
@@ -1538,15 +1534,28 @@ language.
 KDE 3.5 用の LilyKDE3 と KDE 4.1 用の lilypond-KDE4 だけが存在します。
 
 @item
+@uref{http://lilycomp.sourceforge.net, LilyComp} is a graphical note
+entry program, acting much like a number-pad which produces LilyPond
+notes.
+
+@item
+@uref{http://www.musescore.org,MuseScore}:
+楽譜エディタです。バージョン 2.0 で LilyPond エクスポートがなくなりましたが、@c
+古いバージョンがまだ
+@uref{http://sourceforge.net/projects/mscore/files/mscore/,Sourceforge}
+でダウンロードできます。
+
+@item
 @uref{http://noteedit.berlios.de,NoteEdit}, which imported
 @uref{http://www.makemusic.com/musicxml,MusicXML}, has been forked into
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 and @uref{http://canorus.org,Canorus}.
 
 @item
-@uref{http://lilycomp.sourceforge.net, LilyComp} is a graphical note
-entry program, acting much like a number-pad which produces LilyPond
-notes.
+@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond},
+OpenOffice.org の拡張機能で、OpenOffice.org ドキュメント中@c
+で LilyPond ファイルを画像に変換できます。@c
+もう開発されていませんが、まだバージョン 4 で動作すると思われます。
 
 @item
 @uref{https://launchpad.net/rumor/,Rumor}:

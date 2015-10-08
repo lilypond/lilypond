@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 211937747d4adbae18d6ce41f88dffbb3ca04a5f
+    Translation of GIT committish: 76ee88f5adfc7bcd8eff487543e3605e43a93d80
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -507,7 +507,10 @@ LilyPond 実行可能のファイルを保持しているフォルダを、@c
 [@var{既存の Path}];@var{DIR}\LilyPond\usr\bin
 @end example
 
-@warning{@var{DIR} は、一般には @code{C:@bs{}Program Files} です。}
+@warning{@var{DIR} は、一般的に 64 bit システムでは
+@code{C:@bs{}Program Files (x86)}
+、32 bit システムでは
+@code{C:@bs{}Program Files} です。}
 
 @noindent
 @qq{OK} ボタンをクリックしてウィンドウを閉じます。
