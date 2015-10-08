@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: fabcd22c8f88ea9a87241597f1e48c0a9adbfc6e
+    Translation of GIT committish: 76ee88f5adfc7bcd8eff487543e3605e43a93d80
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -12,7 +12,7 @@
 
 @c \version "2.19.21"
 
-@c Translators: Yoshiki Sawada
+@c Translators: Masamichi Hosoda, Yoshiki Sawada
 @c Translation status: post-GDP
 
 
@@ -54,19 +54,17 @@
 @cindex example, first (最初の例)
 @cindex case sensitive (大文字と小文字を区別する)
 
+@menu
+* 出力を作り出す::
+@end menu
+
 @qq{コンパイル} は LilyPond フォーマットで書かれた入力ファイルから@c
-出力ファイルを作り出す処理を意味する用語です。
-出力ファイルは一般に PDF (印刷や閲覧用)、MIDI (演奏用)、それに PNG
-(オンラインで使用)
-
-
-ため、そして (オプションとして) 演奏可能な MIDI ファイルを@c
-作り出すために処理することを意味する用語です。@c
+出力ファイルを作り出す処理を意味する用語です。@c
+出力ファイルには一般に PDF (印刷や閲覧用)、MIDI (演奏用)、それに PNG
+(オンラインで使用)があります。@c
 LilyPond 入力ファイルはシンプルなテキストファイルです。@c
-最初の例ではシンプルな入力ファイルがどのようなものかを示します。
 
-楽譜を作成するために、我々は記譜法を指定する入力ファイルを書きます。@c
-例えば、以下のように書くと:
+最初の例ではシンプルな入力ファイルを示します。
 
 @example
 \version "@w{@version{}}"
@@ -75,8 +73,7 @@ LilyPond 入力ファイルはシンプルなテキストファイルです。@c
 @}
 @end example
 
-@noindent
-結果は以下のようになります:
+出力は以下のようになります:
 
 @c  in this case we don't want verbatim
 @lilypond[quote]
@@ -85,12 +82,8 @@ LilyPond 入力ファイルはシンプルなテキストファイルです。@c
 }
 @end lilypond
 
-@c !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-@c strong内で {} を使用しようとした場合、なぜか下記のような表記にしなければ
-エラーが発生した
-@c !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 @warning{LilyPond 入力の音符と歌詞は、
-@strong{@code{@{}} @strong{波括弧} @strong{@code{@}}}
+@w{@strong{@{ 波括弧 @}}}
 で囲まれている必要があります。@c
 さらに、あいまいさを避けるために、波括弧は行の最初か最後でない限りは@c
 スペースによって囲まれているべきです。@c
@@ -103,12 +96,12 @@ LilyPond 入力ファイルはシンプルなテキストファイルです。@c
 @w{@code{@{ c d e @}}} は有効な入力ですが、@c
 @w{@code{@{ C D E @}}} はエラーになります。
 
-@smallspace
-
 
 @smallspace
 
-@subheading 出力を作り出す
+@node 出力を作り出す
+@unnumberedsubsubsec 出力を作り出す
+@translationof Producing output
 
 @cindex PDF file (PDF ファイル)
 @cindex viewing music (楽譜を閲覧する)
@@ -194,6 +187,16 @@ LilyPond の基本的な構文をいくつか紹介します。
 @cindex simple notation (簡単な記譜法)
 @cindex notation, simple (簡単な記譜法)
 
+@menu
+* ピッチ::
+* 演奏時間 (リズム)::
+* 休符::
+* 拍子記号::
+* テンポ記号::
+* 音部記号::
+* すべてをまとめて::
+@end menu
+
 LilyPond はいくつかの記譜要素を自動的に追加します。@c
 次の例では、我々は 4 つのピッチを指定しただけですが、LilyPond が音部記号、@c
 拍子記号、リズムを加えています。
@@ -209,8 +212,9 @@ LilyPond はいくつかの記譜要素を自動的に追加します。@c
 役に立ちます。
 
 
-@subheading ピッチ
-@c ピッチ
+@node ピッチ
+@unnumberedsubsubsec ピッチ
+@translationof Pitches
 
 @cindex pitches (ピッチ)
 @cindex relative mode (相対モード)
@@ -228,6 +232,16 @@ LilyPond はいくつかの記譜要素を自動的に追加します。@c
 @rglos{scale}, @rglos{middle C}, @rglos{octave},
 @rglos{accidental}
 
+LilyPondではピッチを指定するために小文字を使います。文字
+@code{c} から@tie{}@code{b} は@notation{ミドル C}の@c
+下の@q{スモール・オクターブ}を示します。@c
+@code{'} や@tie{}@code{,} を後ろにつけると上か下のオクターブになります。@c
+@notation{ミドル C}から始まる音階とアルペジオの例です：
+
+@lilypond[verbatim,quote]
+{ c' d' e' f' g' a' b' c'' g c' e' g' c'' e'' g'' c''' }
+@end lilypond
+
 音符を入力するための最も簡単な方法は @code{\relative} モードを@c
 使用することです。@c
 このモードでは、後に続く音符は常に前の音符に最も近い場所になるという@c
@@ -238,14 +252,13 @@ LilyPond はいくつかの記譜要素を自動的に追加します。@c
 前の音符からちょうど 1 譜表スペースの位置にきます) -- からはじめます。
 
 @lilypond[verbatim,quote]
-% set the starting point to middle C
 \relative {
   c' d e f
   g a b c
 }
 @end lilypond
 
-最初の音符は@notation{ミドル C} です。@c
+最初の音符は@code{c'}で示される@notation{ミドル C} です。@c
 一連の音符はそれぞれ前の音符と最も近い場所に置かれています --
 言い換えると、最初の @code{c} はミドル C に最も近い C です。@c
 これに前の音符に最も近い D が続きます。@c
@@ -260,15 +273,14 @@ LilyPond はいくつかの記譜要素を自動的に追加します。@c
 @end lilypond
 
 @noindent
-旋律の最初の音符が開始ピッチを指定している音符である必要はありません。@c
-前の例では、最初の音符 -- @code{d} -- はミドル C に最も近い D です。
+前の例では、最初の音符 -- @code{d} に一つ @code{'} が付いている --
+はミドル C から B へ上がっていくオクターブにある D です。
 
-@code{@w{\relative c' @{}} コマンドにクォート @code{'} やカンマ @code{,} を@c
+最初の音符にクォート @code{'} やカンマ @code{,} を@c
 付け加える (あるいは取り除く) ことによって、@c
 開始オクターブを変更することができます:
 
 @lilypond[verbatim,quote]
-% one octave above middle C
 \relative {
   e'' c a c
 }
@@ -317,14 +329,12 @@ A, G, F である場合は B の下に置かれます。
 音符を 2 オクターブ (あるいはそれ以上) 変えるには、複数化した @code{''} や
 @code{,,} を使用します -- しかしながら、1 つのダブル クォート @code{"}
 ではなく、2 つのシングル クォートを使用するよう注意してください！@c
-また、@code{@w{\relative c'}} の中の最初の値もこのように@c
-変更されるかもしれません。
 @c " - keeps quotes in order for context-sensitive editor -td
 
 
-@subheading 演奏時間 (リズム)
-@c Durations (rhythms)
-@c 演奏時間 (原語: Durations, リズム)
+@node 演奏時間 (リズム)
+@unnumberedsubsubsec 演奏時間 (リズム)
+@translationof Durations (rhythms)
 
 @cindex note durations (音符の演奏時間)
 @cindex durations (演奏時間)
@@ -372,8 +382,9 @@ A, G, F である場合は B の下に置かれます。
 @end lilypond
 
 
-@subheading 休符
-@c Rests
+@node 休符
+@unnumberedsubsubsec 休符
+@translationof Rests
 
 @cindex rest (休符)
 @cindex notating rests (休符を記譜する)
@@ -385,14 +396,15 @@ A, G, F である場合は B の下に置かれます。
 
 @lilypond[verbatim,quote]
 \relative {
-  a' r r2
+  a'4 r r2
   r8 a r4 r4. r8
 }
 @end lilypond
 
 
-@subheading 拍子記号
-@c Time signature
+@node 拍子記号
+@unnumberedsubsubsec 拍子記号
+@translationof Time signature
 
 @cindex time signature (拍子記号)
 
@@ -416,8 +428,9 @@ A, G, F である場合は B の下に置かれます。
 @end lilypond
 
 
-@subheading テンポ記号
-@c Tempo marks
+@node テンポ記号
+@unnumberedsubsubsec テンポ記号
+@translationof Tempo marks
 
 @cindex tempo marks (テンポ記号)
 @cindex metronome marks (メトロノーム記号)
@@ -445,8 +458,9 @@ A, G, F である場合は B の下に置かれます。
 @end lilypond
 
 
-@subheading 音部記号
-@c Clef
+@node 音部記号
+@unnumberedsubsubsec 音部記号
+@translationof Clef
 
 @cindex clef (音部記号)
 @cindex treble (ト音記号、高音部記号)
@@ -464,20 +478,21 @@ A, G, F である場合は B の下に置かれます。
 
 @lilypond[verbatim,quote]
 \relative {
-  \clef treble
+  \clef "treble"
   c'1
-  \clef alto
+  \clef "alto"
   c1
-  \clef tenor
+  \clef "tenor"
   c1
-  \clef bass
+  \clef "bass"
   c1
 }
 @end lilypond
 
 
-@subheading すべてをまとめて
-@c All together
+@node すべてをまとめて
+@unnumberedsubsubsec すべてをまとめて
+@translationof All together
 
 以上の要素をすべて集めたちょっとした例をお見せします:
 
@@ -575,7 +590,7 @@ LilyPond 入力ファイルは多くの一般的なプログラミング言語�
 以下と同じ意味になります:
 
 @example
-@{ c                        d
+@{ c4                       d
                    e   @}
 @end example
 
@@ -586,7 +601,7 @@ LilyPond 入力ファイルは多くの一般的なプログラミング言語�
 
 @example
 @{
-  c d e
+  c4 d e
 @}
 @end example
 
@@ -644,7 +659,7 @@ b2 b
   この行と以下の音符は無視されます。
   なぜなら、これらはブロック コメントの中にあるからです
 
-  f f e e d d c2
+  f4 f e e d d c2
 %@}
 @end example
 
@@ -722,34 +737,18 @@ LilyPond で発生する問題をトラブルシュートすることは、@c
 
 @c @ref{Working on input files}
 @ref{入力ファイルに取り組む} で見てきたように、LilyPond 入力は @{ @} マークか
-@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}
+@q{@w{@code{@bs{}relative @{ @dots{} @}}}}
 で囲まれていなければなりません。@c
-このマニュアルの残りの部分では、たいていの例はこのことを省略しています。@c
-このマニュアルにある例を複製するためにあなたは表示されている入力を@c
-コピーするかもしれませんが、あなたは以下のように
-@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}
-を付け加えなければなりません:
+このマニュアルの残りの部分では、いくつかの短い例はこのことを省略しています。@c
+このような例を複製するためにあなたは表示されている入力を@c
+コピーできますが、あなたは入力ファイルの中で、
+@code{@{} と @code{@{} の間にペーストしてください。
 
 @example
-\relative c'' @{
+@{
   @dots{}例がここに来ます@dots{}
 @}
 @end example
-
-なぜ波括弧を省略するのか？@c
-このマニュアルの中のたいていの例はより大きな音楽の途中に@c
-挿入することができます。@c
-これらの例に対して @q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}
-を付け加えることには意味がありません
--- あなたはある @code{\relative} を他の @code{\relative} の
-中に置くべきではありません！@c
-すべての例の周りに
-@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}
-を置いてしまうと、@c
-あなたは小さな例をコピーして、それをより大きなあなた自身の音楽の中に@c
-ペーストすることができなくなってしまいます。@c
-たいていの人は資料を既存の楽曲に付け加えようとしますので、@c
-我々はそのようにマニュアルを形作っています。
 
 さらに、すべての LilyPond ファイルは @code{\version} 宣言を持つべきである@c
 ということを思い出してください。@c
@@ -774,7 +773,7 @@ LilyPond で発生する問題をトラブルシュートすることは、@c
 @c no verbatim here
 @lilypond[quote]
 \relative {
-  c''-\markup { \bold \huge { ここをクリックしてください } }
+  c''4-\markup { \bold \huge { ここをクリックしてください } }
 }
 @end lilypond
 
