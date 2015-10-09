@@ -707,20 +707,13 @@ right (@var{dir}=+1)."
 (define-public (coord-scale coordinate amount)
   (coord-operation * amount coordinate))
 
-(define-public (coord-rotate coordinate degrees-in-radians)
-  (let*
-      ((coordinate
-        (cons
-         (exact->inexact (coord-x coordinate))
-         (exact->inexact (coord-y coordinate))))
-       (radius
-        (sqrt
-         (+ (* (coord-x coordinate) (coord-x coordinate))
-            (* (coord-y coordinate) (coord-y coordinate)))))
-       (angle (angle-0-2pi (atan (coord-y coordinate) (coord-x coordinate)))))
-    (cons
-     (* radius (cos (+ angle degrees-in-radians)))
-     (* radius (sin (+ angle degrees-in-radians))))))
+(define-public (coord-rotate coordinate angle)
+  (let ((c (cos angle))
+        (s (sin angle))
+        (x (coord-x coordinate))
+        (y (coord-y coordinate)))
+    (cons (- (* c x) (* s y))
+          (+ (* s x) (* c y)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; trig
