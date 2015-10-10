@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: lilypond 2.19.26\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2015-08-27 10:48+0100\n"
-"PO-Revision-Date: 2015-09-22 20:04+0200\n"
+"PO-Revision-Date: 2015-09-28 20:20+0200\n"
 "Last-Translator: Benno Schulenberg <benno@vertaalt.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "Language: nl\n"
@@ -390,11 +390,11 @@ msgstr ""
 
 #: convertrules.py:2095
 msgid "LilyPond source must be UTF-8"
-msgstr "LilyPond bron moet UTF-8 zijn"
+msgstr "LilyPond-brontekst moet UTF-8 zijn"
 
 #: convertrules.py:2098
 msgid "Try the texstrings backend"
-msgstr "Probeer het textstring backend"
+msgstr "Probeer de textstrings-backend."
 
 #: convertrules.py:2101
 #, python-format
@@ -403,7 +403,7 @@ msgstr "Doe iets als: %s"
 
 #: convertrules.py:2104
 msgid "Or save as UTF-8 in your editor"
-msgstr "Of bewaar als UTF-8 in je editor"
+msgstr "Of sla het op als UTF-8 in uw editor."
 
 #: convertrules.py:2154
 msgid "warn about auto beam settings"
@@ -1736,12 +1736,12 @@ msgstr "verwijderen van waardestreep zonder stokken"
 #: change-iterator.cc:34
 #, c-format
 msgid "cannot change `%s' to `%s'"
-msgstr "kan `%s' niet in `%s' veranderen"
+msgstr "kan '%s' niet in '%s' veranderen"
 
 #. FIXME: constant error message.
 #: change-iterator.cc:67
 msgid "cannot find context to switch to"
-msgstr "kan `%s' niet wisselen in `%s'"
+msgstr "kan context om naar over te schakelen niet vinden"
 
 #. No enclosing context was found because the iterator's immediate
 #. context is the kind that was sought.
@@ -1798,17 +1798,17 @@ msgstr "heb symbool-argumenten nodig voor \\override en \\revert"
 #: context.cc:144
 #, c-format
 msgid "cannot find or create new `%s'"
-msgstr "kan niet vinden of nieuw maken `%s'"
+msgstr "kan '%s' niet vinden of nieuw maken"
 
 #: context.cc:223
 #, c-format
 msgid "cannot find or create `%s' called `%s'"
-msgstr "kan niet vinden of maken `%s' genaamd `%s'"
+msgstr "kan '%s' genaamd '%s' niet vinden of aanmaken"
 
 #: context.cc:416
 #, c-format
 msgid "cannot find or create: `%s'"
-msgstr "kan niet vinden of scheppen: `%s'"
+msgstr "kan '%s' niet vinden of aanmaken"
 
 #: context.cc:430
 #, fuzzy, c-format
@@ -1883,7 +1883,7 @@ msgstr "onbeëindigde extender"
 #: flag.cc:133
 #, c-format
 msgid "flag `%s' not found"
-msgstr "vlag `%s' niet gevonden"
+msgstr "vlag '%s' is niet gevonden"
 
 #: flag.cc:153
 #, c-format
@@ -1948,7 +1948,7 @@ msgstr "onbeëindigde glissando"
 
 #: global-context-scheme.cc:95 global-context-scheme.cc:113
 msgid "no music found in score"
-msgstr "geen muziek gevonden in score"
+msgstr "geen muziek gevonden in partituur"
 
 #: global-context-scheme.cc:103
 msgid "Interpreting music..."
@@ -1987,7 +1987,7 @@ msgstr "onbekende interface `%s'"
 #: grob-interface.cc:79
 #, c-format
 msgid "Grob `%s' has no interface for property `%s'"
-msgstr "Grob `%s' heeft geen interface voor eigenschap `%s'"
+msgstr "Grob '%s' heeft geen interface voor eigenschap '%s'"
 
 #: grob-property.cc:33
 #, c-format
@@ -2026,12 +2026,12 @@ msgstr "verwijderen van onafgesloten streepje"
 #: includable-lexer.cc:71 lily-guile.cc:92 lily-parser-scheme.cc:108
 #, c-format
 msgid "cannot find file: `%s'"
-msgstr "kan bestand niet vinden: `%s'"
+msgstr "kan bestand '%s' niet vinden"
 
 #: includable-lexer.cc:73 lily-parser-scheme.cc:100
 #, c-format
 msgid "(search path: `%s')"
-msgstr "(zoekpad: `%s')"
+msgstr "(zoekpad: '%s')"
 
 #: input.cc:138 source-file.cc:180 source-file.cc:195
 msgid "position unknown"
@@ -2081,7 +2081,7 @@ msgstr "ligatuur werd hier gestart"
 #: lily-guile.cc:94
 #, c-format
 msgid "(load path: `%s')"
-msgstr "(zoekpad: `%s')"
+msgstr "(laadpad: '%s')"
 
 #: lily-guile.cc:413
 #, c-format
@@ -2142,7 +2142,7 @@ msgstr "kan werkmap niet veranderen naar: '%s'"
 #: lily-parser-scheme.cc:99
 #, c-format
 msgid "cannot find init file: `%s'"
-msgstr "kan init-bestand niet vinden: '%s'"
+msgstr "kan init-bestand '%s' niet vinden"
 
 #: lily-parser-scheme.cc:117
 #, c-format
@@ -2870,7 +2870,7 @@ msgstr "Onbekend verhuizingscommando %s"
 
 #: rest-collision.cc:154
 msgid "cannot resolve rest collision: rest direction not set"
-msgstr "kan rust bosting niet oplossen: richting van de rust is niet gezet"
+msgstr "kan rusten-botsing niet oplossen: richting van de rust is niet ingesteld"
 
 #: rest-collision.cc:165 rest-collision.cc:274
 msgid "too many colliding rests"
@@ -2879,12 +2879,12 @@ msgstr "te veel botsende rusten"
 #: rest.cc:239
 #, c-format
 msgid "rest `%s' not found"
-msgstr "rust `%s' niet gevonden"
+msgstr "rust '%s' is niet gevonden"
 
 #: score-engraver.cc:77
 #, c-format
 msgid "cannot find `%s'"
-msgstr "kan niet vinden `%s'"
+msgstr "kan '%s' niet vinden"
 
 #: score-engraver.cc:79
 msgid "Music font has not been installed properly."
@@ -2893,7 +2893,7 @@ msgstr "Muziek-font is niet correct geïnstalleerd."
 #: score-engraver.cc:81
 #, c-format
 msgid "Search path `%s'"
-msgstr "Zoekpad: `%s'"
+msgstr "Zoekpad: '%s'"
 
 #: score-engraver.cc:83
 msgid "Aborting"
@@ -2901,7 +2901,7 @@ msgstr "Afbreken"
 
 #: score.cc:161
 msgid "already have music in score"
-msgstr "heb al muziek nodig in score"
+msgstr "heb al muziek in partituur"
 
 #: score.cc:163
 msgid "this is the previous music"
@@ -3124,9 +3124,8 @@ msgid "not a context mod"
 msgstr ""
 
 #: parser.yy:1054
-#, fuzzy
 msgid "Missing music in \\score"
-msgstr "geen muziek gevonden in score"
+msgstr ""
 
 #: parser.yy:1091
 msgid "\\paper cannot be used in \\score, use \\layout instead"
@@ -3272,7 +3271,7 @@ msgstr "tekst tussen aanhalingstekens verwacht na \\version"
 
 #: lexer.ll:359
 msgid "end quote missing"
-msgstr "aanhalingstekens sluite mist"
+msgstr "afsluitend aanhalingsteken ontbreekt"
 
 #: lexer.ll:714
 msgid "EOF found inside a comment"
@@ -3331,7 +3330,7 @@ msgstr ""
 #: backend-library.scm:27
 #, scheme-format
 msgid "Invoking `~a'..."
-msgstr "Inroepen van `~a'..."
+msgstr "Aanroepen van '~a'..."
 
 #: backend-library.scm:31
 #, scheme-format
@@ -3427,7 +3426,7 @@ msgstr "Ongedefinieerde moedergebeurtenisklasse '~S'"
 
 #: define-markup-commands.scm:1098
 msgid "no systems found in \\score markup, does it have a \\layout block?"
-msgstr "geen systemen gevonden in \\score markup, heeft het een \\layout blok?"
+msgstr "geen systemen gevonden in \\score markup; heeft het een \\layout blok?"
 
 #: define-markup-commands.scm:2922
 #, scheme-format
@@ -3775,7 +3774,7 @@ msgstr "muziek verwacht: ~S"
 #: music-functions.scm:1295
 #, scheme-format
 msgid "cannot find quoted music: `~S'"
-msgstr "kan aangehaalde muziek niet vinden: `~S'"
+msgstr "kan aangehaalde muziek niet vinden: '~S'"
 
 #: music-functions.scm:1432
 msgid "Add @var{octave-shift} to the octave of @var{pitch}."
@@ -3963,7 +3962,7 @@ msgstr ""
 #~ msgstr "Te veel vooruitkijk"
 
 #~ msgid "score expected"
-#~ msgstr "score verwacht"
+#~ msgstr "partituur verwacht"
 
 #~ msgid "unknown repeat type `~S'"
 #~ msgstr "onbekend herhaaltype `~S'"
@@ -4359,9 +4358,6 @@ msgstr ""
 #~ msgid "beam has less than two visible stems"
 #~ msgstr "waardestreep heeft minder dan twee zichtbare stokken"
 
-#~ msgid "I'm one myself"
-#~ msgstr "Ben er zelf een"
-
 #~ msgid "Chord tremolo with %d elements. Must have two elements."
 #~ msgstr "Akkoordtremool met %d elementen. Moet twee elementen hebben."
 
@@ -4535,12 +4531,6 @@ msgstr ""
 
 #~ msgid "Report errors to <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
 #~ msgstr "Meld fouten naar <a href=\\\"%(mail_address_url)s\\\">%(mail_address)s</a>."
-
-#~ msgid "stable-branch"
-#~ msgstr "stabiele tak"
-
-#~ msgid "development-branch"
-#~ msgstr "ontwikkel tak"
 
 #~ msgid "French"
 #~ msgstr "Frans"
