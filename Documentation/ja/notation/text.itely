@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 
 @ignore
-    Translation of GIT committish: c1b0482f63f881bd3f67845e5f76a3e04675ef2a
+    Translation of GIT committish: 76ee88f5adfc7bcd8eff487543e3605e43a93d80
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -11,7 +11,7 @@
 @c \version "2.19.21"
 
 
-@c Translators: Yoshiki Sawada
+@c Translators: Masamichi Hosoda, Yoshiki Sawada
 @c Translation status: post-GDP
 
 
@@ -167,6 +167,9 @@
 }
 @end lilypond
 
+@cindex text spanners, formatting (テキスト スパナ フォーマット)
+@cindex formatting text spanners (テキスト スパナ フォーマット)
+
 @noindent
 譜刻される文字列はオブジェクト プロパティを通じてセットされます。@c
 デフォルトでは文字列はイタリック体で譜刻されます。@c
@@ -197,7 +200,7 @@
 @predefined
 @code{\textSpannerUp},
 @code{\textSpannerDown},
-@code{\textSpannerNeutral}.
+@code{\textSpannerNeutral}
 @endpredefined
 
 @knownissues
@@ -231,7 +234,7 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 
 
 @cindex text marks (テキスト マーク)
-@cindex marks, tex (テキスト マーク)t
+@cindex marks, tex (テキスト マーク)
 @cindex text on bar line (小節線上のテキスト)
 @cindex coda on bar line (小節線上のコーダ)
 @cindex segno on bar line (小節線上のセーニョ)
@@ -292,13 +295,24 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 小節線の上に配置されたり、音符の間に配置されたりします。@c
 改行位置で指定した場合、そのマークは次の行の先頭に譜刻されます。
 
-@lilypond[quote,verbatim,relative=2]
-\mark "Allegro"
-c1 c
-\mark "assai" \break
-c  c
+@lilypond[quote,verbatim,ragged-right]
+\relative c'' {
+  \mark "Allegro"
+  c1 c
+  \mark "assai" \break
+  c  c
+}
 @end lilypond
 
+@funindex \markLengthOn
+@funindex markLengthOn
+@funindex \markLengthOff
+@funindex markLengthOff
+
+@predefined
+@code{\markLengthOn},
+@code{\markLengthOff}
+@endpredefined
 
 @snippets
 
@@ -449,14 +463,16 @@ c  c
 マークアップ コマンドを保持することができます。@c
 そのようなコマンドは直後の表記にのみ影響を与えます。
 
-@lilypond[quote,verbatim,relative=2]
-a1-\markup intenso
-a2^\markup { poco \italic piÃ¹ forte  }
-c e1
-d2_\markup { \italic "string. assai" }
-e
-b1^\markup { \bold { molto \italic  agitato } }
-c
+@lilypond[quote,verbatim]
+\relative {
+  a'1-\markup intenso
+  a2^\markup { poco \italic più forte  }
+  c e1
+  d2_\markup { \italic "string. assai" }
+  e
+  b1^\markup { \bold { molto \italic  agitato } }
+  c
+}
 @end lilypond
 
 @cindex special characters in markup mode (マークアップ モードでの特殊文字)
@@ -551,14 +567,16 @@ allegro = \markup { \bold \large Allegro }
 
 マークアップ モードでは、基本的なフォント切り替えがサポートされています:
 
-@lilypond[quote,verbatim,relative=2]
-d1^\markup {
-  \bold { PiÃ¹ mosso }
-  \italic { non troppo \underline Vivo }
+@lilypond[quote,verbatim]
+\relative {
+  d''1^\markup {
+    \bold { Più mosso }
+    \italic { non troppo \underline Vivo }
+  }
+  r2 r4 r8
+  d,_\markup { \italic quasi \smallCaps Tromba }
+  f1 d2 r
 }
-r2 r4 r8
-d,_\markup { \italic quasi \smallCaps Tromba }
-f1 d2 r
 @end lilypond
 
 @cindex font size (フォント サイズ)
@@ -618,6 +636,15 @@ f1 d2 r
 }
 @end lilypond
 
+テキストにスペースが含まれる場合、@c
+各スペースのサイズが他の文字のサイズに適したものになるので、@c
+引用符の内側にすべて置くのがベストです。
+
+@lilypond[quote,verbatim]
+\markup \fontsize #6 \bold { Sinfonia da camera }
+\markup \fontsize #6 \bold { "Sinfonia da camera" }
+@end lilypond
+
 @cindex subscript (下付き文字)
 @cindex superscript (上付き文字)
 
@@ -667,7 +694,7 @@ f1 d2 r
 すべての文字を提供しないものもあります。
 
 @c \concat is actually documented in Align (it is not
-@c a font-switching command). But we need it here. -vv
+@c a font-switching command).  But we need it here. -vv
 
 フォント切り替えやフォーマット コマンドの中には、@c
 単語の中で使用されると@c
@@ -921,7 +948,6 @@ f1 d2 r
 
 @cindex centering text on the page (テキストをページの中央に揃える)
 @cindex text, centering on the page (テキストをページの中央に揃える)
-@cindex centering markup on the page (マークアップをページの中央に揃える)
 @cindex markup, centering on the page (マークアップをページの中央に揃える)
 
 @funindex \fill-line
@@ -971,7 +997,7 @@ f1 d2 r
     \line \bold { Acto I }
     \wordwrap \italic {
       (La escena representa el corral de una casa de
-      gitanos en el AlbaicÃ­n de Granada.  Al fondo una
+      gitanos en el Albaicín de Granada.  Al fondo una
       puerta por la que se ve el negro interior de
       una Fragua, iluminado por los rojos resplandores
       del fuego.)
@@ -983,7 +1009,7 @@ f1 d2 r
     \justify \italic {
       (Calle de Granada.  Fachada de la casa de Carmela
       y su hermano Manuel con grandes ventanas abiertas
-      a travÃ©s de las que se ve el patio
+      a través de las que se ve el patio
       donde se celebra una alegre fiesta)
     }
   }
@@ -1186,9 +1212,10 @@ c'
 
 @seealso
 記譜法リファレンス:
-@ref{Graphic},
+@ref{Align},
+Dimensions,
 @ref{編集者の注釈},
-@ref{Align}
+@ref{Graphic}
 
 インストールされているファイル:
 @file{scm/define-markup-commands.scm},
@@ -1267,7 +1294,6 @@ a'1_\markup {
 }
 @end lilypond
 
-@noindent
 テキストではない図柄を譜刻するもう 1 つの方法が
 @ref{フォントの説明} で記述されています。@c
 この方法はさまざまなサイズの波括弧を譜刻する場合に有用です。
@@ -1476,11 +1502,17 @@ a'1^\markup {
 -- @ref{Rotating objects} を参照してください。
 
 3 ファミリのテキスト フォントが利用可能になっています:
-@emph{roman} (serif) フォント
--- これはデフォルトでは New Century Schoolbook です --
-と、@emph{sans} フォントと単一幅の @emph{typewriter} フォント
--- これら 2 つのファミリは Pango のインストール時に決定されます --
-です。
+@itemize
+@item
+@emph{roman} (serif) フォントの@c
+デフォルトは LilyPond Serif （TeX Gyre Schola のエイリアス）です。
+@item
+@emph{sans} フォントの@c
+デフォルトは LilyPond Sans Serif （TeX Gyre Heros のエイリアス）です。
+@item
+@emph{typewriter} (monospaced) フォントの@c
+デフォルトは LilyPond Monospace （TeX Gyre Cursor のエイリアス）です。
+@end itemize
 
 それぞれのファミリには異なる形状とセットのフォントが保持されています。@c
 以下の例は、ファミリ、形状、セットそれにサイズを変更する様子を示しています。@c
@@ -1564,9 +1596,16 @@ a'1_\markup {
 @cindex listing available fonts (利用可能なフォントをリストアップする)
 @cindex available fonts, listing (利用可能なフォントをリストアップする)
 
+@var{font-name} はカンマ区切りの @q{フォント} のリストと、@c
+スペース区切りの @q{スタイル} のリストを記述できます。@c
+リスト中の @q{フォント} がインストールされていて、@c
+要求されたグリフを含んでいれば、それが使われます。@c
+そうでないなら代わりにリストの @emph{次} のフォントが使われます。
+
 @funindex show-available-fonts
 
-以下のコマンドはオペレーティング システムで利用可能な@c
+lilypond を以下のオプションを付けて実行すると@c
+オペレーティング システムで利用可能な@c
 すべてのフォントのリストを表示します:
 
 @example
@@ -1595,6 +1634,9 @@ lilypond -dshow-available-fonts x
 として使用されるデフォルト フォントを変更することができます。@c
 この例ではグローバル譜サイズにセットされた値で自動的にフォントのサイズを@c
 伸縮しています。@c
+@ref{個々に登録するフォント} のように、@c
+カンマ区切りの @q{フォント} のリストを記述できます。@c
+しかし、フォント @q{スタイル} は記述できません。@c
 フォントについての説明は、@ref{フォントの説明} を参照してください。
 
 @cindex font families, setting (フォント ファミリを設定する)
