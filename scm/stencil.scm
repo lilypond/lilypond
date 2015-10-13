@@ -15,29 +15,30 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-(define (make-bezier-sandwich-stencil coords thick xext yext)
-  (let* ((command-list `(moveto
-                         ,(car (list-ref coords 3))
-                         ,(cdr (list-ref coords 3))
-                         curveto
-                         ,(car (list-ref coords 0))
-                         ,(cdr (list-ref coords 0))
-                         ,(car (list-ref coords 1))
-                         ,(cdr (list-ref coords 1))
-                         ,(car (list-ref coords 2))
-                         ,(cdr (list-ref coords 2))
-                         curveto
-                         ,(car (list-ref coords 4))
-                         ,(cdr (list-ref coords 4))
-                         ,(car (list-ref coords 5))
-                         ,(cdr (list-ref coords 5))
-                         ,(car (list-ref coords 6))
-                         ,(cdr (list-ref coords 6))
-                         closepath)))
-    (ly:make-stencil
-     `(path ,thick `(,@' ,command-list) 'round 'round #t)
-     xext
-     yext)))
+(define (make-bezier-sandwich-stencil coords thick)
+   (make-path-stencil
+       `(moveto
+           ,(car (list-ref coords 0))
+           ,(cdr (list-ref coords 0))
+         curveto
+           ,(car (list-ref coords 1))
+           ,(cdr (list-ref coords 1))
+           ,(car (list-ref coords 2))
+           ,(cdr (list-ref coords 2))
+           ,(car (list-ref coords 3))
+           ,(cdr (list-ref coords 3))
+         curveto
+           ,(car (list-ref coords 4))
+           ,(cdr (list-ref coords 4))
+           ,(car (list-ref coords 5))
+           ,(cdr (list-ref coords 5))
+           ,(car (list-ref coords 0))
+           ,(cdr (list-ref coords 0))
+         closepath)
+       thick
+       1
+       1
+       #t))
 
 (define-public (stack-stencils axis dir padding stils)
   "Stack stencils @var{stils} in direction @var{axis}, @var{dir}, using
@@ -142,26 +143,24 @@ the more angular the shape of the parenthesis."
           (cons inner-control-x upper-control-y))
          (lower-inner-control-point
           (cons inner-control-x lower-control-y)))
-
-    (make-bezier-sandwich-stencil
-     (list
-      ;; Step 4: curve through inner control points
-      ;; to lower end point.
-      upper-inner-control-point
-      lower-inner-control-point
-      lower-end-point
-      ;; Step 3: move to upper end point.
-      upper-end-point
-      ;; Step 2: curve through outer control points
-      ;; to upper end point.
-      lower-outer-control-point
-      upper-outer-control-point
-      upper-end-point
-      ;; Step 1: move to lower end point.
-      lower-end-point)
-     (min (* 2 half-thickness) line-width)
-     (interval-widen x-extent (/ line-width 2))
-     (interval-widen y-extent (/ line-width 2)))))
+  (ly:make-stencil
+    (ly:stencil-expr
+      (make-bezier-sandwich-stencil
+       (list
+        ;; Step 1: move to lower end point.
+        lower-end-point
+        ;; Step 2: curve through outer control points
+        ;; to upper end point.
+        lower-outer-control-point
+        upper-outer-control-point
+        upper-end-point
+        ;; Step 3: curve through inner control points
+        ;; to lower end point.
+        upper-inner-control-point
+        lower-inner-control-point)
+       (min (* 2 half-thickness) line-width)))
+    (interval-widen x-extent (/ line-width 2))
+    (interval-widen y-extent (/ line-width 2)))))
 
 (define-public (parenthesize-stencil
                 stencil half-thickness width angularity padding)
