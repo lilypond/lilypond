@@ -432,16 +432,16 @@ in LilyPond-include-path."
 (defcustom LilyPond-command-alist
   ;; Should expand this to include possible keyboard shortcuts which
   ;; could then be mapped to define-key and menu.
-  `(
-    ("LilyPond" . (,(concat LilyPond-lilypond-command " %s") "%s" "%l" "View"))
-    ("2PS" . (,(concat LilyPond-lilypond-command " -f ps %s") "%s" "%p" "ViewPS"))
+  '(
+    ("LilyPond" . ((LilyPond-lilypond-command " %s") "%s" "%l" "View"))
+    ("2PS" . ((LilyPond-lilypond-command " -f ps %s") "%s" "%p" "ViewPS"))
     ("Book" . ("lilypond-book %x" "%x" "%l" "LaTeX"))
     ("LaTeX" . ("latex '\\nonstopmode\\input %l'" "%l" "%d" "ViewDVI"))
 
     ;; refreshes when kicked USR1
-    ("View" . (,(concat LilyPond-pdf-command " %f")))
-    ("ViewPDF" . (,(concat LilyPond-pdf-command " %f")))
-    ("ViewPS" . (,(concat LilyPond-ps-command " %p")))
+    ("View" . ((LilyPond-pdf-command " %f")))
+    ("ViewPDF" . ((LilyPond-pdf-command " %f")))
+    ("ViewPS" . ((LilyPond-ps-command " %p")))
 
     ;; The following are refreshed in LilyPond-command:
     ;; - current-midi depends on cursor position and
@@ -616,24 +616,35 @@ Must be the car of an entry in `LilyPond-command-alist'."
   (LilyPond-command-select-buffer)
   (LilyPond-command-region (point-min) (point-max)))
 
-(defun LilyPond-command-expand (string file)
-  (let ((case-fold-search nil))
-    (if (string-match "%" string)
-	(let* ((b (match-beginning 0))
-	       (e (+ b 2))
-	       (l (split-file-name file))
-	       (dir (car l))
-	       (base (cadr l)))
-	  (concat (substring string 0 b)
-		  (shell-quote-argument (concat dir base))
-		  (LilyPond-command-expand
-		   (concat
-		    (let ((entry (assoc (substring string b e)
-					LilyPond-expand-alist)))
-		      (if entry (cdr entry) ""))
-		    (substring string e))
-		   file)))
-      string)))
+(defun LilyPond-command-expand (arg file)
+  (cond
+   ((listp arg)
+    (mapconcat (lambda (arg) (LilyPond-command-expand arg file))
+	       arg
+	       ""))
+   ((and (symbolp arg) (boundp arg)
+	 ;; Avoid self-quoting symbols
+	 (not (eq (symbol-value arg) arg)))
+    (LilyPond-command-expand (symbol-value arg) file))
+   ((stringp arg)
+    (let ((case-fold-search nil))
+      (if (string-match "%" arg)
+	  (let* ((b (match-beginning 0))
+		 (e (+ b 2))
+		 (l (split-file-name file))
+		 (dir (car l))
+		 (base (cadr l)))
+	    (concat (substring arg 0 b)
+		    (shell-quote-argument (concat dir base))
+		    (LilyPond-command-expand
+		     (concat
+		      (let ((entry (assoc (substring arg b e)
+					  LilyPond-expand-alist)))
+			(if entry (cdr entry) ""))
+		      (substring arg e))
+		     file)))
+	arg)))
+   (t (error "Bad expansion `%S'" arg))))
 
 (defun LilyPond-shell-process (name buffer command)
   (let ((old (current-buffer)))
