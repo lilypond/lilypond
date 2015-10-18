@@ -21,6 +21,7 @@
 
 #include <cmath>
 #include <cctype>
+using namespace std;
 
 #include "dimensions.hh"
 #include "modified-font-metric.hh"
@@ -28,7 +29,6 @@
 #include "stencil.hh"
 #include "warn.hh"
 
-using std::string;
 
 Real
 Font_metric::design_size () const

@@ -39,9 +39,6 @@
 #include "text-interface.hh"
 #include "warn.hh"
 
-using std::string;
-using std::vector;
-
 Grob *
 Paper_column::clone () const
 {
@@ -179,7 +176,7 @@ Paper_column::minimum_distance (Grob *left, Grob *right)
 
   skys[RIGHT].merge (Separation_item::conditional_skyline (right, left));
 
-  return std::max (0.0, skys[LEFT].distance (skys[RIGHT]));
+  return max (0.0, skys[LEFT].distance (skys[RIGHT]));
 }
 
 Interval

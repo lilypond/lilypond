@@ -66,10 +66,6 @@
 
 #include <map>
 
-using std::map;
-using std::string;
-using std::vector;
-
 Beam_stem_segment::Beam_stem_segment ()
 {
   max_connect_ = 1000;          // infinity
@@ -142,7 +138,7 @@ Beam::get_beam_count (Grob *me)
   for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *stem = stems[i];
-      m = std::max (m, (Stem::beam_multiplicity (stem).length () + 1));
+      m = max (m, (Stem::beam_multiplicity (stem).length () + 1));
     }
   return m;
 }
@@ -441,7 +437,7 @@ Beam::calc_beam_segments (SCM smob)
        i != stem_segments.end (); i++)
     {
       vector<Beam_stem_segment> segs = (*i).second;
-      vector_sort (segs, std::less<Beam_stem_segment> ());
+      vector_sort (segs, less<Beam_stem_segment> ());
 
       Beam_segment current;
 
@@ -515,7 +511,7 @@ Beam::calc_beam_segments (SCM smob)
                           Grob *neighbor_stem = stems[seg.stem_index_ + event_dir];
                           Real neighbor_stem_x = neighbor_stem->relative_coordinate (commonx, X_AXIS);
 
-                          length = std::min (length,
+                          length = min (length,
                                         fabs (neighbor_stem_x - seg.stem_x_) * max_proportion[seg.dir_]);
                         }
                       current.horizontal_[event_dir] += event_dir * length;
@@ -540,7 +536,7 @@ Beam::calc_beam_segments (SCM smob)
 
                           for (vsize k = 0; k < heads.size (); k++)
                             current.horizontal_[event_dir]
-                              = event_dir * std::min (event_dir * current.horizontal_[event_dir],
+                              = event_dir * min (event_dir * current.horizontal_[event_dir],
                                                  - gap_length / 2
                                                  + event_dir
                                                  * heads[k]->extent (commonx,
@@ -773,7 +769,7 @@ Beam::get_default_dir (Grob *me)
       for (DOWN_and_UP (d))
         {
           if (sign (positions[d]) == d)
-            extremes[d] = d * std::max (d * positions[d], d * extremes[d]);
+            extremes[d] = d * max (d * positions[d], d * extremes[d]);
         }
     }
 
@@ -800,7 +796,7 @@ Beam::get_default_dir (Grob *me)
       if (stem_dir)
         {
           count[stem_dir]++;
-          total[stem_dir] += std::max (int (- stem_dir * Stem::head_positions (s) [-stem_dir]), 0);
+          total[stem_dir] += max (int (- stem_dir * Stem::head_positions (s) [-stem_dir]), 0);
         }
     }
 
@@ -1153,7 +1149,7 @@ Beam::set_beaming (Grob *me, Beaming_pattern const *beaming)
               if (i > 0
                   && i + 1 < stems.size ()
                   && Stem::is_invisible (stem))
-                count = std::min (count, beaming->beamlet_count (i, -d));
+                count = min (count, beaming->beamlet_count (i, -d));
 
               if ( ((i == 0 && d == LEFT)
                     || (i == stems.size () - 1 && d == RIGHT))
@@ -1288,7 +1284,7 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
     = staff_space * (robust_scm2double (stem->get_property ("stemlet-length"), 0.0)
                      + robust_scm2double (rest->get_property ("minimum-distance"), 0.0));
 
-  Real shift = d * std::min (d * (beam_y - d * minimum_distance - rest_dim), 0.0);
+  Real shift = d * min (d * (beam_y - d * minimum_distance - rest_dim), 0.0);
 
   shift /= staff_space;
 
@@ -1367,7 +1363,7 @@ Beam::pure_rest_collision_callback (SCM smob,
                    + Stem::head_positions (right)[beamdir]) / 2.0
                   + 4.0 * beamdir; // four staff-positions
   /* and that the closest beam never crosses staff center by more than two positions */
-  beam_pos = std::max (-2.0, beam_pos * beamdir) * beamdir;
+  beam_pos = max (-2.0, beam_pos * beamdir) * beamdir;
 
   Real minimum_distance
     = ss * (robust_scm2double (stem->get_property ("stemlet-length"), 0.0)
@@ -1377,7 +1373,7 @@ Beam::pure_rest_collision_callback (SCM smob,
                 - me->extent (me, Y_AXIS)[beamdir];
 
   /* Always move by a whole number of staff spaces, always away from the beam */
-  offset = floor (std::min (0.0, (offset - previous) / ss * beamdir))
+  offset = floor (min (0.0, (offset - previous) / ss * beamdir))
            * ss * beamdir + previous;
 
   return scm_from_double (offset);
@@ -1439,7 +1435,7 @@ Beam::get_direction_beam_count (Grob *me, Direction d)
         Should we take invisible stems into account?
       */
       if (get_grob_direction (stems[i]) == d)
-        bc = std::max (bc, (Stem::beam_multiplicity (stems[i]).length () + 1));
+        bc = max (bc, (Stem::beam_multiplicity (stems[i]).length () + 1));
     }
 
   return bc;

@@ -18,6 +18,7 @@
 */
 
 #include <cstring>
+using namespace std;
 
 #include "warn.hh"
 #include "font-interface.hh"
@@ -32,8 +33,6 @@
 #include "lookup.hh"
 #include "tuplet-bracket.hh"
 #include "lily-imports.hh"
-
-using std::string;
 
 /*
   this is too complicated. Yet another version of side-positioning,

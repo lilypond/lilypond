@@ -24,8 +24,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 struct Grob_pq_entry
 {
   Grob *grob_;
@@ -101,7 +99,7 @@ Grob_pq_engraver::acknowledge_grob (Grob_info gi)
 void
 Grob_pq_engraver::process_acknowledged ()
 {
-  vector_sort (started_now_, std::less<Grob_pq_entry> ());
+  vector_sort (started_now_, less<Grob_pq_entry> ());
   SCM lst = SCM_EOL;
   SCM *tail = &lst;
   for (vsize i = 0; i < started_now_.size (); i++)

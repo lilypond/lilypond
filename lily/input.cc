@@ -20,6 +20,7 @@
 #include "input.hh"
 
 #include <cstdio>
+using namespace std;
 
 #include "international.hh"
 #include "lily-imports.hh"
@@ -27,8 +28,6 @@
 #include "source-file.hh"
 #include "sources.hh"
 #include "warn.hh"
-
-using std::string;
 
 Input::Input (Input const &i)
 {

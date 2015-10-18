@@ -22,9 +22,6 @@
 #include "offset.hh"
 #include "warn.hh"
 
-using std::string;
-using std::vector;
-
 /*
   Return the 2-log, rounded down
 */
@@ -67,7 +64,7 @@ peak_around (Real epsilon, Real threshold, Real x)
 {
   if (x < 0)
     return 1.0;
-  return std::max (- epsilon * (x - threshold) / ((x + epsilon) * threshold), 0.0);
+  return max (- epsilon * (x - threshold) / ((x + epsilon) * threshold), 0.0);
 }
 
 /*

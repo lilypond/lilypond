@@ -31,8 +31,6 @@
 /* ASSIGN_EVENT_ONCE */
 #include "translator.icc"
 
-using std::vector;
-
 /*
  * This abstract class is the common superclass for all ligature
  * engravers for Gregorian chant notation.  It cares for the musical

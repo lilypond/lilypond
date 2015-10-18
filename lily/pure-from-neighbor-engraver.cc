@@ -28,8 +28,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 class Pure_from_neighbor_engraver : public Engraver
 {
   vector<Grob *> pure_relevants_;

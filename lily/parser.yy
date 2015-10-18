@@ -116,6 +116,7 @@ FIXME:
 #include <cctype>
 #include <cstdlib>
 #include <cstdio>
+using namespace std;
 
 #include "book.hh"
 #include "context-def.hh"
@@ -140,7 +141,7 @@ FIXME:
 #include "lily-imports.hh"
 
 void
-Lily_parser::parser_error (Input const *i, Lily_parser *parser, SCM *, const std::string &s)
+Lily_parser::parser_error (Input const *i, Lily_parser *parser, SCM *, const string &s)
 {
 	parser->parser_error (*i, s);
 }
@@ -222,7 +223,6 @@ SCM get_next_unique_lyrics_context_id ();
 #define _(x) gettext (x)
 #endif
 
-using std::string;
 
 static Music *make_music_with_input (SCM name, Input where);
 SCM check_scheme_arg (Lily_parser *parser, Input loc,

@@ -22,8 +22,6 @@
 #include "grob.hh"
 #include "grob-array.hh"
 
-using std::vector;
-
 LY_DEFINE (ly_relative_group_extent, "ly:relative-group-extent",
            3, 0, 0, (SCM elements, SCM common, SCM axis),
            "Determine the extent of @var{elements} relative to @var{common} in the"

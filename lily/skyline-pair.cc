@@ -22,8 +22,6 @@
 
 #include "international.hh"
 
-using std::vector;
-
 Skyline_pair::Skyline_pair ()
   : skylines_ (Skyline (DOWN), Skyline (UP))
 {
@@ -87,13 +85,13 @@ Skyline_pair::print () const
 Real
 Skyline_pair::left () const
 {
-  return std::min (skylines_[UP].left (), skylines_[DOWN].left ());
+  return min (skylines_[UP].left (), skylines_[DOWN].left ());
 }
 
 Real
 Skyline_pair::right () const
 {
-  return std::max (skylines_[UP].right (), skylines_[DOWN].right ());
+  return max (skylines_[UP].right (), skylines_[DOWN].right ());
 }
 
 void

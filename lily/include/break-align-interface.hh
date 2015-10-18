@@ -26,7 +26,7 @@
 class Break_alignment_interface
 {
 public:
-  static std::vector<Grob *> ordered_elements (Grob *me);
+  static vector<Grob *> ordered_elements (Grob *me);
   static void add_element (Grob *me, Grob *add);
   static SCM break_align_order (Item *me);
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM element));

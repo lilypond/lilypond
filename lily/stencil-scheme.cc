@@ -22,8 +22,6 @@
 #include "lookup.hh"
 #include "stencil.hh"
 
-using std::vector;
-
 /*
   TODO: naming add/combine.
 */

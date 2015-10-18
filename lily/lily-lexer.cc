@@ -21,6 +21,7 @@
 
 #include <cctype>
 #include <sstream>
+using namespace std;
 
 #include "context.hh" // for nested_property_alist
 #include "international.hh"
@@ -35,8 +36,6 @@
 #include "program-option.hh"
 #include "lily-parser.hh"
 #include "ly-module.hh"
-
-using std::string;
 
 static Keyword_ent the_key_tab[]
 =

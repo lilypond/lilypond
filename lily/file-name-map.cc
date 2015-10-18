@@ -18,12 +18,10 @@
 */
 
 #include <map>
+using namespace std;
 
 #include "file-name-map.hh"
 #include "lily-guile.hh"
-
-using std::map;
-using std::string;
 
 map<string, string> file_name_map_global;
 

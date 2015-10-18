@@ -20,6 +20,7 @@
 #include "midi-stream.hh"
 
 #include <cerrno>
+using namespace std;
 
 #include "international.hh"
 #include "main.hh"
@@ -28,8 +29,6 @@
 #include "program-option.hh"
 #include "string-convert.hh"
 #include "warn.hh"
-
-using std::string;
 
 Midi_stream::Midi_stream (const string &file_name)
 {

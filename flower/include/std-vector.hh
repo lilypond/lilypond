@@ -36,6 +36,7 @@
 #include <cassert>
 #include <string>
 
+using namespace std;
 
 template<typename T>
 int default_compare (T const &a, T const &b)
@@ -71,7 +72,7 @@ typedef size_t vsize;
 
 template<typename T>
 T const &
-boundary (std::vector<T> const &v, int dir, vsize i)
+boundary (vector<T> const &v, int dir, vsize i)
 {
   assert (dir);
   return v[dir == -1 ? i : v.size () - 1 - i];
@@ -79,7 +80,7 @@ boundary (std::vector<T> const &v, int dir, vsize i)
 
 template<typename T>
 T &
-boundary (std::vector<T> &v, int dir, vsize i)
+boundary (vector<T> &v, int dir, vsize i)
 {
   assert (dir);
   return v[dir == -1 ? i : v.size () - 1 - i];
@@ -87,35 +88,35 @@ boundary (std::vector<T> &v, int dir, vsize i)
 
 template<typename T>
 T const &
-back (std::vector<T> const &v, vsize i)
+back (vector<T> const &v, vsize i)
 {
   return v[v.size () - i - 1];
 }
 
 template<typename T>
 T &
-back (std::vector<T> &v, vsize i)
+back (vector<T> &v, vsize i)
 {
   return v[v.size () - i - 1];
 }
 
 template<typename T>
 void
-concat (std::vector<T> &v, std::vector<T> const &w)
+concat (vector<T> &v, vector<T> const &w)
 {
   v.insert (v.end (), w.begin (), w.end ());
 }
 
 template<typename T, typename Compare>
 vsize
-lower_bound (std::vector<T> const &v,
+lower_bound (vector<T> const &v,
              T const &key,
              Compare less,
              vsize b = 0, vsize e = VPOS)
 {
   if (e == VPOS)
     e = v.size ();
-  typename std::vector<T>::const_iterator i = lower_bound (v.begin () + b,
+  typename vector<T>::const_iterator i = lower_bound (v.begin () + b,
                                                       v.begin () + e,
                                                       key,
                                                       less);
@@ -125,7 +126,7 @@ lower_bound (std::vector<T> const &v,
 
 template<typename T, typename Compare>
 vsize
-upper_bound (std::vector<T> const &v,
+upper_bound (vector<T> const &v,
              T const &key,
              Compare less,
              vsize b = 0, vsize e = VPOS)
@@ -133,7 +134,7 @@ upper_bound (std::vector<T> const &v,
   if (e == VPOS)
     e = v.size ();
 
-  typename std::vector<T>::const_iterator i = upper_bound (v.begin () + b,
+  typename vector<T>::const_iterator i = upper_bound (v.begin () + b,
                                                       v.begin () + e,
                                                       key,
                                                       less);
@@ -143,7 +144,7 @@ upper_bound (std::vector<T> const &v,
 
 template<typename T, typename Compare>
 vsize
-binary_search (std::vector<T> const &v,
+binary_search (vector<T> const &v,
                T const &key,
                Compare less,
                vsize b = 0, vsize e = VPOS)
@@ -157,7 +158,7 @@ binary_search (std::vector<T> const &v,
 
 template<typename T, typename Compare>
 void
-vector_sort (std::vector<T> &v,
+vector_sort (vector<T> &v,
              Compare less,
              vsize b = 0, vsize e = VPOS)
 {
@@ -169,28 +170,28 @@ vector_sort (std::vector<T> &v,
 
 template<typename T>
 void
-reverse (std::vector<T> &v)
+reverse (vector<T> &v)
 {
-  // CHECKME: for a simple vector, like std::vector<int>, this should
+  // CHECKME: for a simple vector, like vector<int>, this should
   // expand to memrev.
   reverse (v.begin (), v.end ());
 }
 
 template<typename T>
 void
-uniq (std::vector<T> &v)
+uniq (vector<T> &v)
 {
   v.erase (unique (v.begin (), v.end ()), v.end ());
 }
 
 template<typename T>
-typename std::vector<T>::const_iterator
-find (std::vector<T> const &v, T const &key)
+typename vector<T>::const_iterator
+find (vector<T> const &v, T const &key)
 {
   return find (v.begin (), v.end (), key);
 }
 
-template<typename T> struct del : public std::unary_function<T, void>
+template<typename T> struct del : public unary_function<T, void>
 {
   void operator () (T x)
   {
@@ -201,15 +202,15 @@ template<typename T> struct del : public std::unary_function<T, void>
 
 template<typename T>
 void
-junk_pointers (std::vector<T> &v)
+junk_pointers (vector<T> &v)
 {
   // Hmm.
   for_each (v.begin (), v.end (), del<T> ());
   v.clear ();
 }
 
-std::vector<std::string> string_split (std::string str, char c);
-std::string string_join (std::vector<std::string> const &strs, const std::string &infix);
+vector<string> string_split (string str, char c);
+string string_join (vector<string> const &strs, const string &infix);
 
 #define iterof(i,s) typeof((s).begin()) i((s).begin())
 

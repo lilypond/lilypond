@@ -19,8 +19,6 @@
 
 #include "interval-set.hh"
 
-using std::vector;
-
 /*
   A union of intervals in the real line.
 
@@ -58,7 +56,7 @@ Interval_set::interval_union (vector<Interval> ivs)
 
       if (last[RIGHT] >= iv[LEFT])
         // overlapping intervals: merge them
-        last[RIGHT] = std::max (last[RIGHT], iv[RIGHT]);
+        last[RIGHT] = max (last[RIGHT], iv[RIGHT]);
       else if (!iv.is_empty ())
         ret.intervals_.push_back (iv);
     }

@@ -29,8 +29,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 struct Rhythmic_tuple
 {
   Grob_info info_;
@@ -222,7 +220,7 @@ Spacing_engraver::stop_translation_timestep ()
       if (ev)
         {
           Moment m = get_event_length (ev);
-          shortest_playing = std::min (shortest_playing, m);
+          shortest_playing = min (shortest_playing, m);
         }
     }
   Moment starter;
@@ -233,13 +231,13 @@ Spacing_engraver::stop_translation_timestep ()
       Moment m = get_event_length (now_durations_[i].info_.event_cause ());
       if (m.to_bool ())
         {
-          starter = std::min (starter, m);
+          starter = min (starter, m);
           playing_durations_.insert (now_durations_[i]);
         }
     }
   now_durations_.clear ();
 
-  shortest_playing = std::min (shortest_playing, starter);
+  shortest_playing = min (shortest_playing, starter);
 
   assert (starter.to_bool ());
   SCM sh = shortest_playing.smobbed_copy ();

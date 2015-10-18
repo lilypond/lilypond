@@ -23,7 +23,7 @@
 
 #include <cmath>
 
-using std::vector;
+using namespace std;
 
 /*
   Een beter milieu begint bij uzelf. Hergebruik!
@@ -82,7 +82,7 @@ Polynomial::minmax (Real l, Real r, bool ret_max) const
   for (vsize i = 0; i < maxmins.size (); i++)
     if (maxmins[i] >= l && maxmins[i] <= r)
       sols.push_back (eval (maxmins[i]));
-  vector_sort (sols, std::less<Real> ());
+  vector_sort (sols, less<Real> ());
 
   return ret_max ? sols.back () : sols[0];
 }

@@ -21,8 +21,6 @@
 #include "international.hh"
 #include "music.hh"
 
-using std::string;
-
 class Relative_octave_check
 {
 public:

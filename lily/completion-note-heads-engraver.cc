@@ -18,6 +18,7 @@
 */
 
 #include <cctype>
+using namespace std;
 
 #include "dot-column.hh"
 #include "dots.hh"
@@ -37,8 +38,6 @@
 #include "misc.hh"
 
 #include "translator.icc"
-
-using std::vector;
 
 /*
   How does this work?
@@ -100,7 +99,7 @@ Completion_heads_engraver::listen_note (Stream_event *ev)
   Moment now = now_mom ();
   Moment musiclen = get_event_length (ev, now);
 
-  note_end_mom_ = std::max (note_end_mom_, (now + musiclen));
+  note_end_mom_ = max (note_end_mom_, (now + musiclen));
   do_nothing_until_ = Rational (0, 0);
 }
 

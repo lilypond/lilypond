@@ -33,8 +33,6 @@
 
 #include "string-convert.hh"
 
-using std::string;
-
 Output_def::Output_def ()
 {
   scope_ = SCM_EOL;

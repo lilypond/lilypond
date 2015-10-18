@@ -24,9 +24,6 @@
 
 #include "translator.icc"
 
-using std::string;
-using std::vector;
-
 class Note_name_engraver : public Engraver
 {
 public:

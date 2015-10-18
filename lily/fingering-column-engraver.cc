@@ -25,8 +25,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 /**
    Find potentially colliding scripts, and put them in a
    Fingering_column, that will fix the columns.  */

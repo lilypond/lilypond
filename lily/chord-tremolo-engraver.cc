@@ -34,8 +34,6 @@
 
 #include "translator.icc"
 
-using std::string;
-
 /**
 
 This acknowledges repeated music with "tremolo" style.  It typesets
@@ -120,9 +118,9 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
   if (beam_)
     {
       int tremolo_type = robust_scm2int (repeat_->get_property ("tremolo-type"), 1);
-      int flags = std::max (0, intlog2 (tremolo_type) - 2);
+      int flags = max (0, intlog2 (tremolo_type) - 2);
       int repeat_count = robust_scm2int (repeat_->get_property ("repeat-count"), 1);
-      int gap_count = std::min (flags, intlog2 (repeat_count) + 1);
+      int gap_count = min (flags, intlog2 (repeat_count) + 1);
 
       Grob *s = info.grob ();
       if (previous_stem_)

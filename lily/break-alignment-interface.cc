@@ -29,9 +29,6 @@
 #include "side-position-interface.hh"
 #include "warn.hh"
 
-using std::string;
-using std::vector;
-
 /*
   This is tricky: we cannot modify 'elements, since callers are
   iterating the same list. Reordering the list in-place, or resetting
@@ -218,7 +215,7 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
                                 - extents[next_idx][LEFT];
           /* should probably junk minimum-space */
           else if (scm_is_eq (type, ly_symbol2scm ("minimum-space")))
-            offsets[next_idx] = std::max (extents[idx][RIGHT], distance);
+            offsets[next_idx] = max (extents[idx][RIGHT], distance);
         }
       else
         {

@@ -37,8 +37,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 class Accidental_entry
 {
 public:

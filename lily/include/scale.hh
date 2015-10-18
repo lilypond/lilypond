@@ -27,7 +27,7 @@
 struct Scale : public Smob<Scale>
 {
   virtual ~Scale ();
-  Scale (std::vector<Rational> const &);
+  Scale (vector<Rational> const &);
   Scale (Scale const &);
 
   Rational tones_at_step (int step, int octave) const;
@@ -37,7 +37,7 @@ struct Scale : public Smob<Scale>
 
 
 private:
-  std::vector<Rational> step_tones_;
+  vector<Rational> step_tones_;
 };
 
 extern Scale *default_global_scale;

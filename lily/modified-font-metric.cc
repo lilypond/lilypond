@@ -17,6 +17,7 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include <cctype>
+using namespace std;
 
 #include "modified-font-metric.hh"
 #include "pango-font.hh"
@@ -24,8 +25,6 @@
 #include "stencil.hh"
 #include "main.hh"
 #include "program-option.hh"
-
-using std::string;
 
 Modified_font_metric::Modified_font_metric (Font_metric *fm,
                                             Real magnification)

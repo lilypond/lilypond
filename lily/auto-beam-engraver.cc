@@ -33,8 +33,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 class Auto_beam_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Auto_beam_engraver);
@@ -442,7 +440,7 @@ Auto_beam_engraver::acknowledge_stem (Grob_info info)
                        (to_boolean (stem->get_property ("tuplet-start"))));
   stems_->push_back (stem);
   last_add_mom_ = now;
-  extend_mom_ = std::max (extend_mom_, now) + get_event_length (ev, now);
+  extend_mom_ = max (extend_mom_, now) + get_event_length (ev, now);
   if (recheck_needed)
     recheck_beam ();
 }

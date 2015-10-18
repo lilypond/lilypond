@@ -29,9 +29,6 @@
 
 #include <map>
 
-using std::map;
-using std::vector;
-
 typedef map<Grob *, vector <Grob *> > Grob_scripts_map;
 
 void

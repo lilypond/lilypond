@@ -20,6 +20,7 @@
 #include "includable-lexer.hh"
 
 #include <sstream>
+using namespace std;
 
 #include "config.hh"
 
@@ -30,8 +31,6 @@
 #include "source-file.hh"
 #include "sources.hh"
 #include "warn.hh"
-
-using std::string;
 
 #ifndef YY_BUF_SIZE
 #define YY_BUF_SIZE 16384

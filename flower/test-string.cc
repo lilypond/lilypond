@@ -5,8 +5,7 @@
 
 #include "yaffut.hh"
 
-using std::string;
-using std::vector;
+using namespace std;
 
 FUNC (string_split_join)
 {

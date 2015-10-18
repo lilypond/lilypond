@@ -23,6 +23,7 @@
 #include <algorithm>
 #include <queue>
 #include <set>
+using namespace std;
 
 #include "align-interface.hh"
 #include "beam.hh"
@@ -45,10 +46,6 @@
 #include "stem.hh"
 #include "warn.hh"
 #include "string-convert.hh"
-
-using std::set;
-using std::string;
-using std::vector;
 
 Real
 get_detail (SCM alist, SCM sym, Real def)
@@ -448,8 +445,8 @@ set_minimum_dy (Grob *me, Real *dy)
       Real inter = 0.5;
       Real hang = 1.0 - (beam_thickness - slt) / 2;
 
-      *dy = sign (*dy) * std::max (fabs (*dy),
-                              std::min (std::min (sit, inter), hang));
+      *dy = sign (*dy) * max (fabs (*dy),
+                              min (min (sit, inter), hang));
     }
 }
 
@@ -613,7 +610,7 @@ is_concave_single_notes (vector<int> const &positions, Direction beam_dir)
     note is reached in the opposite direction as the last-first dy
   */
   int dy = positions.back () - positions[0];
-  int closest = std::max (beam_dir * positions.back (), beam_dir * positions[0]);
+  int closest = max (beam_dir * positions.back (), beam_dir * positions[0]);
   for (vsize i = 2; !concave && i + 1 < positions.size (); i++)
     {
       int inner_dy = positions[i] - positions[i - 1];
@@ -644,7 +641,7 @@ calc_positions_concaveness (vector<int> const &positions, Direction beam_dir)
     {
       Real line_y = slope * i + positions[0];
 
-      concaveness += std::max (beam_dir * (positions[i] - line_y), 0.0);
+      concaveness += max (beam_dir * (positions[i] - line_y), 0.0);
     }
 
   concaveness /= positions.size ();
@@ -1080,7 +1077,7 @@ Beam_scoring_problem::score_stem_lengths (Beam_configuration *config) const
       Stem_info info = stem_infos_[i];
       Direction d = info.dir_;
 
-      score[d] += limit_penalty * std::max (0.0, (d * (info.shortest_y_ - current_y)));
+      score[d] += limit_penalty * max (0.0, (d * (info.shortest_y_ - current_y)));
 
       Real ideal_diff = d * (current_y - info.ideal_y_);
       Real ideal_score = shrink_extra_weight (ideal_diff, 1.5);
@@ -1097,7 +1094,7 @@ Beam_scoring_problem::score_stem_lengths (Beam_configuration *config) const
 
   /* Divide by number of stems, to make the measure scale-free. */
   for (DOWN_and_UP (d))
-    score[d] /= std::max (count[d], 1);
+    score[d] /= max (count[d], 1);
 
   /*
     sometimes, two perfectly symmetric kneed beams will have the same score
@@ -1147,7 +1144,7 @@ Beam_scoring_problem::score_slope_musical (Beam_configuration *config) const
 {
   Real dy = config->y.delta ();
   Real dem = parameters_.MUSICAL_DIRECTION_FACTOR
-             * std::max (0.0, (fabs (dy) - fabs (musical_dy_)));
+             * max (0.0, (fabs (dy) - fabs (musical_dy_)));
   config->add (dem, "Sm");
 }
 
@@ -1206,7 +1203,7 @@ Beam_scoring_problem::score_forbidden_quants (Beam_configuration *config) const
 
   Real extra_demerit =
     parameters_.SECONDARY_BEAM_DEMERIT
-    / std::max (edge_beam_counts_[LEFT], edge_beam_counts_[RIGHT]);
+    / max (edge_beam_counts_[LEFT], edge_beam_counts_[RIGHT]);
   
   Real dem = 0.0;
   Real eps = parameters_.BEAM_EPS;
@@ -1236,7 +1233,7 @@ Beam_scoring_problem::score_forbidden_quants (Beam_configuration *config) const
                k <= staff_radius_ + eps; k += 1.0)
             if (gap.contains (k))
               {
-                Real dist = std::min (fabs (gap[UP] - k), fabs (gap[DOWN] - k));
+                Real dist = min (fabs (gap[UP] - k), fabs (gap[DOWN] - k));
 
                 /*
                   this parameter is tuned to grace-stem-length.ly
@@ -1259,7 +1256,7 @@ Beam_scoring_problem::score_forbidden_quants (Beam_configuration *config) const
 
   config->add (dem, "Fl");
   dem = 0.0;
-  if (std::max (edge_beam_counts_[LEFT], edge_beam_counts_[RIGHT]) >= 2)
+  if (max (edge_beam_counts_[LEFT], edge_beam_counts_[RIGHT]) >= 2)
     {
       Real straddle = 0.0;
       Real sit = (beam_thickness_ - line_thickness_) / 2;
@@ -1315,12 +1312,12 @@ Beam_scoring_problem::score_collisions (Beam_configuration *config) const
       if (!intersection (beam_y, collision_y).is_empty ())
         dist = 0.0;
       else 
-        dist = std::min (beam_y.distance (collision_y[DOWN]),
+        dist = min (beam_y.distance (collision_y[DOWN]),
                     beam_y.distance (collision_y[UP]));
 
       
       Real scale_free
-        = std::max (parameters_.COLLISION_PADDING - dist, 0.0)
+        = max (parameters_.COLLISION_PADDING - dist, 0.0)
           / parameters_.COLLISION_PADDING;
       Real collision_demerit = collisions_[i].base_penalty_ *
          pow (scale_free, 3) * parameters_.COLLISION_PENALTY;

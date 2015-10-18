@@ -23,6 +23,7 @@
 #include <cmath>
 #include <ctime>
 
+using namespace std;
 
 #include "dimensions.hh"
 #include "file-name.hh"
@@ -38,7 +39,6 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
-using std::string;
 
 Paper_outputter::Paper_outputter (SCM port, const string &format)
 {

@@ -22,6 +22,7 @@
 #include <map>
 #include <set>
 
+using namespace std;
 
 #include "axis-group-interface.hh"
 #include "directional-element-interface.hh"
@@ -37,9 +38,6 @@
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
-
-using std::set;
-using std::vector;
 
 MAKE_SCHEME_CALLBACK (Dot_column, calc_positioning_done, 1);
 SCM

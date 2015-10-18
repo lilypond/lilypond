@@ -26,8 +26,6 @@
 #include "music-iterator.hh"
 #include "music.hh"
 
-using std::string;
-
 /*
   This iterator is hairy.  It tracks both lyric and melody contexts,
   and has a complicated communication route, reading/writing
@@ -103,7 +101,7 @@ Lyric_combine_music_iterator::set_busy (SCM se)
   if ((e->in_event_class ("note-event") || e->in_event_class ("cluster-note-event"))
       && music_context_)
 
-    busy_moment_ = std::max (music_context_->now_mom (),
+    busy_moment_ = max (music_context_->now_mom (),
                         busy_moment_);
 
 }

@@ -2,7 +2,7 @@
 
 #include "yaffut-parameters.hh"
 
-using std::string;
+using namespace std;
 
 string slashify (string file_name);
 

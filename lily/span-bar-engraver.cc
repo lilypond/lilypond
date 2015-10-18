@@ -24,8 +24,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 /**
 
 Make bars that span multiple "staves". Catch bars, and span a

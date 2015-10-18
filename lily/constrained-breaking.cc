@@ -29,8 +29,6 @@
 #include "system.hh"
 #include "warn.hh"
 
-using std::vector;
-
 /*
   We use the following optimal substructure. Let W (A) be our weight function.
 
@@ -621,7 +619,7 @@ Line_details::spring_length (Line_details const &next_line) const
   // the top of next_line's extent.
   Real refpoint_dist = tallness_ + refpoint_extent_[DOWN] - next_line.refpoint_extent_[UP];
   Real space = next_line.title_ ? title_space_ : space_;
-  return std::max (0.0, space - refpoint_dist);
+  return max (0.0, space - refpoint_dist);
 }
 
 Line_shape::Line_shape (Interval begin, Interval rest)
@@ -633,7 +631,7 @@ Line_shape::Line_shape (Interval begin, Interval rest)
 Line_shape
 Line_shape::piggyback (Line_shape mount, Real padding) const
 {
-  Real elevation = std::max (begin_[UP] - mount.begin_[DOWN], rest_[UP] - mount.rest_[DOWN]);
+  Real elevation = max (begin_[UP] - mount.begin_[DOWN], rest_[UP] - mount.rest_[DOWN]);
   Interval begin = Interval (begin_[DOWN], elevation + mount.begin_[UP] + padding);
   Interval rest = Interval (rest_[DOWN], elevation + mount.rest_[UP] + padding);
   return Line_shape (begin, rest);

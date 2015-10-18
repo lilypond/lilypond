@@ -22,6 +22,7 @@
 
 #include "engraver.hh"
 
+using namespace std;
 
 #include "articulations.hh"
 #include "duration.hh"
@@ -34,8 +35,6 @@
 #include "context.hh"
 
 #include "translator.icc"
-
-using std::vector;
 
 /**
    make (guitar-like) tablature note

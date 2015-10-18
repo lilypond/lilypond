@@ -26,8 +26,6 @@
 #include "system.hh"
 #include "warn.hh"
 
-using std::vector;
-
 Grob *
 Spanner::clone () const
 {

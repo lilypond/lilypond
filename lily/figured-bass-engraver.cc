@@ -32,8 +32,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 struct Figure_group
 {
   Spanner *group_;
@@ -195,7 +193,7 @@ Figured_bass_engraver::listen_bass_figure (Stream_event *ev)
 {
   new_event_found_ = true;
   Moment stop = now_mom () + get_event_length (ev, now_mom ());
-  stop_moment_ = std::max (stop_moment_, stop);
+  stop_moment_ = max (stop_moment_, stop);
 
   // Handle no-continuation here, don't even add it to the already existing
   // spanner... This fixes some layout issues (figure will be placed separately)

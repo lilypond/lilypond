@@ -24,8 +24,6 @@
 #include "page-breaking.hh"
 #include "warn.hh"
 
-using std::vector;
-
 void
 Page_spacing::calc_force ()
 {
@@ -37,7 +35,7 @@ Page_spacing::calc_force ()
     force_ = -infinity_f;
   else
     force_ = (height - rod_height_ - last_line_.bottom_padding_ - spring_len_)
-             / std::max (0.1, inverse_spring_k_);
+             / max (0.1, inverse_spring_k_);
 }
 
 void
@@ -356,7 +354,7 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
           // Clamp the demerits at BAD_SPACING_PENALTY, even if the page
           // is overfull.  This ensures that TERRIBLE_SPACING_PENALTY takes
           // precedence over overfull pages.
-          demerits = std::min (demerits, BAD_SPACING_PENALTY);
+          demerits = min (demerits, BAD_SPACING_PENALTY);
           demerits += (prev ? prev->demerits_ : 0);
 
           Real penalty = breaker_->line_count_penalty (line_count);

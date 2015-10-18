@@ -24,6 +24,7 @@
 #include <ctype.h>
 #include <cstring>  /* memset */
 #include <glib.h>
+using namespace std;
 
 #include "dimensions.hh"
 #include "file-name.hh"
@@ -38,9 +39,6 @@
 #include "string-convert.hh"
 #include "version.hh"
 #include "warn.hh"
-
-using std::string;
-using std::vector;
 
 /* Declaration of log function(s) */
 SCM ly_progress (SCM, SCM);

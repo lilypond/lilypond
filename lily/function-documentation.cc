@@ -19,6 +19,7 @@
 
 #include <cstring>
 #include <map>
+using namespace std;
 
 #include "std-string.hh"
 #include "lily-guile.hh"
@@ -35,9 +36,6 @@
 #include "spanner.hh"
 #include "stream-event.hh"
 #include "unpure-pure-container.hh"
-
-using std::map;
-using std::string;
 
 static SCM doc_hash_table;
 

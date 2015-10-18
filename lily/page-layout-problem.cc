@@ -35,8 +35,6 @@
 #include "text-interface.hh"
 #include "lily-imports.hh"
 
-using std::vector;
-
 /*
  Returns the number of footnotes associated with a given line.
 */
@@ -189,7 +187,7 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, int counter, Paper_book 
       numbers = scm_cons (stencil, numbers);
 
       if (!st->extent (X_AXIS).is_empty ())
-        max_length = std::max (max_length, st->extent (X_AXIS)[RIGHT]);
+        max_length = max (max_length, st->extent (X_AXIS)[RIGHT]);
 
       counter++;
     }
@@ -665,7 +663,7 @@ Page_layout_problem::append_prob (Prob *prob, Spring const &spring, Real padding
 
   if (sky)
     {
-      minimum_distance = std::max ((*sky)[UP].distance (bottom_skyline_),
+      minimum_distance = max ((*sky)[UP].distance (bottom_skyline_),
                               bottom_loose_baseline_);
       bottom_skyline_ = (*sky)[DOWN];
     }
@@ -1126,7 +1124,7 @@ Page_layout_problem::get_fixed_spacing (Grob *before, Grob *after, int spaceable
         {
           SCM forced = robust_list_ref (spaceable_index - 1, manual_dists);
           if (scm_is_number (forced))
-            ret = std::max (ret, scm_to_double (forced));
+            ret = max (ret, scm_to_double (forced));
         }
     }
 

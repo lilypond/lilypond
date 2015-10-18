@@ -21,6 +21,7 @@
 
 #include <cstdio>
 #include <cstring>
+using namespace std;
 
 #include "profile.hh"
 #include "international.hh"
@@ -29,9 +30,6 @@
 #include "string-convert.hh"
 #include "warn.hh"
 #include "lily-imports.hh"
-
-using std::string;
-using std::vector;
 
 bool debug_skylines;
 bool debug_property_callbacks;
@@ -171,7 +169,7 @@ get_help_string ()
     }
 
   string help ("Options supported by `ly:set-option':\n\n");
-  vector_sort (opts, std::less<string> ());
+  vector_sort (opts, less<string> ());
   for (vsize i = 0; i < opts.size (); i++)
     help += opts[i];
   return help;

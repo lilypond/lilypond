@@ -1,6 +1,7 @@
 
 #include <cassert>
 #include <cstdio>
+using namespace std;
 
 #include "memory-stream.hh"
 

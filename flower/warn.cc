@@ -25,8 +25,7 @@
 #include "std-vector.hh"
 #include "international.hh"
 
-using std::string;
-using std::vector;
+using namespace std;
 
 /** We have several different loglevels, each with its own message function(s):
       ERROR: error, non_fatal_error, programming_error

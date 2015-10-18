@@ -20,6 +20,7 @@
 #include "engraver.hh"
 
 #include <cctype>
+using namespace std;
 
 #include "duration.hh"
 #include "item.hh"
@@ -31,8 +32,6 @@
 #include "warn.hh"
 
 #include "translator.icc"
-
-using std::vector;
 
 class Note_heads_engraver : public Engraver
 {

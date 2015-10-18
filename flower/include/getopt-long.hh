@@ -20,12 +20,12 @@ struct Long_option_init
 
   char const *help_str0_;
 
-  std::string to_string () const;
-  std::string str_for_help () const;
+  string to_string () const;
+  string str_for_help () const;
   //   NO constructor!
 
   static int compare (Long_option_init const &, Long_option_init const &);
-  static std::string table_string (Long_option_init *);
+  static string table_string (Long_option_init *);
 };
 
 /** C++ for version of long_getopt.  For processing GNU style command

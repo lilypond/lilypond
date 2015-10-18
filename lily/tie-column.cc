@@ -32,7 +32,7 @@
 #include "tie-formatting-problem.hh"
 #include "tie-configuration.hh"
 
-using std::vector;
+using namespace std;
 
 void
 Tie_column::add_tie (Grob *tc, Spanner *tie)

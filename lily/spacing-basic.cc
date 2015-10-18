@@ -40,7 +40,7 @@
 Spring
 Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r, Spacing_options const *options)
 {
-  Real min_dist = std::max (0.0, Paper_column::minimum_distance (l, r));
+  Real min_dist = max (0.0, Paper_column::minimum_distance (l, r));
 
   if (Paper_column::is_breakable (l) && Paper_column::is_breakable (r))
     {
@@ -136,13 +136,13 @@ Spacing_spanner::note_spacing (Grob * /* me */,
 
   if (Moment *measure_len = get_measure_length (lc))
     {
-      delta_t = std::min (delta_t, *measure_len);
+      delta_t = min (delta_t, *measure_len);
 
       /*
         The following is an extra safety measure, such that
         the length of a mmrest event doesn't cause havoc.
       */
-      shortest_playing_len = std::min (shortest_playing_len, *measure_len);
+      shortest_playing_len = min (shortest_playing_len, *measure_len);
     }
 
   Spring ret;
@@ -157,7 +157,7 @@ Spacing_spanner::note_spacing (Grob * /* me */,
       ret = Spring (fraction * len, fraction * min);
 
       // Stretch proportional to the space between canonical bare noteheads
-      ret.set_inverse_stretch_strength (fraction * std::max (0.1, (len - min)));
+      ret.set_inverse_stretch_strength (fraction * max (0.1, (len - min)));
     }
   else if (delta_t.grace_part_)
     {

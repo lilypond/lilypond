@@ -25,15 +25,13 @@
 #include <unistd.h>
 #include <limits.h>
 
+using namespace std;
 
 #include "config.hh"
 
 #if HAVE_SYS_STAT_H
 #include <sys/stat.h>
 #endif
-
-using std::string;
-using std::vector;
 
 #ifndef ROOTSEP
 #define ROOTSEP ':'

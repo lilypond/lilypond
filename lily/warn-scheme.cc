@@ -26,8 +26,6 @@
 #include "international.hh"
 #include "warn.hh"
 
-using std::string;
-
 /*
   Error / warning / progress / debug message output functions
 */

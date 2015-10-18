@@ -28,8 +28,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 struct Bracket_nesting_node
 {
 public:

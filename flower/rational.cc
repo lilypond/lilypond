@@ -22,11 +22,10 @@
 #include <cmath>
 #include <cassert>
 #include <cstdlib>
+using namespace std;
 
 #include "string-convert.hh"
 #include "libc-extension.hh"
-
-using std::string;
 
 double
 Rational::to_double () const

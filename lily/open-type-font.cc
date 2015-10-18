@@ -22,6 +22,7 @@
 
 #include <cstdio>
 
+using namespace std;
 
 #include FT_TRUETYPE_TABLES_H
 
@@ -29,9 +30,6 @@
 #include "international.hh"
 #include "modified-font-metric.hh"
 #include "warn.hh"
-
-using std::map;
-using std::string;
 
 FT_Byte *
 load_table (char const *tag_str, FT_Face face, FT_ULong *length)

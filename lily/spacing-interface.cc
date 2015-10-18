@@ -30,8 +30,6 @@
 #include "skyline-pair.hh"
 #include "system.hh"
 
-using std::vector;
-
 /* return the right-pointing skyline of the left-items and the left-pointing
    skyline of the right-items (with the skyline of the left-items in
    ret[LEFT]) */
@@ -98,7 +96,7 @@ Spacing_interface::minimum_distance (Grob *me, Grob *right)
 {
   Drul_array<Skyline> skylines = Spacing_interface::skylines (me, right);
 
-  return std::max (0.0, skylines[LEFT].distance (skylines[RIGHT]));
+  return max (0.0, skylines[LEFT].distance (skylines[RIGHT]));
 }
 
 /*

@@ -18,6 +18,7 @@
 */
 
 #include <cctype>
+using namespace std;
 
 #include "item.hh"
 #include "duration.hh"
@@ -31,8 +32,6 @@
 #include "warn.hh"
 
 #include "translator.icc"
-
-using std::vector;
 
 class Drum_notes_engraver : public Engraver
 {

@@ -23,7 +23,6 @@
 #include "misc.hh"
 #include "lily-proto.hh"
 
-using std::string;
 
 int
 Duration::compare (Duration const &left, Duration const &right)

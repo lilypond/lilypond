@@ -19,6 +19,7 @@
 
 #include <cctype>
 #include <cstdio>
+using namespace std;
 
 #include "articulations.hh"
 #include "context.hh"
@@ -29,8 +30,6 @@
 #include "warn.hh"
 
 #include "translator.icc"
-
-using std::vector;
 
 /**
    make (guitar-like) tablature note

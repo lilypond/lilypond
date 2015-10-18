@@ -24,8 +24,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 class Ledger_line_engraver : public Engraver
 {
   Spanner *span_;

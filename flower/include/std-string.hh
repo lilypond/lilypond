@@ -33,24 +33,25 @@
 
 #include <string>
 
+using namespace std;
 
 typedef size_t ssize;
-#define NPOS std::string::npos
+#define NPOS string::npos
 
-std::string to_string (const std::string&);
-std::string to_string (char c, int n = 1);
-std::string to_string (int i, char const *format = 0);
-std::string to_string (double f, char const *format = 0);
-std::string to_string (long);
-std::string to_string (long unsigned);
-std::string to_string (I64, char const *format = 0);
-std::string to_string (unsigned);
-std::string to_string (bool b);
-std::string to_string (char const *format, ...)
+string to_string (const string&);
+string to_string (char c, int n = 1);
+string to_string (int i, char const *format = 0);
+string to_string (double f, char const *format = 0);
+string to_string (long);
+string to_string (long unsigned);
+string to_string (I64, char const *format = 0);
+string to_string (unsigned);
+string to_string (bool b);
+string to_string (char const *format, ...)
 __attribute__ ((format (printf, 1, 2)));
 
-std::string &replace_all (std::string *str, std::string const &find, std::string const &replace);
-std::string &replace_all (std::string *str, char find, char replace);
-char *string_copy (const std::string &s);
+string &replace_all (string *str, string const &find, string const &replace);
+string &replace_all (string *str, char find, char replace);
+char *string_copy (const string &s);
 
 #endif /* STD_STRING_HH */

@@ -30,8 +30,6 @@
 #include "simple-spacer.hh"
 #include "system.hh"
 
-using std::vector;
-
 One_line_page_breaking::One_line_page_breaking (Paper_book *pb)
   : Page_breaking (pb, 0, 0)
 {
@@ -60,7 +58,7 @@ One_line_page_breaking::solve ()
           vector<Grob *> cols = ps->root_system ()->used_columns ();
 
           // No indent, "infinite" line width, ragged.
-          Column_x_positions pos = get_line_configuration (cols, std::numeric_limits<Real>::max (), 0, true);
+          Column_x_positions pos = get_line_configuration (cols, numeric_limits<Real>::max (), 0, true);
           vector<Column_x_positions> positions;
           positions.push_back (pos);
 
@@ -73,7 +71,7 @@ One_line_page_breaking::solve ()
           SCM systems = scm_list_1 (system->self_scm ());
           SCM pages = make_pages (lines_per_page, systems);
 
-          max_width = std::max (max_width, system->extent (system, X_AXIS).length ());
+          max_width = max (max_width, system->extent (system, X_AXIS).length ());
           all_pages = scm_cons (scm_car (pages), all_pages);
         }
       else if (Prob *pb = system_specs_[i].prob_)

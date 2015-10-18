@@ -19,6 +19,7 @@
 */
 
 #include <cctype>
+using namespace std;
 
 #include "item.hh"
 #include "context.hh"

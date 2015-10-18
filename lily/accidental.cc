@@ -28,9 +28,6 @@
 #include "system.hh"
 #include "skyline-pair.hh"
 
-using std::string;
-using std::vector;
-
 Stencil
 parenthesize (Grob *me, Stencil m)
 {

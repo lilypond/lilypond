@@ -92,7 +92,7 @@ Moment
 Tuplet_iterator::pending_moment () const
 {
   Moment next_mom = Music_wrapper_iterator::pending_moment ();
-  next_mom = std::min (next_mom, next_split_mom_);
+  next_mom = min (next_mom, next_split_mom_);
 
   return next_mom;
 }
@@ -110,7 +110,7 @@ Tuplet_iterator::process (Moment m)
       if (m.main_part_ < music_get_length ().main_part_)
         {
           spanner_duration_ =
-            std::min (music_get_length () - next_split_mom_, spanner_duration_);
+            min (music_get_length () - next_split_mom_, spanner_duration_);
           tuplet_handler_.set_context (get_outlet ());
           report_event (create_event (START));
 

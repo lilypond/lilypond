@@ -8,12 +8,11 @@
 
 #include <cstring>
 #include <cstdio>
+using namespace std;
 
 #include "libc-extension.hh"
 #include "rational.hh"
 #include "std-vector.hh"
-
-using std::string;
 
 /**
    A safe length for stringconversion buffers.
@@ -298,7 +297,7 @@ String_convert::pointer_string (void const *l)
 string
 String_convert::precision_string (double x, int n)
 {
-  string format = "%." + ::to_string (std::max (0, n - 1)) + "e";
+  string format = "%." + ::to_string (max (0, n - 1)) + "e";
   string str = double_string (abs (x), format.c_str ());
 
   int exp = dec2int (str.substr (str.length () - 3));
@@ -353,7 +352,7 @@ String_convert::unsigned_long_string (unsigned long ul)
 string
 String_convert::pad_to (const string &s, size_t n)
 {
-  return s + string (std::max (int (n - s.length ()), 0), ' ');
+  return s + string (max (int (n - s.length ()), 0), ' ');
 }
 
 string

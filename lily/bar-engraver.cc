@@ -26,8 +26,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 /*
   generate bars. Either user ("|:"), or default (new measure)
 */

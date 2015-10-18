@@ -23,7 +23,7 @@
 #include "audio-item.hh"
 #include "std-vector.hh"
 
-std::string int2midi_varint_string (int i);
+string int2midi_varint_string (int i);
 
 /**
    Any piece of midi information.
@@ -40,7 +40,7 @@ public:
 
   static Midi_item *get_midi (Audio_item *a);
 
-  virtual std::string to_string () const = 0;
+  virtual string to_string () const = 0;
 };
 
 class Midi_channel_item : public Midi_item
@@ -61,7 +61,7 @@ public:
   DECLARE_CLASSNAME (Midi_control_function_value_change);
   Midi_control_function_value_change (Audio_control_function_value_change *ai);
   virtual ~Midi_control_function_value_change ();
-  virtual std::string to_string () const;
+  virtual string to_string () const;
   Audio_control_function_value_change::Control control_;
   Real value_;
 };
@@ -71,7 +71,7 @@ class Midi_duration : public Midi_item
 public:
   Midi_duration (Real seconds_f);
 
-  virtual std::string to_string () const;
+  virtual string to_string () const;
   Real seconds_;
 };
 
@@ -84,7 +84,7 @@ public:
   Midi_instrument (Audio_instrument *);
 
   DECLARE_CLASSNAME (Midi_instrument);
-  virtual std::string to_string () const;
+  virtual string to_string () const;
 
   Audio_instrument *audio_;
 };
@@ -95,7 +95,7 @@ public:
   Midi_key (Audio_key *);
   DECLARE_CLASSNAME (Midi_key);
 
-  virtual std::string to_string () const;
+  virtual string to_string () const;
 
   Audio_key *audio_;
 };
@@ -106,7 +106,7 @@ public:
   Midi_time_signature (Audio_time_signature *);
   DECLARE_CLASSNAME (Midi_time_signature);
 
-  virtual std::string to_string () const;
+  virtual string to_string () const;
 
   Audio_time_signature *audio_;
   int clocks_per_1_;
@@ -120,7 +120,7 @@ public:
 
   int get_semitone_pitch () const;
   int get_fine_tuning () const;
-  virtual std::string to_string () const;
+  virtual string to_string () const;
 
   Audio_note *audio_;
 
@@ -134,7 +134,7 @@ public:
   Midi_note_off (Midi_note *);
   DECLARE_CLASSNAME (Midi_note_off);
 
-  virtual std::string to_string () const;
+  virtual string to_string () const;
 
   Midi_note *on_;
   Byte aftertouch_byte_;
@@ -152,7 +152,7 @@ public:
 
   Midi_text (Audio_text *);
 
-  virtual std::string to_string () const;
+  virtual string to_string () const;
 
   Audio_text *audio_;
 };
@@ -163,7 +163,7 @@ public:
   Midi_dynamic (Audio_dynamic *);
   DECLARE_CLASSNAME (Midi_dynamic);
 
-  virtual std::string to_string () const;
+  virtual string to_string () const;
 
   Audio_dynamic *audio_;
 };
@@ -174,7 +174,7 @@ public:
   Midi_piano_pedal (Audio_piano_pedal *);
   DECLARE_CLASSNAME (Midi_piano_pedal);
 
-  virtual std::string to_string () const;
+  virtual string to_string () const;
 
   Audio_piano_pedal *audio_;
 };
@@ -185,7 +185,7 @@ public:
   Midi_tempo (Audio_tempo *);
   DECLARE_CLASSNAME (Midi_tempo);
 
-  virtual std::string to_string () const;
+  virtual string to_string () const;
 
   Audio_tempo *audio_;
 };

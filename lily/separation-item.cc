@@ -30,8 +30,6 @@
 #include "stencil.hh"
 #include "warn.hh"
 
-using std::vector;
-
 void
 Separation_item::add_item (Grob *s, Item *i)
 {
@@ -64,7 +62,7 @@ Separation_item::set_distance (Item *l, Item *r, Real padding)
       rod.add_to_cols ();
     }
 
-  return std::max (dist, 0.0);
+  return max (dist, 0.0);
 }
 
 bool

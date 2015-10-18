@@ -19,6 +19,7 @@
 */
 
 #include <cctype>
+using namespace std;
 
 #include "dot-column.hh"
 #include "dots.hh"
@@ -38,8 +39,6 @@
 #include "misc.hh"
 
 #include "translator.icc"
-
-using std::vector;
 
 /*
   How does this work?
@@ -96,7 +95,7 @@ Completion_rest_engraver::listen_rest (Stream_event *ev)
   Moment now = now_mom ();
   Moment musiclen = get_event_length (ev, now);
 
-  rest_end_mom_ = std::max (rest_end_mom_, (now + musiclen));
+  rest_end_mom_ = max (rest_end_mom_, (now + musiclen));
   do_nothing_until_ = Rational (0, 0);
 }
 

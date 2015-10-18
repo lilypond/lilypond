@@ -26,8 +26,6 @@
 #include "staff-symbol-referencer.hh"
 #include "international.hh"
 
-using std::string;
-
 MAKE_SCHEME_CALLBACK (Dots, print, 1);
 SCM
 Dots::print (SCM d)

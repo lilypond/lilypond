@@ -20,6 +20,7 @@
 #include "parse-scm.hh"
 
 #include <cstdio>
+using namespace std;
 
 #include "lily-parser.hh"
 #include "lily-lexer.hh"

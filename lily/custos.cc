@@ -26,6 +26,7 @@
 
 #include <cstdio>
 #include <cmath> // rint
+using namespace std;
 
 #include "custos.hh"
 #include "direction.hh"
@@ -35,8 +36,6 @@
 #include "note-head.hh"
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
-
-using std::string;
 
 MAKE_SCHEME_CALLBACK (Custos, print, 1);
 SCM

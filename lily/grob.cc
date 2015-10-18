@@ -40,9 +40,6 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
-using std::set;
-using std::string;
-using std::vector;
 
 Grob *
 Grob::clone () const

@@ -24,9 +24,6 @@
 #include "std-string.hh"
 #include "string-convert.hh"
 
-using std::string;
-using std::vector;
-
 Midi_track::Midi_track (int number, bool port)
   : number_ (number)
 {

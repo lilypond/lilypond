@@ -29,8 +29,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 class Kievan_ligature_engraver : public Coherent_ligature_engraver
 {
 

@@ -29,9 +29,6 @@
 #include "system.hh"
 #include "warn.hh"
 
-using std::string;
-using std::vector;
-
 template<typename T>
 static bool
 is_break (T *g)
@@ -173,7 +170,7 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
 
       /* heuristic: we've just added a breakpoint, we'll need at least as
          many systems as before */
-      min_sys_count = std::max (min_sys_count, prev_best_system_count);
+      min_sys_count = max (min_sys_count, prev_best_system_count);
       for (vsize sys_count = min_sys_count; sys_count <= max_sys_count && ok_page; sys_count++)
         {
           set_current_breakpoints (start, end, sys_count, min_division, max_division);

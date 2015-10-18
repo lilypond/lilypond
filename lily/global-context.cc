@@ -20,6 +20,7 @@
 #include "global-context.hh"
 
 #include <cstdio>
+using namespace std;
 
 #include "context-def.hh"
 #include "dispatcher.hh"
@@ -28,8 +29,6 @@
 #include "music.hh"
 #include "output-def.hh"
 #include "warn.hh"
-
-using std::string;
 
 Global_context::Global_context (Output_def *o)
   : Context ()

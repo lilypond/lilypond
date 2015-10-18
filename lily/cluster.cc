@@ -29,9 +29,6 @@
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
 
-using std::string;
-using std::vector;
-
 /*
   TODO: Add support for cubic spline segments.
  */

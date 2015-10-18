@@ -29,32 +29,32 @@ void do_scores ();
 void clear_scores ();
 void add_score (Score *s);
 void call_constructors ();
-std::vector<std::string> get_inclusion_names ();
-void set_inclusion_names (std::vector<std::string>);
+vector<string> get_inclusion_names ();
+void set_inclusion_names (vector<string>);
 
-extern std::string init_name_global;
+extern string init_name_global;
 
 /* options */
-extern std::vector<std::string> dump_header_fieldnames_global;
-extern std::vector<std::string> start_environment_global;
-extern std::string output_backend_global;
-extern std::string output_name_global;
+extern vector<string> dump_header_fieldnames_global;
+extern vector<string> start_environment_global;
+extern string output_backend_global;
+extern string output_name_global;
 extern bool bigpdfs;
 extern bool be_safe_global;
 extern bool do_internal_type_checking_global;
-extern std::string lilypond_datadir;
+extern string lilypond_datadir;
 extern bool use_object_keys;
 extern bool strict_infinity_checking;
-extern std::string init_scheme_code_global;
-extern std::string init_scheme_variables_global;
+extern string init_scheme_code_global;
+extern string init_scheme_variables_global;
 
 /*
   todo: collect in Output_option struct?
 */
-extern std::string output_format_global;
+extern string output_format_global;
 
 /* misc */
-extern std::vector<std::string> failed_files;
+extern vector<string> failed_files;
 extern int exit_status_global;
 extern File_path global_path;
 extern const char *LILYPOND_DATADIR;

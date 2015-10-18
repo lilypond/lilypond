@@ -25,6 +25,7 @@
 #include <cstring> /* strdup, strchr */
 #include <cctype>
 
+using namespace std;
 
 #include "dimensions.hh"
 #include "direction.hh"
@@ -40,9 +41,6 @@
 #include "version.hh"
 #include "warn.hh"
 #include "lily-imports.hh"
-
-using std::string;
-using std::vector;
 
 /*
   symbols/strings.

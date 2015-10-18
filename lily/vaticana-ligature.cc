@@ -29,8 +29,6 @@
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
 
-using std::string;
-
 Stencil
 vaticana_brew_cauda (Grob *me,
                      int pos,
@@ -108,7 +106,7 @@ vaticana_brew_flexa (Grob *me,
    */
   Real left_height
     = right_height
-      + std::min (0.12 * abs (interval), 0.3) * staff_space;
+      + min (0.12 * abs (interval), 0.3) * staff_space;
 
   /*
    * Compensate optical illusion regarding vertical position of left

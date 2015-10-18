@@ -30,8 +30,6 @@
 #include "stencil.hh"
 #include "grob.hh"
 
-using std::string;
-
 // -> offset callback
 MAKE_SCHEME_CALLBACK (Rest, y_offset_callback, 1);
 SCM

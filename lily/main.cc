@@ -25,6 +25,7 @@
 #include <cstring>
 #include <cerrno>
 #include <cstdio>
+using namespace std;
 
 #include <unistd.h>
 #include <sys/types.h>
@@ -129,7 +130,7 @@ static char const *WARRANTY
 //string lilypond_datadir; // moved to global-data.cc
 
 /* The jail specification: USER, GROUP, JAIL, DIR. */
-std::string jail_spec;
+string jail_spec;
 
 /*  The option parser */
 static Getopt_long *option_parser = 0;
@@ -212,10 +213,6 @@ configure_fpu ()
 }
 
 #endif /* defined(__x86__) || defined(__i386__) */
-
-using std::map;
-using std::string;
-using std::vector;
 
 static void
 env_var_info (FILE *out, char const *key)

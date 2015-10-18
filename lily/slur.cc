@@ -43,9 +43,6 @@
 #include "unpure-pure-container.hh"
 #include "international.hh"
 
-using std::string;
-using std::vector;
-
 MAKE_SCHEME_CALLBACK (Slur, calc_direction, 1)
 SCM
 Slur::calc_direction (SCM smob)
@@ -360,7 +357,7 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
         }
     }
 
-  Real avoidance_offset = do_shift ? curve.minmax (X_AXIS, std::max (xext[LEFT], curve.control_[0][X_AXIS] + EPS), std::min (xext[RIGHT], curve.control_[3][X_AXIS] - EPS), dir) - yext[-dir] : 0.0;
+  Real avoidance_offset = do_shift ? curve.minmax (X_AXIS, max (xext[LEFT], curve.control_[0][X_AXIS] + EPS), min (xext[RIGHT], curve.control_[3][X_AXIS] - EPS), dir) - yext[-dir] : 0.0;
 
   return scm_from_double (offset + avoidance_offset);
 }

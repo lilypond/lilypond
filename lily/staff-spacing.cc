@@ -20,6 +20,7 @@
 #include "staff-spacing.hh"
 
 #include <cstdio>
+using namespace std;
 
 #include "international.hh"
 #include "paper-column.hh"
@@ -32,9 +33,6 @@
 #include "accidental-placement.hh"
 #include "pointer-group-interface.hh"
 #include "directional-element-interface.hh"
-
-using std::string;
-using std::vector;
 
 /* A stem following a bar-line creates an optical illusion similar to the
    one mentioned in note-spacing.cc. We correct for it here.
@@ -61,7 +59,7 @@ Staff_spacing::optical_correction (Grob *me, Grob *g, Interval bar_height)
 
           stem_posns.intersect (bar_height);
 
-          ret = std::min (abs (stem_posns.length () / 7.0), 1.0);
+          ret = min (abs (stem_posns.length () / 7.0), 1.0);
           ret *= robust_scm2double (me->get_property ("stem-spacing-correction"), 1);
         }
     }
@@ -105,7 +103,7 @@ Staff_spacing::next_notes_correction (Grob *me,
   Real max_optical = 0.0;
 
   for (vsize i = 0; i < note_columns.size (); i++)
-    max_optical = std::max (max_optical, optical_correction (me, note_columns[i], bar_size));
+    max_optical = max (max_optical, optical_correction (me, note_columns[i], bar_size));
 
   return max_optical;
 }
@@ -180,10 +178,10 @@ Staff_spacing::get_spacing (Grob *me, Grob *right_col, Real situational_space)
       ideal = fixed + distance / 2;
     }
   else if (scm_is_eq (type, ly_symbol2scm ("minimum-space")))
-    ideal = last_ext[LEFT] + std::max (last_ext.length (), distance);
+    ideal = last_ext[LEFT] + max (last_ext.length (), distance);
   else if (scm_is_eq (type, ly_symbol2scm ("minimum-fixed-space")))
     {
-      fixed = last_ext[LEFT] + std::max (last_ext.length (), distance);
+      fixed = last_ext[LEFT] + max (last_ext.length (), distance);
       ideal = fixed;
     }
 
@@ -200,13 +198,13 @@ Staff_spacing::get_spacing (Grob *me, Grob *right_col, Real situational_space)
   Real min_dist = Paper_column::minimum_distance (left_col, right_col);
 
   /* ensure that the "fixed" distance will leave a gap of at least 0.3 ss. */
-  Real min_dist_correction = std::max (0.0, 0.3 + min_dist - fixed);
+  Real min_dist_correction = max (0.0, 0.3 + min_dist - fixed);
   fixed += min_dist_correction;
-  ideal = std::max (ideal, fixed);
+  ideal = max (ideal, fixed);
 
   Spring ret (ideal, min_dist);
-  ret.set_inverse_stretch_strength (std::max (0.0, stretchability));
-  ret.set_inverse_compress_strength (std::max (0.0, ideal - fixed));
+  ret.set_inverse_stretch_strength (max (0.0, stretchability));
+  ret.set_inverse_compress_strength (max (0.0, ideal - fixed));
   return ret;
 }
 
