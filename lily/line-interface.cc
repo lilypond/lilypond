@@ -25,8 +25,6 @@
 #include "output-def.hh"
 #include "staff-symbol-referencer.hh"
 
-using std::vector;
-
 Stencil
 Line_interface::make_arrow (Offset begin, Offset end,
                             Real thick,

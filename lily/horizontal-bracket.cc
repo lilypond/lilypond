@@ -30,8 +30,6 @@
 #include "spanner.hh"
 #include "item.hh"
 
-using std::vector;
-
 Stencil
 Horizontal_bracket::make_bracket (Grob *me,
                                   Real length,

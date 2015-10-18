@@ -19,8 +19,6 @@
 
 #include "interval-set.hh"
 
-using std::vector;
-
 /*
   A union of intervals in the real line.
 

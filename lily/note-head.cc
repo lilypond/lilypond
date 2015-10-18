@@ -33,8 +33,6 @@ using namespace std;
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
 
-using std::string;
-
 static Stencil
 internal_print (Grob *me, string *font_char)
 {

@@ -29,9 +29,6 @@
 #include "system.hh"
 #include "warn.hh"
 
-using std::string;
-using std::vector;
-
 template<typename T>
 static bool
 is_break (T *g)

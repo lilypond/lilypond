@@ -24,8 +24,6 @@
 #include "sequential-iterator.hh"
 #include "lily-imports.hh"
 
-using std::string;
-
 class Percent_repeat_iterator : public Sequential_iterator
 {
 public:

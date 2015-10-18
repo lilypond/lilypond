@@ -23,9 +23,6 @@
 #include "string-convert.hh"
 #include "misc.hh"
 
-using std::string;
-using std::vector;
-
 Lilypond_version::Lilypond_version (int major, int minor, int patch)
 {
   major_ = major;

@@ -22,8 +22,6 @@
 #include "grob-array.hh"
 #include "grob.hh"
 
-using std::vector;
-
 int
 Pointer_group_interface::count (Grob *me, SCM sym)
 {

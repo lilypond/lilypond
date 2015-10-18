@@ -66,10 +66,6 @@
 
 #include <map>
 
-using std::map;
-using std::string;
-using std::vector;
-
 Beam_stem_segment::Beam_stem_segment ()
 {
   max_connect_ = 1000;          // infinity

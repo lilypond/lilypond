@@ -30,8 +30,6 @@
 
 #include "translator.icc"
 
-using std::string;
-
 class Dynamic_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Dynamic_engraver);

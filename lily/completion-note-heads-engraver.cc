@@ -39,8 +39,6 @@ using namespace std;
 
 #include "translator.icc"
 
-using std::vector;
-
 /*
   How does this work?
 

@@ -29,9 +29,6 @@
 
 #include "translator.icc"
 
-using std::string;
-using std::vector;
-
 class Glissando_engraver : public Engraver
 {
 public:

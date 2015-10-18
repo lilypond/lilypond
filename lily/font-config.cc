@@ -30,9 +30,6 @@
 #include "main.hh"
 #include "warn.hh"
 
-using std::string;
-using std::vector;
-
 FcConfig *font_config_global = 0;
 
 void

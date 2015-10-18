@@ -22,7 +22,6 @@
 #include "scale.hh"
 #include "protected-scm.hh"
 
-using std::vector;
 
 /*
   todo: put string <-> pitch here too.

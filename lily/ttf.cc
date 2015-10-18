@@ -29,9 +29,6 @@
 #include "main.hh"
 #include "open-type-font.hh"
 
-using std::string;
-using std::vector;
-
 Index_to_charcode_map
 make_index_to_charcode_map (FT_Face face)
 {

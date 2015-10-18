@@ -35,8 +35,6 @@
 #include "text-interface.hh"
 #include "lily-imports.hh"
 
-using std::vector;
-
 /*
  Returns the number of footnotes associated with a given line.
 */

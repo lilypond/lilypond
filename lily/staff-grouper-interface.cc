@@ -23,8 +23,6 @@
 #include "page-layout-problem.hh"
 #include "pointer-group-interface.hh"
 
-using std::vector;
-
 /* Checks whether the child grob is in the "interior" of this staff-grouper.
    This is the case if the next spaceable, living child after the given one
    belongs to the group.

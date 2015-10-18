@@ -21,8 +21,6 @@
 #include "context.hh"
 #include "music.hh"
 
-using std::string;
-
 Change_sequence_iterator::Change_sequence_iterator () :
   change_list_(SCM_EOL)
 {

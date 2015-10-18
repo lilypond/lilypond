@@ -31,8 +31,6 @@ using namespace std;
 
 #include "translator.icc"
 
-using std::vector;
-
 /**
    make (guitar-like) tablature note
 */

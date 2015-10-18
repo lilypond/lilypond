@@ -33,8 +33,6 @@ using namespace std;
 
 #include "translator.icc"
 
-using std::vector;
-
 class Drum_notes_engraver : public Engraver
 {
   vector<Item *> scripts_;

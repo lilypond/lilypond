@@ -30,8 +30,6 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
-using std::string;
-
 #define PITCH_WHEEL_CENTER 0x2000
 #define PITCH_WHEEL_SEMITONE 0X1000
 

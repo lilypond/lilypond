@@ -7,7 +7,6 @@
 #include "yaffut.hh"
 
 using namespace std;
-using std::vector;
 
 template<typename T>
 void

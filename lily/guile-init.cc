@@ -24,8 +24,6 @@
 #include "smobs.hh"
 #include "lily-imports.hh"
 
-using std::vector;
-
 /*
   INIT
 */

@@ -34,9 +34,6 @@ using namespace std;
 #include "pointer-group-interface.hh"
 #include "directional-element-interface.hh"
 
-using std::string;
-using std::vector;
-
 /* A stem following a bar-line creates an optical illusion similar to the
    one mentioned in note-spacing.cc. We correct for it here.
 

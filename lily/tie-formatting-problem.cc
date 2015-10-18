@@ -39,10 +39,6 @@
 #include "pointer-group-interface.hh"
 #include "output-def.hh"
 
-using std::set;
-using std::string;
-using std::vector;
-
 void
 Tie_formatting_problem::print_ties_configuration (Ties_configuration const *ties)
 {

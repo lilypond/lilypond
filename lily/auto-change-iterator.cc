@@ -20,8 +20,6 @@
 #include "change-iterator.hh"
 #include "change-sequence-iterator.hh"
 
-using std::string;
-
 class Auto_change_iterator : public Change_sequence_iterator
 {
 public:

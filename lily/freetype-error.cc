@@ -37,8 +37,6 @@ const struct Freetype_error_message
 
 #include <string>
 
-using std::string;
-
 string
 freetype_error_string (FT_Error code)
 {

@@ -34,8 +34,6 @@ using namespace std;
 #include "tuplet-bracket.hh"
 #include "lily-imports.hh"
 
-using std::string;
-
 /*
   this is too complicated. Yet another version of side-positioning,
   badly implemented.

@@ -21,8 +21,6 @@
 
 #include "grob.hh"
 
-using std::string;
-
 void check_prefix (const string &name, int mask, int prefix_set, string *str)
 {
   if (prefix_set & mask)

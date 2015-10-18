@@ -20,9 +20,6 @@
 #include "file-path.hh"
 #include "main.hh"
 
-using std::string;
-using std::vector;
-
 /*
  * Global options that can be overridden through command line.
  */

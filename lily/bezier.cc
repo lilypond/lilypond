@@ -21,8 +21,6 @@
 #include "warn.hh"
 #include "libc-extension.hh"
 
-using std::vector;
-
 Real binomial_coefficient_3[]
 =
 {

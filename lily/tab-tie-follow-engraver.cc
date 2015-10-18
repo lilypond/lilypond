@@ -30,8 +30,6 @@ using namespace std;
 
 #include "translator.icc"
 
-using std::vector;
-
 /*
    Change tab-note-head properties when a tie is followed by a
    slurs or glissando.

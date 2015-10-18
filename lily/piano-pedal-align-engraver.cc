@@ -29,8 +29,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 /*
   TODO:
 

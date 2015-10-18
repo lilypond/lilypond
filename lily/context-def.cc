@@ -29,10 +29,6 @@
 #include "translator.hh"
 #include "warn.hh"
 
-using std::set;
-using std::string;
-using std::vector;
-
 Context_def::Context_def ()
 {
   context_aliases_ = SCM_EOL;

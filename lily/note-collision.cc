@@ -33,8 +33,6 @@
 #include "stem.hh"
 #include "warn.hh"
 
-using std::vector;
-
 Real
 check_meshing_chords (Grob *me,
                       Grob *clash_up, Grob *clash_down)

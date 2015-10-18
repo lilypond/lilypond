@@ -32,8 +32,6 @@
 #include "spring.hh"
 #include "warn.hh"
 
-using std::vector;
-
 /*
   A simple spacing constraint solver. The approach:
 

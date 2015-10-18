@@ -29,8 +29,6 @@
 
 #include "translator.icc"
 
-using std::vector;
-
 /**
    Make arpeggios that span multiple staves.  Catch arpeggios, and span a
    Span_arpeggio over them if we find more than two arpeggios.

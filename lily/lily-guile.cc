@@ -42,9 +42,6 @@ using namespace std;
 #include "warn.hh"
 #include "lily-imports.hh"
 
-using std::string;
-using std::vector;
-
 /*
   symbols/strings.
  */

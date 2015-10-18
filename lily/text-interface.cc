@@ -35,8 +35,6 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
-using std::string;
-
 static void
 replace_special_characters (string &str, SCM props)
 {
