@@ -27,7 +27,7 @@
 class Slur_configuration
 {
   Real score_;
-  std::string score_card_;
+  string score_card_;
 
 public:
   Drul_array<Offset> attachment_;
@@ -50,11 +50,11 @@ public:
   Slur_configuration ();
 
   Real score () const { return score_; }
-  std::string card () const { return score_card_; }
-  void add_score (Real, const std::string&);
+  string card () const { return score_card_; }
+  void add_score (Real, const string&);
 
   void generate_curve (Slur_score_state const &state, Real r0, Real h_inf,
-                       std::vector<Offset> const &);
+                       vector<Offset> const &);
   void run_next_scorer (Slur_score_state const &);
   bool done () const;
   static Slur_configuration *new_config (Drul_array<Offset> const &offs, int idx);

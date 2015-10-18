@@ -18,6 +18,7 @@
 */
 
 #include <cstring>
+using namespace std;
 
 #include "warn.hh"
 #include "font-interface.hh"

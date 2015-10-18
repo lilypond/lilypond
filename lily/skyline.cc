@@ -131,7 +131,7 @@ Building::precompute (Real start, Real start_height, Real end_height, Real end)
     // too steep to be stored in slope-intercept form, given round-off error
     {
       slope_ = 0.0;
-      y_intercept_ = std::max (start_height, end_height);
+      y_intercept_ = max (start_height, end_height);
     }
   else
     y_intercept_ = start_height - slope_ * start;
@@ -251,7 +251,7 @@ Skyline::internal_merge_skyline (list<Building> *sb, list<Building> *sc,
             }
           /* 'c' continues further, so move it into 'b' for the next pass. */
           b = c;
-          std::swap (sb, sc);
+          swap (sb, sc);
         }
       else /* b.end_ > c.end_ so finish with c */
         {
@@ -456,7 +456,7 @@ Skyline::Skyline (vector<Drul_array<Offset> > const &segments, Axis horizon_axis
       Offset left = seg[LEFT];
       Offset right = seg[RIGHT];
       if (left[horizon_axis] > right[horizon_axis])
-        std::swap (left, right);
+        swap (left, right);
 
       Real x1 = left[horizon_axis];
       Real x2 = right[horizon_axis];
@@ -671,10 +671,10 @@ Skyline::internal_distance (Skyline const &other, Real *touch_point) const
   Real touch = -infinity_f;
   while (i != buildings_.end () && j != other.buildings_.end ())
     {
-      Real end = std::min (i->end_, j->end_);
+      Real end = min (i->end_, j->end_);
       Real start_dist = i->height (start) + j->height (start);
       Real end_dist = i->height (end) + j->height (end);
-      dist = std::max (dist, std::max (start_dist, end_dist));
+      dist = max (dist, max (start_dist, end_dist));
 
       if (end_dist == dist)
         touch = end;
@@ -716,8 +716,8 @@ Skyline::max_height () const
   list<Building>::const_iterator i;
   for (i = buildings_.begin (); i != buildings_.end (); ++i)
     {
-      ret = std::max (ret, i->height (i->start_));
-      ret = std::max (ret, i->height (i->end_));
+      ret = max (ret, i->height (i->start_));
+      ret = max (ret, i->height (i->end_));
     }
 
   return sky_ * ret;

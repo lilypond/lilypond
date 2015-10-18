@@ -27,6 +27,6 @@ SCM ly_get_option (SCM);
 SCM ly_set_option (SCM, SCM);
 
 bool get_program_option (const char *);
-std::string get_output_backend_name ();
+string get_output_backend_name ();
 
 #endif /* SCM_OPTION_HH */

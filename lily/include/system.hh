@@ -44,10 +44,10 @@ public:
   Grob *get_pure_bound (Direction dir, int start, int end);
   Grob *get_maybe_pure_bound (Direction dir, bool pure, int start, int end);
   int get_rank () const;
-  std::vector<Real> get_footnote_heights_in_range (vsize st, vsize end);
-  std::vector<Real> get_in_note_heights_in_range (vsize st, vsize end);
-  std::vector<Real> internal_get_note_heights_in_range (vsize st, vsize end, bool foot);
-  std::vector<Grob *> get_footnote_grobs_in_range (vsize st, vsize end);
+  vector<Real> get_footnote_heights_in_range (vsize st, vsize end);
+  vector<Real> get_in_note_heights_in_range (vsize st, vsize end);
+  vector<Real> internal_get_note_heights_in_range (vsize st, vsize end, bool foot);
+  vector<Grob *> get_footnote_grobs_in_range (vsize st, vsize end);
   vsize num_footnotes ();
   void do_break_substitution_and_fixup_refpoints ();
   void post_processing ();
@@ -73,10 +73,10 @@ public:
   int element_count () const;
   int spanner_count () const;
 
-  void break_into_pieces (std::vector<Column_x_positions> const &);
+  void break_into_pieces (vector<Column_x_positions> const &);
 
-  std::vector<Item *> broken_col_range (Item const *, Item const *) const;
-  std::vector<Grob *> used_columns () const;
+  vector<Item *> broken_col_range (Item const *, Item const *) const;
+  vector<Grob *> used_columns () const;
   Paper_column *column (vsize i) const;
 
   void add_column (Paper_column *);

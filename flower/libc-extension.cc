@@ -24,6 +24,7 @@
 #include <cctype>
 #include <cassert>
 
+using namespace std;
 
 #include "libc-extension.hh"
 

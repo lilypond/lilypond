@@ -5,6 +5,7 @@
 
 #include "yaffut.hh"
 
+using namespace std;
 using std::string;
 using std::vector;
 

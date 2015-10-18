@@ -53,7 +53,7 @@ class Audio_span_dynamic : public Audio_element
 {
 public:
   Direction grow_dir_;
-  std::vector<Audio_dynamic *> dynamics_;
+  vector<Audio_dynamic *> dynamics_;
   Real min_volume_;
   Real max_volume_;
 
@@ -74,9 +74,9 @@ public:
 class Audio_instrument : public Audio_item
 {
 public:
-  Audio_instrument (std::string instrument_string);
+  Audio_instrument (string instrument_string);
 
-  std::string str_;
+  string str_;
 };
 
 class Audio_note : public Audio_item
@@ -87,7 +87,7 @@ public:
   // with tieWaitForNote, there might be a skip between the tied notes!
   void tie_to (Audio_note *, Moment skip = 0);
   Audio_note *tie_head ();
-  virtual std::string to_string () const;
+  virtual string to_string () const;
 
   Pitch pitch_;
   Moment length_mom_;
@@ -102,7 +102,7 @@ public:
 class Audio_piano_pedal : public Audio_item
 {
 public:
-  std::string type_string_;
+  string type_string_;
   Direction dir_;
 };
 
@@ -115,10 +115,10 @@ public:
     MARKER, CUE_POINT
   };
 
-  Audio_text (Audio_text::Type type, const std::string &text_string);
+  Audio_text (Audio_text::Type type, const string &text_string);
 
   Type type_;
-  std::string text_string_;
+  string text_string_;
 };
 
 class Audio_tempo : public Audio_item

@@ -33,7 +33,7 @@ to_string (const string &s)
 string
 to_string (char c, int n)
 {
-  return string (std::max (n, 0), c);
+  return string (max (n, 0), c);
 }
 
 string

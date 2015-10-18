@@ -129,7 +129,7 @@ Ottava_bracket::print (SCM smob)
                    ? 0.0 : text.extent (X_AXIS)[RIGHT] + 0.3;
 
   span_points[LEFT]
-    = std::min (span_points[LEFT],
+    = min (span_points[LEFT],
            (span_points[RIGHT] - text_size
             - robust_scm2double (me->get_property ("minimum-length"), -1.0)));
 

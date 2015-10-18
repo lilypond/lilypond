@@ -76,7 +76,7 @@ public:
   Beaming_pattern *split_pattern (int idx);
 
 private:
-  std::vector<Beam_rhythmic_element> infos_;
+  vector<Beam_rhythmic_element> infos_;
   Direction flag_direction (Beaming_options const &, vsize) const;
   void find_rhythmic_importance (Beaming_options const &);
   void unbeam_invisible_stems ();

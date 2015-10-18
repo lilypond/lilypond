@@ -71,9 +71,9 @@ operator - (Direction d)
 template<class T> T minmax (Direction d, T a, T b)
 {
   if (d == UP)
-    return std::max (a, b);
+    return max (a, b);
   else
-    return std::min (a, b);
+    return min (a, b);
 }
 
 #endif // DIRECTION_HH

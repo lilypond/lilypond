@@ -64,7 +64,7 @@ public:
         return ret;
       }
 
-    Real new_pen = std::max (penalty_, penalty.penalty_);
+    Real new_pen = max (penalty_, penalty.penalty_);
 
     if (duration_[LEFT] < penalty.duration_[LEFT])
       ret.push_back (Page_turn_event (duration_[LEFT], penalty.duration_[LEFT], permission_, penalty_));
@@ -121,8 +121,8 @@ Page_turn_engraver::Page_turn_engraver ()
 Grob *
 Page_turn_engraver::breakable_column (Page_turn_event const &brk)
 {
-  vsize start = lower_bound (breakable_moments_, brk.duration_[LEFT], std::less<Rational> ());
-  vsize end = upper_bound (breakable_moments_, brk.duration_[RIGHT], std::less<Rational> ());
+  vsize start = lower_bound (breakable_moments_, brk.duration_[LEFT], less<Rational> ());
+  vsize end = upper_bound (breakable_moments_, brk.duration_[RIGHT], less<Rational> ());
 
   if (start == breakable_moments_.size ())
     return NULL;
@@ -323,7 +323,7 @@ Page_turn_engraver::finalize ()
       if (pc)
         {
           SCM perm = max_permission (pc->get_property ("page-turn-permission"), brk.permission_);
-          Real pen = std::min (robust_scm2double (pc->get_property ("page-turn-penalty"), infinity_f), brk.penalty_);
+          Real pen = min (robust_scm2double (pc->get_property ("page-turn-penalty"), infinity_f), brk.penalty_);
           pc->set_property ("page-turn-permission", perm);
           pc->set_property ("page-turn-penalty", scm_from_double (pen));
         }

@@ -22,6 +22,7 @@
 
 #include "engraver.hh"
 
+using namespace std;
 
 #include "articulations.hh"
 #include "duration.hh"

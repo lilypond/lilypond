@@ -273,7 +273,7 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
       d = (d == CENTER) ? UP : d;
 
       Interval_t<int> rank_span = g->spanned_rank_interval ();
-      vsize first_break = lower_bound (ranks, (vsize)rank_span[LEFT], std::less<vsize> ());
+      vsize first_break = lower_bound (ranks, (vsize)rank_span[LEFT], less<vsize> ());
       if (first_break > 0 && ranks[first_break] >= (vsize)rank_span[LEFT])
         first_break--;
 
@@ -327,7 +327,7 @@ Interval
 Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
 {
   /* It saves a _lot_ of time if we assume a VerticalAxisGroup is additive
-     (ie. height (i, k) = std::max (height (i, j) height (j, k)) for all i <= j <= k).
+     (ie. height (i, k) = max (height (i, j) height (j, k)) for all i <= j <= k).
      Unfortunately, it isn't always true, particularly if there is a
      VerticalAlignment somewhere in the descendants.
 
@@ -689,8 +689,8 @@ avoid_outside_staff_collisions (Grob *elt,
   for (vsize j = 0; j < other_v_skylines.size (); j++)
     {
       Skyline_pair const &v_other = other_v_skylines[j];
-      Real pad = std::max (padding, other_padding[j]);
-      Real horizon_pad = std::max (horizon_padding, other_horizon_padding[j]);
+      Real pad = max (padding, other_padding[j]);
+      Real horizon_pad = max (horizon_padding, other_horizon_padding[j]);
 
       // We need to push elt up by at least this much to be above v_other.
       Real up = (*v_skyline)[DOWN].distance (v_other[UP], horizon_pad) + pad;
@@ -841,7 +841,7 @@ add_grobs_of_one_priority (Grob *me,
           (*all_paddings)[dir].push_back (padding);
           (*all_horizon_paddings)[dir].push_back (horizon_padding);
         }
-      std::swap (elements, skipped_elements);
+      swap (elements, skipped_elements);
       skipped_elements.clear ();
     }
 }

@@ -15,7 +15,7 @@ TEST (File_path, Find)
   char cwd[PATH_MAX];
   if (!getcwd (cwd, PATH_MAX))
     {
-      std::cerr << "Could not get current work directory\n";
+      cerr << "Could not get current work directory\n";
       exit (1);
     }
   string ly_dir = string (getenv ("top-src-dir")) + "/ly";

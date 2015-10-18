@@ -33,7 +33,7 @@ struct Engraver_dispatch_entry
 
 class Engraver_dispatch_list : public Simple_smob<Engraver_dispatch_list>
 {
-  std::vector<Engraver_dispatch_entry> dispatch_entries_;
+  vector<Engraver_dispatch_entry> dispatch_entries_;
 public:
   void apply (Grob_info);
   SCM static create (SCM trans_list,

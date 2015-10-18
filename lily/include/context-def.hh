@@ -65,13 +65,13 @@ public:
 
   VIRTUAL_COPY_CONSTRUCTOR (Context_def, Context_def);
 
-  std::vector<Context_def *> path_to_acceptable_context (SCM type_string,
+  vector<Context_def *> path_to_acceptable_context (SCM type_string,
                                                     Output_def *,
                                                     SCM) const;
-  std::vector<Context_def *> internal_path_to_acceptable_context (SCM type_string,
+  vector<Context_def *> internal_path_to_acceptable_context (SCM type_string,
                                                              Output_def *,
                                                              SCM,
-                                                             std::set<const Context_def *> *seen) const;
+                                                             set<const Context_def *> *seen) const;
   Context *instantiate (SCM extra_ops);
 
   SCM to_alist () const;

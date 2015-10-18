@@ -116,6 +116,7 @@ FIXME:
 #include <cctype>
 #include <cstdlib>
 #include <cstdio>
+using namespace std;
 
 #include "book.hh"
 #include "context-def.hh"

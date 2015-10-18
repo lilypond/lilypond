@@ -472,7 +472,7 @@ Slur_score_state::get_y_attachment_range () const
             slur_->warning ("slur trying to encompass an empty note column.");
           else
             end_ys[d] = dir_
-                        * std::max (std::max (dir_ * (base_attachments_[d][Y_AXIS]
+                        * max (max (dir_ * (base_attachments_[d][Y_AXIS]
                                             + parameters_.region_size_ * dir_),
                                     dir_ * (dir_ + nc_extent[dir_])),
                                dir_ * base_attachments_[-d][Y_AXIS]);
@@ -641,7 +641,7 @@ Slur_score_state::generate_avoid_offsets () const
         continue;
 
       Encompass_info inf (get_encompass_info (encompasses[i]));
-      Real y = dir_ * (std::max (dir_ * inf.head_, dir_ * inf.stem_));
+      Real y = dir_ * (max (dir_ * inf.head_, dir_ * inf.stem_));
 
       avoid.push_back (Offset (inf.x_, y + dir_ * parameters_.free_head_distance_));
     }

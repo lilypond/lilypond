@@ -98,7 +98,7 @@ Spacing_interface::minimum_distance (Grob *me, Grob *right)
 {
   Drul_array<Skyline> skylines = Spacing_interface::skylines (me, right);
 
-  return std::max (0.0, skylines[LEFT].distance (skylines[RIGHT]));
+  return max (0.0, skylines[LEFT].distance (skylines[RIGHT]));
 }
 
 /*

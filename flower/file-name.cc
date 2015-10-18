@@ -25,6 +25,7 @@
 #include <unistd.h>
 #include <limits.h>
 
+using namespace std;
 
 #include "config.hh"
 

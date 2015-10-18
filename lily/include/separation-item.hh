@@ -30,7 +30,7 @@ struct Separation_item
   DECLARE_SCHEME_CALLBACK (calc_skylines, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
 
-  static std::vector<Box> boxes (Grob *me, Grob *left);
+  static vector<Box> boxes (Grob *me, Grob *left);
   static Skyline conditional_skyline (Grob *, Grob *);
   static Grob *extremal_break_aligned_grob (Grob *, Direction, Interval *);
   static Real set_distance (Item *left, Item *right, Real padding);

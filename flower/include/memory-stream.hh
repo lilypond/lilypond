@@ -22,6 +22,7 @@
 
 #include <cstdio>
 #include <unistd.h>
+using namespace std;
 
 #include "libc-extension.hh"
 #include "file-cookie.hh"

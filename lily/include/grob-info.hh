@@ -42,7 +42,7 @@ public:
   Context *context () const;
   Stream_event *event_cause () const;
   Stream_event *ultimate_event_cause () const;
-  std::vector<Context *> origin_contexts (Translator *) const;
+  vector<Context *> origin_contexts (Translator *) const;
   Grob_info (Translator *, Grob *);
   Grob_info ();
 

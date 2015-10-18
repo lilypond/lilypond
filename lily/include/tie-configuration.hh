@@ -28,7 +28,7 @@
 class Tie_configuration
 {
 #if DEBUG_SLUR_SCORING
-  std::string score_card_;
+  string score_card_;
 #endif
   Real score_;
   bool scored_;
@@ -36,7 +36,7 @@ class Tie_configuration
 
 public:
   Real score () const { return score_; }
-  std::string card () const { return score_card_; }
+  string card () const { return score_card_; }
 
   int position_;
   Direction dir_;
@@ -46,7 +46,7 @@ public:
   /* computed. */
   Interval attachment_x_;
 
-  void add_score (Real, const std::string&);
+  void add_score (Real, const string&);
   Tie_configuration ();
   void center_tie_vertically (Tie_details const &);
   Bezier get_transformed_bezier (Tie_details const &) const;
@@ -62,24 +62,24 @@ public:
 
 INSTANTIATE_COMPARE (Tie_configuration, Tie_configuration::compare);
 
-class Ties_configuration : public std::vector<Tie_configuration>
+class Ties_configuration : public vector<Tie_configuration>
 {
   Real score_;
-  std::string score_card_;
+  string score_card_;
   bool scored_;
-  std::vector<std::string> tie_score_cards_;
+  vector<string> tie_score_cards_;
 
   friend class Tie_formatting_problem;
 public:
   Ties_configuration ();
-  void add_score (Real amount, const std::string &description);
-  void add_tie_score (Real amount, int i, const std::string &description);
+  void add_score (Real amount, const string &description);
+  void add_tie_score (Real amount, int i, const string &description);
   Real score () const;
   void reset_score ();
-  std::string card () const;
-  std::string tie_card (int i) const { return tie_score_cards_[i]; }
-  std::string complete_tie_card (vsize i) const;
-  std::string complete_score_card () const;
+  string card () const;
+  string tie_card (int i) const { return tie_score_cards_[i]; }
+  string complete_tie_card (vsize i) const;
+  string complete_score_card () const;
 };
 
 #endif /* TIE_CONFIGURATION_HH */

@@ -22,6 +22,7 @@
 
 #include "engraver.hh"
 
+using namespace std;
 
 #include "context.hh"
 #include "item.hh"

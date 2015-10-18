@@ -17,6 +17,7 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include <cctype>
+using namespace std;
 
 #include "modified-font-metric.hh"
 #include "pango-font.hh"

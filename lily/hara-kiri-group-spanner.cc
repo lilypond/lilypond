@@ -123,7 +123,7 @@ Hara_kiri_group_spanner::request_suicide_alone (Grob *me, int start, int end)
           for (int j = iv[LEFT]; j <= iv[RIGHT]; j++)
             ranks.push_back (j);
         }
-      vector_sort (ranks, std::less<int> ());
+      vector_sort (ranks, less<int> ());
       uniq (ranks);
 
       SCM scm_vec = scm_c_make_vector (ranks.size (), SCM_EOL);
