@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 9bdebf27dc4be7cf34976e3f44d9395d611305db
+   Translation of GIT committish: 659e9fcd8f5a1ffcaa2c2695267a00d7d61377b8
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -385,8 +385,7 @@ respectivement d'un signe @code{(} et @code{)}.
 
 De plus longues liaisons, dites de phrasé, sont délimitées par @code{\(}
 et @code{\)}.  Il est possible d'avoir en même temps des legatos et des
-phrasés, mais pas plusieurs liaisons de phrasé ou de @emph{legato} à la
-fois.
+phrasés.
 
 @lilypond[verbatim,quote]
 \relative { g'4\( g8( a) b( c) b4\) }

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
+   Translation of GIT committish: 659e9fcd8f5a1ffcaa2c2695267a00d7d61377b8
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -84,9 +84,12 @@ articulation ou d'un ornement :
 }
 @end lilypond
 
-Certains éléments de notation, tels que nuances, soufflets et liaisons,
-ne peuvent se rattacher qu'à l'accord et non aux notes qui le composent,
-sous peine de ne les voir s'imprimer.
+Certains éléments de notation, tels que nuances et soufflets ne peuvent
+se rattacher qu'à un accord et non aux notes qui le composent, sous
+peine de ne les voir s'imprimer.  D'autres éléments, tels que doigtés ou
+liaisons, seront placés différemment selon qu'ils sont rattachés à des
+notes composant un accord, à un accord dans sa globalité ou à des notes
+individuelles.
 
 @lilypond[verbatim,quote]
 \relative {

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
+   Translation of GIT committish: 659e9fcd8f5a1ffcaa2c2695267a00d7d61377b8
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -734,9 +734,19 @@ portée, comme indiqué au chapitre @ref{Direction et positionnement}.
 @cindex multiples, liaisons d'articulation
 @cindex simultanées, liaisons d'articulation
 
-Une seule liaison d'articulation peut être imprimée à la fois.  S'il est
-nécessaire d'imprimer une liaison plus longue, englobant des liaisons
-plus courtes, utilisez des @ref{Liaisons de phrasé}.
+Plusieurs liaisons peuvent intervenir simultanément ou concurremment, ce
+qui requiert une attention spéciale.  Dans la majorité des cas, la
+liaison externe indique un phrasé, et un phrasé peut recouvrir plusieurs
+liaisons d'articulation -- voir @ref{Liaisons de phrasé}.  Dans le cas
+où plusieurs liaisons d'articulation interviennent au sein d'un même
+contexte @code{Voice}, leurs début et fin doivent être labellisés par un
+@code{\=} suivi d'un identifiant (numérique ou chaîne).
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  <c~ f\=1( g\=2( >2 <c e\=1) a\=2) >
+}
+@end lilypond
 
 @cindex liaison, style de trait
 @cindex liaison, trait plein
@@ -896,7 +906,9 @@ liaisons de phrasé par rapport à la portée, comme indiqué au chapitre
 @cindex multiples, liaisons de phrasé
 @cindex simultanées, liaisons de phrasé
 
-Il n'est pas possible d'avoir plusieurs liaisons de phrasé en même temps.
+Plusieurs liaisons de phrasé peuvent intervenir en même temps, dès lors
+qu'elles sont labellisées, comme des liaisons normales -- voir
+@ref{Liaisons d'articulation}.
 
 @cindex liaison, style de trait
 @cindex liaison, trait plein

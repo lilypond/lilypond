@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 8cce5dd067a8a2bab508f5abebc3955db8837bbf
+    Translation of GIT committish: 659e9fcd8f5a1ffcaa2c2695267a00d7d61377b8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2414,7 +2414,6 @@ sur les listes de diffusion et dans le code source.
 * parser (analyseur syntaxique)::
 * variable de l'analyseur grammatical::
 * prob (objet de propriété)::
-* clôture simple::
 * smob (objet Scheme)::
 * stencil::
 @end menu
@@ -2460,7 +2459,7 @@ Scheme saisi par l'utilisateur puisse définir les actions de bas niveau
 @translationof closure
 
 @cindex clôture
-@cindex simple closure
+@cindex closure
 
 En Scheme, une @strong{clôture} (en anglais, @emph{closure}) est créée
 lorsqu'une fonction, généralement une expression lambda, est passée en
@@ -2473,14 +2472,6 @@ d'obtenir la valeur de ces variables libres qui sera utilisée lors des
 calculs.  L'une des propriétés intéressantes des clôtures est la
 rétention de la valeur de variables internes tout au long des
 différentes invocations, leur état étant alors persistant.
-
-Une @strong{clôture simple} -- @emph{simple closure} en anglais -- est
-une clôture ne comportant pas de variable libre, et donc pas de
-référence à des variables libres.
-
-Une clôture simple est représentée dans LilyPond par un objet Scheme
-(un @emph{smob}) contenant l'expression et la méthode pour appliquer
-cette expression à la liste d'arguments qui lui est passée.
 
 
 @node glyphe
@@ -2725,13 +2716,6 @@ manipuler.  Les classes @code{Music} et @code{Stream_event} dérivent
 d'un @code{prob}.  Les instances de la classe @code{prob} se créent
 aussi pour garder trace du contenu des systèmes une fois formatés et
 des blocs de titrage lors de la phase de mise en forme des pages.
-
-
-@node clôture simple
-@unnumberedsubsec clôture simple
-@translationof simple closure
-
-Voir @ref{closure (clôture)}.
 
 
 @node smob (objet Scheme)

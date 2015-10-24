@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
+   Translation of GIT committish: 659e9fcd8f5a1ffcaa2c2695267a00d7d61377b8
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -334,7 +334,7 @@ et @code{\revert} :
 \magnifyMusic @var{mag} @{
   \newSpacingSection
   \override Score.SpacingSpanner.spacing-increment = #(* 1.2 @var{mag})
-  @var{[musique]}
+  [@var{musique}]
   \newSpacingSection
   \revert Score.SpacingSpanner.spacing-increment
 @}

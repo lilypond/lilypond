@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 3ff93fbd01133506d14c929740bd26b34f59c5b4
+   Translation of GIT committish: 659e9fcd8f5a1ffcaa2c2695267a00d7d61377b8
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -550,6 +550,10 @@ Manuel de notation :
 @section Titres et entêtes
 @translationof Titles and headers
 
+@cindex titre
+@cindex entête
+@cindex pied de page
+
 La plupart de la musique qui est éditée comporte un titre et le nom de
 son compositeur ; certains ouvrages dispensent beaucoup plus
 d'informations.
@@ -557,6 +561,7 @@ d'informations.
 @menu
 * Création de titres et entête ou pied de page::
 * Titrages personnalisés::
+* Création de métadonnées PDF::
 * Notes de bas de page::
 * Référencement des numéros de page::
 * Table des matières::
@@ -761,7 +766,8 @@ Manuel de notation :
 @unnumberedsubsubsec Mise en forme par défaut des titrages subalternes
 @translationof Default layout of bookpart and score titles
 
-Voici les différentes variables attachées au bloc @code{\header} :
+Voici les différentes variables imprimables attachées au bloc
+@code{\header} :
 
 @c KEEP LY
 @lilypond[papersize=a6landscape,quote,verbatim,noragged-right]
@@ -1250,6 +1256,49 @@ Manuel de notation :
 
 fichiers d'initialisation :
 @file{../ly/titling-init.ly}.
+
+
+@node Création de métadonnées PDF
+@subsection Création de métadonnées PDF
+@translationof Creating PDF metadata
+
+@cindex PDF metadata
+@cindex métadonnées PDF
+
+En plus de s'imprimer sur la partition, les variables du bloc
+@code{\header} permettent de générer les métadonnées PDF (informations
+par les lecteurs de PDF en tant que @code{propriétés} du fichier PDF).
+Par exemple, affecter « Symphony I » à la propriété @code{title} dans le
+bloc @code{\header} donnera aussi ce titre au document PDF.
+
+@example
+  @code{\header@{}
+    @code{title = "Symphony I"}
+  @code{@}}
+@end example
+
+Lorsque le titre imprimé diffère de celui affiché en tant que propriété
+du PDF, devra être renseignée la propriété @code{pdftitle}.
+
+@example
+  @code{\header@{}
+    @code{title = "Symphony I"}
+    @code{pdftitle = "Symphony I by Beethoven"}
+  @code{@}}
+@end example
+
+Les variables @code{title}, @code{subject}, @code{keywords},
+@code{subtitle}, @code{composer}, @code{arranger}, @code{poet},
+@code{author} et @code{copyright} initialisent toutes les propriétés
+PDF, qu'il suffit de préfixer d'un « pdf » pour affecter aux propriétés
+PDF une valeur divergente de la sortie imprimable.
+
+La propriété PDF @code{Creator} prend automatiquement la valeur
+« LilyPond » additionnée deu numéro de version ; les valeurs de
+@code{CreationDate} et @code{ModDate} sont définies à la date et l'heure
+courantes -- @code{ModDate} peut être écrasé par la variable de
+@code{\header} @code{moddate} (ou @code{pdfmoddate}) pour un horodatage
+PDF valide.
 
 
 @node Notes de bas de page
