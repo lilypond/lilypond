@@ -2352,7 +2352,6 @@ or in the source code.
 * parser::
 * parser variable::
 * prob::
-* simple closure::
 * smob::
 * stencil::
 @end menu
@@ -2389,7 +2388,6 @@ performed.
 @unnumberedsubsec closure
 
 @cindex closure
-@cindex simple closure
 
 In Scheme, a @strong{closure} is created when a function, usually
 a lambda expression, is passed as a variable.  The closure contains
@@ -2401,13 +2399,6 @@ captured in the closure are used to obtain the values of the free
 variables to be used in the calculation.  One useful property of
 closures is the retention of internal variable values between
 invocations, so permitting state to be maintained.
-
-A @strong{simple closure} is a closure whose expression has no free
-variables and hence no free variable bindings.
-
-A simple closure is represented in LilyPond by a smob containing
-the expression and a method to apply the expression to a passed
-list of arguments.
 
 
 @node glyph
@@ -2627,12 +2618,6 @@ them.  The @code{Music} and @code{Stream_event} classes derive from
 @code{Prob}.  Instances of the @code{Prob} class are also created
 to hold the formatted content of system grobs and titling blocks
 during page layout.
-
-
-@node simple closure
-@unnumberedsubsec simple closure
-
-See @ref{closure}.
 
 
 @node smob

@@ -405,17 +405,17 @@ baseline at fret coordinate @var{base}, a height of
                bottom-control-point-height cp-right-width)))
 
         ;; order of bezier control points is:
-        ;;    left cp low, right cp low, right end low, left end low
-        ;;   right cp high, left cp high, left end high, right end high.
+        ;;   left cp low, left cp low, right cp low, right end low
+        ;;   right cp high, left cp high
 
-        (list left-lower-control-point
+        (list
+              left-end-point
+              left-lower-control-point
               right-lower-control-point
               right-end-point
-              left-end-point
+
               right-upper-control-point
-              left-upper-control-point
-              left-end-point
-              right-end-point)))
+              left-upper-control-point)))
 
     (define (draw-strings)
       "Draw the string lines for a fret diagram with
@@ -564,24 +564,10 @@ fret-diagram overall parameters."
                (* size end-string-coordinate)
                (* size fret-coordinate)
                (* size bezier-height)
-               (* size bezier-thick)))
-             (box-lower-left
-              (stencil-coordinates
-               (+ (* size fret-coordinate) half-thickness)
-               (- (* size start-string-coordinate) half-thickness)))
-             (box-upper-right
-              (stencil-coordinates
-               (- (* size fret-coordinate)
-                  (* size bezier-height)
-                  half-thickness)
-               (+ (* size end-string-coordinate) half-thickness)))
-             (x-extent (cons (car box-lower-left) (car box-upper-right)))
-             (y-extent (cons (cdr box-lower-left) (cdr box-upper-right))))
+               (* size bezier-thick))))
         (make-bezier-sandwich-stencil
          bezier-list
-         (* size bezier-thick)
-         x-extent
-         y-extent)))
+         (* size bezier-thick))))
 
     (define (draw-dots dot-list)
       "Make dots for fret diagram."

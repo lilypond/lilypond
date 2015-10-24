@@ -386,11 +386,6 @@ Syntax: @code{\\override} [ @var{context} @code{.} ]
         (types . (break-event page-turn-event event))
         ))
 
-    (PartCombineForceEvent
-     . ((description . "Override the part-combiner's strategy.")
-        (types . (part-combine-force-event event))
-        ))
-
     (PartialSet
      . ((description . "Create an anacrusis or upbeat (partial measure).")
         (iterator-ctor . ,ly:partial-iterator::constructor)

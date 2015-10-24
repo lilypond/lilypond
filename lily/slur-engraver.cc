@@ -37,8 +37,10 @@ class Slur_engraver : public Slur_proto_engraver
 
 protected:
   DECLARE_TRANSLATOR_LISTENER (slur);
+  DECLARE_TRANSLATOR_LISTENER (note);
 
 public:
+  SCM event_symbol ();
   TRANSLATOR_DECLARATIONS (Slur_engraver);
 };
 
@@ -47,11 +49,25 @@ Slur_engraver::Slur_engraver () :
 {
 }
 
+SCM
+Slur_engraver::event_symbol ()
+{
+  // Need a string constant for memoization
+  return ly_symbol2scm ("slur-event");
+}
+
 IMPLEMENT_TRANSLATOR_LISTENER (Slur_engraver, slur);
 void
 Slur_engraver::listen_slur (Stream_event *ev)
 {
-  internal_listen_slur (ev);
+  Slur_proto_engraver::listen_slur (ev);
+}
+
+IMPLEMENT_TRANSLATOR_LISTENER (Slur_engraver, note);
+void
+Slur_engraver::listen_note (Stream_event *ev)
+{
+  Slur_proto_engraver::listen_note (ev);
 }
 
 void

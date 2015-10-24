@@ -60,143 +60,42 @@ unsuccessful, though a workaround is available (see
 @node Requirements for running LilyPond
 @subsection Requirements for running LilyPond
 
-Running LilyPond requires proper installation of the following
-software:
+This section contains the list of separate software packages that are
+required to run LilyPond.
 
 @itemize
-@item @uref{http://www.dejavu-fonts.org/, DejaVu fonts} (normally
-installed by default)
 
-@item @uref{http://www.fontconfig.org/, FontConfig} (2.4.0 or newer)
+@item @uref{http://www.dejavu-fonts.org/, DejaVu fonts}
+These are normally installed by default.
 
-@item @uref{http://www.freetype.org/, Freetype} (2.1.10 or newer)
+@item
+@uref{http://www.fontconfig.org/, FontConfig}
+Use version 2.4.0 or newer.
 
-@item @uref{http://www.ghostscript.com, Ghostscript} (8.60 or
-newer)
+@item
+@uref{http://www.freetype.org/, Freetype}
+Use version 2.1.10 or newer.
 
-@item @uref{http://www.gnu.org/software/guile/guile.html, Guile}
-(1.8.8 - version 2.x is not currently supported)
+@item
+@uref{http://www.ghostscript.com, Ghostscript}
+Use version 8.60 or newer.
 
-@item @uref{http://www.pango.org/, Pango} (1.12 or newer)
+@item
+@uref{http://www.gnu.org/software/guile/guile.html, Guile}
+Use version 1.8.8. Version 2.x of Guile is not currently supported.
 
-@item @uref{http://www.python.org, Python} (2.4 or newer)
-@end itemize
+@item
+@uref{http://www.pango.org/, Pango}
+User version 1.12 or newer.
 
-International fonts are required to create music with
-international text or lyrics.
+@item
+@uref{http://www.python.org, Python}
+Use version 2.4 or newer.
 
+@item
+International fonts.  For example:
 
-@node Requirements for compiling LilyPond
-@subsection Requirements for compiling LilyPond
-
-Below is a full list of packages needed to build LilyPond.
-However, for most common distributions there is an easy way of
-installing most all build dependencies in one go:
-
-@multitable @columnfractions .5 .5
-@headitem Distribution @tab Command
-@item Debian, Ubuntu
-@tab @code{sudo apt-get build-dep lilypond}
-
-@item Fedora, RHEL
-@tab @code{sudo yum-builddep lilypond}
-
-@item openSUSE, SLED
-@c sorry for the idiosyncratic command, I really asked and argued
-@c for "zypper build-dep" :-(
-@tab @code{sudo zypper --build-deps-only source-install lilypond}
-@end multitable
-
-@itemize
-@item Everything listed in @ref{Requirements for running
-LilyPond}
-
-@item Development packages for the above items (which should
-include header files and libraries).
-
-Red Hat Fedora:
-
-@c ghostscript-devel-[version] isn't needed
-@example
-guile-devel-@var{version}
-fontconfig-devel-@var{version}
-freetype-devel-@var{version}
-pango-devel-@var{version}
-python-devel-@var{version}
-@end example
-
-Debian GNU/Linux:
-
-@c libgs-dev isn't needed
-@example
-guile-@var{version}-dev
-libfontconfig1-dev
-libfreetype6-dev
-libpango1.0-dev
-python@var{version}-dev
-@end example
-
-@item @uref{http://flex.sourceforge.net/, Flex}
-
-@item @uref{http://fontforge.sf.net/, FontForge} (20060125 or
-newer; 20100501 or newer is recommended; must be compiled
-with @option{--enable-double}.  Failure to do so can lead to
-poor intersection calculations and poorly-rendered glyphs.)
-
-@item @uref{http://www.gnu.org/software/bison/, GNU Bison}
-
-@item @uref{http://gcc.gnu.org/, GNU Compiler Collection} (3.4 or
-newer, 4.@var{x} recommended)
-
-@item @uref{http://www.gnu.org/software/gettext/gettext.html, GNU
-gettext} (0.17 or newer)
-
-@item @uref{http://www.gnu.org/software/make/, GNU Make} (3.78 or
-newer)
-
-@item @uref{http://metafont.tutorial.free.fr/, MetaFont}
-(mf-nowin, mf, mfw or mfont binaries), usually packaged with
-@uref{http://www.latex-project.org/ftp.html, @TeX{}}.
-
-@item @uref{http://cm.bell-labs.com/who/hobby/MetaPost.html,
-MetaPost} (mpost binary), usually packaged with
-@uref{http://www.latex-project.org/ftp.html, @TeX{}}.
-
-@item @uref{http://www.perl.org/, Perl}
-
-@item @uref{http://www.gnu.org/software/texinfo/, Texinfo} (4.11
-or newer)
-
-@item @uref{http://www.lcdf.org/~eddietwo/type/#t1utils, Type 1
-utilities} (1.33 or newer recommended)
-@end itemize
-
-
-@node Requirements for building documentation
-@subsection Requirements for building documentation
-
-You can view the documentation online at
-@uref{http://www.lilypond.org/doc/}, but you can also build it
-locally.  This process requires some additional tools and
-packages:
-
-@itemize
-@item Everything listed in @ref{Requirements for compiling
-LilyPond}
-
-@item @uref{http://www.imagemagick.org/, ImageMagick}
-
-@item @uref{http://netpbm.sourceforge.net/, Netpbm}
-
-@item @uref{http://gzip.org/, gzip}
-
-@item @uref{http://rsync.samba.org/, rsync}
-
-@item @uref{http://www.nongnu.org/texi2html/, Texi2HTML} (1.82)
-
-@item International fonts
-
-Red Hat Fedora:
+Fedora:
 
 @example
 fonts-arabic
@@ -208,18 +107,470 @@ ttfonts-ja
 ttfonts-zh_CN
 @end example
 
-Debian GNU/Linux:
+Debian based distributions:
 
 @example
 emacs-intl-fonts
-ttf-kochi-gothic
-ttf-kochi-mincho
+fonts-ipafont-gothic
+fonts-ipafont-mincho
 xfonts-bolkhov-75dpi
 xfonts-cronyx-75dpi
 xfonts-cronyx-100dpi
 xfonts-intl-.*
 @end example
+
+These are normally installed by default and are required only to create
+music with international text or lyrics.
+
 @end itemize
+
+
+@node Requirements for compiling LilyPond
+@subsection Requirements for compiling LilyPond
+
+This section contains instructions on how to quickly and easily get all
+the software packages required to build LilyPond.
+
+Most of the more popular Linux distributions only require a few simple
+commands to download all the software needed.  For others, there is an
+explicit list of all the individual packages (as well as where to get
+them from) for those that are not already included in your
+distributions' own repositories.
+
+@ignore
+I have tested all of the following four Linux Distributions listed here
+Using a simple virtual machine and the appropriate ISO image file
+downloaded from each distribution's own website.  The instructions
+documented were run immediately after the initial installation
+(without any further additional configuration to the OS) and I made sure
+that I was able to run the full set of make, make test-baseline, make
+check and a full make doc. - James
+@end ignore
+
+@menu
+* Fedora::
+* Linux Mint::
+* OpenSUSE::
+* Ubuntu::
+* Other::
+@end menu
+
+
+@node Fedora
+@unnumberedsubsubsec Fedora
+
+The following instructions were tested on @q{Fedora 22} and include all
+the software to both compile LilyPond and build the documenation.
+
+@itemize
+
+@item
+Download and install all the LilyPond build-dependencies (approximately
+700MB);
+
+@example
+sudo dnf builddep lilypond --nogpgcheck
+@end example
+
+@item
+Download and install additional @q{build} tools required for compiling;
+
+@example
+sudo dnf install autoconf gcc-c++
+@end example
+
+@item
+Download @code{texi2html 1.82} directly from:
+@uref{http://download.savannah.gnu.org/releases/texi2html/texi2html-1.82.tar.gz};
+
+@code{texi2html} is only required if you intend to compile LilyPond's
+own documentation (e.g. to help with any document writing).  The version
+available in the Fedora repositories is too new and will not work.
+Extract the files into an appropriate location and then run the
+commands;
+
+@example
+./configure
+make
+sudo make install
+@end example
+
+This should install @code{texi2html 1.82} into @code{/usr/local/bin},
+which will normally take priority over @code{/usr/bin} where the
+later, pre-installed versions gets put.  Now verify that your operating
+system is able to see the correct version of @code{texi2html}.
+
+@example
+texi2html --version
+@end example
+
+@item
+Although not @q{required} to compile LilyPond, if you intend to
+contribute to LilyPond (codebase or help improve the documentation) then
+it is recommended that you also need to install @code{git}.
+
+@example
+sudo dnf install git
+@end example
+
+Also see @ruser{Starting with Git}.
+
+@item
+To use the @code{lily-git.tcl} GUI;
+
+@example
+sudo dnf install tk
+@end example
+
+See @ruser{lily-git}.
+
+@end itemize
+
+
+
+@node Linux Mint
+@unnumberedsubsubsec Linux Mint
+
+The following instructions were tested on @q{Linux Mint 17.1} and
+@q{LMDE - Betsy} and include all the software to both compile LilyPond
+and build the documenation.
+
+@itemize
+
+@item
+Enable the @emph{sources} repository;
+
+@enumerate
+
+@item
+Using the @emph{Software Sources} GUI (located under
+@emph{Administration}).
+
+@item
+Select @emph{Official Repositories}.
+
+@item
+Check the @emph{Enable source code repositories} box under the
+@emph{Source Code} section.
+
+@item
+Click the @emph{Update the cache} button and when it has completed,
+close the @emph{Software Sources} GUI.
+
+@end enumerate
+
+@item
+Download and install all the LilyPond build-dependencies (approximately
+200MB);
+
+@example
+sudo apt-get build-dep lilypond
+@end example
+
+@item
+Download and install additional @q{build} tools required for compiling;
+
+@example
+sudo apt-get install autoconf fonts-texgyre texlive-lang-cyrillic
+@end example
+
+@item
+Although not @q{required} to compile LilyPond, if you intend to
+contribute to LilyPond (codebase or help improve the documentation) then
+it is recommended that you also need to install @code{git}.
+
+@example
+sudo apt-get install git
+@end example
+
+Also see @ruser{Starting with Git}.
+
+@item
+To use the @code{lily-git.tcl} GUI;
+
+@example
+sudo apt-get install tk
+@end example
+
+Also see @ruser{lily-git}.
+
+@end itemize
+
+
+@node OpenSUSE
+@unnumberedsubsubsec OpenSUSE
+
+The following instructions were tested on @q{OpenSUSE 13.2} and include
+all the software to both compile LilyPond and build the documenation.
+
+@itemize
+
+@item
+Add the @emph{sources} repository;
+
+@smallexample
+sudo zypper addrepo -f \
+"http://download.opensuse.org/source/distribution/13.2/repo/oss/" sources
+@end smallexample
+
+@item
+Download and install all the LilyPond build-dependencies (approximately
+680MB);
+
+@example
+sudo zypper source-install lilypond
+@end example
+
+@item
+Download and install additional @q{build} tools required for compiling;
+
+@example
+sudo zypper install make
+@end example
+
+@item
+Although not @q{required} to compile LilyPond, if you intend to
+contribute to LilyPond (codebase or help improve the documentation) then
+it is recommended that you also need to install @code{git}.
+
+@example
+sudo apt-get install git
+@end example
+
+Also see @ruser{Starting with Git}.
+
+@item
+To use the @code{lily-git.tcl} GUI;
+
+@example
+sudo zypper install tk
+@end example
+
+Also see @ruser{lily-git}.
+
+@end itemize
+
+
+
+@node Ubuntu
+@unnumberedsubsubsec Ubuntu
+
+The following commands were tested on Ubuntu versions @code{14.04 LTS},
+@code{14.10} and @code{15.04} and include all the software to both
+compile LilyPond and build the documenation.
+
+@itemize
+
+@item
+Download and install all the LilyPond build-dependencies (approximately
+200MB);
+
+@example
+sudo apt-get build-dep lilypond
+@end example
+
+@item
+Download and install additional @q{build} tools required for compiling;
+
+@example
+sudo apt-get install autoconf fonts-texgyre texlive-land-cyrillic
+@end example
+
+@item
+Although not @q{required} to compile LilyPond, if you intend to
+contribute to LilyPond (codebase or help improve the documentation) then
+it is recommended that you also need to install @code{git}.
+
+@example
+sudo apt-get install git
+@end example
+
+Also see @ruser{Starting with Git}.
+
+@item
+To use the @code{lily-git.tcl} GUI;
+
+@example
+sudo apt-get install tk
+@end example
+
+Also see @ruser{lily-git}.
+
+@end itemize
+
+
+@node Other
+@unnumberedsubsubsec Other
+
+The following individual software packages are required just to compile
+LilyPond.
+
+@itemize
+
+@item
+@uref{http://www.gnu.org/software/autoconf, GNU Autoconf}
+
+@item
+@uref{http://www.gnu.org/software/bison/, GNU Bison}
+
+Use version @code{2.0} or newer.
+
+@item
+@uref{http://gcc.gnu.org/, GNU Compiler Collection}
+
+Use version @code{3.4} or newer (@code{4.x} recommended).
+
+@item
+@uref{http://flex.sourceforge.net/, Flex}
+
+@item
+@uref{http://fontforge.sf.net/, FontForge}
+
+Use version @code{20060125} or newer (we recommend using at least
+@code{20100501}); it must also be compiled with the
+@option{--enable-double} switch, else this can lead to inaccurate
+intersection calculations which end up with poorly-rendered glyphs in
+the output.
+
+@item
+@uref{http://www.gnu.org/software/gettext/gettext.html, GNU gettext}
+
+Use version @code{0.17} or newer.
+
+@item
+@uref{http://www.gnu.org/software/make/, GNU Make}
+
+Use version @code{3.78} or newer.
+
+@item
+@uref{http://metafont.tutorial.free.fr/, MetaFont}
+
+The @code{mf-nowin}, @code{mf}, @code{mfw} or @code{mfont} binaries are
+usually packaged along with
+@uref{http://www.latex-project.org/ftp.html, @TeX{}}.
+
+@item
+@uref{http://cm.bell-labs.com/who/hobby/MetaPost.html, MetaPost}
+
+The @code{mpost} binary is also usually packaged with
+@uref{http://www.latex-project.org/ftp.html, @TeX{}}.
+
+@item
+@uref{http://www.perl.org/, Perl}
+
+@item
+@uref{http://www.gnu.org/software/texinfo/, Texinfo}
+
+Use version @code{4.11} or newer.
+
+@item
+@uref{http://www.lcdf.org/~eddietwo/type/#t1utils, Type 1 utilities}
+
+Use version @code{1.33} or newer.
+
+@item
+@uref{https://www.ctan.org/pkg/cyrillic?lang=en, Cyrillic fonts}
+
+Often packaged in repositories as @code{texlive-lang-cyrillic}.
+
+@item
+TeX Gyre @q{OTF} font packages.  As of LilyPond version @code{2.19.26},
+the previous default serif, san serif and monospace fonts now use Tex
+Gyre's @emph{Schola}, @emph{Heros} and @emph{Cursor} fonts respectively.
+Also See @ruser{Fonts}.
+
+Some distributions do not always provide @q{OTF} font files in the Tex
+Gyre packages from their repositories.  Use the command
+@code{fc-list | grep texgyre} to list the fonts available to your system
+and check that the appropriate @code{*.otf} files are reported.  If they
+are not then download and manually extract the @q{OTF} files to either
+your local  @code{~/.fonts/} directory or use the
+@code{configure} command and the
+@code{--with-texgyre-dir=/path_to_otf_files/} option.
+
+The following font families are required:
+
+@uref{http://www.gust.org.pl/projects/e-foundry/tex-gyre/schola, Schola},
+@uref{http://www.gust.org.pl/projects/e-foundry/tex-gyre/heros, Heros}
+and
+@uref{http://www.gust.org.pl/projects/e-foundry/tex-gyre/cursor, Cursor}.
+
+@end itemize
+
+
+
+@node Requirements for building documentation
+@subsection Requirements for building documentation
+
+The entire set of documentation for the most current build of LilyPond
+is available online at
+@uref{http://lilypond.org/doc/v2.19/Documentation/web/development}, but
+you can also build them locally from the source code.  This process
+requires some additional tools and packages.
+
+@warning{If you have used the instructions for one of the Linux
+distributions explicitly listed in the previous section
+(@rcontrib{Requirements for compiling LilyPond}) then the following can
+be ignored as the software should already be installed.}
+
+@itemize
+
+@item
+Everything listed in @ref{Requirements for compiling LilyPond}
+
+@item
+@uref{http://www.imagemagick.org/, ImageMagick}
+
+@item
+@uref{http://netpbm.sourceforge.net/, Netpbm}
+
+@item
+@uref{http://gzip.org/, gzip}
+
+@item
+@uref{http://rsync.samba.org/, rsync}
+
+@item
+@uref{http://www.nongnu.org/texi2html/, Texi2HTML}
+
+Use version @code{1.82}.  Later versions will not work.
+
+Download @code{texi2html 1.82} directly from:
+@uref{http://download.savannah.gnu.org/releases/texi2html/texi2html-1.82.tar.gz};
+
+Extract the files into an appropriate location and then run the
+commands;
+
+@example
+./configure
+make
+sudo make install
+@end example
+
+Now verify that your operating system is able to see the correct version
+of @code{texi2html}.
+
+@example
+texi2html --version
+@end example
+
+@item
+Fonts required to build the documentation in addition to those required
+to run LilyPond:
+
+@example
+gsfonts
+fonts-linuxlibertine
+fonts-liberation
+fonts-dejavu
+fonts-freefont-otf
+ttf-bitstream-vera
+texlive-fonts-recommended
+ttf-xfree86-nonfree
+@end example
+
+@end itemize
+
 
 
 @node Getting the source code
@@ -922,20 +1273,6 @@ bug reports to @email{bug-lilypond@@gnu.org}.
 
 Bugs that are not fault of LilyPond are documented here.
 
-@unnumberedsubsec Bison 1.875
-
-There is a bug in bison-1.875: compilation fails with "parse error
-before `goto'" in line 4922 due to a bug in bison.  To fix, please
-recompile bison 1.875 with the following fix
-
-@example
-$ cd lily; make out/parser.cc
-$ vi +4919 out/parser.cc
-# append a semicolon to the line containing "__attribute__ ((__unused__))
-# save
-$ make
-@end example
-
 
 @unnumberedsubsec Compiling on MacOS@tie{}X
 
@@ -1044,7 +1381,7 @@ Red Hat Fedora
 Debian GNU/Linux
 
    apt-get install emacs-intl-fonts xfonts-intl-.* \
-        ttf-kochi-gothic ttf-kochi-mincho \
+        fonts-ipafont-gothic  fonts-ipafont-mincho \
         xfonts-bolkhov-75dpi xfonts-cronyx-100dpi xfonts-cronyx-75dpi
 @end verbatim
 

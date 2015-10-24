@@ -287,7 +287,7 @@ For Example:
 declares a list of @q{tags} that belong to a single @q{tag group}.
 
 @example
-\keepwithTag#'violinI
+\keepWithTag #'violinI
 @end example
 
 Is now only concerned with @q{tags} from @q{violinI}’s tag group.

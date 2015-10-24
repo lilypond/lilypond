@@ -521,12 +521,17 @@ Notation Reference:
 @node Titles and headers
 @section Titles and headers
 
+@cindex titles
+@cindex headers
+@cindex footers
+
 Almost all printed music includes a title and the composer's name;
 some pieces include a lot more information.
 
 @menu
 * Creating titles headers and footers::
 * Custom titles headers and footers::
+* Creating PDF metadata::
 * Creating footnotes::
 * Reference to page numbers::
 * Table of contents::
@@ -723,7 +728,7 @@ Notation Reference:
 @node Default layout of bookpart and score titles
 @unnumberedsubsubsec Default layout of bookpart and score titles
 
-This example demonstrates all @code{\header} variables:
+This example demonstrates all printed @code{\header} variables:
 
 @lilypond[papersize=a6landscape,quote,verbatim,noragged-right]
 \book {
@@ -1194,6 +1199,44 @@ Notation Reference:
 Installed Files:
 @file{../ly/titling-init.ly}.
 
+@node Creating PDF metadata
+@subsection Creating PDF metadata
+
+@cindex PDF metadata
+
+In addition to being shown in the printed output, @code{\header} variables
+are also used to set PDF metadata (the information displayed by PDF readers
+as the @code{properties} of the PDF file).  For example, setting the
+@code{title} property of the @code{header} block @q{Symphony I} will also give
+this title to the PDF document.
+
+@example
+  @code{\header@{}
+    @code{title = "Symphony I"}
+  @code{@}}
+@end example
+
+If you want to set the title of the printed output to one value, but have the
+title property of the PDF to have a different value, you can use
+@code{pdftitle}, as below.
+
+@example
+  @code{\header@{}
+    @code{title = "Symphony I"}
+    @code{pdftitle = "Symphony I by Beethoven"}
+  @code{@}}
+@end example
+
+The variables @code{title}, @code{subject}, @code{keywords},
+@code{subtitle}, @code{composer}, @code{arranger}, @code{poet}, @code{author}
+and @code{copyright} all set PDF properties and can all be prefixed with
+@q{pdf} to set a PDF property to a value different from the printed output.
+
+The PDF property @code{Creator} is automatically set to @q{LilyPond} plus
+the current LilyPond version, and @code{CreationDate} and @code{ModDate} are
+both set to the current date and time.  @code{ModDate} can be overridden by
+setting the header variable @code{moddate} (or @code{pdfmoddate}) to a
+valid PDF date string.
 
 @node Creating footnotes
 @subsection Creating footnotes

@@ -405,6 +405,21 @@ palmMute =
    (_i "Print @var{note} with a triangle-shaped note head.")
    (style-note-heads 'NoteHead 'do note))
 
+%% part combiner
+
+partcombineForce =
+#(define-music-function (type) ((symbol?))
+   (_i "Override the part-combiner.")
+   (if type (propertySet 'partCombineForced type)
+       (propertyUnset 'partCombineForced)))
+
+partcombineApart = \partcombineForce #'apart
+partcombineChords = \partcombineForce #'chords
+partcombineUnisono = \partcombineForce #'unisono
+partcombineSoloI = \partcombineForce #'solo1
+partcombineSoloII = \partcombineForce #'solo2
+partcombineAutomatic = \partcombineForce \default
+
 
 %% phrasing slurs
 

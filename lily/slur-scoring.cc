@@ -32,6 +32,7 @@
 #include "main.hh"
 #include "misc.hh"
 #include "note-column.hh"
+#include "note-head.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
 #include "pitch.hh"
@@ -200,11 +201,14 @@ Slur_score_state::get_bound_info () const
                                          ::staff_space (extremes[d].stem_);
             }
 
-          if (extremes[d].slur_head_)
-            extremes[d].slur_head_x_extent_
-              = extremes[d].slur_head_->extent (common_[X_AXIS], X_AXIS);
-
         }
+      else if (has_interface<Note_head> (extremes[d].bound_))
+        {
+          extremes[d].slur_head_ = extremes[d].bound_;
+        }
+      if (extremes[d].slur_head_)
+        extremes[d].slur_head_x_extent_
+          = extremes[d].slur_head_->extent (common_[X_AXIS], X_AXIS);
     }
 
   return extremes;
@@ -254,8 +258,8 @@ Slur_score_state::fill (Grob *me)
     }
 
   extremes_ = get_bound_info ();
-  is_broken_ = (!extremes_[LEFT].note_column_
-                || !extremes_[RIGHT].note_column_);
+  is_broken_ = (!(extremes_[LEFT].note_column_ || extremes_[LEFT].slur_head_)
+                || !(extremes_[RIGHT].note_column_ || extremes_[RIGHT].slur_head_));
 
   has_same_beam_
     = (extremes_[LEFT].stem_ && extremes_[RIGHT].stem_
@@ -470,6 +474,11 @@ Slur_score_state::get_y_attachment_range () const
                                     dir_ * (dir_ + nc_extent[dir_])),
                                dir_ * base_attachments_[-d][Y_AXIS]);
         }
+      else if (extremes_[d].slur_head_)
+        {
+          // allow only minimal movement
+          end_ys[d] = base_attachments_[d][Y_AXIS] + 0.3 * dir_;
+        }
       else
         end_ys[d] = base_attachments_[d][Y_AXIS] + parameters_.region_size_ * dir_;
     }
@@ -528,12 +537,22 @@ Slur_score_state::get_base_attachments () const
                : extremes_[d].bound_->extent (common_[X_AXIS], X_AXIS))
               .linear_combination (CENTER);
         }
+      else if (head)
+        {
+          y = head->extent (common_[Y_AXIS], Y_AXIS)
+            .linear_combination (0.5*dir_);
+
+          // Don't "move_away_from_staffline" because that makes it
+          // harder to recognize the specific attachment point
+          x = head->extent (common_[X_AXIS], X_AXIS)[-d];
+        }
+
       base_attachment[d] = Offset (x, y);
     }
 
   for (LEFT_and_RIGHT (d))
     {
-      if (!extremes_[d].note_column_)
+      if (!extremes_[d].note_column_ && !extremes_[d].slur_head_)
         {
           Real x = 0;
           Real y = 0;

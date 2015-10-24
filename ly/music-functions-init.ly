@@ -1294,25 +1294,7 @@ that they share a staff with stems directed downward.")
     #{ \with { \voiceTwo \override DynamicLineSpanner.direction = #DOWN } #}
     #{ \with { \voiceTwo \override DynamicLineSpanner.direction = #DOWN } #} ))
 
-partcombineForce =
-#(define-music-function (type once) (boolean-or-symbol? boolean?)
-   (_i "Override the part-combiner.")
-   (make-music 'EventChord
-               'elements (list (make-music 'PartCombineForceEvent
-                                           'forced-type type
-                                           'once once))))
-partcombineApart = \partcombineForce #'apart ##f
-partcombineApartOnce = \partcombineForce #'apart ##t
-partcombineChords = \partcombineForce #'chords ##f
-partcombineChordsOnce = \partcombineForce #'chords ##t
-partcombineUnisono = \partcombineForce #'unisono ##f
-partcombineUnisonoOnce = \partcombineForce #'unisono ##t
-partcombineSoloI = \partcombineForce #'solo1 ##f
-partcombineSoloIOnce = \partcombineForce #'solo1 ##t
-partcombineSoloII = \partcombineForce #'solo2 ##f
-partcombineSoloIIOnce = \partcombineForce #'solo2 ##t
-partcombineAutomatic = \partcombineForce ##f ##f
-partcombineAutomaticOnce = \partcombineForce ##f ##t
+%% Part combine forcing to be found in ly/property-init.ly
 
 partial =
 #(define-music-function (dur) (ly:duration?)

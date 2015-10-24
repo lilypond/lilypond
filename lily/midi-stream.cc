@@ -51,7 +51,7 @@ Midi_stream::write (const string &str)
   size_t written = fwrite (str.data (), sz, n, out_file_);
 
   if (written != sz * n)
-    warning (_f ("cannot write to file: `%s'", str.data ()));
+    warning (_f ("cannot write to file: `%s'", file_name_string_.c_str ()));
 }
 
 void

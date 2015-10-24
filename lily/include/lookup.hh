@@ -29,7 +29,7 @@ namespace Lookup
   Stencil bracket (Axis a, Interval iv, Real thick, Real protrude, Real blot);
   Stencil circle (Real rad, Real thick, bool filled);
   Stencil rotated_box (Real slope, Real width, Real thick, Real blot);
-  Stencil round_filled_polygon (vector<Offset> const &points, Real blotdiameter);
+  Stencil round_filled_polygon (vector<Offset> const &points, Real blotdiameter, Real extroversion = -1.0);
   Stencil frame (Box b, Real thick, Real blot);
   Stencil slur (Bezier controls, Real cthick, Real thick,
                        SCM dash_definition);

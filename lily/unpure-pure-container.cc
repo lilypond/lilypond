@@ -19,18 +19,21 @@
 */
 #include "unpure-pure-container.hh"
 
-// Reroutes a call to the contained function after dropping last two
-// arguments.  Used for applying an "unpure" function in a "pure"
+// Reroutes a call to the contained function after dropping second and
+// third argument.  Used for applying an "unpure" function in a "pure"
 // context.
 class Unpure_pure_call : public Smob1<Unpure_pure_call>
 {
 public:
+  // Smob procedures unfortunately can only take at most 3 SCM
+  // arguments.  Otherwise we could use a "3, 0, 1" call signature and
+  // not require an argument count check of our own.
   LY_DECLARE_SMOB_PROC (&Unpure_pure_call::call, 2, 0, 1)
-  SCM call (SCM arg1, SCM arg2, SCM rest)
+  SCM call (SCM arg1, SCM, SCM rest)
   {
-    return scm_apply_0 (scm1 (),
-                        scm_list_head (scm_cons2 (arg1, arg2, rest),
-                                       scm_length (rest)));
+    if (!scm_is_pair (rest))
+      scm_wrong_num_args (scm1 ());
+    return scm_apply_1 (scm1 (), arg1, scm_cdr (rest));
   }
 };
 
@@ -83,4 +86,41 @@ Unpure_pure_container::print_smob (SCM port, scm_print_state *) const
     }
   scm_puts (" >", port);
   return 1;
+}
+
+LY_DEFINE (ly_pure_call, "ly:pure-call",
+           4, 0, 1, (SCM data, SCM grob, SCM start, SCM end, SCM rest),
+           "Convert property @var{data} (unpure-pure container or procedure)"
+           " to value in a pure context defined by @var{grob},"
+           " @var{start}, @var{end}, and possibly @var{rest} arguments.")
+{
+  if (Unpure_pure_container *upc = unsmob<Unpure_pure_container> (data))
+    {
+      // Avoid gratuitous creation of an Unpure_pure_call
+      if (upc->is_unchanging ())
+        data = upc->unpure_part ();
+      else
+        {
+          data = upc->pure_part ();
+          if (ly_is_procedure (data))
+            return scm_apply_3 (data, grob, start, end, rest);
+          return data;
+        }
+    }
+  if (ly_is_procedure (data))
+    return scm_apply_1 (data, grob, rest);
+  return data;
+}
+
+LY_DEFINE (ly_unpure_call, "ly:unpure-call",
+           2, 0, 1, (SCM data, SCM grob, SCM rest),
+           "Convert property @var{data} (unpure-pure container or procedure)"
+           " to value in an unpure context defined by @var{grob}"
+           " and possibly @var{rest} arguments.")
+{
+  if (Unpure_pure_container *upc = unsmob<Unpure_pure_container> (data))
+    data = upc->unpure_part ();
+  if (ly_is_procedure (data))
+    return scm_apply_1 (data, grob, rest);
+  return data;
 }

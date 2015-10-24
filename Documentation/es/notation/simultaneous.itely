@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.29"
 
 @c Translation status: post-GDP
 
@@ -1036,29 +1036,29 @@ exclusivamente a la nota siguiente dentro de la expresión musical.
 
 @itemize
 @item
-@code{\partcombineApart} y @code{\partcombineApartOnce}
+@code{\partcombineApart} y @code{\once \partcombineApart}
 mantienen las notas como dos voces separadas incluso si se pueden
 combinar en un acorde o unísono.
 
 @item
-@code{\partcombineChords} y @code{\partcombineChordsOnce}
+@code{\partcombineChords} y @code{\once \partcombineChords}
 combinan las notas en un acorde.
 
 @item
-@code{\partcombineUnisono} y @code{\partcombineUnisonoOnce}
+@code{\partcombineUnisono} y @code{\once \partcombineUnisono}
 combinan las dos voces como unísono y marcan el resultado
 como @qq{unison}.
 
 @item
-@code{\partcombineSoloI} y @code{\partcombineSoloIOnce}
+@code{\partcombineSoloI} y @code{\once \partcombineSoloI}
 muestran solo la voz uno y la marcan como @qq{Solo}.
 
 @item
-@code{\partcombineSoloII} o @code{\partcombineSoloIIOnce}
+@code{\partcombineSoloII} o @code{\once \partcombineSoloII}
 imprimen solo la voz dos y la marcan como @qq{Solo}.
 
 @item
-@code{\partcombineAutomatic} y @code{\partcombineAutomaticOnce}
+@code{\partcombineAutomatic} y @code{\once \partcombineAutomatic}
 terminan el efecto de las instrucciones anteriores y retornan a la
 funcionalidad estándar de @code{\partcombine}.
 
@@ -1070,7 +1070,7 @@ instrumentOne = \relative c' {
   \partcombineAutomatic e2^"auto" e |
   \partcombineChords e'2^"chord" e |
   \partcombineAutomatic c2^"auto" c |
-  \partcombineApart c2^"apart" \partcombineChordsOnce e^"chord once" |
+  \partcombineApart c2^"apart" \once \partcombineChords e^"chord once" |
   c2 c |
 }
 instrumentTwo = \relative {

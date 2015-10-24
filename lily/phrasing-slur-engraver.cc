@@ -35,9 +35,11 @@ class Phrasing_slur_engraver : public Slur_proto_engraver
 {
 protected:
   DECLARE_TRANSLATOR_LISTENER (phrasing_slur);
+  DECLARE_TRANSLATOR_LISTENER (note);
   DECLARE_ACKNOWLEDGER (slur);
 
 public:
+  SCM event_symbol ();
   TRANSLATOR_DECLARATIONS (Phrasing_slur_engraver);
 };
 
@@ -46,11 +48,25 @@ Phrasing_slur_engraver::Phrasing_slur_engraver () :
 {
 }
 
+SCM
+Phrasing_slur_engraver::event_symbol ()
+{
+  // Need a string constant for memoization
+  return ly_symbol2scm ("phrasing-slur-event");
+}
+
 IMPLEMENT_TRANSLATOR_LISTENER (Phrasing_slur_engraver, phrasing_slur);
 void
 Phrasing_slur_engraver::listen_phrasing_slur (Stream_event *ev)
 {
-  internal_listen_slur (ev);
+  Slur_proto_engraver::listen_slur (ev);
+}
+
+IMPLEMENT_TRANSLATOR_LISTENER (Phrasing_slur_engraver, note);
+void
+Phrasing_slur_engraver::listen_note (Stream_event *ev)
+{
+  Slur_proto_engraver::listen_note (ev);
 }
 
 void

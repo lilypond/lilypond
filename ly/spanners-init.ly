@@ -1,4 +1,19 @@
-\version "2.16.0"
+\version "2.19.29"
+
+"\\=" =
+#(define-event-function (id event) (number-or-string? ly:event?)
+  (_i "This sets the @code{spanner-id} property of the following
+@var{event} to the given @var{id} (numbers will be converted to a
+string).  This can be used to tell LilyPond how to connect overlapping
+or parallel slurs or phrasing slurs within a single @code{Voice}.
+@lilypond[quote,verbatim]
+\\fixed c' { c\\=1( d\\=2( e\\=1) f\\=2) }
+@end lilypond\n")
+  (set! (ly:music-property event 'spanner-id)
+	(if (number? id)
+	    (number->string id)
+	    id))
+  event)
 
 startGroup = #(make-span-event 'NoteGroupingEvent START)
 stopGroup = #(make-span-event 'NoteGroupingEvent STOP)

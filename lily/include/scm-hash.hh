@@ -20,7 +20,7 @@
 #ifndef SCM_HASH_HH
 #define SCM_HASH_HH
 
-#include "smobs.hh"
+#include "small-smobs.hh"
 
 /*
   hash table.
@@ -43,25 +43,21 @@
   scm_gc_unprotect_object (tab->self_scm_);
 */
 
-class Scheme_hash_table : public Smob<Scheme_hash_table>
+class Scheme_hash_table : public Smob1<Scheme_hash_table>
 {
 public:
   int print_smob (SCM, scm_print_state *) const;
-  SCM mark_smob () const;
-  virtual ~Scheme_hash_table ();
   bool try_retrieve (SCM key, SCM *val);
   bool contains (SCM key) const;
   void set (SCM k, SCM v);
   SCM get (SCM k) const;
   void remove (SCM k);
-  Scheme_hash_table ();
   void operator = (Scheme_hash_table const &);
-  Scheme_hash_table (Scheme_hash_table const &);
   SCM to_alist () const;
+  static SCM make_smob ();
 
 private:
-  SCM hash_tab_;
-  void copy (Scheme_hash_table const &src);
+  SCM &hash_tab () const { return scm1 (); }
 };
 
 #endif /* SCM_HASH_HH */

@@ -22,7 +22,6 @@
 
 #include "item.hh"
 #include "pointer-group-interface.hh"
-#include "simple-closure.hh"
 #include "stream-event.hh"
 #include "warn.hh"
 

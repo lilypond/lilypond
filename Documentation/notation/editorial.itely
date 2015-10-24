@@ -316,7 +316,7 @@ and @code{\revert} commands:
 \magnifyMusic @var{mag} @{
   \newSpacingSection
   \override Score.SpacingSpanner.spacing-increment = #(* 1.2 @var{mag})
-  @var{[music]}
+  [@var{music}]
   \newSpacingSection
   \revert Score.SpacingSpanner.spacing-increment
 @}

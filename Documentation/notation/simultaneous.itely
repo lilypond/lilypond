@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.19.29"
 
 
 @node Simultaneous notes
@@ -77,9 +77,11 @@ and ornamentation.
 }
 @end lilypond
 
-However some notation, such as dynamics, hairpins and slurs must be
-attached to the chord, rather than notes within the chord, otherwise
-they will not print.
+However some notation, such as dynamics and hairpins must be
+attached to the chord rather than to notes within the chord,
+otherwise they will not print.  Other notation like fingerings and
+slurs will get placed markedly different when attached to notes
+within a chord rather than to whole chords or single notes.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1033,28 +1035,28 @@ music expression.
 
 @itemize
 @item
-@code{\partcombineApart} and @code{\partcombineApartOnce} keep the
+@code{\partcombineApart} and @code{\once \partcombineApart} keep the
 notes as two separate voices, even if they can be combined into a chord
 or unison.
 
 @item
-@code{\partcombineChords} and @code{\partcombineChordsOnce} combine the
+@code{\partcombineChords} and @code{\once \partcombineChords} combine the
 notes into a chord.
 
 @item
-@code{\partcombineUnisono} and @code{\partcombineUnisonoOnce} combine
+@code{\partcombineUnisono} and @code{\once \partcombineUnisono} combine
 both voices as @qq{unison}.
 
 @item
-@code{\partcombineSoloI} and @code{\partcombineSoloIOnce} print only
+@code{\partcombineSoloI} and @code{\once \partcombineSoloI} print only
 voice one, and mark it as a @qq{Solo}.
 
 @item
-@code{\partcombineSoloII} or @code{\partcombineSoloIIOnce} print only
+@code{\partcombineSoloII} or @code{\once \partcombineSoloII} print only
 voice two and mark it as a @qq{Solo}.
 
 @item
-@code{\partcombineAutomatic} and @code{\partcombineAutomaticOnce} end
+@code{\partcombineAutomatic} and @code{\once \partcombineAutomatic} end
 the functions of the commands above, and revert back to the standard
 @code{\partcombine} functionality.
 @end itemize
@@ -1065,7 +1067,7 @@ instrumentOne = \relative c' {
   \partcombineAutomatic e2^"auto" e |
   \partcombineChords e'2^"chord" e |
   \partcombineAutomatic c2^"auto" c |
-  \partcombineApart c2^"apart" \partcombineChordsOnce e^"chord once" |
+  \partcombineApart c2^"apart" \once \partcombineChords e^"chord once" |
   c2 c |
 }
 instrumentTwo = \relative {

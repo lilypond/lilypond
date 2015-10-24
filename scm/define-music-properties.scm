@@ -96,7 +96,6 @@ a sequential iterator.  Takes a single music parameter.")
      (footnote-text ,markup? "Text to appear in a footnote.")
      (force-accidental ,boolean? "If set, a cautionary accidental should
 always be printed on this note.")
-     (forced-type ,symbol? "Override for the part-combiner.")
 
      (grob-property ,symbol? "The symbol of the grob property to set.")
      (grob-property-path ,list? "A list of symbols, locating a nested grob

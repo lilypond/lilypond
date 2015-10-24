@@ -17,62 +17,52 @@ for you and will help you do this as quickly and easily as possible.
 @node LilyDev
 @section LilyDev
 
-There is a disk image of a @q{remix} of Debian GNU/Linux available for
-download which includes all the necessary software and tools to compile
-both LilyPond and the documentation.  Called the
-@qq{Debian LilyPond Developer Remix}, but known simply as @qq{LilyDev}
-for short.  Although it is not possible to compile LilyPond on Windows
-and extremely difficult on MacOS, LilyDev can be installed and run
-inside a @q{virtual machine} on any of these operating systems without
-disturbing your main operating system.  The LilyDev disk image can also
-be burnt to a DVD or copied to a USB stick and installed like any
-other GNU/Linux distribution.
+@c This text was written based on LilyDev 4.0 - JL
 
-Most virtualization software can be used but we recommend VirtualBox as
-it is available for all major operating systems and is easy to install
-& configure.
+There is a @q{remix} of Debian GNU/Linux -- known as @qq{LilyDev} for
+short -- which includes all the necessary software and tools to compile
+LilyPond, the documentation and the website (also see
+@ref{Website work}).
 
-If you are not familiar with GNU/Linux, it may be beneficial to read a
-couple of @qq{introduction to Linux} web pages.
+@warning{LilyDev does not include the software for the Grand Unified
+Builder -- also see @ref{Grand Unified Builder (GUB)}.}
 
-For those interested, the LilyDev remix is currently based on a 32bit
-version of Debian 7 (Wheezy).  The image is generated using Debian
-@uref{http://live.debian.net/, live-build} and the configuration
-files are hosted on GitHub:
+While compiling LilyPond on MacOs and Windows is possible, both
+environments are complex to set up.  LilyDev can be easily installed
+and run inside a @q{virtual machine} on either of these operating
+systems relatively easily using readily available virtualization
+software.  We recommend using VirtualBox as it is available for all
+major operating systems and is very easy to install & configure.
 
-@smallexample
-@uref{https://github.com/fedelibre/LilyDev}
-@end smallexample
+The LilyDev disk image can also be written to a USB device or @q{burnt}
+to a DVD -- it is approximately 900 GB in size -- and installed just
+like any standard GNU/Linux distribution.
+
+The current image is based on a 32bit version of Debian 8 (@q{Jessie})
+and the Disk image was generated using Debian
+@uref{http://live.debian.net/, live-build 4}.
+
+@noindent
+Download the LilyDev disk image file from here:
+
+@example
+@uref{https://github.com/fedelibre/LilyDev/releases/latest}
+@end example
 
 @warning{Apart from installing and configuring LilyDev in VirtualBox,
 the rest of the chapter assumes that you are comfortable using the
-command-line.  While this chapter is intended for users who may have
-never created a patch or compiled software before, experienced
-developers (who prefer to use their own development environment) may
-still find it instructive to skim over this section.}
+command-line and is intended for users who may have never created a
+patch or compiled software before.  More experienced developers (who
+prefer to use their own development environment) may still find it
+instructive to skim over the following information.}
+
+If you are not familiar with GNU/Linux, it may be beneficial to read a
+a few @qq{introduction to Linux} type web pages.
 
 @menu
-* Where to get LilyDev::
 * Installing LilyDev in VirtualBox::
 * Configuring LilyDev in VirtualBox::
 @end menu
-
-
-@node Where to get LilyDev
-@unnumberedsubsec Where to get LilyDev
-
-Download the LilyDev image file (approximately 850 MB) from here:
-
-@smallexample
-@uref{http://www.et.byu.edu/~sorensen/lilydev-3.0.iso}
-@end smallexample
-
-Some advanced users might want this file too:
-@smallexample
-@uref{http://www.et.byu.edu/~sorensen/lilydev-3.0.iso.md5}
-@end smallexample
-(If you don't recognize what this file is, then you don't need it.)
-
 
 
 @node Installing LilyDev in VirtualBox
@@ -89,7 +79,7 @@ you can skip this section and go straight to @ref{lily-git}.}
 Download Virtualbox from here:
 
 @example
-@uref{http://@/www.virtualbox.org/@/wiki/@/Downloads}
+@uref{http://www.virtualbox.org/wiki/Downloads}
 @end example
 
 @warning{In virtualization terminology, the operating system where
@@ -116,62 +106,51 @@ even if you are able to assign more.
 
 @item
 For your @q{Virtual Hard Disk}, leave the @q{Create new hard disk}
-option checked, use the default @q{VDI} and
-@qq{Dynamically allocated} options for the virtual hard drive.  A
-complete compile of everything (code, docs, regression tests) can reach
-10 GB so size your virtual disk and its location accordingly.
+option checked, use the default @q{VDI} and @qq{Dynamically allocated}
+options for the virtual hard drive.  A complete compile of everything
+(code, docs, regression tests) can reach 10 GB so size your virtual disk
+and its location accordingly.
 
 @item
 Verify the summary details and click @q{Create}, when you are satisfied.
 Your new guest will be displayed in the Virtualbox window.
-@warning{The image contains a 686-pae kernel, so you must enable PAE
-in the virtual machine settings: click on @clicksequence{System @click{} Processor}
-and select @q{Extended features: Enable PAE/NX}.}
+
+@warning{The image contains a @q{686-pae} kernel, so you must enable
+@code{PAE} within the virtual machine's settings -- click on
+@clicksequence{System @click{} Processor} and select
+@q{Extended features: Enable PAE/NX}.}
 
 @item
-Click the @q{Start} button and the @q{First Run Wizard} will prompt you for
-the installation media.  Click the browse icon and locate the LilyDev
-disk image and click through the wizard to start the installation
+Click the @q{Start} button and the @q{First Run Wizard} will prompt you
+for the installation media.  Click the browse icon, locate the LilyDev
+disk image and click through the wizard to begin the installation
 process.
 
 @item
-When the LilyDev disk image boots, you should choose the @q{Install} or
-the @q{Graphical install} menu item to begin the installation of
-LilyDev on your virtual hard disk.  The installer will walk you
-through the complete installation process.
-
-@warning{If the root password is left blank when prompted, the configured user
-account will be be given root privileges automatically.  This means that only
-one password needs to be remembered.}
+When the LilyDev disk image boots for the first time, choose either the
+@q{Install} or the @q{Graphical install} menu item.  The installer will
+then walk you through the complete installation process.
 
 @item
 At the @qq{Partition disks} stage, do not be afraid to select
 @qq{Guided - use entire disk}, since this refers to your
-@strong{@emph{virtual disk}}, not your machine's actual hard
-disk.
+@strong{@emph{virtual disk}}, not your computer's own hard disk.
 
 @item
-Click through the rest of the wizard, filling in any appropriate details
-when asked and wait for the install to complete.
-This will take about 10 minutes in a recent computer.
+Continue to click through the rest of the wizard, filling in any
+appropriate details when asked, and wait for the install to complete.
+This will take about 10 minutes or so on a reasonably modern computer.
 
 @item
-When the installation is completed, just click on Continue (you
-don't have to remove any media since you installed from a file
-on your host filesystem).  The installer will reboot the virtual
-machine: LilyDev is now installed and running!
-
+When the installation is completed, just click on @q{Continue} (you
+do not have to remove any media since you installed LilyDev from a Disk
+image, which is just a file on your computer).  The installer will
+reboot the virtual machine.
 
 @end enumerate
 
-@knownissues
-Not all hardware is supported in all virtualization tools.  In
-particular, some contributors have reported problems with USB network
-adapters.  If you have problems with network connection (for example
-Internet connection in the host system is lost when you launch virtual
-system), try installing and running LilyDev with your computer's
-built-in network adapter used to connect to the network.  Refer to the
-help documentation that comes with your virtualization software.
+@noindent
+LilyDev should now be installed and running!
 
 
 @node Configuring LilyDev in VirtualBox
@@ -199,9 +178,9 @@ with LilyDev as the client.
 @item
 Restart LilyDev to complete the installation of the guest additions.
 
-@advanced{If you do any kernel upgrades, you may need to reinstall
-the additional software.  Just follow the step above again and reboot
-when the reinstallation is complete.}
+@advanced{If you do any kernel upgrades, you may need to reinstall the
+additional software.  Just follow the step above again and reboot when
+the reinstallation is complete.}
 
 @end enumerate
 
@@ -218,8 +197,8 @@ hosts.
 @item
 Set up any additional features, such as @q{Shared Folders} between
 your main operating system and LilyDev.  This is distinct from the
-networked share folders in Windows.  Consult the external
-documentation for this.
+networked share folders in Windows.  Consult the external documentation
+for this.
 
 Some longtime contributors have reported that @q{shared folders}
 are rarely useful and not worth the fuss, particularly since files
@@ -232,23 +211,16 @@ Pasting into a terminal is done with @code{Ctrl+Shift+v}.
 Right-click allows you to edit a file with the text editor (default
 is Leafpad).
 
-@item
-One particular change from Windows and MacOS X is that most
-software should be installed with your @qq{package manager}; this
-vastly simplifies the process of installing and configuring
-software.  If you use LilyDev 3.0 and you need a graphical
-package manager type this command in a terminal:
-
-@c synaptic will be added in the next version of LilyDev
-
-@example
-sudo apt-get install synaptic
-@end example
-
-Go to the menu at the bottom left and click on
-@clicksequence{Preferences @click{} Synaptic Package Manager}.
-
 @end itemize
+
+@knownissues
+Not all hardware is supported in all virtualization tools.  In
+particular, some contributors have reported problems with USB network
+adapters.  If you have problems with network connection (for example
+Internet connection in the host system is lost when you launch virtual
+system), try installing and running LilyDev with your computer's
+built-in network adapter used to connect to the network.  Refer to the
+help documentation that comes with your virtualization software.
 
 
 @node lily-git
