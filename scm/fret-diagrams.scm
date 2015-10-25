@@ -281,7 +281,8 @@ with magnification @var{mag} of the string @var{text}."
                 (cons minfret
                       (let ((upfret (- (+ minfret my-fret-count) 1)))
                         (if (> maxfret upfret) maxfret upfret)))))
-      (set! capo-fret (1+ (- capo-fret minfret)))
+      (if (not (zero? (apply min capo-fret (map cadr dot-list))))
+          (set! capo-fret (1+ (- capo-fret minfret))))
       ;; subtract fret from dots
       (set! dot-list (subtract-base-fret (- (car fret-range) 1) dot-list)))
     (acons 'fret-range fret-range
