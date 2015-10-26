@@ -943,7 +943,7 @@ contesti, potrebbe apparire lo stesso messaggio molteplici volte.  Anche
 la diagnosi eseguita in uno degli @q{ultimi} passaggi (es: controlli di
 battuta) può apparire varie volte.
 
-Maggiori informazioni sugli errori si trovano in @ref{Errori comuni}.
+Maggiori informazioni sugli errori si trovano in @ref{Common errors}.
 
 
 @node Errori comuni

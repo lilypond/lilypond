@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 01980ec7e46ccd03ff7a379b6299842d788b8f8a
+    Translation of GIT committish: 8451fc41680f500fff56f826017b53dc3dcbf65d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -183,7 +183,7 @@ Altri due comandi che non hai incontrato finora sono
 in figura, LilyPond creerà rispettivamente un output per la stampa
 e uno per il MIDI.  Sono descritti dettagliatamente nella
 Guida alla notazione, in @ruser{Score layout}, e
-@ruser{Creating MIDI files}.
+@ruser{Creating MIDI output}.
 
 @cindex partiture, multiple
 @cindex libro, blocco implicito
@@ -222,7 +222,7 @@ Per maggiori dettagli si veda @ruser{Multiple scores in a book}.
 @cindex variabili
 
 Un'altra grande scorciatoia è la possibilità di definire variabili, come è
-spiegato in @ref{Organizzare i brani con le variabili}).  Tutti
+spiegato in @ref{Organizing pieces with variables}).  Tutti
 i modelli usano questa forma
 
 @example
@@ -264,7 +264,7 @@ Per una definizione completa del formato di input, si veda
 @cindex composta, espressione musicale
 
 Abbiamo visto l'organizzazione generale dei file di input di LilyPond nella
-sezione precedente, @ref{Introduzione alla struttura di un file di LilyPond}.
+sezione precedente, @ref{Introduction to the LilyPond file structure}.
 Ma sembra che abbiamo saltato la parte più importante: cosa dobbiamo
 scrivere dopo @code{\score}?
 
@@ -277,7 +277,7 @@ semplicemente, che @emph{non c'è} alcun mistero.  La seguente frase spiega tutt
 
 @noindent
 Per capire cosa si intende per espressione musicale, potrebbe esserti utile
-ripassare il tutorial, @ref{Espressioni musicali}.  In quella sezione, abbiamo
+ripassare il tutorial, @ref{Music expressions explained}.  In quella sezione, abbiamo
 visto come costruire grandi espressioni musicali a partire da piccoli brani --
 abbiamo iniziato con le note, poi gli accordi, etc.  Adesso inizieremo da una
 grande espressione musicale e proseguiremo poi a spiegarne i dettagli. Per
@@ -313,7 +313,7 @@ simultanee, ad esempio due voci simultanee, o una voce con del testo.  Vogliamo
 avere una voce con del testo, dunque ci servono le parentesi ad angolo.  Aggiungeremo
 la musica vera e propria in seguito; per adesso mettiamo soltanto delle semplici
 note e del testo.  Se hai dimenticato come aggiungere del testo, potresti voler
-ripassare @code{\addlyrics} in @ref{Impostare canzoni semplici}.
+ripassare @code{\addlyrics} in @ref{Setting simple songs}.
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
@@ -593,9 +593,11 @@ Ovviamente, una singola voce può contenere molte note in un accordo,
 dunque quando l'uso delle voci multiple è davvero necessario?  Si osservi
 questo esempio di quattro accordi:
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
-\key g \major
-<d g>4 <d fis> <d a'> <d g>
+@lilypond[quote,verbatim,fragment,ragged-right]
+\relative {
+  \key g \major
+  <d' g>4 <d fis> <d a'> <d g>
+}
 @end lilypond
 
 Questa musica può essere espressa usando soltanto i simboli dell'accordo,
@@ -921,8 +923,8 @@ situazioni, gli spostamenti applicati da LilyPond potrebbero non riuscire
 a evitare le collisioni.  LilyPond fornisce molti modi per aggiustare la collocazione
 orizzontale delle note.  Per ora, non siamo ancora pronti a cercare di
 correggere questo problema, dunque dovremo aspettare fino a una
-prossima sezione -- si veda la proprietà @code{force-hshift} in @ref{Fixing
-overlapping notation}.
+prossima sezione -- si veda la proprietà @code{force-hshift} in
+@ref{Fixing overlapping notation}.
 
 @warning{Il testo e gli @emph{spanner} (come le legature di portamento e di valore, le
 forcelle, etc.) non possono essere create @q{attraverso} le voci.}
@@ -1167,7 +1169,8 @@ voce con gambi in su e una nota (o accordo) di una voce con gambi in
 giù.  Se note di due voci che hanno i gambi nella stessa direzione
 sono poste nella stessa posizione ed entrambe le voci non hanno uno
 spostamento specificato oppure ne hanno uno dello stesso tipo, si
-produrrà il messaggio di errore @qq{Too many clashing note columns}.
+produrrà il messaggio di errore
+@qq{questa voce ha bisogno di un'impostazione @code{@bs{}\voiceXx} o @code{@bs{}\shiftXx}}.
 
 
 @seealso
@@ -1556,7 +1559,7 @@ anche numeri e spazi, ma in questo caso deve essere compreso tra virgolette,
 ovvero @code{\new Staff = "MioPentagramma 1" @var{espressione-musicale}}.
 Il nome identificativo viene utilizzato per riportare a quel
 particolare esempio di un contesto.  Abbiamo visto questo utilizzo
-nella sezione sul testo, si veda @ref{Voci e musica vocale}.
+nella sezione sul testo, si veda @ref{Voices and vocals}.
 
 
 @seealso
@@ -3027,11 +3030,11 @@ violin = \new Staff {
 Tuttavia, puoi usare queste variabili (note anche come
 macro, o comandi definiti dall'utente) anche per le modifiche manuali:
 
-@c TODO Avoid padtext - not needed with skylining
 @lilypond[quote,verbatim,ragged-right]
 dolce = \markup { \italic \bold dolce }
 
-padText = { \once \override TextScript.padding = #5.0 }
+centreText = { \once \override TextScript.self-alignment-X = #CENTER }
+
 fthenp =_\markup {
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
 }
@@ -3039,9 +3042,9 @@ fthenp =_\markup {
 violin = \relative {
   \repeat volta 2 {
     c''4._\dolce b8 a8 g a b |
-    \padText
-    c4.^"hi there!" d8 e' f g d |
-    c,4.\fthenp b8 c4 c-. |
+    \centreText
+    c4.^"hi there!" d8 e f g d |
+    c4.\fthenp b8 c4 c-. |
   }
 }
 
@@ -3049,7 +3052,6 @@ violin = \relative {
   {
     \violin
   }
-  \layout { ragged-right = ##t }
 }
 @end lilypond
 
@@ -3063,7 +3065,7 @@ soprattutto l'ultima linea.
 violin = \relative @{
   \repeat volta 2 @{
     c''4._\markup @{ \italic \bold dolce @} b8 a8 g a b |
-    \once \override TextScript.padding = #5.0
+    \once \override TextScript.self-alignment-X = #CENTER
     c4.^"hi there!" d8 e' f g d |
     c,4.\markup @{
       \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p
@@ -3074,9 +3076,9 @@ violin = \relative @{
 @end example
 
 Finora abbiamo visto la sostituzione statica -- quando LilyPond
-vede @code{\padText}, lo sostituisce con quel che noi abbiamo
+vede @code{\centreText}, lo sostituisce con quel che noi abbiamo
 definito che sia (ovvero tutto ciò che sta a destra di
-@code{padtext=}).
+@code{centreText=}).
 
 LilyPond può gestire anche la sostituzione non statica (la puoi
 immaginare come una funzione).
@@ -3180,21 +3182,17 @@ R2*3
 @end example
 
 Quando la parte viene stampata, le pause multiple devono essere
-condensate.  Si può fare impostando una variabile run-time
+compresse.  Esiste una funzione musicale per fare ciò:
 
 @example
-\set Score.skipBars = ##t
+\compressMMRests @{ ... @}
 @end example
 
-@noindent
-Questo comando imposta la proprietà @code{skipBars} nel contesto
-@code{Score} su vero (@code{##t}).  Aggiungendo la pausa e questa
-opzione alla musica precedente, si arriva al seguente risultato
+Applicandola a @code{hornNotes} si ottiene:
 
 @lilypond[quote,ragged-right]
-\transpose f c' \relative {
+\compressMMRests \transpose f c' \relative {
   \time 2/4
-  \set Score.skipBars = ##t
   R2*3 |
   r4 f8 a | cis4 f | e4 d |
 }
@@ -3234,3 +3232,14 @@ ovvero
   }
 >>
 @end lilypond
+
+@seealso
+Manuale di apprendimento:
+@ref{Organizing pieces with variables}.
+
+Guida alla notazione:
+@ruser{Trasposizione},
+@ruser{Scrittura delle parti},
+@ruser{Pause d’intero},
+@ruser{Including LilyPond files}.
+

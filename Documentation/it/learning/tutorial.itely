@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: d378daa101069ce6497292b0f4a7f6ce2e9b51f0
+    Translation of GIT committish: 88cfc9ee61dece9cffff98ab7f10318633698c39
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -78,7 +78,7 @@ parentesi dovrebbero essere delimitate da degli spazi, a meno che non si
 trovino all'inizio o alla fine di una linea.  Può darsi che in alcuni esempi
 di questo manuale le parentesi verranno omesse, ma non dimenticarle
 nella tua musica! Per maggiori informazioni sull'aspetto degli esempi
-nel manuale, si veda @ref{Come leggere i manuali}.}
+nel manuale, si veda @ref{How to read the manuals}.}
 
 Inoltre, l'input di LilyPond è @strong{sensibile alle maiuscole}.
 @w{@samp{@{ c d e @}}} è un input valido; @w{@samp{@{ C D E @}}} invece
@@ -109,12 +109,12 @@ programmi che usi.
 @ref{Windows, Microsoft Windows} (grafico)
 
 @item
-@ref{Linea di comando, @sourceimage{logo-linux,,,}
+@ref{Command-line, @sourceimage{logo-linux,,,}
 @sourceimage{logo-freebsd,,,}
 @sourceimage{logo-macosx,,,}
 @sourceimage{logo-windows,,,}
 }
-@ref{Linea di comando, Tutti i sistemi operativi} (linea di comando)
+@ref{Command-line, Tutti i sistemi operativi} (linea di comando)
 
 @end itemize
 
@@ -218,6 +218,16 @@ Glossario musicale: @rglosnamed{pitch,altezza}, @rglosnamed{interval,intervallo}
 @rglosnamed{scale,scala}, @rglosnamed{middle C,Do centrale}, @rglosnamed{octave,ottava},
 @rglosnamed{accidental,alterazione}.
 
+LilyPond usa lettere minuscole per indicare le altezze.  Le lettere da
+@code{c} a@tie{}@code{b} denotano le altezze nella
+@q{piccola ottava} sotto il @notation{Do centrale}.  L'aggiunta dei
+suffissi @code{'} o@tie{}@code{,} indica ottave più alte o più basse.
+Ecco una scala che inizia con un @notation{Do centrale}, e un arpeggio:
+
+@lilypond[verbatim,quote]
+{ c' d' e' f' g' a' b' c'' g c' e' g' c'' e'' g'' c''' }
+@end lilypond
+
 Il modo più semplice per inserire le note è usare il modo @code{\relative}
 (relativo). In questo modo, l'ottava viene scelta automaticamente in
 base al principio per cui la nota che segue deve essere posizionata vicino
@@ -227,18 +237,17 @@ il pezzo musicale più elementare, una @notation{scala}, in cui ogni nota
 si trova entro una distanza di appena uno spazio di pentagramma dalla nota precedente.
 
 @lilypond[verbatim,quote]
-% set the starting point to middle C
 \relative {
   c' d e f
   g a b c
 }
 @end lilypond
 
-La nota iniziale è un @notation{Do centrale}.  Ogni nota successiva viene
-posta il più vicino possibile alla nota precedente -- in altre parole, la prima
-@code{c} è il Do più vicino al Do centrale.  Questo è seguito dal Re
-più vicino alla nota precedente.  Possiamo creare melodie che hanno
-intervalli più ampi, sempre usando soltanto il modo @code{\relative}:
+La nota iniziale è un @notation{Do centrale}, specificato da @code{c'}.  Ogni
+nota successiva viene posta il più vicino possibile alla nota precedente -- in
+altre parole, la prima @code{c} è il Do più vicino al Do centrale.  Questo è
+seguito dal Re più vicino alla nota precedente.  Possiamo creare melodie che
+hanno intervalli più ampi, sempre usando soltanto il modo @code{\relative}:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -248,17 +257,14 @@ intervalli più ampi, sempre usando soltanto il modo @code{\relative}:
 @end lilypond
 
 @noindent
-Non è necessario che la prima nota della melodia inizi con
-la nota che specifica l'altezza iniziale.  Nell'esempio
-precedente, la prima nota -- il @code{Re} -- è il Re più vicino al
+Nell'esempio precedente, la prima nota -- il @code{d'} con un segno @code{'} -- è
+il Re nell'ottava che inizia dal Do centrale e va su fino al Si.
 Do centrale.
 
-Se si aggiungono (o si rimuovono) apostrofi @code{'} o virgole @code{,} dal
-comando @q{@w{@code{@bs{}relative c'}}}, possiamo cambiare l'ottava di
-partenza:
+Se si aggiungono (o si rimuovono) apostrofi @code{'} o virgole @code{,} dalla
+prima nota, possiamo cambiare l'ottava di partenza:
 
 @lilypond[verbatim,quote]
-% one octave above middle C
 \relative {
   e'' c a c
 }
@@ -695,27 +701,17 @@ nella versione online della documentazione.
 @cindex file, consigli per costruirli
 
 L'input di LilyPond deve essere compreso dai segni @code{@{ @}} o da
-@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}, come abbiamo visto in @ref{Lavorare
-sui file di input}.  Nel resto di questo manuale gran parte degli esempi
-ometterà questi segni.  Per replicare gli esempi, puoi copiare
-e incollare l'input mostrato, ma @strong{devi} aggiungere
-@q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}} in questo modo:
+@q{@w{@code{@bs{}relative @{ @dots{} @}}}}, come abbiamo visto in
+@ref{Working on input files}.  Nel resto di questo manuale alcuni
+esempi brevi ometteranno questi segni.  Per replicare questi esempi, puoi
+copiare l'input mostrato e incollarlo tra @code{@{} e @code{@}} nel tuo
+file di input:
 
 @example
-\relative c'' @{
+@{
   @dots{}inserire qui l'esempio@dots{}
 @}
 @end example
-
-Perché omettere le parentesi?  Gran parte degli esempi in questo manuale
-possono essere inseriti nel mezzo di un pezzo più ampio.  Per questi esempi,
-non ha senso includere @q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}} --
-non si deve mettere un @code{\relative} dentro un altro
-@code{\relative}!  Se includessimo @q{@w{@code{@bs{}relative c'' @{ @dots{} @}}}}
-in ogni esempio, non potresti copiare un piccolo esempio della
-documentazione e incollarlo dentro a un tuo brano più
-esteso.  La maggior parte delle persone vuole aggiungere del materiale a
-un brano esistente, per questo abbiamo strutturato il manuale in questo modo.
 
 Ricorda che i file LilyPond devono avere una dichiarazione di
 versione (@code{\version}).  Nei manuali la dichiarazione è omessa
@@ -776,12 +772,12 @@ comprendere le sezioni successive.}
 
 @item
 @strong{Prima di fare @emph{qualsiasi} tentativo}: leggi il @ref{Tutorial}
-e la @ref{Notazione comunemente utilizzata} del Manuale di apprendimento.  Se
+e la @ref{Common notation} del Manuale di apprendimento.  Se
 ti imbatti in termini musicali che non conosci, cercali nel @rglosnamed{Top, Glossario}.
 
 @item
 @strong{Prima di tentare di scrivere un pezzo musicale completo}: leggi
-i @ref{Concetti fondamentali} del Manuale di apprendimento.  Dopo puoi dare
+i @ref{Fundamental concepts} del Manuale di apprendimento.  Dopo puoi dare
 un'occhiata alle sezioni rilevanti della @rusernamed{Top, Guida alla notazione}.
 
 @item

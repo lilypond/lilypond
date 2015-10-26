@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 62dddf43ef5990c6efc5944aadcab3ead9423f29
+    Translation of GIT committish: 21be03e4b893ec2bbea745a713360310931337b9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,20 +10,6 @@
 
 
 @c \version "2.19.21"
-
-@ignore
-Tutorial guidelines:  (different from policy.txt!)
-- unless you have a really good reason, use
-    @lilypond[verbatim,quote]
-
-- use "aes" and "ees" instead of "as" and "es".  I know it's not
-  correct Dutch naming, but let's not confuse people with this
-  until we get to the Basic notation chapter.
-
-- Add "Music Glossary: @rglos{foo}" to the *top* of the relevant
-  portions of the tutorial.
-
-@end ignore
 
 @node Notazione comunemente utilizzata
 @chapter Notazione comunemente utilizzata
@@ -50,7 +36,7 @@ un solo pentagramma.
 
 @menu
 * Stanghette e controlli di battuta::
-* Alterazioni e armature di chiave::
+* Altezze e armature di chiave::
 * Legature di valore e di portamento::
 * Articolazione e dinamiche::
 * Aggiungere il testo::
@@ -93,20 +79,36 @@ delle durate che facciano sì che ogni misura raggiunga la giusta
 durata.  I controlli di battuta rendono anche il codice di input più
 facile da leggere, perché aiutano a tenere tutto in ordine.
 
-@lilypond[verbatim,quote,relative=2]
-g1 | e1 | c2. c'4 | g4 c g e | c4 r r2 |
+@c Questo esempio produce deliberatamente un avvertimento
+@lilypond[verbatim,quote]
+\relative {
+  g'1 | e1 | c2. c' | g4 c g e | c4 r r2 |
+}
 @end lilypond
+
+Compilando questo codice dovrebbe apparire un avvertimento nell'output del
+terminale:
+
+@example
+attenzione: controllo di battuta fallito a: 1/2
+ g'1 | e1 | c2. c'
+                   | g4 c g e | c4 r r2 |
+@end example
+
+Sebbene in questo semplice esempio la durata mancante sia evidente nella
+partitura generata, l'avvertimento nel terminale è molto più efficace
+nel guidare l'attenzione al @code{4} mancante nella terza battuta.
 
 @seealso
 Guida alla notazione:
 @ruser{Controlli di battuta e del numero di battuta}.
 
-@node Alterazioni e armature di chiave
-@subsection Alterazioni e armature di chiave
-@translationof Accidentals and key signatures
+@node Altezze e armature di chiave
+@subsection Altezze e armature di chiave
+@translationof Pitches and key signatures
 
 @menu
-* Alterazioni::
+* Alterazioni dell'altezza::
 * Armature di chiave::
 * Attenzione armature di chiave e altezze::
 @end menu
@@ -115,12 +117,12 @@ Guida alla notazione:
 il messaggio di avviso in fondo a questa pagina, soprattutto se non hai
 una buona conoscenza della teoria musicale!}
 
-@node Alterazioni
-@unnumberedsubsubsec Alterazioni
-@translationof Accidentals
+@node Alterazioni dell'altezza
+@unnumberedsubsubsec Alterazioni dell'altezza
+@translationof Pitch alterations
 
 @cindex alterazioni, accidenti
-@cindex alterazioni e armature di chiave
+@cindex naturale
 @cindex diesis
 @cindex doppio diesis
 @cindex diesis, doppio
@@ -136,6 +138,9 @@ una buona conoscenza della teoria musicale!}
 Glossario musicale: @rglosnamed{sharp,diesis}, @rglosnamed{flat,bemolle},
 @rglosnamed{double sharp,doppio diesis},@rglosnamed{double flat,doppio bemolle},
 @rglosnamed{accidental,alterazione o accidente}.
+
+I nomi delle note in LilyPond identificano le altezze. Per esempio, @code{c}
+indica sempre il Do naturale, indipendentemente dall'armatura di chiave.
 
 Un @notation{diesis} si ottiene aggiungendo il suffisso @code{is} al nome della nota,
 e un @notation{bemolle} aggiungendo @code{es}.  Come puoi
@@ -174,11 +179,13 @@ Glossario musicale: @rglosnamed{key signature,armatura di chiave},
 L' @notation{armatura di chiave} viene impostata col comando @code{\key}
 seguito da un'altezza e da @code{\major} o @code{\minor}.
 
-@lilypond[verbatim,quote,relative=2]
-\key d \major
-a1 |
-\key c \minor
-a1 |
+@lilypond[verbatim,quote]
+\relative {
+  \key d \major
+  d'4 fis a c |
+  \bar "||" \key c \minor
+  c,4 ees g b |
+}
 @end lilypond
 
 @smallspace
@@ -192,22 +199,17 @@ Glossario musicale: @rglosnamed{accidental,alterazione},
 @rglosnamed{flat,bemolle}, @rglosnamed{natural,bequadro}, @rglosnamed{sharp,diesis},
 @rglosnamed{transposition,trasposizione}.
 
-Per determinare se mostrare o meno un'@notation{alterazione}, LilyPond
-esamina le altezze e l'@notation{armatura di chiave}.  L'armatura di
-chiave influisce soltanto sulle alterazioni che vengono @emph{mostrate}, non
-sull'@notation{altezza} della nota!  Questa è una caratteristica che spesso
-causa confusione ai nuovi utenti, quindi la spiegheremo più dettagliatamente.
+LilyPond distingue tra contenuto musicale e la sua rappresentazione
+grafica. Un input come @code{d4 e fis2} definisce le altezze e le
+durate delle note, ovvero il contenuto musicale. L'@tie{}@notation{armatura di chiave}
+fa parte della rappresentazione grafica. Essa imposta anche le regole
+che stabiliscono come una nota debba apparire nell'output. LilyPond
+confronta ogni altezza con l'armatura di chiave per scegliere se
+far apparire o meno una @notation{alterazione}.
 
-LilyPond fa una netta distinzione tra contenuto musicale e aspetto
-grafico.  L'alterazione (@notation{bemolle}, @notation{bequadro} o
-@notation{diesis}) di una nota fa parte dell'altezza ed è quindi
-contenuto musicale.  Se un'alterazione (un  segno @emph{stampato} di bemolle,
-bequadro o diesis) venga posta oppure no di fronte alla nota corrispondente
-è una questione di aspetto grafico.  La formattazione segue delle regole, dunque
-le alterazioni sono inserite automaticamente in base a queste
-regole.  Le altezze nella tua musica sono opere d'arte, quindi non
-verranno aggiunte in automatico: sei tu a dover inserire la nota che
-vuoi sentire.
+Il comando @code{\key} imposta l'@tie{}@notation{armatura di chiave}, che ha
+effetto sulla rappresentazione grafica, ma @emph{non} cambia l'altezza
+assegnata a una nota, come un @code{c} nell'input.
 
 In questo esempio:
 
@@ -234,10 +236,9 @@ nota con altezza Si-bequadro.}  Nella tonalità di La bemolle maggiore,
 }
 @end lilypond
 
-Se l'esempio precedente sembra poco chiaro, considera questo: se tu stessi
-suonando un pianoforte, quale tasto premeresti?  Se premi un tasto nero,
-allora @emph{devi} aggiungere @w{@code{-is}} o @w{@code{-es}} al nome della
-nota!
+Ogni volta che inserisci un'altezza che corrisponde a un tasto nero del
+pianoforte, @emph{devi} aggiungere @w{@code{-is}} o @w{@code{-es}} al
+nome della nota.
 
 Aggiungere esplicitamente tutte le alterazioni richiederà un po' più
 di lavoro in fase di scrittura, ma il vantaggio è che la
@@ -296,15 +297,15 @@ Quanndo l'altezza non cambia, come sempre accade nel caso di note legate
 con legatura di valore, le altezze successive possono essere omesse e basta
 specificare la sola durata:
 
-@lilypond[verbatim,quote,relative=2]
-g4~ 4 c2~ | 4~ 8 a~ 2 |
+@lilypond[verbatim,quote]
+\relative { g'4~ 4 c2~ | 4~ 8 a~ 2 | }
 @end lilypond
 
 Questa scorciatoia può essere utile in altre situazioni in cui il ritmo
-cambia senza che l'altezza cambi; ma ricorda che una durata isolata
-userà l'altezza che la precede, stampando una sola nota, se solo uno
-spazio bianco le separa.
-
+cambia senza che l'altezza cambi; ma ricorda che un'altezza isolata seguita
+da uno spazio e una durata isolata verrà interpretata come una singola nota.
+In altre parole, @code{c4 a 8 8} verrebbe interpretato come @code{c4 a8 a8},
+non come @code{c4 a4 a8 a8}.  Scrivere invece @code{c4 a4 8 8 }.
 
 @node Legature di portamento
 @unnumberedsubsubsec Legature di portamento
@@ -330,11 +331,10 @@ Glossario musicale: @rglosnamed{slur,legatura di portamento},
 Le legature di portamento che indicano una @notation{frase} più lunga
 possono essere inserite con @code{\(} e @code{\)}.  E' possibile avere allo
 stesso tempo sia le @notation{legature di portamento} sia le legature di
-frase, ma non si possono avere simultaneamente diverse legature di portamento,
-o diverse legature di frase.
+frase.
 
-@lilypond[verbatim,quote,relative=2]
-a8(\( ais b c) cis2 b'2 a4 cis,\)
+@lilypond[verbatim,quote]
+\relative { g'4\( g8( a) b( c) b4\) }
 @end lilypond
 
 @smallspace
@@ -494,13 +494,12 @@ c''2^"espr" a'_"legato"
 
 Per aggiungere delle formattazioni puoi usare il comando @code{\markup}:
 
-@lilypond[verbatim,quote,relative=2]
-c2^\markup{ \bold espr}
-a2_\markup{
+@lilypond[verbatim,quote,fragment]
+c''2^\markup { \bold espr }
+a'2_\markup {
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
 }
 @end lilypond
-
 
 @seealso
 Guida alla notazione:
@@ -834,7 +833,7 @@ su un singolo rigo.
 @funindex Lyrics
 @funindex ChordNames
 
-Come abbiamo visto in @ref{Espressioni musicali}, i file di input
+Come abbiamo visto in @ref{Music expressions explained}, i file di input
 di LilyPond si costruiscono in base alle espressioni musicali.  Se la partitura
 inizia con espressioni musicali simultanee, LilyPond crea più di un
 rigo musicale.  Tuttavia, è più facile vedere quel che accade se creiamo
@@ -1006,7 +1005,7 @@ a spiegarli via via.
 
 @seealso
 Manuale di Apprendimento:
-@ref{Le voci contengono la musica}.
+@ref{Voices contain music}.
 
 Guida alla notazione:
 @ruser{Note simultanee}.
@@ -1102,25 +1101,12 @@ shine as bright as day}.  Aggiungiamola:
 >>
 @end lilypond
 
-Se compili il codice dell'esempio precedente, dovresti vedere alcuni
-avvisi nell'output del terminale:
-
-@example
-song.ly:12:29: warning: barcheck failed at: 5/8
-    The | moon doth shine as
-                             | bright as day; |
-song.ly:12:46: warning: barcheck failed at: 3/8
-    The | moon doth shine as | bright as day;
-                                              |
-@end example
-
-Questo è un ottimo esempio dell'utilità dei controlli di battuta.  Tornando
-alla musica, si può vedere che il testo aggiunto non risulta ben allineato
+Osservando lo spartito, si può vedere che il testo aggiunto non risulta ben allineato
 alle note.  La parola @notation{shine} dovrebbe essere cantata su due note, non
 una.  Questo si chiama @notation{melisma}, una singola sillaba che viene
 cantata per più di una nota.  Ci sono molti modi per estendere una sillaba
 su molteplici note, e il più semplice è aggiungere una legatura di portamento
-che le colleghi, per i dettagli si veda @ref{Legature di valore e di portamento}:
+che le colleghi, per i dettagli si veda @ref{Ties and slurs}:
 
 @lilypond[verbatim,quote]
 <<
@@ -1141,7 +1127,7 @@ Adesso le parole sono allineate correttamente con le note, ma il raggruppamento
 automatico per le note che si trovano sopra @notation{shine as} non ha un
 aspetto corretto.  Possiamo correggerlo inserendo i comandi per il raggruppamento
 manuale così da scavalcare, in questo caso, il raggruppamento automatico; per i
-dettagli si veda @ref{Code automatiche e manuali}.
+dettagli si veda @ref{Automatic and manual beams}.
 
 @lilypond[verbatim,quote]
 <<
@@ -1291,7 +1277,7 @@ più semplice, ovvero @code{\addlyrics}.  Ecco un esempio tratto dal
 Per scrivere partiture un po' più complesse di questi semplici esempi,
 è meglio separare la struttura dello spartito dalle note e dai testi
 mediante l'uso di variabili. Di queste si parla più approfonditamente
-in @ref{Organizzare i brani con le variabili}.
+in @ref{Organizing pieces with variables}.
 
 
 @seealso
@@ -1454,15 +1440,15 @@ sui titoli in @ruser{Creating titles headers and footers}.
 @cindex altezze, valori assoluti
 @cindex nomi assoluti delle note
 
-Finora abbiamo sempre usato @code{\relative} per definire le altezze.
+Finora abbiamo usato @code{\relative} per definire le altezze.
 Questo è di  solito il modo più veloce per inserire gran parte della musica.
 Se non viene usato @code{\relative}, le altezze vengono interpretate in
 modo assoluto.
 
 In questa modalità, LilyPond tratta tutte le altezze come
-valori assoluti.  Un @code{c'} si riferirà sempre al Do centrale, un
+valori assoluti.  Un @code{c'} si riferirà sempre al Do@tie{}centrale, un
 @code{b} si riferirà sempre alla nota che si trova un semitono sotto il
-Do centrale, e un @code{g,} indicherà sempre la nota sull'ultima riga
+Do@tie{}centrale, e un @code{g,} indicherà sempre la nota sull'ultima riga
 della chiave di basso.
 
 @lilypond[verbatim,quote]
@@ -1473,25 +1459,8 @@ della chiave di basso.
 }
 @end lilypond
 
-Ecco una scala con quattro ottave:
-
-@lilypond[verbatim,quote]
-{
-  \clef "bass"
-  c,4 d, e, f, |
-  g,4 a, b, c |
-  d4 e f g |
-  a4 b c' d' |
-  \clef "treble"
-  e'4 f' g' a' |
-  b'4 c'' d'' e'' |
-  f''4 g'' a'' b'' |
-  c'''1 |
-}
-@end lilypond
-
-Come si può vedere, scrivere una melodia in chiave di violino richiede un ampio
-uso di virgolette @code{'}.  Si consideri questo frammento tratto da Mozart:
+Scrivere una melodia in chiave di violino richiede un ampio uso di
+virgolette @code{'}.  Si consideri questo frammento tratto da Mozart:
 
 @lilypond[verbatim,quote]
 {
@@ -1502,9 +1471,23 @@ uso di virgolette @code{'}.  Si consideri questo frammento tratto da Mozart:
 }
 @end lilypond
 
-Tutte queste virgolette rendono l'input meno leggibile e sono una fonte
-di errori.  Usando @code{\relative}, l'esempio precedente è molto più
-semplice da leggere e scrivere:
+@funindex \fixed
+
+I segni di ottava possono essere indicati solo una volta usando il comando
+@code{\fixed} seguito da un'altezza di riferimento:
+
+@lilypond[verbatim,quote]
+\fixed c'' {
+  \key a \major
+  \time 6/8
+  cis8. d16 cis8 e4 e8 |
+  b,8. cis16 b,8 d4 d8 |
+}
+@end lilypond
+
+Usando @code{\relative}, l'esempio precedente non ha bisogno di segni di
+ottava perché qusta melodia si muove per gradi inferiori alle tre posizioni
+del rigo:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1534,16 +1517,17 @@ Talvolta la musica è organizzata in modi più complessi.  Se si usa
 \relative { c'4 \relative { f'' g } c }
 @end lilypond
 
-@funindex \absolute
-Se si usa la modalità assoluta all'interno di quella relativa, è necessario
-contrassegnare esplicitamente la musica assoluta con @code{\absolute} per
-impedire che diventi parte della musica relativa:
+Per usare la modalità assoluta all'interno di @code{\relative}, inserire
+la musica assoluta dentro @code{\fixed c @{ @dots{} @}} e le altezze
+assolute non avranno effetto sulle ottave della musica inserita con la
+modalità relativa:
 
 @lilypond[verbatim,quote]
-\relative { c'4 \absolute { f'' g'' } c }
+\relative {
+  c'4 \fixed c { f'' g'' } c |
+  c4 \fixed c'' { f g } c
+}
 @end lilypond
-
-
 
 
 @node Dopo il tutorial
@@ -1573,7 +1557,8 @@ la lettura di tutto il Manuale di Apprendimento, potrai rileggere alcune
 sezioni e seguire i riferimenti incrociati per letture di approfondimento.
 
 Se non lo hai già fatto, @emph{ti consigliamo} di leggere
-@ref{Panoramica dei manuali}.  Contiene molte informazioni su LilyPond,
+@ref{Overview of manuals}.  Contiene molte informazioni su LilyPond,
 ed è quindi utile per i nuovi utenti, che spesso non sanno dove cercare
 aiuto.  Se dedichi cinque  minuti all'attenta lettura di quella sezione,
 potresti risparmiarti ore di frustrazione sprecate a guardare in posti sbagliati!
+

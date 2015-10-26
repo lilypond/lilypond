@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 9fb28f4db2cf0f4d302f70c4def238cd2145f329
+    Translation of GIT committish: f7dfb61e546cb03d61d92271839288c44abf8aed
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.19.25"
 
 @node Modelli
 @appendix Modelli
@@ -35,19 +35,28 @@ LilyPond e goderti dei belli spartiti!
 @appendixsec Modelli integrati
 @translationof Built-in templates
 
-Esiste un modello, adatto a vari tipi di musica corale, integrato
-in LilyPond.  Può essere usato per creare semplici brani di musica
-corale, con o senza accompagnamento del pianoforte,  in due o
-quattro righi.  Diversamente da altri modelli, questo modello è
-@q{integrato}, ovvero non c'è bisogno di copiarlo e modificarlo,
-basta includerlo nel file di input.
+Alcuni modelli, adatti a vari tipi di musica corale, sono integrati
+in LilyPond.  Possono essere usati per creare semplici brani di musica
+corale, con o senza accompagnamento del pianoforte,  in due, quattro
+o otto righi.  Diversamente da altri modelli, questi modelli sono
+@q{integrati}, ovvero non c'è bisogno di copiarli e modificarli,
+basta includerli nel file di input.
 
-@warning {Diversamente dalla maggior parte dei file da includere, questo
-modello integrato deve essere incluso alla @emph{fine} del file di input.}
+@warning {Diversamente dalla maggior parte dei file da includere, questi
+modelli integrati devono essere inclusi alla @emph{fine} del file di input.}
 
 Le espressioni musicali richieste si inseriscono definendo dei valori per
 variabili ben precise.  Tali definizioni devono precedere il file incluso
 con @code{\include}.
+
+@menu
+* Modello SATB::
+* Modello SSAATTBB::
+@end menu
+
+@node Modello SATB
+@appendixsubsec Modello SATB
+@translationof SATB template
 
 La musica può essere impostata su una o due voci per rigo impostando la
 proprietà @code{TwoVoicesPerStaff} su @code{##f} (falso) o @code{##t}
@@ -109,11 +118,11 @@ ciascuna parte:
 
 @lilypond[verbatim, quote]
   SopranoMusic = \relative { a'4 a a a }
-  SopranoLyricsOne = \lyricsto "Soprano" {
+  SopranoLyricsOne = \lyricmode {
     \set stanza = "1."
     Parole per prima strofa
   }
-  SopranoLyricsTwo = \lyricsto "Soprano" {
+  SopranoLyricsTwo = \lyricmode {
     \set stanza = "2."
     Parole per seconda strofa
   }
@@ -176,30 +185,160 @@ Si possono cambiare anche i nomi estesi o abbreviati degli strumenti:
   \include "satb.ly"
 @end lilypond
 
+anche se, piuttosto che far così, sarebbe più facile usare il modello
+@code{ssaattbb.ly}, vedi @ref{SSAATTBB template}.
+
 Si può aggiungere un discanto definendo dei valori per la variabile
 @code{DescantMusic} e il testo di discanto definendo i valori della
-variabile @code{DescantLyrics}.
+variabile @code{DescantLyrics}. In modo analogo, si può aggiungere
+una parte solista sopra i righi del coro raggruppati definendo i
+valori di @code{SoloMusic} e @code{SoloLyrics}.
 
 I blocchi @code{\header} e @code{\paper} possono essere aggiunti, come
-sempre.  Un blocco @code{\layout} deve invece essere creato come valore
-della variabile @code{Layout}:
+sempre.  Un blocco @code{\layout} può essere posto, come sempre, al
+livello superiore, e il suo contenuto verrà combinato con le impostazioni
+fornite dal modello (ma senza scavalcarle). Altrimenti, tutte le impostazioni
+predefinite fornite dal modello possono essere annullate definendo una
+variabile @code{Layout} contenente @emph{tutte} le impostazioni richieste:
 
 @example
 Layout = \layout @{ ... @}
 @end example
 
 L'insieme completo di variabili modificabili è visibile esaminando il
-file @file{ly/satb.ly}.
+file @file{ly/satb.ly}, vedi @ref{Other sources of information}.
 
 @seealso
 Manuale di apprendimento:
 @ref{Organizing pieces with variables},
 @ref{Vocal ensembles templates},
-@ref{Extending the templates}.
+@ref{Extending the templates},
+@ref{Other sources of information}.
 
 @knownissues
-Arrangiamenti più complessi della musica corale SATB non sono possibile
-utilizzando questi semplici modelli integrati.
+L'impostazione della variabile @code{TwoVoicesPerStaff} è attiva per
+l'intera durata della partitura: non è possibile assegnarle valori
+diversi in momenti diversi.
+
+Arrangiamenti più complessi della musica corale SATB non sono possibili
+utilizzando questo semplice modello integrato.
+
+
+@node Modello SSAATTBB
+@appendixsubsec Modello SSAATTBB
+@translationof SSAATTBB template
+
+Tutte le variabili definite nel modello SATB, con l'eccezione delle
+variabili @code{VerseXxx}, sono disponibili anche nel modello SSAATTBB,
+vedi @ref{SATB template}.  In più, la musica e il testo per le prime e
+seconde voci di una o tutte le quattro parti possono essere specificati
+fornendo i valori di @code{SopranoOneMusic}, @code{SopranoTwoMusic},
+etc, col testo in @code{SopranoOneLyrics} e @code{SopranoTwoLyrics},
+etc.  Si possono definire fino a quattro ulteriori strofe per tutte le
+parti vocali usando le variabili @code{SopranoOneLyricsOne}, con le altre
+definite in modo analogo.
+
+Impostando @code{TwoVoicesPerStaff} su @code{##t} @emph{tutte} le
+parti vocali saranno posizionate su righi singoli come voci divise.  Se
+@code{TwoVoicesPerStaff} viene lasciato al suo valore predefinito o impostato
+su @code{##f} allora le parti vocali individuali possono essere poste su
+uno o due righi in base all'impostazione di @code{SopranoTwoVoicesPerStaff},
+@code{MenTwoVoicesPerStaff}, etc.
+
+Facciamo un esempio e immaginiamo di avere un brano per soprano e alto
+che inizia con tutte le voci all'unisono, prosegue con una sezione con
+due parti, soprano e alto, e termina con una sezione a quattro parti.
+Tale esempio si scriverebbe così:
+
+@lilypond[verbatim,quote]
+Time = { s1 \break s1 \break }
+WomenMusic = \relative { a'4 a a a }
+WomenLyrics = \lyricmode { Wo -- men ly -- rics }
+SopranoMusic = \relative { s1 | c''4 c c c8 c }
+SopranoLyrics = \lyricmode{ So -- pra -- no ly -- rics }
+AltoMusic = \relative { s1 | g'4 g g g }
+AltoLyrics = \lyricmode { Al -- to ly -- rics }
+SopranoOneMusic = \relative { s1 | s1 |e''4 e e e }
+SopranoOneLyrics = \lyricmode { Sop One ly -- rics }
+SopranoTwoMusic = \relative { s1 | s1 | c''4 c c c }
+SopranoTwoLyrics = \lyricmode { Sop Two ly -- rics }
+AltoOneMusic = \relative { s1 | s1 | g'4 g g g8 g }
+AltoOneLyrics = \lyricmode { Al -- to One ly -- rics }
+AltoTwoMusic = \relative { s1 | s1 | e'4 e e e8 e }
+AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
+\layout { ragged-right = ##t }
+\include "ssaattbb.ly"
+@end lilypond
+
+Le voci maschili possono essere aggiunte in modo analogo.
+
+Per cambiare la formattazione in modo che le voci divise dei soprani
+usino un rigo condiviso, basta impostare @code{SopranoTwoVoicesPerStaff}
+su ##t, lasciando invariate tutte le altre variabili, così:
+
+@lilypond[verbatim,quote]
+SopranoTwoVoicesPerStaff = ##t
+Time = { s1 \break s1 \break }
+WomenMusic = \relative { a'4 a a a }
+WomenLyrics = \lyricmode { Wo -- men ly -- rics }
+SopranoMusic = \relative { s1 | c''4 c c c8 c }
+SopranoLyrics = \lyricmode{ So -- pra -- no ly -- rics }
+AltoMusic = \relative { s1 | g'4 g g g }
+AltoLyrics = \lyricmode { Al -- to ly -- rics }
+SopranoOneMusic = \relative { s1 | s1 |e''4 e e e }
+SopranoOneLyrics = \lyricmode { Sop One ly -- rics }
+SopranoTwoMusic = \relative { s1 | s1 | c''4 c c c }
+SopranoTwoLyrics = \lyricmode { Sop Two ly -- rics }
+AltoOneMusic = \relative { s1 | s1 | g'4 g g g8 g }
+AltoOneLyrics = \lyricmode { Al -- to One ly -- rics }
+AltoTwoMusic = \relative { s1 | s1 | e'4 e e e8 e }
+AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
+\layout { ragged-right = ##t }
+\include "ssaattbb.ly"
+@end lilypond
+
+oppure, per far sì che tutte le voci appaiate condividano un solo rigo,
+impostare @code{TwoVoicesPerStaff} su ##t:
+
+@lilypond[verbatim,quote]
+TwoVoicesPerStaff = ##t
+Time = { s1 \break s1 \break }
+WomenMusic = \relative { a'4 a a a }
+WomenLyrics = \lyricmode { Wo -- men ly -- rics }
+SopranoMusic = \relative { s1 | c''4 c c c8 c }
+SopranoLyrics = \lyricmode{ So -- pra -- no ly -- rics }
+AltoMusic = \relative { s1 | g'4 g g g }
+AltoLyrics = \lyricmode { Al -- to ly -- rics }
+SopranoOneMusic = \relative { s1 | s1 |e''4 e e e }
+SopranoOneLyrics = \lyricmode { Sop One ly -- rics }
+SopranoTwoMusic = \relative { s1 | s1 | c''4 c c c }
+SopranoTwoLyrics = \lyricmode { Sop Two ly -- rics }
+AltoOneMusic = \relative { s1 | s1 | g'4 g g g8 g }
+AltoOneLyrics = \lyricmode { Al -- to One ly -- rics }
+AltoTwoMusic = \relative { s1 | s1 | e'4 e e e8 e }
+AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
+\layout { ragged-right = ##t }
+\include "ssaattbb.ly"
+@end lilypond
+
+L'insieme completo di variabili che possono essere modificate può essere
+visto esaminando il file @file{ly/ssaattbb.ly}, vedi
+@ref{Other sources of information}.
+
+@seealso
+Manuale di apprendimento:
+@ref{Organizing pieces with variables},
+@ref{Vocal ensembles templates},
+@ref{Extending the templates},
+@ref{Other sources of information}.
+
+@knownissues
+L'impostazione delle variabili @code{...TwoVoicesPerStaff} è attiva per
+l'intera durata della partitura: non è possibile assegnare valori diversi
+in momenti diversi.
+
+Arrangiamenti più complessi di musica corale a 8 parti non sono possibili
+con questo semplice modello integrato.
 
 
 @node Modelli per rigo singolo

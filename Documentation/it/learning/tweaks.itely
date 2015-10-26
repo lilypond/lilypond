@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 63e280b6c609d307b1cb9aa1852fce7862c39738
+    Translation of GIT committish: 28add695953862ef4a87f9fbeadd1d02dc299244
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -313,12 +313,12 @@ note al valore predefinito:
 @funindex \once
 @funindex once
 
-Sia il comando @code{\override} che il comando @code{\set} possono essere
-preceduti da @code{\once}.  Questo fa sì che il successivo comando @code{\override}
-o @code{\set} sia effettivo solo in relazione a quel determinato momento musicale,
-prima che la proprietà sia ripristinata al suo valore precedente (che può essere diverso da quello predefinito se un altro @code{\override} è
-ancora attivo).  Usando lo stesso esempio, possiamo cambiare il colore di
-una singola nota in questo modo:
+I comandi @code{\override}, @code{revert}, @code{\set} e @code{\unset} possono
+essere preceduti da @code{\once}.  Questo fa sì che tale comando sia operativo
+solo in quel determinato momento musicale, prima che la proprietà sia
+ripristinata al suo valore precedente (che può essere diverso da quello
+predefinito se un altro @code{\override} è ancora attivo).  Usando lo stesso
+esempio, possiamo cambiare il colore di una singola nota in questo modo:
 
 @cindex proprietà del colore, esempio
 @cindex colore, proprietà del
@@ -339,19 +339,16 @@ una singola nota in questo modo:
 Il prefisso @code{\once} può essere usato anche di fronte a molti
 comandi predefiniti per limitare il loro effetto a un momento musicale:
 
-@lilypond[quote,verbatim,relative=1]
-c4 d
-\once \stemDown
-e4 f |
-g4 a
-\once \hideNotes
-b c |
+@lilypond[quote,verbatim]
+\relative {
+  c'4( d)
+  \once \slurDashed
+  e4( f) |
+  g4( a)
+  \once \hideNotes
+  b( c) |
+}
 @end lilypond
-
-Tuttavia, i comandi predefiniti che hanno la forma @code{\@dots{}Neutral},
-@code{\@dots{}Off} e @code{\un@dots{}} usano internamente @code{\revert} invece
-di @code{\override} dunque inserire @code{\once} prima di questi comandi
-non produce alcun effetto.
 
 
 @node Il comando overrideProperty
@@ -467,10 +464,10 @@ direttamente dall'evento che segue.  È comunque possibile usare
 esplicitamente l'oggetto di formattazione, purché LilyPond riesca a
 seguire la sua origine fino all'evento originale:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-<\tweak Accidental.color #red   cis4
- \tweak Accidental.color #green es
-                                  g>
+@lilypond[quote,fragment,ragged-right,verbatim]
+<\tweak Accidental.color #red   cis''4
+ \tweak Accidental.color #green es''
+ g''>
 @end lilypond
 
 Questa forma estesa del comando @code{\tweak} può essere descritta così
@@ -807,12 +804,12 @@ nel modo seguente:
 @cindex proprietà thickness, esempio
 @cindex thickness (spessore), esempio
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8
+  \relative {
+    r4 bes'8
     % Aumenta lo spessore solo della legatura che segue
     \once \override Slur.thickness = #5.0
     bes8[( g]) g |
@@ -848,12 +845,12 @@ iniziano le legature:
 @cindex proprietà thickness, esempio
 @cindex thickness (spessore), esempio
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8
+  \relative {
+    r4 bes'8
     % Aumenta lo spessore solo della legatura che segue
     \once \override Slur.thickness = #5.0
     bes[( g]) g |
@@ -877,12 +874,12 @@ dopo la seconda legatura:
 @cindex proprietà thickness, esempio
 @cindex thickness (spessore), esempio
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 {
   \key es \major
   \time 6/8
-  {
-    r4 bes8
+  \relative {
+    r4 bes'8
     % Aumenta lo spessore di tutte le legature di portamento che seguono da 1.2 a 5.0
     \override Slur.thickness = #5.0
     bes[( g]) g |
@@ -1591,7 +1588,7 @@ Dunque possiamo sostituire l'esempio precedente con
 @cindex Clef, esempio di sovrascrittura
 @cindex TimeSignature, esempio di sovrascrittura
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1615,7 +1612,7 @@ Dunque possiamo sostituire l'esempio precedente con
 Si possono usare anche le scorciatoie @code{\hide} e @code{\omit} per
 impostare la proprietà @code{transparent} e togliere lo @code{stencil}
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1681,7 +1678,7 @@ Proviamolo nel nostro esempio dell'ossia:
 @cindex proprietà fontSize, esempio
 @cindex fontSize, esempio
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1756,7 +1753,7 @@ questo modo:
 @cindex proprietà stencil, esempio
 @cindex stencil, esempio
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \new Staff ="main" {
   \relative {
     r4 g'8 g c4 c8 d |
@@ -1865,11 +1862,11 @@ sotto @q{Testo2}.
 
 @cindex markup, esempio
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-c2^"Testo1"
-c2^"Testo2" |
-c2^"Testo3"
-c2^"Testo4" |
+@lilypond[quote,fragment,ragged-right,verbatim]
+c''2^"Testo1"
+c''2^"Testo2" |
+c''2^"Testo3"
+c''2^"Testo4" |
 @end lilypond
 
 Di norma, anche i righi sono collocati quanto più possibile ravvicinati
@@ -1932,31 +1929,33 @@ quando si imposta la proprietà @code{direction}.
 @cindex neutral
 @cindex direzione, neutrale
 
-L'esempio seguente mostra nella prima battuta il comportamento predefinito
-dei gambi, per cui i gambi delle note superiori puntano in basso e quelli delle
-note inferiori in alto; poi seguono quattro note con tutti i gambi
-forzati verso il basso, quattro con i gambi forzati verso l'alto e, infine, quattro
-con i gambi nuovamente disposti secondo il comportamento predefinito.
+L'esempio seguente mostra il posizionamento predefinito delle legature di
+portamento nella prima battuta, con legature che iniziano sulle note
+alte poste sopra le note e quelle che iniziano sulle note basse posizionate
+sotto, seguita da una battuta con entrambe le legature forzate verso il
+basso, un'altra battuta con entrambe le legatura forzate verso l'alto e infine
+una battuta con entrambe le legature ripristinate al comportamento predefinito.
 
-@cindex Stem, esempio di sovrascrittura
+@cindex Slur, esempio di sovrascrittura
+@cindex legatura di portamento, esempio di sovrascrittura
 @cindex proprietà direction, esempio
 @cindex direction, esempio
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-a4 g c a |
-\override Stem.direction = #DOWN
-a4 g c a |
-\override Stem.direction = #UP
-a4 g c a |
-\revert Stem.direction
-a4 g c a |
+@lilypond[quote,fragment,verbatim]
+a'4( g') c''( a') |
+\override Slur.direction = #DOWN
+a'4( g') c''( a') |
+\override Slur.direction = #UP
+a'4( g') c''( a') |
+\revert Slur.direction
+a'4( g') c''( a') |
 @end lilypond
 
 Abbiamo usato le costanti @code{DOWN} (giù) e @code{UP} (su).
 Queste hanno rispettivamente i valori @w{@code{-1}} e @code{+1}, ed
 è possibile usare tali valori numerici al loro posto.  In alcuni casi
-si può usare anche il valore @code{0}, che significa @code{UP} per i
-gambi, ma per alcuni oggetti significa @q{center} (centro).
+si può usare anche il valore @code{0}, che significa @code{UP} per le
+legature di portamento, ma per alcuni oggetti significa @q{center} (centro).
 Esiste una costante, @code{CENTER} che ha valore @code{0}.
 
 Tuttavia queste sovrascritture esplicite solitamente non vengono usate, perché
@@ -2008,11 +2007,20 @@ non è ovvio.
 @end multitable
 
 
-Le varianti neutral/normal di questi comandi usano @code{\revert} e quindi
+Le varianti neutral/normal di questi comandi usano @code{\revert} e queste
 @strong{non} possono essere precedute da @code{\once}.  Se desideri limitare
 l'effetto degli altri comandi (che usano @code{\override}) a un singolo
 momento temporale, devi farli precedere da @code{\once} come faresti con
 delle sovrascritture esplicite.
+
+Oppure, se solo un oggetto della formattazione deve essere forzato verso
+l'alto o verso il basso, si possono usare gli indicatori di
+direzione, @code{^} o @code{_}:
+
+@lilypond[quote,fragment,verbatim]
+a'4( g') c''( a') |
+a'4^( g') c''_( a') |
+@end lilypond
 
 
 @node Diteggiatura
@@ -2321,29 +2329,26 @@ nel contesto @code{Staff}:
 @cindex proprietà bound-details, esempio
 @cindex bound-details, esempio
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-% Imposta i dettagli per l'estensione del testo vocale seguente
+@lilypond[quote,fragment,ragged-right,verbatim]
+% Set details for later Text Spanner
 \override TextSpanner.bound-details.left.text
     = \markup { \small \bold Slower }
-% Posiziona le indicazione dinamiche sopra il rigo
+% Place dynamics above staff
 \dynamicUp
-% Posiziona l'estensione del segno d'ottava sotto il testo vocale
-\once \override Staff.OttavaBracket.outside-staff-priority = #340
-% Inizia l'estensione del segno d'ottava
+% Start Ottava Bracket
 \ottava #1
-c'4 \startTextSpan
-% Aggiunge l'indicazione dinamica
-c4\pp
-% Aggiunge la forcella della dinamica
-c4\<
-% Aggiunge l'oggetto di testo
-c4^Text |
-c4 c
-% Aggiunge l'indicazione dinamica
-c4\ff c \stopTextSpan |
-% Termina l'estensione de segno d'ottava
+c''4 \startTextSpan
+% Add Dynamic Text and hairpin
+c''4\pp\<
+c''4
+% Add Text Script
+c''4^Text |
+c''4 c''
+% Add Dynamic Text and terminate hairpin
+c''4\ff c'' \stopTextSpan |
+% Stop Ottava Bracket
 \ottava #0
-c,4 c c c |
+c'4 c' c' c' |
 @end lilypond
 
 Si noti che alcuni di questi oggetti, in particolare i numeri di
@@ -2393,12 +2398,12 @@ aumentare la priorità di @qq{Testo3} assegnando un valore più alto:
 @cindex proprietà outside-staff-priority, esempio
 @cindex outside-staff-priority, esempio
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-c2^"Testo1"
-c2^"Testo2" |
+@lilypond[quote,fragment,ragged-right,verbatim]
+c''2^"Testo1"
+c''2^"Testo2" |
 \once \override TextScript.outside-staff-priority = #500
-c2^"Testo3"
-c2^"Testo4" |
+c''2^"Testo3"
+c''2^"Testo4" |
 @end lilypond
 
 Questo ovviamente pone @qq{Testo3} sopra @qq{Testo4}, ma anche
@@ -2425,12 +2430,12 @@ testo prodotto dal comando @code{\markup} non occupa uno spazio orizzontale.
 Il comando @code{\textLengthOn} inverte questo comportamento e fa sì che
 le note si distanzino quanto basti per introdurre il testo:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim]
 \textLengthOn  % Fa sì che le note si distanzino per introdurre il testo
-c2^"Text1"
-c2^"Text2" |
-c2^"Text3"
-c2^"Text4" |
+c''2^"Text1"
+c''2^"Text2" |
+c''2^"Text3"
+c''2^"Text4" |
 @end lilypond
 
 Il comando che ripristina il comportamento predefinito è
@@ -2452,25 +2457,27 @@ che mostra come il testo a margine interagisce con tali note.
 @cindex proprietà outside-staff-priority, esempio
 @cindex outside-staff-priority, esempio
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-% Questo testo è abbastanza corto per starci senza creare collisioni
-c2^"Tes" c'' |
-R1 |
+@lilypond[quote,fragment,ragged-right,verbatim]
+\relative {
+  % Questo testo è abbastanza corto per starci senza creare collisioni
+  c2^"Tes" c'' |
+  R1 |
 
-% Questo è troppo lungo per starci, quindi è spostato più in alto
-c,,2^"Testo" c'' |
-R1 |
+  % Questo è troppo lungo per starci, quindi è spostato più in alto
+  c,,2^"Testo" c'' |
+  R1 |
 
-% Disattiva l'elusione delle collisioni
-\once \override TextScript.outside-staff-priority = ##f
-c,,2^"Testo Lungo   " c'' |
-R1 |
+  % Disattiva l'elusione delle collisioni
+  \once \override TextScript.outside-staff-priority = ##f
+  c,,2^"Testo Lungo   " c'' |
+  R1 |
 
-% Disattiva l'elusione delle collisioni
-\once \override TextScript.outside-staff-priority = ##f
-\textLengthOn        % e attiva textLengthOn
-c,,2^"Testo Lungo   "  % Gli spazi finali vengono rispettati
-c''2 |
+  % Disattiva l'elusione delle collisioni
+  \once \override TextScript.outside-staff-priority = ##f
+  \textLengthOn        % e attiva textLengthOn
+  c,,2^"Testo Lungo   "  % Gli spazi finali vengono rispettati
+  c''2 |
+}
 @end lilypond
 
 
@@ -2564,11 +2571,11 @@ Vediamo se funziona nell'esempio precedente:
 @cindex proprietà extra-spacing-width, esempio
 @cindex extra-spacing-width, esempio
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim]
 \dynamicUp
 % Aumenta la larghezza di 1 spazio rigo
 \override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
-a4\f b\mf a\mp b\p
+\relative { a'4\f b\mf a\mp b\p }
 @end lilypond
 
 @noindent
@@ -3106,15 +3113,15 @@ b2\fermata
 @cindex proprietà padding, esempio
 @cindex padding, esempio
 
-@lilypond[quote,fragment,relative=1,verbatim]
+@lilypond[quote,fragment,verbatim]
 % Questo non funziona, vedi sotto
 \override MetronomeMark.padding = #3
 \tempo 4 = 120
-c1 |
+c'1 |
 % Questo funziona
 \override Score.MetronomeMark.padding = #3
 \tempo 4 = 80
-d1 |
+d'1 |
 @end lilypond
 
 Nota nel secondo esempio come è importante sapere quale contesto
@@ -3389,8 +3396,10 @@ centrale a, per esempio, 1:
 @end lilypond
 
 @noindent
-Come vedi, la sovrascrittura si applica anche alla prima voce della seconda
-misura di otto note, ma a nessuna delle travature nella seconda voce.
+Come vedi, la sovrascrittura si applica anche alla seconda voce della seconda
+misura di otto note, ma a nessuna delle travature nella prima voce, nemmeno
+in quelle della seconda misura. Appena la sovrascrittura non è più attiva,
+deve essere ripristinato, come si vede.
 
 @node La proprietà force-hshift
 @unnumberedsubsubsec La proprietà @code{force-hshift}
@@ -3418,9 +3427,7 @@ lasciato così:
 @noindent
 La nota interna del primo accordo (ovvero il La bemolle della quarta
 voce) non deve essere allontanata dalla colonna della nota più
-alta.  Potremmo pensare di correggerlo con @code{\shiftOff}, ma ciò
-causerebbe degli avvertimenti relativi alla collisione di note.  Impostiamo
-invece @code{force-hshift}, una proprietà di @code{NoteColumn}, su zero.
+alta, quindi usiamo @code{\shiftOff}.
 
 Nel secondo accordo preferiamo che il Fa sia allineato al La bemolle e che
 la nota più grave sia posizionata leggermente più a destra, in modo da
@@ -3444,12 +3451,10 @@ Ecco il risultato finale:
   <<
     { c''2 aes4. bes8 }
     \\
-    { <ees, c>2 \once \override NoteColumn.force-hshift =
-      0.5 des }
+    { <ees, c>2 \once \override NoteColumn.force-hshift = 0.5 des }
     \\
     \\
-    { \once \override NoteColumn.force-hshift = 0 aes'2
-      \once \override NoteColumn.force-hshift = 0 f4 fes }
+    { \once \shiftOff aes'2 \once \shiftOff f4 fes }
   >> |
   <c ees aes c>1 |
 }
@@ -4580,10 +4585,10 @@ Iniziamo col vedere alcuni file in @file{ly/}.
 Apri @file{ly/property-init.ly} in un editor di testo.  Quello
 che usi normalmente per i file @code{.ly} va bene.  Questo file
 contiene le definizioni di tutti i comandi predefiniti standard
-di LilyPond, come @code{\stemUp} e @code{\slurDotted}.  Vedrai
+di LilyPond, come @code{\tieUp} e @code{\slurDotted}.  Vedrai
 che questi non sono altro che definizioni di variabili che
 contengono uno o più comandi @code{\override}.  Ad esempio,
-@code{/tieDotted} è definito così:
+@code{\tieDotted} è definito così:
 
 @example
 tieDotted = @{
