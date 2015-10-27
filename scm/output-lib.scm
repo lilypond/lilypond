@@ -999,8 +999,8 @@ underlying accumulation.
 If @var{data} is @code{#f} or @code{'()}, it is not included in the sum."
   (cond ((or (not data) (null? data))
          func)
-        ((or (ly:unpure-pure-container func)
-             (ly:unpure-pure-container data))
+        ((or (ly:unpure-pure-container? func)
+             (ly:unpure-pure-container? data))
          (ly:make-unpure-pure-container
           (lambda rest
             (plus (apply ly:unpure-call func rest)
