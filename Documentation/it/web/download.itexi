@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 30773c8a2cca86f5f4a6d3c4e0ba4359e5d05f91
+    Translation of GIT committish: 43c2555cc5bef3b10f0f9d5c5431697fe7b4cb3c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -479,7 +479,8 @@ che contiene i file eseguibili di LilyPond, in questo modo:
 [@var{pre-set paths}];@var{DIR}\LilyPond\usr\bin
 @end example
 
-@warning{@var{DIR} generalmente è @code{C:@bs{}Program Files}.}
+@warning{@var{DIR} generalmente è @code{C:@bs{}Program Files (x86)} per i
+sistemi a 64 bit e @code{C:@bs{}Program Files} per quelli a 32 bit.}
 
 @noindent
 e clicca il bottone @qq{OK} per chiudere la finestra.

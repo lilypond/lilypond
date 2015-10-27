@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 30773c8a2cca86f5f4a6d3c4e0ba4359e5d05f91
+    Translation of GIT committish: 674ed28bf0355426499a9ce19562d11d1addca42
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -179,32 +179,32 @@ potrebbe essere utile per altri dovrebbe essere inviata a una delle mailing list
 @subsubheading Altre lingue
 
 @quotation
+
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
+mailing list francese}
+
+@uref{http://groups.google.com/group/lilypond-brasil,
+gruppo portoghese}
+
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
 mailing list spagnola}
 
 @uref{http://www.lilypondforum.de/,
 forum tedesco}
 
-@uref{http://groups.google.com/group/lilypond-brasil,
-gruppo portoghese}
-
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
-mailing list francese}
-
-@uref{http://www.lilypondforum.nl/,
-forum olandese}
 @end quotation
 
 @divEnd
 
 
 @divClass{column-right-top}
-@subheading Resta informato
+@subheading LilyPond Blog
 
-@subsubheading LilyPond Report
+Leggi il blog gestito dalla comunità, @q{Scores of Beauty}:
 
-Il modo più semplice per restare in contatto è leggere la newsletter della
-nostra comunità, il @uref{http://web.archive.org/web/20110325004849/http://news.lilynet.net/, LilyPond Report}.
+@example
+@uref{http://lilypondblog.org}
+@end example
 
 @subsubheading Mailing list dei rilasci: @code{info-lilypond@@gnu.org}
 
@@ -230,12 +230,12 @@ archivio 3}
 
 
 @divClass{column-right-bottom}
-@subheading Discussione per gli Sviluppatori
+@subheading Luoghi di discussione per sviluppatori e traduttori
 
 @subsubheading Mailing list degli sviluppatori: @code{lilypond-devel@@gnu.org}
 
-Gran parte delle discussioni tra sviluppatori ha luogo in questa lista.  Le
-pezze (patch) devono essere inviate qui.
+Le discussioni tra sviluppatori hanno luogo in questa lista.  Le
+@q{patch} possono essere inviate anche qui.
 
 @quotation
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel,
@@ -255,7 +255,8 @@ scrivi alla lista lilypond-devel tramite gmane}
 
 @subsubheading Mailing list dei bug: @code{bug-lilypond@@gnu.org}
 
-Le discussioni relative ai bug hanno luogo qui.
+Questa lista è dedicata alla segnalazione di bug e alle discussioni sui
+problemi di LilyPond. Non inviare @q{patch} qui.
 
 @quotation
 @uref{http://lists.gnu.org/mailman/listinfo/bug-lilypond,
@@ -274,13 +275,15 @@ archivio 3}
 @warning{Prima di inviare un messaggio alla lista bug, leggi le nostre
 linee guida per la @ref{Segnalazione bug}.}
 
-@divEnd
+@subsubheading Mailing list dei traduttori: @code{translations@@lilynet.org}
 
-@divClass{column-right-bottom}
-@subheading Email delicate
+Tutte le discussioni relative alla traduzione dei manuali di LilyPond deve
+avere luogo qui.  Non inviare patch a questa lista.
 
-Le questioni private devono essere inviate a Graham Percival (project
-manager), che ne discuterà con gli interessati.
+@quotation
+@uref{http://lilypond-translations.3384276.n2.nabble.com/,
+Archivio della mailing list dei traduttori}
+@end quotation
 
 @divEnd
 
@@ -536,7 +539,7 @@ mostrino come dovrebbe apparire secondo te!
 
 @divClass{keep-bullets}
 @divClass{column-left-top}
-@subheading Remunerazioni
+@subheading Remunerazioni (bounty)
 
 In passato,
 
@@ -596,7 +599,7 @@ Un buon modo per sapere quali sono gli sviluppatori più attivi e preparati
 Sviluppatori interessati:
 @table @asis
 @item @email{dak@@gnu.org, David Kastrup}
-Le remunerazioni sono necessarie per poter continuare il mio lavoro a tempo
+Le donazioni mi permettono di continuare il mio lavoro a tempo
 pieno su LilyPond.  Mi occupo in particolare di progettazione, coerenza,
 implementazione, semplificazione, documentazione e debug dell'interfaccia
 utente e programmatore.
@@ -916,11 +919,8 @@ più righi e alcuni di questi hanno degli abbellimenti mentre altri
 non ce li hanno.
 
 @strong{Difficoltà:} media
-
 @strong{Requisiti:} C++, MIDI
-
 @strong{Consigliato:} familiarità col funzionamento interno di LilyPond
-
 @strong{Mentore/i:} Mike Solomon, Carl Sorensen
 
 @divEnd
@@ -959,13 +959,13 @@ formattazione per ogni oggetto di output ai tag XML.
 
 
 @strong{Difficoltà:} media
-
 @strong{Requisiti:} MusicXML, Python, conoscenza di base di LilyPond
-
 @strong{Mentore/i:} Reinhold Kainhofer, Mike Solomon
 
-è auspicabile una certa familiarità con altri software di notazione musicale (a
+È auspicabile una certa familiarità con altri software di notazione musicale (a
 fine comparativo).
+
+@divEnd
 
 @divClass{column-center-middle-color3}
 @subheading Migliorare le legature di portamento e di valore
@@ -977,12 +977,10 @@ includere la raccolta e la classificazione di esempi di output scadente, la
 decisione sull'output desiderato e la scrittura del codice per migliorarlo.
 
 @strong{Difficoltà:} difficile
-
 @strong{Requisiti:} C++, esperienza con la scrittura di euristica
-
 @strong{Conoscenze consigliate:} conoscenza di LilyPond, senso estetico
-
 @strong{Mentore/i:} Mike Solomon
+
 @divEnd
 
 @divClass{column-center-middle-color3}
@@ -990,6 +988,7 @@ decisione sull'output desiderato e la scrittura del codice per migliorarlo.
 
 @divClass{keep-bullets}
 @itemize
+
 @item
 Aggiungere varianti @q{sulla} linea del rigo e @q{tra} le linee dei righi.
 
@@ -1003,30 +1002,26 @@ piccolo e più grande.
 @divEnd
 
 @strong{Difficoltà:} facile
-
 @strong{Requisiti:} MetaFont, C++, buon occhio per il dettaglio
-
 @strong{Conoscenze consigliate:} conoscenza di base di LilyPond
-
 @strong{Mentore/i:} Werner Lemberg
+
 @divEnd
 
 
 @divClass{column-center-middle-color3}
 @subheading Migliorare la disposizione predefinita delle travature
 
-Il posizionamento predefinito delle travature normali, tra i righi, spezzate e angolari
-deve essere migliorato.  La disposizione delle travature deve dipendere dal contesto
-e dalle note vicine (si veda la
-@uref{http://icking-music-archive.org/lists/sottisier/sottieng.pdf, sezione 2.2 qui}).
-Se possibile, ridurre anche il tempo di elaborazione della disposizione delle travature.
+Il posizionamento predefinito delle travature normali, tra i righi, spezzate e
+angolari deve essere migliorato.  La disposizione delle travature deve dipendere
+dal contesto e dalle note vicine (si veda la
+@uref{http://icking-music-archive.org/lists/sottisier/sottieng.pdf, sezione 2.2
+qui}). Se possibile, ridurre anche il tempo di elaborazione della disposizione
+delle travature.
 
 @strong{Difficoltà:} media
-
 @strong{Requisiti:} C++, esperienza con la scrittura di euristiche
-
 @strong{Conoscenze consigliate:} senso estetico
-
 @strong{Mentore/i:} Mike Solomon, Carl Sorensen
 
 @divEnd
@@ -1037,13 +1032,11 @@ Se possibile, ridurre anche il tempo di elaborazione della disposizione delle tr
 Strumenti di analisi automatica del codice, come il rilevamento di
 perdite di memoria di valgrind e i profilatori di codice di callgrind,
 forniscono informazioni utili per individuare possibili errori nel
-nostro codice C++.  Pulire gli avvisi ci permetterebbe automatizzare
+nostro codice C++.  Pulire gli avvisi ci permetterebbe di automatizzare
 il rifiuto di qualsiasi patch che introduca avvisi ulteriori.
 
 @strong{Difficoltà:} media
-
 @strong{Requisiti:} C++
-
 @strong{Mentore/i:} Joe Neeman, Reinhold Kainhofer
 
 @divEnd

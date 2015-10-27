@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 8d79501773810429b8294c7a2234884775b12600
+    Translation of GIT committish: 9ad34fa5feb4c06300f274335959d25c3b33033e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -184,9 +184,10 @@ e le codette sono posizionate automaticamente!
 
 Inserisci frammenti di musica nel testo senza dover tagliare e incollare
 immagini.  Integra comodamente la musica in @LaTeX{} o HTML, o aggiungi la
-musica in OpenOffice.org/LibreOffice con OOoLilyPond.  Esistono anche dei
-plugin che permettono di usare l'input di LilyPond in blog e wiki, rendendo
-possibile la collaborazione online.
+musica in OpenOffice.org e LibreOffice con
+@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond}.
+Esistono anche dei plugin che permettono di usare l'input di LilyPond in blog e
+wiki, rendendo possibile la collaborazione online.
 
 
 @subsubheading Accessibilità
@@ -598,7 +599,7 @@ LilyPond, per prima cosa informati sul nostro @ref{Input testuale}.
 @unnumberedsec Produzioni
 @translationof Productions
 
-@divClass{column-left-top}
+@divClass{column-center-top}
 
 @subheading Produzioni che usano LilyPond
 
@@ -608,6 +609,7 @@ che per le partiture pubblicate.
 
 @divEnd
 
+@divClass{column-left-top}
 @subheading Concerti
 
 Lilypond è stato usato per esecuzioni in tutto il mondo.
@@ -618,13 +620,18 @@ In evidenza:
 
 @item
 @uref{http://www.aurelienbello.com/,Aurélien Bello} ha arrangiato una
-versione @q{ridotta} del @emph{Der Rosenkavalier} di Richard Strauss
-per quattro voci e un'orchestra da camera di tredici musicisti.  Verrà
-eseguita il
+versione del @emph{Der Rosenkavalier} di Richard Strauss
+per quattro voci e un'orchestra da camera di tredici musicisti.  È stata
+commissionata dall'Orchestra Filarmonica di Berlino i cui membri saranno
+gli esecutori il
 @uref{http://www.festspielhaus.de/veranstaltung/der-kleine-rosenkavalier-02-04-2015-1100/,2 e 6 Aprile}
-al Festspielhaus, Baden-Baden, e poi di nuovo il
+al Festspielhaus, Baden-Baden, e poi il
 @uref{http://www.berliner-philharmoniker.de/konzerte/kalender/details/21070/,26 Aprile}
-al @emph{Großer Saal}, Berlino.
+alla @emph{Großer Saal} della Philarmonie di Berlino.
+Siamo contenti di vedere musicisti di tale reputazione suonare leggendo
+partiture prodotte da LilyPond (e, a quanto si dice, sono molto soddisfatti
+di queste partiture).
+
 Aurélien ha anche riorchestrato il @emph{Der Ring des Nibelungen} di Richard Wagner in una
 @uref{http://www.rsb-online.de/content/konzerte/wagnerzyklus-10-13/wagner-fuer-kinder/index_ger.html,100-
 versione ridotta per bambini}.
@@ -640,9 +647,9 @@ Joe Smeets ha creato una partitura per il libro di bambini @emph{Zing Mee}
 @uref{http://www.queridokinderenjeugdboeken.nl/web/Boek.htm?dbid=18954&typeofpage=134707, www.queridokinderenjeugdboeken.nl};
 le partiture delle prove del coro per la traduzione olandese del
 @emph{Saint Nicolas} di Benjamin Britten sono state eseguite dal
-@emph{Muziektheater Hollands Diep} nel 2011:
+@emph{Muziektheater Hollands Diep} nel 2011;
 @uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft, www.muziektheaterhollandsdiep.nl}.
-Ha lavorato alla partitura e alle parti di un arrangiamento del
+Ha lavorato anche alla partitura e alle parti di un arrangiamento del
 @emph{Boris Godounov} di Moussurgsky per quartetto d'archi, pianoforte e
 percussioni, eseguito nel 2014, di nuovo dal @emph{Muziektheater Hollands Diep}.
 
@@ -1379,6 +1386,12 @@ esportare in formato LilyPond, ma è un software ancora in beta.  Gli utenti
 che vogliono provarlo sono benvenuti.
 
 @item
+@uref{http://extensions.services.openoffice.org/en/project/OOoLilyPond,OOoLilypond},
+un'estensione di OpenOffice.org che converte i file di LilyPond in immagini
+incluse nei documenti di OpenOffice.org.  Sebbene non sia più sviluppato,
+sembra che funzioni ancora nella versione 4.
+
+@item
 @uref{http://enc2ly.sourceforge.net/en/,Enc2ly} è un programma GNU/Linux che
 converte uno spartito Encore in uno in formato LilyPond.
 
@@ -1387,10 +1400,6 @@ converte uno spartito Encore in uno in formato LilyPond.
 converte i file Encore in formato LilyPond. È stato creato grazie al
 lavoro di ricerca e di reverse engineering di Felipe Castro, che ha
 modificato file .enc esistenti e li ha caricati usando la versione demo 4.55.
-
-@item
-@uref{http://www.musescore.org,MuseScore}, un editor di partiture, ha un'esportazione
-in formato LilyPond incompleta ma è in attivo sviluppo.
 
 @item
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd},
@@ -1455,17 +1464,22 @@ creato come plugin dell'editor di testo @uref{http://www.jedit.org,jEdit}.
 LilyKDE3 per KDE 3.5 e lilypond-KDE4 per KDE 4.1.
 
 @item
+@uref{http://lilycomp.sourceforge.net, LilyComp} è un programma grafico di
+inserimento note, che si comporta in modo molto simile a un tastierino numerico
+che produce note nella sintassi di LilyPond.
+
+@item
+@uref{http://www.musescore.org,MuseScore}, un editor di partiture.
+L'esportazione in formato LilyPond è stata rimossa nella versione 2.0 ma
+sono ancora disponibili e scaricabili le versioni precedenti su
+@uref{http://sourceforge.net/projects/mscore/files/mscore/,Sourceforge}.
+
+@item
 @uref{http://noteedit.berlios.de,NoteEdit}, che importava
 @uref{http://www.makemusic.com/musicxml,MusicXML}, è stato "forkato"
 in
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 e @uref{http://canorus.org,Canorus}.
-
-
-@item
-@uref{http://lilycomp.sourceforge.net, LilyComp} è un programma grafico ad
-inserimento note, che si comporta in modo molto simile a un tastierino numerico
-che produce note di LilyPond.
 
 @item
 @uref{https://launchpad.net/rumor/,Rumor}, un convertitore
