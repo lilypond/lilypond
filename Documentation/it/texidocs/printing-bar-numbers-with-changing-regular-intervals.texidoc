@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+  texidocit = "
+È possibile stampare i numeri di battuta a intervalli regolari impostando
+la proprietà @code{barNumberVisibility}. Nell'esempio seguente i numeri di
+battuta sono stampati ogni due misure ad eccezione della fine della linea.
+
+"
+  doctitleit = "Stampare i numeri di battuta a intervalli regolari"
+

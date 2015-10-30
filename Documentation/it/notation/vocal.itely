@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 85911b93739aed7bb9858ac950e975cd1343bfe6
+    Translation of GIT committish: 88cfc9ee61dece9cffff98ab7f10318633698c39
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -790,12 +790,12 @@ Se un melisma è necessario in un passaggio in cui @code{melismaBusyProperties}
 è attivo, lo si può indicare inserendo un singolo trattino basso nel testo
 per ogni nota che debba essere inclusa nel melisma:
 
-@lilypond[relative=1,verbatim,quote]
+@lilypond[verbatim,quote]
 <<
-  \new Voice = "melody" {
+  \new Voice = "melody" \relative {
     \time 3/4
     \set melismaBusyProperties = #'()
-    c4 d ( e )
+    c'4 d ( e )
     g8 [ f ] ~ f4 ~ 4
   }
   \new Lyrics \lyricsto "melody" {
@@ -1383,9 +1383,10 @@ Per posizionarli correttamente usare @code{alignBelowContext}:
 @cindex ripetere il testo vocale con finali alternativi
 @cindex finali alternativi e testo vocale
 
-Se le parole della sezione ripetuta sono le stesse, si può
-usare la stessa identica struttura sia per il testo che per
-la musica.
+Se le parole della sezione ripetuta sono le stesse, e nessuno dei finali
+alternativi inizia con una pausa, si può usare la stessa identica struttura sia
+per il testo che per la musica.  Ciò comporta il vantaggio che
+@code{unfoldRepeats} espanderà correttamente sia la musica che il testo vocale.
 
 @lilypond[quote,verbatim]
 \score {
@@ -1415,10 +1416,10 @@ la musica.
 @cindex saltare le note nel teso vocale
 @cindex testo vocale, saltare le note
 
-Ma quando la sezione ripetuta ha parole diverse, non si può usare
-il costrutto della ripetizione per le parole e bisogna inserire
-manualmente i comandi @code{\skip} per le note delle sezioni
-alternative prive di un testo corrispondente.
+Ma quando la sezione ripetuta ha parole diverse o uno dei blocchi
+@code{\alternative} inizia con una pausa, non si può usare il costrutto della
+ripetizione per le parole e bisogna inserire manualmente i comandi @code{\skip}
+per le note delle sezioni alternative prive di un testo corrispondente.
 
 Attenzione: non usare il trattino basso, @code{_}, per saltare le note,
 perché il trattino basso indica un melisma e fa sì che la sillaba
@@ -1748,7 +1749,7 @@ altoTwo = \relative { d'2 g4( fis8 g) }
 aligner = \relative { b'8( c d c) d( d d d) }
 words = \lyricmode { la __ la __ }
 
-\new ChoirStaff <<
+\new ChoirStaff \with {\accepts NullVoice } <<
   \new Staff <<
     \soprano
     \new NullVoice = "aligner" \aligner
@@ -2696,10 +2697,7 @@ pianoRH = \relative {
   c''4. g8
   % posiziona il nome dello strumento citato proprio prima delle citazioni in corpo piccolo,
   % e sopra il rigo
-  \new CueVoice {
-    \override InstrumentSwitch.self-alignment-X = #RIGHT
-    \set instrumentCueName = "Flute"
-  }
+  <>^\markup { \right-align { \tiny "Flute" } }
   \cueDuring "flute" #UP { g4 bes4 }
 }
 pianoLH = \relative { c4 <c' e> e, <g c> }
@@ -2723,11 +2721,7 @@ sue notine sia fatta automaticamente.  Il prossimo esempio mostra questa
 trasposizioone per un clarinetto in Si bemolle.  Le note in questo esempio
 si trovano in basso nel rigo, quindi viene specificato @code{DOWN} in
 @code{\cueDuring} (in modo che i gambi vadano giù) e il nome dello strumento
-è posizionato sotto il rigo.  Si noti anche che la voce della mano destra
-del pianoforte è dichiarata esplicitamente.  Ciò è dovuto al fatto che le
-notine in questo esempio si trovano all'inizio della prima battuta e ciò
-altrimenti farebbe sì che tutte le note della mano destra siano posizionate
-in un contesto @code{CueVoice}.
+è posizionato sotto il rigo.
 
 @lilypond[quote,verbatim]
 clarinet = \relative c' {
@@ -2739,10 +2733,7 @@ clarinet = \relative c' {
 pianoRH = \relative c'' {
   \transposition c'
   % posiziona il nome dello strumento citato sotto il rigo
-  \new CueVoice {
-    \override InstrumentSwitch.self-alignment-X = #RIGHT
-    \override InstrumentSwitch.direction = #DOWN
-    \set instrumentCueName = "Clar."
+  <>_\markup { \right-align { \tiny "Clar." } }
   }
   \cueDuring "clarinet" #DOWN { c4. g8 }
   g4 bes4
@@ -2791,7 +2782,6 @@ Frammenti:
 @rlsr{Vocal music}.
 
 Guida al funzionamento interno:
-@rinternals{InstrumentSwitch},
 @rinternals{CueVoice}.
 
 @knownissues

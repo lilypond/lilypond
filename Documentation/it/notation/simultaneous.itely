@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 01980ec7e46ccd03ff7a379b6299842d788b8f8a
+    Translation of GIT committish: 918231bde3dd1cb29865b5f29ee3c1fadee93935
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -83,9 +83,12 @@ dell'accordo.
 }
 @end lilypond
 
-Tuttavia, alcuni elementi della notazione, come le dinamiche, le forcelle e le
-legature di portamento, devono essere attaccate all'accordo invece che alle
-sue singole note, altrimenti non appariranno.
+Tuttavia, alcuni elementi della notazione, come le dinamiche e le forcelle,
+devono essere attaccate all'accordo invece che alle sue singole note, altrimenti
+non appariranno.  Altri elementi della notazione, come le diteggiature e le
+legature di portamento, saranno posizionate in modo nettamente diverso se
+attaccate alle note di un accordo invece che a un accordo intero o a singole
+note.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -208,9 +211,11 @@ nel frattempo sono state inserite altre note (senza accordi) o pause.
 Tuttavia questo simbolo non conserva le dinamiche, le articolazioni o
 gli abbellimenti dell'accordo precedente.
 
-@lilypond[verbatim,quote,relative=2]
-<a-. c\prall e>1\sfz c'4 q2 r8 q8 |
-q2 c, |
+@lilypond[verbatim,quote]
+\relative {
+  <a'-. c\prall e>1\sfz c'4 q2 r8 q8 |
+  q2 c, |
+}
 @end lilypond
 
 Per far sì che alcuni elementi siano conservati, si può invocare esplicitamente
@@ -276,15 +281,17 @@ elementi dell'espressione simultanea saranno messi in righi separati.
 
 Gli esempi seguenti mostrano espressioni simultanee su un rigo:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 \new Voice {  % voce singola esplicita
-  << { a4 b g2 } { d4 g c,2 } >>
+  << \relative { a'4 b g2 }
+     \relative { d'4 g c,2 } >>
 }
 @end lilypond
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 % prima nota singola
-a << { a4 b g } { d4 g c, } >>
+a' << \relative { a'4 b g }
+      \relative { d'4 g c, } >>
 @end lilypond
 
 Questo può essere utile se le sezioni simultanee hanno durate
@@ -303,18 +310,18 @@ Per poter inserire gambi o travature multiple e variare le durate o
 altre proprietà di note riferibili allo stesso momento musicale,
 occorre usare più voci.
 
-L'esempio seguente mostra  come le espressioni simultanee possano
+L'esempio seguente mostra come le espressioni simultanee possano
 generare implicitamente righi multipli:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 % nessuna singola nota precede l'espressione simultanea
-<< { a4 b g2 } { d4 g2 c,4 } >>
+<< \relative { a'4 b g2 }
+   \relative { d'4 g2 c,4 } >>
 @end lilypond
 
 In questo caso le durate diverse non causano problemi perché sono
 interpretate in voci diverse.
 
-@cindex collisioni, troppe colonne di note che si urtano
 @cindex collisioni, ignorare
 
 @knownissues
@@ -322,7 +329,7 @@ Se le note appartenenti a due o più voci, senza che sia stato specificato
 uno spostamento, hanno i gambi nella stessa direzione, il messaggio
 
 @example
-attenzione: troppe collisioni tra colonne di note, ignorate
+attenzione: questa voce ha bisogno di un'impostazione \voiceXx o \shiftXx
 @end example
 
 apparirà durante la compilazione del file.  Si può evitare con:
@@ -417,12 +424,12 @@ Questa sezione presenta le note simultanee in più voci o più righi.
 La struttura di base necessaria per ottenere più voci indipendenti in un
 solo rigo è illustrata nell'esempio seguente:
 
-@lilypond[quote,relative=3,verbatim]
+@lilypond[quote,verbatim]
 \new Staff <<
   \new Voice = "prima"
-    { \voiceOne r8 r16 g e8. f16 g8[ c,] f e16 d }
+    \relative { \voiceOne r8 r16 g'' e8. f16 g8[ c,] f e16 d }
   \new Voice= "seconda"
-    { \voiceTwo d16 c d8~ 16 b c8~ 16 b c8~ 16 b8. }
+    \relative { \voiceTwo d''16 c d8~ 16 b c8~ 16 b c8~ 16 b8. }
 >>
 @end lilypond
 
@@ -916,13 +923,13 @@ are at the same time differently dotted are not clear.
 @funindex \partcombine
 @funindex partcombine
 
-La combinazione automatica delle parti si usa per combinare in un unico
-rigo due parti musicali separate.  Ciò è utile soprattutto quando si scrivono
-partiture orchestrali.  Viene stampata una sola voce se le due parti
-musicali sono identiche, ma nei punti in cui sono diverse viene
-aggiunta una seconda voce.  Le direzioni dei gambi sono impostate
-in su e in giù in base alla voce di appartenenza, mentre le sezioni solistiche e @notation{a due}
-sono a loro volta identificate e contrassegnate.
+La combinazione automatica delle parti si usa per combinare in un unico rigo due
+parti musicali separate.  Ciò è utile soprattutto quando si scrivono partiture
+orchestrali.  Viene stampata una sola voce se le due parti musicali sono
+identiche, ma nei punti in cui sono diverse viene aggiunta una seconda voce.  Le
+direzioni dei gambi sono impostate in su e in giù in base alla voce di
+appartenenza, mentre le sezioni solistiche e @notation{a due} sono a loro volta
+identificate e contrassegnate.
 
 La sintassi per la combinazione automatica delle parti è:
 
@@ -969,6 +976,39 @@ gambi in @qq{giù}. In caso di parti solistiche, la prima e seconda
 parte sono contrassegnate rispettivamente con @qq{Solo} e @qq{Solo II}.
 Le parti (@notation{a due}) all'unisono sono contrassegnate con la
 scritta @qq{a2}.
+
+Il comportamento predefinito del combinatore delle parti è
+quello di unire due note della stessa altezza in una nota @notation{a due},
+combinare in un accordo note della stessa durata e separate da un intervallo
+inferiore alla nona e separare in voci distinte le note con un intervallo
+superiore alla nona (o quando le voci collidono). Tale comportamento può
+essere modificato con un argomento opzionale di una coppia di numeri dopo
+il comando @code{\partcombine}: il primo indica l'intervallo in cui le note
+iniziano a essere combinate (il valore predefinito è zero) e il secondo
+dove le note vengono divise in note distinte.  Impostando il secondo argomento
+su zero, il combinatore delle parti divide le note che hanno un intervallo
+di una seconda o più; impostandolo su uno, divide le note di una terza o
+più, e così via.
+
+@lilypond[quote,verbatim]
+instrumentOne = \relative {
+  a4 b c d |
+  e f g a |
+  b c d e |
+}
+
+instrumentTwo = \relative {
+  c'4 c c c |
+  c c c c |
+  c c c c |
+}
+
+<<
+  \new Staff \partcombine \instrumentOne \instrumentTwo
+  \new Staff \partcombine #'(2 . 3) \instrumentOne \instrumentTwo
+>>
+@end lilypond
+
 
 Entrambi gli argomenti di @code{\partcombine} sono interpretati come
 contesti @code{Voice} separati, dunque se la musica viene inserita in

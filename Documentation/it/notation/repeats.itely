@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: c91fbc19fc727ed8ef98241b86deaedfb954f1ef
+    Translation of GIT committish: ca2d9d22be422c4de98bc246dc94f7f2fd274dd2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -191,20 +191,22 @@ misura completa.  In queste situazioni i segni di ripetizione non
 sono delle vere e proprie stanghette.  Non usare il comando @code{\partial}
 o i controlli di battuta nel punto in cui si trovano questi segni:
 
-@lilypond[verbatim,quote,relative=1]
-% nessun \partial qui
-c4 e g  % nessun controllo di battuta qui
-% nessun \partial qui
-\repeat volta 4 {
-  e4 |
-  c2 e |
+@lilypond[verbatim,quote]
+\relative {
   % nessun \partial qui
-  g4 g g  % nessun controllo di battuta qui
+  c'4 e g  % nessun controllo di battuta qui
+  % nessun \partial qui
+  \repeat volta 4 {
+    e4 |
+    c2 e |
+    % nessun \partial qui
+    g4 g g  % nessun controllo di battuta qui
+  }
+  % nessun \partial qui
+  g4 |
+  a2 a |
+  g1 |
 }
-% nessun \partial qui
-g4 |
-a2 a |
-g1 |
 @end lilypond
 
 Analogalmente, se una ripetizione inizia con la misura parziale a inizio
@@ -212,18 +214,20 @@ della partitura e non ha finali alternativi, si applicano le stesse
 condizioni dell'esempio precedente, a parte il fatto che in questo
 caso è richiesto il comando @code{\partial} all'inizio della partitura:
 
-@lilypond[verbatim,quote,relative=1]
-\partial 4  % necessario
-\repeat volta 4 {
-  e4 |
-  c2 e |
+@lilypond[verbatim,quote]
+\relative {
+  \partial 4  % necessario
+  \repeat volta 4 {
+    e4 |
+    c2 e |
+    % nessun \partial qui
+    g4 g g  % nessun controllo di battuta qui
+  }
   % nessun \partial qui
-  g4 g g  % nessun controllo di battuta qui
+  g4 |
+  a2 a |
+  g1 |
 }
-% nessun \partial qui
-g4 |
-a2 a |
-g1 |
 @end lilypond
 
 
@@ -332,16 +336,6 @@ comando @code{\defineBarLine} (vedi @ref{Bar lines}).
   f2 g \bar "]" a b
   c1_"D.S." \bar "|."
 }
-@end lilypond
-
-
-@lilypond[verbatim,quote,relative=1]
-e1
-\repeat volta 2 {
-  \inStaffSegno
-  f2 g a b
-}
-c1_"D.S." \bar "|."
 @end lilypond
 
 @snippets
@@ -797,6 +791,26 @@ Guida al funzionamento interno:
 @rinternals{DoublePercentRepeatCounter},
 @rinternals{Double_percent_repeat_engraver},
 @rinternals{Slash_repeat_engraver}.
+
+@knownissues
+Le ripetizioni con percentuale non contengono nient'altro che il segno
+di percentuale; in particolare, i cambi di tempo non saranno ripetuti.
+
+@lilypond[quote,verbatim,relative=2]
+\repeat percent 3 { \time 5/4 c2. 2 \time 4/4 2 2 }
+@end lilypond
+
+@noindent
+Qualsiasi cambio di tempo o comando @code{\partial} devono trovarsi in
+passaggi paralleli @emph{esterni} a qualsiasi ripetizione con percentuale,
+per esempio su una traccia di tempo separata.
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  \repeat percent 3 { c2. 2 2 2 }
+  \repeat unfold 3 { \time 5/4 s4*5 \time 4/4 s1 }
+>>
+@end lilypond
 
 
 @node Ripetizioni con tremolo

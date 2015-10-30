@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 38a17c6133689ec42e6b8ecca925be59f3b78962
+    Translation of GIT committish: 45c9b27033acc2890f44e7eb08c29c737ca9111f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -989,65 +989,45 @@ a quel contesto.  Ulteriori dettagli in @ref{Modifying context plug-ins}.
 @cindex nomi degli strumenti, modifica
 @cindex modificare i nomi degli strumenti
 
-@code{shortInstrumentName} può essere cambiato all'interno di un brano, mentre
-di @code{instrumentName} apparirà solo la prima definizione e le modifiche
+@code{shortInstrumentName} può essere cambiato all'interno di un brano, insieme
+a altre impostazioni necessarie al nuovo strumento.  Tuttavia, di
+@code{instrumentName} apparirà solo la prima definizione e le modifiche
 successive saranno ignorate:
 
-@lilypond[verbatim,quote,ragged-right,relative=1]
+@lilypond[verbatim,quote,ragged-right]
+prepPiccolo = <>^\markup \italic { muta in Piccolo }
+
+setPiccolo = {
+  \set Staff.instrumentName = #"Piccolo"
+  \set Staff.shortInstrumentName = #"Picc."
+  \set Staff.midiInstrument = #"piccolo"
+  <>^\markup \bold { Piccolo }
+  \transposition c''
+}
+
+prepFlute = <>^\markup \italic { muta in Flauto }
+
+setFlute = {
+  \set Staff.instrumentName = #"Flute"
+  \set Staff.shortInstrumentName = #"Flt."
+  \set Staff.midiInstrument = #"flute"
+  <>^\markup \bold { Flute }
+  \transposition c'
+}
+
 \new Staff \with {
   instrumentName = #"Flute"
   shortInstrumentName = #"Flt."
+  midiInstrument = #"flute"
 }
-{
-  c1 c c c \break
-  c1 c c c \break
-  \set Staff.instrumentName = #"Clarinet"
-  \set Staff.shortInstrumentName = #"Clt."
-  c1 c c c \break
-  c1 c c c \break
-}
-@end lilypond
-
-@cindex cambio di strumento
-@cindex strumento, cambio di
-
-@funindex \addInstrumentDefinition
-@funindex addInstrumentDefinition
-@funindex \instrumentSwitch
-@funindex instrumentSwitch
-
-Se serve un @emph{cambio} di strumento, si può usare
-@code{\addInstrumentDefinition} insieme a
-@code{\instrumentSwitch} per creare una lista dettagliata delle
-modifiche necessarie per il cambio.  Il comando
-@code{\addInstrumentDefinition} prende due argomenti: una stringa
-testuale per identificare lo strumento, e una lista di associazione
-delle proprietà di contesto e dei valori da usare.
-Deve trovarsi nell'ambito di più alto livello.  Per dichiarare il cambio di
-strumento, si usa il comando @code{\instrumentSwitch}, all'interno
-dell'espressione musicale, :
-
-@lilypond[verbatim,quote,ragged-right]
-\addInstrumentDefinition #"contrabassoon"
-  #`((instrumentTransposition . ,(ly:make-pitch -1 0 0))
-     (shortInstrumentName . "Cbsn.")
-     (clefGlyph . "clefs.F")
-     (middleCPosition . 6)
-     (clefPosition . 2)
-     (instrumentCueName . ,(make-bold-markup "cbsn."))
-     (midiInstrument . "bassoon"))
-
-\new Staff \with {
-  instrumentName = #"Bassoon"
-}
-\relative c' {
-  \clef tenor
-  \compressFullBarRests
-  c2 g'
-  R1*16
-  \instrumentSwitch "contrabassoon"
-  c,,2 g \break
-  c,1 ~ | 1
+\relative {
+  g'1 g g g \break
+  g1 g \prepPiccolo R R \break
+  \setPiccolo
+  g1 g g g \break
+  g1 g \prepFlute R R \break
+  \setFlute
+  g1 g g g
 }
 @end lilypond
 
@@ -1133,6 +1113,42 @@ oboeNotes = \relative {
   <<
     \new Staff \with { instrumentName = "Flute" } \fluteNotes
     \new Staff \with { instrumentName = "Oboe" } \oboeNotes
+  >>
+}
+@end lilypond
+
+@c Frase non chiara, traduco letteralmente. - fb
+Se un comando @code{\unfoldRepeat} in un'espressione musicale deve essere
+stampato quando si usa @code{\quoteDuring}, allora anch'esso deve contenere
+il suo comando @code{\unfoldRepeat};
+
+@lilypond[verbatim,quote]
+fluteNotes = \relative {
+  \repeat volta 2 { a'4 gis g gis }
+}
+
+oboeNotesDW = \relative {
+  \repeat volta 2 \quoteDuring #"incorrect" { s1 }
+}
+
+oboeNotesW = \relative {
+  \repeat volta 2 \quoteDuring #"correct" { s1 }
+}
+
+
+\addQuote "incorrect" { \fluteNotes }
+
+\addQuote "correct" { \unfoldRepeats \fluteNotes }
+
+\score {
+  \unfoldRepeats
+  <<
+    \new Staff \with { instrumentName = "Flute" }
+    \fluteNotes
+    \new Staff \with { instrumentName = "Oboe (incorrect)" }
+    \oboeNotesDW
+    \new Staff \with { instrumentName = "Oboe (correct)" }
+    \oboeNotesW
   >>
 }
 @end lilypond
@@ -1334,7 +1350,7 @@ fluteNotes = \relative {
 
 oboeNotes = \relative c'' {
   R1
-  \new CueVoice { \set instrumentCueName = "flute" }
+  <>^\markup \tiny { flute }
   \cueDuring #"flute" #UP { R1 }
   g2 c,
 }
@@ -1377,13 +1393,10 @@ oboeNotes = \relative {
 }
 @end lilypond
 
-Il nome dello strumento che suona la citazione si imposta con la proprietà
-@code{instrumentCueName} in un contesto @code{CueVoice} temporaneo.  Il
-posizionamento e lo stile di @code{instrumentCueName} è regolato dall'oggetto
-@code{instrumentSwitch}, vedi @ref{Instrument names}.  Se le citazioni in corpo
-più piccolo richiedono un cambio di chiave, si può fare manualmente ma anche
-il ripristino della chiave originale dovrà essere fatto manualmente al termine
-delle citazioni.
+Si può usare il comando @code{\markup} per mostrare il nome dello strumento
+citato.  Se le citazioni in corpo più piccolo richiedono un cambio di chiave, si
+può fare manualmente, ma anche il ripristino della chiave originale dovrà essere
+fatto manualmente al termine delle citazioni.
 
 @lilypond[verbatim,quote]
 fluteNotes = \relative {
@@ -1394,7 +1407,7 @@ bassoonNotes = \relative c {
   \clef bass
   R1
   \clef treble
-  \new CueVoice { \set instrumentCueName = "flute" }
+  <>^\markup \tiny { flute }
   \cueDuring #"flute" #UP { R1 }
   \clef bass
   g4. b8 d2
@@ -1420,7 +1433,7 @@ fluteNotes = \relative {
 bassoonNotes = \relative c {
   \clef bass
   R1
-  \new CueVoice { \set instrumentCueName = "flute" }
+  <>^\markup { \tiny "flute" }
   \cueDuringWithClef #"flute" #UP #"treble" { R1 }
   g4. b8 d2
 }
@@ -1475,8 +1488,6 @@ bassClarinetNotes = \relative c' {
 
 @funindex \killCues
 @funindex killCues
-@funindex \addInstrumentDefinition
-@funindex addInstrumentDefinition
 
 Il comando @code{\killCues} toglie le citazioni in corpo più piccolo da un'espressione
 musicale, in modo che la stessa espressione musicale possa essere
@@ -1497,7 +1508,7 @@ bassoonNotes = \relative c {
   R1
   \tag #'part {
     \clef treble
-    \new CueVoice { \set instrumentCueName = "flute" }
+    <>^\markup { \tiny "flute" }
   }
   \cueDuring #"flute" #UP { R1 }
   \tag #'part \clef bass

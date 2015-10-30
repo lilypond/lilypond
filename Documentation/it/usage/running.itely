@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 62b428826f37228ab4644dbaabac7935c17ecdcd
+    Translation of GIT committish: 6ea18ce2f407ee754947a4fa18596bb38c8087f5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -133,6 +133,44 @@ della tua shell, del prompt dei comandi (Windows), delle applicazioni
 Terminale o Console (MacOS X), per vedere se la redirezione dell'output
 è supportata o se la sintassi è diversa.
 
+L'esempio seguente cerca e elabora tutti i file di input nella directory
+corrente e in tutte le directory inferiori ricorsivamente.  I file di output
+saranno salvati nella stessa directory in cui è stato lanciato il comando,
+invece delle stesse directory in cui si trovano i file di input.
+
+@example
+find . -name '*.ly' -exec lilypond '@{@}' \;
+@end example
+
+@noindent
+Questo comando dovrebbe funzionare anche in MacOS@tie{}X.
+
+Gli utenti Windows devono lanciare questo comando:
+
+@example
+forfiles /s /M *.ly /c "cmd /c lilypond @@file"
+@end example
+
+@noindent
+nel @code{prompt dei comandi}, che di solito si trova in
+@code{Avvio > Accessori > Prompt dei comandi}, oppure, se si usa la
+versione 8, scrivendo @q{prompt dei comandi} nella finestra di ricerca.
+
+Altrimenti, si può indicare un percorso esplicito alla cartella che
+contiene tutte le sottocartelle con i file di input tramite l'opzione
+@code{/p}:
+
+@example
+forfiles /s /p C:\Documents\MyScores /M *.ly /c "cmd /c lilypond @@file"
+@end example
+
+Tale percorso, se contiene spazi, deve essere racchiuso tra
+virgolette doppie:
+
+@example
+forfiles /s /p "C:\Documents\My Scores" /M *.ly /c "cmd /c lilypond @@file"
+@end example
+
 
 @node Opzioni di base della linea di comando per LilyPond
 @unnumberedsubsec Opzioni di base della linea di comando per LilyPond
@@ -146,6 +184,33 @@ Terminale o Console (MacOS X), per vedere se la redirezione dell'output
 Sono contemplate le seguenti opzioni:
 
 @table @code
+
+@item -b, --bigpdfs
+@cindex bigpdfs
+
+I file PDF generati saranno molto più grandi del normale (a causa
+di un'ottimizzazione dei tipi di carattere scarsa o assente). Tuttavia,
+due o più file PDF, se inclusi in documenti @w{@code{pdftex}},
+@w{@code{xetex}} o @w{@code{luatex}}, possono essere ulteriormente
+elaborati attraverso ghostscript (rimuovendo le duplicazioni dei dati
+dei tipi di carattere), ottenendo così file PDF @emph{molto} più piccoli.
+
+@example
+lilypond -b myfile
+@end example
+
+Poi eseguire @code{ghostscript};
+
+@example
+gs -q -sDEVICE=pdfwrite -o gsout.pdf myfile.pdf
+@end example
+
+Poi si può usare @code{pdfsizeopt.py} per ottimizzare ulteriormente la
+dimensione del file;
+
+@example
+pdfsizeopt.py --use-multivalent=no gsout.pdf final.pdf
+@end example
 
 @item -d, --define-default=@var{variabile}=@var{valore}
 Si veda @ref{Advanced command line options for LilyPond}.
@@ -411,18 +476,43 @@ predefinita di @command{lilypond-book}.
 effetto di @code{-dno-print-pages}.
 
 @item
-@tab @code{svg}
-@tab Scalable Vector Graphics.  Crea un singolo file SVG, senza font
-incorporati, per ogni pagina dell'output.  Si raccomanda di installare i
-font Century Schoolbook, inclusi nell'installazione di LilyPond, per una
-resa ottimale.  In UNIX basta copiare questi font dalla directory di
-LilyPond (solitamente @file{/usr/share/lilypond/VERSION/fonts/otf/}) in
-@file{~/.fonts/}.  C'è anche un'opzione @code{svg-woff} (sotto) per
-poter usare i file di font woff nel backend SVG.
-
-@item
 @tab @code{scm}
 @tab Estrae i comandi di disegno grezzi e interni, basati su Scheme.
+
+@item
+@tab @code{svg}
+@tab Scalable Vector Graphics.
+Crea un singolo file SVG per ogni pagina dell'output.
+L'informazione relativa ai tipi di carattere non è incorporata, dunque
+il lettore SVG dovrà avere accesso ai tipi di carattere per avere una
+resa ottimale.
+Si raccomanda di non usare gli @q{alias} o le @q{liste} dei tipi di carattere
+se il proprio lettore SVG non è in grado di gestirli.  Consultare anche
+l'opzione @code{svg-woff}.
+@end multitable
+
+@noindent
+@strong{Nota per il backend svg:}
+I tipi di carattere predefiniti di LilyPond (@code{LilyPond Serif},
+@code{LilyPond Sans Serif} e @code{LilyPond Monospace}) sono solo alias
+@emph{locali}; dunque quando si usa il backend @code{svg} è obbligatorio
+impostare esplicitamente i tipi di carattere predefiniti;
+
+@quotation
+@verbatim
+\paper  {
+  #(define fonts
+    (make-pango-font-tree "TeX Gyre Schola"
+                          "TeX Gyre Heros"
+                          "TeX Gyre Cursor"
+                          (/ staff-height pt 20)))
+}
+@end verbatim
+@end quotation
+
+Leggere anche @ruser{Entire document fonts}.
+
+@multitable @columnfractions .33 .16 .51
 
 @item @code{check-internal-types}
 @tab @code{#f}
@@ -430,7 +520,11 @@ poter usare i file di font woff nel backend SVG.
 
 @item @code{clip-systems}
 @tab @code{#f}
-@tab Genera frammenti ritagliati di una partitura.
+@tab Estrae frammenti musicali da una partitura.  Per far ciò è necessario
+che sia stata definita la funzione @code{clip-regions} all'interno del blocco
+@code{\layout}.  Maggiori informazioni in @ruser{Extracting fragments of music}.
+Nessun frammento verrà estratto se questa opzione è usata insieme
+all'opzione @option{-dno-print-pages}.
 
 @item @code{datadir}
 @tab
@@ -688,7 +782,11 @@ stampa e causa un notevole aumento della dimensione dei file PDF.
 
 @item @code{svg-woff}
 @tab @code{#f}
-@tab Usa i file di font woff nel backend SVG.
+@tab Usa i file woff dei tipi di carattere nel backend SVG.
+@c TODO: Paragrafo da chiarire, vedi issue 4650
+Se si usa il file woff nel modo corretto, non è necessario installare
+nell'ambiente del lettore SVG i tipi di carattere usati dai file SVG.
+Tuttavia LilyPond non contiene un file woff per il testo, che è richiesto.
 
 @item @code{trace-memory-frequency}
 @tab @code{#f}
@@ -962,7 +1060,7 @@ comprese, è facile gestirle.
 * Messaggio di errore FT_Get_Glyph_Name::
 * Avvertimento sul fatto che le affinità del rigo devono solo diminuire::
 * Messaggio di errore new inaspettato::
-* Avviso ignorare troppe collisioni tra colonne di nota::
+* Avviso questa voce ha bisogno di un'impostazione voiceXx o shiftXx::
 @end menu
 
 @node La musica esce dalla pagina
@@ -1116,15 +1214,15 @@ che i nuovi righi siano avviati in parallelo, ovvero contemporaneamente:
 }
 @end lilypond
 
-@node Avviso ignorare troppe collisioni tra colonne di nota
-@unnumberedsubsec Avviso ignorare troppe collisioni tra colonne di nota
-@translationof Warning ignoring too many clashing note columns
+@node Avviso questa voce ha bisogno di un'impostazione voiceXx o shiftXx
+@unnumberedsubsec Avviso questa voce ha bisogno di un'impostazione @bs{}voiceXx o @bs{}shiftXx
+@translationof Warning this voice needs a voiceXx or shiftXx setting
 
 Se note appartenenti a due voci diverse con gambi nella stessa
 direzione si trovano nello stesso momento musicale, e per le voci
 non è stato specificato alcun spostamento, quando si compila il
 file apparirà il messaggio di avviso
-@samp{avviso: ignorare troppe collisioni tra colonne di nota}.
+@samp{avviso: questa voce ha bisogno di un'impostazione \voiceXx o \shiftXx}.
 Tale avviso apparirà anche quando le note non hanno gambi visibili,
 come nel caso delle semibrevi, se i gambi di note più brevi della
 stessa altezza sono nella stessa direzione.
@@ -1150,5 +1248,6 @@ naturale (quando le note di @code{\voiceThree} sono più alte di quelle di
 @seealso
 @rlearning{Definire esplicitamente le voci},
 @rlearning{Esempio musicale},
-@ruser{Polifonia su un singolo rigo},
+@ruser{Polifonia su un solo rigo},
 @ruser{Risoluzione delle collisioni}.
+

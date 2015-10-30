@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-   Translation of GIT committish: a1c9c3d285a2f3e59cf79a375b67cfb58ceca7ba
+   Translation of GIT committish: 578ae1fcca02ea107f58aea50f823c0c688d9eba
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -82,25 +82,39 @@ un'ottava; ogni@tie{}@code{,} abbassa l'altezza di un'ottava.
 @lilypond[verbatim,quote]
 {
   \clef treble
-  c'4 c'' e' g
-  d''4 d' d c
+  c'4 e' g' c''
+  c'4 g b c'
   \clef bass
-  c,4 c,, e, g
-  d,,4 d, d c
+  c,4 e, g, c
+  c,4 g,, b,, c,
 }
 @end lilypond
 
-@funindex absolute
-@funindex \absolute
-Si può indicare in modo esplicito che la musica viene inserita con l'ottava
-assoluta facendola precedere da @code{\absolute}:
+@funindex fixed
+@funindex \fixed
+I normali segni di ottava possono essere inseriti una sola volta se si
+imposta un'altezza di riferimento dopo @code{\fixed} e prima della musica.
+Le altezze inserite in un blocco @code{\fixed} hanno bisogno dei segni @code{'}
+o@tie{}@code{,} solo quando si trovano sopra o sotto l'ottava dell'altezza di
+riferimento.
 
-@example
-\absolute @var{espressione-musicale}
-@end example
+@lilypond[verbatim,quote]
+{
+  \fixed c' {
+    \clef treble
+    c4 e g c'
+    c4 g, b, c
+  }
+  \clef bass
+  \fixed c, {
+    c4 e g c'
+    c4 g, b, c
+  }
+}
+@end lilypond
 
-verrà interpretata nella modalità assoluta indipendentemente dal contesto
-in cui si trova.
+Le altezze dell'espressione musicale che segue @code{\fixed} non cambiano
+se racchiuse da un blocco @code{\relative}, che vedremo tra poco.
 
 @seealso
 Glossario musicale:
@@ -173,13 +187,13 @@ Scrivere @code{\relative @{ gis''' @dots{} @}} è un modo semplice per
 determinare l'altezza assoluta della prima nota dell'espressione musicale.
 
 @item nessuna altezza di riferimento esplicita
-Questa (ovvero @code{\relative @{ gis''' @dots{} @}}) può essere considerata
-una versione compatta dell'opzione precedente: la prima nota dentro l'espressione
-musicale è scritta come altezza assoluta.  In questo caso equivale a scegliere
-@code{f} come altezza di riferimento.
+La forma @code{\relative @{gis''' @dots{} @}} è una versione compatta
+dell'opzione precedente: la prima nota dentro l'espressione musicale è scritta
+come altezza assoluta.  In questo caso equivale a scegliere @code{f} come
+altezza di riferimento.
 @end table
 
-La documentazione di solito usa la prima opzione.
+La documentazione di solito usa l'ultima opzione.
 @end itemize
 
 Ecco il modo relativo in azione:
@@ -213,8 +227,9 @@ comprendere intervalli di grande estensione:
 }
 @end lilypond
 
-Nel caso di blocchi @code{\relative} annidati, si
-considera il blocco @code{\relative} più interno.
+Nel caso di blocchi @code{\relative} annidati, il blocco @code{\relative} più
+interno inizia con la propria altezza di riferimento, indipendentemente dal
+@code{\relative} più esterno.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -290,9 +305,6 @@ in ogni intervallo.
 }
 @end lilypond
 
-Ne consegue che la prima nota di un blocco @code{@w{\relative f}} venga
-interpretata come se fosse scritta nel modo di ottava assoluta.
-
 @seealso
 Glossario musicale:
 @rglosnamed{fifth,quinta},
@@ -331,11 +343,11 @@ Guida al funzionamento interno:
 @c duplicated in Key signature and Accidentals
 @warning{I nuovi utenti sono talvolta confusi dalla gestione delle
 alterazioni e delle armature di chiave.  In LilyPond i nomi delle
-note costituiscono l'input grezzo; le armature e le chiavi determinano
-come questo input grezzo venga mostrato.
+note specificano le altezze; le armature e le chiavi determinano
+come queste altezze debbano essere rappresentate.
 Una nota non alterata come@tie{}@code{c} significa @q{Do naturale},
 indipendentemente dall'armatura o dalla chiave.  Per maggiori informazioni
-si veda @rlearning{Alterazioni e armature di chiave}.}
+si veda @rlearning{Altezze e armature di chiave}.}
 
 @cindex nomi delle note, olandese
 @cindex nomi delle note, predefinito
@@ -360,10 +372,9 @@ per le alterazioni, si veda @ref{Note names in other languages}.
 \relative c'' { ais1 aes aisis aeses }
 @end lilypond
 
-Un bequadro cancella l'effetto di un'alterazione o di un'armatura
-di chiave.  Tuttavia, nella sintassi di Lilypond, non occorre specificare i
-bequadri mediante l'aggiunta di un particolare suffisso: un'altezza naturale
-è indicata con il semplice nome della nota:
+Un'altezza naturale è indicata con il semplice nome della nota; non è richiesto
+alcun suffisso.  Un segno di bequadro apparirà automaticamente quando occorre
+cancellare l'armatura di chiave o l'effetto di un'alterazione precedente.
 
 @lilypond[verbatim,quote,fragment]
 \relative c'' { a4 aes a2 }
@@ -398,7 +409,7 @@ possibile anche inserirle manualmente.  Si può forzare l'inserimento di
 un'alterazione di sicurezza aggiungendo il punto esclamativo@tie{}@code{!}
 dopo l'altezza.  Un'alterazione di cortesia (ovvero un'alterazione compresa
 tra parentesi) si ottiene aggiungendo il punto interrogativo@tie{}@code{?} dopo
-l'altezza.  Questi segni possono essere usati anche per produrre dei bequadri.
+l'altezza.
 
 @lilypond[verbatim,quote,fragment]
 \relative c'' { cis cis cis! cis? c c c! c? }
@@ -437,7 +448,7 @@ Glossario musicale:
 @rglosnamed{quarter tone,quarto di tono}.
 
 Manuale di apprendimento:
-@rlearning{Alterazioni e armature di chiave}.
+@rlearning{Altezze e armature di chiave}.
 
 Guida alla notazione:
 @ref{Automatic accidentals},
@@ -518,33 +529,33 @@ Oltre ai nomi delle note, anche i suffissi per le alterazioni
 possono variare a seconda della lingua adottata:
 
 @quotation
-@multitable {@code{nederlands}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
+@multitable {@code{nederlands}} {-@code{s}/-@code{-sharp}} {-@code{ess}/-@code{es}} {-@code{ss}/-@code{x}/-@code{-sharpsharp}} {-@code{essess}/-@code{eses}}
 @headitem Lingua
   @tab diesis @tab bemolle @tab doppio diesis @tab doppio bemolle
 @item @code{nederlands}
-  @tab -is @tab -es @tab -isis @tab -eses
+  @tab -@code{is} @tab -@code{es} @tab -@code{isis} @tab -@code{eses}
 @item @code{catalan}
-  @tab -d/-s @tab -b @tab -dd/-ss @tab -bb
+  @tab -@code{d}/-@code{s} @tab -@code{b} @tab -@code{dd}/-@code{ss} @tab -@code{bb}
 @item @code{deutsch}
-  @tab -is @tab -es @tab -isis @tab -eses
+  @tab -@code{is} @tab -@code{es} @tab -@code{isis} @tab -@code{eses}
 @item @code{english}
-  @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
-    @tab -ff/-flatflat
+  @tab -@code{s}/-@code{sharp} @tab -@code{f}/-@code{flat} @tab -@code{ss}/-@code{x}/-@code{sharpsharp}
+    @tab -@code{ff}/-@code{flatflat}
 @item @code{espanol} o @code{español}
-  @tab -s @tab -b @tab -ss/-x @tab -bb
+  @tab -@code{s} @tab -@code{b} @tab -@code{ss}/-@code{x} @tab -@code{bb}
 @item @code{italiano} o @code{français}
-  @tab -d @tab -b @tab -dd @tab -bb
+  @tab -@code{d} @tab -@code{b} @tab -@code{dd} @tab -@code{bb}
 @item @code{norsk}
-  @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
-    @tab -essess/-eses
+  @tab -@code{iss}/-@code{is} @tab -@code{ess}/-@code{es} @tab -@code{ississ}/-@code{isis}
+    @tab -@code{essess}/-@code{eses}
 @item @code{portugues}
-  @tab -s @tab -b @tab -ss @tab -bb
+  @tab -@code{s} @tab -@code{b} @tab -@code{ss} @tab -@code{bb}
 @item @code{suomi}
-  @tab -is @tab -es @tab -isis @tab -eses
+  @tab -@code{is} @tab -@code{es} @tab -@code{isis} @tab -@code{eses}
 @item @code{svenska}
-  @tab -iss @tab -ess @tab -ississ @tab -essess
+  @tab -@code{iss} @tab -@code{ess} @tab -@code{ississ} @tab -@code{essess}
 @item @code{vlaams}
-  @tab -k @tab -b @tab -kk @tab -bb
+  @tab -@code{k} @tab -@code{b} @tab -@code{kk} @tab -@code{bb}
 @end multitable
 @end quotation
 
@@ -664,9 +675,9 @@ comando @code{\octaveCheck@tie{}@var{altezza_di_controllo}}.
 L'@code{@var{altezza_di_controllo}} è specificata in modo assoluto.  Questo
 comando controlla che l'intervallo tra la nota precedente e
 l'@code{@var{altezza_di_controllo}} sia compresa in una quinta (ovvero secondo
-il normale calcolo della modalità relativo).  Se il controllo fallisce, compare
-un avviso, ma la nota precedente non viene modificata.  Le note successive
-sono relative all'@code{@var{altezza_di_controllo}}.
+il normale calcolo della modalità relativa).  Se il controllo fallisce, compare
+un avviso.  Benché la nota precedente non sia modificata, le note successive
+sono relative al valore corretto.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1303,7 +1314,7 @@ alterazioni e delle armature di chiave.  In LilyPond i nomi delle
 note costituiscono l'input grezzo; le armature e le chiavi determinano
 come questo venga mostrato.  Una nota non alterata come@tie{}@code{c}
 significa @q{Do naturale}, indipendentemente dall'armatura o dalla
-chiave.  Per maggiori informazioni si veda @rlearning{Alterazioni e armature di chiave}.}
+chiave.  Per maggiori informazioni si veda @rlearning{Altezze e armature di chiave}.}
 
 L'armatura di chiave indica la tonalità di un brano.  È costituita da un
 insieme di alterazioni (bemolle o diesis) all'inizio del rigo.  L'armatura
@@ -1409,7 +1420,7 @@ Glossario musicale:
 @rglos{scordatura}.
 
 Manuale di apprendimento:
-@rlearning{Alterazioni e armature di chiave}.
+@rlearning{Altezze e armature di chiave}.
 
 Frammenti di codice:
 @rlsrnamed{Pitches, Altezze}.
@@ -1901,10 +1912,9 @@ musicB = {
 @funindex modern-cautionary
 
 Questa regola è simile a @code{modern}, ma le alterazioni @q{supplementari}
-(quelle non mostrate da @code{default}) sono segnate come alterazioni
-di precauzione.  Di norma, sono poste tra parentesi; altrimenti, possono
-essere ridotte in corpo più piccolo definendo la proprietà @code{cautionary-style}
-di @code{AccidentalSuggestion}.
+sono segnate come alterazioni di precauzione (con parentesi).  La loro
+dimensione può essere cambiata attraverso la proprietà
+@code{font-size} di @code{AccidentalCautionary}.
 
 @lilypond[quote]
 musicA = {
@@ -2266,7 +2276,9 @@ musicB = {
 @funindex neo-modern-cautionary
 
 Questa regola è simile a @code{neo-modern}, ma le alterazioni
-supplementari sono mostrate come alterazioni di precauzione.
+@q{supplementari} sono mostrate come alterazioni di precauzione (con
+parentesi). La loro dimensione può essere modificata attraverso
+la proprietà @code{font-size} di @code{AccidentalCautionary}.
 
 @lilypond[quote]
 musicA = {

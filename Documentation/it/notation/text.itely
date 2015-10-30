@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 2583260566074fd263a84d515ef637267563d371
+    Translation of GIT committish: 130ce199aa0cedce7779abf9bc131ef96368f9b8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -611,6 +611,15 @@ dalla dimensione globale del rigo:
   b1^\markup { \abs-fontsize #8 da }
   b1-\markup { \abs-fontsize #14 camera }
 }
+@end lilypond
+
+Se il testo contiene degli spazi, è meglio racchiuderlo tutto tra virgolette,
+in modo che la dimensione di ciascun spazio sia adatta alla dimensione degli
+altri caratteri.
+
+@lilypond[quote,verbatim]
+\markup \fontsize #6 \bold { Sinfonia da camera }
+\markup \fontsize #6 \bold { "Sinfonia da camera" }
 @end lilypond
 
 @cindex pedice
@@ -1457,18 +1466,18 @@ più piccola.  Il valore ottimale deve essere determinato per tentativi.
 Questi glifi sono tutte graffe sinistre; le graffe destre si possono
 ottenere con la rotazione, vedi @ref{Rotating objects}.
 
-Sono disponibili tre famiglie di tipi di carattere: il @emph{roman}
-(con grazie), che usa di default New Century Schoolbook, il
-@emph{sans} (senza grazie) e il tipo monospaziato @emph{typewriter} -- queste
-ultime due famiglie  sono determinate dall'installazione di Pango.
-
-@warning{Non ci sono tipi predefiniti associati con le famiglie @emph{sans}
-e @emph{typewriter}.  Un file di input che usa una di queste famiglie
-può produrre output diversi su computer diversi.  Per garantire un output
-coerente su piattaforme diverse, occorre specificare i tipi di carattere
-per nome e quei tipi devono essere presenti in qualsiasi sistema che
-elabori il file.  Si veda @ref{Single entry fonts} e
-@ref{Entire document fonts}.}
+Sono disponibili tre famiglie di tipi di carattere:
+@itemize
+@item
+Il tipo @emph{roman} (con grazie), il cui valore predefinito è LilyPond Serif
+(un alias di TeX Gyre Schola).
+@item
+Il tipo @emph{sans} (senza grazie), il cui valore predefinito è LilyPond Sans
+Serif (un alias di TeX Gyre Heros).
+@item
+Il tipo monospaziato @emph{typewriter}, il cui valore predefinito è LilyPond
+Monospace (un alias di TeX Gyre Cursor).
+@end itemize
 
 Ogni famiglia può avere forme e serie differenti.  L'esempio seguente
 illustra la possibilità di scegliere  famiglie, forme, serie e
@@ -1549,6 +1558,11 @@ a'1_\markup {
 @cindex elencare i tipi di carattere disponibili
 @cindex tipi di carattere disponibili, elenco
 
+@var{font-name} può essere definito da una lista separata da virgola di
+@q{font} e una lista separata da spazi di @q{stili}.  Se il @q{font} nella
+lista è installato e contiene il glifo richiesto, verrà usato, altrimenti
+sarà usato al suo posto il font @emph{successivo}.
+
 @funindex show-available-fonts
 
 Lanciando lilypond con la seguente opzione si ottiene un elenco di tutti i
@@ -1575,11 +1589,13 @@ Frammenti:
 @unnumberedsubsubsec Tipi di carattere per l'intero documento
 @translationof Entire document fonts
 
-È possibile modificare i tipi di carattere usati come tipi predefiniti
-nelle famiglie @emph{roman}, @emph{sans} e @emph{typewriter} specificandoli, in
-questo ordine, come è mostrato nell'esempio seguente, che ridimensiona
-automaticamente i caratteri col valore impostato per la dimensione globale
-del rigo.  I tipi di carattere  sono spiegati in @ref{Fonts explained}.
+È possibile modificare i tipi di carattere usati come tipi predefiniti nelle
+famiglie @emph{roman}, @emph{sans} e @emph{typewriter} specificandoli, in questo
+ordine, come è mostrato nell'esempio seguente, che ridimensiona automaticamente
+i caratteri col valore impostato per la dimensione globale del rigo.  In modo
+analogo a @ref{Single entry fonts}, si può indicare con una lista separata da
+virgole di @q{font}. Gli @q{stili} dei font, invece, non possono essere
+definiti.  I tipi di carattere  sono spiegati in @ref{Fonts explained}.
 
 @cindex famiglie di tipi di carattere, impostare
 @cindex tipi di carattere, modificarli per l'intero documento

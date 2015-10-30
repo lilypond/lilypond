@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: e5f2d1122b7e2f4b6e4fd4b7c1404280e82bb6d5
+    Translation of GIT committish: 21be03e4b893ec2bbea745a713360310931337b9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -722,10 +722,19 @@ sotto il rigo, come è spiegato in @ref{Direction and placement}.
 @cindex legature di portamento multiple
 @cindex legature di portamento simultanee
 
-Non è possibile tracciare due legature di portamento simultanee o sovrapposte, ma si
-può ricorrere a una legatura di frase posta per mostrare più legature.  Questo permette
-di creare contemporaneamente due legature di portamento.  Maggiori dettagli
-si trovano in @ref{Phrasing slurs}.
+Tracciare due legature di portamento simultanee o sovrapposte richiede una
+particolare attenzione.  Di solito le legature di portamento più esterne
+indicano in realtà una legatura di frase e le legature di frase possono essere
+sovrapposte a una normale legatura, vedi @ref{Phrasing slurs}.  Quando invece
+si vogliono usare molteplici legature di portamento normali in una sola
+voce, l'inizio e la fine di ogni legatura devono essere preceduti da un
+@code{\=} seguito da un numero identificativo o del testo.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  <c~ f\=1( g\=2( >2 <c e\=1) a\=2) >
+}
+@end lilypond
 
 @cindex legature di portamento, stile
 @cindex legatura di portamento continua
@@ -880,7 +889,8 @@ sopra o sotto il rigo, come è spiegato in @ref{Direction and placement}.
 @cindex legatura di portamento, fraseggio simultaneo
 @cindex legatura di portamento, fraseggio multiplo
 
-Più legature di frase simultanee o sovrapposte non sono permesse.
+Per inserire più legature di frase simultanee o sovrapposte si usa @code{\=},
+come per le normali legature di portamento (vedi @ref{Slurs}).
 
 @funindex phrasingSlurDashed
 @funindex \phrasingSlurDashed

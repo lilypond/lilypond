@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 45d0e015edc53abebada17a0fdb1d665f7edf900
+    Translation of GIT committish: d36171e34d236d890f5dc511b895037188c6c7cb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -54,48 +54,90 @@ in moda da essere poi aggiornati in modo più semplice (o più difficile).
 @section Consigli generali
 @translationof General suggestions
 
-Ecco alcuni consigli che possono aiutarti a evitare o risolvere
-i problemi:
+Ecco alcuni consigli che possono aiutare a evitare (e risolvere) i
+problemi più comuni in fase di scrittura:
 
 @itemize
-@item @strong{Includi il numero di @code{\version} in ogni file}.  Nota che tutti
-i modelli contengono l'informazione su @code{\version}.  Si consiglia vivamente
-di includere sempre @code{\version}, non importa quanto piccolo possa essere
-il file.  L'esperienza personale insegna come sia frustrante cercare di ricordare
-quale versione di LilyPond si usava alcuni anni prima!  @command{convert-ly}
-richiede che si dichiari la versione di LilyPond utilizzata.
+@item @strong{Includere sempre il numero di @code{\version} in ogni file di input},
+non importa quanto piccolo possa essere il file.  Ciò impedisce di dover
+ricordare con quale versione di LilyPond è stato creato il file ed è
+importante soprattutto per @ref{Updating files with convert-ly} (che ha
+bisogno della dichiarazione @code{\version}); o quando si inviano i file
+di input a altri utenti (per esempio, quando si chiede aiuto nelle mailing
+list).  Nota che tutti i modelli contengono l'informazione su @code{\version}.
 
-@item @strong{Includi i controlli}: @ruser{Controlli di battuta e del numero di battuta},
-@ruser{Controlli di ottava}.  Includendo i controlli ogni tanto, se fai
-un errore lo puoi individuare più rapidamente.  Cosa si intende per
-@q{ogni tanto}?  Dipende dalla complessità della musica.  Se la musica
-è molto semplice, anche solo una volta o due.  Se la musica è molto
-complessa, a ogni battuta.
+@item
+@strong{Scrivere ciascuna battuta su una singola riga del file di input}.  Ciò
+semplifica molto l'analisi dei problemi del file di input.
 
-@item @strong{Una battuta per ogni linea di testo}.  Se c'è qualcosa di
-complicato, nella musica stessa o nell'output che desideri, di solito è
-preferibile scrivere una sola battuta per linea.  Risparmiare spazio sullo
-schermo concentrando otto battute per ogni riga non è affatto conveniente
-se poi devi fare il @q{debug} dei file di input.
+@item
+@strong{Inserire i @ruser{Controlli di battuta e del numero di battuta} e
+i @ruser{Controlli di ottava}}.  Inserendo @q{controlli} di questo tipo nei
+file di input, si può individuare un errore più rapidamente.  Quanto spesso
+aggiungere i controlli dipende dalla complessità della musica da scrivere.  Per
+composizioni semplici, aggiungere controlli in pochi punti strategici può essere
+sufficiente, ma per musica più complessa, con molte voci e/o righi, è consigliabile
+inserire i controlli dopo ogni battuta.
 
-@item @strong{Inserisci dei commenti nei file di input}.  Puoi usare i numeri
-di battuta (ogni tanto) o dei riferimenti ai temi musicali
-(@q{secondo tema nei violini,} @q{quarta variazione,} etc.).  Potresti non
-aver bisogno dei commenti mentre scrivi il brano la prima volta, ma se due
-o tre anni dopo vuoi cambiare qualcosa o se vuoi dare il sorgente a un amico,
-sarà molto più difficile capire le tue intenzioni e la struttura del file
-se mancano i commenti.
+@item
+@strong{Inserire commenti nei file di input}.  Riferimenti a temi musicali
+(@q{secondo tema nei violini,} @q{quarta variazione,} etc.) o numeri di battuta
+inseriti come commenti rendono molto più semplice la lettura del file di input,
+specialmente se occorre modificare qualcosa successivamente o passare i file
+di input di LilyPond a un'altra persona.
 
-@item @strong{Indenta le parentesi graffe}.  Molti problemi sono causati
-da mancata corrispondenza tra le quantità di @code{@{} e di @code{@}}.
+@item
+@strong{Aggiungere durate esplicite all'inizio delle @q{sezioni}}.
+Per esempio, @code{c4 d e} invece di @code{c d e f} può semplificare il
+riarrangiamento della musica in un momento successivo.
 
-@item @strong{Esplicita le durate} all'inizio delle sezioni e delle
-variabili.  Se specifichi @code{c4 d e} all'inizio di una frase
-(invece di @code{c d e} soltanto) puoi evitare l'insorgere di problemi
-al momento di rimetter mano alla musica.
+@item
+@strong{Imparare a allineare e indentare le parentesi e la musica parallela}.
+Molti problemi sono spesso causati da parentesi @q{mancanti}.  Indentare
+chiaramente le parentesi di @q{apertura} e di @q{chiusura} (o gli indicatori
+@code{<<} e @code{>>}) aiuta a evitare tali problemi.  Per esempio,
 
-@item @strong{Separa le modifiche manuali (tweak)} dalle definizioni
-musicali.  Vedi @rlearning{Ridurre l'input grazie a variabili e funzioni}, e
+@example
+\new Staff @{
+  \relative @{
+    r4 g'8 g c8 c4 d |
+    e4 r8 |
+    % Sezione Ossia
+    <<
+      @{ f8 c c | @}
+      \new Staff @{
+        f8 f c |
+      @}
+    >>
+    r4 |
+  @}
+@}
+@end example
+
+@noindent
+è molto più semplice da leggere di
+
+@example
+\new Staff @{ \relative @{ r4 g'8 g c4 c8 d | e4 r8
+% Sezione Ossia
+<< @{ f8 c c @} \new Staff @{ f8 f c @} >> r4 | @} @}
+@end example
+
+@item
+@strong{Tenere separato il contenuto musicale dallo stile} mettendo gli
+@code{\override} nel blocco @code{\layout}:
+
+@example
+\score @{
+  @var{@dots{}music@dots{}}
+  \layout @{
+   \override TabStaff.Stemstencil = ##f
+ @}
+@}
+@end example
+
+Ciò non creerà un nuovo contesto ma sarà applicato quando ne viene creato
+uno.  Vedi anche @rlearning{Ridurre l'input grazie a variabili e funzioni} e
 @rlearning{Fogli di stile}.
 
 @end itemize

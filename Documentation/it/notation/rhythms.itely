@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 61d0f3c7bebf2a9cdea56ff4e3b52e3e3510bf8a
+    Translation of GIT committish: b28d44a1cea8120501e648bb8626064a94cd4036
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -222,9 +222,11 @@ Il numeratore della frazione apparirà sopra o sotto le note; eventualmente, con
 l'aggiunta opzionale di una parentesi quadra.  Il gruppo irregolare più comune
 è la terzina, in cui 3@tie{}note hanno la durata di@tie{}2:
 
-@lilypond[quote,verbatim,relative=2]
-a2 \tuplet 3/2 { b4 b b }
-c4 c \tuplet 3/2 { b4 a g }
+@lilypond[quote,verbatim]
+\relative {
+  a'2 \tuplet 3/2 { b4 b b }
+  c4 c \tuplet 3/2 { b4 a g }
+}
 @end lilypond
 
 @cindex raggruppamento dei gruppi irregolari
@@ -360,16 +362,18 @@ includerà il fattore di scalatura.
 Nell'esempio seguente le prime tre note occupano esattamente
 due tempi, ma non sono indicate come gruppo irregolare.
 
-@lilypond[quote,relative=2,verbatim]
-\time 2/4
-% Trasforma le durate in terzine
-a4*2/3 gis a
-% Durate normali
-a4 a
-% Raddoppia la durata dell'accordo
-<a d>4*2
-% Durata di un quarto, ma appare come un sedicesimo
-b16*4 c4
+@lilypond[quote,verbatim]
+\relative {
+  \time 2/4
+  % Trasforma le durate in terzine
+  a'4*2/3 gis a
+  % Durate normali
+  a4 a
+  % Raddoppia la durata dell'accordo
+  <a d>4*2
+  % Durata di un quarto, ma appare come un sedicesimo
+  b16*4 c4
+}
 @end lilypond
 
 Anche la durata delle pause spaziatrici può essere modificata
@@ -388,17 +392,19 @@ In questo modo, l'aspetto della musica non cambia ma la durata interna delle not
 viene moltiplicata per la frazione @emph{num}/@emph{den}.  Ecco un esempio
 che mostra come la musica possa essere compressa e espansa:
 
-@lilypond[quote,relative=2,verbatim]
-\time 2/4
-% Durate normali
-<c a>4 c8 a
-% Scala la musica di *2/3
-\scaleDurations 2/3 {
-  <c a f>4. c8 a f
-}
-% Scala la musica di *2
-\scaleDurations 2/1 {
-  <c' a>4 c8 b
+@lilypond[quote,verbatim]
+\relative {
+  \time 2/4
+  % Durate normali
+  <c'' a>4 c8 a
+  % Scala la musica di *2/3
+  \scaleDurations 2/3 {
+    <c a f>4. c8 a f
+  }
+  % Scala la musica di *2
+  \scaleDurations 2/1 {
+    <c' a>4 c8 b
+  }
 }
 @end lilypond
 
@@ -500,13 +506,16 @@ legati inserendo la legatura all'interno dell'accordo stesso.
 Quando la battuta della "seconda volta" di un ritornello inizia con una nota
 legata a quella precedente, occorre indicare la legatura nel modo seguente:
 
-@lilypond[quote,relative=2,verbatim]
-\repeat volta 2 { c g <c e>2~ }
-\alternative {
-  % Prima volta: la nota seguente viene legata in modo normale
-  { <c e>2. r4 }
-  % Seconda volta: la nota seguente ha una legatura ripetuta
-  { <c e>2\repeatTie d4 c } }
+@lilypond[quote,verbatim]
+\relative {
+  \repeat volta 2 { c g <c e>2~ }
+  \alternative {
+    % Prima volta: la nota seguente viene legata in modo normale
+    { <c e>2. r4 }
+    % Seconda volta: la nota seguente ha una legatura ripetuta
+    { <c e>2\repeatTie d4 c }
+  }
+}
 @end lilypond
 
 @cindex laissez vibrer
@@ -582,8 +591,8 @@ Le definizioni dei modelli di tratteggiatura delle legature di valore hanno la
 stessa struttura di quelle per le legature di portamento. I dettagli relativi
 ai modelli complessi di tratteggiatura sono trattati in @ref{Slurs}.
 
-Se le legature collidono con altri oggetti del rigo, si possono sovrascrivere
-le proprietà di formattazione @var{whiteout} e @var{layer}.
+Sovrascrivere le proprietà di formattazione @var{whiteout-box} e @var{layer}
+degli oggetti che devono creare uno spazio vuoto tra le legature di valore.
 
 @lilypond[verbatim,quote,ragged-right]
 \relative {
@@ -684,7 +693,7 @@ Le durate più lunghe di un intero usano i seguenti comandi predefiniti:
 
 @c \time 16/1 is used to avoid spurious bar lines
 @c and long tracts of empty measures
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 \new Staff {
   % Queste due linee servono solo ad abbellire questo esempio
   \time 16/1
@@ -817,7 +826,7 @@ se non esistono già, proprio come accade per le note e le pause:
 @code{\skip} si limita a saltare un valore musicale, non crea nessun tipo di
 output.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 % Questo input è corretto, ma non produce niente
 \skip 1 \skip1 \skip 1
 @end lilypond
@@ -845,34 +854,38 @@ Guida al funzionamento interno:
 @cindex pause d'intero
 @cindex pausa intera per una misura intera
 
+@funindex compressMMRests
+@funindex \compressMMRests
 @funindex R
 
 Le pause per una o più misure d'intero si inseriscono, come le note, col
 carattere maiuscolo @code{R}:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 % L'insieme delle misure di pausa vengono riportate in una sola misura
-\compressFullBarRests
-R1*4
-R1*24
-R1*4
-b2^"Tutti" b4 a4
+compressMMRests {
+  R1*4
+  R1*24
+  R1*4
+  b'2^"Tutti" b'4 a'4
+}
 @end lilypond
 
 La durata delle pause multiple è identica alla notazione di durata
 usata per le note e deve essere sempre un numero intero di misure/lunghezze,
 quindi occorre spesso usare dei punti di aumentazione o delle frazioni:
 
-@lilypond[quote,verbatim,relative=2]
-\compressFullBarRests
-\time 2/4
-R1 | R2 |
-\time 3/4
-R2. | R2.*2 |
-\time 13/8
-R1*13/8 | R1*13/8*12 |
-\time 10/8
-R4*5*4 |
+@lilypond[quote,verbatim]
+\compressMMRests {
+  \time 2/4
+  R1 | R2 |
+  \time 3/4
+  R2. | R2.*2 |
+  \time 13/8
+  R1*13/8 | R1*13/8*12 |
+  \time 10/8
+  R4*5*4 |
+}
 @end lilypond
 
 Una pausa d'intero appare al centro della misura con la durata di una semibreve
@@ -890,27 +903,22 @@ R1*2 |
 @cindex pausa multipla, espansione
 @cindex pausa multipla, contrazione
 
-@funindex \expandFullBarRests
-@funindex expandFullBarRests
-@funindex \compressFullBarRests
-@funindex compressFullBarRests
-
 Di norma una pausa multipla viene scorporata sul pentagramma in modo da
 mostrare esplicitamente tutte le misure per cui si prolunga.
 Altrimenti, è possibile indicarla collocando in una sola
 misura un simbolo di pausa multipla, col numero di misure
 per cui la pausa si prolunga posto al di sopra della misura stessa:
 
-@lilypond[quote,verbatim,relative=2]
-% Default behavior
+@lilypond[quote,verbatim,fragment]
+% Comportamento predefinito
 \time 3/4 r2. | R2.*2 |
 \time 2/4 R2 |
 \time 4/4
 % Tutte le misure di pausa sono riportate in una singola misura
-\compressFullBarRests
-r1 | R1*17 | R1*4 |
-% Le misure della pausa multipla sono scorporate
-\expandFullBarRests
+\compressMMRests {
+  r1 | R1*17 | R1*4 |
+}
+% Le misure della pausa multipla sono scorporate di nuovo
 \time 3/4
 R2.*2 |
 @end lilypond
@@ -932,11 +940,12 @@ R2.*2 |
 Si possono aggiungere delle annotazioni alle pause multiple.  Il comando
 predefinito @code{\fermataMarkup} permette di aggiungere il segno di corona.
 
-@lilypond[quote,verbatim,relative=2]
-\compressFullBarRests
-\time 3/4
-R2.*10^\markup { \italic "ad lib." }
-R2.^\fermataMarkup
+@lilypond[quote,verbatim]
+\compressMMRests {
+  \time 3/4
+  R2.*10^\markup { \italic "ad lib." }
+  R2.^\fermataMarkup
+}
 @end lilypond
 
 @warning{Il testo connesso a una pausa multipla è un oggetto di tipo
@@ -944,7 +953,7 @@ R2.^\fermataMarkup
 devono specificare l'oggetto corretto o saranno ignorate.  Si veda
 l'esempio seguente:}
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 % Questo non funziona, perché è specificato il nome dell'oggetto sbagliato
 \override TextScript.padding = #5
 R1^"sbagliato"
@@ -963,17 +972,14 @@ non apparire i relativi avvertimenti del controllo battuta.
 @funindex textLengthOff
 @funindex \fermataMarkup
 @funindex fermataMarkup
-@funindex \compressFullBarRests
-@funindex compressFullBarRests
-@funindex \expandFullBarRests
-@funindex expandFullBarRests
+@funindex \compressMMRests
+@funindex compressMMRests
 
 @predefined
 @code{\textLengthOn},
 @code{\textLengthOff},
 @code{\fermataMarkup},
-@code{\compressFullBarRests},
-@code{\expandFullBarRests}.
+@code{\compressMMRests},
 @endpredefined
 
 
@@ -1096,18 +1102,20 @@ comportamento predefinito, come è spiegato in @ref{Visibility of objects}.
 Il simbolo di indicazione di tempo usato nei tempi 2/2 e 4/4 può essere
 sostituito da un numero:
 
-@lilypond[quote,verbatim,relative=2]
-% Stile predefinito
-\time 4/4 c1
-\time 2/2 c1
-% Passaggio allo stile numerico
-\numericTimeSignature
-\time 4/4 c1
-\time 2/2 c1
-% Ritorno allo stile predefinito
-\defaultTimeSignature
-\time 4/4 c1
-\time 2/2 c1
+@lilypond[quote,verbatim]
+\relative c'' {
+  % Stile predefinito
+  \time 4/4 c1
+  \time 2/2 c1
+  % Passaggio allo stile numerico
+  \numericTimeSignature
+  \time 4/4 c1
+  \time 2/2 c1
+  % Ritorno allo stile predefinito
+  \defaultTimeSignature
+  \time 4/4 c1
+  \time 2/2 c1
+}
 @end lilypond
 
 
@@ -1374,16 +1382,17 @@ ripristina il comportamento predefinito, per cui le indicazioni di
 tempo non sono tenute in considerazione ai fini della spaziatura
 orizzontale.
 
-@lilypond[verbatim,quote,relative=0]
-\compressFullBarRests
-\markLengthOn
-\tempo "Molto vivace"
-R1*12
-\tempo "Meno mosso"
-R1*16
-\markLengthOff
-\tempo "Tranquillo"
-R1*20
+@lilypond[verbatim,quote]
+\compressMMRests {
+  \markLengthOn
+  \tempo "Molto vivace"
+  R1*12
+  \tempo "Meno mosso"
+  R1*16
+  \markLengthOff
+  \tempo "Tranquillo"
+  R1*20
+}
 @end lilypond
 
 @snippets
@@ -1550,15 +1559,17 @@ quando necessario con @code{\cadenzaOff}.
 
 La numerazione delle battute riprende dopo la cadenza.
 
-@lilypond[verbatim,relative=2,quote]
-% Mostra tutti i numeri di battuta
-\override Score.BarNumber.break-visibility = #all-visible
-c4 d e d
-\cadenzaOn
-c4 c d8[ d d] f4 g4.
-\cadenzaOff
-\bar "|"
-d4 e d c
+@lilypond[verbatim,quote]
+\relative c'' {
+  % Mostra tutti i numeri di battuta
+  \override Score.BarNumber.break-visibility = #all-visible
+  c4 d e d
+  \cadenzaOn
+  c4 c d8[ d d] f4 g4.
+  \cadenzaOff
+  \bar "|"
+  d4 e d c
+}
 @end lilypond
 
 Se si inserisce un comando @code{\bar} dentro una cadenza non viene iniziata
@@ -1569,15 +1580,17 @@ desidera che le alterazioni successive appaiano, si dovranno inserire
 manualmente delle alterazioni forzate o di precauzione, come è spiegato
 in @ref{Accidentals}.
 
-@lilypond[verbatim,relative=2,quote]
-c4 d e d
-\cadenzaOn
-cis4 d cis d
-\bar "|"
-% Il primo cis viene stampato senza alterazione anche se si trova dopo \bar
-cis4 d cis! d
-\cadenzaOff
-\bar "|"
+@lilypond[verbatim,quote]
+\relative c'' {
+  c4 d e d
+  \cadenzaOn
+  cis4 d cis d
+  \bar "|"
+  % Il primo cis viene stampato senza alterazione anche se si trova dopo \bar
+  cis4 d cis! d
+  \cadenzaOff
+  \bar "|"
+}
 @end lilypond
 
 La disposizione automatica delle travature viene disabilitata da
@@ -2169,28 +2182,41 @@ di @code{baseMoment}.  Per impostazione predefinita, @code{baseMoment}
 è uno fratto il denominatore dell'indicazione di tempo e ogni unità
 di @code{baseMoment} corrisponde a una singola suddivisione.
 
-@lilypond[quote,relative=2,verbatim]
-\time 5/16
-c16^"predefinito" c c c c |
-% È improbabile che per un tempo di 5/16 sia stata definita beamExceptions,
-% ma disabilitiamola lo stesso per sicurezza
-\set Timing.beamExceptions = #'()
-\set Timing.beatStructure = #'(2 3)
-c16^"(2+3)" c c c c |
-\set Timing.beatStructure = #'(3 2)
-c16^"(3+2)" c c c c |
+Per ogni indicazione di tempo esistono valori separati per @code{beatStructure}
+e @code{baseMoment}. Le modifiche di queste variabili hanno effetto solo
+sulle indicazioni di tempo attive, dunque tali modifiche devono essere
+poste dopo il comando @code{\time} che inizia una nuova indicazione di
+tempo, non prima. I nuovi valori assegnati a una certa indicazione di
+tempo sono mantenuti e reintrodotti ogni volta che quell'indicazione di
+tempo viene ristabilita.
+
+
+@lilypond[quote,verbatim]
+\relative c''{
+  \time 5/16
+  c16^"predefinito" c c c c |
+  % È improbabile che per un tempo di 5/16 sia stata definita beamExceptions,
+  % ma disabilitiamola lo stesso per sicurezza
+  \set Timing.beamExceptions = #'()
+  \set Timing.beatStructure = #'(2 3)
+  c16^"(2+3)" c c c c |
+  \set Timing.beatStructure = #'(3 2)
+  c16^"(3+2)" c c c c |
+}
 @end lilypond
 
 
-@lilypond[quote,relative=2,verbatim]
-\time 4/4
-a8^"predefinito" a a a a a a a
-% Disabilita beamExceptions perché è senz'altro definita
-% per il tempo 4/4
-\set Timing.beamExceptions = #'()
-\set Timing.baseMoment = #(ly:make-moment 1/4)
-\set Timing.beatStructure = #'(1 1 1 1)
-a8^"cambiato" a a a a a a a
+@lilypond[quote,verbatim]
+\relative {
+  \time 4/4
+  a'8^"predefinito" a a a a a a a
+  % Disabilita beamExceptions perché è senz'altro definita
+  % per il tempo 4/4
+  \set Timing.beamExceptions = #'()
+  \set Timing.baseMoment = #(ly:make-moment 1/4)
+  \set Timing.beatStructure = #'(1 1 1 1)
+  a8^"cambiato" a a a a a a a
+}
 @end lilypond
 
 Le modifiche alle impostazioni delle travature possono essere limitate a
@@ -2198,7 +2224,7 @@ contesti specifici.  Se non si specifica alcuna impostazione in un contesto
 di livello più basso, verrà applicata l'impostazione del contesto che lo
 contiene.
 
-@lilypond[quote, verbatim,relative=1]
+@lilypond[quote, verbatim]
 \new Staff {
   \time 7/8
   % Nessun bisogno di disabilitare beamExceptions perché non è definita per il tempo 7/8
@@ -2225,17 +2251,17 @@ Quando si usano più voci, occorre specificare il contesto @code{Staff} se
 si vuole applicare la disposizione delle travature a tutte le voci del
 rigo:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \time 7/8
 % ritmo 3-1-1-2
 % Se non si specifica il contesto, la modifica viene applicata a Voice e quindi non funziona correttamente
 % Dato che le voci sono autogenerate, tutto il ritmo avrà come baseMoment (1 . 8)
 \set beatStructure = #'(3 1 1 2)
-<< {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
+<< \relative {a'8 a a a16 a a a a8 a} \\ \relative {f'4. f8 f f f} >>
 
 % Funziona correttamente se si specifica il contesto Staff
 \set Staff.beatStructure = #'(3 1 1 2)
-<< {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
+<< \relative {a'8 a a a16 a a a a8 a} \\ \relative {f'4. f8 f f f} >>
 @end lilypond
 
 Il valore di @code{baseMoment} può essere regolato in modo da
@@ -2243,7 +2269,7 @@ cambiare il comportamento delle travature, se si vuole. In questo caso
 occorre cambiare anche il valore di @code{beatStructure} così che sia
 compatibile col nuovo valore di @code{baseMoment}.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \time 5/8
 % Nessun bisogno di disabilitare beamExceptions perché non è definita per il tempo 5/8
 \set Timing.baseMoment = #(ly:make-moment 1/16)
@@ -2297,15 +2323,17 @@ di @code{Timing.baseMoment}, @code{Timing.beatStructure} e
 ripristina le impostazioni automatiche delle travature del contesto @code{Timing}
 ai valori predefiniti.
 
-@lilypond[quote,verbatim,relative=2]
-\time 6/8
-\repeat unfold 6 { a8 }
-% raggruppamento (4 + 2)
-\set Timing.beatStructure = #'(4 2)
-\repeat unfold 6 { a8 }
-% ritorno al comportamento predefinito
-\time 6/8
-\repeat unfold 6 { a8 }
+@lilypond[quote,verbatim]
+\relative a' {
+  \time 6/8
+  \repeat unfold 6 { a8 }
+  % raggruppamento (4 + 2)
+  \set Timing.beatStructure = #'(4 2)
+  \repeat unfold 6 { a8 }
+  % ritorno al comportamento predefinito
+  \time 6/8
+  \repeat unfold 6 { a8 }
+}
 @end lilypond
 
 Le impostazioni predefinite della disposizione automatica delle travature per
@@ -2318,7 +2346,7 @@ due travature nella misura se ci sono solo note di un ottavo.  La regola
 @code{beamExceptions} può sovrascrivere l'impostazione di @code{beatStructure}
 se @code{beamExceptions} non viene annullato.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \time 4/4
 \set Timing.baseMoment = #(ly:make-moment 1/8)
 \set Timing.beatStructure = #'(3 3 2)
@@ -2332,7 +2360,7 @@ se @code{beamExceptions} non viene annullato.
 Analogalmente, le note di un ottavo in un tempo 3/4 sono raggruppate in
 un'unica travatura.  Per raggrupparle secondo le suddivisioni, azzera @code{beamExceptions}.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,fragment]
 \time 3/4
 % il comportamento predefinito è un gruppo di (6) a causa di beamExceptions
 \repeat unfold 6 {a8} |
@@ -2473,20 +2501,20 @@ che sia usata sempre la disposizione delle travature desiderata.  Le modifiche
 nelle impostazioni della travatura automatica per le indicazioni di tempo sono
 descritte in @ref{Time signature}.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim]
 <<
   \new Staff {
     \overrideTimeSignatureSettings
-      3/4       % timeSignatureFraction
-      1/8       % baseMomentFraction
-      #'(1 5)   % beatStructure
+      3/4               % timeSignatureFraction
+      1/8               % baseMomentFraction
+      #'(1 5)           % beatStructure
       #'()		% beamExceptions
     \time 3/4
-    \repeat unfold 6 { a8 }
+    \repeat unfold 6 { a'8 }
   }
   \new Staff {
     \time 3/4
-    \repeat unfold 6 { a8 }
+    \repeat unfold 6 { a'8 }
   }
 >>
 @end lilypond
@@ -2636,7 +2664,7 @@ dell'ultima e le note intermedie si allungano gradualmente.  Le prime
 quattro note da un trentaduesimo sono progressivamente più veloci, mentre
 le ultime quattro presentano lo stesso tempo.
 
-@lilypond[relative=1,verbatim,quote]
+@lilypond[verbatim,quote]
 \override Beam.grow-direction = #LEFT
 \featherDurations #(ly:make-moment 2/1)
 { c16[ c c c c c c c] }
@@ -2962,7 +2990,7 @@ la stanghetta.
 Inoltre, lo spazio @code{" "} fa da spaziatore e fa sì che le stanghette tra i
 righi siano allineate correttamente alle stanghette principali:
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[quote,verbatim]
 \defineBarLine ":|.-sbagliata" #'(":|." "" "|.")
 \defineBarLine ":|.-giusta" #'(":|." "" " |.")
 
@@ -3079,14 +3107,16 @@ o no.  L'ordine dei tre valori è @code{end of line visible}, @code{middle of
 line visible}, @code{beginning of line visible}.  Nell'esempio seguente
 i numeri di battuta compaiono in tutti i punti possibili:
 
-@lilypond[verbatim,quote,relative=1]
-\override Score.BarNumber.break-visibility = ##(#t #t #t)
-\set Score.currentBarNumber = #11
-% Permette la visualizzazione del primo numero di battuta
-\bar ""
-c1 | c | c | c
-\break
-c1 | c | c | c
+@lilypond[verbatim,quote]
+\relative c' {
+  \override Score.BarNumber.break-visibility = ##(#t #t #t)
+  \set Score.currentBarNumber = #11
+  % Permette la visualizzazione del primo numero di battuta
+  \bar ""
+  c1 | c | c | c
+  \break
+  c1 | c | c | c
+}
 @end lilypond
 
 @snippets
@@ -3095,6 +3125,9 @@ c1 | c | c | c
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {printing-bar-numbers-at-regular-intervals.ly}
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{printing-bar-numbers-with-changing-regular-intervals.ly}
 
 @cindex numero di battuta, formato
 @cindex battuta, numero, formato del
@@ -3159,15 +3192,6 @@ seguente il secondo controllo di battuta segnalerà un errore.
 \time 3/4 c2 e4 | g2 |
 @end example
 
-I controlli di battuta possono essere usati anche all'interno del testo vocale:
-
-@example
-\lyricmode @{
-  \time 2/4
-  Twin -- kle | Twin -- kle |
-@}
-@end example
-
 Una durata non corretta può generare uno spartito completamente
 alterato, specialmente nel caso di brani polifonici.  Quindi il
 primo passo da compiere per correggere l'input è la verifica
@@ -3177,6 +3201,24 @@ Se i controlli di battuta successivi sono spostati dello stesso
 intervallo musicale, viene mostrato solo il primo messaggio di
 avviso.  Così l'avvertimento si concentra sulla causa dell'errore
 di tempo.
+
+I controlli di battuta possono essere usati anche all'interno
+del testo vocale:
+
+@example
+\lyricmode @{
+  \time 2/4
+  Twin -- kle | Twin -- kle |
+@}
+@end example
+
+Attenzione: i segni di controllo di ottava nel testo vocale sono
+elaborati nel momento musicale in cui la sillaba @emph{che segue}
+il segno di controllo viene elaborata. Se il testo è associato
+alle note di una voce che ha una pausa all'inizio di una battuta,
+non è possibile individuare alcuna sillaba all'inizio di quella
+battuta e apparirà un avvertimento se viene posto un controllo di
+battuta in quel punto del testo vocale.
 
 @funindex |
 @funindex "|"
@@ -3489,9 +3531,9 @@ e infine con 1/2 della nota principale.
 >>
 @end lilypond
 
-The space between the main note and the grace note may also be
-specified using spacers.  The following example places the grace
-note after a space lasting 7/8 of the main note.
+Lo spazio tra la nota principale e l'abbellimento può essere definito
+anche attraverso delle pause spaziatrici.  L'esempio seguente sposta
+l'abbellimento di uno spazio equivalente ai 7/8 della nota principale.
 
 @lilypond[quote,verbatim]
 \new Voice \relative {
@@ -3606,33 +3648,6 @@ obbligatorio, anche se la parte visibile usa @code{\acciaccatura} o
 @code{\appoggiatura}, perché altrimenti apparirà un orribile frammento
 di legatura di portamento che connette la nota di abbellimento invisibile
 alla nota seguente.
-
-L'uso degli abbellimenti all'interno dei contesti della voce confonde il modo
-in cui la voce viene rappresentata. Si può evitare il problema inserendo una
-pausa o una nota tra il comando della voce e l'abbellimento.
-
-@lilypond[quote,verbatim]
-accMusic = {
-  \acciaccatura { f8 } e8 r8 \acciaccatura { f8 } e8 r4
-}
-
-\new Staff {
-  <<
-    \new Voice {
-      \relative c'' {
-        r8 r8 \voiceOne \accMusic \oneVoice r8 |
-        r8 \voiceOne r8 \accMusic \oneVoice r8 |
-      }
-    }
-    \new Voice {
-      \relative c' {
-        s8 s8 \voiceTwo \accMusic \oneVoice s8 |
-        s8 \voiceTwo r8 \accMusic \oneVoice s8 |
-      }
-    }
-  >>
-}
-@end lilypond
 
 Le sezioni con abbellimenti devono essere usate solamente all'interno di
 espressioni musicali sequenziali.  Non è permesso annidare o affiancare gruppi

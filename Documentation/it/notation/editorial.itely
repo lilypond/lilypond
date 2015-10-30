@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 39f7a447f567bf8cb4e61f2672a81d7d2306b53e
+    Translation of GIT committish: a22f2ad68fccb81e52f805ba69cb8c0e6bf8cd82
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -149,16 +149,18 @@ Un singolo oggetto della formattazione può essere ridimensionato
 coi comandi @code{\tweak} o @code{\override} per regolare la sua
 proprietà @code{font-size}:
 
-@lilypond[quote,verbatim,relative=1]
-% ridimensiona una testa di nota
-<f \tweak font-size -4 b e>-5
-% ridimensiona una diteggiatura
-bes-\tweak font-size 0 -3
-% ridimensiona un'alterazione
-\once \override Accidental.font-size = -4 bes!-^
-% ridimensiona un'articolazione
-\once \override Script.font-size = 4 bes!-^
-@end lilypond
+@lilypond[quote,verbatim]
+\relative {
+  % ridimensiona una testa di nota
+  <f' \tweak font-size -4 b e>-5
+  % ridimensiona una diteggiatura
+  bes-\tweak font-size 0 -3
+  % ridimensiona un'alterazione
+  \once \override Accidental.font-size = -4 bes!-^
+  % ridimensiona un'articolazione
+  \once \override Script.font-size = 4 bes!-^
+  @end lilypond
+}
 
 Il valore predefinito di @code{font-size} per ogni oggetto della
 formattazione è elencato nella Guida al funzionamento interno.  La
@@ -219,19 +221,19 @@ per i singoli oggetti di formattazione, prima che siano stampati i glifi.
 Ciò può creare confusione quando si impostano individualmente le proprietà
 @code{font-size} mentre è impostato anche @code{fontSize}:
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,fragment]
 % il valore predefinito di font-size per NoteHead è 0
 % il valore predefinito di font-size per Fingering è -5
-c4-3
+c''4-3
 
 \set fontSize = -3
 % la dimensione effettiva per NoteHead è ora -3
 % la dimensione effettiva per Fingering è ora -8
-c4-3
+c''4-3
 
 \override Fingering.font-size = 0
 % la dimensione effettiva per Fingering è ora -3
-c4-3
+c''4-3
 @end lilypond
 
 Sono anche disponibili le seguenti scorciatoie:
@@ -319,7 +321,7 @@ e @code{\revert}:
 \magnifyMusic @var{mag} @{
   \newSpacingSection
   \override Score.SpacingSpanner.spacing-increment = #(* 1.2 @var{mag})
-  @var{[music]}
+  [@var{music}]
   \newSpacingSection
   \revert Score.SpacingSpanner.spacing-increment
 @}
@@ -518,22 +520,24 @@ che ha più di una parola.
 La funzione @code{x11-color}, se non riesce a comprendere il parametro,
 restituisce il colore nero.
 
-@lilypond[verbatim,quote,relative=2]
-\override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
-\set Staff.instrumentName = \markup {
-  \with-color #(x11-color 'navy) "Clarinet"
-}
+@lilypond[verbatim,quote]
+\relative c'' {
+  \override Staff.StaffSymbol.color = #(x11-color 'SlateBlue2)
+  \set Staff.instrumentName = \markup {
+    \with-color #(x11-color 'navy) "Clarinet"
+  }
 
-gis8 a
-\override Beam.color = #(x11-color "medium turquoise")
-gis a
-\override Accidental.color = #(x11-color 'DarkRed)
-gis a
-\override NoteHead.color = #(x11-color "LimeGreen")
-gis a
-% questo parametro è volutamente assurdo; notare che i gambi restano neri
-\override Stem.color = #(x11-color 'Boggle)
-b2 cis
+  gis8 a
+  \override Beam.color = #(x11-color "medium turquoise")
+  gis a
+  \override Accidental.color = #(x11-color 'DarkRed)
+  gis a
+  \override NoteHead.color = #(x11-color "LimeGreen")
+  gis a
+  % questo parametro è volutamente assurdo; notare che i gambi restano neri
+  \override Stem.color = #(x11-color 'Boggle)
+  b2 cis
+}
 @end lilypond
 
 @cindex rgb-color
@@ -727,17 +731,18 @@ delle note esterne al rigo.
 Si possono contrassegnare e nominare gli elementi della notazione tramite
 una nuvoletta quadrata.  La sua funzione principale è spiegare la notazione.
 
-@lilypond[verbatim,quote,relative=2]
-\new Voice \with { \consists "Balloon_engraver" }
-{
-  \balloonGrobText #'Stem #'(3 . 4) \markup { "Sono un gambo" }
-  a8
-  \balloonGrobText #'Rest #'(-4 . -4) \markup { "Sono una pausa" }
-  r
-  <c, g'-\balloonText #'(-2 . -2) \markup { "Sono la testa di una nota" } c>2.
+@lilypond[verbatim,quote]
+\relative c'' {
+  \new Voice \with { \consists "Balloon_engraver" }
+  {
+    \balloonGrobText #'Stem #'(3 . 4) \markup { "Sono un gambo" }
+    a8
+    \balloonGrobText #'Rest #'(-4 . -4) \markup { "Sono una pausa" }
+    r
+    <c, g'-\balloonText #'(-2 . -2) \markup { "Sono la testa di una nota" } c>2.
+  }
 }
 @end lilypond
-
 
 Ci sono due funzioni musicali, @code{balloonGrobText} e
 @code{balloonText};  la prima si usa nella forma
@@ -749,15 +754,17 @@ attaccare del testo a una singola nota.
 Il testo nella nuvoletta influenza la spaziatura delle note,
 ma è possibile modificare questo comportamento:
 
-@lilypond[verbatim,quote,relative=2]
-\new Voice \with { \consists "Balloon_engraver" }
-{
-  \balloonGrobText #'Stem #'(3 . 4) \markup { "Sono un gambo" }
-  a8
-  \balloonGrobText #'Rest #'(-4 . -4) \markup { "Sono una pausa" }
-  r
-  \balloonLengthOn
-  <c, g'-\balloonText #'(-2 . -2) \markup { "Sono la testa di una nota" } c>2.
+@lilypond[verbatim,quote]
+\relative c'' {
+  \new Voice \with { \consists "Balloon_engraver" }
+  {
+    \balloonGrobText #'Stem #'(3 . 4) \markup { "Sono un gambo" }
+    a8
+    \balloonGrobText #'Rest #'(-4 . -4) \markup { "Sono una pausa" }
+    r
+    \balloonLengthOn
+    <c, g'-\balloonText #'(-2 . -2) \markup { "Sono la testa di una nota" } c>2.
+  }
 }
 @end lilypond
 

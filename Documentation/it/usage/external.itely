@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 223b1ac16b1b80cd1226eed24968bf7c49c24ec8
+    Translation of GIT committish: afa67f5aac628a66db3de8f47244bde02581ed55
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -125,14 +125,16 @@ suo pacchetto difettoso.
 @translationof Using GNOME 2 for point and click
 
 Per usare GNOME 2 (e i visualizzatori PDF ad esso integrati), il magico
-comando che fornisce al sistema gli URI @samp{textedit:} è
-@example
+comando che fornisce al sistema gli URI @samp{textedit:} è:
+
+@smallexample
 gconftool-2 -t string -s /desktop/gnome/url-handlers/textedit/command "lilypond-invoke-editor %s"
 gconftool-2 -s /desktop/gnome/url-handlers/textedit/needs_terminal false -t bool
 gconftool-2 -t bool -s /desktop/gnome/url-handlers/textedit/enabled true
-@end example
+@end smallexample
 
-Dopo questi comandi,
+Dopo questi comandi:
+
 @example
 gnome-open textedit:///etc/issue:1:0:0
 @end example
@@ -145,7 +147,8 @@ dovrebbe lanciare @file{lilypond-invoke-editor} per l'apertura del file.
 
 In GNOME 3, gli URI sono gestiti da @q{gvfs} invece che da
 @q{gconf}.  Si crea un file in una directory locale (ad esempio @file{/tmp})
-che abbia il nome @file{lilypond-invoke-editor.desktop} e il seguente contenuto
+che abbia il nome @file{lilypond-invoke-editor.desktop} e il seguente contenuto:
+
 @example
 [Desktop Entry]
 Version=1.0
@@ -165,7 +168,8 @@ xdg-desktop-menu install ./lilypond-invoke-editor.desktop
 xdg-mime default lilypond-invoke-editor.desktop x-scheme-handler/textedit
 @end example
 
-Dopo questi comandi,
+Dopo questi comandi:
+
 @example
 gnome-open textedit:///etc/issue:1:0:0
 @end example
@@ -526,10 +530,9 @@ che viene usato per rappresentare la notazione musicale.
 
 @command{musicxml2ly} estrae le note, le articolazioni, la struttura della
 partitura, il testi, etc. da file MusicXML organizzati in parti; quindi li
-scrive in un file @file{.ly}.  Si usa dalla linea di comando.
+scrive in un file @file{.ly}.  Si lancia dalla linea di comando nel modo
+seguente:
 
-
-Si lancia dalla linea di comando nel modo seguente,
 @example
 musicxml2ly [@var{opzione}]@dots{} @var{file-xml}
 @end example
@@ -595,8 +598,8 @@ il file di input è un file MusicXML compresso in un archivio ZIP.
 @subsection Utilizzo di @code{abc2ly}
 @translationof Invoking abc2ly
 
-@warning{Questo programma non è supportato e potrebbe essere rimosso
-dalle future versioni di LilyPond.}
+@warning{Questo programma non è attualmente supportato e un giorno potrebbe
+essere rimosso dalle future versioni di LilyPond.}
 
 @cindex ABC
 
@@ -629,7 +632,7 @@ mostra informazioni sulla versione.
 @end table
 
 Esiste una rudimentale funzione per aggiungere codice LilyPond nel
-file sorgente ABC.  Se scrivi:
+file sorgente ABC.  Per esempio:
 
 @example
 %%LY voices \set autoBeaming = ##f
@@ -665,9 +668,10 @@ lo fa.
 @subsection Utilizzo di @command{etf2ly}
 @translationof Invoking etf2ly
 
-@warning{Questo programma non è supportato e potrebbe essere rimosso
-dalle future versioni di LilyPond.}
+@warning{Questo programma non è attualmente supportato e un giorno potrebbe
+essere rimosso dalle future versioni di LilyPond.}
 
+@cindex Enigma Transport Format
 @cindex ETF
 @cindex enigma
 @cindex Finale
@@ -677,7 +681,7 @@ ETF (Enigma Transport Format) è un formato usato da Finale, un prodotto di Coda
 Music Technology.  @command{etf2ly} converte parte di un file ETF
 in un file LilyPond pronto all'uso.
 
-Si lancia dalla linea di comando nel modo seguente.
+Si lancia dalla linea di comando nel modo seguente:
 
 @example
 etf2ly [@var{opzione}]@dots{} @var{file-etf}
@@ -725,41 +729,55 @@ Questa sezione presenta dei metodi per integrare testo e musica diversi
 dal metodo automatizzato di @command{lilypond-book}.
 
 @menu
-* Tante citazioni da una grande partitura::
-* Inserire l'output di LilyPond in OpenOffice e LibreOffice::
-* Inserire l'output di LilyPond in altri programmi::
+* LuaTex::
+* OpenOffice e LibreOffice::
+* Altri programmi::
 @end menu
 
-@node Tante citazioni da una grande partitura
-@unnumberedsubsec Tante citazioni da una grande partitura
-@translationof Many quotes from a large score
+@node LuaTex
+@subsection LuaTex
+@translationof LuaTex
 
-Per inserire molti frammenti di una grande partitura, si può usare anche
-la funzione di ritaglio dei sistemi; si veda @ruser{Extracting fragments of music}.
+@cindex LuaTex
+@cindex lyluatex
+
+Per integrare l'output di Lilypond in un documento, oltre a
+@code{lilypond-book}, esiste un programma alternativo che può
+essere usato con LuaTex:
+@uref{https://github.com/jperon/lyluatex/blob/master/README.en.md,lyluatex}.
 
 
-@node Inserire l'output di LilyPond in OpenOffice e LibreOffice
-@unnumberedsubsec Inserire l'output di LilyPond in OpenOffice e LibreOffice
-@translationof Inserting LilyPond output into OpenOffice and LibreOffice
+@node OpenOffice e LibreOffice
+@subsection OpenOffice e LibreOffice
+@translationof OpenOffice and LibreOffice
 
+@cindex OpenOffice.org
 @cindex LibreOffice.org
+@cindex OOoLilyPond
 
-La notazione di LilyPond può essere aggiunta a OpenOffice e LibreOffice con
-@uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond}.
+La notazione di LilyPond può essere aggiunta a OpenOffice e LibreOffice
+con @uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond},
+un'estensione di OpenOffice.org che converte i file di LilyPond in immagini
+incluse nei documenti di OpenOffice.org.  Sebbene non sia più sviluppato,
+sembra che funzioni ancora nella versione 4.
 
 
-@node Inserire l'output di LilyPond in altri programmi
-@unnumberedsubsec Inserire l'output di LilyPond in altri programmi
-@translationof Inserting LilyPond output into other programs
+@node Altri programmi
+@subsection Altri programmi
+@translationof Other programs
 
-Per inserire l'output di LilyPond in altri programmi, si usa @code{lilypond}
-invece di @code{lilypond-book}.  Bisogna creare ogni esempio singolarmente
+Per inserire l'output di LilyPond in altri programmi, si usa .  Bisogna creare ogni esempio singolarmente
 e aggiungerlo al documento; consulta la documentazione del relativo
-programma.  La maggior parte dei programmi può inserire l'output di LilyPond
-in formato @file{PNG}, @file{EPS} o @file{PDF}.
+programma.
+
+Altri programmi in grado di gestire i formati @file{PNG}, @file{EPS} o
+@file{PDF} dovrebbero usare @code{lilypond} invece di @code{lilypond-book}.
+Ciascun output di LilyPond deve essere creato e inserito separatamente.
+Consultare la documentazione del programma usato per sapere come inserire
+file.
 
 Per ridurre lo spazio bianco intorno alla partitura LilyPond, si usano
-le seguenti opzioni
+le seguenti opzioni:
 
 @example
 \paper@{
@@ -771,36 +789,48 @@ le seguenti opzioni
   scoreTitleMarkup = ##f
 @}
 
-@{ c1 @}
+@var{@dots{} music @dots{}}
 @end example
 
-Per creare file immagine utili, si usa
+@noindent
+Per creare immagini @file{EPS}:
 
 @example
-EPS
-
 lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts myfile.ly
+@end example
 
-PNG
+@noindent
+Per creare immagini @file{PNG}:
 
+@example
 lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png miofile.ly
+@end example
 
-Un file PNG trasparente
+@noindent
+Per creare immagini @file{PNG} trasparenti:
 
+@smallexample
 lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts \
   -dpixmap-format=pngalpha --png miofile.ly
-@end example
+@end smallexample
+
+@cindex frammenti di musica
+@cindex citare frammenti di musica
+@cindex musica, citare frammenti
+
+Per inserire molti frammenti di una grande partitura, si può
+usare anche la funzione di ritaglio dei sistemi; si veda
+@ruser{Extracting fragments of music}.
 
 
 @node Inclusioni indipendenti
 @section @code{include} indipendenti
 @translationof Independent includes
 
-Alcuni hanno scritto ampi (e utili!) frammenti di codice che possono
-essere condivisi da progetti diversi.  Questo codice potrebbe alla fine
-entrare a far parte di LilyPond, ma finché questo non avviene occorre
-scaricarlo e includerlo manualmente con @code{\include}.
-
+Alcuni utenti hanno creato file che possono essere inclusi in LilyPond
+tramite @code{\include} per produrre certi effetti.  Quelli elencati
+in questo capitolo fanno parte di Lilypond.  Maggiori informazioni
+in @ruser{Working with input files}.
 
 @menu
 * Articolazione MIDI::
@@ -811,26 +841,15 @@ scaricarlo e includerlo manualmente con @code{\include}.
 @subsection Articolazione MIDI
 @translationof MIDI articulation
 
-LilyPond permette di generare l'output MIDI, che consente di
-@qq{verificare a orecchio} quanto è stato scritto.  Tuttavia l'output
-contiene solo la dinamica, i segni di tempo espliciti, le note e le loro
-durate.
+@cindex MIDI
+@cindex Articulate, progetto
 
-Il progetto @emph{articulate} costituisce un tentativo di inviare al file
-MIDI maggiori informazioni sulla partitura.  Il suo funzionamento si basa
-sull'abbreviazione delle note prive di legatura di portamento, in
-modo da @q{articolare} le note.  Questa riduzione dipende dai segni di
-articolazione attaccati a una nota: staccato dimezza il valore della nota, tenuto
-assegna alla nota la sua intera durata, e così via.  Lo script è consapevole anche dei
-trilli e dei gruppetti; può essere esteso per elaborare altri ornamenti come i
-mordenti.
+Il progetto @uref{http://www.nicta.com.au/articulate,Articulate} è un
+tentativo di migliorare l'output MIDI di Lilypond.  Aggiusta la durata
+delle note (che non si trovano in una legatura di portamento) in base
+ai segni di articolazione attaccati ad esse.  Per esempio, @q{staccato}
+dimezza il valore della nota, @q{tenuto} assegna alla nota la sua
+durata completa, e così via.
 
-@example
-@uref{http://@/www@/.nicta@/.com@/.au/@/people/@/chubbp/@/articulate}
-@end example
+Maggiori informazioni in @ruser{Enhancing MIDI output}.
 
-@knownissues
-
-La sua principale limitazione è che può agire solo sugli elementi che
-conosce: qualsiasi cosa che sia del semplice testo (invece di una proprietà
-della nota) viene dunque ignorato.
