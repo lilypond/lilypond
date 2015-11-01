@@ -62,6 +62,24 @@ which scares away people.
 @end ignore
 
 @item
+@code{TabStaff} is now able to print micro-tones for bendings etc.
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Score
+    noteToFretFunction = #(determine-frets #t)
+  }
+}
+
+mus = \relative { c'4 cih d dih }
+
+<<
+  \new Staff << \clef "G_8" \mus >>
+  \new TabStaff \mus
+>>
+@end lilypond
+
+@item
 All of @code{\override}, @code{\revert}, @code{\set}, and
 @code{\unset} now work with the @code{\once} prefix for making
 one-time settings.

@@ -233,8 +233,9 @@ way the transposition number is displayed."
     ;; Create the dot-placement list for the grob
     (set! (ly:grob-property grob 'dot-placement-list) placement-list)))
 
-(define-public
-  (determine-frets context notes specified-info . rest)
+(define*-public
+  ((determine-frets #:optional (support-non-integer-fret? #f))
+                    context notes specified-info . rest)
   "Determine string numbers and frets for playing @var{notes}
 as a chord, given specified information @var{specified-info}.
 @var{specified-info} is a list with two list elements,
@@ -247,7 +248,9 @@ Will look for predefined fretboards if @code{predefinedFretboardTable}
 is not @code {#f}.  If @var{rest} is present, it contains the
 @code{FretBoard} grob, and a fretboard will be
 created.  Otherwise, a list of @code{(string fret finger)} lists will
-be returned."
+be returned.
+If the optional @var{support-non-integer-fret?} is set @code{#t}, micro-tones
+are supported for TabStaff, but not not for FretBoards."
 
   ;;  helper functions
 
@@ -356,7 +359,9 @@ notes?"
         (and (or (and (not restrain-open-strings)
                       (zero? fret))
                  (>= fret minimum-fret))
-             (integer? fret)
+             (if (and support-non-integer-fret? (null? rest))
+                 (integer? (truncate fret))
+                 (integer? fret))
              (close-enough fret))))
 
     (define (open-string string pitch)
@@ -372,7 +377,7 @@ the current tuning?"
         (if (< this-fret 0)
             (ly:warning (_ "Negative fret for pitch ~a on string ~a")
                         (car pitch-entry) string)
-            (if (not (integer? this-fret))
+            (if (and (not (integer? this-fret)) (not support-non-integer-fret?))
                 (ly:warning (_ "Missing fret for pitch ~a on string ~a")
                             (car pitch-entry) string)))
         (delete-free-string string)
@@ -584,8 +589,25 @@ only ~a fret labels provided")
 ;; Display the fret number as a number
 (define-public (fret-number-tablature-format
                 context string-number fret-number)
-  (make-vcenter-markup
-   (format #f "~a" fret-number)))
+  (if (integer? fret-number)
+      (make-vcenter-markup
+        (format #f "~a" fret-number))
+      ;; for non-integer fret-number print p.e. "2½"
+      (let* ((whole-part (truncate fret-number))
+             (remaining (- fret-number whole-part))
+             (fret
+               (if (and (zero? whole-part) (not (zero? remaining)))
+                   ""
+                   (format #f "~a" whole-part)))
+             (frac
+               (if (zero? remaining)
+                   ""
+                   (format #f "~a" remaining))))
+        (make-concat-markup
+          (list (make-vcenter-markup fret)
+                (make-vcenter-markup
+                  ;; the value `-2.5' is my choice
+                  (make-fontsize-markup -2.5 frac)))))))
 
 ;; The 5-string banjo has got an extra string, the fifth (duh), which
 ;; starts at the fifth fret on the neck.  Frets on the fifth string
