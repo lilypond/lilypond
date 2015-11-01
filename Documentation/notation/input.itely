@@ -1736,10 +1736,11 @@ ie. a two digit number.
 
 @node Table of contents
 @subsection Table of contents
-A table of contents is included using the @code{\markuplist \table-of-contents}
-command.  The elements which should appear in the table of contents are
-entered with the @code{\tocItem} command, which may be used either at
-top-level, or inside a music expression.
+A table of contents is included using the
+@code{\markuplist \table-of-contents} command.  The elements which
+should appear in the table of contents are entered with the
+@code{\tocItem} command, which may be used either at top-level, or
+inside a music expression.
 
 @verbatim
 \markuplist \table-of-contents
@@ -1762,39 +1763,89 @@ top-level, or inside a music expression.
 }
 @end verbatim
 
-The markups which are used to format the table of contents are defined
-in the @code{\paper} block.  The default ones are @code{tocTitleMarkup},
-for formatting the title of the table, and @code{tocItemMarkup}, for
-formatting the toc elements, composed of the element title and page
-number.  These variables may be changed by the user:
+Markups used for formatting the table of contents are defined in the
+@code{\paper} block.  There two @q{pre-defined} markups already
+available;
+
+@itemize
+
+@item
+@code{tocTitleMarkup}
+
+@noindent
+Used for formatting the title of the table of contents.
+
+@verbatim
+tocTitleMarkup = \markup \huge \column {
+  \fill-line { \null "Table of Contents" \null }
+  \null
+}
+@end verbatim
+
+@item
+@code{tocItemMarkup}
+
+@noindent
+Used for formatting the elements within the table of contents.
+
+@verbatim
+tocItemMarkup = \markup \fill-line {
+  \fromproperty #'toc:text \fromproperty #'toc:page
+}
+@end verbatim
+
+@end itemize
+
+@noindent
+Both of these variables can be changed.
+
+Here is an example changing the table of contents' title into French;
 
 @verbatim
 \paper {
-  %% Translate the toc title into French:
   tocTitleMarkup = \markup \huge \column {
     \fill-line { \null "Table des matières" \null }
     \hspace #1
   }
-  %% use larger font size
-  tocItemMarkup = \markup \large \fill-line {
-    \fromproperty #'toc:text \fromproperty #'toc:page
-  }
+@end verbatim
+
+Here is an example changing the font-size of the elements in the table
+of contents;
+
+@verbatim
+tocItemMarkup = \markup \large \fill-line {
+  \fromproperty #'toc:text \fromproperty #'toc:page
 }
 @end verbatim
 
-Note how the toc element text and page number are referred to in
-the @code{tocItemMarkup} definition.
+Note how the element text and page numbers are referred to in the
+@code{tocItemMarkup} definition.
 
-New commands and markups may also be defined to build more elaborated
-table of contents:
-@itemize
-@item first, define a new markup variable in the @code{\paper} block
-@item then, define a music function which aims at adding a toc element
-using this markup paper variable.
-@end itemize
+The @code{\tocItemWithDotsMarkup} command can be included within the
+@code{tocItemMarkup} to fill the line, between a table of contents item
+and its corresponding page number, with dots;
 
-In the following example, a new style is defined for entering act names
-in the table of contents of an opera:
+@lilypond[verbatim,line-width=10.0\cm]
+\header { tagline = ##f }
+\paper {
+  tocItemMarkup = \tocItemWithDotsMarkup
+}
+
+\book {
+  \markuplist \table-of-contents
+  \tocItem \markup { Allegro }
+  \tocItem \markup { Largo }
+  \markup \null
+}
+@end lilypond
+
+Custom commands with their own markups can also be defined to build a
+more complex table of contents.  In the following example, a new style
+is defined for entering act names in a table of contents of an opera;
+
+@noindent
+A new markup variable (called @code{tocActMarkup}) is defined in the
+@code{\paper} block ;
 
 @verbatim
 \paper {
@@ -1804,11 +1855,21 @@ in the table of contents of an opera:
     \hspace #1
   }
 }
-
-tocAct =
-#(define-music-function (text) (markup?)
-   (add-toc-item! 'tocActMarkup text))
 @end verbatim
+
+@noindent
+A custom music function (@code{tocAct}) is then created -- which uses
+the new @code{tocActMarkup} markup definition.
+
+@verbatim
+tocAct =
+  #(define-music-function (text) (markup?)
+     (add-toc-item! 'tocActMarkup text))
+@end verbatim
+
+@noindent
+A LilyPond input file, using these customer definitions, could look
+something like this;
 
 @lilypond[line-width=10.0\cm]
 \header { tagline = ##f }
@@ -1836,21 +1897,19 @@ tocAct =
 }
 @end lilypond
 
-Dots can be added to fill the line between an item and its page number:
 
-@lilypond[verbatim,line-width=10.0\cm]
-\header { tagline = ##f }
+Here is an example of the @code{\fill-with-pattern} command used within
+the context of a table of contents;
+
+@verbatim
 \paper {
-  tocItemMarkup = \tocItemWithDotsMarkup
+  tocItemMarkup = \markup { \fill-line {
+    \override #'(line-width . 70)
+    \fill-with-pattern #1.5 #CENTER . \fromproperty #'toc:text \fromproperty #'toc:page
+    }
+  }
 }
-
-\book {
-  \markuplist \table-of-contents
-  \tocItem \markup { Allegro }
-  \tocItem \markup { Largo }
-  \markup \null
-}
-@end lilypond
+@end verbatim
 
 @seealso
 Installed Files:
