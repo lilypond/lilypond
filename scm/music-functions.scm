@@ -537,8 +537,9 @@ error (using optionally @code{location})."
           #f))))
 
 (define-public (make-grob-property-set grob gprop val)
-  "Make a @code{Music} expression that sets @var{gprop} to @var{val} in
-@var{grob}.  Does a pop first, i.e., this is not an override."
+  "Make a @code{Music} expression that overrides a @var{gprop} to
+@var{val} in @var{grob}.  Does a pop first, i.e. this is not a
+@code{\\temporary \\override}."
   (make-music 'OverrideProperty
               'symbol grob
               'grob-property gprop
@@ -546,8 +547,9 @@ error (using optionally @code{location})."
               'pop-first #t))
 
 (define-public (make-grob-property-override grob gprop val)
-  "Make a @code{Music} expression that overrides @var{gprop} to @var{val}
-in @var{grob}."
+  "Make a @code{Music} expression that overrides @var{gprop} to
+@var{val} in @var{grob}.  This is a @code{\\temporary \\override},
+making it possible to @code{\\revert} to any previous value afterwards."
   (make-music 'OverrideProperty
               'symbol grob
               'grob-property gprop

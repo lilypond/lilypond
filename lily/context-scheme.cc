@@ -76,7 +76,7 @@ LY_DEFINE (ly_context_grob_definition, "ly:context-grob-definition",
 
 LY_DEFINE (ly_context_pushpop_property, "ly:context-pushpop-property",
            3, 1, 0, (SCM context, SCM grob, SCM eltprop, SCM val),
-           "Do a single @code{\\override} or @code{\\revert} operation"
+           "Do @code{\\temporary \\override} or @code{\\revert} operation"
            " in @var{context}.  The grob definition @var{grob} is extended"
            " with @var{eltprop} (if @var{val} is specified) or reverted"
            " (if unspecified).")
