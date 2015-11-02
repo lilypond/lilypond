@@ -1,4 +1,4 @@
-%% Translation of GIT committish: c86ce585e9451663b80beb5d03ee28a00b07e8e8
+%% Translation of GIT committish: a51b7ab55aed341ffd8af27a357212ed7ef528b9
   texidocit = "
 Il raggruppamento delle pulsazioni all'interno della misura è regolato dalla
 proprietà di contesto @code{beatStructure}.  I valori di @code{beatStructure} per

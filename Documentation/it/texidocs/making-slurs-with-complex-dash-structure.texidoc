@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 3c907f2dd5ba3dd91e30454922d8361225ca28d5
+%% Translation of GIT committish: a51b7ab55aed341ffd8af27a357212ed7ef528b9
   texidocit = "
 Le legature di portamento possono avere schemi di tratteggio complessi
 definendo la proprietà @code{dash-definition}.  @code{dash-definition} è

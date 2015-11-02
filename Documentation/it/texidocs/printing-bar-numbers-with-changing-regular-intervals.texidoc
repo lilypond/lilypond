@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+%% Translation of GIT committish: a51b7ab55aed341ffd8af27a357212ed7ef528b9
   texidocit = "
 L'intervallo dei numeri di battuta può essere modificato cambiando la
 funzione di contesto @code{set-bar-number-visibility}.
