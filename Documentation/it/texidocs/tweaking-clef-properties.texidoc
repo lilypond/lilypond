@@ -4,7 +4,7 @@ Cambiando il glifo della chiave, la sua posizione o l'ottavazione non
 cambia la posizione delle note successive nel rigo.  Per far sì che
 le armature di chiave si trovino sulle linee del rigo corrette, bisogna
 specificare anche @code{middleCPosition}, con valori positivi o negativi
-che spostano il @emph{Do centrale} rispettivamente su o giù in senso
+che spostano il @code{Do centrale} rispettivamente su o giù in senso
 relativo alla linea centrale del rigo.
 
 Per esempio, @code{\\clef \"treble_8\"} equivale a impostare
