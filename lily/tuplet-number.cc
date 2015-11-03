@@ -336,7 +336,7 @@ count_beams_not_touching_stem (SCM beaming)
 
   for (SCM s = scm_car (beaming); scm_is_pair (s); s = scm_cdr (s))
     {
-      if (scm_is_true (scm_c_memq (scm_car (s), scm_cdr (beaming))))
+      if (scm_is_true (ly_memv (scm_car (s), scm_cdr (beaming))))
         ++count;
     }
 

@@ -259,7 +259,7 @@ position_with_maximal_common_beams (SCM left_beaming, SCM right_beaming,
       for (SCM s = scm_car (right_beaming); scm_is_pair (s); s = scm_cdr (s))
         {
           int k = -right_dir * scm_to_int (scm_car (s)) + i;
-          if (scm_is_true (scm_c_memq (scm_from_int (k), left_beaming)))
+          if (scm_is_true (ly_memv (scm_from_int (k), left_beaming)))
             count++;
         }
 
@@ -1006,7 +1006,7 @@ where_are_the_whole_beams (SCM beaming)
 
   for (SCM s = scm_car (beaming); scm_is_pair (s); s = scm_cdr (s))
     {
-      if (scm_is_true (scm_c_memq (scm_car (s), scm_cdr (beaming))))
+      if (scm_is_true (ly_memv (scm_car (s), scm_cdr (beaming))))
 
         l.add_point (scm_to_int (scm_car (s)));
     }
