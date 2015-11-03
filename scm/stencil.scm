@@ -40,6 +40,101 @@
        1
        #t))
 
+(define-public (make-bow-stencil
+           start stop thickness angularity bow-height orientation)
+  "Create a bow stencil.
+It starts at point @var{start}, ends at point @var{stop}.
+@var{thickness} is the thickness of the bow.
+The higher the value of number @var{angularity}, the more angular the shape of
+the bow.
+@var{bow-height} determines the height of the bow.
+@var{orientation} determines, whether the bow is concave or convex.
+@var{orientation} should be set to @val{-1} or @val{1}, other values are
+possible but will affect the bow's height as well.
+Both variables are supplied to support independent usage.
+
+Done by calculating a horizontal unit-bow first, then moving all control-points
+to the correct positions.
+Limitation: s-curves are currently not supported.
+"
+
+;;;; Coding steps:
+;;;; (1) calculate control-points for a "unit"-bow from '(0 . 0) to '(1 . 0)
+;;;;     user settable `bow-height' and `thickness' are scaled down.
+;;;; (2) move control-points to match `start' and `stop'
+
+  (let* (;; we use a fixed line-width as border for different behaviour
+         ;; for larger and (very) small lengths
+         (line-width 0.1)
+         ;; `start'-`stop' distances
+         (dx (- (car stop) (car start)))
+         (dy (- (cdr stop) (cdr start)))
+         (length-to-print (magnitude (make-rectangular dx dy))))
+
+    (if (= 0 length-to-print)
+        empty-stencil
+        (let* (
+          ;;;; (1) calculate control-points for the horizontal unit-bow,
+               ;; y-values for 2nd/3rd control-points
+               (outer-control
+                 (* 4/3 orientation (/ bow-height length-to-print)))
+               (inner-control
+                 (* orientation
+                    (- (abs outer-control) (/ thickness length-to-print))))
+               ;; x-values for 2nd/3rd control-points depending on `angularity'
+               (offset-index
+                 (- (* 0.6 angularity) 0.8))
+               (left-control
+                 (+ 0.1 (* 0.3 angularity)))
+               (right-control
+                 (- 1 left-control))
+               ;; defining 2nd and 3rd outer control-points
+               (left-outer-control-point
+                 (cons left-control outer-control))
+               (right-outer-control-point
+                 (cons right-control outer-control))
+               ;; defining 2nd and 3rd inner control-points
+               (left-inner-control-point
+                 (cons left-control inner-control))
+               (right-inner-control-point
+                 (cons right-control inner-control))
+               (coord-list
+                 (list
+                   '(0 . 0)
+                   left-outer-control-point
+                   right-outer-control-point
+                   '(1 . 0)
+                   right-inner-control-point
+                   left-inner-control-point))
+               ;;;; (2) move control-points to match `start' and `stop'
+               (moved-coord-list
+                 (map
+                   (lambda (p)
+                     (cons
+                       (+ (car start) (- (* (car p) dx) (* (cdr p) dy)))
+                       (+ (cdr start) (+ (* (car p) dy) (* (cdr p) dx)))))
+                   coord-list)))
+
+          ;; final stencil
+          (make-bezier-sandwich-stencil
+            moved-coord-list
+            (min (* 2 thickness) line-width))))))
+
+(define-public (make-tie-stencil start stop thickness orientation)
+  (let* (;; For usage in text we choose a little less `height-limit'
+         ;; than the default for `Tie'
+         (height-limit 0.7)
+         (ratio 0.33)
+         ;; taken from bezier-bow.cc
+         (F0_1
+           (lambda (x) (* (/ 2 PI) (atan (* PI x 0.5)))))
+         (slur-height
+           (lambda (w h_inf r_0) (F0_1 (* (/ (* w r_0) h_inf) h_inf))))
+         (width (abs (- (car start) (car stop))))
+         (angularity 0.5)
+         (height (slur-height width height-limit ratio)))
+    (make-bow-stencil start stop thickness angularity height orientation)))
+
 (define-public (stack-stencils axis dir padding stils)
   "Stack stencils @var{stils} in direction @var{axis}, @var{dir}, using
 @var{padding}."

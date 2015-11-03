@@ -615,6 +615,95 @@ thickness, and @code{offset} to determine line y-offset.
          (line (make-line-stencil underline-thick x1 y x2 y)))
     (ly:stencil-add m line)))
 
+(define-markup-command (tie layout props arg)
+  (markup?)
+  #:category font
+  #:properties ((thickness 1)
+                (offset 2)
+                (direction UP)
+                (shorten-pair '(0 . 0)))
+  "
+@cindex tie-ing text
+
+Adds a horizontal bow created with @code{make-tie-stencil} at bottom or top
+of @var{arg}.  Looks at @code{thickness} to determine line thickness, and
+@code{offset} to determine y-offset.  The added bow fits the extent of
+@var{arg}, @code{shorten-pair} may be used to modify this.
+@var{direction} may be set using an @code{override} or direction-modifiers or
+@code{voiceOne}, etc.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\override #'(direction . 1)
+  \\tie \"above\"
+  \\override #'(direction . -1)
+  \\tie \"below\"
+}
+@end lilypond"
+  (let* ((line-thickness (ly:output-def-lookup layout 'line-thickness))
+         (thick (* thickness line-thickness))
+         (stil (interpret-markup layout props arg))
+         (x1 (car (ly:stencil-extent stil X)))
+         (x2 (cdr (ly:stencil-extent stil X)))
+         (y-ext (ly:stencil-extent stil Y))
+         (y (+ (* line-thickness offset direction)
+               ;; we put out zero for positive text-direction, to make it
+               ;; consistent with `underline-markup'
+               ;; TODO: this will be problematic for args like "Eng"
+               ;;       fix it here _and_ in `underline-markup'
+               (if (negative? direction) 0 (cdr y-ext))))
+         (tie
+           (make-tie-stencil
+             (cons (+ x1 (car shorten-pair) line-thickness) y)
+             (cons (- x2 (cdr shorten-pair) line-thickness) y)
+             thick
+             direction)))
+    (ly:stencil-add stil tie)))
+
+(define-markup-command (undertie layout props arg)
+  (markup?)
+  #:category font
+  #:properties (tie-markup)
+  "
+@cindex undertie-ing text
+
+@lilypond[verbatim,quote]
+\\markup \\line {
+  \\undertie \"undertied\"
+  \\override #'(offset . 5)
+  \\override #'(thickness . 1)
+  \\undertie \"undertied\"
+  \\override #'(offset . 1)
+  \\override #'(thickness . 5)
+  \\undertie \"undertied\"
+}
+@end lilypond"
+  (interpret-markup layout (prepend-alist-chain 'direction DOWN props)
+    (make-tie-markup arg)))
+
+(define-markup-command (overtie layout props arg)
+  (markup?)
+  #:category font
+  #:properties (tie-markup)
+  "
+@cindex overtie-ing text
+
+Overtie @var{arg}.
+
+@lilypond[verbatim,quote]
+\\markup \\line {
+  \\overtie \"overtied\"
+  \\override #'(offset . 5)
+  \\override #'(thickness . 1)
+  \\overtie \"overtied\"
+  \\override #'(offset . 1)
+  \\override #'(thickness . 5)
+  \\overtie \"overtied\"
+}
+@end lilypond"
+  (interpret-markup layout (prepend-alist-chain 'direction UP props)
+    (make-tie-markup arg)))
+
 (define-markup-command (box layout props arg)
   (markup?)
   #:category font

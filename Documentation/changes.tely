@@ -62,6 +62,22 @@ which scares away people.
 @end ignore
 
 @item
+Markup-commands @code{\undertie} and @code{\overtie} are now available, as well
+the generic markup-command @code{\tie}.
+@lilypond[quote,verbatim]
+\markup {
+  \undertie "undertied"
+  \overtie "overtied"
+}
+
+m = {
+  c''1 \prall -\tweak text \markup \tie "131" -1
+}
+
+{ \voiceOne \m \voiceTwo \m }
+@end lilypond
+
+@item
 @code{TabStaff} is now able to print micro-tones for bendings etc.
 @lilypond[quote,verbatim]
 \layout {
