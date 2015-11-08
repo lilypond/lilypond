@@ -67,7 +67,7 @@ which scares away people.
 \layout {
   \context {
     \Score
-    noteToFretFunction = #(determine-frets #t)
+    supportNonIntegerFret = ##t
   }
 }
 

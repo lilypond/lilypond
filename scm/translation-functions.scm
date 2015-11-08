@@ -233,9 +233,8 @@ way the transposition number is displayed."
     ;; Create the dot-placement list for the grob
     (set! (ly:grob-property grob 'dot-placement-list) placement-list)))
 
-(define*-public
-  ((determine-frets #:optional (support-non-integer-fret? #f))
-                    context notes specified-info . rest)
+(define-public
+  (determine-frets context notes specified-info . rest)
   "Determine string numbers and frets for playing @var{notes}
 as a chord, given specified information @var{specified-info}.
 @var{specified-info} is a list with two list elements,
@@ -249,8 +248,8 @@ is not @code {#f}.  If @var{rest} is present, it contains the
 @code{FretBoard} grob, and a fretboard will be
 created.  Otherwise, a list of @code{(string fret finger)} lists will
 be returned.
-If the optional @var{support-non-integer-fret?} is set @code{#t}, micro-tones
-are supported for TabStaff, but not not for FretBoards."
+If the context-property @code{supportNonIntegerFret} is set @code{#t},
+micro-tones are supported for TabStaff, but not not for FretBoards."
 
   ;;  helper functions
 
@@ -359,7 +358,9 @@ notes?"
         (and (or (and (not restrain-open-strings)
                       (zero? fret))
                  (>= fret minimum-fret))
-             (if (and support-non-integer-fret? (null? rest))
+             (if (and
+                   (ly:context-property context 'supportNonIntegerFret #f)
+                   (null? rest))
                  (integer? (truncate fret))
                  (integer? fret))
              (close-enough fret))))
@@ -377,7 +378,9 @@ the current tuning?"
         (if (< this-fret 0)
             (ly:warning (_ "Negative fret for pitch ~a on string ~a")
                         (car pitch-entry) string)
-            (if (and (not (integer? this-fret)) (not support-non-integer-fret?))
+            (if (and
+                  (not (integer? this-fret))
+                  (not (ly:context-property context 'supportNonIntegerFret #f)))
                 (ly:warning (_ "Missing fret for pitch ~a on string ~a")
                             (car pitch-entry) string)))
         (delete-free-string string)

@@ -730,7 +730,7 @@ Cette clef moderne prend en charge les tablatures de quatre à sept cordes.
 
 Un @code{TabStaff} peut contenir des micro-intervalles tels les quarts
 de ton, qui interveiennent dans les chutes ou sauts.  L'assertion
-@w{@code{noteToFretFunction = #(determine-frets #t)}} devra se placer au
+@w{@code{supportNonIntegerFret = ##t}} devra se placer au
 niveau du contexte @code{Score}.  Les micro-intervalles ne sont
 toutefois pas pris en charge dans un contexte @code{FretBoards}.
 
@@ -738,7 +738,7 @@ toutefois pas pris en charge dans un contexte @code{FretBoards}.
 \layout {
   \context {
     \Score
-    noteToFretFunction = #(determine-frets #t)
+    supportNonIntegerFret = ##t
   }
 }
 

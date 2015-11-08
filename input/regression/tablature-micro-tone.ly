@@ -3,7 +3,8 @@
 \header {
   texidoc = "The @code{TabStaff} will print micro-tones as mixed numbers of
 fret-number and a fraction.
-@code{noteToFretFunction = #(my-determine-frets #t)} needs to be set in Score.
+The context-property @code{supportNonIntegerFret} needs to be set @code{#t}
+in @code{Score}-context.
 @code{FretBoards} will print those micro-tones only if they can be found in the
 chosen settings for @code{stringTunings}, otherwise a warning (surpressed here)
 will be printed and an empty @code{FretBoard} returned.  Which should be the
@@ -16,7 +17,7 @@ case here for the first pitch: @code{gih}"
 \layout {
   \context {
     \Score
-    noteToFretFunction = #(determine-frets #t)
+    supportNonIntegerFret = ##t
   }
 }
 

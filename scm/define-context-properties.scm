@@ -598,6 +598,8 @@ one).")
 subdivided at @code{baseMoment} positions by only drawing one beam over the beat.")
      (suggestAccidentals ,boolean? "If set, accidentals are typeset as
 cautionary suggestions over the note.")
+     (supportNonIntegerFret ,boolean? "If set in @code{Score} the
+@code{TabStaff} will print micro-tones as @samp{2½}")
      (systemStartDelimiter ,symbol? "Which grob to make for the start
 of the system/@/staff?  Set to @code{SystemStartBrace},
 @code{SystemStartBracket} or @code{SystemStartBar}.")
