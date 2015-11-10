@@ -604,7 +604,7 @@ plus amples détails à ce sujet, reportez vous au chapitre
 @ref{Liaisons d'articulation}.
 
 Dans le cas où une liaison est recouverte par d'autres éléments de la
-portée, une adaptation des propriétés @var{whiteout-box} et @var{layer}
+portée, une adaptation des propriétés @var{whiteout} et @var{layer}
 permet d'obtenir une meilleure lisibilité.
 
 @lilypond[verbatim,quote,ragged-right]

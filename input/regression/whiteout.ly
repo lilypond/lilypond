@@ -1,8 +1,9 @@
 \header {
 
   texidoc = "The whiteout command underlays a white background under a
-markup that approximates the outline of the markup.  The whiteout-box
-command underlays a rounded white box under a markup. "
+markup.  The shape is determined by @code{whiteout-style}. The default
+is @code{box} which produces a white rectangle.  @code{outline}
+approximates the outline of the markup."
 
 }
 \version "2.19.32"
@@ -16,5 +17,16 @@ command underlays a rounded white box under a markup. "
   \override TextScript.layer = #'2
   \override TextScript.extra-offset = #'(2 . 4)
   c''4-\markup { \whiteout foo } c
-  c4-\markup { \whiteout \pad-markup #0.5 foo } c
+  c-\markup { \whiteout \pad-markup #0.5 foo } c
+  c-\markup {
+    \override #'(thickness . 2)
+    \whiteout foo
+  }
+  c
+  c-\markup {
+    \override #'(thickness . 3)
+    \override #'(whiteout-style . outline)
+    \whiteout foo
+  }
+  c
 }
