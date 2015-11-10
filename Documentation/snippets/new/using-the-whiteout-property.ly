@@ -1,4 +1,4 @@
-\version "2.19.22"
+\version "2.19.32"
 
 \header {
   lsrtags = "editorial-annotations, expressive-marks"
@@ -27,7 +27,7 @@ is not masked.
   \override Score.StaffSymbol.layer = #4
   \override Staff.TimeSignature.layer = #3
   b'2 b'~
-  \once \override Staff.TimeSignature.whiteout-box = ##t
+  \once \override Staff.TimeSignature.whiteout = ##t
   \time 3/4
   b' r4
 }
