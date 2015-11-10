@@ -92,7 +92,6 @@ namespace Lily {
   Variable scorify_music ("scorify-music");
   Variable span_bar_notify_grobs_of_my_existence ("span-bar::notify-grobs-of-my-existence");
   Variable stencil_whiteout ("stencil-whiteout");
-  Variable stencil_whiteout_box ("stencil-whiteout-box");
   Variable symbol_list_p ("symbol-list?");
   Variable tremolo_get_music_list ("tremolo::get-music-list");
   Variable type_name ("type-name");

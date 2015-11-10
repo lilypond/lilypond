@@ -722,44 +722,36 @@ Rotate object with @var{ang} degrees around its center.
 (define-markup-command (whiteout layout props arg)
   (markup?)
   #:category other
-  #:properties ((thickness 3))
+  #:properties ((style 'box)
+                (thickness '()))
   "
 @cindex adding a white background to text
 
-Provide a white background for @var{arg}.
+Provide a white background for @var{arg}.  The shape of the white
+background is determined by @code{style}.  The default
+is @code{box} which produces a white rectangle.  @code{outline}
+approximates the outline of the markup.
 
 @lilypond[verbatim,quote]
 \\markup {
   \\combine
-    \\filled-box #'(-1 . 10) #'(-3 . 4) #1
-    \\override #'(thickness . 1.5) \\whiteout whiteout
+    \\filled-box #'(-1 . 15) #'(-3 . 4) #1
+    \\override #'(thickness . 1.5)
+    \\whiteout whiteout-box
+}
+\\markup {
+  \\combine
+    \\filled-box #'(-1 . 18) #'(-3 . 4) #1
+    \\override #'(style . outline)
+    \\override #'(thickness . 3)
+    \\whiteout whiteout-outline
 }
 @end lilypond"
   (stencil-whiteout
     (interpret-markup layout props arg)
-      (* thickness
-        (ly:output-def-lookup layout 'line-thickness))))
-  
-(define-markup-command (whiteout-box layout props arg)
-  (markup?)
-  #:category other
-  #:properties ((thickness 0))
-  "
-@cindex adding a rectangular white background to text
-
-Provide a rectangular white background for @var{arg}.
-
-@lilypond[verbatim,quote]
-\\markup {
-  \\combine
-    \\filled-box #'(-1 . 10) #'(-3 . 4) #1
-    \\override #'(thickness . 1.5) \\whiteout-box whiteout-box
-}
-@end lilypond"
-  (stencil-whiteout-box
-    (interpret-markup layout props arg)
-      (* thickness
-        (ly:output-def-lookup layout 'line-thickness))))
+    style
+    thickness
+    (ly:output-def-lookup layout 'line-thickness)))
 
 (define-markup-command (pad-markup layout props amount arg)
   (number? markup?)

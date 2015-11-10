@@ -146,25 +146,15 @@ Grob::get_print_stencil () const
       /* whiteout background and larger file sizes with \pointAndClickOn. */
       /* A grob has to be visible, otherwise the whiteout property has no effect. */
       /* Calls the scheme procedure stencil-whiteout in scm/stencils.scm */
-      if (!transparent && (scm_is_number (get_property("whiteout"))
+      if (!transparent && (scm_is_number (get_property ("whiteout"))
                            || to_boolean (get_property ("whiteout"))))
         {
-          Real thickness = robust_scm2double (get_property("whiteout"), 3.0)
-               * layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
+          Real line_thickness = layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
           retval = *unsmob<Stencil>
             (Lily::stencil_whiteout (retval.smobbed_copy (),
-                                     scm_from_double (thickness)));
-        }
-
-      /* Calls the scheme procedure stencil-whiteout-box in scm/stencils.scm */
-      if (!transparent && (scm_is_number (get_property("whiteout-box"))
-                           || to_boolean (get_property ("whiteout-box"))))
-        {
-          Real thickness = robust_scm2double (get_property("whiteout-box"), 0.0)
-               * layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
-          retval = *unsmob<Stencil>
-            (Lily::stencil_whiteout_box (retval.smobbed_copy (),
-                                     scm_from_double (thickness)));
+                                     get_property ("whiteout-style"),
+                                     get_property ("whiteout"),
+                                     scm_from_double (line_thickness)));
         }
 
       if (transparent)
@@ -843,7 +833,7 @@ ADD_INTERFACE (Grob,
                "transparent "
                "vertical-skylines "
                "whiteout "
-               "whiteout-box "
+               "whiteout-style "
               );
 
 /****************************************************************

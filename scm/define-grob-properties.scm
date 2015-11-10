@@ -1141,16 +1141,14 @@ one below this grob.")
 ;;;
      (when ,ly:moment? "Global time step associated with this column.")
      (whiteout ,boolean-or-number? "If a number or true, the grob is
-printed over a white background that follows the outline of the stencil,
-if the grob is visible.  A number sets the thickness of the outline as a
-multiple of the staff-line thickness.  For compatibility with former
-behavior (now available with @code{whiteout-box}) the value @code{#t} is
-treated as @code{3.0}.  Usually @code{#f} by default.")
-     (whiteout-box ,boolean-or-number? "If a number or true, the grob
-is printed over a rectangular white background to white-out underlying
-material, if the grob is visible.  A number indicates how far the
-outline extends beyond the bounding box of the grob as a multiple of
-the staff-line thickness.  Usually @code{#f} by default.")
+printed over a white background to white-out underlying material, if
+the grob is visible.  A number indicates how far the white background
+extends beyond the bounding box of the grob as a multiple of the
+staff-line thickness.  The shape of the background is determined by
+@code{whiteout-style}.  Usually @code{#f} by default.")
+     (whiteout-style ,symbol? "Determines the shape of the
+@code{whiteout} background.  Available are @code{'outline} and the
+default @code{'box}.")
      (width ,ly:dimension? "The width of a grob measured in staff
 space.")
      (word-space ,ly:dimension? "Space to insert between words in
