@@ -181,50 +181,41 @@ expected number of endings.}
 @cindex repeat with pickup
 @cindex pickup in a repeat
 @funindex \partial
+@cindex bar checks with repeats
+@cindex repeats with bar checks
 
-If a repeat starts in the middle of a measure and has no alternate
-endings, normally the end of the repeat will also fall in the
-middle of a measure, so that the two ends add up to one complete
-measure.  In such cases, the repeat signs do not constitute true
-bar lines.  Do not use @code{\partial} commands or bar checks
-where these repeat signs are printed:
+If a repeat that has no alternate endings starts in the middle of a
+measure, it will usually end at a corresponding place in the middle of a
+later measure (so that the two ends add up to one complete measure).  In
+this case the repeat signs are not @q{true} bar lines so neither bar
+checks nor @code{\partial} commands should be placed there:
 
-@lilypond[verbatim,quote]
-\relative { % no \partial here
-  c'4 e g  % no bar check here
-  % no \partial here
-  \repeat volta 4 {
-    e4 |
-    c2 e |
-    % no \partial here
-    g4 g g  % no bar check here
-  }
-  % no \partial here
+@lilypond[verbatim,quote,relative=1]
+c'4 e g
+\repeat volta 4 {
+  e4 |
+  c2 e |
+  g4 g g
+}
   g4 |
   a2 a |
   g1 |
-}
 @end lilypond
 
-Similarly, if a repeat begins with the initial partial measure of
-a score and has no alternate endings, the same conditions apply as
-in the above example, except that in this case the @code{\partial}
-command is required at the beginning of the score:
+If a repeat that has no alternate endings starts with a partial measure,
+then the same principles apply, except that a @code{\partial} command is
+required at the start of the measure:
 
-@lilypond[verbatim,quote]
-\relative {
-  \partial 4  % required
-  \repeat volta 4 {
-    e'4 |
-    c2 e |
-    % no \partial here
-    g4 g g  % no bar check here
-  }
-  % no \partial here
+@lilypond[verbatim,quote,relative=1]
+\partial 4
+\repeat volta 4 {
+  e'4 |
+  c2 e |
+  g4 g g
+}
   g4 |
   a2 a |
   g1 |
-}
 @end lilypond
 
 @cindex repeats, with ties
