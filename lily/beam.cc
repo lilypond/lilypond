@@ -1220,21 +1220,23 @@ MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Beam, rest_collision_callback, 2, 1, "");
 SCM
 Beam::rest_collision_callback (SCM smob, SCM prev_offset)
 {
+  if (!scm_is_number (prev_offset))
+    prev_offset = SCM_INUM0;
+
   Grob *rest = unsmob<Grob> (smob);
   if (scm_is_number (rest->get_property ("staff-position")))
-    return scm_from_int (0);
+    return prev_offset;
 
-  Real offset = robust_scm2double (prev_offset, 0.0);
+  Grob *stem = unsmob<Grob> (rest->get_object ("stem"));
 
-  Grob *st = unsmob<Grob> (rest->get_object ("stem"));
-  Grob *stem = st;
   if (!stem)
-    return scm_from_double (0.0);
+    return prev_offset;
+
   Grob *beam = unsmob<Grob> (stem->get_object ("beam"));
   if (!beam
       || !has_interface<Beam> (beam)
       || !Beam::normal_stem_count (beam))
-    return scm_from_double (0.0);
+    return prev_offset;
 
   Grob *common_y = rest->common_refpoint (beam, Y_AXIS);
 
@@ -1276,6 +1278,7 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
                             + (beam_count - 1) * beam_translation;
   Real beam_y = stem_y - d * height_of_my_beams;
 
+  Real offset = robust_scm2double (prev_offset, 0.0);
   Interval rest_extent = rest->extent (rest, Y_AXIS);
   rest_extent.translate (offset + rest->get_parent (Y_AXIS)->relative_coordinate (common_y, Y_AXIS));
 
@@ -1313,17 +1316,18 @@ Beam::pure_rest_collision_callback (SCM smob,
                                     SCM, /* end */
                                     SCM prev_offset)
 {
-  Real previous = robust_scm2double (prev_offset, 0.0);
+  if (!scm_is_number (prev_offset))
+    prev_offset = SCM_INUM0;
 
   Grob *me = unsmob<Grob> (smob);
   Grob *stem = unsmob<Grob> (me->get_object ("stem"));
   if (!stem)
-    return scm_from_double (previous);
+    return prev_offset;
   Grob *beam = unsmob<Grob> (stem->get_object ("beam"));
   if (!beam
       || !Beam::normal_stem_count (beam)
       || !is_direction (beam->get_property_data ("direction")))
-    return scm_from_double (previous);
+    return prev_offset;
 
   Real ss = Staff_symbol_referencer::staff_space (me);
 
@@ -1346,7 +1350,7 @@ Beam::pure_rest_collision_callback (SCM smob,
   Grob *right;
 
   if (idx == (vsize) - 1 || my_stems.size () == 1)
-    return scm_from_double (previous);
+    return prev_offset;
   else if (idx == 0)
     left = right = my_stems[1];
   else if (idx == my_stems.size () - 1)
@@ -1371,6 +1375,7 @@ Beam::pure_rest_collision_callback (SCM smob,
   Real offset = beam_pos * ss / 2.0
                 - minimum_distance * beamdir
                 - me->extent (me, Y_AXIS)[beamdir];
+  Real previous = robust_scm2double (prev_offset, 0.0);
 
   /* Always move by a whole number of staff spaces, always away from the beam */
   offset = floor (min (0.0, (offset - previous) / ss * beamdir))
