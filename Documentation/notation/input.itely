@@ -686,7 +686,7 @@ suppressed:
   \header {
     title = "DAS WOHLTEMPERIRTE CLAVIER"
     subtitle = "TEIL I"
-    % Do not display the tagline for this book
+    % Do not display the default LilyPond footer for this book
     tagline = ##f
   }
   \markup { \vspace #1 }
@@ -747,8 +747,8 @@ This example demonstrates all printed @code{\header} variables:
     meter = "Meter"
     arranger = "Arranger"
       % The following fields are centered at the bottom
-    tagline = "tagline goes at the bottom of the last page"
-    copyright = "copyright goes at the bottom of the first page"
+    tagline = "The tagline goes at the bottom of the last page"
+    copyright = "The copyright goes at the bottom of the first page"
   }
   \score {
     { s1 }
@@ -880,8 +880,8 @@ the @code{copyright} text if there is only a single page.
 
 @end itemize
 
-The default tagline can be changed by adding a @code{tagline} in the
-top-level @code{\header} block.
+The default LilyPond footer text can be changed by adding a
+@code{tagline} in the top-level @code{\header} block.
 
 @lilypond[papersize=a8landscape,verbatim]
 \book {
@@ -896,7 +896,8 @@ top-level @code{\header} block.
 }
 @end lilypond
 
-To remove the @code{tagline} set the value to @code{##f}.
+To remove the default LilyPond footer text, the @code{tagline} can be
+set to @code{##f}.
 
 
 @node Custom titles headers and footers
