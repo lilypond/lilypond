@@ -2734,7 +2734,6 @@ pianoRH = \relative c'' {
   \transposition c'
   % posiziona il nome dello strumento citato sotto il rigo
   <>_\markup { \right-align { \tiny "Clar." } }
-  }
   \cueDuring "clarinet" #DOWN { c4. g8 }
   g4 bes4
 }

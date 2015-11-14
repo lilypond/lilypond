@@ -159,8 +159,8 @@ proprietà @code{font-size}:
   \once \override Accidental.font-size = -4 bes!-^
   % ridimensiona un'articolazione
   \once \override Script.font-size = 4 bes!-^
-  @end lilypond
 }
+@end lilypond
 
 Il valore predefinito di @code{font-size} per ogni oggetto della
 formattazione è elencato nella Guida al funzionamento interno.  La

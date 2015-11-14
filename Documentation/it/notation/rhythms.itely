@@ -863,7 +863,7 @@ carattere maiuscolo @code{R}:
 
 @lilypond[quote,verbatim]
 % L'insieme delle misure di pausa vengono riportate in una sola misura
-compressMMRests {
+\compressMMRests {
   R1*4
   R1*24
   R1*4
@@ -1467,7 +1467,7 @@ Non crea una battuta con un nuovo numero.
 \relative {
   \set Score.barNumberVisibility = #all-bar-numbers-visible
   \override Score.BarNumber.break-visibility =
-	    #end-of-line-invisible
+        #end-of-line-invisible
   \time 9/8
   d''4.~ 4 d8 d( c) b | c4.~ 4. \bar "||"
   \time 12/8
@@ -1483,7 +1483,7 @@ di tempo cambia in mezzo a una misura, ma si può usare anche da solo.
 \relative {
   \set Score.barNumberVisibility = #all-bar-numbers-visible
   \override Score.BarNumber.break-visibility =
-	    #end-of-line-invisible
+        #end-of-line-invisible
   \time 6/8
   \partial 8
   e'8 | a4 c8 b[ c b] |
@@ -2665,15 +2665,17 @@ quattro note da un trentaduesimo sono progressivamente più veloci, mentre
 le ultime quattro presentano lo stesso tempo.
 
 @lilypond[verbatim,quote]
-\override Beam.grow-direction = #LEFT
-\featherDurations #(ly:make-moment 2/1)
-{ c16[ c c c c c c c] }
-\override Beam.grow-direction = #RIGHT
-\featherDurations #(ly:make-moment 2/3)
-{ c32[ d e f] }
-% ripristina le travature normali
-\override Beam.grow-direction = #'()
-{ g32[ a b c] }
+\relative c' {
+  \override Beam.grow-direction = #LEFT
+  \featherDurations #(ly:make-moment 2/1)
+  { c16[ c c c c c c c] }
+  \override Beam.grow-direction = #RIGHT
+  \featherDurations #(ly:make-moment 2/3)
+  { c32[ d e f] }
+  % ripristina le travature normali
+  \override Beam.grow-direction = #'()
+  { g32[ a b c] }
+}
 @end lilypond
 
 @noindent

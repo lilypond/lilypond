@@ -289,9 +289,11 @@ Gli esempi seguenti mostrano espressioni simultanee su un rigo:
 @end lilypond
 
 @lilypond[quote,verbatim]
-% prima nota singola
-a' << \relative { a'4 b g }
-      \relative { d'4 g c, } >>
+\relative {
+  % prima nota singola
+  a' << \relative { a'4 b g }
+       \relative { d'4 g c, } >>
+}
 @end lilypond
 
 Questo può essere utile se le sezioni simultanee hanno durate

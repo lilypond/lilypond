@@ -1,6 +1,6 @@
-\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
+\input texinfo @c -*- coding: UTF-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 65a309c41e9f18befa34328a60efab9132e402c9
+    Translation of GIT committish: 611c175ae2cceebfc8f0dccf695b4ff5593e763c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -50,6 +50,133 @@ Vedi il manuale utente, \NAME\
 @allowcodebreaks false
 
 @itemize
+
+@item
+Tutti i comandi @code{\override}, @code{\revert}, @code{\set} e
+@code{\unset} ora funzionano col prefisso @code{\once}, rendendo
+possibile impostazioni temporanee.
+@lilypond[quote,verbatim]
+\relative {
+  c'4 d
+  \override NoteHead.color = #red
+  e4 f |
+  \once \override NoteHead.color = #green
+  g4 a
+  \once \revert NoteHead.color
+  b c |
+  \revert NoteHead.color
+  f2 c |
+}
+@end lilypond
+
+@item
+Quando crea il file MIDI, LilyPond ora salva il titolo (@code{title})
+definito nel blocco @code{\header} di una partitura (o, se tale
+definizione non è presente a livello di @code{\score}, la prima
+definizione trovata in un blocco @code{\header} del blocco
+@code{\bookpart}, @code{\book} o del livello superiore)
+come nome della sequenza MIDI nel file MIDI.  Il nome della
+sequenza MIDI può anche essere definito tramite il nuovo campo
+@code{midititle} del blocco @code{\header}, che ha priorità
+sul campo @code{title} (ciò può essere utile, per esempio, se
+@code{title} contiene della formattazione che non può essere resa
+automaticamente in testo semplice in modo soddisfacente).
+
+@item
+Le funzioni musicali (e quelle scheme e vuote) e i comandi markup
+che forniscono soltanto i parametri finali a una catena di
+override e chiamate di funzioni musicali  e comandi markup,
+ora possono essere definite semplicemente scrivendo l'espressione
+seguita da @code{\etc}.
+
+@lilypond[verbatim,quote]
+bold-red-markup = \markup \bold \with-color #red \etc
+highlight = \tweak font-size 3 \tweak color #red \etc
+
+\markup \bold-red "text"
+\markuplist \column-lines \bold-red { One Two }
+
+{ c' \highlight d' e'2-\highlight -! }
+@end lilypond
+
+@item
+Le funzioni LilyPond definite con @code{define-music-function},
+@code{define-event-function}, @code{define-scheme-function} e
+@code{define-void-function} ora possono essere richiamate direttamente
+da Scheme come se fossero vere procedure Scheme.  Il controllo e la
+corrispondenza degli argomenti sono eseguiti sempre nello stesso modo
+come quando la funzione viene richiamata attraverso l'input di
+LilyPond.  Ciò comprende l'inserimento dei valori predefiniti per
+gli argomenti opzionali che non corrispondono ai loro predicati.
+Invece di usare @code{\default} nella vera lista degli argomenti
+per saltare esplicitamente una sequenza di argomenti opzionali, si
+può usare @code{*unspecified*}.
+
+@item
+La posizione dell'input attuale e il decodificatore sono ora
+salvati nei @qq{fluid} di Guile e possono essere citati attraverso
+le chiamate di funzione @code{(*location*)} e @code{(*parser*)}.
+Di conseguenza molte funzioni che prima richiedevano un argomento
+@code{parser} esplicito non ne hanno più bisogno.
+
+Le funzioni definite con @code{define-music-function},
+@code{define-event-function}, @code{define-scheme-function} e
+@code{define-void-function} non usano più gli argomenti@code{parser} e
+@code{location}.
+
+Nel caso di queste definizioni in particolare, LilyPond cercherà di
+riconoscere l'uso obsoleto degli argomenti @code{parser} e @code{location},
+fornendo per un po' della semantica retrocompatibile.
+
+@item
+La proprietà @code{whiteout} dei grob e il comando di markup @code{\whiteout}
+ora creano uno sfondo bianco costruito da molteplici copie sostituite
+del glifo per poter approssimare le linee del suo contorno.  Il precedente
+sfondo bianco a @qq{scatola stondata} può essere ottenuto con la nuova
+proprietà @code{whiteout-box} dei grob e col comando di markup
+@code{\whiteout-box}.  Impostando la proprietà @code{whiteout} su un numero
+ora si imposta lo spessore del contorno bianco come multiplo dello spessore
+della linea del rigo musicale.  Analogalmente, impostando la proprietà
+@code{thickness} del comando di markup @code{\whiteout} si imposta lo
+spessore del contorno bianco che produce.
+
+@item
+Nella lingua "english" per il nome delle note, i nomi lunghi per le
+altezze con alterazioni ora contengono un trattino per migliorare la
+leggibilità.  Ora si deve scrivere
+@example
+\key a-flat \major
+@end example
+invece del precedente
+@example
+\key aflat \major
+@end example
+
+Le doppie alterazioni non necessitano di un trattino ulteriore, quindi il
+nome olandese @code{cisis} corrisponde al nome lungo inglese @code{c-sharpsharp}.
+
+@item
+Lo stile visivo delle barre del tremolo (forma, stile e inclinazione) è ora
+regolato in modo più preciso.
+@lilypond[quote,relative=2]
+  a8:32 b: c: d:
+  \override StemTremolo.shape = #'beam-like
+  a: b: c: d:
+  \override StemTremolo.style = #'constant
+  a: b: c: d:
+  g,2
+@end lilypond
+
+
+@item
+Lo spazio orizzontale occupato dalle pause multiple è proporzionale alla loro
+durata totale e può essere modificato attraverso la proprietà
+@code{MultiMeasureRest.space-increment}.
+@lilypond[quote]
+{ \compressFullBarRests
+  \override Staff.MultiMeasureRest.space-increment = 3.0
+  R1*2 R1*12 R1*64 }
+@end lilypond
 
 @item
 I numeri di pagina ora possono essere stampati in numeri romani impostando la
@@ -146,9 +273,6 @@ paralleli.
 @code{<< >>}.
 
 @item
-Il contesto @code{NullVoice} si trova ora @q{sotto} @code{Score}.
-
-@item
 È stato aggiunto un nuovo comando @code{\tagGroup}, che si aggiunge
 a quelli esistenti @code{\keepWithTag} e @code{\removeWithTag}.
 Per esempio:
@@ -161,7 +285,7 @@ dichiara una lista di @q{etichette} (@emph{tag}) che appartiene a un
 solo @q{gruppo di etichette}.
 
 @example
-\keepwithTag#'violinI
+\keepwithTag #'violinI
 @end example
 
 ora si preoccupa solo delle @q{etichette} del gruppo cui appartiene
@@ -516,6 +640,16 @@ che illustrano come l'input sia più facile da leggere:
 @lilypond[verbatim,quote]
 \new Staff { r16 c'16 ~ 8 ~ 4 ~ 2 | }
 @end lilypond
+
+@item
+@code{\displayLilyMusic} e le sue sottostanti funzioni Scheme non
+omettono più le durate ridondanti.  Ciò semplifica il riconoscimento
+affidabile e la formattazione delle durate isolate in espressioni
+come questa
+@example
+@{ c4 d4 8 @}
+@end example
+
 
 @item
 Le eccezioni della disposizione delle travature possono essere costruite
