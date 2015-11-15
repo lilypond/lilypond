@@ -3855,6 +3855,13 @@ def conv(str):
                   r"\\once \1\2", str)
     return str
 
+@rule ((2, 19, 32), r"whiteout-box -> whiteout")
+def conv(str):
+    str = re.sub (r"\\whiteout-box(?![a-z_-])", r"\\whiteout", str)
+    str = re.sub (r"\b\.whiteout-box(?![a-z_-])\b", r".whiteout", str)
+    str = re.sub (r"#'whiteout-box(?![a-z_-])\b", r"#'whiteout", str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

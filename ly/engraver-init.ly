@@ -620,7 +620,8 @@ automatically when an output definition (a @code{\\score} or
   \accepts "TabStaff"
   \accepts "VaticanaStaff"
 
-  noteToFretFunction = #determine-frets
+  %% (determine-frets #t) would support micro-tones
+  noteToFretFunction = #(determine-frets)
   predefinedDiagramTable = ##f
   soloText = #"Solo"
   soloIIText = #"Solo II"

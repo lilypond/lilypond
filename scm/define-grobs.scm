@@ -2362,7 +2362,7 @@
         (parenthesis-friends . (dot))
         (stem-attachment . (0.0 . 1.35))
         (stencil . ,tab-note-head::print)
-        (whiteout-box . #t)
+        (whiteout . #t)
         (X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
         (Y-offset . ,staff-symbol-referencer::callback)
         (Y-extent . ,grob::always-Y-extent-from-stencil)

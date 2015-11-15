@@ -91,7 +91,7 @@ Stem::get_beaming (Grob *me, Direction d)
 
   SCM lst = index_get_cell (pair, d);
 
-  int len = scm_ilength (lst);
+  int len = scm_ilength (lst); // -1 for dotted lists!
   return max (len, 0);
 }
 

@@ -182,7 +182,7 @@ Writing @code{\relative gis''' @{ gis @dots{} @}} makes it easy to
 determine the absolute pitch of the first note inside.
 
 @item no explicit starting pitch
-The form @code{\relative @{ gis''' @dots{} @}}) serves
+The form @code{\relative @{ gis''' @dots{} @}} serves
 as a compact version of the previous option: the first note
 inside is written in absolute pitch itself.  (This happens to be
 equivalent to choosing @code{f} as the reference pitch.)

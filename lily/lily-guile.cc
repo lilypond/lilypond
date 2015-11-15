@@ -529,6 +529,18 @@ display_list (SCM s)
   return SCM_UNSPECIFIED;
 }
 
+// Needed as complement to int_list_to_slice since scm_c_memq refuses
+// to work with dotted lists.
+
+SCM
+ly_memv (SCM v, SCM l)
+{
+  for (; scm_is_pair (l); l = scm_cdr (l))
+    if (scm_is_true (scm_eqv_p (v, scm_car (l))))
+      return l;
+  return SCM_BOOL_F;
+}
+
 Slice
 int_list_to_slice (SCM l)
 {

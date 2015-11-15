@@ -992,15 +992,15 @@ based on the grob property data @var{data} (which can be plain data, a
 callback itself, or an unpure-pure-container).
 
 Function @var{func} accepts a grob and returns a value that is added
-to the value resulting from @var{data}.  Optional arguments @var{plus}
-and @var{valid?} default to @code{+} and @code{number?} respectively
-and allow for using a different underlying accumulation/type.
+to the value resulting from @var{data}.  Optional argument @var{plus}
+defaults to @code{+} but may be changed to allow for using a different
+underlying accumulation.
 
 If @var{data} is @code{#f} or @code{'()}, it is not included in the sum."
   (cond ((or (not data) (null? data))
          func)
-        ((or (ly:unpure-pure-container func)
-             (ly:unpure-pure-container data))
+        ((or (ly:unpure-pure-container? func)
+             (ly:unpure-pure-container? data))
          (ly:make-unpure-pure-container
           (lambda rest
             (plus (apply ly:unpure-call func rest)

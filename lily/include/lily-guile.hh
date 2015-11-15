@@ -63,6 +63,7 @@ SCM ly_assoc_cdr (SCM key, SCM alist);
 SCM ly_assoc_get (SCM key, SCM alist, SCM default_value, SCM strict_checking = SCM_BOOL_F);
 Interval ly_scm2interval (SCM);
 Drul_array<Real> ly_scm2realdrul (SCM);
+SCM ly_memv (SCM, SCM);
 Slice int_list_to_slice (SCM l);
 SCM ly_interval2scm (Drul_array<Real>);
 char *ly_scm2str0 (SCM str);

@@ -38,20 +38,17 @@ and return a marking list, which can be used with a fretboard grob."
          (if (string? diagram-definition)
              (parse-terse-string diagram-definition)
              diagram-definition)))
-    (map (lambda(item)
-           (let ((code (car item)))
-             (cond
-              ((eq? code 'barre)
-               (list-set! item 3
-                          (+ fret-offset (list-ref item 3)))
-               item)
-              ((eq? code 'capo)
-               (list-set! item 1
-                          (+ fret-offset (list-ref item 1)))
-               item)
-              ((eq? code 'place-fret)
-               (list-set! item 2
-                          (+ fret-offset (list-ref item 2)))
-               item)
-              (else item))))
+    (map (lambda (item)
+           (let* ((code (car item))
+                  (nth (assq-ref '((barre . 3) (capo . 1) (place-fret . 2))
+                                 code)))
+             (if nth
+                 ;; offset nth element of item by offset-fret
+                 ;; without modifying the original list but
+                 ;; sharing its tail
+                 (let ((tail (list-tail item nth)))
+                   (append! (list-head item nth)
+                            (cons (+ (car tail) fret-offset)
+                                  (cdr tail))))
+                 item)))
          verbose-definition)))

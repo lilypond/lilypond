@@ -411,8 +411,10 @@ Show the warranty with which GNU LilyPond comes.  (It comes with
 
 @table @code
 
-@item -d@var{[option-name]}=@var{[value]},--define-default=@var{[option-name]}=@var{[value]}
-This sets the equivalent internal Scheme function to @var{value}.
+@item -d@var{[option-name]}=@var{[value]},
+--define-default=@var{[option-name]}=@var{[value]}
+This sets the equivalent internal Scheme function to @var{value}.  For
+example;
 
 @example
 -dbackend=svg
@@ -420,7 +422,7 @@ This sets the equivalent internal Scheme function to @var{value}.
 
 If a @var{value} is not supplied, then the default value is used.  The
 prefix @code{no-} may be added to @var{option-name} to switch @q{off} an
-option, e.g.
+option.  For example;
 
 @cindex point and click, command line
 
@@ -445,53 +447,56 @@ default values:
 
 @item @code{anti-alias-factor}
 @tab @code{1}
-@tab Render at higher resolution (using given factor) and scale down
-result to prevent @q{jaggies} in @code{PNG} images.
+@tab Render at a higher resolution (using the given factor) and scale
+down the result to prevent @q{jaggies} in @code{PNG} images.
 
 @item @code{aux-files}
 @tab @code{#t}
-@tab Create @code{.tex}, @code{.texi}, @code{.count} files in the
-@code{EPS} backend.
+@tab Create @code{.tex}, @code{.texi} and @code{.count} files when used
+with the @code{eps} backend option.
 
 @item @code{backend}
 @tab @code{ps}
-@tab Select backend.  Postscript files (default) include @code{TTF},
-@code{Type1} and @code{OTF} fonts.  No subsetting of these fonts is
-done.  Using @q{oriental} character sets can lead to very large files.
+@tab This is the default setting.  Postscript files (default) include
+@code{TTF}, @code{Type1} and @code{OTF} fonts.  No @q{subsetting} of
+these fonts is done.  Be aware that using @q{oriental} character sets
+can lead to very large file sizes.
 
 @item
 @tab @code{eps}
-@tab Encapsulated PostScript.  This dumps every page (system) as a
-separate @file{EPS} file, without fonts, and as one collated @file{EPS}
-file with all pages (systems) including fonts.  Used as default by
-@command{lilypond-book}.
+@tab Used as default by the @command{lilypond-book} command.  This dumps
+every page as both a single file with all pages and fonts included and
+as separate encapsulated postscipt files for each page but without fonts
+included.
 
 @item
 @tab @code{null}
-@tab Do not output a printed score; has the same effect as
+@tab Do not output a printed score.  This the same effect as
 @code{-dno-print-pages}.
 
 @item
 @tab @code{scm}
-@tab Dump of the raw, internal Scheme-based drawing commands.
+@tab This dumps out the raw, internal Scheme-based drawing commands.
 
 @item
 @tab @code{svg}
 @tab Scalable Vector Graphics.
-This creates a single SVG file for every page of output.
-Font information is not embedded so the SVG viewer will require
-the fonts be available for optimal rendering.
-It is recommended that you do not use @q{font aliases}
-or @q{font lists} in case your SVG viewer is not able to handle them.
-Also see the @code{svg-woff} option.
+A single SVG file is created for every page of output.  Apart from
+LilyPond's own music glyphs, no other font information will be included.
+Any SVG viewer will therefore require the fonts be available to it for
+the proper rendering of both text and lyrics.  It is recommended to not
+to use font @q{aliases} or @q{lists} in case the SVG viewer is unable to
+handle them.  When using @emph{Web Open Font Format} (WOFF) files the
+additional @code{--svg-woff} switch is required.
 @end multitable
 
 @noindent
-@strong{Note for svg backend:}
-LilyPond's default fonts (@code{LilyPond Serif}, @code{LilyPond Sans Serif}
-and @code{LilyPond Monospace}) are just @emph{local} font aliases;
-so when using the @code{svg} backend command it is required that
-you explicitly set the default fonts;
+@strong{Note for backend svg output:}
+LilyPond's default fonts (@code{LilyPond Serif},
+@code{LilyPond Sans Serif} and @code{LilyPond Monospace}) are just
+@emph{local} font aliases.  Therefore, when using the backend @code{svg}
+command you must explicitly define the default fonts in your source
+file;
 
 @quotation
 @verbatim
@@ -773,12 +778,13 @@ size increases in PDF files.
 
 @item @code{svg-woff}
 @tab @code{#f}
-@tab Use woff font files in SVG backend.
-By using the woff file properly,
-you do not have to install the fonts which are used by SVG files
-to SVG viewer environment.
-However, LilyPond does not contain woff font file for text.
-woff font file is required.
+@tab This option is required when using Web Open Font Format (WOFF) font
+files with the backend @code{svg} command.  A single SVG file is created
+for every page of output.  Apart from LilyPond's own music glyphs, no
+other font information will be included.  Any SVG viewer will therefore
+require the fonts be available to it for the proper rendering of both
+text and lyrics.  It is also recommended not to use any font @q{aliases}
+or @q{lists} in case the SVG viewer cannot handle them.
 
 @item @code{trace-memory-frequency}
 @tab @code{#f}

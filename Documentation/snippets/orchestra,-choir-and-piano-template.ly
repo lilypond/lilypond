@@ -21,6 +21,7 @@ music for transposing instruments at concert pitch.
 
 #(set-global-staff-size 17)
 \paper {
+  paper-height = 10\cm
   indent = 3.0\cm  % space for instrumentName
   short-indent = 1.5\cm  % space for shortInstrumentName
 }

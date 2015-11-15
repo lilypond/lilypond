@@ -1,4 +1,4 @@
-\version "2.19.22"
+\version "2.19.32"
 
 \header {
   texidoc = "Demo of markup texts, using LilyPond syntax."
@@ -41,7 +41,6 @@
       \super "2"
       " "
       \raise #3.0 \whiteout white-out
-      \raise #3.0 \whiteout-box white-out-box
       \circle \dynamic p
       \with-color #green Green
       \dynamic sfzp

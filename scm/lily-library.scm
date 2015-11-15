@@ -707,13 +707,30 @@ right (@var{dir}=+1)."
 (define-public (coord-scale coordinate amount)
   (coord-operation * amount coordinate))
 
-(define-public (coord-rotate coordinate angle)
-  (let ((c (cos angle))
-        (s (sin angle))
-        (x (coord-x coordinate))
-        (y (coord-y coordinate)))
-    (cons (- (* c x) (* s y))
-          (+ (* s x) (* c y)))))
+(define-public (coord-rotate coordinate angle-in-radians)
+  ;; getting around (sin PI) not being exactly zero by switching to cos at
+  ;; appropiate angles and/or taking the negative value (vice versa for cos)
+  (let* ((quadrant (inexact->exact (round (/ angle-in-radians (/ PI 2)))))
+         (moved-angle (- angle-in-radians (* quadrant (/ PI 2))))
+         (s (sin moved-angle))
+         (c (cos moved-angle))
+         (x (coord-x coordinate))
+         (y (coord-y coordinate)))
+    (case (modulo quadrant 4)
+      ((0) ;; -45 .. 45
+       (cons (- (* c x) (* s y))
+             (+ (* s x) (* c y))))
+      ((1) ;; 45 .. 135
+       (cons (- (* (- s) x) (* c y))
+             (+ (* c x) (* (- s) y))))
+      ((2) ;; 135 .. 225
+       (cons (- (* (- c) x) (* (- s) y))
+             (+ (* (- s) x) (* (- c) y))))
+      ((3) ;; 225 .. 315
+       (cons (- (* s x) (* (- c) y))
+             (+ (* (- c) x) (* s y))))
+      ;; for other angles (modulo quadrant 4) returns one of the above cases
+       )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; trig
@@ -728,11 +745,11 @@ right (@var{dir}=+1)."
 
 (define-public (cyclic-base-value value cycle)
   "Take @var{value} and modulo-maps it between 0 and base @var{cycle}."
-  (if (< value 0)
-      (cyclic-base-value (+ value cycle) cycle)
-      (if (>= value cycle)
-          (cyclic-base-value (- value cycle) cycle)
-          value)))
+  (cond ((< value 0)
+         (cyclic-base-value (+ value cycle) cycle))
+        ((>= value cycle)
+         (cyclic-base-value (- value cycle) cycle))
+        (else value)))
 
 (define-public (angle-0-2pi angle)
   "Take @var{angle} (in radians) and maps it between 0 and 2pi."

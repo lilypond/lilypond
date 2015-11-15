@@ -684,17 +684,17 @@ box, remains the same."
    (ly:stencil-extent stencil X)
    (ly:stencil-extent stencil Y)))
 
-(define*-public (stencil-whiteout
+(define*-public (stencil-whiteout-outline
                  stil #:optional (thickness 0.3) (color white)
                  (angle-increments 16) (radial-increments 1))
   "This function works by creating a series of white or @var{color}
 stencils radially offset from the original stencil with angles from
 0 to 2*pi, at an increment of @code{angle-inc}, and with radii
 from @code{radial-inc} to @var{thickness}.  @var{thickness} is how big
-the white outline is in staff-spaces.  @var{radial-increments} is how
-many copies of the white stencil we make on our way out to thickness.
-@var{angle-increments} is how many copies of the white stencil
-we make between 0 and 2*pi."
+the white outline is, as a multiple of line-thickness.
+@var{radial-increments} is how many copies of the white stencil we make
+on our way out to thickness.  @var{angle-increments} is how many copies
+of the white stencil we make between 0 and 2*pi."
   (if (or (not (positive? angle-increments))
           (not (positive? radial-increments)))
       (begin
@@ -736,17 +736,31 @@ we make between 0 and 2*pi."
               `(delay-stencil-evaluation ,(delay whiteout-expr)))
             stil)))))
 
-(define*-public (stencil-whiteout-box stencil
+(define*-public (stencil-whiteout-box stil
                  #:optional (thickness 0) (blot 0) (color white))
-  "@var{thickness} is how far in staff-spaces the white outline
-extends past the extents of @var{stencil}."
+  "@var{thickness} is how far, as a multiple of line-thickness,
+the white outline extends past the extents of stencil @var{stil}."
   (let*
-   ((x-ext (interval-widen (ly:stencil-extent stencil X) thickness))
-    (y-ext (interval-widen (ly:stencil-extent stencil Y) thickness)))
+   ((x-ext (interval-widen (ly:stencil-extent stil X) thickness))
+    (y-ext (interval-widen (ly:stencil-extent stil Y) thickness)))
 
    (ly:stencil-add
     (stencil-with-color (ly:round-filled-box x-ext y-ext blot) color)
-    stencil)))
+    stil)))
+
+(define-public (stencil-whiteout stil style thickness line-thickness)
+  "@var{style} is a symbol that determines the shape of the white
+background.  @var{thickness} is how far, as a multiple of
+@var{line-thickness}, the white background extends past the extents
+of stencil @var{stil}. If @var{thickness} has not been specified
+by the user, an appropriate default is chosen based on @var{style}."
+  (let ((thick (* line-thickness
+                 (if (number? thickness)
+                     thickness
+                     (if (eq? style 'outline) 3 0)))))
+    (if (eq? style 'outline)
+        (stencil-whiteout-outline stil thick)
+        (stencil-whiteout-box stil thick))))
 
 (define-public (arrow-stencil-maker start? end?)
   "Return a function drawing a line from current point to @code{destination},
@@ -837,10 +851,10 @@ with optional arrows of @code{max-size} on start and end controlled by
                           (make-simple-markup (simple-format #f "~a: NaN/inf" name))))
         (let ((text-stencil (interpret-markup
                              layout text-props
-                             (markup #:whiteout-box #:simple name)))
+                             (markup #:whiteout #:simple name)))
               (dim-stencil (interpret-markup
                             layout text-props
-                            (markup #:whiteout-box
+                            (markup #:whiteout
                                     #:simple (cond
                                               ((interval-empty? extent)
                                                "empty")

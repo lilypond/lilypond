@@ -62,6 +62,52 @@ which scares away people.
 @end ignore
 
 @item
+@code{TabStaff} is now able to print micro-tones for bendings etc.
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Score
+    noteToFretFunction = #(determine-frets #t)
+  }
+}
+
+mus = \relative { c'4 cih d dih }
+
+<<
+  \new Staff << \clef "G_8" \mus >>
+  \new TabStaff \mus
+>>
+@end lilypond
+
+@item
+A new style of whiteout that approximates the contours of a glyph's
+outline is now available using @code{whiteout-style}.  The shape of the
+white background is produced from multiple displaced copies of the
+glyph.  The @code{thickness} of both the new @code{outline} style and
+the default @code{box} style, as a multiple of staff-line thickness, can
+be customized.
+@lilypond[verbatim,quote]
+\markup {
+  \combine
+    \filled-box #'(-1 . 15) #'(-3 . 4) #1
+    \override #'(thickness . 2)
+    \whiteout whiteout-box
+}
+\markup {
+  \combine
+    \filled-box #'(-1 . 18) #'(-3 . 4) #1
+    \override #'(style . outline)
+    \override #'(thickness . 3)
+    \whiteout whiteout-outline
+}
+\relative {
+  \override Staff.Clef.whiteout-style = #'outline
+  \override Staff.Clef.whiteout = 3
+  g'1
+}
+@end lilypond
+
+@item
 All of @code{\override}, @code{\revert}, @code{\set}, and
 @code{\unset} now work with the @code{\once} prefix for making
 one-time settings.
@@ -135,18 +181,6 @@ Functions defined with @code{define-music-function},
 With those particular definitions, LilyPond will try to recognize
 legacy use of @code{parser} and @code{location} arguments,
 providing backwards-compatible semantics for some time.
-
-@item
-The @code{whiteout} grob property and @code{\whiteout} markup command
-now create a white background built from multiple displaced copies of
-the glyph in order to approximate the contours of its outline.
-The previous rounded box white background can be achieved with the
-new @code{whiteout-box} grob property and @code{\whiteout-box} markup
-command.  Setting the @code{whiteout} property to a number now sets
-the thickness of the white outline as a multiple of staff-line
-thickness.  Similarly, overriding the @code{thickness} property of
-the @code{\whiteout} markup command sets the thickness of the white
-outline it produces.
 
 @item
 In the "english" notename language, the long notenames for pitches

@@ -235,7 +235,7 @@
 
 ;; a callback for custom fret labels
 (define ((tab-note-head::print-custom-fret-label fret) grob)
-  (ly:grob-set-property! grob 'text fret)
+  (ly:grob-set-property! grob 'text (make-vcenter-markup fret))
   (tab-note-head::print grob))
 (export tab-note-head::print-custom-fret-label)
 
@@ -266,9 +266,7 @@
          (offset-factor (assoc-get 'head-offset details 3/5))
          (column-offset (* offset-factor
                            (interval-length
-                            (ly:stencil-extent
-                             (grob-interpret-markup grob "8")
-                             X)))))
+                            (ly:stencil-extent ref-grob X)))))
 
     (if (is-harmonic? grob)
         (set! output-grob (harmonic-proc output-grob
@@ -282,9 +280,10 @@
                                            cautionary-width
                                            cautionary-angularity
                                            cautionary-padding)))
-    (ly:stencil-translate-axis (centered-stencil output-grob)
-                               column-offset
-                               X)))
+    (ly:stencil-translate-axis
+     (ly:stencil-aligned-to output-grob X CENTER)
+     column-offset
+     X)))
 
 ;; Harmonic definitions
 
