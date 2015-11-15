@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 659e9fcd8f5a1ffcaa2c2695267a00d7d61377b8
+   Translation of GIT committish: 16d46fb0995cc6d078617ada1e8fea7879dffe07
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -724,6 +724,7 @@ terminer dans la voix où elle a été entamée.}
 @funindex slurDown
 @funindex \slurNeutral
 @funindex slurNeutral
+@funindex \=
 
 Vous pouvez décider de l'orientation des liaisons par rapport à la
 portée, comme indiqué au chapitre @ref{Direction et positionnement}.
