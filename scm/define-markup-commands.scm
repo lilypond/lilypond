@@ -2244,12 +2244,9 @@ returns an empty markup.
   (procedure? markup?)
   #:category other
   "Apply the @var{procedure} markup command to @var{arg}.
-@var{procedure} should take a single argument."
-  (let ((anonymous-with-signature (lambda (layout props arg) (procedure layout props arg))))
-    (set-object-property! anonymous-with-signature
-                          'markup-signature
-                          (list markup?))
-    (interpret-markup layout props (list anonymous-with-signature arg))))
+@var{procedure} takes the same arguments as @code{interpret-markup}
+and returns a stencil."
+  (procedure layout props arg))
 
 (define-markup-command (footnote layout props mkup note)
   (markup? markup?)
