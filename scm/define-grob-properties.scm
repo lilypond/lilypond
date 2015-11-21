@@ -881,7 +881,8 @@ placed vertically.")
 object.")
      (simple-Y ,boolean? "Should the Y placement of a spanner
 disregard changes in system heights?")
-     (size ,number? "Size of object, relative to standard size.")
+     (size ,number? "The ratio of the size of the object to its default
+size.")
      (skip-quanting ,boolean? "Should beam quanting be skipped?")
      (skyline-horizontal-padding ,number? "For determining the
 vertical distance between two staves, it is possible to have a
