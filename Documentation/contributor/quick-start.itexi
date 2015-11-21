@@ -10,6 +10,7 @@ for you and will help you do this as quickly and easily as possible.
 @menu
 * LilyDev::
 * lily-git::
+* git-cl::
 * Compiling with LilyDev::
 * Now start work!::
 @end menu
@@ -432,6 +433,176 @@ all changed files to a subdirectory of @file{$LILYPOND_GIT} named
 @file{aborted_edits/}, and will reset the repository to the
 current state of the remote repository (at @code{git.sv.gnu.org}).
 
+
+@node git-cl
+@section git-cl
+
+@menu
+* Installing git-cl::
+* Updating git-cl::
+* Configuring git-cl::
+@end menu
+
+Git-cl is a @q{helper script} that uploads patches to Google's Rietveld
+Code Review Tool -- used by the developers for patch review -- and, at
+the same time, updates LilyPond's issue tracker.
+
+
+@node Installing git-cl
+@unnumberedsubsec Installing @code{git-cl}
+
+@warning{LilyDev users can jump straight to the next section on updating
+@command{git-cl} as it will already be installed in your home
+directory.}
+
+@enumerate
+
+@item
+Download @command{git-cl} by running the command:
+
+@example
+git clone https://github.com/gperciva/git-cl.git
+@end example
+
+@noindent
+or, if that command fails for any reason, try:
+
+@example
+git clone git://github.com/gperciva/git-cl.git
+@end example
+
+@item
+Add the @file{git-cl/} directory to your @var{PATH} or create a symbolic
+link to the @command{git-cl} and @command{upload.py} scripts in one of
+your @var{PATH} directories (e.g. @file{$HOME/bin}).
+
+In GNU/Linux you can add directories to @var{PATH} by adding this line
+to your @file{.bashrc} file located in your home directory:
+
+@example
+PATH=~/directory_containing_git-cl:"$@{PATH@}"
+@end example
+
+@end enumerate
+
+
+@node Updating git-cl
+@unnumberedsubsec Updating @code{git-cl}
+
+LilyDev users should always make sure that they alwsys have the latest
+version of git-cl installed.  It is possible that changes may have been
+made to git-cl that are not (yet) included in the version of LilyDev has
+been installed.
+
+@noindent
+Using a terminal run the following commands:
+
+@example
+cd ~/git-cl/
+git pull
+@end example
+
+This will download and update you to the lastest version of git-cl.
+
+
+@node Configuring git-cl
+@unnumberedsubsec Configuring @code{git-cl}
+
+@subsubheading Set up login accounts
+
+Because the @code{git-cl} updates two separate websites (Google's
+Rietveld Code Review Tool and LilyPond's issue tracker) you @emph{must}
+have a valid user login and password to both sites.
+
+@noindent
+Although that it may appear that you have to use a @q{Google} email
+address for the Rietveld Code Review Tool when you sign up, you can
+instead select the option @qq{I prefer to use my current email address}
+during sign up.
+
+@noindent
+For a user login to the LilyPond issue tracker, please send your
+request, preferably using the email address you want to use for your
+login, to the LilyPond Developer's mailing list
+(@code{lilypond-devel@@gnu.org}).
+
+@subsubheading Authorising git-cl for the LilyPond issue tracker
+
+The @code{git-cl} command itself also needs to be @q{authorized} so that
+it can access the LilyPond issue tracker.
+
+@enumerate
+@item
+Once a valid login has been given for the LilyPond issye tracker, go to
+the @q{Account settings} and select the @q{OAuth} tab.
+
+@item
+Locate the @q{Register New Application} section and enter @code{git-cl}
+in the @q{Application Name:} field.
+
+@item
+Click on the @q{Register new application} button.  You should now see
+@q{git-cl} listed under the @q{My Applications} section.
+
+@item
+Click on the @q{Generate Bearer Token} button.    You should now see
+@q{git-cl} listed under the @q{Authorized Applications} section along
+with a value for the @q{Bearer Token} entry.  This value is used, in the
+next steps, to allow git-cl to access and update the LilyPond issue
+tracker.
+
+@end enumerate
+
+@subsubheading Running git-cl for the first time
+
+@enumerate
+@item
+Using a terminal, move to top source directory of the
+@code{$LILYPOND_GIT} directory and then run @code{git-cl} with the
+@code{config} option:
+
+@example
+cd $LILYPOND_GIT
+git-cl config
+@end example
+
+@item
+When prompted for the @code{Rietveld server}:
+
+@example
+Rietveld server (host[:port]) [codereview.appspot.com]:
+@end example
+
+@item
+When prompted for the @code{Allura server} (the LilyPond issue tracker):
+
+@example
+Allura server [https://sourceforge.net/p/testlilyissues/issues/]:
+@end example
+
+@item
+When prompted for the @code{Allura bearer token} copy/paste the value
+generated in the previous steps for
+@emph{Authorising git-cl for the LilyPond issue tracker}:
+
+@smallexample
+Allura bearer token (see https://sourceforge.net/auth/oauth/) [fdbfca60801533465480]:
+@end smallexample
+
+@warning{The above is a @q{fake} bearer token just to illustrate the
+example. Do not use this value.}
+
+@item
+Finally, when prompted for the @code{CC list} entry, add the Lilypond
+Developer's group email.
+
+@example
+CC list ("x" to clear) [lilypond-devel@@gnu.org]:
+@end example
+
+@end enumerate
+
+The @code{git-cl} script should now be correctly configured for use.
 
 
 @node Compiling with LilyDev
