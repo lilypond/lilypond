@@ -51,6 +51,7 @@ void
 Percent_repeat_iterator::derived_mark () const
 {
   scm_gc_mark (child_list_);
+  Sequential_iterator::derived_mark ();
 }
 
 void
