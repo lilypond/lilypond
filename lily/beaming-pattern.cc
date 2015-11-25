@@ -175,7 +175,7 @@ Beaming_pattern::beamify (Beaming_options const &options)
                                         infos_[i + non_flag_dir].count (-non_flag_dir)),
                                    infos_[i - non_flag_dir].count (non_flag_dir));
 
-            infos_[i].beam_count_drul_[non_flag_dir] = count;
+            infos_[i].beam_count_drul_[non_flag_dir] = max(count, 1);
           }
       }
 }
