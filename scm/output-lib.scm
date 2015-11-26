@@ -880,8 +880,9 @@ and duration-log @var{log}."
               (ly:stencil-aligned-to
                (make-parenthesis-stencil y-extent
                                          half-thickness
-                                         (- width)
-                                         angularity)
+                                         width
+                                         angularity
+                                         -1)
                Y CENTER)
               X RIGHT))
          (lp-x-extent
@@ -891,7 +892,8 @@ and duration-log @var{log}."
                (make-parenthesis-stencil y-extent
                                          half-thickness
                                          width
-                                         angularity)
+                                         angularity
+                                         1)
                Y CENTER)
               X LEFT))
          (rp-x-extent

@@ -195,76 +195,34 @@ a list of @var{paddings}."
     stil))
 
 (define (make-parenthesis-stencil
-         y-extent half-thickness width angularity)
+         y-extent thickness width angularity orientation)
   "Create a parenthesis stencil.
 @var{y-extent} is the Y extent of the markup inside the parenthesis.
 @var{half-thickness} is the half thickness of the parenthesis.
 @var{width} is the width of a parenthesis.
+@var{orientation} is the orientation of a parenthesis.
 The higher the value of number @var{angularity},
 the more angular the shape of the parenthesis."
-  (let* ((line-width 0.1)
-         ;; Horizontal position of baseline that end points run through.
-         (base-x
-          (if (< width 0)
-              (- width)
-              0))
-         ;; X value farthest from baseline on outside  of curve
-         (outer-x (+ base-x width))
-         ;; X extent of bezier sandwich centerline curves
-         (x-extent (ordered-cons base-x outer-x))
-         (bottom-y (interval-start y-extent))
-         (top-y (interval-end y-extent))
-
-         (lower-end-point (cons base-x bottom-y))
-         (upper-end-point (cons base-x top-y))
-
-         (outer-control-x (+ base-x (* 4/3 width)))
-         (inner-control-x (+ outer-control-x
-                             (if (< width 0)
-                                 half-thickness
-                                 (- half-thickness))))
-
-         ;; Vertical distance between a control point
-         ;; and the end point it connects to.
-         (offset-index (- (* 0.6 angularity) 0.8))
-         (lower-control-y (interval-index y-extent offset-index))
-         (upper-control-y (interval-index y-extent (- offset-index)))
-
-         (lower-outer-control-point
-          (cons outer-control-x lower-control-y))
-         (upper-outer-control-point
-          (cons outer-control-x upper-control-y))
-         (upper-inner-control-point
-          (cons inner-control-x upper-control-y))
-         (lower-inner-control-point
-          (cons inner-control-x lower-control-y)))
-  (ly:make-stencil
-    (ly:stencil-expr
-      (make-bezier-sandwich-stencil
-       (list
-        ;; Step 1: move to lower end point.
-        lower-end-point
-        ;; Step 2: curve through outer control points
-        ;; to upper end point.
-        lower-outer-control-point
-        upper-outer-control-point
-        upper-end-point
-        ;; Step 3: curve through inner control points
-        ;; to lower end point.
-        upper-inner-control-point
-        lower-inner-control-point)
-       (min (* 2 half-thickness) line-width)))
-    (interval-widen x-extent (/ line-width 2))
-    (interval-widen y-extent (/ line-width 2)))))
+  (let* ((start (cons 0 (car y-extent)))
+         (stop (cons 0 (cdr y-extent)))
+         (line-width 0.1)
+         (bow-stil
+           (make-bow-stencil
+             start stop thickness angularity width orientation))
+         (x-extent (ly:stencil-extent bow-stil X)))
+    (ly:make-stencil
+      (ly:stencil-expr bow-stil)
+      (interval-widen x-extent (/ line-width 2))
+      (interval-widen y-extent (/ line-width 2)))))
 
 (define-public (parenthesize-stencil
                 stencil half-thickness width angularity padding)
   "Add parentheses around @var{stencil}, returning a new stencil."
   (let* ((y-extent (ly:stencil-extent stencil Y))
          (lp (make-parenthesis-stencil
-              y-extent half-thickness (- width) angularity))
+              y-extent half-thickness width angularity 1))
          (rp (make-parenthesis-stencil
-              y-extent half-thickness width angularity)))
+              y-extent half-thickness width angularity -1)))
     (set! stencil (ly:stencil-combine-at-edge stencil X LEFT lp padding))
     (set! stencil (ly:stencil-combine-at-edge stencil X RIGHT rp padding))
     stencil))
