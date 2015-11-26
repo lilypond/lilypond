@@ -96,18 +96,27 @@ mus = \relative { c'4 cih d dih }
 @end lilypond
 
 @item
-A new style of whiteout that approximates the contours of a glyph's
-outline is now available using @code{whiteout-style}.  The shape of the
-white background is produced from multiple displaced copies of the
-glyph.  The @code{thickness} of both the new @code{outline} style and
-the default @code{box} style, as a multiple of staff-line thickness, can
-be customized.
+Two new styles of whiteout are now available.  The @code{outline} style
+approximates the contours of a glyph's outline, and its shape is
+produced from multiple displaced copies of the glyph.  The
+@code{rounded-box} style produces a rounded rectangle shape.  For all
+three styles, including the default @code{box} style, the whiteout
+shape's @code{thickness}, as a multiple of staff-line thickness, can be
+customized.
+
 @lilypond[verbatim,quote]
 \markup {
   \combine
     \filled-box #'(-1 . 15) #'(-3 . 4) #1
-    \override #'(thickness . 2)
+    \override #'(thickness . 3)
     \whiteout whiteout-box
+}
+\markup {
+  \combine
+    \filled-box #'(-1 . 24) #'(-3 . 4) #1
+    \override #'(style . rounded-box)
+    \override #'(thickness . 3)
+    \whiteout whiteout-rounded-box
 }
 \markup {
   \combine

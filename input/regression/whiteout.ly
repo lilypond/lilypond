@@ -2,8 +2,9 @@
 
   texidoc = "The whiteout command underlays a white background under a
 markup.  The shape is determined by @code{whiteout-style}. The default
-is @code{box} which produces a white rectangle.  @code{outline}
-approximates the outline of the markup."
+is @code{box} which produces a rectangle.  @code{rounded-box} produces
+a rounded rectangle.  @code{outline} approximates the outline of the
+markup."
 
 }
 \version "2.19.32"
@@ -25,7 +26,13 @@ approximates the outline of the markup."
   c
   c-\markup {
     \override #'(thickness . 3)
-    \override #'(whiteout-style . outline)
+    \override #'(style . rounded-box)
+    \whiteout foo
+  }
+  c
+  c-\markup {
+    \override #'(thickness . 3)
+    \override #'(style . outline)
     \whiteout foo
   }
   c

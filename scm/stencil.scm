@@ -852,10 +852,14 @@ by the user, an appropriate default is chosen based on @var{style}."
   (let ((thick (* line-thickness
                  (if (number? thickness)
                      thickness
-                     (if (eq? style 'outline) 3 0)))))
-    (if (eq? style 'outline)
-        (stencil-whiteout-outline stil thick)
-        (stencil-whiteout-box stil thick))))
+                     (cond
+                      ((eq? style 'outline) 3)
+                      ((eq? style 'rounded-box) 3)
+                      (else 0))))))
+    (cond
+     ((eq? style 'outline) (stencil-whiteout-outline stil thick))
+     ((eq? style 'rounded-box) (stencil-whiteout-box stil thick (* 2 thick)))
+     (else (stencil-whiteout-box stil thick)))))
 
 (define-public (arrow-stencil-maker start? end?)
   "Return a function drawing a line from current point to @code{destination},

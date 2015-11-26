@@ -1148,8 +1148,8 @@ extends beyond the bounding box of the grob as a multiple of the
 staff-line thickness.  The shape of the background is determined by
 @code{whiteout-style}.  Usually @code{#f} by default.")
      (whiteout-style ,symbol? "Determines the shape of the
-@code{whiteout} background.  Available are @code{'outline} and the
-default @code{'box}.")
+@code{whiteout} background.  Available are @code{'outline},
+@code{'rounded-box}, and the default @code{'box}.")
      (width ,ly:dimension? "The width of a grob measured in staff
 space.")
      (word-space ,ly:dimension? "Space to insert between words in
