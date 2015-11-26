@@ -1,0 +1,14 @@
+%% Translation of GIT committish: a51b7ab55aed341ffd8af27a357212ed7ef528b9
+  texidocit = "
+L'equalizzatore predefinito degli strumenti MIDI può essere modificato
+impostando la proprietà @code{instrumentEqualizer} nel contesto @code{Score}
+come una procedura Scheme definita dall'utente che usi il nome dello strumento
+MIDI come argomento insieme a una coppia di frazioni indicanti indicanti i
+volumi minimi e massimi da applicare a quello specifico strumento.
+
+L'esempio seguente imposta i volumi massimo e minimo per il flauto e
+per il clarintetto.
+
+"
+  doctitleit = "Modificare l'equalizzazione predefinita degli strumenti MIDI"
+

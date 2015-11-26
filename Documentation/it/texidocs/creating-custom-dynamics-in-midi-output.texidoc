@@ -1,0 +1,11 @@
+%% Translation of GIT committish: a51b7ab55aed341ffd8af27a357212ed7ef528b9
+  texidocit = "
+L'esempio seguente mostra come creare un segno di dinamica, non incluso
+nell'elenco predefinito, e assegnargli un valore specifico così che
+possa essere usato per cambiare l'output MIDI.
+
+
+Al segno di dinamica @code{\\rfz} viene assegnato il valore @code{0.9}.
+
+"
+  doctitleit = "Creare dinamiche personalizzate nell'output MIDI"

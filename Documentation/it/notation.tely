@@ -49,7 +49,7 @@ Copyright @copyright{} 1999--2015 degli autori.
 @menu
 * Notazione musicale::          Notazione usata in quasi tutti i progetti.
 * Notazione specialistica::     Notazione usata solo in contesti specifici.
-* General input and output::    Informazioni generali su input e output. @c Input e output
+* Input e output::              Informazioni generali su input e output.
 * Spacing issues::              Impaginazione della musica sul foglio. @c Gestione dello spazio
 * Changing defaults::           Aggiustamento dell'output. @c Modifica delle impostazioni predefinite
 

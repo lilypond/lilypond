@@ -1,0 +1,16 @@
+%% Translation of GIT committish: a51b7ab55aed341ffd8af27a357212ed7ef528b9
+  texidocit = "
+Nella creazione del file di output MIDI, il comportamento predefinito prevede
+che ogni rigo sia assegnato a un canale MIDI, con tutte le voci del rigo
+amalgamate in un canale. Ciò diminuisce il rischio di esaurire i canali
+MIDI disponibili, dato che ce ne sono solo 16 per traccia.
+
+Tuttavia, spostando @code{Staff_performer} nel contesto @code{Voice}, ogni
+voce in un rigo può avere il proprio canale MIDI, come è illustrato
+nell'esempio seguente: sebbene le voci siano sullo stesso rigo, vengono
+creati due canali MIDI, ciascuno con un diverso strumento MIDI
+(@code{midiInstrument}).
+
+"
+  doctitleit = "Impostare l'output MIDI su un canale per voce"
+
