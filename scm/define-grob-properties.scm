@@ -706,6 +706,11 @@ over the total spanner, where the width of the spanner is normalized
 between 0 and 1.")
      (note-names ,vector? "Vector of strings containing names for
 easy-notation note heads.")
+     (note-collision-threshold ,ly:dimension? "Simultaneous notes that
+are this close or closer in units of @code{staff-space} will be
+identified as vertically colliding. Used by @code{Stem} grobs for notes
+in the same voice, and @code{NoteCollision} grobs for notes in
+different voices. Default value@tie{}1.")
      (number-type ,symbol? "Numbering style. Choices include
 @code{roman-lower}, @code{roman-upper} and @code{arabic}.")
 

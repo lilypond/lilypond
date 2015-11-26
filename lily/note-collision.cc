@@ -55,8 +55,10 @@ check_meshing_chords (Grob *me,
   vector<int> ups = Stem::note_head_positions (stems[UP]);
   vector<int> dps = Stem::note_head_positions (stems[DOWN]);
 
+  int threshold = robust_scm2int (me->get_property ("note-collision-threshold"), 1);
+
   /* Too far apart to collide. */
-  if (ups[0] > dps.back () + 1)
+  if (ups[0] > dps.back () + threshold)
     return 0.0;
 
   /* If the chords just 'touch' their extreme noteheads,
@@ -64,8 +66,8 @@ check_meshing_chords (Grob *me,
   */
   bool touch = false;
   if (ups[0] >= dps.back ()
-      && (dps.size () < 2 || ups[0] >= dps[dps.size () - 2] + 2)
-      && (ups.size () < 2 || ups[1] >= dps.back () + 2))
+      && (dps.size () < 2 || ups[0] >= dps[dps.size () - 2] + threshold + 1)
+      && (ups.size () < 2 || ups[1] >= dps.back () + threshold + 1))
     touch = true;
 
   /* Filter out the 'o's in this configuration, since they're no
@@ -141,7 +143,9 @@ check_meshing_chords (Grob *me,
 
   for (vsize i = 0, j = 0; i < ups.size () && j < dps.size ();)
     {
-      if (abs (ups[i] - dps[j]) == 1)
+      if (ups[i] == dps[j])
+        full_collide = true;
+      else if (abs (ups[i] - dps[j]) <= threshold)
         {
           merge_possible = false;
           if (ups[i] > dps[j])
@@ -149,8 +153,6 @@ check_meshing_chords (Grob *me,
           else
             distant_half_collide = true;
         }
-      else if (ups[i] == dps[j])
-        full_collide = true;
       else if (ups[i] > dps[0] && ups[i] < dps.back ())
         merge_possible = false;
       else if (dps[j] > ups[0] && dps[j] < ups.back ())
@@ -607,6 +609,7 @@ ADD_INTERFACE (Note_collision_interface,
                /* properties */
                "merge-differently-dotted "
                "merge-differently-headed "
+               "note-collision-threshold "
                "positioning-done "
                "prefer-dotted-right "
               );

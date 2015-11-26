@@ -1605,6 +1605,7 @@
     (NoteCollision
      . (
         (axes . (,X ,Y))
+        (note-collision-threshold . 1)
         (positioning-done . ,ly:note-collision-interface::calc-positioning-done)
         (prefer-dotted-right . #t)
         (X-extent . ,ly:axis-group-interface::width)
@@ -2137,6 +2138,7 @@
         (duration-log . ,stem::calc-duration-log)
         (length . ,(ly:make-unpure-pure-container ly:stem::calc-length ly:stem::pure-calc-length))
         (neutral-direction . ,DOWN)
+        (note-collision-threshold . 1)
         (positioning-done . ,ly:stem::calc-positioning-done)
         (stem-info . ,ly:stem::calc-stem-info)
         (stem-begin-position . ,(ly:make-unpure-pure-container ly:stem::calc-stem-begin-position ly:stem::pure-calc-stem-begin-position))
