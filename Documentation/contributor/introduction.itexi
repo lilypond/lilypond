@@ -147,17 +147,15 @@ after finishing work on a patch or branch:
 
 @enumerate
 @item
-upload it with our custom @code{git-cl}.  In addition to uploading
-it to the google rietveld code review tool, this adds a tracker
-issue so that we don't lose your patch.  The @qq{status} of your
-patch is kept on the issue tracker; see @ref{Issues}.
+upload it with our custom @code{git-cl} @q{helper-script}; see
+@ref{git-cl}.  In addition to uploading patches to the Google's Rietveld
+Code Review Tool the script will also update the issue tracker (or add a
+new issue as appropriate) so that we don't lose reference to your
+patch.  The @qq{status} of your patch is kept on the issue tracker;
+see @ref{Issues}.
 
-@example
-@uref{https://github.com/gperciva/git-cl}
-@end example
-
-Your patch will be given @code{Patch-new} status.  More info in
-@ref{Uploading a patch for review}.
+Your patch will be given @code{Patch-new} status.  More information on
+this can be found in the section @ref{Uploading a patch for review}.
 
 @item
 If your patch passes some automatic tests, it will be given
@@ -166,13 +164,11 @@ hours.
 
 @item
 After that, the patch must wait for the next @qq{patch countdown},
-which occur 3 times a week.  If there are a lot of patches waiting
-for a countdown, a subset of patches are chosen randomly.  When
-your patch is put on a countdown, it will be given
-@code{Patch-countdown} status.
+which occurs roughly every 3 days.  When your patch is put on a
+countdown, it will be given @code{Patch-countdown} status.
 
 @item
-The countdown is a 48-hour period which gives other developers one
+The countdown is a 72-hour period which gives other developers one
 last chance to review the patch.  If no significant problems are
 found, your patch will be given @code{Patch-push} status.
 
@@ -188,20 +184,6 @@ who will push it for you.
 given our limited resources for reviewing patches and a history of
 unintended breakage in @code{master}, this is the best compromise
 we have found.}
-
-@c I don't think this is important enough to list here, but I may
-@c change my mind and/or leave a link to a later CG section.
-@ignore
-@item @strong{code style}:
-C++ code should be formatted with
-@file{scripts/auxiliar/fixcc.py}, which requires
-@url{http://astyle.sourceforge.net/, astyle 2.02}.  However, we
-are not very strict about this requirement.
-
-At the moment, scheme code should be formatted @qq{like emacs does
-it}.  We are working on an automated tool to simplify this step.
-However, we are not very strict about this requirement either.
-@end ignore
 
 @end itemize
 

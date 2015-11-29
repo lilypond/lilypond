@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.31\n"
+"Project-Id-Version: lilypond 2.19.32\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2015-11-08 14:27+0000\n"
+"POT-Creation-Date: 2015-11-22 12:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2007,7 +2007,7 @@ msgstr ""
 msgid "%d: %s"
 msgstr ""
 
-#: grob.cc:496
+#: grob.cc:486
 #, c-format
 msgid "ignored infinite %s-offset"
 msgstr ""
@@ -3413,31 +3413,31 @@ msgstr ""
 msgid "Undefined parent event class `~S'"
 msgstr ""
 
-#: define-markup-commands.scm:1102
+#: define-markup-commands.scm:1094
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:2943
+#: define-markup-commands.scm:2937
 #, scheme-format
 msgid "Cannot find glyph ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3419
+#: define-markup-commands.scm:3413
 #, scheme-format
 msgid "no brace found for point size ~S "
 msgstr ""
 
-#: define-markup-commands.scm:3420
+#: define-markup-commands.scm:3414
 #, scheme-format
 msgid "defaulting to ~S pt"
 msgstr ""
 
-#: define-markup-commands.scm:3665
+#: define-markup-commands.scm:3659
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3878
+#: define-markup-commands.scm:3872
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
@@ -3860,40 +3860,40 @@ msgstr ""
 msgid "assertion failed: ~S"
 msgstr ""
 
-#: translation-functions.scm:378
+#: translation-functions.scm:379
 #, scheme-format
 msgid "Negative fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:381
+#: translation-functions.scm:384
 #, scheme-format
 msgid "Missing fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:424
+#: translation-functions.scm:427
 #, scheme-format
 msgid "No open string for pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:439 translation-functions.scm:451
+#: translation-functions.scm:442 translation-functions.scm:454
 #, scheme-format
 msgid "Requested string for pitch requires negative fret: string ~a pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:442
+#: translation-functions.scm:445
 msgid "Ignoring string request and recalculating."
 msgstr ""
 
-#: translation-functions.scm:454
+#: translation-functions.scm:457
 msgid "Ignoring note in tablature."
 msgstr ""
 
-#: translation-functions.scm:479
+#: translation-functions.scm:482
 #, scheme-format
 msgid "No string for pitch ~a (given frets ~a)"
 msgstr ""
 
-#: translation-functions.scm:584
+#: translation-functions.scm:587
 #, scheme-format
 msgid ""
 "No label for fret ~a (on string ~a);\n"

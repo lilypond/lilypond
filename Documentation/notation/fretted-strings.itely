@@ -720,14 +720,14 @@ The modern tab clef supports tablatures from 4 to 7 strings.
 
 @code{TabStaff} may support micro-tones like quarter-tones, which
 can be played using bendings.
-@code{noteToFretFunction = #(determine-frets #t)} needs to be set in
+@code{supportNonIntegerFret = ##t} needs to be set in
 Score-context.  However, micro-tones are not supported in @code{FretBoards}.
 
 @lilypond[quote,ragged-right,verbatim]
 \layout {
   \context {
     \Score
-    noteToFretFunction = #(determine-frets #t)
+    supportNonIntegerFret = ##t
   }
 }
 

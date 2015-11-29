@@ -1383,6 +1383,9 @@ svn} (LilyPond doesn't).
 
 @subsubheading Uploading patch set
 
+This section assumes that you have already configured the
+@command{git-cl} @q{helper-script}.  See @ref{git-cl}.
+
 @warning{Unless you are familiar with branches, only work on one
 set of changes at once.}
 
@@ -1396,7 +1399,7 @@ If you added your patch to @code{master}, then:
 
 @example
 git pull -r
-git cl upload origin/master
+git-cl upload origin/master
 @end example
 
 @c Mention staging here?

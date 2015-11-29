@@ -10,6 +10,7 @@ for you and will help you do this as quickly and easily as possible.
 @menu
 * LilyDev::
 * lily-git::
+* git-cl::
 * Compiling with LilyDev::
 * Now start work!::
 @end menu
@@ -233,7 +234,7 @@ patches.
 
 @menu
 * Where to get lily-git::
-* Configuring lily-git and downloading the source code::
+* Using lily-git to download the source code::
 * How to use lily-git::
 @end menu
 
@@ -245,10 +246,9 @@ installed on your computer.
 
 @itemize
 @item
-If you are using LilyDev (see @ref{LilyDev}) then lily-git should be
-already installed and ready to run.  This is not the case for the
-current version (3.0), but you can easily turn it on by adding this
-line in ~/.bashrc:
+If you are using LilyDev (see @ref{LilyDev}) then lily-git should
+already be installed and ready to run.  If this is not the case you can
+easily turn it on by adding the following line in @code{~/.bashrc}:
 
 @example
 # add lily-git to the PATH
@@ -256,50 +256,51 @@ PATH=$LILYPOND_GIT/scripts/auxiliar:"$@{PATH@}"
 @end example
 
 @item
-For those not using LilyDev then lily-git can be obtained by downloading
+For those not using LilyDev, lily-git can be obtained by downloading
 the software directly. See @ref{Manually installing lily-git.tcl}.
 
 @item
-Finally, lily-git is always part of the LilyPond source code and is
-located in @file{$LILYPOND_GIT/scripts/auxillar/lily-git.tcl}.
+lily-git is part of the LilyPond source code and is located in
+@file{$LILYPOND_GIT/scripts/auxillar/lily-git.tcl}.
 
 @end itemize
 
 
-@node Configuring lily-git and downloading the source code
-@unnumberedsubsec Configuring lily-git and downloading the source code
-
-@warning{The rest of this manual assumes that you are using the
-command-line within a terminal.}
+@node Using lily-git to download the source code
+@unnumberedsubsec Using lily-git to download the source code
 
 @enumerate
 @item
-Type (or copy&paste) into the Terminal:
+Type the following command into a Terminal:
 
 @example
 lily-git.tcl
 @end example
 
 @noindent
-You will be prompted to enter your name and your email address.  This
-information is used only to identify and label any patches you create.
-This information can be edited if required later.  See
-@ref{Configuring Git}.  Click on the @emph{Submit} button to update
-lily-git with this information.
+You will be prompted to enter a name and email address into the lily-git
+UI.  This information is used to label any patches you create (using the
+lily-git UI or git via the command line) and can be changed later if
+required.  See @ref{Configuring Git}.
+
+@item
+Click on the @emph{Submit} button to update lily-git with the
+information.
 
 @item
 Click on the @qq{Get source} button.
 
-A directory called @file{$LILYPOND_GIT} is now created within
-your home directory and the complete source code will start to be
-downloaded into it.
+A directory called @file{lilypond-git} is created within your home
+directory and the entire source code will start to be downloaded into
+it.
 
-@warning{Be patient! The complete source is around 150@tie{}Mb.}
+@warning{Be patient! There is no progress bar in the lily-git UI but the
+complete source is around 180@tie{}Mb.}
 
 @noindent
-When the source code has been downloaded, the @qq{Command output} window
-in lily-git will update and display @qq{Done} on the very last line.
-The button label will change to say @qq{Update source}.
+When the source code has been downloaded, the @qq{command output} window
+in the lily-git UI will update and display @qq{Done} on the very last
+line and the button label will change to say @qq{Update source}.
 
 @warning{Some contributors have reported that occasionally nothing
 happens at this step at all.  If this occurs, then try again in a few
@@ -307,37 +308,43 @@ minutes -- it could be an intermittant network problem.  If the
 problem persists, please ask for help.}
 
 @item
-Close the lily-git GUI and navigate to the @file{$LILYPOND_GIT}
+Close the lily-git GUI and navigate to the @file{lilypond-git}
 directory to view and edit the source files.
 
 @end enumerate
 
 @noindent
-If this is the first time you have compiled LilyPond then please go
-to @ref{Compiling with LilyDev} before reading on.
+If this is the first time you will be attempting to compile LilyPond,
+please see the section @ref{Compiling with LilyDev} before continuing.
 
 
 @node How to use lily-git
 @unnumberedsubsec How to use lily-git
 
-@warning{Throughout the rest of this manual, most command-line
-input should be entered from @file{~/lilypond-git/}.  This is
-known as the @emph{top source directory} and is often referred to as
-@var{$LILYPOND_GIT}.}
+Here is a brief description of what each button does in the lily-git UI.
 
-@warning{Only work on one set of changes at once.  Do not start
-work on any new changes until your first set has been accepted.}
+@advanced{Throughout the rest of this manual, most command-line
+input should be entered from within the top level of the
+@file{~/lilypond-git/} directory.  This is known as the
+@emph{top of the source directory} and is also referred to as
+@var{$LILYPOND_GIT} as a convention for those users who may have
+configured their own locations of the LilyPond source code.}
+
+@warning{For those less experienced contributors using lily-git, we
+recommend that you only work on one set of changes at a time and not
+start on any new changes until your first set has been accepted.}
 
 @subsubheading 1. Update source
 
-At the beginning of each session of lilypond work, you should
-click the @qq{Update source} button to get the latest changes to
-the source code.
+Click the @qq{Update source} button to get any recent changes to the
+source code that have been added by other contributors since your last
+session.
 
-@warning{In some rare and unfortunate circumstances, this will
-result in a @emph{merge conflict}.  If this occurs, follow the
-instructions for @qq{Abort changes}, below.  Your work will not be
-lost.}
+@warning{If another contributor has updated files in the source code
+that you had been working on then updating your own copy of the source
+code may result in what is known as a @emph{merge conflict}.  If this
+occurs, follow the instructions to @qq{Abort changes}, below.  Note that
+your work will not be lost.}
 
 
 @subsubheading 2a. New local commit
@@ -426,6 +433,176 @@ all changed files to a subdirectory of @file{$LILYPOND_GIT} named
 @file{aborted_edits/}, and will reset the repository to the
 current state of the remote repository (at @code{git.sv.gnu.org}).
 
+
+@node git-cl
+@section git-cl
+
+@menu
+* Installing git-cl::
+* Updating git-cl::
+* Configuring git-cl::
+@end menu
+
+Git-cl is a @q{helper script} that uploads patches to Google's Rietveld
+Code Review Tool -- used by the developers for patch review -- and, at
+the same time, updates LilyPond's issue tracker.
+
+
+@node Installing git-cl
+@unnumberedsubsec Installing @code{git-cl}
+
+@warning{LilyDev users can jump straight to the next section on updating
+@command{git-cl} as it will already be installed in your home
+directory.}
+
+@enumerate
+
+@item
+Download @command{git-cl} by running the command:
+
+@example
+git clone https://github.com/gperciva/git-cl.git
+@end example
+
+@noindent
+or, if that command fails for any reason, try:
+
+@example
+git clone git://github.com/gperciva/git-cl.git
+@end example
+
+@item
+Add the @file{git-cl/} directory to your @var{PATH} or create a symbolic
+link to the @command{git-cl} and @command{upload.py} scripts in one of
+your @var{PATH} directories (e.g. @file{$HOME/bin}).
+
+In GNU/Linux you can add directories to @var{PATH} by adding this line
+to your @file{.bashrc} file located in your home directory:
+
+@example
+PATH=~/directory_containing_git-cl:"$@{PATH@}"
+@end example
+
+@end enumerate
+
+
+@node Updating git-cl
+@unnumberedsubsec Updating @code{git-cl}
+
+LilyDev users should always make sure that they alwsys have the latest
+version of git-cl installed.  It is possible that changes may have been
+made to git-cl that are not (yet) included in the version of LilyDev has
+been installed.
+
+@noindent
+Using a terminal run the following commands:
+
+@example
+cd ~/git-cl/
+git pull
+@end example
+
+This will download and update you to the lastest version of git-cl.
+
+
+@node Configuring git-cl
+@unnumberedsubsec Configuring @code{git-cl}
+
+@subsubheading Set up login accounts
+
+Because the @code{git-cl} updates two separate websites (Google's
+Rietveld Code Review Tool and LilyPond's issue tracker) you @emph{must}
+have a valid user login and password to both sites.
+
+@noindent
+Although that it may appear that you have to use a @q{Google} email
+address for the Rietveld Code Review Tool when you sign up, you can
+instead select the option @qq{I prefer to use my current email address}
+during sign up.
+
+@noindent
+For a user login to the LilyPond issue tracker, please send your
+request, preferably using the email address you want to use for your
+login, to the LilyPond Developer's mailing list
+(@code{lilypond-devel@@gnu.org}).
+
+@subsubheading Authorising git-cl for the LilyPond issue tracker
+
+The @code{git-cl} command itself also needs to be @q{authorized} so that
+it can access the LilyPond issue tracker.
+
+@enumerate
+@item
+Once a valid login has been given for the LilyPond issye tracker, go to
+the @q{Account settings} and select the @q{OAuth} tab.
+
+@item
+Locate the @q{Register New Application} section and enter @code{git-cl}
+in the @q{Application Name:} field.
+
+@item
+Click on the @q{Register new application} button.  You should now see
+@q{git-cl} listed under the @q{My Applications} section.
+
+@item
+Click on the @q{Generate Bearer Token} button.    You should now see
+@q{git-cl} listed under the @q{Authorized Applications} section along
+with a value for the @q{Bearer Token} entry.  This value is used, in the
+next steps, to allow git-cl to access and update the LilyPond issue
+tracker.
+
+@end enumerate
+
+@subsubheading Running git-cl for the first time
+
+@enumerate
+@item
+Using a terminal, move to top source directory of the
+@code{$LILYPOND_GIT} directory and then run @code{git-cl} with the
+@code{config} option:
+
+@example
+cd $LILYPOND_GIT
+git-cl config
+@end example
+
+@item
+When prompted for the @code{Rietveld server}:
+
+@example
+Rietveld server (host[:port]) [codereview.appspot.com]:
+@end example
+
+@item
+When prompted for the @code{Allura server} (the LilyPond issue tracker):
+
+@example
+Allura server [https://sourceforge.net/p/testlilyissues/issues/]:
+@end example
+
+@item
+When prompted for the @code{Allura bearer token} copy/paste the value
+generated in the previous steps for
+@emph{Authorising git-cl for the LilyPond issue tracker}:
+
+@smallexample
+Allura bearer token (see https://sourceforge.net/auth/oauth/) [fdbfca60801533465480]:
+@end smallexample
+
+@warning{The above is a @q{fake} bearer token just to illustrate the
+example. Do not use this value.}
+
+@item
+Finally, when prompted for the @code{CC list} entry, add the Lilypond
+Developer's group email.
+
+@example
+CC list ("x" to clear) [lilypond-devel@@gnu.org]:
+@end example
+
+@end enumerate
+
+The @code{git-cl} script should now be correctly configured for use.
 
 
 @node Compiling with LilyDev
