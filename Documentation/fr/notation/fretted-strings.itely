@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d64a2407615c09ddd8f5c34e13a3ecfdf4284f1b
+   Translation of GIT committish: 650e318ed0afc6938c8d903907d501690872b9a6
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -730,9 +730,9 @@ Cette clef moderne prend en charge les tablatures de quatre à sept cordes.
 
 Un @code{TabStaff} peut contenir des micro-intervalles tels les quarts
 de ton, qui interveiennent dans les chutes ou sauts.  L'assertion
-@w{@code{supportNonIntegerFret = ##t}} devra se placer au
-niveau du contexte @code{Score}.  Les micro-intervalles ne sont
-toutefois pas pris en charge dans un contexte @code{FretBoards}.
+@w{@code{supportNonIntegerFret = ##t}} devra se placer au niveau du
+contexte @code{Score}.  Les micro-intervalles ne sont toutefois pas pris
+en charge dans un contexte @code{FretBoards}.
 
 @lilypond[quote,ragged-right,verbatim]
 \layout {
