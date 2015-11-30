@@ -1355,10 +1355,6 @@ Account Settings must have the @q{Access for less secure apps} set to
 Move into the top source directory and then configure @command{git
 cl} with the following commands:
 
-@item
-Move into the top source directory and then configure @command{git
-cl} with the following commands:
-
 @example
 cd $LILYPOND_GIT
 git cl config
@@ -1393,7 +1389,7 @@ There are two methods, depending on your git setup.
 
 @itemize
 @item
-@strong{Master branch}: (easy option, and used in @command{lily-git.tcl})
+@strong{Master branch}: (easy option)
 
 If you added your patch to @code{master}, then:
 
@@ -1417,13 +1413,25 @@ option.
 @item
 @strong{Separate branch}: (complicated option)
 
-Ensure your changes are committed in a separate branch, which
-should differ from the reference branch to be used by just the
-changes to be uploaded.  If the reference branch is to be
-origin/master, ensure this is up-to-date.  If necessary, use git
-rebase to rebase the branch containing the changes to the head of
-origin/master.  Finally, check out branch with the changes and
-enter the command:
+Ensure your changes are committed in a separate branch, which should
+differ from the reference branch to be used (usually
+@code{origin/master}) by just the changes to be uploaded.  Checkout the
+branch with the changes:
+
+@example
+git checkout some-branch-with-changes
+@end example
+
+If the reference branch is to be @code{origin/master}, ensure that the
+branch containing the changes is up-to-date with it.  Use
+@command{git rebase} or @command{git pull -r} to rebase the branch to
+the head of @code{origin/master}.  For example:
+
+@example
+git pull -r origin master
+@end example
+
+Finally, start the upload by entering:
 
 @example
 git cl upload <reference SHA1 ID>

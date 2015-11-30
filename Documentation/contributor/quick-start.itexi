@@ -44,7 +44,7 @@ and the Disk image was generated using Debian
 @uref{http://live.debian.net/, live-build 4}.
 
 @noindent
-Download the LilyDev disk image file from here:
+Download the LilyDev disk image file (a @code{.iso} file) from here:
 
 @example
 @uref{https://github.com/fedelibre/LilyDev/releases/latest}
@@ -124,8 +124,8 @@ Your new guest will be displayed in the VirtualBox window.
 @item
 Click the @q{Start} button and the @q{First Run Wizard} will prompt you
 for the installation media.  Click the browse icon, locate the LilyDev
-disk image and click through the wizard to begin the installation
-process.
+disk image file that you downloaded (the @code{.iso} file) and click
+through the wizard to begin the installation process.
 
 @item
 When the LilyDev disk image boots for the first time, choose either the
