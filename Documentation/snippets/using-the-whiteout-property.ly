@@ -4,7 +4,7 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.19.22
+%% Note: this file works from version 2.19.32
 \version "2.19.32"
 
 \header {
@@ -20,7 +20,7 @@ background.
 
 In this example the collision of the tie with the time signature is
 improved by masking out the part of the tie that crosses the time
-signature by setting the @code{whiteout-box} property of
+signature by setting the @code{whiteout} property of
 @code{TimeSignature}. To do this @code{TimeSignature} is moved to a
 layer above @code{Tie}, which is left in the default layer of 1, and
 @code{StaffSymbol} is moved to a layer above @code{TimeSignature} so it
