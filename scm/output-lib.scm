@@ -1121,9 +1121,11 @@ If @var{data} is @code{#f} or @code{'()}, it is not included in the sum."
 (define-public (stroke-finger::calc-text grob)
   (let ((event (event-cause grob)))
     (or (ly:event-property event 'text #f)
-        (vector-ref (ly:grob-property grob 'digit-names)
-                    (1- (max 1
-                             (min 5 (ly:event-property event 'digit))))))))
+        (let ((digit-names (ly:grob-property grob 'digit-names)))
+          (vector-ref digit-names
+                      (1- (max 1
+                               (min (vector-length digit-names)
+                                    (ly:event-property event 'digit)))))))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
