@@ -1,0 +1,3643 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
+
+@ignore
+    Translation of GIT committish: 410fe169a1eeff173aed62d85b79686532b379ff
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c \version "2.19.22"
+
+@c Translators: Federico Bruni
+@c Translation checkers:
+
+@ignore
+GDP TODO list
+
+Negative numbers are allowed:
+> Are you sure? The following works well
+> \paper{
+>   first-page-number = -2
+> }
+> and prints page number -1 on the second page, for example.
+
+
+Clarify
+http://code.google.com/p/lilypond/issues/detail?id=68
+
+@end ignore
+
+
+@node Gestione dello spazio
+@chapter Gestione dello spazio
+@translationof Spacing issues
+
+La formattazione globale del foglio è determinata da tre fattori: la
+formattazione della pagina, le interruzioni di linea e la spaziatura.
+Ciascun fattore influenza l'altro. La scelta della spaziatura determina
+la densità con cui vengono disposti i sistemi musicali, che a sua volta
+influenza la scelta delle interruzioni di linea e quindi infine quante
+pagine occupa un brano.
+
+Generalmente, questa procedura si svolge in quattro stadi. Inizialmente
+vengono scelte le distanze flessibili (@q{springs}), in base alle
+durate.  Poi vengono tentate tutte le possibili combinazioni per le
+interruzioni di linea e viene calcolato un punteggio @q{negativo} per
+ciascuna di esse. Quindi viene calcolata l'altezza di ogni possibile
+sistema. Infine viene scelta una combinazione di interruzioni di linea
+e di interruzioni di pagina che assicuri che la spaziatura verticale e
+quella orizzontale non siano né troppo compresse né troppo allungate.
+
+Due tipi di blocchi possono contenere le impostazioni di formattazione:
+@code{\paper @{@dots{}@}} e @code{\layout @{@dots{}@}}.  Il blocco
+@code{\paper} contiene le impostazioni di formattazione della pagina
+da applicare a tutte le partiture di un libro o di una parte,
+come l'altezza del foglio o se stampare o meno i numeri di pagina, etc.
+(vedi @ref{Page layout}).  Il blocco @code{\layout} contiene le impostazioni
+di formattazione della partitura, come il numero di sistemi da usare o lo
+spazio tra i gruppi di righi, etc. (vedi @ref{Score layout}).
+
+@menu
+* Formattazione della pagina::
+* Formattazione della partitura::
+* Interruzioni::
+* Spaziatura verticale::
+* Spaziatura orizzontale::
+* Riduzione del numero di pagine di una partitura::
+@end menu
+
+
+@node Formattazione della pagina
+@section Formattazione della pagina
+@translationof Page layout
+
+Questa sezione tratta le opzioni di formattazione della pagina per il
+blocco @code{\paper}.
+
+@menu
+* Il blocco paper::
+* Formato carta e ridimensionamento automatico::
+* Variabili paper della spaziatura verticale fissa::
+* Variabili paper della spaziatura verticale flessibile::
+* Variabili paper della spaziatura orizzontale::
+* Altre variabili di paper::
+@end menu
+
+
+@node Il blocco paper
+@subsection Il blocco @code{@bs{}paper}
+@translationof The paper block
+
+I blocchi @code{\paper} possono essere posizionati in tre punti diversi, in
+modo da formare una gerarchia discendente di blocchi @code{\paper}:
+
+@itemize
+
+@item
+All'inizio del file di input, prima di tutti i blocchi @code{\book},
+@code{\bookpart} e @code{\score}.
+
+@item
+Dentro un blocco @code{\book} ma fuori da tutti i blocchi
+@code{\bookpart} e @code{\score} in esso racchiusi.
+
+@item
+Dentro un blocco @code{\bookpart} ma fuori da tutti i blocchi
+@code{\score} in esso racchiusi.
+
+@end itemize
+
+Non è possibile inserire un blocco @code{\paper} in un blocco @code{\score}.
+
+I valori dei campi vengono filtrati dall'alto verso il basso attraverso
+questa gerarchia: i valori impostati nei livelli più alti della
+gerarchia persistono finché non sono sovrascritti da un valore
+impostato in un livello più basso.
+
+Vari blocchi @code{\paper} possono apparire in ognuno di questi livelli, per
+esempio come parti di vari file inclusi con @code{\include}.  In questo caso,
+i campi di ciascun livello vengono combinati e i valori riscontrati per
+ultimi avranno la precedenza in caso di campi duplicati.
+
+Le impostazioni che possono apparire in un blocco @code{\paper} comprendono:
+
+@itemize
+
+@item
+la funzione scheme @code{set-paper-size},
+
+@item
+le variabili @code{\paper} per personalizzare la formattazione della pagina e
+
+@item
+le definizioni di markup usate per personalizzare la formattazione di intestazioni,
+piè di pagina e titoli.
+
+@end itemize
+
+La funzione @code{set-paper-size} è trattata nella prossima
+sezione, @ref{Paper size and automatic scaling}.  Le variabili
+@code{\paper} che si occupano della formattazione della pagina sono
+trattate in sezioni successive.  Le definizioni di markup relative a
+intestazioni, piè di pagina e titoli sono trattate in
+@ref{Custom titles headers and footers}.
+
+La maggior parte delle variabili @code{\paper} funzionano soltanto in
+un blocco @code{\paper}.  Le poche che funzionano anche in un blocco
+@code{\layout} sono elencate in
+@ref{The layout block,,Il blocco @code{@bs{}layout}}.
+
+Se non indicato diversamente, tutte le variabili @code{\paper} che
+corrispondono a distanze sulla pagina sono misurate in millimetri,
+a meno che un'unità di misura diversa non sia specificata dall'utente.
+Per esempio, la seguente dichiarazione imposta @code{top-margin} su
+dieci millimetri:
+
+@example
+\paper @{
+  top-margin = 10
+@}
+@end example
+
+Per impostarla su @code{0.5} pollici, usare il suffisso di
+unità @code{\in} (inch = pollice):
+
+@example
+\paper @{
+  top-margin = 0.5\in
+@}
+@end example
+
+I suffissi di unità disponibili sono @code{\mm}, @code{\cm},
+@code{\in} e @code{\pt}.  Queste unità sono semplici valori utili
+per convertire dai millimetri e sono definite in
+@file{ly/paper-defaults-init.ly}.  Solo per chiarezza, quando
+si usano i millimetri, di solito si usa il suffisso @code{\mm},
+anche se non è tecnicamente necessario.
+
+È anche possibile definire i valori di @code{\paper} con Scheme.
+L'equivalente Scheme dell'esempio precedente è:
+
+@example
+\paper @{
+  #(define top-margin (* 0.5 in))
+@}
+@end example
+
+@seealso
+Guida alla notazione:
+@ref{Paper size and automatic scaling},
+@ref{Custom titles headers and footers},
+@ref{The layout block,,Il blocco @code{@bs{}layout}}.
+
+File installati:
+@file{ly/paper-defaults-init.ly}.
+
+
+@node Formato carta e ridimensionamento automatico
+@subsection Formato carta e ridimensionamento automatico
+@translationof Paper size and automatic scaling
+
+@cindex formato carta
+@cindex formato pagina
+@cindex carta, formato
+@cindex pagina, formato
+
+@funindex \paper
+
+@menu
+* Impostare il formato carta::
+* Ridimensionamento automatico al formato carta::
+@end menu
+
+
+@node Impostare il formato carta
+@unnumberedsubsubsec Impostare il formato carta
+@translationof Setting the paper size
+
+@q{A4} è il valore predefinito quando non viene impostato esplicitamente
+alcun formato carta. Esistono due funzioni che permettono di cambiare
+formato:
+
+@table @code
+@item set-default-paper-size
+
+@example
+#(set-default-paper-size "quarto")
+@end example
+
+che deve sempre trovarsi nel livello superiore, e
+
+@item set-paper-size
+
+@example
+\paper @{
+  #(set-paper-size "tabloid")
+@}
+@end example
+
+che deve sempre trovarsi in un blocco @code{\paper}.
+@end table
+
+La funzione @code{set-default-paper-size}, se usata nel livello superiore,
+deve precedere qualsiasi blocco @code{\paper}.
+@code{set-default-paper-size} imposta il formato di tutte le pagine,
+mentre @code{set-paper-size} imposta il formato soltanto di quelle
+pagine a cui è applicato il blocco @code{\paper}.  Per esempio, se il
+blocco @code{\paper} si trova all'inizio del file, applicherà il formato
+a tutte le pagine.  Se il blocco @code{\paper} si trova dentro un blocco
+@code{\book}, il formato verrà applicato a quel libro soltanto.
+
+Quando si usa la funzione @code{set-paper-size}, questa deve essere
+posta @emph{prima} di qualsiasi altra funzione usata nello stesso blocco
+@code{\paper}.  Vedi @ref{Automatic scaling to paper size}.
+
+I formati carta sono definiti in @file{scm/paper.scm}, e sebbene sia
+possibile aggiungere formati personalizzati in questo file, tali aggiunte
+verrebbero sovrascritte da successivi aggiornamenti del software. I formati
+disponibili sono elencati in @ref{Predefined paper sizes}.
+
+@c An appendix entry exists for paper sizes but is not auto-generated
+
+È tuttavia possibile aggiungere un formato personalizzato nel file di
+input per poi utilizzarlo con @code{set-default-paper-size} o
+@code{set-paper-size}:
+
+@example
+#(set! paper-alist (cons '("mio formato" . (cons (* 15 in) (* 3 in))) paper-alist))
+
+\paper @{
+  #(set-paper-size "mio formato")
+@}
+@end example
+
+Si può usare qualsiasi unità di misura: @code{in} (inch, o pollici), @code{cm}
+(centimetri) e @code{mm} (millimetri).
+
+@cindex formato carta, orientamento
+@cindex pagina, orientamento
+@cindex formato carta, orizzontale (landscape)
+
+Aggiungendo il simbolo @code{'landscape} alla funzione del formato, le pagine
+vengono ruotate di 90 gradi e le linee occupano il maggior spazio a disposizione.
+
+@example
+#(set-default-paper-size "a6" 'landscape)
+@end example
+
+Appendendo @samp{landscape} (orizzontale) al nome del formato, è possibile
+scambiare le dimensioni della carta @emph{senza} ruotare la stampa
+(come quando si stampa in formato cartolina o si creano dei file
+grafici da includere invece di un documento indipendente):
+
+@example
+#(set-default-paper-size "a6landscape")
+@end example
+
+Quando il formato termina con un esplicito @samp{landscape} (orizzontale) o
+@samp{portrait} (verticale), la presenza di un simbolo @code{'landscape}
+influisce @emph{solo} sull'orientamento della stampa, non sul formato
+usato per la formattazione.
+
+@seealso
+Guida alla notazione:
+@ref{Automatic scaling to paper size},
+@ref{Predefined paper sizes}.
+
+File installati:
+@file{scm/paper.scm}.
+
+
+@node Ridimensionamento automatico al formato carta
+@unnumberedsubsubsec Ridimensionamento automatico al formato carta
+@translationof Automatic scaling to paper size
+
+Se il formato viene cambiato con una delle funzioni scheme
+(@code{set-default-paper-size} o @code{set-paper-size}), i
+valori di diverse variabili @code{\paper} sono automaticamente
+ricalcolati in base alla nuova dimensione.  Per aggirare il ridimensionamento
+automatico di una certa variabile, impostare la variabile dopo aver
+impostato il formato.  Fare attenzione al fatto che il ridimensionamento
+automatico non viene attivato se si impostano le variabili
+@code{paper-height} o @code{paper-width}, anche se
+@code{paper-width} può influenzare altri valori (ma questo
+è un argomento diverso dal ridimensionamento ed è trattato in seguito).  Le
+funzioni @code{set-default-paper-size} e @code{set-paper-size} sono
+descritte in @ref{Setting the paper size}.
+
+Le dimensioni verticali interessate dal ridimensionamento automatico
+sono @code{top-margin} e @code{bottom-margin} (vedi
+@ref{Fixed vertical spacing paper variables,,Variabili fisse della spaziatura verticale di @code{@bs{}paper}}).
+Le dimensioni orizzontali interessate dal ridimensionamento automatico
+sono @code{left-margin}, @code{right-margin}, @code{inner-margin},
+@code{outer-margin}, @code{binding-offset}, @code{indent} e @code{short-indent} (vedi
+@ref{Horizontal spacing paper variables,,Variabili della spaziatura orizzontale di @code{@bs{}paper}}).
+
+I valori predefiniti di queste dimensioni sono impostati in
+@file{ly/paper-defaults-init.ly} e salvati in variabili interne
+chiamate @code{top-margin-default}, @code{bottom-margin-default}, etc.
+Questi valori si riferiscono al formato predefinito @code{a4}.
+Per riferimento, nel formato @code{a4} il valore di @code{paper-height} è
+@code{297\mm} e quello di @code{paper-width} è @code{210\mm}.
+
+@seealso
+Guida alla notazione:
+@ref{Fixed vertical spacing paper variables,,Variabili fisse della spaziatura verticale di @code{@bs{}paper}},
+@ref{Horizontal spacing paper variables,,Variabili della spaziatura orizzontale di @code{@bs{}paper}}.
+
+File installati:
+@file{ly/paper-defaults-init.ly},
+@file{scm/paper.scm}.
+
+
+@node Variabili paper della spaziatura verticale fissa
+@subsection Variabili @code{@bs{}paper} della spaziatura verticale fissa
+@translationof Fixed vertical spacing paper variables
+
+@warning{Alcune dimensioni definite nel blocco @code{@bs{}paper} sono
+ridimensionate automaticamente in base al formato carta, portando a
+possibili risultati imprevisti. Vedi
+@ref{Automatic scaling to paper size}.}
+
+I valori predefiniti (prima del ridimensionamento) sono definiti in
+@file{ly/paper-defaults-init.ly}.
+
+@table @code
+@item paper-height
+@funindex paper-height
+
+L'altezza della pagina (valore predefinito: non impostata).  Il ridimensionamento
+automatico di alcune dimensioni verticali non è influenzato da questa.
+
+@item top-margin
+@funindex top-margin
+
+Il margine tra il punto più alto della pagina e il punto più alto
+dell'area di stampa.  Se il formato viene modificato, il valore
+predefinito di questa dimensione viene ridimensionato di conseguenza.
+
+@item bottom-margin
+@funindex bottom-margin
+
+Il margine tra il punto più basso dell'area di stampa e il punto
+più basso della pagina.  Se il formato viene modificato, il valore
+predefinito di questa dimensione viene ridimensionato di conseguenza.
+
+@item ragged-bottom
+@funindex ragged-bottom
+
+Se impostato su vero, i sistemi avranno la loro naturale spaziatura.
+Non saranno giustificati, ovvero non saranno né compressi né allungati
+verticalmente per stare nella pagina.
+
+@item ragged-last-bottom
+@funindex ragged-last-bottom
+
+Se impostato su falso, l'ultima pagina, e l'ultima pagina
+di ogni sezione creata con un blocco @code{\bookpart}, saranno
+giustificate verticalmente come nelle pagine precedenti.
+
+@end table
+
+@seealso
+Guida alla notazione:
+@ref{Automatic scaling to paper size}.
+
+File installati:
+@file{ly/paper-defaults-init.ly}.
+
+Frammenti:
+@rlsr{Spacing}.
+
+@knownissues
+I titoli (definiti nel blocco @code{\header}) sono considerati
+un sistema, dunque @code{ragged-bottom} e @code{ragged-last-bottom}
+aggiungeranno spazio tra i titoli e il primo sistema della partitura.
+
+Formati carta definiti esplicitamente sovrascriveranno qualsiasi
+impostazione di margine superiore o inferiore definito dall'utente.
+
+
+@node Variabili paper della spaziatura verticale flessibile
+@subsection Variabili @code{@bs{}paper} della spaziatura verticale flessibile
+@translationof Flexible vertical spacing paper variables
+
+Nella maggior parte dei casi è preferibile che le distanze verticali
+tra certi elementi (come margini, titoli, sistemi e partiture
+separate) siano flessibili, così che siano ben compresse o allungate
+a seconda della situazione.  Sono disponibili diverse variabili
+@code{\paper} (elencate sotto) per regolare il comportamento di
+allungamento di queste dimensioni.
+
+Nota bene che le variabili @code{\paper} trattate in questa sezione
+non regolano la spaziatura dei righi dei singoli sistemi.
+La spaziatura interna ai sistemi è controllata dalle proprietà
+del grob, solitamente inserite in un blocco @code{\score} o
+@code{\layout} e non in un blocco @code{\paper}.  Vedi
+@ref{Flexible vertical spacing within systems}.
+
+@menu
+* Struttura delle liste associative flessibili della spaziatura verticale::
+* Elenco delle variabili paper flessibili della spaziatura verticale::
+@end menu
+
+
+@node Struttura delle liste associative flessibili della spaziatura verticale
+@unnumberedsubsubsec Struttura delle liste associative flessibili della spaziatura verticale
+@translationof Structure of flexible vertical spacing alists
+
+Ognuna delle variabili @code{\paper} flessibili della spaziatura verticale
+è una lista associativa (alist) composta da quattro @emph{elementi}:
+
+@itemize
+
+@item
+@code{basic-distance} -- la distanza verticale, misurata in
+spazi rigo, tra i @emph{punti di riferimento} dei due
+elementi, quando non si verificano collisioni e non sono
+attivi allungamenti o compressioni.  Il punto di riferimento
+di un markup (un titolo o un markup di un livello superiore)
+è il suo punto più alto, mentre quello di un sistema è il
+centro verticale del più vicino @code{StaffSymbol}, anche se
+una linea diversa da un rigo (come un contesto @code{Lyrics}) si
+trova nel mezzo.  Valori di @code{basic-distance} inferiori a quelli
+di @code{padding} o @code{minimum-distance} non hanno senso, dato che
+la distanza risultante non sarà mai inferiore a quella definita per
+@code{padding} o @code{minimum-distance}.
+
+@item
+@code{minimum-distance} -- la minima distanza verticale consentita,
+misurata in spazi rigo, tra i punti di riferimento dei due
+elementi, quando la compressione è attiva.  Valori di
+@code{minimum-distance} inferiori a quelli di @code{padding} non
+hanno senso, perché la distanza risultante non sarà mai inferiore
+a quella definita per @code{padding.}
+
+@c TODO: explain skylines somewhere and xref to it from here.
+
+@item
+@code{padding} -- la quantità minima di spazio verticale libero
+tra i profili (@emph{skyline}) dei due elementi, misurata in
+spazi rigo.
+
+@item
+@code{stretchability} -- una misura, priva di unità di misura,
+della relativa propensione della dimensione a allungarsi.  Se
+pari a zero, la distanza non si allungherà (a meno che non ci
+siano delle collisioni).  Se positiva, il significato del valore
+di @code{stretchability} di una certa dimensione sta nella sua
+relazione con i valori di @code{stretchability} delle altre
+dimensioni.  Per esempio, se una dimensione ha un valore di
+@code{stretchability} doppio rispetto a un'altra, si allungherà
+il doppio.
+I valori devono essere non negativi e finiti.  Il valore @code{+inf.0} causa un
+errore di programmazione e viene ingorato, ma si può usare @code{1.0e7} per
+ottenere un'elasticità allungabile quasi all'infinito. Se non impostata, il
+valore predefinito equivale a quello di @code{basic-distance}.  Nota che la
+propensione della dimensione a @emph{comprimersi} non può essere impostata
+direttamente dall'utente ed è uguale a
+(@code{basic-distance}@tie{}@minus{}@tie{}@code{minimum-distance}).
+
+@end itemize
+
+Se in una pagina lo spazio verticale non è giustificato (ovvero con
+@code{ragged-bottom} impostato su vero) la distanza risultante è
+data dal valore più grande assegnato a una di queste tre proprietà:
+
+@itemize
+
+@item
+@code{basic-distance},
+
+@item
+@code{minimum-distance} e
+
+@item
+@code{padding} con l'aggiunta della più piccola distanza necessaria a
+eliminare collisioni.
+
+@end itemize
+
+In caso di partiture con molte pagine in cui l'ultima pagina non è
+giustificata (ovvero con @code{ragged-last-bottom} impostato su vero),
+l'ultima pagina usa la stessa spaziatura della pagina precedente,
+purché ci sia abbastanza spazio.
+
+I metodi specifici per modificare le liste associative (alist) sono
+trattati in @ref{Modifying alists}.  L'esempio seguente illustra i
+due modi in cui queste possono essere modificate.  La prima dichiarazione
+aggiorna un elemento-valore individualmente, mentre la seconda ridefinisce
+completamente la variabile:
+
+@example
+\paper @{
+  system-system-spacing.basic-distance = #8
+  score-system-spacing =
+    #'((basic-distance . 12)
+       (minimum-distance . 6)
+       (padding . 1)
+       (stretchability . 12))
+@}
+@end example
+
+
+@node Elenco delle variabili paper flessibili della spaziatura verticale
+@unnumberedsubsubsec Elenco delle variabili @code{@bs{}paper} flessibili della spaziatura verticale
+@translationof List of flexible vertical spacing paper variables
+
+I nomi di queste variabili hanno il formato
+@code{@var{superiore}-@var{inferiore}-spacing}, dove @code{@var{superiore}}
+e @code{@var{inferiore}} indicano gli elementi di cui stabilire la
+distanza.  Ogni distanza viene misurata tra i punti di riferimento
+dei due elementi (vedi la descrizione precedente della struttura della
+lista associativa). Nei nomi di queste variabili il termine @q{@code{markup}}
+si riferisce sia ai @emph{titoli} (@code{bookTitleMarkup} o
+@code{scoreTitleMarkup}) sia ai @emph{markup di livello superiore} (vedi
+@ref{File structure}).  Tutte le distanze sono misurate in spazi rigo.
+
+Le impostazioni predefinite sono definite in @file{ly/paper-defaults-init.ly}.
+
+@c TODO: Where do headers/footers fit in? -mp
+
+@table @code
+@item markup-system-spacing
+@funindex markup-system-spacing
+
+la distanza tra il testo (titolo o markup di livello superiore) e il sistema
+che lo segue.
+
+@item score-markup-spacing
+@funindex score-markup-spacing
+
+la distanza tra l'ultimo sistema di un brano e il testo (titolo o
+markup di livello superiore) che lo segue.
+
+@item score-system-spacing
+@funindex score-system-spacing
+
+la distanza tra l'ultimo sistema di un brano e il primo sistema
+del brano successivo, quando non c'è alcun testo (titolo o
+markup di livello superiore) tra di loro.
+
+@item system-system-spacing
+@funindex system-system-spacing
+
+la distanza tra due sistemi di uno stesso brano.
+
+@item markup-markup-spacing
+@funindex markup-markup-spacing
+
+la distanza tra due testi (titoli o markup di livello superiore).
+
+@item last-bottom-spacing
+@funindex last-bottom-spacing
+
+la distanza tra l'ultimo sistema o l'ultimo markup di livello superiore di
+una pagina e la fine dello spazio stampabile (ovvero la parte superiore
+del margine inferiore).
+
+@item top-system-spacing
+@funindex top-system-spacing
+
+la distanza tra l'inizio dello spazio stampabile (ovvero la parte
+inferiore del margine superiore) e il primo sistema di una pagina, quando
+non c'è alcun testo (titolo o markup di livello superiore) tra di loro.
+
+@item top-markup-spacing
+@funindex top-markup-spacing
+
+la distanza tra l'inizio dello spazio stampabile (ovvero la parte
+inferiore del margine superiore) e il primo testo (titolo o markup di
+livello superiore) di una pagina, quando non c'è alcun sistema tra i due.
+@end table
+
+@seealso
+Guida alla notazione:
+@ref{Flexible vertical spacing within systems}.
+
+File installati:
+@file{ly/paper-defaults-init.ly}.
+
+Frammenti:
+@rlsr{Spacing}.
+
+
+@node Variabili paper della spaziatura orizzontale
+@subsection Variabili @code{@bs{}paper} della spaziatura orizzontale
+@translationof Horizontal spacing paper variables
+
+@warning{Alcune dimensioni in @code{@bs{}paper} sono ridimensionate
+automaticamente in base al formato carta, producendo talvolta un
+risultato inatteso. Vedi @ref{Automatic scaling to paper size}.}
+
+@menu
+* Variabili paper per larghezze e margini::
+* Variabili paper per la modalità due pagine per foglio::
+* Variabili paper per spostamenti e indentazioni::
+@end menu
+
+
+@node Variabili paper per larghezze e margini
+@unnumberedsubsubsec Variabili @code{@bs{}paper} per larghezze e margini
+@translationof paper variables for widths and margins
+
+I valori predefiniti (prima del ridimensionamento) non elencati qui si
+trovano in @file{ly/paper-defaults-init.ly}.
+
+@table @code
+
+@item paper-width
+@funindex paper-width
+
+Larghezza della pagina (non impostata inizialmente).  @code{paper-width},
+pur non avendo effetto sul ridimensionamento automatico di alcune dimensioni
+orizzontali, influenza la variabile @code{line-width}.  Se sono impostate
+sia @code{paper-width} che @code{line-width}, saranno modificate anche
+@code{left-margin} e @code{right-margin}. Vedi anche @code{check-consistency}.
+
+@item line-width
+@funindex line-width
+
+Se specificata in un blocco @code{\paper} definisce la lunghezza orizzontale
+disponibile per i righi musicali nei sistemi non indentati.  Se non specificata,
+la larghezza della linea (@code{line-width}) del foglio è determinata dalla sottrazione
+@code{(paper-width@tie{}@minus{}@tie{}left-margin@tie{}@minus{}@tie{}right-margin)}.
+Se @code{line-width} è specificata nel blocco @code{\paper} e entrambi i margini,
+@code{left-margin} e @code{right-margin}, non lo sono, questi saranno aggiornati
+in modo da centrare i sistemi sulla pagina automaticamente.
+Vedi anche @code{check-consistency}.
+
+Le variabili @code{line-width} per i singoli brani possono essere specificate
+nel blocco @code{\layout} di ogni brano, ovvero dentro un blocco @code{\score}.
+Questi valori regolano la larghezza delle linee prodotte brano per brano.  Se
+@code{line-width} non viene specificata per un brano, il suo valore predefinito
+coincide con la larghezza della linea del foglio, ovvero col valore della
+variabile @code{line-width} del blocco @code{\paper}.  Impostando
+@code{line-width} per un brano in particolare, ovvero all'interno di un blocco
+@code{\score}, i margini del foglio non vengono modificati. Le linee del rigo,
+la cui lunghezza è determinata dalla variabile @code{line-width} del brano, sono
+allineate a sinistra all'interno dello spazio definito dalla variabile
+@code{line-width} del foglio. Se le variabili @code{line-width} del brano e del
+foglio sono uguali, le linee del rigo si estenderanno esattamente dal margine
+sinistro al margine destro, ma se quella del brano è maggiore di quella del
+foglio le linee del rigo andranno oltre il margine destro.
+
+@item left-margin
+@funindex left-margin
+
+Margine tra il bordo sinistro della pagina e l'inizio delle linee
+del rigo nei sistemi non indentati.  Se il formato è modificato, il valore
+predefinito di questa dimensione viene ridimensionato proporzionalmente.  Se
+@code{left-margin} non è impostato, e sono impostati sia @code{line-width} che
+@code{right-margin}, allora @code{left-margin} equivale alla differenza
+@code{(paper-width@tie{}@minus{}@tie{}line-width@tie{}@minus{}@tie{}right-margin)}.
+Se è impostata soltanto @code{line-width}, entrambi i margini sono impostati su
+@code{((paper-width@tie{}@minus{}@tie{}line-width)@tie{}/@tie{}2)},
+e di conseguenza i sistemi sono centrati sulla pagina.  Vedi anche
+@code{check-consistency}.
+
+@item right-margin
+@funindex right-margin
+
+Margine tra il bordo destro della pagina e la fine delle linee
+del rigo in sistemi giustificati.  Se il formato è modificato, il valore
+predefinito di questa dimensione viene ridimensionato proporzionalmente.  Se
+@code{right-margin} non è impostato, e sono impostati sia @code{line-width} che
+@code{left-margin}, allora @code{right-margin} equivale a
+@code{(paper-width@tie{}@minus{}@tie{}line-width@tie{}@minus{}@tie{}left-margin)}.
+Se è impostata soltanto @code{line-width}, entrambi i margini sono impostati su
+@code{((paper-width@tie{}@minus{}@tie{}line-width)@tie{}/@tie{}2)},
+e di conseguenza i sistemi sono centrati sulla pagina.  Vedi anche
+@code{check-consistency}.
+
+@item check-consistency
+@funindex check-consistency
+
+Se impostata su vero (valore predefinito), appare un avvertimento nella
+console se la somma di @code{left-margin}, @code{line-width} e
+@code{right-margin} non corrisponde esattamente a @code{paper-width}, e a
+ciascuna di queste variabili (eccetto @code{paper-width}) sarà assegnato il suo
+valore predefinito (ridimensionato in base al formato, se richiesto).  Se
+impostato su falso, qualsiasi incongruenza viene ignorata e i sistemi potrebbero
+andare oltre il bordo della pagina.
+
+@item ragged-right
+@funindex ragged-right
+
+Se impostato su vero, i sistemi non occuperanno interamente la larghezza
+della linea, ovvero non saranno giustificati.  Termineranno invece alla loro
+lunghezza orizzontale naturale.  Valori predefiniti: @code{#t} (true = vero)
+per i brani con un unico sistema, e @code{#f} (false = falso) per i brani
+con due o più sistemi.  Questa variabile può essere impostata anche in
+un blocco @code{\layout}.
+
+@item ragged-last
+@funindex ragged-last
+
+Se impostata su vero, l'ultimo sistema del brano non occuperà interamente
+la larghezza della linea, ovvero non sarà giustificato.  Terminerà invece
+alla sua lunghezza orizzontale naturale.  Valore predefinito: @code{#f} (false = falso).
+Questa variabile può essere impostata anche in un blocco @code{\layout}.
+
+@end table
+
+@seealso
+Guida alla notazione:
+@ref{Automatic scaling to paper size}.
+
+File installati:
+@file{ly/paper-defaults-init.ly}.
+
+@knownissues
+Formati carta definiti esplicitamente sovrascriveranno qualsiasi margine
+destro o sinistro definito dall'utente.
+
+
+@node Variabili paper per la modalità due pagine per foglio
+@unnumberedsubsubsec Variabili @code{@bs{}paper} per la modalità due pagine per foglio
+@translationof paper variables for two-sided mode
+
+I valori predefiniti (prima del ridimensionamento) sono definiti in
+@file{ly/paper-defaults-init.ly}.
+
+@table @code
+
+@item two-sided
+@funindex two-sided
+
+@cindex rilegatura
+@cindex margine di rilegatura
+
+Se impostata su vero, vengono usati @code{inner-margin}, @code{outer-margin} e
+@code{binding-offset} per determinare i margini a seconda che il numero di
+pagina sia dispari o pari.  Questa variabile sovrascrive @code{left-margin}
+e @code{right-margin}.
+
+@item inner-margin
+@funindex inner-margin
+
+Margine del lato interno di tutte le pagine se queste fanno parte
+di un libro.  Se il formato è modificato, il valore predefinito di questa
+dimensione viene ridimensionato proporzionalmente.  Funziona soltanto con
+@code{two-sided} impostato su vero.
+
+@item outer-margin
+@funindex outer-margin
+
+È il margine del lato esterno di tutte le pagine se queste fanno parte
+di un libro.  Se il formato è modificato, il valore predefinito di questa
+dimensione viene ridimensionato proporzionalmente.  Funziona soltanto con
+@code{two-sided} impostato su vero.
+
+@item binding-offset
+@funindex binding-offset
+
+Quantità di spazio da aggiungere a @code{inner-margin} per assicurarsi che
+niente sia nascosto dalla rilegatura.  Se il formato è modificato, il valore
+predefinito di questa dimensione viene ridimensionato proporzionalmente.
+Funziona soltanto con @code{two-sided} impostato su vero.
+
+@end table
+
+@seealso
+Guida alla notazione:
+@ref{Automatic scaling to paper size}.
+
+File installati:
+@file{ly/paper-defaults-init.ly}.
+
+
+@node Variabili paper per spostamenti e indentazioni
+@unnumberedsubsubsec Variabili @code{@bs{}paper} per spostamenti e indentazioni
+@translationof paper variables for shifts and indents
+
+I valori predefiniti (prima del ridimensionamento) non elencati qui sono
+visibili in @file{ly/paper-defaults-init.ly}.
+
+@table @code
+
+@item horizontal-shift
+@funindex horizontal-shift
+
+@c This default value is buried in the middle of page.scm.  -mp
+
+È la quantità di spazio di cui spostare a destra tutti i sistemi (inclusi
+i titoli e i separatori dei sistemi).  Valore predefinito: @code{0.0\mm}.
+
+@item indent
+@funindex indent
+
+Livello di indentazione del primo sistema di un brano.
+Se il formato è modificato, il valore predefinito di questa dimensione viene
+ridimensionato proporzionalmente.  Lo spazio compreso in @code{line-width}
+disponibile per il primo sistema è ridotto di questa quantità.  @code{indent}
+può essere specificato anche in blocchi @code{\layout} per impostare
+l'indentazione brano per brano.
+
+@item short-indent
+@funindex short-indent
+
+Livello di indentazione di tutti i sistemi di un brano eccetto
+il primo sistema.  Se il formato è modificato, il valore predefinito di
+questa dimensione viene ridimensionato proporzionalmente.  Lo spazio
+compreso in @code{line-width} disponibile per tutti i sistemi tranne il
+primo è ridotto di questa quantità.  @code{short-indent} può essere specificato
+anche in blocchi @code{\layout} per impostare le brevi indentazioni brano per brano.
+
+@end table
+
+@seealso
+Guida alla notazione:
+@ref{Automatic scaling to paper size}.
+
+File installati:
+@file{ly/paper-defaults-init.ly}.
+
+Frammenti:
+@rlsr{Spacing}.
+
+
+@node Altre variabili di paper
+@subsection Altre variabili di @code{@bs{}paper}
+@translationof Other paper variables
+
+@menu
+* Variabili di paper per l'interruzione di linea::
+* Variabili di paper per l'interruzione di pagina::
+* Variabili di paper per la numerazione delle pagine::
+* Svariate variabili di paper::
+@end menu
+
+
+@node Variabili di paper per l'interruzione di linea
+@unnumberedsubsubsec Variabili di @code{@bs{}paper} per l'interruzione di linea
+@translationof paper variables for line breaking
+
+@table @code
+
+@item max-systems-per-page
+@funindex max-systems-per-page
+
+Il numero massimo di sistemi che saranno disposti in una pagina.  Attualmente
+ciò è supportanto soltanto dall'algoritmo @code{ly:optimal-breaking}.
+Valore predefinito: non impostato.
+
+@item min-systems-per-page
+@funindex min-systems-per-page
+
+Il numero minimo di sistemi che saranno disposti in una pagina.  Ciò
+potrebbe riempire troppo le pagine, se il numero è troppo grande.  Attualmente
+ciò è supportanto soltanto dall'algoritmo @code{ly:optimal-breaking}.
+Valore predefinito: non impostato.
+
+@item systems-per-page
+@funindex systems-per-page
+
+Il numero di sistemi da disporre in una pagina.  Attualmente
+ciò è supportanto soltanto dall'algoritmo @code{ly:optimal-breaking}.
+Valore predefinito: non impostato.
+
+@item system-count
+@funindex system-count
+
+Il numero di sistemi da usare per un brano.  Valore predefinito: non impostato.
+Questa variabile può essere impostata anche in un blocco @code{\layout}.
+
+@end table
+
+@seealso
+Guida alla notazione:
+@ref{Line breaking}.
+
+
+@node Variabili di paper per l'interruzione di pagina
+@unnumberedsubsubsec Variabili di @code{@bs{}paper} per l'interruzione di pagina
+@translationof paper variables for page breaking
+
+I valori predefiniti non elencati qui sono visibili in
+@file{ly/paper-defaults-init.ly}
+
+@table @code
+
+@item page-breaking
+@funindex page-breaking
+
+L'algoritmo di interruzione di pagina da usare.  Le opzioni sono
+@code{ly:minimal-breaking}, @code{ly:page-turn-breaking},
+@code{ly:one-line-breaking} e @code{ly:optimal-breaking}
+(predefinito).
+
+@item page-breaking-system-system-spacing
+@funindex page-breaking-system-system-spacing
+
+Induce il sistema di interruzione di pagina a credere che
+@code{system-system-spacing} sia impostato in modo diverso dal
+modo in cui è impostato realmente.  Per esempio, se
+@code{page-breaking-system-system-spacing #'padding} è impostato su un
+valore molto più grande di @code{system-system-spacing #'padding}, il
+sistema di interruzione di pagina disporrà meno sistemi su ciascuna
+pagina.  Valore predefinito: non impostato.
+
+@item page-count
+@funindex page-count
+
+Il numero di pagine da usare per un brano, non impostato.
+
+@end table
+
+Le variabili seguenti sono attive soltanto quando @code{page-breaking}
+è impostato su @code{ly:page-turn-breaking}.  Le interruzioni di pagina
+vengono quindi scelte per minimizzare il numero di voltate di pagina.
+Dato che le voltate di pagina si rendono necessarie quando si passa da
+una pagina con numero dispari a una con numero pari, verrà solitamente
+favorita una formattazione in cui l'ultima pagina abbia un numero dispari.
+I punti preferiti per le voltate di pagina possono essere indicati
+manualmente col comando @code{\allowPageTurn} o automaticamente
+includendo l'incisore @code{Page_turn_engraver} (vedi @ref{Optimal page turning}).
+
+Se le scelte disponibili per avere voltate di pagina adeguate sono
+insufficienti, LilyPond potrebbe inserire una pagina vuota all'interno
+di un brano o tra i brani (se ce ne sono almeno due), oppure potrebbe
+terminare un brano su una pagina pari.  Aumentando i valori delle
+seguenti tre variabili diminuisce la probabilità che queste entrino
+in azione.
+
+I valori sono penalità: maggiore il valore, minore la probabilità
+che si verifichi l'azione associata rispetto alle altre scelte.
+
+@table @code
+
+@item blank-page-penalty
+@funindex blank-page-penalty
+
+La penalità per avere una pagina vuota nel mezzo di un brano.  Se il
+valore di @code{blank-page-penalty} è grande ed è selezionato
+@code{ly:page-turn-breaking}, sarà meno probabile che LilyPond
+insersica una pagina nel mezzo del brano.  Aggiungerà invece
+maggior spazio tra i sistemi per occupare la pagina vuota e
+quella successiva.  Valore predefinito: 5.
+
+@item blank-last-page-penalty
+@funindex blank-last-page-penalty
+
+La penalità per terminare il brano su una pagina pari.  Se il
+valore di @code{blank-last-page-penalty} è grande ed è selezionato
+@code{ly:page-turn-breaking}, sarà meno probabile che LilyPond
+produca una partitura in cui l'ultima pagina sia pari.  Regolerà
+invece la spaziatura in modo da usare una pagina in più o in meno.
+Valore predefinito: 0.
+
+@item blank-after-score-page-penalty
+@funindex blank-after-score-page-penalty
+
+La penalità per avere una pagina vuota dopo la fine di un brano e
+prima di quello successivo.  Il valore predefinito è inferiore a
+@code{blank-page-penalty}, in modo che siano inserite preferibilmente
+pagine vuote al termine di un brano piuttosto che nel mezzo di un brano.
+Valore predefinito: 2.
+
+@end table
+
+
+@seealso
+Guida alla notazione:
+@ref{Page breaking},
+@ref{Optimal page breaking},
+@ref{Optimal page turning},
+@ref{Minimal page breaking},
+@ref{One-line page breaking}.
+
+File installati:
+@file{ly/paper-defaults-init.ly}.
+
+
+@node Variabili di paper per la numerazione delle pagine
+@unnumberedsubsubsec Variabili di @code{@bs{}paper} per la numerazione delle pagine
+@translationof paper variables for page numbering
+
+I valori predefiniti non elencati qui sono visibili in
+@file{ly/paper-defaults-init.ly}
+
+@table @code
+
+@cindex numeri di pagina, numerazione automatica
+@item auto-first-page-number
+@funindex auto-first-page-number
+
+L'algoritmo di interruzione di pagina si comporta diversamente a seconda
+che il numero della prima pagina sia dispari o pari.  Se questa variabile
+è impostata su vero, l'algoritmo di interruzione di pagina
+deciderà se iniziare con un numero dispari o un numero pari.  Quindi il
+numero della prima pagina resterà lo stesso o aumenterà di uno.
+Valore predefinito: @code{#f} (falso).
+
+@cindex numeri di pagina, indicare il primo
+@item first-page-number
+@funindex first-page-number
+
+Il valore del numero di pagina della prima pagina.
+
+@item print-first-page-number
+@funindex print-first-page-number
+
+Se impostato su vero, appare il numero di pagina sulla prima pagina.
+
+@cindex numeri di pagina, sopprimere
+@item print-page-number
+@funindex print-page-number
+
+Se impostato su falso, non apparirano i numeri di pagina.
+
+@cindex numeri di pagina in numeri romani
+@item page-number-type
+@funindex page-number-type
+
+Il tipo di numero usato per numerare le pagine.  Le opzioni possibili
+sono @code{roman-lower}, @code{roman-upper} e @code{arabic}.
+Valore predefinito: @code{'arabic}.
+
+@end table
+
+@seealso
+File installati:
+@file{ly/paper-defaults-init.ly}.
+
+@knownissues
+I numeri di pagina dispari sono sempre sulla destra.  Se la musica
+deve iniziare a pagina 1, ci deve essere una pagina vuota sulla
+seconda di copertina in modo che pagina 1 sia sul lato destro.
+
+
+@node Svariate variabili di paper
+@unnumberedsubsubsec Svariate variabili di @code{@bs{}paper}
+@translationof Miscellaneous paper variables
+
+@table @code
+
+@item page-spacing-weight
+@funindex page-spacing-weight
+
+L'importanza della spaziatura (verticale) e della linea (orizzontale)
+della pagina.  Valori più grandi renderanno la spaziatura della pagina
+più importante.  Valore predefinito: @code{10}.
+
+@item print-all-headers
+@funindex print-all-headers
+
+Se impostato su vero, appariranno nell'output tutte le intestazioni di
+ciascun blocco @code{\score}.  Di norma appaiono soltanto le variabili
+@code{piece} e @code{opus}.  Valore predefinito: @code{#f}.
+
+@item system-separator-markup
+@funindex system-separator-markup
+
+Un oggetto markup inserito tra i sistemi, spesso usato per le
+partiture orchestrali.  Valore predefinito: non impostato.  È
+disponibile il comando markup @code{\slashSeparator}, definito
+in @file{ly/titling-init.ly}, che fornisce un ragionevole valore
+predefinito, per esempio:
+
+@lilypond[quote,verbatim,noragged-right,line-width=30\mm]
+#(set-default-paper-size "a8")
+
+\book {
+  \paper {
+    system-separator-markup = \slashSeparator
+  }
+  \header {
+    tagline = ##f
+  }
+  \score {
+    \relative { c''1 \break c1 \break c1 }
+  }
+}
+@end lilypond
+
+@end table
+
+@seealso
+File installati:
+@file{ly/titling-init.ly}.
+
+Frammenti:
+@rlsr{Spacing}.
+
+@knownissues
+L'intestazione di pagina predefinita pone sulla stessa linea il numero di
+pagina e il campo @code{instrument} del blocco @code{\header}.
+
+
+@node Formattazione della partitura
+@section Formattazione della partitura
+@translationof Score layout
+
+Questa sezione tratta le opzioni di formattazione della partitura disponibili
+nel blocco @code{\layout}.
+
+@menu
+* Il blocco layout::
+* Impostare la dimensione del rigo::
+@end menu
+
+
+@node Il blocco layout
+@subsection Il blocco @code{@bs{}layout}
+@translationof The layout block
+
+@funindex \layout
+
+Mentre il blocco @code{\paper} contiene le impostazioni relative
+alla formattazione della pagina per l'intero documento, il blocco
+@code{\layout} contiene impostazioni di formattazione specifica
+di un brano.  Per impostare globalmente le opzioni di formattazione
+del brano, inserirle in un blocco @code{\layout} del livello superiore.
+Per impostare le impostazioni di formattazione per un singolo brano, inserirle
+in un blocco @code{\layout} racchiuso in un blocco @code{\score}, dopo la
+musica.  Le impostazioni che possono apparire in un blocco
+@code{\layout} includono:
+
+@itemize
+@item la funzione scheme @code{layout-set-staff-size},
+@item le modifiche di contesto nei blocchi @code{\context} e
+@item le variabili @code{\paper} che agiscono sulla formattazione del brano.
+@end itemize
+
+La funzione @code{layout-set-staff-size} è spiegata nella prossima
+sezione, @ref{Setting the staff size}.  Le modifiche di contesto sono
+trattate in un capitolo separato; vedi @ref{Modifying context plug-ins} e
+@ref{Changing context default settings}.
+
+Le variabili @code{\paper} che possono apparire in un blocco @code{\layout},
+con valori predefiniti presi dal blocco @code{\paper}, sono:
+
+@itemize
+
+@item
+@code{line-width}, @code{ragged-right} e @code{ragged-last}
+(vedi @ref{paper variables for widths and margins,,variabili @code{@bs{}paper} per larghezze e margini})
+
+@item
+@code{indent} e @code{short-indent}
+(vedi @ref{paper variables for shifts and indents,,variabili @code{@bs{}paper} per spostamenti e indentazioni})
+
+@item
+@code{system-count}
+(vedi @ref{paper variables for line breaking,,variabili @code{@bs{}paper} per l'interruzione di linea})
+
+@end itemize
+
+Ecco un esempio di blocco @code{\layout}:
+
+@example
+\layout @{
+  indent = 2\cm
+  \context @{
+    \StaffGroup
+    \override StaffGrouper.staff-staff-spacing.basic-distance = #8
+  @}
+  \context @{
+    \Voice
+    \override TextScript.padding = #1
+    \override Glissando.thickness = #3
+  @}
+@}
+@end example
+
+Si possono inserire molteplici blocchi @code{\layout} come espressioni
+di livello superiore.  Ciò può essere utile, per esempio, se impostazioni
+diverse sono salvate in file separati e incluse facoltativamente.
+Internamente, quando un blocco @code{\layout} viene elaborato, viene fatta
+una copia della configurazione del blocco @code{\layout} corrente, poi
+qualsiasi modifica apportata nel blocco viene applicata e il risultato
+viene salvato come la nuova configurazione corrente.  Dalla prospettiva
+dell'utente, i blocchi @code{\layout} sono combinati, ma in situazioni di
+conflitto (ovvero quando viene modificata la stessa proprietà in blocchi
+diversi) hanno precedenza le definizioni più recenti.
+
+Per esempio, se questo blocco
+
+@example
+\layout @{
+  \context @{
+    \Voice
+    \override TextScript.color = #magenta
+    \override Glissando.thickness = #1.5
+  @}
+@}
+@end example
+
+viene posto dopo quello dell'esempio precedente, le sovrascritture di
+@code{'padding} e @code{'color} per @code{TextScript} sono combinate, mentre
+quella più recente di @code{'thickness} per @code{Glissando} sostituisce
+(o nasconde) quella precedente.
+
+I blocchi @code{\layout} possono essere assegnati a delle variabili per
+poterli riusare successivamente, ma il modo in cui ciò funziona è
+leggermente ma significativamente diverso rispetto a scriverle davvero.
+
+Se una variabile è definita in questo modo,
+
+@example
+layoutVariable = \layout @{
+  \context @{
+    \Voice
+    \override NoteHead.font-size = #4
+  @}
+@}
+@end example
+
+manterrà la configurazione attuale di @code{\layout} con l'aggiunta
+della sovrascrittura @code{NoteHead.font-size}, ma questa combinazione
+@emph{non} è salvata come la nuova configurazione corrente.  Attenzione
+al fatto che la @qq{configurazione corrente} viene letta quando la variabile
+è definita e non quando viene usata, dunque il contenuto della variabile
+dipende dalla sua posizione nel file di input.
+
+La variabile può quindi essere usata all'interno di un altro
+blocco @code{\layout}, per esempio:
+
+@example
+\layout @{
+  \layoutVariable
+  \context @{
+    \Voice
+    \override NoteHead.color = #red
+  @}
+@}
+@end example
+
+Un blocco @code{\layout} che contiene una variabile, come nell'esempio
+precedente, @emph{non} copia la configurazione corrente bensì usa il
+contenuto di @code{\layoutVariable} come configurazione di base per
+altre aggiunte.  Ciò significa che qualsiasi modifica definita tra la
+definizione della variabile e il momento in cui essa viene usata è perduta.
+
+Se @code{layoutVariable} è definita (o inclusa con @code{\include}) subito
+prima di essere usata, il suo contenuto comprende soltanto la configurazione
+corrente più le sovrascritture definite al suo interno.  Quindi nell'esempio
+precedente che illustra l'uso di @code{\layoutVariable} il blocco @code{\layout}
+finale conterrebbe:
+
+@example
+  TextScript.padding = #1
+  TextScript.color = #magenta
+  Glissando.thickness = #1.5
+  NoteHead.font-size = #4
+  NoteHead.color = #red
+@end example
+
+più le sovrascritture @code{indent} e @code{StaffGrouper}.
+
+Ma se la variabile fosse già stata definita prima del primo blocco
+@code{\layout}, la configurazione corrente conterrebbe soltanto
+
+@example
+  NoteHead.font-size = #4 % (scritta nella definizione della variabile)
+  NoteHead.color = #red % (aggiunta dopo l'uso della variabile)
+@end example
+
+Se ben organizzate, le variabili @code{\layout} possono essere un
+valido strumento per strutturare le formattazioni dei sorgenti, e anche
+per ripristinare la configurazione di @code{\layout} a uno stato conosciuto.
+
+@seealso
+Guida alla notazione:
+@ref{Changing context default settings}.
+
+Frammenti:
+@rlsr{Spacing}.
+
+
+@node Impostare la dimensione del rigo
+@subsection Impostare la dimensione del rigo
+@translationof Setting the staff size
+
+@cindex tipo di carattere, impostare la dimensione
+@cindex rigo, impostare la dimensione
+@funindex layout file
+@funindex magnification->font-size
+@funindex magstep
+@funindex set-global-staff-size
+@funindex layout-set-staff-size
+
+La dimensione del rigo (in inglese @strong{staff size}) è 20 punti, che
+corrispondono a un'altezza del rigo di 7.03mm (un punto è uguale a 100/7227
+di un pollice o a 2540/7227 mm).  La dimensione del rigo può essere
+modificata in tre modi:
+
+@enumerate
+
+@item
+Per impostare la dimensione del rigo globalmente per tutti i brani di un
+file (o di un blocco @code{\book}, per essere precisi), usare
+@code{set-global-staff-size}:
+
+@example
+#(set-global-staff-size 14)
+@end example
+
+@noindent
+L'esempio precedente imposta la dimensione del rigo globale a 14pt (4.92mm) e
+ridimensiona proporzionalmente tutti i tipi di carattere.
+
+@item
+Per impostare la dimensione del rigo di una singola partitura in un libro, usare
+@code{layout-set-staff-size} all'interno del blocco @code{\layout} di quel brano:
+
+@example
+\score @{
+  @dots{}
+  \layout @{
+    #(layout-set-staff-size 14)
+  @}
+@}
+@end example
+
+@item
+Per impostare la dimensione del rigo di un singolo rigo di un sistema, usare
+il comando @code{\magnifyStaff}.  Per esempio, le partiture di musica da camera
+incise in modo tradizionale spesso usavano righi per pianoforte di 7mm mentre
+gli altri righi erano solitamente tra 3/5 e 5/7 più grandi (tra 60% e 71%).
+Per ottenere la proporzione 5/7, usare:
+
+@example
+\score @{
+  <<
+    \new Staff \with @{
+      \magnifyStaff #5/7
+    @} @{ @dots{} @}
+    \new PianoStaff @{ @dots{} @}
+  >>
+@}
+@end example
+
+Se si desidera una dimensione del tipo di carattere (@code{fontSize}) ben
+precisa, si può usare la seguente forma:
+
+@example
+\score @{
+  <<
+    \new Staff \with @{
+      \magnifyStaff #(magstep -3)
+    @} @{ @dots{} @}
+    \new PianoStaff @{ @dots{} @}
+  >>
+@}
+@end example
+
+Per emulare l'aspetto delle partiture incise coi metodi tradizionali, è meglio
+evitare di ridurre lo spessore delle linee del rigo.
+
+@end enumerate
+
+
+@subheading Corpo automatico dei tipi di carattere a dimensioni diverse
+
+Il tipo di carattere Feta fornisce simboli musicali in otto dimensioni
+diverse.  Ogni tipo di carattere è calibrato per una specifica dimensione
+del rigo: via via che la dimensione del rigo diventa più piccola, il corpo
+del carattere diventa più grosso, per abbinarsi alle linee del rigo più
+spesse.  Le dimensioni del carattere consigliate sono elencate nella
+seguente tabella:
+
+@multitable @columnfractions .15 .2 .22 .2
+@item @b{nome del tipo di carattere} @tab @b{altezza del rigo (pt)} @tab @b{altezza del rigo (mm)} @tab @b{uso}
+@item feta11 @tab 11.22 @tab 3.9 @tab partiture tascabili
+@item feta13 @tab 12.60 @tab 4.4 @tab
+@item feta14 @tab 14.14 @tab 5.0 @tab
+@item feta16 @tab 15.87 @tab 5.6 @tab
+@item feta18 @tab 17.82 @tab 6.3 @tab canzonieri
+@item feta20 @tab 20    @tab 7.0 @tab parti standard
+@item feta23 @tab 22.45 @tab 7.9 @tab
+@item feta26 @tab 25.2  @tab 8.9 @tab @c modern rental material?
+@end multitable
+
+@seealso
+Guida alla notazione:
+@ref{Selecting notation font size}.
+
+Frammenti:
+@rlsr{Spacing}.
+
+@knownissues
+@code{layout-set-staff-size} non modifica la distanza tra le linee del rigo.
+
+
+@node Interruzioni
+@section Interruzioni
+@translationof Breaks
+
+@menu
+* Interruzioni di linea::
+* Interruzioni di pagina::
+@end menu
+
+
+@node Interruzioni di linea
+@subsection Interruzioni di linea
+@translationof Line breaking
+
+@funindex \break
+@funindex \noBreak
+@funindex \autoBreaksOff
+@funindex \autoBreaksOn
+@funindex \autoLineBreaksOff
+@funindex \autoLineBreaksOn
+@cindex manual line breaks
+@cindex breaking lines
+
+Le interruzioni di linea di solito sono determinate automaticamente.  Sono
+decise in modo che le linee non sembrino né fitte né troppo spaziate, e che
+le linee consecutive abbiano una densità simile.
+
+Per forzare manualmente un'interruzione di linea dopo una stanghetta, usare
+il comando @code{\break}:
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  c4 c c c | \break
+  c4 c c c |
+}
+@end lilypond
+
+Per impostazione predefinita, un comando @code{\break} nel mezzo di una
+misura viene ignorato e apparirà un avvertimento nella console.  Per forzare
+un'interruzione di linea nel mezzo di una misura, aggiungere una stanghetta
+invisibile con @w{@samp{\bar ""}}:
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  c4 c c
+  \bar "" \break
+  c |
+  c4 c c c |
+}
+@end lilypond
+
+Un @code{\break} successivo a una stanghetta viene ignorato se la
+misura precedente termina nel mezzo di una nota, come quando un
+gruppo irregolare inizia e termina in misure diverse.  Per far sì
+che i comandi @code{\break} funzionino in queste situazioni, togliere
+l'incisore @code{Forbid_line_break_engraver} dal contesto @code{Voice}.
+@c TODO: frase originale non chiara - fb
+Nota che le interruzioni di linea forzate manualmente devono essere
+aggiunte in parallelo con la musica:
+
+@lilypond[quote,ragged-right,verbatim]
+\new Voice \with {
+  \remove "Forbid_line_break_engraver"
+} \relative {
+  <<
+    { c''2. \tuplet 3/2 { c4 c c } c2. | }
+    { s1 | \break s1 | }
+  >>
+}
+@end lilypond
+
+Analogalmente, le interruzioni di linea sono normalmente proibite quando le
+travature oltrepassano una stanghetta.  Tale comportamento può essere
+modificato impostando @code{\override Beam.breakable = ##t}:
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  \override Beam.breakable = ##t
+  c2. c8[ c | \break
+  c8 c] c2. |
+}
+@end lilypond
+
+Il comando @code{\noBreak} vieta un'interruzione di linea sulla
+stanghetta in cui è inserito.
+
+In una partitura, l'interruzione di linea automatica è vietata per
+la musica compresa tra i comandi @code{\autoLineBreaksOff} e
+@code{\autoLineBreaksOn}.  Per impedire anche le interruzioni di
+pagina, usare i comandi @code{\autoBreaksOff} e @code{\autoBreaksOn}.
+Le interruzioni manuali non sono interessate da questi comandi.
+Nota che bloccare le interruzioni di linea automatiche potrebbe
+far andare la musica oltre il margine destro se questa non può
+essere contenuta in una linea.
+
+Le interruzioni di linea automatiche (ma non le interruzioni di pagina)
+possono essere abilitate per singole stanghette usando
+@code{\once \autoLineBreaksOn} all'inizio di una stanghetta.
+Ciò identifica un'interruzione di linea permessa, invece che forzata.
+
+Le impostazioni fondamentali che influenzano la spaziatura della linea
+sono @code{indent} e @code{line-width}, impostate nel blocco
+@code{\layout}: regolano l'indentazione della prima linea e la
+lunghezza delle linee.
+
+Se @code{ragged-right} è impostato su vero nel blocco @code{\layout}, allora
+i sistemi terminano alla loro naturale lunghezza orizzontale, invece di
+essere allungati orizzontalmente per riempire l'intera linea.  Ciò è
+utile per brevi frammenti e per verificare quanto è stretta la spaziatura
+naturale.
+
+@c TODO Check and add para on default for ragged-right
+
+L'opzione @code{ragged-last} è simile a @code{ragged-right}, ma agisce
+soltanto sull'ultima linea del brano.
+
+@example
+\layout @{
+  indent = 0\mm
+  line-width = 150\mm
+  ragged-last = ##t
+@}
+@end example
+
+@cindex interruzioni di linea regolari
+@cindex musica a quattro battute
+
+Per inserire interruzioni di linea a intervalli regolari usare @code{\break}
+separato da pause spaziatrici e ripetuto con @code{\repeat}.  Per esempio,
+per interrompere le seguenti 28 misure (considerando un tempo di 4/4) esattamente
+ogni 4 misure, usare:
+
+@example
+<<
+  \repeat unfold 7 @{
+    s1 \noBreak s1 \noBreak
+    s1 \noBreak s1 \break
+  @}
+  @{ @var{la vera musica@dots{}} @}
+>>
+@end example
+
+
+@predefined
+@code{\break},
+@code{\noBreak},
+@code{\autoBreaksOff},
+@code{\autoBreaksOn},
+@code{\autoLineBreaksOff},
+@code{\autoLineBreaksOn}.
+@endpredefined
+
+@snippets
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{using-an-extra-voice-for-breaks.ly}
+
+@seealso
+Guida alla notazione:
+@ref{paper variables for line breaking}
+@ref{The layout block}.
+
+Frammenti:
+@rlsr{Spacing}.
+
+Guida al funzionamento interno:
+@rinternals{LineBreakEvent}.
+
+@knownissues
+
+L'inserimento dei comandi @code{\autoLineBreaksOff} o @code{\autoBreaksOff}
+prima della musica produrrà dei messaggi di errore.  Inserire sempre questi
+comandi dopo la musica.
+
+
+@node Interruzioni di pagina
+@subsection Interruzioni di pagina
+@translationof Page breaking
+
+Questa sezione descrive i diversi metodi di interruzione di pagina e
+spiega come modificarli.
+
+@menu
+* Interruzione di pagina manuale::
+* Interruzione di pagina ottimale::
+* Interruzione di pagina minimale::
+* Interruzione di pagina su una linea::
+* Voltata di pagina ottimale::
+@end menu
+
+
+@node Interruzione di pagina manuale
+@unnumberedsubsubsec Interruzione di pagina manuale
+@translationof Manual page breaking
+
+@funindex \pageBreak
+@funindex \noPageBreak
+@funindex \autoPageBreaksOn
+@funindex \autoPageBreaksOff
+@cindex page breaking, manual
+
+L'interruzione di pagina predefinita può essere sovrascritta con i
+comandi @code{\pageBreak} o @code{\noPageBreak}.  Questi comandi,
+analoghi a @code{\break} e @code{\noBreak}, devono essere
+inseriti dopo una stanghetta e forzano o proibiscono l'interruzione
+di pagina in quel punto.  Ovviamente il comando @code{\pageBreak}
+forza anche un'interruzione di linea.
+
+I comandi @code{\pageBreak} e @code{\noPageBreak} possono essere
+inseriti anche nel livello superiore, tra le partiture e i testi
+(nel blocco @code{markup}) di livello superiore.
+
+In un brano, le interruzioni di pagina automatiche sono vietate per
+la musica compresa tra i comandi @code{\autoPageBreaksOff} e
+@code{\autoPageBreaksOn}.  Le interruzioni di pagina manuali non
+sono interessate da questi comandi.
+
+Esistono impostazioni analoghe a @code{ragged-right} e
+@code{ragged-last} che hanno lo stesso effetto sulla spaziatura
+verticale.  Se @code{ragged-bottom} è impostato su @code{#t}, i
+sistemi non saranno giustificati verticalmente.  Quando
+@code{ragged-last-bottom} è impostato su @code{#t} (valore
+predefinito), è permesso dello spazio vuoto in fondo all'ultima
+pagina (o in fondo all'ultima pagina di ciascun
+@code{\bookpart}).  Vedi
+@ref{Fixed vertical spacing paper variables,,Variabili fisse della spaziatura verticale di @code{@bs{}paper}}.
+
+Le interruzioni di pagina sono calcolate dalla funzione @code{page-breaking}.
+LilyPond fornisce tre algoritmi per calcolare le interruzioni di pagina:
+@code{ly:optimal-breaking}, @code{ly:page-turn-breaking} e
+@code{ly:minimal-breaking}.  Quello predefinito è
+@code{ly:optimal-breaking}, ma il valore può essere modificato nel
+blocco @code{\paper}:
+
+@example
+\paper @{
+  page-breaking = #ly:page-turn-breaking
+@}
+@end example
+
+@funindex \bookpart
+
+Quando un libro ha molte partiture e pagine, il problema delle interruzioni
+di pagina potrebbe essere difficile da risolvere e richiedere lunghi tempi
+di elaborazione e molta memoria.  Per semplificare il processo di interruzione
+delle pagine, si usano i blocchi @code{\bookpart} per dividere il libro in
+varie parti: in questo modo l'interruzione di pagina si verifica separatamente
+in ciascuna parte.  Si possono anche usare algoritmi di interruzione di
+pagina diversi per le diverse parti del libro.
+
+@example
+\bookpart @{
+  \header @{
+    subtitle = "Prefazione"
+  @}
+  \paper @{
+     %% In una parte contenente soprattutto testo,
+     %% ly:minimal-breaking potrebbe essere preferibile
+     page-breaking = #ly:minimal-breaking
+  @}
+  \markup @{ @dots{} @}
+  @dots{}
+@}
+\bookpart @{
+  %% In questa parte, contenente musica, si usa l'algoritmo di
+  %% interruzione di pagina ottimale.
+  \header @{
+    subtitle = "Primo movimento"
+  @}
+  \score @{ @dots{} @}
+  @dots{}
+@}
+@end example
+
+
+@predefined
+@code{\pageBreak},
+@code{\noPageBreak},
+@code{\autoPageBreaksOn},
+@code{\autoPageBreaksOff}.
+@endpredefined
+
+@seealso
+Guida alla notazione:
+@ref{paper variables for page breaking}.
+
+Frammenti:
+@rlsr{Spacing}.
+
+@knownissues
+
+Il prefisso @code{\once} non funziona con i comandi @code{\autoPageBreaksOn}
+e @code{\autoPageBreaksOff}.  Se l'interruzione di pagina automatica è
+disabilitata e poi viene abilitata per permettere un'interruzione di
+pagina, deve restare attiva per alcune battute (il numero preciso di
+battute dipende dalla partitura) prima di essere disattivata, altrimenti
+la possibilità di interrompere la pagina non verrà considerata.
+
+
+@node Interruzione di pagina ottimale
+@unnumberedsubsubsec Interruzione di pagina ottimale
+@translationof Optimal page breaking
+
+@funindex ly:optimal-breaking
+
+La funzione @code{ly:optimal-breaking} è il metodo predefinito di LilyPond
+per determinare le interruzioni di pagina.  Tenta di individuare un'interruzione
+di pagina che minimizzi la densità e l'allungamento, sia orizzontalmente che
+verticalmente.  Diversamente da @code{ly:page-turn-breaking}, non prende in
+considerazione le voltate di pagina.
+
+@seealso
+Frammenti:
+@rlsr{Spacing}.
+
+
+@node Interruzione di pagina minimale
+@unnumberedsubsubsec Interruzione di pagina minimale
+@translationof Minimal page breaking
+
+@funindex ly:minimal-breaking
+
+La funzione @code{ly:minimal-breaking} fa dei calcoli minimi
+per valutare l'interruzione di pagina: riempie una pagina col
+maggior numero possibile di sistemi prima di passare a quella
+successiva.  Dunque potrebbe essere preferibile per le partiture
+con molte pagine, per le quali le altre funzioni di interruzione
+di pagina potrebbero essere troppo lente o richiedere troppa
+memoria, o con molto testo.  Si abilita con:
+
+@example
+\paper @{
+  page-breaking = #ly:minimal-breaking
+@}
+@end example
+
+@seealso
+Frammenti:
+@rlsr{Spacing}.
+
+
+@node Interruzione di pagina su una linea
+@unnumberedsubsubsec Interruzione di pagina su una linea
+@translationof One-line page breaking
+
+@funindex ly:one-line-breaking
+
+La funzione @code{ly:one-line-breaking} è un algoritmo di interruzione
+di pagina per uso speciale in quanto pone ogni brano su una sola pagina e
+una singola linea.  Tale funzione non fa apparire titoli e margini,
+viene mostrato solo il brano musicale.
+
+La larghezza della pagina sarà regolata in modo che il brano più
+lungo stia su una sola linea.  In particolare, le variabili @code{paper-width},
+@code{line-width} e @code{indent} del blocco @code{\paper} saranno
+ignorati, sebbene @code{left-margin} e @code{right-margin} saranno
+comunque considerati.  L'altezza della pagina resterà invariata.
+
+
+@node Voltata di pagina ottimale
+@unnumberedsubsubsec Voltata di pagina ottimale
+@translationof Optimal page turning
+
+@funindex ly:page-turn-breaking
+
+È spesso necessario trovare una configurazione delle interruzioni di
+pagina in cui ci sia una pausa al termine di ogni due pagine.
+In questo modo il musicista può voltare la pagina senza perdere
+le note.  La funzione @code{ly:page-turn-breaking} tenta di trovare
+un'interruzione di pagina che minimizzi densità e allungamento, ma
+con l'ulteriore restrizione che le voltate di pagina sono permesse
+solo in punti specifici.
+
+Ci sono due passi da seguire per usare questa funzione.  Prima
+occorre abilitarla nel blocco @code{\paper}, come è spiegato in
+@ref{Page breaking}.  Poi bisogna indicare alla funzione dove
+sono permesse le interruzioni di pagina.
+
+Ci sono due modi per fare il secondo passo.  Si può specificare
+manualmente ogni potenziale voltata di pagina, inserendo
+@code{\allowPageTurn} nei punti adatti del file di input.
+
+Oppure, se ciò è troppo noioso, si può aggiungere l'incisore
+@code{Page_turn_engraver} a un contesto Staff o Voice.  L'incisore
+@code{Page_turn_engraver} analizzerà il contesto in cerca di sezioni
+senza note (non cerca pause, bensì l'assenza di note, in modo che
+la polifonia su un singolo rigo con pause in una delle parti non
+confonda @code{Page_turn_engraver}).  Quando trova una sezione
+senza note abbastanza lunga, @code{Page_turn_engraver} inserirà il
+comando @code{\allowPageTurn} nella stanghetta finale di quella
+sezione, a meno che non ci sia una stanghetta @q{speciale} (come
+una doppia stanghetta), nel qual caso il comando @code{\allowPageTurn}
+sarà inserito nella stanghetta finale @qq{speciale} della sezione.
+
+@funindex minimumPageTurnLength
+L'incisore @code{Page_turn_engraver} legge la proprietà di contesto
+@code{minimumPageTurnLength} per determinare quanto deve essere lunga
+una sezione senza note prima che una voltata di pagina sia considerata.
+Il valore predefinito di @code{minimumPageTurnLength} è
+@code{(ly:make-moment 1/1)}.  Per disabilitare le voltate di pagina,
+impostarla su un valore @qq{molto grande}.
+
+@example
+\new Staff \with @{ \consists "Page_turn_engraver" @}
+@{
+  a4 b c d |
+  R1 | % voltata di pagina permessa qui
+  a4 b c d |
+  \set Staff.minimumPageTurnLength = #(ly:make-moment 5/2)
+  R1 | % voltata di pagina non permessa qui
+  a4 b r2 |
+  R1*2 | % voltata di pagina permessa qui
+  a1
+@}
+@end example
+
+@funindex minimumRepeatLengthForPageTurn
+In caso di ripetizioni con finali alternativi, @code{Page_turn_engraver}
+permetterà una voltata di pagina durante la ripetizione soltanto se c'è
+abbastanza tempo all'inizio e alla fine della ripetizione per voltare
+indietro la pagina.  Se la ripetizione è molto breve, si può usare
+@code{Page_turn_engraver} anche per disabilitare le voltate impostando
+un valore per la proprietà di contesto @code{minimumRepeatLengthForPageTurn},
+dato che @code{Page_turn_engraver} consente le voltate soltanto nelle ripetizioni
+la cui durata sia maggiore di questo valore.
+
+I comandi per le voltate di pagina (@code{\pageTurn}, @code{\noPageTurn}
+e @code{\allowPageTurn}), possono essere usati anche nel livello superiore,
+nei blocchi markup di livello superiore e tra una partitura e l'altra.
+
+@predefined
+@funindex \pageTurn
+@code{\pageTurn},
+@funindex \noPageTurn
+@code{\noPageTurn},
+@funindex \allowPageTurn
+@code{\allowPageTurn}.
+@endpredefined
+
+@seealso
+Guida alla notazione:
+@ref{paper variables for line breaking}.
+
+Frammenti:
+@rlsr{Spacing}.
+
+@knownissues
+Usare soltanto un incisore @code{Page_turn_engraver} per partitura.  Se ce
+n'è più d'uno, interferiranno uno con l'altro.
+
+
+@seealso
+Guida alla notazione:
+@ref{Vertical spacing}.
+
+Frammenti:
+@rlsr{Spacing}.
+
+
+@node Spaziatura verticale
+@section Spaziatura verticale
+@translationof Vertical spacing
+
+@cindex vertical spacing
+@cindex spacing, vertical
+
+La spaziatura verticale è regolata da tre elementi: la quantità di
+spazio disponibile (ovvero il formato e i margini), la quantità di
+spazio tra i sistemi e la quantità di spazio tra i righi di un
+sistema.
+
+@menu
+* Spaziatura verticale flessibile all'interno dei sistemi::
+* Posizionamento esplicito di righi e sistemi::
+* Elusione delle collisioni verticali::
+@end menu
+
+
+@node Spaziatura verticale flessibile all'interno dei sistemi
+@subsection Spaziatura verticale flessibile all'interno dei sistemi
+@translationof Flexible vertical spacing within systems
+
+@cindex distanza tra i righi
+@cindex righi, distanza
+@cindex spazio tra i righi
+@cindex spazio dentro i sistemi
+
+Tre meccanismi distinti regolano la spaziatura verticale flessibile
+all'interno dei sistemi, uno per ognuna delle seguenti categorie:
+
+@itemize
+
+@item
+@emph{righi non raggruppati},
+
+@item
+@emph{righi raggruppati} (righi con un gruppo come
+@code{ChoirStaff}, etc.), e
+
+@item
+@emph{linee che non sono righi} (come @code{Lyrics}, @code{ChordNames},
+etc.).
+
+@end itemize
+
+@c TODO: Clarify this.  This almost implies that non-staff lines
+@c       have NO effect on the spacing between staves.  -mp
+
+L'altezza di ogni sistema è determinata in due fasi.  Prima vengono
+spaziati tutti i righi in base alla quantità di spazio disponibile.
+Poi le linee che non sono righi sono distribuite tra i righi.
+
+Nota che i meccanismi di spaziatura trattati in questa sezione regolano
+soltanto la spaziatura verticale dei righi e delle linee (che non sono
+righi) all'interno di singoli sistemi.  La spaziatura verticale tra
+sistemi, partiture, testi e margini separati è regolata dalle variabili
+@code{\paper} trattate in
+@ref{Flexible vertical spacing paper variables,,Variabili @code{@bs{}paper} della spaziatura verticale flessibile}.
+
+@menu
+* Proprietà della spaziatura dentro un sistema::
+* Spaziatura dei righi non raggruppati::
+* Spaziatura dei righi raggruppati::
+* Spaziatura delle linee che non sono righi::
+@end menu
+
+
+@node Proprietà della spaziatura dentro un sistema
+@unnumberedsubsubsec Proprietà della spaziatura dentro un sistema
+@translationof Within-system spacing properties
+
+@funindex staff-affinity
+@funindex staffgroup-staff-spacing
+@funindex staff-staff-spacing
+@funindex nonstaff-unrelatedstaff-spacing
+@funindex nonstaff-relatedstaff-spacing
+@funindex nonstaff-nonstaff-spacing
+@funindex default-staff-staff-spacing
+@funindex minimum-Y-extent
+@funindex extra-offset
+@funindex self-alignment-X
+@funindex X-offset
+@funindex VerticalAxisGroup
+
+I meccanismi di spaziatura verticale dentro un sistema sono regolati da
+due gruppi di proprietà dei grob.  Il primo gruppo è associato al grob
+@code{VerticalAxisGroup}, creato da tutti i righi e tutte le linee che
+non sono righi.  Il secondo gruppo è associato al grob
+@code{StaffGrouper}, che può essere creato da gruppi di righi, ma
+solo se richiamato esplicitamente.  Queste proprietà sono descritte
+una per una alla fine di questa sezione.
+
+Il nome di queste proprietà (con l'eccezione di @code{staff-affinity})
+hanno il formato @code{@var{elemento1}-@var{elemento2}-spacing}, dove
+@code{@var{elemento1}} e @code{@var{elemento2}} sono gli elementi di
+cui determinare la distanza.  Nota che @code{@var{elemento2}} non è
+necessariamente sotto @code{@var{elemento1}}; per esempio,
+@code{nonstaff-relatedstaff-spacing} prenderà le misure verso l'alto a
+partire dalla linea che non è un rigo (nonstaff) se
+@code{staff-affinity} è impostato su @code{UP}.
+
+Ogni distanza è calcolata tra i @emph{punti di riferimento} dei due
+elementi.  Il punto di riferimento di un rigo è il centro verticale
+del suo @code{StaffSymbol} (ovvero la linea centrale se
+@code{line-count} (il numero di linee) è dispari; lo spazio centrale
+se @code{line-count} è pari).  I punti di riferimento per ciascuna linea
+che non è un rigo sono elencati nella seguente tabella:
+
+@multitable {Non-staff line} {Reference point}
+@headitem Linea non-rigo     @tab Punto di riferimento
+@item @code{ChordNames}      @tab linea di base
+@item @code{NoteNames}       @tab linea di base
+@item @code{Lyrics}          @tab linea di base
+@item @code{Dynamics}        @tab metà altezza di @q{m}
+@item @code{FiguredBass}     @tab punto più alto
+@item @code{FretBoards}      @tab linea più alta
+@end multitable
+
+Nell'immagine seguente, le linee orizzontali indicano le posizioni di
+questi punti di riferimento:
+
+@lilypond[quote,noragged-right,line-width=110\mm]
+#(define zero-space '((padding . -inf.0) (basic-distance . 0)))
+
+alignToZero = \with {
+  \override VerticalAxisGroup.nonstaff-relatedstaff-spacing = #zero-space
+  \override VerticalAxisGroup.nonstaff-nonstaff-spacing = #zero-space
+  \override VerticalAxisGroup.staff-affinity = #DOWN
+  \remove Text_engraver % impedisce di averne due
+  \consists Text_engraver
+}
+lowerCaseChords = \with {
+  chordNameLowercaseMinor = ##t
+}
+labelContext =
+#(define-music-function
+     (context)
+     (string?)
+     #{ s1*0^\markup { \upright {\typewriter #context } } #})
+
+\layout {
+  \context { \Dynamics    \alignToZero }
+  \context { \FiguredBass \alignToZero }
+  \context { \Lyrics      \alignToZero }
+  \context { \NoteNames   \alignToZero }
+  \context { \ChordNames  \alignToZero \lowerCaseChords }
+  \context { \FretBoards  \alignToZero }
+  \context { \Score
+    \omit BarLine
+    \override DynamicText.self-alignment-X = #-1
+    \override FretBoard.X-offset = #1.75
+    \override InstrumentName.minimum-Y-extent = #'(-1 . 2)
+    \textLengthOn
+    \omit TimeSignature
+  }
+}
+
+%% Questi contesti hanno punti di riferimento nella linea di base:
+%%   ChordNames, NoteNames, and Lyrics
+<<
+  \new ChordNames { \chords { \labelContext "ChordNames"  g1:m } }
+  \new NoteNames { s1 |\labelContext "NoteNames"  g1 | }
+  \new Lyrics { \lyrics { \skip 1*2 | \labelContext "Lyrics" ghijk1 | } }
+  \new RhythmicStaff \with { instrumentName = #"linea di base " } s1*3
+>>
+
+%% Il punto di riferimento per Dynamics è la linea centrale della 'm' nel tipo di carattere
+<<
+  \new Dynamics { \labelContext "Dynamics" s1\mp s\fp }
+  \new RhythmicStaff \with { instrumentName = #"metà altezza " } s1*3
+>>
+
+%% Il punto di riferimento per FiguredBass è il suo punto più alto
+<<
+  \new FiguredBass { \labelContext "FiguredBass" \figuremode { <6 5>1 } }
+  \new RhythmicStaff \with { instrumentName = #"punto più alto " } s1
+>>
+
+%% Il punto di riferimento per FretBoards è la linea più alta
+\include "predefined-guitar-fretboards.ly"
+<<
+  \new FretBoards { \labelContext "FretBoards" \chordmode { e1 } }
+  \new RhythmicStaff \with { instrumentName = #"linea più alta " } s1
+>>
+@end lilypond
+
+Tutte le proprietà di spaziatura verticale del grob (eccetto
+@code{staff-affinity}) usano la stessa struttura della lista
+associativa usata dalle variabili di spaziatura di @code{\paper}
+trattate in
+@ref{Flexible vertical spacing paper variables,,Variabili @code{@bs{}paper} della spaziatura verticale flessibile}.
+Metodi specifici per modificare queste liste sono spiegati in
+@ref{Modifying alists}.  Le proprietà dei grob devono essere
+modificate con un comando @code{\override} dentro un blocco
+@code{\score} o @code{\layout} e non in un blocco
+@code{\paper}.
+
+L'esempio seguente illustra i due modi con cui si possono modificare
+queste liste associative (alist).  La prima dichiarazione trasforma un
+elemento-valore singolarmente, mentre la seconda ridefinisce
+completamente la proprietà:
+
+@example
+\new Staff \with @{
+  \override VerticalAxisGroup.default-staff-staff-spacing.basic-distance = #10
+@} @{ @dots{} @}
+
+\new Staff \with @{
+  \override VerticalAxisGroup.default-staff-staff-spacing =
+    #'((basic-distance . 10)
+       (minimum-distance . 9)
+       (padding . 1)
+       (stretchability . 10))
+@} @{ @dots{} @}
+@end example
+
+Per cambiare le impostazioni di spaziatura globalmente, inserirle in
+un blocco @code{\layout}:
+
+@example
+\layout @{
+  \context @{
+    \Staff
+    \override VerticalAxisGroup.default-staff-staff-spacing.basic-distance = #10
+  @}
+@}
+@end example
+
+Le impostazioni predefinite delle proprietà di spaziatura verticale dei
+grob sono elencate in @rinternals{VerticalAxisGroup} e
+@rinternals{StaffGrouper}.  Le modifiche predefinite con @code{\override}
+per tipologie specifiche di linee che non sono righi sono elencate
+nelle descrizioni del relativo contesto in @rinternals{Contexts}.
+
+
+@subsubheading Proprietà del grob @code{VerticalAxisGroup}
+
+Le proprietà di @code{VerticalAxisGroup} sono solitamente modificate
+con un @code{\override} nel livello @code{Staff} (o equivalente).
+
+@table @code
+@item staff-staff-spacing
+
+Usata per determinare la distanza tra il rigo corrente e il rigo
+inferiore nello stesso sistema, anche se tra i due si trovano una o
+più linee che non sono righi (come @code{Lyrics}).
+Non è applicata all'ultimo rigo di un sistema.
+
+Inizialmente, la proprietà @code{staff-staff-spacing} di un
+@code{VerticalAxisGroup} è una funzione Scheme che applica le
+proprietà di @code{StaffGrouper} se il rigo fa parte di un
+gruppo, o la proprietà @code{default-staff-staff-spacing} del rigo
+altrimenti.  Questo permette ai righi di essere spaziati diversamente
+quando sono raggruppati.  Per ottenere una spaziatura uniforme
+indipendentemente dal raggruppamento, questa funzione può essere
+sostituita da un alist di spaziatura flessibile, usando la forma
+di override che ridefinisce completamente la variabile, come mostrato
+prima.
+
+@item default-staff-staff-spacing
+Un alist di spaziatura flessibile che definisce la proprietà
+@code{staff-staff-spacing} usata per i righi isolati, a meno che
+@code{staff-staff-spacing} non sia stata impostata esplicitamente
+con un @code{\override}.
+
+@item staff-affinity
+La direzione del rigo da usare per spaziare la linea che non è un rigo.
+Le opzioni sono @code{UP} (su), @code{DOWN} (giù) e
+@code{CENTER} (centro).  Se impostata su @code{CENTER}, la linea
+fuori dal rigo si troverà in un punto equidistante tra i due righi
+più vicini su qualunque lato, a meno che delle collisioni o altre
+costrizioni di spazio non lo impediscano.  Linee (che non sono righi)
+adiacenti dovrebbero avere un valore di @code{staff-affinity} che
+non cresce: per esempio, una linea che non è un rigo impostata su
+@code{UP} non deve seguire immediatamente una linea impostata su
+@code{DOWN}.  Linee che non sono righi in cima a un sistema devono usare
+@code{DOWN}; quelle in fondo @code{UP}.  Impostando
+@code{staff-affinity} per un rigo, questo sarà trattato come
+una linea che non è un rigo.  Impostando @code{staff-affinity} su @code{#f},
+una linea che non è un rigo sarà trattata come un rigo.  Impostando
+@code{staff-affinity} su @code{UP}, @code{CENTER} o @code{DOWN},
+un rigo verrà spaziato come se fosse una linea che non è un rigo.
+
+@item nonstaff-relatedstaff-spacing
+La distanza fra la linea (che non è un rigo) corrente e il rigo più
+vicino nella direzione di @code{staff-affinity}, se non ci sono
+linee che non sono righi tra le due e @code{staff-affinity} è
+impostato su @code{UP} o @code{DOWN}.  Se @code{staff-affinity} è
+impostato su @code{CENTER}, viene usato @code{nonstaff-relatedstaff-spacing}
+per i righi più vicini su @emph{entrambi} i lati, anche se appaiono
+altre linee tra quella corrente e uno qualsiasi dei righi.  Ciò
+significa che il posizionamento di una linea dipende sia dai righi
+che dalle linee circostanti.  Impostando la proprietà @code{stretchability}
+di uno di questi tipi di spaziatura su un piccolo valore, quella spaziatura
+sarà dominante.  Impostando @code{stretchability} su un grande valore, quella
+spaziatura avrà poco effetto.
+
+@item nonstaff-nonstaff-spacing
+La distanza fra la linea (che non è un rigo) corrente e quella successiva
+nella direzione di @code{staff-affinity}, se entrambe sono sullo stesso
+lato del rigo in questione e se @code{staff-affinity} è impostata su
+@code{UP} o @code{DOWN}.
+
+@item nonstaff-unrelatedstaff-spacing
+La distanza fra la linea (che non è un rigo) corrente e il rigo nella
+direzione opposta rispetto a @code{staff-affinity}, se non ci sono
+altre linee tra i due e se @code{staff-affinity} è impostato su
+@code{UP} o @code{DOWN}.  Ciò può servire, per esempio, a imporre
+un padding minimo tra una linea @code{Lyrics} e il rigo al quale non
+appartiene.
+@end table
+
+
+@subsubheading Proprietà del grob @code{StaffGrouper}
+
+Le proprietà di @code{StaffGrouper} sono solitamente modificate con un
+@code{\override} nel livello @code{StaffGroup} (o livello equivalente).
+
+@table @code
+@item staff-staff-spacing
+La distanza tra righi consecutivi del gruppo di righi
+corrente.  La proprietà @code{staff-staff-spacing} del grob
+@code{VerticalAxisGroup} di un singolo rigo può essere
+sovrascritta con varie impostazioni di spaziatura per quel rigo.
+
+@item staffgroup-staff-spacing
+La distanza tra l'ultimo rigo del gruppo di righi corrente e
+il rigo immediatamente successivo nello stesso sistema, anche se
+tra i due righi ci sono una o più linee che non sono righi (come
+@code{Lyrics}).  Non è applicata al rigo inferiore di un sistema.  La
+proprietà @code{staff-staff-spacing} del grob @code{VerticalAxisGroup}
+di un singolo rigo può essere sovrascritta con varie impostazioni di
+spaziatura per quel rigo.
+@end table
+
+@seealso
+Guida alla notazione:
+@ref{Flexible vertical spacing paper variables,,Variabili @code{@bs{}paper} della spaziatura verticale flessibile},
+@ref{Modifying alists}.
+
+File installati:
+@file{ly/engraver-init.ly},
+@file{scm/define-grobs.scm}.
+
+Guida al funzionamento interno:
+@rinternals{Contexts},
+@rinternals{VerticalAxisGroup},
+@rinternals{StaffGrouper}.
+
+
+@node Spaziatura dei righi non raggruppati
+@unnumberedsubsubsec Spaziatura dei righi non raggruppati
+@translationof Spacing of ungrouped staves
+
+I @emph{righi} (come @code{Staff}, @code{DrumStaff},
+@code{TabStaff}, etc.) sono contesti che possono contenere uno o
+più contesti voce, ma non possono contenere altri righi.
+
+Le seguenti proprietà influenzano la spaziatura di righi @emph{non raggruppati}:
+
+@itemize
+@item Proprietà di @code{VerticalAxisGroup}:
+@itemize
+@item @code{default-staff-staff-spacing}
+@item @code{staff-staff-spacing}
+@end itemize
+@end itemize
+
+Queste proprietà del grob sono state descritte una a una in precedenza; vedi
+@ref{Within-system spacing properties}.
+
+Altre proprietà entrano in gioco per i righi che sono parte di un gruppo;
+vedi @ref{Spacing of grouped staves}.
+
+L'esempio seguente mostra come la proprietà @code{default-staff-staff-spacing}
+possa influenzare la spaziatura di righi non raggruppati.  Le stesse
+modifiche applicate a @code{staff-staff-spacing} avrebbero lo stesso
+effetto, ma verrebbero applicate anche nel caso in cui i righi siano
+combinati in uno o più gruppi.
+
+@lilypond[verbatim,quote,staffsize=16]
+\layout {
+  \context {
+    \Staff
+    \override VerticalAxisGroup.default-staff-staff-spacing =
+      #'((basic-distance . 8)
+         (minimum-distance . 7)
+         (padding . 1))
+  }
+}
+
+<<
+  % Questa nota molto bassa ha bisogno di più spazio di quanto 'basic-distance
+  % possa fornirne, dunque la distanza tra questo rigo e quello successivo
+  % è determinato da 'padding.
+  \new Staff { b,2 r | }
+
+  % Qui 'basic-distance fornisce abbastanza spazio, e non c'è bisogno
+  % di comprimere lo spazio (verso 'minimum-distance) per far spazio
+  % per qualcos'altro sulla pagina, dunque la distanza tra questo
+  % rigo e quello successivo è determinato da 'basic-distance.
+  \new Staff { \clef bass g2 r | }
+
+  % Impostando 'padding su un valore negativo, è possibile far sì che
+  % i righi entrino in collisione.  Il più basso valore accettabile per
+  % 'basic-distance è 0.
+  \new Staff \with {
+    \override VerticalAxisGroup.default-staff-staff-spacing =
+      #'((basic-distance . 3.5)
+         (padding . -10))
+  } { \clef bass g2 r | }
+  \new Staff { \clef bass g2 r | }
+>>
+@end lilypond
+
+@seealso
+File installati:
+@file{scm/define-grobs.scm}.
+
+Frammenti:
+@rlsr{Spacing}.
+
+Guida al funzionamento interno:
+@rinternals{VerticalAxisGroup}.
+
+
+@node Spaziatura dei righi raggruppati
+@unnumberedsubsubsec Spaziatura dei righi raggruppati
+@translationof Spacing of grouped staves
+
+Nelle partiture orchestrali e in alte grosse partiture, di norma i righi
+vengono raggruppati.  Lo spazio tra i gruppi è più ampio dello spazio
+tra i righi dello stesso gruppo.
+
+I @emph{gruppi di righi} (come @code{StaffGroup}, @code{ChoirStaff},
+etc.) sono contesti che possono contenere uno o più righi
+simultaneamente.
+
+Le seguenti proprietà influenzano la spaziatura dei righi nei gruppi:
+
+@itemize
+@item Proprietà di @code{VerticalAxisGroup}:
+@itemize
+@item @code{staff-staff-spacing}
+@end itemize
+@item Proprietà di @code{StaffGrouper}:
+@itemize
+@item @code{staff-staff-spacing}
+@item @code{staffgroup-staff-spacing}
+@end itemize
+@end itemize
+
+Queste proprietà dei grob sono descritte una a una in una sezione precedente; vedi
+@ref{Within-system spacing properties}.
+
+L'esempio seguente mostra come le proprietà del grob
+@code{StaffGrouper} possano influenzare la spaziatura dei righi raggruppati:
+
+@lilypond[verbatim,quote,staffsize=16]
+\layout {
+  \context {
+    \Score
+    \override StaffGrouper.staff-staff-spacing.padding = #0
+    \override StaffGrouper.staff-staff-spacing.basic-distance = #1
+  }
+}
+
+<<
+  \new PianoStaff \with {
+    \override StaffGrouper.staffgroup-staff-spacing.basic-distance = #20
+  } <<
+    \new Staff { c'1 }
+    \new Staff { c'1 }
+  >>
+
+  \new StaffGroup <<
+    \new Staff { c'1 }
+    \new Staff { c'1 }
+  >>
+>>
+@end lilypond
+
+@seealso
+File installati:
+@file{scm/define-grobs.scm}.
+
+Frammenti:
+@rlsr{Spacing}.
+
+Guida al funzionamento interno:
+@rinternals{VerticalAxisGroup},
+@rinternals{StaffGrouper}.
+
+
+@node Spaziatura delle linee che non sono righi
+@unnumberedsubsubsec Spaziatura delle linee che non sono righi
+@translationof Spacing of non-staff lines
+
+Le @emph{linee che non sono righi} (come @code{Lyrics}, @code{ChordNames},
+etc.) sono contesti i cui oggetti della formattazione sono disposti come se
+fossero su dei righi (ovvero su linee orizzontali all'interno dei sistemi).
+Precisamente, le linee che non sono righi sono contesti non-rigo che contengono
+l'incisore @rinternals{Axis_group_engraver}.
+
+Le seguenti proprietà influenzano la spaziatura delle linee che non sono righi:
+
+@itemize
+@item Proprietà di @code{VerticalAxisGroup}:
+@itemize
+@item @code{staff-affinity}
+@item @code{nonstaff-relatedstaff-spacing}
+@item @code{nonstaff-nonstaff-spacing}
+@item @code{nonstaff-unrelatedstaff-spacing}
+@end itemize
+@end itemize
+
+Queste proprietà del grob sono descritte una a una in una sezione
+precedente, vedi @ref{Within-system spacing properties}.
+
+L'esempio seguente mostra come la proprietà
+@code{nonstaff-nonstaff-spacing} influenza la spaziatura di linee
+che non sono un rigo consecutive.  Impostando l'elemento
+@code{stretchability} su un valore molto alto, il testo vocale
+riesce a allungarsi molto più del solito:
+
+@lilypond[verbatim,quote,staffsize=16]
+\layout {
+  \context {
+    \Lyrics
+    \override VerticalAxisGroup.nonstaff-nonstaff-spacing.stretchability = #1000
+  }
+}
+
+\new StaffGroup
+<<
+  \new Staff \with {
+    \override VerticalAxisGroup.staff-staff-spacing = #'((basic-distance . 30))
+  } { c'1 }
+  \new Lyrics \with {
+    \override VerticalAxisGroup.staff-affinity = #UP
+  } \lyricmode { up }
+  \new Lyrics \with {
+    \override VerticalAxisGroup.staff-affinity = #CENTER
+  } \lyricmode { center }
+  \new Lyrics \with {
+    \override VerticalAxisGroup.staff-affinity = #DOWN
+  } \lyricmode { down }
+  \new Staff { c'1 }
+>>
+@end lilypond
+
+@seealso
+File installati:
+@file{ly/engraver-init.ly},
+@file{scm/define-grobs.scm}.
+
+Frammenti:
+@rlsr{Spacing}.
+
+@c @lsr{spacing,page-spacing.ly},
+@c @lsr{spacing,alignment-vertical-spacing.ly}.
+
+Guida al funzionamento interno:
+@rinternals{Contexts},
+@rinternals{VerticalAxisGroup}.
+
+
+@node Posizionamento esplicito di righi e sistemi
+@subsection Posizionamento esplicito di righi e sistemi
+@translationof Explicit staff and system positioning
+
+Un modo per comprendere i meccanismi di spaziatura verticale
+appena spiegati è di considerarli come un insieme di impostazioni
+che regolano la quantità di @emph{padding} verticale tra righi
+e tra sistemi.
+
+È possibile gestire la spaziatura verticale in un modo diverso
+usando @code{NonMusicalPaperColumn.line-break-system-details}.
+Mentre i meccanismi di spaziatura verticale flessibile specificano
+il padding verticale, @code{NonMusicalPaperColumn.line-break-system-details}
+indica precisamente le posizioni verticali esatte sulla pagina.
+
+@code{NonMusicalPaperColumn.line-break-system-details} accetta una
+lista associativa di tre diverse impostazioni:
+
+@itemize
+@item @code{X-offset}
+@item @code{Y-offset}
+@item @code{alignment-distances}
+@end itemize
+
+Le modifiche del grob con @code{\override}, incluse quelle per @code{NonMusicalPaperColumn}
+come nell'esempio successivo, possono trovarsi in uno di questi tre diversi
+punti del file di input:
+
+@itemize
+@item direttamente in mezzo alle note
+@item in un blocco @code{\context}
+@item nel blocco @code{\with}
+@end itemize
+
+Quando si modifica @code{NonMusicalPaperColumn}, si usa il solito
+comando @code{\override} nei blocchi @code{\context} e nel blocco
+@code{\with}.  Invece quando si modifica
+@code{NonMusicalPaperColumn} in mezzo alle note,
+si usa il comando speciale @code{\overrideProperty}.  Ecco alcuni
+esempi di modifiche di @code{NonMusicalPaperColumn} col comando
+speciale @code{\overrideProperty}:
+
+@example
+\overrideProperty NonMusicalPaperColumn.line-break-system-details
+  #'((X-offset . 20))
+
+\overrideProperty NonMusicalPaperColumn.line-break-system-details
+  #'((Y-offset . 40))
+
+\overrideProperty NonMusicalPaperColumn.line-break-system-details
+  #'((X-offset . 20)
+     (Y-offset . 40))
+
+\overrideProperty NonMusicalPaperColumn.line-break-system-details
+  #'((alignment-distances . (15)))
+
+\overrideProperty NonMusicalPaperColumn.line-break-system-details
+  #'((X-offset . 20)
+     (Y-offset . 40)
+     (alignment-distances . (15)))
+@end example
+
+Per comprendere come funziona ognuna di queste impostazioni, iniziamo
+vedendo un esempio che non contiene alcuna modifica.
+
+@c \book { } is required in these examples to ensure the spacing
+@c overrides can be seen between systems. -np
+
+@lilypond[verbatim,quote,staffsize=16]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          s1*5 \break
+          s1*5 \break
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff {
+        \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
+  }
+}
+@end lilypond
+
+Questa partitura isola l'informazione sulle interruzioni di linea e di pagina
+in una voce apposita.  Questa tecnica di creare una voce per le interruzioni
+permette di tenere la formattazione separata dalla musica via via che il
+nostro esempio diventa più complicato.  Vedi @ref{Breaks}.
+
+I @code{\break} espliciti dividono proporzionalmente la musica in cinque
+misure per linea.  La spaziatura verticale è quella predefinita di
+LilyPond.  Per impostare esplicitamente il punto di inizio verticale di
+ogni sistema, possiamo impostare la coppia @code{Y-offset} dell'attributo
+@code{line-break-system-details} del grob @code{NonMusicalPaperColumn}:
+
+@lilypond[verbatim,quote,staffsize=16]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 0))
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 40))
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 60))
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff {
+        \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
+  }
+}
+@end lilypond
+
+Nota che @code{line-break-system-details} accetta una lista associativa di
+molti valori, ma ne abbiamo impostato solo uno in questo esempio.  Nota
+anche che la proprietà @code{Y-offset} qui determina la posizione verticale
+esatta sulla pagina in cui ogni nuovo sistema verrà visualizzato.
+
+Ora che abbiamo impostato esplicitamente il punto di inizio verticale di
+ogni sistema, possiamo impostare manualmente anche le distanze verticali
+tra i righi.  Per farlo usiamo la sottoproprietà @code{alignment-distances}
+di @code{line-break-system-details}.
+
+@lilypond[verbatim,quote,staffsize=16]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 20)
+               (alignment-distances . (10)))
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 60)
+               (alignment-distances . (15)))
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+          #'((Y-offset . 85)
+             (alignment-distances . (20)))
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff {
+        \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
+  }
+}
+@end lilypond
+
+Nota che qui assegnamo due valori diversi all'attributo
+@code{line-break-system-details} del grob
+@code{NonMusicalPaperColumn}.  Sebbene l'attributo alist
+@code{line-break-system-details} accetti molti altri parametri di
+spaziatura (inclusa, per esempio, una coppia corrispondente
+di @code{X-offset}), è sufficiente impostare soltanto le coppie @code{Y-offset}
+e @code{alignment-distances} per regolare il punto di inizio verticale di
+ogni sistema e ogni rigo.  Infine nota che @code{alignment-distances}
+specifica il posizionamento verticale dei righi ma non dei gruppi di righi.
+
+@lilypond[verbatim,quote,staffsize=16]
+\header { tagline = ##f }
+\paper { left-margin = 0\mm }
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 0)
+               (alignment-distances . (30 10)))
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 60)
+               (alignment-distances . (10 10)))
+          s1*5 \break
+          \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
+            #'((Y-offset . 100)
+               (alignment-distances . (10 30)))
+          s1*5 \break
+        }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new StaffGroup <<
+        \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
+        \new Staff { \repeat unfold 15 { e'4 e' e' e' } }
+      >>
+    >>
+  }
+}
+@end lilypond
+
+Alcuni punti da considerare:
+
+@itemize
+@item Quando si usa @code{alignment-distances}, il testo vocale e altre linee
+che non sono righi non contano come rigo.
+
+@item Le unità dei numeri assegnati a @code{X-offset},
+@code{Y-offset} e @code{alignment-distances} sono interpretati come
+multipli della distanza tra linee del rigo adiacenti.  Valori positivi
+spostano in su righi e testo, valori negativi li spostano in giù.
+
+@item Dato che le impostazioni di @code{NonMusicalPaperColumn.line-break-system-details}
+illustrate qui permettono il posizionamento di righi e sistemi ovunque
+sulla pagina, è possibile violare i confini del foglio o dei margini o
+perfino sovrapporre righi e sistemi uno sopra l'altro.  Ciò può essere
+evitato assegnando valori ragionevoli a queste diverse impostazioni.
+@end itemize
+
+@seealso
+Frammenti:
+@rlsr{Spacing}.
+
+
+@node Elusione delle collisioni verticali
+@subsection Elusione delle collisioni verticali
+@translationof Vertical collision avoidance
+
+@funindex outside-staff-priority
+@funindex outside-staff-padding
+@funindex outside-staff-horizontal-padding
+
+Intuitivamente, ci sono alcuni oggetti della notazione musicale che
+appartengono al rigo e altri che devono essere disposti fuori dal
+rigo.  Gli oggetti esterni al rigo comprendono i numeri di chiamata,
+il testo e le dinamiche (d'ora in avanti tutti questi elementi saranno
+chiamati oggetti esterni al rigo).  La regola di LilyPond per il
+posizionamento verticale degli oggetti esterni al rigo è di disporli
+il più vicino possibile al rigo ma non così vicino da farli collidere
+con un altro oggetto.
+
+LilyPond usa la proprietà @code{outside-staff-priority} per determinare
+se un grob è un oggetto fuori dal rigo: se @code{outside-staff-priority}
+è un numero, il grob è un oggetto esterno al rigo.  @code{outside-staff-priority}
+indica a LilyPond anche in quale ordine disporre gli oggetti.
+
+LilyPond posiziona prima tutti gli oggetti che non sono esterni al
+rigo.  Quindi ordina gli oggetti esterni al rigo in base al loro valore
+di @code{outside-staff-priority} (in ordine crescente).  Uno per volta, LilyPond
+prende gli oggetti esterni al rigo e li dispone in modo che non entrino in
+collisione con alcun oggetto che sia già stato disposto.  Ovvero, se due
+grob esterni al rigo si contendono lo stesso spazio, quello col valore
+di @code{outside-staff-priority} più basso sarà posto più vicino al rigo.
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  c4_"Testo"\pp
+  r2.
+  \once \override TextScript.outside-staff-priority = #1
+  c4_"Testo"\pp % stavolta il testo sarà più vicino al rigo
+  r2.
+  % impostando outside-staff-priority su un non-numero,
+  % disabilitiamo l'elusione automatica delle collisioni
+  \once \override TextScript.outside-staff-priority = ##f
+  \once \override DynamicLineSpanner.outside-staff-priority = ##f
+  c4_"Testo"\pp % qui entrano in collisione
+}
+@end lilypond
+
+Il padding verticale intorno agli oggetti esterni al rigo
+può essere regolato con @code{outside-staff-padding}.
+
+@lilypond[quote,ragged-right,verbatim,staffsize=18]
+\relative {
+  \once \override TextScript.outside-staff-padding = #0
+  a'4-"outside-staff-padding = #0"
+  \once \override TextScript.outside-staff-padding = #3
+  d-"outside-staff-padding = #3"
+  c-"outside-staff-padding predefinito"
+  b-"outside-staff-padding predefinito"
+  R1
+}
+@end lilypond
+
+
+Per impostazione predefinita, gli oggetti esterni al rigo sono disposti
+in modo da evitare la collisione orizzontale con grob posizionati
+precedentemente.  Ciò può portare a situazioni in cui gli oggetti
+sono posizionati uno vicino all'altro orizzontalmente.
+Come è dimostrato nell'esempio successivo, impostando @code{outside-staff-horizontal-padding}
+si aumenta la spaziatura orizzontale richiesta e in questo caso si sposta
+in su il testo per impedire che si avvicini troppo ai tagli addizionali.
+
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  c''4^"Parola" c c''2
+  R1
+  \once \override TextScript.outside-staff-horizontal-padding = #1
+  c,,4^"Parola" c c''2
+}
+@end lilypond
+
+@seealso
+Frammenti:
+@rlsr{Spacing}.
+
+
+@node Spaziatura orizzontale
+@section Spaziatura orizzontale
+@translationof Horizontal spacing
+
+@cindex spaziatura orizzontale
+@cindex orizzontale, spaziatura
+
+@menu
+* Panoramica sulla spaziatura orizzontale::
+* Nuova spaziatura nel corso di un brano::
+* Modifica della spaziatura orizzontale::
+* Larghezza della linea::
+* Notazione proporzionale::
+@end menu
+
+
+@node Panoramica sulla spaziatura orizzontale
+@subsection Panoramica sulla spaziatura orizzontale
+@translationof Horizontal spacing overview
+
+Il motore della spaziatura traduce le differenze delle durate delle
+note in distanze allungabili (@q{springs}) di diversa lunghezza.  Durate
+più lunghe occupano più spazio, quelle più brevi ne occupano meno.
+Le durate più brevi occupano una quantità fissa di spazio (regolata da
+@code{shortest-duration-space} nell'oggetto @rinternals{SpacingSpanner}).
+Più lunga è la durata, più spazio occupa: raddoppiando una durata
+si aggiunge spazio alla nota di una quantità pari al valore di
+@code{spacing-increment}.
+
+Per esempio, il brano seguente contiene molte minime, semiminime e
+crome; la croma (1/8) è seguita da 1 Larghezza della Testa di Nota (LTN).
+La semiminima (1/4) è seguita da 2 LTN, la minima (1/2) da 3 LTN, etc.
+
+@lilypond[quote,verbatim]
+\relative c' {
+  c2 c4. c8
+  c4. c8 c4. c8
+  c8 c c4 c c
+}
+@end lilypond
+
+Solitamente, @code{spacing-increment} è impostato su 1.2 di spazio rigo, che
+equivale all'incirca alla larghezza della testa di nota, e
+@code{shortest-duration-space} è impostato su 2.0, che significa che
+la nota più breve occupa 2.4 di spazio rigo (2 volte @code{spacing-increment})
+di spazio orizzontale.  Questo spazio è calcolato dal margine sinistro
+del simbolo, dunque le note più brevi sono generalmente seguite da
+un LTN di spazio.
+
+Se si seguisse esattamente la procedura descritta, aggiungendo una
+sola biscroma (1/32) a un brano che usa solo crome e semicrome, la
+spaziatura orizzontale dell'intero brano sarebbe troppo larga.  Infatti
+la nota più breve non è più una semicroma ma una biscroma, aggiungendo
+quindi 1 LTN a ogni nota.  Per impedire ciò, la durata più breve per
+la spaziatura non è la nota più breve, bensì la che ricorre più
+frequentemente nel brano.
+
+La durata più breve più comune viene individuata nel modo seguente.  In ogni
+misura viene determinata la durata più breve e quella più frequente viene
+scelta come base per la spaziatura, con la condizione che tale durata debba
+essere sempre uguale o inferiore a una nota di un ottavo.
+
+Tali durate possono anche essere personalizzate.  Impostando
+@code{common-shortest-duration} in @rinternals{SpacingSpanner}, si
+imposta la durata di base per la spaziatura.  La durata massima per
+essa (solitamente un ottavo), si imposta con @code{base-shortest-duration}.
+
+@funindex common-shortest-duration
+@funindex base-shortest-duration
+@funindex stem-spacing-correction
+@funindex spacing
+
+Note ancora più brevi della nota più breve più comune sono seguite
+da uno spazio proporzionale alla loro durata rispetto a essa.  Dunque
+se aggiungessimo solo alcuni sedicesimi all'esempio precedente, sarebbero
+seguiti dalla metà di LTN:
+
+@lilypond[quote,verbatim]
+\relative { c''2 c4. c8 | c4. c16[ c] c4. c8 | c8 c c4 c c }
+@end lilypond
+
+
+Nel saggio @emph{Essay on automated music engraving}, è spiegato che
+le direzioni del gambo influenzano la spaziatura (vedi
+@ressay{Optical spacing}).  Ciò è regolato dalla proprietà
+@code{stem-spacing-correction} nell'oggetto
+@rinternals{NoteSpacing}.  Questi oggetti sono generati per ogni
+contesto @rinternals{Voice}.  L'oggetto @code{StaffSpacing}
+(generato nel contesto @rinternals{Staff}) contiene la stessa
+propreità per regolare la spaziatura tra gambo e stanghetta.  L'esempio
+seguente mostra queste correzioni, una volta con le impostazioni predefinite
+e una volta con correzioni esagerate:
+
+@lilypond[quote,ragged-right]
+\fixed c' {
+  c4 e'4 e4 b4 |
+  b4 e'4 b4 e'4 |
+  \override Staff.NoteSpacing.stem-spacing-correction = #1.5
+  \override Staff.StaffSpacing.stem-spacing-correction = #1.5
+  c4 e'4 e4 b4 |
+  b4 e'4 b4 e'4 |
+}
+@end lilypond
+
+LilyPond supporta la notazione proporzionale, vedi @ref{Proportional notation}.
+
+@seealso
+Essay on automated music engraving:
+@ressay{Optical spacing}.
+
+Frammenti:
+@rlsr{Spacing}.
+
+Guida al funzionamento interno:
+@rinternals{SpacingSpanner},
+@rinternals{NoteSpacing},
+@rinternals{StaffSpacing},
+@rinternals{NonMusicalPaperColumn}.
+
+@knownissues
+Non esiste un modo semplice per modificare manualmente la spaziatura.  Per
+aggirare il problema si può inserire dell'ulteriore spazio in una partitura,
+regolando il valore di padding di quanto è necessario:
+
+@example
+ \override Score.NonMusicalPaperColumn.padding = #10
+@end example
+
+Non esiste alcun trucco per diminuire la quantità di spazio.
+
+
+@c traduzione del titolo non letterale ma più chiara
+@node Nuova spaziatura nel corso di un brano
+@subsection Nuova spaziatura nel corso di un brano
+@translationof New spacing area
+
+@funindex \newSpacingSection
+@cindex nuova spaziatura nel corso di un brano
+@cindex spaziatura nuova nel corso di un brano
+@cindex note, spaziatura orizzontale
+
+Nuove sezioni con parametri di spaziatura diversi possono essere iniziati
+con @code{newSpacingSection}.  Ciò può essere utile quando ci sono sezioni
+con nozioni diverse di note lunghe e brevi.
+
+Nell'esempio seguente, il cambio di indicazione di tempo introduce una
+nuova sezione, quindi i sedicesimi hanno automaticamente una spaziatura
+un po' più larga.
+
+@lilypond[verbatim,quote]
+\relative c' {
+  \time 2/4
+  c4 c8 c
+  c8 c c4 c16[ c c8] c4
+  \newSpacingSection
+  \time 4/16
+  c16[ c c8]
+}
+@end lilypond
+
+Il comando @code{\newSpacingSection} crea un nuovo oggetto
+@code{SpacingSpanner} in quel momento musicale.
+Se gli aggiustamenti automatici della spaziatura non producono la
+spaziatura richiesta, si possono applicare degli @code{\override}
+manuali alle sue proprietà.  Questi devono essere applicati nello
+stesso momento musicale del comando @code{\newSpacingSection} stesso.
+Avranno effetto sulla spaziatura di tutta la musica seguente finché
+le proprietà non vengono cambiate in una nuova sezione.  Per esempio:
+
+@lilypond[verbatim,quote]
+\relative c' {
+  \time 4/16
+  c16[ c c8]
+  \newSpacingSection
+  \override Score.SpacingSpanner.spacing-increment = #2
+  c16[ c c8]
+  \newSpacingSection
+  \revert Score.SpacingSpanner.spacing-increment
+  c16[ c c8]
+}
+@end lilypond
+
+
+@seealso
+Frammenti:
+@rlsr{Spacing}.
+
+Guida al funzionamento interno:
+@rinternals{SpacingSpanner}.
+
+
+@node Modifica della spaziatura orizzontale
+@subsection Modifica della spaziatura orizzontale
+@translationof Changing horizontal spacing
+
+La spaziatura orizzontale può essere modificata tramite la proprietà
+@code{base-shortest-duration}.  Nel prossimo esempio confrontiamo
+la stessa musica, prima senza cambiare la proprietà e poi cambiandola.
+Valori più grandi di @code{ly:make-moment} produrranno musica più densa.
+Nota che @code{ly:make-moment} constituisce una durata, dunque
+@code{1 4} è una durata più lunga di @code{1 16}.
+
+@lilypond[verbatim,line-width=12\cm]
+\score {
+  \relative {
+    g'4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+    d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+  }
+}
+@end lilypond
+
+@lilypond[verbatim,line-width=12\cm]
+\score {
+  \relative {
+    g'4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+    d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+  }
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/16)
+    }
+  }
+}
+@end lilypond
+
+
+@snippets
+
+L'impostazione predefinita prevede che la spaziatura nei gruppi irregolari
+dipenda da vari fattori diversi dalla durata (come alterazioni, cambi di
+chiave, etc).  Per ignorare tali simboli e forzare la spaziatura perché
+sia uniforme, usare @code{Score.SpacingSpanner.uniform-stretching}.  Questa
+proprietà può essere modificata soltanto all'inizio di una partitura:
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  <<
+    \new Staff {
+      \tuplet 5/4 { c8 c c c c } c8 c c c
+    }
+    \new Staff {
+      c8 c c c \tuplet 5/4 { c8 c c c c }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner.uniform-stretching = ##t
+    }
+  }
+}
+@end lilypond
+
+Se si imposta @code{strict-note-spacing}, la spaziatura tra le note non tiene
+conto di chiavi, stanghette e abbellimenti:
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\override Score.SpacingSpanner.strict-note-spacing = ##t
+\new Staff \relative {
+  c''8[ c \clef alto c \grace { c16 c } c8 c c]  c32[ c] }
+@end lilypond
+
+@seealso
+Frammenti:
+@rlsr{Spacing}.
+
+
+@node Larghezza della linea
+@subsection Larghezza della linea
+@translationof Line width
+
+@cindex interruzioni di pagina
+@cindex pagina, interruzioni
+
+@funindex indent
+@funindex line-width
+@funindex ragged-right
+@funindex ragged-last
+
+@c Although line-width can be set in \layout, it should be set in paper
+@c block, to get page layout right.
+@c Setting indent in \paper block makes not much sense, but it works.
+
+@c Bit verbose and vague, use examples?
+Le impostazioni fondamentali che influenzano la spaziatura sono @code{indent} e
+@code{line-width}, impostate nel blocco @code{\layout}.  Regolano l'indentazione
+della prima linea musicale e la lunghezza delle linee.
+
+Se @code{ragged-right} è impostato su vero nel blocco @code{\layout}, i sistemi
+terminano alla loro naturale lunghezza orizzontale, invece di essere espansi
+orizzontalmente per riempire tutta la linea.  Ciò è utile in caso di brevi
+frammenti e per verificare quanto è compatta la spaziatura naturale.  L'impostazione
+predefinita è solitamente falso, ma se la partitura ha un solo sistema il
+valore predefinito è vero.
+
+@cindex formattazione della pagina
+@cindex spaziatura verticale
+@cindex verticale, spaziatura
+
+L'opzione @code{ragged-last} è simile a @code{ragged-right}, ma ha effetto
+soltanto sull'ultima linea del brano.  Nessune restrizioni vengono poste su
+quella linea.  Il risultato è simile alla formattazione dei paragrafi di testo.
+In un paragrafo l'ultima linea occupa la sua naturale lunghezza orizzontale.
+@c Note that for text there are several options for the last line.
+@c While Knuth TeX uses natural length, lead typesetters use the same
+@c stretch as the previous line.  eTeX uses \lastlinefit to
+@c interpolate between both these solutions.
+
+@example
+\layout @{
+  indent = #0
+  line-width = #150
+  ragged-last = ##t
+@}
+@end example
+
+@seealso
+Frammenti:
+@rlsr{Spacing}.
+
+
+@node Notazione proporzionale
+@subsection Notazione proporzionale
+@translationof Proportional notation
+
+LilyPond supporta la notazione proporzionale, un tipo di spaziatura orizzontale
+in cui ogni nota occupa una quantità di spazio orizzontale esattamente
+equivalente alla sua durata musicale.  Questo tipo di spaziatura proporzionale
+può essere paragonata alla spaziatura orizzontale su carta quadrettata.  Alcune
+partiture della fine del ventesimo secolo e dell'inizio del ventunesimo usano
+la notazione proporzionale per chiarire relazioni ritmiche complesse o per
+agevolare il posizionamento della linea del tempo o di altri elementi
+grafici direttamente nella partitura.
+
+LilyPond supporta cinque diverse impostazioni per la notazione proporzionale,
+che possono essere usate insieme o da sole:
+
+@itemize
+@item @code{proportionalNotationDuration}
+@item @code{uniform-stretching}
+@item @code{strict-note-spacing}
+@item @code{\remove "Separating_line_group_engraver"}
+@item @code{\override PaperColumn.used = ##t}
+@end itemize
+
+Nell'esempio seguente analizziamo queste cinque diverse impostazioni di
+notazione proporzionale e valutiamo come esse interagiscono tra loro.
+
+Iniziamo con l'esempio seguente di una misura, che usa la spaziatura
+classica con la giustificazione del rigo disattivata.
+
+@c The initial pitch is not necessary as long as RhythmicStaff is
+@c not preceded by other material in the score, but we don't want
+@c to explain that.
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  <<
+    \new RhythmicStaff {
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+    }
+  >>
+}
+@end lilypond
+
+La minima all'inizio della misura occupa uno spazio molto inferiore alla metà
+dello spazio orizzontale della misura.  Ugualmente, i sedicesimi e le quintine
+di sedicesimi alla fine della battuta insieme occupano molto più spazio della
+metà dello spazio orizzontale della misura.
+
+Nell'incisione tipografica classica, questa spaziatura è solitamente proprio
+ciò che si desidera, perché è possibile prendere in prestito dello spazio
+orizzontale dalla minima e economizzare lo spazio orizzontale complessivo
+della misura.
+
+D'altra parte, se vogliamo inserire una linea del tempo con tacche o altri
+elementi grafici sopra o sotto la partitura, abbiamo bisogno della notazione
+proporzionale.  Per attivarla si usa l'impostazione proportionalNotationDuration.
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  <<
+    \new RhythmicStaff {
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+    }
+  >>
+ \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1/20)
+    }
+  }
+}
+@end lilypond
+
+La minima all'inizio della misura e le note più veloci nella seconda
+metà della misura ora occupano la stessa quantità di spazio orizzontale.
+Potremmo inserire una linea del tempo con tacche o un'immagine
+grafica sopra o sotto questo esempio.
+
+L'impostazione @code{proportionalNotationDuration} è un'impostazione di
+contesto che si trova in @code{Score}.  Ricordiamo che le impostazioni di
+contesto possono apparire in tre luoghi del file di input: in un blocco
+@code{\with}, in un blocco @code{\context} o direttamente in mezzo alle
+note preceduta dal comando @code{\set}.  Come per tutte le impostazioni di
+contesto, l'utente può scegliere in quale di questi tre luoghi impostare
+@code{proportionalNotationDuration}.
+
+L'impostazione @code{proportionalNotationDuration} prende un solo argomento,
+che è la durata di riferimento in base alla quale tutta la musica verrà
+spaziata.  La funzione Scheme di LilyPond @code{make-moment} prende due
+argomenti: un numeratore e un denominatore che insieme esprimono una qualche
+frazione di una nota intera.  La funzione di chiamata @code{(ly:make-moment 1/20)}
+produce quindi una durata di riferimento di un ventesimo di nota.  Sono ammessi
+anche valori come @code{(ly:make-moment 1/16)}, @code{(ly:make-moment 1/8)} e
+@code{(ly:make-moment 3/97)}.
+
+Come scegliamo la durata di riferimento corretta da passare a
+@code{proportionalNotationDuration}?  Solitamente attraverso un processo di
+prova e errore, iniziando con una durata vicina alla più veloce (o piccola)
+durata del brano.  Durate di riferimento più piccole determinano una spaziatura
+della musica più larga; quelle più grandi causano una spaziatura più stretta.
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  <<
+    \new RhythmicStaff {
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1/8)
+    }
+  }
+}
+
+\score {
+  <<
+    \new RhythmicStaff {
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1/16)
+    }
+  }
+}
+
+\score {
+  <<
+    \new RhythmicStaff {
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1/32)
+    }
+  }
+}
+@end lilypond
+
+Nota che una durata di riferimento troppo grande -- come la nota di
+un ottavo, sopra -- determina una spaziatura della musica troppo stretta
+e può causare collisioni tra le teste di nota.  Fare attenzione anche al
+fatto che la notazione proporzionale in generale occupa più spazio orizzontale
+della spaziatura classica.  Insomma, la spaziatura proporzionale fornisce
+chiarezza ritmica al costo dello spazio orizzontale.
+
+Ora vediamo come spaziare in modo ottimale i gruppi irregolari sovrapposti.
+
+Iniziamo esaminando cosa succede al nostro esempio di partenza, con la
+spaziatura classica, quando aggiungiamo un secondo rigo con un diverso
+tipo di gruppo irregolare.
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  <<
+    \new RhythmicStaff {
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+    }
+    \new RhythmicStaff {
+      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
+    }
+  >>
+}
+@end lilypond
+
+La spaziatura è pessima perché le note del rigo inferiore spaziate a distanze
+uguali non si allungano in modo uniforme.  Le incisioni classiche contengono
+pochissime terzine complesse e quindi le regole di incisione classica possono
+generare questo tipo di risultato.  Impostando @code{proportionalNotationDuration}
+ciò viene corretto.
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  <<
+    \new RhythmicStaff {
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+    }
+    \new RhythmicStaff {
+      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1/20)
+    }
+  }
+}
+@end lilypond
+
+Ma se osserviamo con attenzione possiamo vedere che le note della seconda
+metà della nonina hanno una spaziatura leggermente più larga delle note
+della prima parte della nonina.  Per assicurare un allungamento uniforme,
+attiviamo @code{uniform-stretching}, una proprietà di
+@code{SpacingSpanner}.
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  <<
+    \new RhythmicStaff {
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
+    }
+    \new RhythmicStaff {
+      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
+    }
+  >>
+  \layout {
+    \context {
+      \Score
+      proportionalNotationDuration = #(ly:make-moment 1/20)
+      \override SpacingSpanner.uniform-stretching = ##t
+    }
+  }
+}
+@end lilypond
+
+Il nostro esempio di due righi ora ha una spaziatura esatta, le relazioni
+ritmiche sono visivamente chiare e possiamo includere una linea del tempo
+con tacche o altro elemento grafico, se lo vogliamo.
+
+Nota che la notazione proporzionale di LilyPond si aspetta che tutte le
+partiture proporzionali impostino l'attributo 'uniform-stretching di
+SpacingSpanner su @code{##t}.  Impostare proportionalNotationDuration senza
+impostare anche l'attributo 'uniform-stretching di SpacingSpanner su
+@code{##t} farà sì, per esempio, che le pause invisibili occupino una quantità
+scorretta di spazio orizzontale.
+
+SpacingSpanner è un grob astratto che si trova nel contesto Score.
+Come per le impostazioni di proportionalNotationDuration, le modifiche
+@code{\override} a SpacingSpanner si possono trovare in uno dei tre diversi
+punti del file di input – nel blocco \with del brano, nel blocco \context
+del brano o direttamente in mezzo alle note.
+
+Per impostazione predefinita, esiste un solo @code{SpacingSpanner} per
+@code{Score}.  Ciò significa che @code{uniform-stretching} è attivato o
+disattivato per l'intera partitura.  Possiamo tuttavia modificare tale
+comportamento e attivare diverse funzionalità di spaziatura in punti
+diversi del brano.  Per farlo si usa il comando @code{\newSpacingSection}.
+Maggiori informazioni in @ref{New spacing area}.
+
+Ora esaminiamo gli effetti dell'incisore @code{Separating_line_group_engraver} e
+vediamo perché le partiture proporzionali solitamente tolgano questo incisore.
+L'esempio seguente mostra che c'è un piccolo spazio @qq{introduttivo} proprio
+prima della prima nota di ogni sistema.
+
+@lilypond[quote,verbatim,ragged-right]
+\paper {
+  indent = #0
+}
+
+\new Staff {
+  c'1
+  \break
+  c'1
+}
+@end lilypond
+
+
+L'ampiezza di questo spazio introduttivo è la stessa sia dopo un'indicazione di
+tempo che dopo un'armatura di chiave o una chiave.
+È l'incisore @code{Separating_line_group_engraver} a causare questo spazio.
+Togliendolo lo spazio diventa zero.
+
+@lilypond[quote,verbatim,ragged-right]
+\paper {
+  indent = #0
+}
+
+\new Staff \with {
+  \remove "Separating_line_group_engraver"
+} {
+  c'1
+  \break
+  c'1
+}
+@end lilypond
+
+Nella notazione proporzionale gli elementi non musicali come le indicazioni di
+tempo, le armature di chiave, le chiavi e le alterazioni sono problematiche.
+Nessuna di queste infatti ha una durata ritmica, ma tutte occupano spazio
+orizzontale.  Questi problemi sono affrontati diversamente dalle varie
+partiture proporzionali.
+
+È possibile evitare i problemi di spaziatura dovuti alle armature di
+chiave semplicemente omettendole.  Questa è un'opzione valida dato che
+la maggior parte delle partiture proporzionali sono di musica contemporanea.
+Lo stesso potrebbe valere per le indicazioni di tempo, specialmente per quelle
+partiture che includono una linea del tempo o altri elementi grafici.  Ma queste
+partiture sono un'eccezione e la maggior parte delle partiture proporzionali
+hanno almeno qualche indicazione di tempo.  Le chiavi e le alterazioni sono
+ancora più fondamentali.
+
+Dunque quali strategie adottare per spaziare elementi non musicali nel contesto
+di musica proporzionale?  Una valida opzione è la proprietà @code{strict-note-spacing}
+di @code{SpacingSpanner}.  Confrontiamo i seguenti due righi:
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff {
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
+  c''8 8 8 \clef alto d'2 2
+}
+
+\new Staff {
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
+  \override Score.SpacingSpanner.strict-note-spacing = ##t
+  c''8 8 8 \clef alto d'2 2
+}
+@end lilypond
+
+Entrambi sono proporzionali, ma la spaziatura del primo è troppo
+larga a causa del cambio di chiave.  La spaziatura del secondo
+resta invece stretta, perché è attivato strict-note-spacing.
+Attivando strict-note-spacing, la larghezza di indicazioni di tempo,
+armature di chiave, chiavi e alterazioni non ha alcun ruolo
+nell'algoritmo di spaziatura.
+
+Oltre alle impostazioni che abbiamo visto, ce ne sono altre che appaiono
+frequentemente nelle partiture proporzionali, tra cui:
+
+@itemize
+@item @code{\override SpacingSpanner.strict-grace-spacing = ##t}
+@item @code{\set tupletFullLength = ##t}
+@item @code{\override Beam.breakable = ##t}
+@item @code{\override Glissando.breakable = ##t}
+@item @code{\override TextSpanner.breakable = ##t}
+@item @code{\remove "Forbid_line_break_engraver" nel contesto Voice}
+@end itemize
+
+Queste impostazioni spaziano in modo conciso gli abbellimenti, estendono le
+parentesi dei gruppi irregolari per contrassegnare i punti di inizio e di
+fine del ritmo, e permettono agli elementi che si estendono orizzontalmente
+di andare oltre i sistemi e le pagine.  Consultare le sezioni del manuale
+per queste impostazioni.
+
+@seealso
+Guida alla notazione:
+@ref{New spacing area}.
+
+Frammenti:
+@rlsr{Spacing}.
+
+
+@node Riduzione del numero di pagine di una partitura
+@section Riduzione del numero di pagine di una partitura
+@translationof Fitting music onto fewer pages
+
+Talvolta può capitare di avere uno o due righi su una seconda
+(o terza, o quarta@dots{}) pagina.  Ciò è fastidioso, specialmente
+se c'è molto spazio nelle pagine precedenti.
+
+Quando si studiano i problemi di formattazione, uno strumento irrinunciabile
+è @code{annotate-spacing}, un comando che mostra i valori delle diverse
+variabili di spaziatura.  Maggiori dettagli nella prossima sezione,
+@ref{Displaying spacing}.
+
+@menu
+* Visualizzare la spaziatura::
+* Modificare la spaziatura::
+@end menu
+
+
+@node Visualizzare la spaziatura
+@subsection Visualizzare la spaziatura
+@translationof Displaying spacing
+
+@funindex annotate-spacing
+@cindex spaziatura, visualizzazione della formattazione
+
+Per visualizzare graficamente le dimensioni delle varibili della formattazione
+verticale che possono essere modificate per formattare la pagina, impostare
+@code{annotate-spacing} nel blocco @code{\paper}:
+
+@lilypond[verbatim,quote,papersize=a6landscape]
+\book {
+  \score { { c4 } }
+  \paper { annotate-spacing = ##t }
+}
+@end lilypond
+
+
+@noindent
+Tutte le dimensioni della formattazione sono visualizzate in spazi rigo,
+indipendentemente dalle unità di misura specificate nei blocchi
+@code{\paper} o @code{\layout}.  Nell'esempio qui sopra, l'altezza
+del foglio (@code{paper-height}) ha un valore di 59.75 spazi
+rigo (@code{staff-space}), e la dimensione del rigo (@code{staff-size}) è
+pari a 20 punti (il valore predefinito).  Nota che:
+
+@multitable {1 staff-space} {staff-size)/4 * (25.4/72.27) mm}
+
+@item 1 punto
+@tab = (25.4/72.27) mm
+
+@item 1 staff-space
+@tab = (@code{staff-size})/4 pts
+@item
+@tab = (@code{staff-size})/4 * (25.4/72.27) mm
+
+@end multitable
+
+@noindent
+In questo caso, uno @code{staff-space} è uguale all'incirca a
+1.757mm.  Dunque i 59.75 @code{staff-space} di @code{paper-height}
+corrispondono a 105 millimetri, pari all'altezza del formato @code{a6}
+in orientamento orizzontale.  Le coppie (@var{a},@var{b}) sono
+intervalli, dove @var{a} è l'estremo inferiore e @var{b} l'estremo
+superiore dell'intervallo.
+
+@seealso
+Guida alla notazione:
+@ref{Setting the staff size}.
+
+Frammenti:
+@rlsr{Spacing}.
+
+
+@node Modificare la spaziatura
+@subsection Modificare la spaziatura
+@translationof Changing spacing
+
+L'output di @code{annotate-spacing} svela le dimensioni verticali molto
+dettagliatamente.  Maggiori informazioni su come modificare i margini e
+altre variabili di formattazione si trovano in @ref{Page layout}.
+
+Oltre ai margini, ci sono altre opzioni utili per salvare spazio:
+
+@itemize
+@item
+Forzare i sistemi perché si avvicinino il più possibile (per far
+entrare più sistemi possibile in una pagina) mentre sono spaziati in
+modo da non lasciare spazio bianco in fondo alla pagina.
+
+@example
+\paper @{
+  system-system-spacing = #'((basic-distance . 0.1) (padding . 0))
+  ragged-last-bottom = ##f
+  ragged-bottom = ##f
+@}
+@end example
+
+@item
+Forzare il numero dei sistemi.  Ciò può essere utile in due modi.  Il
+semplice impostare un valore, persino lo stesso valore del numero di
+sistemi disposti senza modificare la variabile, può far sì che più
+sistemi riescano a entrare in ogni pagina, perché viene saltato il
+passaggio di valutazione, dando un valore più adatto per ogni pagina.
+Inoltre, forzare davvero una riduzione nel numero di sistemi può far
+risparmiare un'ulteriore pagina.  Per esempio, se la formattazione
+predefinita ha 11 sistemi, la seguente impostazione forzerà la
+formattazione con 10 sistemi.
+
+@example
+\paper @{
+  system-count = #10
+@}
+@end example
+
+@item
+Forzare il numero delle pagine.  Per esempio, la seguente impostazione
+forzerà la formattazione in due pagine.
+
+@example
+\paper @{
+  page-count = #2
+@}
+@end example
+
+@item
+Evitare (o ridurre) gli oggetti che aumentano la dimensione verticale di
+un sistema.  Per esempio, le parentesi delle volte per i finali alternativi
+richiedono ulteriore spazio.  Se questi finali si estendono per due sistemi,
+occupano più spazio che se fossero sullo stesso sistema.  Altro esempio: le
+dinamiche che @qq{spuntano fuori} da un sistema possono essere avvicinate al
+rigo:
+
+@lilypond[verbatim,quote]
+\relative e' {
+  e4 c g\f c
+  e4 c g-\tweak X-offset #-2.7 \f c
+}
+@end lilypond
+
+@item
+Modificare la spaziatura orizzontale tramite @code{SpacingSpanner}.  Maggiori
+informazioni in @ref{Changing horizontal spacing}.  L'esempio seguente mostra
+la spaziatura predefinita:
+
+@lilypond[verbatim,quote]
+\score {
+  \relative {
+    g'4 e e2 |
+    f4 d d2 |
+    c4 d e f |
+    g4 g g2 |
+    g4 e e2 |
+  }
+}
+@end lilypond
+
+@noindent
+L'esempio successivo modifica @code{common-shortest-duration} da un
+valore di @code{1/4} a uno di @code{1/2}.  La nota di un quarto è la
+durata più comune e più breve in questo esempio, dunque rendendola più
+lunga si verifica un effetto @qq{compressione}:
+
+@lilypond[verbatim,quote]
+\score {
+  \relative {
+    g'4 e e2 |
+    f4 d d2 |
+    c4 d e f |
+    g4 g g2 |
+    g4 e e2 |
+  }
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner.common-shortest-duration =
+        #(ly:make-moment 1/2)
+    }
+  }
+}
+@end lilypond
+
+@noindent
+La proprietà @code{common-shortest-duration} non può essere modificata in
+modo dinamico, quindi deve essere sempre posta in un blocco @code{\context}
+così che sia applicata all'intera partitura.
+
+@end itemize
+
+@seealso
+Guida alla notazione:
+@ref{Page layout},
+@ref{Changing horizontal spacing}.
+
+Frammenti:
+@rlsr{Spacing}.
+
