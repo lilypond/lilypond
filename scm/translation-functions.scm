@@ -706,3 +706,66 @@ only ~a fret labels provided")
 (export every-nth-repeat-count-visible)
 
 (define-public (all-repeat-counts-visible count context) #t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; pitch recognition
+
+(define-public (make-semitone->pitch pitches)
+  "Convert @var{pitches}, an unordered list of note values
+covering (after disregarding octaves) all absolute pitches in need of
+conversion, into a function converting semitone numbers (absolute
+pitch missing enharmonic information) back into note values.
+
+For a key signature without accidentals
+@example
+c cis d es e f fis g gis a bes b
+@end example
+might be a good choice, covering Bb major to A major and their
+parallel keys, and melodic/harmonic C minor to A minor."
+  ;; TODO: short-circuit lcm calculation once we know it will be large
+  (let* ((size (apply lcm (map (lambda (pitch)
+                                 (denominator (/ (ly:pitch-tones pitch) 6)))
+                               pitches)))
+         ;; Normal tunings need 12 steps per octave, quartertone
+         ;; tunings 24, Makam needs 108.  But microtunings might cause
+         ;; trouble.
+         (lookup (if (> size 400)
+                     (make-hash-table)
+                     (make-vector size #f))))
+    (for-each
+     (lambda (pitch)
+       (let* ((rawoct (/ (ly:pitch-tones pitch) 6))
+              (oct (floor rawoct))
+              (ref (- rawoct oct))
+              (val (ly:pitch-transpose pitch
+                                       (ly:make-pitch (- oct) 0))))
+         (if (hash-table? lookup)
+             (hashv-set! lookup ref val)
+             (vector-set! lookup (* size ref) val))))
+     pitches)
+    (lambda (semitone)
+      "Convert @var{semitone} numbers into note values.  If the
+originally specified list of pitches does not contain a note
+corresponding to @var{semitone} (disregarding octaves), @code{#f} is
+returned."
+      (let* ((rawoct (/ semitone 12))
+             (oct (floor rawoct))
+             (ref (- rawoct oct))
+             (val (if (hash-table? lookup)
+                      (hashv-ref lookup ref)
+                      (let ((ref (* (vector-length lookup) ref)))
+                        (and (integer? ref)
+                             (vector-ref lookup ref))))))
+        (and val
+             (ly:pitch-transpose val (ly:make-pitch oct 0)))))))
+
+(define ((shift-semitone->pitch key semitone->pitch) semitone)
+  "Given a function @var{semitone->pitch} converting a semitone number
+into a note value for a lookup table created in relation to@tie{}C,
+returns a corresponding function in relation to @var{key}.  The note
+values returned by this function differ only enharmonically from the
+original @var{semitone->pitch} function."
+  (ly:pitch-transpose (semitone->pitch (- semitone (* 2 (ly:pitch-tones key))))
+                      key))
+
+(export shift-semitone->pitch)
