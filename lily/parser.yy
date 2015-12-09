@@ -3671,7 +3671,7 @@ full_markup:
 	;
 
 partial_markup:
-	markup_mode markup_head_1_list ETC
+	markup_mode markup_partial_function ETC
 	{
 		$$ = MAKE_SYNTAX (partial_markup, @2, $2);
 		parser->lexer_->pop_state ();
@@ -3786,6 +3786,37 @@ markup_command_list_arguments:
 	markup_command_basic_arguments { $$ = $1; }
 	| EXPECT_MARKUP markup_command_list_arguments markup {
 	  $$ = scm_cons ($3, $2);
+	}
+	;
+
+markup_partial_function:
+	MARKUP_FUNCTION markup_arglist_partial
+	{
+		$$ = scm_list_1 (scm_cons ($1, scm_reverse_x ($2, SCM_EOL)));
+	}
+	| markup_head_1_list MARKUP_FUNCTION markup_arglist_partial
+	{
+		$$ = scm_cons (scm_cons ($2, scm_reverse_x ($3, SCM_EOL)),
+			       $1);
+	}
+	;
+
+markup_arglist_partial:
+	EXPECT_MARKUP markup_arglist_partial
+	{
+		$$ = $2;
+	}
+	| EXPECT_SCM markup_arglist_partial
+	{
+		$$= $2;
+	}
+	| EXPECT_MARKUP markup_command_list_arguments
+	{
+		$$ = $2;
+	}
+	| EXPECT_SCM markup_command_list_arguments
+	{
+		$$ = $2;
 	}
 	;
 

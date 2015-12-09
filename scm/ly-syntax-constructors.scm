@@ -203,14 +203,17 @@ into a @code{MultiMeasureTextEvent}."
 (define-public (partial-markup commands)
   ;; Like composed-markup-list, except that the result is a single
   ;; markup command that can be applied to one markup
-  (define (compose arg)
+  (define (compose rest)
     (fold
      (lambda (cmd prev) (append cmd (list prev)))
-     arg
-     commands))
-  (let ((chain (lambda (layout props arg)
-                 (interpret-markup layout props (compose arg)))))
-    (set-object-property! chain 'markup-signature (list markup?))
+     (append (car commands) rest)
+     (cdr commands)))
+  (let ((chain (lambda (layout props . rest)
+                 (interpret-markup layout props (compose rest)))))
+    (set! (markup-command-signature chain)
+          (list-tail
+           (markup-command-signature (caar commands))
+           (length (cdar commands))))
     chain))
 
 (define-public (property-set context property value)
