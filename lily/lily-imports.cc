@@ -55,6 +55,7 @@ namespace Lily {
   Variable chordmodifiers ("chordmodifiers");
   Variable construct_chord_elements ("construct-chord-elements");
   Variable default_time_signature_settings ("default-time-signature-settings");
+  Variable define_markup_command ("define-markup-command");
   Variable drum_pitch_names ("drumPitchNames");
   Variable grob_compose_function ("grob::compose-function");
   Variable grob_offset_function ("grob::offset-function");
@@ -81,6 +82,7 @@ namespace Lily {
   Variable make_span_event ("make-span-event");
   Variable markup_p ("markup?");
   Variable markup_command_signature ("markup-command-signature");
+  Variable markup_function_p ("markup-function?");
   Variable markup_list_function_p ("markup-list-function?");
   Variable markup_list_p ("markup-list?");
   Variable midi_program ("midi-program");

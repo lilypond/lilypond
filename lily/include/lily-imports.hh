@@ -61,6 +61,7 @@ namespace Lily {
   extern Variable chordmodifiers;
   extern Variable construct_chord_elements;
   extern Variable default_time_signature_settings;
+  extern Variable define_markup_command;
   extern Variable drum_pitch_names;
   extern Variable grob_compose_function;
   extern Variable grob_offset_function;
@@ -87,6 +88,7 @@ namespace Lily {
   extern Variable make_span_event;
   extern Variable markup_p;
   extern Variable markup_command_signature;
+  extern Variable markup_function_p;
   extern Variable markup_list_function_p;
   extern Variable markup_list_p;
   extern Variable midi_program;
