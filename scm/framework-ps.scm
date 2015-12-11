@@ -272,7 +272,7 @@
             (if (mac-font? bare-file-name)
                 (handle-mac-font name bare-file-name)
                 (cond
-                 ((internal-font? file-name)
+                 ((and font (cff-font? font))
                   (ps-load-file (ly:find-file
                                  (format #f "~a.otf" file-name))))
                  ((string? bare-file-name)
