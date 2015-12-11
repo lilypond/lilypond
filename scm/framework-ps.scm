@@ -246,10 +246,15 @@
                    footer)))
 
 (define (write-preamble paper load-fonts? port)
-  (define (internal-font? file-name)
-    (or (string-startswith file-name "Emmentaler")
-        (string-startswith file-name "emmentaler")
-        ))
+  (define (internal-font? font-name-filename)
+    (let* ((font (car font-name-filename))
+           (file-name (caddr font-name-filename))
+           (font-file-name (ly:find-file (format #f "~a.otf" file-name))))
+      (and font
+           (cff-font? font)
+           font-file-name
+           (string-contains font-file-name
+                            (ly:get-option 'datadir)))))
 
   (define (load-font-via-GS font-name-filename)
     (define (ps-load-file file-name)
@@ -402,7 +407,7 @@
                     ((ly:get-option 'gs-load-lily-fonts)
                      (if (or (string-contains (caddr name)
                                               (ly:get-option 'datadir))
-                             (internal-font? (caddr name)))
+                             (internal-font? name))
                          (load-font-via-GS name)
                          (load-font name)))
                     (else
