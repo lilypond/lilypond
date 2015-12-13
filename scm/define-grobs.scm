@@ -232,7 +232,7 @@
         (space-alist . (
                         (time-signature . (extra-space . 0.75))
                         (custos . (minimum-space . 2.0))
-                        (clef . (minimum-space . 1.0))
+                        (clef . (extra-space . 1.0))
                         (key-signature . (extra-space . 1.0))
                         (key-cancellation . (extra-space . 1.0))
                         (first-note . (fixed-space . 1.3))
