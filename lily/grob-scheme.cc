@@ -480,3 +480,18 @@ LY_DEFINE (ly_grob_get_vertical_axis_group_index, "ly:grob-get-vertical-axis-gro
 
   return scm_from_int (Grob::get_vertical_axis_group_index (gr));
 }
+
+LY_DEFINE (ly_grob_spanned_rank_interval, "ly:grob-spanned-rank-interval",
+           1, 0, 0, (SCM grob),
+           "Returns a pair with the @code{rank} of the furthest left"
+           " column and the @code{rank} of the furthest right column"
+           " spanned by @code{grob}.")
+{
+  Grob *gr = unsmob<Grob> (grob);
+
+  LY_ASSERT_SMOB (Grob, grob, 1);
+
+  Interval_t<int> iv = gr->spanned_rank_interval ();
+
+  return scm_cons (scm_from_int(iv[LEFT]), scm_from_int(iv[RIGHT]));
+}
