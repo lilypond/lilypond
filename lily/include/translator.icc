@@ -72,12 +72,15 @@
     return Translator::static_translator_description (grobs, desc, listener_list_, read, write); \
   }
 
-#define ADD_TRANSLATOR(classname, desc, grobs, read, write)             \
+#define ADD_TRANSLATOR_FAMILY(classname)                                \
   IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS (classname);                    \
+  DEFINE_ACKNOWLEDGERS(classname)                                       \
+
+#define ADD_TRANSLATOR(classname, desc, grobs, read, write)             \
+  ADD_TRANSLATOR_FAMILY (classname)                                     \
   ADD_THIS_TRANSLATOR (classname);                                      \
   DEFINE_TRANSLATOR_DOC(classname, desc, grobs, read, write)            \
-  DEFINE_ACKNOWLEDGERS(classname) \
-  DEFINE_TRANSLATOR_LISTENER_LIST(classname) \
+  DEFINE_TRANSLATOR_LISTENER_LIST(classname)                            \
 
 #define IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS(T)                        \
   void                                                                  \

@@ -66,69 +66,104 @@ following stencil.  Stencils with empty Y extent are not given
 @var{space} before them and don't avoid overlapping other stencils."
   (stack-stencils X RIGHT space (filter ly:stencil? stencils)))
 
-;;; convert a full markup object to an approximate pure string representation
+;;;; convert a full markup object to an approximate pure string representation
+
+;; We ignore `page-ref-markup', because we don't want to get the
+;; `gauge'- and `default'-string
+;;
+;; TODO:
+;; - we would be interested in the computed result of `replace-markup' and
+;;   `first-visible-markup', don't know how to get this, though
+;;   For now all (not computed) arguments are caught.
+;; - Other markup-commands to ignore?
+(define markup-commands-to-ignore
+  '(page-ref-markup))
 
 (define-public (markup->string m . argscopes)
   (let* ((scopes (if (pair? argscopes) (car argscopes) '())))
-    ;; markup commands with one markup argument, formatting ignored
-    (define markups-first-argument '(list
-                                     bold-markup box-markup caps-markup dynamic-markup finger-markup
-                                     fontCaps-markup huge-markup italic-markup large-markup larger-markup
-                                     medium-markup normal-size-sub-markup normal-size-super-markup
-                                     normal-text-markup normalsize-markup number-markup roman-markup
-                                     sans-markup simple-markup small-markup smallCaps-markup smaller-markup
-                                     sub-markup super-markup teeny-markup text-markup tiny-markup
-                                     typewriter-markup underline-markup upright-markup bracket-markup
-                                     circle-markup hbracket-markup parenthesize-markup rounded-box-markup
 
-                                     center-align-markup center-column-markup column-markup dir-column-markup
-                                     fill-line-markup justify-markup justify-string-markup left-align-markup
-                                     left-column-markup line-markup right-align-markup right-column-markup
-                                     vcenter-markup wordwrap-markup wordwrap-string-markup ))
-
-    ;; markup commands with markup as second argument, first argument
-    ;; specifies some formatting and is ignored
-    (define markups-second-argument '(list
-                                      abs-fontsize-markup fontsize-markup magnify-markup lower-markup
-                                      pad-around-markup pad-markup-markup pad-x-markup raise-markup
-                                      halign-markup hcenter-in-markup rotate-markup translate-markup
-                                      translate-scaled-markup with-url-markup scale-markup ))
+    (define all-relevant-markup-commands
+      ;; Returns a list containing the names of all markup-commands and
+      ;; markup-list-commands with predicate @code{cheap-markup?} or
+      ;; @code{markup-list?} in their @code{markup-command-signature}.
+      ;; @code{table-of-contents} is not caught, same for user-defined commands.
+      ;; markup-commands from @code{markup-commands-to-ignore} are removed.
+      (lset-difference eq?
+        (map car
+          (filter
+            (lambda (x)
+              (let* ((predicates (markup-command-signature (cdr x))))
+                (and predicates
+                     (not
+                       (null?
+                         (lset-intersection eq?
+                           '(cheap-markup? markup-list?)
+                           (map procedure-name predicates)))))))
+            (ly:module->alist (resolve-module '(lily)))))
+        markup-commands-to-ignore))
 
     ;; helper functions to handle string cons like string lists
     (define (markup-cons->string-cons c scopes)
       (if (not (pair? c)) (markup->string c scopes)
-          (cons (markup->string (car c) scopes) (markup-cons->string-cons (cdr c) scopes))))
+          (cons
+            (markup->string (car c) scopes)
+            (markup-cons->string-cons (cdr c) scopes))))
     (define (string-cons-join c)
       (if (not (pair? c)) c
           (string-join (list (car c) (string-cons-join (cdr c))) "")))
 
+    ;; We let the following line in for future debugging
+    (display-scheme-music (sort all-relevant-markup-commands symbol<?))
+
+
+    ;;;; Remark: below only works, if markup?- or markup-list? arguments are the
+    ;;;;         last listed arguments in the commands definition
+    ;;;; TODO: which other markup-(list)-commands should be special cased or
+    ;;;;       completely excluded?
     (cond
      ((string? m) m)
      ((null? m) "")
      ((not (pair? m)) "")
 
+     ;;;; special cases: \concat, \put-adjacent, \fill-with-pattern and
+     ;;;;                \fromproperty-markup
+     ;;;;
+     ;;;; TODO do we really want a string-joined return-value for \concat and
+     ;;;; \put-adjacent?
+     ;;;; \overlay or \combine will return a string with spaces
+
      ;; handle \concat (string-join without spaces)
      ((and (pair? m) (equal? (car m) concat-markup))
-      (string-cons-join (markup-cons->string-cons (cadr m) scopes)) )
+      (string-cons-join (markup-cons->string-cons (cadr m) scopes)))
 
-     ;; markup functions with the markup as first arg
-     ((member (car m) (primitive-eval markups-first-argument))
-      (markup->string (cadr m) scopes))
+     ;; handle \put-adjacent (string-join without spaces)
+     ((and (pair? m) (equal? (car m) put-adjacent-markup))
+      (string-cons-join (markup-cons->string-cons (take-right m 2) scopes)))
 
-     ;; markup functions with markup as second arg
-     ((member (car m) (primitive-eval markups-second-argument))
-      (markup->string (cddr m) scopes))
+     ;; handle \fill-with-pattern (ignore the filling markup)
+     ((and (pair? m) (equal? (car m) fill-with-pattern-markup))
+      (markup->string (take-right m 2) scopes))
 
      ;; fromproperty-markup reads property values from the header block:
      ((equal? (car m) fromproperty-markup)
       (let* ((varname (symbol->string (cadr m)))
              ;; cut off the header: prefix from the variable name:
-             (newvarname (if (string-prefix? "header:" varname) (substring varname 7) varname))
+             (newvarname (if (string-prefix? "header:" varname)
+                             (substring varname 7)
+                             varname))
              (var (string->symbol newvarname))
              (mod (make-module 1)))
         ;; Prevent loops by temporarily clearing the variable we have just looked up
         (module-define! mod var "")
         (markup->string (ly:modules-lookup scopes var) (cons mod scopes))))
+
+     ((member (car m)
+              (primitive-eval (cons 'list all-relevant-markup-commands)))
+      (markup->string
+        (if (> (length (last-pair m)) 1)
+            (last-pair m)
+            (car (last-pair m)))
+        scopes))
 
      ;; ignore all other markup functions
      ((markup-function? (car m)) "")

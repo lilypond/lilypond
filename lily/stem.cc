@@ -552,6 +552,7 @@ Stem::calc_positioning_done (SCM smob)
     }
   bool parity = true;
   Real lastpos = Real (Staff_symbol_referencer::get_position (heads[0]));
+  int threshold = robust_scm2int (me->get_property ("note-collision-threshold"), 1);
   for (vsize i = 1; i < heads.size (); i++)
     {
       Real p = Staff_symbol_referencer::get_position (heads[i]);
@@ -561,7 +562,7 @@ Stem::calc_positioning_done (SCM smob)
         dy should always be 0.5, 0.0, 1.0, but provide safety margin
         for rounding errors.
       */
-      if (dy < 1.1)
+      if (dy < 0.1 + threshold)
         {
           if (parity)
             {
@@ -1184,6 +1185,7 @@ ADD_INTERFACE (Stem,
                "neutral-direction "
                "no-stem-extend "
                "note-heads "
+               "note-collision-threshold "
                "positioning-done "
                "rests "
                "stem-begin-position "

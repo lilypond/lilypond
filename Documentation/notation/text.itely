@@ -235,9 +235,12 @@ in @ref{Rehearsal marks}:
 
 @lilypond[verbatim,quote]
 \relative {
-  c''4
-  \mark "Allegro"
-  c c c
+  \mark "Verse"
+  c'2 g'
+  \bar "||"
+  \mark "Chorus"
+  g2 c,
+  \bar "|."
 }
 @end lilypond
 

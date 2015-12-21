@@ -818,8 +818,9 @@ Rotate object with @var{ang} degrees around its center.
 
 Provide a white background for @var{arg}.  The shape of the white
 background is determined by @code{style}.  The default
-is @code{box} which produces a white rectangle.  @code{outline}
-approximates the outline of the markup.
+is @code{box} which produces a rectangle.  @code{rounded-box}
+produces a rounded rectangle.  @code{outline} approximates the
+outline of the markup.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -827,6 +828,13 @@ approximates the outline of the markup.
     \\filled-box #'(-1 . 15) #'(-3 . 4) #1
     \\override #'(thickness . 1.5)
     \\whiteout whiteout-box
+}
+\\markup {
+  \\combine
+    \\filled-box #'(-1 . 24) #'(-3 . 4) #1
+    \\override #'(style . rounded-box)
+    \\override #'(thickness . 3)
+    \\whiteout whiteout-rounded-box
 }
 \\markup {
   \\combine

@@ -178,7 +178,7 @@ def extract_score_information (tree):
     if work:
         work_title = work.get_work_title ()
         set_if_exists ('title', work_title)
-        if work_title == '':
+        if work_title == '' and movement_title :
             set_if_exists ('title', movement_title.get_text ())
         elif movement_title:
             set_if_exists ('subtitle', movement_title.get_text ())

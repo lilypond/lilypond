@@ -232,7 +232,7 @@
         (space-alist . (
                         (time-signature . (extra-space . 0.75))
                         (custos . (minimum-space . 2.0))
-                        (clef . (minimum-space . 1.0))
+                        (clef . (extra-space . 1.0))
                         (key-signature . (extra-space . 1.0))
                         (key-cancellation . (extra-space . 1.0))
                         (first-note . (fixed-space . 1.3))
@@ -1605,6 +1605,7 @@
     (NoteCollision
      . (
         (axes . (,X ,Y))
+        (note-collision-threshold . 1)
         (positioning-done . ,ly:note-collision-interface::calc-positioning-done)
         (prefer-dotted-right . #t)
         (X-extent . ,ly:axis-group-interface::width)
@@ -2137,6 +2138,7 @@
         (duration-log . ,stem::calc-duration-log)
         (length . ,(ly:make-unpure-pure-container ly:stem::calc-length ly:stem::pure-calc-length))
         (neutral-direction . ,DOWN)
+        (note-collision-threshold . 1)
         (positioning-done . ,ly:stem::calc-positioning-done)
         (stem-info . ,ly:stem::calc-stem-info)
         (stem-begin-position . ,(ly:make-unpure-pure-container ly:stem::calc-stem-begin-position ly:stem::pure-calc-stem-begin-position))

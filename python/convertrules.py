@@ -3824,7 +3824,16 @@ def conv(str):
                       r'(?=\s|[()]))(' + paren_matcher (20) + ")"
                       r"(?:\s+parser(?=\s|[()])|\s*\(\*parser\*\))", repl, str)
         return str
-    return inner (str)
+    str = inner (str)
+    # This is the simplest case, resulting from one music function
+    # trying to call another one via Scheme.  The caller is supposed
+    # to have its uses of parser/location converted to
+    # (*parser*)/(*location*) already.  Other uses of
+    # ly:music-function-extract are harder to convert but unlikely.
+    str = re.sub (r'(\(\s*\(ly:music-function-extract\s+' + wordsyntax +
+                  r'\s*\)\s+)\(\*parser\*\)\s*\(\*location\*\)', r'\1',
+                  str)
+    return str
 
 @rule ((2, 19, 24), r"""music-has-type -> music-is-of-type?
 \applyOutput #'Context -> \applyOutput Context""")

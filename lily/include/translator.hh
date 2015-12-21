@@ -28,15 +28,11 @@
 #include "std-vector.hh"
 #include "protected-scm.hh"
 
-#define TRANSLATOR_DECLARATIONS_NO_LISTENER(NAME)                       \
+#define TRANSLATOR_FAMILY_DECLARATIONS(NAME)                            \
   public:                                                               \
-  NAME ();                                                              \
   VIRTUAL_COPY_CONSTRUCTOR (Translator, NAME);                          \
-  static SCM static_description_;                                       \
   static Drul_array<vector<Acknowledge_information> > acknowledge_static_array_drul_; \
-  virtual void fetch_precomputable_methods (Callback methods[]); \
-  virtual SCM static_translator_description () const;                   \
-  virtual SCM translator_description () const;                          \
+  virtual void fetch_precomputable_methods (Callback methods[]);        \
   static Grob_info_callback static_get_acknowledger (SCM sym);          \
   static Grob_info_callback static_get_end_acknowledger(SCM);           \
   virtual Grob_info_callback get_acknowledger (SCM sym)                 \
@@ -46,7 +42,7 @@
   virtual Grob_info_callback get_end_acknowledger (SCM sym)             \
   {                                                                     \
     return static_get_end_acknowledger (sym);                           \
-  } \
+  }                                                                     \
   /* end #define */
 
 /*
@@ -57,10 +53,13 @@
 */
 
 #define TRANSLATOR_DECLARATIONS(NAME)                                   \
-  TRANSLATOR_DECLARATIONS_NO_LISTENER(NAME)                             \
-private:                                                                \
+  TRANSLATOR_FAMILY_DECLARATIONS(NAME)                                  \
+  static SCM static_description_;                                       \
   static Protected_scm listener_list_;                                  \
 public:                                                                 \
+  NAME ();                                                              \
+  virtual SCM static_translator_description () const;                   \
+  virtual SCM translator_description () const;                          \
   virtual SCM get_listener_list () const                                \
   {                                                                     \
     return listener_list_;                                              \

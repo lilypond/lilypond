@@ -107,6 +107,12 @@ ending point, and maybe other properties concerned with their
 shape.  Objects with an extended shape like these are called
 @q{Spanners}.
 
+Spanners cannot be tweaked after their creation.  This includes both
+@code{StaffSymbol} and @code{LedgerLineSpanner} which continue
+throughout the score (except if they are terminated by the
+@code{\stopStaff} command and then recreated using @code{\startStaff}
+command.
+
 What is more, there are @q{abstract} grobs which do not print
 anything of their own, but rather collect, position and manage
 other grobs.  Common examples for this are
@@ -174,6 +180,10 @@ verbatim.
 As we shall see shortly, the properties of different types of object are
 modified by different commands, so it is useful to be able to recognize
 the types of objects and properties from their names.
+
+@seealso
+Notation Reference:
+@ruser{Modifying properties}.
 
 
 @node Tweaking methods

@@ -72,9 +72,8 @@ list.
 @item @uref{http://lists.gnu.org/mailman/listinfo/bug-lilypond,bug-lilypond@@gnu.org}
 for sending bugreports.
 
-@item @uref{http://lists.gnu.org/mailman/listinfo/lilypond-cvs,lilypond-cvs@@gnu.org}
- for log files from the
-autobuild.
+@item @uref{http://lists.gnu.org/mailman/listinfo/lilypond-auto,lilypond-auto@@gnu.org}
+ for notifications from the issue tracking systems of LilyPond.
 @end itemize
 
 You can search the lists from our @uref{http://lilypond.org/search,

@@ -36,7 +36,7 @@ software.  We recommend using VirtualBox as it is available for all
 major operating systems and is very easy to install & configure.
 
 The LilyDev disk image can also be written to a USB device or @q{burnt}
-to a DVD -- it is approximately 900 GB in size -- and installed just
+to a DVD -- it is approximately 900 MB in size -- and installed just
 like any standard GNU/Linux distribution.
 
 The current image is based on a 32bit version of Debian 8 (@q{Jessie})
@@ -44,7 +44,7 @@ and the Disk image was generated using Debian
 @uref{http://live.debian.net/, live-build 4}.
 
 @noindent
-Download the LilyDev disk image file from here:
+Download the LilyDev disk image file (a @code{.iso} file) from here:
 
 @example
 @uref{https://github.com/fedelibre/LilyDev/releases/latest}
@@ -58,7 +58,7 @@ prefer to use their own development environment) may still find it
 instructive to skim over the following information.}
 
 If you are not familiar with GNU/Linux, it may be beneficial to read a
-a few @qq{introduction to Linux} type web pages.
+few @qq{introduction to Linux} type web pages.
 
 @menu
 * Installing LilyDev in VirtualBox::
@@ -77,15 +77,15 @@ you can skip this section and go straight to @ref{lily-git}.}
 
 @enumerate
 @item
-Download Virtualbox from here:
+Download VirtualBox from here:
 
 @example
 @uref{http://www.virtualbox.org/wiki/Downloads}
 @end example
 
 @warning{In virtualization terminology, the operating system where
-Virtualbox is installed is known as the @strong{host}.  LilyDev
-will be installed @q{inside} Virtualbox as a @strong{guest}.}
+VirtualBox is installed is known as the @strong{host}.  LilyDev
+will be installed @q{inside} VirtualBox as a @strong{guest}.}
 
 @item
 Start the VirtualBox software and click @q{New} to create a new
@@ -114,7 +114,7 @@ and its location accordingly.
 
 @item
 Verify the summary details and click @q{Create}, when you are satisfied.
-Your new guest will be displayed in the Virtualbox window.
+Your new guest will be displayed in the VirtualBox window.
 
 @warning{The image contains a @q{686-pae} kernel, so you must enable
 @code{PAE} within the virtual machine's settings -- click on
@@ -124,8 +124,8 @@ Your new guest will be displayed in the Virtualbox window.
 @item
 Click the @q{Start} button and the @q{First Run Wizard} will prompt you
 for the installation media.  Click the browse icon, locate the LilyDev
-disk image and click through the wizard to begin the installation
-process.
+disk image file that you downloaded (the @code{.iso} file) and click
+through the wizard to begin the installation process.
 
 @item
 When the LilyDev disk image boots for the first time, choose either the
@@ -158,7 +158,7 @@ LilyDev should now be installed and running!
 @unnumberedsubsec Configuring LilyDev in VirtualBox
 
 VirtualBox has extra @q{guest additions} which although are not
-necessary to use LilyDev or compile Lilypond, do provide some additional
+necessary to use LilyDev or compile LilyPond, do provide some additional
 features to your Virtual Machine to make it easier to work with.  Such
 as being able to dynamically resize the LilyDev window, allow seamless
 interaction with your mouse pointer on both the host and guest and let
@@ -593,7 +593,7 @@ Allura bearer token (see https://sourceforge.net/auth/oauth/) [fdbfca60801533465
 example. Do not use this value.}
 
 @item
-Finally, when prompted for the @code{CC list} entry, add the Lilypond
+Finally, when prompted for the @code{CC list} entry, add the LilyPond
 Developer's group email.
 
 @example
@@ -609,7 +609,7 @@ The @code{git-cl} script should now be correctly configured for use.
 @section Compiling with LilyDev
 
 LilyDev is our @q{remix} of Debian which contains all the
-necessary dependencies to do lilypond development; for more
+necessary dependencies to do LilyPond development; for more
 information, see @ref{LilyDev}.
 
 @subsubheading Preparing the build
@@ -629,16 +629,19 @@ cd build/
 
 @subsubheading Building @code{lilypond}
 
-Compiling lilypond will likely take between 5 and 60 minutes,
-depending on your computer's speed and available RAM.  We
-recommend that you minimize the terminal window while it is
-building; this can have a non-negligible effect on compilation
-speed.
+Compiling LilyPond will take anywhere between 1 and 15 minutes on most
+@q{modern} computers -- depending on CPU and available RAM.  We also
+recommend that you minimize the terminal window while it is building;
+this can help speed up on compilation times.
 
 @example
 cd $LILYPOND_GIT/build/
 make
 @end example
+
+@noindent
+It is possible to run @code{make} with the @code{-j} option to help
+speed up compilation times even more.  See @ref{Compiling LilyPond}
 
 You may run the compiled @code{lilypond} with:
 
@@ -668,7 +671,7 @@ firefox $LILYPOND_GIT/build/out-www/offline-root/index.html
 
 @subsubheading Installing
 
-Don't.  There is no reason to install lilypond within LilyDev.
+Don't.  There is no reason to install LilyPond within LilyDev.
 All development work can (and should) stay within the
 @file{$LILYPOND_GIT} directory, and any personal composition
 or typesetting work should be done with an official GUB release.
