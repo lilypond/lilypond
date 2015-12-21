@@ -1,7 +1,7 @@
 \header {
 
-  texidoc = "Beam subdivisions should match the durations of the subdivided
-groups, as established by baseMoment."
+  texidoc = "Beam count at subdivisions should match the location 
+of the current subdivision."
   }
 
 \version "2.19.19"
