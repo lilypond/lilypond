@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8cce5dd067a8a2bab508f5abebc3955db8837bbf
+   Translation of GIT committish: 3c0f38115857598db730782b1d2ff0a19fd833af
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -250,9 +250,12 @@ La commande @code{\mark} est tout d'abord conçue pour les
 
 @lilypond[verbatim,quote]
 \relative {
-  c''4
-  \mark "Allegro"
-  c c c
+  \mark "Verse"
+  c'2 g'
+  \bar "||"
+  \mark "Chorus"
+  g2 c,
+  \bar "|."
 }
 @end lilypond
 

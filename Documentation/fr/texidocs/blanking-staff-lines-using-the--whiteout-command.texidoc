@@ -1,4 +1,4 @@
-%% Translation of GIT committish: d64a2407615c09ddd8f5c34e13a3ecfdf4284f1b
+%% Translation of GIT committish: 3c0f38115857598db730782b1d2ff0a19fd833af
   texidocfr = "
 L'instruction @code{\\whiteout} intercale un rectangle blanc
 contenant un @emph{markup}.  Dans la mesure où les lignes de la portée

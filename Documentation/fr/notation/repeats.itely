@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 3ff93fbd01133506d14c929740bd26b34f59c5b4
+   Translation of GIT committish: 3c0f38115857598db730782b1d2ff0a19fd833af
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -186,42 +186,36 @@ reprise ne constituent pas des barres de mesure à proprement parler ; il
 n'est donc pas nécessaire de faire appel à la commande @code{\partial}
 ou à des contrôles d'intégrité de mesure.
 
-@lilypond[verbatim,quote]
-\relative { % no \partial here
-  c'4 e g  % no bar check here
-  % no \partial here
-  \repeat volta 4 {
-    e4 |
-    c2 e |
-    % no \partial here
-    g4 g g  % no bar check here
-  }
-  % no \partial here
-  g4 |
-  a2 a |
-  g1 |
+@lilypond[verbatim,quote,relative=1]
+c'4 e g
+\repeat volta 4 {
+  e4 |
+  c2 e |
+  g4 g g
 }
+g4 |
+a2 a |
+g1 |
 @end lilypond
+
+@cindex reprise et contrôle de mesure
+@cindex contrôle de mesure et reprise
 
 Il est possible de créer des reprises en début de morceau avec une
 levée.  Le cas est similaire à ce que nous venons de voir.  Toutefois,
 l'utilisation d'un @code{\partial} est ici nécessaire pour respecter
 cette entame.
 
-@lilypond[verbatim,quote]
-\relative {
-  \partial 4  % required
-  \repeat volta 4 {
-    e'4 |
-    c2 e |
-    % no \partial here
-    g4 g g  % no bar check here
-  }
-  % no \partial here
-  g4 |
-  a2 a |
-  g1 |
+@lilypond[verbatim,quote,relative=1]
+\partial 4
+\repeat volta 4 {
+  e'4 |
+  c2 e |
+  g4 g g
 }
+g4 |
+a2 a |
+g1 |
 @end lilypond
 
 @cindex reprise et liaison de prolongation

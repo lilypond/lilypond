@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 16d46fb0995cc6d078617ada1e8fea7879dffe07
+   Translation of GIT committish: 3c0f38115857598db730782b1d2ff0a19fd833af
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -723,7 +723,7 @@ supprimés manuellement :
   \header {
     title = "DAS WOHLTEMPERIRTE CLAVIER"
     subtitle = "TEIL I"
-    % Pas de mention spéciale pour cet ouvrage
+    % Pas de mention spéciale par défaut pour cet ouvrage
     tagline = ##f
   }
   \markup { \vspace #1 }
@@ -787,8 +787,8 @@ Voici les différentes variables imprimables attachées au bloc
     meter = "Tempo"
     arranger = "Arrangeur"
       % Les champs suivants sont centrés en bas de page
-    tagline = "« tagline » ou mention spéciale en pied de dernière page"
-    copyright = "copyright en pied de première page"
+    tagline = "Le « tagline » ou mention spéciale va en pied de dernière page"
+    copyright = "Le copyright va en pied de première page"
   }
   \score {
     { s1 }
@@ -926,13 +926,13 @@ page, ou bien sous le @code{copyright} s'il n'y a qu'une seule page.
 
 @end itemize
 
-La mention spéciale se modifie en alimentant le champ @code{tagline} au
-niveau du bloc @code{\header} principal.
+Le texte de la mention spéciale par défaut se modifie en alimentant le
+champ @code{tagline} au niveau du bloc @code{\header} principal.
 
 @lilypond[papersize=a8landscape,verbatim]
 \book {
   \header {
-    tagline = "... music notation for Everyone"
+    tagline = "... la notation musicale pour Tous"
   }
   \score {
     \relative {
@@ -942,8 +942,8 @@ niveau du bloc @code{\header} principal.
 }
 @end lilypond
 
-Pour supprimer le @code{tagline}, il suffit de lui assigner la valeur
-@code{##f}.
+Pour supprimer le @code{tagline} par défaut, il suffit de lui assigner
+la valeur @code{##f}.
 
 
 @node Titrages personnalisés
@@ -1878,82 +1878,63 @@ d'une expression musicale.
 @end verbatim
 
 Les @emph{markups} dévolus à la mise en forme de la table des matières
-se définissent dans le bloc @code{\paper}.  Il s'agit par défaut de
-@code{tocTitleMarkup} pour le titre de la table, et de
-@code{tocItemMarkup} pour ses éléments -- composés de leur libellé et
-numéro de page.  Vous pouvez bien entendu personnaliser ces variables :
+se définissent dans le bloc @code{\paper}. LilyPond dispose de deux
+@emph{markups} prédéfinis :
+
+@itemize
+
+@item
+@code{tocTitleMarkup}
+
+@noindent
+Utilisé pour mettre en forme le titre de la table des matières.
+
+@verbatim
+tocTitleMarkup = \markup \huge \column {
+  \fill-line { \null "Table of Contents" \null }
+  \null
+}
+@end verbatim
+
+@item
+@code{tocItemMarkup}
+
+@noindent
+Utilisé pour mettre en forme les éléments au sein de la table des
+matières.
+
+@verbatim
+tocItemMarkup = \markup \fill-line {
+  \fromproperty #'toc:text \fromproperty #'toc:page
+}
+@end verbatim
+
+@end itemize
+
+@noindent
+Ces variables sont adaptables.
+
+Voici comment, par exemple, franciser le titre :
 
 @verbatim
 \paper {
-  %% Traduit le titre de la table des matières en français :
   tocTitleMarkup = \markup \huge \column {
     \fill-line { \null "Table des matières" \null }
     \hspace #1
   }
-  %% des fontes un peu plus grandes
-  tocItemMarkup = \markup \large \fill-line {
-    \fromproperty #'toc:text \fromproperty #'toc:page
-  }
+@end verbatim
+
+L'exemple suivant illustre la manière de modifier la taille des éléments
+de la table des matières :
+
+@verbatim
+tocItemMarkup = \markup \large \fill-line {
+  \fromproperty #'toc:text \fromproperty #'toc:page
 }
 @end verbatim
 
 Notez bien la manière de référencer le libellé et le numéro de page dans
 la définition de @code{tocItemMarkup}.
-
-N'hésitez pas à définir vous-même d'autres commandes et @emph{markups}
-afin de construire une table plus élaborée :
-@itemize
-@item
-commencez par définir une nouvelle variable de type @code{markup} au
-sein du bloc @code{\paper},
-
-@item
-puis définissez une fonction musicale chargée d'insérer un élément de la
-table à partir de cette variable.
-@end itemize
-
-Dans l'exemple qui suit, nous avons créé un nouveau style d'élément dans
-le but de mentionner les actes dans la table des matières d'un opéra :
-
-@verbatim
-\paper {
-  tocActMarkup = \markup \large \column {
-    \hspace #1
-    \fill-line { \null \italic \fromproperty #'toc:text \null }
-    \hspace #1
-  }
-}
-
-tocAct =
-#(define-music-function (text) (markup?)
-   (add-toc-item! 'tocActMarkup text))
-@end verbatim
-
-@lilypond[line-width=10.0\cm]
-\header { tagline = ##f }
-\paper {
-  tocActMarkup = \markup \large \column {
-    \hspace #1
-    \fill-line { \null \italic \fromproperty #'toc:text \null }
-    \hspace #1
-  }
-}
-
-tocAct =
-#(define-music-function (text) (markup?)
-   (add-toc-item! 'tocActMarkup text))
-
-\book {
-  \markuplist \table-of-contents
-  \tocAct \markup { Atto Primo }
-  \tocItem \markup { Coro. Viva il nostro Alcide }
-  \tocItem \markup { Cesare. Presti omai l'Egizzia terra }
-  \tocAct \markup { Atto Secondo }
-  \tocItem \markup { Sinfonia }
-  \tocItem \markup { Cleopatra. V'adoro, pupille, saette d'Amore }
-  \markup \null
-}
-@end lilypond
 
 L'élément et son numéro de page peuvent se rejoindre par une ligne
 pointillée :
@@ -1971,6 +1952,76 @@ pointillée :
   \markup \null
 }
 @end lilypond
+
+N'hésitez pas à définir vous-même d'autres commandes et @emph{markups}
+afin de construire une table plus élaborée.  Dans l'exemple qui suit,
+nous créons un nouveau style d'élément dans le but de mentionner les
+actes dans la table des matières d'un opéra :
+
+@noindent
+Commençons par définir une nouvelle variable de type @code{markup} --
+appelée @code{tocActMarkup} -- au sein du bloc @code{\paper}.
+
+@verbatim
+\paper {
+  tocActMarkup = \markup \large \column {
+    \hspace #1
+    \fill-line { \null \italic \fromproperty #'toc:text \null }
+    \hspace #1
+  }
+}
+@end verbatim
+
+@noindent
+Créons ensuite une fonction musicale (@code{tocAct}) utilisant la
+nouvelle définition de @emph{markup} @code{tocActMarkup}.
+
+@verbatim
+tocAct =
+  #(define-music-function (text) (markup?)
+     (add-toc-item! 'tocActMarkup text))
+@end verbatim
+
+@noindent
+Dans un fichier LilyPond, l'utilisation de cette définition
+personnalisée pourrait ressembler à ceci :
+
+@lilypond[line-width=10.0\cm]
+\header { tagline = ##f }
+\paper {
+  tocActMarkup = \markup \large \column {
+    \hspace #1
+    \fill-line { \null \italic \fromproperty #'toc:text \null }
+    \hspace #1
+  }
+}
+
+tocAct =
+  #(define-music-function (text) (markup?)
+     (add-toc-item! 'tocActMarkup text))
+
+\book {
+  \markuplist \table-of-contents
+  \tocAct \markup { Atto Primo }
+  \tocItem \markup { Coro. Viva il nostro Alcide }
+  \tocItem \markup { Cesare. Presti omai l'Egizzia terra }
+  \tocAct \markup { Atto Secondo }
+  \tocItem \markup { Sinfonia }
+  \tocItem \markup { Cleopatra. V'adoro, pupille, saette d'Amore }
+  \markup \null
+}
+@end lilypond
+
+Voici comment utiliser la commande @code{\fill-with-pattern} dans le
+cadre d'une table des matières :
+
+@verbatim
+  tocItemMarkup = \markup { \fill-line {
+    \override #'(line-width . 70)
+    \fill-with-pattern #1.5 #CENTER . \fromproperty #'toc:text \fromproperty #'toc:page
+    }
+  }
+@end verbatim
 
 @predefined
 @funindex \table-of-contents

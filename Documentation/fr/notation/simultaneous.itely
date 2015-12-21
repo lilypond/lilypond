@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-   Translation of GIT committish: 16d46fb0995cc6d078617ada1e8fea7879dffe07
+   Translation of GIT committish: 3c0f38115857598db730782b1d2ff0a19fd833af
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1078,37 +1078,33 @@ l'unisson.  Dans la mesure où @code{\partcombine} considère les notes
 séparément, combiner des notes en accord ou indiquer un solo ne serait
 pas optimal en pareil cas.  LilyPond dispose alors de certaines
 commandes qui permettent d'influencer le comportement de la fonction
-@code{\partcombine} :
-
-Les commandes se terminant par @code{@dots{}Once} n'affectent que la
-note qui les suit directement dans l'expression musicale.
+@code{\partcombine}.  Ces commandes peuvent se voir préfixées d'un
+@code{\once} de sorte à n'affecter que la note qui les suit
+directement dans l'expression musicale.
 
 @itemize
 @item
-@code{\partcombineApart} et @code{\once \partcombineApart} maintiennent
-les notes dans des voix séparées même si elles peuvent se combiner en
-accord ou en unisson.
+@code{\partcombineApart} maintient les notes dans des voix séparées même
+si elles peuvent se combiner en accord ou en unisson.
 
 @item
-@code{\partcombineChords} et @code{\once \partcombineChords} combinent les
-notes en accords.
+@code{\partcombineChords} combine les notes en accords.
 
 @item
-@code{\partcombineUnisono} et @code{\once \partcombineUnisono} combinent
-les voix en un « unisson ».
+@code{\partcombineUnisono} combine les voix en un « unisson ».
 
 @item
-@code{\partcombineSoloI} et @code{\once \partcombineSoloI} affichent
-exclusivement la première voix et l'affublent d'un « Solo ».
+@code{\partcombineSoloI} affiche exclusivement la première voix et
+l'affuble d'un « Solo ».
 
 @item
-@code{\partcombineSoloII} et @code{\once \partcombineSoloII} affichent
-exclusivement la deuxième voix et l'affublent d'un « Solo ».
+@code{\partcombineSoloII} affiche exclusivement la deuxième voix et
+l'affuble d'un « Solo ».
 
 @item
-@code{\partcombineAutomatic} et @code{\once \partcombineAutomatic}
-annulent les effets des dérogations précédentes et activent le
-comportement standard de la fonction @code{\partcombine}.
+@code{\partcombineAutomatic} annule les effets des dérogations
+précédentes et active le comportement standard de la fonction
+@code{\partcombine}.
 @end itemize
 
 @lilypond[quote,verbatim]
