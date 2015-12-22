@@ -18,23 +18,151 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
-@subsubheading ¡Lanzado LilyPond 2.17.95!  @emph{3 de noviembre de 2013}
+@subheading Lanzado LilyPond 2.19.33  @emph{6 de diciembre de 2015}
 
-Nos llena de emoción anunciar el lanzamiento de LilyPond@tie{}2.17.95
-como lanzamiento beta de la próxima edicion estable@tie{}2.18.
-Los desarrolladores están aún atareados buscando
-soluciones para algunos problemas de última hora, pero se supone que esta
-edición tendrá las funcionalidades completas, la documentación precisa,
-y que no se habrán pasado por alto problemas de importancia.
-Para actualizar la sintaxis de los archivos de entrada
-a la última versión, consulte @rprogram{Actualizar ficheros con convert-ly}.
-Pruebe esta versión e infórmenos de cualquier porblema, véase
-@rweb{Informes de fallos}.
+Nos complace anunciar el lanzamiento de LilyPond 2.19.33.  Esta
+versión contiene el conjunto habitual de correcciones de fallos y
+ampliación de las funcionalidades, y contiene trabajos en
+desarrollo.  Tendrá acceso a las últimas posibilidades, pero
+algunas podrían estar incompletas, y podría encontrar fallos y
+finalizaciones abruptas.  Si necesita una versión estable de
+LilyPond, nuestro consejo es que utilice la versión 2.18.
 
 @newsEnd
 
 @newsItem
-@subsubheading El blog de LilyPond.  @emph{2 de junio de 2013}
+@subheading Lanzado LilyPond 2.18.2  @emph{23 de marzo de 2014}
+
+Nos llena de orgullo anunciar el lanzamiento de GNU LilyPond 2.18.2.
+LilyPond es un programa de tipografía musical para editar partituras,
+consagrado a la producción de música impresa de la mayor calidad
+posible.  Lleva al ordenador la estética de la música grabada de la
+forma tradicional.
+
+Esta versión ofrece cierta cantidad de actualizaciones sobre la
+versión 2.18.0 además de unos manuales actualizados.  Nuestro
+consejo para todos los usuarios es que actualicen a esta versión.
+
+@newsEnd
+
+
+@newsItem
+@subheading Una producción hecha con LilyPond, premio a la mejor edición 2014  @emph{11 de marzo de 2014}
+
+Con gran emoción nos complace anunciar que la edición completa de
+las canciones de Oskar Fried (1871-1941), recientemente publicadas
+por nuestros compañeros y colaboradores Urs Liska y Janek Warchoł
+[1], han recibido el premio "Musikeditionspreis BEST EDITION 2014"
+de la asociación de editores de música alemanes [2].  La ceremonia
+tuvo lugar en la Musikmesse de Frankfurt.
+
+Felicitamos a Janek y a Urs por haber obtenido tan alto
+reconocimiento público a la excelencia editorial y tipográfica de
+su trabajo.  También es un placer informar de su intención de
+poner la obra a disposición bajo una licencia libre tan pronto
+como se cubran los gastos de la editorial.  Apoye esta iniciativa
+adquiriendo el volumen impreso directamente de la editorial [3].
+
+[1] @uref{http://lilypondblog.org/category/fried-songs}@*
+[2] @uref{http://www.best-edition.de}@*
+[3] @uref{http://www.sound-rel.de}@*
+
+@newsEnd
+
+
+@newsItem
+@subheading Lanzado Lilypond 2.18.0  @emph{29 de diciembre de 2013}
+
+Nos llena de orgullo anunciar el lanzamiento de GNU LilyPond
+2.18.0.  LilyPond es un programa de tipografía musical para editar
+partituras, consagrado a la producción de música impresa de la
+mayor calidad posible.  Lleva al ordenador la estética de la
+música grabada de la forma tradicional.
+
+Entre las numerosas mejoras y cambios, relacionamos a continuación
+los que son más visibles:
+
+@itemize @bullet
+@item
+Ahora se recolocan muchos elementos utilizando su perfil real en
+lugar de una@tie{}caja circundante rectangular.  Esta mejora
+reduce enormemente la posibilidad de que aparezcan espacios vacíos
+grandes.
+
+@item
+Los ajustes y sobreescrituras pueden usar ahora la sintaxis
+@example
+\override Voice.TextSpanner.bound-details.left.text = "rit."
+@end example
+en lugar de la anterior, que era
+@example
+\override Voice.TextSpanner #'(bound-details left text) = "rit."
+@end example
+
+@item
+Los tresillos con una longitud total dada se pueden escribir ahora
+como
+@example
+\tuplet 3/2 4 @{ c8 c c  c c c @}
+@end example
+en lugar de
+@example
+\times 2/3 @{ c8 c c @}  \times 2/3 @{ c8 c c @}
+@end example
+@end itemize
+
+Existe una lista todas las nuevas funcionalidades destacables, en
+
+@example
+@uref{http://lilypond.org/doc/v2.18/Documentation/changes/index.html}
+@end example
+
+Estamos muy agradecidos al elevado número de entusiastas de
+LilyPond cuyo apoyo financiero ha hecho posible que un
+desarrollador central, David Kastrup, pueda centrarse
+exclusivamente en LilyPond durante todo el ciclo de desarrollo.
+
+LilyPond 2.18 llega hasta usted por parte de
+
+@table @asis
+@item Desarrolladores principales:
+Bertrand Bordage, Trevor Daniels, Colin Hall, Phil Holmes, Ian
+Hulin, Reinhold Kainhofer, David Kastrup, Jonathan Kulp, Werner
+Lemberg, John Mandereau, Patrick McCarty, Joe Neeman, Han-Wen
+Nienhuys, Jan Nieuwenhuizen, Graham Percival, Mark Polesky, Neil
+Puttock, Mike Solomon, Carl Sorensen, Francisco Vila, Valentin
+Villenave, Janek Warchoł
+
+@item Núcleo de colaboradores:
+Aleksandr Andreev, Frédéric Bron, Torsten Hämmerle, Marc Hohl,
+James Lowe, Andrew Main, Thomas Morley, David Nalesnik, Keith
+OHara, Benkő Pál, Anders Pilegaard, Julien Rioux, Johannes Rohrer,
+Adam Spiers, Heikki Tauriainen
+
+@item Redactores de la documentación:
+Frédéric Bron, Federico Bruni, Colin Campbell, Urs Liska, James
+Lowe, Thomas Morley, Jean-Charles Malahieude, Guy Stalnaker,
+Martin Tarenskeen, Arnold Theresius, Rodolfo Zitellini
+
+@item Escuadrón de fallos:
+Colin Campbell, Eluze, Marc Hohl, Phil Holmes, Marek Klein, Ralph
+Palmer
+
+@item Equipo de apoyo:
+Colin Campbell, Eluze, Marc Hohl, Marek Klein, Kieren MacMillan,
+Urs Liska, Ralph Palmer
+
+@item Traductores:
+Federico Bruni, Luca Rossetto Casel, Felipe Castro, Pavel Fric,
+Jean-Charles Malahieude, Till Paala, Yoshiki Sawada
+
+@end table
+y muchos otros colaboradores.
+
+@newsEnd
+
+@newsItem
+@subheading El blog de LilyPond.  @emph{2 de junio de 2013}
 
 Janek Warchoł ha creado un blog de LilyPond.  ¡Se encuentra alojado
 en @uref{http://lilypondblog.org/, lilypondblog.org}!
@@ -42,7 +170,7 @@ en @uref{http://lilypondblog.org/, lilypondblog.org}!
 @newsEnd
 
 @newsItem
-@subsubheading ¡Lanzado LilyPond 2.16.2!  @emph{4 de enero 2013}
+@subheading ¡Lanzado LilyPond 2.16.2!  @emph{4 de enero 2013}
 
 Nos complace anunciar el lanzamiento de LilyPond 2.16.2.  Este
 lanzamiento se realiza principalmente para corregir un problema
@@ -52,7 +180,7 @@ versión solamente aquellos que necesiten esta funcionalidad.
 @newsEnd
 
 @newsItem
-@subsubheading El Informe LilyPond, número 28. @emph{12 de noviembre de 2012}
+@subheading El Informe LilyPond, número 28. @emph{12 de noviembre de 2012}
 
 La @uref{http://web.archive.org/web/20110325004849/http://news.lilynet.net/?The-LilyPond-Report-28, edición
 de octubre del @emph{Informe LilyPond}} se centra en el
@@ -76,7 +204,7 @@ aportaciones serán calurosamente bien recibidos!
 @newsEnd
 
 @newsItem
-@subsubheading ¡Lanzado LilyPond 2.16.1!  @emph{9 de noviembre de 2012}
+@subheading ¡Lanzado LilyPond 2.16.1!  @emph{9 de noviembre de 2012}
 
 Nos complace anunciar el lanzamiento de LilyPond 2.16.1. Contiene
 cierto número de actualizaciones sobre la anterior versión
@@ -85,7 +213,7 @@ actualicen a esta versión.
 @newsEnd
 
 @newsItem
-@subsubheading ¡Lanzado Lilypond 2.16.0!  @emph{24 de agosto de 2012}
+@subheading ¡Lanzado Lilypond 2.16.0!  @emph{24 de agosto de 2012}
 
 Nos llena de orgullo anunciar el lanzamiento de GNU LilyPond 2.16.0.
 LilyPond es un programa de tipografía musical para editar partituras,
