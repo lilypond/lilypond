@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 28add695953862ef4a87f9fbeadd1d02dc299244
+    Translation of GIT committish: b6e323a2f6fdac2266a659acf6da008957f0c936
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -109,6 +109,11 @@ un punto finale e talvolta altre proprietà relative alla loro forma.  Gli
 oggetti che hanno una forma estesa in questo modo vengono chiamati «Estensori»
 (in inglese @emph{Spanner}).
 
+Gli estensori non possono essere modificati dopo la loro creazione.  Tra questi
+sia @code{StaffSymbol} che @code{LedgerLineSpanner}, che continuano nel corso
+della partitura (a meno che non siano terminati dal comando @code{\stopStaff} e
+poi ricreati col comando @code{\startStaff}.
+
 Esistono anche dei grob @q{astratti} che non stampano niente da soli, bensì
 raccolgono, posizionano e gestiscono altri grob.  Esempi comuni sono
 @code{DynamicLineSpanner}, @code{BreakAlignment}, @code{NoteColumn},
@@ -174,6 +179,10 @@ normalmente.
 Come vedremo tra poco, ogni tipo di oggetto richiede un comando diverso
 per modificare le sue proprietà, dunque è utile poter riconoscere i tipi
 di oggetti e proprietà dai loro nomi.
+
+@seealso
+Guida alla notazione:
+@ruser{Modifying properties}.
 
 
 @node Metodi di modifica

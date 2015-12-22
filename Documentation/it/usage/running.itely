@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 6ea18ce2f407ee754947a4fa18596bb38c8087f5
+    Translation of GIT committish: 8706e77a804e412e751fdd47385c8ccfdc28e732
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -414,8 +414,9 @@ con @strong{NESSUNA GARANZIA}!)
 
 @table @code
 
-@item -d@var{[nome-opzione]}=@var{[valore]},--define-default=@var{[nome-opzione]}=@var{[valore]}
-Imposta l'equivalente funzione interna di Scheme su @var{valore}.
+@item -d@var{[nome-opzione]}=@var{[valore]},
+--define-default=@var{[nome-opzione]}=@var{[valore]}
+Imposta l'equivalente funzione interna di Scheme su @var{valore}.  Per esempio:
 
 @example
 -dbackend=svg
@@ -423,7 +424,7 @@ Imposta l'equivalente funzione interna di Scheme su @var{valore}.
 
 Se non viene specificato un @var{valore}, viene usato il valore
 predefinito.  Per disabilitare un'opzione, si può usare il
-prefisso @code{no-} prima di @var{nome-opzione}, ad esempio
+prefisso @code{no-} prima di @var{nome-opzione}.  Per esempio:
 
 @cindex punta e clicca, linea di comando
 
@@ -448,32 +449,32 @@ valori predefiniti:
 
 @item @code{anti-alias-factor}
 @tab @code{1}
-@tab Elabora a una risoluzione più alta (usando un certo fattore) e ridimensiona
-il risultato per evitare gli @q{artefatti} nelle immagini @code{PNG}.
+@tab Elabora a una risoluzione più alta (usando il fattore specificato) e
+ridimensiona il risultato per evitare gli @q{artefatti} nelle immagini @code{PNG}.
 
 @item @code{aux-files}
 @tab @code{#t}
-@tab Crea i file @code{.tex}, @code{.texi}, @code{.count} nel backend
-@code{EPS}.
+@tab Crea i file @code{.tex}, @code{.texi} e @code{.count} se usata con
+l'opzione del backend @code{eps}.
 
 @item @code{backend}
 @tab @code{ps}
-@tab Seleziona il backend.  I file Postscript (predefinito) includono i tipi di
-carattere @code{TTF}, @code{Type1} e @code{OTF}.  Non vengono inclusi i sottoinsiemi
-di questi tipi.  Se si usa un set di caratteri @q{orientali}, si possono ottenere
-file di grosse dimensioni.
+@tab Questa è l'impostazione predefinita.  I file Postscript (predefinito)
+includono i tipi di carattere @code{TTF}, @code{Type1} e @code{OTF}.  Non
+vengono inclusi i @qq{sottoinsiemi} di questi tipi.  Se si usa un set di
+caratteri @q{orientali}, si possono ottenere file di grosse dimensioni.
 
 @item
 @tab @code{eps}
-@tab Encapsulated PostScript.  Invia ogni pagina (sistema) in un file
-@file{EPS} separato, senza font, e in un unico file @file{EPS} con
-tutte le pagine (sistemi) inclusi i font.  Questa è la modalità
-predefinita di @command{lilypond-book}.
+@tab Usata come opzione predefinita dal comando @command{lilypond-book}.  Per
+ogni pagina crea sia un singolo file con tutte le pagine e i tipi di carattere
+inclusi sia file EPS (Encapsulated PostScript) separati per ogni pagina
+ma senza i tipi di caratteri inclusi.
 
 @item
 @tab @code{null}
-@tab non produce la stampa della partitura; ha lo stesso
-effetto di @code{-dno-print-pages}.
+@tab Non genera la stampa della partitura.  Produce lo stesso effetto
+di @code{-dno-print-pages}.
 
 @item
 @tab @code{scm}
@@ -482,21 +483,22 @@ effetto di @code{-dno-print-pages}.
 @item
 @tab @code{svg}
 @tab Scalable Vector Graphics.
-Crea un singolo file SVG per ogni pagina dell'output.
-L'informazione relativa ai tipi di carattere non è incorporata, dunque
-il lettore SVG dovrà avere accesso ai tipi di carattere per avere una
-resa ottimale.
-Si raccomanda di non usare gli @q{alias} o le @q{liste} dei tipi di carattere
-se il proprio lettore SVG non è in grado di gestirli.  Consultare anche
-l'opzione @code{svg-woff}.
+Viene creato un singolo file SVG per ogni pagina dell'output.  Eccetto i
+glifi musicali di LilyPond, nessun altro tipo di carattere verrà incorporato
+nel file.  Dunque qualsiasi lettore SVG dovrà avere accesso ai tipi di
+carattere per rendere in modo adeguato il testo.  Si raccomanda di non usare
+gli @q{alias} o le @q{liste} dei tipi di carattere se il lettore SVG non è
+in grado di gestirli.  Se si usano i file @emph{Web Open Font Format} (WOFF),
+è richiesta anche l'opzione @code{svg-woff}.
 @end multitable
 
 @noindent
-@strong{Nota per il backend svg:}
+@strong{Nota per l'output del backend svg:}
 I tipi di carattere predefiniti di LilyPond (@code{LilyPond Serif},
 @code{LilyPond Sans Serif} e @code{LilyPond Monospace}) sono solo alias
-@emph{locali}; dunque quando si usa il backend @code{svg} è obbligatorio
-impostare esplicitamente i tipi di carattere predefiniti;
+@emph{locali}.  Dunque quando si usa il backend @code{svg} è obbligatorio
+definire esplicitamente i tipi di carattere predefiniti nel proprio file
+di input:
 
 @quotation
 @verbatim
@@ -782,11 +784,13 @@ stampa e causa un notevole aumento della dimensione dei file PDF.
 
 @item @code{svg-woff}
 @tab @code{#f}
-@tab Usa i file woff dei tipi di carattere nel backend SVG.
-@c TODO: Paragrafo da chiarire, vedi issue 4650
-Se si usa il file woff nel modo corretto, non è necessario installare
-nell'ambiente del lettore SVG i tipi di carattere usati dai file SVG.
-Tuttavia LilyPond non contiene un file woff per il testo, che è richiesto.
+@tab Questa opzione è richiesta se si usano i file del formato per font Web Open
+Font Format (WOFF) col backend SVG.  Viene creato un singolo file SVG per ogni
+pagina di output.  Eccetto i glifi musicali di LilyPond, nessun altro tipo di
+carattere verrà incorporato nel file.  Dunque qualsiasi lettore SVG dovrà avere
+accesso ai tipi di carattere per rendere in modo adeguato il testo.  Si raccomanda
+di non usare gli @q{alias} o le @q{liste} dei tipi di carattere se il lettore
+SVG non è in grado di gestirli.
 
 @item @code{trace-memory-frequency}
 @tab @code{#f}

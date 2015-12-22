@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: a22f2ad68fccb81e52f805ba69cb8c0e6bf8cd82
+    Translation of GIT committish: 8016f31ef2a25bf9492a6ba65dc627622beac4af
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -708,7 +708,7 @@ di tutti i brani, magari sovrascrivendo alcuni campi e sopprimendone altri:
   \header {
     title = "DAS WOHLTEMPERIRTE CLAVIER"
     subtitle = "TEIL I"
-    % Non mostrare lo "slogan" alla fine di questo libro
+    % Non mostrare il piè di pagina predefinito nell'ultima pagina di questo libro
     tagline = ##f
   }
   \markup { \vspace #1 }
@@ -771,8 +771,8 @@ blocco @code{\header}:
     meter = "Tempo"
     arranger = "Arrangiatore"
       % I campi seguenti sono centrati in fondo
-    tagline = "lo slogan va in fondo all'ultima pagina"
-    copyright = "il copyright va in fondo alla prima pagina"
+    tagline = "Lo slogan va in fondo all'ultima pagina"
+    copyright = "Il copyright va in fondo alla prima pagina"
   }
   \score {
     { s1 }
@@ -910,8 +910,9 @@ una sola pagina.
 
 @end itemize
 
-Lo slogan predefinito può essere modificato aggiungendo il campo
-@code{tagline} al blocco @code{\header} del livello superiore.
+Il testo del piè di pagina predefinito per l'ultima pagina può essere
+modificato aggiungendo il campo @code{tagline} al blocco @code{\header}
+del livello superiore.
 
 @lilypond[papersize=a8landscape,verbatim]
 \book {
@@ -926,7 +927,7 @@ Lo slogan predefinito può essere modificato aggiungendo il campo
 }
 @end lilypond
 
-Per togliere la @code{tagline} impostare il valore su @code{##f}.
+Per toglierlo, impostare @code{tagline} su @code{##f}.
 
 
 @node Titoli intestazioni e piè di pagina personalizzati
@@ -1790,6 +1791,7 @@ sarà "00", ovvero un numero di due cifre.
 @node Indice
 @subsection Indice
 @translationof Table of contents
+
 L'indice si include col comando @code{\markuplist \table-of-contents}.
 Gli elementi che devono apparire nell'indice si inseriscono col comando
 @code{\tocItem}, che può essere usato nel livello superiore o all'interno
@@ -1817,20 +1819,55 @@ di un'espressione musicale.
 @end verbatim
 
 I testi markup usati per formattare l'indice sono definiti nel blocco
-@code{\paper}.  Quelli predefiniti sono @code{tocTitleMarkup},
-per formattare il titolo dell'indice, e @code{tocItemMarkup}, per
-formattare gli elementi dell'indice, composti dal titolo e dal
-numero di pagina.  Queste variabili possono essere modificate
-dall'utente:
+@code{\paper}.  Ce ne sono due predefiniti:
+
+@itemize
+
+@item
+@code{tocTitleMarkup}
+
+@noindent
+Usato per formattare il titolo dell'indice.
+
+@verbatim
+tocTitleMarkup = \markup \huge \column {
+  \fill-line { \null "Indice" \null }
+  \null
+}
+@end verbatim
+
+@item
+@code{tocItemMarkup}
+
+@noindent
+Usato per formattare gli elementi dell'indice.
+
+@verbatim
+tocItemMarkup = \markup \fill-line {
+  \fromproperty #'toc:text \fromproperty #'toc:page
+}
+@end verbatim
+
+@end itemize
+
+@noindent
+Queste variabili possono essere entrambe modificate.
+
+Ecco un esempio che mostra come cambiare il titolo dell'indice in francese:
 
 @verbatim
 \paper {
-  %% Traduce il titolo dell'indice in francese:
   tocTitleMarkup = \markup \huge \column {
     \fill-line { \null "Table des matières" \null }
     \hspace #1
   }
-  %% usa un tipo di carattere più grande
+}
+@end verbatim
+
+Ecco un esempio che mostra come cambiare il corpo dei caratteri nell'indice:
+
+@verbatim
+\paper {
   tocItemMarkup = \markup \large \fill-line {
     \fromproperty #'toc:text \fromproperty #'toc:page
   }
@@ -1840,15 +1877,31 @@ dall'utente:
 Nota come il testo e il numero di pagina dell'elemento dell'indice sono
 citati nella definizione di @code{tocItemMarkup}.
 
-È possibile definire nuovi comandi markup per creare indici più complessi:
-@itemize
-@item definisci una nuova variabile di markup nel blocco @code{\paper}
-@item quindi definisci una funzione musicale che aggiunga un elemento
-dell'indice usando questa variabile di markup.
-@end itemize
+Includendo il comando @code{\tocItemWithDotsMarkup} dentro @code{tocItemMarkup}
+lo spazio tra un elemento dell'indice e la sua pagina corrispondente sarà
+riempito con dei punti:
 
-Nell'esempio seguente, viene definito un nuovo stile per inserire i nomi
-degli atti nell'indice di un'opera:
+@lilypond[verbatim,line-width=10.0\cm]
+\header { tagline = ##f }
+\paper {
+  tocItemMarkup = \tocItemWithDotsMarkup
+}
+
+\book {
+  \markuplist \table-of-contents
+  \tocItem \markup { Allegro }
+  \tocItem \markup { Largo }
+  \markup \null
+}
+@end lilypond
+
+Si possono anche definire comandi personalizzati con markup specifici per
+creare un indice più complesso.  Nell'esempio seguente, viene definito un
+nuovo stile per inserire i nomi degli atti nell'indice di un'opera.
+
+@noindent
+Una nuova variabile di markup (chiamata @code{tocActMarkup}) viene definita
+nel blocco @code{\paper}:
 
 @verbatim
 \paper {
@@ -1858,11 +1911,21 @@ degli atti nell'indice di un'opera:
     \hspace #1
   }
 }
+@end verbatim
 
+@noindent
+Viene quindi aggiunta una funzione musicale personalizzata (@code{tocAct}),
+che usa la nuova definizione di markup @code{tocActMarkup}:
+
+@verbatim
 tocAct =
 #(define-music-function (text) (markup?)
    (add-toc-item! 'tocActMarkup text))
 @end verbatim
+
+@noindent
+Un file di input di LilyPond, che usi queste definizioni personalizzate,
+potrebbe essere scritto così:
 
 @lilypond[line-width=10.0\cm]
 \header { tagline = ##f }
@@ -1890,22 +1953,18 @@ tocAct =
 }
 @end lilypond
 
-Si possono aggiungere dei punti per riempire la riga tra un elemento e il suo
-numero di pagina:
+Ecco un esempio del comando @code{\fill-with-pattern} usato nel contesto di
+un indice:
 
-@lilypond[verbatim,line-width=10.0\cm]
-\header { tagline = ##f }
+@verbatim
 \paper {
-  tocItemMarkup = \tocItemWithDotsMarkup
+  tocItemMarkup = \markup { \fill-line {
+    \override #'(line-width . 70)
+    \fill-with-pattern #1.5 #CENTER . \fromproperty #'toc:text \fromproperty #'toc:page
+    }
+  }
 }
-
-\book {
-  \markuplist \table-of-contents
-  \tocItem \markup { Allegro }
-  \tocItem \markup { Largo }
-  \markup \null
-}
-@end lilypond
+@end verbatim
 
 @seealso
 File installati:

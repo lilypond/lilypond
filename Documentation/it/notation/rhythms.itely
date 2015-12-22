@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: b28d44a1cea8120501e648bb8626064a94cd4036
+    Translation of GIT committish: bcd127bc07fc7b53704f9db8a6cf3d53e9d4094a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -591,7 +591,7 @@ Le definizioni dei modelli di tratteggiatura delle legature di valore hanno la
 stessa struttura di quelle per le legature di portamento. I dettagli relativi
 ai modelli complessi di tratteggiatura sono trattati in @ref{Slurs}.
 
-Sovrascrivere le proprietà di formattazione @var{whiteout-box} e @var{layer}
+Sovrascrivere le proprietà di formattazione @var{whiteout} e @var{layer}
 degli oggetti che devono creare uno spazio vuoto tra le legature di valore.
 
 @lilypond[verbatim,quote,ragged-right]

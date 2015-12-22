@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 918231bde3dd1cb29865b5f29ee3c1fadee93935
+    Translation of GIT committish: 16661f7f6a78f04d056228d11bdc9e17a7cdf760
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1047,37 +1047,32 @@ e potrebbero essere stampate come unisono.  Combinare le note in un
 accordo o mostrare una voce come solista, dunque, non è la scelta
 ideale, perché la funzione @code{\partcombine} considera ogni nota
 individualmente. In questo caso si può sovrascrivere la funzione
-@code{\partcombine} con i comandi  elencati sotto.
-
-I comandi che finiscono con @code{@dots{}Once} si applicano soltanto alla
+@code{\partcombine} con uno dei comandi elencati sotto.  Tutti i comandi
+devono essere preceduti da @code{\once} per applicarli soltanto alla
 nota successiva dell'espressione musicale.
 
 @itemize
 @item
-@code{\partcombineApart} e @code{\once \partcombineApart} mantengono le
-note su due voci distinte, anche se potrebbero essere combinate in un
-accordo o in un unisono.
+@code{\partcombineApart} mantiene le note su due voci distinte, anche se
+potrebbero essere combinate in un accordo o in un unisono.
 
 @item
-@code{\partcombineChords} e @code{\once \partcombineChords} uniscono le
-note in un accordo.
+@code{\partcombineChords} unisce le note in un accordo.
 
 @item
-@code{\partcombineUnisono} e @code{\once \partcombineUnisono} uniscono
-entrambe le voci come @qq{unisono}.
+@code{\partcombineUnisono} unisce entrambe le voci come @qq{unisono}.
 
 @item
-@code{\partcombineSoloI} e @code{\once \partcombineSoloI} stampano soltanto
-la prima voce e la contrassegnano come un @qq{Solo}.
+@code{\partcombineSoloI} stampa soltanto la prima voce e la contrassegna
+come un @qq{Solo}.
 
 @item
-@code{\partcombineSoloII} o @code{\once \partcombineSoloII} stampano soltanto
-la seconda voce e la contrassegnano come un @qq{Solo}.
+@code{\partcombineSoloII} stampa soltanto la seconda voce e la contrassegna
+come un @qq{Solo}.
 
 @item
-@code{\partcombineAutomatic} e @code{\once \partcombineAutomatic} terminano
-le funzioni dei comandi precedenti e ripristinano il funzionamento
-predefinito di @code{\partcombine}.
+@code{\partcombineAutomatic} termina le funzioni dei comandi precedenti e
+ripristina il funzionamento predefinito di @code{\partcombine}.
 @end itemize
 
 @lilypond[quote,verbatim]

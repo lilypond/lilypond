@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 130ce199aa0cedce7779abf9bc131ef96368f9b8
+    Translation of GIT committish: bfc3420ada8810d57156e9fc871560188f044a64
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -243,9 +243,12 @@ sintassi descritta in @ref{Rehearsal marks}:
 
 @lilypond[verbatim,quote]
 \relative {
-  c''4
-  \mark "Allegro"
-  c c c
+  \mark "Verse"
+  c'2 g'
+  \bar "||"
+  \mark "Chorus"
+  g2 c,
+  \bar "|."
 }
 @end lilypond
 

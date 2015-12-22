@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: ca2d9d22be422c4de98bc246dc94f7f2fd274dd2
+    Translation of GIT committish: c4a960d0461ee5ecd87cd46692ec11682b8969b0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -183,51 +183,44 @@ contesto @code{Voice}, appare un rigo in più (non desiderato).  Vedi
 @cindex ripetizione con anacrusi
 @cindex anacrusi in una ripetizione
 @funindex \partial
+@cindex controlli di battuta con ripetizioni
+@cindex ripetizioni con controlli di battuta
 
-Se una ripetizione inizia in mezzo a una misura e non ha finali
-alternativi, solitamente anche la chiusura della ripetizione cadrà
-nel mezzo di una misura, così che tra le due estremità ci sia una
-misura completa.  In queste situazioni i segni di ripetizione non
-sono delle vere e proprie stanghette.  Non usare il comando @code{\partial}
-o i controlli di battuta nel punto in cui si trovano questi segni:
+Se una ripetizione che non ha finali alternativi inizia in mezzo a una
+misura, solitamente termina in un punto corrispondente nel mezzo di una
+misura successiva (così che tra le due estremità ci sia una misura
+completa).  In questo caso i segni di ripetizione non sono delle @qq{vere}
+e proprie stanghette, dunque né i controlli di battuta né i comandi
+@code{\partial} devono essere messi lì:
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,relative=1]
 \relative {
-  % nessun \partial qui
-  c'4 e g  % nessun controllo di battuta qui
-  % nessun \partial qui
+  c'4 e g
   \repeat volta 4 {
     e4 |
     c2 e |
-    % nessun \partial qui
-    g4 g g  % nessun controllo di battuta qui
+    g4 g g
   }
-  % nessun \partial qui
   g4 |
   a2 a |
   g1 |
 }
 @end lilypond
 
-Analogalmente, se una ripetizione inizia con la misura parziale a inizio
-della partitura e non ha finali alternativi, si applicano le stesse
-condizioni dell'esempio precedente, a parte il fatto che in questo
-caso è richiesto il comando @code{\partial} all'inizio della partitura:
+Se una ripetizione senza finali alternativi inizia con una misura parziale,
+si applicano gli stessi principi dell'esempio precedente, a parte il fatto
+che è richiesto un comando @code{\partial} all'inizio della misura:
 
-@lilypond[verbatim,quote]
-\relative {
-  \partial 4  % necessario
-  \repeat volta 4 {
-    e4 |
-    c2 e |
-    % nessun \partial qui
-    g4 g g  % nessun controllo di battuta qui
-  }
-  % nessun \partial qui
-  g4 |
-  a2 a |
-  g1 |
+@lilypond[verbatim,quote,relative=1]
+\partial 4
+\repeat volta 4 {
+  e'4 |
+  c2 e |
+  g4 g g
 }
+g4 |
+a2 a |
+g1 |
 @end lilypond
 
 

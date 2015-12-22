@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: UTF-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 611c175ae2cceebfc8f0dccf695b4ff5593e763c
+    Translation of GIT committish: ed3e5abd8003297e02e3f90dc8755e33a6619135
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -52,9 +52,84 @@ Vedi il manuale utente, \NAME\
 @itemize
 
 @item
+Oltre al comando markup generico @code{\tie}, sono ora disponibili i comandi
+markup @code{\undertie} e @code{\overtie}.
+
+@lilypond[quote,verbatim]
+\markup {
+  \undertie "legato sotto"
+  \overtie "legato sopra"
+}
+
+m = {
+  c''1 \prall -\tweak text \markup \tie "131" -1
+}
+
+{ \voiceOne \m \voiceTwo \m }
+@end lilypond
+
+@item
+@code{TabStaff} è ora capace di mostrare i microtoni, utili per il bending etc.
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Score
+    supportNonIntegerFret = ##t
+  }
+}
+
+mus = \relative { c'4 cih d dih }
+
+<<
+  \new Staff << \clef "G_8" \mus >>
+  \new TabStaff \mus
+>>
+@end lilypond
+
+
+@item
+Sono ora disponibili due nuovi stili di whiteout (bianchetto).  Lo stile
+@code{outline} approssima i contorni del profilo di un glifo e la sua forma
+è prodotta da varie copie sovrapposte del glifo.  Lo stile @code{rounded-box}
+genera una forma rettangolare stondata.  Per tutti e tre gli stili, incluso
+lo stile predefinito @code{box}, lo spessore (@code{thickness}) della forma
+di whiteout può essere personalizzato come multiplo dello spessore della
+linea del rigo.
+
+@lilypond[verbatim,quote]
+\markup {
+  \combine
+    \filled-box #'(-1 . 15) #'(-3 . 4) #1
+    \override #'(thickness . 3)
+    \whiteout whiteout-box
+}
+\markup {
+  \combine
+    \filled-box #'(-1 . 24) #'(-3 . 4) #1
+    \override #'(style . rounded-box)
+    \override #'(thickness . 3)
+    \whiteout whiteout-rounded-box
+}
+\markup {
+  \combine
+    \filled-box #'(-1 . 18) #'(-3 . 4) #1
+    \override #'(style . outline)
+    \override #'(thickness . 3)
+    \whiteout whiteout-outline
+}
+\relative {
+  \override Staff.Clef.whiteout-style = #'outline
+  \override Staff.Clef.whiteout = 3
+  g'1
+}
+@end lilypond
+
+
+@item
 Tutti i comandi @code{\override}, @code{\revert}, @code{\set} e
 @code{\unset} ora funzionano col prefisso @code{\once}, rendendo
-possibile impostazioni temporanee.
+possibili le impostazioni temporanee.
+
 @lilypond[quote,verbatim]
 \relative {
   c'4 d
@@ -127,18 +202,6 @@ Le funzioni definite con @code{define-music-function},
 Nel caso di queste definizioni in particolare, LilyPond cercherà di
 riconoscere l'uso obsoleto degli argomenti @code{parser} e @code{location},
 fornendo per un po' della semantica retrocompatibile.
-
-@item
-La proprietà @code{whiteout} dei grob e il comando di markup @code{\whiteout}
-ora creano uno sfondo bianco costruito da molteplici copie sostituite
-del glifo per poter approssimare le linee del suo contorno.  Il precedente
-sfondo bianco a @qq{scatola stondata} può essere ottenuto con la nuova
-proprietà @code{whiteout-box} dei grob e col comando di markup
-@code{\whiteout-box}.  Impostando la proprietà @code{whiteout} su un numero
-ora si imposta lo spessore del contorno bianco come multiplo dello spessore
-della linea del rigo musicale.  Analogalmente, impostando la proprietà
-@code{thickness} del comando di markup @code{\whiteout} si imposta lo
-spessore del contorno bianco che produce.
 
 @item
 Nella lingua "english" per il nome delle note, i nomi lunghi per le
