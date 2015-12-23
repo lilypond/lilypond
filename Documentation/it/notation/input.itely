@@ -154,7 +154,7 @@ e il testo si inserisce con un blocco @code{\markup},
 @funindex \book
 
 Tutti i movimenti e i testi che appaiono nello stesso file @file{.ly}
-vengono elaborati normalmente in un singolo file di output.
+normalmente vengono elaborati in un singolo file di output.
 
 @example
 \score @{
@@ -243,10 +243,10 @@ controlla che nessuno dei file di output di alcun blocco
 @code{\book} precedente dello stesso file di input.
 
 Per farlo, aggiunge un suffisso al nome del file di output di ogni
-blocco @code{\book} che usa il nome di file di output predefinito
-(ovvero derivato dal nome del file di input).
+blocco @code{\book}, derivato dal nome del file di input (se viene
+lasciata l'impostazione predefinita).
 
-Il comportamento predefinito consiste nell'appendere un suffisso
+Il comportamento predefinito consiste quindi nell'appendere un suffisso
 numerico a ogni nome che potrebbe entrare in conflitto, quindi
 
 @example
@@ -289,7 +289,7 @@ usati dai vari backend quando questi generano i file di output.
 Nella sezione precedente abbiamo visto come Lilypond prevenga i
 conflitti di nome quando genera molti file di output da un singolo
 file sorgente.  È possibile anche specificare un proprio suffisso
-per ogni blocco @code{\book}, quindi si possono, per esempio,
+per ogni blocco @code{\book}.  Quindi si possono, per esempio,
 generare file chiamati @file{ottominiature-Romanza.pdf}, @file{ottominiature-Minuetto.pdf}
 e @file{ottominiature-Notturno.pdf} aggiungendo una dichiarazione
 @code{\bookOutputSuffix} all'interno di ogni blocco @code{\book}.
@@ -359,19 +359,19 @@ Questo file produrrà i seguenti file di output:
 @funindex \bookpart
 
 Un file @file{.ly} può contenere un qualsiasi numero di espressioni di
-livello superiore (@emph{toplevel expressions}). Per espressione di
+livello superiore (in inglese, @emph{toplevel expressions}). Per espressione di
 livello superiore si intende una delle seguenti:
 
 @itemize
 @item
 Una definizione di output, come @code{\paper}, @code{\midi} e
-@code{\layout}.  Tale definizione, se a livello superiore, cambia
+@code{\layout}.  Tale definizione, se posta nel livello superiore, cambia
 le impostazioni predefinite al livello del libro. Se più di una di
-queste definizioni viene inserita al livello superiore, le definizioni
+queste definizioni viene inserita nel livello superiore, le definizioni
 vengono combinate, ma in caso di conflitto hanno precedenza le definizioni
-successive. Per conoscere i dettagli di come questo influisca sul blocco
+più recenti. Per sapere con precisione come ciò influisca sul blocco
 @code{\layout}, leggere
-@ref{The layout block,,The @code{@bs{}layout} block}.
+@ref{The layout block,,Il blocco @code{@bs{}layout}}.
 
 @item
 Un'espressione scheme diretta, come
@@ -379,8 +379,8 @@ Un'espressione scheme diretta, come
 @code{#(ly:set-option 'point-and-click #f)}.
 
 @item
-Un blocco @code{\header}.  Questo imposta il blocco dell'intestazione
-globale (ovvero all'inizio del file).  Questo è il blocco che contiene
+Un blocco @code{\header}.  Se all'inizio del file, imposta il blocco
+dell'intestazione globale.  Questo è il blocco che contiene
 le impostazioni predefinite dei campi dei titoli come compositore,
 titolo, etc. per tutti i libri del file (vedi @ref{Titles explained}).
 
@@ -534,7 +534,7 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Titles explained},
-@ref{The layout block,,The @code{@bs{}layout} block}.
+@ref{The layout block,,Il blocco @code{@bs{}layout}}.
 
 
 @node Titoli e intestazioni
@@ -657,12 +657,12 @@ titolazione.
 
 Se il libro ha vari brani, è possibile usare diverse disposizioni dei
 blocchi @code{\header}, corrispondenti ai diversi tipi di pubblicazione
-musicale. Per esempio, se la pubblicazione contiene vari brani dello
-stesso compositore, un blocco @code{\header} all'inizio del file
-che specifichi il titolo del libro e il nome del compositore e dei blocchi
-@code{\header} in ciascun blocco @code{\score} che specifichino il titolo
-del brano (@code{piece}) e dell'opera (@code{opus}) sarebbe la soluzione
-più adatta, come in questo esempio:
+musicale.  Per esempio, se la pubblicazione contiene vari brani dello
+stesso compositore, la soluzione più adatta prevederebbe un blocco @code{\header}
+all'inizio del file che specifichi il titolo del libro e il nome del compositore,
+e dei blocchi @code{\header} in ciascun blocco @code{\score} che specifichino il
+titolo del brano (@code{piece}) e dell'opera (@code{opus}), come in questo
+esempio:
 
 @lilypond[papersize=a5,quote,verbatim,noragged-right]
 \header {
@@ -835,7 +835,7 @@ inserito con @code{\markup} oppure un comando @code{\pageBreak}.
 
 Usare la variabile @code{breakbefore} all'interno di un blocco @code{\header}
 racchiuso in un blocco @code{\score} per far sì che i titoli del blocco
-@code{\header} di più alto livello appaiono da soli nella prima pagina,
+@code{\header} di più alto livello appaiano da soli nella prima pagina,
 mentre la musica (definita nel blocco @code{\score}) inizia nella
 pagina successiva.
 
@@ -873,7 +873,7 @@ File installati:
 @unnumberedsubsubsec Formattazione predefinita delle intestazioni e dei piè di pagina
 @translationof Default layout of headers and footers
 
-@emph{Intestazioni} e @emph{piè di pagina} sono linee di testo che appaiono
+Le @emph{intestazioni} e i @emph{piè di pagina} sono linee di testo che appaiono
 in cima e in fondo alle pagine, distinte dal testo principale di un libro.
 Possono essere definite nelle seguenti variabili del blocco @code{\paper}:
 
@@ -1042,12 +1042,12 @@ in grassetto.
 
 I campi testuali che non sono normalmente attivi nei blocchi @code{\header}
 compresi in un blocco @code{\score} possono essere stampati nello spazio
-dedicato al titolo del brano se si aggiunge @code{print-all-headers} nel
+dedicato al titolo del brano aggiungendo @code{print-all-headers} nel
 blocco @code{\paper}.  Lo svantaggio di questo metodo è che i campi testuali
 intesi esclusivamente per lo spazio del titolo della parte devono essere
 manualmente soppressi in ogni blocco @code{\score}.  Vedi @ref{Titles explained}.
 
-Per evitare ciò, è meglio aggiungere il campo testuale desiderato alla
+Per evitare ciò, è meglio mettere il campo testuale desiderato nella
 definizione di @code{scoreTitleMarkup}. Nell'esempio seguente il campo
 @code{composer} (solitamente associato a @code{bookTitleMarkup}) viene
 aggiunto a @code{scoreTitleMarkup}, facendo sì che ogni brano possa elencare
@@ -1162,7 +1162,7 @@ La @var{procedura} viene chiamata ogni volta che viene elaborato il comando
 precisa condizione e interpreta (ovvero stampa) l'argomento @var{testo} se
 e solo se la condizione è vera.
 
-Sono disponibili varie procedura pronte per verificare varie condizioni:
+Sono disponibili varie procedure pronte per verificare varie condizioni:
 
 @quotation
 @multitable {print-page-number-check-first-----} {should this page be printed-----}
@@ -1212,7 +1212,7 @@ viene assegnata la stessa formattazione di @code{\oddFooterMarkup}:
 @end lilypond
 
 Varie condizioni @code{\on-the-fly} possono essere combinate insieme come se
-si utilizzasse l'operatore logico @q{and} e il testo apparirà solo se tutte
+si utilizzasse l'operatore logico @q{AND} e il testo apparirà solo se tutte
 le condizioni sono vere. Per esempio, queste due condizioni
 
 @example
@@ -1241,7 +1241,7 @@ Oltre ad apparire nell'output, le variabili di @code{\header} vengono
 usate anche per impostare i metadati PDF (le informazioni mostrate dai
 lettori PDF come @code{proprietà} del file PDF).  Per esempio, impostando
 la proprietà @code{title} del blocco @code{header} @q{Sinfonia I} si
-assegnerà questo titolo anche al docmìumento PDF.
+assegnerà questo titolo anche al documento PDF.
 
 @example
   @code{\header@{}
@@ -1289,12 +1289,12 @@ espressioni musicali o a del testo separato e fuori dalle espressioni
 musicali.
 
 @menu
-* Note a piè di pagina nelle espressioni muicali::
+* Note a piè di pagina nelle espressioni musicali::
 * Note a piè di pagina nel testo separato::
 @end menu
 
-@node Note a piè di pagina nelle espressioni muicali
-@unnumberedsubsubsec Note a piè di pagina nelle espressioni muicali
+@node Note a piè di pagina nelle espressioni musicali
+@unnumberedsubsubsec Note a piè di pagina nelle espressioni musicali
 @translationof Footnotes in music expressions
 
 @cindex note a piè di pagina nelle espressioni musicali
@@ -1302,7 +1302,7 @@ musicali.
 
 @subsubsubheading Panoramica sulle note a piè di pagina attaccate alla musica
 
-Le note a piè di pagina nelle espressioni muicali appartengono a
+Le note a piè di pagina nelle espressioni musicali appartengono a
 due categorie:
 
 @table @emph
@@ -1310,7 +1310,7 @@ due categorie:
 sono collegate a un preciso evento.  Esempi di tali eventi sono
 note singole, articolazioni (come le indicazioni di diteggiatura, gli accenti,
 le dinamiche), e ciò che è successivo a un evento (come le legature di
-portmento e le travature manuali).  La forma generale per le note a piè di
+portamento e le travature manuali).  La forma generale per le note a piè di
 pagina basate su un evento è la seguente:
 
 @example
@@ -1329,10 +1329,8 @@ una nota a questi, sono preferibili le note a piè di pagina basate sul tempo.
 
 Una nota a piè di pagina basata sul tempo permette a tali oggetti della
 formattazione di avere delle note senza che sia necessario riferirsi a
-un evento.
-A time-based footnote allows such layout objects to be annotated
-without referring to an event.  La forma generale per le note a piè di
-pagina basate sul tempo è la seguente:
+un evento.  La forma generale per le note a piè di pagina basate sul
+tempo è la seguente:
 
 @example
 \footnote [@var{segno}] @var{offset} @var{nota} [@var{Contesto}].@var{NomeGrob}
@@ -1340,12 +1338,12 @@ pagina basate sul tempo è la seguente:
 
 @end table
 
-Gli elemnti di entrambe le forme sono:
+Gli elementi di entrambe le forme sono:
 
 @table @var
 
 @item direzione
-Se (e  solo se) @code{\footnote} viene applicato a un post-evento o a una
+se (e  solo se) @code{\footnote} viene applicato a un post-evento o a una
 articolazione, deve essere preceduto da un indicatore di direzione
 (@code{-, _, ^}) per poter collegare la @var{musica} (col segno della
 nota a piè di pagina) alla nota o pausa precedenti.
@@ -1354,13 +1352,13 @@ nota a piè di pagina) alla nota o pausa precedenti.
 è del testo -- racchiuso tra virgolette o in un blocco @code{\markup} -- che
 specifica il segno della nota usata per contrassegnare sia il punto di
 riferimento che la nota stessa in fondo alla pagina. Può essere omesso
-(o sostituito con @code{\default}) nel qual caso sarà generato automaticamente
+(o sostituito con @code{\default}), nel qual caso sarà generato automaticamente
 un numero in sequenza. Tali sequenze numeriche ricominciano su ogni pagina
 contenente una nota.
 
 @item offset
 è una coppia di numeri come @samp{#(2 . 1)} che specificano la distanza
-orizzontale e verticale (X e Y@tie{}offset) in unità di spazio rigo dal
+orizzontale e verticale (X e Y@tie{}offset), in unità di spazio rigo, dal
 bordo dell'oggetto in cui il segno deve essere posizionato. Valori positivi
 degli offset vengono presi dal bordo in alto a destra, valori negativi
 dal bordo in basso a sinistra e lo zero significa che il segno è centrato
@@ -1382,7 +1380,7 @@ momento del tempo musicale.
 contiene il testo da usare per la nota a piè di pagina.
 
 @item musica
-è l'evento musicale o il post-event0 o articolazione a cui viene collegata
+è l'evento musicale o il post-evento o articolazione a cui viene collegata
 la nota.
 
 @end table
@@ -1411,8 +1409,8 @@ direttamente causato dall'evento corrispondente a @var{musica} con la sintassi:
 @end lilypond
 
 Contrassegnare un @emph{intero} accordo con una nota a piè di pagina basata
-su un evento non è possibile: un accordo, perfino uno che contenga una sola
-nota, non produce un vero evento specifico. Tuttavia possono essere
+su un evento non è possibile: infatti un accordo, perfino uno che contenga
+una sola nota, non produce un vero evento specifico. Tuttavia possono essere
 contrassegnate singole note @emph{dentro} l'accordo:
 
 @lilypond[quote,verbatim,papersize=a8landscape]
@@ -1443,7 +1441,7 @@ esso.  La sintassi è:
   \header { tagline = ##f }
   \relative {
     a'4_\footnote #'(0 . -1) "Una legatura di portamento forzata in giù" (
-    b8^\footnote #'(1 . 0.5) "Una travatura manuale forzata in giù" [
+    b8^\footnote #'(1 . 0.5) "Una travatura manuale forzata in su" [
     b8 ]
     c4 )
     c-\footnote #'(1 . 1) "Tenuto" --
@@ -1475,9 +1473,9 @@ specificare il @var{NomeGrob} dell'oggetto di formattazione al posto di
 }
 @end lilypond
 
-Attenzione: quando si specifica un NomeGrob, una nota a piè di pagina
-sarà attaccata a tutti i grob di quel tipo che si trovano in quel
-momento musicale:
+Tuttavia nota che, quando si specifica un NomeGrob, una nota a piè di
+pagina sarà attaccata a tutti i grob di quel tipo che si trovano in
+quel momento musicale:
 
 @lilypond[quote,verbatim,papersize=a8landscape]
 \book {
@@ -1493,7 +1491,7 @@ momento musicale:
 
 È possibile assegnare a una nota di un accordo una singola nota a
 piè di pagina (basata su un evento). @samp{NoteHead} è l'unico grob
-causato direttamente dalla nota di un accordo, dunque una not a piè
+causato direttamente dalla nota di un accordo, dunque una nota a piè
 di pagina basata su un evento è adatta @emph{soltanto} ad aggiungere
 una nota a piè di pagina al @samp{NoteHead} all'interno di un accordo.
 Tutti gli altri grob delle note di un accordo sono causati indirettamente.
@@ -1522,15 +1520,14 @@ musicali nello stesso momento musicale, come nell'esempio precedente, le note
 sono numerate dall'elemento più alto a quello più in basso come questi
 appaiono nell'output e non nell'ordine in cui sono inseriti nell'input.}
 
-Gli oggetti della formattazione come le chiavi e i cambi di armatura di
-chiave sono causati principalmente come conseguenza di proprietà modificate
-piuttosto che di veri eventi. Per questo motivo le note su tali oggetti
-devono essere basate sul loro tempo musicale. Le note a piè di pagina
-basate sul tempo sono da preferire anche quando si vogliono contrassegnare
-elementi come i gambi e le travature in un @emph{accordo}: sebbene tali
-elementi dell'accordo siano nominalmente assegnati a @emph{un} evento
-all'interno dell'accordo, affidarsi a una scelta particolare sarebbe
-imprudente.
+Gli oggetti della formattazione come le chiavi e i cambi di armatura di chiave
+sono causati principalmente da proprietà modificate piuttosto che da veri
+eventi. Per questo motivo le note su tali oggetti devono essere basate sul loro
+tempo musicale. Le note a piè di pagina basate sul tempo sono da preferire anche
+quando si vogliono contrassegnare elementi come i gambi e le travature in un
+@emph{accordo}: sebbene tali elementi dell'accordo siano nominalmente assegnati
+a @emph{un} evento all'interno dell'accordo, affidarsi a una scelta particolare
+sarebbe imprudente.
 
 L'oggetto della formattazione in questione deve essere sempre specificato
 esplicitamente nelle note a piè di pagina basate sul tempo, e il contesto
@@ -1584,8 +1581,8 @@ Altri esempi di segni personalizzati si trovano in
 
 @cindex note a piè di pagina nel testo separato
 
-Queste vengono usate all'interno di blocchi @code{\markup} che si trovano
-fuori dalle espresioni musicali.  Non hanno una linea che le unisce al
+Vengono usate all'interno di blocchi @code{\markup} che si trovano
+fuori dalle espressioni musicali.  Non hanno una linea che le unisce al
 loro punto di riferimento: i loro segni seguono semplicemente il
 testo citato. I segni possono essere inseriti automaticamente, nel
 qual caso sono numerici; altrimenti è possibile inserire manualmente
@@ -1727,8 +1724,8 @@ Varie note a piè di pagina sulla stessa pagina possono essere messe
 soltanto una dopo l'altra; non è possibile disporle sulla stessa
 riga.
 
-Le note a piè di pagina non possono essere collegate a @code{MultiMeasureRests}
-o travature automatiche o testo vocale.
+Le note a piè di pagina non possono essere collegate a @code{MultiMeasureRests},
+a travature automatiche o a testo vocale.
 
 I segni delle note a piè di pagina potrebbero entrare in collisione con
 righi, oggetti @code{\markup}, altri segni e linee delle note a piè di
@@ -1763,7 +1760,7 @@ contrassegnato, tramite il comando markup @code{\page-ref}.
 
 Il comando markup @code{\page-ref} prende tre argomenti:
 @enumerate
-@item l'etichetta, un simbolo scheme, per esempio @code{#'primoBrano};
+@item l'etichetta -- un simbolo scheme -- per esempio @code{#'primoBrano};
 @item un testo markup da usare come misura di riferimento per stimare le
 dimensioni del testo;
 @item un testo markup che verrà usato al posto del numero di pagina se l'etichetta
@@ -1772,12 +1769,12 @@ non viene trovata.
 
 Il motivo per cui è necessario una misura di riferimento è che, nel momento in
 cui vengono interpretati i testi (markup), le interruzioni di pagina non sono
-ancora state decise, quindi i numeri di pagina non sono ancora noti. Per
-aggirare il problema, la vera interpretazione del testo viene rimandata a un
-momento successivo; tuttavia le dimensioni del testo devono essere conosciute
-prima, ecco perché una misura di riferimento viene usata per decidere tali
-dimensioni. Se il libro ha un numero di pagine compreso tra 10 e 99, tale misura
-sarà "00", ovvero un numero di due cifre.
+state decise, quindi i numeri di pagina non sono ancora noti. Per aggirare il
+problema, la vera interpretazione del testo viene rimandata a un momento
+successivo; tuttavia le dimensioni del testo devono essere conosciute prima,
+ecco perché serve una misura di riferimento per decidere tali dimensioni. Se il
+libro ha un numero di pagine compreso tra 10 e 99, tale misura sarà "00", ovvero
+un numero di due cifre.
 
 
 @predefined
@@ -1874,8 +1871,8 @@ Ecco un esempio che mostra come cambiare il corpo dei caratteri nell'indice:
 }
 @end verbatim
 
-Nota come il testo e il numero di pagina dell'elemento dell'indice sono
-citati nella definizione di @code{tocItemMarkup}.
+Nota il modo in cui sono citati il testo e il numero di pagina dell'elemento
+dell'indice nella definizione di @code{tocItemMarkup}.
 
 Includendo il comando @code{\tocItemWithDotsMarkup} dentro @code{tocItemMarkup}
 lo spazio tra un elemento dell'indice e la sua pagina corrispondente sarà
@@ -1925,7 +1922,7 @@ tocAct =
 
 @noindent
 Un file di input di LilyPond, che usi queste definizioni personalizzate,
-potrebbe essere scritto così:
+potrebbe avere il seguente output:
 
 @lilypond[line-width=10.0\cm]
 \header { tagline = ##f }
@@ -2018,7 +2015,7 @@ I file nella directory di lavoro corrente possono essere citati indicando
 semplicemente il nome del file dopo il comando @code{\include}. I file in altre
 posizioni possono essere inclusi sia con un percorso assoluto che con un
 percorso relativo (ma come separatore delle directory occorre usare la barra, o
-slah, come in UNIX, piuttosto che la barra inversa, o backslash, come in
+slash, come in UNIX, piuttosto che la barra inversa, o backslash, come in
 DOS/Windows).  Per esempio, se @file{cose.ly} si trova una directory prima
 della directory di lavoro corrente, usare
 
@@ -2041,7 +2038,7 @@ I file che devono essere inclusi possono contenere essi stessi delle
 dichiarazioni @code{\include}.  Per impostazione predefinita, queste
 dichiarazioni @code{\include} di secondo livello non sono interpretate
 finché non vengono portate nel file principale, dunque i nomi dei file
-che specificano devono essere tutti relatici alla directory del file
+che specificano devono essere tutti relativi alla directory del file
 principale, non alla directory del file incluso. Tuttavia tale comportamento
 può essere cambiato globalmente tramite l'opzione @option{-drelative-includes}
 da linea di comando (oppure agggiungendo @code{#(ly:set-option 'relative-includes #t)}
@@ -2113,7 +2110,7 @@ e in principale.ly scrivere
 
 I file che devono essere inclusi in molte partiture possono essere
 salvati nella directory di installazione di LilyPond @file{../ly}.  La
-posizione di questa directory dipende dal tipo di installazione - vedi
+posizione di questa directory dipende dal tipo di installazione (vedi
 @rlearning{Altre fonti di informazione}).  Questi file possono quindi
 essere inclusi semplicemente nominandoli in una dichiarazione @code{\include}.
 Questo è il modo in cui sono inclusi i file che dipendono dalla lingua,
@@ -2271,7 +2268,7 @@ simboli (come @code{#'score} o @code{#'(violinoI violinoII}),
 seguiti da un'espressione musicale.  Se @emph{e solo se} i simboli
 sono identificatori LilyPond validi (solo caratteri alfabetici, nessun
 numero, trattino o trattino basso) che non possono essere confusi con
-le note, si può emettere il @code{#'} e, come scorciatoia, una lista di
+le note, si può omettere il @code{#'} e, come scorciatoia, una lista di
 simboli può usare il punto come separatore: quindi
 @code{\tag #'(violinoI violinoII)} può essere riscritto come
 @code{\tag violinoI.violinoII}.  Lo stesso vale per
@@ -2409,12 +2406,11 @@ Non è possibile assegnare la stessa etichetta a più di un gruppo.
 @funindex \appendToTag
 @cindex combinare musica contrassegnata con etichette
 
-Talvolta si ha necessità di combinare insieme della musica in un
-punto preciso di un'espressione musicale esistente.
-@code{\pushToTag} e @code{\appendToTag} permettono di aggiungere materiale
-prima o dopo gli elementi (@code{elements}) di un costrutto musicale
-esistente.  Non tutti i costrutti musicali hanno @code{elements}, ma nel
-caso di musica sequenziale e simultanea si può esserne sicuri:
+Talvolta si ha necessità di combinare insieme della musica in un punto preciso
+di un'espressione musicale esistente. @code{\pushToTag} e @code{\appendToTag}
+permettono di aggiungere materiale prima o dopo gli elementi di un costrutto
+musicale esistente.  Non tutti i costrutti musicali hanno elementi, ma nel caso
+di musica sequenziale e simultanea si può esserne sicuri:
 
 @lilypond[verbatim,quote]
 test = { \tag #'qui { \tag #'qui <<c''>> } }
@@ -2465,7 +2461,7 @@ lilypond -dinclude-settings=MIE_IMPOSTAZIONI.ly MIA_PARTITURA.ly
 Gruppi di impostazioni come dimensioni del foglio e tipo di carattere
 possono essere salvati in file separati. Ciò permette di ottenere diverse
 edizioni dalla stessa partitura o di applicare delle impostazioni
-standard a molte partiture, semplicemente indicando il relativo file
+tipiche a molte partiture, semplicemente indicando il relativo file
 delle impostazioni.
 
 Questa tecnica è la stessa usata per i fogli di stile, trattati
@@ -2769,8 +2765,8 @@ parte), si userà invece la proprietà @code{showFirstLength}.
 
 
 È possibile saltare parti di una partitura in un modo più preciso tramite
-la proprietà @code{Score.skipTypesetting}.  Quando è impostata, la composizione
-tipografica è disattivata.
+la proprietà @code{Score.skipTypesetting}.  Quando è impostata su vero, la
+composizione tipografica è disattivata.
 
 Questa proprietà viene usata anche per controllare l'output da inviare al
 file MIDI.  Attenzione: salta tutti gli eventi, inclusi i cambi di tempo e
@@ -2855,7 +2851,7 @@ LilyPond è in grado di produrre dei file conformi allo standard MIDI
 (Musical Instrument Digital Interface) e dunque permette di fare un
 controllo uditivo dell'output musicale (con l'aiuto di un'applicazione
 o un dispositivo che comprendano il MIDI).  L'ascolto dell'output MIDI
-può aiutare anche a individuare errori come note inserite in modo
+può aiutare anche a individuare errori, come note inserite in modo
 erroneo o note senza alterazioni e così via.
 
 I file MIDI non contengono audio (come i file AAC, MP3 o Vorbis), bensì
@@ -2885,7 +2881,7 @@ usando le capacità predefinite di LilyPond:
 @itemize
 @item Respiri
 @item Accordi inseriti come nomi degli accordi
-@item Crescendi, decrescendi su varie note.  Il volume viene modificato
+@item Crescendi e decrescendi su varie note.  Il volume viene modificato
 in modo proporzionato fra i due estremi
 @item Segni di dinamica da @code{ppppp} a @code{fffff}, inclusi
 @code{mp}, @code{mf} e @code{sf}
@@ -2936,7 +2932,7 @@ Vedi @ref{Enhancing MIDI output}.
 @translationof Unsupported notation for MIDI
 
 I seguenti elementi della notazione musicale non possono essere trasferiti
-nel file MIDI;
+nel file MIDI:
 
 @itemize
 @item Articolazioni diverse da staccato, staccatissimo, accento, marcato
@@ -3143,7 +3139,7 @@ In questo esempio il volume del clarinetto è diminuito in modo proporzionale
 al volume del flauto.
 
 Se queste proprietà del volume non sono impostate, LilyPond applica comunque
-@q{un po'} di equalizzazione a certi strumenti.  Vedi @file{scm/midi.scm}.
+@qq{un po'} di equalizzazione a certi strumenti.  Vedi @file{scm/midi.scm}.
 
 File installati:
 @file{scm/midi.scm}.
@@ -3286,8 +3282,8 @@ percussivi con un tono musicale, come xilofono, marimba, vibrafono o
 timpano, sono trattati come strumenti @qq{normali}, quindi la musica di
 tali strumenti deve essere inserita in un contesto @code{Staff} (non
 @code{DrumStaff}) per ottenere l'output MIDI corretto.  L'elenco completo
-delle voci del @code{set di percussioni del canale 10} si trova in
-@file{scm/midi.scm}. Vedi @rlearning{Altre fonti di informazione}.
+delle voci del set di percussioni del canale 10 @code{channel 10 drum-kits} si
+trova in @file{scm/midi.scm}.  Vedi @rlearning{Altre fonti di informazione}.
 
 
 @node Uso delle ripetizioni nel MIDI
@@ -3385,7 +3381,7 @@ su uno dei seguenti valori:
 
 Assegna un canale MIDI separato a ogni rigo della partitura (comportamento
 predefinito).  Tutte le note in tutte le voci di ogni rigo condivideranno
-lo stesso canale MIDI del rigo che le racchiude, e tutte si trovano nella
+lo stesso canale MIDI del rigo che le racchiude, e si trovano tutte nella
 stessa traccia MIDI.
 
 Il limite dei 16 canali è applicato al numero totale dei contesti staff (rigo)
@@ -3414,7 +3410,7 @@ condivideranno lo stesso canale MIDI se hanno lo stesso nome.
 @code{midiInstrument} e i vari controlli MIDI per gli effetti, essendo
 proprietà del contesto del rigo (staff), non possono essere impostati
 separatamente per ogni voce. La prima voce verrà suonata con lo strumento
-e gli effetti specificati per il rigo, mentre alle voci con una nome diverso
+e gli effetti specificati per il rigo, mentre alle voci con un nome diverso
 da quello della prima saranno assegnati lo strumento e gli effetti predefiniti.
 
 Nota bene: è possibile assegnare diversi strumenti e/o effetti a varie
@@ -3585,7 +3581,7 @@ Per usare lo script @file{articulate} aggiungere il relativo comando
 @end example
 
 Lo script crea file MIDI in cui la durata delle note è correttamente
-@q{ridimensionata} per rappresentare molte articolazioni e indicazioni
+@qq{ridimensionata} per rappresentare molte articolazioni e indicazioni
 di tempo. Tuttavia anche l'output grafico verrà modificato per
 corrispondere esattamente all'output MIDI.
 
@@ -3598,7 +3594,7 @@ corrispondere esattamente all'output MIDI.
 @}
 @end example
 
-Il comando @code{\articulate} permette di elaborare le abbreviature (come
+Il comando @code{\articulate} permette di elaborare le abbreviazioni (come
 i trilli e i gruppetti). L'elenco completo degli elementi supportati si
 trova nello script stesso.  Vedi @file{ly/articulate.ly}.
 
@@ -3666,15 +3662,15 @@ lilypond file.ly >display.txt
 @end example
 
 @funindex \void
-@c non lo traduco ancora perché poco chiaro:
+@c tradotto un po' liberamente, dato che il paragrafo in inglese è poco chiaro:
 @c https://lists.gnu.org/archive/html/lilypond-user/2015-12/msg00141.html
-Note that Lilypond does not just display the music expression, but
-also interprets it (since @code{\displayLilyMusic} returns it in
-addition to displaying it).  This is convenient since you can just
-insert @code{\displayLilyMusic} into existing music in order to get
-information about it.  If you don't actually want Lilypond to
-interpret the displayed music as well as display it, use @code{\void}
-in order to have it ignored:
+Nota bene che Lilypond non soltanto mostra in console l'espressione musicale, ma
+la interpreta anche (infatti l'espressione musicale di @code{\displayLilyMusic}
+appare nell'output oltre a essere mostrata in console).  Ciò è comodo, perché
+si può inserire @code{\displayLilyMusic} in file esistenti, senza doverne
+modificare le note di input, per ottenere informazioni su di essi.  Se non si
+vuole che Lilypond interpreti la musica mostrata in console, basta precedere
+il comando con @code{\void} per far sì che sia ignorata:
 
 @example
 @{
