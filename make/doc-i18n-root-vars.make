@@ -41,7 +41,7 @@ WEB_MANUALS=web
 
 ###########
 ifneq ($(ISOLANG),)
-TEXI2HTML_LANG = --lang=$(ISOLANG)
+TEXI2HTML_LANG = --document-language=$(ISOLANG)
 endif
 
 $(XREF_MAPS_DIR)/web.$(ISOLANG).xref-map:\
