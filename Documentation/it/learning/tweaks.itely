@@ -549,8 +549,10 @@ aspetto può essere modificato come di consueto con i comandi @code{\override}:
 @end lilypond
 
 @seealso
-@c need to comment this until the node conflict is fixed - fb
 Guida alla Notazione:
+@c http://lists.gnu.org/archive/html/bug-lilypond/2014-12/msg00041.html
+@c Duplicate node names across LM and NR causes problems to translated manuals (see issue 2266).
+@c As a workaround, I manually add the anchor text.
 @ruser{The tweak command,,The tweak command}.
 
 
@@ -1365,7 +1367,7 @@ lista.  La lista di cui ha bisogno è in realtà una lista di valori
 in unità interne, ma per evitare di dover imparare quali siano queste
 unità vengono forniti vari modi di specificare un colore.  Il primo
 modo consiste nell'usare uno dei colori @q{normali} elencati nella
-prima tabella in @ruser{List of colors}.  Per rendere bianche le
+prima tabella in @ruser{Elenco dei colori}.  Per rendere bianche le
 stanghette scriviamo:
 
 @cindex BarLine, esempio di sovrascrittura
@@ -1399,7 +1401,7 @@ nella lista.
 @funindex x11-color
 
 Il secondo modo per cambiare il colore è attraverso la lista
-di nomi di colori X11 che si trova in @ruser{List of colors}.
+di nomi di colori X11 che si trova in @ruser{Elenco dei colori}.
 Questi colori vengono trasformati in valori reali dalla funzione
 @code{x11-color}, che converte i simboli di colore X11 nella lista
 di valori interni:
@@ -2314,7 +2316,7 @@ Questo esempio mostra anche come creare gli estensori (spanner) del testo,
 ovvero testo con delle linee che si estendono sopra una sezione musicale.
 L'estensore si allunga dal comando @code{\startTextSpan} fino al comando
 @code{\stopTextSpan} e il formato del testo è definito dal comando
-@code{\override TextSpanner}.  Per maggiori dettagli si veda @ruser{Text spanners}.
+@code{\override TextSpanner}.  Per maggiori dettagli si veda @ruser{Estensori del testo}.
 
 Mostra anche come si creano le estensioni del segno d'ottava.
 
@@ -2639,7 +2641,7 @@ tra testo e note, e tra l'accompagnamento del pianoforte e la linea vocale, e
 minor spazio tra i righi del pianoforte.  Iniziamo dal testo.
 
 Il testo vocale si trova all'interno di un sistema, dunque i comandi per
-modificarne la spaziatura sono descritti in @ruser{Flexible vertical spacing within systems}.
+modificarne la spaziatura sono descritti in @ruser{Spaziatura verticale flessibile all'interno dei sistemi}.
 Quel paragrafo ci dice che il testo è costituito da linee che non appartengono
 al rigo (@code{non-staff lines}), quindi il comando per cambiarne la spaziatura
 sarà riferito alla proprietà @code{nonstaff}.  Per allontanarlo dal rigo a cui
@@ -2784,8 +2786,8 @@ da ricordare è che la spaziatura degli oggetti in un contesto @code{StaffGroup}
 variabili spaziali di @code{StaffGrouper}.  La spaziatura relativa ai righi
 non raggruppati (come @code{Lyrics} e @code{Staff}) è regolata dalle variabili
 del @code{VerticalAxisGroup}.  Ulteriori dettagli in
-@ruser{Flexible vertical spacing paper variables} e
-@ruser{Flexible vertical spacing within systems}.
+@ruser{Variabili paper della spaziatura verticale flessibile} e
+@ruser{Spaziatura verticale flessibile all'interno dei sistemi}.
 
 
 @node Collisioni tra oggetti
@@ -3759,7 +3761,7 @@ tutorial abbiamo visto come aggiungere un'indicazione di tempo col comando
 ad accorpare le note appartenenti a voci diverse?  Ancora una volta
 dobbiamo rivolgerci alla guida alla Notazione per un aiuto.  Una ricerca
 del termine @qq{accorpare} (in inglese @emph{merge}) nell'indice della guida
-ci porta rapidamente al paragrafo @ruser{Collision resolution}, dove
+ci porta rapidamente al paragrafo @ruser{Risoluzione delle collisioni}, dove
 troviamo i comandi per allineare le note con teste e punti diversi.  Nel
 nostro esempio abbiamo bisogno di accorpare entrambi i tipi di note per la
 durata della sezione polifonica della terza battuta.  Dunque, usando le

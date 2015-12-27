@@ -2509,9 +2509,9 @@ rappresentati da istanze della classe @code{Grob}.
 
 @seealso
 Manuale di apprendimento:
-@rlearning{Objects and interfaces},
-@rlearning{Naming conventions of objects and properties},
-@rlearning{Properties of layout objects}.
+@rlearning{Oggetti e interfacce},
+@rlearning{Convenzioni per i nomi di oggetti e proprietà},
+@rlearning{Proprietà degli oggetti di formattazione}.
 
 Guida al funzionamento interno:
 @rinternals{grob-interface},

@@ -471,7 +471,7 @@ il comando @code{\!}:
 @seealso
 Guida alla notazione:
 @ruser{Articolazioni e abbellimenti},
-@ruser{Fingering instructions},
+@ruser{Indicazioni di diteggiatura},
 @ruser{Dinamiche}.
 
 
@@ -503,7 +503,7 @@ a'2_\markup {
 
 @seealso
 Guida alla notazione:
-@ruser{Writing text}.
+@ruser{Inserimento del testo}.
 
 
 @node Code automatiche e manuali
@@ -1237,7 +1237,7 @@ Ecco un esempio tratto dal @notation{Figaro} di Rossini, dove
 
 @seealso
 Guida alla notazione:
-@ruser{Vocal music}.
+@ruser{Musica vocale}.
 
 
 @node Testo su più righi
@@ -1282,7 +1282,7 @@ in @ref{Organizing pieces with variables}.
 
 @seealso
 Guida alla notazione:
-@ruser{Vocal music}.
+@ruser{Musica vocale}.
 
 
 @node Ritocchi finali
@@ -1426,7 +1426,7 @@ posto sotto il numero di versione.
 
 Quando il file viene elaborato, sopra la musica vengono visualizzati
 il titolo e il compositore.  Si possono trovare  maggiori informazioni
-sui titoli in @ruser{Creating titles headers and footers}.
+sui titoli in @ruser{Creazione di titoli intestazioni e piè di pagina}.
 
 
 @node Nomi assoluti delle note

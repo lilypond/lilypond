@@ -36,7 +36,7 @@ agli utenti esperti una grande flessibilità nell'organizzare i file come
 preferiscono.  Ma questa flessibilità può creare confusione nei nuovi
 utenti.  Questa sezione spiegherà in parte questa struttura, ma
 sorvolerà su alcuni dettagli in favore della semplicità.  Per una
-descrizione completa del formato di input, si veda @ruser{File structure}.
+descrizione completa del formato di input, si veda @ruser{Struttura del file}.
 
 @menu
 * Introduzione alla struttura di un file di LilyPond::
@@ -182,8 +182,8 @@ Altri due comandi che non hai incontrato finora sono
 @code{\layout @{ @}} e @code{\midi @{@}}.  Se questi appaiono come
 in figura, LilyPond creerà rispettivamente un output per la stampa
 e uno per il MIDI.  Sono descritti dettagliatamente nella
-Guida alla notazione, in @ruser{Score layout}, e
-@ruser{Creating MIDI output}.
+Guida alla notazione, in @ruser{Formattazione della partitura}, e
+@ruser{Creazione dell'output MIDI}.
 
 @cindex partiture, multiple
 @cindex libro, blocco implicito
@@ -217,7 +217,7 @@ che si trova dentro un blocco @code{\score} riguarda solo quel blocco
 blocco @code{\score} (e quindi in un blocco @code{\book}, esplicitamente
 o implicitamente) riguarderà ogni @code{\score} in quel @code{\book}.
 
-Per maggiori dettagli si veda @ruser{Multiple scores in a book}.
+Per maggiori dettagli si veda @ruser{Molteplici partiture in un libro}.
 
 @cindex variabili
 
@@ -242,12 +242,12 @@ ciò che si trova dopo il segno di uguale) e lo inserisce ovunque si trovi
 altro nome.  Ricordati che puoi usare quasi ogni nome che vuoi, purché esso
 contenga solo caratteri alfabetici e sia diverso dai nomi dei comandi di
 LilyPond.  Le esatte limitazioni relative ai nomi delle variabili sono spiegate
-dettagliatamente in @ruser{File structure}.
+dettagliatamente in @ruser{Struttura del file}.
 
 
 @seealso
 Per una definizione completa del formato di input, si veda
-@ruser{File structure}.
+@ruser{Struttura del file}.
 
 
 @node La partitura è una (singola) espressione musicale composta
@@ -393,7 +393,7 @@ di testo si trovi nella stessa posizione orizzontale.
 
 
 @seealso
-Guida alla notazione: @ruser{Structure of a score}.
+Guida alla notazione: @ruser{Struttura di una partitura}.
 
 
 @node Annidare le espressioni musicali
@@ -1344,7 +1344,7 @@ VerseFour  =
 @end lilypond
 
 @seealso
-Guida alla notazione: @ruser{Vocal music}.
+Guida alla notazione: @ruser{Musica vocale}.
 
 
 @node Contesti e incisori
@@ -1670,22 +1670,22 @@ l'aspetto dell'output.  Per cambiarle si usa il comando
 @code{\set}.  Questo assume la seguente forma
 
 @example
-\set @emph{NomeDelContesto}.@emph{nomeDellaProprietà} = #@emph{valore}
+\set @emph{NomeContesto}.@emph{nomeProprietà} = #@emph{valore}
 @end example
 
-Dove il @emph{NomeDelContesto} è di solito @code{Score},
+Dove il @emph{NomeContesto} è di solito @code{Score},
 @code{Staff} o @code{Voice}.  Può essere omesso, e in questo
 caso viene considerato il contesto attuale (solitamente @code{Voice}).
 
-I nomi delle proprietà del contesto consistono in parole unite
-insieme e senza lineette o trattini bassi, e solo la prima
-parola inizia con una lettera maiuscola.  Ecco alcuni esempi
+I nomi delle proprietà di contesto consistono in parole unite
+insieme e senza lineette o trattini bassi, e tutte le parole tranne
+la prima iniziano con una lettera maiuscola.  Ecco alcuni esempi
 di quelle più usate comunemente.  Ma ne esistono molte altre.
 
 @c attempt to force this onto a new page
 @need 50
 @multitable @columnfractions .25 .15 .45 .15
-@headitem nomeDellaProprietà
+@headitem nomeProprietà
   @tab Tipo
   @tab Funzione
   @tab Valore di esempio
@@ -3240,6 +3240,6 @@ Manuale di apprendimento:
 Guida alla notazione:
 @ruser{Trasposizione},
 @ruser{Scrittura delle parti},
-@ruser{Pause d’intero},
-@ruser{Including LilyPond files}.
+@ruser{Pause d'intero},
+@ruser{Inclusione di file LilyPond}.
 

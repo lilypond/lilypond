@@ -156,7 +156,7 @@ contenuto in uno spartito già scritto),
 musica) un sistema alla volta (ma sempre una battuta per linea di testo),
 e controlla ogni sistema completato.  Puoi usare le proprietà
 @code{showLastLength} o @code{showFirstLength} per velocizzare
-l'elaborazione -- vedi @ruser{Skipping corrected music}.
+l'elaborazione -- vedi @ruser{Saltare la musica già corretta}.
 
 @item Definisci @code{mBreak = @{ \break @}} e inserisci @code{\mBreak}
 nel file di input ogni volta che nel manoscritto c'è un a capo.  In questo

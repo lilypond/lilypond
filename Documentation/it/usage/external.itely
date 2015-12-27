@@ -717,7 +717,7 @@ confondono @command{etf2ly}.  Le sequenze di abbellimenti non sono risolte corre
 
 LilyPond non supporta la conversione da altri formati, ma esistono alcuni
 strumenti esterni che possono generare file LilyPond.  L'elenco si trova
-in @rweb{Easier editing}.
+in @rweb{Editing facilitato}.
 
 
 
@@ -820,7 +820,7 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts \
 
 Per inserire molti frammenti di una grande partitura, si può
 usare anche la funzione di ritaglio dei sistemi; si veda
-@ruser{Extracting fragments of music}.
+@ruser{Estrarre frammenti musicali}.
 
 
 @node Inclusioni indipendenti
@@ -830,7 +830,7 @@ usare anche la funzione di ritaglio dei sistemi; si veda
 Alcuni utenti hanno creato file che possono essere inclusi in LilyPond
 tramite @code{\include} per produrre certi effetti.  Quelli elencati
 in questo capitolo fanno parte di Lilypond.  Maggiori informazioni
-in @ruser{Working with input files}.
+in @ruser{Lavorare coi file di input}.
 
 @menu
 * Articolazione MIDI::
@@ -851,5 +851,5 @@ ai segni di articolazione attaccati ad esse.  Per esempio, @q{staccato}
 dimezza il valore della nota, @q{tenuto} assegna alla nota la sua
 durata completa, e così via.
 
-Maggiori informazioni in @ruser{Enhancing MIDI output}.
+Maggiori informazioni in @ruser{Miglioramento dell'output MIDI}.
 

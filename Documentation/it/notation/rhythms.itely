@@ -324,7 +324,7 @@ Glossario musicale:
 @rglosnamed{polymetric,polimetrico}.
 
 Manuale di apprendimento:
-@rlearning{Tweaking methods}.
+@rlearning{Metodi di modifica}.
 
 Guida alla notazione:
 @ref{Direction and placement},
@@ -833,7 +833,7 @@ output.
 
 @seealso
 Manuale di apprendimento:
-@rlearning{Visibility and color of objects}.
+@rlearning{Visibilità e colore degli oggetti}.
 
 Guida alla notazione:
 @ref{Hidden notes},

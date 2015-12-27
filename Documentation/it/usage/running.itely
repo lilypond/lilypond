@@ -512,7 +512,7 @@ di input:
 @end verbatim
 @end quotation
 
-Leggere anche @ruser{Entire document fonts}.
+Leggere anche @ruser{Tipi di carattere per l'intero documento}.
 
 @multitable @columnfractions .33 .16 .51
 
@@ -524,7 +524,7 @@ Leggere anche @ruser{Entire document fonts}.
 @tab @code{#f}
 @tab Estrae frammenti musicali da una partitura.  Per far ciò è necessario
 che sia stata definita la funzione @code{clip-regions} all'interno del blocco
-@code{\layout}.  Maggiori informazioni in @ruser{Extracting fragments of music}.
+@code{\layout}.  Maggiori informazioni in @ruser{Estrarre frammenti musicali}.
 Nessun frammento verrà estratto se questa opzione è usata insieme
 all'opzione @option{-dno-print-pages}.
 
@@ -1148,7 +1148,7 @@ iniziano con un punto e virgola, (@code{;}).
 
 Questo messaggio di errore compare nella console di output o nel file di log file
 se un file di input contiene un carattere non-ASCII e non è stato salvato nella
-codifica UTF-8.  Per dettagli si veda @ruser{Text encoding}.
+codifica UTF-8.  Per dettagli si veda @ruser{Codifica del testo}.
 
 
 @node Avvertimento sul fatto che le affinità del rigo devono solo diminuire
@@ -1167,7 +1167,7 @@ come un rigo inserendo
 
 @noindent
 all'inizio del contesto.  Per dettagli si veda @qq{Spacing of non-staff lines} in
-@ruser{Flexible vertical spacing within systems}.
+@ruser{Spaziatura verticale flessibile all'interno dei sistemi}.
 
 @node Messaggio di errore new inaspettato
 @unnumberedsubsec Messaggio di errore @code{@bs{}new} inaspettato
