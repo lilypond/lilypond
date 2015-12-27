@@ -197,7 +197,7 @@ Guida alla notazione:
 * Il comando revert::
 * Il prefisso once::
 * Il comando overrideProperty::
-* Il comando tweak::
+* Il comando di ritocco tweak::
 * Il prefisso single::
 @end menu
 
@@ -375,8 +375,11 @@ Lo menzioniamo qui per completezza, ma per approfondire l'argomento
 si veda @rextend{Difficult tweaks}.
 @c Maybe explain in a later iteration  -td
 
-@node Il comando tweak
-@unnumberedsubsubsec Il comando @code{@bs{}tweak}
+@c http://lists.gnu.org/archive/html/bug-lilypond/2014-12/msg00041.html
+@c Duplicate node names across LM and NR causes problems to translated manuals (see issue 2266).
+@c As a workaround, I'll slightly change the node name.
+@node Il comando di ritocco tweak
+@unnumberedsubsubsec Il comando di ritocco @code{@bs{}tweak}
 @translationof The tweak command
 
 @cindex tweak, comando
@@ -550,10 +553,7 @@ aspetto può essere modificato come di consueto con i comandi @code{\override}:
 
 @seealso
 Guida alla Notazione:
-@c http://lists.gnu.org/archive/html/bug-lilypond/2014-12/msg00041.html
-@c Duplicate node names across LM and NR causes problems to translated manuals (see issue 2266).
-@c As a workaround, I manually add the anchor text.
-@ruser{The tweak command,,The tweak command}.
+@ruser{Il comando tweak}.
 
 
 @node Il prefisso single
