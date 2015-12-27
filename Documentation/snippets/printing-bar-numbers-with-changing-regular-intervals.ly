@@ -19,10 +19,11 @@ The bar number interval can be changed by changing the context function
 } % begin verbatim
 
 
+
 \relative c' {
   \override Score.BarNumber.break-visibility = #end-of-line-invisible
   \context Score \applyContext #(set-bar-number-visibility 4)
-  \repeat unfold 10 c''1
+  \repeat unfold 10 c'1
   \context Score \applyContext #(set-bar-number-visibility 2)
-  \repeat unfold 10 c''
-} % begin verbatim
+  \repeat unfold 10 c
+}
