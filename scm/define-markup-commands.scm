@@ -3543,9 +3543,12 @@ A feta brace in point size @var{size}, rotated 180 degrees.
 
 Construct a note symbol, with stem and flag.  By using fractional values for
 @var{dir}, longer or shorter stems can be obtained.
-Supports all note-head-styles.
+Supports all note-head-styles.  Ancient note-head-styles will get
+mensural-style-flags.  @code{flag-style} may be overridden independently.
 Supported flag-styles are @code{default}, @code{old-straight-flag},
-@code{modern-straight-flag} and @code{flat-flag}.
+@code{modern-straight-flag}, @code{flat-flag}, @code{mensural} and
+@code{neomensural}.  The latter two flag-styles will both result in
+mensural-flags.  Both are supplied for convenience.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3556,7 +3559,8 @@ Supported flag-styles are @code{default}, @code{old-straight-flag},
 @end lilypond"
   (define (get-glyph-name-candidates dir log style)
     (map (lambda (dir-name)
-           (format #f "noteheads.~a~a" dir-name
+           (format #f "noteheads.~a~a"
+                   dir-name
                    (if (and (symbol? style)
                             (not (equal? 'default style)))
                        (select-head-glyph style (min log 2))
@@ -3642,7 +3646,9 @@ Supported flag-styles are @code{default}, @code{old-straight-flag},
                                  (sign dir) log 'default))
                 result)))
          (head-glyph (ly:font-get-glyph font head-glyph-name))
-         (ancient-flags? (or (eq? style 'mensural) (eq? style 'neomensural)))
+         (ancient-flags?
+           (member style
+                   '(mensural neomensural petrucci semipetrucci blackpetrucci)))
          (attach-indices (ly:note-head::stem-attachment font head-glyph-name))
          (stem-length (* size-factor (max 3 (- log 1))))
          ;; With ancient-flags we want a tighter stem
@@ -3658,7 +3664,10 @@ Supported flag-styles are @code{default}, @code{old-straight-flag},
                                (cdr attach-indices)))))
          ;; For a tighter stem (with ancient-flags) the stem-width has to be
          ;; adjusted.
-         (stem-X-corr (if ancient-flags? (* 0.5 dir stem-thickness) 0))
+         (stem-X-corr
+           (if (or ancient-flags?
+                   (member flag-style '(mensural neomensural)))
+                   (* 0.5 dir stem-thickness) 0))
          (stem-glyph (and (> log 0)
                           (ly:round-filled-box
                            (ordered-cons (+ stem-X-corr (car attach-off))
@@ -3696,11 +3705,15 @@ Supported flag-styles are @code{default}, @code{old-straight-flag},
                               flat-flag)
                              (else
                               (ly:font-get-glyph font
-                                                 (format #f (if ancient-flags?
-                                                                "flags.mensural~a2~a"
-                                                                "flags.~a~a")
-                                                         (if (> dir 0) "u" "d")
-                                                         log))))
+                                (format #f
+                                        (if (or (member flag-style
+                                                        '(mensural neomensural))
+                                                (and ancient-flags?
+                                                     (null? flag-style)))
+                                            "flags.mensural~a2~a"
+                                            "flags.~a~a")
+                                        (if (> dir 0) "u" "d")
+                                        log))))
                        (cons (+ (car attach-off)
                                 ;; For tighter stems (with ancient-flags) the
                                 ;; flag has to be adjusted different.

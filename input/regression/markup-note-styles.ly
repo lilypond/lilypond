@@ -1,14 +1,15 @@
-\version "2.17.19"
+\version "2.19.35"
 
 \header {
   texidoc = "@code{\\note-by-number} and @code{\\note} support
-all note head styles and straight flags."
+all note head styles and all flag styles (default, straight, flat, mensural)."
 }
 
 #(define styles-list
   '(default altdefault
     baroque neomensural
     mensural petrucci
+    semipetrucci blackpetrucci
     harmonic harmonic-black
     harmonic-mixed diamond
     cross xcircle
@@ -35,6 +36,8 @@ all note head styles and straight flags."
                                '(-3 -2 -1 0 1 2 3 4 5 6))))))))
                        styles))))
 
+%% Testing all combinations of note-head/flag-styles would be too much
+%% Thus, limited examples
 \markup {
   \column {
     \combine \null \vspace #1
@@ -49,7 +52,7 @@ all note head styles and straight flags."
     \combine \null \vspace #1
     \underline "Modern-straight-flag:"
     \override #'(flag-style . modern-straight-flag)
-    \show-note-styles #'(default)
+    \show-note-styles #'(default mensural)
   }
 }
 
@@ -68,5 +71,14 @@ all note head styles and straight flags."
     \underline "Flat-flag:"
     \override #'(flag-style . flat-flag)
     \show-note-styles #'(default)
+  }
+}
+
+\markup {
+  \column {
+    \combine \null \vspace #1
+    \underline "default-flag:"
+    \override #'(flag-style . default)
+    \show-note-styles #'(default mensural)
   }
 }
