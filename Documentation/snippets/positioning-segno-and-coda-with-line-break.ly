@@ -51,12 +51,14 @@ line.
     \bar "||"
 
     % Set segno sign as rehearsal mark and adjust size if needed
-    \once \override Score.RehearsalMark.break-visibility = #begin-of-line-invisible
+    \once \override Score.RehearsalMark.break-visibility =
+      #begin-of-line-invisible
     % \once \override Score.RehearsalMark.font-size = #3
     \mark \markup { \musicglyph #"scripts.segno" }
 
     % Here begins the trickery!
-    % \cadenzaOn will suppress the bar count and \stopStaff removes the staff lines.
+    % \cadenzaOn will suppress the bar count
+    % and \stopStaff removes the staff lines.
     \cadenzaOn
     \stopStaff
         % Some examples of possible text-displays
@@ -75,14 +77,19 @@ line.
 
         % text and symbols center-aligned
         % ===============================
-        % Move text to the desired position and tweak spacing for optimum text alignment
+        % Move text to the desired position
+        % and tweak spacing for optimum text alignment
         \repeat unfold 1 {
           s1
           \bar ""
         }
         \once \override TextScript.extra-offset = #'( 0 . -3.0 )
         \once \override TextScript.word-space = #1.5
-        <>^\markup { \center-column { "D.S. al Coda" \line { \musicglyph #"scripts.coda" \musicglyph #"scripts.tenuto" \musicglyph #"scripts.coda"} } }
+        <>^\markup { \center-column { "D.S. al Coda"
+          \line {
+            \musicglyph #"scripts.coda"
+            \musicglyph #"scripts.tenuto"
+            \musicglyph #"scripts.coda"} } }
 
         % Increasing the unfold counter will expand the staff-free space
         \repeat unfold 3 {
@@ -104,7 +111,8 @@ line.
 
     % Set coda sign as rehearsal mark and adjust size and position
 
-    % Put the coda sign ontop of the (treble-)clef dependend on coda's line-position
+    % Put the coda sign on top of the (treble-)clef
+    % depending on coda's line-position
 
     % Coda NOT on new line, use this:
     % \once \override Score.RehearsalMark.extra-offset = #'( -2 . 1.75 )

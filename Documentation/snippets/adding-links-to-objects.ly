@@ -22,10 +22,6 @@ The linked objects are colored with a separate command.
   doctitle = "Adding links to objects"
 } % begin verbatim
 
-% Code by Thomas Morley
-% Contributed by harm6
-% Tested with 2.14.2 up to 2.17.9
-
 #(define (add-link url-strg)
   (lambda (grob)
     (let* ((stil (ly:grob-property grob 'stencil)))
@@ -35,7 +31,8 @@ The linked objects are colored with a separate command.
              (x-ext (ly:stencil-extent stil X))
              (y-ext (ly:stencil-extent stil Y))
              (url-expr (list 'url-link url-strg `(quote ,x-ext) `(quote ,y-ext)))
-             (new-stil (ly:stencil-add (ly:make-stencil url-expr x-ext y-ext) stil)))
+             (new-stil (ly:stencil-add
+                 (ly:make-stencil url-expr x-ext y-ext) stil)))
           (ly:grob-set-property! grob 'stencil new-stil)))
         #f))))
 

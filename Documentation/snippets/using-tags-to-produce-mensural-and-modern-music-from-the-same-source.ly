@@ -52,7 +52,9 @@ Music = \relative c'' {
   \set Score.tempoHideNote = ##t
   \key f \major
   \time 4/4
-  g1 d'2 \menrest bes4 bes2 a2 r4 g4 fis2. \tag #'mens { \finalis } \tag #'mod { \bar "||" }
+  g1 d'2 \menrest bes4 bes2 a2 r4 g4 fis2.
+  \tag #'mens { \finalis }
+  \tag #'mod { \bar "||" }
 }
 
 MenLyr = \lyricmode { So farre, deere life, deare life }

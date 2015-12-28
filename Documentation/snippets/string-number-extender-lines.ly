@@ -23,7 +23,8 @@ stringNumberSpanner =
       \override TextSpanner.style = #'solid
       \override TextSpanner.font-size = #-5
       \override TextSpanner.bound-details.left.stencil-align-dir-y = #CENTER
-      \override TextSpanner.bound-details.left.text = \markup { \circle \number $StringNumber }
+      \override TextSpanner.bound-details.left.text =
+        \markup { \circle \number $StringNumber }
     #})
 
 

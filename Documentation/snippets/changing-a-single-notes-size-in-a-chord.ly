@@ -27,5 +27,7 @@ note head).
 } % begin verbatim
 
 \relative c' {
-  <\tweak font-size #+2 c e g c \tweak font-size #-2 e>1^\markup { A tiny e }_\markup { A big c }
+  <\tweak font-size #+2 c e g c
+   \tweak font-size #-2 e>1
+   ^\markup { A tiny e }_\markup { A big c }
 }

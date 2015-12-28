@@ -237,11 +237,11 @@ simpleBach =
 cbI =
 \relative c' {
         \mark \markup {
-                \bold "Teacher:"
-                \column {
-                        "Well, you simply copied and transposed a version of J.S.Bach."
-                        "Do you know this one?"
-                }
+          \bold "Teacher:"
+          \column {
+            "Well, you simply copied and transposed a version of J.S.Bach."
+            "Do you know this one?"
+          }
         }
         \key a \minor
         \time 4/4

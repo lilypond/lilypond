@@ -34,7 +34,8 @@ This snippet shows how to bring the lyrics line closer to the staff.
   }
   % Reducing the minimum space below the staff and above the lyrics:
   \new Lyrics \with {
-    \override VerticalAxisGroup.nonstaff-relatedstaff-spacing = #'((basic-distance . 1))
+    \override VerticalAxisGroup.nonstaff-relatedstaff-spacing =
+      #'((basic-distance . 1))
   }
   \lyricsto melody { aa aa aa aa aa aa aa aa aa }
 >>

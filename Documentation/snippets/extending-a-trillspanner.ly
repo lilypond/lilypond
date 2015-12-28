@@ -19,10 +19,6 @@ set to @code{ly:spanner::set-spacing-rods}.
   doctitle = "Extending a TrillSpanner"
 } % begin verbatim
 
-%=> http://lilypond-french-users.1298960.n2.nabble.com/Allonger-un-trille-td7581110.html
-
-%by P.P.Schneider on April 2014
-
 \relative c' {
 \key c\minor
   \time 2/4

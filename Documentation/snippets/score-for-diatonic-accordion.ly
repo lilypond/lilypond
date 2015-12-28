@@ -75,7 +75,8 @@ staffTabLine = \new Staff \with {
   \remove "Clef_engraver"
 } {
   \override Staff.StaffSymbol.line-positions = #'(0)
-  % Shows one horizontal line. The vertical line (simulating a bar-line) is simulated with a gridline
+  % Shows one horizontal line. The vertical line
+  %  (simulating a bar-line) is simulated with a gridline
   \set Staff.midiInstrument = #"choir aahs"
   \key c \major
   \relative c''
@@ -90,7 +91,8 @@ staffTabLine = \new Staff \with {
     %  2. uncomment the line \NoNoteHead
     %  3. compile
     %  4. Mark the positions on which push/pull changes.
-    %     In the score-picture click on the position the push- or pull-part starts
+    %     In the score-picture click on the position
+    %        the push- or pull-part starts
     %           (on the noteHead, the cursor will change to a hand-icon).
     %     The cursor in the source code will jump just at this position.
     %   a) If a push-part starts there, replace the 'c' by an 'e['
@@ -99,7 +101,8 @@ staffTabLine = \new Staff \with {
     %  6. For the pull-parts overwrite the 'c' with 's'
     %  7. For every push-part replace the last 'c' with 'e]'
     %        8. Switch into 'insert-mode' again
-    %  9. At last it should look lik e.g. (s s e[ c | c c c c c c c c | c c c c c c e] s s)
+    %  9. At last it should look like e.g.
+    %        (s s e[ c | c c c c c c c c | c c c c c c e] s s)
     % 10. re-enable the line \NoNoteHead
     \autoBeamOff
     \ZeroBeam
@@ -109,8 +112,11 @@ staffTabLine = \new Staff \with {
 
 % Accordion melody in tabulator score
 % 1. Place a copy of the piano melody below
-% 2. Separate piano melody into pull- and push-parts according to the staffTabLine you've already made
-% 3. For each line: Double the line. Remark the 1st one (Keeps unchanged as reference) and then change the second line using the transformation paper
+% 2. Separate piano melody into pull- and push-parts
+%      according to the staffTabLine you've already made
+% 3. For each line: Double the line. Remark the 1st one
+%      (Keeps unchanged as reference) and then change the second
+%      line using the transformation paper
 %    or the macros 'conv2diaton push.bsh' and 'conv2diaton pull.bsh'
 % Tips:
 % - In jEdit Search & Replace mark the Option 'Keep Dialog'
@@ -128,9 +134,11 @@ AccordionTabTwoCBesDur = {
 
 AccordionTab= { \dynamicUp
   % 1. Place a copy of the piano melody above
-  % 2. Separate piano melody into pull- and push-parts according to the staffTabLine you've already made
-  % 3. For each line: Double the line. Remark the 1st one (Keeps unchanged as reference) and then
-  %    change the second line using the transformation paper
+  % 2. Separate piano melody into pull- and push-parts
+  %      according to the staffTabLine you've already made
+  % 3. For each line: Double the line. Remark the 1st one
+  %      (Keeps unchanged as reference) and then
+  %      change the second line using the transformation paper
   % Tips:
   % - In jEdit Search & Replace mark the Option 'Keep Dialog'
   % -
@@ -168,7 +176,11 @@ staffVoice = \new Staff = astaffvoice  {
   \clef treble
   {
     \context Voice = "melodyVoi"
-    { <f' bes'>8 <f' a'>8 <d' bes'>8 | <g' c''>4 <f' d''> <g' es''> <f' a'> | <f' bes'>2 r8 }
+    {
+      <f' bes'>8 <f' a'>8 <d' bes'>8 |
+      <g' c''>4 <f' d''> <g' es''> <f' a'> |
+      <f' bes'>2 r8
+    }
     \bar "|."
   }
 }
@@ -205,7 +217,8 @@ staffBassRhytm =
 
   \override Score.GridLine.extra-offset = #'( 13.0 . 0.0 ) % x.y
   \override Staff.StaffSymbol.line-positions = #'( 0 )
-  % Shows one horizontal line. The vertical line (simulating a bar-line) is simulated by a grid
+  % Shows one horizontal line. The vertical line
+  %  (simulating a bar-line) is simulated by a grid
   % Search for 'grid' in this page to find all related functions
   \time 4/4
   {

@@ -29,7 +29,8 @@ ticks, vees and @qq{railroad tracks} (caesura).
 
   % rvarcomma and lvarcomma are variations of the default rcomma and lcomma
   % N.B.: must use Staff context here, since we start a Voice below
-  \override Staff.BreathingSign.text = \markup { \musicglyph #"scripts.rvarcomma" }
+  \override Staff.BreathingSign.text =
+    \markup { \musicglyph #"scripts.rvarcomma" }
   << { g4 as g } \\ { es4 \breathe bes es } >> |
 
   % vee
@@ -37,7 +38,8 @@ ticks, vees and @qq{railroad tracks} (caesura).
   es8[ d es f g] \breathe f |
 
   % caesura
-  \override BreathingSign.text = \markup { \musicglyph #"scripts.caesura.curved" }
+  \override BreathingSign.text =
+    \markup { \musicglyph #"scripts.caesura.curved" }
   es8[ d] \breathe es[ f g f] |
   es2 r4 \bar "||"
 }

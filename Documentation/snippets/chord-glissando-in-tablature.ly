@@ -18,7 +18,6 @@ single notes.
 "
   doctitle = "Chord glissando in tablature"
 } % begin verbatim
-%=> http://lilypond.1069038.n5.nabble.com/LSR-chord-glissando-in-tablature-obsolete-tc159863.html
 
 myMusic = \relative c' {
   <c e g>1 \glissando <f a c>
