@@ -132,8 +132,6 @@ Beaming_pattern::beamify (Beaming_options const &options)
   if (infos_.size () <= 1)
     return;
 
-  int subdivide_beam_count = intlog2(options.base_moment_.main_part_.den())-2;
-
   unbeam_invisible_stems ();
 
   if (infos_[0].start_moment_.grace_part_)
@@ -169,8 +167,9 @@ Beaming_pattern::beamify (Beaming_options const &options)
         if (non_flag_dir)
           {
             int importance = infos_[i + 1].rhythmic_importance_;
+            int start_dur = intlog2(infos_[i+1].start_moment_.main_part_.den());
             int count = (importance < 0 && options.subdivide_beams_) 
-                        ? subdivide_beam_count
+                        ? max(start_dur,3)-2 // 1/8 note has one beam
                         : min (min (infos_[i].count (non_flag_dir),
                                         infos_[i + non_flag_dir].count (-non_flag_dir)),
                                    infos_[i - non_flag_dir].count (non_flag_dir));
