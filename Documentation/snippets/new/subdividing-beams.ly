@@ -24,7 +24,7 @@ changed to match the new @code{baseMoment}:
 
 "
   doctitle = "Subdividing beams"
-} % begin verbatim
+}
 
 \relative c'' {
   c32[ c c c c c c c]
@@ -50,5 +50,5 @@ changed to match the new @code{baseMoment}:
   \set baseMoment = #(ly:make-moment 1/8)
   \set beatStructure = #'(2 2 2 2)
   c32[ c c c c] r16.
-  
+  r2
 }

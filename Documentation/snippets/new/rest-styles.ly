@@ -7,17 +7,10 @@
 Rests may be used in various styles.
 "
   doctitle = "Rest styles"
-} % begin verbatim
-
-\layout {
-  indent = 0
-  \context {
-    \Staff
-    \remove "Time_signature_engraver"
-  }
 }
 
 \new Staff \relative c {
+  \omit Score.TimeSignature
   \cadenzaOn
 
   \override Staff.Rest.style = #'mensural

@@ -202,14 +202,16 @@ lowerStaff = \new MensuralStaff = "lowerStaff" <<
     \context {
       \MensuralStaff
       \revert  BarLine.transparent
-      \override KeySignature.glyph-name-alist = #alteration-mensural-glyph-name-alist
+      \override KeySignature.glyph-name-alist =
+        #alteration-mensural-glyph-name-alist
       clefGlyph = #"clefs.petrucci.c2"
     }
     \context {
       \VaticanaStaff
       \revert  BarLine.transparent
       \override StaffSymbol.thickness = #2.0
-      \override KeySignature.glyph-name-alist = #alteration-vaticana-glyph-name-alist
+      \override KeySignature.glyph-name-alist =
+        #alteration-vaticana-glyph-name-alist
       \override Custos.neutral-position = #4
     }
   }

@@ -18,6 +18,7 @@ The default font families for text can be overridden with
   doctitle = "Changing the default text font family"
 } % begin verbatim
 
+
 \paper {
   % change for other default global staff size.
   myStaffSize = #20
@@ -25,8 +26,7 @@ The default font families for text can be overridden with
      run
          lilypond -dshow-available-fonts blabla
      to show all fonts available in the process log.
-  %} % begin verbatim
-
+  %}
 
   #(define fonts
     (make-pango-font-tree "Times New Roman"

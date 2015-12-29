@@ -18,13 +18,13 @@ used for printing the stanza number.
   doctitle = "Changing stanza fonts"
 } % begin verbatim
 
+
 \new Voice {
   \time 3/4
   g2 e4
   a2 f4
   g2.
-} % begin verbatim
-
+}
 \addlyrics {
   \set stanza = #"1. "
   Hi, my name is Bert.
