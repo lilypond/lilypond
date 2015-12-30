@@ -104,6 +104,10 @@
 @unnumberedsubsubsec 相対オクターブ入力
 @translationof Relative octave entry
 
+@c 本項目のみ先に翻訳 2015-12-31
+@c ドキュメント全体的に相対モードの開始ピッチ指定方法が変更されており、
+@c 従前のままの内容だと混乱をきたす可能性があるため。
+
 @cindex relative (相対)
 @cindex relative octave entry (相対オクターブ入力)
 @cindex octave entry, relative (相対オクターブ入力)
@@ -113,14 +117,13 @@
 @funindex relative
 @funindex \relative
 
-オクターブが絶対モードで指定されている場合、@c
-ピッチを間違ったオクターブに置くことは容易に起こりえます。@c
-相対オクターブ モードはそのようなエラーを減らします。@c
-なぜなら、相対オクターブ モードでは、たいていの場合、@c
-オクターブを指定する必要が無いからです。@c
-さらに、絶対モードでは 1 つのミスを見つけることが@c
-困難であるかもしれないのに対し、@c
-相対モードでは 1 つのミスが楽曲の残りの部分を 1 オクターブずらします。
+絶対オクターブ入力は、一つ一つの音符のオクターブを指定する必要があります。@c
+相対オクターブ入力は、対照的に、@c
+すぐ前の音符との関係で各オクターブを指定します。@c
+1 つの音符のオクターブを変更すると、続く音符のすべてに影響します。
+
+相対音符モードは @code{\relative} コマンドを使って@c
+明示的に入力する必要があります。
 
 @example
 \relative @var{startpitch} @var{musicexpr}
@@ -148,8 +151,28 @@
 
 @item
 最初の音符のピッチは @code{@var{startpitch}} と相対関係で決定されます。@c
-@var{startpitch} は絶対オクターブ モードで指定され、@c
-@code{c} のオクターブにしておくことを推奨します。
+@var{startpitch} は絶対オクターブ モードで指定されます。@c
+どの選択肢がわかりやすですか？
+
+@table @asis
+@item @code{c} のオクターブ
+@code{c'} でミドル C を指定することは極めて基本的なため、@c
+@code{c} のオクターブは、どちらかといえば素直です。@c
+あなたの音楽が @code{c'''} より高い @code{gis} で始まる場合、@c
+@code{\relative c''' @{ gis' @dots{} @}} のように書くことができます。
+
+@item 内部の最初の音符のオクターブ
+@code{\relative gis''' @{ gis @dots{} @}} と書くことで、@c
+内部の最初の音符の絶対ピッチを簡単に決めることができます。
+
+@item 明示的な開始ピッチ無し
+@code{\relative @{ gis''' @dots{} @}} の形式は@c
+前の選択肢のコンパクト版として機能します。@c
+内部の最初の音符は絶対ピッチで書かれます。@c
+（これは基準ピッチとして @code{f} を選択したのと同じです。）
+@end table
+
+このドキュメントは通常、最後の選択肢を使用します。
 
 @end itemize
 
@@ -168,10 +191,8 @@
 
 @lilypond[verbatim,quote]
 \relative {
-  \clef bass
-  c d e f
-  g a b c
-  d e f g
+  c'' g c f,
+  c' a, e'' c
 }
 @end lilypond
 
@@ -186,7 +207,8 @@
 @end lilypond
 
 @code{\relative} ブロックがネストされている場合、@c
-最も内側の @code{\relative} ブロックが適用されます。
+最も内側の @code{\relative} ブロックが、外側の @code{\relative}
+とは独立した自身の参照ピッチで開始します。
 
 @lilypond[verbatim,quote]
 \relative {
@@ -247,7 +269,7 @@
 いかなる変更にも影響を受けません。@c
 そのため、B の後の E ダブル シャープは B よりも上に配置され、@c
 B の後の F ダブル フラットは B よりも下に配置されます。@c
-言い換えると、4 度の 2 重増音の音程は 5 度の 2 重減音の音程よりも小さい
+言い換えると、重増 4 度は重減 5 度よりも小さい
 -- それぞれの音程に含まれる半音の数に関係無く -- と見なされます。
 
 @lilypond[verbatim,quote]
@@ -259,9 +281,6 @@ B の後の F ダブル フラットは B よりも下に配置されます。@c
 }
 @end lilypond
 
-これらの規則から導き出される結論の 1 つは、@c
-@code{@w{\relative f}} ブロックの中の最初の音符は絶対ピッチ モードで記述された@c
-音符と全く同様に解釈されるということです。
 
 @seealso
 音楽用語集:
@@ -288,13 +307,6 @@ B の後の F ダブル フラットは B よりも下に配置されます。@c
 @funindex chordmode
 @funindex \relative
 @funindex relative
-
-@c DEPRECATED
-@code{\relative} に対して @code{@var{startpitch}} が指定されていない場合、@c
-@code{c'} であると見なされます。@c
-しかしながら、これは使用を推奨されなくなったオプションであり、@c
-将来のバージョンでは無くなるかもしれないので、@c
-@code{@var{startpitch}} を指定しないことはお勧めできません。
 
 
 @node 臨時記号

@@ -195,29 +195,47 @@
 @unnumberedsubsubsec 連符
 @translationof Tuplets
 
+@c 本項目のみ先に翻訳 2015-12-31
+@c 連符のコマンドが \times から \tuplet に変更されており、
+@c 従前のままの内容だと混乱をきたす可能性があるため。
+
 @cindex tuplets (連符)
 @cindex triplets (3 連符)
 
-@funindex \times
-@funindex times
+@funindex \tuplet
+@funindex tuplet
 
-連符はその連符内のすべての音符の演奏時間に分数を掛け合わせる音楽表記によって@c
-作られます:
+連符は @code{\tuplet} を使った音楽表記から作られ、@c
+音楽表記の速度に分数を掛け合わせます。
 
 @example
-\times @var{fraction} @{ @var{music} @}
+\tuplet @var{fraction} @{ @var{music} @}
 @end example
 
 @noindent
-@code{@var{music}} の演奏時間には分数 @code{@var{fraction}} が掛け合わされます。@c
-分数の分母が音符の上または下に譜刻され、オプションで囲みが付きます。@c
-最も一般的な連符は 3 連符であり、3 連符では 3 つの音符が音符 2 つ分の@c
-演奏時間を持ちます。@c
-そのため、3 連符で指定する分数は 2/3 です。
+分数 (@var{fraction}) の分子が音符の上または下に譜刻され、@c
+オプションで囲みが付きます。@c
+最も一般的な連符は 3 連符です。@c
+（ 3 つの音符が音符 2 つ分の演奏時間を持ちます。）
 
-@lilypond[quote,verbatim,relative=2]
-a2 \tuplet 3/2 { b4 b b }
-c4 c \tuplet 3/2 { b4 a g }
+@lilypond[quote,verbatim]
+\relative {
+  a'2 \tuplet 3/2 { b4 4 4 }
+  c4 c \tuplet 3/2 { b4 a g }
+}
+@end lilypond
+
+@cindex 連符のグルーピング
+@noindent
+連符の長いパッセージを入力するとき、@c
+各グループに別々の @code{\tuplet} コマンドを記述することは不便です。@c
+音楽の前に一つの連符グループの長さを直接指定することで、@c
+連符を自動的にグループ化することができます:
+
+@lilypond[quote,verbatim]
+\relative {
+  g'2 r8 \tuplet 3/2 8 { cis16 d e e f g g f e }
+}
 @end lilypond
 
 @cindex tuplet bracket placement (連符囲みの配置)
@@ -229,8 +247,16 @@ c4 c \tuplet 3/2 { b4 a g }
 @funindex \tupletNeutral
 @funindex tupletNeutral
 
-連符囲みは手動で譜の上または下に配置することができます
--- @ref{Direction and placement} を参照してください。
+連符囲みは手動で譜の上または下に配置することができます:
+
+@lilypond[quote,verbatim]
+\relative {
+  \tupletUp \tuplet 3/2 { c''8 d e }
+  \tupletNeutral \tuplet 3/2 { c8 d e }
+  \tupletDown \tuplet 3/2 { f,8 g a }
+  \tupletNeutral \tuplet 3/2 { f8 g a }
+}
+@end lilypond
 
 連符はネストすることができます:
 
@@ -292,6 +318,7 @@ c4 c \tuplet 3/2 { b4 a g }
 @rlearning{Tweaking methods}
 
 記譜法リファレンス:
+@ref{Direction and placement},
 @ref{Time administration},
 @ref{Scaling durations},
 @ref{The tweak command},
@@ -304,20 +331,6 @@ c4 c \tuplet 3/2 { b4 a g }
 @rinternals{TupletBracket},
 @rinternals{TupletNumber},
 @rinternals{TimeScaledMusic}.
-
-@cindex grace notes within tuplet brackets (連符囲み内の装飾小音符)
-
-@knownissues
-譜の先頭に装飾小音符とそれに続く連符を配置する場合でない限り、@c
-装飾を連符囲みの中に配置することができます。@c
-この特殊な場合では、エラーを避けるためにその装飾小音符を
-@code{\times} コマンドの前に置かなければなりません。
-
-@cindex tempo marks within tuplet brackets (連符囲み内でのテンポ記号)
-
-@code{\tempo} コマンドを持つ楽曲の先頭で連符を使う場合、@c
-@rlearning{音楽を保持するボイス} で説明されているように@c
-その音楽を明示的に @code{\new Voice} ブロックの中に入れる必要があります。
 
 
 @node 演奏時間を変更する
