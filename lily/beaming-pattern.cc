@@ -166,17 +166,17 @@ Beaming_pattern::beamify (Beaming_options const &options)
         Direction non_flag_dir = -flag_directions[i];
         if (non_flag_dir)
           {
-            int count = 
-                (infos_[i + 1].rhythmic_importance_ < 0 && 
+            int count =
+                (infos_[i + 1].rhythmic_importance_ < 0 &&
                  options.subdivide_beams_)
-                        // we're left of a subdivision 
+                        // we're left of a subdivision
                 ?  (i != infos_.size () - 2)
-                   // respect the beam count for shortened beams ...   
+                   // respect the beam count for shortened beams ...
                    ? max (beam_count_for_rhythmic_position (i + 1),
                           beam_count_for_length (remaining_length (i + 1)))
                    // ... except if there's only one trailing stem
                    : beam_count_for_rhythmic_position (i + 1)
-                
+
                 // we're at any other stem
                 : min (min (infos_[i].count (non_flag_dir),
                             infos_[i + non_flag_dir].count (-non_flag_dir)),
@@ -184,7 +184,7 @@ Beaming_pattern::beamify (Beaming_options const &options)
 
             // Ensure at least one beam is left, even for groups longer than 1/8
             count = max (count, 1);
-            
+
             infos_[i].beam_count_drul_[non_flag_dir] = count;
           }
       }
@@ -386,7 +386,7 @@ Beaming_pattern::beam_count_for_rhythmic_position (int idx) const
     return intlog2(infos_[idx].start_moment_.main_part_.den()) - 2;
 }
 
-int 
+int
 Beaming_pattern::beam_count_for_length (Moment len) const
 {
     return intlog2(len.main_part_.den()) - 2 - intlog2(len.main_part_.num());

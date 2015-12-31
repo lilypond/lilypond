@@ -10,7 +10,7 @@ entire groups of notes.  This behavior can be modified to subdivide the
 beams into sub-groups by setting the property @code{subdivideBeams}.
 When set, multiple beams will be subdivided at intervals defined by the
 current value of @code{baseMoment} by reducing the multiple beams to
-the number of beams that indicates the metric value of the subdivision. 
+the number of beams that indicates the metric value of the subdivision.
 If the group following the division is shorter than the current metric
 value (usually because the beam is incomplete) the number of beams
 reflects the longest possible subdivision group.  However, if there is
@@ -40,12 +40,12 @@ changed to match the new @code{baseMoment}:
   \set baseMoment = #(ly:make-moment 1/16)
   \set beatStructure = #'(4 4 4 4)
   c32[ c c c c c c c]
-  
+
   % Shorten beam by 1/32
   \set baseMoment = #(ly:make-moment 1/8)
   \set beatStructure = #'(2 2 2 2)
   c32[ c c c c c c] r32
-  
+
   % Shorten beam by 3/32
   \set baseMoment = #(ly:make-moment 1/8)
   \set beatStructure = #'(2 2 2 2)

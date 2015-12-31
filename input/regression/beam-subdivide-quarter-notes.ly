@@ -1,10 +1,10 @@
 \version "2.19.32"
 
 \header {
-  
+
   doctitle = "Beam subdivide over quarter notes"
 
-  texidoc = "Beam count at subdivisions should match the location 
+  texidoc = "Beam count at subdivisions should match the location
 of the current subdivision.  However, if the groups are equal or
 longer than quarter notes, one beam should always be left."
 

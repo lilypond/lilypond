@@ -1,6 +1,6 @@
 \header {
 
-  texidoc = "Beam count at subdivisions should match the location 
+  texidoc = "Beam count at subdivisions should match the location
 of the current subdivision."
   }
 
@@ -10,7 +10,7 @@ of the current subdivision."
   ragged-right = ##t
 }
 
-{  
+{
   \set subdivideBeams = ##t
   \set baseMoment = #(ly:make-moment 1 4)
   c''32[^\markup{"baseMoment 1/4"} c'' c'' c'' c'' c'' c'' c'']
