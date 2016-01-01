@@ -1,4 +1,4 @@
-%% Translation of GIT committish: caa4700b4acbc870158d70ee257efaa723c550f0
+%% Translation of GIT committish: 08c1ead90d9f49e66ce54208639fb9ef48ca52a6
   texidocfr = "
 La fonction de contexte @code{set-bar-number-visibility} permet de
 modifier la fréquence à laquelle les numéros de mesures s'impriment.
