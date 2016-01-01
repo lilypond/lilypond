@@ -9,7 +9,7 @@ this allows us to generate different output formats from a single
 set of source files.
 
 To organize multiple authors working on the documentation, we use a
-Version Control System (VCS) called git, previously discussed in
+Version Control System (VCS) called Git, previously discussed in
 @ref{Starting with Git}.
 
 @menu
@@ -291,12 +291,12 @@ five, levels.
 @item Level 5: @@subsubsubheading
 @end itemize
 
-The first three levels are numbered in html, the last two are not.
-Numbered sections correspond to a single html page in the split html
+The first three levels are numbered in HTML, the last two are not.
+Numbered sections correspond to a single HTML page in the split HTML
 documents.
 
 The first four levels always have accompanying nodes so they can be
-referenced and are also included in the ToC in html.
+referenced and are also included in the ToC in HTML.
 
 Most of the manual is written at level 4 under headings created with
 
@@ -681,7 +681,7 @@ command ;)
 Enter the exact @code{@@node} name of the target reference between
 the brackets (eg.@tie{}@w{@samp{@@ref@{Syntax survey@}}}).  Do not
 split a cross-reference across two lines -- this causes the
-cross-reference to be rendered incorrectly in html documents.
+cross-reference to be rendered incorrectly in HTML documents.
 
 @itemize
 @item
@@ -1516,10 +1516,12 @@ the difficulty.
 @unnumberedsubsubsec Building only one section of the documentation
 
 In order to save build time, a script is available to build only
-one section of the documentation in English with a default html
+one section of the documentation in English with a default HTML
 appearance.
 
-You can build a section of the documentation with:
+If you do not yet have a @file{build/} subdirectory within the LilyPond
+Git tree, you should create this first.  You can then build a section of
+the documentation with the following command:
 
 @example
 scripts/auxiliar/doc-section.sh MANUAL SECTION
@@ -1538,12 +1540,12 @@ scripts/auxiliar/doc-section.sh notation pitches
 You can then see the generated document for the section at
 
 @example
-tempdocs/pitches/out/pitches.html
+build/tempdocs/pitches/out/pitches.html
 @end example
 
 According to
 @uref{http://code.google.com/p/lilypond/issues/detail?id=1236,Lilypond issue 1236},
-the location of the lilypond git tree is taken from @code{$LILYPOND_GIT}
+the location of the LilyPond Git tree is taken from @code{$LILYPOND_GIT}
 if specified, otherwise it is auto-detected.
 
 It is assumed that compilation takes place in the @file{build/}
@@ -1555,7 +1557,7 @@ overridden by setting the environment variable
 @code{LILYPOND_TEMPDOCS}.
 
 This script will not work for building sections of the
-Contributors' guide.  For building sections of the Contributors'
+Contributors' Guide.  For building sections of the Contributors'
 Guide, use:
 
 @example
@@ -1564,7 +1566,7 @@ scripts/auxiliar/cg-section.sh SECTION
 
 @noindent
 where @code{SECTION} is the name of the file containing the sections
-to be built.  For example, to build section 4 of the Contributors' guide,
+to be built.  For example, to build section 4 of the Contributors' Guide,
 use:
 
 @example
