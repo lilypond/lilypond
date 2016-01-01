@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Sat Sep 19 15:34:10 UTC 2015
+@emph{Dernière mise à jour Fri Jan  1 10:40:27 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -371,7 +371,7 @@ oui
 @item
 2 Bases de notation musicale
 @*
-4453
+4443
 @tab Nicolas Grandclaude
 @*
 Ludovic Sardain
@@ -435,7 +435,7 @@ oui
 @item
 4 Retouche de partition
 @*
-16567
+16577
 @tab Valentin Villenave
 @*
 Nicolas Klutchnikoff
@@ -658,7 +658,7 @@ oui
 @item
 1.3 Signes d'interprétation
 @*
-1841
+1878
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -689,7 +689,7 @@ oui
 @item
 1.4 Répétitions et reprises
 @*
-1294
+1288
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -720,7 +720,7 @@ oui
 @item
 1.5 Notes simultanées
 @*
-2929
+2955
 @tab Frédéric Chiasson
 @*
 Valentin Villenave
@@ -809,7 +809,7 @@ oui
 @item
 1.8 Texte
 @*
-2852
+2880
 @tab Jean-Charles Malahieude
 @tab Valentin Villenave
 @*
@@ -958,7 +958,7 @@ oui
 @item
 2.4 Instruments à cordes frettées
 @*
-2716
+2756
 @tab Matthieu Jacquot
 @tab Jean-Charles Malahieude
 @tab 
@@ -1045,7 +1045,7 @@ oui
 @item
 2.7 Notation des accords
 @*
-1916
+1931
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1159,7 +1159,7 @@ oui
 @item
 3 Généralités en matière d'entrée et sortie
 @*
-12374
+12717
 @tab Jean-Charles Malahieude
 @*
 Valentin Villenave
@@ -1217,7 +1217,7 @@ oui
 @item
 5 Modification des réglages prédéfinis
 @*
-15577
+15581
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1246,7 +1246,7 @@ oui
 @item
 A Tables du manuel de notation
 @*
-3134
+3077
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -1372,7 +1372,7 @@ oui
 @item
 1 Exécution de @command{lilypond}
 @*
-5207
+5401
 @tab Jean-Charles Malahieude
 @tab 
 @tab 

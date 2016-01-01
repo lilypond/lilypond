@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Meest recente update Sat Sep 19 15:34:10 UTC 2015
+@emph{Meest recente update Fri Jan  1 10:40:27 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -111,7 +111,7 @@ gedeeltelijk
 @item
 2 Algemene muzieknotatie
 @*
-4453
+4443
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
@@ -165,7 +165,7 @@ gedeeltelijk
 @item
 4 Tweaking output
 @*
-16567
+16577
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 

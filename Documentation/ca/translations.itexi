@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualitzat el Sat Sep 19 15:34:10 UTC 2015
+@emph{Actualitzat el Fri Jan  1 10:40:27 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -111,7 +111,7 @@ parcialment
 @item
 2 Notació corrent
 @*
-4453
+4443
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -165,7 +165,7 @@ parcialment
 @item
 4 Ajustament de la sortida
 @*
-16567
+16577
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -182,7 +182,7 @@ parcialment (98 %)
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">parcialment</span>
+<span style="background-color: #5bff27">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -285,7 +285,7 @@ si
 @item
 1 Execució del LilyPond
 @*
-5207
+5401
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -302,7 +302,7 @@ parcialment (95 %)
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">parcialment</span>
+<span style="background-color: #83fe2c">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml

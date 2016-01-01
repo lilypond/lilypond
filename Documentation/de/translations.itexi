@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Sat Sep 19 15:34:10 UTC 2015
+@emph{Zuletzt aktualisiert am Fri Jan  1 10:40:27 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -359,7 +359,7 @@ ja
 @item
 2 Übliche Notation
 @*
-4453
+4443
 @tab ???
 @*
 Michael Gerdau
@@ -419,7 +419,7 @@ ja
 @item
 4 Die Ausgabe verbessern
 @*
-16567
+16577
 @tab ???
 @*
 Michael Gerdau
@@ -624,7 +624,7 @@ teilweise
 @item
 1.3 Ausdrucksbezeichnungen
 @*
-1841
+1878
 @tab Till Paala
 @tab 
 @tab 
@@ -641,7 +641,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #8aff2d">teilweise</span>
+<span style="background-color: #97ff2f">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -651,7 +651,7 @@ teilweise
 @item
 1.4 Wiederholungszeichen
 @*
-1294
+1288
 @tab Till Paala
 @tab 
 @tab 
@@ -668,7 +668,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #e1ff39">teilweise</span>
+<span style="background-color: #efff3a">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -678,7 +678,7 @@ teilweise
 @item
 1.5 Gleichzeitig erscheinende Noten
 @*
-2929
+2955
 @tab Till Paala
 @tab 
 @tab 
@@ -695,7 +695,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #83fe2c">teilweise</span>
+<span style="background-color: #97ff2f">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -759,7 +759,7 @@ teilweise
 @item
 1.8 Text
 @*
-2852
+2880
 @tab Till Paala
 @tab 
 @tab 
@@ -776,7 +776,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #7dff2b">teilweise</span>
+<span style="background-color: #83fe2c">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -894,7 +894,7 @@ teilweise
 @item
 2.4 Saiteninstrumente mit Bünden
 @*
-2716
+2756
 @tab Till Paala
 @tab 
 @tab 
@@ -975,7 +975,7 @@ teilweise
 @item
 2.7 Notation von Akkorden
 @*
-1916
+1931
 @tab Till Paala
 @tab 
 @tab 
@@ -992,7 +992,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #40fe23">teilweise</span>
+<span style="background-color: #4efe25">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1083,7 +1083,7 @@ teilweise
 @item
 3 Allgemeine Eingabe und Ausgabe
 @*
-12374
+12717
 @tab Till Paala
 @tab 
 @tab 
@@ -1100,7 +1100,7 @@ teilweise (94 %)
 @ifhtml
 
 @html
-<span style="background-color: #ffe740">teilweise</span>
+<span style="background-color: #ffdf42">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1137,7 +1137,7 @@ teilweise
 @item
 5 Standardeinstellungen verändern
 @*
-15577
+15581
 @tab Till Paala
 @tab 
 @tab 
@@ -1164,7 +1164,7 @@ teilweise
 @item
 A Notationsübersicht
 @*
-3134
+3077
 @tab Till Paala
 @tab 
 @tab 
@@ -1284,7 +1284,7 @@ ja
 @item
 1 @command{lilypond} starten
 @*
-5207
+5401
 @tab Reinhold Kainhofer
 @*
 Till Paala
@@ -1303,7 +1303,7 @@ teilweise (95 %)
 @ifhtml
 
 @html
-<span style="background-color: #8aff2d">teilweise</span>
+<span style="background-color: #acff31">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml

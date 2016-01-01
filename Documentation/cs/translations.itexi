@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Naposledy obnoveno Sat Sep 19 15:34:10 UTC 2015
+@emph{Naposledy obnoveno Fri Jan  1 10:40:27 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -111,7 +111,7 @@ ano
 @item
 2 Běžný notový zápis
 @*
-4453
+4443
 @tab Pavel Fric
 @tab 
 @tab 
@@ -165,7 +165,7 @@ ano
 @item
 4 Ladění výstupu
 @*
-16567
+16577
 @tab Pavel Fric
 @tab 
 @tab 

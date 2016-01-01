@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualizado en Sat Sep 19 15:34:10 UTC 2015
+@emph{Actualizado en Fri Jan  1 10:40:27 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -30,7 +30,7 @@ Registro de cambios de LilyPond
 @item
 Títulos de sección
 @*
-2022
+2037
 @tab Francisco Vila
 @tab 
 @tab 
@@ -47,7 +47,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #ff7656">parcialmente</span>
+<span style="background-color: #ff7855">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -417,7 +417,7 @@ parcialmente
 @item
 2 Notación corriente
 @*
-4453
+4443
 @tab Francisco Vila
 @tab 
 @tab 
@@ -471,7 +471,7 @@ parcialmente
 @item
 4 Trucar la salida
 @*
-16567
+16577
 @tab Francisco Vila
 @tab 
 @tab 
@@ -488,7 +488,7 @@ parcialmente (98 %)
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">parcialmente</span>
+<span style="background-color: #5bff27">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -672,7 +672,7 @@ parcialmente
 @item
 1.3 Expresiones
 @*
-1841
+1878
 @tab Francisco Vila
 @tab 
 @tab 
@@ -689,7 +689,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #76fe2a">parcialmente</span>
+<span style="background-color: #7dff2b">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -699,7 +699,7 @@ parcialmente
 @item
 1.4 Repeticiones
 @*
-1294
+1288
 @tab Francisco Vila
 @tab 
 @tab 
@@ -716,7 +716,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #acff31">parcialmente</span>
+<span style="background-color: #b9ff33">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -726,7 +726,7 @@ parcialmente
 @item
 1.5 Notas simultáneas
 @*
-2929
+2955
 @tab Francisco Vila
 @tab 
 @tab 
@@ -743,7 +743,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">parcialmente</span>
+<span style="background-color: #7dff2b">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -807,7 +807,7 @@ parcialmente
 @item
 1.8 Texto
 @*
-2852
+2880
 @tab Francisco Vila
 @tab 
 @tab 
@@ -824,7 +824,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #6fff29">parcialmente</span>
+<span style="background-color: #7dff2b">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -942,7 +942,7 @@ parcialmente
 @item
 2.4 Instrumentos de cuerda con trastes
 @*
-2716
+2756
 @tab Francisco Vila
 @tab 
 @tab 
@@ -959,7 +959,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">parcialmente</span>
+<span style="background-color: #39ff22">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1023,7 +1023,7 @@ parcialmente
 @item
 2.7 Notación de acordes
 @*
-1916
+1931
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1040,7 +1040,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">parcialmente</span>
+<span style="background-color: #33ff21">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1131,24 +1131,24 @@ parcialmente
 @item
 3 Entrada y salida generales
 @*
-12374
+12717
 @tab Francisco Vila
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">sí</span>
+<span style="background-color: #dfef77">parcialmente (98 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-sí
+parcialmente (98 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #b2fe32">parcialmente</span>
+<span style="background-color: #c7ff35">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1185,7 +1185,7 @@ parcialmente
 @item
 5 Cambiar los valores por omisión
 @*
-15577
+15581
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1212,7 +1212,7 @@ parcialmente
 @item
 A Tablas del manual sobre notación
 @*
-3134
+3077
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1229,7 +1229,7 @@ sí
 @ifhtml
 
 @html
-<span style="background-color: #9eff30">parcialmente</span>
+<span style="background-color: #a5ff31">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1332,7 +1332,7 @@ sí
 @item
 1 Ejecutar LilyPond
 @*
-5207
+5401
 @tab Francisco Vila
 @tab 
 @tab 
@@ -1349,7 +1349,7 @@ parcialmente (95 %)
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">parcialmente</span>
+<span style="background-color: #83fe2c">parcialmente</span>
 @end html
 @end ifhtml
 @ifnothtml
