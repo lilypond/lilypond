@@ -113,7 +113,7 @@ following stencil.  Stencils with empty Y extent are not given
           (string-join (list (car c) (string-cons-join (cdr c))) "")))
 
     ;; We let the following line in for future debugging
-    (display-scheme-music (sort all-relevant-markup-commands symbol<?))
+    ;; (display-scheme-music (sort all-relevant-markup-commands symbol<?))
 
 
     ;;;; Remark: below only works, if markup?- or markup-list? arguments are the

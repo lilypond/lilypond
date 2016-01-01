@@ -1015,7 +1015,7 @@ scoreTitleMarkup = \markup @{ \column @{
     { s1 }
     \header {
       piece = "RONDEAU"
-      composer = "FranÃ§ois Couperin"
+      composer = "François Couperin"
     }
   }
 }

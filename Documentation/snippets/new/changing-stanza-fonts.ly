@@ -9,7 +9,7 @@ used for printing the stanza number.
 
 "
   doctitle = "Changing stanza fonts"
-} % begin verbatim
+}
 
 \new Voice {
   \time 3/4

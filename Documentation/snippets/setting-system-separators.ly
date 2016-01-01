@@ -20,6 +20,7 @@ default.
 
 \paper {
   system-separator-markup = \slashSeparator
+  line-width = 120
 }
 
 notes = \relative c' {

@@ -12,8 +12,8 @@
   texidoc = "
 The mensurstriche-layout where the bar lines do not show on the staves
 but between staves can be achieved with a @code{StaffGroup} instead of
-a @code{ChoirStaff}.  The bar line on staves is blanked out by setting
-the @code{transparent} property.
+a @code{ChoirStaff}.  The bar line on staves is blanked out using
+@code{\\hide}.
 
 "
   doctitle = "Mensurstriche layout (bar lines between the staves)"

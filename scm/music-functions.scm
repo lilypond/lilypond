@@ -2073,6 +2073,21 @@ are expanded using the default settings of the parser."
   (map (lambda (x) (ly:music-property x 'pitch))
        (event-chord-notes event-chord)))
 
+(define-public (music-pitches music)
+  "Return a list of all pitches from @var{music}."
+  ;; Opencoded for efficiency.
+  (reverse!
+   (let loop ((music music) (pitches '()))
+     (let ((p (ly:music-property music 'pitch)))
+       (if (ly:pitch? p)
+           (cons p pitches)
+           (let ((elt (ly:music-property music 'element)))
+             (fold loop
+                   (if (ly:music? elt)
+                       (loop elt pitches)
+                       pitches)
+                   (ly:music-property music 'elements))))))))
+
 (define-public (event-chord-reduce music)
   "Reduces event chords in @var{music} to their first note event,
 retaining only the chord articulations.  Returns the modified music."

@@ -17,10 +17,6 @@ finishing in the upper one.
   doctitle = "Tuplet bracket and change staff"
 } % begin verbatim
 
-%% http://lsr.di.unimi.it/LSR/Item?id=926
-%=> http://lilypond-french-users.1298960.n2.nabble.com/Crochet-de-nolet-tordu-tt7581491.html
-%=> http://lilypond.1069038.n5.nabble.com/Tuplet-bracket-amp-changeStff-td164063.html
-
 aigues = \relative c' {
   \time 6/8
   s4.

@@ -10,8 +10,8 @@
   lsrtags = "ancient-notation, symbols-and-glyphs"
 
   texidoc = "
-Shown here are many (all?) of the symbols that are included in
-LilyPond's support for ancient notation.
+Shown here are many of the symbols that are included in LilyPond's
+ancient notation.
 
 "
   doctitle = "Ancient fonts"
@@ -57,8 +57,10 @@ upperStaff = \new VaticanaStaff = "upperStaff" <<
       \override NoteHead.style = #'vaticana.cephalicus
       es f
 
-      \override Staff.KeySignature.glyph-name-alist = #alteration-medicaea-glyph-name-alist
-      \override Staff.Accidental.glyph-name-alist = #alteration-medicaea-glyph-name-alist
+      \override Staff.KeySignature.glyph-name-alist =
+        #alteration-medicaea-glyph-name-alist
+      \override Staff.Accidental.glyph-name-alist =
+        #alteration-medicaea-glyph-name-alist
       \override Staff.Custos.style = #'medicaea
       \override NoteHead.style = #'medicaea.punctum
       \clef "medicaea-fa2"
@@ -78,8 +80,10 @@ upperStaff = \new VaticanaStaff = "upperStaff" <<
       \override NoteHead.style = #'medicaea.rvirga
       e des ces
 
-      \override Staff.KeySignature.glyph-name-alist = #alteration-hufnagel-glyph-name-alist
-      \override Staff.Accidental.glyph-name-alist = #alteration-hufnagel-glyph-name-alist
+      \override Staff.KeySignature.glyph-name-alist =
+        #alteration-hufnagel-glyph-name-alist
+      \override Staff.Accidental.glyph-name-alist =
+        #alteration-hufnagel-glyph-name-alist
       \override Staff.Custos.style = #'hufnagel
       \override NoteHead.style = #'hufnagel.punctum
       \clef "hufnagel-fa2"
@@ -184,7 +188,6 @@ lowerStaff = \new MensuralStaff = "lowerStaff" <<
   >>
   \layout {
     indent = 0.0
-    line-width = 17.25\cm
     \context {
       \Score
       timing = ##f
@@ -199,14 +202,16 @@ lowerStaff = \new MensuralStaff = "lowerStaff" <<
     \context {
       \MensuralStaff
       \revert  BarLine.transparent
-      \override KeySignature.glyph-name-alist = #alteration-mensural-glyph-name-alist
+      \override KeySignature.glyph-name-alist =
+        #alteration-mensural-glyph-name-alist
       clefGlyph = #"clefs.petrucci.c2"
     }
     \context {
       \VaticanaStaff
       \revert  BarLine.transparent
       \override StaffSymbol.thickness = #2.0
-      \override KeySignature.glyph-name-alist = #alteration-vaticana-glyph-name-alist
+      \override KeySignature.glyph-name-alist =
+        #alteration-vaticana-glyph-name-alist
       \override Custos.neutral-position = #4
     }
   }

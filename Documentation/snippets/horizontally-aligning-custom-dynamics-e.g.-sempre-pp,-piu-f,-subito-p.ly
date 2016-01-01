@@ -54,9 +54,10 @@ not at the center of pp.
   doctitle = "Horizontally aligning custom dynamics (e.g. \"sempre pp\" \"piu f\" \"subito p\")"
 } % begin verbatim
 
-\header { title = "Horizontally aligning custom dynamics" }
-
-\paper { ragged-right = ##f }
+\paper {
+  ragged-right = ##f
+  indent = 2.5\cm
+}
 
 % Solution 1: Using a simple markup with a particular halign value
 % Drawback: It's a markup, not a dynamic command, so \dynamicDown
@@ -123,6 +124,7 @@ semppMII =
   \context Staff = "s" <<
     \set Staff.instrumentName = #"Normal"
     \relative c'' {
+      \override Staff.InstrumentName.self-alignment-X = #LEFT
       \key es \major
       c4\pp c\p c c | c\ff c c\pp c
     }
@@ -130,6 +132,7 @@ semppMII =
   \context Staff = "sMarkup" <<
     \set Staff.instrumentName = \markup \column { Normal markup }
     \relative c'' {
+      \override Staff.InstrumentName.self-alignment-X = #LEFT
       \key es \major
       c4-\semppMarkup c\p c c | c\ff c c-\semppMarkup c
     }
@@ -137,6 +140,7 @@ semppMII =
   \context Staff = "sK" <<
     \set Staff.instrumentName = \markup \column { Explicit shifting }
     \relative c'' {
+      \override Staff.InstrumentName.self-alignment-X = #LEFT
       \key es \major
       \once \override DynamicText.X-offset = #-9.2
       c4\semppK c\p c c
@@ -148,6 +152,7 @@ semppMII =
   \context Staff = "sT" <<
     \set Staff.instrumentName = \markup \column { Right padding }
     \relative c'' {
+      \override Staff.InstrumentName.self-alignment-X = #LEFT
       \key es \major
       c4\semppT c\p c c | c\ff c c\semppT c
     }
@@ -155,6 +160,7 @@ semppMII =
   \context Staff = "sM" <<
     \set Staff.instrumentName = \markup \column { Setting dimension "to zero" }
     \relative c'' {
+      \override Staff.InstrumentName.self-alignment-X = #LEFT
       \key es \major
       c4\semppM c\p c c | c\ff c c\semppM c
     }
@@ -162,6 +168,7 @@ semppMII =
   \context Staff = "sG" <<
     \set Staff.instrumentName = \markup \column { Shifting inside dynamics }
     \relative c'' {
+      \override Staff.InstrumentName.self-alignment-X = #LEFT
       \key es \major
       c4\semppG c\p c c | c\ff c c\semppG c
     }
@@ -169,6 +176,7 @@ semppMII =
   \context Staff = "sMII" <<
     \set Staff.instrumentName = \markup \column { Alignment inside dynamics }
     \relative c'' {
+      \override Staff.InstrumentName.self-alignment-X = #LEFT
       \key es \major
       % Setting to ##f (false) gives the same result
       \override DynamicText.X-offset = #0

@@ -149,9 +149,7 @@ book last one."
 
 oddHeaderMarkup = \markup
 \fill-line {
-  %% force the header to take some space, otherwise the
-  %% page layout becomes a complete mess.
-  " "
+  ""
   \on-the-fly #not-part-first-page \fromproperty #'header:instrument
   \on-the-fly #print-page-number-check-first \fromproperty #'page:page-number-string
 }
@@ -162,7 +160,7 @@ evenHeaderMarkup = \markup
 \fill-line {
   \on-the-fly #print-page-number-check-first \fromproperty #'page:page-number-string
   \on-the-fly #not-part-first-page \fromproperty #'header:instrument
-  " "
+  ""
 }
 
 oddFooterMarkup = \markup {

@@ -4,10 +4,9 @@
   
   doctitle = "Beam subdivide over quarter notes"
 
-  texidoc = "Beam subdivisions should match the durations of the subdivided
-groups, as established by baseMoment.  However, if the groups are equal or
-longer than quarter notes, one beam should be left
-"
+  texidoc = "Beam count at subdivisions should match the location 
+of the current subdivision.  However, if the groups are equal or
+longer than quarter notes, one beam should always be left."
 
 }
 

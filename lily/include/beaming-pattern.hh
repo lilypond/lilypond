@@ -80,6 +80,9 @@ private:
   Direction flag_direction (Beaming_options const &, vsize) const;
   void find_rhythmic_importance (Beaming_options const &);
   void unbeam_invisible_stems ();
+  Moment remaining_length (int idx) const;
+  int beam_count_for_rhythmic_position (int idx) const;
+  int beam_count_for_length (Moment len) const;
 };
 
 #endif /* BEAMING_PATTERN_HH */

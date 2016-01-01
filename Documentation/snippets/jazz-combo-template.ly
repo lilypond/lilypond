@@ -32,7 +32,10 @@ music is within a @code{\\transpose} section.
     }
   }
 }
-
+% To make the example display in the documentation
+\paper {
+  paper-width = 130
+}
 %#(set-global-staff-size 16)
 \include "english.ly"
 

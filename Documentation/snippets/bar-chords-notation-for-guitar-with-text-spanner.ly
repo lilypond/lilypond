@@ -62,8 +62,8 @@ bbarre =
                 (padding . 0.25)
                 (attach-dir . 2)))
 %% uncomment this line for make full barred
-       % \once  \override TextSpanner.bound-details.left.text =  \markup { "B" #str }
-       $music
+      % \once \override TextSpanner.bound-details.left.text = \markup{"B" #str}
+      $music
    #})
 
 %% %%%%%%%  Cut here ----- End 'bbarred.ly'

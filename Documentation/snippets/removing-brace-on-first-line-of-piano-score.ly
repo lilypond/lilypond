@@ -19,7 +19,7 @@ It uses @code{\\alterBroken}.
 "
   doctitle = "Removing brace on first line of piano score"
 } % begin verbatim
-% => http://lilypond.1069038.n5.nabble.com/Getting-rid-of-initial-brace-on-piano-score-td161158.html
+
 someMusic =  {
   \once \override Staff.Clef.stencil = ##f
   \once \override Staff.TimeSignature.stencil = ##f
