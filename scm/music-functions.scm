@@ -1699,173 +1699,136 @@ on the same staff line."
           (cons #f (not (or (equal? acc key-acc)
                             (and (equal? entrybn barnum) (equal? entrymp measurepos)))))))))
 
-(define-public (set-accidentals-properties extra-natural
-                                           auto-accs auto-cauts
-                                           context)
-  (context-spec-music
-   (make-sequential-music
-    (append (if (boolean? extra-natural)
-                (list (make-property-set 'extraNatural extra-natural))
-                '())
-            (list (make-property-set 'autoAccidentals auto-accs)
-                  (make-property-set 'autoCautionaries auto-cauts))))
-   context))
-
-(define-public (set-accidental-style style . rest)
-  "Set accidental style to @var{style}.  Optionally take a context
-argument, e.g. @code{'Staff} or @code{'Voice}.  The context defaults
-to @code{Staff}, except for piano styles, which use @code{GrandStaff}
-as a context."
-  (let ((context (if (pair? rest)
-                     (car rest) 'Staff))
-        (pcontext (if (pair? rest)
-                      (car rest) 'GrandStaff)))
-    (cond
+(define-public accidental-styles
+  ;; An alist containing specification for all accidental styles.
+  ;; Each accidental style needs three entries for the context properties
+  ;; extraNatural, autoAccidentals and autoCautionaries.
+  ;; An optional fourth entry may specify a default context for the accidental
+  ;; style, for use with the piano styles.
+  `(
      ;; accidentals as they were common in the 18th century.
-     ((equal? style 'default)
-      (set-accidentals-properties #t
-                                  `(Staff ,(make-accidental-rule 'same-octave 0))
-                                  '()
-                                  context))
+     (default #t
+              (Staff ,(make-accidental-rule 'same-octave 0))
+              ())
      ;; accidentals from one voice do NOT get canceled in other voices
-     ((equal? style 'voice)
-      (set-accidentals-properties #t
-                                  `(Voice ,(make-accidental-rule 'same-octave 0))
-                                  '()
-                                  context))
-     ;; accidentals as suggested by Kurt Stone, Music Notation in the 20th century.
-     ;; This includes all the default accidentals, but accidentals also needs canceling
-     ;; in other octaves and in the next measure.
-     ((equal? style 'modern)
-      (set-accidentals-properties #f
-                                  `(Staff ,(make-accidental-rule 'same-octave 0)
-                                          ,(make-accidental-rule 'any-octave 0)
-                                          ,(make-accidental-rule 'same-octave 1))
-                                  '()
-                                  context))
+     (voice #t
+            (Voice ,(make-accidental-rule 'same-octave 0))
+            ())
+     ;; accidentals as suggested by Kurt Stone in
+     ;; ‘Music Notation in the 20th century’.
+     ;; This includes all the default accidentals, but accidentals also need
+     ;; canceling in other octaves and in the next measure.
+     (modern #f
+             (Staff ,(make-accidental-rule 'same-octave 0)
+                    ,(make-accidental-rule 'any-octave 0)
+                    ,(make-accidental-rule 'same-octave 1))
+             ())
      ;; the accidentals that Stone adds to the old standard as cautionaries
-     ((equal? style 'modern-cautionary)
-      (set-accidentals-properties #f
-                                  `(Staff ,(make-accidental-rule 'same-octave 0))
-                                  `(Staff ,(make-accidental-rule 'any-octave 0)
-                                          ,(make-accidental-rule 'same-octave 1))
-                                  context))
-     ;; same as modern, but accidentals different from the key signature are always
-     ;; typeset - unless they directly follow a note of the same pitch.
-     ((equal? style 'neo-modern)
-      (set-accidentals-properties #f
-                                  `(Staff ,(make-accidental-rule 'same-octave 0)
-                                          ,(make-accidental-rule 'any-octave 0)
-                                          ,(make-accidental-rule 'same-octave 1)
-                                          ,neo-modern-accidental-rule)
-                                  '()
-                                  context))
-     ((equal? style 'neo-modern-cautionary)
-      (set-accidentals-properties #f
-                                  `(Staff ,(make-accidental-rule 'same-octave 0))
-                                  `(Staff ,(make-accidental-rule 'any-octave 0)
-                                          ,(make-accidental-rule 'same-octave 1)
-                                          ,neo-modern-accidental-rule)
-                                  context))
-     ((equal? style 'neo-modern-voice)
-      (set-accidentals-properties #f
-                                  `(Voice ,(make-accidental-rule 'same-octave 0)
-                                          ,(make-accidental-rule 'any-octave 0)
-                                          ,(make-accidental-rule 'same-octave 1)
-                                          ,neo-modern-accidental-rule
-                                          Staff ,(make-accidental-rule 'same-octave 0)
-                                          ,(make-accidental-rule 'any-octave 0)
-                                          ,(make-accidental-rule 'same-octave 1)
-                                          ,neo-modern-accidental-rule)
-                                  '()
-                                  context))
-     ((equal? style 'neo-modern-voice-cautionary)
-      (set-accidentals-properties #f
-                                  `(Voice ,(make-accidental-rule 'same-octave 0))
-                                  `(Voice ,(make-accidental-rule 'any-octave 0)
-                                          ,(make-accidental-rule 'same-octave 1)
-                                          ,neo-modern-accidental-rule
-                                          Staff ,(make-accidental-rule 'same-octave 0)
-                                          ,(make-accidental-rule 'any-octave 0)
-                                          ,(make-accidental-rule 'same-octave 1)
-                                          ,neo-modern-accidental-rule)
-                                  context))
+     (modern-cautionary #f
+                        (Staff ,(make-accidental-rule 'same-octave 0))
+                        (Staff ,(make-accidental-rule 'any-octave 0)
+                               ,(make-accidental-rule 'same-octave 1)))
+     ;; same as modern, but accidentals different from the key signature are
+     ;; always typeset - unless they directly follow a note of the same pitch.
+     (neo-modern #f
+                 (Staff ,(make-accidental-rule 'same-octave 0)
+                        ,(make-accidental-rule 'any-octave 0)
+                        ,(make-accidental-rule 'same-octave 1)
+                        ,neo-modern-accidental-rule)
+                 ())
+     (neo-modern-cautionary #f
+                            (Staff ,(make-accidental-rule 'same-octave 0))
+                            (Staff ,(make-accidental-rule 'any-octave 0)
+                                   ,(make-accidental-rule 'same-octave 1)
+                                   ,neo-modern-accidental-rule))
+     (neo-modern-voice #f
+                       (Voice ,(make-accidental-rule 'same-octave 0)
+                              ,(make-accidental-rule 'any-octave 0)
+                              ,(make-accidental-rule 'same-octave 1)
+                              ,neo-modern-accidental-rule
+                              Staff
+                              ,(make-accidental-rule 'same-octave 0)
+                              ,(make-accidental-rule 'any-octave 0)
+                              ,(make-accidental-rule 'same-octave 1)
+                              ,neo-modern-accidental-rule)
+                       ())
+     (neo-modern-voice-cautionary #f
+                                  (Voice ,(make-accidental-rule 'same-octave 0))
+                                  (Voice ,(make-accidental-rule 'any-octave 0)
+                                         ,(make-accidental-rule 'same-octave 1)
+                                         ,neo-modern-accidental-rule
+                                         Staff
+                                         ,(make-accidental-rule 'same-octave 0)
+                                         ,(make-accidental-rule 'any-octave 0)
+                                         ,(make-accidental-rule 'same-octave 1)
+                                         ,neo-modern-accidental-rule))
+
      ;; Accidentals as they were common in dodecaphonic music with no tonality.
      ;; Each note gets one accidental.
-     ((equal? style 'dodecaphonic)
-      (set-accidentals-properties #f
-                                  `(Staff ,(lambda (c p bn mp) '(#f . #t)))
-                                  '()
-                                  context))
+     (dodecaphonic #f
+                   (Staff ,(lambda (c p bn mp) '(#f . #t)))
+                   ())
      ;; As in dodecaphonic style with the exception that immediately
      ;; repeated notes (in the same voice) don't get an accidental
-     ((equal? style 'dodecaphonic-no-repeat)
-      (set-accidentals-properties #f
-                                  `(Staff ,dodecaphonic-no-repeat-rule)
-                                  '()
-                                  context))
+     (dodecaphonic-no-repeat #f
+                             (Staff ,dodecaphonic-no-repeat-rule)
+                             ())
      ;; Variety of the dodecaphonic style. Each note gets an accidental,
      ;; except notes that were already handled in the same measure.
-     ((equal? style 'dodecaphonic-first)
-      (set-accidentals-properties #f
-                                  `(Staff ,(make-accidental-dodecaphonic-rule 'same-octave 0))
-                                  '()
-                                  context))
+     (dodecaphonic-first #f
+                         (Staff ,(make-accidental-dodecaphonic-rule 'same-octave 0))
+                         ())
 
      ;; Multivoice accidentals to be read both by musicians playing one voice
-     ;; and musicians playing all voices.
-     ;; Accidentals are typeset for each voice, but they ARE canceled across voices.
-     ((equal? style 'modern-voice)
-      (set-accidentals-properties  #f
-                                   `(Voice ,(make-accidental-rule 'same-octave 0)
-                                           ,(make-accidental-rule 'any-octave 0)
-                                           ,(make-accidental-rule 'same-octave 1)
-                                           Staff ,(make-accidental-rule 'same-octave 0)
-                                           ,(make-accidental-rule 'any-octave 0)
-                                           ,(make-accidental-rule 'same-octave 1))
-                                   '()
-                                   context))
-     ;; same as modernVoiceAccidental eccept that all special accidentals are typeset
-     ;; as cautionaries
-     ((equal? style 'modern-voice-cautionary)
-      (set-accidentals-properties #f
-                                  `(Voice ,(make-accidental-rule 'same-octave 0))
-                                  `(Voice ,(make-accidental-rule 'any-octave 0)
-                                          ,(make-accidental-rule 'same-octave 1)
-                                          Staff ,(make-accidental-rule 'same-octave 0)
-                                          ,(make-accidental-rule 'any-octave 0)
-                                          ,(make-accidental-rule 'same-octave 1))
-                                  context))
-     ;; stone's suggestions for accidentals on grand staff.
-     ;; Accidentals are canceled across the staves in the same grand staff as well
-     ((equal? style 'piano)
-      (set-accidentals-properties #f
-                                  `(Staff ,(make-accidental-rule 'same-octave 0)
-                                          ,(make-accidental-rule 'any-octave 0)
-                                          ,(make-accidental-rule 'same-octave 1)
-                                          GrandStaff
-                                          ,(make-accidental-rule 'any-octave 0)
-                                          ,(make-accidental-rule 'same-octave 1))
-                                  '()
-                                  pcontext))
-     ((equal? style 'piano-cautionary)
-      (set-accidentals-properties #f
-                                  `(Staff ,(make-accidental-rule 'same-octave 0))
-                                  `(Staff ,(make-accidental-rule 'any-octave 0)
-                                          ,(make-accidental-rule 'same-octave 1)
-                                          GrandStaff
-                                          ,(make-accidental-rule 'any-octave 0)
-                                          ,(make-accidental-rule 'same-octave 1))
-                                  pcontext))
+     ;; and musicians playing all voices. Accidentals are typeset for each
+     ;; voice, but they ARE canceled across voices.
+     (modern-voice #f
+                   (Voice ,(make-accidental-rule 'same-octave 0)
+                          ,(make-accidental-rule 'any-octave 0)
+                          ,(make-accidental-rule 'same-octave 1)
+                          Staff
+                          ,(make-accidental-rule 'same-octave 0)
+                          ,(make-accidental-rule 'any-octave 0)
+                          ,(make-accidental-rule 'same-octave 1))
+                   ())
+     ;; same as modernVoiceAccidental except that all special accidentals
+     ;; are typeset as cautionaries
+     (modern-voice-cautionary #f
+                              (Voice ,(make-accidental-rule 'same-octave 0))
+                              (Voice ,(make-accidental-rule 'any-octave 0)
+                                     ,(make-accidental-rule 'same-octave 1)
+                                     Staff
+                                     ,(make-accidental-rule 'same-octave 0)
+                                     ,(make-accidental-rule 'any-octave 0)
+                                     ,(make-accidental-rule 'same-octave 1)))
 
-     ;; same as modern, but cautionary accidentals are printed for all sharp or flat
-     ;; tones specified by the key signature.
-     ((equal? style 'teaching)
-      (set-accidentals-properties #f
-                                  `(Staff ,(make-accidental-rule 'same-octave 0))
-                                  `(Staff ,(make-accidental-rule 'same-octave 1)
-                                          ,teaching-accidental-rule)
-                                  context))
+     ;; Stone's suggestions for accidentals on grand staff.
+     ;; Accidentals are canceled across the staves
+     ;; in the same grand staff as well
+     (piano #f
+            (Staff ,(make-accidental-rule 'same-octave 0)
+                   ,(make-accidental-rule 'any-octave 0)
+                   ,(make-accidental-rule 'same-octave 1)
+                   GrandStaff
+                   ,(make-accidental-rule 'any-octave 0)
+                   ,(make-accidental-rule 'same-octave 1))
+            ()
+            GrandStaff)
+     (piano-cautionary #f
+                       (Staff ,(make-accidental-rule 'same-octave 0))
+                       (Staff ,(make-accidental-rule 'any-octave 0)
+                              ,(make-accidental-rule 'same-octave 1)
+                              GrandStaff
+                              ,(make-accidental-rule 'any-octave 0)
+                              ,(make-accidental-rule 'same-octave 1))
+                       GrandStaff)
+
+     ;; same as modern, but cautionary accidentals are printed for all
+     ;; non-natural tones specified by the key signature.
+     (teaching #f
+               (Staff ,(make-accidental-rule 'same-octave 0))
+               (Staff ,(make-accidental-rule 'same-octave 1)
+                      ,teaching-accidental-rule))
 
      ;; do not set localAlterations when a note alterated differently from
      ;; localAlterations is found.
@@ -1873,22 +1836,41 @@ as a context."
      ;; remembered for the duration of a measure.
      ;; accidentals not being remembered, causing accidentals always to
      ;; be typeset relative to the time signature
-     ((equal? style 'forget)
-      (set-accidentals-properties '()
-                                  `(Staff ,(make-accidental-rule 'same-octave -1))
-                                  '()
-                                  context))
+     (forget ()
+             (Staff ,(make-accidental-rule 'same-octave -1))
+             ())
      ;; Do not reset the key at the start of a measure.  Accidentals will be
      ;; printed only once and are in effect until overridden, possibly many
      ;; measures later.
-     ((equal? style 'no-reset)
-      (set-accidentals-properties '()
-                                  `(Staff ,(make-accidental-rule 'same-octave #t))
-                                  '()
-                                  context))
-     (else
-      (ly:warning (_ "unknown accidental style: ~S") style)
-      (make-sequential-music '())))))
+     (no-reset ()
+               (Staff ,(make-accidental-rule 'same-octave #t))
+               ())
+     ))
+
+(define-public (set-accidental-style style . rest)
+  "Set accidental style to @var{style}.  Optionally take a context
+argument, e.g. @code{'Staff} or @code{'Voice}.  The context defaults
+to @code{Staff}, except for piano styles, which use @code{GrandStaff}
+as a context."
+  (let ((spec (assoc-get style accidental-styles)))
+    (if spec
+        (let ((extra-natural (first spec))
+              (auto-accs (second spec))
+              (auto-cauts (third spec))
+              (context (cond ((pair? rest) (car rest))
+                             ((= 4 (length spec)) (fourth spec))
+                             (else 'Staff))))
+          (context-spec-music
+           (make-sequential-music
+            (append (if (boolean? extra-natural)
+                        (list (make-property-set 'extraNatural extra-natural))
+                        '())
+                    (list (make-property-set 'autoAccidentals auto-accs)
+                          (make-property-set 'autoCautionaries auto-cauts))))
+           context))
+        (begin
+         (ly:warning (_ "unknown accidental style: ~S") style)
+         (make-sequential-music '())))))
 
 (define-public (invalidate-alterations context)
   "Invalidate alterations in @var{context}.
