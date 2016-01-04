@@ -1699,7 +1699,7 @@ on the same staff line."
           (cons #f (not (or (equal? acc key-acc)
                             (and (equal? entrybn barnum) (equal? entrymp measurepos)))))))))
 
-(define-public accidental-styles
+(define-session-public accidental-styles
   ;; An alist containing specification for all accidental styles.
   ;; Each accidental style needs three entries for the context properties
   ;; extraNatural, autoAccidentals and autoCautionaries.
