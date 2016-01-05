@@ -306,6 +306,87 @@ line-length.
                       new-props
                       (markup #:draw-dashed-line dest))))
 
+(define-markup-command (draw-squiggle-line layout props sq-length dest eq-end?)
+  (number? number-pair? boolean?)
+  #:category graphic
+  #:properties ((thickness 0.5)
+                (angularity 0)
+                (height 0.5)
+                (orientation 1))
+  "
+@cindex drawing squiggled lines within text
+
+A squiggled line.
+
+If @code{eq-end?} is set to @code{#t}, it is ensured the squiggled line ends
+with a bow in same direction as the starting one.  @code{sq-length} is the
+length of the first bow.  @code{dest} is the end point of the squiggled line.
+To match @code{dest} the squiggled line is scaled accordingly.
+Its appearance may be customized by overrides for @code{thickness},
+@code{angularity}, @code{height} and @code{orientation}.
+@lilypond[verbatim,quote]
+\\markup
+  \\column {
+    \\draw-squiggle-line #0.5 #'(6 . 0) ##t
+    \\override #'(orientation . -1)
+    \\draw-squiggle-line #0.5 #'(6 . 0) ##t
+    \\draw-squiggle-line #0.5 #'(6 . 0) ##f
+    \\override #'(height . 1)
+    \\draw-squiggle-line #0.5 #'(6 . 0) ##t
+    \\override #'(thickness . 5)
+    \\draw-squiggle-line #0.5 #'(6 . 0) ##t
+    \\override #'(angularity . 2)
+    \\draw-squiggle-line #0.5 #'(6 . 0) ##t
+  }
+@end lilypond"
+  (let* ((line-thickness (ly:output-def-lookup layout 'line-thickness))
+         (thick (* thickness line-thickness))
+         (x (car dest))
+         (y (cdr dest))
+         (length-to-print (magnitude (make-rectangular x y)))
+         ;; Make a guess how many bows may be needed
+         (guess (max 1 (truncate (/ length-to-print sq-length))))
+         ;; If `eq-end?' is set #t, make sure squiggle-line starts and ends
+         ;; with a bow in same direction
+         (amount (if (and (even? guess) eq-end?) (1+ guess) guess))
+         ;; The lined-up bows needs to fit `length-to-print'
+         ;; Thus scale the length of first bow accordingly
+         ;; Other bows are copies
+         (guessed-squiggle-line-length (* amount sq-length))
+         (line-length-diff (- length-to-print guessed-squiggle-line-length))
+         (line-length-diff-for-each-squiggle
+           (/ line-length-diff amount))
+         (first-bow-length (+ sq-length line-length-diff-for-each-squiggle))
+         ;; Get first bows
+         ;; TODO two bows are created via `make-bow-stencil'
+         ;;      cheaper to use `ly:stencil-scale'?
+         (first-bow-end-coord
+           (cons
+             (/ (* first-bow-length x) length-to-print)
+             (/ (* first-bow-length y) length-to-print)))
+         (init-bow
+           (lambda (o)
+             (make-bow-stencil
+               '(0 . 0)
+               first-bow-end-coord
+               thick angularity height o)))
+         (init-bow-up (init-bow orientation))
+         (init-bow-down (init-bow (- orientation)))
+         ;; Get a list of starting-points for the bows
+         (list-of-starts
+           (map
+             (lambda (n)
+               (cons
+                 (* n (car first-bow-end-coord))
+                 (* n (cdr first-bow-end-coord))))
+             (iota amount))))
+    ;; The final stencil: lined-up bows
+    (apply ly:stencil-add
+      (map
+        (lambda (stil pt) (ly:stencil-translate stil pt))
+        (circular-list init-bow-up init-bow-down)
+        list-of-starts))))
+
 (define-markup-command (draw-hline layout props)
   ()
   #:category graphic

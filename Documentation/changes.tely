@@ -62,6 +62,31 @@ which scares away people.
 @end ignore
 
 @item
+Markup-command @code{\draw-squiggle-line} is now available.
+Customizing is possible with overrides of @code{thickness}, @code{angularity},
+@code{height} and @code{orientation}
+@lilypond[quote,verbatim]
+\markup
+  \overlay {
+    \draw-squiggle-line #0.5 #'(3 . 3) ##t
+
+    \translate #'(3 . 3)
+    \override #'(thickness . 4)
+    \draw-squiggle-line #0.5 #'(3 . -3) ##t
+
+    \translate #'(6 . 0)
+    \override #'(angularity . -5)
+    \draw-squiggle-line #0.5 #'(-3 . -3) ##t
+
+    \translate #'(3 . -3)
+    \override #'(angularity . 2)
+    \override #'(height . 0.3)
+    \override #'(orientation . -1)
+    \draw-squiggle-line #0.2 #'(-3 . 3) ##t
+  }
+@end lilypond
+
+@item
 Markup-commands @code{\undertie} and @code{\overtie} are now available, as well
 the generic markup-command @code{\tie}.
 @lilypond[quote,verbatim]
