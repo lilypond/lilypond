@@ -2642,6 +2642,9 @@ is, if two outside-staff grobs are competing for the same space, the one
 with the lower @code{outside-staff-priority} will be placed closer to
 the staff.
 
+A listing of outside-staff-priorities may be found in
+@rlearning{The outside-staff-priority property}.
+
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
   c4_"Text"\pp
