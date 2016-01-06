@@ -49,8 +49,6 @@ The higher the value of number @var{angularity}, the more angular the shape of
 the bow.
 @var{bow-height} determines the height of the bow.
 @var{orientation} determines, whether the bow is concave or convex.
-@var{orientation} should be set to @val{-1} or @val{1}, other values are
-possible but will affect the bow's height as well.
 Both variables are supplied to support independent usage.
 
 Done by calculating a horizontal unit-bow first, then moving all control-points
@@ -77,9 +75,9 @@ Limitation: s-curves are currently not supported.
           ;;;; (1) calculate control-points for the horizontal unit-bow,
                ;; y-values for 2nd/3rd control-points
                (outer-control
-                 (* 4/3 orientation (/ bow-height length-to-print)))
+                 (* 4/3 (sign orientation) (/ bow-height length-to-print)))
                (inner-control
-                 (* orientation
+                 (* (sign orientation)
                     (- (abs outer-control) (/ thickness length-to-print))))
                ;; x-values for 2nd/3rd control-points depending on `angularity'
                (offset-index
