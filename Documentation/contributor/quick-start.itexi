@@ -489,7 +489,7 @@ PATH=~/directory_containing_git-cl:"$@{PATH@}"
 @node Updating git-cl
 @unnumberedsubsec Updating @code{git-cl}
 
-LilyDev users should always make sure that they alwsys have the latest
+LilyDev users should make sure that they always have the latest
 version of git-cl installed.  It is possible that changes may have been
 made to git-cl that are not (yet) included in the version of LilyDev has
 been installed.
