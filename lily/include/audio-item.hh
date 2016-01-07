@@ -176,6 +176,15 @@ public:
   Real value_;
 };
 
+class Audio_control_change : public Audio_item
+{
+public:
+  Audio_control_change (int control, int value);
+
+  int control_;
+  int value_;
+};
+
 int moment_to_ticks (Moment);
 Real moment_to_real (Moment);
 Moment remap_grace_duration (Moment);

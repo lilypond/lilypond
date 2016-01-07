@@ -76,6 +76,20 @@ public:
 };
 
 /**
+   MIDI control change
+*/
+class Midi_control_change : public Midi_channel_item
+{
+public:
+  DECLARE_CLASSNAME (Midi_control_change);
+  Midi_control_change (Audio_control_change *ai);
+  virtual ~Midi_control_change ();
+  virtual string to_string () const;
+
+  Audio_control_change *audio_;
+};
+
+/**
    Change instrument event
 */
 class Midi_instrument : public Midi_channel_item

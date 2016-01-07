@@ -54,6 +54,8 @@ Midi_item::get_midi (Audio_item *a)
   else if (Audio_control_function_value_change *i
            = dynamic_cast<Audio_control_function_value_change *> (a))
     return new Midi_control_function_value_change (i);
+  else if (Audio_control_change *i = dynamic_cast<Audio_control_change *> (a))
+    return new Midi_control_change (i);
   else
     assert (0);
 
@@ -111,6 +113,12 @@ Midi_control_function_value_change
 {
 }
 
+Midi_control_change::Midi_control_change (Audio_control_change *ai)
+  : Midi_channel_item (ai),
+    audio_ (ai)
+{
+}
+
 Midi_item::~Midi_item ()
 {
 }
@@ -120,6 +128,10 @@ Midi_channel_item::~Midi_channel_item ()
 }
 
 Midi_control_function_value_change::~Midi_control_function_value_change ()
+{
+}
+
+Midi_control_change::~Midi_control_change ()
 {
 }
 
@@ -385,6 +397,16 @@ Midi_control_function_value_change::to_string () const
       str += ::to_string ((char)(control_function->lsb_control_number_));
       str += ::to_string ((char)(value & 0x7F));
     }
+  return str;
+}
+
+string
+Midi_control_change::to_string () const
+{
+  Byte status_byte = (char) (0xB0 + channel_);
+  string str = ::to_string ((char)status_byte);
+  str += ::to_string ((char) (audio_->control_));
+  str += ::to_string ((char) (audio_->value_));
   return str;
 }
 

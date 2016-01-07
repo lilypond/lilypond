@@ -222,3 +222,9 @@ Audio_control_function_value_change::context_properties_[] = {
   // extra element to signify the end of the mapping, must be kept last
   { 0,                 NUM_CONTROLS,  0.0, 0.0 }
 };
+
+Audio_control_change::Audio_control_change (int control, int value)
+  : control_ (control),
+    value_ (value)
+{
+}
