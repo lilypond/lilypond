@@ -25,6 +25,7 @@
 #include "audio-staff.hh"
 #include "context.hh"
 #include "international.hh"
+#include "midi-cc-announcer.hh"
 #include "performer-group.hh"
 #include "warn.hh"
 #include "lily-imports.hh"
@@ -55,6 +56,22 @@ private:
   Audio_staff *get_audio_staff (const string &voice);
   Audio_staff *new_audio_staff (const string &voice);
   Audio_span_dynamic *get_dynamic (const string &voice);
+
+  class Midi_control_initializer : public Midi_control_change_announcer
+  {
+  public:
+    Midi_control_initializer (Staff_performer *performer,
+                              Audio_staff *audio_staff,
+                              int channel);
+
+    SCM get_property_value (const char *property_name);
+    void do_announce (Audio_control_change *item);
+
+  private:
+    Staff_performer *performer_;
+    Audio_staff *audio_staff_;
+    int channel_;
+  };
 
   string instrument_string_;
   int channel_;
@@ -135,32 +152,9 @@ Staff_performer::new_audio_staff (const string &voice)
   staff_map_[voice] = audio_staff;
   if (!instrument_string_.empty ())
     set_instrument (channel_, voice);
-  // Set initial values (if any) for control functions.
-  for (const Audio_control_function_value_change::Context_property *p
-         = Audio_control_function_value_change::context_properties_;
-       p->name_; ++p)
-    {
-      SCM value = get_property (p->name_);
-      if (scm_is_number (value))
-        {
-          Real val = scm_to_double (value);
-          if (val >= p->range_min_ && val <= p->range_max_)
-            {
-              // Normalize the value to the 0.0 to 1.0 range.
-              val = ((val - p->range_min_)
-                     / (p->range_max_ - p->range_min_));
-              Audio_control_function_value_change *item
-                = new Audio_control_function_value_change (p->control_, val);
-              item->channel_ = channel_;
-              audio_staff->add_audio_item (item);
-              announce_element (Audio_element_info (item, 0));
-            }
-          else
-            warning (_f ("ignoring out-of-range value change for MIDI "
-                         "property `%s'",
-                         p->name_));
-        }
-    }
+  // Set initial values (if any) for MIDI controls.
+  Midi_control_initializer i (this, audio_staff, channel_);
+  i.announce_control_changes ();
   return audio_staff;
 }
 
@@ -352,3 +346,24 @@ Staff_performer::acknowledge_audio_element (Audio_element_info inf)
     }
 }
 
+Staff_performer::Midi_control_initializer::Midi_control_initializer
+(Staff_performer *performer, Audio_staff *audio_staff, int channel)
+  : performer_ (performer),
+    audio_staff_ (audio_staff),
+    channel_ (channel)
+{
+}
+
+SCM Staff_performer::Midi_control_initializer::get_property_value
+(const char *property_name)
+{
+  return performer_->get_property (property_name);
+}
+
+void Staff_performer::Midi_control_initializer::do_announce
+(Audio_control_change *item)
+{
+  item->channel_ = channel_;
+  audio_staff_->add_audio_item (item);
+  performer_->announce_element (Audio_element_info (item, 0));
+}

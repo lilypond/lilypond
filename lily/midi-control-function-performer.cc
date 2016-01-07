@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2013--2015 by Heikki Tauriainen <g034737@welho.com>.
+  Copyright (C) 2013--2016 by Heikki Tauriainen <g034737@welho.com>.
   Adapted from performer implementations
   Copyright (C) 1996--2015 Jan Nieuwenhuizen <janneke@gnu.org>,
   Han-Wen Nienhyus <hanwen@xs4all.nl> and others.
@@ -27,6 +27,7 @@
 #include "dispatcher.hh"
 #include "international.hh"
 #include "listener.hh"
+#include "midi-cc-announcer.hh"
 #include "stream-event.hh"
 
 #include "translator.icc"
@@ -44,6 +45,22 @@ public:
 
   void connect_to_context (Context *c);
   void disconnect_from_context (Context *c);
+
+private:
+  class Control_change_announcer : public Midi_control_change_announcer
+  {
+  public:
+    Control_change_announcer (Midi_control_function_performer *p,
+                              Stream_event *ev, const string &s);
+
+    SCM get_property_value (const char *property_name);
+    void do_announce (Audio_control_change *item);
+
+  private:
+    Midi_control_function_performer *performer_;
+    Stream_event *event_;
+    string symbol_;
+  };
 };
 
 Midi_control_function_performer::Midi_control_function_performer ()
@@ -58,16 +75,18 @@ void
 Midi_control_function_performer::connect_to_context (Context *c)
 {
   c->events_below ()->
-    add_listener (GET_LISTENER (Midi_control_function_performer, announce_function_value_change),
-                  ly_symbol2scm ("SetProperty"));
+  add_listener (GET_LISTENER (Midi_control_function_performer,
+                              announce_function_value_change),
+                ly_symbol2scm ("SetProperty"));
 }
 
 void
 Midi_control_function_performer::disconnect_from_context (Context *c)
 {
   c->events_below ()->
-    remove_listener (GET_LISTENER (Midi_control_function_performer, announce_function_value_change),
-                     ly_symbol2scm ("SetProperty"));
+  remove_listener (GET_LISTENER (Midi_control_function_performer,
+                                 announce_function_value_change),
+                   ly_symbol2scm ("SetProperty"));
 }
 
 void
@@ -78,39 +97,30 @@ Midi_control_function_performer::announce_function_value_change (SCM sev)
   if (!scm_is_symbol (sym))
     return;
 
-  // Search for a matching context property; if found, check that the value
-  // of the property is within the allowed range, and announce a possible
-  // change in the value of the corresponding control function.
-  string symbol = ly_symbol2string (sym);
-  for (const Audio_control_function_value_change::Context_property *p
-         = Audio_control_function_value_change::context_properties_;
-       p->name_; ++p)
-    {
-      if (symbol == p->name_)
-        {
-          SCM value = ev->get_property ("value");
-          if (scm_is_number (value))
-            {
-              Real val = scm_to_double (value);
-              if (val >= p->range_min_ && val <= p->range_max_)
-                {
-                  // Normalize the value to the 0.0 to 1.0 range.
-                  val = ((val - p->range_min_)
-                         / (p->range_max_ - p->range_min_));
-                  Audio_control_function_value_change *item
-                    = new Audio_control_function_value_change (p->control_,
-                                                               val);
-                  announce_element (Audio_element_info (item, 0));
-                }
-              else
-                ev->origin ()->
-                  warning (_f ("ignoring out-of-range value change for MIDI "
-                               "property `%s'",
-                               p->name_));
-            }
-          break;
-        }
-    }
+  Control_change_announcer a (this, ev, ly_symbol2string (sym));
+  a.announce_control_changes ();
+}
+
+Midi_control_function_performer::Control_change_announcer::Control_change_announcer
+(Midi_control_function_performer *p, Stream_event *ev, const string &s)
+  : Midi_control_change_announcer (ev->origin ()),
+    performer_ (p),
+    event_ (ev),
+    symbol_ (s)
+{
+}
+
+SCM
+Midi_control_function_performer::Control_change_announcer::get_property_value
+(const char *property_name)
+{
+  return symbol_ == property_name ? event_->get_property ("value") : SCM_EOL;
+}
+
+void Midi_control_function_performer::Control_change_announcer::do_announce
+(Audio_control_change *item)
+{
+  performer_->announce_element (Audio_element_info (item, 0));
 }
 
 void
@@ -121,7 +131,9 @@ Midi_control_function_performer::boot ()
 
 ADD_TRANSLATOR (Midi_control_function_performer,
                 /* doc */
-                "",
+                "This performer listens to SetProperty events on context "
+                "properties for generating MIDI control changes and "
+                "prepares them for MIDI output.",
 
                 /* create */
                 "",
