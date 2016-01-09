@@ -40,6 +40,11 @@ OUT_DOCBOOK_FILES = ${DOCBOOK_FILES:%.lyxml=$(outdir)/%.pdf}
 else
 OUT_DOCBOOK_FILES = ${DOCBOOK_FILES:%.lyxml=$(outdir)/%.xml}
 endif
+ifeq ($(PDFLATEX),xelatex)
+DBLATEX_BACKEND = -b xetex
+else
+DBLATEX_BACKEND =
+endif
 
 OUT_FILES = $(sort $(OUT_HTML_FILES) \
                             $(OUT_HTMLY_FILES) \
