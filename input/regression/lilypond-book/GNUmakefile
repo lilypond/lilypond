@@ -25,7 +25,7 @@ $(outdir)/collated-files.list: $(OUT_FILES)
 	echo $(sort $(filter-out %.xml,$(OUT_FILES))) > $@
 
 $(outdir)/suffix-texi.texi: suffix-texi.texi $(outdir)/version.itexi $(DOCUMENTATION_LOCALE_TARGET) $(INIT_LY_SOURCES) $(SCHEME_SOURCES)
-	LILYPOND_VERSION=$(TOPLEVEL_VERSION) $(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND_BOOK_PROCESS) $(LILYPOND_BOOK_LILYPOND_FLAGS)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) $(LILYPOND_BOOK_FLAGS) --redirect-lilypond-output $<
+	LILYPOND_VERSION=$(TOPLEVEL_VERSION) PDFTEX=$(PDFTEX) PDFLATEX=$(PDFLATEX) $(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND_BOOK_PROCESS) $(LILYPOND_BOOK_LILYPOND_FLAGS)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) $(LILYPOND_BOOK_FLAGS) --redirect-lilypond-output $<
 
 # Due to automatic language detection the standard rule using the script
 # extract_texi_filenames would create .es.xref-map for these files. The
