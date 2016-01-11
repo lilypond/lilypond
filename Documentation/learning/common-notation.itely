@@ -1340,8 +1340,7 @@ cello = \new Staff {
 @end lilypond
 
 @noindent
-The name of a variable must have alphabetic characters only, no
-numbers, underscores, or dashes.
+By convention, variable names consist of alphabetic characters only.
 
 Variables must be defined @emph{before} the main music
 expression, but may be used as many times as required anywhere after
