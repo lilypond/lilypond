@@ -33,7 +33,7 @@ msgstr ""
 "Project-Id-Version: lilypond 2.19.26\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2015-08-27 10:48+0100\n"
-"PO-Revision-Date: 2016-01-02 21:00+0200\n"
+"PO-Revision-Date: 2016-01-10 21:00+0200\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -1208,9 +1208,11 @@ msgstr "formater Texinfo-uddata så at Info vil kigge efter musikaftryk i MAPPE"
 msgid "PAD"
 msgstr "TILPAS"
 
+# "music" referer nok til en samling af noder.  På dansk et partitur.
+# Jeg ville sige "tilpas... partituret for at justere noderne på trods af...."
 #: lilypond-book.py:157
 msgid "pad left side of music to align music in spite of uneven bar numbers (in mm)"
-msgstr "tilpas venstre side af musikken for at justere musik på trods af et ulige antal bjælkeantal (i mm)"
+msgstr "tilpas venstre side af partituret for at justere musik på trods af et ulige antal bjælker (i mm)"
 
 #: lilypond-book.py:162
 msgid "Print lilypond log messages according to LOGLEVEL"
@@ -2205,7 +2207,7 @@ msgstr "typekontrol for »%s« mislykkedes; værdien »%s« skal være af typen 
 #. incompatible derived type.
 #: lily-guile.cc:462
 msgid "Wrong kind of "
-msgstr "Forkert slags "
+msgstr "Forkert type for "
 
 #: lily-lexer.cc:251
 msgid "include files are not allowed in safe mode"
