@@ -1,19 +1,19 @@
 # Dutch translations for GNU Lilypond.
-# Copyright (C) 2015 Free Software Foundation, Inc.
+# Copyright (C) 2016 Free Software Foundation, Inc.
 # This file is distributed under the same license as the lilypond package.
 #
 # "Dear future, gone fishing."
 #
 # Han-Wen Nienhuys <hanwen@cs.uu.nl>, 1998.
 # Jan Nieuwenhuizen <janneke@gnu.org>, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007.
-# Benno Schulenberg <benno@vertaalt.nl>, 2013, 2015.
-# Frans Spiesschaert <Frans.Spiesschaert@yucom.be>, 2015.
+# Benno Schulenberg <benno@vertaalt.nl>, 2013, 2015, 2016.
+# Frans Spiesschaert <Frans.Spiesschaert@yucom.be>, 2015, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 2.19.26\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2015-08-27 10:48+0100\n"
-"PO-Revision-Date: 2016-01-03 15:55+0100\n"
+"PO-Revision-Date: 2016-01-17 16:37+0100\n"
 "Last-Translator: Benno Schulenberg <benno@vertaalt.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "Language: nl\n"
@@ -1426,7 +1426,7 @@ msgstr "voor rusten s in plaats van r gebruiken"
 
 #: midi2ly.py:1085
 msgid "DUR*NUM/DEN"
-msgstr "DUUR*NOEM/TEL"
+msgstr "DUUR*NOEMER/TELLER"
 
 #: midi2ly.py:1088
 msgid "allow tuplet durations DUR*NUM/DEN"
@@ -2602,7 +2602,7 @@ msgstr "usable-duration-logs mag geen lege lijst zijn. Teruggevallen op hele rus
 #: music.cc:150
 #, c-format
 msgid "octave check failed; expected \"%s\", found: \"%s\""
-msgstr "octaafcontrole is mislukt; verwachtte \"%s\", vond \"%s\""
+msgstr "octaafcontrole is mislukt; verwachtte \"%s\", gevonden werd \"%s\""
 
 #: new-fingering-engraver.cc:113
 msgid "cannot add text scripts to individual note heads"
@@ -3050,7 +3050,7 @@ msgstr "Negeren van grob voor legatoboog: %s.  Is avoid-slur niet gezet?"
 #: source-file.cc:85
 #, c-format
 msgid "expected to read %d characters, got %d"
-msgstr "verwachtte %d tekens te lezen, kreeg %d"
+msgstr "verwachtte %d tekens te lezen, kreeg er %d"
 
 #: staff-performer.cc:301
 msgid "MIDI channel wrapped around"
@@ -3485,12 +3485,12 @@ msgstr "add-bar-glyph-print-procedure: symbool '~a' moet een enkelvoudig ASCII-t
 #: bar-line.scm:795
 #, scheme-format
 msgid "No span bar glyph defined for bar glyph '~a'; ignoring."
-msgstr ""
+msgstr "Geen overspanningsstreepsymbool gedefinieerd voor streepsymbool '~a'; genegeerd."
 
 #: chord-entry.scm:52
 #, scheme-format
 msgid "Spurious garbage following chord: ~A"
-msgstr ""
+msgstr "Schijnbaar staat er rommel na akkoord: ~A"
 
 #: define-context-properties.scm:31 define-grob-properties.scm:21
 #: define-music-properties.scm:21
@@ -3515,32 +3515,33 @@ msgstr "Ongedefinieerde moedergebeurtenisklasse '~S'"
 
 #: define-markup-commands.scm:1098
 msgid "no systems found in \\score markup, does it have a \\layout block?"
-msgstr "geen systemen gevonden in \\score markup; heeft het een \\layout blok?"
+msgstr "geen systemen gevonden in de mark-up van \\score; heeft het een blok van het type \\layout?"
 
 #: define-markup-commands.scm:2922
 #, scheme-format
 msgid "Cannot find glyph ~a"
-msgstr "Kan glief ~a niet vinden"
+msgstr "Kan symbool ~a niet vinden"
 
+# FIXME: trailing space?
 #: define-markup-commands.scm:3398
 #, scheme-format
 msgid "no brace found for point size ~S "
-msgstr ""
+msgstr "geen accolade gevonden voor puntgrootte ~S "
 
 #: define-markup-commands.scm:3399
 #, scheme-format
 msgid "defaulting to ~S pt"
-msgstr ""
+msgstr "de standaard van ~S pt wordt gebruikt"
 
 #: define-markup-commands.scm:3643
 #, scheme-format
 msgid "not a valid duration string: ~a"
-msgstr "geen geldige manier om een tijdsduur aan te duiden: ~a"
+msgstr "geen geldige aanduiding van een tijdsduur: ~a"
 
 #: define-markup-commands.scm:3854
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
-msgstr "geen geldige manier om een tijdsduur aan te duiden: ~a -> genegeerd"
+msgstr "geen geldige aanduiding van een tijdsduur: ~a -> genegeerd"
 
 #: define-music-types.scm:803
 #, scheme-format
@@ -3555,16 +3556,16 @@ msgstr "kan muziekobject niet vinden: ~S"
 #: define-music-types.scm:826
 #, scheme-format
 msgid "bad make-music argument: ~S"
-msgstr ""
+msgstr "foutief argument voor make-music: ~S"
 
 #: define-note-names.scm:1000
 msgid "Select note names language."
-msgstr ""
+msgstr "Selecteer een taal voor de nootnamen."
 
 #: define-note-names.scm:1006
 #, scheme-format
 msgid "Using `~a' note names..."
-msgstr ""
+msgstr "Nootnamen in het '~a' worden gebruikt..."
 
 #: define-note-names.scm:1009
 #, scheme-format
@@ -3574,17 +3575,17 @@ msgstr "Kan taal '~a' niet vinden.  Genegeerd."
 #: document-backend.scm:135
 #, scheme-format
 msgid "pair expected in doc ~s"
-msgstr "paar werd verwacht in doc ~s"
+msgstr "een paar werd verwacht in doc ~s"
 
 #: document-backend.scm:202
 #, scheme-format
 msgid "cannot find interface for property: ~S"
-msgstr "kan grob bediening voor eigenschap niet vinden: ~S"
+msgstr "kan geen interface vinden voor eigenschap: ~S"
 
 #: document-backend.scm:212
 #, scheme-format
 msgid "unknown Grob interface: ~S"
-msgstr "onbekende Grob-bediening: ~S"
+msgstr "onbekende Grob-interface: ~S"
 
 #: documentation-lib.scm:62
 #, scheme-format
@@ -3619,22 +3620,22 @@ msgstr "Schrijven van ~a..."
 #: framework-ps.scm:281
 #, scheme-format
 msgid "cannot embed ~S=~S"
-msgstr "kan niet inbedden ~S=~S"
+msgstr "insluiten kan niet: ~S=~S"
 
 #: framework-ps.scm:324
 #, scheme-format
 msgid "cannot extract file matching ~a from ~a"
-msgstr "kan bestand dat past op ~a niet uit ~a extraheren"
+msgstr "kan bestand dat met ~a overeenkomt niet uit ~a extraheren"
 
 #: framework-ps.scm:342
 #, scheme-format
 msgid "do not know how to embed ~S=~S"
-msgstr "weet niet hoe ~S=~S in te bedden"
+msgstr "weet niet hoe in te sluiten: ~S=~S"
 
 #: framework-ps.scm:367
 #, scheme-format
 msgid "do not know how to embed font ~s ~s ~s"
-msgstr "weet niet hoe font in te bedden: ~s ~s ~s"
+msgstr "weet niet hoe lettertype in te sluiten: ~s ~s ~s"
 
 #: framework-ps.scm:723
 msgid ""
@@ -3652,7 +3653,7 @@ msgid ""
 "  %% ****************************************************************\n"
 msgstr ""
 "\n"
-"Het PostScript-backend ondersteunt geen system-by-system uitvoer.\n"
+"Het PostScript-backend ondersteunt geen uitvoer van systeem per systeem.\n"
 "Gebruik daarvoor het EPS-backend:\n"
 "\n"
 "  lilypond -dbackend=eps BESTAND\n"
@@ -3667,35 +3668,35 @@ msgstr ""
 #: framework-svg.scm:84
 #, scheme-format
 msgid "Updating font into: ~a"
-msgstr ""
+msgstr "Bijwerken van lettertype in: ~a"
 
 #: graphviz.scm:64
 #, scheme-format
 msgid "Writing graph `~a'..."
-msgstr "Schrijven van graph '~a'..."
+msgstr "Schrijven van graaf '~a'..."
 
 #: layout-beam.scm:40
 #, scheme-format
 msgid "Error in beam quanting.  Expected (~S,~S) found ~S."
-msgstr "Fout in waardestreep kwantisering.  Verwachtte (~S,~S), gevonden ~S."
+msgstr "Fout in waardestreepdefiniëring.  Verwachtte (~S,~S), gevonden werd ~S."
 
 #: layout-beam.scm:54
 #, scheme-format
 msgid "Error in beam quanting.  Expected ~S 0, found ~S."
-msgstr "Fout in waardestreep-kwantisering.  Verwachtte ~S 0, gevonden ~S."
+msgstr "Fout in waardestreepdefiniëring.  Verwachtte ~S 0, gevonden werd ~S."
 
 #: lily-library.scm:333
 msgid "Music unsuitable for context-mod"
-msgstr ""
+msgstr "Muziek is niet geschikt voor context-mod"
 
 #: lily-library.scm:388
 #, scheme-format
 msgid "Cannot find context-def \\~a"
-msgstr ""
+msgstr "Kan contextdefinitie \\~a niet vinden"
 
 #: lily-library.scm:404
 msgid "Music unsuitable for output-def"
-msgstr ""
+msgstr "Muziek is niet geschikt voor output-def"
 
 #: lily-library.scm:904
 msgid ""
@@ -3703,6 +3704,9 @@ msgid ""
 "which produces the closest match to @var{target-val} if\n"
 "applied to function @var{getter}."
 msgstr ""
+"Vind de index die ligt tussen @var{start} en @var{end} (een geheel getal)\n"
+"en die @var{target-val} het dichtst benadert als hij op de functie\n"
+"@var{getter} toegepast wordt."
 
 #: lily-library.scm:998
 #, scheme-format
@@ -3712,19 +3716,19 @@ msgstr "onbekende eenheid: ~S"
 #: lily-library.scm:1023
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
-msgstr "geen \\version uitdrukking gevonden, voeg~atoe voor toekomstige compatibiliteit"
+msgstr "geen statement \\version gevonden; voeg ~a toe voor toekomstige compatibiliteit"
 
 #: lily.scm:93
 msgid "call-after-session used after session start"
-msgstr ""
+msgstr "call-after-session werd gebruikt nadat de sessie gestart was"
 
 #: lily.scm:111
 msgid "define-session used after session start"
-msgstr ""
+msgstr "define-session werd gebruikt nadat de sessie gestart was"
 
 #: lily.scm:417
 msgid "Using (ice-9 curried-definitions) module\n"
-msgstr ""
+msgstr "Module (ice-9 curried-definitions) wordt gebruikt\n"
 
 #: lily.scm:420
 msgid "Guile 1.8\n"
@@ -3733,15 +3737,15 @@ msgstr "Guile 1.8\n"
 #: lily.scm:477
 #, scheme-format
 msgid "cannot find: ~A"
-msgstr "kan niet vinden: ~A"
+msgstr "kan ~A niet vinden"
 
 #: lily.scm:903
 msgid "Success: compilation successfully completed"
-msgstr "Gelukt: compilatie is met succes afgesloten"
+msgstr "Gelukt: compilatie is met succes voltooid"
 
 #: lily.scm:904
 msgid "Compilation completed with warnings or errors"
-msgstr "Compilatie is afgesloten met waarschuwingen of fouten"
+msgstr "Compilatie werd voltooid met waarschuwingen of fouten"
 
 #: lily.scm:965
 #, scheme-format
@@ -3754,13 +3758,13 @@ msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
-"logbestand ~a (exit ~a):\n"
+"logbestand ~a (afsluitcode ~a):\n"
 "~a"
 
 #: lily.scm:990 lily.scm:1079
 #, scheme-format
 msgid "failed files: ~S"
-msgstr "gefaalde bestanden: ~S"
+msgstr "mislukte bestanden: ~S"
 
 # lisp-format
 #: lily.scm:1070
@@ -3771,61 +3775,61 @@ msgstr "Omleiden van uitvoer naar ~a..."
 #: lily.scm:1089
 #, scheme-format
 msgid "Invoking `~a'...\n"
-msgstr "Aanroepen van '~a'...\n"
+msgstr "Uitvoeren van '~a'...\n"
 
 #: ly-syntax-constructors.scm:27
 #, scheme-format
 msgid "~a function cannot return ~a"
-msgstr "een ~a-functie kan geen ~a teruggeven"
+msgstr "een ~a-functie kan geen terugkeerwaarde ~a hebben"
 
 #: ly-syntax-constructors.scm:60
 #, scheme-format
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
-msgstr "Verkeerd type voor argument ~a.  Verwachtte ~a, gevonden ~s"
+msgstr "Verkeerd type voor argument ~a.  Verwachtte ~a, gevonden werd ~s"
 
 #: markup-macros.scm:331
 #, scheme-format
 msgid "Wrong number of arguments.  Expect: ~A, found ~A: ~S"
-msgstr "Verkeerd aantal argumenten.  Verwachtte ~A, gevonden ~A: ~S"
+msgstr "Verkeerd aantal argumenten.  Verwachtte ~A, gevonden werd ~A: ~S"
 
 #: markup-macros.scm:337
 #, scheme-format
 msgid "Invalid argument in position ~A.  Expect: ~A, found: ~S."
-msgstr "Ongeldig argument in positie ~A.  Verwachtte: ~A, gevonden: ~S."
+msgstr "Ongeldig argument op positie ~A.  Verwachtte: ~A, gevonden werd: ~S."
 
 #: markup-macros.scm:373
 #, scheme-format
 msgid "Not a markup command: ~A"
-msgstr ""
+msgstr "Geen mark-upcommando: ~A"
 
 #: modal-transforms.scm:38
 msgid "'from' pitch not in scale; ignoring"
-msgstr ""
+msgstr "'bron'-toonhoogte niet in toonladder; genegeerd"
 
 #: modal-transforms.scm:42 modal-transforms.scm:75
 msgid "'to' pitch not in scale; ignoring"
-msgstr ""
+msgstr "'doel'-toonhoogte niet in toonladder; genegeerd"
 
 #: modal-transforms.scm:46
 msgid "pitch to be transposed not in scale; ignoring"
-msgstr ""
+msgstr "om te zetten toonhoogte niet in toonladder; genegeerd"
 
 #: modal-transforms.scm:71
 msgid "'around' pitch not in scale; ignoring"
-msgstr ""
+msgstr "'spil'-toonhoogte niet in toonladder; genegeerd"
 
 #: modal-transforms.scm:79
 msgid "pitch to be inverted not in scale; ignoring"
-msgstr ""
+msgstr "om te keren toonhoogte niet in toonladder; genegeerd"
 
 #: modal-transforms.scm:95
 msgid "negative replication count; ignoring"
-msgstr ""
+msgstr "kopieaantal is negatief; genegeerd"
 
 #: music-functions.scm:319
 #, scheme-format
 msgid "invalid tremolo repeat count: ~a"
-msgstr "ongeldig tremolo-herhalingsaantal: ~a"
+msgstr "ongeldig aantal tremoloherhalingen: ~a"
 
 #: music-functions.scm:348
 #, scheme-format
@@ -3839,21 +3843,21 @@ msgstr "Meer alternatieven dan herhalingen.  Overtollige alternatieven zijn wegg
 #: music-functions.scm:487
 #, scheme-format
 msgid "bad grob property path ~a"
-msgstr "ongeldig pad voor grob-eigenschap: ~a"
+msgstr "foutief pad voor grob-eigenschap: ~a"
 
 #: music-functions.scm:511
 #, scheme-format
 msgid "bad context property ~a"
-msgstr "ongeldige contexteigenschap ~a"
+msgstr "foutieve contexteigenschap ~a"
 
 #: music-functions.scm:534
 #, scheme-format
 msgid "bad music property ~a"
-msgstr "ongeldige muziekeigenschap ~a"
+msgstr "foutieve muziekeigenschap ~a"
 
 #: music-functions.scm:840
 msgid "Bad chord repetition"
-msgstr "Ongeldige akkoordherhaling"
+msgstr "Foutieve akkoordherhaling"
 
 #: music-functions.scm:945
 #, scheme-format
@@ -3867,18 +3871,18 @@ msgstr "kan aangehaalde muziek niet vinden: '~S'"
 
 #: music-functions.scm:1432
 msgid "Add @var{octave-shift} to the octave of @var{pitch}."
-msgstr ""
+msgstr "Toevoegen van @var{octave-shift} aan het octaaf van @var{pitch}."
 
 # FIXME: trailing space?
 #: music-functions.scm:1495
 #, scheme-format
 msgid "Unknown octaveness type: ~S "
-msgstr "onbekend octaafheidstype: ~S "
+msgstr "Onbekend type octaaf: ~S "
 
-# FIXME: stray apostrophe
+# FIXME: stray apostrophe?
 #: music-functions.scm:1496
 msgid "Defaulting to 'any-octave."
-msgstr ""
+msgstr "De standaard 'any-octave wordt nu gebruikt."
 
 # FIXME: what does accidental mean?
 #: music-functions.scm:1888
@@ -3896,43 +3900,43 @@ msgid "not a symbol list: ~a"
 msgstr "is geen symbolenlijst: ~a"
 
 #: music-functions.scm:2629
-#, fuzzy, scheme-format
+#, scheme-format
 msgid "conflicting tag group ~a"
-msgstr "Tegenstrijdige nootgroeperingsgebeurtenissen"
+msgstr "tegenstrijdige kentekengroep ~a"
 
 #: output-ps.scm:290 output-svg.scm:539
 #, scheme-format
 msgid "unknown line-cap-style: ~S"
-msgstr "onbekende lijnkopstijl: ~S"
+msgstr "onbekende line-cap-style: ~S"
 
 #: output-ps.scm:295 output-svg.scm:545
 #, scheme-format
 msgid "unknown line-join-style: ~S"
-msgstr "onbekende lijnverbindingsstijl: ~S"
+msgstr "onbekende line-join-style: ~S"
 
 #: output-svg.scm:148
 #, scheme-format
 msgid "cannot decypher Pango description: ~a"
-msgstr "kan Pango-font-omschrijving niet ontcijferen: ~a"
+msgstr "kan Pango-omschrijving niet ontcijferen: ~a"
 
 # FIXME: capitalize Unicode
 #: output-svg.scm:228
 msgid "Glyph must have a unicode value"
-msgstr "Glief moet een Unicode-waarde hebben"
+msgstr "Symbool moet een Unicode-waarde hebben"
 
 #: output-svg.scm:280 output-svg.scm:290
 #, scheme-format
 msgid "cannot find SVG font ~S"
-msgstr "kan SVG-font ~S niet vinden"
+msgstr "kan SVG-lettertype ~S niet vinden"
 
 #: paper.scm:121
 msgid "set-global-staff-size: not in toplevel scope"
-msgstr "set-global-staff-size: niet op topniveau"
+msgstr "set-global-staff-size: niet in het hoogste geldigheidsbereik"
 
 #: paper.scm:321
 #, scheme-format
 msgid "This is not a \\layout {} object, ~S"
-msgstr "Dit is geen \\layout {} object, ~S"
+msgstr "Dit is geen object van het type \\layout {}, ~S"
 
 #: paper.scm:329
 #, scheme-format
@@ -3983,35 +3987,35 @@ msgstr "controletest is mislukt: ~S"
 #: translation-functions.scm:389
 #, scheme-format
 msgid "Negative fret for pitch ~a on string ~a"
-msgstr ""
+msgstr "Negatieve fret voor toonhoogte ~a op snaar ~a"
 
 #: translation-functions.scm:392
 #, scheme-format
 msgid "Missing fret for pitch ~a on string ~a"
-msgstr ""
+msgstr "Ontbrekende fret voor toonhoogte ~a op snaar ~a"
 
 #: translation-functions.scm:435
 #, scheme-format
 msgid "No open string for pitch ~a"
-msgstr ""
+msgstr "Geen mogelijke snaar voor toonhoogte ~a"
 
 #: translation-functions.scm:450 translation-functions.scm:462
 #, scheme-format
 msgid "Requested string for pitch requires negative fret: string ~a pitch ~a"
-msgstr ""
+msgstr "De voor de toonhoogte gevraagde snaar vereist een negatieve fret: snaar ~a toonhoogte ~a"
 
 #: translation-functions.scm:453
 msgid "Ignoring string request and recalculating."
-msgstr ""
+msgstr "De gevraagde snaar wordt genegeerd en de berekening wordt opnieuw uitgevoerd."
 
 #: translation-functions.scm:465
 msgid "Ignoring note in tablature."
-msgstr ""
+msgstr "Noot in tabulatuur wordt genegeerd."
 
 #: translation-functions.scm:490
 #, scheme-format
 msgid "No string for pitch ~a (given frets ~a)"
-msgstr ""
+msgstr "Geen snaar voor toonhoogte ~a (gezien de frets ~a)"
 
 #: translation-functions.scm:595
 #, scheme-format
@@ -4019,20 +4023,14 @@ msgid ""
 "No label for fret ~a (on string ~a);\n"
 "only ~a fret labels provided"
 msgstr ""
+"Geen label voor fret ~a (op snaar ~a);\n"
+"er zijn slechts ~a fretlabels voorzien."
 
 #~ msgid "cannot change, already in translator: %s"
 #~ msgstr "kan niet wisselen, al in vertaler: %s"
 
 #~ msgid "cannot find Voice `%s'"
 #~ msgstr "kan Voice niet vinden: `%s'"
-
-#, fuzzy
-#~ msgid "Lyric syllable does not have note.  Use \\lyricsto or associatedVoice."
-#~ msgstr "Liedtekst lettergreep heeft geen noot.  Gebruik \\lyricsto of associatedVoice."
-
-#, fuzzy
-#~ msgid "Using naive multi measure rest spacing."
-#~ msgstr "enkelnootse ligatuur - overslaan"
 
 #~ msgid "(normalized pitch)"
 #~ msgstr "(genormaliseerde toonhoogte)"
@@ -4046,19 +4044,8 @@ msgstr ""
 #~ msgid "time signature symbol `%s' not found; reverting to numbered style"
 #~ msgstr "maatsoort-symbool '%s' niet gevonden;  teruggevallen op numerieke stijl"
 
-#, fuzzy
-#~ msgid "Too much lookahead"
-#~ msgstr "Te veel vooruitkijk"
-
 #~ msgid "score expected"
 #~ msgstr "partituur verwacht"
-
-#~ msgid "unknown repeat type `~S'"
-#~ msgstr "onbekend herhaaltype `~S'"
-
-#, fuzzy
-#~ msgid "See define-music-types.scm for supported repeats"
-#~ msgstr "Zie music-types.scm voor ondersteunde herhalingen"
 
 #~ msgid "Invalid property operation ~a"
 #~ msgstr "Ongeldige eigenschap operatie ~a"
@@ -4245,17 +4232,8 @@ msgstr ""
 #~ msgid "undefined: ~S"
 #~ msgstr "ongedefiniëerd: ~S"
 
-#~ msgid "lilylib module"
-#~ msgstr "lilylib module"
-
-#~ msgid "print this help"
-#~ msgstr "toon deze hulp"
-
 #~ msgid "Binary %s has version %s, looking for version %s"
 #~ msgstr "Binair programma %s heeft versie %s, zocht naar versie %s"
-
-#~ msgid "`%s' failed (%s)"
-#~ msgstr "`%s' gefaald (%s)"
 
 #~ msgid "(ignored)"
 #~ msgstr "(genegeerd)"
@@ -4283,9 +4261,6 @@ msgstr ""
 
 #~ msgid "print version information"
 #~ msgstr "toon versie informatie"
-
-#~ msgid "getopt says: `%s'"
-#~ msgstr "getopt zegt: `%s'"
 
 #~ msgid "Run LilyPond, add titles, generate printable document."
 #~ msgstr "Draai LilyPond, voeg titels toe, genereer af te drukken dokument."
@@ -4456,9 +4431,6 @@ msgstr ""
 #~ msgid "distance=%f"
 #~ msgstr "afstand=%f"
 
-#~ msgid "NaN"
-#~ msgstr "NaN"
-
 #~ msgid "no one to print a repeat brace"
 #~ msgstr "niemand om een herhalings haak af te drukken"
 
@@ -4561,14 +4533,8 @@ msgstr ""
 #~ msgid "Global shortest duration is %s"
 #~ msgstr "Globaal kortste lengte is %s"
 
-#~ msgid "#<spring smob d= %f>"
-#~ msgstr "#<veer smob d= %f>"
-
 #~ msgid "Don't you want polyphonic voices instead?"
 #~ msgstr "Wil je anders echt geen polyfone stemmen?"
-
-#~ msgid "can't find ascii character: %d"
-#~ msgstr "kan ascii teken niet vinden: %d"
 
 #~ msgid "TFM header of `%s' has only %u word (s)"
 #~ msgstr "TFM kop van `%s' heeft slechts %u woord(en)"
@@ -4617,15 +4583,6 @@ msgstr ""
 
 #~ msgid "Report errors to <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
 #~ msgstr "Meld fouten naar <a href=\\\"%(mail_address_url)s\\\">%(mail_address)s</a>."
-
-#~ msgid "French"
-#~ msgstr "Frans"
-
-#~ msgid "Spanish"
-#~ msgstr "Spaans"
-
-#~ msgid "German"
-#~ msgstr "Duits"
 
 #~ msgid ""
 #~ "vertical alignment called before line-breaking.\n"
