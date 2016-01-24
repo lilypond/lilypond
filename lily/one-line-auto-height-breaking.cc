@@ -17,7 +17,7 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "one-line-page-breaking.hh"
+#include "one-line-auto-height-breaking.hh"
 
 #include <limits>
 
@@ -30,26 +30,31 @@
 #include "simple-spacer.hh"
 #include "system.hh"
 
-One_line_page_breaking::One_line_page_breaking (Paper_book *pb)
+One_line_auto_height_breaking::One_line_auto_height_breaking (Paper_book *pb)
   : Page_breaking (pb, 0, 0)
 {
 }
 
-One_line_page_breaking::~One_line_page_breaking ()
+One_line_auto_height_breaking::~One_line_auto_height_breaking ()
 {
 }
 
 /*
-  This is a somewhat unconventional page-breaking algorithm.  Every
-  score is put on a single page, whose width is enough to fit the entire
-  score on one line.  Line breaks and page breaks are ignored, and the
-  paper-width setting in the paper block is modified to fit the music.
+  This is a somewhat unconventional page-breaking algorithm.  Like
+  ly:one-line-breaking, every score is put on a single page, whose width
+  is enough to fit the entire score on one line.  Line breaks and page
+  breaks are ignored, and the paper-width setting in the paper
+  block is modified to fit the music.  Unlike ly:one-line-breaking
+  the paper-height setting in the paper block is also modified to fit
+  the music.
 */
 SCM
-One_line_page_breaking::solve ()
+One_line_auto_height_breaking::solve ()
 {
   SCM all_pages = SCM_EOL;
   Real max_width = 0;
+  Real max_height = 0;
+
   for (vsize i = 0; i < system_specs_.size (); ++i)
     {
       if (Paper_score *ps = system_specs_[i].pscore_)
@@ -71,6 +76,7 @@ One_line_page_breaking::solve ()
           SCM pages = make_pages (lines_per_page, systems);
 
           max_width = max (max_width, system->extent (system, X_AXIS).length ());
+          max_height = max (max_height, system->extent (system, Y_AXIS).length ());
           all_pages = scm_cons (scm_car (pages), all_pages);
         }
       else if (Prob *pb = system_specs_[i].prob_)
@@ -80,12 +86,18 @@ One_line_page_breaking::solve ()
     }
 
   // Alter paper-width so that it is large enough to fit every system.
-  // TODO: it might be nice to allow different pages to have different widths.
-  // This would need support in the backends (eg. framework-ps.scm).
+  // TODO: it might be nice to allow different pages to have different widths
+  // and heights.  This would need support in the backends (eg. framework-ps.scm).
   Real right_margin = robust_scm2double (book_->paper_->c_variable ("right-margin"), 0.0);
   Real left_margin = robust_scm2double (book_->paper_->c_variable ("left-margin"), 0.0);
   Real width = max_width + right_margin + left_margin;
   book_->paper_->set_variable (ly_symbol2scm ("paper-width"), scm_from_double (width));
+
+  // Alter paper-height so that it fits the height of the tallest system.
+  Real top_margin = robust_scm2double (book_->paper_->c_variable ("top-margin"), 0.0);
+  Real bottom_margin = robust_scm2double (book_->paper_->c_variable ("bottom-margin"), 0.0);
+  Real height = max_height + top_margin + bottom_margin;
+  book_->paper_->set_variable (ly_symbol2scm ("paper-height"), scm_from_double (height));
 
   return scm_reverse_x (all_pages, SCM_EOL);
 }
