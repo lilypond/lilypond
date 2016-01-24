@@ -62,6 +62,13 @@ which scares away people.
 @end ignore
 
 @item
+A new page breaking function @code{ly:one-line-auto-height-breaking}
+places a whole score on a single line and changes the page width
+to match, just like @code{ly:one-line-breaking}.  The difference is that
+it also automatically modifies the height of the page to fit the height
+of the music.
+
+@item
 Markup-command @code{\draw-squiggle-line} is now available.
 Customizing is possible with overrides of @code{thickness}, @code{angularity},
 @code{height} and @code{orientation}
