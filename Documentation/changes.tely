@@ -94,8 +94,13 @@ Customizing is possible with overrides of @code{thickness}, @code{angularity},
 @end lilypond
 
 @item
+A new command, @code{\RemoveAllEmptyStaves}, has been made available, which
+acts exactly like @code{\RemoveEmptyStaves}, except for also removing empty
+staves on the first system in a score.
+
+@item
 Markup-commands @code{\undertie} and @code{\overtie} are now available, as well
-the generic markup-command @code{\tie}.
+as the generic markup-command @code{\tie}.
 @lilypond[quote,verbatim]
 \markup {
   \undertie "undertied"
