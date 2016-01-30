@@ -466,12 +466,12 @@ can lead to very large file sizes.
 @tab @code{eps}
 @tab Used as default by the @command{lilypond-book} command.  This dumps
 every page as both a single file with all pages and fonts included and
-as separate encapsulated postscipt files for each page but without fonts
+as separate encapsulated postscript files for each page but without fonts
 included.
 
 @item
 @tab @code{null}
-@tab Do not output a printed score.  This the same effect as
+@tab Do not output a printed score.  This has the same effect as
 @code{-dno-print-pages}.
 
 @item
