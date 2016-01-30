@@ -1298,9 +1298,8 @@ decir, simultáneamente:
 }
 @end lilypond
 
-
 @node Advertencia de que una voz requiere ajustes voiceXx o shiftXx
-@unnumberedsubsec Advertencia de que una voz requiere ajustes voiceXx o shiftXx
+@unnumberedsubsec Advertencia de que una voz requiere ajustes @code{@bs{}voiceXx} o @code{@bs{}shiftXx}
 @translationof Warning this voice needs a voiceXx or shiftXx setting
 
 Si acontecen dos notas de distintas voces son plicas en la misma
