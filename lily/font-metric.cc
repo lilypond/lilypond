@@ -147,7 +147,9 @@ Font_metric::sub_fonts () const
 
 Stencil
 Font_metric::text_stencil (Output_def *state,
-                           const string&, bool) const
+                           const string&,
+                           bool,
+                           const string&) const
 {
   (void) state;
 
