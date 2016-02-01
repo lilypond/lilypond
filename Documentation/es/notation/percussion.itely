@@ -52,7 +52,7 @@ ritmo; esto se estudia en @ref{Mostrar los ritmos de la melodía} y
 @ref{Crear instancias de pentagramas nuevos}.
 
 @item
-La salida MIDI se trata en una sección aparte; véase @ref{Percusión en MIDI}.
+La salida MIDI se trata en una sección aparte; véase @ref{Instrumentos MIDI}.
 
 @end itemize
 
@@ -60,7 +60,7 @@ La salida MIDI se trata en una sección aparte; véase @ref{Percusión en MIDI}.
 Referencia de la notación:
 @ref{Mostrar los ritmos de la melodía},
 @ref{Crear instancias de pentagramas nuevos}.
-@ref{Percusión en MIDI}.
+@ref{Instrumentos MIDI}.
 
 Fragmentos de código:
 @rlsr{Percussion}.
@@ -121,11 +121,11 @@ explícitamente o utilizar otras claves.
 
 Hay ciertos detalles respecto a cómo está contemplado el MIDI para los
 instrumentos de percusión; para ver los detalles consulte
-@ref{Percusión en MIDI}.
+@ref{Instrumentos MIDI}.
 
 @seealso
 Referencia de la notación:
-@ref{Percusión en MIDI},
+@ref{Instrumentos MIDI},
 @ref{Notas de percusión}.
 
 Archivos de inicio:
@@ -194,7 +194,7 @@ normales.  Esto se estudia en otras secciones del manual.
 @c "percussion in MIDI" gets a separate subsubsection for
 @c pitched percussion sounds.  -gp
 Referencia de la notación:
-@ref{Percusión en MIDI}.
+@ref{Instrumentos MIDI}.
 
 Fragmentos de código:
 @rlsr{Percussion}.

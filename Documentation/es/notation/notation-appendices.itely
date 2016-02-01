@@ -20,7 +20,7 @@
 * Afinaciones de cuerdas predefinidas::
 * Diagramas predefinidos de posiciones::
 * Tamaños de página predefinidos::
-* instrumentos MIDI::
+* Instrumentos MIDI::
 * Lista de colores::
 * La tipografía Feta::
 * Estilos de cabezas de nota::
@@ -786,9 +786,9 @@ Los tamaños de página se definen en el archivo @file{scm/paper.scm}
 (74 x 52 mm)
 @end table
 
-@c lowercase to avoid duplicate node. FV
-@node instrumentos MIDI
-@appendixsec instrumentos MIDI
+
+@node Instrumentos MIDI
+@appendixsec Instrumentos MIDI
 @translationof MIDI instruments
 
 A continuación figura una lista con los nombres que se pueden utilizar

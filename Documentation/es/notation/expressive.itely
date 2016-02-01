@@ -543,8 +543,8 @@ Manual de aprendizaje:
 Referencia de la notación:
 @ref{Dirección y posición},
 @ref{Indicaciones dinámicas contemporáneas},
-@ref{¿Qué sale por el MIDI?},
-@ref{Control de los matices en el MIDI}.
+@ref{Enriquecimiento de la salida MIDI},
+@ref{Control de las dinámicas del MIDI}.
 
 Fragmentos de código:
 @rlsr{Expressive marks}.
@@ -677,8 +677,8 @@ describen en @ref{Seleccionar la tipografía y su tamaño}.
 Referencia de la notación:
 @ref{Formatear el texto},
 @ref{Seleccionar la tipografía y su tamaño},
-@ref{¿Qué sale por el MIDI?},
-@ref{Control de los matices en el MIDI}.
+@ref{Enriquecimiento de la salida MIDI},
+@ref{Control de las dinámicas del MIDI}.
 
 Extender LilyPond:
 @rextend{Construcción del marcado en Scheme}.
