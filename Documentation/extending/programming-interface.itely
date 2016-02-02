@@ -1333,7 +1333,7 @@ set at fixed values with @code{\override}, e.g.
 \override Stem.thickness = #2.0
 @end example
 
-Properties can also be set to a Scheme procedure,
+Properties can also be set to a Scheme procedure:
 
 @lilypond[fragment,verbatim,quote]
 \override Stem.thickness = #(lambda (grob)
