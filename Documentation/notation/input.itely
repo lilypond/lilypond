@@ -277,7 +277,7 @@ Lilypond provides facilities to allow you to control what file names
 are used by the various back-ends when producing output files.
 
 In the previous section, we saw how Lilypond prevents name-clashes when
-producing several ouputs from a single source file.  You also have the
+producing several outputs from a single source file.  You also have the
 ability to specify your own suffixes for each @code{\book} block, so
 for example you can produce files called
 @file{eightminiatures-Romanze.pdf}, @file{eightminiatures-Menuetto.pdf}
@@ -1765,7 +1765,7 @@ inside a music expression.
 @end verbatim
 
 Markups used for formatting the table of contents are defined in the
-@code{\paper} block.  There two @q{pre-defined} markups already
+@code{\paper} block.  There are two @q{pre-defined} markups already
 available;
 
 @itemize
@@ -1846,7 +1846,7 @@ is defined for entering act names in a table of contents of an opera;
 
 @noindent
 A new markup variable (called @code{tocActMarkup}) is defined in the
-@code{\paper} block ;
+@code{\paper} block;
 
 @verbatim
 \paper {
@@ -2665,7 +2665,7 @@ By default, each music fragment will be output as a separate @code{EPS}
 file, but other formats such as @code{PDF} or @code{PNG} can also be
 created if required.  The extracted music is output as if had been
 literally @q{cut} from the original printed score so if a fragment runs
-over one or more lines, a separate ouput file for each line will be
+over one or more lines, a separate output file for each line will be
 generated.
 
 @seealso
@@ -3542,7 +3542,7 @@ Notes that do not have any articulations attached to them may also be
 shortened; so to compensate for this, restrict the use of the
 @code{\articulate} function to shorter segments of music or modify the
 values of the variables defined in the @file{articulate} script to
-compenstate for the note-shortening behavior.}
+compentate for the note-shortening behavior.}
 
 
 
