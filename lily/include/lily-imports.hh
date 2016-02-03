@@ -65,6 +65,8 @@ namespace Lily {
   extern Variable hash_table_to_alist;
   extern Variable interpret_markup_list;
   extern Variable invalidate_alterations;
+  extern Variable key_p;
+  extern Variable key_list_p;
   extern Variable key_signature_interface_alteration_positions;
   extern Variable layout_extract_page_properties;
   extern Variable lilypond_main;

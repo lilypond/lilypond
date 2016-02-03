@@ -1715,9 +1715,9 @@ symbol_list_rev:
 symbol_list_part:
 	symbol_list_element
 	{
-		$$ = try_string_variants (Lily::symbol_list_p, $1);
+		$$ = try_string_variants (Lily::key_list_p, $1);
 		if (SCM_UNBNDP ($$)) {
-			parser->parser_error (@1, _("not a symbol"));
+			parser->parser_error (@1, _("not a key"));
 			$$ = SCM_EOL;
 		} else
 			$$ = scm_reverse ($$);
@@ -1728,6 +1728,7 @@ symbol_list_part:
 symbol_list_element:
 	STRING
 	| embedded_scm_bare
+	| UNSIGNED
 	;
 
 
@@ -4049,8 +4050,7 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 		*destination = unsmob<Score> (sid)->clone ()->unprotect ();
 		return SCM_IDENTIFIER;
 	} else if (scm_is_pair (sid)
-		   && scm_is_pair (scm_car (sid))
-		   && scm_is_symbol (scm_caar (sid))) {
+		   && scm_is_true (Lily::key_list_p (sid))) {
 		*destination = sid;
 		return LOOKUP_IDENTIFIER;
 	}
@@ -4123,7 +4123,7 @@ try_string_variants (SCM pred, SCM str)
 	if (scm_is_true (scm_call_1 (pred, str)))
 		return str;
 	// a symbol may be interpreted as a list of symbols if it helps
-	if (scm_is_symbol (str)) {
+	if (scm_is_true (Lily::key_p (str))) {
 		str = scm_list_1 (str);
 		if (scm_is_true (scm_call_1 (pred, str)))
 			return str;
