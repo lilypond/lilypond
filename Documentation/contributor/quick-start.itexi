@@ -490,9 +490,9 @@ PATH=~/directory_containing_git-cl:"$@{PATH@}"
 @unnumberedsubsec Updating @code{git-cl}
 
 LilyDev users should make sure that they always have the latest
-version of git-cl installed.  It is possible that changes may have been
-made to git-cl that are not (yet) included in the version of LilyDev has
-been installed.
+version of git-cl installed.  It is possible that changes have been
+made to git-cl that are not (yet) included in the version of LilyDev
+that you are using.
 
 @noindent
 Using a terminal run the following commands:
@@ -510,21 +510,26 @@ This will download and update you to the lastest version of git-cl.
 
 @subsubheading Set up login accounts
 
-Because the @code{git-cl} updates two separate websites (Google's
-Rietveld Code Review Tool and LilyPond's issue tracker) you @emph{must}
-have a valid user login and password to both sites.
+Because @code{git-cl} updates two separate websites (Google's Rietveld
+Code Review Tool and LilyPond's issue tracker) you @emph{must} have a
+valid user account (login and password) for both sites.
 
 @noindent
-Although that it may appear that you have to use a @q{Google} email
-address for the Rietveld Code Review Tool when you sign up, you can
-instead select the option @qq{I prefer to use my current email address}
-during sign up.
+For the Rietveld Code Review Tool you will need a Google account.  Note
+that a Google account does not require that you have or use a @q{Google}
+email address.  You can use @emph{any} email address for your Google
+account.  Just select the option @qq{I prefer to use my current email
+address} when you sign up.
+
+@warning{In order for @code{git-cl} to work, your Google Account
+Settings must have the @q{Access for less secure apps} set to
+@q{Allowed}.  This is normally the default setting.}
 
 @noindent
-For a user login to the LilyPond issue tracker, please send your
-request, preferably using the email address you want to use for your
-login, to the LilyPond Developer's mailing list
-(@code{lilypond-devel@@gnu.org}).
+For the LilyPond issue tracker, please request a user account by sending
+an email to the LilyPond Developer's mailing list
+(@code{lilypond-devel@@gnu.org}), preferably using the same email
+address that you want to use for your user login.
 
 @subsubheading Authorising git-cl for the LilyPond issue tracker
 
@@ -533,8 +538,8 @@ it can access the LilyPond issue tracker.
 
 @enumerate
 @item
-Once a valid login has been given for the LilyPond issye tracker, go to
-the @q{Account settings} and select the @q{OAuth} tab.
+Once you have been given a valid login for the LilyPond issue tracker,
+go to the @q{Account settings} and select the @q{OAuth} tab.
 
 @item
 Locate the @q{Register New Application} section and enter @code{git-cl}
@@ -545,7 +550,7 @@ Click on the @q{Register new application} button.  You should now see
 @q{git-cl} listed under the @q{My Applications} section.
 
 @item
-Click on the @q{Generate Bearer Token} button.    You should now see
+Click on the @q{Generate Bearer Token} button.  You should now see
 @q{git-cl} listed under the @q{Authorized Applications} section along
 with a value for the @q{Bearer Token} entry.  This value is used, in the
 next steps, to allow git-cl to access and update the LilyPond issue
@@ -557,24 +562,30 @@ tracker.
 
 @enumerate
 @item
-Using a terminal, move to top source directory of the
-@code{$LILYPOND_GIT} directory and then run @code{git-cl} with the
-@code{config} option:
+Using a terminal, move to the top level of the @code{$LILYPOND_GIT}
+directory and then run @code{git-cl} with the @code{config} option:
 
 @example
 cd $LILYPOND_GIT
 git-cl config
 @end example
 
+@noindent
+You will see a series of prompts.  For most of them you can simply
+accept the default value by responding with a newline (i.e. by pressing
+return or enter).
+
 @item
-When prompted for the @code{Rietveld server}:
+The prompt for the @code{Rietveld server} (the patch review tool), which
+defaults to @code{codereview.appspot.com}
 
 @example
 Rietveld server (host[:port]) [codereview.appspot.com]:
 @end example
 
 @item
-When prompted for the @code{Allura server} (the LilyPond issue tracker):
+The prompt for the @code{Allura server} (the issue tracker), which
+defaults to @code{https://sourceforge.net/p/testlilyissues/issues/}
 
 @example
 Allura server [https://sourceforge.net/p/testlilyissues/issues/]:
@@ -583,18 +594,18 @@ Allura server [https://sourceforge.net/p/testlilyissues/issues/]:
 @item
 When prompted for the @code{Allura bearer token} copy/paste the value
 generated in the previous steps for
-@emph{Authorising git-cl for the LilyPond issue tracker}:
+@emph{Authorising git-cl for the LilyPond issue tracker}
 
 @smallexample
-Allura bearer token (see https://sourceforge.net/auth/oauth/) [fdbfca60801533465480]:
+Allura bearer token (see https://sourceforge.net/auth/oauth/): fdbfca60801533465480
 @end smallexample
 
-@warning{The above is a @q{fake} bearer token just to illustrate the
-example. Do not use this value.}
+@warning{The above is a @q{fake} bearer token used just for
+illustration. Do not use this value.}
 
 @item
-Finally, when prompted for the @code{CC list} entry, add the LilyPond
-Developer's group email.
+Finally, the prompt for the @code{CC list}, which defaults to
+@code{lilypond-devel@@gnu.org}, the LilyPond Developer's email list.
 
 @example
 CC list ("x" to clear) [lilypond-devel@@gnu.org]:

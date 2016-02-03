@@ -1299,88 +1299,9 @@ code review website:
 @uref{http://codereview.appspot.com/}
 @end example
 
-@subsubheading @command{git-cl} install
-
-LilyDev users should skip over these @q{install} instructions.
-
-@enumerate
-
-@item
-Install @command{git-cl} by entering:
-
-@example
-git clone https://github.com/gperciva/git-cl.git
-@end example
-
-If that command fails for some reason, try this instead:
-
-@example
-git clone git://github.com/gperciva/git-cl.git
-@end example
-
-@item
-Add the @file{git-cl/} directory to your PATH,
-or create a symbolic link to the @command{git-cl}
-and @command{upload.py} scripts in one of your PATH
-directories (such as @file{$HOME/bin}).
-
-In GNU/Linux you can add directories to PATH
-by adding this line to a hidden file @file{.bashrc},
-located in your home directory:
-
-@example
-PATH=~/type-here-directory-containing-git-cl:"$@{PATH@}"
-@end example
-
-@end enumerate
-
-@subsubheading @command{git-cl} configuration
-
-LilyDev users should perform these @q{configuration} instructions.
-
-@enumerate
-@item
-You must own a Google account login; please create one if you do not
-have one already.
-
-@noindent
-Note that a google account does not need to be a Gmail account; you can
-use @emph{any} email address for your google account when you sign up.
-
-@warning{In order for @code{git-cl} to work as expected, your Google
-Account Settings must have the @q{Access for less secure apps} set to
-@q{Allowed}.  This is normally the default setting.}
-
-@item
-Move into the top source directory and then configure
-@command{git-cl} with the following commands:
-
-@example
-cd $LILYPOND_GIT
-git-cl config
-@end example
-
-For the @qq{Rietveld server} question, the default value
-(@qq{codereview.appspot.com}) should be accepted by
-answering with a newline (CR).
-
-The @qq{CC list} question should be answered with:
-
-@example
-lilypond-devel@@gnu.org
-@end example
-
-The @qq{Tree status URL} value should be left blank.  So should
-the @qq{ViewVC URL} value, since it is used by @command{git-cl
-dcommit} which is only for repositories which use @command{git
-svn} (LilyPond doesn't).
-
-@end enumerate
-
-@subsubheading Uploading patch set
-
-This section assumes that you have already configured the
-@command{git-cl} @q{helper-script}.  See @ref{git-cl}.
+You can upload a patch for review by using our custom @code{git-cl}
+@q{helper-script}.  This section assumes you have already installed,
+updated, and configured @code{git-cl}.  See @ref{git-cl}.
 
 @warning{Unless you are familiar with branches, only work on one
 set of changes at once.}
@@ -1440,14 +1361,11 @@ git-cl upload <reference SHA1 ID>
 @noindent
 where <reference SHA1 ID> is the SHA1 ID of the commit to be used
 as a reference source for the patch.  Generally, this will be the
-SHA1 ID of origin/master, and in that case the command:
+SHA1 ID of origin/master, and in that case you can just use the command:
 
 @example
 git-cl upload origin/master
 @end example
-
-@noindent
-can be used.
 
 @end itemize
 
