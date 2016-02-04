@@ -803,7 +803,7 @@ Should we change the "structure" / "framework" for bounties?
 (prep: 2 hours.  discuss: 10 hours)
 
 @item @strong{code readability}:
-"Our aim when producing source code for Lilypond in whatever
+"Our aim when producing source code for LilyPond in whatever
 language is that it should be totally comprehensible to a
 relatively inexperienced developer at the second reading."
 

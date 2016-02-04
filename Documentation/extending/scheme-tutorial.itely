@@ -72,7 +72,7 @@ see @rlearning{Other sources of information}.  Alternatively, Windows
 users may simply choose @q{Run} from the Start menu and enter
 @q{guile}.
 
-However, a hands-on Scheme sandbox with all of Lilypond loaded is
+However, a hands-on Scheme sandbox with all of LilyPond loaded is
 available with this command line:
 @example
 lilypond scheme-sandbox
@@ -680,7 +680,7 @@ feasible.
 
 Another way to call the Scheme interpreter from LilyPond is the use of
 dollar@tie{}@code{$} instead of a hash mark for introducing Scheme
-expressions.  In this case, Lilypond evaluates the code right after the
+expressions.  In this case, LilyPond evaluates the code right after the
 lexer has read it.  It checks the resulting type of the Scheme
 expression and then picks a token type (one of several
 @code{xxx_IDENTIFIER} in the syntax) for it.  It creates a @emph{copy}
@@ -688,18 +688,18 @@ of the value and uses that for the value of the token.  If the value of
 the expression is void (Guile's value of @code{*unspecified*}), nothing
 at all is passed to the parser.
 
-This is, in fact, exactly the same mechanism that Lilypond employs when
+This is, in fact, exactly the same mechanism that LilyPond employs when
 you call any variable or music function by name, as @code{\name}, with
-the only difference that the name is determined by the Lilypond lexer
+the only difference that the name is determined by the LilyPond lexer
 without consulting the Scheme reader, and thus only variable names
-consistent with the current Lilypond mode are accepted.
+consistent with the current LilyPond mode are accepted.
 
-The immediate action of @code{$} can lead to surprises, @ref{Input
-variables and Scheme}.  Using @code{#} where the parser supports it
-is usually preferable.  Inside of music expressions, expressions
-created using @code{#} @emph{are} interpreted as music.  However,
-they are @emph{not} copied before use.  If they are part of some
-structure that might still get used, you may need to use
+The immediate action of @code{$} can lead to surprises, see
+@ref{Importing Scheme in LilyPond}.  Using @code{#} where the
+parser supports it is usually preferable.  Inside of music expressions,
+expressions created using @code{#} @emph{are} interpreted as
+music.  However, they are @emph{not} copied before use.  If they are
+part of some structure that might still get used, you may need to use
 @code{ly:music-deep-copy} explicitly.
 
 @funindex $@@
@@ -731,11 +731,11 @@ as follows:
 @end example
 
 For the rest of this section, we will assume that the data is entered
-in a music file, so we add@tie{}@code{#}s at the beginning of each Scheme
+in a music file, so we add a @code{#} at the beginning of each Scheme
 expression.
 
 All of the top-level Scheme expressions in a LilyPond input file can
-be combined into a single Scheme expression by the use of the
+be combined into a single Scheme expression by use of the
 @code{begin} statement:
 
 @example
@@ -773,8 +773,8 @@ twentyFour = #(* 2 twelve)
 which would result in the number 24 being stored in the
 LilyPond (and Scheme) variable @code{twentyFour}.
 
-The usual way to refer to Lilypond variables, @ref{LilyPond Scheme
-syntax}, is to call them using a backslash, i.e., @code{\twentyFour}.
+The usual way to refer to LilyPond variables is to call them using a
+backslash, i.e., @code{\twentyFour} (see @ref{LilyPond Scheme syntax}).
 Since this creates a copy of the value for most of LilyPond's internal
 types, in particular music expressions, music functions don't usually
 create copies of material they change.  For this reason, music
@@ -870,7 +870,7 @@ $(make-sequential-music newLa)
 You can use @code{$} with a Scheme expression anywhere you could use
 @code{\@var{name}} after having assigned the Scheme expression to a
 variable @var{name}.  This replacement happens in the @q{lexer}, so
-Lilypond is not even aware of the difference.
+LilyPond is not even aware of the difference.
 
 One drawback, however, is that of timing.  If we had been using @code{$}
 instead of @code{#} for defining @code{newLa} in the above example, the
@@ -1105,7 +1105,7 @@ to create complicated music functions.
 
 When writing a music function it is often instructive to inspect how
 a music expression is stored internally.  This can be done with the
-music function @code{\displayMusic}
+music function @code{\displayMusic}.
 
 @example
 @{
@@ -1157,7 +1157,7 @@ your port and reuse it:
 @end example
 
 Guile's manual describes ports in detail.  Closing the port is actually
-only necessary if you need to read the file before Lilypond finishes; in
+only necessary if you need to read the file before LilyPond finishes; in
 the first example, we did not bother to do so.
 
 A bit of reformatting makes the above information easier to read:
@@ -1165,13 +1165,13 @@ A bit of reformatting makes the above information easier to read:
 @example
 (make-music 'SequentialMusic
   'elements (list
-	     (make-music 'NoteEvent
+             (make-music 'NoteEvent
                'articulations (list
-			       (make-music 'AbsoluteDynamicEvent
-				 'text
-				 "f"))
-	       'duration (ly:make-duration 2 0 1/1)
-	       'pitch    (ly:make-pitch 0 0 0))))
+                               (make-music 'AbsoluteDynamicEvent
+                                           'text
+                                           "f"))
+               'duration (ly:make-duration 2 0 1/1)
+               'pitch    (ly:make-pitch 0 0 0))))
 @end example
 
 A @code{@{ @dots{} @}} music sequence has the name
@@ -1189,9 +1189,11 @@ interpreted as well as displayed.  To avoid interpretation, write
 @node Music properties
 @subsection Music properties
 
+@ignore
 TODO -- make sure we delineate between @emph{music} properties,
 @emph{context} properties, and @emph{layout} properties.  These
 are potentially confusing.
+@end ignore
 
 Let's look at an example:
 
@@ -1244,7 +1246,7 @@ expression.
 @end example
 
 Then the note pitch is accessed through the @code{'pitch} property
-of the @code{NoteEvent} object,
+of the @code{NoteEvent} object.
 
 @example
 #(display-scheme-music
@@ -1254,7 +1256,7 @@ of the @code{NoteEvent} object,
 (ly:make-pitch 0 0 0)
 @end example
 
-The note pitch can be changed by setting this @code{'pitch} property,
+The note pitch can be changed by setting this @code{'pitch} property.
 
 @funindex \displayLilyMusic
 
@@ -1309,7 +1311,7 @@ The bad news is that the @code{SlurEvent} expressions
 must be added @q{inside} the note (in its @code{articulations}
 property).
 
-Now we examine the input,
+Now we examine the input.
 
 @example
 \displayMusic a'
@@ -1374,7 +1376,7 @@ the articulation to an empty chord,
 
 @noindent
 but for the sake of this example, we will learn how to do this in
-Scheme.  We begin by examining our input and desired output,
+Scheme.  We begin by examining our input and desired output.
 
 @example
 %  input
@@ -1518,7 +1520,7 @@ addAccent = #(define-music-function (note-event)
   note-event)
 @end example
 
-We may verify that this music function works correctly,
+We may verify that this music function works correctly:
 
 @example
 \displayMusic \addAccent c4

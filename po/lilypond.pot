@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.35\n"
+"Project-Id-Version: lilypond 2.19.36\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2016-01-02 14:20+0000\n"
+"POT-Creation-Date: 2016-01-31 16:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,11 +36,11 @@ msgstr ""
 msgid "Running `%s' on file `%s' to detect default page settings.\n"
 msgstr ""
 
-#: book_latex.py:219 book_texinfo.py:228
+#: book_latex.py:219 book_texinfo.py:230
 msgid "Unable to auto-detect default settings:\n"
 msgstr ""
 
-#: book_latex.py:231 book_texinfo.py:240
+#: book_latex.py:231 book_texinfo.py:242
 #, python-format
 msgid ""
 "Unable to auto-detect default settings:\n"
@@ -122,7 +122,7 @@ msgstr ""
 #. Work around a texi2pdf bug: if LANG=C is not given, a broken regexp is
 #. used to detect relative/absolute paths, so the absolute path is not
 #. detected as such and this command fails:
-#: book_texinfo.py:206
+#: book_texinfo.py:208
 #, python-format
 msgid "Running texi2pdf on file %s to detect default page settings.\n"
 msgstr ""
@@ -3413,31 +3413,31 @@ msgstr ""
 msgid "Undefined parent event class `~S'"
 msgstr ""
 
-#: define-markup-commands.scm:1191
+#: define-markup-commands.scm:1272
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:3031
+#: define-markup-commands.scm:3112
 #, scheme-format
 msgid "Cannot find glyph ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3507
+#: define-markup-commands.scm:3588
 #, scheme-format
 msgid "no brace found for point size ~S "
 msgstr ""
 
-#: define-markup-commands.scm:3508
+#: define-markup-commands.scm:3589
 #, scheme-format
 msgid "defaulting to ~S pt"
 msgstr ""
 
-#: define-markup-commands.scm:3753
+#: define-markup-commands.scm:3847
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3966
+#: define-markup-commands.scm:4060
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
@@ -3623,37 +3623,37 @@ msgstr ""
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:902
+#: lily.scm:903
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:903
+#: lily.scm:904
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:964
+#: lily.scm:965
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:967
+#: lily.scm:968
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:989 lily.scm:1078
+#: lily.scm:990 lily.scm:1079
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:1069
+#: lily.scm:1070
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
 
-#: lily.scm:1088
+#: lily.scm:1089
 #, scheme-format
 msgid "Invoking `~a'...\n"
 msgstr ""
@@ -3763,31 +3763,31 @@ msgstr ""
 msgid "Defaulting to 'any-octave."
 msgstr ""
 
-#: music-functions.scm:1890
+#: music-functions.scm:1872
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr ""
 
-#: music-functions.scm:2115
+#: music-functions.scm:2097
 msgid "Missing duration"
 msgstr ""
 
-#: music-functions.scm:2651
+#: music-functions.scm:2633
 #, scheme-format
 msgid "not a symbol list: ~a"
 msgstr ""
 
-#: music-functions.scm:2654
+#: music-functions.scm:2636
 #, scheme-format
 msgid "conflicting tag group ~a"
 msgstr ""
 
-#: output-ps.scm:290 output-svg.scm:539
+#: output-ps.scm:286 output-svg.scm:535
 #, scheme-format
 msgid "unknown line-cap-style: ~S"
 msgstr ""
 
-#: output-ps.scm:295 output-svg.scm:545
+#: output-ps.scm:291 output-svg.scm:541
 #, scheme-format
 msgid "unknown line-join-style: ~S"
 msgstr ""

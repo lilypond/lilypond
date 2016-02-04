@@ -109,7 +109,7 @@ shape.  Objects with an extended shape like these are called
 
 Spanners cannot be tweaked after their creation.  This includes both
 @code{StaffSymbol} and @code{LedgerLineSpanner} which continue
-throughout the score (except if they are terminated by the
+throughout the score, except if they are terminated by the
 @code{\stopStaff} command and then recreated using @code{\startStaff}
 command.
 
