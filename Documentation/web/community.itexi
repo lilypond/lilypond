@@ -919,6 +919,33 @@ A full list of all the current open issues can be found
 @divEnd
 
 @divClass{column-center-middle-color3}
+@subheading ScholarLY
+
+ScholarLY is a library in
+@uref{https://github.com/openlilylib/snippets, openLilyLib} that
+provides functionality for annotating scores, making it possible
+to manage scholarly workflows completely in the context of the score
+document.  So far it is possible to enter annotations of different
+types, produce clickable messages in the console output and export
+to text and LaTeX files.
+
+There are numerous feature requests to turn this library into an
+even more powerful and comprehensive tool, for example: Inserting
+music examples, producing footnotes, automatically applying styles
+to the annotated item (e.g. dash a slur, parenthesize an accidental),
+creating reports with point-and-click entries.  For a full description
+of this project suggestion please visit
+@uref{https://github.com/openlilylib/scholarly/wiki/GSoC}.
+
+@strong{Difficulty:} medium
+@strong{Requirements:} Scheme, possibly LaTeX, (optionally Python)
+@strong{Recommended:} Experience with or interest in scholarly
+edition and collaborative workflows.
+@strong{Potential Mentor:} Urs Liska
+
+@divEnd
+
+@divClass{column-center-middle-color3}
 @subheading Grace notes
 
 Fix problems with synchronization of grace notes.  Grace notes can
