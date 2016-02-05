@@ -19,7 +19,7 @@
 
 As LilyPond is improved, the syntax (input language) of some commands
 and functions can change.  This can result in unexpected errors,
-warnings or even output when input files, previously created with older
+warnings or even wrong output when input files, previously created for older
 versions of LilyPond are then used with later versions.
 
 To help with this the @command{convert-ly} command can be used to
