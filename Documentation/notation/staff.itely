@@ -669,11 +669,11 @@ example.
 @end lilypond
 
 
-Using the @code{\Staff \RemoveEmptyStaves} command to create ossia
+Using the @code{\RemoveAllEmptyStaves} command to create ossia
 staves may be used as an alternative.  This method is most
 convenient when ossia staves occur immediately following a line
 break.  For more information about
-@code{\Staff \RemoveEmptyStaves}, see @ref{Hiding staves}.
+@code{\RemoveAllEmptyStaves}, see @ref{Hiding staves}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -681,6 +681,7 @@ break.  For more information about
     \remove "Time_signature_engraver"
     \hide Clef
     \magnifyStaff #2/3
+    \RemoveAllEmptyStaves
   } \relative {
     R1*3
     c''4 e8 d c2
@@ -694,13 +695,6 @@ break.  For more information about
     e4 d c2
   }
 >>
-
-\layout {
-  \context {
-    \Staff \RemoveEmptyStaves
-    \override VerticalAxisGroup.remove-first = ##t
-  }
-}
 @end lilypond
 
 
@@ -737,10 +731,14 @@ Internals Reference:
 @cindex Frenched staff
 @cindex staff, hiding
 @cindex staff, empty
-@cindex hiding of staves
+@cindex hiding staves
+@cindex hiding ancient staves
+@cindex hiding rhythmic staves
+@cindex hiding vaticana staves
 @cindex empty staves
 
 @funindex \RemoveEmptyStaves
+@funindex \RemoveAllEmptyStaves
 @funindex Staff_symbol_engraver
 @funindex \stopStaff
 @funindex stopStaff
@@ -758,11 +756,14 @@ alternative, @code{\stopStaff} may be used.
 @end lilypond
 
 
-Empty staves can be hidden by setting the
-@code{\Staff \RemoveEmptyStaves} command in the @code{\layout}
-block.  In orchestral scores, this style is known as @q{Frenched
-Score}.  By default, this command hides and removes all empty
-staves in a score except for those in the first system.
+Empty staves can be hidden (for a so-called @q{Frenched Score})
+by applying the @code{\RemoveEmptyStaves} command on a context, which
+can be done globally (in a @code{\layout} block) as well as for
+specific staves only (in a @code{\with} block).  This command removes
+all empty staves in a score except for those in the first system.  If
+you want those in the first system to be hidden also, use
+@code{\RemoveAllEmptyStaves}.  Supported contexts are @code{Staff},
+@code{RhythmicStaff} and @code{VaticanaStaff}.
 
 @warning{A staff is considered empty when it contains only
 multi-measure rests, rests, skips, spacer rests, or a combination of these
@@ -771,7 +772,8 @@ elements.}
 @lilypond[verbatim,quote,ragged-right]
 \layout {
   \context {
-    \Staff \RemoveEmptyStaves
+    \Staff
+    \RemoveEmptyStaves
   }
 }
 
@@ -792,31 +794,14 @@ elements.}
 @cindex ossia
 
 @noindent
-@code{\Staff \RemoveEmptyStaves} can also be used to create ossia
+@code{\RemoveAllEmptyStaves} can also be used to create ossia
 sections for a staff.  For details, see @ref{Ossia staves}.
-
-@cindex hiding ancient staves
-@cindex hiding rhythmic staves
-
-@funindex \RemoveEmptyStaves
-
-The @code{\VaticanaStaff \RemoveEmptyStaves} command may be used to
-hide empty staves in ancient music contexts.  Similarly,
-@code{\RhythmicStaff \RemoveEmptyStaves} may be used to hide empty
-@code{RhythmicStaff} contexts.
 
 
 @predefined
-@code{\Staff \RemoveEmptyStaves},
-@code{\VaticanaStaff \RemoveEmptyStaves},
-@code{\RhythmicStaff \RemoveEmptyStaves}.
+@code{\RemoveEmptyStaves},
+@code{\RemoveAllEmptyStaves}.
 @endpredefined
-
-
-@snippets
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{removing-the-first-empty-line.ly}
 
 @seealso
 Music Glossary:

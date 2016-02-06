@@ -3693,7 +3693,7 @@ markup_top:
 	;
 
 markup_scm:
-	embedded_scm_bare
+	embedded_scm
 	{
 		if (Text_interface::is_markup ($1))
 			MYBACKUP (MARKUP_IDENTIFIER, $1, @1);

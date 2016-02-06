@@ -170,6 +170,8 @@ TEXINFO_INSPECTION_DOCUMENT = r'''
 
 @message{Global: textwidth=@the@hsize,exampleindent=@the@lispnarrowing}
 
+dummy
+
 @bye
 '''
 

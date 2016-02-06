@@ -306,6 +306,87 @@ line-length.
                       new-props
                       (markup #:draw-dashed-line dest))))
 
+(define-markup-command (draw-squiggle-line layout props sq-length dest eq-end?)
+  (number? number-pair? boolean?)
+  #:category graphic
+  #:properties ((thickness 0.5)
+                (angularity 0)
+                (height 0.5)
+                (orientation 1))
+  "
+@cindex drawing squiggled lines within text
+
+A squiggled line.
+
+If @code{eq-end?} is set to @code{#t}, it is ensured the squiggled line ends
+with a bow in same direction as the starting one.  @code{sq-length} is the
+length of the first bow.  @code{dest} is the end point of the squiggled line.
+To match @code{dest} the squiggled line is scaled accordingly.
+Its appearance may be customized by overrides for @code{thickness},
+@code{angularity}, @code{height} and @code{orientation}.
+@lilypond[verbatim,quote]
+\\markup
+  \\column {
+    \\draw-squiggle-line #0.5 #'(6 . 0) ##t
+    \\override #'(orientation . -1)
+    \\draw-squiggle-line #0.5 #'(6 . 0) ##t
+    \\draw-squiggle-line #0.5 #'(6 . 0) ##f
+    \\override #'(height . 1)
+    \\draw-squiggle-line #0.5 #'(6 . 0) ##t
+    \\override #'(thickness . 5)
+    \\draw-squiggle-line #0.5 #'(6 . 0) ##t
+    \\override #'(angularity . 2)
+    \\draw-squiggle-line #0.5 #'(6 . 0) ##t
+  }
+@end lilypond"
+  (let* ((line-thickness (ly:output-def-lookup layout 'line-thickness))
+         (thick (* thickness line-thickness))
+         (x (car dest))
+         (y (cdr dest))
+         (length-to-print (magnitude (make-rectangular x y)))
+         ;; Make a guess how many bows may be needed
+         (guess (max 1 (truncate (/ length-to-print sq-length))))
+         ;; If `eq-end?' is set #t, make sure squiggle-line starts and ends
+         ;; with a bow in same direction
+         (amount (if (and (even? guess) eq-end?) (1+ guess) guess))
+         ;; The lined-up bows needs to fit `length-to-print'
+         ;; Thus scale the length of first bow accordingly
+         ;; Other bows are copies
+         (guessed-squiggle-line-length (* amount sq-length))
+         (line-length-diff (- length-to-print guessed-squiggle-line-length))
+         (line-length-diff-for-each-squiggle
+           (/ line-length-diff amount))
+         (first-bow-length (+ sq-length line-length-diff-for-each-squiggle))
+         ;; Get first bows
+         ;; TODO two bows are created via `make-bow-stencil'
+         ;;      cheaper to use `ly:stencil-scale'?
+         (first-bow-end-coord
+           (cons
+             (/ (* first-bow-length x) length-to-print)
+             (/ (* first-bow-length y) length-to-print)))
+         (init-bow
+           (lambda (o)
+             (make-bow-stencil
+               '(0 . 0)
+               first-bow-end-coord
+               thick angularity height o)))
+         (init-bow-up (init-bow orientation))
+         (init-bow-down (init-bow (- orientation)))
+         ;; Get a list of starting-points for the bows
+         (list-of-starts
+           (map
+             (lambda (n)
+               (cons
+                 (* n (car first-bow-end-coord))
+                 (* n (cdr first-bow-end-coord))))
+             (iota amount))))
+    ;; The final stencil: lined-up bows
+    (apply ly:stencil-add
+      (map
+        (lambda (stil pt) (ly:stencil-translate stil pt))
+        (circular-list init-bow-up init-bow-down)
+        list-of-starts))))
+
 (define-markup-command (draw-hline layout props)
   ()
   #:category graphic
@@ -3543,9 +3624,12 @@ A feta brace in point size @var{size}, rotated 180 degrees.
 
 Construct a note symbol, with stem and flag.  By using fractional values for
 @var{dir}, longer or shorter stems can be obtained.
-Supports all note-head-styles.
+Supports all note-head-styles.  Ancient note-head-styles will get
+mensural-style-flags.  @code{flag-style} may be overridden independently.
 Supported flag-styles are @code{default}, @code{old-straight-flag},
-@code{modern-straight-flag} and @code{flat-flag}.
+@code{modern-straight-flag}, @code{flat-flag}, @code{mensural} and
+@code{neomensural}.  The latter two flag-styles will both result in
+mensural-flags.  Both are supplied for convenience.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -3556,7 +3640,8 @@ Supported flag-styles are @code{default}, @code{old-straight-flag},
 @end lilypond"
   (define (get-glyph-name-candidates dir log style)
     (map (lambda (dir-name)
-           (format #f "noteheads.~a~a" dir-name
+           (format #f "noteheads.~a~a"
+                   dir-name
                    (if (and (symbol? style)
                             (not (equal? 'default style)))
                        (select-head-glyph style (min log 2))
@@ -3642,7 +3727,9 @@ Supported flag-styles are @code{default}, @code{old-straight-flag},
                                  (sign dir) log 'default))
                 result)))
          (head-glyph (ly:font-get-glyph font head-glyph-name))
-         (ancient-flags? (or (eq? style 'mensural) (eq? style 'neomensural)))
+         (ancient-flags?
+           (member style
+                   '(mensural neomensural petrucci semipetrucci blackpetrucci)))
          (attach-indices (ly:note-head::stem-attachment font head-glyph-name))
          (stem-length (* size-factor (max 3 (- log 1))))
          ;; With ancient-flags we want a tighter stem
@@ -3658,7 +3745,10 @@ Supported flag-styles are @code{default}, @code{old-straight-flag},
                                (cdr attach-indices)))))
          ;; For a tighter stem (with ancient-flags) the stem-width has to be
          ;; adjusted.
-         (stem-X-corr (if ancient-flags? (* 0.5 dir stem-thickness) 0))
+         (stem-X-corr
+           (if (or ancient-flags?
+                   (member flag-style '(mensural neomensural)))
+                   (* 0.5 dir stem-thickness) 0))
          (stem-glyph (and (> log 0)
                           (ly:round-filled-box
                            (ordered-cons (+ stem-X-corr (car attach-off))
@@ -3696,11 +3786,15 @@ Supported flag-styles are @code{default}, @code{old-straight-flag},
                               flat-flag)
                              (else
                               (ly:font-get-glyph font
-                                                 (format #f (if ancient-flags?
-                                                                "flags.mensural~a2~a"
-                                                                "flags.~a~a")
-                                                         (if (> dir 0) "u" "d")
-                                                         log))))
+                                (format #f
+                                        (if (or (member flag-style
+                                                        '(mensural neomensural))
+                                                (and ancient-flags?
+                                                     (null? flag-style)))
+                                            "flags.mensural~a2~a"
+                                            "flags.~a~a")
+                                        (if (> dir 0) "u" "d")
+                                        log))))
                        (cons (+ (car attach-off)
                                 ;; For tighter stems (with ancient-flags) the
                                 ;; flag has to be adjusted different.

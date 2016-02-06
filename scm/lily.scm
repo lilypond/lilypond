@@ -507,7 +507,8 @@ messages into errors.")
             (and (eq? PLATFORM 'windows)
                  (> file-name-length 2)
                  (eq? (string-ref file-name 1) #\:)
-                 (eq? (string-ref file-name 2) #\/))))))
+                 (or (eq? (string-ref file-name 2) #\\)
+                     (eq? (string-ref file-name 2) #\/)))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; If necessary, emulate Guile V2 module_export_all! for Guile V1.8.n

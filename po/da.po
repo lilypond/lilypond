@@ -1,9 +1,9 @@
 # Danish translation of lilypond
-# Copyright (C) 2015 Free Software Foundation, Inc.
+# Copyright (C) 2016 Free Software Foundation, Inc.
 # This file is distributed under the same license as the lilypond package.
 # Keld Simonsen <keld@dkuug.dk>, 2001-2002.
 # Reviewed 2001-09-28 Rune Zedeler <rz@daimi.au.dk>
-# Joe Hansen <joedalton2@yahoo.dk>, 2015.
+# Joe Hansen <joedalton2@yahoo.dk>, 2015, 2016.
 #
 # Konventioner:
 # alteration -> alteration
@@ -30,10 +30,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.16\n"
+"Project-Id-Version: lilypond 2.19.26\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
-"POT-Creation-Date: 2015-02-28 14:31+0000\n"
-"PO-Revision-Date: 2015-05-06 21:00+0200\n"
+"POT-Creation-Date: 2015-08-27 10:48+0100\n"
+"PO-Revision-Date: 2016-01-10 21:00+0200\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -191,7 +191,7 @@ msgstr "forældet \\textstyle, ny \\key-syntaks"
 
 #: convertrules.py:82 convertrules.py:1856 convertrules.py:2032
 #: convertrules.py:2175 convertrules.py:2506 convertrules.py:2801
-#: convertrules.py:3151 convertrules.py:3385 convertrules.py:3697
+#: convertrules.py:3151 convertrules.py:3388 convertrules.py:3700
 msgid "bump version for release"
 msgstr "bump version for udgivelse"
 
@@ -611,10 +611,10 @@ msgstr "Fjern oldaddlyrics"
 #: convertrules.py:2820
 msgid ""
 "oldaddlyrics is no longer supported. \n"
-"         Use addlyrics or lyrsicsto instead.\n"
+"         Use addlyrics or lyricsto instead.\n"
 msgstr ""
 "oldaddlyrics er ikke længere understøttet. \n"
-"         Brug addlyrics eller lyrsicsto i stedet.\n"
+"         Brug addlyrics eller lyricsto i stedet.\n"
 
 #: convertrules.py:2826
 msgid ""
@@ -854,15 +854,15 @@ msgstr "consistent-broken-slope håndteres nu via positionstilbagekaldene.\n"
 msgid "input/regression/beam-broken-classic.ly shows how broken beams are now handled.\n"
 msgstr "input/regression/beam-broken-classic.ly viser hvordan ødelagte bjælker nu håndteres.\n"
 
-#: convertrules.py:3369
+#: convertrules.py:3372
 msgid "beamExceptions controls whole-measure beaming."
 msgstr "beamExceptions kontrollerer bjælker i hele mål."
 
-#: convertrules.py:3606
+#: convertrules.py:3609
 msgid "Flag.transparent and Flag.color inherit from Stem"
 msgstr "Flag.transparent og Flag.color arver fra Stem (nodehals)"
 
-#: convertrules.py:3672
+#: convertrules.py:3675
 msgid "Staff-padding now controls the distance to the baseline, not the nearest point."
 msgstr "Staff-padding kontrollerer nu afstanden til basislinjen, ikke det nærmeste punkt."
 
@@ -968,12 +968,12 @@ msgstr "Toneartealterationsoktav angivet for en ikkeeksisterende alteration nr. 
 msgid "Unable to find instrument for ID=%s\n"
 msgstr "Kan ikke finde instrument for ID=%s\n"
 
-#: abc2ly.py:1386 convert-ly.py:85 lilypond-book.py:122 midi2ly.py:1044
+#: abc2ly.py:1389 convert-ly.py:85 lilypond-book.py:122 midi2ly.py:1044
 #, python-format
 msgid "%s [OPTION]... FILE"
 msgstr "%s [TILVALG] ... FIL"
 
-#: abc2ly.py:1387
+#: abc2ly.py:1390
 #, python-format
 msgid ""
 "abc2ly converts ABC music files (see\n"
@@ -982,29 +982,29 @@ msgstr ""
 "abc2ly konverterer ABC-musikfiler (se\n"
 "%s) til LilyPond-inddata.\n"
 
-#: abc2ly.py:1395 convert-ly.py:92 etf2ly.py:1208 lilypond-book.py:231
-#: midi2ly.py:1095 musicxml2ly.py:2590 main.cc:183
+#: abc2ly.py:1398 convert-ly.py:92 etf2ly.py:1208 lilypond-book.py:231
+#: midi2ly.py:1095 musicxml2ly.py:2590 main.cc:184
 msgid "show version number and exit"
 msgstr "vis versionsnummer og afslut"
 
-#: abc2ly.py:1398 convert-ly.py:96 etf2ly.py:1204 lilypond-book.py:140
-#: midi2ly.py:1062 musicxml2ly.py:2572 main.cc:162
+#: abc2ly.py:1401 convert-ly.py:96 etf2ly.py:1204 lilypond-book.py:140
+#: midi2ly.py:1062 musicxml2ly.py:2572 main.cc:163
 msgid "show this help and exit"
 msgstr "vis denne hjælpetekst og afslut"
 
-#: abc2ly.py:1401 etf2ly.py:1209 midi2ly.py:1071
+#: abc2ly.py:1404 etf2ly.py:1209 midi2ly.py:1071
 msgid "write output to FILE"
 msgstr "skriv uddata til FIL"
 
-#: abc2ly.py:1404
+#: abc2ly.py:1407
 msgid "be strict about success"
 msgstr "vær nøje omkring succes"
 
-#: abc2ly.py:1407
+#: abc2ly.py:1410
 msgid "preserve ABC's notion of beams"
 msgstr "bevar ABC's begreb om bjælker"
 
-#: abc2ly.py:1410
+#: abc2ly.py:1413
 msgid "suppress progress messages"
 msgstr "undertryk statusbeskeder"
 
@@ -1012,8 +1012,8 @@ msgstr "undertryk statusbeskeder"
 #. "Report bugs in English via %s",
 #. or if there is a LilyPond users list or forum in your language
 #. "Report bugs in English via %s or in YOUR_LANG via URI"
-#: abc2ly.py:1413 convert-ly.py:157 etf2ly.py:1218 lilypond-book.py:258
-#: midi2ly.py:1107 musicxml2ly.py:2674 main.cc:317
+#: abc2ly.py:1416 convert-ly.py:157 etf2ly.py:1218 lilypond-book.py:258
+#: midi2ly.py:1107 musicxml2ly.py:2674 main.cc:318
 #, c-format, python-format
 msgid "Report bugs via %s"
 msgstr "Rapporter fejl på engelsk via %s eller vedrørende den danske oversættelse til <dansk@dansk-gruppen.dk>"
@@ -1064,7 +1064,7 @@ msgid "Print log messages according to LOGLEVEL (NONE, ERROR, WARNING, PROGRESS 
 msgstr "Vis logbeskeder jævnfør LOGNIVEAU (NONE, ERROR, WARNING, PROGRESS (standard), DEBUG)"
 
 #: convert-ly.py:111 lilypond-book.py:163 lilypond-book.py:181
-#: musicxml2ly.py:2629 main.cc:176
+#: musicxml2ly.py:2629 main.cc:177
 msgid "LOGLEVEL"
 msgstr "LOGNIVEAU"
 
@@ -1096,7 +1096,7 @@ msgid "make a numbered backup [default: filename.ext~]"
 msgstr "lav en nummereret sikkerhedskopi [standard: filnavn.ext~]"
 
 #: convert-ly.py:152 etf2ly.py:1212 lilypond-book.py:234 midi2ly.py:1096
-#: main.cc:185
+#: main.cc:186
 msgid "show warranty and copyright"
 msgstr "vis garanti og ophavsret"
 
@@ -1117,17 +1117,17 @@ msgstr "Stopper på sidste succesfulde regel"
 msgid "Processing `%s'... "
 msgstr "Behandler »%s« ..."
 
-#: convert-ly.py:368
+#: convert-ly.py:366
 #, python-format
 msgid "%s: Unable to open file"
 msgstr "%s: kan ikke åbne fil"
 
-#: convert-ly.py:374
+#: convert-ly.py:372
 #, python-format
 msgid "%s: Unable to determine version.  Skipping"
 msgstr "%s: Kan ikke bestemme version. Udelader"
 
-#: convert-ly.py:380
+#: convert-ly.py:378
 #, python-format
 msgid ""
 "%s: Invalid version string `%s' \n"
@@ -1136,7 +1136,7 @@ msgstr ""
 "%s: Ugyldig versionsstreng »%s« \n"
 "Gyldige versionsstrenge består af tre numre, adskilt af punktummer, f.eks. 2.8.12"
 
-#: convert-ly.py:386
+#: convert-ly.py:384
 #, python-format
 msgid "There was %d error."
 msgid_plural "There were %d errors."
@@ -1158,7 +1158,7 @@ msgstr ""
 "LilyPond-fil.\n"
 
 #: etf2ly.py:1210 midi2ly.py:1067 midi2ly.py:1072 musicxml2ly.py:2659
-#: main.cc:168 main.cc:180
+#: main.cc:169 main.cc:181
 msgid "FILE"
 msgstr "FIL"
 
@@ -1196,7 +1196,7 @@ msgid "add DIR to include path"
 msgstr "tilføj MAPPE til inkluderingsstien"
 
 #: lilypond-book.py:143 lilypond-book.py:150 lilypond-book.py:169
-#: lilypond-book.py:187 lilypond-book.py:208 lilypond-book.py:214 main.cc:167
+#: lilypond-book.py:187 lilypond-book.py:208 lilypond-book.py:214 main.cc:168
 msgid "DIR"
 msgstr "MAPPE"
 
@@ -1208,9 +1208,11 @@ msgstr "formater Texinfo-uddata så at Info vil kigge efter musikaftryk i MAPPE"
 msgid "PAD"
 msgstr "TILPAS"
 
+# "music" referer nok til en samling af noder.  På dansk et partitur.
+# Jeg ville sige "tilpas... partituret for at justere noderne på trods af...."
 #: lilypond-book.py:157
-msgid "pad left side of music to align music inspite of uneven bar numbers (in mm)"
-msgstr "tilpas venstre side af musikken for at justere musik på trods af et ulige antal bjælkeantal (i mm)"
+msgid "pad left side of music to align music in spite of uneven bar numbers (in mm)"
+msgstr "tilpas venstre side af partituret for at justere musik på trods af et ulige antal bjælker (i mm)"
 
 #: lilypond-book.py:162
 msgid "Print lilypond log messages according to LOGLEVEL"
@@ -1750,7 +1752,7 @@ msgstr "undertrykt advarsel: %s"
 msgid "accidental typesetting list must begin with context-name: %s"
 msgstr "fortegnsopsætningsliste skal begynde med kontekstnavn: %s"
 
-#: accidental-engraver.cc:210
+#: accidental-engraver.cc:207
 #, c-format
 msgid "procedure or context-name expected for accidental rule, found %s"
 msgstr "procedure eller kontekstnavn forventet for fortegnsregel, fandt %s"
@@ -1764,7 +1766,7 @@ msgstr "Kunne ikke finde skrifttegnnavn for alteration %s"
 msgid "natural alteration glyph not found"
 msgstr "naturlig alterationskrifttegn blev ikke fundet"
 
-#: all-font-metrics.cc:149
+#: all-font-metrics.cc:159
 #, c-format
 msgid "cannot find font: `%s'"
 msgstr "kan ikke finde skrifttype: »%s«"
@@ -1776,11 +1778,6 @@ msgstr "\\applycontext-argument er ikke en procedure"
 #: arpeggio.cc:138
 msgid "no heads for arpeggio found?"
 msgstr "ingen hoveder for arpeggio blev fundet?"
-
-#: auto-change-iterator.cc:74 change-iterator.cc:72
-#, c-format
-msgid "cannot change, already in translator: %s"
-msgstr "kan ikke ændre, allerede i oversætter: %s"
 
 #: axis-group-engraver.cc:149
 msgid "Axis_group_engraver: vertical group already has a parent"
@@ -1794,12 +1791,12 @@ msgstr "er der to Axis_group_engravers?"
 msgid "removing this vertical group"
 msgstr "fjerner denne vertikale gruppe"
 
-#: axis-group-interface.cc:714
+#: axis-group-interface.cc:716
 #, c-format
 msgid "\"%s\" is not a valid outside-staff-placement-directive"
 msgstr "»%s« er ikke et gyldigt outside-staff-placement-directive"
 
-#: axis-group-interface.cc:786
+#: axis-group-interface.cc:788
 msgid "an outside-staff object should have a direction, defaulting to up"
 msgstr "et outside-staff-objekt skal have en retning, bruger standarden op"
 
@@ -1829,11 +1826,11 @@ msgid "beam was started here"
 msgstr "bjælken startede her"
 
 #. We are completely screwed.
-#: beam-quanting.cc:839
+#: beam-quanting.cc:850
 msgid "no viable initial configuration found: may not find good beam slope"
 msgstr "ingen egnet oprindelig konfiguration blev fundet: finder måske ikke en god bjælkehældning"
 
-#: beam.cc:181
+#: beam.cc:183
 msgid "removing beam with no stems"
 msgstr "fjerner bjælke uden nodehalse"
 
@@ -1843,22 +1840,24 @@ msgid "cannot change `%s' to `%s'"
 msgstr "kan ikke ændre »%s« til »%s«"
 
 #. FIXME: constant error message.
-#: change-iterator.cc:93
+#: change-iterator.cc:67
 msgid "cannot find context to switch to"
 msgstr "kan ikke finde konteksten at skifte til"
 
+#. No enclosing context was found because the iterator's immediate
+#. context is the kind that was sought.
 #. We could change the current translator's id, but that would make
 #. errors hard to catch.
 #.
 #. last->translator_id_string () = get_change
 #. ()->change_to_id_string ();
-#: change-iterator.cc:102
+#: change-iterator.cc:78
 #, c-format
 msgid "not changing to same context type: %s"
 msgstr "ændrer ikke til samme konteksttype: %s"
 
-#. FIXME: uncomprehensable message
-#: change-iterator.cc:106
+#. FIXME: incomprehensible message
+#: change-iterator.cc:82
 msgid "none of these in my family"
 msgstr "ingen af disse i min familie"
 
@@ -1897,22 +1896,22 @@ msgstr "kan ikke finde linjeombrydning som opfylder begrænsninger"
 msgid "need symbol arguments for \\override and \\revert"
 msgstr "kræver symbolargumenter for \\override og \\revert"
 
-#: context.cc:143
+#: context.cc:144
 #, c-format
 msgid "cannot find or create new `%s'"
 msgstr "kan ikke finde eller oprette ny »%s«"
 
-#: context.cc:222
+#: context.cc:223
 #, c-format
 msgid "cannot find or create `%s' called `%s'"
 msgstr "kan ikke finde eller oprette »%s« kaldt »%s«"
 
-#: context.cc:419
+#: context.cc:416
 #, c-format
 msgid "cannot find or create: `%s'"
 msgstr "kan ikke finde eller oprette: »%s«"
 
-#: context.cc:433
+#: context.cc:430
 #, c-format
 msgid "cannot find or create new Bottom = \"%s\""
 msgstr "kan ikke finde eller oprette ny bund = »%s«"
@@ -1922,20 +1921,20 @@ msgstr "kan ikke finde eller oprette ny bund = »%s«"
 msgid "custos `%s' not found"
 msgstr "custos »%s« blev ikke fundet"
 
-#: dispatcher.cc:83
+#: dispatcher.cc:82
 msgid "Event class should be a list"
 msgstr "Hændelsesklasse skal være en liste"
 
-#: dispatcher.cc:166
+#: dispatcher.cc:165
 #, c-format
 msgid "Junking event: %s"
 msgstr "Stryger hændelsen: %s"
 
-#: dispatcher.cc:271
+#: dispatcher.cc:279
 msgid "Attempting to remove nonexisting listener."
 msgstr "Forsøger at fjerne ikkeeksisterende lytter."
 
-#: dispatcher.cc:297
+#: dispatcher.cc:305
 msgid "Already listening to dispatcher, ignoring request"
 msgstr "Lytter allerede til afsender, ignorerer forespørgsel"
 
@@ -1944,7 +1943,7 @@ msgstr "Lytter allerede til afsender, ignorerer forespørgsel"
 msgid "dot `%s' not found"
 msgstr "punktum »%s« blev ikke fundet"
 
-#: dynamic-engraver.cc:168
+#: dynamic-engraver.cc:169
 #, c-format
 msgid ""
 "unknown crescendo style: %s\n"
@@ -1953,7 +1952,7 @@ msgstr ""
 "ukendt crescendostil: %s\n"
 "bruger standarden hairpin."
 
-#: dynamic-engraver.cc:233 slur-proto-engraver.cc:119
+#: dynamic-engraver.cc:234 slur-proto-engraver.cc:119
 #, c-format
 msgid "unterminated %s"
 msgstr "uafsluttet %s"
@@ -1981,22 +1980,22 @@ msgstr "uafsluttet episema"
 msgid "unterminated extender"
 msgstr "uafsluttet udvider"
 
-#: flag.cc:134
+#: flag.cc:133
 #, c-format
 msgid "flag `%s' not found"
 msgstr "flaget »%s« blev ikke fundet"
 
-#: flag.cc:154
+#: flag.cc:153
 #, c-format
 msgid "flag stroke `%s' not found"
 msgstr "flag stroke »%s« blev ikke fundet"
 
-#: font-config-scheme.cc:151 font-config.cc:53
+#: font-config-scheme.cc:151 font-config.cc:82
 #, c-format
 msgid "failed adding font directory: %s"
 msgstr "kunne ikke tilføje skriftmappe: %s"
 
-#: font-config-scheme.cc:153 font-config.cc:55
+#: font-config-scheme.cc:153 font-config.cc:84
 #, c-format
 msgid "Adding font directory: %s"
 msgstr "Tilføjer skriftmappe: %s"
@@ -2015,7 +2014,17 @@ msgstr "Tilføjer skriftfil: %s"
 msgid "Initializing FontConfig..."
 msgstr "Initialiserer FontConfig ..."
 
-#: font-config.cc:58
+#: font-config.cc:70
+#, c-format
+msgid "failed to add fontconfig configuration file `%s'"
+msgstr "kunne ikke tilføje fontconfig-konfigurationsfil: »%s«"
+
+#: font-config.cc:73
+#, c-format
+msgid "Adding fontconfig configuration file: %s"
+msgstr "Tilføjer fontconfig-konfigurationsfil: %s"
+
+#: font-config.cc:86
 msgid "Building font database..."
 msgstr "Bygger skriftdatabase ..."
 
@@ -2079,12 +2088,12 @@ msgstr "Ukendt grænseflade »%s«"
 msgid "Grob `%s' has no interface for property `%s'"
 msgstr "Grob »%s« har ingen grænseflade for egenskab »%s«"
 
-#: grob-property.cc:35
+#: grob-property.cc:33
 #, c-format
 msgid "%d: %s"
 msgstr "%d: %s"
 
-#: grob.cc:481
+#: grob.cc:492
 #, c-format
 msgid "ignored infinite %s-offset"
 msgstr "ignoreret uendelig %s-forskydning"
@@ -2114,7 +2123,7 @@ msgstr "fjerner uafsluttet bindestreg"
 msgid "unterminated hyphen; removing"
 msgstr "uafsluttet bindestreg; fjerner"
 
-#: includable-lexer.cc:71 lily-guile.cc:91 lily-parser-scheme.cc:108
+#: includable-lexer.cc:71 lily-guile.cc:92 lily-parser-scheme.cc:108
 #, c-format
 msgid "cannot find file: `%s'"
 msgstr "kan ikke finde filen: »%s«"
@@ -2124,11 +2133,11 @@ msgstr "kan ikke finde filen: »%s«"
 msgid "(search path: `%s')"
 msgstr "(søgesti: »%s«)"
 
-#: input.cc:138 source-file.cc:177 source-file.cc:192
+#: input.cc:138 source-file.cc:180 source-file.cc:195
 msgid "position unknown"
 msgstr "ukendt position"
 
-#: key-engraver.cc:198
+#: key-engraver.cc:197
 msgid "Incomplete keyAlterationOrder for key signature"
 msgstr "Ufuldstændig keyAlterationOrder for toneartunderskrift"
 
@@ -2169,21 +2178,21 @@ msgstr "ignorerer pause: fraseringsbue må ikke indeholde en pause"
 msgid "ligature was started here"
 msgstr "fraseringsbuen startede her"
 
-#: lily-guile.cc:93
+#: lily-guile.cc:94
 #, c-format
 msgid "(load path: `%s')"
 msgstr "(indlæsningssti: »%s«)"
 
-#: lily-guile.cc:412
+#: lily-guile.cc:413
 #, c-format
 msgid "cannot find property type-check for `%s' (%s)."
 msgstr "kan ikke finde egenskaben type-check for »%s« (%s)."
 
-#: lily-guile.cc:415
+#: lily-guile.cc:416
 msgid "perhaps a typing error?"
 msgstr "måske en tastefejl?"
 
-#: lily-guile.cc:422
+#: lily-guile.cc:423
 msgid "skipping assignment"
 msgstr "udelader tildeling"
 
@@ -2192,19 +2201,32 @@ msgstr "udelader tildeling"
 msgid "type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr "typekontrol for »%s« mislykkedes; værdien »%s« skal være af typen »%s«"
 
-#: lily-lexer.cc:249
+#. Uh oh.  unsmob<T> delivered 0, yet
+#. unsmob<T> delivers true.  This means that unsmob<T> is a
+#. matching check from a base class of T, but var is of an
+#. incompatible derived type.
+#: lily-guile.cc:462
+msgid "Wrong kind of "
+msgstr "Forkert type for "
+
+#: lily-lexer.cc:251
 msgid "include files are not allowed in safe mode"
 msgstr "inkluderingsfiler er ikke tilladte i sikker tilstand"
 
-#: lily-lexer.cc:276
+#: lily-lexer.cc:278
 #, c-format
 msgid "identifier name is a keyword: `%s'"
 msgstr "Identificerernavn er et nøgleord: »%s«"
 
-#: lily-lexer.cc:297 lily-lexer.cc:310
+#: lily-lexer.cc:299 lily-lexer.cc:312
 #, c-format
 msgid "%s:EOF"
 msgstr "%s:EOF"
+
+#: lily-modules.cc:81
+#, c-format
+msgid "Uninitialized variable `%s' in module (%s)"
+msgstr "Variablen »%s« er ikke initialiseret i modul (%s)"
 
 #: lily-parser-scheme.cc:80
 #, c-format
@@ -2226,19 +2248,19 @@ msgstr "kan ikke finde init-fil: »%s«"
 msgid "Processing `%s'"
 msgstr "Behandler »%s«"
 
-#: lily-parser-scheme.cc:209
+#: lily-parser-scheme.cc:210
 msgid "ly:parser-parse-string is only valid with a new parser.  Use ly:parser-include-string instead."
 msgstr "ly:parser-parse-string er kun gyldig med en ny fortolker. Brug ly:parser-include-string i stedet."
 
-#: lily-parser-scheme.cc:240
+#: lily-parser-scheme.cc:241
 msgid "ly:parse-string-expression is only valid with a new parser.  Use ly:parser-include-string instead."
 msgstr "ly:parse-string-expression er kun gyldig med en ny fortolker. Brug ly:parser-include-string i stedet."
 
-#: lily-parser.cc:107
+#: lily-parser.cc:106
 msgid "Parsing..."
 msgstr "Tolker ..."
 
-#: lookup.cc:181
+#: lookup.cc:178
 #, c-format
 msgid "Not drawing a box with negative dimension, %.2f by %.2f."
 msgstr "Tegner ikke en boks med negative dimensioner, %.2f x %.2f."
@@ -2247,12 +2269,12 @@ msgstr "Tegner ikke en boks med negative dimensioner, %.2f x %.2f."
 msgid "argument of \\lyricsto should contain Lyrics context"
 msgstr "argumentet \\lyricsto skal indeholde lyrikindhold"
 
-#: lyric-combine-music-iterator.cc:349
+#: lyric-combine-music-iterator.cc:344
 #, c-format
 msgid "cannot find %s `%s'"
 msgstr "kan ikke finde %s »%s«"
 
-#: main.cc:105
+#: main.cc:106
 #, c-format
 msgid ""
 "This program is free software.  It is covered by the GNU General Public\n"
@@ -2264,7 +2286,7 @@ msgstr ""
 "og du er velkommen til at ændre og/eller distribuere kopier af det under\n"
 "visse betingelser. Kør »%s --warranty« for yderligere information.\n"
 
-#: main.cc:111
+#: main.cc:112
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License as \n"
@@ -2295,11 +2317,11 @@ msgstr ""
 "dette program. Hvis ikke, skriv til Free Software Foundation, Inc., 59\n"
 "Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 
-#: main.cc:149
+#: main.cc:150
 msgid "SYM[=VAL]"
 msgstr "SYM[=VAL]"
 
-#: main.cc:150
+#: main.cc:151
 msgid ""
 "set Scheme option SYM to VAL (default: #t).\n"
 "Use -dhelp for help."
@@ -2307,45 +2329,45 @@ msgstr ""
 "sæt Schemetilvalg SYM til VAL (standard: #t).\n"
 "Brug -dhelp for hjælp."
 
-#: main.cc:154
+#: main.cc:155
 msgid "EXPR"
 msgstr "UDTR"
 
-#: main.cc:154
+#: main.cc:155
 msgid "evaluate scheme code"
 msgstr "evaluer Schemekode"
 
 #. Bug in option parser: --output =foe is taken as an abbreviation
 #. for --output-format.
-#: main.cc:157
+#: main.cc:158
 msgid "FORMATs"
 msgstr "FORMATer"
 
-#: main.cc:157
+#: main.cc:158
 msgid "dump FORMAT,...  Also as separate options:"
 msgstr "dump FORMAT,... også som separate tilvalg:"
 
-#: main.cc:158
+#: main.cc:159
 msgid "generate PDF (default)"
 msgstr "opret PDF (standard)"
 
-#: main.cc:159
+#: main.cc:160
 msgid "generate PNG"
 msgstr "opret PNG"
 
-#: main.cc:160
+#: main.cc:161
 msgid "generate PostScript"
 msgstr "opret PostScript"
 
-#: main.cc:161
+#: main.cc:162
 msgid "generate big PDF files"
 msgstr "opret store PDF-filer"
 
-#: main.cc:164
+#: main.cc:165
 msgid "FIELD"
 msgstr "FELT"
 
-#: main.cc:164
+#: main.cc:165
 msgid ""
 "dump header field FIELD to file\n"
 "named BASENAME.FIELD"
@@ -2353,19 +2375,19 @@ msgstr ""
 "dump teksthovedfelt FIELD til fil\n"
 "navngivet BASENAME.FIELD"
 
-#: main.cc:167
+#: main.cc:168
 msgid "add DIR to search path"
 msgstr "tilføj MAPPE til søgestien"
 
-#: main.cc:168
+#: main.cc:169
 msgid "use FILE as init file"
 msgstr "brug FIL som init-fil"
 
-#: main.cc:171
+#: main.cc:172
 msgid "USER, GROUP, JAIL, DIR"
 msgstr "USER, GROUP, JAIL, DIR"
 
-#: main.cc:171
+#: main.cc:172
 msgid ""
 "chroot to JAIL, become USER:GROUP\n"
 "and cd into DIR"
@@ -2373,7 +2395,7 @@ msgstr ""
 "chroot til JAIL, bliv USER:GROUP\n"
 "og cd til DIR"
 
-#: main.cc:176
+#: main.cc:177
 msgid ""
 "print log messages according to LOGLEVEL.  Possible values are:\n"
 "NONE, ERROR, WARNING, BASIC, PROGRESS, INFO (default) and DEBUG."
@@ -2381,24 +2403,24 @@ msgstr ""
 "udskriv logbeskeder jævnfør LOGNIVEAU. Mulige værdier er:\n"
 "NONE, ERROR, WARNING, BASIC, PROGRESS, INFO (standard) og DEBUG."
 
-#: main.cc:180
+#: main.cc:181
 msgid "write output to FILE (suffix will be added)"
 msgstr "skriv uddata til FIL (suffiks vil blive tilføjet)"
 
-#: main.cc:181
+#: main.cc:182
 msgid "relocate using directory of lilypond program"
 msgstr "flyt via mappen for lilypondprogrammet"
 
-#: main.cc:182
+#: main.cc:183
 msgid "no progress, only error messages (equivalent to loglevel=ERROR)"
 msgstr "ingen status, kun fejlbeskeder (svarer til loglevel=ERROR)"
 
-#: main.cc:184
+#: main.cc:185
 msgid "be verbose (equivalent to loglevel=DEBUG)"
 msgstr "vær uddybende (svarer til loglevel=DEBUG)"
 
 #. Do not update the copyright years here, run `make grand-replace'
-#: main.cc:263
+#: main.cc:264
 #, c-format
 msgid ""
 "Copyright (c) %s by\n"
@@ -2408,84 +2430,84 @@ msgstr ""
 "%s med flere."
 
 #. No version number or newline here.  It confuses help2man.
-#: main.cc:301
+#: main.cc:302
 #, c-format
 msgid "Usage: %s [OPTION]... FILE..."
 msgstr "Brug: %s [TILVALG] ... FIL ..."
 
-#: main.cc:303
+#: main.cc:304
 msgid "Typeset music and/or produce MIDI from FILE."
 msgstr "Typesæt musik og/eller afspil MIDI fra FIL."
 
-#: main.cc:305
+#: main.cc:306
 msgid "LilyPond produces beautiful music notation."
 msgstr "LilyPond fremstiller smuk musiknotation."
 
-#: main.cc:307
+#: main.cc:308
 #, c-format
 msgid "For more information, see %s"
 msgstr "For yderligere information, se %s"
 
-#: main.cc:309
+#: main.cc:310
 msgid "Options:"
 msgstr "Tilvalg:"
 
-#: main.cc:376
+#: main.cc:377
 #, c-format
 msgid "expected %d arguments with jail, found: %u"
 msgstr "forventede %d parametre med jail, fandt: %u"
 
-#: main.cc:390
+#: main.cc:391
 #, c-format
 msgid "no such user: %s"
 msgstr "ingen sådan bruger: %s"
 
-#: main.cc:392
+#: main.cc:393
 #, c-format
 msgid "cannot get user id from user name: %s: %s"
 msgstr "kan ikke indhente bruger-id fra brugernavn: %s: %s"
 
-#: main.cc:407
+#: main.cc:408
 #, c-format
 msgid "no such group: %s"
 msgstr "ingen sådan gruppe: %s"
 
-#: main.cc:409
+#: main.cc:410
 #, c-format
 msgid "cannot get group id from group name: %s: %s"
 msgstr "kan ikke indhente gruppe-id fra gruppenavn: %s: %s"
 
-#: main.cc:417
+#: main.cc:418
 #, c-format
 msgid "cannot chroot to: %s: %s"
 msgstr "kan ikke chroot til: %s: %s"
 
-#: main.cc:424
+#: main.cc:425
 #, c-format
 msgid "cannot change group id to: %d: %s"
 msgstr "kan ikke ændre gruppe-id til: %d: %s"
 
-#: main.cc:430
+#: main.cc:431
 #, c-format
 msgid "cannot change user id to: %d: %s"
 msgstr "kan ikke ændre bruger-id til: %d: %s"
 
-#: main.cc:436
+#: main.cc:437
 #, c-format
 msgid "cannot change working directory to: %s: %s"
 msgstr "kan ikke ændre arbejdsmappe til: %s: %s"
 
-#: main.cc:825
+#: main.cc:826
 #, c-format
 msgid "exception caught: %s"
 msgstr "undtagelse opstod: %s"
 
 #. FIXME: constant error message.
-#: mark-engraver.cc:156
+#: mark-engraver.cc:150
 msgid "rehearsalMark must have integer value"
 msgstr "rehearsalMark skal have en heltalsværdi"
 
-#: mark-engraver.cc:162
+#: mark-engraver.cc:156
 msgid "mark label must be a markup object"
 msgstr "mærkeetiket skal være et opmærkningsobjekt"
 
@@ -2537,7 +2559,7 @@ msgstr ""
 msgid "unexpected case fall-through"
 msgstr "uventet tilfælde fald-igennem"
 
-#: midi-control-function-performer.cc:109 staff-performer.cc:152
+#: midi-control-function-performer.cc:107 staff-performer.cc:153
 #, c-format
 msgid "ignoring out-of-range value change for MIDI property `%s'"
 msgstr "ignorerer uden for interval-værdiændring for MIDE-egenskab »%s«"
@@ -2573,7 +2595,7 @@ msgstr "Beregner sideskift ..."
 msgid "usable-duration-logs must be a non-empty list.  Falling back to whole rests."
 msgstr "usable-duration-logs skal være en udfyldt liste. Falder tilbage på hele pauser."
 
-#: music.cc:149
+#: music.cc:150
 #, c-format
 msgid "octave check failed; expected \"%s\", found: \"%s\""
 msgstr "oktavkontrol mislykkedes; forventede »%s«, fandt: »%s«"
@@ -2607,37 +2629,37 @@ msgstr "ingen af nodehovederne »%s« eller »%s« blev fundet"
 msgid "NoteEvent without pitch"
 msgstr "NoteEvent uden tonehøjde"
 
-#: open-type-font.cc:46
+#: open-type-font.cc:45
 #, c-format
 msgid "cannot allocate %lu bytes"
 msgstr "kan ikke allokere %lu byte"
 
-#: open-type-font.cc:50
+#: open-type-font.cc:49
 #, c-format
 msgid "cannot load font table: %s"
 msgstr "kan ikke indlæse skrifttypetabel: %s"
 
-#: open-type-font.cc:55
+#: open-type-font.cc:54
 #, c-format
 msgid "FreeType error: %s"
 msgstr "FreeType-fejl: %s"
 
-#: open-type-font.cc:112
+#: open-type-font.cc:115
 #, c-format
 msgid "unsupported font format: %s"
 msgstr "skrifttypeformatet er ikke understøttet: %s"
 
-#: open-type-font.cc:114
+#: open-type-font.cc:117
 #, c-format
 msgid "error reading font file %s: %s"
 msgstr "fejl under læsning af skrifttypefilen %s: %s"
 
-#: open-type-font.cc:189
+#: open-type-font.cc:192
 #, c-format
 msgid "FT_Get_Glyph_Name () Freetype error: %s"
 msgstr "FT_Get_Glyph_Name () Freetype-fejl: %s"
 
-#: open-type-font.cc:337 pango-font.cc:257
+#: open-type-font.cc:340 pango-font.cc:258
 #, c-format
 msgid "FT_Get_Glyph_Name () error: %s"
 msgstr "FT_Get_Glyph_Name ()-fejl: %s"
@@ -2675,16 +2697,16 @@ msgstr "prøver med %d systemer"
 msgid "best score for this sys-count: %f"
 msgstr "bedste bedømmelse for denne sys-count: %f"
 
-#: optimal-page-breaking.cc:216 page-turn-page-breaking.cc:248
+#: optimal-page-breaking.cc:216 page-turn-page-breaking.cc:249
 #: paper-score.cc:156
 msgid "Drawing systems..."
 msgstr "Tegner systemer ..."
 
-#: output-def.cc:230
+#: output-def.cc:229
 msgid "margins do not fit with line-width, setting default values"
 msgstr "margener passer ikke med linjebredde, angiver standardværdier"
 
-#: output-def.cc:237
+#: output-def.cc:236
 msgid "systems run off the page due to improper paper settings, setting default values"
 msgstr "systemer går ud over siden på grund af ukorrekt sideindstillinger, vælger standardværdier"
 
@@ -2701,68 +2723,68 @@ msgstr "minimum systemer per side er større end maksimal antal systemer per sid
 msgid "page %d has been compressed"
 msgstr "side %d er blevet komprimeret"
 
-#: page-layout-problem.cc:402
+#: page-layout-problem.cc:400
 msgid "A page layout problem has been initiated that cannot accommodate footnotes."
 msgstr "Et sidelayoutproblem er opstået som ikke kan tilpasse sidefødder."
 
-#: page-layout-problem.cc:731
+#: page-layout-problem.cc:729
 msgid "ragged-bottom was specified, but page must be compressed"
 msgstr "ragged-bottom blev specificeret, men siden må være komprimeret"
 
-#: page-layout-problem.cc:734
+#: page-layout-problem.cc:732
 #, c-format
 msgid "compressing over-full page by %.1f staff-spaces"
 msgstr "komprimerer overfuld side med %.1f nodemellemrum"
 
-#: page-layout-problem.cc:1199
+#: page-layout-problem.cc:1197
 msgid "staff-affinities should only decrease"
 msgstr "staff-affinities bør kun falde"
 
-#: page-turn-page-breaking.cc:168
+#: page-turn-page-breaking.cc:169
 #, c-format
 msgid "page-turn-page-breaking: breaking from %d to %d"
 msgstr "page-turn-page-breaking: bryder fra %d til %d"
 
-#: page-turn-page-breaking.cc:217
+#: page-turn-page-breaking.cc:218
 msgid "cannot fit the first page turn onto a single page.  Consider setting first-page-number to an even number."
 msgstr "kan ikke tilpasse den første sidevending på en enkel side. Overveje at sætte first-page-number til et lige nummer."
 
-#: page-turn-page-breaking.cc:230
+#: page-turn-page-breaking.cc:231
 #, c-format
 msgid "Calculating page and line breaks (%d possible page breaks)..."
 msgstr "Beregner side- og linjeombrydninger (%d mulige sideombrydninger) ..."
 
-#: page-turn-page-breaking.cc:300
+#: page-turn-page-breaking.cc:301
 #, c-format
 msgid "break starting at page %d"
 msgstr "ombrydning starter på side %d"
 
-#: page-turn-page-breaking.cc:301
+#: page-turn-page-breaking.cc:302
 #, c-format
 msgid "\tdemerits: %f"
 msgstr "\tulemper: %f"
 
-#: page-turn-page-breaking.cc:302
+#: page-turn-page-breaking.cc:303
 #, c-format
 msgid "\tsystem count: %d"
 msgstr "\tsystemantal %d"
 
-#: page-turn-page-breaking.cc:303
+#: page-turn-page-breaking.cc:304
 #, c-format
 msgid "\tpage count: %d"
 msgstr "\tsideantal %d"
 
-#: page-turn-page-breaking.cc:304
+#: page-turn-page-breaking.cc:305
 #, c-format
 msgid "\tprevious break: %d"
 msgstr "\tforrige ombrydning: %d"
 
-#: pango-font.cc:246
+#: pango-font.cc:247
 #, c-format
 msgid "no glyph for character U+%0X in font `%s'"
 msgstr "intet skrifttegn for tegn U+%0X i skrifttypen »%s«"
 
-#: pango-font.cc:273
+#: pango-font.cc:274
 #, c-format
 msgid ""
 "Glyph has no name, but font supports glyph naming.\n"
@@ -2771,21 +2793,21 @@ msgstr ""
 "Skrifttegn har intet navn, men skrifttypen understøtter skrifttegnnavngivning.\n"
 "Udelader skrifttegn U+%0X, fil %s"
 
-#: pango-font.cc:323
+#: pango-font.cc:324
 #, c-format
 msgid "no PostScript font name for font `%s'"
 msgstr "intet PostScript-skriftnavn for skrifttypen »%s«"
 
-#: pango-font.cc:373
+#: pango-font.cc:374
 msgid "FreeType face has no PostScript font name"
 msgstr "FreeType-ansigt har intet PostScript-skrifttypenavn"
 
-#: paper-book.cc:201
+#: paper-book.cc:200
 #, c-format
 msgid "program option -dprint-pages not supported by backend `%s'"
 msgstr "programtilvalg -dprint-pages er ikke understøttet af motoren »%s«"
 
-#: paper-book.cc:220
+#: paper-book.cc:219
 #, c-format
 msgid "program option -dpreview not supported by backend `%s'"
 msgstr "programtilvalg -dpreview er ikke understøttet af motoren »%s«"
@@ -2808,7 +2830,7 @@ msgstr "Elementantal %d (er bro over %d) "
 msgid "Preprocessing graphical objects..."
 msgstr "Forbehandler grafiske objekter ..."
 
-#: parse-scm.cc:128
+#: parse-scm.cc:124
 msgid "GUILE signaled an error for the expression beginning here"
 msgstr "GUILE signalerede en fejl for udtrykket, der begynder her"
 
@@ -2821,11 +2843,11 @@ msgstr "Konvertering af streng »%s« til UTF-16be mislykkedes: %s"
 msgid "unterminated percent repeat"
 msgstr "uafsluttet procentgentagelse"
 
-#: performance.cc:55
+#: performance.cc:76
 msgid "Track..."
 msgstr "Spor ... "
 
-#: performance.cc:90
+#: performance.cc:126
 #, c-format
 msgid "MIDI output to `%s'..."
 msgstr "MIDI-uddata til »%s« ..."
@@ -2860,25 +2882,25 @@ msgstr "ikke et grobnavn, »%s«"
 msgid "Failed octave check, got: "
 msgstr "Mislykket oktavkontrol, fik: "
 
-#: relocate.cc:52
+#: relocate.cc:56
 #, c-format
 msgid "Setting %s to %s"
 msgstr "Sætter %s til %s"
 
 #. this warning should only be printed in debug mode!
-#: relocate.cc:73
+#: relocate.cc:77
 #, c-format
 msgid "no such file: %s for %s"
 msgstr "ingen sådan fil: %s for %s"
 
 #. this warning should only be printed in debug mode!
 #. this warning should only be printed in debug mode
-#: relocate.cc:84 relocate.cc:102
+#: relocate.cc:88 relocate.cc:106
 #, c-format
 msgid "no such directory: %s for %s"
 msgstr "denne mappe findes ikke: %s for %s"
 
-#: relocate.cc:93
+#: relocate.cc:97
 #, c-format
 msgid "%s=%s (prepend)\n"
 msgstr "%s=%s (foranstil)\n"
@@ -2908,7 +2930,7 @@ msgstr "Flytning: er absolut: argv0=%s\n"
 msgid "Relocation : from cwd: argv0=%s\n"
 msgstr "Flytning: fra cwd: argv0=%s\n"
 
-#: relocate.cc:194
+#: relocate.cc:196
 #, c-format
 msgid ""
 "Relocation: from PATH=%s\n"
@@ -2917,30 +2939,30 @@ msgstr ""
 "Flytning: fra PATH=%s\n"
 "argv0=%s\n"
 
-#: relocate.cc:220
+#: relocate.cc:222
 msgid "LILYPONDPREFIX is obsolete, use LILYPOND_DATADIR"
 msgstr "LILYPONDPREFIX er forældet, brug LILYPOND_DATADIR"
 
-#: relocate.cc:345
+#: relocate.cc:347
 #, c-format
 msgid "Relocation file: %s"
 msgstr "Flytningsfil: %s"
 
-#: relocate.cc:349 source-file.cc:65
+#: relocate.cc:351 source-file.cc:65
 #, c-format
 msgid "cannot open file: `%s'"
 msgstr "kan ikke åbne fil: »%s«"
 
-#: relocate.cc:379
+#: relocate.cc:381
 #, c-format
 msgid "Unknown relocation command %s"
 msgstr "Ukendt flytningskommando %s"
 
-#: rest-collision.cc:153
+#: rest-collision.cc:154
 msgid "cannot resolve rest collision: rest direction not set"
 msgstr "kan ikke løse pausekollision: pauseretning ikke angivet"
 
-#: rest-collision.cc:164 rest-collision.cc:273
+#: rest-collision.cc:165 rest-collision.cc:274
 msgid "too many colliding rests"
 msgstr "for mange kolliderende pauser"
 
@@ -2949,33 +2971,33 @@ msgstr "for mange kolliderende pauser"
 msgid "rest `%s' not found"
 msgstr "pausen »%s« blev ikke fundet"
 
-#: score-engraver.cc:79
+#: score-engraver.cc:77
 #, c-format
 msgid "cannot find `%s'"
 msgstr "kan ikke finde: »%s«"
 
-#: score-engraver.cc:81
+#: score-engraver.cc:79
 msgid "Music font has not been installed properly."
 msgstr "Musikskrifttype er ikke blevet korrekt installeret."
 
-#: score-engraver.cc:83
+#: score-engraver.cc:81
 #, c-format
 msgid "Search path `%s'"
 msgstr "Søgesti »%s«"
 
-#: score-engraver.cc:85
+#: score-engraver.cc:83
 msgid "Aborting"
 msgstr "Afbryder"
 
-#: score.cc:160
+#: score.cc:161
 msgid "already have music in score"
 msgstr "har allerede musik i partitur"
 
-#: score.cc:161
+#: score.cc:163
 msgid "this is the previous music"
 msgstr "dette er den forrige musik"
 
-#: score.cc:166
+#: score.cc:169
 msgid "errors found, ignoring music expression"
 msgstr "der blev fundet fejl, ignorerer musikudtryk"
 
@@ -3014,7 +3036,7 @@ msgstr "%s uden en årsag"
 msgid "cannot end %s"
 msgstr "kan ikke afslutte %s"
 
-#: slur.cc:434
+#: slur.cc:436
 #, c-format
 msgid "Ignoring grob for slur: %s.  avoid-slur not set?"
 msgstr "Ignorerer grob for legatobue: %s. Er avoid-slur ikke angivet?"
@@ -3049,18 +3071,18 @@ msgstr "måske skal inddata specificere polyfoniske stemmer"
 msgid "weird stem size, check for narrow beams"
 msgstr "mærkelig nodehalsstørrelse; kontroller for smalle bjælker"
 
-#: system.cc:201
+#: system.cc:202
 #, c-format
 msgid "Element count %d"
 msgstr "Elementantal %d"
 
-#: system.cc:512
+#: system.cc:513
 #, c-format
 msgid "Grob count %d"
 msgstr "Grobantal %d"
 
 #. TODO: Also print the arguments of the markup!
-#: text-interface.cc:138
+#: text-interface.cc:139
 #, c-format
 msgid "Markup depth exceeds maximal value of %d; Markup: %s"
 msgstr "Opmærkningsdybde er større end maksimalværdi for %d; Opmærkning: %s"
@@ -3081,7 +3103,7 @@ msgstr "uafsluttet tekstbro"
 msgid "unterminated tie"
 msgstr "uafsluttet bindebue"
 
-#: tie-engraver.cc:373
+#: tie-engraver.cc:377
 msgid "lonely tie"
 msgstr "ensom bindebue"
 
@@ -3095,7 +3117,7 @@ msgstr "ensom bindebue"
 msgid "strange time signature found: %d/%d"
 msgstr "mærkelig tidssignatur fundet: %d/%d"
 
-#: translator-ctors.cc:65
+#: translator-ctors.cc:68
 #, c-format
 msgid "unknown translator: `%s'"
 msgstr "ukendt oversætter: »%s«"
@@ -3105,17 +3127,17 @@ msgstr "ukendt oversætter: »%s«"
 msgid "fatal error.  Couldn't find type: %s"
 msgstr "fatal fejl. Kunne ikke finde type: %s"
 
-#: translator-group.cc:188
+#: translator-group.cc:187
 #, c-format
 msgid "cannot find: `%s'"
 msgstr "kan ikke finde: »%s«"
 
-#: translator.cc:320
+#: translator.cc:310
 #, c-format
 msgid "Two simultaneous %s events, junking this one"
 msgstr "To samtidige %s hændelser, forkaster denne"
 
-#: translator.cc:321
+#: translator.cc:311
 #, c-format
 msgid "Previous %s event here"
 msgstr "Forrige %s hændelse her"
@@ -3180,206 +3202,206 @@ msgstr "har også allerede en afsluttet bro"
 msgid "giving up"
 msgstr "giver op"
 
-#: parser.yy:463 parser.yy:847 parser.yy:928 parser.yy:1150
+#: parser.yy:476 parser.yy:947 parser.yy:1028 parser.yy:1248
 msgid "bad expression type"
 msgstr "ugyldigt udtrykstype"
 
-#: parser.yy:759 parser.yy:1361 parser.yy:1406
+#: parser.yy:859 parser.yy:1458 parser.yy:1503
 msgid "not a context mod"
 msgstr "ikke en kontekst-mod"
 
-#: parser.yy:954
+#: parser.yy:1054
 msgid "Missing music in \\score"
 msgstr "Mangler musik i \\score"
 
-#: parser.yy:991
+#: parser.yy:1091
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr "\\paper kan ikke bruges i \\score, brug \\layout i stedet for"
 
-#: parser.yy:1027
+#: parser.yy:1126
 msgid "Spurious expression in \\score"
 msgstr "Falsk udtryk i \\score"
 
-#: parser.yy:1057
+#: parser.yy:1156
 msgid "need \\paper for paper block"
 msgstr "kræver \\paper for papirblok"
 
-#: parser.yy:1234
+#: parser.yy:1331
 msgid "music expected"
 msgstr "forventede musik"
 
-#: parser.yy:1244 parser.yy:1278
+#: parser.yy:1341 parser.yy:1375
 msgid "unexpected post-event"
 msgstr "uventet post-hændelse"
 
-#: parser.yy:1286
+#: parser.yy:1383
 msgid "Ignoring non-music expression"
 msgstr "Ignorerer ikke-musik udtryk"
 
-#: parser.yy:1587
+#: parser.yy:1691
 msgid "not a symbol"
 msgstr "ikke et symbol"
 
-#: parser.yy:2337 parser.yy:2451 parser.yy:2464 parser.yy:2473
+#: parser.yy:2491 parser.yy:2605 parser.yy:2618 parser.yy:2627
 msgid "bad grob property path"
 msgstr "ugyldig grob-egenskabssti"
 
-#: parser.yy:2431
+#: parser.yy:2585
 msgid "only \\consists and \\remove take non-string argument."
 msgstr "kun \\consists og \\remove bruger ikke-streng argument."
 
-#: parser.yy:2492
+#: parser.yy:2646
 msgid "bad context property path"
 msgstr "ugyldig kontekst-egenskabssti"
 
-#: parser.yy:2593
+#: parser.yy:2733
 msgid "simple string expected"
 msgstr "forventede simpel streng"
 
-#: parser.yy:2611
+#: parser.yy:2750
 msgid "symbol expected"
 msgstr "forventede symbol"
 
-#: parser.yy:2747
+#: parser.yy:2886
 msgid "not a rhythmic event"
 msgstr "ikke en rytmisk hændelse"
 
-#: parser.yy:2797
+#: parser.yy:2936
 msgid "post-event expected"
 msgstr "forventede post-hændelse"
 
-#: parser.yy:2806 parser.yy:2811
+#: parser.yy:2945 parser.yy:2950
 msgid "have to be in Lyric mode for lyrics"
 msgstr "skal være i teksttilstand (Lyric mode) for tekst"
 
-#: parser.yy:2887
+#: parser.yy:3026
 msgid "expecting string or post-event as script definition"
 msgstr "forventer streng eller post-hændelse som skriptdefinition"
 
-#: parser.yy:2991
+#: parser.yy:3130
 msgid "not an articulation"
 msgstr "ikke en artikulation"
 
-#: parser.yy:3063 parser.yy:3106
+#: parser.yy:3202 parser.yy:3245
 msgid "not a duration"
 msgstr "ikke en længde"
 
-#: parser.yy:3127
+#: parser.yy:3266
 msgid "bass number expected"
 msgstr "forventede bass-nummer"
 
-#: parser.yy:3219
+#: parser.yy:3358
 msgid "have to be in Note mode for notes"
 msgstr "skal være i nodetilstand (Note mode) for noder"
 
-#: parser.yy:3258
+#: parser.yy:3397
 msgid "have to be in Chord mode for chords"
 msgstr "skal være i akkordtilstand (Chord mode) for akkord"
 
-#: parser.yy:3301
+#: parser.yy:3440
 msgid "markup outside of text script or \\lyricmode"
 msgstr "opmærkning uden for tekstskript eller \\lyricmode"
 
-#: parser.yy:3306
+#: parser.yy:3445
 msgid "unrecognized string, not in text script or \\lyricmode"
 msgstr "streng blev ikke genkendt, ikke i tekstskript eller \\lyricmode"
 
-#: parser.yy:3458 parser.yy:3467
+#: parser.yy:3597 parser.yy:3606
 msgid "not an unsigned integer"
 msgstr "ikke et ej underskrevet heltal"
 
-#: parser.yy:3541
+#: parser.yy:3693
 msgid "not a markup"
 msgstr "ikke en opmærkning"
 
-#: lexer.ll:192
+#: lexer.ll:193
 msgid "stray UTF-8 BOM encountered"
 msgstr "mødte malplaceret UTF-8 BOM"
 
-#: lexer.ll:195
+#: lexer.ll:196
 msgid "Skipping UTF-8 BOM"
 msgstr "Udelader UTF-8 BOM"
 
-#: lexer.ll:247
+#: lexer.ll:248
 #, c-format
 msgid "Renaming input to: `%s'"
 msgstr "Omdøber inddata til: »%s«"
 
-#: lexer.ll:264
+#: lexer.ll:265
 msgid "quoted string expected after \\version"
 msgstr "citatstreng forventet efter \\version"
 
-#: lexer.ll:268
+#: lexer.ll:269
 msgid "quoted string expected after \\sourcefilename"
 msgstr "citatstreng forventet efter \\sourcefilename"
 
-#: lexer.ll:272
+#: lexer.ll:273
 msgid "integer expected after \\sourcefileline"
 msgstr "heltal ventet efter \\sourcefileline"
 
-#: lexer.ll:299
+#: lexer.ll:300
 msgid "\\maininput not allowed outside init files"
 msgstr "\\maininput er ikke tilladt uden for init-filer"
 
-#: lexer.ll:323
+#: lexer.ll:324
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr "fejlagtig eller ikke defineret identifikator: »%s«"
 
-#: lexer.ll:348
+#: lexer.ll:349
 msgid "string expected after \\include"
 msgstr "streng ventet efter \\include"
 
-#: lexer.ll:358
+#: lexer.ll:359
 msgid "end quote missing"
 msgstr "slutcitationstegn mangler"
 
-#: lexer.ll:713
+#: lexer.ll:714
 msgid "EOF found inside a comment"
 msgstr "filslutning (EOF) fundet inden i en kommentar"
 
-#: lexer.ll:718
+#: lexer.ll:719
 msgid "EOF found inside string"
 msgstr "filslutning (EOF) fundet inden i streng"
 
-#: lexer.ll:733
+#: lexer.ll:734
 msgid "Unfinished main input"
 msgstr "Ufærdige hovedinddata"
 
-#: lexer.ll:804
+#: lexer.ll:805
 #, c-format
 msgid "invalid character: `%s'"
 msgstr "ugyldigt tegn: »%s«"
 
-#: lexer.ll:924
+#: lexer.ll:925
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr "ukendt undvigestreng: »\\%s«"
 
-#: lexer.ll:944
+#: lexer.ll:945
 #, c-format
 msgid "undefined character or shorthand: %s"
 msgstr "ikke defineret tegn eller stenografi: %s"
 
-#: lexer.ll:1235
+#: lexer.ll:1236
 msgid "non-UTF-8 input"
 msgstr "ikke-UTF-8-inddata"
 
-#: lexer.ll:1279
+#: lexer.ll:1280
 #, c-format
 msgid "Invalid version string \"%s\""
 msgstr "Ugyldig versionstreng »%s«"
 
-#: lexer.ll:1284
+#: lexer.ll:1285
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr "filen er for gammel: %s (ældest understøttet: %s)"
 
-#: lexer.ll:1285
+#: lexer.ll:1286
 msgid "consider updating the input with the convert-ly script"
 msgstr "overvej at opdatere inddata med skriptet convert-ly"
 
-#: lexer.ll:1291
+#: lexer.ll:1292
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr "program for gammelt: %s (fil kræver: %s)"
@@ -3398,24 +3420,34 @@ msgstr "Starter »~a« ..."
 msgid "`~a' failed (~a)\n"
 msgstr "»~a« mislykkedes (~a)\n"
 
-#: backend-library.scm:94
+#: backend-library.scm:108
 #, scheme-format
 msgid "Converting to `~a'...\n"
 msgstr "Konverterer til »~a« ...\n"
 
 #. Do not try to guess the name of the png file,
 #. GS produces PNG files like BASE-page%d.png.
-#: backend-library.scm:103
+#: backend-library.scm:118
 #, scheme-format
 msgid "Converting to ~a..."
 msgstr "Konverterer til ~a ..."
 
-#: backend-library.scm:141
+#: backend-library.scm:134
+#, scheme-format
+msgid "Copying to `~a'...\n"
+msgstr "Kopierer til »~a« ...\n"
+
+#: backend-library.scm:200
+#, scheme-format
+msgid "Deleting `~a'...\n"
+msgstr "Sletter »~a« ...\n"
+
+#: backend-library.scm:219
 #, scheme-format
 msgid "Writing header field `~a' to `~a'..."
 msgstr "Skriver teksthovedfelt »~a« til »~a« ..."
 
-#: backend-library.scm:190
+#: backend-library.scm:268
 #, scheme-format
 msgid "missing stencil expression `~S'"
 msgstr "manglende stenciludtryk »~S«"
@@ -3471,60 +3503,60 @@ msgstr "Kan ikke omdefinere hændelsesklasse »~S«"
 msgid "Undefined parent event class `~S'"
 msgstr "Overhændelsesklassen »~S« er ikke defineret"
 
-#: define-markup-commands.scm:1062
+#: define-markup-commands.scm:1098
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr "ingen systemer fundet i \\score-opmærkning, har den en \\layout-blok?"
 
-#: define-markup-commands.scm:2886
+#: define-markup-commands.scm:2922
 #, scheme-format
 msgid "Cannot find glyph ~a"
 msgstr "Kan ikke finde teksttegn ~a"
 
-#: define-markup-commands.scm:3362
+#: define-markup-commands.scm:3398
 #, scheme-format
 msgid "no brace found for point size ~S "
 msgstr "ingen akkolade fundet for punktstørrelse ~S "
 
-#: define-markup-commands.scm:3363
+#: define-markup-commands.scm:3399
 #, scheme-format
 msgid "defaulting to ~S pt"
 msgstr "bruger standarden ~S pt"
 
-#: define-markup-commands.scm:3615
+#: define-markup-commands.scm:3643
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr "ikke en gyldig længdestreng: ~a"
 
-#: define-markup-commands.scm:3826
+#: define-markup-commands.scm:3854
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
 msgstr "ikke en gyldig længdestreng: ~a - ignorerer"
 
-#: define-music-types.scm:797
+#: define-music-types.scm:803
 #, scheme-format
 msgid "symbol expected: ~S"
 msgstr "forventede symbol: ~S"
 
-#: define-music-types.scm:800
+#: define-music-types.scm:806
 #, scheme-format
 msgid "cannot find music object: ~S"
 msgstr "kan ikke finde musikobjekt: ~S"
 
-#: define-music-types.scm:820
+#: define-music-types.scm:826
 #, scheme-format
 msgid "bad make-music argument: ~S"
 msgstr "ugyldigt make-music-argument: ~S"
 
-#: define-note-names.scm:972
+#: define-note-names.scm:1000
 msgid "Select note names language."
 msgstr "Vælg sprog for nodenavne."
 
-#: define-note-names.scm:978
+#: define-note-names.scm:1006
 #, scheme-format
 msgid "Using `~a' note names..."
 msgstr "Bruger »~a« nodenavne ..."
 
-#: define-note-names.scm:981
+#: define-note-names.scm:1009
 #, scheme-format
 msgid "Could not find language `~a'.  Ignoring."
 msgstr "Kunne ikke finde sprog »~a«. Ignorerer."
@@ -3564,12 +3596,12 @@ msgstr "kan ikke finde beskrivelse for egenskab »~S« (~S)"
 msgid "cannot find description for property ~S (~S)"
 msgstr "kan ikke finde beskrivelse for egenskab ~S (~S)"
 
-#: flag-styles.scm:162
+#: flag-styles.scm:155
 #, scheme-format
 msgid "flag stroke `~a' or `~a' not found"
 msgstr "flagslag »~a« eller »~a« blev ikke fundet"
 
-#: framework-eps.scm:108
+#: framework-eps.scm:112
 #, scheme-format
 msgid "Writing ~a..."
 msgstr "Skriver ~a ..."
@@ -3594,7 +3626,7 @@ msgstr "ved ikke hvordan der skal indlejres ~S=~S"
 msgid "do not know how to embed font ~s ~s ~s"
 msgstr "ved ikke hvordan skrifttype skal indlejres ~s ~s ~s"
 
-#: framework-ps.scm:729
+#: framework-ps.scm:723
 msgid ""
 "\n"
 "The PostScript backend does not support the\n"
@@ -3642,20 +3674,20 @@ msgstr "Fejl i bjælkequanting. Forventede (~S,~S) fandt ~S."
 msgid "Error in beam quanting.  Expected ~S 0, found ~S."
 msgstr "Fejl i bjælkequanting. Forventede ~S 0, fandt ~S."
 
-#: lily-library.scm:350
+#: lily-library.scm:333
 msgid "Music unsuitable for context-mod"
 msgstr "Musik uegnet for context-mod"
 
-#: lily-library.scm:405
+#: lily-library.scm:388
 #, scheme-format
 msgid "Cannot find context-def \\~a"
 msgstr "Kan ikke finde context-def \\~a"
 
-#: lily-library.scm:421
+#: lily-library.scm:404
 msgid "Music unsuitable for output-def"
 msgstr "Musik uegnet for output-def"
 
-#: lily-library.scm:921
+#: lily-library.scm:904
 msgid ""
 "Find the index between @var{start} and @var{end} (an integer)\n"
 "which produces the closest match to @var{target-val} if\n"
@@ -3665,51 +3697,51 @@ msgstr ""
 "som laver det bedste match til @var{target-val} hvis\n"
 "anvendt på funktionen @var{getter}."
 
-#: lily-library.scm:1015
+#: lily-library.scm:998
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr "ukendt enhed: ~S"
 
-#: lily-library.scm:1040
+#: lily-library.scm:1023
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr "ingen \\version-udtryk fundet, tilføj venligst~afor fremtidig kompatibilitet"
 
-#: lily.scm:75
+#: lily.scm:93
 msgid "call-after-session used after session start"
 msgstr "call-after-session brugt efter sessionstart"
 
-#: lily.scm:93
+#: lily.scm:111
 msgid "define-session used after session start"
 msgstr "define-session brugt efter sessionstart"
 
-#: lily.scm:399
+#: lily.scm:417
 msgid "Using (ice-9 curried-definitions) module\n"
 msgstr "Bruger (ice-9 curried-definitions) modul\n"
 
-#: lily.scm:402
+#: lily.scm:420
 msgid "Guile 1.8\n"
 msgstr "Guile 1.8\n"
 
-#: lily.scm:459
+#: lily.scm:477
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr "kan ikke finde: ~A"
 
-#: lily.scm:886
+#: lily.scm:903
 msgid "Success: compilation successfully completed"
 msgstr "Succes: Kompilation blev færdig"
 
-#: lily.scm:887
+#: lily.scm:904
 msgid "Compilation completed with warnings or errors"
 msgstr "Kompilation færdig med advarsler eller fejl"
 
-#: lily.scm:948
+#: lily.scm:965
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr "job ~a afsluttedes med signal: ~a"
 
-#: lily.scm:951
+#: lily.scm:968
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
@@ -3718,35 +3750,30 @@ msgstr ""
 "logfil ~a (afslut ~a):\n"
 "~a"
 
-#: lily.scm:973 lily.scm:1062
+#: lily.scm:990 lily.scm:1079
 #, scheme-format
 msgid "failed files: ~S"
 msgstr "mislykkede filer: ~S"
 
-#: lily.scm:1053
+#: lily.scm:1070
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr "Sender uddata videre til ~a ..."
 
-#: lily.scm:1072 ps-to-png.scm:66
+#: lily.scm:1089
 #, scheme-format
 msgid "Invoking `~a'...\n"
 msgstr "Starter »~a« ...\n"
 
-#: ly-syntax-constructors.scm:66
+#: ly-syntax-constructors.scm:27
 #, scheme-format
 msgid "~a function cannot return ~a"
 msgstr "~a-funktion kan ikke returnere ~a"
 
-#: ly-syntax-constructors.scm:76
+#: ly-syntax-constructors.scm:60
 #, scheme-format
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr "forkert type for argument ~a. Forventede ~a, fandt ~s"
-
-#: ly-syntax-constructors.scm:200
-#, scheme-format
-msgid "Invalid property operation ~a"
-msgstr "Ugyldig egenskabsoperation ~a"
 
 #: markup-macros.scm:331
 #, scheme-format
@@ -3787,67 +3814,77 @@ msgstr "tonehøjde der skal vendes om er ikke i skala; ignorerer"
 msgid "negative replication count; ignoring"
 msgstr "negativ replikationsantal; ignorerer"
 
-#: music-functions.scm:311
+#: music-functions.scm:319
 #, scheme-format
 msgid "invalid tremolo repeat count: ~a"
 msgstr "ugyldig gentagantal for tremole: ~a"
 
-#: music-functions.scm:340
+#: music-functions.scm:348
 #, scheme-format
 msgid "unknown repeat type `~S': must be volta, unfold, percent, or tremolo"
 msgstr "ukendt gentagtype »~S«: skal være volta, unfold, procent eller tremolo"
 
-#: music-functions.scm:344
+#: music-functions.scm:352
 msgid "More alternatives than repeats.  Junking excess alternatives"
 msgstr "Flere alternativer end gentagelser. Stryger tiloversblevne alternativer"
 
-#: music-functions.scm:480
+#: music-functions.scm:487
 #, scheme-format
 msgid "bad grob property path ~a"
 msgstr "ugyldig grob-egenskabssti ~a"
 
-#: music-functions.scm:779
+#: music-functions.scm:511
+#, scheme-format
+msgid "bad context property ~a"
+msgstr "ugyldig kontekstegenskab ~a"
+
+#: music-functions.scm:534
+#, scheme-format
+msgid "bad music property ~a"
+msgstr "ugyldig musikegenskab ~a"
+
+#: music-functions.scm:840
 msgid "Bad chord repetition"
 msgstr "Ugyldig akkordgentagelse"
 
-#: music-functions.scm:884
+#: music-functions.scm:945
 #, scheme-format
 msgid "music expected: ~S"
 msgstr "forventede musik: ~S"
 
-#: music-functions.scm:1226
+#: music-functions.scm:1295
 #, scheme-format
 msgid "cannot find quoted music: `~S'"
 msgstr "kan ikke finde citeret musik: »~S«"
 
-#: music-functions.scm:1366
+#: music-functions.scm:1432
 msgid "Add @var{octave-shift} to the octave of @var{pitch}."
 msgstr "Tilføj @var{octave-shift} til oktaven for @var{pitch}."
 
-#: music-functions.scm:1429
+#: music-functions.scm:1495
 #, scheme-format
 msgid "Unknown octaveness type: ~S "
 msgstr "Ukendt octaveness-type: ~S "
 
-#: music-functions.scm:1430
+#: music-functions.scm:1496
 msgid "Defaulting to 'any-octave."
 msgstr "Bruger standarden »any-octave«."
 
-#: music-functions.scm:1822
+#: music-functions.scm:1888
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr "ukendt utilsigte stil: ~S"
 
-#: music-functions.scm:2040
+#: music-functions.scm:2098
 msgid "Missing duration"
 msgstr "Manglende længde"
 
-#: music-functions.scm:2549
+#: music-functions.scm:2626
 #, scheme-format
 msgid "not a symbol list: ~a"
 msgstr "ikke en symbolliste: ~a"
 
-#: music-functions.scm:2552
+#: music-functions.scm:2629
 #, scheme-format
 msgid "conflicting tag group ~a"
 msgstr "mærkegruppe er i konflikt ~a"
@@ -3876,23 +3913,23 @@ msgstr "Skrifttegn skal have en unicodeværdi"
 msgid "cannot find SVG font ~S"
 msgstr "kan ikke finde SVGskriften ~S"
 
-#: paper.scm:122
+#: paper.scm:121
 msgid "set-global-staff-size: not in toplevel scope"
 msgstr "set-global-staff-size: ikke i topniveauanvendelsesområde"
 
-#: paper.scm:322
+#: paper.scm:321
 #, scheme-format
 msgid "This is not a \\layout {} object, ~S"
 msgstr "Dette er ikke et \\layout {}-objekt, ~S"
 
-#: paper.scm:330
+#: paper.scm:329
 #, scheme-format
 msgid "Unknown paper size: ~a"
 msgstr "Ukendt papirstørrelse: ~a"
 
 #. TODO: should raise (generic) exception with throw, and catch
 #. that in parse-scm.cc
-#: paper.scm:349
+#: paper.scm:348
 msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
 msgstr "Skal bruge #(set-paper-size .. ) inden i \\paper { ... }"
 
@@ -3906,19 +3943,24 @@ msgstr "ukendt nøgletype »~a«"
 msgid "supported clefs: ~a"
 msgstr "understøttede nøgler: ~a"
 
-#: parser-ly-from-scheme.scm:74
+#: parser-ly-from-scheme.scm:73
 msgid "error in #{ ... #}"
 msgstr "fejl i #{ ... #}"
 
-#: part-combiner.scm:748
+#: part-combiner.scm:894
 #, scheme-format
 msgid "quoted music `~a' is empty"
 msgstr "citeret musik »~a« er tom"
 
-#: ps-to-png.scm:70
+#: ps-to-png.scm:72 ps-to-png.scm:75
 #, scheme-format
-msgid "~a exited with status: ~S"
-msgstr "~a afsluttede med status: ~S"
+msgid "Copying `~a' to `~a'..."
+msgstr "Kopierer »~a« til »~a« ..."
+
+#: ps-to-png.scm:77 ps-to-png.scm:79
+#, scheme-format
+msgid "Deleting `~a'..."
+msgstr "Sletter  »~a« ..."
 
 #: to-xml.scm:190
 #, scheme-format
@@ -3966,3 +4008,12 @@ msgid ""
 msgstr ""
 "Ingen etiket for bånd ~a (på streng ~a);\n"
 "kun ~a båndetiketter tilbudt"
+
+#~ msgid "cannot change, already in translator: %s"
+#~ msgstr "kan ikke ændre, allerede i oversætter: %s"
+
+#~ msgid "Invalid property operation ~a"
+#~ msgstr "Ugyldig egenskabsoperation ~a"
+
+#~ msgid "~a exited with status: ~S"
+#~ msgstr "~a afsluttede med status: ~S"

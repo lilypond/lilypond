@@ -1,7 +1,7 @@
 \version "2.19.34"
 
 \header {
-  
+
   doctitle = "Beam subdivide over quarter notes"
 
   texidoc = "If in a subdivided beam one single stem follows a subdivision

@@ -331,6 +331,7 @@ Staff_performer::acknowledge_audio_element (Audio_element_info inf)
           set_instrument_name (voice);
         }
       ai->channel_ = channel_;
+      Audio_staff *audio_staff = get_audio_staff (voice);
       bool encode_dynamics_as_velocity_ = true;
       if (encode_dynamics_as_velocity_)
         {
@@ -344,11 +345,11 @@ Staff_performer::acknowledge_audio_element (Audio_element_info inf)
           else if (Audio_dynamic *d = dynamic_cast<Audio_dynamic *> (inf.elem_))
             {
               dynamic_map_[voice] = d;
-              // Output volume as velocity: must disable Midi_dynamic output
-              d->silent_ = true;
+              // Output volume as velocity: skip Midi_dynamic output for the
+              // current element.
+              return;
             }
         }
-      Audio_staff *audio_staff = get_audio_staff (voice);
       audio_staff->add_audio_item (ai);
     }
 }

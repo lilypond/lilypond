@@ -1,0 +1,18 @@
+# Languages minimum initialization for texi2html
+# $LANGUAGES will be overwritten by lilypond-texi2html.init.
+
+use utf8;
+
+my @langlist = (
+    'ca', 'cs', 'de', 'es', 'fr', 'hu', 'it', 'ja', 'nl', 'po', 'zh'
+);
+
+foreach my $lang (@langlist)
+{
+    unless (exists($LANGUAGES->{$lang}) && defined($LANGUAGES->{$lang}))
+    {
+	$LANGUAGES->{$lang} = {};
+    }
+}
+
+return 1;

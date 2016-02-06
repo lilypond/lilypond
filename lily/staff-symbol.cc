@@ -247,7 +247,20 @@ Staff_symbol::ledger_positions (Grob *me, int pos)
           values[i] = nearest_line + dir * (ledger_count - i) * 2;
         }
     }
-  return values;
+  // remove any ledger lines that would fall on staff lines,
+  // which can happen when ledger-extra > 0
+  vector<Real> final_values;
+  for (vector<Real>::const_iterator i = values.begin (),
+       e = values.end ();
+       i != e;
+       ++i)
+    {
+      if (find (line_positions.begin (), line_positions.end (), *i) == line_positions.end ())
+        {
+          final_values.push_back (*i);
+        }
+    }
+  return final_values;
 }
 
 int

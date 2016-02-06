@@ -771,8 +771,8 @@ The error functions come in three different flavors: fatal error messages,
 programming error messages and normal error messages.  Errors written
 by the @code{error ()} function will cause LilyPond to exit immediately,
 errors by @code{Input::error ()} will continue the compilation, but
-return a non-zero return value of the lilypond call (i.e. indicate an 
-unsuccessful program execution).  All other errors will be printed on the 
+return a non-zero return value of the LilyPond call (i.e. indicate an
+unsuccessful program execution).  All other errors will be printed on the
 console, but not exit LilyPond or indicate an unsuccessful return code.
 Their only differences to a warnings are the displayed text and that
 they will be shown with loglevel @code{ERROR}.
@@ -882,7 +882,7 @@ treated as if @code{Input::error} was called.
 
 The most commonly used tool for debugging LilyPond is the GNU
 debugger gdb.  The gdb tool is used for investigating and debugging
-core Lilypond code written in C++.  Another tool is available for
+core LilyPond code written in C++.  Another tool is available for
 debugging Scheme code using the Guile debugger.  This section
 describes how to use both gdb and the Guile Debugger.
 
@@ -935,7 +935,7 @@ information from the LilyPond binary.
 
 @subheading Typical gdb usage
 
-Once you have compiled the Lilypond image with the necessary
+Once you have compiled the LilyPond image with the necessary
 debugging information it will have been written to a location in a
 subfolder of your current working directory:
 
@@ -1109,7 +1109,7 @@ commands.  For a listing of these commands, type:
 debug> help
 @end example
 
-Alternatively you may code the breakpoints in your Lilypond source
+Alternatively you may code the breakpoints in your LilyPond source
 file using a command such as:
 
 @example
@@ -1232,9 +1232,9 @@ In order to use the graphviz utility, the @file{.ly} file must include
 grobs and symbols that should be tracked.  An example of this
 is found in @file{input/regression/graphviz.ly}.
 
-@item Run lilypond with output sent to a log file
+@item Run LilyPond with output sent to a log file
 
-The Graphviz data is sent to stderr by lilypond, so it is
+The Graphviz data is sent to stderr by LilyPond, so it is
 necessary to redirect stderr to a logfile:
 
 @example
@@ -1243,11 +1243,11 @@ lilypond graphviz.ly 2> graphviz.log
 
 @item Edit the logfile
 
-The logfile has standard lilypond output, as well as the Graphviz
+The logfile has standard LilyPond output, as well as the Graphviz
 output data.  Delete everything from the beginning of the file
 up to but not including the first occurrence of @code{digraph}.
 
-Also, delete the final lilypond message about success from the end
+Also, delete the final LilyPond message about success from the end
 of the file.
 
 @item Process the logfile with @code{dot}
@@ -1263,10 +1263,10 @@ dot -Tpdf graphviz.log > graphviz.pdf
 
 The pdf file can then be viewed with any pdf viewer.
 
-When compiled with @option{-DDEBUG}, lilypond may run slower
+When compiled with @option{-DDEBUG}, LilyPond may run slower
 than normal.  The original configuration can be restored by rerunning
 @code{./configure} with @option{--disable-checking}.  Then
-rebuild lilypond with
+rebuild LilyPond with
 
 @example
 make -C lily clean && make -C lily
@@ -1383,7 +1383,7 @@ LILYPOND_BUILD_DIR=../build-lilypond/ scripts/auxiliar/update-with-convert-ly.sh
 @subsection Manually update documentation
 
 Where the convert-ly rule is not able to automatically update the inline
-lilypond code in the documentation (i.e. if a NOT_SMART rule is used), the
+LilyPond code in the documentation (i.e. if a NOT_SMART rule is used), the
 documentation must be manually updated.  The inline snippets that require
 changing must be changed in the English version of the docs and all
 translated versions.  If the inline code is not changed in the
@@ -1818,7 +1818,8 @@ time and to prevent you some major headaches.
 
 @node Purity in LilyPond
 @subsection Purity in LilyPond
-Pure properties in LilyPond that do not have any @q{side effects}.
+Pure properties in LilyPond are properties that do not have any
+@q{side effects}.
 That is, looking up a pure property should never result in calls to the
 following functions:
 @itemize
@@ -1899,7 +1900,7 @@ of a spanner broken at given starting and ending columns.
 @node How purity is defined and stored
 @subsection How purity is defined and stored
 Purity is defined in LilyPond with the creation of an unpure-pure container
-(unpure is not a word, but hey, neither was Lilypond until the 90s).  For example:
+(unpure is not a word, but hey, neither was LilyPond until the 90s).  For example:
 
 @example
 #(define (foo grob)
@@ -2022,7 +2023,7 @@ instead of pure height.
 @node LilyPond scoping
 @section LilyPond scoping
 
-The Lilypond language has a concept of scoping, i.e. you can do:
+The LilyPond language has a concept of scoping, i.e. you can do:
 
 @example
 foo = 1
@@ -2038,7 +2039,7 @@ is translated in to a scheme variable definition.
 This implemented using modules, with each scope being an anonymous
 module that imports its enclosing scope's module.
 
-Lilypond's core, loaded from @file{.scm} files, is usually placed in the
+LilyPond's core, loaded from @file{.scm} files, is usually placed in the
 @code{lily} module, outside the @file{.ly} level.  In the case of
 
 @example
@@ -2141,7 +2142,7 @@ but not @code{scm_is_equal}.
 Return @code{true} if @var{b} is @code{SCM_BOOL_T}, else return @code{false}.
 
 This should be used instead of @code{scm_is_true} and
-@code{scm_is_false} for properties since in Lilypond, unset properties
+@code{scm_is_false} for properties since in LilyPond, unset properties
 are read as an empty list, and by convention unset Boolean properties
 default to false.  Since both @code{scm_is_true} and
 @code{scm_is_false} only compare with @code{##f} in line with what
@@ -2156,7 +2157,7 @@ Behave the same as scm_is_[something] would do if it existed.
 
 Test whether the type of @var{s} is [type].
 [type] is a LilyPond-only set of values (direction, axis...).  More
-often than not, the code checks Lilypond specific C++-implemented
+often than not, the code checks LilyPond specific C++-implemented
 types using
 
 @subsubheading [Type *] unsmob<Type> (SCM s)

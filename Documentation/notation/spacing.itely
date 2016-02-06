@@ -892,8 +892,8 @@ Default values not listed here are defined in
 
 The page-breaking algorithm to use.  Choices are
 @code{ly:minimal-breaking}, @code{ly:page-turn-breaking},
-@code{ly:one-line-breaking} and @code{ly:optimal-breaking}
-(the default).
+@code{ly:one-line-breaking}, @code{ly:one-line-auto-height-breaking},
+and @code{ly:optimal-breaking} (the default).
 
 @item page-breaking-system-system-spacing
 @funindex page-breaking-system-system-spacing
@@ -1559,6 +1559,7 @@ how to modify them.
 * Optimal page breaking::
 * Minimal page breaking::
 * One-line page breaking::
+* One-line-auto-height page breaking::
 * Optimal page turning::
 @end menu
 
@@ -1596,8 +1597,8 @@ bottom of the final page (or the final page in each
 @ref{Fixed vertical spacing paper variables,,Fixed vertical spacing @code{@bs{}paper} variables}.
 
 Page breaks are computed by the @code{page-breaking} function.
-LilyPond provides three algorithms for computing page breaks,
-@code{ly:optimal-breaking}, @code{ly:page-turn-breaking} and
+LilyPond provides several algorithms for computing page breaks,
+including @code{ly:optimal-breaking}, @code{ly:page-turn-breaking} and
 @code{ly:minimal-breaking}.  The default is
 @code{ly:optimal-breaking}, but the value can be changed in the
 @code{\paper} block:
@@ -1710,14 +1711,31 @@ Snippets:
 
 The @code{ly:one-line-breaking} function is a special-purpose
 page breaking algorithm that puts each score on its own page, and
-on a single line.  This page breaking function does not typeset
-titles or margins; only the score will be displayed.
+on a single line.  No titles or margins are typeset; only the score is
+displayed.
 
-The page width will be adjusted so that the longest score fits on
+The page width is adjusted so that the longest score fits on
 one line.  In particular, @code{paper-width}, @code{line-width}
-and @code{indent} variables in the @code{\paper} block will be
-ignored, although @code{left-margin} and @code{right-margin} will
-still be honored.  The height of the page will be left unmodified.
+and @code{indent} variables in the @code{\paper} block are ignored,
+although @code{left-margin} and @code{right-margin} are still honored.
+The height of the page is left unmodified.
+
+
+@node One-line-auto-height page breaking
+@unnumberedsubsubsec One-line-auto-height page breaking
+
+@funindex ly:one-line-auto-height-breaking
+
+The @code{ly:one-line-auto-height-breaking} function works just like
+@code{ly:one-line-breaking} except the page height is automatically
+modified to fit the height of the music.  Specifically, the
+@code{paper-height} variable in the @code{\paper} block is set so that
+it spans the height of the tallest score plus the @code{top-margin} and
+@code{bottom-margin}.
+
+Note that the @code{top-system-spacing} setting will affect the
+vertical position of the music.  Set it to @code{##f} in a paper block
+to simply place the music between the top and bottom margins.
 
 
 @node Optimal page turning
@@ -2641,6 +2659,9 @@ not collide with any objects that have already been placed.  That
 is, if two outside-staff grobs are competing for the same space, the one
 with the lower @code{outside-staff-priority} will be placed closer to
 the staff.
+
+A listing of outside-staff-priorities may be found in
+@rlearning{The outside-staff-priority property}.
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {

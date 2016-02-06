@@ -109,7 +109,7 @@ shape.  Objects with an extended shape like these are called
 
 Spanners cannot be tweaked after their creation.  This includes both
 @code{StaffSymbol} and @code{LedgerLineSpanner} which continue
-throughout the score (except if they are terminated by the
+throughout the score, except if they are terminated by the
 @code{\stopStaff} command and then recreated using @code{\startStaff}
 command.
 
@@ -2179,7 +2179,7 @@ change @code{outside-staff-priority} of the associated
 placed at the start of the spanner, which might include several
 linked hairpins and dynamics.
 
-@multitable @columnfractions .3 .3 .3
+@multitable @columnfractions .3 .15 .45
 @headitem Layout Object
   @tab Priority
   @tab Controls position of:
@@ -2189,15 +2189,33 @@ linked hairpins and dynamics.
 @item @code{MetronomeMark}
   @tab @code{1000}
   @tab Metronome marks
+@item @code{SostenutoPedalLineSpanner}
+  @tab @code{1000}
+  @tab Pedal indication
+@item @code{SustainPedalLineSpanner}
+  @tab @code{1000}
+  @tab
+@item @code{UnaCordaPedalLineSpanner}
+  @tab @code{1000}
+  @tab
+@item @code{MeasureCounter}
+  @tab @code{750}
+  @tab Measure number
 @item @code{VoltaBracketSpanner}
   @tab @code{600}
   @tab Volta brackets
+@item @code{InstrumentSwitch}
+  @tab @code{500}
+  @tab Instrument switch text
 @item @code{TextScript}
   @tab @code{450}
   @tab Markup text
 @item @code{MultiMeasureRestText}
   @tab @code{450}
-  @tab Markup text over full-bar rests
+  @tab Markup text over multimeasure rests
+@item @code{CombineTextScript}
+  @tab @code{450}
+  @tab Part-combine text
 @item @code{OttavaBracket}
   @tab @code{400}
   @tab Ottava brackets
@@ -2208,11 +2226,14 @@ linked hairpins and dynamics.
   @tab @code{250}
   @tab All dynamic markings
 @item @code{BarNumber}
-  @tab @code{ 100}
+  @tab @code{100}
   @tab Bar numbers
 @item @code{TrillSpanner}
   @tab @code{50}
   @tab Spanning trills
+@item @code{AccidentalSuggestion}
+  @tab @code{0}
+  @tab Annotational accidentals
 @end multitable
 
 Here is an example showing the default placement of some of
@@ -2272,7 +2293,7 @@ the placing you want, the priority of any of the objects may be
 overridden.  Suppose we would like the ottava bracket to be placed
 below the text spanner in the example above.  All we need to do is to
 look up the priority of @code{OttavaBracket} in the IR or in the
-tables above, and reduce it to a value lower than that of a
+table above, and reduce it to a value lower than that of a
 @code{TextSpanner}, remembering that @code{OttavaBracket} is created
 in the @code{Staff} context:
 

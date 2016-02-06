@@ -412,7 +412,7 @@ then that is a bug.
 We may already know about this bug.  Check here:
 
 @example
-@uref{http://code.google.com/p/lilypond/issues/list}
+@uref{http://sourceforge.net/p/testlilyissues/issues/}
 @end example
 
 @warning{Please @strong{DO NOT} add bug reports directly to the
@@ -884,30 +884,64 @@ manuals can be found at @url{http://lilypond.org}}
 @divClass{column-center-top}
 @subheading What is Google Summer of Code?
 
-A global program run by Google that offers students stipends for working
-on open source software projects during summer vacations.
+@uref{https://developers.google.com/open-source/gsoc/, GSoC} is a global
+program that offers students stipends to write code for free software
+and open source projects during the summer.  It is an excellent
+opportunity for students to gain experience with real-world software
+development and make a contribution that benefits everyone.  It brings
+new contributors to LilyPond and enables students who are already
+involved to become more involved.  LilyPond participates in GSoC as part
+of the @uref{http://www.gnu.org/, GNU project}.
 
-It is an excellent opportunity to find new contributors, and encourage
-students already participating in LilyPond development, to become more
-involved.  One of our contributors was accepted in the 2012 program as
-part of the @uref{http://www.gnu.org/, GNU project}; and we are always
-looking for others to participate in future programs.
+We have had GSoC participants in 2012 and 2015 and encourage students to
+apply for future summers.
+
+If you have questions or would like to apply, send us an email on our
+developer mailing list (see @ref{Contact}).
 
 @divEnd
 
 @divClass{column-center-middle-color2}
-@subheading Our Ideas List
+@subheading Project Ideas List
 
-Below is a list of projects that were suggested for the GSoC 2012
-students and is retained here as an inspiration for anyone
-who is interested in developing LilyPond for future GSoC projects.
+Below is a list of projects that was initially drawn up for GSoC 2012.
+It is maintained here as inspiration for future GSoC projects and for
+anyone who is interested in developing LilyPond.
 
-There are many more things that can be done to improve LilyPond and
-members of the LilyPond development team are always willing to help
-those who would like to tackle projects such as those listed below.
+Note that this is not an exhaustive list.  Other GSoC projects are also
+possible.  There are a number of areas where LilyPond could be improved
+and the LilyPond development team is always willing to help those who
+would like to tackle a project like those listed below.
 
 A full list of all the current open issues can be found
-@uref{http://code.google.com/p/lilypond/issues/list, here}.
+@uref{http://sourceforge.net/p/testlilyissues/issues/, here}.
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading ScholarLY
+
+ScholarLY is a library in
+@uref{https://github.com/openlilylib/snippets, openLilyLib} that
+provides functionality for annotating scores, making it possible
+to manage scholarly workflows completely in the context of the score
+document.  So far it is possible to enter annotations of different
+types, produce clickable messages in the console output and export
+to text and LaTeX files.
+
+There are numerous feature requests to turn this library into an
+even more powerful and comprehensive tool, for example: Inserting
+music examples, producing footnotes, automatically applying styles
+to the annotated item (e.g. dash a slur, parenthesize an accidental),
+creating reports with point-and-click entries.  For a full description
+of this project suggestion please visit
+@uref{https://github.com/openlilylib/scholarly/wiki/GSoC}.
+
+@strong{Difficulty:} medium
+@strong{Requirements:} Scheme, possibly LaTeX, (optionally Python)
+@strong{Recommended:} Experience with or interest in scholarly
+edition and collaborative workflows.
+@strong{Potential Mentor:} Urs Liska
 
 @divEnd
 
@@ -921,7 +955,7 @@ multiple staffs are used where some have grace notes and others don't.
 @strong{Difficulty:} medium
 @strong{Requirements:} C++, MIDI
 @strong{Recommended:} familiarity with LilyPond internals
-@strong{Mentor(s):} Mike Solomon, Carl Sorensen
+@strong{Potential Mentors:} Mike Solomon, Carl Sorensen
 
 @divEnd
 
@@ -957,7 +991,7 @@ each output object to the XML tags.
 
 @strong{Difficulty:} medium
 @strong{Requirements:} MusicXML, Python, basic LilyPond knowledge
-@strong{Mentor(s):} Reinhold Kainhofer, Mike Solomon
+@strong{Potential Mentors:} Reinhold Kainhofer, Mike Solomon
 
 Familiarity with other scorewriters (for cross-testing) would also help.
 
@@ -974,7 +1008,7 @@ the intended output and writing code to improve them.
 @strong{Difficulty:} hard
 @strong{Requirements:} C++, experience with writing heuristics
 @strong{Recommended knowledge:} LilyPond knowledge, aesthetic sense
-@strong{Mentor(s):} Mike Solomon
+@strong{Potential Mentor:} Mike Solomon
 
 @divEnd
 
@@ -999,7 +1033,7 @@ it.
 @strong{Difficulty:} easy
 @strong{Requirements:} MetaFont, C++, good eye for details
 @strong{Recommended knowledge:} basic LilyPond knowledge
-@strong{Mentor(s):} Werner Lemberg
+@strong{Potential Mentor:} Werner Lemberg
 
 @divEnd
 
@@ -1014,7 +1048,7 @@ section 2.2 here}).  If possible also reduce beaming-computation time.
 @strong{Difficulty:} medium
 @strong{Requirements:} C++, experience with writing heuristics
 @strong{Recommended knowledge:} aesthetic sense
-@strong{Mentor(s):} Mike Solomon, Carl Sorensen
+@strong{Potential Mentors:} Mike Solomon, Carl Sorensen
 
 @divEnd
 
@@ -1028,7 +1062,7 @@ the rejection of any patch which introduced extra warnings.
 
 @strong{Difficulty:} medium
 @strong{Requirements:} C++
-@strong{Mentor(s):} Joe Neeman, Reinhold Kainhofer
+@strong{Potential Mentors:} Joe Neeman, Reinhold Kainhofer
 
 @divEnd
 

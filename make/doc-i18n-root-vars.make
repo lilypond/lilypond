@@ -41,7 +41,8 @@ WEB_MANUALS=web
 
 ###########
 ifneq ($(ISOLANG),)
-TEXI2HTML_LANG = --lang=$(ISOLANG)
+TEXI2HTML_LANG_INIT = --init-file=$(top-src-dir)/Documentation/lilypond-texi2html-lang.init
+TEXI2HTML_LANG = --document-language=$(ISOLANG)
 endif
 
 $(XREF_MAPS_DIR)/web.$(ISOLANG).xref-map:\
@@ -52,7 +53,12 @@ TEXI2HTML_INIT = --init-file=$(top-src-dir)/Documentation/lilypond-texi2html.ini
 TEXI2HTML_SPLIT = --prefix=index --split=section
 
 TEXI2HTML_INCLUDES += --I=. --I=$(src-dir) --I=$(outdir) $(DOCUMENTATION_INCLUDES) --I=$(XREF_MAPS_DIR)
-TEXI2HTML_FLAGS += $(TEXI2HTML_INCLUDES) $(TEXI2HTML_LANG) $(TEXI2HTML_INIT) 
+# To overwrite texi2html default i18n messages with the LilyPond init file,
+# delete TEXI2HTML_INIT that exists before TEXI2HTML_LANG.
+TEXI2HTML_FLAGS := $(filter-out $(TEXI2HTML_INIT),$(TEXI2HTML_FLAGS))
+# Instead, add languages minimum initialization before TEXI2HTML_LANG.
+TEXI2HTML_FLAGS := $(subst $(TEXI2HTML_LANG),$(TEXI2HTML_LANG_INIT) $(TEXI2HTML_LANG),$(TEXI2HTML_FLAGS))
+TEXI2HTML_FLAGS += $(TEXI2HTML_INCLUDES) $(TEXI2HTML_LANG_INIT) $(TEXI2HTML_LANG) $(TEXI2HTML_INIT)
 TEXI2HTML = TOP_SRC_DIR=$(top-src-dir) PERL_UNICODE=SD $(TEXI2HTML_PROGRAM)
 ###########
 

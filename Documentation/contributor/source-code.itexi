@@ -1352,12 +1352,12 @@ Account Settings must have the @q{Access for less secure apps} set to
 @q{Allowed}.  This is normally the default setting.}
 
 @item
-Move into the top source directory and then configure @command{git
-cl} with the following commands:
+Move into the top source directory and then configure
+@command{git-cl} with the following commands:
 
 @example
 cd $LILYPOND_GIT
-git cl config
+git-cl config
 @end example
 
 For the @qq{Rietveld server} question, the default value
@@ -1371,7 +1371,7 @@ lilypond-devel@@gnu.org
 @end example
 
 The @qq{Tree status URL} value should be left blank.  So should
-the @qq{ViewVC URL} value, since it is used by @command{git cl
+the @qq{ViewVC URL} value, since it is used by @command{git-cl
 dcommit} which is only for repositories which use @command{git
 svn} (LilyPond doesn't).
 
@@ -1434,7 +1434,7 @@ git pull -r origin master
 Finally, start the upload by entering:
 
 @example
-git cl upload <reference SHA1 ID>
+git-cl upload <reference SHA1 ID>
 @end example
 
 @noindent
@@ -1443,7 +1443,7 @@ as a reference source for the patch.  Generally, this will be the
 SHA1 ID of origin/master, and in that case the command:
 
 @example
-git cl upload origin/master
+git-cl upload origin/master
 @end example
 
 @noindent
@@ -1487,20 +1487,20 @@ associate the new branch with an existing Rietveld issue,
 the following command can be used:
 
 @example
-git cl issue issue-number
+git-cl issue issue-number
 @end example
 
 @noindent
 where @code{issue-number} is the number of the existing Rietveld
 issue.
 
-@subsubheading Resetting git cl
+@subsubheading Resetting git-cl
 
-If @command{git cl} becomes confused, you can @qq{reset} it by
+If @command{git-cl} becomes confused, you can @qq{reset} it by
 running:
 
 @example
-git cl issue 0
+git-cl issue 0
 @end example
 
 @subsubheading Wait for a countdown

@@ -485,18 +485,14 @@
                     (else (any (lambda (t)
                                  (ly:in-event-class? cause t))
                                point-and-click)))
-              (let* ((location (ly:input-file-line-char-column music-origin))
-                     (raw-file (car location))
-                     (file (if (is-absolute? raw-file)
-                               raw-file
-                               (string-append (ly-getcwd) "/" raw-file))))
-                
+              (let* ((location (ly:input-file-line-char-column music-origin)))
+
                 (ly:format "<a style=\"color:inherit;\" xlink:href=\"textedit://~a:~a:~a:~a\">\n"
                            ;; Backslashes are not valid
                            ;; file URI path separators.
                            (ly:string-percent-encode
-                            (ly:string-substitute "\\" "/" file))
-                           
+                            (ly:string-substitute "\\" "/" (car location)))
+
                            (cadr location)
                            (caddr location)
                            (1+ (cadddr location))))))))

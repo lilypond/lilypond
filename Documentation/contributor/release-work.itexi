@@ -108,7 +108,7 @@ VERSION_STABLE = the current stable version (probably no change here)
 @end itemize
 
 @item
-update the @qq{Welcome to Lilypond} version numbers to the version about to be
+update the @qq{Welcome to LilyPond} version numbers to the version about to be
 released
 
 @end itemize

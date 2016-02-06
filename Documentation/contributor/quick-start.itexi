@@ -28,7 +28,7 @@ LilyPond, the documentation and the website (also see
 @warning{LilyDev does not include the software for the Grand Unified
 Builder -- also see @ref{Grand Unified Builder (GUB)}.}
 
-While compiling LilyPond on MacOs and Windows is possible, both
+While compiling LilyPond on Mac OS and Windows is possible, both
 environments are complex to set up.  LilyDev can be easily installed
 and run inside a @q{virtual machine} on either of these operating
 systems relatively easily using readily available virtualization
@@ -39,8 +39,8 @@ The LilyDev disk image can also be written to a USB device or @q{burnt}
 to a DVD -- it is approximately 900 MB in size -- and installed just
 like any standard GNU/Linux distribution.
 
-The current image is based on a 32bit version of Debian 8 (@q{Jessie})
-and the Disk image was generated using Debian
+The current image is based on a 32-bit version of Debian 8 (@q{Jessie})
+and the disk image was generated using Debian
 @uref{http://live.debian.net/, live-build 4}.
 
 @noindent
@@ -295,7 +295,7 @@ directory and the entire source code will start to be downloaded into
 it.
 
 @warning{Be patient! There is no progress bar in the lily-git UI but the
-complete source is around 180@tie{}Mb.}
+complete source is around 180@tie{}MB.}
 
 @noindent
 When the source code has been downloaded, the @qq{command output} window
@@ -489,7 +489,7 @@ PATH=~/directory_containing_git-cl:"$@{PATH@}"
 @node Updating git-cl
 @unnumberedsubsec Updating @code{git-cl}
 
-LilyDev users should always make sure that they alwsys have the latest
+LilyDev users should make sure that they always have the latest
 version of git-cl installed.  It is possible that changes may have been
 made to git-cl that are not (yet) included in the version of LilyDev has
 been installed.

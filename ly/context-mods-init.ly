@@ -24,6 +24,14 @@ RemoveEmptyStaves = \with {
 to the list of interfaces set by @code{keepAliveInterfaces}."
 }
 
+RemoveAllEmptyStaves = \with {
+  \override VerticalAxisGroup.remove-empty = ##t
+  \override VerticalAxisGroup.remove-first = ##t
+  \description "Remove staves which are considered to be empty according
+to the list of interfaces set by @code{keepAliveInterfaces}, including those
+in the first system."
+}
+
 inherit-acceptability =
 #(define-void-function (to from)
    (symbol? symbol?)

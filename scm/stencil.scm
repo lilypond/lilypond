@@ -49,8 +49,6 @@ The higher the value of number @var{angularity}, the more angular the shape of
 the bow.
 @var{bow-height} determines the height of the bow.
 @var{orientation} determines, whether the bow is concave or convex.
-@var{orientation} should be set to @val{-1} or @val{1}, other values are
-possible but will affect the bow's height as well.
 Both variables are supplied to support independent usage.
 
 Done by calculating a horizontal unit-bow first, then moving all control-points
@@ -77,9 +75,9 @@ Limitation: s-curves are currently not supported.
           ;;;; (1) calculate control-points for the horizontal unit-bow,
                ;; y-values for 2nd/3rd control-points
                (outer-control
-                 (* 4/3 orientation (/ bow-height length-to-print)))
+                 (* 4/3 (sign orientation) (/ bow-height length-to-print)))
                (inner-control
-                 (* orientation
+                 (* (sign orientation)
                     (- (abs outer-control) (/ thickness length-to-print))))
                ;; x-values for 2nd/3rd control-points depending on `angularity'
                (offset-index
@@ -801,12 +799,19 @@ the white outline extends past the extents of stencil @var{stil}."
     (stencil-with-color (ly:round-filled-box x-ext y-ext blot) color)
     stil)))
 
-(define-public (stencil-whiteout stil style thickness line-thickness)
-  "@var{style} is a symbol that determines the shape of the white
-background.  @var{thickness} is how far, as a multiple of
-@var{line-thickness}, the white background extends past the extents
-of stencil @var{stil}. If @var{thickness} has not been specified
-by the user, an appropriate default is chosen based on @var{style}."
+(define*-public (stencil-whiteout stil
+                 #:optional style thickness (line-thickness 0.1))
+  "@var{style}, @var{thickness} and @var{line-thickness} are optional
+arguments. If set, @var{style} determines the shape of the white
+background.  Given @code{'outline} the white background is produced
+by @code{stencil-whiteout-outline}, given @code{'rounded-box} it is
+produced by @code{stencil-whiteout-box} with rounded corners, given
+other arguments (e.g. @code{'box}) or when unspecified it defaults to
+@code{stencil-whiteout-box} with square corners.  If @var{thickness} is
+specified it determines how far, as a multiple of @var{line-thickness},
+the white background extends past the extents of stencil @var{stil}.  If
+@var{thickness} has not been specified, an appropriate default is chosen
+based on @var{style}."
   (let ((thick (* line-thickness
                  (if (number? thickness)
                      thickness

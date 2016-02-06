@@ -19,7 +19,7 @@ include $(depth)/make/stepmake.make
 default:
 
 ifeq ($(out),www)
-local-WWW-1: $(OUT_BITMAP_IMAGES) $(OUT_PDF_IMAGES)
+local-WWW-1: $(OUT_BITMAP_IMAGES) $(OUT_PDF_IMAGES) $(outdir)/pdf
 endif
 
 #########
@@ -43,3 +43,5 @@ $(outdir)/%.png: %.eps
 $(outdir)/%.pdf: %.eps
 	gs -dAutoRotatePages=/None -q -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=$@ -dEPSCrop -c .setpdfwrite -f $<
 
+$(outdir)/pdf:
+	ln -sf $(top-src-dir)/Documentation/pictures/pdf $@

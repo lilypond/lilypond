@@ -20,6 +20,7 @@
 #include "paper-book.hh"
 #include "page-turn-page-breaking.hh"
 #include "one-line-page-breaking.hh"
+#include "one-line-auto-height-breaking.hh"
 #include "optimal-page-breaking.hh"
 #include "minimal-page-breaking.hh"
 
@@ -56,9 +57,20 @@ LY_DEFINE (ly_minimal_breaking, "ly:minimal-breaking",
 LY_DEFINE (ly_one_line_breaking, "ly:one-line-breaking",
            1, 0, 0, (SCM pb),
            "Put each score on a single line, and put each line on its own"
-           " page.  The paper-width setting will be modified so that"
-           " every page will be wider than the widest line.")
+           " page.  Modify the paper-width setting so that every page"
+           " is wider than the widest line.")
 {
   One_line_page_breaking b (unsmob<Paper_book> (pb));
+  return b.solve ();
+}
+
+LY_DEFINE (ly_one_line_auto_height_breaking, "ly:one-line-auto-height-breaking",
+           1, 0, 0, (SCM pb),
+           "Put each score on a single line, and put each line on its own"
+           " page.  Modify the paper-width setting so that every page"
+           " is wider than the widest line. Modify the paper-height"
+           " setting to fit the height of the tallest line.")
+{
+  One_line_auto_height_breaking b (unsmob<Paper_book> (pb));
   return b.solve ();
 }

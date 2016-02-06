@@ -47,7 +47,7 @@ XREF_MAP_FLAGS += -I $(outdir) -I $(src-dir) $(DOCUMENTATION_INCLUDES)
 
 ###########
 ifneq ($(ISOLANG),)
-TEXI2HTML_LANG = --lang=$(ISOLANG)
+TEXI2HTML_LANG = --document-language=$(ISOLANG)
 endif
 
 TEXI2HTML_INIT = --init-file=$(top-src-dir)/Documentation/lilypond-texi2html.init
