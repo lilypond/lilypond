@@ -26,34 +26,34 @@ procedures}.
 @example
 -1- Web site
 629   web.texi
-5816  web/introduction.itexi
+5815  web/introduction.itexi
 1158  web/download.itexi
 1139  macros.itexi
 9     po/lilypond-doc.pot (translate to po/@var{MY_LANGUAGE}.po)
 0     search-box.ihtml
 ---   lilypond-texi2html.init (section TRANSLATIONS)
-8751  total
+8750  total
 
 -2- Tutorial
 1314  web/manuals.itexi
 124   learning.tely
 2507  learning/tutorial.itely
-4443  learning/common-notation.itely
-8388  total
+4437  learning/common-notation.itely
+8382  total
 
 -3- Fundamental Concepts, starting of Usage and Community
 11173 learning/fundamental.itely -- Fundamental concepts
 135   usage.tely
-5401  usage/running.itely
-1865  usage/updating.itely
-3004  web/community.itexi
-21578 total
+5402  usage/running.itely
+1866  usage/updating.itely
+3194  web/community.itexi
+21770 total
 
 -4- Rest of Learning manual and Suggestions on writing LilyPond files
-16577 learning/tweaks.itely -- Tweaking output
+16622 learning/tweaks.itely -- Tweaking output
 1236  learning/templates.itely -- Templates
 2793  usage/suggestions.itely -- Suggestions on writing LilyPond files
-20606 total
+20651 total
 
 -5- Notation reference
 326   notation.tely
@@ -63,7 +63,7 @@ procedures}.
 1878  notation/expressive.itely
 1288  notation/repeats.itely
 2955  notation/simultaneous.itely
-2399  notation/staff.itely
+2576  notation/staff.itely
 1491  notation/editorial.itely
 2880  notation/text.itely
 81    notation/specialist.itely -- Specialist notation
@@ -77,12 +77,12 @@ procedures}.
 5518  notation/ancient.itely
 12717 notation/input.itely -- Input syntax
 2164  notation/non-music.itely -- Non-musical notation
-10884 notation/spacing.itely -- Spacing issues
+10896 notation/spacing.itely -- Spacing issues
 15581 notation/changing-defaults.itely -- Changing defaults
 5187  notation/programming-interface.itely -- Interfaces for programmers
 3077  notation/notation-appendices.itely -- Notation manual tables
 252   notation/cheatsheet.itely -- Cheat sheet
-90386 total
+90575 total
 
 -6- Rest of Application Usage
 4211  usage/lilypond-book.itely -- LilyPond-book

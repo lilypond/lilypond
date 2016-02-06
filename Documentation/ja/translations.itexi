@@ -16,19 +16,19 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{最終更新日 Fri Jan  1 10:40:27 UTC 2016
+@emph{Last updated Sat Feb  6 10:19:12 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 GNU LilyPond 学習マニュアル
-@tab 翻訳者
-@tab 翻訳点検者
-@tab 翻訳済み
-@tab 最新
-@tab その他の情報
+@tab Translators
+@tab Translation checkers
+@tab Translated
+@tab Up to date
+@tab Other info
 @item
-セクション タイトル
+Section titles
 @*
 124
 @tab Masamichi Hosoda
@@ -39,21 +39,21 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab post-GDP
 @item
@@ -68,21 +68,21 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -97,27 +97,27 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab post-GDP
 @item
 2 一般的な記譜法
 @*
-4443
+4437
 @tab Masamichi Hosoda
 @*
 Yoshiki Sawada
@@ -126,21 +126,21 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab post-GDP
 @item
@@ -153,11 +153,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
@@ -173,18 +173,18 @@ partially
 @item
 4 出力を調整する
 @*
-16577
+16622
 @tab Yoshiki Sawada
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">一部 (95 %)</span>
+<span style="background-color: #dfef77">partially (95 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-一部 (95 %)
+partially (95 %)
 @end ifnothtml
 @tab 
 @ifhtml
@@ -207,17 +207,17 @@ A テンプレート
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">一部 (97 %)</span>
+<span style="background-color: #dfef77">partially (97 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-一部 (97 %)
+partially (97 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #ffdf42">partially</span>
+<span style="background-color: #ffdd42">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -231,13 +231,13 @@ partially
 
 @headitem
 LilyPond 記譜法リファレンス
-@tab 翻訳者
-@tab 翻訳点検者
-@tab 翻訳済み
-@tab 最新
-@tab その他の情報
+@tab Translators
+@tab Translation checkers
+@tab Translated
+@tab Up to date
+@tab Other info
 @item
-セクション タイトル
+Section titles
 @*
 326
 @tab Yoshiki Sawada
@@ -246,11 +246,11 @@ LilyPond 記譜法リファレンス
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
@@ -273,21 +273,21 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -300,21 +300,21 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab post-GDP
 @item
@@ -327,11 +327,11 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
@@ -354,11 +354,11 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
@@ -381,11 +381,11 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
@@ -408,11 +408,11 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
@@ -435,11 +435,11 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
@@ -455,24 +455,24 @@ partially
 @item
 1.6 譜の記譜法
 @*
-2399
+2576
 @tab Yoshiki Sawada
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #a5ff31">partially</span>
+<span style="background-color: #b2fe32">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -489,11 +489,11 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
@@ -518,21 +518,21 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab post-GDP
 @item
@@ -545,21 +545,21 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab post-GDP
 @item
@@ -572,11 +572,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
@@ -599,11 +599,11 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
@@ -626,11 +626,11 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
@@ -653,11 +653,11 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
@@ -680,11 +680,11 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
@@ -707,11 +707,11 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
@@ -734,11 +734,11 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
@@ -761,21 +761,21 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab post-GDP
 @item
@@ -788,11 +788,11 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
@@ -815,11 +815,11 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">一部 (94 %)</span>
+<span style="background-color: #dfef77">partially (94 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-一部 (94 %)
+partially (94 %)
 @end ifnothtml
 @tab 
 @ifhtml
@@ -835,24 +835,24 @@ partially
 @item
 4 スペースの問題
 @*
-10884
+10896
 @tab Yoshiki Sawada
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #d4ff37">partially</span>
+<span style="background-color: #dbff38">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -869,11 +869,11 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">一部 (94 %)</span>
+<span style="background-color: #dfef77">partially (94 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-一部 (94 %)
+partially (94 %)
 @end ifnothtml
 @tab 
 @ifhtml
@@ -896,11 +896,11 @@ A カンニング ペーパー
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
@@ -920,13 +920,13 @@ partially
 
 @headitem
 GNU LilyPond -- アプリケーション使用方法
-@tab 翻訳者
-@tab 翻訳点検者
-@tab 翻訳済み
-@tab 最新
-@tab その他の情報
+@tab Translators
+@tab Translation checkers
+@tab Translated
+@tab Up to date
+@tab Other info
 @item
-セクション タイトル
+Section titles
 @*
 135
 @tab Masamichi Hosoda
@@ -937,21 +937,21 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab post-GDP
 @item
@@ -966,27 +966,27 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
 1 @command{lilypond} を実行する
 @*
-5401
+5402
 @tab Masamichi Hosoda
 @*
 Yoshiki Sawada
@@ -995,38 +995,38 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab post-GDP
 @item
 2 @command{convert-ly} を使ってファイルを更新する
 @*
-1865
+1866
 @tab Yoshiki Sawada
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
@@ -1049,11 +1049,11 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
@@ -1076,11 +1076,11 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">一部 (87 %)</span>
+<span style="background-color: #dfef77">partially (87 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-一部 (87 %)
+partially (87 %)
 @end ifnothtml
 @tab 
 @ifhtml
@@ -1103,11 +1103,11 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
@@ -1127,13 +1127,13 @@ partially
 
 @headitem
 LilyPond -- みんなの楽譜作成
-@tab 翻訳者
-@tab 翻訳点検者
-@tab 翻訳済み
-@tab 最新
-@tab その他の情報
+@tab Translators
+@tab Translation checkers
+@tab Translated
+@tab Up to date
+@tab Other info
 @item
-セクション タイトル
+Section titles
 @*
 629
 @tab Masamichi Hosoda
@@ -1146,21 +1146,21 @@ Yoshinobu Ishizaki
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1177,27 +1177,27 @@ Yoshinobu Ishizaki
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
 導入部
 @*
-5816
+5815
 @tab Masamichi Hosoda
 @*
 Yoshiki Sawada
@@ -1208,21 +1208,21 @@ Yoshinobu Ishizaki
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #2cff20">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+partially
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1237,21 +1237,21 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1264,11 +1264,11 @@ Yoshiki Sawada
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">はい</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-はい
+yes
 @end ifnothtml
 @tab 
 @ifhtml
@@ -1284,24 +1284,24 @@ partially
 @item
 コミュニティ
 @*
-3004
+3194
 @tab Yoshiki Sawada
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">一部 (97 %)</span>
+<span style="background-color: #dfef77">partially (97 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-一部 (97 %)
+partially (97 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #91ff2e">partially</span>
+<span style="background-color: #a5ff31">partially</span>
 @end html
 @end ifhtml
 @ifnothtml
