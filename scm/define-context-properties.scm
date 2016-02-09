@@ -48,6 +48,9 @@
 on the same note in different octaves may be horizontally staggered
 if in different voices.")
      (aDueText ,markup? "Text to print at a unisono passage.")
+     (additionalBassStrings ,list? "The additional tablature bass-strings, which
+will not get a seprate line in TabStaff.  It is a list of the pitches of each
+string (starting with the lowest numbered one).")
      (additionalPitchPrefix ,string? "Text with which to prefix
 additional pitches within a chord name.")
      (alignAboveContext ,string? "Where to insert newly created context in

@@ -27,6 +27,7 @@ to fretted string instruments.
 * Common notation for fretted strings::
 * Guitar::
 * Banjo::
+* Lute::
 @end menu
 
 @node Common notation for fretted strings
@@ -2010,3 +2011,56 @@ Installed Files:
 
 Snippets:
 @rlsr{Fretted strings}.
+
+
+@node Lute
+@subsection Lute
+
+@menu
+* Lute tablatures::
+@end menu
+
+@node Lute tablatures
+@unnumberedsubsubsec Lute tablatures
+
+@cindex lute tablatures
+@cindex tablature, lute
+
+LilyPond supports tablature for lute.
+
+To get additional bass strings use @code{additionalBassStrings}, where the
+pitches of those strings are set. They will be printed below lowest line as:
+a, /a, //a, ///a, 4, 5 etc.
+
+@code{fret-letter-tablature-format} for @code{tablatureFormat} should be used,
+probably @code{fretLabels} for further customizing.
+
+@lilypond[quote,ragged-right,verbatim]
+m = { f'4 d' a f d a, g, fis, e, d, c,  \bar "|." }
+
+\score {
+  <<
+    \new Staff { \clef bass \cadenzaOn  \m }
+    \new TabStaff \m
+  >>
+  \layout {
+    \context {
+      \Score
+      tablatureFormat = #fret-letter-tablature-format
+    }
+    \context {
+      \TabStaff
+      stringTunings = \stringTuning <a, d f a d' f'>
+      additionalBassStrings = \stringTuning <c, d, e, fis, g,>
+      fretLabels = #'("a" "b" "r" "d" "e" "f" "g" "h" "i" "k")
+    }
+  }
+}
+@end lilypond
+
+@cindex lute tunings
+@cindex tunings, lute
+
+@knownissues
+Using @code{FretBoards} with @code{additionalBassStrings} is not supported and
+will yield unsatisfying results.
