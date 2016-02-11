@@ -48,11 +48,10 @@ body {
 .appendix, .appendixsec, .appendixsubsec,
 .unnumbered, .unnumberedsec, .unnumberedsubsec, .unnumberedsubsubsec,
 .subheading, .subsubheading {
-  color: #black;
-  border-bottom: 1px dashed black;
+  color: rgb(32, 74, 135);
   padding-bottom: 0.15em;
   margin-top: 0.6em;
-  margin-bottom: 1em;
+  margin-bottom: 0.6em;
 }
 
 .settitle {
@@ -73,25 +72,28 @@ body.extending   .settitle { background-color: #7f4040; }
 body.internals   .settitle { background-color: #6a407f; }
 body.contributor .settitle { background-color: #000000; }
 
-.chapter, .appendix, .unnumbered {
-  font-size: 1.8em;
+.chapter, .appendix, .unnumbered,
+.section, .appendixsec, .unnumberedsec,
+.subsection, .appendixsubsec, .unnumberedsubsec,
+.subsubsection {
+  font-size: 1.7em;
+  margin-top: 0.9em;
 }
 
-.section, .appendixsec, .unnumberedsec {
-  font-size: 1.6em;
+.subheading, .unnumberedsubsubsec {
+  font-size: 1.5em;
+  margin-top: 0.9em;
 }
 
-.subsection, .appendixsubsec, .unnumberedsubsec {
-  font-size: 1.4em;
-}
-
-.subheading, .subsubsection, .unnumberedsubsubsec {
-  font-size: 1.25em;
+.subheading {
+  border-top: 1px solid rgb(200, 200, 200);
+  padding-top: 0.8em;
 }
 
 .subsubheading {
-  font-size: 1em;
+  font-size: 1.15em;
   font-weight: bold;
+  margin-top: 1.6em;
 }
 
 .chapheading {
@@ -214,8 +216,8 @@ div#main ul {
 }
 
 h1, h2, h3, h4, p, table, address, dt {
-  padding-left: 1em;
-  padding-right: 1em;
+  padding-left: 18px;
+  padding-right: 18px;
 }
 
 p {
