@@ -62,7 +62,7 @@ LilyPond 用に新しくファイルを作成するには、@w{@code{File > New}
 
 @sourceimage{Learning_Macos_New_menu,,,}
 
-あるいは、@w{@code{File > Open} を選択し、既存のファイルを開いて編集します。
+あるいは、@w{@code{File > Open}} を選択し、既存のファイルを開いて編集します。
 
 @sourceimage{Learning_Macos_Open_menu,,,}
 

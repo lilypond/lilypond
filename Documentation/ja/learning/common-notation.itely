@@ -215,7 +215,7 @@ LilyPond の音符名はピッチを示しています。
 
 @node 警告 調号とピッチ
 @unnumberedsubsubsec 警告: 調号とピッチ
-@traslateof Warning key signatures and pitches
+@translationof Warning key signatures and pitches
 
 
 音楽用語集: @rglos{accidental}, @rglos{key signature},
