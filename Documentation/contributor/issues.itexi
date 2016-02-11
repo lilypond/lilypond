@@ -825,7 +825,7 @@ email should contain a link to the issue you just added.
 separate person handling this task.}
 
 For contributors/developers: follow the steps in
-@ref{Commits and patches}, and @ref{Pushing to staging}.
+@ref{Commits}, @ref{Patches}, and @ref{Pushing to staging}.
 
 @ignore
 For people doing maintenance tasks: git-cl is adding issues, James

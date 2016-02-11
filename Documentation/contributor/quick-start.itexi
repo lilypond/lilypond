@@ -362,7 +362,7 @@ After entering a commit message, click @qq{OK} to finalize the
 commit.
 
 @advanced{for more information regarding commits and commit
-messages, see @ref{Commits and patches}.}
+messages, see @ref{Commits}.}
 
 
 @subsubheading 2b. Amend previous commit
