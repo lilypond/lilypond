@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 0807a75d66c302c6b7fb13c9b586a25ebf0265ad
+    Translation of GIT committish: 1244656c3b2d852f29bd75007469e1b1ed0b616f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -13,15 +13,11 @@
 @documentlanguage es
 @afourpaper
 
-@c `Web' was imported 2009-08-05 with git commit b938d71...
-@c @macro copyrightDeclare
-@c Copyright @copyright{} 2009--2015 by the authors.
-@c @end macro
-
 @set FDL
 @set web
 @include macros.itexi
 @include weblinks.itexi
+
 
 @c don't remove this comment.
 @ignore
@@ -33,6 +29,15 @@
 @end ignore
 
 @c Translators: Francisco Vila
+
+@c `Web' was born 2003-03-30 with this commit:
+@c Initial revision
+@c author: Han-Wen Nienhuys
+@c commit: d189a2119004c2f75da2020ea2ed36d817582fc5
+
+@c @macro copyrightDeclare
+@c Copyright @copyright{} 2003--2015 by the authors.
+@c @end macro
 
 @copying
 Copyright @copyright{} 2009--2015 por los autores.
@@ -118,14 +123,10 @@ Para LilyPond versión @version{}
 @c @im ageId{cmws,web-snippet-alpha.png,Catchy Musical Web Snippet}
 
 @divId{quickSummary}
-@subheading ¿Qué es LilyPond?
-
-LilyPond es un programa de grabado musical
-(tipografía musical o edición de partituras),
-consagrado a la producción de partituras de la
-calidad más alta posible.  Lleva la estética
-de la música tipografiada de la forma tradicional
-a las partituras impresas mediante ordenador.
+LilyPond es un programa de tipografía musical o edición de
+partituras, consagrado a la producción de partituras de la calidad
+más alta posible.  Lleva la estética de la música tipografiada de
+la forma tradicional a las partituras impresas mediante ordenador.
 LilyPond es software libre y forma parte del
 @uref{http://gnu.org,Proyecto GNU}.
 
@@ -134,9 +135,6 @@ LilyPond es software libre y forma parte del
 ¡Puede leer más en nuestra @ref{Introducción}!
 
 @divEnd
-@divEnd
-
-@divClass{separator}
 @divEnd
 
 
@@ -151,18 +149,35 @@ LilyPond es software libre y forma parte del
 
 @divEnd
 
+
 @ifclear web_version
   @c do nothing
 @end ifclear
 @ifset web_version
-  @c make the box:
-@divId{wildCardBox}
+  @c make the side bar:
+@divId{homePageSideBar}
+@subheading Versión estable
+
+@c TODO: javascript to detect OS and suggest download?
+
+@ref{Descarga, Descarga de @versionStable}
+
+@ref{Manuales, Manuales de @versionStable}
+
+@subheading Versión de desarrollo
+
+@ref{Desarrollo, Descarga de @versionDevel}
+
+@ref{Desarrollo, Manuales de @versionDevel}
+
 @subheading Novedades
-@divId{wildCardText}
+@divId{pondingsText}
 
 @divEnd
+
 @divEnd
 @end ifset
+
 
 @html
 
@@ -187,32 +202,11 @@ LilyPond es software libre y forma parte del
   var index = Math.floor(Math.random() * tweets.length);
   var tweet = tweets[index];
   var text = tweet.childNodes[0];
-  document.getElementById("wildCardText").innerHTML = text.nodeValue;
+  document.getElementById("pondingsText").innerHTML = text.nodeValue;
 </script>
 
 @end html
 
-@ifset web_version
-  @c make the box:
-@divId{latestVersion}
-@subheading Enlaces rápidos
-
-@c TODO: javascript to detect OS and suggest download?
-
-@subsubheading Estable
-
-@ref{Descarga, Descarga de @versionStable}
-
-@ref{Manuales, Manuales de @versionStable}
-
-@subsubheading Desarrollo
-
-@ref{Desarrollo, Descarga de @versionDevel}
-
-@ref{Desarrollo, Manuales de @versionDevel}
-
-@divEnd
-@end ifset
 
 @ifnottex
 
@@ -251,7 +245,6 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @c ****************** SPECIAL MACROS FOR WEB MANUAL ************
 @macro docLinks{name,base,refLink,split,big,bigsize,pdf,pdfsize}
 @subheading Léalo
-
 
 @docLinksBare{\name\,\base\,\refLink\,\split\,\big\,\bigsize\,\pdf\,\pdfsize\}
 
@@ -309,15 +302,16 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @ifhtml
 @macro contactUsAbout{topic}
 
-@divClass{heading-center} @divClass{contactBox} Si tiene
-conocimiento de cualesquiera otros \topic\ que merezcan aparecer
-relacionados aquí, le rogamos que nos lo haga saber escribiendo un
-mensaje a la lista de correo bug-lilypond.  Si no está suscrito a
-la lista, aún puede hacerlo en la
+@divClass{heading-center}
+@divClass{contactBox}
+
+Si tiene conocimiento de cualesquiera otros \topic\ que merezcan
+aparecer relacionados aquí, le rogamos que nos lo haga saber
+escribiendo un mensaje a la lista de correo bug-lilypond.  Si no
+está suscrito a la lista, aún puede hacerlo en la
 @uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond,página informativa}
 de la lista o escribiendo directamente a través del
 @uref{http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs,interfaz web de lilypond.bugs en gmane}.
-
 
 @divEnd
 @divEnd
