@@ -129,7 +129,7 @@ Volta_repeat_iterator::next_element (bool side_effect)
           else
             {
 
-              add_repeat_command (scm_list_n (ly_symbol2scm ("volta"), SCM_BOOL_F, SCM_UNDEFINED));
+              add_repeat_command (scm_list_2 (ly_symbol2scm ("volta"), SCM_BOOL_F));
 
               if (done_count_ - 1 < alt_count_)
                 {
@@ -148,8 +148,8 @@ Volta_repeat_iterator::next_element (bool side_effect)
             repstr = "1.--" + ::to_string (rep_count_ - alt_count_ + done_count_) + ".";
 
           if (done_count_ <= alt_count_)
-            add_repeat_command (scm_list_n (ly_symbol2scm ("volta"),
-                                            ly_string2scm (repstr), SCM_UNDEFINED));
+            add_repeat_command (scm_list_2 (ly_symbol2scm ("volta"),
+                                            ly_string2scm (repstr)));
         }
       else
         add_repeat_command (ly_symbol2scm ("end-repeat"));
