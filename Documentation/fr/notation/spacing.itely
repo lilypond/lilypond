@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: cee6cea4ed55eb4fa1f9d83c997ebc19744a6e1a
+   Translation of GIT committish: 8af56c19cb3ce59568ad4c631c9119bf3590e2bd
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -971,8 +971,8 @@ Les valeurs par défaut sont définies dans le fichier
 
 L'algorithme de calcul des sauts de page à utiliser.  Vous avez le choix
 entre @code{ly:minimal-breaking}, @code{ly:page-turn-breaking},
-@code{ly:one-line-breaking} et @code{ly:optimal-breaking} (activé
-par défaut).
+@code{ly:one-line-breaking}, @code{ly:one-line-auto-height-breaking} et
+@code{ly:optimal-breaking} (activé par défaut).
 
 @item page-breaking-system-system-spacing
 @funindex page-breaking-system-system-spacing
@@ -1687,6 +1687,7 @@ page, ainsi que les moyens de les modifier.
 * Saut de page manuel::
 * Optimisation des sauts de page::
 * Minimisation des sauts de page::
+* Présentation en ligne continue::
 * Présentation en rouleau::
 * Optimisation des tournes::
 @end menu
@@ -1729,7 +1730,7 @@ Pour de plus amples détails, reportez-vous à
 @ref{Variables d'espacement vertical fixe}.
 
 Les sauts de page sont générés par la fonction @code{page-breaking}.
-LilyPond dispose de trois différents algorithmes en la matière :
+LilyPond dispose de plusieurs algorithmes en la matière :
 @code{ly:optimal-breaking}, @code{ly:page-turn-breaking} et
 @code{ly:minimal-breaking}.  C'est @code{ly:optimal-breaking} qui est
 activé par défaut, mais rien ne vous empêche d'en changer, par
@@ -1844,8 +1845,8 @@ Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
 
-@node Présentation en rouleau
-@unnumberedsubsubsec Présentation en rouleau
+@node Présentation en ligne continue
+@unnumberedsubsubsec Présentation en ligne continue
 @translationof One-line page breaking
 
 @funindex ly:one-line-breaking
@@ -1862,6 +1863,25 @@ longue tienne sur une seule ligne.  En particulier, les variables
 @code{\paper} seront ignorées ; les @code{left-margin} et
 @code{right-margin} seront honorées.  La hauteur de page ne sera pas
 modifiée.
+
+
+@node Présentation en rouleau
+@unnumberedsubsubsec Présentation en rouleau
+@translationof One-line-auto-height page breaking
+
+@funindex ly:one-line-auto-height-breaking
+
+La fonction @code{ly:one-line-auto-height-breaking} opère comme
+@code{ly:one-line-breaking}, à ceci près que la hauteur de page s'adapte
+automatiquement à la hauteur de la musique.  Dans les faits, la variable
+@code{paper-height} du bloc @code{\paper} s'ajuste de façon à englober
+la hauteur de la partition la plus étendue, plus les @code{top-margin}
+et @code{bottom-margin}.
+
+L'affectation d'une valeur à @code{top-system-spacing} influencera le
+positionnement vertical de la musique.  Sa désactivation -- valorisation
+à @code{##f} au sein du bloc @code{\paper} -- aura pour effet de
+simplement placer la musique entre les marges supérieure et inférieure.
 
 
 @node Optimisation des tournes
@@ -2811,6 +2831,9 @@ pas en collision avec ceux qui on déjà été placés.  Autrement dit,
 lorsque deux objets devraient se placer au même endroit, celui dont la
 @code{outside-staff-priority} est la plus faible sera disposé au plus
 près de la portée.
+
+Une liste des @code{outside-staff-priorities} est disponible à la
+rubrique @rlearning{La propriété outside-staff-priority}.
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {

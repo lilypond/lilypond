@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 3ff93fbd01133506d14c929740bd26b34f59c5b4
+   Translation of GIT committish: 8af56c19cb3ce59568ad4c631c9119bf3590e2bd
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -694,12 +694,11 @@ procéder, bien plus que dans l'exemple suivant.
 >>
 @end lilypond
 
-Vous pourriez aussi recourir à la commande
-@code{\Staff \RemoveEmptyStaves} pour créer votre portée d'ossia.
-Cependant, cette méthode reste limitée à l'apparition de ces ossias en
-début de ligne.  Pour plus d'information au sujet de la commande
-@code{\Staff \RemoveEmptyStaves}, reportez-vous au chapitre
-@ref{Masquage de portées}.
+Vous pourriez aussi recourir à la commande @code{\RemoveAllEmptyStaves}
+pour créer votre portée d'ossia.  Cependant, cette méthode reste limitée
+à l'apparition de ces ossias en début de ligne.  Pour plus d'information
+au sujet de la commande @code{\RemoveAllEmptyStaves}, reportez-vous au
+chapitre @ref{Masquage de portées}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -707,6 +706,7 @@ début de ligne.  Pour plus d'information au sujet de la commande
     \remove "Time_signature_engraver"
     \hide Clef
     \magnifyStaff #2/3
+    \RemoveAllEmptyStaves
   } \relative {
     R1*3
     c''4 e8 d c2
@@ -720,13 +720,6 @@ début de ligne.  Pour plus d'information au sujet de la commande
     e4 d c2
   }
 >>
-
-\layout {
-  \context {
-    \Staff \RemoveEmptyStaves
-    \override VerticalAxisGroup.remove-first = ##t
-  }
-}
 @end lilypond
 
 @snippets
@@ -760,9 +753,12 @@ Référence des propriétés internes :
 
 @cindex Frenched scores
 @cindex masquage de portée
+@cindex musique ancienne, masquage de portée
+@cindex portées rythmiques, masquage
 @cindex portée vide
 
 @funindex \RemoveEmptyStaves
+@funindex \RemoveAllEmptyStaves
 @funindex Staff_symbol_engraver
 @funindex \stopStaff
 @funindex stopStaff
@@ -778,13 +774,17 @@ Désactiver le graveur @code{Staff_symbol_engraver} dans un contexte
 \relative { a''8 f e16 d c b a2 }
 @end lilypond
 
-L'instruction @code{\Staff \RemoveEmptyStaves} placée dans un bloc
-@code{\layout} aura pour effet de masquer toute portée qui ne contient
-rien.  Dans les partitions d'orchestre, les portées qui n'ont que des
-silences sont habituellement masquées afin de gagner de la place.  Ce
-style d'édition s'appelle en anglais « French Score ».
-Cette fonctionnalité masque et supprime toutes les portées vides d'une
-partition, hormis celles du premier système.
+L'instruction @code{\RemoveEmptyStaves} placée dans un bloc
+@code{\layout} ou dans une clause @code{\with} affectant une portée
+particulière, aura pour effet de masquer toute portée qui ne contient
+rien. Dans les partitions d'orchestre, les portées qui n'ont que des
+silences sont habituellement masquées afin de gagner de la place. Ce
+style d'édition s'appelle en anglais « Frenched Score ». Cette
+fonctionnalité masque et supprime toutes les portées vides d'une
+partition, hormis celles du premier système.  Le premier système sera
+lui aussi concerné dès lors que sera utilisée l'instruction
+@code{\RemoveAllEmptyStaves}.  Ces instructions couvrent les contextes
+@code{Staff}, @code{RhythmicStaff} et @code{VaticanaStaff}.
 
 @warning{Une portée est considérée comme vide dès lors qu'elle ne
 contient que des silences multimesures, des silences visibles ou
@@ -794,7 +794,8 @@ combinaison de ces éléments.}
 @lilypond[verbatim,quote,ragged-right]
 \layout {
   \context {
-    \Staff \RemoveEmptyStaves
+    \Staff
+    \RemoveEmptyStaves
   }
 }
 
@@ -815,29 +816,14 @@ combinaison de ces éléments.}
 @cindex ossia
 
 @noindent
-@code{\Staff \RemoveEmptyStaves} permet aussi de gérer des fragments
+@code{\RemoveAllEmptyStaves} permet aussi de gérer des fragments
 d'ossia attachés à une portée.  Pour plus de détails, voir
 @ref{Portées d'ossia}.
 
-@cindex musique ancienne, masquage de portée
-@cindex portées rythmiques, masquage
-
-@funindex \RemoveEmptyStaves
-
-La commande @code{\VaticanaStaff \RemoveEmptyStaves} permet de masquer des
-portées vides dans les contextes de musique ancienne.  Pour des
-contextes @code{RhythmicStaff}, il faudra utiliser
-@code{\RhythmicStaff \RemoveEmptyStaves}.
-
 @predefined
-@code{\Staff \RemoveEmptyStaves},
-@code{\VaticanaStaff \RemoveEmptyStaves},
-@code{\RhythmicStaff \RemoveEmptyStaves}.
+@code{\RemoveEmptyStaves},
+@code{\RemoveAllEmptyStaves},
 @endpredefined
-
-@snippets
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{removing-the-first-empty-line.ly}
 
 @seealso
 Glossaire musicologique :
