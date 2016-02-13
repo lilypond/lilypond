@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: e8fd54aac6821d27c14b911a00f009a150e5fa50
+   Translation of GIT committish: 28fd0890b8ad1a9f1d603f7d0232d996fe0671a6
 
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  For details, see the Contributors'
+   Guide, node Updating translation committishes..
 @end ignore
 
 @c Translators: Jean-Charles Malahieude, John Mandereau
@@ -24,6 +24,7 @@
 
 @divClass{column-center-top}
 @subheading Échanger avec la communauté
+@c VO Interacting with the community
 
 @itemize
 
@@ -31,7 +32,7 @@
 @ref{Contact} : obtenir de l'aide, discuter et rester en contact.
 
 @item
-@ref{Exemples minimaux} : une nécessité lorsque l'on discute de
+@ref{Exemples minimalistes} : une nécessité lorsque l'on discute de
 LilyPond.
 
 @item
@@ -42,6 +43,7 @@ LilyPond.
 
 @divClass{column-left-bottom}
 @subheading Rendre LilyPond encore meilleur
+@c VO Making LilyPond better
 
 @itemize
 
@@ -56,8 +58,8 @@ concernées.
 @ref{Développement} : pour ceux qui veulent contribuer et tester.
 
 @item
-@ref{Google Summer of Code}: liste des projets pour le Google Summer of
-Code 2012.
+@ref{Google Summer of Code} : liste des projets pour le Google Summer of
+Code.
 
 @item
 @ref{Auteurs} : ceux qui ont permis à LilyPond d'être ce qu'il est
@@ -71,7 +73,7 @@ aujourd'hui.
 
 @divClass{column-right-bottom}
 @subheading Divers
-
+@c VO Miscellaneous
 @itemize
 
 @item
@@ -93,7 +95,7 @@ aux cours des versions précédentes.
 @divClass{hide}
 @menu
 * Contact::
-* Exemples minimaux::
+* Exemples minimalistes::
 * Signalement de bogue::
 * Participation::
 * Mécénat::
@@ -115,7 +117,7 @@ aux cours des versions précédentes.
 
 @divClass{column-left-bottom}
 @subheading Discuter entre utilisateurs et demander de l'aide
-
+@c VO User Discussions and Help
 @subsubheading Liste de diffusion des utilisateurs : @code{lilypond-user@@gnu.org}
 
 Cette liste de diffusion @strong{anglophone} est le lieu privilégié des
@@ -137,7 +139,7 @@ poster sur lilypond-user à l'aide de gmane}
 @end quotation
 
 @warning{Lorsque vous posez une question, merci de fournir des
-@ref{Exemples minimaux} !}
+@ref{Exemples minimalistes} !}
 
 
 @subsubheading LilyPond Snippet Repository
@@ -214,7 +216,7 @@ Liste de diffusion hispanophone}
 
 
 @divClass{column-right-top}
-@subheading LilyPond Report
+@subheading Le @emph{blog} de LilyPond
 
 Le @emph{blog} de la communauté LilyPond, au titre de « Scores of
 Beauty », est une ressource de grande valeur.
@@ -247,12 +249,13 @@ archive3}
 
 @divClass{column-right-bottom}
 @subheading Contacter les développeurs ou les traducteurs
+@c VO Developer Discussions and Translations
 
 @subsubheading Liste de diffusion des développeurs : @code{lilypond-devel@@gnu.org}
 
 C'est sur cette liste que se tiennent les discussions ayant trait au
 développement.  C'est aussi à cette liste que peuvent être adressés les
-patchs.
+patches.
 
 @quotation
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel,
@@ -307,15 +310,15 @@ Translation mailing list archive}
 @divEnd
 
 
-@node Exemples minimaux
-@unnumberedsec Exemples minimaux
+@node Exemples minimalistes
+@unnumberedsec Exemples minimalistes
 @translationof Tiny examples
 
 @divClass{column-center-top}
-@subheading Exemple minimal@dots{} mais qu'est-ce donc que cela ?
+@subheading Exemple minimaliste@dots{} mais qu'est-ce donc que cela ?
 
-Un exemple minimal est un bout de code duquel @strong{plus rien} ne peut
-être retiré.
+Un exemple minimaliste est un bout de code duquel @strong{plus rien} ne
+peut être retiré.
 @divEnd
 
 @divClass{column-left-bottom}
@@ -331,16 +334,16 @@ aider comprendront votre propos et vous apporteront une réponse.
 @item
 Réduire l'exemple à sa plus simple expression indique que vous avez déjà
 tenté par vous-même de trouver une solution.  Des tonnes de lignes
-laissent à penser que celui qui les envoie se soucie peu de ce qui
+laissent à penser que celui qui les envoie se soucie guère de ce qui
 arrive.
 
 @item
 La génération d'un exemple minimaliste permet de comprendre ce qui se
 passe et évite la plupart du temps de signaler un problème qui, en
-réalité, n'existe pas : lorsqu'un @qq{bogue} ne peut être reproduit dans
+réalité, n'existe pas : lorsqu'un « bogue » ne peut être reproduit dans
 le cadre d'un exemple minimal, il y a de fortes présomptions qu'il
 s'agisse d'une inadéquation entre l'utilisateur et LilyPond plutôt que
-réellement d'un @qq{bogue}.
+réellement d'un « bogue ».
 
 @end itemize
 @divEnd
@@ -420,7 +423,7 @@ C'est vrai, ce n'est pas très long.  Mais on peut encore le réduire :
 @}
 @end example
 
-Les exemples minimaux dépassant les dix lignes de code ne sont pas
+Les exemples minimalistes dépassant les dix lignes de code ne sont pas
 légion -- quatre lignes suffisent bien souvent à indiquer le problème.
 
 @divEnd
@@ -442,7 +445,7 @@ Un recensement des bogues non encore résolus est disponible sur notre
 @emph{google bug tracker} ; suivez le lien
 
 @example
-@uref{http://code.google.com/p/lilypond/issues/list}
+@uref{http://sourceforge.net/p/testlilyissues/issues/}
 @end example
 
 @warning{Nous vous saurons gré de ne pas ajouter directement de
@@ -460,7 +463,7 @@ Lorsque le dysfonctionnement que vous avez repéré n'est pas répertorié,
 faites-le nous savoir en créant un signalement de bogue.
 
 @warning{Nous n'acceptons les signalements de bogue que s'ils sont
-rédigés sous la forme d'@ref{Exemples minimaux}.  Nous ne disposons
+rédigés sous la forme d'@ref{Exemples minimalistes}.  Nous ne disposons
 pas de suffisamment de ressources pour traiter les rapports de bogue,
 aussi tout exemple non minimaliste sera rejeté.  Dans la plupart des
 cas, seules quelques notes suffisent à démontrer le dysfonctionnement.}
@@ -503,7 +506,7 @@ cependant transmettre votre rapport de bogue au travers de
 l'interface gmane de lilypond.bugs}.
 
 Nous tenons à préciser que l'interface gmane applique une politique
-stricte de @qq{no top-posting} bien souvent mise en défaut par les
+stricte de « no top-posting » bien souvent mise en défaut par les
 fichiers LilyPond.  Aussi nous vous prions de bien vouloir ajouter une
 ligne
 
@@ -530,14 +533,14 @@ liste francophone} ; nous nous chargerons de transmettre un rapport
 @divClass{column-center-bottom}
 @subheading Étape 4: Notification de prise en compte
 
-Une fois le message reçu, nos @qq{exterminateurs de bogues} analyseront
+Une fois le message reçu, nos « exterminateurs de bogues » analyseront
 votre rapport et vous demanderont peut-être des informations
 complémentaires avant de l'ajouter au traceur.  Dans la mesure où
 l'équipe est réduite, merci de leur laisser quelques jours avant
 qu'ils ne vous transmettent le numéro de référence de votre signalement
 une fois qu'il aura été ajouté à la base.
 
-Vous pourrez alors, après l'avoir @qq{marqué}, y apporter vos
+Vous pourrez alors, après l'avoir « marqué », y apporter vos
 commentaires et être automatiquement notifié du traitement apporté à ce
 bogue, dès lors que vous avez un identifiant reconnu par google.
 @divEnd
@@ -590,7 +593,7 @@ Il fut un temps où
 @end itemize
 
 Le projet LilyPond ne dispose d'aucune organisation quant à ces
-@qq{efforts} ; il n'est en aucun cas partie prenante dans ces
+« efforts » ; il n'est en aucun cas partie prenante dans ces
 transactions ni ne saurait les interdire.  Tout contrat qui pourrait
 intervenir entre personnes privées ne saurait nous impliquer.
 
@@ -598,6 +601,7 @@ intervenir entre personnes privées ne saurait nous impliquer.
 
 @divClass{column-right-top}
 @subheading Principes généraux
+@c VO Guidelines
 
 Tout utilisateur désireux de rétribuer un travail doit avoir à l'esprit
 les points suivants :
@@ -619,12 +623,13 @@ ou ambiguïté à ce sujet, avant même que les travaux soient entamés.
 
 @divClass{column-center-bottom}
 @subheading Développeurs intéressés
+@c VO Interested developers
 
 Vous trouverez ci-dessous une liste des personnes ayant exprimé leur
 intérêt pour une rémunération.  Notez bien que la somme de travail varie
 selon les gens et dans le temps.  Nous ne saurions garantir que cette
 liste soit à jour, ni les capacités des intéressés.  Le seul critère est
-@qq{XYZ a demandé à être mentionné sur cette page}.
+« XYZ a demandé à être mentionné sur cette page ».
 
 Un aperçu de l'historique des sources de LilyPond peut vous aider à
 déterminer l'activité et l'expérience des développeurs.  Les
@@ -679,18 +684,20 @@ lecture des @ref{Manuels, manuels pour la version stable}.}
 
 @divClass{column-center-top}
 @subheading Numérotation des versions
+@c VO Release numbers
 
 Il existe deux jeux de version pour LilyPond : des versions stables
 et des versions instables de développement.  Les versions stables
-comportent, en versionnage @qq{mineur}, un numéro pair (par ex. 2.8,
+comportent, en versionnage « mineur », un numéro pair (par ex. 2.8,
 2.10 ou 2.12).  Les versions de développement, quant à elles,
-comportent un versionnage @qq{mineur} impair (par ex. 2.7, 2.9 ou 2.11).
+comportent un versionnage « mineur » impair (par ex. 2.7, 2.9 ou 2.11).
 
 @divEnd
 
 
 @divClass{column-left-top}
 @subheading Téléchargement
+@c VO Download
 
 Des instructions concernant @code{git} et la compilation sont exposées
 dans le Guide du contributeur.
@@ -729,6 +736,7 @@ travailler à partir des binaires les plus à jour :
 
 @divClass{column-right-top}
 @subheading Le guide du contributeur
+@c VO Contributor's Guide
 
 Le développement de LilyPond est relativement complexe.  Dans l'espoir
 d'aider les nouveaux contributeurs, et dans le but de préserver au mieux
@@ -750,6 +758,7 @@ traduit@dots{}}
 
 @divClass{column-center-top}
 @subheading Tests de régression
+@c VO Regression tests
 
 @divClass{keep-bullets}
 
@@ -781,6 +790,7 @@ Test de lilypond-book} relatifs à ce niveau de mise à jour
 
 @ifset web_version
 @subsubheading Version de développement
+@c VO Development version
 
 @itemize
 @item @regtestDevel (@regtestDevelPdf{})
@@ -793,6 +803,7 @@ Test de lilypond-book} relatifs à ce niveau de mise à jour
 @end itemize
 
 @subsubheading Version stable
+@c VO Stable version
 
 @itemize
 @item @regtestStable (@regtestStablePdf{})
@@ -807,6 +818,7 @@ Test de lilypond-book} relatifs à ce niveau de mise à jour
 
 
 @subsubheading Toutes versions
+@c VO All versions
 
 @itemize
 @item @uref{http://lilypond.org/test,
@@ -823,6 +835,7 @@ Archive de tous les tests de régression}
 
 @divClass{column-center-bottom}
 @subheading Manuels
+@c VO Manuals
 
 @ifclear web_version
 @warning{Il s'agit des manuels pour LilyPond @version{} ; la
@@ -933,24 +946,32 @@ dernière mouture est consultable sur @url{http://lilypond.org}}
 
 @divClass{column-center-top}
 @subheading Le Google Summer of Code
+@c VO What is Google Summer of Code?
 
-Ce programme global, mis en place par Google, rémunère des étudiants
-durant la période estivale, pour travailler au profit de projets
-@emph{open source}.
+Le @uref{https://developers.google.com/open-source/gsoc/, GSoC} est un
+programme global, mis en place par Google, qui rémunère des étudiants
+durant la période estivale pour travailler au profit de projets
+@emph{open source}.  Il s'agit là d'une excellente opportunité pour des
+étudiants de vivre une expérience réelle dans le développement de
+logiciels et contribuer ainsi au bien de tous.  Ceci permet aussi de
+recruter de nouveaux contributeurs à LilyPond et motiver des étudiants
+qui y participent déjà d'y être encore plus impliqués.  LilyPond
+participe à ce programme sous l'égide du
+@uref{http://www.gnu.org/, projet GNU}.
 
-Il s'agit là d'une excellente opportunité pour recruter de nouveaux
-contributeurs, encourager et motiver des étudiants qui participent déjà
-au développement de LilyPond.  L'un de nos contributeurs a été reçu pour
-participer à l'édition 2012 du programme, sous l'égide du
-@uref{http://www.gnu.org/, projet GNU}, et espérons bien que d'autres se
-feront acte de candidature pour les éditions futures.
+Nous avons eu des participants aux sessions de 2012 et 2015, et
+encourageons les étudiants à candidater pour les sessions à venir.
+
+Si vous avez des questions à ce sujet ou avez envie d'y participer,
+contactez-nous sur la liste des développeurs (voir @ref{Contact}).
 
 @divEnd
 
 
 @divClass{column-center-middle-color2}
 @subheading Recensement de nos idées
-@c VO Our Ideas List
+@c VO Project Ideas List
+
 Voici les projets que nous avons proposés aux étudiants du GSoC 2012.
 Nous avons décidé de maintenir en ligne cette page du site, comme source
 d'inspiration pour ceux qui seraient intéressés au développement de
@@ -962,7 +983,35 @@ l'équipe de développement aideront volontiers ceux qui aimeraient s'y
 atteler.
 
 Une liste exhaustive des problèmes est disponible
-@uref{http://code.google.com/p/lilypond/issues/list, ici}.
+@uref{http://sourceforge.net/p/lilypond/issues/list, ici}.
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading ScholarLY
+
+ScholarLY est une bibliothèque de
+@uref{https://github.com/openlilylib/snippets, openLilyLib} qui fournit
+des fonctionnalités permettant de gérer diresctement dans le contexte de
+la partition le flux de travail d'une « édition savante ».  Il est à ce
+jour possible de saisir différents types d'annotations, produire des
+messages cliquables en console et exporter du texte dans des fichiers
+@LaTeX{}.
+
+Un certain nombre de demandes d'extension permettraient de transformer
+cette bibliothèque en un outil encore plus puissant et complet, par
+exemple par l'insertion d'exemples musicaux, la production de notes de
+bas de page ou l'application de styles particuliers -- mise en pointillé
+d'une liaison, mise entre parenthèses d'un altération, etc. -- ou la
+création de rapports avec des liens inter-documents.  Pour une
+description complète des suggestions autour de ce projet, visitez
+@uref{https://github.com/openlilylib/scholarly/wiki/GSoC}.
+
+@strong{Difficulté :} moyenne
+@strong{Préalables :} Scheme, peut-être @LaTeX{}, (Python optionnel)
+@strong{Recommandé :} Expérience ou intérêt dans l'édition critique et
+les flux collaboratifs.
+@strong{Mentor potentiel :} Urs Liska
 
 @divEnd
 
@@ -977,7 +1026,7 @@ lorsqu'elles interviennent dans une portée seulement.
 @strong{Difficulté :} moyenne
 @strong{Préalables :} C++, MIDI
 @strong{Recommandé :} familiarité avec les arcanes de LilyPond
-@strong{Mentors :} Mike Solomon, Carl Sorensen
+@strong{Mentors potentiels :} Mike Solomon, Carl Sorensen
 
 @divEnd
 
@@ -1018,7 +1067,7 @@ de mise en forme pour tout objet de rendu dans les  balises XML.
 
 @strong{Difficulté :} moyenne
 @strong{Préalables :} MusicXML, Python, les bases de LilyPond
-@strong{Mentors :} Reinhold Kainhofer, Mike Solomon
+@strong{Mentors potentiels :} Reinhold Kainhofer, Mike Solomon
 
 La connaissance d'autres éditeurs de partition, dans un but de tests
 comparatifs, constituerait une aide.
@@ -1038,7 +1087,7 @@ du résultat optimal et l'écriture du code approprié.
 @strong{Difficulté :} difficile
 @strong{Préalables :} C++, expérience dans l'écriture d'heuristiques
 @strong{Connaissances appréciées :} LilyPond, sens de l'esthétique
-@strong{Mentor :} Mike Solomon
+@strong{Mentor potentiel :} Mike Solomon
 
 @divEnd
 
@@ -1067,7 +1116,7 @@ interligne ».
 @strong{Difficulté :} facile
 @strong{Préalables :} MetaFont, C++, une bonne vue pour les détails
 @strong{Connaissance appréciée :} les bases de LilyPond
-@strong{Mentor :} Werner Lemberg
+@strong{Mentor potentiel :} Werner Lemberg
 
 @divEnd
 
@@ -1085,7 +1134,7 @@ le temps de calcul nécessaire à la génération des ligatures.
 @strong{Difficulté :} moyenne
 @strong{Préalables :} C++, expérience dans l'écriture d'heuristiques
 @strong{Connaissance appréciée :} sens de l'esthétique
-@strong{Mentors :} Mike Solomon, Carl Sorensen
+@strong{Mentors potentiels :} Mike Solomon, Carl Sorensen
 
 @divEnd
 
@@ -1101,7 +1150,7 @@ rejeter tout patch qui introduirait des messages superflus.
 
 @strong{Difficulté :} moyenne
 @strong{Préalable :} C++
-@strong{Mentors :} Joe Neeman, Reinhold Kainhofer
+@strong{Mentors potentiels :} Joe Neeman, Reinhold Kainhofer
 
 @divEnd
 
