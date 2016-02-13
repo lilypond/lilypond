@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d64a2407615c09ddd8f5c34e13a3ecfdf4284f1b
+   Translation of GIT committish: 7f011525b936261ec3dfe15130ce8dd5055fe535
 
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  For details, see the Contributors'
+   Guide, node Updating translation committishes..
 @end ignore
 
 @c \version "2.17.6"
