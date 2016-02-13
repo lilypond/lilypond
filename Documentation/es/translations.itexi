@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Sat Feb  6 10:19:12 UTC 2016
+@emph{Last updated Sat Feb 13 19:25:44 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -30,7 +30,7 @@ Registro de cambios de LilyPond
 @item
 Section titles
 @*
-2127
+2140
 @tab Francisco Vila
 @tab 
 @tab 
@@ -407,11 +407,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #4efe25">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -478,21 +478,21 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially (98 %)</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially (98 %)
+yes
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1496,11 +1496,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item

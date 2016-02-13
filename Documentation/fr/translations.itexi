@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Sat Feb  6 10:19:12 UTC 2016
+@emph{Last updated Sat Feb 13 19:25:44 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -227,11 +227,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #33ff21">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -377,7 +377,7 @@ yes
 Ludovic Sardain
 @*
 Gauvain Pocentek
-@tab Jean-Charles Malahieude
+@tab J.-Charles Malahieude
 @*
 Valentin Villenave
 @*
@@ -772,11 +772,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1600,11 +1600,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #2cff20">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -1685,11 +1685,11 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">partially</span>
+<span style="background-color: #1fff1f">yes</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+yes
 @end ifnothtml
 @tab pre-GDP
 @end multitable
