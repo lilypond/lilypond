@@ -62,6 +62,24 @@ which scares away people.
 @end ignore
 
 @item
+The markup-list-command @code{\table} is now available.
+Each column may be aligned differently.
+@lilypond[quote,verbatim]
+\markuplist {
+    \override #'(padding . 2)
+    \table
+      #'(0 1 0 -1)
+      {
+        \underline { center-aligned right-aligned center-aligned left-aligned }
+        one "1" thousandth "0.001"
+        eleven "11" hundredth "0.01"
+        twenty "20" tenth "0.1"
+        thousand "1000" one "1.0"
+      }
+}
+@end lilypond
+
+@item
 A new page breaking function @code{ly:one-line-auto-height-breaking}
 places a whole score on a single line and changes the page width
 to match, just like @code{ly:one-line-breaking}.  The difference is that
