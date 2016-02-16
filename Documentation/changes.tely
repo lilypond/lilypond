@@ -102,6 +102,24 @@ Each column may be aligned differently.
 @end lilypond
 
 @item
+A new markup-command, @code{\with-dimensions-from}, makes
+@code{\with-dimensions} easier to use by taking the new
+dimensions from a markup object, given as first argument.
+@lilypond[quote,verbatim]
+\markup {
+  \pattern #5 #Y #0 "x"
+  \pattern #5 #Y #0 \with-dimensions-from "x" "f"
+  \pattern #5 #Y #0 \with-dimensions-from "x" "g"
+  \override #'(baseline-skip . 2)
+  \column {
+    \pattern #5 #X #0 "n"
+    \pattern #5 #X #0 \with-dimensions-from "n" "m"
+    \pattern #5 #X #0 \with-dimensions-from "n" "!"
+  }
+}
+@end lilypond
+
+@item
 A new page breaking function @code{ly:one-line-auto-height-breaking}
 places a whole score on a single line and changes the page width
 to match, just like @code{ly:one-line-breaking}.  The difference is that
