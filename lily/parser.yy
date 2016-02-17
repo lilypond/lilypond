@@ -3239,18 +3239,18 @@ dots:
 multipliers:
 	/* empty */
 	{
-		$$ = SCM_UNSPECIFIED;
+		$$ = SCM_UNDEFINED;
 	}
 	| multipliers '*' UNSIGNED
 	{
-		if (scm_is_number ($1))
+		if (!SCM_UNBNDP ($1))
 			$$ = scm_product ($1, $3);
 		else
 			$$ = $3;
 	}
 	| multipliers '*' FRACTION
 	{
-		if (scm_is_number ($1))
+		if (!SCM_UNBNDP ($1))
 			$$ = scm_product ($1, scm_divide (scm_car ($3),
 							  scm_cdr ($3)));
 		else
@@ -4102,6 +4102,14 @@ make_music_from_simple (Lily_parser *parser, Input loc, SCM simple)
 			Music *n = MY_MAKE_MUSIC ("NoteEvent", loc);
 			n->set_property ("duration", parser->default_duration_.smobbed_copy ());
 			n->set_property ("pitch", simple);
+			return n->unprotect ();
+		}
+		SCM d = simple;
+		if (scm_is_integer (simple))
+			d = make_duration (simple);
+		if (unsmob<Duration> (d)) {
+			Music *n = MY_MAKE_MUSIC ("NoteEvent", loc);
+			n->set_property ("duration", d);
 			return n->unprotect ();
 		}
 		return simple;
