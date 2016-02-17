@@ -246,6 +246,10 @@ which formats should be written.  Choices for @code{format} are
 
 Example: @code{lilypond -fpng @var{filename}.ly}
 
+@noindent
+For @code{svg} and @code{eps} formats use the @code{-dbackend} option.
+See @ref{Advanced command line options for LilyPond}.
+
 @item -h, --help
 Show a summary of usage.
 
