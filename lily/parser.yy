@@ -1756,7 +1756,7 @@ function_arglist_nonbackup:
 					       (parser, @3, $3),
 					       $1, $2);
 	}
-	| function_arglist_nonbackup_reparse REPARSE duration_length
+	| function_arglist_nonbackup_reparse REPARSE multiplied_duration
 	{
 		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
@@ -2073,7 +2073,7 @@ function_arglist_backup:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
-	| function_arglist_backup REPARSE duration_length
+	| function_arglist_backup REPARSE multiplied_duration
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
@@ -2204,7 +2204,7 @@ function_arglist_common:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
-	| function_arglist_common_reparse REPARSE duration_length
+	| function_arglist_common_reparse REPARSE multiplied_duration
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
@@ -3177,12 +3177,6 @@ script_dir:
 	'_'	{ $$ = scm_from_int (DOWN); }
 	| '^'	{ $$ = scm_from_int (UP); }
 	| '-'	{ $$ = SCM_UNDEFINED; }
-	;
-
-duration_length:
-	multiplied_duration {
-		$$ = $1;
-	}
 	;
 
 maybe_notemode_duration:
