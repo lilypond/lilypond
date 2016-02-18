@@ -719,7 +719,7 @@ Four new Clef glyphs have been added @emph{Double G}, @emph{Tenor G},
   \clef "varC" c c c c
   \clef "altovarC" c c c c
   \clef "tenorvarC" c c c c
-  \clef "baritonevarC" c c c
+  \clef "baritonevarC" c c c c
   \clef "varpercussion" c c c c
 @end lilypond
 
