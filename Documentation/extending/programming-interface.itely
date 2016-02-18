@@ -345,7 +345,7 @@ At the top level in a music expression a post-event is not accepted.
 @item
 When a music function (as opposed to an event function) returns an
 expression of type post-event, LilyPond requires one of the named
-direction indicators (@code{-}, @code{^}, @w{and @code{_}})) in order to
+direction indicators (@code{-}, @code{^}, @w{and @code{_}}) in order to
 properly integrate the post-event produced by the music function call
 into the surrounding expression.
 
