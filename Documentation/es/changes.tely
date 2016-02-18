@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: d8fb420c61d9fa46bc2507d933b7aec7f55cdbd5
+    Translation of GIT committish: 0b49f20966fb8b4e9c9d8ed5699efcff9f805564
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -71,8 +71,8 @@ which scares away people.
 @end ignore
 
 @item
-The markup-list-command @code{\table} is now available.
-Each column may be aligned differently.
+Ahora está disponible la instrucción de lista de marcados
+@code{\table}.  Cada columna se puede alinear de distinta forma.
 @lilypond[quote,verbatim]
 \markuplist {
     \override #'(padding . 2)
@@ -89,16 +89,18 @@ Each column may be aligned differently.
 @end lilypond
 
 @item
-A new page breaking function @code{ly:one-line-auto-height-breaking}
-places a whole score on a single line and changes the page width
-to match, just like @code{ly:one-line-breaking}.  The difference is that
-it also automatically modifies the height of the page to fit the height
-of the music.
+La nueva función de salto de página
+@code{ly:one-line-auto-height-breaking} sitúa una partitura
+completa en una sola línea y cambia la anchura del papel de forma
+correspondiente, de igual manera que @code{ly:one-line-breaking}.
+La diferencia es que también modifica automáticamente la altura de
+la página para que se ajuste a la altura de la música.
 
 @item
-Markup-command @code{\draw-squiggle-line} is now available.
-Customizing is possible with overrides of @code{thickness}, @code{angularity},
-@code{height} and @code{orientation}
+Está disponible la instrucción de marcado
+@code{\draw-squiggle-line}.  Es posible la personalización a
+través de la sobreescritura de @code{thickness},
+@code{angularity}, @code{height} and @code{orientation}.
 @lilypond[quote,verbatim]
 \markup
   \overlay {
@@ -121,13 +123,15 @@ Customizing is possible with overrides of @code{thickness}, @code{angularity},
 @end lilypond
 
 @item
-A new command, @code{\RemoveAllEmptyStaves}, has been made available, which
-acts exactly like @code{\RemoveEmptyStaves}, except for also removing empty
-staves on the first system in a score.
+Existe una instrucción nueva para eliminar los pentagramas vacíos,
+@code{\RemoveAllEmptyStaves}, que actúa de la misma forma que
+@code{\RemoveEmptyStaves}, excepto porque también elimina los
+pentagramas vacíos del primer sistema de una partitura.
 
 @item
-Markup-commands @code{\undertie} and @code{\overtie} are now available, as well
-as the generic markup-command @code{\tie}.
+Las instrucciones de marcado @code{\undertie} y @code{\overtie}
+están disponibles, así como la instrucción de marcado genérica
+@code{\tie}.
 @lilypond[quote,verbatim]
 \markup {
   \undertie "undertied"
@@ -142,7 +146,8 @@ m = {
 @end lilypond
 
 @item
-@code{TabStaff} is now able to print micro-tones for bendings etc.
+@code{TabStaff} puede ahora imprimir microtonos para las
+curvaturas de tono y otros efectos.
 @lilypond[quote,verbatim]
 \layout {
   \context {
@@ -160,13 +165,15 @@ mus = \relative { c'4 cih d dih }
 @end lilypond
 
 @item
-Two new styles of whiteout are now available.  The @code{outline} style
-approximates the contours of a glyph's outline, and its shape is
-produced from multiple displaced copies of the glyph.  The
-@code{rounded-box} style produces a rounded rectangle shape.  For all
-three styles, including the default @code{box} style, the whiteout
-shape's @code{thickness}, as a multiple of staff-line thickness, can be
-customized.
+Ahora están disponibles dos estilos nuevos de enmarcado en blanco
+para enmascarar el material de fondo.  El estilo @code{outline}
+aproxima los contornos de la forma de un glifo, y la forma se
+produce a partir de un conjunto de copias desplazadas del glifo.
+El estilo @code{rounded-box} produce una forma de rectángulo
+redondeado.  Para los tres estilos, incluido el estilo @code{box}
+predeterminado, se puede personalizar el @code{thickness} o grosor
+de la forma del enmarcado en blanco, como un múltiplo del grosor
+de una línea del pentagrama.
 
 @lilypond[verbatim,quote]
 \markup {
@@ -197,9 +204,9 @@ customized.
 @end lilypond
 
 @item
-All of @code{\override}, @code{\revert}, @code{\set}, and
-@code{\unset} now work with the @code{\once} prefix for making
-one-time settings.
+Todas las instrucciones @code{\override}, @code{\revert},
+@code{\set} y @code{\unset} ahora funcionan con el prefijo
+@code{\once} para hacer ajustes de una sola vez.
 @lilypond[quote,verbatim]
 \relative {
   c'4 d
