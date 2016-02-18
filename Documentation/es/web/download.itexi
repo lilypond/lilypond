@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 53ea968b35ad64c914a7bd503786aaf8d3b0c762
+    Translation of GIT committish: 43c2555cc5bef3b10f0f9d5c5431697fe7b4cb3c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -83,7 +83,7 @@ versiones anteriores
 
 @divEnd
 
-@divClass{column-center-bottom}
+@divClass{column-center-middle-color2}
 
 @subheading Licencia del Software
 
@@ -92,7 +92,7 @@ LilyPond está publicado bajo la
 @divEnd
 
 
-@divClass{color1}
+@divClass{column-center-bottom}
 
 @subheading Patrocinadores
 
@@ -103,6 +103,9 @@ nuestro ancho de banda.
 @sourceimage{VTlogo_ITF,,,}
 @sourceimage{lao_banner_06_on_white_demo,,,}
 
+@divEnd
+
+@divClass{column-center-bottom}
 @subheading Legalismos
 
 @divClass{legal}
@@ -144,14 +147,13 @@ e imágenes de productos.
 @divClass{column-center-top}
 @subheading ¿Paquetes genéricos, o paquetes específicos de la distribución?
 
-Muchas distribuciones ya incluyen a LilyPond dentro de sus
-repositorios normales de paquetes y con frecuencia son mucho más
-fáciles de instalar que los paquetes genéricos que ofrecemos aquí.
-Sin embargo, la versión de LilyPond de dichos repositorios podría
-ser @emph{significativamente} más antigua que la versión estable
-actual.  Si quiere utilizar nuestros paquetes genéricos, compruebe
+Muchas distribuciones incluyen a LilyPond dentro de sus
+repositorios normales de paquetes que con frecuencia son
+@emph{significativamente} más antiguos que la versión estable
+actual.  Aunque dichos paquetes antiguos pueden ser mucho más
+fáciles de instalar, recomendamos@emph{encarecidamente} que utilice nuestros paquetes genéricos.  En tal caso, compruebe
 que su editor de LilyPond está usando la versión correcta del
-programa lilypond. Véase @ref{Entornos mejorados}.
+programa. Véase @ref{Entornos mejorados}.
 
 @divEnd
 
@@ -169,14 +171,14 @@ programa lilypond. Véase @ref{Entornos mejorados}.
   @downloadDevelLinuxNormal
 @end ifclear
 @ifset web_version
-@downloadStableLinuxNormal
+  @downloadStableLinuxNormal
 @end ifset
-
-(si no está seguro, utilice éste)
+Sistemas de 32 bits.
 
 @item
 @sourceimage{logo-linux,,,}
 @downloadStableLinuxBig
+Sistemas de 64 bits.
 
 @item
 @sourceimage{logo-linux,,,}
@@ -185,10 +187,12 @@ programa lilypond. Véase @ref{Entornos mejorados}.
 @item
 @sourceimage{logo-freebsd,,,}
 @downloadStableFreeBSDNormal
+Sistemas de 32 bits.
 
 @item
 @sourceimage{logo-freebsd,,,}
 @downloadStableFreeBSDBig
+Sistemas de 64 bits.
 
 @end itemize
 
@@ -223,44 +227,6 @@ sh lilypond-@versionStable{}-SIST-OPERATIVO.sh --help
 
 
 @divClass{column-right-top}
-@subheading Paquetes específicos de cada distribución
-
-Utilice el gestor de paquetes de su distribución para instalar o
-actualizar a estas versiones.
-
-@itemize
-
-@item
-@sourceimage{logo-fedora,,,}
-@uref{http://koji.fedoraproject.org/koji/packageinfo?packageID=2447,
-Fedora: LilyPond 2.14.2}
-
-@item
-@sourceimage{logo-ubuntu,,,}
-@uref{http://packages.ubuntu.com/search?keywords=lilypond,
-Ubuntu: LilyPond 2.14.2}
-
-@item
-@sourceimage{logo-slackware,,,}
-@uref{http://www.johannes-schoepfer.de/lilypond/,
-Slackware: LilyPond 2.14.2}
-
-@item
-@sourceimage{logo-debian,,,}
-@uref{http://packages.debian.org/search?keywords=lilypond,
-Debian: LilyPond 2.12.3}
-
-@item
-@sourceimage{logo-suse,,,}
-@uref{http://software.opensuse.org/search?baseproject=openSUSE%3A11.2&p=1&q=lilypond,
-openSUSE: LilyPond 2.12.3}
-
-@end itemize
-
-@divEnd
-
-
-@divClass{column-center-top}
 @subheading Compilación de un archivo
 
 @lilypadCommandLine
@@ -519,7 +485,8 @@ ejecutables de LilyPond de la siguiente manera:
 [@var{ruta preestablecida}];@var{CARPETA}\LilyPond\usr\bin
 @end example
 
-@warning{@var{CARPETA} será por lo general @code{C:@bs{}Archivos de programa}.}
+@warning{@var{CARPETA} será por lo general @code{C:@bs{}Archivos de programa (x86)}
+para los sistemas de 64 bits o @code{C:@bs{}Archivos de programa} para los de 32 bits.}
 
 @noindent
 y pulse el botón @qq{Aceptar} para cerrar la ventana.
