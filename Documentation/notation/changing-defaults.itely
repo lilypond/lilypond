@@ -91,18 +91,12 @@ Internals Reference:
 
 >> > > - list of contexts: my *danger unmaintainable*
 >> > > alarm just went off.  I'm
-
 I knew it would... And leaving out some of them is perfectly fine
-with me.
-I do think that a list like this, with the main contexts and a
-brief
-description of  what they do (perhaps also with a note about what
-default
-behavior is associated with each of them, but this may be
-unmanageable),
-should be there, and then we could simply list the remaining ones
-without
-further explanation and with links to the IR.
+with me. I do think that a list like this, with the main contexts and a
+brief description of  what they do (perhaps also with a note about what
+default behavior is associated with each of them, but this may be
+unmanageable), should be there, and then we could simply list the
+remaining ones without further explanation and with links to the IR.
 @end ignore
 
 @c TODO Improve layout, order and consistency of wording -td
@@ -224,7 +218,7 @@ expression out as a guitar tablature, printed on six lines.
 
 @strong{@emph{DrumStaff}}
 
-Handles typesetting for percussion.  Can contain @code{DrumVoice}
+Handles typesetting for percussion.  Can contain @code{DrumVoice}.
 
 @strong{@emph{VaticanaStaff}}
 
@@ -1741,26 +1735,24 @@ Add this much extra space between objects that are next to each other.
 @end table
 @end quotation
 
-By increasing the value of @code{padding}, we can move the
-fingering away from the note head.  The following command inserts
-3 staff spaces of white
-between the note and the fingering:
+By increasing the value of @code{padding}, we can move the fingering
+away from the note head.  The following command will insert @qq{three
+staff spaces} worth of distance between the note and a fingering mark:
+
 @example
 \once \override Voice.Fingering.padding = #3
 @end example
 
-Inserting this command before the Fingering object is created,
-i.e., before @code{c2}, yields the following result:
+Inserting the padding before the fingering object is created results in
+the following:
 
 @lilypond[quote,fragment,verbatim]
 \once \override Voice.Fingering.padding = #3
 c''-2
 @end lilypond
 
-
-In this case, the context for this tweak is @code{Voice}.  This
-fact can also be deduced from the program reference, for the page for
-the @rinternals{Fingering_engraver} plug-in says
+In this case, the context for this tweak is @code{Voice}.  See
+@rinternals{Fingering_engraver} plug-in, which says:
 
 @quotation
 Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
@@ -1774,25 +1766,33 @@ Another thing that is needed, is an overview of the various naming
 conventions:
 
 @itemize
-@item scheme functions: lowercase-with-hyphens (incl. one-word
+@item scheme functions: lowercase-with-hyphens (also includes one-word
 names)
-@item scheme functions: ly:plus-scheme-style
+
+@item LilyPond-specific scheme functions: ly:plus-scheme-style
+
 @item music events, music classes and music properties:
 as-scheme-functions
+
 @item Grob interfaces: scheme-style
+
 @item backend properties: scheme-style (but X and Y!)
+
 @item contexts (and MusicExpressions and grobs): Capitalized or
 CamelCase
+
 @item context properties: lowercaseFollowedByCamelCase
-@item engravers:
-Capitalized_followed_by_lowercase_and_with_underscores
+
+@item engravers: Capitalized_followed_by_lowercase_and_with_underscores
 @end itemize
 
 Questions to be answered:
 @itemize
+
 @item Which of these are conventions and which are rules?
+
 @item Which are rules of the underlying language, and which are
-LP-specific?
+LilyPond-specific?
 @end itemize
 
 @node Modifying properties
@@ -2434,56 +2434,59 @@ one encountered in the input file.
 
 @funindex \set
 @funindex \override
-Both @code{\set} and @code{\override} manipulate properties
-associated with contexts.  In either case, properties heed the
-hierarchy of contexts: properties not set in a context itself show
-the values of the respective parent context.
 
-Values and lifetime of context properties are dynamic and only
-available when music is being interpreted, @q{iterated}.  At the
-time of context creation, properties are initialized from the
-corresponding context definition and possible context
-modifications.  Afterwards, changes are achieved with
-property-setting commands in the music itself.
+The @code{\set} and @code{\override} commands manipulate properties
+associated with contexts.  In both cases, the properties follow a
+@emph{hierarchy of contexts}; properties that are not set themselves in
+a context will still show the values of their respective parent's
+context.
 
-Now grob definitions are a special category of context properties.
-Since their structure, bookkeeping and use is different from
-ordinary context properties, they are accessed with a different
-set of commands, and treated separately in the documentation.
+The lifetime and value of a context property is dynamic and only
+available when music is being interpreted (i.e. @q{iterated}).  At the
+time of the context's creation, properties are initialized from its
+corresponding definitions (along with any other modifications) of that
+context.  Any subsequent changes are achieved with any
+@q{property-setting} commands that are within the music itself.
 
-As opposed to plain context properties, grob definitions are
-subdivided into grob properties.  A @qq{grob} (graphical object)
-is usually created by an engraver at the time of interpreting a
-music expression and receives its initial properties from the
-current grob definition of the engraver's context.  The engraver
-(or other @q{backend} parts of LilyPond) may subsequently add or
-change properties to the grob, but that does not affect the
-context's grob definition.
+Graphical Object (or @qq{grob}) definitions are a @emph{special}
+category of context properties as their structure and use is different
+from that of normal context properties.  Unlike normal context
+properties, grob definitions are subdivided into @emph{grob properties}.
 
-What we call @q{grob properties} in the context of user-level
-tweaking are actually the properties of a context's grob
-definition.  In contrast to ordinary context properties, grob
-definitions have the bookkeeping required to keep track of its
-parts, the individual grob properties (and even subproperties of
-them) separately so that it is possible to define those parts in
-different contexts and have the overall grob definition at the
-time of grob creation be assembled from pieces provided in
-different contexts among the current context and its parents.
+Also, in contrast to normal context properties, grob definitions have
+their own internal @q{bookkeeping} used to keep track of their own
+individual grob properties and any sub-properties.  This means that it
+is possible to define those parts within different contexts and yet
+still have the overall grob definition at the time of grob creation from
+all the pieces provided amongst the current context and its parent(s).
 
-Grob definitions are manipulated using @code{\override} and
-@code{\revert} and have a name starting with a capital letter
-(like @samp{NoteHead}) whereas ordinary context properties are
-manipulated using @code{\set} and @code{\unset} and are named
-starting with a lowercase letter.
+A grob is usually created by an engraver at the time of interpreting a
+music expression and receives its initial properties from the current
+grob definition of the engraver's context.  The engraver (or other
+@q{backend} parts of LilyPond) can then change (or add to) the grob's
+initial properties.  However, this does not affect the context's own
+grob definition.
+
+What LilyPond calls @emph{grob properties} in the context of
+@q{user-level} tweaks are really the properties of a @emph{context's}
+own grob definition.
+
+Grob definitions are accessed with a different set of commands and are
+manipulated using @code{\override} and @code{\revert} and have a name
+starting with a capital letter (e.g. @samp{NoteHead}); whereas normal
+context properties are manipulated using @code{\set} and @code{\unset}
+and are named starting with a lowercase letter.
 
 @cindex tweak, relation to @code{\override}
 @funindex \tweak
 @funindex \overrideProperty
-The special commands @code{\tweak} and @code{\overrideProperty}
-change grob properties bypassing context properties completely.
-Instead they catch grobs as they are being created and then
-directly set properties on them when they originate from a tweaked
-music event or are of a particular kind, respectively.
+
+The commands @code{\tweak} and @code{\overrideProperty} change grob
+properties by bypassing all context properties completely and, instead,
+catch grobs as they are being created, setting properties on them for
+a music event (@code{\tweak}) or, in the case of
+@code{\overrideProperty} for a specific override.
+
 
 @node Modifying alists
 @subsection Modifying alists
@@ -2665,7 +2668,7 @@ render them in a @code{TabStaff} context, see
 
 To create fret diagrams above a staff, you have two choices.
 You can either use the @code{FretBoards} context (see
-@ref{Automatic fret diagrams} or you can enter them as a markup
+@ref{Automatic fret diagrams}) or you can enter them as a markup
 above the notes using the @code{\fret-diagram} command (see
 @ref{Fret diagram markups}).
 
@@ -2714,6 +2717,7 @@ be desirable to force a particular direction or placement.
 * The direction property::
 @end menu
 
+
 @node Articulation direction indicators
 @unnumberedsubsubsec Articulation direction indicators
 
@@ -2749,6 +2753,7 @@ Direction indicators affect only the next note:
   c2^( c)
 }
 @end lilypond
+
 
 @node The direction property
 @unnumberedsubsubsec The direction property
@@ -2801,8 +2806,8 @@ These indications affect all notes until they are canceled.
 @end lilypond
 
 In polyphonic music, it is generally better to specify an explicit
-@code{voice} than change an object's direction.  For more information.
-See @ref{Multiple voices}.
+@code{voice} than change an object's direction.  For more information,
+see @ref{Multiple voices}.
 
 @seealso
 Learning Manual:
@@ -3209,7 +3214,7 @@ the top edge of the text with the spanner line.
 
 @item arrow
 Setting this sub-property to @code{#t} produces an arrowhead at the
-end of the line.
+end-points of the line.
 
 @item padding
 This sub-property controls the space between the specified
@@ -3477,16 +3482,22 @@ effective with every layout object, and some combinations may
 even give errors.  The following limitations apply:
 
 @itemize @bullet
-@item Bar lines cannot be printed at start of line.
-@item A bar number cannot be printed at the start of the first
-line unless it is set to be different from 1.
-@item Clef -- see below
-@item Double percent repeats are either all printed or all
-suppressed.  Use begin-of line-invisible to print and
-all-invisible to suppress.
-@item Key signature -- see below
-@item ClefModifier -- see below
+@item Bar lines cannot be printed at the start of line.
+
+@item A bar number cannot be printed at the start of the @emph{first}
+line unless it is set to be different from @code{1}.
+
+@item Clef -- see the next section.
+
+@item Double percent repeats are either @emph{all printed} or
+@emph{all suppressed}.  Use @code{begin-of-line-invisible}
+to print them and @code{all-invisible} to suppress them.
+
+@item Key signature -- see the next section.
+
+@item ClefModifier -- see the next section.
 @end itemize
+
 
 @node Special considerations
 @unnumberedsubsubsec Special considerations
@@ -4185,19 +4196,21 @@ XinO = {
 }
 @end lilypond
 
-Any of the glyphs in the feta Font can be supplied to the
+Any of the glyphs in the Feta Font can be supplied to the
 @code{\musicglyph} markup command -- see @ref{The Feta font}.
 
-@c TODO Add inserting eps files or ref to later
+@file{EPS} files and Postscript commands can both be inserted inline
+using the @code{\epsfile} and @code{\postscript} markup commands
+respectively -- see @ref{Graphic}.
 
-@c TODO Add inserting Postscript or ref to later
 
 @seealso
 Notation Reference:
 @ref{Graphic notation inside markup},
 @ref{Formatting text},
 @ref{Text markup commands},
-@ref{The Feta font}.
+@ref{The Feta font},
+@ref{Graphic}.
 
 
 @node Modifying shapes
@@ -4607,6 +4620,10 @@ The results of the second function are used as an approximation of the
 value needed which is then used by the first function to get the real
 value which is then used for fine-tuning much later during the spacing
 process.
+
+@c TODO: The following example supposedly showing a collision no longer
+@c 'works' since 2.18.x. Another example of a collision is needed.
+@c Issue #3512
 
 @lilypond[verbatim,quote,ragged-right]
 #(define (square-line-circle-space grob)
