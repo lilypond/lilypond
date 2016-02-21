@@ -272,14 +272,51 @@ If the context-property @code{supportNonIntegerFret} is set @code{#t},
 micro-tones are supported for TabStaff, but not not for FretBoards."
 
   ;;  helper functions
+  (define (barre-list string-frets)
+    "Create a barre-list that reflects the string, fret, and finger
+entries in @var{string-frets}."
+    (let* ((finger-range '(0  4)) ; range of possible finger numbers
+           (barre-elements 4) ; 4 elements per barre entry:
+                              ; 'barre
+                              ; highest string number
+                              ; lowest string number
+                              ; finger (seems redundant, but makes it
+                              ;  easy to convert from array to list
+           (barres (make-array 0 finger-range barre-elements))
+           (add-string-fret
+             (lambda(sf)
+               (let ((string (car sf))
+                     (fret (cadr sf))
+                     (finger (if (null? (caddr sf)) 0 (caddr sf))))
+                   (if (and (not (= fret 0)) (not (= finger 0)))
+                       (begin
+                         (array-set! barres 'barre finger 0)
+                         (array-set! barres fret finger 3)
+                         (if (or (< (array-ref barres finger 1) string)
+                                 (= 0 (array-ref barres finger 1)))
+                             (array-set! barres string finger 1))
+                         (if (or (> (array-ref barres finger 2) string)
+                                 (= 0 (array-ref barres finger 2)))
+                             (array-set! barres string finger 2)))))))
+           (barre-list (begin
+                        (map add-string-fret string-frets)
+                        (array->list barres))))
+         (filter (lambda(l) (and (eq? (car l) 'barre)
+                               (not (= (fourth l) 0))
+                               (> (second l) (third l))))
+               barre-list)))
+
 
   (define (string-frets->placement-list string-frets string-count)
     "Convert @var{string-frets} to @code{fret-diagram-verbose}
 dot placement entries."
     (let* ((placements (list->vector
                         (map (lambda (x) (list 'mute  x))
-                             (iota string-count 1)))))
-
+                             (iota string-count 1))))
+           (no-fingers (null? (filter (lambda (sf)
+                                          (not (null? (caddr sf))))
+                                        string-frets)))
+           (b-list (barre-list string-frets)))
       (for-each (lambda (sf)
                   (let* ((string (car sf))
                          (fret (cadr sf))
@@ -289,11 +326,13 @@ dot placement entries."
                      (1- string)
                      (if (= 0 fret)
                          (list 'open string)
-                         (if finger
-                             (list 'place-fret string fret finger)
-                             (list 'place-fret string fret))))))
+                         (if (null? finger)
+                             (list 'place-fret string fret)
+                             (list 'place-fret string fret finger))))))
                 string-frets)
-      (vector->list placements)))
+      (if (or (null? b-list) no-fingers)
+          (vector->list placements)
+          (append (vector->list placements) b-list))))
 
   (define (placement-list->string-frets placement-list)
     "Convert @var{placement-list} to string-fret list."
@@ -403,6 +442,11 @@ the current tuning?"
                   (not (ly:context-property context 'supportNonIntegerFret #f)))
                 (ly:warning (_ "Missing fret for pitch ~a on string ~a")
                             (car pitch-entry) string)))
+        (if (and (= this-fret 0)
+                 (and finger
+		      (not (null? finger))))
+            (ly:warning (_ "Open fret on string ~a has finger of ~a")
+                        string finger))
         (delete-free-string string)
         (set! specified-frets (cons this-fret specified-frets))
         (list-set! string-fret-fingers
