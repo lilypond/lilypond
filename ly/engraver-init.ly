@@ -147,6 +147,7 @@
   \accepts "ChoirStaff"
   \accepts "ChordNames"
   \accepts "DrumStaff"
+  \accepts "Dynamics"
   \accepts "FiguredBass"
   \accepts "GrandStaff"
   \accepts "Lyrics"
