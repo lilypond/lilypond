@@ -81,7 +81,7 @@ staffTabLine = \new Staff \with {
   \key c \major
   \relative c''
   {
-    % disable the following line to see the the noteheads while writing the song
+    % disable the following line to see the noteheads while writing the song
     \NoNoteHead
     \override NoteHead.no-ledgers = ##t
 

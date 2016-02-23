@@ -2631,7 +2631,7 @@ Installed Files:
 
 It is possible to output one or more fragments of a score by defining
 the explicit location of the music to be extracted within the
-@code{\layout} block of the the input file using the @code{clip-regions}
+@code{\layout} block of the input file using the @code{clip-regions}
 function, and then running LilyPond with the @option{-dclip-systems}
 option;
 

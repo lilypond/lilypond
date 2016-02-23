@@ -1208,7 +1208,7 @@ This @emph{warning} clef can be suppressed.
 
 By default, a clef that has previously been printed will not be
 re-printed if the same @code{\clef} command is issued again and
-will be ignored.  The the command
+will be ignored.  The command
 @code{\set Staff.forceClef = ##t} changes this behaviour.
 
 @lilypond[verbatim,quote,fragment]

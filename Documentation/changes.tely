@@ -558,7 +558,7 @@ improved.  Previously, tuplet numbers were placed according to the
 position of the tuplet bracket, even if it was not printed.  This could
 lead to stranded tuplet numbers.  Now they are now positioned
 closer to the kneed-beam when an appropriate beam segment exists for its
-placement and when the the bracket is not drawn.
+placement and when the bracket is not drawn.
 
 Collision detection is also added, offsetting horizontally if too close
 to an adjoining note column but preserving the number's vertical
