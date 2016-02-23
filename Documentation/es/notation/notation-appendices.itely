@@ -24,6 +24,7 @@
 * Lista de colores::
 * La tipografía Feta::
 * Estilos de cabezas de nota::
+* Estilos de clave::
 * Instrucciones de marcado de texto::
 * Instrucciones de listas de marcado de texto::
 * Lista de caracteres especiales::
@@ -1274,6 +1275,242 @@ consulte @ref{Formatear el texto}.
 Se pueden usar los siguientes estilos para las cabezas de las notas.
 
 @lilypondfile[noindent]{note-head-style.ly}
+
+
+@node Estilos de clave
+@appendixsec Estilos de clave
+@translationof Clef styles
+
+La tabla siguiente presenta los distintos estilos de clave
+posibles y el lugar del @emph{Do central} en cada una.
+
+@multitable @columnfractions .30 .2 .30 .2
+
+@headitem
+Ejemplo
+@tab
+Salida
+@tab
+Ejemplo
+@tab
+Salida
+
+
+@item
+@code{\clef G}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef G c1
+@end lilypond
+
+@tab
+@code{\clef "G2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef "G2"
+c1
+@end lilypond
+
+@item
+@code{\clef treble}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef treble
+c1
+@end lilypond
+
+@tab
+@code{\clef violin}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef violin
+c1
+@end lilypond
+
+@item
+@code{\clef french}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef french
+c1
+@end lilypond
+
+@tab
+@code{\clef GG}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef GG
+c1
+@end lilypond
+
+@item
+@code{\clef tenorG}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef tenorG
+c1
+@end lilypond
+
+@tab
+@code{\clef soprano}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef soprano
+c1
+@end lilypond
+
+@item
+@code{\clef mezzosoprano}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef mezzosoprano
+c1
+@end lilypond
+
+@tab
+@code{\clef C}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef C
+c1
+@end lilypond
+
+@item
+@code{\clef alto}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef alto
+c1
+@end lilypond
+
+@tab
+@code{\clef tenor}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef tenor
+c1
+@end lilypond
+
+@item
+@code{\clef baritone}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef baritone
+c1
+@end lilypond
+
+@tab
+@code{\clef varC}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef varC
+c1
+@end lilypond
+
+@item
+@code{\clef altovarC}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef altovarC
+c1
+@end lilypond
+
+@tab
+@code{\clef tenorvarC}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef tenorvarC
+c1
+@end lilypond
+
+@item
+@code{\clef baritonevarC}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef baritonevarC
+c1
+@end lilypond
+
+@tab
+@code{\clef varbaritone}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef varbaritone
+c1
+@end lilypond
+
+@item
+@code{\clef baritonevarF}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef baritonevarF
+c1
+@end lilypond
+
+@tab
+@code{\clef F}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef F
+c1
+@end lilypond
+
+@item
+@code{\clef bass}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef bass
+c1
+@end lilypond
+
+@tab
+@code{\clef subbass}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef subbass
+c1
+@end lilypond
+
+@item
+@code{\clef percussion}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef percussion
+c1
+@end lilypond
+
+@tab
+@c @example does not work as expected within multitables
+@code{
+\new TabStaff @{ @*
+@ @ \clef tab @*
+@}
+}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\new TabStaff {
+  \clef tab
+  c1
+}
+@end lilypond
+
+@item
+@c @example does not work as expected within multitables
+@code{
+\new TabStaff @{ @*
+@ @ \clef moderntab @*
+@}
+}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\new TabStaff {
+  \clef moderntab
+  c1
+}
+@end lilypond
+
+
+@end multitable
 
 
 @node Instrucciones de marcado de texto
