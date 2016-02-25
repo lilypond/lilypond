@@ -3218,16 +3218,12 @@ steno_duration:
 	;
 
 multiplied_duration:
-	steno_duration {
-		$$ = $1;
-	}
-	| multiplied_duration '*' UNSIGNED {
-		$$ = unsmob<Duration> ($$)->compressed (scm_to_int ($3)).smobbed_copy ();
-	}
-	| multiplied_duration '*' FRACTION {
-		Rational  m (scm_to_int (scm_car ($3)), scm_to_int (scm_cdr ($3)));
-
-		$$ = unsmob<Duration> ($$)->compressed (m).smobbed_copy ();
+	steno_duration multipliers {
+		if (scm_is_number ($2)) {
+			Rational m (ly_scm2rational ($2));
+			$$ = unsmob<Duration> ($1)->compressed (m).smobbed_copy ();
+		} else
+			$$ = $1;
 	}
 	;
 
@@ -3237,6 +3233,28 @@ dots:
 	}
 	| dots '.' {
 		$$ = scm_oneplus ($1);
+	}
+	;
+
+multipliers:
+	/* empty */
+	{
+		$$ = SCM_UNSPECIFIED;
+	}
+	| multipliers '*' UNSIGNED
+	{
+		if (scm_is_number ($1))
+			$$ = scm_product ($1, $3);
+		else
+			$$ = $3;
+	}
+	| multipliers '*' FRACTION
+	{
+		if (scm_is_number ($1))
+			$$ = scm_product ($1, scm_divide (scm_car ($3),
+							  scm_cdr ($3)));
+		else
+			$$ = scm_divide (scm_car ($3), scm_cdr ($3));
 	}
 	;
 
