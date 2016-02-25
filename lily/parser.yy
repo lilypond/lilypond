@@ -3208,22 +3208,13 @@ steno_duration:
 		}
 	}
 	| DURATION_IDENTIFIER dots	{
-		Duration *d = unsmob<Duration> ($1);
-		Duration k (d->duration_log (),
-                            d->dot_count () + scm_to_int ($2));
-		k = k.compressed (d->factor ());
-                scm_remember_upto_here_1 ($1);
-		$$ = k.smobbed_copy ();
+		$$ = make_duration ($1, scm_to_int ($2));
 	}
 	;
 
 multiplied_duration:
 	steno_duration multipliers {
-		if (scm_is_number ($2)) {
-			Rational m (ly_scm2rational ($2));
-			$$ = unsmob<Duration> ($1)->compressed (m).smobbed_copy ();
-		} else
-			$$ = $1;
+		$$ = make_duration ($1, 0, $2);
 	}
 	;
 
