@@ -232,7 +232,7 @@ SCM loc_on_music (Lily_parser *parser, Input loc, SCM arg);
 SCM make_chord_elements (Input loc, SCM pitch, SCM dur, SCM modification_list);
 SCM make_chord_step (SCM step, Rational alter);
 SCM make_simple_markup (SCM a);
-SCM make_duration (SCM t, int dots = 0);
+SCM make_duration (SCM t, int dots = 0, SCM factor = SCM_UNDEFINED);
 bool is_regular_identifier (SCM id, bool multiple=false);
 SCM try_string_variants (SCM pred, SCM str);
 int yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser);
@@ -4144,13 +4144,29 @@ make_simple_markup (SCM a)
 }
 
 SCM
-make_duration (SCM d, int dots)
+make_duration (SCM d, int dots, SCM factor)
 {
-	int t = scm_to_int (d);
-	if (t > 0 && (t & (t-1)) == 0)
-		return Duration (intlog2 (t), dots).smobbed_copy ();
-	else
-		return SCM_UNDEFINED;
+	Duration k;
+
+	if (Duration *dur = unsmob<Duration> (d)) {
+		if (!dots && SCM_UNBNDP (factor))
+			return d;
+		k = *dur;
+		if (dots)
+			k = Duration (k.duration_log (), k.dot_count () + dots)
+				.compressed (k.factor ());
+	} else {
+		int t = scm_to_int (d);
+		if (t > 0 && (t & (t-1)) == 0)
+			k = Duration (intlog2 (t), dots);
+		else
+			return SCM_UNDEFINED;
+	}
+
+	if (!SCM_UNBNDP (factor))
+		k = k.compressed (ly_scm2rational (factor));
+
+	return k.smobbed_copy ();
 }
 
 SCM
