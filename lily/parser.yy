@@ -347,7 +347,8 @@ If we give names, Bison complains.
 %token CHORD_REPETITION
 %token CONTEXT_MOD_IDENTIFIER
 %token DRUM_PITCH
-%token PITCH_IDENTIFIER
+ /* Artificial token for durations in argument lists */
+%token DURATION_ARG
 %token DURATION_IDENTIFIER
 %token EVENT_IDENTIFIER
 %token EVENT_FUNCTION
@@ -361,6 +362,7 @@ If we give names, Bison complains.
 %token MUSIC_IDENTIFIER
 %token NOTENAME_PITCH
 %token NUMBER_IDENTIFIER
+%token PITCH_IDENTIFIER
 %token REAL
 %token RESTNAME
 %token SCM_ARG
@@ -1760,6 +1762,10 @@ function_arglist_nonbackup:
 	{
 		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
+	| function_arglist_nonbackup_reparse REPARSE reparsed_rhythm
+	{
+		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
+	}
 	| function_arglist_nonbackup_reparse REPARSE bare_number_common
 	{
 		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
@@ -1776,6 +1782,20 @@ function_arglist_nonbackup:
 	{
 		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
+	;
+
+
+reparsed_rhythm:
+	DURATION_ARG dots multipliers post_events
+	{
+		$$ = make_music_from_simple (parser, @$,
+					     make_duration ($1, scm_to_int ($2), $3));
+		Music *m = unsmob<Music> ($$);
+		assert (m);
+		if (scm_is_pair ($4))
+			m->set_property ("articulations",
+					 scm_reverse_x ($4, SCM_EOL));
+	} %prec ':'
 	;
 
 function_arglist_nonbackup_reparse:
@@ -1852,18 +1872,34 @@ function_arglist_nonbackup_reparse:
 	{
 		$$ = $3;
 		if (scm_is_true (scm_call_1 ($2, $4)))
+			// May be 3 \cm or similar
 			MYREPARSE (@4, $2, REAL, $4);
 		else {
 			SCM d = make_duration ($4);
-			if (SCM_UNBNDP (d) || scm_is_false (scm_call_1 ($2, d)))
-				MYREPARSE (@4, $2, REAL, $4); // trigger error
-			else
-				MYREPARSE (@4, $2, DURATION_IDENTIFIER, d);
+			if (!SCM_UNBNDP (d)) {
+				if (scm_is_true (scm_call_1 ($2, d)))
+					MYREPARSE (@4, $2, DURATION_IDENTIFIER, d);
+				else if (scm_is_true
+					 (scm_call_1
+					  ($2, make_music_from_simple (parser, @4, d))))
+					MYREPARSE (@4, $2, DURATION_ARG, d);
+				else
+					MYREPARSE (@4, $2, SCM_ARG, $4); // trigger error
+			} else
+				MYREPARSE (@4, $2, SCM_ARG, $4); // trigger error
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup DURATION_IDENTIFIER {
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup DURATION_IDENTIFIER
+	{
 		$$ = $3;
-		MYREPARSE (@4, $2, DURATION_IDENTIFIER, $4);
+		if (scm_is_true (scm_call_1 ($2, $4)))
+			MYREPARSE (@4, $2, DURATION_IDENTIFIER, $4);
+		else if (scm_is_true
+			 (scm_call_1
+			  ($2, make_music_from_simple (parser, @4, $4))))
+			MYREPARSE (@4, $2, DURATION_ARG, $4);
+		else
+			MYREPARSE (@4, $2, SCM_ARG, $4); // trigger error
 	}
 	;
 
@@ -1940,19 +1976,26 @@ function_arglist_backup:
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup UNSIGNED
 	{
+		$$ = $3;
 		if (scm_is_true (scm_call_1 ($2, $4)))
-		{
+			// May be 3 \cm or similar
 			MYREPARSE (@4, $2, REAL, $4);
-			$$ = $3;
-		} else {
+		else {
 			SCM d = make_duration ($4);
-			if (SCM_UNBNDP (d) || scm_is_false (scm_call_1 ($2, d)))
-			{
+			if (!SCM_UNBNDP (d)) {
+				if (scm_is_true (scm_call_1 ($2, d)))
+					MYREPARSE (@4, $2, DURATION_IDENTIFIER, d);
+				else if (scm_is_true
+					 (scm_call_1
+					  ($2, make_music_from_simple (parser, @4, d))))
+					MYREPARSE (@4, $2, DURATION_ARG, d);
+				else {
+					$$ = scm_cons (loc_on_music (parser, @3, $1), $3);
+					MYBACKUP (UNSIGNED, $4, @4);
+				}
+			} else {
 				$$ = scm_cons (loc_on_music (parser, @3, $1), $3);
 				MYBACKUP (UNSIGNED, $4, @4);
-			} else {
-				MYREPARSE (@4, $2, DURATION_IDENTIFIER, d);
-				$$ = $3;
 			}
 		}
 	}
@@ -2019,11 +2062,14 @@ function_arglist_backup:
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup DURATION_IDENTIFIER
 	{
+		$$ = $3;
 		if (scm_is_true (scm_call_1 ($2, $4)))
-		{
 			MYREPARSE (@4, $2, DURATION_IDENTIFIER, $4);
-			$$ = $3;
-		} else {
+		else if (scm_is_true
+			 (scm_call_1
+			  ($2, make_music_from_simple (parser, @4, $4))))
+			MYREPARSE (@4, $2, DURATION_ARG, $4);
+		else {
 			$$ = scm_cons (loc_on_music (parser, @3, $1), $3);
 			MYBACKUP (DURATION_IDENTIFIER, $4, @4);
 		}
@@ -2074,6 +2120,11 @@ function_arglist_backup:
 				       $3, $1, $2);
 	}
 	| function_arglist_backup REPARSE multiplied_duration
+	{
+		$$ = check_scheme_arg (parser, @3,
+				       $3, $1, $2);
+	}
+	| function_arglist_backup REPARSE reparsed_rhythm
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
@@ -2209,6 +2260,11 @@ function_arglist_common:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
+	| function_arglist_common_reparse REPARSE reparsed_rhythm
+	{
+		$$ = check_scheme_arg (parser, @3,
+				       $3, $1, $2);
+	}
 	| function_arglist_common_reparse REPARSE symbol_list_arg
 	{
 		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
@@ -2292,19 +2348,34 @@ function_arglist_common_reparse:
 	{
 		$$ = $2;
 		if (scm_is_true (scm_call_1 ($1, $3)))
+			// May be 3 \cm or similar
 			MYREPARSE (@3, $1, REAL, $3);
 		else {
 			SCM d = make_duration ($3);
-			if (SCM_UNBNDP (d) || scm_is_false (scm_call_1 ($1, d)))
-				MYREPARSE (@3, $1, REAL, $3);
-			else
-				MYREPARSE (@3, $1, DURATION_IDENTIFIER, d);
+			if (!SCM_UNBNDP (d)) {
+				if (scm_is_true (scm_call_1 ($1, d)))
+					MYREPARSE (@3, $1, DURATION_IDENTIFIER, d);
+				else if (scm_is_true
+					 (scm_call_1
+					  ($1, make_music_from_simple (parser, @3, d))))
+					MYREPARSE (@3, $1, DURATION_ARG, d);
+				else
+					MYREPARSE (@3, $1, SCM_ARG, $3); // trigger error
+			} else
+				MYREPARSE (@3, $1, SCM_ARG, $3); // trigger error
 		}
 	}
 	| EXPECT_SCM function_arglist_optional DURATION_IDENTIFIER
 	{
 		$$ = $2;
-		MYREPARSE (@3, $1, DURATION_IDENTIFIER, $3);
+		if (scm_is_true (scm_call_1 ($1, $3)))
+			MYREPARSE (@3, $1, DURATION_IDENTIFIER, $3);
+		else if (scm_is_true
+			 (scm_call_1
+			  ($1, make_music_from_simple (parser, @3, $3))))
+			MYREPARSE (@3, $1, DURATION_ARG, $3);
+		else
+			MYREPARSE (@3, $1, SCM_ARG, $3); // trigger error
 	}
 	| EXPECT_SCM function_arglist_optional '-' UNSIGNED
 	{
