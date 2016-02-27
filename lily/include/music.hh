@@ -74,7 +74,4 @@ SCM ly_camel_case_2_lisp_identifier (SCM name_sym);
 
 extern SCM ly_music_p_proc;
 
-/* common transposition function for music and event */
-void transpose_mutable (SCM alist, Pitch delta);
-
 #endif /* MUSIC_HH */
