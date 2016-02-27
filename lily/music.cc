@@ -220,7 +220,7 @@ transpose_mutable (SCM alist, Pitch delta)
         }
       else if (scm_is_eq (prop, ly_symbol2scm ("element")))
         {
-          if (Music *m = unsmob<Music> (val))
+          if (Prob *m = unsmob<Prob> (val))
             m->transpose (delta);
         }
       else if (scm_is_eq (prop, ly_symbol2scm ("elements"))
@@ -236,7 +236,7 @@ transpose_mutable (SCM alist, Pitch delta)
 }
 
 void
-Music::transpose (Pitch delta)
+Prob::transpose (Pitch delta)
 {
   if (to_boolean (get_property ("untransposable")))
     return;

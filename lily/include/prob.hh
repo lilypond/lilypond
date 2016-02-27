@@ -20,6 +20,7 @@
 #ifndef PROPERTY_OBJECT_HH
 #define PROPERTY_OBJECT_HH
 
+#include "pitch.hh"
 #include "stencil.hh"
 #include "virtual-methods.hh"
 
@@ -61,6 +62,12 @@ public:
   SCM internal_get_property (SCM sym) const;
   void instrumented_set_property (SCM, SCM, const char *, int, const char *);
   void internal_set_property (SCM sym, SCM val);
+
+  // Needed in both Music and Stream_event
+  // For technical reasons defined in lily/music.cc
+  //
+  /// Transpose, with the interval central C to #p#
+  void transpose (Pitch p);
 };
 
 

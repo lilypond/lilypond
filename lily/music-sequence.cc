@@ -30,7 +30,7 @@ void
 transpose_music_list (SCM lst, Pitch rq)
 {
   for (SCM s = lst; scm_is_pair (s); s = scm_cdr (s))
-    unsmob<Music> (scm_car (s))->transpose (rq);
+    unsmob<Prob> (scm_car (s))->transpose (rq);
 }
 
 Moment
