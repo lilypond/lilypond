@@ -143,6 +143,7 @@ class Music_xml_node (Xml_node):
         Xml_node.__init__ (self)
         self.duration = Rational (0)
         self.start = Rational (0)
+        self.voice_id = None;
 
 class Work (Xml_node):
     def get_work_information (self, tag):
@@ -282,11 +283,11 @@ class Unpitched (Music_xml_node):
 
 class Measure_element (Music_xml_node):
     def get_voice_id (self):
-        voice_id = self.get_maybe_exist_named_child ('voice')
-        if voice_id:
-            return voice_id.get_text ()
+        voice = self.get_maybe_exist_named_child ('voice')
+        if voice:
+            return voice.get_text ()
         else:
-            return None
+            return self.voice_id;
 
     def is_first (self):
         # Look at all measure elements (previously we had self.__class__, which
@@ -657,7 +658,25 @@ class Part (Music_xml_node):
                 measure_start_moment = now
                 measure_position = Rational (0)
 
+            voice_id = None;
+            assign_to_next_voice = []
             for n in m.get_all_children ():
+                # assign a voice to all measure elements
+                if (n.get_name() == 'backup'):
+                    voice_id = None;
+
+                if isinstance(n, Measure_element):
+                    if n.get_voice_id ():
+                        voice_id = n.get_voice_id ()
+                        for i in assign_to_next_voice:
+                            i.voice_id = voice_id
+                        assign_to_next_voice = []
+                    else:
+                        if voice_id:
+                            n.voice_id = voice_id
+                        else:
+                            assign_to_next_voice.append (n)
+
                 # figured bass has a duration, but applies to the next note
                 # and should not change the current measure position!
                 if isinstance (n, FiguredBass):
@@ -862,15 +881,10 @@ class Part (Music_xml_node):
                 continue
 
             if isinstance (n, Direction):
-                staff_id = n.get_maybe_exist_named_child (u'staff')
-                if staff_id:
-                    staff_id = staff_id.get_text ()
-                if staff_id:
-                    dir_voices = staff_to_voice_dict.get (staff_id, voices.keys ())
+                if (n.voice_id):
+                    voices[n.voice_id].add_element (n)
                 else:
-                    dir_voices = voices.keys ()
-                for v in dir_voices:
-                    voices[v].add_element (n)
+                    assign_to_next_note.append (n)
                 continue
 
             if isinstance (n, Harmony) or isinstance (n, FiguredBass):
@@ -1069,7 +1083,7 @@ class Grace (Music_xml_node):
 class Staff (Music_xml_node):
     pass
 
-class Direction (Music_xml_node):
+class Direction (Measure_element):
     pass
 class DirType (Music_xml_node):
     pass
