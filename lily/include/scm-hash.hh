@@ -46,6 +46,7 @@
 class Scheme_hash_table : public Smob1<Scheme_hash_table>
 {
 public:
+  static const char * const type_p_name_; // = 0
   int print_smob (SCM, scm_print_state *) const;
   bool try_retrieve (SCM key, SCM *val);
   bool contains (SCM key) const;

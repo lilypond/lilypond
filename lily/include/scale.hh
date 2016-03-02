@@ -26,6 +26,7 @@
 
 struct Scale : public Smob<Scale>
 {
+  static const char * const type_p_name_; // = 0
   virtual ~Scale ();
   Scale (vector<Rational> const &);
   Scale (Scale const &);

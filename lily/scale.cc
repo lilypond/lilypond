@@ -90,6 +90,8 @@ LY_DEFINE (ly_set_default_scale, "ly:set-default-scale",
   return SCM_UNSPECIFIED;
 }
 
+const char * const Scale::type_p_name_ = 0;
+
 int
 Scale::step_count () const
 {

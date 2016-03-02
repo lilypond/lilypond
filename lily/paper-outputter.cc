@@ -40,6 +40,8 @@ using namespace std;
 #include "lily-imports.hh"
 
 
+const char * const Paper_outputter::type_p_name_ = 0;
+
 Paper_outputter::Paper_outputter (SCM port, const string &format)
 {
   file_ = port;

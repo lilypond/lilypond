@@ -35,6 +35,7 @@ class Engraver_dispatch_list : public Simple_smob<Engraver_dispatch_list>
 {
   vector<Engraver_dispatch_entry> dispatch_entries_;
 public:
+  static const char * const type_p_name_; // = 0
   void apply (Grob_info);
   SCM static create (SCM trans_list,
                      SCM iface_list, Direction);
