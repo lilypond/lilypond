@@ -38,6 +38,17 @@ assq_tail (SCM key, SCM alist, SCM based_on = SCM_EOL)
 }
 
 SCM
+assv_tail (SCM key, SCM alist, SCM based_on = SCM_EOL)
+{
+  for (SCM p = alist; !scm_is_eq (p, based_on); p = scm_cdr (p))
+    {
+      if (scm_is_true (scm_eqv_p (scm_caar (p), key)))
+        return p;
+    }
+  return SCM_BOOL_F;
+}
+
+SCM
 assoc_tail (SCM key, SCM alist, SCM based_on = SCM_EOL)
 {
   for (SCM p = alist; !scm_is_eq (p, based_on); p = scm_cdr (p))
