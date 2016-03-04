@@ -125,7 +125,8 @@ nested_property_alist (SCM alist, SCM prop_path, SCM value)
   SCM rest = scm_cdr (prop_path);
   if (scm_is_pair (rest))
     {
-      SCM where = assq_tail (key, alist);
+      SCM where = assoc_tail (key, alist);
+
       if (scm_is_false (where))
         return scm_acons (key, nested_create_alist (rest, value), alist);
       return scm_acons (key, nested_property_alist (scm_cdar (where),
