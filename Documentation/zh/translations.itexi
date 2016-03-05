@@ -16,19 +16,19 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Sat Feb 13 19:25:44 UTC 2016
+@emph{最近更新 Sat Mar  5 16:11:52 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 LilyPond -- 人人的乐谱软件
-@tab Translators
-@tab Translation checkers
-@tab Translated
-@tab Up to date
-@tab Other info
+@tab 翻译者
+@tab 翻译校对
+@tab 已翻译
+@tab 最新
+@tab 其他信息
 @item
-Section titles
+章节标题
 @*
 629
 @tab Ben Luo
@@ -39,23 +39,23 @@ Anthony Fok
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">是</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+是
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">partially</span>
+<span style="background-color: #68ff28">部分</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+部分
 @end ifnothtml
-@tab pre-GDP
+@tab GDP 前
 @item
 LilyPond --- \TITLE\
 @*
@@ -68,23 +68,23 @@ Anthony Fok
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">是</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+是
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #d587ff">不适用</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+不适用
 @end ifnothtml
-@tab pre-GDP
+@tab GDP 前
 @item
 简介
 @*
@@ -97,23 +97,23 @@ Anthony Fok
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">是</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+是
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #d587ff">不适用</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+不适用
 @end ifnothtml
-@tab pre-GDP
+@tab GDP 前
 @item
 下载
 @*
@@ -126,23 +126,23 @@ Anthony Fok
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">是</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+是
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #d587ff">不适用</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+不适用
 @end ifnothtml
-@tab pre-GDP
+@tab GDP 前
 @item
 手册
 @*
@@ -153,27 +153,27 @@ N/A
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">是</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+是
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">partially</span>
+<span style="background-color: #54ff26">部分</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+部分
 @end ifnothtml
-@tab pre-GDP
+@tab GDP 前
 @item
 社区
 @*
-3194
+3522
 @tab Ben Luo
 @*
 Anthony Fok
@@ -182,22 +182,22 @@ Anthony Fok
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially (97 %)</span>
+<span style="background-color: #dfef77">部分 (97 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially (97 %)
+部分 (97 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #d587ff">N/A</span>
+<span style="background-color: #d587ff">不适用</span>
 @end html
 @end ifhtml
 @ifnothtml
-N/A
+不适用
 @end ifnothtml
-@tab pre-GDP
+@tab GDP 前
 @end multitable
 

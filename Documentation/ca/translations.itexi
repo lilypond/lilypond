@@ -16,19 +16,19 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Last updated Sat Feb 13 19:25:44 UTC 2016
+@emph{Actualitzat el Sat Mar  5 16:11:52 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
 @headitem
 Manual d'aprenentatge del GNU LilyPond
-@tab Translators
-@tab Translation checkers
-@tab Translated
-@tab Up to date
-@tab Other info
+@tab Traductors
+@tab Revisors
+@tab Traduït
+@tab Actualitzat
+@tab Més inf.
 @item
-Section titles
+Títols de secció
 @*
 124
 @tab Walter Garcia-Fontes
@@ -37,21 +37,21 @@ Section titles
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+si
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">partially</span>
+<span style="background-color: #5bff27">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -64,21 +64,21 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+si
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+si
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -91,21 +91,21 @@ yes
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+si
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #4efe25">partially</span>
+<span style="background-color: #4efe25">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -118,21 +118,21 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+si
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #97ff2f">partially</span>
+<span style="background-color: #97ff2f">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -145,21 +145,21 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+si
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">partially</span>
+<span style="background-color: #54ff26">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -172,21 +172,21 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially (98 %)</span>
+<span style="background-color: #dfef77">parcialment (98 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially (98 %)
+parcialment (98 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #5bff27">partially</span>
+<span style="background-color: #5bff27">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -199,21 +199,21 @@ A Plantilles
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially (97 %)</span>
+<span style="background-color: #dfef77">parcialment (97 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially (97 %)
+parcialment (97 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #ffdd42">partially</span>
+<span style="background-color: #ffdd42">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @end multitable
@@ -223,13 +223,13 @@ partially
 
 @headitem
 LilyPond: manual d'utilització del programa
-@tab Translators
-@tab Translation checkers
-@tab Translated
-@tab Up to date
-@tab Other info
+@tab Traductors
+@tab Revisors
+@tab Traduït
+@tab Actualitzat
+@tab Més inf.
 @item
-Section titles
+Títols de secció
 @*
 135
 @tab Walter Garcia-Fontes
@@ -238,21 +238,21 @@ Section titles
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+si
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">partially</span>
+<span style="background-color: #54ff26">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -265,48 +265,48 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+si
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+si
 @end ifnothtml
 @tab pre-GDP
 @item
 1 Execució del LilyPond
 @*
-5402
+5425
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #dfef77">partially (95 %)</span>
+<span style="background-color: #dfef77">parcialment (95 %)</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially (95 %)
+parcialment (95 %)
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #83fe2c">partially</span>
+<span style="background-color: #8aff2d">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -319,21 +319,21 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+si
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #ffe241">partially</span>
+<span style="background-color: #ffe241">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -346,21 +346,21 @@ partially
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+si
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #6fff29">partially</span>
+<span style="background-color: #6fff29">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @end multitable
@@ -370,13 +370,13 @@ partially
 
 @headitem
 LilyPond: notació musical per a tots
-@tab Translators
-@tab Translation checkers
-@tab Translated
-@tab Up to date
-@tab Other info
+@tab Traductors
+@tab Revisors
+@tab Traduït
+@tab Actualitzat
+@tab Més inf.
 @item
-Section titles
+Títols de secció
 @*
 629
 @tab Walter Garcia-Fontes
@@ -385,21 +385,21 @@ Section titles
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+si
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">partially</span>
+<span style="background-color: #54ff26">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -412,21 +412,21 @@ LilyPond --- \TITLE\
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+si
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+si
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -439,21 +439,21 @@ Introducció
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+si
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #76fe2a">partially</span>
+<span style="background-color: #76fe2a">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -466,21 +466,21 @@ Descàrrega
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+si
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #25fe1f">partially</span>
+<span style="background-color: #25fe1f">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @item
@@ -493,48 +493,48 @@ Manuals
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+si
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+si
 @end ifnothtml
 @tab pre-GDP
 @item
 Comunitat
 @*
-3194
+3522
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">yes</span>
+<span style="background-color: #1fff1f">si</span>
 @end html
 @end ifhtml
 @ifnothtml
-yes
+si
 @end ifnothtml
 @tab 
 @ifhtml
 
 @html
-<span style="background-color: #97ff2f">partially</span>
+<span style="background-color: #b9ff33">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
-partially
+parcialment
 @end ifnothtml
 @tab pre-GDP
 @end multitable
