@@ -2724,7 +2724,7 @@ Snippets:
 
 @menu
 * Horizontal spacing overview::
-* New spacing area::
+* New spacing section::
 * Changing horizontal spacing::
 * Line width::
 * Proportional notation::
@@ -2845,21 +2845,23 @@ adjusting the padding value as necessary.
 No work-around exists for decreasing the amount of space.
 
 
-@node New spacing area
-@subsection New spacing area
+@node New spacing section
+@subsection New spacing section
 
 @funindex \newSpacingSection
-@cindex new spacing area
-@cindex spacing area, new
+@cindex new spacing section
+@cindex spacing section, new
 @cindex notes, spacing horizontally
 
-New sections with different spacing parameters can be started with
-@code{newSpacingSection}.  This is useful when there are
-sections with a different notions of long and short notes.
+New sections with different spacing parameters can be started with the
+@code{newSpacingSection} command.  This is useful for sections with
+different notions of @q{long} and @q{short} notes.  The
+@code{\newSpacingSection} command creates a new @code{SpacingSpanner}
+object at that musical moment.
 
-In the following example, the time signature change introduces a new
-section, and hence the 16ths notes are automatically spaced slightly
-wider.
+In the following example the time signature change introduces a new
+section, and the 16ths notes are automatically spaced slightly wider
+apart.
 
 @lilypond[verbatim,quote]
 \relative c' {
@@ -2872,14 +2874,12 @@ wider.
 }
 @end lilypond
 
-The @code{\newSpacingSection} command creates a new
-@code{SpacingSpanner} object at that musical moment.
 If the automatic spacing adjustments do not give the required spacing,
 manual @code{\override}s may be applied to its properties.  These must
 be applied at the same musical moment as the @code{\newSpacingSection}
-command itself.  They will then affect the spacing of all the following
+command itself and will then affect the spacing of all the following
 music until the properties are changed in a new spacing section, for
-example,
+example:
 
 @lilypond[verbatim,quote]
 \relative c' {
@@ -3280,7 +3280,7 @@ means that, by default, @code{uniform-stretching} is either turned on for the
 entire score or turned off for the entire score.  We can, however,
 override this behavior and turn on different spacing features at
 different places in the score.  We do this with the command
-@code{\newSpacingSection}.  See @ref{New spacing area}, for more info.
+@code{\newSpacingSection}.  See @ref{New spacing section}, for more info.
 
 Next we examine the effects of the @code{Separating_line_group_engraver} and
 see why proportional scores frequently remove this engraver.  The following
@@ -3376,7 +3376,7 @@ for these related settings.
 
 @seealso
 Notation Reference:
-@ref{New spacing area}.
+@ref{New spacing section}.
 
 Snippets:
 @rlsr{Spacing}.

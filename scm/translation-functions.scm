@@ -515,10 +515,18 @@ chords.  Returns a placement-list."
                  (cons tuning (map (lambda (x) (shift-octave x -1))
                                    pitches))))))))
 
+  ;; TODO: Does it make sense to have additional bass strings in a fret-diagram?
+  (if (and (not (null? rest))
+           (not (null? (ly:context-property context 'additionalBassStrings))))
+      (ly:warning "additional bass strings are not supported by FretBoards"))
+
   ;; body of determine-frets
   (let* ((predefined-fret-table
           (ly:context-property context 'predefinedDiagramTable))
-         (tunings (ly:context-property context 'stringTunings))
+         (tunings
+           (append
+             (ly:context-property context 'stringTunings)
+             (ly:context-property context 'additionalBassStrings '())))
          (string-count (length tunings))
          (grob (if (null? rest) '() (car rest)))
          (pitches (map (lambda (x) (ly:event-property x 'pitch)) notes))
@@ -576,18 +584,33 @@ chords.  Returns a placement-list."
 ;; The fret letter is taken from 'fretLabels if present
 (define-public (fret-letter-tablature-format
                 context string-number fret-number)
-  (let ((labels (ly:context-property context 'fretLabels)))
-    (make-translate-scaled-markup '(0 . -0.5)
-     (cond
-      ((= 0 (length labels))
-       (string (integer->char (+ fret-number (char->integer #\a)))))
-      ((and (<= 0 fret-number) (< fret-number (length labels)))
-       (list-ref labels fret-number))
-      (else
-       (ly:warning (_ "No label for fret ~a (on string ~a);
+  (let* ((labels (ly:context-property context 'fretLabels))
+         (string-tunings (ly:context-property context 'stringTunings))
+         (string-count (length string-tunings))
+         (letter
+           (cond
+            ((= 0 (length labels))
+             (string (integer->char (+ fret-number (char->integer #\a)))))
+            ((and (<= 0 fret-number) (< fret-number (length labels)))
+             (list-ref labels fret-number))
+            (else
+             (ly:warning
+               (_ "No label for fret ~a (on string ~a);
 only ~a fret labels provided")
-                   fret-number string-number (length labels))
-       ".")))))
+               fret-number string-number (length labels))
+             ".")))
+         (add-bass-string-nr ;; starting at zero
+           (- string-number string-count 1)))
+    (make-translate-scaled-markup '(0 . -0.5)
+      ;; For additional bass strings, we add zero up to three "/"-signs before
+      ;; the letter, even more bass strings will get numbers, starting with "4".
+      ;; In the rare case such a string isn't played open, we put out, eg."4b"
+      (make-concat-markup
+        (if (> string-number (+ string-count 4))
+            (list (number->string add-bass-string-nr)
+                  (if (zero? fret-number) "" letter))
+            (list (make-string (max 0 add-bass-string-nr) #\/)
+                  letter))))))
 
 ;; Display the fret number as a number
 (define-public (fret-number-tablature-format
@@ -635,8 +658,12 @@ only ~a fret labels provided")
 (define-public (tablature-position-on-lines context string-number)
   (let* ((string-tunings (ly:context-property context 'stringTunings))
          (string-count (length string-tunings))
+         (string-nr
+           (if (> string-number (length string-tunings))
+               (1+ (length string-tunings))
+               string-number))
          (string-one-topmost (ly:context-property context 'stringOneTopmost))
-         (staff-line (- (* 2 string-number) string-count 1)))
+         (staff-line (- (* 2 string-nr) string-count 1)))
     (if string-one-topmost
         (- staff-line)
         staff-line)))

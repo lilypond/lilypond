@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.36\n"
+"Project-Id-Version: lilypond 2.19.37\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2016-01-31 16:19+0000\n"
+"POT-Creation-Date: 2016-02-28 13:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3417,27 +3417,27 @@ msgstr ""
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:3112
+#: define-markup-commands.scm:3122
 #, scheme-format
 msgid "Cannot find glyph ~a"
 msgstr ""
 
-#: define-markup-commands.scm:3588
+#: define-markup-commands.scm:3598
 #, scheme-format
 msgid "no brace found for point size ~S "
 msgstr ""
 
-#: define-markup-commands.scm:3589
+#: define-markup-commands.scm:3599
 #, scheme-format
 msgid "defaulting to ~S pt"
 msgstr ""
 
-#: define-markup-commands.scm:3847
+#: define-markup-commands.scm:3857
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:4060
+#: define-markup-commands.scm:4070
 #, scheme-format
 msgid "not a valid duration string: ~a - ignoring"
 msgstr ""
@@ -3893,7 +3893,7 @@ msgstr ""
 msgid "No string for pitch ~a (given frets ~a)"
 msgstr ""
 
-#: translation-functions.scm:587
+#: translation-functions.scm:598
 #, scheme-format
 msgid ""
 "No label for fret ~a (on string ~a);\n"

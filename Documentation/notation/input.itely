@@ -2729,11 +2729,10 @@ voices and staves, saving even more time.
 @cindex EPS output
 
 The default output formats for the printed score are Portable
-Document Format (PDF) and PostScript (PS).  Scalable Vector
-Graphics (SVG), Encapsulated PostScript (EPS) and Portable
-Network Graphics (PNG) output formats are also available through
-command line options, see
-@rprogram{Basic command line options for LilyPond}.
+Document Format (PDF) and PostScript (PS).  Portable
+Network Graphics (PNG), Scalable Vector Graphics (SVG) and Encapsulated
+PostScript (EPS) output is available through the command line option,
+see @rprogram{Basic command line options for LilyPond}.
 
 
 @node Replacing the notation font

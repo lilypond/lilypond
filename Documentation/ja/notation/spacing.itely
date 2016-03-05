@@ -2942,7 +2942,7 @@ Essay on automated music engraving:
 
 @node 新しいスペース領域
 @subsection 新しいスペース領域
-@translationof New spacing area
+@translationof New spacing section
 
 @code{newSpacingSection} を用いることで、@c
 異なるスペース パラメータを持つ新しいセクションを開始することができます。@c

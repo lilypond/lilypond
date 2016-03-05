@@ -3078,7 +3078,7 @@ No existe ningún rodeo para disminuir la magnitud de la separación.
 
 @node Área de espaciado nueva
 @subsection Área de espaciado nueva
-@translationof New spacing area
+@translationof New spacing section
 
 @funindex \newSpacingSection
 @cindex área de espaciado nueva

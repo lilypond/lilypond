@@ -2904,7 +2904,7 @@ Non esiste alcun trucco per diminuire la quantità di spazio.
 @c traduzione del titolo non letterale ma più chiara
 @node Nuova spaziatura nel corso di un brano
 @subsection Nuova spaziatura nel corso di un brano
-@translationof New spacing area
+@translationof New spacing section
 
 @funindex \newSpacingSection
 @cindex nuova spaziatura nel corso di un brano
@@ -3340,7 +3340,7 @@ Per impostazione predefinita, esiste un solo @code{SpacingSpanner} per
 disattivato per l'intera partitura.  Possiamo tuttavia modificare tale
 comportamento e attivare diverse funzionalità di spaziatura in punti
 diversi del brano.  Per farlo si usa il comando @code{\newSpacingSection}.
-Maggiori informazioni in @ref{New spacing area}.
+Maggiori informazioni in @ref{New spacing section}.
 
 Ora esaminiamo gli effetti dell'incisore @code{Separating_line_group_engraver} e
 vediamo perché le partiture proporzionali solitamente tolgano questo incisore.
@@ -3438,7 +3438,7 @@ per queste impostazioni.
 
 @seealso
 Guida alla notazione:
-@ref{New spacing area}.
+@ref{New spacing section}.
 
 Frammenti:
 @rlsr{Spacing}.

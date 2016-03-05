@@ -2251,6 +2251,16 @@ Set the dimensions of @var{arg} to @var{x} and@tie{}@var{y}."
       `(delay-stencil-evaluation ,(delay expr))
       x y))))
 
+(define-markup-command (with-dimensions-from layout props arg1 arg2)
+  (markup? markup?)
+  #:category other
+  "
+Print @var{arg2} with the dimensions of @var{arg1}."
+  (let* ((stil1 (interpret-markup layout props arg1))
+         (x (ly:stencil-extent stil1 0))
+         (y (ly:stencil-extent stil1 1)))
+    (interpret-markup layout props (markup #:with-dimensions x y arg2))))
+
 (define-markup-command (pad-around layout props amount arg)
   (number? markup?)
   #:category align

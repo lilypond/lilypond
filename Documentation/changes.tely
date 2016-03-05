@@ -62,6 +62,28 @@ which scares away people.
 @end ignore
 
 @item
+Additional bass strings (for lute tablature) are supported.
+@lilypond[quote,verbatim]
+m = { f'4 d' a f d a, g, fis, e, d, c,  \bar "|." }
+
+\score {
+  \new TabStaff \m
+  \layout {
+    \context {
+      \Score
+      tablatureFormat = #fret-letter-tablature-format
+    }
+    \context {
+      \TabStaff
+      stringTunings = \stringTuning <a, d f a d' f'>
+      additionalBassStrings = \stringTuning <c, d, e, fis, g,>
+      fretLabels = #'("a" "b" "r" "d" "e" "f" "g" "h" "i" "k")
+    }
+  }
+}
+@end lilypond
+
+@item
 The markup-list-command @code{\table} is now available.
 Each column may be aligned differently.
 @lilypond[quote,verbatim]
@@ -76,6 +98,24 @@ Each column may be aligned differently.
         twenty "20" tenth "0.1"
         thousand "1000" one "1.0"
       }
+}
+@end lilypond
+
+@item
+A new markup-command, @code{\with-dimensions-from}, makes
+@code{\with-dimensions} easier to use by taking the new
+dimensions from a markup object, given as first argument.
+@lilypond[quote,verbatim]
+\markup {
+  \pattern #5 #Y #0 "x"
+  \pattern #5 #Y #0 \with-dimensions-from "x" "f"
+  \pattern #5 #Y #0 \with-dimensions-from "x" "g"
+  \override #'(baseline-skip . 2)
+  \column {
+    \pattern #5 #X #0 "n"
+    \pattern #5 #X #0 \with-dimensions-from "n" "m"
+    \pattern #5 #X #0 \with-dimensions-from "n" "!"
+  }
 }
 @end lilypond
 

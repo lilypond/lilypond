@@ -246,6 +246,10 @@ which formats should be written.  Choices for @code{format} are
 
 Example: @code{lilypond -fpng @var{filename}.ly}
 
+@noindent
+For @code{svg} and @code{eps} formats use the @code{-dbackend} option.
+See @ref{Advanced command line options for LilyPond}.
+
 @item -h, --help
 Show a summary of usage.
 
@@ -481,21 +485,22 @@ included.
 @item
 @tab @code{svg}
 @tab Scalable Vector Graphics.
-A single SVG file is created for every page of output.  Apart from
-LilyPond's own music glyphs, no other font information will be included.
-Any SVG viewer will therefore require the fonts be available to it for
-the proper rendering of both text and lyrics.  It is recommended to not
-to use font @q{aliases} or @q{lists} in case the SVG viewer is unable to
-handle them.  When using @emph{Web Open Font Format} (WOFF) files the
-additional @code{--svg-woff} switch is required.
+A single SVG file is created for every page of output.  Music glyphs
+are encoded as vector graphics, but text fonts are @emph{not} embedded
+in the SVG files.  Any SVG viewer will therefore need the relevant text
+fonts to be available to it for proper rendering of both text and
+lyrics.  It is recommended to not use font @q{lists} or @q{aliases}
+in case an SVG viewer is unable to handle them.  When using
+@emph{Web Open Font Format} (WOFF) files the additional
+@code{--svg-woff} switch is required.
 @end multitable
 
 @noindent
 @strong{Note for backend svg output:}
-LilyPond's default fonts (@code{LilyPond Serif},
-@code{LilyPond Sans Serif} and @code{LilyPond Monospace}) are just
-@emph{local} font aliases.  Therefore, when using the backend @code{svg}
-command you must explicitly define the default fonts in your source
+By default in svg output LilyPond will use the generic
+@code{font-family} values of @code{serif}, @code{sans-serif}, or
+@code{monospace}.  Therefore, when using the backend @code{svg} command
+you should explicitly define particular default fonts in your source
 file;
 
 @quotation

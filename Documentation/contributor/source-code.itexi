@@ -848,7 +848,8 @@ The branches are kept for archival reasons.
 * The Git contributor's cycle::
 * Pulling and rebasing::
 * Using local branches::
-* Commits and patches::
+* Commits::
+* Patches::
 @end menu
 
 
@@ -940,7 +941,7 @@ refusing to pull with rebase: your working tree is not up-to-date
 
 @noindent
 it means that you have modified some files in you working tree
-without committing changes (see @ref{Commits and patches}); you
+without committing changes (see @ref{Commits}); you
 can use the @command{git@tie{}stash} command to work around this:
 
 @example
@@ -1088,16 +1089,14 @@ to merge @code{translation} into @code{staging} whenever he has
 checked that @code{translation} builds successfully.
 
 
-@node Commits and patches
-@subsection Commits and patches
+@node Commits
+@subsection Commits
 
 
 @menu
 * Understanding commits::
 * Making commits::
 * Commit messages::
-* Making patches::
-* Uploading a patch for review::
 @end menu
 
 
@@ -1246,6 +1245,16 @@ website should use @qq{Web:@tie{}} for English, and
 to a single file are often prefixed with the name of the file
 involved.  Visit the links listed in @ref{Understanding commits}
 for examples.
+
+
+@node Patches
+@subsection Patches
+
+
+@menu
+* Making patches::
+* Uploading a patch for review::
+@end menu
 
 
 @node Making patches
