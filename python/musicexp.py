@@ -57,8 +57,8 @@ class Output_printer(object):
     def set_file (self, file):
         self._file = file
 
-    def dump_version (self):
-        self.print_verbatim ('\\version "2.19.15"')
+    def dump_version (self, version):
+        self.print_verbatim ('\\version "' + version + '"')
         self.newline ()
 
     def get_indent (self):

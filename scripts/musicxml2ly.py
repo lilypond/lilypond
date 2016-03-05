@@ -2776,7 +2776,7 @@ If the given filename is -, musicxml2ly reads from the command line.
                  action="help",
                  help=_("show this help and exit"))
 
-    p.version = ('''%prog (LilyPond) @TOPLEVEL_VERSION@\n\n'''
+    p.version = ('%prog (LilyPond) ' + lilypond_version + '\n\n'
 +
 _ ("""Copyright (c) 2005--2015 by
     Han-Wen Nienhuys <hanwen@xs4all.nl>,
@@ -3056,7 +3056,7 @@ def update_layout_information():
 #  \n\t\t\t\t\\override StringNumber #\'stencil = ##f
 
 def print_ly_preamble(printer, filename):
-    printer.dump_version()
+    printer.dump_version(lilypond_version)
     printer.print_verbatim('% automatically converted by philomelos musicxml2ly v0.2.41\n')
     printer.newline()
     printer.dump(r'\pointAndClickOff')
@@ -3217,6 +3217,8 @@ def get_existing_filename_with_extension(filename, ext):
 
 
 def main():
+    global lilypond_version
+    lilypond_version = "@TOPLEVEL_VERSION@"
     opt_parser = option_parser()
 
     global options
