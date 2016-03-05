@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 88a5dbc589b0d0434f8e640467b5ab57d14dc461
+   Translation of GIT committish: e24e696a96246a77bfba48d97ef063209919fed6
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -964,7 +964,6 @@ encourageons les étudiants à candidater pour les sessions à venir.
 
 Si vous avez des questions à ce sujet ou avez envie d'y participer,
 contactez-nous sur la liste des développeurs (voir @ref{Contact}).
-
 @divEnd
 
 
@@ -972,31 +971,57 @@ contactez-nous sur la liste des développeurs (voir @ref{Contact}).
 @subheading Recensement de nos idées
 @c VO Project Ideas List
 
-Voici les projets que nous avons proposés aux étudiants du GSoC 2012.
-Nous avons décidé de maintenir en ligne cette page du site, comme source
-d'inspiration pour ceux qui seraient intéressés au développement de
-LilyPond.  Des membres de l'équipe de développement aideront volontiers
-ceux qui aimeraient s'attaquer à l'un de ces projets.
+Voici une liste de projets que nous avons proposés aux étudiants du GSoC
+et à quiconque aurait envie d'améliorer LilyPond.@*
+Dernière mise à jour : février 2016.
 
-Il y a bien d'autres choses à améliorer dans LilyPond et les membres de
-l'équipe de développement aideront volontiers ceux qui aimeraient s'y
-atteler.
+La disponibilité de tuteurs diffère selon les projets et les années.
+Contactez-nous sur la liste des développeurs -- voir @ref{Contact} -- et
+nous vous aiderons à trouver un mentor pour le projet qui correspond à
+vos envies et aptitudes.
+
+Si vous avez d'autres idées de projet dans le cadre du GSoC, n'hésitez
+pas à nous en faire part.  Il y a bien d'autres choses à améliorer dans
+LilyPond et les membres de l'équipe de développement aideront volontiers
+ceux qui aimeraient s'y atteler.
 
 Une liste exhaustive des problèmes est disponible
 @uref{http://sourceforge.net/p/lilypond/issues/list, ici}.
-
 @divEnd
+
+
+@divClass{column-center-middle-color3}
+@subheading Amélioration de la structure interne des accords
+@c VO Improve internal chord structure
+
+La structure interne des accords dans LilyPond n'est pas suffisamment
+puissante pour tenir compte de la nomneclature des accords de jazz.
+Pour l'instant, un accord comporte une fondamentale, une basse et un
+renversement.  Il serait souhaitable d'arriver à gérer les amalgames ou
+polyaccords, qu'ils soient majeur ou mineur, etc.  Seule le
+développement d'une représentation interne capable de capturer l'essence
+d'accords complexes permettra d'y parvenir.  Cette représentation
+interne une fois développée permettra par ailleurs d'améliorer le rendu
+des accords nommés.
+
+@strong{Difficulté :} moyennement facile
+@strong{Préalables :} Scheme (Guile), mais le niveau nécessaire peut
+s'acquérir aisément.
+@strong{Connaissances appréciées :} Théorie des accords et de leur nommage
+@strong{Mentor :} Carl Sorensen
+@divEnd
+
 
 @divClass{column-center-middle-color3}
 @subheading ScholarLY
 
-ScholarLY est une bibliothèque de
-@uref{https://github.com/openlilylib/snippets, openLilyLib} qui fournit
-des fonctionnalités permettant de gérer diresctement dans le contexte de
-la partition le flux de travail d'une « édition savante ».  Il est à ce
-jour possible de saisir différents types d'annotations, produire des
-messages cliquables en console et exporter du texte dans des fichiers
-@LaTeX{}.
+ScholarLY est une bibliothèque hébergée sur
+@uref{https://openlilylib.org, openLilyLib} et qui fournit des
+fonctionnalités permettant, grâce à des annotations, de gérer
+directement dans le contexte de la partition le flux de travail d'une
+« édition savante ».  Il est à ce jour possible de saisir différents
+types d'annotations, produire des messages cliquables en console et
+exporter du texte dans des fichiers @LaTeX{}.
 
 Un certain nombre de demandes d'extension permettraient de transformer
 cette bibliothèque en un outil encore plus puissant et complet, par
@@ -1005,15 +1030,41 @@ bas de page ou l'application de styles particuliers -- mise en pointillé
 d'une liaison, mise entre parenthèses d'un altération, etc. -- ou la
 création de rapports avec des liens inter-documents.  Pour une
 description complète des suggestions autour de ce projet, visitez
-@uref{https://github.com/openlilylib/scholarly/wiki/GSoC}.
+@uref{https://github.com/openlilylib/scholarly/wiki/GSoC, ce Wiki}.
 
 @strong{Difficulté :} moyenne
 @strong{Préalables :} Scheme, peut-être @LaTeX{}, (Python optionnel)
-@strong{Recommandé :} Expérience ou intérêt dans l'édition critique et
-les flux collaboratifs.
-@strong{Mentor potentiel :} Urs Liska
-
+@strong{Connaissances appréciées :} Expérience ou intérêt dans l'édition
+critique et les flux collaboratifs.
+@strong{Mentor :} Urs Liska
 @divEnd
+
+
+@divClass{column-center-middle-color3}
+@subheading Ajout de variantes pour certains glyphes
+@c VO Adding variants of font glyphs
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+Ajout de variantes positionnables « sur une ligne » et « dans un
+interligne ».
+
+@item
+Ajout de variantes plus courtes ou plus étroites pour certains glyphes
+comme les altérations. Autre exemple, dans le domaine de la notation
+ancienne, avec deux variantes de la brève, l'une avec un évidement plus
+important que l'autre.
+@end itemize
+@divEnd
+
+@strong{Difficulté :} facile
+@strong{Préalables :} MetaFont, C++, une bonne vue pour les détails
+@strong{Connaissances appréciées :} les bases de LilyPond
+@strong{Mentor potentiel :} Werner Lemberg
+@divEnd
+
 
 @divClass{column-center-middle-color3}
 @subheading Notes d'ornement @emph{(grace notes)}
@@ -1022,12 +1073,86 @@ Résolution des problèmes de synchronisation des notes d'ornement.  Les
 notes d'ornement peuvent venir perturber LilyPond dans sa gestion du
 temps et entraîner des effets indésirables tout particulièrement
 lorsqu'elles interviennent dans une portée seulement.
+Il s'agit @uref{https://sourceforge.net/p/testlilyissues/issues/34/, là}
+de l'un des bogues les plus vieux et embarrassants pour LilyPond.
 
 @strong{Difficulté :} moyenne
 @strong{Préalables :} C++, MIDI
-@strong{Recommandé :} familiarité avec les arcanes de LilyPond
-@strong{Mentors potentiels :} Mike Solomon, Carl Sorensen
+@strong{Connaissances appréciées :} familiarité avec les arcanes de
+LilyPond
+@strong{Mentors potentiels :} Mike Solomon (indisponible pour le GSoc
+2016), Carl Sorensen
+@divEnd
 
+
+@divClass{column-center-middle-color3}
+@subheading Amélioration du positionnement par défaut des ligatures
+@c VO Improve default beam positioning
+
+Une ligature, qu'elle soit rectiligne, passe d'une portée à l'autre,
+discontinue ou coudée, devrait dépendre du contexte et des notes
+adjacentes (voir
+@uref{http://icking-music-archive.org/lists/sottisier/sottigra.pdf,
+la section 2.2 de cet article}).  Dans la mesure du possible, raccourcir
+le temps de calcul nécessaire à la génération des ligatures.
+
+@strong{Difficulté :} moyenne
+@strong{Préalables :} C++, expérience dans l'écriture d'heuristiques
+@strong{Connaissance appréciée :} sens de l'esthétique
+@strong{Mentors potentiels :} Mike Solomon (indisponible pour le GSoc
+2016), Carl Sorensen
+@divEnd
+
+
+@divClass{column-center-middle-color3}
+@subheading Permettre aux bandeaux ou extensions de naviguer entre les voix
+@c VO Allow spanners to cross voices
+
+Jusqu'à présent, les différents bandeaux ou extenseurs, qu'il s'agisse de
+liaison de tenue ou non, de nuances, de prolongateurs de texte, de
+trilles, etc. doivent se terminer dans le contexte même où ils ont été
+entamés.  Ceci néanmoins ne reflète pas la réalité de la notation dans
+la plupart des situations polyphoniques.  La seule échappatoire, pour
+l'instant, consiste à recourir à des voix masquées.
+
+De nouveaux moyens de faire face à cette situation pourraient être
+envisagés, comme
+
+@divClass{keep-bullets}
+@itemize
+
+@item la spécification du « contexte cible » où la terminaison de
+l'extension est attendue,
+
+@item l'affectation d'un ID à l'objet où intervient la terminaison.
+
+@end itemize
+@divEnd
+
+Cette fonctionnalité permettrait de résoudre nombre de problèmes
+courants en matière de partition pianistique ou lors de combinaisons de
+parties.
+
+@strong{Difficulté :} moyenne (?)
+@strong{Préalables :} C++, Scheme
+@strong{Mentor potentiel :} Urs Liska
+@divEnd
+
+
+@divClass{column-center-middle-color3}
+@subheading Aide à l'amélioration du comportement lors de la compilation
+@c VO Help improve compilation behavior
+
+Les outils d'analyse comme @emph{valgrind} pour la détection de fuites
+de mémoire ou @emph{callgrind} pour le profilage du code, fournissent
+des informations précieuses quant à d'éventuelles faiblesses du
+code C++.  Faire le ménage dans tous ces messages nous permettrait de
+rejeter tout patch qui introduirait des messages superflus.
+
+@strong{Difficulté :} moyenne
+@strong{Préalable :} C++
+@strong{Mentors potentiels :} Joe Neeman, Reinhold Kainhofer
+(indisponible pour le GSoc 2016)
 @divEnd
 
 
@@ -1066,8 +1191,9 @@ de mise en forme pour tout objet de rendu dans les  balises XML.
 @divEnd
 
 @strong{Difficulté :} moyenne
-@strong{Préalables :} MusicXML, Python, les bases de LilyPond
-@strong{Mentors potentiels :} Reinhold Kainhofer, Mike Solomon
+@strong{Préalables :} MusicXML, Python, Scheme, les bases de LilyPond
+@strong{Mentors potentiels :} Reinhold Kainhofer, Mike Solomon (tous
+deux indisponibles pour le GSoc 2016)
 
 La connaissance d'autres éditeurs de partition, dans un but de tests
 comparatifs, constituerait une aide.
@@ -1087,72 +1213,10 @@ du résultat optimal et l'écriture du code approprié.
 @strong{Difficulté :} difficile
 @strong{Préalables :} C++, expérience dans l'écriture d'heuristiques
 @strong{Connaissances appréciées :} LilyPond, sens de l'esthétique
-@strong{Mentor potentiel :} Mike Solomon
-
+@strong{Mentor potentiel :} Mike Solomon, Janek Warchoł (tous deux
+indisponibles pour le GSoc 2016)
 @divEnd
 
-
-@divClass{column-center-middle-color3}
-@subheading Ajout de variantes pour certains glyphes
-
-Il s'agit ici de pouvoir disposer de variantes, sur la ligne ou entre
-deux lignes, plus courts ou plus étroits, pour certains glyphes -- les
-altérations par exemple -- ainsi que d'une infrastructure générique de
-gestion.  Autre exemple, dans le domaine de la notation ancienne, avec
-deux variantes de la brève, l'une avec un évidement plus important que
-l'autre.
-
-@divClass{keep-bullets}
-@itemize
-
-@item
-Ajout de variantes positionnables « sur une ligne » et « dans un
-interligne ».
-
-@end itemize
-@divEnd
-
-
-@strong{Difficulté :} facile
-@strong{Préalables :} MetaFont, C++, une bonne vue pour les détails
-@strong{Connaissance appréciée :} les bases de LilyPond
-@strong{Mentor potentiel :} Werner Lemberg
-
-@divEnd
-
-
-@divClass{column-center-middle-color3}
-@subheading Amélioration du positionnement par défaut des ligatures
-
-Une ligature, qu'elle soit rectiligne, passe d'une portée à l'autre,
-discontinue ou coudée, devrait dépendre du contexte et des notes
-adjacentes (voir
-@uref{http://icking-music-archive.org/lists/sottisier/sottigra.pdf,
-la section 2.2 de cet article}).  Dans la mesure du possible, raccourcir
-le temps de calcul nécessaire à la génération des ligatures.
-
-@strong{Difficulté :} moyenne
-@strong{Préalables :} C++, expérience dans l'écriture d'heuristiques
-@strong{Connaissance appréciée :} sens de l'esthétique
-@strong{Mentors potentiels :} Mike Solomon, Carl Sorensen
-
-@divEnd
-
-
-@divClass{column-center-middle-color3}
-@subheading Aide à l'amélioration du comportement lors de la compilation
-
-Les outils d'analyse comme @emph{valgrind} pour la détection de fuites
-de mémoire ou @emph{callgrind} pour le profilage du code, fournissent
-des informations précieuses quant à d'éventuelles faiblesses du
-code C++.  Faire le ménage dans tous ces messages nous permettrait de
-rejeter tout patch qui introduirait des messages superflus.
-
-@strong{Difficulté :} moyenne
-@strong{Préalable :} C++
-@strong{Mentors potentiels :} Joe Neeman, Reinhold Kainhofer
-
-@divEnd
 
 
 @node Auteurs
