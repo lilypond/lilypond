@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is included from notation.itely
 @ignore
-    Translation of GIT committish: ed1acf4b9b63f6acdb4feb24eb4acf3f83548319
+    Translation of GIT committish: a22f2ad68fccb81e52f805ba69cb8c0e6bf8cd82
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -16,8 +16,8 @@
 
 @lilypondfile[quote]{editorial-headword.ly}
 
-Esta sección trata de las diversas maneras de modificar el aspecto de
-las notas y de aplicar énfasis analítico o educativo.
+Esta sección trata de las diversas maneras de modificar el aspecto
+de las notas y de aplicar énfasis analítico o educativo.
 
 @menu
 * Dentro del pentagrama::
@@ -29,8 +29,8 @@ las notas y de aplicar énfasis analítico o educativo.
 @subsection Dentro del pentagrama
 @translationof Inside the staff
 
-Esta sección trata sobre cómo aplicar énfasis a los elementos situados
-dentro del pentagrama.
+Esta sección trata sobre cómo aplicar énfasis a los elementos
+situados dentro del pentagrama.
 
 @menu
 * Seleccionar el tamaño de la tipografía para la notación::
@@ -52,64 +52,229 @@ dentro del pentagrama.
 
 @funindex fontSize
 @funindex font-size
+@funindex magnification->font-size
 @funindex magstep
-@funindex \huge
-@funindex \large
+@funindex magnifyMusic
+@funindex teeny
+@funindex tiny
+@funindex small
+@funindex normalsize
+@funindex large
+@funindex huge
+@funindex \magnifyMusic
+@funindex \teeny
+@funindex \tiny
 @funindex \normalsize
 @funindex \small
-@funindex \tiny
-@funindex \teeny
-@funindex huge
-@funindex large
-@funindex normalsize
-@funindex small
-@funindex tiny
-@funindex teeny
+@funindex \large
+@funindex \huge
 
-Se puede alterar el tamaño de la fuente tipográfica de los elementos
-de notación.  Esto no cambia el tamaño de los símbolos variables, como
-las barras de corchea o las ligaduras.
+@warning{@*
+Para el tamaño de la tipografía del texto, consulte @ref{Seleccionar la tipografía y su tamaño}.@*
+Para el tamaño del pentagrama, consulte @ref{Establecer el tamaño del pentagrama}.@*
+Para las notas guía, consulte @ref{Formateo de las notas guía}.@*
+Para los pentagramas de Ossia, consulte @ref{Pentagramas de Ossia}.}
 
-@warning{Para los tamaños de tipografía del texto, consulte
-@ref{Seleccionar la tipografía y su tamaño}.}
+Para modificar el tamaño de la notación sin cambiar el tamaño del
+pentagrama, especifique un factor de ampliación con la instrucción
+@code{\magnifyMusic}:
 
-@lilypond[verbatim,quote,relative=2]
-\huge
-c4.-> d8---3
-\large
-c4.-> d8---3
-\normalsize
-c4.-> d8---3
-\small
-c4.-> d8---3
-\tiny
-c4.-> d8---3
-\teeny
-c4.-> d8---3
+@c Grieg Piano Concerto (mvt.1 cadenza)
+@lilypond[verbatim,quote]
+\new Staff <<
+  \new Voice \relative {
+    \voiceOne
+    <e' e'>4 <f f'>8. <g g'>16 <f f'>8 <e e'>4 r8
+  }
+  \new Voice \relative {
+    \voiceTwo
+    \magnifyMusic 0.63 {
+      \override Score.SpacingSpanner.spacing-increment = #(* 1.2 0.63)
+      r32 c'' a c a c a c r c a c a c a c
+      r c a c a c a c a c a c a c a c
+    }
+  }
+>>
 @end lilypond
 
-Internamente, esto establece un valor para la propiedad
-@code{fontSize}.  Esto, a su vez, hace que se establezca el valor de
-la propiedad @code{font-size} de todos los objetos de presentación.
-El valor de @code{font-size} es un número que indica el tamaño con
-relación al tamaño estándar para la altura vigente del pentagrama.
-Cada unidad hacia arriba es un incremento de un 12% del tamaño de la
-fuente, aproximadamente.  Seis unidades son exactamente un factor de
-dos.  La función de Scheme @code{magstep} convierte un número de
-tamaño @code{font-size} a un factor de escalado.  La propiedad
-@code{font-size} también se puede establecer directamente, de forma
-que queden afectados solamente determinados objetos gráficos.
+El @code{\override} del ejemplo anterior es una solución
+provisional para solventar un fallo del programa.  Consulte el
+apartado de @qq{Problemas y advertencias conocidos} al final de
+esta sección.
 
-@lilypond[verbatim,quote,relative=2]
-\set fontSize = #3
-c4.-> d8---3
-\override NoteHead.font-size = #-4
-c4.-> d8---3
-\override Script.font-size = #2
-c4.-> d8---3
-\override Stem.font-size = #-5
-c4.-> d8---3
+Si una figura con un tamaño normal de cabeza se mezcla con otra
+más pequeña, el tamaño de la menor podría necesitar reiniciarse
+(con @w{@samp{\once@tie{}\normalsize}}) para que las plicas y las
+alteraciones accidentales mantengan una buena alineación:
+
+@c Chopin Prelude op.28 no.8
+@lilypond[verbatim,quote]
+\new Staff <<
+  \key fis \minor
+  \mergeDifferentlyDottedOn
+  \new Voice \relative {
+    \voiceOne
+    \magnifyMusic 0.63 {
+      \override Score.SpacingSpanner.spacing-increment = #(* 1.2 0.63)
+      \once \normalsize cis'32( cis' gis b a fis \once \normalsize d d'
+      \once \normalsize cis, cis' gis b a gis \once \normalsize fis fis'
+      \once \normalsize fis, fis' ais, cis b gis \once \normalsize eis eis'
+      \once \normalsize a, a' bis, d cis b \once \normalsize gis gis')
+    }
+  }
+  \new Voice \relative {
+    \voiceTwo
+    cis'8. d16 cis8. fis16 fis8. eis16 a8. gis16
+  }
+>>
 @end lilypond
+
+La instrucción @code{\magnifyMusic} no está pensada para las notas
+guía, de adorno, o para los pentagramas de Ossia; existen métodos
+más apropiados para la introducción de cada uno de esos elementos.
+En vez de ello, es útil cuando el tamaño de la notación cambia
+dentro de una sola parte instrumental sobre un pentagrama, y
+cuando las notas de adorno no son adecuadas, como en pasajes de
+tipo cadencial o en casos como los de los ejemplos anteriores.
+Establecer el valor de @code{\magnifyMusic} a 0.63 duplica las
+dimensiones del contexto @code{CueVoice}.
+
+@warning{La instrucción @code{@bs{}magnifyMusic} @i{no} debe
+utilizarse si se está cambiando el tamaño del pentagrama al mismo
+tiempo.  Consulte @ref{Establecer el tamaño del pentagrama}.}
+
+
+@subsubsubheading Cambiar el temaño de los objetos individuales
+
+Un objeto de presentación individual se puede cambiar de tamaño
+usando las instrucciones @code{\tweak} u @code{\override} para
+ajustar su propiedad @code{font-size}:
+
+@lilypond[quote,verbatim]
+\relative {
+  % resize a note head
+  <f' \tweak font-size -4 b e>-5
+  % resize a fingering
+  bes-\tweak font-size 0 -3
+  % resize an accidental
+  \once \override Accidental.font-size = -4 bes!-^
+  % resize an articulation
+  \once \override Script.font-size = 4 bes!-^
+}
+@end lilypond
+
+El valor predeterminado de @code{font-size} para cada objeto de
+presentación está relacionado en el Manual de Referencia de
+funcionamiento interno.  La propiedad @code{font-size} solamente
+se puede fijar para los objetos de presentación que contemplan la
+interfaz de presentación @code{font-interface}.  Si no está
+especificado @code{font-size} en la lista de
+@q{Ajustes@tie{}estándar} del objeto, su valor es 0.  Véase
+@rinternals{All layout objects}.
+
+
+@subsubsubheading Comprensión de la propiedad @code{fontSize}
+
+La propiedad de contexto @code{fontSize} ajusta el tamaño relativo
+de todos los elementos de notación basados en glifos dentro de un
+contexto:
+
+@lilypond[verbatim,quote]
+\relative {
+  \time 3/4
+  d''4---5 c8( b a g) |
+  \set fontSize = -6
+  e'4-- c!8-4( b a g) |
+  \set fontSize = 0
+  fis4---3 e8( d) fis4 |
+  g2.
+}
+@end lilypond
+
+El valor de @code{fontSize} es un número que indica el tamaño
+relativo al tamaño estándar para la altura actual del pentagrama.
+El valor predeterminado de @code{fontSize} es 0; la adición de 6 a
+cualquier valor de @code{fontSize} duplica el tamaño impreso de
+los glifos, y la sustracción de 6 reduce el tamaño a la mitad.
+Cada paso aumenta el tamaño en un 12% aproximadamente.
+
+La función de Scheme @code{magnification->font-size} se provee por
+conveniencia, pues las unidades logarítmicas de la propiedad
+@code{font-size} no son totalmente intuitivas.  Por ejemplo, para
+ajustar la notación musical al 75% del tamaño predeterminado,
+usamos:
+
+@example
+\set fontSize = #(magnification->font-size 0.75)
+@end example
+
+La función de Scheme @code{magstep} tiene el efecto opuesto:
+convierte un valor de @code{font-size} en un factor de ampliación.
+
+La propiedad @code{fontSize} no afecta solamente a los elementos
+notacionales que se dibujan con glifos, como la cabeza de las
+figuras, las alteraciones accidentales, las inscripciones
+textuales, etc.  No afecta al tamaño de la propia pauta, ni cambia
+la escala de las plicas, barras, o espaciado horizontal.  Para
+cambiar la escala de las plicas, barras y el espaciado horizontal
+junto con el tamaño de la notación (sin cambiar el tamaño de la
+pauta), use la instrucción @code{\magnifyMusic} que se ha
+explicado anteriormente.  Para cambiar la escala del tamaño de
+todo, incluida la pauta, véase
+@ref{Establecer el tamaño del pentagrama}.
+
+Siempre que se establece el valor de la @i{propiedad de contexto}
+@code{fontSize}, su valor se añade al valor de la @i{propiedad de
+objeto gráfico} @code{font-size} para los objetos de presentación
+individuales, antes de que se imprima cualquiera de los glifos.
+Esto puede causar confusión cuando se fija el valor de las
+propiedades @code{font-size} individuales mientras @code{fontSize}
+ya está fijado:
+
+@lilypond[verbatim,quote,fragment]
+% the default font-size for NoteHead is 0
+% the default font-size for Fingering is -5
+c''4-3
+
+\set fontSize = -3
+% the effective font size for NoteHead is now -3
+% the effective font size for Fingering is now -8
+c''4-3
+
+\override Fingering.font-size = 0
+% the effective font size for Fingering is now -3
+c''4-3
+@end lilypond
+
+Las siguientes instrucciones de atajo también están disponibles:
+
+@multitable @columnfractions .2 .4 .4
+@item @b{Instrucción} @tab @b{Equivalente a} @tab @b{Tamaño relativo}
+@item @code{\teeny}      @tab @code{\set fontSize = -3} @tab 71%
+@item @code{\tiny}       @tab @code{\set fontSize = -2} @tab 79%
+@item @code{\small}      @tab @code{\set fontSize = -1} @tab 89%
+@item @code{\normalsize} @tab @code{\set fontSize = 0} @tab 100%
+@item @code{\large}      @tab @code{\set fontSize = 1} @tab 112%
+@item @code{\huge}       @tab @code{\set fontSize = 2} @tab 126%
+@end multitable
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \teeny
+  c4.-> d8---3
+  \tiny
+  c4.-> d8---3
+  \small
+  c4.-> d8---3
+  \normalsize
+  c4.-> d8---3
+  \large
+  c4.-> d8---3
+  \huge
+  c4.-> d8---3
+}
+@end lilypond
+
 
 @cindex estándar, tamaño de la tipografía (de notación)
 @cindex fuente tipográfica (de notación), tamaño estándar de
@@ -118,16 +283,15 @@ c4.-> d8---3
 @funindex font-size
 
 Los cambios en el tamaño de la fuente se obtienen por medio del
-escalado del tamaño del diseño que se encuentra más cerca del tamaño
-deseado.  El tamaño estándar para la tipografía (para @code{font-size
-= #0}), depende de la altura estándar del pentagrama.  Para un
-pentagrama de 20 puntos, se selecciona una fuente de 11 puntos.
+escalado del tamaño del diseño que se encuentra más cerca del
+tamaño deseado.  El tamaño estándar para la tipografía (para
+@w{@code{font-size = 0}}) depende de la altura estándar del
+pentagrama.  Para un pentagrama de 20 puntos, se selecciona una
+fuente de 11 puntos.
 
-La propiedad @code{font-size} sólo se puede establecer en objetos
-gráficos que utilicen fuentes tipográficas.  Éstos son los que
-contemplan el interfaz de presentación @code{font-interface}.
 
 @predefined
+@code{\magnifyMusic},
 @code{\teeny} (enano),
 @code{\tiny} (muy pequeño),
 @code{\small} (pequeño),
@@ -137,11 +301,44 @@ contemplan el interfaz de presentación @code{font-interface}.
 @endpredefined
 
 @seealso
+Notation Reference:
+@ref{Seleccionar la tipografía y su tamaño},
+@ref{Establecer el tamaño del pentagrama},
+@ref{Formateo de las notas guía},
+@ref{Pentagramas de Ossia}.
+
+Installed Files:
+@file{ly/music-functions-init.ly},
+@file{ly/property-init.ly}.
+
 Fragmentos de código:
 @rlsr{Editorial annotations}.
 
 Referencia de funcionamiento interno:
 @rinternals{font-interface}.
+
+@c The two issues mentioned below:
+@c http://code.google.com/p/lilypond/issues/detail?id=3987
+@c http://code.google.com/p/lilypond/issues/detail?id=3990
+@knownissues
+Actualmente hay dos falos del programa que impiden un correcto
+espaciado horizontal al usar @code{\magnifyMusic}.  Solamente
+existe una forma de circunventarlo, y su funcionamiento correcto
+no está garantizado en todos los casos.  En el ejemplo que aparece
+a continuación, sustituya la variable @var{mag} con su valor
+preferido.  También puede tratar de quitar una o ambas
+instrucciones @code{\newSpacingSection}, y/o las instrucciones
+@code{\override} y @code{\revert}:
+
+@example
+\magnifyMusic @var{mag} @{
+  \newSpacingSection
+  \override Score.SpacingSpanner.spacing-increment = #(* 1.2 @var{mag})
+  [@var{music}]
+  \newSpacingSection
+  \revert Score.SpacingSpanner.spacing-increment
+@}
+@end example
 
 
 @node Indicaciones de digitación
@@ -161,7 +358,8 @@ Las instrucciones de digitación se pueden introducir usando
 \relative { c''4-1 d-2 f-4 e-3 }
 @end lilypond
 
-Para los cambios de dedo se pueden usar elementos de marcado de texto o de cadenas de caracteres.
+Para los cambios de dedo se pueden usar elementos de marcado de
+texto o de cadenas de caracteres.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -174,8 +372,8 @@ Para los cambios de dedo se pueden usar elementos de marcado de texto o de caden
 @funindex \thumb
 @funindex thumb
 
-Puede usar la articulación de pulgar para indicar que una nota se debe
-tocar con el pulgar (p.ej. en música de violoncello).
+Puede usar la articulación de pulgar para indicar que una nota se
+debe tocar con el pulgar (p.ej. en música de violoncello).
 
 @lilypond[verbatim,quote]
 \relative { <a'_\thumb a'-3>2 <b_\thumb b'-3> }
@@ -185,8 +383,8 @@ tocar con el pulgar (p.ej. en música de violoncello).
 @cindex digitación, instrucciones de, para acordes
 @cindex acordes, digitación de
 
-Las digitaciones para los acordes también se pueden añadir a las notas
-individuales escribiéndolas después de las alturas.
+Las digitaciones para los acordes también se pueden añadir a las
+notas individuales escribiéndolas después de las alturas.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -194,8 +392,8 @@ individuales escribiéndolas después de las alturas.
 }
 @end lilypond
 
-Las indicaciones de digitación se pueden situar manualmente encima o
-debajo del pentagrama, véase @ref{Dirección y posición}.
+Las indicaciones de digitación se pueden situar manualmente encima
+o debajo del pentagrama, véase @ref{Dirección y posición}.
 
 @snippets
 
@@ -240,7 +438,8 @@ Referencia de funcionamiento interno:
 @funindex unHideNotes
 
 Las notas ocultas (o invisibles, o transparentes) pueden ser de
-utilidad en la preparación de ejercicios de teoría o de composición.
+utilidad en la preparación de ejercicios de teoría o de
+composición.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -257,9 +456,9 @@ utilidad en la preparación de ejercicios de teoría o de composición.
 @end lilypond
 
 La cabeza, la plica y el corchete de las figuras, así como los
-silencios, son invisibles.  Las barras son invisibles si comienzan en
-una nota oculta.  Los objetos de notación que están anclados a notas
-invisibles, son a pesar de ello visibles.
+silencios, son invisibles.  Las barras son invisibles si comienzan
+en una nota oculta.  Los objetos de notación que están anclados a
+notas invisibles, son a pesar de ello visibles.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -268,6 +467,7 @@ invisibles, son a pesar de ello visibles.
   e8(\p f g a)--
 }
 @end lilypond
+
 
 @predefined
 @code{\hideNotes},
@@ -312,8 +512,9 @@ Referencia de funcionamiento interno:
 @funindex with-color
 @funindex x11-color
 
-Se pueden asignar colores a los objetos individuales.  Los nombres de
-color válidos se encuentran relacionados en la @ref{Lista de colores}.
+Se pueden asignar colores a los objetos individuales.  Los nombres
+de color válidos se encuentran relacionados en la @ref{Lista de
+colores}.
 
 @lilypond[verbatim,quote,fragment]
 \override NoteHead.color = #red
@@ -325,15 +526,16 @@ e''
 @end lilypond
 
 Se puede acceder al espectro completo de colores definido para X11
-usando la función de Scheme x11-color.  Esta función acepta un único
-argumento; éste puede ser un símbolo de la forma @code{@var{'FulanoMengano}}
-o una cadena de la forma @code{"@var{FulanoMengano}"}.  La primera forma es
-más rápida de escribir y también más eficiente.  Sin embargo, al usar
-la segunda forma es posible acceder a los colores de X11 por medio de
-la forma del nombre que tiene varias palabras.
+usando la función de Scheme x11-color.  Esta función acepta un
+único argumento; éste puede ser un símbolo de la forma
+@code{@var{'FulanoMengano}} o una cadena de la forma
+@code{"@var{FulanoMengano}"}.  La primera forma es más rápida de
+escribir y también más eficiente.  Sin embargo, al usar la segunda
+forma es posible acceder a los colores de X11 por medio de la
+forma del nombre que tiene varias palabras.
 
-Si @code{x11-color} no entiende el parámetro, el color predeterminado
-que se devuelve es el negro.
+Si @code{x11-color} no entiende el parámetro, el color
+predeterminado que se devuelve es el negro.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -396,18 +598,20 @@ Fragmentos de código:
 @funindex x11-color
 
 @knownissues
-Un color de X11 no es necesariamente de la misma tonalidad exacta que
-un color normal de nombre similar.
+Un color de X11 no es necesariamente de la misma tonalidad exacta
+que un color normal de nombre similar.
 
 No todos los colores de X11 se distinguen entre sí en un navegador
 web, es decir, un navegador de web podría no mostrar ninguna
-diferencia entre @code{LimeGreen} (verde lima) y @code{ForestGreen}
-(verde bosque).  Para la web se recomiendan los colores normales (o
-sea: @code{blue}, azul, @code{green}, verde, @code{red}, rojo).
+diferencia entre @code{LimeGreen} (verde lima) y
+@code{ForestGreen} (verde bosque).  Para la web se recomiendan los
+colores normales (o sea: @code{blue}, azul, @code{green}, verde,
+@code{red}, rojo).
 
-Las notas de un acorde no se pueden colorear con @code{\override}; en
-su lugar utilice @code{\tweak}.  Consulte @ref{La instrucción tweak} para
-ver más detalles.
+Las notas de un acorde no se pueden colorear individualmente con
+@code{\override}; en su lugar utilice @code{\tweak} o su
+equivalente @code{\single\override} antes de la nota respectiva.
+Consulte @ref{La instrucción tweak} para ver más detalles.
 
 
 @node Paréntesis
@@ -425,8 +629,8 @@ ver más detalles.
 
 Los objetos se pueden encerrar entre paréntesis anteponiendo
 @code{\parenthesize} al evento musical.  Si se aplica a un acorde,
-encierra cada nota dentro de un par de paréntesis.  También se pueden
-poner entre paréntesis las notas individuales de un acorde.
+encierra cada nota dentro de un par de paréntesis.  También se
+pueden poner entre paréntesis las notas individuales de un acorde.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -436,9 +640,9 @@ poner entre paréntesis las notas individuales de un acorde.
 }
 @end lilypond
 
-Los objetos que no son notas también se pueden poner entre paréntesis.
-Para las articulaciones se necesita un guión antes de la instrucción
-@code{\parenthesize}.
+Los objetos que no son notas también se pueden poner entre
+paréntesis.  Para las articulaciones se necesita un guión antes de
+la instrucción @code{\parenthesize}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -457,9 +661,9 @@ Referencia de funcionamiento interno:
 @rinternals{parentheses-interface}.
 
 @knownissues
-Al poner un acorde entre paréntesis, se encierra cada una de las notas
-individuales entre paréntesis, en vez de un solo paréntesis grande
-rodeando al acorde completo.
+Al poner un acorde entre paréntesis, se encierra cada una de las
+notas individuales entre paréntesis, en vez de un solo paréntesis
+grande rodeando al acorde completo.
 
 
 @node Plicas
@@ -481,18 +685,19 @@ rodeando al acorde completo.
 @funindex \stemNeutral
 @funindex stemNeutral
 
-Cuando se encuentra con una nota, se crea automáticamente un objeto
-@code{Stem} (plica).  Para las redondas y los silencios, también se
-crean pero se hacen invisibles.
+Cuando se encuentra con una nota, se crea automáticamente un
+objeto @code{Stem} (plica).  Para las redondas y los silencios,
+también se crean pero se hacen invisibles.
 
-Se puede hacer manualmente que las plicas apunten hacia arriba o hacia
-abajo; véase @ref{Dirección y posición}.
+Se puede hacer manualmente que las plicas apunten hacia arriba o
+hacia abajo; véase @ref{Dirección y posición}.
 
 @predefined
 @code{\stemUp},
 @code{\stemDown},
 @code{\stemNeutral}.
 @endpredefined
+
 
 @snippets
 
@@ -519,8 +724,8 @@ Referencia de funcionamiento interno:
 @subsection Fuera del pentagrama
 @translationof Outside the staff
 
-Esta sección trata sobre cómo enfatizar elementos que están dentro del
-pentagrama, desde fuera del pentagrama.
+Esta sección trata sobre cómo enfatizar elementos que están dentro
+del pentagrama, desde fuera del pentagrama.
 
 @menu
 * Globos de ayuda::
@@ -547,9 +752,9 @@ pentagrama, desde fuera del pentagrama.
 @funindex \balloonLengthOff
 @funindex balloonLengthOff
 
-Los elementos de notación se pueden marcar y nombrar con la ayuda de
-un cartel o globo de ayuda rectangular.  El propósito principal de
-esta funcionalidad es la explicación de la notación.
+Los elementos de notación se pueden marcar y nombrar con la ayuda
+de un cartel o globo de ayuda rectangular.  El propósito principal
+de esta funcionalidad es la explicación de la notación.
 
 @c KEEP LY
 @lilypond[verbatim,quote]
@@ -564,13 +769,13 @@ esta funcionalidad es la explicación de la notación.
 @end lilypond
 
 Existen dos funciones musicales, @code{balloonGrobText} y
-@code{balloonText}; el primero se usa como @code{\once\override} para
-adjuntar un texto a cualquier grob, y el último se usa como
-@code{\tweak}, normalmente dentro de acordes, para adjuntar un texto a
-una nota individual.
+@code{balloonText}; el primero se usa como @code{\once\override}
+para adjuntar un texto a cualquier grob, y el último se usa como
+@code{\tweak}, normalmente dentro de acordes, para adjuntar un
+texto a una nota individual.
 
-Los textos de globo no influyen en el espaciado de las notas,
-pero esto puede cambiarse:
+Los textos de globo no influyen en el espaciado de las notas, pero
+esto puede cambiarse:
 
 @c KEEP LY
 @lilypond[verbatim,quote]
@@ -619,11 +824,12 @@ sincronizadas con las notas.
 Se debe usar el grabador @code{Grid_point_engraver} para crear los
 puntos extremos de las líneas, mientras que el grabador
 @code{Grid_line_span_engraver} se debe utilizar para trazar
-efectivamente las líneas.  De forma predeterminada, esto centra las
-líneas de rejilla horizontalmente debajo y al lado izquierdo de la
-cabeza de las notas.  Las líneas de rejilla se extienden a partir de
-línea media de los pentagramas.  El intervalo @code{gridInterval} debe
-especificar la duración entre las líneas de rejilla.
+efectivamente las líneas.  De forma predeterminada, esto centra
+las líneas de rejilla horizontalmente debajo y al lado izquierdo
+de la cabeza de las notas.  Las líneas de rejilla se extienden a
+partir de línea media de los pentagramas.  El intervalo
+@code{gridInterval} debe especificar la duración entre las líneas
+de rejilla.
 
 @lilypond[verbatim,quote]
 \layout {
@@ -690,9 +896,9 @@ Referencia de funcionamiento interno:
 @funindex \stopGroup
 @funindex stopGroup
 
-Los corchetes se usan en análisis musical para indicar la estructura
-de las piezas musicales.  Están contemplados los corchetes
-horizontales simples.
+Los corchetes se usan en análisis musical para indicar la
+estructura de las piezas musicales.  Están contemplados los
+corchetes horizontales simples.
 
 @lilypond[verbatim,quote]
 \layout {
