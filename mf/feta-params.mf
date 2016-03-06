@@ -238,7 +238,19 @@ slash_thick# := 2/3 * 0.48 staff_space#;
 % the lines.  If you like that, modify overdone heads (unit:
 % stafflinethickness).
 %
-overdone_heads = 0.0;
+
+%% FIXME
+% There is a problem with noteheads slightly extending beyond the staff
+% lines.  This is due to the fact that staff_space + stafflinethickness
+% is sometimes an odd number, so the nothead height and depth are not
+% integers.  Then, when the font is converted to an outline font, the
+% system rounds up the 0.5 left over from dividing the notehead height
+% in two, and the notehead extends slightly beyond the staff line.
+% In order to resolve this problem, we use overdone_heads to slightly
+% reduce the notehead height.  Empirically, we have determined that 
+% reducing by 10% of stafflinethickness solves the problem.
+
+overdone_heads = -0.1;
 noteheight# := staff_space# + (1 + overdone_heads) * stafflinethickness#;
 
 define_pixels (slash_thick);
