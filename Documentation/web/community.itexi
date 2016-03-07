@@ -1015,9 +1015,9 @@ Carl Sorensen
 @subheading Improve default beam positioning
 
 For regular, cross-staff, broken and kneed beams.  Beaming should depend
-on context and neighbor notes
-(see @uref{http://icking-music-archive.org/lists/sottisier/sottieng.pdf,
-section 2.2 here}).  If possible also reduce beaming-computation time.
+on context and neighbor notes (see section 2.2 of
+@uref{http://imslp.org/wiki/Repository_of_Music-Notation_Mistakes_%28Coulon,_Jean-Pierre%29,
+this book}).  If possible also reduce beaming-computation time.
 
 @strong{Difficulty:} medium
 @strong{Requirements:} C++, experience with writing heuristics
