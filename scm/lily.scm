@@ -245,6 +245,9 @@ configurations.")
      #f
      "Dump output signatures of each system.  Used for
 regression testing.")
+    (embed-source-code
+     #f
+     "Embed the source files inside the generated PDF document.")
     (eps-box-padding
      #f
      "Pad left edge of the output EPS bounding box by

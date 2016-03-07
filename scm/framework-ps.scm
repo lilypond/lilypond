@@ -463,20 +463,44 @@
            (val (if overrideval overrideval fallbackval)))
       (if val
           (format port "/~a (~a)\n" field (metadata-encode (markup->string val (list header)))))))
-  (display "[ " port)
-  (metadata-lookup-output 'pdfauthor 'author "Author")
-  (format port "/Creator (LilyPond ~a)\n" (lilypond-version))
-  (metadata-lookup-output 'pdftitle 'title "Title")
-  (metadata-lookup-output 'pdfsubject 'subject "Subject")
-  (metadata-lookup-output 'pdfkeywords 'keywords "Keywords")
-  (metadata-lookup-output 'pdfmodDate 'modDate "ModDate")
-  (metadata-lookup-output 'pdfsubtitle 'subtitle "Subtitle")
-  (metadata-lookup-output 'pdfcomposer 'composer "Composer")
-  (metadata-lookup-output 'pdfarranger 'arranger "Arranger")
-  (metadata-lookup-output 'pdfpoet 'poet "Poet")
-  (metadata-lookup-output 'pdfcopyright 'copyright "Copyright")
-  (display "/DOCINFO pdfmark\n\n" port))
 
+  (if (module? header)
+      (begin
+       (display "mark " port)
+       (metadata-lookup-output 'pdfauthor 'author "Author")
+       (format port "/Creator (LilyPond ~a)\n" (lilypond-version))
+       (metadata-lookup-output 'pdftitle 'title "Title")
+       (metadata-lookup-output 'pdfsubject 'subject "Subject")
+       (metadata-lookup-output 'pdfkeywords 'keywords "Keywords")
+       (metadata-lookup-output 'pdfmodDate 'modDate "ModDate")
+       (metadata-lookup-output 'pdfsubtitle 'subtitle "Subtitle")
+       (metadata-lookup-output 'pdfcomposer 'composer "Composer")
+       (metadata-lookup-output 'pdfarranger 'arranger "Arranger")
+       (metadata-lookup-output 'pdfpoet 'poet "Poet")
+       (metadata-lookup-output 'pdfcopyright 'copyright "Copyright")
+       (display "/DOCINFO pdfmark\n\n" port)))
+
+  (if (ly:get-option 'embed-source-code)
+      (let ((source-list (delete-duplicates
+                          (remove (lambda (str)
+                                    (string-contains str
+                                      (ly:get-option 'datadir)))
+                            (ly:source-files)))))
+         (display "\n/pdfmark where
+{pop} {userdict /pdfmark /cleartomark load put} ifelse" port)
+         (for-each (lambda (fname idx)
+                     (format port "\n
+mark /_objdef {ly~a_stream} /type /stream   /OBJ pdfmark
+mark {ly~a_stream} << /Type /EmbeddedFile>> /PUT pdfmark
+mark {ly~a_stream} (~a) /PUT pdfmark
+mark /Name (LilyPond source file ~a)
+/FS << /Type /Filespec /F (~a) /EF << /F {ly~a_stream} >> >> /EMBED pdfmark
+mark {ly~a_stream} /CLOSE pdfmark
+\n"
+                idx idx idx
+                (ps-quote (ly:gulp-file fname))
+                  idx fname idx idx))
+          source-list (iota (length source-list))))))
 
 (define-public (output-framework basename book scopes fields)
   (let* ((port-tmp (make-tmpfile))
@@ -501,8 +525,7 @@
     ;; don't do BeginDefaults PageMedia: A4
     ;; not necessary and wrong
     (write-preamble paper #t port)
-    (if (module? header)
-        (handle-metadata header port))
+    (handle-metadata header port)
     (for-each
      (lambda (page)
        (set! page-number (1+ page-number))
@@ -730,7 +753,7 @@ system-by-system output.  For that, use the EPS backend instead,
 
   lilypond -dbackend=eps FILE
 
-If have cut & pasted a lilypond fragment from a webpage, be sure
+If you have cut & pasted a lilypond fragment from a webpage, be sure
 to only remove anything before
 
   %% ****************************************************************

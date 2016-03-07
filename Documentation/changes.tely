@@ -62,6 +62,14 @@ which scares away people.
 @end ignore
 
 @item
+LilyPond source files may now be embedded inside the generated PDF files.
+This experimental feature is disabled by default and may be regarded as unsafe,
+as PDF documents with hidden content tend to present a security risk.
+Please note that not all PDF viewers have the ability to handle embedded
+documents (if not, the PDF output will appear normally and source files
+will remain invisible).  This feature only works with the PDF backend.
+
+@item
 French note names are now defined specifically instead of
 being aliased to Italian note names: in addition to the
 generic Italian-derived syntax, the @var{d} pitch may be
