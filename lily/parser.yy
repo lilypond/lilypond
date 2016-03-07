@@ -119,6 +119,7 @@ FIXME:
 using namespace std;
 
 #include "book.hh"
+#include "context.hh"
 #include "context-def.hh"
 #include "context-mod.hh"
 #include "dimensions.hh"
@@ -353,6 +354,7 @@ If we give names, Bison complains.
 %token EVENT_IDENTIFIER
 %token EVENT_FUNCTION
 %token FRACTION
+%token LOOKUP_IDENTIFIER
 %token LYRIC_ELEMENT
 %token MARKUP_FUNCTION
 %token MARKUP_LIST_FUNCTION
@@ -492,6 +494,15 @@ toplevel_expression:
 	}
 	;
 
+lookup:
+	LOOKUP_IDENTIFIER
+	| LOOKUP_IDENTIFIER '.' symbol_list_rev
+	{
+		$$ = loc_on_music (parser, @$,
+				   nested_property ($1, scm_reverse_x ($3, SCM_EOL)));
+	}
+	;
+
 embedded_scm_bare:
 	SCM_TOKEN
 	{
@@ -503,6 +514,7 @@ embedded_scm_bare:
 embedded_scm_active:
 	SCM_IDENTIFIER
 	| scm_function_call
+	| lookup
 	;
 
 embedded_scm_bare_arg:
@@ -520,6 +532,7 @@ embedded_scm_bare_arg:
 	| book_block
 	| bookpart_block
 	| output_def
+	| lookup
 	;
 
 /* The generic version may end in music, or not */
@@ -527,6 +540,7 @@ embedded_scm_bare_arg:
 embedded_scm:
 	embedded_scm_bare
 	| scm_function_call
+	| lookup
 	;
 
 /* embedded_scm_arg is _not_ casting pitches to music by default, this
@@ -4034,8 +4048,12 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 	} else if (unsmob<Score> (sid)) {
 		*destination = unsmob<Score> (sid)->clone ()->unprotect ();
 		return SCM_IDENTIFIER;
+	} else if (scm_is_pair (sid)
+		   && scm_is_pair (scm_car (sid))
+		   && scm_is_symbol (scm_caar (sid))) {
+		*destination = sid;
+		return LOOKUP_IDENTIFIER;
 	}
-
 	return -1;
 }
 
