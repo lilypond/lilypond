@@ -51,6 +51,10 @@ assv_tail (SCM key, SCM alist, SCM based_on = SCM_EOL)
 SCM
 assoc_tail (SCM key, SCM alist, SCM based_on = SCM_EOL)
 {
+  if (SCM_IMP (key))
+    return assq_tail (key, alist, based_on);
+  if (scm_is_number (key) || scm_is_true (scm_char_p (key)))
+    return assv_tail (key, alist, based_on);
   for (SCM p = alist; !scm_is_eq (p, based_on); p = scm_cdr (p))
     {
       if (ly_is_equal (scm_caar (p), key))
@@ -79,10 +83,8 @@ SCM assq_pop_x (SCM key, SCM *alist)
 SCM
 evict_from_alist (SCM key, SCM alist, SCM alist_end)
 {
-// shortcircuit to an eq-using assoc_tail variant when key is a symbol
-// (common case)
-  SCM p = scm_is_symbol (key) ? assq_tail (key, alist, alist_end)
-    : assoc_tail (key, alist, alist_end);
+  SCM p = assoc_tail (key, alist, alist_end);
+
   if (scm_is_true (p))
     return partial_list_copy (alist, p, scm_cdr (p));
   return alist;
