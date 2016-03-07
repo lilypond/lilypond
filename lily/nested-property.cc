@@ -131,6 +131,19 @@ nested_property_alist (SCM alist, SCM prop_path, SCM value)
   return scm_acons (key, value, alist);
 }
 
+SCM
+nested_property (SCM alist, SCM prop_path, SCM fallback)
+{
+  for (; scm_is_pair (prop_path); prop_path = scm_cdr (prop_path))
+    {
+      SCM tail = assoc_tail (scm_car (prop_path), alist);
+      if (scm_is_false (tail))
+        return fallback;
+      alist = scm_cdar (tail);
+    }
+  return alist;
+}
+
 void
 set_nested_property (Grob *me, SCM big_to_small, SCM value)
 {
