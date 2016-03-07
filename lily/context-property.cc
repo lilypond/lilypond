@@ -39,10 +39,11 @@ general_pushpop_property (Context *context,
                           SCM grob_property_path,
                           SCM new_value)
 {
+  // Numbers may appear, but not in first place
   if (!scm_is_symbol (context_property)
       || !scm_is_symbol (scm_car (grob_property_path)))
     {
-      warning (_ ("need symbol arguments for \\override and \\revert"));
+      warning (_ ("need symbol argument for \\override and \\revert"));
       if (do_internal_type_checking_global)
         assert (false);
     }

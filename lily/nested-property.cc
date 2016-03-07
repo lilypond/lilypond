@@ -171,7 +171,12 @@ set_nested_property (Grob *me, SCM big_to_small, SCM value)
 // This converts an alist with nested overrides in it to a proper
 // alist.  The number of nested overrides is known in advance,
 // everything up to the last nested override is copied, the tail is
-// shared
+// shared.
+//
+// The first nalist index has to be a symbol since the conversion
+// relies on eq? comparisons, uses some special non-symbol values for
+// special purposes, and does validity checking indexed by symbols.
+// Subindexing can be done with equal?-comparable indexes, however.
 
 SCM
 nalist_to_alist (SCM nalist, int nested)
@@ -206,7 +211,7 @@ nalist_to_alist (SCM nalist, int nested)
             scm_set_cdr_x (pair, scm_cons (elt, scm_cdr (pair)));
           continue;
         }
-
+      assert (scm_is_symbol (key));
       // plain override: apply any known corresponding partials
       SCM pair = assq_pop_x (key, &partials);
       if (scm_is_true (pair))
