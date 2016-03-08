@@ -654,6 +654,11 @@ assignment:
 		parser->lexer_->set_identifier (path, $5);
                 $$ = SCM_UNSPECIFIED;
 	}
+	| assignment_id ',' property_path '=' identifier_init {
+		SCM path = scm_cons (scm_string_to_symbol ($1), $3);
+		parser->lexer_->set_identifier (path, $5);
+                $$ = SCM_UNSPECIFIED;
+	}
 	;
 
 
@@ -1673,11 +1678,19 @@ symbol_list_arg:
 	{
 		$$ = scm_append (scm_list_2 ($1, scm_reverse_x ($3, SCM_EOL)));
 	}
+	| SYMBOL_LIST ',' symbol_list_rev
+	{
+		$$ = scm_append (scm_list_2 ($1, scm_reverse_x ($3, SCM_EOL)));
+	}
 	;
 
 symbol_list_rev:
 	symbol_list_part
 	| symbol_list_rev '.' symbol_list_part
+	{
+		$$ = scm_append_x (scm_list_2 ($3, $1));
+	}
+	| symbol_list_rev ',' symbol_list_part
 	{
 		$$ = scm_append_x (scm_list_2 ($3, $1));
 	}
@@ -2618,6 +2631,10 @@ revert_arg_backup:
 revert_arg_part:
 	symbol_list_part
 	| revert_arg_backup BACKUP SCM_ARG '.' symbol_list_part
+	{
+		$$ = scm_append_x (scm_list_2 ($5, $3));
+	}
+	| revert_arg_backup BACKUP SCM_ARG ',' symbol_list_part
 	{
 		$$ = scm_append_x (scm_list_2 ($5, $3));
 	}
@@ -4103,6 +4120,10 @@ try_string_variants (SCM pred, SCM str)
 
 	str = scm_string_split (str, SCM_MAKE_CHAR ('.'));
 	for (SCM p = str; scm_is_pair (p); p = scm_cdr (p))
+		scm_set_car_x (p, scm_string_split (scm_car (p),
+						    SCM_MAKE_CHAR (',')));
+	str = scm_append_x (str);
+	for (SCM p = str; scm_is_pair (p); p = scm_cdr (p))
 		scm_set_car_x (p, scm_string_to_symbol (scm_car (p)));
 
 	// Let's attempt the symbol list interpretation first.
@@ -4140,7 +4161,8 @@ is_regular_identifier (SCM id, bool multiple)
 	      || (c >= 'A' && c <= 'Z')
 	      || c > 0x7f)
 		  middle = true;
-	  else if (middle && (c == '-' || c == '_' || (multiple && c == '.')))
+	  else if (middle && (c == '-' || c == '_' || (multiple &&
+						       (c == '.' || c == ','))))
 		  middle = false;
 	  else
 		  return false;
