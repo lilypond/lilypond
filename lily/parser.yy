@@ -1902,6 +1902,8 @@ function_arglist_nonbackup_reparse:
 		if (scm_is_true (scm_call_1 ($2, $4)))
 			// May be 3 \cm or similar
 			MYREPARSE (@4, $2, REAL, $4);
+		else if (scm_is_true (scm_call_1 ($2, scm_list_1 ($4))))
+			MYREPARSE (@4, $2, SYMBOL_LIST, scm_list_1 ($4));
 		else {
 			SCM d = make_duration ($4);
 			if (!SCM_UNBNDP (d)) {
@@ -2008,6 +2010,8 @@ function_arglist_backup:
 		if (scm_is_true (scm_call_1 ($2, $4)))
 			// May be 3 \cm or similar
 			MYREPARSE (@4, $2, REAL, $4);
+		else if (scm_is_true (scm_call_1 ($2, scm_list_1 ($4))))
+			MYREPARSE (@4, $2, SYMBOL_LIST, scm_list_1 ($4));
 		else {
 			SCM d = make_duration ($4);
 			if (!SCM_UNBNDP (d)) {
@@ -2378,6 +2382,8 @@ function_arglist_common_reparse:
 		if (scm_is_true (scm_call_1 ($1, $3)))
 			// May be 3 \cm or similar
 			MYREPARSE (@3, $1, REAL, $3);
+		else if (scm_is_true (scm_call_1 ($1, scm_list_1 ($3))))
+			MYREPARSE (@3, $1, SYMBOL_LIST, scm_list_1 ($3));
 		else {
 			SCM d = make_duration ($3);
 			if (!SCM_UNBNDP (d)) {
