@@ -531,7 +531,7 @@ an email to the LilyPond Developer's mailing list
 (@code{lilypond-devel@@gnu.org}), preferably using the same email
 address that you want to use for your user login.
 
-@subsubheading Authorising git-cl for the LilyPond issue tracker
+@subsubheading Authorizing git-cl for the LilyPond issue tracker
 
 The @code{git-cl} command itself also needs to be @q{authorized} so that
 it can access the LilyPond issue tracker.
@@ -557,6 +557,27 @@ next steps, to allow git-cl to access and update the LilyPond issue
 tracker.
 
 @end enumerate
+
+@subsubheading Installing ca-certificates
+
+In order to have @code{git-cl} properly update issues on the SourceForge
+Allura issue tracker, you must have the package @code{ca-certificates}
+installed.  You can check to see if the package is installed with
+
+@example
+apt --installed list | grep ca-certificates
+@end example
+
+If @code{ca-certificates} is installed, you will get a result that shows
+the version that is installed.  If it is not installed, there will be
+no version displayed.
+
+Install @code{ca-certificates} with the following:
+
+@example
+sudo apt-get install ca-certificates
+@end example
+
 
 @subsubheading Running git-cl for the first time
 
