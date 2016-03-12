@@ -547,7 +547,7 @@ Stencil
 Lookup::repeat_slash (Real w, Real s, Real t)
 {
 
-  Real x_width = sqrt ((t * t) + ((t / s) * (t / s)));
+  Real x_width = hypot (t, t/s);
   Real height = w * s;
 
   SCM controls = scm_list_n (ly_symbol2scm ("moveto"),
@@ -573,8 +573,8 @@ Lookup::repeat_slash (Real w, Real s, Real t)
                                SCM_BOOL_T,
                                SCM_UNDEFINED);
 
-  Box b (Interval (0, w + sqrt (sqr (t / s) + sqr (t))),
-         Interval (0, w * s));
+  Box b (Interval (0, w + x_width),
+         Interval (0, height));
 
   return Stencil (b, slashnodot); //  http://slashnodot.org
 }
@@ -583,7 +583,7 @@ Stencil
 Lookup::bracket (Axis a, Interval iv, Real thick, Real protrude, Real blot)
 {
   Box b;
-  Axis other = Axis ((a + 1) % 2);
+  Axis other = other_axis (a);
   b[a] = iv;
   b[other] = Interval (-1, 1) * thick * 0.5;
 

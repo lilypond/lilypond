@@ -159,8 +159,9 @@ check and a full make doc. - James
 @node Fedora
 @unnumberedsubsubsec Fedora
 
-The following instructions were tested on @q{Fedora 22} and include all
-the software to both compile LilyPond and build the documenation.
+The following instructions were tested on @q{Fedora} versions 22 & 23
+and will download all the software required to both compile LilyPond and
+build the documentation.
 
 @itemize
 
@@ -226,14 +227,27 @@ See @ruser{lily-git}.
 
 @end itemize
 
+@warning{By default, when building LilyPond's documentation,
+@code{pdfTeX} is be used.  However ligatures (fi, fl, ff etc.) may not
+be printed in the PDF output.  In this case XeTeX can be used instead.
+Download and install the @code{texlive-xetex} package.
+
+@example
+sudo dnf install texlive-xetex
+@end example
+
+The scripts used to build the LilyPond documentation will use
+@code{XeTex} instead of @code{pdfTex} to generate the PDF documents if
+it is available.  No additional configuration is required.}
+
 
 
 @node Linux Mint
 @unnumberedsubsubsec Linux Mint
 
 The following instructions were tested on @q{Linux Mint 17.1} and
-@q{LMDE - Betsy} and include all the software to both compile LilyPond
-and build the documenation.
+@q{LMDE - Betsy} and will download all the software required to both
+compile LilyPond and build the documentation..
 
 @itemize
 
@@ -296,12 +310,26 @@ Also see @ruser{lily-git}.
 
 @end itemize
 
+@warning{By default, when building LilyPond's documentation,
+@code{pdfTeX} is be used.  However ligatures (fi, fl, ff etc.) may not
+be printed in the PDF output.  In this case XeTeX can be used instead.
+Download and install the @code{texlive-xetex} package.
+
+@example
+sudo apt-get install texlive-xetex
+@end example
+
+The scripts used to build the LilyPond documentation will use
+@code{XeTex} instead of @code{pdfTex} to generate the PDF documents if
+it is available.  No additional configuration is required.}
+
 
 @node OpenSUSE
 @unnumberedsubsubsec OpenSUSE
 
-The following instructions were tested on @q{OpenSUSE 13.2} and include
-all the software to both compile LilyPond and build the documenation.
+The following instructions were tested on @q{OpenSUSE 13.2} and will
+download all the software required to both compile LilyPond and build
+the documentation.
 
 @itemize
 
@@ -334,7 +362,7 @@ contribute to LilyPond (codebase or help improve the documentation) then
 it is recommended that you also need to install @code{git}.
 
 @example
-sudo apt-get install git
+sudo zypper install git
 @end example
 
 Also see @ruser{Starting with Git}.
@@ -350,14 +378,25 @@ Also see @ruser{lily-git}.
 
 @end itemize
 
+@warning{By default, when building LilyPond's documentation,
+@code{pdfTeX} is be used.  However ligatures (fi, fl, ff etc.) may not
+be printed in the PDF output.  In this case XeTeX can be used instead.
+Download and install the @code{texlive-xetex} package.
 
+@example
+sudo zypper install texlive-xetex
+@end example
+
+The scripts used to build the LilyPond documentation will use
+@code{XeTex} instead of @code{pdfTex} to generate the PDF documents if
+it is available.  No additional configuration is required.}
 
 @node Ubuntu
 @unnumberedsubsubsec Ubuntu
 
 The following commands were tested on Ubuntu versions @code{14.04 LTS},
-@code{14.10} and @code{15.04} and include all the software to both
-compile LilyPond and build the documenation.
+@code{14.10} and @code{15.04} and will download all the software
+required to both compile LilyPond and build the documentation.
 
 @itemize
 
@@ -397,6 +436,19 @@ sudo apt-get install tk
 Also see @ruser{lily-git}.
 
 @end itemize
+
+@warning{By default, when building LilyPond's documentation,
+@code{pdfTeX} is be used.  However ligatures (fi, fl, ff etc.) may not
+be printed in the PDF output.  In this case XeTeX can be used instead.
+Download and install the @code{texlive-xetex} package.
+
+@example
+sudo apt-get install texlive-xetex
+@end example
+
+The scripts used to build the LilyPond documentation will use
+@code{XeTex} instead of @code{pdfTex} to generate the PDF documents if
+it is available.  No additional configuration is required.}
 
 
 @node Other
@@ -508,10 +560,10 @@ is available online at
 you can also build them locally from the source code.  This process
 requires some additional tools and packages.
 
-@warning{If you have used the instructions for one of the Linux
-distributions explicitly listed in the previous section
-(@rcontrib{Requirements for compiling LilyPond}) then the following can
-be ignored as the software should already be installed.}
+@warning{If the instructions for one of the previously listed Linux
+in the previous section (@rcontrib{Requirements for compiling LilyPond})
+have been used, then the following can be ignored as the software should
+already be installed.}
 
 @itemize
 
@@ -571,6 +623,13 @@ ttf-xfree86-nonfree
 
 @end itemize
 
+@warning{By default, when building LilyPond's documentation,
+@code{pdfTeX} is be used.  However ligatures (fi, fl, ff etc.) may not
+be printed in the PDF output.  In this case XeTeX can be used instead.
+Download and install the @code{texlive-xetex} package. The scripts used
+to build the LilyPond documentation will use @code{XeTex} instead of
+@code{pdfTex} to generate the PDF documents if it is available.  No
+additional configuration is required.}
 
 
 @node Getting the source code

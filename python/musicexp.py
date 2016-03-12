@@ -258,6 +258,10 @@ def pitch_italiano (pitch):
 def pitch_catalan (pitch):
     return pitch_italiano (pitch)
 
+def pitch_francais (pitch):
+    str = pitch_generic (pitch, ['do', 'ré', 'mi', 'fa', 'sol', 'la', 'si'], ['b', 'sb', 'sd', 'd'])
+    return str
+
 def pitch_espanol (pitch):
     str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', None, None, 's'])
     return str
@@ -275,8 +279,10 @@ def set_pitch_language (language):
         "norsk": pitch_norsk,
         "svenska": pitch_svenska,
         "italiano": pitch_italiano,
+        "français": pitch_francais,
         "catalan": pitch_catalan,
         "espanol": pitch_espanol,
+        "español": pitch_espanol,
         "vlaams": pitch_vlaams}
     pitch_generating_function = function_dict.get (language, pitch_general)
 

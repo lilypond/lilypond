@@ -185,18 +185,11 @@ private:
   static int print_trampoline (SCM, SCM, scm_print_state *);
   static void smob_proc_init (scm_t_bits) { };
 
-  // type_p_name_ can be overriden in the Super class with a static
-  // const char [] string.  This requires both a declaration in the
-  // class as well as a single instantiation outside.  Using a
-  // template specialization for supplying a different string name
-  // right in Smob_base<Super> itself seems tempting, but the C++
-  // rules would then require a specialization declaration at the
-  // class definition site as well as a specialization instantiation
-  // in a single compilation unit.  That requires just as much source
-  // code maintenance while being harder to understand and quite
-  // trickier in its failure symptoms when things go wrong.  So we
-  // just use a static zero as "not here" indication.
-  static const int type_p_name_ = 0;
+  // type_p_name_ has to be defined in the Super class, either with a
+  // static const char [] string or as a null pointer of type const
+  // char *.  We used to provide a default here for convenience, but
+  // battling the various conflicting C++ standards was too much of a
+  // hassle.
 
   // LY_DECLARE_SMOB_PROC is used in the Super class definition for
   // making a smob callable like a function.  Its first argument is a

@@ -21,6 +21,8 @@
 
 #include <cassert>
 
+const char * const Scheme_hash_table::type_p_name_ = 0;
+
 SCM
 Scheme_hash_table::make_smob ()
 {

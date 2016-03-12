@@ -580,6 +580,10 @@ compilation.
 @tab @code{#f}
 @tab Dump output signatures of each system. Used for regression testing.
 
+@item @code{embed-source-code}
+@tab @code{#f}
+@tab Embed the LilyPond source files inside the generated PDF document.
+
 @item @code{eps-box-padding}
 @tab @code{#f}
 @tab Pad left edge of the output EPS bounding box by the given amount

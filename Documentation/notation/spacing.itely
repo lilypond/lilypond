@@ -637,11 +637,11 @@ Also see @code{check-consistency}.
 When specified in a @code{\paper} block this defines the horizontal
 extent available for the staff lines in un-indented systems.  If left
 unspecified, the paper's @code{line-width} is determined from
-@code{(paper-width@tie{}@minus{}@tie{}left-margin@tie{}@minus{}@tie{}right-margin)}
+@code{(paper-width@tie{}@minus{}@tie{}left-margin@tie{}@minus{}@tie{}right-margin)}.
 If the paper's @code{line-width} is specified, and both
-@code{left-margin} and @code{right-margin} are not, then the
-margins will be updated to center the systems on the page
-automatically.  Also see @code{check-consistency}.
+@code{left-margin} and @code{right-margin} are not, then the margins
+will be updated to center the systems on the page automatically.  Also
+see @code{check-consistency}.
 
 @code{line-width}s for individual scores can be specified in the
 scores' @code{\layout} blocks.  These values control the width of the
@@ -1414,26 +1414,28 @@ To manually force a line break at a bar line, use the
 }
 @end lilypond
 
-By default, a @code{\break} in the middle of a measure is ignored,
-and a warning is printed.  To force a line break in the middle of
-a measure, add an invisible bar line with @w{@samp{\bar ""}}:
+By default, a @code{\break} command inserted in the @q{middle} of a
+measure will be ignored (and a warning message will be output during the
+compilation of the LilyPond file).  Adding an invisible bar line
+-- @w{@samp{\bar ""}} -- before the @code{\break} command will force the
+issue:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
   c4 c c
-  \bar "" \break
+  \bar ""
+  \break
   c |
   c4 c c c |
 }
 @end lilypond
 
-A @code{\break} occurring at a bar line is also ignored if the
-previous measure ends in the middle of a note, such as when a
-tuplet begins and ends in different measures.  To allow
-@code{\break} commands to work in these situations, remove the
-@code{Forbid_line_break_engraver} from the @code{Voice} context.
-Note that manually forced line breaks have to be added in parallel
-with the music:
+A @code{\break} command that occurrs at a bar line will also ignored if
+the previous measure ends in the middle of a note (e.g. when a tuplet
+begins in one measure and ends in another).  In this case remove the
+@code{Forbid_line_break_engraver} from the @code{Voice} context and,
+use a simultaneous music construction inserting the @code{\break} at the
+appropriate place in the second @q{voice}:
 
 @lilypond[quote,ragged-right,verbatim]
 \new Voice \with {
@@ -1446,9 +1448,9 @@ with the music:
 }
 @end lilypond
 
-Similarly, line breaks are normally forbidden when beams cross bar
-lines.  This behavior can be changed by setting
-@code{\override Beam.breakable = ##t}:
+Similarly, by default, line breaks are ignored when beams cross bar
+lines.  Use the @code{\override Beam.breakable = ##t} command to force
+this:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
@@ -1458,7 +1460,7 @@ lines.  This behavior can be changed by setting
 }
 @end lilypond
 
-The @code{\noBreak} command forbids a line break at the bar line
+The @code{\noBreak} command will prevent a line break at the bar line
 where it is inserted.
 
 Within a score, automatic line breaking is prevented within music
@@ -1797,18 +1799,19 @@ set it to something @q{very large}.
 @end example
 
 @funindex minimumRepeatLengthForPageTurn
-With volta repeats, the @code{Page_turn_engraver} will only
-allow a page turn during the repeat if there is enough time at the
-beginning and end of the repeat to turn the page back.  If the
-repeat is very short, the @code{Page_turn_engraver} can also be
-used to disable page turns by setting a value for the context
-property @code{minimumRepeatLengthForPageTurn} where as
-@code{Page_turn_engraver} only allows turns in repeats whose
-duration is longer than this value.
 
-The page turning commands, @code{\pageTurn}, @code{\noPageTurn}
-and @code{\allowPageTurn}, may also be used at top-level, in
-top-level markups and between scores.
+When using volta repeats, the @code{Page_turn_engraver} will only allow
+a page turn during the repeat if there is enough time at the beginning
+and end of the repeat to turn the page back.  If the repeat is too
+short then the @code{Page_turn_engraver} can be used to @emph{disable}
+page turns by setting an appropriate value for the context property
+@code{minimumRepeatLengthForPageTurn}.  In this case the
+@code{Page_turn_engraver} will only allows turns in repeats whose
+duration is longer than the value specified.
+
+The page turning commands, @code{\pageTurn}, @code{\noPageTurn} and
+@code{\allowPageTurn}, may also be used at top-level, in top-level
+markups and between scores.
 
 @predefined
 @funindex \pageTurn
@@ -2484,16 +2487,16 @@ by looking at an example that includes no overrides at all.
 }
 @end lilypond
 
-This score isolates line- and page-breaking information in a dedicated
-voice.  This technique of creating a breaks voice will help keep layout
-separate from music entry as our example becomes more complicated.
-See @ref{Breaks}.
+This score isolates both line-breaking and page-breaking information in
+a dedicated voice.  This technique of creating a breaks voice will help
+keep layout separate from music entry as our example becomes more
+complicated.  Also see @ref{Breaks}.
 
-Explicit @code{\breaks} evenly divide the music into six measures per
-line.  Vertical spacing results from LilyPond's defaults.  To set
-the vertical startpoint of each system explicitly, we can set
-the @code{Y-offset} pair in the @code{line-break-system-details}
-attribute of the @code{NonMusicalPaperColumn} grob:
+By using explicit @code{\break} commands, the music is divided into five
+measures per line.  Vertical spacing is from LilyPond's own defaults but
+the vertical startpoint of each system is set explicitly using the
+@code{Y-offset} pair in the @code{line-break-system-details} attribute
+of the @code{NonMusicalPaperColumn} grob:
 
 @lilypond[verbatim,quote,staffsize=16]
 \header { tagline = ##f }
@@ -2795,17 +2798,17 @@ to the example above, they would be followed by half a NHW:
 \relative { c''2 c4. c8 | c4. c16[ c] c4. c8 | c8 c c4 c c }
 @end lilypond
 
+As explained in the @emph{Essay on automated music engraving}, stem
+directions will influence spacing (see @ressay{Optical spacing}) and can
+be adjusted using the @code{stem-spacing-correction} property of the
+@rinternals{NoteSpacing} object (which are generated for every
+@rinternals{Voice} context).
 
-In the @emph{Essay on automated music engraving}, it was explained
-that stem directions influence spacing (see
-@ressay{Optical spacing}).  This is controlled with the
-@code{stem-spacing-correction} property in the
-@rinternals{NoteSpacing}, object.  These are generated for every
-@rinternals{Voice} context.  The @code{StaffSpacing} object
-(generated in @rinternals{Staff} context) contains the same
-property for controlling the stem/bar line spacing.  The following
-example shows these corrections, once with default settings, and
-once with exaggerated corrections:
+The @code{StaffSpacing} object (generated in @rinternals{Staff} context)
+contains the same property for controlling the stem/bar line spacing.
+
+The following example shows this; once with the default settings and
+once with an exaggerated adjustment:
 
 @lilypond[quote,ragged-right]
 \fixed c' {
