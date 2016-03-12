@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 417a75a96cac1df50682d8060937338d3a2e4d4e
+   Translation of GIT committish: 2034ca4fcbed9253b5a85e9360e47d3fe3ff1d09
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1536,15 +1536,16 @@ vous le jugez utile pour « forcer » le passage à la ligne suivante :
 @end lilypond
 
 Par défaut, un saut de ligne ne saurait intervenir au beau milieu d'une
-mesure ; LilyPond vous le signalera par un message si tel était le
-cas.  Si d'aventure vous voulez forcer un saut de ligne en l'absence de
-barre de mesure, vous devrez auparavant insérer une barre invisible -- à
-l'aide de @code{\bar ""}.
+mesure ; LilyPond vous le signalera par un message lors de la
+compilation du fichier.  Si d'aventure vous voulez forcer un saut de
+ligne en l'absence de barre de mesure, vous devrez auparavant insérer
+une barre invisible -- à l'aide de @code{\bar ""}.
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
   c4 c c
-  \bar "" \break
+  \bar ""
+  \break
   c |
   c4 c c c |
 }
@@ -1553,7 +1554,7 @@ l'aide de @code{\bar ""}.
 LilyPond ignorera un @code{\break} placé sur une barre à la fin d'une
 mesure dès lors que la précédente avait une note en suspend -- c'est
 typiquement le cas lorsqu'un n-olet est à cheval sur deux mesures.
-L'instruction @code{\break} sera alors opérationnelle si vous avez
+L'instruction @code{\break} sera toutefois opérationnelle si vous avez
 auparavant désactivé le @code{Forbid_line_break_engraver} du contexte
 @code{Voice} concerné.  Notez bien qu'en pareil cas, les sauts de ligne
 forcés doivent être saisis au sein d'une expression polyphonique :
@@ -1947,8 +1948,8 @@ la manière suivante :
 
 Le @code{Page_turn_engraver} tient compte des reprises.  C'est pourquoi
 il ne permettra une tourne que dans le cas où il y aura suffisamment de
-temps au début et à la fin de la reprise pour que l'exécutant ait le
-temps de revenir à la page précédente.  Le @code{Page_turn_engraver} est
+temps au début et à la fin de la reprise pour que l'exécutant puisse
+aisément revenir à la page précédente.  Le @code{Page_turn_engraver} est
 même capable d'interdire un tourne dans le cas d'une reprise de courte
 durée, ajustable au travers de la propriété de contexte
 @code{minimumRepeatLengthForPageTurn}.
@@ -2653,7 +2654,7 @@ musicaux ; ceci nous permettra d'y voir plus clair au fur et à
 mesure que nous avancerons.  Pour plus de précisions, relisez
 @ref{Sauts}.
 
-Les @code{\break} explicites répartissent la musique en lignes de six
+Les @code{\break} explicites répartissent la musique en lignes de cinq
 mesures chacune.  L'espacement vertical est celui que LilyPond attribue
 par défaut.  Nous pouvons, afin de fixer explicitement le point
 d'attache vertical de chacun des systèmes, définir un doublet
@@ -2974,15 +2975,18 @@ demie largeur de tête :
 \relative { c''2 c4. c8 | c4. c16[ c] c4. c8 | c8 c c4 c c }
 @end lilypond
 
-Dans notre @emph{Essai sur la gravure musicale automatisée}, nous avons
-vu comment la direction des hampes peut influencer l'espacement -- voir
-@ressay{Espacement}.  Ceci est contrôlé par la propriété
-@code{stem-spacing-correction} de l'objet @rinternals{NoteSpacing}, créé
-pour chaque contexte @rinternals{Voice}.  L'objet
-@code{StaffSpacing}, généré au niveau d'un contexte @rinternals{Staff},
-possède une même propriété qui contrôlera l'espacement hampe-barre de
-mesure.  L'exemple suivant montre ces adaptations, tout d'abord selon
-les réglages par défaut, puis avec des corrections forcées.
+Comme le met en évidence notre @emph{Essai sur la gravure musicale
+automatisée}, la direction des hampes peut influencer l'espacement -- voir
+@ressay{Espacement} et s'ajuster à l'aide de la propriété
+@code{stem-spacing-correction} de l'objet @rinternals{NoteSpacing} créé
+pour chaque contexte @rinternals{Voice}.
+
+L'objet @code{StaffSpacing}, généré au niveau d'un contexte
+@rinternals{Staff}, possède une même propriété qui contrôlera
+l'espacement hampe-barre de mesure.
+
+L'exemple suivant montre ces adaptations, tout d'abord selon les
+réglages par défaut, puis avec des corrections forcées.
 
 @lilypond[quote,ragged-right]
 \fixed c' {

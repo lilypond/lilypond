@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: e24e696a96246a77bfba48d97ef063209919fed6
+   Translation of GIT committish: 2034ca4fcbed9253b5a85e9360e47d3fe3ff1d09
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1092,7 +1092,7 @@ LilyPond
 Une ligature, qu'elle soit rectiligne, passe d'une portée à l'autre,
 discontinue ou coudée, devrait dépendre du contexte et des notes
 adjacentes (voir
-@uref{http://icking-music-archive.org/lists/sottisier/sottigra.pdf,
+@uref{http://imslp.org/wiki/Repository_of_Music-Notation_Mistakes_%28Coulon,_Jean-Pierre%29,
 la section 2.2 de cet article}).  Dans la mesure du possible, raccourcir
 le temps de calcul nécessaire à la génération des ligatures.
 
