@@ -658,11 +658,6 @@ assignment:
 	        parser->lexer_->set_identifier ($1, $3);
                 $$ = SCM_UNSPECIFIED;
 	}
-	| assignment_id property_path '=' identifier_init {
-		SCM path = scm_cons (scm_string_to_symbol ($1), $2);
-		parser->lexer_->set_identifier (path, $4);
-                $$ = SCM_UNSPECIFIED;
-	}
 	| assignment_id '.' property_path '=' identifier_init {
 		SCM path = scm_cons (scm_string_to_symbol ($1), $3);
 		parser->lexer_->set_identifier (path, $5);
@@ -2579,9 +2574,6 @@ property_path:
 	symbol_list_rev  {
 		$$ = scm_reverse_x ($1, SCM_EOL);
 	}
-	| symbol_list_rev property_path {
-		$$ = scm_reverse_x ($1, $2);
-	}
 	;
 
 property_operation:
@@ -2591,7 +2583,7 @@ property_operation:
 	| UNSET symbol {
 		$$ = scm_list_2 (ly_symbol2scm ("unset"), $2);
 	}
-	| OVERRIDE property_path '=' scalar {
+	| OVERRIDE revert_arg '=' scalar {
 		if (scm_ilength ($2) < 2) {
 			parser->parser_error (@2, _("bad grob property path"));
 			$$ = SCM_UNDEFINED;
