@@ -491,11 +491,11 @@ class TimeScaledMusic (MusicWrapper):
 
     def print_ly (self, func):
         if self.display_bracket == None:
-            func ("\\once \\override TupletBracket #'stencil = ##f")
+            func ("\\once \\omit TupletBracket")
             func.newline ()
         elif self.display_bracket == "curved":
             ly.warning (_ ("Tuplet brackets of curved shape are not correctly implemented"))
-            func ("\\once \\override TupletBracket #'stencil = #ly:slur::print")
+            func ("\\once \\override TupletBracket.stencil = #ly:slur::print")
             func.newline ()
 
         base_number_function = {None: "#f",
@@ -519,12 +519,12 @@ class TimeScaledMusic (MusicWrapper):
         if self.display_type == "actual" and self.normal_type:
             # Obtain the note duration in scheme-mode, i.e. \longa as \\longa
             base_duration = self.normal_type.ly_expression (None, True)
-            func ("\\once \\override TupletNumber #'text = #(tuplet-number::append-note-wrapper %s \"%s\")" %
+            func ("\\once \\override TupletNumber.text = #(tuplet-number::append-note-wrapper %s \"%s\")" %
                 (base_number_function, base_duration))
             func.newline ()
         elif self.display_type == "both": # TODO: Implement this using actual_type and normal_type!
             if self.display_number == None:
-                func ("\\once \\override TupletNumber #'stencil = ##f")
+                func ("\\once \\omit TupletNumber")
                 func.newline ()
             elif self.display_number == "both":
                 den_duration = self.normal_type.ly_expression (None, True)
@@ -534,20 +534,20 @@ class TimeScaledMusic (MusicWrapper):
                 else:
                     num_duration = den_duration
                 if (self.display_denominator or self.display_numerator):
-                    func ("\\once \\override TupletNumber #'text = #(tuplet-number::non-default-fraction-with-notes %s \"%s\" %s \"%s\")" %
+                    func ("\\once \\override TupletNumber.text = #(tuplet-number::non-default-fraction-with-notes %s \"%s\" %s \"%s\")" %
                                 (self.display_denominator, den_duration,
                                  self.display_numerator, num_duration))
                     func.newline ()
                 else:
-                    func ("\\once \\override TupletNumber #'text = #(tuplet-number::fraction-with-notes \"%s\" \"%s\")" %
+                    func ("\\once \\override TupletNumber.text = #(tuplet-number::fraction-with-notes \"%s\" \"%s\")" %
                                 (den_duration, num_duration))
                     func.newline ()
         else:
             if self.display_number == None:
-                func ("\\once \\override TupletNumber #'stencil = ##f")
+                func ("\\once \\omit TupletNumber")
                 func.newline ()
             elif self.display_number == "both":
-                func ("\\once \\override TupletNumber #'text = #%s" % base_number_function)
+                func ("\\once \\override TupletNumber.text = #%s" % base_number_function)
                 func.newline ()
 
         func ('\\times %d/%d ' %
@@ -1050,7 +1050,7 @@ class GlissandoEvent (SpanEvent):
                 "wavy"   : "zigzag"
             }. get (self.line_type, None)
             if style:
-                printer.dump ("\\once \\override Glissando #'style = #'%s" % style)
+                printer.dump ("\\once \\override Glissando.style = #'%s" % style)
     def ly_expression (self):
         return {-1: '\\glissando',
             1:''}.get (self.span_direction, '')
@@ -1257,12 +1257,12 @@ class NotestyleEvent (Event):
         self.filled = None
     def pre_chord_ly (self):
         if self.style:
-            return "\\once \\override NoteHead #'style = #%s" % self.style
+            return "\\once \\override NoteHead.style = #%s" % self.style
         else:
             return ''
     def pre_note_ly (self, is_chord_element):
         if self.style and is_chord_element:
-            return "\\tweak #'style #%s" % self.style
+            return "\\tweak style #%s" % self.style
         else:
             return ''
     def ly_expression (self):
@@ -1521,7 +1521,7 @@ class TimeSignatureChange (Music):
             if self.style == "common":
                 st = "\\defaultTimeSignature"
             elif (self.style != "'()"):
-                st = "\\once \\override Staff.TimeSignature #'style = #%s " % self.style
+                st = "\\once \\override Staff.TimeSignature.style = #%s " % self.style
             elif (self.style != "'()") or is_common_signature:
                 st = "\\numericTimeSignature"
 
@@ -1618,9 +1618,9 @@ class StaffLinesEvent (Music):
         self.lines = lines
     def ly_expression (self):
         if (self.lines > 0):
-          return "\\stopStaff \\override Staff.StaffSymbol #'line-count = #%s \\startStaff" % self.lines
+          return "\\stopStaff \\override Staff.StaffSymbol.line-count = #%s \\startStaff" % self.lines
         else:
-          return "\\stopStaff \\revert Staff.StaffSymbol #'line-count \\startStaff"
+          return "\\stopStaff \\revert Staff.StaffSymbol.line-count \\startStaff"
 
 class TempoMark (Music):
     def __init__ (self):
@@ -1797,7 +1797,7 @@ class StaffGroup:
         if self.instrument_name or self.short_instrument_name:
             printer.dump ("\\consists \"Instrument_name_engraver\"")
         if self.spanbar == "no":
-            printer.dump ("\\override SpanBar #'transparent = ##t")
+            printer.dump ("\\hide SpanBar")
         brack = {"brace": "SystemStartBrace",
                  "none": "SystemStartBar",
                  "line": "SystemStartSquare"}.get (self.symbol, None)
