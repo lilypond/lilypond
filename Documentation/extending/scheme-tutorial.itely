@@ -1504,9 +1504,9 @@ Finally, once we have added the accent articulation to its
 @code{articulations} property, we can return @code{note-event}, hence
 the last line of the function.
 
-Now we transform the @code{add-accent} function into a music
-function (a matter of some syntactic sugar and a declaration of the type
-of its sole @q{real} argument).
+Now we transform the @code{add-accent} function into a music function (a
+matter of some syntactic sugar and a declaration of the type of its
+argument).
 
 @example
 addAccent = #(define-music-function (note-event)
@@ -1520,7 +1520,7 @@ addAccent = #(define-music-function (note-event)
   note-event)
 @end example
 
-We may verify that this music function works correctly:
+We then verify that this music function works correctly:
 
 @example
 \displayMusic \addAccent c4
