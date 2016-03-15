@@ -24,6 +24,8 @@ import musicexp
 
 from rational import Rational
 
+lilypond_version = "@TOPLEVEL_VERSION@"
+
 # Store command-line options in a global variable, so we can access them everywhere
 options = None
 
@@ -3217,8 +3219,6 @@ def get_existing_filename_with_extension(filename, ext):
 
 
 def main():
-    global lilypond_version
-    lilypond_version = "@TOPLEVEL_VERSION@"
     opt_parser = option_parser()
 
     global options
