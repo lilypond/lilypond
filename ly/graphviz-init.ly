@@ -2,6 +2,8 @@
 
 #(use-modules (scm graphviz))
 
+#(use-modules (ice-9 regex))
+
 #(define last-grob-action '())
 
 #(define sym-blacklist '())
@@ -55,9 +57,13 @@
 
 #(define (grob-mod grob file line func prop val)
   (let* ((val-str (truncate-value val))
-         (label (format #f "~a\\n~a:~a\\n~a <- ~a" (grob::name grob) file line prop val-str)))
+         (label (format #f "~a\\n~a:~a\\n~a <- ~a" (grob::name grob) file line prop val-str))
+         ;; to keep escaped "\"" we need to transform it to "\\\""
+         ;; otherwise the final pdf-creation will break
+         (escaped-label
+           (regexp-substitute/global #f "\"" label 'pre "\\\"" 'post)))
    (if (relevant? grob file line prop)
-       (grob-event-node grob label file))))
+       (grob-event-node grob escaped-label file))))
 
 #(define (grob-cache grob prop callback value)
   (let* ((val-str (truncate-value value))
