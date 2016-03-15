@@ -3468,9 +3468,9 @@ def conv (str):
                   r"\1\2.\3", str)
     str = re.sub (r'''(\\(?:alterBroken|overrideProperty)\s+)#?"([A-Za-z]+)\s*\.\s*([A-Za-z]+)"''',
                   r"\1\2.\3", str)
-    str = re.sub (r'''(\\tweak\s+)#?"?([A-Za-z]+)"?\s+?#'([-A-Za-z]+)''',
+    str = re.sub (r'''(\\tweak\s+)#?"?([A-W][A-Za-z]*)"?\s+?#'([a-zX-Z][-A-Za-z]*)''',
                   r"\1\2.\3", str)
-    str = re.sub (r'''(\\tweak\s+)#'([-A-Za-z]+)''',
+    str = re.sub (r'''(\\tweak\s+)#'([a-zX-Z][-A-Za-z]*)''',
                   r"\1\2", str)
     str = re.sub ("(" + matchmarkup + ")|"
                   + r"(\\footnote(?:\s*"
