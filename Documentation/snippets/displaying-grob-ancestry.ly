@@ -11,19 +11,23 @@
 
   texidoc = "
 When working with grob callbacks, it can be helpful to understand a
-grob's @qq{ancestry}. Most grobs have @qq{parents} which influence the
+grob’s ancestry. Most grobs have parents which influence the
 positioning of the grob. X- and Y-parents influence the horizontal and
 vertical positions for the grob, respectively. Additionally, each
 parent may have parents of its own.
 
 
-Unfortunately, there are several aspects of a grob's ancestry that can
+Unfortunately, there are several aspects of a grob’s ancestry that can
 lead to confusion:
 
-* The types of parents a grob has may depend on context. * For some
-grobs, the X- and Y-parents are the same. * A particular @qq{ancestor}
-may be related to a grob in multiple ways. * The concept of
-@qq{generations} is misleading.
+
+* The types of parents a grob has may depend on context.
+
+* For some grobs, the X- and Y-parents are the same.
+
+* A particular “ancestor” may be related to a grob in multiple ways.
+
+* The concept of “generations” is misleading.
 
 
 For example, the @code{System} grob can be both parent (on the Y-side)
@@ -31,35 +35,27 @@ and grandparent (twice on the X-side) to a @code{VerticalAlignment}
 grob.
 
 
-This macro prints (to the console) a textual representation of a grob's
+This macro prints (to the console) a textual representation of a grob’s
 ancestry.
 
+When called this way:
 
-When called this way
-
-
-@{
- \\once \\override NoteHead #'before-line-breaking = #display-ancestry
- c @}
-
+@code{@{ \\once \\override NoteHead.before-line-breaking =
+#display-ancestry c @}}
 
 The following output is generated:
 
 
-------------------------------------
-
-NoteHead X,Y: NoteColumn
-    X: PaperColumn
-       X,Y: System
-    Y: VerticalAxisGroup
-       X: NonMusicalPaperColumn
-          X,Y: System
-       Y: VerticalAlignment
-          X: NonMusicalPaperColumn
-             X,Y: System
-          Y: System
-
-
+@code{NoteHead X,Y: NoteColumn
+     X: PaperColumn
+        X,Y: System
+     Y: VerticalAxisGroup
+        X: NonMusicalPaperColumn
+           X,Y: System
+        Y: VerticalAlignment
+           X: NonMusicalPaperColumn
+              X,Y: System
+           Y: System}
 
 "
   doctitle = "Displaying grob ancestry"

@@ -75,7 +75,7 @@ Piches headword
       <bs' fs'>2
       e'2
       |
-      <b'! a'>2 -\tweak #'style #'none \cresc
+      <b'! a'>2 -\tweak style #'none \cresc
       b'4
       <e'' cs''>4
       |
