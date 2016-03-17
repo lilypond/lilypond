@@ -119,10 +119,10 @@ where
 
 @multitable @columnfractions .33 .66
 @item @code{@var{argN}}
-@tab @var{n}th argument
+@tab @var{n}th argument.
 
 @item @code{@var{typeN?}}
-@tab a Scheme @emph{type predicate} for which @code{@var{argN}}
+@tab A Scheme @emph{type predicate} for which @code{@var{argN}}
 must return @code{#t}.  There is also a special form
 @code{(@emph{predicate?} @emph{default})} for specifying optional
 arguments.  If the actual argument is missing when the function is being
