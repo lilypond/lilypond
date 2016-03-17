@@ -2,7 +2,7 @@
 
 \header {
   texidoc="
-Noteheads do not extend above the upper staff line
+Noteheads do not extend above the upper staff line.
 "
 }
 
