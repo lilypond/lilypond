@@ -204,7 +204,7 @@ Augmented triad, @*minor seventh
 @tab
 @code{aug7}
 @tab
-@code{c1:aug}
+@code{c1:aug7}
 @tab
 @lilypond[line-width=2.1\cm,noragged-right,notime]
 <<
@@ -236,7 +236,7 @@ Minor triad, @*major seventh
 @tab
 @code{m7+}
 @tab
-@code{m7+}
+@code{c1:m7+}
 @tab
 @lilypond[line-width=2.1\cm,noragged-right,notime]
 <<
