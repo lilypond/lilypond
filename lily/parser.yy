@@ -4048,7 +4048,8 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 		*destination = unsmob<Score> (sid)->clone ()->unprotect ();
 		return SCM_IDENTIFIER;
 	} else if (scm_is_pair (sid)
-		   && scm_is_true (Lily::key_list_p (sid))) {
+		   && scm_is_pair (scm_car (sid))
+		   && scm_is_true (Lily::key_p (scm_caar (sid)))) {
 		*destination = sid;
 		return LOOKUP_IDENTIFIER;
 	}
