@@ -3059,7 +3059,7 @@ def update_layout_information():
 
 def print_ly_preamble(printer, filename):
     printer.dump_version(lilypond_version)
-    printer.print_verbatim('% automatically converted by philomelos musicxml2ly v0.2.41\n')
+    printer.print_verbatim('% automatically converted by musicxml2ly from ' + filename)
     printer.newline()
     printer.dump(r'\pointAndClickOff')
     printer.newline()
