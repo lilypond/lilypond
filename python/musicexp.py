@@ -826,8 +826,9 @@ class Header:
 
         # If a header item contains a line break, it is segmented. The
         # substrings are formatted with the help of \markup, using
-        # \column and \line.
-        if '\n' in value:
+        # \column and \line. An exception, however, are texidoc items,
+        # which should not contain LilyPond formatting commands.
+        if (key != 'texidoc') and ('\n' in value):
             value = value.replace('"', '')
             printer.dump(r'\markup \column {')
             substrings = value.split('\n')

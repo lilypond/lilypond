@@ -229,7 +229,10 @@ def extract_score_information(tree):
         set_if_exists('encoder', ids.get_encoding_person())
         set_if_exists('encodingdescription', ids.get_encoding_description())
         set_if_exists('source', ids.get_source())
-        set_if_exists('miscellaneous', ids.get_file_description());
+
+        # <miscellaneous><miscellaneous-field name="description"> ... becomes
+        # \header { texidoc = ...
+        set_if_exists('texidoc', ids.get_file_description());
 
         # Finally, apply the required compatibility modes
         # Some applications created wrong MusicXML files, so we need to
