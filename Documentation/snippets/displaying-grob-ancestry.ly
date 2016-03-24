@@ -64,17 +64,17 @@ The following output is generated:
 %% http://lsr.di.unimi.it/LSR/Item?id=622
 %% see also http://www.lilypond.org/doc/v2.18/Documentation/snippets/tweaks-and-overrides#tweaks-and-overrides-displaying-grob-ancestry
 
-#(define (grob-name grob)
-   (if (ly:grob? grob)
-       (assoc-ref (ly:grob-property grob 'meta) 'name)
-       #f))
+%% Remark:
+%% grob::name is in the source since 2.19.x could be deleted during next LSR-upgrade
+#(define (grob::name grob)
+  (assq-ref (ly:grob-property grob 'meta) 'name))
 
 #(define (get-ancestry grob)
-   (if (not (null? (ly:grob-parent grob X)))
-       (list (grob-name grob)
-             (get-ancestry (ly:grob-parent grob X))
-             (get-ancestry (ly:grob-parent grob Y)))
-       (grob-name grob)))
+  (if (not (null? (ly:grob-parent grob X)))
+      (list (grob::name grob)
+            (get-ancestry (ly:grob-parent grob X))
+            (get-ancestry (ly:grob-parent grob Y)))
+      (grob::name grob)))
 
 #(define (format-ancestry lst padding)
    (string-append
@@ -110,7 +110,9 @@ The following output is generated:
    (format (current-error-port)
       "~3&~a~2%~a~&"
       (make-string 36 #\-)
-      (format-ancestry (get-ancestry grob) 0)))
+      (if (ly:grob? grob)
+          (format-ancestry (get-ancestry grob) 0)
+          (format #f "~a is not a grob" grob))))
 
 \relative c' {
   \once \override NoteHead.before-line-breaking = #display-ancestry
