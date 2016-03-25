@@ -16,6 +16,10 @@
 
 RewriteEngine On
 
+# Permanent redirect from www.lilypond.org to lilypond.org
+RewriteCond "%{HTTP_HOST}" "^www\.(.+)$" [NC]
+RewriteRule "^/?(.*)$"     "http://%1/$1" [R=301,L,NE]
+
 # Deny following of symlinks by robots.
 # HTTrack is a known offender.
 # better yet, to redirect this to page that tells adminstrator
