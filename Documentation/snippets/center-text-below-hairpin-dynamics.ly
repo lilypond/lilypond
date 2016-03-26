@@ -41,10 +41,8 @@ hairpinWithCenteredText =
                  (ly:grob-layout grob) 'staff-space))
                (staff-line-thickness
                  (ly:output-def-lookup (ly:grob-layout grob) 'line-thickness))
-               (grob-name (lambda (x) (assq-ref
-                 (ly:grob-property x 'meta) 'name)))
                (par-x (ly:grob-parent grob X))
-               (dyn-text (eq? (grob-name par-x) 'DynamicText ))
+               (dyn-text (grob::has-interface par-x 'dynamic-text-interface))
                (dyn-text-stencil-x-length
                  (if dyn-text
                    (interval-length

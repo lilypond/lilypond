@@ -119,6 +119,7 @@ FIXME:
 using namespace std;
 
 #include "book.hh"
+#include "context.hh"
 #include "context-def.hh"
 #include "context-mod.hh"
 #include "dimensions.hh"
@@ -353,6 +354,7 @@ If we give names, Bison complains.
 %token EVENT_IDENTIFIER
 %token EVENT_FUNCTION
 %token FRACTION
+%token LOOKUP_IDENTIFIER
 %token LYRIC_ELEMENT
 %token MARKUP_FUNCTION
 %token MARKUP_LIST_FUNCTION
@@ -492,6 +494,15 @@ toplevel_expression:
 	}
 	;
 
+lookup:
+	LOOKUP_IDENTIFIER
+	| LOOKUP_IDENTIFIER '.' symbol_list_rev
+	{
+		$$ = loc_on_music (parser, @$,
+				   nested_property ($1, scm_reverse_x ($3, SCM_EOL)));
+	}
+	;
+
 embedded_scm_bare:
 	SCM_TOKEN
 	{
@@ -503,6 +514,7 @@ embedded_scm_bare:
 embedded_scm_active:
 	SCM_IDENTIFIER
 	| scm_function_call
+	| lookup
 	;
 
 embedded_scm_bare_arg:
@@ -520,6 +532,7 @@ embedded_scm_bare_arg:
 	| book_block
 	| bookpart_block
 	| output_def
+	| lookup
 	;
 
 /* The generic version may end in music, or not */
@@ -527,6 +540,7 @@ embedded_scm_bare_arg:
 embedded_scm:
 	embedded_scm_bare
 	| scm_function_call
+	| lookup
 	;
 
 /* embedded_scm_arg is _not_ casting pitches to music by default, this
@@ -644,12 +658,12 @@ assignment:
 	        parser->lexer_->set_identifier ($1, $3);
                 $$ = SCM_UNSPECIFIED;
 	}
-	| assignment_id property_path '=' identifier_init {
-		SCM path = scm_cons (scm_string_to_symbol ($1), $2);
-		parser->lexer_->set_identifier (path, $4);
+	| assignment_id '.' property_path '=' identifier_init {
+		SCM path = scm_cons (scm_string_to_symbol ($1), $3);
+		parser->lexer_->set_identifier (path, $5);
                 $$ = SCM_UNSPECIFIED;
 	}
-	| assignment_id '.' property_path '=' identifier_init {
+	| assignment_id ',' property_path '=' identifier_init {
 		SCM path = scm_cons (scm_string_to_symbol ($1), $3);
 		parser->lexer_->set_identifier (path, $5);
                 $$ = SCM_UNSPECIFIED;
@@ -1673,11 +1687,19 @@ symbol_list_arg:
 	{
 		$$ = scm_append (scm_list_2 ($1, scm_reverse_x ($3, SCM_EOL)));
 	}
+	| SYMBOL_LIST ',' symbol_list_rev
+	{
+		$$ = scm_append (scm_list_2 ($1, scm_reverse_x ($3, SCM_EOL)));
+	}
 	;
 
 symbol_list_rev:
 	symbol_list_part
 	| symbol_list_rev '.' symbol_list_part
+	{
+		$$ = scm_append_x (scm_list_2 ($3, $1));
+	}
+	| symbol_list_rev ',' symbol_list_part
 	{
 		$$ = scm_append_x (scm_list_2 ($3, $1));
 	}
@@ -1688,9 +1710,9 @@ symbol_list_rev:
 symbol_list_part:
 	symbol_list_element
 	{
-		$$ = try_string_variants (Lily::symbol_list_p, $1);
+		$$ = try_string_variants (Lily::key_list_p, $1);
 		if (SCM_UNBNDP ($$)) {
-			parser->parser_error (@1, _("not a symbol"));
+			parser->parser_error (@1, _("not a key"));
 			$$ = SCM_EOL;
 		} else
 			$$ = scm_reverse ($$);
@@ -1701,6 +1723,7 @@ symbol_list_part:
 symbol_list_element:
 	STRING
 	| embedded_scm_bare
+	| UNSIGNED
 	;
 
 
@@ -1874,6 +1897,8 @@ function_arglist_nonbackup_reparse:
 		if (scm_is_true (scm_call_1 ($2, $4)))
 			// May be 3 \cm or similar
 			MYREPARSE (@4, $2, REAL, $4);
+		else if (scm_is_true (scm_call_1 ($2, scm_list_1 ($4))))
+			MYREPARSE (@4, $2, SYMBOL_LIST, scm_list_1 ($4));
 		else {
 			SCM d = make_duration ($4);
 			if (!SCM_UNBNDP (d)) {
@@ -1980,6 +2005,8 @@ function_arglist_backup:
 		if (scm_is_true (scm_call_1 ($2, $4)))
 			// May be 3 \cm or similar
 			MYREPARSE (@4, $2, REAL, $4);
+		else if (scm_is_true (scm_call_1 ($2, scm_list_1 ($4))))
+			MYREPARSE (@4, $2, SYMBOL_LIST, scm_list_1 ($4));
 		else {
 			SCM d = make_duration ($4);
 			if (!SCM_UNBNDP (d)) {
@@ -2350,6 +2377,8 @@ function_arglist_common_reparse:
 		if (scm_is_true (scm_call_1 ($1, $3)))
 			// May be 3 \cm or similar
 			MYREPARSE (@3, $1, REAL, $3);
+		else if (scm_is_true (scm_call_1 ($1, scm_list_1 ($3))))
+			MYREPARSE (@3, $1, SYMBOL_LIST, scm_list_1 ($3));
 		else {
 			SCM d = make_duration ($3);
 			if (!SCM_UNBNDP (d)) {
@@ -2545,9 +2574,6 @@ property_path:
 	symbol_list_rev  {
 		$$ = scm_reverse_x ($1, SCM_EOL);
 	}
-	| symbol_list_rev property_path {
-		$$ = scm_reverse_x ($1, $2);
-	}
 	;
 
 property_operation:
@@ -2557,7 +2583,7 @@ property_operation:
 	| UNSET symbol {
 		$$ = scm_list_2 (ly_symbol2scm ("unset"), $2);
 	}
-	| OVERRIDE property_path '=' scalar {
+	| OVERRIDE revert_arg '=' scalar {
 		if (scm_ilength ($2) < 2) {
 			parser->parser_error (@2, _("bad grob property path"));
 			$$ = SCM_UNDEFINED;
@@ -2618,6 +2644,10 @@ revert_arg_backup:
 revert_arg_part:
 	symbol_list_part
 	| revert_arg_backup BACKUP SCM_ARG '.' symbol_list_part
+	{
+		$$ = scm_append_x (scm_list_2 ($5, $3));
+	}
+	| revert_arg_backup BACKUP SCM_ARG ',' symbol_list_part
 	{
 		$$ = scm_append_x (scm_list_2 ($5, $3));
 	}
@@ -4017,8 +4047,12 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 	} else if (unsmob<Score> (sid)) {
 		*destination = unsmob<Score> (sid)->clone ()->unprotect ();
 		return SCM_IDENTIFIER;
+	} else if (scm_is_pair (sid)
+		   && scm_is_pair (scm_car (sid))
+		   && scm_is_true (Lily::key_p (scm_caar (sid)))) {
+		*destination = sid;
+		return LOOKUP_IDENTIFIER;
 	}
-
 	return -1;
 }
 
@@ -4088,7 +4122,7 @@ try_string_variants (SCM pred, SCM str)
 	if (scm_is_true (scm_call_1 (pred, str)))
 		return str;
 	// a symbol may be interpreted as a list of symbols if it helps
-	if (scm_is_symbol (str)) {
+	if (scm_is_true (Lily::key_p (str))) {
 		str = scm_list_1 (str);
 		if (scm_is_true (scm_call_1 (pred, str)))
 			return str;
@@ -4102,6 +4136,10 @@ try_string_variants (SCM pred, SCM str)
 		return SCM_UNDEFINED;
 
 	str = scm_string_split (str, SCM_MAKE_CHAR ('.'));
+	for (SCM p = str; scm_is_pair (p); p = scm_cdr (p))
+		scm_set_car_x (p, scm_string_split (scm_car (p),
+						    SCM_MAKE_CHAR (',')));
+	str = scm_append_x (str);
 	for (SCM p = str; scm_is_pair (p); p = scm_cdr (p))
 		scm_set_car_x (p, scm_string_to_symbol (scm_car (p)));
 
@@ -4140,7 +4178,8 @@ is_regular_identifier (SCM id, bool multiple)
 	      || (c >= 'A' && c <= 'Z')
 	      || c > 0x7f)
 		  middle = true;
-	  else if (middle && (c == '-' || c == '_' || (multiple && c == '.')))
+	  else if (middle && (c == '-' || c == '_' || (multiple &&
+						       (c == '.' || c == ','))))
 		  middle = false;
 	  else
 		  return false;

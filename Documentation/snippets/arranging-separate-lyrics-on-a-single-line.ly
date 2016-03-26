@@ -13,8 +13,7 @@
 Sometimes you may want to put lyrics for different performers on a
 single line: where there is rapidly alternating text, for example.
 This snippet shows how this can be done with @code{\\override
-VerticalAxisGroup #'nonstaff-nonstaff-spacing #'minimum-distance =
-##f}.
+VerticalAxisGroup.nonstaff-nonstaff-spacing.minimum-distance = ##f}.
 
 "
   doctitle = "Arranging separate lyrics on a single line"
@@ -23,8 +22,7 @@ VerticalAxisGroup #'nonstaff-nonstaff-spacing #'minimum-distance =
 \layout {
   \context {
     \Lyrics
-    \override VerticalAxisGroup #'nonstaff-nonstaff-spacing
-       #'minimum-distance = ##f
+    \override VerticalAxisGroup.nonstaff-nonstaff-spacing.minimum-distance = ##f
   }
 }
 

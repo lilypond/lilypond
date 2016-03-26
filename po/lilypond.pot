@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.37\n"
+"Project-Id-Version: lilypond 2.19.38\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2016-02-28 13:14+0000\n"
+"POT-Creation-Date: 2016-03-13 12:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -839,52 +839,52 @@ msgstr ""
 msgid "Language does not support microtones contained in the piece"
 msgstr ""
 
-#: musicexp.py:491
+#: musicexp.py:497
 msgid "Tuplet brackets of curved shape are not correctly implemented"
 msgstr ""
 
-#: musicexp.py:677
+#: musicexp.py:683
 #, python-format
 msgid "unable to set the music %(music)s for the repeat %(repeat)s"
 msgstr ""
 
-#: musicexp.py:686
+#: musicexp.py:692
 msgid "encountered repeat without body"
 msgstr ""
 
 #. no self.elements!
-#: musicexp.py:856
+#: musicexp.py:862
 #, python-format
 msgid "Grace note with no following music: %s"
 msgstr ""
 
-#: musicexp.py:1018
+#: musicexp.py:1024
 #, python-format
 msgid "Invalid octave shift size found: %s. Using no shift."
 msgstr ""
 
-#: musicexp.py:1476
+#: musicexp.py:1482
 #, python-format
 msgid "Unable to convert alteration %s to a lilypond expression"
 msgstr ""
 
 #. TODO: Handle pieces without a time signature!
-#: musicxml.py:361
+#: musicxml.py:362
 msgid "Senza-misura time signatures are not yet supported!"
 msgstr ""
 
-#: musicxml.py:379
+#: musicxml.py:380
 msgid "Unable to interpret time signature! Falling back to 4/4."
 msgstr ""
 
-#: musicxml.py:435
+#: musicxml.py:436
 #, python-format
 msgid ""
 "Key alteration octave given for a non-existing alteration nr. %s, available "
 "numbers: %s!"
 msgstr ""
 
-#: musicxml.py:523
+#: musicxml.py:524
 #, python-format
 msgid "Unable to find instrument for ID=%s\n"
 msgstr ""
@@ -1682,7 +1682,7 @@ msgstr ""
 msgid "natural alteration glyph not found"
 msgstr ""
 
-#: all-font-metrics.cc:159
+#: all-font-metrics.cc:161
 #, c-format
 msgid "cannot find font: `%s'"
 msgstr ""
@@ -2131,7 +2131,7 @@ msgstr ""
 msgid "identifier name is a keyword: `%s'"
 msgstr ""
 
-#: lily-lexer.cc:299 lily-lexer.cc:312
+#: lily-lexer.cc:301 lily-lexer.cc:314
 #, c-format
 msgid "%s:EOF"
 msgstr ""
@@ -2177,7 +2177,7 @@ msgstr ""
 msgid "Parsing..."
 msgstr ""
 
-#: lookup.cc:178
+#: lookup.cc:177
 #, c-format
 msgid "Not drawing a box with negative dimension, %.2f by %.2f."
 msgstr ""
@@ -3103,119 +3103,119 @@ msgstr ""
 msgid "giving up"
 msgstr ""
 
-#: parser.yy:476 parser.yy:947 parser.yy:1028 parser.yy:1248
+#: parser.yy:478 parser.yy:949 parser.yy:1030 parser.yy:1250
 msgid "bad expression type"
 msgstr ""
 
-#: parser.yy:859 parser.yy:1458 parser.yy:1503
+#: parser.yy:861 parser.yy:1460 parser.yy:1505
 msgid "not a context mod"
 msgstr ""
 
-#: parser.yy:1054
+#: parser.yy:1056
 msgid "Missing music in \\score"
 msgstr ""
 
-#: parser.yy:1091
+#: parser.yy:1093
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
 
-#: parser.yy:1126
+#: parser.yy:1128
 msgid "Spurious expression in \\score"
 msgstr ""
 
-#: parser.yy:1156
+#: parser.yy:1158
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1331
+#: parser.yy:1333
 msgid "music expected"
 msgstr ""
 
-#: parser.yy:1341 parser.yy:1375
+#: parser.yy:1343 parser.yy:1377
 msgid "unexpected post-event"
 msgstr ""
 
-#: parser.yy:1383
+#: parser.yy:1385
 msgid "Ignoring non-music expression"
 msgstr ""
 
-#: parser.yy:1691
+#: parser.yy:1693
 msgid "not a symbol"
 msgstr ""
 
-#: parser.yy:2491 parser.yy:2605 parser.yy:2618 parser.yy:2627
+#: parser.yy:2562 parser.yy:2676 parser.yy:2689 parser.yy:2698
 msgid "bad grob property path"
 msgstr ""
 
-#: parser.yy:2585
+#: parser.yy:2656
 msgid "only \\consists and \\remove take non-string argument."
 msgstr ""
 
-#: parser.yy:2646
+#: parser.yy:2717
 msgid "bad context property path"
 msgstr ""
 
-#: parser.yy:2731
+#: parser.yy:2802
 msgid "markup expected"
 msgstr ""
 
-#: parser.yy:2743
+#: parser.yy:2814
 msgid "simple string expected"
 msgstr ""
 
-#: parser.yy:2760
+#: parser.yy:2831
 msgid "symbol expected"
 msgstr ""
 
-#: parser.yy:2896
+#: parser.yy:2967
 msgid "not a rhythmic event"
 msgstr ""
 
-#: parser.yy:2946
+#: parser.yy:3017
 msgid "post-event expected"
 msgstr ""
 
-#: parser.yy:2955 parser.yy:2960
+#: parser.yy:3026 parser.yy:3031
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:3036
+#: parser.yy:3107
 msgid "expecting string or post-event as script definition"
 msgstr ""
 
-#: parser.yy:3140
+#: parser.yy:3211
 msgid "not an articulation"
 msgstr ""
 
-#: parser.yy:3212 parser.yy:3255
+#: parser.yy:3277 parser.yy:3329
 msgid "not a duration"
 msgstr ""
 
-#: parser.yy:3276
+#: parser.yy:3350
 msgid "bass number expected"
 msgstr ""
 
-#: parser.yy:3368
+#: parser.yy:3442
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:3407
+#: parser.yy:3481
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:3450
+#: parser.yy:3524
 msgid "markup outside of text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3455
+#: parser.yy:3529
 msgid "unrecognized string, not in text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3607 parser.yy:3616
+#: parser.yy:3681 parser.yy:3690
 msgid "not an unsigned integer"
 msgstr ""
 
-#: parser.yy:3703
+#: parser.yy:3777
 msgid "not a markup"
 msgstr ""
 
@@ -3457,16 +3457,16 @@ msgstr ""
 msgid "bad make-music argument: ~S"
 msgstr ""
 
-#: define-note-names.scm:1000
+#: define-note-names.scm:1107
 msgid "Select note names language."
 msgstr ""
 
-#: define-note-names.scm:1006
+#: define-note-names.scm:1113
 #, scheme-format
 msgid "Using `~a' note names..."
 msgstr ""
 
-#: define-note-names.scm:1009
+#: define-note-names.scm:1116
 #, scheme-format
 msgid "Could not find language `~a'.  Ignoring."
 msgstr ""
@@ -3536,7 +3536,7 @@ msgstr ""
 msgid "do not know how to embed font ~s ~s ~s"
 msgstr ""
 
-#: framework-ps.scm:728
+#: framework-ps.scm:751
 msgid ""
 "\n"
 "The PostScript backend does not support the\n"
@@ -3544,7 +3544,7 @@ msgid ""
 "\n"
 "  lilypond -dbackend=eps FILE\n"
 "\n"
-"If have cut & pasted a lilypond fragment from a webpage, be sure\n"
+"If you have cut & pasted a lilypond fragment from a webpage, be sure\n"
 "to only remove anything before\n"
 "\n"
 "  %% ****************************************************************\n"
@@ -3610,50 +3610,50 @@ msgstr ""
 msgid "define-session used after session start"
 msgstr ""
 
-#: lily.scm:417
+#: lily.scm:420
 msgid "Using (ice-9 curried-definitions) module\n"
 msgstr ""
 
-#: lily.scm:420
+#: lily.scm:423
 msgid "Guile 1.8\n"
 msgstr ""
 
-#: lily.scm:477
+#: lily.scm:480
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:903
+#: lily.scm:906
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:904
+#: lily.scm:907
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:965
+#: lily.scm:968
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:968
+#: lily.scm:971
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:990 lily.scm:1079
+#: lily.scm:993 lily.scm:1082
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:1070
+#: lily.scm:1073
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
 
-#: lily.scm:1089
+#: lily.scm:1092
 #, scheme-format
 msgid "Invoking `~a'...\n"
 msgstr ""

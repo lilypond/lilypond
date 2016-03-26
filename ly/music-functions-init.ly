@@ -93,7 +93,7 @@ markups), or inside a score.")
 
 alterBroken =
 #(define-music-function (property arg item)
-  (symbol-list-or-symbol? list? symbol-list-or-music?)
+  (key-list-or-symbol? list? key-list-or-music?)
   (_i "Override @var{property} for pieces of broken spanner @var{item}
 with values @var{arg}.  @var{item} may either be music in the form of
 a starting spanner event, or a symbol list in the form
@@ -908,7 +908,7 @@ octaveCheck =
 
 offset =
 #(define-music-function (property offsets item)
-  (symbol-list-or-symbol? scheme? symbol-list-or-music?)
+  (symbol-list-or-symbol? scheme? key-list-or-music?)
    (_i "Offset the default value of @var{property} of @var{item} by
 @var{offsets}.  If @var{item} is a string, the result is
 @code{\\override} for the specified grob type.  If @var{item} is
@@ -996,7 +996,7 @@ of @var{base-moment}, @var{beat-structure}, and @var{beam-exceptions}.")
 
 overrideProperty =
 #(define-music-function (grob-property-path value)
-   (symbol-list? scheme?)
+   (key-list? scheme?)
 
    (_i "Set the grob property specified by @var{grob-property-path} to
 @var{value}.  @var{grob-property-path} is a symbol list of the form
@@ -1339,7 +1339,7 @@ print @var{secondary-note} as a stemless note head in parentheses.")
 
 propertyOverride =
 #(define-music-function (grob-property-path value)
-   (symbol-list? scheme?)
+   (key-list? scheme?)
    (_i "Set the grob property specified by @var{grob-property-path} to
 @var{value}.  @var{grob-property-path} is a symbol list of the form
 @code{Context.GrobName.property} or @code{GrobName.property}, possibly
@@ -1362,7 +1362,7 @@ command.")
 
 propertyRevert =
 #(define-music-function (grob-property-path)
-   (symbol-list?)
+   (key-list?)
    (_i "Revert the grob property specified by @var{grob-property-path} to
 its previous value.  @var{grob-property-path} is a symbol list of the form
 @code{Context.GrobName.property} or @code{GrobName.property}, possibly
@@ -1399,7 +1399,7 @@ Scheme as a substitute for the built-in @code{\\set} command.")
 
 propertyTweak =
 #(define-music-function (prop value item)
-   (symbol-list-or-symbol? scheme? symbol-list-or-music?)
+   (key-list-or-symbol? scheme? key-list-or-music?)
    (_i "Add a tweak to the following @var{item}, usually music.
 This generally behaves like @code{\\tweak} but will turn into an
 @code{\\override} when @var{item} is a symbol list.
@@ -1630,7 +1630,7 @@ a context modification duplicating their effect.")
 
 shape =
 #(define-music-function (offsets item)
-   (list? symbol-list-or-music?)
+   (list? key-list-or-music?)
    (_i "Offset control-points of @var{item} by @var{offsets}.  The
 argument is a list of number pairs or list of such lists.  Each
 element of a pair represents an offset to one of the coordinates of a
@@ -1887,7 +1887,7 @@ command without explicit @samp{tuplet-span}, use
 
 tweak =
 #(define-music-function (prop value music)
-   (symbol-list-or-symbol? scheme? ly:music?)
+   (key-list-or-symbol? scheme? ly:music?)
    (_i "Add a tweak to the following @var{music}.
 Layout objects created by @var{music} get their property @var{prop}
 set to @var{value}.  If @var{prop} has the form @samp{Grob.property}, like with

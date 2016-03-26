@@ -59,6 +59,8 @@ namespace Lily {
   Variable hash_table_to_alist ("hash-table->alist");
   Variable interpret_markup_list ("interpret-markup-list");
   Variable invalidate_alterations ("invalidate-alterations");
+  Variable key_p ("key?");
+  Variable key_list_p ("key-list?");
   Variable key_signature_interface_alteration_positions ("key-signature-interface::alteration-positions");
   Variable layout_extract_page_properties ("layout-extract-page-properties");
   Variable lilypond_main ("lilypond-main");

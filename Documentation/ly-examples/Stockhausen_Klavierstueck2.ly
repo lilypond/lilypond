@@ -152,8 +152,8 @@ measIVl = {
   \new PianoStaff <<
     \new Staff = "upper"
     {
-      \override Staff.TimeSignature #'transparent = ##t
-      \override Staff.TimeSignature #'extra-spacing-width = #'(0.0 . 3.0)
+      \hide Staff.TimeSignature
+      \override Staff.TimeSignature.extra-spacing-width = #'(0.0 . 3.0)
       \accidentalStyle dodecaphonic
       \autoBeamOff
       \clef treble
@@ -176,7 +176,7 @@ measIVl = {
     }
     \new Staff = "lower"
     {
-      \override Staff.TimeSignature #'transparent = ##t
+      \hide Staff.TimeSignature
       \accidentalStyle dodecaphonic
       \autoBeamOff
       \clef bass

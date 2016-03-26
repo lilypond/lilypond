@@ -30,6 +30,7 @@ fixB = {
   \once \override Accidental.extra-offset = #'(4 . -.1)
 }
 
+
 \relative c' {
   << { \fixA <b d!>8 } \\ { \voiceThree \fixB dis } >> s
 }
