@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: e4cab35000dfa1e6f0d9ed41f420152b4a8cc778
+   Translation of GIT committish: cb97338e1bf265d10cfdf82a63e76ea4bf0b19bf
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1653,7 +1653,7 @@ propriété @code{articulations}, nous pouvons renvoyer le
 
 Nous pouvons à présent transformer la fonction @code{ajoute-accent} en
 fonction musicale, à l'aide d'un peu d'enrobage syntaxique et mention du
-type de son unique argument « réel ».
+type de son argument.
 
 @example
 ajouteAccent = #(define-music-function (note-event)

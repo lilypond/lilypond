@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 958e95822083954cad00e0a598eb9f12ceba67b9
+%% Translation of GIT committish: cb97338e1bf265d10cfdf82a63e76ea4bf0b19bf
   texidocfr = "
 Lorsque l'on manipule des rappels d'objet (@emph{grob callbacks}), il
-peut être intéressant d'en maîtriser les « ascendants ».  La plupart des
+peut être intéressant d'en maîtriser les ascendants.  La plupart des
 objets graphiques ont des parents, lesquels auront une influence sur le
 positionnement de l'objet en question.  Ainsi, les parents des côtés X
 et Y influenceront respectivement les positions horizontale et verticale
@@ -18,41 +18,34 @@ confusion :
 -- Un « ascendant » particulier peut dépendre d'un @emph{grob} de
    différentes manières.
 
--- Le concept de « génération » est trompeur.
+-- Le concept de « générations » est trompeur.
 
 Par exemple, l'objet @code{System} peut, vis à vis d'un objet
-@code{VerticalAlignment}, être à la fois parent (par son
-côté Y) et grand parent (par deux fois du côté X).
+@code{VerticalAlignment}, être à la fois parent (par son côté Y) et
+grand parent (par deux fois du côté X).
 
 La macro ci-dessous affiche à l'écran une représentation textuelle de
 l'ascendance d'un @emph{grob}.
 
 
-Elle se lance ainsi :
+Elle se lance ainsi :
 
-@example
-@{
-   \\once \\override NoteHead #'before-line-breaking = #display-ancestry
-   c4
-@}
-@end example
+@code{@{ \\once \\override NoteHead.before-line-breaking =
+  #display-ancestry c @}}
+
 
 et génère la sortie suivante :
 
-@example
-------------------------------------
-
-NoteHead X,Y: NoteColumn
-    X: PaperColumn
-       X,Y: System
-    Y: VerticalAxisGroup
-       X: NonMusicalPaperColumn
-          X,Y: System
-       Y: VerticalAlignment
-          X: NonMusicalPaperColumn
-             X,Y: System
-          Y: System
-@end example
+@code{NoteHead X,Y: NoteColumn
+     X: PaperColumn
+        X,Y: System
+     Y: VerticalAxisGroup
+        X: NonMusicalPaperColumn
+           X,Y: System
+        Y: VerticalAlignment
+           X: NonMusicalPaperColumn
+              X,Y: System
+           Y: System}
 
 "
   doctitlefr = "Affichage de la généalogie d'un objet"

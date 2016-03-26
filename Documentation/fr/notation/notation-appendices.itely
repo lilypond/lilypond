@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 16d46fb0995cc6d078617ada1e8fea7879dffe07
+    Translation of GIT committish: cb97338e1bf265d10cfdf82a63e76ea4bf0b19bf
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -208,7 +208,7 @@ Triton augmenté et @*septième mineure
 @tab
 @code{aug7}
 @tab
-@code{c1:aug}
+@code{c1:aug7}
 @tab
 @lilypond[line-width=2.1\cm,noragged-right,notime]
 <<
@@ -240,7 +240,7 @@ Triton mineur et @*septième majeure
 @tab
 @code{m7+}
 @tab
-@code{m7+}
+@code{c1:m7+}
 @tab
 @lilypond[line-width=2.1\cm,noragged-right,notime]
 <<
