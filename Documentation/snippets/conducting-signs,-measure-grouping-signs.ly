@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.40"
 
 \header {
   lsrtags = "rhythms"
@@ -38,9 +38,9 @@ setting in @code{scm/time-signature-settings.scm}:
   \new Voice \relative c'' {
     \time 9/8
     g8 g d d g g a( bes g) |
-    \set Timing.beatStructure = #'(2 2 2 3)
+    \set Timing.beatStructure = 2,2,2,3
     g8 g d d g g a( bes g) |
-    \time #'(4 5) 9/8
+    \time 4,5 9/8
     g8 g d d g g a( bes g) |
     \time 5/8
     a4. g4 |

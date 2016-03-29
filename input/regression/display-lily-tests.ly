@@ -1,4 +1,4 @@
-\version "2.19.24"
+\version "2.19.40"
 #(use-modules (srfi srfi-13)
               (ice-9 format))
 
@@ -172,7 +172,7 @@ stderr of this run."
 \test ##[ \clef "bass^(15)" #]
 \test ##[ \clef "alto_3" #]
 \test ##[ \time 2/4 #]
-\test ##[ \time #'(3 2) 5/8 #]
+\test ##[ \time 3,2 5/8 #]
 \test ##[ \bar "|." #]
 
 %% staff switches

@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.40"
 
 \header {
   lsrtags = "automatic-notation, connecting-notes, rhythms"
@@ -35,10 +35,10 @@ specified in @code{baseMoment}).
     >>
     \oneVoice
     \set baseMoment = #(ly:make-moment 1/8)
-    \set beatStructure = #'(2 2 2 2)
+    \set beatStructure = 2,2,2,2
     b32^"baseMoment 1 8"[ a g f c' b a g]
     \set baseMoment = #(ly:make-moment 1/16)
-    \set beatStructure = #'(4 4 4 4)
+    \set beatStructure = 4,4,4,4
     b32^"baseMoment 1 16"[ a g f c' b a g]
   }
 }

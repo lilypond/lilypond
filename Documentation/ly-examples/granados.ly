@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.19.40"
 \include "example-header.ily"
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -45,7 +45,7 @@ upperVoiceOne = \relative {
   <f aes d f>8\([ \tuplet 5/4{<g g'>32( aes' g f g]) }
   \set subdivideBeams = ##t
   \set baseMoment = #(ly:make-moment 1/8)
-  \set beatStructure = #'(2 2 2)
+  \set beatStructure = 2,2,2
   <aes, aes'>16 <c f> \tuplet 5/4{ bes'32( c bes aes bes]) }
   \set subdivideBeams = ##f
   \ottava #1 <es es'>16 <f f'> <d d'> \appoggiatura f8 <es es'>16\)
@@ -90,7 +90,7 @@ lowerVoiceOne = \relative {
   \csl \stemUp
   \set subdivideBeams = ##t
   \set baseMoment = #(ly:make-moment 1/16)
-  \set beatStructure = #'(4 4 4)
+  \set beatStructure = 4,4,4
   s8 \hideNotes \slurUp \stemDown
     es,,64( bes'' s64 \unHideNotes \stemUp g64[ bes c d c]) s2
   \set subdivideBeams = ##f
