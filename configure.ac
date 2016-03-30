@@ -240,6 +240,10 @@ STEPMAKE_PROGS(BIBTEX, bibtex, $DOCUMENTATION_REQUIRED)
 STEPMAKE_PROGS(PDFLATEX, xelatex pdflatex, $DOCUMENTATION_REQUIRED)
 if test "$PDFLATEX" = "xelatex"; then
     STEPMAKE_PROGS(PDFTEX, xetex, $DOCUMENTATION_REQUIRED)
+    if test "$PDFTEX" = "xetex"; then
+        # For avoiding PDF destination name replacement.
+        PDFTEX=$ugh_ugh_autoconf250_builddir/scripts/build/out$CONFIGSUFFIX/xetex-with-options
+    fi
 else
     STEPMAKE_PROGS(PDFTEX, pdfetex pdftex etex, $DOCUMENTATION_REQUIRED)
 fi
