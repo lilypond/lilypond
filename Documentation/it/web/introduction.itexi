@@ -739,7 +739,7 @@ oltre 1500 spartiti di brani di musica classica liberamente scaricabili, e
 principale vetrina delle partiture fatte con LilyPond.
 
 @item
-@uref{http://www.adoromusicpub.com/, Adoro Music Publishing},
+@uref{https://twitter.com/adoromusic, Adoro Music Publishing},
 spartiti di alta qualità di musica sacra, disponibili per il
 download immediato o nel tradizionale supporto cartaceo.
 
@@ -788,7 +788,7 @@ Aprile 2011
 
 @uref{http://www.linux-magazine.com,Linux Magazine} pubblica un
 articolo intitolato
-@uref{http://www.linux-magazine.com/w3/issue/126/088-090_projects.pdf,
+@uref{http://www.linux-magazine.com/content/download/61706/482546/version/1/file/088-090_projects.pdf,
 Projects on the Move}.  È un articolo introduttivo a MuseScore,
 LilyPond e Chordii.  L'autrice Carla Schroder afferma @qq{LilyPond è un
 programma a linea di comando, ma non lasciatevi spaventare dalla mancanza
@@ -985,7 +985,7 @@ grande tipografia musicale].}
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Snyder, @uref{http://www.adoromusicpub.com/, Adoro Music Publishing}
+@subsubheading Chris Snyder, @uref{https://twitter.com/adoromusic, Adoro Music Publishing}
 
 @qq{Il modo in cui la musica viene inserita in LilyPond mi fa pensare in
 modo più musicale -- a volte non sapevo come dire a
@@ -1475,7 +1475,7 @@ sono ancora disponibili e scaricabili le versioni precedenti su
 @uref{http://sourceforge.net/projects/mscore/files/mscore/,Sourceforge}.
 
 @item
-@uref{http://noteedit.berlios.de,NoteEdit}, che importava
+@uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit}, che importava
 @uref{http://www.makemusic.com/musicxml,MusicXML}, è stato "forkato"
 in
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}

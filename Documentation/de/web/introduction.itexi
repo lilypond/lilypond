@@ -755,7 +755,7 @@ Klaviatur, die anzeigt, welche Tasten gedrückt werden müssen, um
 Anfängern beim Notenlesen zu helfen.
 
 @item
-@uref{http://www.adoromusicpub.com/, Adoro Music Publishing},
+@uref{https://twitter.com/adoromusic, Adoro Music Publishing},
 qualitativ hochwertige Partituren von Kirchenmusik, sowohl zum
 direkten Download als auch auf Papier erhältlich.
 
@@ -806,7 +806,7 @@ April 2011
 
 @uref{http://www.linux-magazine.com,Linux Magazine} publiziert einen
 Atikel mit dem Titel
-@uref{http://www.linux-magazine.com/w3/issue/126/088-090_projects.pdf,
+@uref{http://www.linux-magazine.com/content/download/61706/482546/version/1/file/088-090_projects.pdf,
 Projects on the Move}. Es es eine Einleitung zu MuseScore,
 LilyPond and Chordii.  Die Authorin Carla Schroder schreibt @qq{LilyPond wird
 von der Kommandozeile aus gesteuert, aber lassen Sie sich nicht davon
@@ -1009,7 +1009,7 @@ Nummer CMS06.
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Snyder, @uref{http://www.adoromusicpub.com/, Adoro Music Publishing}
+@subsubheading Chris Snyder, @uref{https://twitter.com/adoromusic, Adoro Music Publishing}
 
 @qq{Die Art, in der die Noten mit LilyPond eingegeben werden,
 lässt mich musikalischer denken -- es gab Zeiten, wenn ich vergeblich
@@ -1500,7 +1500,7 @@ Versionen sind noch auf
 verfügbar.
 
 @item
-@uref{http://noteedit.berlios.de,NoteEdit}, konnte
+@uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit}, konnte
 @uref{http://www.makemusic.com/musicxml,MusicXML} importieren.
 Ableger existieren als
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}

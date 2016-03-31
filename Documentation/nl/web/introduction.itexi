@@ -623,7 +623,7 @@ toetsen aangeslagen worden om beginners te helpen bladmuziek
 lezen.
 
 @item
-@uref{http://www.adoromusicpub.com/, Adoro Music
+@uref{https://twitter.com/adoromusic, Adoro Music
 Publishing}, partituren van hoge kwaliteit van religieuze
 muziek, beschikbaar voor directe download of ouderwets op papier.
 
@@ -667,7 +667,7 @@ april 2011
 
 @uref{http://www.linux-magazine.com,Linux Magazine} publiceert een
 artikel getiteld
-@uref{http://www.linux-magazine.com/w3/issue/126/088-090_projects.pdf,
+@uref{http://www.linux-magazine.com/content/download/61706/482546/version/1/file/088-090_projects.pdf,
 Projects on the Move}.  Het is een inleiding in MuseScore,
 
 LilyPond en Chordii.  Auteur Carla Schroder schrijft
@@ -874,7 +874,7 @@ categorie prachtige muziek zetten].}
 @divEnd
 
 @divClass{testimonial-item}
-@subsubheading Chris Snyder, @uref{http://www.adoromusicpub.com/, Adoro Music Publishing}
+@subsubheading Chris Snyder, @uref{https://twitter.com/adoromusic, Adoro Music Publishing}
 
 @qq{De wijze waarop muziek wordt ingevoerd voor LilyPond
 laat mij op een muzikalere manier denken -- het is enkele
@@ -1360,7 +1360,7 @@ constraint-gebaseerde programmeertaal.
 LilyKDE3 voor KDE 3.5 en lilypond-KDE4 voor KDE 4.1.
 
 @item
-@uref{http://noteedit.berlios.de,NoteEdit}, dat 
+@uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit}, dat 
 @uref{http://www.musicxml.com/xml.html,MusicXML} importeerde, is geforkt
 in
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
