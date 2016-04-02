@@ -216,7 +216,7 @@ Currently: Francisco Vila @email{translations@@lilynet.net}
 @section Managing Staging and Master branches with Patchy
 
 @ignore
-The script 'test-patches.py' does not currently works with Allura.
+The script 'test-patches.py' does not currently work with Allura.
 @end ignore
 
 @menu
