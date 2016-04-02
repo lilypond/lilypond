@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 76ee88f5adfc7bcd8eff487543e3605e43a93d80
+    Translation of GIT committish: 211937747d4adbae18d6ce41f88dffbb3ca04a5f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -678,8 +678,8 @@ LilyPond で生成された楽譜は、世界中の演奏で使用されてい�
 version of Richard Strauss's @emph{Der Rosenkavalier} for four singers
 and a chamber orchestra of thirteen players.  This has been commissioned
 by the Berlin Philharmonic Orchestra whose members will be the performers on
-@uref{http://www.festspielhaus.de/veranstaltung/der-kleine-rosenkavalier-02-04-2015-1100/,April 2nd and 6th}
-at the Festspielhaus, Baden-Baden, and on
+@uref{http://www.festspielhaus.de/veranstaltung/der-kleine-rosenkavalier-02-04-2015-1100/,April 2nd and 6th} 
+at the Festspielhaus, Baden-Baden, and on 
 @uref{http://www.berliner-philharmoniker.de/konzerte/kalender/details/21070/,April 26th}
 in the @emph{Philharmonie (großer Saal)}, Berlin.  We are pleased to see
 musicians of such reputation playing from LilyPond scores -- and they are
@@ -687,18 +687,19 @@ reportedly very happy with them.
 
 Aurélien has also re-orchestrated @emph{Der Ring des Nibelungen} by Richard
 Wagner to a
-@uref{http://www.rsb-online.de/content/konzerte/wagnerzyklus-10-13/wagner-fuer-kinder/index_ger.html,100-minute version for children}.
+@uref{http://www.rsb-online.de/content/concerts/new-season-1516/family-concerts-age-7-and-above/index_eng.html,100-minute version for children}.
 Written for a standard symphony orchestra, but with a reduced cast of
-singers, it was performed by the @emph{Radio-Sinfonieorchester Berlin}
+singers, it was performed by the
+@uref{http://www.rsb-online.de/,@emph{Radio-Sinfonieorchester Berlin}}
 in April 2014 at the Atze Musiktheater, Berlin.  The Conductor was Heiko
 Matthias Förster.
 
 @item
 Joe Smeets created sheet music for the children's book @emph{Zing Mee}
-(@emph{Sing along}) by Annie M.G. published by Querido -- ISBN
-9789045106205:
-@uref{http://www.queridokinderenjeugdboeken.nl/web/Boek.htm?dbid=18954&typeofpage=134707, www.queridokinderenjeugdboeken.nl}; choir
-rehearsal scores for the Dutch translation of Benjamin Britten's
+(@emph{Sing along}) by Annie M.G. published by
+@uref{http://www.queridokinderenjeugdboeken.nl/, Querido}
+-- ISBN 9789045106205;
+choir rehearsal scores for the Dutch translation of Benjamin Britten's
 @emph{Saint Nicolas} performed by @emph{Muziektheater Hollands Diep} in
 2011;
 @uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft, www.muziektheaterhollandsdiep.nl}.
@@ -722,11 +723,11 @@ for his Ph.D. Thesis.
 @item
 Mussorgsky's @emph{Pictures at an exhibition}, was re-orchestrated and
 conducted by @uref{http://www.aurelienbello.com/,Aurélien Bello} with
-the @uref{http://www.junge-philharmonie-brandenburg.de/,
-Junge Philharmonie Brandenburg} in October 2011 and again April 2012.
+the @uref{https://junge-philharmonie-brandenburg.de/,
+Junge Philharmonie Brandenburg} in October 2011 and April 2012.
 
 @item
-@uref{http://www.kierenmacmillan.info/, Kieren MacMillan}, composer and
+@uref{http://kierenmacmillan.info/, Kieren MacMillan}, composer and
 musical director.  His many, recent works include; @emph{Go Thy Way},
 performed by the @uref{http://www.saltlakechoralartists.org/,
 Salt Lake Choral Artists} in March 2012; The
@@ -734,16 +735,16 @@ Salt Lake Choral Artists} in March 2012; The
 by the
 @uref{http://www.herald-dispatch.com/news/marshall/x1883873762/Music-duo-Chrysalis-to-perform-at-Marshall-University-on-Jan-19,
 Chrysalis Duo} ; @emph{thrafsmata} performed in July 2011 by the
-@uref{http://www.pnme.org/CurrentSeason/PreviousSeasons.html, Pittsburgh
+@uref{http://www.pnme.org/, Pittsburgh
 New Music Ensemble}.
 
 @item
 @emph{Anonymous Student Compliment or Complaint}, by
 @uref{http://www.mikesolomon.org, Mike Solomon}, winner chosen from among
 172 entries from 22 countries of the
-@uref{http://leftcoastensemble.org, 2011 Left Coast Composition Contest}.
+@uref{http://www.leftcoastensemble.org, 2011 Left Coast Composition Contest}.
 Other works include, Norman (age 1) for clarinet solo, performed at the
-@uref{http://emu.music.ufl.edu/fems_concerts.html, University of Florida}'s
+@uref{http://arts.ufl.edu/academics/music/, University of Florida}'s
 Electroacoustic Music Festival (FEMF), October 2010.
 
 @item
@@ -754,7 +755,7 @@ Italy.  @uref{http://www.ascarlatti2010.net, Alessandro Scarlatti 2010},
 in celebration of the composer's 350th birthday.
 
 @item
-@uref{http://www.mercurybaroque.org, Mercury Baroque}'s performance of
+@uref{http://www.mercuryhouston.org/, Mercury Baroque}'s performance of
 Lully's @emph{Armide}, May 15-16, 2009, in Houston, Texas (engraving by
 @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}).
 
@@ -769,7 +770,7 @@ New York} (engraving by
 @emph{Affaire étrangère}, an opera by
 @uref{http://valentin.villenave.net/,Valentin Villenave}
 to a French libretto by
-@uref{http://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis
+@uref{https://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis
 Trondheim}, premiered February 1, 2009 at
 @uref{http://www.orchestre-montpellier.com/, L'Opéra National de
 Montpellier}, France.
@@ -801,12 +802,12 @@ piano keyboard showing which keys to press to help beginners learn
 how to read sheet music.
 
 @item
-@uref{http://www.adoromusicpub.com/, Adoro Music Publishing},
+@uref{https://twitter.com/adoromusic, Adoro Music Publishing},
 high-quality scores of sacred music, available for immediate
 download or in traditional paper format.
 
 @item
-@uref{http://www.shadylane.fr, The Shady Lane Publishing},
+@uref{http://matthieujacquot.com/, The Shady Lane Publishing},
 a @qq{micro musical publishing house} whose goal is to promote a
 new form of musical economy closer to the musicians and music
 lovers.
@@ -949,8 +950,8 @@ October 2004
 The editors of Computer!Totaal, a Dutch computer magazine,
 @uref{http://lilypond.org/website/pdf/computer-totaal.jpeg,
 describe LilyPond} in the October 2004 issue as: @qq{Wonderful
-free (open source) software [..] The sheet music produced by
-LilyPond is exceptionally pretty [..] a very powerful system that
+free (open source) software [@dots{}] The sheet music produced by
+LilyPond is exceptionally pretty [@dots{}] a very powerful system that
 can do almost anything.}
 
 @item
@@ -977,7 +978,7 @@ February 2004
 
 Jazz singer Gail Selkirk writes about
 @uref{http://www.songbirdofswing.com/editorial_page/lilypond/,
-Diving into LilyPond}.  @qq{... you can make lead sheets or full
+Diving into LilyPond}.  @qq{@dots{} you can make lead sheets or full
 orchestral parts, and the results can be stunning.}
 @uref{http://www.computermusic.co.uk/, Computer Music Special},
 issue CMS06.
@@ -1059,7 +1060,6 @@ Lilypondで得られる結果に近い物は他ではありません
 その楽譜は読み難いものになるだろうということに気付きました。@c
 LilyPond を使うことで、@c
 私はより容易に編集者と譜刻者の 2 つの役割を果たすことができます。}
-
 
 @qq{私の拙い楽譜出版ビジネスは、完全に LilyPond に頼っています。@c
 作曲家に出版しようとしている楽譜の校正刷りを見せると、@c
@@ -1340,6 +1340,7 @@ LilyPond ソースコードをグラフィカル ビューと並べて表示す�
 音符や和音等に LilyPond が処理可能な調整を加えることができ、@c
 それを Denemo ファイルとして保存することができるため、@c
 ユーザはグラフィカル環境で楽譜を編集することができます。
+
 LilyPond テキストの中でカーソルを動かすと、@c
 グラフィカル ビューの中でもカーソルが動きます。@c
 調整で構文エラーが起きると、テキスト ビューで該当部分がハイライトされます。

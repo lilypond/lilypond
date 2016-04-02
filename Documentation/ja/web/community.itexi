@@ -1,14 +1,15 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: ja -*-
 @ignore
-    Translation of GIT committish: 40c0295431d0732747d0e37b7911f03fb9daca16
+    Translation of GIT committish: 211937747d4adbae18d6ce41f88dffbb3ca04a5f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c Translators: Yoshiki Sawada
+@c Translators: Masamichi Hosoda, Yoshiki Sawada
 
+@include included/acknowledge.itexi
 @include included/authors.itexi
 @include included/helpus.itexi
 
@@ -45,16 +46,19 @@
 @ref{援助が必要です}: あなたの手助けが必要です。
 
 @item
-@ref{Sponsoring}: financial contributions.
+@ref{スポンサー}: financial contributions.
 
 @item
 @ref{開発}: 貢献者とテスター向けです。
 
 @item
-@ref{GSoC 2012}: Google Summer of Code 2012 に対する我々のアイデア。
+@ref{Google Summer of Code}: ideas for Google Summer of Code (GSoC).
 
 @item
 @ref{著者}: 現在の LilyPond を作った人々。
+
+@item
+@ref{謝辞}: LilyPond をサポートするプロジェクトや団体。
 
 @end itemize
 @divEnd
@@ -86,8 +90,9 @@
 * 援助が必要です::
 * スポンサー::
 * 開発::
-* GSoC 2012::
+* Google Summer of Code::
 * 著者::
+* 謝辞::
 * 出版物::
 * 古いニュース::
 * 物置::
@@ -176,8 +181,8 @@ LSR から、@c
 @subsubheading 他の言語
 
 @quotation
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
-スペイン語のメーリング リスト}
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
+フランス語のメーリング リスト}
 
 @uref{http://www.lilypondforum.de/,
 ドイツ語のフォーラム}
@@ -185,27 +190,19 @@ LSR から、@c
 @uref{http://groups.google.com/group/lilypond-brasil,
 ポルトガル語のグループ}
 
-@uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
-フランス語のメーリング リスト}
-
-@uref{http://www.lilypondforum.nl/,
-オランダ語のフォーラム}
+@uref{http://lists.gnu.org/mailman/listinfo/lilypond-es,
+スペイン語のメーリング リスト}
 @end quotation
-
 @divEnd
 
 
 @divClass{column-right-top}
-@subheading 通知
-@c Stay Informed
+@subheading LilyPond ブログ
 
-@subsubheading LilyPond レポート
-
-LilyPond のことを知る最も簡単な方法は、@c
-我々のコミュニティのニュース レター LilyPond レポートを読むことです。
+我々コミュニティのブログ @q{Scores of Beauty} を読んでください。
 
 @example
-@uref{http://web.archive.org/web/20110325004849/http://news.lilynet.net}
+@uref{http://lilypondblog.org}
 @end example
 
 @subsubheading リリース メーリング リスト: @code{info-lilypond@@gnu.org}
@@ -232,12 +229,12 @@ info-lilypond への登録と情報}
 
 
 @divClass{column-right-bottom}
-@subheading 開発者の議論
+@subheading 開発者および翻訳者の議論
 
 @subsubheading 開発者メーリング リスト: @code{lilypond-devel@@gnu.org}
 
-多くの開発者がこのメーリング リストに登録しています。@c
-パッチはここに送ってください。
+開発者の議論はこのメーリングリストで行われています。@c
+パッチはここに送ることができます。
 
 @quotation
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel,
@@ -257,7 +254,8 @@ gmane で lilypond-devel にメールを送る}
 
 @subsubheading バグ メーリング リスト: @code{bug-lilypond@@gnu.org}
 
-バグについての議論はここで行われます。
+バグ報告や議論はここで行われます。@c
+このメーリングリストにパッチを送らないでください。
 
 @quotation
 @uref{http://lists.gnu.org/mailman/listinfo/bug-lilypond,
@@ -276,13 +274,16 @@ bug-lilypond への登録と情報}
 @warning{バグ リストにメールを送る前に @ref{バグ報告} の@c
 ガイドラインを呼んで下さい。}
 
-@divEnd
 
-@divClass{column-right-bottom}
-@subheading デリケートな内容の email
+@subsubheading 翻訳 メーリング リスト: @code{translations@@lilynet.org}
 
-プライベートな問題は Graham Percival (プロジェクト マネージャ) に@c
-送るべきです。彼はそのことについて関係者と議論します。
+LilyPond マニュアルの翻訳に関するすべての議論がここで行われます。@c
+このメーリングリストにパッチを送らないでください。
+
+@quotation
+@uref{http://lilypond-translations.3384276.n2.nabble.com/,
+アーカイブ}
+@end quotation
 
 @divEnd
 
@@ -414,10 +415,10 @@ LilyPond への理解不足である可能性が高いです！
 すでに把握しているバグがあります。以下をチェックしてください:
 
 @example
-@uref{http://code.google.com/p/lilypond/issues/list}
+@uref{http://sourceforge.net/p/testlilyissues/issues/}
 @end example
 
-@warning{バグ トラッカーに直接バグ報告を @strong{送らないで下さい}。@c
+@warning{このバグ トラッカーに直接バグ報告を @strong{送らないで下さい}。@c
 トラッカーに登録された問題については、自由に追加情報を書き込んでください。}
 
 @divEnd
@@ -500,7 +501,7 @@ gmane lilypond.bugs web インタフェイス} でバグ報告を送ることが
 バグにマークを付けて、@c
 そのバグに対して何かアクションがあったときに自動的に
 email を受け取ることができます。@c
-これには Google アカウントが必要です。
+これには Google アカウントでのログインが必要です。
 @divEnd
 
 @divClass{column-center-bottom}
@@ -513,6 +514,7 @@ email を受け取ることができます。@c
 を自由に追加してください！
 
 @divEnd
+
 
 
 @node 援助が必要です
@@ -789,6 +791,7 @@ LilyPond の開発手法はかなり複雑です。@c
 @divClass{normal-table}
 @multitable @columnfractions .3 .3 .3
 @headitem 導入部
+
 @item
 @docLinkSplit{学習,learning,@manualDevelLearningSplit-ja}
 @tab
@@ -809,15 +812,17 @@ LilyPond の開発手法はかなり複雑です。@c
 @docLinkBig{Essay,essay,@manualDevelEssayBig}
 @tab
 @docLinkPdf{Essay,essay,@manualDevelEssayPdf}
+@end multitable
 
+@multitable @columnfractions .3 .3 .3
 @headitem 常用マニュアル
 
 @item
-@docLinkSplit{Notation,notation,@manualDevelNotationSplit-ja}
+@docLinkSplit{記譜法,notation,@manualDevelNotationSplit-ja}
 @tab
-@docLinkBig{Notation,notation,@manualDevelNotationBig-ja}
+@docLinkBig{記譜法,notation,@manualDevelNotationBig-ja}
 @tab
-@docLinkPdf{Notation,notation,@manualDevelNotationPdf}
+@docLinkPdf{記譜法,notation,@manualDevelNotationPdf}
 
 @item
 @docLinkSplit{使用方法,usage,@manualDevelUsageSplit-ja}
@@ -832,7 +837,9 @@ LilyPond の開発手法はかなり複雑です。@c
 @docLinkBig{Snippets,snippets,@manualDevelSnippetsBig}
 @tab
 @docLinkPdf{Snippets,snippets,@manualDevelSnippetsPdf}
+@end multitable
 
+@multitable @columnfractions .3 .3 .3
 @headitem 時々使用するマニュアル
 
 @item
@@ -862,178 +869,275 @@ LilyPond の開発手法はかなり複雑です。@c
 @docLinkBig{Internals,internals,@manualDevelInternalsBig}
 @tab
 @docLinkPdf{Internals,internals,@manualDevelInternalsPdf}
+@end multitable
 
 @ifset web_version
+@multitable @columnfractions .3
 @headitem Downloadable
 
 @item
 @doctarballDevel
+@end multitable
 @end ifset
 
-@end multitable
 
 @divEnd
 @divEnd
 
 
-@node GSoC 2012
-@unnumberedsec GSoC 2012
-@translationof GSoC 2012
+
+
+@node Google Summer of Code
+@unnumberedsec Google Summer of Code
+
+@c 未訳
 
 @divClass{column-center-top}
-@subheading Google Summer of Code とは？
+@subheading What is Google Summer of Code?
 
-これは Google が運営する世界規模のプログラムで、@c
-夏休みにオープン ソース プロジェクトのために働く学生に報酬を提供します。
+@uref{https://developers.google.com/open-source/gsoc/, GSoC} is a global
+program that offers students stipends to write code for free software
+and open source projects during the summer.  It is an excellent
+opportunity for students to gain experience with real-world software
+development and make a contribution that benefits everyone.  It brings
+new contributors to LilyPond and enables students who are already
+involved to become more involved.  LilyPond participates in GSoC as part
+of the @uref{http://www.gnu.org/, GNU project}.
 
-LilyPond チーム GSoC を新しい貢献者を見つけ、@c
-すでに LilyPond の開発に参加している学生がより熱心に取り組む動機付けを@c
-与える絶好の機会だと捉えました。@c
-GSoC 2012 では我々の貢献者の一人が @uref{http://www.gnu.org/,
-GNU プロジェクト} の一部として認められました。@c
-我々は継続的にこのプログラムに参加したいと思っています。
+We have had GSoC participants in 2012 and 2015 and encourage students to
+apply for future summers.
+
+If you have questions or would like to apply, send us an email on our
+developer mailing list (see @ref{Contact}).
 
 @divEnd
 
-@divClass{column-center-bottom}
-@subheading LilyPond チームからの 2012 年のアイディア リスト
+@divClass{column-center-middle-color2}
+@subheading Project Ideas List
 
-以下のリストは GSoC 2012 に参加する学生に我々が提案したプロジェクトです。@c
-応募期間は終了しましたが、LilyPond の開発に興味を持つ人の激励として@c
-この Web ページをオンラインのままにしておくことにしました。@c
+Below is a list of suggested projects for GSoC or for anyone who is
+interested in helping to improve LilyPond. (Last updated: February 2016)
 
-開発チームにはこれらのプロジェクトに挑戦しようとする人々を積極的に@c
-支援するメンバーがいます。
+Mentor availability varies from project to project and from year to year.
+Send us an email on our developer mailing list (see @ref{Contact}), and
+we will help you find a mentor for a project that fits your interests
+and skills.
 
-もちろん、LilyPond には、些細な事も含めてさらに多くに改善すべき事柄があります。@c
-既知のすべての問題のリストが
-@uref{http://code.google.com/p/lilypond/issues/list, ここ} にあります。
+If you have ideas for a GSoC project that is not listed below you can
+send us an email as well.  There are a number of areas where LilyPond
+could be improved, and our development team is always willing to help
+those who would like to tackle a project like those listed below.
 
-@subheading 装飾小音符
+A full list of all the current open issues can be found
+@uref{http://sourceforge.net/p/testlilyissues/issues/, here}.
 
-装飾小音符の同期についての問題を、すべての基本的なアーキテクチャも含めて@c
-修正してください (@uref{http://code.google.com/p/lilypond/issues/detail?id=34,
-バグ トラッカーの問題 34} を参照してください)。@c
-装飾小音符は時間を巻き戻すかのように振舞い、LilyPond のタイミングを@c
-混乱させています。@c
-これにより予期しない効果 -- 特に、ある譜が装飾小音符を持っていて、他の譜が@c
-持っていない場合に -- が引き起こされています。
+@divEnd
 
-@strong{難易度:} 中
+@divClass{column-center-middle-color3}
+@subheading Improve internal chord structure
 
-@strong{必須スキル:} C++, MIDI
+The internal representation of LilyPond chords is not powerful enough
+to capture the nomenclature of jazz chords.  Currently the chord has
+a root, a bass and an inversion.  It would be nice to be able to handle
+stacked or polychords, minor/major, etc.  In order to do this, an
+internal representation with the ability to capture the essence of
+complex chords must be developed.  As a bonus, once the internal
+representation is developed, the output formatting of chord names can
+be improved.
 
-@strong{推奨スキル:} LilyPond の内部を熟知していること
+@strong{Difficulty:} Easy/medium
+@strong{Requirements:} Scheme (Guile), but the level necessary can be
+easily learned
+@strong{Recommended:} Chord theory and naming
+@strong{Mentor:} Carl Sorensen
 
-@strong{メンター:} Mike Solomon, Carl Sorensen
+@divEnd
 
-@subheading MusicXML
+@divClass{column-center-middle-color3}
+@subheading ScholarLY
 
-広範囲にわたる MusicXML エクスポート機能の追加と、インポート機能の改良、@c
-それらが機能することのチェックを行ってください。@c
-参加時間に応じて以下のいくつか、または全てを実現してください:
+ScholarLY is a library in
+@uref{https://openlilylib.org, openLilyLib} that provides functionality
+for annotating scores, making it possible to manage scholarly workflows
+completely in the context of the score document.  So far it is possible
+to enter annotations of different types, produce clickable messages in
+the console output and export to text and LaTeX files.
+
+There are numerous feature requests to turn this library into an
+even more powerful and comprehensive tool.  Some examples: Inserting
+music examples, producing footnotes, automatically applying styles
+to the annotated item (e.g. dash a slur, parenthesize an accidental),
+creating reports with point-and-click entries.  For a full description
+of this project suggestion please visit
+@uref{https://github.com/openlilylib/scholarly/wiki/GSoC, this Wiki page}.
+
+@strong{Difficulty:} medium
+@strong{Requirements:} Scheme, possibly LaTeX, (optionally Python)
+@strong{Recommended:} Experience with or interest in scholarly
+edition and collaborative workflows.
+@strong{Mentor:} Urs Liska
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Adding variants of font glyphs
 
 @divClass{keep-bullets}
 @itemize
 
 @item
-MIDI エクスポートのような基本的な音楽コンテンツ エクスポート機能@c
-(つまり、翻訳クラスから派生したエクスポート専用のクラス) を扱います。
+Adding @q{on} and @q{between} staff-line variants.
 
 @item
-基本的な音楽コンテンツの XML ツリーを構築し、音楽イベントと XML タグを@c
-結び付けます。
-
-@item
-すべての LilyPond エングラーバにエクスポート処理を実行させます。
-
-@item
-各出力オブジェクト (基本的には各ステンシル / ステンシルのグループ)
-を音楽イベントにリンクさせる機能を追加します
-(そして、それにより、XML ツリーの XML タグにリンクさせます)。
-
-@item
-XML 出力のバックエンドを追加します。@c
-その後、バックエンドには各出力オブジェクトのレイアウト情報を XML タグに@c
-追加する機能を持たせます。
+Shorter and narrower variants of some glyphs for example, accidentals.
+Another, more specific example could be an ancient notation breve
+notehead coming in two variants one with a small or big @q{hole} within
+it.
 
 @end itemize
 @divEnd
 
-ゴールは、MusicXML から楽譜をインポートして、データのロス無しにエクスポート@c
-することです。
+@strong{Difficulty:} easy
+@strong{Requirements:} MetaFont, C++, good eye for details
+@strong{Recommended knowledge:} basic LilyPond knowledge
+@strong{Mentor:} Werner Lemberg
 
-@strong{難易度:} 中
+@divEnd
 
-@strong{必須スキル:} MusicXML, Python, 基本的な LilyPond の知識
+@divClass{column-center-middle-color3}
+@subheading Grace notes
 
-@strong{メンター:} Reinhold Kainhofer, Mike Solomon
+Fix problems with synchronization of grace notes.  Grace notes can
+interfere with LilyPond's timing and cause odd effects, especially when
+multiple staffs are used where some have grace notes and others don't.
+This is one of the longest-standing and one of the more embarrassing
+@uref{https://sourceforge.net/p/testlilyissues/issues/34/,bugs} in
+LilyPond.
 
-他の楽譜ライターの経験 (クロス テストのために) があると尚良しです。
+@strong{Difficulty:} medium
+@strong{Requirements:} C++, MIDI
+@strong{Recommended:} familiarity with LilyPond internals
+@strong{Potential Mentors:} Mike Solomon (not available for GSoC 2016),
+Carl Sorensen
 
-@subheading スラーとタイの改良
+@divEnd
 
-スラーとタイのデフォルトのカーブ形状はしばしば満足いかないものです。@c
-同音異名の音符間のタイ (@code{@{ cis'~ des' @}}) はサポートされておらず、@c
-音部記号や譜の変更によって「中断」されるタイのサポートも十分ではありません。@c
-このプロジェクトでは、不満足な出力例を収集、ソートして、どのような出力に@c
-するかを決定して実際にコードを記述します。
+@divClass{column-center-middle-color3}
+@subheading Improve default beam positioning
 
-@strong{難易度:} 高
+For regular, cross-staff, broken and kneed beams.  Beaming should depend
+on context and neighbor notes (see section 2.2 of
+@uref{http://imslp.org/wiki/Repository_of_Music-Notation_Mistakes_%28Coulon,_Jean-Pierre%29,
+this book}).  If possible also reduce beaming-computation time.
 
-@strong{必須スキル:} C++, 試行錯誤によるコード記述の経験
+@strong{Difficulty:} medium
+@strong{Requirements:} C++, experience with writing heuristics
+@strong{Recommended knowledge:} aesthetic sense
+@strong{Potential Mentors:} Mike Solomon (not available for GSoC 2016),
+Carl Sorensen
 
-@strong{推奨スキル:} LilyPond の知識, 美的感覚
+@divEnd
 
-@strong{メンター:} Mike Solomon
+@divClass{column-center-middle-color3}
+@subheading Allow spanners to cross voices
 
-@subheading フォント図柄の特殊な変体を追加する
+Currently all sorts of spanners (ties, slurs, dynamics, text spanners,
+trills etc.) have to be ended in the context they were started.  However,
+this doesn't reflect the reality of notation in most polyphonic settings.
+Awkward workarounds with hidden voices are currently necessary to achieve
+cross-voice spanners.
 
-譜上の線、譜間の線、いくつかの図柄 (例えば臨時記号) を短く幅を縮めたものを@c
-追加して、それらをサポートするための一般的なインフラを整備します。@c
-使用例には古代記譜法の breve (全音符の 2 倍の長さ) の符頭があり、@c
-これには符頭の穴が小さいものと大きいものの 2 つの変体があります。
+New ways of addressing this issue should be explored, for example by
 
-@strong{難易度:} 低
+@divClass{keep-bullets}
+@itemize
 
-@strong{必須スキル:} MetaFont, C++, 細部を確認できる眼力
+@item specifying a “target context” where the end of the spanner is
+expected
 
-@strong{推奨スキル:} 基本的な LilyPond の知識
+@item explicitly specifying the ending object with an ID
 
-@strong{メンター:} Werner Lemberg
+@end itemize
+@divEnd
 
-@subheading 連桁の改良
+This feature would solve many problems that are commonly faced with
+piano music and combined parts. 
 
-連桁 (通常、譜をまたぐ、中断する、符幹が上下に突き出る連桁) のデフォルトの@c
-配置を改良する必要があります。@c
-連桁はコンテキストと付近の音符に依存します
-(@uref{http://icking-music-archive.org/lists/sottisier/sottieng.pdf,
-この PDF のセクション 2.2} を参照してください)。@c
-可能であれば、連桁の算出時間を削減してください。
+@strong{Difficulty:} medium (?)
+@strong{Requirements:} C++, Scheme
+@strong{Potential Mentor:} Urs Liska
+@divEnd
 
-@strong{難易度:} 中
+@divClass{column-center-middle-color3}
+@subheading Help improve compilation behavior
 
-@strong{必須スキル:} C++, 試行錯誤によるコード記述の経験
+Automatic code analysis tools, like valgrind memory leak detection or
+callgrind code profilers, provide valuable information about possible
+flaws in our C++ code.  Cleaning up warnings would allow us to automate
+the rejection of any patch which introduced extra warnings.
 
-@strong{推奨スキル:} 美的感覚
+@strong{Difficulty:} medium
+@strong{Requirements:} C++
+@strong{Potential Mentors:} Reinhold Kainhofer (not available for GSoC
+2016), Joe Neeman
 
-@strong{メンター:} Mike Solomon, Carl Sorensen
+@divEnd
 
-@subheading 様々なコンパイル警告のクリーン アップ
+@divClass{column-center-middle-color3}
+@subheading MusicXML
 
-コンパイラ、静的コード分析、それに valgrind の警告をクリーン アップして@c
-ください。@c
-自動コード分析ツール (@code{g++} と @code{clang} の警告)、valgrind メモリ
-リーク検出、それに callgrind コード プロファイラは C++ コードの欠陥に@c
-ついての有用な情報を提供してくれます。@c
-これらの警告をクリーン アップすることで、警告を発生させるパッチを自動的に@c
-拒絶することが可能になります。
+Improving MusicXML import and export functions:
 
-@strong{難易度:} 中
+@divClass{keep-bullets}
+@itemize
 
-@strong{必須スキル:} C++
+@item
+Handle basic musical content export like the MIDI export (i.e. using
+dedicated exporter classes, derived from the translator class).
 
-@strong{メンター:} Joe Neeman, Reinhold Kainhofer
+@item
+Build the XML tree of the basic musical content, add a connection from
+music event to XML tag.
+
+@item
+Let all LilyPond engravers do their job.
+
+@item
+Link each output object (i.e. each stencil or group of stencils) to the
+music cause (and thus to the XML tag in the XML tree).
+
+@item
+Add an XML output backend, which can then add layout information for
+each output object to the XML tags.
+
+@end itemize
+@divEnd
+
+There are several possibilities for this project, including building upon
+the MusicXML export project from GSoC 2015.
+
+@strong{Difficulty:} medium
+@strong{Requirements:} MusicXML, Python, Scheme, basic LilyPond knowledge
+@strong{Potential Mentors:} Reinhold Kainhofer, Mike Solomon (both not
+available for GSoC 2016)
+
+Familiarity with other scorewriters (for cross-testing) would also help.
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Improve slurs and ties
+
+The engraving quality of slurs and ties is often unsatisfactory. Ties
+@q{broken} by clef or staff changes are not handled well.  The project
+could include collecting and sorting examples of bad output, deciding on
+the intended output and writing code to improve them.
+
+@strong{Difficulty:} hard
+@strong{Requirements:} C++, experience with writing heuristics
+@strong{Recommended knowledge:} LilyPond knowledge, aesthetic sense
+@strong{Potential Mentors:} Mike Solomon, Janek Warchoł (both not available for
+GSoC 2016)
 
 @divEnd
 
@@ -1051,7 +1155,7 @@ XML 出力のバックエンドを追加します。@c
 @divEnd
 
 @divClass{column-right-top}
-@subheading 以前のの開発チーム
+@subheading 以前の開発チーム
 
 @divClass{keep-bullets}
 @developersPrevious
@@ -1123,6 +1227,18 @@ XML 出力のバックエンドを追加します。@c
 @divEnd
 @divEnd
 
+@node 謝辞
+@unnumberedsec 謝辞
+@translationof Acknowledgements
+
+@divClass{column-center-top}
+@subheading 謝辞
+
+@divClass{keep-bullets}
+@acknowledgementsCurrent
+@divEnd
+@divEnd
+
 
 @node 出版物
 @unnumberedsec 出版物
@@ -1156,7 +1272,7 @@ XML 出力のバックエンドを追加します。@c
 @translationof Old news
 
 @divClass{heading-center}
-@warning{多くの古いアナウンスと変更履歴が @ref{Attic} で見つかります。}
+@warning{多くの古いアナウンスと変更履歴が @ref{物置} で見つかります。}
 @divEnd
 
 @include web/news-front.itexi
@@ -1172,7 +1288,8 @@ XML 出力のバックエンドを追加します。@c
 @subheading アナウンス
 
 バージョン毎のアナウンスとニュース:
-@uref{http://lilypond.org/doc/v2.14/Documentation/web/index#LilyPond-2_002e14_0-released_0021-June-6_002c-2011,v2.14},
+@uref{http://lilypond.org/doc/v2.16/Documentation/web/index#Lilypond-2_002e16_002e0-released_0021-August-24_002c-2012-1,v2.16},
+@uref{http://lilypond.org/doc/v2.14/Documentation/web/index#LilyPond-2_002e14_002e0-released_0021-June-6_002c-2011,v2.14},
 @miscLink{announce-v2.12,v2.12},
 @miscLink{announce-v2.10,v2.10},
 @miscLink{announce-v2.8,v2.8},
@@ -1185,6 +1302,7 @@ XML 出力のバックエンドを追加します。@c
 @miscLink{ANNOUNCE-0.1,v0.1}
 
 バージョン毎の変更についての説明リスト:
+@uref{http://lilypond.org/doc/v2.16/Documentation/changes/index.html,v2.16},
 @uref{http://lilypond.org/doc/v2.14/Documentation/changes/index.html,v2.14},
 @uref{http://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS,v2.12},
 @uref{http://lilypond.org/doc/v2.10/Documentation/topdocs/NEWS,v2.10},
@@ -1197,6 +1315,23 @@ XML 出力のバックエンドを追加します。@c
 @uref{http://lilypond.org/doc/v1.6/Documentation/out-www/NEWS,v1.6},
 @miscLink{NEWS-1.4,v1.4},
 @miscLink{NEWS-1.2,v1.2}
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading 感謝
+
+開発者、貢献者、バグ発見者および提案に感謝します
+@miscLink{THANKS-2.16,v2.16},
+@miscLink{THANKS-2.14,v2.14},
+@miscLink{THANKS-2.12,v2.12},
+@miscLink{THANKS-2.10,v2.10},
+@miscLink{THANKS-2.8,v2.8},
+@miscLink{THANKS-2.6,v2.6},
+@miscLink{THANKS-2.4,v2.4},
+@miscLink{THANKS-2.2,v2.2},
+@miscLink{THANKS-2.0,v2.0},
+@miscLink{THANKS-1.8,v1.8}
 
 @divEnd
 
