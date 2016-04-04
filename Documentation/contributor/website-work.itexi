@@ -293,7 +293,7 @@ shared with people without trusted access to the server.
 @item
 Install apache2, or any other http server.  These instructions
 assume that you also enable @code{mod_userdir}, and use
-@code{$HOME/public_html} as the location.
+@code{$HOME/public_html/lilypond.org} as the location.
 
 @item
 Build the online docs and website:
@@ -311,14 +311,13 @@ example) the French with @code{make WEB_LANGS='fr' website}.
 @item
 Move the built stuff into those directories.  It's highly
 recommended to have your build dir and www dir on the same
-partition.  (make @code{$HOME/public_html/} a symlink if
-necessary)
+partition.  (make @code{$HOME/public_html/lilypond.org} a symlink
+if necessary)
 
 @example
-mv out-website/website/ $HOME/public_html
-mv $HOME/public_html/website/pictures $HOME/public_html/
-mkdir -p $HOME/public_html/doc/v2.13/
-mv out-www/online-root/* $HOME/public_html/doc/v2.13/
+mv out-website/website $HOME/public_html/lilypond.org/
+mkdir -p $HOME/public_html/lilypond.org/doc/v2.19/
+mv out-www/online-root/* $HOME/public_html/lilypond.org/doc/v2.19/
 @end example
 
 @end itemize
@@ -373,6 +372,4 @@ must change that to @code{@@manualDevelLearningSplit-es} (for
 es/Spanish translations, for example).
 
 @end itemize
-
-
 
