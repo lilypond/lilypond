@@ -1193,7 +1193,7 @@ articulations_dict = {
     #"shake": "?",
     "snap-pizzicato": "snappizzicato",
     #"spiccato": "?",
-    "staccatissimo": (musicexp.ShortArticulationEvent, "|"), # or "staccatissimo"
+    "staccatissimo": (musicexp.ShortArticulationEvent, "!"), # or "staccatissimo"
     "staccato": (musicexp.ShortArticulationEvent, "."), # or "staccato"
     "stopped": (musicexp.ShortArticulationEvent, "+"), # or "stopped"
     #"stress": "?",
