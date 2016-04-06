@@ -762,6 +762,14 @@ def group_tuplets(music_list, events):
         new_list.extend(music_list[last:i1])
         seq = musicexp.SequentialMusic()
         last = i2 + 1
+
+        # At this point music_list[i1:last] encompasses all the notes of the
+        # tuplet. There might be dynamics following this range, however, which
+        # apply to the last note of the tuplet. Advance last to include them
+        # in the range.
+        while last < len(music_list) and isinstance(music_list[last], musicexp.DynamicsEvent):
+            last += 1
+
         seq.elements = music_list[i1:last]
 
         tsm.element = seq
