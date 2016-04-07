@@ -288,12 +288,19 @@ guile> (list 1 2 3 "abc" 17.5)
 (1 2 3 "abc" 17.5)
 @end lisp
 
-As can be seen, a list is displayed in the form of individual elements
-separated by whitespace and enclosed in parentheses.  Unlike a pair,
-there is no period between the elements.
+Representing a list as individual
+elements separated by whitespace and enclosed in parentheses
+is actually a compacted rendition of the actual dotted pairs
+constituting the list, where the dot and an immediately following
+starting paren are removed along with the matching closing paren.
+Without this compaction, the output would have been
+@lisp
+(1 . (2 . (3 . ("abc" . (17.5 . ())))))
+@end lisp
 
-A list can also be entered as a literal list by enclosing its
-elements in parentheses, and adding a quote:
+As with the output, a list can also be entered (after adding a
+quote to avoid interpretation as a function call) as a literal
+list by enclosing its elements in parentheses:
 
 @lisp
 guile> '(17 23 "foo" "bar" "bazzle")
