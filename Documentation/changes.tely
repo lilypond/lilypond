@@ -62,6 +62,42 @@ which scares away people.
 @end ignore
 
 @item
+Dot-separated symbol lists like @code{FretBoard.stencil} were
+already supported as of version@tie{}2.18.  They may now also
+contain unsigned integers, and may alternatively be separated by
+commata.  This allows usage such as
+@lilypond[quote,verbatim]
+{ \time 2,2,1 5/8  g'8 8 8 8 8 }
+@end lilypond
+and
+@example
+\tagGroup violin,oboe,bassoon
+@end example
+
+@item
+Such lists may also be used in expressions for assignments, sets,
+and overrides.  This allows usage such as
+@lilypond[quote,verbatim]
+{ \unset Timing.beamExceptions
+  \set Timing.beatStructure = 1,2,1
+  g'8 8 8 8 8 8 8 8 }
+@end lilypond
+
+@item
+Association list elements could previously be assigned values
+individually (for example, paper variables like
+@code{system-system-spacing.basic-distance}).  They may now be
+also referenced in this manner, as with
+@example
+\paper @{
+  \void \displayScheme \system-system-spacing.basic-distance
+@}
+@end example
+
+In combination with the previously mentioned changes, this allows
+setting and referencing pseudovariables like @code{violin.1}.
+
+@item
 LilyPond source files may now be embedded inside the generated PDF files.
 This experimental feature is disabled by default and may be regarded as unsafe,
 as PDF documents with hidden content tend to present a security risk.
