@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 10bc01482b78c62ad095ceb95963b1800571e408
+   Translation of GIT committish: 12a06e5c29a2f58081068ac7663f0d6a6d4bdf95
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -136,7 +136,7 @@ où
 
 @multitable @columnfractions .33 .66
 @item @code{@var{argN}}
-@tab @var{n}-ième argument
+@tab @var{n}-ième argument.
 
 @item @code{@var{typeN?}}
 @tab un @emph{type de prédicat} Scheme pour lequel @code{@var{argN}}
