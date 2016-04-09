@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.40"
 
 \header {
   texidoc = "
@@ -13,12 +13,12 @@ by the markups.
     \overrideTimeSignatureSettings
       #'(4 . 4)  % time signature fraction
       #'(1 . 4)  % base moment fraction
-      #'(1 1 1 1)    % beatStructure
+      1,1,1,1        % beatStructure
       #'()       % beamExceptions
     \overrideTimeSignatureSettings
       #'(3 . 4)  % time signature fraction
       #'(1 . 4)  % base moment fraction
-      #'(1 1 1)    % beatStructure
+      1,1,1        % beatStructure
       #'()       % beamExceptions
     \time 4/4
     c8^\markup {"Beam by 1/4"} c c c c c c c |

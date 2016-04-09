@@ -674,6 +674,14 @@ assignment:
 identifier_init:
 	identifier_init_nonumber
 	| number_expression
+	| symbol_list_part_bare '.' property_path
+	{
+		$$ = scm_reverse_x ($1, $3);
+	}
+	| symbol_list_part_bare ',' property_path
+	{
+		$$ = scm_reverse_x ($1, $3);
+	}
 	| post_event_nofinger post_events
 	{
 		$$ = scm_reverse_x ($2, SCM_EOL);
@@ -1726,6 +1734,21 @@ symbol_list_element:
 	| UNSIGNED
 	;
 
+symbol_list_part_bare:
+	STRING
+	{
+		$$ = try_string_variants (Lily::key_list_p, $1);
+		if (SCM_UNBNDP ($$)) {
+			parser->parser_error (@1, _("not a key"));
+			$$ = SCM_EOL;
+		} else
+			$$ = scm_reverse ($$);
+	}
+	| UNSIGNED
+	{
+		$$ = scm_list_1 ($1);
+	}
+	;
 
 function_arglist_nonbackup:
 	function_arglist_common
@@ -2883,6 +2906,14 @@ scalar:
 		$$ = scm_difference ($2, SCM_UNDEFINED);
 	}
 	| string
+	| symbol_list_part_bare '.' property_path
+	{
+		$$ = scm_reverse_x ($1, $3);
+	}
+	| symbol_list_part_bare ',' property_path
+	{
+		$$ = scm_reverse_x ($1, $3);
+	}
 	;
 
 event_chord:

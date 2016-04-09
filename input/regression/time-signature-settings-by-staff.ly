@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.19.40"
 
 \header {
   texidoc = "
@@ -15,7 +15,7 @@ should be beamed 3/4, 1/4.  The lower staff should be beamed 1/4, 3/4.
         \overrideTimeSignatureSettings
           4/4        % timeSignatureFraction
           1/4        % baseMomentFraction
-          #'(3 1)    % beatStructure
+          3,1        % beatStructure
           #'()       % beamExceptions
         \time 4/4
         \repeat unfold 8 {c''8}
@@ -24,7 +24,7 @@ should be beamed 3/4, 1/4.  The lower staff should be beamed 1/4, 3/4.
         \overrideTimeSignatureSettings
           4/4        % timeSignatureFraction
           1/4        % baseMomentFraction
-          #'(1 3)    % beatStructure
+          1,3        % beatStructure
           #'()       % beamExceptions
         \time 4/4
         \repeat unfold 8 {c''8}

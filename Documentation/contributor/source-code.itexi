@@ -45,7 +45,7 @@ If you haven't already, download and install Git.
 @qq{Full installer for official Git} from:
 
 @example
-@uref{http://code.google.com/p/msysgit/downloads/list}
+@uref{https://git-for-windows.github.io/}
 @end example
 
 @item Other operating systems: either install @command{git} with
@@ -2356,9 +2356,7 @@ has, either as a complete file or as a @q{diff} or @q{patch}
 @subsection Installing git
 
 Obtain Git from
-@uref{http://code.google.com/p/msysgit/downloads/list} (note, not
-msysGit, which is for Git developers and not PortableGit, which is
-not a full git installation) and install it.
+@uref{https://git-for-windows.github.io/}.
 
 Note that most users will not need to install SSH.  That is not
 required until you have been granted direct push permissions to
