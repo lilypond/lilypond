@@ -678,8 +678,8 @@ LilyPond で生成された楽譜は、世界中の演奏で使用されてい�
 version of Richard Strauss's @emph{Der Rosenkavalier} for four singers
 and a chamber orchestra of thirteen players.  This has been commissioned
 by the Berlin Philharmonic Orchestra whose members will be the performers on
-@uref{http://www.festspielhaus.de/veranstaltung/der-kleine-rosenkavalier-02-04-2015-1100/,April 2nd and 6th} 
-at the Festspielhaus, Baden-Baden, and on 
+@uref{http://www.festspielhaus.de/veranstaltung/der-kleine-rosenkavalier-02-04-2015-1100/,April 2nd and 6th}
+at the Festspielhaus, Baden-Baden, and on
 @uref{http://www.berliner-philharmoniker.de/konzerte/kalender/details/21070/,April 26th}
 in the @emph{Philharmonie (großer Saal)}, Berlin.  We are pleased to see
 musicians of such reputation playing from LilyPond scores -- and they are
@@ -856,7 +856,7 @@ April 2011
 
 @uref{http://www.linux-magazine.com,Linux Magazine} publishes an
 article titled
-@uref{http://www.linux-magazine.com/w3/issue/126/088-090_projects.pdf,
+@uref{http://www.linux-magazine.com/content/download/61706/482546/version/1/file/088-090_projects.pdf,
 Projects on the Move}.  It is an introductory article on MuseScore,
 LilyPond and Chordii.  Author Carla Schroder states @qq{LilyPond is
 driven from the command line, but don’t let the lack of a GUI scare
@@ -1051,7 +1051,7 @@ Lilypondで得られる結果に近い物は他ではありません
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Snyder, @uref{http://www.adoromusicpub.com/, Adoro 楽譜出版社}
+@subsubheading Chris Snyder, @uref{https://twitter.com/adoromusic, Adoro 楽譜出版社}
 
 @qq{
 楽譜作成を LilyPond に任せることで、私はより音楽に集中することができます。@c
@@ -1547,7 +1547,7 @@ notes.
 でダウンロードできます。
 
 @item
-@uref{http://noteedit.berlios.de,NoteEdit}, which imported
+@uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit}, which imported
 @uref{http://www.makemusic.com/musicxml,MusicXML}, has been forked into
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 and @uref{http://canorus.org,Canorus}.

@@ -784,7 +784,7 @@ April 2011
 
 @uref{http://www.linux-magazine.com,Linux Magazine} publishes an
 article titled
-@uref{http://www.linux-magazine.com/w3/issue/126/088-090_projects.pdf,
+@uref{http://www.linux-magazine.com/content/download/61706/482546/version/1/file/088-090_projects.pdf,
 Projects on the Move}.  It is an introductory article on MuseScore,
 LilyPond and Chordii.  Author Carla Schroder states @qq{LilyPond is
 driven from the command line, but don’t let the lack of a GUI scare
@@ -979,7 +979,7 @@ typesetting].}
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Snyder, @uref{http://www.adoromusicpub.com/, Adoro Music Publishing}
+@subsubheading Chris Snyder, @uref{https://twitter.com/adoromusic, Adoro Music Publishing}
 
 @qq{The way that music is entered for LilyPond causes me to think in a
 more musical way -- there have been times when I've been stumped as
@@ -1446,7 +1446,7 @@ available for download at
 @uref{http://sourceforge.net/projects/mscore/files/mscore/,Sourceforge}.
 
 @item
-@uref{http://noteedit.berlios.de,NoteEdit}, which imported
+@uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit}, which imported
 @uref{http://www.makemusic.com/musicxml,MusicXML}, has been forked into
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 and @uref{http://canorus.org,Canorus}.

@@ -582,7 +582,7 @@ piano keyboard showing which keys to press to help beginners learn
 how to read sheet music.
 
 @item
-@uref{http://www.adoromusicpub.com/, Adoro Music Publishing},
+@uref{https://twitter.com/adoromusic, Adoro Music Publishing},
 high-quality scores of sacred music, available for immediate
 download or in traditional paper format.
 
@@ -626,7 +626,7 @@ If you've already decided to try LilyPond, first read about our
 
 @uref{http://www.linux-magazine.com,Linux Magazine} publishes an
 article titled
-@uref{http://www.linux-magazine.com/w3/issue/126/088-090_projects.pdf,
+@uref{http://www.linux-magazine.com/content/download/61706/482546/version/1/file/088-090_projects.pdf,
 Projects on the Move}.  It is an introductory article on MuseScore,
 LilyPond and Chordii.  Author Carla Schroder states @qq{LilyPond is
 driven from the command line, but don’t let the lack of a GUI scare
@@ -822,7 +822,7 @@ typesetting].}
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Snyder, @uref{http://www.adoromusicpub.com/, Adoro Music Publishing}
+@subsubheading Chris Snyder, @uref{https://twitter.com/adoromusic, Adoro Music Publishing}
 
 @qq{The way that music is entered for LilyPond causes me to think in a
 more musical way -- there have been times when I've been stumped as
@@ -1253,7 +1253,7 @@ language.
 LilyKDE3 for KDE 3.5 and lilypond-KDE4 for KDE 4.1 only.
 
 @item
-@uref{http://noteedit.berlios.de,NoteEdit}, which imported
+@uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit}, which imported
 @uref{http://www.musicxml.com/xml.html,MusicXML}, has been forked
 into
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}

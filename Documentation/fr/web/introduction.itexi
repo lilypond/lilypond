@@ -862,7 +862,7 @@ Avril 2011
 
 @uref{http://www.linux-magazine.com,Linux Magazine} publie un
 article sur trois projets en pleine évolution,
-@uref{http://www.linux-magazine.com/w3/issue/126/088-090_projects.pdf,
+@uref{http://www.linux-magazine.com/content/download/61706/482546/version/1/file/088-090_projects.pdf,
 Projects on the Move}.  Dans cette présentation de MuseScore, LilyPond
 et Chordii, Carla Schroder indique que « même si LilyPond se base sur
 la ligne de commande, l'absence d'interface graphique n'est en rien
@@ -1061,7 +1061,7 @@ musicale de qualité].}
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Snyder, @uref{http://www.adoromusicpub.com/, Adoro Music Publishing}
+@subsubheading Chris Snyder, @uref{https://twitter.com/adoromusic, Adoro Music Publishing}
 
 @qq{La façon dont on saisit la musique pour LilyPond me fait penser
 d'une façon plus musicale -- il m'est arrivé plusieurs fois de buter sur
@@ -1564,7 +1564,7 @@ créé en tant que greffon de l'éditeur @uref{http://www.jedit.org,jEdit}.
 exporte dans une certaine mesure au format LilyPond.
 
 @item
-@uref{http://noteedit.berlios.de,NoteEdit}, qui importait
+@uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit}, qui importait
 @uref{http://www.makemusic.com/musicxml, MusicXML}, s'est scindé en
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 et @uref{http://canorus.org,Canorus}.

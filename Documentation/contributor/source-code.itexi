@@ -1235,17 +1235,29 @@ high-res images, fixed cropping on Finale example.
 @end example
 
 Commit messages often start with a short prefix describing the
-general location of the changes.  If a commit affects the
+general location of the changes.
+
+@itemize
+@item
+Doc: and Doc-@var{**}:  If a commit affects the
 documentation in English (or in several languages simultaneously)
-the commit message should be prefixed with @qq{Doc:@tie{}}.  If
-the commit affects only one of the translations, the commit
+the commit message should be prefixed with @qq{Doc:@tie{}}.  If the
+commit affects only one of the translations, the commit
 message should be prefixed with @qq{Doc-@var{**}:@tie{}}, where
-@var{**} is the two-letter language code.  Commits that affect the
+@var{**} is the two-letter language code.
+
+@item
+Web: and Web-@var{**}:  Commits that affect the
 website should use @qq{Web:@tie{}} for English, and
-@qq{Web-@var{**}:@tie{}} for the other languages.  Also, changes
-to a single file are often prefixed with the name of the file
-involved.  Visit the links listed in @ref{Understanding commits}
-for examples.
+@qq{Web-@var{**}:@tie{}} for other languages.
+
+@item
+Changes to a single file are often prefixed with the name of the file
+involved.
+@end itemize
+
+Visit the links listed in @ref{Understanding commits} for examples.
+
 
 
 @node Patches

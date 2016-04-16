@@ -576,7 +576,7 @@ klaviaturu, která ukazuje, které klávesy se musí stisknout, aby
 při čtení not pomohl začátečníkům.
 
 @item
-@uref{http://www.adoromusicpub.com/, Adoro Music Publishing},
+@uref{https://twitter.com/adoromusic, Adoro Music Publishing},
 jakostně vysoce hodnotné notové zápisy církevní hudby, jak pro
 přímé stažení tak i k dostání na papíře.
 
@@ -792,7 +792,7 @@ překvapit.}
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Snyder, @uref{http://www.adoromusicpub.com/, Adoro Music Publishing}
+@subsubheading Chris Snyder, @uref{https://twitter.com/adoromusic, Adoro Music Publishing}
 
 @qq{Způsob, jakým jsou noty v LilyPondu zadávány, mi dovoluje
 myslet hudebně -- byly doby, kdy jsem se LilyPondu marně 
@@ -1202,7 +1202,7 @@ pro vytváření hudebního zápisu z programových prostředí pro počítačov
 LilyKDE3 pro KDE 3.5 a lilypond-KDE4 pro KDE 4.1.
 
 @item
-@uref{http://noteedit.berlios.de,NoteEdit}, který zaváděl
+@uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit}, který zaváděl
 @uref{http://www.musicxml.com/xml.html,MusicXML}, se
 rozdělil a je dále vyvíjen jako
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
