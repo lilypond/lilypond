@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 9d1f4d4d16abf95cccf6bea9cf98c312e55a3ebf
+   Translation of GIT committish: 934175b31d43c95e341b098f12c2e833522a5d45
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -317,12 +317,21 @@ guile> (list 1 2 3 "abc" 17.5)
 (1 2 3 "abc" 17.5)
 @end lisp
 
-Comme vous le remarquez, une liste s'affiche sous la forme d'une suite
-d'éléments séparés par une espace, bornée par des parenthèses.
-Contrairement à une paire, il n'y a pas de point entre les éléments.
+La représentation d'une liste par la succession de ses éléments, séparés
+par des espaces, bornée par des parenthèses, n'est en fait qu'une vue
+compacte des paires qui la constituent.  Les paires sont ainsi
+dépourvues du point de séparation et de la parenthèse ouvrante qui le
+suit et des parenthèses fermantes.  Sans ce « compactage », cette liste
+serait ainsi présentée :
 
-Vous pouvez aussi saisir directement une liste en entourant ses éléments
-par des parenthèses à la suite d'une apostrophe :
+@lisp
+(1 . (2 . (3 . ("abc" . (17.5 . ())))))
+@end lisp
+
+Vous pouvez donc saisir une liste comme elle serrait présentée, en
+entourant ses éléments par des parenthèses à la suite d'une apostrophe
+(afin que ce qui suit ne soit pas interprété comme un appel à une
+fonction) :
 
 @lisp
 guile> '(17 23 "foo" "bar" "bazzle")

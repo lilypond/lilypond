@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 88a5dbc589b0d0434f8e640467b5ab57d14dc461
+   Translation of GIT committish: 934175b31d43c95e341b098f12c2e833522a5d45
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1564,7 +1564,8 @@ créé en tant que greffon de l'éditeur @uref{http://www.jedit.org,jEdit}.
 exporte dans une certaine mesure au format LilyPond.
 
 @item
-@uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit}, qui importait
+@uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit},
+qui importait
 @uref{http://www.makemusic.com/musicxml, MusicXML}, s'est scindé en
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 et @uref{http://canorus.org,Canorus}.
