@@ -101,8 +101,8 @@ LY_DEFINE (ly_output_description, "ly:output-description",
     {
       Context_def *td = unsmob<Context_def> (scm_cdar (s));
       SCM key = scm_caar (s);
-      if (td && key == td->get_context_name ())
-	ell = scm_cons (scm_cons (key, td->to_alist ()), ell);
+      if (td && scm_is_eq (key, td->get_context_name ()))
+        ell = scm_cons (scm_cons (key, td->to_alist ()), ell);
     }
   return ell;
 }
@@ -195,7 +195,7 @@ LY_DEFINE (ly_paper_fonts, "ly:paper-fonts",
     }
 
   SCM alist2 = SCM_EOL;
-  if (scm_hash_table_p (tab2) == SCM_BOOL_T)
+  if (scm_is_true (scm_hash_table_p (tab2)))
     {
       // strip original-fonts/pango-font-descriptions
       alist2 = scm_append (ly_alist_vals (ly_hash2alist (tab2)));
