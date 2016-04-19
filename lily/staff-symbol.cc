@@ -135,8 +135,16 @@ Staff_symbol::line_positions (Grob *me)
 }
 
 vector<Real>
-Staff_symbol::ledger_positions (Grob *me, int pos)
+Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
 {
+  // allow the option to override ledger positions via note head grob
+  if (head)
+    {
+      SCM posns = head->get_property ("ledger-positions");
+      if (scm_is_pair (posns))
+        return ly_scm2floatvector (posns);
+    }
+
   SCM ledger_positions = me->get_property ("ledger-positions");
   Real ledger_extra = robust_scm2double (me->get_property ("ledger-extra"), 0);
   vector<Real> line_positions = Staff_symbol::line_positions (me);
