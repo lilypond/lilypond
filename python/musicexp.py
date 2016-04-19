@@ -2192,52 +2192,19 @@ class StaffGroup:
             return
 
     def print_ly (self, printer):
-        #prints two << before a StaffGroup, one after a StaffGroup and one before each \new Staff
-        #printer.dump("<<")
-        #printer.newline ()
         self.print_chords(printer)
         self.print_fretboards(printer)
         if self.stafftype:
             printer.dump ("\\new %s" % self.stafftype)
+        self.print_ly_overrides (printer)
+        printer.newline ()
+        if self.stafftype:
             printer.dump ("<<")
             printer.newline ()
-        # if there is a width-block << should not be printed after StaffGroup but after the width-block
-        # this seems to work. It prints \new StaffGroup \with{} <<:
-#        if self.stafftype == "StaffGroup" and self.print_ly_overrides:
-            #prints a new line before each new staff type, e.g. before \new StaffGroup and \new Staff...
-            #printer.newline ()
-#            printer.dump("\\new %s" % self.stafftype)
-            #self.print_ly_overrides (printer)
-            #prints a << and a new line after each new staff type.
-           # printer.dump ("<<")
-           # printer.newline()
-        # print a << after all other staff types:
-        # can't use "else:" because then we get a '\new None' staff type in LilyPond...
-#       elif self.stafftype == "StaffGroup":
-#           printer.dump ("\\new %s" % self.stafftype)
-#           printer.dump ("<<")
-#           printer.newline ()
-        # << should be printed directly after StaffGroups without a with-block:
-        # this doesn't work:
-#       elif self.stafftype == "StaffGroup" and not self.print_ly_overrides:
-#           printer.dump ("<<")
-#           printer.newline ()
-        # this is bullshit:
-#       elif self.stafftype == "StaffGroup" and self.stafftype == "Staff":
-#           printer.dump ("<<")
-#           printer.newline ()
-        # this prints \new Staff << for every staff in the score:
-#       elif self.stafftype:
-#           printer.dump ("\\new %s" % self.stafftype)
-#           printer.dump ("<<")
-#           printer.newline ()
-        self.print_ly_overrides (printer)
-        #printer.dump ("<<")
-        #printer.newline ()
         if self.stafftype and self.instrument_name:
             printer.dump ("\\set %s.instrumentName = %s" % (self.stafftype,
                     escape_instrument_string (self.instrument_name)))
-            #printer.newline ()
+            printer.newline ()
         if self.stafftype and self.short_instrument_name:
             printer.dump ("\\set %s.shortInstrumentName = %s" % (self.stafftype,
                     escape_instrument_string (self.short_instrument_name)))
@@ -2246,21 +2213,12 @@ class StaffGroup:
             printer.dump(
                 r'\set {stafftype}.midiInstrument = #"{sound}"'.format(
                     stafftype=self.stafftype, sound=self.sound))
+            printer.newline ()
         self.print_ly_contents (printer)
         printer.newline ()
-# This is a crude hack: In scores with staff groups the closing angled brackets are not printed.
-# That's why I added the following two lines. I couldn't find a proper solution. This won't work with scores several staff groups!!!
-        if self.stafftype == "StaffGroup":
+        if self.stafftype:
             printer.dump (">>")
-        #printer.dump (">>")
-        #printer.dump (">>")
-        #printer.newline ()
-        #printer.dump ("test") #test is printed 4 times in a staffgroup with two staves: once at the end of each staff and twice at the end of the staffgroup. That's not what we want!
-    #printer.dump ("test") NameError: name 'printer' is not defined
-
-#test
-#    def print_staffgroup_closing_brackets (self, printer): #test see class Staff / Score.
-#       printer.dump ("test")
+            printer.newline ()
 
 
 class Staff (StaffGroup):
@@ -2327,13 +2285,6 @@ The next line contains a bug: The voices might not appear in numerical order! So
             self.substafftype = "Staff"
             #printer.dump ('test')
         StaffGroup.print_ly (self, printer)
-        #StaffGroup.print_staffgroup_closing_brackets (self, printer) prints test after each definition of a staff
-        printer.dump ('>>')
-        #printer.dump ("test") #prints test after each definition of a context.
-        printer.newline ()
-        #StaffGroup.print_staffgroup_closing_brackets(self, printer) #prints test after each definition of a staff.
-    #printer.dump ("test")# NameError: name 'printer' is not defined
-    #StaffGroup.print_staffgroup_closing_brackets() #TypeError: unbound method print_staffgroup_closing_brackets() must be called with StaffGroup instance as first argument (got nothing instead)
 
 
 class TabStaff (Staff):
