@@ -35,6 +35,24 @@ updated manuals.  We recommend all users to upgrade to this version.
 
 
 @newsItem
+@subheading Two LilyPond projects in Google Summer of Code 2016  @emph{April 23, 2016}
+
+We are happy to see two students, Nathan Chou and Jeffery Shivers, working on
+LilyPond as participants in the Google Summer of Code this year.  We hope they
+produce great results and stay in the developer community afterwards.
+
+Nathan will tackle an annoying limitation, namely the unability of spanners
+to cross voices.  His work will make a class of ugly workarounds obsolete.
+Jeffery will bring the ScholarLY package[1] to production quality and add a
+LaTeX package to it, making it possible to create beautiful critical reports
+from data encoded directly in the LilyPond score.
+
+[1] @uref{https://github.com/openlilylib/scholarly}@*
+
+@newsEnd
+
+
+@newsItem
 @subheading Lilypond 2.18.0 released!  @emph{December 29, 2013}
 
 We are proud to announce the release of GNU LilyPond 2.18.0.
