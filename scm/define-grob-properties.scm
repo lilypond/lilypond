@@ -579,6 +579,9 @@ are added.")
 When set on a @code{StaffSymbol} grob it defines a repeating
 pattern of ledger lines and any parenthesized groups will always be
 shown together.")
+     (ledger-positions-function ,scheme? "A quoted Scheme procedure that
+takes a @code{StaffSymbol} grob and the vertical position of a note head
+as arguments and returns a list of ledger line positions.")
      (left-bound-info ,list? "An alist of properties for determining
 attachments of spanners to edges.")
      (left-padding ,ly:dimension? "The amount of space that is put
