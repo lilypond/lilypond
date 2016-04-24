@@ -3308,7 +3308,7 @@ and lots of updates for the translations.
 
 Release 2.11.28 is now available as a binary installer for
 FreeBSD x86_64.  Download
-@uref{http://lilypond.org/download/binaries/freebsd-64/,the installer} and
+@uref{http://lilypond.org/downloads/binaries/freebsd-64/,the installer} and
 do @emph{sh lilypond-2.11.28-1.freebsd-64.sh} in a command window.
 @newsEnd
 
@@ -4201,11 +4201,11 @@ to the @ref{Old downloads} get them!
 Starting with 2.7.26, the development team has been working on the
 installers. We're proud to announce another version of these: they are
 now available for
-@uref{http://lilypond.org/download/binaries/linux-x86/,
+@uref{http://lilypond.org/downloads/binaries/linux-x86/,
 Linux/x86},
-@uref{http://lilypond.org/download/binaries/darwin-ppc/,
+@uref{http://lilypond.org/downloads/binaries/darwin-ppc/,
 MacOS X} and
-@uref{http://lilypond.org/download/binaries/mingw/,
+@uref{http://lilypond.org/downloads/binaries/mingw/,
 Windows}.
 @newsEnd
 

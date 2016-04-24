@@ -766,7 +766,7 @@ This release's lilypond-book tests.
 @itemize
 @item @uref{http://lilypond.org/test, Comparisons between regression tests}
 
-@item @uref{http://lilypond.org/download/binaries/test-output/,
+@item @uref{http://lilypond.org/downloads/binaries/test-output/,
 Archive of all regression tests}
 
 @end itemize
