@@ -223,8 +223,7 @@ Auto_beam_engraver::create_beam ()
     Beam::add_stem (beam, (*stems_)[i]);
 
   Grob_info i = make_grob_info (beam, (*stems_)[0]->self_scm ());
-  i.rerouting_daddy_context_ = beam_start_context_.get_context ();
-  announce_grob (i);
+  announce_grob (i, beam_start_context_.get_context ());
 
   return beam;
 }
@@ -283,9 +282,8 @@ Auto_beam_engraver::end_beam ()
       if (finished_beam_)
         {
           Grob_info i = make_grob_info (finished_beam_, SCM_EOL);
-          i.rerouting_daddy_context_ = beam_start_context_.get_context ();
 
-          announce_end_grob (i);
+          announce_end_grob (i, beam_start_context_.get_context ());
           finished_grouping_ = grouping_;
           finished_beaming_options_ = beaming_options_;
         }

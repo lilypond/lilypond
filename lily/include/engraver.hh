@@ -41,8 +41,8 @@ protected:
     Default: ignore the info
   */
   virtual void acknowledge_grob (Grob_info) {}
-  virtual void announce_grob (Grob_info);
-  virtual void announce_end_grob (Grob_info);
+  virtual void announce_grob (Grob_info, Context *reroute_context = 0);
+  virtual void announce_end_grob (Grob_info, Context *reroute_context = 0);
   Engraver_group *get_daddy_engraver () const;
 
 public:

@@ -148,8 +148,7 @@ Span_bar_stub_engraver::process_acknowledged ()
           Item *it = new Item (Grob_property_info (affected_contexts[j], ly_symbol2scm ("SpanBarStub")).updated ());
           it->set_parent (spanbars_[i], X_AXIS);
           Grob_info gi = make_grob_info (it, spanbars_[i]->self_scm ());
-          gi.rerouting_daddy_context_ = affected_contexts[j];
-          announce_grob (gi);
+          announce_grob (gi, affected_contexts[j]);
           if (!keep_extent[j])
             it->suicide ();
         }

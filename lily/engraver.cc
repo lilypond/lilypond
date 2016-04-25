@@ -36,16 +36,15 @@ Engraver::get_daddy_engraver () const
 }
 
 void
-Engraver::announce_grob (Grob_info inf)
+Engraver::announce_grob (Grob_info inf, Context *reroute_context)
 {
-  get_daddy_engraver ()->announce_grob (inf);
+  get_daddy_engraver ()->announce_grob (inf, START, reroute_context);
 }
 
 void
-Engraver::announce_end_grob (Grob_info inf)
+Engraver::announce_end_grob (Grob_info inf, Context *reroute_context)
 {
-  inf.start_end_ = STOP;
-  get_daddy_engraver ()->announce_grob (inf);
+  get_daddy_engraver ()->announce_grob (inf, STOP, reroute_context);
 }
 
 Grob_info
