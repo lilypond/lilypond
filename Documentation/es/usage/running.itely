@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 8706e77a804e412e751fdd47385c8ccfdc28e732
+    Translation of GIT committish: 0fa6f042cccacb643d46781dde23617c71a9753e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -264,6 +264,11 @@ which formats should be written.  Choices for @code{format} are
 
 Example: @code{lilypond -fpng @var{filename}.ly}
 
+@noindent
+Para los formatos @code{svg} y @code{eps} utilice
+la opción @code{-dbackend}.
+Véase @ref{Opciones avanzadas de línea de órdenes para LilyPond}.
+
 @item -h, --help
 Mostrar un resumen de las formas de utilización.
 
@@ -520,12 +525,14 @@ bruto.
 @tab @code{svg}
 @tab Gráficos vectoriales escalables.
 Por cada página de la salida, se crea un solo archivo @code{SVG}.
-Aparte de los glifos musicales propios de LilyPond, no se incluye
-ninguna otra información de fuente tipográfica.  Por tanto,
-cualquier visor de SVG necesita tener las fuentes disponibles para
+Los glifos musicales se codifican como gráficos vectoriales,
+pero las fuentes tipográficas del texto
+@emph{no} se incrustan en los archivos SVG.
+Cualquier visor de SVG necesita que las fuentes de texto
+correspondientes estén disponibles para
 la correcta representación tanto del texto como de la letra. Se
 recomienda no utilizar @q{alias} ni @q{listas} de fuentes
-tipográficas por si acaso el visor de SVG no es capaz de
+tipográficas por si el visor de SVG no es capaz de
 manejarlas.  Al usar archivos de fuente abierta para la web
 @emph{Web Open Font Format} (WOFF), es necesario indicar la opción
 @code{--svg-woff}.
@@ -533,12 +540,11 @@ manejarlas.  Al usar archivos de fuente abierta para la web
 
 @noindent
 @strong{Nota para el backend de salida svg:}
-
-Las fuentes predeterminadas de LilyPond (@code{LilyPond Serif},
-@code{LilyPond Sans Serif} y @code{LilyPond Monospace}) son
-solamente alias de fuente @emph{locales}.  Por ello, al usar la
-instrucción de backend @code{svg} debemos definir explícitamente
-las fuentes predeterminadas en el archivo de entrada:
+En la salida SVG, LilyPond usa por defecto los valores
+de @code{font-family} genéricos @code{serif}, @code{sans-serif}, o
+@code{monospace}.  Por tanto, al usar el
+backend @code{svg} debemos definir explícitamente
+las fuentes predeterminadas deseadas en el archivo de entrada:
 
 @quotation
 @verbatim
@@ -619,6 +625,11 @@ durante la compilación.
 @tab @code{#f}
 @tab Volcar las firmas de salida de cada sistema.  Usado para las pruebas
 de regresión.
+
+@item @code{embed-source-code}
+@tab @code{#f}
+@tab Empotrar los archivos de entrada en código de LilyPond
+dentro del documento PDF generado.
 
 @item @code{eps-box-padding}
 @tab @code{#f}
