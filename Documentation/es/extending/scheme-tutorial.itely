@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: bfd8ed4084a441d9ac65b1b088f3b54f31ae40c6
+    Translation of GIT committish: 934175b31d43c95e341b098f12c2e833522a5d45
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -75,10 +75,10 @@ terminal y tecleando @q{guile}.  En algunos sistemas, sobre todo
 en Windows, podría necesitar ajustar la variable de entorno
 @code{GUILE_LOAD_PATH} a la carpeta @code{../usr/share/guile/1.8}
 dentro de la instalación de LilyPond (para conocer la ruta
-completa a esta carpeta, consulte
-@rlearning{Otras fuentes de información}).  Como alternativa, los
-usuarios de Windows pueden seleccionar simplemente @q{Ejecutar}
-del menú Inicio e introducir @q{guile}.
+completa a esta carpeta, consulte @rlearning{Otras fuentes de
+información}).  Como alternativa, los usuarios de Windows pueden
+seleccionar simplemente @q{Ejecutar} del menú Inicio e introducir
+@q{guile}.
 
 Sin embargo, está disponible un cajón de arena de Scheme listo
 para funcionar con todo LilyPond cargado, con esta instrucción de
@@ -88,8 +88,8 @@ lilypond scheme-sandbox
 @end example
 
 @noindent
-Una vez está funcionando el cajón de arena, verá un indicador
-del sistema de Guile:
+Una vez está funcionando el cajón de arena, verá un indicador del
+sistema de Guile:
 
 @lisp
 guile>
@@ -314,14 +314,20 @@ guile> (list 1 2 3 "abc" 17.5)
 (1 2 3 "abc" 17.5)
 @end lisp
 
-Como se ve, una lista se imprime en la forma de elementos
-individuales separados por espacios y encerradas entre paréntesis.
-A diferencia de las parejas, no hay ningún punto entre los
-elementos.
+La representación de una lista como elementos individuales
+separados por espacios y encerrada entre paréntesis es realmente
+una forma compacta de las parejas con punto que constituyen la
+lista, donde el punto e inmediatamente un paréntesis de apertura
+se suprimen junto al paréntesis de cierre correspondiente.  Sin
+esta compactación, la salida habría sido
+@lisp
+(1 . (2 . (3 . ("abc" . (17.5 . ())))))
+@end lisp
 
-También se puede escribir una lista como una lista literal
-encerrando sus elementos entre paréntesis y añadiendo un
-apóstrofo:
+De igual forma que con la salida, una lista puede escribirse
+(después de haber añadido un apóstrofo para evitar su
+interpretación como una llamada de función) como una lista literal
+encerrando sus elementos entre paréntesis:
 
 @lisp
 guile> '(17 23 "fulano" "mengano" "zutano")
@@ -1663,7 +1669,7 @@ propiedad @code{articulations}, podemos devolver
 
 Ahora transformamos la función @code{add-accent} en una función
 musical (es cuestión de un poco de aderezo sintáctico y una
-declaración del tipo de su único argumento @q{real}).
+declaración del tipo de su argumento).
 
 @example
 addAccent = #(define-music-function (note-event)
@@ -1677,7 +1683,8 @@ addAccent = #(define-music-function (note-event)
   note-event)
 @end example
 
-Podemos verificar que esta función musical funciona correctamente:
+A continuación verificamos que esta función musical funciona
+correctamente:
 
 @example
 \displayMusic \addAccent c4
