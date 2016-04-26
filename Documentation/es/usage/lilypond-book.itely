@@ -1511,5 +1511,4 @@ donde @code{\includescore} está definido como:
 @translationof Alternate methods of mixing text and music
 
 Otras formas de mezclar texto y música (sin
-@command{lilypond-book}) se estudian en
-@ref{Insertar la salida de LilyPond dentro de otros programas}.
+@command{lilypond-book}) se estudian en @ref{Otros programas}.
