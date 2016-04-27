@@ -1982,6 +1982,7 @@ class TempoMark (Music):
         self.newduration = None
         self.beats = None
         self.parentheses = False
+        self.text = None
     def set_base_duration (self, dur):
         self.baseduration = dur
     def set_new_duration (self, dur):
@@ -1990,6 +1991,8 @@ class TempoMark (Music):
         self.beats = beats
     def set_parentheses (self, parentheses):
         self.parentheses = parentheses
+    def set_text (self, text):
+        self.text = text
     def wait_for_note (self):
         return False
     def duration_to_markup (self, dur):
@@ -2005,8 +2008,8 @@ class TempoMark (Music):
         if not self.baseduration:
             return res
         if self.beats:
-            if self.parentheses:
-                res += "\\tempo \"\" %s=%s" % (self.baseduration.ly_expression(), self.beats)
+            if self.parentheses or self.text:
+                res += "\\tempo \"%s\" %s=%s" % (self.text or '', self.baseduration.ly_expression(), self.beats)
             else:
                 res += "\\tempo %s=%s" % (self.baseduration.ly_expression(), self.beats)
         elif self.newduration:
