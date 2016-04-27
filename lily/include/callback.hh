@@ -44,7 +44,8 @@ class Callback_wrapper : public Simple_smob<Callback_wrapper>
   // this involves an adjustment of the this pointer from Smob_core to
   // the scope containing the callback.
   SCM (*trampoline_) (SCM, SCM);
-  Callback_wrapper (SCM (*trampoline) (SCM, SCM)) : trampoline_ (trampoline)
+  Callback_wrapper (SCM (*trampoline) (SCM, SCM))
+    : trampoline_ (trampoline)
   { } // Private constructor, use only in make_smob
 public:
   static const char * const type_p_name_; // = 0
@@ -66,5 +67,83 @@ public:
   }
 };
 
+class Callback2_wrapper : public Simple_smob<Callback2_wrapper>
+{
+  // See Callback_wrapper for the details.  Callback2_wrapper just
+  // supports an additional SCM argument as compared to
+  // Callback_wrapper but is otherwise identical.
+  SCM (*trampoline_) (SCM, SCM, SCM);
+  Callback2_wrapper (SCM (*trampoline) (SCM, SCM, SCM))
+    : trampoline_ (trampoline)
+  { } // Private constructor, use only in make_smob
+public:
+  static const char * const type_p_name_; // = 0
+  LY_DECLARE_SMOB_PROC (&Callback2_wrapper::call, 3, 0, 0)
+  SCM call (SCM target, SCM arg1, SCM arg2)
+  {
+    return trampoline_ (target, arg1, arg2);
+  }
+
+  template <SCM (*trampoline) (SCM, SCM, SCM)>
+  static SCM make_smob ()
+  {
+    static SCM res =
+      scm_permanent_object (Callback2_wrapper (trampoline).smobbed_copy ());
+    return res;
+  }
+};
+
+class Callback0_wrapper : public Simple_smob<Callback0_wrapper>
+{
+  // See Callback_wrapper for the details.  Callback0_wrapper does not
+  // pass arguments but is otherwise identical to Callback_wrapper.
+  SCM (*trampoline_) (SCM);
+  Callback0_wrapper (SCM (*trampoline) (SCM))
+    : trampoline_ (trampoline)
+  { } // Private constructor, use only in make_smob
+public:
+  static const char * const type_p_name_; // = 0
+  LY_DECLARE_SMOB_PROC (&Callback0_wrapper::call, 1, 0, 0)
+  SCM call (SCM target)
+  {
+    return trampoline_ (target);
+  }
+
+  template <SCM (*trampoline) (SCM)>
+  static SCM make_smob ()
+  {
+    static SCM res =
+      scm_permanent_object (Callback0_wrapper (trampoline).smobbed_copy ());
+    return res;
+  }
+  // Since there are no arguments at all, we might as well provide
+  // default trampolines
+  template <class T, SCM (T::*p)()>
+  static SCM trampoline (SCM target)
+  {
+    T *t = LY_ASSERT_SMOB (T, target, 1);
+    return (t->*p) ();
+  }
+
+  template <class T, void (T::*p)()>
+  static SCM trampoline (SCM target)
+  {
+    T *t = LY_ASSERT_SMOB (T, target, 1);
+    (t->*p) ();
+    return SCM_UNSPECIFIED;
+  }
+
+  template <class T, SCM (T::*p)()>
+  static SCM make_smob ()
+  {
+    return make_smob<trampoline<T, p> > ();
+  }
+
+  template <class T, void (T::*p)()>
+  static SCM make_smob ()
+  {
+    return make_smob<trampoline<T, p> > ();
+  }
+};
 
 #endif

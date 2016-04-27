@@ -20,3 +20,5 @@
 #include "callback.hh"
 
 const char * const Callback_wrapper::type_p_name_ = 0;
+const char * const Callback2_wrapper::type_p_name_ = 0;
+const char * const Callback0_wrapper::type_p_name_ = 0;
