@@ -291,9 +291,11 @@ shared with people without trusted access to the server.
 
 @itemize
 @item
-Install apache2, or any other http server.  These instructions
+Install Apache (you can use version 2, but keep in mind that the server
+hosting lilypond.org runs version 1.3).  These instructions
 assume that you also enable @code{mod_userdir}, and use
-@code{$HOME/public_html/lilypond.org} as the location.
+@code{$HOME/public_html} as DocumentRoot (i.e. the root directory of
+the web server).
 
 @item
 Build the online docs and website:
@@ -309,15 +311,33 @@ command @code{make WEB_LANGS='' website} or the English and (for
 example) the French with @code{make WEB_LANGS='fr' website}.
 
 @item
-Move the built stuff into those directories.  It's highly
-recommended to have your build dir and www dir on the same
-partition.  (make @code{$HOME/public_html/lilypond.org} a symlink
-if necessary)
+Choose the web directory where to copy the built stuff.
+If you already have other web projects in your DocumentRoot and don't
+need to test the @file{.htaccess} file, you can copy to
+@code{~/public_html/lilypond.org}.  Otherwise you'd better copy
+to @code{~/public_html}.
+It's highly recommended to have your build dir and web dir on the
+same partition.
+
+@item
+Add the directory for the online documentation:
 
 @example
-mv out-website/website $HOME/public_html/lilypond.org/
-mkdir -p $HOME/public_html/lilypond.org/doc/v2.19/
-mv out-www/online-root/* $HOME/public_html/lilypond.org/doc/v2.19/
+mkdir -p ~/public_html/doc/v2.19/
+@end example
+
+You may want to add also the stable documentation in
+@code{~/public_html/doc/v2.18/}, extracting the contents of the html
+directory present in the tarball available in @rweb{All}. Just in case
+you want to test the redirects to the stable documentation.
+
+@item
+Copy the files with rsync:
+
+@example
+rsync -av --delete out-website/website ~/public_html/
+cp out-website/.htaccess ~/public_html
+rsync -av --delete out-www/online-root/ ~/public_html/doc/v2.19/
 @end example
 
 @end itemize
