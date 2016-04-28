@@ -574,6 +574,7 @@ ADD_TRANSLATOR (Auto_beam_engraver,
 class Grace_auto_beam_engraver : public Auto_beam_engraver
 {
   TRANSLATOR_DECLARATIONS (Grace_auto_beam_engraver);
+  TRANSLATOR_INHERIT (Auto_beam_engraver)
   DECLARE_TRANSLATOR_LISTENER (beam_forbid);
 
 private:

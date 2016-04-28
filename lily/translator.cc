@@ -230,7 +230,7 @@ Translator::print_smob (SCM port, scm_print_state *) const
 }
 
 void
-add_acknowledger (Translator::Grob_info_callback ptr,
+add_acknowledger (SCM ptr,
                   char const *func_name,
                   vector<Acknowledge_information> *ack_array)
 {
@@ -249,7 +249,7 @@ add_acknowledger (Translator::Grob_info_callback ptr,
   ack_array->push_back (inf);
 }
 
-Translator::Grob_info_callback
+SCM
 generic_get_acknowledger (SCM sym, vector<Acknowledge_information> const *ack_array)
 {
   for (vsize i = 0; i < ack_array->size (); i++)
@@ -257,7 +257,7 @@ generic_get_acknowledger (SCM sym, vector<Acknowledge_information> const *ack_ar
       if (ack_array->at (i).symbol_ == sym)
         return ack_array->at (i).function_;
     }
-  return 0;
+  return SCM_UNDEFINED;
 }
 
 Moment

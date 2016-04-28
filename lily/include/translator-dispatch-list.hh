@@ -21,19 +21,14 @@
 #define TRANSLATOR_DISPATCH_LIST_HH
 
 #include "lily-proto.hh"
+#include "callback.hh"
 #include "std-vector.hh"
 #include "smobs.hh"
 #include "translator.hh"
 
-struct Engraver_dispatch_entry
-{
-  Engraver *engraver_;
-  Translator::Grob_info_callback function_;
-};
-
 class Engraver_dispatch_list : public Simple_smob<Engraver_dispatch_list>
 {
-  vector<Engraver_dispatch_entry> dispatch_entries_;
+  vector<Method_instance> dispatch_entries_;
 public:
   static const char * const type_p_name_; // = 0
   void apply (Grob_info);

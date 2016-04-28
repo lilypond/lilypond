@@ -80,6 +80,7 @@ protected:
 public:
   // no TRANSLATOR_DECLARATIONS (Slur_proto_engraver) needed since this
   // class is abstract
+  DECLARE_TRANSLATOR_CALLBACKS (Slur_proto_engraver);
 };
 
 #endif // SLUR_PROTO_ENGRAVER_HH

@@ -23,6 +23,7 @@
 #include "global-ctor.hh"
 #include "lily-proto.hh"
 #include "virtual-methods.hh"
+#include "callback.hh"
 #include "input.hh"             // for error reporting
 #include "smobs.hh"
 #include "std-vector.hh"
@@ -33,16 +34,26 @@
   VIRTUAL_COPY_CONSTRUCTOR (Translator, NAME);                          \
   static Drul_array<vector<Acknowledge_information> > acknowledge_static_array_drul_; \
   virtual void fetch_precomputable_methods (Callback methods[]);        \
-  static Grob_info_callback static_get_acknowledger (SCM sym);          \
-  static Grob_info_callback static_get_end_acknowledger(SCM);           \
-  virtual Grob_info_callback get_acknowledger (SCM sym)                 \
+  DECLARE_TRANSLATOR_CALLBACKS (NAME);                                  \
+  TRANSLATOR_INHERIT (Translator)                                       \
+  static SCM static_get_acknowledger (SCM sym);                         \
+  static SCM static_get_end_acknowledger(SCM);                          \
+  virtual SCM get_acknowledger (SCM sym)                                \
   {                                                                     \
     return static_get_acknowledger (sym);                               \
   }                                                                     \
-  virtual Grob_info_callback get_end_acknowledger (SCM sym)             \
+  virtual SCM get_end_acknowledger (SCM sym)                            \
   {                                                                     \
     return static_get_end_acknowledger (sym);                           \
   }                                                                     \
+  /* end #define */
+
+#define TRANSLATOR_INHERIT(BASE)                                        \
+  using BASE::ack_finder;
+
+#define DECLARE_TRANSLATOR_CALLBACKS(NAME)                              \
+  template <void (NAME::*callback)(Grob_info)>                          \
+  static SCM ack_finder () { return ack_find_base<NAME, callback> (); } \
   /* end #define */
 
 /*
@@ -53,7 +64,8 @@
 */
 
 #define TRANSLATOR_DECLARATIONS(NAME)                                   \
-  TRANSLATOR_FAMILY_DECLARATIONS(NAME)                                  \
+  public:                                                               \
+  TRANSLATOR_FAMILY_DECLARATIONS (NAME);                                \
   static SCM static_description_;                                       \
   static Protected_scm listener_list_;                                  \
 public:                                                                 \
@@ -90,10 +102,6 @@ enum Translator_precompute_index
 class Translator : public Smob<Translator>
 {
 public:
-  // We don't make Grob_info_callback specific to Engraver since we
-  // otherwise get into a circular mess with regard to the definitions
-  // as the timing of Engraver is exercised from within Translator
-  typedef void (Translator::*Grob_info_callback) (Grob_info);
   typedef void (Translator::*Callback) (void);
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
@@ -134,8 +142,8 @@ public:
   virtual void fetch_precomputable_methods (Callback methods[]) = 0;
   virtual SCM get_listener_list () const = 0;
   virtual SCM translator_description () const = 0;
-  virtual Grob_info_callback get_acknowledger (SCM sym) = 0;
-  virtual Grob_info_callback get_end_acknowledger (SCM sym) = 0;
+  virtual SCM get_acknowledger (SCM sym) = 0;
+  virtual SCM get_end_acknowledger (SCM sym) = 0;
 
 protected:                      // should be private.
   Context *daddy_context_;
@@ -153,6 +161,15 @@ protected:                      // should be private.
     return SCM_UNSPECIFIED;
   }
 
+  // Overriden in Engraver.
+  template <class T, void (T::*callback)(Grob_info)>
+  static SCM
+  ack_find_base () { return SCM_UNDEFINED; }
+
+  template <void (Translator::*)(Grob_info)>
+  static SCM
+  ack_finder () { return SCM_UNDEFINED; }
+
   virtual void derived_mark () const;
   static SCM event_class_symbol (const char *ev_class);
   SCM static_translator_description (const char *grobs,
@@ -167,12 +184,12 @@ protected:                      // should be private.
 struct Acknowledge_information
 {
   SCM symbol_;
-  Translator::Grob_info_callback function_;
+  SCM function_;
 
   Acknowledge_information ()
   {
     symbol_ = SCM_EOL;
-    function_ = 0;
+    function_ = SCM_UNDEFINED;
   }
 };
 

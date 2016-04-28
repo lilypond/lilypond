@@ -26,6 +26,8 @@ class Coherent_ligature_engraver : public Ligature_engraver
 public:
   // no TRANSLATOR_DECLARATIONS (Coherent_ligature_engraver) needed
   // since this class is abstract
+  TRANSLATOR_INHERIT (Ligature_engraver)
+  DECLARE_TRANSLATOR_CALLBACKS (Coherent_ligature_engraver);
 
 protected:
   virtual void build_ligature (Spanner *ligature,
