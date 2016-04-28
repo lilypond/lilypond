@@ -146,4 +146,45 @@ public:
   }
 };
 
+// The following will usually be used unsmobbified, relying on its
+// constituents being protected independently.
+
+class Method_instance : public Simple_smob<Method_instance>
+{
+  SCM method_, instance_;
+public:
+  static const char * const type_p_name_; // = 0
+  LY_DECLARE_SMOB_PROC (&Method_instance::call, 0, 0, 1)
+  SCM call (SCM rest)
+  {
+    return scm_apply_1 (method_, instance_, rest);
+  }
+
+  Method_instance (SCM method, SCM instance)
+    : method_ (method), instance_ (instance)
+  { }
+  Method_instance (SCM method, Smob_core *instance)
+    : method_ (method), instance_ (instance->self_scm ())
+  { }
+  SCM method () const { return method_; }
+  SCM instance () const { return instance_; }
+  SCM operator () () const
+  {
+    return scm_call_1 (method_, instance_);
+  }
+  SCM operator () (SCM arg) const
+  {
+    return scm_call_2 (method_, instance_, arg);
+  }
+  SCM operator () (SCM arg1, SCM arg2) const
+  {
+    return scm_call_3 (method_, instance_, arg1, arg2);
+  }
+  SCM mark_smob () const
+  {
+    scm_gc_mark (method_);
+    return instance_;
+  }
+};
+
 #endif
