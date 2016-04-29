@@ -2791,7 +2791,7 @@ If the given filename is -, musicxml2ly reads from the command line.
 
     p.version = ('%prog (LilyPond) ' + lilypond_version + '\n\n'
 +
-_ ("""Copyright (c) 2005--2015 by
+_ ("""Copyright (c) 2005--2016 by
     Han-Wen Nienhuys <hanwen@xs4all.nl>,
     Jan Nieuwenhuizen <janneke@gnu.org> and
     Reinhold Kainhofer <reinhold@kainhofer.com>
