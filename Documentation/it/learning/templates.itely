@@ -583,7 +583,7 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 
 @ The `line-width' is for \header.
 @li lypond[quote,verbatim,ragged-right,line-width]
-\version "2.19.2"
+\version "2.19.25"
 \header {
   dedication = "dedication"
   title = "Title"

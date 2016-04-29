@@ -32,7 +32,7 @@ internal_add_interface (SCM a, SCM b, SCM c)
       scm_permanent_object (tab);
     }
 
-  SCM entry = scm_list_n (a, b, c, SCM_UNDEFINED);
+  SCM entry = scm_list_3 (a, b, c);
 
   scm_hashq_set_x (all_ifaces, a, entry);
 }

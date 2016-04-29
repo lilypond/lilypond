@@ -167,7 +167,8 @@ The Patch Meister's responsibilities are:
 To keep track of all patches submitted for testing and review.  This
 includes scanning the bug and dev email lists looking for any patches
 submitted by @q{random} contributors and advising them on how to submit
-a patch for testing and review.  See @ref{Commits and patches}.
+a patch for testing and review.  See @ref{Uploading a patch for review}
+and @ref{The patch review cycle}.
 
 @item
 To makes sure that any patch submitted has a corresponding Issue Tracker
@@ -215,8 +216,7 @@ Currently: Francisco Vila @email{translations@@lilynet.net}
 @section Managing Staging and Master branches with Patchy
 
 @ignore
-The script 'test-patches.py' no longer works with code.google.com since
-Google changed their authentication method.
+The script 'test-patches.py' does not currently work with Allura.
 @end ignore
 
 @menu
@@ -268,7 +268,7 @@ commits.  See @ref{Compiling}.
 
 @item
 Commit access @emph{is} required to test and push new commits, but a
-valid login to @uref{http://code.google.com/} is @emph{not}.  See
+valid login to @uref{https://sourceforge.net} is @emph{not}.  See
 @ref{Commit access}.
 
 @end itemize
@@ -791,7 +791,7 @@ savannah bug tracker?
 Reitveld is inconvenient in some respects: it requires a google
 account, and there's no way to see all patches relating to
 lilypond. Should we switch to something like gerritt?
-@uref{http://code.google.com/p/lilypond/issues/detail?id=1184}
+@uref{https://sourceforge.net/p/testlilyissues/issues/1184/}
 
 (prep: 5 hours.  discuss: 15 hours)
 
@@ -1748,13 +1748,13 @@ sequential-statement to the score."
 
 @item
 Discussion on
-@uref{http://code.google.com/p/lilypond/issues/detail?id=1322}
+@uref{https://sourceforge.net/p/testlilyissues/issues/1322/}
 about \new vs. \context.
 
 
 @item
 Let users add their own items to the parser?  comment 11 on:
-@uref{http://code.google.com/p/lilypond/issues/detail?id=1322}
+@uref{https://sourceforge.net/p/testlilyissues/issues/1322/}
 
 @item
 should engravers be pluralized (note_heads_engraver) or not
@@ -1762,7 +1762,7 @@ should engravers be pluralized (note_heads_engraver) or not
 
 @item
 should we allow numbers in identifier names?  Issue:
-@uref{http://code.google.com/p/lilypond/issues/detail?id=1670}
+@uref{https://sourceforge.net/p/testlilyissues/issues/1670/}
 
 @item
 should we officially allow accented characters?  in general, how

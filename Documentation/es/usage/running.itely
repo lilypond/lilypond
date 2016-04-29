@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 93d725094ee629b2d5200ab5a75b609579a62973
+    Translation of GIT committish: 8706e77a804e412e751fdd47385c8ccfdc28e732
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -59,7 +59,7 @@ documentos sobre este tema si no le resulta familiar la línea de
 
 @menu
 * Invocar a LilyPond::
-* Opciones básicas de la línea de órdenes para LilyPond::
+* Opciones de LilyPond básicas de la línea de órdenes::
 * Opciones avanzadas de línea de órdenes para LilyPond::
 * Variables de entorno::
 * LilyPond en una jaula de chroot::
@@ -101,46 +101,129 @@ base y el número.  Un archivo de entrada que contenga
 @end example
 
 @noindent
-producirá como salida @var{base}@file{-violin.pdf} y
+produce como salida @var{base}@file{-violin.pdf} y
 @var{base}@file{-cello-1.pdf}.
 
 
-@unnumberedsubsubsec Instrucciones estándar de la línea de órdenes
+@unnumberedsubsubsec Uso de LilyPond con las posibilidades básicas del shell
 
-Si su terminal (o ventana de órdenes) contempla las redirecciones
-normales, quizá le sean de utilidad las siguientes instrucciones para
-redirigir la salida de la consola a un archivo:
+Dado que LilyPond es una aplicación de consola, las posibilidades
+del @q{shell} usado para la llamada a LilyPond también pueden
+aprovecharse.
 
-@itemize
+Por ejemplo:
 
-@item
-@code{lilypond archivo.ly 1>salidaestandar.log} para redirigir la salida normal
+@example
+lilypond *.ly
+@end example
 
-@item
-@code{lilypond archivo.ly 2>salidadeerror.log} para redirigir los mensajes de error
+@noindent
+procesa todos los archivos de LilyPond dentro del directorio
+actual.
 
-@item
-@code{lilypond archivo.ly &>todo.log} para redirigir toda la salida
+También puede ser útil redireccionar la salida de consola
+(p.ej. hacia un archivo):
 
-@end itemize
+@example
+lilypond file.ly 1> salida_estandar.txt
 
-Consulte la documentación de su shell para ver si contempla estas
-opciones, o si la sintaxis es distinta.  Observe que son instrucciones
-del shell y que no tienen nada que ver con lilypond.
+lilypond file.ly 2> error_estandar.txt
+
+lilypond file.ly &> todo.txt
+@end example
+
+@noindent
+Redirecciona la salida @q{normal}, solo los @q{errores} o
+@q{todo}, respectivamente, hacia un archivo de texto.  Consulte la
+documentación de su shell concreto, Command (Windows), las
+aplicaciones Terminal o Console (MacOS X) para ver si el
+redireccionamiento de la salida está contemplado o si la sintaxis
+es distinta.
+
+El ejemplo siguiente busca y procesa todos los archivos de
+entradas que estén en el directorio actual y en todos los que
+están por debajo de él, recursivamente.  Los archivos de salida se
+pondrán en el mismo directorio desde el que se ejecutó la
+instrucción, en lugar de aquellos en los que estaban los archivos
+de entrada originales.
+
+@example
+find . -name '*.ly' -exec lilypond '@{@}' \;
+@end example
+
+@noindent
+También debe funcionar para los usarios de MacOS@tie{}X.
+
+Un usuario de Windows haría los siguiente:
+
+@example
+forfiles /s /M *.ly /c "cmd /c lilypond @@file"
+@end example
+
+@noindent
+introduciendo esstas instrucciones desde un @code{indicador de
+órdenes} que normalmente está en @code{Inicio > Accessorios >
+Símbolo del sistema} o para los usuarios de la versión 8,
+escribiendo en la ventana de búsqueda @q{indicador de órdenes}.
+
+De forma alternativa, una ruta explícita al nivel superior de su
+carpeta que contenga todas las subcarpetas con archivos de entrada
+en su interior se puede especificat mediante la opción @code{/p};
+
+@example
+forfiles /s /p C:\Documentos\MisPartituras /M *.ly /c "cmd /c lilypond @@file"
+@end example
+
+Si el nombre de la ruta del directorio de nivel superior contiene
+espacios, entonces es necesario incluir toda la ruta entre
+comillas:
+
+@example
+forfiles /s /p "C:\Documentos\Mis Partituras" /M *.ly /c "cmd /c lilypond @@file"
+@end example
 
 
-@node Opciones básicas de la línea de órdenes para LilyPond
-@unnumberedsubsec Opciones básicas de la línea de órdenes para LilyPond
+@node Opciones de LilyPond básicas de la línea de órdenes
+@unnumberedsubsec Opciones de LilyPond básicas de la línea de órdenes
 @translationof Basic command line options for LilyPond
 
-@cindex invocación de @command{lilypond}
+@cindex Invoca a @command{lilypond}
 @cindex opciones de la línea de órdenes para @command{lilypond}
-@cindex línea de órdenes, opciones de
-@cindex modificadores
+@cindex opciones, línea de órdenes
+@cindex opciones
 
 Están contempladas las siguientes opciones:
 
 @table @code
+
+@item -b, --bigpdfs
+@cindex bigpdfs
+
+Los archivos PDF generados serán mucho más grandes de lo normal (a
+causa de la poca o ninguna optimización de las fuentes
+tipográficas).  Sin embargo, si dos o más archivos PDF se incluyen
+dentro de @w{@code{pdftex}}, @w{@code{xetex}} o @w{@code{luatex}}
+los documentos producidos pueden procesarse después a través de
+ghostscript (mezclando los datos de tipografías duplicados) dando
+como resultado archivos PDF @emph{significativamente} más
+pequeños.
+
+@example
+lilypond -b archivo
+@end example
+
+Después, ejecute @code{ghostscript};
+
+@example
+gs -q -sDEVICE=pdfwrite -o gsout.pdf archivo.pdf
+@end example
+
+Se puede entonces usar @code{pdfsizeopt.py} para optimizar aún más
+el tamaño del archivo:
+
+@example
+pdfsizeopt.py --use-multivalent=no gsout.pdf final.pdf
+@end example
 
 @item -d, --define-default=@var{variable}=@var{valor}
 Véase @ref{Opciones avanzadas de línea de órdenes para LilyPond}.
@@ -361,8 +444,10 @@ Mostrar la garantía con que viene GNU LilyPond (¡no viene con
 
 @table @code
 
-@item -d@var{[option-name]}=@var{[value]}, --define-default=@var{[option-name]}=@var{[value]}
+@item -d@var{[option-name]}=@var{[value]},
+--define-default=@var{[option-name]}=@var{[value]}
 Establece la función de Scheme interna equivalente a @var{valor}.
+Por ejemplo:
 
 @example
 -dbackend=svg
@@ -370,18 +455,18 @@ Establece la función de Scheme interna equivalente a @var{valor}.
 
 Si no se proporciona ningún @var{valor}, se usa el valor predeterminado.
 Para desactivar una opción se puede anteponer @code{no-} a la
-@var{variable}, p.ej.:
+@var{variable}.  Por ejemplo:
 
 @cindex point and click, command line
 
 @example
--dno-point-and-click
+-dpoint-and-click=#f
 @end example
 
 @noindent
 is the same as
 @example
--dpoint-and-click=#f
+-dno-point-and-click
 @end example
 @end table
 
@@ -395,30 +480,31 @@ valores predeterminados:
 
 @item @code{anti-alias-factor} (factor de antialias)
 @tab @code{1}
-@tab Renderizar a mayor resolución (utilizando el factor dado) y reducir la
-escala del resultado para así evitar @q{escaleras} en las imágenes
-@code{PNG}.
+@tab Renderizar a mayor resolución (utilizando el factor dado)
+y reducir la escala del resultado para así evitar @q{escaleras} en
+las imágenes @code{PNG}.
 
 @item @code{aux-files} (archivos auxiliares)
 @tab @code{#t}
-@tab Crear archivos @code{.tex}, @code{.texi}, @code{.count} en el
-@q{back-end} @code{EPS}.
+@tab Crear archivos @code{.tex}, @code{.texi} y @code{.count}
+cuando se usa con la opción de @q{back-end} @code{EPS}.
 
 @item @code{backend}
 @tab @code{ps}
-@tab Seleccionar un @q{back-end}.  Los archivos (la opción predeterminada)
-incluyen las fuentes tipográficas @code{TTF}, @code{Type1} y
-@code{OTF}.  No se hace ningún subconjunto de estas fuentes.  El uso
-de conjuntos de caracteres @q{orientales} puede dar lugar a archivos
-muy grandes.
+@tab Es el ajuste predeterminado.
+Los archivos Postscript (la opción predeterminada) incluyen las
+fuentes tipográficas @code{TTF}, @code{Type1} y @code{OTF}.  No se
+hace ningún subconjunto de estas fuentes.  Tenga en cuenta que el
+uso de conjuntos de caracteres @q{orientales} puede dar lugar a
+archivos muy grandes.
 
 @item
 @tab @code{eps}
-@tab PostScript encapsulado.  Vuelca cada página o sistema como un archivo
-@file{EPS} distinto, sin fuentes tipográficas, y como un archivo
-@file{EPS} encuadernado con todas las páginas o sistemas que incluye
-las fuentes.  Utilizado como opción predeterminada por parte de
-@command{lilypond-book}.
+@tab Usado como opción predeterminada por la instrucción @command{lilypond-book}.
+Vuelca cada página al mismo tiempo como un solo archivo con todas
+las ṕaginas y fuentes tipográficas incluidas y como archivos
+postscript separados para cada página pero sin las fuentes
+tipográficas incluidas.
 
 @item
 @tab @code{null}
@@ -426,30 +512,60 @@ las fuentes.  Utilizado como opción predeterminada por parte de
 efecto que @code{-dno-print-pages}.
 
 @item
-@tab @code{svg}
-@tab Grácifos vectoriales escalables.  Crea un solo archivo @code{SVG}, sin
-fuentes tipográficas incrustadas, por cada página de salida.  Se
-recomienda instalar las fuentes Century Schoolbook, incluidas con la
-instalación de LilyPond, para un renderizado óptimo.  Bajo UNIX,
-bastará con que copie estaos archivos de fuente del directorio de
-LilyPond (normalmente @file{/usr/share/lilypond/VERSION/fonts/otf/})
-al directorio @file{~/.fonts/}.  La salida @code{SVG} debería ser
-compatible con cualquier editor o cliente de SVG.  También hay una
-opción @code{svg-woff} (véase más abajo) para usar los archivos de
-fuente woff en el @q{back-end} SVG.
-
-@item
 @tab @code{scm}
 @tab Volcado de las instrucciones de dibujo internas basadas en Scheme, en
 bruto.
 
+@item
+@tab @code{svg}
+@tab Gráficos vectoriales escalables.
+Por cada página de la salida, se crea un solo archivo @code{SVG}.
+Aparte de los glifos musicales propios de LilyPond, no se incluye
+ninguna otra información de fuente tipográfica.  Por tanto,
+cualquier visor de SVG necesita tener las fuentes disponibles para
+la correcta representación tanto del texto como de la letra. Se
+recomienda no utilizar @q{alias} ni @q{listas} de fuentes
+tipográficas por si acaso el visor de SVG no es capaz de
+manejarlas.  Al usar archivos de fuente abierta para la web
+@emph{Web Open Font Format} (WOFF), es necesario indicar la opción
+@code{--svg-woff}.
+@end multitable
+
+@noindent
+@strong{Nota para el backend de salida svg:}
+
+Las fuentes predeterminadas de LilyPond (@code{LilyPond Serif},
+@code{LilyPond Sans Serif} y @code{LilyPond Monospace}) son
+solamente alias de fuente @emph{locales}.  Por ello, al usar la
+instrucción de backend @code{svg} debemos definir explícitamente
+las fuentes predeterminadas en el archivo de entrada:
+
+@quotation
+@verbatim
+\paper  {
+  #(define fonts
+    (make-pango-font-tree "TeX Gyre Schola"
+                          "TeX Gyre Heros"
+                          "TeX Gyre Cursor"
+                          (/ staff-height pt 20)))
+}
+@end verbatim
+@end quotation
+
+Véase también @ruser{Fuentes tipográficas del documento completo}.
+
+@multitable @columnfractions .33 .16 .51
 @item @code{check-internal-types}
 @tab @code{#f}
 @tab Comprobar el tipo de cada asignación de propiedades.
 
 @item @code{clip-systems} (recortar los sistemas)
 @tab @code{#f}
-@tab Generar fragmentos de imagen recortados de una partitura.
+@tab Extraer fragmentos de música de la partitura.  Requiere que la función
+@code{clip-regions} esté definida dentro del bloque
+@code{\layout}.  Véase @ruser{Extracción de fragmentos de música}.
+No se extrae ningún fragmento si se usa con la copción
+@option{-dno-print-pages}.
 
 @item @code{datadir} (directorio de datos)
 @tab
@@ -586,8 +702,8 @@ debe ir encerrada entre comillas dobles.
 @tab Fijar el formato de salida de Ghostscript para las imágenes de píxeles.
 
 @item @code{point-and-click}
-@tab @code{#f}
-@tab Añadir enlaces de @q{apuntar y pulsar} a la salida @code{PDF}. Véase
+@tab @code{#t}
+@tab Añadir enlaces de @q{apuntar y pulsar} a la salida PDF y SVG. Véase
 @ref{Apuntar y pulsar}.
 
 @item @code{preview}
@@ -656,9 +772,9 @@ Scheme monte un desastre, p.ej.:
 
 @quotation
 @verbatim
-#(system "rm -rf /")
+#(s ystem "rm -rf /")  % demasiado peligroso para escribirlo correctamente
 {
-  c4^$(ly:gulp-file "/etc/passwd")
+  c4^$(ly:gulp-file "/etc/passwd") % malicioso aunque no tan destructivo
 }
 @end verbatim
 @end quotation
@@ -683,9 +799,9 @@ en el uso de memoria como de CPU.
 El modo seguro evita que se puedan compilar muchos fragmentos de
 código útiles.
 
-La opción @option{--jail} es una aliternativa más segura aún, pero
+La opción @option{--jail} es una alternativa más segura aún, pero
 requiere más trabajo para su configuración.  Véase
-@ref{Opciones básicas de la línea de órdenes para LilyPond}.
+@ref{Opciones de LilyPond básicas de la línea de órdenes}.
 
 @multitable @columnfractions .33 .16 .51
 @item @code{separate-log-files}
@@ -711,19 +827,26 @@ nombres de los archivos de salida.
 @item @code{strokeadjust}
 @tab @code{#f}
 @tab Forzar el ajuste de los trazos de PostScript.  Esta opción es
-relevante principalmente cuando se genera un @code{PDF} a partir
-de la salida de PostScript (el ajuste del trazo está por lo
-general activado automáticamente para dispositivos de mapa de
-puntos de baja resolución).  Sin esta opción, los visores
-de@code{PDF} tienden a producir anchuras de plica muy poco
-consistentes a las resoluciones típicas de las pantallas de
-ordenador.  La opción no afecta de forma muy significativa a la
-calidad de la impresión y causa grandes incrementos en el tamaño
-del archivo @code{PDF}.
+relevante principalmente cuando se genera un PDF a partir de la
+salida de PostScript (el ajuste del trazo está por lo general
+activado automáticamente para dispositivos de mapa de puntos de
+baja resolución).  Sin esta opción, los visores de PDF tienden a
+producir anchuras de plica muy poco consistentes a las
+resoluciones típicas de las pantallas de ordenador.  La opción no
+afecta de forma muy significativa a la calidad de la impresión y
+causa grandes incrementos en el tamaño del archivo PDF.
 
 @item @code{svg-woff}
 @tab @code{#f}
-@tab Usar archivos de fuente tipográfica de woff en el backend SVG.
+@tab Esta opción es necesaria al usar archivos de fuente abierta para la Web,
+Web Open Font Format (WOFF) con la instrucción de backend
+@code{svg}.  Se crea un solo archivo SVG para cada página de
+salida.  Aparte de los glifos musicales propios de LilyPond, no se
+incluye ninguna otra información de fuente tipográfica.  Todo
+visor de SVG necesita, por ello, tener las fuentes disponibles
+para la representación correcta tanto del texto como de la letra.
+Asimismo se recomienda no usar alias de fuentes ni listas, por si
+el visor de SVG no es capaz de manejarlos.
 
 @item @code{trace-memory-frequency}
 @tab @code{#f}
@@ -980,6 +1103,15 @@ advertencias y errores se producen cuando ocurre algo inesperado.  Si
 no ve un error en la línea que se indica del archivo de entrada, trate
 de comprobar una o dos líneas por encima de la posición indicada.
 
+Observe que los diagnósticos se pueden activar en cualquier punto
+durante las numerosas fases del procesado.  Por ejemplo, si hay
+partes de la entrada que se procesan varias veces (como en la
+salida midi y de disposición de la página), o si la misma variable
+musical se utiliza en más de un contexto, puede aparecer el mismo
+mensaje varias veces.  Los diagnósticos producidos en un estado
+@q{tardío} (como las comprobaciones de compás) también podrían
+emitirse más de una vez.
+
 Se ofrece más información sobre los errores en la sección @ref{Errores
 comunes}.
 
@@ -1000,6 +1132,7 @@ se han visto y comprendido, se manejan sin problema.
 * Mensaje de error FT_Get_Glyph_Name::
 * Advertencia sobre que las afinidades del pentagrama sólo deben decrecer::
 * Mensaje de error Unexpected new::
+* Advertencia de que una voz requiere ajustes voiceXx o shiftXx::
 @end menu
 
 @node La música se sale de la página
@@ -1068,31 +1201,6 @@ las notas de rojo es
   a'
 }
 @end lilypond
-
-Como segundo ejemplo, si una instrucción @code{\relative} se escribe
-dentro de una instrucción @code{\repeat}, el resultado son dos
-pentagramas, el segundo desplazado respecto al primero, porque la
-instrucción @code{\repeat} genera dos bloques @code{\relative},
-cada uno de los cuales crea implícitamente bloques @code{Staff} y
-@code{Voice}.
-
-@lilypond[quote,verbatim]
-\repeat unfold 2 {
-  \relative { c'4 d e f }
-}
-@end lilypond
-
-El problema se resuelve instanciando el contexto @code{Voice}
-explícitamente:
-
-@lilypond[quote,verbatim]
-\new Voice {
-  \repeat unfold 2 {
-    \relative { c'4 d e f }
-  }
-}
-@end lilypond
-
 
 @node Mensaje de error Unbound variable %
 @unnumberedsubsec Mensaje de error Unbound variable %
@@ -1189,3 +1297,43 @@ decir, simultáneamente:
   >>
 }
 @end lilypond
+
+@node Advertencia de que una voz requiere ajustes voiceXx o shiftXx
+@unnumberedsubsec Advertencia de que una voz requiere ajustes @code{@bs{}voiceXx} o @code{@bs{}shiftXx}
+@translationof Warning this voice needs a voiceXx or shiftXx setting
+
+Si acontecen dos notas de distintas voces son plicas en la misma
+dirección y en el mismo momento musical, pero las voces no tienen
+especificado ningún desplazamiento de voz específico, aparece el
+mensaje @samp{advertencia: esta voz requiere ajustes \voiceXx o
+\shiftXx} cuando se compila el archivo de LilyPond.  La
+advertencia aparece incluso si las notas no tienen plicas
+visibres, por ejemplo redondas, si las plicas de figuras más
+breves que tuviesen las misma altura, estuvieran en la misma
+dirección.
+
+Recuerde que la dirección de la plica depende de la posición de la
+nota sobre el pentagrama a no ser que la dirección de la plica
+venga especificada, por ejemplo mediante @code{\voiceOne}.  En
+este caso, la advertencia aparece solamente cuando las plicas
+están en la misma dirección, es decir, cuando se encuentran en la
+misma mitad del pentagrama.
+
+Situando las notas en voces que tengan direcciones de plica y
+desplazamientos especificados, por ejemplo usando @code{\voiceOne}
+y otras instrucciones, se pueden evitar estos mensajes.
+
+Las notas que están en voces con numeración más alta,
+@code{\voiceThree} y siguientes, se desplazan automáticamente para
+evitar las colisiones entre columnas.  Esto produce un
+desplazamient que es visible en las notas con plica, pero las
+redondas no se desplazan de forma visible a no ser que se produzca
+una verdadera colisión, o si las voces se cruzan respecto a su
+orden natural (cuando una voz con @code{\voiceThree} es más aguda
+que otra con @code{\voiceOne}, y casos semejantes).
+
+@seealso
+@rlearning{Voces explícitas},
+@rlearning{Ejemplos reales de música},
+@ruser{Polifonía en un solo pentagrama},
+@ruser{Resolución de las colisiones}.

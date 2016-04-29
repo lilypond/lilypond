@@ -4,7 +4,7 @@
 %% and then run scripts/auxiliar/makelsr.py
 %%
 %% This file is in the public domain.
-\version "2.18.0"
+\version "2.19.40"
 
 \header {
   lsrtags = "rhythms, version-specific"
@@ -25,6 +25,6 @@ new beaming endings:
   a8 a a a a a a a a a a a
 
   % Set new values for beam endings
-  \set Score.beatStructure = #'(3 4 3 2)
+  \set Score.beatStructure = 3,4,3,2
   a8 a a a a a a a a a a a
 }

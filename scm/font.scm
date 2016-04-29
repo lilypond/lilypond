@@ -254,12 +254,15 @@ used.  This is used to select the proper design size for the text fonts.
 ; are aliases that are defined in mf/00-lilypond-fonts.conf.in (source file)
 ; or fonts/00-lilypond-fonts.conf (installed file).
 
-(define*-public (set-global-fonts #:key 
+(define*-public (set-global-fonts #:key
   (music "emmentaler")
   (brace "emmentaler")
-  (roman "LilyPond Serif")
-  (sans "LilyPond Sans Serif")
-  (typewriter "LilyPond Monospace")
+  (roman (if (eq? (ly:get-option 'backend) 'svg)
+             "serif" "LilyPond Serif"))
+  (sans (if (eq? (ly:get-option 'backend) 'svg)
+            "sans-serif" "LilyPond Sans Serif"))
+  (typewriter (if (eq? (ly:get-option 'backend) 'svg)
+                  "monospace" "LilyPond Monospace"))
   (factor 1))
   (let ((n (make-font-tree-node 'font-encoding 'fetaMusic)))
     (add-music-fonts n 'feta music brace feta-design-size-mapping factor)
@@ -267,7 +270,7 @@ used.  This is used to select the proper design size for the text fonts.
     (add-pango-fonts n 'sans sans factor)
     (add-pango-fonts n 'typewriter typewriter factor)
     n))
-    
+
 (define-public (make-pango-font-tree roman-str sans-str typewrite-str factor)
   (let ((n (make-font-tree-node 'font-encoding 'fetaMusic)))
     (add-music-fonts n 'feta "emmentaler" "emmentaler" feta-design-size-mapping factor)
@@ -278,9 +281,9 @@ used.  This is used to select the proper design size for the text fonts.
 
 (define-public (make-default-fonts-tree factor)
   (make-pango-font-tree
-   "LilyPond Serif"
-   "LilyPond Sans Serif"
-   "LilyPond Monospace"
+   (if (eq? (ly:get-option 'backend) 'svg) "serif" "LilyPond Serif")
+   (if (eq? (ly:get-option 'backend) 'svg) "sans-serif" "LilyPond Sans Serif")
+   (if (eq? (ly:get-option 'backend) 'svg) "monospace" "LilyPond Monospace")
    factor))
 
 (define-public all-text-font-encodings

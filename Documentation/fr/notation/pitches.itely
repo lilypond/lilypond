@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: d64a2407615c09ddd8f5c34e13a3ecfdf4284f1b
+   Translation of GIT committish: 2034ca4fcbed9253b5a85e9360e47d3fe3ff1d09
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -488,7 +488,7 @@ Les langues disponibles ainsi que les noms de note utilisés
 sont les suivants :
 
 @quotation
-@multitable {@code{nederlands}} {do re mi fa sol la sib si}
+@multitable {@code{nederlands}} {do re/re mi fa sol la sib si}
 @headitem Langue
   @tab Nom des notes
 @item @code{nederlands}
@@ -501,7 +501,9 @@ sont les suivants :
   @tab c d e f g a bf b
 @item @code{espanol} ou @code{español}
   @tab do re mi fa sol la sib si
-@item @code{italiano} ou @code{français}
+@item @code{français}
+  @tab do ré/re mi fa sol la sib si
+@item @code{italiano}
   @tab do re mi fa sol la sib si
 @item @code{norsk}
   @tab c d e f g a b h
@@ -534,7 +536,9 @@ et les suffixes d'altération correspondants :
     @tab -@code{ff}/-@code{-flatflat}
 @item @code{espanol} ou @code{español}
   @tab -@code{s} @tab -@code{b} @tab -@code{ss}/-@code{x} @tab -@code{bb}
-@item @code{italiano} or @code{français}
+@item @code{français}
+  @tab -@code{d} @tab -@code{b} @tab -@code{dd}/-@code{x} @tab -@code{bb}
+@item @code{italiano}
   @tab -@code{d} @tab -@code{b} @tab -@code{dd} @tab -@code{bb}
 @item @code{norsk}
   @tab -@code{iss}/-@code{is} @tab -@code{ess}/-@code{es} @tab -@code{ississ}/-@code{isis}
@@ -588,6 +592,8 @@ suédois, le catalan et l'espagnol.
   @tab -qs @tab -qf @tab -tqs @tab -tqf
 @item @code{espanol}
   @tab -cs @tab -cb @tab -tcs @tab -tcb
+@item @code{français}
+  @tab -sd @tab -sb @tab -dsd @tab -bsb
 @item @code{italiano}
   @tab -sd @tab -sb @tab -dsd @tab -bsb
 @item @code{portugues}

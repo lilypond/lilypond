@@ -4,8 +4,8 @@
 % and then run scripts/auxiliar/makelsr.py
 %
 % This file is in the public domain.
-%% Note: this file works from version 2.17.6
-\version "2.17.6"
+%% Note: this file works from version 2.19.0
+\version "2.19.0"
 \include "catalan.ly"
 
 \header {

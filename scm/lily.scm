@@ -245,6 +245,9 @@ configurations.")
      #f
      "Dump output signatures of each system.  Used for
 regression testing.")
+    (embed-source-code
+     #f
+     "Embed the source files inside the generated PDF document.")
     (eps-box-padding
      #f
      "Pad left edge of the output EPS bounding box by
@@ -675,6 +678,10 @@ messages into errors.")
     (,fraction? . "fraction, as pair")
     (,grob-list? . "list of grobs")
     (,index? . "non-negative integer")
+    (,key? . "index or symbol")
+    (,key-list? . "list of indexes or symbols")
+    (,key-list-or-music? . "key list or music")
+    (,key-list-or-symbol? . "key list or symbol")
     (,markup? . "markup")
     (,markup-command-list? . "markup command list")
     (,markup-list? . "markup list")

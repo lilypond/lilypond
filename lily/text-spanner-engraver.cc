@@ -87,6 +87,8 @@ Text_spanner_engraver::process_music ()
         {
           current_event_ = event_drul_[START];
           span_ = make_spanner ("TextSpanner", event_drul_[START]->self_scm ());
+          if (Direction d = to_dir (current_event_->get_property ("direction")))
+            span_->set_property ("direction", scm_from_int (d));
 
           Side_position_interface::set_axis (span_, Y_AXIS);
           event_drul_[START] = 0;

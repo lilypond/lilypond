@@ -94,10 +94,9 @@ Grob::instrumented_set_property (SCM sym, SCM v,
 SCM
 Grob::get_property_alist_chain (SCM def) const
 {
-  return scm_list_n (mutable_property_alist_,
+  return scm_list_3 (mutable_property_alist_,
                      immutable_property_alist_,
-                     def,
-                     SCM_UNDEFINED);
+                     def);
 }
 
 extern void check_interfaces_for_property (Grob const *me, SCM sym);
@@ -248,12 +247,11 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
     {
 #ifdef DEBUG
       if (ly_is_procedure (cache_callback))
-        scm_apply_0 (cache_callback,
-                     scm_list_n (self_scm (),
-                                 sym,
-                                 proc,
-                                 value,
-                                 SCM_UNDEFINED));
+        scm_call_4 (cache_callback,
+                    self_scm (),
+                    sym,
+                    proc,
+                    value);
 #endif
       internal_set_value_on_alist (alist, sym, value);
     }

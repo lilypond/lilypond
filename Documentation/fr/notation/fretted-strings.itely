@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 650e318ed0afc6938c8d903907d501690872b9a6
+   Translation of GIT committish: 10bc01482b78c62ad095ceb95963b1800571e408
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -32,6 +32,7 @@ instruments à cordes frettées.
 * Vue d'ensemble des cordes frettées::
 * Guitare::
 * Banjo::
+* Luth::
 @end menu
 
 
@@ -2039,3 +2040,60 @@ Fichiers d'initialisation :
 
 Morceaux choisis :
 @rlsrnamed{Fretted strings, Cordes frettées}.
+
+
+@node Luth
+@subsection Luth
+@translationof Lute
+
+@menu
+* Tablatures pour luth::
+@end menu
+
+@node Tablatures pour luth
+@unnumberedsubsubsec Tablatures pour luth
+@translationof Lute tablatures
+
+@cindex luth, tablatures
+@cindex tablature, luth
+
+LilyPond prend en charge les tablatures pour le luth.
+
+Les cordes supplémentaires s'ajoutent à l'aide de la commande
+@code{additionalBassStrings} qui permet de définir les hauteurs
+respectives de ces cordes.  Elles viendront s'imprimer ainsi au-dessous
+de la ligne inférieure : a, /a, //a, ///a, 4, 5, etc.
+
+@code{fret-letter-tablature-format}, et probablement @code{fretLabels},
+fournis en argument à @code{tablatureFormat}, autoriseront des
+personnalisations plus avancées.
+
+@lilypond[quote,ragged-right,verbatim]
+m = { f'4 d' a f d a, g, fis, e, d, c,  \bar "|." }
+
+\score {
+  <<
+    \new Staff { \clef bass \cadenzaOn  \m }
+    \new TabStaff \m
+  >>
+  \layout {
+    \context {
+      \Score
+      tablatureFormat = #fret-letter-tablature-format
+    }
+    \context {
+      \TabStaff
+      stringTunings = \stringTuning <a, d f a d' f'>
+      additionalBassStrings = \stringTuning <c, d, e, fis, g,>
+      fretLabels = #'("a" "b" "r" "d" "e" "f" "g" "h" "i" "k")
+    }
+  }
+}
+@end lilypond
+
+@cindex luth, personnalisation
+@cindex réglége fin d'un luth
+
+@knownissues
+L'utilisation de @code{FretBoards} avec des @code{additionalBassStrings}
+n'est pas prise en charge et conduira à un résultat insatisfaisant.

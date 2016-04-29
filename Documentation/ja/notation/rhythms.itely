@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.19.22"
+@c \version "2.19.40"
 
 @c Translators: Yoshiki Sawada
 @c Translation status: post-GDP
@@ -1118,7 +1118,7 @@ R1^"right"
       \overrideTimeSignatureSettings
         4/4        % timeSignatureFraction
         1/4        % baseMomentFraction
-        #'(3 1)    % beatStructure
+        3,1        % beatStructure
         #'()       % beamExceptions
       \time 4/4
       \repeat unfold 8 { c8 } |
@@ -1163,7 +1163,7 @@ R1^"right"
     \overrideTimeSignatureSettings
       4/4        % timeSignatureFraction
       1/4        % baseMomentFraction
-      #'(3 1)    % beatStructure
+      3,1        % beatStructure
       #'()       % beamExceptions
     \time 4/4
     c8^\markup {"Beamed (2 2)"}
@@ -1172,7 +1172,7 @@ R1^"right"
     \overrideTimeSignatureSettings
       4/4        % timeSignatureFraction
       1/4        % baseMomentFraction
-      #'(3 1)    % beatStructure
+      3,1        % beatStructure
       #'()       % beamExceptions
     \time 4/4
     c8^\markup {"Beamed (3 1)"}
@@ -1194,7 +1194,7 @@ R1^"right"
     \overrideTimeSignatureSettings
       4/4        % timeSignatureFraction
       1/4        % baseMomentFraction
-      #'(3 1)    % beatStructure
+      3,1        % beatStructure
       #'()       % beamExceptions
     \time 4/4
     \repeat unfold 8 { c8 } |
@@ -1216,7 +1216,7 @@ R1^"right"
         \overrideTimeSignatureSettings
           4/4        % timeSignatureFraction
           1/4        % baseMomentFraction
-          #'(3 1)    % beatStructure
+          3,1        % beatStructure
           #'()       % beamExceptions
         \time 4/4
         \repeat unfold 8 {c''8}
@@ -1225,7 +1225,7 @@ R1^"right"
         \overrideTimeSignatureSettings
           4/4        % timeSignatureFraction
           1/4        % baseMomentFraction
-          #'(1 3)    % beatStructure
+          1,3        % beatStructure
           #'()       % beamExceptions
         \time 4/4
         \repeat unfold 8 {c''8}
@@ -2107,9 +2107,9 @@ cis4 d cis! d
 @lilypond[quote,relative=2,verbatim]
 \time 5/16
 c16^"default" c c c c |
-\set Timing.beatStructure = #'(2 3)
+\set Timing.beatStructure = 2,3
 c16^"(2+3)" c c c c |
-\set Timing.beatStructure = #'(3 2)
+\set Timing.beatStructure = 3,2
 c16^"(3+2)" c c c c |
 @end lilypond
 
@@ -2120,7 +2120,7 @@ c16^"(3+2)" c c c c |
 @lilypond[quote, verbatim,relative=1]
 \new Staff {
   \time 7/8
-  \set Staff.beatStructure = #'(2 3 2)
+  \set Staff.beatStructure = 2,3,2
   <<
     \new Voice = one {
       \relative {
@@ -2130,7 +2130,7 @@ c16^"(3+2)" c c c c |
     \new Voice = two {
       \relative {
         \voiceTwo
-        \set Voice.beatStructure = #'(1 3 3)
+        \set Voice.beatStructure = 1,3,3
         f'8 f f f f f f
       }
     }
@@ -2148,11 +2148,11 @@ c16^"(3+2)" c c c c |
 % リズム 3-1-1-2
 % デフォルトで連桁設定の変更は Voice に適用され、うまくいきません
 % なぜなら、自動生成されるボイスで、すべての拍は baseMoment (1 . 8) だからです
-\set beatStructure = #'(3 1 1 2)
+\set beatStructure = 3,1,1,2
 << {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
 
 % コンテキスト Staff を指定するとうまくいきます
-\set Staff.beatStructure = #'(3 1 1 2)
+\set Staff.beatStructure = 3,1,1,2
 << {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
 @end lilypond
 
@@ -2165,7 +2165,7 @@ c16^"(3+2)" c c c c |
 @lilypond[quote,verbatim,relative=2]
 \time 5/8
 \set Timing.baseMoment = #(ly:make-moment 1/16)
-\set Timing.beatStructure = #'(7 3)
+\set Timing.beatStructure = 7,3
 \repeat unfold 10 { a16 }
 @end lilypond
 
@@ -2183,7 +2183,7 @@ Scheme 関数 @code{ly:make-moment} によって作り出されます。@c
 @c 未訳
 @lilypond[quote,relative=2,verbatim]
 \time 3/16
-\set Timing.beatStructure = #'(2 1)
+\set Timing.beatStructure = 2,1
 \set Timing.beamExceptions =
   #'(                         ;start of alist
      (end .                   ;entry for end of beams
@@ -2229,7 +2229,7 @@ c16 c c |
 \time 6/8
 \repeat unfold 6 { a8 }
 % (4 + 2) にグループ化します
-\set Timing.beatStructure = #'(4 2)
+\set Timing.beatStructure = 4,2
 \repeat unfold 6 { a8 }
 % デフォルトの振る舞いに戻ります
 \time 6/8
@@ -2252,7 +2252,7 @@ c16 c c |
 @lilypond[quote,verbatim,relative=2]
 \time 4/4
 \set Timing.baseMoment = #(ly:make-moment 1/8)
-\set Timing.beatStructure = #'(3 3 2)
+\set Timing.beatStructure = 3,3,2
 % 以下は beamExceptions のため、(3 3 2) の連桁にはなりません
 \repeat unfold 8 {c8} |
 % 以下は beamExceptions をクリアするため、(3 3 2) の連桁になります
@@ -2390,7 +2390,7 @@ c16 c c |
   \new Staff {
     \time 3/4
     \set Timing.baseMoment = #(ly:make-moment 1/8)
-    \set Timing.beatStructure = #'(1 5)
+    \set Timing.beatStructure = 1,5
     \repeat unfold 6 { a8 }
   }
   \new Staff {
@@ -2409,7 +2409,7 @@ c16 c c |
     \overrideTimeSignatureSettings
       3/4               % timeSignatureFraction
       1/8               % baseMomentFraction
-      #'(1 5)           % beatStructure
+      1,5               % beatStructure
       #'()		% beamExceptions
     \time 3/4
     \repeat unfold 6 { a'8 }

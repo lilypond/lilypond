@@ -38,8 +38,23 @@ assq_tail (SCM key, SCM alist, SCM based_on = SCM_EOL)
 }
 
 SCM
+assv_tail (SCM key, SCM alist, SCM based_on = SCM_EOL)
+{
+  for (SCM p = alist; !scm_is_eq (p, based_on); p = scm_cdr (p))
+    {
+      if (scm_is_true (scm_eqv_p (scm_caar (p), key)))
+        return p;
+    }
+  return SCM_BOOL_F;
+}
+
+SCM
 assoc_tail (SCM key, SCM alist, SCM based_on = SCM_EOL)
 {
+  if (SCM_IMP (key))
+    return assq_tail (key, alist, based_on);
+  if (scm_is_number (key) || scm_is_true (scm_char_p (key)))
+    return assv_tail (key, alist, based_on);
   for (SCM p = alist; !scm_is_eq (p, based_on); p = scm_cdr (p))
     {
       if (ly_is_equal (scm_caar (p), key))
@@ -68,10 +83,8 @@ SCM assq_pop_x (SCM key, SCM *alist)
 SCM
 evict_from_alist (SCM key, SCM alist, SCM alist_end)
 {
-// shortcircuit to an eq-using assoc_tail variant when key is a symbol
-// (common case)
-  SCM p = scm_is_symbol (key) ? assq_tail (key, alist, alist_end)
-    : assoc_tail (key, alist, alist_end);
+  SCM p = assoc_tail (key, alist, alist_end);
+
   if (scm_is_true (p))
     return partial_list_copy (alist, p, scm_cdr (p));
   return alist;
@@ -112,7 +125,8 @@ nested_property_alist (SCM alist, SCM prop_path, SCM value)
   SCM rest = scm_cdr (prop_path);
   if (scm_is_pair (rest))
     {
-      SCM where = assq_tail (key, alist);
+      SCM where = assoc_tail (key, alist);
+
       if (scm_is_false (where))
         return scm_acons (key, nested_create_alist (rest, value), alist);
       return scm_acons (key, nested_property_alist (scm_cdar (where),
@@ -131,6 +145,19 @@ nested_property_alist (SCM alist, SCM prop_path, SCM value)
   return scm_acons (key, value, alist);
 }
 
+SCM
+nested_property (SCM alist, SCM prop_path, SCM fallback)
+{
+  for (; scm_is_pair (prop_path); prop_path = scm_cdr (prop_path))
+    {
+      SCM tail = assoc_tail (scm_car (prop_path), alist);
+      if (scm_is_false (tail))
+        return fallback;
+      alist = scm_cdar (tail);
+    }
+  return alist;
+}
+
 void
 set_nested_property (Grob *me, SCM big_to_small, SCM value)
 {
@@ -144,7 +171,12 @@ set_nested_property (Grob *me, SCM big_to_small, SCM value)
 // This converts an alist with nested overrides in it to a proper
 // alist.  The number of nested overrides is known in advance,
 // everything up to the last nested override is copied, the tail is
-// shared
+// shared.
+//
+// The first nalist index has to be a symbol since the conversion
+// relies on eq? comparisons, uses some special non-symbol values for
+// special purposes, and does validity checking indexed by symbols.
+// Subindexing can be done with equal?-comparable indexes, however.
 
 SCM
 nalist_to_alist (SCM nalist, int nested)
@@ -179,7 +211,7 @@ nalist_to_alist (SCM nalist, int nested)
             scm_set_cdr_x (pair, scm_cons (elt, scm_cdr (pair)));
           continue;
         }
-
+      assert (scm_is_symbol (key));
       // plain override: apply any known corresponding partials
       SCM pair = assq_pop_x (key, &partials);
       if (scm_is_true (pair))

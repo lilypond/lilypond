@@ -2,12 +2,14 @@
 @c This file is part of web/download.itexi and
 @c learning/tutorial.itely
 @ignore
-    Translation of GIT committish: f7630a9232be374298d88e1b8bdb85ead17a7572
+    Translation of GIT committish: 211937747d4adbae18d6ce41f88dffbb3ca04a5f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
+
+@c Translators: Masamichi Hosoda, Yoshiki Sawada
 
 @c This is about "compiling" a lilypond file
 @c (Learning 1 Tutorial), **not** compiling the
@@ -49,7 +51,7 @@
 
 @subsubheading ステップ 3. 出力を閲覧する
 
-コンパイルが終了すると、元のファイルと同じな前の PDF ファイルが作成され、@c
+コンパイルが終了すると、元のファイルと同じ名前の PDF ファイルが作成され、@c
 自動的にデフォルトの PDF ビューアで表示されます。
 
 @sourceimage{Learning_Macos_pdf_output,,,}
@@ -62,7 +64,7 @@ LilyPond 用に新しくファイルを作成するには、@w{@code{File > New}
 
 @sourceimage{Learning_Macos_New_menu,,,}
 
-あるいは、@w{@code{File > Open} を選択し、既存のファイルを開いて編集します。
+あるいは、@w{@code{File > Open}} を選択し、既存のファイルを開いて編集します。
 
 @sourceimage{Learning_Macos_Open_menu,,,}
 
@@ -75,6 +77,8 @@ Mac OS に付属されているデフォルトの Preview PDF ビューアを使
 その後に実行するコンパイルは更新された PDF を生成するのに失敗する可能性があります。@c
 その時は、元の PDF ファイルを閉じてください。
 
+
+
 @end macro
 
 
@@ -85,6 +89,7 @@ Mac OS に付属されているデフォルトの Preview PDF ビューアを使
 ファイルのコンパイルで何か問題に遭遇した時は@c
 そのプログラムのドキュメントを調べてください。}
 
+
 @subsubheading ステップ 1. @file{.ly} ファイルを作成する
 
 デスクトップ上の LilyPond アイコンをクリックして、見本のファイルを開きます。
@@ -93,7 +98,7 @@ Mac OS に付属されているデフォルトの Preview PDF ビューアを使
 
 見本ファイルの上端に表示されるメニューから
 @w{@code{ファイル > 名前を付けて保存}} を選択します。@c
-@w{@code{ファイル > 上書き保存}} を使用しないでください。@c
+@w{@code{ファイル > 保存}} を使用しないでください。@c
 なぜならファイルに有効な LilyPond ファイル名を付けるまで、@c
 上書き保存は機能しないからです。
 
@@ -104,32 +109,35 @@ Mac OS に付属されているデフォルトの Preview PDF ビューアを使
 @sourceimage{SaveAs,,,}
 
 
-@subsubheading ステップ 2a. コンパイルする (ドラッグ＆ドロップを使用します)
+@subsubheading ステップ 2. コンパイルする
 
-ファイルをコンパイルするには、好みで以下のいずれかの方法をとります:
+LilyPond ファイルを楽譜にするためには、コンパイルする必要があります。@c
+これにはいくつかの方法があります。
+-- ドラッグ＆ドロップ、右クリック、ダブルクリック、@c
+コマンドライン（コマンドプロンプト）です。@c
+最初の 3 種類を見てみましょう。
 
-ファイルを LilyPond アイコンに直接ドラッグ＆ドロップします。
+1. ファイルを LilyPond アイコンに直接ドラッグ＆ドロップします。
 
 @sourceimage{DragDrop,,,}
 
-ファイルを右クリックして、ポップアップ メニューから
-@w{@code{プログラムから開く > LilyPond}} を選択します。
-Right-click on the file and from the pop-up context menu choose
+何も起こらないように見えますが、しばらくすると、@c
+デスクトップに 2 つの新しいファイル
+-- @file{test.log} と @file{test.pdf} --
+が表示されるはずです。
+
+2. ファイルを右クリックして、ポップアップ メニューから
+@w{@code{Generate PDF}} を選択します。
 
 @sourceimage{GenPDF,,,}
 
-
-@subsubheading ステップ 2b. コンパイルする (ダブルクリックする)
-
-あるいは、ただ単に @file{test.ly} をダブルクリックします。
+3. あるいは、ただ単に @file{test.ly} をダブルクリックします。
 
 
 @subsubheading ステップ 3. 出力を閲覧する
 
-@file{test.ly} をコンパイルしている間、コマンド ウィンドウが一瞬だけ開いて閉じます。@c
-この処理の間に 3 つのファイルが作成されます。
-
-PDF ファイルは @file{test.ly} ファイルの譜刻結果を保持しています。
+@file{test.pdf} は @file{test.ly} ファイルの譜刻結果を保持しています。@c
+ダブルクリックすると、PDF ビュアーで開かれます。
 
 @sourceimage{PDFRead,,,}
 
@@ -137,10 +145,11 @@ PDF ファイルは @file{test.ly} ファイルの譜刻結果を保持してい
 @subsubheading その他のコマンド
 
 新しくファイルを作成するには、以前に作成したファイルのウィンドウから
-@w{@code{ファイル > 新規作成}} を選択します。
-
+@w{@code{ファイル > 新規作成}} を選択します。@c
 あるいは @w{@code{ファイル > 開く}} を選択し、以前に保存したファイルを@c
-開いて編集します。
+開いて編集します。@c
+または、ファイルを右クリックして @w{@code{Edit Source}} を選択しても、@c
+編集することができます。
 
 @sourceimage{EditFile,,,}
 
@@ -152,13 +161,11 @@ PDF ファイルが作成されない場合は、コンパイルの過程で作�
 
 このログ ファイルは、LilyPond ファイルをコンパイルする度に上書きされます。
 
-PS ファイルは LilyPond が PDF ファイルを作成するために内部的に使用するもので、@c
-無視できます。@c
-PS ファイルもコンパイルの度に上書きされます。
-
-PDF ファイルを PDF ビュー他で閲覧している場合、
+PDF ファイルを PDF ビュアーで閲覧している場合、
 新たにコンパイルを行う前に閉じる必要があります。@c
 なぜなら、閲覧されている間は新たに PDF ファイルを作成するのに失敗する可能性があるからです。
+
+@sourceimage{BadLog2,,,}
 
 @end macro
 
@@ -170,6 +177,7 @@ PDF ファイルを PDF ビュー他で閲覧している場合、
 @rweb{より簡単な編集手段} で記述されているプログラムを使用している場合、@c
 ファイルのコンパイルで何か問題に遭遇した時は@c
 そのプログラムのドキュメントを調べてください。}
+
 
 @subsubheading ステップ 1. @file{.ly} ファイルを作成する
 
@@ -213,3 +221,5 @@ Success: compilation successfully completed
 結果として得られる @file{test.pdf} を閲覧したり、印刷したりすることができます。
 
 @end macro
+
+

@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 00cd4ff0b8dc4978344ba966bec06ddbc445f7e9
+    Translation of GIT committish: 47db9a3883d726ca53e2133a3b2298f78dd6a32e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -20,7 +20,12 @@ lector está familiarizado con el material que hay en
 @rlearningnamed{Top, Manual de aprendizaje}.
 @end macro
 
-@c `Notation Reference' was born 1999-10-11 with git commit 940dda0...
+@c `Notation Reference' was born 1998-08-14 with this commit:
+@c release: 1.0.2
+@c author: Han-Wen Nienhuys
+@c commit: a3a44f9f3c581b6824b3a65f9039656693e09bbf
+@c   file: Documentation/tex/refman.yo
+
 @macro copyrightDeclare
 Copyright @copyright{} 1999--2015 por los autores.
 @end macro
@@ -89,12 +94,12 @@ Apéndices
 @translationof LilyPond command index
 
 Este índice relaciona todas las instrucciones y palabras clave de
-LilyPond, con enlaces a aquellas secciones del manual que describen o
-se ocupan de su uso.  Cada uno de los enlaces consta de dos partes.
-La primera parte apunta a la situación exacta del manual en que
-aparece la instrucción o palabra clave; la segunda parte apunta al
-comienzo de la sección correspondiente del manual en la que aparece la
-instrucción o palabra clave.
+LilyPond, con enlaces a aquellas secciones del manual que
+describen o se ocupan de su uso.  Cada uno de los enlaces consta
+de dos partes.  La primera parte apunta a la situación exacta del
+manual en que aparece la instrucción o palabra clave; la segunda
+parte apunta al comienzo de la sección correspondiente del manual
+en la que aparece la instrucción o palabra clave.
 
 @printindex ky
 
@@ -102,14 +107,14 @@ instrucción o palabra clave.
 @appendix Índice de LilyPond
 @translationof LilyPond index
 
-Además de todas las instrucciones y palabras clave de LilyPond, este
-índice es una lista de términos musicales y las palabras que tienen
-relación con cada uno de ellos, con enlaces a aquellas secciones del
-manual que describen o se ocupan de dicho término.  Cada uno de los
-enlaces consta de dos partes.  La primera parte apunta a la situación
-exacta del manual en que aparece el término; la segunda parte apunta
-al comienzo de la sección correspondiente del manual en la que se
-discute dicho término.
+Además de todas las instrucciones y palabras clave de LilyPond,
+este índice es una lista de términos musicales y las palabras que
+tienen relación con cada uno de ellos, con enlaces a aquellas
+secciones del manual que describen o se ocupan de dicho término.
+Cada uno de los enlaces consta de dos partes.  La primera parte
+apunta a la situación exacta del manual en que aparece el término;
+la segunda parte apunta al comienzo de la sección correspondiente
+del manual en la que se discute dicho término.
 
 @printindex cp
 

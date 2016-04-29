@@ -124,6 +124,7 @@ class Music_xml_node(Xml_node):
         self.duration = Rational(0)
         self.start = Rational(0)
         self.converted = False
+        self.voice_id = None;
 
 
 class Music_xml_spanner(Music_xml_node):
@@ -438,6 +439,15 @@ class Unpitched(Music_xml_node):
         if octave and p:
             p.octave = octave - 4
         return p
+
+
+class Measure_element (Music_xml_node):
+    def get_voice_id (self):
+        voice = self.get_maybe_exist_named_child ('voice')
+        if voice:
+            return voice.get_text ()
+        else:
+            return self.voice_id;
 
 
 class Attributes(Measure_element):
@@ -1310,7 +1320,25 @@ class Part(Music_xml_node):
                 measure_start_moment = now
                 measure_position = Rational(0)
 
-            for n in m.get_all_children():
+            voice_id = None;
+            assign_to_next_voice = []
+            for n in m.get_all_children ():
+                # assign a voice to all measure elements
+                if (n.get_name() == 'backup'):
+                    voice_id = None;
+
+                if isinstance(n, Measure_element):
+                    if n.get_voice_id ():
+                        voice_id = n.get_voice_id ()
+                        for i in assign_to_next_voice:
+                            i.voice_id = voice_id
+                        assign_to_next_voice = []
+                    else:
+                        if voice_id:
+                            n.voice_id = voice_id
+                        else:
+                            assign_to_next_voice.append (n)
+
                 # figured bass has a duration, but applies to the next note
                 # and should not change the current measure position!
                 if isinstance(n, FiguredBass):
@@ -1635,6 +1663,9 @@ class Hash_comment(Music_xml_node):
     pass
 
 class KeyAlter(Music_xml_node):
+    pass
+
+class Direction (Measure_element):
     pass
 
 class KeyOctave(Music_xml_node):

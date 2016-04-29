@@ -16,6 +16,10 @@
 
 RewriteEngine On
 
+# Permanent redirect from www.lilypond.org to lilypond.org
+RewriteCond "%{HTTP_HOST}" "^www\.(.+)$" [NC]
+RewriteRule "^/?(.*)$"     "http://%1/$1" [R=301,L,NE]
+
 # Deny following of symlinks by robots.
 # HTTrack is a known offender.
 # better yet, to redirect this to page that tells adminstrator
@@ -45,9 +49,12 @@ RedirectMatch ^/stable    /doc/stable
 # the new website has a dedicated page for development.
 #RedirectMatch ^/development    /doc/development
 
-#old# default doc dir
-RedirectMatch ^/doc/*$ /doc/v2.18
-# make attempt at `latest' symlink avoid ^v catch-all doc fix rule below
+# Main doc URL redirects
+RedirectMatch ^/doc/?$ /manuals
+RedirectMatch ^/doc/stable/?$ /manuals
+RedirectMatch ^/doc/development/?$ /development
+
+# Allow to use deep links to latest stable or development docs
 RedirectMatch ^/doc//*latest/*(.*)$ /doc/v2.19/$1
 RedirectMatch ^/doc//*development/*(.*)$ /doc/v2.19/$1
 RedirectMatch ^/doc//*stable/*(.*)$ /doc/v2.18/$1

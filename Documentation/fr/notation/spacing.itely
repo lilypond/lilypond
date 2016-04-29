@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: cee6cea4ed55eb4fa1f9d83c997ebc19744a6e1a
+   Translation of GIT committish: 2034ca4fcbed9253b5a85e9360e47d3fe3ff1d09
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -971,8 +971,8 @@ Les valeurs par défaut sont définies dans le fichier
 
 L'algorithme de calcul des sauts de page à utiliser.  Vous avez le choix
 entre @code{ly:minimal-breaking}, @code{ly:page-turn-breaking},
-@code{ly:one-line-breaking} et @code{ly:optimal-breaking} (activé
-par défaut).
+@code{ly:one-line-breaking}, @code{ly:one-line-auto-height-breaking} et
+@code{ly:optimal-breaking} (activé par défaut).
 
 @item page-breaking-system-system-spacing
 @funindex page-breaking-system-system-spacing
@@ -1536,15 +1536,16 @@ vous le jugez utile pour « forcer » le passage à la ligne suivante :
 @end lilypond
 
 Par défaut, un saut de ligne ne saurait intervenir au beau milieu d'une
-mesure ; LilyPond vous le signalera par un message si tel était le
-cas.  Si d'aventure vous voulez forcer un saut de ligne en l'absence de
-barre de mesure, vous devrez auparavant insérer une barre invisible -- à
-l'aide de @code{\bar ""}.
+mesure ; LilyPond vous le signalera par un message lors de la
+compilation du fichier.  Si d'aventure vous voulez forcer un saut de
+ligne en l'absence de barre de mesure, vous devrez auparavant insérer
+une barre invisible -- à l'aide de @code{\bar ""}.
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
   c4 c c
-  \bar "" \break
+  \bar ""
+  \break
   c |
   c4 c c c |
 }
@@ -1553,7 +1554,7 @@ l'aide de @code{\bar ""}.
 LilyPond ignorera un @code{\break} placé sur une barre à la fin d'une
 mesure dès lors que la précédente avait une note en suspend -- c'est
 typiquement le cas lorsqu'un n-olet est à cheval sur deux mesures.
-L'instruction @code{\break} sera alors opérationnelle si vous avez
+L'instruction @code{\break} sera toutefois opérationnelle si vous avez
 auparavant désactivé le @code{Forbid_line_break_engraver} du contexte
 @code{Voice} concerné.  Notez bien qu'en pareil cas, les sauts de ligne
 forcés doivent être saisis au sein d'une expression polyphonique :
@@ -1687,6 +1688,7 @@ page, ainsi que les moyens de les modifier.
 * Saut de page manuel::
 * Optimisation des sauts de page::
 * Minimisation des sauts de page::
+* Présentation en ligne continue::
 * Présentation en rouleau::
 * Optimisation des tournes::
 @end menu
@@ -1729,7 +1731,7 @@ Pour de plus amples détails, reportez-vous à
 @ref{Variables d'espacement vertical fixe}.
 
 Les sauts de page sont générés par la fonction @code{page-breaking}.
-LilyPond dispose de trois différents algorithmes en la matière :
+LilyPond dispose de plusieurs algorithmes en la matière :
 @code{ly:optimal-breaking}, @code{ly:page-turn-breaking} et
 @code{ly:minimal-breaking}.  C'est @code{ly:optimal-breaking} qui est
 activé par défaut, mais rien ne vous empêche d'en changer, par
@@ -1844,8 +1846,8 @@ Morceaux choisis :
 @rlsrnamed{Spacing,Espacements}.
 
 
-@node Présentation en rouleau
-@unnumberedsubsubsec Présentation en rouleau
+@node Présentation en ligne continue
+@unnumberedsubsubsec Présentation en ligne continue
 @translationof One-line page breaking
 
 @funindex ly:one-line-breaking
@@ -1862,6 +1864,25 @@ longue tienne sur une seule ligne.  En particulier, les variables
 @code{\paper} seront ignorées ; les @code{left-margin} et
 @code{right-margin} seront honorées.  La hauteur de page ne sera pas
 modifiée.
+
+
+@node Présentation en rouleau
+@unnumberedsubsubsec Présentation en rouleau
+@translationof One-line-auto-height page breaking
+
+@funindex ly:one-line-auto-height-breaking
+
+La fonction @code{ly:one-line-auto-height-breaking} opère comme
+@code{ly:one-line-breaking}, à ceci près que la hauteur de page s'adapte
+automatiquement à la hauteur de la musique.  Dans les faits, la variable
+@code{paper-height} du bloc @code{\paper} s'ajuste de façon à englober
+la hauteur de la partition la plus étendue, plus les @code{top-margin}
+et @code{bottom-margin}.
+
+L'affectation d'une valeur à @code{top-system-spacing} influencera le
+positionnement vertical de la musique.  Sa désactivation -- valorisation
+à @code{##f} au sein du bloc @code{\paper} -- aura pour effet de
+simplement placer la musique entre les marges supérieure et inférieure.
 
 
 @node Optimisation des tournes
@@ -1927,8 +1948,8 @@ la manière suivante :
 
 Le @code{Page_turn_engraver} tient compte des reprises.  C'est pourquoi
 il ne permettra une tourne que dans le cas où il y aura suffisamment de
-temps au début et à la fin de la reprise pour que l'exécutant ait le
-temps de revenir à la page précédente.  Le @code{Page_turn_engraver} est
+temps au début et à la fin de la reprise pour que l'exécutant puisse
+aisément revenir à la page précédente.  Le @code{Page_turn_engraver} est
 même capable d'interdire un tourne dans le cas d'une reprise de courte
 durée, ajustable au travers de la propriété de contexte
 @code{minimumRepeatLengthForPageTurn}.
@@ -2633,7 +2654,7 @@ musicaux ; ceci nous permettra d'y voir plus clair au fur et à
 mesure que nous avancerons.  Pour plus de précisions, relisez
 @ref{Sauts}.
 
-Les @code{\break} explicites répartissent la musique en lignes de six
+Les @code{\break} explicites répartissent la musique en lignes de cinq
 mesures chacune.  L'espacement vertical est celui que LilyPond attribue
 par défaut.  Nous pouvons, afin de fixer explicitement le point
 d'attache vertical de chacun des systèmes, définir un doublet
@@ -2812,6 +2833,9 @@ lorsque deux objets devraient se placer au même endroit, celui dont la
 @code{outside-staff-priority} est la plus faible sera disposé au plus
 près de la portée.
 
+Une liste des @code{outside-staff-priorities} est disponible à la
+rubrique @rlearning{La propriété outside-staff-priority}.
+
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
   c4_"Text"\pp
@@ -2951,15 +2975,18 @@ demie largeur de tête :
 \relative { c''2 c4. c8 | c4. c16[ c] c4. c8 | c8 c c4 c c }
 @end lilypond
 
-Dans notre @emph{Essai sur la gravure musicale automatisée}, nous avons
-vu comment la direction des hampes peut influencer l'espacement -- voir
-@ressay{Espacement}.  Ceci est contrôlé par la propriété
-@code{stem-spacing-correction} de l'objet @rinternals{NoteSpacing}, créé
-pour chaque contexte @rinternals{Voice}.  L'objet
-@code{StaffSpacing}, généré au niveau d'un contexte @rinternals{Staff},
-possède une même propriété qui contrôlera l'espacement hampe-barre de
-mesure.  L'exemple suivant montre ces adaptations, tout d'abord selon
-les réglages par défaut, puis avec des corrections forcées.
+Comme le met en évidence notre @emph{Essai sur la gravure musicale
+automatisée}, la direction des hampes peut influencer l'espacement -- voir
+@ressay{Espacement} et s'ajuster à l'aide de la propriété
+@code{stem-spacing-correction} de l'objet @rinternals{NoteSpacing} créé
+pour chaque contexte @rinternals{Voice}.
+
+L'objet @code{StaffSpacing}, généré au niveau d'un contexte
+@rinternals{Staff}, possède une même propriété qui contrôlera
+l'espacement hampe-barre de mesure.
+
+L'exemple suivant montre ces adaptations, tout d'abord selon les
+réglages par défaut, puis avec des corrections forcées.
 
 @lilypond[quote,ragged-right]
 \fixed c' {
@@ -3004,7 +3031,7 @@ Il n'y a aucun moyen de diminuer l'espacement.
 
 @node Changement d'espacement en cours de partition
 @subsection Changement d'espacement en cours de partition
-@translationof New spacing area
+@translationof New spacing section
 
 @cindex espacement, modification en cours de partition
 @cindex notes, espacement horizontal

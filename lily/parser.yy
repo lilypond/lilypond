@@ -119,6 +119,7 @@ FIXME:
 using namespace std;
 
 #include "book.hh"
+#include "context.hh"
 #include "context-def.hh"
 #include "context-mod.hh"
 #include "dimensions.hh"
@@ -232,7 +233,7 @@ SCM loc_on_music (Lily_parser *parser, Input loc, SCM arg);
 SCM make_chord_elements (Input loc, SCM pitch, SCM dur, SCM modification_list);
 SCM make_chord_step (SCM step, Rational alter);
 SCM make_simple_markup (SCM a);
-SCM make_duration (SCM t, int dots = 0);
+SCM make_duration (SCM t, int dots = 0, SCM factor = SCM_UNDEFINED);
 bool is_regular_identifier (SCM id, bool multiple=false);
 SCM try_string_variants (SCM pred, SCM str);
 int yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser);
@@ -347,11 +348,13 @@ If we give names, Bison complains.
 %token CHORD_REPETITION
 %token CONTEXT_MOD_IDENTIFIER
 %token DRUM_PITCH
-%token PITCH_IDENTIFIER
+ /* Artificial token for durations in argument lists */
+%token DURATION_ARG
 %token DURATION_IDENTIFIER
 %token EVENT_IDENTIFIER
 %token EVENT_FUNCTION
 %token FRACTION
+%token LOOKUP_IDENTIFIER
 %token LYRIC_ELEMENT
 %token MARKUP_FUNCTION
 %token MARKUP_LIST_FUNCTION
@@ -361,6 +364,7 @@ If we give names, Bison complains.
 %token MUSIC_IDENTIFIER
 %token NOTENAME_PITCH
 %token NUMBER_IDENTIFIER
+%token PITCH_IDENTIFIER
 %token REAL
 %token RESTNAME
 %token SCM_ARG
@@ -490,6 +494,15 @@ toplevel_expression:
 	}
 	;
 
+lookup:
+	LOOKUP_IDENTIFIER
+	| LOOKUP_IDENTIFIER '.' symbol_list_rev
+	{
+		$$ = loc_on_music (parser, @$,
+				   nested_property ($1, scm_reverse_x ($3, SCM_EOL)));
+	}
+	;
+
 embedded_scm_bare:
 	SCM_TOKEN
 	{
@@ -501,6 +514,7 @@ embedded_scm_bare:
 embedded_scm_active:
 	SCM_IDENTIFIER
 	| scm_function_call
+	| lookup
 	;
 
 embedded_scm_bare_arg:
@@ -518,6 +532,7 @@ embedded_scm_bare_arg:
 	| book_block
 	| bookpart_block
 	| output_def
+	| lookup
 	;
 
 /* The generic version may end in music, or not */
@@ -525,6 +540,7 @@ embedded_scm_bare_arg:
 embedded_scm:
 	embedded_scm_bare
 	| scm_function_call
+	| lookup
 	;
 
 /* embedded_scm_arg is _not_ casting pitches to music by default, this
@@ -642,12 +658,12 @@ assignment:
 	        parser->lexer_->set_identifier ($1, $3);
                 $$ = SCM_UNSPECIFIED;
 	}
-	| assignment_id property_path '=' identifier_init {
-		SCM path = scm_cons (scm_string_to_symbol ($1), $2);
-		parser->lexer_->set_identifier (path, $4);
+	| assignment_id '.' property_path '=' identifier_init {
+		SCM path = scm_cons (scm_string_to_symbol ($1), $3);
+		parser->lexer_->set_identifier (path, $5);
                 $$ = SCM_UNSPECIFIED;
 	}
-	| assignment_id '.' property_path '=' identifier_init {
+	| assignment_id ',' property_path '=' identifier_init {
 		SCM path = scm_cons (scm_string_to_symbol ($1), $3);
 		parser->lexer_->set_identifier (path, $5);
                 $$ = SCM_UNSPECIFIED;
@@ -658,6 +674,14 @@ assignment:
 identifier_init:
 	identifier_init_nonumber
 	| number_expression
+	| symbol_list_part_bare '.' property_path
+	{
+		$$ = scm_reverse_x ($1, $3);
+	}
+	| symbol_list_part_bare ',' property_path
+	{
+		$$ = scm_reverse_x ($1, $3);
+	}
 	| post_event_nofinger post_events
 	{
 		$$ = scm_reverse_x ($2, SCM_EOL);
@@ -1671,11 +1695,19 @@ symbol_list_arg:
 	{
 		$$ = scm_append (scm_list_2 ($1, scm_reverse_x ($3, SCM_EOL)));
 	}
+	| SYMBOL_LIST ',' symbol_list_rev
+	{
+		$$ = scm_append (scm_list_2 ($1, scm_reverse_x ($3, SCM_EOL)));
+	}
 	;
 
 symbol_list_rev:
 	symbol_list_part
 	| symbol_list_rev '.' symbol_list_part
+	{
+		$$ = scm_append_x (scm_list_2 ($3, $1));
+	}
+	| symbol_list_rev ',' symbol_list_part
 	{
 		$$ = scm_append_x (scm_list_2 ($3, $1));
 	}
@@ -1686,9 +1718,9 @@ symbol_list_rev:
 symbol_list_part:
 	symbol_list_element
 	{
-		$$ = try_string_variants (Lily::symbol_list_p, $1);
+		$$ = try_string_variants (Lily::key_list_p, $1);
 		if (SCM_UNBNDP ($$)) {
-			parser->parser_error (@1, _("not a symbol"));
+			parser->parser_error (@1, _("not a key"));
 			$$ = SCM_EOL;
 		} else
 			$$ = scm_reverse ($$);
@@ -1699,8 +1731,24 @@ symbol_list_part:
 symbol_list_element:
 	STRING
 	| embedded_scm_bare
+	| UNSIGNED
 	;
 
+symbol_list_part_bare:
+	STRING
+	{
+		$$ = try_string_variants (Lily::key_list_p, $1);
+		if (SCM_UNBNDP ($$)) {
+			parser->parser_error (@1, _("not a key"));
+			$$ = SCM_EOL;
+		} else
+			$$ = scm_reverse ($$);
+	}
+	| UNSIGNED
+	{
+		$$ = scm_list_1 ($1);
+	}
+	;
 
 function_arglist_nonbackup:
 	function_arglist_common
@@ -1756,7 +1804,11 @@ function_arglist_nonbackup:
 					       (parser, @3, $3),
 					       $1, $2);
 	}
-	| function_arglist_nonbackup_reparse REPARSE duration_length
+	| function_arglist_nonbackup_reparse REPARSE multiplied_duration
+	{
+		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
+	}
+	| function_arglist_nonbackup_reparse REPARSE reparsed_rhythm
 	{
 		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
@@ -1776,6 +1828,20 @@ function_arglist_nonbackup:
 	{
 		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
+	;
+
+
+reparsed_rhythm:
+	DURATION_ARG dots multipliers post_events
+	{
+		$$ = make_music_from_simple (parser, @$,
+					     make_duration ($1, scm_to_int ($2), $3));
+		Music *m = unsmob<Music> ($$);
+		assert (m);
+		if (scm_is_pair ($4))
+			m->set_property ("articulations",
+					 scm_reverse_x ($4, SCM_EOL));
+	} %prec ':'
 	;
 
 function_arglist_nonbackup_reparse:
@@ -1852,18 +1918,36 @@ function_arglist_nonbackup_reparse:
 	{
 		$$ = $3;
 		if (scm_is_true (scm_call_1 ($2, $4)))
+			// May be 3 \cm or similar
 			MYREPARSE (@4, $2, REAL, $4);
+		else if (scm_is_true (scm_call_1 ($2, scm_list_1 ($4))))
+			MYREPARSE (@4, $2, SYMBOL_LIST, scm_list_1 ($4));
 		else {
 			SCM d = make_duration ($4);
-			if (SCM_UNBNDP (d) || scm_is_false (scm_call_1 ($2, d)))
-				MYREPARSE (@4, $2, REAL, $4); // trigger error
-			else
-				MYREPARSE (@4, $2, DURATION_IDENTIFIER, d);
+			if (!SCM_UNBNDP (d)) {
+				if (scm_is_true (scm_call_1 ($2, d)))
+					MYREPARSE (@4, $2, DURATION_IDENTIFIER, d);
+				else if (scm_is_true
+					 (scm_call_1
+					  ($2, make_music_from_simple (parser, @4, d))))
+					MYREPARSE (@4, $2, DURATION_ARG, d);
+				else
+					MYREPARSE (@4, $2, SCM_ARG, $4); // trigger error
+			} else
+				MYREPARSE (@4, $2, SCM_ARG, $4); // trigger error
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup DURATION_IDENTIFIER {
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup DURATION_IDENTIFIER
+	{
 		$$ = $3;
-		MYREPARSE (@4, $2, DURATION_IDENTIFIER, $4);
+		if (scm_is_true (scm_call_1 ($2, $4)))
+			MYREPARSE (@4, $2, DURATION_IDENTIFIER, $4);
+		else if (scm_is_true
+			 (scm_call_1
+			  ($2, make_music_from_simple (parser, @4, $4))))
+			MYREPARSE (@4, $2, DURATION_ARG, $4);
+		else
+			MYREPARSE (@4, $2, SCM_ARG, $4); // trigger error
 	}
 	;
 
@@ -1940,19 +2024,28 @@ function_arglist_backup:
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup UNSIGNED
 	{
+		$$ = $3;
 		if (scm_is_true (scm_call_1 ($2, $4)))
-		{
+			// May be 3 \cm or similar
 			MYREPARSE (@4, $2, REAL, $4);
-			$$ = $3;
-		} else {
+		else if (scm_is_true (scm_call_1 ($2, scm_list_1 ($4))))
+			MYREPARSE (@4, $2, SYMBOL_LIST, scm_list_1 ($4));
+		else {
 			SCM d = make_duration ($4);
-			if (SCM_UNBNDP (d) || scm_is_false (scm_call_1 ($2, d)))
-			{
+			if (!SCM_UNBNDP (d)) {
+				if (scm_is_true (scm_call_1 ($2, d)))
+					MYREPARSE (@4, $2, DURATION_IDENTIFIER, d);
+				else if (scm_is_true
+					 (scm_call_1
+					  ($2, make_music_from_simple (parser, @4, d))))
+					MYREPARSE (@4, $2, DURATION_ARG, d);
+				else {
+					$$ = scm_cons (loc_on_music (parser, @3, $1), $3);
+					MYBACKUP (UNSIGNED, $4, @4);
+				}
+			} else {
 				$$ = scm_cons (loc_on_music (parser, @3, $1), $3);
 				MYBACKUP (UNSIGNED, $4, @4);
-			} else {
-				MYREPARSE (@4, $2, DURATION_IDENTIFIER, d);
-				$$ = $3;
 			}
 		}
 	}
@@ -2019,11 +2112,14 @@ function_arglist_backup:
 	}
 	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup DURATION_IDENTIFIER
 	{
+		$$ = $3;
 		if (scm_is_true (scm_call_1 ($2, $4)))
-		{
 			MYREPARSE (@4, $2, DURATION_IDENTIFIER, $4);
-			$$ = $3;
-		} else {
+		else if (scm_is_true
+			 (scm_call_1
+			  ($2, make_music_from_simple (parser, @4, $4))))
+			MYREPARSE (@4, $2, DURATION_ARG, $4);
+		else {
 			$$ = scm_cons (loc_on_music (parser, @3, $1), $3);
 			MYBACKUP (DURATION_IDENTIFIER, $4, @4);
 		}
@@ -2073,7 +2169,12 @@ function_arglist_backup:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
-	| function_arglist_backup REPARSE duration_length
+	| function_arglist_backup REPARSE multiplied_duration
+	{
+		$$ = check_scheme_arg (parser, @3,
+				       $3, $1, $2);
+	}
+	| function_arglist_backup REPARSE reparsed_rhythm
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
@@ -2204,7 +2305,12 @@ function_arglist_common:
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
-	| function_arglist_common_reparse REPARSE duration_length
+	| function_arglist_common_reparse REPARSE multiplied_duration
+	{
+		$$ = check_scheme_arg (parser, @3,
+				       $3, $1, $2);
+	}
+	| function_arglist_common_reparse REPARSE reparsed_rhythm
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
@@ -2292,19 +2398,36 @@ function_arglist_common_reparse:
 	{
 		$$ = $2;
 		if (scm_is_true (scm_call_1 ($1, $3)))
+			// May be 3 \cm or similar
 			MYREPARSE (@3, $1, REAL, $3);
+		else if (scm_is_true (scm_call_1 ($1, scm_list_1 ($3))))
+			MYREPARSE (@3, $1, SYMBOL_LIST, scm_list_1 ($3));
 		else {
 			SCM d = make_duration ($3);
-			if (SCM_UNBNDP (d) || scm_is_false (scm_call_1 ($1, d)))
-				MYREPARSE (@3, $1, REAL, $3);
-			else
-				MYREPARSE (@3, $1, DURATION_IDENTIFIER, d);
+			if (!SCM_UNBNDP (d)) {
+				if (scm_is_true (scm_call_1 ($1, d)))
+					MYREPARSE (@3, $1, DURATION_IDENTIFIER, d);
+				else if (scm_is_true
+					 (scm_call_1
+					  ($1, make_music_from_simple (parser, @3, d))))
+					MYREPARSE (@3, $1, DURATION_ARG, d);
+				else
+					MYREPARSE (@3, $1, SCM_ARG, $3); // trigger error
+			} else
+				MYREPARSE (@3, $1, SCM_ARG, $3); // trigger error
 		}
 	}
 	| EXPECT_SCM function_arglist_optional DURATION_IDENTIFIER
 	{
 		$$ = $2;
-		MYREPARSE (@3, $1, DURATION_IDENTIFIER, $3);
+		if (scm_is_true (scm_call_1 ($1, $3)))
+			MYREPARSE (@3, $1, DURATION_IDENTIFIER, $3);
+		else if (scm_is_true
+			 (scm_call_1
+			  ($1, make_music_from_simple (parser, @3, $3))))
+			MYREPARSE (@3, $1, DURATION_ARG, $3);
+		else
+			MYREPARSE (@3, $1, SCM_ARG, $3); // trigger error
 	}
 	| EXPECT_SCM function_arglist_optional '-' UNSIGNED
 	{
@@ -2474,9 +2597,6 @@ property_path:
 	symbol_list_rev  {
 		$$ = scm_reverse_x ($1, SCM_EOL);
 	}
-	| symbol_list_rev property_path {
-		$$ = scm_reverse_x ($1, $2);
-	}
 	;
 
 property_operation:
@@ -2486,7 +2606,7 @@ property_operation:
 	| UNSET symbol {
 		$$ = scm_list_2 (ly_symbol2scm ("unset"), $2);
 	}
-	| OVERRIDE property_path '=' scalar {
+	| OVERRIDE revert_arg '=' scalar {
 		if (scm_ilength ($2) < 2) {
 			parser->parser_error (@2, _("bad grob property path"));
 			$$ = SCM_UNDEFINED;
@@ -2547,6 +2667,10 @@ revert_arg_backup:
 revert_arg_part:
 	symbol_list_part
 	| revert_arg_backup BACKUP SCM_ARG '.' symbol_list_part
+	{
+		$$ = scm_append_x (scm_list_2 ($5, $3));
+	}
+	| revert_arg_backup BACKUP SCM_ARG ',' symbol_list_part
 	{
 		$$ = scm_append_x (scm_list_2 ($5, $3));
 	}
@@ -2782,6 +2906,14 @@ scalar:
 		$$ = scm_difference ($2, SCM_UNDEFINED);
 	}
 	| string
+	| symbol_list_part_bare '.' property_path
+	{
+		$$ = scm_reverse_x ($1, $3);
+	}
+	| symbol_list_part_bare ',' property_path
+	{
+		$$ = scm_reverse_x ($1, $3);
+	}
 	;
 
 event_chord:
@@ -3179,12 +3311,6 @@ script_dir:
 	| '-'	{ $$ = SCM_UNDEFINED; }
 	;
 
-duration_length:
-	multiplied_duration {
-		$$ = $1;
-	}
-	;
-
 maybe_notemode_duration:
 	{
 		$$ = SCM_UNDEFINED;
@@ -3214,26 +3340,13 @@ steno_duration:
 		}
 	}
 	| DURATION_IDENTIFIER dots	{
-		Duration *d = unsmob<Duration> ($1);
-		Duration k (d->duration_log (),
-                            d->dot_count () + scm_to_int ($2));
-		k = k.compressed (d->factor ());
-                scm_remember_upto_here_1 ($1);
-		$$ = k.smobbed_copy ();
+		$$ = make_duration ($1, scm_to_int ($2));
 	}
 	;
 
 multiplied_duration:
-	steno_duration {
-		$$ = $1;
-	}
-	| multiplied_duration '*' UNSIGNED {
-		$$ = unsmob<Duration> ($$)->compressed (scm_to_int ($3)).smobbed_copy ();
-	}
-	| multiplied_duration '*' FRACTION {
-		Rational  m (scm_to_int (scm_car ($3)), scm_to_int (scm_cdr ($3)));
-
-		$$ = unsmob<Duration> ($$)->compressed (m).smobbed_copy ();
+	steno_duration multipliers {
+		$$ = make_duration ($1, 0, $2);
 	}
 	;
 
@@ -3243,6 +3356,28 @@ dots:
 	}
 	| dots '.' {
 		$$ = scm_oneplus ($1);
+	}
+	;
+
+multipliers:
+	/* empty */
+	{
+		$$ = SCM_UNDEFINED;
+	}
+	| multipliers '*' UNSIGNED
+	{
+		if (!SCM_UNBNDP ($1))
+			$$ = scm_product ($1, $3);
+		else
+			$$ = $3;
+	}
+	| multipliers '*' FRACTION
+	{
+		if (!SCM_UNBNDP ($1))
+			$$ = scm_product ($1, scm_divide (scm_car ($3),
+							  scm_cdr ($3)));
+		else
+			$$ = scm_divide (scm_car ($3), scm_cdr ($3));
 	}
 	;
 
@@ -3943,8 +4078,12 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 	} else if (unsmob<Score> (sid)) {
 		*destination = unsmob<Score> (sid)->clone ()->unprotect ();
 		return SCM_IDENTIFIER;
+	} else if (scm_is_pair (sid)
+		   && scm_is_pair (scm_car (sid))
+		   && scm_is_true (Lily::key_p (scm_caar (sid)))) {
+		*destination = sid;
+		return LOOKUP_IDENTIFIER;
 	}
-
 	return -1;
 }
 
@@ -4014,7 +4153,7 @@ try_string_variants (SCM pred, SCM str)
 	if (scm_is_true (scm_call_1 (pred, str)))
 		return str;
 	// a symbol may be interpreted as a list of symbols if it helps
-	if (scm_is_symbol (str)) {
+	if (scm_is_true (Lily::key_p (str))) {
 		str = scm_list_1 (str);
 		if (scm_is_true (scm_call_1 (pred, str)))
 			return str;
@@ -4028,6 +4167,10 @@ try_string_variants (SCM pred, SCM str)
 		return SCM_UNDEFINED;
 
 	str = scm_string_split (str, SCM_MAKE_CHAR ('.'));
+	for (SCM p = str; scm_is_pair (p); p = scm_cdr (p))
+		scm_set_car_x (p, scm_string_split (scm_car (p),
+						    SCM_MAKE_CHAR (',')));
+	str = scm_append_x (str);
 	for (SCM p = str; scm_is_pair (p); p = scm_cdr (p))
 		scm_set_car_x (p, scm_string_to_symbol (scm_car (p)));
 
@@ -4066,7 +4209,8 @@ is_regular_identifier (SCM id, bool multiple)
 	      || (c >= 'A' && c <= 'Z')
 	      || c > 0x7f)
 		  middle = true;
-	  else if (middle && (c == '-' || c == '_' || (multiple && c == '.')))
+	  else if (middle && (c == '-' || c == '_' || (multiple &&
+						       (c == '.' || c == ','))))
 		  middle = false;
 	  else
 		  return false;
@@ -4090,6 +4234,14 @@ make_music_from_simple (Lily_parser *parser, Input loc, SCM simple)
 			Music *n = MY_MAKE_MUSIC ("NoteEvent", loc);
 			n->set_property ("duration", parser->default_duration_.smobbed_copy ());
 			n->set_property ("pitch", simple);
+			return n->unprotect ();
+		}
+		SCM d = simple;
+		if (scm_is_integer (simple))
+			d = make_duration (simple);
+		if (unsmob<Duration> (d)) {
+			Music *n = MY_MAKE_MUSIC ("NoteEvent", loc);
+			n->set_property ("duration", d);
 			return n->unprotect ();
 		}
 		return simple;
@@ -4124,13 +4276,29 @@ make_simple_markup (SCM a)
 }
 
 SCM
-make_duration (SCM d, int dots)
+make_duration (SCM d, int dots, SCM factor)
 {
-	int t = scm_to_int (d);
-	if (t > 0 && (t & (t-1)) == 0)
-		return Duration (intlog2 (t), dots).smobbed_copy ();
-	else
-		return SCM_UNDEFINED;
+	Duration k;
+
+	if (Duration *dur = unsmob<Duration> (d)) {
+		if (!dots && SCM_UNBNDP (factor))
+			return d;
+		k = *dur;
+		if (dots)
+			k = Duration (k.duration_log (), k.dot_count () + dots)
+				.compressed (k.factor ());
+	} else {
+		int t = scm_to_int (d);
+		if (t > 0 && (t & (t-1)) == 0)
+			k = Duration (intlog2 (t), dots);
+		else
+			return SCM_UNDEFINED;
+	}
+
+	if (!SCM_UNBNDP (factor))
+		k = k.compressed (ly_scm2rational (factor));
+
+	return k.smobbed_copy ();
 }
 
 SCM

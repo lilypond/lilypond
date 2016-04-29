@@ -383,7 +383,7 @@ in qualsiasi momento musicale.
 @end itemize
 
 In tutti questi tre metodi è possibile disegnare dei trattini tra
-le sillabe di una parole e delle linee di estensione oltre la
+le sillabe di una parola e delle linee di estensione oltre la
 fine di una parola.  Maggiori dettagli in @ref{Extenders and hyphens}.
 
 Il contesto @code{Voice} contenente la melodia al quale il testo si

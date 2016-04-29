@@ -75,11 +75,10 @@ Lookup::beam (Real slope, Real width, Real thick, Real blot)
                      scm_cons (scm_from_double (p[Y_AXIS]),
                                points));
 
-  SCM expr = scm_list_n (ly_symbol2scm ("polygon"),
+  SCM expr = scm_list_4 (ly_symbol2scm ("polygon"),
                          ly_quote_scm (points),
                          scm_from_double (blot),
-                         SCM_BOOL_T,
-                         SCM_UNDEFINED);
+                         SCM_BOOL_T);
 
   return Stencil (b, expr);
 }
@@ -373,11 +372,10 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
     }
   shrunk_box.widen (0.5*blotdiameter, 0.5*blotdiameter);
   box.unite (shrunk_box);
-  SCM polygon_scm = scm_list_n (ly_symbol2scm ("polygon"),
+  SCM polygon_scm = scm_list_4 (ly_symbol2scm ("polygon"),
                                 ly_quote_scm (shrunk_points_scm),
                                 scm_from_double (blotdiameter),
-                                SCM_BOOL_T,
-                                SCM_UNDEFINED);
+                                SCM_BOOL_T);
 
   Stencil polygon = Stencil (box, polygon_scm);
   return polygon;
@@ -549,7 +547,7 @@ Stencil
 Lookup::repeat_slash (Real w, Real s, Real t)
 {
 
-  Real x_width = sqrt ((t * t) + ((t / s) * (t / s)));
+  Real x_width = hypot (t, t/s);
   Real height = w * s;
 
   SCM controls = scm_list_n (ly_symbol2scm ("moveto"),
@@ -575,8 +573,8 @@ Lookup::repeat_slash (Real w, Real s, Real t)
                                SCM_BOOL_T,
                                SCM_UNDEFINED);
 
-  Box b (Interval (0, w + sqrt (sqr (t / s) + sqr (t))),
-         Interval (0, w * s));
+  Box b (Interval (0, w + x_width),
+         Interval (0, height));
 
   return Stencil (b, slashnodot); //  http://slashnodot.org
 }
@@ -585,7 +583,7 @@ Stencil
 Lookup::bracket (Axis a, Interval iv, Real thick, Real protrude, Real blot)
 {
   Box b;
-  Axis other = Axis ((a + 1) % 2);
+  Axis other = other_axis (a);
   b[a] = iv;
   b[other] = Interval (-1, 1) * thick * 0.5;
 

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 3ff93fbd01133506d14c929740bd26b34f59c5b4
+   Translation of GIT committish: 934175b31d43c95e341b098f12c2e833522a5d45
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -699,23 +699,22 @@ qu'ils ont ,à notre connaissane, grandement apprécié.
 
 Aurélien a aussi réorchestré @emph{Der Ring der Nibelungen} de Richard
 Wagner en une
-@uref{http://www.rsb-online.de/content/konzerte/wagnerzyklus-10-13/wagner-fuer-kinder/index_ger.html,
+@uref{www.rsb-online.de/content/concerts/new-season-1516/family-concerts-age-7-and-above/index_eng.html,
 version en 100 minutes pour enfants}.
 Celle-ci, écrite pour un orchestre symphonique traditionnel et un nombre
 réduit de chanteurs, a été donnée en avril 2014 au Atze Musiktheater de
-Berlin par l'orchestre radio-symphonique de Berlin sous la direction de
-Heiko Matthias Förster.
+Berlin par @uref{http://www.rsb-online.de/, l'orchestre
+radio-symphonique de Berlin} sous la direction de Heiko Matthias Förster.
 
 @item
 Joe Smeets a réalisé les partitions du livre pour enfants @emph{Zing
-Mee} (@emph{Chanter}) d'Annie M.G. publié chez Querido -- ISBN
-9789045106205
-@uref{http://www.queridokinderenjeugdboeken.nl/web/Boek.htm?dbid=18954&typeofpage=134707,
-www.queridokinderenjeugdboeken.nl} --, les partitions de chœur d'une
-traduction en hollandais du @emph{Saint Nicolas} de Benjamin Britten
-donné en 2011 par le @emph{Muziektheater Hollands Diep} --
+Mee} (@emph{Chanter}) d'Annie M.G. publié chez
+@uref{http://www.queridokinderenjeugdboeken.nl/, Querido} -- ISBN
+9789045106205 --, les partitions de chœur d'une traduction en hollandais
+du @emph{Saint Nicolas} de Benjamin Britten donné en 2011 par le
+@emph{Muziektheater Hollands Diep} --
 @uref{http://www.muziektheaterhollandsdiep.nl/nl/voorstellingen/sint_nicolaas_leeft,
-www.muziektheaterhollandsdiep.nl}.  Il a aussi réalisé le conducteur et
+www.muziektheaterhollandsdiep.nl}. Il a aussi réalisé le conducteur et
 le matériel d'un arrangement pour quatuor à vent, piano et percussions,
 du @emph{Boris Godounov} de Modeste Moussorgski, qui a été donné en
 2014, toujours par le @emph{Muziektheater Hollands Diep}.
@@ -734,29 +733,28 @@ Tommaso Traetta, opéra sur un libret de Vittorio Amedeo Cigna-Santi, en quatre 
 Après les avoir réorchestrés, @uref{http://www.aurelienbello.com/,
 Aurélien Bello} a donné plusieurs représentations, entre octobre 2011 et
 avril 2012, des @emph{Tableaux d'une exposition} de Mussorgsky à la tête
-de @uref{http://www.junge-philharmonie-brandenburg.de/, l'orchestre
+de @uref{https://junge-philharmonie-brandenburg.de/, l'orchestre
 philharmonique des jeunes de Brandenbourg}.
 
 @item
-@uref{http://www.kierenmacmillan.info/, Kieren MacMillan}, compositeur
+@uref{http://kierenmacmillan.info/, Kieren MacMillan}, compositeur
 et directeur musical. Ses travaux les plus récents incluent @emph{Go Thy
 Way}, donné par les @uref{http://www.saltlakechoralartists.org/, Salt
 Lake Choral Artists} en mars 2012, la @emph{Just Out of Reach Suite},
 donnée par le
 @uref{http://www.herald-dispatch.com/news/marshall/x1883873762/Music-duo-Chrysalis-to-perform-at-Marshall-University-on-Jan-19,
 Duo Chrysalis} ainsi que @emph{thrafsmata} en juillet 2011 par le
-@uref{http://www.pnme.org/CurrentSeason/PreviousSeasons.html, Pittsburgh
-New Music Ensemble}.
+@uref{http://www.pnme.org/, Pittsburgh New Music Ensemble}.
 
 @item
 @emph{Anonymous Student Compliment or Complaint} a permis à
 @uref{http://www.mikesolomon.org, Mike Solomon} de gagner le
-@uref{http://leftcoastensemble.org, Concours de composition de la côte Est 2011},
-regroupant 172 participants de 22 nationalités.  Parmi ses autres
-œuvres, nous citerons @emph{Norman (un an)} pour clarinette solo, donnée
-en octobre 2010 à l'occasion du Festival de musique électro-acoustique
-(FEMF) de
-@uref{http://emu.music.ufl.edu/fems_concerts.html, l'Université de Floride}.
+@uref{http://www.leftcoastensemble.org,
+Concours de composition de la côte Est 2011}, regroupant 172
+participants de 22 nationalités.  Parmi ses autres œuvres, nous citerons
+@emph{Norman (un an)} pour clarinette solo, donnée en octobre 2010 à
+l'occasion du Festival de musique électro-acoustique (FEMF) de
+@uref{http://arts.ufl.edu/academics/music/, l'Université de Floride}.
 
 @item
 Une édition moderne de la @emph{Serenata Erminia} d'Alessandro
@@ -768,7 +766,7 @@ Stigliano à Naples lors des célébrations organisées pour le
 
 @item
 L'exécution d'@emph{Armide} de Lully, les 15 et 16 mai 2009, à Houston,
-Texas, par @uref{http://www.mercurybaroque.org/, Mercury Baroque},
+Texas, par @uref{http://www.mercuryhouston.org/, Mercury Baroque},
 avec un matériel gravé par @uref{http://nicolas.sceaux.free.fr/, Nicolas
 Sceaux}.
 
@@ -782,7 +780,7 @@ Music New York}, avec des partitions gravées par
 @item
 @emph{Affaire Étrangère}, un opéra de
 @uref{http://valentin.villenave.net/, Valentin Villenave}, livret
-de @uref{http://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis Trondheim},
+de @uref{https://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis Trondheim},
 dont la première a eu lieu le 1er février 2009 en France à
 @uref{http://www.orchestre-montpellier.com/, l'Opéra national de
 Montpellier}.
@@ -814,15 +812,15 @@ comporte un clavier virtuel qui indique aux pianiste lecteur débutant
 quelle touche enfoncer.
 
 @item
-@uref{http://www.adoromusicpub.com/, Adoro Music Publishing} propose des
-partitions de musique sacrée de grande qualité, disponibles
+@uref{https://twitter.com/adoromusic, Adoro Music Publishing} propose
+des partitions de musique sacrée de grande qualité, disponibles
 immédiatement en téléchargement ou sous forme de partition imprimable.
 
 @item
-@uref{http://www.shadylane.fr/, The Shady Lane Publishing},
-est un « micro-éditeur de partitions musicales » qui a pour but de
-promouvoir une nouvelle forme de pratique économique, plus proche des
-musiciens et amoureux de la musique.
+@uref{http://matthieujacquot.com/, The Shady Lane Publishing} est un
+« micro-éditeur de partitions musicales » qui a pour but de promouvoir
+une nouvelle forme de pratique économique, plus proche des musiciens et
+amoureux de la musique.
 
 @end itemize
 @divEnd
@@ -864,11 +862,11 @@ Avril 2011
 
 @uref{http://www.linux-magazine.com,Linux Magazine} publie un
 article sur trois projets en pleine évolution,
-@uref{http://www.linux-magazine.com/w3/issue/126/088-090_projects.pdf,
+@uref{http://www.linux-magazine.com/content/download/61706/482546/version/1/file/088-090_projects.pdf,
 Projects on the Move}.  Dans cette présentation de MuseScore, LilyPond
-et Chordii, Carla Schroder indique que @qq{même si LilyPond se base sur
+et Chordii, Carla Schroder indique que « même si LilyPond se base sur
 la ligne de commande, l'absence d'interface graphique n'est en rien
-rebutante ; son langage est agréable et facile à apprendre}, et
+rebutante ; son langage est agréable et facile à apprendre », et
 fournit un exemple simple et concret.
 
 @item
@@ -1063,7 +1061,7 @@ musicale de qualité].}
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Snyder, @uref{http://www.adoromusicpub.com/, Adoro Music Publishing}
+@subsubheading Chris Snyder, @uref{https://twitter.com/adoromusic, Adoro Music Publishing}
 
 @qq{La façon dont on saisit la musique pour LilyPond me fait penser
 d'une façon plus musicale -- il m'est arrivé plusieurs fois de buter sur
@@ -1566,7 +1564,8 @@ créé en tant que greffon de l'éditeur @uref{http://www.jedit.org,jEdit}.
 exporte dans une certaine mesure au format LilyPond.
 
 @item
-@uref{http://noteedit.berlios.de,NoteEdit}, qui importait
+@uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit},
+qui importait
 @uref{http://www.makemusic.com/musicxml, MusicXML}, s'est scindé en
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 et @uref{http://canorus.org,Canorus}.

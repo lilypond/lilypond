@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.22"
+@c \version "2.19.40"
 
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
@@ -1140,9 +1140,9 @@ Si può sovrascrivere il valore predefinito di @code{beatStructure} nel comando
 \score {
   \new Staff {
     \relative {
-      \time #'(2 2 3) 7/8
+      \time 2,2,3 7/8
       \repeat unfold 7 { c'8 } |
-      \time #'(3 2 2) 7/8
+      \time 3,2,2 7/8
       \repeat unfold 7 { c8 } |
     }
   }
@@ -1163,7 +1163,7 @@ specificata nelle nuove impostazioni:
       \overrideTimeSignatureSettings
         4/4        % timeSignatureFraction
         1/4        % baseMomentFraction
-        #'(3 1)    % beatStructure
+        3,1        % beatStructure
         #'()       % beamExceptions
       \time 4/4
       \repeat unfold 8 { c8 } |
@@ -1209,7 +1209,7 @@ essere ripristinati ai valori originali:
     \overrideTimeSignatureSettings
       4/4        % timeSignatureFraction
       1/4        % baseMomentFraction
-      #'(3 1)    % beatStructure
+      3,1        % beatStructure
       #'()       % beamExceptions
     \time 4/4
     \repeat unfold 8 { c8 } |
@@ -1232,7 +1232,7 @@ di tempo per righi diversi spostando @code{Timing_translator} e
         \overrideTimeSignatureSettings
           4/4        % timeSignatureFraction
           1/4        % baseMomentFraction
-          #'(3 1)    % beatStructure
+          3,1        % beatStructure
           #'()       % beamExceptions
         \time 4/4
         \repeat unfold 8 {c''8}
@@ -1241,7 +1241,7 @@ di tempo per righi diversi spostando @code{Timing_translator} e
         \overrideTimeSignatureSettings
           4/4        % timeSignatureFraction
           1/4        % baseMomentFraction
-          #'(1 3)    % beatStructure
+          1,3        % beatStructure
           #'()       % beamExceptions
         \time 4/4
         \repeat unfold 8 {c''8}
@@ -2198,9 +2198,9 @@ tempo viene ristabilita.
   % È improbabile che per un tempo di 5/16 sia stata definita beamExceptions,
   % ma disabilitiamola lo stesso per sicurezza
   \set Timing.beamExceptions = #'()
-  \set Timing.beatStructure = #'(2 3)
+  \set Timing.beatStructure = 2,3
   c16^"(2+3)" c c c c |
-  \set Timing.beatStructure = #'(3 2)
+  \set Timing.beatStructure = 3,2
   c16^"(3+2)" c c c c |
 }
 @end lilypond
@@ -2214,7 +2214,7 @@ tempo viene ristabilita.
   % per il tempo 4/4
   \set Timing.beamExceptions = #'()
   \set Timing.baseMoment = #(ly:make-moment 1/4)
-  \set Timing.beatStructure = #'(1 1 1 1)
+  \set Timing.beatStructure = 1,1,1,1
   a8^"cambiato" a a a a a a a
 }
 @end lilypond
@@ -2229,7 +2229,7 @@ contiene.
   \time 7/8
   % Nessun bisogno di disabilitare beamExceptions perché non è definita per il tempo 7/8
 
-  \set Staff.beatStructure = #'(2 3 2)
+  \set Staff.beatStructure = 2,3,2
   <<
     \new Voice = one {
       \relative {
@@ -2239,7 +2239,7 @@ contiene.
     \new Voice = two {
       \relative {
         \voiceTwo
-        \set Voice.beatStructure = #'(1 3 3)
+        \set Voice.beatStructure = 1,3,3
         f'8 f f f f f f
       }
     }
@@ -2256,11 +2256,11 @@ rigo:
 % ritmo 3-1-1-2
 % Se non si specifica il contesto, la modifica viene applicata a Voice e quindi non funziona correttamente
 % Dato che le voci sono autogenerate, tutto il ritmo avrà come baseMoment (1 . 8)
-\set beatStructure = #'(3 1 1 2)
+\set beatStructure = 3,1,1,2
 << \relative {a'8 a a a16 a a a a8 a} \\ \relative {f'4. f8 f f f} >>
 
 % Funziona correttamente se si specifica il contesto Staff
-\set Staff.beatStructure = #'(3 1 1 2)
+\set Staff.beatStructure = 3,1,1,2
 << \relative {a'8 a a a16 a a a a8 a} \\ \relative {f'4. f8 f f f} >>
 @end lilypond
 
@@ -2273,7 +2273,7 @@ compatibile col nuovo valore di @code{baseMoment}.
 \time 5/8
 % Nessun bisogno di disabilitare beamExceptions perché non è definita per il tempo 5/8
 \set Timing.baseMoment = #(ly:make-moment 1/16)
-\set Timing.beatStructure = #'(7 3)
+\set Timing.beatStructure = 7,3
 \repeat unfold 10 { a16 }
 @end lilypond
 
@@ -2302,7 +2302,7 @@ modo per determinare la lunghezza della misura.  Ecco un semplice esempio:
 @lilypond[quote,verbatim]
 \relative c'' {
   \time 3/16
-  \set Timing.beatStructure = #'(2 1)
+  \set Timing.beatStructure = 2,1
   \set Timing.beamExceptions =
     \beamExceptions { 32[ 32] 32[ 32] 32[ 32] }
   c16 c c |
@@ -2328,7 +2328,7 @@ ai valori predefiniti.
   \time 6/8
   \repeat unfold 6 { a8 }
   % raggruppamento (4 + 2)
-  \set Timing.beatStructure = #'(4 2)
+  \set Timing.beatStructure = 4,2
   \repeat unfold 6 { a8 }
   % ritorno al comportamento predefinito
   \time 6/8
@@ -2349,7 +2349,7 @@ se @code{beamExceptions} non viene annullato.
 @lilypond[quote,verbatim,fragment]
 \time 4/4
 \set Timing.baseMoment = #(ly:make-moment 1/8)
-\set Timing.beatStructure = #'(3 3 2)
+\set Timing.beatStructure = 3,3,2
 % Le travature non saranno raggruppate in (3 3 2) a causa di beamExceptions
 \repeat unfold 8 {c8} |
 % Il raggruppamento delle travature è (3 3 2) perché abbiamo tolto le impostazioni predefinite di beamExceptions
@@ -2486,7 +2486,7 @@ un solo rigo.
   \new Staff {
     \time 3/4
     \set Timing.baseMoment = #(ly:make-moment 1/8)
-    \set Timing.beatStructure = #'(1 5)
+    \set Timing.beatStructure = 1,5
     \set Timing.beamExceptions = #'()
     \repeat unfold 6 { a'8 }
   }
@@ -2507,7 +2507,7 @@ descritte in @ref{Time signature}.
     \overrideTimeSignatureSettings
       3/4               % timeSignatureFraction
       1/8               % baseMomentFraction
-      #'(1 5)           % beatStructure
+      1,5               % beatStructure
       #'()		% beamExceptions
     \time 3/4
     \repeat unfold 6 { a'8 }

@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: cee6cea4ed55eb4fa1f9d83c997ebc19744a6e1a
+   Translation of GIT committish: 10bc01482b78c62ad095ceb95963b1800571e408
 
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  For details, see the Contributors'
+   Guide, node Updating translation committishes..
 @end ignore
 
 @c Translators: Jean-Charles Malahieude, John Mandereau

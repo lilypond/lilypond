@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of extending.tely
 @ignore
-    Translation of GIT committish: 41c8bf63a7cc180746eace9b9e5278f541be0229
+    Translation of GIT committish: 5680a5687a1f5cd5b406c71fdc9cae508464af94
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -13,9 +13,9 @@
 @chapter Interfaces para programadores
 @translationof Interfaces for programmers
 
-Se pueden realizar trucos avanzados mediante el uso de Scheme.  Si no
-está familiarizado con Scheme, le conviene leer nuestro tutorial de
-Scheme, @ref{Tutorial de Scheme}.
+Se pueden realizar trucos avanzados mediante el uso de Scheme.
+Si no está familiarizado con Scheme, le conviene leer nuestro
+tutorial de Scheme, @ref{Tutorial de Scheme}.
 
 
 @menu
@@ -26,7 +26,6 @@ Scheme, @ref{Tutorial de Scheme}.
 * Funciones de marcado::
 * Contextos para programadores::
 * Funciones de callback::
-* Código de Scheme en línea::
 * Trucos difíciles::
 @end menu
 
@@ -40,12 +39,12 @@ Scheme, @ref{Tutorial de Scheme}.
 @funindex $
 @funindex #
 
-La creación de expresiones musicales en Scheme puede ser una tarea
-tediosa porque a veces presentan muchos niveles de profundidad de
-anidamiento y el código resultante es grande.  Para algunas tareas
-sencillas, esto puede evitarse utilizando bloques de código de
-LilyPond, que permiten usar la sintaxis ordinaria de LilyPond
-dentro de Scheme.
+La creación de expresiones musicales en Scheme puede ser una
+tarea tediosa porque a veces presentan muchos niveles de
+profundidad de anidamiento y el código resultante es grande.
+Para algunas tareas sencillas, esto puede evitarse utilizando
+bloques de código de LilyPond, que permiten usar la sintaxis
+ordinaria de LilyPond dentro de Scheme.
 
 Los bloques de código de LilyPond tienen el siguiente aspecto:
 @example
@@ -68,15 +67,12 @@ Scheme en efecto se modifica para que pueda incorporar bloques de
 código de LilyPond y pueda ocuparse de las expresiones de Scheme
 incrustadas que comienzan por @code{$} y@w{ }@code{#}.
 
-@cindex parser (function argument)
-@cindex location
-
 El lector extrae el bloque de código de LilyPond y genera una
 llamada en tiempo de ejecución al analizador sintáctico para que
 interprete el código de LilyPond.  Las expresiones de Scheme
-incrustadas en el código de LilyPond se evalúan dentro del entorno
-lóexico del bloque de código de LilyPond, de manera que puede
-accederse a todas las variables locales y los parámetros de
+incrustadas en el código de LilyPond se evalúan dentro del
+entorno lóexico del bloque de código de LilyPond, de manera que
+puede accederse a todas las variables locales y los parámetros de
 función que están disponibles en el punto en que se escribe el
 bloque de código de LilyPond.  Las variables definidas en otros
 módulos de Scheme, como los módulos que contienen bloques
@@ -85,31 +81,30 @@ variables de Scheme, es decir, precedidas de@tie{}@code{#}, pero
 se puede acceder a ellas como variables de LilyPond, es decir,
 precedidas de@tie{}@code{\}.
 
-Si @code{location} (véase @ref{Funciones de Scheme}) se refiere a una
-posición de entrada válida (como lo hace normalmente dentro de las
-funciones musicales o de Scheme), toda la música generada dentro
-del bloque de código tiene su @samp{origin} establecido a
-@code{location}.
+Toda la música generada dentro del bloque de código tiene su
+@samp{origin} establecido a la localización actual del puntero de
+entrada.
 
 Un bloque de código de LilyPond puede contener cualquier cosa que
-podríamos utilizar en la parte derecha de una asignación.  Además, un
-bloque de LilyPond vacío corresponde a una expresión musical vacía, y
-un bloque de LilyPond que contiene varios eventos musicales se
-convierte en una expresión de música secuencial.
+podríamos utilizar en la parte derecha de una asignación.
+Además, un bloque de LilyPond vacío corresponde a una expresión
+musical vacía, y un bloque de LilyPond que contiene varios
+eventos musicales se convierte en una expresión de música
+secuencial.
 
 @node Funciones de Scheme
 @section Funciones de Scheme
 @translationof Scheme functions
 @cindex Scheme, funciones de (sintaxis de LilyPond)
 
-Las @emph{funciones de Scheme} son procedimientos de Scheme que pueden
-crear expresiones de Scheme a partir de código de entrada escrito en
-la sintaxis de LilyPond.  Se pueden llamar desde prácticamente
-cualquier lugar en el que se permita el uso de @code{#} para la
-especificación de un valor en sintaxis de Scheme.  Mientras que Scheme
-tiene funciones propias, este capítulo se ocupa de las funciones
-@emph{sintácticas}, funciones que reciben argumentos especificados en
-la sintaxis de LilyPond.
+Las @emph{funciones de Scheme} son procedimientos de Scheme que
+pueden crear expresiones de Scheme a partir de código de entrada
+escrito en la sintaxis de LilyPond.  Se pueden llamar desde
+prácticamente cualquier lugar en el que se permita el uso de
+@code{#} para la especificación de un valor en sintaxis de
+Scheme.  Mientras que Scheme tiene funciones propias, este
+capítulo se ocupa de las funciones @emph{sintácticas}, funciones
+que reciben argumentos especificados en la sintaxis de LilyPond.
 
 @menu
 * Definición de funciones de Scheme::
@@ -136,98 +131,82 @@ funcion =
 donde
 
 @multitable @columnfractions .33 .66
-@item @code{parser}
-@tab tiene que ser literalmente @code{parser} para dar a los bloques de código
-de LilyPond (@code{#@{}@dots{}@code{#@}}) acceso al analizador
-sintáctico.
-
-@item @code{location}
-@tab tiene que ser literalmente @code{location} para ofrecer acceso al
-objeto de situación de la entrada, que se usa para ofrecer
-menssajes de error con nombres de archivo y números de línea.
-
 @item @code{@var{argN}}
 @tab @var{n}-ésimo argumento
 
 @item @code{@var{typeN?}}
 @tab un @emph{predicado de tipo} de Scheme para el que @code{@var{argN}}
-debe devolver @code{#t}.
-
-También existe una forma especial @code{(@emph{predicate?}
-@emph{default})} para especificar argumentos opcionales.  Si el
-argumento actual no está presente cuando se ll ama a la función, el
-valor predeterminado se emplea en sustitución.  Los valores
-predeterminados se evalúan en tiempo de definición (¡incluyendo los
-bloques de código de LilyPond!), de manera que se necesitamos un valor
-por omisión calculado en tiempo de ejecución, debemos escribir en su
-lugar un valor especial que podamos reconocer fácilmente.  Si
-escribimos el predicado entre paréntesis pero no lo seguimos por el
-valor predeterminado, se usa @code{#f} como valor por omisión.  Los
-valores por omisión no se verifican con @emph{predicate?} en tiempo de
-definición ni en tiempo de ejecución: es nuestra responsabilidad
-tratar con los valores que especifiquemos.  Los valores por omisión
-que son expresiones musicales se copian mientras se establece
-@code{origin} al parámetro @code{location}.
+debe devolver @code{#t}.  También existe una forma especial
+@code{(@emph{predicate?}  @emph{default})} para especificar
+argumentos opcionales.  Si el argumento actual no está presente
+cuando se ll ama a la función, el valor predeterminado se emplea
+en sustitución.  Los valores predeterminados se evalúan en tiempo
+de definición (¡incluyendo los bloques de código de LilyPond!),
+de manera que se necesitamos un valor por omisión calculado en
+tiempo de ejecución, debemos escribir en su lugar un valor
+especial que podamos reconocer fácilmente.  Si escribimos el
+predicado entre paréntesis pero no lo seguimos por el valor
+predeterminado, se usa @code{#f} como valor por omisión.  Los
+valores por omisión no se verifican con @emph{predicate?} en
+tiempo de definición ni en tiempo de ejecución: es nuestra
+responsabilidad tratar con los valores que especifiquemos.  Los
+valores por omisión que son expresiones musicales se copian
+mientras se establece @code{origin} a la ubicación actual del
+cursor de entrada.
 
 @item @code{@var{cuerpo}}
 @tab una secuencia de formas de Scheme que se evalúan ordenadamente; la
-última forma de la secuencia se usa como el valor de retorno de la
-función de Scheme. Puede contener bloques de código de LilyPond
-encerrados entre llaves con almohadillas
+última forma de la secuencia se usa como el valor de retorno de
+la función de Scheme. Puede contener bloques de código de
+LilyPond encerrados entre llaves con almohadillas
 (@tie{}@w{@code{#@{@dots{}#@}}}@tie{}), como se describe en
-@ref{Bloques de código de LilyPond}.  Dentro de los bloques de código
-de LilyPond, use el símbolo @code{#} para hacer referencia a
-argumentos de función (p.ej. @samp{#arg1}) o para iniciar una
+@ref{Bloques de código de LilyPond}.  Dentro de los bloques de
+código de LilyPond, use el símbolo @code{#} para hacer referencia
+a argumentos de función (p.ej. @samp{#arg1}) o para iniciar una
 expresión en línea de Scheme que contenga argumentos de función
-(p.ej. @w{@samp{#(cons arg1 arg2)}}).  Donde las expresiones de Scheme
-normales que usan @code{#} no funcionan, podríamos necesitar volver a
-expresiones de Scheme inmediatas que usan @code{$}, como por ejemplo
-@samp{$music}.
+(p.ej. @w{@samp{#(cons arg1 arg2)}}).  Donde las expresiones de
+Scheme normales que usan @code{#} no funcionan, podríamos
+necesitar volver a expresiones de Scheme inmediatas que usan
+@code{$}, como por ejemplo @samp{$music}.
 
-Si nuestra función devuelve una expresión musical, recibe un valor
-@code{origin} útil.
+Si nuestra función devuelve una expresión musical, recibe un
+valor @code{origin} útil.
 @end multitable
 
 @noindent
-La idoneidad de los argumentos para los predicados viene determinada
-mediante llamadas reales al predicado después de que LilyPond ya las
-ha convertido en una expresión de Scheme.  Como consecuencia, el
-argumento se puede especificar en la sintaxis de Scheme si se desea
-(precedido de @code{#} o como resultado de haber llamado a una función
-de Scheme), pero LilyPond también convierte algunas construcciones de
-LilyPond en Scheme antes de hacer efectivamente la comprobación del
-predicado sobre ellas.  Actualmente se encuentran entre ellas la
-música, los post-eventos, las cadenas simples (entrecomilladas o no),
-los números, los elementos de marcado y de listas de marcado, score
-(partitura), book (libro), bookpart (parte de libro), las definiciones
-de contexto y los bloques de definición de salida.
+La idoneidad de los argumentos para los predicados viene
+determinada mediante llamadas reales al predicado después de que
+LilyPond ya las ha convertido en una expresión de Scheme.  Como
+consecuencia, el argumento se puede especificar en la sintaxis de
+Scheme si se desea (precedido de @code{#} o como resultado de
+haber llamado a una función de Scheme), pero LilyPond también
+convierte algunas construcciones de LilyPond en Scheme antes de
+hacer efectivamente la comprobación del predicado sobre ellas.
+Actualmente se encuentran entre ellas la música, los
+post-eventos, las cadenas simples (entrecomilladas o no), los
+números, los elementos de marcado y de listas de marcado, score
+(partitura), book (libro), bookpart (parte de libro), las
+definiciones de contexto y los bloques de definición de salida.
 
-Para ciertos tipos de expresión (como la mayor parte de la música que
-no está encerrada entre llaves) LilyPond necesita más allá de la
-expresión misma para poder determinar su final.  Si tal expresión se
-considerase un argumento opcional mediante la evaluación de su
-predicado, LilyPond no podría recuperarse después de decidir que la
-expresión no se corresponde con el parámetro.  Así, ciertas formas de
-música necesitan ir encerradas entre llaves para poder considerarlas
-como aceptables bajo algunas circunstancias.  LilyPond resuelve
-algunas otras ambigüedades mediante la comprobación con funciones de
-predicado: ¿es @samp{-3} un post-evento de digitación o un número
-negativo?  ¿Es @code{"a" 4} en el modo de letra una cadena seguida por
-un número, o un evento de letra con la duración @code{4}?  LilyPond
-prueba el predicado del argumento sobre diversas interpretaciones
-sucesivas hasta que lo consigue, con un orden diseñado para minimizar
-las interpretaciones poco consistentes y la lectura por adelantado.
+LilyPond resuelve algunas ambigüedades mediante la comprobación
+con funciones de predicado: ¿es @samp{-3} un post-evento de
+digitación o un número negativo?  ¿Es @code{"a" 4} en el modo de
+letra una cadena seguida por un número, o un evento de letra con
+la duración @code{4}?  LilyPond prueba el predicado del argumento
+sobre diversas interpretaciones sucesivas hasta que lo consigue,
+con un orden diseñado para minimizar las interpretaciones poco
+consistentes y la lectura por adelantado.
 
-Por ejemplo, un predicado que acepta tanto expresiones musicales como
-alturas consideraría que @code{c''} es una altura en lugar de una
-expresión musical.  Las duraciones o post-eventos que siguieran
-inmediatamente podrían no funcionar con dicha interpretación.  Así
-pues, es mejor evitar los predicados excesivamente permisivos como
-@code{scheme?} cuando la aplicación requeriría tipos de argumento más
-específicos.
+Por ejemplo, un predicado que acepta tanto expresiones musicales
+como alturas consideraría que @code{c''} es una altura en lugar
+de una expresión musical.  Las duraciones o post-eventos que
+siguen inmediatamente, cambian dicha interpretación.  Es mejor
+evitar los predicados excesivamente permisivos como
+@code{scheme?} cuando la aplicación requeriría tipos de argumento
+más específicos.
 
-Para ver una lista de los predicados de tipo disponibles, consulte
-@ruser{Predicados de tipo predefinidos}.
+Para ver una lista de los predicados de tipo disponibles,
+consulte @ruser{Predicados de tipo predefinidos}.
 
 @seealso
 
@@ -244,40 +223,50 @@ Archivos instalados:
 @subsection Uso de las funciones de Scheme
 @translationof Scheme function usage
 
-Las funciones de Scheme se pueden llamar casi desde cualquier lugar en
-que puede escribirse una expresión de Scheme que comience con la
-almohadilla@tie{}@code{#}.  Llamamos a una función de Scheme
-escribiendo su nombre precedido de la barra invertida@tie{}@code{\}, y
-seguido por sus argumentos.  Una vez que un argumento opcional no
-corresponde a ningún argumento, LilyPond se salta este argumento y
-todos los que le siguen, sustituyéndolos por su valor por omisión
-especificado, y @q{recupera} el argumento que no correspondía al lugar
-del siguiente argumento obligatorio.  Dado que el argumento recuperado
-necesita ir a algún lugar, los argumentos opcionales no se consideran
-realmente opcionales a no ser que vayan seguidos de un argumento
-obligatorio.
+Las funciones de Scheme se pueden llamar casi desde cualquier
+lugar en que puede escribirse una expresión de Scheme que
+comience con la almohadilla@tie{}@code{#}.  Llamamos a una
+función de Scheme escribiendo su nombre precedido de la barra
+invertida@tie{}@code{\}, y seguido por sus argumentos.  Una vez
+que un argumento opcional no corresponde a ningún argumento,
+LilyPond se salta este argumento y todos los que le siguen,
+sustituyéndolos por su valor por omisión especificado, y
+@q{recupera} el argumento que no correspondía al lugar del
+siguiente argumento obligatorio.  Dado que el argumento
+recuperado necesita ir a algún lugar, los argumentos opcionales
+no se consideran realmente opcionales a no ser que vayan seguidos
+de un argumento obligatorio.
 
-Existe una excepción: si escribimos @code{\default} en el lugar de un
-argumento opcional, este argumento y todos los argumentos opcionales
-que le siguen se saltan y se sustituyen por sus valores
-predeterminados.  Esto funciona incluso si no sigue ningún argumento
-obligatorio porque @code{\default} no necesita recuperarse.  Las
-instrucciones @code{mark} y @code{key} hacen uso de este truco para
-ofrecer su comportamiento predeterminado cuando van seguidas solamente
-por @code{\default}.
+Existe una excepción: si escribimos @code{\default} en el lugar
+de un argumento opcional, este argumento y todos los argumentos
+opcionales que le siguen se saltan y se sustituyen por sus
+valores predeterminados.  Esto funciona incluso si no sigue
+ningún argumento obligatorio porque @code{\default} no necesita
+recuperarse.  Las instrucciones @code{mark} y @code{key} hacen
+uso de este truco para ofrecer su comportamiento predeterminado
+cuando van seguidas solamente por @code{\default}.
 
 Aparte de los lugares en que se requiere un valor de Scheme hay
-ciertos sitios en que se aceptan expresiones de almohadilla @code{#} y
-se evalúan por sus efectos secundarios, pero por lo demás se ignoran.
-Son, mayormente, los lugares en que también sería aceptable colocar
-una asignación.
+ciertos sitios en que se aceptan expresiones de almohadilla
+@code{#} y se evalúan por sus efectos secundarios, pero por lo
+demás se ignoran.  Son, mayormente, los lugares en que también
+sería aceptable colocar una asignación.
 
-Dado que no es buena idea devolver valores que puedan malinterpretarse
-en algún contexto, debería usar funciones de Scheme normales solo para
-los casos en que siempre se devuelve un valor útil, y usar funciones
-de Scheme vacías (@pxref{Funciones de Scheme vacías}) en caso
-contrario.
+Dado que no es buena idea devolver valores que puedan
+malinterpretarse en algún contexto, debería usar funciones de
+Scheme normales solo para los casos en que siempre se devuelve un
+valor útil, y usar funciones de Scheme vacías (@pxref{Funciones
+de Scheme vacías}) en caso contrario.
 
+Por conveniencia, las funciones de Scheme también se pueden
+llamar directamente desde Scheme, puenteando al analizador
+sintáctico de LilyPond.  Su nombre puede utilizarse como el
+nombre de una función corriente.  La comprobación de tipo de los
+argumentos y el salto de los argumentos opcionales tiene lugar de
+la misma forma que cuando se llama desde dentro de LilyPond,
+tomando el valor de Scheme @code{*unspecified*} el papel de la
+palabra reservada @code{\default} para saltar explícitamente
+argumentos opcionales.
 
 @node Funciones de Scheme vacías
 @subsection Funciones de Scheme vacías
@@ -285,19 +274,20 @@ contrario.
 @funindex define-void-function
 @funindex \void
 
-En ocasiones, un procedimiento se ejecuta con el objeto de llevar a
-cabo alguna acción más que para devolver un valor.  Algunos lenguajes
-de programación (como C y Scheme) usan las funciones para los dos
-conceptos y se limitan a descartar el valor devuelto (usualmente
-haciendo que cualquier expresión pueda actuar como instrucción,
-ignorando el resultado devuelto).  Esto puede parecer inteligente pero
-es propenso a errores: casi todos los compiladores de C de hoy en día
-emiten advertencias cuando se descarta una expresión no vacía.  Para
-muchas funciones que ejecutan una acción, los estándares de Scheme
-declaran que el valor de retorno sea no especificado.  Guile, el
-intérprete de Scheme de LilyPond, tiene un valor único
-@code{*unspecified*} que en tales casos devuelve de forma usual (como
-cuando se usa directamente @code{set!} sobre una variable), pero
+En ocasiones, un procedimiento se ejecuta con el objeto de llevar
+a cabo alguna acción más que para devolver un valor.  Algunos
+lenguajes de programación (como C y Scheme) usan las funciones
+para los dos conceptos y se limitan a descartar el valor devuelto
+(usualmente haciendo que cualquier expresión pueda actuar como
+instrucción, ignorando el resultado devuelto).  Esto puede
+parecer inteligente pero es propenso a errores: casi todos los
+compiladores de C de hoy en día emiten advertencias cuando se
+descarta una expresión no vacía.  Para muchas funciones que
+ejecutan una acción, los estándares de Scheme declaran que el
+valor de retorno sea no especificado.  Guile, el intérprete de
+Scheme de LilyPond, tiene un valor único @code{*unspecified*} que
+en tales casos devuelve de forma usual (como cuando se usa
+directamente @code{set!} sobre una variable), pero
 desgraciadamente no de forma consistente.
 
 Definir una función de LilyPond con @code{define-void-function}
@@ -314,9 +304,9 @@ noApuntarYPulsar =
 \noApuntarYPulsar   % desactivar la función de apuntar y pulsar
 @end example
 
-Si queremos evaluar una expresión sólo por su efecto colateral y no
-queremos que se interprete ningún valor que pueda devolver, podemos
-hacerlo anteponiendo el prefijo @code{\void}:
+Si queremos evaluar una expresión sólo por su efecto colateral y
+no queremos que se interprete ningún valor que pueda devolver,
+podemos hacerlo anteponiendo el prefijo @code{\void}:
 
 @example
 \void #(hashq-set! some-table some-key some-value)
@@ -333,9 +323,9 @@ encuentre.  También funciona para funciones musicales como
 
 @cindex funciones musicales
 
-Las @emph{funciones musicales} son procedimientos de Scheme que pueden
-crear automáticamente expresiones musicales, y se pueden usar para
-simplificar enormemente el archivo de entrada.
+Las @emph{funciones musicales} son procedimientos de Scheme que
+pueden crear automáticamente expresiones musicales, y se pueden
+usar para simplificar enormemente el archivo de entrada.
 
 @menu
 * Definiciones de funciones musicales::
@@ -365,12 +355,13 @@ funcion =
 @end example
 
 @noindent
-de forma bastante análoga a @ref{Definición de funciones de Scheme}.
-Lo más probable es que el @var{cuerpo} sea un
+de forma bastante análoga a
+@ref{Definición de funciones de Scheme}.  Lo más probable es que
+el @var{cuerpo} sea un
 @ref{Bloques de código de LilyPond,bloque de código de LilyPond}.
 
-Para ver una lista de los predicados de tipo disponibles, consulte
-@ruser{Predicados de tipo predefinidos}.
+Para ver una lista de los predicados de tipo disponibles,
+consulte @ruser{Predicados de tipo predefinidos}.
 
 @seealso
 
@@ -387,42 +378,46 @@ Archivos de inicio:
 @subsection Uso de las funciones musicales
 @translationof Music function usage
 
-Las funciones musicales se pueden actualmente utilizar en varios
-lugares.  Dependiendo de dónde se usan, son de aplicación ciertas
-restricciones para que sea posible su análisis sintáctico de forma
-no ambigua.  El resultado que devuelve una función musical debe ser
-compatible con el contexto desde el que se la llama.
+Una @q{función musical} debe devolver una expresión que se
+corresponda con el predicado @code{ly:music?}.  Esto hace que las
+llamadas a funciones musicales sean aproopiadas como argumentos
+del tipo @code{ly:music?} para otra llamada a una función
+musical.
+
+Si se usa una llamada a función musical dentro de otros
+contextos, el contexto puede aplicar restricciones semánticas
+adicionales.
 
 @itemize
 @item
-En el nivel superior dentro de una expresión musical.  Aquí
-no se aplica ninguna restricción.
+En el nivel superior dentro de una expresión musical no se acepta
+ningún post-evento.
 
 @item
-Como un post-evento, que comienza explícitamente con un indicador de
-dirección (a elegir entre @code{-}, @code{^} @w{y @code{_}}).
-
-En este caso, no podemos usar una expresión musical @emph{abierta}
-como último argumento, que terminaría en una expresión musical
-capaz de aceptar post-eventos adicionales.
+Cuando una función musical (a diferencia de una función de
+evento) devuelve una expresión del tipo post-event, LilyPond
+requiere uno de los indicadores de dirección con nombre
+(@code{-}, @code{^}, @w{y @code{_}}) para poder integrar
+adecuadamente el post-evento producido por la llamada a la
+función musical dentro de la expresión circundante.
 
 @item
-Como componente de un acorde.  La expresión devuelta debe ser
-del tipo @code{rhythmic-event}, probablemente un @code{NoteEvent}.
+Como componente de un acorde.  La expresión devuelta debe ser del
+tipo @code{rhythmic-event}, probablemente un @code{NoteEvent}.
 @end itemize
 
 @noindent
-Las reglas especiales para los argumentos del final hacen posible
-escribir funciones polimórficas como @code{\tweak} que se pueden
-aplicar a construcciones distintas.
+Se pueden aplicar funciones @q{polimórficas}, como @code{\tweak},
+a los post-eventos, componentes de acordes y expresiones
+musicales del nivel superior.
 
 @node Funciones de sustitución sencillas
 @subsection Funciones de sustitución sencillas
 @translationof Simple substitution functions
 
 Una función de sustitución sencilla es una función musical cuya
-expresión musical de salida está escrita en código de LilyPond
-y contiene argumentos de la función en la expresión de salida.
+expresión musical de salida está escrita en código de LilyPond y
+contiene argumentos de la función en la expresión de salida.
 Están descritas en @ruser{Ejemplos de funciones de sustitución}.
 
 
@@ -430,16 +425,16 @@ Están descritas en @ruser{Ejemplos de funciones de sustitución}.
 @subsection Funciones de sustitución intermedias
 @translationof Intermediate substitution functions
 
-Las funciones de sustitución intermedias contienen una
-mezcla de código de Scheme y de LilyPond
-dentro de la expresión musical que se devuelve.
+Las funciones de sustitución intermedias contienen una mezcla de
+código de Scheme y de LilyPond dentro de la expresión musical que
+se devuelve.
 
 Algunas instrucciones @code{\override} requieren un argumento que
-consiste en una pareja de números (llamada una @emph{célula cons} en
-Scheme).
+consiste en una pareja de números (llamada una @emph{célula cons}
+en Scheme).
 
-La pareja se puede pasar directamente dentro de la función musical,
-usando una variable @code{pair?}:
+La pareja se puede pasar directamente dentro de la función
+musical, usando una variable @code{pair?}:
 
 @example
 barraManual =
@@ -455,9 +450,10 @@ barraManual =
 @}
 @end example
 
-De forma alternativa, los números que componen la pareja se pueden
-pasar como argumentos separados, y el código de Scheme que se ha usado
-para crear la pareja se puede incluir dentro de la expresión musical:
+De forma alternativa, los números que componen la pareja se
+pueden pasar como argumentos separados, y el código de Scheme que
+se ha usado para crear la pareja se puede incluir dentro de la
+expresión musical:
 
 @lilypond[quote,verbatim,ragged-right]
 manualBeam =
@@ -482,13 +478,13 @@ Las propiedades se mantienen conceptualmente utilizando una pila
 por cada propiedad, por cada grob y por cada contexto.  Las
 funciones musicales pueden requerir la sobreescritura de una o
 varias propiedades durante el tiempo de duración de la función,
-restaurándolas a sus valores previos antes de salir.  Sin embargo,
-las sobreescrituras normales extraen y descartan la cima de la
-pila de propiedades actual antes de introducir un valor en ella,
-de manera que el valor anterior de la propiedad se pierde cuando
-se sobreescribe.  Si se quiere preservar el valor anterior, hay
-que preceder la instrucción @code{\override} con la palabra clave
-@code{\temporary}, así:
+restaurándolas a sus valores previos antes de salir.  Sin
+embargo, las sobreescrituras normales extraen y descartan la cima
+de la pila de propiedades actual antes de introducir un valor en
+ella, de manera que el valor anterior de la propiedad se pierde
+cuando se sobreescribe.  Si se quiere preservar el valor
+anterior, hay que preceder la instrucción @code{\override} con la
+palabra clave @code{\temporary}, así:
 
 @example
 \temporary \override @dots{}
@@ -497,16 +493,16 @@ que preceder la instrucción @code{\override} con la palabra clave
 El uso de @code{\temporary} hace que se borre la propiedad
 (normalmente fijada a un cierto valor) @code{pop-first} de la
 sobreescritura, de forma que el valor anterior no se extrae de la
-pila de propiedades antes de poner en ella el valor nuevo.  Cuando
-una instrucción @code{\revert} posterior extrae el avlor
+pila de propiedades antes de poner en ella el valor nuevo.
+Cuando una instrucción @code{\revert} posterior extrae el valor
 sobreescrito temporalmente, volverá a emerger el valor anterior.
 
 En otras palabras, una llamada a @code{\temporary \override} y a
-continuación otra a @code{\revert} sobre la misma propiedad, tiene
-un valor neto que es nulo.  De forma similar, la combinación en
-secuencia de @code{\temporary} y @code{\undo} sobre la misma
-música que contiene las sobreescrituras, tiene un efecto neto
-nulo.
+continuación otra a @code{\revert} sobre la misma propiedad,
+tiene un valor neto que es nulo.  De forma similar, la
+combinación en secuencia de @code{\temporary} y @code{\undo}
+sobre la misma música que contiene las sobreescrituras, tiene un
+efecto neto nulo.
 
 He aquí un ejemplo de una función musical que utiliza lo expuesto
 anteriormente.  El uso de @code{\temporary} asegura que los
@@ -587,8 +583,8 @@ withAlt =
 @subsection Funciones sin argumentos
 @translationof Functions without arguments
 
-En casi todos los casos, una función sin argumentos se debe escribir
-con una variable:
+En casi todos los casos, una función sin argumentos se debe
+escribir con una variable:
 
 @example
 dolce = \markup@{ \italic \bold dolce @}
@@ -607,8 +603,8 @@ mostrarNumeroDeCompas =
        #@{#@}))
 @end example
 
-Para la impresión real de los números de compás donde se llama a esta
-función, invoque a @command{lilypond} con
+Para la impresión real de los números de compás donde se llama a
+esta función, invoque a @command{lilypond} con
 
 @example
 lilypond -d display-bar-numbers ARCHIVO.ly
@@ -619,13 +615,13 @@ lilypond -d display-bar-numbers ARCHIVO.ly
 @subsection Funciones musicales vacías
 @translationof Void music functions
 
-Una función musical debe devolver una expresión musical.  Si quiere
-ejecutar una función exclusivamente por sus efectos secundarios,
-debería usar @code{define-void-function}.  Pero
-puede haber casos en los que a veces queremos producir una expresión
-musical, y a veces no (como en el ejemplo anterior).  Devolver una
-expresión musical @code{void} (vacía) por medio de @code{#@{ #@}} lo
-hace posible.
+Una función musical debe devolver una expresión musical.  Si
+quiere ejecutar una función exclusivamente por sus efectos
+secundarios, debería usar @code{define-void-function}.  Pero
+puede haber casos en los que a veces queremos producir una
+expresión musical, y a veces no (como en el ejemplo anterior).
+Devolver una expresión musical @code{void} (vacía) por medio de
+@code{#@{ #@}} lo hace posible.
 
 
 @node Funciones de eventos
@@ -634,13 +630,14 @@ hace posible.
 @funindex define-event-function
 @cindex event functions
 
-Para usar una función musical en el lugar de un evento, tenemos que
-escribir un indicador de dirección antes de ella.  Pero a veces, ello
-hace que se pierda la correspondencia con la sintaxis de las
-construcciones que queremos sustituir.  Por ejemplo, si queremos
-escribir instrucciones de matiz dinámico, éstos se adjuntan
-habitualmente sin indicador de dirección, como @code{c'\pp}.  He aquí
-una forma de escribir indicaciones dinámicas arbitrarias:
+Para usar una función musical en el lugar de un evento, tenemos
+que escribir un indicador de dirección antes de ella.  Pero a
+veces, ello hace que se pierda la correspondencia con la sintaxis
+de las construcciones que queremos sustituir.  Por ejemplo, si
+queremos escribir instrucciones de matiz dinámico, éstos se
+adjuntan habitualmente sin indicador de dirección, como
+@code{c'\pp}.  He aquí una forma de escribir indicaciones
+dinámicas arbitrarias:
 
 @lilypond[quote,verbatim,ragged-right]
 dyn=#(define-event-function (arg) (markup?)
@@ -648,18 +645,18 @@ dyn=#(define-event-function (arg) (markup?)
 \relative { c'\dyn pfsss }
 @end lilypond
 
-Podríamos hacer lo mismo usando una función musical, pero entonces
-tendríamos que escribir siempre un indicador de dirección antes de
-llamarla, como @code{@w{c-\dyn pfsss}}.
+Podríamos hacer lo mismo usando una función musical, pero
+entonces tendríamos que escribir siempre un indicador de
+dirección antes de llamarla, como @code{@w{c-\dyn pfsss}}.
 
 
 @node Funciones de marcado
 @section Funciones de marcado
 @translationof Markup functions
 
-Los elementos de marcado están implementados como funciones de Scheme
-especiales que producen un objeto @code{Stencil} dada una serie de
-argumentos.
+Los elementos de marcado están implementados como funciones de
+Scheme especiales que producen un objeto @code{Stencil} dada una
+serie de argumentos.
 
 
 @menu
@@ -718,12 +715,12 @@ ocurre con la instrucción @code{\displayMusic}, la salida de
 Véase @ref{Presentación de las expresiones musicales}.
 
 @noindent
-Este ejemplo muestra las principales reglas de traducción entre la
-sintaxis del marcado normal de LilyPond y la sintaxis del marcado de
-Scheme.  La utilización de @code{#@{ @dots{} #@}} para escribir en la
-sintaxis de LilyPond será con frecuencia lo más conveniente, pero
-explicamos cómo usar la macro @code{markup} para obtener una solución
-sólo con Scheme.
+Este ejemplo muestra las principales reglas de traducción entre
+la sintaxis del marcado normal de LilyPond y la sintaxis del
+marcado de Scheme.  La utilización de @code{#@{ @dots{} #@}} para
+escribir en la sintaxis de LilyPond será con frecuencia lo más
+conveniente, pero explicamos cómo usar la macro @code{markup}
+para obtener una solución sólo con Scheme.
 
 @quotation
 @multitable @columnfractions .3 .3
@@ -740,11 +737,12 @@ sólo con Scheme.
 @end multitable
 @end quotation
 
-Todo el lenguaje Scheme está accesible dentro del macro @code{markup}.
-Por ejemplo, podemos usar llamadas a funciones dentro de @code{markup}
-para así manipular cadenas de caracteres.  Esto es útil si se están
-definiendo instrucciones de marcado nuevas (véase
-@ref{Definición de una instrucción de marcado nueva}).
+Todo el lenguaje Scheme está accesible dentro del macro
+@code{markup}.  Por ejemplo, podemos usar llamadas a funciones
+dentro de @code{markup} para así manipular cadenas de caracteres.
+Esto es útil si se están definiendo instrucciones de marcado
+nuevas (véase @ref{Definición de una instrucción de marcado
+nueva}).
 
 
 @knownissues
@@ -758,8 +756,9 @@ resultado de la llamada a una función.
 @end lisp
 
 @noindent
-no es válido.  Hay que usar las funciones @code{make-line-markup},
-@code{make-center-markup} o @code{make-column-markup} en su lugar:
+no es válido.  Hay que usar las funciones
+@code{make-line-markup}, @code{make-center-markup} o
+@code{make-column-markup} en su lugar:
 
 @lisp
 (markup (make-line-markup (funcion-que-devuelve-marcados)))
@@ -795,11 +794,11 @@ sellos), se llama la función @code{raise-markup} como
        @var{el marcado "ejemplo de texto"})
 @end example
 
-Primero la función @code{raise-markup} crea el sello para la cadena
-@code{ejemplo de texto}, y después eleva el sello Stencil en 0.5
-espacios de pentagrama.  Este es un ejemplo bastante simple; en el
-resto de la sección podrán verse ejemplos más complejos, así como en
-@file{scm/define-markup-commands.scm}.
+Primero la función @code{raise-markup} crea el sello para la
+cadena @code{ejemplo de texto}, y después eleva el sello Stencil
+en 0.5 espacios de pentagrama.  Este es un ejemplo bastante
+simple; en el resto de la sección podrán verse ejemplos más
+complejos, así como en @file{scm/define-markup-commands.scm}.
 
 
 @node Definición de una instrucción de marcado nueva
@@ -821,8 +820,9 @@ marcado.
 @unnumberedsubsubsec Sintaxis de la definición de instrucciones de marcado
 @translationof Markup command definition syntax
 
-Se pueden definir instrucciones de marcado nuevas usando el macro de
-Scheme @code{define-markup-command}, en el nivel sintáctico superior.
+Se pueden definir instrucciones de marcado nuevas usando el macro
+de Scheme @code{define-markup-command}, en el nivel sintáctico
+superior.
 
 @lisp
 (define-markup-command (@var{nombre-de-la-instruccion} @var{layout} @var{props} @var{arg1} @var{arg2} @dots{})
@@ -848,9 +848,10 @@ argumento @var{i}-ésimo de la instrucción
 predicado de tipo para el argumento @var{i}-ésimo
 @end table
 
-Si la instrucción utiliza propiedades de los argumentos @code{props},
-se puede usar la palabra clave @code{#:properties} para especificar
-qué propiedades se usan, así como sus valores predeterminados.
+Si la instrucción utiliza propiedades de los argumentos
+@code{props}, se puede usar la palabra clave @code{#:properties}
+para especificar qué propiedades se usan, así como sus valores
+predeterminados.
 
 Los argumentos se distinguen según su tipo:
 @itemize
@@ -861,51 +862,54 @@ Los argumentos se distinguen según su tipo:
 @code{list?}, @code{number?}, @code{boolean?}, etc.
 @end itemize
 
-No existe ninguna limitación en el orden de los argumentos (después de
-los argumentos estándar @code{layout} y @code{props}).  Sin embargo, las
-funciones de marcado que toman un elemento de marcado como su último
-argumento son un poco especiales porque podemos aplicarlas a una lista
-de marcados y el resultado es una lista de marcados donde la función
-de marcado (con los argumentos antecedentes especificados) se ha
-aplicado a todos los elementos de la lista de marcados original.
+No existe ninguna limitación en el orden de los argumentos
+(después de los argumentos estándar @code{layout} y
+@code{props}).  Sin embargo, las funciones de marcado que toman
+un elemento de marcado como su último argumento son un poco
+especiales porque podemos aplicarlas a una lista de marcados y el
+resultado es una lista de marcados donde la función de marcado
+(con los argumentos antecedentes especificados) se ha aplicado a
+todos los elementos de la lista de marcados original.
 
-Dado que la replicación de los argumentos precedentes para aplicar una
-función de marcado a una lista de marcados es poco costosa
-principalmente por los argumentos de Scheme, se evitan las caídas de
-rendimiento simplemente mediante la utilización de argumentos de
-Scheme para los argumentos antecedentes de las funciones de marcado
-que toman un marcado como su último argumento.
+Dado que la replicación de los argumentos precedentes para
+aplicar una función de marcado a una lista de marcados es poco
+costosa principalmente por los argumentos de Scheme, se evitan
+las caídas de rendimiento simplemente mediante la utilización de
+argumentos de Scheme para los argumentos antecedentes de las
+funciones de marcado que toman un marcado como su último
+argumento.
 
 @funindex \markup
 @cindex markup macro
 @funindex interpret-markup
 Las instrucciones de marcado tienen un ciclo de vida más bien
-complejo.  El cuerpo de la definición de una instrucción de marcado es
-responsable de la conversión de los argumentos de la instrucción de
-marcado en una expresión de sello que se devuelve.  Muy a menudo esto
-se lleva a cabo llamando a la función @code{interpret-markup} sobre
-una expresión de marcado, pasándole los argumentos @var{layout} y
-@var{props}.  Por lo general, estos argumentos se conocen solamente en
-una fase muy tardía de la composición tipográfica.  Las expresiones de
-marcado ya tienen sus componentes ensamblados dentro de expresiones de
-marcado cuando se expanden las instrucciones @code{\markup} (dentro de
+complejo.  El cuerpo de la definición de una instrucción de
+marcado es responsable de la conversión de los argumentos de la
+instrucción de marcado en una expresión de sello que se devuelve.
+Muy a menudo esto se lleva a cabo llamando a la función
+@code{interpret-markup} sobre una expresión de marcado, pasándole
+los argumentos @var{layout} y @var{props}.  Por lo general, estos
+argumentos se conocen solamente en una fase muy tardía de la
+composición tipográfica.  Las expresiones de marcado ya tienen
+sus componentes ensamblados dentro de expresiones de marcado
+cuando se expanden las instrucciones @code{\markup} (dentro de
 una expresión de LilyPond) o la macro @code{markup} (dentro de
-Scheme).  La evaluación y la comprobación de tipos de los argumentos
-de la instrucción de marcado tiene lugar en el momento en que se
-interpretan @code{\markup} o @code{markup}.
+Scheme).  La evaluación y la comprobación de tipos de los
+argumentos de la instrucción de marcado tiene lugar en el momento
+en que se interpretan @code{\markup} o @code{markup}.
 
-Pero la conversión real de expresiones de marcado en expresiones de
-sello mediante la ejecución de los cuerpos de función de marcado solo
-tienen lugar cuando se llama a @code{interpret-markup} sobre una
-expresión de marcado.
+Pero la conversión real de expresiones de marcado en expresiones
+de sello mediante la ejecución de los cuerpos de función de
+marcado solo tienen lugar cuando se llama a
+@code{interpret-markup} sobre una expresión de marcado.
 
 @node Acerca de las propiedades
 @unnumberedsubsubsec Acerca de las propiedades
 @translationof On properties
 
-Los argumentos @code{layout} y @code{props} de las instrucciones de
-marcado traen a escena un contexto para la interpretación del marcado:
-tamaño de la tipografía, grueso de línea, etc.
+Los argumentos @code{layout} y @code{props} de las instrucciones
+de marcado traen a escena un contexto para la interpretación del
+marcado: tamaño de la tipografía, grueso de línea, etc.
 
 El argumento @code{layout} permite el acceso a las propiedades
 definidas en los bloques @code{paper}, usando la función
@@ -916,21 +920,21 @@ mismo que el que se usa en las partituras) se lee usando:
 (ly:output-def-lookup layout 'line-width)
 @end example
 
-El argumento @code{props} hace accesibles algunas propiedades a las
-instrucciones de marcado.  Por ejemplo, cuando se interpreta el
-marcado del título de un libro, todas las variables definidas dentro
-del bloque @code{\header} se añaden automáticamente a @code{props}, de
-manera que el marcado del título del libro puede acceder al título del
-libro, el autor, etc.  También es una forma de configurar el
-comportamiento de una instrucción de marcado: por ejemplo, cuando una
-instrucción utiliza tamaños de tipografía durante el procesado, el
-tamaño se lee de @code{props} en vez de tener un argumento
-@code{font-size}.  El que llama a una instrucción de marcado puede
-cambiar el valor de la propiedad del tamaño de la tipografía con el
-objeto de modificar el comportamiento.  Utilice la palabra clave
-@code{#:properties} de @code{define-markup-command} para especificar
-qué propiedades se deben leer a partir de los argumentos de
-@code{props}.
+El argumento @code{props} hace accesibles algunas propiedades a
+las instrucciones de marcado.  Por ejemplo, cuando se interpreta
+el marcado del título de un libro, todas las variables definidas
+dentro del bloque @code{\header} se añaden automáticamente a
+@code{props}, de manera que el marcado del título del libro puede
+acceder al título del libro, el autor, etc.  También es una forma
+de configurar el comportamiento de una instrucción de marcado:
+por ejemplo, cuando una instrucción utiliza tamaños de tipografía
+durante el procesado, el tamaño se lee de @code{props} en vez de
+tener un argumento @code{font-size}.  El que llama a una
+instrucción de marcado puede cambiar el valor de la propiedad del
+tamaño de la tipografía con el objeto de modificar el
+comportamiento.  Utilice la palabra clave @code{#:properties} de
+@code{define-markup-command} para especificar qué propiedades se
+deben leer a partir de los argumentos de @code{props}.
 
 El ejemplo de la sección siguiente ilustra cómo acceder y
 sobreescribir las propiedades de una instrucción de marcado.
@@ -940,40 +944,41 @@ sobreescribir las propiedades de una instrucción de marcado.
 @unnumberedsubsubsec Un ejemplo completo
 @translationof A complete example
 
-El ejemplo siguiente define una instrucción de marcado para trazar un
-rectángulo doble alrededor de un fragmento de texto.
+El ejemplo siguiente define una instrucción de marcado para
+trazar un rectángulo doble alrededor de un fragmento de texto.
 
 En primer lugar, necesitamos construir un resultado aproximado
-utilizando marcados.  Una consulta a @ruser{Instrucciones de marcado
-de texto} nos muestra que es útil la instrucción @code{\box}:
+utilizando marcados.  Una consulta a @ruser{Instrucciones de
+marcado de texto} nos muestra que es útil la instrucción
+@code{\box}:
 
 @lilypond[quote,verbatim,ragged-right]
 \markup \box \box HELLO
 @end lilypond
 
-Ahora, consideramos que es preferible tener más separación entre el
-texto y los rectángulos.  Según la documentación de @code{\box}, esta
-instrucción usa una propiedad @code{box-padding}, cuyo valor
-predeterminado es 0.2.  La documentación también menciona cómo
-sobreescribir este valor:
+Ahora, consideramos que es preferible tener más separación entre
+el texto y los rectángulos.  Según la documentación de
+@code{\box}, esta instrucción usa una propiedad
+@code{box-padding}, cuyo valor predeterminado es 0.2.  La
+documentación también menciona cómo sobreescribir este valor:
 
 @lilypond[quote,verbatim,ragged-right]
 \markup \box \override #'(box-padding . 0.6) \box A
 @end lilypond
 
-Después, el relleno o separación entre los dos rectángulos nos parece
-muy pequeño, así que lo vamos a sobreescribir también:
+Después, el relleno o separación entre los dos rectángulos nos
+parece muy pequeño, así que lo vamos a sobreescribir también:
 
 @lilypond[quote,verbatim,ragged-right]
 \markup \override #'(box-padding . 0.4) \box
      \override #'(box-padding . 0.6) \box A
 @end lilypond
 
-Repetir esta extensa instrucción de marcado una y otra vez sería un
-quebradero de cabeza.  Aquí es donde se necesita una instrucción de
-marcado.  Así pues, escribimos una instrucción de marcado
-@code{double-box}, que toma un argumento (el texto).  Dibuja los dos
-rectángulos y añade una separación.
+Repetir esta extensa instrucción de marcado una y otra vez sería
+un quebradero de cabeza.  Aquí es donde se necesita una
+instrucción de marcado.  Así pues, escribimos una instrucción de
+marcado @code{double-box}, que toma un argumento (el texto).
+Dibuja los dos rectángulos y añade una separación.
 
 @lisp
 #(define-markup-command (double-box layout props text) (markup?)
@@ -994,14 +999,14 @@ o, de forma equivalente,
 @end lisp
 
 @code{text} es el nombre del argumento de la instrucción, y
-@code{markup?} es el tipo: lo identifica como un elemento de marcado.
-La función @code{interpret-markup} se usa en casi todas las
-instrucciones de marcado: construye un sello, usando @code{layout},
-@code{props}, y un elemento de marcado.  En el segundo caso, la marca
-se construye usando el macro de Scheme @code{markup}, véase
-@ref{Construcción de elementos de marcado en Scheme}.  La
-transformación de una expresión @code{\markup} en una expresión de
-marcado de Scheme es directa.
+@code{markup?} es el tipo: lo identifica como un elemento de
+marcado.  La función @code{interpret-markup} se usa en casi todas
+las instrucciones de marcado: construye un sello, usando
+@code{layout}, @code{props}, y un elemento de marcado.  En el
+segundo caso, la marca se construye usando el macro de Scheme
+@code{markup}, véase @ref{Construcción de elementos de marcado en
+Scheme}.  La transformación de una expresión @code{\markup} en
+una expresión de marcado de Scheme es directa.
 
 La instrucción nueva se puede usar como sigue:
 
@@ -1009,14 +1014,15 @@ La instrucción nueva se puede usar como sigue:
 \markup \double-box A
 @end example
 
-Sería buen hacer que la instrucción @code{double-box} fuera
-personalizable: aquí, los valores de relleno @code{box-padding} son
-fijos, y no se pueden cambiar por parte del usuario.  Además, sería
-mejor distinguir la separación entre los dos rectángulos, del relleno
-entre el rectángulo interno y el texto.  Así pues, introducimos una
-nueva propiedad, @code{inter-box-padding}, para el relleno entre los
-rectángulos.  El @code{box-padding} se usará para el relleno interno.
-Ahora el código nuevo es como se ve a continuación:
+Sería bueno hacer que la instrucción @code{double-box} fuera
+personalizable: aquí, los valores de relleno @code{box-padding}
+son fijos, y no se pueden cambiar por parte del usuario.  Además,
+sería mejor distinguir la separación entre los dos rectángulos,
+del relleno entre el rectángulo interno y el texto.  Así pues,
+introducimos una nueva propiedad, @code{inter-box-padding}, para
+el relleno entre los rectángulos.  El @code{box-padding} se usará
+para el relleno interno.  Ahora el código nuevo es como se ve a
+continuación:
 
 @lisp
 #(define-markup-command (double-box layout props text) (markup?)
@@ -1029,7 +1035,8 @@ Ahora el código nuevo es como se ve a continuación:
                @{ #text @} #@}))
 @end lisp
 
-De nuevo, la versión equivalente que utiliza la macro de marcado sería:
+De nuevo, la versión equivalente que utiliza la macro de marcado
+sería:
 
 @lisp
 #(define-markup-command (double-box layout props text) (markup?)
@@ -1041,19 +1048,20 @@ De nuevo, la versión equivalente que utiliza la macro de marcado sería:
             #:override `(box-padding . ,box-padding) #:box text)))
 @end lisp
 
-Aquí, la palabra clave @code{#:properties} se usa de manera que las
-propiedades @code{inter-box-padding} y @code{box-padding} se leen a
-partir del argumento @code{props}, y se les proporcionan unos valores
-predeterminados si las propiedades no están definidas.
+Aquí, la palabra clave @code{#:properties} se usa de manera que
+las propiedades @code{inter-box-padding} y @code{box-padding} se
+leen a partir del argumento @code{props}, y se les proporcionan
+unos valores predeterminados si las propiedades no están
+definidas.
 
 Después estos valores se usan para sobreescribir las propiedades
 @code{box-padding} usadas por las dos instrucciones @code{\box}.
 Observe el apóstrofo invertido y la coma en el argumento de
-@code{\override}: nos permiten introducir un valor de variable dentro
-de una expresión literal.
+@code{\override}: nos permiten introducir un valor de variable
+dentro de una expresión literal.
 
-Ahora, la instrucción se puede usar dentro de un elemento de marcado,
-y el relleno de los rectángulos se puede personalizar:
+Ahora, la instrucción se puede usar dentro de un elemento de
+marcado, y el relleno de los rectángulos se puede personalizar:
 
 @lilypond[quote,verbatim,ragged-right]
 #(define-markup-command (double-box layout props text) (markup?)
@@ -1075,15 +1083,15 @@ y el relleno de los rectángulos se puede personalizar:
 @unnumberedsubsubsec Adaptación de instrucciones incorporadas
 @translationof Adapting builtin commands
 
-Una buena manera de comenzar a escribir una instrucción de marcado
-nueva, es seguir el ejemplo de otra instrucción ya incorporada.  Casi
-todas las instrucciones de marcado que están incorporadas en LilyPond
-se pueden encontrar en el archivo
+Una buena manera de comenzar a escribir una instrucción de
+marcado nueva, es seguir el ejemplo de otra instrucción ya
+incorporada.  Casi todas las instrucciones de marcado que están
+incorporadas en LilyPond se pueden encontrar en el archivo
 @file{scm/define-markup-commands.scm}.
 
-Por ejemplo, querríamos adaptar la instrucción @code{\draw-line}, para
-que trace una línea doble.  La instrucción @code{\draw-line} está
-definida como sigue (se han suprimido los comentarios de
+Por ejemplo, querríamos adaptar la instrucción @code{\draw-line},
+para que trace una línea doble.  La instrucción @code{\draw-line}
+está definida como sigue (se han suprimido los comentarios de
 documentación):
 
 @lisp
@@ -1099,11 +1107,12 @@ documentación):
     (make-line-stencil th 0 0 x y)))
 @end lisp
 
-Para definir una instrucción nueva basada en otra existente, copie la
-definición y cámbiele el nombre.  La palabra clave @code{#:category}
-se puede eliminar sin miedo, pues sólo se utiliza para generar
-documentación de LilyPond, y no tiene ninguna utilidad para las
-instrucciones de marcado definidas por el usuario.
+Para definir una instrucción nueva basada en otra existente,
+copie la definición y cámbiele el nombre.  La palabra clave
+@code{#:category} se puede eliminar sin miedo, pues sólo se
+utiliza para generar documentación de LilyPond, y no tiene
+ninguna utilidad para las instrucciones de marcado definidas por
+el usuario.
 
 @lisp
 (define-markup-command (draw-double-line layout props dest)
@@ -1117,9 +1126,9 @@ instrucciones de marcado definidas por el usuario.
     (make-line-stencil th 0 0 x y)))
 @end lisp
 
-A continuación se añade una propiedad para establecer la separación
-entre las dos líneas, llamada @code{line-gap}, con un valor
-predeterminado de p.ej. 0.6:
+A continuación se añade una propiedad para establecer la
+separación entre las dos líneas, llamada @code{line-gap}, con un
+valor predeterminado de p.ej. 0.6:
 
 @lisp
 (define-markup-command (draw-double-line layout props dest)
@@ -1130,9 +1139,10 @@ predeterminado de p.ej. 0.6:
   @dots{}
 @end lisp
 
-Finalmente, se añade el código para trazar las dos líneas.  Se usan
-dos llamadas a @code{make-line-stencil} para trazar las líneas, y los
-sellos resultantes se combinan usando @code{ly:stencil-add}:
+Finalmente, se añade el código para trazar las dos líneas.  Se
+usan dos llamadas a @code{make-line-stencil} para trazar las
+líneas, y los sellos resultantes se combinan usando
+@code{ly:stencil-add}:
 
 @lilypond[quote,verbatim,ragged-right]
 #(define-markup-command (my-draw-line layout props dest)
@@ -1173,10 +1183,10 @@ Scheme @code{define-markup-list-command}, que es similar al macro
 instrucción de marcado nueva}, excepto que donde éste devuelve un
 sello único, aquél devuelve una lista de sellos.
 
-En el siguiente ejemplo se define una instrucción de lista de marcado
-@code{\paragraph}, que devuelve una lista de líneas justificadas,
-estando la primera de ellas sangrada.  La anchura del sangrado se toma
-del argumento @code{props}.
+En el siguiente ejemplo se define una instrucción de lista de
+marcado @code{\paragraph}, que devuelve una lista de líneas
+justificadas, estando la primera de ellas sangrada.  La anchura
+del sangrado se toma del argumento @code{props}.
 
 @example
 #(define-markup-list-command (paragraph layout props args) (markup-list?)
@@ -1196,22 +1206,24 @@ La versión que usa solamente Scheme es más compleja:
 @end example
 
 Aparte de los argumentos usuales @code{layout} y @code{props}, la
-instrucción de lista de marcados @code{paragraph} toma un argumento de
-lista de marcados, llamado @code{args}.  El predicado para listas de
-marcados es @code{markup-list?}.
+instrucción de lista de marcados @code{paragraph} toma un
+argumento de lista de marcados, llamado @code{args}.  El
+predicado para listas de marcados es @code{markup-list?}.
 
-En primer lugar, la función toma el ancho del sangrado, una propiedad
-llamada aquí @code{par-indent}, de la lista de propiedades
-@code{props}.  Si no se encuentra la propiedad, el valor
-predeterminado es @code{2}.  Después, se hace una lista de líneas
-justificadas usando la instrucción incorporada de lista de marcados
-@code{\justified-lines}, que está relacionada con la función
-@code{make-justified-lines-markup-list}.  Se añade un espacio
-horizontal al principio usando @code{\hspace} (o la función
-@code{make-hspace-markup}).  Finalmente, la lista de marcados se
-interpreta usando la función @code{interpret-markup-list}.
+En primer lugar, la función toma el ancho del sangrado, una
+propiedad llamada aquí @code{par-indent}, de la lista de
+propiedades @code{props}.  Si no se encuentra la propiedad, el
+valor predeterminado es @code{2}.  Después, se hace una lista de
+líneas justificadas usando la instrucción incorporada de lista de
+marcados @code{\justified-lines}, que está relacionada con la
+función @code{make-justified-lines-markup-list}.  Se añade un
+espacio horizontal al principio usando @code{\hspace} (o la
+función @code{make-hspace-markup}).  Finalmente, la lista de
+marcados se interpreta usando la función
+@code{interpret-markup-list}.
 
-Esta nueva instrucción de lista de marcados se puede usar como sigue:
+Esta nueva instrucción de lista de marcados se puede usar como
+sigue:
 
 @example
 \markuplist @{
@@ -1246,25 +1258,140 @@ Esta nueva instrucción de lista de marcados se puede usar como sigue:
 
 @cindex código, llamadas durante la interpretación
 @funindex \applyContext
+@funindex make-apply-context
+@funindex ly:context-property
+@funindex ly:context-set-property!
+@funindex ly:context-grob-definition
+@funindex ly:assoc-get
+@funindex ly:context-pushpop-property
 
-Se pueden modificar los contextos durante la interpretación con código
-de Scheme.  La sintaxis para esto es
+Se pueden modificar los contextos durante la interpretación con
+código de Scheme.  Dentro de un bloque de código de LilyPond, la
+sintaxis para esto es:
 
 @example
 \applyContext @var{función}
 @end example
 
-@code{@var{función}} debe ser una función de Scheme que toma un único
-argumento, que es el contexto al que aplicarla.  El código siguiente
-imprime el número del compás actual sobre la salida estándar durante
-la compilación:
+En código de Scheme, la sintaxis es:
 
 @example
-\applyContext
-  #(lambda (x)
-    (format #t "\nSe nos ha llamado en el compás número ~a.\n"
-     (ly:context-property x 'currentBarNumber)))
+(make-apply-context @var{function})
 @end example
+
+@code{@var{función}} debe ser una función de Scheme que toma un
+único argumento, que es el contexto al que aplicarla.  La función
+puede acceder a, así como sobreescribir u establecer propiedades
+de grobs s y propiedades de contextos.  Cualquier acción tomada
+por la función que dependa del estado del contexto, está limitada
+al estado del contexto @emph{en el momento de llamar a la
+función}.  Asimismo, los cambios efectuados por una llamada a
+@code{\applyContext} permanecen en efecto hasta que se modifican
+de nuevo directamente, o se revierten, incluso si han cambiado las
+condiciones iniciales sobre las que dependen.
+
+Las siguientes funciones de Scheme son útiles cuando se utiliza
+@code{\applyContext}:
+
+@table @code
+@item ly:context-property
+recuperar el valor de una propiedad de contexto
+
+@item ly:context-set-property!
+establecer el valor de una propiedad de contexto
+
+@item ly:context-grob-definition
+@itemx ly:assoc-get
+recuperar el valor de una propiedad de un grob
+
+@item ly:context-pushpop-property
+hacer una sobreescritura temporal
+(@code{\temporary@tie{}\override}) o una reversión
+(@code{\revert}) sobre una propiedad de un grob
+@end table
+
+El ejemplo siguiente recupera el valor actual de @code{fontSize},
+y a continuación lo dobla:
+
+@lilypond[quote,verbatim]
+doubleFontSize =
+\applyContext
+  #(lambda (context)
+     (let ((fontSize (ly:context-property context 'fontSize)))
+       (ly:context-set-property! context 'fontSize (+ fontSize 6))))
+
+{
+  \set fontSize = -3
+  b'4
+  \doubleFontSize
+  b'
+}
+@end lilypond
+
+
+El ejemplo siguiente recupera los colores actuales de los grobs
+@code{NoteHead}, @code{Stem} y @code{Beam}, y a continuación los
+modifica para que tengan un matiz menos saturado.
+
+@lilypond[quote,verbatim]
+desaturate =
+\applyContext
+  #(lambda (context)
+     (define (desaturate-grob grob)
+       (let* ((grob-def (ly:context-grob-definition context grob))
+              (color (ly:assoc-get 'color grob-def black))
+              (new-color (map (lambda (x) (min 1 (/ (1+ x) 2))) color)))
+         (ly:context-pushpop-property context grob 'color new-color)))
+     (for-each desaturate-grob '(NoteHead Stem Beam)))
+
+\relative {
+  \time 3/4
+  g'8[ g] \desaturate g[ g] \desaturate g[ g]
+  \override NoteHead.color = #darkred
+  \override Stem.color = #darkred
+  \override Beam.color = #darkred
+  g[ g] \desaturate g[ g] \desaturate g[ g]
+}
+@end lilypond
+
+
+Esto puede implementarse también como una función musical, con el
+objeto de restringir las modificaciones a un único bloque de
+música.  Observe cómo se usa @code{ly:context-pushpop-property}
+tanto como una sobreescritura temporal
+(@code{\temporary@tie{}\override}) como una reversión
+(@code{\revert}):
+
+@lilypond[quote,verbatim]
+desaturate =
+#(define-music-function
+   (music) (ly:music?)
+   #{
+     \applyContext
+     #(lambda (context)
+        (define (desaturate-grob grob)
+          (let* ((grob-def (ly:context-grob-definition context grob))
+                 (color (ly:assoc-get 'color grob-def black))
+                 (new-color (map (lambda (x) (min 1 (/ (1+ x) 2))) color)))
+            (ly:context-pushpop-property context grob 'color new-color)))
+        (for-each desaturate-grob '(NoteHead Stem Beam)))
+     #music
+     \applyContext
+     #(lambda (context)
+        (define (revert-color grob)
+          (ly:context-pushpop-property context grob 'color))
+        (for-each revert-color '(NoteHead Stem Beam)))
+   #})
+
+\relative {
+  \override NoteHead.color = #darkblue
+  \override Stem.color = #darkblue
+  \override Beam.color = #darkblue
+  g'8 a b c
+  \desaturate { d c b a }
+  g b d b g2
+}
+@end lilypond
 
 
 @node Ejecutar una función sobre todos los objetos de la presentación
@@ -1274,21 +1401,28 @@ la compilación:
 @cindex código, llamar sobre objetos de presentación
 @funindex \applyOutput
 
-
 La manera más versátil de realizar el ajuste fino de un objeto es
-@code{\applyOutput}, que
-funciona insertando un evento dentro del contexto especificado
-(@rinternals{ApplyOutputEvent}).  Su sintaxis es
+@code{\applyOutput}, que funciona insertando un evento dentro del
+contexto especificado (@rinternals{ApplyOutputEvent}).  Su
+sintaxis es o bien
 
 @example
 \applyOutput @var{Contexto} @var{proc}
 @end example
 
-@noindent
-donde @code{@var{proc}} es una función de Scheme que toma tres argumentos.
+o bien
 
-Al interpretarse, la función @code{@var{proc}} se llama para cada objeto de
-presentación que se encuentra en el contexto @code{@var{Contexto}}
+@example
+\applyOutput @var{Context}.@var{Grob} @var{proc}
+@end example
+
+@noindent
+donde @code{@var{proc}} es una función de Scheme que toma tres
+argumentos.
+
+Al interpretarse, la función @code{@var{proc}} se llama para cada
+objeto de presentación (con el nombre del grob @var{Grob} si se
+especifica) que se encuentra en el contexto @code{@var{Contexto}}
 en el tiempo actual, con los siguientes argumentos:
 
 @itemize
@@ -1300,30 +1434,30 @@ en el tiempo actual, con los siguientes argumentos:
 
 Además, la causa del objeto de presentación, es decir el objeto o
 expresión musical que es responsable de haberlo creado, está en la
-propiedad @code{cause} del objeto.  Por ejemplo, para la cabeza de una
-nota, éste es un evento @rinternals{NoteHead}, y para un objeto
-plica, éste es un objeto @rinternals{Stem}.
+propiedad @code{cause} del objeto.  Por ejemplo, para la cabeza de
+una nota, éste es un evento @rinternals{NoteHead}, y para un
+objeto plica, éste es un objeto @rinternals{Stem}.
 
 He aquí una función que usar para @code{\applyOutput}; borra las
-cabezas de las notas que están sobre la línea central y junto a ella:
+cabezas de las notas que están sobre la línea central y junto a
+ella:
 
 @lilypond[quote,verbatim,ragged-right]
 #(define (blanker grob grob-origin context)
-   (if (and (memq 'note-head-interface (ly:grob-interfaces grob))
-            (< (abs (ly:grob-property grob 'staff-position)) 2))
+   (if (< (abs (ly:grob-property grob 'staff-position)) 2)
        (set! (ly:grob-property grob 'transparent) #t)))
 
 \relative {
-  a'4 e8 <<\applyOutput Voice #blanker a c d>> b2
+  a'4 e8 <<\applyOutput Voice.NoteHead #blanker a c d>> b2
 }
 @end lilypond
 
-Para que @var{función} se interprete en los niveles de @code{Score} o de @code{Staff}
-utilice estas formas:
+Para que @var{función} se interprete en los niveles de
+@code{Score} o de @code{Staff} utilice estas formas:
 
 @example
-\applyOutput Score #@var{función}
-\applyOutput Staff #@var{función}
+\applyOutput Score@dots{}
+\applyOutput Staff@dots{}
 @end example
 
 
@@ -1332,14 +1466,15 @@ utilice estas formas:
 @translationof Callback functions
 
 Las propiedades (como @code{thickness} (grosor), @code{direction}
-(dirección), etc.) se pueden establecer a valores fijos con \override,
-p. ej.:
+(dirección), etc.) se pueden establecer a valores fijos con
+\override, p. ej.:
 
 @example
 \override Stem.thickness = #2.0
 @end example
 
-Las propiedades pueden fijarse también a un procedimiento de Scheme,
+Las propiedades pueden fijarse también a un procedimiento de
+Scheme:
 
 @lilypond[fragment,verbatim,quote]
 \override Stem.thickness = #(lambda (grob)
@@ -1350,8 +1485,8 @@ Las propiedades pueden fijarse también a un procedimiento de Scheme,
 @end lilypond
 
 @noindent
-En este caso, el procedimiento se ejecuta tan pronto como el valor de
-la propiedad se reclama durante el proceso de formateo.
+En este caso, el procedimiento se ejecuta tan pronto como el valor
+de la propiedad se reclama durante el proceso de formateo.
 
 Casi todo el motor de tipografiado está manejado por estos
 @emph{callbacks}.  Entre las propiedades que usan normalmente
@@ -1366,8 +1501,8 @@ Casi todo el motor de tipografiado está manejado por estos
   La rutina que calcula la anchura de un objeto
 @end table
 
-El procedimiento siempre toma un argumento único, que es el grob (el
-objeto gráfico).
+El procedimiento siempre toma un argumento único, que es el grob
+(el objeto gráfico).
 
 Dicho procedimiento puede acceder al valor usual de la propiedad,
 llamando en primer lugar a la función que es el @q{callback} usual
@@ -1383,41 +1518,6 @@ interna o en el archivo 'define-grobs.scm':
 @}
 @end example
 
-Si se deben llamar rutinas con varios argumentos, el grob actual se
-puede insertar con una cerradura de grob.  He aquí un ajuste
-procedente de @code{AccidentalSuggestion},
-
-@example
-`(X-offset .
-  ,(ly:make-simple-closure
-    `(,+
-        ,(ly:make-simple-closure
-           (list ly:self-alignment-interface::centered-on-x-parent))
-      ,(ly:make-simple-closure
-           (list ly:self-alignment-interface::x-aligned-on-self)))))
-@end example
-
-@noindent
-En este ejemplo, tanto
-@code{ly:self-alignment-interface::x-aligned-on-self} como
-@code{ly:self-alignment-interface::centered-on-x-parent} se llaman con
-el grob como argumento.  El resultado se añade con la función
-@code{+}.  Para asegurar que esta adición se ejecuta adecuadamente,
-todo ello se encierra dentro de @code{ly:make-simple-closure}.
-
-De hecho, usar un solo procedimiento como valor de una propiedad
-equivale a
-
-@example
-(ly:make-simple-closure (ly:make-simple-closure (list @var{proc})))
-@end example
-
-@noindent
-El @code{ly:make-simple-closure} interior aporta el grob como
-argumento de @var{proc}, el exterior asegura que el resultado de la
-función es lo que se devuelve, en lugar del objeto
-@code{simple-closure}.
-
 Desde dentro de un callback, el método más fácil para evaluar un
 elemento de marcado es usar grob-interpret-markup.  Por ejemplo:
 
@@ -1426,10 +1526,17 @@ mi-callback = #(lambda (grob)
                  (grob-interpret-markup grob (markup "fulanito")))
 @end example
 
+@ignore
 
-@node Código de Scheme en línea
-@section Código de Scheme en línea
-@translationof Inline Scheme code
+@n ode Código de Scheme en línea
+@s ection Código de Scheme en línea
+@t ranslationof Inline Scheme code
+
+TODO: after this section had been written, LilyPond has improved
+to the point that finding a @emph{simple} example where one would
+@emph{have} to revert to Scheme has become rather hard.
+
+Until this section gets a rewrite, let's pretend we don't know.
 
 La principal desventaja de @code{\tweak} es su inflexibilidad
 sintáctica.  Por ejemplo, lo siguiente produce un error de sintaxis (o
@@ -1471,6 +1578,8 @@ función de Scheme @code{acons}, y finalmente el resultado se escribe
 de nuevo con @code{set!}.  El último elemento del bloque @code{let} es
 el valor de retorno, el propio @code{m}.
 
+@end ignore
+
 
 @node Trucos difíciles
 @section Trucos difíciles
@@ -1483,18 +1592,19 @@ Hay un cierto número de tipos de ajustes difíciles.
 
 @item
 Un tipo de ajuste difícil es la apariencia de los objetos de
-extensión, como las ligaduras de expresión y de unión.  Inicialmente,
-sólo se crea uno de estos objetos, y pueden ajustarse con el mecanismo
-normal.  Sin embargo, en ciertos casos los objetos extensores cruzan
-los saltos de línea.  Si esto ocurre, estos objetos se clonan.  Se
-crea un objeto distinto por cada sistema en que se encuentra.  Éstos
-son clones del objeto original y heredan todas sus propiedades,
-incluidos los @code{\override}s.
+extensión, como las ligaduras de expresión y de unión.
+Inicialmente, sólo se crea uno de estos objetos, y pueden
+ajustarse con el mecanismo normal.  Sin embargo, en ciertos casos
+los objetos extensores cruzan los saltos de línea.  Si esto
+ocurre, estos objetos se clonan.  Se crea un objeto distinto por
+cada sistema en que se encuentra.  Éstos son clones del objeto
+original y heredan todas sus propiedades, incluidos los
+@code{\override}s.
 
 En otras palabras, un @code{\override} siempre afecta a todas las
-piezas de un objeto de extensión fragmentado.  Para cambiar sólo una
-parte de un extensor en el salto de línea, es necesario inmiscuirse en
-el proceso de formateado.  El @emph{callback}
+piezas de un objeto de extensión fragmentado.  Para cambiar sólo
+una parte de un extensor en el salto de línea, es necesario
+inmiscuirse en el proceso de formateado.  El @emph{callback}
 @code{after-line-breaking} contiene el procedimiento Scheme que se
 llama después de que se han determinado los saltos de línea, y los
 objetos de presentación han sido divididos sobre los distintos
@@ -1514,9 +1624,9 @@ comprueba si somos el último de los objetos divididos
 en caso afirmativo, establece @code{extra-offset}.
 @end itemize
 
-Este procedimiento se instala en @rinternals{Tie} (ligadura de unión),
-de forma que la última parte de la ligadura dividida se traslada hacia
-arriba.
+Este procedimiento se instala en @rinternals{Tie} (ligadura de
+unión), de forma que la última parte de la ligadura dividida se
+traslada hacia arriba.
 
 @lilypond[quote,verbatim,ragged-right]
 #(define (my-callback grob)
@@ -1543,8 +1653,8 @@ arriba.
 
 @noindent
 Al aplicar este truco, la nueva función de callback
-@code{after-line-breaking} también debe llamar a la antigua,
-si existe este valor predeterminado.  Por ejemplo, si se usa con
+@code{after-line-breaking} también debe llamar a la antigua, si
+existe este valor predeterminado.  Por ejemplo, si se usa con
 @code{Hairpin}, se debe llamar también a
 @code{ly:spanner::kill-zero-spanned-time}.
 
@@ -1552,8 +1662,8 @@ si existe este valor predeterminado.  Por ejemplo, si se usa con
 @item Algunos objetos no se pueden cambiar con @code{\override} por
 razones técnicas.  Son ejemplos @code{NonMusicalPaperColumn} y
 @code{PaperColumn}.  Se pueden cambiar con la función
-@code{\overrideProperty} que funciona de forma similar a @code{\once
-\override}, pero usa una sintaxis distinta.
+@code{\overrideProperty} que funciona de forma similar a
+@code{\once \override}, pero usa una sintaxis distinta.
 
 @example
 \overrideProperty

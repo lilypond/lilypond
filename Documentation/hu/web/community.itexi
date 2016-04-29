@@ -436,7 +436,7 @@ hibafelelősöknek @rcontribnamed{Issues, a hibajelentések kezelésében}.
 
 @item
 Dokumentáció: tegyél bármilyen javaslatot a dokumentációval kapcsolatban a
-@rcontribnamed{Documentation suggestions} c. fejezetben leírt módon.
+@rcontrib{Documentation suggestions} c. fejezetben leírt módon.
 
 @item
 LilyPond Kódrészletek Tárháza: készíts hasznos kódrészleteket!
@@ -963,10 +963,8 @@ Computer Music Special} CMS06 száma)
 
 @node Hírarchívum
 @unnumberedsec Hírarchívum
-@translationof Old news
+@translationof Attic
 
 @include web/news-front.itexi
 
 @include web/news.itexi
-
-

@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Dernière mise à jour Fri Jan  1 10:40:27 UTC 2016
+@emph{Dernière mise à jour Sat Mar  5 16:11:52 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -210,7 +210,7 @@ oui
 @item
 1 Tutoriel Scheme
 @*
-6331
+6316
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -371,13 +371,13 @@ oui
 @item
 2 Bases de notation musicale
 @*
-4443
+4437
 @tab Nicolas Grandclaude
 @*
 Ludovic Sardain
 @*
 Gauvain Pocentek
-@tab Jean-Charles Malahieude
+@tab J.-Charles Malahieude
 @*
 Valentin Villenave
 @*
@@ -435,7 +435,7 @@ oui
 @item
 4 Retouche de partition
 @*
-16577
+16622
 @tab Valentin Villenave
 @*
 Nicolas Klutchnikoff
@@ -594,7 +594,7 @@ oui
 @item
 1.1 Hauteurs
 @*
-5203
+5202
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -753,7 +753,7 @@ oui
 @item
 1.6 Notation sur la portée
 @*
-2399
+2576
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -958,7 +958,7 @@ oui
 @item
 2.4 Instruments à cordes frettées
 @*
-2756
+2842
 @tab Matthieu Jacquot
 @tab Jean-Charles Malahieude
 @tab 
@@ -1159,7 +1159,7 @@ oui
 @item
 3 Généralités en matière d'entrée et sortie
 @*
-12717
+12715
 @tab Jean-Charles Malahieude
 @*
 Valentin Villenave
@@ -1188,7 +1188,7 @@ oui
 @item
 4 Gestion de l'espace
 @*
-10884
+10895
 @tab Frédéric Chiasson
 @*
 Jean-Charles Malahieude
@@ -1217,7 +1217,7 @@ oui
 @item
 5 Modification des réglages prédéfinis
 @*
-15581
+15610
 @tab Valentin Villenave
 @*
 Jean-Charles Malahieude
@@ -1372,7 +1372,7 @@ oui
 @item
 1 Exécution de @command{lilypond}
 @*
-5401
+5425
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1399,7 +1399,7 @@ oui
 @item
 2 Mise à jour avec @command{convert-ly}
 @*
-1865
+1866
 @tab Jean-Charles Malahieude
 @tab 
 @tab 
@@ -1579,7 +1579,7 @@ oui
 @item
 Introduction
 @*
-5816
+5815
 @tab Gauvain Pocentek
 @*
 Jean-Charles Malahieude
@@ -1666,7 +1666,7 @@ oui
 @item
 Communauté
 @*
-3004
+3522
 @tab Jean-Charles Malahieude
 @*
 John Mandereau

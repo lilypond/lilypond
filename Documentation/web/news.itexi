@@ -27,6 +27,54 @@ NOTE:
 @end ignore
 
 @newsItem
+@subheading LilyPond 2.19.39 released  @emph{March 27, 2016}
+
+We are happy to announce the release of LilyPond
+2.19.39.  This release includes a number of enhancements, and contains some
+work in progress.  You will have access to the very latest features, but
+some may be incomplete, and you may encounter bugs and crashes.  If you
+require a stable version of Lilypond, we recommend using the 2.18
+version.
+
+@newsEnd
+
+@newsItem
+@subheading LilyPond 2.19.38 released  @emph{March 13, 2016}
+
+We are happy to announce the release of LilyPond
+2.19.38.  This release includes a number of enhancements, and contains some
+work in progress.  You will have access to the very latest features, but
+some may be incomplete, and you may encounter bugs and crashes.  If you
+require a stable version of Lilypond, we recommend using the 2.18
+version.
+
+@newsEnd
+
+@newsItem
+@subheading LilyPond 2.19.37 released  @emph{February 28, 2016}
+
+We are happy to announce the release of LilyPond
+2.19.37.  This release includes a number of enhancements, and contains some
+work in progress.  You will have access to the very latest features, but
+some may be incomplete, and you may encounter bugs and crashes.  If you
+require a stable version of Lilypond, we recommend using the 2.18
+version.
+
+@newsEnd
+
+@newsItem
+@subheading LilyPond 2.19.36 released  @emph{January 31, 2016}
+
+We are happy to announce the release of LilyPond
+2.19.36.  This release includes a number of enhancements, and contains some
+work in progress.  You will have access to the very latest features, but
+some may be incomplete, and you may encounter bugs and crashes.  If you
+require a stable version of Lilypond, we recommend using the 2.18
+version.
+
+@newsEnd
+
+@newsItem
 @subheading LilyPond 2.19.35 released  @emph{January 02, 2016}
 
 We are happy to announce the release of LilyPond
@@ -410,6 +458,28 @@ some may be incomplete, and you may encounter bugs and crashes.  If you require
 a stable version of Lilypond, we recommend using the 2.18 version.
 
 @newsEnd
+
+@newsItem
+@subheading LilyPond production named BEST EDITION 2014  @emph{March 11, 2014}
+
+We are thrilled that the edition of the songs of Oskar
+Fried (1871-1941), published recently by our fellow contributors Urs Liska
+and Janek Warchoł [1], received the "Musikeditionspreis BEST EDITION
+2014" of the German Music Publishers' Association [2].  The ceremony
+took place at the Frankfurt Musikmesse.
+
+We congratulate Janek and Urs for gaining such public recognition of
+typographical and editorial excellence of their work.  We are also delighted
+to inform you that they intend to make their work available under a Free
+license as soon as the publisher expenses are covered.  Please support this
+initiative by buying the printed volume through the publisher [3].
+
+[1] @uref{http://lilypondblog.org/category/fried-songs}@*
+[2] @uref{http://www.best-edition.de}@*
+[3] @uref{http://www.sound-rel.de}@*
+
+@newsEnd
+
 
 @newsItem
 @subheading LilyPond 2.19.3 released  @emph{March 2, 2014}
@@ -1816,7 +1886,7 @@ due to a few remaining Critical bugs.
 
 @uref{http://www.linux-magazine.com,Linux Magazine} publishes an
 article in the May 2011 issue titled
-@uref{http://www.linux-magazine.com/w3/issue/126/088-090_projects.pdf,
+@uref{http://www.linux-magazine.com/content/download/61706/482546/version/1/file/088-090_projects.pdf,
 Projects on the Move}.  It is an introduction to MuseScore,
 LilyPond and Chordii.  Author Carla Schroder states @qq{LilyPond is
 driven from the command line, but don’t let the lack of a GUI scare
@@ -2965,7 +3035,7 @@ Reinhold Kainhofer.
 @subheading The LilyPond Report #13.  @emph{June 23, 2008}
 
 This short, informal, weekly opinion column is about the LilyPond project: its team, its world, its community.
-Follow @uref{http://valentin.villenave.info/The-LilyPond-Report-13,this link} to read the full issue...
+Follow @uref{http://web.archive.org/web/20120220123759/http://news.lilynet.net/?The-LilyPond-Report-13,this link} to read the full issue...
 @newsEnd
 
 
@@ -2973,7 +3043,7 @@ Follow @uref{http://valentin.villenave.info/The-LilyPond-Report-13,this link} to
 @subheading The LilyPond Report #12.  @emph{June 16, 2008}
 
 This short, informal, weekly opinion column is about the LilyPond project: its team, its world, its community.
-Follow @uref{http://valentin.villenave.info/The-LilyPond-Report-12,this link} to read the full issue...
+Follow @uref{http://web.archive.org/web/20120220123754/http://news.lilynet.net/?The-LilyPond-Report-12,this link} to read the full issue...
 @newsEnd
 
 
@@ -3003,7 +3073,7 @@ to @code{\scaleDurations}.
 @subheading The LilyPond Report #11.  @emph{June 9, 2008}
 
 This short, informal, weekly opinion column is about the LilyPond project: its team, its world, its community.
-Follow @uref{http://valentin.villenave.info/The-LilyPond-Report-11,this link} to read the full issue...
+Follow @uref{http://web.archive.org/web/20120220123750/http://news.lilynet.net/?The-LilyPond-Report-11,this link} to read the full issue...
 @newsEnd
 
 
@@ -3011,7 +3081,7 @@ Follow @uref{http://valentin.villenave.info/The-LilyPond-Report-11,this link} to
 @subheading The LilyPond Report #10.  @emph{June 2, 2008}
 
 Welcome to this special tenth issue of the @emph{LilyPond Report}, entirely dedicated to Algorithmic Composition systems.@*
-Follow @uref{http://valentin.villenave.info/The-LilyPond-Report-10,this link} to read the full issue...
+Follow @uref{http://web.archive.org/web/20120220123743/http://news.lilynet.net/?The-LilyPond-Report-10,this link} to read the full issue...
 @newsEnd
 
 
@@ -3056,7 +3126,7 @@ announce releases and special events.
 
 Welcome to this ninth issue of the @emph{LilyPond Report}!@*
 This short, informal, weekly opinion column is about the LilyPond project: its team, its world, its community.
-Follow @uref{http://valentin.villenave.info/The-LilyPond-Report-9,this link} to read the full issue...
+Follow @uref{http://web.archive.org/web/20120220123946/http://news.lilynet.net/?The-LilyPond-Report-9,this link} to read the full issue...
 @newsEnd
 
 
@@ -3226,7 +3296,7 @@ and lots of updates for the translations.
 
 Release 2.11.28 is now available as a binary installer for
 FreeBSD x86_64.  Download
-@uref{http://lilypond.org/download/binaries/freebsd-64/lilypond-2.11.28-1.freebsd-64.sh,the installer} and
+@uref{http://lilypond.org/download/binaries/freebsd-64/,the installer} and
 do @emph{sh lilypond-2.11.28-1.freebsd-64.sh} in a command window.
 @newsEnd
 
@@ -4119,11 +4189,11 @@ to the @ref{Old downloads} get them!
 Starting with 2.7.26, the development team has been working on the
 installers. We're proud to announce another version of these: they are
 now available for
-@uref{http://lilypond.org/download/binaries/linux-x86/lilypond-2.7.27-1.linux.sh,
+@uref{http://lilypond.org/download/binaries/linux-x86/,
 Linux/x86},
-@uref{http://lilypond.org/download/binaries/MacOS/lilypond-2.7.27-2.zip,
+@uref{http://lilypond.org/download/binaries/darwin-ppc/,
 MacOS X} and
-@uref{http://lilypond.org/download/binaries/mingw/lilypond-2.7.27-2.exe,
+@uref{http://lilypond.org/download/binaries/mingw/,
 Windows}.
 @newsEnd
 
@@ -4735,8 +4805,8 @@ feature and has support for tetex-3.0.
 
 @newsItem
 @subheading February 28, 2005
-LilyPond 2.5.13 is available for Fedora Core 3. You need to install @uref{http://lilypond.org/download/binaries/Fedora-3/ghostscript-8.15rc3-0.i386.rpm,ESP
-Ghostscript 8.15rc3}. Unfortunately, this version of Ghostscript
+LilyPond 2.5.13 is available for Fedora Core 3. You need to install
+Ghostscript 8.15rc3. Unfortunately, this version of Ghostscript
 lacks the IJS dynamic library, which means that it will conflict with
 the gimp-print package. You may install it with --nodeps. Use at your
 own risk.
@@ -4804,7 +4874,7 @@ LilyPond 2.5.8 is out.  This
 release has many internal code cleanups. In addition,
 accuracy of error reporting has been improved.
 See the
-@uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.3065&content-type=text/vnd.viewcvs-markup,
+@uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,
 change log
 } and @ref{Old downloads}!
 @newsEnd
@@ -4820,7 +4890,7 @@ assorted manual updates by Graham, and an overhaul of the
 font code by Werner.
 @ref{Old downloads}
 and check out the changes in
-the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.3048&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -4837,7 +4907,7 @@ backend now offloads all metric computations to LaTeX, the
 SVG and GNOME backends are broken, most probably.
 @ref{Old downloads}
 and check out the
-changes in the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.3013&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+changes in the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -4849,7 +4919,7 @@ ps" output. The default output format has been changed back TeX
 while we stabilize the Pango/FontConfig integration.
 @ref{Old downloads}
 and check out the changes in
-the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev= 1.3000&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -4862,7 +4932,7 @@ This has made a lot of things simpler, including font
 handling for the GNOME backend and SVG backend.
 @ref{Old downloads}
 and check out the
-changes in the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2974&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+changes in the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -4879,7 +4949,7 @@ by letting the grace notes follow a skip in a parallel
 expression.
 @ref{Old downloads}
 and
-check out the changes in the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2908&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+check out the changes in the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -4892,7 +4962,7 @@ layout. Don't forget to rebuild the fonts, as they have been
 changed to accomodate the solfa-notation.
 @ref{Old downloads}
 and check out the changes in
-the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2898&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -4909,7 +4979,7 @@ SVG backend, support for the lmodern font set for TeX,
 various bugfixes.
 @ref{Old downloads}
 and check out the changes in
-the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2881&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -4932,7 +5002,7 @@ the -f gnome backend. These tweaks can be saved and are
 applied to the PS and TeX output as well.
 @ref{Old downloads}
 and check out
-the changes in the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2837&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+the changes in the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -4950,7 +5020,7 @@ LilyPond 2.4.1 is out. This release includes a number of small
 fixes that were made to 2.4.0 last week.
 @ref{Old downloads}
 and check out the changes in
-the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2780.2&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -4972,7 +5042,7 @@ candidate. This release fixes a number of minor bugs, and
 some problems with the conversion scripts.
 @ref{Old downloads}
 and check out the changes in
-the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2773&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -4984,7 +5054,7 @@ lilypond-book. In addition, this release contains an
 important fix for raggedbottom page-layout.
 @ref{Old downloads}
 and check out the changes in
-the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2765&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -4995,7 +5065,7 @@ This release has more improvements by Werner for the TeX
 backend, and a bunch of other small fixes.
 @ref{Old downloads}
 and check out the changes in
-the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2752&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -5006,7 +5076,7 @@ LilyPond 2.3.23 has bugfixes in the documentation, lilypond-book and
 candidate for LilyPond 2.4.
 @ref{Old downloads}
 and check out the changes in
-the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2742&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -5018,7 +5088,7 @@ stable release.  In addition, it renames the \paper@{@} block to
 \paper@{@}.
 @ref{Old downloads}
 and
-check out the changes in the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2709&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+check out the changes in the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -5030,7 +5100,7 @@ and some small formatting improvements of the slur
 code.
 @ref{Old downloads}
 and check
-out the changes in the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2692&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+out the changes in the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -5043,13 +5113,13 @@ output once again. Also it has the usual bugfixes and updates
 in the documentation.
 @ref{Old downloads}
 and check out the changes in
-the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2674&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
 @newsItem
 @subheading September 29, 2004
-The LilyPond development team will be present at the @uref{http://www.nluug.nl/events/sane2004/bazaar/index.html,Free
+The LilyPond development team will be present at the @uref{https://web.archive.org/web/20040811160307/http://www.nluug.nl/events/sane2004/bazaar/index.html,Free
 Software Bazaar} of the NLUUG SANE 2004 conference today.  If you
 are in the neighborhood, drop by for live contact with the Team or
 just a friendly chat. Registration is not required to attend.
@@ -5061,7 +5131,7 @@ just a friendly chat. Registration is not required to attend.
 LilyPond 2.3.19 is out. It's mainly a bugfix release.
 @ref{Old downloads}
 and check out the changes
-in the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2652&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+in the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -5076,7 +5146,7 @@ renamed to `\chordmode', `\lyricmode', etc. The command
 similarly.
 @ref{Old downloads}
 and check out the changes in
-the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2614&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -5096,7 +5166,7 @@ will get uglier by upgrading to 3.0, so that once 3.0 is out, nothing
 will hold users back in switching.
 @ref{Old downloads}
 and check out the changes in
-the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2562&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -5110,7 +5180,7 @@ postscript output. Also, the types of events quoted with
 only notes and rests end up in quotes.
 @ref{Old downloads}
 and check out the changes in
-the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2553&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -5124,7 +5194,7 @@ different voices that all use "\quote" can now refer to each
 other.
 @ref{Old downloads}
 and check out
-the changes in the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2534&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+the changes in the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -5153,7 +5223,7 @@ mensural flags, so they are adjusted for staff lines once
 again.
 @ref{Old downloads}
 and
-check out the changes in the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2520&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+check out the changes in the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -5163,7 +5233,7 @@ LilyPond 2.2.6 fixes a few minor issues, among others, the
 disappearing metronome mark.
 @ref{Old downloads}
 and check out the changes in
-the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2000.2.33&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -5175,7 +5245,7 @@ chords, both above and below. This is switched on with the
 `doubleSlurs' property.
 @ref{Old downloads}
 and check out the changes in
-the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2489&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -5185,7 +5255,7 @@ LilyPond 2.3.11 is out. This release basically is 2.3.10 with a few
 annoying bugs fixed.
 @ref{Old downloads}
 and check out
-the changes in the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2449&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+the changes in the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -5208,7 +5278,7 @@ that is dumped as verbatim PostScript
 
 @ref{Old downloads}
 and check out
-the changes in the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2435&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+the changes in the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -5226,7 +5296,7 @@ updating the manual, and after that's done we can release 3.0. The
 projected date for this to happen is in about a month.
 @ref{Old downloads}
 and check out
-the changes in the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2416&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+the changes in the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -5238,7 +5308,7 @@ situations, ledger lines will be shortened so they stay
 separate.  This also required a cleanup of the Ambitus
 implementation.
 @ref{Old downloads}
-and check out the changes in the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2395&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+and check out the changes in the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -5255,7 +5325,7 @@ the LilyPond emacs mode, the `|' will now display the current
 beat within the measure.
 @ref{Old downloads}
 and check out the changes in
-the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2383&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -5265,7 +5335,7 @@ LilyPond 2.2.5 was released. It has a few bug fixes from
 2.3.x.
 @ref{Old downloads}
 and check
-out the changes in the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2000.2.28&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+out the changes in the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -5284,7 +5354,7 @@ bugs, including a serious one that trashed a lot of beam
 formatting, and was also present in the 2.2 series.
 @ref{Old downloads}
 and check out the changes
-in the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2306&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+in the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -5294,7 +5364,7 @@ LilyPond 2.2.4 was released. It is mainly a bug fix
 release.
 @ref{Old downloads}
 and
-check out the changes in the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2000.2.23&content-type=text/vnd.viewcvs-markup,ChangeLog}.
+check out the changes in the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}.
 @newsEnd
 
 
@@ -5306,7 +5376,7 @@ module. Adventurous hackers can check the instructions at
 scm/output-gnome.scm and try to run
 buildscripts/guile-gnome.sh to see what the fuss is all about.
 Carl Sorensen also provided us with more patches to the
-fret-diagram output. Check out the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2293&content-type=text/vnd.viewcvs-markup,ChangeLog}
+fret-diagram output. Check out the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}
 and
 @ref{Old downloads}.
 @newsEnd
@@ -5315,7 +5385,7 @@ and
 @newsItem
 @subheading June 20, 2004
 LilyPond 2.2.3 has a turkish translation and fixes a few minor
-bugs that were reported over the past month. Check out the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2000.2.16&content-type=text/vnd.viewcvs-markup,ChangeLog} for a full description and
+bugs that were reported over the past month. Check out the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog} for a full description and
 @ref{Old downloads}.
 @newsEnd
 
@@ -5324,7 +5394,7 @@ bugs that were reported over the past month. Check out the @uref{http://savannah
 @subheading June 13, 2004
 LilyPond 2.3.4 further improves the output backends. As a
 result, manual page-breaks, multiple output formats and putting
-@code{\score} into markups now works.  Check out the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2242&content-type=text/vnd.viewcvs-markup,ChangeLog}
+@code{\score} into markups now works.  Check out the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}
 and
 @ref{Old downloads}.
 @newsEnd
@@ -5334,7 +5404,7 @@ and
 @subheading May 31, 2004
 LilyPond 2.3.3 has many internal changes relating to the output
 backend (PostScript) and page-layout. In addition, it contains a few
-bugfixes for recently reported problems.  Check out the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2207&content-type=text/vnd.viewcvs-markup,ChangeLog}
+bugfixes for recently reported problems.  Check out the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}
 and
 @ref{Old downloads}.
 @newsEnd
@@ -5343,7 +5413,7 @@ and
 @newsItem
 @subheading May 31, 2004
 LilyPond 2.2.2 is out.  It has a number of small bugfixes, so upgrade
-if any of these errors concern you.  Check out the @uref{http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lilypond/ChangeLog?rev=1.2000.2.9,ChangeLog}
+if any of these errors concern you.  Check out the @uref{http://git.savannah.gnu.org/cgit/lilypond.git/plain/ChangeLog?id=abfdd3c36946e4c341b0abb0f1c6bbdbc12883c1,ChangeLog}
 or head straight to the
 @ref{Old downloads}.
 @newsEnd
@@ -5718,7 +5788,7 @@ the
 @subheading January 18, 2004
 LilyPond 2.1.11 is now also
 available for Windows!  For downloading, go
-@uref{http://www.inf.bme.hu/~berti/lilypond/,here}.
+@uref{https://web.archive.org/web/20040204191423/http://www.inf.bme.hu/~berti/lilypond/,here}.
 @newsEnd
 
 
@@ -5852,7 +5922,7 @@ download @uref{install/#2.1,here}.
 @subheading October 11, 2003
 LilyPond 2.0.1  binaries for Mandrake 9.1
 available from
-@uref{http://rpm.nyvalls.se/sound9.1.html,here}
+@uref{https://web.archive.org/web/20031006165051/http://rpm.nyvalls.se/sound9.1.html,here}
 thanks to Heikki Junes.
 @newsEnd
 
@@ -5894,7 +5964,7 @@ or download @uref{install/#2.0,here} directly.
 @newsItem
 @subheading September 27, 2003
 PlanetCCRMA has been updated to include LilyPond 2.0. Go
-@uref{http://www-ccrma.stanford.edu/planetccrma/software/soundapps.html#lilypond,
+@uref{http://ccrma.stanford.edu/planetccrma/software/soundapps.html#SECTION000621700000000000000,
 here} to download.  Thanks to Fernando Pablo
 Lopez-Lezcano!
 @newsEnd
@@ -6031,7 +6101,7 @@ The  LilyPond 1.9 development release is available. Read the
 @newsItem
 @subheading August 25, 2003
 Mandrake 9.1 RPMS available, get them
-@uref{http://rpm.nyvalls.se/sound9.1.html,here}.
+@uref{https://web.archive.org/web/20031006165051/http://rpm.nyvalls.se/sound9.1.html,here}.
 @newsEnd
 
 
@@ -6046,7 +6116,7 @@ read the @ref{Changes}.
 @subheading August 18, 2003
 PlanetCCRMA (eg. RedHat 8 and 9)
 has been updated to 1.8.
-Download @uref{http://www-ccrma.stanford.edu/planetccrma/software/soundapps.html#lilypond,here.}
+Download @uref{http://ccrma.stanford.edu/planetccrma/software/soundapps.html#SECTION000621700000000000000,here.}
 @newsEnd
 
 

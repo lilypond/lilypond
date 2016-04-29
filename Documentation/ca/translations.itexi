@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Actualitzat el Fri Jan  1 10:40:27 UTC 2016
+@emph{Actualitzat el Sat Mar  5 16:11:52 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -111,7 +111,7 @@ parcialment
 @item
 2 Notació corrent
 @*
-4443
+4437
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -165,7 +165,7 @@ parcialment
 @item
 4 Ajustament de la sortida
 @*
-16577
+16622
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -209,7 +209,7 @@ parcialment (97 %)
 @ifhtml
 
 @html
-<span style="background-color: #ffdf42">parcialment</span>
+<span style="background-color: #ffdd42">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -285,7 +285,7 @@ si
 @item
 1 Execució del LilyPond
 @*
-5401
+5425
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -302,7 +302,7 @@ parcialment (95 %)
 @ifhtml
 
 @html
-<span style="background-color: #83fe2c">parcialment</span>
+<span style="background-color: #8aff2d">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -312,7 +312,7 @@ parcialment
 @item
 2 Actualització de fitxers amb @command{convert-ly}
 @*
-1865
+1866
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -432,7 +432,7 @@ si
 @item
 Introducció
 @*
-5816
+5815
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -449,7 +449,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #68ff28">parcialment</span>
+<span style="background-color: #76fe2a">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -513,7 +513,7 @@ si
 @item
 Comunitat
 @*
-3004
+3522
 @tab Walter Garcia-Fontes
 @tab 
 @tab 
@@ -530,7 +530,7 @@ si
 @ifhtml
 
 @html
-<span style="background-color: #83fe2c">parcialment</span>
+<span style="background-color: #b9ff33">parcialment</span>
 @end html
 @end ifhtml
 @ifnothtml

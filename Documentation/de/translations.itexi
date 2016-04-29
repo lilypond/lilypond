@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Zuletzt aktualisiert am Fri Jan  1 10:40:27 UTC 2016
+@emph{Zuletzt aktualisiert am Sat Mar  5 16:11:52 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -204,7 +204,7 @@ ja
 @item
 1 Scheme-Tutorium
 @*
-6331
+6316
 @tab Till Paala
 @tab 
 @tab 
@@ -221,7 +221,7 @@ teilweise (53 %)
 @ifhtml
 
 @html
-<span style="background-color: #47ff24">teilweise</span>
+<span style="background-color: #5bff27">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -359,7 +359,7 @@ ja
 @item
 2 Übliche Notation
 @*
-4443
+4437
 @tab ???
 @*
 Michael Gerdau
@@ -419,7 +419,7 @@ ja
 @item
 4 Die Ausgabe verbessern
 @*
-16577
+16622
 @tab ???
 @*
 Michael Gerdau
@@ -570,7 +570,7 @@ ja
 @item
 1.1 Tonhöhen
 @*
-5203
+5202
 @tab Till Paala
 @tab 
 @tab 
@@ -705,7 +705,7 @@ teilweise
 @item
 1.6 Notation auf Systemen
 @*
-2399
+2576
 @tab Till Paala
 @tab 
 @tab 
@@ -722,7 +722,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #acff31">teilweise</span>
+<span style="background-color: #c0ff34">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -894,7 +894,7 @@ teilweise
 @item
 2.4 Saiteninstrumente mit Bünden
 @*
-2756
+2842
 @tab Till Paala
 @tab 
 @tab 
@@ -911,7 +911,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #54ff26">teilweise</span>
+<span style="background-color: #62ff28">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1083,7 +1083,7 @@ teilweise
 @item
 3 Allgemeine Eingabe und Ausgabe
 @*
-12717
+12715
 @tab Till Paala
 @tab 
 @tab 
@@ -1110,7 +1110,7 @@ teilweise
 @item
 4 Abstände
 @*
-10884
+10895
 @tab Till Paala
 @tab 
 @tab 
@@ -1127,7 +1127,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #d4ff37">teilweise</span>
+<span style="background-color: #e1ff39">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1137,7 +1137,7 @@ teilweise
 @item
 5 Standardeinstellungen verändern
 @*
-15581
+15610
 @tab Till Paala
 @tab 
 @tab 
@@ -1154,7 +1154,7 @@ teilweise (85 %)
 @ifhtml
 
 @html
-<span style="background-color: #c0ff34">teilweise</span>
+<span style="background-color: #cdfe36">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -1284,7 +1284,7 @@ ja
 @item
 1 @command{lilypond} starten
 @*
-5401
+5425
 @tab Reinhold Kainhofer
 @*
 Till Paala
@@ -1313,7 +1313,7 @@ teilweise
 @item
 2 Dateien mit @command{convert-ly} aktualisieren
 @*
-1865
+1866
 @tab Till Paala
 @tab 
 @tab 
@@ -1493,7 +1493,7 @@ ja
 @item
 Einleitung
 @*
-5816
+5815
 @tab Till Paala
 @*
 Michael Gerdau
@@ -1512,11 +1512,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #2cff20">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -1541,11 +1541,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #25fe1f">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @item
@@ -1580,7 +1580,7 @@ ja
 @item
 Gemeinschaft
 @*
-3004
+3522
 @tab Till Paala
 @*
 Michael Gerdau
@@ -1599,11 +1599,11 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #1fff1f">ja</span>
+<span style="background-color: #7dff2b">teilweise</span>
 @end html
 @end ifhtml
 @ifnothtml
-ja
+teilweise
 @end ifnothtml
 @tab vor-GDP
 @end multitable

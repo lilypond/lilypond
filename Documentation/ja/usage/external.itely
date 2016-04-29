@@ -249,7 +249,7 @@ Emacs は @file{lilypond-mode} を持ちます。@c
 配置するか、@file{~/.emacs} または @file{~/.emacs.el} に追記する必要があります。
 
 @file{~/.emacs} に以下の行を追記 (あるいは修正) して、@c
-ソース パス (例えば @file{~/site-lisp/) を @var{load-path} に@c
+ソース パス (例えば @file{~/site-lisp/}) を @var{load-path} に@c
 追加した方が良いかもしれません。
 
 @c any reason we do not advise:  (push "~/site-lisp" load-path)

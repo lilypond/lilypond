@@ -649,7 +649,7 @@ muestra las teclas que hay que pulsar para ayuda de los principiantes
 que están aprendiendo a leer música.
 
 @item
-@uref{http://www.adoromusicpub.com/, Adoro Music Publishing},
+@uref{https://twitter.com/adoromusic, Adoro Music Publishing},
 partituras de música sacra de alta calidad, disponibles para su
 descarga inmediata o en el formato tradicional de papel.
 
@@ -690,7 +690,7 @@ Abril de 2011
 
 @uref{http://www.linux-magazine.com,Linux Magazine} publica un
 artículo titulado
-@uref{http://www.linux-magazine.com/w3/issue/126/088-090_projects.pdf,
+@uref{http://www.linux-magazine.com/content/download/61706/482546/version/1/file/088-090_projects.pdf,
 Projects on the Move}.  Es un artículo introductorio sobre MuseScore,
 LilyPond y Chordii.  La autora Carla Schroder dice que @qq{LilyPond se
 maneja desde la línea de órdenes, pero no deje que la falta de una IGU
@@ -887,7 +887,7 @@ grande].}
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Snyder, @uref{http://www.adoromusicpub.com/, Adoro Music Publishing}
+@subsubheading Chris Snyder, @uref{https://twitter.com/adoromusic, Adoro Music Publishing}
 
 @qq{La forma en que se introduce la música para LilyPond me hace
 pensar de una manera más musical -- ha habido veces en que me he
@@ -1388,7 +1388,7 @@ un entorno construido sobre el lenguaje de restricciones
 para KDE 3.5 y como lilypond-KDE4 para KDE 4.1 solamente.
 
 @item
-@uref{http://noteedit.berlios.de,NoteEdit}, que importaba
+@uref{https://sourceforge.net/projects/noteedit.berlios/,NoteEdit}, que importaba
 @uref{http://www.makemusic.com/musicxml,MusicXML}, se ha escindido en
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml,NtEd}
 y @uref{http://canorus.org,Canorus}.

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: a43fe59b0205af99f84532935b103d0c064b4526
+Translation of GIT committish: 28add695953862ef4a87f9fbeadd1d02dc299244
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -14,35 +14,38 @@ Translation of GIT committish: a43fe59b0205af99f84532935b103d0c064b4526
 @chapter Cambiar los valores por omisión
 @translationof Changing defaults
 
-El objetivo del diseño de LilyPond es proporcionar la más alta calidad
-de los resultados, de forma predeterminada.  A pesar de ello, podría
-tener que cambiar este resultado predeterminado.  La disposición sobre
-el papel se controla a través de un amplio número de @q{botones e
-interruptores} llamados en su conjunto @q{propiedades}.  En el Manual
-de aprendizaje podemos encontrar una introducción en forma de tutorial
-al acceso y modificación de estas propiedades, véase
-@rlearning{Trucar la salida}.  Éste debería leerse en primer lugar.
-Este capítulo cubre un terreno similar, pero con un estilo más
-adecuado para un manual de referencia.
+El objetivo del diseño de LilyPond es proporcionar la más alta
+calidad de los resultados, de forma predeterminada.  A pesar de
+ello, podría tener que cambiar este resultado predeterminado.  La
+disposición sobre el papel se controla a través de un amplio
+número de @q{botones e interruptores} llamados en su conjunto
+@q{propiedades}.  En el Manual de aprendizaje podemos encontrar
+una introducción en forma de tutorial al acceso y modificación de
+estas propiedades, véase @rlearning{Trucar la salida}.  Éste
+debería leerse en primer lugar.  Este capítulo cubre un terreno
+similar, pero con un estilo más adecuado para un manual de
+referencia.
 
 @cindex Referencia de funcionamiento interno
 
-La descripción definitiva de los controles que están disponibles para
-su ajuste fino están en un documento aparte: la
-@rinternalsnamed{Top,Referencia de funcionamiento interno}.
-Dicho manual relaciona todas
-las variables, funciones y opciones que se encuentran disponibles en
-LilyPond.  Está escrito como un documento HTML, que se puede encontrar
+La descripción definitiva de los controles que están disponibles
+para su ajuste fino están en un documento aparte: la
+@rinternalsnamed{Top,Referencia de funcionamiento interno}.  Dicho
+manual relaciona todas las variables, funciones y opciones que se
+encuentran disponibles en LilyPond.  Está escrito como un
+documento HTML, que se puede encontrar
 @c leave the @uref as one long line.
 @uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/internals/,en@tie{}línea},
-pero que también va incluido en el paquete de la documentación de LilyPond.
+pero que también va incluido en el paquete de la documentación de
+LilyPond.
 
 Internamente, LilyPond utiliza el lenguaje Scheme (un dialecto de
 LISP) para aportar la infraestructura.  La sobreescritura de las
-decisiones de disposición da acceso efectivo a las interioridades del
-programa, lo que requiere código de Scheme como entrada.  Los
-elementos de Scheme se inauguran dentro de un archivo @file{.ly} con
-el símbolo de cuadradillo@tie{}@code{#}.@footnote{@rextend{Tutorial de Scheme}
+decisiones de disposición da acceso efectivo a las interioridades
+del programa, lo que requiere código de Scheme como entrada.  Los
+elementos de Scheme se inauguran dentro de un archivo @file{.ly}
+con el símbolo de
+cuadradillo@tie{}@code{#}.@footnote{@rextend{Tutorial de Scheme}
 contiene un breve tutorial sobre la introducción de números,
 listas, cadenas y símbolos en Scheme.}
 
@@ -159,10 +162,11 @@ Archivos instalados:
 @translationof Score - the master of all contexts
 
 Este es el contexto de notación del nivel más alto.  Ningún otro
-contexto puede contener a un contexto Score.  De forma predeterminada,
-el contexto Score maneja la administración de las indicaciones de
-compás y se asegura de que ciertos elementos como claves, compases y
-armaduras están siempre alineados entre los distintos pentagramas.
+contexto puede contener a un contexto Score.  De forma
+predeterminada, el contexto Score maneja la administración de las
+indicaciones de compás y se asegura de que ciertos elementos como
+claves, compases y armaduras están siempre alineados entre los
+distintos pentagramas.
 
 Se crea implícitamente una instancia del contexto Score cuando se
 procesa un bloque @code{\score @{@dots{}@}}.
@@ -174,27 +178,27 @@ procesa un bloque @code{\score @{@dots{}@}}.
 
 @strong{@emph{StaffGroup}}
 
-Agrupa pentagramas y añade un corchete en la parte izquierda, formando
-un grupo.  Las líneas divisorias de los pentagramas contenidos se
-conectan verticalmente.  @code{StaffGroup} sólo consiste en una
-colección de pentagramas, con un corchete delante y líneas divisorias
-de arriba a abajo.
+Agrupa pentagramas y añade un corchete en la parte izquierda,
+formando un grupo.  Las líneas divisorias de los pentagramas
+contenidos se conectan verticalmente.  @code{StaffGroup} sólo
+consiste en una colección de pentagramas, con un corchete delante
+y líneas divisorias de arriba a abajo.
 
 @strong{@emph{ChoirStaff}}
 
-Idéntico a @code{StaffGroup} excepto que las barras de compás de los
-pentagramas contenidos no se conectan verticalmente.
+Idéntico a @code{StaffGroup} excepto que las barras de compás de
+los pentagramas contenidos no se conectan verticalmente.
 
 @strong{@emph{GrandStaff}}
 
 Un grupo de pentagramas, con una llave en la parte izquierda que
-abarca el grupo.  Las barras de compás de los pentagramas contenidos
-se conectan verticalmente.
+abarca el grupo.  Las barras de compás de los pentagramas
+contenidos se conectan verticalmente.
 
 @strong{@emph{PianoStaff}}
 
-Igual que @code{GrandStaff}, pero contempla la posibilidad de poner el
-nombre del instrumento a la izquierda del sistema.
+Igual que @code{GrandStaff}, pero contempla la posibilidad de
+poner el nombre del instrumento a la izquierda del sistema.
 
 
 @node Contextos de nivel intermedio. Pentagramas
@@ -208,10 +212,9 @@ accidentales.  Puede contener contextos de @code{Voice}.
 
 @strong{@emph{RhythmicStaff}}
 
-Como @code{Staff}, pero para imprimir ritmos.  Al imprimir
-se ignoran las alturas de las notas; las notas se imprimen
-sobre una línea.  La salida de MIDI conserva las alturas
-sin modificación.
+Como @code{Staff}, pero para imprimir ritmos.  Al imprimir se
+ignoran las alturas de las notas; las notas se imprimen sobre una
+línea.  La salida de MIDI conserva las alturas sin modificación.
 
 @strong{@emph{TabStaff}}
 
@@ -256,13 +259,13 @@ voces en el mismo pentagrama.
 
 @strong{@emph{VaticanaVoice}}
 
-Lo mismo que @code{Voice}, excepto que está diseñado para tipografiar
-piezas en estilo gregoriano.
+Lo mismo que @code{Voice}, excepto que está diseñado para
+tipografiar piezas en estilo gregoriano.
 
 @strong{@emph{MensuralVoice}}
 
-Lo mismo que @code{Voice}, con modificaciones para el tipografiado de
-piezas en estilo mensural.
+Lo mismo que @code{Voice}, con modificaciones para el tipografiado
+de piezas en estilo mensural.
 
 @strong{@emph{Lyrics}}
 
@@ -275,8 +278,8 @@ El contexto de voz utilizado en una pauta de percusión.
 
 @strong{@emph{FiguredBass}}
 
-El contexto en que los objetos @code{BassFigure} se crean a partir de
-la entrada escrita en el modo @code{\figuremode}.
+El contexto en que los objetos @code{BassFigure} se crean a partir
+de la entrada escrita en el modo @code{\figuremode}.
 
 @strong{@emph{TabVoice}}
 
@@ -337,7 +340,7 @@ para crear partituras con muchos pentagramas:
   }
   \new Staff \relative {
     d''4 d
-}
+  }
 >>
 @end lilypond
 
@@ -492,12 +495,14 @@ consulte @ref{Duración automática de las sílabas}.
 
 Las propiedades de todos los contextos de un tipo en particular se
 pueden modificar dentro de un bloque @code{\layout} (con una
-sintaxis diferente), véase @ref{Cambiar todos los contextos del mismo tipo}.
+sintaxis diferente), véase
+@ref{Cambiar todos los contextos del mismo tipo}.
 
 Esta construcción también ofrece una forma de mantener las
 instrucciones de disposición separadas del contenido musical.  Si
 se va a modificar un solo contexto, debe usarse un bloque
-@code{\with}, véase @ref{Cambiar solamente un contexto determinado}.
+@code{\with}, véase
+@ref{Cambiar solamente un contexto determinado}.
 
 @seealso
 Manual de aprendizaje:
@@ -526,26 +531,32 @@ pentagramas con instrucciones @code{\change}, asociar letra con una
 voz mediante instrucciones @code{\lyricsto}, o cuando se añaden
 eventos musicales adicionales a un contexto anterior.
 
-Existe una excepción a esta regla general: precisamente uno de los
-contextos de @code{Voice} que están dentro de un contexto de
-@code{Staff} o de una construcción @code{<<@dots{}>>} persiste siempre
-hasta el final de, contexto de @code{Staff} circundante o la
-construcción @code{<<@dots{}>>}, incluso aunque puede haber períodos en
-que no tiene nada que hacer.  El contexto que persiste de esta forma
-será el primero que se encuentre en la primera construcción encerrada
-entre llaves @code{@{@dots{}@}}, ignorando cualquiera que se encuentre
-dentro de construcciones encerradas por ángulos dobles @code{<<@dots{}>>}.
+Existe una excepción a esta regla general: dentro de una
+construcción @code{@{@dots{}@}} (música secuencial), la noción que
+la construcción tiene del @qq{contexto actual} descenderá un nivel
+cada vez que un elemento de la secuencia finaliza en un
+subcontexto del contexto anterior.  Esto evita la creación espúrea
+de contextos implícitos en ciertas situaciones, pero significa que
+el primer contexto dentro del que se desciende, se va a mantener
+vivo hasta el final de la expresión.
+
+Como contraste, los contextos de una expresión hecha con la
+construcción @code{<<@dots{}>>} (música simultánea) no se
+prolongan, por lo que si una instrucción que crea un contexto se
+encierra en otro par de @code{<<@dots{}>>}, se impedirá que el
+contexto persista durante toda la duración de la secuencia
+@code{@{@dots{}@}} que lo contiene.
 
 Cualquier contexto se puede mantener vivo si nos aseguramos de que
 tiene algo que hacer en cualquier momento musical dado.  Los
-contextos de @code{Staff} se mantienen con vida si nos aseguramos de
-que una de sus voces se mantiene viva.  Una manera de hacerlo es
-añadir silencios de separación a una voz en paralelo con la música
-real.  Éstos deben añadirse a todos y cada uno de los contextos de
-@code{Voice} que se hayan de mantener vivos.  Si se van a usar
-esporádicamente varias voces, es más seguro mantenerlas todas vivas en
-lugar de tratar de confiar en las excepciones que hemos mencionado
-arriba.
+contextos de @code{Staff} se mantienen con vida si nos aseguramos
+de que una de sus voces se mantiene viva.  Una manera de hacerlo
+es añadir silencios de separación a una voz en paralelo con la
+música real.  Éstos deben añadirse a todos y cada uno de los
+contextos de @code{Voice} que se hayan de mantener vivos.  Si se
+van a usar esporádicamente varias voces, es más seguro mantenerlas
+todas vivas en lugar de tratar de confiar en las excepciones que
+hemos mencionado arriba.
 
 En el ejemplo siguiente, tanto la voz A como la voz B se mantienen
 vivas de esta manera durante la duración de la pieza:
@@ -584,10 +595,10 @@ music = {
 
 @cindex letra, alineación con melodía esporádica
 
-El ejemplo siguiente muestra cómo se puede escribir una línea melódica
-esporádica con letra utilizando este enfoque.  Por supuesto, en una
-situación real la melodía y el acompañamiento consistirían en varias
-secciones diferentes.
+El ejemplo siguiente muestra cómo se puede escribir una línea
+melódica esporádica con letra utilizando este enfoque.  Por
+supuesto, en una situación real la melodía y el acompañamiento
+consistirían en varias secciones diferentes.
 
 @lilypond[quote,verbatim]
 melody = \relative { a'4 a a a }
@@ -671,13 +682,13 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
 
 @c TODO Should this be Modifying engravers or Modifying contexts?
 
-Los contextos de notación (como @code{Score} y @code{Staff}) no sólo
-almacenan propiedades, también contienen «plug-ins» o complementos
-llamados @q{grabadores} que crean elementos de notación.  Por ejemplo,
-el contexto @code{Voice} contiene un grabador
-@code{Note_heads_engraver} que crea las cabezas de nota y el contexto
-@code{Staff} contiene un grabador @code{Key_engraver} que
-crea la armadura.
+Los contextos de notación (como @code{Score} y @code{Staff}) no
+sólo almacenan propiedades, también contienen «plug-ins» o
+complementos llamados @q{grabadores} que crean elementos de
+notación.  Por ejemplo, el contexto @code{Voice} contiene un
+grabador @code{Note_heads_engraver} que crea las cabezas de nota y
+el contexto @code{Staff} contiene un grabador @code{Key_engraver}
+que crea la armadura.
 
 Para ver una descripción completa de todos y cada uno de los
 complementos, consulte
@@ -697,9 +708,9 @@ Referencia de funcionamiento interno @expansion{} Traducción @expansion{} Conte
 relaciona los grabadores que se usan para ese contexto.
 
 
-Puede ser de utilidad jugar un poco con estos complementos.  Se hace
-iniciando un contexto nuevo con @code{\new} o @code{\context} y
-modificándolo:
+Puede ser de utilidad jugar un poco con estos complementos.  Se
+hace iniciando un contexto nuevo con @code{\new} o @code{\context}
+y modificándolo:
 
 @funindex \with
 
@@ -717,10 +728,10 @@ modificándolo:
 @end example
 
 @noindent
-donde los @dots{} deben ser el nombre de un grabador.  Aquí tenemos un
-ejemplo sencillo que suprime los grabadores
-@code{Time_signature_engraver} y @code{Clef_engraver} de un contexto
-@code{Staff}:
+donde los @dots{} deben ser el nombre de un grabador.  Aquí
+tenemos un ejemplo sencillo que suprime los grabadores
+@code{Time_signature_engraver} y @code{Clef_engraver} de un
+contexto @code{Staff}:
 
 @lilypond[quote,verbatim]
 <<
@@ -736,22 +747,23 @@ ejemplo sencillo que suprime los grabadores
 >>
 @end lilypond
 
-En el segundo pentagrama no hay indicación de compás ni clave.  Éste
-es un método bastante rudimentario de hacer que desaparezcan los
-objetos porque afecta a todo el pentagrama.  Este método también
-afecta al espaciado, lo que puede ser deseable o no serlo.  Se
-muestran métodos más sofisticados para quitar objetos en
+En el segundo pentagrama no hay indicación de compás ni clave.
+Éste es un método bastante rudimentario de hacer que desaparezcan
+los objetos porque afecta a todo el pentagrama.  Este método
+también afecta al espaciado, lo que puede ser deseable o no serlo.
+Se muestran métodos más sofisticados para quitar objetos en
 @rlearning{Visibilidad y color de los objetos}.
 
-El ejemplo siguiente muestra una aplicación práctica.  Normalmente las
-líneas divisorias y las indicaciones de compás están sincronizadas a
-lo largo de toda la partitura.  Lo hacen los grabadores
-@code{Timing_translator} y @code{Default_bar_line_engraver}.  Estos
-complementos mantienen al día la administración de las indicaciones de
-compás, posición dentro del compás, etc.  Moviendo estos grabadores
-desde el contexto de @code{Score} al de @code{Staff}, podemos
-conseguir una partitura en la que cada pentagrama tiene su propio
-compás independiente.
+El ejemplo siguiente muestra una aplicación práctica.  Normalmente
+las líneas divisorias y las indicaciones de compás están
+sincronizadas a lo largo de toda la partitura.  Lo hacen los
+grabadores @code{Timing_translator} y
+@code{Default_bar_line_engraver}.  Estos complementos mantienen al
+día la administración de las indicaciones de compás, posición
+dentro del compás, etc.  Moviendo estos grabadores desde el
+contexto de @code{Score} al de @code{Staff}, podemos conseguir una
+partitura en la que cada pentagrama tiene su propio compás
+independiente.
 
 @cindex polimétricas, partituras
 @cindex compases distintos al mismo tiempo
@@ -788,12 +800,12 @@ compás independiente.
 
 @knownissues
 
-El orden en que los grabadores se especifican es el orden en que se
-llaman para realizar su tarea de procesamiento.  Normalmente, el orden
-en que se especifican los grabadores no tiene importancia, pero en
-algunos casos especiales sí la tiene, por ejemplo donde un grabador
-escribe una propiedad y otro la lee, o donde un grabador crea un groby
-otro debe procesarlo.
+El orden en que los grabadores se especifican es el orden en que
+se llaman para realizar su tarea de procesamiento.  Normalmente,
+el orden en que se especifican los grabadores no tiene
+importancia, pero en algunos casos especiales sí la tiene, por
+ejemplo donde un grabador escribe una propiedad y otro la lee, o
+donde un grabador crea un groby otro debe procesarlo.
 
 Las siguientes ordenaciones son importantes:
 
@@ -808,8 +820,8 @@ antes del grabador @code{Script_column_engraver} de columnas de
 inscripciones,
 
 @item
-el @code{Timing_translator} debe ir antes del grabador de números de
-compás @code{Bar_number_engraver}.
+el @code{Timing_translator} debe ir antes del grabador de números
+de compás @code{Bar_number_engraver}.
 
 @end itemize
 
@@ -826,17 +838,18 @@ Archivos instalados:
 @cindex contexto, cambiar propiedades predeterminadas de
 
 Se pueden cambiar las propiedades de contexto y de grob con las
-instrucciones @code{\set} y @code{\override}, tal y como se describe
-en @ref{Modificar las propiedades}.  Estas instrucciones crean eventos
-musicales, haciendo que los cambios tengan efecto en el punto temporal
-en que la música se está procesando.
+instrucciones @code{\set} y @code{\override}, tal y como se
+describe en @ref{Modificar las propiedades}.  Estas instrucciones
+crean eventos musicales, haciendo que los cambios tengan efecto en
+el punto temporal en que la música se está procesando.
 
 Por contra, esta sección explica la forma de cambiarlos valores
-@emph{predeterminados} de las propiedades de contexto y de grob en el
-momento en que se crea el contexto.  Existen dos formas de hacerlo.
-Una modifica los valores predeterminados en todos los contextos de un
-tipo dado, y el otro modifica los valores predeterminados solamente en
-una instancia concreta de un contexto.
+@emph{predeterminados} de las propiedades de contexto y de grob en
+el momento en que se crea el contexto.  Existen dos formas de
+hacerlo.  Una modifica los valores predeterminados en todos los
+contextos de un tipo dado, y el otro modifica los valores
+predeterminados solamente en una instancia concreta de un
+contexto.
 
 @menu
 * Cambiar todos los contextos del mismo tipo::
@@ -852,19 +865,18 @@ una instancia concreta de un contexto.
 @funindex \context
 @funindex \layout
 
-Los ajustes de contexto predeterminados que se han de usar para la composición
-tipográfica dentro de @code{Score}, @code{Staff}, @code{Voice} y otros contextos
-se pueden especificar en un bloque @code{\context} dentro de cualquier
-bloque @code{\layout}.
+Los ajustes de contexto predeterminados que se han de usar para la
+composición tipográfica dentro de @code{Score}, @code{Staff},
+@code{Voice} y otros contextos se pueden especificar en un bloque
+@code{\context} dentro de cualquier bloque @code{\layout}.
 
 Los ajustes para la salida MIDI, al contrario que para la
 composición tipográfica, se tendrán que especificar aparte en
 bloques @code{\midi} (véase
 @ref{Definiciones de salida - estructura de los contextos}).
 
-El bloque @code{\layout} se debe colocar
-dentro del bloque @code{\score} al que se aplica, después de la
-música.
+El bloque @code{\layout} se debe colocar dentro del bloque
+@code{\score} al que se aplica, después de la música.
 
 @example
 \layout @{
@@ -883,7 +895,8 @@ Se pueden especificar los siguientes tipos de ajustes:
 
 @itemize
 @item
-Una instrucción @code{\override}, pero omitiendo el nombre del contexto
+Una instrucción @code{\override}, pero omitiendo el nombre del
+contexto
 
 @lilypond[quote,verbatim]
 \score {
@@ -919,8 +932,8 @@ Estableciendo una propiedad de contexto directamente
 @end lilypond
 
 @item
-Una instrucción predefinida tal como @code{\dynamicUp} o una expresión
-musical como @code{\accidentalStyle dodecaphonic}
+Una instrucción predefinida tal como @code{\dynamicUp} o una
+expresión musical como @code{\accidentalStyle dodecaphonic}
 
 @lilypond[quote,verbatim]
 \score {
@@ -969,16 +982,17 @@ StaffDefaults = \with {
 
 @end itemize
 
-Las instrucciones de ajuste de propiedades se pueden disponer dentro
-de un bloque @code{\layout} sin que estén encerradas en un bloque
-@code{\context}.  Tales ajustes son equivalentes a incluir las mismas
-instrucciones de ajuste de propiedades al comienzo de cada uno de los
-contextos del tipo especificado.  Si no se especifica ningún contexto,
-@emph{todos y cada uno} de los contextos del nivel inferior quedan
-afectados, véase @ref{Contextos del nivel más bajo. Voces}.  La
-sintaxis de una instrucción de ajuste de propiedades dentro de un
-bloque @code{\layout} es la misma que si la misma instrucción
-estuviera escrita en el propio flujo musical.
+Las instrucciones de ajuste de propiedades se pueden disponer
+dentro de un bloque @code{\layout} sin que estén encerradas en un
+bloque @code{\context}.  Tales ajustes son equivalentes a incluir
+las mismas instrucciones de ajuste de propiedades al comienzo de
+cada uno de los contextos del tipo especificado.  Si no se
+especifica ningún contexto, @emph{todos y cada uno} de los
+contextos del nivel inferior quedan afectados, véase
+@ref{Contextos del nivel más bajo. Voces}.  La sintaxis de una
+instrucción de ajuste de propiedades dentro de un bloque
+@code{\layout} es la misma que si la misma instrucción estuviera
+escrita en el propio flujo musical.
 
 @lilypond[quote,verbatim]
 \score {
@@ -1004,13 +1018,14 @@ estuviera escrita en el propio flujo musical.
 @cindex \with
 @funindex \with
 
-Las propiedades de contexto de una única instancia de contexto pueden
-cambiarse dentro de un bloque @code{\with}.  Todas las demás
-instancias de contexto del mismo tipo retienen los ajustes
-predeterminados que LilyPond tiene programados y que se modifican por
-parte de cualquier bloque @code{\layout} que se encuentre dentro del
-ámbito.  El bloque @code{\with} se debe situar inmediatamente después
-de las instrucciones @code{\new} @var{context-type}:
+Las propiedades de contexto de una única instancia de contexto
+pueden cambiarse dentro de un bloque @code{\with}.  Todas las
+demás instancias de contexto del mismo tipo retienen los ajustes
+predeterminados que LilyPond tiene programados y que se modifican
+por parte de cualquier bloque @code{\layout} que se encuentre
+dentro del ámbito.  El bloque @code{\with} se debe situar
+inmediatamente después de las instrucciones @code{\new}
+@var{context-type}:
 
 @example
 \new Staff \with @{ [ajustes de contexto para esta instancia de contexto solamente] @}
@@ -1102,8 +1117,8 @@ Una instrucción predefinida tal como @code{\dynamicUp}
 @unnumberedsubsubsec Orden de precedencia
 @translationof Order of precedence
 
-El valor de una propiedad que se aplica en un momento determinado se
-determina de la siguiente forma:
+El valor de una propiedad que se aplica en un momento determinado
+se determina de la siguiente forma:
 
 @itemize
 @item
@@ -1111,12 +1126,14 @@ si está en efecto una instrucción @code{\override} o @code{\set}
 dentro del flujo musical, se usa dicho valor,
 
 @item
-de lo contrario, se usa el valor predeterminado tomado de un enunciado
-@code{\with} en las instrucciones de inicio del contexto,
+de lo contrario, se usa el valor predeterminado tomado de un
+enunciado @code{\with} en las instrucciones de inicio del
+contexto,
 
 @item
-de lo contrario, se usa el valor tomado del bloque @code{\context} más
-reciente que corresponda dentro de los bloques @code{\layout} o @code{\midi},
+de lo contrario, se usa el valor tomado del bloque @code{\context}
+más reciente que corresponda dentro de los bloques @code{\layout}
+o @code{\midi},
 
 @item
 de lo contrario se usa el valor predeterminado que LilyPond lleva
@@ -1156,14 +1173,15 @@ Referencia de la notación:
 @funindex denies
 
 Los contextos específicos, como @code{Staff} y @code{Voice}, están
-construidos a partir de bloques sencillos.  Es posible crear nuevos
-tipos de contextos con combinaciones distintas de añadidos grabadores.
+construidos a partir de bloques sencillos.  Es posible crear
+nuevos tipos de contextos con combinaciones distintas de añadidos
+grabadores.
 
 El siguiente ejemplo muestra cómo construir un tipo diferente de
 contexto de @code{Voice} partiendo de cero.  Será parecido a
 @code{Voice}, pero imprime solamente cabezas centradas en forma de
-barra inclinada.  Se puede usar para indicar improvisación en piezas
-de jazz,
+barra inclinada.  Se puede usar para indicar improvisación en
+piezas de jazz,
 
 @lilypond[quote,ragged-right]
 \layout { \context {
@@ -1190,8 +1208,8 @@ de jazz,
 @end lilypond
 
 
-Estos ajustes se definen dentro de un bloque @code{\context} que a su
-vez está dentro de un bloque @code{\layout},
+Estos ajustes se definen dentro de un bloque @code{\context} que a
+su vez está dentro de un bloque @code{\layout},
 
 @example
 \layout @{
@@ -1204,7 +1222,8 @@ vez está dentro de un bloque @code{\layout},
 En el siguiente análisis, la entrada de ejemplo que se muestra debe ir
 en el lugar de los puntos suspensivos @dots{} del fragmento anterior.
 
-En primer lugar es necesario definir un nombre para el nuevo contexto:
+En primer lugar es necesario definir un nombre para el nuevo
+contexto:
 
 @example
 \name ImproVoice
@@ -1285,9 +1304,9 @@ Al juntarlo todo, obtenemos
 
 @funindex \accepts
 Los contextos dan lugar a jerarquías.  Queremos poner el contexto
-@code{ImproVoice} dentro del contexto @code{Staff}, igual que los contextos
-de voz normales.  Por tanto, modificamos la definición de
-@code{Staff} con la instrucción @code{\accepts} (acepta),
+@code{ImproVoice} dentro del contexto @code{Staff}, igual que los
+contextos de voz normales.  Por tanto, modificamos la definición
+de @code{Staff} con la instrucción @code{\accepts} (acepta),
 
 @example
 \context @{
@@ -1296,12 +1315,41 @@ de voz normales.  Por tanto, modificamos la definición de
 @}
 @end example
 
-@funindex \denies
-Lo opuesto a @code{\accepts} (acepta) es @code{\denies} (deniega), lo
-que a veces se necesita cuando se están reutilizando definiciones de
-contexto existentes.
+@funindex \inherit-acceptability
+Con frecuencia, al reutilizar una definición de contexto
+existente, el contexto resultante se puede usar en cualquier lugar
+donde el contexto original hubiera podido hacerlo.
 
-Ponemos ambos dentro de un bloque @code{\layout}, como
+@example
+\layout @{
+  @dots{}
+  \inherit-acceptability @var{to} @var{from}
+@}
+@end example
+
+@noindent
+consigue que tengamos contextos del tipo @var{to} aceptados por
+todos los contextos que asimismo aceptan @var{from}.  Por ejemplo,
+usar
+
+@example
+\layout @{
+  @dots{}
+  \inherit-acceptability "ImproVoice" "Voice"
+@}
+@end example
+
+@noindent
+añade un @code{\accepts} para @code{ImproVoice} tanto a la
+definición de @code{Staff} como a la de @code{RhythmicStaff}.
+
+@funindex \denies
+Lo opuesto a @code{\accepts} (acepta) es @code{\denies} (deniega),
+lo que a veces se necesita cuando se están reutilizando
+definiciones de contexto existentes.
+
+Organizar las piezas requeridas dentro de un bloque @code{\layout}
+nos deja con
 
 @example
 \layout @{
@@ -1309,10 +1357,7 @@ Ponemos ambos dentro de un bloque @code{\layout}, como
     \name ImproVoice
     @dots{}
   @}
-  \context @{
-    \Staff
-    \accepts "ImproVoice"
-  @}
+  \inherit-acceptability "ImproVoice" "Voice"
 @}
 @end example
 
@@ -1353,15 +1398,15 @@ Referencia de funcionamiento interno:
 @funindex \accepts
 @funindex \denies
 
-Los contextos se disponen en un sistema normalmente desde arriba hacia
-abajo en el orden en que se encuentran en el archivo de entrada.
-Cuando los contextos se anidan unos dentro de otros, el contexto
-exterior incluye a los contextos anidados tal y como se especifica en
-el archivo de entrada, siempre y cuando los contextos interiores estén
-incluidos en la lista @qq{accepts} del contexto externo.  Los
-contextos anidados que no está nincluidos en la lista @qq{accepts} del
-contexto externo se recolocan debajo del contexto externo en lugar de
-anidarse dentro de él.
+Los contextos se disponen en un sistema normalmente desde arriba
+hacia abajo en el orden en que se encuentran en el archivo de
+entrada.  Cuando los contextos se anidan unos dentro de otros, el
+contexto exterior incluye a los contextos anidados tal y como se
+especifica en el archivo de entrada, siempre y cuando los
+contextos interiores estén incluidos en la lista @qq{accepts} del
+contexto externo.  Los contextos anidados que no está nincluidos
+en la lista @qq{accepts} del contexto externo se recolocan debajo
+del contexto externo en lugar de anidarse dentro de él.
 
 La lista @qq{accepts} de un contexto se puede cambiar con las
 instrucciones @code{\accepts} (acepta) o @code{\denies} (niega).
@@ -1407,11 +1452,11 @@ añadir un @code{StaffGroup} al contexto @code{GrandStaff}:
 }
 @end lilypond
 
-@code{\denies} se usa principalmente cuando un contexto nuevo se está
-basando en otro, pero los anidamientos requeridos difieren.  Por
-ejemplo, el contexto @code{VaticanaStaff} está basado en el contexto
-@code{Staff}, pero con el contexto @code{VaticanaVoice} sustituido por
-el contexto @code{Voice} en la lista @qq{accepts}.
+@code{\denies} se usa principalmente cuando un contexto nuevo se
+está basando en otro, pero los anidamientos requeridos difieren.
+Por ejemplo, el contexto @code{VaticanaStaff} está basado en el
+contexto @code{Staff}, pero con el contexto @code{VaticanaVoice}
+sustituido por el contexto @code{Voice} en la lista @qq{accepts}.
 
 
 @cindex contextos implícitos
@@ -1504,10 +1549,8 @@ Archivos instalados:
 Supongamos que queremos mover la indicación de digitación del
 fragmento siguiente:
 
-@lilypond[quote,relative=2,verbatim]
-c-2
-\stemUp
-f
+@lilypond[quote,fragment,verbatim]
+c''-2
 @end lilypond
 
 Si hace una visita a la documentación en busca de instrucciones de
@@ -1522,14 +1565,14 @@ Referencia de funcionamiento interno: @rinternals{Fingering}.
 
 @ifnothtml
 La referencia del programador se encuentra disponible en forma de
-documento HTML.  Se recomienda mucho que lo lea en la forma HTML, bien
-en línea o bien descargando los archivos de la documentación HTML.
-Esta sección sería mucho más difícil de entender si está utilizando el
-manual en formato PDF.
+documento HTML.  Se recomienda mucho que lo lea en la forma HTML,
+bien en línea o bien descargando los archivos de la documentación
+HTML.  Esta sección sería mucho más difícil de entender si está
+utilizando el manual en formato PDF.
 @end ifnothtml
 
-Siga el enlace que lleva a @rinternals{Fingering}.  Al principio de la
-página, puede ver
+Siga el enlace que lleva a @rinternals{Fingering}.  Al principio
+de la página, puede ver
 
 @quotation
 Los objetos de digitación se crean por parte de:
@@ -1537,7 +1580,8 @@ Los objetos de digitación se crean por parte de:
 @end quotation
 
 Siguiendo los enlaces relacionados dentro de la referencia del
-programa, podemos seguir el flujo de información dentro del programa:
+programa, podemos seguir el flujo de información dentro del
+programa:
 
 @itemize
 
@@ -1553,23 +1597,23 @@ El tipo de evento musical @code{fingering-event} está descrito en
 Expresiones musicales con el nombre de @rinternals{FingeringEvent}
 @end itemize
 
-Este camino se recorre en contra de la corriente de información del
-programa: comienza por la salida y acaba en el evento de entrada.
-También podríamos haber empezado por un evento de la entrada, y leído
-siguiendo el flujo de información terminando en su caso en el objeto
-(u objetos) de la salida.
+Este camino se recorre en contra de la corriente de información
+del programa: comienza por la salida y acaba en el evento de
+entrada.  También podríamos haber empezado por un evento de la
+entrada, y leído siguiendo el flujo de información terminando en
+su caso en el objeto (u objetos) de la salida.
 
-La referencia del programa también se puede examinar como un documento
-normal.  Contiene capítulos que tratan de
+La referencia del programa también se puede examinar como un
+documento normal.  Contiene capítulos que tratan de
 @ifhtml
 @rinternals{Music definitions},
 @end ifhtml
 @ifnothtml
 @code{Music definitions}
 @end ifnothtml
-de la @rinternals{Translation}, y del @rinternals{Backend}.  Cada uno
-de los capítulos relaciona todas las definiciones utilizadas y todas
-las propiedades que se pueden ajustar.
+de la @rinternals{Translation}, y del @rinternals{Backend}.  Cada
+uno de los capítulos relaciona todas las definiciones utilizadas y
+todas las propiedades que se pueden ajustar.
 
 
 @node Interfaces de la presentación
@@ -1581,13 +1625,14 @@ las propiedades que se pueden ajustar.
 @cindex grob
 
 La página HTML que pudimos ver en la sección anterior describe el
-objeto de presentación llamado @rinternals{Fingering}.  Dicho objeto
-es un símbolo dentro de la partitura.  Tiene propiedades que guardan
-números (como grosores y direcciones), pero también punteros a objetos
-relacionados.  Un objeto de presentación también se llama un
-@emph{Grob}, que es una abreviatura de Graphical Object (objeto
-gráfico).  Para ver más detalles acerca de los objetos gráficos o
-Grobs, consulte @rinternals{grob-interface}.
+objeto de presentación llamado @rinternals{Fingering}.  Dicho
+objeto es un símbolo dentro de la partitura.  Tiene propiedades
+que guardan números (como grosores y direcciones), pero también
+punteros a objetos relacionados.  Un objeto de presentación
+también se llama un @emph{Grob}, que es una abreviatura de
+Graphical Object (objeto gráfico).  Para ver más detalles acerca
+de los objetos gráficos o Grobs, consulte
+@rinternals{grob-interface}.
 
 La página dedicada a @code{Fingering} relaciona las definiciones del
 objeto @code{Fingering}.  Por ejemplo, la página dice
@@ -1603,25 +1648,25 @@ lo que significa que el número se mantendrá a una distancia de al
 menos 0.5 de la cabeza de la nota.
 
 
-Cada objeto de presentación puede tener varias funciones como elemento
-notacional o tipográfico.  Por ejemplo, el objeto de digitación
-Fingering tiene los siguientes aspectos
+Cada objeto de presentación puede tener varias funciones como
+elemento notacional o tipográfico.  Por ejemplo, el objeto de
+digitación Fingering tiene los siguientes aspectos
 
 @itemize
 @item
-Su tamaño es independiente del espaciado horizontal, al contrario de
-las ligaduras o las barras de las figuras.
+Su tamaño es independiente del espaciado horizontal, al contrario
+de las ligaduras o las barras de las figuras.
 
 @item
 Es un elemento de texto.  Casi seguro que es un texto muy corto.
 
 @item
-este elemento de texto se tipografía con un tipo de letra, no como las
-ligaduras o las barras de las figuras.
+este elemento de texto se tipografía con un tipo de letra, no como
+las ligaduras o las barras de las figuras.
 
 @item
-Horizontalmente, el centro del símbolo se debe alinear con el centro
-de la cabeza de la nota.
+Horizontalmente, el centro del símbolo se debe alinear con el
+centro de la cabeza de la nota.
 
 @item
 Verticalmente, el símbolo se coloca cerca de la nota y del pentagrama.
@@ -1647,8 +1692,8 @@ Este objeto contempla los siguientes interfaces:
 Al pulsar sobre cualquiera de los enlaces nos desplazaremos a la
 página del respectivo interfaz del objeto.  Cada interfaz tiene un
 cierto número de propiedades.  Algunas de ellas no son para que el
-usuario las pueda ajustar (@q{Propiedades internas}), pero otras sí se
-pueden modificar.
+usuario las pueda ajustar (@q{Propiedades internas}), pero otras
+sí se pueden modificar.
 
 Hemos estado hablando de @emph{el} objeto @code{Fingering}, pero
 realmente esto no significa mucho.  El archivo de inicialización
@@ -1679,9 +1724,9 @@ realmente esto no significa mucho.  El archivo de inicialización
 @end example
 
 @noindent
-Como podemos ver, el objeto @code{Fingering} no es más que un montón
-de valores de variables, y la página web de la Referencia de
-funcionamiento interno se genera directamente a partir de esta
+Como podemos ver, el objeto @code{Fingering} no es más que un
+montón de valores de variables, y la página web de la Referencia
+de funcionamiento interno se genera directamente a partir de esta
 definición.
 
 
@@ -1691,16 +1736,14 @@ definición.
 
 Recordemos que queríamos cambiar la posición del @b{2} en
 
-@lilypond[quote,relative=2,verbatim]
-c-2
-\stemUp
-f
+@lilypond[quote,fragment,verbatim]
+c''-2
 @end lilypond
 
-Puesto que el @b{2} se encuentra colocado verticalmente sobre su nota,
-tenemos que negociar con el interfaz asociado con esta colocación.
-Esto se hace usando @code{side-position-interface}.  La página que
-describe este interface dice:
+Puesto que el @b{2} se encuentra colocado verticalmente sobre su
+nota, tenemos que negociar con el interfaz asociado con esta
+colocación.  Esto se hace usando @code{side-position-interface}.
+La página que describe este interface dice:
 
 @quotation
 @code{side-position-interface}
@@ -1714,16 +1757,16 @@ derecha, encima o debajo?)
 @cindex relleno
 @cindex padding (relleno)
 @noindent
-Debajo de esta descripción, la variable @code{padding} (relleno) se
-describe como
+Debajo de esta descripción, la variable @code{padding} (relleno)
+se describe como
 
 @quotation
 @table @code
 @item padding
 (dimensión, en espacios de pentagrama)
 
-Añadir esta cantidad de espacio adicional entre objetos que están unos
-junto a otros.
+Añadir esta cantidad de espacio adicional entre objetos que están
+unos junto a otros.
 @end table
 @end quotation
 
@@ -1746,9 +1789,10 @@ c-2
 f
 @end lilypond
 
-En este caso, el contexto de este truco es @code{Voice}.  Este hecho
-se puede deducir también a partir de la referencia del programa, ya
-que la página dedicada al añadido @rinternals{Fingering_engraver} dice
+En este caso, el contexto de este truco es @code{Voice}.  Este
+hecho se puede deducir también a partir de la referencia del
+programa, ya que la página dedicada al añadido
+@rinternals{Fingering_engraver} dice
 
 @quotation
 El grabador Fingering_engraver es parte de los contextos: @dots{}
@@ -1802,21 +1846,23 @@ Preguntas aún sin respuesta
 @translationof Overview of modifying properties
 
 Cada contexto es responsable de la creación de ciertos tipos de
-objetos gráficos.  Los ajustes que se usan para imprimir estos objetos
-también se almacenan por contexto.  Mediante la modificación de estos
-ajustes, se puede alterar la apariencia de los objetos.
+objetos gráficos.  Los ajustes que se usan para imprimir estos
+objetos también se almacenan por contexto.  Mediante la
+modificación de estos ajustes, se puede alterar la apariencia de
+los objetos.
 
 Existen dos tipos diferentes de propiedades almacenadas en los
-contextos: las propiedades de contexto y las propiedades de grob.  Las
-propiedades de contexto son propiedades que se aplican al contexto
-como un todo y controlan la forma en que el propio contexto se
-imprime.  Por contra, las propiedades de grob se aplican a los tipos
-de grob específicos que se imprimirán dentro del contexto.
+contextos: las propiedades de contexto y las propiedades de grob.
+Las propiedades de contexto son propiedades que se aplican al
+contexto como un todo y controlan la forma en que el propio
+contexto se imprime.  Por contra, las propiedades de grob se
+aplican a los tipos de grob específicos que se imprimirán dentro
+del contexto.
 
-Las instrucciones @code{\set} y @code{\unset} se usan para cambiar los
-valores de las propiedades de contexto.  Las instrucciones
-@code{\override} y @code{\revert} se usan para cambiar los valores de
-las propiedades de grob.
+Las instrucciones @code{\set} y @code{\unset} se usan para cambiar
+los valores de las propiedades de contexto.  Las instrucciones
+@code{\override} y @code{\revert} se usan para cambiar los valores
+de las propiedades de grob.
 
 @ignore
 La sintaxis de esto es
@@ -1926,10 +1972,10 @@ Referencia de funcionamiento interno:
 @rinternals{PropertySet}.
 
 @knownissues
-El «back-end» o motor de salida no es muy estricto en la comprobación
-de tipos de las propiedades de objetos.  Las referencias cíclicas en
-valores Scheme de propiedades pueden producir cuelgues o salidas
-abruptas, o las dos cosas.
+El «back-end» o motor de salida no es muy estricto en la
+comprobación de tipos de las propiedades de objetos.  Las
+referencias cíclicas en valores Scheme de propiedades pueden
+producir cuelgues o salidas abruptas, o las dos cosas.
 
 
 @node La instrucción set
@@ -1941,30 +1987,31 @@ abruptas, o las dos cosas.
 @cindex cambiar propiedades
 
 Cada contexto puede tener distintas @emph{propiedades}, variables
-contenidas dentro de ese contexto.  Se pueden cambiar mientras dura el
-paso de interpretación.  Se consigue insertando la instrucción
-@code{\set} dentro de la música:
+contenidas dentro de ese contexto.  Se pueden cambiar mientras
+dura el paso de interpretación.  Se consigue insertando la
+instrucción @code{\set} dentro de la música:
 
 @example
 \set @var{contexto}.@var{propiedad} = #@var{valor}
 @end example
 
-@var{valor} es un objeto de Scheme, razón por la que va precedido del
-carácter almohadilla,@tie{}@code{#}.
+@var{valor} es un objeto de Scheme, razón por la que va precedido
+del carácter almohadilla,@tie{}@code{#}.
 
-El nombre de las propiedades de contexto suele ir en minúsculas con
-mayúscula en medio.  Controlan sobre todo la traducción de la música a
-la notación, p.ej. @code{localAlterations} (para determinar si hay
-que impriir alteraciones o no), o @code{measurePosition} (para
-determinar cuándo hay que imprimir una línea divisoria).  El valor de
-las propiedades de contexto puede modifcarse con el tiempo durante la
-interpretación de la música; un ejemplo obvio es
-@code{measurePosition}.  Las propiedades de contexto se modifican
-mediante la instrucción @code{\set}.
+El nombre de las propiedades de contexto suele ir en minúsculas
+con mayúscula en medio.  Controlan sobre todo la traducción de la
+música a la notación, p.ej. @code{localAlterations} (para
+determinar si hay que impriir alteraciones o no), o
+@code{measurePosition} (para determinar cuándo hay que imprimir
+una línea divisoria).  El valor de las propiedades de contexto
+puede modifcarse con el tiempo durante la interpretación de la
+música; un ejemplo obvio es @code{measurePosition}.  Las
+propiedades de contexto se modifican mediante la instrucción
+@code{\set}.
 
-Por ejemplo, los silencios multicompás se combinan en un solo compás
-si el valor de la propiedad de contexto @code{skipBars} se establece a
-@code{#t} (verdadero):
+Por ejemplo, los silencios multicompás se combinan en un solo
+compás si el valor de la propiedad de contexto @code{skipBars} se
+establece a @code{#t} (verdadero):
 
 @lilypond[quote,fragment,verbatim]
 R1*2
@@ -1988,14 +2035,15 @@ contexto actual de nivel más bajo (normalmente @code{ChordNames},
 }
 @end lilypond
 
-El cambio se aplica @q{al vuelo}, mientras dura la música, de forma
-que el ajuste sólo afecta al segundo grupo de corcheas.
+El cambio se aplica @q{al vuelo}, mientras dura la música, de
+forma que el ajuste sólo afecta al segundo grupo de corcheas.
 
 Observe que el contexto del nivel más bajo no siempre contiene la
-propiedad que querríamos modificar: por ejemplo, intentar ajustar el
-valor de la propiedad @code{skipBars} del contexto predeterminado del
-nivel más bajo, que en este caso es @code{Voice}, no tendrá ningún
-efecto, porque skipBars es una propiedad del contexto @code{Score}.
+propiedad que querríamos modificar: por ejemplo, intentar ajustar
+el valor de la propiedad @code{skipBars} del contexto
+predeterminado del nivel más bajo, que en este caso es
+@code{Voice}, no tendrá ningún efecto, porque skipBars es una
+propiedad del contexto @code{Score}.
 
 @lilypond[quote,fragment,verbatim]
 R1*2
@@ -2035,8 +2083,8 @@ not be altered by an unset in an enclosed context:
 @end lilypond
 
 Como @code{\set}, el argumento @var{contexto} no se tiene que
-especificar para un contexto del nivel más bajo, por lo que los dos
-enunciados
+especificar para un contexto del nivel más bajo, por lo que los
+dos enunciados
 
 @example
 \set Voice.autoBeaming = ##t
@@ -2048,8 +2096,9 @@ son equivalentes si el contexto inferior en curso es @code{Voice}.
 
 
 @cindex \once
-Los ajustes que se aplican solamente a un único paso de tiempo se
-pueden escribir con @code{\once}, por ejemplo en
+Los ajustes con @code{\set} o @code{\unset} que se aplican
+solamente a un único paso de tiempo se pueden escribir con
+@code{\once}, por ejemplo en
 
 @lilypond[quote,fragment,verbatim]
 c''4
@@ -2059,8 +2108,8 @@ c''4
 @end lilypond
 
 En el manual de Referencia de funcionamiento interno hay una
-descripción completa de todas las propiedades de contexto disponibles,
-consulte
+descripción completa de todas las propiedades de contexto
+disponibles, consulte
 @ifhtml
 @rinternals{Tunable context properties}.
 @end ifhtml
@@ -2081,13 +2130,14 @@ Referencia de funcionamiento interno:
 @cindex propiedades de grob
 @funindex \override
 
-Existe un tipo especial de propiedad de contexto: la descripción de
-los grobs.  Las decscripciones de los grobs reciben un nombre en
-@code{MayúsculasDeCamello} (empezando en mayúscula).  Contienen los
-@q{ajustes predeterminados} para un tipo particular de grob, en forma
-de lista asociativa.  Consulte @file{scm/define-grobs.scm} para
-ver los ajustes de cada descripción de grob.  Las descripciones de
-grob se modifican con @code{\override}.
+Existe un tipo especial de propiedad de contexto: la descripción
+de los grobs.  Las decscripciones de los grobs reciben un nombre
+en @code{MayúsculasDeCamello} (empezando en mayúscula).  Contienen
+los @q{ajustes predeterminados} para un tipo particular de grob,
+en forma de lista asociativa.  Consulte
+@file{scm/define-grobs.scm} para ver los ajustes de cada
+descripción de grob.  Las descripciones de grob se modifican con
+@code{\override}.
 
 La sintaxis de la instrucción @code{\override} es
 
@@ -2163,9 +2213,9 @@ Por ejemplo,
 }
 @end lilypond
 
-Los efectos de @code{\override} y @code{\revert} se aplican a todos
-los grobs del contexto afectado partiendo del momento actual y hacia
-adelante:
+Los efectos de @code{\override} y @code{\revert} se aplican a
+todos los grobs del contexto afectado partiendo del momento actual
+y hacia adelante:
 
 @lilypond[quote,verbatim]
 <<
@@ -2185,8 +2235,8 @@ adelante:
 @funindex \once
 @cindex sobreescritura para un solo momento
 
-Se puede usar @code{\once} con @code{\override} para afectar solamente
-al instante de tiempo actual:
+Se puede usar @code{\once} con @code{\override} o @code{\revert}
+para afectar solamente al instante de tiempo actual:
 
 @lilypond[quote,verbatim]
 <<
@@ -2326,11 +2376,12 @@ pero esto no funciona:
 Para ver una introducción a la sintaxis y los usos de la instrucción tweak,
 consulte @rlearning{Métodos de trucaje}.
 
-Si se colocan varios elementos similares en el mismo momento musical,
-la instrucción @code{\override} no se puede usar para modificar uno
-solo de ellos: aquí es donde se debe usar la instrucción
-@code{\tweak}.  Entre los elementos que pueden aparecer más de una vez
-en el mismo momento musical están los siguientes:
+Si se colocan varios elementos similares en el mismo momento
+musical, la instrucción @code{\override} no se puede usar para
+modificar uno solo de ellos: aquí es donde se debe usar la
+instrucción @code{\tweak}.  Entre los elementos que pueden
+aparecer más de una vez en el mismo momento musical están los
+siguientes:
 
 @c TODO expand to include any further uses of \tweak
 @itemize
@@ -2344,8 +2395,8 @@ en el mismo momento musical están los siguientes:
 
 @cindex acorde, modificación de una nota
 
-En este ejemplo se modifican el color de una cabeza y el tipo de otra,
-dentro del mismo acorde:
+En este ejemplo se modifican el color de una cabeza y el tipo de
+otra, dentro del mismo acorde:
 
 @lilypond[verbatim,fragment,quote]
 < c''
@@ -2377,17 +2428,17 @@ partir de eventos dentro del @code{EventChord}:
 <\tweak color #red c'' e''>4
 @end lilypond
 
-La instrucción @code{\tweak} sencilla no se puede usar para modificar
-ningún objeto que no se haya creado directamente a partir de la entrada.
-Concretamente, no afecta a las plicas, barras automáticas ni
-alteraciones, porque éstos se generan posteriormente por
-parte de objetos de presentación @code{NoteHead}
-más que por elementos musicales del
-flujo de entrada.
+La instrucción @code{\tweak} sencilla no se puede usar para
+modificar ningún objeto que no se haya creado directamente a
+partir de la entrada.  Concretamente, no afecta a las plicas,
+barras automáticas ni alteraciones, porque éstos se generan
+posteriormente por parte de objetos de presentación
+@code{NoteHead} más que por elementos musicales del flujo de
+entrada.
 
-Tales objetos de presentación creados indirectamente se pueden trucar
-usando la forma de la instrucción @code{\tweak} en que el nombre
-del grob se especifica de forma explícita:
+Tales objetos de presentación creados indirectamente se pueden
+trucar usando la forma de la instrucción @code{\tweak} en que el
+nombre del grob se especifica de forma explícita:
 
 @lilypond[fragment,verbatim,quote]
 \tweak Stem.color #red
@@ -2414,11 +2465,12 @@ c'
 f''
 @end lilypond
 
-El flujo musical que se genera a partir de una sección de un archivo
-de entrada (incluido cualquier elemento insertado automáticamente)
-puede examinarse, véase @rextend{Presentación de las expresiones musicales}.
-Esto puede ser de utilidad en la determinación de lo que
-puede modificarse por medio de una instrucción @code{\tweak}.
+El flujo musical que se genera a partir de una sección de un
+archivo de entrada (incluido cualquier elemento insertado
+automáticamente) puede examinarse, véase
+@rextend{Presentación de las expresiones musicales}.  Esto puede
+ser de utilidad en la determinación de lo que puede modificarse
+por medio de una instrucción @code{\tweak}.
 
 @seealso
 Manual de aprendizaje:
@@ -2433,9 +2485,9 @@ Manual de extensión:
 @cindex control, trucar puntos de
 
 No se puede usar la instrucción @code{\tweak} para modificar los
-puntos de control de una sola de varias ligaduras de unión dentro de
-un acorde, aparte de la primera que se encuentre en el código de
-entrada.
+puntos de control de una sola de varias ligaduras de unión dentro
+de un acorde, aparte de la primera que se encuentre en el código
+de entrada.
 
 
 @node set frente a override
@@ -2452,40 +2504,44 @@ cuenta la jerarquía de contextos: las propiedades no establecidas en
 el propio contexto presentan los valores del contexto padre
 respectivo.
 
-El valor y la duración en el tiempo de las propiedades de contexto son
-dinámicos y están disponibles solamente cuando la música se está
-interpretando o @q{iterando}.  En el momento de la creación del
-contexto, se inicializan las propiedades a partir de la definición de
-contexto correspondiente y las posibles modificaciones de contexto.
-Después de esto, cualquier cambio se obtiene a través de instrucciones
-de establecimiento de propiedades dentro de la propia música.
+El valor y la duración en el tiempo de las propiedades de contexto
+son dinámicos y están disponibles solamente cuando la música se
+está interpretando o @q{iterando}.  En el momento de la creación
+del contexto, se inicializan las propiedades a partir de la
+definición de contexto correspondiente y las posibles
+modificaciones de contexto.  Después de esto, cualquier cambio se
+obtiene a través de instrucciones de establecimiento de
+propiedades dentro de la propia música.
 
-Ahora bien, las definiciones de grob (objetos gráficos) son una clase
-especial de propiedades de contexto.  Dado que su estructura,
-mantenimiento y utilización es distinta de las propiedades de contexto
-ordinarias, se accede a ellas con un conjunto de instrucciones
-diferente, y se estudian por separado dentro de la documentación.
+Ahora bien, las definiciones de grob (objetos gráficos) son una
+clase especial de propiedades de contexto.  Dado que su
+estructura, mantenimiento y utilización es distinta de las
+propiedades de contexto ordinarias, se accede a ellas con un
+conjunto de instrucciones diferente, y se estudian por separado
+dentro de la documentación.
 
-A diferencia de las propiedades de contexto normales, las definiciones
-de grob están subdivididas en propiedades de grob.  Un @qq{grob}
-(objeto gráfico) se crea normalmente por parte de un grabador en el
-momento de la interpretación de una expresión musical y recibe sus
-propiedades iniciales de la definición de grob en curso del contexto
-del grabador.  El grabador (u otras partes del @q{backend} de
-LilyPond) pueden después añadir o modificar propiedades del grob, pero
-ello no afecta a la definición de grob del contexto.
+A diferencia de las propiedades de contexto normales, las
+definiciones de grob están subdivididas en propiedades de grob.
+Un @qq{grob} (objeto gráfico) se crea normalmente por parte de un
+grabador en el momento de la interpretación de una expresión
+musical y recibe sus propiedades iniciales de la definición de
+grob en curso del contexto del grabador.  El grabador (u otras
+partes del @q{backend} de LilyPond) pueden después añadir o
+modificar propiedades del grob, pero ello no afecta a la
+definición de grob del contexto.
 
 Lo que conocemos como @q{propiedades de grob} en el contexto del
 trucaje a nivel de usuario son en realidad las propiedades de la
-definición de grob de un contexto.  A diferencia de las propiedades de
-contexto normales, las definiciones de grob mantienen la contabilidad
-necesaria para seguir la pista de sus partes, las propiedades de grob
-individuales (e incluso subpropiedades de éstos), de forma separada,
-de forma que es posible definir dichas partes dentro de contextos
-diferentes y hacer que la definición de grob en su conjunto, en el
-momento de la creación del grob, se monte a partir de las piezas
-proporcionadas en diferentes contextos entre el contexto actual y sus
-contextos padre.
+definición de grob de un contexto.  A diferencia de las
+propiedades de contexto normales, las definiciones de grob
+mantienen la contabilidad necesaria para seguir la pista de sus
+partes, las propiedades de grob individuales (e incluso
+subpropiedades de éstos), de forma separada, de forma que es
+posible definir dichas partes dentro de contextos diferentes y
+hacer que la definición de grob en su conjunto, en el momento de
+la creación del grob, se monte a partir de las piezas
+proporcionadas en diferentes contextos entre el contexto actual y
+sus contextos padre.
 
 Las definiciones de grob se manipulan usando @code{\override} y
 @code{\revert} y tienen un nombre que empieza con una letra mayúscula
@@ -2507,10 +2563,10 @@ o son de un tipo en particular, respectivamente.
 @subsection Modificación de las listas-A
 @translationof Modifying alists
 
-Ciertas propiedades configurables por parte del usuario se representan
-internamente como @emph{listas-A} (listas asociativas), que almacenan
-duplas de @emph{claves} y @emph{valores}.  La estructura de una
-lista-A es la siguiente:
+Ciertas propiedades configurables por parte del usuario se
+representan internamente como @emph{listas-A} (listas
+asociativas), que almacenan duplas de @emph{claves} y
+@emph{valores}.  La estructura de una lista-A es la siguiente:
 
 @example
 '((@var{clave1} . @var{valor1})
@@ -2520,19 +2576,18 @@ lista-A es la siguiente:
 @end example
 
 Si una lista-A es una propiedad de un grob o una variable de
-@code{\paper}, sus claves se pueden modificar individualmente sin que
-afecte a las otras claves.
+@code{\paper}, sus claves se pueden modificar individualmente sin
+que afecte a las otras claves.
 
 Por ejemplo, para reducir el espacio entre pentagramas adyacentes
 dentro de un grupo, use la propiedad @code{staff-staff-spacing}
-del grob @code{StaffGrouper}.  La propiedad es una lista-A con cuatro
-claves: @code{basic-distance} (distancia básica),
-@code{minimum-distance} (distancia mínima), @code{padding} (relleno)
-y @code{stretchability} (ampliabilidad).
-Los ajustes estándar para esta propiedad
-se relacionan en la sección
-@qq{Backend} de la Referencia de Funcionamiento Interno
-(véase @rinternals{StaffGrouper}):
+del grob @code{StaffGrouper}.  La propiedad es una lista-A con
+cuatro claves: @code{basic-distance} (distancia básica),
+@code{minimum-distance} (distancia mínima), @code{padding}
+(relleno) y @code{stretchability} (ampliabilidad).  Los ajustes
+estándar para esta propiedad se relacionan en la sección
+@qq{Backend} de la Referencia de Funcionamiento Interno (véase
+@rinternals{StaffGrouper}):
 
 @example
 '((basic-distance . 9)
@@ -2541,11 +2596,11 @@ se relacionan en la sección
   (stretchability . 5))
 @end example
 
-Una forma de acercar los pentagramas entre sí es reducir el valor de
-la clave @code{basic-distance} (@code{9}) para que se corresponda con
-el valor de @code{minimum-distance} (@code{7}).  Para modificar una
-única clave de forma individual, utilice una @emph{declaración
-anidada}:
+Una forma de acercar los pentagramas entre sí es reducir el valor
+de la clave @code{basic-distance} (@code{9}) para que se
+corresponda con el valor de @code{minimum-distance} (@code{7}).
+Para modificar una única clave de forma individual, utilice una
+@emph{declaración anidada}:
 
 @lilypond[quote,verbatim]
 % default space between staves
@@ -2566,16 +2621,16 @@ anidada}:
 
 La utilización de una declaración anidada actualiza la clave
 especificada (como @code{basic-distance} en el ejemplo anterior)
-sin alterar ninguna
-de las otras claves que ya se habían establecido para la misma
-propiedad.
+sin alterar ninguna de las otras claves que ya se habían
+establecido para la misma propiedad.
 
-Ahora, supongamos que deseamos que los pentagramas estén tan próximos
-como sea posible sin que se superpongan.  La manera más sencilla de
-hacerlo es establecer las cuatro claves de la lista-A a cero.  Sin
-embargo, no es necesario escribir cuatro declaraciones anidadas, una
-por cada clave.  En lugar de eso, se puede redefinir completamente la
-propiedad con una sola declaración, como una lista-A:
+Ahora, supongamos que deseamos que los pentagramas estén tan
+próximos como sea posible sin que se superpongan.  La manera más
+sencilla de hacerlo es establecer las cuatro claves de la lista-A
+a cero.  Sin embargo, no es necesario escribir cuatro
+declaraciones anidadas, una por cada clave.  En lugar de eso, se
+puede redefinir completamente la propiedad con una sola
+declaración, como una lista-A:
 
 @lilypond[quote,verbatim]
 \new PianoStaff \with {
@@ -2591,12 +2646,12 @@ propiedad con una sola declaración, como una lista-A:
 @end lilypond
 
 Observe que cualquier clave que no haya sido relacionada
-explícitamente en la definición de la lista-A, será reiniciada a sus
-valores @emph{predeterminados si no se han fijado}.  En el caso de
-@code{staff-staff-spacing}, el valor de cualquier clave no fijada se
-reiniciaría a cero (excepto @code{stretchability}, que toma el valor
-de @code{basic-distance} si no se fija).  Así, las dos declaraciones
-siguientes son equivalentes:
+explícitamente en la definición de la lista-A, será reiniciada a
+sus valores @emph{predeterminados si no se han fijado}.  En el
+caso de @code{staff-staff-spacing}, el valor de cualquier clave no
+fijada se reiniciaría a cero (excepto @code{stretchability}, que
+toma el valor de @code{basic-distance} si no se fija).  Así, las
+dos declaraciones siguientes son equivalentes:
 
 @example
 \override StaffGrouper.staff-staff-spacing =
@@ -2611,19 +2666,20 @@ siguientes son equivalentes:
 
 Una consecuencia de esto (posiblemente no intencionada) es la
 eliminación de cualquier valor estándar que se establezca en un
-archivo de inicio y que se carga cada vez que se compila un archivo de
-entrada.  En el ejemplo anterior, los ajustes estándar para
-@code{padding} y @code{minimum-distance} (definidos en
+archivo de inicio y que se carga cada vez que se compila un
+archivo de entrada.  En el ejemplo anterior, los ajustes estándar
+para @code{padding} y @code{minimum-distance} (definidos en
 @file{scm/define-grobs.scm}) se reinician a sus valores
-predeterminados si no se han fijado (cero para las dos claves).  La
-definición de una propiedad o variable como una lista-A (de cualquier
-tamaño) siempre reinicia todos los valores de clave no establecidos a
-sus valores predeterminados si no se han fijado.  Ano ser que este sea
-el resultado deseado, es más seguro actualizar los valores de clave
-individualmente con una declaración anidada.
+predeterminados si no se han fijado (cero para las dos claves).
+La definición de una propiedad o variable como una lista-A (de
+cualquier tamaño) siempre reinicia todos los valores de clave no
+establecidos a sus valores predeterminados si no se han fijado.
+Ano ser que este sea el resultado deseado, es más seguro
+actualizar los valores de clave individualmente con una
+declaración anidada.
 
-@warning{Las declaraciones anidadas no funcionan para las listas-A de
-propiedades de contexto (como @code{beamExceptions},
+@warning{Las declaraciones anidadas no funcionan para las listas-A
+de propiedades de contexto (como @code{beamExceptions},
 @code{keyAlterations}, @code{timeSignatureSettings}, etc.).  Estas
 propiedades sólo se pueden modificar redefiniéndolas completamente
 como listas-A.}
@@ -2638,6 +2694,7 @@ como listas-A.}
 * Modos de entrada::
 * Dirección y posición::
 * Distancias y medidas::
+* Dimensiones::
 * Propiedades del símbolo del pentagrama::
 * Objetos de extensión::
 * Visibilidad de los objetos::
@@ -2651,34 +2708,37 @@ como listas-A.}
 @translationof Input modes
 
 La forma en que se interpreta la notación contenida dentro de un
-archivo de entrada, está determinada por el modo de entrada en curso.
+archivo de entrada, está determinada por el modo de entrada en
+curso.
 
-@strong{Modo de acordes}
+@subsubsubheading Modo de acordes
 
 Se activa con la instrucción @code{\chordmode} y produce que la
-entrada se interprete con al sintaxis de la notación de acordes, véase
-@ref{Notación de acordes}.  Los acordes se imprimen como notas sobre un
-pentagrama.
+entrada se interprete con al sintaxis de la notación de acordes,
+véase @ref{Notación de acordes}.  Los acordes se imprimen como
+notas sobre un pentagrama.
 
 El modo de acordes se activa también con la instrucción
-@code{\chords}.  Esto crea también un contexto @code{ChordNames} nuevo
-y produce que el código que sigue se interprete con la sintaxis de la
-notación de acordes y se imprima como nombres de acorde dentro del
-contexto @code{ChordNames}, véase @ref{Impresión de los nombres de acorde}.
+@code{\chords}.  Esto crea también un contexto @code{ChordNames}
+nuevo y produce que el código que sigue se interprete con la
+sintaxis de la notación de acordes y se imprima como nombres de
+acorde dentro del contexto @code{ChordNames}, véase @ref{Impresión
+de los nombres de acorde}.
 
-@strong{Modo de percusión}
+@subsubsubheading Modo de percusión
 
-Se activa con la instrucción @code{\drummode} y produce que el código
-de entrada se interprete con la sintaxis de la notación de percusión,
-véase @ref{Notación básica de percusión}.
+Se activa con la instrucción @code{\drummode} y produce que el
+código de entrada se interprete con la sintaxis de la notación de
+percusión, véase @ref{Notación básica de percusión}.
 
 El modo de percusión también se activa con la instrucción
-@code{\drums}.  También crea un contexto @code{DrumStaff} nuevo y hace
-que el código que sigue se interprete con la sintaxis de la notación
-de percusión y se imprima como símbolos de percusión sobre un
-pentagrama de percusión, véase @ref{Notación básica de percusión}.
+@code{\drums}.  También crea un contexto @code{DrumStaff} nuevo y
+hace que el código que sigue se interprete con la sintaxis de la
+notación de percusión y se imprima como símbolos de percusión
+sobre un pentagrama de percusión, véase @ref{Notación básica de
+percusión}.
 
-@strong{Modo de cifras}
+@subsubsubheading Modo de cifras
 
 Se activa con la instrucción @code{\figuremode} y hace que el código
 de entrada se interprete con la sintaxis del bajo cifrado, véase
@@ -2691,7 +2751,7 @@ con la sintaxis del bajo cifrado y se imprima como símbolos de
 bajo cifrado dentro del contexto @code{FiguredBass}, véase
 @ref{Introducción al bajo cifrado}.
 
-@strong{Modos de traste y tablatura}
+@subsubsubheading Modos de traste y tablatura
 
 No existen modos de entrada especiales para introducir símbolos de
 trastes y de tablatura.
@@ -2700,29 +2760,30 @@ Para crear diagramas de trastes, escriba las notas o acordes en el
 modo de notas e imprímalos dentro de un contexto @code{TabStaff},
 véase @ref{Tablaturas predeterminadas}.
 
-Para crear diagramas de trastes encima de un pentagrama, escríbalos
-como elementos de marcado encima de las notas utilizando la
-instrucción @code{\fret-diagram}, véase @ref{Marcas de diagramas de trastes}.
+Para crear diagramas de trastes encima de un pentagrama,
+escríbalos como elementos de marcado encima de las notas
+utilizando la instrucción @code{\fret-diagram}, véase @ref{Marcas
+de diagramas de trastes}.
 
-@strong{Modo de letra}
+@subsubsubheading Modo de letra
 
-Se activa con la instrucción @code{\lyricmode}, y hace que la entrada
-se interprete como sílabas de la letra de la canción con duraciones
-opcionales y modificadores de letra asociados, véase @ref{Música vocal}.
+Se activa con la instrucción @code{\lyricmode}, y hace que la
+entrada se interprete como sílabas de la letra de la canción con
+duraciones opcionales y modificadores de letra asociados, véase
+@ref{Música vocal}.
 
 El modo de letra también se habilita con la instrucción
-@code{\addlyrics}.  Esto también crea un contexto @code{Lyrics} nuevo
-y una instrucción @code{\lyricsto} implícita que asocia la letra que
-viene a continuación con la música precedente.
+@code{\addlyrics}.  Esto también crea un contexto @code{Lyrics}
+nuevo y una instrucción @code{\lyricsto} implícita que asocia la
+letra que viene a continuación con la música precedente.
 
-@strong{Modo de marcado}
+@subsubsubheading Modo de marcado
 
-Se activa con la instrucción @code{\markup}, y hace que la entrada se
-interprete con la sintaxis del marcado, véase @ref{Text markup commands}.
+Se activa con la instrucción @code{\markup}, y hace que la entrada
+se interprete con la sintaxis del marcado, véase @ref{Text markup
+commands}.
 
-@c silly work-around for texinfo broken-ness
-@c (@strong{Note...} causes a spurious cross-reference in Info)
-@b{Modo de notas}
+@subsubsubheading Modo de notas
 
 Es el modo predeterminado o se puede activar con la instrucción
 @code{\notemode}.  La entrada se interpreta como alturas, duraciones,
@@ -2731,38 +2792,23 @@ marcado, etc. y se imprime como notación musical sobre un pentagrama.
 Normalmente no es necesario especificar el modo de notas de forma
 explícita, pero puede ser útil hacerlo en ciertas situaciones, por
 ejemplo si estamos en el modo de letra, en el modo de acordes o en
-otro modo y queremos insertar algo que solamente se puede hacer con la
-sintaxis del modo de notas.
-
-Por ejemplo, para insertar indicaciones dinámicas para las estrofas de
-una pieza coral es necesario entrar en el modo de notas para poder
-interpretar dichas indicaciones:
-
-@lilypond[verbatim,relative=2,quote]
-{ c4 c4 c4 c4 }
-\addlyrics {
-  \notemode{\set stanza = \markup{ \dynamic f 1. } }
-  To be sung loudly
-}
-\addlyrics {
-  \notemode{\set stanza = \markup{ \dynamic p 2. } }
-  To be sung quietly
-}
-@end lilypond
+otro modo y queremos insertar algo que solamente se puede hacer
+con la sintaxis del modo de notas.
 
 
 @node Dirección y posición
 @subsection Dirección y posición
 @translationof Direction and placement
 
-Al tipografiar música, la dirección y colocación de muchos elementos
-es cuestión de elección.  Por ejemplo, las plicas de las notas se
-pueden dirigir hacia arriba o hacia abajo; la letra, las indicaciones
-dinámicas y otras marcas expresivas se pueden colocar encima o debajo
-del pentagrama; el texto se pude alinear a la izquierda, a la derecha
-o centrado; etc.  La mayoría de estas elecciones pueden dejarse que
-LilyPond las determine automáticamente, pero en ciertos casos puede
-ser deseable forzar una dirección o colocación concreta.
+Al tipografiar música, la dirección y colocación de muchos
+elementos es cuestión de elección.  Por ejemplo, las plicas de las
+notas se pueden dirigir hacia arriba o hacia abajo; la letra, las
+indicaciones dinámicas y otras marcas expresivas se pueden colocar
+encima o debajo del pentagrama; el texto se pude alinear a la
+izquierda, a la derecha o centrado; etc.  La mayoría de estas
+elecciones pueden dejarse que LilyPond las determine
+automáticamente, pero en ciertos casos puede ser deseable forzar
+una dirección o colocación concreta.
 
 @menu
 * Indicadores de dirección de las articulaciones::
@@ -2773,21 +2819,22 @@ ser deseable forzar una dirección o colocación concreta.
 @unnumberedsubsubsec Indicadores de dirección de las articulaciones
 @translationof Articulation direction indicators
 
-De forma predeterminada algunas direcciones siempre son hacia arriba o
-siempre hacia abajo (p. ej. los matices o el calderón), mientras que
-otras cosas pueden alternar entre arriba y abajo en función de la
-dirección de las plicas (como las ligaduras o los acentos).
+De forma predeterminada algunas direcciones siempre son hacia
+arriba o siempre hacia abajo (p. ej. los matices o el calderón),
+mientras que otras cosas pueden alternar entre arriba y abajo en
+función de la dirección de las plicas (como las ligaduras o los
+acentos).
 
 @c TODO Add table showing these
 
-Se puede sobreescribir la acción predeterminada mediante el prefijado
-de la articulación por un @emph{indicacor de dirección}.  Están
-disponibles tres indicadores de dirección: @code{^} (que significa
-@qq{arriba}), @code{_} (que significa @qq{abajo}) o @code{-} (que
-significa @qq{usar la dirección predeterminada}).  El indicador de
-dirección se puede normalmente omitir, en cuyo caso se supone el
-indicador predeterminado @code{-}, pero se necesita un indicador de
-dirección @strong{siempre} antes de:
+Se puede sobreescribir la acción predeterminada mediante el
+prefijado de la articulación por un @emph{indicacor de dirección}.
+Están disponibles tres indicadores de dirección: @code{^} (que
+significa @qq{arriba}), @code{_} (que significa @qq{abajo}) o
+@code{-} (que significa @qq{usar la dirección predeterminada}).
+El indicador de dirección se puede normalmente omitir, en cuyo
+caso se supone el indicador predeterminado @code{-}, pero se
+necesita un indicador de dirección @strong{siempre} antes de:
 
 @itemize
 @item las instrucciones @code{\tweak}
@@ -2816,15 +2863,16 @@ Estas indicaciones afectan sólo a la nota siguiente.
 La posición o dirección de muchos objetos de presentación está
 controlada por la propiedad @code{direction}.
 
-El valor de la propiedad @code{direction} se puede establecer al valor
-@code{1}, con el significado de @qq{hacia arriba} o @qq{encima}, o a
-@w{@code{-1}}, con el significado de @qq{hacia abajo} o @qq{debajo}.
-Se pueden usar los símbolos @code{UP} y @code{DOWN} en sustitución de
-@code{1} y @w{@code{-1}} respectivamente.  La dirección predeterminada
-se puede especificar estableciendo @code{direction} a @code{0} ó a
-@code{CENTER}.  De forma alternativa, en muchos casos existen
-instrucciones predefinidas para especificar la dirección.  Todas ellas
-son de la forma:
+El valor de la propiedad @code{direction} se puede establecer al
+valor @code{1}, con el significado de @qq{hacia arriba} o
+@qq{encima}, o a @w{@code{-1}}, con el significado de @qq{hacia
+abajo} o @qq{debajo}.  Se pueden usar los símbolos @code{UP} y
+@code{DOWN} en sustitución de @code{1} y @w{@code{-1}}
+respectivamente.  La dirección predeterminada se puede especificar
+estableciendo @code{direction} a @code{0} ó a @code{CENTER}.  De
+forma alternativa, en muchos casos existen instrucciones
+predefinidas para especificar la dirección.  Todas ellas son de la
+forma:
 
 @example
 @code{\xxxUp}, @code{\xxxDown} o @code{\xxxNeutral}
@@ -2832,16 +2880,19 @@ son de la forma:
 
 @noindent
 donde @code{\xxxNeutral} significa @qq{utilizar la dirección
-predeterminada}.  Véase @rlearning{Objetos interiores al pentagrama}.
+predeterminada}.  Véase @rlearning{Objetos interiores al
+pentagrama}.
 
-En alguna que otra ocasión como en el arpegio, el
-valor de la propiedad @code{direction} puede especificar si el objeto se debe
-colocar a la izquierda o a la derecha del objeto padre.  En este caso
-@w{@code{-1}} ó @code{LEFT} significan @qq{a la izquierda} y @code{1}
-ó @code{RIGHT} significan @qq{a la derecha}.  @code{0} ó @code{CENTER}
-significan @qq{utilizar la dirección predeterminada}.
+En alguna que otra ocasión como en el arpegio, el valor de la
+propiedad @code{direction} puede especificar si el objeto se debe
+colocar a la izquierda o a la derecha del objeto padre.  En este
+caso @w{@code{-1}} ó @code{LEFT} significan @qq{a la izquierda} y
+@code{1} ó @code{RIGHT} significan @qq{a la derecha}.  @code{0} ó
+@code{CENTER} significan @qq{utilizar la dirección
+predeterminada}.
 
-Estas indicaciones afectan a todas las notas hasta que son canceladas.
+Estas indicaciones afectan a todas las notas hasta que son
+canceladas.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -2854,9 +2905,9 @@ Estas indicaciones afectan a todas las notas hasta que son canceladas.
 }
 @end lilypond
 
-En música polifónica, en general es mejor especificar una voz explícita
-que cambiar la dirección de un objeto.  Para ver más información,
-véase @ref{Varias voces}.
+En música polifónica, en general es mejor especificar una voz
+explícita que cambiar la dirección de un objeto.  Para ver más
+información, véase @ref{Varias voces}.
 
 @seealso
 Manual de aprendizaje:
@@ -2878,46 +2929,50 @@ Referencia de la notación:
 @funindex \in
 @funindex \pt
 
-Las distancias en LilyPond son de dos tipos: absolutas y escaladas.
+Las distancias en LilyPond son de dos tipos: absolutas y
+escaladas.
 
-Las distancias absolutas se usan para especificar márgenes, sangrados
-y otros detalles de diseño de página, y de forma predeterminada se
-especifican en milímetros.  Las distancias se pueden especificar en
-otras unidades escribiendo después de la cifra indicativa de la
-cantidad, @code{\mm}, @code{\cm}, @code{\in}@tie{}(pulgadas), o
-@code{\pt}@tie{}(puntos, 1/72.27 pulgadas).  Las distancias de diseño
-de página se pueden especificar también en unidades escalables (véase
-el párrafo siguiente) adjuntando @code{\staff-space} a la cantidad.
-La disposición de página se describe en detalle en
-@ref{Disposición de la página}.
+Las distancias absolutas se usan para especificar márgenes,
+sangrados y otros detalles de diseño de página, y de forma
+predeterminada se especifican en milímetros.  Las distancias se
+pueden especificar en otras unidades escribiendo después de la
+cifra indicativa de la cantidad, @code{\mm}, @code{\cm},
+@code{\in}@tie{}(pulgadas), o @code{\pt}@tie{}(puntos, 1/72.27
+pulgadas).  Las distancias de diseño de página se pueden
+especificar también en unidades escalables (véase el párrafo
+siguiente) adjuntando @code{\staff-space} a la cantidad.  La
+disposición de página se describe en detalle en @ref{Disposición
+de la página}.
 
 Las distancias escaladas siempre se especifican en unidades de un
-espacio del pentagrama o, más raramente, medio espacio del pentagrama.
-El espacio de pentagrama es la distancia entre dos líneas del
-pentagrama adyacentes.  El valor predeterminado se puede cambiar
-globalmente fijando el tamaño global del pentagrama, o se puede
-sobreescribir localmente cambiando la propiedad @code{staff-space} del
-objeto @code{StaffSymbol}.  Las distancias escaladas se escalan
-automáticamente con cualquier cambio al tamaño global del pentagrama o
-a la propiedad @code{staff-space} del objeto @code{StaffSymbol}, pero
-las fuentes tipográficas se escalan solamente con los cambios
-efectuados al tamaño global del pentagrama.  Así, el tamaño global del
-pentagrama posibilita la fácil variación del tamaño general de una
-partitura impresa.  Para ver los métodos de establecimiento del tamaño
-global del pentagrama, véase @ref{Establecer el tamaño del pentagrama}.
+espacio del pentagrama o, más raramente, medio espacio del
+pentagrama.  El espacio de pentagrama es la distancia entre dos
+líneas del pentagrama adyacentes.  El valor predeterminado se
+puede cambiar globalmente fijando el tamaño global del pentagrama,
+o se puede sobreescribir localmente cambiando la propiedad
+@code{staff-space} del objeto @code{StaffSymbol}.  Las distancias
+escaladas se escalan automáticamente con cualquier cambio al
+tamaño global del pentagrama o a la propiedad @code{staff-space}
+del objeto @code{StaffSymbol}, pero las fuentes tipográficas se
+escalan solamente con los cambios efectuados al tamaño global del
+pentagrama.  Así, el tamaño global del pentagrama posibilita la
+fácil variación del tamaño general de una partitura impresa.  Para
+ver los métodos de establecimiento del tamaño global del
+pentagrama, véase @ref{Establecer el tamaño del pentagrama}.
 
 @funindex magstep
 
-Si se necesita dibujar sólo una sección de una partitura a una escala
-distinta, por ejemplo una sección ossia o una nota al pie, no se puede
-simplemente cambiar el tamaño global del pentagrama porque esto
-afectaría a toda la partitura.  En tales casos, el cambio de tamaño se
-hace sobreescribiendo tanto la propiedad @code{staff-space} de
-@code{StaffSymbol} como el tamaño de las fuentes tipográficas.  Está a
-nuestra disposición una función de Scheme, @code{magstep}, para
-convertir de un cambio en el tamaño de la fuente al cambio equivalente
-en @code{staff-space}.  Para ver una explicación y un ejemplo de su
-utilización, consulte @rlearning{Longitud y grosor de los objetos}.
+Si se necesita dibujar sólo una sección de una partitura a una
+escala distinta, por ejemplo una sección ossia o una nota al pie,
+no se puede simplemente cambiar el tamaño global del pentagrama
+porque esto afectaría a toda la partitura.  En tales casos, el
+cambio de tamaño se hace sobreescribiendo tanto la propiedad
+@code{staff-space} de @code{StaffSymbol} como el tamaño de las
+fuentes tipográficas.  Está a nuestra disposición una función de
+Scheme, @code{magstep}, para convertir de un cambio en el tamaño
+de la fuente al cambio equivalente en @code{staff-space}.  Para
+ver una explicación y un ejemplo de su utilización, consulte
+@rlearning{Longitud y grosor de los objetos}.
 
 @seealso
 Manual de aprendizaje:
@@ -2926,6 +2981,38 @@ Manual de aprendizaje:
 Referencia de la notación:
 @ref{Disposición de la página},
 @ref{Establecer el tamaño del pentagrama}.
+
+
+@node Dimensiones
+@subsection Dimensiones
+@translationof Dimensions
+
+@cindex dimensiones
+@cindex caja circundante
+
+Las dimensiones de un objeto gráfico especifican las posiciones de
+los límites izquierdo y derecho, así como los límites inferior y
+superior de las cajas limítrofes de los objetos como distancias a
+partir del punto de referencia del objeto en unidades de espacios
+de pentagrama.  Estas posiciones se codifican frecuentemente como
+dos parejas de valores de Scheme.  Por ejemplo, la instrucción de
+marcado de texto @code{\with-dimensions} toma tres argumentos, de
+los cuales los dos primeros son una pareja de Scheme que da las
+posiiciones de los bordes izquierdo y derecho y otra pareja de
+Scheme que da las posiciones de los límites inferior y superior:
+
+@example
+\with-dimensions #'(-5 . 10) #'(-3 . 15) @var{arg}
+@end example
+
+Esto especifica una caja circundante para @var{arg} con su límite
+izquierdo en -5, su límite derecho en 10, el inferior en -3 y el
+superior e 15, todos ellos medidos a partir del punto de
+referencia del objeto en unidades de espacios de pentagrama.
+
+@seealso
+Referencia de la notación:
+@ref{Distancias y medidas}.
 
 
 @node Propiedades del símbolo del pentagrama
@@ -2941,15 +3028,15 @@ Referencia de la notación:
 @c      is used in a snippet to thicken centre line.
 @c      If retained, add @ref to here in 1.6.2  -td
 
-Se puede definir al mismo tiempo la posición vertical de las líneas de
-la pauta y el número de líneas de la misma.  Como muestra el siguiente
-ejemplo, las posiciones de las notas no están influidas por las
-posiciones de las líneas de la pauta.
+Se puede definir al mismo tiempo la posición vertical de las
+líneas de la pauta y el número de líneas de la misma.  Como
+muestra el siguiente ejemplo, las posiciones de las notas no están
+influidas por las posiciones de las líneas de la pauta.
 
 @warning{La propiedad @code{'line-positions} sobreescribe a la
-propiedad @code{'line-count}.  El número de líneas de la pauta está
-definido implícitamente por el número de elementos de la lista de
-valores de @code{'line-positions}.}
+propiedad @code{'line-count}.  El número de líneas de la pauta
+está definido implícitamente por el número de elementos de la
+lista de valores de @code{'line-positions}.}
 
 @lilypond[verbatim,quote]
 \new Staff \with {
@@ -2958,9 +3045,9 @@ valores de @code{'line-positions}.}
 \relative { a4 e' f b | d1 }
 @end lilypond
 
-Se puede modificar la anchura de la pauta.  Las unidades son espacios
-de pentagrama.  El espaciado de los objetos dentro del pentagrama no
-resulta afectado por este ajuste.
+Se puede modificar la anchura de la pauta.  Las unidades son
+espacios de pentagrama.  El espaciado de los objetos dentro del
+pentagrama no resulta afectado por este ajuste.
 
 @lilypond[verbatim,quote]
 \new Staff \with {
@@ -2976,16 +3063,17 @@ resulta afectado por este ajuste.
 
 Muchos objetos de notación musical abarcan varias notas o incluso
 varios compases.  Son ejemplos los crescendi, trinos, corchetes de
-grupo especial y corchetes de primera y segunda vez.  Estos objetos se
-llaman @qq{spanners} u «objetos de extensión», y tienen propiedades
-especiales para controlar su apariencia y comportamiento.  Algunas de
-estas propiedades son comunes a todos los objetos de extensión; otras
-se limitan a un subconjunto de los extensores.
+grupo especial y corchetes de primera y segunda vez.  Estos
+objetos se llaman @qq{spanners} u «objetos de extensión», y tienen
+propiedades especiales para controlar su apariencia y
+comportamiento.  Algunas de estas propiedades son comunes a todos
+los objetos de extensión; otras se limitan a un subconjunto de los
+extensores.
 
 Todos los objetos de extensión contemplan el interface
-@code{spanner-interface}.  Algunos, básicamente aquellos que trazan
-una línea recta entre los dos objetos, contemplan también el interface
-@code{line-spanner-interface}.
+@code{spanner-interface}.  Algunos, básicamente aquellos que
+trazan una línea recta entre los dos objetos, contemplan también
+el interface @code{line-spanner-interface}.
 
 @menu
 * Uso del spanner-interface::
@@ -3030,33 +3118,36 @@ Works not at all for:
 
 @end ignore
 
-@lilypond[verbatim,quote,relative=2]
-a~ a
-a
+@lilypond[verbatim,quote,fragment]
+a'~ a'
+a'
 % increase the length of the tie
 -\tweak minimum-length #5
-~ a
+~ a'
 @end lilypond
 
-@lilypond[verbatim,quote,relative=2]
-a1
-\compressFullBarRests
-R1*23
-% increase the length of the rest bar
-\once \override MultiMeasureRest.minimum-length = #20
-R1*23
-a1
+@lilypond[verbatim,quote]
+\relative \compressMMRests {
+  a'1
+  R1*23
+  % increase the length of the rest bar
+  \once \override MultiMeasureRest.minimum-length = #20
+  R1*23
+  a1
+}
 @end lilypond
 
-@lilypond[verbatim,quote,relative=2]
-a \< a a a \!
-% increase the length of the hairpin
-\override Hairpin.minimum-length = #20
-a \< a a a \!
+@lilypond[verbatim,quote]
+\relative {
+  a' \< a a a \!
+  % increase the length of the hairpin
+  \override Hairpin.minimum-length = #20
+  a \< a a a \!
+}
 @end lilypond
 
-Esta sobreescritura se puede usar también para aumentar la longitud de
-las ligaduras de expresión y de fraseo:
+Esta sobreescritura se puede usar también para aumentar la
+longitud de las ligaduras de expresión y de fraseo:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -3073,12 +3164,12 @@ las ligaduras de expresión y de fraseo:
 @end lilypond
 
 Para algunos objetos de presentación, la propiedad
-@code{minimum-length} es efectiva sólo si se llama explícitamente al
-procedimiento @code{set-spacing-rods}.  Para hacerlo, se debe fijar la
-propiedad @code{springs-and-rods} al valor
-@code{ly:spanner::set-spacing-rods}.  Por ejemplo, la longitud mínima
-de un glissando no tiene efecto a no ser que se establezca la
-propiedad @code{springs-and-rods}:
+@code{minimum-length} es efectiva sólo si se llama explícitamente
+al procedimiento @code{set-spacing-rods}.  Para hacerlo, se debe
+fijar la propiedad @code{springs-and-rods} al valor
+@code{ly:spanner::set-spacing-rods}.  Por ejemplo, la longitud
+mínima de un glissando no tiene efecto a no ser que se establezca
+la propiedad @code{springs-and-rods}:
 
 @lilypond[verbatim,fragment,quote]
 % default
@@ -3111,11 +3202,11 @@ e'8 e' e' e'
 
 La segunda propiedad útil del @code{spanner-interface} es
 @code{to-barline}.  De forma predeterminada tiene el valor cierto,
-haciendo que los reguladores y otros objetos de extensión que terminan
-sobre la primera nota de un compás, en vez de eso terminen en la línea
-divisoria inmediatamente precedente.  Si se establece al valor falso,
-el extensor llegará más allá de la barra de compás y terminará
-exactamente sobre la nota:
+haciendo que los reguladores y otros objetos de extensión que
+terminan sobre la primera nota de un compás, en vez de eso
+terminen en la línea divisoria inmediatamente precedente.  Si se
+establece al valor falso, el extensor llegará más allá de la barra
+de compás y terminará exactamente sobre la nota:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -3125,10 +3216,11 @@ exactamente sobre la nota:
 }
 @end lilypond
 
-Esta propiedad no es efectiva para todos los extensores.  Por ejemplo,
-su establecimiento a @code{#t} no tienen ningún efecto sobre las
-ligaduras de expresión o de fraseo, o sobre otros extensores para los
-que terminar en la barra de compás no tendría ningún significado.
+Esta propiedad no es efectiva para todos los extensores.  Por
+ejemplo, su establecimiento a @code{#t} no tienen ningún efecto
+sobre las ligaduras de expresión o de fraseo, o sobre otros
+extensores para los que terminar en la barra de compás no tendría
+ningún significado.
 
 @node Uso del line-spanner-interface
 @unnumberedsubsubsec Uso del @code{line-spanner-interface}
@@ -3146,10 +3238,10 @@ Entre los objetos que contemplan el interface
 @end itemize
 
 La rutina responsable de dibujar los sellos de estos extensores es
-@code{ly:line-interface::print}.  esta rutina determina la
-localización exacta de los dos puntos extremos y traza una línea entre
-ellos, en el estilo solicitado.  Las posiciones de los dos puntos
-extremos del extensor se calculan al vuelo, pero es posible
+@code{ly:line-spanner::print}.  esta rutina determina la
+localización exacta de los dos puntos extremos y traza una línea
+entre ellos, en el estilo solicitado.  Las posiciones de los dos
+puntos extremos del extensor se calculan al vuelo, pero es posible
 sobreescribir sus coordenadas Y.  Las propiedades que se deben
 especificar están anidadas a dos niveles de profundidad en la
 jerarquía de propiedades, pero la sintaxis de la instrucción
@@ -3165,11 +3257,12 @@ e''2 \glissando b'
 Las unidades para la propiedad @code{Y} son @code{staff-space}s,
 siendo el punto del cero la línea central del pentagrama.  Para el
 glissando, esto es el valor de @code{Y} en la coordenada X que
-corresponde al punto central de cada cabeza de nota si nos imaginamos
-que la línea se extiende hasta allí.
+corresponde al punto central de cada cabeza de nota si nos
+imaginamos que la línea se extiende hasta allí.
 
 Si no está fijado @code{Y}, su valor se calcula a partir de la
-posición vertical del punto de anclaje correspondiente del extensor.
+posición vertical del punto de anclaje correspondiente del
+extensor.
 
 En caso de salto de línea, los valores para los puntos extremos se
 especifican por las sub-listas @code{left-broken} y
@@ -3182,39 +3275,39 @@ c''1 \glissando \break
 f''1
 @end lilypond
 
-Un número de propiedades adicionales de las sub-listas @code{left} y
-@code{right} de la propiedad @code{bound-details} se pueden
+Un número de propiedades adicionales de las sub-listas @code{left}
+y @code{right} de la propiedad @code{bound-details} se pueden
 especificar de la misma forma que @code{Y}:
 
 @table @code
 @item Y
 Establece la coordenada Y del punto extremo, en desplazamientos de
-@code{staff-space}s desde la línea central del pentagrama.  De forma
-predeterminada es el centro del objeto ancla, y así un glissando
-apunta al centro vertical de la cabeza de la nota.
+@code{staff-space}s desde la línea central del pentagrama.  De
+forma predeterminada es el centro del objeto ancla, y así un
+glissando apunta al centro vertical de la cabeza de la nota.
 
 Para extensores horizontales como los extensores de texto y los
 trinos, está inamoviblemente codificado como 0.
 
 @item attach-dir (dirección de anclaje)
 Determina dónde comienza y termina la línea en la dirección X, con
-relación al objeto ancla.  Sí, un valor de @w{@code{-1}} (o @code{LEFT},
-izquierda) hace que la línea comience o termine en el lado izquierdo
-de la cabeza de la nota a la que está anclado.
+relación al objeto ancla.  Sí, un valor de @w{@code{-1}} (o
+@code{LEFT}, izquierda) hace que la línea comience o termine en el
+lado izquierdo de la cabeza de la nota a la que está anclado.
 
 @item X
-Es la coordenada X absoluta del punto extremo.  Se suele calcular al
-vuelo, y su sobreescritura no tiene un efecto útil.
+Es la coordenada X absoluta del punto extremo.  Se suele calcular
+al vuelo, y su sobreescritura no tiene un efecto útil.
 
 @item stencil (sello)
-Los extensores de línea pueden tener símbolos al comienzo o al final,
-lo que está contenido en esta sub-propiedad.  Esto es para uso
-interno; se recomienda en su lugar el uso de @code{text}.
+Los extensores de línea pueden tener símbolos al comienzo o al
+final, lo que está contenido en esta sub-propiedad.  Esto es para
+uso interno; se recomienda en su lugar el uso de @code{text}.
 
 @item text (texto)
-Es un elemento de marcado que se evalúa para dar lugar al sello.  Se
-usa para escribir @i{cresc.}, @i{tr} y otros textos sobre los objetos
-de extensión horizontales.
+Es un elemento de marcado que se evalúa para dar lugar al sello.
+Se usa para escribir @i{cresc.}, @i{tr} y otros textos sobre los
+objetos de extensión horizontales.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \override TextSpanner.bound-details.left.text
@@ -3224,11 +3317,12 @@ de extensión horizontales.
 
 @item stencil-align-dir-y (alineación del sello en y)
 @item stencil-offset (desplazamiento del sello)
-Si no se modifican uno u otro, el sello se coloca sencillamente en el
-punto extremo, centrado sobre la línea, como viene definido por las
-subpropiedades @code{X} e @code{Y}.  Si se fijan
+Si no se modifican uno u otro, el sello se coloca sencillamente en
+el punto extremo, centrado sobre la línea, como viene definido por
+las subpropiedades @code{X} e @code{Y}.  Si se fijan
 @code{stencil-align-dir-y} o @code{stencil-offset} se moverá el
-símbolo del borde verticalmente con relación al extremo de la línea:
+símbolo del borde verticalmente con relación al extremo de la
+línea:
 
 @lilypond[quote,fragment,verbatim]
 \override TextSpanner.bound-details.left.stencil-align-dir-y = #-2
@@ -3240,11 +3334,12 @@ símbolo del borde verticalmente con relación al extremo de la línea:
 \relative { c'4^\startTextSpan c c c \stopTextSpan }
 @end lilypond
 
-Observe que los valores negativos mueven el texto @emph{hacia arriba},
-al contrario de lo que podría esperarse, pues el valor de @w{@code{-1}} o
-@code{DOWN} (abajo) significa alinear el borde @emph{inferior} del
-texto con la línea de extensión.  Un valor de @code{1} o @code{UP}
-(arriba) alinea el borde superior del texto con la línea extensora.
+Observe que los valores negativos mueven el texto @emph{hacia
+arriba}, al contrario de lo que podría esperarse, pues el valor de
+@w{@code{-1}} o @code{DOWN} (abajo) significa alinear el borde
+@emph{inferior} del texto con la línea de extensión.  Un valor de
+@code{1} o @code{UP} (arriba) alinea el borde superior del texto
+con la línea extensora.
 
 @item arrow (flecha)
 Al establecer esta sub-propiedad a @code{#t} se produce una punta de
@@ -3252,13 +3347,14 @@ flecha en el extremo de la línea.
 
 @item padding (relleno)
 Esta sub-propiedad controla el espacio entre el punto extremo
-especificado de la línea y el extremo real.  Sin relleno, un glissando
-empezaría y terminaría en el centro de la cabeza de las notas.
+especificado de la línea y el extremo real.  Sin relleno, un
+glissando empezaría y terminaría en el centro de la cabeza de las
+notas.
 
 @end table
 
-La función musical @code{\endSpanners} finaliza de forma prematura el
-extensor que comienza sobre la nota que sigue inmediatamente a
+La función musical @code{\endSpanners} finaliza de forma prematura
+el extensor que comienza sobre la nota que sigue inmediatamente a
 continuación.  Se termina después de una nota exactamente, o en la
 siguiente barra de compás si @code{to-barline} es verdadero y se
 produce una divisoria antes de la siguiente nota.
@@ -3272,8 +3368,9 @@ produce una divisoria antes de la siguiente nota.
 }
 @end lilypond
 
-Si se usa @code{\endSpanners} no es necesario cerrar \startTextSpan
-con \stopTextSpan, ni cerrar los reguladores con @code{\!}.
+Si se usa @code{\endSpanners} no es necesario cerrar
+\startTextSpan con \stopTextSpan, ni cerrar los reguladores con
+@code{\!}.
 
 @seealso
 Referencia de funcionamiento interno:
@@ -3292,17 +3389,18 @@ Referencia de funcionamiento interno:
 @cindex grobs, visibilidad de
 @cindex visibilidad de los objetos
 
-Hay cuatro formas principales en que se puede controlar la visibilidad
-de los objetos de presentación: se puede eliminar su sello, se pueden
-volver transparentes, se pueden pintar de blanco, o se puede
-sobreescribir su propiedad @code{break-visibility}.  Las tres primeras
-se aplican a todos los objetos de presentación; la última sólo a unos
-pocos: los objetos @emph{divisibles}.  El Manual de aprendizaje
-introduce estas cuatro técnicas,
-véase @rlearning{Visibilidad y color de los objetos}.
+Hay cuatro formas principales en que se puede controlar la
+visibilidad de los objetos de presentación: se puede eliminar su
+sello, se pueden volver transparentes, se pueden pintar de blanco,
+o se puede sobreescribir su propiedad @code{break-visibility}.
+Las tres primeras se aplican a todos los objetos de presentación;
+la última sólo a unos pocos: los objetos @emph{divisibles}.  El
+Manual de aprendizaje introduce estas cuatro técnicas, véase
+@rlearning{Visibilidad y color de los objetos}.
 
 Hay también algunas otras técnicas que son específicas de ciertos
-objetos de presentación.  Se estudian bajo Consideraciones especiales.
+objetos de presentación.  Se estudian bajo Consideraciones
+especiales.
 
 @menu
 * Eliminar el sello::
@@ -3320,11 +3418,11 @@ objetos de presentación.  Se estudian bajo Consideraciones especiales.
 @cindex sello, eliminar
 @funindex \omit
 
-Todo objeto de presentación tiene una propiedad stencil (sello).  De
-forma predeterminada está establecida a la función específica que
-dibuja ese objeto.  Si se sobreescribe esta propiedad a @code{#f} no
-se llama a ninguna función y el objeto no se dibuja.  La acción
-predeterminada se puede recuperar con @code{\revert}.
+Todo objeto de presentación tiene una propiedad stencil (sello).
+De forma predeterminada está establecida a la función específica
+que dibuja ese objeto.  Si se sobreescribe esta propiedad a
+@code{#f} no se llama a ninguna función y el objeto no se dibuja.
+La acción predeterminada se puede recuperar con @code{\revert}.
 
 @lilypond[quote,fragment,verbatim]
 a1 a
@@ -3334,8 +3432,8 @@ a a
 a a a
 @end lilypond
 
-Esta operación, bastante común, tiene la forma abreviada @code{\omit}
-como atajo:
+Esta operación, bastante común, tiene la forma abreviada
+@code{\omit} como atajo:
 
 @lilypond[quote,fragment,verbatim]
 a1 a
@@ -3355,8 +3453,8 @@ a a a
 
 Todo objeto de presentación tiene una propiedad transparent
 (transparente) que de forma predeterminada está establecida a
-@code{#f}.  Si se fija a @code{#t} el objeto aún ocupa espacio pero es
-invisible.
+@code{#f}.  Si se fija a @code{#t} el objeto aún ocupa espacio
+pero es invisible.
 
 @lilypond[quote,fragment,verbatim]
 a'4 a'
@@ -3386,38 +3484,38 @@ a' a'
 @cindex objetos, sobreescritura de
 @cindex grobs, sobreescritura de
 
-Todo objeto de presentación tiene una propiedad de color que de forma
-predeterminada está establecida a @code{black} (negro).  Si se
-sobreescribe a @code{white} (blanco) el objeto será indistinguible del
-fondo blanco.  Sin embargo, si el objeto cruza a otros objetos, el
-color de los puntos de cruce queda determinado por el orden en que se
-dibujan estos objetos, lo que puede dejar una imagen fantasma del
-objeto blanco, como puede verse aquí:
+Todo objeto de presentación tiene una propiedad de color que de
+forma predeterminada está establecida a @code{black} (negro).  Si
+se sobreescribe a @code{white} (blanco) el objeto será
+indistinguible del fondo blanco.  Sin embargo, si el objeto cruza
+a otros objetos, el color de los puntos de cruce queda determinado
+por el orden en que se dibujan estos objetos, lo que puede dejar
+una imagen fantasma del objeto blanco, como puede verse aquí:
 
 @lilypond[quote,fragment,verbatim]
 \override Staff.Clef.color = #white
 a'1
 @end lilypond
 
-Se puede evitar esto cambiando el orden de impresión de los objetos.
-Todos los objetos de presentación tienen una propiedad @code{layer}
-(capa) que se debe establecer a un valor entero.  Los objetos con el
-valor de @code{layer} más bajo se dibujan primero, después se dibujan
-los objetos con valores progresivamente mayores, y así los objetos con
-valores más altos se dibujan encima de los que tienen valores más
-bajos.  De forma predeterminada, casi todos los objetos tienen
-asignado un valor @code{layer} de @code{1}, aunque algunos objetos,
-entre ellos el pentagrama y las líneas divisorias, @code{StaffSymbol}
-y @code{BarLine}, tienen asignado un calor de @code{0}.  El orden de
-impresión de los objetos con el mismo valor de @code{layer} es
-indeterminado.
+Se puede evitar esto cambiando el orden de impresión de los
+objetos.  Todos los objetos de presentación tienen una propiedad
+@code{layer} (capa) que se debe establecer a un valor entero.  Los
+objetos con el valor de @code{layer} más bajo se dibujan primero,
+después se dibujan los objetos con valores progresivamente
+mayores, y así los objetos con valores más altos se dibujan encima
+de los que tienen valores más bajos.  De forma predeterminada,
+casi todos los objetos tienen asignado un valor @code{layer} de
+@code{1}, aunque algunos objetos, entre ellos el pentagrama y las
+líneas divisorias, @code{StaffSymbol} y @code{BarLine}, tienen
+asignado un calor de @code{0}.  El orden de impresión de los
+objetos con el mismo valor de @code{layer} es indeterminado.
 
-En el ejemplo de arriba, la clave blanca, con un valor @code{layer}
-predeterminado de @code{1}, se dibuja después de las líneas del
-pentagrama (valor @code{layer} predeterminado de @code{0}),
-sobreimpresionándolas.  Para cambiarlo, se debe dar al objeto
-@code{Clef} un valor de @code{layer} más bajo, digamos @w{@code{-1}},
-para que se dibuje antes:
+En el ejemplo de arriba, la clave blanca, con un valor
+@code{layer} predeterminado de @code{1}, se dibuja después de las
+líneas del pentagrama (valor @code{layer} predeterminado de
+@code{0}), sobreimpresionándolas.  Para cambiarlo, se debe dar al
+objeto @code{Clef} un valor de @code{layer} más bajo, digamos
+@w{@code{-1}}, para que se dibuje antes:
 
 @lilypond[quote,fragment,verbatim]
 \override Staff.Clef.color = #white
@@ -3434,58 +3532,59 @@ a'1
 
 @cindex break-visibility
 
-Casi todos los objetos de presentación se imprimen una sola vez, pero
-algunos como las líneas divisorias, claves, indicaciones de compás y
-armaduras de tonalidad, se pueden tener que imprimir dos veces cuando
-se produce un salto de línea : una vez al final de la línea y otra al
-comienzo de la siguiente.  Estos objetos reciben el nombre de
-@emph{divisibles}, y tienen una propiedad, @code{break-visibility}
-(visibilidad en el salto), para controlar su visibilidad en las tres
-posiciones en que pueden aparecer: al comienzo de una línea, dentro de
-la línea si se produce un cambio, y al final de la línea si el cambio
-se produce en ese lugar.
+Casi todos los objetos de presentación se imprimen una sola vez,
+pero algunos como las líneas divisorias, claves, indicaciones de
+compás y armaduras de tonalidad, se pueden tener que imprimir dos
+veces cuando se produce un salto de línea : una vez al final de la
+línea y otra al comienzo de la siguiente.  Estos objetos reciben
+el nombre de @emph{divisibles}, y tienen una propiedad,
+@code{break-visibility} (visibilidad en el salto), para controlar
+su visibilidad en las tres posiciones en que pueden aparecer: al
+comienzo de una línea, dentro de la línea si se produce un cambio,
+y al final de la línea si el cambio se produce en ese lugar.
 
 Por ejemplo, la indicación de compás se imprime de forma
-predeterminada al comienzo de la primera línea y en ningún otro lugar
-a no ser que cambie, en cuyo caso se imprime en el punto en que se
-produce el cambio.  Si este cambio se produce al final de una línea,
-la nueva indicación de compás se imprime al principio de la línea
-siguiente y también al final de la línea anterior como indicación de
-precaución.
+predeterminada al comienzo de la primera línea y en ningún otro
+lugar a no ser que cambie, en cuyo caso se imprime en el punto en
+que se produce el cambio.  Si este cambio se produce al final de
+una línea, la nueva indicación de compás se imprime al principio
+de la línea siguiente y también al final de la línea anterior como
+indicación de precaución.
 
 Este comportamiento se controla por medio de la propiedad
 @code{break-visibility}, que se explica en
 @c Leave this ref on a newline - formats incorrectly otherwise -td
-@rlearning{Visibilidad y color de los objetos}.  Esta propiedad toma un
-vector de tres valores booleanos que, por orden, determinan si el
-objeto se imprime al final, dentro, o al principio de la línea.  O,
-para ser más exactos: antes del salto de línea, si no hay salto, o
-después del salto.
+@rlearning{Visibilidad y color de los objetos}.  Esta propiedad
+toma un vector de tres valores booleanos que, por orden,
+determinan si el objeto se imprime al final, dentro, o al
+principio de la línea.  O, para ser más exactos: antes del salto
+de línea, si no hay salto, o después del salto.
 
 Como alternativa se puede especificar cualquiera de las ocho
-combinaciones mediante funciones predefinidas cuya definición está en
-@file{scm/output-lib.scm}, donde las tres últimas columnas indican si
-los objetos de presentación serán visibles en las posiciones que se
-muestran en el encabezamiento de cada columna:
+combinaciones mediante funciones predefinidas cuya definición está
+en @file{scm/output-lib.scm}, donde las tres últimas columnas
+indican si los objetos de presentación serán visibles en las
+posiciones que se muestran en el encabezamiento de cada columna:
 
-@multitable {@code{begin-of-line-invisible}} {@code{'#(#t #t #t)}} {Antes del} {Si no hay} {Después del}
+@multitable {@code{begin-of-line-invisible}} {@code{#(#t #t #t)}} {Antes del} {Si no hay} {Después del}
 @headitem Forma                   @tab Forma                  @tab Antes del @tab Si no hay    @tab Después del
 @headitem de función              @tab de vector              @tab salto     @tab salto        @tab salto
 
-@item @code{all-visible}             @tab @code{'#(#t #t #t)}     @tab sí     @tab sí       @tab sí
-@item @code{begin-of-line-visible}   @tab @code{'#(#f #f #t)}     @tab no     @tab no       @tab sí
-@item @code{center-visible}          @tab @code{'#(#f #t #f)}     @tab no     @tab sí       @tab no
-@item @code{end-of-line-visible}     @tab @code{'#(#t #f #f)}     @tab sí     @tab no       @tab no
-@item @code{begin-of-line-invisible} @tab @code{'#(#t #t #f)}     @tab sí     @tab sí       @tab no
-@item @code{center-invisible}        @tab @code{'#(#t #f #t)}     @tab sí     @tab no       @tab sí
-@item @code{end-of-line-invisible}   @tab @code{'#(#f #t #t)}     @tab no     @tab sí       @tab sí
-@item @code{all-invisible}           @tab @code{'#(#f #f #f)}     @tab no     @tab no       @tab no
+@item @code{all-visible}             @tab @code{#(#t #t #t)}     @tab sí     @tab sí       @tab sí
+@item @code{begin-of-line-visible}   @tab @code{#(#f #f #t)}     @tab no     @tab no       @tab sí
+@item @code{center-visible}          @tab @code{#(#f #t #f)}     @tab no     @tab sí       @tab no
+@item @code{end-of-line-visible}     @tab @code{#(#t #f #f)}     @tab sí     @tab no       @tab no
+@item @code{begin-of-line-invisible} @tab @code{#(#t #t #f)}     @tab sí     @tab sí       @tab no
+@item @code{center-invisible}        @tab @code{#(#t #f #t)}     @tab sí     @tab no       @tab sí
+@item @code{end-of-line-invisible}   @tab @code{#(#f #t #t)}     @tab no     @tab sí       @tab sí
+@item @code{all-invisible}           @tab @code{#(#f #f #f)}     @tab no     @tab no       @tab no
 @end multitable
 
-Los ajustes predeterminados de @code{break-visibility} dependen del
-objeto de presentación.  La tabla siguiente muestra todos los objetos
-de presentación de interés que resultan afectados por
-@code{break-visibility} y el ajuste predeterminado de esta propiedad:
+Los ajustes predeterminados de @code{break-visibility} dependen
+del objeto de presentación.  La tabla siguiente muestra todos los
+objetos de presentación de interés que resultan afectados por
+@code{break-visibility} y el ajuste predeterminado de esta
+propiedad:
 
 @multitable @columnfractions .3 .3 .4
 
@@ -3526,10 +3625,11 @@ controlar la visibilidad de las líneas divisorias:
 }
 @end lilypond
 
-Aunque los tres componentes del vector utilizado para sobreescribir
-@code{break-visibility} deben estar presentes, no todos son efectivos
-para todos los objetos de presentación, y algunas combinaciones pueden
-incluso dar errores.  Son de aplicación las siguientes limitaciones:
+Aunque los tres componentes del vector utilizado para
+sobreescribir @code{break-visibility} deben estar presentes, no
+todos son efectivos para todos los objetos de presentación, y
+algunas combinaciones pueden incluso dar errores.  Son de
+aplicación las siguientes limitaciones:
 
 @itemize @bullet
 @item Las líneas divisorias no se pueden imprimir al principio de la línea.
@@ -3555,13 +3655,14 @@ imprimirlas y all-invisible para suprimirlas.
 @cindex clave, visibilidad después de un cambio explícito
 @cindex explicitClefVisibility
 
-La propiedad @code{break-visibility} controla la visibilidad de las
-armaduras y cambios de clave sólo al principio de las líneas, es
-decir, después de un salto.  No tiene ningún efecto sobre la
-visibilidad de la armadura o la clave después de un cambio explícito
-de tonalidad o de clave dentro o al final de una línea.  En el ejemplo
-siguiente la armadura que sigue al cambio explícito de tonalidad a Si
-bemol mayor es visible incluso con @code{all-invisible} establecido.
+La propiedad @code{break-visibility} controla la visibilidad de
+las armaduras y cambios de clave sólo al principio de las líneas,
+es decir, después de un salto.  No tiene ningún efecto sobre la
+visibilidad de la armadura o la clave después de un cambio
+explícito de tonalidad o de clave dentro o al final de una línea.
+En el ejemplo siguiente la armadura que sigue al cambio explícito
+de tonalidad a Si bemol mayor es visible incluso con
+@code{all-invisible} establecido.
 
 @lilypond[quote,verbatim,ragged-right]
 \relative {
@@ -3577,21 +3678,22 @@ bemol mayor es visible incluso con @code{all-invisible} establecido.
 }
 @end lilypond
 
-La visibilidad de estos cambios explícitos de tonalidad y de clave se
-controla por medio de las propiedades
-@code{explicitKeySignatureVisibility} y @code{explicitClefVisibility}.
-Son los equivalentes de la propiedad @code{break-visibility} y las dos
-toman un vector de tres valores booleanos o las funciones predefinidas
-relacionadas anteriormente, exactamente igual que
-@code{break-visibility}.  Las dos son propiedades del contexto Staff,
-no de los propios objetos de presentación, y por tanto se establecen
-utilizando la instrucción @code{\set}.  Las dos están establecidas de
-forma predeterminada al valor @code{all-visible}.  Estas propiedades
+La visibilidad de estos cambios explícitos de tonalidad y de clave
+se controla por medio de las propiedades
+@code{explicitKeySignatureVisibility} y
+@code{explicitClefVisibility}.  Son los equivalentes de la
+propiedad @code{break-visibility} y las dos toman un vector de
+tres valores booleanos o las funciones predefinidas relacionadas
+anteriormente, exactamente igual que @code{break-visibility}.  Las
+dos son propiedades del contexto Staff, no de los propios objetos
+de presentación, y por tanto se establecen utilizando la
+instrucción @code{\set}.  Las dos están establecidas de forma
+predeterminada al valor @code{all-visible}.  Estas propiedades
 controlan sólo la visibilidad de las armaduras y las claves que
 resultan de los cambios explícitos y no afectan a las armaduras y
-tonalidades que están al principio de las líneas; para quitarlas, aún
-se debe sobreescribir la propiedad @code{break-visibility} en el
-objeto correspondiente.
+tonalidades que están al principio de las líneas; para quitarlas,
+aún se debe sobreescribir la propiedad @code{break-visibility} en
+el objeto correspondiente.
 
 @lilypond[quote,verbatim,ragged-right]
 \relative {
@@ -3608,8 +3710,8 @@ objeto correspondiente.
 
 @subsubsubheading Visibilidad de las alteraciones de precaución
 
-Para eliminar las alteraciones de cancelación que se imprimen en un
-cambio de tonalidad explícito, establezca la propiedad
+Para eliminar las alteraciones de cancelación que se imprimen en
+un cambio de tonalidad explícito, establezca la propiedad
 @code{printKeyCancellation} del contexto Staff a @code{#f}:
 
 @lilypond[quote,verbatim,ragged-right]
@@ -3627,7 +3729,8 @@ cambio de tonalidad explícito, establezca la propiedad
 @end lilypond
 
 Con estas sobreescrituras solamente permanecen las alteraciones
-accidentales delante de las notas para indicar el cambio de tonalidad.
+accidentales delante de las notas para indicar el cambio de
+tonalidad.
 
 Observe que al modificar la tonalidad a Do@tie{}mayor o
 La@tie{}menor, las alteraciones de cancelación serían @emph{la
@@ -3672,15 +3775,16 @@ sobreescriba la visibilidad del grob @code{KeyCancellation}:
 @cindex automaticBars
 @cindex líneas divisorias, eliminación
 
-Como caso especial, la impresión de las líneas divisorias también se
-puede inhabilitar estableciendo la propiedad @code{automaticBars} en
-el contexto Score.  Si se fija a @code{#f}, las barras de compás no se
-imprimen automáticamente; se deben crear explícitamente con una
-instrucción @code{\bar}.  A diferencia de la instrucción predefinida
-@code{\cadenzaOn}, los compases se siguen contando.  La generación de
-compases continúa de acuerdo a esta cuenta si esta propiedad se
-establece posteriormente a @code{#t}.  Si se fija al valor @code{#f},
-sólo pueden producirse saltos de línea en instrucciones @code{\bar}
+Como caso especial, la impresión de las líneas divisorias también
+se puede inhabilitar estableciendo la propiedad
+@code{automaticBars} en el contexto Score.  Si se fija a
+@code{#f}, las barras de compás no se imprimen automáticamente; se
+deben crear explícitamente con una instrucción @code{\bar}.  A
+diferencia de la instrucción predefinida @code{\cadenzaOn}, los
+compases se siguen contando.  La generación de compases continúa
+de acuerdo a esta cuenta si esta propiedad se establece
+posteriormente a @code{#t}.  Si se fija al valor @code{#f}, sólo
+pueden producirse saltos de línea en instrucciones @code{\bar}
 explícitas.
 
 @c TODO Add example
@@ -3713,19 +3817,21 @@ Manual de aprendizaje:
 @translationof Line styles
 
 Ciertas indicaciones de ejecución, p.ej., @i{rallentando},
-@i{accelerando} y los @i{trinos} se escriben como texto y se extienden
-sobre muchos compases mediante líneas, a veces punteadas u onduladas.
+@i{accelerando} y los @i{trinos} se escriben como texto y se
+extienden sobre muchos compases mediante líneas, a veces punteadas
+u onduladas.
 
-Todos ellos usan las mismas rutinas que el glissando para dibujar los
-textos y las líneas, y por ello el ajuste fino de su comportamiento se
-hace de la misma manera. Se hace con un spanner (un objeto de
-extensión), y la rutina responsable de dibujar los objetos de
-extensión es @code{ly:line-interface::print}. Esta rutina determina la
-colocación exacta de los dos @i{extremos del objeto de extensión} y
-dibuja una línea entre ellos, en el estilo solicitado.
+Todos ellos usan las mismas rutinas que el glissando para dibujar
+los textos y las líneas, y por ello el ajuste fino de su
+comportamiento se hace de la misma manera. Se hace con un spanner
+(un objeto de extensión), y la rutina responsable de dibujar los
+objetos de extensión es @code{ly:line-spanner::print}. Esta rutina
+determina la colocación exacta de los dos @i{extremos del objeto
+de extensión} y dibuja una línea entre ellos, en el estilo
+solicitado.
 
-He aquí un ejemplo de los distintos estilos de línea disponibles, y
-cómo aplicarles ajustes finos.
+He aquí un ejemplo de los distintos estilos de línea disponibles,
+y cómo aplicarles ajustes finos.
 
 @lilypond[ragged-right,verbatim,quote]
 \relative {
@@ -3754,16 +3860,16 @@ posible sobreescribirlos:
 }
 @end lilypond
 
-El valor de @code{Y} está establecido a @w{@code{-2}} para el extremo
-derecho.  El lado izquierdo se puede ajustar de forma similar
-especificando @code{left} en vez de @code{right}.
+El valor de @code{Y} está establecido a @w{@code{-2}} para el
+extremo derecho.  El lado izquierdo se puede ajustar de forma
+similar especificando @code{left} en vez de @code{right}.
 
 Si no está establecido @code{Y}, el valor se computa a partir de la
 posición vertical de los puntos de anclaje izquierdo y derecho del
 extensor.
 
-Son posibles otros ajustes de los extensores, para ver más detalles
-consulte @ref{Objetos de extensión}.
+Son posibles otros ajustes de los extensores, para ver más
+detalles consulte @ref{Objetos de extensión}.
 
 
 @node Rotación de objetos
@@ -3771,8 +3877,8 @@ consulte @ref{Objetos de extensión}.
 @translationof Rotating objects
 
 Tanto los objetos de presentación como los elementos de texto de
-marcado se pueden girar cualquier ángulo respecto a cualquier punto,
-pero difiere el método de hacerlo.
+marcado se pueden girar cualquier ángulo respecto a cualquier
+punto, pero difiere el método de hacerlo.
 
 @menu
 * Rotación de objetos de presentación::
@@ -3788,21 +3894,21 @@ pero difiere el método de hacerlo.
 
 Todos los objetos de presentación que contemplan el interface
 @code{grob-interface} se pueden rotar estableciendo su propiedad
-@code{rotation}.  Acepta una lista de tres elementos: el ángulo de la
-rotación en sentido antihorario, y las coordenadas x e y del punto con
-relación al punto de referencia del objeto, alrededor del que se va a
-realizar la rotación.  El ángulo de rotación se especifica en grados
-y las coordenadas en espacios de pentagrama.
+@code{rotation}.  Acepta una lista de tres elementos: el ángulo de
+la rotación en sentido antihorario, y las coordenadas x e y del
+punto con relación al punto de referencia del objeto, alrededor
+del que se va a realizar la rotación.  El ángulo de rotación se
+especifica en grados y las coordenadas en espacios de pentagrama.
 
-El ángulo de rotación y las coordenadas del punto de rotación se deben
-determinar por ensayo y error.
+El ángulo de rotación y las coordenadas del punto de rotación se
+deben determinar por ensayo y error.
 
 @cindex reguladores en ángulo
 @cindex ángulo, reguladores en
 
 Solamente en ciertas ocasiones es útil la rotación de objetos de
-presentación; el ejemplo siguiente muestra una situación en que puede
-serlo:
+presentación; el ejemplo siguiente muestra una situación en que
+puede serlo:
 
 @lilypond[quote,fragment,verbatim]
 g4\< e' d'' f''\!
@@ -3815,15 +3921,16 @@ g4\< e' d'' f''\!
 @unnumberedsubsubsec Rotación de elementos de marcado
 @translationof Rotating markup
 
-Todos los textos de marcado se pueden rotar para que se dispongan en
-cualquier ángulo precediéndolos de la instrucción @code{\rotate}.  La
-instrucción acepta dos argumentos: el ángulo de rotación en grados en
-sentido antihorario, y el texto que rotar.  Los límites que ocupa el
-texto no se rotan: toman su valor a partir de los extremos de las
-coordenadas x e y del texto rotado.  En el ejemplo siguiente la
-propiedad @code{outside-staff-priority} del texto se establece a
-@code{#f} para desactivar la evitación automática de colisiones, lo
-que empuja al texto a una posición muy alta.
+Todos los textos de marcado se pueden rotar para que se dispongan
+en cualquier ángulo precediéndolos de la instrucción
+@code{\rotate}.  La instrucción acepta dos argumentos: el ángulo
+de rotación en grados en sentido antihorario, y el texto que
+rotar.  Los límites que ocupa el texto no se rotan: toman su valor
+a partir de los extremos de las coordenadas x e y del texto
+rotado.  En el ejemplo siguiente la propiedad
+@code{outside-staff-priority} del texto se establece a @code{#f}
+para desactivar la evitación automática de colisiones, lo que
+empuja al texto a una posición muy alta.
 
 @lilypond[quote,fragment,verbatim]
 \override TextScript.outside-staff-priority = ##f
@@ -3877,48 +3984,49 @@ Referencia de funcionamiento interno:
 @translationof Aligning objects
 
 Los objetos gráficos que soportan el interface
-@code{self-alignment-interface} y/o el @code{side-position-interface}
-se pueden alinear contra un objeto colocado previamente, de diversas
-maneras.  Para ver una lista de estos objetos, consulte
-@rinternals{self-alignment-interface} y
+@code{self-alignment-interface} y/o el
+@code{side-position-interface} se pueden alinear contra un objeto
+colocado previamente, de diversas maneras.  Para ver una lista de
+estos objetos, consulte @rinternals{self-alignment-interface} y
 @rinternals{side-position-interface}.
 
 Todos los objetos gráficos tienen un punto de referencia, una
 extensión horizontal y una extensión vertical.  La extensión
 horizontal es una pareja de números que dan los desplazamientos a
 partir del punto de referencia de los bordes izquierdo y derecho,
-siendo negativos los desplazamientos hacia la izquierda.  La extensión
-vertical es una pareja de números que dan el desplazamiento a partir
-del punto de referencia hasta los bordes inferior y superior, siendo
-negativos los desplazamientos hacia abajo.
+siendo negativos los desplazamientos hacia la izquierda.  La
+extensión vertical es una pareja de números que dan el
+desplazamiento a partir del punto de referencia hasta los bordes
+inferior y superior, siendo negativos los desplazamientos hacia
+abajo.
 
 La posición de un objeto sobre el pentagrama viene dada por los
 valores de las propiedades @code{X-offset} e @code{Y-offset}.  El
-valor de @code{X-offset} da el desplazamiento desde la coordenada X
-del punto de referencia del objeto padre, y el valor de
-@code{Y-offset} da el desplazamiento a partir de la línea central del
-pentagrama.  Los valores de @code{X-offset} y @code{Y-offset} se
-pueden establecer directamente o se puede dejar que se calculen por
-parte de procedimientos para conseguir una alineación con el objeto
-padre.
+valor de @code{X-offset} da el desplazamiento desde la coordenada
+X del punto de referencia del objeto padre, y el valor de
+@code{Y-offset} da el desplazamiento a partir de la línea central
+del pentagrama.  Los valores de @code{X-offset} y @code{Y-offset}
+se pueden establecer directamente o se puede dejar que se calculen
+por parte de procedimientos para conseguir una alineación con el
+objeto padre.
 
 @warning{Muchos objetos tienen consideraciones de posicionamiento
 especiales que hacen que se ignore o se modifique cualquier ajuste
 realizado a @code{X-offset} o a @code{Y-offset}, a pesar de que el
 objeto contemple el interface @code{self-alignment-interface}.  La
-sobreescritura de las propiedades @code{X-offset} ó @code{Y-offset} a
-un valor fijo hace que se descarte la respectiva propiedad
-@code{self-alignment}.}
+sobreescritura de las propiedades @code{X-offset} ó
+@code{Y-offset} a un valor fijo hace que se descarte la respectiva
+propiedad @code{self-alignment}.}
 
 Por ejemplo, una alteración accidental se puede reposicionar
 verticalmente estableciendo @code{Y-offset} pero los cambios a
 @code{X-offset} no tienen ningún efecto.
 
 Las letras de ensayo se pueden alinear con objetos divisibles como
-líneas divisorias, claves, armaduras e indicaciones de compás.  Hay
-propiedades especiales que se encuentran en
-@code{break-aligned-interface} para el posicionamiento de las letras
-de ensayo sobre dichos objetos.
+líneas divisorias, claves, armaduras e indicaciones de compás.
+Hay propiedades especiales que se encuentran en
+@code{break-aligned-interface} para el posicionamiento de las
+letras de ensayo sobre dichos objetos.
 
 @seealso
 Referencia de la notación:
@@ -3939,10 +4047,10 @@ Manual de extensión:
 @unnumberedsubsubsec Establecer directamente @code{X-offset} y @code{Y-offset}
 @translationof Setting X-offset and Y-offset directly
 
-Se pueden dar valores numéricos a las propiedades @code{X-offset} y
-@code{Y-offset} de muchos objetos.  El ejemplo siguiente muestra tres
-notas con una digitación en su posición predeterminada y con los
-valores @code{X-offset} y @code{Y-offset} modificados.
+Se pueden dar valores numéricos a las propiedades @code{X-offset}
+y @code{Y-offset} de muchos objetos.  El ejemplo siguiente muestra
+tres notas con una digitación en su posición predeterminada y con
+los valores @code{X-offset} y @code{Y-offset} modificados.
 
 @lilypond[verbatim,fragment,quote]
 a'-3
@@ -3964,12 +4072,12 @@ a'
 @translationof Using the side-position-interface
 
 Un objeto que contempla el @code{side-position-interface} se puede
-colocar junto a su objeto padre de forma que los bordes especificados
-de los dos objetos se toquen.  El objeto se puede situar encima,
-debajo, a la derecha o a la izquierda del objeto padre.  El padre no
-se puede especificar; viene determinado por el orden de los elementos
-en el flujo de entrada.  Casi todos los objetos tienen la cabeza de la
-nota asociada como padre.
+colocar junto a su objeto padre de forma que los bordes
+especificados de los dos objetos se toquen.  El objeto se puede
+situar encima, debajo, a la derecha o a la izquierda del objeto
+padre.  El padre no se puede especificar; viene determinado por el
+orden de los elementos en el flujo de entrada.  Casi todos los
+objetos tienen la cabeza de la nota asociada como padre.
 
 Los valores de las propiedades @code{side-axis} y @code{direction}
 determinan dónde colocar el objeto, como sigue:
@@ -3987,17 +4095,19 @@ determinan dónde colocar el objeto, como sigue:
 
 @end multitable
 
-Si @code{side-axis} es @code{0}, @code{X-offset} se debe establecer al
-procedimiento @code{ly:side-position-interface::x-aligned-side}.  Este
+Si @code{side-axis} es @code{0}, @code{X-offset} se debe
+establecer al procedimiento
+@code{ly:side-position-interface::x-aligned-side}.  Este
 procedimiento devuelve el calor correcto de @code{X-offset} para
-situar el objeto al lado izquierdo o derecho del padre de acuerdo con
-el valor de @code{direction}.
+situar el objeto al lado izquierdo o derecho del padre de acuerdo
+con el valor de @code{direction}.
 
-Si @code{side-axis} es @code{1}, @code{Y-offset} se debe establecer al
-procedimiento @code{ly:side-position-interface::y-aligned-side}.  Este
+Si @code{side-axis} es @code{1}, @code{Y-offset} se debe
+establecer al procedimiento
+@code{ly:side-position-interface::y-aligned-side}.  Este
 procedimiento devuelve el valor correcto de @code{Y-offset} para
-situar el objeto encima o debajo del padre de acuerdo con el valor de
-@code{direction}.
+situar el objeto encima o debajo del padre de acuerdo con el valor
+de @code{direction}.
 
 @c TODO Add examples
 
@@ -4012,22 +4122,23 @@ La alineación horizontal de un objeto que contempla el interface
 @code{self-alignment-interface} está controlada por el valor de la
 propiedad @code{self-alignment-X}, siempre y cuando la propiedad
 @code{X-offset} de este objeto esté establecida a
-@code{ly:self-alignment-interface::x-aligned-on-self}.  Se le puede
-dar a @code{self-alignment-X} cualquier valor real, en unidades de la
-mitad de la extensión X total del objeto.  Los valores negativos
-mueven el objeto a la derecha, los positivos hacia la izquierda.  Un
-valor de @code{0} centra el objeto sobre el punto de referencia de su
-padre, un valor de @w{@code{-1}} alinea el borde izquierdo del objeto
-sobre el punto de referencia de su padre, y un valor de @code{1}
-alinea el borde derecho del objeto sobre el punto de referencia de su
-padre.  Se pueden usar los símbolos @code{LEFT}, @code{CENTER} y
-@code{RIGHT} en sustitución de los valores @w{@code{-1}}, @code{0} y @code{1},
+@code{ly:self-alignment-interface::x-aligned-on-self}.  Se le
+puede dar a @code{self-alignment-X} cualquier valor real, en
+unidades de la mitad de la extensión X total del objeto.  Los
+valores negativos mueven el objeto a la derecha, los positivos
+hacia la izquierda.  Un valor de @code{0} centra el objeto sobre
+el punto de referencia de su padre, un valor de @w{@code{-1}}
+alinea el borde izquierdo del objeto sobre el punto de referencia
+de su padre, y un valor de @code{1} alinea el borde derecho del
+objeto sobre el punto de referencia de su padre.  Se pueden usar
+los símbolos @code{LEFT}, @code{CENTER} y @code{RIGHT} en
+sustitución de los valores @w{@code{-1}}, @code{0} y @code{1},
 respectivamente.
 
-Normalmente se usaría la instrucción @code{\override} para modificar
-el valor de @code{self-alignment-X}, pero se puede usar la instrucción
-@code{\tweak} para alinear varias anotaciones por separado sobre una
-sola nota:
+Normalmente se usaría la instrucción @code{\override} para
+modificar el valor de @code{self-alignment-X}, pero se puede usar
+la instrucción @code{\tweak} para alinear varias anotaciones por
+separado sobre una sola nota:
 
 @lilypond[quote,verbatim,fragment]
 a'
@@ -4065,8 +4176,8 @@ padre.  Se pueden usar los símbolos @code{DOWN}, @code{CENTER},
 Estableciendo tanto @code{X-offset} como @code{Y-offset}, se puede
 alinear un objeto en las dos direcciones simultáneamente.
 
-El ejemplo siguiente muestra cómo ajustar una digitación de forma que
-se acerque a la cabeza de la nota.
+El ejemplo siguiente muestra cómo ajustar una digitación de forma
+que se acerque a la cabeza dela nota.
 
 @lilypond[quote,verbatim,fragment]
 a'
@@ -4114,10 +4225,10 @@ example shows the difference:
 @cindex break-align-symbols
 
 Las letras de ensayo se pueden alinear con objetos de notación
-distintos a las barras de compás.  Estos objetos son @code{ambitus},
-@code{breathing-sign}, @code{clef}, @code{custos}, @code{staff-bar},
-@code{left-edge}, @code{key-cancellation}, @code{key-signature} y
-@code{time-signature}.
+distintos a las barras de compás.  Estos objetos son
+@code{ambitus}, @code{breathing-sign}, @code{clef}, @code{custos},
+@code{staff-bar}, @code{left-edge}, @code{key-cancellation},
+@code{key-signature} y @code{time-signature}.
 
 Cada tipo de objeto tiene su propio punto de referencia
 predeterminado, con el que se alinean las marcas de ensayo:
@@ -4146,14 +4257,15 @@ e'1
 \mark "↓"
 @end lilypond
 
-Se puede especificar una lista de posibles objetos para la alineación.
-Si algunos de los objetos son invisibles en ese punto debido al valor
-de @code{break-visibility} o a valores de visibilidad explícitos para
-las armaduras y las claves, la letra de ensayo o número de compás se
-alinean con el primer objeto de la lista que sea visible.  Si ningún
-objeto de la lista es visible, el objeto se alinea con la línea
-divisoria.  Si la línea divisoria es invisible, el objeto se alinea
-con el punto en el que se encontraría la línea divisoria.
+Se puede especificar una lista de posibles objetos para la
+alineación.  Si algunos de los objetos son invisibles en ese punto
+debido al valor de @code{break-visibility} o a valores de
+visibilidad explícitos para las armaduras y las claves, la letra
+de ensayo o número de compás se alinean con el primer objeto de la
+lista que sea visible.  Si ningún objeto de la lista es visible,
+el objeto se alinea con la línea divisoria.  Si la línea divisoria
+es invisible, el objeto se alinea con el punto en el que se
+encontraría la línea divisoria.
 
 @lilypond[verbatim,quote,fragment]
 % The rehearsal mark will be aligned to the right edge of the Key Signature
@@ -4179,10 +4291,10 @@ gis,1
 e'1
 @end lilypond
 
-La alineación de la letra de ensayo con relación al objeto de notación
-se puede cambiar, como se ve en el ejemplo siguiente.  En una
-partitura con varios pentagramas, este ajuste se debe hacer para todos
-los pentagramas.
+La alineación de la letra de ensayo con relación al objeto de
+notación se puede cambiar, como se ve en el ejemplo siguiente.  En
+una partitura con varios pentagramas, este ajuste se debe hacer
+para todos los pentagramas.
 
 @lilypond[verbatim,quote,fragment]
 % The RehearsalMark will be aligned with the right edge of the Key Signature
@@ -4235,9 +4347,10 @@ Los grobs (objetos gráficos) @code{VerticalAlignment} y
 @code{VerticalAxisGroup} trabajan de manera coordinada.
 @code{VerticalAxisGroup} agrupa distintos grobs como @code{Staff},
 @code{Lyrics}, etc.  Después, @code{VerticalAlignment} alinea los
-distintos grobs agrupados previamente por @code{VerticalAxisGroup}.
-Normalmente sólo existe un @code{VerticalAlignment} por cada
-partitura, pero cada @code{Staff}, @code{Lyrics}, etc. tiene su propio
+distintos grobs agrupados previamente por
+@code{VerticalAxisGroup}.  Normalmente sólo existe un
+@code{VerticalAlignment} por cada partitura, pero cada
+@code{Staff}, @code{Lyrics}, etc. tiene su propio
 @code{VerticalAxisGroup}.
 
 
@@ -4245,29 +4358,31 @@ partitura, pero cada @code{Staff}, @code{Lyrics}, etc. tiene su propio
 @subsection Modificación de los sellos
 @translationof Modifying stencils
 
-Todos los objetos de presentación tienen una propiedad @code{stencil}
-que es parte del @code{grob-interface}.  De forma predeterminada, esta
-propiedad suele estar establecida a una función específica del objeto
-que está hecha a medida para disponer el símbolo que lo representa en
-la salida.  Por ejemplo, el ajuste estándar para la propiedad
-@code{stencil} del objeto @code{MultiMeasureRest} es
-@code{ly:multi-measure-rest::print}.
+Todos los objetos de presentación tienen una propiedad
+@code{stencil} que es parte del @code{grob-interface}.  De forma
+predeterminada, esta propiedad suele estar establecida a una
+función específica del objeto que está hecha a medida para
+disponer el símbolo que lo representa en la salida.  Por ejemplo,
+el ajuste estándar para la propiedad @code{stencil} del objeto
+@code{MultiMeasureRest} es @code{ly:multi-measure-rest::print}.
 
-El símbolo estándar de cualquier objeto se puede sustituir modificando
-la propiedad @code{stencil} para que haga referencia a un
-procedimiento diferente escrito especialmente.  Esto requiere un alto
-nivel de conocimiento del funcionamiento interno de LilyPond, pero hay
-una forma más fácil que a menudo puede dar resultados adecuados.
+El símbolo estándar de cualquier objeto se puede sustituir
+modificando la propiedad @code{stencil} para que haga referencia a
+un procedimiento diferente escrito especialmente.  Esto requiere
+un alto nivel de conocimiento del funcionamiento interno de
+LilyPond, pero hay una forma más fácil que a menudo puede dar
+resultados adecuados.
 
 El procedimiento es establecer la propiedad @code{stencil} al
-procedimiento que imprime texto (@code{ly:text-interface::print}) y
-añadir una propiedad @code{text} al objeto ajustada para que contenga
-el texto de marcado que produce el símbolo requerido.  Debido a la
-flexibilidad del marcado, se pueden conseguir muchas cosas; en
-particular, consulte @ref{Notación gráfica dentro de elementos de marcado}.
+procedimiento que imprime texto (@code{ly:text-interface::print})
+y añadir una propiedad @code{text} al objeto ajustada para que
+contenga el texto de marcado que produce el símbolo requerido.
+Debido a la flexibilidad del marcado, se pueden conseguir muchas
+cosas; en particular, consulte @ref{Notación gráfica dentro de
+elementos de marcado}.
 
-El ejemplo siguiente muestra esto cambiando el símbolo de la cabeza de
-la nota a unas aspas dentro de una circunferencia.
+El ejemplo siguiente muestra esto cambiando el símbolo de la
+cabeza de la nota a unas aspas dentro de una circunferencia.
 
 @lilypond[verbatim,quote]
 XinO = {
@@ -4283,8 +4398,9 @@ XinO = {
 }
 @end lilypond
 
-Cualquiera de los glifos de la fuente tipográfica Feta se puede pasar
-a la instrucción de marcado @code{\musicglyph}: véase @ref{La tipografía Feta}.
+Cualquiera de los glifos de la fuente tipográfica Feta se puede
+pasar a la instrucción de marcado @code{\musicglyph}: véase
+@ref{La tipografía Feta}.
 
 @c TODO Add inserting eps files or ref to later
 
@@ -4569,13 +4685,13 @@ Referencia de funcionamiento interno:
 @cindex divididos, modificación de objetos de extensión
 @funindex \alterBroken
 
-Cuando un @qq{spanner} u objeto extenso atraviesa uno o varios saltos
-de línea, cada fragmento hereda los atributos del objeto de extensión
-original.  Así, el trucado ordinario de un objeto dividido aplica las
-mismas modificaciones a todos y cada uno de sus segmentos.  En el
-ejemplo que aparece a continuación, la sobreescritura de
-@code{thickness} (grosor) afecta a la ligadura a ambos lados del salto
-de línea.
+Cuando un @qq{spanner} u objeto extenso atraviesa uno o varios
+saltos de línea, cada fragmento hereda los atributos del objeto de
+extensión original.  Así, el trucado ordinario de un objeto
+dividido aplica las mismas modificaciones a todos y cada uno de
+sus segmentos.  En el ejemplo que aparece a continuación, la
+sobreescritura de @code{thickness} (grosor) afecta a la ligadura a
+ambos lados del salto de línea.
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' {
@@ -4589,9 +4705,9 @@ de línea.
 
 Es posible modificar de forma independiente el aspecto de los
 fragmentos individuales de un objeto de extensión dividido, con la
-instrucción @code{\alterBroken}.  Esta instrucción puede producir un
-@code{\override} o bien un @code{\tweak} de una propiedad del objeto
-de extensión.
+instrucción @code{\alterBroken}.  Esta instrucción puede producir
+un @code{\override} o bien un @code{\tweak} de una propiedad del
+objeto de extensión.
 
 La sintaxis de @code{\alterBroken} es
 
@@ -4600,23 +4716,23 @@ La sintaxis de @code{\alterBroken} es
 @end example
 
 El argumento @var{valores} es una lista de valores, uno por cada
-fragmento.  Si @var{elemento} el el nombre de un grob como @code{Slur}
-o @code{Staff.PianoPedalBracket}, el resultado es una instrucción de
-sobreescritura @code{\override} del tipo de grob especificado.  Si
-@var{elemento} es una expresión musical como @qq{(} o @qq{[} el
-resultado es la misma expresión musical con el correspondiente truco
-aplicado.
+fragmento.  Si @var{elemento} el el nombre de un grob como
+@code{Slur} o @code{Staff.PianoPedalBracket}, el resultado es una
+instrucción de sobreescritura @code{\override} del tipo de grob
+especificado.  Si @var{elemento} es una expresión musical como
+@qq{(} o @qq{[} el resultado es la misma expresión musical con el
+correspondiente truco aplicado.
 
 El guión inicial se debe utilizar con la forma de trucaje,
-@code{\tweak}.  No lo escriba cuando utilice @code{\alterBroken} como
-una operación de sobreescritura, @code{\override}.
+@code{\tweak}.  No lo escriba cuando utilice @code{\alterBroken}
+como una operación de sobreescritura, @code{\override}.
 
 En su uso como @code{\override}, @code{\alterBroken} puede ir
 precedido de @code{\once} o @code{\temporary} y ser revertido con
 @code{\revert} con el argumento @var{propiedad}.
 
-EL código siguiente aplica un @code{\override} independiente a cada
-uno de los fragmentos de la ligadura del ejemplo anterior:
+EL código siguiente aplica un @code{\override} independiente a
+cada uno de los fragmentos de la ligadura del ejemplo anterior:
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' {
@@ -4628,14 +4744,14 @@ uno de los fragmentos de la ligadura del ejemplo anterior:
 }
 @end lilypond
 
-La instrucción @code{\alterBroken} se puede usar con cualquier objeto
-de extensión, incluidos @code{Tie}, @code{PhrasingSlur}, @code{Beam} y
-@code{TextSpanner}.  Por ejemplo, un editor que está preparando una
-edición académica podría desear indicar la ausencia de parte de una
-ligadura de fraseo en una fuente haciendo discontinuo solamente el
-segmento que se ha añadido.  El siguiente ejemplo ilustra de qué
-manera se puede hacer esto, en este caso usando la forma @code{\tweak}
-de la instrucción:
+La instrucción @code{\alterBroken} se puede usar con cualquier
+objeto de extensión, incluidos @code{Tie}, @code{PhrasingSlur},
+@code{Beam} y @code{TextSpanner}.  Por ejemplo, un editor que está
+preparando una edición académica podría desear indicar la ausencia
+de parte de una ligadura de fraseo en una fuente haciendo
+discontinuo solamente el segmento que se ha añadido.  El siguiente
+ejemplo ilustra de qué manera se puede hacer esto, en este caso
+usando la forma @code{\tweak} de la instrucción:
 
 @lilypond[verbatim,quote,ragged-right]
 % The empty list is conveniently used below, because it is the
@@ -4647,24 +4763,25 @@ de la instrucción:
 }
 @end lilypond
 
-Es importante comprender que @code{\alterBroken} fija cada pieza del
-objeto fragmentado al valor correspondiente dentro del argumento
-@var{valores}.  Cuando hay menos valores que piezas, cualquier
-fragmento adicional recibe la asignación de la lista vacía.  Esto
-puede conllevar resultados no deseados si la propiedad de disposición
-no está establecida a la lista vacía de forma predeterminada.  En
-estos casos, se debe asignar a cada segmento un valor adecuado.
+Es importante comprender que @code{\alterBroken} fija cada pieza
+del objeto fragmentado al valor correspondiente dentro del
+argumento @var{valores}.  Cuando hay menos valores que piezas,
+cualquier fragmento adicional recibe la asignación de la lista
+vacía.  Esto puede conllevar resultados no deseados si la
+propiedad de disposición no está establecida a la lista vacía de
+forma predeterminada.  En estos casos, se debe asignar a cada
+segmento un valor adecuado.
 
 @knownissues
-Los saltos de línea pueden ocurrir en distintos lugares según cambia
-la disposición de la música.  Los ajustes elegidos para
+Los saltos de línea pueden ocurrir en distintos lugares según
+cambia la disposición de la música.  Los ajustes elegidos para
 @code{\alterBroken} podrían no ser adecuados para un objeto de
-extensión que ya no está dividido o que se fragmenta en más piezas que
-antes.  El uso explícito (manual) de saltos de línea mediante
+extensión que ya no está dividido o que se fragmenta en más piezas
+que antes.  El uso explícito (manual) de saltos de línea mediante
 @code{\break} puede prevenir situaciones como ésta.
 
-La instrucción @code{\alterBroken} no es efectiva para propiedades de
-los objetos extensos accedidas antes del salto de línea, como
+La instrucción @code{\alterBroken} no es efectiva para propiedades
+de los objetos extensos accedidas antes del salto de línea, como
 @code{direction}.
 
 @seealso
@@ -4682,35 +4799,37 @@ Extender LilyPond:
 @cindex no-puros: contenedores de Scheme
 @cindex horizontal, sobreescribir el espaciado
 
-Los contenedores @q{unpure-pure} (pura y no pura) son útiles para la
-sobreescritura de los cálculos del espaciado en el @emph{eje Y}
-(concretamente @code{Y-offset} e @code{Y-extent}) con una función de
-Scheme en lugar de un literal, es decir, un número o una pareja de
-números.
+Los contenedores @q{unpure-pure} (pura y no pura) son útiles para
+la sobreescritura de los cálculos del espaciado en el @emph{eje Y}
+(concretamente @code{Y-offset} e @code{Y-extent}) con una función
+de Scheme en lugar de un literal, es decir, un número o una pareja
+de números.
 
-Para ciertos objetos gráficos, las dimensiones @code{Y-extent} están
-basadas en la propiedad @code{stencil}, la sobreescritura de la
-propiedad de sello de éstos requiere una sobreescritura adicional de
-@code{Y-extent} con un contenedor unpure-pure.  Cuando una función
-sobreescribe una dimensión @code{Y-offset} y/o @code{Y-extent} se
-supone que esto dispara los cálculos de los saltos de línea
-prematuramente durante la compilación.  Así pues, la función no se
-evalúa en absoluto (devolviendo por lo general un valor de @samp{0} o
-@samp{'(0 . 0)}) lo que puede dar lugar a colisiones.  Una función
-@q{pura} no afecta a las propiedades, objetos o suicidios de grobs, y
-por ello siempre ven sus valores relacionados con el eje Y evaluados
-correctamente.
+Para ciertos objetos gráficos, las dimensiones @code{Y-extent}
+están basadas en la propiedad @code{stencil}, la sobreescritura de
+la propiedad de sello de éstos requiere una sobreescritura
+adicional de @code{Y-extent} con un contenedor unpure-pure.
+Cuando una función sobreescribe una dimensión @code{Y-offset} y/o
+@code{Y-extent} se supone que esto dispara los cálculos de los
+saltos de línea prematuramente durante la compilación.  Así pues,
+la función no se evalúa en absoluto (devolviendo por lo general un
+valor de @samp{0} o @samp{'(0 . 0)}) lo que puede dar lugar a
+colisiones.  Una función @q{pura} no afecta a las propiedades,
+objetos o suicidios de grobs, y por ello siempre ven sus valores
+relacionados con el eje Y evaluados correctamente.
 
-Actualmente hay unas treinta funciones que ya se consideran @q{puras}
-y los contenedores Unpure-pure son una manera de establecer funciones
-que no están en esta lista como @q{puras}.  La función @q{pura} se
-evalúa @emph{antes} de cualquier salto de línea y así el espaciado
-horizontal se puede ajustar @q{a tiempo}.  La función @q{impura} se
-evalúa entonces @emph{después} del salto de línea.
+Actualmente hay unas treinta funciones que ya se consideran
+@q{puras} y los contenedores Unpure-pure son una manera de
+establecer funciones que no están en esta lista como @q{puras}.
+La función @q{pura} se evalúa @emph{antes} de cualquier salto de
+línea y así el espaciado horizontal se puede ajustar @q{a tiempo}.
+La función @q{impura} se evalúa entonces @emph{después} del salto
+de línea.
 
-@warning{Dado que es difícil saber siempre qué funciones están en esta
-lista, recomendamos que cualquier función @q{pura} que estemos creando
-no utilice los grobs @code{Beam} o @code{VerticalAlignment}.}
+@warning{Dado que es difícil saber siempre qué funciones están en
+esta lista, recomendamos que cualquier función @q{pura} que
+estemos creando no utilice los grobs @code{Beam} o
+@code{VerticalAlignment}.}
 
 Un contenedor @q{unpure-pure} se contruye de la manera siguiente:
 
@@ -4723,14 +4842,14 @@ etiqueta como @q{pura} que toma @var{n + 2} argumentos.  De nuevo, el
 primer argumento debe ser siempre el grob pero los argumentos segundo
 y tercero son argumentos de @q{inicio} y de @q{final}.
 
-@var{inicio} y @var{final} son, a todos los efectos, valores mudos que
-sólo tienen importancia para los @code{objetos de extensión} (o sea:
-@code{Hairpin}, regulador, o @code{Beam}, barra), que pueden devolver
-distintas estimaciones de altura basadas en una columna de inicio y
-una de final.
+@var{inicio} y @var{final} son, a todos los efectos, valores mudos
+que sólo tienen importancia para los @code{objetos de extensión}
+(o sea: @code{Hairpin}, regulador, o @code{Beam}, barra), que
+pueden devolver distintas estimaciones de altura basadas en una
+columna de inicio y una de final.
 
-El resto son los otros argumentos para la primera función (que puede
-no ser ninguno si @var{n = 1}).
+El resto son los otros argumentos para la primera función (que
+puede no ser ninguno si @var{n = 1}).
 
 El resultado de la segunda función se usa como una aproximación del
 valor necesario, que se usa entonces por la primera función para
@@ -4767,20 +4886,23 @@ smartSquareLineCircleSpace = {
 }
 @end lilypond
 
-En el primer compás, sin el contenedor @emph{unpure-pure}, el motor de
-espaciado no conoce la anchura de la cabeza de la nota y permite que
-colisione con las alteraciones accidentales.  En el segundo compás, el
-motor de espaciado conoce la anchura de las cabezas de las notas y
-evita la colisión mediante el alargamiento de la línea en la medida
-adecuada.
+En el primer compás, sin el contenedor @emph{unpure-pure}, el
+motor de espaciado no conoce la anchura de la cabeza de la nota y
+permite que colisione con las alteraciones accidentales.  En el
+segundo compás, el motor de espaciado conoce la anchura de las
+cabezas de las notas y evita la colisión mediante el alargamiento
+de la línea en la medida adecuada.
 
 Normalmente, para cálculos simples se pueden usar funciones casi
-idénticas tanto para las partes @q{no pura} y @q{pura}, simplemente
-cambiando el número de argumentos que se pasan a, y el ámbito de, la
-función.
+idénticas tanto para las partes @q{no pura} y @q{pura},
+simplemente cambiando el número de argumentos que se pasan a, y el
+ámbito de, la función.  Este caso de utilización es lo bastante
+frecuente como para que @code{ly:make-unpure-pure-container}
+construya dicha segunda función de forma predeterminada cuando se
+llama con solo un argumento de función.
 
-@warning{Si una función está caracterizada como @q{pura} y resulta que
-no lo es, el resultado puede ser inesperado.}
+@warning{Si una función está caracterizada como @q{pura} y resulta
+que no lo es, el resultado puede ser inesperado.}
 
 
 @node Uso de las funciones musicales
@@ -4792,10 +4914,10 @@ no lo es, el resultado puede ser inesperado.}
 Dondequiera que se necesite reutilizar trucos con distintas
 expresiones musicales, con frecuencia conviene hacer que el truco
 forme parte de una @emph{función musical}.  En esta sección
-estudiaremos solamente las funciones de @emph{sustitución}, en las que
-el objeto es sustituir una variable dentro de un fragmento de código
-de entrada de LilyPond.  Se describen otras funciones más complejas en
-@rextend{Funciones musicales}.
+estudiaremos solamente las funciones de @emph{sustitución}, en las
+que el objeto es sustituir una variable dentro de un fragmento de
+código de entrada de LilyPond.  Se describen otras funciones más
+complejas en @rextend{Funciones musicales}.
 
 @menu
 * Sintaxis de las funciones de sustitución::
@@ -4807,8 +4929,8 @@ de entrada de LilyPond.  Se describen otras funciones más complejas en
 @subsection Sintaxis de las funciones de sustitución
 @translationof Substitution function syntax
 
-Es fácil hacer una función que sustituya una variable dentro de código
-de LilyPond.  La forma general de estas funciones es
+Es fácil hacer una función que sustituya una variable dentro de
+código de LilyPond.  La forma general de estas funciones es
 
 @example
 funcion =
@@ -4833,18 +4955,13 @@ debe devolver @code{#t}.
 
 @item @code{@var{@dots{}música@dots{}}}
 @tab código de entrada normal de LilyPond, que utiliza @code{$} (en los
-lugares en que sólo se permiten construcciones de Lilypond) o @code{#}
-(para usarlo como un valor de Scheme o un argumento de función musical
-o música dentro de listas de música) para referenciar argumentos
-(p.ej. @samp{#arg1}).
+lugares en que sólo se permiten construcciones de Lilypond) o
+@code{#} (para usarlo como un valor de Scheme o un argumento de
+función musical o música dentro de listas de música) para
+referenciar argumentos (p.ej. @samp{#arg1}).
 @end multitable
 
-Los argumentos @code{parser} y @code{location} son necesarios, y se
-utilizan en algunas situaciones avanzadas como se encuentra descrito
-en @rextend{Sintaxis de las funciones musicales}.  Para las funciones
-de sustitución, tan sólo hemos de asegurarnos de incluirlos.
-
-También es necesaria la lista de predicados de tipo.  Algunos de los
+Es necesaria la lista de predicados de tipo.  Algunos de los
 predicados de tipo más comunes que se utilizan en las funciones
 musicales son:
 
@@ -4883,12 +5000,13 @@ Archivos instalados:
 @subsection Ejemplos de funciones de sustitución
 @translationof Substitution function examples
 
-Esta sección presenta algunos ejemplos de funciones de sustitución.
-No pretenden ser exhaustivas, sino demostrar algunas de las
-posibilidades de las funciones de sustitución sencillas.
+Esta sección presenta algunos ejemplos de funciones de
+sustitución.  No pretenden ser exhaustivas, sino demostrar algunas
+de las posibilidades de las funciones de sustitución sencillas.
 
-En el primer ejemplo se define una función que simplifica el ajuste
-del relleno de un elemento de inscripción de texto TextScript:
+En el primer ejemplo se define una función que simplifica el
+ajuste del relleno de un elemento de inscripción de texto
+TextScript:
 
 @lilypond[quote,verbatim,ragged-right]
 padText =
@@ -4927,7 +5045,41 @@ custosNote =
 \relative { c'4 d e f \custosNote g }
 @end lilypond
 
-Se pueden definir funciones de sustitución con más de un argumento:
+@funindex \etc
+Ambas funciones son expresiones únicas sencillas en las que solo
+falta el último elemento de una lamada de función o
+sobreescritura.  Para estas definiciones de función en particular,
+existe una sintaxis alternativa más simple que consiste
+simplemente en escribir la parte constante de la expresión y
+sustituir el elemento final que falta por @code{\etc}:
+
+@lilypond[quote,verbatim,ragged-right]
+padText =
+  \once \override TextScript.padding = \etc
+
+\relative {
+  c''4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" b a b
+  \padText #2.6
+  c4^"piu mosso" b a b
+}
+@end lilypond
+
+@lilypond[quote,verbatim,ragged-right]
+custosNote =
+  \tweak NoteHead.stencil #ly:text-interface::print
+  \tweak NoteHead.text
+     \markup \musicglyph #"custodes.mensural.u0"
+  \tweak Stem.stencil ##f
+  \etc
+
+\relative { c'4 d e f \custosNote g }
+@end lilypond
+
+
+Se pueden definir funciones de sustitución con más de un
+argumento:
 
 @lilypond[quote,verbatim,ragged-right]
 tempoPadded =

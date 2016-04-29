@@ -60,6 +60,22 @@
 (define-public (boolean-or-symbol? x)
   (or (boolean? x) (symbol? x)))
 
+(define-public (key? x)
+  (or (symbol? x) (index? x)))
+
+(define-public (key-list? x)
+  (and (list? x) (every key? x)))
+
+(define-public (key-list-or-music? x)
+  (if (list? x)
+      (every key? x)
+      (ly:music? x)))
+
+(define-public (key-list-or-symbol? x)
+  (if (list? x)
+      (every key? x)
+      (symbol? x)))
+
 (define-public (symbol-list? x)
   (and (list? x) (every symbol? x)))
 

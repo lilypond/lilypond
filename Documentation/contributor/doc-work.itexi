@@ -1544,7 +1544,7 @@ build/tempdocs/pitches/out/pitches.html
 @end example
 
 According to
-@uref{http://code.google.com/p/lilypond/issues/detail?id=1236,LilyPond issue 1236},
+@uref{https://sourceforge.net/p/testlilyissues/issues/1236/,LilyPond issue 1236},
 the location of the LilyPond Git tree is taken from @code{$LILYPOND_GIT}
 if specified, otherwise it is auto-detected.
 

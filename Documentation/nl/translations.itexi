@@ -16,7 +16,7 @@ td { border: 1px solid black; text-align: center; }
 
 @end html
 @end ifhtml
-@emph{Meest recente update Fri Jan  1 10:40:27 UTC 2016
+@emph{Meest recente update Sat Mar  5 16:11:52 UTC 2016
 }
 @multitable @columnfractions  0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667 0.166666666667
 
@@ -111,7 +111,7 @@ gedeeltelijk
 @item
 2 Algemene muzieknotatie
 @*
-4443
+4437
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
@@ -165,7 +165,7 @@ gedeeltelijk
 @item
 4 Tweaking output
 @*
-16577
+16622
 @tab Jan Nieuwenhuizen
 @tab 
 @tab 
@@ -209,7 +209,7 @@ gedeeltelijk (97 %)
 @ifhtml
 
 @html
-<span style="background-color: #ffdf42">gedeeltelijk</span>
+<span style="background-color: #ffdd42">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml
@@ -285,7 +285,7 @@ ja
 @item
 Inleiding
 @*
-5816
+5815
 @tab Jan Nieuwenhuizen
 @tab Tineke de Munnik
 @tab 
@@ -302,7 +302,7 @@ ja
 @ifhtml
 
 @html
-<span style="background-color: #dbff38">gedeeltelijk</span>
+<span style="background-color: #e1ff39">gedeeltelijk</span>
 @end html
 @end ifhtml
 @ifnothtml

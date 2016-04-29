@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 16d46fb0995cc6d078617ada1e8fea7879dffe07
+   Translation of GIT committish: 88a5dbc589b0d0434f8e640467b5ab57d14dc461
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -25,7 +25,7 @@ Tutorial guidelines:  (different from policy.txt!)
 @c \version "2.19.21"
 
 @c Translators: Nicolas Grandclaude, Ludovic Sardain, Gauvain Pocentek
-@c Translation checkers: Jean-Charles Malahieude, Valentin Villenave, John Mandereau
+@c Translation checkers: J.-Charles Malahieude, Valentin Villenave, John Mandereau
 @c Translation status: post-GDP
 
 @node Bases de notation musicale
@@ -1445,8 +1445,8 @@ cello = \new Staff {
 @end lilypond
 
 @noindent
-Le nom d'une variable ne doit comporter que des caractères
-alphabétiques non accentués, aucun nombre ni tiret ne sont autorisés.
+Par convention, un nom de variable ne comporte que des caractères
+alphabétiques non accentués, aucun nombre ni tiret.
 
 On peut utiliser une variable déjà définie autant de fois que l'on
 veut, y compris dans la définition d'une nouvelle variable ; par

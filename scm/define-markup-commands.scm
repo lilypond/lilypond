@@ -2251,6 +2251,16 @@ Set the dimensions of @var{arg} to @var{x} and@tie{}@var{y}."
       `(delay-stencil-evaluation ,(delay expr))
       x y))))
 
+(define-markup-command (with-dimensions-from layout props arg1 arg2)
+  (markup? markup?)
+  #:category other
+  "
+Print @var{arg2} with the dimensions of @var{arg1}."
+  (let* ((stil1 (interpret-markup layout props arg1))
+         (x (ly:stencil-extent stil1 0))
+         (y (ly:stencil-extent stil1 1)))
+    (interpret-markup layout props (markup #:with-dimensions x y arg2))))
+
 (define-markup-command (pad-around layout props amount arg)
   (number? markup?)
   #:category align
@@ -4712,6 +4722,152 @@ where @var{X} is the number of staff spaces."
   (pair? markup-list?)
   "Like @code{\\override}, for markup lists."
   (interpret-markup-list layout (cons (list new-prop) props) args))
+
+(define-markup-list-command (table layout props column-align lst)
+  (number-list? markup-list?)
+  #:properties ((padding 0)
+                (baseline-skip))
+  "@cindex creating a table.
+
+Returns a table.
+
+@var{column-align} specifies how each column is aligned, possible values are
+-1, 0, 1.  The number of elements in @var{column-align} determines how many
+columns will be printed.
+The entries to print are given by @var{lst}, a markup-list.  If needed, the last
+row is filled up with @code{point-stencil}s.
+Overriding @code{padding} may be used to increase columns horizontal distance.
+Overriding @code{baseline-skip} to increase rows vertical distance.
+@lilypond[verbatim,quote]
+\\markuplist {
+  \\override #'(padding . 2)
+  \\table
+    #'(0 1 0 -1)
+    {
+      \\underline { center-aligned right-aligned center-aligned left-aligned }
+      one \number 1 thousandth \number 0.001
+      eleven \number 11 hundredth \number 0.01
+      twenty \number 20 tenth \number 0.1
+      thousand \number 1000 one \number 1.0
+    }
+}
+@end lilypond
+"
+
+  (define (split-lst initial-lst lngth result-lst)
+    ;; split a list into a list of sublists of length lngth
+    ;; eg. (split-lst '(1 2 3 4 5 6) 2 '())
+    ;; -> ((1 2) (3 4) (5 6))
+    (cond ((not (integer? (/ (length initial-lst) lngth)))
+           (ly:warning
+            "Can't split list of length ~a into ~a parts, returning empty list"
+            (length initial-lst) lngth)
+           '())
+          ((null? initial-lst)
+            (reverse result-lst))
+          (else
+            (split-lst
+              (drop initial-lst lngth)
+              lngth
+              (cons (take initial-lst lngth) result-lst)))))
+
+  (define (dists-list init padding lst)
+    ;; Returns a list, where each element of `lst' is
+    ;; added to the sum of the previous elements of `lst' plus padding.
+    ;; `init' will be the first element of the resulting list. The addition
+    ;; starts with the values of `init', `padding' and `(car lst)'.
+    ;; eg. (dists-list 0.01 0.1 '(1 2 3 4)))
+    ;; -> (0.01 1.11 3.21 6.31 10.41)
+    (if (or (not (number? init))
+            (not (number? padding))
+            (not (number-list? lst)))
+        (begin
+          (ly:warning
+            "not fitting argument for `dists-list', return empty lst ")
+          '())
+        (reverse
+          (fold (lambda (elem rl) (cons (+ elem padding (car rl)) rl))
+                (list init)
+                lst))))
+
+  (let* (;; get the number of columns
+         (columns (length column-align))
+         (init-stils (interpret-markup-list layout props lst))
+         ;; If the given markup-list is the result of a markup-list call, their
+         ;; length may not be easily predictable, thus we add point-stencils
+         ;; to fill last row of the table.
+         (rem (remainder (length init-stils) columns))
+         (filled-stils
+           (if (zero? rem)
+               init-stils
+               (append init-stils (make-list (- columns rem) point-stencil))))
+         ;; get the stencils in sublists of length `columns'
+         (stils
+           (split-lst filled-stils columns '()))
+         ;; procedure to return stencil-length
+         ;; If it is nan, return 0
+         (lengths-proc
+           (lambda (m)
+             (let ((lngth (interval-length (ly:stencil-extent m X))))
+               (if (nan? lngth) 0 lngth))))
+         ;; get the max width of each column in a list
+         (columns-max-x-lengths
+           (map
+             (lambda (x)
+               (apply max 0
+                      (map
+                        lengths-proc
+                        (map (lambda (l) (list-ref l x)) stils))))
+             (iota columns)))
+         ;; create a list of (basic) distances, which each column should
+         ;; moved, using `dists-list'. Some padding may be added.
+         (dist-sequence
+           (dists-list 0 padding columns-max-x-lengths))
+         ;; Get all stencils of a row, moved accurately to build columns.
+         ;; If the items of a column are aligned other than left, we need to
+         ;; move them to avoid collisions:
+         ;; center aligned: move all items half the width of the widest item
+         ;; right aligned: move all items the full width of the widest item.
+         ;; Added to the default-offset calculated in `dist-sequence'.
+         ;; `stencils-for-row-proc' needs four arguments:
+         ;;    stil    - a stencil
+         ;;    dist    - a numerical value as basic offset in X direction
+         ;;    column  - a numerical value for the column we're in
+         ;;    x-align - a numerical value how current column should be
+         ;;              aligned, where (-1, 0, 1) means (LEFT, CENTER, RIGHT)
+         (stencils-for-row-proc
+           (lambda (stil dist column x-align)
+             (ly:stencil-translate-axis
+               (ly:stencil-aligned-to stil X x-align)
+               (cond ((member x-align '(0 1))
+                      (let* (;; get the stuff for relevant column
+                             (stuff-for-column
+                               (map
+                                 (lambda (s) (list-ref s column))
+                                 stils))
+                             ;; get length of every column-item
+                             (lengths-for-column
+                               (map lengths-proc stuff-for-column))
+                             (widest
+                               (apply max 0 lengths-for-column)))
+                        (+ dist (/ widest (if (= x-align 0) 2 1)))))
+                     (else dist))
+               X)))
+         ;; get a list of rows using `ly:stencil-add' on a list of stencils
+         (rows
+           (map
+             (lambda (stil-list)
+               (apply ly:stencil-add
+                 (map
+                   ;; the procedure creating the stencils:
+                   stencils-for-row-proc
+                   ;; the procedure's args:
+                   stil-list
+                   dist-sequence
+                   (iota columns)
+                   column-align)))
+             stils)))
+   (space-lines baseline-skip rows)))
 
 (define-markup-list-command (map-markup-commands layout props compose args)
   (procedure? markup-list?)

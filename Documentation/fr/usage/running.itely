@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: d64a2407615c09ddd8f5c34e13a3ecfdf4284f1b
+   Translation of GIT committish: 2034ca4fcbed9253b5a85e9360e47d3fe3ff1d09
 
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  For details, see the Contributors'
+   Guide, node Updating translation committishes..
 @end ignore
 
 @c \version "2.17.6"
@@ -267,6 +267,10 @@ ou @code{png}.
 
 Exemple : @code{lilypond -fpng @var{monfichier}.ly}
 
+@noindent
+Les formats @code{svg} et @code{eps} s'obtiennent à l'aide de
+l'option @code{-dbackend} -- voir @ref{Options avancées de lilypond}.
+
 @item -h, --help
 Affiche un résumé des commandes.
 
@@ -513,22 +517,24 @@ utilise par défaut.
 @item
 @tab @code{svg}
 @tab Génère du @emph{Scalable Vector Graphics}.  Cette option permet de
-créer un fichier SVG par page.  Dans la mesure où aucune information
-concernant les fontes n'est incorporée,  elles devront être installées
-afin d'obtenir le meilleur rendu possible.  Il est préférable de ne pas
-recourir aux « alias de police » ni aux listes de fontes si le
-visionneur de fichier SVG ne peut le traîter correctement.  L'option
-supplémentaire @code{--svg-woff} -- voir ci-après -- permet d'utiliser
-les fontes WOFF (@emph{Web Open Font Format}) avec le moteur SVG.
+créer un fichier SVG par page.  Les glyphes musicaux sont codés en tant
+que graphiques vectoriels mais les fontes textuelles @b{ne sont pas}
+incorporées aux fichiers @file{SVG} résultants.  Quel que soit le
+programme utilisé pour visionner ces fichiers, il devra avoir accès aux
+fontes en question pour pouvoir afficher correctement les textes et
+paroles.  Il est préférable de ne pas recourir aux « alias de police »
+ni aux listes de fontes si la visionneuse de fichier SVG ne peut le
+traîter correctement.  L'option supplémentaire @code{--svg-woff} -- voir
+ci-après -- permet d'utiliser les fontes WOFF (@emph{Web Open Font
+Format}) avec le moteur SVG.
 @end multitable
 
 @noindent
 @strong{Note à propos des sorties SVG :}
-Les polices par défaut de LilyPond -- @code{LilyPond Serif},
-@code{LilyPond Sans Serif} et @code{LilyPond Monospace} -- ne sont que
-des alias au niveau local.  Le recours au moteur SVG requiert donc que
-ces polices par défaut soient explicitement définies dans le fichier
-source :
+Par défaut, LilyPond utilise des valeurs de @code{font-family}
+génériques -- @code{Serif}, @code{Sans Serif} et @code{Monospace}.  Le
+recours au moteur @code{svg} requiert donc que ces polices par défaut
+soient explicitement définies dans le fichier source :
 
 @quotation
 @verbatim
@@ -610,6 +616,10 @@ pour chaque fichier.
 @tab @code{#f}
 @tab Génère une copie des signatures de chaque système.  Cette option
 est utilisée pour les tests de régression.
+
+@item @code{embed-source-code}
+@tab @code{#f}
+@tab Intègre les fichiers source LilyPond au document PDF généré.
 
 @item @code{eps-box-padding}
 @tab @code{#f}

@@ -1,4 +1,4 @@
-\version "2.19.34"
+\version "2.19.40"
 
 \header {
   lsrtags = "rhythms"
@@ -33,22 +33,22 @@ changed to match the new @code{baseMoment}:
 
   % Set beam sub-group length to an eighth note
   \set baseMoment = #(ly:make-moment 1/8)
-  \set beatStructure = #'(2 2 2 2)
+  \set beatStructure = 2,2,2,2
   c32[ c c c c c c c]
 
   % Set beam sub-group length to a sixteenth note
   \set baseMoment = #(ly:make-moment 1/16)
-  \set beatStructure = #'(4 4 4 4)
+  \set beatStructure = 4,4,4,4
   c32[ c c c c c c c]
 
   % Shorten beam by 1/32
   \set baseMoment = #(ly:make-moment 1/8)
-  \set beatStructure = #'(2 2 2 2)
+  \set beatStructure = 2,2,2,2
   c32[ c c c c c c] r32
 
   % Shorten beam by 3/32
   \set baseMoment = #(ly:make-moment 1/8)
-  \set beatStructure = #'(2 2 2 2)
+  \set beatStructure = 2,2,2,2
   c32[ c c c c] r16.
   r2
 }

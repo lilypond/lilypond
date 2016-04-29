@@ -34,8 +34,8 @@ menrest = #(define-music-function (note)
 
 MensStyle = {
   \autoBeamOff
-  \override NoteHead #'style = #'petrucci
-  \override Score.BarNumber #'transparent = ##t
+  \override NoteHead.style = #'petrucci
+  \override Score.BarNumber.transparent = ##t
   \override Stem.neutral-direction = #up
 }
 

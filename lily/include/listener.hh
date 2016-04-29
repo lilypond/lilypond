@@ -179,6 +179,7 @@ class Callback_wrapper : public Simple_smob<Callback_wrapper>
   Callback_wrapper (void (*trampoline) (SCM, SCM)) : trampoline_ (trampoline)
   { } // Private constructor, use only in make_smob
 public:
+  static const char * const type_p_name_; // = 0
   LY_DECLARE_SMOB_PROC (&Callback_wrapper::call, 2, 0, 0)
   SCM call (SCM target, SCM ev)
   {

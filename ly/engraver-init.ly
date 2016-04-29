@@ -147,6 +147,7 @@
   \accepts "ChoirStaff"
   \accepts "ChordNames"
   \accepts "DrumStaff"
+  \accepts "Dynamics"
   \accepts "FiguredBass"
   \accepts "GrandStaff"
   \accepts "Lyrics"
@@ -826,6 +827,10 @@ context."
   %% keep noteheads inside the staff
   \consists "Pitch_squash_engraver"
   squashedPosition = 0
+
+  %% generate no ledger lines, needed for staves with custom
+  %% line positions and ledger lines that appear inside the staff
+  \override NoteHead.no-ledgers = ##t
 
   %% the engravers that control the 'busy' flags for note-onsets and melismata
   \consists "Grob_pq_engraver"

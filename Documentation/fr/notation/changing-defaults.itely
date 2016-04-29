@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8cce5dd067a8a2bab508f5abebc3955db8837bbf
+   Translation of GIT committish: 10bc01482b78c62ad095ceb95963b1800571e408
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -102,13 +102,12 @@ Référence des propriétés internes :
 >> > > - list of contexts: my *danger unmaintainable*
 >> > > alarm just went off.  I'm
 
-I knew it would... And leaving out some of them is perfectly fine
-with me.
-I do think that a list like this, with the main contexts and a
-brief description of  what they do (perhaps also with a note about what
-default behavior is associated with each of them, but this may be
-unmanageable), should be there, and then we could simply list the
-remaining ones without further explanation and with links to the IR.
+I knew it would... And leaving out some of them is perfectly fine with
+me. I do think that a list like this, with the main contexts and a brief
+description of what they do (perhaps also with a note about what default
+behavior is associated with each of them, but this may be unmanageable),
+should be there, and then we could simply list the remaining ones
+without further explanation and with links to the IR.
 @end ignore
 
 @c TODO Improve layout, order and consistency of wording -td
@@ -1849,7 +1848,7 @@ vide entre la note et le doigté :
 \once \override Voice.Fingering.padding = #3
 @end example
 
-En ajoutant cette commande avant la création du doigté (de l'objet
+En ajoutant ce tampon avant la création du doigté (de l'objet
 @code{Fingering}), donc avant @code{c2}, on obtient le résultat
 suivant :
 
@@ -1884,19 +1883,26 @@ voici quelques conventions en matière de nommage :
 
 @itemize
 @item fonctions scheme :
- minuscule-avec-trait-d-union (y compris noms en mot-unique)
+ minuscule-avec-trait-d-union (ce qui inclut les noms en mot-unique)
+
 @item fonctions scheme :
  ly:plus-style-scheme
+
 @item événements, classes et propriétés musicaux :
  identique-aux-fonctions-scheme
+
 @item interfaces d'objet graphique :
  style-scheme
+
 @item propriétés d'arrière plan :
  style-scheme (mais X et Y pour les axes)
+
 @item contextes (ainsi que MusicExpressions et grobs) :
  Capitale initiale ou Camélisation (CamelCase)
+
 @item propriétés de contexte :
  minusculeSuivieDeCamélisation
+
 @item graveurs :
  Capitale_initiale_puis_minuscules_séparées_par_un_souligné
 @end itemize
@@ -1905,6 +1911,7 @@ Les questions que vous devez vous poser sont :
 @itemize
 @item Qu'est-ce qui relève des conventions, et qu'est-ce qui relève de
 la règle ?
+
 @item Qu'est-ce qui relève des règles du langage sous-jacent, et
 qu'est-ce qui est propre à LilyPond ?
 @end itemize
@@ -2588,7 +2595,7 @@ pour la première rencontrée dans le fichier source.
 
 Les instructions @code{\set} et @code{\override} manipulent toutes deux
 des propriétés associées à des contextes.  Dans tous les cas, ces
-propriétés tiennent compte de la hiérarchie des contextes : les
+propriétés tiennent compte de la @emph{hiérarchie des contextes} : les
 propriétés qui n'ont pas été définies dans le contexte lui-même
 héritent des valeurs de leur contexte parent respectif.
 
@@ -2601,11 +2608,9 @@ commandes d'adaptation des propriétés, libellées au sein même de la
 musique.
 
 Les définitions d'un objet graphique (@emph{graphical object} abrégé en
-@emph{grob}) constituent une catégorie spécifique de propriétés de
-contexte.  Dans la mesure où leur structure, enregistrement et
-utilisation diffèrent des propriétés de contextes habituelles, on ne
-peut y accéder qu'à l'aide d'un jeu de commandes différent et font
-l'objet d'un traitement à part au sein de la documentation.
+@emph{grob}) constituent une catégorie @emph{spécifique} de propriétés
+de contexte, dans la mesure où leur structure, enregistrement et
+utilisation diffèrent des propriétés de contextes habituelles.
 
 Contrairement aux propriétés de contextes habituelles, les définitions
 de @emph{grob} sont subdivisées en propriétés de @emph{grob}.  Un
@@ -2616,17 +2621,18 @@ graveur (ou tout autre « agent » de LilyPond) peut alors ajouter ou
 modifier des propriétés à cet objet, sans pour autant affecter la
 définition du @emph{grob} dans ce contexte.
 
-Ce que nous appelons « propriétés de @emph{grob} » dans le cadre
+Ce que LilyPond appelle « propriétés de @emph{grob} » dans le cadre
 de l'affinage par l'utilisateur sont en fait les propriétés de la
-définition d'un objet dans un contexte.  Contrairement aux propriétés
-de contexte habituelles, les définitions d'un @emph{grob} doivent être
-enregistrées pour pouvoir garder trace de ses composants, les propriétés
-individuelles du @emph{grob} (ainsi que leurs sous-propriétés)
-séparément.  Il sera dès lors possible de définir ces composants dans
-différents contextes et ainsi disposer d'une définition globale du
-@emph{grob} à l'instant où la création de cet objet assemblera les
-éléments relatifs aux différents contextes attachés au contexte en cours
-et à ses parents.
+définition d'un objet dans un contexte.
+
+Contrairement aux propriétés de contexte habituelles, les définitions
+d'un @emph{grob} doivent être enregistrées pour pouvoir garder trace de
+ses composants, les propriétés individuelles du @emph{grob} (ainsi que
+leurs sous-propriétés) séparément.  Il sera dès lors possible de définir
+ces composants dans différents contextes et ainsi disposer d'une
+définition globale du @emph{grob} à l'instant où la création de cet
+objet assemblera les éléments relatifs aux différents contextes attachés
+au contexte en cours et à ses parents.
 
 Les définitions de @emph{grob} se manipulent à l'aide des commandes
 @code{\override} et @code{\revert}, et leur nom commence par une
@@ -2642,8 +2648,8 @@ Les instructions spéciales @code{\tweak} et @code{\overrideProperty}
 modifient les propriétés de @emph{grob} en court-circuitant totalement
 les propriétés de contexte.  En fait, elles capturent les @emph{grobs}
 au moment de leur création pour y injecter directement des propriétés soit
-émanant d'un événement musical retouché, soit lorsqu'ils sont d'une
-qualité particulière.
+émanant d'un événement musical retouché par un @code{\tweak}, soit
+lorsqu'ils sont d'une qualité particulière (un @code{\overrideProperty}).
 
 
 @node Modification de listes associatives
@@ -3709,13 +3715,18 @@ nous citerons entre autres :
 
 @itemize @bullet
 @item Une barre de mesure ne peut s'imprimer en début de ligne.
+
 @item Un numéro de mesure ne peut apparaître au début de la première
 ligne, à moins d'être différent de 1.
+
 @item Clef -- voir ci-après.
+
 @item Les répétitions en pourcentage sont soit toutes imprimées, soit
 aucune.  Vous devrez utiliser @code{begin-of-line-invisible} pour les
 voir et @code{all-invisible} pour les masquer.
+
 @item Armure -- voir ci-après.
+
 @item Modificateur de clef -- voir ci-après.
 @end itemize
 
@@ -4464,14 +4475,16 @@ Tous les glyphes de la fonte Feta sont accessibles à l'aide de la
 commande de @emph{markup} @code{\musicglyph} -- voir
 @ref{La fonte Feta}.
 
-@c TODO Add inserting eps files or ref to later
-
-@c TODO Add inserting Postscript or ref to later
+L'insertion de fichier @file{EPS} ou d'instructions Postscript sont
+accessibles par les commandes de @emph{markup} @code{\epsfile} et
+@code{\postscript} respectivement -- voir l'annexe
+@rusernamed{Graphic, Graphisme}.
 
 @seealso
 Manuel de notation :
 @ref{Commandes pour markup},
 @ref{Éléments graphiques dans du texte formaté},
+@rusernamed{Graphic, Graphisme},
 @ref{La fonte Feta},
 @ref{Mise en forme du texte}.
 
@@ -4902,6 +4915,10 @@ Viennent ensuite les autres arguments de la fonction initiale @code{f0}
 Les résultats de la deuxième fonction (@code{f1}) permettent une
 approximation des valeurs qui seront ensuite utilisées par la fonction
 initiale aux fins d'ajustement lors des phases ultérieures d'espacement.
+
+@c TODO: The following example supposedly showing a collision no longer
+@c 'works' since 2.18.x. Another example of a collision is needed.
+@c Issue #3512
 
 @lilypond[verbatim,quote,ragged-right]
 #(define (square-line-circle-space grob)

@@ -3468,9 +3468,9 @@ def conv (str):
                   r"\1\2.\3", str)
     str = re.sub (r'''(\\(?:alterBroken|overrideProperty)\s+)#?"([A-Za-z]+)\s*\.\s*([A-Za-z]+)"''',
                   r"\1\2.\3", str)
-    str = re.sub (r'''(\\tweak\s+)#?"?([A-Za-z]+)"?\s+?#'([-A-Za-z]+)''',
+    str = re.sub (r'''(\\tweak\s+)#?"?([A-W][A-Za-z]*)"?\s+?#'([a-zX-Z][-A-Za-z]*)''',
                   r"\1\2.\3", str)
-    str = re.sub (r'''(\\tweak\s+)#'([-A-Za-z]+)''',
+    str = re.sub (r'''(\\tweak\s+)#'([a-zX-Z][-A-Za-z]*)''',
                   r"\1\2", str)
     str = re.sub ("(" + matchmarkup + ")|"
                   + r"(\\footnote(?:\s*"
@@ -3869,6 +3869,23 @@ def conv(str):
     str = re.sub (r"\\whiteout-box(?![a-z_-])", r"\\whiteout", str)
     str = re.sub (r"\b\.whiteout-box(?![a-z_-])\b", r".whiteout", str)
     str = re.sub (r"#'whiteout-box(?![a-z_-])\b", r"#'whiteout", str)
+    return str
+
+@rule ((2, 19, 40), r"\time #'(2 3) ... -> \time 2,3 ...")
+def conv (str):
+    def repl (m):
+        return m.group(1) + re.sub (r"\s+", ",", m.group (2))
+
+    str = re.sub (r"(beatStructure\s*=\s*)#'\(([0-9]+(?:\s+[0-9]+)+)\)",
+                  repl, str)
+
+    str = re.sub (r"(\\time\s*)#'\(([0-9]+(?:\s+[0-9]+)+)\)", repl, str)
+    def repl (m):
+        subst = re.sub (r"\s+", ",", m.group (1))
+        return subst + (4 + len (m.group (1)) - len (subst)) * " " + m.group (2)
+
+    str = re.sub (r"#'\(([0-9]+(?:\s+[0-9]+)+)\)(\s+%\s*beatStructure)",
+                  repl, str)
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)

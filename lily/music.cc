@@ -198,10 +198,14 @@ Music::compress (Moment factor)
 /*
   This mutates alist.  Hence, make sure that it is not shared
 */
+
 void
-transpose_mutable (SCM alist, Pitch delta)
+Prob::transpose (Pitch delta)
 {
-  for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
+  if (to_boolean (get_property ("untransposable")))
+    return;
+
+  for (SCM s = mutable_property_alist_; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM entry = scm_car (s);
       SCM prop = scm_car (entry);
@@ -220,7 +224,7 @@ transpose_mutable (SCM alist, Pitch delta)
         }
       else if (scm_is_eq (prop, ly_symbol2scm ("element")))
         {
-          if (Music *m = unsmob<Music> (val))
+          if (Prob *m = unsmob<Prob> (val))
             m->transpose (delta);
         }
       else if (scm_is_eq (prop, ly_symbol2scm ("elements"))
@@ -233,15 +237,6 @@ transpose_mutable (SCM alist, Pitch delta)
       if (val != new_val)
         scm_set_cdr_x (entry, new_val);
     }
-}
-
-void
-Music::transpose (Pitch delta)
-{
-  if (to_boolean (get_property ("untransposable")))
-    return;
-
-  transpose_mutable (mutable_property_alist_, delta);
 }
 
 void

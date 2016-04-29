@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 4cd16b30ea12e67d0c67c3e5663db113ae95db5f
+    Translation of GIT committish: dbe1fd47441d21aadd5669e9e69edfecb38ae45a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -20,10 +20,11 @@
 * Afinaciones de cuerdas predefinidas::
 * Diagramas predefinidos de posiciones::
 * Tamaños de página predefinidos::
-* instrumentos MIDI::
+* Instrumentos MIDI::
 * Lista de colores::
 * La tipografía Feta::
 * Estilos de cabezas de nota::
+* Estilos de clave::
 * Instrucciones de marcado de texto::
 * Instrucciones de listas de marcado de texto::
 * Lista de caracteres especiales::
@@ -54,8 +55,8 @@ nombres de los acordes, junto a las notas que representan.
 @appendixsec Modificadores de acorde más usuales
 @translationof Common chord modifiers
 
-La tabla siguiente presenta los modificadores de acorde que se pueden
-usar para generar las estructuras de acordes estándar.
+La tabla siguiente presenta los modificadores de acorde que se
+pueden usar para generar las estructuras de acordes estándar.
 
 @multitable @columnfractions .2 .25 .2 .15 .2
 
@@ -503,7 +504,8 @@ Quinta justa, @*octava
 @appendixsec Afinaciones de cuerdas predefinidas
 @translationof Predefined string tunings
 
-El cuadro de abajo muestra las afinaciones predefinidas de cuerdas.
+El cuadro de abajo muestra las afinaciones predefinidas de
+cuerdas.
 
 @lilypondfile{display-predefined-string-tunings.ly}
 
@@ -786,16 +788,16 @@ Los tamaños de página se definen en el archivo @file{scm/paper.scm}
 (74 x 52 mm)
 @end table
 
-@c lowercase to avoid duplicate node. FV
-@node instrumentos MIDI
-@appendixsec instrumentos MIDI
+
+@node Instrumentos MIDI
+@appendixsec Instrumentos MIDI
 @translationof MIDI instruments
 
-A continuación figura una lista con los nombres que se pueden utilizar
-para la propiedad @code{midiInstrument} (instrumento MIDI).  El orden
-de los instrumentos que aparece aquí, de arriba a abajo empezando por
-la columna de la izquierda, corresponde a los 128 números de programa
-del estándar General MIDI.
+A continuación figura una lista con los nombres que se pueden
+utilizar para la propiedad @code{midiInstrument} (instrumento
+MIDI).  El orden de los instrumentos que aparece aquí, de arriba a
+abajo empezando por la columna de la izquierda, corresponde a los
+128 números de programa del estándar General MIDI.
 
 @example
 acoustic grand            contrabass           lead 7 (fifths)
@@ -850,7 +852,8 @@ cello                     lead 6 (voice)
 
 @subsubheading Colores normales
 
-La sintaxis para el uso de colores se encuentra detallada en @ref{Colorear objetos}.
+La sintaxis para el uso de colores se encuentra detallada en
+@ref{Colorear objetos}.
 
 @cindex lista de colores
 @cindex colores, lista de
@@ -868,13 +871,15 @@ darkcyan    darkmagenta    darkyellow
 Los nombres de los colores de X admiten algunas variantes:
 
 Un nombre que se escribe como una palabra única con mayúsculas
-intercaladas (p.ej. @q{LightSlateBlue}) se puede escribir también como
-palabras separadas por espacios y sin mayúsculas (p.ej. @q{light slate
-blue}).
+intercaladas (p.ej. @q{LightSlateBlue}) se puede escribir también
+como palabras separadas por espacios y sin mayúsculas
+(p.ej. @q{light slate blue}).
 
-La palabra @q{grey} siempre se puede escribir como @q{gray} (p.ej. @q{DarkSlateGray}).
+La palabra @q{grey} siempre se puede escribir como @q{gray}
+(p.ej. @q{DarkSlateGray}).
 
-Algunos nombres admiten un sufijo numérico (p.ej. @q{LightSalmon4}).
+Algunos nombres admiten un sufijo numérico
+(p.ej. @q{LightSalmon4}).
 
 
 @subsubheading Nombres de los colores sin sufijo numérico:
@@ -954,13 +959,13 @@ donde N es un número entre 0 y 100.
 @cindex Feta, tipografía
 @cindex tipografía Feta
 
-Los símbolos siguientes están disponibles en la tipografía Emmentaler
-y es posible acceder a ellos directamente utilizando elementos de
-marcado textual con el nombre del glifo
-tal y como se muestra en las tablas de abajo,
-por ejemplo @code{g^\markup @{\musicglyph #"scripts.segno" @}} ó
-@code{\markup @{\musicglyph #"five"@}}.  Para ver más información,
-consulte @ref{Formatear el texto}.
+Los símbolos siguientes están disponibles en la tipografía
+Emmentaler y es posible acceder a ellos directamente utilizando
+elementos de marcado textual con el nombre del glifo tal y como se
+muestra en las tablas de abajo, por ejemplo @code{g^\markup
+@{\musicglyph #"scripts.segno" @}} ó @code{\markup @{\musicglyph
+#"five"@}}.  Para ver más información, consulte @ref{Formatear el
+texto}.
 
 @menu
 * Glifos de clave::
@@ -1271,9 +1276,246 @@ consulte @ref{Formatear el texto}.
 @translationof Note head styles
 
 @cindex nota, estilos de cabeza
-Se pueden usar los siguientes estilos para las cabezas de las notas.
+Se pueden usar los siguientes estilos para las cabezas de las
+notas.
 
 @lilypondfile[noindent]{note-head-style.ly}
+
+
+@node Estilos de clave
+@appendixsec Estilos de clave
+@translationof Clef styles
+
+La tabla siguiente presenta los distintos estilos de clave
+posibles y el lugar del @emph{Do central} en cada una.
+
+@multitable @columnfractions .30 .2 .30 .2
+
+@headitem
+Ejemplo
+@tab
+Salida
+@tab
+Ejemplo
+@tab
+Salida
+
+
+@item
+@code{\clef G}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef G c1
+@end lilypond
+
+@tab
+@code{\clef "G2"}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef "G2"
+c1
+@end lilypond
+
+@item
+@code{\clef treble}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef treble
+c1
+@end lilypond
+
+@tab
+@code{\clef violin}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef violin
+c1
+@end lilypond
+
+@item
+@code{\clef french}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef french
+c1
+@end lilypond
+
+@tab
+@code{\clef GG}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef GG
+c1
+@end lilypond
+
+@item
+@code{\clef tenorG}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef tenorG
+c1
+@end lilypond
+
+@tab
+@code{\clef soprano}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef soprano
+c1
+@end lilypond
+
+@item
+@code{\clef mezzosoprano}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef mezzosoprano
+c1
+@end lilypond
+
+@tab
+@code{\clef C}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef C
+c1
+@end lilypond
+
+@item
+@code{\clef alto}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef alto
+c1
+@end lilypond
+
+@tab
+@code{\clef tenor}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef tenor
+c1
+@end lilypond
+
+@item
+@code{\clef baritone}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef baritone
+c1
+@end lilypond
+
+@tab
+@code{\clef varC}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef varC
+c1
+@end lilypond
+
+@item
+@code{\clef altovarC}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef altovarC
+c1
+@end lilypond
+
+@tab
+@code{\clef tenorvarC}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef tenorvarC
+c1
+@end lilypond
+
+@item
+@code{\clef baritonevarC}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef baritonevarC
+c1
+@end lilypond
+
+@tab
+@code{\clef varbaritone}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef varbaritone
+c1
+@end lilypond
+
+@item
+@code{\clef baritonevarF}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef baritonevarF
+c1
+@end lilypond
+
+@tab
+@code{\clef F}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef F
+c1
+@end lilypond
+
+@item
+@code{\clef bass}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef bass
+c1
+@end lilypond
+
+@tab
+@code{\clef subbass}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef subbass
+c1
+@end lilypond
+
+@item
+@code{\clef percussion}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\clef percussion
+c1
+@end lilypond
+
+@tab
+@c @example does not work as expected within multitables
+@code{
+\new TabStaff @{ @*
+@ @ \clef tab @*
+@}
+}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\new TabStaff {
+  \clef tab
+  c1
+}
+@end lilypond
+
+@item
+@c @example does not work as expected within multitables
+@code{
+\new TabStaff @{ @*
+@ @ \clef moderntab @*
+@}
+}
+@tab
+@lilypond[line-width=3\cm,notime,ragged-right,relative=1]
+\new TabStaff {
+  \clef moderntab
+  c1
+}
+@end lilypond
+
+
+@end multitable
 
 
 @node Instrucciones de marcado de texto
@@ -1297,15 +1539,15 @@ Se puede usar cualquiera de las siguientes instrucciones con
 @appendixsec Lista de caracteres especiales
 @translationof List of special characters
 
-Se pueden usar las siguientes referencias a carcteres especiales; para
-ver más detalles, consulte @ref{Alias de ASCII}.
+Se pueden usar las siguientes referencias a carcteres especiales;
+para ver más detalles, consulte @ref{Alias de ASCII}.
 
 Se usa la sintaxis del HTML y casi todas estas referencias son las
 mismas que en el HTML.  El resto están inspiradas en @LaTeX{}.
 
-Los caracteres están enmarcados en un rectángulo de forma que pueda
-verse el tamaño que tienen. Se ha añadido un pequeño relleno de
-separación entre el carácter y el rectángulo para mejorar la
+Los caracteres están enmarcados en un rectángulo de forma que
+pueda verse el tamaño que tienen. Se ha añadido un pequeño relleno
+de separación entre el carácter y el rectángulo para mejorar la
 legibilidad.
 
 @lilypond[quote]
@@ -1317,63 +1559,12 @@ legibilidad.
 @appendixsec Lista de articulaciones
 @translationof List of articulations
 
-@cindex acento
-@cindex apagado
-@cindex arco abajo
-@cindex arco arriba
-@cindex calderón
-@cindex circulus
-@cindex coda
-@cindex downbow
-@cindex downmordent
-@cindex downprall
-@cindex espressivo
-@cindex fermata
-@cindex flageolet
-@cindex grupeto circular
-@cindex grupeto circular invertido
-@cindex halfopen
-@cindex ictus
-@cindex indicación de pulgar
-@cindex lheel
-@cindex lineprall
-@cindex longfermata
-@cindex ltoe
-@cindex marcas de pie
-@cindex marcato
-@cindex mordent
-@cindex open
-@cindex órgano, indicaciones de pedal de
-@cindex pedal, indicaciones de
-@cindex portato
-@cindex prall
-@cindex pralldown
-@cindex prallmordent
-@cindex prallprall
-@cindex prallup
-@cindex pulgar, indicación de
-@cindex reverseturn
-@cindex rheel
-@cindex rtoe
-@cindex segno
-@cindex semicirculus
-@cindex semitrino
-@cindex semitrino descendente
-@cindex shortfermata
-@cindex signumcongruentiae
-@cindex snappizzicato
-@cindex staccatissimo
-@cindex staccato
-@cindex tenuto
-@cindex trill
-@cindex trino
-@cindex upmordent
-@cindex upprall
-@cindex varcoda
-@cindex verylongfermata
 
-Las siguientes inscripciones están disponibles en la tipografía Feta y
-se pueden adjuntar a las notas (p.ej. @samp{c\accent}).
+Las listas siguientes relacionan todos los símbolos de la
+tipografía Feta que se pueden adjuntar a las notas
+(p. ej. @samp{f\accent} o @samp{f->}).  Cada ejemplo muestra el
+símbolo en las posiciones @emph{superior}, @emph{inferior} y
+@emph{neutra}, respectivamente.
 
 @c Articulations and ornamentations
 @c Fingering instructions (for "thumb")
@@ -1394,73 +1585,809 @@ se pueden adjuntar a las notas (p.ej. @samp{c\accent}).
 * Indicaciones antiguas::
 @end menu
 
+@ignore
+The @multitable @columnfraction value discrepancy between the first and
+the remaining columns is deliberate; it seems (at least visually
+anyway) the gap (after building the documentation) between first and
+second column examples was always larger than between the remaining
+columns - JL
+@end ignore
+
+@cindex accent
+@cindex espressivo
+@cindex marcato
+@cindex portato
+@cindex staccatissimo
+@cindex staccato
+@cindex tenuto
+@cindex thumb
 
 @node Indicaciones de articulación
 @unnumberedsubsec Indicaciones de articulación
 @translationof Articulation scripts
 
-@lilypond[quote]
-\include "script-chart.ly"
-\new RhythmicStaff { \scriptStaff #articulations }
+@multitable @columnfractions .22 .25 .25 .25
+
+@item
+@code{\accent} or @code{->}
+@lilypond[notime,relative=2]
+f^\accent e,_\accent b'\accent
+@end lilypond
+@tab
+@code{\espressivo}
+@lilypond[notime,relative=2]
+f^\espressivo e,_\espressivo b'\espressivo
+@end lilypond
+@tab
+@code{\marcato} or @code{-^}
+@lilypond[notime,relative=2]
+f^\marcato e,_\marcato b'\marcato
+@end lilypond
+@tab
+@code{\portato} or @code{-_}
+@lilypond[notime,relative=2]
+f^\portato e,_\portato b'\portato
 @end lilypond
 
+@item
+@code{\staccatissimo} @* or @code{-!}
+@lilypond[notime,relative=2]
+f^\staccatissimo e,_\staccatissimo b'\staccatissimo
+@end lilypond
+@tab
+@code{\staccato} or @code{-.}
+@lilypond[notime,relative=2]
+f^\staccato e,_\staccato b'\staccato
+@end lilypond
+@tab
+@code{\tenuto} or @code{--}
+@lilypond[notime,relative=2]
+f^\tenuto e,_\tenuto b'\tenuto
+@end lilypond
+
+@end multitable
+
+@cindex prall
+@cindex prallup
+@cindex pralldown
+@cindex upprall
+@cindex downprall
+@cindex prallprall
+@cindex lineprall
+@cindex prallmordent
+@cindex mordent
+@cindex upmordent
+@cindex downmordent
+@cindex trill
+@cindex turn
+@cindex reverseturn
 
 @node Indicaciones de adornos
 @unnumberedsubsec Indicaciones de adornos
 @translationof Ornament scripts
 
-@lilypond[quote]
-\include "script-chart.ly"
-\new RhythmicStaff { \scriptStaff #ornaments }
+@multitable @columnfractions .22 .25 .25 .25
+
+@item
+@code{\prall}
+@lilypond[notime,relative=2]
+f^\prall e,_\prall b'\prall
+@end lilypond
+@tab
+@code{\prallup}
+@lilypond[notime,relative=2]
+f^\prallup e,_\prallup b'\prallup
+@end lilypond
+@tab
+@code{\pralldown}
+@lilypond[notime,relative=2]
+f^\pralldown e,_\pralldown b'\pralldown
+@end lilypond
+@tab
+@code{\upprall}
+@lilypond[notime,relative=2]
+f^\upprall e,_\upprall b'\upprall
 @end lilypond
 
+@item
+@code{\downprall}
+@lilypond[notime,relative=2]
+f^\downprall e,_\downprall b'\downprall
+@end lilypond
+@tab
+@code{\prallprall}
+@lilypond[notime,relative=2]
+f^\prallprall e,_\prallprall b'\prallprall
+@end lilypond
+@tab
+@code{\lineprall}
+@lilypond[notime,relative=2]
+f^\lineprall e,_\lineprall b'\lineprall
+@end lilypond
+@tab
+@code{\prallmordent}
+@lilypond[notime,relative=2]
+f^\prallmordent e,_\prallmordent b'\prallmordent
+@end lilypond
+
+@item
+@code{\mordent}
+@lilypond[notime,relative=2]
+f^\mordent e,_\mordent b'\mordent
+@end lilypond
+@tab
+@code{\upmordent}
+@lilypond[notime,relative=2]
+f^\upmordent e,_\upmordent b'\upmordent
+@end lilypond
+@tab
+@code{\downmordent}
+@lilypond[notime,relative=2]
+f^\downmordent e,_\downmordent b'\downmordent
+@end lilypond
+@tab
+@code{\trill}
+@lilypond[notime,relative=2]
+f^\trill e,_\trill b'\trill
+@end lilypond
+
+@item
+@code{\turn}
+@lilypond[notime,relative=2]
+f^\turn e,_\turn b'\reverseturn
+@end lilypond
+@tab
+@code{\reverseturn}
+@lilypond[notime,relative=2]
+f^\reverseturn e,_\reverseturn b'\reverseturn
+@end lilypond
+
+@end multitable
+
+@cindex fermata
+@cindex shortfermata
+@cindex longfermata
+@cindex verylongfermata
 
 @node Indicaciones de calderón
 @unnumberedsubsec Indicaciones de calderón
 @translationof Fermata scripts
 
-@lilypond[quote]
-\include "script-chart.ly"
-\new RhythmicStaff { \scriptStaff #fermatas }
+@multitable @columnfractions .22 .25 .25 .25
+
+@item
+@code{\shortfermata}
+@lilypond[notime,relative=2]
+f^\shortfermata e,_\shortfermata b'\shortfermata
+@end lilypond
+@tab
+@code{\fermata}
+@lilypond[notime,relative=2]
+f^\fermata e,_\fermata b'\fermata
+@end lilypond
+@tab
+@code{\longfermata}
+@lilypond[notime,relative=2]
+f^\longfermata e,_\longfermata b'\longfermata
+@end lilypond
+@tab
+@code{\verylongfermata}
+@lilypond[notime,relative=2]
+f^\verylongfermata e,_\verylongfermata b'\verylongfermata
 @end lilypond
 
+@end multitable
+
+@cindex upbow
+@cindex downbow
+@cindex flageolet
+@cindex open
+@cindex halfopen
+@cindex lheel
+@cindex rheel
+@cindex ltoe
+@cindex rtoe
+@cindex snappizzicato
+@cindex stopped
 
 @node Indicaciones específicas de ciertos instrumentos
 @unnumberedsubsec Indicaciones específicas de ciertos instrumentos
 @translationof Instrument-specific scripts
 
-@lilypond[quote]
-\include "script-chart.ly"
-\new RhythmicStaff { \scriptStaff #instrument-specific }
+@multitable @columnfractions .22 .25 .25 .25
+
+@item
+@code{\upbow}
+@lilypond[notime,relative=2]
+f^\upbow e,_\upbow b'\upbow
+@end lilypond
+@tab
+@code{\downbow}
+@lilypond[notime,relative=2]
+f^\downbow e,_\downbow b'\downbow
+@end lilypond
+@tab
+@code{\flageolet}
+@lilypond[notime,relative=2]
+f^\flageolet e,_\flageolet b'\flageolet
+@end lilypond
+@tab
+@code{\open}
+@lilypond[notime,relative=2]
+f^\open e,_\open b'\open
 @end lilypond
 
+@item
+@code{\halfopen}
+@lilypond[notime,relative=2]
+f^\halfopen e,_\halfopen b'\halfopen
+@end lilypond
+@tab
+@code{\lheel}
+@lilypond[notime,relative=2]
+f^\lheel e,_\lheel b'\lheel
+@end lilypond
+@tab
+@code{\rheel}
+@lilypond[notime,relative=2]
+f^\rheel e,_\rheel b'\rheel
+@end lilypond
+@tab
+@code{\ltoe}
+@lilypond[notime,relative=2]
+f^\ltoe e,_\ltoe b'\ltoe
+@end lilypond
+
+@item
+@code{\rtoe}
+@lilypond[notime,relative=2]
+f^\rtoe e,_\rtoe b'\rtoe
+@end lilypond
+@tab
+@code{\snappizzicato}
+@lilypond[notime,relative=2]
+f^\snappizzicato e,_\snappizzicato b'\snappizzicato
+@end lilypond
+@tab
+@code{\stopped} or @code{-+}
+@lilypond[notime,relative=2]
+f^\stopped e,_\stopped b'\stopped
+@end lilypond
+
+@end multitable
+
+@cindex segno
+@cindex coda
+@cindex varcoda
 
 @node Indicaciones de repetición
 @unnumberedsubsec Indicaciones de repetición
 @translationof Repeat sign scripts
 
-@lilypond[quote]
-\include "script-chart.ly"
-\new RhythmicStaff { \scriptStaff #repeats }
+@multitable @columnfractions .22 .25 .25 .25
+
+@item
+@code{\segno}
+@lilypond[notime,relative=2]
+f^\segno e,_\segno b'\segno
+@end lilypond
+@tab
+@code{\coda}
+@lilypond[notime,relative=2]
+f^\coda e,_\coda b'\coda
+@end lilypond
+@tab
+@code{\varcoda}
+@lilypond[notime,relative=2]
+f^\varcoda e,_\varcoda b'\varcoda
 @end lilypond
 
+@end multitable
+
+@cindex accentus
+@cindex circulus
+@cindex ictus
+@cindex semicirculus
+@cindex signumcongruentiae
 
 @node Indicaciones antiguas
 @unnumberedsubsec Indicaciones antiguas
 @translationof Ancient scripts
 
-@lilypond[quote]
-\include "script-chart.ly"
+@multitable @columnfractions .22 .25 .25 .25
+
+@item
+@code{\accentus}
+@lilypond[notime]
 \include "gregorian.ly"
-\new VaticanaStaff { \scriptStaffAncient #ancient }
+\new VaticanaStaff { e'^\accentus s4 f_\accentus s4 b\accentus}
+@end lilypond
+@tab
+@code{\circulus}
+@lilypond[notime]
+\include "gregorian.ly"
+\new VaticanaStaff { e'^\circulus s4 f_\circulus s4 b\circulus  }
+@end lilypond
+@tab
+@code{\ictus}
+@lilypond[notime]
+\include "gregorian.ly"
+\new VaticanaStaff { e'^\ictus s4 f_\ictus s4 b\ictus}
 @end lilypond
 
+@item
+@code{\semicirculus}
+@lilypond[notime]
+\include "gregorian.ly"
+\new VaticanaStaff {
+  e'^\semicirculus s4 f_\semicirculus s4 b\semicirculus
+}
+@end lilypond
+@tab
+@code{\signumcongruentiae}
+@lilypond[notime]
+\include "gregorian.ly"
+\new VaticanaStaff {
+  e'^\signumcongruentiae s4
+  f_\signumcongruentiae s4
+  b\signumcongruentiae
+}
+@end lilypond
+
+@end multitable
+
+@cindex drums, various
+@cindex acoustic bass
+@cindex bass
+@cindex snare
+@cindex electric snare
+@cindex acoustic snare
+@cindex tom tom
+@cindex bongo
+@cindex conga
+@cindex timbale
+@cindex sidestick
+@cindex floor tom tom
+@cindex low tom tom
+@cindex high tom tom
+@cindex mid tom tom
+@cindex high hat
+@cindex pedal high hat
+@cindex open high hat
+@cindex half-open high hat
+@cindex cymbal, various
+@cindex crash cymbal
+@cindex ride cymbal
+@cindex chinese cymbal
+@cindex splash cymbal
+@cindex ride bell
+@cindex cowbell
+@cindex agogo
+@cindex high bongo
+@cindex low bongo
+@cindex mute bongo
+@cindex open bongo
+@cindex high conga
+@cindex low conga
+@cindex mute conga
+@cindex open conga
+@cindex high timbale
+@cindex low timbale
+@cindex mute timbale
+@cindex open timbale
+@cindex sidestick
+@cindex guiro
+@cindex cabasa
+@cindex maracas
+@cindex whistle
+@cindex handclap
+@cindex tambourine
+@cindex vibraslap
+@cindex tam tam
+@cindex claves
+@cindex woodblock
+@cindex cuica
+@cindex triangle
 
 @node Notas de percusión
 @appendixsec Notas de percusión
 @translationof Percussion notes
 
-@lilypondfile[quote]{percussion-chart.ly}
+@multitable @columnfractions .22 .25 .25 .25
+
+@item
+@code{bassdrum @* bd @*}
+@lilypond[notime,ragged-right]
+\drums { bd4 bd1 }
+@end lilypond
+@tab
+@code{acousticbassdrum @* bda @*}
+@lilypond[notime,ragged-right]
+\drums { bda4 bda1 }
+@end lilypond
+@tab
+@code{snare @* sn @*}
+@lilypond[notime,ragged-right]
+\drums { sn4 sn1 }
+@end lilypond
+@tab
+@code{acousticsnare @* sna @*}
+@lilypond[notime,ragged-right]
+\drums { sna4 sna1 }
+@end lilypond
+
+@item
+@code{electricsnare @* sne @*}
+@lilypond[notime,ragged-right]
+\drums { sne4 sne1 }
+@end lilypond
+@tab
+@code{lowfloortom @* tomfl @*}
+@lilypond[notime,ragged-right]
+\drums { tomfl4 tomfl1 }
+@end lilypond
+@tab
+@code{highfloortom @* tomfh @*}
+@lilypond[notime,ragged-right]
+\drums { tomfh4 tomfh1 }
+@end lilypond
+@tab
+@code{lowtom @* toml @*}
+@lilypond[notime,ragged-right]
+\drums { toml4 toml1 }
+@end lilypond
+
+@item
+@code{hightom @* tomh @*}
+@lilypond[notime,ragged-right]
+\drums { tomh4 tomh1 }
+@end lilypond
+@tab
+@code{lowmidtom @* tomml @*}
+@lilypond[notime,ragged-right]
+\drums { tomml4 tomml1 }
+@end lilypond
+@tab
+@code{highmidtom @* tommh @*}
+@lilypond[notime,ragged-right]
+\drums { tommh4 tommh1 }
+@end lilypond
+@tab
+@code{highhat @* hh @*}
+@lilypond[notime,ragged-right]
+\drums { hh4 hh1 }
+@end lilypond
+
+@item
+@code{closedhihat @* hhc @*}
+@lilypond[notime,ragged-right]
+\drums { hhc4 hhc1 }
+@end lilypond
+@tab
+@code{openhighhat @* hho @*}
+@lilypond[notime,ragged-right]
+\drums { hho4 hho1 }
+@end lilypond
+@tab
+@code{halfopenhihat @* hhho @*}
+@lilypond[notime,ragged-right]
+\drums { hhho4 hhho1 }
+@end lilypond
+@tab
+@code{pedalhihat @* hhp @*}
+@lilypond[notime,ragged-right]
+\drums { hhp4 hhp1 }
+@end lilypond
+
+
+@item
+@code{crashcymbal @* cymc @*}
+@lilypond[notime,ragged-right]
+\drums { cymc4 cymc1 }
+@end lilypond
+@tab
+@code{crashcymbala @* cymca @*}
+@lilypond[notime,ragged-right]
+\drums { cymca4 cymca1 }
+@end lilypond
+@tab
+@code{crashcymbalb @* cymcb @*}
+@lilypond[notime,ragged-right]
+\drums { cymcb4 cymcb1 }
+@end lilypond
+@tab
+@code{ridecymbal @* cymr @*}
+@lilypond[notime,ragged-right]
+\drums { cymr4 cymr1 }
+@end lilypond
+
+@item
+@code{ridecymbala @* cymra @*}
+@lilypond[notime,ragged-right]
+\drums { cymra4 cymra1 }
+@end lilypond
+@tab
+@code{ridecymbalb @* cymrb @*}
+@lilypond[notime,ragged-right]
+\drums { cymrb4 cymrb1 }
+@end lilypond
+@tab
+@code{chinesecymbal @* cymch @*}
+@lilypond[notime,ragged-right]
+\drums { cymch4 cymch1 }
+@end lilypond
+@tab
+@code{splashcymbal @* cyms @*}
+@lilypond[notime,ragged-right]
+\drums { cyms4 cyms1 }
+@end lilypond
+
+@item
+@code{ridebell @* rb @*}
+@lilypond[notime,ragged-right]
+\drums { rb4 rb1 }
+@end lilypond
+@tab
+@code{cowbell @* cb @*}
+@lilypond[notime,ragged-right]
+\drums { cb4 cb1 }
+@end lilypond
+@tab
+@code{hibongo @* boh @*}
+@lilypond[notime,ragged-right]
+\drums { boh4 boh1 }
+@end lilypond
+@tab
+@code{openhibongo @* boho @*}
+@lilypond[notime,ragged-right]
+\drums { boho4 boho1 }
+@end lilypond
+
+@item
+@code{mutehibongo @* bohm @*}
+@lilypond[notime,ragged-right]
+\drums { bohm4 bohm1 }
+@end lilypond
+@tab
+@code{lobongo @* bol @*}
+@lilypond[notime,ragged-right]
+\drums { bol4 bol1 }
+@end lilypond
+@tab
+@code{openlobongo @* bolo @*}
+@lilypond[notime,ragged-right]
+\drums { bolo4 bolo1 }
+@end lilypond
+@tab
+@code{mutelobongo @* bolm @*}
+@lilypond[notime,ragged-right]
+\drums { bolm4 bolm1 }
+@end lilypond
+
+
+@item
+@code{hiconga @* cgh @*}
+@lilypond[notime,ragged-right]
+\drums { cgh4 cgh1 }
+@end lilypond
+@tab
+@code{openhiconga @* cgho @*}
+@lilypond[notime,ragged-right]
+\drums { cgho4 cgho1 }
+@end lilypond
+@tab
+@code{mutehiconga @* cghm @*}
+@lilypond[notime,ragged-right]
+\drums { cghm4 cghm1 }
+@end lilypond
+@tab
+@code{loconga @* cgl @*}
+@lilypond[notime,ragged-right]
+\drums { cgl4 cgl1 }
+@end lilypond
+
+@item
+@code{openloconga @* cglo @*}
+@lilypond[notime,ragged-right]
+\drums { cglo4 cglo1 }
+@end lilypond
+@tab
+@code{muteloconga @* cglm @*}
+@lilypond[notime,ragged-right]
+\drums { cglm4 cglm1 }
+@end lilypond
+@tab
+@code{hitimbale @* timh @*}
+@lilypond[notime,ragged-right]
+\drums { timh4 timh1 }
+@end lilypond
+@tab
+@code{lotimbale @* timl @*}
+@lilypond[notime,ragged-right]
+\drums { timl4 timl1 }
+@end lilypond
+
+@item
+@code{hiagogo @* agh @*}
+@lilypond[notime,ragged-right]
+\drums { agh4 agh1 }
+@end lilypond
+@tab
+@code{loagogo @* agl @*}
+@lilypond[notime,ragged-right]
+\drums { agl4 agl1 }
+@end lilypond
+@tab
+@code{sidestick @* ss @*}
+@lilypond[notime,ragged-right]
+\drums { ss4 ss1 }
+@end lilypond
+@tab
+@code{hisidestick @* ssh @*}
+@lilypond[notime,ragged-right]
+\drums { ssh4 ssh1 }
+@end lilypond
+
+@item
+@code{losidestick @* ssl @*}
+@lilypond[notime,ragged-right]
+\drums { ssl4 ssl1 }
+@end lilypond
+@tab
+@code{guiro @* gui @*}
+@lilypond[notime,ragged-right]
+\drums { gui4 gui1 }
+@end lilypond
+@tab
+@code{shortguiro @* guis @*}
+@lilypond[notime,ragged-right]
+\drums { guis4 guis1 }
+@end lilypond
+@tab
+@code{longguiro @* guil @*}
+@lilypond[notime,ragged-right]
+\drums { guil4 guil1 }
+@end lilypond
+
+@item
+@code{cabasa @* cab @*}
+@lilypond[notime,ragged-right]
+\drums { cab4 cab1 }
+@end lilypond
+@tab
+@code{maracas @* mar @*}
+@lilypond[notime,ragged-right]
+\drums { mar4 mar1 }
+@end lilypond
+@tab
+@code{shortwhistle @* whs @*}
+@lilypond[notime,ragged-right]
+\drums { whs4 whs1 }
+@end lilypond
+@tab
+@code{longwhistle @* whl @*}
+@lilypond[notime,ragged-right]
+\drums { whl4 whl1 }
+@end lilypond
+
+@item
+@code{handclap @* hc @*}
+@lilypond[notime,ragged-right]
+\drums { hc4 hc1 }
+@end lilypond
+@tab
+@code{tambourine @* tamb @*}
+@lilypond[notime,ragged-right]
+\drums { tamb4 tamb1 }
+@end lilypond
+@tab
+@code{vibraslap @* vibs @*}
+@lilypond[notime,ragged-right]
+\drums { vibs4 vibs1 }
+@end lilypond
+@tab
+@code{tamtam @* tt @*}
+@lilypond[notime,ragged-right]
+\drums { tt4 tt1 }
+@end lilypond
+
+@item
+@code{claves @* cl @*}
+@lilypond[notime,ragged-right]
+\drums { cl4 cl1 }
+@end lilypond
+@tab
+@code{hiwoodblock @* wbh @*}
+@lilypond[notime,ragged-right]
+\drums { wbh4 wbh1 }
+@end lilypond
+@tab
+@code{lowoodblock @* wbl @*}
+@lilypond[notime,ragged-right]
+\drums { wbl4 wbl1 }
+@end lilypond
+@tab
+@code{opencuica @* cuio @*}
+@lilypond[notime,ragged-right]
+\drums { cuio4 cuio1 }
+@end lilypond
+
+@item
+@code{mutecuica @* cuim @*}
+@lilypond[notime,ragged-right]
+\drums { cuim4 cuim1 }
+@end lilypond
+@tab
+@code{triangle @* tri @*}
+@lilypond[notime,ragged-right]
+\drums { tri4 tri1 }
+@end lilypond
+@tab
+@code{opentriangle @* trio @*}
+@lilypond[notime,ragged-right]
+\drums { trio4 trio1 }
+@end lilypond
+@tab
+@code{mutetriangle @* trim}
+@lilypond[notime,ragged-right]
+\drums { trim4 trim1 }
+@end lilypond
+
+@item
+@code{oneup @* ua @*}
+@lilypond[notime,ragged-right]
+\drums { ua4 ua1 }
+@end lilypond
+@tab
+@code{twoup @* ub @*}
+@lilypond[notime,ragged-right]
+\drums { ub4 ub1 }
+@end lilypond
+@tab
+@code{threeup @* uc @*}
+@lilypond[notime,ragged-right]
+\drums { uc4 uc1 }
+@end lilypond
+@tab
+@code{fourup @* ud @*}
+@lilypond[notime,ragged-right]
+\drums { ud4 ud1 }
+@end lilypond
+
+@item
+@code{fiveup @* ue @*}
+@lilypond[notime,ragged-right]
+\drums { ue4 ue1 }
+@end lilypond
+@tab
+@code{onedown @* da @*}
+@lilypond[notime,ragged-right]
+\drums { da4 da1 }
+@end lilypond
+@tab
+@code{twodown @* db @*}
+@lilypond[notime,ragged-right]
+\drums { db4 db1 }
+@end lilypond
+@tab
+@code{threedown @* dc @*}
+@lilypond[notime,ragged-right]
+\drums { dc4 dc1 }
+@end lilypond
+
+@item
+@code{fourdown @* dd @*}
+@lilypond[notime,ragged-right]
+\drums { dd4 dd1 }
+@end lilypond
+@tab
+@code{fivedown @* de @*}
+@lilypond[notime,ragged-right]
+\drums { de4 de1 }
+@end lilypond
+
+
+@end multitable
 
 
 @node Glosario técnico
@@ -1486,7 +2413,6 @@ fuente.
 * parser (analizador sintáctico)::
 * variable del analizador sintáctico::
 * prob (objeto de propiedades)::
-* cerradura simple::
 * smob (objeto de Scheme)::
 * stencil (sello)::
 @end menu
@@ -1500,14 +2426,14 @@ fuente.
 @cindex lista de asociación
 @cindex alist
 
-Una lista asociativa o abreviadamente una @strong{lista-A} (alist en
-inglés) es una pareja de Scheme que asocia un valor con una clave:
-@w{@code{(clave . valor)}}.  Por ejemplo, en @file{scm/lily.scm}, la
-lista-A @w{@qq{type-p-name-alist}} asocia ciertos predicadps de tipo
-(p.ej.@tie{}@code{ly:music?})  con nombres (p.ej.@tie{}@qq{music}) de
-forma que se pueda informar de los fallos de comprobación de tipo con
-un mensaje de consola que incluye el nombre del predicado de tipo
-esperado.
+Una lista asociativa o abreviadamente una @strong{lista-A} (alist
+en inglés) es una pareja de Scheme que asocia un valor con una
+clave: @w{@code{(clave . valor)}}.  Por ejemplo, en
+@file{scm/lily.scm}, la lista-A @w{@qq{type-p-name-alist}} asocia
+ciertos predicadps de tipo (p.ej.@tie{}@code{ly:music?})  con
+nombres (p.ej.@tie{}@qq{music}) de forma que se pueda informar de
+los fallos de comprobación de tipo con un mensaje de consola que
+incluye el nombre del predicado de tipo esperado.
 
 
 @node callback
@@ -1516,13 +2442,14 @@ esperado.
 
 @cindex callback
 
-Una @strong{callback} es una rutina, función o método cuya referencia
-se pasa como argumento en una llamada a otra rutina, permitiendo así
-que la runtina llamada invoque a aquélla.  La técnica permite que una
-capa de software de nivel más bajo llame a una función definida en una
-capa de nivel más alto.  Las funciones de callback se usan ampliamente
-en LilyPond para permitir al código de Scheme del nivel de usuario
-definir cuántas acciones de bajo nivel se llevan a cabo.
+Una @strong{callback} es una rutina, función o método cuya
+referencia se pasa como argumento en una llamada a otra rutina,
+permitiendo así que la runtina llamada invoque a aquélla.  La
+técnica permite que una capa de software de nivel más bajo llame a
+una función definida en una capa de nivel más alto.  Las funciones
+de callback se usan ampliamente en LilyPond para permitir al
+código de Scheme del nivel de usuario definir cuántas acciones de
+bajo nivel se llevan a cabo.
 
 
 @node closure (cerradura)
@@ -1530,26 +2457,19 @@ definir cuántas acciones de bajo nivel se llevan a cabo.
 @translationof closure
 
 @cindex cerradura
-@cindex cerradura simple
 
-En Scheme, se crea una @strong{cerradura} cuando una función, por lo
-general una expresión lambda, se pasa como variable.  La cerradura
-contiene el codigo de la función y referencias a las ligaduras léxicas
-de las variables libres de la función (es decir, las variables que se
-usan en la expresión pero se definen fuera de ella).  Cuando más tarde
-se aplica esta función a diferentes argumentos, las ligaduras de
-variables libres que se capturaron dentro de la cerradura se utilizan
-para obtener los valores de las variables libres que se usarán en el
-cálculo.  Una propiedad útil de las cerraduras es la retención de los
-valores internos de las variables de una invocación a otra,
-permitiendo así que se pueda mantener un estado.
-
-Una @strong{cerradura simple} es una cerradura cuya expresión no tiene
-variables libres y por ello no tiene ligaduras de variables libres.
-
-Una cerradura simple se representa en LilyPond mediante un @q{smob}
-que contiene la expresión y un método para aplicar la expresión a la
-lista de argumentos que se le pasa.
+En Scheme, se crea una @strong{cerradura} cuando una función, por
+lo general una expresión lambda, se pasa como variable.  La
+cerradura contiene el codigo de la función y referencias a las
+ligaduras léxicas de las variables libres de la función (es decir,
+las variables que se usan en la expresión pero se definen fuera de
+ella).  Cuando más tarde se aplica esta función a diferentes
+argumentos, las ligaduras de variables libres que se capturaron
+dentro de la cerradura se utilizan para obtener los valores de las
+variables libres que se usarán en el cálculo.  Una propiedad útil
+de las cerraduras es la retención de los valores internos de las
+variables de una invocación a otra, permitiendo así que se pueda
+mantener un estado.
 
 
 @node glifo
@@ -1561,10 +2481,10 @@ lista de argumentos que se le pasa.
 @cindex tipografía
 
 Un @strong{glifo} es una representación gráfica particular de un
-carácter tipográfico, o una combinación de dos caracteres que forman
-una ligadura.  Un conjunto de glifos con un estilo y forma uniformes
-forman una fuente tipográfica, y un conjunto de fuentes tipográficas
-que abarcan varios estilos forman un tipo.
+carácter tipográfico, o una combinación de dos caracteres que
+forman una ligadura.  Un conjunto de glifos con un estilo y forma
+uniformes forman una fuente tipográfica, y un conjunto de fuentes
+tipográficas que abarcan varios estilos forman un tipo.
 
 @seealso
 Referencia de la notación:
@@ -1580,12 +2500,12 @@ Referencia de la notación:
 @cindex objetos de presentación
 @cindex objetos gráficos
 
-Los objetos de LilyPond que representan elementos de la notación en la
-salida impresa tales como la cabeza y la plica de las notas, ligaduras
-de unión y de expresión, digitaciones, claves, et. se denominan
-@q{objetos de presentación}, a menudo conocidos como @q{OBjetos
-GRáficos}, o abreviadamente @strong{grobs}.  Se representan mediante
-instancias de la clase @code{Grob}.
+Los objetos de LilyPond que representan elementos de la notación
+en la salida impresa tales como la cabeza y la plica de las notas,
+ligaduras de unión y de expresión, digitaciones, claves, et. se
+denominan @q{objetos de presentación}, a menudo conocidos como
+@q{OBjetos GRáficos}, o abreviadamente @strong{grobs}.  Se
+representan mediante instancias de la clase @code{Grob}.
 
 @seealso
 Manual de aprendizaje:
@@ -1606,14 +2526,15 @@ Referencia de funcionamiento interno:
 @cindex propiedades inmutables
 @cindex propiedades compartidas
 
-Un objeto @strong{inmutable} es aquél cuyo estado no se puede
+Un objeto @strong{inmutable} es aquel cuyo estado no se puede
 modificar después de su creación, en contraste con los objetos
 mutables, que se pueden modificar después de su creación.
 
 En LilyPond, las propiedades inmutables o compartidas definen el
-estilo y comportamiento predeterminados de los grobs.  Se comparten
-por parte de muchos objetos.  En aparente contradicción con su nombre,
-se pueden cambiar utilizando @code{\override} y @code{\revert}.
+estilo y comportamiento predeterminados de los grobs.  Se
+comparten por parte de muchos objetos.  En aparente contradicción
+con su nombre, se pueden cambiar utilizando @code{\override} y
+@code{\revert}.
 
 @seealso
 Referencia de la notación:
@@ -1628,9 +2549,9 @@ Referencia de la notación:
 @cindex interfaz de grob
 @cindex interfaces de objetos gráficos
 
-Las acciones y propiedades comunes a un conjunto de grobs se agrupan
-en un objeto denominado @code{interfaz de grob (grob-inerface)}, o
-abreviadamente @q{interfaz}.
+Las acciones y propiedades comunes a un conjunto de grobs se
+agrupan en un objeto denominado @code{interfaz de grob
+(grob-inerface)}, o abreviadamente @q{interfaz}.
 
 @seealso
 Manual de aprendizaje:
@@ -1653,16 +2574,17 @@ Referencia de funcionamiento interno:
 @cindex analizador léxico
 @cindex Flex
 
-Un @strong{lexer} o analizador léxico es un programa que convierte una
-secuencia de caracteres en una secuencia de elementos o tokens, en un
-proceso que se llama análisis léxico.  El analizador léxico de
-LilyPond convierte el flujo obtenido a partir de un archivo de entrada
-@file{.ly} en un flujo descompuesto en tokens más apto para la
-siguiente fase del procesado: el análisis sintáctico, véase
-@ref{parser (analizador sintáctico)}.  El analizador léxico de
-LilyPond lexer está construido con la herramienta Flex a partir del
-archivo de lexer @file{lily/lexer.ll} que contiene las reglas léxicas.
-Este archivo es parte del código fuente y no se incluye dentro de la
+Un @strong{lexer} o analizador léxico es un programa que convierte
+una secuencia de caracteres en una secuencia de elementos o
+tokens, en un proceso que se llama análisis léxico.  El analizador
+léxico de LilyPond convierte el flujo obtenido a partir de un
+archivo de entrada @file{.ly} en un flujo descompuesto en tokens
+más apto para la siguiente fase del procesado: el análisis
+sintáctico, véase @ref{parser (analizador sintáctico)}.  El
+analizador léxico de LilyPond lexer está construido con la
+herramienta Flex a partir del archivo de lexer
+@file{lily/lexer.ll} que contiene las reglas léxicas.  Este
+archivo es parte del código fuente y no se incluye dentro de la
 instalación binaria de LilyPond.
 
 
@@ -1677,9 +2599,10 @@ Un objeto @strong{mutable} es aquél cuyo estado se puede modificar
 después de su creación, en contraste con un objeto inmutable, cuyo
 estado se fija en el momento de la creación.
 
-En LilyPond, las propiedades mutables contienen valores específicos de
-un grob.  Por lo general, las listas de otros objetos o los resultados
-de los cálculos se almacenan en propiedades mutables.
+En LilyPond, las propiedades mutables contienen valores
+específicos de un grob.  Por lo general, las listas de otros
+objetos o los resultados de los cálculos se almacenan en
+propiedades mutables.
 
 @seealso
 Referencia de la notación:
@@ -1710,19 +2633,20 @@ instancias parra los bloques midi, layout y paper.
 
 Un @strong{parser} o analizador sintáctico analiza la secuencia de
 tokens o elementos léxicos producida por un analizador léxico para
-determinar su estructura gramatical, agrupando los elementos léxicos
-en conjuntos mayores según las reglas de la gramática.  Si la
-secuencia de elementos léxicos es válida, el producto final es un
-árbol de tokens cuya raíz es el símbolo inicial de la gramática.  Si
-no se puede conseguir esto, el archivo es inválido y se produce un
-mensaje de error adecuado.  Las agrupaciones sintácticas y las reglas
-para construir estas agrupaciones a partir de sus elementos
-constituyentes para la sintaxis de LilyPond están definidas en
-@file{lily/parser.yy} y se muestran en la forma normal de Backus (BNF)
-dentro de @rcontrib{LilyPond grammar}.  Este archivo se usa para
-construir el analizador sintáctico durante la compilación del programa
-por parte del generador de analizadores sintácticos, Bison.  Es parte
-del código fuente y no se incluye dentro de la instalación binaria de
+determinar su estructura gramatical, agrupando los elementos
+léxicos en conjuntos mayores según las reglas de la gramática.  Si
+la secuencia de elementos léxicos es válida, el producto final es
+un árbol de tokens cuya raíz es el símbolo inicial de la
+gramática.  Si no se puede conseguir esto, el archivo es inválido
+y se produce un mensaje de error adecuado.  Las agrupaciones
+sintácticas y las reglas para construir estas agrupaciones a
+partir de sus elementos constituyentes para la sintaxis de
+LilyPond están definidas en @file{lily/parser.yy} y se muestran en
+la forma normal de Backus (BNF) dentro de @rcontrib{LilyPond
+grammar}.  Este archivo se usa para construir el analizador
+sintáctico durante la compilación del programa por parte del
+generador de analizadores sintácticos, Bison.  Es parte del código
+fuente y no se incluye dentro de la instalación binaria de
 LilyPond.
 
 
@@ -1745,19 +2669,21 @@ LilyPond.
 @cindex showLastLength
 @cindex showFirstLength
 
-Son variables definidas directamente dentro de Scheme.  Su uso directo
-por parte de los usuarios está fuertemente desaconsejado, porque su
-semántica de ámbito puede ser confusa.
+Son variables definidas directamente dentro de Scheme.  Su uso
+directo por parte de los usuarios está fuertemente desaconsejado,
+porque su semántica de ámbito puede ser confusa.
 
 Cuando el valor de una de estas variables se modifica dentro de un
-archivo @file{.ly}, el cambio es global, y a no ser que se revierta
-explícitamente, el nuevo valor persistirá hasta el final del archivo,
-afectando a todos los bloques @code{\score} así como a los archivos
-externos añadidos con la instrucción @code{\include}.  Esto puede
-conducir a consecuencias imprevistas y en proyectos de composición
-tipográfica complejos puede ser difícil de rastrear.
+archivo @file{.ly}, el cambio es global, y a no ser que se
+revierta explícitamente, el nuevo valor persistirá hasta el final
+del archivo, afectando a todos los bloques @code{\score} así como
+a los archivos externos añadidos con la instrucción
+@code{\include}.  Esto puede conducir a consecuencias imprevistas
+y en proyectos de composición tipográfica complejos puede ser
+difícil de rastrear.
 
-LilyPond utiliza las siguientes variables del analizador sintáctico:
+LilyPond utiliza las siguientes variables del analizador
+sintáctico:
 
 @itemize
 @item afterGraceFraction
@@ -1782,20 +2708,13 @@ LilyPond utiliza las siguientes variables del analizador sintáctico:
 @cindex prob
 
 Los OBjetos de PRopiedades, o abreviadamente @strong{probs}, son
-instancias de la clase @code{Prob}, que es una sencilla clase básica
-que tiene listas-A de propiedades mutables e inmutables y los métodos
-para manipularlas.  Las clases @code{Music} y @code{Stream_event}
-derivan de @code{Prob}.  También se crean instancias de la clase
-@code{Prob} para almacenar el contenido formateado de los grobs del
-sistema y los bloques de títulos durante el proceso de disposición de
-la página.
-
-
-@node cerradura simple
-@unnumberedsubsec cerradura simple
-@translationof simple closure
-
-Véase @ref{closure (cerradura)}.
+instancias de la clase @code{Prob}, que es una sencilla clase
+básica que tiene listas-A de propiedades mutables e inmutables y
+los métodos para manipularlas.  Las clases @code{Music} y
+@code{Stream_event} derivan de @code{Prob}.  También se crean
+instancias de la clase @code{Prob} para almacenar el contenido
+formateado de los grobs del sistema y los bloques de títulos
+durante el proceso de disposición de la página.
 
 
 @node smob (objeto de Scheme)
@@ -1805,14 +2724,14 @@ Véase @ref{closure (cerradura)}.
 @cindex smob
 @cindex objeto de Scheme
 
-Los @strong{Smobs}, u OBjetos de ScheMe, forman parte del mecanismo
-utilizado por Guile para exportar objetos de C y de C++ al código de
-Scheme.  En LilyPond, se crean smobs a partir de objetos de C++ por
-medio de macros.  Hay dos tipos de objetos smob: los smobs simples,
-orientados a objetos inmutables simples como números, y los smobs
-complejos, usados para objetos con identidades.  Si tiene acceso a las
-fuentes de LilyPond sources, encontrará más información en
-@file{lily/includes/smob.hh}.
+Los @strong{Smobs}, u OBjetos de ScheMe, forman parte del
+mecanismo utilizado por Guile para exportar objetos de C y de C++
+al código de Scheme.  En LilyPond, se crean smobs a partir de
+objetos de C++ por medio de macros.  Hay dos tipos de objetos
+smob: los smobs simples, orientados a objetos inmutables simples
+como números, y los smobs complejos, usados para objetos con
+identidades.  Si tiene acceso a las fuentes de LilyPond sources,
+encontrará más información en @file{lily/includes/smob.hh}.
 
 
 @node stencil (sello)
@@ -1822,17 +2741,18 @@ fuentes de LilyPond sources, encontrará más información en
 @cindex stencil
 @cindex sello
 
-Las instancias de la clase @strong{stencil} contienen la información
-necesaria para imprimir un objeto tipográfico.  Es un smob simple que
-contiene una caja de confinamiento, que a su vez define las
-dimensiones vertical y horizontal del objeto, y una expresión de
-Scheme que imprime el objeto cuendo se evalúa.  Los stencils o sellos
-se pueden combinar para formar sellos más complejos definidos por un
-árbol de expresiones de Scheme formado a partir de las expresiones de
-Scheme de los sellos que lo componen.
+Las instancias de la clase @strong{stencil} contienen la
+información necesaria para imprimir un objeto tipográfico.  Es un
+smob simple que contiene una caja de confinamiento, que a su vez
+define las dimensiones vertical y horizontal del objeto, y una
+expresión de Scheme que imprime el objeto cuendo se evalúa.  Los
+stencils o sellos se pueden combinar para formar sellos más
+complejos definidos por un árbol de expresiones de Scheme formado
+a partir de las expresiones de Scheme de los sellos que lo
+componen.
 
-La propiedad @code{stencil}, que conecta a un grob con su sello, se
-define dentro del interfaz @code{grob-interface}.
+La propiedad @code{stencil}, que conecta a un grob con su sello,
+se define dentro del interfaz @code{grob-interface}.
 
 @seealso
 Referencia de funcionamiento interno:
@@ -1864,9 +2784,9 @@ Referencia de funcionamiento interno:
 @appendixsec Identificadores de modificación de contextos
 @translationof Context modification identifiers
 
-Se definen las siguientes instrucciones
-para su uso como modificaciones de contexto dentro de un
-bloque @code{\layout} o @code{\with}.
+Se definen las siguientes instrucciones para su uso como
+modificaciones de contexto dentro de un bloque @code{\layout} o
+@code{\with}.
 
 @include context-mod-identifiers.tely
 

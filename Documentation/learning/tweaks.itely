@@ -320,7 +320,7 @@ of the note head to the default value for the final two notes:
 @funindex \once
 @funindex once
 
-@code{\override}, @code{\revert}. @code{\set}, and @code{\unset}
+@code{\override}, @code{\revert}, @code{\set}, and @code{\unset}
 commands may be prefixed with @code{\once}.  This causes such a
 command to be effective only during the current musical
 moment before the property reverts back to its previous value (this can

@@ -119,10 +119,10 @@ where
 
 @multitable @columnfractions .33 .66
 @item @code{@var{argN}}
-@tab @var{n}th argument
+@tab @var{n}th argument.
 
 @item @code{@var{typeN?}}
-@tab a Scheme @emph{type predicate} for which @code{@var{argN}}
+@tab A Scheme @emph{type predicate} for which @code{@var{argN}}
 must return @code{#t}.  There is also a special form
 @code{(@emph{predicate?} @emph{default})} for specifying optional
 arguments.  If the actual argument is missing when the function is being
@@ -345,7 +345,7 @@ At the top level in a music expression a post-event is not accepted.
 @item
 When a music function (as opposed to an event function) returns an
 expression of type post-event, LilyPond requires one of the named
-direction indicators (@code{-}, @code{^}, @w{and @code{_}})) in order to
+direction indicators (@code{-}, @code{^}, @w{and @code{_}}) in order to
 properly integrate the post-event produced by the music function call
 into the surrounding expression.
 

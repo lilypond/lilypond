@@ -271,7 +271,7 @@ All'inizio di una ripetizione:
 \relative {
   e'1
   \repeat volta 2 {
-    \inStaffSegno  % start repeat
+    \inStaffSegno  % inizio ripetizione
     f2 g a b
   }
   c1_"D.S." \bar "|."
@@ -285,7 +285,7 @@ Alla fine di una ripetizione:
   e'1
   \repeat volta 2 {
     f2 g a b
-    \inStaffSegno  % end repeat
+    \inStaffSegno  % fine ripetizione
   }
   f2 g a b
   c1_"D.S." \bar "|."
@@ -300,7 +300,7 @@ Tra due ripetizioni:
   \repeat volta 2 {
     f2 g a b
   }
-  \inStaffSegno  % double repeat
+  \inStaffSegno  % doppia ripetizione
   \repeat volta 2 {
     f2 g a b
   }

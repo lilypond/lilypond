@@ -86,3 +86,28 @@ Sources::~Sources ()
     }
 }
 
+#include "lily-parser.hh"
+#include "lily-lexer.hh"
+#include "lily-imports.hh"
+#include "fluid.hh"
+
+LY_DEFINE (ly_source_files, "ly:source-files", 0, 1, 0,
+           (SCM parser_smob),
+           "A list of LilyPond files being processed;"
+           "a PARSER may optionally be specified.")
+{
+
+  if (SCM_UNBNDP (parser_smob))
+    parser_smob = scm_fluid_ref (Lily::f_parser);
+  Lily_parser *parser = LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
+  Includable_lexer *lex = parser->lexer_;
+
+  SCM lst = SCM_EOL;
+  for (vector<string>::const_iterator
+       i = lex->file_name_strings_.begin();
+       i != lex->file_name_strings_.end(); ++i)
+       {
+         lst = scm_cons (ly_string2scm (*i), lst);
+       }
+  return scm_reverse_x (lst, SCM_EOL);
+}

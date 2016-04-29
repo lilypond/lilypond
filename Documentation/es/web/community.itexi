@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: b4a06339566ce7e7f17ba60745261fc26b32abb0
+    Translation of GIT committish: 99ce5fc4bd1169e8fa33855b3a13bc68f08fbe0b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -26,8 +26,8 @@
 @ref{Contacto}: obtener ayuda, charlar y ¡mantenerse en contacto!
 
 @item
-@ref{Ejemplos mínimos}: son @emph{muy} recomendables cuando se habla
-de LilyPond.
+@ref{Ejemplos mínimos}: son @emph{muy} recomendables cuando se
+habla de LilyPond.
 
 @item
 @ref{Informes de fallos}: algo ha ido mal.
@@ -50,14 +50,16 @@ de LilyPond.
 @ref{Desarrollo}: para colaboradores y pilotos de prueba.
 
 @item
-@ref{GSoC 2012}: nuestras ideas para la edición 2012 del «Google
-Summer of Code» (Verano del Código de Google).
+@ref{Google Summer of Code}: ideas para el «Google Summer of Code»
+(Verano del Código de Google).
 
 @item
-@ref{Autores}: las personas que han hecho a LilyPond lo que hoy es.
+@ref{Autores}: las personas que han hecho a LilyPond lo que hoy
+es.
 
 @item
-@ref{Acknowledgements}: proyectos e instituciones que apoyan a LilyPond
+@ref{Acknowledgements}: proyectos e instituciones que apoyan a
+LilyPond
 
 @end itemize
 @divEnd
@@ -68,13 +70,15 @@ Summer of Code» (Verano del Código de Google).
 @itemize
 
 @item
-@ref{Publicaciones}: qué hemos escrito, y qué han escrito sobre nosotros.
+@ref{Publicaciones}: qué hemos escrito, y qué han escrito sobre
+nosotros.
 
 @item
 @ref{Noticias antiguas}: el archivo.
 
 @item
-@ref{Desván}: anuncios y registros de cambios en versiones antiguas.
+@ref{Desván}: anuncios y registros de cambios en versiones
+antiguas.
 
 @end itemize
 @divEnd
@@ -89,7 +93,7 @@ Summer of Code» (Verano del Código de Google).
 * Preste su ayuda::
 * Patrocinio::
 * Desarrollo::
-* GSoC 2012::
+* Google Summer of Code::
 * Autores::
 * Reconocimientos::
 * Publicaciones::
@@ -108,8 +112,9 @@ Summer of Code» (Verano del Código de Google).
 
 @subsubheading Lista de distribución de usuarios: @code{lilypond-user@@gnu.org}
 
-Esta lista de distribución de correo (en inglés) es el lugar principal
-que tienen los usuarios para discutir y prestarse mutua ayuda.
+Esta lista de distribución de correo (en inglés) es el lugar
+principal que tienen los usuarios para discutir y prestarse mutua
+ayuda.
 
 @quotation
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-user,
@@ -126,21 +131,22 @@ archivo 3}
 escribir a la lista lilypond-user a través de gmane}
 @end quotation
 
-@warning{Al formular preguntas, por favor, ¡utilice @ref{Ejemplos mínimos}!}
+@warning{Al formular preguntas, por favor, ¡utilice
+@ref{Ejemplos mínimos}!}
 
 @subsubheading El Repositorio de Fragmentos de Código de LilyPond
 
 El Repositorio de Fragmentos de Código de LilyPond es una gran
-colección de ejemplos remitidos por los usuarios, que se pueden copiar
-y usar libremente en sus propias obras.  ¡Vea las cosas que otros han
-escrito, y añada las suyas propias!
+colección de ejemplos remitidos por los usuarios, que se pueden
+copiar y usar libremente en sus propias obras.  ¡Vea las cosas que
+otros han escrito, y añada las suyas propias!
 
 @example
 @uref{http://lsr.di.unimi.it}
 @end example
 
-Los ejemplos del LSR que son especialmente instructivos se incluyen en
-nuestra documentación oficial, en @ref{Fragmentos}.
+Los ejemplos del LSR que son especialmente instructivos se
+incluyen en nuestra documentación oficial, en @ref{Fragmentos}.
 
 @subsubheading IRC
 
@@ -191,24 +197,17 @@ grupo de portugués}
 
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
 lista de correo en francés}
-
-@uref{http://www.lilypondforum.nl/,
-foro de holandés}
 @end quotation
-
 @divEnd
 
 
 @divClass{column-right-top}
-@subheading Esté siempre informado
+@subheading El blog de LilyPond
 
-@subsubheading LilyPond Report (el Informe LilyPond)
-
-La manera más fácil de estar en contacto es leer el boletín de nuestra
-comunidad, el Informe LilyPond:
+Lea el bog de nuestra comunidad, @q{Scores of Beauty}:
 
 @example
-@uref{http://web.archive.org/web/20110325004849/http://news.lilynet.net}
+@uref{http://lilypondblog.org}
 @end example
 
 @subsubheading Lista de correo de lanzamientos: @code{info-lilypond@@gnu.org}
@@ -235,12 +234,12 @@ archivo 3}
 
 
 @divClass{column-right-bottom}
-@subheading Discusión entre desarrolladores
+@subheading Discusiones y traducciones
 
 @subsubheading La lista de distribución de desarrolladores: @code{lilypond-devel@@gnu.org}
 
-Casi toda la discusión entre desarrolladores tiene lugar en esta
-lista.  Los parches se deben enviar aquí.
+La discusión entre desarrolladores tiene lugar en esta lista.  Los
+parches se pueden también enviar aquí.
 
 @quotation
 @uref{http://lists.gnu.org/mailman/listinfo/lilypond-devel,
@@ -260,7 +259,8 @@ escribir a la lista lilypond-devel a través de gmane}
 
 @subsubheading Lista de fallos: @code{bug-lilypond@@gnu.org}
 
-La discusión específica sobre fallos se produce aquí.
+Los informes de fallo y discusión sobre ellos se deben enviar
+aquí.  No envíe parches a esta lista.
 
 @quotation
 @uref{http://lists.gnu.org/mailman/listinfo/bug-lilypond,
@@ -276,16 +276,19 @@ archivo 3}
 @c don't include gmane posting here.  -gp
 @end quotation
 
-@warning{Antes de enviar un mensaje a la lista de fallos, lea nuestras
-indicaciones para elaborar @ref{Informes de fallos}.}
+@warning{Antes de enviar un mensaje a la lista de fallos, lea
+nuestras indicaciones para elaborar @ref{Informes de fallos}.}
 
-@divEnd
 
-@divClass{column-right-bottom}
-@subheading Correos delicados
+@subsubheading Lista de correo de traducciones: @code{translations@@lilynet.org}
 
-Los asuntos privados se deben enviar a Graham Percival (gestor del
-proyecto), que lo discutirá con las personas pertinentes.
+Toda discusión sobre la traducción de los manuales de LilyPond se
+debe dirigir aquí.  No envíe parches a esta lista.
+
+@quotation
+@uref{http://lilypond-translations.3384276.n2.nabble.com/,
+Archivo de la lista de correo de traducción}
+@end quotation
 
 @divEnd
 
@@ -296,7 +299,8 @@ proyecto), que lo discutirá con las personas pertinentes.
 @divClass{column-center-top}
 @subheading ¿Qué son los @qq{ejemplos mínimos}?
 
-Un ejemplo mínimo es un ejemplo del que no se puede eliminar @strong{nada}.
+Un ejemplo mínimo es un ejemplo del que no se puede eliminar
+@strong{nada}.
 @divEnd
 
 @divClass{column-left-bottom}
@@ -311,16 +315,16 @@ desarrolladores entenderlo y ayudarle.
 
 @item
 Un ejemplo mínimo demuestra que se ha esforzado en resolver el
-problema por sí mismo.  Cuando alguien envía bloques grandes de código
-de entrada, da la impresión de que no le importa que le ayudemos o que
-no.
+problema por sí mismo.  Cuando alguien envía bloques grandes de
+código de entrada, da la impresión de que no le importa que le
+ayudemos o que no.
 
 @item
 La creación de un ejemplo mínimo le ayuda a entender lo que está
 ocurriendo.  Muchos informes falsos de problemas se podrían evitar
-intentando crear un ejemplo mínimo; si no puede reproducir un @qq{bug}
-en un ejemplo mínimo, probablemente el problema era una comprensión
-insuficiente sobre LilyPond, ¡no un verdadero bug!
+intentando crear un ejemplo mínimo; si no puede reproducir un
+@qq{bug} en un ejemplo mínimo, probablemente el problema era una
+comprensión insuficiente sobre LilyPond, ¡no un verdadero bug!
 
 @end itemize
 @divEnd
@@ -338,24 +342,26 @@ insuficiente sobre LilyPond, ¡no un verdadero bug!
 Incluya el número de versión en una instrucción @code{\version}.
 
 @item
-¡Hágalo muy pequeño!  Los ejemplos relacionados con el espaciado o la
-disposición de las páginas pueden requerir muchos compases, pero casi
-todos los problemas se pueden reproducir mediante un solo compás o menos.
+¡Hágalo muy pequeño!  Los ejemplos relacionados con el espaciado o
+la disposición de las páginas pueden requerir muchos compases,
+pero casi todos los problemas se pueden reproducir mediante un
+solo compás o menos.
 
 @item
-Cuando trate de crear un ejemplo, pruebe a convertir en comentarios
-@w{(@code{%} ó @code{%@{ @dots{} %@}})} distintas secciones del
-archivo.  Si puede convertir un bloque en un comentario y aún mostrar
-la idea principal, entonces elimine ese bloque.
+Cuando trate de crear un ejemplo, pruebe a convertir en
+comentarios @w{(@code{%} ó @code{%@{ @dots{} %@}})} distintas
+secciones del archivo.  Si puede convertir un bloque en un
+comentario y aún mostrar la idea principal, entonces elimine ese
+bloque.
 
 @item
-Evite la utilización de notas, tonalidades o compases muy complicados,
-a no ser que el bug esté relacionado con el comportamiento de esos
-elementos.
+Evite la utilización de notas, tonalidades o compases muy
+complicados, a no ser que el bug esté relacionado con el
+comportamiento de esos elementos.
 
 @item
-No utilice instrucciones @code{\override} ni @code{\set} a no ser que
-el bug se refiera a esas instrucciones en concreto.
+No utilice instrucciones @code{\override} ni @code{\set} a no ser
+que el bug se refiera a esas instrucciones en concreto.
 
 @item
 Opcionalmente, adjunte una imagen que muestre el resultado gráfico
@@ -400,8 +406,8 @@ Bueno, no es muy grande, pero he aquí un ejemplo verdaderamente mínimo:
 @}
 @end example
 
-Muy pocos ejemplos mínimos superan las 10 líneas de código;
-¡lo más corriente es que basten 4 líneas para mostrar el problema!
+Muy pocos ejemplos mínimos superan las 10 líneas de código; ¡lo
+más corriente es que basten 4 líneas para mostrar el problema!
 
 @divEnd
 
@@ -411,8 +417,8 @@ Muy pocos ejemplos mínimos superan las 10 líneas de código;
 @translationof Bug reports
 
 @divClass{heading-center}
-Si tiene un código de entrada que produce una terminación abrupta o
-una salida defectuosa, eso es un bug.
+Si tiene un código de entrada que produce una terminación abrupta
+o una salida defectuosa, eso es un bug.
 @divEnd
 
 @divClass{column-center-top}
@@ -421,13 +427,13 @@ una salida defectuosa, eso es un bug.
 Probablemente ya estamos al tanto de este bug.  Compruébelo aquí:
 
 @example
-@uref{http://code.google.com/p/lilypond/issues/list}
+@uref{http://sourceforge.net/p/testlilyissues/issues/}
 @end example
 
 @warning{Le rogamos que @strong{NO} añada informes de fallos
-directamente al sistema de seguimiento.  Una vez que un problema se ha
-añadido al sistema, ya puede añadir libremente más información a ese
-informe.}
+directamente al sistema de seguimiento.  Una vez que un problema
+se ha añadido al sistema, ya puede añadir libremente más
+información a ese informe.}
 
 @divEnd
 
@@ -438,10 +444,10 @@ informe.}
 Si ha descubierto un fallo que no está en la lista, ayúdenos
 elaborando un informe de fallo.
 
-@warning{Sólo aceptamos informes en forma de @ref{Ejemplos mínimos}.
-Disponemos de recursos muy limitados, por lo que cualquier ejemplo que
-no sea mínimo va a ser rechazado.  ¡Casi todos los bugs se pueden
-demostrar con cuatro notas o menos!}
+@warning{Sólo aceptamos informes en forma de @ref{Ejemplos
+mínimos}.  Disponemos de recursos muy limitados, por lo que
+cualquier ejemplo que no sea mínimo va a ser rechazado.  ¡Casi
+todos los bugs se pueden demostrar con cuatro notas o menos!}
 
 He aquí un ejemplo de un buen informe de fallo:
 
@@ -470,8 +476,8 @@ creado el informe, ¡puede enviárnoslo!
 
 @item
 Si está suscrito a la lista de correo
-@uref{mailto:bug-lilypond@@gnu.org,bug-lilypond@@gnu.org},
-envíe un mensaje de la forma habitual.
+@uref{mailto:bug-lilypond@@gnu.org,bug-lilypond@@gnu.org}, envíe
+un mensaje de la forma habitual.
 
 @item
 Si no está suscrito, aún puede enviar un informe de fallo con el
@@ -479,16 +485,17 @@ Si no está suscrito, aún puede enviar un informe de fallo con el
 interfaz web de gmane para lilypond.bugs}.
 
 Sin embargo, existe una comprobación muy estricta de que no hay
-@qq{top-posting} (contestar por encima) en el interfaz de gmane, que se
-dispara incorrectamente con frecuencia a causa de los archivos de lilypond.
-Para evitarlo, escriba:
+@qq{top-posting} (contestar por encima) en el interfaz de gmane,
+que se dispara incorrectamente con frecuencia a causa de los
+archivos de lilypond.  Para evitarlo, escriba:
 
 @example
 > I'm not top posting.
 @end example
 
 @noindent
-(@emph{debe} escribir el ángulo @code{>} ) al principio de su informe.
+(@emph{debe} escribir el ángulo @code{>} ) al principio de su
+informe.
 
 @end itemize
 @divEnd
@@ -499,25 +506,25 @@ Para evitarlo, escriba:
 
 Una vez que su informe de fallo se ha enviado a la lista, nuestro
 Escuadrón de Fallos lo examinará el informe.  Quizá le pidan más
-información.  Se le avisará cuando el informe se añada al sistema de
-seguimiento de fallos.  Déles un tiempo de unos 4 días, pues
+información.  Se le avisará cuando el informe se añada al sistema
+de seguimiento de fallos.  Déles un tiempo de unos 4 días, pues
 disponemos de un número limitado de voluntarios para esta tarea.
 
-Una vez que el fallo se ha añadido al sistema de seguimiento, puede
-comentarlo para añadirle más información.  Puede marcar el bug con una
-estrella de forma que reciba mensajes automáticamente cuando se
-produce cualquier actividad sobre él.  Ello requiere que usted
-disponga de una cuenta en Google.
+Una vez que el fallo se ha añadido al sistema de seguimiento,
+puede comentarlo para añadirle más información.  Puede marcar el
+bug con una estrella de forma que reciba mensajes automáticamente
+cuando se produce cualquier actividad sobre él.  Ello requiere que
+usted disponga de una cuenta en Google.
 @divEnd
 
 @divClass{column-center-bottom}
 @subheading Ayuda opcional: mostrar el resultado deseado
 
 Una vez que el problema se ha añadido al sistema de seguimiento,
-puede ser de mucha ayuda que veamos la salida deseada.
-¡Con toda libertad añada código de entrada y/o imágenes
-(creadas posiblemente con otras herramientas)
-que muestren el aspecto que usted cree que debe tener!
+puede ser de mucha ayuda que veamos la salida deseada.  ¡Con toda
+libertad añada código de entrada y/o imágenes (creadas
+posiblemente con otras herramientas) que muestren el aspecto que
+usted cree que debe tener!
 
 @divEnd
 
@@ -568,21 +575,21 @@ personas individuales es asunto de dichas personas, no nuestro.
 @divClass{column-right-top}
 @subheading Guidelines
 
-Cualquier usuario que quiera ofrecer dinero a cambio de un trabajo,
-debería tener en cuenta los siguientes puntos:
+Cualquier usuario que quiera ofrecer dinero a cambio de un
+trabajo, debería tener en cuenta los siguientes puntos:
 
 @itemize
 @item
-Los desarrolladores de LilyPond pueden anunciar sus servicios en las
-listas de correo de lilypond de vez en cuando.
+Los desarrolladores de LilyPond pueden anunciar sus servicios en
+las listas de correo de lilypond de vez en cuando.
 
 @item
 Cualquier acuerdo entre personas individuales debiera incluir las
 precauciones normales cuando se hacen negocios: quién paga, cuánto
 paga, qué método se utiliza para pagar, y sobre qué paquete de
-condiciones.  Sugerimos que cualquier ambigüedad o incertidumbre en
-tales cuestiones se resuelvan antes de que dé comienzo cualquier
-trabajo.
+condiciones.  Sugerimos que cualquier ambigüedad o incertidumbre
+en tales cuestiones se resuelvan antes de que dé comienzo
+cualquier trabajo.
 
 @end itemize
 
@@ -592,16 +599,17 @@ trabajo.
 @subheading Desarrolladores interesados
 
 A continuación aparece una lista de las personas que han expresado
-interés en recibir recompensas.  Observe que la cantidad de trabajo
-hecha por personas individuales varía bastante a lo largo de los
-años. No garantizamos que esta lista esté actualizada, ni que las
-personas aquí relacionadas tengan cualquier disponibilidad.  El único
-criterio es "Fulanito ha pedido aparecer en esta página".
+interés en recibir recompensas.  Observe que la cantidad de
+trabajo hecha por personas individuales varía bastante a lo largo
+de los años. No garantizamos que esta lista esté actualizada, ni
+que las personas aquí relacionadas tengan cualquier
+disponibilidad.  El único criterio es "Fulanito ha pedido aparecer
+en esta página".
 
-El examen de la historia del sistema de control de versiones Git es
-una buena manera de determinar quiénes son los desarrolladores más
-activos y experimentados.  Las estadísticas están al día hasta la
-versión @versionDevel{}:
+El examen de la historia del sistema de control de versiones Git
+es una buena manera de determinar quiénes son los desarrolladores
+más activos y experimentados.  Las estadísticas están al día hasta
+la versión @versionDevel{}:
 
 @multitable @columnfractions .3 .3 .3
 @item @uref{http://lilypond.org/~graham/gitstats-all/, historia general}
@@ -612,10 +620,10 @@ versión @versionDevel{}:
 Desarrolladores interesados:
 @table @asis
 @item @email{dak@@gnu.org, David Kastrup}
-Se necesitan donaciones para que yo pueda continuar mi atual trabajo a
-tiempo completo sobre LilyPond.  Me concentro en diseño de interfaces
-de usuario y del programador, coherencia, implementación,
-simplificación, documentación y depuración.
+Se necesitan donaciones para que yo pueda continuar mi actual
+trabajo a tiempo completo sobre LilyPond.  Me concentro en diseño
+de interfaces de usuario y del programador, coherencia,
+implementación, simplificación, documentación y depuración.
 
 @c Format
 @c @item @email{name@@adress.domain, Name}
@@ -641,10 +649,11 @@ simplificación, documentación y depuración.
 
 @c we normally don't allow named references, but in this case
 @c it's good to emphasize the "stable" part.  -gp
-@warning{Éstas son las versiones @emph{inestables de desarrollo}.  Si
-tiene la más ligera duda acerca de cómo usar o instalar LilyPond, le
-conminamos a que utilice la @ref{Descarga, descarga estable},
-y lea los @ref{Manuales, manuales estables}.}
+@warning{Éstas son las versiones @emph{inestables de desarrollo}.
+Si tiene la más ligera duda acerca de cómo usar o instalar
+LilyPond, le conminamos a que utilice la
+@ref{Descarga, descarga estable}, y lea los
+@ref{Manuales, manuales estables}.}
 
 @divEnd
 
@@ -653,9 +662,9 @@ y lea los @ref{Manuales, manuales estables}.}
 
 Existen dos conjuntos de lanzamientos para LilyPond: lanzamientos
 estables, y lanzamientos inestables de desarrollo.  Las versiones
-estables tienen un número de versión @q{menor} par (p.ej., 2.8, 2.10,
-2.12).  Las versiones de desarrollo tienen un número @q{menor} de
-versión impar (p.ej., 2.7, 2.9, 2.11).
+estables tienen un número de versión @q{menor} par (p.ej., 2.8,
+2.10, 2.12).  Las versiones de desarrollo tienen un número
+@q{menor} de versión impar (p.ej., 2.7, 2.9, 2.11).
 
 @divEnd
 
@@ -663,8 +672,8 @@ versión impar (p.ej., 2.7, 2.9, 2.11).
 @divClass{column-left-top}
 @subheading Descarga
 
-Las instrucciones de Git y para la compilación están en la Guía del
-Colaborador.
+Las instrucciones de Git y para la compilación están en la Guía
+del Colaborador.
 
 @quotation
 @uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git, Repositorio Git de lilypond}
@@ -701,10 +710,11 @@ pruebas querrán descargar el último archivo binario:
 @divClass{column-right-top}
 @subheading Guía del colaborador
 
-El desarrollo de LilyPond es un asunto bastante complicado.  LilyPond
-es un proyecto grande y (más o menos) estable.  Para poder ayudar a
-los nuevos colaboradores, y para mantener todo el sistema (más o
-menos) estable, hemos escrito un manual para los colaboradores.
+El desarrollo de LilyPond es un asunto bastante complicado.
+LilyPond es un proyecto grande y (más o menos) estable.  Para
+poder ayudar a los nuevos colaboradores, y para mantener todo el
+sistema (más o menos) estable, hemos escrito un manual para los
+colaboradores.
 
 @docLinksBare{Guía del colaborador, contributor,
   @rcontribnamed{Top,Guía del colaborador},
@@ -792,8 +802,8 @@ Archivo de todas las pruebas de regresión}
 @subheading Manuales
 
 @ifclear web_version
-@warning{Estos manuales son para LilyPond @version{}; los manuales más recientes
-están en @url{http://lilypond.org}}
+@warning{Estos manuales son para LilyPond @version{}; los manuales
+más recientes están en @url{http://lilypond.org}}
 @end ifclear
 
 @divClass{normal-table}
@@ -893,67 +903,105 @@ están en @url{http://lilypond.org}}
 @divEnd
 
 
-
-
-@node GSoC 2012
-@unnumberedsec GSoC 2012
-@translationof GSoC 2012
+@node Google Summer of Code
+@unnumberedsec Google Summer of Code
+@translationof Google Summer of Code
 
 @divClass{column-center-top}
 @subheading ¿Qué es el Google Summer of Code (Verano del Código de Google)?
 
-Es un programa global llevado a cabo por Google que ofrece a
-estudiantes una ayuda para que trabajen en proyectos de software de
-fuentes abiertas durante las vacaciones de verano.
+@uref{https://developers.google.com/open-source/gsoc/, GSoC} es un
+programa global que ofrece a estudiantes una ayuda para que
+trabajen en proyectos de software de fuentes abiertas durante las
+vacaciones de verano.  Es una excelente oportunidad para que los
+estudiantes obtengan experiencia en el desarrollo de software en
+el mundo real y hagan contribuciones que beneficie a todos.  Atrae
+a colaboradores nuevos y anima a los estudiantes que ya participan
+en el desarrollo de LilyPond a que se impliquen aún más.  LilyPond
+participa en el GSoC como parte del @uref{http://www.gnu.org/,
+proyecto GNU}.
 
-El equipo de LilyPond decidió que ésta era una excelente oportunidad
-para encontrar colaboradores nuevos y animar a los estudiantes que ya
-participan en el desarrollo de LilyPond a que se impliquen aún más.
-Uno de nuestros colaboradores ha sido seleccionado para la edición
-2012 del programa como parte del
-@uref{http://www.gnu.org/, proyecto GNU}; esperamos poder participar
-también en futuras ediciones.
+Hemos tenido participantes en el GSoC en 2012 y 2015 y animamos a
+los estudiantes a que envíen la solicitud para las futuras
+ediciones.
+
+Si tiene alguna pregunta o le gustaría solicitar la participación,
+envíenos un correo a la lista de desarrolladores (véase
+@ref{Contacto}).
 
 @divEnd
 
 @divClass{column-center-bottom}
-@subheading Nuestra lista de ideas para el 2012
+@subheading Lista de ideas del proyecto
 
-Más abajo aparece una lista de los proyectos que hemos sugerido para
-los estudiantes del GSoC 2012.  Aunque ha finalizado el plazo de
-solicitudes, hemos decidido mantener visible esta página como
-inspiración para cualquier persona interesada en el desarrollo de
-LilyPond.  Algunos miembros del equipo de desarrollo están dispuestos
-a prestar su ayuda a aquellos que quieran implicarse en estos
-proyectos.
+Más abajo aparece una lista de los proyectos que fue inicialmente
+sugerida para el GSoC 2012.  Se mantiene aquí como inspiración
+para futuros proyectos del GSoC y para cualquier persona
+interesada en el desarrollo de LilyPond.
 
-Por supuesto, hay muchas más cosas que mejorar en LilyPond, entre
-ellas algunas muy pequeñas.  Hay una lista completa
+Observe que no es una lista exhaustiva.  También son posibles
+otros proyectos de GSoC.  Existen varias áreas en las que LilyPond
+puede mejorar y el equipo de desarrollo de LilyPond está siempre
+dispuesto a servir de ayuda a aquellos que deseen implicarse en un
+proyecto como los que aparecen relacionados más abajo.
+
+Hay una lista completa de todas las incidencias abiertas
 @uref{http://code.google.com/p/lilypond/issues/list, aquí}.
 
-@subheading Notas de adorno
+@divEnd
 
-Arreglar problemas con la sincronización de las notas de adorno,
-junto a toda la arquitectura subyacente (véase
-@uref{http://code.google.com/p/lilypond/issues/detail?id=34, el problema número 34 de nuestro sistema de seguimiento}).
-Las notas de adorno confunden al sistema de cuenta de tiempo de
-LilyPond porque son como ir hacia atrás en el tiempo.  Esto causa
-efectos extraños, en especial cuando un pentagrama tiene una nota de
-adorno que otro no tiene.
+@divClass{column-center-middle-color3}
+@subheading ScholarLY
+
+ScholarLY es una biblioteca dentro de
+@uref{https://github.com/openlilylib/snippets, openLilyLib} que
+provee funcionalidades para la anotación de partituras, haciendo
+posible gestionar flujos de trabajo académicos completamente en el
+contexto del documento de la partitura.  Hasta ahora es posible
+introducir anotaciones de distintos tipos, producir mensajes que
+se comportan como enlaces sobre la salida de consola y exportar a
+texto y a archivos de LaTeX.
+
+Hay muchas solicitudes de funcionalidad para la conversión de esta
+biblioteca en una herramienta mmás potente y completa aún, por
+ejemplo: inserción de ejemplos musicales, producción de notas al
+pie de página, aplicación automárica de estilos al elemento
+anotado (p. ej. trazar una ligadura en línea discontinua, poner
+una alteración entre paréntesis), creando informes con elementos
+sobre los que se puede apuntar y pulsar.  Para ver una descripción
+completa de esta sugerencia de proyecto, visite
+@uref{https://github.com/openlilylib/scholarly/wiki/GSoC}.
 
 @strong{Dificultad:} media
+@strong{Requisitos:} Scheme, posiblemente LaTeX, (opcionalmente
+Python)
+@strong{Conocimientos recomendados:} Experiencia con, o interés
+en, la edición académica y flujos de trabajo colaborativos.
+@strong{Mentor potencial:} Urs Liska
 
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Notas de adorno
+
+Arreglar problemas con la sincronización de las notas de adorno.
+Las notas de adorno pueden interferir con la cuenta del tiempo de
+LilyPond y causar efectos extraños, especialmente cuando se usan
+varios pentagramas en los que algunos tienen notas de adorno y
+otros no.
+
+@strong{Dificultad:} media
 @strong{Requisitos:} C++, MIDI
+@strong{Conocimientos recomendados:} familiaridad con el
+funcionamiento interno de LilyPond
+@strong{Mentores potenciales:} Mike Solomon, Carl Sorensen
 
-@strong{Recomendado:} familiaridad con el funcionamiento interno de LilyPond
+@divEnd
 
-@strong{Mentor(es):} Mike Solomon, Carl Sorensen
-
+@divClass{column-center-middle-color3}
 @subheading MusicXML
 
-Añadir exportación completa de MusicXML y mejora de la importación,
-junto a las pruebas de comprobación de que funciona.  Dependiendo del
-tiempo disponible, implementar algunos o todos los siguientes:
+Mejora de las funciones de importación y exportación de MusicXML:
 
 @divClass{keep-bullets}
 @itemize
@@ -961,109 +1009,111 @@ tiempo disponible, implementar algunos o todos los siguientes:
 @item
 Manejo de la exportación del contenido musical básico como la
 exportación MIDI (es decir, uso de clases exportadoras dedicadas,
-derivadas de la clase translator)
+derivadas de la clase translator).
 
 @item
-Construir el árbol XML del contenido musical básico, y una conexión
-desde el evento musical a la etiqueta XML
+Construir el árbol XML del contenido musical básico, y una
+conexión desde el evento musical a la etiqueta XML.
 
 @item
-Hacer que todos los grabadores de LilyPond hagan su trabajo
+Hacer que todos los grabadores de LilyPond hagan su trabajo.
 
 @item
-Añadir la posibilidad de enlazar cada objeto de presentación
-(básicamente cada sello o grupo de sellos) a la causa musical (así
-como a la etiqueta XML dentro del árbol XML)
+Enlazar cada objeto de presentación (es decir, cada sello o grupo
+de sellos) a la causa musical (así como a la etiqueta XML dentro
+del árbol XML).
 
 @item
-Añadir un @q{back-end} de salida XML, que puede después añadir la
-información de disposición para cada uno de los objetos de salida a
-las etiquetas del XML
+Añadir un @q{back-end} de salida XML, que puede después añadir
+información de disposición para cada uno de los objetos de salida
+a las etiquetas del XML.
 
 @end itemize
 @divEnd
 
-El objetivo se considerará conseguido cuando una partitura
-(previamente seleccionada) pueda importarse desde el MusicXML y
-exportada de nuevo sin ninguna pérdida de datos no intencionada.
-
 @strong{Dificultad:} media
-
 @strong{Requisitos:} MusicXML, Python, conocimiento básico de LilyPond
+@strong{Mentores potenciales:} Reinhold Kainhofer, Mike Solomon
 
-@strong{Mentor(es):} Reinhold Kainhofer, Mike Solomon
+Sería un buen tanto a su favor la familiaridad con otros editores
+de partituras para poder hacer pruebas cruzadas.
 
-Sería un buen tanto a su favor la familiaridad con otros editores de
-partituras para poder hacer pruebas cruzadas.
+@divEnd
 
+@divClass{column-center-middle-color3}
 @subheading Mejora de las ligaduras de unión y de expresión
 
-A menudo la forma predeterminada de las curvas de ligadura no es
-satisfactoria.  No están contempladas las ligaduras de unión entre
-notas enarmónicas @code{@{ dos'~ reb' @}}, las ligaduras "rotas" por
-una clave o un cambio de pauta no están bien contempladas.  El
-proyecto incluye la recolección y ordenación de ejemmplos de salida
-defectuosa, decidir sobre la salida que se desea tener y escribir el
-código correspondiente.
+Con frecuencia, las curvas de las ligaduras de unión y de
+expresión no son satisfactorias.  No se manejan bien las ligaduras
+@q{interrumpidas} por cambios de clave o de pentagrama.  El
+proyecto podría incluir y organizar ejemplos de mala salida,
+decidir sobre la salida perseguida y escibir código para
+mejorarla.
 
 @strong{Dificultad:} alta
-
 @strong{Requisitos:} C++, experiencia con heurística de la escritura
-
 @strong{Conocimientos recomendados:} LilyPond, sentido estético
+@strong{Mentor potencial:} Mike Solomon
 
-@strong{Mentor(es):} Mike Solomon
+@divEnd
 
+@divClass{column-center-middle-color3}
 @subheading Añadir una variante especial de los glifos de fuente tipográfica
-Añadir variantes para algunos glifos, como los signos de alteración,
-para líneas sobre la pauta, entre pautas, acortadas y estrechadas, así
-como una infraestructura genérica para incorporarlos.  Un ejemplo es
-la cabeza de la breve de na notación antigua, que viene en dos
-variantes, con el orificio pequeño y grande.
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+Añadir variantes @q{sobre} y @q{entre} líneas del pentagrama.
+
+@item
+Variantes más bajas y estrechas de ciertos glifos, como
+alteraciones alccidentales.  Otro ejemplo más específico sería una
+cabeza de nota breve de la notación antigua en dos variantes, una
+con un hueco pequeño dentro, y otra con un hueco grande.
+
+@end itemize
+@divEnd
 
 @strong{Dificultad:} fácil
-
 @strong{Requisitos:} MetaFont, C++, buen ojo para los detalles
-
 @strong{Conocimientos recomendados:} conocimientos básicos de LilyPond
+@strong{Mentor potencial:} Werner Lemberg
 
-@strong{Mentor(es):} Werner Lemberg
+@divEnd
 
-@subheading Mejora del barrado
+@divClass{column-center-middle-color3}
+@subheading Mejora del posicionamiento de las barras de corchea (y figuras menores)
 
-Debería mejorarse el posicionamiento predeterminado de las barras de
-corchea (y figuras menores) normales, de pentagrama cruzado,
-interrumpidas y en ángulo.  El barrado debería depender del contexto y
-de las notas vecinas (véase la
+Para barras de corchea normales, de pentagrama cruzado,
+interrumpidas y en ángulo.  El barrado debería depender del
+contexto y de las notas vecinas (véase la
 @uref{http://icking-music-archive.org/lists/sottisier/sottieng.pdf,
-sección 2.2}).
-Si es posible, reducir el tiempo de cálculo del barrado.
+sección 2.2}).  Si es posible, reducir el tiempo de cálculo del
+barrado.
 
 @strong{Dificultad:} media
-
 @strong{Requisitos:} C++, experiencia con heurística de la escritura
-
 @strong{Conocimientos recomendados:} sentido estético
+@strong{Mentores potenciales:} Mike Solomon, Carl Sorensen
 
-@strong{Mentor(es):} Mike Solomon, Carl Sorensen
 
-@subheading Limpieza de diversas advertencias de compliación
+@divEnd
 
-Limpieza de las advertencias de compilación, análisis estático del
-código, y advertencias de valgrind.  Las herramientoas de análisis
-automático del código (advertencias de @code{g++} y @code{clang}) y
-herramientas de análisis como la detección de filtraciones de memoria
-de los perfiladores de código valgrind y callgrind aportan valiosa
-información sobre posibles problemas en el código de C++.  La limpieza
-de estas advertencias nos permitiría rechazar automáticamente
-cualquier parche que introdujese más advertencias de las que hay
+@divClass{column-center-middle-color3}
+@subheading Ayudar a mejorar el comportamiento de la compilación
+
+Las herramientas de análisis automático del código, como la
+detección de filtraciones de memoria de Valgrind o el perfilador
+de código Callgrind, proveen una información valiosa acerca de los
+posibles problemas de nuestro código de C++.  La limpieza de estas
+advertencias nos permitiría rechazar automáticamente cualquier
+parche que introdujese más advertencias de las que hay
 actualmente.
 
 @strong{Dificultad:} media
-
 @strong{Requisitos:} C++
-
-@strong{Mentor(es):} Joe Neeman, Reinhold Kainhofer
+@strong{Mentores potenciales:} Joe Neeman, Reinhold Kainhofer
 
 @divEnd
 

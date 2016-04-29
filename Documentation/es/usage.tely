@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 08560a1b8076630c4fc6cb9b902614d8b74fd6fc
+    Translation of GIT committish: 47db9a3883d726ca53e2133a3b2298f78dd6a32e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -21,7 +21,12 @@ con LilyPond versión @version{}.  Además sugiere ciertas @qq{buenas
 prácticas} para una utilización eficiente.
 @end macro
 
-@c `Usage' was born 1999-10-10 with git commit c82c30c...
+@c `Usage' was born 1999-10-11 with this commit:
+@c release: 1.2.13
+@c author: Han-Wen Nienhuys
+@c commit: 0cf97b5cdceecbba937f43ac827f4065aad5001e
+@c   file: Documentation/user/invoking.itexi
+
 @macro copyrightDeclare
 Copyright @copyright{} 1999--2015 por los autores.
 @end macro

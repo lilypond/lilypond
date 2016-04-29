@@ -489,7 +489,7 @@ using Italian note names:
 The available languages and the note names they define are:
 
 @quotation
-@multitable {@code{nederlands}} {do re mi fa sol la sib si}
+@multitable {@code{nederlands}} {do re/re mi fa sol la sib si}
 @headitem Language
   @tab Note Names
 @item @code{nederlands}
@@ -502,7 +502,9 @@ The available languages and the note names they define are:
   @tab c d e f g a bf b
 @item @code{espanol} or @code{español}
   @tab do re mi fa sol la sib si
-@item @code{italiano} or @code{français}
+@item @code{français}
+  @tab do ré/re mi fa sol la sib si
+@item @code{italiano}
   @tab do re mi fa sol la sib si
 @item @code{norsk}
   @tab c d e f g a b h
@@ -535,7 +537,9 @@ also vary depending on the language:
     @tab -@code{ff}/-@code{-flatflat}
 @item @code{espanol} or @code{español}
   @tab -@code{s} @tab -@code{b} @tab -@code{ss}/-@code{x} @tab -@code{bb}
-@item @code{italiano} or @code{français}
+@item @code{français}
+  @tab -@code{d} @tab -@code{b} @tab -@code{dd}/-@code{x} @tab -@code{bb}
+@item @code{italiano}
   @tab -@code{d} @tab -@code{b} @tab -@code{dd} @tab -@code{bb}
 @item @code{norsk}
   @tab -@code{iss}/-@code{is} @tab -@code{ess}/-@code{es} @tab -@code{ississ}/-@code{isis}
@@ -589,7 +593,9 @@ appear in this table do not provide special note names yet.
   @tab -qs @tab -qf @tab -tqs @tab -tqf
 @item @code{espanol} or @code{español}
   @tab -cs @tab -cb @tab -tcs @tab -tcb
-@item @code{italiano} or @code{français}
+@item @code{français}
+  @tab -sd @tab -sb @tab -dsd @tab -bsb
+@item @code{italiano}
   @tab -sd @tab -sb @tab -dsd @tab -bsb
 @item @code{portugues}
   @tab -sqt @tab -bqt @tab -stqt @tab -btqt
@@ -1208,7 +1214,7 @@ This @emph{warning} clef can be suppressed.
 
 By default, a clef that has previously been printed will not be
 re-printed if the same @code{\clef} command is issued again and
-will be ignored.  The the command
+will be ignored.  The command
 @code{\set Staff.forceClef = ##t} changes this behaviour.
 
 @lilypond[verbatim,quote,fragment]

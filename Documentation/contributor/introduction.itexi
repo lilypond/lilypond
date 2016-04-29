@@ -109,6 +109,20 @@ hosted by GNU savannah.
 @uref{http://git.savannah.gnu.org/gitweb/?p=lilypond.git}
 @end example
 
+@item @strong{issue tracker}:
+currently hosted by Sourceforge.
+
+@example
+@uref{https://sourceforge.net/p/testlilyissues/issues/}
+@end example
+
+@item @strong{patch review}:
+Reitveld -- the collaborative code review tool.
+
+@example
+@uref{https://codereview.appspot.com}
+@end example
+
 @item @strong{environment variables}:
 many maintenance scripts, and many instructions in this guide rely on
 predefined @ref{Environment variables}.
@@ -116,17 +130,21 @@ predefined @ref{Environment variables}.
 @item @strong{mailing lists}:
 given on @rweb{Contact}.
 
-@item @strong{branches}:
+@item @strong{Git branches}:
 
 @itemize
 @item @code{master}:
-base your work from this, but do @strong{not push} to it.
+always base your work from this branch, but @strong{never push} directly
+to it.  Patches are always pushed directly to the @code{staging} branch
+instead.
 
 @item @code{staging}:
-after a successful review (see below), push here.
+always push to this branch after a successful patch review cycle (see
+below).
 
 @item @code{translation}:
-translators should base their work from this, and also push to it.
+Translators should base their work on this branch only and push any
+translation patches directly to it as well.
 
 @item @code{dev/foo}:
 feel free to push any new branch name under @code{dev/}.
@@ -134,13 +152,16 @@ feel free to push any new branch name under @code{dev/}.
 @end itemize
 
 @item @strong{regression tests}:
-also known as @qq{regtests}; this is a collection of more than a
-thousand .ly files.  We track the output of those files between
-versions.
+also known as @qq{regtests}. A collection of more than a thousand
+@code{.ly} files that are used to track LilyPond's engraving output
+between released stable and unstable versions as well as checked for all
+patches submitted for testing.
 
-If a patch introduces any unintentional changes to the regtests,
-we will likely reject it -- make sure that you are aware and can
-explain any regtest changes.  More info in @ref{Regression tests}.
+If a patch introduces any unintentional changes to any of the regtests
+it is very likely it will be rejected (to be fixed) -- always make sure
+that, if you expect any regression test changes, that they are explained
+clearly as part of the patch description when submitting for testing.
+For more information see @ref{Regression tests}.
 
 @item @strong{reviews}:
 after finishing work on a patch or branch:
@@ -149,41 +170,51 @@ after finishing work on a patch or branch:
 @item
 upload it with our custom @code{git-cl} @q{helper-script}; see
 @ref{git-cl}.  In addition to uploading patches to the Google's Rietveld
-Code Review Tool the script will also update the issue tracker (or add a
-new issue as appropriate) so that we don't lose reference to your
-patch.  The @qq{status} of your patch is kept on the issue tracker;
-see @ref{Issues}.
+code review tool the script will also update the issue tracker (or add a
+new issue as appropriate) so that any reference to the patch is not
+lost.  The current @qq{status} of any patch submitted is always managed
+on the issue tracker; also see @ref{Issues}.
 
-Your patch will be given @code{Patch-new} status.  More information on
-this can be found in the section @ref{Uploading a patch for review}.
-
-@item
-If your patch passes some automatic tests, it will be given
-@code{Patch-review} status.  This generally happens within 24
-hours.
+Once submitted the patch will be given a status of @code{Patch-new} and
+will enter the @qq{Patch Countdown}.  More information on this can be
+found in the section @ref{Uploading a patch for review}.
 
 @item
-After that, the patch must wait for the next @qq{patch countdown},
-which occurs roughly every 3 days.  When your patch is put on a
-countdown, it will be given @code{Patch-countdown} status.
+Patches are generally tested within 24 hours of submission.  Once it has
+passed the basic tests -- make, make doc and a make test-baseline/check
+--, the tracker will be updated and the patch's status will change to
+@code{Patch-review} for other developers to examine.
 
 @item
-The countdown is a 72-hour period which gives other developers one
-last chance to review the patch.  If no significant problems are
-found, your patch will be given @code{Patch-push} status.
+Every third day, the @qq{Patch Meister} will examine the issue tracker
+and the Rietveld code review tool for the submitted patch, looking for
+any comments by other developers.  Depending on what has been posted,
+the patch will be either; @qq{moved on} to the next patch status
+(@code{Patch-countdown}); set back to @code{Patch-needs_work}; or if
+more discussion is needed, left at @code{Patch-review}.  In all cases
+the issue tracker (not the Rietveld code review tool) will be updated by
+the Patch Meister accordingly.
 
 @item
-You may now either push it to the @code{staging} branch, or email
-your patch (created with @w{@code{git format-patch}}) to somebody
-who will push it for you.
+Once another three days have passed, any patch that has been given
+@code{Patch-countdown} status will be changed to @code{Patch-push}, the
+issue tracker is updated, and the developer can now push it directly to
+the @code{staging} branch (or email the patch -- created with
+@w{@code{git format-patch}} command -- to one of the other developers
+who can push it for you).
+
+@item
+Automatic scripts run every few hours to merge the @code{staging} branch
+with @code{master}.
 
 @end enumerate
 
-@advanced{Yes, this process means that most patches wait between
-60-120 hours before reaching @code{master}.  This is unfortunate, but
-given our limited resources for reviewing patches and a history of
-unintended breakage in @code{master}, this is the best compromise
-we have found.}
+@advanced{This process does means that most patches will take about a
+week before finally being merged into @code{master}.  With the limited
+resources for reviewing patches available and a history of unintended
+breakages in the @code{master} branch (from patches that have
+not had time to be reviewed properly), this is the best compromise we
+have found.}
 
 @end itemize
 

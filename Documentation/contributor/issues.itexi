@@ -69,93 +69,80 @@ If you would like to be part of the Bug Squad, please contact the
 @node Bug Squad setup
 @subsection Bug Squad setup
 
-We highly recommend that you configure your email to use effective
-sorting; this can reduce your workload @emph{immensely}.  The
-email folders names were chosen specifically to make them work if
-you sort your folders alphabetically.
+We highly recommend that you configure your email client to use some
+kind of sorting and filtering as this will significantly reduce and
+simplify your workload.  Suggested email folder names are mentioned
+below to work when sorted alphabetically.
 
 @enumerate
 
 @item
-Read every section of this chapter, @ref{Issues}.
+Read every section of the @ref{Issues} chapter in this guide.
 
 @item
-If you do not have one already, create a gmail account and send
-the email address to the @ref{Meisters, Bug Meister}.
+Subscribe your email account to @code{bug-lilypond}.  See
+@uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond}.
 
 @item
-Subscribe your gmail account to @code{bug-lilypond}.
+Send your email address to the @ref{Meisters, Bug Meister}.
 
 @item
-Configure your google code account:
+Create your own Sourceforge login (required for the Allura issue
+tracker):
 
-@enumerate
-
-@item
-Wait until your gmail account is listed in:
-
-@example
-@uref{http://code.google.com/p/lilypond/people/list}
-@end example
+@itemize
 
 @item
-Sign in to google code by clicking in the top-right corner of:
-
-@example
-@uref{http://code.google.com/p/lilypond/issues/list}
-@end example
-
-You cannot log on if you have Google Sharing enabled
-@uref{http://www.googlesharing.net/}.
+Go to @uref{https://sourceforge.net/p/testlilyissues/issues/}
 
 @item
-Go to your @qq{Profile}, and select @qq{Settings}.
+Click on 'Join' in the top-right corner.
 
 @item
-Scroll down to @qq{Issue change notification}, and make sure that
-you have @emph{selected} @qq{If I starred the issue}.
+Fill in your details as required and click the @emph{Register} button to
+complete the registration.
 
-@end enumerate
+@end itemize
+
+@item
+Send your Sourceforge @emph{username} (not your email address) to
+@email{bug-lilypond@@gnu.org} asking to be given appropriate permissions
+to either create, edit and comment on tracker issues.
 
 @item
 Configure your email client:
 
-@enumerate
+@itemize
 
 @item
-Any email sent with your gmail address in the @code{To:} or
-@code{CC:} fields should go to a @code{bug-answers} folder.
-
-When setting up your filtering rules, be aware that Google Code
-might use different versions of your email address, such as ones
-ending in @code{@@googlemail.com} or @code{@@gmail.com}.
+Any email sent with your address in the @code{To:} or @code{CC:} fields
+should be configured to go into a @code{bug-answers} folder.
 
 @item
-Any other email either from, or CC'd to,
+Any email either @code{From:} or @code{CC:} to,
 
 @example
-lilypond@@googlecode.com
+testlilyissues-auto@@lists.sourceforge.net
 @end example
 
 @noindent
-should go into a separate @code{bug-ignore} folder.  Alternately,
-you may automatically delete these emails.
-
-You will @strong{not read} these emails as part of your Bug Squad
-duties.  If you are curious, go ahead and read them later, but it
-does @strong{not} count as Bug Squad work.
+should be configured to go into a @code{bug-ignore} folder or,
+alternately, configure your email client to delete these automatically.
+You do @emph{not} need to read mails in the @code{bug-ignore} folder.
+If you are curious (and have time) then read them, but they are not
+necessary for Bug Squad work.
 
 @item
-Any other email sent to (or CC'd to):
+Any email sent @code{To:} or @code{CC:} to,
 
 @example
 bug-lilypond
 @end example
 
 @noindent
-should go into a separate @code{bug-current} folder.
+should be configured to go into a @code{bug-current} folder.
 
-@end enumerate
+@end itemize
 
 @end enumerate
 
@@ -341,21 +328,26 @@ After @strong{every release} (both stable and unstable):
 @item
 Issues to verify: go to
 
+@smallexample
+@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status%3AFixed}
+@end smallexample
+
+(You can also generate this list by selecting the @qq{Open (Fixed)}
+button down the left-hand frame)
+
+You should see a list of Issues that have been marked as 'Fixed' by a
+developer.  If the developer has done their job properly, the
+Issue should have the @qq{Labels} field filled in with @qq{Fixed_x_y_z},
+where X is the major version, y the minor version and z the current
+release.
+
 @example
-@uref{http://code.google.com/p/lilypond/issues/list?can=7}
+Fixed_2_19_39
 @end example
 
-(You can also generate this list by selecting
-@qq{Issues to verify} from the drop-down list next to the search
-box.)
-
-You should see a list of Issues that have been claimed fixed by a
-developer.  If the developer has done their job properly, the
-Issue should have a tag @qq{Fixed_mm_MM_ss}, where mm is
-the major version, MM the minor version and ss the current
-release.  This will help you work out which you can verify - do
-not verify any Issues where the claimed fixed build is not yet
-released.  Work your way through these as follows:
+This will help you work out which you can verify - do not verify any
+Issues where the claimed fixed build is not yet released.  Work your
+way through these as follows:
 
 If the Issue refers to a bug, try to reproduce the bug with the latest
 officially released version (not one you've built yourself from
@@ -817,7 +809,6 @@ email should contain a link to the issue you just added.
 @end enumerate
 
 
-
 @node Patch handling
 @section Patch handling
 
@@ -825,221 +816,13 @@ email should contain a link to the issue you just added.
 separate person handling this task.}
 
 For contributors/developers: follow the steps in
-@ref{Commits and patches}, and @ref{Pushing to staging}.
+@ref{Patches}, and @ref{Pushing to staging}.
 
 @ignore
 For people doing maintenance tasks: git-cl is adding issues, James
-is testing them, Colin is selecting them for countdowns, and
-Patchy is merging from staging to master.  In the coming weeks,
-these tasks will be more and more automated.
-@end ignore
-
-@subheading Patch cycle
-
-@itemize
-
-@item
-Patches get added to the tracker and to Rietveld by the @qq{git-cl} tool, with
-a status of @qq{patch-new}.
-
-@item
-The automated tester, Patchy, verifies that the patch can be applied
-to current master.  By default, it checks that the patch allows @code{make}
-and @code{make test} to complete successfully.  It can also be configured to
-check that @code{make doc} is successful. If it passes, Patchy changes the
-status to @qq{patch-review} and emails the developer list.  If the patch
-fails, Patchy sets it to @qq{patch-needs_work} and notifies the developer list.
-
-@item
-The Patch Meister reviews the tracker periodically, to list patches
-which have been on review for at least 24 hours. The list is found at
-
-@smallexample
-@uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:patch%20patch=review&sort=modified+patch&colspec=ID%20Type%20Status%20Priority%20Owner%20Patch%20Summary%20Modified}
-@end smallexample
-
-@item
-For each patch, the Handler reviews any discussion on the tracker
-and on Rietveld, to determine whether the patch can go forward.  If
-there is any indication that a developer thinks the patch is not
-ready, the Handler marks it @qq{patch-needs_work} and makes a comment
-regarding the reason, referring to the Rietveld item if needed.
-
-@item
-Patches with explicit approval, or at least no negative comment, can
-be updated to @qq{patch-countdown}.  When saving the tracker item,
-clear the @qq{send email} box to prevent sending notification for
-each patch.
-
-@item
-The Patch Meister sends an email to the developer list, with a fixed
-subject line, to enable filtering by email clients:
-
-@example
-PATCH: Countdown to 20130113
-@end example
-
-The text of the email sets the deadline for this countdown batch.  At
-present, batches are done on Tuesday, Thursday and Sunday evenings.
-
-To create the countdown announcement, use the
-@code{make-countdown-announcement.sh} script, which takes the
-deadline date, and optionally your name.  Follow the instructions
-provided:
-
-@example
-cd $LILYPOND_GIT
-scripts/auxiliar/make-countdown-announcement.sh "Jan 1, 2001" James
-@end example
-
-The script produces an announcement that is easily readable in all
-email clients.  Also, whenever a new contributor submits a patch,
-you will be prompted to add the new username and author name to
-the script itself, and then commit those changes to the main git
-repository.
-
-
-@item
-On the scheduled countdown day, the Patch Meister reviews the
-previous list of patches on countdown, with the same procedure and
-criteria as before.  Patches with no controversy can be set to
-@qq{patch-push} with a courtesy message added to the comment block.
-
-@item
-Roughly at six month intervals, the Patch Meister can list the
-patches which have been set to @qq{patch-needs-work} and send the
-results to the developer list for review.  In most cases, these
-patches should be marked @qq{patch-abandoned} but this should come
-from the developer if possible.
-
-@item
-As in most organisations of unpaid volunteers, fixed procedures are
-useful in as much as they get the job done.  In our community, there
-is room for senior developers to bypass normal patch handling flows,
-particularly now that the testing of patches is largely automated.
-Similarly, the minimum age of 24 hours can reasonably be waived if
-the patch is minor and from an experienced developer.
-
-
-@end itemize
-
-@ignore
-There is a single Patch Meister, and a number of Patch Helpers
-(rename this?).  The list of known patches awaiting review is:
-
-@example
-@uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:patch&sort=patch}
-@end example
-
-
-@subheading Helpers: adding patches
-
-The primary duty is to add patches to the google tracker; we have
-a bad track record of losing patches in email.  Patches generally
-come to the @code{lilypond-devel} mailing list, but are sometimes
-sent to @code{bug-lilypond}, @code{lilypond-users}, or
-@code{frogs} mailing list instead.
-
-@itemize
-@item
-Unless a patch is clearly in response to an existing issue, add a
-new issue with the @code{Patch-new} label and a link to the patch
-(either on the mailing list archives or the codereview url).
-
-Issue numbers are cheap; losing developers because they got fed up
-with us losing their hard work is expensive.
-
-@end ignore
-@c if we enter patches immediately, I don't think this is relevant.
-@ignore
-@item
-Before adding a patch-reminder issue, do a quick check to see if
-it was pushed without sending any email.  This can be checked for
-searching for relevant terms (from the patch subject or commit
-message) on the webgit page:
-
-@example
-@uref{http://git.savannah.gnu.org/gitweb/?p=lilypond.git}
-@end example
-@end ignore
-@ignore
-
-@item
-If the patch is clearly in response to an existing issue, then
-update that issue with the @code{Patch-new} label and a link to
-the patch (either on the mailing list archives or the codereview
-url).
-
-@item
-After adding the issue, please send a response email to the same
-group(s) that the initial patch was sent to.
-
-If the initial email was sent to multiple mailing lists (such as
-both @code{bugs} and @code{devel}), then reply to all those
-mailing lists as well.  The email should contain a link to the
-issue you just added.
-
-@end itemize
-
-@subheading Helpers: @code{Patch-review} label
-
-The secondary duty is to do make sure that every issue in the
-tracker with a @code{Patch-review} label has passed these
-@qq{obvious} tests:
-
-@itemize
-@item
-Applies automatically to git master.
-
-It's ok to have offsets, but not conflicts.
-
-@item
-Regtest comparison looks ok; no unexpected changes.
-
-@item
-Descriptive subject line.
-
-Avoid subjects like @qq{fixes 123}; instead write @qq{Doc: discuss
-stacking-dir for BassFigureAlignment (fix 123)}.
-
-@item
-Compiles docs from scratch.  Only check this if you have reason to
-suspect it might not work.
-
-@item
-(maybe)
-
-Check code indentation and style.  This should be easier post-GOP
-when we have a better-defined code style.
-
-@end itemize
-
-
-@subheading Patch Meister
-
-The Patch Meister will:
-
-@itemize
-
-@item
-send @qq{countdown} emails to
-@code{lilypond-devel} when patches appear to be ready.
-
-@item
-send general requests to review patches, or even nasty requests to
-review patches.
-
-@item
-downgrade patches from @code{Patch-review} to
-@code{Patch-needs_work} as appropriate.
-
-@item
-downgrade patches from @code{Patch-needs_work} to
-@code{Patch-abandoned} if no actions have been taken in four
-weeks.
-
-@end itemize
-
+is testing patches and managing the Patch countdown.  He also generally
+runs the scripts that merging to Staging (although other developers are
+available to do this task if required).
 @end ignore
 
 
@@ -1048,10 +831,10 @@ weeks.
 
 @subsubheading Project overview
 
-Grid view provides the best overview:
+Project activity
 
 @smallexample
-@uref{http://code.google.com/p/lilypond/issues/list?mode=grid&y=Priority&x=Type&cells=ids}
+@uref{https://sourceforge.net/projects/testlilyissues/}
 @end smallexample
 
 @subsubheading Hindering development
@@ -1059,28 +842,61 @@ Grid view provides the best overview:
 These issues stop or slow development work:
 
 @smallexample
-@uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:Maintainability}
+@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status:Accepted%20AND%20_type:Maintainability}
 @end smallexample
 
 @subsubheading Easy tasks
 
 Issues tagged with @code{Frog} indicates a task suitable for a
-relatively new contributor.  The time given is a quick
-(inaccurate) estimate of the time required for somebody who is
-familiar with material in this manual, but does not know anything
-else about LilyPond development.
+relatively new contributor.  The time given is a quick (and probably
+inaccurate) estimate of the time required for somebody who is familiar
+with material in this manual, but does not know anything else about
+LilyPond development.
 
 @smallexample
-@uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:Frog}
+@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status:Accepted%20AND%20labels:Frog}
 @end smallexample
 
-@subsubheading Patches to review
+@subsubheading Patches currently in the Patch Review cycle
 
-Patches which have no @qq{obvious} problems:
+Overview
+
+@c The following URL is provided by one of the Developers giving a much
+@c easier way to see all patches at all stages of the Review cycle in a
+@c single place.
 
 @example
-@uref{http://code.google.com/p/lilypond/issues/list?can=2&q=label:patch-review}
+http://philholmes.net/lilypond/allura/
 @end example
 
 
+@noindent
+New patches
 
+@smallexample
+@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status%3AStarted+AND+_patch%3Anew}
+@end smallexample
+
+
+@noindent
+Patches under Review
+
+@smallexample
+@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status%3AStarted+AND+_patch%3Areview}
+@end smallexample
+
+
+@noindent
+Patches on final Countdown
+
+@smallexample
+@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status%3AStarted+AND+_patch%3Acountdown}
+@end smallexample
+
+
+@noindent
+Patches that can be pushed
+
+@smallexample
+@uref{https://sourceforge.net/p/testlilyissues/issues/search/?q=status%3AStarted+AND+_patch%3Apush}
+@end smallexample

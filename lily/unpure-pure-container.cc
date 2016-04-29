@@ -25,6 +25,7 @@
 class Unpure_pure_call : public Smob1<Unpure_pure_call>
 {
 public:
+  static const char * const type_p_name_; // = 0
   // Smob procedures unfortunately can only take at most 3 SCM
   // arguments.  Otherwise we could use a "3, 0, 1" call signature and
   // not require an argument count check of our own.
@@ -36,6 +37,8 @@ public:
     return scm_apply_1 (scm1 (), arg1, scm_cdr (rest));
   }
 };
+
+const char * const Unpure_pure_call::type_p_name_ = 0;
 
 SCM
 Unpure_pure_container::pure_part () const

@@ -1,11 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 3c0f38115857598db730782b1d2ff0a19fd833af
+   Translation of GIT committish: 88a5dbc589b0d0434f8e640467b5ab57d14dc461
 
-    When revising a translation, copy the HEAD committish of the
-    version that you are working on.  For details, see the Contributors'
-    Guide, node Updating translation committishes..
+   When revising a translation, copy the HEAD committish of the
+   version that you are working on.  For details, see the Contributors'
+   Guide, node Updating translation committishes..
 @end ignore
 
 @c \version "2.19.22"
@@ -2296,7 +2296,7 @@ c'est sur celui-ci que doit porter l'effet de
 début du bandeau qui constitue une ligne de base susceptible de contenir
 plusieurs soufflets ou indications de nuance.
 
-@multitable @columnfractions .3 .3 .3
+@multitable @columnfractions .3 .15 .45
 @headitem Objet de rendu
   @tab Priorité
   @tab Contrôle la position de :
@@ -2306,15 +2306,33 @@ plusieurs soufflets ou indications de nuance.
 @item @code{MetronomeMark}
   @tab @code{1000}
   @tab Indication métronomique
+@item @code{SostenutoPedalLineSpanner}
+  @tab @code{1000}
+  @tab Indication de pédale
+@item @code{SustainPedalLineSpanner}
+  @tab @code{1000}
+  @tab
+@item @code{UnaCordaPedalLineSpanner}
+  @tab @code{1000}
+  @tab
+@item @code{MeasureCounter}
+  @tab @code{750}
+  @tab Numéro de mesure
 @item @code{VoltaBracketSpanner}
   @tab @code{600}
   @tab Bandeau de répétition
+@item @code{InstrumentSwitch}
+  @tab @code{500}
+  @tab Texte de changement d'instrument
 @item @code{TextScript}
   @tab @code{450}
   @tab Texte des @emph{markup} (ou étiquettes)
 @item @code{MultiMeasureRestText}
   @tab @code{450}
-  @tab Texte sur les silences qui couvrent des mesures entières
+  @tab Texte sur les silences multimesures
+@item @code{CombineTextScript}
+  @tab @code{450}
+  @tab Texte de parties combinées
 @item @code{OttavaBracket}
   @tab @code{400}
   @tab Indication d'octaviation
@@ -2330,6 +2348,9 @@ plusieurs soufflets ou indications de nuance.
 @item @code{TrillSpanner}
   @tab @code{50}
   @tab Bandeau de trille
+@item @code{AccidentalSuggestion}
+  @tab @code{0}
+  @tab Altération suggérée
 @end multitable
 
 Voici un exemple qui montre le placement par défaut de certains

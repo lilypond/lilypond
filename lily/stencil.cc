@@ -104,10 +104,10 @@ Stencil::rotate_degrees_absolute (Real a, Offset absolute_off)
    *         *this = rotated()
    */
 
-  expr_ = scm_list_n (ly_symbol2scm ("rotate-stencil"),
+  expr_ = scm_list_3 (ly_symbol2scm ("rotate-stencil"),
                       scm_list_2 (scm_from_double (a),
                                   scm_cons (scm_from_double (x), scm_from_double (y))),
-                      expr_, SCM_UNDEFINED);
+                      expr_);
 
   /*
    * Calculate the new bounding box
@@ -167,9 +167,9 @@ Stencil::translate (Offset o)
     }
 
   if (!scm_is_null (expr_))
-    expr_ = scm_list_n (ly_symbol2scm ("translate-stencil"),
+    expr_ = scm_list_3 (ly_symbol2scm ("translate-stencil"),
                         ly_offset2scm (o),
-                        expr_, SCM_UNDEFINED);
+                        expr_);
   dim_.translate (o);
 }
 
