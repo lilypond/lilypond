@@ -20,32 +20,9 @@
 #ifndef TRANSLATOR_GROUP_HH
 #define TRANSLATOR_GROUP_HH
 
+#include "callback.hh"
 #include "listener.hh"
 #include "translator.hh"
-
-typedef void (Translator:: *Translator_method) (void);
-typedef void (Translator_group:: *Translator_group_method) (void);
-typedef void (*Translator_group_void_method) (Translator_group *);
-
-struct Translator_method_binding
-{
-  Translator *translator_;
-  Translator::Callback method_;
-
-  Translator_method_binding ()
-  {
-  }
-  Translator_method_binding (Translator *tr, Translator::Callback ptr)
-  {
-    translator_ = tr;
-    method_ = ptr;
-  }
-  void invoke ()
-  {
-    if (method_)
-      (translator_->*method_) ();
-  }
-};
 
 class Translator_group : public Smob<Translator_group>
 {
@@ -56,10 +33,10 @@ public:
   virtual ~Translator_group ();
 private:
   void precompute_method_bindings ();
-  vector<Translator_method_binding>
+  vector<Method_instance>
   precomputed_method_bindings_[TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
 
-  Translator_group_void_method
+  SCM
   precomputed_self_method_bindings_[TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
 
   SCM protected_events_;
@@ -80,7 +57,7 @@ public:
   void stop_translation_timestep ();
   void start_translation_timestep ();
 
-  virtual void fetch_precomputable_methods (Translator_group_void_method[]);
+  virtual void fetch_precomputable_methods (SCM []);
 
   Translator_group ();
 
@@ -97,8 +74,8 @@ protected:
 };
 
 SCM names_to_translators (SCM namelist, Context *tg);
-void recurse_over_translators (Context *c, Translator_method ptr,
-                               Translator_group_method ptr2, Direction);
+void recurse_over_translators (Context *c, SCM tr_method,
+                               SCM tr_group_method, Direction);
 void precomputed_recurse_over_translators (Context *c, Translator_precompute_index idx, Direction dir);
 Translator_group *get_translator_group (SCM sym);
 

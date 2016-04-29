@@ -84,28 +84,19 @@
 
 #define IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS(T)                        \
   void                                                                  \
-  T::fetch_precomputable_methods (Translator::Callback ptrs[])		\
+  T::fetch_precomputable_methods (SCM ptrs[])                           \
   {                                                                     \
     ptrs[START_TRANSLATION_TIMESTEP] =                                  \
-      (&T::start_translation_timestep					\
-       == &Translator::start_translation_timestep)			\
-      ? 0								\
-      : static_cast<Callback> (&T::start_translation_timestep);		\
+      method_finder <&T::start_translation_timestep> ();                \
 									\
     ptrs[STOP_TRANSLATION_TIMESTEP] =					\
-      (& T::stop_translation_timestep == & Translator::stop_translation_timestep) \
-      ? 0								\
-      : static_cast<Callback> (&T::stop_translation_timestep);		\
-									\
+      method_finder <&T::stop_translation_timestep> ();                 \
+                                                                        \
     ptrs[PROCESS_MUSIC] =						\
-      (&T::process_music == &Translator::process_music)			\
-      ? 0								\
-      : static_cast<Callback> (&T::process_music);			\
+      method_finder <&T::process_music> ();                             \
 									\
     ptrs[PROCESS_ACKNOWLEDGED] =					\
-      (&T::process_acknowledged == &Translator::process_acknowledged)	\
-      ? 0								\
-      : static_cast<Callback> (&T::process_acknowledged);		\
+      method_finder <&T::process_acknowledged> ();                      \
   }
 
 void add_acknowledger (SCM ptr,

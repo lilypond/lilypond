@@ -33,7 +33,7 @@
   public:                                                               \
   VIRTUAL_COPY_CONSTRUCTOR (Translator, NAME);                          \
   static Drul_array<vector<Acknowledge_information> > acknowledge_static_array_drul_; \
-  virtual void fetch_precomputable_methods (Callback methods[]);        \
+  virtual void fetch_precomputable_methods (SCM methods[]);             \
   DECLARE_TRANSLATOR_CALLBACKS (NAME);                                  \
   TRANSLATOR_INHERIT (Translator)                                       \
   static SCM static_get_acknowledger (SCM sym);                         \
@@ -49,9 +49,12 @@
   /* end #define */
 
 #define TRANSLATOR_INHERIT(BASE)                                        \
+  using BASE::method_finder;                                            \
   using BASE::ack_finder;
 
 #define DECLARE_TRANSLATOR_CALLBACKS(NAME)                              \
+  template <void (NAME::*mf)()>                                         \
+  static SCM method_finder () { return method_find_base<NAME, mf> (); } \
   template <void (NAME::*callback)(Grob_info)>                          \
   static SCM ack_finder () { return ack_find_base<NAME, callback> (); } \
   /* end #define */
@@ -102,7 +105,6 @@ enum Translator_precompute_index
 class Translator : public Smob<Translator>
 {
 public:
-  typedef void (Translator::*Callback) (void);
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
   static const char type_p_name_[];
@@ -139,7 +141,7 @@ public:
 
   DECLARE_CLASSNAME (Translator);
   virtual Translator *clone () const = 0;
-  virtual void fetch_precomputable_methods (Callback methods[]) = 0;
+  virtual void fetch_precomputable_methods (SCM methods[]) = 0;
   virtual SCM get_listener_list () const = 0;
   virtual SCM translator_description () const = 0;
   virtual SCM get_acknowledger (SCM sym) = 0;
@@ -160,6 +162,16 @@ protected:                      // should be private.
     (t->*callback) (unsmob<Stream_event> (event));
     return SCM_UNSPECIFIED;
   }
+
+  template <class T, void (T::*mf)()>
+  static SCM
+  method_find_base () { return Callback0_wrapper::make_smob<T, mf> (); }
+
+  // Fallback for non-overriden callbacks for which &T::x degrades to
+  // &Translator::x
+  template <void (Translator::*)()>
+  static SCM
+  method_finder () { return SCM_UNDEFINED; }
 
   // Overriden in Engraver.
   template <class T, void (T::*callback)(Grob_info)>

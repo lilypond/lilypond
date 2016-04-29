@@ -58,9 +58,11 @@ Score_engraver::prepare (SCM)
 void
 Score_engraver::finish (SCM)
 {
-  recurse_over_translators (context (), &Translator::finalize,
-                            &Translator_group::finalize,
-                            UP);
+  recurse_over_translators
+    (context (),
+     Callback0_wrapper::make_smob<Translator, &Translator::finalize> (),
+     Callback0_wrapper::make_smob<Translator_group, &Translator_group::finalize> (),
+     UP);
 }
 
 #define MUSIC_FONT "emmentaler-20"
