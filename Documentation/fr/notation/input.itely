@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 10bc01482b78c62ad095ceb95963b1800571e408
+   Translation of GIT committish: 4c31c117565b1c7dd78e606fceb7cba354f2859a
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2004,7 +2004,7 @@ tocAct =
   \markuplist \table-of-contents
   \tocAct \markup { Atto Primo }
   \tocItem \markup { Coro. Viva il nostro Alcide }
-  \tocItem \markup { Cesare. Presti omai l'Egizzia terra }
+  \tocItem \markup { Cesare. Presti omai l'Egizia terra }
   \tocAct \markup { Atto Secondo }
   \tocItem \markup { Sinfonia }
   \tocItem \markup { Cleopatra. V'adoro, pupille, saette d'Amore }
@@ -2448,6 +2448,24 @@ liste de balises est en pareil cas des plus pertinente : seront
 exclus tous les fragments non concernés par l'une quelconque des
 balises mentionnées.
 
+@lilypond[verbatim,quote]
+music = \relative c'' {
+  \tag #'violinI { a4 a a a }
+  \tag #'violinII { b4 b b b }
+  \tag #'viola { c4 c c c }
+  \tag #'cello { d4 d d d }
+}
+
+\new Staff {
+  \keepWithTag #'(violinI violinII)
+  \music
+}
+@end lilypond
+
+@noindent
+imprimera les @code{\tag}s @var{violinI} et @var{violinII}, mais ni
+@var{viola} ni @var{cello}.
+
 @cindex regroupements de balises
 @cindex balises, regroupement
 @funindex \tagGroup
@@ -2462,21 +2480,38 @@ alors être déclarés :
 \tagGroup #'(violinI violinII viola cello)
 @end example
 
-stipule que ces filtres respectifs appartiennent à un même groupe.
+@noindent
+Les différents filtres appartiennent désormais tous à un seul
+regroupement.  Notez bien qu'une balise ne saurait être membre de
+plusieurs regroupements.
 
 @example
 \keepWithTag #'violinI @dots{}
 @end example
 
-ne sera donc concerné que par les balises @code{violinI} contenues dans
-le groupe de filtres : tout élément de la musique incluse qui serait
-balisé par un ou plusieurs des filtres de ce jeu mais @emph{pas} par
-@code{violinI} sera rejeté.
+@noindent
+ne prendra désormais en compte que la musique concernée par la balise
+@code{violinI} du groupe de filtres : tout élément de la musique qui
+serait balisé par l'un des autres filtres de ce jeu sera rejeté.
 
-Pour toute commande @code{\keepWithTag}, seules les balises du
+@lilypond[verbatim,quote]
+music = \relative {
+  \tagGroup #'(violinI violinII viola cello)
+  \tag #'violinI { c''4^"violinI" c c c }
+  \tag #'violinII { a2 a }
+  \tag #'viola { e8 e e2. }
+  \tag #'cello { d'2 d4 d }
+  R1^"non balisé"
+}
+
+\new Voice {
+  \keepWithTag #'violinI
+  \music
+}
+@end lilypond
+
+Dans le cadre de la commande @code{\keepWithTag}, seules les balises du
 regroupement mentionnées dans la commande seront visibles.
-
-Une balise ne peut faire partie que d'un seul regroupement.
 
 @funindex \pushToTag
 @funindex \appendToTag
@@ -2490,15 +2525,15 @@ d'une construction musicale existante.  La musique séquentielle ou
 simultanée comporte assurément des @code{éléments} :
 
 @lilypond[verbatim,quote]
-test = { \tag #'here { \tag #'here <<c''>> } }
+music = { \tag #'here { \tag #'here <<c''>> } }
 
 {
   \pushToTag #'here c'
   \pushToTag #'here e'
-  \pushToTag #'here g' \test
+  \pushToTag #'here g' \music
   \appendToTag #'here c'
   \appendToTag #'here e'
-  \appendToTag #'here g' \test
+  \appendToTag #'here g' \music
 }
 @end lilypond
 
@@ -2596,7 +2631,7 @@ instruction musicale -- comportant des caractères non ASCII soit
 codé en UTF-8.  Le plus sûr moyen de saisir du texte de la sorte
 consiste à utiliser un éditeur supportant l'unicode et à enregistrer vos
 fichier en UTF-8.  C'est le cas pour la plupart des éditeurs actuels,
-que ce soit vim, Emacs, jEdit et GEdit.  Tous les systèmes Windows
+que ce soit vim, Emacs, jEdit et Gedit.  Tous les systèmes Windows
 postérieurs à NT utilisent Unicode en natif ; même Notepad est
 capable d'éditer et sauvegarder un fichier en UTF-8 -- sans parler de
 l'excellente alternative qu'est BabelPad.
@@ -2612,9 +2647,10 @@ FT_Get_Glyph_Name () erreur : invalid argument
 Voici un exemple utilisant du texte en cyrillique, en hébreux et en
 portugais.
 
+@c NOTE: No verbatim in the following example as the code does not
+@c display correctly in PDF Font settings for Cyrillic and Hebrew
+
 @lilypond[quote]
-%c No verbatim here as the code does not display correctly in PDF
-% Font settings for Cyrillic and Hebrew
 % Linux Libertine fonts contain Cyrillic and Hebrew glyphs.
 \paper {
   #(define fonts
@@ -3786,14 +3822,17 @@ lilypond fichier.ly > affichage.txt
 Vous noterez que LilyPond ne se contente pas de simplement afficher
 l'expression musicale, mais procède aussi à son interprétation -- du
 fait que @code{\displayLilyMusic} renvoie l'expression tout en
-l'affichant.  S'il est bien pratique d'insérer un
-@code{\displayLilyMusic} dans une expression musicale pour en obtenir
-des informations, l'interprétation de cette expression peut toutefois
-être évitée en ajoutant un @code{\void} avant l'instruction :
+l'affichant.  La simple insertion d'un @code{\displayLilyMusic} dans une
+expression musicale permet d'obtenir l'information la concernant.
+
+Si l'instruction @code{\displayLilyMusic} interprète et affiche des
+informations sur un fragment, la faire précéder d'un @code{\void} aura
+pour effet de l'exclure du fichier résultant.
 
 @example
 @{
   \void \displayLilyMusic \transpose c a, @{ c4 e g a bes @}
+  c1
 @}
 @end example
 
