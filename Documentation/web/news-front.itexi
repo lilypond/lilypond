@@ -9,10 +9,10 @@
 @c used for news about the upcoming release; see CG 10.2
 
 @newsItem
-@subheading LilyPond 2.19.39 released  @emph{March 27, 2016}
+@subheading LilyPond 2.19.40 released  @emph{April 17, 2016}
 
 We are happy to announce the release of LilyPond
-2.19.39.  This release includes a number of enhancements, and contains some
+2.19.40.  This release includes a number of enhancements, and contains some
 work in progress.  You will have access to the very latest features, but
 some may be incomplete, and you may encounter bugs and crashes.  If you
 require a stable version of Lilypond, we recommend using the 2.18
@@ -35,23 +35,19 @@ updated manuals.  We recommend all users to upgrade to this version.
 
 
 @newsItem
-@subheading LilyPond production named BEST EDITION 2014  @emph{March 11, 2014}
+@subheading Two LilyPond projects in Google Summer of Code 2016  @emph{April 23, 2016}
 
-We are thrilled that the edition of the songs of Oskar
-Fried (1871-1941), published recently by our fellow contributors Urs Liska
-and Janek Warchoł [1], received the "Musikeditionspreis BEST EDITION
-2014" of the German Music Publishers' Association [2].  The ceremony
-took place at the Frankfurt Musikmesse.
+We are happy to see two students, Nathan Chou and Jeffery Shivers, working on
+LilyPond as participants in the Google Summer of Code this year.  We hope they
+produce great results and stay in the developer community afterwards.
 
-We congratulate Janek and Urs for gaining such public recognition of
-typographical and editorial excellence of their work.  We are also delighted
-to inform you that they intend to make their work available under a Free
-license as soon as the publisher expenses are covered.  Please support this
-initiative by buying the printed volume through the publisher [3].
+Nathan will tackle an annoying limitation, namely the unability of spanners
+to cross voices.  His work will make a class of ugly workarounds obsolete.
+Jeffery will bring the ScholarLY package[1] to production quality and add a
+LaTeX package to it, making it possible to create beautiful critical reports
+from data encoded directly in the LilyPond score.
 
-[1] @uref{http://lilypondblog.org/category/fried-songs}@*
-[2] @uref{http://www.best-edition.de}@*
-[3] @uref{http://www.sound-rel.de}@*
+[1] @uref{https://github.com/openlilylib/scholarly}@*
 
 @newsEnd
 

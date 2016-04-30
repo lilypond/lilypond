@@ -483,8 +483,11 @@
   (if (ly:get-option 'embed-source-code)
       (let ((source-list (delete-duplicates
                           (remove (lambda (str)
-                                    (string-contains str
-                                      (ly:get-option 'datadir)))
+                                    (or
+                                     (string-contains str
+                                       (ly:get-option 'datadir))
+                                     (string=? str
+                                       "<included string>")))
                             (ly:source-files)))))
          (display "\n/pdfmark where
 {pop} {userdict /pdfmark /cleartomark load put} ifelse" port)

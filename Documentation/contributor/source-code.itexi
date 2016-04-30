@@ -2288,11 +2288,32 @@ end up in master after all, defeating the purpose of the system.  The
 proper fix usually involves rewriting the staging branch and is best
 left to core developers after discussion on the developer list.
 
+Before pushing to staging it is a good practice to check whether
+staging is ahead of master, and if so, wait until master has caught up
+with staging before pushing.  This simplifies things if changes to
+staging have to be backed out for some reason.  To check whether
+master has caught up with staging you can look at the git web interface
+on savannah, or do:
+
+@example
+git fetch
+gitk
+@end example
+
+and check that @code{origin/master} is at the same commit as
+@code{origin/staging}.  Another option is to see if any commits are
+listed when you do:
+
+@example
+git fetch
+git log origin/master..origin/staging
+@end example
+
 @subsubheading If your work is in a patch file
 
 Assuming that your patch is in a file called
-@file{0001-my-patch.patch}, and you are currently on git master,
-do:
+@file{0001-my-patch.patch} (see @ref{Patches}), and you are currently
+on git master, do:
 
 @example
 git checkout staging
@@ -2310,20 +2331,26 @@ commit ahead of @code{origin/staging}.}
 
 @subsubheading If your work is in a branch
 
-If you are working on branches and your work in is
+If you are working on branches and your work is in
 @code{my_branch_name}, then do:
 
 @example
-git checkout staging
-git pull -r
-git merge my_branch_name
+git checkout my_branch_name
+git pull -r origin staging
+@end example
+
+This will rebase your branch on @code{origin/staging}.  At this point
+git will let you know if there are any conflicts.  If so, resolve them
+before continuing:
+
+@example
 gitk
-git push origin staging
+git push origin HEAD:staging
 @end example
 
 @warning{Do not skip the @command{gitk} step; a quick 5-second
 check of the visual history can save a great deal of frustration
-later on.  You should see that @code{staging} is only ahead of
+later on.  You should see that @code{my_branch_name} is only ahead of
 @code{origin/staging} by the commits from your branch.}
 
 

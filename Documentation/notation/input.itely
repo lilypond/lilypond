@@ -1890,7 +1890,7 @@ tocAct =
   \markuplist \table-of-contents
   \tocAct \markup { Atto Primo }
   \tocItem \markup { Coro. Viva il nostro Alcide }
-  \tocItem \markup { Cesare. Presti omai l'Egizzia terra }
+  \tocItem \markup { Cesare. Presti omai l'Egizia terra }
   \tocAct \markup { Atto Secondo }
   \tocItem \markup { Sinfonia }
   \tocItem \markup { Cleopatra. V'adoro, pupille, saette d'Amore }
@@ -2285,8 +2285,8 @@ music = \relative c'' {
 
 Multiple @code{\removeWithTag} filters may be applied to a single
 music expression to remove several differently named tagged
-sections.  Alternatively, you can use a single
-@code{\removeWithTag} with a list of tags.
+sections.  Alternatively, you can use a single @code{\removeWithTag}
+with a list of tags.
 
 @lilypond[verbatim,quote]
 music = \relative c'' {
@@ -2304,41 +2304,74 @@ music = \relative c'' {
 }
 @end lilypond
 
-Two or more @code{\keepWithTag} filters applied to a single music
-expression will cause @emph{all} tagged sections to be removed, as
-the first filter will remove all tagged sections except the one
-named, and the second filter will remove even that tagged section.
-Usually you would rather want to use a single @code{\keepWithTag}
-command with a list of multiple tags: this will only remove tagged
-sections not given in @emph{any} of the tags.
+Using two or more @code{\keepWithTag} filters on a single music
+expression will cause @emph{all} of the tagged sections to be removed.
+The first filter will remove all except the one named and any subsequent
+filters will remove the rest.  Using one @code{\keepWithTag} command
+with a list of multiple tags will only remove tagged sections that are
+not specified in that list.
+
+@lilypond[verbatim,quote]
+music = \relative c'' {
+  \tag #'violinI { a4 a a a }
+  \tag #'violinII { b4 b b b }
+  \tag #'viola { c4 c c c }
+  \tag #'cello { d4 d d d }
+}
+
+\new Staff {
+  \keepWithTag #'(violinI violinII)
+  \music
+}
+@end lilypond
+
+@noindent
+will print @code{\tag}s @var{violinI} and @var{violinII} but not
+@var{viola} or @var{cello}.
 
 @cindex tag groups
 @funindex \tagGroup
-While @code{\keepWithTag} is convenient when dealing with
-@emph{one} set of alternatives, the removal of music tagged with
-@emph{unrelated} tags is problematic when using tags for more than
-one purpose.  For that reason, @q{tag groups} of related tags can
-be declared:
+
+While @code{\keepWithTag} is convenient when dealing with @emph{one} set
+of alternatives, the removal of music tagged with @emph{unrelated} tags
+is problematic when using them for more than one purpose.  In that case
+@q{groups} of tags can be declared:
 
 @example
 \tagGroup #'(violinI violinII viola cello)
 @end example
 
-declares the respective tags as belonging to one tag group.
+@noindent
+Now the all the different tags belong to a single @q{tag group}.  Note
+that individual tags cannot be members of more than one
+@emph{tag group}.
 
 @example
 \keepWithTag #'violinI @dots{}
 @end example
 
-will then only be concerned with tags from @code{violinI}'s tag
-group: any element of the included music that is tagged with one
-or more of tags from this set but @emph{not} with @code{violinI}
-will get removed.
+@noindent
+will now only show music tagged from @code{violinI}'s tag group and any
+music tagged with one of the @emph{other} tags will removed.
 
-To any @code{\keepWithTag} command, only tags from the tag groups
-of the tags given in the command are visible.
+@lilypond[verbatim,quote]
+music = \relative {
+  \tagGroup #'(violinI violinII viola cello)
+  \tag #'violinI { c''4^"violinI" c c c }
+  \tag #'violinII { a2 a }
+  \tag #'viola { e8 e e2. }
+  \tag #'cello { d'2 d4 d }
+  R1^"untagged"
+}
 
-Tags cannot be members of more than one tag group.
+\new Voice {
+  \keepWithTag #'violinI
+  \music
+}
+@end lilypond
+
+When using the @code{\keepWithTag} command, only tags from the tag
+groups of the tags given in the command are visible.
 
 @funindex \pushToTag
 @funindex \appendToTag
@@ -2352,15 +2385,15 @@ construct has @code{elements}, but sequential and simultaneous music are
 safe bets:
 
 @lilypond[verbatim,quote]
-test = { \tag #'here { \tag #'here <<c''>> } }
+music = { \tag #'here { \tag #'here <<c''>> } }
 
 {
   \pushToTag #'here c'
   \pushToTag #'here e'
-  \pushToTag #'here g' \test
+  \pushToTag #'here g' \music
   \appendToTag #'here c'
   \appendToTag #'here e'
-  \appendToTag #'here g' \test
+  \appendToTag #'here g' \music
 }
 @end lilypond
 
@@ -2452,7 +2485,7 @@ instruction containing non-ASCII characters, must be encoded in
 UTF-8.  The easiest way to enter such text is by using a
 Unicode-aware editor and saving the file with UTF-8 encoding.  Most
 popular modern editors have UTF-8 support, for example, vim, Emacs,
-jEdit, and GEdit do.  All MS Windows systems later than NT use
+jEdit, and Gedit do.  All MS Windows systems later than NT use
 Unicode as their native character encoding, so even Notepad can
 edit and save a file in UTF-8 format.  A more functional
 alternative for Windows is BabelPad.
@@ -2469,9 +2502,10 @@ will be generated.
 Here is an example showing Cyrillic, Hebrew and Portuguese
 text:
 
+@c NOTE: No verbatim in the following example as the code does not
+@c display correctly in PDF Font settings for Cyrillic and Hebrew
+
 @lilypond[quote]
-%c No verbatim here as the code does not display correctly in PDF
-% Font settings for Cyrillic and Hebrew
 % Linux Libertine fonts contain Cyrillic and Hebrew glyphs.
 \paper {
   #(define fonts
@@ -2666,7 +2700,7 @@ generated.
 Notation Reference:
 @ref{The layout block}.
 
-Application Usage
+Application Usage:
 @rprogram{Command-line usage}.
 
 
@@ -2839,7 +2873,7 @@ When combined with the @file{articulate} script the following,
 additional musical notation can be output to MIDI;
 
 @itemize
-@item Appogiaturas.  These are made to take half the value of the note
+@item Appoggiaturas.  These are made to take half the value of the note
 following (without taking dots into account).  For example;
 
 @example
@@ -3532,10 +3566,10 @@ Installed Files:
 @warning{The @file{articulate} script may shorten chords, which might
 not be appropriate for some types of instrument, such as organ music.
 Notes that do not have any articulations attached to them may also be
-shortened; so to compensate for this, restrict the use of the
-@code{\articulate} function to shorter segments of music or modify the
+shortened; so to allow for this, restrict the use of the
+@code{\articulate} function to shorter segments of music, or modify the
 values of the variables defined in the @file{articulate} script to
-compentate for the note-shortening behavior.}
+compensate for the note-shortening behavior.}
 
 
 
@@ -3584,15 +3618,16 @@ lilypond file.ly >display.txt
 @funindex \void
 Note that Lilypond does not just display the music expression, but
 also interprets it (since @code{\displayLilyMusic} returns it in
-addition to displaying it).  This is convenient since you can just
-insert @code{\displayLilyMusic} into existing music in order to get
-information about it.  If you don't actually want Lilypond to
-interpret the displayed music as well as display it, use @code{\void}
-in order to have it ignored:
+addition to displaying it).  Just insert @code{\displayLilyMusic} into
+the existing music in order to get information about it.
+
+To interpret and display a music section in the console but, at the same
+time, remove it from the output file use the @code{\void} command.
 
 @example
 @{
   \void \displayLilyMusic \transpose c a, @{ c4 e g a bes @}
+  c1
 @}
 @end example
 
