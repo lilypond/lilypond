@@ -2342,9 +2342,8 @@ is problematic when using them for more than one purpose.  In that case
 @end example
 
 @noindent
-Now the all the different tags belong to a single @q{tag group}.  Note
-that individual tags cannot be members of more than one
-@emph{tag group}.
+Now all the different tags belong to a single @q{tag group}.  Note that
+individual tags cannot be members of more than one @emph{tag group}.
 
 @example
 \keepWithTag #'violinI @dots{}
