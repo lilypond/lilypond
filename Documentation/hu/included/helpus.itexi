@@ -1,4 +1,12 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
 @c This file is part of web/community.itexi and
 @c contributor/introduction.itely
 
@@ -128,4 +136,3 @@ with larger tasks in the future.
 @end macro
 
 @end ignore
-
