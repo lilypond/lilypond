@@ -105,6 +105,7 @@ private:
 public:
   Context *context () const { return daddy_context_; }
 
+  Translator ();
   Translator (Translator const &);
 
   SCM internal_get_property (SCM symbol) const;
@@ -128,7 +129,13 @@ public:
   Context *get_score_context () const;
   Global_context *get_global_context () const;
 
-  TRANSLATOR_DECLARATIONS (Translator);
+  DECLARE_CLASSNAME (Translator);
+  virtual Translator *clone () const = 0;
+  virtual void fetch_precomputable_methods (Callback methods[]) = 0;
+  virtual SCM get_listener_list () const = 0;
+  virtual SCM translator_description () const = 0;
+  virtual Grob_info_callback get_acknowledger (SCM sym) = 0;
+  virtual Grob_info_callback get_end_acknowledger (SCM sym) = 0;
 
 protected:                      // should be private.
   Context *daddy_context_;

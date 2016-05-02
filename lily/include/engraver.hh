@@ -64,7 +64,8 @@ public:
   /**
      override other ctor
   */
-  TRANSLATOR_DECLARATIONS (Engraver);
+  DECLARE_CLASSNAME (Engraver);
+  Engraver ();
 };
 
 #define make_item(x, cause) internal_make_item (ly_symbol2scm (x), cause, x, __FILE__, __LINE__, __FUNCTION__)

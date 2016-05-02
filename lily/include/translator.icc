@@ -77,7 +77,7 @@
   DEFINE_ACKNOWLEDGERS(classname)                                       \
 
 #define ADD_TRANSLATOR(classname, desc, grobs, read, write)             \
-  ADD_TRANSLATOR_FAMILY (classname)                                     \
+  ADD_TRANSLATOR_FAMILY (classname);                                    \
   ADD_THIS_TRANSLATOR (classname);                                      \
   DEFINE_TRANSLATOR_DOC(classname, desc, grobs, read, write)            \
   DEFINE_TRANSLATOR_LISTENER_LIST(classname)                            \

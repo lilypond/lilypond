@@ -48,6 +48,9 @@ protected:
 private:
   void acknowledge_grob_by_hash (Grob_info info, SCM iface_function_hash);
   void init_acknowledgers (SCM alist, SCM *hash);
+  // For now no description.  In future, something derived from the
+  // definition might make sense.
+  SCM translator_description () const { return SCM_EOL; }
 
   DECLARE_ACKNOWLEDGER (grob);
   DECLARE_END_ACKNOWLEDGER (grob);

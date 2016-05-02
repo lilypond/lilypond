@@ -318,16 +318,4 @@ internal_event_assignment (Stream_event **old_ev, Stream_event *new_ev, const ch
     }
 }
 
-ADD_TRANSLATOR (Translator,
-                /* doc */
-                "Base class.  Not instantiated.",
-
-                /* create */
-                "",
-
-                /* read */
-                "",
-
-                /* write */
-                ""
-               );
+// Base class.  Not instantiated.  No ADD_TRANSLATOR call.
