@@ -32,20 +32,9 @@
 #define TRANSLATOR_FAMILY_DECLARATIONS(NAME)                            \
   public:                                                               \
   VIRTUAL_COPY_CONSTRUCTOR (Translator, NAME);                          \
-  static Drul_array<Protected_scm> acknowledge_static_array_drul_;      \
   virtual void fetch_precomputable_methods (SCM methods[]);             \
   DECLARE_TRANSLATOR_CALLBACKS (NAME);                                  \
   TRANSLATOR_INHERIT (Translator)                                       \
-  static SCM static_get_acknowledger (SCM sym);                         \
-  static SCM static_get_end_acknowledger(SCM);                          \
-  virtual SCM get_acknowledger (SCM sym)                                \
-  {                                                                     \
-    return static_get_acknowledger (sym);                               \
-  }                                                                     \
-  virtual SCM get_end_acknowledger (SCM sym)                            \
-  {                                                                     \
-    return static_get_end_acknowledger (sym);                           \
-  }                                                                     \
   /* end #define */
 
 #define TRANSLATOR_INHERIT(BASE)                                        \
@@ -69,8 +58,19 @@
 #define TRANSLATOR_DECLARATIONS(NAME)                                   \
   public:                                                               \
   TRANSLATOR_FAMILY_DECLARATIONS (NAME);                                \
+  static Drul_array<Protected_scm> acknowledge_static_array_drul_;      \
   static SCM static_description_;                                       \
   static Protected_scm listener_list_;                                  \
+  static SCM static_get_acknowledger (SCM sym);                         \
+  static SCM static_get_end_acknowledger(SCM);                          \
+  virtual SCM get_acknowledger (SCM sym)                                \
+  {                                                                     \
+    return static_get_acknowledger (sym);                               \
+  }                                                                     \
+  virtual SCM get_end_acknowledger (SCM sym)                            \
+  {                                                                     \
+    return static_get_end_acknowledger (sym);                           \
+  }                                                                     \
 public:                                                                 \
   NAME ();                                                              \
   virtual SCM static_translator_description () const;                   \
@@ -196,6 +196,10 @@ protected:                      // should be private.
 void add_translator (Translator *trans);
 
 Translator *get_translator (SCM s);
+
+SCM
+generic_get_acknowledger (SCM sym, SCM ack_hash);
+
 Moment get_event_length (Stream_event *s, Moment now);
 Moment get_event_length (Stream_event *s);
 

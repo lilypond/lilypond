@@ -46,14 +46,19 @@ protected:
   virtual bool must_be_last () const;
 
 private:
-  void acknowledge_grob_by_hash (Grob_info info, SCM iface_function_hash);
+  virtual SCM get_acknowledger (SCM sym)
+  {
+    return generic_get_acknowledger (sym, interface_acknowledger_hash_);
+  }
+  virtual SCM get_end_acknowledger (SCM sym)
+  {
+    return generic_get_acknowledger (sym, interface_end_acknowledger_hash_);
+  }
+
   void init_acknowledgers (SCM alist, SCM *hash);
   // For now no description.  In future, something derived from the
   // definition might make sense.
   SCM translator_description () const { return SCM_EOL; }
-
-  DECLARE_ACKNOWLEDGER (grob);
-  DECLARE_END_ACKNOWLEDGER (grob);
 
   bool must_be_last_;
 

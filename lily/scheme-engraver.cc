@@ -25,6 +25,8 @@
 
 #include "translator.icc"
 
+#include "scm-hash.hh"
+
 Scheme_engraver::Scheme_engraver (SCM definition)
 {
   stop_translation_timestep_function_ = SCM_EOL;
@@ -112,7 +114,7 @@ void
 Scheme_engraver::init_acknowledgers (SCM alist,
                                      SCM *hash)
 {
-  *hash = scm_c_make_hash_table (7);
+  *hash = Scheme_hash_table::make_smob ();
   for (SCM p = alist; scm_is_pair (p); p = scm_cdr (p))
     {
       SCM iface = scm_caar (p);
@@ -121,40 +123,7 @@ Scheme_engraver::init_acknowledgers (SCM alist,
       if (!(ly_is_procedure (proc) && ly_is_symbol (iface)))
         continue;
 
-      scm_hashq_set_x (*hash, iface, proc);
-    }
-}
-
-// This is the easy way to do it, at the cost of too many invocations
-// of Scheme_engraver::acknowledge_grob.  The clever dispatching of
-// acknowledgers is hardwired to have 1 method per engraver per
-// grob-type, which doesn't work for this case.
-void
-Scheme_engraver::acknowledge_grob (Grob_info info)
-{
-  acknowledge_grob_by_hash (info, interface_acknowledger_hash_);
-}
-
-void
-Scheme_engraver::acknowledge_end_grob (Grob_info info)
-{
-  acknowledge_grob_by_hash (info, interface_end_acknowledger_hash_);
-}
-
-void
-Scheme_engraver::acknowledge_grob_by_hash (Grob_info info,
-                                           SCM iface_function_hash)
-{
-  SCM meta = info.grob ()->get_property ("meta");
-  SCM ifaces = scm_cdr (scm_assoc (ly_symbol2scm ("interfaces"), meta));
-  for (SCM s = ifaces; scm_is_pair (s); s = scm_cdr (s))
-    {
-      SCM func = scm_hashq_ref (iface_function_hash,
-                                scm_car (s), SCM_BOOL_F);
-
-      if (ly_is_procedure (func))
-        scm_call_3 (func, self_scm (), info.grob ()->self_scm (),
-                    info.origin_translator ()->self_scm ());
+      unsmob<Scheme_hash_table>(*hash)->set (iface, proc);
     }
 }
 
@@ -192,8 +161,5 @@ Scheme_engraver::derived_mark () const
   scm_gc_mark (interface_acknowledger_hash_);
   scm_gc_mark (interface_end_acknowledger_hash_);
 }
-
-ADD_ACKNOWLEDGER (Scheme_engraver, grob);
-ADD_END_ACKNOWLEDGER (Scheme_engraver, grob);
 
 ADD_TRANSLATOR_FAMILY (Scheme_engraver);

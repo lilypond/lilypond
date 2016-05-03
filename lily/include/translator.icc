@@ -73,11 +73,11 @@
   }
 
 #define ADD_TRANSLATOR_FAMILY(classname)                                \
-  IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS (classname);                    \
-  DEFINE_ACKNOWLEDGERS(classname)                                       \
+  IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS (classname);
 
 #define ADD_TRANSLATOR(classname, desc, grobs, read, write)             \
   ADD_TRANSLATOR_FAMILY (classname);                                    \
+  DEFINE_ACKNOWLEDGERS(classname);                                      \
   ADD_THIS_TRANSLATOR (classname);                                      \
   DEFINE_TRANSLATOR_DOC(classname, desc, grobs, read, write)            \
   DEFINE_TRANSLATOR_LISTENER_LIST(classname)                            \
@@ -102,9 +102,6 @@
 void add_acknowledger (SCM ptr,
                        char const *func_name,
                        Protected_scm &ack_hash);
-
-SCM
-generic_get_acknowledger (SCM sym, SCM ack_hash);
 
 #define ADD_ACKNOWLEDGER(CLASS, NAME)                                   \
   void CLASS ## NAME ## _ack_adder ()                                   \
