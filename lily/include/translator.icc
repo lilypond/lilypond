@@ -52,16 +52,16 @@
   /* end define */
 
 #define DEFINE_ACKNOWLEDGERS(classname) \
-  Drul_array< vector<Acknowledge_information> > classname::acknowledge_static_array_drul_;      \
+  Drul_array<Protected_scm> classname::acknowledge_static_array_drul_;  \
   SCM                                                                   \
   classname::static_get_acknowledger (SCM sym)                          \
   {                                                                     \
-    return generic_get_acknowledger (sym, &acknowledge_static_array_drul_[START]);      \
+    return generic_get_acknowledger (sym, acknowledge_static_array_drul_[START]);      \
   }                                                                     \
   SCM                                                                   \
   classname::static_get_end_acknowledger (SCM sym)                      \
   {                                                                     \
-    return generic_get_acknowledger (sym, &acknowledge_static_array_drul_[STOP]);       \
+    return generic_get_acknowledger (sym, acknowledge_static_array_drul_[STOP]);       \
   }                                                                     \
   /* end define */
 
@@ -101,17 +101,16 @@
 
 void add_acknowledger (SCM ptr,
                        char const *func_name,
-                       vector<Acknowledge_information> *ack_array);
+                       Protected_scm &ack_hash);
 
 SCM
-generic_get_acknowledger (SCM sym,
-                          vector<Acknowledge_information> const *ack_array);
+generic_get_acknowledger (SCM sym, SCM ack_hash);
 
 #define ADD_ACKNOWLEDGER(CLASS, NAME)                                   \
   void CLASS ## NAME ## _ack_adder ()                                   \
   {                                                                     \
     add_acknowledger (CLASS::ack_finder<&CLASS::acknowledge_ ## NAME> (), \
-                      #NAME, &CLASS::acknowledge_static_array_drul_[START]); \
+                      #NAME, CLASS::acknowledge_static_array_drul_[START]); \
   }                                                                     \
   ADD_SCM_INIT_FUNC (CLASS ## NAME ## _ack_adder_initclass, CLASS ## NAME ## _ack_adder);
 
@@ -119,7 +118,7 @@ generic_get_acknowledger (SCM sym,
   void CLASS ## NAME ## _end_ack_adder ()                               \
   {                                                                     \
     add_acknowledger (CLASS::ack_finder<&CLASS::acknowledge_end_ ## NAME> (), \
-                      #NAME, &CLASS::acknowledge_static_array_drul_[STOP]); \
+                      #NAME, CLASS::acknowledge_static_array_drul_[STOP]); \
   }                                                                     \
   ADD_SCM_INIT_FUNC (CLASS ## NAME ## _end_ack_adder_initclass, CLASS ## NAME ## _end_ack_adder);
 

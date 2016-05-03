@@ -232,32 +232,27 @@ Translator::print_smob (SCM port, scm_print_state *) const
 void
 add_acknowledger (SCM ptr,
                   char const *func_name,
-                  vector<Acknowledge_information> *ack_array)
+                  Protected_scm &ack_hash)
 {
-  Acknowledge_information inf;
-  inf.function_ = ptr;
+  if (SCM_UNBNDP (SCM (ack_hash)))
+    ack_hash = Scheme_hash_table::make_smob ();
 
   string interface_name (func_name);
 
   interface_name = replace_all (&interface_name, '_', '-');
   interface_name += "-interface";
 
-  /*
-    this is only called during program init, so safe to use scm_gc_protect_object ()
-  */
-  inf.symbol_ = scm_gc_protect_object (ly_symbol2scm (interface_name.c_str ()));
-  ack_array->push_back (inf);
+  unsmob<Scheme_hash_table> (ack_hash)
+    ->set (ly_symbol2scm (interface_name.c_str ()), ptr);
 }
 
 SCM
-generic_get_acknowledger (SCM sym, vector<Acknowledge_information> const *ack_array)
+generic_get_acknowledger (SCM sym, SCM ack_hash)
 {
-  for (vsize i = 0; i < ack_array->size (); i++)
-    {
-      if (ack_array->at (i).symbol_ == sym)
-        return ack_array->at (i).function_;
-    }
-  return SCM_UNDEFINED;
+  if (SCM_UNBNDP (ack_hash))
+    return SCM_UNDEFINED;
+
+  return unsmob<Scheme_hash_table> (ack_hash)->get (sym);
 }
 
 Moment

@@ -32,7 +32,7 @@
 #define TRANSLATOR_FAMILY_DECLARATIONS(NAME)                            \
   public:                                                               \
   VIRTUAL_COPY_CONSTRUCTOR (Translator, NAME);                          \
-  static Drul_array<vector<Acknowledge_information> > acknowledge_static_array_drul_; \
+  static Drul_array<Protected_scm> acknowledge_static_array_drul_;      \
   virtual void fetch_precomputable_methods (SCM methods[]);             \
   DECLARE_TRANSLATOR_CALLBACKS (NAME);                                  \
   TRANSLATOR_INHERIT (Translator)                                       \
@@ -192,19 +192,6 @@ protected:                      // should be private.
 
   friend class Translator_group;
 };
-
-struct Acknowledge_information
-{
-  SCM symbol_;
-  SCM function_;
-
-  Acknowledge_information ()
-  {
-    symbol_ = SCM_EOL;
-    function_ = SCM_UNDEFINED;
-  }
-};
-
 
 void add_translator (Translator *trans);
 
