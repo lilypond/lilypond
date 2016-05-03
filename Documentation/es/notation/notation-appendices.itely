@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: dbe1fd47441d21aadd5669e9e69edfecb38ae45a
+    Translation of GIT committish: 0b22ae65f4614b93ba9d604d3a164816b2baac42
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -207,7 +207,7 @@ Tríada aumentada y séptima @*menor
 @tab
 @code{aug7}
 @tab
-@code{c1:aug}
+@code{c1:aug7}
 @tab
 @lilypond[line-width=2.1\cm,noragged-right,notime]
 <<
@@ -239,7 +239,7 @@ Tríada menor con séptima @*mayor
 @tab
 @code{m7+}
 @tab
-@code{m7+}
+@code{c1:m7+}
 @tab
 @lilypond[line-width=2.1\cm,noragged-right,notime]
 <<
