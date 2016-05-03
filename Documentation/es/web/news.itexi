@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: d4756c74976a991bd80cf757f774e5525d0830cb
+    Translation of GIT committish: 0e943e447b6c105b3ab178cad32e0dad33b9353d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -32,6 +32,19 @@ NOTE:
 
   * don't duplicate entries from news-front.itexi
 @end ignore
+
+@newsItem
+@subheading Lanzado LilyPond 2.19.39  @emph{27 de marzo de 2016}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.19.39.  Esta
+versión contiene algunas mejoras y funcionalidades en proceso de
+desarrollo.  Podrá acceder a las últimas características, pero
+algunas de ellas podrían estar incompletas, lo que podría llevarle
+a encontrar fallos e interrupciones abruptas.  Si necesita una
+versión estable de LilyPond, le recomendamos que use la versión
+2.18.
+
+@newsEnd
 
 @newsItem
 @subheading Lanzado LilyPond 2.19.38  @emph{13 de marzo de 2016}
@@ -494,6 +507,30 @@ finalizaciones abruptas.  Si necesita una versión estable de
 LilyPond, nuestro consejo es que utilice la versión 2.18.
 
 @newsEnd
+
+@newsItem
+@subheading Una producción hecha con LilyPond, premio a la mejor edición 2014  @emph{11 de marzo de 2014}
+
+Con gran emoción nos complace anunciar que la edición completa de
+las canciones de Oskar Fried (1871-1941), recientemente publicadas
+por nuestros compañeros y colaboradores Urs Liska y Janek Warchoł
+[1], han recibido el premio "Musikeditionspreis BEST EDITION 2014"
+de la asociación de editores de música alemanes [2].  La ceremonia
+tuvo lugar en la Musikmesse de Frankfurt.
+
+Felicitamos a Janek y a Urs por haber obtenido tan alto
+reconocimiento público a la excelencia editorial y tipográfica de
+su trabajo.  También es un placer informar de su intención de
+poner la obra a disposición bajo una licencia libre tan pronto
+como se cubran los gastos de la editorial.  Apoye esta iniciativa
+adquiriendo el volumen impreso directamente de la editorial [3].
+
+[1] @uref{http://lilypondblog.org/category/fried-songs}@*
+[2] @uref{http://www.best-edition.de}@*
+[3] @uref{http://www.sound-rel.de}@*
+
+@newsEnd
+
 
 @newsItem
 @subheading Lanzado LilyPond 2.19.3   @emph{2 de marzo de, 2014}

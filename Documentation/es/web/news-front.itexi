@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 3213a34661291059d931add5cb8ddcb5f9d8eccd
+    Translation of GIT committish: be7ca7a201a8ae07323adf04f29ce48c407e8d0a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -47,25 +47,24 @@ consejo para todos los usuarios es que actualicen a esta versión.
 
 
 @newsItem
-@subheading Una producción hecha con LilyPond, premio a la mejor edición 2014  @emph{11 de marzo de 2014}
+@subheading Dos proyectos de LilyPond en el "Google Summer of Code" 2016  @emph{23 de abril de 2016}
 
-Con gran emoción nos complace anunciar que la edición completa de
-las canciones de Oskar Fried (1871-1941), recientemente publicadas
-por nuestros compañeros y colaboradores Urs Liska y Janek Warchoł
-[1], han recibido el premio "Musikeditionspreis BEST EDITION 2014"
-de la asociación de editores de música alemanes [2].  La ceremonia
-tuvo lugar en la Musikmesse de Frankfurt.
+Nos complace comunicar que dos estudiantes, Nathan Chou y Jeffery
+Shivers, están trabajando en LilyPond como participantes en el
+"Summer of Code" (el verano del código) de Google este año.  Les
+deseamos una producción llena de magníficos resultados y que
+permanezcan dentro de la comunidad de desarrolladores después del
+evento.
 
-Felicitamos a Janek y a Urs por haber obtenido tan alto
-reconocimiento público a la excelencia editorial y tipográfica de
-su trabajo.  También es un placer informar de su intención de
-poner la obra a disposición bajo una licencia libre tan pronto
-como se cubran los gastos de la editorial.  Apoye esta iniciativa
-adquiriendo el volumen impreso directamente de la editorial [3].
+Nathan se las verá con una fastidiosa limitación, concretamente la
+incapacidad de los objetos de extensión para cruzar voces.  Su
+trabajo hará obsoletos ciertos tipos de rodeos poco elegantes.
+Jeffery llevará al nivel de calidad para la producción al paquete
+ScholarLY[1] y le añadirá un paquete de LaTeX, haciendo posible la
+creación de bellos informes críticos a partir de los datos
+codificados directamente dentro de la partitura de LilyPond.
 
-[1] @uref{http://lilypondblog.org/category/fried-songs}@*
-[2] @uref{http://www.best-edition.de}@*
-[3] @uref{http://www.sound-rel.de}@*
+[1] @uref{https://github.com/openlilylib/scholarly}@*
 
 @newsEnd
 
