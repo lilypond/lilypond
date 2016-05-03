@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of extending.tely
 @ignore
-    Translation of GIT committish: 5680a5687a1f5cd5b406c71fdc9cae508464af94
+    Translation of GIT committish: 708aa920d682cf9aa3ed647cd129afd8509760f4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -132,10 +132,10 @@ donde
 
 @multitable @columnfractions .33 .66
 @item @code{@var{argN}}
-@tab @var{n}-ésimo argumento
+@tab @var{n}-ésimo argumento.
 
 @item @code{@var{typeN?}}
-@tab un @emph{predicado de tipo} de Scheme para el que @code{@var{argN}}
+@tab Un @emph{predicado de tipo} de Scheme para el que @code{@var{argN}}
 debe devolver @code{#t}.  También existe una forma especial
 @code{(@emph{predicate?}  @emph{default})} para especificar
 argumentos opcionales.  Si el argumento actual no está presente
