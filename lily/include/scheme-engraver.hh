@@ -34,11 +34,6 @@ public:
 protected:
   ~Scheme_engraver ();
 
-  void stop_translation_timestep ();
-  void start_translation_timestep ();
-  void process_music ();
-  void process_acknowledged ();
-
   virtual void initialize ();
   virtual void finalize ();
   virtual void derived_mark () const;
@@ -62,13 +57,9 @@ private:
 
   bool must_be_last_;
 
-  SCM acknowledge_grob_function_;
-  SCM stop_translation_timestep_function_;
-  SCM start_translation_timestep_function_;
-  SCM process_music_function_;
-  SCM process_acknowledged_function_;
   SCM initialize_function_;
   SCM finalize_function_;
+  SCM precomputable_methods_ [TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
 
   // hashq table of interface-symbol -> scheme-function
   SCM interface_acknowledger_hash_;

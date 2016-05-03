@@ -29,10 +29,6 @@
 
 Scheme_engraver::Scheme_engraver (SCM definition)
 {
-  stop_translation_timestep_function_ = SCM_EOL;
-  start_translation_timestep_function_ = SCM_EOL;
-  process_music_function_ = SCM_EOL;
-  process_acknowledged_function_ = SCM_EOL;
   initialize_function_ = SCM_EOL;
   finalize_function_ = SCM_EOL;
 
@@ -41,6 +37,8 @@ Scheme_engraver::Scheme_engraver (SCM definition)
 
   must_be_last_ = false;
   per_instance_listeners_ = SCM_EOL;
+  for (int i = 0; i < TRANSLATOR_METHOD_PRECOMPUTE_COUNT; i++)
+    precomputable_methods_[i] = SCM_UNDEFINED;
 
   init_from_scheme (definition);
 }
@@ -49,12 +47,12 @@ Scheme_engraver::~Scheme_engraver ()
 {
 }
 
-// Extracts the value if callable, if not return #f.
+// Extracts the value if callable, if not return SCM_UNDEFINED;
 static SCM
 callable (SCM symbol, SCM defn)
 {
   SCM val = ly_assoc_get (symbol, defn, SCM_BOOL_F);
-  return ly_is_procedure (val) ? val : SCM_BOOL_F;
+  return ly_is_procedure (val) ? val : SCM_UNDEFINED;
 }
 
 bool
@@ -64,15 +62,23 @@ Scheme_engraver::must_be_last () const
 }
 
 void
+Scheme_engraver::fetch_precomputable_methods (SCM ptrs[])
+{
+  for (int i = 0; i < TRANSLATOR_METHOD_PRECOMPUTE_COUNT; i++)
+    ptrs[i] = precomputable_methods_[i];
+}
+
+void
 Scheme_engraver::init_from_scheme (SCM definition)
 {
-  start_translation_timestep_function_ = callable (ly_symbol2scm ("start-translation-timestep"),
-                                                   definition);
-  stop_translation_timestep_function_ = callable (ly_symbol2scm ("stop-translation-timestep"),
-                                                  definition);
-  process_music_function_ = callable (ly_symbol2scm ("process-music"), definition);
-  process_acknowledged_function_ = callable (ly_symbol2scm ("process-acknowledged"),
-                                             definition);
+  precomputable_methods_[START_TRANSLATION_TIMESTEP]
+    = callable (ly_symbol2scm ("start-translation-timestep"), definition);
+  precomputable_methods_[STOP_TRANSLATION_TIMESTEP]
+    = callable (ly_symbol2scm ("stop-translation-timestep"), definition);
+  precomputable_methods_[PROCESS_MUSIC]
+    = callable (ly_symbol2scm ("process-music"), definition);
+  precomputable_methods_[PROCESS_ACKNOWLEDGED]
+    = callable (ly_symbol2scm ("process-acknowledged"), definition);
   initialize_function_ = callable (ly_symbol2scm ("initialize"), definition);
   finalize_function_ = callable (ly_symbol2scm ("finalize"), definition);
 
@@ -133,33 +139,29 @@ Scheme_engraver::get_listener_list () const
   return per_instance_listeners_;
 }
 
-#define DISPATCH(what)                                  \
-  void                                                  \
-  Scheme_engraver::what ()                              \
-  {                                                     \
-    if (what ## _function_ != SCM_BOOL_F)               \
-      scm_call_1 (what ## _function_, self_scm ());     \
-  }
+void
+Scheme_engraver::initialize ()
+{
+  if (!SCM_UNBNDP (initialize_function_))
+    scm_call_1 (initialize_function_, self_scm ());
+}
 
-DISPATCH (start_translation_timestep);
-DISPATCH (stop_translation_timestep);
-DISPATCH (initialize);
-DISPATCH (finalize);
-DISPATCH (process_music);
-DISPATCH (process_acknowledged);
+void
+Scheme_engraver::finalize ()
+{
+  if (!SCM_UNBNDP (finalize_function_))
+    scm_call_1 (finalize_function_, self_scm ());
+}
 
 void
 Scheme_engraver::derived_mark () const
 {
-  scm_gc_mark (start_translation_timestep_function_);
-  scm_gc_mark (stop_translation_timestep_function_);
+  for (int i = 0; i < TRANSLATOR_METHOD_PRECOMPUTE_COUNT; i++)
+    scm_gc_mark (precomputable_methods_[i]);
+
   scm_gc_mark (initialize_function_);
   scm_gc_mark (finalize_function_);
-  scm_gc_mark (process_music_function_);
-  scm_gc_mark (process_acknowledged_function_);
   scm_gc_mark (per_instance_listeners_);
   scm_gc_mark (interface_acknowledger_hash_);
   scm_gc_mark (interface_end_acknowledger_hash_);
 }
-
-ADD_TRANSLATOR_FAMILY (Scheme_engraver);
