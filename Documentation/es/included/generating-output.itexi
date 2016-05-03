@@ -3,7 +3,7 @@
 @c learning/tutorial.itely
 
 @ignore
-    Translation of GIT committish: 63f65db72ca60bb87a6515a4f20a172c4a2897dc
+    Translation of GIT committish: 7a5bfc62fcac71d5c996b2df58921fd2fe783415
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -17,8 +17,8 @@
 @macro lilypadOSX
 @warning{Estas instrucciones dan por sentado que está usando la propia
 aplicación LilyPond.  Si está usando alguno de los programas que se
-describen en @rweb{Entornos mejorados}, debe consultar la
-documentación de estos programas si se encuentra con algún problema.}
+describen en @rweb{Entornos mejorados}, consulte la
+documentación de estos programas en caso de encontrarse con algún problema.}
 
 
 @subsubheading Paso 1. Creamos nuestro archivo @file{.ly}
@@ -91,8 +91,7 @@ cierre el original.
 @warning{Estas instrucciones dan por sentado que está utilizando el
 editor LilyPad incorporado.  Si está usando alguno de los programas
 que se describen en el apartado @rweb{Entornos mejorados}, consulte la
-documentación de estos programas cuando encuentre algún problema
-durante la compilación de un archivo.}
+documentación de estos programas cuando encuentre algún problema.}
 
 
 @subsubheading Paso 1.  Creamos el archivo @file{.ly}
@@ -186,7 +185,7 @@ algún programa.
 familiarizado con los programas en línea de órdenes, o programas de
 consola.  Si está utilizando alguno de los programas que se describen
 en @rweb{Entornos mejorados}, consulte la documentación de estos
-programas cuando tenga algún problema al compilar un documento.}
+programas cuando encuentre algún problema.}
 
 
 @subsubheading Paso 1.  Creamos el archivo @file{.ly}
