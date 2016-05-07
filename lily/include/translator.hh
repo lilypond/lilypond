@@ -133,7 +133,19 @@ public:
 protected:                      // should be private.
   Context *daddy_context_;
   void protect_event (SCM ev);
-  friend class Callback_wrapper;
+
+  template <class T, void (T::*callback)(Stream_event *)>
+  static SCM trampoline (SCM target, SCM event)
+  {
+    T *t = unsmob<T> (target);
+    LY_ASSERT_SMOB (T, target, 1);
+    LY_ASSERT_SMOB (Stream_event, event, 2);
+
+    t->protect_event (event);
+    (t->*callback) (unsmob<Stream_event> (event));
+    return SCM_UNSPECIFIED;
+  }
+
   virtual void derived_mark () const;
   static SCM event_class_symbol (const char *ev_class);
   SCM static_translator_description (const char *grobs,

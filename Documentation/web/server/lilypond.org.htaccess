@@ -130,9 +130,18 @@ AddCharset utf-8 .fr
 AddCharset utf-8 .nl
 AddCharset utf-8 .txt
 
-# fix broken auto language selection for Hungarian
+# Add extensions for language negotiation
+# See: https://www.w3.org/International/questions/qa-apache-lang-neg
+AddLanguage ca .ca
+AddLanguage cs .cs
+AddLanguage de .de
+AddLanguage es .es
+AddLanguage fr .fr
 AddLanguage hu .hu
-
+AddLanguage it .it
+AddLanguage ja .ja
+AddLanguage nl .nl
+AddLanguage zh .zh
 
 
 # FIXME: separate this from the main "root" .htaccess material

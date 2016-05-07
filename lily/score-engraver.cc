@@ -155,10 +155,10 @@ Score_engraver::one_time_step (SCM)
 }
 
 void
-Score_engraver::announce_grob (Grob_info info)
+Score_engraver::announce_grob (Grob_info info, Direction start_end, Context *reroute_context)
 {
-  Engraver_group::announce_grob (info);
-  if (info.start_end () == START)
+  Engraver_group::announce_grob (info, start_end, reroute_context);
+  if (start_end == START)
     {
       pscore_->root_system ()->typeset_grob (info.grob ());
       elems_.push_back (info.grob ());

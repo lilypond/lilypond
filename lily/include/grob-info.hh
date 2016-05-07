@@ -17,8 +17,8 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef STAFFELEMINFO_HH
-#define STAFFELEMINFO_HH
+#ifndef GROB_INFO_HH
+#define GROB_INFO_HH
 
 #include "lily-guile.hh"
 #include "lily-proto.hh"
@@ -31,11 +31,8 @@ class Grob_info
 {
   Translator *origin_trans_;
   Grob *grob_;
-  Direction start_end_;
 
-  friend class Engraver;
 public:
-  Direction start_end () const { return start_end_; }
   Grob *grob () const { return grob_; }
   Translator *origin_translator () const { return origin_trans_; }
 
@@ -49,14 +46,6 @@ public:
   Item *item () const;
   Spanner *spanner () const;
   static bool less (Grob_info i, Grob_info j);
-
-  /*
-    For contexts that change staves, it may be desirable to emit a
-    grob into a staff other than the current one.  If this is non-null,
-    this grob should be announced in this context instead of the
-    daddy_context_.
-  */
-  Context *rerouting_daddy_context_;
 };
 
-#endif // STAFFELEMINFO_HH
+#endif // GROB_INFO_HH

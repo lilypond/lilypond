@@ -67,8 +67,6 @@ private:
   SCM interface_end_acknowledger_hash_;
 
   // Alist of listened-symbol . scheme-function
-  SCM listeners_alist_;
-
   SCM per_instance_listeners_;
 };
 

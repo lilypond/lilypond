@@ -135,8 +135,27 @@ Staff_symbol::line_positions (Grob *me)
 }
 
 vector<Real>
-Staff_symbol::ledger_positions (Grob *me, int pos)
+Staff_symbol::ledger_positions (Grob *me, int pos, Item const *head)
 {
+  // allow override of ledger positions via note head grob...
+  if (head)
+    {
+      SCM posns = head->get_property ("ledger-positions");
+      if (scm_is_pair (posns))
+        return ly_scm2floatvector (posns);
+    }
+
+  // ...or via custom ledger positions function
+  SCM lp_function = me->get_property ("ledger-positions-function");
+  if (scm_is_pair (lp_function))
+    {
+      SCM func = scm_eval (lp_function, scm_interaction_environment ());
+      if (ly_is_procedure (func))
+        return ly_scm2floatvector (scm_call_2 (func,
+                                               me->self_scm (),
+                                               scm_from_int (pos)));
+    }
+
   SCM ledger_positions = me->get_property ("ledger-positions");
   Real ledger_extra = robust_scm2double (me->get_property ("ledger-extra"), 0);
   vector<Real> line_positions = Staff_symbol::line_positions (me);
@@ -166,7 +185,7 @@ Staff_symbol::ledger_positions (Grob *me, int pos)
   Direction dir = (Direction)sign (pos - nearest_line);
 
   if (scm_is_pair (ledger_positions))
-    // custom ledger line positions
+    // custom ledger positions via StaffSymbol.ledger-positions
     {
       Real min_pos = HUGE_VAL;
       Real max_pos = -HUGE_VAL;
@@ -402,6 +421,7 @@ ADD_INTERFACE (Staff_symbol,
                "ledger-extra "
                "ledger-line-thickness "
                "ledger-positions "
+               "ledger-positions-function "
                "line-count "
                "line-positions "
                "staff-space "

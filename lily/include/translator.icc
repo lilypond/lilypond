@@ -20,7 +20,7 @@
 #ifndef TRANSLATOR_ICC
 #define TRANSLATOR_ICC
 
-#include "listener.hh"
+#include "callback.hh"
 #include "std-vector.hh"
 #include "translator.hh"
 
@@ -140,8 +140,8 @@ cl :: _internal_declare_ ## m ()                        \
 {                                                       \
   listener_list_ = scm_acons                                            \
     (event_class_symbol (#m),                                           \
-     Callback_wrapper::make_smob<cl, Stream_event *, &cl::listen_ ## m> (), \
-     listener_list_);                                                   \
+     Callback_wrapper::make_smob                                        \
+     <trampoline <cl, &cl::listen_ ## m> > (), listener_list_);         \
 }                                                                       \
                                                                         \
 ADD_SCM_INIT_FUNC (cl ## _declare_event_ ## m, cl::_internal_declare_ ## m);
