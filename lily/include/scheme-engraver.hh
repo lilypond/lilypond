@@ -50,7 +50,7 @@ private:
     return generic_get_acknowledger (sym, interface_end_acknowledger_hash_);
   }
 
-  void init_acknowledgers (SCM alist, SCM *hash);
+  SCM init_acknowledgers (SCM alist);
   // For now no description.  In future, something derived from the
   // definition might make sense.
   SCM translator_description () const { return SCM_EOL; }
