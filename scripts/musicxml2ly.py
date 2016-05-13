@@ -19,6 +19,7 @@ import lilylib as ly
 _ = ly._
 
 import utilities
+import musicxml2ly_conversion
 import musicxml
 import musicexp
 
@@ -303,12 +304,6 @@ class PartGroupInfo:
         ly.warning(_("Unprocessed PartGroupInfo %s encountered") % self)
         return ''
 
-def musicxml_step_to_lily(step):
-    if step:
-        return (ord(step) - ord('A') + 7 - 2) % 7
-    else:
-        return None
-
 def staff_attributes_to_string_tunings(mxl_attr):
     details = mxl_attr.get_maybe_exist_named_child('staff-details')
     if not details:
@@ -330,7 +325,7 @@ def staff_attributes_to_string_tunings(mxl_attr):
 
         step = i.get_named_child(u'tuning-step')
         step = step.get_text().strip()
-        p.step = musicxml_step_to_lily(step)
+        p.step = musicxml2ly_conversion.musicxml_step_to_lily(step)
 
         octave = i.get_named_child(u'tuning-octave')
         octave = octave.get_text().strip()
@@ -542,34 +537,11 @@ def extract_score_structure(part_list, staffinfo):
 
 
 
-def rational_to_lily_duration(rational_len):
-    d = musicexp.Duration()
-
-    rational_len.normalize_self()
-    d_log = {1: 0, 2: 1, 4:2, 8:3, 16:4, 32:5, 64:6, 128:7, 256:8, 512:9}.get(rational_len.denominator(), -1)
-
-    # Duration of the form 1/2^n or 3/2^n can be converted to a simple lilypond duration
-    dots = {1: 0, 3: 1, 7: 2, 15: 3, 31: 4, 63: 5, 127: 6}.get(rational_len.numerator(), -1)
-    if(d_log >= dots >= 0):
-        # account for the dots!
-        d.duration_log = d_log - dots
-        d.dots = dots
-    elif(d_log >= 0):
-        d.duration_log = d_log
-        d.factor = Rational(rational_len.numerator())
-    else:
-        ly.warning(_("Encountered rational duration with denominator %s, "
-                       "unable to convert to lilypond duration") %
-                    rational_len.denominator())
-        # TODO: Test the above error message
-        return None
-
-    return d
 
 def musicxml_partial_to_lily(partial_len):
     if partial_len > 0:
         p = musicexp.Partial()
-        p.partial = rational_to_lily_duration(partial_len)
+        p.partial = musicxml2ly_conversion.rational_to_lily_duration(partial_len)
         return p
     else:
         return None
@@ -600,7 +572,7 @@ def group_repeats(music_list):
         while pos < len(music_list) and not repeat_replaced:
             e = music_list[pos]
             repeat_finished = False
-            if isinstance(e, RepeatMarker):
+            if isinstance(e, musicxml2ly_conversion.RepeatMarker):
                 if not repeat_times and e.times:
                     repeat_times = e.times
                 if e.direction == -1:
@@ -617,7 +589,7 @@ def group_repeats(music_list):
                     if repeat_end < 0:
                         repeat_end = pos
                     final_marker = pos
-            elif isinstance(e, EndingMarker):
+            elif isinstance(e, musicxml2ly_conversion.EndingMarker):
                 if e.direction == -1:
                     if repeat_start < 0:
                         repeat_start = 0
@@ -862,7 +834,7 @@ def musicxml_key_to_lily(attributes):
         # MusicXML contains C,D,E,F,G,A,B as steps, lily uses 0-7, so convert
         alterations = []
         for k in key_sig:
-            k[0] = musicxml_step_to_lily(k[0])
+            k[0] = musicxml2ly_conversion.musicxml_step_to_lily(k[0])
             alterations.append(k)
         change.non_standard_alterations = alterations
     return change
@@ -977,21 +949,6 @@ def musicxml_print_to_lily(el):
     return elts
 
 
-class Marker(musicexp.Music):
-    def __init__(self):
-        self.direction = 0
-        self.event = None
-    def print_ly(self, printer):
-        ly.warning(_("Encountered unprocessed marker %s\n") % self)
-        pass
-    def ly_expression(self):
-        return ""
-class RepeatMarker(Marker):
-    def __init__(self):
-        Marker.__init__(self)
-        self.times = 0
-class EndingMarker(Marker):
-    pass
 
 
 spanner_event_dict = {
@@ -1640,7 +1597,7 @@ notehead_styles_dict = {
 def musicxml_chordpitch_to_lily(mxl_cpitch):
     r = musicexp.ChordPitch()
     r.alteration = mxl_cpitch.get_alteration()
-    r.step = musicxml_step_to_lily(mxl_cpitch.get_step())
+    r.step = musicxml2ly_conversion.musicxml_step_to_lily(mxl_cpitch.get_step())
     return r
 
 chordkind_dict = {
@@ -1708,7 +1665,7 @@ def musicxml_get_string_tunings(lines):
         string_tunings = [musicexp.Pitch()] * lines
         for i in range(0, lines):
             p = musicexp.Pitch()
-            p.step = musicxml_step_to_lily(((("E","A","D","G","B")*(lines/5+1))[0:lines])[i])
+            p.step = musicxml2ly_conversion.musicxml_step_to_lily(((("E","A","D","G","B")*(lines/5+1))[0:lines])[i])
             p.octave = (([-2+int(x%5>1)+2*(x/5) for x in range(0,lines)][0:lines])[i])
             p.alteration = 0
             p._force_absolute_pitch = True
@@ -1869,7 +1826,7 @@ def musicxml_figured_bass_to_lily(n):
         # apply the duration to res
         length = Rational(int(dur.get_text()), n._divisions) * Rational(1, 4)
         res.set_real_duration(length)
-        duration = rational_to_lily_duration(length)
+        duration = musicxml2ly_conversion.rational_to_lily_duration(length)
         if duration:
             res.set_duration(duration)
     if hasattr(n, 'parentheses') and n.parentheses == "yes":
@@ -1956,7 +1913,7 @@ class LilyPondVoiceBuilder:
         layout_information.set_context_item('Score', 'skipBars = ##t')
         r = musicexp.MultiMeasureRest()
         lenfrac = self.measure_length
-        r.duration = rational_to_lily_duration(lenfrac)
+        r.duration = musicxml2ly_conversion.rational_to_lily_duration(lenfrac)
         r.duration.factor *= self.pending_multibar / lenfrac
         self.elements.append(r)
         self.begin_moment = self.end_moment
@@ -2287,7 +2244,7 @@ def musicxml_voice_to_lily_voice(voice):
                     figured_bass_builder.add_barline(a, False)
                     chordnames_builder.add_barline(a, False)
                     fretboards_builder.add_barline(a, False)
-                elif isinstance(a, RepeatMarker) or isinstance(a, EndingMarker):
+                elif isinstance(a, musicxml2ly_conversion.RepeatMarker) or isinstance(a, musicxml2ly_conversion.EndingMarker):
                     voice_builder.add_command(a)
                     figured_bass_builder.add_barline(a, False)
                     chordnames_builder.add_barline(a, False)
