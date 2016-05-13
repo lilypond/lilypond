@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from rational import *
 import lilylib as ly
 import musicexp
 
