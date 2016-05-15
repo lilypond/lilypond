@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.19.41\n"
+"Project-Id-Version: lilypond 2.19.42\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu."
 "lilypond.bugs\n"
-"POT-Creation-Date: 2016-05-01 12:41+0100\n"
+"POT-Creation-Date: 2016-05-15 12:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1812,22 +1812,22 @@ msgstr ""
 msgid "need symbol argument for \\override and \\revert"
 msgstr ""
 
-#: context.cc:143
+#: context.cc:147
 #, c-format
 msgid "cannot find or create new `%s'"
 msgstr ""
 
-#: context.cc:222
+#: context.cc:226
 #, c-format
 msgid "cannot find or create `%s' called `%s'"
 msgstr ""
 
-#: context.cc:453
+#: context.cc:457
 #, c-format
 msgid "cannot find or create: `%s'"
 msgstr ""
 
-#: context.cc:467
+#: context.cc:471
 #, c-format
 msgid "cannot find or create new Bottom = \"%s\""
 msgstr ""
@@ -2402,37 +2402,37 @@ msgstr ""
 msgid "mark label must be a markup object"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:100
+#: mensural-ligature-engraver.cc:101
 msgid "ligature with less than 2 heads -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:127
+#: mensural-ligature-engraver.cc:128
 msgid "cannot determine pitch of ligature primitive -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:141
+#: mensural-ligature-engraver.cc:142
 msgid "single note ligature - skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:152
+#: mensural-ligature-engraver.cc:153
 msgid "prime interval within ligature -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:163
+#: mensural-ligature-engraver.cc:164
 msgid "mensural ligature: duration none of Mx, L, B, S -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:206
+#: mensural-ligature-engraver.cc:207
 msgid "semibrevis must be followed by another one -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:216
+#: mensural-ligature-engraver.cc:217
 msgid ""
 "semibreves can only appear at the beginning of a ligature,\n"
 "and there may be only zero or two of them"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:236
+#: mensural-ligature-engraver.cc:237
 msgid ""
 "invalid ligatura ending:\n"
 "when the last note is a descending brevis,\n"
@@ -2440,7 +2440,7 @@ msgid ""
 "or the ligatura must be LB or SSB"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:396
+#: mensural-ligature-engraver.cc:397
 msgid "unexpected case fall-through"
 msgstr ""
 
@@ -2866,21 +2866,21 @@ msgstr ""
 msgid "rest `%s' not found"
 msgstr ""
 
-#: score-engraver.cc:77
+#: score-engraver.cc:79
 #, c-format
 msgid "cannot find `%s'"
 msgstr ""
 
-#: score-engraver.cc:79
+#: score-engraver.cc:81
 msgid "Music font has not been installed properly."
 msgstr ""
 
-#: score-engraver.cc:81
+#: score-engraver.cc:83
 #, c-format
 msgid "Search path `%s'"
 msgstr ""
 
-#: score-engraver.cc:83
+#: score-engraver.cc:85
 msgid "Aborting"
 msgstr ""
 
@@ -3027,12 +3027,12 @@ msgstr ""
 msgid "cannot find: `%s'"
 msgstr ""
 
-#: translator.cc:310
+#: translator.cc:305
 #, c-format
 msgid "Two simultaneous %s events, junking this one"
 msgstr ""
 
-#: translator.cc:311
+#: translator.cc:306
 #, c-format
 msgid "Previous %s event here"
 msgstr ""
