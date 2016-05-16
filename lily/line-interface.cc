@@ -123,8 +123,8 @@ Line_interface::make_dashed_line (Real thick, Offset from, Offset to,
                                   Real dash_period, Real dash_fraction)
 {
   dash_fraction = min (max (dash_fraction, 0.0), 1.0);
-  Real on = dash_fraction * dash_period + thick;
-  Real off = max (0.0, dash_period - on);
+  Real on = dash_fraction * dash_period; 
+  Real off = max (0.0, dash_period - on - thick);
 
   SCM at = scm_list_n (ly_symbol2scm ("dashed-line"),
                        scm_from_double (thick),
