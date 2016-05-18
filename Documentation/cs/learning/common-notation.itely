@@ -558,7 +558,7 @@ Slovníček: @rglos{grace notes}, @rglos{acciaccatura},
 
 Melodické ozdoby se zadávají příkazem @code{\grace}, ačkoli se také dají
 vytvářet uvozením hudebního výrazu příkazem @code{\appoggiatura} (dlouhý
-příraz, prodleva) a @code{\acciaccatura} (příraz, krátká appogiatura).
+příraz, prodleva) a @code{\acciaccatura} (příraz, krátká appoggiatura).
 
 @lilypond[verbatim,quote]
 \relative {

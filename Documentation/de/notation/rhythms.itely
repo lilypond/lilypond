@@ -3349,7 +3349,7 @@ Referenz der Interna:
 @funindex \grace
 @funindex \slashedGrace
 @funindex \acciaccatura
-@funindex \appoggiature
+@funindex \appoggiatura
 
 @cindex Verzierungen
 @cindex Ziernoten
@@ -3370,7 +3370,7 @@ keine logische Zeit im Takt ein.
 
 Es gibt drei Arten von Verzierungen:
 den Vorschlag (engl. acciaccatura), eine angebundene Verzierungsnote
-mit einem Schrägstrich durch den Hals, und den Vorhalt (engl. appogiatura),
+mit einem Schrägstrich durch den Hals, und den Vorhalt (engl. appoggiatura),
 welcher den Wert der Hauptnote um seinen eigenen Wert verkürzt und
 ohne Schrägstrich notiert wird.  Man kann einen Vorschlag auch mit
 Schrägstrich durch den Hals, aber ohne Legatobogen notieren.  Diese

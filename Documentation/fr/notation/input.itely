@@ -3036,7 +3036,7 @@ En combinaison avec le script @file{articulate}, d'autres éléments
 seront aussi reportés en MIDI :
 
 @itemize
-@item les appogiatures -- celles-ci prendront la moitié de la valeur,
+@item les appoggiatures -- celles-ci prendront la moitié de la valeur,
 dépourvue de point, de la note qui les suit --  par exemple,
 
 @example

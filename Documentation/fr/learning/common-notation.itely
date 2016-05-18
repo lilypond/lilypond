@@ -715,7 +715,7 @@ que deux ; un @notation{triolet} portera donc une fraction de 3/2.
 Glossaire musicologique :
 @rglosnamed{grace notes,ornements},
 @rglosnamed{acciaccatura,acciaccature},
-@rglosnamed{appoggiatura,appogiature}.
+@rglosnamed{appoggiatura,appoggiature}.
 
 Des @notation{notes d'ornement} s'obtiennent en appliquant la commande
 @code{\grace}, @code{\appoggiatura} ou @code{\acciaccatura} à une

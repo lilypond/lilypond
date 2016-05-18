@@ -554,7 +554,7 @@ fet_endchar;
 
 %%%%%%%%
 %
-% Single Stroke for Short Appogiatura
+% Single Stroke for Short Appoggiatura
 %
 
 fet_beginchar ("grace dash (up)", "ugrace");
