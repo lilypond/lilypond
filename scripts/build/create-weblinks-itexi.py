@@ -554,7 +554,7 @@ def make_regtest_links(name, version, lang):
         getTrans("PDF of lilypond-book regtests for ", lang)+version)
 
 def make_doctarball_links(name, version, lang):
-    url = depth + "download/binaries/documentation/lilypond-"
+    url = depth + "downloads/binaries/documentation/lilypond-"
     # ugly FIXME, but proper build number support isn't Critical.
     url += version + "-1"
     url += ".documentation.tar.bz2"
