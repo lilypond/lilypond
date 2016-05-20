@@ -182,7 +182,7 @@ di oggetti e proprietà dai loro nomi.
 
 @seealso
 Guida alla notazione:
-@ruser{Modifying properties}.
+@ruser{Modifica delle proprietà}.
 
 
 @node Metodi di modifica
@@ -1358,7 +1358,7 @@ di bianco.  (Si tratta di un metodo problematico perché la
 stanghetta bianca può imbiancare o meno le linee del rigo che
 incrocia.  Puoi vedere in alcuni degli esempi successivi che questo
 accade in modo imprevedibile.  I motivi per cui questo accade e il
-modo in cui è possibile controllarlo sono esposti in @ruser{Painting objects white}.
+modo in cui è possibile controllarlo sono esposti in @ruser{Dipingere gli oggetti di bianco}.
 Ma per il momento stiamo imparando la proprietà color, quindi accettiamo questa limitazione.)
 
 L'interfaccia @code{grob-interface} stabilisce che il valore della
@@ -3139,7 +3139,7 @@ Nota nel secondo esempio come è importante sapere quale contesto
 gestisce un certo oggetto.  Dato che l'oggetto @code{MetronomeMark}
 è regolato dal contesto @code{Score}, le modifiche della proprietà
 nel contesto @code{Voice} non vengono prese in considerazione.  Per
-approfondire l'argomento si veda @ruser{Modifying properties}.
+approfondire l'argomento si veda @ruser{Modifica delle proprietà}.
 
 Se la proprietà @code{padding} di un oggetto viene aumentata quando
 quell'oggetto si trova insieme ad altri oggetti disposti secondo la
@@ -3357,7 +3357,7 @@ portamento candidate più basse di quella già selezionata, quindi
 in questo caso la proprietà @code{positions} non può produrre
 effetti.  Tuttavia, legature di valore, di portamento e di frase
 @emph{possono} essere posizionate e disegnate in modo molto preciso
-se necessario.  Per sapere come fare si veda @ruser{Modifying ties and slurs}.
+se necessario.  Per sapere come fare si veda @ruser{Modifica di legature di valore e di portamento}.
 
 Ecco un altro esempio.  Vediamo che le travature collidono
 con le legature di valore:

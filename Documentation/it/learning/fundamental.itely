@@ -356,7 +356,7 @@ interpretati come testo, li facciamo precedere da @code{\lyricmode}.  Come in
 @code{\addlyrics}, questo comando trasforma la modalità di input in modalità
 testo.  Senza di esso, LilyPond cercherebbe di interpretare i contenuti come
 se fossero note, e questo produrrebbe degli errori.  (Sono disponibili molte
-altre modalità di input, si veda @ruser{Input modes}.)
+altre modalità di input, si veda @ruser{Modalità di inserimento}.)
 
 Dunque se aggiungiamo un po' di note e una chiave di basso per la mano
 sinistra, otteniamo un brano musicale vero e proprio:
@@ -1435,7 +1435,7 @@ maiuscola: ad esempio, @code{GregorianTranscriptionStaff}.
 
 
 @seealso
-Guida alla notazione: @ruser{Contexts  explained}.
+Guida alla notazione: @ruser{Tutto sui contesti}.
 
 
 @node Creare i contesti
@@ -1563,7 +1563,7 @@ nella sezione sul testo, si veda @ref{Voices and vocals}.
 
 
 @seealso
-Guida alla notazione: @ruser{Creating and referencing contexts}.
+Guida alla notazione: @ruser{Creazione e citazione di un contesto}.
 
 
 @node Gli incisori
@@ -1964,8 +1964,8 @@ comandi @code{\set} incorporati nelle asserzioni musicali.
 
 @seealso
 Guida alla notazione:
-@ruser{Changing context default settings},
-@ruser{The set command}.
+@ruser{Modifica delle impostazioni predefinite di un contesto},
+@ruser{Il comando set}.
 
 Guida al funzionamento interno:
 @rinternals{Contexts},
@@ -2129,8 +2129,8 @@ per tutti i contesti di un particolare tipo includendo il comando
 @code{\set} in un blocco @code{\context} nello stesso modo.
 
 @seealso
-Guida alla notazione: @ruser{Modifying context plug-ins},
-@ruser{Changing context default settings}.
+Guida alla notazione: @ruser{Modifica dei componenti aggiuntivi di un contesto},
+@ruser{Modifica delle impostazioni predefinite di un contesto}.
 
 @knownissues
 Gli incisori @code{Stem_engraver} e @code{Beam_engraver} fissano i propri
@@ -2878,7 +2878,7 @@ L'allungabilità dei righi può essere controllata con la proprietà
 (gli oggetti grafici vengono comunemente chiamati @q{grob} nella documentazione
 di lilypond)    -- non preoccuparti dei dettagli in questo momento; in seguito
 verrà fornita una spiegazione approfondita.  I curiosi possono dare
-un'occhiata a @ruser{Overview of modifying properties}.
+un'occhiata a @ruser{Panoramica sulla modifica delle proprietà}.
 In questo caso, vogliamo modificare soltanto la sottoproprietà
 @code{allungabilità}.  Di nuovo, chi è curioso può trovare i valori predefiniti
 per la proprietà staff-staff-spacing nel file @file{scm/define-grobs.scm}
