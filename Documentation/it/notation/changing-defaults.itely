@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 28add695953862ef4a87f9fbeadd1d02dc299244
+    Translation of GIT committish: 4299c96f609f79426a181ffed107d17fa6e1fdbd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1707,24 +1707,22 @@ Add this much extra space between objects that are next to each other.
 @end quotation
 
 Aumentando il valore di @code{padding}, possiamo spostare la diteggiatura
-lontana dalla testa di nota.  Il seguente comando inserisce 3 spazi rigo
-di bianco tra la nota e la diteggiatura:
+lontana dalla testa di nota.  Il seguente comando inserisce @qq{tre spazi rigo}
+di distanza tra la nota e un segno di diteggiatura:
 @example
 \once \override Voice.Fingering.padding = #3
 @end example
 
-L'inserimento di questo comando prima che l'oggetto Fingering venga
-creato, ovvero prima di @code{c-2}, produce il seguente risultato:
+L'inserimento di spazio prima che l'oggetto della diteggiatura venga
+creato produce il seguente risultato:
 
 @lilypond[quote,fragment,verbatim]
 \once \override Voice.Fingering.padding = #3
 c''-2
 @end lilypond
 
-
-In questo caso, il contesto per questa modifica è @code{Voice}.  Questo
-fatto può anche essere dedotto dalla guida al programma, dato che la pagina
-per l'incisore @rinternals{Fingering_engraver} dice
+In questo caso, il contesto per questa modifica è @code{Voice}.  Come è
+scritto nella pagina sull'incisore @rinternals{Fingering_engraver}:
 
 @quotation
 Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
@@ -1738,8 +1736,8 @@ Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 È importante conoscere le convenzioni sui nomi.  Ecco una panoramica:
 
 @itemize
-@item funzioni scheme: minuscolo-con-trattini (incl. nomi di una-parola)
-@item funzioni scheme: ly:plus-scheme-style
+@item funzioni scheme: minuscolo-con-trattini (inclusi i nomi di una-parola)
+@item funzioni scheme specifiche di LilyPond: ly:plus-scheme-style
 @item eventi, classi e proprietà musicali:
 come-le-funzioni-scheme
 @item interfacce Grob: stile-scheme
@@ -2215,40 +2213,41 @@ quelli della prima legatura incontrata nel file di input.
 
 @funindex \set
 @funindex \override
-Sia @code{\set} che @code{\override} manipolano le proprietà
+I comandi @code{\set} e @code{\override} manipolano le proprietà
 associate ai contesti.  In entrambi i casi, le proprietà
-seguono la gerarchia dei contesti: proprietà non impostate in
-un contesto mostrano i valori del rispettivo contesto padre.
+seguono una @emph{gerarchia dei contesti}; proprietà non impostate in
+un contesto mostreranno i valori del rispettivo contesto padre.
 
-I valori e la durata delle proprietà di contesto sono dinamici e
-disponibili soltanto mentre la musica viene interpretata, @qq{reiterata}.
+La durata e il valore di una proprietà di contesto sono dinamici e
+disponibili soltanto mentre la musica viene interpretata (ovvero @q{reiterata}).
 Nel momento della creazione del contesto, le proprietà sono inizializzate
-a partire dalla definizione di contesto corrispondente e dalle possibili
-modifiche di contesto.  Poi le modifiche vengono fatte con dei comandi
-che impostano la proprietà presenti nella musica stessa.
+a partire dalle definizioni corrispondenti (insieme a altre modifiche) di
+quel contesto.  Qualsiasi modifica successiva viene fatta con dei comandi
+di impostazione della proprietà presenti nella musica stessa.
 
-Le definizioni di grob sono una categoria speciale di proprietà di
-contesto.  Dato che la loro struttura, @qq{contabilità} e uso sono
-diversi dalle normali proprietà di contesto, ad esse si accede con
-un insieme diverso di comandi e sono trattate in modo separato
-nella documentazione.
+Le definizioni degli oggetti grafici (o @qq{grob}) sono una categoria
+@emph{speciale} di proprietà di contesto, perché la loro struttura e uso
+sono diversi da quelli delle normali proprietà di contesto.  Diversamente
+da quest'ultime, le definizioni dei grob sono suddivise
+in @emph{proprietà dei grob}.
 
-Al contrario delle semplici proprietà di contesto, le definizioni di grob
-sono suddivise in proprietà del grob.  Un @qq{grob} (oggetto grafico)
-viene solitamente creato da un incisore nel momento in cui l'espressione
+Inoltre, diversamente dalle normali proprietà di contesto, le definizioni dei
+grob hanno una loro @q{contabilità} interna usata per tenere traccia delle
+loro individuali proprietà e sottoproprietà.  Ciò significa che è possibile
+definire queste parti in contesti diversi e avere sempre a disposizione la
+definizione complessiva del grob nel momento della sua creazione, assemblata
+da tutti i pezzi compresi tra il contesto corrente e i suoi contesti superiori.
+
+Un grob viene solitamente creato da un incisore nel momento in cui l'espressione
 musicale viene interpretata e riceve le sue proprietà iniziali dalla definizione
 del grob corrente del contesto dell'incisore.  L'incisore (o altre parti del
-@q{backend} di LilyPond) può successivamente togliere o cambiare le proprietà
-del grob, ma ciò non ha effetto sulla definizione di grob del contesto.
+@q{backend} di LilyPond) può successivamente cambiare (o aggiungere) le
+proprietà iniziali del grob, ma ciò non ha effetto sulla definizione di
+grob del contesto.
 
-Ciò che chiamiamo @q{proprietà del grob} nel contesto delle modifiche a
+Ciò che LilyPond chiama @q{proprietà del grob} nel contesto delle modifiche a
 livello di utente sono in realtà le proprietà della definizione di grob di
-un contesto.  Al contrario delle normali proprietà di contesto, le definizioni
-di grob hanno dei registri per tenere traccia delle sue parti e delle proprietà
-individuali dei grob (e perfino delle loro sottoproprietà) separatamente, così
-che sia possibile definire queste parti in contesti diversi e far sì che la
-definizione di grob complessiva sia assemblata dai pezzi forniti in contesti
-diversi compresi tra il contesto corrente e i suoi contesti superiori.
+un @emph{contesto}.
 
 Le definizioni di grob sono manipolate con @code{\override} e
 @code{\revert} e hanno un nome che inizia con una lettera maiuscola
@@ -2259,11 +2258,11 @@ una lettera minuscola.
 @cindex tweak, relazione con @code{\override}
 @funindex \tweak
 @funindex \overrideProperty
-I comandi speciali @code{\tweak} e @code{\overrideProperty} modificano le
-proprietà dei grob bypassando completamente le proprietà di contesto.
-Catturano i grob mentre vengono creati e poi impostano direttamente
-le proprietà su di essi quando vengono da un evento musicale modificato
-o sono di un tipo particolare.
+I comandi @code{\tweak} e @code{\overrideProperty} modificano le proprietà
+dei grob bypassando completamente tutte le proprietà di contesto.
+Catturano i grob mentre vengono creati, impostando le loro proprietà per un
+evento musicale (@code{\tweak}) o, nel caso di @code{\overrideProperty}, per
+una sovrascrittura specifica.
 
 
 @node Modifica delle liste associative
@@ -3269,13 +3268,20 @@ limitazioni:
 
 @itemize @bullet
 @item Non è possibile stampare le stanghette all'inizio di una linea.
-@item Un numero di battuta non può essere stampato all'inizio della prima
-linea a meno che non sia impostato per essere diverso da 1.
-@item Clef -- vedi sotto.
-@item Le ripetizioni percentuali doppie sono o tutte stampate o tutte soppresse.
-Usare begin-of-line-invisible per stampare e all-invisible per sopprimere.
-@item Key signature -- vedi sotto.
-@item ClefModifier -- vedi sotto.
+
+@item Un numero di battuta non può essere stampato all'inizio della @emph{prima}
+linea a meno che non sia impostato per essere diverso da @code{1}.
+
+@item Clef -- vedi la sezione successiva.
+
+@item Le ripetizioni percentuali doppie sono o @emph{tutte stampate} o
+@emph{tutte soppresse}.
+Usare @code{begin-of-line-invisible} per stampare e @code{all-invisible} per
+sopprimere.
+
+@item Key signature -- vedi la sezione successiva.
+
+@item ClefModifier -- vedi la sezione successiva.
 @end itemize
 
 
@@ -3991,16 +3997,19 @@ XinO = {
 Qualsiasi glifo del tipo di carattere Feta può essere passato al comando
 markup @code{\musicglyph} -- vedi @ref{The Feta font}.
 
-@c TODO Add inserting eps files or ref to later
+I file @file{EPS} e i comandi Postscript possono essere inseriti entrambi nel
+@c traduzione libera di "inline"
+corpo del testo con i comandi markup @code{\epsfile} e @code{\postscript} --
+vedi @ref{Graphic}.
 
-@c TODO Add inserting Postscript or ref to later
 
 @seealso
 Guida alla notazione:
 @ref{Graphic notation inside markup},
 @ref{Formatting text},
 @ref{Text markup commands},
-@ref{The Feta font}.
+@ref{The Feta font},
+@ref{Graphic}.
 
 
 @node Modifica delle forme
@@ -4412,6 +4421,10 @@ I risultati della seconda funzione sono usati come un'approssimazione del
 valore necessario che viene poi usato dalla prima funzione per ottenere il
 valore reale, che viene infine usato per la messa a punto, molto più tardi
 nel corso del processo di spaziatura.
+
+@c TODO: The following example supposedly showing a collision no longer
+@c 'works' since 2.18.x. Another example of a collision is needed.
+@c Issue #3512
 
 @lilypond[verbatim,quote,ragged-right]
 #(define (square-line-circle-space grob)

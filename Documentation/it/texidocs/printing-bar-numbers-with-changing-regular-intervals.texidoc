@@ -1,7 +1,7 @@
-%% Translation of GIT committish: a51b7ab55aed341ffd8af27a357212ed7ef528b9
+%% Translation of GIT committish: e0808cc5f4890c5f8f03ed1be48fc911627afea4
   texidocit = "
 L'intervallo dei numeri di battuta può essere modificato cambiando la
-funzione di contesto @code{set-bar-number-visibility}.
+funzione di contesto @code{@{set-bar-number-visibility@}}.
 
 "
   doctitleit = "Stampare i numeri di battuta a intervalli regolari variabili"

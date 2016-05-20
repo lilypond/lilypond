@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 9ad34fa5feb4c06300f274335959d25c3b33033e
+    Translation of GIT committish: d4756c74976a991bd80cf757f774e5525d0830cb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -633,18 +633,17 @@ partiture prodotte da LilyPond (e, a quanto si dice, sono molto soddisfatti
 di queste partiture).
 
 Aurélien ha anche riorchestrato il @emph{Der Ring des Nibelungen} di Richard Wagner in una
-@uref{http://www.rsb-online.de/content/konzerte/wagnerzyklus-10-13/wagner-fuer-kinder/index_ger.html,100-
-versione ridotta per bambini}.
+@uref{https://www.rsb-online.de/content/concerts/new-season-1516/family-concerts-age-7-and-above/index_eng.html,versione ridotta per bambini}.
 Scritta per un'orchestra sinfonica standard, ma con un cast ridotto di
 cantanti, è stata eseguita dalla
-@emph{Radio-Sinfonieorchester Berlin} nell'Aprile 2014 al teatro
-Atze Musiktheater di Berlino.  Il direttore era Heiko Matthias Förster.
+@uref{http://www.rsb-online.de/,@emph{Radio-Sinfonieorchester Berlin}}
+nell'Aprile 2014 al teatro Atze Musiktheater di Berlino.  Il direttore
+era Heiko Matthias Förster.
 
 @item
 Joe Smeets ha creato una partitura per il libro di bambini @emph{Zing Mee}
-(@emph{Sing along}) di Annie M.G. pubblicato da Querido -- ISBN
-9789045106205:
-@uref{http://www.queridokinderenjeugdboeken.nl/web/Boek.htm?dbid=18954&typeofpage=134707, www.queridokinderenjeugdboeken.nl};
+(@emph{Sing along}) di Annie M.G. pubblicato da
+@uref{http://www.queridokinderenjeugdboeken.nl/, Querido} -- ISBN 9789045106205;
 le partiture delle prove del coro per la traduzione olandese del
 @emph{Saint Nicolas} di Benjamin Britten sono state eseguite dal
 @emph{Muziektheater Hollands Diep} nel 2011;
@@ -669,27 +668,26 @@ per la sua tesi di dottorato.
 @item
 @emph{Pictures at an exhibition} di Mussorgsky, riorchestrata e diretta
 da @uref{http://www.aurelienbello.com/,Aurélien Bello} con
-la @uref{http://www.junge-philharmonie-brandenburg.de/,Junge Philharmonie Brandenburg}
+la @uref{https://junge-philharmonie-brandenburg.de/,Junge Philharmonie Brandenburg}
 nell'Ottobre 2011 e nell'Aprile 2012.
 
 @item
-@uref{http://www.kierenmacmillan.info/, Kieren MacMillan}, compositore e
+@uref{http://kierenmacmillan.info/, Kieren MacMillan}, compositore e
 direttore musicale.  Le sue opere recenti sono: @emph{Go Thy Way},
 eseguita da @uref{http://www.saltlakechoralartists.org/,
 Salt Lake Choral Artists} nel Marzo 2012; @emph{Just Out of Reach Suite}
 eseguita dal
 @uref{http://www.herald-dispatch.com/news/marshall/x1883873762/Music-duo-Chrysalis-to-perform-at-Marshall-University-on-Jan-19,
 Chrysalis Duo} ; @emph{thrafsmata} eseguita nel Luglio 2011 dal
-@uref{http://www.pnme.org/CurrentSeason/PreviousSeasons.html, Pittsburgh
-New Music Ensemble}.
+@uref{http://www.pnme.org/, Pittsburgh New Music Ensemble}.
 
 @item
 @emph{Anonymous Student Compliment or Complaint}, di
 @uref{http://www.mikesolomon.org, Mike Solomon}, che ha vinto il
-@uref{http://leftcoastensemble.org, Left Coast Composition Contest del 2011},
+@uref{http://www.leftcoastensemble.org/, Left Coast Composition Contest del 2011},
 a cui hanno partecipato 172 opere provenienti da 22 paesi.
 Altre opere comprendono Norman (age 1) per clarinetto solo, eseguita all'Electroacoustic
-Music Festival (FEMF) della @uref{http://emu.music.ufl.edu/fems_concerts.html, University of Florida}
+Music Festival (FEMF) della @uref{http://arts.ufl.edu/academics/music/, University of Florida}
 nell'Ottobre 2010.
 
 @item
@@ -701,7 +699,7 @@ per celebrare il 350° compleanno del compositore.
 
 @item
 Esecuzione dell' @emph{Armide} di Lully da parte della
-@uref{http://www.mercurybaroque.org, Mercury Baroque},
+@uref{http://www.mercuryhouston.org/, Mercury Baroque},
 15-16 Maggio 2009, a Houston, Texas (spartiti realizzati da
 @uref{http://nicolas.sceaux.free.fr/, Nicolas Sceaux}).
 
@@ -716,7 +714,7 @@ New York} (spartiti realizzati da
 @emph{Affaire étrangère}, un opera di
 @uref{http://valentin.villenave.net/,Valentin Villenave}
 basata su un libretto francese di
-@uref{http://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis
+@uref{https://en.wikipedia.org/wiki/Lewis_Trondheim, Lewis
 Trondheim}. La prima rappresentazione ha avuto luogo il 1 Febbraio 2009 presso
 @uref{http://www.orchestre-montpellier.com/, L'Opéra National di
 Montpellier}, Francia.
@@ -744,8 +742,7 @@ spartiti di alta qualità di musica sacra, disponibili per il
 download immediato o nel tradizionale supporto cartaceo.
 
 @item
-@uref{http://www.shadylane.fr/, The Shady Lane
-Publishing},
+@uref{http://matthieujacquot.com/, The Shady Lane Publishing},
 una @qq{piccola casa editrice musicale} il cui obiettivo è promuovere una
 nuova forma di economia della musica più vicina ai musicisti e agli
 amanti della musica.

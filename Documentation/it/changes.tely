@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: UTF-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: ed3e5abd8003297e02e3f90dc8755e33a6619135
+    Translation of GIT committish: 32839fc7052761649d3ba3512ca29373acbe880c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -50,6 +50,153 @@ Vedi il manuale utente, \NAME\
 @allowcodebreaks false
 
 @itemize
+
+@item
+Le liste di simboli separate da punti come @code{FretBoard.stencil} sono
+supportate già dalla versione@tie{}2.18.  Ora possono contenere anche numeri
+interi non negativi e possono essere separate anche con le virgole.
+Ciò permette di usare, per esempio:
+@lilypond[quote,verbatim]
+{ \time 2,2,1 5/8  g'8 8 8 8 8 }
+@end lilypond
+e
+@example
+\tagGroup violin,oboe,bassoon
+@end example
+
+@item
+Queste liste possono essere usate anche nelle espressioni di assegnamenti,
+impostazioni (@code{\set}) e riscritture (@code{override}).  Ciò permette di
+usare, per esempio:
+@lilypond[quote,verbatim]
+{ \unset Timing.beamExceptions
+  \set Timing.beatStructure = 1,2,1
+  g'8 8 8 8 8 8 8 8 }
+@end lilypond
+
+@item
+Agli elementi delle liste associative potevano già essere assegnati dei
+valori individualmente (per esempio, variabili @code{\paper} come
+@code{system-system-spacing.basic-distance}).  Ora possono anche essere
+citati nello stesso modo, come in questo esempio:
+@example
+\paper @{
+  \void \displayScheme \system-system-spacing.basic-distance
+@}
+@end example
+
+In combinazione con i cambiamenti precedentemente menzionati, ciò permette
+di impostare e citare pseudovariabili come @code{violin.1}.
+
+@item
+I file sorgente LilyPond ora possono essere incorporati nei file PDF generati.
+Questa funzionalità sperimentale è disabilitata per impostazione predefinita
+e può essere considerata non sicura, dato che documenti PDF con del contenuto
+nascosto tendono a costituire un rischio di sicurezza.
+Non tutti i lettori PDF sono capaci di gestire i documenti incorporati (in
+questo caso, l'output PDF apparirà normalmente e i file sorgente resteranno
+invisibili).  Questa funzionalità funziona solo col backend PDF.
+
+@item
+I nomi francesi delle note ora sono definite separatemente invece di essere
+riprese (come alias) dai nomi italiani: oltre alla sintassi generica derivata
+dall'italiano, l'altezza @var{d} può essere inserita come @code{ré}.  I diesis
+doppi possono essere inseriti anche col suffisso @code{-x}.
+
+@item
+Sono supportate ulteriori corde di basso (per l'intavolatura per liuto).
+@lilypond[quote,verbatim]
+m = { f'4 d' a f d a, g, fis, e, d, c,  \bar "|." }
+
+\score {
+  \new TabStaff \m
+  \layout {
+    \context {
+      \Score
+      tablatureFormat = #fret-letter-tablature-format
+    }
+    \context {
+      \TabStaff
+      stringTunings = \stringTuning <a, d f a d' f'>
+      additionalBassStrings = \stringTuning <c, d, e, fis, g,>
+      fretLabels = #'("a" "b" "r" "d" "e" "f" "g" "h" "i" "k")
+    }
+  }
+}
+@end lilypond
+
+@item
+È ora disponibile il comando di tipo markup-list @code{\table}.
+Ogni colonna può essere allineata in modo diverso.
+@lilypond[quote,verbatim]
+\markuplist {
+    \override #'(padding . 2)
+    \table
+      #'(0 1 0 -1)
+      {
+        \underline { center-aligned right-aligned center-aligned left-aligned }
+        one "1" thousandth "0.001"
+        eleven "11" hundredth "0.01"
+        twenty "20" tenth "0.1"
+        thousand "1000" one "1.0"
+      }
+}
+@end lilypond
+
+@item
+Un nuovo comando di tipo markup, @code{\with-dimensions-from}, semplifica
+l'uso di @code{\with-dimensions} prendendo le nuove dimensioni da un
+oggetto di markup, indicato come primo argomento.
+@lilypond[quote,verbatim]
+\markup {
+  \pattern #5 #Y #0 "x"
+  \pattern #5 #Y #0 \with-dimensions-from "x" "f"
+  \pattern #5 #Y #0 \with-dimensions-from "x" "g"
+  \override #'(baseline-skip . 2)
+  \column {
+    \pattern #5 #X #0 "n"
+    \pattern #5 #X #0 \with-dimensions-from "n" "m"
+    \pattern #5 #X #0 \with-dimensions-from "n" "!"
+  }
+}
+@end lilypond
+
+@item
+Una nuova funzione di interruzione della pagina, @code{ly:one-line-auto-height-breaking},
+posiziona l'intera partitura su una sola linea e cambia la larghezza della
+pagina per contenerla, proprio come @code{ly:one-line-breaking}.  Con la
+differenza che modifica automaticamente anche l'altezza della pagina per
+contenere tutta la musica in altezza.
+
+@item
+È ora disponibile il comando markup @code{\draw-squiggle-line}.
+È possibile personalizzarlo modificando le proprietà @code{thickness}, @code{angularity},
+@code{height} e @code{orientation}
+@lilypond[quote,verbatim]
+\markup
+  \overlay {
+    \draw-squiggle-line #0.5 #'(3 . 3) ##t
+
+    \translate #'(3 . 3)
+    \override #'(thickness . 4)
+    \draw-squiggle-line #0.5 #'(3 . -3) ##t
+
+    \translate #'(6 . 0)
+    \override #'(angularity . -5)
+    \draw-squiggle-line #0.5 #'(-3 . -3) ##t
+
+    \translate #'(3 . -3)
+    \override #'(angularity . 2)
+    \override #'(height . 0.3)
+    \override #'(orientation . -1)
+    \draw-squiggle-line #0.2 #'(-3 . 3) ##t
+  }
+@end lilypond
+
+@item
+È disponibile un nuovo comando, @code{\RemoveAllEmptyStaves}, che si comporta
+proprio come @code{\RemoveEmptyStaves}, con la differenza che toglie anche
+i righi vuoti del primo sistema di una partitura.
 
 @item
 Oltre al comando markup generico @code{\tie}, sono ora disponibili i comandi
@@ -675,7 +822,7 @@ tessitura.
   \clef "varC" c c c c
   \clef "altovarC" c c c c
   \clef "tenorvarC" c c c c
-  \clef "baritonevarC" c c c
+  \clef "baritonevarC" c c c c
   \clef "varpercussion" c c c c
 @end lilypond
 

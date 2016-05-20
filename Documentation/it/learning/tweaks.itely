@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: b6e323a2f6fdac2266a659acf6da008957f0c936
+    Translation of GIT committish: 5ae5c88bdb1a478263ed874cb823ec58dafc93f9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -111,7 +111,7 @@ oggetti che hanno una forma estesa in questo modo vengono chiamati «Estensori»
 
 Gli estensori non possono essere modificati dopo la loro creazione.  Tra questi
 sia @code{StaffSymbol} che @code{LedgerLineSpanner}, che continuano nel corso
-della partitura (a meno che non siano terminati dal comando @code{\stopStaff} e
+della partitura, a meno che non siano terminati dal comando @code{\stopStaff} e
 poi ricreati col comando @code{\startStaff}.
 
 Esistono anche dei grob @q{astratti} che non stampano niente da soli, bensì
@@ -2239,7 +2239,7 @@ la proprietà @code{outside-staff-priority} dell'oggetto associato
 all'inizio dell'estensore, che potrebbe includere più forcelle e indicazioni dinamiche
 tra loro collegate.
 
-@multitable @columnfractions .3 .3 .3
+@multitable @columnfractions .3 .15 .45
 @headitem Oggetto di formattazione
   @tab Priorità
   @tab Controlla la posizione di:
@@ -2249,15 +2249,33 @@ tra loro collegate.
 @item @code{MetronomeMark}
   @tab @code{1000}
   @tab Indicazioni metronomiche
+@item @code{SostenutoPedalLineSpanner}
+  @tab @code{1000}
+  @tab Indicazione del pedale
+@item @code{SustainPedalLineSpanner}
+  @tab @code{1000}
+  @tab
+@item @code{UnaCordaPedalLineSpanner}
+  @tab @code{1000}
+  @tab
+@item @code{MeasureCounter}
+  @tab @code{750}
+  @tab Numero della misura
 @item @code{VoltaBracketSpanner}
   @tab @code{600}
   @tab Delimitatori dei finali alternativi delle ripetizioni
+@item @code{InstrumentSwitch}
+  @tab @code{500}
+  @tab Testo per il cambio di strumento
 @item @code{TextScript}
   @tab @code{450}
   @tab Oggetti di testo
 @item @code{MultiMeasureRestText}
   @tab @code{450}
-  @tab Testi sopra pause di più misure
+  @tab Testi sopra pause multiple
+@item @code{CombineTextScript}
+  @tab @code{450}
+  @tab Testo per il combinatore delle parti
 @item @code{OttavaBracket}
   @tab @code{400}
   @tab Estensioni del segno d'ottava
@@ -2268,11 +2286,14 @@ tra loro collegate.
   @tab @code{250}
   @tab Tutte le indicazioni dinamiche
 @item @code{BarNumber}
-  @tab @code{ 100}
+  @tab @code{100}
   @tab Numeri di battuta
 @item @code{TrillSpanner}
   @tab @code{50}
   @tab Linee ondulate del trillo
+@item @code{AccidentalSuggestion}
+  @tab @code{0}
+  @tab Alterazioni con nota
 @end multitable
 
 Ecco un esempio che mostra il posizionamento predefinito di alcuni di
@@ -2332,7 +2353,7 @@ il posizionamento desiderato, è possibile sovrascrivere la priorità di
 qualsiasi oggetto.  Immaginiamo di voler posizionare l'estensione del segno d'ottava
 sotto l'estensore del testo nell'esempio precedente.  Basta controllare la
 priorità dell'oggetto @code{OttavaBracket} nella guida al Funzionamento interno
-o nelle tabelle precedenti e ridurla a un valore inferiore di quello di un
+o nella tabella precedente e ridurla a un valore inferiore di quello di un
 oggetto @code{TextSpanner}, ricordando che @code{OttavaBracket} è creato
 nel contesto @code{Staff}:
 

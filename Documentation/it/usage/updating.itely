@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: a57ca40f07d1bdd4191a9d857847af26b4d7c5f1
+    Translation of GIT committish: bd8e8f0193000854fef9d3de3cc0a9f667ea8fb1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -19,9 +19,9 @@
 @cindex convert-ly
 
 Via via che LilyPond migliora, la sintassi (il linguaggio di input) di
-alcuni comandi e funzioni può cambiare.  Ciò può causare errori, avvisi e
-perfino output inattesi se file di input, creati in precedenza con versioni
-più vecchie, vengono usati con versioni più recenti.
+alcuni comandi e funzioni può cambiare.  Ciò può causare errori imprevisti,
+avvisi e perfino output errato se i file di input, creati in precedenza per
+versioni più vecchie, vengono usati con versioni più recenti.
 
 Per superare questo problema, si può usare il comando @command{convert-ly} per
 aggiornare questi file di input più vecchi alla nuova sintassi.

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-   Translation of GIT committish: 3a7c967205c02b195a75074492d5fdd7b2ed4310
+   Translation of GIT committish: e45059ae37b240ce52639ad5c49110b510a89481
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -497,7 +497,7 @@ file; l'esempio seguente è scritto in notazione italiana:
 Le lingue disponibili e i tipi di notazione che definiscono sono:
 
 @quotation
-@multitable {@code{nederlands}} {do re mi fa sol la sib si}
+@multitable {@code{nederlands}} {do re/re mi fa sol la sib si}
 @headitem Lingua
   @tab Nomi delle note
 @item @code{nederlands}
@@ -510,7 +510,9 @@ Le lingue disponibili e i tipi di notazione che definiscono sono:
   @tab c d e f g a bf b
 @item @code{espanol} o @code{español}
   @tab do re mi fa sol la sib si
-@item @code{italiano} o @code{français}
+@item @code{français}
+  @tab do ré/re mi fa sol la sib si
+@item @code{italiano}
   @tab do re mi fa sol la sib si
 @item @code{norsk}
   @tab c d e f g a b h
@@ -543,7 +545,9 @@ possono variare a seconda della lingua adottata:
     @tab -@code{ff}/-@code{flatflat}
 @item @code{espanol} o @code{español}
   @tab -@code{s} @tab -@code{b} @tab -@code{ss}/-@code{x} @tab -@code{bb}
-@item @code{italiano} o @code{français}
+@item @code{français}
+  @tab -@code{d} @tab -@code{b} @tab -@code{dd}/-@code{x} @tab -@code{bb}
+@item @code{italiano}
   @tab -@code{d} @tab -@code{b} @tab -@code{dd} @tab -@code{bb}
 @item @code{norsk}
   @tab -@code{iss}/-@code{is} @tab -@code{ess}/-@code{es} @tab -@code{ississ}/-@code{isis}
@@ -597,7 +601,9 @@ non hanno ancora dei nomi per le note speciali.
   @tab -qs @tab -qf @tab -tqs @tab -tqf
 @item @code{espanol} o @code{español}
   @tab -cs @tab -cb @tab -tcs @tab -tcb
-@item @code{italiano} o @code{français}
+@item @code{français}
+  @tab -sd @tab -sb @tab -dsd @tab -bsb
+@item @code{italiano}
   @tab -sd @tab -sb @tab -dsd @tab -bsb
 @item @code{portugues}
   @tab -sqt @tab -bqt @tab -stqt @tab -btqt

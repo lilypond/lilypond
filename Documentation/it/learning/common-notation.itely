@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 21be03e4b893ec2bbea745a713360310931337b9
+    Translation of GIT committish: 42cd2e57e37cbbf1fc5ccbe2bc83048761690f60
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1354,8 +1354,8 @@ cello = \new Staff {
 @end lilypond
 
 @noindent
-Il nome di una variabile deve contenere soltanto caratteri alfabetici, non
-può avere numeri, trattini bassi (underscore) o trattini di altro tipo.
+Per convenzione, il nome di una variabile è composto soltanto da caratteri
+alfabetici.
 
 Le variabili devono essere definite @emph{prima} della principale espressione
 musicale, ma possono poi essere usate quante volte si vuole e ovunque, una

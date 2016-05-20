@@ -1,14 +1,20 @@
-%% Translation of GIT committish: a51b7ab55aed341ffd8af27a357212ed7ef528b9
-  texidocit = " Le travature di note consecutive di un sedicesimo (o
-più brevi) non vengono suddivise, ovvero i tre (o più) tratti della
-travatura si estendono, senza spezzarsi, sugli interi gruppi di note.
+%% Translation of GIT committish: e0808cc5f4890c5f8f03ed1be48fc911627afea4
+  texidocit = "
+Le travature di note consecutive di un sedicesimo (o più brevi) non
+vengono suddivise, ovvero i tre (o più) tratti della travatura si
+estendono, senza spezzarsi, sugli interi gruppi di note.
 Questo comportamento può essere modificato in modo da suddividere le
 travature in sottogruppi attraverso la proprietà
 @code{subdivideBeams}. Se impostata, le travature che comprendono più
 sottogruppi verranno suddivise a intervalli definiti dal
 valore attuale di @code{baseMoment}, riducendo le travature multiple
-al numero di travature che indica la lunghezza del
-sottogruppo.  Si noti che @code{baseMoment}, se non impostata
+al numero di travature che indica il valore metrico della suddivisione.
+Se il gruppo successivo alla suddivisione è più breve del valore
+metrico corrente (di solito perché la travatura è incompleta), il
+numero di travature riflette il gruppo di suddivisione più lungo
+possibile.  Tuttavia, se rimane una sola nota dopo la divisione, questa
+restrizione non viene applicata.
+Si noti che @code{baseMoment}, se non impostata
 esplicitamente, equivale a uno fratto il denominatore dell'attuale
 indicazione di tempo.  Deve quindi essere impostata su una frazione
 che stabilisca la durata del sottogruppo di travature; lo si può fare

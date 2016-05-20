@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 8016f31ef2a25bf9492a6ba65dc627622beac4af
+    Translation of GIT committish: 4c31c117565b1c7dd78e606fceb7cba354f2859a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2179,7 +2179,7 @@ sopranoMusic = \relative { a'4 b c b8( a) }
 altoMusic = \relative { e'4 e e f }
 tenorMusic = \relative { c'4 b e d8( c) }
 bassMusic = \relative { a4 gis a d, }
-allLyrics = \lyricmode {King of glo -- ry }
+allLyrics = \lyricmode { King of glo -- ry }
 <<
   \new Staff = "Soprano" \sopranoMusic
   \new Lyrics \allLyrics
@@ -2197,13 +2197,11 @@ allLyrics = \lyricmode {King of glo -- ry }
   \new Lyrics \allLyrics
   \new PianoStaff <<
     \new Staff = "Destra" {
-      \set Staff.printPartCombineTexts = ##f
       \partcombine
       \sopranoMusic
       \altoMusic
     }
     \new Staff = "Sinistra" {
-      \set Staff.printPartCombineTexts = ##f
       \clef "bass"
       \partcombine
       \tenorMusic
@@ -2367,21 +2365,37 @@ musica = \relative c'' {
 }
 @end lilypond
 
-Due o più filtri @code{\keepWithTag} applicati a una singola espressione
-musicale toglieranno @emph{tutte} le sezioni etichettate, perché il primo
-filtro toglie tutte le sezioni etichettate eccetto quella menzionata
-e il secondo filtro toglie anche quella sezione etichettata. Di solito
-si usa invece un singolo comando @code{\keepWithTag} con una lista di
-varie etichette: in questo modo verranno rimosse soltanto le sezioni
-etichettate non specificate nella lista.
+Applicando due o più filtri @code{\keepWithTag} su una singola espressione
+musicale toglieranno @emph{tutte} le sezioni etichettate.  Il primo filtro
+toglie tutto tranne la sezione menzionata e qualsiasi filtro successivo toglie
+il resto.  Usando un singolo comando @code{\keepWithTag} con una lista di
+varie etichette vengono rimosse soltanto le sezioni etichettate non specificate
+in quella lista.
+
+@lilypond[verbatim,quote]
+music = \relative c'' {
+  \tag #'violinoI { a4 a a a }
+  \tag #'violinoII { b4 b b b }
+  \tag #'viola { c4 c c c }
+  \tag #'cello { d4 d d d }
+}
+
+\new Staff {
+  \keepWithTag #'(violinI violinII)
+  \music
+}
+@end lilypond
+
+@noindent
+farà apparire le etichette @var{violinoI} e @var{violinoII} ma non
+@var{viola} o @var{cello}.
 
 @cindex etichette, gruppi di
 @funindex \tagGroup
 Mentre @code{\keepWithTag} è comodo con @emph{un} gruppo di alternative, la
 rimozione di musica contrassegnata con etichette @emph{indipendenti} è
-problematico se si usano le etichette con diverse finalità. Per questa
-ragione, è possibile dichiarare @q{gruppi di etichette} per raggruppare
-etichette correlate:
+problematico se si usano le etichette con diverse finalità.  In questo
+caso, è possibile dichiarare @q{gruppi} di etichette:
 
 @example
 \tagGroup #'(violinoI violinoII viola cello)
@@ -2393,14 +2407,30 @@ dichiara che queste etichette appartengono a un gruppo.
 \keepWithTag #'violinoI @dots{}
 @end example
 
-filtrerà allora soltanto le etichette presenti nel gruppo cui appartiene
-@code{violinoI}: verrà tolto qualsiasi elemento che sia contrassegnato
-con una o più etichette di questo gruppo ma @emph{non} con @code{violinoI}.
+@noindent
+ora mostrerà soltanto la musica contrassegnata con le etichette presenti nel
+gruppo cui appartiene @code{violinoI} e verrà tolta la musica contrassegnata
+con una delle @emph{altre} etichette.
 
-Per il comando @code{\keepWithTag}, sono visibili solo le etichette provenienti
-dai gruppi cui appartengono le etichette specificate dopo il comando.
+@lilypond[verbatim,quote]
+music = \relative {
+  \tagGroup #'(violinoI violinoII viola cello)
+  \tag #'violinoI { c''4^"violinI" c c c }
+  \tag #'violinoII { a2 a }
+  \tag #'viola { e8 e e2. }
+  \tag #'cello { d'2 d4 d }
+  R1^"non contrassegnato"
+}
 
-Non è possibile assegnare la stessa etichetta a più di un gruppo.
+\new Voice {
+  \keepWithTag #'violinoI
+  \music
+}
+@end lilypond
+
+Quando si usa il comando @code{\keepWithTag}, sono visibili solo le etichette
+provenienti dai gruppi cui appartengono le etichette specificate dopo il comando.
+
 
 @funindex \pushToTag
 @funindex \appendToTag
@@ -2413,15 +2443,15 @@ musicale esistente.  Non tutti i costrutti musicali hanno elementi, ma nel caso
 di musica sequenziale e simultanea si può esserne sicuri:
 
 @lilypond[verbatim,quote]
-test = { \tag #'qui { \tag #'qui <<c''>> } }
+music = { \tag #'qui { \tag #'qui <<c''>> } }
 
 {
   \pushToTag #'qui c'
   \pushToTag #'qui e'
-  \pushToTag #'qui g' \test
+  \pushToTag #'qui g' \music
   \appendToTag #'qui c'
   \appendToTag #'qui e'
-  \appendToTag #'qui g' \test
+  \appendToTag #'qui g' \music
 }
 @end lilypond
 
@@ -2532,9 +2562,11 @@ FT_Get_Glyph_Name () error: invalid argument
 
 Ecco un esempio che mostra del testo cirillico, ebraico e portoghese:
 
+@c NOTE: No verbatim in the following example as the code does not
+@c display correctly in PDF Font settings for Cyrillic and Hebrew
+
 @lilypond[quote]
-% Impostazioni dei tipi di carattere per il cirillico e l'ebraico
-% Il tipo di carattere Linux Libertine contiene i glifi cirillici e ebraici.
+% I tipi di carattere Linux Libertine contengono i glifi cirillici e ebraici.
 \paper {
   #(define fonts
     (set-global-fonts
@@ -2796,9 +2828,9 @@ voci e su tutti i righi, facendo risparmiare tempo ulteriormente.
 @cindex EPS, output
 
 I formati di output predefiniti per la partitura stampata sono Portable
-Document Format (PDF) e PostScript (PS).  Sono disponibili anche i
-formati di output Scalable Vector Graphics (SVG), Encapsulated PostScript (EPS) e
-Portable Network Graphics (PNG) attraverso le opzioni della linea di comando,
+Document Format (PDF) e PostScript (PS).  È disponibile anche l'output
+nei formati Portable Network Graphics (PNG), Scalable Vector Graphics (SVG)
+e Encapsulated PostScript (EPS) attraverso l'opzione da linea di comando,
 vedi @rprogram{Opzioni di base della linea di comando per LilyPond}.
 
 
@@ -3612,9 +3644,10 @@ File installati:
 accordi, cosa che potrebbe non essere appropriata per alcuni tipi di
 strumento, come nel caso della musica per organo. Potrebbe essere ridotta
 anche la durata di note prive di articolazioni.
-Dunque per compensare tutto ciò, limitare l'uso del comando @code{\articulate}
+Dunque, per consentire tutto ciò, limitare l'uso del comando @code{\articulate}
 a brevi segmenti di musica o modificare i valori delle variabili definite
-nello script @file{articulate}.}
+nello script @file{articulate} per compensare il comportamento di accorciamento
+della durata delle note.}
 
 
 
@@ -3666,15 +3699,16 @@ lilypond file.ly >display.txt
 @c https://lists.gnu.org/archive/html/lilypond-user/2015-12/msg00141.html
 Nota bene che Lilypond non soltanto mostra in console l'espressione musicale, ma
 la interpreta anche (infatti l'espressione musicale di @code{\displayLilyMusic}
-appare nell'output oltre a essere mostrata in console).  Ciò è comodo, perché
-si può inserire @code{\displayLilyMusic} in file esistenti, senza doverne
-modificare le note di input, per ottenere informazioni su di essi.  Se non si
-vuole che Lilypond interpreti la musica mostrata in console, basta precedere
-il comando con @code{\void} per far sì che sia ignorata:
+appare nell'output oltre a essere mostrata in console).  Basta inserire
+@code{\displayLilyMusic} in file esistenti, senza doverne modificare le
+note di input, per ottenere informazioni su di essi.  Per interpretare e
+mostrare una sezione musicale nella console ma, allo stesso tempo, toglierla
+dal file di output, usare il comando @code{\void}:
 
 @example
 @{
   \void \displayLilyMusic \transpose c a, @{ c4 e g a bes @}
+  c1
 @}
 @end example
 

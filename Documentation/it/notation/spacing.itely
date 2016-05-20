@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 410fe169a1eeff173aed62d85b79686532b379ff
+    Translation of GIT committish: 1e339d5efe13a725a4f0c2d8dfc3d40390446b89
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -926,8 +926,8 @@ I valori predefiniti non elencati qui sono visibili in
 
 L'algoritmo di interruzione di pagina da usare.  Le opzioni sono
 @code{ly:minimal-breaking}, @code{ly:page-turn-breaking},
-@code{ly:one-line-breaking} e @code{ly:optimal-breaking}
-(predefinito).
+@code{ly:one-line-breaking}, @code{ly:one-line-auto-height-breaking} e
+@code{ly:optimal-breaking} (predefinito).
 
 @item page-breaking-system-system-spacing
 @funindex page-breaking-system-system-spacing
@@ -1462,10 +1462,11 @@ il comando @code{\break}:
 }
 @end lilypond
 
-Per impostazione predefinita, un comando @code{\break} nel mezzo di una
-misura viene ignorato e apparirà un avvertimento nella console.  Per forzare
-un'interruzione di linea nel mezzo di una misura, aggiungere una stanghetta
-invisibile con @w{@samp{\bar ""}}:
+Per impostazione predefinita, un comando @code{\break} inserito nel mezzo di una
+misura viene ignorato (e apparirà un messaggio di avvertimento durante la
+compilazione del file LilyPond).  L'aggiunta di una stanghetta invisibile
+-- @w{@samp{\bar ""}} -- prima del comando @code{\break} forzerà l'interruzione
+di linea:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
@@ -1476,14 +1477,12 @@ invisibile con @w{@samp{\bar ""}}:
 }
 @end lilypond
 
-Un @code{\break} successivo a una stanghetta viene ignorato se la
-misura precedente termina nel mezzo di una nota, come quando un
-gruppo irregolare inizia e termina in misure diverse.  Per far sì
-che i comandi @code{\break} funzionino in queste situazioni, togliere
-l'incisore @code{Forbid_line_break_engraver} dal contesto @code{Voice}.
-@c TODO: frase originale non chiara - fb
-Nota che le interruzioni di linea forzate manualmente devono essere
-aggiunte in parallelo con la musica:
+Un comando @code{\break} successivo a una stanghetta viene ignorato se la
+misura precedente termina nel mezzo di una nota (per esempio, quando un
+gruppo irregolare inizia in una misura e termina in un'altra).  In questo
+caso conviene togliere l'incisore @code{Forbid_line_break_engraver} dal
+contesto @code{Voice} e usare una costruzione musicale simultanea inserendo
+il @code{\break} nel punto giusto della seconda voce:
 
 @lilypond[quote,ragged-right,verbatim]
 \new Voice \with {
@@ -1496,9 +1495,9 @@ aggiunte in parallelo con la musica:
 }
 @end lilypond
 
-Analogalmente, le interruzioni di linea sono normalmente proibite quando le
-travature oltrepassano una stanghetta.  Tale comportamento può essere
-modificato impostando @code{\override Beam.breakable = ##t}:
+Analogalmente, le interruzioni di linea vengono ignorate quando le travature
+oltrepassano una stanghetta.  Tale comportamento predefinito può
+essere modificato col comando @code{\override Beam.breakable = ##t}:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
@@ -1508,7 +1507,7 @@ modificato impostando @code{\override Beam.breakable = ##t}:
 }
 @end lilypond
 
-Il comando @code{\noBreak} vieta un'interruzione di linea sulla
+Il comando @code{\noBreak} impedisce un'interruzione di linea sulla
 stanghetta in cui è inserito.
 
 In una partitura, l'interruzione di linea automatica è vietata per
@@ -1612,6 +1611,7 @@ spiega come modificarli.
 * Interruzione di pagina ottimale::
 * Interruzione di pagina minimale::
 * Interruzione di pagina su una linea::
+* Interruzione di pagina su una linea con altezza automatica::
 * Voltata di pagina ottimale::
 @end menu
 
@@ -1653,8 +1653,8 @@ pagina (o in fondo all'ultima pagina di ciascun
 @ref{Fixed vertical spacing paper variables,,Variabili fisse della spaziatura verticale di @code{@bs{}paper}}.
 
 Le interruzioni di pagina sono calcolate dalla funzione @code{page-breaking}.
-LilyPond fornisce tre algoritmi per calcolare le interruzioni di pagina:
-@code{ly:optimal-breaking}, @code{ly:page-turn-breaking} e
+LilyPond fornisce vari algoritmi per calcolare le interruzioni di pagina, tra
+cui @code{ly:optimal-breaking}, @code{ly:page-turn-breaking} e
 @code{ly:minimal-breaking}.  Quello predefinito è
 @code{ly:optimal-breaking}, ma il valore può essere modificato nel
 blocco @code{\paper}:
@@ -1774,14 +1774,33 @@ Frammenti:
 
 La funzione @code{ly:one-line-breaking} è un algoritmo di interruzione
 di pagina per uso speciale in quanto pone ogni brano su una sola pagina e
-una singola linea.  Tale funzione non fa apparire titoli e margini,
-viene mostrato solo il brano musicale.
+una singola linea.  Non appaiono né titoli né margini, ma viene
+mostrato solo il brano musicale.
 
-La larghezza della pagina sarà regolata in modo che il brano più
+La larghezza della pagina è regolata in modo che il brano più
 lungo stia su una sola linea.  In particolare, le variabili @code{paper-width},
-@code{line-width} e @code{indent} del blocco @code{\paper} saranno
-ignorati, sebbene @code{left-margin} e @code{right-margin} saranno
-comunque considerati.  L'altezza della pagina resterà invariata.
+@code{line-width} e @code{indent} del blocco @code{\paper} vengono
+ignorate, sebbene @code{left-margin} e @code{right-margin} siano
+comunque considerate.  L'altezza della pagina resta invariata.
+
+
+@node Interruzione di pagina su una linea con altezza automatica
+@unnumberedsubsubsec Interruzione di pagina su una linea con altezza automatica
+@translationof One-line-auto-height page breaking
+
+@funindex ly:one-line-auto-height-breaking
+
+La funzione @code{ly:one-line-auto-height-breaking} funziona proprio come
+@code{ly:one-line-breaking} con la differenza che l'altezza della pagina
+viene modificata automaticamente per adattarsi all'altezza della musica.
+Più precisamente, la variabile @code{paper-height} del blocco @code{\paper}
+viene impostata in modo che abbracci l'altezza della partitura più alta
+e i margini superiore e inferiore (@code{top-margin} e @code{bottom-margin}).
+
+Fare attenzione al fatto che l'impostazione @code{top-system-spacing} avrà
+effetto sulla posizione verticale della musica.  Impostarla su @code{##f} in
+un blocco @code{\paper} per posizionare la musica tra i margini superiore e
+inferiore.
 
 
 @node Voltata di pagina ottimale
@@ -1842,14 +1861,14 @@ impostarla su un valore @qq{molto grande}.
 @end example
 
 @funindex minimumRepeatLengthForPageTurn
-In caso di ripetizioni con finali alternativi, @code{Page_turn_engraver}
+Quando si usano ripetizioni con finali alternativi, l'incisore @code{Page_turn_engraver}
 permetterà una voltata di pagina durante la ripetizione soltanto se c'è
 abbastanza tempo all'inizio e alla fine della ripetizione per voltare
-indietro la pagina.  Se la ripetizione è molto breve, si può usare
-@code{Page_turn_engraver} anche per disabilitare le voltate impostando
-un valore per la proprietà di contesto @code{minimumRepeatLengthForPageTurn},
-dato che @code{Page_turn_engraver} consente le voltate soltanto nelle ripetizioni
-la cui durata sia maggiore di questo valore.
+indietro la pagina.  Se la ripetizione è troppo breve, si può usare
+@code{Page_turn_engraver} per @emph{disabilitare} le voltate impostando
+un valore appropriato per la proprietà di contesto @code{minimumRepeatLengthForPageTurn}.
+In questo caso @code{Page_turn_engraver} consentirà le voltate soltanto nelle
+ripetizioni la cui durata sia maggiore del valore specificato.
 
 I comandi per le voltate di pagina (@code{\pageTurn}, @code{\noPageTurn}
 e @code{\allowPageTurn}), possono essere usati anche nel livello superiore,
@@ -2545,12 +2564,12 @@ vedendo un esempio che non contiene alcuna modifica.
 Questa partitura isola l'informazione sulle interruzioni di linea e di pagina
 in una voce apposita.  Questa tecnica di creare una voce per le interruzioni
 permette di tenere la formattazione separata dalla musica via via che il
-nostro esempio diventa più complicato.  Vedi @ref{Breaks}.
+nostro esempio diventa più complicato.  Vedi anche @ref{Breaks}.
 
-I @code{\break} espliciti dividono proporzionalmente la musica in cinque
-misure per linea.  La spaziatura verticale è quella predefinita di
-LilyPond.  Per impostare esplicitamente il punto di inizio verticale di
-ogni sistema, possiamo impostare la coppia @code{Y-offset} dell'attributo
+Usando comandi @code{\break} espliciti, la musica viene divisa proporzionalmente
+in cinque misure per linea.  La spaziatura verticale è quella predefinita di
+LilyPond ma il punto di inizio verticale di ogni sistema è impostato
+esplicitamente con la coppia @code{Y-offset} dell'attributo
 @code{line-break-system-details} del grob @code{NonMusicalPaperColumn}:
 
 @lilypond[verbatim,quote,staffsize=16]
@@ -2717,6 +2736,9 @@ collisione con alcun oggetto che sia già stato disposto.  Ovvero, se due
 grob esterni al rigo si contendono lo stesso spazio, quello col valore
 di @code{outside-staff-priority} più basso sarà posto più vicino al rigo.
 
+Un elenco delle proprietà esterne al rigo si trova in
+@rlearning{La proprietà outside-staff-priority}.
+
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
   c4_"Testo"\pp
@@ -2852,16 +2874,17 @@ seguiti dalla metà di LTN:
 @end lilypond
 
 
-Nel saggio @emph{Essay on automated music engraving}, è spiegato che
-le direzioni del gambo influenzano la spaziatura (vedi
-@ressay{Optical spacing}).  Ciò è regolato dalla proprietà
-@code{stem-spacing-correction} nell'oggetto
-@rinternals{NoteSpacing}.  Questi oggetti sono generati per ogni
-contesto @rinternals{Voice}.  L'oggetto @code{StaffSpacing}
-(generato nel contesto @rinternals{Staff}) contiene la stessa
-propreità per regolare la spaziatura tra gambo e stanghetta.  L'esempio
-seguente mostra queste correzioni, una volta con le impostazioni predefinite
-e una volta con correzioni esagerate:
+Come è spiegato nel saggio @emph{Essay on automated music engraving}, le
+direzioni del gambo influenzano la spaziatura (vedi @ressay{Optical spacing}) e
+possono essere aggiustate usando la proprietà @code{stem-spacing-correction}
+dell'oggetto @rinternals{NoteSpacing} (che sono generati per ogni
+contesto @rinternals{Voice}.
+
+L'oggetto @code{StaffSpacing} (generato nel contesto @rinternals{Staff})
+contiene la stessa proprietà per regolare la spaziatura tra gambo e stanghetta.
+
+L'esempio seguente mostra tutto questo: una volta con le impostazioni
+predefinite e una volta con un aggiustamento esagerato:
 
 @lilypond[quote,ragged-right]
 \fixed c' {
@@ -2912,11 +2935,13 @@ Non esiste alcun trucco per diminuire la quantità di spazio.
 @cindex note, spaziatura orizzontale
 
 Nuove sezioni con parametri di spaziatura diversi possono essere iniziati
-con @code{newSpacingSection}.  Ciò può essere utile quando ci sono sezioni
-con nozioni diverse di note lunghe e brevi.
+col comando @code{\newSpacingSection}.  Ciò può essere utile per sezioni
+con nozioni diverse di note @q{lunghe} e note @q{brevi}.  Il comando
+@code{\newSpacingSection} crea un nuovo oggetto @code{SpacingSpanner} in
+quel momento musicale.
 
 Nell'esempio seguente, il cambio di indicazione di tempo introduce una
-nuova sezione, quindi i sedicesimi hanno automaticamente una spaziatura
+nuova sezione, e i sedicesimi hanno automaticamente una spaziatura
 un po' più larga.
 
 @lilypond[verbatim,quote]
@@ -2930,13 +2955,11 @@ un po' più larga.
 }
 @end lilypond
 
-Il comando @code{\newSpacingSection} crea un nuovo oggetto
-@code{SpacingSpanner} in quel momento musicale.
 Se gli aggiustamenti automatici della spaziatura non producono la
 spaziatura richiesta, si possono applicare degli @code{\override}
 manuali alle sue proprietà.  Questi devono essere applicati nello
-stesso momento musicale del comando @code{\newSpacingSection} stesso.
-Avranno effetto sulla spaziatura di tutta la musica seguente finché
+stesso momento musicale del comando @code{\newSpacingSection} stesso e
+avranno effetto sulla spaziatura di tutta la musica seguente finché
 le proprietà non vengono cambiate in una nuova sezione.  Per esempio:
 
 @lilypond[verbatim,quote]

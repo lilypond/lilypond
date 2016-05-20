@@ -1,4 +1,4 @@
-%% Translation of GIT committish: a51b7ab55aed341ffd8af27a357212ed7ef528b9
+%% Translation of GIT committish: e0808cc5f4890c5f8f03ed1be48fc911627afea4
   texidocit = "
 Talvolta un'indicazione di tempo non deve mostrare la frazione intera (ad esempio
 7/4), ma solo il numeratore (7 in questo caso). Si può ottenere facilmente con

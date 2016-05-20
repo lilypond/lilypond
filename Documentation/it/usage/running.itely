@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 
 @ignore
-    Translation of GIT committish: 8706e77a804e412e751fdd47385c8ccfdc28e732
+    Translation of GIT committish: 0fa6f042cccacb643d46781dde23617c71a9753e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -251,6 +251,10 @@ Formati di output.  Come @code{formato} si può scegliere tra
 
 Esempio: @code{lilypond -fpng @var{file}.ly}
 
+@noindent
+Per i formati @code{svg} e @code{eps} usare l'opzione @code{-dbackend}.
+Vedi @ref{Advanced command line options for LilyPond}.
+
 @item -h, --help
 Mostra una sintesi dell'utilizzo.
 
@@ -483,22 +487,22 @@ di @code{-dno-print-pages}.
 @item
 @tab @code{svg}
 @tab Scalable Vector Graphics.
-Viene creato un singolo file SVG per ogni pagina dell'output.  Eccetto i
-glifi musicali di LilyPond, nessun altro tipo di carattere verrà incorporato
-nel file.  Dunque qualsiasi lettore SVG dovrà avere accesso ai tipi di
-carattere per rendere in modo adeguato il testo.  Si raccomanda di non usare
-gli @q{alias} o le @q{liste} dei tipi di carattere se il lettore SVG non è
+Viene creato un singolo file SVG per ogni pagina dell'output.  I glifi
+musicali vengono tradotti in grafica vettoriale, ma i tipi di carattere
+del testo @emph{non} sono incorporati nei file SVG.  Dunque qualsiasi
+lettore SVG dovrà avere accesso ai tipi di carattere necessari per
+rendere in modo adeguato il testo.  Si raccomanda di non usare
+@q{liste} o @q{alias} dei tipi di carattere se il lettore SVG non è
 in grado di gestirli.  Se si usano i file @emph{Web Open Font Format} (WOFF),
 è richiesta anche l'opzione @code{svg-woff}.
 @end multitable
 
 @noindent
 @strong{Nota per l'output del backend svg:}
-I tipi di carattere predefiniti di LilyPond (@code{LilyPond Serif},
-@code{LilyPond Sans Serif} e @code{LilyPond Monospace}) sono solo alias
-@emph{locali}.  Dunque quando si usa il backend @code{svg} è obbligatorio
-definire esplicitamente i tipi di carattere predefiniti nel proprio file
-di input:
+Nell'output svg LilyPond usa i valori generici @code{serif}, @code{sans-serif} o
+@code{monospace} di @code{font-family}.  Dunque quando si usa il backend
+@code{svg} è obbligatorio definire esplicitamente specifici tipi di carattere
+predefiniti nel proprio file di input:
 
 @quotation
 @verbatim
@@ -578,6 +582,10 @@ la compilazione.
 @item @code{dump-signatures}
 @tab @code{#f}
 @tab Scarica le firme dell'output di ogni sistema. Usato per testare le regressioni.
+
+@item @code{embed-source-code}
+@tab @code{#f}
+@tab Incorpora i file sorgente LilyPond nel documento PDF generato.
 
 @item @code{eps-box-padding}
 @tab @code{#f}

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 674ed28bf0355426499a9ce19562d11d1addca42
+    Translation of GIT committish: 7f4a65db65f3a8eba89cc9d78101f3f7fd71a5e9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -416,7 +416,7 @@ allora si tratta di un bug.
 Potremmo già essere a conoscenza di questo bug.  Controlla qui:
 
 @example
-@uref{http://code.google.com/p/lilypond/issues/list}
+@uref{http://sourceforge.net/p/testlilyissues/issues/}
 @end example
 
 @warning{Per favore @strong{NON} aggiungere segnalazioni di bug direttamente
@@ -882,30 +882,114 @@ manuali sono reperibili su @url{http://lilypond.org}}
 @divClass{column-center-top}
 @subheading Che cos'è il Google Summer of Code?
 
-È un programma internazionale organizzato da Google che offre agli studenti
-degli stipendi per lavorare a progetti di software libero durante le
-vacanze estive.
+@uref{https://developers.google.com/open-source/gsoc/, GSoC} è un programma
+internazionale che offre agli studenti degli stipendi per scrivere codice per
+progetti di software libero e open source durante l'estate.  È un'ottima
+opportunità per gli studenti per fare esperienza con lo sviluppo software
+in un progetto vero e per dare un contributo da cui tutti potranno trarre
+vantaggio.  Attrae nuovi collaboratori e stimola gli studenti che già
+partecipano allo sviluppo di LilyPond ad impegnarsi di più in esso.  LilyPond
+partecipa a GSoC sotto l'egida del @uref{http://www.gnu.org/, progetto GNU}.
 
-È un'ottima opportunità per trovare nuovi collaboratori e per stimolare gli
-studenti che già partecipano allo sviluppo di LilyPond ad impegnarsi di
-più in esso.  Uno dei nostri sviluppatori è stato accettato
-per il programma 2012 sotto l'egida del @uref{http://www.gnu.org/, progetto GNU} e
-siamo sempre in cerca di persone che vogliano partecipare ai programmi futuri.
+Abbiamo avuto partecipanti al GSoC nel 2012 e nel 2015 e invitiamo gli studenti
+a fare domanda per le prossime estati.
+
+Se hai dubbi o desideri presentare domanda, invia un'email alla nostra
+mailing list degli sviluppatori (vedi @ref{Contact}).
 
 @divEnd
 
 @divClass{column-center-middle-color2}
-@subheading La lista delle nostre idee
+@subheading Elenco di idee di progetti
 
-Ecco una lista di progetti suggeriti agli studenti del GSoC 2012.  Viene
-conservata qui come fonte di ispirazione per chiunque sia interessato a
-contribuire allo sviluppo di LilyPond in futuri progetti GSoC.
-Ci sono molte altre cose da fare per migliorare LilyPond e i membri del
-team di sviluppo sono sempre disponibili a aiutare chi volesse affrontare
-progetti simili a quelli elencati sotto.
+Ecco un elenco di progetti suggeriti per il GSoC o per chiunque sia interessato
+a aiutare a migliorare LilyPond. (Ultimo aggiornamento: Febbraio 2016)
+
+La disponibilità di mentori varia da progetto a progetto e di anno in anno.
+Invia un'email alla nostra mailing list degli sviluppatori (vedi @ref{Contact})
+e ti aiuteremo a trovare un mentore per un progetto che sia adatto ai tuoi
+interessi e capacità.
+
+Se hai idee per un progetto GSoC che non è elencato qui sotto, puoi inviarci
+un'email per discuterne.  Ci sono molte aree in cui LilyPond può essere
+migliorato e il nostro team di sviluppo è sempre disponibile a aiutare
+coloro che desiderino affrontare un progetto come quelli di seguito elencati.
 
 Una lista completa di tutti i problemi da risolvere si trova
-@uref{http://code.google.com/p/lilypond/issues/list, qui}.
+@uref{http://sourceforge.net/p/testlilyissues/issues/, qui}.
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Migliorare la struttura interna degli accordi
+
+La rappresentazione interna degli accordi in LilyPond non è abbastanza potente
+da comprendere la nomenclatura degli accordi jazz.  Attualmente l'accordo ha
+una radice, un basso e un'inversione.  Sarebbe auspicabile poter gestire
+accordi @qq{impilati} o bicordi, minori/maggiori, etc.  Per poter far questo,
+deve essere sviluppata una rappresentazione interna capace di catturare
+l'essenza di accordi complessi.  Una volta che questa rappresentazione
+interna viene sviluppata, c'è un'ulteriore vantaggio: sarà più semplice
+migliorare la formattazione dei nomi degli accordi.
+
+@strong{Difficoltà:} Facile/media
+@strong{Requisiti:} Scheme (Guile), ma il livello necessario può essere
+facilmente imparato
+@strong{Consigliato:} Teoria e nomenclatura degli accordi
+@strong{Mentore:} Carl Sorensen
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading ScholarLY
+
+ScholarLY è una libreria di
+@uref{https://openlilylib.org, openLilyLib} che fornisce delle funzionalità
+per aggiungere annotazioni alle partiture, rendendo possibile la gestione
+dei flussi di lavoro accademici nel contesto del documento della partitura.
+Finora è possibile inserire delle annotazioni di diverso tipo, produrre
+messaggi cliccabili nell'output della console e esportare su file di testo
+o LaTeX.
+
+Ci sono numerose richieste di nuove funzionalità per trasformare questa
+libreria in uno strumento ancora più potente e completo.  Alcuni esempi:
+inserimento di esempi musicali, creazione di note a piè di pagina, applicazione
+automatica di stili all'elemento annotato (per esempio, usare il trattino per
+la legatura di portamento, mettere un'alterazione tra parentesi), creazione
+di resoconti con voci punta-e-clicca.  Una descrizione completa di questo
+progetto si trova in
+@uref{https://github.com/openlilylib/scholarly/wiki/GSoC, questa pagina Wiki}.
+
+@strong{Difficoltà:} media
+@strong{Requisiti:} Scheme, possibilmente LaTeX, (opzionalmente Python)
+@strong{Consigliato:} Esperienza o interesse nelle edizioni accademiche e
+nei progetti collaborativi.
+@strong{Mentore:} Urs Liska
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Aggiungere varianti dei glifi dei tipi di carattere
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+Aggiungere varianti @q{sulla} linea del rigo e @q{tra} le linee dei righi.
+
+@item
+Varianti più corte e più strette di alcuni glifi, come ad esempio le
+alterazioni.  Un altro esempio più specifico è la testa della nota
+breve nella notazione antica che ha due varianti, con un @q{buco} più
+piccolo o più grande.
+
+@end itemize
+@divEnd
+
+@strong{Difficoltà:} facile
+@strong{Requisiti:} MetaFont, C++, buon occhio per il dettaglio
+@strong{Conoscenze consigliate:} conoscenza di base di LilyPond
+@strong{Mentore/i:} Werner Lemberg
 
 @divEnd
 
@@ -914,16 +998,88 @@ Una lista completa di tutti i problemi da risolvere si trova
 
 Correggere i problemi di sincronizzazione degli abbellimenti.
 Gli abbellimenti possono interferire col modo in cui LilyPond
-gestisce il tempo e causare strani effetti, specialmente quando si usano
-più righi e alcuni di questi hanno degli abbellimenti mentre altri
-non ce li hanno.
+gestisce il tempo e causare strani effetti, specialmente quando si
+usano più righi e alcuni di questi hanno degli abbellimenti mentre
+altri non ce li hanno.  Questo è uno dei
+@uref{https://sourceforge.net/p/testlilyissues/issues/34/,bug}  più
+imbarazzanti e di vecchia data in LilyPond.
 
 @strong{Difficoltà:} media
 @strong{Requisiti:} C++, MIDI
 @strong{Consigliato:} familiarità col funzionamento interno di LilyPond
-@strong{Mentore/i:} Mike Solomon, Carl Sorensen
+@strong{Mentori potenziali:} Mike Solomon (non disponibile per GSoC 2016), Carl Sorensen
 
 @divEnd
+
+
+@divClass{column-center-middle-color3}
+@subheading Migliorare la disposizione predefinita delle travature
+
+Per le travature normali, tra i righi, spezzate e angolari.  La disposizione
+delle travature deve dipendere dal contesto e dalle note vicine (si veda la
+sezione 2.2 di
+@uref{http://imslp.org/wiki/Repository_of_Music-Notation_Mistakes_%28Coulon%2C_Jean-Pierre%29,
+questo libro}).  Se possibile, ridurre anche il tempo di elaborazione della
+disposizione delle travature.
+
+@strong{Difficoltà:} media
+@strong{Requisiti:} C++, esperienza con la scrittura di euristiche
+@strong{Conoscenze consigliate:} senso estetico
+@strong{Mentori potenziali:} Mike Solomon (non disponibile per GSoC 2016), Carl Sorensen
+
+@divEnd
+
+
+@divClass{column-center-middle-color3}
+@subheading Permettere agli estensori di attraversare le voci
+
+Attualmente gli estensori di ogni tipo (legature di valore e di portamento,
+dinamiche, estensori del testo, trilli, etc.) devono essere terminati nel
+contesto in cui sono iniziati.  Tuttavia, questo limite non riflette la
+realtà della notazione nella maggior parte delle impostazioni polifoniche.
+Attualmente sono necessari degli scomodi espedienti che fanno uso di voci
+nascoste per ottenere degli estensori che attraversino le voci.
+
+Dovrebbero essere esplorati nuovi modi di affrontare questo problema, per
+esempio
+
+@divClass{keep-bullets}
+@itemize
+
+@item specificando un @qq{contesto obiettivo} dove è prevista la terminazione
+dell'estensore
+
+@item specificando esplicitamente l'oggetto su cui terminare l'estensore
+tramite un ID
+
+@end itemize
+@divEnd
+
+Questa funzionalità risolverebbe molti problemi che si riscontrano comunemente
+nella musica per pianoforte e nelle parti combinate.
+
+@strong{Difficoltà:} media (?)
+@strong{Requisiti:} C++, Scheme
+@strong{Mentore potenziale:} Urs Liska
+@divEnd
+
+
+@divClass{column-center-middle-color3}
+@subheading Migliorare il comportamento durante la compilazione
+
+Strumenti di analisi automatica del codice, come il rilevamento di
+perdite di memoria di valgrind e i profilatori di codice di callgrind,
+forniscono informazioni utili per individuare possibili errori nel
+nostro codice C++.  Pulire gli avvisi ci permetterebbe di automatizzare
+il rifiuto di qualsiasi patch che introduca avvisi ulteriori.
+
+@strong{Difficoltà:} media
+@strong{Requisiti:} C++
+@strong{Mentori potenziali:} Reinhold Kainhofer (non disponibile per GSoC 2016),
+Joe Neeman
+
+@divEnd
+
 
 @divClass{column-center-middle-color3}
 @subheading MusicXML
@@ -957,12 +1113,15 @@ formattazione per ogni oggetto di output ai tag XML.
 @end itemize
 @divEnd
 
+Ci sono varie direzioni possibili per questo progetto, inclusa quella di
+proseguire l'esportazione in formato MusicXML iniziata nel progetto GSoC 2015.
 
 @strong{Difficoltà:} media
-@strong{Requisiti:} MusicXML, Python, conoscenza di base di LilyPond
-@strong{Mentore/i:} Reinhold Kainhofer, Mike Solomon
+@strong{Requisiti:} MusicXML, Python, Scheme, conoscenza di base di LilyPond
+@strong{Mentori potenziali:} Reinhold Kainhofer, Mike Solomon (entrambi non
+disponibili per GSoC 2016)
 
-È auspicabile una certa familiarità con altri software di notazione musicale (a
+È utile avere una certa familiarità con altri software di notazione musicale (a
 fine comparativo).
 
 @divEnd
@@ -970,8 +1129,8 @@ fine comparativo).
 @divClass{column-center-middle-color3}
 @subheading Migliorare le legature di portamento e di valore
 
-La forma predefinita delle curve delle legature di portamento e di valore è spesso
-non soddisfacente.  Le legature di valore "spezzate" da una chiave o da
+La qualità tipografica delle legature di portamento e di valore è spesso
+non soddisfacente.  Le legature di valore @qq{spezzate} da una chiave o da
 un cambio di rigo non sono gestite al meglio.  Il progetto potrebbe
 includere la raccolta e la classificazione di esempi di output scadente, la
 decisione sull'output desiderato e la scrittura del codice per migliorarlo.
@@ -979,67 +1138,11 @@ decisione sull'output desiderato e la scrittura del codice per migliorarlo.
 @strong{Difficoltà:} difficile
 @strong{Requisiti:} C++, esperienza con la scrittura di euristica
 @strong{Conoscenze consigliate:} conoscenza di LilyPond, senso estetico
-@strong{Mentore/i:} Mike Solomon
+@strong{Mentori:} Mike Solomon, Janek Warchol (entrambi non disponibili
+per GSoC 2016)
 
 @divEnd
 
-@divClass{column-center-middle-color3}
-@subheading Aggiungere varianti dei glifi dei tipi di carattere
-
-@divClass{keep-bullets}
-@itemize
-
-@item
-Aggiungere varianti @q{sulla} linea del rigo e @q{tra} le linee dei righi.
-
-@item
-Varianti più corte e più strette di alcuni glifi, come ad esempio le
-alterazioni.  Un altro esempio più specifico è la testa della nota
-breve nella notazione antica che ha due varianti, con un @q{buco} più
-piccolo e più grande.
-
-@end itemize
-@divEnd
-
-@strong{Difficoltà:} facile
-@strong{Requisiti:} MetaFont, C++, buon occhio per il dettaglio
-@strong{Conoscenze consigliate:} conoscenza di base di LilyPond
-@strong{Mentore/i:} Werner Lemberg
-
-@divEnd
-
-
-@divClass{column-center-middle-color3}
-@subheading Migliorare la disposizione predefinita delle travature
-
-Il posizionamento predefinito delle travature normali, tra i righi, spezzate e
-angolari deve essere migliorato.  La disposizione delle travature deve dipendere
-dal contesto e dalle note vicine (si veda la
-@uref{http://icking-music-archive.org/lists/sottisier/sottieng.pdf, sezione 2.2
-qui}). Se possibile, ridurre anche il tempo di elaborazione della disposizione
-delle travature.
-
-@strong{Difficoltà:} media
-@strong{Requisiti:} C++, esperienza con la scrittura di euristiche
-@strong{Conoscenze consigliate:} senso estetico
-@strong{Mentore/i:} Mike Solomon, Carl Sorensen
-
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading Migliorare il comportamento durante la compilazione
-
-Strumenti di analisi automatica del codice, come il rilevamento di
-perdite di memoria di valgrind e i profilatori di codice di callgrind,
-forniscono informazioni utili per individuare possibili errori nel
-nostro codice C++.  Pulire gli avvisi ci permetterebbe di automatizzare
-il rifiuto di qualsiasi patch che introduca avvisi ulteriori.
-
-@strong{Difficoltà:} media
-@strong{Requisiti:} C++
-@strong{Mentore/i:} Joe Neeman, Reinhold Kainhofer
-
-@divEnd
 
 
 @node Autori

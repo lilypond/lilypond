@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
-    Translation of GIT committish: 45c9b27033acc2890f44e7eb08c29c737ca9111f
+    Translation of GIT committish: 19d0e8e1a9cee3444ec4915b1d2d116e67f5b3f7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -681,10 +681,10 @@ esempio.
 @end lilypond
 
 
-Come alternativa, si può usare il comando @code{\Staff \RemoveEmptyStaves}
+Altrimenti si può usare il comando @code{\RemoveAllEmptyStaves}
 per creare i righi ossia.  Questo metodo conviene quando i righi ossia
 si trovano subito dopo un'interruzione di linea.  Ulteriori informazioni
-su @code{\Staff \RemoveEmptyStaves} si trovano in @ref{Hiding staves}.
+su @code{\RemoveAllEmptyStaves} si trovano in @ref{Hiding staves}.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -692,6 +692,7 @@ su @code{\Staff \RemoveEmptyStaves} si trovano in @ref{Hiding staves}.
     \remove "Time_signature_engraver"
     \hide Clef
     \magnifyStaff #2/3
+    \RemoveAllEmptyStaves
   } \relative {
     R1*3
     c''4 e8 d c2
@@ -706,12 +707,6 @@ su @code{\Staff \RemoveEmptyStaves} si trovano in @ref{Hiding staves}.
   }
 >>
 
-\layout {
-  \context {
-    \Staff \RemoveEmptyStaves
-    \override VerticalAxisGroup.remove-first = ##t
-  }
-}
 @end lilypond
 
 
@@ -750,8 +745,12 @@ Guida al funzionamento interno:
 @cindex rigo, nascondere
 @cindex rigo vuoto
 @cindex nascondere i righi
+@cindex nascondere i righi antichi
+@cindex nascondere i righi ritmici
+@cindex nascondere i tetragrammi
 
 @funindex \RemoveEmptyStaves
+@funindex \RemoveAllEmptyStaves
 @funindex Staff_symbol_engraver
 @funindex \stopStaff
 @funindex stopStaff
@@ -769,11 +768,14 @@ si può usare @code{\stopStaff}.
 @end lilypond
 
 
-I righi vuoti si possono nascondere inserendo il comando
-@code{\Staff \RemoveEmptyStaves} nel blocco @code{\layout}.  Nelle
-partiture per orchestra, questo stile è noto come @q{Partitura
-alla francese}.  Questo comando nasconde e toglie tutti i righi
-vuoti di una partitura eccetto quelli nel primo sistema.
+I righi vuoti si possono nascondere (per la cosiddetta @q{partitura alla francese})
+applicando il comando @code{\RemoveEmptyStaves} a un contesto, che può
+essere fatto globalmente (in un blocco @code{\layout}) oppure soltanto per
+righi specifici (in un blocco @code{\with}).  Questo comando toglie tutti i
+righi vuoti di una partitura eccetto quelli nel primo sistema.  Per nascondere
+anche quelli del primo sistema usare il comando @code{\RemoveAllEmptyStaves}.
+I contesti supportati sono @code{Staff}, @code{RhythmicStaff} e
+@code{VaticanaStaff}.
 
 @warning{Un rigo viene considerato vuoto quando contiene soltanto  pause
 multiple,  pause, salti, pause spaziatrici o una combinazione di questi
@@ -803,31 +805,13 @@ elementi.}
 @cindex ossia
 
 @noindent
-@code{\Staff \RemoveEmptyStaves} si può usare anche per creare sezioni ossia
+@code{\RemoveAllEmptyStaves} si può usare anche per creare sezioni ossia
 per un rigo.  I dettagli si trovano in @ref{Ossia staves}.
 
-@cindex nascondere i righi antichi
-@cindex nascondere i righi ritmici
-
-@funindex \RemoveEmptyStaves
-
-Per nascondere i righi vuoti nei contesti della musica antica si può usare
-il comando @code{\VaticanaStaff \RemoveEmptyStaves}.  Analogalmente,
-@code{\RhythmicStaff \RemoveEmptyStaves} permette di nascondere i contesti
-@code{RhythmicStaff} vuoti.
-
-
 @predefined
-@code{\Staff \RemoveEmptyStaves},
-@code{\VaticanaStaff \RemoveEmptyStaves},
-@code{\RhythmicStaff \RemoveEmptyStaves}.
+@code{\RemoveEmptyStaves},
+@code{\RemoveAllEmptyStaves}.
 @endpredefined
-
-
-@snippets
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{removing-the-first-empty-line.ly}
 
 @seealso
 Glossario musicale:
