@@ -86,6 +86,7 @@
 ;;
 
 (define lilypond-declarations '())
+(define lilypond-exports '())
 (define after-session-hook (make-hook))
 
 (define-public (call-after-session thunk)
@@ -115,10 +116,14 @@ session has started."
   `(,add-session-variable ',name ,value))
 
 (defmacro-public define-session-public (name value)
-  "Like @code{define-session}, but also exports @var{name}."
-  `(begin
-     (define-session ,name ,value)
-     (export ,name)))
+  "Like @code{define-session}, but also exports @var{name} into parser modules."
+  (define (add-session-variable name value)
+    (if (ly:undead? lilypond-declarations)
+        (ly:error (_ "define-session-public used after session start")))
+    (let ((var (make-variable value)))
+      (module-add! (current-module) name var)
+      (set! lilypond-exports (acons name var lilypond-exports))))
+  `(,add-session-variable ',name ,value))
 
 (define (session-terminate)
   (if (ly:undead? lilypond-declarations)
@@ -158,7 +163,16 @@ variables to their value after the initial call of @var{thunk}."
                  (module-add! (current-module) (car p) var))))
          (ly:get-undead lilypond-declarations)))
       (begin
+        ;; import all public session variables natively into parser
+        ;; module.  That makes them behave identically under define/set!
+        (for-each (lambda (v)
+                    (module-add! (current-module) (car v) (cdr v)))
+                  lilypond-exports)
+        ;; Initialize first session
         (thunk)
+        ;; lilypond-exports is no longer needed since we will grab its
+        ;; values from (current-module).
+        (set! lilypond-exports #f)
         (set! lilypond-interfaces
               (filter (lambda (m) (eq? 'interface (module-kind m)))
                       (module-uses (current-module))))
