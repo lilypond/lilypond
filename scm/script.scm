@@ -110,6 +110,13 @@
         (script-stencil . (feta . ("halfopen" . "halfopen")))
         (direction . ,UP)))
 
+    ("halfopenvertical"
+     . (
+        (avoid-slur . outside)
+        (padding . 0.20)
+        (script-stencil . (feta . ("halfopenvertical" . "halfopenvertical")))
+        (direction . ,UP)))
+
 
     ("ictus"
      . (
