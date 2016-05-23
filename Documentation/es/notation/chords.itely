@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 83c5b56f8a495df4fca2551957e0fd8757ec3651
+    Translation of GIT committish: 828310574b05b95170920eabb8142bf0e8f23182
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -55,27 +55,28 @@ notas.
 @cindex acordes de jazz
 @cindex jazz, acordes de
 
-Los acordes se pueden escribir como música simultánea, como se explica
-en @ref{Notas en acorde}.
+Los acordes se pueden escribir como música simultánea, como se
+explica en @ref{Notas en acorde}.
 
-También se pueden escribir los acordes en el @qq{modo de acordes}, que
-es un modo de entrada que se centra en las estructuras de los acordes
-dentro de la música europea tradicional (donde se conoce como «cifrado
-americano») más que en las notas concretas.  Esto es muy práctico para
-los que están familiarizados con la utilización de nombres para
-describir los acordes.  Hay más información sobre los distintos modos
-de entrada en @ref{Modos de entrada}.
+También se pueden escribir los acordes en el @qq{modo de acordes},
+que es un modo de entrada que se centra en las estructuras de los
+acordes dentro de la música europea tradicional (donde se conoce
+como «cifrado americano») más que en las notas concretas.  Esto es
+muy práctico para los que están familiarizados con la utilización
+de nombres para describir los acordes.  Hay más información sobre
+los distintos modos de entrada en @ref{Modos de entrada}.
 
 @lilypond[verbatim,quote,ragged-right]
 \chordmode { c1 g a g c }
 @end lilypond
 
-Los acordes escritos con el modo de acordes son elementos musicales, y
-se pueden transportar igual que los acordes escritos mediante
-construcciones de música simultánea. @code{\chordmode} es absoluto,
-pues @code{\relative} no tiene ningún efecto sobre los bloques
-@code{chordmode}.  Sin embargo, dentro de @code{\chordmode} las
-alturas absolutas son una octava más agudas que en el modo de notas.
+Los acordes escritos con el modo de acordes son elementos
+musicales, y se pueden transportar igual que los acordes escritos
+mediante construcciones de música simultánea. @code{\chordmode} es
+absoluto, pues @code{\relative} no tiene ningún efecto sobre los
+bloques @code{chordmode}.  Sin embargo, dentro de
+@code{\chordmode} las alturas absolutas son una octava más agudas
+que en el modo de notas.
 
 Se pueden mezclar los modos de acorde y de nota en la música
 secuencial:
@@ -101,29 +102,9 @@ Fragmentos de código:
 @rlsr{Chords}.
 
 @knownissues
-No se pueden usar las abreviaturas predefinidas de articulaciones y
-adornos sobre notas dentro del modo de acordes; véase
+No se pueden usar las abreviaturas predefinidas de articulaciones
+y adornos sobre notas dentro del modo de acordes; véase
 @ref{Articulaciones y ornamentos}.
-
-Cuando se mezclan los modos de acorde y de nota en música secuencial,
-y el modo de acordes aparece en primer lugar, el modo de notas crea un
-nuevo contexto de @code{Staff}:
-
-@lilypond[verbatim,quote,ragged-right,relative=1]
-\chordmode { c2 f }
-<c e g>2 <g' b d>
-@end lilypond
-
-@noindent
-Para evitar este comportamiento podemos crear explícitamente el
-contexto de @code{Staff}:
-
-@lilypond[verbatim,quote,ragged-right,relative=1]
-\new Staff {
-  \chordmode { c2 f }
-  <c e g>2  <g' b d>
-}
-@end lilypond
 
 
 @node Acordes más usuales
@@ -144,7 +125,8 @@ duración opcional:
 @end lilypond
 
 Las tríadas menores, aumentadas y disminuidas se escriben poniendo
-@code{:} y una cadena modificadora de variante después de la duración:
+@code{:} y una cadena modificadora de variante después de la
+duración:
 
 @lilypond[verbatim,quote,ragged-right]
 \chordmode { c2:m f4:aug g:dim }
@@ -161,13 +143,14 @@ Se pueden crear acordes de séptima:
 @funindex maj
 @funindex m
 
-La tabla que aparece más abajo muestra el efecto de los modificadores
-de variante sobre los acordes de tríada y de séptima.  La séptima
-añadida de forma predeterminada a los acordes es menor, lo que hace
-del acorde de séptima dominante el acorde básico de séptima.  Todas
-las alteraciones se consideran en relación con la séptima dominante.
-Hay una tabla más completa donde aparecen los usos de los
-modificadores en @ref{Modificadores de acorde más usuales}.
+La tabla que aparece más abajo muestra el efecto de los
+modificadores de variante sobre los acordes de tríada y de
+séptima.  La séptima añadida de forma predeterminada a los acordes
+es menor, lo que hace del acorde de séptima dominante el acorde
+básico de séptima.  Todas las alteraciones se consideran en
+relación con la séptima dominante.  Hay una tabla más completa
+donde aparecen los usos de los modificadores en
+@ref{Modificadores de acorde más usuales}.
 
 @c @table @code
 @multitable @columnfractions .2 .4 .3
@@ -207,8 +190,8 @@ Acorde menor.  Este modificador baja la tercera.
 @item
 dim, dim7
 @tab
-Acorde disminuido.  Este modificador baja la tercera, la quinta y, si
-existe, la séptima.
+Acorde disminuido.  Este modificador baja la tercera, la quinta y,
+si existe, la séptima.
 @tab
 @lilypond[line-width=4\cm, noragged-right]
 \chordmode {
@@ -232,9 +215,9 @@ Acorde aumentado.  Este modificador eleva la quinta.
 @item
 maj, maj7
 @tab
-Acorde de séptima mayor.  Este modificador añade una séptima elevada.
-El @code{7} que sigue a @code{maj} es opcional.  NO utilice este
-modificador para crear una tríada mayor.
+Acorde de séptima mayor.  Este modificador añade una séptima
+elevada.  El @code{7} que sigue a @code{maj} es opcional.  NO
+utilice este modificador para crear una tríada mayor.
 @tab
 @lilypond[line-width=4\cm, noragged-right]
 \chordmode {
@@ -254,12 +237,13 @@ Fragmentos de código:
 @rlsr{Chords}.
 
 @knownissues
-Sólo se puede usar un modificador por cada acorde, normalmente sobre
-la nota más aguda del mismo.  Los acordes con más de un modificador se
-analizan sin producir errores ni advertencias, pero el resultado es
-impredecible.  Los acordes que no se pueden conseguir con un solo
-modificador se deben alterar en sus notas individuales como se
-describe en @ref{Acordes extendidos y alterados}.
+Sólo se puede usar un modificador por cada acorde, normalmente
+sobre la nota más aguda del mismo.  Los acordes con más de un
+modificador se analizan sin producir errores ni advertencias, pero
+el resultado es impredecible.  Los acordes que no se pueden
+conseguir con un solo modificador se deben alterar en sus notas
+individuales como se describe en
+@ref{Acordes extendidos y alterados}.
 
 
 @node Acordes extendidos y alterados
@@ -269,19 +253,20 @@ describe en @ref{Acordes extendidos y alterados}.
 @cindex acordes extendidos
 @cindex acordes alterados
 
-Se pueden crear estructuras de acorde de complejidad arbitraria dentro
-del modo de acordes.  Se puede usar la cadena modificadora para
-extender un acorde, añadir o quitar notas, elevar o bajar notas del
-acorde y añadir un bajo distinto o crear una inversión.
+Se pueden crear estructuras de acorde de complejidad arbitraria
+dentro del modo de acordes.  Se puede usar la cadena modificadora
+para extender un acorde, añadir o quitar notas, elevar o bajar
+notas del acorde y añadir un bajo distinto o crear una inversión.
 
-El primer número que sigue al @code{:} se considera que es el ámbito
-del acorde.  El acorde se construye secuencialmente añadiendo terceras
-a la fundamental hasta que se alcanza el número especificado.  Observe
-que la séptima añadida como parte de un acorde extendido es la séptima
-menor, no mayor.  Si el ámbito no es una tercera (p.ej. 6), se añaden
-terceras hasta la tercera más alta inferior al ámbito, y después se
-añade la nota del ámbito.  El mayor valor posible para el ámbito es
-13.  Cualquier valor mayor se interpreta como 13.
+El primer número que sigue al @code{:} se considera que es el
+ámbito del acorde.  El acorde se construye secuencialmente
+añadiendo terceras a la fundamental hasta que se alcanza el número
+especificado.  Observe que la séptima añadida como parte de un
+acorde extendido es la séptima menor, no mayor.  Si el ámbito no
+es una tercera (p.ej. 6), se añaden terceras hasta la tercera más
+alta inferior al ámbito, y después se añade la nota del ámbito.
+El mayor valor posible para el ámbito es 13.  Cualquier valor
+mayor se interpreta como 13.
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
@@ -293,12 +278,12 @@ añade la nota del ámbito.  El mayor valor posible para el ámbito es
 @end lilypond
 
 @noindent
-Observe que @code{c:5} es idéntico a @code{c} (los dos producen una
-tríada de Do mayor).
+Como excepción especial, @code{c:5} produce un @q{power chord},
+que tiene solamente la fundamental y la quinta.
 
-Puesto que una oncena sin alteración no suena bien cuando se combina
-con una trecena sin alteración, se elimina la oncena de los acordes de
-@code{:13} (a no ser que se añada explícitamente).
+Puesto que una oncena sin alteración no suena bien cuando se
+combina con una trecena sin alteración, se elimina la oncena de
+los acordes de @code{:13} (a no ser que se añada explícitamente).
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
@@ -308,9 +293,10 @@ con una trecena sin alteración, se elimina la oncena de los acordes de
 
 @cindex adiciones en acordes
 
-Se pueden añadir notas individuales a un acorde.  Las adiciones siguen
-el ámbito y van prefijadas por un punto (@code{.}).  La séptima normal
-que se añade a un acorde es la séptima menor, no mayor.
+Se pueden añadir notas individuales a un acorde.  Las adiciones
+siguen el ámbito y van prefijadas por un punto (@code{.}).  La
+séptima normal que se añade a un acorde es la séptima menor, no
+mayor.
 
 @lilypond[quote,verbatim]
 \chordmode {
@@ -328,10 +314,10 @@ Las notas añadidas pueden ser tan agudas como se desee.
 
 @cindex acordes, alteración de notas
 
-Las notas añadidas a los acordes se pueden alterar mediante la adición
-de los sufijos @code{-} o @code{+} al número.  Para alterar una nota
-que se ha incluido automáticamente como parte de la estructura básica
-del acorde, añádala como una nota alterada.
+Las notas añadidas a los acordes se pueden alterar mediante la
+adición de los sufijos @code{-} o @code{+} al número.  Para
+alterar una nota que se ha incluido automáticamente como parte de
+la estructura básica del acorde, añádala como una nota alterada.
 
 @lilypond[quote,verbatim]
 \chordmode {
@@ -343,10 +329,10 @@ del acorde, añádala como una nota alterada.
 
 @funindex ^
 
-Una nota que se quiere suprimir de un acorde se indica dentro de la
-cadena modificadora prefijándola por un acento circunflejo @code{^}.
-Sólo se permite una supresión con @code{^} dentro de una cadena
-modificadora.
+Una nota que se quiere suprimir de un acorde se indica dentro de
+la cadena modificadora prefijándola por un acento circunflejo
+@code{^}.  Sólo se permite una supresión con @code{^} dentro de
+una cadena modificadora.
 
 @lilypond[quote,verbatim]
 \chordmode {
@@ -357,14 +343,15 @@ modificadora.
 @funindex sus
 
 Se puede añadir el modificador @code{sus} a la cadena modificadora
-para crear acordes suspendidos.  Esto elimina la tercera del acorde.
-Escriba bien @code{2} o bien @code{4} para añadir la segunda o la cuarta
-al acorde, respectivamente.  @code{sus} equivale a @code{^3};
-@code{sus4} equivale a @code{.4^3}.
+para crear acordes suspendidos.  Esto elimina la tercera del
+acorde.  Escriba bien @code{2} o bien @code{4} para añadir la
+segunda o la cuarta al acorde, respectivamente.  Cuando @code{sus}
+va seguido de una segunda o una cuarta, es equivalente a
+@code{^3}, y en caso contrario a @code{sus4}, o sea, @code{5.4}.
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
-  c1:5 c:sus2 c:sus4 c:5.4
+  c1:sus c:sus2 c:sus4 c:5.4
 }
 @end lilypond
 
@@ -379,24 +366,25 @@ mediante la adición de @code{/}@var{nota} al acorde.
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
-  c1 c/g c/f
+  c'1 c'/e c'/f
 }
 @end lilypond
 
 @funindex /+
 
-Se puede añadir una nota del bajo que forma parte del acorde, en lugar
-de ser movida por efecto de una inversión, mediante el uso de
-@code{/+}@var{nota}.
+Se puede añadir una nota del bajo que forma parte del acorde, en
+lugar de ser movida por efecto de una inversión, mediante el uso
+de @code{/+}@var{nota}.
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
-  c1 c/g c/+g
+  c'1 c'/g c'/+e
 }
 @end lilypond
 
-Los modificadores de acorde que se pueden utilizar para producir una
-amplia variedad de acordes estándar se muestran en @ref{Modificadores de acorde más usuales}.
+Los modificadores de acorde que se pueden utilizar para producir
+una amplia variedad de acordes estándar se muestran en
+@ref{Modificadores de acorde más usuales}.
 
 @seealso
 Referencia de la notación:
@@ -406,22 +394,12 @@ Fragmentos de código:
 @rlsr{Chords}.
 
 @knownissues
-Cada nota sólo puede estar presente en el acorde una sola vez.  Lo que
-sigue produce simplemente el acorde aumentado, porque @code{5+} se
-interpreta en último lugar.
+Cada nota sólo puede estar presente en el acorde una sola vez.  Lo
+que sigue produce simplemente el acorde aumentado, porque
+@code{5+} se interpreta en último lugar.
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode { c1:3.5.5-.5+ }
-@end lilypond
-
-Sólo se puede crear la segunda inversión mediante la adición de un
-bajo.  La primera inversión requiere cambiar la fundamental del
-acorde.
-
-@lilypond[quote,ragged-right,verbatim]
-\chordmode {
-  c'1: c':/g e:6-3-^5 e:m6-^5
-}
 @end lilypond
 
 
@@ -429,8 +407,8 @@ acorde.
 @subsection Imprimir los acordes
 @translationof Displaying chords
 
-Los acordes se pueden imprimir por su nombre, además de la impresión
-estándar como notas sobre un pentagrama.
+Los acordes se pueden imprimir por su nombre, además de la
+impresión estándar como notas sobre un pentagrama.
 
 @menu
 * Impresión de los nombres de acorde::
@@ -457,10 +435,10 @@ Los nombres de acorde se imprimen dentro del contexto
 }
 @end lilypond
 
-Los acordes se pueden escribir como notas simultáneas o a través del
-uso del modo de acordes.  El nombre de acorde que se imprime es el
-mismo independientemente del modo de entrada, a no ser que existan
-inversiones o bajos añadidos:
+Los acordes se pueden escribir como notas simultáneas o a través
+del uso del modo de acordes.  El nombre de acorde que se imprime
+es el mismo independientemente del modo de entrada, a no ser que
+existan inversiones o bajos añadidos:
 
 @lilypond[verbatim,quote]
 chordmusic = \relative {
@@ -485,8 +463,8 @@ chordmusic = \relative {
 @cindex indicar No Chord (sin acorde) en ChordNames
 
 Los silencios pasados a un contexto @code{ChordNames} hacen que se
-imprima el elemento de marcado @code{noChordSymbol} (símbolo de N.C.,
-Sin Acorde).
+imprima el elemento de marcado @code{noChordSymbol} (símbolo de
+N.C., Sin Acorde).
 
 @lilypond[verbatim,quote]
 <<
@@ -557,8 +535,8 @@ Referencia de funcionamiento interno:
 @rinternals{Bar_engraver}.
 
 @knownissues
-Los acordes que contienen inversiones o bajos alterados no reciben un
-nombre adecuado si se escriben usando música simultánea.
+Los acordes que contienen inversiones o bajos alterados no reciben
+un nombre adecuado si se escriben usando música simultánea.
 
 
 @node Nombres de acorde personalizados
@@ -568,10 +546,10 @@ nombre adecuado si se escriben usando música simultánea.
 @cindex personalización de los nombres de acorde
 
 No hay un sistema único para nombrar acordes.  Las distintas
-tradiciones musicales usan distintos nombres para el mismo conjunto de
-acordes.  También hay distintos símbolos impresos para un nombre de
-acorde dado.  Los nombres y símbolos que se imprimen para los nombres
-de acorde dados se pueden personalizar.
+tradiciones musicales usan distintos nombres para el mismo
+conjunto de acordes.  También hay distintos símbolos impresos para
+un nombre de acorde dado.  Los nombres y símbolos que se imprimen
+para los nombres de acorde dados se pueden personalizar.
 
 @cindex Banter
 @cindex jazz, acordes de
@@ -579,30 +557,30 @@ de acorde dados se pueden personalizar.
 
 El esquema de nomenclatura de acordes predeterminado es un sistema
 para música de Jazz, propuesto por Klaus Ignatzek (véase
-@ressay{Lista bibliográfica}).
-También funcionan otros dos esquemas de nomenclatura
-de acordes: una notación de acordes de Jazz alternativa y un esquema
-sistemático llamado Acordes de Banter.  La notación de Jazz
-alternativa también se puede ver en el cuadro
-@ref{Cuadro de nombres de acordes}.
+@ressay{Lista bibliográfica}).  También funcionan otros dos
+esquemas de nomenclatura de acordes: una notación de acordes de
+Jazz alternativa y un esquema sistemático llamado Acordes de
+Banter.  La notación de Jazz alternativa también se puede ver en
+el cuadro @ref{Cuadro de nombres de acordes}.
 
 @c TODO --  Change this so we don't have a non-verbatim example.
 @c  Make short example in docs, then move longer example to
 @c  appendix, where the length of the snippet won't matter.
 
-Además de los distintos sistemas de nomenclatura, se usan diferentes
-nombres de nota para la fundamental en los distintos idiomas.  Las
-variables predefinidas @code{\germanChords}, @code{\semiGermanChords},
-@code{\italianChords} y @code{\frenchChords} establecen el valor de
-estas variables.  El efecto se muestra aquí:
+Además de los distintos sistemas de nomenclatura, se usan
+diferentes nombres de nota para la fundamental en los distintos
+idiomas.  Las variables predefinidas @code{\germanChords},
+@code{\semiGermanChords}, @code{\italianChords} y
+@code{\frenchChords} establecen el valor de estas variables.  El
+efecto se muestra aquí:
 
 @lilypondfile[ragged-right]{chord-names-languages.ly}
 
 
 @funindex chordNameLowercaseMinor
 
-Algunos cancioneros alemanes indican los acordes menores como letras
-minúsculas, sin el sufijo @var{m}.  Esto se puede conseguir
+Algunos cancioneros alemanes indican los acordes menores como
+letras minúsculas, sin el sufijo @var{m}.  Esto se puede conseguir
 estableciendo la propiedad @code{chordNameLowercaseMinor}:
 
 @lilypond[verbatim,quote,ragged-right]
@@ -613,8 +591,8 @@ estableciendo la propiedad @code{chordNameLowercaseMinor}:
 @end lilypond
 
 Si ninguno de los ajustes predeterminados proporciona el resultado
-deseado, se puede afinar la presentación de los nombres de acorde a
-través de las siguientes propiedades.
+deseado, se puede afinar la presentación de los nombres de acorde
+a través de las siguientes propiedades.
 
 @table @code
 
@@ -623,19 +601,20 @@ través de las siguientes propiedades.
 @item chordRootNamer
 
 El nombre de acorde se imprime normalmente como una letra para la
-fundamental con una alteración opcional.  La transformación de la nota
-en la letra se realiza por parte de esta función.  Los nombres de nota
-especiales (por ejemplo, la @q{H} alemana para un acorde de Si) se
-pueden producir almacenando una función nueva en esta propiedad.
+fundamental con una alteración opcional.  La transformación de la
+nota en la letra se realiza por parte de esta función.  Los
+nombres de nota especiales (por ejemplo, la @q{H} alemana para un
+acorde de Si) se pueden producir almacenando una función nueva en
+esta propiedad.
 
 @funindex majorSevenSymbol
 
 @item majorSevenSymbol
 
-Esta propiedad contiene el objeto de marcado que se usa para hacer el
-seguimiento de la salida de @code{chordRootNamer} para identificar un
-acorde de séptima mayor. Las opciones predefinidas son
-@code{whiteTriangleMarkup} (triángulo blanco) y
+Esta propiedad contiene el objeto de marcado que se usa para hacer
+el seguimiento de la salida de @code{chordRootNamer} para
+identificar un acorde de séptima mayor. Las opciones predefinidas
+son @code{whiteTriangleMarkup} (triángulo blanco) y
 @code{blackTriangleMarkup} (triángulo negro).
 
 @funindex additionalPitchPrefix
@@ -643,9 +622,9 @@ acorde de séptima mayor. Las opciones predefinidas son
 @item additionalPitchPrefix
 
 Cuando el acorde contiene notas añadidas, se pueden prefijar
-opcionalmente por un texto.  Por omisión no hay ningún prefijo, para
-evitar la sobrecarga visual, pero para pequeñas cantidades de notas
-añadidas puede ser visualmente efectivo.
+opcionalmente por un texto.  Por omisión no hay ningún prefijo,
+para evitar la sobrecarga visual, pero para pequeñas cantidades de
+notas añadidas puede ser visualmente efectivo.
 
 @lilypond[verbatim,quote,ragged-right]
 \new ChordNames {
@@ -659,22 +638,24 @@ añadidas puede ser visualmente efectivo.
 
 @item chordNoteNamer
 
-Cuando el nombre del acorde contiene notas adicionales aparte de la
-fundamental (p.ej., un bajo añadido), se utiliza esta función para
-imprimir la nota adicional.  De forma predeterminada se imprime la
-nota usando @code{chordRootNamer}.  La propiedad @code{chordNoteNamer}
-se puede establecer a una función especializada para cambiar este
-comportamiento.  Por ejemplo, el bajo se puede imprimir en minúscula.
+Cuando el nombre del acorde contiene notas adicionales aparte de
+la fundamental (p.ej., un bajo añadido), se utiliza esta función
+para imprimir la nota adicional.  De forma predeterminada se
+imprime la nota usando @code{chordRootNamer}.  La propiedad
+@code{chordNoteNamer} se puede establecer a una función
+especializada para cambiar este comportamiento.  Por ejemplo, el
+bajo se puede imprimir en minúscula.
 
 @funindex chordNameSeparator
 
 @item chordNameSeparator
 
-Las diferentes partes del nombre de un acorde se separan normalmente
-mediante un pequeño espacio en blanco.  Mediante el ajuste de
-@code{chordNameSeparator}, podemos usar cualquier marcado que deseemos
-como separador.  Esto no afecta al separador entre un acorde y la nota
-del bajo: para personalizar eso, utilice @code{slashChordSeparator}.
+Las diferentes partes del nombre de un acorde se separan
+normalmente mediante un pequeño espacio en blanco.  Mediante el
+ajuste de @code{chordNameSeparator}, podemos usar cualquier
+marcado que deseemos como separador.  Esto no afecta al separador
+entre un acorde y la nota del bajo: para personalizar eso, utilice
+@code{slashChordSeparator}.
 
 @lilypond[verbatim,quote,ragged-right]
 \chords {
@@ -690,12 +671,12 @@ del bajo: para personalizar eso, utilice @code{slashChordSeparator}.
 @item slashChordSeparator
 
 Los acordes se pueden tocar sobre una nota del bajo distinta a la
-fundamental.  Se llaman "inversiones" o "acordes de barra inclinada"
-porque la manera predeterminada de efectuar su notación es con una
-barra inclinada entre el acorde y la nota del bajo.  Por tanto, el
-valor de @code{slashChordSeparator} es, por omisión, una barra
-inclinada, pero podemos cambiarlo a cualquier elemento de marcado que
-queramos.
+fundamental.  Se llaman "inversiones" o "acordes de barra
+inclinada" porque la manera predeterminada de efectuar su notación
+es con una barra inclinada entre el acorde y la nota del bajo.
+Por tanto, el valor de @code{slashChordSeparator} es, por omisión,
+una barra inclinada, pero podemos cambiarlo a cualquier elemento
+de marcado que queramos.
 
 @lilypond[verbatim,quote,ragged-right]
 \chords {
@@ -710,20 +691,20 @@ queramos.
 
 @item chordNameExceptions
 
-Esta propiedad es una lista de parejas.  El primer elemento de cada
-pareja es un conjunto de notas utilizadas para identificar los
-elementos presentes en el acorde.  El segundo elemento es un elemento
-de marcado que sigue a la salida de @code{chordRootNamer} para crear
-el nombre del acorde.
+Esta propiedad es una lista de parejas.  El primer elemento de
+cada pareja es un conjunto de notas utilizadas para identificar
+los elementos presentes en el acorde.  El segundo elemento es un
+elemento de marcado que sigue a la salida de @code{chordRootNamer}
+para crear el nombre del acorde.
 
 @funindex minorChordModifier
 
 @item minorChordModifier
 
-La notación de los acordes menores se suele hacer por medio del sufijo
-@q{m} a la derecha de la letra que indica la fundamental del acorde.
-Sin embargo, otras convenciones dan preferencia a sufijos diferentes,
-como un signo menos.
+La notación de los acordes menores se suele hacer por medio del
+sufijo @q{m} a la derecha de la letra que indica la fundamental
+del acorde.  Sin embargo, otras convenciones dan preferencia a
+sufijos diferentes, como un signo menos.
 
 @lilypond[verbatim,quote,ragged-right]
 \chords {
@@ -738,12 +719,12 @@ como un signo menos.
 
 @item chordPrefixSpacer
 
-El modificador de los acordes menores tal y como viene determinado por
-@code{minorChordModifier} se imprime por lo general inmediatamente a
-la derecha de la fundamental.  Se puede insertar un símbolo separador
-entre la fundamental y el modificador estableciendo
-@code{chordPrefixSpacer}.  El símbolo separador no se usa cuando el
-acorde está alterado.
+El modificador de los acordes menores tal y como viene determinado
+por @code{minorChordModifier} se imprime por lo general
+inmediatamente a la derecha de la fundamental.  Se puede insertar
+un símbolo separador entre la fundamental y el modificador
+estableciendo @code{chordPrefixSpacer}.  El símbolo separador no
+se usa cuando el acorde está alterado.
 
 @end table
 
@@ -799,12 +780,12 @@ Fragmentos de código:
 @rlsr{Chords}.
 
 @knownissues
-Los nombres de acorde se determinan a partir de las notas que están
-presentes en el mismo y de la información acerca de la estructura del
-acorde que ha podido ser introducida en @code{\chordmode}.  Si el
-método de las notas simultáneas se usa para introducir los acordes,
-pueden resultar nombres no deseados a partir de las inversiones o de
-las notas del bajo.
+Los nombres de acorde se determinan a partir de las notas que
+están presentes en el mismo y de la información acerca de la
+estructura del acorde que ha podido ser introducida en
+@code{\chordmode}.  Si el método de las notas simultáneas se usa
+para introducir los acordes, pueden resultar nombres no deseados a
+partir de las inversiones o de las notas del bajo.
 
 @lilypond[quote,ragged-right,verbatim]
 myChords = \relative c' {
@@ -862,21 +843,21 @@ continuo:
 >>
 @end lilypond
 
-El soporte para bajo cifrado se compone de dos partes: hay un modo de
-entrada, presentado por @code{\figuremode}, que admite la entrada de
-las cifras del bajo, y hay un contexto llamado @code{FiguredBass} que
-se ocupa de la impresión de los objetos del tipo @code{BassFigure}.
-El bajo cifrado también se puede imprimir dentro de contextos de
-@code{Staff}.
+El soporte para bajo cifrado se compone de dos partes: hay un modo
+de entrada, presentado por @code{\figuremode}, que admite la
+entrada de las cifras del bajo, y hay un contexto llamado
+@code{FiguredBass} que se ocupa de la impresión de los objetos del
+tipo @code{BassFigure}.  El bajo cifrado también se puede imprimir
+dentro de contextos de @code{Staff}.
 
 @code{\figures@{ @dots{} @}} es una notación abreviada de
 @code{\new FiguredBass @{ \figuremode @{ @dots{} @} @}}.
 
-Aunque el soporte para bajo cifrado puede parecerse superficialmente
-al de los acordes, realmente es mucho más simple.  El modo
-@code{\figuremode} simplemente almacena las cifras y el contexto
-@code{FiguredBass} las imprime tal y como se han introducido.  No hay
-ninguna conversión a notas.
+Aunque el soporte para bajo cifrado puede parecerse
+superficialmente al de los acordes, realmente es mucho más simple.
+El modo @code{\figuremode} simplemente almacena las cifras y el
+contexto @code{FiguredBass} las imprime tal y como se han
+introducido.  No hay ninguna conversión a notas.
 
 @ignore
 Las cifras se crean como textos de marcado.  Cualquiera de las
@@ -897,13 +878,13 @@ Fragmentos de código:
 @unnumberedsubsubsec Introducir el bajo cifrado
 @translationof Entering figured bass
 
-Se usa @code{\figuremode} para cambiar el modo de entrada al modo de
-cifras.  Hay más información sobre los distintos modos de entrada en
-@ref{Modos de entrada}.
+Se usa @code{\figuremode} para cambiar el modo de entrada al modo
+de cifras.  Hay más información sobre los distintos modos de
+entrada en @ref{Modos de entrada}.
 
 En el modo de cifras, un grupo de cifras del bajo está delimitado
-mediante ángulos simples, @code{<} y @code{>}.  La duración se escribe
-después del @code{>}.
+mediante ángulos simples, @code{<} y @code{>}.  La duración se
+escribe después del @code{>}.
 
 @lilypond[verbatim,quote,ragged-right]
 \new FiguredBass {
@@ -913,8 +894,8 @@ después del @code{>}.
 }
 @end lilypond
 
-Se pueden añadir alteraciones accidentales (incluso becuadros) a las
-cifras:
+Se pueden añadir alteraciones accidentales (incluso becuadros) a
+las cifras:
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
@@ -947,7 +928,8 @@ Se pueden incluir espacios verticales y corchetes en las cifras:
 }
 @end lilypond
 
-Se puede insertar cualquier elemento de marcado de texto como una cifra:
+Se puede insertar cualquier elemento de marcado de texto como una
+cifra:
 
 @lilypond[verbatim,quote,ragged-right]
 \figures {
@@ -997,7 +979,8 @@ terminadas explícitamente.
 @end lilypond
 
 
-La siguiente tabla resume los modificadores de cifrado disponibles.
+La siguiente tabla resume los modificadores de cifrado
+disponibles.
 
 @multitable @columnfractions .1 .5 .4
 
@@ -1117,9 +1100,9 @@ En el ejemplo de arriba, el contexto @code{FiguredBass} se debe
 instanciar explícitamente para evitar crear un segundo pentagrama
 vacío.
 
-El bajo cifrado se puede añadir también a contextos de @code{Staff}
-directamente.  En este caso, la posición vertical de las cifras se
-ajusta automáticamente.
+El bajo cifrado se puede añadir también a contextos de
+@code{Staff} directamente.  En este caso, la posición vertical de
+las cifras se ajusta automáticamente.
 
 @lilypond[verbatim,ragged-right,quote]
 <<
@@ -1137,8 +1120,8 @@ ajusta automáticamente.
 >>
 @end lilypond
 
-Cuando se escribe dentro de un contexto de pentagrama, el bajo cifrado
-se puede presentar encima o debajo del mismo.
+Cuando se escribe dentro de un contexto de pentagrama, el bajo
+cifrado se puede presentar encima o debajo del mismo.
 
 @lilypond[verbatim,ragged-right,quote]
 <<
@@ -1178,9 +1161,9 @@ Referencia de funcionamiento interno:
 @rinternals{FiguredBass}.
 
 @knownissues
-Para asegurar que las líneas extensoras funcionan adecuadamente, lo
-más seguro es utilizar las mismas duraciones en la línea de cifras y
-en la línea del bajo.
+Para asegurar que las líneas extensoras funcionan adecuadamente,
+lo más seguro es utilizar las mismas duraciones en la línea de
+cifras y en la línea del bajo.
 
 @lilypond[verbatim,ragged-right,quote]
 <<

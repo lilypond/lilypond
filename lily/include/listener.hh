@@ -74,8 +74,8 @@
   classes derived from Smob<...>.
 */
 
+#include "callback.hh"
 #include "smobs.hh"
-#include "stream-event.hh"
 
 // A listener is essentially any procedure accepting a single argument
 // (namely an event).  The class Listener (or rather a smobbed_copy of
@@ -125,80 +125,18 @@ public:
     return *unchecked_unsmob (a) == *unchecked_unsmob (b)
       ? SCM_BOOL_T : SCM_BOOL_F;
   }
-};
 
-// A callback wrapper creates a Scheme-callable version of a
-// non-static class member function callback which you can call with a
-// class instance and an event.
-//
-// If you have a class member function
-// void T::my_listen (SCM ev)
-// then Callback_wrapper::make_smob<T, SCM, &T::my_listen> ()
-// will return an SCM function roughly defined as
-// (lambda (target ev) (target->my_listen ev))
-//
-// The setup is slightly tricky since the make_smob quasi-constructor
-// call is a template function templated on the given callback, and so
-// is the trampoline it uses for redirecting the callback.  The class
-// itself, however, is not templated as that would create a wagonload
-// of SCM types.
-
-class Callback_wrapper : public Simple_smob<Callback_wrapper>
-{
-  // We use an ordinary function pointer pointing to a trampoline
-  // function (templated on the callback in question) instead of
-  // storing a member function pointer to a common base class like
-  // Smob_core.  The additional code for the trampolines is negligible
-  // and the performance implications of using member function
-  // pointers in connection with inheritance are somewhat opaque as
-  // this involves an adjustment of the this pointer from Smob_core to
-  // the scope containing the callback.
-  void (*trampoline_) (SCM, SCM);
   template <class T, void (T::*callback)(SCM)>
-  static void trampoline (SCM target, SCM ev)
+  static SCM trampoline (SCM target, SCM ev)
   {
     T *t = unsmob<T> (target);
     LY_ASSERT_SMOB (T, target, 1);
 
     (t->*callback) (ev);
-  }
-  template <class T, void (T::*callback)(Stream_event *)>
-  static void trampoline (SCM target, SCM event)
-  {
-    // The same, but for callbacks for translator listeners which get
-    // the unpacked event which, in turn, gets protected previously
-
-    T *t = unsmob<T> (target);
-    LY_ASSERT_SMOB (T, target, 1);
-    LY_ASSERT_SMOB (Stream_event, event, 2);
-
-    t->protect_event (event);
-    (t->*callback) (unsmob<Stream_event> (event));
-  }
-
-  Callback_wrapper (void (*trampoline) (SCM, SCM)) : trampoline_ (trampoline)
-  { } // Private constructor, use only in make_smob
-public:
-  static const char * const type_p_name_; // = 0
-  LY_DECLARE_SMOB_PROC (&Callback_wrapper::call, 2, 0, 0)
-  SCM call (SCM target, SCM ev)
-  {
-    trampoline_ (target, ev);
-    return SCM_UNSPECIFIED;
-  }
-  // Callback wrappers are for an unchanging entity, so we do the Lisp
-  // creation just once on the first call of make_smob.  So we only
-  // get a single Callback_wrapper instance for each differently
-  // templated make_smob call.
-  template <class T, class Arg, void (T::*callback)(Arg)>
-  static SCM make_smob ()
-  {
-    static SCM res = scm_permanent_object
-      (Callback_wrapper (trampoline<T, callback>).smobbed_copy ());
-    return res;
+    return SCM_UNDEFINED;
   }
 };
 
-#define GET_LISTENER(cl, proc) get_listener (Callback_wrapper::make_smob<cl, SCM, &cl::proc> ())
+#define GET_LISTENER(cl, proc) get_listener (Callback_wrapper::make_smob<Listener::trampoline<cl, &cl::proc> > ())
 
 #endif /* LISTENER_HH */

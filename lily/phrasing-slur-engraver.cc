@@ -41,6 +41,7 @@ protected:
 public:
   SCM event_symbol ();
   TRANSLATOR_DECLARATIONS (Phrasing_slur_engraver);
+  TRANSLATOR_INHERIT (Slur_proto_engraver);
 };
 
 Phrasing_slur_engraver::Phrasing_slur_engraver () :

@@ -58,9 +58,11 @@ Score_engraver::prepare (SCM)
 void
 Score_engraver::finish (SCM)
 {
-  recurse_over_translators (context (), &Translator::finalize,
-                            &Translator_group::finalize,
-                            UP);
+  recurse_over_translators
+    (context (),
+     Callback0_wrapper::make_smob<Translator, &Translator::finalize> (),
+     Callback0_wrapper::make_smob<Translator_group, &Translator_group::finalize> (),
+     UP);
 }
 
 #define MUSIC_FONT "emmentaler-20"
@@ -155,10 +157,10 @@ Score_engraver::one_time_step (SCM)
 }
 
 void
-Score_engraver::announce_grob (Grob_info info)
+Score_engraver::announce_grob (Grob_info info, Direction start_end, Context *reroute_context)
 {
-  Engraver_group::announce_grob (info);
-  if (info.start_end () == START)
+  Engraver_group::announce_grob (info, start_end, reroute_context);
+  if (start_end == START)
     {
       pscore_->root_system ()->typeset_grob (info.grob ());
       elems_.push_back (info.grob ());

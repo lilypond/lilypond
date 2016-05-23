@@ -824,7 +824,7 @@ Test de lilypond-book} relatifs à ce niveau de mise à jour
 @item @uref{http://lilypond.org/test,
 Comparaison entre différentes versions}
 
-@item @uref{http://lilypond.org/download/binaries/test-output/,
+@item @uref{http://lilypond.org/downloads/binaries/test-output/,
 Archive de tous les tests de régression}
 
 @end itemize

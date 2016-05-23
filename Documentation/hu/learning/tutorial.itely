@@ -8,6 +8,8 @@
     Guide, node Updating translation committishes..
 @end ignore
 
+@include included/generating-output.itexi
+
 @c \version "2.19.21"
 
 @node Első lecke
@@ -20,12 +22,14 @@ hogyan kell nyomtatható kottát előállítani.
 @menu
 * Fájlok fordítása::
 * Bemeneti fájlok írása::
+* Hibák kezelése::
 * Hogyan olvassuk a dokumentációt?::
 @end menu
 
 @node Fájlok fordítása
 @section Fájlok fordítása
 @translationof Compiling a file
+
 
 @menu
 * Zene bevitele::
@@ -42,6 +46,10 @@ hogyan kell nyomtatható kottát előállítani.
 @cindex első példa
 @cindex kis- és nagybetűk különbsége
 
+@menu
+* Kimenet előállítása::
+@end menu
+
 A LilyPond bemeneti fájljai egyszerű szöveges állományok.
 Egy kotta létrehozásához egy bemeneti fájlban (másnéven forrásfájlban) kell
 azt szöveges formában leírni.
@@ -53,6 +61,7 @@ Első példánk megmutatja, hogy néz ki egy egyszerű bemenet. A LilyPond
 forrásfájlba ezt írva:
 
 @example
+\version "@w{@version{}}"
 @{
   c' e' g' e'
 @}
@@ -84,19 +93,40 @@ eredményez.
 
 @smallspace
 
-@subheading A kimenet megtekintése
+@node Kimenet előállítása
+@unnumberedsubsubsec Kimenet előállítása
+@translationof Producing output
 
 @cindex PDF fájl
 @cindex megtekintés
 @cindex szövegszerkesztők
-@cindex Mac OS X, a LilyPond futtatása
-@cindex Windows, a LilyPond futtatása
-@cindex Linux, a LilyPond futtatása
-@cindex Unix, a LilyPond futtatása
 
 Ez a szakasz arról szól, hogy milyen parancsokat kell futtatni
 a kotta előállításához és a kimenet megtekintéséhez a felhasználó operációs
 rendszerétől függően.
+
+
+@itemize
+
+@item
+@ref{MacOS X, @sourceimage{logo-macosx,,,}}
+@ref{MacOS X, MacOS X} (graphical)
+
+@item
+@ref{Windows, @sourceimage{logo-windows,,,}}
+@ref{Windows, Microsoft Windows} (graphical)
+
+@item
+@ref{Parancssor, @sourceimage{logo-linux,,,}
+@sourceimage{logo-freebsd,,,}
+@sourceimage{logo-macosx,,,}
+@sourceimage{logo-windows,,,}
+}
+@ref{Parancssor, Minden operációs rendszr} (parancssor)
+
+@end itemize
+
+
 
 Bizonyos szövegszerkesztőkbe beépíthető LilyPond támogatás, ami hatékonyabb
 szerkesztést tesz lehetővé; erről a @rprogram{Text editor support} c.
@@ -110,76 +140,28 @@ gyorsabban fog futni!}
 @subsection Mac OS X
 @translationof MacOS X
 
-Ha elindítjuk a @command{LilyPond.app} alkalmazást, egy példaállományt látunk
-megnyitva. Mentsük el (pl. @file{test.ly} néven az Asztalra), majd a
-@w{@qq{Compile > Typeset File}} (@q{Fordítás > Kotta szedése}) menüpont segítségével fordítsuk le.
-Ezután az eredményül kapott PDF fájl a képernyőn látható.
+@cindex LilyPond futtatása MacOS X-en
+@cindex MacOS X, LilyPond futtatása
 
-A következő parancsok, melyekre szükség lehet, a @qq{New} (@q{Új}) és az @qq{Open}
-(@q{Megnyitás}) a @qq{File} (@q{Fájl}) menüben. A szerkesztés alatt levő fájlt a szedés előtt
-mindig el kell menteni. Ha a feldolgozás során bármilyen hiba történt, a
-naplóablakban láthatjuk a hibák leírását.
+@lilypadOSX
 
 @node Windows
 @subsection Windows
-@translationof Windows
 
-Windows alatt az Asztalon levő LilyPond ikonra duplán kattintva indíthatjuk el
-a LilyPondot, mely először egy példafájlt nyit meg egy egyszerű
-szövegszerkesztőben. Mentsük el (pl. @file{test.ly} néven az Asztalra),
-majd kattintsunk rá duplán a lefordításához (az ikonja egy hangjegyre
-hasonlít). Pár másodperc múlva létrejön egy @file{test.pdf} nevű fájl az
-Asztalon. Ha erre duplán kattintunk, megtekinthetjük a nyomtatható kottát.
-A @file{test.ly} fordításának másik módja, hogy egérrel ráhúzzuk a LilyPond
-parancsikonjára.
+@cindex LilyPond futtatása Windows-on
+@cindex Windows, LilyPond futtatása
 
-Egy létező @file{.ly} fájl szerkesztéséhez kattintsunk rá jobb gombbal, és
-válasszuk az @qq{Edit source} (@q{Forrás szerkesztése}) menüpontot. Új kotta
-írásához vagy a szerkesztőt futtassuk a fent leírt módon, majd válasszuk ki a
-@qq{File > New} (@q{Fájl > Új}) parancsot, vagy jobb gombbal
-kattintsunk az Asztalra, válasszuk az @q{Új > Szöveges dokumentum}
-menüpontot, nevezzük át a fájlt a kívánt névre, és változtassuk meg a
-kiterjesztését @file{.ly}-re. Ezután ugyanúgy szerkeszthetjük és
-feldolgozhatjuk, ahogy eddig is tettük.
+@lilypadWindows
 
-Ha duplán kattintunk egy @code{.ly} fájlra, nem csak egy PDF-et kapunk, hanem
-egy @code{.log} kiterjesztésű naplófájlt is, amely a LilyPond futásáról
-tartalmaz információkat. Hiba esetén ajánlatos megvizsgálni.
 
 @node Parancssor
 @subsection Parancssor
 @translationof Command-line
 
-Hozzunk létre egy fájlt @file{test.ly} néven, és írjuk bele a következőket:
+@cindex LilyPond futtatása Unixon
+@cindex Unix, LilyPond futtatása
 
-@example
-@{
-  c' e' g' e'
-@}
-@end example
-
-A @file{test.ly} fájl feldolgozásához adjuk ki az alábbi parancsot:
-
-@example
-lilypond test.ly
-@end example
-
-@noindent
-Ekkor az alábbi kimenethez hasonlót láthatunk:
-
-@example
-lilypond test.ly
-GNU LilyPond @version{}
-Processing `test.ly'
-Parsing...
-Interpreting music...
-Preprocessing graphical objects...
-Finding the ideal number of pages...
-Fitting music on 1 page...
-Drawing systems...
-Layout output to `test.ps'...
-Converting to `test.pdf'...
-@end example
+@lilypadCommandLine
 
 @node Bemeneti fájlok írása
 @section Bemeneti fájlok írása
@@ -197,6 +179,16 @@ Converting to `test.pdf'...
 @cindex egyszerű lejegyzés
 @cindex lejegyzés, egyszerű
 
+@menu
+* Hangmagasság::
+* Ritmusérték::
+* Szünetek::
+* Ütemmutató::
+* Tempójelzés::
+* Kulcs::
+* Mindez együtt::
+@end menu
+
 A LilyPond bizonyos elemeket automatikusan hozzáad a kottához. A következő
 példában csak négy hangmagasságot adunk meg, de a LilyPond kirakja a kulcsot
 és az ütemmutatót, valamint a hangok hosszúságát alapértelmezetten negyednek
@@ -212,7 +204,9 @@ veszi.
 Természetesen minden megváltoztatható, de a legtöbb esetben az alapbeállítás
 megfelelő.
 
-@subheading Hangmagasság
+@node Hangmagasság
+@unnumberedsubsubsec Hangmagasság
+@translationof Pitches
 
 @cindex hangmagasság
 @cindex relatív mód
@@ -251,7 +245,7 @@ hang az előzőhöz a lehető legközelebb helyezkedik el: az első @code{c} az
 egyvonalas c-hez legközelebb eső c hangot jelenti, vagyis az egyvonalas c-t.
 A második, d hang ehhez a hanghoz esik legközelebb, vagyis ugyanúgy az
 egyvonalas oktávba kerül.
-Legfeljebb kvárt nagyságú hangközöket tartalmazó dallamok tápláhatók be így a
+Legfeljebb kvárt nagyságú hangközöket tartalmazó dallamok táplálhatók be így a
 legegyszerűbben.
 
 @lilypond[verbatim,quote]
@@ -286,7 +280,6 @@ a c, d és e hangok helyezkednek el, míg lefelé az a, g és f hangok. Tehát h
 egy h-t követő hang c, d vagy e, akkor a h fölé, míg ha a, g vagy f, akkor a
 h alá kerül.
 
-@c KEEP LY
 @lilypond[verbatim,quote]
 \relative {
   b' c  % felfelé szekund, lefelé szeptim, így: felső c
@@ -322,7 +315,9 @@ de vigyázzunk, soha ne használjunk idézőjelet (@code{"}) két aposztróf
 viszonyítási hangját módosíthatjuk.
 
 
-@subheading Ritmusérték
+@node Ritmusérték
+@unnumberedsubsubsec Ritmusérték
+@translationof Durations (rhythms)
 
 @cindex hanghosszúság
 @cindex hosszúság
@@ -331,6 +326,7 @@ viszonyítási hangját módosíthatjuk.
 @cindex félkotta
 @cindex negyedkotta
 @cindex pontozás
+@cindex hosszúság jelzése
 
 Fogalomtár: @rglos{beam}, @rglos{duration},
 @rglos{whole note}, @rglos{half note}, @rglos{quarter note},
@@ -363,10 +359,12 @@ adni számmal.
 }
 @end lilypond
 
-
-@subheading Szünet
+@node Szünetek
+@unnumberedsubsubsec Szünetek
+@translationof Rests
 
 @cindex szünet
+@cindex szünet jelzése
 
 Fogalomtár: @rglos{rest}.
 
@@ -381,7 +379,9 @@ csak a hangmagasság megjelölése helyett @code{r}@tie{} betűt kell írni:
 @end lilypond
 
 
-@subheading Ütemmutató
+@node Ütemmutató
+@unnumberedsubsubsec Ütemmutató
+@translationof Time signature
 
 @cindex ütemmutató
 
@@ -403,8 +403,40 @@ Az @notation{ütemmutató} beállítására a @code{\time} parancs szolgál:
 }
 @end lilypond
 
+@node Tempójelzés
+@unnumberedsubsubsec Tempójelzés
+@translationof Tempo marks
 
-@subheading Kulcs
+@cindex tempójelzés
+@cindex metronómjelzés
+
+@funindex \tempo
+@funindex tempo
+
+Fogalomtár: @rglos{tempo indication}, @rglos{metronome}.
+
+Az @notation{tempójelzés} és @notation{metronómjelzés}
+a @code{\tempo} parancs segítségével álítható be:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  \time 3/4
+  \tempo "Andante"
+  a4 a a
+  \time 6/8
+  \tempo 4. = 96
+  a4. a
+  \time 4/4
+  \tempo  "Presto" 4 = 120
+  a4 a a a
+}
+@end lilypond
+
+
+
+@node Kulcs
+@unnumberedsubsubsec Kulcs
+@translationof Clef
 
 @cindex kulcs
 @cindex violinkulcs
@@ -433,16 +465,21 @@ A @notation{kulcs} beállítása a @code{\clef} paranccsal lehetséges:
 @end lilypond
 
 
-@subheading Mindez együtt
+@node Mindez együtt
+@unnumberedsubsubsec Mindez együtt
+@translationof All together
 
 Alább látható egy rövid példa, mely az eddig tanult elemeket mutatja be:
 
 @lilypond[verbatim,quote]
 \relative {
+  \clef "bass"
   \time 3/4
-  \clef bass
-  c,2 e8 c' g'2.
-  f4 e d c4 c, r4
+  \tempo "Andante" 4 = 120
+  c,2 e8 c'
+  g'2.
+  f4 e d
+  c4 c, r
 }
 @end lilypond
 
@@ -463,13 +500,16 @@ Referencia: @ruser{Writing pitches},
 @cindex többsoros megjegyzés
 @cindex kis- és nagybetűk különbsége
 @cindex kifejezések
+@cindex verzió
+@cindex verziószám
 
+@funindex \version
 @funindex { ... }
 @funindex %
 @funindex %@{ ... %@}
 
-A LilyPond nyelve sok tekintetben hasonlít bizonyos programnyelvekhez.
-Érzékeny a kis- és nagybetűk különbségére, az üres helyek (szóközök, újsorok,
+A LilyPond bemeneti fájljai sok tekintetben hasonlítanak a programkódokhoz.
+Tartalmaznak verziószámot, érzékenyek a kis- és nagybetűk különbségére, az üres helyek (szóközök, újsorok,
 tabulátorok stb.) pedig nem számítanak. Ún. kifejezéseket lehet alkotni
 kapcsos zárójelek @{ @} segítségével, megjegyzéseket pedig @code{%} után
 vagy @w{@code{%@{ ... %@}}} közé lehet írni.
@@ -478,6 +518,43 @@ Ha esetleg nem lennének világosak a fenti mondatok, sebaj! Magyarázatuk
 részletesen a következő:
 
 @itemize
+
+
+@item
+@strong{Verzió kezelés}:
+Minden LilyPond fájlnak tartalmaznia kell egy verziószámot. Ez a verziószám
+írja le azt, hogy az adott fájl a LilyPond melyik verziójával készült.
+A verziószámot az alábbi módon adhatjuk meg:
+
+@example
+\version "@w{@version{}}"
+@end example
+
+A verziószámot a LilyPond fájl elején szokás megadni.
+
+A verzió megadásának két fontos oka van. Az első az, hogy lehetővé teszi, hogy
+a bemeneti fájl automatikusan frissüljön, amikor a LilyPond szintakszisa (nyelve) változik.
+Másodsorban a fájlból í]y kiderül, hogy milyen verziójú LilyPond szükséges a fordításához.
+
+Ha a verziószám hiányzik a bemeneti fájlból, a LilyPond fordításkor figyelmeztető üzenetet ír ki.
+
+@item
+@strong{Verzió kezelés}:
+Minden LilyPond fájlnak tartalmaznia kell egy verziószámot. Ez a verziószám
+írja le azt, hogy az adott fájl a LilyPond melyik verziójával készült.
+A verziószámot az alábbi módon adhatjuk meg:
+
+@example
+\version "@w{@version{}}"
+@end example
+
+A verziószámot a LilyPond fájl elején szokás megadni.
+
+A verzió megadásának két fontos oka van. Az első az, hogy lehetővé teszi, hogy
+a bemeneti fájl automatikusan frissüljön, amikor a LilyPond szintakszisa (nyelve) változik.
+Másodsorban a fájlból így kiderül, hogy milyen verziójú LilyPond szükséges a fordításához.
+
+Ha a verziószám hiányzik a bemeneti fájlból, a LilyPond fordításkor figyelmeztető üzenetet ír ki.
 
 @item
 @strong{Érzékeny a kis- és nagybetűk különbségére}:
@@ -503,9 +580,14 @@ egy tabulátorral vagy két szóközzel:
 
 @example
 @{
-  c d e
+  c4 d e
 @}
 @end example
+
+Azonban az üres helyek @emph{szükségesek}, hogy a nyelv elemeit elkülönítsük.
+Más szavakkal: üres helyeket @emph{adhatunk} hozzá, de nem mindig @emph{hagyhatunk el}.
+Mivel hiányzó üres helyek furcsa hibákhoz vezethetnek, ajánlott minden nyelvi elem elé
+és mögé beilleszteni egyet, például minden kapcsos zárójel elé és mögé.
 
 @item
 @strong{Kifejezések}:
@@ -516,7 +598,7 @@ szóközt tenni, hacsak nem a sor elején vagy végén szerepelnek.
 
 Egy @code{\} karakterrel kezdődő LilyPond parancs az azt követő kapcsos
 zárójelpár tartalmával együtt ugyancsak egy zenei kifejezésnek számít (mint
-például a @w{@code{\relative @{ @}}}).
+például a @q{@w{@code{@bs{}relative @{ @dots{} @}}}}).
 
 @cindex megjegyzések
 @cindex egysoros megjegyzés
@@ -556,6 +638,44 @@ A következő részlet a megjegyzések használatára mutat példát:
 @end itemize
 
 
+@node Hibák kezelése
+@section Hibák kezelése
+@translationof Dealing with errors
+
+@cindex troubleshooting
+
+Sometimes LilyPond doesn't produce the output you expect.  This
+section provides some links to help you solve the problems you
+might encounter.
+
+
+@menu
+* General troubleshooting tips::
+* Some common errors::
+@end menu
+
+@node General troubleshooting tips
+@subsection General troubleshooting tips
+
+Troubleshooting LilyPond problems can be challenging for
+people who are used to a graphical interface, because invalid
+input files can be created.  When this happens, a logical approach
+is the best way to identify and solve the problem.  Some guidelines
+to help you learn to do this are provided in @rprogram{Troubleshooting}.
+
+
+@node Some common errors
+@subsection Some common errors
+
+@cindex common errors
+@cindex errors, common
+
+There are a few common errors that are difficult to troubleshoot
+based simply on the error messages that are displayed.  These are
+described in @rprogram{Common errors}.
+
+
+
 @node Hogyan olvassuk a dokumentációt?
 @section Hogyan olvassuk a dokumentációt?
 @translationof How to read the manuals
@@ -576,29 +696,22 @@ A következő részlet a megjegyzések használatára mutat példát:
 @cindex sablonok
 @cindex tippek
 
-A LilyPond bemenete vagy @{ @} jelek között, vagy pedig egy
-@code{@w{\relative c'' @{ ... @}}} blokkban kell, hogy álljon, ahogy azt a
+A LilyPond bemenete vagy @code{@{ @}} jelek között, vagy pedig egy
+@q{@w{@code{@bs{}relative @{ @dots{} @}}}} blokkban kell, hogy álljon, ahogy azt a
 @ref{A bemeneti fájlok jellemzői} c. fejezetben láttuk.
 A tankönyv további részében a legtöbb példában ezt elhagyjuk. A példák
 kipróbálásához a kimenet kimásolható és beilleszthető, de mindig köré
-@strong{kell} rakni a @code{@w{\relative c'' @{ @}}} blokkot, ha nem szerepel
-benne:
+@strong{kell} rakni a @code{@{ @}} blokkot, ha nem szerepel benne:
 
 @example
-\relative c'' @{
-  ...a példa ide kerül...
+@{
+   @dots{}a példa ide kerül@dots{}
 @}
 @end example
 
-Miért hagytuk el a kapcsos zárójeleket? A legtöbb példa a kézikönyvben
-beszúrható más, hosszabb darabokba. Ezeknél a példáknál nem éri meg
-külön megadni a @code{@w{\relative c'' @{ @}}} blokkot --
-esetleg belekerülnének egy nagyobb @code{\relative} blokkba, ami nem javasolt!
-Ha minden példa körül @code{@w{\relative c'' @{ @}}} szerepelne,
-nem lenne egyszerű az ilyen példákat kimásolni és beilleszteni egy hosszabb
-műbe. Mivel a legtöbb felhasználó a neki kellő kódrészleteket egyszerűen
-kimásolja a kézikönyvből, úgy döntöttünk, hogy leegyszerűsítjük a példákat.
-
+Emellett ne felejtsük el, hogy minden LilyPond fájlban fel kell tüntetni a @code{\version}számot is.
+Mivel a kézikönyv példái csak kódrészletek, nem fájlok, nem tartalmazzák a @code{\version}számot,
+de mi ne feledkezzünk el feltüntetni a fájlok elején.
 
 @node Kattintható példák
 @subsection Kattintható példák
@@ -611,10 +724,9 @@ bemenet, amelyből a LilyPond a képet generálta. Ez az alábbi példán
 kipróbálható:
 
 @c no verbatim here
-@c KEEP LY
 @lilypond[quote]
 \relative {
-  c''-\markup { \bold \huge { Ide kell kattintani! } }
+  c''4-\markup { \bold \huge { Click here. } }
 }
 @end lilypond
 
@@ -622,6 +734,21 @@ A @qq{ly snippet} kezdetű szakasz kimásolásával és beillesztésével már
 rendelkezésre áll egy kiindulópont a kísérletezéshez. A kép egy az egyben
 előáll (ugyanakkora méretben), ha a @qq{Start cut-&-pastable section}
 résztől kezdve a fájl végéig kimásoljuk a szöveget.
+
+
+
+@ignore
+This is item 825
+
+@n ode Keyboard navigation
+@s ubsection Keyboard navigation
+
+@warning{Ez a lehetőség csak a HTML kézikönyvben elérhető,}
+
+@c TODO: once this is figured out, insert it here.
+
+We are currently working on this feature.
+@end ignore
 
 @node A dokumentáció áttekintése
 @subsection A dokumentáció áttekintése

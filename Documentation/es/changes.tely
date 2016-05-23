@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 0b49f20966fb8b4e9c9d8ed5699efcff9f805564
+    Translation of GIT committish: 32839fc7052761649d3ba3512ca29373acbe880c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -45,7 +45,7 @@ Véase el manual del usuario, \NAME\
 @finalout
 
 @node Top
-@top Funcionalidades nuevas de la versión 2.18 desde la 2.16
+@top Funcionalidades nuevas de la versión 2.20 desde la 2.18
 
 @allowcodebreaks false
 
@@ -71,6 +71,87 @@ which scares away people.
 @end ignore
 
 @item
+Las listas de elementos separados por puntos como
+@code{FretBoard.stencil} ya estaban contempladas a partir de la
+versión@tie{}2.18.  Ahora también pueden contener enteros sin
+signo, y se pueden hacer separar opcionalmente mediante comas.
+Ello permite un uso semejante a
+@lilypond[quote,verbatim]
+{ \time 2,2,1 5/8  g'8 8 8 8 8 }
+@end lilypond
+y
+@example
+\tagGroup violin,oboe,bassoon
+@end example
+
+@item
+Tales listas se pueden usar también dentro de expresiones para
+asignaciones, conjuntos y sobreescrituras.  Así, ahora puede
+usarse de la forma siguiente:
+@lilypond[quote,verbatim]
+{ \unset Timing.beamExceptions
+  \set Timing.beatStructure = 1,2,1
+  g'8 8 8 8 8 8 8 8 }
+@end lilypond
+
+@item
+Anteriormente se podían asignar valores a los elementos de las
+listas de asociación individualmente (por ejemplo, variables de
+papel como @code{system-system-spacing.basic-distance}).  Ahora
+también pueden ser referenciadas de esta manera, como en
+@example
+\paper @{
+  \void \displayScheme \system-system-spacing.basic-distance
+@}
+@end example
+
+En combinación con los cambios mencionados anteriormente, esto
+permite el establecimiento de valores y la referenciación de
+pseudovariables como @code{violin.1}.
+
+@item
+Ahora se pueden incrustar los archivos de código fuente de
+LilyPond dentro de los archivos PDF generados.  Esta funcionalidad
+experimental está inhabilitada de forma predeterminada y se puede
+calificar como de no segura, pues los documentos PDF con contenido
+oculto tienden a presentar un riesgo para la seguridad.  Observe
+que no todos los visores de PDF son capaces de manejar documentos
+incrustados (en caso de que no sea así, la salida de PDF se verá
+normalmente y los archivos fuente serán invisibles).  Esta
+funcionalidad solamente funciona con el backend PDF.
+
+@item
+Ahora se puden definir específicamente los nombres de las notas en
+idioma francés en lugar de constituir un alias de los nombres
+italianos: además de la sintaxis genérica derivada del italiano,
+la altura de la nota @var{d} (@var{re}) se puede escribir ahora
+como @code{ré}.  Los dobles sostenidos se pueden escribir también
+usando el sufijo @code{-x}.
+
+@item
+Están contempladas cuerdas bajas adicionales (para la tablatura de
+laúd).
+@lilypond[quote,verbatim]
+m = { f'4 d' a f d a, g, fis, e, d, c,  \bar "|." }
+
+\score {
+  \new TabStaff \m
+  \layout {
+    \context {
+      \Score
+      tablatureFormat = #fret-letter-tablature-format
+    }
+    \context {
+      \TabStaff
+      stringTunings = \stringTuning <a, d f a d' f'>
+      additionalBassStrings = \stringTuning <c, d, e, fis, g,>
+      fretLabels = #'("a" "b" "r" "d" "e" "f" "g" "h" "i" "k")
+    }
+  }
+}
+@end lilypond
+
+@item
 Ahora está disponible la instrucción de lista de marcados
 @code{\table}.  Cada columna se puede alinear de distinta forma.
 @lilypond[quote,verbatim]
@@ -85,6 +166,25 @@ Ahora está disponible la instrucción de lista de marcados
         twenty "20" tenth "0.1"
         thousand "1000" one "1.0"
       }
+}
+@end lilypond
+
+@item
+Una instrucción de marcado nueva, @code{\with-dimensions-from},
+hace que sea más fácil de usar @code{\with-dimensions} obteniendo
+las dimentiones nuevas a partir de un objeto de marcado, dado como
+primer argumento.
+@lilypond[quote,verbatim]
+\markup {
+  \pattern #5 #Y #0 "x"
+  \pattern #5 #Y #0 \with-dimensions-from "x" "f"
+  \pattern #5 #Y #0 \with-dimensions-from "x" "g"
+  \override #'(baseline-skip . 2)
+  \column {
+    \pattern #5 #X #0 "n"
+    \pattern #5 #X #0 \with-dimensions-from "n" "m"
+    \pattern #5 #X #0 \with-dimensions-from "n" "!"
+  }
 }
 @end lilypond
 

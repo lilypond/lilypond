@@ -780,7 +780,7 @@ Les proves del lilpond-book d'aquesta versió.
 @itemize
 @item @uref{http://lilypond.org/test, Comparacions entre proves de regressió}
 
-@item @uref{http://lilypond.org/download/binaries/test-output/,
+@item @uref{http://lilypond.org/downloads/binaries/test-output/,
 Arxiu de totes les proves de regressió}
 
 @end itemize

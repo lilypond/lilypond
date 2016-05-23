@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: d5fc7a079db0853bfb49e21821226d492f01cf8c
+    Translation of GIT committish: 0129dea8eff59c10ba6e295f6f2cd48083fc5296
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -23,9 +23,9 @@
 @subsection Notación común para percusión
 @translationof Common notation for percussion
 
-La notación rítmica se emplea primordialmente para la percusión y la
-batería, pero también se puede utilizar para mostrar los valores
-rítmicos una melodía.
+La notación rítmica se emplea primordialmente para la percusión y
+la batería, pero también se puede utilizar para mostrar los
+valores rítmicos una melodía.
 
 @menu
 * Referencias para percusión::
@@ -47,12 +47,14 @@ rítmicos una melodía.
 @itemize
 
 @item
-La notación de algunas percusiones se puede hacer sobre una pauta de
-ritmo; esto se estudia en @ref{Mostrar los ritmos de la melodía} y
+La notación de algunas percusiones se puede hacer sobre una pauta
+de ritmo; esto se estudia en
+@ref{Mostrar los ritmos de la melodía} y
 @ref{Crear instancias de pentagramas nuevos}.
 
 @item
-La salida MIDI se trata en una sección aparte; véase @ref{Instrumentos MIDI}.
+La salida MIDI se trata en una sección aparte; véase
+@ref{Instrumentos MIDI}.
 
 @end itemize
 
@@ -73,11 +75,11 @@ Fragmentos de código:
 @cindex percusión
 @cindex batería
 
-Las notas de percusión se pueden escribir en el modo @code{\drummode},
-que es similar al modo estándar para introducir notas.  La manera más
-fácil de escribir notas de percusión es utilizar la instrucción
-@code{\drums}, que crea el contexto y el modo de entrada apropiados
-para percusión:
+Las notas de percusión se pueden escribir en el modo
+@code{\drummode}, que es similar al modo estándar para introducir
+notas.  La manera más fácil de escribir notas de percusión es
+utilizar la instrucción @code{\drums}, que crea el contexto y el
+modo de entrada apropiados para percusión:
 
 @lilypond[quote,verbatim]
 \drums {
@@ -96,31 +98,31 @@ Esto es una abreviatura de
 @end lilypond
 
 Cada elemento de un set de percusión lleva un nombre completo y un
-nombre abreviado, y los dos se pueden usar en la entrada.  La lista
-completa de nombre de instrumentos de percusión se encuentra en
-@ref{Notas de percusión}.
+nombre abreviado, y los dos se pueden usar en la entrada.  La
+lista completa de nombre de instrumentos de percusión se encuentra
+en @ref{Notas de percusión}.
 
 @cindex clave de percusión
 @cindex percusión, clave
 
 Observe que la notación normal de las notas con altura determinada
-(como @code{cis4}) en un contexto @code{DrumStaff} producen un mensaje
-de error.  Las claves de percusión se añaden automáticamente al
-contexto @code{DrumStaff} pero también se pueden establecer
-explícitamente o utilizar otras claves.
+(como @code{cis4}) en un contexto @code{DrumStaff} producen un
+mensaje de error.  Las claves de percusión se añaden
+automáticamente al contexto @code{DrumStaff} pero también se
+pueden establecer explícitamente o utilizar otras claves.
 
 @lilypond[quote,ragged-right,verbatim]
 \drums {
   \clef percussion
-  bd4 bd bd bd
+  bd4 4 4 4
   \clef treble
-  hh4 hh hh hh
+  hh4 4 4 4
 }
 @end lilypond
 
 
-Hay ciertos detalles respecto a cómo está contemplado el MIDI para los
-instrumentos de percusión; para ver los detalles consulte
+Hay ciertos detalles respecto a cómo está contemplado el MIDI para
+los instrumentos de percusión; para ver los detalles consulte
 @ref{Instrumentos MIDI}.
 
 @seealso
@@ -142,33 +144,33 @@ Fragmentos de código:
 Los redobles se indican mediante tres barras cruzadas en la plica.
 Para las negras o notas más largas, las tres barras se muestran
 explícitamente, las corcheas se presentan con dos barras cruzadas
-(siendo la barra de corchea la tercera), y los redobles más breves que
-las corcheas tienen una barra cruzada para complementar las barras
-normales.  Esto se consigue mediante la notación de trémolo,
-véase @ref{Repeticiones de trémolo}.
+(siendo la barra de corchea la tercera), y los redobles más breves
+que las corcheas tienen una barra cruzada para complementar las
+barras normales.  Esto se consigue mediante la notación de
+trémolo, véase @ref{Repeticiones de trémolo}.
 
 @lilypond[quote,verbatim]
 \drums {
   \time 2/4
-  sn16 sn8 sn16 sn8 sn8:32 ~
-  sn8 sn8 sn4:32 ~
-  sn4 sn8 sn16 sn16
-  sn4 r4
+  sn16 8 16 8 8:32 ~
+  8 8 4:32 ~
+  4 8 16 16
+  4 r4
 }
 @end lilypond
 
 Los golpes de baqueta se pueden indicar mediante la colocación de
-los elementos de marcado @code{"R"} o @code{"L"} encima o debajo de
-las notas, como se estudia en @ref{Dirección y posición}. La propiedad
-@code{staff-padding} se puede sobreescribir para conseguir una línea
-de base satisfactoria.
+los elementos de marcado @code{"R"} o @code{"L"} encima o debajo
+de las notas, como se estudia en @ref{Dirección y posición}. La
+propiedad @code{staff-padding} se puede sobreescribir para
+conseguir una línea de base satisfactoria.
 
 @lilypond[quote,verbatim]
 \drums {
   \repeat unfold 2 {
-    sn16^"L" sn^"R" sn^"L" sn^"L" sn^"R" sn^"L" sn^"R" sn^"R"
+    sn16^"L" 16^"R" 16^"L" 16^"L" 16^"R" 16^"L" 16^"R" 16^"R"
     \stemUp
-    sn16_"L" sn_"R" sn_"L" sn_"L" sn_"R" sn_"L" sn_"R" sn_"R"
+    sn16_"L" 16_"R" 16_"L" 16_"L" 16_"R" 16_"L" 16_"R" 16_"R"
   }
 }
 @end lilypond
@@ -186,13 +188,11 @@ Fragmentos de código:
 @translationof Pitched percussion
 
 Ciertos instrumentos de percusión de altura determinada (p.ej.: el
-xilófono, el vibráfono y los timbales) se escriben usando pentagramas
-normales.  Esto se estudia en otras secciones del manual.
+xilófono, el vibráfono y los timbales) se escriben usando
+pentagramas normales.  Esto se estudia en otras secciones del
+manual.
 
 @seealso
-@c TODO: possibly link to an alternate section of NR 3.5, if
-@c "percussion in MIDI" gets a separate subsubsection for
-@c pitched percussion sounds.  -gp
 Referencia de la notación:
 @ref{Instrumentos MIDI}.
 
@@ -207,10 +207,10 @@ Fragmentos de código:
 @cindex percusión
 @cindex batería
 
-Una parte de percusión para más de un instrumento, normalmente utiliza
-una pauta de varias líneas donde cada posición dentro de la pauta se
-refiere a un elemento de percusión.  Para tipografiar la música, se
-deben interpretar las notas dentro de los contextos
+Una parte de percusión para más de un instrumento, normalmente
+utiliza una pauta de varias líneas donde cada posición dentro de
+la pauta se refiere a un elemento de percusión.  Para tipografiar
+la música, se deben interpretar las notas dentro de los contextos
 @rinternals{DrumStaff} y @rinternals{DrumVoice}.
 
 @lilypond[quote,verbatim]
@@ -243,16 +243,16 @@ también se puede usar.  Por ejemplo,
 >>
 @end lilypond
 
-También existen otras posibilidades en lo referente a la disposición.
-Para usarlas, establezca la propiedad @code{drumStyleTable} en el
-contexto @rinternals{DrumVoice}.  Se han predefinido las siguientes
-variables:
+También existen otras posibilidades en lo referente a la
+disposición.  Para usarlas, establezca la propiedad
+@code{drumStyleTable} en el contexto @rinternals{DrumVoice}.  Se
+han predefinido las siguientes variables:
 
 @table @code
 
 @item drums-style
-Es la opción por defecto.  Tipografía un típico set de percusión sobre
-pentagrama:
+Es la opción por defecto.  Se usa para tipografiar una batería
+típica sobre pentagrama:
 
 @lilypond[quote,line-width=10.0\cm]
 nam = \lyricmode {
@@ -281,13 +281,45 @@ mus = \drummode {
 @end lilypond
 
 El esquema de percusión contempla seis tambores graves (toms)
-distintos.  Cuando haya menos toms, sencillamente seleccione aquellos
-que producen el resultado deseado, es decir, para tener toms en las
-tres líneas centrales utilizará @code{tommh}, @code{tomml} y
-@code{tomfh}.
+distintos.  Cuando haya menos toms, sencillamente seleccione
+aquellos que producen el resultado deseado, es decir, para tener
+toms en las tres líneas centrales utilizará @code{tommh},
+@code{tomml} y @code{tomfh}.
+
+@item agostini-drums-style
+Inventado por el percusionista francés Dante Agostini en 1965,
+esta notación se emplea normalmente en Francia pero también en
+muchos otros lugares.
+
+@lilypond[quote,line-width=10.0\cm]
+nam = \lyricmode {
+  cymc cyms cymr hh hhc hho hhho hhp
+  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl }
+mus = \drummode {
+  cymc cyms cymr hh hhc hho hhho hhp \break
+  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
+\score {
+  << \new DrumStaff \with {
+       \remove "Bar_engraver"
+       \remove "Time_signature_engraver"
+       \hide Stem
+       \override Stem.Y-extent = ##f
+       drumStyleTable = #agostini-drums-style
+     } \mus
+     \new Lyrics \nam
+  >>
+  \layout {
+    \context {
+      \Score
+      \override LyricText.font-family = #'typewriter
+      \override BarNumber.transparent =##T
+    }
+  }
+}
+@end lilypond
 
 @item timbales-style
-Esto tipografía timbales en una pauta de dos líneas:
+Se usa para tipografiar timbales en una pauta de dos líneas:
 
 @lilypond[quote,ragged-right]
 nam = \lyricmode { timh ssh timl ssl cb }
@@ -312,7 +344,7 @@ mus = \drummode { timh ssh timl ssl cb s16 }
 @end lilypond
 
 @item congas-style
-Esto tipografía congas en una pauta de dos líneas:
+Se usa para tipografiar congas en una pauta de dos líneas:
 
 @lilypond[quote,ragged-right]
 nam = \lyricmode { cgh cgho cghm ssh cgl cglo cglm ssl }
@@ -338,7 +370,7 @@ mus = \drummode { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
 @end lilypond
 
 @item bongos-style
-Esto tipografía bongos sobre una pauta de dos líneas:
+Se usa para bongos sobre una pauta de dos líneas:
 
 @lilypond[quote,ragged-right]
 nam = \lyricmode { boh boho bohm ssh bol bolo bolm ssl }
@@ -364,8 +396,8 @@ mus = \drummode { boh boho bohm ssh bol bolo bolm ssl s16 }
 @end lilypond
 
 @item percussion-style
-Para tipografiar toda clase de percusiones simples sobre pautas de una
-línea:
+Para tipografiar toda clase de percusiones simples sobre pautas de
+una línea:
 
 @lilypond[quote,ragged-right]
 nam = \lyricmode { tri trio trim gui guis guil cb cl tamb cab mar hc }
@@ -393,8 +425,8 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 @unnumberedsubsubsec Pautas de percusión personalizadas
 @translationof Custom percussion staves
 
-Si no le gusta ninguna de las listas predefinidas, puede definir su
-propia lista al principio de su archivo
+Si no le gusta ninguna de las listas predefinidas, puede definir
+su propia lista al principio de su archivo
 
 @lilypond[quote,verbatim]
 #(define mydrums '(
@@ -421,8 +453,8 @@ down = \drummode { bd4 sn bd toml8 toml }
 
 He aquí algunos ejemplos adicionales:
 
-Dos bloques de madera, escritos con wbh (@emph{woodblock-high}, bloque
-alto) y wbl (@emph{woodblock-low} bloque bajo)
+Dos bloques de madera, escritos con wbh (@emph{woodblock-high},
+bloque alto) y wbl (@emph{woodblock-low} bloque bajo)
 
 @lilypond[quote,verbatim]
 % These lines define the position of the woodblocks in the stave;
@@ -448,17 +480,18 @@ woodstaff = {
 
   \drummode {
     \time 2/4
-    wbl8 wbl16 wbl wbh8-> wbl |
-    wbl8 wbl16 wbh-> ~ wbh wbl16 r8 |
+    wbl8 16 16 8-> 8 |
+    wbl8 16 16-> ~ 16 16 r8 |
   }
 }
 @end lilypond
 
-Observe que en este caso especial se debe alterar la longitud de la
-línea divisoria con @code{\override Staff.BarLine.bar-extent #'(de . a)}.
-En caso contrario resulta demasiado corta.  También debe definir las
-posiciones de las dos líneas del pentagrama.  Para más información
-sobre estos delicados asuntos, consulte @ref{El símbolo del pentagrama}.
+Observe que en este caso especial se debe alterar la longitud de
+la línea divisoria con @code{\override Staff.BarLine.bar-extent
+#'(de . a)}.  En caso contrario resulta demasiado corta.  También
+debe definir las posiciones de las dos líneas del pentagrama.
+Para más información sobre estos delicados asuntos, consulte
+@ref{El símbolo del pentagrama}.
 
 Una pandereta, escrita mediante @q{tamb} (@emph{tambourine}):
 
@@ -477,15 +510,14 @@ tambustaff = {
 
   \drummode {
     \time 6/8
-    tamb8. tamb16 tamb8 tamb tamb tamb |
-    tamb4. tamb8 tamb tamb |
+    tamb8. 16 8 8 8 8 |
+    tamb4. 8 8 8 |
     % the trick with the scaled duration and the shorter rest
     % is neccessary for the correct ending of the trill-span!
     tamb2.*5/6 \startTrillSpan s8 \stopTrillSpan |
   }
 }
 @end lilypond
-
 
 Música para gong, introducida con @q{tt} (tam-tam):
 
@@ -526,8 +558,8 @@ bellstaff = {
   \bellstaff
   \drummode {
     \time 2/4
-    rb8 rb cb cb16 rb-> ~ |
-    16 rb8 rb16 cb8 cb |
+    rb8 8 cb8 16 rb16-> ~ |
+    16 8 16 cb8 8 |
   }
 }
 @end lilypond
@@ -609,8 +641,8 @@ Referencia de funcionamiento interno:
 @translationof Ghost notes
 
 Las notas fantasma para la batería e instrumentos de percusión se
-pueden crear utilizando la instrucción @code{\parenthesize} detallada
-en @ref{Paréntesis}.
+pueden crear utilizando la instrucción @code{\parenthesize}
+detallada en @ref{Paréntesis}.
 
 @lilypond[quote,ragged-right,verbatim]
 \new DrumStaff
@@ -620,12 +652,12 @@ en @ref{Paréntesis}.
   \drummode {
     <<
       {
-        hh8[ hh] <hh sn> hh16
+        hh8[ 8] <hh sn> hh16
         \parenthesize sn  hh
         \parenthesize sn  hh8 <hh sn> hh
       } \\
       {
-        bd4 r4 bd8 bd r8 bd
+        bd4 r4 bd8 8 r8 bd
       }
     >>
   }

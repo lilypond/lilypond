@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: zh -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 5239637b8f00a0307b860dac05189f297c7c198a
+    Translation of GIT committish: 8bc025dac3f085731712be31ec36acd5d08c357d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -766,7 +766,7 @@ This release's lilypond-book tests.
 @itemize
 @item @uref{http://lilypond.org/test, Comparisons between regression tests}
 
-@item @uref{http://lilypond.org/download/binaries/test-output/,
+@item @uref{http://lilypond.org/downloads/binaries/test-output/,
 Archive of all regression tests}
 
 @end itemize

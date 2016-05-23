@@ -1,7 +1,7 @@
 /*
   This file is part of LilyPond, the GNU music typesetter.
 
-  Copyright (C) 2005 Erik Sandberg  <mandolaerik@gmail.com>
+  Copyright (C) 2016  David Kastrup <dak@gnu.org>
 
   LilyPond is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -17,6 +17,9 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "listener.hh"
+#include "callback.hh"
 
-const char Listener::type_p_name_[] = "ly:listener?";
+const char * const Callback_wrapper::type_p_name_ = 0;
+const char * const Callback2_wrapper::type_p_name_ = 0;
+const char * const Callback0_wrapper::type_p_name_ = 0;
+const char * const Method_instance::type_p_name_ = 0;

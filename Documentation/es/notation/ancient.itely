@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c vim: foldmethod=marker
 @ignore
-    Translation of GIT committish: 7d3ea6751584868fda754e8b275e06605aad857d
+    Translation of GIT committish: 09fca104f8cd9c8b85b269a4006ce3b7f9511489
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -35,16 +35,16 @@
 
 Entre las formas en que está contemplada la notación antigua se
 encuentra la posibilidad de tipografiar notación mensural, canto
-gregoriano y canto kievano en notación cuadrada.  Se puede acceder a
-estas funcionalidades mediante la modificación de propiedades de
+gregoriano y canto kievano en notación cuadrada.  Se puede acceder
+a estas funcionalidades mediante la modificación de propiedades de
 estilo de objetos gráficos como la cabeza de las notas o los
 silencios, o bien mediante la utilización de uno de los contextos
 predefinidos para estos estilos.
 
-Muchos objetos gráficos, como la cabeza y el corchete de las figuras,
-las alteraciones, la indicación de compás y los silencios ofrecen una
-propiedad @code{style} (estilo), que se puede cambiar para emular
-varios estilos diferentes de notación antigua.  Véase
+Muchos objetos gráficos, como la cabeza y el corchete de las
+figuras, las alteraciones, la indicación de compás y los silencios
+ofrecen una propiedad @code{style} (estilo), que se puede cambiar
+para emular varios estilos diferentes de notación antigua.  Véase
 
 @itemize
 @item @ref{Cabezas de nota de la música mensural},
@@ -91,30 +91,34 @@ Están disponibles tres estilos para la composición tipográfica del
 canto gregoriano:
 
 @itemize
-@item @emph{Editio Vaticana}
-es un estilo completo para canto gregoriano, que sigue la apariencia
-de las ediciones de Solesmes, los libros de canto oficiales del
-Vaticano desde 1904.  LilyPond contempla todos los signos de notación
-que se utilizan en este estilo, entre ellos las ligaduras,
-@emph{custodias} y símbolos especiales como el quilisma y el oriscus.
+@item
+@emph{Editio Vaticana} es un estilo completo para canto
+gregoriano, que sigue la apariencia de las ediciones de Solesmes,
+los libros de canto oficiales del Vaticano desde 1904.  LilyPond
+contempla todos los signos de notación que se utilizan en este
+estilo, entre ellos las ligaduras, @emph{custodias} y símbolos
+especiales como el quilisma y el oriscus.
 
 @cindex Solesmes
 @cindex Vaticana, Editio
 
-@item El estilo @emph{Editio Medicaea}
-ofrece ciertas funcionalidades que se usan en las ediciones Medicaea
-(o de Ratisbona) que se usaban con anterioridad a las ediciones de
-Solesmes.  Las diferencias más significativas con respecto al estilo
-@emph{Vaticana} son las claves, que tienen trazos descendentes, y la
-cabeza de las figuras, que son cuadradas y regulares.
+@item
+El estilo @emph{Editio Medicaea} ofrece ciertas funcionalidades
+que se usan en las ediciones Medicaea (o de Ratisbona) que se
+usaban con anterioridad a las ediciones de Solesmes.  Las
+diferencias más significativas con respecto al estilo
+@emph{Vaticana} son las claves, que tienen trazos descendentes, y
+la cabeza de las figuras, que son cuadradas y regulares.
 
 @cindex Ratisbona, Editio
 @cindex Medicaea, Editio
 
-@item El estilo @emph{Hufnagel} (en @qq{uña de herradura}) o @emph{gótico}
-reproduce el estilo de escritura en los manuscritos de canto
-medievales de Alemania y Centro Europa.  Recibe el nombre de la forma
-de la nota básica (la @emph{virga}), que parece una pequeña uña.
+@item
+El estilo @emph{Hufnagel} (en @qq{uña de herradura}) o
+@emph{gótico} reproduce el estilo de escritura en los manuscritos
+de canto medievales de Alemania y Centro Europa.  Recibe el nombre
+de la forma de la nota básica (la @emph{virga}), que parece una
+pequeña uña.
 @cindex hufnagel
 @end itemize
 
@@ -124,43 +128,45 @@ impresas de música mensural tardomedievales y renacentistas:
 @itemize
 @item El estilo @emph{Mensural}
 se asemeja bastante al estilo de escritura utilizado en los
-manuscritos tardomedievales y renacentistas tempranos, con la cabeza
-de sus figuras en forma de rombo pequeñas y estrechas, y los silencios
-que imitan un estilo dibujado a mano.
+manuscritos tardomedievales y renacentistas tempranos, con la
+cabeza de sus figuras en forma de rombo pequeñas y estrechas, y
+los silencios que imitan un estilo dibujado a mano.
 
 @cindex mensural
 
 @item El estilo @emph{Neomensural}
-es una versión modernizada y estilizada del anterior: la cabeza de las
-figuras es más ancha y los silencios están formados por trazos
-rectilíneos.  Este estilo está particularmente indicado, p.ej., para
-los @emph{incipits} de transcripciones de fragmentos de música
-mensural.
+es una versión modernizada y estilizada del anterior: la cabeza de
+las figuras es más ancha y los silencios están formados por trazos
+rectilíneos.  Este estilo está particularmente indicado, p.ej.,
+para los @emph{incipits} de transcripciones de fragmentos de
+música mensural.
 
 @cindex neomensural
 
 @item El estilo @emph{Petrucci}
-recibe su nombre de Ottaviano Petrucci (1466-1539), el primer impresor
-en utilizar tipos móviles para la música (en su @emph{Harmonice
-musices odhecaton}, 1501).  Este estilo utiliza para las figuras una
-cabeza más grande que los otros estilos mensurales.
+recibe su nombre de Ottaviano Petrucci (1466-1539), el primer
+impresor en utilizar tipos móviles para la música (en su
+@emph{Harmonice musices odhecaton}, 1501).  Este estilo utiliza
+para las figuras una cabeza más grande que los otros estilos
+mensurales.
 
 @cindex Petrucci
 
 @end itemize
 
-@emph{Baroque} y @emph{Classical} no son estilos completos pero
-difieren del estilo predeterminado solamente en ciertos detalles:
-algunas cabezas de nota (Baroque) y el silencio de negra (Classical).
+@emph{Baroque} y @emph{Classical} no son estilos completos, sino
+que difieren del estilo predeterminado solamente en ciertos
+detalles: algunas cabezas de nota (Baroque) y el silencio de negra
+(Classical).
 
-Sólo el estilo mensural tiene alternativas para todos los aspectos de
-la notación.  Así, no existen silencios ni corchetes en los estilos
-gregorianos, pues estos símbolos no se usan en la notación del canto
-llano, y el estilo Petrucci no posee corchetes ni alteraciones por sí
-mismo.
+Sólo el estilo mensural tiene alternativas para todos los aspectos
+de la notación.  Así, no existen silencios ni corchetes en los
+estilos gregorianos, pues estos símbolos no se usan en la notación
+del canto llano, y el estilo Petrucci no posee corchetes ni
+alteraciones por sí mismo.
 
-Cada elemento de la notación se puede cambiar independientemente de
-los otros, y así podemos usar corchetes mensurales, cabezas de
+Cada elemento de la notación se puede cambiar independientemente
+de los otros, y así podemos usar corchetes mensurales, cabezas de
 petrucci, silencios de classical y claves de vaticana en la misma
 pieza, si queremos.
 
@@ -186,14 +192,14 @@ Glosario musical:
 @translationof Pre-defined contexts
 
 Para el canto gregoriano y la notación mensural, están a nuestra
-disposición contextos predefinidos de voz y de pauta, que establecen
-todos los símbolos de notación a unos valores adecuados para estos
-estilos.  Si nos satisfacen estos valores predeterminados, podemos a
-continuación introducir directamente las notas sin la necesidad de
-preocuparnos de los detalles sobre cómo personalizar un contexto.
-Véanse uno de los contextos predefinidos @code{VaticanaVoice},
-@code{VaticanaStaff}, @code{MensuralVoice} y
-@code{MensuralStaff}.
+disposición contextos predefinidos de voz y de pauta, que
+establecen todos los símbolos de notación a unos valores adecuados
+para estos estilos.  Si nos satisfacen estos valores
+predeterminados, podemos a continuación introducir directamente
+las notas sin la necesidad de preocuparnos de los detalles sobre
+cómo personalizar un contexto.  Véanse uno de los contextos
+predefinidos @code{VaticanaVoice}, @code{VaticanaStaff},
+@code{MensuralVoice} y @code{MensuralStaff}.
 
 @itemize
 @item @ref{Contextos del canto gregoriano},
@@ -218,18 +224,18 @@ Referencia de la notación:
 @c TODO: Should double check if I recalled things correctly when I wrote
 @c down the following paragraph by heart.
 
-Una ligadura es un símbolo gráfico que representa al menos dos notas
-distintas.  Las ligaduras aparecieron originalmente en los manuscritos
-de la notación del canto gregoriano para denotar secuencias de notas
-ascendentes o descendentes en la misma sílaba.  Se usan también en
-notación mensural.
+Una ligadura es un símbolo gráfico que representa al menos dos
+notas distintas.  Las ligaduras aparecieron originalmente en los
+manuscritos de la notación del canto gregoriano para denotar
+secuencias de notas ascendentes o descendentes en la misma sílaba.
+Se usan también en notación mensural.
 
 Las ligaduras se escriben @emph{encerrándolas} dentro de un par
-@code{\[} y @code{\]}.  Ciertos estilos de ligadura podrían necesitar
-una sintaxis de entrada adicional específica para este tipo de
-ligadura en particular.  De forma predeterminada, el grabador
-@code{LigatureBracket} se limita a colocar un corchete recto
-sobre la ligadura:
+@code{\[} y @code{\]}.  Ciertos estilos de ligadura podrían
+necesitar una sintaxis de entrada adicional específica para este
+tipo de ligadura en particular.  De forma predeterminada, el
+grabador @code{LigatureBracket} se limita a colocar un corchete
+recto sobre la ligadura:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
@@ -241,9 +247,9 @@ sobre la ligadura:
 
 Están disponibles otros dos estilos de ligaduras: el Vaticana para
 canto gregoriano, y el Mensural para música mensural (sólo están
-contempladas las ligaduras mensurales blancas para la música mensural,
-y con ciertas limitaciones).  Para usar cualquiera de estos estilos,
-se debe sustituir el grabador predeterminado
+contempladas las ligaduras mensurales blancas para la música
+mensural, y con ciertas limitaciones).  Para usar cualquiera de
+estos estilos, se debe sustituir el grabador predeterminado
 @code{Ligature_bracket_engraver} por uno de los grabadores
 especializados en ligaduras del contexto @code{Voice}, como se
 explica en @ref{Ligaduras mensurales blancas} y
@@ -259,18 +265,18 @@ Referencia de la notación:
 
 @knownissues
 Las ligaduras necesitan un espaciado especial que aún no se ha
-desarrollado.  Como consecuencia, la mayor parte del tiempo existe una
-separación excesiva entre las ligaduras, y a menudo los cortes de
-línea no son satisfactorios.  Además, la letra de los cantos no se
-alinea correctamente con las ligaduras.
+desarrollado.  Como consecuencia, la mayor parte del tiempo existe
+una separación excesiva entre las ligaduras, y a menudo los cortes
+de línea no son satisfactorios.  Además, la letra de los cantos no
+se alinea correctamente con las ligaduras.
 
 Las alteraciones accidentales no se deben imprimir dentro de las
 ligaduras, sino que deben reunirse e imprimirse juntas delante de
 ellas.
 
-La sintaxis todavía utiliza el obsoleto estilo infijo
-@code{\[ expresión_musical \]}.  Por motivos de consistencia, esto
-cambiará algún día al estilo postfijo @code{nota\[ @dots{} nota\]}.
+La sintaxis todavía utiliza el obsoleto estilo infijo @code{\[
+expresión_musical \]}.  Por motivos de consistencia, esto cambiará
+algún día al estilo postfijo @code{nota\[ @dots{} nota\]}.
 
 
 @node Custos
@@ -280,21 +286,22 @@ cambiará algún día al estilo postfijo @code{nota\[ @dots{} nota\]}.
 @cindex custos
 @cindex custodes
 
-Un @emph{custos} (en plural: @emph{custodias}, que en latín significa
-@qq{guarda}) es un símbolo que aparece al final de una pauta.  Anticipa
-la altura de la primera o primeras notas de la línea siguiente,
-ayudando al intérprete con los saltos de línea durante la ejecución.
+Un @emph{custos} (en plural: @emph{custodias}, que en latín
+significa @qq{guarda}) es un símbolo que aparece al final de una
+pauta.  Anticipa la altura de la primera o primeras notas de la
+línea siguiente, ayudando al intérprete con los saltos de línea
+durante la ejecución.
 
 Las custodias se utilizaron mucho en la notación musical hasta el
 siglo XVII.  En nuestros días, sobreviven sólo en algunas formas
-particulares de notación musical como las ediciones contemporáneas de
-canto gregoriano como la @emph{Editio Vaticana}.  Hay distintos glifos
-para el custos que se utilizan en las diferentes variaciones de estilo
-notacional.
+particulares de notación musical como las ediciones contemporáneas
+de canto gregoriano como la @emph{Editio Vaticana}.  Hay distintos
+glifos para el custos que se utilizan en las diferentes
+variaciones de estilo notacional.
 
 Para tipografiar las custodias, simplemente coloque un grabador
-@code{Custos_engraver} dentro del contexto @code{Staff}
-(el contexto del pentagrama) al declarar el bloque de @code{\layout}
+@code{Custos_engraver} dentro del contexto @code{Staff} (el
+contexto del pentagrama) al declarar el bloque de @code{\layout}
 (el bloque de disposición de la página), y modifique el estilo del
 custos con una instrucción @code{\override} si lo desea, como se
 muestra en el ejemplo siguiente:
@@ -316,10 +323,10 @@ muestra en el ejemplo siguiente:
 }
 @end lilypond
 
-El glifo del custos se selecciona mediante la propiedad @code{style}.
-Los estilos contemplados son @code{vaticana}, @code{medicaea},
-@code{hufnagel} y @code{mensural}.  Se muestran en el siguiente
-fragmento:
+El glifo del custos se selecciona mediante la propiedad
+@code{style}.  Los estilos contemplados son @code{vaticana},
+@code{medicaea}, @code{hufnagel} y @code{mensural}.  Se muestran
+en el siguiente fragmento:
 
 @lilypond[quote,ragged-right,fragment]
 \new Lyrics \lyricmode {
@@ -377,11 +384,12 @@ Referencia de funcionamiento interno:
 @cindex MensuralStaff
 
 Los contextos predefinidos de voz @code{MensuralVoice} y de pauta
-@code{MensuralStaff} se pueden usar para grabar una pieza en estilo
-mensural.  Estos contextos establecen a unos valores iniciales
-adecuados todas las propiedades relevantes de los contextos y de los
-objetos gráficos, de manera que pueda comenzar inmediatamente a
-escribir el canto, como lo demuestra el siguiente fragmento:
+@code{MensuralStaff} se pueden usar para grabar una pieza en
+estilo mensural.  Estos contextos establecen a unos valores
+iniciales adecuados todas las propiedades relevantes de los
+contextos y de los objetos gráficos, de manera que pueda comenzar
+inmediatamente a escribir el canto, como lo demuestra el siguiente
+fragmento:
 
 @lilypond[quote,ragged-right,verbatim]
 \score {
@@ -415,19 +423,19 @@ Glosario musical:
 @cindex clefs
 
 La siguiente tabla presenta todas las claves antiguas que están
-contempladas a través de la instrucción @code{\clef}.  Algunas de las
-claves usan el mismo glifo, pero se diferencian sólo en la línea en
-que se imprimen.  En tales casos, se usa un número añadido al nombre
-para enumerar dichas claves, numerado desde la línea inferior hasta la
-superior.  Puede forzar manualmente que se escriba un glifo
-de clave sobre una línea arbitraria, como se encuentra descrito en
-@ref{Clave}.  La nota impresa a la derecha de cada clave en la columna
-de los ejemplos denota la situación del Do central (@code{c'}) con
-respecto a dicha clave.
+contempladas a través de la instrucción @code{\clef}.  Algunas de
+las claves usan el mismo glifo, pero se diferencian sólo en la
+línea en que se imprimen.  En tales casos, se usa un número
+añadido al nombre para enumerar dichas claves, numerado desde la
+línea inferior hasta la superior.  Puede forzar manualmente que se
+escriba un glifo de clave sobre una línea arbitraria, como se
+encuentra descrito en @ref{Clave}.  La nota impresa a la derecha
+de cada clave en la columna de los ejemplos denota la situación
+del Do central (@code{c'}) con respecto a dicha clave.
 
-Petrucci usaba claves de Do que tenían barras verticales en el lado
-izquierdo en un equilibrio variable, dependiendo de la línea de la
-pauta en que se imprimían.
+Petrucci usaba claves de Do que tenían barras verticales en el
+lado izquierdo en un equilibrio variable, dependiendo de la línea
+de la pauta en que se imprimían.
 
 @multitable @columnfractions .4 .4 .2
 @item
@@ -444,10 +452,10 @@ clave de Do, mensural
 @code{mensural-c3}, @code{mensural-c4},@*
 @code{mensural-c5}
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,notime]
   \clef "mensural-c2"
   \override NoteHead.style = #'mensural
-  c
+  c'1
 @end lilypond
 
 @item
@@ -496,8 +504,8 @@ clave de Do, neomensural
 @end lilypond
 
 @item
-claves de Do en el estilo de Petrucci, para su uso en distintas líneas
-de la pauta (el ejemplo muestra la clave de Do en segunda)
+claves de Do en el estilo de Petrucci, para su uso en distintas
+líneas de la pauta (el ejemplo muestra la clave de Do en segunda)
 @tab
 @code{petrucci-c1}, @code{petrucci-c2},@*
 @code{petrucci-c3}, @code{petrucci-c4},@*
@@ -510,9 +518,9 @@ de la pauta (el ejemplo muestra la clave de Do en segunda)
 @end lilypond
 
 @item
-claves de Fa en el estilo de Petrucci, para su uso en
-distintas líneas de la pauta
-(el ejemplo muestra la lclave de Fa en tercera línea)
+claves de Fa en el estilo de Petrucci, para su uso en distintas
+líneas de la pauta (el ejemplo muestra la lclave de Fa en tercera
+línea)
 @tab
 @code{petrucci-f3}, @code{petrucci-f4},@*
 @code{petrucci-f5}
@@ -544,7 +552,8 @@ Referencia de la notación:
 @ref{Clave}.
 
 @knownissues
-La clave de Sol mensural está asignada a la clave de Sol de Petrucci.
+La clave de Sol mensural está asignada a la clave de Sol de
+Petrucci.
 
 
 @node Indicaciones de compás de la música mensural
@@ -552,15 +561,16 @@ La clave de Sol mensural está asignada a la clave de Sol de Petrucci.
 @translationof Mensural time signatures
 
 @cindex mensuración, símbolo de
-@cindex compás, indicación de
+@cindex compás, indicación de, mensural
+@cindex compás, indicación de, estilos de
 
-Los símbolos de mensuración (que son algo similar, pero no exactamente
-igual que las indicaciones de compás) están contemplados de forma
-limitada.  Los glifos están configurados de forma fija para
-determinadas fracciones de tiempo.  En otras palabras, para obtener un
-símbolo de mensuración determinado con la instrucción
-@code{\time n/m}, se tienen que escoger @code{n} y @code{m} según la
-siguiente tabla
+Los símbolos de mensuración (que son algo similar, pero no
+exactamente igual que las indicaciones de compás) están
+contemplados de forma limitada.  Los glifos están configurados de
+forma fija para determinadas fracciones de tiempo.  En otras
+palabras, para obtener un símbolo de mensuración determinado con
+la instrucción @code{\time n/m}, se tienen que escoger @code{n} y
+@code{m} según la siguiente tabla
 
 @lilypond[quote,ragged-right]
 \layout {
@@ -610,10 +620,10 @@ siguiente tabla
 
 Utilice la propiedad @code{style} del elemento gráfico
 @code{TimeSignature} para seleccionar las indicaciones de compás
-de la música antigua.  Los estilos contemplados son @code{neomensural}
-y @code{mensural}.  La tabla anterior utiliza el estilo
-@code{neomensural}.  Los ejemplos siguientes muestran las diferencias
-que existen entre los estilos:
+de la música antigua.  Los estilos contemplados son
+@code{neomensural} y @code{mensural}.  La tabla anterior utiliza
+el estilo @code{neomensural}.  Los ejemplos siguientes muestran
+las diferencias que existen entre los estilos:
 
 @lilypond[ragged-right,quote]
 \relative c' {
@@ -639,8 +649,8 @@ que existen entre los estilos:
 }
 @end lilypond
 
-@ref{Indicación de compás}
-ofrece una introducción general al uso de las indicaciones de compás.
+@ref{Indicación de compás} ofrece una introducción general al uso
+de las indicaciones de compás.
 
 @seealso
 Glosario musical:
@@ -651,10 +661,9 @@ Referencia de la notación:
 
 @knownissues
 Las relaciones de duración de las notas no pueden cambiar con la
-indicación de compás, porque no son constantes.  Por ejemplo,
-la razón de 1@tie{}breve = 3@tie{}semibreves
-(@emph{tempus perfectum}) se puede hacer a mano mediante el
-establecimiento de
+indicación de compás, porque no son constantes.  Por ejemplo, la
+razón de 1@tie{}breve = 3@tie{}semibreves (@emph{tempus
+perfectum}) se puede hacer a mano mediante el establecimiento de
 
 @example
 breveTP = #(ly:make-duration -1 0 3/2)
@@ -663,13 +672,13 @@ breveTP = #(ly:make-duration -1 0 3/2)
 @end example
 
 @noindent
-Esto fija un valor para @code{breveTP} de 3/2 multiplicado por 2 = 3
-veces una redonda.
+Esto fija un valor para @code{breveTP} de 3/2 multiplicado por 2 =
+3 veces una redonda.
 
 Los símbolos @code{mensural68alt} y @code{neomensural68alt}
-(alternativos al símbolo de 6/8) no se puede seleccionar directamente
-con @code{\time}.  En su lugar, utilice
-@code{\markup @{\musicglyph #"timesig.mensural68alt" @}}.
+(alternativos al símbolo de 6/8) no se puede seleccionar
+directamente con @code{\time}.  En su lugar, utilice @code{\markup
+@{\musicglyph #"timesig.mensural68alt" @}}.
 
 
 @node Cabezas de nota de la música mensural
@@ -681,9 +690,9 @@ con @code{\time}.  En su lugar, utilice
 Para la notación antigua, se puede elegir un estilo de cabezas de
 notas distinto al @code{default} (estilo predeterminado).  Esto se
 consigue estableciendo la propiedad @code{style} del objeto
-@code{NoteHead} a los valores @code{baroque},
-@code{neomensural}, @code{mensural}, @code{petrucci},
-@code{blackpetrucci} o @code{semipetrucci}.
+@code{NoteHead} a los valores @code{baroque}, @code{neomensural},
+@code{mensural}, @code{petrucci}, @code{blackpetrucci} o
+@code{semipetrucci}.
 
 El estilo @code{baroque} se diferencia del estilo predeterminado
 @code{default} en que:
@@ -693,25 +702,25 @@ El estilo @code{baroque} se diferencia del estilo predeterminado
 @item Usa una forma cuadrada para las cabezas de @code{\breve}.
 @end itemize
 
-Los estilos @code{neomensural}, @code{mensural} y @code{petrucci} se
-diferencian del estilo @code{baroque} en que:
+Los estilos @code{neomensural}, @code{mensural} y @code{petrucci}
+se diferencian del estilo @code{baroque} en que:
 
 @itemize
 @item Usan cabezas romboidales para las semibreves y todas las notas más cortas, y
 @item Centran las plicas sobre las cabezas.
 @end itemize
 
-El estilo @code{blackpetrucci} produce notas con una cabeza que puede
-usarse en notación mensural negra o en secciones de coloratio dentro
-de la notación mensural blanca.  A causa de que el estilo de la cabeza
-de las notas no influye en el número de corchetes, en este estilo la
-notación de la semimínima debe hacer como @code{a8*2}, no como
-@code{a4}, pues de lo contrario tendrá el aspecto de una mínima.  El
-multiplicador puede ser distinto si se usa la coloratio, es decir,
-para la notación de tresillos.
+El estilo @code{blackpetrucci} produce notas con una cabeza que
+puede usarse en notación mensural negra o en secciones de
+coloratio dentro de la notación mensural blanca.  A causa de que
+el estilo de la cabeza de las notas no influye en el número de
+corchetes, en este estilo la notación de la semimínima debe hacer
+como @code{a8*2}, no como @code{a4}, pues de lo contrario tendrá
+el aspecto de una mínima.  El multiplicador puede ser distinto si
+se usa la coloratio, es decir, para la notación de tresillos.
 
-Utilice el estilo @code{semipetrucci} para dibujar notas con cabeza
-semi-rellena (breves, longas y máximas).
+Utilice el estilo @code{semipetrucci} para dibujar notas con
+cabeza semi-rellena (breves, longas y máximas).
 
 El ejemplo siguiente muestra el estilo @code{petrucci}:
 
@@ -732,8 +741,8 @@ a'\longa
 @end lilypond
 
 
-@ref{Estilos de cabezas de nota} ofrece una visión de conjunto sobre la
-totalidad de los estilos de cabeza disponibles.
+@ref{Estilos de cabezas de nota} ofrece una visión de conjunto
+sobre la totalidad de los estilos de cabeza disponibles.
 
 @seealso
 Glosario musical:
@@ -752,8 +761,8 @@ Referencia de la notación:
 
 Utilice la propiedad @code{flag-style} del elemento gráfico
 @code{Stem} para seleccionar los corchetes de estilo antiguo.
-Aparte del estilo de corchete por defecto @code{default}, sólo está
-contemplado el estilo @code{mensural}
+Aparte del estilo de corchete por defecto @code{default}, sólo
+está contemplado el estilo @code{mensural}
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 \relative c' {
@@ -769,8 +778,9 @@ contemplado el estilo @code{mensural}
 Observe que la bandera más interna de cada uno de los corchetes
 mensurales se alinea verticalmente con una línea de la pauta.
 
-No existe un estilo particular de corchete para la notación neo-mensural ni Petrucci.
-No existen corchetes en la notación del canto gregoriano.
+No existe un estilo particular de corchete para la notación
+neo-mensural ni Petrucci.  No existen corchetes en la notación del
+canto gregoriano.
 
 @seealso
 Glosario musical:
@@ -778,12 +788,13 @@ Glosario musical:
 @rglos{flag}.
 
 @knownissues
-La alineación vertical de cada uno de los corchetes con una línea de
-la pauta da por supuesto que las plicas siempre terminan exactamente
-encima o bien exactamente en el medio de dos líneas de la pauta.  Esto
-puede no ser siempre cierto cuando se utilizan las posibilidades de
-disposición avanzadas de la notación clásica (que, de todas formas,
-por lo común se encuentra fuera del ámbito de la notación mensural).
+La alineación vertical de cada uno de los corchetes con una línea
+de la pauta da por supuesto que las plicas siempre terminan
+exactamente encima o bien exactamente en el medio de dos líneas de
+la pauta.  Esto puede no ser siempre cierto cuando se utilizan las
+posibilidades de disposición avanzadas de la notación clásica
+(que, de todas formas, por lo común se encuentra fuera del ámbito
+de la notación mensural).
 
 
 @node Silencios de la música mensural
@@ -792,30 +803,23 @@ por lo común se encuentra fuera del ámbito de la notación mensural).
 
 @cindex rests, ancient
 
-Utilice la propiedad @code{style} del elemento gráfico
-@code{Rest} para seleccionar silencios antiguos.  Los estilos
-contemplados son @code{classical}, @code{neomensural} y
-@code{mensural}.  @code{classical} se diferencia del estilo por
-defecto @code{default} solamente en que el silencio de negra parece un
-silencio de corchea invertido horizontalmente.  Los estilos
-@code{mensural} y @code{neomensural} reproducen el aspecto de los
-silencios de los manuscritos y ediciones impresas de hasta el s.XVI.
+Utilice la propiedad @code{style} del elemento gráfico @code{Rest}
+para seleccionar silencios antiguos.  Los estilos de música
+antigua contemplados son @code{classical}, @code{neomensural} y
+@code{mensural}.
 
-El ejemplo siguiente muestra los estilos @code{mensural} y
-@code{neomensural}:
+El ejemplo siguiente muestra estos estilos:
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 \set Score.skipBars = ##t
-\override Rest.style = #'classical
-r\longa^"classical" r\breve r1 r2 r4 r8 r16 s \break
 \override Rest.style = #'mensural
 r\longa^"mensural" r\breve r1 r2 r4 r8 r16 s \break
 \override Rest.style = #'neomensural
 r\longa^"neomensural" r\breve r1 r2 r4 r8 r16
 @end lilypond
 
-No existen silencios de fusa y semifusa específicos para los estilos
-mensural ni neo-mensural.  En su lugar se tomarán los silencios del
+No existen silencios de fusa y semifusa específicos para los
+estilos mensural ni neo-mensural.  Se usan los silencios del
 estilo predeterminado.
 
 @seealso
@@ -830,10 +834,10 @@ Fragmentos de código:
 
 @knownissues
 El glifo para el silencio de máxima en el estilo mensural es en
-realidad un silencio de longa perfecta; use dos (o tres) silencios de
-longa para imprimir un silencio de máxima.  Los sliencions de longa no
-se agrupan automáticamente, por lo que debe hacerse manualmente
-utilizando silencios con altura determinada.
+realidad un silencio de longa perfecta; use dos (o tres) silencios
+de longa para imprimir un silencio de máxima.  Los sliencions de
+longa no se agrupan automáticamente, por lo que debe hacerse
+manualmente utilizando silencios con altura determinada.
 
 
 @node Alteraciones y armaduras de la música mensural
@@ -843,9 +847,13 @@ utilizando silencios con altura determinada.
 @cindex alteraciones
 @cindex armadura
 
-El estilo @code{mensural} ofrece unos símbolos de sostenido y bemol
-distintos de los del estilo predeterminado.  Si se solicita, el
-símbolo de becuadro se extrae del estilo @code{vaticana}.
+El estilo @code{mensural} ofrece unos símbolos de sostenido y
+bemol distintos de los del estilo predeterminado.  La notación
+mensural rara vez utilizaba el becuadro: en su lugar, se usaba el
+sostenido o bemol correspondiente.  Por ejemplo, un Si natural en
+la tonalidad de Fa mayor se indicaría con un sostenido.  Sin
+embargo, si se solicita explícitamente, el símbolo de becuadro se
+extrae del estilo @code{vaticana}.
 
 @lilypond[quote,ragged-right,staffsize=26]
 \markup {
@@ -859,8 +867,8 @@ símbolo de becuadro se extrae del estilo @code{vaticana}.
 
 El estilo de las alteraciones y de la armadura de la tonalidad se
 controlan a través de la propiedad @code{glyph-name-alist} de los
-elementos gráficos @code{Accidental} y
-@code{KeySignature}, respectivamente; p.ej.:
+elementos gráficos @code{Accidental} y @code{KeySignature},
+respectivamente; p.ej.:
 
 @example
 \override Staff.Accidental.glyph-name-alist =
@@ -884,24 +892,23 @@ Referencia de funcionamiento interno:
 @rinternals{KeySignature}.
 
 
-@cindex alteraciones accidentales
-
-
 @node Alteraciones de anotación (musica ficta)
 @unnumberedsubsubsec Alteraciones de anotación (@emph{musica ficta})
 @translationof Annotational accidentals (musica ficta)
 
 En la música europea de hasta aprox. 1600, se esperaba de los
-cantantes que alterasen cromáticamente ciertas notas según su propia
-iniciativa y de acuerdo a ciertas reglas.  Esto recibe el nombre de
-@notation{musica ficta}.  En las transcripciones modernas, estas
-alteraciones accidentales se imprimen normalmente encima de la nota.
+cantantes que alterasen cromáticamente ciertas notas según su
+propia iniciativa y de acuerdo a ciertas reglas.  Esto recibe el
+nombre de @notation{musica ficta}.  En las transcripciones
+modernas, estas alteraciones accidentales se imprimen normalmente
+encima de la nota.
 
 @cindex alteraciones de la musica ficta
 @cindex musica ficta, alteraciones
 
-Están contempladas estas alteraciones sugeridas, y se pueden activar
-estableciendo @code{suggestAccidentals} al valor verdadero.
+Están contempladas estas alteraciones sugeridas, y se pueden
+activar estableciendo @code{suggestAccidentals} al valor
+verdadero.
 
 @funindex suggestAccidentals
 
@@ -913,9 +920,9 @@ estableciendo @code{suggestAccidentals} al valor verdadero.
 }
 @end lilypond
 
-Esto hará que se traten @emph{todas} las alteraciones siguientes como
-@emph{musica ficta} hasta que se desactive con
-@code{\set suggestAccidentals = ##f}.  Una forma más práctica es usar
+Esto hará que se traten @emph{todas} las alteraciones siguientes
+como @emph{musica ficta} hasta que se desactive con @code{\set
+suggestAccidentals = ##f}.  Una forma más práctica es usar
 @code{\once \set suggestAccidentals = ##t}, que puede incluso
 definirse como una forma breve muy conveniente:
 
@@ -923,8 +930,8 @@ definirse como una forma breve muy conveniente:
 ficta = { \once \set suggestAccidentals = ##t }
 \score { \relative
   \new MensuralVoice  {
-	\once \set suggestAccidentals = ##t
-  bes'4 a2 g2 \ficta fis8 \ficta e! fis2 g1
+    \once \set suggestAccidentals = ##t
+    bes'4 a2 g2 \ficta fis8 \ficta e! fis2 g1
   }
 }
 @end lilypond
@@ -942,13 +949,13 @@ Referencia de funcionamiento interno:
 @cindex Mensural ligatures
 @cindex White mensural ligatures
 
-Las ligaduras mensurales blancas están contempladas de forma limitada.
+Las ligaduras mensurales blancas están contempladas de forma
+limitada.
 
 Para grabar ligaduras mensurales blancas, en el bloque layout o de
 diseño de página reemplace el grabador
 @code{Ligature_bracket_engraver} por el grabador
-@code{Mensural_ligature_engraver} en el contexto
-@code{Voice}:
+@code{Mensural_ligature_engraver} en el contexto @code{Voice}:
 
 @example
 \layout @{
@@ -960,36 +967,26 @@ diseño de página reemplace el grabador
 @}
 @end example
 
-No existe ningún lenguaje de entrada adicional para describir la forma
-de una ligadura mensural blanca.  Más bien la forma se determina
-exclusivamente a partir de la altura y duración de las notas
-comprendidas.  Si bien este enfoque podría hacer que un usuario con
-poca experiencia tardase un tiempo en acostumbrarse a él, tiene la
-gran ventaja de que toda la información musical de la ligadura se
-conoce internamente.  Esto no se requiere solamente para una salida
-MIDI correcta, sino que también permite la transcripción automática de
-las ligaduras.
+No existe ningún lenguaje de entrada adicional para describir la
+forma de una ligadura mensural blanca.  Más bien la forma se
+determina exclusivamente a partir de la altura y duración de las
+notas comprendidas.  Si bien este enfoque podría hacer que un
+usuario con poca experiencia tardase un tiempo en acostumbrarse a
+él, tiene la gran ventaja de que toda la información musical de la
+ligadura se conoce internamente.  Esto no se requiere solamente
+para una salida MIDI correcta, sino que también permite la
+transcripción automática de las ligaduras.
 
-En algunos lugares, dos notas consecutivas se pueden representar bien
-como dos cuadrados, bien como un paralelogramo oblicuo (forma de
-flexa).  En tales casos la forma por omisión es dos cuadrados, pero
-puede requerirse una flexa fijando la propiedad @code{ligature-flexa}
-de la @emph{segunda} cabeza.  La longitud de una flexa se puede fijar
-mediante la propiedad @code{flexa-width} de la cabeza.
+En algunos lugares, dos notas consecutivas se pueden representar
+bien como dos cuadrados, bien como un paralelogramo oblicuo (forma
+de flexa).  En tales casos la forma por omisión es dos cuadrados,
+pero puede requerirse una flexa fijando la propiedad
+@code{ligature-flexa} de la @emph{segunda} cabeza.  La longitud de
+una flexa se puede fijar mediante la propiedad @code{flexa-width}
+de la cabeza.
 
 Por ejemplo:
 
-@c @example
-@c \set Score.timing = ##f
-@c \set Score.defaultBarType = "-"
-@c \override NoteHead.style = #'neomensural
-@c \override Staff.TimeSignature.style = #'neomensural
-@c \clef "petrucci-g"
-@c \[ c'\maxima g \]
-@c \[ d\longa c\breve f e d \]
-@c \[ c'\maxima d'\longa \]
-@c \[ e'1 a g\breve \]
-@c @end example
 @lilypond[quote,ragged-right,verbatim]
 \score {
   \relative {
@@ -999,11 +996,11 @@ Por ejemplo:
     \override Staff.TimeSignature.style = #'mensural
     \clef "petrucci-g"
     \[ c''\maxima g \]
-    \[ d\longa
+    \[ d'\longa
        \override NoteHead.ligature-flexa = ##t
        \once \override NoteHead.flexa-width = #3.2
        c\breve f e d \]
-    \[ c'\maxima d\longa \]
+    \[ c\maxima d\longa \]
     \[ e1 a, g\breve \]
   }
   \layout {
@@ -1017,8 +1014,8 @@ Por ejemplo:
 @end lilypond
 
 Si no se sustituye el grabador @code{Ligature_bracket_engraver}
-por el @code{Mensural_ligature_engraver}, la misma música se
-transcribe de la siguiente manera:
+por el @code{Mensural_ligature_engraver}, la misma música presenta
+la siguiente apariencia:
 
 @lilypond[quote,ragged-right]
 \relative {
@@ -1028,11 +1025,11 @@ transcribe de la siguiente manera:
   \override Staff.TimeSignature.style = #'mensural
   \clef "petrucci-g"
   \[ c''\maxima g \]
-  \[ d\longa
+  \[ d'\longa
      \override NoteHead.ligature-flexa = ##t
      \once \override NoteHead.flexa-width = #3.2
      c\breve f e d \]
-  \[ c'\maxima d\longa \]
+  \[ c\maxima d\longa \]
   \[ e1 a, g\breve \]
 }
 @end lilypond
@@ -1046,8 +1043,9 @@ Referencia de la notación:
 @ref{Ligaduras}.
 
 @knownissues
-El espaciado horizontal de las ligaduras es pobre.
-Las alteraciones accidentales pueden colisionar con las notas previas.
+El espaciado horizontal de las ligaduras puede ser algo pobre.
+Las alteraciones accidentales pueden colisionar con las notas
+previas.
 
 
 @node Tipografiado del canto gregoriano
@@ -1065,14 +1063,15 @@ Las alteraciones accidentales pueden colisionar con las notas previas.
 @end menu
 
 Al componer tipográficamente una pieza en notación de canto
-gregoriano, el grabador @code{Vaticana_ligature_engraver} selecciona
-automáticamente la cabeza adecuada de las figuras, de manera que no es
-necesario establecer explícitamente el estilo de las cabezas.  A pesar
-de ello se puede establecer el estilo de las cabezas, p.ej.: a
-@code{vaticana_punctum} para producir neumas de punctum.  De forma
-similar, el grabador @code{Mensural_ligature_engraver} construye
-ligaduras mensurales automáticamente.  Consulte @ref{Ligaduras} para
-ver cómo funcionan los grabadores de ligaduras.
+gregoriano, el grabador @code{Vaticana_ligature_engraver}
+selecciona automáticamente la cabeza adecuada de las figuras, de
+manera que no es necesario establecer explícitamente el estilo de
+las cabezas.  A pesar de ello se puede establecer el estilo de las
+cabezas, p.ej.: a @code{vaticana_punctum} para producir neumas de
+punctum.  De forma similar, el grabador
+@code{Mensural_ligature_engraver} construye ligaduras mensurales
+automáticamente.  Consulte @ref{Ligaduras} para ver cómo funcionan
+los grabadores de ligaduras.
 
 @seealso
 Glosario musical:
@@ -1090,13 +1089,13 @@ Referencia de la notación:
 @cindex VaticanaVoice
 @cindex VaticanaStaff
 
-El contexto predefinido de voz @code{VaticanaVoice} y el de
-pauta @code{VaticanaStaff} se pueden utilizar para grabar una
-pieza de canto gregoriano en el estilo de la Editio Vaticana.  Estos
+El contexto predefinido de voz @code{VaticanaVoice} y el de pauta
+@code{VaticanaStaff} se pueden utilizar para grabar una pieza de
+canto gregoriano en el estilo de la Editio Vaticana.  Estos
 contextos establecen a unos valores iniciales adecuados todas las
-propiedades relevantes de los contextos y de los objetos gráficos, de
-forma que pueda inmediatamente comenzar a escribir el canto en sí,
-como lo demuestra el siguiente fragmento:
+propiedades relevantes de los contextos y de los objetos gráficos,
+de forma que pueda inmediatamente comenzar a escribir el canto en
+sí, como lo demuestra el siguiente fragmento:
 
 @lilypond[quote,ragged-right,verbatim]
 \include "gregorian.ly"
@@ -1129,16 +1128,17 @@ como lo demuestra el siguiente fragmento:
 
 @cindex claves
 
-La tabla siguiente muestra todas las claves gregorianas contempladas a
-través de la instrucción @code{\clef}.  Algunas de las claves usan el
-mismo glifo, pero se diferencian solamente en la línea en que se
-imprimen.  En estos casos, para enumerar estas claves se usa un número
-a continuación del nombre de la clave, contando desde la línea
-inferior.  Aún se puede forzar manualmente la composición tipográfica
-de un glifo de clave sobre una línea arbitraria, como se describe en
-@ref{Clave}.  La nota que se imprime a la derecha junto a cada una de
-las claves en la columna de los ejemplos, denota el Do central
-(@code{c'}) respecto a dicha clave.
+La tabla siguiente muestra todas las claves gregorianas
+contempladas a través de la instrucción @code{\clef}.  Algunas de
+las claves usan el mismo glifo, pero se diferencian solamente en
+la línea en que se imprimen.  En estos casos, para enumerar estas
+claves se usa un número a continuación del nombre de la clave,
+contando desde la línea inferior.  Aún se puede forzar manualmente
+la composición tipográfica de un glifo de clave sobre una línea
+arbitraria, como se describe en @ref{Clave}.  La nota que se
+imprime a la derecha junto a cada una de las claves en la columna
+de los ejemplos, denota el Do central (@code{c'}) respecto a dicha
+clave.
 
 @multitable @columnfractions .4 .4 .2
 @item
@@ -1271,7 +1271,8 @@ Referencia de la notación:
 @cindex accidentals
 @cindex key signature
 
-Están disponibles las alteraciones de los tres estilos gregorianos:
+Están disponibles las alteraciones de los tres estilos
+gregorianos:
 
 @lilypond[quote,ragged-right,staffsize=26]
 \markup {
@@ -1298,10 +1299,10 @@ contemplada, LilyPond cambia a un estilo diferente.
 @c @lilypondfile[verbatim,quote,texidoc,doctitle]
 @c {ancient-accidentals.ly}
 
-El estilo de las alteraciones y las armaduras de tonalidad se controla
-a través de la propiedad @code{glyph-name-alist} de los grobs (objetos
-gráficos) @rinternals{Accidental} y @rinternals{KeySignature},
-respectivamente; p.ej.:
+El estilo de las alteraciones y las armaduras de tonalidad se
+controla a través de la propiedad @code{glyph-name-alist} de los
+grobs (objetos gráficos) @rinternals{Accidental} y
+@rinternals{KeySignature}, respectivamente; p.ej.:
 
 @example
 \override Staff.Accidental.glyph-name-alist =
@@ -1335,20 +1336,21 @@ En la notación del canto gregoriano no existen silencios, sino
 @ref{Divisiones}.
 
 Una @emph{divisio} (en plural: @emph{divisiones}, que en latín
-significa @q{división}) es un símbolo del contexto del pentagrama que
-se usa para estructurar la música gregoriana en frases y secciones.
-El significado musical de @emph{divisio minima}, @emph{divisio maior}
-y @emph{divisio maxima} se podrían caracterizar como una pausa corta,
-media y larga (respectivamente), algo así como las marcas de
-respiración de @ref{Marcas de respiración}.  El signo de
-@emph{finalis} no sólo marca el final de un canto, sino que se usa
-también con frecuencia dentro de un único canto antifonal o
-responsorial para marcar el final de cada una de las secciones.
+significa @q{división}) es un símbolo del contexto del pentagrama
+que se usa para estructurar la música gregoriana en frases y
+secciones.  El significado musical de @emph{divisio minima},
+@emph{divisio maior} y @emph{divisio maxima} se podrían
+caracterizar como una pausa corta, media y larga
+(respectivamente), algo así como las marcas de respiración de
+@ref{Marcas de respiración}.  El signo de @emph{finalis} no sólo
+marca el final de un canto, sino que se usa también con frecuencia
+dentro de un único canto antifonal o responsorial para marcar el
+final de cada una de las secciones.
 
 Para usar divisiones, incluya el archivo @file{gregorian.ly}.
 Contiene definiciones que podrá aplicar con tan sólo escribir
-@code{\divisioMinima}, @code{\divisioMaior}, @code{\divisioMaxima} y
-@code{\finalis} en los lugares adecuados de la entrada.  Algunas
+@code{\divisioMinima}, @code{\divisioMaior}, @code{\divisioMaxima}
+y @code{\finalis} en los lugares adecuados de la entrada.  Algunas
 ediciones usan @emph{virgula} o @emph{caesura} en vez de divisio
 minima.  Por ello, @file{gregorian.ly} define también las
 instrucciones @code{\virgula} y @code{\caesura}.
@@ -1418,10 +1420,11 @@ Archivos de inicio:
 
 @cindex articulaciones
 
-Además de los signos de articulación estándar que se hallan descritos
-en la sección @ref{Articulaciones y ornamentos}, se proveen signos de
-articulación diseñados específicamente para utilizarlos con la
-notación en el estilo de la @emph{Editio Vaticana}.
+Además de los signos de articulación estándar que se hallan
+descritos en la sección @ref{Articulaciones y ornamentos}, se
+proveen signos de articulación diseñados específicamente para
+utilizarlos con la notación en el estilo de la @emph{Editio
+Vaticana}.
 
 @lilypond[quote,ragged-right,verbatim]
 \include "gregorian.ly"
@@ -1455,23 +1458,24 @@ Referencia de funcionamiento interno:
 @rinternals{Script_engraver}.
 
 @knownissues
-Ciertas articulaciones se colocan demasiado cerca verticalmente de las
-cabezas de nota correspondientes.
+Ciertas articulaciones se colocan demasiado cerca verticalmente de
+las cabezas de nota correspondientes.
 
 
 @node Puntos de aumentación (morae)
 @unnumberedsubsubsec Puntos de aumentación (@emph{morae})
 @translationof Augmentum dots (morae)
 
-Los puntos de aumentación, llamados también @emph{morae}, se escriben
-con la función musical @code{\augmentum}.  Observe que
-@code{\augmentum} está programado como una función musical unaria y no
-como un prefijo de cabeza.  Se aplica solamente a la expresión musical
-que sigue inmediatamente.  Esto es, @code{\augmentum \virga c} no
-tendrá ningún efecto visible.  En su lugar, escriba @code{\virga
-\augmentum c} o @code{\augmentum @{\virga c@}}.  Tenga en cuenta
-también que puede escribir @code{\augmentum @{a g@}} como abreviatura
-de @code{\augmentum a \augmentum g}.
+Los puntos de aumentación, llamados también @emph{morae}, se
+escriben con la función musical @code{\augmentum}.  Observe que
+@code{\augmentum} está programado como una función musical unaria
+y no como un prefijo de cabeza.  Se aplica solamente a la
+expresión musical que sigue inmediatamente.  Esto es,
+@code{\augmentum \virga c} no tendrá ningún efecto visible.  En su
+lugar, escriba @code{\virga \augmentum c} o @code{\augmentum
+@{\virga c@}}.  Tenga en cuenta también que puede escribir
+@code{\augmentum @{a g@}} como abreviatura de @code{\augmentum a
+\augmentum g}.
 
 @lilypond[quote,ragged-right,verbatim]
 \include "gregorian.ly"
@@ -1501,26 +1505,28 @@ Fragmentos de código:
 @cindex Square neumes ligatures
 @cindex Gregorian square neumes ligatures
 
-La notación de neumas cuadrados gregorianos está contemplada de forma
-limitada (siguiendo el estilo de la Editio Vaticana).  El núcleo
-principal del conjunto de las ligaduras ya se pueden tipografiar, pero
-aún faltan aspectos esenciales para una composición tipográfica seria,
-como (entre otros) la alineación horizontal de varias ligaduras, la
-alineación de la letra y un correcto manejo de las alteraciones
-accidentales.
+La notación de neumas cuadrados gregorianos está contemplada de
+forma limitada (siguiendo el estilo de la Editio Vaticana).  El
+núcleo principal del conjunto de las ligaduras ya se pueden
+tipografiar, pero aún faltan aspectos esenciales para una
+composición tipográfica seria, como (entre otros) la alineación
+horizontal de varias ligaduras, la alineación de la letra y un
+correcto manejo de las alteraciones accidentales.
 
 Se habilita el soporte de los neumas gregorianos por medio de la
 inclusión con @code{\include} del archivo @file{gregorian.ly} al
 principio del archivo.  Esto hace que estén disponibles una cierta
-cantidad de instrucciones adicionales para producir los símbolos de
-los neumas que se usan en la notación de canto llano.
+cantidad de instrucciones adicionales para producir los símbolos
+de los neumas que se usan en la notación de canto llano.
 
-Las cabezas de las notas se pueden @emph{modificar} y/o @emph{unir}.
+Las cabezas de las notas se pueden @emph{modificar} y/o
+@emph{unir}.
 
 @itemize
-@item La forma de la cabeza
-se puede modificar @emph{precediendo} el nombre de la nota con una
-cualquiera de las instrucciones siguientes:
+@item
+La forma de la cabeza se puede modificar @emph{precediendo} el
+nombre de la nota con una cualquiera de las instrucciones
+siguientes:
 @funindex \virga
 @code{\virga},
 @funindex \stropha
@@ -1544,17 +1550,18 @@ cualquiera de las instrucciones siguientes:
 @funindex \linea
 @code{\linea}.
 
-@item Las ligaduras hablando en propiedad,
-(es decir, notas unidas), se producen escribiendo una de las
-instrucciones de unión @code{\pes} o @code{\flexa}, para el movimiento
-ascendente y descendente, respectivamente, @emph{intercaladas} entre
-las notas que se han de unir.
+@item
+Las ligaduras hablando en propiedad, (es decir, notas unidas), se
+producen escribiendo una de las instrucciones de unión @code{\pes}
+o @code{\flexa}, para el movimiento ascendente y descendente,
+respectivamente, @emph{intercaladas} entre las notas que se han de
+unir.
 @end itemize
 
 Una nota sin modificaciones produce un @emph{punctum}.  Todos los
-demás neumas, incluso los neumas de una nota con forma distinta como
-la @emph{virga}, se consideran en principio como ligaduras y por ello
-se deben escribir dentro de @code{\[@dots{}\]}.
+demás neumas, incluso los neumas de una nota con forma distinta
+como la @emph{virga}, se consideran en principio como ligaduras y
+por ello se deben escribir dentro de @code{\[@dots{}\]}.
 
 @noindent
 Neumas de una nota:
@@ -1562,100 +1569,104 @@ Neumas de una nota:
 @itemize
 @item El @emph{punctum} es la forma básica de nota (en el estilo
 @emph{Vaticana}: un cuadrado con una ligera curvatura a modo de
-excelencia tipográfica).  Además del @emph{punctum} normal, están el
-@emph{punctum inclinatum}, oblicuo, producido con el prefijo
-@code{\inclinatum}.  El @emph{punctum} normal se puede modificar con
-@code{\cavum}, que produce una nota vacía, y @code{\linea}, que traza
-líneas verticales a ambos lados de la nota.
+excelencia tipográfica).  Además del @emph{punctum} normal, están
+el @emph{punctum inclinatum}, oblicuo, producido con el prefijo
+@code{\inclinatum}.  El @emph{punctum} normal se puede modificar
+con @code{\cavum}, que produce una nota vacía, y @code{\linea},
+que traza líneas verticales a ambos lados de la nota.
 
-@item La @emph{virga} tiene una plica descendente en el lado derecho.  Se
-produce mediante el modificador @code{\virga}.
+@item La @emph{virga} tiene una plica descendente en el lado derecho.
+Se produce mediante el modificador @code{\virga}.
 @end itemize
 
 @noindent
 Ligaduras
 
-A diferencia de casi todos los otros sistemas de notación de neumas,
-el aspecto tipográfico de las ligaduras no viene dictado directamente
-por las instrucciones de la entrada, sino que sigue unas convenciones
-que dependen del significado musical.  Por ejemplo, una ligadura de
-tres notas con la forma musical bajo-alto-bajo, como
-@code{\[ a \pes b \flexa g \]}, produce un Torculus que consiste en
-tres cabezas de Punctum, mientras que la forma alto-bajo-alto, como
-@code{\[ a \flexa g \pes b \]}, produce un Porrectus con una forma de
-flexa curvada y una sola cabeza de Punctum.  No existe ninguna
-instrucción para tipografiar explícitamente la forma de flexa curvada;
-la decisión de cuándo tipografiar una forma de flexa curvada está
-basada en la entrada musical.  La idea de este enfoque es separar los
-aspectos musicales de la entrada, del estilo de notación de la salida.
-De esta forma, la misma entrada se puede reutilizar para tipografiar
+A diferencia de casi todos los otros sistemas de notación de
+neumas, el aspecto tipográfico de las ligaduras no viene dictado
+directamente por las instrucciones de la entrada, sino que sigue
+unas convenciones que dependen del significado musical.  Por
+ejemplo, una ligadura de tres notas con la forma musical
+bajo-alto-bajo, como @code{\[ a \pes b \flexa g \]}, produce un
+Torculus que consiste en tres cabezas de Punctum, mientras que la
+forma alto-bajo-alto, como @code{\[ a \flexa g \pes b \]}, produce
+un Porrectus con una forma de flexa curvada y una sola cabeza de
+Punctum.  No existe ninguna instrucción para tipografiar
+explícitamente la forma de flexa curvada; la decisión de cuándo
+tipografiar una forma de flexa curvada está basada en la entrada
+musical.  La idea de este enfoque es separar los aspectos
+musicales de la entrada, del estilo de notación de la salida.  De
+esta forma, la misma entrada se puede reutilizar para tipografiar
 la misma música en un estilo diferente de notación de canto
 gregoriano.
 
 @noindent
 Neumas licuescentes
 
-Otra categoría fundamental de notas en el canto gregoriano es la de
-los llamados neumas licuescentes.  Se utilizan bajo ciertas
+Otra categoría fundamental de notas en el canto gregoriano es la
+de los llamados neumas licuescentes.  Se utilizan bajo ciertas
 circunstancias al final de una sílaba que acaba en una letra
-@q{licuescente}, es decir, consonantes sonoras que pueden tener una
-altura tonal, (nasales, l, r, v, j, y sus diptongos equivalentes).
-Así, los neumas licuescentes nunca se utilizan aisladamente (aunque se
-pueden producir algunos de ellos), y siempre están al final de una
-ligadura.
+@q{licuescente}, es decir, consonantes sonoras que pueden tener
+una altura tonal, (nasales, l, r, v, j, y sus diptongos
+equivalentes).  Así, los neumas licuescentes nunca se utilizan
+aisladamente (aunque se pueden producir algunos de ellos), y
+siempre están al final de una ligadura.
 
 Los neumas licuescentes se representan gráficamente de dos formas
 distintas más o menos intercambiables: con una nota pequeña o
-@q{girando} la nota principal hacia arriba o hacia abajo.  La primera
-forma se produce haciendo un @code{pes} o una @code{flexa} normales y
-modificando la forma de la segunda nota: @code{\[ a \pes \deminutum b
-\] }, mientras que la segunda se hace modificando la forma de un neuma
-de una nota con @code{\auctum} y uno de los generadores de dirección
-@code{\descendens} o @code{\ascendens}, p.ej.  @code{ \[ \auctum
-\descendens a \] }.
+@q{girando} la nota principal hacia arriba o hacia abajo.  La
+primera forma se produce haciendo un @code{pes} o una @code{flexa}
+normales y modificando la forma de la segunda nota: @code{\[ a
+\pes \deminutum b \] }, mientras que la segunda se hace
+modificando la forma de un neuma de una nota con @code{\auctum} y
+uno de los generadores de dirección @code{\descendens} o
+@code{\ascendens}, p.ej.  @code{ \[ \auctum \descendens a \] }.
 
 @noindent
 Símbolos especiales
 
 Hay una tercera categoría de símbolos que se hace a partir de un
-pequeño número de símbolos que tienen un significado especial (que,
-por cierto, casi siempre se conocen sólo vagamente): el
+pequeño número de símbolos que tienen un significado especial
+(que, por cierto, casi siempre se conocen sólo vagamente): el
 @emph{quilisma}, el @emph{oriscus} y el @emph{strophicus}.  Todos
 ellos se producen anteponiendo al nombre de la nota el modificador
-correspondiente, @code{\quilisma}, @code{\oriscus} o @code{\stropha}.
+correspondiente, @code{\quilisma}, @code{\oriscus} o
+@code{\stropha}.
 
 Dentro de los delimitadores de ligadura @code{\[} y @code{\]}, se
-pueden acumular prácticamente cualquier cantidad de cabezas de nota
-para formar una sola ligadura, y los prefijos de cabeza como
-@code{\pes}, @code{\flexa}, @code{\virga}, @code{\inclinatum}, etc. se
-pueden mezclar libremente.  El uso del conjunto de reglas que subyace
-a la construcción de ligaduras en la tabla anterior está
-consecuentemente extrapolada.  De esta manera se pueden crear un
-número infinito de ligaduras distintas.
+pueden acumular prácticamente cualquier cantidad de cabezas de
+nota para formar una sola ligadura, y los prefijos de cabeza como
+@code{\pes}, @code{\flexa}, @code{\virga}, @code{\inclinatum},
+etc. se pueden mezclar libremente.  El uso del conjunto de reglas
+que subyace a la construcción de ligaduras en la tabla anterior
+está consecuentemente extrapolada.  De esta manera se pueden crear
+un número infinito de ligaduras distintas.
 
-Observe que el uso de esos símbolos en la propia música sigue ciertas
-reglas que LilyPond no comprueba.  P.ej., el @emph{quilisma} siempre
-es la nota intermedia de una ligadura ascendente, y suele caer sobre
-un intervalo de semitono, pero es perfectamente posible, si bien
-incorrecto, hacer un quilisma de una nota.
+Observe que el uso de esos símbolos en la propia música sigue
+ciertas reglas que LilyPond no comprueba.  P.ej., el
+@emph{quilisma} siempre es la nota intermedia de una ligadura
+ascendente, y suele caer sobre un intervalo de semitono, pero es
+perfectamente posible, si bien incorrecto, hacer un quilisma de
+una nota.
 
-Además de los símbolos de nota, el archivo @file{gregorian.ly} define
-también las instrucciones @code{\versus}, @code{\responsum},
-@code{\ij}, @code{\iij}, @code{\IJ} y @code{\IIJ}, que producen los
-caracteres correspondientes, p.ej. para utilizarlos en la letra, como
-marcas de sección, etc.  Estas instrucciones utilizan caracteres de
-Unicode especiales y sólo funcionan si se usa una fuente tipográfica
-que los contemple.
+Además de los símbolos de nota, el archivo @file{gregorian.ly}
+define también las instrucciones @code{\versus},
+@code{\responsum}, @code{\ij}, @code{\iij}, @code{\IJ} y
+@code{\IIJ}, que producen los caracteres correspondientes,
+p.ej. para utilizarlos en la letra, como marcas de sección, etc.
+Estas instrucciones utilizan caracteres de Unicode especiales y
+sólo funcionan si se usa una fuente tipográfica que los contemple.
 
-La tabla siguiente muestra un conjunto limitado, pero representativo,
-de ligaduras gregorianas, junto a los fragmentos de código que las
-producen.  La tabla está basada en la tabla de neumas extendidos del
-segundo volumen del Antiphonale Romanum (@emph{Liber Hymnarius}),
-publicado en 1983 por los monjes de Solesmes.  La primera columna da
-el nombre de la ligadura, con la forma principal en tipo negrita y las
-formas licuescentes en cursiva.  La tercera forma muestra el fragmento
-de código que produce dicha ligadura, utilizando Sol, La y Si como
-alturas de ejemplo.
+La tabla siguiente muestra un conjunto limitado, pero
+representativo, de ligaduras gregorianas, junto a los fragmentos
+de código que las producen.  La tabla está basada en la tabla de
+neumas extendidos del segundo volumen del Antiphonale Romanum
+(@emph{Liber Hymnarius}), publicado en 1983 por los monjes de
+Solesmes.  La primera columna da el nombre de la ligadura, con la
+forma principal en tipo negrita y las formas licuescentes en
+cursiva.  La tercera forma muestra el fragmento de código que
+produce dicha ligadura, utilizando Sol, La y Si como alturas de
+ejemplo.
 
 
 @b{Neumas de una nota}
@@ -2409,20 +2420,21 @@ Están contemplados los siguientes prefijos de cabeza:
 @endpredefined
 
 Se pueden acumular los prefijos de cabeza, aunque con ciertas
-restricciones.  Por ejemplo, se pueden aplicar @code{\descendens} o
-@code{\ascendens} a una cabeza, pero no los dos a la misma cabeza.
+restricciones.  Por ejemplo, se pueden aplicar @code{\descendens}
+o @code{\ascendens} a una cabeza, pero no los dos a la misma
+cabeza.
 
 @funindex \pes
 @funindex \flexa
 
-Se pueden ligar dos cabezas adyacentes con las instrucciones infijas
-@code{\pes} y @code{\flexa} para una línea melódica ascendente y
-descendente, respectivamente.
+Se pueden ligar dos cabezas adyacentes con las instrucciones
+infijas @code{\pes} y @code{\flexa} para una línea melódica
+ascendente y descendente, respectivamente.
 
 @funindex \augmentum
 
-Utilice la función musical unaria @code{\augmentum} para añadir puntos
-de augmentum.
+Utilice la función musical unaria @code{\augmentum} para añadir
+puntos de augmentum.
 
 @seealso
 Glosario musical:
@@ -2435,14 +2447,14 @@ Referencia de la notación:
 
 @knownissues
 Cuando aparece un punto de @code{\augmentum} al final de la última
-pauta dentro de una ligadura, a veces se posiciona defectuosamente en
-el sentido vertical.  Para rodear el problema, escriba una nota
+pauta dentro de una ligadura, a veces se posiciona defectuosamente
+en el sentido vertical.  Para rodear el problema, escriba una nota
 adicional de salto (p.ej. @code{s8}) como última nota de la pauta.
 
-@code{\augmentum} debería estar implementado como un prefijo de cabeza
-en vez de una función musical unaria, de forma que @code{\augmentum}
-se pudiera entremezclar con los prefijos de cabeza en un orden
-arbitrario.
+@code{\augmentum} debería estar implementado como un prefijo de
+cabeza en vez de una función musical unaria, de forma que
+@code{\augmentum} se pudiera entremezclar con los prefijos de
+cabeza en un orden arbitrario.
 
 @node Tipografiado del canto kievano en notación cuadrada
 @subsection Tipografiado del canto kievano en notación cuadrada
@@ -2466,10 +2478,11 @@ arbitrario.
 
 De la misma manera que con las notaciones mensural y gregoriana,
 pueden usarse los contextos predefinidos @code{KievanVoice} y
-@code{KievanStaff} para tipografiar una pieza en notación cuadrada.
-Estos contextos inician todas las propiedades de contexto necesarias a
-sus valores adecuados, de manera que pueda ponerse manos a la obra
-inmediatamente con la introducción del propio canto:
+@code{KievanStaff} para tipografiar una pieza en notación
+cuadrada.  Estos contextos inician todas las propiedades de
+contexto necesarias a sus valores adecuados, de manera que pueda
+ponerse manos a la obra inmediatamente con la introducción del
+propio canto:
 
 @lilypond[quote,ragged-right,verbatim]
 % Font settings for Cyrillic
@@ -2499,12 +2512,13 @@ Glosario musical:
 @rglos{kievan notation}.
 
 @knownissues
-LilyPond contempla la notación del canto kievano en el estilo sinodal,
-tal y como se usa en los cantorales impresos por el Sacro Sínodo Ruso
-en la década de 1910 y recientemenre reimpreso por la Casa de
-Publicaciones del Patriarcado de Moscú.  LilyPond no contempla las
-formas anteriores (menos corrientes) de notación kievana que se usaban
-en Galitzia para la notación del canto llano ruteno.
+LilyPond contempla la notación del canto kievano en el estilo
+sinodal, tal y como se usa en los cantorales impresos por el Sacro
+Sínodo Ruso en la década de 1910 y recientemenre reimpreso por la
+Casa de Publicaciones del Patriarcado de Moscú.  LilyPond no
+contempla las formas anteriores (menos corrientes) de notación
+kievana que se usaban en Galitzia para la notación del canto llano
+ruteno.
 
 @node Claves del canto kievano
 @unnumberedsubsubsec Claves del canto kievano
@@ -2534,21 +2548,22 @@ Referencia de la notación:
 
 @cindex cabezas de nota antiguas
 
-Para la notación cuadrada del canto kievano, debe escogerse el estilo
-apropiado para la forma de la cabeza de las notas y se deben suprimir
-los corchetes y las plicas.  Esto se consigue mediante una llamada a
-la función @code{\kievanOn}, que establece las propiedades adecuadas
-para la cabeza, plica y corchete de las notas.  Una vez que las notas
-de estilo kievano ya no se necesiten, pueden revertirse estas
-propiedades llamando a la función @code{\kievanOff}.
+Para la notación cuadrada del canto kievano, debe escogerse el
+estilo apropiado para la forma de la cabeza de las notas y se
+deben suprimir los corchetes y las plicas.  Esto se consigue
+mediante una llamada a la función @code{\kievanOn}, que establece
+las propiedades adecuadas para la cabeza, plica y corchete de las
+notas.  Una vez que las notas de estilo kievano ya no se
+necesiten, pueden revertirse estas propiedades llamando a la
+función @code{\kievanOff}.
 
-La nota final del canto kievano, que suele ir al final de una pieza
-musical, puede seleccionarse estableciendo la duración al valor
-@code{\longa}.  La marca kievana de recitativo, utilizada para indicar
-la entonación de varias sílabas sobre una sola nota, se puede
-seleccionar estableciendo la duración al valor @code{\breve}.  El
-siguiente ejemplo muestra las diversas formas de la cabeza de las
-notas del canto kievano:
+La nota final del canto kievano, que suele ir al final de una
+pieza musical, puede seleccionarse estableciendo la duración al
+valor @code{\longa}.  La marca kievana de recitativo, utilizada
+para indicar la entonación de varias sílabas sobre una sola nota,
+se puede seleccionar estableciendo la duración al valor
+@code{\breve}.  El siguiente ejemplo muestra las diversas formas
+de la cabeza de las notas del canto kievano:
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 \autoBeamOff
@@ -2568,12 +2583,12 @@ Referencia de la notación:
 @ref{Estilos de cabezas de nota}.
 
 @knownissues
-LilyPond determina de forma automática si debe trazarse la forma de
-una nota con la plica hacia arriba o hacia abajo.  Sin embargo, cuando
-se está tipografiando un canto en notación cuadrada, es preceptivo que
-las plicas estén orientadas en la misma dirección dentro de un
-melisma.  Esto puede hacerse manualmente fijando la propiedad
-@code{direction} del objeto @code{Stem}.
+LilyPond determina de forma automática si debe trazarse la forma
+de una nota con la plica hacia arriba o hacia abajo.  Sin embargo,
+cuando se está tipografiando un canto en notación cuadrada, es
+preceptivo que las plicas estén orientadas en la misma dirección
+dentro de un melisma.  Esto puede hacerse manualmente fijando la
+propiedad @code{direction} del objeto @code{Stem}.
 
 @node Alteraciones accidentales del canto kievano
 @unnumberedsubsubsec Alteraciones accidentales del canto kievano
@@ -2584,10 +2599,11 @@ melisma.  Esto puede hacerse manualmente fijando la propiedad
 El estilo @code{kievan} para las alteraciones accidentales se
 selecciona con la propiedad @code{glyph-name-alist} del grob
 @code{Accidental}.  El estilo @code{kievan} provee unos signos de
-sostenido y de bemol diferentes del estilo predeterminado.  No esiste
-el becuadro en la notación kievana.  El símbolo del sostenido no se
-utiliza en la música sinodal pero puede aparecer en manuscritos más
-antiguos.  Se ha incluido principalmente a efectos de compatibilidad.
+sostenido y de bemol diferentes del estilo predeterminado.  No
+esiste el becuadro en la notación kievana.  El símbolo del
+sostenido no se utiliza en la música sinodal pero puede aparecer
+en manuscritos más antiguos.  Se ha incluido principalmente a
+efectos de compatibilidad.
 
 @lilypond[quote,fragment,notime,verbatim]
 \clef "kievan-do"
@@ -2610,9 +2626,9 @@ Referencia de la notación:
 @unnumberedsubsubsec Líneas divisorias del canto kievano
 @translationof Kievan bar line
 
-Normalmente se coloca una figura decorativa al final de una pieza de
-notación kievana, que puede denominarse como «doble barra final del
-canto kievano».  Se puede invocar como @code{\bar "k"}.
+Normalmente se coloca una figura decorativa al final de una pieza
+de notación kievana, que puede denominarse como «doble barra final
+del canto kievano».  Se puede invocar como @code{\bar "k"}.
 
 @lilypond[quote,fragment,notime,verbatim]
   \kievanOn
@@ -2709,15 +2725,15 @@ El espaciado horizontal de las ligaduras es mediocre.
 @end menu
 
 El trabajo con música antigua implica con frecuencia tareas
-adicionales que difieren considerablemente de la notación moderna para
-la que se diseñó LilyPond.  En el resto de esta sección se perfilan
-unos cuantos escenarios típicos, con sugerencias de soluciones.  Entre
-ellos están los siguientes:
+adicionales que difieren considerablemente de la notación moderna
+para la que se diseñó LilyPond.  En el resto de esta sección se
+perfilan unos cuantos escenarios típicos, con sugerencias de
+soluciones.  Entre ellos están los siguientes:
 
 @itemize
 @item cómo hacer incipits
-(o sea, material a modo de prefacio que indica cómo era el original) a
-las transcripciones modernas de música mensural;
+(o sea, material a modo de prefacio que indica cómo era el
+original) a las transcripciones modernas de música mensural;
 @item cómo conseguir el diseño @emph{Mensurstriche}
 que se usa con frecuencia para las transcripciones modernas de música
 polifónica;
@@ -2729,8 +2745,46 @@ polifónica;
 @node Incipits
 @unnumberedsubsubsec Incipits
 @translationof Incipits
+@funindex \incipit
+@funindex incipit
+@cindex incipits, añadir
 
-Continuará...
+Al transcribir música mensural a la notación moderna, es costumbre
+poner una indicación de la forma en que aparecían en la versión
+original los silencios y la nota o notas iniciales (incluso con
+las claves originales).  Esto recibe el nombre de @emph{incipit}.
+La instrucción @code{\incipit} usa el valor de @code{indent} del
+pentagrama principal para fijar el espacio horizontal que ocupa el
+incipit, y @code{incipit-width} para establecer la anchura del
+pentagrama del propio incipit.
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  \new Staff <<
+    \new Voice = Tenor {
+      \set Staff.instrumentName = #"Tenor"
+      \override Staff.InstrumentName.self-alignment-X = #RIGHT
+      \incipit { \clef "mensural-c4" \key f \major r\breve r1 c'1 }
+      \clef "treble_8"
+      \key f \major
+      R1 r2 c'2 |
+      a4. c'8
+    }
+    \new Lyrics \lyricsto Tenor { Cyn -- thia your }
+  >>
+  \layout
+  {
+    indent = 5\cm
+    incipit-width = 3\cm
+  }
+}
+@end lilypond
+
+@knownissues
+Observe que se debe configurar el contenido de
+@code{instrumentName} dentro de la música, para que aparezca el
+incipit.  Si no quiere que aparezca ningún nombre para el
+instrumento, utilice @code{\set Staff.instrumentName = #""}.
 
 @c @seealso
 @c ... and reference to other sections ...
@@ -2741,12 +2795,13 @@ Continuará...
 @translationof Mensurstriche layout
 
 @emph{Mensurstriche} (@q{líneas de mensuración}) es el término
-aceptado para las barras de compás que se trazan entre los pentagramas
-de un sistema pero no dentro de los propios pentagramas.  Es una forma
-común de preservar el aspecto visual de las duraciones del original,
-es decir, sin tener que dividir las notas sincopadas en las barras de
-compás, y al mismo tiempo ofrecer la ayuda orientativa que
-proporcionan las barras de compás.
+aceptado para las barras de compás que se trazan entre los
+pentagramas de un sistema pero no dentro de los propios
+pentagramas.  Es una forma común de preservar el aspecto visual de
+las duraciones del original, es decir, sin tener que dividir las
+notas sincopadas en las barras de compás, y al mismo tiempo
+ofrecer la ayuda orientativa que proporcionan las barras de
+compás.
 
 
 @lilypondfile[verbatim,quote,texidoc]
@@ -2777,34 +2832,28 @@ el grabador @code{Stem_engraver} del contexto de voz:
 @}
 @end example
 
-Sin embargo, en ciertos estilos de transcripción, se usan plicas de
-forma ocasional, por ejemplo para indicar la transición a partir de un
-recitativo monotónico a un gesto melódico fijo.  En estos casos
-podemos usar bien @code{\hide Stem} o bien
-@code{\override Stem.length = #0}, y restaurar la plica cuando se
-necesite con el correspondiente @code{\once \override Stem.transparent = ##f} (véase el ejemplo de abajo).
-
 @b{Compás}.  Para el canto no medido, existen diversas alternativas.
 
-Se puede eliminar el grabador Time_signature_engraver del contexto de
-Staff sin ningún efecto secundario negativo.  La alternativa, que es
-hacer transparente la indicación de compás, deja un espacio en blanco
-en la partitura, pues la indicación invisible sigue ocupando un
-espacio.
+Se puede eliminar el grabador Time_signature_engraver del contexto
+de Staff sin ningún efecto secundario negativo.  La alternativa,
+que es hacer transparente la indicación de compás, deja un espacio
+en blanco en la partitura, pues la indicación invisible sigue
+ocupando un espacio.
 
-En muchos casos da un buen resultado @code{\set Score.timing = ##f}.
-Otra alternativa es utilizar @code{\cadenzaOn} y @code{\cadenzaOff}.
+En muchos casos da un buen resultado @code{\set Score.timing =
+##f}.  Otra alternativa es utilizar @code{\cadenzaOn} y
+@code{\cadenzaOff}.
 
 Para quitar las barras de compás, el enfoque radical consiste en
 retirar (mediante la instrucción @code{\remove}) el grabador
-Bar_engraver del contexto de pentagrama Staff.  Una vez más, en vez de
-ello podemos usar @code{\hide BarLine} si se
-necesita ocasionalmente una barra de compás.
+Bar_engraver del contexto de pentagrama Staff.  Una vez más, en
+vez de ello podemos usar @code{\hide BarLine} si se necesita
+ocasionalmente una barra de compás.
 
-Un tipo de transcripción muy común es el canto de recitativo, en el
-que la nota repetida se indica con una breve.  Se puede tratar el
-texto del tono de recitativo de dos maneras.  Podemos ponerlo como una
-sola sílaba alineada por la izquierda:
+Un tipo de transcripción muy común es el canto de recitativo, en
+el que la nota repetida se indica con una breve.  Se puede tratar
+el texto del tono de recitativo de dos maneras.  Podemos ponerlo
+como una sola sílaba alineada por la izquierda:
 
 @lilypond[verbatim,ragged-right]
 \include "gregorian.ly"
@@ -2830,26 +2879,38 @@ verba = \lyricmode {
       \Staff
       \remove "Time_signature_engraver"
       \remove "Bar_engraver"
-      \hide Stem
+    }
+    \context {
+      \Voice
+      \remove "Stem_engraver"
     }
   }
 }
 @end lilypond
 
-Esto funciona bien en la medida en que el texto no comprenda un salto
-de línea.  Si es el caso, una alternativa sería añadir notas ocultas a
-la partitura, en combinación con cambios en la visibilidad de las
-plicas:
+Esto funciona bien en la medida en que el texto no comprenda un
+salto de línea.  Si es el caso, una alternativa sería añadir notas
+ocultas a la partitura, en combinación con cambios en la
+visibilidad de las plicas:
 
+En ciertos estilos de transcripción, se usan plicas de forma
+ocasional, por ejemplo para indicar la transición a partir de un
+recitativo monotónico a un gesto melódico fijo.  En estos casos
+podemos usar bien @code{\hide Stem} o bien @code{\override
+Stem.length = #0} en lugar de eliminar el grabador
+@code{Stem_engraver} con @code{\remove}, y restaurar la plica
+cuando sea necesario, con el correspondiente @code{\undo \hide
+Stem}.
 
 @lilypond[verbatim,ragged-right]
 \include "gregorian.ly"
 chant = \relative {
   \clef "G_8"
   \set Score.timing = ##f
+  \hide Stem
   c'\breve \hide NoteHead  c c c c c
   \undo \hide NoteHead
-  \override Stem.transparent = ##f \stemUp c4 b4 a
+  \undo \hide Stem \stemUp c4 b4 a
   \hide Stem c2 c4  \divisioMaior
   c\breve \hide NoteHead c c c c c c c
   \undo \hide NoteHead c4 c f, f \finalis
@@ -2870,31 +2931,31 @@ verba = \lyricmode {
       \Staff
       \remove "Time_signature_engraver"
       \hide BarLine
-      \hide Stem
     }
   }
 }
 @end lilypond
 
 Otra situación común es la transcripción de cantos neumáticos o
-melismáticos, es decir, cantos con un número variable de notas en cada
-sílaba.  En este caso, podemos establecer los grupos de sílabas
-claramente separados, normalmente también las subdivisiones de un
-melisma mayor.  Una forma de conseguirlo es usar un @code{\time} fijo,
-p.ej. 1/4, y dejar que cada sílaba o grupo de notas llene uno de esos
-compases, con la ayuda de grupos de valoración especial o duraciones
-más breves.  Si las líneas divisorias y todas las demás indicaciones
-rítmicas se hacen transparentes, y el espacio que rodea las líneas
-divisorias se aumenta, ello proporciona una aceptable representación
-del original, en notación moderna.
+melismáticos, es decir, cantos con un número variable de notas en
+cada sílaba.  En este caso, podemos establecer los grupos de
+sílabas claramente separados, normalmente también las
+subdivisiones de un melisma mayor.  Una forma de conseguirlo es
+usar un @code{\time} fijo, p.ej. 1/4, y dejar que cada sílaba o
+grupo de notas llene uno de esos compases, con la ayuda de grupos
+de valoración especial o duraciones más breves.  Si las líneas
+divisorias y todas las demás indicaciones rítmicas se hacen
+transparentes, y el espacio que rodea las líneas divisorias se
+aumenta, ello proporciona una aceptable representación del
+original, en notación moderna.
 
 Para evitar que las sílabas de distinta anchura (como @qq{-ri} y
 @qq{-rum}) dispongan los grupos de notas de las sílabas de forma
-irregular, se puede ajustar la propiedad @code{'X-extent} del objeto
-@code{LyricText} a un valor fijo.  Otra forma más engorrosa sería
-añadir las sílabas como elementos de @code{\markup}.  Si se necesitan
-más ajustes posteriormente, esto se puede hacer fácilmente con
-@q{notas} @code{s}.
+irregular, se puede ajustar la propiedad @code{'X-extent} del
+objeto @code{LyricText} a un valor fijo.  Otra forma más engorrosa
+sería añadir las sílabas como elementos de @code{\markup}.  Si se
+necesitan más ajustes posteriormente, esto se puede hacer
+fácilmente con @q{notas} @code{s}.
 
 @lilypond[verbatim,quote]
 spiritus = \relative {
@@ -2939,9 +3000,8 @@ spirLyr = \lyricmode {
 @unnumberedsubsubsec Antigua y moderna desde la misma fuente
 @translationof Ancient and modern from one source
 
-@c TODO Add text
-@c Here among others the snippets about reducing note length
-Continuará...
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{using-tags-to-produce-mensural-and-modern-music-from-the-same-source.ly}
 
 @c @seealso
 @c ... and reference to other sections ...
@@ -2959,7 +3019,7 @@ Continuará...
 @c try Till Rettig
 @c Add example of white note heads:
 @c In the french baroque some composers used white note heads in slow pieces,
-@c mainly in 3/2-time.  A quarter looks there like a eighth with a white
+@c mainly in 3/2-time.  A quarter looks there like an eighth with a white
 @c note head.  (Franz-Rudolf Kuhnen)
 
 @c TODO Add example of this:
@@ -2974,4 +3034,3 @@ Continuará...
 
 @c @seealso
 @c ... and reference to other sections ...
-

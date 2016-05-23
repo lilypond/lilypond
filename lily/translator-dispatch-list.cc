@@ -26,14 +26,15 @@ const char * const Engraver_dispatch_list::type_p_name_ = 0;
 void
 Engraver_dispatch_list::apply (Grob_info gi)
 {
-  Translator *origin = gi.origin_translator ();
+  SCM origin = gi.origin_translator ()->self_scm ();
+  SCM grob = gi.grob ()->self_scm ();
   for (vsize i = 0; i < dispatch_entries_.size (); i++)
     {
-      Engraver_dispatch_entry const &e (dispatch_entries_[i]);
-      if (e.engraver_ == origin)
+      Method_instance const &e (dispatch_entries_[i]);
+      if (scm_is_eq (e.instance (), origin))
         continue;
 
-      (e.engraver_->*e.function_) (gi);
+      e (grob, origin);
     }
 }
 
@@ -44,32 +45,24 @@ Engraver_dispatch_list::create (SCM trans_list,
   SCM retval = Engraver_dispatch_list ().smobbed_copy ();
   Engraver_dispatch_list *list = unsmob<Engraver_dispatch_list> (retval);
 
-  Engraver_dispatch_entry entry;
-  bool found = false;
   for (SCM s = trans_list; scm_is_pair (s); s = scm_cdr (s))
     {
-      Engraver *eng
-        = unsmob<Engraver> (scm_car (s));
+      Engraver *eng = unsmob<Engraver> (scm_car (s));
 
       if (!eng)
         continue;
 
-      entry.engraver_ = eng;
       for (SCM i = iface_list; scm_is_pair (i); i = scm_cdr (i))
         {
-          Translator::Grob_info_callback ptr
+          SCM ptr
             = (start_end == START)
-              ? eng->get_acknowledger (scm_car (i))
-              : eng->get_end_acknowledger (scm_car (i));
+            ? eng->get_acknowledger (scm_car (i))
+            : eng->get_end_acknowledger (scm_car (i));
 
-          if (ptr)
-            {
-              entry.function_ = ptr;
-              list->dispatch_entries_.push_back (entry);
-              found = true;
-            }
+          if (!SCM_UNBNDP (ptr))
+            list->dispatch_entries_.push_back (Method_instance (ptr, eng));
         }
     }
 
-  return found ? retval : SCM_EOL;
+  return list->dispatch_entries_.empty () ? SCM_EOL : retval;
 }

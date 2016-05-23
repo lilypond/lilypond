@@ -412,7 +412,7 @@ sudo apt-get build-dep lilypond
 Download and install additional @q{build} tools required for compiling;
 
 @example
-sudo apt-get install autoconf fonts-texgyre texlive-land-cyrillic
+sudo apt-get install autoconf fonts-texgyre texlive-lang-cyrillic
 @end example
 
 @item

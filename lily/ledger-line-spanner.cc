@@ -211,10 +211,9 @@ Ledger_line_spanner::print (SCM smob)
   for (vsize i = heads.size (); i--;)
     {
       Item *h = dynamic_cast<Item *> (heads[i]);
-
       int pos = Staff_symbol_referencer::get_rounded_position (h);
       vector<Real> ledger_positions =
-        Staff_symbol::ledger_positions (staff, pos);
+        Staff_symbol::ledger_positions (staff, pos, h);
 
       // We work with all notes that produce ledgers and any notes that
       // fall outside the staff that do not produce ledgers, such as

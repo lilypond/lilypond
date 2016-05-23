@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 67a345f965d169bc1acd23ff4160914fb2142f38
+    Translation of GIT committish: 38876d5851add12a153f8e7adb375a8c1c84f376
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -21,8 +21,8 @@
 @cindex cuerdas orquestales
 @cindex cuerdas, escribir música para
 
-Esta sección aporta información y referencias que resultan útiles si
-se escribe música para instrumentos de cuerda sin trastes,
+Esta sección aporta información y referencias que resultan útiles
+si se escribe música para instrumentos de cuerda sin trastes,
 principalmente instrumentos de cuerda orquestales.
 
 @menu
@@ -33,10 +33,10 @@ principalmente instrumentos de cuerda orquestales.
 @subsection Notación común para cuerdas sin trastes
 @translationof Common notation for unfretted strings
 
-Hay poca notación especializada para los instrumentos de cuerdas sin
-trastes.  La notación de la música se realiza en un solo pentagrama, y
-se suele usar una sola voz.  Se pueden necesitar dos voces para
-algunos pasajes en dobles cuerdas o en divisi.
+Hay poca notación especializada para los instrumentos de cuerdas
+sin trastes.  La notación de la música se realiza en un solo
+pentagrama, y se suele usar una sola voz.  Se pueden necesitar dos
+voces para algunos pasajes en dobles cuerdas o en divisi.
 
 @menu
 * Referencias para cuerdas sin trastes::
@@ -49,9 +49,9 @@ algunos pasajes en dobles cuerdas o en divisi.
 @unnumberedsubsubsec Referencias para cuerdas sin trastes
 @translationof References for unfretted strings
 
-La mayor parte de la notación que resulta de utilidad para las cuerdas
-orquestales y otros instrumentos de arco se estudia en otras partes
-del manual:
+La mayor parte de la notación que resulta de utilidad para las
+cuerdas orquestales y otros instrumentos de arco se estudia en
+otras partes del manual:
 
 @itemize
 
@@ -96,6 +96,7 @@ Fragmentos de código:
 @funindex \upbow
 @funindex \downbow
 @funindex \open
+@funindex \romanStringNumbers
 
 @cindex arco, indicaciones de
 @cindex arco arriba, indicación
@@ -104,38 +105,49 @@ Fragmentos de código:
 @cindex abajo, arco
 @cindex al aire, indicación de cuerda
 @cindex cuerda al aire, indicación de
+@cindex cuerda, números de
 
 Las indicaciones de arco se crean como articulaciones, que se
 describen en @ref{Articulaciones y ornamentos}.
 
 Las instrucciones de arco @code{\upbow} (arco arriba) y
-@code{\downbow} (arco abajo) se usan con ligaduras de expresión de la
-siguiente manera:
+@code{\downbow} (arco abajo) se usan con ligaduras de expresión de
+la siguiente manera:
 
 @lilypond[verbatim,quote]
 \relative { c''4(\downbow d) e(\upbow f) }
 @end lilypond
 
 @noindent
-y el ejemplo siguiente muestra tres formas distintas de indicar un La
-sobre una cuerda al aire del violín:
 
-@lilypond[verbatim,quote,relative=2]
-a4 \open
-a^\markup { \teeny "II" }
-a2^\markup { \small "sul A" }
+Se pueden añadir números romanos como números de cuerda (en
+sustitución de la opción predeterminada, que son cifras arábigas
+rodeadas por un círculo), tal y como se explica en
+@ref{Indicación de los números de cuerda}.
+
+Como alternativa, se pueden imprimir las indicaciones de cuerda
+mediante instrucciones de marcado; los símbolos de articulación
+también pueden indicar cuerdas al aire.
+
+@lilypond[verbatim,quote,fragment]
+a'4 \open
+\romanStringNumbers
+a'\2
+a'2^\markup { \small "sul A" }
 @end lilypond
 
 
 @predefined
 @code{\downbow},
 @code{\upbow},
-@code{\open}.
+@code{\open},
+@code{\romanStringNumbers}.
 @endpredefined
 
 @seealso
 Referencia de la notación:
 @ref{Articulaciones y ornamentos},
+@ref{Indicación de los números de cuerda},
 @ref{Ligaduras de expresión}.
 
 
@@ -157,8 +169,8 @@ Referencia de la notación:
 
 La notación de los armónicos naturales se puede realizar de varias
 formas.  Generalmente, una nota con la cabeza en forma de rombo
-significa tocar (sin apretar) la cuerda en el lugar donde se pisaría
-la nota si no fuese un rombo.
+significa tocar (sin apretar) la cuerda en el lugar donde se
+pisaría la nota si no fuese un rombo.
 
 @lilypond[verbatim,quote]
 \relative d'' {
@@ -171,31 +183,33 @@ la nota si no fuese un rombo.
 }
 @end lilypond
 
-Como posibilidad alternativa está la de mostrar una cabeza normal de
-nota en la altura de la nota que debe sonar, con un pequeño círculo
-que indica que se debe tocar como armónico:
+Como posibilidad alternativa está la de mostrar una cabeza normal
+de nota en la altura de la nota que debe sonar, con un pequeño
+círculo que indica que se debe tocar como armónico:
 
 @lilypond[verbatim,quote,fragment]
 d''2^\flageolet d''_\flageolet
 @end lilypond
 
 Se puede hacer un círculo de menor tamaño, véase la lista de
-fragmentos de código en @ref{Referencias para cuerdas sin trastes}.
+fragmentos de código en
+@ref{Referencias para cuerdas sin trastes}.
 
 @strong{@i{Armónicos artificiales}}
 
 @cindex artificiales, armónicos
 @cindex armónicos artificiales
 
-La notación de los armónicos artificiales se realiza con dos notas,
-una con una cabeza normal que indica la posición donde se pisa, y otra
-con una cabeza en forma de rombo hueco para indicar la posición donde
-se roza la cuerda (sin pisar) para producir el armónico.
+La notación de los armónicos artificiales se realiza con dos
+notas, una con una cabeza normal que indica la posición donde se
+pisa, y otra con una cabeza en forma de rombo hueco para indicar
+la posición donde se roza la cuerda (sin pisar) para producir el
+armónico.
 
 @c TODO If the default for harmonicDots is changed, change this
-Los armónicos artificiales indicados con @code{\harmonic} no presentan
-los puntillos.  La propiedad de contexto @code{harmonicDots} se debe
-activar si se necesitan los puntillos.
+Los armónicos artificiales indicados con @code{\harmonic} no
+presentan los puntillos.  La propiedad de contexto
+@code{harmonicDots} se debe activar si se necesitan los puntillos.
 
 @lilypond[verbatim,quote]
 \relative e' {
@@ -205,9 +219,9 @@ activar si se necesitan los puntillos.
 }
 @end lilypond
 
-@warning{@code{@bs{}harmonic} @strong{se debe} colocar dentro de una
-construcción de acorde incluso si solamente hay una nota.  Normalmente
-se usaría @code{@bs{}harmonicsOn} en esta situación.}
+@warning{@code{@bs{}harmonic} @strong{se debe} colocar dentro de
+una construcción de acorde incluso si solamente hay una nota.
+Normalmente se usaría @code{@bs{}harmonicsOn} en esta situación.}
 
 @seealso
 Glosario musical:
@@ -227,9 +241,10 @@ Referencia de la notación:
 @cindex Bartók pizzicato
 @cindex snap pizzicato
 
-El @notation{snap pizzicato} (conocido también como @qq{pizzicato de Bartók}) es un
-tipo de pizzicato en el que la cuerda se pulsa hacia arriba (y no lateralmente)
-de forma deliberada, de forma que golpea la madera del diapasón.
+El @notation{snap pizzicato} (conocido también como @qq{pizzicato
+de Bartók}) es un tipo de pizzicato en el que la cuerda se pulsa
+hacia arriba (y no lateralmente) de forma deliberada, de forma que
+golpea la madera del diapasón.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -239,5 +254,3 @@ de forma deliberada, de forma que golpea la madera del diapasón.
   <c, e g>4_\snappizzicato
 }
 @end lilypond
-
-

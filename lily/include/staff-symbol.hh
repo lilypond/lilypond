@@ -34,7 +34,7 @@ public:
   static Real get_ledger_line_thickness (Grob *);
 
   static vector<Real> line_positions (Grob *);
-  static vector<Real> ledger_positions (Grob *me, int pos);
+  static vector<Real> ledger_positions (Grob *me, int pos, Item const *head = 0);
   static int line_count (Grob *);
   static bool on_line (Grob *me, int pos, bool allow_ledger = true);
   static Interval line_span (Grob *);

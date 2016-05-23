@@ -27,6 +27,30 @@ NOTE:
 @end ignore
 
 @newsItem
+@subheading LilyPond 2.19.41 released  @emph{May 1, 2016}
+
+We are happy to announce the release of LilyPond
+2.19.41.  This release includes a number of enhancements, and contains some
+work in progress.  You will have access to the very latest features, but
+some may be incomplete, and you may encounter bugs and crashes.  If you
+require a stable version of Lilypond, we recommend using the 2.18
+version.
+
+@newsEnd
+
+@newsItem
+@subheading LilyPond 2.19.40 released  @emph{April 17, 2016}
+
+We are happy to announce the release of LilyPond
+2.19.40.  This release includes a number of enhancements, and contains some
+work in progress.  You will have access to the very latest features, but
+some may be incomplete, and you may encounter bugs and crashes.  If you
+require a stable version of Lilypond, we recommend using the 2.18
+version.
+
+@newsEnd
+
+@newsItem
 @subheading LilyPond 2.19.39 released  @emph{March 27, 2016}
 
 We are happy to announce the release of LilyPond
@@ -3296,7 +3320,7 @@ and lots of updates for the translations.
 
 Release 2.11.28 is now available as a binary installer for
 FreeBSD x86_64.  Download
-@uref{http://lilypond.org/download/binaries/freebsd-64/,the installer} and
+@uref{http://lilypond.org/downloads/binaries/freebsd-64/,the installer} and
 do @emph{sh lilypond-2.11.28-1.freebsd-64.sh} in a command window.
 @newsEnd
 
@@ -4189,11 +4213,11 @@ to the @ref{Old downloads} get them!
 Starting with 2.7.26, the development team has been working on the
 installers. We're proud to announce another version of these: they are
 now available for
-@uref{http://lilypond.org/download/binaries/linux-x86/,
+@uref{http://lilypond.org/downloads/binaries/linux-x86/,
 Linux/x86},
-@uref{http://lilypond.org/download/binaries/darwin-ppc/,
+@uref{http://lilypond.org/downloads/binaries/darwin-ppc/,
 MacOS X} and
-@uref{http://lilypond.org/download/binaries/mingw/,
+@uref{http://lilypond.org/downloads/binaries/mingw/,
 Windows}.
 @newsEnd
 

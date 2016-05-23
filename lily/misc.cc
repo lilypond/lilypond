@@ -22,25 +22,6 @@
 #include "offset.hh"
 #include "warn.hh"
 
-/*
-  Return the 2-log, rounded down
-*/
-int
-intlog2 (int d)
-{
-  if (d <= 0)
-    error ("intlog2 with negative argument: " + ::to_string (d));
-  int i = 0;
-  while ((d != 1))
-    {
-      d /= 2;
-      i++;
-    }
-
-  assert (! (d / 2));
-  return i;
-}
-
 double
 log_2 (double x)
 {

@@ -33,7 +33,8 @@ Ebben a szakaszban bemutatjuk a kotta gyakori elemeit, egyelőre egy szólamnál
 maradva.
 
 @menu
-* Módosítás és előjegyzés::
+* Ütemvonalak és ütemek ellenőrzése::
+* Hangmagasság és előjegyzés::
 * Ívek::
 * Artikuláció és dinamika::
 * Szöveges utasítások::
@@ -41,12 +42,81 @@ maradva.
 * Haladó ritmikai parancsok::
 @end menu
 
+@node Ütemvonalak és ütemek ellenőrzése
+@subsection Ütemvonalak és ütemek ellenőrzése
+@translationof Bar lines and bar checks
 
-@node Módosítás és előjegyzés
-@subsection Módosítás és előjegyzés
-@translationof Accidentals and key signatures
+@menu
+* Ütemvonalak::
+* Ütemek ellenőrzése::
+@end menu
 
-@subheading Módosítójelek
+@node Ütemvonalak
+@unnumberedsubsubsec Ütemvonalak
+@translationof Bar lines
+
+A normál (egyszeres) ütemvonalak automatikusan a kottába kerülnek,
+nem szükséges kézzel szerkeszteni őket. Más típusú ütemvonalakat a
+@code{\bar} parancs segítségével jeleníthetünk meg, például a
+@code{\bar "||"}  dupla ütemvonalat jelöl, vagy a @code{\bar "|."}
+záró ütemvonalat.  Az ütemvonalak teljes listája megtalálható a
+@ruser{Bar lines} fejezetben.
+
+@lilypond[verbatim,quote,relative=2]
+g1 e1 \bar "||" c2. c'4 \bar "|."
+@end lilypond
+
+@node Ütemek ellenőrzése
+@unnumberedsubsubsec Ütemek ellenőrzése
+@translationof Bar checks
+
+Habár nem kötelező, de hasznos, ha jelezzük az @emph{ütemek határát} a
+bemeneti fájlokban. Ezt az ütem szimbólumával, a @code{|}
+segítségével tehetjük meg. A program képes az ütemeket ellenőrizni,
+annak megfelelően, hogy az ütemek megfelelő hosszúságúak-e.
+Az ütemvonalak rögzítése emellett segíti a bemeneti fájlunk könnyebb olvashatóságát,
+hiszen átláthatóbbá, rendezettebbé teszi azt.
+
+@c This example deliberately produces a warning
+@lilypond[verbatim,quote]
+\relative {
+  g'1 | e1 | c2. c' | g4 c g e | c4 r r2 |
+}
+@end lilypond
+
+Ha lefordítjuk a fenti LilyPond fájlt, az alábbi figyelmeztetést fogjuk látni:
+
+@example
+warning: barcheck failed at: 1/2
+ g1 | e1 | c2. c'
+                  | g4 c g e | c4 r r2 |
+@end example
+
+Bár a hiányzó időtartam ezen egyszerű példánál a zenei kimenetből
+egyértelműen látszik, a figyelmeztető üzenet célravezetően
+hívja fel a figyelmet a hiányzó @code{4}-re a 3. ütemben.
+
+@seealso
+A kottaírás kézikönyve:
+@ruser{Bar and bar number checks}.
+
+
+@node Hangmagasság és előjegyzés
+@subsection Hangmagasság és előjegyzés
+@translationof Pitches and key signatures
+
+@menu
+* Módosítójelek::
+* Előjegyzés::
+* Figyelmeztetés az előjegyzés és a módosítójelek viszonyával kapcsolatban::
+@end menu
+
+@warning{A felhasználók gyakran félreértik azt, ahogy a LilyPond az előjegyzéseket
+alkalmazza -- kérjük olvassa el a figyelmeztetés az oldal alján.}
+
+@node Módosítójelek
+@unnumberedsubsubsec Módosítójelek
+@translationof Pitch alterations
 
 @cindex módosítójelek
 @cindex előjegyzés és módosítójelek
@@ -66,6 +136,9 @@ maradva.
 Fogalomtár: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
 @rglos{double flat}, @rglos{accidental}.
 
+A hangok neve LilyPondban jelzi a módosítójelet is. Például a @code{c} mindig
+c hangot jelez (nem ciszt), az előjegyzéstől függetlenül.
+
 @notation{Keresztes} hangot a hang neve után közvetlenül @code{is} utótagot
 írva kapunk, @notation{bés} hangot pedig @code{es}-t (asz és esz
 esetén akár egyszerűen @code{s}-t) írva. Értelemszerűen
@@ -76,16 +149,19 @@ nyelvek elnevezési hagyományaiból ered. Más megnevezésű
 c. fejezetben van leírva.
 
 @lilypond[verbatim,quote,relative=2]
-cis1 es fisis, ases
+cis4 ees fisis, aeses
 @end lilypond
 
-@subheading Előjegyzés
+@node Előjegyzés
+@unnumberedsubsubsec Előjegyzés
+@translationof Key signatures
 
 @cindex előjegyzés
 @cindex dúr
 @cindex moll
 @cindex előjegyzés és módosítójelek
 @cindex hangzás és lejegyzés különbsége
+@cindex lejegyzés és hangzás különbsége
 
 @funindex \key
 @funindex key
@@ -101,20 +177,22 @@ Az @notation{előjegyzés} a @code{\key} parancs segítségével állítható be
 melyet a hangnem alaphangja és színezete (dúr: @code{\major} vagy
 moll: @code{\minor}) követ.
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,relative=1]
 \key d \major
-a1
-\key c \minor
-a
+d4 fis a c |
+\bar "||" \key c \minor
+c,4 ees g b |
 @end lilypond
 
 @smallspace
 
-@subheading Figyelmeztetés az előjegyzés és a módosítójelek viszonyával kapcsolatban
+@node Figyelmeztetés az előjegyzés és a módosítójelek viszonyával kapcsolatban
+@unnumberedsubsubsec Figyelmeztetés az előjegyzés és a módosítójelek viszonyával kapcsolatban
+@translationof Warning: key signatures and pitches
 
 Fogalomtár: @rglos{accidental}, @rglos{key signature},
 @rglos{pitch}, @rglos{flat}, @rglos{natural}, @rglos{sharp},
-@rglos{transposition}.
+@rglos{transposition}, @rglos{Pitch names}.
 
 A @notation{módosítások}, az @notation{előjegyzés} és az ütemvonalak
 együttesen határozzák meg, hogy milyen @notation{módosítójelek} jelennek meg
@@ -135,7 +213,7 @@ Ebben a példában:
 
 @lilypond[verbatim,quote,relative=2]
 \key d \major
-d cis fis
+cis4 d e fis
 @end lilypond
 
 @noindent
@@ -147,9 +225,10 @@ Ha leírunk egy @code{b}-t, azaz egy h hangot, az nem azt jelenti, hogy
 @qq{a megfelelő vonalra egy kottafejet kell írni}, hanem azt, hogy
 @qq{itt egy h hang szól}. Pl. Asz-dúrban a h hang elé kerül módosítójel:
 
+
 @lilypond[verbatim,quote,relative=2]
-\key as \major
-b
+\key aes \major
+aes4 c b c
 @end lilypond
 
 Az, hogy minden módosítást külön meg kell adni, csak kevés többletmunkát
@@ -160,11 +239,11 @@ az @ruser{Automatic accidentals} c. fejezetben.
 
 
 @seealso
-Referencia: @ruser{Note names in other languages},
-@ruser{Accidentals}, @ruser{Automatic accidentals},
+A kottaírás kézikönyve:
+@ruser{Note names in other languages},
+@ruser{Accidentals},
+@ruser{Automatic accidentals},
 @ruser{Key signature}.
-
-Fogalomtár: @rglos{Pitch names}.
 
 
 @node Ívek
@@ -179,8 +258,16 @@ Fogalomtár: @rglos{Pitch names}.
 @funindex ( ... )
 @funindex \( ... \)
 
-@subheading Átkötés
+@menu
+* Átkötés::
+* Kötőív::
+* Frazeálóív::
+* Figyelmeztetés az átkötés és kötőív viszonyával kapcsolatban::
+@end menu
 
+@node Átkötés
+@unnumberedsubsubsec Átkötés
+@translationof Ties
 
 Fogalomtár: @rglos{tie}.
 
@@ -188,12 +275,28 @@ Fogalomtár: @rglos{tie}.
 karaktert írunk.
 
 @lilypond[verbatim,quote,relative=2]
-g4~ 4 c2~
-4 ~ 8 a8 ~ 2
+g4~ g c2~ | c4~ c8 a~ a2 |
 @end lilypond
 
-@subheading Kötőív
+@cindex bare duration
+@cindex duration, bare
 
+When the pitch does not change, as is always the case with tied notes,
+subsequent pitches may be omitted, specifying just the bare duration:
+
+@lilypond[verbatim,quote,relative=2]
+g4~ 4 c2~ | 4~ 8 a~ 2 |
+@end lilypond
+
+This shorthand may be useful in other places where the rhythm changes
+with an unchanging pitch, but remember that a bare pitch followed by a
+space and a bare duration will be interpreted as a single note. In
+other words, @code{c4 a 8 8} would be interpreted as @code{c4 a8 a8},
+not as @code{c4 a4 a8 a8}.  Write instead @code{c4 a4 8 8 }.
+
+@node Kötőív
+@unnumberedsubsubsec Kötőív
+@translationof Slurs
 
 Fogalomtár: @rglos{slur}.
 
@@ -204,7 +307,10 @@ A @notation{kötőív} egy dallamot összefogó ív. Kezdőhangja után
 d4( c16) cis( d e c cis d) e( d4)
 @end lilypond
 
-@subheading Frazeálóív
+@node Frazeálóív
+@unnumberedsubsubsec Frazeálóív
+@translationof Phrasing slurs
+
 
 Fogalomtár: @rglos{slur}, @rglos{phrasing}.
 
@@ -213,13 +319,16 @@ A @notation{frázisokat} jelölő ívek elejét és végét a @code{\(} és
 de egyszerre két kötőív vagy két frazeálóív nem.
 
 @lilypond[verbatim,quote,relative=2]
-a8(\( ais b c) cis2 b'2 a4 cis,\)
+g4\( g8( a) b( c) b4\)
 @end lilypond
 
 @smallspace
 
 @cindex kötőív és átkötés különbsége
-@subheading Figyelmeztetés az átkötés és kötőív viszonyával kapcsolatban
+
+@node Figyelmeztetés az átkötés és kötőív viszonyával kapcsolatban
+@unnumberedsubsubsec Figyelmeztetés az átkötés és kötőív viszonyával kapcsolatban
+@translationof Warnings: slurs vs. ties
 
 Fogalomtár: @rglos{articulation}, @rglos{slur}, @rglos{tie}.
 
@@ -230,12 +339,14 @@ meg, és több hangot átívelhet. Természetesen egy kötőíven belül lehetne
 átkötött hangok.
 
 @lilypond[verbatim,quote,relative=2]
-c2~( c8 fis fis4 ~ 2 g2)
+c4~( c8 d~ 4 e)
 @end lilypond
 
 
 @seealso
-Referencia: @ruser{Ties}, @ruser{Slurs},
+A kottaírás kézikönyve:
+@ruser{Ties},
+@ruser{Slurs},
 @ruser{Phrasing slurs}.
 
 
@@ -243,8 +354,15 @@ Referencia: @ruser{Ties}, @ruser{Slurs},
 @subsection Artikuláció és dinamika
 @translationof Articulation and dynamics
 
+@menu
+* Artikuláció::
+* Ujjrend::
+* Dinamika::
+@end menu
 
-@subheading Artikuláció
+@node Artikuláció
+@unnumberedsubsubsec Artikuláció
+@translationof Articulations
 
 @cindex artikuláció
 @cindex hangsúly
@@ -256,10 +374,13 @@ Egy hang @notation{artikulációját} egy gondolatjel (@code{-}) után írt megf
 karakterrel lehet jelezni, pl. a staccatóhoz @code{-.} írandó a hang után:
 
 @lilypond[verbatim,quote,relative=2]
-c-. c-- c-> c-^ c-+ c-_
+c4-^ c-+ c-- c-!
+c4-> c-. c2-_
 @end lilypond
 
-@subheading Ujjrend
+@node Ujjrend
+@unnumberedsubsubsec Ujjrend
+@translationof Fingerings
 
 @cindex fingering
 
@@ -284,10 +405,12 @@ legtöbb esetben legjobb, ha a LilyPond határozza meg, melyik oldalra
 kerüljenek a jelzések.
 
 @lilypond[verbatim,quote,relative=2]
-c_-^1 d^. f^4_2-> e^-_+
+c4_-^1 d^. f^4_2-> e^-_+
 @end lilypond
 
-@subheading Dinamika
+@node Dinamika
+@unnumberedsubsubsec Dinamika
+@translationof Dynamics
 
 @cindex dinamika
 @cindex decrescendo
@@ -326,8 +449,10 @@ c2\< c2\ff\> c2 c2\!
 
 
 @seealso
-Referencia: @ruser{Articulations and ornamentations},
-@ruser{Fingering instructions}, @ruser{Dynamics}.
+A kottaírás kézikönyve:
+@ruser{Articulations and ornamentations},
+@ruser{Fingering instructions},
+@ruser{Dynamics}.
 
 
 @node Szöveges utasítások
@@ -343,22 +468,23 @@ Referencia: @ruser{Articulations and ornamentations},
 A hangokhoz a következő módon lehet szöveges jelzéseket rendelni:
 
 @lilypond[verbatim,quote,relative=2]
-c1^"espr" a_"legato"
+c2^"espr" a_"legato"
 @end lilypond
 
 Ez nem dalszöveg, hanem szöveges előadási utasítások bevitelére szolgál!
 Formázott szöveget a @code{\markup} blokkon belülre kell elhelyezni:
 
 @lilypond[verbatim,quote,relative=2]
-c1^\markup{ \bold espr}
-a1_\markup{
+c2^\markup { \bold espr }
+a2_\markup {
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
 }
 @end lilypond
 
 
 @seealso
-Referencia: @ruser{Writing text}.
+A kottaírás kézikönyve:
+@ruser{Writing text}.
 
 
 @node Automatikus és kézi gerendázás
@@ -392,7 +518,7 @@ Ha egyszeri alkalommal kell a gerendázást megváltoztatni, a gerenda első
 hangja után @code{[}, az utolsó hangja után @code{]} írandó.
 
 @lilypond[verbatim,quote,relative=2]
-a8[ ais] d[ ees r d] a b
+a8[ ais] d[ ees r d] c16 b a8
 @end lilypond
 
 Az automatikus gerendázás kikapcsolására az @code{\autoBeamOff} parancs
@@ -401,21 +527,31 @@ automatikus gerendázást az @code{\autoBeamOn} segítségével.
 
 @lilypond[verbatim,quote,relative=2]
 \autoBeamOff
-a8 c b4 d8. c16 b4
+a8 c b4 d8. c16 b4 |
 \autoBeamOn
-a8 c b4 d8. c16 b4
+a8 c b4 d8. c16 b4 |
 @end lilypond
 
 
 @seealso
-Referencia: @ruser{Automatic beams}, @ruser{Manual beams}.
+A kottaírás kézikönyve:
+@ruser{Automatic beams},
+@ruser{Manual beams}.
 
 
 @node Haladó ritmikai parancsok
 @subsection Haladó ritmikai parancsok
 @translationof Advanced rhythmic commands
 
-@subheading Felütés
+@menu
+* Felütés::
+* n-olák::
+* Előkék::
+@end menu
+
+@node Felütés
+@unnumberedsubsubsec Felütés
+@translationof Partial measure
 
 @cindex felütés
 @cindex csonkaütem
@@ -431,17 +567,20 @@ negyed értékű felütést, @code{\partial 8} egy nyolcad értékű felütést
 eredményez.
 
 @lilypond[verbatim,quote,relative=2]
-\partial 8
-f8 c2 d
+\partial 8 f8 |
+c2 d |
 @end lilypond
 
-@subheading n-olák
+@node n-olák
+@unnumberedsubsubsec n-olák
+@translationof Tuplets
+
 
 @cindex triola
 @cindex n-ola
 
-@funindex \times
-@funindex times
+@funindex \tuplet
+@funindex tuplet
 
 Fogalomtár: @rglos{note value}, @rglos{triplet}.
 
@@ -458,7 +597,9 @@ a @notation{triolák} lejegyzett hosszúságuk 2/3 részéig szólnak, így trio
 \tuplet 3/2 { d4 a8 }
 @end lilypond
 
-@subheading Előkék
+@node Előkék
+@unnumberedsubsubsec Előkék
+@translationof Grace notes
 
 @cindex előke
 @cindex acciaccatura
@@ -486,7 +627,9 @@ c2 \acciaccatura b16 c2
 
 
 @seealso
-Referencia: @ruser{Grace notes}, @ruser{Tuplets},
+A kottaírás kézikönyve:
+@ruser{Grace notes},
+@ruser{Tuplets},
 @ruser{Upbeats}.
 
 
@@ -520,6 +663,13 @@ használjuk, amikor egy vonalrendszeren belül több szólam szerepel.
 @cindex összetett zenei kifejezés
 @cindex zenei kifejezés, összetett
 
+
+@menu
+* Analógia matematikai kifejezések::
+* Egyidejű zenei kifejezések több kottasor::
+* Egyidejű zenei kifejezések egy kottasor::
+@end menu
+
 A LilyPond bemeneti fájljaiban a zene @emph{zenei kifejezésekből} épül fel.
 Egy hang már egy kifejezés:
 
@@ -543,7 +693,9 @@ A zenei kifejezések egymásba ágyazhatóak:
 { { a4 g } f g }
 @end lilypond
 
-@subheading Analógia: matematikai kifejezések
+@node Analógia matematikai kifejezések
+@unnumberedsubsubsec Analógia: matematikai kifejezések
+@translationof Analogy mathematical expressions
 
 Ez a mechanizmus a matematikai képletekhez hasonló: egy nagy képlet
 sok kicsi képletből, vagyis kifejezésből épül fel, melyek további
@@ -569,7 +721,9 @@ tetszőleges mélységig egymásba ágyazhatóak, és éppen erre van szükség
 többszólamú zene esetén.
 
 
-@subheading Egyidejű zenei kifejezések: több kottasor
+@node Egyidejű zenei kifejezések több kottasor
+@unnumberedsubsubsec Egyidejű zenei kifejezések: több kottasor
+@translationof Simultaneous music expressions multiple staves
 
 @cindex több kottasor
 @cindex kottasor
@@ -597,9 +751,9 @@ három szólammá:
 @lilypond[verbatim,quote]
 \relative {
   <<
-    { a'4 g }
-    { f e }
-    { d b }
+    { a'2 g }
+    { f2 e }
+    { d2 b }
   >>
 }
 @end lilypond
@@ -614,7 +768,9 @@ hanghoz képest számítja ki a LilyPond, nem pedig az első @code{\relative}
 parancs viszonyítási hangjához képest.}
 
 
-@subheading Egyidejű zenei kifejezések: egy kottasor
+@node Egyidejű zenei kifejezések egy kottasor
+@unnumberedsubsubsec Egyidejű zenei kifejezések: egy kottasor
+@translationof Simultaneous music expressions single staff
 
 A LilyPond onnan állapítja meg, hogy egy vagy több kottasor szerepel-e a
 darabban, hogy az első kifejezés többszólamú-e. Ha nem, egy kottasort
@@ -623,7 +779,7 @@ hoz létre, ha igen, többet.
 @lilypond[verbatim,quote]
 \relative {
   c''2 <<c e>>
-  << { e f } { c <<b d>> } >>
+  << { e2 f } { c2 <<b d>> } >>
 }
 @end lilypond
 
@@ -659,8 +815,8 @@ Az így kapott kottasorokat, ahogy már megszoktuk, a @code{<<} és
 @lilypond[verbatim,quote]
 \relative {
   <<
-    \new Staff { \clef treble c'' }
-    \new Staff { \clef bass c,, }
+    \new Staff { \clef treble c''4 }
+    \new Staff { \clef bass c,,4 }
   >>
 }
 @end lilypond
@@ -691,13 +847,11 @@ mint a poliritmikus.
 @lilypond[verbatim,quote]
 \relative {
   <<
-    \new Staff { \clef treble \key d \major \time 3/4 c'' }
-    \new Staff { \clef bass c,, }
+    \new Staff { \clef "treble" \key d \major \time 3/4 c''4 }
+    \new Staff { \clef "bass" c,,4 }
   >>
 }
 @end lilypond
-
-
 
 
 @node Kottasor-csoport
@@ -731,7 +885,7 @@ Egy rövid zongoradarab-részlet:
 \relative {
   \new PianoStaff <<
     \new Staff { \time 2/4 c''4 e g g, }
-    \new Staff { \clef bass c,, c' e c }
+    \new Staff { \clef bass c,,4 c' e c }
   >>
 }
 @end lilypond
@@ -744,7 +898,8 @@ szolgáló @w{@code{\new ChoirStaff}}. Ezek hasonló kontextusok, mint a
 
 
 @seealso
-Referencia: @ruser{Keyboard and other multi-staff instruments},
+A kottaírás kézikönyve:
+@ruser{Keyboard and other multi-staff instruments},
 @ruser{Displaying staves}.
 
 
@@ -778,10 +933,15 @@ Például így lehet átkötött vagy másképpen gerendázott akkordokat elérn
 a megfelelő jelzések a kacsacsőrök után szerepelnek.
 
 @lilypond[verbatim,quote,relative=2]
-r4 <c e g>8[ <c f a>]~ <c f a>2
-r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
+r4 <c e g>~ <c f a>2 |
+<c e g>8[ <c f a> <c e g> <c f a>]
+  <c e g>8\>[ <c f a> <c f a> <c e g>]\! |
+r4 <c e g>8.\p <c f a>16( <c e g>4-. <c f a>) |
 @end lilypond
 
+@seealso
+A kottaírás kézikönyve:
+@ruser{Chorded notes}.
 
 @node Több szólam egy kottasoron belül
 @subsection Több szólam egy kottasoron belül
@@ -805,9 +965,11 @@ tankönyv megfelelő részére hivatkozunk, amely részletesen
 elmagyarázza a témakört.
 
 @seealso
-Tankönyv: @ref{A szólamok zenét tartalmaznak}.
+Tankönyv:
+@ref{A szólamok zenét tartalmaznak}.
 
-Referencia: @ruser{Simultaneous notes}.
+A kottaírás kézikönyve:
+@ruser{Simultaneous notes}.
 
 @node Dalok
 @section Dalok
@@ -887,8 +1049,8 @@ A gyerekdal következő sora: @notation{The moon doth shine as bright as day}.
   \relative {
     \key g \major
     \time 6/8
-    d''4 b8 c4 a8 d4 b8 g4
-    g8 a4 b8 c b a d4 b8 g4.
+    d''4 b8 c4 a8 | d4 b8 g4 g8 |
+    a4 b8 c b a | d4 b8 g4. |
   }
   \addlyrics {
     Girls and boys come out to play,
@@ -908,8 +1070,8 @@ legegyszerűbb, ha a melizma hangjait kötőívvel összekötjük (ld. az
   \relative {
     \key g \major
     \time 6/8
-    d''4 b8 c4 a8 d4 b8 g4
-    g8 a4 b8 c( b) a d4 b8 g4.
+    d''4 b8 c4 a8 | d4 b8 g4 g8 |
+    a4 b8 c( b) a | d4 b8 g4. |
   }
   \addlyrics {
     Girls and boys come out to play,
@@ -918,18 +1080,18 @@ legegyszerűbb, ha a melizma hangjait kötőívvel összekötjük (ld. az
 >>
 @end lilypond
 
+
 Most már a dalszöveg jól illeszkedik a dallamra, de az automatikus gerendázás
-nem felel meg az angolszász konvenciónak a @notation{shine as}
-szavakon. Írjuk felül ezt kézzel (ld. az @ref{Automatikus és kézi gerendázás}
-szakaszt):
+nem felel meg az angolszász konvenciónak a @notation{shine as} szavakon.
+Írjuk felül ezt kézzel (ld. az @ref{Automatikus és kézi gerendázás} szakaszt):
 
 @lilypond[verbatim,quote]
 <<
   \relative {
     \key g \major
     \time 6/8
-    d''4 b8 c4 a8 d4 b8 g4
-    g8 a4 b8 c([ b]) a d4 b8 g4.
+    d''4 b8 c4 a8 | d4 b8 g4 g8 |
+    a4 b8 c([ b]) a | d4 b8 g4. |
   }
   \addlyrics {
     Girls and boys come out to play,
@@ -959,7 +1121,7 @@ leszámítva) kiterjed:
 
 Ha egy melizma nagyon hosszú, @notation{szótagjelző vonalat} szokás húzni,
 amíg a melizma tart. Ezt két alulvonással (@code{__}) jelezzük. Íme Purcell
-@notation{Dido és Aeneas} c. operájából @notation{Dido búcsúáriájának} első
+@notation{Dido és Æneas} c. operájából @notation{Dido búcsúáriájának} első
 három üteme:
 
 @lilypond[verbatim,quote]
@@ -967,8 +1129,8 @@ három üteme:
   \relative {
     \key g \minor
     \time 3/2
-    g'2 a bes bes( a)
-    b c4.( bes8 a4. g8 fis4.) g8 fis1
+    g'2 a bes | bes2( a) b2 |
+    c4.( bes8 a4. g8 fis4.) g8 | fis1
   }
   \addlyrics {
     When I am laid,
@@ -991,12 +1153,12 @@ megtanultunk a dallam és szöveg összekapcsolásáról:
     \key g \major
     \time 3/4
     \partial 4
-    d'4 g4 g a8( b) g4 g4
-    b8( c) d4 d e4 c2
+    d'4 | g4 g a8( b) | g4 g b8( c) |
+    d4 d e | c2
   }
   \addlyrics {
     A -- way in a __ man -- ger,
-    no __ crib for a bed, __
+    no __ crib for a bed,
   }
 >>
 @end lilypond
@@ -1014,10 +1176,10 @@ kezdetű áriájában a @notation{Largo} szó @notation{go} szótagját és az
 @lilypond[verbatim,quote,noragged-right]
 <<
   \relative {
-    \clef bass
+    \clef "bass"
     \key c \major
     \time 6/8
-    c'4.~ 8 d b c([ d]) b c d b c
+    c'4.~ 8 d b | c8([ d]) b c d b | c8
   }
   \addlyrics {
     Lar -- go_al fac -- to -- tum del -- la cit -- tà
@@ -1027,7 +1189,8 @@ kezdetű áriájában a @notation{Largo} szó @notation{go} szótagját és az
 
 
 @seealso
-Referencia: @ruser{Vocal music}.
+A kottaírás kézikönyve:
+@ruser{Vocal music}.
 
 
 @node Azonos dalszöveg több kottasorhoz
@@ -1046,7 +1209,7 @@ mely Händel @notation{Júdás Makkabeus} c. oratóriumából való:
     \key f \major
     \time 6/8
     \partial 8
-    c''8 c([ bes]) a a([ g]) f f'4. b, c4.~ 4
+    c''8 | c8([ bes]) a a([ g]) f | f'4. b, | c4.~ 4
   }
   \addlyrics {
     Let flee -- cy flocks the hills a -- dorn, __
@@ -1055,7 +1218,7 @@ mely Händel @notation{Júdás Makkabeus} c. oratóriumából való:
     \key f \major
     \time 6/8
     \partial 8
-    r8 r4. r4 c'8 a'([ g]) f f([ e]) d e([ d]) c bes'4
+    r8 | r4. r4 c'8 | a'8([ g]) f f([ e]) d | e8([ d]) c bes'4
   }
   \addlyrics {
     Let flee -- cy flocks the hills a -- dorn,
@@ -1068,7 +1231,8 @@ változók segítségével. Ez a módszer a @ref{Művek szervezettebbé tétele 
 c. szakaszban olvasható.
 
 @seealso
-Referencia: @ruser{Vocal music}.
+A kottaírás kézikönyve:
+@ruser{Vocal music}.
 
 
 @node Utolsó simítások
@@ -1081,7 +1245,6 @@ részébe.
 
 @menu
 * Művek szervezettebbé tétele változók segítségével::
-* Verziószám::
 * Cím és más adatok megadása::
 * Abszolút hangmagasság-megadás::
 * Hogyan tovább?::
@@ -1181,37 +1344,6 @@ Az alábbi példa a fenti változókat hasznosítja újra:
 @end example
 
 
-@node Verziószám
-@subsection Verziószám
-@translationof Version number
-
-@untranslated
-
-@cindex verzió
-@cindex verziószám
-@cindex frissítés
-
-@funindex \version
-@funindex version
-@funindex convert-ly
-
-A @code{\version} utasítással kell megadni, hogy a LilyPond melyik verziója
-számára készült a fájl:
-
-@example
-\version @w{"@version{}"}
-@end example
-
-@noindent
-Ezt megállapodás szerint a LilyPond fájl legelejére helyezzük.
-
-A verziómegjelölés célja, hogy a LilyPond későbbi verziójára való átállás
-minél zökkenőmentesebb legyen. A nyelvtanban bekövetkezett változásokat egy
-speciális program, a @command{convert-ly} képes kezelni, és a @code{\version}
-utasítás alapján állapítja meg, hogy milyen szabályok szerint frissítse a
-fájlt. Erről bővebb információ a @rprogram{Updating files with convert-ly}
-szakaszban található.
-
 @node Cím és más adatok megadása
 @subsection Cím és más adatok megadása
 @translationof Adding titles
@@ -1265,9 +1397,9 @@ abszolútként értelmez. A @code{c'} mindig az egyvonalas c hangot jelöli, a
 
 @lilypond[verbatim,quote]
 {
-  \clef bass
-  c' b g, g,
-  g, f, f c'
+  \clef "bass"
+  c'4 b g, g, |
+  g,4 f, f c' |
 }
 @end lilypond
 
@@ -1275,16 +1407,16 @@ abszolútként értelmez. A @code{c'} mindig az egyvonalas c hangot jelöli, a
 
 @lilypond[verbatim,quote]
 {
-  \clef bass
-  c, d, e, f,
-  g, a, b, c
-  d e f g
-  a b c' d'
-  \clef treble
-  e' f' g' a'
-  b' c'' d'' e''
-  f'' g'' a'' b''
-  c'''1
+  \clef "bass"
+  c,4 d, e, f, |
+  g,4 a, b, c |
+  d4 e f g |
+  a4 b c' d' |
+  \clef "treble"
+  e'4 f' g' a' |
+  b'4 c'' d'' e'' |
+  f''4 g'' a'' b'' |
+  c'''1 |
 }
 @end lilypond
 
@@ -1295,8 +1427,21 @@ Itt van például egy Mozart-idézet:
 {
   \key a \major
   \time 6/8
-  cis''8. d''16 cis''8 e''4 e''8
-  b'8. cis''16 b'8 d''4 d''8
+  cis''8. d''16 cis''8 e''4 e''8 |
+  b'8. cis''16 b'8 d''4 d''8 |
+}
+@end lilypond
+
+@funindex \fixed
+Common octave marks can be indicated just once, using the command
+@code{\fixed} followed by a reference pitch:
+
+@lilypond[verbatim,quote]
+\fixed c'' {
+  \key a \major
+  \time 6/8
+  cis8. d16 cis8 e4 e8 |
+  b,8. cis16 b,8 d4 d8 |
 }
 @end lilypond
 
@@ -1308,8 +1453,8 @@ begépelni:
 \relative {
   \key a \major
   \time 6/8
-  cis''8. d16 cis8 e4 e8
-  b8. cis16 b8 d4 d8
+  cis''8. d16 cis8 e4 e8 |
+  b8. cis16 b8 d4 d8 |
 }
 @end lilypond
 
@@ -1322,6 +1467,25 @@ Az abszolút mód olyan dallamoknál lehet előnyös, amelyekben nagy
 hangközugrások vannak, de leginkább a LilyPond-fájlok
 számítógéppel történő generálásánál bizonyul különösen hasznosnak.
 
+
+Sometimes music is arranged in more complex ways.  If you are
+using @code{\relative} inside of @code{\relative}, the outer and
+inner relative sections are independent:
+
+@lilypond[verbatim,quote]
+\relative { c'4 \relative { f'' g } c }
+@end lilypond
+
+To use absolute mode inside of @code{\relative}, put the absolute
+music inside @code{\fixed c @{ @dots{} @}} and the absolute pitches
+will not affect the octaves of the relative music:
+
+@lilypond[verbatim,quote]
+\relative {
+  c'4 \fixed c { f'' g'' } c |
+  c4 \fixed c'' { f g } c
+}
+@end lilypond
 
 @node Hogyan tovább?
 @subsection Hogyan tovább?

@@ -770,7 +770,7 @@ LilyPond の開発手法はかなり複雑です。@c
 @itemize
 @item @uref{http://lilypond.org/test, バージョン間での回帰テストの比較}
 
-@item @uref{http://lilypond.org/download/binaries/test-output/,
+@item @uref{http://lilypond.org/downloads/binaries/test-output/,
 すべての回帰テストのアーカイブ}
 
 @end itemize

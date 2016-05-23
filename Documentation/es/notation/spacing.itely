@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: e965ee6c9b3b42a76fd6fce1f9c6b93b3ee79aae
+    Translation of GIT committish: 1e339d5efe13a725a4f0c2d8dfc3d40390446b89
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -12,8 +12,6 @@
 
 @ignore
 GDP TODO list
-This block comment is copied here to ease comparation of
-original and its translation.
 
 Negative numbers are allowed:
 > Are you sure? The following works well
@@ -21,30 +19,6 @@ Negative numbers are allowed:
 >   first-page-number = -2
 > }
 > and prints page number -1 on the second page, for example.
-
-
-In 5.2.1 the @refbugs (line 495 in spacing.itely on master) it
-states:
-
-"@code{layout-set-staff-size} does not change the distance between
-the
-staff lines."
-
-Could we add a sentence:
-"Use instead the pair               fontSize = #@var{N}
-            \override StaffSymbol.staff-space = #(magstep
-@var{N})
-inside the Staff context to change the size of the font and the
-distance between
-staff lines accordingly."
-
-Actually I found, that the @internalsref{StaffSymbol} at line 481
-sends to an incomplete
-documentation.  The property staff-space is not explained here.  I
-thought Y-extent might be of
-help, but it is in turn explained by x-space which again is
-missing from the list.  Who has the
-knowledge to fix this?
 
 
 Clarify
@@ -59,31 +33,32 @@ http://code.google.com/p/lilypond/issues/detail?id=68
 
 La disposición global sobre el papel viene determinada por tres
 factores: el diseño de página, los saltos de línea y el espaciado.
-Estos factores influyen entre sí.  La elección de uno u otro espaciado
-determina qué densidad termina teniendo cada sistema de música.  Esto
-influye en el lugar en que se eligen los saltos de línea y, en último
-término, en el número de páginas que tiene una partitura.
+Estos factores influyen entre sí.  La elección de uno u otro
+espaciado determina qué densidad termina teniendo cada sistema de
+música.  Esto influye en el lugar en que se eligen los saltos de
+línea y, en último término, en el número de páginas que tiene una
+partitura.
 
-Considerado globalmente, este proceso se produce en cuatro fases: en
-primer lugar se eligen unas distancias elásticas o @q{muelles},
+Considerado globalmente, este proceso se produce en cuatro fases:
+en primer lugar se eligen unas distancias elásticas o @q{muelles},
 basados en la duración de las figuras.  Se prueban todas las
-combinaciones de saltos de línea posibles, y para cada una de ellas se
-calcula una puntuación de @q{maldad}.  Después se hace una estimación
-de la altura de cada uno de los posibles sistemas.  Finalmente se
-selecciona una combinación de saltos de página y de línea de tal forma
-que ni el espaciado horizontal ni el vertical estén demasiado
-estrechos ni estirados.
+combinaciones de saltos de línea posibles, y para cada una de
+ellas se calcula una puntuación de @q{maldad}.  Después se hace
+una estimación de la altura de cada uno de los posibles sistemas.
+Finalmente se selecciona una combinación de saltos de página y de
+línea de tal forma que ni el espaciado horizontal ni el vertical
+estén demasiado estrechos ni estirados.
 
-Hay dos tipos de bloques que pueden contener ajustes de disposición:
-@code{\paper @{@dots{}@}} y @code{\layout @{@dots{}@}}.  El bloque
-@code{\paper} contiene ajustes de disposición de la página que se
-espera sean los mismos para todas las partituras de un libro o parte de libro,
-como la
-altura de la hoja o si se imprimen los números de página, etc.  Véase
+Hay dos tipos de bloques que pueden contener ajustes de
+disposición: @code{\paper @{@dots{}@}} y @code{\layout
+@{@dots{}@}}.  El bloque @code{\paper} contiene ajustes de
+disposición de la página que se espera sean los mismos para todas
+las partituras de un libro o parte de libro, como la altura de la
+hoja o si se imprimen los números de página, etc.  Véase
 @ref{Disposición de la página}.  El bloque @code{\layout} contiene
-ajustes de disposición de la partitura, como el número de sistemas que
-utilizar, o la separación entre grupos de pentagramas, etc.  Véase
-@ref{Disposición de la partitura}.
+ajustes de disposición de la partitura, como el número de sistemas
+que utilizar, o la separación entre grupos de pentagramas, etc.
+Véase @ref{Disposición de la partitura}.
 
 @menu
 * Disposición de la página::
@@ -99,8 +74,8 @@ utilizar, o la separación entre grupos de pentagramas, etc.  Véase
 @section Disposición de la página
 @translationof Page layout
 
-Esta sección estudia las opciones de disposición de la página para el
-bloque @code{\paper}.
+Esta sección estudia las opciones de disposición de la página para
+el bloque @code{\paper}.
 
 @menu
 * El bloque paper::
@@ -159,31 +134,32 @@ Entre los ajustes que pueden aparecer dentro de un bloque
 la función de Scheme @code{set-paper-size},
 
 @item
-variables de @code{\paper} utilizadas para personalizar la disposición
-de la página, y
+variables de @code{\paper} utilizadas para personalizar la
+disposición de la página, y
 
 @item
-definiciones de marcado utilizadas para personalizar la disposición de
-los encabezamientos, pies y títulos.
+definiciones de marcado utilizadas para personalizar la
+disposición de los encabezamientos, pies y títulos.
 
 @end itemize
 
-La función @code{set-paper-size} se estudia en la sección siguiente,
-@ref{Tamaño del papel y escalado automático}.  Las variables de
-@code{\paper} que se ocupan de la disposición de la página
-se estudian en secciones posteriores.  Las definiciones de elementos
-de marcado que se encargan de los encabezamientos, pies y títulos se
-estudian en @ref{Títulos encabezamientos y pies de página personalizados}.
+La función @code{set-paper-size} se estudia en la sección
+siguiente, @ref{Tamaño del papel y escalado automático}.  Las
+variables de @code{\paper} que se ocupan de la disposición de la
+página se estudian en secciones posteriores.  Las definiciones de
+elementos de marcado que se encargan de los encabezamientos, pies
+y títulos se estudian en
+@ref{Títulos encabezamientos y pies de página personalizados}.
 
-Casi todas las variables de @code{\paper} funcionan solamente dentro
-de un bloque @code{\paper}.  Las pocas que funcionan también en un
-bloque @code{\layout} están relacionadas en
-@ref{El bloque layout,,El bloque @code{@bs{}layout}}.
+Casi todas las variables de @code{\paper} funcionan solamente
+dentro de un bloque @code{\paper}.  Las pocas que funcionan
+también en un bloque @code{\layout} están relacionadas en @ref{El
+bloque layout,,El bloque @code{@bs{}layout}}.
 
 Excepto cuando se especifica lo contrario, todas las variables de
-@code{\paper} que corresponden a distancias sobre la página se miden
-en milímetros, a no ser que el usuario especifique unas unidades
-diferentes.  Por ejemplo, la declaración siguiente
+@code{\paper} que corresponden a distancias sobre la página se
+miden en milímetros, a no ser que el usuario especifique unas
+unidades diferentes.  Por ejemplo, la declaración siguiente
 establece el margen superior @code{top-margin} a diez milímetros:
 
 @example
@@ -204,12 +180,12 @@ Para fijarlo en @code{0.5} pulgadas, utilice el sufijo de unidades
 Los sufijos de unidades que están disponibles son @code{\mm},
 @code{\cm}, @code{\in} y @code{\pt}.  Estas unidades son valores
 simples para convertir a partir de milímetros; están definidos en
-@file{ly/paper-defaults-init.ly}.  Por claridad, al usar milímetros,
-se suele escribir el sufijo @code{\mm} aunque no es necesario
-técnicamente.
+@file{ly/paper-defaults-init.ly}.  Por claridad, al usar
+milímetros, se suele escribir el sufijo @code{\mm} aunque no es
+necesario técnicamente.
 
-También es posible definir valores de @code{\paper} utilizando Scheme.
-El equivalente de Scheme del ejemplo anterior es:
+También es posible definir valores de @code{\paper} utilizando
+Scheme.  El equivalente de Scheme del ejemplo anterior es:
 
 @example
 \paper @{
@@ -246,9 +222,9 @@ Archivos instalados:
 @unnumberedsubsubsec Fijar el tamaño del papel
 @translationof Setting paper size
 
-@q{A4} es el valor predeterminado si no se establece ningún tamaño de
-página explícitamente.  Sin embargo, existen dos funciones que se
-pueden usar para modificarlo:
+@q{A4} es el valor predeterminado si no se establece ningún tamaño
+de página explícitamente.  Sin embargo, existen dos funciones que
+se pueden usar para modificarlo:
 
 @table @code
 @item set-default-paper-size
@@ -271,30 +247,31 @@ que se debe colocar siempre dentro de un bloque @code{\paper}.
 @end table
 
 Si se usa la función @code{set-default-paper-size} en el ámbito
-superior jerárquico, debe ir antes de cualquier bloque @code{\paper}.
-@code{set-default-paper-size} establece el tamaño de todas las
-páginas, mientras que @code{set-paper-size} establece sólo el tamaño
-de las páginas a las que se aplica el bloque @code{\paper}.  Por
-ejemplo, si el bloque @code{\paper} está al principio del archivo,
-aplica el tamaño de papel a todas las páginas.  Si el bloque
-@code{\paper} está dentro de un bloque @code{\book}, entonces el
-tamaño del papel sólo se aplica a ese libro.
+superior jerárquico, debe ir antes de cualquier bloque
+@code{\paper}.  @code{set-default-paper-size} establece el tamaño
+de todas las páginas, mientras que @code{set-paper-size} establece
+sólo el tamaño de las páginas a las que se aplica el bloque
+@code{\paper}.  Por ejemplo, si el bloque @code{\paper} está al
+principio del archivo, aplica el tamaño de papel a todas las
+páginas.  Si el bloque @code{\paper} está dentro de un bloque
+@code{\book}, entonces el tamaño del papel sólo se aplica a ese
+libro.
 
 Cuando se usa la función @code{set-paper-size}, se debe colocar
-@emph{antes} de cualquier otra función que se utilice dentro del mismo
-bloque @code{\paper}.  Véase @ref{Escalado automático al tamaño del
-papel}.
+@emph{antes} de cualquier otra función que se utilice dentro del
+mismo bloque @code{\paper}.  Véase
+@ref{Escalado automático al tamaño del papel}.
 
 Los tamaños de página están definidos en el archivo
 @file{scm/paper.scm}, y aunque es posible añadir tamaños
-personalizados, se sobreescribirán en las actualizaciones del software
-posteriores.  La lista de todos los tamaños de papel disponibles
-está en @ref{Tamaños de página predefinidos}.
+personalizados, se sobreescribirán en las actualizaciones del
+software posteriores.  La lista de todos los tamaños de papel
+disponibles está en @ref{Tamaños de página predefinidos}.
 
 @c An appendix entry exists for paper sizes but is not auto-generated
 
-Se puede usar la siguiente instrucción en el archivo para añadir un
-tamaño de página personalizado que se puede usar después con
+Se puede usar la siguiente instrucción en el archivo para añadir
+un tamaño de página personalizado que se puede usar después con
 @code{set-default-paper-size} o con @code{set-paper-size} según
 convenga,
 
@@ -313,19 +290,19 @@ Se puede usar cualquiera de las unidades @code{in} (pulgadas),
 @cindex página, orientación de la
 @cindex papel, tamaño, apaisado
 
-Si se añade el símbolo @code{'landscape} a la función del tamaño de la
-página, el papel se gira 90 grados y se establece adecuadamente la
-anchura de las líneas.
+Si se añade el símbolo @code{'landscape} a la función del tamaño
+de la página, el papel se gira 90 grados y se establece
+adecuadamente la anchura de las líneas.
 
 @example
 #(set-default-paper-size "a6" 'landscape)
 @end example
 
 Se pueden intercambiar las dimensiones del papel @emph{sin que la
-impresión resulte girada} (como cuando se imprime en tamaño tarjeta
-postal, o al crear gráficos para su inclusión en lugar de un documento
-independiente) añadiendo @samp{landscape} después del nombre del
-propio tamaño del papel:
+impresión resulte girada} (como cuando se imprime en tamaño
+tarjeta postal, o al crear gráficos para su inclusión en lugar de
+un documento independiente) añadiendo @samp{landscape} después del
+nombre del propio tamaño del papel:
 
 @example
 #(set-default-paper-size "a6landscape")
@@ -350,41 +327,42 @@ Archivos instalados:
 @unnumberedsubsubsec Escalado automático al tamaño del papel
 @translationof Automatic scaling to paper size
 
-Si se cambia el tamaño del papel con una de las funciones de Scheme
-(@code{set-default-paper-size} o @code{set-paper-size}), los valores
-de algunas variables de @code{\paper} se escalan automáticamente al
-nuevo tamaño.  Para sortear el escalado automático para una variable
-determinada, fije el valor de la variable después de establecer el
-tamaño del papel.  Observe que el escalado automático no se activa
-mediante el ajuste de las variables
-@code{paper-height} o de @code{paper-width},
-incluso aunque @code{paper-width} puede influir sobre otros valores
-(esto es distinto al escalado y se estudia más abajo).  Las funciones
-@code{set-default-paper-size} y @code{set-paper-size} se describen en
-@ref{Fijar el tamaño del papel}.
+Si se cambia el tamaño del papel con una de las funciones de
+Scheme (@code{set-default-paper-size} o @code{set-paper-size}),
+los valores de algunas variables de @code{\paper} se escalan
+automáticamente al nuevo tamaño.  Para sortear el escalado
+automático para una variable determinada, fije el valor de la
+variable después de establecer el tamaño del papel.  Observe que
+el escalado automático no se activa mediante el ajuste de las
+variables @code{paper-height} o de @code{paper-width}, incluso
+aunque @code{paper-width} puede influir sobre otros valores (esto
+es distinto al escalado y se estudia más abajo).  Las funciones
+@code{set-default-paper-size} y @code{set-paper-size} se describen
+en @ref{Fijar el tamaño del papel}.
 
-Las dimensiones verticales afectadas por el escalado automático son
-@code{top-margin} y @code{bottom-margin}
-(véase @ref{Variables de espaciado de paper verticales fijas,,Variables de espaciado de @code{@bs{}paper} verticales fijas}).
-Las dimensiones
+Las dimensiones verticales afectadas por el escalado automático
+son @code{top-margin} y @code{bottom-margin} (véase @ref{Variables
+de espaciado de paper verticales fijas,,Variables de espaciado de
+@code{@bs{}paper} verticales fijas}).  Las dimensiones
 horizontales afectadas por el escalado automático son
 @code{left-margin}, @code{right-margin}, @code{inner-margin},
 @code{outer-margin}, @code{binding-offset}, @code{indent} y
-@code{short-indent} (véase
-@ref{Variables de espaciado de paper horizontales,,Variables de espaciado de @code{@bs{}paper} horizontales}).
+@code{short-indent} (véase @ref{Variables de espaciado de paper
+horizontales,,Variables de espaciado de @code{@bs{}paper}
+horizontales}).
 
-Los valores predeterminados para estas dimensiones están fijados en el
-archivo @file{ly/paper-defaults-init.ly}, usando variables internas
-llamadas @code{top-margin-default}, @code{bottom-margin-default}, etc.
-Estos son los valores que resultan del tamaño predeterminado del papel
-@code{a4}.  Como referencia, con el papel @code{a4} la altura
-@code{paper-height} es @code{297\mm} y la anchura @code{paper-width}
-es @code{210\mm}.
+Los valores predeterminados para estas dimensiones están fijados
+en el archivo @file{ly/paper-defaults-init.ly}, usando variables
+internas llamadas @code{top-margin-default},
+@code{bottom-margin-default}, etc.  Estos son los valores que
+resultan del tamaño predeterminado del papel @code{a4}.  Como
+referencia, con el papel @code{a4} la altura @code{paper-height}
+es @code{297\mm} y la anchura @code{paper-width} es @code{210\mm}.
 
 @seealso
 Referencia de la notación:
-@ref{Variables de espaciado de paper verticales fijas,,Variables de espaciado de @code{@bs{}paper} verticales fijas},
-@ref{Variables de espaciado de paper horizontales,,Variables de espaciado de @code{@bs{}paper} horizontales}.
+@ref{Variables de espaciado de paper verticales fijas},
+@ref{Variables de espaciado de paper horizontales}.
 
 Archivos de inicio:
 @file{ly/paper-defaults-init.ly},
@@ -397,51 +375,50 @@ Archivos de inicio:
 
 @warning{Algunas dimensiones de @code{@bs{}paper} se escalan
 automáticamente al tamaño del papel, lo que puede llevar a un
-comportamiento no esperado.  Véase @ref{Escalado automático al tamaño
-del papel}.}
+comportamiento no esperado.  Véase
+@ref{Escalado automático al tamaño del papel}.}
 
-Los valores predeterminados (previos al escalado) están definidos en
-el archivo @file{ly/paper-defaults-init.ly}.
+Los valores predeterminados (previos al escalado) están definidos
+en el archivo @file{ly/paper-defaults-init.ly}.
 
 @table @code
 @item paper-height (altura del papel)
 @funindex paper-height
 
-Altura de la página, no fijada de forma predeterminada.  Observe que
-el escalado automático de algunas dimensiones verticales no resulta
-afectado por esto.
+Altura de la página, no fijada de forma predeterminada.  Observe
+que el escalado automático de algunas dimensiones verticales no
+resulta afectado por esto.
 
 @item top-margin (margen superior)
 @funindex top-margin
 
-Margen entre el extremo superior de la página y la parte superior de
-la zona imprimible.  Si se modifica el tamaño del papel, el valor
-predeterminado de esta dimensión se escala de acuerdo con ello.
+Margen entre el extremo superior de la página y la parte superior
+de la zona imprimible.  Si se modifica el tamaño del papel, el
+valor predeterminado de esta dimensión se escala de acuerdo con
+ello.
 
 @item bottom-margin (margen inferior)
 @funindex bottom-margin
 
 Margen entre la parte inferior de la zona imprimible y el extremo
-inferior de la página.  Si se modifica el tamaño del papel, se escala
-de acuerdo con ello el valor predeterminado de esta dimensión.
+inferior de la página.  Si se modifica el tamaño del papel, se
+escala de acuerdo con ello el valor predeterminado de esta
+dimensión.
 
 @item ragged-bottom (sin justificar por abajo)
 @funindex ragged-bottom
 
-Si se fija al valor verdadero, los sistemas no se reparten
-verticalmente hasta abajo de la página.  Esto no afecta a la última
-página.  Se debe fijar a verdadero para piezas que sólo tienen dos o
-tres sistemas por página, como por ejemplo las partituras orquestales.
+Si esto se fija al valor verdadero, los sistemas se disponen según
+su espaciado natural, ni comprimido ni ampliado verticalmente para
+rellenar la página.
 
 @item ragged-last-bottom (sin justificar la última por abajo)
 @funindex ragged-last-bottom
 
-Si se establece al valor falso, los sistemas se reparten verticalmente
-hasta abajo de la última página.  Las piezas que llenan sobradamente
-dos o más páginas deben tener este valor fijado a falso.  También
-afecta a la última página de las partes de libro, es decir, partes de
-un libro creadas con bloques @code{\bookpart}.
-
+Si se establece al valor falso, entonces la última página (tanto
+del documento como de cada sección que se hubiera creado con un
+bloque @code{\bookpart}) se justifica verticalmente de la misma
+forma que las páginas anteriores.
 @end table
 
 @seealso
@@ -456,35 +433,35 @@ Fragmentos de código:
 
 @knownissues
 Los títulos (extraídos del bloque @code{\header}) se tratan como
-sistemas, así pues @code{ragged-bottom} y @code{ragged-last-bottom}
-aumentan la separación entre los títulos y el primer sistema de la
-partitura.
+sistemas, así pues @code{ragged-bottom} y
+@code{ragged-last-bottom} aumentan la separación entre los títulos
+y el primer sistema de la partitura.
 
-Los tamaños de papel definidos explícitamente
-sobreescriben cualquier ajuste de los márgenes
-superior o inferior definidos por el usuario.
+Los tamaños de papel definidos explícitamente sobreescriben
+cualquier ajuste de los márgenes superior o inferior definidos por
+el usuario.
 
 
 @node Variables de espaciado de paper verticales flexibles
 @subsection Variables de espaciado de @code{@bs{}paper} verticales flexibles
 @translationof Flexible vertical spacing paper variables
 
-En casi todos los casos es preferible que las distancias verticales
-entre ciertos elementos (como márgenes, títulos, sistemas y las
-distintas partituras) sean flexibles, de manera que se amplíen y
-compriman adecuadamente dependiendo de la situación.  Están
-disponibles un cierto número de variables del bloque @code{\paper}
-(relacionadas más abajo) para realizar un ajuste fino del
-comportamiento de estas dimensiones frente a su ampliación o
-compresión.
+En casi todos los casos es preferible que las distancias
+verticales entre ciertos elementos (como márgenes, títulos,
+sistemas y las distintas partituras) sean flexibles, de manera que
+se amplíen y compriman adecuadamente dependiendo de la situación.
+Están disponibles un cierto número de variables del bloque
+@code{\paper} (relacionadas más abajo) para realizar un ajuste
+fino del comportamiento de estas dimensiones frente a su
+ampliación o compresión.
 
 Observe que las variables de @code{\paper} que se estudian en esta
-sección no controlan el espaciado de los pentagramas que están dentro
-de los sistemas individuales.  El espaciado dentro de los sistemas se
-controla por medio de propiedades de grob, con ajustes que se escriben
-normalmente dentro de un bloque @code{\score} o @code{\layout}, y no
-dentro del bloque @code{\paper}.
-Véase @ref{Espaciado vertical flexible dentro de los sistemas}.
+sección no controlan el espaciado de los pentagramas que están
+dentro de los sistemas individuales.  El espaciado dentro de los
+sistemas se controla por medio de propiedades de grob, con ajustes
+que se escriben normalmente dentro de un bloque @code{\score} o
+@code{\layout}, y no dentro del bloque @code{\paper}.  Véase
+@ref{Espaciado vertical flexible dentro de los sistemas}.
 
 @menu
 * Estructura de las listas-A de espaciado vertical flexible::
@@ -496,23 +473,25 @@ Véase @ref{Espaciado vertical flexible dentro de los sistemas}.
 @unnumberedsubsubsec Estructura de las listas-A de espaciado vertical flexible
 @translationof Structure of flexible vertical spacing alists
 
-Cada una de las variables de espaciado de @code{\paper} flexibles es
-una lista-A (lista asociativa) que contiene cuatro @emph{claves}:
+Cada una de las variables de espaciado de @code{\paper} flexibles
+es una lista-A (lista asociativa) que contiene cuatro
+@emph{claves}:
 
 @itemize
 
 @item
 @code{basic-distance} (distancia básica):
 distancia vertical, medida en espacios de pentagrama, entre los
-@emph{puntos de referencia} de los dos elementos, cuando no resulte
-ninguna colisión, y no se produzca ninguna ampliación o compresión.
-El punto de referencia de un elemento de marcado (de título o del
-nivel jerárquico superior) es su punto más alto, y el punto de
-referencia de un sistema es el centro vertical del @code{StaffSymbol}
-más cercano (incluso si se trata de una línea que no es un pentagrama,
-como un contexto @code{Lyrics}).  Los valores de @code{distancia básica} menores
-de @code{padding} o de @code{minimum-distance} no son significativos,
-porque la distancia resultante nunca será menor de @code{padding} o de
+@emph{puntos de referencia} de los dos elementos, cuando no
+resulte ninguna colisión, y no se produzca ninguna ampliación o
+compresión.  El punto de referencia de un elemento de marcado (de
+título o del nivel jerárquico superior) es su punto más alto, y el
+punto de referencia de un sistema es el centro vertical del
+@code{StaffSymbol} más cercano (incluso si se trata de una línea
+que no es un pentagrama, como un contexto @code{Lyrics}).  Los
+valores de @code{distancia básica} menores de @code{padding} o de
+@code{minimum-distance} no son significativos, porque la distancia
+resultante nunca será menor de @code{padding} o de
 @code{minimum-distance}.
 
 @item
@@ -536,23 +515,24 @@ medido en espacios de pentagrama.
 @code{stretchability} (ampliabilidad):
 medida sin unidades de la propensión relativa de esta dimensión a
 ampliarse.  Si es cero, la distancia no se ampliará (a no ser que
-resultasen colisiones).  Si es positiva, la significación del valor de
-ampliabilidad de una dimensión concreta depende solamente de su
-relación con los valores de @code{stretchability} de las otras
-dimensiones.  Por ejemplo, si una dimensión tiene el doble de
-@code{stretchability} que otra, se ampliará con el doble de facilidad.
-Los valores deben ser no negativos y finitos.  El valor @code{+inf.0}
-desencadena un error de programación y se ignora, pero se puede usar
-@code{1.0e7} para un muelle casi infinitamente ampliable.  Si no se
-fija un valor, el valor predeterminado se establece a @code{basic-distance}.
-Observe que la propensión de la dimensión a @emph{comprimirse} no se
-puede establecer directamente por el usuario y es igual a
+resultasen colisiones).  Si es positiva, la significación del
+valor de ampliabilidad de una dimensión concreta depende solamente
+de su relación con los valores de @code{stretchability} de las
+otras dimensiones.  Por ejemplo, si una dimensión tiene el doble
+de @code{stretchability} que otra, se ampliará con el doble de
+facilidad.  Los valores deben ser no negativos y finitos.  El
+valor @code{+inf.0} desencadena un error de programación y se
+ignora, pero se puede usar @code{1.0e7} para un muelle casi
+infinitamente ampliable.  Si no se fija un valor, el valor
+predeterminado se establece a @code{basic-distance}.  Observe que
+la propensión de la dimensión a @emph{comprimirse} no se puede
+establecer directamente por el usuario y es igual a
 (@code{basic-distance}@tie{}@minus{}@tie{}@code{minimum-distance}).
 
 @end itemize
 
-Si una página tiene un margen inferior no justificado, la distancia
-resultante es la mayor de:
+Si una página tiene un margen inferior no justificado, la
+distancia resultante es la mayor de:
 
 @itemize
 
@@ -563,21 +543,21 @@ resultante es la mayor de:
 @code{minimum-distance}, y
 
 @item
-@code{padding} más la menor distancia necesaria
-para eliminar las colisiones.
+@code{padding} más la menor distancia necesaria para eliminar las
+colisiones.
 
 @end itemize
 
-Para partituras de varias páginas con la parte inferior
-no justificada en la última página, ésta usará el mismo
-espaciado que la página anterior
-siempre y cuando haya espacio suficiente para ello.
+Para partituras de varias páginas con la parte inferior no
+justificada en la última página, ésta usará el mismo espaciado que
+la página anterior siempre y cuando haya espacio suficiente para
+ello.
 
 Los métodos específicos para la modificación de las listas-A se
-estudian en @ref{Modificación de las listas-A}.  El siguiente ejemplo
-muestra las dos formas en que pueden modificarse estas listas-A.  La
-primera declaración actualiza un par clave-valor individualmente, y la
-segunda redefine la variable completamente:
+estudian en @ref{Modificación de las listas-A}.  El siguiente
+ejemplo muestra las dos formas en que pueden modificarse estas
+listas-A.  La primera declaración actualiza un par clave-valor
+individualmente, y la segunda redefine la variable completamente:
 
 @example
 \paper @{
@@ -597,15 +577,15 @@ segunda redefine la variable completamente:
 
 Los nombres de estas variables siguen el formato
 @code{@var{superior}-@var{inferior}-spacing}, donde
-@code{@var{superior}} e @code{@var{inferior}} son los elementos que
-van a ser espaciados.  Cada distancia se mide entre los puntos de
-referencia de los dos elementos (véase más arriba la descripción de la
-estructura de la lista-A).  Observe que en estos nombres de variable,
-el término @q{@code{markup}} se refiere tanto a @emph{elementos de
-marcado de título} (@code{bookTitleMarkup} o @code{scoreTitleMarkup})
-como a @emph{elementos de marcado del nivel superior} (véase
-@ref{Estructura del archivo}).  Todas las distancias se miden en
-espacios de pentagrama.
+@code{@var{superior}} e @code{@var{inferior}} son los elementos
+que van a ser espaciados.  Cada distancia se mide entre los puntos
+de referencia de los dos elementos (véase más arriba la
+descripción de la estructura de la lista-A).  Observe que en estos
+nombres de variable, el término @q{@code{markup}} se refiere tanto
+a @emph{elementos de marcado de título} (@code{bookTitleMarkup} o
+@code{scoreTitleMarkup}) como a @emph{elementos de marcado del
+nivel superior} (véase @ref{Estructura del archivo}).  Todas las
+distancias se miden en espacios de pentagrama.
 
 Los ajustes predeterminados están definidos en el archivo
 @file{ly/paper-defaults-init.ly}.
@@ -622,15 +602,15 @@ superior) y el sistema que le sigue.
 @item score-markup-spacing
 @funindex score-markup-spacing
 
-distancia entre el último sistema de una partitura y el elemento de
-marcado (de título o del nivel superior) que le sigue.
+distancia entre el último sistema de una partitura y el elemento
+de marcado (de título o del nivel superior) que le sigue.
 
 @item score-system-spacing
 @funindex score-system-spacing
 
-distancia entre el último sistema de una partitura y el primer sistema
-de la partitura que le sigue, cuando no existe ningún elemento de
-marcado (de título o del nivel superior) entre ellos.
+distancia entre el último sistema de una partitura y el primer
+sistema de la partitura que le sigue, cuando no existe ningún
+elemento de marcado (de título o del nivel superior) entre ellos.
 
 @item system-system-spacing
 @funindex system-system-spacing
@@ -647,24 +627,24 @@ superior).
 @funindex last-bottom-spacing
 
 distancia desde el último sistema o elemento de marcado del nivel
-superior en una página, hasta la parte inferior de la zona imprimible
-(es decir, el extremo superior del margen inferior).
+superior en una página, hasta la parte inferior de la zona
+imprimible (es decir, el extremo superior del margen inferior).
 
 @item top-system-spacing
 @funindex top-system-spacing
 
-distancia desde la parte superior de la zona imprimible (es decir, el
-extremo inferior del margen superior) hasta el primer sistema de una
-página, cuando no hay ningún elemento de marcado (de título o del
-nivel superior) entre los dos.
+distancia desde la parte superior de la zona imprimible (es decir,
+el extremo inferior del margen superior) hasta el primer sistema
+de una página, cuando no hay ningún elemento de marcado (de título
+o del nivel superior) entre los dos.
 
 @item top-markup-spacing
 @funindex top-markup-spacing
 
-distancia desde el extremo superior de la zona imprimible (es decir,
-el extremo inferior del margen superior) hasta el primer elemento de
-marcado (de título o del nivel superior) sobre una página, cuando no
-hay ningún sistema entre los dos.
+distancia desde el extremo superior de la zona imprimible (es
+decir, el extremo inferior del margen superior) hasta el primer
+elemento de marcado (de título o del nivel superior) sobre una
+página, cuando no hay ningún sistema entre los dos.
 @end table
 
 @seealso
@@ -704,91 +684,113 @@ relacionados aquí se encuentran definidos en el archivo
 
 @table @code
 
-@item paper-width
+@item paper-width (anchura del papel)
 @funindex paper-width
 
 Anchura de la página, sin fijar de forma predeterminada.  Aunque
-@code{paper-width} no tiene ningún efecto sobre el escalado automático
-de algunas dimensiones horizontales, sí influye sobre la variable
-@code{line-width}.  Si están establecidas las dos variables
-@code{paper-width} y @code{line-width}, entonces también se actualizan
-@code{left-margin} y @code{right-margin}.  Véase también
-@code{check-consistency}.
-
-@item line-width
-@funindex line-width
-
-Dimensiones horizontales de las líneas del pentagrama en los sistemas
-sin sangrado y justificados, igual a
-@code{(paper-width@tie{}@minus{}@tie{}left-margin@tie{}@minus{}@tie{}right-margin)}
-cuando está sin fijar.  Si @code{line-width} está fijado, y tanto
-@code{left-margin} como @code{right-margin} están sin fijar, entonces
-los márgenes se actualizan para centrar los sistemas automáticamente
-sobre la página.  Véase también @code{check-consistency}.
-Esta variable también se puede fijar dentro de un bloque @code{\layout}.
-
-@item left-margin
-@funindex left-margin
-
-Margen entre el extremos izquierdo de la página y el comienzo de las
-líneas del pentagrama en los sistemas sin sangrado.  Si el tamaño del
-papel se modifica, el valor predeterminado de esta dimensión se escala
-de acuerdo con ello.  Si no se fija el valor de @code{left-margin}, y
-tanto @code{line-width} como @code{right-margin} están fijados,
-entonces se establece el valor de @code{left-margin} a
-@code{(paper-width@tie{}@minus{}@tie{}line-width@tie{}@minus{}@tie{}right-margin)}.
-Si solamente está fijado @code{line-width}, entonces los dos márgenes
-se establecen a
-@code{((paper-width@tie{}@minus{}@tie{}line-width)@tie{}/@tie{}2)}, y
-como consecuencia los sistemas se centran sobre la página.  Véase
+@code{paper-width} no tiene ningún efecto sobre el escalado
+automático de algunas dimensiones horizontales, sí influye sobre
+la variable @code{line-width}.  Si están establecidas las dos
+variables @code{paper-width} y @code{line-width}, entonces también
+se actualizan @code{left-margin} y @code{right-margin}.  Véase
 también @code{check-consistency}.
 
-@item right-margin
+@item line-width (longitud de la línea)
+@funindex line-width
+
+Cuando se especifica dentro de un bloque @code{\paper}, define las
+dimensiones horizontales del espacio disponible para las líneas
+del pentagrama en los sistemas sin sangrado por la izquierda.  Si
+se deja sin especificar, la longitud @code{line-width} del papel
+se determina a partir de
+@code{(paper-width@tie{}@minus{}@tie{}left-margin@tie{}@minus{}@tie{}right-margin)}.
+Si se especifica la longitud @code{line-width} del papel, y no se
+especifican el margen izquierdo @code{left-margin} ni el margen
+derecho @code{right-margin}, entonces los márgenes se actualizan
+de forma que los sistemas se centran automáticamente sobre la
+página.  Véase también @code{check-consistency}.
+
+Los valores de @code{line-width} para las partituras individuales
+se pueden especificar dentro de los bloques @code{\layout} de las
+partituras.  Estos valores controlan la longitud de las líneas
+producidas partitura a partitura.  Si la longitud
+@code{line-width} no se especifica para una partitura, su valor
+predeterminado es el @code{line-width} del bloque paper.  El hecho
+de fijar la longitud @code{line-width} de una partitura no tiene
+efecto sobre los márgenes del papel.  Las líneas del pentagrama,
+de una longitud determinada por el valor @code{line-width} de la
+partitura, se alinean por la izquierda dentro del área definida
+por la longitud @code{line-width} del papel.  Si la longitud
+@code{line-width} del papel y de la partitura son iguales, las
+líneas del pentagrama se extienden exactamente desde el margen
+izquierdo hasta el margen derecho, pero si la longitud
+@code{line-width} de la partitura es mayor que la
+@code{line-width} del papel, las líneas del pentagrama se
+imprimirán encima del espacio reservado al margen derecho.
+
+@item left-margin (margen izquierdo)
+@funindex left-margin
+
+Margen entre el extremo izquierdo de la página y el comienzo de
+las líneas del pentagrama en los sistemas sin sangrado.  Si el
+tamaño del papel se modifica, el valor predeterminado de esta
+dimensión se escala de acuerdo con ello.  Si no se fija el valor
+de @code{left-margin}, y tanto @code{line-width} como
+@code{right-margin} están fijados, entonces se establece el valor
+de @code{left-margin} a
+@code{(paper-width@tie{}@minus{}@tie{}line-width@tie{}@minus{}@tie{}right-margin)}.
+Si solamente está fijado @code{line-width}, entonces los dos
+márgenes se establecen a
+@code{((paper-width@tie{}@minus{}@tie{}line-width)@tie{}/@tie{}2)},
+y como consecuencia los sistemas se centran sobre la página.
+Véase también @code{check-consistency}.
+
+@item right-margin (margen derecho)
 @funindex right-margin
 
-Margen entre el extremo derecho de la página y el final de las líneas
-del pentagrama en sistemas justificados.  Si el tamaño de la página se
-modifica, el valor predeterminado de esta dimensión se escala de
-acuerdo con ello.  Si @code{right-margin} está sin fijar, y tanto
-@code{line-width} como @code{left-margin} están fijados, el valor de
-@code{right-margin} se establece a
+Margen entre el extremo derecho de la página y el final de las
+líneas del pentagrama en sistemas justificados.  Si el tamaño de
+la página se modifica, el valor predeterminado de esta dimensión
+se escala de acuerdo con ello.  Si @code{right-margin} está sin
+fijar, y tanto @code{line-width} como @code{left-margin} están
+fijados, el valor de @code{right-margin} se establece a
 @code{(paper-width@tie{}@minus{}@tie{}line-width@tie{}@minus{}@tie{}left-margin)}.
 Si solamente está fijado @code{line-width}, los dos márgenes se
 establecen a
-@code{((paper-width@tie{}@minus{}@tie{}line-width)@tie{}/@tie{}2)}, y
-como consecuencia los sistemas aparecen centrados sobre la página.
-Véase también @code{check-consistency}.
+@code{((paper-width@tie{}@minus{}@tie{}line-width)@tie{}/@tie{}2)},
+y como consecuencia los sistemas aparecen centrados sobre la
+página.  Véase también @code{check-consistency}.
 
-@item check-consistency
+@item check-consistency (comprobar la consistencia)
 @funindex check-consistency
 
-Si se establece al valor verdadero, se imprime una advertencia en caso
-de que la suma de @code{left-margin}, @code{line-width} y
-@code{right-margin} no coincida exactamente con el valor de
-@code{paper-width}, y se sustituye cada uno de estos valores (excepto
-@code{paper-width}) con su valor predeterminado (escalado al tamaño
-del papel si es necesario).  Si está fijado al valor falso, se ignora
-cualquier inconsistencia y se permite que los sistemas se salgan del
-borde del papel.
+Si esto es verdadero (su valor predeterminado), se imprime una
+advertencia en caso de que la suma de @code{left-margin},
+@code{line-width} y @code{right-margin} no coincida exactamente
+con el valor de @code{paper-width}, y se sustituye cada uno de
+estos valores (excepto @code{paper-width}) con su valor
+predeterminado (escalado al tamaño del papel si es necesario).  Si
+está fijado al valor falso, se ignora cualquier inconsistencia y
+se permite que los sistemas se salgan del borde del papel.
 
-@item ragged-right
+@item ragged-right (no justificar por la derecha)
 @funindex ragged-right
 
-Si está fijado al valor verdadero, los sistemas no cubren el ancho de
-la línea.  En lugar de ello, los sistemas finalizan en su longitud
-horizontal natural.  Valor predeterminado: @code{#t} para las
-partituras con un solo sistema, y @code{#f} para partituras que tienen
-dos o más sistemas.  Esta variable también se puede establecer dentro
-de un bloque @code{\layout}.
+Si está fijado al valor verdadero, los sistemas no cubren el ancho
+de la línea.  En lugar de ello, los sistemas finalizan en su
+longitud horizontal natural.  Valor predeterminado: @code{#t} para
+las partituras con un solo sistema, y @code{#f} para partituras
+que tienen dos o más sistemas.  Esta variable también se puede
+establecer dentro de un bloque @code{\layout}.
 
-@item ragged-last
+@item ragged-last (no justificar el último)
 @funindex ragged-last
 
-Si está fijado al valor verdadero, el último sistema de la partitura
-no llena toda la anchura de la línea.  En lugar de ello, el último
-sistema finaliza en su longitud horizontal natural.  Valor
-predeterminado: @code{#f}.  Esta variable también puede ajustarse
-dentro de un bloque @code{\layout}.
+Si está fijado al valor verdadero, el último sistema de la
+partitura no llena toda la anchura de la línea.  En lugar de ello,
+el último sistema finaliza en su longitud horizontal natural.
+Valor predeterminado: @code{#f}.  Esta variable también puede
+ajustarse dentro de un bloque @code{\layout}.
 
 @end table
 
@@ -800,9 +802,9 @@ Archivos de inicio:
 @file{ly/paper-defaults-init.ly}.
 
 @knownissues
-Los tamaños de papel definidos explícitamente
-sobreescriben cualquier ajuste de los márgenes
-izquierdo o derecho definidos por el usuario.
+Los tamaños de papel definidos explícitamente sobreescriben
+cualquier ajuste de los márgenes izquierdo o derecho definidos por
+el usuario.
 
 
 @node Variables de paper para el modo de doble cara
@@ -814,7 +816,7 @@ Los valores predeterminados (antes del escalado) se definen en
 
 @table @code
 
-@item two-sided
+@item two-sided (dos caras)
 @funindex two-sided
 
 @cindex encuadernación
@@ -825,30 +827,30 @@ Si tiene el valor verdadero, utilizar @code{inner-margin},
 márgenes dependiendo de si el número de la página es par o impar.
 Esto sobreescribe a @code{left-margin} y a @code{right-margin}.
 
-@item inner-margin
+@item inner-margin (margen interno)
 @funindex inner-margin
 
-Margen que todas las páginas tienen en el lado interno si forman parte
-de un libro.  Si el tamaño del papel se modifica, el valor
+Margen que todas las páginas tienen en el lado interno si forman
+parte de un libro.  Si el tamaño del papel se modifica, el valor
 predeterminado de esta dimensión se escala de acuerdo con ello.
 Solamente funciona con @code{two-sided} fijado al valor verdadero.
 
-@item outer-margin
+@item outer-margin (margen externo)
 @funindex outer-margin
 
-Margen que todas las páginas tienen en el lado externo si forman parte
-de un libro.  Si el tamaño del papel se modifica, el valor
+Margen que todas las páginas tienen en el lado externo si forman
+parte de un libro.  Si el tamaño del papel se modifica, el valor
 predeterminado de esta dimensión se escala de acuerdo con ello.
 Solamente funciona con @code{two-sided} fijado al valor verdadero.
 
-@item binding-offset
+@item binding-offset (margen de encuadernación)
 @funindex binding-offset
 
-Medida en que se aumenta @code{inner-margin} para asegurar que no se
-oculta nada a causa de la encuadernación.  Si el tamaño del papel se
-modifica, el valor predeterminado de esta dimensión se escala de
-acuerdo con ello.  Solamente funciona con @code{two-sided} fijado al
-valor verdadero.
+Medida en que se aumenta @code{inner-margin} para asegurar que no
+se oculta nada a causa de la encuadernación.  Si el tamaño del
+papel se modifica, el valor predeterminado de esta dimensión se
+escala de acuerdo con ello.  Solamente funciona con
+@code{two-sided} fijado al valor verdadero.
 
 @end table
 
@@ -864,35 +866,43 @@ Archivos de inicio:
 @unnumberedsubsubsec Variables de @code{@bs{}paper} para desplazamientos y sangrados
 @translationof paper variables for shifts and indents
 
-Los valores predeterminados (antes del escalado) que no se relacionan
-aquí están definidos en el archivo @file{ly/paper-defaults-init.ly}.
+Los valores predeterminados (antes del escalado) que no se
+relacionan aquí están definidos en el archivo
+@file{ly/paper-defaults-init.ly}.
 
 @table @code
 
-@item horizontal-shift
+@item horizontal-shift (desplazamiento horizontal)
 @funindex horizontal-shift
 
 @c This default value is buried in the middle of page.scm.  -mp
 
-Medida en que todos los sistemas (incluidos los títulos de cabecera y
-los separadores de sistemas) se desplazan a la derecha.
+Medida en que todos los sistemas (incluidos los títulos de
+cabecera y los separadores de sistemas) se desplazan a la derecha.
 Predeterminado: @code{0.0}.
 
-@item indent
+@item indent (sangrado)
 @funindex indent
 
 Nivel de sangrado para el primer sistema de una partitura.  Si se
 modifica el tamaño del papel, el valor predeterminado de esta
-dimensión se escala de acuerdo con ello.  Esta variable también se
-puede ajustar dentro de un bloque @code{\layout}.
+dimensión se escala de acuerdo con ello.  El espacio dentro de
+@code{line-width} que está disponible para el primer sistema se
+reduce en esta cantidad.  @code{indent} se puede también
+especificar dentro de los bloques @code{\layout} para ajustar los
+sangrados partitura a partitura.
 
-@item short-indent
+@item short-indent (sangrado reducido)
 @funindex short-indent
 
-Nivel de sangrado para todos los sistemas de una partitura excepto el
-primero.  Si el tamaño del papel se modifica, el valor predeterminado
-de esta dimensión se escala de acuerdo con ello.  Esta variable
-también se puede ajustar dentro de un bloque @code{\layout}.
+Nivel de sangrado para todos los sistemas de una partitura excepto
+el primero.  Si el tamaño del papel se modifica, el valor
+predeterminado de esta dimensión se escala de acuerdo con ello.
+El espacio dentro de @code{line-width} que está disponible para
+los sistemas que no son el primero, se reduce en esta cantidad.
+También se puede especificar @code{short-indent} dentro de los
+bloques @code{\layout} para ajustar los sangrados reducidos
+partitura a partitura.
 
 @end table
 
@@ -928,31 +938,32 @@ Fragmentos de código:
 @item max-systems-per-page
 @funindex max-systems-per-page
 
-Número máximo de sistemas que se colocan sobre una página.  Solo está
-contemplado por el algoritmo @code{ly:optimal-breaking}.  Valor
-predeterminado: no fijado.
+Número máximo de sistemas que se colocan sobre una página.  Solo
+está contemplado por el algoritmo @code{ly:optimal-breaking}.
+Valor predeterminado: no fijado.
 
 @item min-systems-per-page
 @funindex min-systems-per-page
 
 Número mínimo de sistemas que se colocan sobre una página.  Puede
-causar que las páginas aparezcan atiborradas si el valor es demasiado
-grande En el momento actual solo está contemplado por el algoritmo
-@code{ly:optimal-breaking}.  Valor predeterminado: no fijado.
+causar que las páginas aparezcan atiborradas si el valor es
+demasiado grande En el momento actual solo está contemplado por el
+algoritmo @code{ly:optimal-breaking}.  Valor predeterminado: no
+fijado.
 
 @item systems-per-page
 @funindex systems-per-page
 
-Número de sistemas que se deben colocar en cada página.  En el momento
-actual solo está contemplado por el algoritmo
+Número de sistemas que se deben colocar en cada página.  En el
+momento actual solo está contemplado por el algoritmo
 @code{ly:optimal-breaking}.  Valor predeterminado: no fijado.
 
 @item system-count
 @funindex system-count
 
 Número de sistemas que utilizar para una partitura. Valor
-predeterminado: no fijado.  Esta variables también se puede ajustar
-dentro de un bloque @code{\layout}.
+predeterminado: no fijado.  Esta variables también se puede
+ajustar dentro de un bloque @code{\layout}.
 
 @end table
 
@@ -965,8 +976,8 @@ Referencia de la notación:
 @unnumberedsubsubsec Variables de @code{@bs{}paper} para los saltos de página
 @translationof paper variables for page breaking
 
-Los valores predeterminados que no están relacionados aquí, se definen
-en el archivo @file{ly/paper-defaults-init.ly}
+Los valores predeterminados que no están relacionados aquí, se
+definen en el archivo @file{ly/paper-defaults-init.ly}
 
 @table @code
 
@@ -975,25 +986,27 @@ en el archivo @file{ly/paper-defaults-init.ly}
 
 Algoritmo de saltos de página que utilizar.  Se puede elegir entre
 @code{ly:minimal-breaking}, @code{ly:page-turn-breaking},
-@code{ly:one-line-breaking} y @code{ly:optimal-breaking}
-(predeterminado).
+@code{ly:one-line-breaking},
+@code{ly:one-line-auto-height-breaking}, y
+@code{ly:optimal-breaking} (predeterminado).
 
 @item page-breaking-system-system-spacing
 @funindex page-breaking-system-system-spacing
 
-Engaña a la parte del programa encargada de los saltos de página para
-que piense que @code{system-system-spacing} está establecido a un
-valor distinto al que tiene realmente.  Por ejemplo, si
-@code{page-breaking-system-system-spacing #'padding} está establecido
-a algo que es mucho mayor que @code{system-system-spacing #'padding},
-entonces el divisor de páginas pone menos sistemas en cada página.
-Valor predeterminado: sin ajustar.
+Engaña a la parte del programa encargada de los saltos de página
+para que piense que @code{system-system-spacing} está establecido
+a un valor distinto al que tiene realmente.  Por ejemplo, si
+@code{page-breaking-system-system-spacing #'padding} está
+establecido a algo que es mucho mayor que
+@code{system-system-spacing #'padding}, entonces el divisor de
+páginas pone menos sistemas en cada página.  Valor predeterminado:
+sin ajustar.
 
 @item page-count
 @funindex page-count
 
-Número de páginas que utilizar en una partitura, no ajustado de forma
-predeterminada.
+Número de páginas que utilizar en una partitura, no ajustado de
+forma predeterminada.
 
 @end table
 
@@ -1025,7 +1038,7 @@ posibilidades.
 @item blank-page-penalty (penalización por página vacía)
 @funindex blank-page-penalty
 
-Penalización por tener una página vcía en mitad de una partitura.
+Penalización por tener una página vacía en mitad de una partitura.
 Si @code{blank-page-penalty} es grande y está seleccionado
 @code{ly:page-turn-breaking}, entonces será menos probable que
 LilyPond inserte una página en medio de una partitura.  En lugar
@@ -1061,7 +1074,7 @@ Referencia de la notación:
 @ref{Saltos de página óptimos},
 @ref{Paso de página óptimo},
 @ref{Saltos de página mínimos},
-@ref{Saltos de página de una línea}.
+@ref{Saltos de página del tipo una-línea}.
 
 Archivos de inicio:
 @file{ly/paper-defaults-init.ly}.
@@ -1071,8 +1084,8 @@ Archivos de inicio:
 @unnumberedsubsubsec Variables de @code{@bs{}paper} para la numeración de las páginas
 @translationof paper variables for page numbering
 
-Los valores predeterminados que no se relacionan aquí están definidos
-en el archivo @file{ly/paper-defaults-init.ly}
+Los valores predeterminados que no se relacionan aquí están
+definidos en el archivo @file{ly/paper-defaults-init.ly}
 
 @table @code
 
@@ -1080,12 +1093,12 @@ en el archivo @file{ly/paper-defaults-init.ly}
 @item auto-first-page-number
 @funindex auto-first-page-number
 
-El algoritmo de división de páginas está afectado por el hecho de que
-el número de la primera página sea par o impar.  Si está establecido
-al valor verdadero, el algoritmo de división de páginas decide si
-comenzar con un número par o impar.  Esto hace que el número de la
-primera página se quede como está, o que se aumente en una unidad.
-Predeterminado: @code{#f}.
+El algoritmo de división de páginas está afectado por el hecho de
+que el número de la primera página sea par o impar.  Si está
+establecido al valor verdadero, el algoritmo de división de
+páginas decide si comenzar con un número par o impar.  Esto hace
+que el número de la primera página se quede como está, o que se
+aumente en una unidad.  Predeterminado: @code{#f}.
 
 @cindex números de página, especificar el primero
 @item first-page-number
@@ -1105,6 +1118,15 @@ primera página.
 
 Si está fijado a falso, no se imprimen los números de página.
 
+@cindex números de página, romanos
+@item page-number-type
+@funindex page-number-type
+
+Tipo de numeración para las páginas.  Entre las posibilidades
+están @code{roman-lower} (números romanos en minúsculas),
+@code{roman-upper} (números romanos en mayúsculas) y @code{arabic}
+(cifras arábigas).  Valor predeterminado: @code{'arabic}.
+
 @end table
 
 @seealso
@@ -1112,10 +1134,10 @@ Archivos de inicio:
 @file{ly/paper-defaults-init.ly}.
 
 @knownissues
-Los números de página impares siempre están a la derecha.
-Si quiere que la música comience en la página 1 debe haber
-una página en blanco en el reverso de la página de cubierta
-de manera que la página 1 esté en el lado derecho.
+Los números de página impares siempre están a la derecha.  Si
+quiere que la música comience en la página 1 debe haber una página
+en blanco en el reverso de la página de cubierta de manera que la
+página 1 esté en el lado derecho.
 
 
 @node Variables de paper diversas
@@ -1128,26 +1150,26 @@ de manera que la página 1 esté en el lado derecho.
 @funindex page-spacing-weight
 
 Importancia relativa del espacio (vertical) de las páginas y el
-espaciado (horizontal) de las líneas.  Los valores altos hacen que el
-espaciado de la página tenga más importancia.  Predeterminado:
+espaciado (horizontal) de las líneas.  Los valores altos hacen que
+el espaciado de la página tenga más importancia.  Predeterminado:
 @code{10}.
 
 @item print-all-headers
 @funindex print-all-headers
 
 Si está fijado a verdadero, imprime todos los encabezamientos para
-cada una de las partituras @code{\score} de la salida.  Normalmente
-sólo se imprimen las variables de encabezamiento @code{piece} y
-@code{opus}.  Valor predeterminado: @code{#f}.
+cada una de las partituras @code{\score} de la salida.
+Normalmente sólo se imprimen las variables de encabezamiento
+@code{piece} y @code{opus}.  Valor predeterminado: @code{#f}.
 
 @item system-separator-markup
 @funindex system-separator-markup
 
-Objeto de marcado que se inserta entre los sistemas.  Se suele usar
-para partituras orquestales.  Predeterminado: sin establecer.  El
-elemento de marcado @code{\slashSeparator}, definido en el archivo
-@file{ly/titling-init.ly}, se aporta como un valor predeterminado
-adecuado, por ejemplo:
+Objeto de marcado que se inserta entre los sistemas.  Se suele
+usar para partituras orquestales.  Predeterminado: sin establecer.
+El elemento de marcado @code{\slashSeparator}, definido en el
+archivo @file{ly/titling-init.ly}, se aporta como un valor
+predeterminado adecuado, por ejemplo:
 
 @lilypond[quote,verbatim,noragged-right,line-width=30\mm]
 #(set-default-paper-size "a8")
@@ -1175,17 +1197,17 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 @knownissues
-El encabezamiento de página predeterminado pone el número de página y
-el campo @code{instrument} del bloque @code{\header} sobre la misma
-línea.
+El encabezamiento de página predeterminado pone el número de
+página y el campo @code{instrument} del bloque @code{\header}
+sobre la misma línea.
 
 
 @node Disposición de la partitura
 @section Disposición de la partitura
 @translationof Score layout
 
-Esta sección trata de las opciones de disposición de la partitura para
-el bloque @code{\layout}.
+Esta sección trata de las opciones de disposición de la partitura
+para el bloque @code{\layout}.
 
 @menu
 * El bloque layout::
@@ -1200,14 +1222,15 @@ el bloque @code{\layout}.
 @funindex \layout
 
 Así como el bloque @code{\paper} contiene ajustes relativos al
-formateo de la página para todo el documento, el bloque @code{\layout}
-contiene ajustes para la disposición específica de las partituras.
-Para fijar las opciones de disposición de partituras de forma global,
-escríbalas en un bloque @code{\layout} del nivel jerárquico superior.
-Para fijar opciones de disposición para una partitura individual
-escríbalas dentro de un bloque @code{\layout} dentro del bloque
-@code{\score}, después de la música.  Entre los ajustes que pueden
-aparecer en un bloque @code{\layout} se encuentran los siguientes:
+formateo de la página para todo el documento, el bloque
+@code{\layout} contiene ajustes para la disposición específica de
+las partituras.  Para fijar las opciones de disposición de
+partituras de forma global, escríbalas en un bloque @code{\layout}
+del nivel jerárquico superior.  Para fijar opciones de disposición
+para una partitura individual escríbalas dentro de un bloque
+@code{\layout} dentro del bloque @code{\score}, después de la
+música.  Entre los ajustes que pueden aparecer en un bloque
+@code{\layout} se encuentran los siguientes:
 
 @itemize
 @item la función de Scheme @code{layout-set-staff-size},
@@ -1217,17 +1240,20 @@ aparecer en un bloque @code{\layout} se encuentran los siguientes:
 
 La función @code{layout-set-staff-size} se estudia en la sección
 siguiente, @ref{Establecer el tamaño del pentagrama}. Las
-modificaciones de contexto se estudian en un capítulo distinto; véase
-@ref{Modificar los complementos (plug-ins) de contexto} y
-@ref{Cambiar los valores por omisión de los contextos}.  Las variables de
-@code{\paper} que pueden aparecer dentro de un bloque @code{\layout}
-son:
+modificaciones de contexto se estudian en un capítulo distinto;
+véase @ref{Modificar los complementos (plug-ins) de contexto} y
+@ref{Cambiar los valores por omisión de los contextos}.
+
+Las variables de @code{\paper} que pueden aparecer dentro de un
+bloque @code{\layout}, y cuyos valores predeterminados se toman
+del bloque @code{paper}, son:
 
 @itemize
 
 @item
-@code{line-width}, @code{ragged-right} y @code{ragged-last}
-(véase @ref{Variables de paper para la anchura y los márgenes,,Variables de @code{@bs{}paper} para la anchura y los márgenes})
+@code{line-width}, @code{ragged-right} y @code{ragged-last} (véase
+@ref{Variables de paper para la anchura y los márgenes,,Variables
+de @code{@bs{}paper} para la anchura y los márgenes})
 
 @item
 @code{indent} y @code{short-indent}
@@ -1256,16 +1282,17 @@ He aquí un ejemplo de un bloque @code{\layout}:
 @}
 @end example
 
-Se pueden escribir varios bloques @code{\layout} como expresiones del
-nivel superior.  Esto puede ser útil, por ejemplo, si hay distintos
-ajustes almacenados en diversos archivos y se incluyen opcionalmente.
-Internamente, cuando se evalúa un bloque @code{\layout}, se hace una
-copia de la configuración de @code{\layout} actual, y después se
-aplican los cambios definidos en el bloque; el resultado se guarda
-como la nueva configuración actual.  Desde el punto de vista del
-usuario, los bloques @code{\layout} se combinan, pero en situaciones
-de conflicto (cuando se cambia la misma propiedad en diferentes
-bloques) las definiciones más tarías toman precedencia.
+Se pueden escribir varios bloques @code{\layout} como expresiones
+del nivel superior.  Esto puede ser útil, por ejemplo, si hay
+distintos ajustes almacenados en diversos archivos y se incluyen
+opcionalmente.  Internamente, cuando se evalúa un bloque
+@code{\layout}, se hace una copia de la configuración de
+@code{\layout} actual, y después se aplican los cambios definidos
+en el bloque; el resultado se guarda como la nueva configuración
+actual.  Desde el punto de vista del usuario, los bloques
+@code{\layout} se combinan, pero en situaciones de conflicto
+(cuando se cambia la misma propiedad en diferentes bloques) las
+definiciones más tarías toman precedencia.
 
 Por ejemplo: si este bloque:
 
@@ -1280,13 +1307,14 @@ Por ejemplo: si este bloque:
 @end example
 
 se coloca después del del ejemplo anterior, las sobreescrituras de
-@code{'padding} y de @code{'color} para @code{TextScript} se combinan,
-pero la última sobreescritura @code{'thickness} para @code{Glissando}
-sustituye (u oculta) a la anterior.
+@code{'padding} y de @code{'color} para @code{TextScript} se
+combinan, pero la última sobreescritura @code{'thickness} para
+@code{Glissando} sustituye (u oculta) a la anterior.
 
 Los bloques @code{\layout} se pueden asignar a variables para una
-reutilización posterior, pero la forma en que esto funciona es ligera
-y significativamente diferente del hecho de escribirlas literalmente.
+reutilización posterior, pero la forma en que esto funciona es
+ligera y significativamente diferente del hecho de escribirlas
+literalmente.
 
 Si se define una variable de la siguiente manera:
 
@@ -1301,10 +1329,11 @@ variable_de_Layout = \layout @{
 
 guardará la configuración actual de @code{\layout} con la
 sobreescritura añadida de @code{NoteHead.font-size}, pero esta
-combinación @emph{no} se guarda como la nueva configuración actual.
-Tenga en cuenta que la @q{configuración actual} se lee cuando la
-variable se define y no cuando se usa, de manera que el contenido de
-la variable depende de su posición dentro del código fuente.
+combinación @emph{no} se guarda como la nueva configuración
+actual.  Tenga en cuenta que la @q{configuración actual} se lee
+cuando la variable se define y no cuando se usa, de manera que el
+contenido de la variable depende de su posición dentro del código
+fuente.
 
 La variable se puede entonces usar dentro de otro bloque
 @code{\layout}, por ejemplo:
@@ -1319,19 +1348,20 @@ La variable se puede entonces usar dentro de otro bloque
 @}
 @end example
 
-Un bloque @code{\layout} que contiene una variable, como en el ejemplo
-anterior, @emph{no} copia la configuración actual, sino que en lugar
-de ello usa el contenido de @code{\variable_de_layout} como la
-configuración base para las adiciones posteriores.  Esto significa que
-cualquier cambio definido entre la definición y el uso de la variable,
-se pierde.
+Un bloque @code{\layout} que contiene una variable, como en el
+ejemplo anterior, @emph{no} copia la configuración actual, sino
+que en lugar de ello usa el contenido de
+@code{\variable_de_layout} como la configuración base para las
+adiciones posteriores.  Esto significa que cualquier cambio
+definido entre la definición y el uso de la variable, se pierde.
 
 Si la @code{variable_de_layout} se define (o se incluye con
-@code{\include}) inmediatamente antes de que se utilice, su contenido
-es sencillamente la configuración en curso más las sobreescrituras que
-se hayan definido dentro de él.  Así pues, en el ejemplo anterior que
-muestra el uso de @code{\variable_de_layout} el último bloque
-@code{\layout} consistiría en:
+@code{\include}) inmediatamente antes de que se utilice, su
+contenido es sencillamente la configuración en curso más las
+sobreescrituras que se hayan definido dentro de él.  Así pues, en
+el ejemplo anterior que muestra el uso de
+@code{\variable_de_layout} el último bloque @code{\layout}
+consistiría en:
 
 @example
   TextScript.padding = #1
@@ -1343,18 +1373,19 @@ muestra el uso de @code{\variable_de_layout} el último bloque
 
 más las sobreescrituras de @code{indent} y de @code{StaffGrouper}.
 
-Pero si la variable ya hubiera sido definida antes del primer bloque
-@code{\layout} la configuración actual contendría ahora solamente
+Pero si la variable ya hubiera sido definida antes del primer
+bloque @code{\layout} la configuración actual contendría ahora
+solamente
 
 @example
   NoteHead.font-size= #4 % (escrita en la definición de la variable)
   NoteHead.color = #red % (añadida después del uso de la variable)
 @end example
 
-Si se planifica cuidadosamente, las variables de @code{\layout} pueden
-ser una herramienta valiosa para estructurar el diseño de la
-disposición de las fuentes, y tambiién para reiniciar la configuración
-de @code{\layout} a un estado conocido.
+Si se planifica cuidadosamente, las variables de @code{\layout}
+pueden ser una herramienta valiosa para estructurar el diseño de
+la disposición de las fuentes, y tambiién para reiniciar la
+configuración de @code{\layout} a un estado conocido.
 
 @seealso
 Referencia de la notación:
@@ -1371,97 +1402,108 @@ Fragmentos de código:
 @cindex tipografía, fijar el tamaño de
 @cindex pentagrama, fijar el tamaño de
 @funindex disposición, archivo de
+@funindex magnification->font-size
+@funindex magstep
+@funindex set-global-staff-size
+@funindex layout-set-staff-size
 
-El @strong{tamaño de pentagrama} predeterminado se establece en 20
-puntos.  Esto se puede modificar de dos maneras:
 
-Para establecer globalmente el tamaño del pentagrama para todas las
-partituras de un archivo (o en un bloque @code{book}, para ser
-exactos), utilice @code{set-global-staff-size}.
+El @strong{tamaño de pentagrama} predeterminado es de 20 puntos,
+que corresponde a una altura del pentagrama de 7.03 mm (un punto
+es 100/7227 de pulgada, o 2540/7227 mm).  El tamaño del pentagrama
+se puede modificar de tres formas:
+
+@enumerate
+
+@item
+Para establecer globalmente el tamaño del pentagrama para todas
+las partituras de un archivo (o en un bloque @code{\book}, para
+ser exactos), utilice @code{set-global-staff-size}:
 
 @example
 #(set-global-staff-size 14)
 @end example
 
 @noindent
-Esto establece el tamaño global predeterminado a una altura de
-pentagrama de 14pt y escala todas las tipografías según corresponda.
+El ejemplo de arriba establece el tamaño global predeterminado del
+pentagrama a 14 pt (4.92 mm) y escala todas las tipografías según
+corresponda.
 
-Para establecer el tamaño del pentagrama de forma individual para cada
-partitura, use
+@item
+Para fijar el tamaño del pentagrama para una sola partitura dentro
+de un libro, use @code{layout-set-staff-size} dentro del bloque
+@code{\layout} de dicha partitura:
+
 @example
-\score@{
+\score @{
   @dots{}
   \layout @{
-    #(layout-set-staff-size 15)
+    #(layout-set-staff-size 14)
   @}
 @}
 @end example
 
-La fuente tipográfica Feta ofrece símbolos musicales a ocho tamaños
-distintos.  Cada fuente tipográfica está afinada para un tamaño de
-pentagrama distinto: a un tamaño menor la tipografía se vuelve más
-pesada, para que coincida con las líneas de pentagrama relativamente
-más gruesas.  Los tamaños de tipografía recomendados están
-relacionados en la tabla siguiente:
+@item
+Para fijar el tamaño del pentagrama para una sola pauta dentro de
+un sistema, use la instrucción @code{\magnifyStaff}.  Por ejemplo,
+las partituras de música de cámara editadas de la forma
+tradicional, con piano, usan habitualmente pautas de 7 mm para el
+piano, mientras que los otros pentagramas suelen estar entre 3/5 y
+5/7 de reducción (entre el 60% y el 71%).  Para obtener la
+proporción de 5/7, escriba:
 
-@quotation
+@example
+\score @{
+  <<
+    \new Staff \with @{
+      \magnifyStaff #5/7
+    @} @{ @dots{} @}
+    \new PianoStaff @{ @dots{} @}
+  >>
+@}
+@end example
+
+En caso de que usted sepa qué tamaño de @code{fontSize} quiere
+usar, puede emplear la forma siguiente:
+
+@example
+\score @{
+  <<
+    \new Staff \with @{
+      \magnifyStaff #(magstep -3)
+    @} @{ @dots{} @}
+    \new PianoStaff @{ @dots{} @}
+  >>
+@}
+@end example
+
+Para imitar la apariencia de las ediciones tradicionales, es mejor
+evitar reducir el grosor de las líneas del pentagrama.
+
+@end enumerate
+
+
+@subheading Peso automático de la tipografía a distintos tamaños
+
+La fuente tipográfica Feta ofrece símbolos musicales a ocho
+tamaños distintos.  Cada fuente tipográfica está afinada para un
+tamaño de pentagrama distinto: a un tamaño menor la tipografía se
+vuelve más pesada, para que coincida con las líneas de pentagrama
+relativamente más gruesas.  Los tamaños de tipografía recomendados
+están relacionados en la tabla siguiente:
+
 @multitable @columnfractions .15 .2 .22 .2
 
-@item @b{nombre de la fuente}
-@tab @b{altura del pentagrama (pt)}
-@tab @b{altura del pentagrama (mm)}
-@tab @b{usos}
-
-@item feta11
-@tab 11.22
-@tab 3.9
-@tab partituras de bolsillo
-
-@item feta13
-@tab 12.60
-@tab 4.4
-@tab
-
-@item feta14
-@tab 14.14
-@tab 5.0
-@tab
-
-@item feta16
-@tab 15.87
-@tab 5.6
-@tab
-
-@item feta18
-@tab 17.82
-@tab 6.3
-@tab cancioneros
-
-@item feta20
-@tab 20
-@tab 7.0
-@tab particellas estándar
-
-@item feta23
-@tab 22.45
-@tab 7.9
-@tab
-
-@item feta26
-@tab 25.2
-@tab 8.9
-@tab
-@c modern rental material?
-
+@item @b{nombre de la fuente} @tab @b{altura del pentagrama (pt)} @tab @b{altura del pentagrama (mm)} @tab @b{usos}
+@item feta11 @tab 11.22 @tab 3.9 @tab partituras de bolsillo
+@item feta13 @tab 12.60 @tab 4.4 @tab
+@item feta14 @tab 14.14 @tab 5.0 @tab
+@item feta16 @tab 15.87 @tab 5.6 @tab
+@item feta18 @tab 17.82 @tab 6.3 @tab cancioneros
+@item feta20 @tab 20 @tab 7.0 @tab particellas estándar
+@item feta23 @tab 22.45 @tab 7.9 @tab
+@item feta26 @tab 25.2 @tab 8.9 @tab @c modern rental material?
 @end multitable
-@end quotation
-
-Estas tipografías están disponibles en cualquier tamaño.  La propiedad
-de contexto @code{fontSize} y la propiedad de disposición
-@code{staff-space} (en @rinternals{StaffSymbol}) se pueden usar para
-afinar el tamaño de los pentagramas individuales.  Los tamaños de
-pentagrama individuales están en relación al tamaño global.
 
 @seealso
 Referencia de la notación:
@@ -1471,8 +1513,8 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 @knownissues
-@code{layout-set-staff-size} no cambia la distancia entre las líneas
-del pentagrama.
+@code{layout-set-staff-size} no cambia la distancia entre las
+líneas del pentagrama.
 
 
 @node Saltos
@@ -1482,12 +1524,6 @@ del pentagrama.
 @menu
 * Saltos de línea::
 * Saltos de página::
-* Saltos de página óptimos::
-* Paso de página óptimo::
-* Saltos de página mínimos::
-* Saltos de página de una línea::
-* Saltos de línea explícitos::
-* Utilizar una voz adicional para los saltos de línea::
 @end menu
 
 
@@ -1495,16 +1531,22 @@ del pentagrama.
 @subsection Saltos de línea
 @translationof Line breaking
 
+@funindex \break
+@funindex \noBreak
+@funindex \autoBreaksOff
+@funindex \autoBreaksOn
+@funindex \autoLineBreaksOff
+@funindex \autoLineBreaksOn
 @cindex saltos de línea
 @cindex línea, saltos de
 
 Normalmente los saltos de línea se determinan automáticamente. Se
 eligen de forma que las líneas no aparezcan demasiado apretadas ni
-demasiado sueltas, y que las líneas consecutivas tengan una densidad
-similar.
+demasiado sueltas, y que las líneas consecutivas tengan una
+densidad similar.
 
-Para forzar manualmente un salto de línea sobre la línea divisoria,
-utilice la instrucción @code{\break}:
+Para forzar manualmente un salto de línea sobre la línea
+divisoria, utilice la instrucción @code{\break}:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
@@ -1513,28 +1555,31 @@ utilice la instrucción @code{\break}:
 }
 @end lilypond
 
-De forma predeterminada se ignora cualquier @code{\break} en la mitad
-de un compás, y se imprime una advertencia.  Para forzar un salto de
-línea en medio de un compás, añada una barra de compás invisible con
-@w{@samp{\bar ""}}:
+De forma predeterminada se ignora cualquier instrucción
+@code{\break} insertada en la mitad de un compás, y se imprime un
+mensaje de advertencia durante la compilación del archivo de
+entrada de LilyPond.  Para forzar un salto de línea en medio de un
+compás, añada una línea divisoria invisible con @w{@samp{\bar
+""}}:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
   c4 c c
-  \bar "" \break
+  \bar ""
+  \break
   c |
   c4 c c c |
 }
 @end lilypond
 
-También se ignora un @code{\break} que se produce en la línea
-divisoria si el compás anterior termina en medio de una nota, como
-cuando un grupo de valoración especial inicia y termina en compases
-diferentes.  Para permitir que las instrucciones @code{\break}
-funcionen en estas situaciones, elimine el grabador
-@code{Forbid_line_break_engraver} del contexto @code{Voice}.  Observe
-que los saltos de línea forzados manualmente se deben añadir en
-paralelo con la música:
+También se ignora cualquier instrucción @code{\break} que se
+produzca en la línea divisoria si el compás anterior termina en
+medio de una nota, como cuando un grupo de valoración especial
+comienza en un compás y termina en otro distinto.  En este caso,
+elimine el grabador @code{Forbid_line_break_engraver} del contexto
+@code{Voice} y use una construcción de música simultánea
+insertando el @code{break} en el lugar adecuado dentro de la
+segunda voz:
 
 @lilypond[quote,ragged-right,verbatim]
 \new Voice \with {
@@ -1547,10 +1592,10 @@ paralelo con la música:
 }
 @end lilypond
 
-De forma similar, los saltos de línea están normalmente prohibidos
-cuando hay barras de corchea que cruzan la línea divisoria.  Se
-puede cambiar este comportamiento fijando
-@code{\override Beam.breakable = ##t}:
+De forma similar, el funcionamiento predeterminado es que los
+saltos de línea resulten ignorados cuando hay barras de corchea
+que cruzan la línea divisoria.  Utilice la instrucción
+@code{\override Beam.breakable = ##t} para forzar esto:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
@@ -1560,24 +1605,40 @@ puede cambiar este comportamiento fijando
 }
 @end lilypond
 
-La instrucción @code{\noBreak}, prohíbe un salto de línea en
-la barra divisoria en que se inserta.
+La instrucción @code{\noBreak}, evita que se produzca
+un salto de línea en la barra divisoria en que se inserta.
 
-Los ajustes más básicos que influyen sobre el espaciado de las líneas
-son @code{indent} y @code{line-width}. Se establecen dentro del bloque
-@code{\layout}.  Controlan el sangrado de la primera línea de música,
-y la longitud de las líneas.
+Dentro de una partitura, se evitan los saltos de línea automáticos
+dento de la música que se encuentra entre las instrucciones
+@code{\autoLineBreaksOff} y @code{\autoLineBreaksOn}.  Si también
+se quieren evitar los saltos de página automáticos, deben usarse
+las instrucciones @code{\autoBreaksOff} y @code{\autoBreaksOn}.
+Los saltos manuales no están afectados por estas instrucciones.
+Observe que el hecho de inhibir los saltos de línea automáticos
+puede hacer que la música se extienda sobre el margen derecho
+cuandoquiera que no cabe completamente dentro de una sola línea.
+
+Los saltos automáticos de línea (no de página) se pueden habilitar
+sobre líneas divisorias individuales mediante el uso de
+@code{\once \autoLineBreaksOn} en una barra.  La instrucción
+identifica un salto de línea permitido, en lugar de uno prohibido.
+
+Los ajustes más básicos que influyen sobre el espaciado de las
+líneas son @code{indent} y @code{line-width}. Se establecen dentro
+del bloque @code{\layout}.  Controlan el sangrado de la primera
+línea de música, y la longitud de las líneas.
 
 Si se establece @code{ragged-right} a verdadero en el bloque
 @code{\layout}, los sistemas terminan en su longitud horizontal
-natural, en lugar de distribuirse horizontalmente para llenar toda la
-línea. Esto es de utilidad para fragmentos cortos, y para efectuar una
-comprobación de lo apretado que es el espaciado natural.
+natural, en lugar de distribuirse horizontalmente para llenar toda
+la línea. Esto es de utilidad para fragmentos cortos, y para
+efectuar una comprobación de lo apretado que es el espaciado
+natural.
 
 @c TODO Check and add para on default for ragged-right
 
-La opción @code{ragged-last} es similar a @code{ragged-right}, pero
-afecta sólo a la última línea de la pieza.
+La opción @code{ragged-last} es similar a @code{ragged-right},
+pero afecta sólo a la última línea de la pieza.
 
 @example
 \layout @{
@@ -1608,15 +1669,23 @@ compases, y sólo en dichos lugares:
 
 
 @predefined
-@funindex \break
 @code{\break},
-@funindex \noBreak
-@code{\noBreak}.
+@code{\noBreak},
+@code{\autoBreaksOff},
+@code{\autoBreaksOn},
+@code{\autoLineBreaksOff},
+@code{\autoLineBreaksOn}.
 @endpredefined
+
+@snippets
+
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{using-an-extra-voice-for-breaks.ly}
 
 @seealso
 Referencia de la notación:
-@ref{Variables de paper para los saltos de línea,,Variables de @code{@bs{}paper} para los saltos de línea}.
+@ref{Variables de paper para los saltos de línea},
+@ref{The layout block}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
@@ -1624,37 +1693,77 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{LineBreakEvent}.
 
+@knownissues
+
+Si se escribe @code{\autoLineBreaksOff} o @code{\autoBreaksOff}
+antes de cualquier contenido musical, aparecerán mensajes de
+error.  Escriba siempre estas instrucciones después de algo de
+música.
+
 
 @node Saltos de página
 @subsection Saltos de página
 @translationof Page breaking
 
-Se puede sobreescribir el mecanismo predeterminado de salto de página
-insertando instrucciones @code{\pageBreak} o @code{\noPageBreak}.
-Estas instrucciones son análogas a @code{\break} y @code{\noBreak}.
-Se deben insertar en una línea divisoria.  Estas instrucciones fuerzan
-y prohíben, respectivamente, la eventualidad de un salto de página.
-Por supuesto, la instrucción @code{\pageBreak} también fuerza un salto
-de línea.
+Esta sección describe los distintos métodos para crear saltos de
+página, y cómo modificarlos.
 
-Las instrucciones @code{\pageBreak} y @code{\noPageBreak} también se
-pueden insertar en el nivel más alto, entre las partituras y los
-elementos de marcado situados en el nivel superior.
+@menu
+* Saltos de página manuales::
+* Saltos de página óptimos::
+* Saltos de página mínimos::
+* Saltos de página del tipo una-línea::
+* Saltos de página del tipo una-línea-altura-automática::
+* Paso de página óptimo::
+@end menu
 
-Hay ajustes análogos a @code{ragged-right} y @code{ragged-last} que
-tienen el mismo efecto sobre el espaciado vertical:
-@code{ragged-bottom} y @code{ragged-last-bottom}.  Si están
-establecidos a @code{#t} los sistemas de todas las páginas o sólo de
-la última página, respectivamente, no se verán justificados
-verticalmente.  Véase
+
+@node Saltos de página manuales
+@unnumberedsubsubsec Saltos de página manuales
+@translationof Manual page breaking
+
+@funindex \pageBreak
+@funindex \noPageBreak
+@funindex \autoPageBreaksOn
+@funindex \autoPageBreaksOff
+@cindex página, saltos manuales
+
+Se puede sobreescribir el mecanismo predeterminado de salto de
+página insertando instrucciones @code{\pageBreak} o
+@code{\noPageBreak}.  Estas instrucciones son análogas a
+@code{\break} y @code{\noBreak}.  Se deben insertar en una línea
+divisoria.  Estas instrucciones fuerzan y prohíben,
+respectivamente, la eventualidad de un salto de página en dicha
+línea divisoria.  Por supuesto, la instrucción @code{\pageBreak}
+también fuerza un salto de línea.
+
+Las instrucciones @code{\pageBreak} y @code{\noPageBreak} también
+se pueden insertar en el nivel más alto, entre las partituras y
+los elementos de marcado situados en el nivel superior.
+
+Dentro de una partitura, no se producen saltos de página
+automáticos en el interior de la música que se encuentra entre las
+instrucciones @code{\autoPageBreaksOff} y
+@code{\autoPageBreaksOn}.  Los saltos de página manuales no
+reultan afectados por estas instrucciones.
+
+Hay ajustes análogos a @code{ragged-right} y @code{ragged-last}
+que tienen el mismo efecto sobre el espaciado vertical.  Si
+@code{ragged-bottom} se establece a @code{#t} los sistemas no se
+justifican verticalmente.  Cuando el valor de
+@code{ragged-last-bottom} se fija a @code{#t}, como lo está de
+forma predeterminada, se permite una separación al final de la
+última página (o la última página de cada uno de las partes de
+libro @code{\bookpart}).  Véase
 @ref{Variables de espaciado de paper verticales fijas,,Variables de espaciado de @code{@bs{}paper} verticales fijas}.
 
 Los saltos de página se calculan por medio de la función
-@code{page-breaking}.  LilyPond ofrece tres algoritmos para el cómputo
-de los saltos de página: @code{ly:optimal-breaking},
-@code{ly:page-turn-breaking} y @code{ly:minimal-breaking}.  El
-predeterminado es @code{ly:optimal-breaking}, pero el valor se puede
-cambiar en el bloque @code{\paper}:
+@code{page-breaking}.  LilyPond ofrece varios algoritmos para el
+cómputo de los saltos de página, entre ellos
+@code{ly:optimal-breaking}, @code{ly:page-turn-breaking} y
+@code{ly:minimal-breaking}.  El predeterminado es
+@code{ly:optimal-breaking}, pero el valor se puede cambiar en el
+bloque @code{\paper}:
 
 @example
 \paper @{
@@ -1664,14 +1773,14 @@ cambiar en el bloque @code{\paper}:
 
 @funindex \bookpart
 
-Cuando un libro tiene muchas partituras y páginas, puede ser difícil
-resolver el problema de los saltos de página, necesitando mucha
-memoria y prolongados tiempos de procesamiento.  Para facilitar el
-proceso de división en páginas, se usan los bloques @code{\bookpart}
-para dividir el libro en varias partes: los saltos de página se
-producen de manera independiente en cada parte.  También se pueden
-usar diferentes funciones de división en páginas para las distintas
-partes del libro.
+Cuando un libro tiene muchas partituras y páginas, puede ser
+difícil resolver el problema de los saltos de página, necesitando
+mucha memoria y prolongados tiempos de procesamiento.  Para
+facilitar el proceso de división en páginas, se usan los bloques
+@code{\bookpart} para dividir el libro en varias partes: los
+saltos de página se producen de manera independiente en cada
+parte.  También se pueden usar diferentes funciones de división en
+páginas para las distintas partes del libro.
 
 @example
 \bookpart @{
@@ -1697,30 +1806,41 @@ partes del libro.
 @}
 @end example
 
+
 @predefined
 @funindex \pageBreak
 @code{\pageBreak},
-@funindex \noPageBreak
-@code{\noPageBreak}.
+@code{\noPageBreak},
+@code{\autoPageBreaksOn},
+@code{\autoPageBreaksOff}.
 @endpredefined
 
 @seealso
 Referencia de la notación:
-@ref{Variables de paper para los saltos de página,,Variables de @code{@bs{}paper} para los saltos de página}.
+@ref{Variables de paper para los saltos de página}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
 
+@knownissues
+
+El prefijo @code{\once} no es efectivo con
+@code{\autoPageBreaksOn} y @code{\autoPageBreaksOff}.  Si se ha
+desactivado la división automática de páginas y después se vuelve
+a activar para permitir un salto, debe continuar activada durante
+algunos compases (cuyo número exacto dependerá de la partitura)
+antes de volverse a desactivar, pues en caso contrario podría
+perderse la oportunidad de que el salto se produzca.
 
 @node Saltos de página óptimos
-@subsection Saltos de página óptimos
+@unnumberedsubsubsec Saltos de página óptimos
 @translationof Optimal page breaking
 
 @funindex ly:optimal-breaking
 
-La función @code{ly:optimal-breaking} es el método predeterminado de
-LilyPond para determinar los saltos de página.  Intenta hallar una
-división de páginas que haga mínimos el apretujamiento y la
+La función @code{ly:optimal-breaking} es el método predeterminado
+de LilyPond para determinar los saltos de página.  Intenta hallar
+una división de páginas que haga mínimos el apretujamiento y la
 distensión, tanto horizontal como verticalmente.  A diferencia de
 @code{ly:page-turn-breaking}, no tiene un concepto de los pasos de
 página.
@@ -1730,51 +1850,119 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 
+@node Saltos de página mínimos
+@unnumberedsubsubsec Saltos de página mínimos
+@translationof Minimal page breaking
+
+@funindex ly:minimal-breaking
+
+La función @code{ly:minimal-breaking} efectúa unos cálculos
+mínimos para determinar los saltos de página: completa una página
+con tantos sistemas como sea posible antes de continuar con la
+siguiente.  Así, puede preferirse para partituras con muchas
+páginas, donde las otras funciones de salto de página pueden
+resultar demasiado lentas o ávidas de memoria, o con una gran
+cantidad de textos.  Se habilita utilizando:
+
+@example
+\paper @{
+  page-breaking = #ly:minimal-breaking
+@}
+@end example
+
+@seealso
+Snippets:
+@rlsr{Spacing}.
+
+
+@node Saltos de página del tipo una-línea
+@unnumberedsubsubsec Saltos de página del tipo una-línea
+@translationof One-line page breaking
+
+@funindex ly:one-line-breaking
+
+La función @code{ly:one-line-breaking} es un algoritmo de saltos
+de página para uso especial que pone cada partitura en una página
+y en una sola línea.  Esta función de salto de página no compone
+los títulos ni los márgenes; solamente se imprime la partitura.
+
+El ancho de la página se ajusta de forma que la partitura más
+larga quepa en una línea.  Concretamente, las variables
+@code{paper-width}, @code{line-width} y @code{indent} del bloque
+@code{\paper} se ignoran, aunque @code{left-margin} y
+@code{right-margin} aún se respetan.  La altura de la página se
+deja sin cambios.
+
+
+@node Saltos de página del tipo una-línea-altura-automática
+@unnumberedsubsubsec Saltos de página del tipo una-línea-altura-automática
+@translationof One-line-auto-height page breaking
+
+@funindex ly:one-line-auto-height-breaking
+
+La función @code{ly:one-line-auto-height-breaking} funciona igual
+que @code{ly:one-line-breaking} excepro que la altura de la página
+se modifica automáticamente para hacerse corresponder con la
+altura de la música.  De forma específica, la variable
+@code{paper-height} del bloque @code{\paper} se ajusta de tal
+manera que abarca los extremos superior e inferior de la partitura
+más alta más los márgenes superior e inferior @code{top-margin} y
+@code{bottom-margin}.
+
+Observe que el ajuste @code{top-system-spacing} afecta a la
+posición vertical de la música.  Fíjelo al valor @code{##f} dentro
+de un bloque @code{paper} para disponer la música sencillamente
+entre los márgenes superior e inferior.
+
+
 @node Paso de página óptimo
-@subsection Paso de página óptimo
+@unnumberedsubsubsec Paso de página óptimo
 @translationof Optimal page turning
 
 @funindex ly:page-turn-breaking
 
-Con frecuencia es necesario encontrar una configuración de división de
-páginas de manera que haya un silencio al final de una página de cada
-dos.  De esta forma, el músico puede pasar la página sin perder notas.
-La función @code{ly:page-turn-breaking} trata de encontrar una
-división de páginas que haga mínimos el apretujamiento y el
-estiramiento, pero con la restricción añadida de que sólo se permite
-introducir vueltas de página en los lugares especificados.
+Con frecuencia es necesario encontrar una configuración de
+división de páginas de manera que haya un silencio al final de una
+página de cada dos.  De esta forma, el músico puede pasar la
+página sin perder notas.  La función @code{ly:page-turn-breaking}
+trata de encontrar una división de páginas que haga mínimos el
+apretujamiento y el estiramiento, pero con la restricción añadida
+de que sólo se permite introducir vueltas de página en los lugares
+especificados.
 
-Hay dos etapas en el uso de esta función de división de páginas.  En
-primer lugar debemos habilitarlo en el bloque @code{\paper}, como se
-explicó en @ref{Saltos de página}.  Entonces debemos decirle a la función
-dónde nos gustaría permitir los saltos de página.
+Hay dos etapas en el uso de esta función de división de páginas.
+En primer lugar debemos habilitarlo en el bloque @code{\paper},
+como se explicó en @ref{Saltos de página}.  Entonces debemos
+decirle a la función dónde nos gustaría permitir los saltos de
+página.
 
 Hay dos formas de conseguir la segunda tarea.  Primero, podemos
-especificar manualmente cada uno de los pasos de página potenciales,
-insertando @code{\allowPageTurn} en nuestro archivo de entrada en los
-lugares adecuados.
+especificar manualmente cada uno de los pasos de página
+potenciales, insertando @code{\allowPageTurn} en nuestro archivo
+de entrada en los lugares adecuados.
 
 Si esto es demasiado tedioso, podemos añadir un grabador
-@code{Page_turn_engraver} a un contexto Staff o Voice.  El grabador
-@code{Page_turn_engraver} analizará el contexto en busca de secciones
-sin notas (observe que no busca silencios, sino la ausencia de notas.
-Se hace así para que la polifonía en un solo pentagrama con silencios
-en una de las voces no arruine la labor del grabador
-@code{Page_turn_engraver}).  Cuando encuentra una sección sin notas
-suficientemente larga, el grabador @code{Page_turn_engraver} inserta
-un @code{\allowPageTurn} en la última barra de compás de dicha
-sección, a no ser que haya una barra @q{especial} de compás (como una
-doble barra), en cuyo caso se insertará el @code{\allowPageTurn} en la
-última barra @q{especial} de compás de la sección.
+@code{Page_turn_engraver} a un contexto Staff o Voice.  El
+grabador @code{Page_turn_engraver} analizará el contexto en busca
+de secciones sin notas (observe que no busca silencios, sino la
+ausencia de notas.  Se hace así para que la polifonía en un solo
+pentagrama con silencios en una de las voces no arruine la labor
+del grabador @code{Page_turn_engraver}).  Cuando encuentra una
+sección sin notas suficientemente larga, el grabador
+@code{Page_turn_engraver} inserta un @code{\allowPageTurn} en la
+última barra de compás de dicha sección, a no ser que haya una
+barra @q{especial} de compás (como una doble barra), en cuyo caso
+se insertará el @code{\allowPageTurn} en la última barra
+@q{especial} de compás de la sección.
 
 @funindex minimumPageTurnLength
 El grabador @code{Page_turn_engraver} lee la propiedad de contexto
-@code{minimumPageTurnLength} para determinar qué longitud debe tener
-una sección sin notas antes de que se considere la posibilidad de un
-paso de página.  El valor predeterminado para
+@code{minimumPageTurnLength} para determinar qué longitud debe
+tener una sección sin notas antes de que se considere la
+posibilidad de un paso de página.  El valor predeterminado para
 @code{minimumPageTurnLength} es @code{(ly:make-moment 1/1)}.  Si
-quiere inhabilitar las vueltas de página, puede establecerlo a algún
-valor muy grande.
+quiere inhabilitar las vueltas de página, fíjelo a algún valor
+@q{muy grande}.
 
 @example
 \new Staff \with @{ \consists "Page_turn_engraver" @}
@@ -1791,20 +1979,23 @@ valor muy grande.
 @end example
 
 @funindex minimumRepeatLengthForPageTurn
-El grabador @code{Page_turn_engraver} detecta las repeticiones de
-primera y segunda vez.  Sólo permite un pase de página durante la
-repetición si hay suficiente tiempo al principio y al final de la
-repetición para volver a pasar la página hacia atrás. El grabador
-@code{Page_turn_engraver} también puede inhabilitar los pasos de
-página si la repetición es muy corta.  Si establecemos la propiedad de
-contexto @code{minimumRepeatLengthForPageTurn} entonces el grabador
-@code{Page_turn_engraver} sólo permitirá los pases de página en las
-repeticiones cuya duración sea mayor que este valor.
+
+Al usar repeticiones de primera y segunda vez, el grabador
+@code{Page_turn_engraver} solo permite un pase de página durante
+la repetición si hay suficiente tiempo al principio y al final de
+la repetición para volver a pasar la página hacia atrás. Si la
+repetición es demasiado corta, se puede usar el grabador
+@code{Page_turn_engraver} para @emph{inhabilitar} los pasos de
+página mediante el establecimiento de un valor adecuado para la
+propiedad de contexto @code{minimumRepeatLengthForPageTurn}.  En
+este caso el grabador @code{Page_turn_engraver} sólo permitirá los
+pases de página en las repeticiones cuya duración sea mayor que el
+valor especificado.
 
 Las instrucciones de paso de página, @code{\pageTurn},
-@code{\noPageTurn} y @code{\allowPageTurn}, se pueden usar también en
-el nivel más elevado del código, entre las partituras y los elementos
-de marcado del nivel superior.
+@code{\noPageTurn} y @code{\allowPageTurn}, se pueden usar también
+en el nivel más elevado del código, dentro de elementos de marcado
+del nivel superior y entre las partituras.
 
 @predefined
 @funindex \pageTurn
@@ -1817,207 +2008,19 @@ de marcado del nivel superior.
 
 @seealso
 Referencia de la notación:
-@ref{Variables de paper para los saltos de línea,,Variables de @code{@bs{}paper} para los saltos de línea}.
+@ref{Variables de paper para los saltos de línea}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
 
 @knownissues
-Sólo debería haber un grabador @code{Page_turn_engraver} dentro de una
+Utilice un solo grabador @code{Page_turn_engraver} en cada
 partitura.  Si hay más de uno, se interferirán entre sí.
 
 
-@node Saltos de página mínimos
-@subsection Saltos de página mínimos
-@translationof Minimal page breaking
-
-@funindex ly:minimal-breaking
-
-La función @code{ly:minimal-breaking} efectúa unos cálculos mínimos
-para determinar los saltos de página: completa una página con tantos
-sistemas como sea posible antes de continuar con la siguiente.  Así,
-puede preferirse para partituras con muchas páginas, donde las otras
-funciones de salto de página pueden resultar demasiado lentas o ávidas
-de memoria, o con una gran cantidad de textos.  Se habilita utilizando:
-
-@example
-\paper @{
-  page-breaking = #ly:minimal-breaking
-@}
-@end example
-
 @seealso
-Fragmentos de código:
-@rlsr{Spacing}.
-
-@node Saltos de página de una línea
-@subsection Saltos de página de una línea
-@translationof One-line page breaking
-
-@funindex ly:one-line-breaking
-
-La función @code{ly:one-line-breaking} es un algoritmo de saltos de
-página para uso especial que pone cada partitura en una página y en
-una sola línea.  Esta función de salto de página no compone los
-títulos ni los márgenes; solamente se imprime la partitura.
-
-El ancho de la página se ajusta de forma que la partitura más larga
-quepa en una línea.  Concretamente, las variables @code{paper-width},
-@code{line-width} y @code{indent} del bloque @code{\paper} se ignoran,
-aunque @code{left-margin} y @code{right-margin} aún se respetan.  La
-altura de la página se deja sin cambios.
-
-@node Saltos de línea explícitos
-@subsection Saltos de línea explícitos
-@translationof Explicit breaks
-
-Lily a veces rechaza las instrucciones @code{\break} y
-@code{\pageBreak} explícitas.  Hay dos instrucciones para
-sobreescribir este comportamiento:
-
-@example
-\override NonMusicalPaperColumn.line-break-permission = ##f
-\override NonMusicalPaperColumn.page-break-permission = ##f
-@end example
-
-Cuando se sobreescribe el valor de @code{line-break-permission} a
-falso, Lily inserta saltos de línea en las instrucciones @code{\break}
-explícitas y en ningún otro lugar. Cuando se sobreescribe el valor de
-@code{page-break-permission} a falso, Lily inserta saltos de página en
-las instrucciones @code{\pageBreak} explícitas y en ningún otro lugar.
-
-@lilypond[quote,verbatim]
-\paper {
-  indent = #0
-  ragged-right = ##t
-  ragged-bottom = ##t
-}
-
-music = \relative { c''8 c c c }
-
-\score {
-  \new Staff {
-    \repeat unfold 2 { \music } \break
-    \repeat unfold 4 { \music } \break
-    \repeat unfold 6 { \music } \break
-    \repeat unfold 8 { \music } \pageBreak
-    \repeat unfold 8 { \music } \break
-    \repeat unfold 6 { \music } \break
-    \repeat unfold 4 { \music } \break
-    \repeat unfold 2 { \music }
-  }
-  \layout {
-    \context {
-      \Score
-      \override NonMusicalPaperColumn.line-break-permission = ##f
-      \override NonMusicalPaperColumn.page-break-permission = ##f
-    }
-  }
-}
-@end lilypond
-
-@seealso
-Fragmentos de código:
-@rlsr{Spacing}.
-
-
-@node Utilizar una voz adicional para los saltos de línea
-@subsection Utilizar una voz adicional para los saltos de línea
-@translationof Using an extra voice for breaks
-
-La información sobre saltos de línea y de página suele aparecer
-directamente entremezclado dentro del código de notas.
-
-@example
-music = \relative @{ c''4 c c c @}
-
-\score @{
-  \new Staff @{
-    \repeat unfold 2 @{ \music @} \break
-    \repeat unfold 3 @{ \music @}
-  @}
-@}
-@end example
-
-Esto hace sencillas de introducir a las instrucciones @code{\break} y
-@code{\pageBreak}, pero mezcla la escritura de música con información
-que especifica cómo se debe disponer la música sobre la página.
-Podemos mantener la introducción de música y la información de saltos
-de línea y de página en dos lugares separados mediante la introducción
-de una voz adicional que contenga los saltos.  Esta voz adicional
-contiene solamente desplazamientos o @q{skips} junto con los
-@code{\break}, @code{pageBreak} y otras informaciones sobre la
-disposición de los saltos.
-
-@lilypond[quote,verbatim]
-music = \relative { c''4 c c c }
-
-\header { tagline = ##f }
-\paper { left-margin = 0\mm }
-\book {
-  \score {
-    \new Staff <<
-      \new Voice {
-        s1 * 2 \break
-        s1 * 3 \break
-        s1 * 6 \break
-        s1 * 5 \break
-      }
-      \new Voice {
-        \repeat unfold 2 { \music }
-        \repeat unfold 3 { \music }
-        \repeat unfold 6 { \music }
-        \repeat unfold 5 { \music }
-      }
-    >>
-  }
-}
-@end lilypond
-
-Este patrón resulta especialmente útil cuando se sobreescribe
-@code{line-break-system-details} y las otras útiles (pero largas)
-propiedades de @code{NonMusicalPaperColumnGrob}, como se explica en
-@ref{Espaciado vertical}.
-
-@lilypond[quote,verbatim]
-music = \relative { c''4 c c c }
-
-\header { tagline = ##f }
-\paper { left-margin = 0\mm }
-\book {
-  \score {
-    \new Staff <<
-      \new Voice {
-        \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-          #'((Y-offset . 0))
-        s1 * 2 \break
-
-        \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-          #'((Y-offset . 5))
-        s1 * 3 \break
-
-        \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-          #'((Y-offset . 15))
-        s1 * 6 \break
-
-        \overrideProperty Score.NonMusicalPaperColumn.line-break-system-details
-          #'((Y-offset . 30))
-        s1 * 5 \break
-      }
-      \new Voice {
-        \repeat unfold 2 { \music }
-        \repeat unfold 3 { \music }
-        \repeat unfold 6 { \music }
-        \repeat unfold 5 { \music }
-      }
-    >>
-  }
-}
-@end lilypond
-
-@seealso
-Referencia de la notación:
-@ref{Espaciado vertical}.
+Notation Reference:
+@ref{Vertical spacing}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
@@ -2030,10 +2033,10 @@ Fragmentos de código:
 @cindex espaciado vertical
 @cindex vertical, espaciado
 
-El espaciado vertical está controlado por tres factores: la cantidad
-de espacio disponible (es decir, el tamaño del papel y los márgenes),
-la separación entre los sistemas, y la separación entre los
-pentagramas dentro de un sistema.
+El espaciado vertical está controlado por tres factores: la
+cantidad de espacio disponible (es decir, el tamaño del papel y
+los márgenes), la separación entre los sistemas, y la separación
+entre los pentagramas dentro de un sistema.
 
 @menu
 * Espaciado vertical flexible dentro de los sistemas::
@@ -2052,7 +2055,8 @@ pentagramas dentro de un sistema.
 @cindex espacio dentro de los sistemas
 
 Tres mecanismos distintos controlan el espaciado vertical flexible
-dentro de los sistemas, uno por cada una de las categorías siguientes:
+dentro de los sistemas, uno por cada una de las categorías
+siguientes:
 
 @itemize
 
@@ -2072,16 +2076,17 @@ dentro de los sistemas, uno por cada una de las categorías siguientes:
 @c TODO: Clarify this.  This almost implies that non-staff lines
 @c       have NO effect on the spacing between staves.  -mp
 
-La altura de cada sistema se determina en dos fases.  Primero, todos
-los pentagramas se disponen según la cantidad de espacio vacío
-disponible.  Después, las líneas que no son pautas se distribuyen
-entre las pautas.
+La altura de cada sistema se determina en dos fases.  Primero,
+todos los pentagramas se disponen según la cantidad de espacio
+vacío disponible.  Después, las líneas que no son pautas se
+distribuyen entre las pautas.
 
 Observe que los mecanismos de espaciado estudiados en esta sección
-solamente controlan el espaciado vertical de las pautas y líneas que
-no son pautas dentro de los sistemas individuales.  El espaciado
-vertical entre distintos sistemas, partituras, marcados y márgenes se
-controla mediante variables de @code{\paper} que se estudian en
+solamente controlan el espaciado vertical de las pautas y líneas
+que no son pautas dentro de los sistemas individuales.  El
+espaciado vertical entre distintos sistemas, partituras, marcados
+y márgenes se controla mediante variables de @code{\paper} que se
+estudian en
 @ref{Variables de espaciado de paper verticales flexibles,,Variables de espaciado de @code{@bs{}paper} verticales flexibles}.
 
 @menu
@@ -2111,29 +2116,30 @@ controla mediante variables de @code{\paper} que se estudian en
 
 Los mecanismos de espaciado vertical dentro del sistema están
 controlados por dos conjuntos de propiedades de grob.  El primer
-conjunto está asociado con el grob @code{VerticalAxisGroup}, que se
-crea por parte de todas las pautas y líneas que no son pautas.  El
-segundo conjunto está asociado con el grob @code{StaffGrouper}, que
-puede crearse por parte de los grupos de pentagramas, pero solamente
-si se le llama explícitamente.  Estas propiedades se describen
-individualmente al final de la presente sección.
+conjunto está asociado con el grob @code{VerticalAxisGroup}, que
+se crea por parte de todas las pautas y líneas que no son pautas.
+El segundo conjunto está asociado con el grob @code{StaffGrouper},
+que puede crearse por parte de los grupos de pentagramas, pero
+solamente si se le llama explícitamente.  Estas propiedades se
+describen individualmente al final de la presente sección.
 
-Los nombres de estas propiedades (excepto para @code{staff-affinity})
-siguen el formato @code{@var{elemento1}-@var{elemento2}-spacing},
-donde @code{@var{elemento1}} y @code{@var{elemento2}} son los
-elementos que se van a espaciar.  Observe que @code{@var{elemento2}}
-no está necesariamente por debajo de @code{@var{elemento1}}; por
-ejemplo, @code{nonstaff-relatedstaff-spacing} mide hacia arriba a
-partir de la línea del tipo no-pauta si @code{staff-affinity} es
-@code{UP}.
+Los nombres de estas propiedades (excepto para
+@code{staff-affinity}) siguen el formato
+@code{@var{elemento1}-@var{elemento2}-spacing}, donde
+@code{@var{elemento1}} y @code{@var{elemento2}} son los elementos
+que se van a espaciar.  Observe que @code{@var{elemento2}} no está
+necesariamente por debajo de @code{@var{elemento1}}; por ejemplo,
+@code{nonstaff-relatedstaff-spacing} mide hacia arriba a partir de
+la línea del tipo no-pauta si @code{staff-affinity} es @code{UP}.
 
-Cada distancia se mide entre los @emph{puntos de referencia} de los
-dos elementos.  El @emph{punto de referencia} para un pentagrama y
-otro tipo de pauta es el centro vertical de su @code{StaffSymbol} (es
-decir, la línea central si @code{line-count} es un número impar; el
-espacio central si @code{line-count} es par).  Los puntos de
-referencia para las líneas individuales que no son pautas aparecen en
-la tabla siguiente:
+Cada distancia se mide entre los @emph{puntos de referencia} de
+los dos elementos.  El @emph{punto de referencia} para un
+pentagrama y otro tipo de pauta es el centro vertical de su
+@code{StaffSymbol} (es decir, la línea central si
+@code{line-count} es un número impar; el espacio central si
+@code{line-count} es par).  Los puntos de referencia para las
+líneas individuales que no son pautas aparecen en la tabla
+siguiente:
 
 @multitable {Línea que no es una pauta} {Punto de referencia}
 @headitem Línea que no es una pauta @tab Punto de referencia
@@ -2145,8 +2151,8 @@ la tabla siguiente:
 @item @code{FretBoards}  @tab línea superior
 @end multitable
 
-En la siguiente imagen, las líneas horizontales indican las posiciones
-de estos puntos de referencia:
+En la siguiente imagen, las líneas horizontales indican las
+posiciones de estos puntos de referencia:
 
 @lilypond[quote,noragged-right,line-width=110\mm]
 #(define zero-space '((padding . -inf.0) (basic-distance . 0)))
@@ -2213,20 +2219,21 @@ labelContext =
 >>
 @end lilypond
 
-Cada una de las propiedades de grob del espaciado vertical (excepto
-@code{staff-affinity})
-usa la misma estructura de lista-A que las
-variables de espaciado del bloque @code{\paper} que se han estudiado
-en @ref{Variables de espaciado de paper verticales flexibles,,Variables de espaciado de @code{@bs{}paper} verticales flexibles}.
-En @ref{Modificación de las listas-A}
-se estudian métodos específicos para la modificación de
-las listas-A.  Las propiedades de los grobs deben ajustarse con un
-@code{\override} dentro de un bloque @code{\score} o @code{\layout}, y
-no dentro de un bloque @code{\paper}.
+Cada una de las propiedades de grob del espaciado vertical
+(excepto @code{staff-affinity}) usa la misma estructura de lista-A
+que las variables de espaciado del bloque @code{\paper} que se han
+estudiado en
+@ref{Variables de espaciado de paper verticales flexibles,,Variables de espaciado de @code{@bs{}paper} verticales flexibles}.
+En @ref{Modificación de las listas-A} se estudian métodos
+específicos para la modificación de las listas-A.  Las propiedades
+de los grobs deben ajustarse con un @code{\override} dentro de un
+bloque @code{\score} o @code{\layout}, y no dentro de un bloque
+@code{\paper}.
 
-El ejemplo que sigue muestra las dos maneras en que pueden modificarse
-estas listas-A.  La primera declaración actualiza un par clave-valor de
-forma individual, y la segunda redefine la propiedad completamente:
+El ejemplo que sigue muestra las dos maneras en que pueden
+modificarse estas listas-A.  La primera declaración actualiza un
+par clave-valor de forma individual, y la segunda redefine la
+propiedad completamente:
 
 @example
 \new Staff \with @{
@@ -2256,90 +2263,94 @@ póngalos dentro del bloque @code{\layout}:
 
 Los ajustes estándar para las propiedades de grob del espaciado
 vertical están relacionadas en @rinternals{VerticalAxisGroup} y en
-@rinternals{StaffGrouper}.  Las sobreescrituras predeterminadas para
-los tipos específicos de líneas que no son pautas están relacionadas
-en las descripciones de contexto correspondientes en
+@rinternals{StaffGrouper}.  Las sobreescrituras predeterminadas
+para los tipos específicos de líneas que no son pautas están
+relacionadas en las descripciones de contexto correspondientes en
 @rinternals{Contexts}.
 
 @subsubheading Propiedades del grob @code{VerticalAxisGroup}
 
-Las propiedades de @code{VerticalAxisGroup} se suelen ajustar con una
-instrucción @code{\override} en el nivel de @code{Staff} (o
+Las propiedades de @code{VerticalAxisGroup} se suelen ajustar con
+una instrucción @code{\override} en el nivel de @code{Staff} (o
 equivalente).
 
 @table @code
 @item staff-staff-spacing
-Se utiliza para determinar la distancia entre la pauta actual
-y la pauta que está justo por debajo
-de ella dentro del mismo sistema, incluso si hay más líneas que no son
-pautas (tales como @code{Lyrics}) entre las dos pautas.  No se aplica
-a la pauta inferior de un sistema.
+Se utiliza para determinar la distancia entre la pauta actual y la
+pauta que está justo por debajo de ella dentro del mismo sistema,
+incluso si hay más líneas que no son pautas (tales como
+@code{Lyrics}) entre las dos pautas.  No se aplica a la pauta
+inferior de un sistema.
 
-Inicialmente, el valor de espaciado @code{staff-staff-spacing} de un
-grupo @code{VerticalAxisGroup} es una función de Scheme que aplica las
-propiedades del @code{StaffGrouper} si la pauta forma parte de un
-grupo, o el @code{default-staff-staff-spacing} de la pauta en caso
-contrario.  Esto hace posible que las pautas estén espaciadas de forma
-diferente cuando están agrupadas.  Para conseguir un espaciado regular
-sin importar el agrupamiento, esta función se puede sustituir por una
-lista-A de espaciado flexible, utilizando la forma de
-sobreescritura de redefinición completa que se ha mostrado más arriba.
+Inicialmente, el valor de espaciado @code{staff-staff-spacing} de
+un grupo @code{VerticalAxisGroup} es una función de Scheme que
+aplica las propiedades del @code{StaffGrouper} si la pauta forma
+parte de un grupo, o el @code{default-staff-staff-spacing} de la
+pauta en caso contrario.  Esto hace posible que las pautas estén
+espaciadas de forma diferente cuando están agrupadas.  Para
+conseguir un espaciado regular sin importar el agrupamiento, esta
+función se puede sustituir por una lista-A de espaciado flexible,
+utilizando la forma de sobreescritura de redefinición completa que
+se ha mostrado más arriba.
 
 @item default-staff-staff-spacing
-Una lista-A de espaciado flexible que define el
-espacio @code{staff-staff-spacing} que se usará para las pautas sin
+Una lista-A de espaciado flexible que define el espacio
+@code{staff-staff-spacing} que se usará para las pautas sin
 agrupar, a no ser que se haya sobreescrito explícitamente
 @code{staff-staff-spacing} con una instrucción @code{\override}.
 
 @item staff-affinity
 Dirección de la pauta que utilizar para el espaciado de la línea
 actual que no es pauta.  Se puede elegir entre @code{UP} (arriba),
-@code{DOWN} (abajo) y @code{CENTER} (centro).  Si es @code{CENTER}, la
-línea del tipo no-pauta se coloca equidistante entre las dos pautas
-contiguas a ambos lados, a no ser que lo impidan colisiones u otras
-restricciones de espaciado.  Las líneas del tipo no-pauta adyacentes
-han de llevar valores de @code{staff-affinity} no crecientes desde la
-parte superior hasta la inferior, p.ej. una línea del tipo no-pauta
-establecida a @code{UP} no debería seguir inmediatamente a otra que
-esté establecida a @code{DOWN}.  Las líneas del tipo no-pauta en la
-parte superior de un sistema deben usar @code{DOWN}; las de la parte
-inferior deben usar @code{UP}.  El ajuste de @code{staff-affinity}
-para una pauta hace que se le trate como una línea que no es una
-pauta.  El establecimiento de @code{staff-affinity} a @code{#f} para
-una línea que no es una pauta hace que se trate como una pauta.
-Establecer @code{staff-affinity} a @code{UP}, @code{CENTER}, o
-@code{DOWN} hace que el pentagrama resulte espaciado como si fuera una
-línea que no es una pauta.
+@code{DOWN} (abajo) y @code{CENTER} (centro).  Si es
+@code{CENTER}, la línea del tipo no-pauta se coloca equidistante
+entre las dos pautas contiguas a ambos lados, a no ser que lo
+impidan colisiones u otras restricciones de espaciado.  Las líneas
+del tipo no-pauta adyacentes han de llevar valores de
+@code{staff-affinity} no crecientes desde la parte superior hasta
+la inferior, p.ej. una línea del tipo no-pauta establecida a
+@code{UP} no debería seguir inmediatamente a otra que esté
+establecida a @code{DOWN}.  Las líneas del tipo no-pauta en la
+parte superior de un sistema deben usar @code{DOWN}; las de la
+parte inferior deben usar @code{UP}.  El ajuste de
+@code{staff-affinity} para una pauta hace que se le trate como una
+línea que no es una pauta.  El establecimiento de
+@code{staff-affinity} a @code{#f} para una línea que no es una
+pauta hace que se trate como una pauta.  Establecer
+@code{staff-affinity} a @code{UP}, @code{CENTER}, o @code{DOWN}
+hace que el pentagrama resulte espaciado como si fuera una línea
+que no es una pauta.
 
 @item nonstaff-relatedstaff-spacing
 Distancia entre la línea del tipo no-pauta actual y la pauta más
-próxima en la dirección de @code{staff-affinity}, si no hay ninguna
-línea que no sea una pauta entre las dos, y @code{staff-affinity} es
-@code{UP} o @code{DOWN}.  Si @code{staff-affinity} es @code{CENTER},
-entonces se usa @code{nonstaff-relatedstaff-spacing} para las pautas
-más próximas @emph{a los dos lados}, incluso aunque aparezcan otras
-líneas del tipo no-pauta entre la pauta actual y una de las otras.
-Esto significa que la colocación de una línea que no es una pauta
-depende tanto de las pautas que la rodean como de las líneas que no
-son pautas y que la rodean.  Establecer la ampliabilidad
-@code{stretchability} de uno de estos tipos de espaciado a un valor
-más pequeño provoca que este espaciado domine.  El establecimiento de
-@code{stretchability} a un valor mayor hace que dicho espaciado tenga
-un menor efecto.
+próxima en la dirección de @code{staff-affinity}, si no hay
+ninguna línea que no sea una pauta entre las dos, y
+@code{staff-affinity} es @code{UP} o @code{DOWN}.  Si
+@code{staff-affinity} es @code{CENTER}, entonces se usa
+@code{nonstaff-relatedstaff-spacing} para las pautas más próximas
+@emph{a los dos lados}, incluso aunque aparezcan otras líneas del
+tipo no-pauta entre la pauta actual y una de las otras.  Esto
+significa que la colocación de una línea que no es una pauta
+depende tanto de las pautas que la rodean como de las líneas que
+no son pautas y que la rodean.  Establecer la ampliabilidad
+@code{stretchability} de uno de estos tipos de espaciado a un
+valor más pequeño provoca que este espaciado domine.  El
+establecimiento de @code{stretchability} a un valor mayor hace que
+dicho espaciado tenga un menor efecto.
 
 @item nonstaff-nonstaff-spacing
-Distancia entre la línea actual del tipo no-pauta y la siguiente línea
-del tipo no-pauta en la dirección de @code{staff-affinity}, si las dos
-están al mismo lado de la pauta relacionada, y @code{staff-affinity}
-es @code{UP} o @code{DOWN}.
+Distancia entre la línea actual del tipo no-pauta y la siguiente
+línea del tipo no-pauta en la dirección de @code{staff-affinity},
+si las dos están al mismo lado de la pauta relacionada, y
+@code{staff-affinity} es @code{UP} o @code{DOWN}.
 
 @item nonstaff-unrelatedstaff-spacing
 Distancia entre la línea actual del tipo no-pauta y la pauta en la
 dirección opuesta de @code{staff-affinity}, si no hay ninguna otra
 línea del tipo no-pauta entre las dos, y @code{staff-affinity} es
-@code{UP} o @code{DOWN}.  Se puede usar, por ejemplo, para requerir
-una cantidad de relleno mínima entre una línea de @code{Lyrics} y la
-pauta a la que no pertenece.
+@code{UP} o @code{DOWN}.  Se puede usar, por ejemplo, para
+requerir una cantidad de relleno mínima entre una línea de
+@code{Lyrics} y la pauta a la que no pertenece.
 @end table
 
 @subsubheading Propiedades del grob @code{StaffGrouper}
@@ -2350,21 +2361,20 @@ equivalente).
 
 @table @code
 @item staff-staff-spacing
-Distancia entre pautas consecutivas dentro del grupo de pautas actual.
-La propiedad @code{staff-staff-spacing} del grob
+Distancia entre pautas consecutivas dentro del grupo de pautas
+actual.  La propiedad @code{staff-staff-spacing} del grob
 @code{VerticalAxisGroup} de una pauta individual se puede
-sobreescribir con distintos ajustes de espaciado para dicha
-pauta.
+sobreescribir con distintos ajustes de espaciado para dicha pauta.
 
 @item staffgroup-staff-spacing
-Distancia entre la última pauta del grupo en curso y la pauta que está
-justo por debajo de ella dentro del mismo sistema, incluso si existen
-una o más líneas que no son pautas (tales como @code{Lyrics}) entre
-las dos pautas.  No se aplica al pentagrama o pauta inferior de un
-sistema.  La propiedad @code{staff-staff-spacing} del grob
-@code{VerticalAxisGroup} de una pauta individual se puede
-sobreescribir con distintos ajustes de espaciado para dicha
-pauta.
+Distancia entre la última pauta del grupo en curso y la pauta que
+está justo por debajo de ella dentro del mismo sistema, incluso si
+existen una o más líneas que no son pautas (tales como
+@code{Lyrics}) entre las dos pautas.  No se aplica al pentagrama o
+pauta inferior de un sistema.  La propiedad
+@code{staff-staff-spacing} del grob @code{VerticalAxisGroup} de
+una pauta individual se puede sobreescribir con distintos ajustes
+de espaciado para dicha pauta.
 @end table
 
 @seealso
@@ -2387,13 +2397,13 @@ Referencia de funcionamiento interno:
 @unnumberedsubsubsec Espaciado de pautas no agrupadas
 @translationof Spacing of ungrouped staves
 
-Las @emph{pautas}, tales como los pentagramas (@code{Staff}), pautas
-de percusión (@code{DrumStaff}) o de tablatura (@code{TabStaff}),
-etc. son contextos que pueden contener uno o más contextos de voz,
-pero no pueden contener otras pautas.
+Las @emph{pautas}, tales como los pentagramas (@code{Staff}),
+pautas de percusión (@code{DrumStaff}) o de tablatura
+(@code{TabStaff}), etc. son contextos que pueden contener uno o
+más contextos de voz, pero no pueden contener otras pautas.
 
-Las siguientes propiedades afectan al espaciado de las pautas @emph{no
-agrupadas}:
+Las siguientes propiedades afectan al espaciado de las pautas
+@emph{no agrupadas}:
 
 @itemize
 @item Propiedades de @code{VerticalAxisGroup}:
@@ -2406,15 +2416,16 @@ agrupadas}:
 Estas propiedades de grob se describen individualmente más arriba;
 véase @ref{Propiedades de espaciado dentro de los sistemas}.
 
-Están implicadas ciertas propiedades adicionales para las pautas que
-son parte de un grupo; véase @ref{Espaciado de pautas agrupadas}.
+Están implicadas ciertas propiedades adicionales para las pautas
+que son parte de un grupo; véase
+@ref{Espaciado de pautas agrupadas}.
 
 El ejemplo siguiente muestra cómo la propiedad
-@code{default-staff-staff-spacing} puede afectar al espaciado de pautas no
-agrupadas.  Las mismas sobreescrituras aplicadas a
-@code{staff-staff-spacing}
-tendrían el mismo efecto, pero también se aplicaría en caso de que las
-pautas estuvieran combinadas en un grupo o grupos.
+@code{default-staff-staff-spacing} puede afectar al espaciado de
+pautas no agrupadas.  Las mismas sobreescrituras aplicadas a
+@code{staff-staff-spacing} tendrían el mismo efecto, pero también
+se aplicaría en caso de que las pautas estuvieran combinadas en un
+grupo o grupos.
 
 @lilypond[verbatim,quote,staffsize=16]
 \layout {
@@ -2466,15 +2477,16 @@ Referencia de funcionamiento interno:
 @translationof Spacing of grouped staves
 
 En partituras grandes como las orquestales, es común colocar los
-pentagramas en grupos.  El espacio entre los grupos suele ser mayor
-que el espacio que hay entre los pentagramas dentro del mismo grupo.
+pentagramas en grupos.  El espacio entre los grupos suele ser
+mayor que el espacio que hay entre los pentagramas dentro del
+mismo grupo.
 
 Los grupos de pautas, @emph{Staff-groups} (tales como
-@code{StaffGroup}, @code{ChoirStaff}, etc.) son contextos que pueden
-contener al mismo tiempo uno o más pentagramas o pautas.
+@code{StaffGroup}, @code{ChoirStaff}, etc.) son contextos que
+pueden contener al mismo tiempo uno o más pentagramas o pautas.
 
-Las siguientes propiedades afectan al espaciado de las pautas dentro
-de los grupos:
+Las siguientes propiedades afectan al espaciado de las pautas
+dentro de los grupos:
 
 @itemize
 @item Propiedades de @code{VerticalAxisGroup}:
@@ -2491,8 +2503,8 @@ de los grupos:
 Estas propiedades de grob se describen individualmente más arriba;
 véase @ref{Propiedades de espaciado dentro de los sistemas}.
 
-El ejemplo siguiente muestra cómo pueden afectar las propiedades del
-grob @code{StaffGrouper} al espaciado de las pautas agrupadas:
+El ejemplo siguiente muestra cómo pueden afectar las propiedades
+del grob @code{StaffGrouper} al espaciado de las pautas agrupadas:
 
 @lilypond[verbatim,quote,staffsize=16]
 \layout {
@@ -2535,14 +2547,14 @@ Referencia de funcionamiento interno:
 @translationof Spacing of non-staff lines
 
 Las @emph{Líneas que no son pautas} (tales como @code{Lyrics},
-@code{ChordNames}, etc.) son contextos cuyos objetos de presentación
-se imprimen como pentagramas (es decir, en líneas horizontales dentro
-de los sistemas).  Específicamente, las líneas que no son pautas son
-contextos del tipo no-pauta que crean el objeto de presentación
-@code{VerticalAxisGroup}.
+@code{ChordNames}, etc.) son contextos cuyos objetos de
+presentación se imprimen como pentagramas (es decir, en líneas
+horizontales dentro de los sistemas).  Específicamente, las líneas
+que no son pautas son contextos del tipo no-pauta que contienen el
+grabador @rinternals{Axis_group_engraver}.
 
-Las siguientes propiedades afectan al espaciado de las líneas que no
-son pautas:
+Las siguientes propiedades afectan al espaciado de las líneas que
+no son pautas:
 
 @itemize
 @item Propiedades de @code{VerticalAxisGroup}:
@@ -2558,10 +2570,11 @@ Estas propiedades de grob se describen individualmente más arriba;
 véase @ref{Propiedades de espaciado dentro de los sistemas}.
 
 El ejemplo siguiente muestra cómo la propiedad
-@code{nonstaff-nonstaff-spacing} puede afectar el espaciado de líneas
-consecutivas que no son pautas.  Aquí, mediante el establecimiento de
-la clave de ampliabilidad @code{stretchability} a un valor muy grande,
-la línea de letra es capaz de ampliarse mucho más de lo que es usual:
+@code{nonstaff-nonstaff-spacing} puede afectar el espaciado de
+líneas consecutivas que no son pautas.  Aquí, mediante el
+establecimiento de la clave de ampliabilidad @code{stretchability}
+a un valor muy grande, la línea de letra es capaz de ampliarse
+mucho más de lo que es usual:
 
 @lilypond[verbatim,quote,staffsize=16]
 \layout {
@@ -2610,9 +2623,9 @@ Referencia de funcionamiento interno:
 @translationof Explicit staff and system positioning
 
 Una forma de entender los mecanismos del espaciado vertical
-flexible que se han explicado más arriba es como una
-colección de ajustes que controlan la cantidad de relleno
-vertical entre los pentagramas y los sistemas.
+flexible que se han explicado más arriba es como una colección de
+ajustes que controlan la cantidad de relleno vertical entre los
+pentagramas y los sistemas.
 
 Es posible enfrentarse al espaciado vertical de una forma distinta
 utilizando @code{NonMusicalPaperColumn.line-break-system-details}.
@@ -2631,8 +2644,8 @@ lista asociativa de tres ajustes diferentes:
 @end itemize
 
 Las sobreescrituras de los objetos gráficos, entre ellas las de
-@code{NonMusicalPaperColumn} que aparecen más abajo, pueden ocurrir en
-tres lugares distintos dentro de un archivo de entrada:
+@code{NonMusicalPaperColumn} que aparecen más abajo, pueden
+ocurrir en tres lugares distintos dentro de un archivo de entrada:
 
 @itemize
 @item directamente en medio de las notas
@@ -2641,12 +2654,13 @@ tres lugares distintos dentro de un archivo de entrada:
 @end itemize
 
 Cuando sobreescribimos @code{NonMusicalPaperColumn}, usamos la
-instrucción @code{\override} usual en los bloques @code{\context} y en
-el bloque @code{\with}.  Por otra parte, cuando sobreescribimos
-@code{NonMusicalPaperColumn} en medio de las notas, debemos usar la
-instrucción especial @code{\overrideProperty}.  He aquí algunas
-sobreescrituras de @code{NonMusicalPaperColumn} de ejemplo con la
-instrucción especial @code{\overrideProperty}:
+instrucción @code{\override} usual en los bloques @code{\context}
+y en el bloque @code{\with}.  Por otra parte, cuando
+sobreescribimos @code{NonMusicalPaperColumn} en medio de las
+notas, debemos usar la instrucción especial
+@code{\overrideProperty}.  He aquí algunas sobreescrituras de
+@code{NonMusicalPaperColumn} de ejemplo con la instrucción
+especial @code{\overrideProperty}:
 
 @example
 \overrideProperty NonMusicalPaperColumn.line-break-system-details
@@ -2669,8 +2683,8 @@ instrucción especial @code{\overrideProperty}:
 @end example
 
 Para entender cómo funciona cada uno de los distintos ajustes,
-empezamos observando un ejemplo que no incluye absolutamente ninguna
-sobreescritura.
+empezamos observando un ejemplo que no incluye absolutamente
+ninguna sobreescritura.
 
 @c \book { } is required in these examples to ensure the spacing
 @c overrides can be seen between systems. -np
@@ -2697,18 +2711,19 @@ sobreescritura.
 }
 @end lilypond
 
-Esta partitura mantiene aislada la información de los saltos de línea
-y de página en una voz dedicada a ello.  Esta técnica de crear una voz
-de saltos ayuda a mantener separada de la escritura de notas conforme
-el ejemplo se vuelve más complicado.  Consulte
-@ref{Utilizar una voz adicional para los saltos de línea}.
+Esta partitura mantiene aislada tanto la información de los saltos
+de línea como los de página en una voz dedicada a ello.  Esta
+técnica de crear una voz de saltos ayuda a mantener separada de la
+escritura de notas conforme el ejemplo se vuelve más complicado.
+Consulte @ref{Saltos}.
 
-Los saltos explícitos dividen la música de forma regular en seis
-compases por línea.  El espaciado vertical es el resultado de los
-ajustes predeterminados de LilyPond.  Para establecer explícitamente
-el punto de origen vertical de cada sistema, podemos establecer el par
-@code{Y-offset} en el atributo @code{line-break-system-details} del
-grob (objeto gráfico) @code{NonMusicalPaperColumn}:
+Utilizando instrucciones @code{\break} explícitas, la música se
+divide líneas de cinco compases cada una.  El espaciado vertical
+proviene de los ajustes predeterminados de LilyPond pero el punto
+de origen vertical de cada sistema se fija explícitamente usando
+el par @code{Y-offset} en el atributo
+@code{line-break-system-details} del grob (objeto gráfico)
+@code{NonMusicalPaperColumn}:
 
 @lilypond[verbatim,quote,staffsize=16]
 \header { tagline = ##f }
@@ -2738,17 +2753,17 @@ grob (objeto gráfico) @code{NonMusicalPaperColumn}:
 }
 @end lilypond
 
-Observe que @code{line-break-system-details} toma una lista asociativa
-de una cantidad de valores potencialmente elevada, pero aquí sólo
-fijamos un valor.  Observe también que aquí la propiedad
-@code{Y-offset} determina la posición vertical exacta sobre la página
-en la que se trazará cada uno de los nuevos sistemas.
+Observe que @code{line-break-system-details} toma una lista
+asociativa de una cantidad de valores potencialmente elevada, pero
+aquí sólo fijamos un valor.  Observe también que aquí la propiedad
+@code{Y-offset} determina la posición vertical exacta sobre la
+página en la que se trazará cada uno de los nuevos sistemas.
 
-Ahora que hemos establecido explícitamente el punto de origen vertical
-de cada sistema, podemos también establecer manualmente las distancias
-verticales entre los pentagramas dentro de cada sistema.  Lo hacemos
-usando la subpropiedad @code{alignment-distances} de
-@code{line-break-system-details}.
+Ahora que hemos establecido explícitamente el punto de origen
+vertical de cada sistema, podemos también establecer manualmente
+las distancias verticales entre los pentagramas dentro de cada
+sistema.  Lo hacemos usando la subpropiedad
+@code{alignment-distances} de @code{line-break-system-details}.
 
 @lilypond[verbatim,quote,staffsize=16]
 \header { tagline = ##f }
@@ -2784,13 +2799,14 @@ usando la subpropiedad @code{alignment-distances} de
 Observe que aquí asignamos dos valores distintos al atributo
 @code{line-break-system-details} del grob
 @code{NonMusicalPaperColumn}.  Aunque el atributo alist de
-@code{line-break-system-details} acepta muchos parámetros de espaciado
-adicionales (entre ellos, por ejemplo, un par @code{X-offset}
-correspondiente), sólo tenemos que establecer el desplazamiento
-@code{Y-offset} y los pares @code{alignment-distances} para controlar
-el punto de origen vertical de cada sistema y pentagrama.  Finalmente,
-observe que @code{alignment-distances} especifica el posicionamiento
-vertical de los pentagramas pero no de los grupos de pentagramas.
+@code{line-break-system-details} acepta muchos parámetros de
+espaciado adicionales (entre ellos, por ejemplo, un par
+@code{X-offset} correspondiente), sólo tenemos que establecer el
+desplazamiento @code{Y-offset} y los pares
+@code{alignment-distances} para controlar el punto de origen
+vertical de cada sistema y pentagrama.  Finalmente, observe que
+@code{alignment-distances} especifica el posicionamiento vertical
+de los pentagramas pero no de los grupos de pentagramas.
 
 @lilypond[verbatim,quote,staffsize=16]
 \header { tagline = ##f }
@@ -2827,14 +2843,15 @@ vertical de los pentagramas pero no de los grupos de pentagramas.
 Algunos puntos que tener en cuenta:
 
 @itemize
-@item Al usar @code{alignment-distances}, la letra
-y otras líneas que no son pautas, no cuentan como un pentagrama.
+@item Al usar @code{alignment-distances}, la letra y otras líneas que no
+son pautas, no cuentan como un pentagrama.
 
 @item Las unidades de los números que se pasan a @code{X-offset},
 @code{Y-offset} y @code{alignment-distances} se interpretan como
-múltiplos de la distancia entre líneas de pentagrama adyacentes.  Los
-valores positivos mueven a los pentagramas y a la letra hacia arriba,
-los valores negativos mueven los pentagramas y la letra hacia abajo.
+múltiplos de la distancia entre líneas de pentagrama adyacentes.
+Los valores positivos mueven a los pentagramas y a la letra hacia
+arriba, los valores negativos mueven los pentagramas y la letra
+hacia abajo.
 
 @item A causa de que los ajustes a
 @code{NonMusicalPaperColumn.line-break-system-details} dados aquí
@@ -2862,27 +2879,31 @@ Podemos decir intuitivamente que algunos objetos de la notación
 musical pertenecen al pentagrama y otros se sitúan fuera del
 pentagrama.  Entre los objetos que pertenecen al exterior del
 pentagrama están las marcas de ensayo, las marcas textuales y las
-indicaciones de dinámica (en lo sucesivo, les llamaremos objetos fuera
-del pentagrama).  La regla de LilyPond para la colocación vertical de
-los objetos fuera del pentagrama es ponerlos tan cerca del pentagrama
-como sea posible pero no tan próximos como para que choquen con otro
-objeto.
+indicaciones de dinámica (en lo sucesivo, les llamaremos objetos
+fuera del pentagrama).  La regla de LilyPond para la colocación
+vertical de los objetos fuera del pentagrama es ponerlos tan cerca
+del pentagrama como sea posible pero no tan próximos como para que
+choquen con otro objeto.
 
 LilyPond utiliza la propiedad @code{outside-staff-priority} para
 determinar si un grob es un objeto fuera del pentagrama: si
-@code{outside-staff-priority} es un número, el grob es un objeto fuera
-del pentagrama.  Además, @code{outside-staff-priority} informa a
-LilyPond en qué orden se debe situar los objetos.
+@code{outside-staff-priority} es un número, el grob es un objeto
+fuera del pentagrama.  Además, @code{outside-staff-priority}
+informa a LilyPond en qué orden se debe situar los objetos.
 
-En primer lugar, LilyPond sitúa todos los objetos que no pertenecen al
-exterior del pentagrama.  Después ordena los objetos fuera del
-pentagrama de acuerdo a su prioridad @code{outside-staff-priority} (en
-orden creciente).  LilyPond toma los objetos fuera del pentagrama uno
-a uno y los coloca de forma que no choquen con ningún objeto que ya
-haya sido colocado.  Esto es, si dos grobs fuera del pentagrama
-compiten por el mismo espacio, el que tiene la prioridad
-@code{outside-staff-priority} más baja se colocará más próximo al
-pentagrama.
+En primer lugar, LilyPond sitúa todos los objetos que no
+pertenecen al exterior del pentagrama.  Después ordena los objetos
+fuera del pentagrama de acuerdo a su prioridad
+@code{outside-staff-priority} (en orden creciente).  LilyPond toma
+los objetos fuera del pentagrama uno a uno y los coloca de forma
+que no choquen con ningún objeto que ya haya sido colocado.  Esto
+es, si dos grobs fuera del pentagrama compiten por el mismo
+espacio, el que tiene la prioridad @code{outside-staff-priority}
+más baja se colocará más próximo al pentagrama.
+
+Hay un listado completo de las prioridades
+outside-staff-priorities en
+@rlearning{La propiedad outside-staff-priority (prioridad fuera del pentagrama)}.
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
@@ -2947,7 +2968,7 @@ Fragmentos de código:
 
 @menu
 * Panorámica del espaciado horizontal::
-* Área de espaciado nueva::
+* Sección de espaciado nueva::
 * Cambiar el espaciado horizontal::
 * Longitud de la línea::
 * Notación proporcional::
@@ -2960,17 +2981,17 @@ Fragmentos de código:
 
 El motor de espaciado traduce las diferencias en las duraciones a
 distancias ampliables (@q{muelles}) de distintas longitudes.  Las
-duraciones más largas reciben un espacio mayor y las duraciones más
-cortas reciben menos.  Las duraciones más breves reciben un espacio de
-tamaño fijo (que se controla mediante @code{shortest-duration-space}
-en el objeto @rinternals{SpacingSpanner}).  Cuanto más larga es la
-duración, más espacio recibe: al doblar una duración se añade un
-espacio de tamaño fijo (este tamaño se controla mediante
-@code{spacing-increment}) a la nota.
+duraciones más largas reciben un espacio mayor y las duraciones
+más cortas reciben menos.  Las duraciones más breves reciben un
+espacio de tamaño fijo (que se controla mediante
+@code{shortest-duration-space} en el objeto
+@rinternals{SpacingSpanner}).  Cuanto más larga es la duración,
+más espacio recibe: al doblar una duración se suma
+@code{spacing-increment} al espacio que ocupa la nota.
 
-Por ejemplo, la pieza siguiente contiene numerosas blancas, negras y
-corcheas; la corchea va seguida de un ancho de cabeza de blanca (ACB).
-La negra va seguida de 2 ACB, la blanca por 3 ACB, etc.
+Por ejemplo, la pieza siguiente contiene numerosas blancas, negras
+y corcheas; la corchea va seguida de un ancho de cabeza de blanca
+(ACB).  La negra va seguida de 2 ACB, la blanca por 3 ACB, etc.
 
 @lilypond[quote,verbatim]
 \relative c' {
@@ -2980,35 +3001,36 @@ La negra va seguida de 2 ACB, la blanca por 3 ACB, etc.
 }
 @end lilypond
 
-Normalmente, el valor de @code{spacing-increment} está establecido en
-1.2 espacios de pentagrama, lo que es aproximadamente el ancho de una
-cabeza, y @code{shortest-duration-space} está establecido en 2.0, lo
-que significa que la nota más breve recibe 2.4 espacios de pentagrama
-(2.0 multiplicado por el @code{spacing-increment}) de espacio
-horizontal.  Este espacio se cuenta a partir del borde izquierdo del
-símbolo, de manera que las notas más breves van seguidas generalmente
-por un espacio de 1 ACB.
+Normalmente, el valor de @code{spacing-increment} está establecido
+en 1.2 espacios de pentagrama, lo que es aproximadamente el ancho
+de una cabeza, y @code{shortest-duration-space} está establecido
+en 2.0, lo que significa que la nota más breve recibe 2.4 espacios
+de pentagrama (2.0 multiplicado por el @code{spacing-increment})
+de espacio horizontal.  Este espacio se cuenta a partir del borde
+izquierdo del símbolo, de manera que las notas más breves van
+seguidas generalmente por un espacio de 1 ACB.
 
 Si siguiésemos el procedimiento anterior exactamente, entonces la
 adición de una sola fusa a una partitura que usa corcheas y
 semicorcheas, aumentaría enormemente la anchura de la partitura
-completa.  La nota más breve ya no es la semicorchea, sino la fusa,
-añadiendo así 1 ACB a cada una de las notas.  Para evitarlo, la
-duración más breve a efectos de espaciado no es la nota más breve de
-la partitura, sino la que ocurre con más frecuencia.
+completa.  La nota más breve ya no es la semicorchea, sino la
+fusa, añadiendo así 1 ACB a cada una de las notas.  Para evitarlo,
+la duración más breve a efectos de espaciado no es la nota más
+breve de la partitura, sino la que ocurre con más frecuencia.
 
-La duración más breve que es más común se determina de la siguiente
-manera: en cada compás se determina la duración más breve.  La menor
-duración más común se toma como base para el espaciado, habiendo
-estipulado que esta duración menor siempre debe ser igual o menor que
-una corchea.  La duración más breve se imprime cuando se ejecuta
-@code{lilypond} con la opción @option{--verbose}.
+La duración más breve que es más común se determina de la
+siguiente manera: en cada compás se determina la duración más
+breve.  La menor duración más común se toma como base para el
+espaciado, habiendo estipulado que esta duración menor siempre
+debe ser igual o menor que una corchea.  La duración más breve se
+imprime cuando se ejecuta @code{lilypond} con la opción
+@option{--verbose}.
 
-Estas duraciones también se pueden personalizar.  Si establecemos la
-@code{common-shortest-duration} en @rinternals{SpacingSpanner},
+Estas duraciones también se pueden personalizar.  Si establecemos
+la @code{common-shortest-duration} en @rinternals{SpacingSpanner},
 entonces éste establece la duración base para el espaciado.  La
-duración máxima para esta base (normalmente una corchea), se fija a
-través de @code{base-shortest-duration}.
+duración máxima para esta base (normalmente una corchea), se fija
+a través de @code{base-shortest-duration}.
 
 @funindex common-shortest-duration
 @funindex base-shortest-duration
@@ -3016,25 +3038,28 @@ través de @code{base-shortest-duration}.
 @funindex spacing
 
 Las notas que son aún más breves que la nota común más breve van
-seguidas por un espacio proporcional a su duración en relación con la
-nota común más breve.  Así pues, si fuésemos a añadir tan sólo algunas
-semicorcheas al ejemplo anterior, irían seguidas por medio ACB:
+seguidas por un espacio proporcional a su duración en relación con
+la nota común más breve.  Así pues, si fuésemos a añadir tan sólo
+algunas semicorcheas al ejemplo anterior, irían seguidas por medio
+ACB:
 
-@lilypond[quote,verbatim,relative=2]
-c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
+@lilypond[quote,verbatim]
+\relative { c''2 c4. c8 | c4. c16[ c] c4. c8 | c8 c c4 c c }
 @end lilypond
 
-En el @emph{Ensayo sobre grabado musical automatizado},
-se explicó que las
-direcciones de las plicas influyen en el espaciado
-(véase @ressay{Espaciado óptico}).  Esto se controla
-con la propiedad @code{stem-spacing-correction} en el objeto
+Como se explicó en el @emph{Ensayo sobre grabado musical
+automatizado}, las direcciones de las plicas influyen en el
+espaciado (véase @ressay{Espaciado óptico}) y se puede ajustar con
+la propiedad @code{stem-spacing-correction} del objeto
 @rinternals{NoteSpacing}.  Estos se generan para cada uno de los
-contextos de @rinternals{Voice}.  El objeto @code{StaffSpacing}
-(generado en el contexto de @rinternals{Staff}) contiene la misma
-propiedad para controlar el espaciado de las líneas de plica o
-divisorias.  El ejemplo siguiente muestra estas correcciones, una vez
-con los valores predeterminados y otra con correcciones exageradas:
+contextos de @rinternals{Voice}.
+
+El objeto @code{StaffSpacing} (generado en el contexto de
+@rinternals{Staff}) contiene la misma propiedad para controlar el
+espaciado de las líneas de plica o divisorias.
+
+El ejemplo siguiente muestra estas correcciones, una vez con los
+valores predeterminados y otra con un ajuste exagerado:
 
 @lilypond[quote,ragged-right]
 \fixed c' {
@@ -3064,34 +3089,37 @@ Referencia de funcionamiento interno:
 @rinternals{NonMusicalPaperColumn}.
 
 @knownissues
-No existe ningún mecanismo conveniente para sobreescribir el espaciado
-manualmente.  Se puede usar el siguiente rodeo para insertar espacio
-adicional en una partitura, ajustando el valor del relleno en la
-medida necesaria.
+No existe ningún mecanismo conveniente para sobreescribir el
+espaciado manualmente.  Se puede usar el siguiente rodeo para
+insertar espacio adicional en una partitura, ajustando el valor
+del relleno en la medida necesaria.
 
 @example
  \override Score.NonMusicalPaperColumn.padding = #10
 @end example
 
-No existe ningún rodeo para disminuir la magnitud de la separación.
+No existe ningún rodeo para disminuir la magnitud de la
+separación.
 
 
-@node Área de espaciado nueva
-@subsection Área de espaciado nueva
+@node Sección de espaciado nueva
+@subsection Sección de espaciado nueva
 @translationof New spacing section
 
 @funindex \newSpacingSection
-@cindex área de espaciado nueva
-@cindex espaciado, nueva área de
+@cindex sección de espaciado nueva
+@cindex espaciado, nueva seccción de
 @cindex notas, espaciar horizontalmente
 
 Se pueden iniciar secciones nuevas con diferentes parámetros de
-espaciado, con @code{newSpacingSection}.  Esto es útil cuando hay
-secciones que tienen distinta noción de las notas largas y cortas.
+espaciado, con la instrucción @code{newSpacingSection}.  Esto es
+útil para las secciones que tienen distinta noción de las notas
+@q{largas} y @q{cortas}.  La instrucción @code{\newSpacingSection}
+crea un nuevo objeto @code{SpacingSpanner} en ese momento musical.
 
 En el ejemplo siguiente, el cambio de compás introduce una sección
-nueva, y por ello las semicorcheas se separan automáticamente
-de manera ligeramente más amplia.
+nueva, y por ello las semicorcheas se separan automáticamente de
+manera ligeramente más amplia.
 
 @lilypond[verbatim,quote]
 \relative c' {
@@ -3104,13 +3132,11 @@ de manera ligeramente más amplia.
 }
 @end lilypond
 
-La instrucción @code{\newSpacingSection} crea un nuevo objeto
-@code{SpacingSpanner} en ese momento musical.  Si los ajustes de
-espaciado automáticos no dan el espaciado deseado, pueden
-aplicarse sobreescrituras manuales a sus propiedades con
-@code{\override}.  Las sobreescrituras se deben aplicar en el
-mismo momento musical que la propia instrucción
-@code{\newSpacingSection}.  Entonces afectarán al espaciado de
+Si los ajustes de espaciado automáticos no dan el espaciado
+deseado, pueden aplicarse sobreescrituras manuales a sus
+propiedades con @code{\override}.  Las sobreescrituras se deben
+aplicar en el mismo momento musical que la propia instrucción
+@code{\newSpacingSection} y afectarán entonces al espaciado de
 toda la música que venga a continuación hasta que las propiedades
 se cambien en una nueva sección de espaciado, por ejemplo:
 
@@ -3141,11 +3167,12 @@ Referencia de funcionamiento interno:
 @translationof Changing horizontal spacing
 
 Se puede alterar el espaciado horizontal con la propiedad
-@code{base-shortest-duration}.  Aquí compararemos la misma música, una
-vez sin alterar la propiedad, y luego alterándola.  Los valores
-mayores de @code{ly:make-moment} producen música más pequeña.  Observe
-que @code{ly:make-moment} construye una duración, por lo que @code{1
-4} es una duración mayor que @code{1 16}.
+@code{base-shortest-duration}.  Aquí compararemos la misma música,
+una vez sin alterar la propiedad, y luego alterándola.  Los
+valores mayores de @code{ly:make-moment} producen música más
+pequeña.  Observe que @code{ly:make-moment} construye una
+duración, por lo que @code{1 4} es una duración mayor que @code{1
+16}.
 
 @lilypond[verbatim,line-width=12\cm]
 \score {
@@ -3181,8 +3208,8 @@ De forma predeterminada, el espaciado en los grupos de valoración
 especial depende de varios factores ajenos a la duración (como
 alteraciones, cambios de clave, etc.).  Para pasar por alto estos
 símbolos y forzar un espaciado de duraciones iguales uniforme, use
-@code{Score.SpacingSpanner.uniform-stretching}.  Esta propiedad sólo
-puede cambiarse al principio de la partitura:
+@code{Score.SpacingSpanner.uniform-stretching}.  Esta propiedad
+sólo puede cambiarse al principio de la partitura:
 
 @lilypond[quote,ragged-right,verbatim]
 \score {
@@ -3203,8 +3230,9 @@ puede cambiarse al principio de la partitura:
 }
 @end lilypond
 
-Cuando se establece @code{strict-note-spacing}, las notas se separan
-sin tener en cuenta las claves, líneas divisorias ni notas de adorno:
+Cuando se establece @code{strict-note-spacing}, las notas se
+separan sin tener en cuenta las claves, líneas divisorias ni notas
+de adorno:
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \override Score.SpacingSpanner.strict-note-spacing = ##t
@@ -3219,7 +3247,7 @@ Fragmentos de código:
 
 @node Longitud de la línea
 @subsection Longitud de la línea
-@translationof Line length
+@translationof Line width
 
 @cindex saltos de página
 @cindex página, saltos de
@@ -3234,28 +3262,29 @@ Fragmentos de código:
 @c Setting indent in \paper block makes not much sense, but it works.
 
 @c Bit verbose and vague, use examples?
-Los ajustes más básicos que influyen en el espaciado son @code{indent}
-y @code{line-width}.  Se definen en el bloque @code{\layout}.
-Controlan el sangrado de la primera línea de música y la longitud de
-las líneas.
+Los ajustes más básicos que influyen en el espaciado son
+@code{indent} y @code{line-width}.  Se definen en el bloque
+@code{\layout}.  Controlan el sangrado de la primera línea de
+música y la longitud de las líneas.
 
-Si se fija un valor verdadero para @code{ragged-right} en el bloque
-@code{\layout}, entonces los sistemas terminan en su longitud
-horizontal natural, en lugar de repartirse horizontalmente hasta
-llenar toda la línea.  Esto es útil para fragmentos cortos, y para
-comprobar qué tan apretado es el espaciado natural.
-El valor normal predeterminado es falso, pero si la partitura
-tiene un solo sistema, el valor predeterminado es verdadero.
+Si se fija un valor verdadero para @code{ragged-right} en el
+bloque @code{\layout}, entonces los sistemas terminan en su
+longitud horizontal natural, en lugar de repartirse
+horizontalmente hasta llenar toda la línea.  Esto es útil para
+fragmentos cortos, y para comprobar qué tan apretado es el
+espaciado natural.  El valor normal predeterminado es falso, pero
+si la partitura tiene un solo sistema, el valor predeterminado es
+verdadero.
 
 @cindex diseño de página
 @cindex página, disposición de la
 @cindex vertical, espaciado
 
-La opción @code{ragged-last} es similar a @code{ragged-right}, pero
-afecta sólo a la última línea de la pieza.  No se efectúa ninguna
-restricción sobre dicha línea.  El resultado es similar al formateo de
-los párrafos de texto.  En un párrafo, la última línea sencillamente
-ocupa su longitud horizontal natural.
+La opción @code{ragged-last} es similar a @code{ragged-right},
+pero afecta sólo a la última línea de la pieza.  No se efectúa
+ninguna restricción sobre dicha línea.  El resultado es similar al
+formateo de los párrafos de texto.  En un párrafo, la última línea
+sencillamente ocupa su longitud horizontal natural.
 @c Note that for text there are several options for the last line.
 @c While Knuth TeX uses natural length, lead typesetters use the same
 @c stretch as the previous line.  eTeX uses \lastlinefit to
@@ -3280,12 +3309,13 @@ Fragmentos de código:
 
 LilyPond contempla la notación proporcional, un tipo de espaciado
 horizontal en el que cada nota consume una medida horizontal que
-equivale exactamente a su duración rítmica.  Este tipo de espaciado
-proporcional es comparable al espaciado horizontal hecho sobre un
-papel milimetrado.  Ciertas partituras del finales del s.XX y
-principios del s.XXI utilizan notación proporcional para clarificar
-relaciones rítmicas complejas o para facilitar la colocación de líneas
-cronométricas u otros gráficos directamente en la partitura.
+equivale exactamente a su duración rítmica.  Este tipo de
+espaciado proporcional es comparable al espaciado horizontal hecho
+sobre un papel milimetrado.  Ciertas partituras del finales del
+s.XX y principios del s.XXI utilizan notación proporcional para
+clarificar relaciones rítmicas complejas o para facilitar la
+colocación de líneas cronométricas u otros gráficos directamente
+en la partitura.
 
 LilyPond contempla cinco ajustes distintos para la notación
 proporcional, que se pueden usar solos o combinados:
@@ -3298,32 +3328,36 @@ proporcional, que se pueden usar solos o combinados:
 @item @code{\override PaperColumn.used = ##t}
 @end itemize
 
-En los ejemplos que siguen, exploramos el uso de estos cinco ajustes
-de la notación proporcional y examinamos la forma en que interactúan.
+En los ejemplos que siguen, exploramos el uso de estos cinco
+ajustes de la notación proporcional y examinamos la forma en que
+interactúan.
 
 Comenzamos con el siguiente ejemplo de un solo compás, que usa un
 espaciado clásico sin justificación por la derecha.
 
+@c The initial pitch is not necessary as long as RhythmicStaff is
+@c not preceded by other material in the score, but we don't want
+@c to explain that.
 @lilypond[quote,verbatim,ragged-right]
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
   >>
 }
 @end lilypond
 
 Observe que la blanca que inicia el compás ocupa mucho menos de la
-mitad de todo el espacio horizontal del compás.  De forma similar, las
-semicorcheas y el cinquillo de semicorcheas con que finaliza el compás
-ocupan en conjunto mucho más de la mitad de todo el espacio horizontal
-del compás.
+mitad de todo el espacio horizontal del compás.  De forma similar,
+las semicorcheas y el cinquillo de semicorcheas con que finaliza
+el compás ocupan en conjunto mucho más de la mitad de todo el
+espacio horizontal del compás.
 
 En el grabado clásico, este espaciado puede ser exactamente el que
 deseamos porque podemos tomar prestado el espacio horizontal de la
-blanca y conservar el espacio horizontal a lo largo del compás como un
-todo.
+blanca y conservar el espacio horizontal a lo largo del compás
+como un todo.
 
 Por otro lado, si queremos insertar una línea de tiempo graduada o
 algún otro gráfico encima o debajo de la partitura, necesitamos la
@@ -3334,7 +3368,7 @@ ajuste @code{proportionalNotationDuration}.
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
   >>
  \layout {
@@ -3346,43 +3380,45 @@ ajuste @code{proportionalNotationDuration}.
 }
 @end lilypond
 
-La blanca al principio del compás y las notas rápidas de la segunda
-mitad del compás ocupan ahora cantidades iguales de espacio
-horizontal.  Podríamos colocar una línea de tiempo graduada o un
-gráfico encima o debajo de este ejemplo.
+La blanca al principio del compás y las notas rápidas de la
+segunda mitad del compás ocupan ahora cantidades iguales de
+espacio horizontal.  Podríamos colocar una línea de tiempo
+graduada o un gráfico encima o debajo de este ejemplo.
 
-El ajuste @code{proportionalNotationDuration} es un ajuste de contexto
-que reside en @code{Score}.  Recordemos que los ajustes de contexto
-aparecen en uno de tres posibles lugares del archivo de entrada: en un
-bloque @code{\with}, en un bloque @code{\context}, o directamente
-entre la música precedido por la instrucción @code{\set}.  Como con
-todos los ajustes de contexto, el usuario puede elegir en cuál de los
-tres lugares diferentes prefiere establecer el valor de
+El ajuste @code{proportionalNotationDuration} es un ajuste de
+contexto que reside en @code{Score}.  Recordemos que los ajustes
+de contexto aparecen en uno de tres posibles lugares del archivo
+de entrada: en un bloque @code{\with}, en un bloque
+@code{\context}, o directamente entre la música precedido por la
+instrucción @code{\set}.  Como con todos los ajustes de contexto,
+el usuario puede elegir en cuál de los tres lugares diferentes
+prefiere establecer el valor de
 @code{proportionalNotationDuration}.
 
 El ajuste @code{proportionalNotationDuration} acepta un solo
-argumento, que es la duración de referencia contra el que se aplica el
-espaciado de toda la música.  La función Scheme de LilyPond
-@code{make-moment} acepta dos argumentos: un numerador y un
-denominador que, juntos, expresan una cierta fracción de redonda.  La
-llamada @code{(ly:make-moment 1/20)}, por tanto, produce una duración
-de referencia de una nota de un veinteavo de redonda (semicorcheas de
-cinquillo).  Son también posibles valores como
-@code{(ly:make-moment 1/16)},
-@code{(ly:make-moment 1/8)} y @code{(ly:make-moment 3/97)}.
+argumento, que es la duración de referencia contra el que se
+aplica el espaciado de toda la música.  La función Scheme de
+LilyPond @code{make-moment} acepta dos argumentos: un numerador y
+un denominador que, juntos, expresan una cierta fracción de
+redonda.  La llamada @code{(ly:make-moment 1/20)}, por tanto,
+produce una duración de referencia de una nota de un veinteavo de
+redonda (semicorcheas de cinquillo).  Son también posibles valores
+como @code{(ly:make-moment 1/16)}, @code{(ly:make-moment 1/8)} y
+@code{(ly:make-moment 3/97)}.
 
-¿Cómo seleccionamos la duración correcta de referencia para pasarla a
-@code{proportionalNotationDuration}?  Normalmente mediante un proceso
-de ensayo y error, comenzando con una duración cercana a la más rápida
-(o más breve) duración de la pieza.  Las duraciones de referencia más
-pequeñas aplican un espaciado más suelto; las duraciones de referencia
-más largas aplican un espaciado más apretado.
+¿Cómo seleccionamos la duración correcta de referencia para
+pasarla a @code{proportionalNotationDuration}?  Normalmente
+mediante un proceso de ensayo y error, comenzando con una duración
+cercana a la más rápida (o más breve) duración de la pieza.  Las
+duraciones de referencia más pequeñas aplican un espaciado más
+suelto; las duraciones de referencia más largas aplican un
+espaciado más apretado.
 
 @lilypond[quote,verbatim,ragged-right]
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
   >>
   \layout {
@@ -3396,7 +3432,7 @@ más largas aplican un espaciado más apretado.
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
   >>
   \layout {
@@ -3410,7 +3446,7 @@ más largas aplican un espaciado más apretado.
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
   >>
   \layout {
@@ -3423,48 +3459,48 @@ más largas aplican un espaciado más apretado.
 @end lilypond
 
 Observe que una duración de referencia demasiado grande (como la
-corchea, en el ejemplo de arriba) produce un espaciado excesivamente
-apretado y puede ser causa de colisiones entre las cabezas de nota.
-Observe también que la notación proporcional en general ocupa más
-espacio horizontal que el espaciado clásico.  El espaciado
-proporcional aporta claridad rítmica a expensas del espacio
-horizontal.
+corchea, en el ejemplo de arriba) produce un espaciado
+excesivamente apretado y puede ser causa de colisiones entre las
+cabezas de nota.  Observe también que la notación proporcional en
+general ocupa más espacio horizontal que el espaciado clásico.  El
+espaciado proporcional aporta claridad rítmica a expensas del
+espacio horizontal.
 
 Ahora veremos cómo espaciar de forma óptima grupos de valoración
 especial que se superponen.
 
-Empezamos por examinar qué le ocurre a nuestro ejemplo original, con
-espaciado clásico, cuando añadimos un segundo pentagrama con un tipo
-diferente de grupo especial.
+Empezamos por examinar qué le ocurre a nuestro ejemplo original,
+con espaciado clásico, cuando añadimos un segundo pentagrama con
+un tipo diferente de grupo especial.
 
 @lilypond[quote,verbatim,ragged-right]
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
     \new RhythmicStaff {
-      \tuplet 9/8 { c'8 c' c' c' c' c' c' c' c' }
+      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
     }
   >>
 }
 @end lilypond
 
-El espaciado es defectuoso porque las notas regularmente espaciadas
-del pentagrama inferior no se amplían de manera uniforme.  Los grabados
-clásicos incluyen muy pocos tresillos complejos y así las reglas del
-grabado clásico pueden generar este tipo de resultado.  El
-establecimiento de @code{proportionalNotationDuration} lo
-soluciona.
+El espaciado es defectuoso porque las notas regularmente
+espaciadas del pentagrama inferior no se amplían de manera
+uniforme.  Los grabados clásicos incluyen muy pocos tresillos
+complejos y así las reglas del grabado clásico pueden generar este
+tipo de resultado.  El establecimiento de
+@code{proportionalNotationDuration} lo soluciona.
 
 @lilypond[quote,verbatim,ragged-right]
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
     \new RhythmicStaff {
-      \tuplet 9/8 { c'8 c' c' c' c' c' c' c' c' }
+      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
     }
   >>
   \layout {
@@ -3476,20 +3512,20 @@ soluciona.
 }
 @end lilypond
 
-Pero si observamos con mucho cuidado podremos ver que las notas de la
-segunda mitad del 9-illo están espaciadas de forma ligeramente más
-ancha que las de la primera mitad del 9-illo.  Para asegurar una
-ampliación uniforme, activamos @code{uniform-stretching}, que es una
-propiedad de @code{SpacingSpanner}.
+Pero si observamos con mucho cuidado podremos ver que las notas de
+la segunda mitad del 9-illo están espaciadas de forma ligeramente
+más ancha que las de la primera mitad del 9-illo.  Para asegurar
+una ampliación uniforme, activamos @code{uniform-stretching}, que
+es una propiedad de @code{SpacingSpanner}.
 
 @lilypond[quote,verbatim,ragged-right]
 \score {
   <<
     \new RhythmicStaff {
-      c'2 c'16 c' c' c' \tuplet 5/4 { c'16 c' c' c' c' }
+      c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 }
     }
     \new RhythmicStaff {
-      \tuplet 9/8 { c'8 c' c' c' c' c' c' c' c' }
+      \tuplet 9/8 { c8 8 8 8 8 8 8 8 8 }
     }
   >>
   \layout {
@@ -3502,39 +3538,43 @@ propiedad de @code{SpacingSpanner}.
 }
 @end lilypond
 
-Nuestro ejemplo de dos pentagramas ahora está espaciado exactamente,
-nuestras relaciones rítmicas son visualmente claras, y podemos incluir
-una línea de tiempo graduada o un gráfico, si queremos.
+Nuestro ejemplo de dos pentagramas ahora está espaciado
+exactamente, nuestras relaciones rítmicas son visualmente claras,
+y podemos incluir una línea de tiempo graduada o un gráfico, si
+queremos.
 
-Observe que el paquete de notación proporcional de LilyPond espera que
-todas las partituras proporcionales establezcan el atributo
-@code{uniform-stretching} de @code{SpacingSpanner} al valor ##t.  El
-establecimiento de @code{proportionalNotationDuration} sin ajustar
-también el atributo @code{uniform-stretching} de @code{SpacingSpanner}
-al valor ##t causará, por ejemplo, que los desplazamientos
-(@code{skips}) consuman una cantidad de espacio horizontal incorrecta.
+Observe que el paquete de notación proporcional de LilyPond espera
+que todas las partituras proporcionales establezcan el atributo
+@code{uniform-stretching} de @code{SpacingSpanner} al valor ##t.
+El establecimiento de @code{proportionalNotationDuration} sin
+ajustar también el atributo @code{uniform-stretching} de
+@code{SpacingSpanner} al valor ##t causará, por ejemplo, que los
+desplazamientos (@code{skips}) consuman una cantidad de espacio
+horizontal incorrecta.
 
 El @code{SpacingSpanner} es un grob abstracto que reside en el
 contexto de @code{Score}. Como con nuestros ajustes de
 @code{proportionalNotationDuration}, las sobreescrituras al
-@code{SpacingSpanner} sólo pueden ocurrir en uno de estos tres lugares
-dentro del archivo de entrada: en el bloque @code{\with}, en el bloque
-@code{\context} o directamente dentro de la escritura de notas.
+@code{SpacingSpanner} sólo pueden ocurrir en uno de estos tres
+lugares dentro del archivo de entrada: en el bloque @code{\with},
+en el bloque @code{\context} o directamente dentro de la escritura
+de notas.
 
 De manera predeterminada, sólo hay un @code{SpacingSpanner} por
-@code{Score}.  Esto supone que, por omisión, @code{uniform-stretching}
-está activado para la partitura completa o desactivado para la
-partitura completa.  Sin embargo, podemos sobreescribir este
-comportamiento y activar distintas posibilidades de espaciado en
-distintos lugares de la partitura.  Lo hacemos con la instrucción
-@code{\newSpacingSection}.  Consulte @ref{Área de espaciado nueva}
-para más información.
+@code{Score}.  Esto supone que, por omisión,
+@code{uniform-stretching} está activado para la partitura completa
+o desactivado para la partitura completa.  Sin embargo, podemos
+sobreescribir este comportamiento y activar distintas
+posibilidades de espaciado en distintos lugares de la partitura.
+Lo hacemos con la instrucción @code{\newSpacingSection}.  Consulte
+@ref{Sección de espaciado nueva} para más información.
 
 A continuación examinamos los efectos del grabador
-@code{Separating_line_group_engraver} y veremos por qué las partituras
-proporcionales con frecuencia eliminan este grabador.  El ejemplo
-siguiente muestra que hay una pequeña cantidad de espacio
-@qq{preliminar} justo antes de la primera nota de cada sistema.
+@code{Separating_line_group_engraver} y veremos por qué las
+partituras proporcionales con frecuencia eliminan este grabador.
+El ejemplo siguiente muestra que hay una pequeña cantidad de
+espacio @qq{preliminar} justo antes de la primera nota de cada
+sistema.
 
 @lilypond[quote,verbatim,ragged-right]
 \paper {
@@ -3550,9 +3590,9 @@ siguiente muestra que hay una pequeña cantidad de espacio
 
 Esta cantidad de espacio preliminar es la misma ya sea después de
 una indicación de compás, una armadura o una clave.  El grabador
-@code{Separating_line_group_engraver} es responsable de este espacio.
-La eliminación de @code{Separating_line_group_engraver} reduce este
-espacio a cero.
+@code{Separating_line_group_engraver} es responsable de este
+espacio.  La eliminación de @code{Separating_line_group_engraver}
+reduce este espacio a cero.
 
 @lilypond[quote,verbatim,ragged-right]
 \paper {
@@ -3568,36 +3608,38 @@ espacio a cero.
 }
 @end lilypond
 
-Los elementos no musicales como la indicación de compás, la armadura,
-la clave y las alteraciones son problemáticos en notación
-proporcional.  Ninguno de estos elementos tiene duración rítmica.
-Pero todos ellos consumen espacio horizontal.  Las distintas
-partituras proporcionales abordan este problema de distinta manera.
+Los elementos no musicales como la indicación de compás, la
+armadura, la clave y las alteraciones son problemáticos en
+notación proporcional.  Ninguno de estos elementos tiene duración
+rítmica.  Pero todos ellos consumen espacio horizontal.  Las
+distintas partituras proporcionales abordan este problema de
+distinta manera.
 
 Sería posible evitar los problemas de espaciado con las armaduras,
-simplemente evitando tenerlas.  Esta es una opción válida pues casi
-todas las partituras proporcionales son música contemporánea.  Lo
-mismo puede valer para las indicaciones de compás, especialmente para
-las partituras que incluyen una línea de tiempo graduada u otro
-gráfico.  Pero estas partituras son excepcionales y casi todas las
-partituras proporcionales incluyen al menos unas pocas indicaciones de
-compás.  Las claves y las alteraciones son aún más esenciales.
+simplemente evitando tenerlas.  Esta es una opción válida pues
+casi todas las partituras proporcionales son música contemporánea.
+Lo mismo puede valer para las indicaciones de compás,
+especialmente para las partituras que incluyen una línea de tiempo
+graduada u otro gráfico.  Pero estas partituras son excepcionales
+y casi todas las partituras proporcionales incluyen al menos unas
+pocas indicaciones de compás.  Las claves y las alteraciones son
+aún más esenciales.
 
-Así pues ¿qué estrategias existen para el espaciado de los elementos
-no musicales en un contexto proporcional?  Una buena opción es la
-propiedad @code{strict-note-spacing} de @code{SpacingSpanner}.
-Compare las dos partituras siguientes:
+Así pues ¿qué estrategias existen para el espaciado de los
+elementos no musicales en un contexto proporcional?  Una buena
+opción es la propiedad @code{strict-note-spacing} de
+@code{SpacingSpanner}.  Compare las dos partituras siguientes:
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff {
   \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
-  c''8 c'' c'' \clef alto d' d'2
+  c''8 8 8 \clef alto d'2 2
 }
 
 \new Staff {
   \set Score.proportionalNotationDuration = #(ly:make-moment 1/16)
   \override Score.SpacingSpanner.strict-note-spacing = ##t
-  c''8 c'' c'' \clef alto d' d'2
+  c''8 8 8 \clef alto d'2 2
 }
 @end lilypond
 
@@ -3605,9 +3647,9 @@ Las dos partituras son proporcionales, pero el espaciado de la
 primera es muy suelto a causa del cambio de clave. Sin embargo, el
 espaciado de la segunda partitura se mantiene estricto, porque
 @code{strict-note-spacing} está activado.  La activación de
-@code{strict-note-spacing} hace que el ancho de las indicaciones de
-compás, armaduras, cambios de clave y alteraciones no tomen parte en
-el algoritmo de espaciado.
+@code{strict-note-spacing} hace que el ancho de las indicaciones
+de compás, armaduras, cambios de clave y alteraciones no tomen
+parte en el algoritmo de espaciado.
 
 Además de los ajustes dados aquí, hay otros que aparecen con
 frecuencia en las partituras proporcionales.  Entre ellos están:
@@ -3622,14 +3664,15 @@ frecuencia en las partituras proporcionales.  Entre ellos están:
 @end itemize
 
 Estos ajustes dan a las notas de adorno un espaciado estricto,
-extienden los corchetes de grupo especial para que marquen tanto los
-puntos de comienzo como de final, y permiten que los elementos de
-extensión se dividan entre los sistemas y las páginas.  Consulte las
-partes respectivas del manual para ver estos ajustes relacionados.
+extienden los corchetes de grupo especial para que marquen tanto
+los puntos de comienzo como de final, y permiten que los elementos
+de extensión se dividan entre los sistemas y las páginas.
+Consulte las partes respectivas del manual para ver estos ajustes
+relacionados.
 
 @seealso
 Referencia de la notación:
-@ref{Área de espaciado nueva}.
+@ref{Sección de espaciado nueva}.
 
 Fragmentos de código:
 @rlsr{Spacing}.
@@ -3641,13 +3684,14 @@ Fragmentos de código:
 
 En ocasiones, podemos terminar con uno o dos pentagramas en una
 segunda página (o tercera, o cuarta@dots{}).  Es fastidioso,
-especialmente cuando vemos que las páginas anteriores parecen tener
-espacio de sobra.
+especialmente cuando vemos que las páginas anteriores parecen
+tener espacio de sobra.
 
-Al investigar los problemas de disposición, una herramienta de valor
-incalculable es @code{annotate-spacing}.  Esta instrucción imprime los
-valores de un cierto número de variables de espaciado; para ver más
-detalles consulte la sección siguiente, @ref{Mostrar el espaciado}.
+Al investigar los problemas de disposición, una herramienta de
+valor incalculable es @code{annotate-spacing}.  Esta instrucción
+imprime los valores de un cierto número de variables de espaciado;
+para ver más detalles consulte la sección siguiente,
+@ref{Mostrar el espaciado}.
 
 @menu
 * Mostrar el espaciado::
@@ -3663,8 +3707,9 @@ detalles consulte la sección siguiente, @ref{Mostrar el espaciado}.
 @funindex annotate-spacing
 
 Para presentar gráficamente las dimensiones de las variables de
-disposición vertical que pueden verse alteradas por el formato de la
-página, establezca @code{annotate-spacing} en el bloque @code{\paper}:
+disposición vertical que pueden verse alteradas por el formato de
+la página, establezca @code{annotate-spacing} en el bloque
+@code{\paper}:
 
 @lilypond[verbatim,quote,papersize=a6landscape]
 \book {
@@ -3675,11 +3720,12 @@ página, establezca @code{annotate-spacing} en el bloque @code{\paper}:
 
 @noindent
 Todas las dimensiones de disposición se muestran en espacios de
-pentagrama, independientemente de las unidades especificadas en los
-bloques @code{\paper} o @code{\layout}. En el ejemplo anterior,
-@code{paper-height} tiene un valor de 59.75 @code{staff-spaces}
-(espacios de pentagrama), y el @code{staff-size} (tamaño del
-pentagrama) es de 20 puntos, el valor predeterminado. Observe que:
+pentagrama, independientemente de las unidades especificadas en
+los bloques @code{\paper} o @code{\layout}. En el ejemplo
+anterior, @code{paper-height} tiene un valor de 59.75
+@code{staff-spaces} (espacios de pentagrama), y el
+@code{staff-size} (tamaño del pentagrama) es de 20 puntos, el
+valor predeterminado. Observe que:
 
 @multitable {1 staff-space} {staff-size)/4 * (25.4/72.27) mm}
 
@@ -3696,10 +3742,10 @@ pentagrama) es de 20 puntos, el valor predeterminado. Observe que:
 @noindent
 En este caso, un @code{staff-space} equivale aproximadamente a
 1.757mm.  Así, la medida @code{paper-height} de 59.75
-@code{staff-spaces} equivale a 105 milímetros, la altura de una hoja
-@code{a6} en orientación apaisada.  Las parejas (@var{a},@var{b}) son
-intervalos, donde @var{a} es el límite inferior y @var{b} es el límite
-superior del intervalo.
+@code{staff-spaces} equivale a 105 milímetros, la altura de una
+hoja @code{a6} en orientación apaisada.  Las parejas
+(@var{a},@var{b}) son intervalos, donde @var{a} es el límite
+inferior y @var{b} es el límite superior del intervalo.
 
 @seealso
 Referencia de la notación:
@@ -3713,19 +3759,20 @@ Fragmentos de código:
 @subsection Cambiar el espaciado
 @translationof Changing spacing
 
-La salida de @code{annotate-spacing} revela las dimensiones verticales
-con gran detalle.  Para ver más detalles acerca de la modificación de
-los márgenes y otras variables de diseño de la página, consulte
-@ref{Disposición de la página}.
+La salida de @code{annotate-spacing} revela las dimensiones
+verticales con gran detalle.  Para ver más detalles acerca de la
+modificación de los márgenes y otras variables de diseño de la
+página, consulte @ref{Disposición de la página}.
 
-Aparte de los márgenes, hay algunas otras opciones para ahorrar espacio:
+Aparte de los márgenes, hay algunas otras opciones para ahorrar
+espacio:
 
 @itemize
 @item
 Forzar los sistemas para que se junten lo más posible entre sí (de
-forma que quepan la mayor cantidad de ellos en la página) y al mismo
-tiempo estén espaciados de forma que no exista un espacio vacío en la
-parte baja del papel.
+forma que quepan la mayor cantidad de ellos en la página) y al
+mismo tiempo estén espaciados de forma que no exista un espacio
+vacío en la parte baja del papel.
 
 @example
 \paper @{
@@ -3736,16 +3783,17 @@ parte baja del papel.
 @end example
 
 @item
-Forzar el número de sistemas.  Puede ser de utilidad de dos formas.
-Si tan sólo se establece un valor, incluso el mismo valor que el
-número de sistemas que se están trazando de forma predeterminada, ello
-ocasionará a veces que se traten de introducir más sistemas en cada
-página, pues en este caso se omite un paso en que se produce una
-estimación, dando así un encaje mejor en cada página.  Asimismo, el
-forzar una reducción neta en el número de sistemas puede producir el
-ahorro de una página adicional.  Por ejemplo, si la disposición
-predeterminada tiene 11 sistemas, la asignación siguiente fuerza una
-disposición con 10 sistemas.
+Forzar el número de sistemas.  Puede ser de utilidad de dos
+formas.  Si tan sólo se establece un valor, incluso el mismo valor
+que el número de sistemas que se están trazando de forma
+predeterminada, ello ocasionará a veces que se traten de
+introducir más sistemas en cada página, pues en este caso se omite
+un paso en que se produce una estimación, dando así un encaje
+mejor en cada página.  Asimismo, el forzar una reducción neta en
+el número de sistemas puede producir el ahorro de una página
+adicional.  Por ejemplo, si la disposición predeterminada tiene 11
+sistemas, la asignación siguiente fuerza una disposición con 10
+sistemas.
 
 @example
 \paper @{
@@ -3754,8 +3802,8 @@ disposición con 10 sistemas.
 @end example
 
 @item
-Forzar el número de páginas.  Por ejemplo, la asignación
-siguiente fuerza una disposición con dos páginas.
+Forzar el número de páginas.  Por ejemplo, la asignación siguiente
+fuerza una disposición con dos páginas.
 
 @example
 \paper @{
@@ -3765,13 +3813,13 @@ siguiente fuerza una disposición con dos páginas.
 
 @item
 Evitar (o reducir en número) los objetos que aumentan el tamaño
-vertical de un sistema.  Por ejemplo, las repeticiones de primera y
-segunda vez (o repeticiones con finales alternativos) necesitan
-espacio adicional.  Si estas repeticiones se reparten a lo largo de
-dos sistemas, ocupan más espacio que un sistema con las casillas de
-repetición y otro sistema sin ellas.  Por ejemplo, las indicaciones
-dinámicas que se @q{salen} de un sistema se pueden acercar al
-pentagrama:
+vertical de un sistema.  Por ejemplo, los corchetes de las
+repeticiones de primera y segunda vez (o repeticiones con finales
+alternativos) necesitan espacio adicional.  Si estas casillas se
+reparten a lo largo de dos sistemas, ocupan más espacio que si
+estuvieran sobre el mismo sistema.  Como otro ejemplo, las
+indicaciones dinámicas que se @q{salen} de un sistema se pueden
+acercar al pentagrama:
 
 @lilypond[verbatim,quote]
 \relative e' {
@@ -3781,9 +3829,10 @@ pentagrama:
 @end lilypond
 
 @item
-Alterar el espaciado horizontal por medio de @code{SpacingSpanner}.
-Para ver más detalles, consulte @ref{Cambiar el espaciado horizontal}.
-El ejemplo siguiente ilustra el espaciado predeterminado:
+Alterar el espaciado horizontal por medio de
+@code{SpacingSpanner}.  Para ver más detalles, consulte
+@ref{Cambiar el espaciado horizontal}.  El ejemplo siguiente
+ilustra el espaciado predeterminado:
 
 @lilypond[verbatim,quote]
 \score {
@@ -3798,10 +3847,10 @@ El ejemplo siguiente ilustra el espaciado predeterminado:
 @end lilypond
 
 @noindent
-El ejemplo siguiente modifica @code{common-shortest-duration} de un
-valor de @code{1/4} (negra) a @code{1/2} (blanca).  La negra es la
-nota más común y la más breve del ejemplo, por lo que al agrandar esta
-duración se produce un efecto de @q{apretujamiento}:
+El ejemplo siguiente modifica @code{common-shortest-duration} de
+un valor de @code{1/4} (negra) a @code{1/2} (blanca).  La negra es
+la nota más común y la más breve del ejemplo, por lo que al
+agrandar esta duración se produce un efecto de @q{apretujamiento}:
 
 @lilypond[verbatim,quote]
 \score {
@@ -3823,8 +3872,8 @@ duración se produce un efecto de @q{apretujamiento}:
 @end lilypond
 
 @noindent
-La propiedad @code{common-shortest-duration} no se puede modificar de
-manera dinámica, por lo que se debe situar siempre dentro de un
+La propiedad @code{common-shortest-duration} no se puede modificar
+de manera dinámica, por lo que se debe situar siempre dentro de un
 bloque @code{\context} de forma que se aplique a la partitura
 completa.
 

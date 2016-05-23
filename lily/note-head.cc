@@ -211,5 +211,6 @@ ADD_INTERFACE (Note_head,
                "glyph-name "
                "stem-attachment "
                "style "
+               "ledger-positions "
               );
 

@@ -41,7 +41,7 @@ protected:
   virtual void disconnect_from_context ();
   virtual void initialize ();
   virtual void finalize ();
-  virtual void announce_grob (Grob_info);
+  virtual void announce_grob (Grob_info, Direction dir, Context *reroute_context = 0);
   void stop_translation_timestep ();
 
   /*

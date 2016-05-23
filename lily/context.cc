@@ -49,9 +49,13 @@ Context::check_removal ()
       ctx->check_removal ();
       if (ctx->is_removable ())
         {
-          recurse_over_translators (ctx, &Translator::finalize,
-                                    &Translator_group::finalize,
-                                    UP);
+          recurse_over_translators
+            (ctx,
+             Callback0_wrapper::make_smob
+             <Translator, &Translator::finalize> (),
+             Callback0_wrapper::make_smob
+             <Translator_group, &Translator_group::finalize> (),
+             UP);
           send_stream_event (ctx, "RemoveContext", 0, 0);
         }
     }

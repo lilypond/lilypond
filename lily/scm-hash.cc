@@ -69,9 +69,13 @@ Scheme_hash_table::set (SCM k, SCM v)
 SCM
 Scheme_hash_table::get (SCM k) const
 {
-  /* SCM_UNSPECIFIED will stick out like a sore thumb, hopefully.
+  /* SCM_UNDEFINED is the default for unset elements, but
+     scm_hashq_ref cannot return it, so we do it a bit more awkwardly.
   */
-  return scm_hashq_ref (hash_tab (), k, SCM_UNSPECIFIED);
+  SCM handle = scm_hashq_get_handle (hash_tab (), k);
+  if (scm_is_pair (handle))
+    return scm_cdr (handle);
+  return SCM_UNDEFINED;
 }
 
 void

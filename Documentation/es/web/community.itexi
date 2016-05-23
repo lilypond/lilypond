@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 99ce5fc4bd1169e8fa33855b3a13bc68f08fbe0b
+    Translation of GIT committish: 7f4a65db65f3a8eba89cc9d78101f3f7fd71a5e9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -379,7 +379,7 @@ El código que sigue ¿es un ejemplo mínimo?
 
 @example
 \version "2.14.1"
-\include "espanol.ly"
+\include "español.ly"
 
 \score @{
   \new Staff @{
@@ -788,7 +788,7 @@ Las pruebas de lilypond-book de esta versión.
 @itemize
 @item @uref{http://lilypond.org/test, Comparaciones entre pruebas de regresión}
 
-@item @uref{http://lilypond.org/download/binaries/test-output/,
+@item @uref{http://lilypond.org/downloads/binaries/test-output/,
 Archivo de todas las pruebas de regresión}
 
 @end itemize
@@ -934,19 +934,46 @@ envíenos un correo a la lista de desarrolladores (véase
 @divClass{column-center-bottom}
 @subheading Lista de ideas del proyecto
 
-Más abajo aparece una lista de los proyectos que fue inicialmente
-sugerida para el GSoC 2012.  Se mantiene aquí como inspiración
-para futuros proyectos del GSoC y para cualquier persona
-interesada en el desarrollo de LilyPond.
+Más abajo aparece una lista de los proyectos sugeridos para el
+GSoC o para cualquier persona interesada en ayudar a mejorar
+LilyPond. (Última actualización: febrero de 2016)
 
-Observe que no es una lista exhaustiva.  También son posibles
-otros proyectos de GSoC.  Existen varias áreas en las que LilyPond
-puede mejorar y el equipo de desarrollo de LilyPond está siempre
-dispuesto a servir de ayuda a aquellos que deseen implicarse en un
-proyecto como los que aparecen relacionados más abajo.
+La disponibilidad de los mentores varía de proyecto en proyecto y
+de un año a otro.  Envíenos un correo electrónico sobre nuestra
+lista de distribución de desarrolladores (véase @ref{Contacto}), y
+trataremos de ayudarle a encontrar un mentor para un proyecto que
+cubra sus intereses y capacidades.
+
+Si tiene alguna idea para un proyecto del GSoC que no aparece en
+la relación siguiente, puede enviarnos un correo también.  Existen
+varias áreas en las que LilyPond puede mejorar, y nuestro equipo
+de desarrollo está siempre dispuesto a servir de ayuda a aquellos
+que deseen implicarse en un proyecto como los que aparecen
+relacionados más abajo.
 
 Hay una lista completa de todas las incidencias abiertas
-@uref{http://code.google.com/p/lilypond/issues/list, aquí}.
+@uref{http://sourceforge.net/p/testlilyissues/issues/, aquí}.
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Mejora de la estructura interna de acordes
+
+La representación interna de los acordes de LilyPond no es lo
+bastante potente como para captar la nomenclatura de los acordes
+de jazz.  Actualmente el acorde tiene una fundamental, un bajo y
+una inversión.  Sería bueno poder manejar acordes múltiples o
+superpuestos, menor/mayor, etc.  Para hacerlo, debe desarrollarse
+una representación interna con la capacidad de capturar la esencia
+de los acordes más complejos.  Además, una vez que se haya
+desarrollado la representación interna, el formato de salida de
+los nombres de acorde puede mejorarse.
+
+@strong{Dificultad:} Fácil/intermedia
+@strong{Requisitos:} Scheme (Guile), pero el nivel necesario puede
+aprenderse fácilmente
+@strong{Conocimientos recomendados:} Teoría y nomenclatura de los acordes
+@strong{Mentor:} Carl Sorensen
 
 @divEnd
 
@@ -954,30 +981,55 @@ Hay una lista completa de todas las incidencias abiertas
 @subheading ScholarLY
 
 ScholarLY es una biblioteca dentro de
-@uref{https://github.com/openlilylib/snippets, openLilyLib} que
-provee funcionalidades para la anotación de partituras, haciendo
-posible gestionar flujos de trabajo académicos completamente en el
+@uref{https://openlilylib.org, openLilyLib} que provee
+funcionalidades para la anotación de partituras, haciendo posible
+gestionar flujos de trabajo académicos completamente en el
 contexto del documento de la partitura.  Hasta ahora es posible
 introducir anotaciones de distintos tipos, producir mensajes que
 se comportan como enlaces sobre la salida de consola y exportar a
 texto y a archivos de LaTeX.
 
 Hay muchas solicitudes de funcionalidad para la conversión de esta
-biblioteca en una herramienta mmás potente y completa aún, por
+biblioteca en una herramienta mmás potente y completa aún.  Por
 ejemplo: inserción de ejemplos musicales, producción de notas al
 pie de página, aplicación automárica de estilos al elemento
 anotado (p. ej. trazar una ligadura en línea discontinua, poner
 una alteración entre paréntesis), creando informes con elementos
 sobre los que se puede apuntar y pulsar.  Para ver una descripción
 completa de esta sugerencia de proyecto, visite
-@uref{https://github.com/openlilylib/scholarly/wiki/GSoC}.
+@uref{https://github.com/openlilylib/scholarly/wiki/GSoC, esta página Wiki}.
 
 @strong{Dificultad:} media
 @strong{Requisitos:} Scheme, posiblemente LaTeX, (opcionalmente
 Python)
 @strong{Conocimientos recomendados:} Experiencia con, o interés
 en, la edición académica y flujos de trabajo colaborativos.
-@strong{Mentor potencial:} Urs Liska
+@strong{Mentor:} Urs Liska
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Añadir una variante especial de los glifos de fuente tipográfica
+
+@divClass{keep-bullets}
+@itemize
+
+@item
+Añadir variantes @q{sobre} y @q{entre} líneas del pentagrama.
+
+@item
+Variantes más bajas y estrechas de ciertos glifos, como
+alteraciones alccidentales.  Otro ejemplo más específico sería una
+cabeza de nota breve de la notación antigua en dos variantes, una
+con un hueco pequeño dentro, y otra con un hueco grande.
+
+@end itemize
+@divEnd
+
+@strong{Dificultad:} fácil
+@strong{Requisitos:} MetaFont, C++, buen ojo para los detalles
+@strong{Conocimientos recomendados:} conocimientos básicos de LilyPond
+@strong{Mentor potencial:} Werner Lemberg
 
 @divEnd
 
@@ -988,13 +1040,83 @@ Arreglar problemas con la sincronización de las notas de adorno.
 Las notas de adorno pueden interferir con la cuenta del tiempo de
 LilyPond y causar efectos extraños, especialmente cuando se usan
 varios pentagramas en los que algunos tienen notas de adorno y
-otros no.
+otros no.  Este es uno de los más antiguos y emarazosos
+@uref{https://sourceforge.net/p/testlilyissues/issues/34/,bugs} de
+LilyPond.
 
 @strong{Dificultad:} media
 @strong{Requisitos:} C++, MIDI
 @strong{Conocimientos recomendados:} familiaridad con el
 funcionamiento interno de LilyPond
-@strong{Mentores potenciales:} Mike Solomon, Carl Sorensen
+@strong{Mentores potenciales:} Mike Solomon (not available for GSoC 2016),
+Carl Sorensen
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Mejora del posicionamiento de las barras de corchea (y figuras menores)
+
+Para barras de corchea normales, de pentagrama cruzado,
+interrumpidas y en ángulo.  El barrado debería depender del
+contexto y de las notas vecinas (véase la sección 2.2 de
+@uref{http://imslp.org/wiki/Repository_of_Music-Notation_Mistakes_%28Coulon,_Jean-Pierre%29,
+este libro}).  Si es posible, reducir el tiempo de cálculo del
+barrado.
+
+@strong{Dificultad:} media
+@strong{Requisitos:} C++, experiencia con heurística de la escritura
+@strong{Conocimientos recomendados:} sentido estético
+@strong{Mentores potenciales:} Mike Solomon (not available for GSoC 2016), Carl Sorensen
+
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Permitir objetos extensos entre voces distintas
+
+Actualmente, toda clase de objetos extensos (ligaduras de unión y
+de expresión, matices dinámicos, textos extensos, trinos, etc.)
+tienen que terminar en el mismo contexto en que empezaron.  Sin
+embargo, esto no refleja la realidad de la notación de la mayoría
+de las configuraciones polifónicas.  En la actualidad son
+necesarios extraños rodeos con voces ocultas para conseguir
+objetos de extensión entre voces distintas.
+
+Deberían explorarse nuevas formas de abordar este problema, por
+ejemplo por medio de
+
+@divClass{keep-bullets}
+@itemize
+
+@item la especificación de un "contexto de destino" en el que se espera que termine el objeto
+
+@item la especificación explícita del objeto que termina con un identificador
+
+@end itemize
+@divEnd
+
+Esta funcionalidad resolvería muchos problemas presentes de manera
+habitual con la música para piano y partes combinadas.
+
+@strong{Dificultad:} media (?)
+@strong{Requisitos:} C++, Scheme
+@strong{Mentor potencial:} Urs Liska
+@divEnd
+
+@divClass{column-center-middle-color3}
+@subheading Ayudar a mejorar el comportamiento de la compilación
+
+Las herramientas de análisis automático del código, como la
+detección de filtraciones de memoria de Valgrind o el perfilador
+de código Callgrind, proveen una información valiosa acerca de los
+posibles problemas de nuestro código de C++.  La limpieza de estas
+advertencias nos permitiría rechazar automáticamente cualquier
+parche que introdujese más advertencias de las que hay
+actualmente.
+
+@strong{Dificultad:} media
+@strong{Requisitos:} C++
+@strong{Mentores potenciales:} Reinhold Kainhofer (no disponible
+para el GSoC 2016), Joe Neeman
 
 @divEnd
 
@@ -1031,9 +1153,14 @@ a las etiquetas del XML.
 @end itemize
 @divEnd
 
+Existen varias posibilidades para este pryecto, entre ellas la
+construcción encima del proyecto de exportación de MusicXML del
+GSoC 2015.
+
 @strong{Dificultad:} media
-@strong{Requisitos:} MusicXML, Python, conocimiento básico de LilyPond
+@strong{Requisitos:} MusicXML, Python, Scheme, conocimiento básico de LilyPond
 @strong{Mentores potenciales:} Reinhold Kainhofer, Mike Solomon
+(ninguno de ellos disponible para el GSoC 2016)
 
 Sería un buen tanto a su favor la familiaridad con otros editores
 de partituras para poder hacer pruebas cruzadas.
@@ -1043,8 +1170,8 @@ de partituras para poder hacer pruebas cruzadas.
 @divClass{column-center-middle-color3}
 @subheading Mejora de las ligaduras de unión y de expresión
 
-Con frecuencia, las curvas de las ligaduras de unión y de
-expresión no son satisfactorias.  No se manejan bien las ligaduras
+Con frecuencia, las calidad gráfica de las ligaduras de unión y de
+expresión no es satisfactoria.  No se manejan bien las ligaduras
 @q{interrumpidas} por cambios de clave o de pentagrama.  El
 proyecto podría incluir y organizar ejemplos de mala salida,
 decidir sobre la salida perseguida y escibir código para
@@ -1053,67 +1180,8 @@ mejorarla.
 @strong{Dificultad:} alta
 @strong{Requisitos:} C++, experiencia con heurística de la escritura
 @strong{Conocimientos recomendados:} LilyPond, sentido estético
-@strong{Mentor potencial:} Mike Solomon
-
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading Añadir una variante especial de los glifos de fuente tipográfica
-
-@divClass{keep-bullets}
-@itemize
-
-@item
-Añadir variantes @q{sobre} y @q{entre} líneas del pentagrama.
-
-@item
-Variantes más bajas y estrechas de ciertos glifos, como
-alteraciones alccidentales.  Otro ejemplo más específico sería una
-cabeza de nota breve de la notación antigua en dos variantes, una
-con un hueco pequeño dentro, y otra con un hueco grande.
-
-@end itemize
-@divEnd
-
-@strong{Dificultad:} fácil
-@strong{Requisitos:} MetaFont, C++, buen ojo para los detalles
-@strong{Conocimientos recomendados:} conocimientos básicos de LilyPond
-@strong{Mentor potencial:} Werner Lemberg
-
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading Mejora del posicionamiento de las barras de corchea (y figuras menores)
-
-Para barras de corchea normales, de pentagrama cruzado,
-interrumpidas y en ángulo.  El barrado debería depender del
-contexto y de las notas vecinas (véase la
-@uref{http://icking-music-archive.org/lists/sottisier/sottieng.pdf,
-sección 2.2}).  Si es posible, reducir el tiempo de cálculo del
-barrado.
-
-@strong{Dificultad:} media
-@strong{Requisitos:} C++, experiencia con heurística de la escritura
-@strong{Conocimientos recomendados:} sentido estético
-@strong{Mentores potenciales:} Mike Solomon, Carl Sorensen
-
-
-@divEnd
-
-@divClass{column-center-middle-color3}
-@subheading Ayudar a mejorar el comportamiento de la compilación
-
-Las herramientas de análisis automático del código, como la
-detección de filtraciones de memoria de Valgrind o el perfilador
-de código Callgrind, proveen una información valiosa acerca de los
-posibles problemas de nuestro código de C++.  La limpieza de estas
-advertencias nos permitiría rechazar automáticamente cualquier
-parche que introdujese más advertencias de las que hay
-actualmente.
-
-@strong{Dificultad:} media
-@strong{Requisitos:} C++
-@strong{Mentores potenciales:} Joe Neeman, Reinhold Kainhofer
+@strong{Mentor potencial:} Mike Solomon, Janek Warchoł (ninguno de
+ellos disponible para el GSoC 2016)
 
 @divEnd
 

@@ -42,6 +42,7 @@ protected:
 public:
   SCM event_symbol ();
   TRANSLATOR_DECLARATIONS (Slur_engraver);
+  TRANSLATOR_INHERIT (Slur_proto_engraver);
 };
 
 Slur_engraver::Slur_engraver () :

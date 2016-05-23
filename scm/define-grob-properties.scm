@@ -575,8 +575,13 @@ lines for.")
 lines.  It is the sum of 2@tie{}numbers: The first is the factor for
 line thickness, and the second for staff space.  Both contributions
 are added.")
-     (ledger-positions ,list? "Repeating pattern for the vertical positions
-of ledger lines.  Bracketed groups are always shown together.")
+     (ledger-positions ,list? "Vertical positions of ledger lines.
+When set on a @code{StaffSymbol} grob it defines a repeating
+pattern of ledger lines and any parenthesized groups will always be
+shown together.")
+     (ledger-positions-function ,scheme? "A quoted Scheme procedure that
+takes a @code{StaffSymbol} grob and the vertical position of a note head
+as arguments and returns a list of ledger line positions.")
      (left-bound-info ,list? "An alist of properties for determining
 attachments of spanners to edges.")
      (left-padding ,ly:dimension? "The amount of space that is put

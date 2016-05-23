@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: df759fb23c969916ac0c4d820b94a460aeb3f35b
+    Translation of GIT committish: 0e943e447b6c105b3ab178cad32e0dad33b9353d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -32,6 +32,58 @@ NOTE:
 
   * don't duplicate entries from news-front.itexi
 @end ignore
+
+@newsItem
+@subheading Lanzado LilyPond 2.19.39  @emph{27 de marzo de 2016}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.19.39.  Esta
+versión contiene algunas mejoras y funcionalidades en proceso de
+desarrollo.  Podrá acceder a las últimas características, pero
+algunas de ellas podrían estar incompletas, lo que podría llevarle
+a encontrar fallos e interrupciones abruptas.  Si necesita una
+versión estable de LilyPond, le recomendamos que use la versión
+2.18.
+
+@newsEnd
+
+@newsItem
+@subheading Lanzado LilyPond 2.19.38  @emph{13 de marzo de 2016}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.19.38.  Esta
+versión contiene el conjunto habitual de correcciones de fallos y
+ampliación de las funcionalidades, y contiene trabajos en
+desarrollo.  Tendrá acceso a las últimas posibilidades, pero
+algunas podrían estar incompletas, y podría encontrar fallos y
+finalizaciones abruptas.  Si necesita una versión estable de
+LilyPond, nuestro consejo es que utilice la versión 2.18.
+
+@newsEnd
+
+@newsItem
+@subheading Lanzado LilyPond 2.19.37  @emph{28 de febrero de 2016}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.19.37.  Esta
+versión contiene el conjunto habitual de correcciones de fallos y
+ampliación de las funcionalidades, y contiene trabajos en
+desarrollo.  Tendrá acceso a las últimas posibilidades, pero
+algunas podrían estar incompletas, y podría encontrar fallos y
+finalizaciones abruptas.  Si necesita una versión estable de
+LilyPond, nuestro consejo es que utilice la versión 2.18.
+
+@newsEnd
+
+@newsItem
+@subheading Lanzado LilyPond 2.19.36  @emph{31 de enero de 2016}
+
+Nos complace anunciar el lanzamiento de LilyPond 2.19.36.  Esta
+versión contiene el conjunto habitual de correcciones de fallos y
+ampliación de las funcionalidades, y contiene trabajos en
+desarrollo.  Tendrá acceso a las últimas posibilidades, pero
+algunas podrían estar incompletas, y podría encontrar fallos y
+finalizaciones abruptas.  Si necesita una versión estable de
+LilyPond, nuestro consejo es que utilice la versión 2.18.
+
+@newsEnd
 
 @newsItem
 @subheading Lanzado LilyPond 2.19.35  @emph{2 de enero de 2016}
@@ -455,6 +507,30 @@ finalizaciones abruptas.  Si necesita una versión estable de
 LilyPond, nuestro consejo es que utilice la versión 2.18.
 
 @newsEnd
+
+@newsItem
+@subheading Una producción hecha con LilyPond, premio a la mejor edición 2014  @emph{11 de marzo de 2014}
+
+Con gran emoción nos complace anunciar que la edición completa de
+las canciones de Oskar Fried (1871-1941), recientemente publicadas
+por nuestros compañeros y colaboradores Urs Liska y Janek Warchoł
+[1], han recibido el premio "Musikeditionspreis BEST EDITION 2014"
+de la asociación de editores de música alemanes [2].  La ceremonia
+tuvo lugar en la Musikmesse de Frankfurt.
+
+Felicitamos a Janek y a Urs por haber obtenido tan alto
+reconocimiento público a la excelencia editorial y tipográfica de
+su trabajo.  También es un placer informar de su intención de
+poner la obra a disposición bajo una licencia libre tan pronto
+como se cubran los gastos de la editorial.  Apoye esta iniciativa
+adquiriendo el volumen impreso directamente de la editorial [3].
+
+[1] @uref{http://lilypondblog.org/category/fried-songs}@*
+[2] @uref{http://www.best-edition.de}@*
+[3] @uref{http://www.sound-rel.de}@*
+
+@newsEnd
+
 
 @newsItem
 @subheading Lanzado LilyPond 2.19.3   @emph{2 de marzo de, 2014}
@@ -3391,7 +3467,7 @@ and lots of updates for the translations.
 
 Release 2.11.28 is now available as a binary installer for
 FreeBSD x86_64.  Download
-@uref{http://lilypond.org/download/binaries/freebsd-64/,the installer} and
+@uref{http://lilypond.org/downloads/binaries/freebsd-64/,the installer} and
 do @emph{sh lilypond-2.11.28-1.freebsd-64.sh} in a command window.
 @newsEnd
 
@@ -4284,11 +4360,11 @@ to the @ref{Descargas antiguas} get them!
 Starting with 2.7.26, the development team has been working on the
 installers. We're proud to announce another version of these: they are
 now available for
-@uref{http://lilypond.org/download/binaries/linux-x86/,
+@uref{http://lilypond.org/downloads/binaries/linux-x86/,
 Linux/x86},
-@uref{http://lilypond.org/download/binaries/darwin-ppc/,
+@uref{http://lilypond.org/downloads/binaries/darwin-ppc/,
 MacOS X} and
-@uref{http://lilypond.org/download/binaries/mingw/,
+@uref{http://lilypond.org/downloads/binaries/mingw/,
 Windows}.
 @newsEnd
 

@@ -620,7 +620,7 @@ lilypond-book-Zkoušky této verze.
 @itemize
 @item @uref{http://lilypond.org/test, Porovnání dvou verzí}:
 
-@item @uref{http://lilypond.org/download/binaries/test-output/,
+@item @uref{http://lilypond.org/downloads/binaries/test-output/,
 Archiv všech zkoušek regresí}
 
 @end itemize

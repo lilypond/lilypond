@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 8016f31ef2a25bf9492a6ba65dc627622beac4af
+    Translation of GIT committish: 4c31c117565b1c7dd78e606fceb7cba354f2859a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2040,7 +2040,7 @@ tocAct =
   \markuplist \table-of-contents
   \tocAct \markup { Atto Primo }
   \tocItem \markup { Coro. Viva il nostro Alcide }
-  \tocItem \markup { Cesare. Presti omai l'Egizzia terra }
+  \tocItem \markup { Cesare. Presti omai l'Egizia terra }
   \tocAct \markup { Atto Secondo }
   \tocItem \markup { Sinfonia }
   \tocItem \markup { Cleopatra. V'adoro, pupille, saette d'Amore }
@@ -2296,7 +2296,7 @@ sopranoMusic = \relative { a'4 b c b8( a) }
 altoMusic = \relative { e'4 e e f }
 tenorMusic = \relative { c'4 b e d8( c) }
 bassMusic = \relative { a4 gis a d, }
-allLyrics = \lyricmode {King of glo -- ry }
+allLyrics = \lyricmode { King of glo -- ry }
 <<
   \new Staff = "Soprano" \sopranoMusic
   \new Lyrics \allLyrics
@@ -2314,17 +2314,11 @@ allLyrics = \lyricmode {King of glo -- ry }
   \new Lyrics \allLyrics
   \new PianoStaff <<
     \new Staff = "RH" {
-      \set Staff.printPartCombineTexts = ##f
-      \partcombine
-      \sopranoMusic
-      \altoMusic
+      \partcombine \sopranoMusic \altoMusic
     }
     \new Staff = "LH" {
-      \set Staff.printPartCombineTexts = ##f
       \clef "bass"
-      \partcombine
-      \tenorMusic
-      \bassMusic
+      \partcombine \tenorMusic \bassMusic
     }
   >>
 >>
@@ -2487,46 +2481,79 @@ music = \relative c'' {
 }
 @end lilypond
 
-Dos o más filtros @code{\keepWithTag} aplicados a una sola
-expresión musical producen la eliminación de @emph{todas} las
-secciones etiquetadas, porque el primer filtro quita todas las
-secciones etiquetadas excepto la que se nombra, y el segundo
-filtro elimina incluso esa sección etiquetada.  Por lo general,
-querrá usar una sola instrucción @code{\keepWithTag} con una
-lista de varias etiquetas: de esta forma solamente se suprimirán
-las secciones etiquetadas que no aparezcan en @emph{ninguna} de
-las etiquetas.
+El uso de dos o más filtros @code{\keepWithTag} sobre una sola
+expresión musical produce la eliminación de @emph{todas} las
+secciones etiquetadas.  El primer filtro quita todas excepto
+la que se nombra, y cualquier filtro posterior
+elimina el resto.
+Usando una sola instrucción @code{\keepWithTag} con una
+lista de varias etiquetas se suprimirán solamente
+las secciones etiquetadas que no aparezcan especificadas en la lista.
+
+@lilypond[verbatim,quote]
+music = \relative c'' {
+  \tag #'violinI { a4 a a a }
+  \tag #'violinII { b4 b b b }
+  \tag #'viola { c4 c c c }
+  \tag #'cello { d4 d d d }
+}
+
+\new Staff {
+  \keepWithTag #'(violinI violinII)
+  \music
+}
+@end lilypond
+
+@noindent
+will print @code{\tag}s @var{violinI} and @var{violinII} but not
+@var{viola} or @var{cello}.
 
 @cindex grupos de etiquetas
 @funindex \tagGroup
 Aunque @code{\keepWithTag} es útil para el manejo de @emph{un
 solo} conjunto de alternativas, la eliminación de música
 etiquetada con otras etiquetas @emph{no relacionadas} es
-problemática si se utilizan para más de un propósito. Por tal
-motivo pueden declararse @q{grupos de etiquetas} relacionadas:
+problemática si se utilizan para más de un propósito.
+En ese caso pueden declararse @q{grupos de etiquetas}:
 
 @example
 \tagGroup #'(violinI violinII viola cello)
 @end example
 
-declara las etiquetas respectivas como pertenecientes a un grupo
-de etiquetas.
+@noindent
+Ahora todas las etiquetas pertenecen a un solo @q{grupo de etiquetas}.
+Observe que las etiquetas individuales no pueden ser miembros
+de más de un @emph{grupo de etiquetas}.
 
 @example
 \keepWithTag #'violinI @dots{}
 @end example
 
-se ocupará solamente de las etiquetas del grupo @code{violinI}:
-cualquier elemento de la música incluida que lleve una o más
-etiquetas de este conjunto pero @emph{no} con la etiqueta
-@code{violinI} resultará suprimida.
+@noindent
+mostrará solamente la música etiquetada a partir del
+grupo de etiquetas de @code{violinI} y
+cualquier fragmento musical etiquetado con una de las
+@emph{otras} etiquetas resultará suprimido.
 
-Para cualquier instrucción @code{\keepWithTag}, solamente son
-visibles las etiquetas de los grupos de aquellas etiquetas dadas
-en la propia instrucción.
+@lilypond[verbatim,quote]
+music = \relative {
+  \tagGroup #'(violinI violinII viola cello)
+  \tag #'violinI { c''4^"violinI" c c c }
+  \tag #'violinII { a2 a }
+  \tag #'viola { e8 e e2. }
+  \tag #'cello { d'2 d4 d }
+  R1^"untagged"
+}
 
-Las etiquetas no pueden ser miembros de más de un grupo de
-etiquetas.
+\new Voice {
+  \keepWithTag #'violinI
+  \music
+}
+@end lilypond
+
+Al usar la instrucción @code{\keepWithTag} solo son visibles
+las etiquetas de los grupos de aquellas etiquetas se se incluyen
+en la instrucción.
 
 @funindex \pushToTag
 @funindex \appendToTag
@@ -2541,15 +2568,15 @@ musical existente.  No toda construcción musical tiene la parte
 dos apuestas seguras:
 
 @lilypond[verbatim,quote]
-test = { \tag #'here { \tag #'here <<c''>> } }
+music = { \tag #'here { \tag #'here <<c''>> } }
 
 {
   \pushToTag #'here c'
   \pushToTag #'here e'
-  \pushToTag #'here g' \test
+  \pushToTag #'here g' \music
   \appendToTag #'here c'
   \appendToTag #'here e'
-  \appendToTag #'here g' \test
+  \appendToTag #'here g' \music
 }
 @end lilypond
 
@@ -2655,8 +2682,8 @@ caracteres distintos a los del conjunto ASCII, se deben codificar
 en UTF-8.  La forma más fácil de escribir dicho texto es utilizar
 un editor preparado para Unicode y guardar el archivo con la
 codificación UTF-8.  Casi todos los editores modernos populares
-contemplan el UTF-8, por ejemplo lo hacen vim, Emacs, jEdit, y
-GEdit.  Todos los sistemas MS Windows posteriores a NT usan
+contemplan el UTF-8, por ejemplo lo hacen vim, Emacs, jEdit y
+Gedit.  Todos los sistemas MS Windows posteriores a NT usan
 Unicode como codificación de caracteres nativa, de manera que
 incluso el accesorio Bloc de Notas (Notepad) puede editar y
 guardar un archivo en el formato UTF-8.  Una alternativa más
@@ -2672,9 +2699,10 @@ FT_Get_Glyph_Name () error: argumento inválido
 
 He aquí un ejemplo que muestra texto cirílico, hebreo y portugués:
 
+@c NOTE: No verbatim in the following example as the code does not
+@c display correctly in PDF Font settings for Cyrillic and Hebrew
+
 @lilypond[quote]
-%c No verbatim here as the code does not display correctly in PDF
-% Font settings for Cyrillic and Hebrew
 % Linux Libertine fonts contain Cyrillic and Hebrew glyphs.
 \paper {
   #(define fonts
@@ -2953,11 +2981,11 @@ las voces y pentagramas, ahorrando más tiempo incluso.
 
 Los formatos de salida predeterminados para la partitura impresa
 son el formato de documento portátil (PDF) y PostScript (PS).
-Los formatos de salida Gráficos de vector escalables (SVG),
-PostScript encapsulado (EPS) y Gráficos de red portátiles (PNG)
+Los formatos de salida Gráficos de red portátiles (PNG),
+Gráficos de vector escalables (SVG) y PostScript encapsulado (EPS)
 también están disponibles a través de opciones de la línea de
-órdenes, véase @rprogram{Opciones básicas de la línea de órdenes
-para LilyPond}.
+órdenes, véase
+@rprogram{Opciones básicas de la línea de órdenes para LilyPond}.
 
 
 @node Sustituir la tipografía de la notación
@@ -3071,7 +3099,7 @@ producir la salida por el MIDI de los siguientes elementos
 adicionales de notación musical:
 
 @itemize
-@item Appogiaturas (apoyaturas).  Se les da la mitad de la duración de la nota siguiente (sin tener en cuenta los puntillos).  Por ejemplo:
+@item Appoggiaturas (apoyaturas).  Se les da la mitad de la duración de la nota siguiente (sin tener en cuenta los puntillos).  Por ejemplo:
 
 @example
 \appoggiatura c8 d2.
@@ -3821,10 +3849,12 @@ Archivos instalados:
 @warning{El script @file{articulate} puede acortar los acordes,
 lo que podría no ser adecuado para algunos tipos de instrumento,
 como el órgano.  Las notas que no tienen ninguna articulación
-también se pueden acortar; así, para moderar este efecto limite
+también se pueden acortar; así, para contener el alcance
+de este efecto limite
 el uso de de la función @code{\articulate} a segmentos de música
 más breves o modifique los valores de las variables definidas
-dentro del script @file{articulate}.}
+dentro del script @file{articulate}
+para compensar el efecto de acortamiento de las notas.}
 
 
 
@@ -3877,15 +3907,19 @@ lilypond archivo.ly >resultado.txt
 @funindex \void
 Observe que Lilypond no se limita a mostrar la expresión musical,
 sino que también la interpreta (porque @code{\displayLilyMusic}
-la devuelve además de mostrarla).  La conveniencia de esto es que
-podemos simplemente insertar @code{\displayLilyMusic} dentro de
-una música existente con el objeto de obtener información sobre
-ella.  Si no queremos que Lilypond, además de mostrar la música,
-la interprete, podemos hacer que la ignore usando @code{\void}:
+la devuelve además de mostrarla).  Simplemente inserte
+@code{\displayLilyMusic} dentro de
+la música existente con el objeto de obtener información sobre
+ella.
+
+Para interpretar y mostrar una sección de música en la consola,
+y al mismo tiempo suprimirla del archivo de salida,
+use la instrucción @code{\void}.
 
 @example
 @{
   \void \displayLilyMusic \transpose c a, @{ c4 e g a bes @}
+  c1
 @}
 @end example
 

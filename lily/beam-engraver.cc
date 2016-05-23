@@ -337,7 +337,7 @@ class Grace_beam_engraver : public Beam_engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Grace_beam_engraver);
-
+  TRANSLATOR_INHERIT (Beam_engraver);
   DECLARE_TRANSLATOR_LISTENER (beam);
 
 protected:

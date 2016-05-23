@@ -24,7 +24,7 @@ denotes a stable version.  For development versions 'y' is odd.
 @section Downloading
 
 The primary download site for sourcecode is
-@uref{http://lilypond.org/download/}.
+@uref{http://lilypond.org/downloads/}.
 
 @section Compilation
 

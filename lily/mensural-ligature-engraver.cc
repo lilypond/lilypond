@@ -63,6 +63,7 @@ protected:
 
 public:
   TRANSLATOR_DECLARATIONS (Mensural_ligature_engraver);
+  TRANSLATOR_INHERIT (Coherent_ligature_engraver);
 
 private:
   void transform_heads (vector<Grob_info> const &primitives);
