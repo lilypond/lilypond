@@ -55,14 +55,10 @@
 #define DEFINE_ACKNOWLEDGERS(classname) \
   Drul_array<Protected_scm> classname::acknowledge_static_array_drul_;  \
   SCM                                                                   \
-  classname::static_get_acknowledger (SCM sym)                          \
+  classname::static_get_acknowledger (SCM sym, Direction start_end)     \
   {                                                                     \
-    return generic_get_acknowledger (sym, acknowledge_static_array_drul_[START]);      \
-  }                                                                     \
-  SCM                                                                   \
-  classname::static_get_end_acknowledger (SCM sym)                      \
-  {                                                                     \
-    return generic_get_acknowledger (sym, acknowledge_static_array_drul_[STOP]);       \
+    return generic_get_acknowledger                                     \
+      (sym, acknowledge_static_array_drul_[start_end]);                 \
   }                                                                     \
   /* end define */
 

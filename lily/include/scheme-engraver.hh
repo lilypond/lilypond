@@ -41,13 +41,10 @@ protected:
   virtual bool must_be_last () const;
 
 private:
-  virtual SCM get_acknowledger (SCM sym)
+  virtual SCM get_acknowledger (SCM sym, Direction start_end)
   {
-    return generic_get_acknowledger (sym, interface_acknowledger_hash_);
-  }
-  virtual SCM get_end_acknowledger (SCM sym)
-  {
-    return generic_get_acknowledger (sym, interface_end_acknowledger_hash_);
+    return generic_get_acknowledger
+      (sym, interface_acknowledger_hash_[start_end]);
   }
 
   SCM init_acknowledgers (SCM alist);
@@ -62,8 +59,7 @@ private:
   SCM precomputable_methods_ [TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
 
   // hashq table of interface-symbol -> scheme-function
-  SCM interface_acknowledger_hash_;
-  SCM interface_end_acknowledger_hash_;
+  Drul_array<SCM> interface_acknowledger_hash_;
 
   // Alist of listened-symbol . scheme-function
   SCM per_instance_listeners_;

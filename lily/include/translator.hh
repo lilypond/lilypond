@@ -61,15 +61,10 @@
   static Drul_array<Protected_scm> acknowledge_static_array_drul_;      \
   static SCM static_description_;                                       \
   static Protected_scm listener_list_;                                  \
-  static SCM static_get_acknowledger (SCM sym);                         \
-  static SCM static_get_end_acknowledger(SCM);                          \
-  virtual SCM get_acknowledger (SCM sym)                                \
+  static SCM static_get_acknowledger (SCM sym, Direction start_end);    \
+  virtual SCM get_acknowledger (SCM sym, Direction start_end)           \
   {                                                                     \
-    return static_get_acknowledger (sym);                               \
-  }                                                                     \
-  virtual SCM get_end_acknowledger (SCM sym)                            \
-  {                                                                     \
-    return static_get_end_acknowledger (sym);                           \
+    return static_get_acknowledger (sym, start_end);                    \
   }                                                                     \
 public:                                                                 \
   NAME ();                                                              \
@@ -145,8 +140,7 @@ public:
   virtual void fetch_precomputable_methods (SCM methods[]) = 0;
   virtual SCM get_listener_list () const = 0;
   virtual SCM translator_description () const = 0;
-  virtual SCM get_acknowledger (SCM sym) = 0;
-  virtual SCM get_end_acknowledger (SCM sym) = 0;
+  virtual SCM get_acknowledger (SCM sym, Direction start_end) = 0;
 
 protected:                      // should be private.
   Context *daddy_context_;
