@@ -272,7 +272,7 @@ bug-lilypond への登録と情報}
 @end quotation
 
 @warning{バグ リストにメールを送る前に @ref{バグ報告} の@c
-ガイドラインを呼んで下さい。}
+ガイドラインを読んで下さい。}
 
 
 @subsubheading 翻訳 メーリング リスト: @code{translations@@lilynet.org}
