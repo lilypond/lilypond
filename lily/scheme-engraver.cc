@@ -82,15 +82,14 @@ Scheme_engraver::init_from_scheme (SCM definition)
   initialize_function_ = callable (ly_symbol2scm ("initialize"), definition);
   finalize_function_ = callable (ly_symbol2scm ("finalize"), definition);
 
-  SCM listeners = ly_assoc_get (ly_symbol2scm ("listeners"), definition, SCM_EOL);
-
-  per_instance_listeners_ = SCM_EOL;
+  SCM p = ly_assoc_get (ly_symbol2scm ("listeners"), definition, SCM_EOL);
+  SCM listeners = SCM_EOL;
 
   must_be_last_ = to_boolean (ly_assoc_get (ly_symbol2scm ("must-be-last"),
                                             definition,
                                             SCM_BOOL_F));
 
-  for (SCM p = listeners; scm_is_pair (p); p = scm_cdr (p))
+  for (; scm_is_pair (p); p = scm_cdr (p))
     {
       SCM event_class = scm_caar (p);
       SCM proc = scm_cdar (p);
@@ -101,26 +100,36 @@ Scheme_engraver::init_from_scheme (SCM definition)
       // We should check the arity of the function?
 
       // Record for later lookup.
-      per_instance_listeners_ = scm_acons (event_class, proc, per_instance_listeners_);
+      listeners = scm_acons (event_class, proc, listeners);
     }
 
-  init_acknowledgers (ly_assoc_get (ly_symbol2scm ("acknowledgers"),
-                                    definition, SCM_EOL),
-                      &interface_acknowledger_hash_);
+  SCM hash1 =
+    init_acknowledgers (ly_assoc_get (ly_symbol2scm ("acknowledgers"),
+                                      definition, SCM_EOL));
+  SCM hash2 =
+    init_acknowledgers (ly_assoc_get (ly_symbol2scm ("end-acknowledgers"),
+                                      definition, SCM_EOL));
 
-  init_acknowledgers (ly_assoc_get (ly_symbol2scm ("end-acknowledgers"),
-                                    definition, SCM_EOL),
-                      &interface_end_acknowledger_hash_);
+  per_instance_listeners_ = listeners;
+  interface_acknowledger_hash_ = hash1;
+  interface_end_acknowledger_hash_ = hash2;
+
+  // It's not defined whether Scheme_engraver::derived_mark is already
+  // active while the construction is underway, so we make sure we
+  // keep a version of everything on the stack that is not still
+  // covered by `definition'.
+
+  scm_remember_upto_here_2 (definition, listeners);
+  scm_remember_upto_here_2 (hash1, hash2);
 
   // TODO: hook up description, props read/written, grobs created
   // etc. to provide automatic documentation.
 }
 
-void
-Scheme_engraver::init_acknowledgers (SCM alist,
-                                     SCM *hash)
+SCM
+Scheme_engraver::init_acknowledgers (SCM alist)
 {
-  *hash = Scheme_hash_table::make_smob ();
+  SCM hash = Scheme_hash_table::make_smob ();
   for (SCM p = alist; scm_is_pair (p); p = scm_cdr (p))
     {
       SCM iface = scm_caar (p);
@@ -129,8 +138,9 @@ Scheme_engraver::init_acknowledgers (SCM alist,
       if (!(ly_is_procedure (proc) && ly_is_symbol (iface)))
         continue;
 
-      unsmob<Scheme_hash_table>(*hash)->set (iface, proc);
+      unsmob<Scheme_hash_table>(hash)->set (iface, proc);
     }
+  return hash;
 }
 
 SCM

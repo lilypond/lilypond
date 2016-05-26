@@ -54,7 +54,7 @@
 %     portato        ac:portatoFactor (default 3/4)
 %     tenuto         ac:tenutoFactor (default 1/1 - by default, notes marked
 %                                     tenuto are not shortened)
-% * Appogiaturas are made to take half the value of the note following,
+% * Appoggiaturas are made to take half the value of the note following,
 %   without taking dots into account (so in \appoggiatura c8 d2. the c
 %   will take the time of a crotchet).
 % * Trills and turns are expanded. The algorithm tries to choose notes

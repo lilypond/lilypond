@@ -240,7 +240,7 @@ f8 c2 d e
 
 
 @item @code{\grace}
-@tab appogiatures
+@tab appoggiatures
 @tab
 @lilypond[relative=2]
 \set Staff.initialTimeSignatureVisibility = #all-invisible

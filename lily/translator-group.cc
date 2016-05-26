@@ -241,7 +241,6 @@ precomputed_recurse_over_translators (Context *c, Translator_precompute_index id
   if (tg && dir == DOWN)
     {
       tg->precomputed_translator_foreach (idx);
-      tg->call_precomputed_self_method (idx);
     }
 
   for (SCM s = c->children_contexts (); scm_is_pair (s);
@@ -251,7 +250,6 @@ precomputed_recurse_over_translators (Context *c, Translator_precompute_index id
   if (tg && dir == UP)
     {
       tg->precomputed_translator_foreach (idx);
-      tg->call_precomputed_self_method (idx);
     }
 }
 
@@ -311,7 +309,6 @@ Translator_group::precompute_method_bindings ()
         }
     }
 
-  fetch_precomputable_methods (precomputed_self_method_bindings_);
 }
 
 void
@@ -320,20 +317,6 @@ Translator_group::precomputed_translator_foreach (Translator_precompute_index id
   vector<Method_instance> &bindings (precomputed_method_bindings_[idx]);
   for (vsize i = 0; i < bindings.size (); i++)
     bindings[i]();
-}
-
-void
-Translator_group::fetch_precomputable_methods (SCM ptrs[])
-{
-  for (int i = 0; i < TRANSLATOR_METHOD_PRECOMPUTE_COUNT; i++)
-    ptrs[i] = SCM_UNDEFINED;
-}
-
-void
-Translator_group::call_precomputed_self_method (Translator_precompute_index idx)
-{
-  if (!SCM_UNBNDP (precomputed_self_method_bindings_[idx]))
-    scm_call_1 (precomputed_self_method_bindings_[idx], self_scm ());
 }
 
 Translator_group::~Translator_group ()

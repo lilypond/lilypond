@@ -36,9 +36,6 @@ private:
   vector<Method_instance>
   precomputed_method_bindings_[TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
 
-  SCM
-  precomputed_self_method_bindings_[TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
-
   SCM protected_events_;
 
   void create_child_translator (SCM);
@@ -57,12 +54,9 @@ public:
   void stop_translation_timestep ();
   void start_translation_timestep ();
 
-  virtual void fetch_precomputable_methods (SCM []);
-
   Translator_group ();
 
   void precomputed_translator_foreach (Translator_precompute_index);
-  void call_precomputed_self_method (Translator_precompute_index);
 
   Context *context () const { return context_; }
 protected:
