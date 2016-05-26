@@ -1361,7 +1361,12 @@ class TextEvent (Event):
         return { 1: '^', -1: '_', 0: '-' }.get (self.force_direction, '-')
 
     def ly_expression (self):
-        base_string = '%s\"%s\"'
+        # self.text will be enclosed by quotes, and the direction
+        # modifier must be separated from the opening quote by a space.
+        # This is so that subsequent line breaking for the output file
+        # using utilities.split_string_and_preserve_doublequoted_strings()
+        # properly detects the opening quote.
+        base_string = '%s \"%s\"'
         if self.markup:
             base_string = '%s\markup{ ' + self.markup + ' {%s} }'
         return base_string % (self.direction_mod (), self.text)
@@ -2167,7 +2172,7 @@ class StaffGroup:
             self.print_ly_context_mods (printer)
             for m in self.context_modifications:
                 printer.dump (m)
-            printer.dump ("} <<")
+            printer.dump ("}")
             printer.newline ()
         #print a single << after StaffGroup only when the with-block is not needed.
         #This doesn't work. << is printed before and after StaffGroup!

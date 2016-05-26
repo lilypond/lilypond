@@ -2,6 +2,7 @@
 from rational import *
 import lilylib as ly
 import musicexp
+_ = ly._
 
 def rational_to_lily_duration(rational_len):
     d = musicexp.Duration()
