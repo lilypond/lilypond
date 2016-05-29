@@ -101,7 +101,12 @@ Fingering_column_engraver::process_acknowledged ()
     }
 }
 
-ADD_ACKNOWLEDGER (Fingering_column_engraver, finger);
+void
+Fingering_column_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Fingering_column_engraver, finger);
+}
+
 ADD_TRANSLATOR (Fingering_column_engraver,
                 /* doc */
                 "Find potentially colliding scripts and put them into a"

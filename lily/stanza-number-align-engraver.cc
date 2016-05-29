@@ -69,8 +69,13 @@ Stanza_number_align_engraver::stop_translation_timestep ()
   lyrics_.clear ();
 }
 
-ADD_ACKNOWLEDGER (Stanza_number_align_engraver, lyric_syllable);
-ADD_ACKNOWLEDGER (Stanza_number_align_engraver, stanza_number);
+
+void
+Stanza_number_align_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Stanza_number_align_engraver, lyric_syllable);
+  ADD_ACKNOWLEDGER (Stanza_number_align_engraver, stanza_number);
+}
 
 ADD_TRANSLATOR (Stanza_number_align_engraver,
                 /* doc */

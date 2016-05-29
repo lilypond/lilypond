@@ -53,7 +53,6 @@ Drum_notes_engraver::Drum_notes_engraver ()
 {
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Drum_notes_engraver, note);
 void
 Drum_notes_engraver::listen_note (Stream_event *ev)
 {
@@ -140,8 +139,14 @@ Drum_notes_engraver::stop_translation_timestep ()
   events_.clear ();
 }
 
-ADD_ACKNOWLEDGER (Drum_notes_engraver, stem);
-ADD_ACKNOWLEDGER (Drum_notes_engraver, note_column);
+
+void
+Drum_notes_engraver::boot ()
+{
+  ADD_LISTENER (Drum_notes_engraver, note);
+  ADD_ACKNOWLEDGER (Drum_notes_engraver, stem);
+  ADD_ACKNOWLEDGER (Drum_notes_engraver, note_column);
+}
 
 ADD_TRANSLATOR (Drum_notes_engraver,
                 /* doc */

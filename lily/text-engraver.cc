@@ -46,7 +46,6 @@ protected:
   DECLARE_TRANSLATOR_LISTENER (text_script);
 };
 
-IMPLEMENT_TRANSLATOR_LISTENER (Text_engraver, text_script);
 void
 Text_engraver::listen_text_script (Stream_event *ev)
 {
@@ -110,7 +109,13 @@ Text_engraver::Text_engraver ()
 {
 }
 
-ADD_ACKNOWLEDGER (Text_engraver, note_column);
+
+void
+Text_engraver::boot ()
+{
+  ADD_LISTENER (Text_engraver, text_script);
+  ADD_ACKNOWLEDGER (Text_engraver, note_column);
+}
 
 ADD_TRANSLATOR (Text_engraver,
                 /* doc */

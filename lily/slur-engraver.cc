@@ -57,14 +57,12 @@ Slur_engraver::event_symbol ()
   return ly_symbol2scm ("slur-event");
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Slur_engraver, slur);
 void
 Slur_engraver::listen_slur (Stream_event *ev)
 {
   Slur_proto_engraver::listen_slur (ev);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Slur_engraver, note);
 void
 Slur_engraver::listen_note (Stream_event *ev)
 {
@@ -77,14 +75,21 @@ Slur_engraver::set_melisma (bool m)
   context ()->set_property ("slurMelismaBusy", ly_bool2scm (m));
 }
 
-ADD_ACKNOWLEDGER (Slur_engraver, inline_accidental);
-ADD_ACKNOWLEDGER (Slur_engraver, fingering);
-ADD_ACKNOWLEDGER (Slur_engraver, note_column);
-ADD_ACKNOWLEDGER (Slur_engraver, script);
-ADD_ACKNOWLEDGER (Slur_engraver, text_script);
-ADD_ACKNOWLEDGER (Slur_engraver, dots);
-ADD_END_ACKNOWLEDGER (Slur_engraver, tie);
-ADD_ACKNOWLEDGER (Slur_engraver, tuplet_number);
+void
+Slur_engraver::boot ()
+{
+  ADD_LISTENER (Slur_engraver, slur);
+  ADD_LISTENER (Slur_engraver, note);
+  ADD_ACKNOWLEDGER (Slur_engraver, inline_accidental);
+  ADD_ACKNOWLEDGER (Slur_engraver, fingering);
+  ADD_ACKNOWLEDGER (Slur_engraver, note_column);
+  ADD_ACKNOWLEDGER (Slur_engraver, script);
+  ADD_ACKNOWLEDGER (Slur_engraver, text_script);
+  ADD_ACKNOWLEDGER (Slur_engraver, dots);
+  ADD_END_ACKNOWLEDGER (Slur_engraver, tie);
+  ADD_ACKNOWLEDGER (Slur_engraver, tuplet_number);
+}
+
 ADD_TRANSLATOR (Slur_engraver,
                 /* doc */
                 "Build slur grobs from slur events.",

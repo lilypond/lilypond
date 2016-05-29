@@ -80,7 +80,6 @@ Beam_performer::start_translation_timestep ()
   now_stop_ev_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Beam_performer, beam);
 void
 Beam_performer::listen_beam (Stream_event *ev)
 {
@@ -90,6 +89,12 @@ Beam_performer::listen_beam (Stream_event *ev)
     start_ev_ = ev;
   else if (d == STOP)
     now_stop_ev_ = ev;
+}
+
+void
+Beam_performer::boot ()
+{
+  ADD_LISTENER (Beam_performer, beam);
 }
 
 ADD_TRANSLATOR (Beam_performer,

@@ -98,12 +98,17 @@ Key_performer::stop_translation_timestep ()
     }
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Key_performer, key_change);
 void
 Key_performer::listen_key_change (Stream_event *ev)
 {
   if (!key_ev_)
     key_ev_ = ev;
+}
+
+void
+Key_performer::boot ()
+{
+  ADD_LISTENER (Key_performer, key_change);
 }
 
 ADD_TRANSLATOR (Key_performer,

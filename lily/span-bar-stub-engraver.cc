@@ -175,8 +175,13 @@ Span_bar_stub_engraver::stop_translation_timestep ()
   axis_groups_ = axis_groups;
 }
 
-ADD_ACKNOWLEDGER (Span_bar_stub_engraver, span_bar);
-ADD_ACKNOWLEDGER (Span_bar_stub_engraver, hara_kiri_group_spanner);
+void
+Span_bar_stub_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Span_bar_stub_engraver, span_bar);
+  ADD_ACKNOWLEDGER (Span_bar_stub_engraver, hara_kiri_group_spanner);
+}
+
 ADD_TRANSLATOR (Span_bar_stub_engraver,
                 /* doc */
                 "Make stubs for span bars in all contexts that the span bars cross.",

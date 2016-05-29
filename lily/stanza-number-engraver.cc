@@ -83,7 +83,12 @@ Stanza_number_engraver::stop_translation_timestep ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (Stanza_number_engraver, lyric_syllable);
+void
+Stanza_number_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Stanza_number_engraver, lyric_syllable);
+}
+
 ADD_TRANSLATOR (Stanza_number_engraver,
                 /* doc */
                 "Engrave stanza numbers.",

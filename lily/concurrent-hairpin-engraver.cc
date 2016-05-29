@@ -100,8 +100,13 @@ Concurrent_hairpin_engraver::finalize ()
   hairpins_hanging_out_.resize (0);
 }
 
-ADD_ACKNOWLEDGER (Concurrent_hairpin_engraver, hairpin);
-ADD_END_ACKNOWLEDGER (Concurrent_hairpin_engraver, hairpin);
+
+void
+Concurrent_hairpin_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Concurrent_hairpin_engraver, hairpin);
+  ADD_END_ACKNOWLEDGER (Concurrent_hairpin_engraver, hairpin);
+}
 
 ADD_TRANSLATOR (Concurrent_hairpin_engraver,
                 /* doc */

@@ -74,7 +74,6 @@ private:
                            Real &min_length);
 };
 
-IMPLEMENT_TRANSLATOR_LISTENER (Mensural_ligature_engraver, ligature);
 void
 Mensural_ligature_engraver::listen_ligature (Stream_event *ev)
 {
@@ -496,8 +495,14 @@ Mensural_ligature_engraver::build_ligature (Spanner *ligature,
     ligature->set_property ("minimum-length", scm_from_double (min_length));
 }
 
-ADD_ACKNOWLEDGER (Mensural_ligature_engraver, rest);
-ADD_ACKNOWLEDGER (Mensural_ligature_engraver, ligature_head);
+
+void
+Mensural_ligature_engraver::boot ()
+{
+  ADD_LISTENER (Mensural_ligature_engraver, ligature);
+  ADD_ACKNOWLEDGER (Mensural_ligature_engraver, rest);
+  ADD_ACKNOWLEDGER (Mensural_ligature_engraver, ligature_head);
+}
 
 ADD_TRANSLATOR (Mensural_ligature_engraver,
                 /* doc */

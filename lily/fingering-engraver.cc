@@ -47,7 +47,6 @@ private:
   void make_script (Direction, Stream_event *, int);
 };
 
-IMPLEMENT_TRANSLATOR_LISTENER (Fingering_engraver, fingering);
 void
 Fingering_engraver::listen_fingering (Stream_event *ev)
 {
@@ -141,9 +140,15 @@ Fingering_engraver::Fingering_engraver ()
 {
 }
 
-ADD_ACKNOWLEDGER (Fingering_engraver, rhythmic_head);
-ADD_ACKNOWLEDGER (Fingering_engraver, stem);
-ADD_ACKNOWLEDGER (Fingering_engraver, flag);
+
+void
+Fingering_engraver::boot ()
+{
+  ADD_LISTENER (Fingering_engraver, fingering);
+  ADD_ACKNOWLEDGER (Fingering_engraver, rhythmic_head);
+  ADD_ACKNOWLEDGER (Fingering_engraver, stem);
+  ADD_ACKNOWLEDGER (Fingering_engraver, flag);
+}
 
 ADD_TRANSLATOR (Fingering_engraver,
                 /* doc */

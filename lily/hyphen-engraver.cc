@@ -74,7 +74,6 @@ Hyphen_engraver::acknowledge_lyric_syllable (Grob_info i)
     finished_hyphen_->set_bound (RIGHT, item);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Hyphen_engraver, hyphen);
 void
 Hyphen_engraver::listen_hyphen (Stream_event *ev)
 {
@@ -155,7 +154,13 @@ Hyphen_engraver::stop_translation_timestep ()
   ev_ = 0;
 }
 
-ADD_ACKNOWLEDGER (Hyphen_engraver, lyric_syllable);
+
+void
+Hyphen_engraver::boot ()
+{
+  ADD_LISTENER (Hyphen_engraver, hyphen);
+  ADD_ACKNOWLEDGER (Hyphen_engraver, lyric_syllable);
+}
 
 ADD_TRANSLATOR (Hyphen_engraver,
                 /* doc */

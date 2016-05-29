@@ -126,14 +126,12 @@ Note_performer::stop_translation_timestep ()
   note_evs_.clear ();
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Note_performer, note)
 void
 Note_performer::listen_note (Stream_event *ev)
 {
   note_evs_.push_back (ev);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Note_performer, breathing)
 void
 Note_performer::listen_breathing (Stream_event *ev)
 {
@@ -155,6 +153,13 @@ Note_performer::listen_breathing (Stream_event *ev)
         if (len < tie_head->length_mom_)
           tie_head->length_mom_ = len;
       }
+}
+
+void
+Note_performer::boot ()
+{
+  ADD_LISTENER (Note_performer, note)
+  ADD_LISTENER (Note_performer, breathing)
 }
 
 ADD_TRANSLATOR (Note_performer,

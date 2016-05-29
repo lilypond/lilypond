@@ -63,7 +63,6 @@ Trill_spanner_engraver::Trill_spanner_engraver ()
   event_drul_.set (0, 0);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Trill_spanner_engraver, trill_span);
 void
 Trill_spanner_engraver::listen_trill_span (Stream_event *ev)
 {
@@ -152,7 +151,13 @@ Trill_spanner_engraver::finalize ()
     }
 }
 
-ADD_ACKNOWLEDGER (Trill_spanner_engraver, note_column);
+
+void
+Trill_spanner_engraver::boot ()
+{
+  ADD_LISTENER (Trill_spanner_engraver, trill_span);
+  ADD_ACKNOWLEDGER (Trill_spanner_engraver, note_column);
+}
 
 ADD_TRANSLATOR (Trill_spanner_engraver,
                 /* doc */

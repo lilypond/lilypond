@@ -86,14 +86,12 @@ protected:
   DECLARE_TRANSLATOR_LISTENER (ligature);
 };
 
-IMPLEMENT_TRANSLATOR_LISTENER (Vaticana_ligature_engraver, pes_or_flexa);
 void
 Vaticana_ligature_engraver::listen_pes_or_flexa (Stream_event *ev)
 {
   Gregorian_ligature_engraver::listen_pes_or_flexa (ev);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Vaticana_ligature_engraver, ligature);
 void
 Vaticana_ligature_engraver::listen_ligature (Stream_event *ev)
 {
@@ -741,8 +739,15 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 #endif
 }
 
-ADD_ACKNOWLEDGER (Vaticana_ligature_engraver, rest);
-ADD_ACKNOWLEDGER (Vaticana_ligature_engraver, ligature_head);
+void
+Vaticana_ligature_engraver::boot ()
+{
+  ADD_LISTENER (Vaticana_ligature_engraver, pes_or_flexa);
+  ADD_LISTENER (Vaticana_ligature_engraver, ligature);
+  ADD_ACKNOWLEDGER (Vaticana_ligature_engraver, rest);
+  ADD_ACKNOWLEDGER (Vaticana_ligature_engraver, ligature_head);
+}
+
 ADD_TRANSLATOR (Vaticana_ligature_engraver,
                 /* doc */
                 "Handle ligatures by glueing special ligature heads"

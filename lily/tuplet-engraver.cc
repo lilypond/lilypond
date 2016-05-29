@@ -73,7 +73,6 @@ protected:
   void process_music ();
 };
 
-IMPLEMENT_TRANSLATOR_LISTENER (Tuplet_engraver, tuplet_span);
 void
 Tuplet_engraver::listen_tuplet_span (Stream_event *ev)
 {
@@ -272,10 +271,16 @@ Tuplet_engraver::Tuplet_engraver ()
 {
 }
 
-ADD_ACKNOWLEDGER (Tuplet_engraver, note_column);
-ADD_ACKNOWLEDGER (Tuplet_engraver, script);
-ADD_ACKNOWLEDGER (Tuplet_engraver, finger);
-ADD_ACKNOWLEDGER (Tuplet_engraver, string_number);
+void
+Tuplet_engraver::boot ()
+{
+  ADD_LISTENER (Tuplet_engraver, tuplet_span);
+  ADD_ACKNOWLEDGER (Tuplet_engraver, note_column);
+  ADD_ACKNOWLEDGER (Tuplet_engraver, script);
+  ADD_ACKNOWLEDGER (Tuplet_engraver, finger);
+  ADD_ACKNOWLEDGER (Tuplet_engraver, string_number);
+}
+
 ADD_TRANSLATOR (Tuplet_engraver,
                 /* doc */
                 "Catch tuplet events and generate appropriate bracket.",

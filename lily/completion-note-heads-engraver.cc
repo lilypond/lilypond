@@ -89,7 +89,6 @@ Completion_heads_engraver::initialize ()
   is_first_ = false;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Completion_heads_engraver, note);
 void
 Completion_heads_engraver::listen_note (Stream_event *ev)
 {
@@ -305,6 +304,12 @@ Completion_heads_engraver::start_translation_timestep ()
 Completion_heads_engraver::Completion_heads_engraver ()
 {
   tie_column_ = 0;
+}
+
+void
+Completion_heads_engraver::boot ()
+{
+  ADD_LISTENER (Completion_heads_engraver, note);
 }
 
 ADD_TRANSLATOR (Completion_heads_engraver,

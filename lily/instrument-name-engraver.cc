@@ -173,7 +173,12 @@ Instrument_name_engraver::stop_spanner ()
   text_spanner_ = 0;
 }
 
-ADD_ACKNOWLEDGER (Instrument_name_engraver, axis_group);
+
+void
+Instrument_name_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Instrument_name_engraver, axis_group);
+}
 
 ADD_TRANSLATOR (Instrument_name_engraver,
                 /* doc */

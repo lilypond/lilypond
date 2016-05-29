@@ -148,7 +148,12 @@ Grob_pq_engraver::start_translation_timestep ()
     context ()->set_property ("busyGrobs", busy);
 }
 
-ADD_ACKNOWLEDGER (Grob_pq_engraver, grob);
+void
+Grob_pq_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Grob_pq_engraver, grob);
+}
+
 ADD_TRANSLATOR (Grob_pq_engraver,
                 /* doc */
                 "Administrate when certain grobs (e.g., note heads) stop"

@@ -206,7 +206,6 @@ Dynamic_performer::stop_translation_timestep ()
     = span_events_[RIGHT] = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Dynamic_performer, decrescendo);
 void
 Dynamic_performer::listen_decrescendo (Stream_event *r)
 {
@@ -215,7 +214,6 @@ Dynamic_performer::listen_decrescendo (Stream_event *r)
   grow_dir_[d] = SMALLER;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Dynamic_performer, crescendo);
 void
 Dynamic_performer::listen_crescendo (Stream_event *r)
 {
@@ -224,12 +222,19 @@ Dynamic_performer::listen_crescendo (Stream_event *r)
   grow_dir_[d] = BIGGER;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Dynamic_performer, absolute_dynamic);
 void
 Dynamic_performer::listen_absolute_dynamic (Stream_event *r)
 {
   if (!script_event_)
     script_event_ = r;
+}
+
+void
+Dynamic_performer::boot ()
+{
+  ADD_LISTENER (Dynamic_performer, decrescendo);
+  ADD_LISTENER (Dynamic_performer, crescendo);
+  ADD_LISTENER (Dynamic_performer, absolute_dynamic);
 }
 
 ADD_TRANSLATOR (Dynamic_performer,

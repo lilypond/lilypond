@@ -85,7 +85,6 @@ Completion_rest_engraver::initialize ()
   is_first_ = false;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Completion_rest_engraver, rest);
 void
 Completion_rest_engraver::listen_rest (Stream_event *ev)
 {
@@ -256,6 +255,12 @@ Completion_rest_engraver::start_translation_timestep ()
 
 Completion_rest_engraver::Completion_rest_engraver ()
 {
+}
+
+void
+Completion_rest_engraver::boot ()
+{
+  ADD_LISTENER (Completion_rest_engraver, rest);
 }
 
 ADD_TRANSLATOR (Completion_rest_engraver,

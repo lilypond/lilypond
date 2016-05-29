@@ -93,8 +93,13 @@ Melody_engraver::acknowledge_stem (Grob_info info)
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (Melody_engraver, stem);
-ADD_ACKNOWLEDGER (Melody_engraver, slur);
+
+void
+Melody_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Melody_engraver, stem);
+  ADD_ACKNOWLEDGER (Melody_engraver, slur);
+}
 
 ADD_TRANSLATOR (Melody_engraver,
                 /* doc */

@@ -61,21 +61,18 @@ Tab_note_heads_engraver::Tab_note_heads_engraver ()
 {
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Tab_note_heads_engraver, note);
 void
 Tab_note_heads_engraver::listen_note (Stream_event *ev)
 {
   note_events_.push_back (ev);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Tab_note_heads_engraver, string_number);
 void
 Tab_note_heads_engraver::listen_string_number (Stream_event *ev)
 {
   tabstring_events_.push_back (ev);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Tab_note_heads_engraver, fingering);
 void
 Tab_note_heads_engraver::listen_fingering (Stream_event *ev)
 {
@@ -140,6 +137,14 @@ Tab_note_heads_engraver::stop_translation_timestep ()
   note_events_.clear ();
   tabstring_events_.clear ();
   fingering_events_.clear ();
+}
+
+void
+Tab_note_heads_engraver::boot ()
+{
+  ADD_LISTENER (Tab_note_heads_engraver, note);
+  ADD_LISTENER (Tab_note_heads_engraver, string_number);
+  ADD_LISTENER (Tab_note_heads_engraver, fingering);
 }
 
 ADD_TRANSLATOR (Tab_note_heads_engraver,

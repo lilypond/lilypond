@@ -79,6 +79,12 @@ map<string, int> Staff_performer::static_channel_map_;
 int Staff_performer::channel_count_ = 0;
 int Staff_performer::staff_performer_count_ = 0;
 
+void
+Staff_performer::boot ()
+{
+
+}
+
 ADD_TRANSLATOR (Staff_performer,
                 /* doc */
                 "",

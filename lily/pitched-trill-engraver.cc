@@ -169,11 +169,16 @@ Pitched_trill_engraver::stop_translation_timestep ()
   trill_accidental_ = 0;
 }
 
-ADD_ACKNOWLEDGER (Pitched_trill_engraver, note_head);
-ADD_ACKNOWLEDGER (Pitched_trill_engraver, dots);
-ADD_ACKNOWLEDGER (Pitched_trill_engraver, stem);
-ADD_ACKNOWLEDGER (Pitched_trill_engraver, flag);
-ADD_ACKNOWLEDGER (Pitched_trill_engraver, trill_spanner);
+
+void
+Pitched_trill_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Pitched_trill_engraver, note_head);
+  ADD_ACKNOWLEDGER (Pitched_trill_engraver, dots);
+  ADD_ACKNOWLEDGER (Pitched_trill_engraver, stem);
+  ADD_ACKNOWLEDGER (Pitched_trill_engraver, flag);
+  ADD_ACKNOWLEDGER (Pitched_trill_engraver, trill_spanner);
+}
 
 ADD_TRANSLATOR (Pitched_trill_engraver,
                 /* doc */

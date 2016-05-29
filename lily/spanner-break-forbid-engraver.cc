@@ -66,8 +66,13 @@ Spanner_break_forbid_engraver::Spanner_break_forbid_engraver ()
 {
 }
 
-ADD_END_ACKNOWLEDGER (Spanner_break_forbid_engraver, unbreakable_spanner);
-ADD_ACKNOWLEDGER (Spanner_break_forbid_engraver, unbreakable_spanner);
+void
+Spanner_break_forbid_engraver::boot ()
+{
+  ADD_END_ACKNOWLEDGER (Spanner_break_forbid_engraver, unbreakable_spanner);
+  ADD_ACKNOWLEDGER (Spanner_break_forbid_engraver, unbreakable_spanner);
+}
+
 ADD_TRANSLATOR (Spanner_break_forbid_engraver,
                 /* doc */
                 "Forbid breaks in certain spanners.",

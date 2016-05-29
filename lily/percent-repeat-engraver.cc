@@ -85,7 +85,6 @@ Percent_repeat_engraver::start_translation_timestep ()
     }
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Percent_repeat_engraver, percent);
 void
 Percent_repeat_engraver::listen_percent (Stream_event *ev)
 {
@@ -167,6 +166,12 @@ Percent_repeat_engraver::typeset_perc ()
 void
 Percent_repeat_engraver::stop_translation_timestep ()
 {
+}
+
+void
+Percent_repeat_engraver::boot ()
+{
+  ADD_LISTENER (Percent_repeat_engraver, percent);
 }
 
 ADD_TRANSLATOR (Percent_repeat_engraver,

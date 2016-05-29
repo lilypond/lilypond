@@ -94,7 +94,12 @@ Span_bar_engraver::stop_translation_timestep ()
   bars_.resize (0);
 }
 
-ADD_ACKNOWLEDGER (Span_bar_engraver, bar_line);
+void
+Span_bar_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Span_bar_engraver, bar_line);
+}
+
 ADD_TRANSLATOR (Span_bar_engraver,
                 /* doc */
                 "Make cross-staff bar lines: It catches all normal bar lines"

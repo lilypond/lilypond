@@ -119,7 +119,12 @@ Measure_grouping_engraver::Measure_grouping_engraver ()
   grouping_ = 0;
 }
 
-ADD_ACKNOWLEDGER (Measure_grouping_engraver, note_column);
+void
+Measure_grouping_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Measure_grouping_engraver, note_column);
+}
+
 ADD_TRANSLATOR (Measure_grouping_engraver,
                 /* doc */
                 "Create @code{MeasureGrouping} to indicate beat subdivision.",

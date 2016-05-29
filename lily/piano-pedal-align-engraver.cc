@@ -248,11 +248,16 @@ Piano_pedal_align_engraver::finalize ()
     }
 }
 
-ADD_ACKNOWLEDGER (Piano_pedal_align_engraver, note_column);
-ADD_ACKNOWLEDGER (Piano_pedal_align_engraver, piano_pedal_bracket);
-ADD_ACKNOWLEDGER (Piano_pedal_align_engraver, piano_pedal_script);
 
-ADD_END_ACKNOWLEDGER (Piano_pedal_align_engraver, piano_pedal_bracket);
+
+void
+Piano_pedal_align_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Piano_pedal_align_engraver, note_column);
+  ADD_ACKNOWLEDGER (Piano_pedal_align_engraver, piano_pedal_bracket);
+  ADD_ACKNOWLEDGER (Piano_pedal_align_engraver, piano_pedal_script);
+  ADD_END_ACKNOWLEDGER (Piano_pedal_align_engraver, piano_pedal_bracket);
+}
 
 ADD_TRANSLATOR (Piano_pedal_align_engraver,
                 /* doc */

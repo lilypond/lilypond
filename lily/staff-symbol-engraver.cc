@@ -76,7 +76,6 @@ Staff_symbol_engraver::Staff_symbol_engraver ()
   span_events_.set (0, 0);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Staff_symbol_engraver, staff_span);
 void
 Staff_symbol_engraver::listen_staff_span (Stream_event *ev)
 {
@@ -163,7 +162,13 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
     }
 }
 
-ADD_ACKNOWLEDGER (Staff_symbol_engraver, grob);
+
+void
+Staff_symbol_engraver::boot ()
+{
+  ADD_LISTENER (Staff_symbol_engraver, staff_span);
+  ADD_ACKNOWLEDGER (Staff_symbol_engraver, grob);
+}
 
 ADD_TRANSLATOR (Staff_symbol_engraver,
                 /* doc */

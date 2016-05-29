@@ -49,7 +49,6 @@ Horizontal_bracket_engraver::Horizontal_bracket_engraver ()
   push_count_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Horizontal_bracket_engraver, note_grouping);
 void
 Horizontal_bracket_engraver::listen_note_grouping (Stream_event *ev)
 {
@@ -109,7 +108,13 @@ Horizontal_bracket_engraver::stop_translation_timestep ()
   events_.clear ();
 }
 
-ADD_ACKNOWLEDGER (Horizontal_bracket_engraver, note_column);
+void
+Horizontal_bracket_engraver::boot ()
+{
+  ADD_LISTENER (Horizontal_bracket_engraver, note_grouping);
+  ADD_ACKNOWLEDGER (Horizontal_bracket_engraver, note_column);
+}
+
 ADD_TRANSLATOR (Horizontal_bracket_engraver,
                 /* doc */
                 "Create horizontal brackets over notes for musical analysis"

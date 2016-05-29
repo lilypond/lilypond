@@ -371,9 +371,14 @@ New_fingering_engraver::New_fingering_engraver ()
   stem_ = 0;
 }
 
-ADD_ACKNOWLEDGER (New_fingering_engraver, rhythmic_head);
-ADD_ACKNOWLEDGER (New_fingering_engraver, inline_accidental);
-ADD_ACKNOWLEDGER (New_fingering_engraver, stem);
+
+void
+New_fingering_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (New_fingering_engraver, rhythmic_head);
+  ADD_ACKNOWLEDGER (New_fingering_engraver, inline_accidental);
+  ADD_ACKNOWLEDGER (New_fingering_engraver, stem);
+}
 
 ADD_TRANSLATOR (New_fingering_engraver,
                 /* doc */

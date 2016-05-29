@@ -81,7 +81,6 @@ Cluster_spanner_engraver::typeset_grobs ()
   beacon_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Cluster_spanner_engraver, cluster_note);
 void
 Cluster_spanner_engraver::listen_cluster_note (Stream_event *ev)
 {
@@ -142,7 +141,13 @@ Cluster_spanner_engraver::acknowledge_note_column (Grob_info info)
     }
 }
 
-ADD_ACKNOWLEDGER (Cluster_spanner_engraver, note_column);
+void
+Cluster_spanner_engraver::boot ()
+{
+  ADD_LISTENER (Cluster_spanner_engraver, cluster_note);
+  ADD_ACKNOWLEDGER (Cluster_spanner_engraver, note_column);
+}
+
 ADD_TRANSLATOR (Cluster_spanner_engraver,
                 /* doc */
                 "Engrave a cluster using @code{Spanner} notation.",

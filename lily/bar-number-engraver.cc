@@ -52,7 +52,6 @@ protected:
   TRANSLATOR_DECLARATIONS (Bar_number_engraver);
 };
 
-IMPLEMENT_TRANSLATOR_LISTENER (Bar_number_engraver, alternative);
 void
 Bar_number_engraver::listen_alternative (Stream_event *ev)
 {
@@ -177,7 +176,13 @@ Bar_number_engraver::create_items ()
   text_ = make_item ("BarNumber", SCM_EOL);
 }
 
-ADD_ACKNOWLEDGER (Bar_number_engraver, break_alignment);
+
+void
+Bar_number_engraver::boot ()
+{
+  ADD_LISTENER (Bar_number_engraver, alternative);
+  ADD_ACKNOWLEDGER (Bar_number_engraver, break_alignment);
+}
 
 ADD_TRANSLATOR (Bar_number_engraver,
                 /* doc */

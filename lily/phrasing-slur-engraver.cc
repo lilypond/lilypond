@@ -56,14 +56,12 @@ Phrasing_slur_engraver::event_symbol ()
   return ly_symbol2scm ("phrasing-slur-event");
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Phrasing_slur_engraver, phrasing_slur);
 void
 Phrasing_slur_engraver::listen_phrasing_slur (Stream_event *ev)
 {
   Slur_proto_engraver::listen_slur (ev);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Phrasing_slur_engraver, note);
 void
 Phrasing_slur_engraver::listen_note (Stream_event *ev)
 {
@@ -76,15 +74,22 @@ Phrasing_slur_engraver::acknowledge_slur (Grob_info info)
   acknowledge_extra_object (info);
 }
 
-ADD_ACKNOWLEDGER (Phrasing_slur_engraver, inline_accidental);
-ADD_ACKNOWLEDGER (Phrasing_slur_engraver, fingering)
-ADD_ACKNOWLEDGER (Phrasing_slur_engraver, note_column);
-ADD_ACKNOWLEDGER (Phrasing_slur_engraver, slur);
-ADD_ACKNOWLEDGER (Phrasing_slur_engraver, script);
-ADD_ACKNOWLEDGER (Phrasing_slur_engraver, dots);
-ADD_ACKNOWLEDGER (Phrasing_slur_engraver, text_script);
-ADD_END_ACKNOWLEDGER (Phrasing_slur_engraver, tie);
-ADD_ACKNOWLEDGER (Phrasing_slur_engraver, tuplet_number);
+
+void
+Phrasing_slur_engraver::boot ()
+{
+  ADD_LISTENER (Phrasing_slur_engraver, phrasing_slur);
+  ADD_LISTENER (Phrasing_slur_engraver, note);
+  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, inline_accidental);
+  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, fingering)
+  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, note_column);
+  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, slur);
+  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, script);
+  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, dots);
+  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, text_script);
+  ADD_END_ACKNOWLEDGER (Phrasing_slur_engraver, tie);
+  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, tuplet_number);
+}
 
 ADD_TRANSLATOR (Phrasing_slur_engraver,
                 /* doc */

@@ -120,7 +120,6 @@ Key_engraver::create_key (bool is_default)
     }
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Key_engraver, key_change);
 void
 Key_engraver::listen_key_change (Stream_event *ev)
 {
@@ -212,8 +211,14 @@ Key_engraver::initialize ()
   context ()->set_property ("tonic", p.smobbed_copy ());
 }
 
-ADD_ACKNOWLEDGER (Key_engraver, clef);
-ADD_ACKNOWLEDGER (Key_engraver, bar_line);
+
+void
+Key_engraver::boot ()
+{
+  ADD_LISTENER (Key_engraver, key_change);
+  ADD_ACKNOWLEDGER (Key_engraver, clef);
+  ADD_ACKNOWLEDGER (Key_engraver, bar_line);
+}
 
 ADD_TRANSLATOR (Key_engraver,
                 /* doc */

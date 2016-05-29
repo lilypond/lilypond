@@ -142,8 +142,13 @@ Custos_engraver::finalize ()
   custodes_.clear ();
 }
 
-ADD_ACKNOWLEDGER (Custos_engraver, bar);
-ADD_ACKNOWLEDGER (Custos_engraver, note_head);
+
+void
+Custos_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Custos_engraver, bar);
+  ADD_ACKNOWLEDGER (Custos_engraver, note_head);
+}
 
 ADD_TRANSLATOR (Custos_engraver,
                 /* doc */

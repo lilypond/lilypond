@@ -120,8 +120,13 @@ Ledger_line_engraver::acknowledge_ledgered (Grob_info s)
   ledgered_grobs_.push_back (s.grob ());
 }
 
-ADD_ACKNOWLEDGER (Ledger_line_engraver, ledgered);
-ADD_ACKNOWLEDGER (Ledger_line_engraver, staff_symbol);
+void
+Ledger_line_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Ledger_line_engraver, ledgered);
+  ADD_ACKNOWLEDGER (Ledger_line_engraver, staff_symbol);
+}
+
 ADD_TRANSLATOR (Ledger_line_engraver,
                 /* doc */
                 "Create the spanner to draw ledger lines, and notices"

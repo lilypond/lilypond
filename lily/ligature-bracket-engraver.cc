@@ -46,7 +46,6 @@ private:
   Stream_event *previous_start_event_;
 };
 
-IMPLEMENT_TRANSLATOR_LISTENER (Ligature_bracket_engraver, ligature);
 void
 Ligature_bracket_engraver::listen_ligature (Stream_event *ev)
 {
@@ -116,8 +115,14 @@ Ligature_bracket_engraver::stop_translation_timestep ()
   finished_ligature_ = 0;
 }
 
-ADD_ACKNOWLEDGER (Ligature_bracket_engraver, rest);
-ADD_ACKNOWLEDGER (Ligature_bracket_engraver, note_column);
+
+void
+Ligature_bracket_engraver::boot ()
+{
+  ADD_LISTENER (Ligature_bracket_engraver, ligature);
+  ADD_ACKNOWLEDGER (Ligature_bracket_engraver, rest);
+  ADD_ACKNOWLEDGER (Ligature_bracket_engraver, note_column);
+}
 
 ADD_TRANSLATOR (Ligature_bracket_engraver,
                 /* doc */

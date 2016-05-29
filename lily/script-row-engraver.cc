@@ -89,8 +89,13 @@ Script_row_engraver::process_acknowledged ()
     script_row_ = make_item ("ScriptRow", SCM_EOL);
 }
 
-ADD_ACKNOWLEDGER (Script_row_engraver, accidental_placement);
-ADD_ACKNOWLEDGER (Script_row_engraver, side_position);
+void
+Script_row_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Script_row_engraver, accidental_placement);
+  ADD_ACKNOWLEDGER (Script_row_engraver, side_position);
+}
+
 ADD_TRANSLATOR (Script_row_engraver,
                 /* doc */
                 "Determine order in horizontal side position elements.",

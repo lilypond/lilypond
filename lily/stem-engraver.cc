@@ -212,7 +212,6 @@ Stem_engraver::stop_translation_timestep ()
   tremolo_ev_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Stem_engraver, tuplet_span);
 void
 Stem_engraver::listen_tuplet_span (Stream_event *ev)
 {
@@ -226,14 +225,20 @@ Stem_engraver::listen_tuplet_span (Stream_event *ev)
     }
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Stem_engraver, tremolo);
 void
 Stem_engraver::listen_tremolo (Stream_event *ev)
 {
   ASSIGN_EVENT_ONCE (tremolo_ev_, ev);
 }
 
-ADD_ACKNOWLEDGER (Stem_engraver, rhythmic_head);
+
+void
+Stem_engraver::boot ()
+{
+  ADD_LISTENER (Stem_engraver, tuplet_span);
+  ADD_LISTENER (Stem_engraver, tremolo);
+  ADD_ACKNOWLEDGER (Stem_engraver, rhythmic_head);
+}
 
 ADD_TRANSLATOR (Stem_engraver,
                 /* doc */

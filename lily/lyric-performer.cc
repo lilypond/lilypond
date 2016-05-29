@@ -67,11 +67,16 @@ Lyric_performer::stop_translation_timestep ()
   events_.clear ();
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Lyric_performer, lyric);
 void
 Lyric_performer::listen_lyric (Stream_event *event)
 {
   events_.push_back (event);
+}
+
+void
+Lyric_performer::boot ()
+{
+  ADD_LISTENER (Lyric_performer, lyric);
 }
 
 ADD_TRANSLATOR (Lyric_performer,

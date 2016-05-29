@@ -111,7 +111,6 @@ Mark_engraver::create_items (Stream_event *ev)
   text_ = make_item ("RehearsalMark", ev->self_scm ());
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Mark_engraver, mark);
 void
 Mark_engraver::listen_mark (Stream_event *ev)
 {
@@ -157,7 +156,13 @@ Mark_engraver::process_music ()
     }
 }
 
-ADD_ACKNOWLEDGER (Mark_engraver, break_alignment);
+
+void
+Mark_engraver::boot ()
+{
+  ADD_LISTENER (Mark_engraver, mark);
+  ADD_ACKNOWLEDGER (Mark_engraver, break_alignment);
+}
 
 ADD_TRANSLATOR (Mark_engraver,
                 /* doc */

@@ -99,7 +99,6 @@ Spacing_engraver::Spacing_engraver ()
   start_section_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Spacing_engraver, spacing_section);
 void
 Spacing_engraver::listen_spacing_section (Stream_event *ev)
 {
@@ -261,10 +260,16 @@ Spacing_engraver::start_translation_timestep ()
     stopped_durations_.push_back (playing_durations_.get ());
 }
 
-ADD_ACKNOWLEDGER (Spacing_engraver, staff_spacing);
-ADD_ACKNOWLEDGER (Spacing_engraver, note_spacing);
-ADD_ACKNOWLEDGER (Spacing_engraver, rhythmic_head);
-ADD_ACKNOWLEDGER (Spacing_engraver, rhythmic_grob);
+
+void
+Spacing_engraver::boot ()
+{
+  ADD_LISTENER (Spacing_engraver, spacing_section);
+  ADD_ACKNOWLEDGER (Spacing_engraver, staff_spacing);
+  ADD_ACKNOWLEDGER (Spacing_engraver, note_spacing);
+  ADD_ACKNOWLEDGER (Spacing_engraver, rhythmic_head);
+  ADD_ACKNOWLEDGER (Spacing_engraver, rhythmic_grob);
+}
 
 ADD_TRANSLATOR (Spacing_engraver,
                 /* doc */

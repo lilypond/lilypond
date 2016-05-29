@@ -60,7 +60,6 @@ Glissando_engraver::Glissando_engraver ()
   stop_glissandi_ = false;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Glissando_engraver, glissando);
 void
 Glissando_engraver::listen_glissando (Stream_event *ev)
 {
@@ -170,7 +169,13 @@ Glissando_engraver::finalize ()
     kill_me_[i]->suicide ();
 }
 
-ADD_ACKNOWLEDGER (Glissando_engraver, note_column);
+void
+Glissando_engraver::boot ()
+{
+  ADD_LISTENER (Glissando_engraver, glissando);
+  ADD_ACKNOWLEDGER (Glissando_engraver, note_column);
+}
+
 ADD_TRANSLATOR (Glissando_engraver,
                 /* doc */
                 "Engrave glissandi.",

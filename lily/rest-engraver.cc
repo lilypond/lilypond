@@ -80,11 +80,16 @@ Rest_engraver::process_music ()
     }
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Rest_engraver, rest);
 void
 Rest_engraver::listen_rest (Stream_event *ev)
 {
   ASSIGN_EVENT_ONCE (rest_event_, ev);
+}
+
+void
+Rest_engraver::boot ()
+{
+  ADD_LISTENER (Rest_engraver, rest);
 }
 
 ADD_TRANSLATOR (Rest_engraver,

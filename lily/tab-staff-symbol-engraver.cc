@@ -42,7 +42,12 @@ Tab_staff_symbol_engraver::Tab_staff_symbol_engraver ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (Tab_staff_symbol_engraver, staff_symbol);
+void
+Tab_staff_symbol_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Tab_staff_symbol_engraver, staff_symbol);
+}
+
 ADD_TRANSLATOR (Tab_staff_symbol_engraver,
                 /* doc */
                 "Create a tablature staff symbol, but look at"

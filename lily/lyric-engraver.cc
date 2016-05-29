@@ -56,7 +56,6 @@ Lyric_engraver::Lyric_engraver ()
   event_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Lyric_engraver, lyric);
 void
 Lyric_engraver::listen_lyric (Stream_event *ev)
 {
@@ -192,6 +191,12 @@ Lyric_engraver::stop_translation_timestep ()
       text_ = 0;
     }
   event_ = 0;
+}
+
+void
+Lyric_engraver::boot ()
+{
+  ADD_LISTENER (Lyric_engraver, lyric);
 }
 
 ADD_TRANSLATOR (Lyric_engraver,

@@ -112,7 +112,6 @@ Beam_engraver::Beam_engraver ()
   prev_start_ev_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Beam_engraver, beam);
 void
 Beam_engraver::listen_beam (Stream_event *ev)
 {
@@ -312,8 +311,14 @@ Beam_engraver::acknowledge_stem (Grob_info info)
   Beam::add_stem (beam_, stem);
 }
 
-ADD_ACKNOWLEDGER (Beam_engraver, stem);
-ADD_ACKNOWLEDGER (Beam_engraver, rest);
+
+void
+Beam_engraver::boot ()
+{
+  ADD_LISTENER (Beam_engraver, beam);
+  ADD_ACKNOWLEDGER (Beam_engraver, stem);
+  ADD_ACKNOWLEDGER (Beam_engraver, rest);
+}
 
 ADD_TRANSLATOR (Beam_engraver,
                 /* doc */
@@ -366,7 +371,6 @@ Grace_beam_engraver::valid_end_point ()
 /*
   Ugh, C&P code.
  */
-IMPLEMENT_TRANSLATOR_LISTENER (Grace_beam_engraver, beam);
 void
 Grace_beam_engraver::listen_beam (Stream_event *ev)
 {
@@ -378,8 +382,14 @@ Grace_beam_engraver::listen_beam (Stream_event *ev)
     stop_ev_ = ev;
 }
 
-ADD_ACKNOWLEDGER (Grace_beam_engraver, stem);
-ADD_ACKNOWLEDGER (Grace_beam_engraver, rest);
+
+void
+Grace_beam_engraver::boot ()
+{
+  ADD_LISTENER (Grace_beam_engraver, beam);
+  ADD_ACKNOWLEDGER (Grace_beam_engraver, stem);
+  ADD_ACKNOWLEDGER (Grace_beam_engraver, rest);
+}
 
 ADD_TRANSLATOR (Grace_beam_engraver,
                 /* doc */

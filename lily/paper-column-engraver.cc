@@ -142,14 +142,12 @@ Paper_column_engraver::set_columns (Paper_column *new_command,
   system_->add_column (musical_column_);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Paper_column_engraver, break);
 void
 Paper_column_engraver::listen_break (Stream_event *ev)
 {
   break_events_.push_back (ev);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Paper_column_engraver, label);
 void
 Paper_column_engraver::listen_label (Stream_event *ev)
 {
@@ -301,9 +299,16 @@ Paper_column_engraver::start_translation_timestep ()
     }
 }
 
-ADD_ACKNOWLEDGER (Paper_column_engraver, item);
-ADD_ACKNOWLEDGER (Paper_column_engraver, note_spacing);
-ADD_ACKNOWLEDGER (Paper_column_engraver, staff_spacing);
+
+void
+Paper_column_engraver::boot ()
+{
+  ADD_LISTENER (Paper_column_engraver, break);
+  ADD_LISTENER (Paper_column_engraver, label);
+  ADD_ACKNOWLEDGER (Paper_column_engraver, item);
+  ADD_ACKNOWLEDGER (Paper_column_engraver, note_spacing);
+  ADD_ACKNOWLEDGER (Paper_column_engraver, staff_spacing);
+}
 
 ADD_TRANSLATOR (Paper_column_engraver,
                 /* doc */

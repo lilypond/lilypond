@@ -155,8 +155,13 @@ Break_align_engraver::add_to_group (SCM align_name, Item *item)
   Axis_group_interface::add_element (group, item);
 }
 
-ADD_ACKNOWLEDGER (Break_align_engraver, break_aligned);
-ADD_ACKNOWLEDGER (Break_align_engraver, break_alignable);
+void
+Break_align_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Break_align_engraver, break_aligned);
+  ADD_ACKNOWLEDGER (Break_align_engraver, break_alignable);
+}
+
 ADD_TRANSLATOR (Break_align_engraver,
                 /* doc */
                 "Align grobs with corresponding @code{break-align-symbols}"

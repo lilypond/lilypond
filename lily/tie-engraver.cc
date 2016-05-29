@@ -101,7 +101,6 @@ Tie_engraver::Tie_engraver ()
   event_processed_ = false;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Tie_engraver, tie);
 void
 Tie_engraver::listen_tie (Stream_event *ev)
 {
@@ -385,7 +384,13 @@ Tie_engraver::typeset_tie (Spanner *her)
   her->set_bound (RIGHT, right_head);
 }
 
-ADD_ACKNOWLEDGER (Tie_engraver, note_head);
+void
+Tie_engraver::boot ()
+{
+  ADD_LISTENER (Tie_engraver, tie);
+  ADD_ACKNOWLEDGER (Tie_engraver, note_head);
+}
+
 ADD_TRANSLATOR (Tie_engraver,
                 /* doc */
                 "Generate ties between note heads of equal pitch.",

@@ -71,7 +71,6 @@ Script_engraver::Script_engraver ()
 {
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Script_engraver, articulation);
 void
 Script_engraver::listen_articulation (Stream_event *ev)
 {
@@ -275,13 +274,19 @@ Script_engraver::stop_translation_timestep ()
   scripts_.clear ();
 }
 
-ADD_ACKNOWLEDGER (Script_engraver, rhythmic_head);
-ADD_ACKNOWLEDGER (Script_engraver, stem);
-ADD_ACKNOWLEDGER (Script_engraver, tie);
-ADD_END_ACKNOWLEDGER (Script_engraver, tie);
-ADD_ACKNOWLEDGER (Script_engraver, note_column);
-ADD_ACKNOWLEDGER (Script_engraver, stem_tremolo);
-ADD_ACKNOWLEDGER (Script_engraver, inline_accidental);
+
+void
+Script_engraver::boot ()
+{
+  ADD_LISTENER (Script_engraver, articulation);
+  ADD_ACKNOWLEDGER (Script_engraver, rhythmic_head);
+  ADD_ACKNOWLEDGER (Script_engraver, stem);
+  ADD_ACKNOWLEDGER (Script_engraver, tie);
+  ADD_END_ACKNOWLEDGER (Script_engraver, tie);
+  ADD_ACKNOWLEDGER (Script_engraver, note_column);
+  ADD_ACKNOWLEDGER (Script_engraver, stem_tremolo);
+  ADD_ACKNOWLEDGER (Script_engraver, inline_accidental);
+}
 
 ADD_TRANSLATOR (Script_engraver,
                 /* doc */

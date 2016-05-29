@@ -35,7 +35,6 @@ public:
   void stop_translation_timestep ();
 };
 
-IMPLEMENT_TRANSLATOR_LISTENER (Note_name_engraver, note);
 void
 Note_name_engraver::listen_note (Stream_event *ev)
 {
@@ -72,6 +71,12 @@ Note_name_engraver::stop_translation_timestep ()
 
 Note_name_engraver::Note_name_engraver ()
 {
+}
+
+void
+Note_name_engraver::boot ()
+{
+  ADD_LISTENER (Note_name_engraver, note);
 }
 
 ADD_TRANSLATOR (Note_name_engraver,

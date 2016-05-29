@@ -136,7 +136,12 @@ Ottava_spanner_engraver::finalize ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (Ottava_spanner_engraver, note_column);
+
+void
+Ottava_spanner_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Ottava_spanner_engraver, note_column);
+}
 
 ADD_TRANSLATOR (Ottava_spanner_engraver,
                 /* doc */

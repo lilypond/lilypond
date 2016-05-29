@@ -60,7 +60,6 @@ Time_signature_engraver::Time_signature_engraver ()
   last_time_fraction_ = SCM_BOOL_F;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Time_signature_engraver, time_signature);
 void
 Time_signature_engraver::listen_time_signature (Stream_event *ev)
 {
@@ -114,6 +113,12 @@ Time_signature_engraver::stop_translation_timestep ()
 
   time_signature_ = 0;
   time_cause_ = SCM_EOL;
+}
+
+void
+Time_signature_engraver::boot ()
+{
+  ADD_LISTENER (Time_signature_engraver, time_signature);
 }
 
 ADD_TRANSLATOR (Time_signature_engraver,

@@ -88,7 +88,12 @@ Keep_alive_together_engraver::finalize ()
     }
 }
 
-ADD_ACKNOWLEDGER (Keep_alive_together_engraver, hara_kiri_group_spanner);
+
+void
+Keep_alive_together_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Keep_alive_together_engraver, hara_kiri_group_spanner);
+}
 
 ADD_TRANSLATOR (Keep_alive_together_engraver,
                 /* doc */

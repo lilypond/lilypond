@@ -136,8 +136,13 @@ Pure_from_neighbor_engraver::finalize ()
   pure_relevants_.clear ();
 }
 
-ADD_ACKNOWLEDGER (Pure_from_neighbor_engraver, item);
-ADD_ACKNOWLEDGER (Pure_from_neighbor_engraver, pure_from_neighbor);
+void
+Pure_from_neighbor_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Pure_from_neighbor_engraver, item);
+  ADD_ACKNOWLEDGER (Pure_from_neighbor_engraver, pure_from_neighbor);
+}
+
 ADD_TRANSLATOR (Pure_from_neighbor_engraver,
                 /* doc */
                 "Coordinates items that get their pure heights from their neighbors.",

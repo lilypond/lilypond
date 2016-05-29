@@ -134,9 +134,14 @@ Rhythmic_column_engraver::stop_translation_timestep ()
   flag_ = 0;
 }
 
-ADD_ACKNOWLEDGER (Rhythmic_column_engraver, stem);
-ADD_ACKNOWLEDGER (Rhythmic_column_engraver, flag);
-ADD_ACKNOWLEDGER (Rhythmic_column_engraver, rhythmic_head);
+
+void
+Rhythmic_column_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Rhythmic_column_engraver, stem);
+  ADD_ACKNOWLEDGER (Rhythmic_column_engraver, flag);
+  ADD_ACKNOWLEDGER (Rhythmic_column_engraver, rhythmic_head);
+}
 
 ADD_TRANSLATOR (Rhythmic_column_engraver,
                 /* doc */

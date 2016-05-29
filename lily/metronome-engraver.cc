@@ -61,7 +61,6 @@ Metronome_mark_engraver::Metronome_mark_engraver ()
   tempo_ev_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Metronome_mark_engraver, tempo_change);
 void
 Metronome_mark_engraver::listen_tempo_change (Stream_event *ev)
 {
@@ -168,9 +167,15 @@ Metronome_mark_engraver::process_music ()
     }
 }
 
-ADD_ACKNOWLEDGER (Metronome_mark_engraver, break_aligned);
-ADD_ACKNOWLEDGER (Metronome_mark_engraver, break_alignment);
-ADD_ACKNOWLEDGER (Metronome_mark_engraver, grob);
+
+void
+Metronome_mark_engraver::boot ()
+{
+  ADD_LISTENER (Metronome_mark_engraver, tempo_change);
+  ADD_ACKNOWLEDGER (Metronome_mark_engraver, break_aligned);
+  ADD_ACKNOWLEDGER (Metronome_mark_engraver, break_alignment);
+  ADD_ACKNOWLEDGER (Metronome_mark_engraver, grob);
+}
 
 ADD_TRANSLATOR (Metronome_mark_engraver,
                 /* doc */

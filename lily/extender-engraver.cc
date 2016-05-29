@@ -60,7 +60,6 @@ Extender_engraver::Extender_engraver ()
   ev_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Extender_engraver, extender);
 void
 Extender_engraver::listen_extender (Stream_event *ev)
 {
@@ -73,7 +72,6 @@ Extender_engraver::listen_extender (Stream_event *ev)
   end before the associated voice (this prevents the right bound being extended
   to the next note-column if no lyric follows the extender)
 */
-IMPLEMENT_TRANSLATOR_LISTENER (Extender_engraver, completize_extender);
 void
 Extender_engraver::listen_completize_extender (Stream_event * /* ev */)
 {
@@ -180,7 +178,14 @@ Extender_engraver::finalize ()
     }
 }
 
-ADD_ACKNOWLEDGER (Extender_engraver, lyric_syllable);
+void
+Extender_engraver::boot ()
+{
+  ADD_LISTENER (Extender_engraver, extender);
+  ADD_LISTENER (Extender_engraver, completize_extender);
+  ADD_ACKNOWLEDGER (Extender_engraver, lyric_syllable);
+}
+
 ADD_TRANSLATOR (Extender_engraver,
                 /* doc */
                 "Create lyric extenders.",

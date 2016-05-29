@@ -218,7 +218,12 @@ Ambitus_engraver::finalize ()
     }
 }
 
-ADD_ACKNOWLEDGER (Ambitus_engraver, note_head);
+void
+Ambitus_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Ambitus_engraver, note_head);
+}
+
 ADD_TRANSLATOR (Ambitus_engraver,
                 /* doc */
                 "Create an ambitus.",

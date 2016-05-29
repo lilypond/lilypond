@@ -113,6 +113,12 @@ Midi_control_function_performer::announce_function_value_change (SCM sev)
     }
 }
 
+void
+Midi_control_function_performer::boot ()
+{
+
+}
+
 ADD_TRANSLATOR (Midi_control_function_performer,
                 /* doc */
                 "",

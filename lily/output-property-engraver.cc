@@ -37,7 +37,6 @@ protected:
   void stop_translation_timestep ();
 };
 
-IMPLEMENT_TRANSLATOR_LISTENER (Output_property_engraver, apply_output);
 void
 Output_property_engraver::listen_apply_output (Stream_event *ev)
 {
@@ -78,7 +77,13 @@ Output_property_engraver::Output_property_engraver ()
 {
 }
 
-ADD_ACKNOWLEDGER (Output_property_engraver, grob);
+void
+Output_property_engraver::boot ()
+{
+  ADD_LISTENER (Output_property_engraver, apply_output);
+  ADD_ACKNOWLEDGER (Output_property_engraver, grob);
+}
+
 ADD_TRANSLATOR (Output_property_engraver,
 		/* doc */
 		"Apply a procedure to any grob acknowledged.",

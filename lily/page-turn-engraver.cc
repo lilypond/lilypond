@@ -168,7 +168,6 @@ Page_turn_engraver::acknowledge_note_head (Grob_info gi)
   note_end_ = now_mom () + dur_ptr->get_length ();
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Page_turn_engraver, break);
 void
 Page_turn_engraver::listen_break (Stream_event *ev)
 {
@@ -342,7 +341,13 @@ Page_turn_engraver::finalize ()
     }
 }
 
-ADD_ACKNOWLEDGER (Page_turn_engraver, note_head);
+
+void
+Page_turn_engraver::boot ()
+{
+  ADD_LISTENER (Page_turn_engraver, break);
+  ADD_ACKNOWLEDGER (Page_turn_engraver, note_head);
+}
 
 ADD_TRANSLATOR (Page_turn_engraver,
                 /* doc */

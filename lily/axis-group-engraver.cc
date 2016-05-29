@@ -165,7 +165,12 @@ Axis_group_engraver::add_element (Grob *e)
   Axis_group_interface::add_element (staffline_, e);
 }
 
-ADD_ACKNOWLEDGER (Axis_group_engraver, grob);
+
+void
+Axis_group_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Axis_group_engraver, grob);
+}
 
 ADD_TRANSLATOR (Axis_group_engraver,
                 /* doc */
