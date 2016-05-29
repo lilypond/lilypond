@@ -73,6 +73,7 @@
   }                                                                     \
 public:                                                                 \
   NAME ();                                                              \
+  static void boot ();                                                  \
   virtual SCM static_translator_description () const;                   \
   virtual SCM translator_description () const;                          \
   virtual SCM get_listener_list () const                                \
