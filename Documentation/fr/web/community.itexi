@@ -1092,7 +1092,7 @@ LilyPond
 Une ligature, qu'elle soit rectiligne, passe d'une portée à l'autre,
 discontinue ou coudée, devrait dépendre du contexte et des notes
 adjacentes (voir
-@uref{http://imslp.org/wiki/Repository_of_Music-Notation_Mistakes_%28Coulon,_Jean-Pierre%29,
+@uref{http://imslp.org/wiki/Repository_of_Music-Notation_Mistakes_%28Coulon%2C_Jean-Pierre%29,
 la section 2.2 de cet article}).  Dans la mesure du possible, raccourcir
 le temps de calcul nécessaire à la génération des ligatures.
 
