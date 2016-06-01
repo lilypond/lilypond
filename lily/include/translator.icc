@@ -95,7 +95,7 @@
 
 void add_acknowledger (SCM ptr,
                        char const *func_name,
-                       Protected_scm &ack_hash);
+                       SCM &ack_hash);
 
 #define ADD_ACKNOWLEDGER(CLASS, NAME)                                   \
   add_acknowledger (CLASS::ack_finder<&CLASS::acknowledge_ ## NAME> (), \
