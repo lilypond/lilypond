@@ -158,8 +158,8 @@ Note_performer::listen_breathing (Stream_event *ev)
 void
 Note_performer::boot ()
 {
-  ADD_LISTENER (Note_performer, note)
-  ADD_LISTENER (Note_performer, breathing)
+  ADD_LISTENER (Note_performer, note);
+  ADD_LISTENER (Note_performer, breathing);
 }
 
 ADD_TRANSLATOR (Note_performer,

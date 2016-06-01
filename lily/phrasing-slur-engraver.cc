@@ -81,7 +81,7 @@ Phrasing_slur_engraver::boot ()
   ADD_LISTENER (Phrasing_slur_engraver, phrasing_slur);
   ADD_LISTENER (Phrasing_slur_engraver, note);
   ADD_ACKNOWLEDGER (Phrasing_slur_engraver, inline_accidental);
-  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, fingering)
+  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, fingering);
   ADD_ACKNOWLEDGER (Phrasing_slur_engraver, note_column);
   ADD_ACKNOWLEDGER (Phrasing_slur_engraver, slur);
   ADD_ACKNOWLEDGER (Phrasing_slur_engraver, script);
