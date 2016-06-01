@@ -49,7 +49,6 @@ class Protected_scm
 public:
   Protected_scm ();
   Protected_scm (SCM);
-  ~Protected_scm ();
   Protected_scm &operator = (SCM);
   Protected_scm &operator = (Protected_scm const &);
   operator SCM () const;

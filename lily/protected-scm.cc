@@ -37,15 +37,6 @@ Protected_scm::Protected_scm (SCM s)
   assert (SCM_IMP (s));
 }
 
-// For static objects, this will be called at program exit.  With the
-// state of the memory system unknown, we refrain from any cleanup
-// actions outside of the object memory itself.
-
-Protected_scm::~Protected_scm ()
-{
-  object_ = SCM_UNDEFINED;
-}
-
 SCM Protected_scm::list_ = SCM_EOL;
 SCM Protected_scm::last_ = SCM_EOL;
 
