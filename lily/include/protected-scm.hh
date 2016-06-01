@@ -46,12 +46,14 @@ class Protected_scm
   static SCM list_;
   static SCM last_;
   Protected_scm (Protected_scm const &);
+  void protectify (SCM);
 public:
   Protected_scm ();
   Protected_scm (SCM);
   Protected_scm &operator = (SCM);
   Protected_scm &operator = (Protected_scm const &);
-  operator SCM () const;
+  operator const SCM & () const;
+  operator SCM & ();
 };
 
 #endif /* PROTECTED_SCM_HH */
