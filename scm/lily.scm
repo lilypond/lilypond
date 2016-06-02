@@ -103,7 +103,7 @@
     (variable-set! var value)
     var))
 
-(defmacro-public define-session (name value)
+(defmacro define-session (name value)
   "This defines a variable @var{name} with the starting value
 @var{value} that is reinitialized at the start of each session.
 A@tie{}session basically corresponds to one LilyPond file on the
@@ -121,7 +121,7 @@ session has started."
           (cons (make-session-variable name value) lilypond-declarations)))
   `(,add-session-variable ',name ,value))
 
-(defmacro-public define-session-public (name value)
+(defmacro define-session-public (name value)
   "Like @code{define-session}, but also exports @var{name} into parser modules."
   (define (add-session-variable name value)
     (set! lilypond-exports
