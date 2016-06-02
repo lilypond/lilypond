@@ -89,8 +89,7 @@ expression."
   (define (pitch= pitch1 pitch2)
     (and (= (ly:pitch-notename pitch1) (ly:pitch-notename pitch2))
          (= (ly:pitch-alteration pitch1) (ly:pitch-alteration pitch2))))
-  (let* ((pitches (ly:parser-lookup 'pitchnames))
-         (result (rassoc ly-pitch pitches pitch=)))
+  (let* ((result (rassoc ly-pitch pitchnames pitch=)))
     (and result (car result))))
 
 (define-public (octave->lily-string pitch)
