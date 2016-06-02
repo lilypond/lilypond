@@ -1838,6 +1838,7 @@ class TimeSignatureChange (Music):
         self.style = None
         # Used for the --time-signature option of musicxml2ly
         self.originalFractions = [4, 4]
+        self.visible = True
 
     def get_fractions_ratio (self):
         """
@@ -1868,7 +1869,7 @@ class TimeSignatureChange (Music):
         # forced for 2/2 or 4/4, since in all other cases we'll get numeric
         # signatures anyway despite the default 'C signature style!
         is_common_signature = self.fractions in ([2, 2], [4, 4], [4, 2])
-        if self.style:
+        if self.style and self.visible:
             if self.style == "common":
                 st = "\\defaultTimeSignature"
             elif (self.style != "'()"):
@@ -1876,11 +1877,13 @@ class TimeSignatureChange (Music):
             elif (self.style != "'()") or is_common_signature:
                 st = "\\numericTimeSignature"
 
+        omit = '' if self.visible else '\omit Staff.TimeSignature'
+
         # Easy case: self.fractions = [n,d] => normal \time n/d call:
         if len (self.fractions) == 2 and isinstance (self.fractions[0], int):
-            return st + '\\time %d/%d ' % tuple (self.fractions)
+            return st + '\\time %d/%d ' % tuple (self.fractions) + omit
         elif self.fractions:
-            return st + "\\compoundMeter #'%s" % self.format_fraction (self.fractions)
+            return st + "\\compoundMeter #'%s" % self.format_fraction (self.fractions) + omit
         else:
             return st + ''
 
