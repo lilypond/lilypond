@@ -859,7 +859,11 @@ Otherwise, return #f."
                 num den
                 (new-line->lily-string))
         (format #f
-                "\\time #'~a ~a/~a~a"
+                ;; This is silly but the latter will also work for #f
+                ;; and other
+                (if (key-list? structure)
+                    "\\time ~{~a~^,~} ~a/~a~a"
+                    "\\time #'~a ~a/~a~a")
                 structure num den
                 (new-line->lily-string)))))
 
