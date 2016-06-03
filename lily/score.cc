@@ -59,7 +59,7 @@ Score::~Score ()
 {
 }
 
-const char Score::type_p_name_[] = "ly:score?";
+const char * const Score::type_p_name_ = "ly:score?";
 
 SCM
 Score::mark_smob () const

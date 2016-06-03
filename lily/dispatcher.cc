@@ -23,7 +23,7 @@
 #include "warn.hh"
 #include "lily-imports.hh"
 
-const char Dispatcher::type_p_name_[] = "ly:dispatcher?";
+const char * const Dispatcher::type_p_name_ = "ly:dispatcher?";
 
 Dispatcher::~Dispatcher ()
 {

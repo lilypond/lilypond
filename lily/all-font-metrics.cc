@@ -27,8 +27,6 @@
 #include "scm-hash.hh"
 #include "warn.hh"
 
-const char * const All_font_metrics::type_p_name_ = 0;
-
 Index_to_charcode_map const *
 All_font_metrics::get_index_to_charcode_map (const string &filename,
                                              int face_index,

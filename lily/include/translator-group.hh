@@ -29,7 +29,7 @@ class Translator_group : public Smob<Translator_group>
 public:
   SCM mark_smob () const;
   int print_smob (SCM, scm_print_state *) const;
-  static const char type_p_name_[];
+  static const char * const type_p_name_;
   virtual ~Translator_group ();
 private:
   void precompute_method_bindings ();

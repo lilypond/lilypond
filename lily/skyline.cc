@@ -802,7 +802,7 @@ Skyline::clear ()
 
 /****************************************************************/
 
-const char Skyline::type_p_name_[] = "ly:skyline?";
+const char * const Skyline::type_p_name_ = "ly:skyline?";
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Skyline, get_touching_point, 3, 1, "")
 SCM

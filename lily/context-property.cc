@@ -66,7 +66,7 @@ class Grob_properties : public Simple_smob<Grob_properties>
 {
 public:
   SCM mark_smob () const;
-  static const char type_p_name_[];
+  static const char * const type_p_name_;
 private:
   friend class Grob_property_info;
   friend SCM ly_make_grob_properties (SCM);
@@ -97,7 +97,7 @@ private:
     cooked_ (alist), cooked_from_ (alist), nested_ (0) { }
 };
 
-const char Grob_properties::type_p_name_[] = "ly:grob-properties?";
+const char * const Grob_properties::type_p_name_ = "ly:grob-properties?";
 
 SCM
 Grob_properties::mark_smob () const

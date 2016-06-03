@@ -120,7 +120,7 @@ Skyline_pair::operator [] (Direction d) const
   return skylines_[d];
 }
 
-const char Skyline_pair::type_p_name_[] = "ly:skyline-pair?";
+const char * const Skyline_pair::type_p_name_ = "ly:skyline-pair?";
 
 
 MAKE_SCHEME_CALLBACK (Skyline_pair, skyline, 2);

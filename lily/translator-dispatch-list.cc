@@ -21,8 +21,6 @@
 #include "engraver.hh"
 
 
-const char * const Engraver_dispatch_list::type_p_name_ = 0;
-
 void
 Engraver_dispatch_list::apply (Grob_info gi)
 {

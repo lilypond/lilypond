@@ -38,7 +38,7 @@ public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
   static SCM equal_p (SCM, SCM);
-  static const char type_p_name_[];
+  static const char * const type_p_name_;
   virtual ~Prob ();
 private:
   DECLARE_CLASSNAME (Prob);

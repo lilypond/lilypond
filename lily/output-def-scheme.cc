@@ -132,7 +132,7 @@ LY_DEFINE (ly_output_find_context_def, "ly:output-find-context-def",
 }
 
 const char
-Output_def::type_p_name_[] = "ly:output-def?";
+* const Output_def::type_p_name_ = "ly:output-def?";
 
 LY_DEFINE (ly_paper_outputscale, "ly:paper-outputscale",
 	   1, 0, 0, (SCM def),
