@@ -30,6 +30,12 @@ using namespace std;
 #include "output-def.hh"
 #include "warn.hh"
 
+void
+Global_context::pre_init ()
+{
+  output_def_ = 0;
+}
+
 Global_context::Global_context (Output_def *o)
   : Context ()
 {
@@ -54,6 +60,13 @@ Global_context::Global_context (Output_def *o)
 
   default_child_ = ly_symbol2scm ("Score");
   accepts_list_ = scm_list_1 (default_child_);
+}
+
+void
+Global_context::derived_mark () const
+{
+  if (output_def_)
+    scm_gc_mark (output_def_->self_scm ());
 }
 
 Output_def *

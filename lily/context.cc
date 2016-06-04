@@ -756,6 +756,11 @@ Context::print_smob (SCM port, scm_print_state *) const
   return 1;
 }
 
+void
+Context::derived_mark () const
+{
+}
+
 SCM
 Context::mark_smob () const
 {
@@ -775,6 +780,8 @@ Context::mark_smob () const
 
   if (events_below_)
     scm_gc_mark (events_below_->self_scm ());
+
+  derived_mark ();
 
   return properties_scm_;
 }

@@ -51,6 +51,7 @@ private:
   Stream_event *infant_event_;
 
 protected:
+  virtual void derived_mark () const;
   Context *daddy_context_;
   /* The used Context_def */
   SCM definition_;
