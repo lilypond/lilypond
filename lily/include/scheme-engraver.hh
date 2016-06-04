@@ -24,11 +24,11 @@
 
 #include "engraver.hh"
 
-class Scheme_engraver : public Engraver
+class Scheme_engraver : public Preinit<Scheme_engraver>, public Engraver
 {
-  void init_from_scheme (SCM definition);
 public:
   TRANSLATOR_FAMILY_DECLARATIONS (Scheme_engraver);
+  void pre_init ();
   Scheme_engraver (SCM definition);
 
 protected:

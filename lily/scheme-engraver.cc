@@ -27,7 +27,8 @@
 
 #include "scm-hash.hh"
 
-Scheme_engraver::Scheme_engraver (SCM definition)
+void
+Scheme_engraver::pre_init ()
 {
   initialize_function_ = SCM_EOL;
   finalize_function_ = SCM_EOL;
@@ -38,8 +39,6 @@ Scheme_engraver::Scheme_engraver (SCM definition)
   per_instance_listeners_ = SCM_EOL;
   for (int i = 0; i < TRANSLATOR_METHOD_PRECOMPUTE_COUNT; i++)
     precomputable_methods_[i] = SCM_UNDEFINED;
-
-  init_from_scheme (definition);
 }
 
 Scheme_engraver::~Scheme_engraver ()
@@ -67,8 +66,7 @@ Scheme_engraver::fetch_precomputable_methods (SCM ptrs[])
     ptrs[i] = precomputable_methods_[i];
 }
 
-void
-Scheme_engraver::init_from_scheme (SCM definition)
+Scheme_engraver::Scheme_engraver (SCM definition)
 {
   precomputable_methods_[START_TRANSLATION_TIMESTEP]
     = callable (ly_symbol2scm ("start-translation-timestep"), definition);
