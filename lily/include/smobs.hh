@@ -320,6 +320,32 @@ public:
   }
 };
 
+// This is a tricky thing: once a base class calls smobify_self () in
+// its constructor, further allocations during construction of base
+// class and derived classes might lead to mark_smob calls on the
+// object under construction.  When those call a virtual function like
+// derived_mark, the virtual function corresponding to the
+// incompletely initialized object is likely to be called.
+//
+// The order of initialization of an object consists in calling the
+// constructors of virtual base classes, then of non-virtual base
+// classes, then initializing all data members.
+//
+// As a result, the derived constructor comes too late for
+// initialization.  That's where the Preinit template class comes in.
+// Derive from it _before_ deriving from the smobifying base class
+// providing derived_mark, and it will call its Base class' pre_init
+// function (which must not rely on the instantiation being complete).
+
+template <class Base>
+class Preinit {
+protected:
+  Preinit ()
+  {
+    (static_cast <Base *> (this)) -> pre_init ();
+  }
+};
+
 extern bool parsed_objects_should_be_dead;
 class parsed_dead
 {
