@@ -41,7 +41,6 @@ private:
   Drul_array<Stream_event *> span_events_;
   Drul_array<Direction> grow_dir_;
   Real last_volume_;
-  bool last_volume_initialized_;
   Audio_dynamic *absolute_;
   Audio_span_dynamic *span_dynamic_;
   Audio_span_dynamic *finished_span_dynamic_;
@@ -49,8 +48,7 @@ private:
 
 Dynamic_performer::Dynamic_performer ()
 {
-  last_volume_ = 0.0;
-  last_volume_initialized_ = false;
+  last_volume_ = -1;
   script_event_ = 0;
   absolute_ = 0;
   span_events_[LEFT]
@@ -145,20 +143,18 @@ Dynamic_performer::process_music ()
 
           last_volume_
             = absolute_->volume_ = equalize_volume (volume);
-          last_volume_initialized_ = true;
         }
 
       Audio_element_info info (absolute_, script_event_);
       announce_element (info);
     }
 
-  if (!last_volume_initialized_)
+  if (last_volume_ < 0)
     {
       absolute_ = new Audio_dynamic ();
 
       last_volume_
 	= absolute_->volume_ = equalize_volume (0.71); // Backward compatible
-      last_volume_initialized_ = true;
 
       Audio_element_info info (absolute_, script_event_);
       announce_element (info);
@@ -180,14 +176,16 @@ Dynamic_performer::stop_translation_timestep ()
       finished_span_dynamic_ = 0;
     }
 
-  if (absolute_ && absolute_->volume_ < 0)
+  if (absolute_)
     {
-      absolute_->volume_ = last_volume_;
-    }
-  else if (absolute_)
-    {
-      last_volume_ = absolute_->volume_;
-      last_volume_initialized_ = true;
+      if (absolute_->volume_ < 0)
+        {
+          absolute_->volume_ = last_volume_;
+        }
+      else
+        {
+          last_volume_ = absolute_->volume_;
+        }
     }
 
   absolute_ = 0;
