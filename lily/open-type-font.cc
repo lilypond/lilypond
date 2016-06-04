@@ -251,13 +251,18 @@ Open_type_font::make_otf (const string &str)
   return otf->self_scm ();
 }
 
-Open_type_font::Open_type_font (FT_Face face)
+void
+Open_type_font::pre_init ()
 {
-  face_ = face;
   lily_character_table_ = SCM_EOL;
   lily_global_table_ = SCM_EOL;
   lily_subfonts_ = SCM_EOL;
   lily_index_to_bbox_table_ = SCM_EOL;
+}
+
+Open_type_font::Open_type_font (FT_Face face)
+{
+  face_ = face;
 
   lily_character_table_ = alist_to_hashq (load_scheme_table ("LILC", face_));
   lily_global_table_ = alist_to_hashq (load_scheme_table ("LILY", face_));

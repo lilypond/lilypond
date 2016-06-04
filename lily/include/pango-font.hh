@@ -29,7 +29,7 @@
 
 #include "font-metric.hh"
 
-class Pango_font : public Font_metric
+class Pango_font : public Preinit<Pango_font>, public Font_metric
 {
   PangoContext *context_;
   PangoFontDescription *pango_description_;
@@ -41,6 +41,7 @@ class Pango_font : public Font_metric
 
 public:
   SCM physical_font_tab () const;
+  void pre_init ();
   Pango_font (PangoFT2FontMap *,
               PangoFontDescription const *,
               Real);
