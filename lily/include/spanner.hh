@@ -39,7 +39,7 @@
     is absolutely necessary for beams, since they have to adjust the
     length of stems of notes they encompass.
 */
-class Spanner : public Grob
+class Spanner : public Preinit<Spanner>, public Grob
 {
   Drul_array<Item *> spanned_drul_;
   vsize break_index_;
@@ -66,6 +66,7 @@ public:
   void set_bound (Direction d, Grob *);
   Item *get_bound (Direction d) const;
 
+  void pre_init ();
   Spanner (SCM);
   Spanner (Spanner const &);
   bool is_broken () const;

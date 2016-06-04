@@ -224,19 +224,27 @@ Spanner::set_bound (Direction d, Grob *s)
     Pointer_group_interface::add_grob (i, ly_symbol2scm ("bounded-by-me"), this);
 }
 
+void
+Spanner::pre_init ()
+{
+  break_index_ = (vsize)-1;
+  // This is stupid, but derived_mark may be run before broken_into_
+  // has run its constructor and has a recognizable array size.
+  // So we use break_index_ == -1 as a sentinel.
+  spanned_drul_.set (0, 0);
+  pure_property_cache_ = SCM_UNDEFINED;
+}
+
 Spanner::Spanner (SCM s)
   : Grob (s)
 {
   break_index_ = 0;
-  spanned_drul_.set (0, 0);
-  pure_property_cache_ = SCM_UNDEFINED;
 }
 
 Spanner::Spanner (Spanner const &s)
   : Grob (s)
 {
-  spanned_drul_.set (0, 0);
-  pure_property_cache_ = SCM_UNDEFINED;
+  break_index_ = 0;
 }
 
 /*
@@ -341,8 +349,11 @@ Spanner::derived_mark () const
       scm_gc_mark (spanned_drul_[d]->self_scm ());
   ;
 
-  for (vsize i = broken_intos_.size (); i--;)
-    scm_gc_mark (broken_intos_[i]->self_scm ());
+  // If break_index_ is -1, broken_intos_ might not yet have run its
+  // constructor and any access might break things.
+  if (break_index_ != (vsize)-1)
+    for (vsize i = broken_intos_.size (); i--;)
+      scm_gc_mark (broken_intos_[i]->self_scm ());
 }
 
 /*
