@@ -9,7 +9,6 @@ heavily mutilated Edition Peters Morgenlied by Schubert"
 }
 
 \version "2.19.21"
-#(ly:expect-warning (_ "(De)crescendo with unspecified starting volume in MIDI."))
 
 ignoreMelisma =	\set ignoreMelismata = ##t
 ignoreMelismaOff = \unset ignoreMelismata 

@@ -120,16 +120,6 @@ Dynamic_performer::process_music ()
       announce_element (Audio_element_info (span_dynamic_, span_events_[START]));
 
       span_dynamic_->grow_dir_ = grow_dir_[START];
-
-      if (!last_volume_initialized_ && !script_event_)
-        {
-          // No explicit dynamic script events have occurred yet, but there is
-          // nevertheless a dynamic spanner.  Initialize last_volume_ to a
-          // value within the available range.
-          span_events_[START]->origin ()->warning (_ ("(De)crescendo with unspecified starting volume in MIDI."));
-          last_volume_ = equalize_volume (0.5);
-          last_volume_initialized_ = true;
-        }
     }
 
   if (script_event_
