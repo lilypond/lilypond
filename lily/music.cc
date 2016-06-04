@@ -45,12 +45,16 @@ Music::internal_is_music_type (SCM k) const
   return scm_is_true (scm_c_memq (k, ifs));
 }
 
-Music::Music (SCM init)
-  : Prob (ly_symbol2scm ("Music"), init)
+void
+Music::pre_init ()
 {
   length_callback_ = SCM_EOL;
   start_callback_ = SCM_EOL;
+}
 
+Music::Music (SCM init)
+  : Prob (ly_symbol2scm ("Music"), init)
+{
   length_callback_ = get_property ("length-callback");
   if (!ly_is_procedure (length_callback_))
     length_callback_ = duration_length_callback_proc;

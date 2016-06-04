@@ -27,9 +27,10 @@
 
 #define is_mus_type(x) internal_is_music_type (ly_symbol2scm (x))
 
-class Music : public Prob
+class Music : public Preinit<Music>, public Prob
 {
 public:
+  void pre_init ();
   Music (SCM init);
   Music (Music const &m);
   VIRTUAL_COPY_CONSTRUCTOR (Music, Music);
