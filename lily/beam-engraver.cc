@@ -40,6 +40,7 @@ class Beam_engraver : public Engraver
 public:
   void acknowledge_stem (Grob_info);
   void acknowledge_rest (Grob_info);
+  void listen_beam (Stream_event *);
 
 protected:
   Stream_event *start_ev_;
@@ -77,7 +78,6 @@ protected:
   virtual bool valid_start_point ();
   virtual bool valid_end_point ();
 
-  void listen_beam (Stream_event *);
 public:
   TRANSLATOR_DECLARATIONS (Beam_engraver);
 };
@@ -343,7 +343,6 @@ class Grace_beam_engraver : public Beam_engraver
 public:
   TRANSLATOR_DECLARATIONS (Grace_beam_engraver);
   TRANSLATOR_INHERIT (Beam_engraver);
-  void listen_beam (Stream_event *);
 
 protected:
   virtual bool valid_start_point ();
@@ -368,25 +367,10 @@ Grace_beam_engraver::valid_end_point ()
   return beam_ && valid_start_point ();
 }
 
-/*
-  Ugh, C&P code.
- */
-void
-Grace_beam_engraver::listen_beam (Stream_event *ev)
-{
-  Direction d = to_dir (ev->get_property ("span-direction"));
-
-  if (d == START && valid_start_point ())
-    start_ev_ = ev;
-  else if (d == STOP && valid_end_point ())
-    stop_ev_ = ev;
-}
-
-
 void
 Grace_beam_engraver::boot ()
 {
-  ADD_LISTENER (Grace_beam_engraver, beam);
+  ADD_LISTENER (Beam_engraver, beam);
   ADD_ACKNOWLEDGER (Beam_engraver, stem);
   ADD_ACKNOWLEDGER (Beam_engraver, rest);
 }
