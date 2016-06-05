@@ -116,15 +116,20 @@ Axis_group_engraver::finalize ()
 void
 Axis_group_engraver::acknowledge_grob (Grob_info i)
 {
-  if (staffline_)
-    elts_.push_back (i.grob ());
+  if (!staffline_)
+    return;
 
-  if (staffline_ && to_boolean(staffline_->get_property("remove-empty")))
+  elts_.push_back (i.grob ());
+
+  if (to_boolean (staffline_->get_property ("remove-empty")))
     {
       for (SCM s = interesting_; scm_is_pair (s); s = scm_cdr (s))
         {
           if (i.grob ()->internal_has_interface (scm_car (s)))
-            Hara_kiri_group_spanner::add_interesting_item (staffline_, i.grob ());
+            {
+              Hara_kiri_group_spanner::add_interesting_item (staffline_, i.grob ());
+              break;
+            }
         }
     }
 }
