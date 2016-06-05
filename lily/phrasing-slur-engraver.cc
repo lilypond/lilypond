@@ -80,15 +80,15 @@ Phrasing_slur_engraver::boot ()
 {
   ADD_LISTENER (Phrasing_slur_engraver, phrasing_slur);
   ADD_LISTENER (Phrasing_slur_engraver, note);
-  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, inline_accidental);
-  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, fingering);
-  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, note_column);
+  ADD_ACKNOWLEDGER (Slur_proto_engraver, inline_accidental);
+  ADD_ACKNOWLEDGER (Slur_proto_engraver, fingering)
+  ADD_ACKNOWLEDGER (Slur_proto_engraver, note_column);
   ADD_ACKNOWLEDGER (Phrasing_slur_engraver, slur);
-  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, script);
-  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, dots);
-  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, text_script);
-  ADD_END_ACKNOWLEDGER (Phrasing_slur_engraver, tie);
-  ADD_ACKNOWLEDGER (Phrasing_slur_engraver, tuplet_number);
+  ADD_ACKNOWLEDGER (Slur_proto_engraver, script);
+  ADD_ACKNOWLEDGER (Slur_proto_engraver, dots);
+  ADD_ACKNOWLEDGER (Slur_proto_engraver, text_script);
+  ADD_END_ACKNOWLEDGER (Slur_proto_engraver, tie);
+  ADD_ACKNOWLEDGER (Slur_proto_engraver, tuplet_number);
 }
 
 ADD_TRANSLATOR (Phrasing_slur_engraver,

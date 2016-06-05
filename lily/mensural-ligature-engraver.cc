@@ -500,8 +500,8 @@ void
 Mensural_ligature_engraver::boot ()
 {
   ADD_LISTENER (Mensural_ligature_engraver, ligature);
-  ADD_ACKNOWLEDGER (Mensural_ligature_engraver, rest);
-  ADD_ACKNOWLEDGER (Mensural_ligature_engraver, ligature_head);
+  ADD_ACKNOWLEDGER (Ligature_engraver, rest);
+  ADD_ACKNOWLEDGER (Ligature_engraver, ligature_head);
 }
 
 ADD_TRANSLATOR (Mensural_ligature_engraver,

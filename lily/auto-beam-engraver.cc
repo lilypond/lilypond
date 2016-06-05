@@ -45,6 +45,7 @@ protected:
   virtual void finalize ();
   virtual void derived_mark () const;
 
+public:
   void acknowledge_rest (Grob_info);
   void acknowledge_beam (Grob_info);
   void acknowledge_bar_line (Grob_info);
@@ -646,11 +647,11 @@ void
 Grace_auto_beam_engraver::boot ()
 {
   ADD_LISTENER (Grace_auto_beam_engraver, beam_forbid);
-  ADD_ACKNOWLEDGER (Grace_auto_beam_engraver, stem);
-  ADD_ACKNOWLEDGER (Grace_auto_beam_engraver, bar_line);
-  ADD_ACKNOWLEDGER (Grace_auto_beam_engraver, beam);
-  ADD_ACKNOWLEDGER (Grace_auto_beam_engraver, breathing_sign);
-  ADD_ACKNOWLEDGER (Grace_auto_beam_engraver, rest);
+  ADD_ACKNOWLEDGER (Auto_beam_engraver, stem);
+  ADD_ACKNOWLEDGER (Auto_beam_engraver, bar_line);
+  ADD_ACKNOWLEDGER (Auto_beam_engraver, beam);
+  ADD_ACKNOWLEDGER (Auto_beam_engraver, breathing_sign);
+  ADD_ACKNOWLEDGER (Auto_beam_engraver, rest);
 }
 
 ADD_TRANSLATOR (Grace_auto_beam_engraver,
