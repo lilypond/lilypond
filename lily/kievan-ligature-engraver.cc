@@ -36,7 +36,6 @@ protected:
   virtual Spanner *create_ligature_spanner ();
   virtual void build_ligature (Spanner *ligature,
                                vector<Grob_info> const &primitives);
-  void listen_ligature (Stream_event *);
 
 public:
   TRANSLATOR_DECLARATIONS (Kievan_ligature_engraver);
@@ -45,12 +44,6 @@ public:
 private:
   void fold_up_primitives (vector<Grob_info> const &primitives, Real padding, Real &min_length);
 };
-
-void
-Kievan_ligature_engraver::listen_ligature (Stream_event *ev)
-{
-  Ligature_engraver::listen_ligature (ev);
-}
 
 Kievan_ligature_engraver::Kievan_ligature_engraver ()
 {
@@ -139,7 +132,7 @@ Kievan_ligature_engraver::build_ligature (Spanner *ligature,
 void
 Kievan_ligature_engraver::boot ()
 {
-  ADD_LISTENER (Kievan_ligature_engraver, ligature);
+  ADD_LISTENER (Ligature_engraver, ligature);
   ADD_ACKNOWLEDGER (Ligature_engraver, rest);
   ADD_ACKNOWLEDGER (Ligature_engraver, ligature_head);
 }

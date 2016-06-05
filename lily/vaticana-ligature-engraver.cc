@@ -82,21 +82,7 @@ protected:
   virtual Spanner *create_ligature_spanner ();
   virtual void transform_heads (Spanner *ligature,
                                 vector<Grob_info> const &primitives);
-  void listen_pes_or_flexa (Stream_event *);
-  void listen_ligature (Stream_event *);
 };
-
-void
-Vaticana_ligature_engraver::listen_pes_or_flexa (Stream_event *ev)
-{
-  Gregorian_ligature_engraver::listen_pes_or_flexa (ev);
-}
-
-void
-Vaticana_ligature_engraver::listen_ligature (Stream_event *ev)
-{
-  Ligature_engraver::listen_ligature (ev);
-}
 
 Vaticana_ligature_engraver::Vaticana_ligature_engraver ()
 {
@@ -742,8 +728,8 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 void
 Vaticana_ligature_engraver::boot ()
 {
-  ADD_LISTENER (Vaticana_ligature_engraver, pes_or_flexa);
-  ADD_LISTENER (Vaticana_ligature_engraver, ligature);
+  ADD_LISTENER (Gregorian_ligature_engraver, pes_or_flexa);
+  ADD_LISTENER (Ligature_engraver, ligature);
   ADD_ACKNOWLEDGER (Ligature_engraver, rest);
   ADD_ACKNOWLEDGER (Ligature_engraver, ligature_head);
 }

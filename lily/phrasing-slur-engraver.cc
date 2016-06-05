@@ -35,7 +35,6 @@ class Phrasing_slur_engraver : public Slur_proto_engraver
 {
 protected:
   void listen_phrasing_slur (Stream_event *);
-  void listen_note (Stream_event *);
   void acknowledge_slur (Grob_info);
 
 public:
@@ -63,12 +62,6 @@ Phrasing_slur_engraver::listen_phrasing_slur (Stream_event *ev)
 }
 
 void
-Phrasing_slur_engraver::listen_note (Stream_event *ev)
-{
-  Slur_proto_engraver::listen_note (ev);
-}
-
-void
 Phrasing_slur_engraver::acknowledge_slur (Grob_info info)
 {
   acknowledge_extra_object (info);
@@ -79,7 +72,7 @@ void
 Phrasing_slur_engraver::boot ()
 {
   ADD_LISTENER (Phrasing_slur_engraver, phrasing_slur);
-  ADD_LISTENER (Phrasing_slur_engraver, note);
+  ADD_LISTENER (Slur_proto_engraver, note);
   ADD_ACKNOWLEDGER (Slur_proto_engraver, inline_accidental);
   ADD_ACKNOWLEDGER (Slur_proto_engraver, fingering)
   ADD_ACKNOWLEDGER (Slur_proto_engraver, note_column);

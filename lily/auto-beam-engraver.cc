@@ -580,8 +580,7 @@ ADD_TRANSLATOR (Auto_beam_engraver,
 class Grace_auto_beam_engraver : public Auto_beam_engraver
 {
   TRANSLATOR_DECLARATIONS (Grace_auto_beam_engraver);
-  TRANSLATOR_INHERIT (Auto_beam_engraver)
-  void listen_beam_forbid (Stream_event *);
+  TRANSLATOR_INHERIT (Auto_beam_engraver);
 
 private:
   Moment last_grace_start_; // Full starting time of last grace group
@@ -596,12 +595,6 @@ Grace_auto_beam_engraver::Grace_auto_beam_engraver ()
   last_grace_start_.main_part_.set_infinite (-1);
   // grace_part_ is zero -> test_moment is false, last_grace_position_
   // not considered.
-}
-
-void
-Grace_auto_beam_engraver::listen_beam_forbid (Stream_event *ev)
-{
-  Auto_beam_engraver::listen_beam_forbid (ev);
 }
 
 bool
@@ -646,7 +639,7 @@ Grace_auto_beam_engraver::test_moment (Direction dir, Moment test_mom, Moment)
 void
 Grace_auto_beam_engraver::boot ()
 {
-  ADD_LISTENER (Grace_auto_beam_engraver, beam_forbid);
+  ADD_LISTENER (Auto_beam_engraver, beam_forbid);
   ADD_ACKNOWLEDGER (Auto_beam_engraver, stem);
   ADD_ACKNOWLEDGER (Auto_beam_engraver, bar_line);
   ADD_ACKNOWLEDGER (Auto_beam_engraver, beam);

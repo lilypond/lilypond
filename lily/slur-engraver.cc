@@ -35,10 +35,6 @@ class Slur_engraver : public Slur_proto_engraver
 {
   virtual void set_melisma (bool);
 
-protected:
-  void listen_slur (Stream_event *);
-  void listen_note (Stream_event *);
-
 public:
   SCM event_symbol ();
   TRANSLATOR_DECLARATIONS (Slur_engraver);
@@ -58,18 +54,6 @@ Slur_engraver::event_symbol ()
 }
 
 void
-Slur_engraver::listen_slur (Stream_event *ev)
-{
-  Slur_proto_engraver::listen_slur (ev);
-}
-
-void
-Slur_engraver::listen_note (Stream_event *ev)
-{
-  Slur_proto_engraver::listen_note (ev);
-}
-
-void
 Slur_engraver::set_melisma (bool m)
 {
   context ()->set_property ("slurMelismaBusy", ly_bool2scm (m));
@@ -78,8 +62,8 @@ Slur_engraver::set_melisma (bool m)
 void
 Slur_engraver::boot ()
 {
-  ADD_LISTENER (Slur_engraver, slur);
-  ADD_LISTENER (Slur_engraver, note);
+  ADD_LISTENER (Slur_proto_engraver, slur);
+  ADD_LISTENER (Slur_proto_engraver, note);
   ADD_ACKNOWLEDGER (Slur_proto_engraver, inline_accidental);
   ADD_ACKNOWLEDGER (Slur_proto_engraver, fingering);
   ADD_ACKNOWLEDGER (Slur_proto_engraver, note_column);
