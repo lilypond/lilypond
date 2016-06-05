@@ -38,14 +38,11 @@
   /* end #define */
 
 #define TRANSLATOR_INHERIT(BASE)                                        \
-  using BASE::method_finder;                                            \
-  using BASE::ack_finder;
+  using BASE::method_finder;
 
 #define DECLARE_TRANSLATOR_CALLBACKS(NAME)                              \
   template <void (NAME::*mf)()>                                         \
   static SCM method_finder () { return method_find_base<NAME, mf> (); } \
-  template <void (NAME::*callback)(Grob_info)>                          \
-  static SCM ack_finder () { return ack_find_base<NAME, callback> (); } \
   /* end #define */
 
 /*
@@ -158,15 +155,6 @@ protected:                      // should be private.
   template <void (Translator::*)()>
   static SCM
   method_finder () { return SCM_UNDEFINED; }
-
-  // Overriden in Engraver.
-  template <class T, void (T::*callback)(Grob_info)>
-  static SCM
-  ack_find_base () { return SCM_UNDEFINED; }
-
-  template <void (Translator::*)(Grob_info)>
-  static SCM
-  ack_finder () { return SCM_UNDEFINED; }
 
   virtual void derived_mark () const;
   static SCM event_class_symbol (const char *ev_class);
