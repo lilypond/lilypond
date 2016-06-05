@@ -98,12 +98,12 @@ void add_acknowledger (SCM ptr,
                        SCM &ack_hash);
 
 #define ADD_ACKNOWLEDGER(CLASS, NAME)                                   \
-  add_acknowledger (CLASS::ack_finder<&CLASS::acknowledge_ ## NAME> (), \
-                    #NAME, CLASS::acknowledge_static_array_drul_[START]);
+  add_acknowledger (ack_finder<&CLASS::acknowledge_ ## NAME> (),        \
+                    #NAME, acknowledge_static_array_drul_[START]);
 
 #define ADD_END_ACKNOWLEDGER(CLASS, NAME)                               \
-  add_acknowledger (CLASS::ack_finder<&CLASS::acknowledge_end_ ## NAME> (), \
-                    #NAME, CLASS::acknowledge_static_array_drul_[STOP]);
+  add_acknowledger (ack_finder<&CLASS::acknowledge_end_ ## NAME> (),    \
+                    #NAME, acknowledge_static_array_drul_[STOP]);
 
 
 /*
