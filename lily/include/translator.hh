@@ -77,15 +77,6 @@ public:                                                                 \
   }                                                                     \
   /* end #define */
 
-#define DECLARE_TRANSLATOR_LISTENER(m)                  \
-public:                                                 \
-inline void listen_ ## m (Stream_event *);              \
-/* Should be private */                                 \
-static void _internal_declare_ ## m ();
-
-#define DECLARE_ACKNOWLEDGER(x) public : void acknowledge_ ## x (Grob_info); protected:
-#define DECLARE_END_ACKNOWLEDGER(x) public : void acknowledge_end_ ## x (Grob_info); protected:
-
 enum Translator_precompute_index
 {
   START_TRANSLATION_TIMESTEP,

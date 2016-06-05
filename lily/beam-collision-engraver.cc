@@ -30,15 +30,15 @@ protected:
   vector<Grob_info> beams_;
   vector<Grob_info> covered_grobs_;
 
-  DECLARE_ACKNOWLEDGER (note_head);
-  DECLARE_ACKNOWLEDGER (stem);
-  DECLARE_ACKNOWLEDGER (accidental);
-  DECLARE_ACKNOWLEDGER (clef);
-  DECLARE_ACKNOWLEDGER (clef_modifier);
-  DECLARE_ACKNOWLEDGER (key_signature);
-  DECLARE_ACKNOWLEDGER (time_signature);
-  DECLARE_ACKNOWLEDGER (beam);
-  DECLARE_ACKNOWLEDGER (flag);
+  void acknowledge_note_head (Grob_info);
+  void acknowledge_stem (Grob_info);
+  void acknowledge_accidental (Grob_info);
+  void acknowledge_clef (Grob_info);
+  void acknowledge_clef_modifier (Grob_info);
+  void acknowledge_key_signature (Grob_info);
+  void acknowledge_time_signature (Grob_info);
+  void acknowledge_beam (Grob_info);
+  void acknowledge_flag (Grob_info);
 
   virtual void finalize ();
 

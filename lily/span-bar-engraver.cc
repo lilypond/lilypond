@@ -41,7 +41,7 @@ class Span_bar_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Span_bar_engraver);
 protected:
-  DECLARE_ACKNOWLEDGER (bar_line);
+  void acknowledge_bar_line (Grob_info);
   void stop_translation_timestep ();
   void process_acknowledged ();
 };

@@ -33,9 +33,9 @@ public:
   TRANSLATOR_DECLARATIONS (Episema_engraver);
 protected:
   virtual void finalize ();
-  DECLARE_TRANSLATOR_LISTENER (episema);
-  DECLARE_ACKNOWLEDGER (note_column);
-  DECLARE_ACKNOWLEDGER (note_head);
+  void listen_episema (Stream_event *);
+  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_head (Grob_info);
   void stop_translation_timestep ();
   void process_music ();
 

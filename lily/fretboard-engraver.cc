@@ -48,9 +48,9 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
   virtual void derived_mark () const;
-  DECLARE_TRANSLATOR_LISTENER (note);
-  DECLARE_TRANSLATOR_LISTENER (string_number);
-  DECLARE_TRANSLATOR_LISTENER (fingering);
+  void listen_note (Stream_event *);
+  void listen_string_number (Stream_event *);
+  void listen_fingering (Stream_event *);
 
 private:
   SCM last_placements_;

@@ -54,8 +54,8 @@ protected:
   void stop_translation_timestep ();
   virtual void finalize ();
 
-  DECLARE_TRANSLATOR_LISTENER (mark);
-  DECLARE_ACKNOWLEDGER (break_alignment);
+  void listen_mark (Stream_event *);
+  void acknowledge_break_alignment (Grob_info);
 };
 
 Mark_engraver::Mark_engraver ()

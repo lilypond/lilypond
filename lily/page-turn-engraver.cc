@@ -97,8 +97,8 @@ class Page_turn_engraver : public Engraver
   Grob *breakable_column (Page_turn_event const &);
 
 protected:
-  DECLARE_TRANSLATOR_LISTENER (break);
-  DECLARE_ACKNOWLEDGER (note_head);
+  void listen_break (Stream_event *);
+  void acknowledge_note_head (Grob_info);
 
 public:
   TRANSLATOR_DECLARATIONS (Page_turn_engraver);

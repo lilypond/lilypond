@@ -32,7 +32,7 @@ public:
 protected:
   virtual void finalize ();
 
-  DECLARE_ACKNOWLEDGER (note_column);
+  void acknowledge_note_column (Grob_info);
 
   void process_music ();
   void stop_translation_timestep ();

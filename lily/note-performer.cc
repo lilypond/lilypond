@@ -35,8 +35,8 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
 
-  DECLARE_TRANSLATOR_LISTENER (note);
-  DECLARE_TRANSLATOR_LISTENER (breathing);
+  void listen_note (Stream_event *);
+  void listen_breathing (Stream_event *);
 private:
   vector<Stream_event *> note_evs_;
   vector<Audio_note *> notes_;

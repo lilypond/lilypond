@@ -59,8 +59,8 @@ protected:
   Spacings current_spacings_;
   Spacings last_spacings_;
 
-  DECLARE_ACKNOWLEDGER (item);
-  DECLARE_ACKNOWLEDGER (break_aligned);
+  void acknowledge_item (Grob_info);
+  void acknowledge_break_aligned (Grob_info);
   void stop_translation_timestep ();
   void start_translation_timestep ();
 

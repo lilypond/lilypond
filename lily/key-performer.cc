@@ -36,7 +36,7 @@ protected:
   void process_music ();
   void stop_translation_timestep ();
 
-  DECLARE_TRANSLATOR_LISTENER (key_change);
+  void listen_key_change (Stream_event *);
 private:
   Stream_event *key_ev_;
   Audio_key *audio_;

@@ -40,8 +40,8 @@ protected:
   virtual void derived_mark () const;
 public:
   TRANSLATOR_DECLARATIONS (Break_align_engraver);
-  DECLARE_ACKNOWLEDGER (break_aligned);
-  DECLARE_ACKNOWLEDGER (break_alignable);
+  void acknowledge_break_aligned (Grob_info);
+  void acknowledge_break_alignable (Grob_info);
 };
 
 void

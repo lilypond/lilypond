@@ -48,9 +48,9 @@ protected:
   void process_music ();
   void stop_translation_timestep ();
   void start_translation_timestep ();
-  DECLARE_TRANSLATOR_LISTENER (sustain);
-  DECLARE_TRANSLATOR_LISTENER (una_corda);
-  DECLARE_TRANSLATOR_LISTENER (sostenuto);
+  void listen_sustain (Stream_event *);
+  void listen_una_corda (Stream_event *);
+  void listen_sostenuto (Stream_event *);
 private:
   vector<Audio_piano_pedal *> audios_;
   Pedal_info info_alist_[NUM_PEDAL_TYPES];

@@ -50,7 +50,7 @@ protected:
   Moment command_moment_;
 
   virtual void finalize ();
-  DECLARE_TRANSLATOR_LISTENER (percent);
+  void listen_percent (Stream_event *);
 
   void start_translation_timestep ();
   void stop_translation_timestep ();

@@ -36,8 +36,8 @@ protected:
   virtual void finalize ();
   void process_music ();
 
-  DECLARE_ACKNOWLEDGER (ledgered);
-  DECLARE_ACKNOWLEDGER (staff_symbol);
+  void acknowledge_ledgered (Grob_info);
+  void acknowledge_staff_symbol (Grob_info);
 
   void start_spanner ();
   void stop_spanner ();

@@ -169,8 +169,8 @@ public:
 protected:
   Bracket_nesting_group *nesting_;
 
-  DECLARE_ACKNOWLEDGER (system_start_delimiter);
-  DECLARE_ACKNOWLEDGER (staff_symbol);
+  void acknowledge_system_start_delimiter (Grob_info);
+  void acknowledge_staff_symbol (Grob_info);
 
   void process_music ();
   virtual void finalize ();

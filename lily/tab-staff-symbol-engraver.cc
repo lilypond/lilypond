@@ -25,7 +25,7 @@ class Tab_staff_symbol_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Tab_staff_symbol_engraver);
 protected:
-  DECLARE_ACKNOWLEDGER (staff_symbol);
+  void acknowledge_staff_symbol (Grob_info);
 };
 
 void

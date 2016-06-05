@@ -39,8 +39,8 @@ class Custos_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Custos_engraver);
   void start_translation_timestep ();
-  DECLARE_ACKNOWLEDGER (bar);
-  DECLARE_ACKNOWLEDGER (note_head);
+  void acknowledge_bar (Grob_info);
+  void acknowledge_note_head (Grob_info);
   void process_acknowledged ();
   void stop_translation_timestep ();
   virtual void finalize ();

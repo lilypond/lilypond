@@ -31,8 +31,8 @@ class Output_property_engraver : public Engraver
 protected:
   vector<Stream_event*> props_;
   
-  DECLARE_ACKNOWLEDGER (grob);
-  DECLARE_TRANSLATOR_LISTENER (apply_output);
+  void acknowledge_grob (Grob_info);
+  void listen_apply_output (Stream_event *);
 
   void stop_translation_timestep ();
 };

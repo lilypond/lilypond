@@ -41,7 +41,7 @@ public:
 protected:
   void stop_translation_timestep ();
   void process_music ();
-  DECLARE_ACKNOWLEDGER (bar_line);
+  void acknowledge_bar_line (Grob_info);
 
   virtual void derived_mark () const;
 private:

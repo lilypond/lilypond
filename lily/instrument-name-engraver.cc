@@ -43,7 +43,7 @@ protected:
   vector<Grob *> backup_axis_groups_;
 
   virtual void finalize ();
-  DECLARE_ACKNOWLEDGER (axis_group);
+  void acknowledge_axis_group (Grob_info);
   void process_music ();
   void start_spanner ();
   void consider_start_spanner ();

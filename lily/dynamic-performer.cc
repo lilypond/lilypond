@@ -33,9 +33,9 @@ protected:
   void process_music ();
   Real equalize_volume (Real);
 
-  DECLARE_TRANSLATOR_LISTENER (decrescendo);
-  DECLARE_TRANSLATOR_LISTENER (crescendo);
-  DECLARE_TRANSLATOR_LISTENER (absolute_dynamic);
+  void listen_decrescendo (Stream_event *);
+  void listen_crescendo (Stream_event *);
+  void listen_absolute_dynamic (Stream_event *);
 private:
   Stream_event *script_event_;
   Drul_array<Stream_event *> span_events_;

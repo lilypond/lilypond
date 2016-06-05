@@ -33,10 +33,10 @@
 class Dynamic_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Dynamic_engraver);
-  DECLARE_ACKNOWLEDGER (note_column);
-  DECLARE_TRANSLATOR_LISTENER (absolute_dynamic);
-  DECLARE_TRANSLATOR_LISTENER (span_dynamic);
-  DECLARE_TRANSLATOR_LISTENER (break_span);
+  void acknowledge_note_column (Grob_info);
+  void listen_absolute_dynamic (Stream_event *);
+  void listen_span_dynamic (Stream_event *);
+  void listen_break_span (Stream_event *);
 
 protected:
   virtual void process_music ();

@@ -30,8 +30,8 @@ protected:
   void stop_translation_timestep ();
   virtual void finalize ();
 
-  DECLARE_ACKNOWLEDGER (rest);
-  DECLARE_ACKNOWLEDGER (ligature_head);
+  void acknowledge_rest (Grob_info);
+  void acknowledge_ligature_head (Grob_info);
   virtual void listen_ligature (Stream_event *ev);
   void process_music ();
   virtual Spanner *create_ligature_spanner () = 0;

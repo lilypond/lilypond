@@ -38,7 +38,7 @@ protected:
   void stop_translation_timestep ();
   void process_acknowledged ();
 
-  DECLARE_END_ACKNOWLEDGER (spanner);
+  void acknowledge_end_spanner (Grob_info);
 
 private:
   void create_bar ();

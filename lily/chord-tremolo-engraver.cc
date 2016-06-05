@@ -62,8 +62,8 @@ protected:
 protected:
   virtual void finalize ();
   void process_music ();
-  DECLARE_TRANSLATOR_LISTENER (tremolo_span);
-  DECLARE_ACKNOWLEDGER (stem);
+  void listen_tremolo_span (Stream_event *);
+  void acknowledge_stem (Grob_info);
 };
 
 Chord_tremolo_engraver::Chord_tremolo_engraver ()

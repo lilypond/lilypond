@@ -45,12 +45,12 @@ protected:
   virtual void finalize ();
   virtual void derived_mark () const;
 
-  DECLARE_ACKNOWLEDGER (rest);
-  DECLARE_ACKNOWLEDGER (beam);
-  DECLARE_ACKNOWLEDGER (bar_line);
-  DECLARE_ACKNOWLEDGER (breathing_sign);
-  DECLARE_ACKNOWLEDGER (stem);
-  DECLARE_TRANSLATOR_LISTENER (beam_forbid);
+  void acknowledge_rest (Grob_info);
+  void acknowledge_beam (Grob_info);
+  void acknowledge_bar_line (Grob_info);
+  void acknowledge_breathing_sign (Grob_info);
+  void acknowledge_stem (Grob_info);
+  void listen_beam_forbid (Stream_event *);
 
 private:
   virtual bool test_moment (Direction, Moment, Moment);
@@ -580,7 +580,7 @@ class Grace_auto_beam_engraver : public Auto_beam_engraver
 {
   TRANSLATOR_DECLARATIONS (Grace_auto_beam_engraver);
   TRANSLATOR_INHERIT (Auto_beam_engraver)
-  DECLARE_TRANSLATOR_LISTENER (beam_forbid);
+  void listen_beam_forbid (Stream_event *);
 
 private:
   Moment last_grace_start_; // Full starting time of last grace group

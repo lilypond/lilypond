@@ -76,11 +76,11 @@ class Spacing_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Spacing_engraver);
 
 protected:
-  DECLARE_ACKNOWLEDGER (staff_spacing);
-  DECLARE_ACKNOWLEDGER (note_spacing);
-  DECLARE_ACKNOWLEDGER (rhythmic_head);
-  DECLARE_ACKNOWLEDGER (rhythmic_grob);
-  DECLARE_TRANSLATOR_LISTENER (spacing_section);
+  void acknowledge_staff_spacing (Grob_info);
+  void acknowledge_note_spacing (Grob_info);
+  void acknowledge_rhythmic_head (Grob_info);
+  void acknowledge_rhythmic_grob (Grob_info);
+  void listen_spacing_section (Stream_event *);
 
   void start_translation_timestep ();
   void stop_translation_timestep ();

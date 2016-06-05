@@ -36,8 +36,8 @@ class Slur_engraver : public Slur_proto_engraver
   virtual void set_melisma (bool);
 
 protected:
-  DECLARE_TRANSLATOR_LISTENER (slur);
-  DECLARE_TRANSLATOR_LISTENER (note);
+  void listen_slur (Stream_event *);
+  void listen_note (Stream_event *);
 
 public:
   SCM event_symbol ();

@@ -48,9 +48,9 @@ class Stem_engraver : public Engraver
 protected:
   void make_stem (Grob_info, bool);
 
-  DECLARE_TRANSLATOR_LISTENER (tremolo);
-  DECLARE_TRANSLATOR_LISTENER (tuplet_span);
-  DECLARE_ACKNOWLEDGER (rhythmic_head);
+  void listen_tremolo (Stream_event *);
+  void listen_tuplet_span (Stream_event *);
+  void acknowledge_rhythmic_head (Grob_info);
   void stop_translation_timestep ();
   void finalize ();
   void kill_unused_flags ();

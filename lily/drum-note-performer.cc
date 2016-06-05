@@ -33,7 +33,7 @@ public:
 protected:
   void stop_translation_timestep ();
   void process_music ();
-  DECLARE_TRANSLATOR_LISTENER (note);
+  void listen_note (Stream_event *);
 private:
   vector<Stream_event *> note_evs_;
 };

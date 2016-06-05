@@ -32,7 +32,7 @@ public:
   void process_music ();
   virtual void derived_mark () const;
   void stop_translation_timestep ();
-  DECLARE_ACKNOWLEDGER (lyric_syllable);
+  void acknowledge_lyric_syllable (Grob_info);
 };
 
 void

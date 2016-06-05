@@ -31,7 +31,7 @@ class Keep_alive_together_engraver: public Engraver
 
 public:
   TRANSLATOR_DECLARATIONS (Keep_alive_together_engraver);
-  DECLARE_ACKNOWLEDGER (hara_kiri_group_spanner);
+  void acknowledge_hara_kiri_group_spanner (Grob_info);
 
   virtual void finalize ();
 };

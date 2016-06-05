@@ -35,7 +35,7 @@ public:
 protected:
   Stream_event *slash_;
 protected:
-  DECLARE_TRANSLATOR_LISTENER (repeat_slash);
+  void listen_repeat_slash (Stream_event *);
   void process_music ();
 };
 

@@ -25,7 +25,7 @@ class Font_size_engraver : public Engraver
 
   TRANSLATOR_DECLARATIONS (Font_size_engraver);
 protected:
-  DECLARE_ACKNOWLEDGER (font);
+  void acknowledge_font (Grob_info);
   void process_music ();
   Real size;
 private:

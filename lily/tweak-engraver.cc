@@ -29,7 +29,7 @@ class Tweak_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Tweak_engraver);
 
 protected:
-  DECLARE_ACKNOWLEDGER (grob);
+  void acknowledge_grob (Grob_info);
 };
 
 Tweak_engraver::Tweak_engraver ()

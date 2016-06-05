@@ -41,7 +41,7 @@ public:
   TRANSLATOR_DECLARATIONS (Note_heads_engraver);
 
 protected:
-  DECLARE_TRANSLATOR_LISTENER (note);
+  void listen_note (Stream_event *);
   void process_music ();
   void stop_translation_timestep ();
 };

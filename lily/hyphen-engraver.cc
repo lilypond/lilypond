@@ -42,8 +42,8 @@ public:
 
 protected:
 
-  DECLARE_ACKNOWLEDGER (lyric_syllable);
-  DECLARE_TRANSLATOR_LISTENER (hyphen);
+  void acknowledge_lyric_syllable (Grob_info);
+  void listen_hyphen (Stream_event *);
 
   virtual void finalize ();
 

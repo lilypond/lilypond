@@ -40,8 +40,8 @@ public:
 protected:
   void process_music ();
   void start_translation_timestep ();
-  DECLARE_TRANSLATOR_LISTENER (multi_measure_rest);
-  DECLARE_TRANSLATOR_LISTENER (multi_measure_text);
+  void listen_multi_measure_rest (Stream_event *);
+  void listen_multi_measure_text (Stream_event *);
 
 private:
   void add_bound_item_to_grobs (Item *);

@@ -49,9 +49,9 @@ public:
   TRANSLATOR_DECLARATIONS (Tab_note_heads_engraver);
 
 protected:
-  DECLARE_TRANSLATOR_LISTENER (note);
-  DECLARE_TRANSLATOR_LISTENER (string_number);
-  DECLARE_TRANSLATOR_LISTENER (fingering);
+  void listen_note (Stream_event *);
+  void listen_string_number (Stream_event *);
+  void listen_fingering (Stream_event *);
   void process_music ();
 
   void stop_translation_timestep ();

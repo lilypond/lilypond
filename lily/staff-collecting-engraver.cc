@@ -26,8 +26,8 @@ class Staff_collecting_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Staff_collecting_engraver);
-  DECLARE_ACKNOWLEDGER (staff_symbol);
-  DECLARE_END_ACKNOWLEDGER (staff_symbol);
+  void acknowledge_staff_symbol (Grob_info);
+  void acknowledge_end_staff_symbol (Grob_info);
 };
 
 Staff_collecting_engraver::Staff_collecting_engraver ()

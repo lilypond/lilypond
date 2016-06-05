@@ -32,8 +32,8 @@ class Repeat_tie_engraver : public Engraver
   vector<Grob *> semi_ties_;
 
   void stop_translation_timestep ();
-  DECLARE_ACKNOWLEDGER (note_head);
-  DECLARE_TRANSLATOR_LISTENER (repeat_tie);
+  void acknowledge_note_head (Grob_info);
+  void listen_repeat_tie (Stream_event *);
 
 public:
   TRANSLATOR_DECLARATIONS (Repeat_tie_engraver);

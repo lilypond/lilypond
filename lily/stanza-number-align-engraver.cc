@@ -35,8 +35,8 @@ protected:
   vector<Grob *> lyrics_;
   vector<Grob *> stanza_numbers_;
 
-  DECLARE_ACKNOWLEDGER (lyric_syllable);
-  DECLARE_ACKNOWLEDGER (stanza_number);
+  void acknowledge_lyric_syllable (Grob_info);
+  void acknowledge_stanza_number (Grob_info);
   void stop_translation_timestep ();
 };
 

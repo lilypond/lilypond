@@ -29,10 +29,10 @@ class Bend_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Bend_engraver);
-  DECLARE_ACKNOWLEDGER (note_head);
+  void acknowledge_note_head (Grob_info);
 
 protected:
-  DECLARE_TRANSLATOR_LISTENER (bend_after);
+  void listen_bend_after (Stream_event *);
   void finalize ();
   void process_music ();
   void stop_translation_timestep ();

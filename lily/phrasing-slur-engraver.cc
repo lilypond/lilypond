@@ -34,9 +34,9 @@
 class Phrasing_slur_engraver : public Slur_proto_engraver
 {
 protected:
-  DECLARE_TRANSLATOR_LISTENER (phrasing_slur);
-  DECLARE_TRANSLATOR_LISTENER (note);
-  DECLARE_ACKNOWLEDGER (slur);
+  void listen_phrasing_slur (Stream_event *);
+  void listen_note (Stream_event *);
+  void acknowledge_slur (Grob_info);
 
 public:
   SCM event_symbol ();

@@ -43,7 +43,7 @@ protected:
   void process_music ();
   virtual void initialize ();
   virtual void finalize ();
-  DECLARE_ACKNOWLEDGER (grob);
+  void acknowledge_grob (Grob_info);
   void process_acknowledged ();
   virtual Spanner *get_spanner ();
   virtual void add_element (Grob *);

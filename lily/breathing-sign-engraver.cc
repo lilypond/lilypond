@@ -39,7 +39,7 @@ protected:
   void process_music ();
   void stop_translation_timestep ();
 
-  DECLARE_TRANSLATOR_LISTENER (breathing);
+  void listen_breathing (Stream_event *);
 private:
   Stream_event *breathing_sign_event_;
   Grob *breathing_sign_;

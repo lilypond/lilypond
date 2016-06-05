@@ -43,7 +43,7 @@ public:
 protected:
   void process_music ();
   void stop_translation_timestep ();
-  DECLARE_TRANSLATOR_LISTENER (arpeggio);
+  void listen_arpeggio (Stream_event *);
 private:
   Item *arpeggio_;
   Stream_event *arpeggio_event_;

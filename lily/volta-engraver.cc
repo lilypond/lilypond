@@ -43,7 +43,7 @@ public:
   TRANSLATOR_DECLARATIONS (Volta_engraver);
 protected:
 
-  DECLARE_ACKNOWLEDGER (bar_line);
+  void acknowledge_bar_line (Grob_info);
 
   virtual void derived_mark () const;
   void stop_translation_timestep ();

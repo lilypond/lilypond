@@ -38,7 +38,7 @@ protected:
   // moment (global time) where percent started
   Moment start_mom_;
 
-  DECLARE_TRANSLATOR_LISTENER (double_percent);
+  void listen_double_percent (Stream_event *);
 
   void process_music ();
 };

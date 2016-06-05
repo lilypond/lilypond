@@ -43,9 +43,9 @@ public:
   TRANSLATOR_DECLARATIONS (Extender_engraver);
 
 protected:
-  DECLARE_TRANSLATOR_LISTENER (extender);
-  DECLARE_TRANSLATOR_LISTENER (completize_extender);
-  DECLARE_ACKNOWLEDGER (lyric_syllable);
+  void listen_extender (Stream_event *);
+  void listen_completize_extender (Stream_event *);
+  void acknowledge_lyric_syllable (Grob_info);
 
   virtual void finalize ();
 

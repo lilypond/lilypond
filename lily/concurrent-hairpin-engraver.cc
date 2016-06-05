@@ -34,8 +34,8 @@ public:
   TRANSLATOR_DECLARATIONS (Concurrent_hairpin_engraver);
 
 protected:
-  DECLARE_ACKNOWLEDGER (hairpin);
-  DECLARE_END_ACKNOWLEDGER (hairpin);
+  void acknowledge_hairpin (Grob_info);
+  void acknowledge_end_hairpin (Grob_info);
 
   void stop_translation_timestep ();
   void finalize ();

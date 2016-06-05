@@ -44,9 +44,9 @@ public:
   TRANSLATOR_DECLARATIONS (Tab_tie_follow_engraver);
 
 protected:
-  DECLARE_ACKNOWLEDGER (glissando);
-  DECLARE_ACKNOWLEDGER (slur);
-  DECLARE_ACKNOWLEDGER (tab_note_head);
+  void acknowledge_glissando (Grob_info);
+  void acknowledge_slur (Grob_info);
+  void acknowledge_tab_note_head (Grob_info);
 
   void stop_translation_timestep ();
 };

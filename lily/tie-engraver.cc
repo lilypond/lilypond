@@ -84,8 +84,8 @@ protected:
   void process_acknowledged ();
   void stop_translation_timestep ();
   void start_translation_timestep ();
-  DECLARE_ACKNOWLEDGER (note_head);
-  DECLARE_TRANSLATOR_LISTENER (tie);
+  void acknowledge_note_head (Grob_info);
+  void listen_tie (Stream_event *);
   void process_music ();
   void typeset_tie (Spanner *);
   void report_unterminated_tie (Head_event_tuple const &);

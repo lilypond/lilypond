@@ -82,8 +82,8 @@ protected:
   virtual Spanner *create_ligature_spanner ();
   virtual void transform_heads (Spanner *ligature,
                                 vector<Grob_info> const &primitives);
-  DECLARE_TRANSLATOR_LISTENER (pes_or_flexa);
-  DECLARE_TRANSLATOR_LISTENER (ligature);
+  void listen_pes_or_flexa (Stream_event *);
+  void listen_ligature (Stream_event *);
 };
 
 void

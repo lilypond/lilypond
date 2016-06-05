@@ -39,8 +39,8 @@ class Script_row_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Script_row_engraver);
 protected:
-  DECLARE_ACKNOWLEDGER (accidental_placement);
-  DECLARE_ACKNOWLEDGER (side_position);
+  void acknowledge_accidental_placement (Grob_info);
+  void acknowledge_side_position (Grob_info);
   void process_acknowledged ();
   void stop_translation_timestep ();
 };

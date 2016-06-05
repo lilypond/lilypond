@@ -37,7 +37,7 @@ class Rest_engraver : public Engraver
 protected:
   void start_translation_timestep ();
   void process_music ();
-  DECLARE_TRANSLATOR_LISTENER (rest);
+  void listen_rest (Stream_event *);
 public:
   TRANSLATOR_DECLARATIONS (Rest_engraver);
 };

@@ -37,7 +37,7 @@ class Fingering_column_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Fingering_column_engraver);
 protected:
-  DECLARE_ACKNOWLEDGER (finger);
+  void acknowledge_finger (Grob_info);
   void process_acknowledged ();
   void stop_translation_timestep ();
 };

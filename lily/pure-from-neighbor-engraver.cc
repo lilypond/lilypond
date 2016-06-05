@@ -36,8 +36,8 @@ class Pure_from_neighbor_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Pure_from_neighbor_engraver);
 protected:
-  DECLARE_ACKNOWLEDGER (pure_from_neighbor);
-  DECLARE_ACKNOWLEDGER (item);
+  void acknowledge_pure_from_neighbor (Grob_info);
+  void acknowledge_item (Grob_info);
   void finalize ();
 };
 

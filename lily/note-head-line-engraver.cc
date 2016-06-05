@@ -39,7 +39,7 @@ public:
   TRANSLATOR_DECLARATIONS (Note_head_line_engraver);
 
 protected:
-  DECLARE_ACKNOWLEDGER (rhythmic_head);
+  void acknowledge_rhythmic_head (Grob_info);
   void process_acknowledged ();
   void stop_translation_timestep ();
 

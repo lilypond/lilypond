@@ -123,9 +123,9 @@ public:
 protected:
   virtual void initialize ();
   virtual void finalize ();
-  DECLARE_TRANSLATOR_LISTENER (sustain);
-  DECLARE_TRANSLATOR_LISTENER (una_corda);
-  DECLARE_TRANSLATOR_LISTENER (sostenuto);
+  void listen_sustain (Stream_event *);
+  void listen_una_corda (Stream_event *);
+  void listen_sostenuto (Stream_event *);
   void stop_translation_timestep ();
   void process_music ();
 

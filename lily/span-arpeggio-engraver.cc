@@ -37,8 +37,8 @@ class Span_arpeggio_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Span_arpeggio_engraver);
-  DECLARE_ACKNOWLEDGER (arpeggio);
-  DECLARE_ACKNOWLEDGER (note_column);
+  void acknowledge_arpeggio (Grob_info);
+  void acknowledge_note_column (Grob_info);
 
 protected:
   void process_acknowledged ();

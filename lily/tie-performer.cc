@@ -51,7 +51,7 @@ protected:
   void start_translation_timestep ();
   virtual void acknowledge_audio_element (Audio_element_info);
   void process_music ();
-  DECLARE_TRANSLATOR_LISTENER (tie);
+  void listen_tie (Stream_event *);
 public:
   TRANSLATOR_DECLARATIONS (Tie_performer);
 };

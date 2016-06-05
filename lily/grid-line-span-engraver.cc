@@ -31,7 +31,7 @@ class Grid_line_span_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Grid_line_span_engraver);
 protected:
-  DECLARE_ACKNOWLEDGER (grid_point);
+  void acknowledge_grid_point (Grob_info);
   void stop_translation_timestep ();
 };
 

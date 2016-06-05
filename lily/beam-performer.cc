@@ -35,7 +35,7 @@ protected:
   void start_translation_timestep ();
   void process_music ();
   void set_melisma (bool);
-  DECLARE_TRANSLATOR_LISTENER (beam);
+  void listen_beam (Stream_event *);
 private:
   Stream_event *start_ev_;
   Stream_event *now_stop_ev_;

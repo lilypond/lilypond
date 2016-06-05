@@ -34,11 +34,11 @@ class Part_combine_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Part_combine_engraver);
 
 protected:
-  DECLARE_ACKNOWLEDGER (note_head);
-  DECLARE_ACKNOWLEDGER (stem);
+  void acknowledge_note_head (Grob_info);
+  void acknowledge_stem (Grob_info);
 
-  DECLARE_TRANSLATOR_LISTENER (part_combine);
-  DECLARE_TRANSLATOR_LISTENER (note);
+  void listen_part_combine (Stream_event *);
+  void listen_note (Stream_event *);
   void process_music ();
   void stop_translation_timestep ();
   void create_item (Stream_event *ev);

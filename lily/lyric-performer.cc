@@ -30,7 +30,7 @@ protected:
 
   void stop_translation_timestep ();
   void process_music ();
-  DECLARE_TRANSLATOR_LISTENER (lyric);
+  void listen_lyric (Stream_event *);
 private:
   vector<Stream_event *> events_;
   Audio_text *audio_;

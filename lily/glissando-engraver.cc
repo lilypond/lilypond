@@ -35,8 +35,8 @@ public:
   TRANSLATOR_DECLARATIONS (Glissando_engraver);
 
 protected:
-  DECLARE_TRANSLATOR_LISTENER (glissando);
-  DECLARE_ACKNOWLEDGER (note_column);
+  void listen_glissando (Stream_event *);
+  void acknowledge_note_column (Grob_info);
   virtual void finalize ();
 
   void stop_translation_timestep ();

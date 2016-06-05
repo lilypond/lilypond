@@ -40,8 +40,8 @@ class Note_spacing_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Note_spacing_engraver);
 protected:
 
-  DECLARE_ACKNOWLEDGER (rhythmic_grob);
-  DECLARE_ACKNOWLEDGER (note_column);
+  void acknowledge_rhythmic_grob (Grob_info);
+  void acknowledge_note_column (Grob_info);
   void stop_translation_timestep ();
   virtual void finalize ();
   virtual void derived_mark () const;

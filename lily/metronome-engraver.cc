@@ -46,11 +46,11 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
 
-  DECLARE_ACKNOWLEDGER (break_aligned);
-  DECLARE_ACKNOWLEDGER (break_alignment);
-  DECLARE_ACKNOWLEDGER (grob);
+  void acknowledge_break_aligned (Grob_info);
+  void acknowledge_break_alignment (Grob_info);
+  void acknowledge_grob (Grob_info);
 
-  DECLARE_TRANSLATOR_LISTENER (tempo_change);
+  void listen_tempo_change (Stream_event *);
 };
 
 Metronome_mark_engraver::Metronome_mark_engraver ()

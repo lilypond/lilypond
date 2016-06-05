@@ -39,8 +39,8 @@ public:
 
   void stop_translation_timestep ();
   void process_music ();
-  DECLARE_ACKNOWLEDGER (note_column);
-  DECLARE_TRANSLATOR_LISTENER (note_grouping);
+  void acknowledge_note_column (Grob_info);
+  void listen_note_grouping (Stream_event *);
 };
 
 Horizontal_bracket_engraver::Horizontal_bracket_engraver ()

@@ -43,7 +43,7 @@ protected:
   void process_music ();
 public:
   TRANSLATOR_DECLARATIONS (Time_signature_engraver);
-  DECLARE_TRANSLATOR_LISTENER (time_signature);
+  void listen_time_signature (Stream_event *);
 };
 
 void

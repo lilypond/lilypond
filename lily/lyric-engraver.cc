@@ -36,7 +36,7 @@ class Lyric_engraver : public Engraver
 protected:
   void stop_translation_timestep ();
   void process_music ();
-  DECLARE_TRANSLATOR_LISTENER (lyric);
+  void listen_lyric (Stream_event *);
 
 public:
   TRANSLATOR_DECLARATIONS (Lyric_engraver);

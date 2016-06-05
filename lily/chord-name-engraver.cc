@@ -39,8 +39,8 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
   virtual void finalize ();
-  DECLARE_TRANSLATOR_LISTENER (note);
-  DECLARE_TRANSLATOR_LISTENER (rest);
+  void listen_note (Stream_event *);
+  void listen_rest (Stream_event *);
 private:
   vector<Stream_event *> notes_;
 

@@ -32,7 +32,7 @@ class Parenthesis_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Parenthesis_engraver);
 
 protected:
-  DECLARE_ACKNOWLEDGER (grob);
+  void acknowledge_grob (Grob_info);
 };
 
 Parenthesis_engraver::Parenthesis_engraver ()

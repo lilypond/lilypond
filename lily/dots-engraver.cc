@@ -27,7 +27,7 @@
 
 class Dots_engraver : public Engraver
 {
-  DECLARE_ACKNOWLEDGER (rhythmic_head);
+  void acknowledge_rhythmic_head (Grob_info);
   TRANSLATOR_DECLARATIONS (Dots_engraver);
 };
 

@@ -46,9 +46,9 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
 
-  DECLARE_TRANSLATOR_LISTENER (key_change);
-  DECLARE_ACKNOWLEDGER (clef);
-  DECLARE_ACKNOWLEDGER (bar_line);
+  void listen_key_change (Stream_event *);
+  void acknowledge_clef (Grob_info);
+  void acknowledge_bar_line (Grob_info);
 };
 
 void

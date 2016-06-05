@@ -76,7 +76,7 @@ protected:
   void start_translation_timestep ();
   void process_music ();
   void stop_translation_timestep ();
-  DECLARE_TRANSLATOR_LISTENER (rest);
+  void listen_rest (Stream_event *);
 };
 
 void

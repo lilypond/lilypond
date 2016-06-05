@@ -33,9 +33,9 @@ class Ligature_bracket_engraver : public Engraver
 protected:
   virtual void process_music ();
   virtual void stop_translation_timestep ();
-  DECLARE_ACKNOWLEDGER (rest);
-  DECLARE_ACKNOWLEDGER (note_column);
-  DECLARE_TRANSLATOR_LISTENER (ligature);
+  void acknowledge_rest (Grob_info);
+  void acknowledge_note_column (Grob_info);
+  void listen_ligature (Stream_event *);
 public:
   TRANSLATOR_DECLARATIONS (Ligature_bracket_engraver);
 

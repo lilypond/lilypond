@@ -42,8 +42,8 @@ protected:
 
   void stop_translation_timestep ();
   virtual ~Staff_symbol_engraver ();
-  DECLARE_ACKNOWLEDGER (grob);
-  DECLARE_TRANSLATOR_LISTENER (staff_span);
+  void acknowledge_grob (Grob_info);
+  void listen_staff_span (Stream_event *);
   virtual void finalize ();
   void process_music ();
   virtual void derived_mark () const;

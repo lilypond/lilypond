@@ -31,7 +31,7 @@ class Collision_engraver : public Engraver
   vector<Grob *> note_columns_;
 
 protected:
-  DECLARE_ACKNOWLEDGER (note_column);
+  void acknowledge_note_column (Grob_info);
   void process_acknowledged ();
   void stop_translation_timestep ();
 public:

@@ -34,8 +34,8 @@ class Cluster_spanner_engraver : public Engraver
 
 protected:
   TRANSLATOR_DECLARATIONS (Cluster_spanner_engraver);
-  DECLARE_TRANSLATOR_LISTENER (cluster_note);
-  DECLARE_ACKNOWLEDGER (note_column);
+  void listen_cluster_note (Stream_event *);
+  void acknowledge_note_column (Grob_info);
   void stop_translation_timestep ();
   virtual void process_music ();
   virtual void finalize ();

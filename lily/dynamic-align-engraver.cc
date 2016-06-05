@@ -34,11 +34,11 @@
 class Dynamic_align_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Dynamic_align_engraver);
-  DECLARE_ACKNOWLEDGER (rhythmic_head);
-  DECLARE_ACKNOWLEDGER (stem);
-  DECLARE_ACKNOWLEDGER (dynamic);
-  DECLARE_ACKNOWLEDGER (footnote_spanner);
-  DECLARE_END_ACKNOWLEDGER (dynamic);
+  void acknowledge_rhythmic_head (Grob_info);
+  void acknowledge_stem (Grob_info);
+  void acknowledge_dynamic (Grob_info);
+  void acknowledge_footnote_spanner (Grob_info);
+  void acknowledge_end_dynamic (Grob_info);
 
 protected:
   virtual void stop_translation_timestep ();

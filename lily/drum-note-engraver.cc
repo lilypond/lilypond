@@ -43,9 +43,9 @@ public:
 
 protected:
   void process_music ();
-  DECLARE_ACKNOWLEDGER (stem);
-  DECLARE_ACKNOWLEDGER (note_column);
-  DECLARE_TRANSLATOR_LISTENER (note);
+  void acknowledge_stem (Grob_info);
+  void acknowledge_note_column (Grob_info);
+  void listen_note (Stream_event *);
   void stop_translation_timestep ();
 };
 

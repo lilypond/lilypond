@@ -38,10 +38,10 @@ public:
 protected:
   void stop_translation_timestep ();
   void process_music ();
-  DECLARE_TRANSLATOR_LISTENER (fingering);
-  DECLARE_ACKNOWLEDGER (rhythmic_head);
-  DECLARE_ACKNOWLEDGER (stem);
-  DECLARE_ACKNOWLEDGER (flag);
+  void listen_fingering (Stream_event *);
+  void acknowledge_rhythmic_head (Grob_info);
+  void acknowledge_stem (Grob_info);
+  void acknowledge_flag (Grob_info);
 
 private:
   void make_script (Direction, Stream_event *, int);

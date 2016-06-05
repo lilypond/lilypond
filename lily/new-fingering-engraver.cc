@@ -71,9 +71,9 @@ public:
   TRANSLATOR_DECLARATIONS (New_fingering_engraver);
 protected:
   void stop_translation_timestep ();
-  DECLARE_ACKNOWLEDGER (rhythmic_head);
-  DECLARE_ACKNOWLEDGER (inline_accidental);
-  DECLARE_ACKNOWLEDGER (stem);
+  void acknowledge_rhythmic_head (Grob_info);
+  void acknowledge_inline_accidental (Grob_info);
+  void acknowledge_stem (Grob_info);
   void add_fingering (Grob *, SCM,
                       vector<Finger_tuple> *,
                       Stream_event *, Stream_event *);

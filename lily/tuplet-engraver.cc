@@ -63,11 +63,11 @@ protected:
   vector<Tuplet_description> stopped_tuplets_;
   vector<Spanner *> last_tuplets_;
 
-  DECLARE_ACKNOWLEDGER (note_column);
-  DECLARE_ACKNOWLEDGER (script);
-  DECLARE_ACKNOWLEDGER (finger);
-  DECLARE_ACKNOWLEDGER (string_number);
-  DECLARE_TRANSLATOR_LISTENER (tuplet_span);
+  void acknowledge_note_column (Grob_info);
+  void acknowledge_script (Grob_info);
+  void acknowledge_finger (Grob_info);
+  void acknowledge_string_number (Grob_info);
+  void listen_tuplet_span (Stream_event *);
   virtual void finalize ();
   void start_translation_timestep ();
   void process_music ();

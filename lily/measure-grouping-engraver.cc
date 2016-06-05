@@ -36,7 +36,7 @@ protected:
 
   void process_music ();
   virtual void finalize ();
-  DECLARE_ACKNOWLEDGER (note_column);
+  void acknowledge_note_column (Grob_info);
 };
 
 void

@@ -30,7 +30,7 @@ public:
   TRANSLATOR_DECLARATIONS (Note_name_engraver);
 
   vector<Stream_event *> events_;
-  DECLARE_TRANSLATOR_LISTENER (note);
+  void listen_note (Stream_event *);
   void process_music ();
   void stop_translation_timestep ();
 };

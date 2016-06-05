@@ -37,7 +37,7 @@ class Vertical_align_engraver : public Engraver
 
 public:
   TRANSLATOR_DECLARATIONS (Vertical_align_engraver);
-  DECLARE_ACKNOWLEDGER (axis_group);
+  void acknowledge_axis_group (Grob_info);
 
 protected:
   virtual void derived_mark () const;

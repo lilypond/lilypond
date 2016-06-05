@@ -29,8 +29,8 @@ class Melody_engraver : public Engraver
   Grob *stem_;
 protected:
 
-  DECLARE_ACKNOWLEDGER (stem);
-  DECLARE_ACKNOWLEDGER (slur);
+  void acknowledge_stem (Grob_info);
+  void acknowledge_slur (Grob_info);
   TRANSLATOR_DECLARATIONS (Melody_engraver);
   void stop_translation_timestep ();
   void process_acknowledged ();

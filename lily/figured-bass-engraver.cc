@@ -122,8 +122,8 @@ protected:
   Moment stop_moment_;
   bool have_rest_;
 
-  DECLARE_TRANSLATOR_LISTENER (rest);
-  DECLARE_TRANSLATOR_LISTENER (bass_figure);
+  void listen_rest (Stream_event *);
+  void listen_bass_figure (Stream_event *);
 
   virtual void derived_mark () const;
 

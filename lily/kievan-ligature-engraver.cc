@@ -36,7 +36,7 @@ protected:
   virtual Spanner *create_ligature_spanner ();
   virtual void build_ligature (Spanner *ligature,
                                vector<Grob_info> const &primitives);
-  DECLARE_TRANSLATOR_LISTENER (ligature);
+  void listen_ligature (Stream_event *);
 
 public:
   TRANSLATOR_DECLARATIONS (Kievan_ligature_engraver);

@@ -80,7 +80,7 @@ protected:
   void start_translation_timestep ();
   void process_music ();
   void stop_translation_timestep ();
-  DECLARE_TRANSLATOR_LISTENER (note);
+  void listen_note (Stream_event *);
 };
 
 void

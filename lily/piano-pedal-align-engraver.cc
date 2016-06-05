@@ -76,11 +76,11 @@ public:
 protected:
   virtual void finalize ();
 
-  DECLARE_ACKNOWLEDGER (piano_pedal_script);
-  DECLARE_ACKNOWLEDGER (piano_pedal_bracket);
-  DECLARE_ACKNOWLEDGER (note_column);
+  void acknowledge_piano_pedal_script (Grob_info);
+  void acknowledge_piano_pedal_bracket (Grob_info);
+  void acknowledge_note_column (Grob_info);
 
-  DECLARE_END_ACKNOWLEDGER (piano_pedal_bracket);
+  void acknowledge_end_piano_pedal_bracket (Grob_info);
 
   void stop_translation_timestep ();
   void start_translation_timestep ();

@@ -45,8 +45,8 @@ protected:
 
 protected:
   void stop_translation_timestep ();
-  DECLARE_TRANSLATOR_LISTENER (alternative);
-  DECLARE_ACKNOWLEDGER (break_alignment);
+  void listen_alternative (Stream_event *);
+  void acknowledge_break_alignment (Grob_info);
   void process_music ();
   void create_items ();
   TRANSLATOR_DECLARATIONS (Bar_number_engraver);
