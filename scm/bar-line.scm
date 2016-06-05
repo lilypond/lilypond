@@ -27,7 +27,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; helper functions for staff and layout properties
 
-(define (calc-blot thickness extent grob)
+(define (bar-line::calc-blot thickness extent grob)
   "Calculate the blot diameter by taking @code{'rounded}
 and the dimensions of the extent into account."
   (let* ((rounded (ly:grob-property grob 'rounded #f))
@@ -39,8 +39,17 @@ and the dimensions of the extent into account."
                            ((< height blot-diameter) height)
                            (else blot-diameter)))
                    0)))
-
     blot))
+
+(define-public (bar-line::draw-filled-box x-ext y-ext thickness extent grob)
+  "Return a straight bar-line created by @code{ly:round-filled-box} looking at
+@var{x-ext}, @var{y-ext}, @var{thickness}.  The blot is calculated by
+@code{bar-line::calc-blot}, which needs @var{extent} and @var{grob}.
+@var{y-ext} is not necessarily of same value as @var{extent}."
+  (ly:round-filled-box
+    x-ext
+    y-ext
+    (bar-line::calc-blot thickness extent grob)))
 
 (define (get-span-glyph bar-glyph)
   "Get the corresponding span glyph from the @code{span-glyph-bar-alist}.
@@ -250,35 +259,38 @@ is not used within the routine."
   (let* ((line-thickness (layout-line-thickness grob))
          (thickness (* (ly:grob-property grob 'hair-thickness 1)
                        line-thickness))
-         (blot (calc-blot thickness extent grob))
          (extent (bar-line::widen-bar-extent-on-span grob extent)))
-
-    (ly:round-filled-box (cons 0 thickness)
-                         extent
-                         blot)))
+    (bar-line::draw-filled-box
+      (cons 0 thickness)
+      extent
+      thickness
+      extent
+      grob)))
 
 (define (make-thick-bar-line grob extent)
   "Draw a thick bar line."
   (let* ((line-thickness (layout-line-thickness grob))
          (thickness (* (ly:grob-property grob 'thick-thickness 1)
                        line-thickness))
-         (blot (calc-blot thickness extent grob))
          (extent (bar-line::widen-bar-extent-on-span grob extent)))
-
-    (ly:round-filled-box (cons 0 thickness)
-                         extent
-                         blot)))
+    (bar-line::draw-filled-box
+      (cons 0 thickness)
+      extent
+      thickness
+      extent
+      grob)))
 
 (define (make-tick-bar-line grob extent)
   "Draw a tick bar line."
   (let* ((half-staff (* 1/2 (ly:staff-symbol-staff-space grob)))
          (staff-line-thickness (ly:staff-symbol-line-thickness grob))
-         (height (interval-end extent))
-         (blot (calc-blot staff-line-thickness extent grob)))
-
-    (ly:round-filled-box (cons 0 staff-line-thickness)
-                         (cons (- height half-staff) (+ height half-staff))
-                         blot)))
+         (height (interval-end extent)))
+    (bar-line::draw-filled-box
+      (cons 0 staff-line-thickness)
+      (cons (- height half-staff) (+ height half-staff))
+      staff-line-thickness
+      extent
+      grob)))
 
 (define (make-colon-bar-line grob extent)
   "Draw repeat dots."
