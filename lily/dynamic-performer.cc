@@ -103,9 +103,10 @@ Dynamic_performer::equalize_volume (Real volume)
 void
 Dynamic_performer::process_music ()
 {
-  if (span_events_[STOP] || script_event_)
+  if (span_events_[START] || span_events_[STOP] || script_event_)
     {
-      // End of a dynamic spanner, or an explicit dynamic script event.
+      // End the previous spanner when a new one begins or at an explicit stop
+      // or absolute dynamic.
       finished_span_dynamic_ = span_dynamic_;
       span_dynamic_ = 0;
     }
