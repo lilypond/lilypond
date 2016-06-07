@@ -334,9 +334,9 @@
     (let* ((downcase-file-name (string-downcase file-name)))
       (cond
        ((and file-name (string-endswith downcase-file-name ".pfa"))
-        (embed-document file-name))
+        (ly:type1->pfa file-name))
        ((and file-name (string-endswith downcase-file-name ".pfb"))
-        (ly:pfb->pfa file-name))
+        (ly:type1->pfa file-name))
        ((and file-name (string-endswith downcase-file-name ".ttf"))
         (ly:ttf->pfa file-name))
        ((and file-name (string-endswith downcase-file-name ".ttc"))
