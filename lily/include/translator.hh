@@ -34,11 +34,11 @@
   VIRTUAL_COPY_CONSTRUCTOR (Translator, NAME);                          \
   virtual void fetch_precomputable_methods (SCM methods[]);             \
   DECLARE_TRANSLATOR_CALLBACKS (NAME);                                  \
-  TRANSLATOR_INHERIT (Translator)                                       \
+  TRANSLATOR_INHERIT (Translator);                                      \
   /* end #define */
 
 #define TRANSLATOR_INHERIT(BASE)                                        \
-  using BASE::method_finder;
+  using BASE::method_finder
 
 #define DECLARE_TRANSLATOR_CALLBACKS(NAME)                              \
   template <void (NAME::*mf)()>                                         \

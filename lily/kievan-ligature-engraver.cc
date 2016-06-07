@@ -39,7 +39,7 @@ protected:
 
 public:
   TRANSLATOR_DECLARATIONS (Kievan_ligature_engraver);
-  TRANSLATOR_INHERIT (Coherent_ligature_engraver)
+  TRANSLATOR_INHERIT (Coherent_ligature_engraver);
 
 private:
   void fold_up_primitives (vector<Grob_info> const &primitives, Real padding, Real &min_length);
