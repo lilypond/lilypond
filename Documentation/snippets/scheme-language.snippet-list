@@ -11,6 +11,7 @@ customizing-the-position-and-number-of-dots-in-repeat-sign-bar-lines.ly
 displaying-grob-ancestry.ly
 drawing-boxes-around-grobs.ly
 drawing-circles-around-various-objects.ly
+flat-ties.ly
 generating-random-notes.ly
 generating-whole-scores-also-book-parts-in-scheme-without-using-the-parser.ly
 outputting-the-version-number.ly

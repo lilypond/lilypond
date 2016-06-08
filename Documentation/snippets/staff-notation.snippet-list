@@ -16,6 +16,7 @@ cross-staff-stems.ly
 display-bracket-with-only-one-staff-in-a-system.ly
 extending-a-trillspanner.ly
 extending-glissandi-across-repeats.ly
+flat-ties.ly
 forcing-measure-width-to-adapt-to-metronomemarks-width.ly
 glissandi-can-skip-grobs.ly
 how-to-print-two-rehearsal-marks-above-and-below-the-same-barline-method-1.ly
@@ -43,6 +44,7 @@ tick-bar-lines.ly
 time-signature-in-parentheses---method-3.ly
 time-signature-in-parentheses.ly
 tweaking-clef-properties.ly
+two--partcombine-pairs-on-one-staff.ly
 use-square-bracket-at-the-start-of-a-staff-group.ly
 using-autochange-with-more-than-one-voice.ly
 vertical-aligned-staffgroups-without-connecting-systemstartbar.ly
