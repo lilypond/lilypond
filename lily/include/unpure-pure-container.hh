@@ -26,7 +26,7 @@
 class Unpure_pure_container : public Smob2<Unpure_pure_container>
 {
 public:
-  static const char type_p_name_ [];
+  static const char * const type_p_name_;
   SCM unpure_part () const { return scm1 (); }
   // A container that has the same callback for both 'pure' and 'unpure' lookups
   // and which ignores the 'start' and 'end' columnns.

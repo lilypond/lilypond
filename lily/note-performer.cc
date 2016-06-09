@@ -37,13 +37,14 @@ protected:
 
   void listen_note (Stream_event *);
   void listen_breathing (Stream_event *);
+  void listen_tie (Stream_event *);
+  void listen_articulation (Stream_event *);
 private:
-  vector<Stream_event *> note_evs_;
+  vector<Stream_event *> note_evs_, script_evs_;
   vector<Audio_note *> notes_;
 
   vector<Audio_note *> last_notes_;
   Moment last_start_;
-
 };
 
 void
@@ -68,6 +69,10 @@ Note_performer::process_music ()
           Stream_event *tie_event = 0;
           Moment len = get_event_length (n, now_mom ());
           int velocity = 0;
+
+          for (vsize j = script_evs_.size (); j--;)
+            articulations = scm_cons (script_evs_[j]->self_scm (), articulations);
+
           for (SCM s = articulations; scm_is_pair (s); s = scm_cdr (s))
             {
               Stream_event *ev = unsmob<Stream_event> (scm_car (s));
@@ -124,12 +129,25 @@ Note_performer::stop_translation_timestep ()
 
   notes_.clear ();
   note_evs_.clear ();
+  script_evs_.clear ();
 }
 
 void
 Note_performer::listen_note (Stream_event *ev)
 {
   note_evs_.push_back (ev);
+}
+
+void
+Note_performer::listen_tie (Stream_event *ev)
+{
+  script_evs_.push_back (ev);
+}
+
+void
+Note_performer::listen_articulation (Stream_event *ev)
+{
+  script_evs_.push_back (ev);
 }
 
 void
@@ -160,6 +178,8 @@ Note_performer::boot ()
 {
   ADD_LISTENER (Note_performer, note);
   ADD_LISTENER (Note_performer, breathing);
+  ADD_LISTENER (Note_performer, tie);
+  ADD_LISTENER (Note_performer, articulation);
 }
 
 ADD_TRANSLATOR (Note_performer,

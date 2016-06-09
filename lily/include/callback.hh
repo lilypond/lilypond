@@ -48,7 +48,6 @@ class Callback_wrapper : public Simple_smob<Callback_wrapper>
     : trampoline_ (trampoline)
   { } // Private constructor, use only in make_smob
 public:
-  static const char * const type_p_name_; // = 0
   LY_DECLARE_SMOB_PROC (&Callback_wrapper::call, 2, 0, 0)
   SCM call (SCM target, SCM arg)
   {
@@ -77,7 +76,6 @@ class Callback2_wrapper : public Simple_smob<Callback2_wrapper>
     : trampoline_ (trampoline)
   { } // Private constructor, use only in make_smob
 public:
-  static const char * const type_p_name_; // = 0
   LY_DECLARE_SMOB_PROC (&Callback2_wrapper::call, 3, 0, 0)
   SCM call (SCM target, SCM arg1, SCM arg2)
   {
@@ -102,7 +100,6 @@ class Callback0_wrapper : public Simple_smob<Callback0_wrapper>
     : trampoline_ (trampoline)
   { } // Private constructor, use only in make_smob
 public:
-  static const char * const type_p_name_; // = 0
   LY_DECLARE_SMOB_PROC (&Callback0_wrapper::call, 1, 0, 0)
   SCM call (SCM target)
   {
@@ -153,7 +150,6 @@ class Method_instance : public Simple_smob<Method_instance>
 {
   SCM method_, instance_;
 public:
-  static const char * const type_p_name_; // = 0
   LY_DECLARE_SMOB_PROC (&Method_instance::call, 0, 0, 1)
   SCM call (SCM rest)
   {

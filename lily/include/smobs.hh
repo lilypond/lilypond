@@ -120,7 +120,7 @@
     debugging purposes.  If the class does not define this function,
     the output will be #<Classname> when printing.
 
-  - a static const type_p_name_[] string set to something like
+  - a static const * const type_p_name_ string set to something like
     "ly:grob?".  When provided, an accordingly named function for
     checking for the given smob type will be available in Scheme.
 
@@ -177,6 +177,7 @@ private:
   // Most default functions are do-nothings.  void init() will
   // recognize their address when not overriden and will then refrain
   // altogether from passing the the respective callbacks to GUILE.
+
   SCM mark_smob (void) const;
   static SCM mark_trampoline (SCM); // Used for calling mark_smob
   static size_t free_smob (SCM obj);
@@ -185,11 +186,10 @@ private:
   static int print_trampoline (SCM, SCM, scm_print_state *);
   static void smob_proc_init (scm_t_bits) { };
 
-  // type_p_name_ has to be defined in the Super class, either with a
-  // static const char [] string or as a null pointer of type const
-  // char *.  We used to provide a default here for convenience, but
-  // battling the various conflicting C++ standards was too much of a
-  // hassle.
+  // Define type_p_name_ in the Super class as a const char * const.
+  // Without such definition it defaults to 0, producing no predicate.
+
+  static const char * const type_p_name_; // = 0
 
   // LY_DECLARE_SMOB_PROC is used in the Super class definition for
   // making a smob callable like a function.  Its first argument is a

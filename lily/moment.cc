@@ -44,7 +44,7 @@ Moment::Moment (Rational m)
 }
 
 
-const char Moment::type_p_name_[] = "ly:moment?";
+const char * const Moment::type_p_name_ = "ly:moment?";
 
 
 int

@@ -779,7 +779,7 @@ Context::mark_smob () const
   return properties_scm_;
 }
 
-const char Context::type_p_name_[] = "ly:context?";
+const char * const Context::type_p_name_ = "ly:context?";
 
 Global_context *
 Context::get_global_context () const

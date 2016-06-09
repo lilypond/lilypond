@@ -27,7 +27,7 @@
 class Music_function : public Smob2<Music_function>
 {
 public:
-  static const char type_p_name_[];
+  static const char * const type_p_name_;
   int print_smob (SCM, scm_print_state *) const;
   SCM get_signature () const { return scm1 (); }
   SCM get_function () const { return scm2 (); }

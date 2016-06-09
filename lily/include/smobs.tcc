@@ -114,6 +114,9 @@ template <class Super>
 string Smob_base<Super>::smob_name_;
 
 template <class Super>
+const char * const Smob_base<Super>::type_p_name_ = 0;
+
+template <class Super>
 void Smob_base<Super>::init ()
 {
   smob_name_ = typeid (Super).name ();
