@@ -44,7 +44,7 @@ Stencil::mark_smob () const
   return expr_;
 }
 
-const char Stencil::type_p_name_[] = "ly:stencil?";
+const char * const Stencil::type_p_name_ = "ly:stencil?";
 
 Interval
 Stencil::extent (Axis a) const

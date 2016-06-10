@@ -33,8 +33,8 @@ class Footnote_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Footnote_engraver);
 
-  DECLARE_ACKNOWLEDGER (grob);
-  DECLARE_END_ACKNOWLEDGER (grob);
+  void acknowledge_grob (Grob_info);
+  void acknowledge_end_grob (Grob_info);
 
   vector<Drul_array<Spanner *> > annotated_spanners_;
 
@@ -114,8 +114,13 @@ Footnote_engraver::acknowledge_end_grob (Grob_info info)
       }
 }
 
-ADD_ACKNOWLEDGER (Footnote_engraver, grob);
-ADD_END_ACKNOWLEDGER (Footnote_engraver, grob);
+
+void
+Footnote_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Footnote_engraver, grob);
+  ADD_END_ACKNOWLEDGER (Footnote_engraver, grob);
+}
 
 ADD_TRANSLATOR (Footnote_engraver,
                 /* doc */

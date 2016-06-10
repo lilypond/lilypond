@@ -29,7 +29,7 @@ class Tweak_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Tweak_engraver);
 
 protected:
-  DECLARE_ACKNOWLEDGER (grob);
+  void acknowledge_grob (Grob_info);
 };
 
 Tweak_engraver::Tweak_engraver ()
@@ -81,7 +81,12 @@ Tweak_engraver::acknowledge_grob (Grob_info info)
     }
 }
 
-ADD_ACKNOWLEDGER (Tweak_engraver, grob);
+void
+Tweak_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Tweak_engraver, grob);
+}
+
 ADD_TRANSLATOR (Tweak_engraver,
                 /* doc */
                 "Read the @code{tweaks} property from the originating event,"

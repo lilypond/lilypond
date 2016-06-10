@@ -24,7 +24,7 @@ class Undead : public Simple_smob<Undead>
 public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
-  static const char type_p_name_[];
+  static const char * const type_p_name_;
 private:
   SCM object_;
 public:
@@ -51,7 +51,7 @@ Undead::print_smob (SCM port, scm_print_state *) const
   return 1;
 }
 
-const char Undead::type_p_name_[] = "ly:undead?";
+const char * const Undead::type_p_name_ = "ly:undead?";
 
 LY_DEFINE (ly_make_undead, "ly:make-undead",
            1, 0, 0, (SCM object),

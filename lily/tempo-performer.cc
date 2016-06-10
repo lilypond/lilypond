@@ -85,6 +85,12 @@ Tempo_performer::stop_translation_timestep ()
     }
 }
 
+void
+Tempo_performer::boot ()
+{
+
+}
+
 ADD_TRANSLATOR (Tempo_performer,
                 /* doc */
                 "",

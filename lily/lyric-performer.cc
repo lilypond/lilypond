@@ -30,7 +30,7 @@ protected:
 
   void stop_translation_timestep ();
   void process_music ();
-  DECLARE_TRANSLATOR_LISTENER (lyric);
+  void listen_lyric (Stream_event *);
 private:
   vector<Stream_event *> events_;
   Audio_text *audio_;
@@ -67,11 +67,16 @@ Lyric_performer::stop_translation_timestep ()
   events_.clear ();
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Lyric_performer, lyric);
 void
 Lyric_performer::listen_lyric (Stream_event *event)
 {
   events_.push_back (event);
+}
+
+void
+Lyric_performer::boot ()
+{
+  ADD_LISTENER (Lyric_performer, lyric);
 }
 
 ADD_TRANSLATOR (Lyric_performer,

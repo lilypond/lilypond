@@ -29,10 +29,10 @@ class Bend_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Bend_engraver);
-  DECLARE_ACKNOWLEDGER (note_head);
+  void acknowledge_note_head (Grob_info);
 
 protected:
-  DECLARE_TRANSLATOR_LISTENER (bend_after);
+  void listen_bend_after (Stream_event *);
   void finalize ();
   void process_music ();
   void stop_translation_timestep ();
@@ -115,7 +115,6 @@ Bend_engraver::Bend_engraver ()
   fall_event_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Bend_engraver, bend_after);
 void
 Bend_engraver::listen_bend_after (Stream_event *ev)
 {
@@ -133,7 +132,13 @@ Bend_engraver::process_music ()
     }
 }
 
-ADD_ACKNOWLEDGER (Bend_engraver, note_head);
+
+void
+Bend_engraver::boot ()
+{
+  ADD_LISTENER (Bend_engraver, bend_after);
+  ADD_ACKNOWLEDGER (Bend_engraver, note_head);
+}
 
 ADD_TRANSLATOR (Bend_engraver,
                 /* doc */

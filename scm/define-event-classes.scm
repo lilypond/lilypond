@@ -107,7 +107,7 @@ previously defined event class."
      ((ly:make-event-class class)
       (ly:error (_ "Cannot redefine event class `~S'") class))
      ((not parentclass)
-      (ly:error (_ "Undefined parent event class `~S'" parentclass)))
+      (ly:error (_ "Undefined parent event class `~S'") parentclass))
      (else
       (hashq-set! ancestor-lookup
                   class

@@ -51,7 +51,7 @@ class Output_def : public Smob<Output_def>
 public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
-  static const char type_p_name_[];
+  static const char * const type_p_name_;
   virtual ~Output_def ();
   VIRTUAL_COPY_CONSTRUCTOR (Output_def, Output_def);
 

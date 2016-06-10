@@ -61,9 +61,9 @@ class Rhythmic_column_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Rhythmic_column_engraver);
 protected:
 
-  DECLARE_ACKNOWLEDGER (stem);
-  DECLARE_ACKNOWLEDGER (flag);
-  DECLARE_ACKNOWLEDGER (rhythmic_head);
+  void acknowledge_stem (Grob_info);
+  void acknowledge_flag (Grob_info);
+  void acknowledge_rhythmic_head (Grob_info);
   void process_acknowledged ();
   void stop_translation_timestep ();
 };
@@ -134,9 +134,14 @@ Rhythmic_column_engraver::stop_translation_timestep ()
   flag_ = 0;
 }
 
-ADD_ACKNOWLEDGER (Rhythmic_column_engraver, stem);
-ADD_ACKNOWLEDGER (Rhythmic_column_engraver, flag);
-ADD_ACKNOWLEDGER (Rhythmic_column_engraver, rhythmic_head);
+
+void
+Rhythmic_column_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Rhythmic_column_engraver, stem);
+  ADD_ACKNOWLEDGER (Rhythmic_column_engraver, flag);
+  ADD_ACKNOWLEDGER (Rhythmic_column_engraver, rhythmic_head);
+}
 
 ADD_TRANSLATOR (Rhythmic_column_engraver,
                 /* doc */

@@ -10,4 +10,4 @@ $(O_FILES): $(outdir)/config.hh
 
 $(EXECUTABLE): $(O_FILES) $(outdir)/version.hh $(MODULE_LIBS:%=%/$(outdir)/library.a)
 	$(foreach a, $(MODULE_LIBS), $(MAKE) -C $(a) && ) true
-	$(LD) -o $@ $(O_FILES) $(LOADLIBES) $(ALL_LDFLAGS)
+	$(CXX) -o $@ $(O_FILES) $(LOADLIBES) $(ALL_LDFLAGS)

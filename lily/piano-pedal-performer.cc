@@ -48,9 +48,9 @@ protected:
   void process_music ();
   void stop_translation_timestep ();
   void start_translation_timestep ();
-  DECLARE_TRANSLATOR_LISTENER (sustain);
-  DECLARE_TRANSLATOR_LISTENER (una_corda);
-  DECLARE_TRANSLATOR_LISTENER (sostenuto);
+  void listen_sustain (Stream_event *);
+  void listen_una_corda (Stream_event *);
+  void listen_sostenuto (Stream_event *);
 private:
   vector<Audio_piano_pedal *> audios_;
   Pedal_info info_alist_[NUM_PEDAL_TYPES];
@@ -146,7 +146,6 @@ Piano_pedal_performer::start_translation_timestep ()
     }
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Piano_pedal_performer, sostenuto);
 void
 Piano_pedal_performer::listen_sostenuto (Stream_event *r)
 {
@@ -154,7 +153,6 @@ Piano_pedal_performer::listen_sostenuto (Stream_event *r)
   info_alist_[SOSTENUTO].event_drul_[d] = r;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Piano_pedal_performer, sustain);
 void
 Piano_pedal_performer::listen_sustain (Stream_event *r)
 {
@@ -162,12 +160,19 @@ Piano_pedal_performer::listen_sustain (Stream_event *r)
   info_alist_[SUSTAIN].event_drul_[d] = r;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Piano_pedal_performer, una_corda);
 void
 Piano_pedal_performer::listen_una_corda (Stream_event *r)
 {
   Direction d = to_dir (r->get_property ("span-direction"));
   info_alist_[UNA_CORDA].event_drul_[d] = r;
+}
+
+void
+Piano_pedal_performer::boot ()
+{
+  ADD_LISTENER (Piano_pedal_performer, sostenuto);
+  ADD_LISTENER (Piano_pedal_performer, sustain);
+  ADD_LISTENER (Piano_pedal_performer, una_corda);
 }
 
 ADD_TRANSLATOR (Piano_pedal_performer,

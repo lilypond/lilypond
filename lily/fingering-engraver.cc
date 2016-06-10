@@ -38,16 +38,15 @@ public:
 protected:
   void stop_translation_timestep ();
   void process_music ();
-  DECLARE_TRANSLATOR_LISTENER (fingering);
-  DECLARE_ACKNOWLEDGER (rhythmic_head);
-  DECLARE_ACKNOWLEDGER (stem);
-  DECLARE_ACKNOWLEDGER (flag);
+  void listen_fingering (Stream_event *);
+  void acknowledge_rhythmic_head (Grob_info);
+  void acknowledge_stem (Grob_info);
+  void acknowledge_flag (Grob_info);
 
 private:
   void make_script (Direction, Stream_event *, int);
 };
 
-IMPLEMENT_TRANSLATOR_LISTENER (Fingering_engraver, fingering);
 void
 Fingering_engraver::listen_fingering (Stream_event *ev)
 {
@@ -141,9 +140,15 @@ Fingering_engraver::Fingering_engraver ()
 {
 }
 
-ADD_ACKNOWLEDGER (Fingering_engraver, rhythmic_head);
-ADD_ACKNOWLEDGER (Fingering_engraver, stem);
-ADD_ACKNOWLEDGER (Fingering_engraver, flag);
+
+void
+Fingering_engraver::boot ()
+{
+  ADD_LISTENER (Fingering_engraver, fingering);
+  ADD_ACKNOWLEDGER (Fingering_engraver, rhythmic_head);
+  ADD_ACKNOWLEDGER (Fingering_engraver, stem);
+  ADD_ACKNOWLEDGER (Fingering_engraver, flag);
+}
 
 ADD_TRANSLATOR (Fingering_engraver,
                 /* doc */

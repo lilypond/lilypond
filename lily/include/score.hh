@@ -31,7 +31,7 @@ class Score : public Smob<Score>
 {
 public:
   SCM mark_smob () const;
-  static const char type_p_name_[];
+  static const char * const type_p_name_;
   virtual ~Score ();
 private:
   SCM music_;

@@ -94,6 +94,12 @@ Rest_collision_engraver::stop_translation_timestep ()
   rest_collision_ = 0;
 }
 
+void
+Rest_collision_engraver::boot ()
+{
+
+}
+
 ADD_TRANSLATOR (Rest_collision_engraver,
                 /* doc */
                 "Handle collisions of rests.",

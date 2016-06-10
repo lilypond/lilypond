@@ -81,6 +81,12 @@ Time_signature_performer::stop_translation_timestep ()
 
 #include "translator.icc"
 
+void
+Time_signature_performer::boot ()
+{
+
+}
+
 ADD_TRANSLATOR (Time_signature_performer,
                 /* doc */
                 "",

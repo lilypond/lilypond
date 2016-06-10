@@ -37,17 +37,19 @@ Protected_scm::Protected_scm (SCM s)
   assert (SCM_IMP (s));
 }
 
-// For static objects, this will be called at program exit.  With the
-// state of the memory system unknown, we refrain from any cleanup
-// actions outside of the object memory itself.
-
-Protected_scm::~Protected_scm ()
-{
-  object_ = SCM_UNDEFINED;
-}
-
 SCM Protected_scm::list_ = SCM_EOL;
 SCM Protected_scm::last_ = SCM_EOL;
+
+void
+Protected_scm::protectify (SCM s)
+{
+  s = scm_list_1 (s);
+  if (SCM_CONSP (last_))
+    SCM_SETCDR (last_, s);
+  else
+    list_ = scm_permanent_object (s);
+  last_ = object_ = s;
+}
 
 Protected_scm &
 Protected_scm::operator = (SCM s)
@@ -57,14 +59,7 @@ Protected_scm::operator = (SCM s)
   else if (SCM_IMP (s))
     object_ = s;
   else
-    {
-      s = scm_list_1 (s);
-      if (SCM_CONSP (last_))
-        SCM_SETCDR (last_, s);
-      else
-        list_ = scm_permanent_object (s);
-      last_ = object_ = s;
-    }
+    protectify (s);
 
   return *this;
 }
@@ -75,7 +70,17 @@ Protected_scm::operator = (Protected_scm const &s)
   return *this = (SCM) s;
 }
 
-Protected_scm::operator SCM () const
+Protected_scm::operator SCM const & () const
 {
-  return SCM_CONSP (object_) ? SCM_CAR (object_) : object_;
+  return SCM_CONSP (object_) ? *SCM_CARLOC (object_) : object_;
+}
+
+Protected_scm::operator SCM & ()
+{
+  // The reference may be used to overwrite an immediate value with a
+  // non-immediate one, so we _have_ to create full protection.
+  if (!SCM_CONSP (object_))
+    protectify (object_);
+
+  return *SCM_CARLOC (object_);
 }

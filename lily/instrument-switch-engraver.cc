@@ -75,6 +75,12 @@ Instrument_switch_engraver::stop_translation_time_step ()
   text_ = 0;
 }
 
+void
+Instrument_switch_engraver::boot ()
+{
+
+}
+
 ADD_TRANSLATOR (Instrument_switch_engraver,
                 /* doc */
                 "Create a cue text for taking instrument.",

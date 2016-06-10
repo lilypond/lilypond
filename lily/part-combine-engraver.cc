@@ -34,11 +34,11 @@ class Part_combine_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Part_combine_engraver);
 
 protected:
-  DECLARE_ACKNOWLEDGER (note_head);
-  DECLARE_ACKNOWLEDGER (stem);
+  void acknowledge_note_head (Grob_info);
+  void acknowledge_stem (Grob_info);
 
-  DECLARE_TRANSLATOR_LISTENER (part_combine);
-  DECLARE_TRANSLATOR_LISTENER (note);
+  void listen_part_combine (Stream_event *);
+  void listen_note (Stream_event *);
   void process_music ();
   void stop_translation_timestep ();
   void create_item (Stream_event *ev);
@@ -51,7 +51,6 @@ private:
   Stream_event *waiting_event_;
 };
 
-IMPLEMENT_TRANSLATOR_LISTENER (Part_combine_engraver, part_combine);
 void
 Part_combine_engraver::listen_part_combine (Stream_event *ev)
 {
@@ -61,7 +60,6 @@ Part_combine_engraver::listen_part_combine (Stream_event *ev)
   waiting_event_ = new_event_;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Part_combine_engraver, note);
 void
 Part_combine_engraver::listen_note (Stream_event *)
 {
@@ -137,8 +135,15 @@ Part_combine_engraver::stop_translation_timestep ()
   note_found_ = false;
 }
 
-ADD_ACKNOWLEDGER (Part_combine_engraver, note_head);
-ADD_ACKNOWLEDGER (Part_combine_engraver, stem);
+void
+Part_combine_engraver::boot ()
+{
+  ADD_LISTENER (Part_combine_engraver, part_combine);
+  ADD_LISTENER (Part_combine_engraver, note);
+  ADD_ACKNOWLEDGER (Part_combine_engraver, note_head);
+  ADD_ACKNOWLEDGER (Part_combine_engraver, stem);
+}
+
 ADD_TRANSLATOR (Part_combine_engraver,
                 /* doc */
                 "Part combine engraver for orchestral scores: Print markings"

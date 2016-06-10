@@ -84,8 +84,8 @@ protected:
   void process_acknowledged ();
   void stop_translation_timestep ();
   void start_translation_timestep ();
-  DECLARE_ACKNOWLEDGER (note_head);
-  DECLARE_TRANSLATOR_LISTENER (tie);
+  void acknowledge_note_head (Grob_info);
+  void listen_tie (Stream_event *);
   void process_music ();
   void typeset_tie (Spanner *);
   void report_unterminated_tie (Head_event_tuple const &);
@@ -101,7 +101,6 @@ Tie_engraver::Tie_engraver ()
   event_processed_ = false;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Tie_engraver, tie);
 void
 Tie_engraver::listen_tie (Stream_event *ev)
 {
@@ -385,7 +384,13 @@ Tie_engraver::typeset_tie (Spanner *her)
   her->set_bound (RIGHT, right_head);
 }
 
-ADD_ACKNOWLEDGER (Tie_engraver, note_head);
+void
+Tie_engraver::boot ()
+{
+  ADD_LISTENER (Tie_engraver, tie);
+  ADD_ACKNOWLEDGER (Tie_engraver, note_head);
+}
+
 ADD_TRANSLATOR (Tie_engraver,
                 /* doc */
                 "Generate ties between note heads of equal pitch.",

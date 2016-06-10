@@ -38,8 +38,8 @@
 class Beam_engraver : public Engraver
 {
 public:
-  DECLARE_ACKNOWLEDGER (stem);
-  DECLARE_ACKNOWLEDGER (rest);
+  void acknowledge_stem (Grob_info);
+  void acknowledge_rest (Grob_info);
 
 protected:
   Stream_event *start_ev_;
@@ -77,7 +77,7 @@ protected:
   virtual bool valid_start_point ();
   virtual bool valid_end_point ();
 
-  DECLARE_TRANSLATOR_LISTENER (beam);
+  void listen_beam (Stream_event *);
 public:
   TRANSLATOR_DECLARATIONS (Beam_engraver);
 };
@@ -112,7 +112,6 @@ Beam_engraver::Beam_engraver ()
   prev_start_ev_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Beam_engraver, beam);
 void
 Beam_engraver::listen_beam (Stream_event *ev)
 {
@@ -312,8 +311,14 @@ Beam_engraver::acknowledge_stem (Grob_info info)
   Beam::add_stem (beam_, stem);
 }
 
-ADD_ACKNOWLEDGER (Beam_engraver, stem);
-ADD_ACKNOWLEDGER (Beam_engraver, rest);
+
+void
+Beam_engraver::boot ()
+{
+  ADD_LISTENER (Beam_engraver, beam);
+  ADD_ACKNOWLEDGER (Beam_engraver, stem);
+  ADD_ACKNOWLEDGER (Beam_engraver, rest);
+}
 
 ADD_TRANSLATOR (Beam_engraver,
                 /* doc */
@@ -338,7 +343,7 @@ class Grace_beam_engraver : public Beam_engraver
 public:
   TRANSLATOR_DECLARATIONS (Grace_beam_engraver);
   TRANSLATOR_INHERIT (Beam_engraver);
-  DECLARE_TRANSLATOR_LISTENER (beam);
+  void listen_beam (Stream_event *);
 
 protected:
   virtual bool valid_start_point ();
@@ -366,7 +371,6 @@ Grace_beam_engraver::valid_end_point ()
 /*
   Ugh, C&P code.
  */
-IMPLEMENT_TRANSLATOR_LISTENER (Grace_beam_engraver, beam);
 void
 Grace_beam_engraver::listen_beam (Stream_event *ev)
 {
@@ -378,8 +382,14 @@ Grace_beam_engraver::listen_beam (Stream_event *ev)
     stop_ev_ = ev;
 }
 
-ADD_ACKNOWLEDGER (Grace_beam_engraver, stem);
-ADD_ACKNOWLEDGER (Grace_beam_engraver, rest);
+
+void
+Grace_beam_engraver::boot ()
+{
+  ADD_LISTENER (Grace_beam_engraver, beam);
+  ADD_ACKNOWLEDGER (Beam_engraver, stem);
+  ADD_ACKNOWLEDGER (Beam_engraver, rest);
+}
 
 ADD_TRANSLATOR (Grace_beam_engraver,
                 /* doc */

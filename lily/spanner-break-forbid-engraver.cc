@@ -31,8 +31,8 @@ class Spanner_break_forbid_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Spanner_break_forbid_engraver);
   vector<Spanner *> running_spanners_;
 protected:
-  DECLARE_ACKNOWLEDGER (unbreakable_spanner);
-  DECLARE_END_ACKNOWLEDGER (unbreakable_spanner);
+  void acknowledge_unbreakable_spanner (Grob_info);
+  void acknowledge_end_unbreakable_spanner (Grob_info);
 
   void process_music ();
 };
@@ -66,8 +66,13 @@ Spanner_break_forbid_engraver::Spanner_break_forbid_engraver ()
 {
 }
 
-ADD_END_ACKNOWLEDGER (Spanner_break_forbid_engraver, unbreakable_spanner);
-ADD_ACKNOWLEDGER (Spanner_break_forbid_engraver, unbreakable_spanner);
+void
+Spanner_break_forbid_engraver::boot ()
+{
+  ADD_END_ACKNOWLEDGER (Spanner_break_forbid_engraver, unbreakable_spanner);
+  ADD_ACKNOWLEDGER (Spanner_break_forbid_engraver, unbreakable_spanner);
+}
+
 ADD_TRANSLATOR (Spanner_break_forbid_engraver,
                 /* doc */
                 "Forbid breaks in certain spanners.",

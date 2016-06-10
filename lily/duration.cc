@@ -136,7 +136,7 @@ Duration::to_string () const
   return s;
 }
 
-const char Duration::type_p_name_[] = "ly:duration?";
+const char * const Duration::type_p_name_ = "ly:duration?";
 
 
 int

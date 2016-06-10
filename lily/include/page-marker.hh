@@ -27,7 +27,7 @@ class Page_marker : public Smob<Page_marker>
 {
 public:
   SCM mark_smob () const;
-  static const char type_p_name_[];
+  static const char * const type_p_name_;
   virtual ~Page_marker ();
 private:
   SCM symbol_; /* either 'page-turn-permission or 'page-break-permission */

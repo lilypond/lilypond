@@ -207,7 +207,7 @@ Translator::get_score_context () const
   return daddy_context_->get_score_context ();
 }
 
-const char Translator::type_p_name_[] = "ly:translator?";
+const char * const Translator::type_p_name_ = "ly:translator?";
 
 bool
 Translator::must_be_last () const
@@ -232,9 +232,9 @@ Translator::print_smob (SCM port, scm_print_state *) const
 void
 add_acknowledger (SCM ptr,
                   char const *func_name,
-                  Protected_scm &ack_hash)
+                  SCM &ack_hash)
 {
-  if (SCM_UNBNDP (SCM (ack_hash)))
+  if (SCM_UNBNDP (ack_hash))
     ack_hash = Scheme_hash_table::make_smob ();
 
   string interface_name (func_name);

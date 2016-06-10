@@ -40,7 +40,7 @@ Page_marker::~Page_marker ()
 {
 }
 
-const char Page_marker::type_p_name_[] = "ly:page-marker?";
+const char * const Page_marker::type_p_name_ = "ly:page-marker?";
 
 SCM
 Page_marker::mark_smob () const

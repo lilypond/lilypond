@@ -38,7 +38,7 @@ protected:
   void stop_translation_timestep ();
   void process_acknowledged ();
 
-  DECLARE_END_ACKNOWLEDGER (spanner);
+  void acknowledge_end_spanner (Grob_info);
 
 private:
   void create_bar ();
@@ -108,7 +108,12 @@ Bar_engraver::acknowledge_end_spanner (Grob_info gi)
     spanners_.push_back (dynamic_cast<Spanner *> (g));
 }
 
-ADD_END_ACKNOWLEDGER (Bar_engraver, spanner);
+
+void
+Bar_engraver::boot ()
+{
+  ADD_END_ACKNOWLEDGER (Bar_engraver, spanner);
+}
 
 ADD_TRANSLATOR (Bar_engraver,
                 /* doc */

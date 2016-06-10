@@ -38,20 +38,11 @@ text = \lyricmode {
 }
 
 \score {
-  \new GrandStaff <<
+  \new PianoStaff <<
     \new Staff = upper { \new Voice = "singer" \upper }
     \new Lyrics \lyricsto "singer" \text
     \new Staff = lower { \lower }
   >>
-  \layout {
-    \context {
-      \GrandStaff
-      \accepts "Lyrics"
-    }
-    \context {
-      \Lyrics
-      \consists "Bar_engraver"
-    }
-  }
+  \layout { }
   \midi { }
 }

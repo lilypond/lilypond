@@ -41,7 +41,7 @@ public:
   TRANSLATOR_DECLARATIONS (Note_heads_engraver);
 
 protected:
-  DECLARE_TRANSLATOR_LISTENER (note);
+  void listen_note (Stream_event *);
   void process_music ();
   void stop_translation_timestep ();
 };
@@ -50,7 +50,6 @@ Note_heads_engraver::Note_heads_engraver ()
 {
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Note_heads_engraver, note);
 void
 Note_heads_engraver::listen_note (Stream_event *ev)
 {
@@ -119,6 +118,12 @@ void
 Note_heads_engraver::stop_translation_timestep ()
 {
   note_evs_.clear ();
+}
+
+void
+Note_heads_engraver::boot ()
+{
+  ADD_LISTENER (Note_heads_engraver, note);
 }
 
 ADD_TRANSLATOR (Note_heads_engraver,

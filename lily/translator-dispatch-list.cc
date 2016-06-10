@@ -21,8 +21,6 @@
 #include "engraver.hh"
 
 
-const char * const Engraver_dispatch_list::type_p_name_ = 0;
-
 void
 Engraver_dispatch_list::apply (Grob_info gi)
 {
@@ -54,10 +52,7 @@ Engraver_dispatch_list::create (SCM trans_list,
 
       for (SCM i = iface_list; scm_is_pair (i); i = scm_cdr (i))
         {
-          SCM ptr
-            = (start_end == START)
-            ? eng->get_acknowledger (scm_car (i))
-            : eng->get_end_acknowledger (scm_car (i));
+          SCM ptr = eng->get_acknowledger (scm_car (i), start_end);
 
           if (!SCM_UNBNDP (ptr))
             list->dispatch_entries_.push_back (Method_instance (ptr, eng));

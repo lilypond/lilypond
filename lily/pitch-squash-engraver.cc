@@ -28,7 +28,7 @@ class Pitch_squash_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Pitch_squash_engraver);
-  DECLARE_ACKNOWLEDGER (note_head);
+  void acknowledge_note_head (Grob_info);
 };
 
 void
@@ -44,7 +44,12 @@ Pitch_squash_engraver::Pitch_squash_engraver ()
 }
 
 #include "translator.icc"
-ADD_ACKNOWLEDGER (Pitch_squash_engraver, note_head);
+void
+Pitch_squash_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Pitch_squash_engraver, note_head);
+}
+
 ADD_TRANSLATOR (Pitch_squash_engraver,
                 /* doc */
                 "Set the vertical position of note heads to"

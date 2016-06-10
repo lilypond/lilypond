@@ -340,9 +340,15 @@
        ((and file-name (string-endswith downcase-file-name ".ttf"))
         (ly:ttf->pfa file-name))
        ((and file-name (string-endswith downcase-file-name ".ttc"))
-        (ly:ttf->pfa file-name font-index))
+        ;; TODO: distinguish files which have extension `*.ttc'
+        ;; whether TrueType Collection (TTC) fonts
+        ;; or OpenType/CFF Collection (OTC) fonts.
+        (ly:ttf->pfa file-name font-index)) ;; TTC fonts
        ((and file-name (string-endswith downcase-file-name ".otf"))
         (ps-embed-cff (ly:otf->cff file-name) name 0))
+       ((and file-name (string-endswith downcase-file-name ".otc"))
+        ;; The files which have the extension `*.otc' are OTC fonts.
+        (ps-embed-cff (ly:otf->cff file-name font-index) name 0)) ;; OTC fonts
        (else
         (ly:warning (_ "do not know how to embed ~S=~S") name file-name)
         ""))))

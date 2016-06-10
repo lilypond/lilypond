@@ -37,6 +37,12 @@ public:
 
 #include "translator.icc"
 
+void
+Default_bar_line_engraver::boot ()
+{
+
+}
+
 ADD_TRANSLATOR (Default_bar_line_engraver,
                 /* doc */
                 "This engraver determines what kind of automatic bar lines"

@@ -41,7 +41,7 @@ public:
 protected:
   void stop_translation_timestep ();
   void process_music ();
-  DECLARE_ACKNOWLEDGER (bar_line);
+  void acknowledge_bar_line (Grob_info);
 
   virtual void derived_mark () const;
 private:
@@ -209,7 +209,12 @@ Cue_clef_engraver::stop_translation_timestep ()
     }
 }
 
-ADD_ACKNOWLEDGER (Cue_clef_engraver, bar_line);
+void
+Cue_clef_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Cue_clef_engraver, bar_line);
+}
+
 ADD_TRANSLATOR (Cue_clef_engraver,
                 /* doc */
                 "Determine and set reference point for pitches in cued voices.",

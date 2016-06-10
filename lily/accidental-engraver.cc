@@ -511,11 +511,16 @@ Accidental_engraver::process_music ()
     update_local_key_signature (sig);
 }
 
-ADD_ACKNOWLEDGER (Accidental_engraver, arpeggio);
-ADD_ACKNOWLEDGER (Accidental_engraver, finger);
-ADD_ACKNOWLEDGER (Accidental_engraver, rhythmic_head);
-ADD_END_ACKNOWLEDGER (Accidental_engraver, tie);
-ADD_ACKNOWLEDGER (Accidental_engraver, note_column);
+
+void
+Accidental_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Accidental_engraver, arpeggio);
+  ADD_ACKNOWLEDGER (Accidental_engraver, finger);
+  ADD_ACKNOWLEDGER (Accidental_engraver, rhythmic_head);
+  ADD_END_ACKNOWLEDGER (Accidental_engraver, tie);
+  ADD_ACKNOWLEDGER (Accidental_engraver, note_column);
+}
 
 ADD_TRANSLATOR (Accidental_engraver,
                 /* doc */

@@ -35,6 +35,7 @@
   SCM T::static_description_ = SCM_EOL;                                 \
   static void _ ## T ## _adder ()                                       \
   {                                                                     \
+    T::boot ();                                                         \
     T *t = new T;                                                       \
     T::static_description_ =                                            \
       scm_permanent_object (t->static_translator_description ());       \
@@ -44,24 +45,19 @@
   {                                                                     \
     return static_description_;                                         \
   }                                                                     \
-  ADD_GLOBAL_CTOR (_ ## T ## _adder); \
+  ADD_GLOBAL_CTOR (_ ## T ## _adder);                                   \
   /* end define */
 
 #define DEFINE_TRANSLATOR_LISTENER_LIST(T) \
-  Protected_scm T::listener_list_ (SCM_EOL);    \
-  /* end define */
+  Protected_scm T::listener_list_ (SCM_EOL)
 
 #define DEFINE_ACKNOWLEDGERS(classname) \
   Drul_array<Protected_scm> classname::acknowledge_static_array_drul_;  \
   SCM                                                                   \
-  classname::static_get_acknowledger (SCM sym)                          \
+  classname::static_get_acknowledger (SCM sym, Direction start_end)     \
   {                                                                     \
-    return generic_get_acknowledger (sym, acknowledge_static_array_drul_[START]);      \
-  }                                                                     \
-  SCM                                                                   \
-  classname::static_get_end_acknowledger (SCM sym)                      \
-  {                                                                     \
-    return generic_get_acknowledger (sym, acknowledge_static_array_drul_[STOP]);       \
+    return generic_get_acknowledger                                     \
+      (sym, acknowledge_static_array_drul_[start_end]);                 \
   }                                                                     \
   /* end define */
 
@@ -76,8 +72,8 @@
   IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS (classname);                    \
   DEFINE_ACKNOWLEDGERS(classname);                                      \
   ADD_THIS_TRANSLATOR (classname);                                      \
-  DEFINE_TRANSLATOR_DOC(classname, desc, grobs, read, write)            \
-  DEFINE_TRANSLATOR_LISTENER_LIST(classname)                            \
+  DEFINE_TRANSLATOR_DOC(classname, desc, grobs, read, write);           \
+  DEFINE_TRANSLATOR_LISTENER_LIST(classname);
 
 #define IMPLEMENT_FETCH_PRECOMPUTABLE_METHODS(T)                        \
   void                                                                  \
@@ -98,38 +94,26 @@
 
 void add_acknowledger (SCM ptr,
                        char const *func_name,
-                       Protected_scm &ack_hash);
+                       SCM &ack_hash);
 
 #define ADD_ACKNOWLEDGER(CLASS, NAME)                                   \
-  void CLASS ## NAME ## _ack_adder ()                                   \
-  {                                                                     \
-    add_acknowledger (CLASS::ack_finder<&CLASS::acknowledge_ ## NAME> (), \
-                      #NAME, CLASS::acknowledge_static_array_drul_[START]); \
-  }                                                                     \
-  ADD_SCM_INIT_FUNC (CLASS ## NAME ## _ack_adder_initclass, CLASS ## NAME ## _ack_adder);
+  add_acknowledger (Callback2_wrapper::make_smob                        \
+                    <ack_trampoline<CLASS, &CLASS::acknowledge_ ## NAME> > (), \
+                    #NAME, acknowledge_static_array_drul_[START])
 
 #define ADD_END_ACKNOWLEDGER(CLASS, NAME)                               \
-  void CLASS ## NAME ## _end_ack_adder ()                               \
-  {                                                                     \
-    add_acknowledger (CLASS::ack_finder<&CLASS::acknowledge_end_ ## NAME> (), \
-                      #NAME, CLASS::acknowledge_static_array_drul_[STOP]); \
-  }                                                                     \
-  ADD_SCM_INIT_FUNC (CLASS ## NAME ## _end_ack_adder_initclass, CLASS ## NAME ## _end_ack_adder);
+  add_acknowledger (Callback2_wrapper::make_smob                        \
+                    <ack_trampoline<CLASS, &CLASS::acknowledge_end_ ## NAME> > (), \
+                    #NAME, acknowledge_static_array_drul_[STOP])
 
 /*
   Implement the method cl::listen_##m, and make it listen to stream
   events of class m.
  */
-#define IMPLEMENT_TRANSLATOR_LISTENER(cl, m)            \
-void                                                    \
-cl :: _internal_declare_ ## m ()                        \
-{                                                       \
+#define ADD_LISTENER(cl, m)                                             \
   listener_list_ = scm_acons                                            \
     (event_class_symbol (#m),                                           \
      Callback_wrapper::make_smob                                        \
-     <trampoline <cl, &cl::listen_ ## m> > (), listener_list_);         \
-}                                                                       \
-                                                                        \
-ADD_SCM_INIT_FUNC (cl ## _declare_event_ ## m, cl::_internal_declare_ ## m);
+     <trampoline <cl, &cl::listen_ ## m> > (), listener_list_)
 
 #endif /* TRANSLATOR_ICC */

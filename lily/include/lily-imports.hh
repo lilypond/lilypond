@@ -58,8 +58,10 @@ namespace Lily {
   extern Variable beat_structure;
   extern Variable calc_repeat_slash_count;
   extern Variable car_less;
+  extern Variable chordmodifiers;
   extern Variable construct_chord_elements;
   extern Variable default_time_signature_settings;
+  extern Variable drum_pitch_names;
   extern Variable grob_compose_function;
   extern Variable grob_offset_function;
   extern Variable hash_table_to_alist;
@@ -91,6 +93,7 @@ namespace Lily {
 #endif
   extern Variable f_parser;
   extern Variable percussion_p;
+  extern Variable pitchnames;
   extern Variable pure_chain_offset_callback;
   extern Variable remove_stencil_warnings;
   extern Variable scale_layout;

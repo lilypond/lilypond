@@ -71,9 +71,9 @@ public:
   TRANSLATOR_DECLARATIONS (New_fingering_engraver);
 protected:
   void stop_translation_timestep ();
-  DECLARE_ACKNOWLEDGER (rhythmic_head);
-  DECLARE_ACKNOWLEDGER (inline_accidental);
-  DECLARE_ACKNOWLEDGER (stem);
+  void acknowledge_rhythmic_head (Grob_info);
+  void acknowledge_inline_accidental (Grob_info);
+  void acknowledge_stem (Grob_info);
   void add_fingering (Grob *, SCM,
                       vector<Finger_tuple> *,
                       Stream_event *, Stream_event *);
@@ -371,9 +371,14 @@ New_fingering_engraver::New_fingering_engraver ()
   stem_ = 0;
 }
 
-ADD_ACKNOWLEDGER (New_fingering_engraver, rhythmic_head);
-ADD_ACKNOWLEDGER (New_fingering_engraver, inline_accidental);
-ADD_ACKNOWLEDGER (New_fingering_engraver, stem);
+
+void
+New_fingering_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (New_fingering_engraver, rhythmic_head);
+  ADD_ACKNOWLEDGER (New_fingering_engraver, inline_accidental);
+  ADD_ACKNOWLEDGER (New_fingering_engraver, stem);
+}
 
 ADD_TRANSLATOR (New_fingering_engraver,
                 /* doc */

@@ -37,7 +37,7 @@ class Rest_engraver : public Engraver
 protected:
   void start_translation_timestep ();
   void process_music ();
-  DECLARE_TRANSLATOR_LISTENER (rest);
+  void listen_rest (Stream_event *);
 public:
   TRANSLATOR_DECLARATIONS (Rest_engraver);
 };
@@ -80,11 +80,16 @@ Rest_engraver::process_music ()
     }
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Rest_engraver, rest);
 void
 Rest_engraver::listen_rest (Stream_event *ev)
 {
   ASSIGN_EVENT_ONCE (rest_event_, ev);
+}
+
+void
+Rest_engraver::boot ()
+{
+  ADD_LISTENER (Rest_engraver, rest);
 }
 
 ADD_TRANSLATOR (Rest_engraver,

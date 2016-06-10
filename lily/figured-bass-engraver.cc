@@ -122,8 +122,8 @@ protected:
   Moment stop_moment_;
   bool have_rest_;
 
-  DECLARE_TRANSLATOR_LISTENER (rest);
-  DECLARE_TRANSLATOR_LISTENER (bass_figure);
+  void listen_rest (Stream_event *);
+  void listen_bass_figure (Stream_event *);
 
   virtual void derived_mark () const;
 
@@ -180,14 +180,12 @@ Figured_bass_engraver::stop_translation_timestep ()
     clear_spanners ();
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Figured_bass_engraver, rest);
 void
 Figured_bass_engraver::listen_rest (Stream_event *)
 {
   have_rest_ = true;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Figured_bass_engraver, bass_figure);
 void
 Figured_bass_engraver::listen_bass_figure (Stream_event *ev)
 {
@@ -502,6 +500,13 @@ Figured_bass_engraver::add_brackets ()
           encompass.clear ();
         }
     }
+}
+
+void
+Figured_bass_engraver::boot ()
+{
+  ADD_LISTENER (Figured_bass_engraver, rest);
+  ADD_LISTENER (Figured_bass_engraver, bass_figure);
 }
 
 ADD_TRANSLATOR (Figured_bass_engraver,

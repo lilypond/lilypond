@@ -25,7 +25,7 @@ class Font_size_engraver : public Engraver
 
   TRANSLATOR_DECLARATIONS (Font_size_engraver);
 protected:
-  DECLARE_ACKNOWLEDGER (font);
+  void acknowledge_font (Grob_info);
   void process_music ();
   Real size;
 private:
@@ -61,7 +61,12 @@ Font_size_engraver::acknowledge_font (Grob_info gi)
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (Font_size_engraver, font);
+void
+Font_size_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Font_size_engraver, font);
+}
+
 ADD_TRANSLATOR (Font_size_engraver,
                 /* doc */
                 "Put @code{fontSize} into @code{font-size} grob property.",

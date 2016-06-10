@@ -27,7 +27,7 @@
 
 class Dots_engraver : public Engraver
 {
-  DECLARE_ACKNOWLEDGER (rhythmic_head);
+  void acknowledge_rhythmic_head (Grob_info);
   TRANSLATOR_DECLARATIONS (Dots_engraver);
 };
 
@@ -56,7 +56,12 @@ Dots_engraver::acknowledge_rhythmic_head (Grob_info gi)
     }
 }
 
-ADD_ACKNOWLEDGER (Dots_engraver, rhythmic_head);
+
+void
+Dots_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Dots_engraver, rhythmic_head);
+}
 
 ADD_TRANSLATOR (Dots_engraver,
                 "Create @ref{Dots} objects for"

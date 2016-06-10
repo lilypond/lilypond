@@ -32,8 +32,7 @@ Scheme_engraver::Scheme_engraver (SCM definition)
   initialize_function_ = SCM_EOL;
   finalize_function_ = SCM_EOL;
 
-  interface_acknowledger_hash_ = SCM_EOL;
-  interface_end_acknowledger_hash_ = SCM_EOL;
+  interface_acknowledger_hash_.set (SCM_EOL, SCM_EOL);
 
   must_be_last_ = false;
   per_instance_listeners_ = SCM_EOL;
@@ -111,8 +110,7 @@ Scheme_engraver::init_from_scheme (SCM definition)
                                       definition, SCM_EOL));
 
   per_instance_listeners_ = listeners;
-  interface_acknowledger_hash_ = hash1;
-  interface_end_acknowledger_hash_ = hash2;
+  interface_acknowledger_hash_.set (hash1, hash2);
 
   // It's not defined whether Scheme_engraver::derived_mark is already
   // active while the construction is underway, so we make sure we
@@ -172,6 +170,6 @@ Scheme_engraver::derived_mark () const
   scm_gc_mark (initialize_function_);
   scm_gc_mark (finalize_function_);
   scm_gc_mark (per_instance_listeners_);
-  scm_gc_mark (interface_acknowledger_hash_);
-  scm_gc_mark (interface_end_acknowledger_hash_);
+  scm_gc_mark (interface_acknowledger_hash_[START]);
+  scm_gc_mark (interface_acknowledger_hash_[STOP]);
 }

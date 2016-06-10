@@ -28,8 +28,8 @@ class Balloon_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Balloon_engraver);
 
-  DECLARE_TRANSLATOR_LISTENER (annotate_output);
-  DECLARE_ACKNOWLEDGER (grob);
+  void listen_annotate_output (Stream_event *);
+  void acknowledge_grob (Grob_info);
   vector<Stream_event *> events_;
 
   void stop_translation_timestep ();
@@ -37,7 +37,6 @@ class Balloon_engraver : public Engraver
   void balloonify (Grob *, Stream_event *);
 };
 
-IMPLEMENT_TRANSLATOR_LISTENER (Balloon_engraver, annotate_output);
 void
 Balloon_engraver::listen_annotate_output (Stream_event *ev)
 {
@@ -85,7 +84,13 @@ Balloon_engraver::acknowledge_grob (Grob_info info)
     }
 }
 
-ADD_ACKNOWLEDGER (Balloon_engraver, grob);
+
+void
+Balloon_engraver::boot ()
+{
+  ADD_LISTENER (Balloon_engraver, annotate_output);
+  ADD_ACKNOWLEDGER (Balloon_engraver, grob);
+}
 
 ADD_TRANSLATOR (Balloon_engraver,
                 /* doc */

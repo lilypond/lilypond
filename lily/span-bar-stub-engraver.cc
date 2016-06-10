@@ -55,8 +55,8 @@ class Span_bar_stub_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Span_bar_stub_engraver);
 protected:
-  DECLARE_ACKNOWLEDGER (span_bar);
-  DECLARE_ACKNOWLEDGER (hara_kiri_group_spanner);
+  void acknowledge_span_bar (Grob_info);
+  void acknowledge_hara_kiri_group_spanner (Grob_info);
   void process_acknowledged ();
   void stop_translation_timestep ();
   virtual void derived_mark () const;
@@ -175,8 +175,13 @@ Span_bar_stub_engraver::stop_translation_timestep ()
   axis_groups_ = axis_groups;
 }
 
-ADD_ACKNOWLEDGER (Span_bar_stub_engraver, span_bar);
-ADD_ACKNOWLEDGER (Span_bar_stub_engraver, hara_kiri_group_spanner);
+void
+Span_bar_stub_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Span_bar_stub_engraver, span_bar);
+  ADD_ACKNOWLEDGER (Span_bar_stub_engraver, hara_kiri_group_spanner);
+}
+
 ADD_TRANSLATOR (Span_bar_stub_engraver,
                 /* doc */
                 "Make stubs for span bars in all contexts that the span bars cross.",

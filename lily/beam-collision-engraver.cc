@@ -30,15 +30,15 @@ protected:
   vector<Grob_info> beams_;
   vector<Grob_info> covered_grobs_;
 
-  DECLARE_ACKNOWLEDGER (note_head);
-  DECLARE_ACKNOWLEDGER (stem);
-  DECLARE_ACKNOWLEDGER (accidental);
-  DECLARE_ACKNOWLEDGER (clef);
-  DECLARE_ACKNOWLEDGER (clef_modifier);
-  DECLARE_ACKNOWLEDGER (key_signature);
-  DECLARE_ACKNOWLEDGER (time_signature);
-  DECLARE_ACKNOWLEDGER (beam);
-  DECLARE_ACKNOWLEDGER (flag);
+  void acknowledge_note_head (Grob_info);
+  void acknowledge_stem (Grob_info);
+  void acknowledge_accidental (Grob_info);
+  void acknowledge_clef (Grob_info);
+  void acknowledge_clef_modifier (Grob_info);
+  void acknowledge_key_signature (Grob_info);
+  void acknowledge_time_signature (Grob_info);
+  void acknowledge_beam (Grob_info);
+  void acknowledge_flag (Grob_info);
 
   virtual void finalize ();
 
@@ -193,15 +193,20 @@ Beam_collision_engraver::acknowledge_beam (Grob_info i)
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (Beam_collision_engraver, note_head);
-ADD_ACKNOWLEDGER (Beam_collision_engraver, stem);
-ADD_ACKNOWLEDGER (Beam_collision_engraver, accidental);
-ADD_ACKNOWLEDGER (Beam_collision_engraver, clef);
-ADD_ACKNOWLEDGER (Beam_collision_engraver, key_signature);
-ADD_ACKNOWLEDGER (Beam_collision_engraver, time_signature);
-ADD_ACKNOWLEDGER (Beam_collision_engraver, clef_modifier);
-ADD_ACKNOWLEDGER (Beam_collision_engraver, flag);
-ADD_ACKNOWLEDGER (Beam_collision_engraver, beam);
+
+void
+Beam_collision_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Beam_collision_engraver, note_head);
+  ADD_ACKNOWLEDGER (Beam_collision_engraver, stem);
+  ADD_ACKNOWLEDGER (Beam_collision_engraver, accidental);
+  ADD_ACKNOWLEDGER (Beam_collision_engraver, clef);
+  ADD_ACKNOWLEDGER (Beam_collision_engraver, key_signature);
+  ADD_ACKNOWLEDGER (Beam_collision_engraver, time_signature);
+  ADD_ACKNOWLEDGER (Beam_collision_engraver, clef_modifier);
+  ADD_ACKNOWLEDGER (Beam_collision_engraver, flag);
+  ADD_ACKNOWLEDGER (Beam_collision_engraver, beam);
+}
 
 ADD_TRANSLATOR (Beam_collision_engraver,
                 /* doc */

@@ -40,7 +40,7 @@ protected:
   void process_music ();
   void set_melisma (bool);
 
-  DECLARE_TRANSLATOR_LISTENER (slur);
+  void listen_slur (Stream_event *);
 private:
   Stream_event *start_ev_;
   Stream_event *now_stop_ev_;
@@ -83,7 +83,6 @@ Slur_performer::start_translation_timestep ()
   now_stop_ev_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Slur_performer, slur);
 void
 Slur_performer::listen_slur (Stream_event *ev)
 {
@@ -93,6 +92,12 @@ Slur_performer::listen_slur (Stream_event *ev)
     start_ev_ = ev;
   else if (d == STOP)
     now_stop_ev_ = ev;
+}
+
+void
+Slur_performer::boot ()
+{
+  ADD_LISTENER (Slur_performer, slur);
 }
 
 ADD_TRANSLATOR (Slur_performer,

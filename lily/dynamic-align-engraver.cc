@@ -34,11 +34,11 @@
 class Dynamic_align_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Dynamic_align_engraver);
-  DECLARE_ACKNOWLEDGER (rhythmic_head);
-  DECLARE_ACKNOWLEDGER (stem);
-  DECLARE_ACKNOWLEDGER (dynamic);
-  DECLARE_ACKNOWLEDGER (footnote_spanner);
-  DECLARE_END_ACKNOWLEDGER (dynamic);
+  void acknowledge_rhythmic_head (Grob_info);
+  void acknowledge_stem (Grob_info);
+  void acknowledge_dynamic (Grob_info);
+  void acknowledge_footnote_spanner (Grob_info);
+  void acknowledge_end_dynamic (Grob_info);
 
 protected:
   virtual void stop_translation_timestep ();
@@ -64,11 +64,6 @@ Dynamic_align_engraver::Dynamic_align_engraver ()
   current_dynamic_spanner_ = 0;
 }
 
-ADD_ACKNOWLEDGER (Dynamic_align_engraver, dynamic);
-ADD_ACKNOWLEDGER (Dynamic_align_engraver, rhythmic_head);
-ADD_ACKNOWLEDGER (Dynamic_align_engraver, stem);
-ADD_ACKNOWLEDGER (Dynamic_align_engraver, footnote_spanner);
-ADD_END_ACKNOWLEDGER (Dynamic_align_engraver, dynamic);
 
 void
 Dynamic_align_engraver::create_line_spanner (Grob *cause)
@@ -230,6 +225,16 @@ Dynamic_align_engraver::stop_translation_timestep ()
   started_.clear ();
   scripts_.clear ();
   support_.clear ();
+}
+
+void
+Dynamic_align_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Dynamic_align_engraver, dynamic);
+  ADD_ACKNOWLEDGER (Dynamic_align_engraver, rhythmic_head);
+  ADD_ACKNOWLEDGER (Dynamic_align_engraver, stem);
+  ADD_ACKNOWLEDGER (Dynamic_align_engraver, footnote_spanner);
+  ADD_END_ACKNOWLEDGER (Dynamic_align_engraver, dynamic);
 }
 
 ADD_TRANSLATOR (Dynamic_align_engraver,

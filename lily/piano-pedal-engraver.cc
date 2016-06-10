@@ -123,9 +123,9 @@ public:
 protected:
   virtual void initialize ();
   virtual void finalize ();
-  DECLARE_TRANSLATOR_LISTENER (sustain);
-  DECLARE_TRANSLATOR_LISTENER (una_corda);
-  DECLARE_TRANSLATOR_LISTENER (sostenuto);
+  void listen_sustain (Stream_event *);
+  void listen_una_corda (Stream_event *);
+  void listen_sostenuto (Stream_event *);
   void stop_translation_timestep ();
   void process_music ();
 
@@ -205,7 +205,6 @@ Piano_pedal_engraver::initialize ()
   info_list_[NUM_PEDAL_TYPES].type_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Piano_pedal_engraver, sostenuto);
 void
 Piano_pedal_engraver::listen_sostenuto (Stream_event *ev)
 {
@@ -213,7 +212,6 @@ Piano_pedal_engraver::listen_sostenuto (Stream_event *ev)
   ASSIGN_EVENT_ONCE (info_list_[SOSTENUTO].event_drul_[d], ev);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Piano_pedal_engraver, sustain);
 void
 Piano_pedal_engraver::listen_sustain (Stream_event *ev)
 {
@@ -221,7 +219,6 @@ Piano_pedal_engraver::listen_sustain (Stream_event *ev)
   ASSIGN_EVENT_ONCE (info_list_[SUSTAIN].event_drul_[d], ev);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Piano_pedal_engraver, una_corda);
 void
 Piano_pedal_engraver::listen_una_corda (Stream_event *ev)
 {
@@ -477,6 +474,14 @@ Piano_pedal_engraver::typeset_all (Pedal_info *p)
 
       p->finished_bracket_ = 0;
     }
+}
+
+void
+Piano_pedal_engraver::boot ()
+{
+  ADD_LISTENER (Piano_pedal_engraver, sostenuto);
+  ADD_LISTENER (Piano_pedal_engraver, sustain);
+  ADD_LISTENER (Piano_pedal_engraver, una_corda);
 }
 
 ADD_TRANSLATOR (Piano_pedal_engraver,

@@ -33,9 +33,9 @@ class Ligature_bracket_engraver : public Engraver
 protected:
   virtual void process_music ();
   virtual void stop_translation_timestep ();
-  DECLARE_ACKNOWLEDGER (rest);
-  DECLARE_ACKNOWLEDGER (note_column);
-  DECLARE_TRANSLATOR_LISTENER (ligature);
+  void acknowledge_rest (Grob_info);
+  void acknowledge_note_column (Grob_info);
+  void listen_ligature (Stream_event *);
 public:
   TRANSLATOR_DECLARATIONS (Ligature_bracket_engraver);
 
@@ -46,7 +46,6 @@ private:
   Stream_event *previous_start_event_;
 };
 
-IMPLEMENT_TRANSLATOR_LISTENER (Ligature_bracket_engraver, ligature);
 void
 Ligature_bracket_engraver::listen_ligature (Stream_event *ev)
 {
@@ -116,8 +115,14 @@ Ligature_bracket_engraver::stop_translation_timestep ()
   finished_ligature_ = 0;
 }
 
-ADD_ACKNOWLEDGER (Ligature_bracket_engraver, rest);
-ADD_ACKNOWLEDGER (Ligature_bracket_engraver, note_column);
+
+void
+Ligature_bracket_engraver::boot ()
+{
+  ADD_LISTENER (Ligature_bracket_engraver, ligature);
+  ADD_ACKNOWLEDGER (Ligature_bracket_engraver, rest);
+  ADD_ACKNOWLEDGER (Ligature_bracket_engraver, note_column);
+}
 
 ADD_TRANSLATOR (Ligature_bracket_engraver,
                 /* doc */

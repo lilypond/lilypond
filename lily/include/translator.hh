@@ -34,18 +34,15 @@
   VIRTUAL_COPY_CONSTRUCTOR (Translator, NAME);                          \
   virtual void fetch_precomputable_methods (SCM methods[]);             \
   DECLARE_TRANSLATOR_CALLBACKS (NAME);                                  \
-  TRANSLATOR_INHERIT (Translator)                                       \
+  TRANSLATOR_INHERIT (Translator);                                      \
   /* end #define */
 
 #define TRANSLATOR_INHERIT(BASE)                                        \
-  using BASE::method_finder;                                            \
-  using BASE::ack_finder;
+  using BASE::method_finder
 
 #define DECLARE_TRANSLATOR_CALLBACKS(NAME)                              \
   template <void (NAME::*mf)()>                                         \
   static SCM method_finder () { return method_find_base<NAME, mf> (); } \
-  template <void (NAME::*callback)(Grob_info)>                          \
-  static SCM ack_finder () { return ack_find_base<NAME, callback> (); } \
   /* end #define */
 
 /*
@@ -61,18 +58,14 @@
   static Drul_array<Protected_scm> acknowledge_static_array_drul_;      \
   static SCM static_description_;                                       \
   static Protected_scm listener_list_;                                  \
-  static SCM static_get_acknowledger (SCM sym);                         \
-  static SCM static_get_end_acknowledger(SCM);                          \
-  virtual SCM get_acknowledger (SCM sym)                                \
+  static SCM static_get_acknowledger (SCM sym, Direction start_end);    \
+  virtual SCM get_acknowledger (SCM sym, Direction start_end)           \
   {                                                                     \
-    return static_get_acknowledger (sym);                               \
-  }                                                                     \
-  virtual SCM get_end_acknowledger (SCM sym)                            \
-  {                                                                     \
-    return static_get_end_acknowledger (sym);                           \
+    return static_get_acknowledger (sym, start_end);                    \
   }                                                                     \
 public:                                                                 \
   NAME ();                                                              \
+  static void boot ();                                                  \
   virtual SCM static_translator_description () const;                   \
   virtual SCM translator_description () const;                          \
   virtual SCM get_listener_list () const                                \
@@ -80,15 +73,6 @@ public:                                                                 \
     return listener_list_;                                              \
   }                                                                     \
   /* end #define */
-
-#define DECLARE_TRANSLATOR_LISTENER(m)                  \
-public:                                                 \
-inline void listen_ ## m (Stream_event *);              \
-/* Should be private */                                 \
-static void _internal_declare_ ## m ();
-
-#define DECLARE_ACKNOWLEDGER(x) public : void acknowledge_ ## x (Grob_info); protected:
-#define DECLARE_END_ACKNOWLEDGER(x) public : void acknowledge_end_ ## x (Grob_info); protected:
 
 enum Translator_precompute_index
 {
@@ -107,7 +91,7 @@ class Translator : public Smob<Translator>
 public:
   int print_smob (SCM, scm_print_state *) const;
   SCM mark_smob () const;
-  static const char type_p_name_[];
+  static const char * const type_p_name_;
   virtual ~Translator ();
 private:
   void init ();
@@ -144,8 +128,7 @@ public:
   virtual void fetch_precomputable_methods (SCM methods[]) = 0;
   virtual SCM get_listener_list () const = 0;
   virtual SCM translator_description () const = 0;
-  virtual SCM get_acknowledger (SCM sym) = 0;
-  virtual SCM get_end_acknowledger (SCM sym) = 0;
+  virtual SCM get_acknowledger (SCM sym, Direction start_end) = 0;
 
 protected:                      // should be private.
   Context *daddy_context_;
@@ -172,15 +155,6 @@ protected:                      // should be private.
   template <void (Translator::*)()>
   static SCM
   method_finder () { return SCM_UNDEFINED; }
-
-  // Overriden in Engraver.
-  template <class T, void (T::*callback)(Grob_info)>
-  static SCM
-  ack_find_base () { return SCM_UNDEFINED; }
-
-  template <void (Translator::*)(Grob_info)>
-  static SCM
-  ack_finder () { return SCM_UNDEFINED; }
 
   virtual void derived_mark () const;
   static SCM event_class_symbol (const char *ev_class);

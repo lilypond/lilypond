@@ -48,6 +48,12 @@ Grid_point_engraver::Grid_point_engraver ()
 {
 }
 
+void
+Grid_point_engraver::boot ()
+{
+
+}
+
 ADD_TRANSLATOR (Grid_point_engraver,
                 /* doc */
                 "Generate grid points.",

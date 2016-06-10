@@ -43,7 +43,7 @@ public:
 protected:
   void process_music ();
   void stop_translation_timestep ();
-  DECLARE_TRANSLATOR_LISTENER (arpeggio);
+  void listen_arpeggio (Stream_event *);
 private:
   Item *arpeggio_;
   Stream_event *arpeggio_event_;
@@ -55,7 +55,6 @@ Arpeggio_engraver::Arpeggio_engraver ()
   arpeggio_event_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Arpeggio_engraver, arpeggio);
 void Arpeggio_engraver::listen_arpeggio (Stream_event *ev)
 {
   ASSIGN_EVENT_ONCE (arpeggio_event_, ev);
@@ -109,9 +108,15 @@ Arpeggio_engraver::stop_translation_timestep ()
   arpeggio_event_ = 0;
 }
 
-ADD_ACKNOWLEDGER (Arpeggio_engraver, stem);
-ADD_ACKNOWLEDGER (Arpeggio_engraver, rhythmic_head);
-ADD_ACKNOWLEDGER (Arpeggio_engraver, note_column);
+
+void
+Arpeggio_engraver::boot ()
+{
+  ADD_LISTENER (Arpeggio_engraver, arpeggio);
+  ADD_ACKNOWLEDGER (Arpeggio_engraver, stem);
+  ADD_ACKNOWLEDGER (Arpeggio_engraver, rhythmic_head);
+  ADD_ACKNOWLEDGER (Arpeggio_engraver, note_column);
+}
 
 ADD_TRANSLATOR (Arpeggio_engraver,
                 /* doc */

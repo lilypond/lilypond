@@ -223,6 +223,12 @@ Timing_translator::start_translation_timestep ()
 
 #include "translator.icc"
 
+void
+Timing_translator::boot ()
+{
+
+}
+
 ADD_TRANSLATOR (Timing_translator,
                 /* doc */
                 "This engraver adds the alias @code{Timing} to its containing"

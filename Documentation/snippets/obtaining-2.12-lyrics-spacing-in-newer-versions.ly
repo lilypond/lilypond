@@ -49,7 +49,7 @@ bassMusic = \relative c {
 }
 
 words = \lyricmode {
-  Great is Thy faith- ful- ness,
+  Great is Thy faith -- ful -- ness,
 }
 
 \score {

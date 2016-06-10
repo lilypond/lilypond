@@ -63,17 +63,16 @@ protected:
   vector<Tuplet_description> stopped_tuplets_;
   vector<Spanner *> last_tuplets_;
 
-  DECLARE_ACKNOWLEDGER (note_column);
-  DECLARE_ACKNOWLEDGER (script);
-  DECLARE_ACKNOWLEDGER (finger);
-  DECLARE_ACKNOWLEDGER (string_number);
-  DECLARE_TRANSLATOR_LISTENER (tuplet_span);
+  void acknowledge_note_column (Grob_info);
+  void acknowledge_script (Grob_info);
+  void acknowledge_finger (Grob_info);
+  void acknowledge_string_number (Grob_info);
+  void listen_tuplet_span (Stream_event *);
   virtual void finalize ();
   void start_translation_timestep ();
   void process_music ();
 };
 
-IMPLEMENT_TRANSLATOR_LISTENER (Tuplet_engraver, tuplet_span);
 void
 Tuplet_engraver::listen_tuplet_span (Stream_event *ev)
 {
@@ -272,10 +271,16 @@ Tuplet_engraver::Tuplet_engraver ()
 {
 }
 
-ADD_ACKNOWLEDGER (Tuplet_engraver, note_column);
-ADD_ACKNOWLEDGER (Tuplet_engraver, script);
-ADD_ACKNOWLEDGER (Tuplet_engraver, finger);
-ADD_ACKNOWLEDGER (Tuplet_engraver, string_number);
+void
+Tuplet_engraver::boot ()
+{
+  ADD_LISTENER (Tuplet_engraver, tuplet_span);
+  ADD_ACKNOWLEDGER (Tuplet_engraver, note_column);
+  ADD_ACKNOWLEDGER (Tuplet_engraver, script);
+  ADD_ACKNOWLEDGER (Tuplet_engraver, finger);
+  ADD_ACKNOWLEDGER (Tuplet_engraver, string_number);
+}
+
 ADD_TRANSLATOR (Tuplet_engraver,
                 /* doc */
                 "Catch tuplet events and generate appropriate bracket.",

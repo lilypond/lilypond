@@ -59,7 +59,7 @@ class Stencil : public Simple_smob<Stencil>
 {
 public:
   SCM mark_smob () const;
-  static const char type_p_name_[];
+  static const char * const type_p_name_;
 private:
   Box dim_;
   SCM expr_;
