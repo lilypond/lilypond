@@ -36,10 +36,10 @@
 #include "warn.hh"
 
 void
-translator_each (SCM list, Translator_method method)
+translator_each (SCM list, SCM method)
 {
   for (SCM p = list; scm_is_pair (p); p = scm_cdr (p))
-    (unsmob<Translator> (scm_car (p))->*method) ();
+    scm_call_1 (method, scm_car (p));
 }
 
 void
@@ -219,10 +219,11 @@ Translator_group::create_child_translator (SCM sev)
   g->connect_to_context (new_context);
   g->unprotect ();
 
-  recurse_over_translators (new_context,
-                            &Translator::initialize,
-                            &Translator_group::initialize,
-                            DOWN);
+  recurse_over_translators
+    (new_context,
+     Callback0_wrapper::make_smob<Translator, &Translator::initialize> (),
+     Callback0_wrapper::make_smob<Translator_group, &Translator_group::initialize> (),
+     DOWN);
 }
 
 SCM
@@ -240,7 +241,6 @@ precomputed_recurse_over_translators (Context *c, Translator_precompute_index id
   if (tg && dir == DOWN)
     {
       tg->precomputed_translator_foreach (idx);
-      tg->call_precomputed_self_method (idx);
     }
 
   for (SCM s = c->children_contexts (); scm_is_pair (s);
@@ -250,20 +250,19 @@ precomputed_recurse_over_translators (Context *c, Translator_precompute_index id
   if (tg && dir == UP)
     {
       tg->precomputed_translator_foreach (idx);
-      tg->call_precomputed_self_method (idx);
     }
 }
 
 void
-recurse_over_translators (Context *c, Translator_method ptr,
-                          Translator_group_method tg_ptr, Direction dir)
+recurse_over_translators (Context *c, SCM ptr,
+                          SCM tg_ptr, Direction dir)
 {
-  Translator_group *tg
-    = dynamic_cast<Translator_group *> (c->implementation ());
+  Translator_group *tg = c->implementation ();
+  SCM tg_scm = tg ? tg->self_scm () : SCM_UNDEFINED;
 
   if (tg && dir == DOWN)
     {
-      (tg->*tg_ptr) ();
+      scm_call_1 (tg_ptr, tg_scm);
       translator_each (tg->get_simple_trans_list (), ptr);
     }
 
@@ -276,7 +275,7 @@ recurse_over_translators (Context *c, Translator_method ptr,
       translator_each (tg->get_simple_trans_list (),
                        ptr);
 
-      (tg->*tg_ptr) ();
+      scm_call_1 (tg_ptr, tg_scm);
     }
 }
 
@@ -299,40 +298,25 @@ Translator_group::precompute_method_bindings ()
   for (SCM s = simple_trans_list_; scm_is_pair (s); s = scm_cdr (s))
     {
       Translator *tr = unsmob<Translator> (scm_car (s));
-      Translator::Callback ptrs[TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
+      SCM ptrs[TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
       tr->fetch_precomputable_methods (ptrs);
 
       assert (tr);
       for (int i = 0; i < TRANSLATOR_METHOD_PRECOMPUTE_COUNT; i++)
         {
-          if (ptrs[i])
-            precomputed_method_bindings_[i].push_back (Translator_method_binding (tr, ptrs[i]));
+          if (!SCM_UNBNDP (ptrs[i]))
+            precomputed_method_bindings_[i].push_back (Method_instance (ptrs[i], tr));
         }
     }
 
-  fetch_precomputable_methods (precomputed_self_method_bindings_);
 }
 
 void
 Translator_group::precomputed_translator_foreach (Translator_precompute_index idx)
 {
-  vector<Translator_method_binding> &bindings (precomputed_method_bindings_[idx]);
+  vector<Method_instance> &bindings (precomputed_method_bindings_[idx]);
   for (vsize i = 0; i < bindings.size (); i++)
-    bindings[i].invoke ();
-}
-
-void
-Translator_group::fetch_precomputable_methods (Translator_group_void_method ptrs[])
-{
-  for (int i = 0; i < TRANSLATOR_METHOD_PRECOMPUTE_COUNT; i++)
-    ptrs[i] = 0;
-}
-
-void
-Translator_group::call_precomputed_self_method (Translator_precompute_index idx)
-{
-  if (precomputed_self_method_bindings_[idx])
-    (*precomputed_self_method_bindings_[idx]) (this);
+    bindings[i]();
 }
 
 Translator_group::~Translator_group ()
@@ -340,7 +324,7 @@ Translator_group::~Translator_group ()
 }
 
 
-const char Translator_group::type_p_name_[] = "ly:translator-group?";
+const char * const Translator_group::type_p_name_ = "ly:translator-group?";
 
 int
 Translator_group::print_smob (SCM port, scm_print_state *) const

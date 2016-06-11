@@ -37,7 +37,7 @@ class Vertical_align_engraver : public Engraver
 
 public:
   TRANSLATOR_DECLARATIONS (Vertical_align_engraver);
-  DECLARE_ACKNOWLEDGER (axis_group);
+  void acknowledge_axis_group (Grob_info);
 
 protected:
   virtual void derived_mark () const;
@@ -48,7 +48,12 @@ protected:
   bool top_level_;
 };
 
-ADD_ACKNOWLEDGER (Vertical_align_engraver, axis_group);
+void
+Vertical_align_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Vertical_align_engraver, axis_group);
+}
+
 ADD_TRANSLATOR (Vertical_align_engraver,
                 /* doc */
                 "Catch groups (staves, lyrics lines, etc.) and stack them"

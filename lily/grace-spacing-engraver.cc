@@ -77,6 +77,12 @@ Grace_spacing_engraver::stop_translation_timestep ()
     grace_spacing_ = 0;
 }
 
+void
+Grace_spacing_engraver::boot ()
+{
+
+}
+
 ADD_TRANSLATOR (Grace_spacing_engraver,
                 "Bookkeeping of shortest starting and playing notes in grace"
                 " note runs.",

@@ -48,9 +48,9 @@ class Stem_engraver : public Engraver
 protected:
   void make_stem (Grob_info, bool);
 
-  DECLARE_TRANSLATOR_LISTENER (tremolo);
-  DECLARE_TRANSLATOR_LISTENER (tuplet_span);
-  DECLARE_ACKNOWLEDGER (rhythmic_head);
+  void listen_tremolo (Stream_event *);
+  void listen_tuplet_span (Stream_event *);
+  void acknowledge_rhythmic_head (Grob_info);
   void stop_translation_timestep ();
   void finalize ();
   void kill_unused_flags ();
@@ -212,7 +212,6 @@ Stem_engraver::stop_translation_timestep ()
   tremolo_ev_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Stem_engraver, tuplet_span);
 void
 Stem_engraver::listen_tuplet_span (Stream_event *ev)
 {
@@ -226,14 +225,20 @@ Stem_engraver::listen_tuplet_span (Stream_event *ev)
     }
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Stem_engraver, tremolo);
 void
 Stem_engraver::listen_tremolo (Stream_event *ev)
 {
   ASSIGN_EVENT_ONCE (tremolo_ev_, ev);
 }
 
-ADD_ACKNOWLEDGER (Stem_engraver, rhythmic_head);
+
+void
+Stem_engraver::boot ()
+{
+  ADD_LISTENER (Stem_engraver, tuplet_span);
+  ADD_LISTENER (Stem_engraver, tremolo);
+  ADD_ACKNOWLEDGER (Stem_engraver, rhythmic_head);
+}
 
 ADD_TRANSLATOR (Stem_engraver,
                 /* doc */

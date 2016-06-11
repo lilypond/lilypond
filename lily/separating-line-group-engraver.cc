@@ -59,8 +59,8 @@ protected:
   Spacings current_spacings_;
   Spacings last_spacings_;
 
-  DECLARE_ACKNOWLEDGER (item);
-  DECLARE_ACKNOWLEDGER (break_aligned);
+  void acknowledge_item (Grob_info);
+  void acknowledge_break_aligned (Grob_info);
   void stop_translation_timestep ();
   void start_translation_timestep ();
 
@@ -153,8 +153,13 @@ Separating_line_group_engraver::stop_translation_timestep ()
   break_aligned_.clear ();
 }
 
-ADD_ACKNOWLEDGER (Separating_line_group_engraver, item);
-ADD_ACKNOWLEDGER (Separating_line_group_engraver, break_aligned);
+
+void
+Separating_line_group_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Separating_line_group_engraver, item);
+  ADD_ACKNOWLEDGER (Separating_line_group_engraver, break_aligned);
+}
 
 ADD_TRANSLATOR (Separating_line_group_engraver,
                 /* doc */

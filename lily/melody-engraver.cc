@@ -29,8 +29,8 @@ class Melody_engraver : public Engraver
   Grob *stem_;
 protected:
 
-  DECLARE_ACKNOWLEDGER (stem);
-  DECLARE_ACKNOWLEDGER (slur);
+  void acknowledge_stem (Grob_info);
+  void acknowledge_slur (Grob_info);
   TRANSLATOR_DECLARATIONS (Melody_engraver);
   void stop_translation_timestep ();
   void process_acknowledged ();
@@ -93,8 +93,13 @@ Melody_engraver::acknowledge_stem (Grob_info info)
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (Melody_engraver, stem);
-ADD_ACKNOWLEDGER (Melody_engraver, slur);
+
+void
+Melody_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Melody_engraver, stem);
+  ADD_ACKNOWLEDGER (Melody_engraver, slur);
+}
 
 ADD_TRANSLATOR (Melody_engraver,
                 /* doc */

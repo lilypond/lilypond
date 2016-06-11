@@ -32,7 +32,7 @@ public:
   void process_music ();
   virtual void derived_mark () const;
   void stop_translation_timestep ();
-  DECLARE_ACKNOWLEDGER (lyric_syllable);
+  void acknowledge_lyric_syllable (Grob_info);
 };
 
 void
@@ -83,7 +83,12 @@ Stanza_number_engraver::stop_translation_timestep ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (Stanza_number_engraver, lyric_syllable);
+void
+Stanza_number_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Stanza_number_engraver, lyric_syllable);
+}
+
 ADD_TRANSLATOR (Stanza_number_engraver,
                 /* doc */
                 "Engrave stanza numbers.",

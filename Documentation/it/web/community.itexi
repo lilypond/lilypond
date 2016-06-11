@@ -760,7 +760,7 @@ I collaudi lilypond-book per questa versione.
 @itemize
 @item @uref{http://lilypond.org/test, Confronto tra i collaudi di regressione}
 
-@item @uref{http://lilypond.org/download/binaries/test-output/,
+@item @uref{http://lilypond.org/downloads/binaries/test-output/,
 Archivio di tutti i collaudi di regressione}
 
 @end itemize

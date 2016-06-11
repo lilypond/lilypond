@@ -39,7 +39,7 @@ protected:
   void process_music ();
   void stop_translation_timestep ();
 
-  DECLARE_TRANSLATOR_LISTENER (breathing);
+  void listen_breathing (Stream_event *);
 private:
   Stream_event *breathing_sign_event_;
   Grob *breathing_sign_;
@@ -51,7 +51,6 @@ Breathing_sign_engraver::Breathing_sign_engraver ()
   breathing_sign_event_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Breathing_sign_engraver, breathing);
 void
 Breathing_sign_engraver::listen_breathing (Stream_event *ev)
 {
@@ -72,6 +71,12 @@ Breathing_sign_engraver::stop_translation_timestep ()
 {
   breathing_sign_ = 0;
   breathing_sign_event_ = 0;
+}
+
+void
+Breathing_sign_engraver::boot ()
+{
+  ADD_LISTENER (Breathing_sign_engraver, breathing);
 }
 
 ADD_TRANSLATOR (Breathing_sign_engraver,

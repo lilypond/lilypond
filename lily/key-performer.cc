@@ -36,7 +36,7 @@ protected:
   void process_music ();
   void stop_translation_timestep ();
 
-  DECLARE_TRANSLATOR_LISTENER (key_change);
+  void listen_key_change (Stream_event *);
 private:
   Stream_event *key_ev_;
   Audio_key *audio_;
@@ -98,12 +98,17 @@ Key_performer::stop_translation_timestep ()
     }
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Key_performer, key_change);
 void
 Key_performer::listen_key_change (Stream_event *ev)
 {
   if (!key_ev_)
     key_ev_ = ev;
+}
+
+void
+Key_performer::boot ()
+{
+  ADD_LISTENER (Key_performer, key_change);
 }
 
 ADD_TRANSLATOR (Key_performer,

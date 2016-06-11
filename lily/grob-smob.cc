@@ -23,7 +23,7 @@
 #include "warn.hh"
 
 
-const char Grob::type_p_name_[] = "ly:grob?";
+const char * const Grob::type_p_name_ = "ly:grob?";
 
 SCM
 Grob::mark_smob () const

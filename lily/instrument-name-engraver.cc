@@ -43,7 +43,7 @@ protected:
   vector<Grob *> backup_axis_groups_;
 
   virtual void finalize ();
-  DECLARE_ACKNOWLEDGER (axis_group);
+  void acknowledge_axis_group (Grob_info);
   void process_music ();
   void start_spanner ();
   void consider_start_spanner ();
@@ -173,7 +173,12 @@ Instrument_name_engraver::stop_spanner ()
   text_spanner_ = 0;
 }
 
-ADD_ACKNOWLEDGER (Instrument_name_engraver, axis_group);
+
+void
+Instrument_name_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Instrument_name_engraver, axis_group);
+}
 
 ADD_TRANSLATOR (Instrument_name_engraver,
                 /* doc */

@@ -49,9 +49,13 @@ Context::check_removal ()
       ctx->check_removal ();
       if (ctx->is_removable ())
         {
-          recurse_over_translators (ctx, &Translator::finalize,
-                                    &Translator_group::finalize,
-                                    UP);
+          recurse_over_translators
+            (ctx,
+             Callback0_wrapper::make_smob
+             <Translator, &Translator::finalize> (),
+             Callback0_wrapper::make_smob
+             <Translator_group, &Translator_group::finalize> (),
+             UP);
           send_stream_event (ctx, "RemoveContext", 0, 0);
         }
     }
@@ -775,7 +779,7 @@ Context::mark_smob () const
   return properties_scm_;
 }
 
-const char Context::type_p_name_[] = "ly:context?";
+const char * const Context::type_p_name_ = "ly:context?";
 
 Global_context *
 Context::get_global_context () const

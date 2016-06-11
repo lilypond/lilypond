@@ -246,9 +246,9 @@ Lookup::round_filled_polygon (vector<Offset> const &points,
      applies to the given polygon.  However, this is quite complicated
      to check. */
 
+#ifdef DEBUG
   const Real epsilon = 0.01;
 
-#ifdef DEBUG
   /* remove consecutive duplicate points */
   for (vsize i = 0; i < points.size (); i++)
     {

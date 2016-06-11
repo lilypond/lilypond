@@ -25,7 +25,7 @@ class Tab_staff_symbol_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Tab_staff_symbol_engraver);
 protected:
-  DECLARE_ACKNOWLEDGER (staff_symbol);
+  void acknowledge_staff_symbol (Grob_info);
 };
 
 void
@@ -42,7 +42,12 @@ Tab_staff_symbol_engraver::Tab_staff_symbol_engraver ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (Tab_staff_symbol_engraver, staff_symbol);
+void
+Tab_staff_symbol_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Tab_staff_symbol_engraver, staff_symbol);
+}
+
 ADD_TRANSLATOR (Tab_staff_symbol_engraver,
                 /* doc */
                 "Create a tablature staff symbol, but look at"

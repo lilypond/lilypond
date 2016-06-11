@@ -41,7 +41,7 @@ class Span_bar_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Span_bar_engraver);
 protected:
-  DECLARE_ACKNOWLEDGER (bar_line);
+  void acknowledge_bar_line (Grob_info);
   void stop_translation_timestep ();
   void process_acknowledged ();
 };
@@ -94,7 +94,12 @@ Span_bar_engraver::stop_translation_timestep ()
   bars_.resize (0);
 }
 
-ADD_ACKNOWLEDGER (Span_bar_engraver, bar_line);
+void
+Span_bar_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Span_bar_engraver, bar_line);
+}
+
 ADD_TRANSLATOR (Span_bar_engraver,
                 /* doc */
                 "Make cross-staff bar lines: It catches all normal bar lines"

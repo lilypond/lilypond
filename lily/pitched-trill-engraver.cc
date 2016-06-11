@@ -38,11 +38,11 @@ public:
   TRANSLATOR_DECLARATIONS (Pitched_trill_engraver);
 
 protected:
-  DECLARE_ACKNOWLEDGER (note_head);
-  DECLARE_ACKNOWLEDGER (dots);
-  DECLARE_ACKNOWLEDGER (stem);
-  DECLARE_ACKNOWLEDGER (flag);
-  DECLARE_ACKNOWLEDGER (trill_spanner);
+  void acknowledge_note_head (Grob_info);
+  void acknowledge_dots (Grob_info);
+  void acknowledge_stem (Grob_info);
+  void acknowledge_flag (Grob_info);
+  void acknowledge_trill_spanner (Grob_info);
   void stop_translation_timestep ();
 
 private:
@@ -169,11 +169,16 @@ Pitched_trill_engraver::stop_translation_timestep ()
   trill_accidental_ = 0;
 }
 
-ADD_ACKNOWLEDGER (Pitched_trill_engraver, note_head);
-ADD_ACKNOWLEDGER (Pitched_trill_engraver, dots);
-ADD_ACKNOWLEDGER (Pitched_trill_engraver, stem);
-ADD_ACKNOWLEDGER (Pitched_trill_engraver, flag);
-ADD_ACKNOWLEDGER (Pitched_trill_engraver, trill_spanner);
+
+void
+Pitched_trill_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Pitched_trill_engraver, note_head);
+  ADD_ACKNOWLEDGER (Pitched_trill_engraver, dots);
+  ADD_ACKNOWLEDGER (Pitched_trill_engraver, stem);
+  ADD_ACKNOWLEDGER (Pitched_trill_engraver, flag);
+  ADD_ACKNOWLEDGER (Pitched_trill_engraver, trill_spanner);
+}
 
 ADD_TRANSLATOR (Pitched_trill_engraver,
                 /* doc */

@@ -33,9 +33,9 @@ public:
   TRANSLATOR_DECLARATIONS (Episema_engraver);
 protected:
   virtual void finalize ();
-  DECLARE_TRANSLATOR_LISTENER (episema);
-  DECLARE_ACKNOWLEDGER (note_column);
-  DECLARE_ACKNOWLEDGER (note_head);
+  void listen_episema (Stream_event *);
+  void acknowledge_note_column (Grob_info);
+  void acknowledge_note_head (Grob_info);
   void stop_translation_timestep ();
   void process_music ();
 
@@ -56,7 +56,6 @@ Episema_engraver::Episema_engraver ()
   event_drul_.set (0, 0);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Episema_engraver, episema);
 void
 Episema_engraver::listen_episema (Stream_event *ev)
 {
@@ -161,8 +160,14 @@ Episema_engraver::acknowledge_note_head (Grob_info info)
     }
 }
 
-ADD_ACKNOWLEDGER (Episema_engraver, note_column);
-ADD_ACKNOWLEDGER (Episema_engraver, note_head);
+
+void
+Episema_engraver::boot ()
+{
+  ADD_LISTENER (Episema_engraver, episema);
+  ADD_ACKNOWLEDGER (Episema_engraver, note_column);
+  ADD_ACKNOWLEDGER (Episema_engraver, note_head);
+}
 
 ADD_TRANSLATOR (Episema_engraver,
                 /* doc */

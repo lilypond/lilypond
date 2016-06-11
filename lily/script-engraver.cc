@@ -54,14 +54,14 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
 
-  DECLARE_TRANSLATOR_LISTENER (articulation);
-  DECLARE_ACKNOWLEDGER (rhythmic_head);
-  DECLARE_ACKNOWLEDGER (stem);
-  DECLARE_ACKNOWLEDGER (stem_tremolo);
-  DECLARE_ACKNOWLEDGER (tie);
-  DECLARE_END_ACKNOWLEDGER (tie);
-  DECLARE_ACKNOWLEDGER (note_column);
-  DECLARE_ACKNOWLEDGER (inline_accidental);
+  void listen_articulation (Stream_event *);
+  void acknowledge_rhythmic_head (Grob_info);
+  void acknowledge_stem (Grob_info);
+  void acknowledge_stem_tremolo (Grob_info);
+  void acknowledge_tie (Grob_info);
+  void acknowledge_end_tie (Grob_info);
+  void acknowledge_note_column (Grob_info);
+  void acknowledge_inline_accidental (Grob_info);
 
 public:
   TRANSLATOR_DECLARATIONS (Script_engraver);
@@ -71,7 +71,6 @@ Script_engraver::Script_engraver ()
 {
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Script_engraver, articulation);
 void
 Script_engraver::listen_articulation (Stream_event *ev)
 {
@@ -275,13 +274,19 @@ Script_engraver::stop_translation_timestep ()
   scripts_.clear ();
 }
 
-ADD_ACKNOWLEDGER (Script_engraver, rhythmic_head);
-ADD_ACKNOWLEDGER (Script_engraver, stem);
-ADD_ACKNOWLEDGER (Script_engraver, tie);
-ADD_END_ACKNOWLEDGER (Script_engraver, tie);
-ADD_ACKNOWLEDGER (Script_engraver, note_column);
-ADD_ACKNOWLEDGER (Script_engraver, stem_tremolo);
-ADD_ACKNOWLEDGER (Script_engraver, inline_accidental);
+
+void
+Script_engraver::boot ()
+{
+  ADD_LISTENER (Script_engraver, articulation);
+  ADD_ACKNOWLEDGER (Script_engraver, rhythmic_head);
+  ADD_ACKNOWLEDGER (Script_engraver, stem);
+  ADD_ACKNOWLEDGER (Script_engraver, tie);
+  ADD_END_ACKNOWLEDGER (Script_engraver, tie);
+  ADD_ACKNOWLEDGER (Script_engraver, note_column);
+  ADD_ACKNOWLEDGER (Script_engraver, stem_tremolo);
+  ADD_ACKNOWLEDGER (Script_engraver, inline_accidental);
+}
 
 ADD_TRANSLATOR (Script_engraver,
                 /* doc */

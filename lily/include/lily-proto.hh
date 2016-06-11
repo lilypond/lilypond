@@ -22,7 +22,6 @@
 
 #include "flower-proto.hh"
 
-class Acknowledge_information;
 class All_font_metrics;
 class Audio_column;
 class Audio_control_function_value_change;
@@ -58,7 +57,6 @@ class Dispatcher;
 class Dot_column;
 class Dot_configuration;
 class Dot_formatting_problem;
-class Engraver;
 class Engraver;
 class Engraver_group;
 class Event;

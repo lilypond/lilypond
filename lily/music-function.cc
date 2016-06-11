@@ -24,7 +24,7 @@
 #include "fluid.hh"
 #include "lily-imports.hh"
 
-const char Music_function::type_p_name_[] = "ly:music-function?";
+const char * const Music_function::type_p_name_ = "ly:music-function?";
 
 /* Print a textual represenation of the smob to a given port.  */
 int

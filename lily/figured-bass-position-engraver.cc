@@ -36,12 +36,12 @@ class Figured_bass_position_engraver : public Engraver
   vector<Grob *> support_;
   vector<Grob *> span_support_;
 protected:
-  DECLARE_ACKNOWLEDGER (note_column);
-  DECLARE_ACKNOWLEDGER (slur);
-  DECLARE_END_ACKNOWLEDGER (slur);
-  DECLARE_END_ACKNOWLEDGER (tie);
-  DECLARE_ACKNOWLEDGER (bass_figure_alignment);
-  DECLARE_END_ACKNOWLEDGER (bass_figure_alignment);
+  void acknowledge_note_column (Grob_info);
+  void acknowledge_slur (Grob_info);
+  void acknowledge_end_slur (Grob_info);
+  void acknowledge_end_tie (Grob_info);
+  void acknowledge_bass_figure_alignment (Grob_info);
+  void acknowledge_end_bass_figure_alignment (Grob_info);
 
   virtual void finalize ();
   void start_spanner ();
@@ -138,13 +138,18 @@ Figured_bass_position_engraver::acknowledge_bass_figure_alignment (Grob_info inf
   start_spanner ();
 }
 
-ADD_ACKNOWLEDGER (Figured_bass_position_engraver, note_column);
-ADD_ACKNOWLEDGER (Figured_bass_position_engraver, slur);
-ADD_END_ACKNOWLEDGER (Figured_bass_position_engraver, slur);
 
-ADD_END_ACKNOWLEDGER (Figured_bass_position_engraver, tie);
-ADD_ACKNOWLEDGER (Figured_bass_position_engraver, bass_figure_alignment);
-ADD_END_ACKNOWLEDGER (Figured_bass_position_engraver, bass_figure_alignment);
+
+void
+Figured_bass_position_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Figured_bass_position_engraver, note_column);
+  ADD_ACKNOWLEDGER (Figured_bass_position_engraver, slur);
+  ADD_END_ACKNOWLEDGER (Figured_bass_position_engraver, slur);
+  ADD_END_ACKNOWLEDGER (Figured_bass_position_engraver, tie);
+  ADD_ACKNOWLEDGER (Figured_bass_position_engraver, bass_figure_alignment);
+  ADD_END_ACKNOWLEDGER (Figured_bass_position_engraver, bass_figure_alignment);
+}
 
 ADD_TRANSLATOR (Figured_bass_position_engraver,
                 /* doc */

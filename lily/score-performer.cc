@@ -118,10 +118,11 @@ Score_performer::finish (SCM)
   SCM channel_mapping = context ()->get_property ("midiChannelMapping");
   bool use_ports = scm_is_eq (channel_mapping, ly_symbol2scm ("voice"));
   performance_->ports_ = use_ports;
-  recurse_over_translators (context (),
-                            &Translator::finalize,
-                            &Translator_group::finalize,
-                            UP);
+  recurse_over_translators
+    (context (),
+     Callback0_wrapper::make_smob<Translator, &Translator::finalize> (),
+     Callback0_wrapper::make_smob<Translator_group, &Translator_group::finalize> (),
+     UP);
 }
 
 void

@@ -175,20 +175,3 @@ ly_is_grob_cause (SCM obj)
 {
   return unsmob<Grob> (obj) || unsmob<Stream_event> (obj) || scm_is_null (obj);
 }
-
-#include "translator.icc"
-
-ADD_TRANSLATOR (Engraver,
-                /* doc */
-                "Base class for engravers.  Does nothing, so it is not used.",
-
-                /* create */
-                "",
-
-                /* read */
-                "",
-
-                /* write */
-                ""
-               );
-

@@ -77,28 +77,12 @@ private:
 
 public:
   TRANSLATOR_DECLARATIONS (Vaticana_ligature_engraver);
-
+  TRANSLATOR_INHERIT (Gregorian_ligature_engraver);
 protected:
   virtual Spanner *create_ligature_spanner ();
   virtual void transform_heads (Spanner *ligature,
                                 vector<Grob_info> const &primitives);
-  DECLARE_TRANSLATOR_LISTENER (pes_or_flexa);
-  DECLARE_TRANSLATOR_LISTENER (ligature);
 };
-
-IMPLEMENT_TRANSLATOR_LISTENER (Vaticana_ligature_engraver, pes_or_flexa);
-void
-Vaticana_ligature_engraver::listen_pes_or_flexa (Stream_event *ev)
-{
-  Gregorian_ligature_engraver::listen_pes_or_flexa (ev);
-}
-
-IMPLEMENT_TRANSLATOR_LISTENER (Vaticana_ligature_engraver, ligature);
-void
-Vaticana_ligature_engraver::listen_ligature (Stream_event *ev)
-{
-  Ligature_engraver::listen_ligature (ev);
-}
 
 Vaticana_ligature_engraver::Vaticana_ligature_engraver ()
 {
@@ -741,8 +725,15 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 #endif
 }
 
-ADD_ACKNOWLEDGER (Vaticana_ligature_engraver, rest);
-ADD_ACKNOWLEDGER (Vaticana_ligature_engraver, ligature_head);
+void
+Vaticana_ligature_engraver::boot ()
+{
+  ADD_LISTENER (Gregorian_ligature_engraver, pes_or_flexa);
+  ADD_LISTENER (Ligature_engraver, ligature);
+  ADD_ACKNOWLEDGER (Ligature_engraver, rest);
+  ADD_ACKNOWLEDGER (Ligature_engraver, ligature_head);
+}
+
 ADD_TRANSLATOR (Vaticana_ligature_engraver,
                 /* doc */
                 "Handle ligatures by glueing special ligature heads"

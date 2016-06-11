@@ -32,7 +32,7 @@ public:
 protected:
   virtual void finalize ();
 
-  DECLARE_ACKNOWLEDGER (note_column);
+  void acknowledge_note_column (Grob_info);
 
   void process_music ();
   void stop_translation_timestep ();
@@ -136,7 +136,12 @@ Ottava_spanner_engraver::finalize ()
 
 #include "translator.icc"
 
-ADD_ACKNOWLEDGER (Ottava_spanner_engraver, note_column);
+
+void
+Ottava_spanner_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Ottava_spanner_engraver, note_column);
+}
 
 ADD_TRANSLATOR (Ottava_spanner_engraver,
                 /* doc */

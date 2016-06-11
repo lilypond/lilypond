@@ -62,8 +62,8 @@ protected:
 protected:
   virtual void finalize ();
   void process_music ();
-  DECLARE_TRANSLATOR_LISTENER (tremolo_span);
-  DECLARE_ACKNOWLEDGER (stem);
+  void listen_tremolo_span (Stream_event *);
+  void acknowledge_stem (Grob_info);
 };
 
 Chord_tremolo_engraver::Chord_tremolo_engraver ()
@@ -73,7 +73,6 @@ Chord_tremolo_engraver::Chord_tremolo_engraver ()
   previous_stem_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Chord_tremolo_engraver, tremolo_span);
 void
 Chord_tremolo_engraver::listen_tremolo_span (Stream_event *ev)
 {
@@ -158,7 +157,13 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
     }
 }
 
-ADD_ACKNOWLEDGER (Chord_tremolo_engraver, stem);
+void
+Chord_tremolo_engraver::boot ()
+{
+  ADD_LISTENER (Chord_tremolo_engraver, tremolo_span);
+  ADD_ACKNOWLEDGER (Chord_tremolo_engraver, stem);
+}
+
 ADD_TRANSLATOR (Chord_tremolo_engraver,
                 /* doc */
                 "Generate beams for tremolo repeats.",

@@ -133,4 +133,4 @@ Box::print ()
 /****************************************************************/
 
 
-const char Box::type_p_name_[] = "ly:box?";
+const char * const Box::type_p_name_ = "ly:box?";

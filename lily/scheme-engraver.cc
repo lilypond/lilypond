@@ -25,20 +25,19 @@
 
 #include "translator.icc"
 
+#include "scm-hash.hh"
+
 Scheme_engraver::Scheme_engraver (SCM definition)
 {
-  stop_translation_timestep_function_ = SCM_EOL;
-  start_translation_timestep_function_ = SCM_EOL;
-  process_music_function_ = SCM_EOL;
-  process_acknowledged_function_ = SCM_EOL;
   initialize_function_ = SCM_EOL;
   finalize_function_ = SCM_EOL;
 
-  interface_acknowledger_hash_ = SCM_EOL;
-  interface_end_acknowledger_hash_ = SCM_EOL;
+  interface_acknowledger_hash_.set (SCM_EOL, SCM_EOL);
 
   must_be_last_ = false;
   per_instance_listeners_ = SCM_EOL;
+  for (int i = 0; i < TRANSLATOR_METHOD_PRECOMPUTE_COUNT; i++)
+    precomputable_methods_[i] = SCM_UNDEFINED;
 
   init_from_scheme (definition);
 }
@@ -47,12 +46,12 @@ Scheme_engraver::~Scheme_engraver ()
 {
 }
 
-// Extracts the value if callable, if not return #f.
+// Extracts the value if callable, if not return SCM_UNDEFINED;
 static SCM
 callable (SCM symbol, SCM defn)
 {
   SCM val = ly_assoc_get (symbol, defn, SCM_BOOL_F);
-  return ly_is_procedure (val) ? val : SCM_BOOL_F;
+  return ly_is_procedure (val) ? val : SCM_UNDEFINED;
 }
 
 bool
@@ -62,27 +61,34 @@ Scheme_engraver::must_be_last () const
 }
 
 void
+Scheme_engraver::fetch_precomputable_methods (SCM ptrs[])
+{
+  for (int i = 0; i < TRANSLATOR_METHOD_PRECOMPUTE_COUNT; i++)
+    ptrs[i] = precomputable_methods_[i];
+}
+
+void
 Scheme_engraver::init_from_scheme (SCM definition)
 {
-  start_translation_timestep_function_ = callable (ly_symbol2scm ("start-translation-timestep"),
-                                                   definition);
-  stop_translation_timestep_function_ = callable (ly_symbol2scm ("stop-translation-timestep"),
-                                                  definition);
-  process_music_function_ = callable (ly_symbol2scm ("process-music"), definition);
-  process_acknowledged_function_ = callable (ly_symbol2scm ("process-acknowledged"),
-                                             definition);
+  precomputable_methods_[START_TRANSLATION_TIMESTEP]
+    = callable (ly_symbol2scm ("start-translation-timestep"), definition);
+  precomputable_methods_[STOP_TRANSLATION_TIMESTEP]
+    = callable (ly_symbol2scm ("stop-translation-timestep"), definition);
+  precomputable_methods_[PROCESS_MUSIC]
+    = callable (ly_symbol2scm ("process-music"), definition);
+  precomputable_methods_[PROCESS_ACKNOWLEDGED]
+    = callable (ly_symbol2scm ("process-acknowledged"), definition);
   initialize_function_ = callable (ly_symbol2scm ("initialize"), definition);
   finalize_function_ = callable (ly_symbol2scm ("finalize"), definition);
 
-  SCM listeners = ly_assoc_get (ly_symbol2scm ("listeners"), definition, SCM_EOL);
-
-  per_instance_listeners_ = SCM_EOL;
+  SCM p = ly_assoc_get (ly_symbol2scm ("listeners"), definition, SCM_EOL);
+  SCM listeners = SCM_EOL;
 
   must_be_last_ = to_boolean (ly_assoc_get (ly_symbol2scm ("must-be-last"),
                                             definition,
                                             SCM_BOOL_F));
 
-  for (SCM p = listeners; scm_is_pair (p); p = scm_cdr (p))
+  for (; scm_is_pair (p); p = scm_cdr (p))
     {
       SCM event_class = scm_caar (p);
       SCM proc = scm_cdar (p);
@@ -93,26 +99,35 @@ Scheme_engraver::init_from_scheme (SCM definition)
       // We should check the arity of the function?
 
       // Record for later lookup.
-      per_instance_listeners_ = scm_acons (event_class, proc, per_instance_listeners_);
+      listeners = scm_acons (event_class, proc, listeners);
     }
 
-  init_acknowledgers (ly_assoc_get (ly_symbol2scm ("acknowledgers"),
-                                    definition, SCM_EOL),
-                      &interface_acknowledger_hash_);
+  SCM hash1 =
+    init_acknowledgers (ly_assoc_get (ly_symbol2scm ("acknowledgers"),
+                                      definition, SCM_EOL));
+  SCM hash2 =
+    init_acknowledgers (ly_assoc_get (ly_symbol2scm ("end-acknowledgers"),
+                                      definition, SCM_EOL));
 
-  init_acknowledgers (ly_assoc_get (ly_symbol2scm ("end-acknowledgers"),
-                                    definition, SCM_EOL),
-                      &interface_end_acknowledger_hash_);
+  per_instance_listeners_ = listeners;
+  interface_acknowledger_hash_.set (hash1, hash2);
+
+  // It's not defined whether Scheme_engraver::derived_mark is already
+  // active while the construction is underway, so we make sure we
+  // keep a version of everything on the stack that is not still
+  // covered by `definition'.
+
+  scm_remember_upto_here_2 (definition, listeners);
+  scm_remember_upto_here_2 (hash1, hash2);
 
   // TODO: hook up description, props read/written, grobs created
   // etc. to provide automatic documentation.
 }
 
-void
-Scheme_engraver::init_acknowledgers (SCM alist,
-                                     SCM *hash)
+SCM
+Scheme_engraver::init_acknowledgers (SCM alist)
 {
-  *hash = scm_c_make_hash_table (7);
+  SCM hash = Scheme_hash_table::make_smob ();
   for (SCM p = alist; scm_is_pair (p); p = scm_cdr (p))
     {
       SCM iface = scm_caar (p);
@@ -121,41 +136,9 @@ Scheme_engraver::init_acknowledgers (SCM alist,
       if (!(ly_is_procedure (proc) && ly_is_symbol (iface)))
         continue;
 
-      scm_hashq_set_x (*hash, iface, proc);
+      unsmob<Scheme_hash_table>(hash)->set (iface, proc);
     }
-}
-
-// This is the easy way to do it, at the cost of too many invocations
-// of Scheme_engraver::acknowledge_grob.  The clever dispatching of
-// acknowledgers is hardwired to have 1 method per engraver per
-// grob-type, which doesn't work for this case.
-void
-Scheme_engraver::acknowledge_grob (Grob_info info)
-{
-  acknowledge_grob_by_hash (info, interface_acknowledger_hash_);
-}
-
-void
-Scheme_engraver::acknowledge_end_grob (Grob_info info)
-{
-  acknowledge_grob_by_hash (info, interface_end_acknowledger_hash_);
-}
-
-void
-Scheme_engraver::acknowledge_grob_by_hash (Grob_info info,
-                                           SCM iface_function_hash)
-{
-  SCM meta = info.grob ()->get_property ("meta");
-  SCM ifaces = scm_cdr (scm_assoc (ly_symbol2scm ("interfaces"), meta));
-  for (SCM s = ifaces; scm_is_pair (s); s = scm_cdr (s))
-    {
-      SCM func = scm_hashq_ref (iface_function_hash,
-                                scm_car (s), SCM_BOOL_F);
-
-      if (ly_is_procedure (func))
-        scm_call_3 (func, self_scm (), info.grob ()->self_scm (),
-                    info.origin_translator ()->self_scm ());
-    }
+  return hash;
 }
 
 SCM
@@ -164,36 +147,29 @@ Scheme_engraver::get_listener_list () const
   return per_instance_listeners_;
 }
 
-#define DISPATCH(what)                                  \
-  void                                                  \
-  Scheme_engraver::what ()                              \
-  {                                                     \
-    if (what ## _function_ != SCM_BOOL_F)               \
-      scm_call_1 (what ## _function_, self_scm ());     \
-  }
+void
+Scheme_engraver::initialize ()
+{
+  if (!SCM_UNBNDP (initialize_function_))
+    scm_call_1 (initialize_function_, self_scm ());
+}
 
-DISPATCH (start_translation_timestep);
-DISPATCH (stop_translation_timestep);
-DISPATCH (initialize);
-DISPATCH (finalize);
-DISPATCH (process_music);
-DISPATCH (process_acknowledged);
+void
+Scheme_engraver::finalize ()
+{
+  if (!SCM_UNBNDP (finalize_function_))
+    scm_call_1 (finalize_function_, self_scm ());
+}
 
 void
 Scheme_engraver::derived_mark () const
 {
-  scm_gc_mark (start_translation_timestep_function_);
-  scm_gc_mark (stop_translation_timestep_function_);
+  for (int i = 0; i < TRANSLATOR_METHOD_PRECOMPUTE_COUNT; i++)
+    scm_gc_mark (precomputable_methods_[i]);
+
   scm_gc_mark (initialize_function_);
   scm_gc_mark (finalize_function_);
-  scm_gc_mark (process_music_function_);
-  scm_gc_mark (process_acknowledged_function_);
   scm_gc_mark (per_instance_listeners_);
-  scm_gc_mark (interface_acknowledger_hash_);
-  scm_gc_mark (interface_end_acknowledger_hash_);
+  scm_gc_mark (interface_acknowledger_hash_[START]);
+  scm_gc_mark (interface_acknowledger_hash_[STOP]);
 }
-
-ADD_ACKNOWLEDGER (Scheme_engraver, grob);
-ADD_END_ACKNOWLEDGER (Scheme_engraver, grob);
-
-ADD_TRANSLATOR_FAMILY (Scheme_engraver);

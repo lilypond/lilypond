@@ -169,8 +169,8 @@ public:
 protected:
   Bracket_nesting_group *nesting_;
 
-  DECLARE_ACKNOWLEDGER (system_start_delimiter);
-  DECLARE_ACKNOWLEDGER (staff_symbol);
+  void acknowledge_system_start_delimiter (Grob_info);
+  void acknowledge_staff_symbol (Grob_info);
 
   void process_music ();
   virtual void finalize ();
@@ -229,8 +229,13 @@ System_start_delimiter_engraver::acknowledge_system_start_delimiter (Grob_info i
   nesting_->add_support (inf.grob ());
 }
 
-ADD_ACKNOWLEDGER (System_start_delimiter_engraver, staff_symbol);
-ADD_ACKNOWLEDGER (System_start_delimiter_engraver, system_start_delimiter);
+
+void
+System_start_delimiter_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (System_start_delimiter_engraver, staff_symbol);
+  ADD_ACKNOWLEDGER (System_start_delimiter_engraver, system_start_delimiter);
+}
 
 ADD_TRANSLATOR (System_start_delimiter_engraver,
                 /* doc */

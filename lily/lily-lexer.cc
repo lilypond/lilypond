@@ -369,7 +369,7 @@ Lily_lexer::add_lexed_char (int count)
 }
 
 
-const char Lily_lexer::type_p_name_[] = "ly:lily-lexer?";
+const char * const Lily_lexer::type_p_name_ = "ly:lily-lexer?";
 
 SCM
 Lily_lexer::mark_smob () const

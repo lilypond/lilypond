@@ -96,7 +96,7 @@ private:
   SCM callback_;
   SCM target_;
 public:
-  static const char type_p_name_[];
+  static const char * const type_p_name_;
 
   Listener (SCM callback, SCM target)
     : callback_ (callback), target_ (target) { }

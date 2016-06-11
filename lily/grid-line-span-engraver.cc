@@ -31,7 +31,7 @@ class Grid_line_span_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Grid_line_span_engraver);
 protected:
-  DECLARE_ACKNOWLEDGER (grid_point);
+  void acknowledge_grid_point (Grob_info);
   void stop_translation_timestep ();
 };
 
@@ -70,7 +70,12 @@ Grid_line_span_engraver::stop_translation_timestep ()
   lines_.resize (0);
 }
 
-ADD_ACKNOWLEDGER (Grid_line_span_engraver, grid_point);
+void
+Grid_line_span_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Grid_line_span_engraver, grid_point);
+}
+
 ADD_TRANSLATOR (Grid_line_span_engraver,
                 /* doc */
                 "This engraver makes cross-staff lines: It catches all normal"

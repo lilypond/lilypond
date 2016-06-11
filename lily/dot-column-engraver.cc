@@ -32,7 +32,7 @@ public:
 
 protected:
 
-  DECLARE_ACKNOWLEDGER (rhythmic_head);
+  void acknowledge_rhythmic_head (Grob_info);
 
   void stop_translation_timestep ();
 };
@@ -61,7 +61,12 @@ Dot_column_engraver::acknowledge_rhythmic_head (Grob_info info)
     }
 }
 
-ADD_ACKNOWLEDGER (Dot_column_engraver, rhythmic_head);
+void
+Dot_column_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Dot_column_engraver, rhythmic_head);
+}
+
 ADD_TRANSLATOR (Dot_column_engraver,
                 /* doc */
                 "Engrave dots on dotted notes shifted to the right of the"

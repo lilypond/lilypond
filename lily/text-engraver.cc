@@ -42,11 +42,10 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
 
-  DECLARE_ACKNOWLEDGER (note_column);
-  DECLARE_TRANSLATOR_LISTENER (text_script);
+  void acknowledge_note_column (Grob_info);
+  void listen_text_script (Stream_event *);
 };
 
-IMPLEMENT_TRANSLATOR_LISTENER (Text_engraver, text_script);
 void
 Text_engraver::listen_text_script (Stream_event *ev)
 {
@@ -110,7 +109,13 @@ Text_engraver::Text_engraver ()
 {
 }
 
-ADD_ACKNOWLEDGER (Text_engraver, note_column);
+
+void
+Text_engraver::boot ()
+{
+  ADD_LISTENER (Text_engraver, text_script);
+  ADD_ACKNOWLEDGER (Text_engraver, note_column);
+}
 
 ADD_TRANSLATOR (Text_engraver,
                 /* doc */

@@ -33,7 +33,7 @@ class Context : public Smob<Context>
 public:
   SCM mark_smob () const;
   int print_smob (SCM, scm_print_state *) const;
-  static const char type_p_name_[];
+  static const char * const type_p_name_;
   virtual ~Context ();
 private:
   Scheme_hash_table *properties_dict () const;

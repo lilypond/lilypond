@@ -33,10 +33,10 @@
 class Dynamic_engraver : public Engraver
 {
   TRANSLATOR_DECLARATIONS (Dynamic_engraver);
-  DECLARE_ACKNOWLEDGER (note_column);
-  DECLARE_TRANSLATOR_LISTENER (absolute_dynamic);
-  DECLARE_TRANSLATOR_LISTENER (span_dynamic);
-  DECLARE_TRANSLATOR_LISTENER (break_span);
+  void acknowledge_note_column (Grob_info);
+  void listen_absolute_dynamic (Stream_event *);
+  void listen_span_dynamic (Stream_event *);
+  void listen_break_span (Stream_event *);
 
 protected:
   virtual void process_music ();
@@ -69,14 +69,12 @@ Dynamic_engraver::Dynamic_engraver ()
   end_new_spanner_ = false;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Dynamic_engraver, absolute_dynamic);
 void
 Dynamic_engraver::listen_absolute_dynamic (Stream_event *ev)
 {
   ASSIGN_EVENT_ONCE (script_event_, ev);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Dynamic_engraver, span_dynamic);
 void
 Dynamic_engraver::listen_span_dynamic (Stream_event *ev)
 {
@@ -85,7 +83,6 @@ Dynamic_engraver::listen_span_dynamic (Stream_event *ev)
   ASSIGN_EVENT_ONCE (accepted_spanevents_drul_[d], ev);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Dynamic_engraver, break_span);
 void
 Dynamic_engraver::listen_break_span (Stream_event *event)
 {
@@ -278,7 +275,15 @@ Dynamic_engraver::acknowledge_note_column (Grob_info info)
     finished_spanner_->set_bound (RIGHT, info.grob ());
 }
 
-ADD_ACKNOWLEDGER (Dynamic_engraver, note_column);
+void
+Dynamic_engraver::boot ()
+{
+  ADD_LISTENER (Dynamic_engraver, absolute_dynamic);
+  ADD_LISTENER (Dynamic_engraver, span_dynamic);
+  ADD_LISTENER (Dynamic_engraver, break_span);
+  ADD_ACKNOWLEDGER (Dynamic_engraver, note_column);
+}
+
 ADD_TRANSLATOR (Dynamic_engraver,
                 /* doc */
                 "Create hairpins, dynamic texts and dynamic text spanners.",

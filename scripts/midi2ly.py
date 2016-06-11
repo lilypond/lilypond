@@ -32,7 +32,6 @@ import sys
 @relocate-preamble@
 """
 
-import midi
 import lilylib as ly
 global _;_=ly._
 
@@ -923,6 +922,9 @@ class Staff:
         return dump_track (self.voices, i)
 
 def convert_midi (in_file, out_file):
+    global midi
+    import midi
+
     global clocks_per_1, clocks_per_4, key
     global start_quant_clocks
     global duration_quant_clocks

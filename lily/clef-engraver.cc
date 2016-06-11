@@ -39,7 +39,7 @@ public:
 protected:
   void stop_translation_timestep ();
   void process_music ();
-  DECLARE_ACKNOWLEDGER (bar_line);
+  void acknowledge_bar_line (Grob_info);
 
   virtual void derived_mark () const;
 private:
@@ -203,7 +203,12 @@ Clef_engraver::stop_translation_timestep ()
     }
 }
 
-ADD_ACKNOWLEDGER (Clef_engraver, bar_line);
+void
+Clef_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Clef_engraver, bar_line);
+}
+
 ADD_TRANSLATOR (Clef_engraver,
                 /* doc */
                 "Determine and set reference point for pitches.",

@@ -54,17 +54,6 @@ protected:
   const char* event_name_;
   virtual SCM event_symbol () = 0;
 
-  DECLARE_ACKNOWLEDGER (inline_accidental);
-  DECLARE_ACKNOWLEDGER (fingering);
-  DECLARE_ACKNOWLEDGER (note_column);
-  DECLARE_ACKNOWLEDGER (script);
-  DECLARE_ACKNOWLEDGER (dots);
-  DECLARE_ACKNOWLEDGER (text_script);
-  DECLARE_END_ACKNOWLEDGER (tie);
-  DECLARE_ACKNOWLEDGER (tuplet_number);
-
-  void listen_note (Stream_event *ev);
-  void listen_slur (Stream_event *ev, Stream_event *note = 0);
   void acknowledge_extra_object (Grob_info);
   void stop_translation_timestep ();
   void process_music ();
@@ -78,8 +67,22 @@ protected:
   virtual void derived_mark () const;
 
 public:
+  void acknowledge_inline_accidental (Grob_info);
+  void acknowledge_fingering (Grob_info);
+  void acknowledge_note_column (Grob_info);
+  void acknowledge_script (Grob_info);
+  void acknowledge_dots (Grob_info);
+  void acknowledge_text_script (Grob_info);
+  void acknowledge_end_tie (Grob_info);
+  void acknowledge_tuplet_number (Grob_info);
+  void listen_note (Stream_event *ev);
+  void listen_slur (Stream_event *ev, Stream_event *note);
+  // You'd think the following is the same as defaulting `note' to 0,
+  // but template resolution for trampolines disagrees.  Huh.
+  void listen_slur (Stream_event *ev) { listen_slur (ev, 0); }
   // no TRANSLATOR_DECLARATIONS (Slur_proto_engraver) needed since this
   // class is abstract
+  DECLARE_TRANSLATOR_CALLBACKS (Slur_proto_engraver);
 };
 
 #endif // SLUR_PROTO_ENGRAVER_HH

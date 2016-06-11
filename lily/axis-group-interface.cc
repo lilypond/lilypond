@@ -81,7 +81,7 @@ Axis_group_interface::has_axis (Grob *me, Axis a)
 {
   SCM axes = me->get_property ("axes");
 
-  return (SCM_BOOL_F != scm_memq (scm_from_int (a), axes));
+  return scm_is_true (scm_memq (scm_from_int (a), axes));
 }
 
 Interval

@@ -19,4 +19,4 @@
 
 #include "listener.hh"
 
-const char Listener::type_p_name_[] = "ly:listener?";
+const char * const Listener::type_p_name_ = "ly:listener?";

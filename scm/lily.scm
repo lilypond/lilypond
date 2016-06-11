@@ -86,6 +86,7 @@
 ;;
 
 (define lilypond-declarations '())
+(define lilypond-exports '())
 (define after-session-hook (make-hook))
 
 (define-public (call-after-session thunk)
@@ -93,7 +94,16 @@
       (ly:error (_ "call-after-session used after session start")))
   (add-hook! after-session-hook thunk #t))
 
-(defmacro-public define-session (name value)
+(define (make-session-variable name value)
+  (if (ly:undead? lilypond-declarations)
+      (ly:error (_ "define-session used after session start")))
+  (let ((var (module-make-local-var! (current-module) name)))
+    (if (variable-bound? var)
+        (ly:error (_ "symbol ~S redefined") name))
+    (variable-set! var value)
+    var))
+
+(defmacro define-session (name value)
   "This defines a variable @var{name} with the starting value
 @var{value} that is reinitialized at the start of each session.
 A@tie{}session basically corresponds to one LilyPond file on the
@@ -107,17 +117,22 @@ to their front or replacing them altogether, not by modifying parts of
 them.  It is an error to call @code{define-session} after the first
 session has started."
   (define (add-session-variable name value)
-    (if (ly:undead? lilypond-declarations)
-        (ly:error (_ "define-session used after session start")))
-    (let ((var (make-variable value)))
-      (module-add! (current-module) name var)
-      (set! lilypond-declarations (cons var lilypond-declarations))))
+    (set! lilypond-declarations
+          (cons (make-session-variable name value) lilypond-declarations)))
   `(,add-session-variable ',name ,value))
 
-(defmacro-public define-session-public (name value)
-  "Like @code{define-session}, but also exports @var{name}."
+(defmacro define-session-public (name value)
+  "Like @code{define-session}, but also exports @var{name} into parser modules."
+  (define (add-session-variable name value)
+    (set! lilypond-exports
+          (acons name (make-session-variable name value) lilypond-exports)))
   `(begin
-     (define-session ,name ,value)
+     ;; this is a bit icky: we place the variable right into every
+     ;; parser module so that both set! and define will affect the
+     ;; original variable in the (lily) module.  However, we _also_
+     ;; export it normally from (lily) for the sake of other modules
+     ;; not sharing the name space of the parser.
+     (,add-session-variable ',name ,value)
      (export ,name)))
 
 (define (session-terminate)
@@ -158,7 +173,16 @@ variables to their value after the initial call of @var{thunk}."
                  (module-add! (current-module) (car p) var))))
          (ly:get-undead lilypond-declarations)))
       (begin
+        ;; import all public session variables natively into parser
+        ;; module.  That makes them behave identically under define/set!
+        (for-each (lambda (v)
+                    (module-add! (current-module) (car v) (cdr v)))
+                  lilypond-exports)
+        ;; Initialize first session
         (thunk)
+        ;; lilypond-exports is no longer needed since we will grab its
+        ;; values from (current-module).
+        (set! lilypond-exports #f)
         (set! lilypond-interfaces
               (filter (lambda (m) (eq? 'interface (module-kind m)))
                       (module-uses (current-module))))

@@ -18,10 +18,10 @@ setlocal shiftwidth=2
 " some handy key mappings
 "
 " <F4>  save & make and play midi with timidity
-map <buffer> <F4> :w<Return>:se makeprg=lilypond\ \"%<\"<Return>:make<Return>:!timidity "%<.midi"<Return>
+map <buffer> <F4> :w<Return>:setl makeprg=lilypond\ \"%<\"<Return>:make<Return>:!timidity "%<.midi"<Return>
 "
 " <F5>  save & make
-map <buffer> <F5> :w<Return>:se makeprg=lilypond\ \"%<\"<Return>:make<Return>
+map <buffer> <F5> :w<Return>:setl makeprg=lilypond\ \"%<\"<Return>:make<Return>
 "
 " <F6>  view pdf with ghostview
 map <buffer> <F6> :!gv --watch "%<.pdf" &<Return>
@@ -33,7 +33,7 @@ map <buffer> <F7> :cp<Return>
 map <buffer> <F8> :cn<Return>
 "
 " <F9>  make
-map <buffer> <F9> :w<Return>:se makeprg=make\ -k<Return>:make<Return>
+map <buffer> <F9> :w<Return>:setl makeprg=make\ -k<Return>:make<Return>
 "
 " <F10> menu
 source $VIMRUNTIME/menu.vim

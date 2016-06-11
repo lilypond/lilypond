@@ -39,8 +39,8 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
   virtual void finalize ();
-  DECLARE_TRANSLATOR_LISTENER (note);
-  DECLARE_TRANSLATOR_LISTENER (rest);
+  void listen_note (Stream_event *);
+  void listen_rest (Stream_event *);
 private:
   vector<Stream_event *> notes_;
 
@@ -143,14 +143,12 @@ Chord_name_engraver::process_music ()
   context ()->set_property ("lastChord", markup);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Chord_name_engraver, note);
 void
 Chord_name_engraver::listen_note (Stream_event *ev)
 {
   notes_.push_back (ev);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Chord_name_engraver, rest);
 void
 Chord_name_engraver::listen_rest (Stream_event *ev)
 {
@@ -168,6 +166,13 @@ Chord_name_engraver::stop_translation_timestep ()
   The READs description is not strictly accurate:
   which properties are read depend on the chord naming function active.
 */
+void
+Chord_name_engraver::boot ()
+{
+  ADD_LISTENER (Chord_name_engraver, note);
+  ADD_LISTENER (Chord_name_engraver, rest);
+}
+
 ADD_TRANSLATOR (Chord_name_engraver,
                 /* doc */
                 "Catch note and rest events and generate the appropriate chordname.",

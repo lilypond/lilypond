@@ -20,6 +20,8 @@
 #ifndef ENGRAVER_HH
 #define ENGRAVER_HH
 
+#include "callback.hh"
+#include "grob.hh"
 #include "grob-info.hh"
 #include "translator.hh"
 
@@ -46,6 +48,17 @@ protected:
   Engraver_group *get_daddy_engraver () const;
 
 public:
+  template <class T, void (T::*callback)(Grob_info)>
+  static SCM ack_trampoline (SCM target, SCM grob, SCM source_engraver)
+  {
+    T *t = LY_ASSERT_SMOB (T, target, 1);
+    Grob *g = LY_ASSERT_SMOB (Grob, grob, 2);
+    Engraver *e = LY_ASSERT_SMOB (Engraver, source_engraver, 3);
+
+    (t->*callback) (Grob_info (e, g));
+    return SCM_UNSPECIFIED;
+  }
+
   /**
      Announce element. Default: pass on to daddy. Utility
   */
@@ -64,7 +77,9 @@ public:
   /**
      override other ctor
   */
-  TRANSLATOR_DECLARATIONS (Engraver);
+  DECLARE_CLASSNAME (Engraver);
+  DECLARE_TRANSLATOR_CALLBACKS (Engraver);
+  Engraver ();
 };
 
 #define make_item(x, cause) internal_make_item (ly_symbol2scm (x), cause, x, __FILE__, __LINE__, __FUNCTION__)

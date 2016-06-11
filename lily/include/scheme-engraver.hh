@@ -34,11 +34,6 @@ public:
 protected:
   ~Scheme_engraver ();
 
-  void stop_translation_timestep ();
-  void start_translation_timestep ();
-  void process_music ();
-  void process_acknowledged ();
-
   virtual void initialize ();
   virtual void finalize ();
   virtual void derived_mark () const;
@@ -46,29 +41,28 @@ protected:
   virtual bool must_be_last () const;
 
 private:
-  void acknowledge_grob_by_hash (Grob_info info, SCM iface_function_hash);
-  void init_acknowledgers (SCM alist, SCM *hash);
+  virtual SCM get_acknowledger (SCM sym, Direction start_end)
+  {
+    return generic_get_acknowledger
+      (sym, interface_acknowledger_hash_[start_end]);
+  }
 
-  DECLARE_ACKNOWLEDGER (grob);
-  DECLARE_END_ACKNOWLEDGER (grob);
+  SCM init_acknowledgers (SCM alist);
+  // For now no description.  In future, something derived from the
+  // definition might make sense.
+  SCM translator_description () const { return SCM_EOL; }
 
   bool must_be_last_;
 
-  SCM acknowledge_grob_function_;
-  SCM stop_translation_timestep_function_;
-  SCM start_translation_timestep_function_;
-  SCM process_music_function_;
-  SCM process_acknowledged_function_;
   SCM initialize_function_;
   SCM finalize_function_;
+  SCM precomputable_methods_ [TRANSLATOR_METHOD_PRECOMPUTE_COUNT];
 
   // hashq table of interface-symbol -> scheme-function
-  SCM interface_acknowledger_hash_;
-  SCM interface_end_acknowledger_hash_;
+  Drul_array<SCM> interface_acknowledger_hash_;
 
   // Alist of listened-symbol . scheme-function
   SCM per_instance_listeners_;
 };
 
 #endif /* SCHEME_ENGRAVER_HH */
-

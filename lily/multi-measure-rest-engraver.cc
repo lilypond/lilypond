@@ -40,8 +40,8 @@ public:
 protected:
   void process_music ();
   void start_translation_timestep ();
-  DECLARE_TRANSLATOR_LISTENER (multi_measure_rest);
-  DECLARE_TRANSLATOR_LISTENER (multi_measure_text);
+  void listen_multi_measure_rest (Stream_event *);
+  void listen_multi_measure_text (Stream_event *);
 
 private:
   void add_bound_item_to_grobs (Item *);
@@ -74,7 +74,6 @@ Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
 {
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Multi_measure_rest_engraver, multi_measure_rest);
 void
 Multi_measure_rest_engraver::listen_multi_measure_rest (Stream_event *ev)
 {
@@ -91,7 +90,6 @@ Multi_measure_rest_engraver::listen_multi_measure_rest (Stream_event *ev)
   clear_lapsed_events (now);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Multi_measure_rest_engraver, multi_measure_text);
 void
 Multi_measure_rest_engraver::listen_multi_measure_text (Stream_event *ev)
 {
@@ -243,6 +241,13 @@ void
 Multi_measure_rest_engraver::start_translation_timestep ()
 {
   clear_lapsed_events (now_mom ());
+}
+
+void
+Multi_measure_rest_engraver::boot ()
+{
+  ADD_LISTENER (Multi_measure_rest_engraver, multi_measure_rest);
+  ADD_LISTENER (Multi_measure_rest_engraver, multi_measure_text);
 }
 
 ADD_TRANSLATOR (Multi_measure_rest_engraver,

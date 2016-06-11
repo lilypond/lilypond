@@ -37,8 +37,8 @@ class Span_arpeggio_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Span_arpeggio_engraver);
-  DECLARE_ACKNOWLEDGER (arpeggio);
-  DECLARE_ACKNOWLEDGER (note_column);
+  void acknowledge_arpeggio (Grob_info);
+  void acknowledge_note_column (Grob_info);
 
 protected:
   void process_acknowledged ();
@@ -125,8 +125,13 @@ Span_arpeggio_engraver::stop_translation_timestep ()
   note_columns_.clear ();
 }
 
-ADD_ACKNOWLEDGER (Span_arpeggio_engraver, arpeggio);
-ADD_ACKNOWLEDGER (Span_arpeggio_engraver, note_column);
+void
+Span_arpeggio_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Span_arpeggio_engraver, arpeggio);
+  ADD_ACKNOWLEDGER (Span_arpeggio_engraver, note_column);
+}
+
 ADD_TRANSLATOR (Span_arpeggio_engraver,
                 /* doc */
                 "Make arpeggios that span multiple staves.",

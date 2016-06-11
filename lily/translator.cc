@@ -207,7 +207,7 @@ Translator::get_score_context () const
   return daddy_context_->get_score_context ();
 }
 
-const char Translator::type_p_name_[] = "ly:translator?";
+const char * const Translator::type_p_name_ = "ly:translator?";
 
 bool
 Translator::must_be_last () const
@@ -230,34 +230,29 @@ Translator::print_smob (SCM port, scm_print_state *) const
 }
 
 void
-add_acknowledger (Translator::Grob_info_callback ptr,
+add_acknowledger (SCM ptr,
                   char const *func_name,
-                  vector<Acknowledge_information> *ack_array)
+                  SCM &ack_hash)
 {
-  Acknowledge_information inf;
-  inf.function_ = ptr;
+  if (SCM_UNBNDP (ack_hash))
+    ack_hash = Scheme_hash_table::make_smob ();
 
   string interface_name (func_name);
 
   interface_name = replace_all (&interface_name, '_', '-');
   interface_name += "-interface";
 
-  /*
-    this is only called during program init, so safe to use scm_gc_protect_object ()
-  */
-  inf.symbol_ = scm_gc_protect_object (ly_symbol2scm (interface_name.c_str ()));
-  ack_array->push_back (inf);
+  unsmob<Scheme_hash_table> (ack_hash)
+    ->set (ly_symbol2scm (interface_name.c_str ()), ptr);
 }
 
-Translator::Grob_info_callback
-generic_get_acknowledger (SCM sym, vector<Acknowledge_information> const *ack_array)
+SCM
+generic_get_acknowledger (SCM sym, SCM ack_hash)
 {
-  for (vsize i = 0; i < ack_array->size (); i++)
-    {
-      if (ack_array->at (i).symbol_ == sym)
-        return ack_array->at (i).function_;
-    }
-  return 0;
+  if (SCM_UNBNDP (ack_hash))
+    return SCM_UNDEFINED;
+
+  return unsmob<Scheme_hash_table> (ack_hash)->get (sym);
 }
 
 Moment
@@ -318,16 +313,4 @@ internal_event_assignment (Stream_event **old_ev, Stream_event *new_ev, const ch
     }
 }
 
-ADD_TRANSLATOR (Translator,
-                /* doc */
-                "Base class.  Not instantiated.",
-
-                /* create */
-                "",
-
-                /* read */
-                "",
-
-                /* write */
-                ""
-               );
+// Base class.  Not instantiated.  No ADD_TRANSLATOR call.

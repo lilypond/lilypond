@@ -799,7 +799,7 @@ lilypond-book-Tests dieser Version.
 @itemize
 @item @uref{http://lilypond.org/test, Vergleiche zweier Versionen}:
 
-@item @uref{http://lilypond.org/download/binaries/test-output/,
+@item @uref{http://lilypond.org/downloads/binaries/test-output/,
 Archiv aller Regressionstests}
 
 @end itemize

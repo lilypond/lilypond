@@ -32,9 +32,9 @@ class Laissez_vibrer_engraver : public Engraver
   vector<Grob *> lv_ties_;
 
   void stop_translation_timestep ();
-  DECLARE_ACKNOWLEDGER (note_head);
+  void acknowledge_note_head (Grob_info);
 protected:
-  DECLARE_TRANSLATOR_LISTENER (laissez_vibrer);
+  void listen_laissez_vibrer (Stream_event *);
 public:
   TRANSLATOR_DECLARATIONS (Laissez_vibrer_engraver);
 };
@@ -53,7 +53,6 @@ Laissez_vibrer_engraver::stop_translation_timestep ()
   lv_ties_.clear ();
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Laissez_vibrer_engraver, laissez_vibrer);
 void
 Laissez_vibrer_engraver::listen_laissez_vibrer (Stream_event *ev)
 {
@@ -104,7 +103,13 @@ Laissez_vibrer_engraver::acknowledge_note_head (Grob_info inf)
   lv_ties_.push_back (lv_tie);
 }
 
-ADD_ACKNOWLEDGER (Laissez_vibrer_engraver, note_head);
+void
+Laissez_vibrer_engraver::boot ()
+{
+  ADD_LISTENER (Laissez_vibrer_engraver, laissez_vibrer);
+  ADD_ACKNOWLEDGER (Laissez_vibrer_engraver, note_head);
+}
+
 ADD_TRANSLATOR (Laissez_vibrer_engraver,
                 /* doc */
                 "Create laissez vibrer items.",

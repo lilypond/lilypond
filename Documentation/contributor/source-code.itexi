@@ -628,7 +628,7 @@ repository from GitHub.  Ensure that the tarball has the correct Version
 number.
 
 @item
-Copy the tarball to @code{http://lilypond.org/download/gub-sources/lilypad/}.
+Copy the tarball to @code{http://lilypond.org/downloads/gub-sources/lilypad/}.
 You will need to have SSH access to @code{lilypond.org}.  If you do not, contact
 the Release Manager via the lilypond-devel mailing list.
 

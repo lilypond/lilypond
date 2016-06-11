@@ -48,9 +48,9 @@ protected:
   void stop_translation_timestep ();
   void process_music ();
   virtual void derived_mark () const;
-  DECLARE_TRANSLATOR_LISTENER (note);
-  DECLARE_TRANSLATOR_LISTENER (string_number);
-  DECLARE_TRANSLATOR_LISTENER (fingering);
+  void listen_note (Stream_event *);
+  void listen_string_number (Stream_event *);
+  void listen_fingering (Stream_event *);
 
 private:
   SCM last_placements_;
@@ -68,21 +68,18 @@ Fretboard_engraver::Fretboard_engraver ()
   last_placements_ = SCM_BOOL_F;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Fretboard_engraver, note);
 void
 Fretboard_engraver::listen_note (Stream_event *ev)
 {
   note_events_.push_back (ev);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Fretboard_engraver, string_number);
 void
 Fretboard_engraver::listen_string_number (Stream_event *ev)
 {
   tabstring_events_.push_back (ev);
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Fretboard_engraver, fingering);
 void
 Fretboard_engraver::listen_fingering (Stream_event *ev)
 {
@@ -126,6 +123,14 @@ Fretboard_engraver::stop_translation_timestep ()
   note_events_.clear ();
   tabstring_events_.clear ();
   fingering_events_.clear ();
+}
+
+void
+Fretboard_engraver::boot ()
+{
+  ADD_LISTENER (Fretboard_engraver, note);
+  ADD_LISTENER (Fretboard_engraver, string_number);
+  ADD_LISTENER (Fretboard_engraver, fingering);
 }
 
 ADD_TRANSLATOR (Fretboard_engraver,

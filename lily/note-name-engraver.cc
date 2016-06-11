@@ -30,12 +30,11 @@ public:
   TRANSLATOR_DECLARATIONS (Note_name_engraver);
 
   vector<Stream_event *> events_;
-  DECLARE_TRANSLATOR_LISTENER (note);
+  void listen_note (Stream_event *);
   void process_music ();
   void stop_translation_timestep ();
 };
 
-IMPLEMENT_TRANSLATOR_LISTENER (Note_name_engraver, note);
 void
 Note_name_engraver::listen_note (Stream_event *ev)
 {
@@ -72,6 +71,12 @@ Note_name_engraver::stop_translation_timestep ()
 
 Note_name_engraver::Note_name_engraver ()
 {
+}
+
+void
+Note_name_engraver::boot ()
+{
+  ADD_LISTENER (Note_name_engraver, note);
 }
 
 ADD_TRANSLATOR (Note_name_engraver,

@@ -42,12 +42,12 @@ protected:
   virtual void initialize ();
   virtual void finalize ();
 
-  DECLARE_TRANSLATOR_LISTENER (break);
-  DECLARE_TRANSLATOR_LISTENER (label);
+  void listen_break (Stream_event *);
+  void listen_label (Stream_event *);
 
-  DECLARE_ACKNOWLEDGER (item);
-  DECLARE_ACKNOWLEDGER (note_spacing);
-  DECLARE_ACKNOWLEDGER (staff_spacing);
+  void acknowledge_item (Grob_info);
+  void acknowledge_note_spacing (Grob_info);
+  void acknowledge_staff_spacing (Grob_info);
 
   System *system_;
   vector<Stream_event *> break_events_;

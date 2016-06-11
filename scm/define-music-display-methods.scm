@@ -89,8 +89,7 @@ expression."
   (define (pitch= pitch1 pitch2)
     (and (= (ly:pitch-notename pitch1) (ly:pitch-notename pitch2))
          (= (ly:pitch-alteration pitch1) (ly:pitch-alteration pitch2))))
-  (let* ((pitches (ly:parser-lookup 'pitchnames))
-         (result (rassoc ly-pitch pitches pitch=)))
+  (let* ((result (rassoc ly-pitch pitchnames pitch=)))
     (and result (car result))))
 
 (define-public (octave->lily-string pitch)
@@ -860,7 +859,11 @@ Otherwise, return #f."
                 num den
                 (new-line->lily-string))
         (format #f
-                "\\time #'~a ~a/~a~a"
+                ;; This is silly but the latter will also work for #f
+                ;; and other
+                (if (key-list? structure)
+                    "\\time ~{~a~^,~} ~a/~a~a"
+                    "\\time #'~a ~a/~a~a")
                 structure num den
                 (new-line->lily-string)))))
 

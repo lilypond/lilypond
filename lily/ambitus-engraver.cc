@@ -40,7 +40,7 @@ class Ambitus_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Ambitus_engraver);
 protected:
-  DECLARE_ACKNOWLEDGER (note_head);
+  void acknowledge_note_head (Grob_info);
 
   void process_music ();
   void stop_translation_timestep ();
@@ -218,7 +218,12 @@ Ambitus_engraver::finalize ()
     }
 }
 
-ADD_ACKNOWLEDGER (Ambitus_engraver, note_head);
+void
+Ambitus_engraver::boot ()
+{
+  ADD_ACKNOWLEDGER (Ambitus_engraver, note_head);
+}
+
 ADD_TRANSLATOR (Ambitus_engraver,
                 /* doc */
                 "Create an ambitus.",

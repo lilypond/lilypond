@@ -66,6 +66,12 @@ Control_track_performer::initialize ()
   add_text (Audio_text::TEXT, id_string);
 }
 
+void
+Control_track_performer::boot ()
+{
+
+}
+
 ADD_TRANSLATOR (Control_track_performer,
                 /* doc */
                 "",

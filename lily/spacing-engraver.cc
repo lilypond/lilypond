@@ -76,11 +76,11 @@ class Spacing_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Spacing_engraver);
 
 protected:
-  DECLARE_ACKNOWLEDGER (staff_spacing);
-  DECLARE_ACKNOWLEDGER (note_spacing);
-  DECLARE_ACKNOWLEDGER (rhythmic_head);
-  DECLARE_ACKNOWLEDGER (rhythmic_grob);
-  DECLARE_TRANSLATOR_LISTENER (spacing_section);
+  void acknowledge_staff_spacing (Grob_info);
+  void acknowledge_note_spacing (Grob_info);
+  void acknowledge_rhythmic_head (Grob_info);
+  void acknowledge_rhythmic_grob (Grob_info);
+  void listen_spacing_section (Stream_event *);
 
   void start_translation_timestep ();
   void stop_translation_timestep ();
@@ -99,7 +99,6 @@ Spacing_engraver::Spacing_engraver ()
   start_section_ = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (Spacing_engraver, spacing_section);
 void
 Spacing_engraver::listen_spacing_section (Stream_event *ev)
 {
@@ -261,10 +260,16 @@ Spacing_engraver::start_translation_timestep ()
     stopped_durations_.push_back (playing_durations_.get ());
 }
 
-ADD_ACKNOWLEDGER (Spacing_engraver, staff_spacing);
-ADD_ACKNOWLEDGER (Spacing_engraver, note_spacing);
-ADD_ACKNOWLEDGER (Spacing_engraver, rhythmic_head);
-ADD_ACKNOWLEDGER (Spacing_engraver, rhythmic_grob);
+
+void
+Spacing_engraver::boot ()
+{
+  ADD_LISTENER (Spacing_engraver, spacing_section);
+  ADD_ACKNOWLEDGER (Spacing_engraver, staff_spacing);
+  ADD_ACKNOWLEDGER (Spacing_engraver, note_spacing);
+  ADD_ACKNOWLEDGER (Spacing_engraver, rhythmic_head);
+  ADD_ACKNOWLEDGER (Spacing_engraver, rhythmic_grob);
+}
 
 ADD_TRANSLATOR (Spacing_engraver,
                 /* doc */

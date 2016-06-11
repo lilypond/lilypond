@@ -16,4 +16,45 @@
     </rejectfont>
   </selectfont>
 
+  <!--
+      LilyPond cannot handle OpenType/CFF Collection (OTC) fonts
+      (NotoSansCJK.ttc and SourceHanSans.ttc etc.).
+      This settings is a workaround that ignores some major OTC fonts
+      for avoiding errors.
+      TODO: Add OTC fonts support and remove this settings
+  -->
+
+  <selectfont>
+    <rejectfont>
+      <!--
+	  Noto Sans CJK
+	  https://www.google.com/get/noto/help/cjk/
+
+	  `CJK OTF fonts with different default language' and
+	  `Region specific OTF subsets' can be used.
+	  Their file names are `NotoSans*.otf'.
+      -->
+      <glob>*/NotoSansCJK*.ttc</glob>
+
+      <!--
+	  Source Han Sans
+	  https://github.com/adobe-fonts/source-han-sans
+
+	  `Language-specific OTFs' and
+	  `Region-specific Subset OTFs' can be used.
+	  Their file names are `SourceHanSans*.otf'.
+      -->
+      <glob>*/SourceHanSans*.ttc</glob>
+
+      <!--
+	  Source Han Code JP
+	  https://github.com/adobe-fonts/source-han-code-jp
+
+	  `OTF' can be used.
+	  Their file names are `SourceHanCodeJP-*.otf'.
+      -->
+      <glob>*/SourceHanCodeJP.ttc</glob>
+    </rejectfont>
+  </selectfont>
+
 </fontconfig>

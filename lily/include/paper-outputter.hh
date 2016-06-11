@@ -33,7 +33,6 @@
 class Paper_outputter : public Smob<Paper_outputter>
 {
 public:
-  static const char * const type_p_name_; // = 0
   SCM mark_smob () const;
   virtual ~Paper_outputter ();
 private:

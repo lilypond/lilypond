@@ -157,6 +157,12 @@ Grace_engraver::derived_mark () const
   Engraver::derived_mark ();
 }
 
+void
+Grace_engraver::boot ()
+{
+
+}
+
 ADD_TRANSLATOR (Grace_engraver,
                 /* doc */
                 "Set font size and other properties for grace notes.",

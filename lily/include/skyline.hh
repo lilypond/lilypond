@@ -51,7 +51,7 @@ struct Building
 class Skyline : public Simple_smob<Skyline>
 {
 public:
-  static const char type_p_name_[];
+  static const char * const type_p_name_;
 private:
   list<Building> buildings_;
   Direction sky_;

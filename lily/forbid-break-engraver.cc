@@ -58,6 +58,12 @@ Forbid_line_break_engraver::start_translation_timestep ()
     }
 }
 
+void
+Forbid_line_break_engraver::boot ()
+{
+
+}
+
 ADD_TRANSLATOR (Forbid_line_break_engraver,
                 /* doc */
                 "Forbid line breaks when note heads are still playing at some"
