@@ -331,24 +331,17 @@
       embed))
 
   (define (font-file-as-ps-string name file-name font-index)
-    (let* ((downcase-file-name (string-downcase file-name)))
+    (let ((font-format (ly:get-font-format file-name font-index)))
       (cond
-       ((and file-name (string-endswith downcase-file-name ".pfa"))
+       ((eq? font-format (string->symbol "Type 1"))
+        ;; Type 1 (PFA and PFB) fonts
         (ly:type1->pfa file-name))
-       ((and file-name (string-endswith downcase-file-name ".pfb"))
-        (ly:type1->pfa file-name))
-       ((and file-name (string-endswith downcase-file-name ".ttf"))
-        (ly:ttf->pfa file-name))
-       ((and file-name (string-endswith downcase-file-name ".ttc"))
-        ;; TODO: distinguish files which have extension `*.ttc'
-        ;; whether TrueType Collection (TTC) fonts
-        ;; or OpenType/CFF Collection (OTC) fonts.
-        (ly:ttf->pfa file-name font-index)) ;; TTC fonts
-       ((and file-name (string-endswith downcase-file-name ".otf"))
-        (ps-embed-cff (ly:otf->cff file-name) name 0))
-       ((and file-name (string-endswith downcase-file-name ".otc"))
-        ;; The files which have the extension `*.otc' are OTC fonts.
-        (ps-embed-cff (ly:otf->cff file-name font-index) name 0)) ;; OTC fonts
+       ((eq? font-format 'TrueType)
+        ;; TrueType fonts (TTF) and TrueType Collection (TTC)
+        (ly:ttf->pfa file-name font-index))
+       ((eq? font-format 'CFF)
+        ;; OpenType/CFF fonts (OTF) and OpenType/CFF Collection (OTC)
+        (ps-embed-cff (ly:otf->cff file-name font-index) name 0))
        (else
         (ly:warning (_ "do not know how to embed ~S=~S") name file-name)
         ""))))
