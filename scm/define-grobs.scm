@@ -2328,6 +2328,7 @@
 
     (SystemStartSquare
      . (
+        (collapse-height . 5.0)
         (direction . ,LEFT)
         (stencil . ,ly:system-start-delimiter::print)
         (style . line-bracket)
