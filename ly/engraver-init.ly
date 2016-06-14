@@ -1122,6 +1122,7 @@ accommodated for typesetting a piece in mensural style."
   \override TimeSignature.style = #'mensural
   \override KeySignature.glyph-name-alist = #alteration-mensural-glyph-name-alist
   \override Accidental.glyph-name-alist = #alteration-mensural-glyph-name-alist
+  \override AccidentalSuggestion.glyph-name-alist = #alteration-mensural-glyph-name-alist
   \override Custos.style = #'mensural
   \override Custos.neutral-position = #3
   \override Custos.neutral-direction = #DOWN
